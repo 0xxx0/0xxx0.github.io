@@ -1450,8 +1450,8 @@ combis=(a,b,z,c=[])=>((d=(e,f,g=[])=>f*e?g.push(e)+d(e-1,f-1,g)+g.pop
 //MARKOV ALGORITHM: https://github.com/hf/markov/blob/master/markov.js
   //https://rosettacode.org/wiki/Execute_a_Markov_algorithm#J
 
-// cloggle('sunroof')(_w_)
-// wiki('dna')
+cloggle('sunroof')(_w_)
+wiki('dna')
 
 nextwords=(xs)=> reduce((a,q)=>(a[q]=map(i=>xs[i+1])(findIdxs(xs,q)),a),{}) ([...new Set(xs)])
 // (xs)=> [...new Set(xs)].reduce((a,q)=>(a[q]=findIdxs(xs, q),a),{})
