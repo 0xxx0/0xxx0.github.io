@@ -1002,6 +1002,8 @@ zhuangzi='吾生也有涯，而知也无涯。以有涯隨无涯，殆已；已�
 fnwords = [" ", ".", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+", "?", "/", "a", "aardvark", "abandon", "abandoned", "abandoning", "abandons", "abbreviate", "abbreviated", "abbreviates", "abbreviating", "abbreviation", "abbreviation's", "abbreviations", "abide", "abilities", "ability", "ability's", "able", "abnormal", "abnormally", "abolish", "abolished", "abolishes", "abolishing", "abolition", "abort", "aborted", "aborting", "abortion", "aborts", "about", "above", "abroad", "absence", "absent", "absolute", "absolutely", "absorb", "absorbed", "absorbing", "absorbs", "abstract", "abstraction", "absurd", "abuse", "abused", "abuses", "abusing", "abusive", "abysmal", "academic", "academic's", "academics", "accelerate", "accent", "accent's", "accents", "accept", "acceptable", "acceptance", "accepted", "accepting", "accepts", "access", "access's", "accessed", "accesses", "accessible", "accessing", "accident", "accident's", "accidental", "accidentally", "accidents", "accommodate", "accommodation", "accompanied", "accompanies", "accompany", "accompanying", "accomplish", "accomplished", "accomplishes", "accomplishing", "a", "(/e~/)", "about", "above", "after", "after", "again", "against", "ago", "ahead", "all", "almost", "almost", "along", "already", "also", "although", "always", "am", "(/m~m~m/)", "among", "an", "/n~n/)", "and", "(/nd~n~n/)", "any", "are", "/a:~/", "aren't", "around", "as", "(/z~z/)", "at", "(/t~t/)", "away", "backward", "backwards", "be", "because", "before", "behind", "below", "beneath", "beside", "between", "both", "but", "by", "can", "(/kn~kn/)", "cannot", "can't", "cause", "'cos", "could", "couldn't", "'d", "(had)", "despite", "did", "didn't", "do", "does", "doesn't", "don't", "down", "during", "each", "either", "even", "ever", "every", "except", "for", "(/faw~f/)", "forward", "from", "(/frm~frm/)", "had", "hadn't", "has", "hasn't", "have", "(/hv~hv~v~v/)", "haven't", "he", "(hi:~h/)", "her", "(/h~/)", "here", "hers", "herself", "him", "(/hm~m/)", "himself", "his", "(/hz~z/)", "how", "however","I", "if", "in", "inside", "inspite", "instead", "into", "is", "(/z~z/)", "isn't", "it", "its", "itself", "just", "'ll", "(will/shall", "/l/)", "least", "less", "like", "'m", "(them", "/m/)", "many", "may", "mayn't", "me", "might", "mightn't", "mine", "more", "most", "much", "must", "mustn't", "my", "myself", "near", "need", "needn't", "needs", "neither", "never", "no", "none", "nor", "not", "now", "of", "(/v~v/)", "off", "often", "on", "once", "only", "onto", "or", "ought", "oughtn't", "our", "ours", "ourselves", "out", "outside", "over", "past", "perhaps", "quite", "'re", "(are)", "rather", "'s", "(/z/)", "seldom", "several", "shall", "shan't", "she", "should", "shouldn't", "since", "so", "some", "sometimes", "soon", "than", "that", "the", "(/i:~/)", "their", "theirs", "them", "themselves", "then", "there", "therefore", "these", "they", "this", "those", "though", "through","thus", "till", "to", "(/tu~t/)", "together", "too", "towards", "under", "unless", "until", "up", "upon", "us", "used", "usedn't", "(/jusnt/) usen't", "usually", "'ve", "very", "was", "(wz~wz/)", "wasn't", "we", "well", "were", "weren't", "what", "when", "where", "whether", "which", "while", "who", "whom", "whose", "why", "will", "with", "without", "won't", "would", "wouldn't", "yet", "you", "your", "yours", "yourself", "yourselves"]
 </script>
 
+
+
 <script id='LOAD_SCRIPTS'>
   map(PACK=>funpack(PACK))(
   [CORE
@@ -1179,6 +1181,10 @@ map(face=>EVE.on('change'+face,e=>($=within(world)('$'+face),e.faxsrc?
 // EVE.on('wheel',e=>wheelzoom()()(e))
 
 EVE.on('stack',dat=>advise(STACK)(dat))
+
+
+
+
 
 
 
@@ -1514,6 +1520,9 @@ wiki('dna')
 
 nextwords=(xs)=> reduce((a,q)=>(a[q]=map(i=>xs[i+1])(findIdxs(xs,q)),a),{}) ([...new Set(xs)])
 // (xs)=> [...new Set(xs)].reduce((a,q)=>(a[q]=findIdxs(xs, q),a),{})
+
+
+
 
 
 // LOG-POLAR TRANSFORM: Scale & Rotation invariance
