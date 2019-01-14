@@ -952,7 +952,7 @@ FILER=[
 
 
 <script id="init.js">
-INIT=xi
+INIT=
 [['makeCube',"el=>domo(h.div({class:'view', id:nom('view')},h.div({class:'room', id:nom('room')},...map(face=> h['div']({class:`room face ${face}`})) ([...'werofl']))))(el)"]
 ,['BUILDROOM',"makeCube(BODY)"]
 ,['SETSVGSONSURFACES',"map(face=>tat(face)({id:`_${slice(-1)(face.classList)}_`})) (qsa('.face')) ,map(X=>domo(h.svg({id:'svg'+X,style:'margin-top:0;' },h.g({id:'faxout'+X} ,h.path(assign({id:('faxline'+X)} /*,RC.H.preconf.FAXLINE*/  )) ,h.path(assign({id:('pathline'+X)} /*,RC.H.preconf.PATHLINE*/ )) ,h.foreignObject({id:('ring'+X)}) ))) (within(world)(`_${X}_`)))([...'flower'])"]
