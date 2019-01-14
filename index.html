@@ -5,254 +5,207 @@ name="viewport"
 content="user-scalable=no,user-scalable=0"><title>
     TITLE                       </title>
 <style id='root'>
- :root{--FONTS:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial, monospace;
-    /* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–------ [COLORS] */
-    /*--CONTRAST:0.91 ;
-    */
+  :root{--SYSFONTS:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial, monospace;
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–------ [COLORS] */
+/*--CONTRAST:0.91 ;*/
+--C0:0,0,0;--C1:51,51,51;--C2:102,102,102;--C3:154,154,154;--C4:205,205,205;--C5:255,255,255;
+--C_0:#000;--C_1:#333;--C_2:#666;--C_3:#AAA;--C_4:#CCC;--C_5:#FFF;
+--Ca0:#330000;--Ca1:#660000;--Ca2:#880000;--Ca3:#AA0000;--Ca4:#CC0000;--Ca5:#FF0000;
+--Cb0:#000033;--Cb1:#000066;--Cb2:#000088;--Cb3:#0000AA;--Cb4:#0000CC;--Cb5:#0000FF;
+--Cc0:rgba(var(--C0),0.3);
+--Cc1:rgba(var(--C1),0.3);--Cc2:rgba(var(--C2),0.3);--Cc3:rgba(var(--C3),0.3);--Cc4:rgba(var(--C4),0.3);--Cc5:rgba(var(--C5),0.3);
+--TRANSLUSCENT: rgba(128,128,128,.3) ;--TRANSLUSCENT2: rgba(0,0,0,.3) ;--TRANSLUSCENT3: rgba(255,255,255,.3)
+;--REVEALS: inset 0 0 calc(.2*var(--VW)) 1em var(--Cc2)
+;--OUTLINE: none;/*solid .3px *//*var(--Ca3)*/ ;
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–----- [NUMBERS] */
+--SCALE:var(--PHI)/*1.5*/;--MIN2nd:1.067;--MAJ2nd:1.125;--MIN3rd:1.2/*6/5*/ ;--MAJ3rd:1.25;--PER4th:1.333;--AUGM4th:1.414;--PER5th:1.5;--PHI:1.618/* CaSCHEME~>lum/5*/; --NEG:-1;--THIRD:calc(1/3);--HALF:0.5;
+--DEC:0.1; --CEN:0.01;
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–------- [SIZES] */
+--FONTSIZE:16px; --EM:1em; --VW:100vw ;--VH:100vh ;--PERSP:32em; --PERSPORIGIN:center ; --SVGW:100% ;--SVGH:100% ;--STROKE:.3 ; 
+--S00: 0.01em; --S01:0.1em;
+/*--SIZE1:calc(var(--EM)*var(--SCALE)); */
+/*;--MARQUEE: 5s linear infinite*/
+--PERCENT:1%;
+; --DEBUG:0.5px solid var(--TRANSLUSCENT); 
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–--------.--- [] */
 
---K0:(0,0,0);
---K1:(51,51,51);
---K2:(102,102,102);
---K3:(154,154,154);
---K4:(205,205,205);
---K5:(255,255,255);
---R0:(22,0,0);
---R1:(102,0,0);
---R2:(154,0,0);
---R3:(170,0,0);
---R4:(204,0,0);
---R5:(250,0,0);
---B0:(0,0,22)
---B1:(0,0,102)
---B2:(0,0,154)
---B3:(0,0,170)
---B4:(0,0,204)
---B5:(0,0,250)
---OP:0.3;
---T0:rgba(var(--K0),var(--OP));
---T1:rgba(var(--K1),var(--OP));
---T2:rgba(var(--K2),var(--OP));
---T3:rgba(var(--K3),var(--OP));
---T4:rgba(var(--K4),var(--OP));
---T5:rgba(var(--K5),var(--OP));
- 
---REVEALS: inset 0 0 calc(.2*var(--VW)) 1em var(--T2) ;
---OUTLINE: none;
-/* [NUMBERS] */
---SCALE:var(--PHI)/*1.5*/; --MIN2nd:1.067; --MAJ2nd:1.125; --MIN3rd:1.2 /*6/5*/; --MAJ3rd:1.25; --PER4th:1.333; --AUGM4th:1.414; --PER5th:1.5; --PHI:1.618 /* CaSCHEME~>lum/5*/; --NEG:-1; --THIRD:calc(1/3); --HALF:0.5; --DEC:0.1; --CEN:0.01;
-/*–------- [SIZES] */
---FONTSIZE:16px; --EM:1em; --VW:100vw ; --VH:100vh ; --PERSP:32em; --PERSPORIGIN:center ; --SVGW:100% ; --SVGH:100% ; --STROKE:.3 ; --S00: 0.01em; --S01:0.1em;
-/*--SIZE1:calc(var(--EM)*var(--SCALE)); */ /*; --MARQUEE: 5s linear infinite*/
---PERCENT:1%; --DEBUG:0.5px solid var(--T2); }
+}                 
+</style>
+<!-- <link rel="stylesheet" type="text/css" href="root.css"/> -->
+<style id=core>
+  /* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–-- [BOX-SIZING] */
+*,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;text-rendering: optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-kerning:auto;}
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- --- [LOBOTOMIZED OWL] */
+p{text-align: justify;}p+p{margin-top: 0; text-indent: 2em;}*+*{margin/*-top*/:var(--S01)}.tight>*{margin-top:var(--S01)} .margins-off>*{margin-top: 0;}
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–-------- [MAIN] */
+body{font-family:var(--SYSFONTS);font-size:var(--FONTSIZE); background-color:var(--C_0); color:var(--C_2); padding-top:0; overflow:hidden;  /*margin-bottom:0;*/ height:100vh;
+}
+section *{height:auto;width:auto; }
+/*::-webkit-scrollbar {width:0.1em; height:0.1em;}*/
+/*::-webkit-scrollbar-track {height:1em; width:1em;}*/
+::-webkit-scrollbar {width:.5em; height:.5em;}
+/*::-webkit-scrollbar-track {box-shadow: inset 0 0 3px var(--C_5); }*/
+
 </style>
 
-<style id=core> 
-/*  ------- [BOX-SIZING] ------- */
- *,*:before,*:after{
-    box-sizing:border-box;
-    text-rendering: optimizeLegibility;
-    font-kerning:auto; }
-/* ------- [LOBOTOMIZED OWL] ------- */
- p{text-align: justify; }
-p+p{margin-top: 0; text-indent: 2em; }
-*+*{margin /*-top*/ :var(--S01) }
-.tight>*{margin-top:var(--S01) }
- .margins-off>*{margin-top: 0; }
-/*  ------- [MAIN]  -------  */
- body{
-    font-family:var(--FONTS);
-    font-size:var(--FONTSIZE);
-     background-color:var(--KB);
-     color:var(--K2);
-     padding-top:0;
-     overflow:hidden;
-    /*margin-bottom:0;*/
-     height:100vh; }
- section *{height:auto; width:auto; }
- </style> <style id=cube> .view{
-    --W:100vw;
-    --H:100vh;
-    --PERSP:32em;
-    --C32:rgba(128,128,128,.3);
-    --TRANSITION:transform 300ms;
-    --OUTLINE:3px solid black;
-    position:absolute;
-    transform-origin:calc(-0.5*var(--W)) calc(-0.5*var(--H)) 0 ;
-    overflow:hidden;
-    perspective:var(--PERSP);
-    left:0;
-    top:0; }
- #BODY{transition:var(--TRANSITION);}
- .room{height:var(--H);
-    width:var(--W);
-    margin:0;
-    transform-style:preserve-3d;
-    transition:var(--TRANSITION); }
- .room.face{position:absolute /*; outline:var(--OUTLINE)*/ ;
-    box-shadow: var(--REVEALS) ;
-    height:100%;
-    width:100%; }
- .room.f{transform:translateZ(calc(-0.5*var(--W)))}
- .room.o{transform:rotateX(0deg)translateZ(calc(0.5*var(--W)))}
- .room.l{transform:rotateY(90deg)translateZ(calc(-0.5*var(--W)))}
- .room.r{transform:rotateY(-90deg)translateZ(calc(-0.5*var(--W)))}
- .room.w{transform:rotateX(90deg)rotateZ(0deg)translateZ(calc(0.5*var(--W)))scaleY(-1); height:var(--W);}
- .room.e{transform:rotateX(90deg)translateZ(calc(0.5*var(--W)))translateZ(calc(-1*var(--H)));height:var(--W);}
- .room{
-    transform:translateZ(calc(-0.5*var(--W))) }
- </style> <style id=svg> 
+<style id=cube>
+  .view{--W:100vw
+     ;--H:100vh
+     ;--PERSP:32em
+     ;--C32:rgba(128,128,128,.3)
+     ;--TRANSITION:transform 300ms;
+     ;--OUTLINE:3px solid black;
+     ;position:absolute
+     ;transform-origin:calc(-0.5*var(--W)) calc(-0.5*var(--H)) 0
+     ;overflow:hidden
+     ;perspective:var(--PERSP)
+     ;left:0;top:0
+     ;}
+
+#BODY{transition:var(--TRANSITION);}
+
+.room{height:var(--H)
+     ;width:var(--W)
+     ;margin:0
+     ;transform-style:preserve-3d
+     ;transition:var(--TRANSITION)
+     ;}
+.room.face{position:absolute
+       /*;outline:var(--OUTLINE)*/
+       ;box-shadow: var(--REVEALS)
+       ;height:100%;width:100%
+       ;}
+.room.f{transform:translateZ(calc(-0.5*var(--W)))}
+.room.o{transform:rotateX(0deg)translateZ(calc(0.5*var(--W)))}
+.room.l{transform:rotateY(90deg)translateZ(calc(-0.5*var(--W)))}
+.room.r{transform:rotateY(-90deg)translateZ(calc(-0.5*var(--W)))}
+.room.w{transform:rotateX(90deg)rotateZ(0deg)translateZ(calc(0.5*var(--W)))scaleY(-1)
+       ;height:var(--W);}
+.room.e{transform:rotateX(90deg)translateZ(calc(0.5*var(--W)))translateZ(calc(-1*var(--H)))
+       ;height:var(--W);}
+.room{transform:translateZ(calc(-0.5*var(--W)))}}
+</style>
+
+<style id=svg>  
 /* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–--------. [SVG] */
- svg {
-    width:100%;
-    height:100%;
-    stroke:var(--C_3);
-     overflow:hidden;
-    outline:1px solid var(--C_3); 
-    display:inline-block; 
-     position:absolute; }
- svg *{transition:transform 300ms; }
- circle {fill:none; stroke-width:.2; }
- ellipse {fill:none; stroke-width:.2; }
- rect {fill:none; stroke-width:.2; }
- text {text-anchor:middle;
-     dominant-baseline:central;
-     font-size:.2em;
-     fill:var(--C_3);
-     stroke:none; }
- path {fill:none; stroke-width:.2; stroke:var(--C_3);
-    /*vector-effect: non-scaling-stroke; */ }
- polyline{fill:none; stroke-width:.1; stroke:var(--C_3); }
- foreignObject {height:auto; width:100%; }
- foreignObject>*{
-    display:inline-block;
-    float:left;
-    font-size:calc(5*var(--PERCENT));
-    width:calc(35*var(--PERCENT));
-    color:var(--C_3); }
- </style> <style id=interface> :focus{outline:none; }
- input {
-    font-size: var(--EM);
-     background-color: transparent;
-     border:none;
-     color:var(--T3);
-     width:3em;
-     opacity:.5; }
- input:focus {
-    height:var(--EM);
-     background-color: var(--T3);
-    color:var(--R5);
-}
- #MIND{
-    position:absolute;
-    height:100%;
-    width:100%;
-    left:0;
-    top:0;
-    z-index:1;
-}
- #WILL{
-    z-index:1;
-    width:auto;
-    height:auto;
-}
- #ENTRY{
-    position:absolute;
-     height:calc(var(--TETRA)*var(--EM));
-    width:auto;
-    z-index:2;
-}
- #ENTRY *{
-    margin:calc(var(--HALF)*var(--EM));
-    display:block;
-}
- #INPUT {
-    position:relative;
-    height:2em;
-     width:auto;
-     opacity:.5;
-     outline:1px solid var(--Cc3);
-}
- #OUT{
-    bottom:-115%;
-    width:calc(0.5*var(--CW));
-     position:relative;
-     height:2em;
-     width:auto;
-     overflow-y:hidden;
-}
- #IN{width:calc(0.5*var(--CW)); position:relative; height:2em; width:auto; }
- #OUT *,#IN *{display:inline-block; margin:0; }
- #OUT>*:focus >*,#OUT>*:hover >*,#IN>*:focus >*,#IN>*:hover >*, #sider>*:focus >*, #sider>*:hover >*, #sidel>*:focus >*, #sidel>*:hover >*{
-    /*overflow:visible; */
-     position:relative;
-     height:4em;
-    width:4em;
-    /*transform:scale3d(2,2,1); */
-     box-shadow: 0 0 3em var(--K3);
-     opacity:.5;
-     z-index:3; }
-/*#keyring:hover,#keyring:focus {box-shadow: 0 0 3em var(--C_3); } */
-/*#keyring:hover >*,#keyring:focus >* {transform:scale3d(1.5,1.5,1); } */
- #keyring{
-     height:8em;
-    width:8em;
-     position:absolute;
-     top:0%;
-     right:100%;
-    /*left:-100%; */
-    /*width:100%; */
-    /*overflow:hidden; */ }
- #STACK{display:inline; height:2em; overflow-x:scroll; }
- #keyring *{display:inline; margin:0; }
- .icon {height: 2em; width:2em; outline:1px solid var(--Cc3); ;
-    /*background-color:var(--Cc3); */
-     position:relative;
-     overflow:hidden;
-     opacity:1; }
- .active{box-shadow: inset 0 0 1em var(--C_3); color:var(--Ca5); }
- </style> <style id=utility> .reset-all-styles{
-    all:initial; }
- .X{position:absolute; left:50%; top:50%; transform:translate(-50%,-50%) }
- .hidden{display:none; }
- .invisible{visibility:hidden; }
- .ref{position: relative; }
-.refcard{
-    position:relative;
-    visibility:hidden;
-    left:100%;
-    top:10%;
-    width:100%; }
-.ref:hover{overflow:visible; }
-.ref:hover>.refcard{visibility: visible; }
- .nopoint{pointer-events:none !important; }
-.nopoint>*{pointer-events:auto !important; }
-/*.pointed{pointer-events:auto; } */
- .hlbg{background:var(--Cc5); }
- .untransform{transform:none !important; }
- 
- .sunroof{background:linear-gradient(to bottom, #000066 10%,#1e528e 20%, #880000 50%, #e9ce5d 100%); }
+svg {width:100%;height:100%;stroke:var(--C_3); overflow:hidden; 
 
-
-/*TOOL TIP FOR MINI ICON*/
- [data-ref] {display: inline-block; /*bug fix*/
-     position: relative;
-    /*text-decoration: none; */
-    /*font-size:calc(var(--EM)*var(--HALF)); */ }
- [data-ref]:after {
-     content: attr(data-ref);
-     position: absolute;/*bottom: 275%;*/
-     float:left;
-     right: 0%;
-     background: var(--C0); /*padding:1em;*/
-     outline:1px solid var(--C5);
-     color: var(--C5);
-     white-space: pre-wrap;
-     opacity: 0;
-     z-index: 1; }
- [data-ref]:hover:after,[data-ref]:focus:after {bottom: 50%; }
- [data-ref]:hover:after,[data-ref]:focus:after,[data-ref]:hover:before,[data-ref]:focus:before {opacity: 1; }
+  /*outline:1px solid var(--C_3); */
+/*display:inline-block;*/ 
+position:absolute;
+}
+svg *{transition:transform 300ms;}
+circle { fill:none;stroke-width:.2;}
+ellipse { fill:none;stroke-width:.2;}
+rect { fill:none;stroke-width:.2;}
+text {text-anchor:middle; dominant-baseline:central; font-size:.2em; fill:var(--C_3); stroke:none;}
+path {fill:none;stroke-width:.2; stroke:var(--C_3);
+  /*vector-effect: non-scaling-stroke;*/
+}
+polyline{fill:none;stroke-width:.1; stroke:var(--C_3);}
+foreignObject {height:auto;width:100%;overflow;}
+foreignObject>*{display:inline-block;float:left;font-size:calc(5*var(--PERCENT));width:calc(35*var(--PERCENT));color:var(--C_3);}
 </style>
- </head>                                                  <body
+
+<style id=interface>
+  :focus{outline:none;}
+input {font-size: var(--EM); background-color: transparent; border:none; color:var(--Cc3); width:3em;  opacity:.5;}
+input:focus {height:var(--EM); background-color: var(--Cc3);color:var(--C_5);}
+
+#MIND{position:absolute;height:100%;width:100%;left:0;top:0;z-index:1;}
+#WILL{z-index:1;width:auto;height:auto;}
+#ENTRY{position:absolute; height:calc(var(--TETRA)*var(--EM));width:auto;z-index:2;}
+#ENTRY *{margin:calc(var(--HALF)*var(--EM));display:block;}
+#INPUT {position:relative;height:2em; width:auto; opacity:.5; outline:1px solid var(--Cc3);}
+#OUT{bottom:-115%;width:calc(0.5*var(--CW));
+  position:relative; 
+  height:2em;
+  width:auto;
+  overflow-y:hidden;}
+#IN{width:calc(0.5*var(--CW));
+  position:relative; 
+  height:2em;
+  width:auto;
+}
+#OUT *,#IN *{display:inline-block;margin:0;}
+
+#OUT>*:focus >*,#OUT>*:hover >*,#IN>*:focus >*,#IN>*:hover >*, #sider>*:focus >*, #sider>*:hover >*, #sidel>*:focus >*, #sidel>*:hover >*{
+  /*overflow:visible;*/
+  position:relative;
+  height:4em;width:4em;
+  /*transform:scale3d(2,2,1);*/
+  box-shadow:  0 0 3em var(--C_3);
+  opacity:.5;
+  z-index:3;}
+/*#keyring:hover,#keyring:focus {box-shadow:  0 0 3em var(--C_3);} */
+/*#keyring:hover >*,#keyring:focus >* { transform:scale3d(1.5,1.5,1);}*/
+#keyring{  
+  height:8em;width:8em;
+  position:absolute;
+  top:0%;
+  right:100%;
+  /*left:-100%;*/
+  /*width:100%;*/
+  /*overflow:hidden;*/
+}
+#STACK{display:inline;height:2em;overflow-x:scroll;}
+#keyring *{display:inline;margin:0;}
+
+
+
+.icon { height: 2em; width:2em; 
+  outline:1px solid var(--Cc3);;
+  /*background-color:var(--Cc3);*/
+  position:relative;
+  overflow:hidden;
+  opacity:1;}
+.active{box-shadow: inset 0 0 1em var(--C_3);color:var(--Ca5);}
+</style>
+<style id=utility>
+  .reset-all-styles{all:initial;}
+.X{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.hidden{display:none;}
+.invisible{visibility:hidden;}
+.ref{position: relative; }.refcard{position:relative;visibility:hidden;left:100%;top:10%;width:100%;}.ref:hover{overflow:visible;}.ref:hover>.refcard{visibility: visible;}
+.nopoint{pointer-events:none !important;}.nopoint>*{pointer-events:auto !important;;}
+/*.pointed{pointer-events:auto;}*/
+.hlbg{background:var(--Cc5);}
+.untransform{transform:none !important;}
+
+
+.sunroof{background:linear-gradient(to bottom, #000066 10%,#1e528e 20%, #880000 50%, #e9ce5d 100%);}
+
+
+[data-ref] {
+  display: inline-block;/*bug fix*/
+  position: relative;
+  /*text-decoration: none;*/
+  /*font-size:calc(var(--EM)*var(--HALF));*/
+}
+[data-ref]:after {
+  content: attr(data-ref);
+  position: absolute;
+  /*bottom: 275%;*/
+  float:left;
+  right: 0%;
+  background: var(--C_0);
+  /*padding:1em;*/
+  outline:1px solid var(--C_5);
+  color: var(--C_5);
+  white-space: pre-wrap;
+  opacity: 0;
+  z-index: 1;
+}
+[data-ref]:hover:after,[data-ref]:focus:after {bottom: 50%; }
+[data-ref]:hover:after,[data-ref]:focus:after,[data-ref]:hover:before,[data-ref]:focus:before {opacity: 1; }
+
+
+
+
+
+/*#STACK{overflow:scroll;height:2em;}*/
+</style></head>
+                                                   <body
 id=BODY                                            ><section 
 id=MIND class=''                                   ><span
 id=STACK class='X'                                 ></span><form 
@@ -270,13 +223,12 @@ let AudioContext = world.AudioContext||world.webkitAudioContext||false
   logic={}
   notes={}
   SENSES=
-
 [['ac',"new AudioContext"]
 ,['utter',"new SpeechSynthesisUtterance"]
 ,['decoder', "new TextDecoder()"]
 ,['fr',"new FileReader()"]
 ,['cv',"SOUL.getContext('2d')"]
-] 
+]
   PRELUDE=
     [['within',"o=>k=>o[k]"]
     ,['wherewithin',"o=>k=>(a,b)=>o[k](a,b)"]
@@ -321,7 +273,7 @@ let AudioContext = world.AudioContext||world.webkitAudioContext||false
           // ,'marker-start':'url(#TRYANGLE)'
           }
   ,SECTOGRAPH:
-        {style:`stroke:var(--Cb5);stroke-width:.1;fill:var(--T2);opacity:1;`}
+        {style:`stroke:var(--Cb5);stroke-width:.1;fill:var(--TRANSLUSCENT);opacity:1;`}
   , PATHLINE:
           {style:'stroke:var(--C_2);stroke-width:0.15;fill:var(--Cc5);'
           ,'marker-mid':'url(#tryciclemarker)'
@@ -395,7 +347,7 @@ let AudioContext = world.AudioContext||world.webkitAudioContext||false
   ]
   HS=
   [
-  // ['H',`({a:{href:'#'},svg:{viewBox:'-16 -16 32 32'},pattern:{viewBox:'0 0 32 32',width:'5%',height:'5%',patternUnits:'userSpaceOnUse'},circle:{cx:0,cy:0,r:0.1},rect:{x:0,y:0,width:1,height:1},symbol:{viewBox:'-4 -4 8 8'},marker:{viewBox:'0 0 32 32',refX:0, refY:0,markerWidth:10,markerHeight:10,orient:'auto'},preconf:{SECTOGRAPH:{style:"stroke:var(--Cb5);stroke-width:.1;fill:var(--T2);opacity:1;"}}})`,RC]
+  // ['H',`({a:{href:'#'},svg:{viewBox:'-16 -16 32 32'},pattern:{viewBox:'0 0 32 32',width:'5%',height:'5%',patternUnits:'userSpaceOnUse'},circle:{cx:0,cy:0,r:0.1},rect:{x:0,y:0,width:1,height:1},symbol:{viewBox:'-4 -4 8 8'},marker:{viewBox:'0 0 32 32',refX:0, refY:0,markerWidth:10,markerHeight:10,orient:'auto'},preconf:{SECTOGRAPH:{style:"stroke:var(--Cb5);stroke-width:.1;fill:var(--TRANSLUSCENT);opacity:1;"}}})`,RC],
   ['html',"'a,b,i,br,head,body,canvas,button,section,div,input,script,style,form,label,code,date,pre,img,span,h1,h2,h3,h4,h5,h6,p,iframe,textarea,summary,details,li,ul,ol,template,anchor,unknown'",RC.TYPES]
   ,['H',"TAG=>(...ELS)=> [ TAG, config (ist.object(ELS[0]) ? shift()(ELS):{}) (ife(getpath(['H',TAG])(RC)) ({})) , ...ELS ]"]
   ,['config',"o=>(...defaults)=> assign({},o,reverse()(...defaults),o)"]
@@ -487,7 +439,7 @@ let AudioContext = world.AudioContext||world.webkitAudioContext||false
 ,['tryl',"h.line({x1:0,x2:0,y1:-3,yat2:3 ,style:`stroke-width:.3;stroke:var(--Ca5);`})"]
 ,['tryangle',"h.path({d:'M -5,-5 L0,5 L5,-5 z',style:`stroke-width:.5;stroke:var(--Ca5);fill:var(--Cc3)`})","({viewBox:'-6 -6 12 12'})"]
 ,['star',"h.polygon({points:'-5,-5 -3,0 -5,5 0,3 5,5 3,0 5,-5 0,-3'})","({viewBox:'-5 -5 10 10'})"]
-,['crosshatch',"h.rect({width:'100%',height:'100%',fill:'var(--T2)'}),h.path({d:'M0 0L8 8ZM8 0L0 8Z',style:'stroke-width:0.5;stroke:#aaa;'})",`({viewBox:"0,0,10,10"})`]
+,['crosshatch',"h.rect({width:'100%',height:'100%',fill:'TRANSLUSCENT'}),h.path({d:'M0 0L8 8ZM8 0L0 8Z',style:'stroke-width:0.5;stroke:#aaa;'})",`({viewBox:"0,0,10,10"})`]
 ]
 SAVAGE=
 [['sympol',"(...shapes)=>(id,attrs={},title='',desc='')=>h.symbol(config({id})(attrs),h.title(title),h.desc(desc),...shapes)"]
@@ -546,10 +498,9 @@ SAVAGE=
 
 </script>
 <script id='fregex.js'>
-  /*
+/*
 Regular-expressions
 */
-
 FREGEX=
 [
 ['RE', 
@@ -620,7 +571,7 @@ FACTORY=
 ]
 </script>
 <script id='distplace.js'>
-  /*
+/*
 Transformation and styles to usefully represent the latent shape of datastructures
 */
 DISTPLACE=
@@ -654,10 +605,8 @@ DISTPLACE=
   flow (map(SYM) ,map(flip(domo)(target)) )(vs)`]
 ,['pointificate',"(r,f=dis( cord(r,[0,0],0)))=>xs=> f(xs)"]
 ]
-
 </script>
 <script id='instore.js'>
-  
   INSTORE=
 [['funsm',"({s,i,ns})=>(map(n=>i=s[i][n])(ns) ,i )"]
 ,['store', "(s={},is=[])=> ({state: ()=> s, xform: x=>o=> (s=x(s,o), is.map(i=>i(s)), s), watch: cb=> is.push(cb), watchers: is})"]
@@ -666,8 +615,7 @@ DISTPLACE=
 // ,['restock',"$tore=>prop=> $tore.xform((state,o)=>over(fov(prop))(o)(state))"]
 /* set up stores */
 ,['$',"store()"]
-// foreach surface
-
+// foreach surface ct
 ]
 // XX.watch(x=> console.log(x.mushroom))
 </script>
@@ -832,7 +780,9 @@ SUI=
 ]
 </script>
 <script id='literacy.js'>
-/* Reading and writing, for editing data */
+/*
+Reading and writing, for editing data
+*/
 LITERACY=
 [['splicepath',"(idx=[0],start=last(idx),end)=>dat=>(src=[])=> splice(last(idx),end?end-start:0,dat)(idx.length>1 ? getpath(slice(0,-1)(idx))(src):src)"]
 ,['write',
@@ -998,7 +948,6 @@ seeking some one thing
  just
 SOMETHING TO BELIEVE IN`
 zhuangzi='吾生也有涯，而知也无涯。以有涯隨无涯，殆已；已而為知者，殆而已矣。為善无近名，為惡無近刑。緣督以為經，可以保身，可以全生，可以養親，可以盡年。'
-// 指穷于为薪，火传也，不知其尽也。
 fnwords = [" ", ".", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+", "?", "/", "a", "aardvark", "abandon", "abandoned", "abandoning", "abandons", "abbreviate", "abbreviated", "abbreviates", "abbreviating", "abbreviation", "abbreviation's", "abbreviations", "abide", "abilities", "ability", "ability's", "able", "abnormal", "abnormally", "abolish", "abolished", "abolishes", "abolishing", "abolition", "abort", "aborted", "aborting", "abortion", "aborts", "about", "above", "abroad", "absence", "absent", "absolute", "absolutely", "absorb", "absorbed", "absorbing", "absorbs", "abstract", "abstraction", "absurd", "abuse", "abused", "abuses", "abusing", "abusive", "abysmal", "academic", "academic's", "academics", "accelerate", "accent", "accent's", "accents", "accept", "acceptable", "acceptance", "accepted", "accepting", "accepts", "access", "access's", "accessed", "accesses", "accessible", "accessing", "accident", "accident's", "accidental", "accidentally", "accidents", "accommodate", "accommodation", "accompanied", "accompanies", "accompany", "accompanying", "accomplish", "accomplished", "accomplishes", "accomplishing", "a", "(/e~/)", "about", "above", "after", "after", "again", "against", "ago", "ahead", "all", "almost", "almost", "along", "already", "also", "although", "always", "am", "(/m~m~m/)", "among", "an", "/n~n/)", "and", "(/nd~n~n/)", "any", "are", "/a:~/", "aren't", "around", "as", "(/z~z/)", "at", "(/t~t/)", "away", "backward", "backwards", "be", "because", "before", "behind", "below", "beneath", "beside", "between", "both", "but", "by", "can", "(/kn~kn/)", "cannot", "can't", "cause", "'cos", "could", "couldn't", "'d", "(had)", "despite", "did", "didn't", "do", "does", "doesn't", "don't", "down", "during", "each", "either", "even", "ever", "every", "except", "for", "(/faw~f/)", "forward", "from", "(/frm~frm/)", "had", "hadn't", "has", "hasn't", "have", "(/hv~hv~v~v/)", "haven't", "he", "(hi:~h/)", "her", "(/h~/)", "here", "hers", "herself", "him", "(/hm~m/)", "himself", "his", "(/hz~z/)", "how", "however","I", "if", "in", "inside", "inspite", "instead", "into", "is", "(/z~z/)", "isn't", "it", "its", "itself", "just", "'ll", "(will/shall", "/l/)", "least", "less", "like", "'m", "(them", "/m/)", "many", "may", "mayn't", "me", "might", "mightn't", "mine", "more", "most", "much", "must", "mustn't", "my", "myself", "near", "need", "needn't", "needs", "neither", "never", "no", "none", "nor", "not", "now", "of", "(/v~v/)", "off", "often", "on", "once", "only", "onto", "or", "ought", "oughtn't", "our", "ours", "ourselves", "out", "outside", "over", "past", "perhaps", "quite", "'re", "(are)", "rather", "'s", "(/z/)", "seldom", "several", "shall", "shan't", "she", "should", "shouldn't", "since", "so", "some", "sometimes", "soon", "than", "that", "the", "(/i:~/)", "their", "theirs", "them", "themselves", "then", "there", "therefore", "these", "they", "this", "those", "though", "through","thus", "till", "to", "(/tu~t/)", "together", "too", "towards", "under", "unless", "until", "up", "upon", "us", "used", "usedn't", "(/jusnt/) usen't", "usually", "'ve", "very", "was", "(wz~wz/)", "wasn't", "we", "well", "were", "weren't", "what", "when", "where", "whether", "which", "while", "who", "whom", "whose", "why", "will", "with", "without", "won't", "would", "wouldn't", "yet", "you", "your", "yours", "yourself", "yourselves"]
 </script>
 
@@ -1036,10 +985,14 @@ fnwords = [" ", ".", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+"
 </script>
 <script id='scratch.js'>
 
+
   // domo(h.svg({id:'svgm',style:'margin-top:0;position:absolute;top:0;left:0;'}))(MIND)
 /* --------------------------- */
 // facverse=factext(testverse,LSPWC,['div','div','span','span','span','span'])
 // appendChild(tml(...factext([TESTTEXT1])))(_r_)
+
+
+
 
 domo(h.a({'data-ref':'Clock'},h.svg({id:'clock',class:'icon'})))(IN)
 
@@ -1063,8 +1016,9 @@ domo(h.path({id:'arctrailclock',d: arctrail(i=>i+1)(timeout(now()))})) (svge)
 
 viztimer=(t=duh,r=(i=>i+1),attrs={id:nom('vistime')},timefax=conf(['TZ','clockorder']))=>(svgtarg=arctrailclock.parentElement)=> (xs=map(x=>timesout(t)[x])(timefax),tat(domo(h.path({d:arctrail(r)(xs),radii:map((_,i)=>r(i))(xs)}))(svgtarg))(attrs))
 
+
 posit=progs=>rfn=>map((t,i)=>arcpt(t)(rfn(i)))(progs)
-label=(labels,id=nom('labels'))=>xys=>h.g({id},...map(([x,y],i)=>h.text({x,y,style:'font-size:.1em;'},labels[i]))(xys))
+label=(labels,id=nom('labels'))=>xys=>h.g({id},...map(([x,y],i)=>h.text({x,y,style:'font-size:2;'},labels[i]))(xys))
 // relabel=el=>([x,y])=> tat(el)({x,y,r,style:'stroke:var(--Ca5)'})
 // EG
 labeldiag=labels=>(progs,rfn=i=>i+1)=> (label(labels)(posit(progs)(rfn)))
@@ -1074,11 +1028,14 @@ domo(labeldiag(RC.TZ.clockorder)(map(x=>timesout()[x])(RC.TZ.clockorder)))(svge)
 timers.make(()=>map(([x,y],i)=>tat(labels0.children[i])({x,y}))(posit((map(x=>timesout()[x])(RC.TZ.clockorder)))(i=>i+1)),100)
 timers.make(()=>map((x,i)=>labels0.children[i].textContent=x)(map(x=>numRod(formtime()[x]))(RC.TZ.clockorder)),100)
 
+
 // domo(h.g((labeldiag(map(x=>numRod(formtime()[x]))(RC.TZ.clockorder))(map(x=>timesout()[x])(RC.TZ.clockorder))),h.path({id:'labeledclock',d: arctrail(i=>i+1)(map(x=>timesout()[x])(RC.TZ.clockorder))}))) (svgo)
+
 
 // cloggle('untransform')(_e_)
 // map(x=>timesout()[x])(RC.TZ.clockorder)
 tat(tryanglemarker)({viewBox:'0 0 32 32', refX:'16', refY:'16',orient:'auto'})
+
 
 // (src,splits=SPWC,tags=['div','div','span','span','span'],classes=['article','sentence','phrase','word','char'],content=true,fax=fax(splits)()([src]))=>(
   // flip(sindex)(since(tags,classes,content)))(fax)
@@ -1105,7 +1062,8 @@ stateface=
   {faxsrc:face=>(dat,cat=false)=>stockpath(within(world)('$'+face))(['faxconf','faxsrc'])(cat?within(world)('$'+face).state().faxconf.faxsrc+dat:dat)
   ,faxtree:(face,splits)=>($=within(world)('$'+face).state(),$.faxconf.faxtree=fax(splits||$.faxconf.faxsplits)()($.faxconf.faxsrc?[$.faxconf.faxsrc]:[]))
     //since(tags,classes,content)
-  ,faxdat:face=>($=within(world)('$'+face).state(),$.faxconf.faxdat=sindex($.faxconf.faxtree)(since(...values($.faxconf.faxschema)))) }
+  ,faxdat:face=>($=within(world)('$'+face).state(),$.faxconf.faxdat=sindex($.faxconf.faxtree)(since(...values($.faxconf.faxschema))))
+  }
 
 domo(h.polyline({id:'ringoline'}))(keyring)
 radface=($tore)=>($=$tore.state().faxconf,reduce((a,c,i)=>a+$.radius(i),0)($.fovea))
@@ -1183,16 +1141,8 @@ map(face=>EVE.on('change'+face,e=>($=within(world)('$'+face),e.faxsrc?
 EVE.on('stack',dat=>advise(STACK)(dat))
 
 
-
-
-
-
-
 // disc ~> collection of radials, eg. arcsectors | rings | paths 
 // disco = (...discs)=>pattern=> overlay(pattern(discs))
-
-
-
 
 stringstats=s=>reduce((a,c)=>(a[c.name]=c(s),a),{})([avgWPS
 ,avgSPW
@@ -1220,8 +1170,6 @@ cleanText = (text) => {
       .replace(/\s+$/, "");         // Strip trailing whitespace
     if(text.slice(-1) != '.') { text += ".";  }// Add final terminator, just in case it's missing.
     return text; }
-
-
 //  /   vC = (w)=> w.reduce((p,c)=> c.match(/[aeiouy]+/ig)?++p:p,0,w)
 TEXTSTATS = (()=>{
 //t=([q])=>{s=((t[m="match"](/[!?.]+/g)||q)[l="length"]||1);y=(t[m](/[aeiouy]+/g)||q)[l]-(t[m](/[^aeiou][aeiou][s\s,'.?!]/g)||q)[l]*.33;w=(t.split(/\s+/g))[l];return(206.835-1.015*w/s-84.6*y/w)}
@@ -1330,25 +1278,18 @@ fuzzyStrScore = (g,m,s)=>{
   return {fleschKincaidReadingEase,fleschKincaidGradeLevel,gunningFogScore,colemanLiauIndex,smogIndex,automatedReadabilityIndex,termFreqMap,findIdxs,uniqIdxs,splitWords,textLength,letterCount,sc,wc,avgWPS,avgSPW,gte3Syls,gte3SylsPW,sylC,fuzzyStrScore,dictFrom,bow,tf,df,idf,tfidf,keywords,clozePassage } } )()
 
 
-
-
-
-
-
-
-
 /* */
 charstyles=`
 .t.l {color: var(--C_2); }
 .t.l.hovered {outline: 1px solid var(--C_2); }
 .t.u {color: var(--C_3); }
 .t.u.hovered {outline: 1px solid var(--C_3); }
-.t.w {color: var(--C_0);background:var(--T2) }
+.t.w {color: var(--C_0);background:var(--TRANSLUSCENT) }
 .t.w.hovered {outline: 1px solid var(--C_0); }
 .t.d {color: var(--Ca5); }
 .t.d.hovered {outline: 1px solid var(--Ca5); }
 .t.s {color: var(--C_1); }
-.t.s.hovered {outline: 1px solid var(--T2);background:var(--C_5); }
+.t.s.hovered {outline: 1px solid var(--TRANSLUSCENT);background:var(--C_5); }
 .t.o {color: var(--Cb5); }
 .t.o.hovered {outline: 1px solid var(--Cb5); }`
 chartypes=[['t l','lower'],['t u','upper'],['t w','word'],['t d','digit'],['t s','whitespace'],['t o','other']]
@@ -1392,8 +1333,6 @@ document.addEventListener("mousemove", checkHover=()=> {
   }
 } )
 /**/
-
-
 
 probabilityTable = 
 [ [.2, .65, .15]
@@ -1449,10 +1388,9 @@ forward=hmm=>(O=[],A=[])=> {
       A[i][j] = result; } }
   for (let i = 0; i <hmm.transitions.length; i++)  // for every possible state transition
     {p += A[O.length-1][i]}
-
   return p }   
-
 // forward(hmmeg)([0,1,2],alpha)
+
 //https://gist.github.com/lancejpollard/8840496
 // Viterbi algorithm for finding hidden relationships
 function Viterbi(data) {
@@ -1512,17 +1450,11 @@ combis=(a,b,z,c=[])=>((d=(e,f,g=[])=>f*e?g.push(e)+d(e-1,f-1,g)+g.pop
 //MARKOV ALGORITHM: https://github.com/hf/markov/blob/master/markov.js
   //https://rosettacode.org/wiki/Execute_a_Markov_algorithm#J
 
-
-
-cloggle('sunroof')(_w_)
-wiki('dna')
-
+// cloggle('sunroof')(_w_)
+// wiki('dna')
 
 nextwords=(xs)=> reduce((a,q)=>(a[q]=map(i=>xs[i+1])(findIdxs(xs,q)),a),{}) ([...new Set(xs)])
 // (xs)=> [...new Set(xs)].reduce((a,q)=>(a[q]=findIdxs(xs, q),a),{})
-
-
-
 
 
 // LOG-POLAR TRANSFORM: Scale & Rotation invariance
