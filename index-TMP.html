@@ -1,0 +1,352 @@
+
+<script id='DIAGRAM'>
+	DIAGRAM=
+	[['diagram',"($tore,way=world['faxline'+$tore.state().face])=>(diagramstyle=$tore.state().faxconf.diagtype,r=eval(CONF.FAX.radii[diagramstyle]))=>(stockpath($tore)(['faxconf','diagramstyle'])(eval(CONF.FAX.faxpaths[diagramstyle])),stockpath($tore)(['faxconf','radius'])(r),reshape($tore,way))"]
+	,['datdiag',"dat=>$tore=>(stockpath($tore)(['faxconf','faxdat'])(dat),diagram($tore)())"]
+	,['epicpath',`es=>(conf,r,way)=>
+	  tat(faxline(epic (r)(
+	      (s,i,n)=>addvert(n[1],...slice(1,i+1)(n)) 
+	      ) ([es]) , conf )
+	    (way))({route:es})`]
+	,['showpath',`($tore,way)=>
+	  ($=$tore.state().faxconf
+	  ,epicpath
+	    (exacto
+	      ($.fovea)
+	      ($.faxdat)[1]['e'])
+	    ($.diagramstyle,$.radius,way))`]
+	,['reshape',`($tore,way)=>
+	  ($=$tore.state().faxconf
+	  ,faxline
+	    (epic
+	      ($.radius)
+	      ($.epicfun)
+	      ($.legendfun($.faxdat))
+	      ,$.diagramstyle)
+	    (way))`]
+	,['foveate',"($tore,way=world['pathline'+$tore.state().face])=>is=>(stockpath($tore)(['faxconf','fovea'])(is),showpath($tore,way))"]
+	,['lastfactor',"dat=>ist.string(last(dat[0])[0])?dat[0][1]['i']:lastfactor(last(dat[0]))"]
+	,['confui',"$tore=>z=>map(x=>map(y=>({marks:markit,style:scs})[z](y[0])(y[1])(within(world)(x[0]+$tore.state().face)))(entries(x[1])))(entries($tore.state().faxconf[z]))"]
+	,['confax',"(k,s='style')=>v=>($tore,way='faxline')=>(stockpath($tore)(['faxconf',s,way,k])(v),confui($tore)(s))"]
+	,['FAX',
+	  `({faxpaths:
+	    {organic:"(s,i,n)=>(i===0?' M'+addvert([0,0]):' q '+n[i?i-1:0]+' '+s)"
+	    ,trees:"(s,i,n)=>(i===0?' M0,0':' l '+s)"
+	    ,jellyfish:"(s,i,n)=>(i===0?' M0,0':' q '+s+'  '+n[i?i-1:0])"
+	    ,flake:"(s,i,n)=>(i===0?' M0,0':' L '+s)"
+	    }
+	  ,radii:
+	    {organic:"i=>ra(1,.1)(i)"
+	    ,trees:"i=>ra(1,.1)(i)"
+	    ,jellyfish:"i=>ra(1,.1)(i)"
+	    ,flake:"i=>ra(5,1.1)(i)"
+	    }
+	  ,epicfun:
+	    {compound:"(s,i,n)=>addvert(n[1],...slice(1,i+1)(n))"}
+	  ,legendfun:
+	    {depth:"d=>src=>legend(x=>size(x.i)===d)(src)"
+	    ,leaves:"z=>src=>legend(x=>(x.n)===z)(src)"
+	    }
+	  })`,CONF]
+	,['faxconf',`()=>
+	  ( {fovea:[0],faxsplits:SPWC,faxsrc:'',faxtree:[],faxdat:[],
+	    faxschema:{tags:['div','div','span','span','span'], classes:['article','sentence','phrase','word','char'],content:true}
+	    , radius: eval(CONF.FAX.radii.organic)
+	    , diagramstyle: eval(CONF.FAX.faxpaths.organic)
+	    , epicfun: eval(CONF.FAX.epicfun.compound)
+	    , legendfun: eval(CONF.FAX.legendfun.leaves)(0)
+	    , marks:{faxline:{start:'',mid:'trycicle',end:''}
+	        ,pathline:{start:'tryangle',mid:'tryl',end:'tryangle'}
+	        }
+	    , style: {faxline:{stroke:'var(--C_5)','stroke-width':'.01',fill:''}
+	         ,pathline:{stroke:'var(--C_5)','stroke-width':'.15',fill:'var(--Cc3)'}
+	         }
+	    })`]
+	,['',"map(face=>world[`$${face}`]=store({face,faxconf:faxconf()}))([...'flower'])"]
+	,['ring_svg',"(id,f=(xs,i,o)=>xs[i])=>r=>xs=>h.g({id,class:'ring'},...map(([x,y],i,o)=>h.foreignObject({x,y, transform:`rotate(${360*(i)/size(o)} ${x},${y})`}, f(xs,i,o) ))(pointificate(r)(xs)))"]
+	,['ring',"(id=nom('ring'),[left,top]=[0,0],container=(xs,i,o)=>h.div({}))=>r=>xs=>h.div({id,class:'ring',style:`position:absolute;left:${left};top:${top}`},...map(([x,y],i,o)=>set(fov(2))(xs[i])(set(fov(1))(config(container[1])({style:`position:absolute;transform:rotateZ(${360*(i)/size(o)}deg)translateX(${r}em)`})) (container(xs,i,o))) ) (pointificate(r)(xs)))"]
+	,['updatering',"(face,radplus=0)=>(src=slice(2)(world['$'+face].state().faxconf.faxdat[0]))=>replaceChild(tml(ring_svg('ring'+face)(radface(world['$'+face])+radplus)(src)),qsa('#ring'+face)) (faxoutl)"]
+	,['fullmodsrc',"face=>(dat,cat,splits)=>(stateface.faxsrc(face)(dat,cat),stateface.faxtree(face,splits),stateface.faxdat(face),diagram(within(world)('$'+face))())"]
+]
+</script>
+
+
+
+
+
+
+
+
+
+
+<script id='SUI'>
+/*
+Scalable UI, mainly vector and polar-coordinate based functions for interface
+*/
+SUI=
+[
+  ['iconize',"(el,box='svg',target)=>(desc='A popup description')=>(birthparent=el.parentNode.id,tat(appendChild(el)(target?target:domo(h.a({id:el.id+'icon','data-ref':desc},h[box]({class:'icon'})))(IN).firstChild)))({birthparent})"]
+  ,['ezinoci',"(el,target)=>(appendChild(el)(target?target:qsa('#'+tat(el)('birthparent'))), qsa('#'+el.id+'icon')?freeChild(qsa('#'+el.id+'icon')):el)"]
+  ,['insight',"(el,to=MIND)=>(bp=tat(el)('birthparent'),bp?(bp===el.parentNode.id?appendChild(el)(to):appendChild(el)(within(world)(bp))):(tat(el)({birthparent:el.parentNode.id}),appendChild(el)(to)))"]
+  ,['debugol',"(n=0.5,filth='svg')=>qsa('*').filter(x=>!type(x).includes(filth)).map((A,B,C)=>A=!A.style.outline?A.style.outline=`${n}px solid hsl(${B*B},100%/*${B*10/size(C)}%*/,50%`:A.style.outline='')"]
+  ,['stripact',"x=>x.hasChildNodes()?map(y=>unclassify(y)('active'))(x.children):''"
+  // ,['makeCube',"el=>domo(h.div({class:'view', id:nom('view')},h.div({class:'room', id:nom('room')},...map(face=> h['div']({class:`room face ${face}`})) ([...'werofl']))))(el)"]
+	]
+]
+</script>
+
+
+
+
+
+
+<script id='DISTPLACE '>
+/*
+Transformation and styles to usefully represent the latent shape of datastructures
+*/
+DISTPLACE=
+[['metallicRatio',"(n=1)=>(n+sqrt(  pow(2)(n)  +4)   )/2"]
+,['ra',"(k=1,ratio=1,scale=1/metallicRatio(ratio))=>n=>mul(k)(pow(n)(scale))"]
+,['addvert',"twith((a,b)=>a+b,0)"]
+,['arcpt',"t=>(r,[cx,cy]=[0,0],offs=-PI/2,newLims=[0,PI*2],oldLims=[0,1])=> map(precisely(3)) (RT_XY([r,convert(offs,oldLims,newLims)(t)],[cx,cy]))"]
+,['RT_XY', "([r,t],[cx,cy]=[0,0])=> map(precisely(3))([r*cos(t)+cx, r*sin(t)+cy])"]
+,['XY_RT', "([x,y],[cx,cy]=[0,0])=> (i=x-cx,j=y-cy, [sqrt(i*i + j*j),atan2(j, i)])"]
+,['belong',"([a1,z1]=[0,PI*2])=>([a0,z0]=[0,1])=>(x,offs=0)=> (x-a0)/(z0-a0)*(z1-a1)+a1+offs"]
+,['convert',"(offs=-PI/2,oldLims=[0,1],newLims=[0,PI*2])=>x=>belong(newLims)(oldLims)(x,offs)"]
+,['repeat',"n=>f=>x=> (n>0?repeat(n-1)(f)(f(x)):x)"]
+,['epic',`(r=ra(5))=>(t=(s,i,n)=>addvert(n[1],...slice(1,i+1)(n)))=>(es)=> transduce(
+  flow( mapping(map((s,i,n)=>t(s,i,n)))
+    , mapping(map((s,i,n)=>arcpt(s)(r(i),[0,0],convert()(n[i?i-1:0]))) )))
+    // removing the convert term introduces some perspective effect
+  (shovel)([])
+  (es)`]
+// ,['tracepath',]
+,['legend',`(d=x=>size(x.i)===5)=>faxdat=>transduce(
+  flow( mapping(x=>slice(0)(get(fov('e'))(x)))
+    , filtering(x=>ist.object(x)&&d(x))))
+  (shovel)([]) 
+  (deepFlatten(faxdat))`]
+,['faxline',"(fax,rel=(a,i)=>i===0?' M0,0 ':_d.L(a),o=[0,0])=>way=> tat(way)({d:_d.M(o) +(map(x=>(join('')(map((s,i,n)=>rel(s,i,n))(x))))(fax))})"]
+,['cord',"(r,c=[0,0],o=-PI/2,d=[0,PI*2])=>x=>arcpt(x)(r,c,o,d)"]
+,['co',"(r,o)=>x=>arcpt(x)(r,o)"]
+,['appoint',"(x,i,o)=>([o[i>0?i-1:0],x])"]
+,['dis',`(place=x=>x)=>(xs, max=xs=>size(xs), idxs=(x,i)=>i)=> map((x,i,xs)=>place(div(max(xs))(idxs(x,i,xs))))(xs)`]
+,['very',`vs=>(SYM=circ())=>(target)=>
+  flow (map(SYM) ,map(flip(domo)(target)) )(vs)`]
+,['pointificate',"(r,f=dis( cord(r,[0,0],0)))=>xs=> f(xs)"]
+
+]
+</script>
+
+
+
+
+
+
+<script id='DOMALIASES'>
+DOMALIASES=
+  [['hasclass',"cls=>el=> el.classList?el.classList.contains(cls):attr(el)('class').includes(cls)"]
+  ,['selattr',"attr=>(sel,help=false)=>dat=>(selectors=({'exactly':'=','includes':'*=','inspaced':'~=','indashed':'|=','startswith':'^=','endswith':'$='}),qsa(`[${attr}${help?selectors[sel]:sel}'${dat}']`))"]
+  ,['shied',"el=>el.style.display?el.style.display='':el.style.display='none'"]
+  ,['fore',"sel=>el=>el.closest(sel)"]
+  ,['ward',"sel=>el=>el.querySelector(sel)"]
+  ,['wards',"sel=>el=>el.querySelectorAll(sel)"]
+  ,['kids',"el=> el.childNodes"]
+  ,['sibling',"el=>el.nextSibling"]
+  ,['siblings',"el=>parentNode.childNodes"]
+  ,['haskids',"hasChildNodes()"]
+  ,['matches',"sel=>el=>el.matches(sel)"]
+  ,['contains',"contains"]
+  ,['cloggle',"cls=>el=>el.classList.toggle(cls)"]
+  ,['classify',"el=>cls=>el.classList.add(cls)"]
+  ,['unclassify',"el=>cls=>el.classList.remove(cls)"]
+  ,['select',"el=>el.select()"]
+  ,['clone',"(el,clonekids=false)=>tat(cloneNode(clonekids)(el))({id:`${nom(el.id+'clone')}`})"]
+]
+</script>
+
+
+
+
+
+
+
+
+
+<script id='DATETIME'>
+  DATETIME=
+[['TZ',"({DangerZone:+8,CE:2018,SGT:+8,UTC:0,timeMax:{M:12,D:(month)=>daysinmonth(month),w:7,d:365,h:24,m:60,s:60,ms:1000},clockorder:split(',')('ms,s,m,h,D,M,w,d')})",CONF]
+,['dhmsm',"(t,tz=CONF.TZ.DangerZone,yr=C.TZ.CE)=>map(floor)((t+=tz*3.6e6,[((t-Date.parse(yr))/8.64e7)+1,(t/3.6e6)%24,(t/6e4)%60,(t/1e3)%60,(t)%1e3]))"]
+,['timeout',"(t=now(),n=3,maxes=values(map(x=>C.TZ.timeMax[x])(['d','h','m','s','ms'])))=>map(precisely(n))(map((x,i)=>x/maxes[i])(dhmsm(t)))"]
+,['times',"(t,n,m)=> (T=>({d:T[0],h:T[1],m:T[2],s:T[3]})) (slice(0,-1)(timeout(t,n,m)))"]
+,['dhmsms',"(t,tz=C.TZ.DangerZone,yr=C.TZ.CE)=> (T=>({d:T[0],h:T[1],m:T[2],s:T[3],ms:T[4]}))(map(floor)((t+=tz*3.6e6,[((t-Date.parse(yr))/8.64e7),(t/3.6e6)%24,(t/6e4)%60,(t/1e3)%60,(t)%1e3])))"]
+,['hmsm',"t=>[(t/3.6e6)%24,(t/6e4)%60,(t/1e3)%60,(t)%1e3]"]
+,['monthsfromdays',"(days,year=C.TZ.CE)=>new Date(year,0,days).getMonth()+1"]
+,['daysinmonth',"(month, year=C.TZ.CE)=>  new Date(year, month, 0).getDate()"]
+,['daysinyearto',"(days,month,year=C.TZ.CE)=> reduce((a,c)=>a+daysinmonth(c,year),0)(fillar(month-1)) + days"]
+,['timeschema',"(d=new Date())=>(d, {Y:d.getFullYear(),M:d.getMonth()+1,D:d.getDate(),w:daysinyearto(d.getDate(),d.getMonth()+1)%7,d:daysinyearto(d.getDate(),d.getMonth()+1),h:d.getHours(),m:d.getMinutes(),s:d.getSeconds(),ms:d.getMilliseconds()})"]
+,['formtime',"(t=timeschema())=>(t=config(t)(timeschema()),timeschema(new Date(t.Y,t.M-1,t.D,t.h,t.m,t.s,t.ms)))"]
+,['timesout',"(t=timeschema())=>(ord=[...'MDwdhms'].concat('ms'),t=formtime(t),reduce((a,c,i,o)=>(a[ord[i]]=c/(ord[i]==='D'?daysinmonth(t['M']):C.TZ.timeMax[ord[i]]),a),{}) (map(x=>t[x])(ord)) )"]
+]
+</script>
+
+
+
+
+
+<script id='SAVAGE'>
+$ymbols=
+[['trycicle',"h.circle({r:1,style:`stroke-width:0.5;stroke:var(--C_5);fill:var(--Cc3)`})"]
+,['tryl',"h.line({x1:0,x2:0,y1:-3,yat2:3 ,style:`stroke-width:.3;stroke:var(--Ca5);`})"]
+,['tryangle',"h.path({d:'M -5,-5 L0,5 L5,-5 z',style:`stroke-width:.5;stroke:var(--Ca5);fill:var(--Cc3)`})","({viewBox:'-6 -6 12 12'})"]
+,['star',"h.polygon({points:'-5,-5 -3,0 -5,5 0,3 5,5 3,0 5,-5 0,-3'})","({viewBox:'-5 -5 10 10'})"]
+,['crosshatch',"h.rect({width:'100%',height:'100%',fill:'TRANSLUSCENT'}),h.path({d:'M0 0L8 8ZM8 0L0 8Z',style:'stroke-width:0.5;stroke:#aaa;'})",`({viewBox:"0,0,10,10"})`]
+]
+SAVAGE=
+[['sympol',"(...shapes)=>(id,attrs={},title='',desc='')=>h.symbol(config({id})(attrs),h.title(title),h.desc(desc),...shapes)"]
+,['maketh',"(marpat='pattern')=>(symbolid,attrs,id=symbolid+marpat)=>h[marpat]({id},h.use({href:'#'+symbolid}))"]
+,['defineit',"(...xs)=>h.defs(...xs)"]
+,['knit',"(el,sof=0)=>patternid=>scs(['fill','stroke'][sof?1:0])(`url(#${patternid}pattern)`)(el)"]
+,['markit',"where=>markerid=>way=>tat(way)({[`marker-${where}`]:`url(#${markerid}marker)`})"]
+,['markers_patterns',`symbols=>target=>domo(h.defs(...reduce((a,x)=>a.concat([maketh('pattern')(x),maketh('marker')(x)]),[])(symbols)))(target)`]
+,['H',`({d:
+    {A: (a1,a0=0)=>(rx,ry=rx)=> (XY=RT_XY([rx,a1]),rotx=0,sweepflag=0,arcflag=lte(PI)(a1-a0)?0:1)=> affix('A ',' ',' ')(join(' ')([rx,ry,rotx,arcflag,sweepflag,XY]))
+    ,a: (a1,a0=0)=>(rx,ry=rx)=> (XY=RT_XY([rx,a1]),rotx=0,sweepflag=0,arcflag=lte(PI)(a1-a0)?0:1)=> affix('a ',' ',' ')(join(' ')([rx,ry,rotx,arcflag,sweepflag,XY]))
+    ,M: (XY=[0,0])=> affix('M ',' ','')(XY)
+    ,m: (XY=[0,0])=> affix('m ',' ','')(XY)
+    ,L: (XY=[0,0])=> affix('L ',' ','')(XY)
+    ,l: (XY=[0,0])=> affix('l ',' ','')(XY)
+    ,H: X=> affix('H ',' ','')(X)
+    ,h: X=> affix('h ',' ','')(X)
+    ,V: Y=> affix('V ',' ','')(X)
+    ,v: Y=> affix('v ',' ','')(X)
+    ,S: (XY2)=>(XY)=> affix('S ',' ','')(join(' ')([XY2,XY]))
+    ,Q: (XY1)=>(XY)=> affix('Q ',' ','')(join(' ')([XY1,XY]))
+    ,q: (XY1)=>(XY)=> affix('q ',' ','')(join(' ')([XY1,XY]))
+    ,C: (XY1)=>(XY2)=>(XY)=> affix('C ',' ','')(join(' ')([XY1,XY2,XY]))
+    ,c: (XY1)=>(XY2)=>(XY)=> affix('c ',' ','')(join(' ')([XY1,XY2,XY]))
+    ,T: (XY=[0,0])=> affix('T ',' ','')(XY)
+    ,Z: 'Z'}}) `,CONF]
+,['',"release(_d={})(x=>getpath(['H','d',x]) (CONF))(values('AaCcHhLlMmVvZ'))"]
+,['circ',"(r=0.1,form={})=>([cx,cy])=>h.circle(assign({r,cx,cy},form))"]
+,['pline',"(o,form={})=>(...ps)=>h.polyline(assign({points:`${o} ${(ist.array(ps)?[ps]:[ps]).join(' ')}`},form))"]
+,['sector',`(a1,a0)=>(r1,r2=r1+1)=>
+  (a1=convert()(clamp([1e-4,1])(a1)),a0=convert()(a0)
+  ,_d.M(RT_XY([r1,a0]))
+  +_d.A(a1,a0)(r1)(duh,duh,0,lte(PI)(abs(a1-a0))?0:1)
+  +_d.L(RT_XY([r2,a1]))
+  +_d.A(a0,a1)(r2)(duh,duh,1,lte(PI)(abs(a0-a1))?0:1)
+  +_d.Z)`]
+,['opensect',`(a,a0)=>(r1,r2=r1+1)=>
+  (a1=convert()(clamp([0,1])(a)),a0=convert()(clamp([0,1])(a0))
+  ,_d.M(RT_XY([r1,max(a1,a0)]))
+  +_d.A(...(sort((a,b)=>b<a)([a1,a0])))(r1)(duh,duh,0,lte(PI)(abs(a1-a0))?0:1)
+  +_d.M(RT_XY([r1,a0]))
+  +_d.L(RT_XY([r2,a0])))`]
+,['sect',"(r1=8,r2=r1+2,form=CONF.H.sect)=>([start,end])=>h.path(assign ({ d:sector(start,end)(r1,r2), class:'testsect','data-bounds':`from ${start} to ${end} inner:${r1} outer:${r2}`},form))"]
+,['arctrail',"(r1=i=>4+i,r2=i=>r1(i+1))=>xs=>'M0,'+r1(0)+join(' ')(slice(0,-1)( map((s,i,n)=>opensect(...(slice(i,i+2,i)(n)))(r1(i),r2(i)))(xs)))"]
+//UNIVERSAL PATH -> PROGRESS METER
+,['bbox',"(el)=> el.getBoundingClientRect()"]
+,['plength',"pathEl=>pathEl.getTotalLength()"]
+,['setDash',"way=>map(dash=>scs(dash)(plength(way))(way))(['stroke-dashoffset','stroke-dasharray'])"]
+,['wherefore',"pathEl=>prog=>pathEl.getPointAtLength(plength(pathEl)*prog)"]
+,['wayfar',"way=>prog=>(/*for safari*/bbox(way),setDash(way),scs('stroke-dashoffset')(plength(way)*(1-prog))(way))"]
+,['wayset',"(el,attrs={},SYM=h.circle)=>domo(SYM( config(attrs)({ id:nom('waypoint') }))) (el)"]
+,['wayptr',"el=>({x,y},r=1)=> tat(el)({cx:x,cy:y,r,style:'stroke:var(--Ca5)'})"]
+,['wayin','(target,waypt=(qsa(`#${target.id} + *[id^="waypoint"]`)||wayset(target)))=>rate=>(wayfar(target)(rate),wayptr(waypt)(wherefore(target)(rate)))']
+,['poi',"g=>join(' ')(map(el=>map(tat(el))(['x','y']))([...g.children]))"]
+]
+
+</script>
+
+
+
+
+
+
+
+
+<script id='FACTORY'>
+  /*
+Factorization into nested arrays and predefined schemas
+*/
+FACTORY=
+[['factorize',"(n,i,r)=>{for(r=n<0?(n=-n,[-1]):[],i=2;i<=n;i++)n%i||(r.push(i),n/=i--);r[0]=n*(r[0]||1);return r}"]
+,['sindex',`(ks)=>(f=x=>x,s=[],way=[])=> map((x,i,o)=>ist.array(x)?f([[concat(size(o))(s)],[concat(i)(way)],sindex(x)(f,concat(size(o))(s),concat(i)(way)) ],x) :f([[concat(size(o))(s)],[concat(i)(way)]],x) )(ks)`] 
+,['fax',`(fxs=[x=>x])=>(cond=x=>gt(1)(size(x)))=>(xs)=>
+  map((x,i)=>cond(fxs,xs) ?(fax(slice(1)(fxs))(cond)(fxs[0](x))) :fxs[0](x) )(xs)`]
+,['infest',`ns=>reduce((a,c,i)=>ist.array(c)?map(x=>filter(Boolean)(concat(x[incr(i)])(a)))(c):c,[1]) (reverse()(fax([fillar])()(ns)))`]
+,['since', `(tags,classes=[],content=true)=>([s,i,n],c)=>([tags?tags[size(i[0])-1]:"DEPTH"+(size(i[0])-1),{s:s[0],i:i[0],n:n?size(n):0,c:content?(ist.array(c)?join('')(deepFlatten(c)):c):'',e:map((x,i,o)=>div(s[0][i])(x))(i[0]), class:classes[size(i[0])-1]}].concat((n?n:c+'')))`]
+,['wikifactors',`xs=>map(z=> (
+   [entries(z)
+   , z.thumbnail?(z.thumbnail.source,entries(z))
+   : entries(z)
+   ] )) (map(x=>x[1])(xs))`]
+,['LSPWC',
+  `[x=>split('\\n')(x).filter(Boolean)
+   ,match(getconf(['RE','sentences']))
+   ,match(getconf(['RE','phrases']))
+   ,match(getconf(['RE','words']))
+   // ,values
+  ]`]
+,['SPWC',
+  `[match(getconf(['RE','sentences']))
+   ,match(getconf(['RE','phrases']))
+   ,match(getconf(['RE','words']))
+   ,values
+  ]`]
+,['factext',`(text,splits=SPWC,tags=['div','div','span','span','span'], classes=['article','sentence','phrase','word','char'],content=true)=>flow(fax(splits)(),flip(sindex)(since(tags,classes,content)))([text])`]
+,['facnum',`(n,tags=concat('X')(map(x=>'X'+x)(factorize(n))))=>flow(factorize,infest,flip(sindex)(since(tags)))(n)`]
+,['indexshift',"(idxs,n=2)=>concat(map(add(n))(idxs))([0])"]
+,['indexshift',"'Description: an adapter for pathfinding in a [a,{},...b] schematized sindex, adding two places for tagname and attributes'",NOTES]
+,['exacto',"(idxs,parallax=indexshift)=>factext=>getpath(parallax(idxs))(factext)"]
+]
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script id='FREGEX'>
+/*Regular-expressions*/
+FREGEX=
+	[['RE', 
+	  {words: /\S+\b|\b\S+|\s/gu   ///[^a-zA-Z-]+/
+	  ,words2:/\S+/gu
+	  ,lines2:/\r?\n/gu                // TODO: FIXME
+	  ,lines:/\S*[(?!\n\n)]+\S*/gu   // TODO: FIXME
+	  ,sentences: /\S*[^\.!?]+\S*/gu
+	  ,phrases:  /\S*[^,:;"\-]+\S*/gu  //  /\,|\"|\-|\;/
+	  ,numbers:/[+-]?(\d*\.)?\d+/
+	  ,chars:/./gu
+	  ,cssvars:/(--\w+)/g
+	    //--- FROM TEXTSTATS, SORT OUT WHEN FREE
+	  ,HtmlTags: /<[^>]+>/g
+	  ,delimiters: /[,:;()\/&+]|--/g
+	  ,fullstops:/[\.!?]/g
+	  ,fullstop_dup:/([\.])[\.]+/g  // "."
+	  ,fullstop_space:/[ ]*([\.])/g //". "
+	  ,WStrailing:/\s+$/
+	  ,WSleading:/^\s+/ //""
+	  ,WSdup: /\s+/g //" "
+	  //,emailDots:/[\.]?(\w+)[\.]?(\w+)@(\w+)[\.](\w+)[\.]?/g //, "$1$2@$3$4"
+	  ,newlines:/[ ]*(\n|\r\n|\r)[ ]*/g
+	  ,matrix3d:/^\w*\(|\)/g
+	  },CONF]
+	,['wordSep',    `xs=> affix('\\b(START~>','<~END)\\b')(xs)`]
+	,['rextract',  `(s,refun,delim=',')=>map(parseFloat)(split(delim)(refun(s)))`]
+	,['rxFrom',     `(o,c='g',d='|',f=values)=> RegExp(join(d)(f(o)),c)`]
+	,['rxReplace',  `((o,delim="|")=>s=> replace(rxFrom(o,'g',delim,keys), match=>o[match])(s))`]
+	,['zipsubs',     "fx=>xs=>release({})(fx)(xs)"]
+	,['punctuate',s=>rxReplace(zipsubs(x=>' '+x+' ') (values(',.!;:-')), '|\\+') (s)]
+	]
+</script>
