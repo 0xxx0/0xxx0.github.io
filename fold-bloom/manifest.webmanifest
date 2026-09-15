@@ -1,0 +1,19 @@
+{
+  "name": "FOLD//BLOOM",
+  "short_name": "FOLD//BLOOM",
+  "description": "A two-dial generative music game, instrument, duet, and returned composition field.",
+  "start_url": "./app.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#061018",
+  "theme_color": "#061018",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

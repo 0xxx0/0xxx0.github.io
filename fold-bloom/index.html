@@ -1,0 +1,245 @@
+<!doctype html>
+<script data-appdeploy-overlay-bootstrap>(function(){"use strict";var c={"src":"https://v2.appdeploy.ai/shared/js/overlay.js","appId":"fold-bloom-3ajmtc","appVersion":"1789501381201","notificationOpenQueryParam":"appdeploy_notification_open","overlayStyleToken":"7d2d47da554cf0d82be4372020b26382715c"};var a=Reflect.apply.bind(Reflect),d=document,w=window,g=Object.getOwnPropertyDescriptor(Document.prototype,"currentScript"),cs=g&&g.get?function(){return a(g.get,d,[])}:function(){return d.currentScript},ce=Document.prototype.createElement,ac=Node.prototype.appendChild,sa=Element.prototype.setAttribute,ra=Element.prototype.removeAttribute,ga=Element.prototype.getAttribute,ha=Element.prototype.hasAttribute,ae=EventTarget.prototype.addEventListener,as=Element.prototype.attachShadow,gb=Element.prototype.getBoundingClientRect,pt=Promise.prototype.then,sp=HTMLElement.prototype.showPopover,hp=HTMLElement.prototype.hidePopover,id=Object.getOwnPropertyDescriptor(HTMLElement.prototype,"inert")||Object.getOwnPropertyDescriptor(Element.prototype,"inert"),mo=w.MutationObserver,of=typeof w.fetch==="function"?w.fetch.bind(w):null,si=w.setInterval.bind(w),ci=w.clearInterval.bind(w),st=w.setTimeout.bind(w),od=d.open,ow=d.write,oc=d.close,claimed=false,input=null,repair=null,overlayClose=null,observer=null,watchdog=null;function call(f,t,x){return a(f,t,x||[])}function notify(){if(typeof repair==="function")try{repair()}catch(_){}}function trusted(e){if(typeof input==="function")try{input(e)}catch(_){}}function listen(){call(ae,w,["click",trusted,{capture:true}]);call(ae,w,["keydown",trusted,{capture:true}]);call(ae,d,["fullscreenchange",notify,true]);call(ae,d,["toggle",notify,true])}function observe(){if(!mo||observer)return;observer=new mo(function(){notify()});try{observer.observe(d,{attributes:true,attributeFilter:["style","hidden","inert","open","popover"],childList:true,subtree:true})}catch(_){}}function watch(){if(watchdog)return;watchdog=si(function(){listen();notify()},1000)}function stopWatch(){repair=null;if(watchdog){ci(watchdog);watchdog=null}}function claim(){var s=cs();if(claimed||!s||call(ga,s,["data-appdeploy-overlay-style"])!==c.overlayStyleToken)return null;claimed=true;return caps}function isOverlayCloseControl(e){return e===overlayClose}var caps=Object.freeze({config:Object.freeze({appId:c.appId,appVersion:c.appVersion||null,notificationOpenQueryParam:c.notificationOpenQueryParam,overlayStyleToken:c.overlayStyleToken}),fetch:of,call:call,createElement:function(t){return call(ce,d,[t])},appendChild:function(p,n){return call(ac,p,[n])},setAttribute:function(e,n,v){return call(sa,e,[n,v])},removeAttribute:function(e,n){return call(ra,e,[n])},getAttribute:function(e,n){return call(ga,e,[n])},hasAttribute:function(e,n){return call(ha,e,[n])},attachShadow:function(e,i){return call(as,e,[i])},getBoundingClientRect:function(e){return call(gb,e,[])},promiseThen:function(p,f,r){return call(pt,p,[f,r])},showPopover:function(e){if(sp)call(sp,e,[])},hidePopover:function(e){if(hp)call(hp,e,[])},getInert:function(e){return id&&id.get?call(id.get,e,[]):false},setInert:function(e,v){if(id&&id.set)call(id.set,e,[v])},addEventListener:function(t,n,h,o){return call(ae,t,[n,h,o])},createMutationObserver:function(h){return mo?new mo(h):null},setTimeout:st,registerOverlayCloseControl:function(e){overlayClose=e},setTrustedInputHandler:function(h){input=h},setRepairHandler:function(h){repair=h;watch();notify()},stopRepair:stopWatch});try{Object.defineProperty(w,"__appDeployOverlayBootstrap",{value:Object.freeze({claim:claim,isOverlayCloseControl:isOverlayCloseControl}),writable:false,configurable:false,enumerable:false})}catch(_){return}try{d.open=function(){var r=call(od,d,Array.prototype.slice.call(arguments));listen();notify();return r};d.write=function(){var r=call(ow,d,Array.prototype.slice.call(arguments));notify();return r};d.close=function(){var r=call(oc,d,Array.prototype.slice.call(arguments));listen();notify();return r}}catch(_){}listen();observe()})();</script><script async src="https://v2.appdeploy.ai/shared/js/overlay.js" data-appdeploy-overlay-style="7d2d47da554cf0d82be4372020b26382715c"></script><script>window.__APPDEPLOY_APP_ID="fold-bloom-3ajmtc";window.__APPDEPLOY_NOTIFICATION_OPEN_QUERY_PARAM="appdeploy_notification_open";window.__APPDEPLOY_APP_VERSION="1789501381201";</script>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#061018" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="FOLD//BLOOM" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="./icon.svg" />
+    <title>FOLD//BLOOM</title>
+    <link rel="stylesheet" href="./app.css" />
+  <link rel="icon" type="image/svg+xml" href="https://appdeploy.ai/assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="https://appdeploy.ai/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://appdeploy.ai/assets/favicon-16.png">
+<!--appdeploy-meta-->
+<meta property="og:title" content="Fold Bloom" data-appdeploy="true">
+<meta name="twitter:title" content="Fold Bloom" data-appdeploy="true">
+<meta name="description" content="FOLD//BLOOM 0.9: a two-dial generative music game, instrument, duet, and returned composition field with one relation algebra, consequence previews, phrase return, cassettes, and procedural Web Audio." data-appdeploy="true">
+<meta property="og:description" content="FOLD//BLOOM 0.9: a two-dial generative music game, instrument, duet, and returned composition field with one relation algebra, consequence previews, phrase return, cassettes, and procedural Web Audio." data-appdeploy="true">
+<meta name="twitter:description" content="FOLD//BLOOM 0.9: a two-dial generative music game, instrument, duet, and returned composition field with one relation algebra, consequence previews, phrase return, cassettes, and procedural Web Audio." data-appdeploy="true">
+<meta name="author" content="AppDeploy" data-appdeploy="true">
+<meta property="og:type" content="website" data-appdeploy="true">
+<meta name="twitter:card" content="summary_large_image" data-appdeploy="true">
+<meta property="og:image" content="https://fold-bloom-3ajmtc.v2.appdeploy.ai/assets/preview.png" data-appdeploy="true">
+<meta name="twitter:image" content="https://fold-bloom-3ajmtc.v2.appdeploy.ai/assets/preview.png" data-appdeploy="true">
+<meta name="twitter:site" content="@appdeployai" data-appdeploy="true">
+</head>
+  <body>
+    <canvas id="game" aria-label="FOLD BLOOM two-dial instrument"></canvas>
+    <div class="hud">
+      <div class="brand"><b>FOLD//BLOOM</b> · FIELD</div>
+      <div class="topline">
+        <span id="leftHud">RETURNS <b id="flow">0</b></span
+        ><span><b id="verb">MAKE BLOOM</b></span
+        ><span id="rightHud">MOTIF <b id="chain">0</b></span>
+      </div>
+      <div class="future" id="future">FIELD · GROUND</div>
+      <div class="scoreline" id="scoreLine"></div>
+      <div class="toast" id="toast"></div>
+      <div class="foot">LEFT · MATTER &nbsp; × &nbsp; RIGHT · HARMONY</div>
+    </div>
+    <div class="lawstrip" id="lawStrip">
+      ONE ALGEBRA // SAME BLOOM · NEAR FOLD · FAR RETURN · OPPOSITE SPLIT
+    </div>
+    <div class="duetLabels">
+      <span>MATTER · PLAYER A</span><span>PLAYER B · HARMONY</span>
+    </div>
+    <div class="actions">
+      <button
+        class="iconbtn"
+        id="soundBtn"
+        aria-label="Toggle sound"
+        aria-pressed="true"
+       data-appdeploy-source-id="src_96270e239af53738e46a0d7fd53bc736">
+        SOUND
+      </button>
+      <button class="iconbtn" id="helpBtn" aria-label="Help" data-appdeploy-source-id="src_1c5e45bce39d467df115de3b2b4b80c4">?</button>
+      <button class="iconbtn" id="menuBtn" aria-label="Open controls" data-appdeploy-source-id="src_c9ea6ecee790400c8a1e2d09b777ee0b">
+        •••
+      </button>
+    </div>
+    <div class="overlay" id="intro">
+      <div class="card">
+        <div class="ey">TWO DIAL · COMPOSITION FIELD</div>
+        <div class="title">TOUCH.<br />RELATE.<br />RETURN.</div>
+        <div class="copy">
+          Two cyclic controls create one consequence. The music is not a
+          soundtrack: the same field drives gesture, harmony, rhythm, memory and
+          return.
+        </div>
+        <button class="primary" id="playBtn" data-appdeploy-source-id="src_4e068db921c68bdb9073570bf0f99fd6">ENTER FIELD</button>
+        <div
+          class="copy"
+          style="font-size: 11px; margin-top: 18px; color: #7890a2"
+        >
+          Headphones help. No lives, streaks, ads or timers.
+        </div>
+      </div>
+    </div>
+    <div class="overlay" id="help">
+      <div class="card">
+        <div class="ey">THE SMALL ALGEBRA</div>
+        <div class="title" style="font-size: clamp(32px, 8vw, 56px)">
+          RELATION<br />MAKES VERB
+        </div>
+        <div class="copy">
+          <b>BLOOM</b> elaborates · <b>FOLD</b> reflects/develops ·
+          <b>SPLIT</b> destabilizes/fragments ·
+          <b>RETURN</b> resolves/compresses.<br /><br />The six relative dial
+          distances exhaust the field: SAME → BLOOM · NEAR → FOLD · FAR → RETURN
+          · OPPOSITE → SPLIT. PLAY is a four-operator score. Several positions
+          satisfy each requested operator; the forecast lens shows OPERATOR ×
+          POWER · NEW/ECHO · HOME/NEAR/FAR before release. Complete the score
+          and the instrument returns your four chosen placements as a short
+          musical phrase.
+        </div>
+        <button class="primary" id="backBtn" data-appdeploy-source-id="src_1b7d58e36b891b2d47b404225056aca6">BACK</button>
+      </div>
+    </div>
+    <div class="drawer" id="drawer">
+      <div class="sheet">
+        <div class="sheethead">
+          <div>
+            <div class="ey">FIELD CONTROL</div>
+            <div class="sheettitle">COMPOSITION CASSETTE</div>
+          </div>
+          <button class="close" id="closeMenu" data-appdeploy-source-id="src_46a5d328314e230cafa8cf72a98c127c">×</button>
+        </div>
+        <div class="section">
+          <div class="k">MODE</div>
+          <div class="segment" id="modeChoices">
+            <button class="choice" data-mode="PLAY" data-appdeploy-source-id="src_c7c703835fe5aa8485021a338afa3f70">PLAY</button
+            ><button class="choice" data-mode="OPEN" data-appdeploy-source-id="src_cceab2e6722dc7cee014a5094e9226e2">OPEN</button
+            ><button class="choice" data-mode="DUET" data-appdeploy-source-id="src_d0142c6ad4d1151a17218e1219f728a1">DUET</button>
+          </div>
+          <div class="desc" id="modeDesc"></div>
+        </div>
+        <div class="section">
+          <div class="k">SOUND WORLD</div>
+          <div class="segment worlds" id="worldChoices"></div>
+          <div class="desc" id="worldDesc"></div>
+        </div>
+        <div class="section">
+          <div class="k">SURFACE</div>
+          <div class="segment" id="surfaceChoices">
+            <button class="choice" data-surface="INK" data-appdeploy-source-id="src_47f2672239bdcd2127a623c56ead180b">INK</button
+            ><button class="choice" data-surface="TRACE" data-appdeploy-source-id="src_3f04d45ebbdd3c534b6009d0d82db2d7">TRACE</button
+            ><button class="choice" data-surface="QUIET" data-appdeploy-source-id="src_e01ca9a46fe15880ef7a1d9e14c6d91b">QUIET</button>
+          </div>
+          <div class="desc">
+            Same mechanics. INK emphasizes mass/contrast, TRACE exposes
+            recurrence and motion, QUIET strips ornament for instrument play.
+          </div>
+        </div>
+        <div class="section">
+          <div class="k">MIX / FEEL</div>
+          <label class="range"
+            ><span>VOLUME</span
+            ><input id="vol" type="range" min="0" max="100" value="84"  data-appdeploy-source-id="src_9954a004a2a600de24a8c6e31bdea3ae"/><span
+              id="volV"
+              >84</span
+            ></label
+          ><label class="range"
+            ><span>MEMORY</span
+            ><input
+              id="memory"
+              type="range"
+              min="0"
+              max="100"
+              value="62"
+             data-appdeploy-source-id="src_8e5d464d2a7a3ea31e2a7ffb0b21283d"/><span id="memoryV">62</span></label
+          ><label class="range"
+            ><span>MOTION</span
+            ><input
+              id="motion"
+              type="range"
+              min="0"
+              max="100"
+              value="70"
+             data-appdeploy-source-id="src_1ee8438b11cde1c23e9cf867e9c307db"/><span id="motionV">70</span></label
+          >
+          <div class="row">
+            <button class="secondary" id="hapticBtn" data-appdeploy-source-id="src_bdc851e00ccdb138e878124a55cacb0e">HAPTIC ON</button
+            ><button class="secondary" id="quietBtn" data-appdeploy-source-id="src_036cc6c8829dede3d4571678bbc6f679">VISUAL FULL</button>
+          </div>
+        </div>
+        <div class="section">
+          <div class="k">MUSIC MAP</div>
+          <div class="tiny" style="font-size: 10px; line-height: 1.65">
+            <b style="color: #eaf7ff">PULSE</b> = when: stable beat plus
+            controlled surprise.<br /><b style="color: #eaf7ff">GRAVITY</b> =
+            where: HARMONY chooses a region and nearby voices move there.<br /><b
+              style="color: #eaf7ff"
+              >RELATION</b
+            >
+            = what: MATTER × HARMONY makes BLOOM / FOLD / SPLIT / RETURN.<br /><b
+              style="color: #eaf7ff"
+              >MEMORY</b
+            >
+            = repeated relations become motifs; RETURN can recall them.
+          </div>
+        </div>
+        <div class="section">
+          <div class="k">AUTO DEMO / A-B</div>
+          <div class="row">
+            <button class="secondary" id="demoBtn" data-appdeploy-source-id="src_f5107012f2c5dede4350171eee94728c">START DEMO</button>
+          </div>
+          <div class="tiny" style="margin-top: 8px">
+            Runs the actual score automatically. Switch SOUND WORLD while it
+            plays to compare musical behavior. Touch either dial to take
+            control.
+          </div>
+        </div>
+        <div class="section">
+          <div class="k">SHARE / RETURN</div>
+          <div class="row">
+            <button class="secondary" id="shareBtn" data-appdeploy-source-id="src_297ba76c85c95ffa54b968f0e6f7ee6f">SHARE</button
+            ><button class="secondary" id="copyBtn" data-appdeploy-source-id="src_131ffb2c4cdc4ff1ed7da8d534635d33">MAKE CODE</button
+            ><button class="secondary" id="exportBtn" data-appdeploy-source-id="src_d0baafc0480a74840ef20ae51fe81d73">EXPORT JSON</button>
+          </div>
+          <textarea
+            class="codebox"
+            id="shareOut"
+            spellcheck="false"
+            placeholder="Portable cassette code appears here. Paste a code here, then IMPORT CODE."
+            style="display: none; margin-top: 8px"
+           data-appdeploy-source-id="src_a1f1943e3b9261c201961c4ea1932f23"></textarea>
+          <div class="tiny" style="margin-top: 8px">
+            A cassette contains the musical world, mode, field state, scars and
+            phrase memory.
+          </div>
+        </div>
+        <div class="section">
+          <div class="k">SAVED CASSETTES</div>
+          <div class="row">
+            <button class="secondary" id="saveBtn" data-appdeploy-source-id="src_70717ac0951a926e39c771684fd59296">SAVE CURRENT</button
+            ><button class="secondary" id="importBtn" data-appdeploy-source-id="src_dd25449ee7e918220ad53d784d741a9b">IMPORT CODE</button>
+          </div>
+          <div class="saved" id="savedList" style="margin-top: 8px"></div>
+        </div>
+        <div class="section">
+          <div class="k">SESSION</div>
+          <div class="row">
+            <button class="secondary" id="newBtn" data-appdeploy-source-id="src_8d6e0f338b7dd4aa6ee23ce42118eb81">NEW FIELD</button>
+          </div>
+          <div class="tiny" id="buildInfo" style="margin-top: 9px"></div>
+        </div>
+      </div>
+    </div>
+    <script src="./core1.js"></script>
+    <script src="./core2.js"></script>
+    <script src="./audio1.js"></script>
+    <script src="./audio2.js"></script>
+    <script src="./app-runtime.js"></script>
+  </body>
+</html>
