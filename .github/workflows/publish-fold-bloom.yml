@@ -1,0 +1,45 @@
+name: Publish FOLD BLOOM snapshot
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/publish-fold-bloom.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+      - name: Mirror FOLD BLOOM 0.9 static assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE='https://fold-bloom-3ajmtc.v2.appdeploy.ai'
+          mkdir -p fold-bloom
+          curl --fail --silent --show-error --location "$BASE/app.html" -o fold-bloom/index.html
+          for f in app.css app-runtime.js audio1.js audio2.js core1.js core2.js icon.svg manifest.webmanifest sw.js; do
+            curl --fail --silent --show-error --location "$BASE/$f" -o "fold-bloom/$f"
+          done
+          touch fold-bloom/.nojekyll
+          test -s fold-bloom/index.html
+          grep -q 'FOLD//BLOOM' fold-bloom/index.html
+          grep -q '0.9.0-return-score' fold-bloom/core1.js
+      - name: Commit stable Pages snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add fold-bloom
+          if git diff --cached --quiet; then
+            echo 'Snapshot already current.'
+            exit 0
+          fi
+          git commit -m 'Publish FOLD//BLOOM 0.9 static snapshot [skip ci]'
+          git push origin master
