@@ -11,3 +11,35 @@ function drawSeed(t,dt){if(!seed)return; const speed=(garden?.30:.23)*pace*(brea
 function drawCausal(t){if(!seed||!aligned()||chapter<3)return; const p=predictedChain(); if(p.length<2)return; g.save(); g.translate(CX,CY); for(let k=0;k<p.length-1;k++){const a=slotAngle(p[k]),b=slotAngle(p[k+1]),x1=Math.cos(a)*R,y1=Math.sin(a)*R,x2=Math.cos(b)*R,y2=Math.sin(b)*R; g.strokeStyle=`hsla(${baseHue[seed.type]},92%,80%,.14)`; g.lineWidth=1; g.beginPath(); g.moveTo(x1,y1); g.quadraticCurveTo(0,0,x2,y2); g.stroke(); const u=(t*.34+k*.16)%1,om=1-u,qx=om*om*x1+u*u*x2,qy=om*om*y1+u*u*y2; g.fillStyle=`hsla(${baseHue[seed.type]},95%,84%,.4)`; g.beginPath(); g.arc(qx,qy,2.2,0,TAU); g.fill()} g.restore() }
 function drawScoreHalo(t){const tape=eventTape.slice(-18), muted=!soundOn; g.save(); g.translate(CX,CY); const rr=R*1.48; tape.forEach((e,k)=>{const age=tape.length-1-k,a=-Math.PI/2+(k/18)*TAU+rotation*.08,alpha=(.16+.55*(1-age/18))*(muted?1.45:1),h=e.kind==='DRIFT'?5:baseHue[e.type%3],rad=2.5+(e.chain||0)*.8; g.strokeStyle=e.kind==='DRIFT'?`rgba(255,109,124,${alpha})`:`hsla(${h},90%,76%,${alpha})`; g.fillStyle=g.strokeStyle; g.lineWidth=1.1; if(e.kind==='DRIFT'){g.beginPath(); g.moveTo(Math.cos(a)*rr-rad,Math.sin(a)*rr-rad); g.lineTo(Math.cos(a)*rr+rad,Math.sin(a)*rr+rad); g.moveTo(Math.cos(a)*rr+rad,Math.sin(a)*rr-rad); g.lineTo(Math.cos(a)*rr-rad,Math.sin(a)*rr+rad); g.stroke()} else {shapePath(g,shapes[e.type%3],Math.cos(a)*rr,Math.sin(a)*rr,rad); g.fill(); if((e.chain||1)>2){g.beginPath(); g.arc(Math.cos(a)*rr,Math.sin(a)*rr,rad+3+e.chain,0,TAU); g.stroke()}}}); g.restore() }
 function drawPressureBook(){const rows=pressureSnapshot(),x=W-124,y=H*.37;g.save();g.translate(x,y);g.font='10px ui-monospace';g.textAlign='center';g.fillStyle='rgba(255,255,255,.58)';g.fillText('BOOK',0,-54);rows.forEach((r,i)=>{const yy=i*34;g.fillStyle='rgba(255,255,255,.05)';g.fillRect(-56,yy-9,112,18);const bid=Math.min(52,r.bid*5),ask=Math.min(52,r.ask*3.2);g.fillStyle=`hsla(${baseHue[r.type]},88%,70%,.52)`;g.fillRect(-bid,yy-8,bid,16);g.fillStyle='rgba(255,255,255,.18)';g.fillRect(0,yy-8,ask,16);g.fillStyle='#fff';g.textAlign='left';g.fillText(r.bid.toFixed(1),-54,yy+4);g.textAlign='right';g.fillText(r.ask.toFixed(1),54,yy+4);g.textAlign='center';g.fillStyle=`hsla(${baseHue[r.type]},95%,78%,1)`;g.fillText(glyphs[r.type],0,yy+4)});g.restore()}
+
+// Runtime continuation loader. The page historically loaded only app1–app4,
+// while input handlers, labs, Toolglass and final initialization live in app5–app9.
+// Keep the start controls disabled until the complete runtime has executed.
+(async()=>{
+  const ids=['startFlow','startRatchet','startGarden'];
+  const controls=ids.map(id=>document.getElementById(id)).filter(Boolean);
+  controls.forEach(b=>{b.disabled=true;b.dataset.runtimeLabel=b.innerHTML});
+  const sub=document.querySelector('.sub');
+  if(sub)sub.textContent='RC11.2 / RESTORING FULL RUNTIME';
+  try{
+    for(const file of ['app5.js','app6.js','app7.js','app8.js','app9.js']){
+      await new Promise((resolve,reject)=>{
+        const s=document.createElement('script');
+        s.src=file+'?v=rc11.2';
+        s.async=false;
+        s.onload=resolve;
+        s.onerror=()=>reject(new Error('Failed to load '+file));
+        document.body.appendChild(s);
+      });
+    }
+    controls.forEach(b=>{b.disabled=false;if(b.dataset.runtimeLabel)b.innerHTML=b.dataset.runtimeLabel});
+    if(sub)sub.textContent='RC11.2 / FULL RUNTIME RESTORED';
+    document.documentElement.dataset.fbRuntime='ready';
+  }catch(err){
+    document.documentElement.dataset.fbRuntime='failed';
+    document.documentElement.dataset.fbRuntimeError=String(err?.message||err);
+    if(sub)sub.textContent='RUNTIME LOAD FAILED · RELOAD';
+    const toast=document.getElementById('toast');
+    if(toast){toast.textContent='RUNTIME LOAD FAILED · RELOAD';toast.classList.add('on')}
+  }
+})();
