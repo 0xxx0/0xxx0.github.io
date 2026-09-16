@@ -1,0 +1,48 @@
+name: Publish Atlas Dayline static snapshot
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/publish-atlas-dayline.yml'
+      - 'releases/atlas-dayline-i.tar.gz.b64'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+      - name: Materialize Atlas Dayline release
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf atlas-dayline
+          mkdir -p atlas-dayline
+          base64 -d releases/atlas-dayline-i.tar.gz.b64 | tar -xzf - -C atlas-dayline
+          touch atlas-dayline/.nojekyll
+          test -s atlas-dayline/index.html
+          test -s atlas-dayline/app.js
+          test -s atlas-dayline/app.css
+          grep -q 'ATLAS DAYLINE I' atlas-dayline/index.html
+          grep -q 'TIDE / OPPORTUNITY FORECAST' atlas-dayline/app.js
+          grep -q 'RUN FIT / ROBUSTNESS' atlas-dayline/app.js
+          grep -q 'LOCAL-ONLY' atlas-dayline/index.html
+          ! grep -Eiq 'kiwi|wesleyan|nngs|bendemeer|mac mini|ves +' atlas-dayline/index.html atlas-dayline/app.js
+      - name: Commit stable GitHub Pages snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add atlas-dayline
+          if git diff --cached --quiet; then
+            echo 'Atlas Dayline snapshot already current.'
+            exit 0
+          fi
+          git commit -m 'Publish Atlas Dayline I static snapshot [skip ci]'
+          git push origin master
