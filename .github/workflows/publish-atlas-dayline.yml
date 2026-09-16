@@ -22,16 +22,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          sha256sum releases/atlas-dayline-i.part-*
-          echo 'expected:'
-          echo 'd58c12f141f5067195a88ce5b5b3bc2fddf24799796dc4cc04c86fc366a48839 part-00'
-          echo '257eee0604b8f2a7292c3353ede92f18c493963192ad4ac82e497c727ece8cd2 part-01'
-          echo '60093253a13f44c9ac249a3ce2a760e60544ed34229235549a0af55d5a279518 part-02'
-          echo 'cf4e6629a6c63a42e0ad2ee51c11bbfdba83caf89f5684b80cc1905f2d3076ab part-03'
-          echo 'cb1805da7612b626bba77795fc48ca65c5759a75d28ecda7659d9086b61bc108 part-04'
+          echo 'bb91caf73219cb64f7e80db71fbb329892eaed7cdbd52db30a602c3754fd3017  releases/atlas-dayline-i.part-03a' | sha256sum -c -
+          echo 'f6fb40897dec2bbcf4182b6205ac7bb9744fba4b85cc79bd7b0d3949900dd256  releases/atlas-dayline-i.part-03b' | sha256sum -c -
+          echo '430fa9c86d34d972c846c3f0583ca68a9830b25d107a7deab85a83db6c65ff21  releases/atlas-dayline-i.part-03c' | sha256sum -c -
           rm -rf atlas-dayline
           mkdir -p atlas-dayline
-          cat releases/atlas-dayline-i.part-* > /tmp/atlas-dayline-i.b64
+          cat releases/atlas-dayline-i.part-00 releases/atlas-dayline-i.part-01 releases/atlas-dayline-i.part-02 releases/atlas-dayline-i.part-03a releases/atlas-dayline-i.part-03b releases/atlas-dayline-i.part-03c releases/atlas-dayline-i.part-04 > /tmp/atlas-dayline-i.b64
           test "$(wc -c < /tmp/atlas-dayline-i.b64)" -eq 37192
           echo 'a0613a1409f06ca845c3d08727f403c217777b1326d3dbe87a1e1fb622a67018  /tmp/atlas-dayline-i.b64' | sha256sum -c -
           base64 -d /tmp/atlas-dayline-i.b64 > /tmp/atlas-dayline-i.tar.xz
@@ -51,7 +47,7 @@ jobs:
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
-          git config user.email '41898282+0xxx0@users.noreply.github.com'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add atlas-dayline
           if git diff --cached --quiet; then
             echo 'Atlas Dayline snapshot already current.'
