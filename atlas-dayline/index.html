@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>POLY // Atlas Dayline — Branch I</title>
+<meta name="theme-color" content="#f4efe4"/>
+<meta name="description" content="Local-first radial-linear planning atlas with counterfactual forecast, bounded RUN, plain ablation, Return receipts, and route robustness."/>
+<link rel="manifest" href="./manifest.webmanifest"/>
+<link rel="icon" href="./icon.svg" type="image/svg+xml"/>
+<link rel="stylesheet" href="./app.css"/>
+</head>
+<body>
+<div id="mobileNav" aria-label="Mobile projection viewport"><button data-mobile-view="now" class="on">NOW</button><button data-mobile-view="field">FIELD</button><button data-mobile-view="run">RUN</button><button data-mobile-view="return">RETURN</button><button data-mobile-view="tide">TIDE</button><button data-mobile-view="atlas">ATLAS</button></div>
+
+<nav id="utilityBar" aria-label="Atlas projection controls">
+ <span class="mark">POLY // ATLAS DAYLINE I · <b>LOCAL-ONLY</b></span>
+ <button id="atlasProjectionBtn" class="on">ATLAS</button><button id="plainProjectionBtn">PLAIN</button><button id="scenarioBtn">SCENARIO</button><span id="scenarioBadge">NO COUNTERFACTUAL</span><button id="quickNewBtn">＋ TASK</button><button id="quickReturnBtn">RETURN</button><button id="quickReplayBtn">REPLAY</button><button id="shareCapsuleBtn">CAPSULE ↗</button>
+</nav>
+<section id="plainView" aria-label="Plain list ablation"><div class="plain-head"><div><h1>DAYLINE / PLAIN ABLATION</h1><div class="plain-sub">SAME TASK IDS · SAME RANKING · SAME RUN · NO SPATIAL CLAIM</div></div><div id="plainState" class="plain-state"></div></div><div id="plainAnchors"></div><div id="plainList" class="plain-list"></div><div id="plainFoot" class="plain-foot"></div></section>
+
+<div id="shell"><div id="sheetWrap">
+<svg id="atlas" viewBox="0 0 1200 2480" role="img" aria-label="Interactive radial-linear daily planning atlas">
+<defs>
+ <filter id="paperNoise" x="-10%" y="-10%" width="120%" height="120%"><feTurbulence type="fractalNoise" baseFrequency="0.72" numOctaves="3" seed="11" result="n"/><feColorMatrix in="n" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 .035 0"/></filter>
+ <pattern id="hatch" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><line x1="0" y1="0" x2="0" y2="5" stroke="#191915" stroke-opacity=".22" stroke-width=".65"/></pattern>
+ <pattern id="hatchRed" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(35)"><line x1="0" y1="0" x2="0" y2="5" stroke="#a8422d" stroke-opacity=".5" stroke-width=".8"/></pattern>
+</defs>
+<rect width="1200" height="1900" fill="#f4efe4"/><rect width="1200" height="1900" fill="#000" filter="url(#paperNoise)" opacity=".1" pointer-events="none"/>
+<g id="staticLayer"></g><g id="relationLayer"></g><g id="fieldLayer"></g><g id="routeLayer"></g><g id="spineLayer"></g><g id="marginLayer"></g><g id="ledgerLayer"></g><g id="forecastLayer"></g><g id="strategyLayer"></g><g id="overlayLayer"></g>
+</svg>
+</div></div>
+
+<dialog id="taskDialog"><div class="dh"><span id="taskDialogTitle">EDIT TASK RECORD</span><button data-close="taskDialog">CLOSE</button></div><div class="db"><div class="grid">
+ <div class="field full"><label>TITLE</label><input id="fTitle"/></div><div class="field"><label>EARLIEST</label><input id="fEarliest" type="time"/></div><div class="field"><label>LATEST</label><input id="fLatest" type="time"/></div>
+ <div class="field"><label>DURATION / MIN</label><input id="fDuration" type="number" min="1"/></div><div class="field"><label>VALUE / 1–5</label><input id="fValue" type="number" min="1" max="5"/></div>
+ <div class="field full"><label>CONTEXTS / COMMA SEPARATED</label><input id="fContexts"/></div><div class="field"><label>SETUP COST / 0–5</label><input id="fSetup" type="number" min="0" max="5"/></div><div class="field"><label>STATUS</label><select id="fStatus"><option value="open">open</option><option value="done">done</option></select></div>
+ <div class="field"><label>SOURCE CLASS</label><select id="fSourceClass"><option value="USER">USER / DIRECT</option><option value="IMPORTED">IMPORTED</option><option value="WORKING_SPEC">WORKING SPEC</option><option value="DERIVED">DERIVED / PROPOSED</option></select></div><div class="field"><label>PROVENANCE</label><input id="fProvenance" placeholder="chat / calendar / self / file…"/></div><div class="field full"><label>DEPENDENCIES / TASK IDS</label><input id="fDepends"/></div><div class="field full"><label>NOTES</label><textarea id="fNotes"></textarea></div>
+</div></div><div class="df"><button class="danger" id="deleteTask">DELETE</button><div><button id="duplicateTask">DUPLICATE</button> <button class="primary" id="saveTask">SAVE</button></div></div></dialog>
+
+<dialog id="anchorDialog"><div class="dh"><span id="anchorDialogTitle">EDIT ANCHOR</span><button data-close="anchorDialog">CLOSE</button></div><div class="db"><div class="grid">
+ <div class="field full"><label>TITLE</label><input id="aTitle"/></div><div class="field"><label>START</label><input id="aStart" type="time"/></div><div class="field"><label>END</label><input id="aEnd" type="time"/></div><div class="field full"><label>NOTE</label><textarea id="aNote"></textarea></div>
+</div></div><div class="df"><button class="danger" id="deleteAnchor">DELETE</button><div><button class="primary" id="saveAnchor">SAVE</button></div></div></dialog>
+
+<dialog id="timeDialog"><div class="dh"><span>SET CURRENT TIME</span><button data-close="timeDialog">CLOSE</button></div><div class="db"><div class="field"><label>NOW</label><input id="timeInput" type="time" step="300"/></div></div><div class="df"><span></span><button class="primary" id="saveTime">APPLY</button></div></dialog>
+
+<dialog id="evidenceDialog"><div class="dh"><span id="evidenceTitle">PROOF GATE NOTE</span><button data-close="evidenceDialog">CLOSE</button></div><div class="db"><div class="field"><label>OBSERVATION</label><textarea id="evidenceText" placeholder="What happened? Keep it concrete."></textarea></div></div><div class="df"><span></span><button class="primary" id="saveEvidence">RECORD</button></div></dialog>
+
+
+<dialog id="scenarioDialog"><div class="dh"><span>SCENARIO LENS / COUNTERFACTUAL</span><button data-close="scenarioDialog">CLOSE</button></div><div class="db"><div class="grid">
+ <div class="field"><label>PREVIEW TIME</label><input id="scenarioTime" type="time" step="300"/></div><div class="field"><label>LOOK-AHEAD</label><select id="scenarioHorizon"><option value="30">30 min</option><option value="180">3 hours</option><option value="9999">rest of day</option></select></div>
+ <div class="field full"><label>PREVIEW CONTEXTS / COMMA SEPARATED</label><input id="scenarioContexts" placeholder="home, computer, phone"/></div>
+ <div class="field full"><label>LAW</label><div style="font-size:9px;color:#817c72">PREVIEW is non-canonical. Blue vectors show how activation cost would change. APPLY is the authority boundary.</div></div>
+ </div></div><div class="df"><button id="clearScenario">CLEAR</button><div><button id="previewScenario">PREVIEW ONLY</button> <button id="applyScenario" class="primary">APPLY SCENARIO</button></div></div></dialog>
+
+<dialog id="jsonDialog"><div class="dh"><span>CANONICAL DAYSTATE</span><button data-close="jsonDialog">CLOSE</button></div><div class="db"><textarea id="jsonText"></textarea></div><div class="df"><button id="resetData" class="danger">RESET SAMPLE</button><div><button id="formatJson">FORMAT</button> <button id="shareCapsuleJson">COPY CAPSULE</button> <button id="printAtlas">PRINT</button> <button id="exportJson">EXPORT</button> <button id="applyJson" class="primary">APPLY</button></div></div></dialog>
+<div id="toast"></div>
+
+<script defer src="./app.js"></script>
+</body>
+</html>

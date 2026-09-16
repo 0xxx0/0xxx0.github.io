@@ -1,0 +1,13 @@
+{
+  "name": "POLY // Atlas Dayline",
+  "short_name": "Atlas Dayline",
+  "description": "Local-first radial-linear planning atlas with TIDE forecast, bounded RUN, scenario preview and Return receipts.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f4efe4",
+  "theme_color": "#f4efe4",
+  "icons": [
+    {"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
