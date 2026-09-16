@@ -5,7 +5,7 @@ on:
   push:
     paths:
       - '.github/workflows/publish-atlas-dayline.yml'
-      - 'releases/atlas-dayline-i.tar.gz.b64'
+      - 'releases/atlas-dayline-i.part-*'
 
 permissions:
   contents: write
@@ -17,13 +17,16 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: master
+          fetch-depth: 0
       - name: Materialize Atlas Dayline release
         shell: bash
         run: |
           set -euo pipefail
           rm -rf atlas-dayline
           mkdir -p atlas-dayline
-          base64 -d releases/atlas-dayline-i.tar.gz.b64 | tar -xzf - -C atlas-dayline
+          cat releases/atlas-dayline-i.part-* > /tmp/atlas-dayline-i.b64
+          test "$(wc -c < /tmp/atlas-dayline-i.b64)" -eq 37192
+          base64 -d /tmp/atlas-dayline-i.b64 | xz -dc | tar -xf - -C atlas-dayline
           touch atlas-dayline/.nojekyll
           test -s atlas-dayline/index.html
           test -s atlas-dayline/app.js
@@ -45,4 +48,5 @@ jobs:
             exit 0
           fi
           git commit -m 'Publish Atlas Dayline I static snapshot [skip ci]'
+          git pull --rebase origin master
           git push origin master
