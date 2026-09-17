@@ -1,0 +1,66 @@
+name: Publish FOLD BLOOM showcase
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/publish-fold-bloom-showcase.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+      - name: Freeze Ecology 0.2 and Scale Lens Studio
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          root=Path('fold-bloom')
+          # The current root was an AppDeploy-injected Ecology 0.2 snapshot.
+          # Strip only the deployment overlay and preserve the exact ecology artifact loader.
+          s=(root/'index.html').read_text()
+          i=s.find('<!doctype html>')
+          if i < 0: raise SystemExit('Ecology payload not found in current root snapshot')
+          eco=s[i:]
+          d=root/'ecology'; d.mkdir(exist_ok=True)
+          (d/'index.html').write_text(eco)
+          (d/'.nojekyll').write_text('')
+          (d/'manifest.webmanifest').write_text('{"name":"FOLD//BLOOM Ecology Instrument 0.2","short_name":"FB Ecology","start_url":"./","display":"standalone","background_color":"#05070b","theme_color":"#05070b"}')
+          (d/'sw.js').write_text("self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));")
+
+          # Freeze RC11.2 Scale Lens Studio into an isolated subpath.
+          lens=root/'lens'; lens.mkdir(exist_ok=True)
+          html=(root/'lens-studio.html').read_text().replace('SEND ADDRESSED FIELD → FOLD//BLOOM','OPEN TWO DIAL →')
+          (lens/'index.html').write_text(html)
+          js=(root/'studio-v12.js').read_text()
+          js=js.replace("$('#fieldBtn').onclick=()=>location.href='index.html';", "$('#fieldBtn').onclick=()=>location.href='../';")
+          js=js.replace("location.href='index.html#studio'", "location.href='../two-dial/'")
+          (lens/'studio-v12.js').write_text(js)
+          for name in ['studio-v12.css','sample-data.json','sample-data.csv','sample-text.txt']:
+              (lens/name).write_bytes((root/name).read_bytes())
+          (lens/'.nojekyll').write_text('')
+          PY
+      - name: Verify frozen branches
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'Ecology Instrument 0.2' fold-bloom/ecology/index.html
+          grep -q 'SCALE LENS STUDIO' fold-bloom/lens/index.html
+          grep -q "location.href='../two-dial/'" fold-bloom/lens/studio-v12.js
+      - name: Commit showcase branches
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add fold-bloom/ecology fold-bloom/lens
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Freeze Ecology 0.2 and Scale Lens showcase branches [skip ci]'
+          git push origin master
