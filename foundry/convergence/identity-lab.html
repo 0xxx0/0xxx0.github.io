@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#07090b">
+  <meta name="description" content="One canonical object surviving TEXT, TABLE, DAYLINE, RUN, CASE and RETURN projections with stable identity and provenance.">
+  <title>Foundry · Identity Lab</title>
+  <link rel="stylesheet" href="./identity-lab.css">
+</head>
+<body>
+  <div class="app">
+    <header class="top">
+      <div>
+        <div class="brand">FOUNDRY <b>IDENTITY LAB</b></div>
+        <div class="sub">ONE OBJECT · SIX PROJECTIONS · ZERO SILENT IDENTITY LOSS</div>
+      </div>
+      <div class="actions">
+        <button class="btn ghost" id="importBtn">IMPORT</button>
+        <button class="btn ghost" id="exportBtn">EXPORT</button>
+        <button class="btn hot" id="shareBtn">CAPSULE</button>
+      </div>
+    </header>
+
+    <main>
+      <div class="head">
+        <div>
+          <div class="ey">CAP-IR · CONVERGENCE GATE 01</div>
+          <h1>Remain the same thing.</h1>
+          <p>The representation may change radically. Stable identity, exact source, parent relation, provenance and RETURN history may not change silently.</p>
+        </div>
+      </div>
+
+      <section class="card hero" id="identity"></section>
+
+      <nav class="projection-tabs" aria-label="projection selector">
+        <button class="on" data-projection="text">TEXT</button>
+        <button data-projection="table">TABLE</button>
+        <button data-projection="dayline">DAYLINE</button>
+        <button data-projection="run">RUN</button>
+        <button data-projection="case">CASE</button>
+        <button data-projection="return">RETURN</button>
+      </nav>
+
+      <section class="projection" id="projectionBody"></section>
+
+      <section class="grid2" style="margin-top:10px">
+        <div class="card">
+          <div class="ey">TRANSFORMATION LEDGER</div>
+          <p class="micro">Every canonical mutation appends before/after hashes. Projection switches do not mutate canon.</p>
+          <div class="history" id="ledger"></div>
+        </div>
+        <div>
+          <div class="card">
+            <div class="ey">KERNEL PROOF · <span id="testSummary"></span></div>
+            <div id="tests"></div>
+          </div>
+          <div class="card" style="margin-top:10px">
+            <div class="ey">CURRENT FIXED POINTS</div>
+            <div class="kv"><b>OBJECT</b><code id="objectId"></code></div>
+            <div class="kv"><b>CANON HASH</b><code id="canonHash"></code></div>
+            <div class="kv"><b>PUBLIC SURFACE</b><span>GitHub Pages · local-first · no account/backend</span></div>
+            <div class="kv"><b>SERVER ESCALATION</b><span>Only when auth, DB, realtime, storage, cron or server AI earns it.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card" style="margin-top:10px">
+        <div class="ey">DISCRIMINATING TEST</div>
+        <p><b>Next:</b> import one real object from our work, carry it through at least five projections, then compare PLAIN vs FIELD on reorientation time, wrong-first action, missed constraints, opportunities noticed and willingness to reuse. If a projection adds no leverage, demote it.</p>
+        <div class="actions"><a class="btn" href="../../forward-field-proof/" style="text-decoration:none">OPEN ABLATION HARNESS ↗</a><a class="btn" href="../../atlas-dayline/" style="text-decoration:none">OPEN ATLAS DAYLINE ↗</a><button class="btn ghost" id="resetBtn">RESET LOCAL LAB</button></div>
+      </section>
+
+      <div class="footer">POSSIBLE → OPERATE → CONSTRAIN → PROVE → RETURN → SURFACE → RECEIPT</div>
+    </main>
+  </div>
+
+  <div id="toast" hidden style="position:fixed;z-index:100;left:50%;top:14px;transform:translateX(-50%);background:#edf0eb;color:#07090b;border-radius:999px;padding:8px 12px;font:10px ui-monospace,SFMono-Regular,Menlo,monospace"></div>
+  <script type="module" src="./identity-lab.js"></script>
+</body>
+</html>
