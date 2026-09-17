@@ -1,4 +1,4 @@
-name: Publish FOLD BLOOM snapshot
+name: Publish FOLD BLOOM Ecology 0.2
 
 on:
   workflow_dispatch:
@@ -10,36 +10,36 @@ permissions:
   contents: write
 
 jobs:
-  snapshot:
+  restore:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           ref: master
-      - name: Mirror FOLD BLOOM 0.9 static assets
+      - name: Restore Ecology Instrument 0.2 as canonical FOLD BLOOM
         shell: bash
         run: |
           set -euo pipefail
-          BASE='https://fold-bloom-3ajmtc.v2.appdeploy.ai'
           mkdir -p fold-bloom
-          curl --fail --silent --show-error --location "$BASE/app.html" -o fold-bloom/index.html
-          for f in app.css app-runtime.js audio1.js audio2.js core1.js core2.js icon.svg manifest.webmanifest sw.js; do
-            curl --fail --silent --show-error --location "$BASE/$f" -o "fold-bloom/$f"
-          done
+          if grep -q 'SCALE LENS STUDIO' fold-bloom/index.html 2>/dev/null; then
+            cp fold-bloom/index.html fold-bloom/rc11-scale-lens.html
+          fi
+          SRC='https://centre-mass-lab-3t78nd.v2.appdeploy.ai/experiments/fold-bloom-ecology/index.html'
+          curl --fail --silent --show-error --location "$SRC" -o fold-bloom/index.html
           touch fold-bloom/.nojekyll
           test -s fold-bloom/index.html
-          grep -q 'FOLD//BLOOM' fold-bloom/index.html
-          grep -q '0.9.0-return-score' fold-bloom/core1.js
-      - name: Commit stable Pages snapshot
+          grep -q 'Ecology Instrument 0.2' fold-bloom/index.html
+      - name: Commit restored canonical surface
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add fold-bloom
+          git add fold-bloom/index.html fold-bloom/.nojekyll
+          if [ -f fold-bloom/rc11-scale-lens.html ]; then git add fold-bloom/rc11-scale-lens.html; fi
           if git diff --cached --quiet; then
-            echo 'Snapshot already current.'
+            echo 'Ecology 0.2 already canonical.'
             exit 0
           fi
-          git commit -m 'Publish FOLD//BLOOM 0.9 static snapshot [skip ci]'
+          git commit -m 'Restore FOLD//BLOOM Ecology Instrument 0.2 as canonical [skip ci]'
           git push origin master
