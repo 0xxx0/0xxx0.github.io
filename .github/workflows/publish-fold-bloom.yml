@@ -16,30 +16,37 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: master
-      - name: Restore Ecology Instrument 0.2 as canonical FOLD BLOOM
+      - name: Refresh Ecology Instrument 0.2 branch only
         shell: bash
         run: |
           set -euo pipefail
-          mkdir -p fold-bloom
-          if grep -q 'SCALE LENS STUDIO' fold-bloom/index.html 2>/dev/null; then
-            cp fold-bloom/index.html fold-bloom/rc11-scale-lens.html
-          fi
+          mkdir -p fold-bloom/ecology
           SRC='https://centre-mass-lab-3t78nd.v2.appdeploy.ai/experiments/fold-bloom-ecology/index.html'
-          curl --fail --silent --show-error --location "$SRC" -o fold-bloom/index.html
-          touch fold-bloom/.nojekyll
-          test -s fold-bloom/index.html
-          grep -q 'Ecology Instrument 0.2' fold-bloom/index.html
-      - name: Commit restored canonical surface
+          curl --fail --silent --show-error --location "$SRC" -o fold-bloom/ecology/index.html
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          p=Path('fold-bloom/ecology/index.html')
+          s=p.read_text()
+          s=re.sub(r'<link rel="preconnect"[^>]*appdeploy[^>]*>','',s,flags=re.I)
+          s=re.sub(r'<meta[^>]*data-appdeploy="true"[^>]*>','',s,flags=re.I)
+          s=re.sub(r'<!--appdeploy-meta-->','',s,flags=re.I)
+          s=re.sub(r'<script data-appdeploy-overlay-bootstrap>.*?</script>','',s,flags=re.I|re.S)
+          s=re.sub(r'<script async src="https://v2\.appdeploy\.ai/shared/js/overlay\.js".*?</script>','',s,flags=re.I|re.S)
+          s=re.sub(r'<script>window\.__APPDEPLOY_APP_ID=.*?</script>','',s,flags=re.I|re.S)
+          p.write_text(s)
+          PY
+          touch fold-bloom/ecology/.nojekyll
+          test -s fold-bloom/ecology/index.html
+          grep -q 'Ecology Instrument 0.2' fold-bloom/ecology/index.html
+          ! grep -qi 'appdeploy-overlay' fold-bloom/ecology/index.html
+      - name: Commit refreshed Ecology branch
         shell: bash
         run: |
           set -euo pipefail
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add fold-bloom/index.html fold-bloom/.nojekyll
-          if [ -f fold-bloom/rc11-scale-lens.html ]; then git add fold-bloom/rc11-scale-lens.html; fi
-          if git diff --cached --quiet; then
-            echo 'Ecology 0.2 already canonical.'
-            exit 0
-          fi
-          git commit -m 'Restore FOLD//BLOOM Ecology Instrument 0.2 as canonical [skip ci]'
+          git add fold-bloom/ecology
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Refresh FOLD//BLOOM Ecology Instrument 0.2 branch [skip ci]'
           git push origin master
