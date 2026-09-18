@@ -48,7 +48,10 @@
         "PROVE"
       ],
       "boundary": "private runtime only",
-      "fit": "Default evidence/state substrate; simplest first real adapter."
+      "fit": "Default evidence/state substrate; simplest first real adapter.",
+      "reference_implementation": "/router-bench/",
+      "implementation_scope": "append-only RETURN receipt ledger in browser localStorage; raw event payload is not committed",
+      "receipt_format": "JSONL export"
     },
     {
       "id": "human-review",
