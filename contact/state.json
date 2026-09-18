@@ -1,18 +1,19 @@
 {
-  "schema": "human-return/v0.1",
-  "updated": "2026-09-18",
-  "mode": "RENDEZVOUS",
+  "schema": "human-return/v0.2",
+  "updated": "2026-09-19",
+  "mode": "NORMAL",
   "live_status": false,
-  "message": "If I explicitly told you to come here, this is the stable public pointer.",
-  "contact": "Use the direct channel we already share. This public page does not expose private contact details or credentials.",
+  "status_semantics": "Manual public state only. Staleness or silence is not evidence of danger.",
+  "message": "This is my stable public contact/continuity address. Keep the URL; channels behind it may change.",
+  "contact": "Use the signal composer, then send the resulting envelope through any direct channel we already share.",
   "if_unreachable": [
     "Try the normal direct channel again.",
     "Try one other channel you already know belongs to me.",
-    "If the silence is unusual and you have a real reason for concern, contact someone who knows me in person."
+    "If the silence is genuinely unusual and concerning, contact someone who knows me in person."
   ],
   "if_incapacitated": [
-    "For immediate danger in Singapore, use the appropriate emergency service.",
-    "Preserve my phone, wallet, keys and electronic devices; do not reset or erase them.",
+    "Immediate physical danger: use the appropriate emergency service rather than waiting on this page.",
+    "Preserve phone, wallet, keys and electronic devices; do not reset or erase them.",
     "Make sure animals and home have basic care and are physically secure.",
     "Prefer reversible actions. Do not delete, publish, dispose of or transfer digital/project material merely because I am unavailable.",
     "Private handoff information belongs outside this public repository."
