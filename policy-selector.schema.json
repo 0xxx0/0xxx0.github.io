@@ -1,0 +1,570 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/policy-selector.schema.json",
+  "title": "Policy Selector",
+  "description": "Deterministic selector syntax for base, person, resource and channel policies. Specificity orders trace output and suppresses fallback only; it never grants authority or discards broader matching restrictions.",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/criteria_selector"
+    },
+    {
+      "$ref": "#/$defs/fallback_selector"
+    }
+  ],
+  "$defs": {
+    "exact_clause": {
+      "type": "object",
+      "required": [
+        "kind",
+        "field",
+        "value"
+      ],
+      "properties": {
+        "kind": {
+          "const": "exact"
+        },
+        "field": {
+          "type": "string",
+          "enum": [
+            "person_ref",
+            "resource_ref",
+            "resource_class",
+            "channel",
+            "adapter_id",
+            "event_source"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "pattern_clause": {
+      "type": "object",
+      "required": [
+        "kind",
+        "field",
+        "glob"
+      ],
+      "properties": {
+        "kind": {
+          "const": "pattern"
+        },
+        "field": {
+          "type": "string",
+          "enum": [
+            "person_ref",
+            "resource_ref",
+            "resource_class",
+            "channel",
+            "adapter_id",
+            "event_source"
+          ]
+        },
+        "glob": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "description": "Anchored whole-string glob. '*' matches zero or more code points; '?' matches exactly one; backslash escapes literal '*', '?' and backslash. No regex, character classes or brace expansion."
+        }
+      },
+      "additionalProperties": false
+    },
+    "tag_clause": {
+      "type": "object",
+      "required": [
+        "kind",
+        "field",
+        "match",
+        "values"
+      ],
+      "properties": {
+        "kind": {
+          "const": "tag"
+        },
+        "field": {
+          "type": "string",
+          "enum": [
+            "person_tags",
+            "resource_tags",
+            "context_tags"
+          ]
+        },
+        "match": {
+          "type": "string",
+          "enum": [
+            "any",
+            "all"
+          ]
+        },
+        "values": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "clause": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/exact_clause"
+        },
+        {
+          "$ref": "#/$defs/pattern_clause"
+        },
+        {
+          "$ref": "#/$defs/tag_clause"
+        }
+      ]
+    },
+    "criteria_core": {
+      "type": "object",
+      "properties": {
+        "all": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/exact_clause"
+              },
+              {
+                "$ref": "#/$defs/pattern_clause"
+              },
+              {
+                "$ref": "#/$defs/tag_clause"
+              }
+            ]
+          },
+          "default": []
+        },
+        "any": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/exact_clause"
+              },
+              {
+                "$ref": "#/$defs/pattern_clause"
+              },
+              {
+                "$ref": "#/$defs/tag_clause"
+              }
+            ]
+          },
+          "default": []
+        },
+        "none": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/exact_clause"
+              },
+              {
+                "$ref": "#/$defs/pattern_clause"
+              },
+              {
+                "$ref": "#/$defs/tag_clause"
+              }
+            ]
+          },
+          "default": []
+        }
+      },
+      "additionalProperties": false
+    },
+    "criteria_selector": {
+      "type": "object",
+      "required": [
+        "selector_id",
+        "kind",
+        "layer",
+        "criteria"
+      ],
+      "properties": {
+        "selector_id": {
+          "type": "string",
+          "pattern": "^selector:[a-z0-9][a-z0-9._:/-]{2,127}$"
+        },
+        "kind": {
+          "const": "criteria"
+        },
+        "layer": {
+          "type": "string",
+          "enum": [
+            "base",
+            "person",
+            "resource",
+            "channel"
+          ]
+        },
+        "criteria": {
+          "type": "object",
+          "properties": {
+            "all": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/exact_clause"
+                  },
+                  {
+                    "$ref": "#/$defs/pattern_clause"
+                  },
+                  {
+                    "$ref": "#/$defs/tag_clause"
+                  }
+                ]
+              },
+              "default": []
+            },
+            "any": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/exact_clause"
+                  },
+                  {
+                    "$ref": "#/$defs/pattern_clause"
+                  },
+                  {
+                    "$ref": "#/$defs/tag_clause"
+                  }
+                ]
+              },
+              "default": []
+            },
+            "none": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/exact_clause"
+                  },
+                  {
+                    "$ref": "#/$defs/pattern_clause"
+                  },
+                  {
+                    "$ref": "#/$defs/tag_clause"
+                  }
+                ]
+              },
+              "default": []
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "fallback_selector": {
+      "type": "object",
+      "required": [
+        "selector_id",
+        "kind",
+        "layer",
+        "domain",
+        "when"
+      ],
+      "properties": {
+        "selector_id": {
+          "type": "string",
+          "pattern": "^selector:[a-z0-9][a-z0-9._:/-]{2,127}$"
+        },
+        "kind": {
+          "const": "fallback"
+        },
+        "layer": {
+          "type": "string",
+          "enum": [
+            "base",
+            "person",
+            "resource",
+            "channel"
+          ]
+        },
+        "domain": {
+          "type": "string",
+          "enum": [
+            "base",
+            "person",
+            "resource",
+            "channel"
+          ]
+        },
+        "when": {
+          "const": "no_nonfallback_match"
+        },
+        "where": {
+          "type": "object",
+          "properties": {
+            "all": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/exact_clause"
+                  },
+                  {
+                    "$ref": "#/$defs/pattern_clause"
+                  },
+                  {
+                    "$ref": "#/$defs/tag_clause"
+                  }
+                ]
+              },
+              "default": []
+            },
+            "any": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/exact_clause"
+                  },
+                  {
+                    "$ref": "#/$defs/pattern_clause"
+                  },
+                  {
+                    "$ref": "#/$defs/tag_clause"
+                  }
+                ]
+              },
+              "default": []
+            },
+            "none": {
+              "type": "array",
+              "items": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/exact_clause"
+                  },
+                  {
+                    "$ref": "#/$defs/pattern_clause"
+                  },
+                  {
+                    "$ref": "#/$defs/tag_clause"
+                  }
+                ]
+              },
+              "default": []
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "base_selector": {
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/criteria_selector"
+            },
+            {
+              "properties": {
+                "layer": {
+                  "const": "base"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/fallback_selector"
+            },
+            {
+              "properties": {
+                "layer": {
+                  "const": "base"
+                },
+                "domain": {
+                  "const": "base"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "person_selector": {
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/criteria_selector"
+            },
+            {
+              "properties": {
+                "layer": {
+                  "const": "person"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/fallback_selector"
+            },
+            {
+              "properties": {
+                "layer": {
+                  "const": "person"
+                },
+                "domain": {
+                  "const": "person"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "resource_selector": {
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/criteria_selector"
+            },
+            {
+              "properties": {
+                "layer": {
+                  "const": "resource"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/fallback_selector"
+            },
+            {
+              "properties": {
+                "layer": {
+                  "const": "resource"
+                },
+                "domain": {
+                  "const": "resource"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "channel_selector": {
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/criteria_selector"
+            },
+            {
+              "properties": {
+                "layer": {
+                  "const": "channel"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/fallback_selector"
+            },
+            {
+              "properties": {
+                "layer": {
+                  "const": "channel"
+                },
+                "domain": {
+                  "const": "channel"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "x-match-semantics": {
+    "criteria": {
+      "all": "every clause must match; empty all is true",
+      "any": "at least one clause must match; empty any is ignored",
+      "none": "no clause may match; empty none is true",
+      "minimum": "a criteria selector must contain at least one clause across all/any/none"
+    },
+    "exact": "canonical field value equals selector value exactly after field normalization",
+    "pattern": "anchored whole-string glob over the canonical field value",
+    "tag": "set membership over canonical tags; match=any needs >=1 value, match=all needs every value",
+    "fallback": "eligible only when its optional where criteria match and no non-fallback selector matched the same layer/domain branch"
+  },
+  "x-normalization": {
+    "opaque_refs": [
+      "person_ref",
+      "resource_ref"
+    ],
+    "opaque_ref_rule": "byte-for-byte opaque string equality; no case folding, substring or fuzzy matching",
+    "canonical_lowercase": [
+      "channel",
+      "adapter_id",
+      "resource_class",
+      "event_source",
+      "person_tags",
+      "resource_tags",
+      "context_tags"
+    ],
+    "canonical_rule": "Unicode NFC then lowercase before selector evaluation"
+  },
+  "x-precedence": {
+    "specificity_classes": [
+      {
+        "class": "exact",
+        "rank": 400
+      },
+      {
+        "class": "pattern",
+        "rank": 300
+      },
+      {
+        "class": "tag",
+        "rank": 200
+      },
+      {
+        "class": "fallback",
+        "rank": 100
+      }
+    ],
+    "selector_class": "highest-ranked matched positive clause; fallback selectors are always fallback class",
+    "within_class": "more matched positive clauses sorts first; final tie is selector_id lexical ascending",
+    "security_rule": "precedence is for deterministic trace ordering and fallback suppression only. All matching non-fallback policies enter the merge set; deny/lock/grant resolution remains governed by policy-inheritance.schema.json.",
+    "fallback_rule": "fallback selectors activate only if zero non-fallback selectors matched the same layer/domain branch after criteria evaluation",
+    "declaration_order": "never used"
+  },
+  "x-layer-rules": {
+    "base": "may match canonical event/channel/adapter/resource-class/context facts; fallback supplies broad defaults",
+    "person": "identity selection should use exact/pattern person_ref or person_tags; additional channel/adapter/context clauses may narrow applicability",
+    "resource": "identity selection should use exact/pattern resource_ref/resource_class or resource_tags; additional channel/adapter/context clauses may narrow applicability",
+    "channel": "selection should use exact/pattern channel or adapter_id; context tags may narrow applicability",
+    "cross_layer": "selector specificity never changes layer resolution order: base -> person/resource parallel -> channel"
+  }
+}
