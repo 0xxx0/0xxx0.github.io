@@ -37,8 +37,10 @@ h1{margin:8px 0 0;font:800 clamp(42px,9vw,88px)/.84 system-ui,-apple-system,sans
 .go{margin-top:10px;padding-top:10px;border-top:1px solid #263139;font-size:9px;letter-spacing:.12em;font-weight:800}
 .hubs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
 .hubs a{background:#0b0f12;color:var(--ink);text-decoration:none;padding:12px}.hubs b{display:block;font-size:10px}.hubs span{display:block;color:var(--muted);font-size:8px;margin-top:4px}
+.fedhead .tools a{border:1px solid var(--line);background:#0b0f12;color:#a7b0b4;text-decoration:none;font-size:8px;min-height:30px;padding:7px 8px}.federation{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}.province{background:#0c1013}.province summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:10px;padding:13px 14px;border-bottom:1px solid transparent}.province summary::-webkit-details-marker{display:none}.province[open] summary{border-bottom-color:var(--line)}.province summary b{font-size:10px;letter-spacing:.12em}.province summary span{font-size:8px;color:var(--muted)}.fedrows{display:grid}.fedrow{display:grid;grid-template-columns:62px minmax(0,1fr);gap:10px;padding:9px 12px;border-bottom:1px solid #202a2f}.fedrow:last-child{border-bottom:0}.fedid{font-size:8px;color:#68747b;letter-spacing:.06em}.fedname{font:700 13px/1.15 system-ui,-apple-system,sans-serif;letter-spacing:-.015em}.fedmeta{margin-top:3px;font-size:7px;color:#7d8990;text-transform:uppercase;letter-spacing:.06em}.fedpurpose{margin-top:5px;color:#9ba5a9;font:9px/1.45 system-ui,-apple-system,sans-serif}.fedempty{padding:18px;color:var(--muted);font-size:9px}.fedlegend{display:flex;justify-content:space-between;gap:12px;padding:7px 0 0;color:#657178;font-size:8px}.fedlegend b{color:#9ed88c;font-weight:500}
 footer{display:flex;justify-content:space-between;gap:16px;margin-top:18px;padding-top:10px;border-top:1px solid var(--line);color:#657178;font-size:8px}
 @media(max-width:760px){
+ .federation{grid-template-columns:1fr}.fedlegend{display:block}.fedlegend span{display:block;margin-top:4px}
  header{grid-template-columns:1fr;gap:16px}.returnbar{grid-template-columns:1fr}.returnbar em{display:none}.kernel{grid-template-columns:1fr}.kernel span{text-align:left}.kernel span:not(:last-child)::after{content:""}
  .capmap{grid-template-columns:1fr}.cap{min-height:0}.card,.card.wide,.card.full{grid-column:span 12;min-height:220px}.hubs{grid-template-columns:1fr}.section{display:block}.section span{display:block;margin-top:4px}footer{display:block}footer span{display:block;margin-top:6px}
 }
@@ -133,6 +135,10 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:18px;paddi
   </a>
 </section>
 
+<div class="section fedhead"><div><b>FEDERATION / <span id="fedTotal">117</span></b><span>scrubbed identity map · registry ≠ release · grouped rather than flattened</span></div><div class="tools"><input id="fedFocus" type="search" placeholder="/ federation" aria-label="Filter federation"><a href="./federation-atlas.json">RAW JSON</a></div></div>
+<section class="federation" id="federation" aria-label="Federation atlas"><div class="fedempty">Loading 117-record federation atlas…</div></section>
+<div class="fedlegend"><span><b>117 PROJECT / SUBSYSTEM RECORDS</b> · six provinces · IDs preserved</span><span>TODO fields intentionally omitted from this public projection</span></div>
+
 <div class="section"><b>FAMILY / WORKBENCH ENTRIES</b><span>secondary navigation; not extra artifacts</span></div>
 <nav class="hubs">
   <a href="./fold-bloom/"><b>FOLD // BLOOM</b><span>three frozen branches · compare without silent merge</span></a>
@@ -142,7 +148,7 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:18px;paddi
 
 <footer>
   <span>PUBLIC BY LINK · NOINDEX · PRIVATE CANON ELSEWHERE</span>
-  <span><a href="./showcase-manifest.json" style="color:#7d8990">MANIFEST</a> · <a href="./agent-router.json" style="color:#7d8990">ROUTER</a> · <a href="./router-bench/" style="color:#9ed88c">BENCH</a> · <a href="./private-adapter-registry.json" style="color:#7d8990">ADAPTERS</a> · <a href="./capability-contract.schema.json" style="color:#7d8990">CONTRACT</a> · <a href="./person-resource-policy.schema.json" style="color:#d9ad62">POLICY</a> · RELEASE LAW · WORK → REVIEW → SCRUB → STATIC SURFACE → VERIFY → RECEIPT</span>
+  <span><a href="./showcase-manifest.json" style="color:#7d8990">MANIFEST</a> · <a href="./federation-atlas.json" style="color:#9ed88c">ATLAS 117</a> · <a href="./agent-router.json" style="color:#7d8990">ROUTER</a> · <a href="./router-bench/" style="color:#9ed88c">BENCH</a> · <a href="./private-adapter-registry.json" style="color:#7d8990">ADAPTERS</a> · <a href="./capability-contract.schema.json" style="color:#7d8990">CONTRACT</a> · <a href="./person-resource-policy.schema.json" style="color:#d9ad62">POLICY</a> · RELEASE LAW · WORK → REVIEW → SCRUB → STATIC SURFACE → VERIFY → RECEIPT</span>
 </footer>
 </main><script>
 (()=>{'use strict';
@@ -153,6 +159,11 @@ buttons.forEach(b=>b.onclick=()=>{filter=b.dataset.filter;history.replaceState(n
 q.oninput=()=>{term=q.value.trim().toLowerCase();apply();};
 addEventListener('keydown',e=>{if(e.key==='/'&&document.activeElement!==q){e.preventDefault();q.focus();}else if(e.key==='Escape'&&document.activeElement===q){q.value='';term='';q.blur();apply();}});
 try{const last=JSON.parse(localStorage.getItem('showcase:last')||'null');if(last?.href){resume.href=last.href;resume.querySelector('span').textContent=last.title+(last.operation?' · '+last.operation:'');resume.classList.add('on');}}catch(_){}
+const fed=document.getElementById('federation'),fedQ=document.getElementById('fedFocus'),fedTotal=document.getElementById('fedTotal');let fedData=null;
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function renderFed(){if(!fedData)return;const term=fedQ.value.trim().toLowerCase();let shown=0;fed.innerHTML=fedData.provinces.map((g,gi)=>{const rows=g.items.filter(x=>!term||[x.id,x.subprogram,x.title,x.type,x.state,x.epistemic_status,x.priority,x.horizon,x.output_class,x.purpose].join(' ').toLowerCase().includes(term));shown+=rows.length;if(term&&!rows.length)return'';const body=rows.map(x=>'<div class="fedrow"><div class="fedid">'+esc(x.id)+'</div><div><div class="fedname">'+esc(x.title)+'</div><div class="fedmeta">'+esc(x.subprogram)+' · '+esc(x.type)+' · '+esc(x.state)+' · '+esc(x.priority)+' / '+esc(x.horizon)+'</div><div class="fedpurpose">'+esc(x.purpose)+'</div></div></div>').join('');return'<details class="province" '+((term||gi===0)?'open':'')+'><summary><b>'+esc(g.province)+'</b><span>'+rows.length+' / '+g.items.length+'</span></summary><div class="fedrows">'+body+'</div></details>'}).join('')||'<div class="fedempty">No federation records match.</div>';fedTotal.textContent=term?shown+' / '+fedData.count:fedData.count}
+fedQ.oninput=renderFed;
+fetch('./federation-atlas.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{fedData=d;renderFed()}).catch(()=>{fed.innerHTML='<div class="fedempty">Federation atlas unavailable. Use RAW JSON or refresh.</div>'});
 apply();
 })();
 </script></body></html>
