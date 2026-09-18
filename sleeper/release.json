@@ -1,0 +1,28 @@
+{
+  "schema": "release-receipt/v1",
+  "name": "ASCII Sleeper",
+  "version": "0.8",
+  "state": "PUBLIC-EXPERIMENT",
+  "released": "2026-09-18",
+  "route": "/sleeper/",
+  "lineage": [
+    "Sleeper Workfield v1.2",
+    "Semantic City v0.4",
+    "ONE RETURN / Nine Gate",
+    "LAW DISTRICTS",
+    "Sleeper POV 0.7"
+  ],
+  "delta": [
+    "same canonical gate state in POV and PLAIN",
+    "four evidence contracts: RECALL OBSERVE DECIDE ACT",
+    "cross-district coupled law vector",
+    "RETURN seal encodes source/evidence/law/route fingerprints",
+    "FIELD HOUSE CIRCUIT cartridges"
+  ],
+  "epistemic_boundary": "Geometry is downstream of recorded state and never proof of external truth.",
+  "verification": [
+    "JS syntax checked in local candidate",
+    "built-in self-test includes local-law and cross-district coupling invariants",
+    "public live verification pending Pages deploy"
+  ]
+}
