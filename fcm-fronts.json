@@ -1,0 +1,43 @@
+{
+  "schema": "0xxx0/fcm-fronts/v0.1",
+  "max_active": 3,
+  "active": [
+    {
+      "id": "release-comms",
+      "label": "RELEASE / COMMS",
+      "operation": "SURFACE",
+      "question": "Can a stranger arrive → understand → inspect/use → contact/return?",
+      "done_when": "Public route, comprehension path, contact/return path and one external-use receipt exist.",
+      "anchors": [
+        "KS-003",
+        "ST-001",
+        "APP-002"
+      ]
+    },
+    {
+      "id": "housebus",
+      "label": "HOUSEBUS / EMBODIMENT",
+      "operation": "SENSE → STATE → ACTUATE",
+      "question": "Can one real home event complete observation → decision → action → observed effect → receipt?",
+      "done_when": "One already-owned endpoint completes a measured round trip without shopping dependency.",
+      "anchors": [
+        "APP-041",
+        "WD-020",
+        "IG-007"
+      ]
+    },
+    {
+      "id": "machine-representation",
+      "label": "MACHINE / REPRESENTATION",
+      "operation": "PROJECT → ACTUATE → PROVE",
+      "question": "Can one canonical object cross representation or machinery and return measurable evidence?",
+      "done_when": "One source survives a useful transformation and returns with identity + result + evidence intact.",
+      "anchors": [
+        "APP-001",
+        "SL-012",
+        "WD-034"
+      ]
+    }
+  ],
+  "note": "These are execution slots, not permanent projects. Swap only after RETURN."
+}
