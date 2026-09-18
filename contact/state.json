@@ -1,0 +1,26 @@
+{
+  "schema": "human-return/v0.1",
+  "updated": "2026-09-18",
+  "mode": "RENDEZVOUS",
+  "live_status": false,
+  "message": "If I explicitly told you to come here, this is the stable public pointer.",
+  "contact": "Use the direct channel we already share. This public page does not expose private contact details or credentials.",
+  "if_unreachable": [
+    "Try the normal direct channel again.",
+    "Try one other channel you already know belongs to me.",
+    "If the silence is unusual and you have a real reason for concern, contact someone who knows me in person."
+  ],
+  "if_incapacitated": [
+    "For immediate danger in Singapore, use the appropriate emergency service.",
+    "Preserve my phone, wallet, keys and electronic devices; do not reset or erase them.",
+    "Make sure animals and home have basic care and are physically secure.",
+    "Prefer reversible actions. Do not delete, publish, dispose of or transfer digital/project material merely because I am unavailable.",
+    "Private handoff information belongs outside this public repository."
+  ],
+  "work": {
+    "root": "/",
+    "manifest": "/showcase-manifest.json",
+    "router": "/agent-router.json"
+  },
+  "privacy": "No secrets, private identifiers, medical records, credentials or private correspondence belong in this file."
+}
