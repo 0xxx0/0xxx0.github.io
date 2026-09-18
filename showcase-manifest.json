@@ -29,7 +29,52 @@
         "inbox/case intake",
         "sensor/log ingress",
         "provenance + rollback"
-      ]
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "freeform note",
+            "message",
+            "form payload",
+            "sensor/log event"
+          ],
+          "requires": [],
+          "optional": [
+            "source ref",
+            "timestamp",
+            "existing object id"
+          ]
+        },
+        "transforms": {
+          "verb": "type + review + commit",
+          "preserves": [
+            "raw source",
+            "provenance",
+            "before state"
+          ],
+          "reversibility": "full",
+          "side_effects": "local"
+        },
+        "emits": {
+          "kinds": [
+            "typed candidate",
+            "review decision",
+            "committed object",
+            "receipt"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/field-intake/release.json",
+          "checks": [
+            "conflict review",
+            "before image",
+            "rollback/replay path"
+          ],
+          "return_path": "/field-intake/"
+        }
+      }
     },
     {
       "href": "/fold-bloom/",
@@ -52,7 +97,44 @@
         "parameter steering",
         "constrained control",
         "expressive mapping"
-      ]
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "bounded parameter state",
+            "cyclic control input"
+          ],
+          "requires": [],
+          "optional": [
+            "saved motif/form state"
+          ]
+        },
+        "transforms": {
+          "verb": "map compact cyclic control into composition state",
+          "preserves": [
+            "current control state",
+            "motif/form continuity"
+          ],
+          "reversibility": "full",
+          "side_effects": "local"
+        },
+        "emits": {
+          "kinds": [
+            "updated composition state",
+            "motif/form state"
+          ],
+          "machine_readable": false,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/fold-bloom/two-dial/release.json",
+          "checks": [
+            "bounded controls",
+            "visible state response"
+          ],
+          "return_path": "/fold-bloom/two-dial/"
+        }
+      }
     },
     {
       "href": "/fold-bloom/ecology/",
@@ -68,7 +150,46 @@
         "adaptive-agent feedback",
         "multimodal state",
         "mute-first signalling"
-      ]
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "agent/ecology state",
+            "mode input",
+            "graft/lineage input"
+          ],
+          "requires": [],
+          "optional": [
+            "audio enabled"
+          ]
+        },
+        "transforms": {
+          "verb": "evolve and expose coupled agent state",
+          "preserves": [
+            "lineage",
+            "mode identity"
+          ],
+          "reversibility": "bounded",
+          "side_effects": "local"
+        },
+        "emits": {
+          "kinds": [
+            "visual state",
+            "audio state",
+            "lineage/mode change"
+          ],
+          "machine_readable": false,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/fold-bloom/ecology/release.json",
+          "checks": [
+            "mute-useful visual score",
+            "lineage/mode visibility"
+          ],
+          "return_path": "/fold-bloom/ecology/"
+        }
+      }
     },
     {
       "href": "/sleeper/",
@@ -84,7 +205,48 @@
         "constraint visualization",
         "obligation gating",
         "alternate views of one state"
-      ]
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "constraint set",
+            "evidence contract state",
+            "navigation/control input"
+          ],
+          "requires": [
+            "explicit constraints"
+          ],
+          "optional": [
+            "resolved gate state"
+          ]
+        },
+        "transforms": {
+          "verb": "project constraints into coupled traversable field",
+          "preserves": [
+            "canonical obligation state",
+            "plain-view equivalence"
+          ],
+          "reversibility": "full",
+          "side_effects": "local"
+        },
+        "emits": {
+          "kinds": [
+            "constraint field state",
+            "plain obligation view",
+            "return seal"
+          ],
+          "machine_readable": false,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/sleeper/release.json",
+          "checks": [
+            "same-state POV/plain projection",
+            "gate resolution trace"
+          ],
+          "return_path": "/sleeper/"
+        }
+      }
     },
     {
       "href": "/fold-bloom/lens/",
@@ -101,7 +263,50 @@
         "data inspection",
         "provenance-preserving projection",
         "compact handoff"
-      ]
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "addressed source object"
+          ],
+          "requires": [
+            "stable identity"
+          ],
+          "optional": [
+            "provenance",
+            "projection preference"
+          ]
+        },
+        "transforms": {
+          "verb": "re-project one object across unequal views",
+          "preserves": [
+            "stable identity",
+            "provenance",
+            "return path"
+          ],
+          "reversibility": "full",
+          "side_effects": "none"
+        },
+        "emits": {
+          "kinds": [
+            "text view",
+            "atlas view",
+            "dayline view",
+            "datadisc view",
+            "object view"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/fold-bloom/lens/release.json",
+          "checks": [
+            "identity preserved across projections",
+            "RETURN preserved"
+          ],
+          "return_path": "/fold-bloom/lens/"
+        }
+      }
     },
     {
       "href": "/foundry/",
@@ -123,7 +328,53 @@
         "stable annotation",
         "language/study interfaces",
         "spatial + temporal reading"
-      ]
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "addressed text",
+            "annotation",
+            "path/traversal request"
+          ],
+          "requires": [
+            "stable source text"
+          ],
+          "optional": [
+            "study mode",
+            "temporal reading mode"
+          ]
+        },
+        "transforms": {
+          "verb": "address + annotate + traverse + compress",
+          "preserves": [
+            "source text",
+            "position",
+            "evidence class"
+          ],
+          "reversibility": "full",
+          "side_effects": "local"
+        },
+        "emits": {
+          "kinds": [
+            "grid view",
+            "typed path",
+            "study view",
+            "comparison view",
+            "glyph compression",
+            "temporal reading"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/foundry/verse-atlas/release.json",
+          "checks": [
+            "source survives projections",
+            "geometry not promoted into meaning"
+          ],
+          "return_path": "/foundry/verse-atlas/"
+        }
+      }
     },
     {
       "href": "/foundry/convergence/",
@@ -145,7 +396,50 @@
         "transformation contracts",
         "stable object identity",
         "reversible pipelines"
-      ]
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "identified object",
+            "proposed transform"
+          ],
+          "requires": [
+            "object id"
+          ],
+          "optional": [
+            "provenance",
+            "expected invariants"
+          ]
+        },
+        "transforms": {
+          "verb": "apply and inspect reversible representation transform",
+          "preserves": [
+            "object id",
+            "declared invariants",
+            "provenance"
+          ],
+          "reversibility": "full",
+          "side_effects": "none"
+        },
+        "emits": {
+          "kinds": [
+            "transformed representation",
+            "identity/provenance trace",
+            "return result"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/foundry/convergence/identity-lab.release.json",
+          "checks": [
+            "identity invariant",
+            "provenance invariant",
+            "RETURN invariant"
+          ],
+          "return_path": "/foundry/convergence/identity-lab.html"
+        }
+      }
     },
     {
       "href": "/atlas-dayline/",
@@ -159,7 +453,51 @@
         "schedule projection",
         "queue planning",
         "export + replay"
-      ]
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "task",
+            "commitment",
+            "time-addressed item"
+          ],
+          "requires": [
+            "stable item identity"
+          ],
+          "optional": [
+            "date/time",
+            "priority",
+            "route/context"
+          ]
+        },
+        "transforms": {
+          "verb": "bind state to time and unequal temporal projections",
+          "preserves": [
+            "task identity",
+            "task content"
+          ],
+          "reversibility": "full",
+          "side_effects": "local"
+        },
+        "emits": {
+          "kinds": [
+            "radial projection",
+            "linear projection",
+            "export",
+            "replayable state"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/atlas-dayline/release.json",
+          "checks": [
+            "same tasks across projections",
+            "explicit export/replay"
+          ],
+          "return_path": "/atlas-dayline/"
+        }
+      }
     },
     {
       "href": "/forward-field-proof/",
@@ -173,7 +511,49 @@
         "interface ablation",
         "evidence-backed promotion",
         "comparison receipts"
-      ]
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "same fact set",
+            "candidate rich interface",
+            "plain control"
+          ],
+          "requires": [
+            "comparison target"
+          ],
+          "optional": [
+            "measurement criteria"
+          ]
+        },
+        "transforms": {
+          "verb": "compare unequal interfaces under same facts",
+          "preserves": [
+            "fact set",
+            "comparison criteria"
+          ],
+          "reversibility": "full",
+          "side_effects": "none"
+        },
+        "emits": {
+          "kinds": [
+            "comparison result",
+            "keep/demote decision",
+            "proof receipt"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/forward-field-proof/release.json",
+          "checks": [
+            "same facts",
+            "plain control",
+            "measured recovery/constraint/action"
+          ],
+          "return_path": "/forward-field-proof/"
+        }
+      }
     },
     {
       "href": "/forward-field-proof/triangle/",
@@ -204,7 +584,8 @@
     "scale_lens": "RC11.2 remains the stable public head. G2 identity/RETURN is unchanged; optional spatial-donor-1 adds a projection-only Matrix/CSS3D lineage view. RC11.3 remains an unfinished forward branch and is not silently promoted here.",
     "triangle_bench": "Nested Field / Proof experiment. EXPLOIT / EXPLORE / PROVE simplex compared against a plain two-control allocation; no showcase card.",
     "showcase_trace": "All nine showcase cards now have a release receipt/status route. Source-level interaction/responsive checks are recorded; external live mobile/desktop smoke remains blocked from the current execution environment.",
-    "capability_map": "Root showcase now exposes a transfer-oriented reading of the same nine public cards. Transfer labels describe reusable mechanisms, not additional public artifacts or a claim that a monolithic agent already exists."
+    "capability_map": "Root showcase now exposes a transfer-oriented reading of the same nine public cards. Transfer labels describe reusable mechanisms, not additional public artifacts or a claim that a monolithic agent already exists.",
+    "routing": "Nine public showcase artifacts now expose accepts/transforms/emits/evidence contracts. agent-router.json may compose or skip stages and selects the smallest adequate route under permission, reversibility and evidence constraints."
   },
   "capability_model": {
     "CAPTURE": {
@@ -249,5 +630,7 @@
         "release gates"
       ]
     }
-  }
+  },
+  "contract_schema": "/capability-contract.schema.json",
+  "router_model": "/agent-router.json"
 }
