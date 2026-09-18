@@ -180,5 +180,7 @@
     "binding_rule": "A route becomes executable only when a private runtime adapter explicitly declares compatibility with the same contract.",
     "fallback": "Without a compatible private adapter, ANSWER/DRAFT locally or HANDOFF; do not fake ACT."
   },
-  "test_vectors": "/agent-router-cases.json"
+  "test_vectors": "/agent-router-cases.json",
+  "adapter_registry": "/private-adapter-registry.json",
+  "reference_bench": "/router-bench/"
 }
