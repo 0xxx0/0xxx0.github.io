@@ -1,0 +1,19 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "ATLAS DAYLINE",
+  "version": "Branch I",
+  "route": "/atlas-dayline/",
+  "state": "STABLE",
+  "operation": "PLAN",
+  "released": "2026-09-18",
+  "representative_interaction": "switch ATLAS↔PLAIN → create/select task → RETURN / REPLAY → export/share capsule",
+  "validation": {
+    "viewport_meta": "PASS",
+    "responsive_source": "PASS",
+    "javascript_syntax": "PASS",
+    "required_controls": "mobileNav/plainProjectionBtn/quickNewBtn/quickReturnBtn/shareCapsuleBtn present",
+    "showcase_return_adapter": "PASS",
+    "source_route": "PASS"
+  },
+  "known_gap": "Live rendered mobile/desktop representative interaction remains externally unverified from this execution environment."
+}
