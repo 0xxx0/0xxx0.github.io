@@ -2,7 +2,7 @@
   "schema": "showcase-release/v1",
   "surface": "Scale Lens Studio",
   "version": "RC11.2",
-  "patch": "g2-interop-1",
+  "patch": "g2-interop-1+spatial-donor-1",
   "route": "/fold-bloom/lens/",
   "state": "STABLE",
   "operation": "REPRESENT",
@@ -10,14 +10,19 @@
   "lineage": [
     "Scale Lens RC11",
     "Scale Lens RC11.2",
-    "G2 Intake→Lens identity adapter contract"
+    "G2 Intake→Lens identity adapter contract",
+    "Issue #2 Matrix / CSS3D donor lineage"
   ],
   "delta": [
     "separate upstream canonical IDENTITY from Lens-local node/projection/range addresses",
     "detect poly.ingress/v0.4 DayState imports and bind descendant nodes to upstream record identity",
     "preserve upstream source evidence, refs, ingress event IDs and receipt IDs",
     "emit exact Field Intake RETURN address #record=<canonical-id>",
-    "add release-safe synthetic Intake sample for direct interoperability testing"
+    "add release-safe synthetic Intake sample for direct interoperability testing",
+    "add optional Spatial Lineage Lens as a projection-only Matrix/CSS3D donor implementation",
+    "expose a two-function snapshot/focus adapter so the spatial renderer cannot own canonical graph state",
+    "render canonical ancestry as clickable six-face CSS3D slabs with drag rotation, wheel depth and keyboard reset/toggle",
+    "preserve canonical identity, local address, upstream RETURN and RC11.3 separation"
   ],
   "validation": {
     "private_adapter_selftest": "11/11 PASS",
@@ -34,7 +39,24 @@
       "receipt_lineage": [
         "receipt:g2"
       ]
+    },
+    "spatial_donor_1": {
+      "committed_javascript_syntax": "PASS",
+      "static_wiring": "PASS",
+      "matrix_identity_multiply": "PASS",
+      "matrix_translation_slots": "PASS",
+      "projection_adapter_boundary": "PASS",
+      "graph_mutation_path_from_spatial_renderer": "NONE",
+      "canonical_address_contract": "UNCHANGED",
+      "upstream_return_contract": "UNCHANGED",
+      "source_files": {
+        "index_html": "dc2690eabf6780d14bc484156a08f53bd31c2979",
+        "studio_js": "250278f3653d8f087b9542328459914404d58394",
+        "studio_css": "d4f465327d5d66bab23fd64850039030bcd6739b",
+        "spatial_js": "f21e6bbd5696d61e4db73639e4097eddec2d38a9"
+      },
+      "live_browser_interaction": "UNVERIFIED_FROM_EXECUTION_ENVIRONMENT"
     }
   },
-  "known_gap": "Representative live mobile/desktop interaction still belongs to the broader showcase audit. RC11.3 portrait work remains a separate unfinished branch and is not silently promoted here."
+  "known_gap": "Representative live mobile/desktop interaction still belongs to the broader showcase audit. The spatial donor passed committed-source syntax/invariant checks but live Pages interaction could not be exercised from this execution environment. RC11.3 portrait work remains a separate unfinished branch and is not silently promoted here."
 }
