@@ -334,6 +334,140 @@
         ],
         "decision_order_independent": true
       }
+    },
+    {
+      "id": "pattern-star-stays-in-segment",
+      "input": {
+        "resource_ref": "resource:house:fan"
+      },
+      "selectors": [
+        {
+          "selector_id": "selector:house-one",
+          "kind": "criteria",
+          "layer": "resource",
+          "criteria": {
+            "all": [
+              {
+                "kind": "pattern",
+                "field": "resource_ref",
+                "glob": "resource:house:*"
+              }
+            ]
+          }
+        }
+      ],
+      "expect": {
+        "matched": [
+          "selector:house-one"
+        ]
+      }
+    },
+    {
+      "id": "pattern-star-does-not-cross-segment",
+      "input": {
+        "resource_ref": "resource:house:room:fan"
+      },
+      "selectors": [
+        {
+          "selector_id": "selector:house-one",
+          "kind": "criteria",
+          "layer": "resource",
+          "criteria": {
+            "all": [
+              {
+                "kind": "pattern",
+                "field": "resource_ref",
+                "glob": "resource:house:*"
+              }
+            ]
+          }
+        }
+      ],
+      "expect": {
+        "matched": [],
+        "not_matched": [
+          "selector:house-one"
+        ]
+      }
+    },
+    {
+      "id": "pattern-double-star-crosses-segments",
+      "input": {
+        "resource_ref": "resource:house:room:fan"
+      },
+      "selectors": [
+        {
+          "selector_id": "selector:house-deep",
+          "kind": "criteria",
+          "layer": "resource",
+          "criteria": {
+            "all": [
+              {
+                "kind": "pattern",
+                "field": "resource_ref",
+                "glob": "resource:house:**"
+              }
+            ]
+          }
+        }
+      ],
+      "expect": {
+        "matched": [
+          "selector:house-deep"
+        ]
+      }
+    },
+    {
+      "id": "exact-does-not-suppress-tag-restriction",
+      "input": {
+        "person_ref": "person:alpha",
+        "person_tags": [
+          "known-human"
+        ]
+      },
+      "selectors": [
+        {
+          "selector_id": "selector:alpha",
+          "kind": "criteria",
+          "layer": "person",
+          "criteria": {
+            "all": [
+              {
+                "kind": "exact",
+                "field": "person_ref",
+                "value": "person:alpha"
+              }
+            ]
+          },
+          "policy_effect": "allow"
+        },
+        {
+          "selector_id": "selector:known",
+          "kind": "criteria",
+          "layer": "person",
+          "criteria": {
+            "all": [
+              {
+                "kind": "tag",
+                "field": "person_tags",
+                "match": "any",
+                "values": [
+                  "known-human"
+                ]
+              }
+            ]
+          },
+          "policy_effect": "deny"
+        }
+      ],
+      "expect": {
+        "matched": [
+          "selector:alpha",
+          "selector:known"
+        ],
+        "effective": "deny",
+        "reason": "both policies enter merge; deny resolution happens after selector matching"
+      }
     }
   ]
 }
