@@ -1,0 +1,24 @@
+{
+  "schema": "release-receipt/v1",
+  "artifact": "0 / HUMAN PORT",
+  "route": "/contact/",
+  "version": "0.2",
+  "released": "2026-09-19",
+  "state": "STABLE",
+  "changes": [
+    "replaced passive placeholder with a usable transport-neutral signal composer",
+    "added PING / REPLY / NEED / CHECK intent grammar",
+    "added native Web Share and clipboard RETURN paths",
+    "made zero-server / zero-storage behavior explicit",
+    "added machine-readable promise contract for future autoresponder bindings",
+    "kept private identifiers, credentials and correspondence outside the public surface"
+  ],
+  "checks": [
+    "message composer operates locally",
+    "no form submit or public backend endpoint exists",
+    "CHECK mode visibly prefers human attention over automation",
+    "machine contract separates current static behavior from candidate future adapters",
+    "root showcase route remains separate from the nine showcase instruments"
+  ],
+  "return": "/contact/"
+}
