@@ -1,0 +1,22 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "AXIAL COMPOSITOR",
+  "version": "0.1",
+  "route": "/axial/",
+  "state": "EXPERIMENT",
+  "operation": "PLAY",
+  "released": "2026-09-19",
+  "representative_interaction": "address manifest object → rotate θ across projections → translate z across resolution → PRESS / COMMIT detent → restore detent → EXPORT RECEIPT",
+  "inputs": ["/showcase-manifest.json"],
+  "emits": ["local state","before/after event trace","persistent detents","axial-receipt/v1 JSON"],
+  "validation": {
+    "viewport_meta": "PASS",
+    "touch_pointer_surface": "PASS",
+    "keyboard_controls": "PASS",
+    "event_schema": "/axial/event.schema.json",
+    "showcase_return_adapter": "PASS",
+    "local_only_default": "PASS"
+  },
+  "research_test": "Does a low-level θ/z/commit trace remain legible enough to reconstruct the higher-level object manipulation without manual narration?",
+  "known_gap": "Software proxy validates state/gesture/provenance grammar only. Physical travel, detents, backlash, eyes-free acquisition and nonlinear mappings remain untested hardware questions."
+}
