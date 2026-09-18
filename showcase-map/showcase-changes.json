@@ -1,0 +1,128 @@
+{
+  "schema": "showcase-changes/v1",
+  "generated": "2026-09-19",
+  "law": "Curated meaningful public deltas only; not a raw commit feed. Every event points to a public commit or release surface.",
+  "kinds": [
+    "RECOVER",
+    "RELEASE",
+    "FIX",
+    "VERIFY",
+    "INTEROP",
+    "SURFACE",
+    "CONTRACT"
+  ],
+  "events": [
+    {
+      "id": "chg:verse-atlas:release",
+      "at": "2026-09-17T07:18:11Z",
+      "surface": "/foundry/verse-atlas/",
+      "kind": "RELEASE",
+      "sha": "4e54977d129e80e719c2bfa742bc523ecba46f4b",
+      "summary": "Publish Foundry Verse Atlas"
+    },
+    {
+      "id": "chg:identity-lab:release",
+      "at": "2026-09-17T05:46:24Z",
+      "surface": "/foundry/convergence/identity-lab.html",
+      "kind": "RELEASE",
+      "sha": "32b6f2c46981a2b881fb2fb9b7c138139a4e2fbf",
+      "summary": "Publish CAP-IR convergence identity lab"
+    },
+    {
+      "id": "chg:field-proof:release",
+      "at": "2026-09-16T17:05:44Z",
+      "surface": "/forward-field-proof/",
+      "kind": "RELEASE",
+      "sha": "0c945719fa50b517cc26c2ac76b68f06e21c744b",
+      "summary": "Ship Forward Field Proof"
+    },
+    {
+      "id": "chg:atlas-dayline:release",
+      "at": "2026-09-16T03:40:10Z",
+      "surface": "/atlas-dayline/",
+      "kind": "RELEASE",
+      "sha": "c6bd145520e968f28e5f65b1f07cb6af02de37e8",
+      "summary": "Publish Atlas Dayline static snapshot"
+    },
+    {
+      "id": "chg:two-dial:release",
+      "at": "2026-09-18T03:37:43Z",
+      "surface": "/fold-bloom/two-dial/",
+      "kind": "RELEASE",
+      "sha": "a1b42e7ab822b2ffbf4c9cd801b254d76de2a805",
+      "summary": "Complete Two Dial 0.9 Pages-compatible release"
+    },
+    {
+      "id": "chg:ecology:recover",
+      "at": "2026-09-18T07:31:49Z",
+      "surface": "/fold-bloom/ecology/",
+      "kind": "RECOVER",
+      "sha": "de824258d513b23b2a9480fd8de597e491e5dad0",
+      "summary": "Restore Ecology 0.2 from exact uncompressed source"
+    },
+    {
+      "id": "chg:ecology:receipt",
+      "at": "2026-09-18T07:31:52Z",
+      "surface": "/fold-bloom/ecology/",
+      "kind": "VERIFY",
+      "sha": "d621ac8eadb5c6afea468ce1fe3d25d464b52877",
+      "summary": "Add Ecology 0.2 release receipt"
+    },
+    {
+      "id": "chg:sleeper:receipt",
+      "at": "2026-09-17T23:35:39Z",
+      "surface": "/sleeper/",
+      "kind": "RELEASE",
+      "sha": "45d74e0870eca39739ca339bbfbf3c4e41aa64fb",
+      "summary": "Finalize ASCII Sleeper 0.8 release receipt"
+    },
+    {
+      "id": "chg:lens:g2",
+      "at": "2026-09-18T03:10:37Z",
+      "surface": "/fold-bloom/lens/",
+      "kind": "INTEROP",
+      "sha": "c03e9b502ddc40c5c827ea16adb6e0a640a5aa73",
+      "summary": "Add Scale Lens G2 interoperability receipt"
+    },
+    {
+      "id": "chg:lens:mobile-fix",
+      "at": "2026-09-18T17:01:18Z",
+      "surface": "/fold-bloom/lens/",
+      "kind": "FIX",
+      "sha": "e2b98634f9747791e88f9deb99a989f87923e0c2",
+      "summary": "Record Scale Lens mobile importer overflow patch"
+    },
+    {
+      "id": "chg:showcase:proof",
+      "at": "2026-09-18T17:09:09Z",
+      "surface": "/",
+      "kind": "VERIFY",
+      "sha": "891eb48a2d5af595dd97ed6ad49c7425508bbc9f",
+      "summary": "Stamp external nine-card showcase proof — 18/18"
+    },
+    {
+      "id": "chg:lens:gate",
+      "at": "2026-09-18T17:09:12Z",
+      "surface": "/fold-bloom/lens/",
+      "kind": "VERIFY",
+      "sha": "ca5b7f2ca49e3af939e86ae07ce04a8089346180",
+      "summary": "Close Scale Lens live mobile/desktop gate"
+    },
+    {
+      "id": "chg:federation:surface",
+      "at": "2026-09-18T17:14:57Z",
+      "surface": "/",
+      "kind": "SURFACE",
+      "sha": "31631ff83fd76d154f80a7f6c4fb9cd839a03b82",
+      "summary": "Summarize six federation provinces on showcase home"
+    },
+    {
+      "id": "chg:policy:trace",
+      "at": "2026-09-18T17:28:15Z",
+      "surface": "/",
+      "kind": "CONTRACT",
+      "sha": "0908b50c7ee0009c25546c732467f37d2dd542e7",
+      "summary": "Expose replayable policy trace schema"
+    }
+  ]
+}
