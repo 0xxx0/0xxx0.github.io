@@ -612,7 +612,8 @@
     "human_return": "Public stable rendezvous for a known human when normal communication fails. No credentials/private contact graph/live-status claim; private execution and handoff remain behind the public boundary.",
     "person_resource_policy": "Deny-by-default seven-gate policy contract: READ, REMEMBER, ACKNOWLEDGE, ANSWER, DRAFT, ACT and ESCALATE. Public files contain schema/synthetic example only; real person/resource refs and policies belong to the private runtime.",
     "policy_inheritance": "Deterministic broad-to-narrow policy composition: base -> person/resource in parallel -> channel. Restriction is automatic; widening requires user_explicit grant authority. Same-stage deny wins, allow sets intersect, deny sets union, ceilings choose the minimum, locks are inherited and cannot be widened.",
-    "policy_selectors": "Deterministic selector syntax for base/person/resource/channel policy matching. Exact > pattern > tag > fallback for trace/specificity; all matching non-fallback restrictions accumulate; fallback activates only when no non-fallback selector in that layer/domain matches; declaration order is never security-significant."
+    "policy_selectors": "Deterministic selector syntax for base/person/resource/channel policy matching. Exact > pattern > tag > fallback for trace/specificity; all matching non-fallback restrictions accumulate; fallback activates only when no non-fallback selector in that layer/domain matches; declaration order is never security-significant.",
+    "policy_selector": "Deterministic exact/pattern/tag/fallback selectors. Exact > pattern > tag > fallback is trace/fallback precedence only; every matching non-fallback policy composes, so broader denies and locks remain effective."
   },
   "capability_model": {
     "CAPTURE": {
@@ -670,5 +671,6 @@
   "policy_resolution_tests": "/policy-resolution-cases.json",
   "policy_selector_schema": "/policy-selector.schema.json",
   "policy_selector_example": "/policy-selector.example.json",
-  "policy_selector_tests": "/policy-selector-cases.json"
+  "policy_selector_tests": "/policy-selector-cases.json",
+  "policy_selector_model": "/policy-selector-model.json"
 }
