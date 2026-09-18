@@ -1,0 +1,1624 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/policy-inheritance.schema.json",
+  "title": "Person / Resource Policy Inheritance and Override Set",
+  "description": "Deterministic composition rules for base policies, person/resource-specific policies and channel overrides. Restriction is automatic; widening requires explicit grant authority.",
+  "type": "object",
+  "required": [
+    "schema",
+    "policy_schema",
+    "defaults",
+    "resolution",
+    "base_policies",
+    "person_policies",
+    "resource_policies",
+    "channel_overrides"
+  ],
+  "properties": {
+    "schema": {
+      "const": "policy-inheritance/v0.1"
+    },
+    "policy_schema": {
+      "const": "/person-resource-policy.schema.json"
+    },
+    "defaults": {
+      "type": "object",
+      "required": [
+        "missing_gate",
+        "unknown_subject",
+        "missing_policy",
+        "expired_policy"
+      ],
+      "properties": {
+        "missing_gate": {
+          "const": "deny"
+        },
+        "unknown_subject": {
+          "type": "string",
+          "enum": [
+            "deny",
+            "review"
+          ]
+        },
+        "missing_policy": {
+          "type": "string",
+          "enum": [
+            "deny",
+            "review"
+          ]
+        },
+        "expired_policy": {
+          "type": "string",
+          "enum": [
+            "deny",
+            "review"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "resolution": {
+      "type": "object",
+      "required": [
+        "stages",
+        "same_stage_conflict",
+        "restrict_vs_grant",
+        "grant_rule",
+        "locked_rule",
+        "cycle_rule",
+        "trace_required"
+      ],
+      "properties": {
+        "stages": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "base"
+            },
+            {
+              "const": "subject_parallel"
+            },
+            {
+              "const": "channel"
+            }
+          ],
+          "items": false
+        },
+        "subject_parallel": {
+          "const": "person and resource policies are evaluated independently, then intersected; neither silently outranks the other"
+        },
+        "same_stage_conflict": {
+          "const": "deny_overrides_allow"
+        },
+        "restrict_vs_grant": {
+          "const": "restrict_first_then_authorized_grant_then_reapply_explicit_denies_and_locks"
+        },
+        "grant_rule": {
+          "const": "grant mode may widen inherited/default authority only when authority.source=user_explicit and authorization_ref is present"
+        },
+        "locked_rule": {
+          "const": "a lock on a path or ancestor path cannot be widened by any descendant or later layer"
+        },
+        "cycle_rule": {
+          "const": "reject_policy_set"
+        },
+        "trace_required": {
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "field_algebra": {
+      "type": "object",
+      "required": [
+        "decision",
+        "allow_sets",
+        "deny_sets",
+        "ceilings",
+        "required_booleans",
+        "conditions",
+        "retention",
+        "locks"
+      ],
+      "properties": {
+        "decision": {
+          "type": "object",
+          "properties": {
+            "restrict_order": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "const": "allow"
+                },
+                {
+                  "const": "conditional"
+                },
+                {
+                  "const": "review"
+                },
+                {
+                  "const": "deny"
+                }
+              ],
+              "items": false
+            },
+            "same_specificity": {
+              "const": "choose_most_restrictive"
+            },
+            "explicit_deny": {
+              "const": "wins_over_allow_at_same_stage_and_is_reapplied_after_grants"
+            },
+            "inherited_default_deny": {
+              "const": "may_be_widened_only_by_authorized_grant"
+            }
+          },
+          "required": [
+            "restrict_order",
+            "same_specificity",
+            "explicit_deny",
+            "inherited_default_deny"
+          ],
+          "additionalProperties": false
+        },
+        "allow_sets": {
+          "const": "intersection"
+        },
+        "deny_sets": {
+          "const": "union"
+        },
+        "ceilings": {
+          "const": "minimum_or_most_restrictive"
+        },
+        "required_booleans": {
+          "const": "logical_or_for_requirements; logical_and_for_permissions"
+        },
+        "conditions": {
+          "const": "logical_and_across_inherited_restrictive_conditions"
+        },
+        "retention": {
+          "const": "shortest_retention_wins; ttl_uses_minimum_seconds"
+        },
+        "locks": {
+          "const": "union_and_ancestor_path_applies_to_descendants"
+        }
+      },
+      "additionalProperties": false
+    },
+    "base_policies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "layer",
+          "mode",
+          "authority",
+          "operations"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._:/-]{2,127}$"
+          },
+          "layer": {
+            "const": "base"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "restrict",
+              "grant"
+            ]
+          },
+          "extends": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "selector": {
+            "type": "object",
+            "properties": {
+              "person_refs": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "resource_refs": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "resource_classes": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "channels": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "adapter_ids": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "context_tags": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "authority": {
+            "type": "object",
+            "required": [
+              "source",
+              "issued_at",
+              "revision"
+            ],
+            "properties": {
+              "source": {
+                "type": "string",
+                "enum": [
+                  "user_explicit",
+                  "operator_defined",
+                  "system_default",
+                  "imported"
+                ]
+              },
+              "issued_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "expires_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
+              },
+              "revision": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "authorization_ref": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "operations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "op",
+                "path"
+              ],
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "enum": [
+                    "restrict_decision",
+                    "grant_decision",
+                    "intersect_allow",
+                    "union_deny",
+                    "set_ceiling",
+                    "require_true",
+                    "require_false",
+                    "add_condition",
+                    "cap_retention",
+                    "lock"
+                  ]
+                },
+                "path": {
+                  "type": "string",
+                  "pattern": "^/permissions/(read|remember|acknowledge|answer|draft|act|escalate)(/.*)?$"
+                },
+                "value": {},
+                "reason_code": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"
+                },
+                "grant_ref": {
+                  "type": "string",
+                  "pattern": "^grant:[a-z0-9][a-z0-9._:/-]{2,127}$"
+                }
+              },
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "op": {
+                        "const": "grant_decision"
+                      }
+                    },
+                    "required": [
+                      "op"
+                    ]
+                  },
+                  "then": {
+                    "required": [
+                      "value",
+                      "grant_ref"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "op": {
+                        "enum": [
+                          "restrict_decision",
+                          "intersect_allow",
+                          "union_deny",
+                          "set_ceiling",
+                          "require_true",
+                          "require_false",
+                          "cap_retention"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "op"
+                    ]
+                  },
+                  "then": {
+                    "required": [
+                      "value"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "op": {
+                        "const": "add_condition"
+                      }
+                    },
+                    "required": [
+                      "op"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "value": {
+                        "type": "object",
+                        "required": [
+                          "fact",
+                          "op"
+                        ],
+                        "properties": {
+                          "fact": {
+                            "type": "string"
+                          },
+                          "op": {
+                            "type": "string",
+                            "enum": [
+                              "eq",
+                              "neq",
+                              "in",
+                              "not_in",
+                              "lte",
+                              "gte",
+                              "exists"
+                            ]
+                          },
+                          "value": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "oneOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "boolean"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "allOf": [
+                          {
+                            "if": {
+                              "properties": {
+                                "op": {
+                                  "const": "exists"
+                                }
+                              },
+                              "required": [
+                                "op"
+                              ]
+                            },
+                            "then": {
+                              "not": {
+                                "required": [
+                                  "value"
+                                ]
+                              }
+                            },
+                            "else": {
+                              "required": [
+                                "value"
+                              ]
+                            }
+                          }
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ]
+                  }
+                }
+              ],
+              "additionalProperties": false
+            }
+          },
+          "locks": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^/permissions/(read|remember|acknowledge|answer|draft|act|escalate)(/.*)?$"
+            }
+          },
+          "notes_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "mode": {
+                  "const": "grant"
+                }
+              },
+              "required": [
+                "mode"
+              ]
+            },
+            "then": {
+              "properties": {
+                "authority": {
+                  "properties": {
+                    "source": {
+                      "const": "user_explicit"
+                    }
+                  },
+                  "required": [
+                    "source",
+                    "issued_at",
+                    "revision",
+                    "authorization_ref"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "person_policies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "layer",
+          "mode",
+          "authority",
+          "operations",
+          "selector"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._:/-]{2,127}$"
+          },
+          "layer": {
+            "const": "person"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "restrict",
+              "grant"
+            ]
+          },
+          "extends": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "selector": {
+            "type": "object",
+            "properties": {
+              "person_refs": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "resource_refs": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "resource_classes": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "channels": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "adapter_ids": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "context_tags": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "authority": {
+            "type": "object",
+            "required": [
+              "source",
+              "issued_at",
+              "revision"
+            ],
+            "properties": {
+              "source": {
+                "type": "string",
+                "enum": [
+                  "user_explicit",
+                  "operator_defined",
+                  "system_default",
+                  "imported"
+                ]
+              },
+              "issued_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "expires_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
+              },
+              "revision": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "authorization_ref": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "operations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "op",
+                "path"
+              ],
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "enum": [
+                    "restrict_decision",
+                    "grant_decision",
+                    "intersect_allow",
+                    "union_deny",
+                    "set_ceiling",
+                    "require_true",
+                    "require_false",
+                    "add_condition",
+                    "cap_retention",
+                    "lock"
+                  ]
+                },
+                "path": {
+                  "type": "string",
+                  "pattern": "^/permissions/(read|remember|acknowledge|answer|draft|act|escalate)(/.*)?$"
+                },
+                "value": {},
+                "reason_code": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"
+                },
+                "grant_ref": {
+                  "type": "string",
+                  "pattern": "^grant:[a-z0-9][a-z0-9._:/-]{2,127}$"
+                }
+              },
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "op": {
+                        "const": "grant_decision"
+                      }
+                    },
+                    "required": [
+                      "op"
+                    ]
+                  },
+                  "then": {
+                    "required": [
+                      "value",
+                      "grant_ref"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "op": {
+                        "enum": [
+                          "restrict_decision",
+                          "intersect_allow",
+                          "union_deny",
+                          "set_ceiling",
+                          "require_true",
+                          "require_false",
+                          "cap_retention"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "op"
+                    ]
+                  },
+                  "then": {
+                    "required": [
+                      "value"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "op": {
+                        "const": "add_condition"
+                      }
+                    },
+                    "required": [
+                      "op"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "value": {
+                        "type": "object",
+                        "required": [
+                          "fact",
+                          "op"
+                        ],
+                        "properties": {
+                          "fact": {
+                            "type": "string"
+                          },
+                          "op": {
+                            "type": "string",
+                            "enum": [
+                              "eq",
+                              "neq",
+                              "in",
+                              "not_in",
+                              "lte",
+                              "gte",
+                              "exists"
+                            ]
+                          },
+                          "value": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "oneOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "boolean"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "allOf": [
+                          {
+                            "if": {
+                              "properties": {
+                                "op": {
+                                  "const": "exists"
+                                }
+                              },
+                              "required": [
+                                "op"
+                              ]
+                            },
+                            "then": {
+                              "not": {
+                                "required": [
+                                  "value"
+                                ]
+                              }
+                            },
+                            "else": {
+                              "required": [
+                                "value"
+                              ]
+                            }
+                          }
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ]
+                  }
+                }
+              ],
+              "additionalProperties": false
+            }
+          },
+          "locks": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^/permissions/(read|remember|acknowledge|answer|draft|act|escalate)(/.*)?$"
+            }
+          },
+          "notes_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "mode": {
+                  "const": "grant"
+                }
+              },
+              "required": [
+                "mode"
+              ]
+            },
+            "then": {
+              "properties": {
+                "authority": {
+                  "properties": {
+                    "source": {
+                      "const": "user_explicit"
+                    }
+                  },
+                  "required": [
+                    "source",
+                    "issued_at",
+                    "revision",
+                    "authorization_ref"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "resource_policies": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "layer",
+          "mode",
+          "authority",
+          "operations",
+          "selector"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._:/-]{2,127}$"
+          },
+          "layer": {
+            "const": "resource"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "restrict",
+              "grant"
+            ]
+          },
+          "extends": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "selector": {
+            "type": "object",
+            "properties": {
+              "person_refs": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "resource_refs": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "resource_classes": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "channels": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "adapter_ids": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "context_tags": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "authority": {
+            "type": "object",
+            "required": [
+              "source",
+              "issued_at",
+              "revision"
+            ],
+            "properties": {
+              "source": {
+                "type": "string",
+                "enum": [
+                  "user_explicit",
+                  "operator_defined",
+                  "system_default",
+                  "imported"
+                ]
+              },
+              "issued_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "expires_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
+              },
+              "revision": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "authorization_ref": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "operations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "op",
+                "path"
+              ],
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "enum": [
+                    "restrict_decision",
+                    "grant_decision",
+                    "intersect_allow",
+                    "union_deny",
+                    "set_ceiling",
+                    "require_true",
+                    "require_false",
+                    "add_condition",
+                    "cap_retention",
+                    "lock"
+                  ]
+                },
+                "path": {
+                  "type": "string",
+                  "pattern": "^/permissions/(read|remember|acknowledge|answer|draft|act|escalate)(/.*)?$"
+                },
+                "value": {},
+                "reason_code": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"
+                },
+                "grant_ref": {
+                  "type": "string",
+                  "pattern": "^grant:[a-z0-9][a-z0-9._:/-]{2,127}$"
+                }
+              },
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "op": {
+                        "const": "grant_decision"
+                      }
+                    },
+                    "required": [
+                      "op"
+                    ]
+                  },
+                  "then": {
+                    "required": [
+                      "value",
+                      "grant_ref"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "op": {
+                        "enum": [
+                          "restrict_decision",
+                          "intersect_allow",
+                          "union_deny",
+                          "set_ceiling",
+                          "require_true",
+                          "require_false",
+                          "cap_retention"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "op"
+                    ]
+                  },
+                  "then": {
+                    "required": [
+                      "value"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "op": {
+                        "const": "add_condition"
+                      }
+                    },
+                    "required": [
+                      "op"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "value": {
+                        "type": "object",
+                        "required": [
+                          "fact",
+                          "op"
+                        ],
+                        "properties": {
+                          "fact": {
+                            "type": "string"
+                          },
+                          "op": {
+                            "type": "string",
+                            "enum": [
+                              "eq",
+                              "neq",
+                              "in",
+                              "not_in",
+                              "lte",
+                              "gte",
+                              "exists"
+                            ]
+                          },
+                          "value": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "oneOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "boolean"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "allOf": [
+                          {
+                            "if": {
+                              "properties": {
+                                "op": {
+                                  "const": "exists"
+                                }
+                              },
+                              "required": [
+                                "op"
+                              ]
+                            },
+                            "then": {
+                              "not": {
+                                "required": [
+                                  "value"
+                                ]
+                              }
+                            },
+                            "else": {
+                              "required": [
+                                "value"
+                              ]
+                            }
+                          }
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ]
+                  }
+                }
+              ],
+              "additionalProperties": false
+            }
+          },
+          "locks": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^/permissions/(read|remember|acknowledge|answer|draft|act|escalate)(/.*)?$"
+            }
+          },
+          "notes_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "mode": {
+                  "const": "grant"
+                }
+              },
+              "required": [
+                "mode"
+              ]
+            },
+            "then": {
+              "properties": {
+                "authority": {
+                  "properties": {
+                    "source": {
+                      "const": "user_explicit"
+                    }
+                  },
+                  "required": [
+                    "source",
+                    "issued_at",
+                    "revision",
+                    "authorization_ref"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "channel_overrides": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "layer",
+          "mode",
+          "authority",
+          "operations",
+          "selector"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._:/-]{2,127}$"
+          },
+          "layer": {
+            "const": "channel"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "restrict",
+              "grant"
+            ]
+          },
+          "extends": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            },
+            "default": []
+          },
+          "selector": {
+            "type": "object",
+            "properties": {
+              "person_refs": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "resource_refs": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "resource_classes": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "channels": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "adapter_ids": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              },
+              "context_tags": {
+                "type": "array",
+                "uniqueItems": true,
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "authority": {
+            "type": "object",
+            "required": [
+              "source",
+              "issued_at",
+              "revision"
+            ],
+            "properties": {
+              "source": {
+                "type": "string",
+                "enum": [
+                  "user_explicit",
+                  "operator_defined",
+                  "system_default",
+                  "imported"
+                ]
+              },
+              "issued_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "expires_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
+              },
+              "revision": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "authorization_ref": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "operations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "required": [
+                "op",
+                "path"
+              ],
+              "properties": {
+                "op": {
+                  "type": "string",
+                  "enum": [
+                    "restrict_decision",
+                    "grant_decision",
+                    "intersect_allow",
+                    "union_deny",
+                    "set_ceiling",
+                    "require_true",
+                    "require_false",
+                    "add_condition",
+                    "cap_retention",
+                    "lock"
+                  ]
+                },
+                "path": {
+                  "type": "string",
+                  "pattern": "^/permissions/(read|remember|acknowledge|answer|draft|act|escalate)(/.*)?$"
+                },
+                "value": {},
+                "reason_code": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"
+                },
+                "grant_ref": {
+                  "type": "string",
+                  "pattern": "^grant:[a-z0-9][a-z0-9._:/-]{2,127}$"
+                }
+              },
+              "allOf": [
+                {
+                  "if": {
+                    "properties": {
+                      "op": {
+                        "const": "grant_decision"
+                      }
+                    },
+                    "required": [
+                      "op"
+                    ]
+                  },
+                  "then": {
+                    "required": [
+                      "value",
+                      "grant_ref"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "op": {
+                        "enum": [
+                          "restrict_decision",
+                          "intersect_allow",
+                          "union_deny",
+                          "set_ceiling",
+                          "require_true",
+                          "require_false",
+                          "cap_retention"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "op"
+                    ]
+                  },
+                  "then": {
+                    "required": [
+                      "value"
+                    ]
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "op": {
+                        "const": "add_condition"
+                      }
+                    },
+                    "required": [
+                      "op"
+                    ]
+                  },
+                  "then": {
+                    "properties": {
+                      "value": {
+                        "type": "object",
+                        "required": [
+                          "fact",
+                          "op"
+                        ],
+                        "properties": {
+                          "fact": {
+                            "type": "string"
+                          },
+                          "op": {
+                            "type": "string",
+                            "enum": [
+                              "eq",
+                              "neq",
+                              "in",
+                              "not_in",
+                              "lte",
+                              "gte",
+                              "exists"
+                            ]
+                          },
+                          "value": {
+                            "oneOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "oneOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "boolean"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "allOf": [
+                          {
+                            "if": {
+                              "properties": {
+                                "op": {
+                                  "const": "exists"
+                                }
+                              },
+                              "required": [
+                                "op"
+                              ]
+                            },
+                            "then": {
+                              "not": {
+                                "required": [
+                                  "value"
+                                ]
+                              }
+                            },
+                            "else": {
+                              "required": [
+                                "value"
+                              ]
+                            }
+                          }
+                        ],
+                        "additionalProperties": false
+                      }
+                    },
+                    "required": [
+                      "value"
+                    ]
+                  }
+                }
+              ],
+              "additionalProperties": false
+            }
+          },
+          "locks": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^/permissions/(read|remember|acknowledge|answer|draft|act|escalate)(/.*)?$"
+            }
+          },
+          "notes_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "mode": {
+                  "const": "grant"
+                }
+              },
+              "required": [
+                "mode"
+              ]
+            },
+            "then": {
+              "properties": {
+                "authority": {
+                  "properties": {
+                    "source": {
+                      "const": "user_explicit"
+                    }
+                  },
+                  "required": [
+                    "source",
+                    "issued_at",
+                    "revision",
+                    "authorization_ref"
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
