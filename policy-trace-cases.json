@@ -1,0 +1,46 @@
+{
+  "schema": "policy-trace-cases/v0.1",
+  "trace_schema": "/policy-resolution-trace.schema.json",
+  "invariants": [
+    {
+      "id": "all-seven-final",
+      "assert": "exactly one gate_final event exists for each of read, remember, acknowledge, answer, draft, act, escalate"
+    },
+    {
+      "id": "operation-completeness",
+      "assert": "every matched policy operation emits one operation_evaluated event, including no_change/rejected operations"
+    },
+    {
+      "id": "grant-completeness",
+      "assert": "every grant_decision emits one grant_evaluated event whether accepted or rejected"
+    },
+    {
+      "id": "deny-completeness",
+      "assert": "every default, explicit, conflict, condition-failure, missing-policy/gate or re-applied deny emits deny_applied"
+    },
+    {
+      "id": "lock-completeness",
+      "assert": "every lock acquisition/inheritance/reapply/block emits lock_applied"
+    },
+    {
+      "id": "causal-order",
+      "assert": "cause_event_ids reference only lower sequence numbers"
+    },
+    {
+      "id": "selector-provenance",
+      "assert": "every policy_matched event references one or more earlier matched selector_evaluated events"
+    },
+    {
+      "id": "inheritance-before-use",
+      "assert": "an inheritance_step expanding a parent precedes operations sourced through that parent"
+    },
+    {
+      "id": "privacy",
+      "assert": "raw payload and secret values are absent"
+    },
+    {
+      "id": "hash-chain",
+      "assert": "when enabled, event hashes use RFC8785-JCS + SHA-256 and each prev_event_hash equals the preceding event_hash"
+    }
+  ]
+}
