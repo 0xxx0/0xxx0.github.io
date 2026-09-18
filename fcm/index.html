@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#090b0d">
+<title>FCM · Forward Center Mass</title>
+<style>
+:root{--bg:#090b0d;--p:#0f1317;--p2:#0b0f12;--ink:#edf1ed;--muted:#89959a;--line:#2c373c;--hot:#e56b3f;--cool:#68acd8;--green:#9ed88c;--gold:#d9ad62}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.48 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(14px,env(safe-area-inset-top)) 12px max(28px,env(safe-area-inset-bottom))}
+button,input,select,textarea{font:inherit;border-radius:0;color:inherit}button{cursor:pointer}.app{width:min(1220px,100%);margin:auto}
+header{display:grid;grid-template-columns:1.25fr .75fr;gap:24px;align-items:end;padding:24px 0 14px;border-bottom:1px solid var(--line)}
+.ey{font-size:9px;letter-spacing:.18em;color:var(--hot)}h1{margin:6px 0 0;font:800 clamp(36px,8vw,82px)/.84 system-ui,-apple-system,sans-serif;letter-spacing:-.07em}
+.intro{color:#a7b0b4;font:12px/1.6 system-ui,-apple-system,sans-serif}.intro a{color:var(--cool)}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:12px 0}
+.metric{background:var(--p2);padding:9px}.metric b{display:block;font-size:22px;font-weight:500}.metric span{color:var(--muted);font-size:7px;letter-spacing:.1em}
+.nav{display:flex;justify-content:space-between;gap:8px;border-bottom:1px solid var(--line);padding:0 0 9px;overflow-x:auto}.tabs,.actions{display:flex}.nav button,.nav a{min-height:34px;border:1px solid var(--line);border-right:0;background:var(--p2);padding:7px 10px;color:var(--ink);text-decoration:none;font-size:8px;letter-spacing:.1em;white-space:nowrap}.nav button:last-child,.nav a:last-child{border-right:1px solid var(--line)}.nav button.on{border-color:var(--cool);color:#d6f2ff}
+.panel{margin-top:10px}.panel[hidden]{display:none}
+.section{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:18px 0 7px}.section b{font-size:10px;letter-spacing:.14em}.section span{font-size:8px;color:var(--muted)}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.stage{background:var(--p);min-height:142px;padding:12px;position:relative}.stage:not(:last-child)::after{content:"→";position:absolute;right:-8px;top:50%;z-index:4;color:#637078;background:var(--bg);padding:2px}.stage .n{font-size:26px}.stage b{display:block;margin-top:18px;font-size:11px;letter-spacing:.12em}.stage p{margin:5px 0 0;color:var(--muted);font:9px/1.5 system-ui,-apple-system,sans-serif}
+.law{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px}.law>div{background:var(--p2);padding:10px}.law b{color:var(--green);font-size:9px}.law p{margin:4px 0 0;color:var(--muted);font:9px/1.45 system-ui,-apple-system,sans-serif}
+.fronts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.front{background:var(--p);padding:13px;min-height:250px;display:flex;flex-direction:column}.front .token{font-size:8px;color:var(--hot);letter-spacing:.12em}.front h2{font:800 24px/.95 system-ui,-apple-system,sans-serif;letter-spacing:-.045em;margin:18px 0 8px}.op{color:var(--cool);font-size:8px}.front p{color:#abb4b8;font:10px/1.55 system-ui,-apple-system,sans-serif}.done{margin-top:auto;border-top:1px solid var(--line);padding-top:8px;color:var(--muted);font-size:8px}.front button{margin-top:10px;min-height:34px;border:1px solid var(--green);background:transparent;color:var(--green);font-size:8px;letter-spacing:.1em}
+.slot{background:#0b0f12;border:1px dashed #344148;min-height:250px;padding:14px;display:grid;place-items:center;color:var(--muted);text-align:center}
+.receipts{border:1px solid var(--line);margin-top:10px}.receipt{display:grid;grid-template-columns:140px 1fr 1fr;gap:10px;padding:8px 10px;border-bottom:1px solid var(--line);font-size:8px}.receipt:last-child{border-bottom:0}.receipt time{color:var(--muted)}.receipt b{color:var(--green)}
+.ops{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.opcard{background:var(--p);padding:12px;min-height:142px;cursor:pointer}.opcard:hover,.opcard.on{background:#131a1f}.opcard.on{box-shadow:inset 3px 0 var(--cool)}.opcard b{display:flex;justify-content:space-between;gap:8px;font-size:11px}.opcard b span{color:var(--cool);font-size:16px;font-weight:500}.opcard p{color:var(--muted);font:9px/1.5 system-ui,-apple-system,sans-serif;margin:16px 0 0}
+.matrixwrap{overflow:auto;border:1px solid var(--line)}table{border-collapse:collapse;width:100%;min-width:650px;background:var(--p2)}th,td{border:1px solid #263139;padding:7px;text-align:center;font-size:8px}th{color:var(--muted);font-weight:500}td.hot{color:var(--green);font-weight:700}
+.objecttools{display:flex;gap:5px;flex-wrap:wrap}.objecttools input,.objecttools select{min-height:34px;border:1px solid var(--line);background:var(--p2);padding:6px 8px}.objecttools input{width:min(320px,70vw)}
+.objects{border:1px solid var(--line)}.obj{display:grid;grid-template-columns:66px minmax(0,1fr) 105px 90px;gap:10px;align-items:center;padding:9px 10px;border-bottom:1px solid var(--line);background:var(--p)}.obj:last-child{border-bottom:0}.obj:hover{background:#12191e}.oid{color:#68747b;font-size:8px}.otitle{font:700 13px/1.2 system-ui,-apple-system,sans-serif}.ometa,.purpose{font-size:8px;color:var(--muted);margin-top:3px}.purpose{font:9px/1.4 system-ui,-apple-system,sans-serif}.chips{display:flex;gap:3px;flex-wrap:wrap;margin-top:5px}.chip{border:1px solid #334149;padding:2px 4px;font-size:6.5px;color:#9bb0ba}.score{text-align:right}.score b{display:block;font-size:18px;font-weight:500}.score span{font-size:7px;color:var(--muted)}.promote{min-height:30px;border:1px solid var(--line);background:transparent;font-size:7px}.promote:enabled{border-color:var(--cool);color:#d5f1ff}.promote:disabled{opacity:.35}
+.notice{border-left:2px solid var(--gold);padding:8px 10px;background:#111319;color:#aaa08c;font:9px/1.5 system-ui,-apple-system,sans-serif;margin-top:10px}
+dialog{width:min(92vw,520px);border:1px solid var(--line);background:var(--p);color:var(--ink);padding:0}dialog::backdrop{background:rgba(0,0,0,.65)}.dlg{padding:14px}.dlg h3{margin:0 0 10px;font:800 21px system-ui,-apple-system,sans-serif}.dlg label{display:grid;gap:4px;color:var(--muted);font-size:8px;margin:8px 0}.dlg textarea{min-height:80px;border:1px solid var(--line);background:var(--p2);padding:8px}.dlgfoot{display:flex;justify-content:flex-end;gap:5px}.dlgfoot button{min-height:34px;border:1px solid var(--line);background:transparent;padding:6px 10px}.dlgfoot .commit{border-color:var(--green);color:var(--green)}
+footer{margin-top:16px;border-top:1px solid var(--line);padding-top:8px;display:flex;justify-content:space-between;gap:12px;color:#66737a;font-size:8px}
+@media(max-width:820px){header{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,1fr)}.flow{grid-template-columns:1fr}.stage{min-height:100px}.stage:not(:last-child)::after{content:"↓";right:12px;top:auto;bottom:-9px}.law,.fronts,.ops{grid-template-columns:1fr}.obj{grid-template-columns:54px 1fr 72px}.obj .promote{grid-column:2/-1}.receipt{grid-template-columns:1fr}.nav{align-items:flex-start}.actions{display:none}footer{display:block}footer span{display:block;margin-top:4px}}
+</style>
+</head>
+<body><div class="app">
+<header><div><div class="ey">FCM / CONTROL PROJECTION · EXPERIMENT 0.1</div><h1>FORWARD<br>CENTER MASS</h1></div><div class="intro">Do not steer 117 things. Preserve them. Project them through eight reusable transformations; admit at most three live fronts; every live front must end in RETURN.<br><br><a href="../">← SHOWCASE</a> · <a href="../federation-atlas.json">117 RAW</a></div></header>
+<div class="metrics">
+  <div class="metric"><b id="mObjects">117</b><span>FEDERATION OBJECTS</span></div>
+  <div class="metric"><b>8</b><span>CAPABILITY OPERATORS</span></div>
+  <div class="metric"><b id="mFronts">3 / 3</b><span>ACTIVE EXECUTION TOKENS</span></div>
+  <div class="metric"><b id="mReceipts">0</b><span>LOCAL RETURN RECEIPTS</span></div>
+</div>
+<nav class="nav"><div class="tabs"><button data-view="flow" class="on">FLOW</button><button data-view="fronts">FRONTS</button><button data-view="operators">OPERATORS</button><button data-view="objects">OBJECTS</button></div><div class="actions"><a href="../fcm-kernel.json">KERNEL</a><a href="../fcm-map.json">MAP</a><a href="../fcm-fronts.json">FRONTS.JSON</a></div></nav>
+
+<section id="flow" class="panel">
+<div class="section"><b>TURBULENCE → CONTROLLED EXECUTION</b><span>creative mixing upstream · bounded state change downstream</span></div>
+<div class="flow">
+  <div class="stage"><div class="n" id="nReservoir">—</div><b>RESERVOIR</b><p>Captured, later, superseded and speculative material may exist cheaply without demanding action.</p></div>
+  <div class="stage"><div class="n" id="nStraighten">—</div><b>STRAIGHTEN</b><p>Type identity, state, evidence class and operator interfaces. Preserve ambiguity without letting it steer.</p></div>
+  <div class="stage"><div class="n" id="nNozzle">—</div><b>NOZZLE</b><p>P0/P1 + now/next candidates narrow toward executable leverage rather than rhetorical importance.</p></div>
+  <div class="stage"><div class="n" id="nJet">—</div><b>JET</b><p>At most three live tokens. Each must produce an observable state change with bounded dependency cost.</p></div>
+  <div class="stage"><div class="n" id="nReturn">0</div><b>RETURN</b><p>Stamp before/after delta and reusable residue. Ship, adopt, recirculate or discard.</p></div>
+</div>
+<div class="law">
+  <div><b>L3 · MEMORY</b><p>Many named things may exist. Existence creates no execution obligation.</p></div>
+  <div><b>L2 · KERNEL</b><p>Projects compose ADDRESS / STATE / ROUTE / SENSE / ACTUATE / PROJECT / PROVE / SURFACE.</p></div>
+  <div><b>L1 · FCM</b><p>Three tokens maximum. Solve one horizon, execute, observe, RETURN, then recalculate.</p></div>
+</div>
+<div class="notice">Target variable: <b>future controllability</b> — after this action, can more useful states be reached with better information and fewer brittle dependencies?</div>
+</section>
+
+<section id="fronts" class="panel" hidden>
+<div class="section"><b>ACTIVE FRONTS</b><span>RETURN frees a token · then any federation object may be promoted from OBJECTS</span></div>
+<div id="frontGrid" class="fronts"></div>
+<div class="section"><b>RETURN RECEIPTS</b><span><button id="exportReceipts" style="border:1px solid var(--line);background:transparent;color:var(--ink);padding:5px 8px">EXPORT JSON</button> <button id="resetLocal" style="border:1px solid var(--line);background:transparent;color:var(--muted);padding:5px 8px">RESET LOCAL</button></span></div>
+<div id="receiptList" class="receipts"><div class="receipt"><span>No local receipts yet.</span></div></div>
+</section>
+
+<section id="operators" class="panel" hidden>
+<div class="section"><b>CAPABILITY KERNEL</b><span>click an operator to jump into its object projection</span></div>
+<div id="opGrid" class="ops"></div>
+<div class="section"><b>CROSSCUT MATRIX</b><span>number of 117 objects jointly projected through each operator pair</span></div>
+<div class="matrixwrap"><table id="matrix"></table></div>
+<div class="notice">Mappings are deliberately provisional: keyword-derived from scrubbed fields. The point of this surface is to test whether operator composition improves orientation before canonizing any classification.</div>
+</section>
+
+<section id="objects" class="panel" hidden>
+<div class="section"><div><b>117 OBJECTS / CONTROL PROJECTION</b><span id="objectCount">117 visible</span></div><div class="objecttools"><input id="search" type="search" placeholder="/ search objects"><select id="opFilter"><option value="">ALL OPERATORS</option></select><select id="sort"><option value="fcm">FCM GRAVITY</option><option value="centrality">DEPENDENCY GRAVITY</option><option value="name">NAME</option></select></div></div>
+<div id="objectList" class="objects"></div>
+<div class="notice">FCM score is not truth or priority. It is a transparent experimental projection: priority + horizon + readiness + numeric dependency gravity + operator breadth. Use it to expose surprising candidates, then override it with evidence.</div>
+</section>
+
+<dialog id="returnDlg"><form method="dialog" class="dlg"><h3>STAMP RETURN</h3><div id="returnName" class="op"></div><label>Observable delta<textarea id="delta" required placeholder="before → after; what actually changed?"></textarea></label><label>Reusable residue<textarea id="residue" placeholder="code, artifact, measurement, lesson, tool, interface, option unlocked"></textarea></label><div class="dlgfoot"><button value="cancel">CANCEL</button><button id="commitReturn" value="default" class="commit">COMMIT RETURN</button></div></form></dialog>
+
+<footer><span>FCM 0.1 · PARALLEL PROJECTION · DOES NOT REWRITE FEDERATION CANON</span><span>117 → 8 → ≤3 → RETURN</span></footer>
+</div>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id), LS='fcm-local-v0.1';
+let D={atlas:null,kernel:null,map:null,frontSpec:null}, S=load(), currentReturn=null, currentOp='';
+function load(){try{const x=JSON.parse(localStorage.getItem(LS));if(x&&Array.isArray(x.active)&&Array.isArray(x.receipts))return x}catch(_){}return{active:null,receipts:[]}}
+function save(){localStorage.setItem(LS,JSON.stringify(S))}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function view(v){document.querySelectorAll('.panel').forEach(x=>x.hidden=x.id!==v);document.querySelectorAll('[data-view]').forEach(x=>x.classList.toggle('on',x.dataset.view===v));history.replaceState(null,'','#'+v)}
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>view(b.dataset.view));
+function objectById(id){for(const g of D.atlas.provinces){const x=g.items.find(y=>y.id===id);if(x)return Object.assign({province:g.province},x)}return null}
+function mapById(id){return D.map.items.find(x=>x.id===id)}
+function initState(){if(!S.active)S.active=D.frontSpec.active.map(x=>Object.assign({kind:'synthetic'},x));save()}
+function renderMetrics(){ $('mObjects').textContent=D.atlas.count;$('mFronts').textContent=S.active.length+' / '+D.frontSpec.max_active;$('mReceipts').textContent=S.receipts.length;$('nReturn').textContent=S.receipts.length }
+function renderFlow(){const all=D.atlas.provinces.flatMap(g=>g.items), reservoir=all.filter(x=>['captured','superseded','cooling down'].includes(x.state)||x.horizon==='later').length,straight=all.filter(x=>x.state==='triaged').length,nozzle=all.filter(x=>['P0','P1'].includes(x.priority)&&['now','next'].includes(x.horizon)).length;$('nReservoir').textContent=reservoir;$('nStraighten').textContent=straight;$('nNozzle').textContent=nozzle;$('nJet').textContent=S.active.length}
+function returnFront(i){currentReturn=i;const f=S.active[i];$('returnName').textContent='TOKEN '+(i+1)+' · '+f.label;$('delta').value='';$('residue').value='';$('returnDlg').showModal()}
+$('commitReturn').onclick=e=>{if(currentReturn==null)return;e.preventDefault();const delta=$('delta').value.trim();if(!delta){$('delta').focus();return}const f=S.active[currentReturn];S.receipts.unshift({schema:'fcm-return/v0.1',at:new Date().toISOString(),front:f,delta,residue:$('residue').value.trim()});S.active.splice(currentReturn,1);currentReturn=null;save();$('returnDlg').close();renderAll()};
+function renderFronts(){const g=$('frontGrid');let h=S.active.map((f,i)=>'<article class="front"><div class="token">TOKEN '+String(i+1).padStart(2,'0')+' · LIVE</div><h2>'+esc(f.label)+'</h2><div class="op">'+esc(f.operation||((f.operators||[]).join(' → ')))+'</div><p>'+esc(f.question||f.purpose||'Produce one bounded observable state change.')+'</p><div class="done"><b>RETURN WHEN</b><br>'+esc(f.done_when||'Observable delta + reusable residue are recorded.')+'</div><button data-return="'+i+'">STAMP RETURN</button></article>').join('');for(let i=S.active.length;i<D.frontSpec.max_active;i++)h+='<div class="slot"><div><b>EMPTY TOKEN '+String(i+1).padStart(2,'0')+'</b><br><br>Promote one object from OBJECTS.<br>Do not refill by reflex.</div></div>';g.innerHTML=h;g.querySelectorAll('[data-return]').forEach(b=>b.onclick=()=>returnFront(+b.dataset.return));
+const r=$('receiptList');r.innerHTML=S.receipts.length?S.receipts.map(x=>'<div class="receipt"><time>'+esc(x.at.replace('T',' ').slice(0,19))+'</time><div><b>'+esc(x.front.label)+'</b><br>'+esc(x.delta)+'</div><div>'+esc(x.residue||'—')+'</div></div>').join(''):'<div class="receipt"><span>No local receipts yet.</span></div>'}
+function renderOps(){const counts={};for(const op of D.kernel.operators)counts[op.id]=D.map.items.filter(x=>x.operators.includes(op.id)).length;const g=$('opGrid');g.innerHTML=D.kernel.operators.map(op=>'<div class="opcard '+(currentOp===op.id?'on':'')+'" data-op="'+op.id+'"><b>'+op.id+' <span>'+counts[op.id]+'</span></b><p>'+esc(op.purpose)+'</p></div>').join('');g.querySelectorAll('[data-op]').forEach(x=>x.onclick=()=>{currentOp=x.dataset.op;$('opFilter').value=currentOp;renderObjects();view('objects')});
+const ops=D.kernel.operators.map(x=>x.id),t=$('matrix');let h='<tr><th>×</th>'+ops.map(o=>'<th>'+o+'</th>').join('')+'</tr>';for(const a of ops){h+='<tr><th>'+a+'</th>';for(const b of ops){const n=D.map.items.filter(x=>x.operators.includes(a)&&x.operators.includes(b)).length;h+='<td class="'+(n>=15?'hot':'')+'">'+n+'</td>'}h+='</tr>'}t.innerHTML=h}
+function promote(id){if(S.active.length>=D.frontSpec.max_active)return;const o=objectById(id),m=mapById(id);if(!o||!m)return;S.active.push({kind:'object',id:o.id,label:o.title,operation:m.operators.join(' → '),purpose:o.purpose,question:'What bounded state change makes '+o.title+' earn this execution token?',done_when:'One observable delta + reusable residue are recorded.',operators:m.operators});save();renderAll();view('fronts')}
+function renderObjects(){const term=$('search').value.trim().toLowerCase(),op=$('opFilter').value,sort=$('sort').value;let rows=D.map.items.map(m=>({m,o:objectById(m.id)})).filter(x=>x.o).filter(x=>(!op||x.m.operators.includes(op))&&(!term||[x.o.id,x.o.title,x.o.subprogram,x.o.type,x.o.state,x.o.priority,x.o.horizon,x.o.purpose,x.o.province,x.m.operators.join(' ')].join(' ').toLowerCase().includes(term)));if(sort==='fcm')rows.sort((a,b)=>b.m.fcm-a.m.fcm);else if(sort==='centrality')rows.sort((a,b)=>b.m.centrality.in-a.m.centrality.in||b.m.centrality.out-a.m.centrality.out);else rows.sort((a,b)=>a.o.title.localeCompare(b.o.title));$('objectCount').textContent=rows.length+' visible';const can=S.active.length<D.frontSpec.max_active;$('objectList').innerHTML=rows.map(x=>'<div class="obj"><div class="oid">'+esc(x.o.id)+'</div><div><div class="otitle">'+esc(x.o.title)+'</div><div class="ometa">'+esc(x.o.province)+' · '+esc(x.o.state)+' · '+esc(x.o.priority)+' / '+esc(x.o.horizon)+'</div><div class="chips">'+x.m.operators.map(o=>'<span class="chip">'+o+'</span>').join('')+'</div><div class="purpose">'+esc(x.o.purpose)+'</div></div><div class="score"><b>'+x.m.fcm.toFixed(3)+'</b><span>FCM · IN '+x.m.centrality.in+' / OUT '+x.m.centrality.out+'</span></div><button class="promote" data-promote="'+esc(x.o.id)+'" '+(can?'':'disabled')+'>'+(can?'PROMOTE':'3/3 LIVE')+'</button></div>').join('');$('objectList').querySelectorAll('[data-promote]').forEach(b=>b.onclick=()=>promote(b.dataset.promote))}
+$('search').oninput=renderObjects;$('opFilter').onchange=()=>{currentOp=$('opFilter').value;renderObjects()};$('sort').onchange=renderObjects;
+$('exportReceipts').onclick=()=>{const payload={schema:'fcm-local-export/v0.1',exported_at:new Date().toISOString(),active:S.active,receipts:S.receipts};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='fcm-receipts-'+new Date().toISOString().replace(/[:.]/g,'-')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+$('resetLocal').onclick=()=>{if(!confirm('Reset local FCM fronts and receipts?'))return;localStorage.removeItem(LS);S={active:D.frontSpec.active.map(x=>Object.assign({kind:'synthetic'},x)),receipts:[]};save();renderAll()};
+function renderAll(){renderMetrics();renderFlow();renderFronts();renderOps();renderObjects()}
+Promise.all(['../federation-atlas.json','../fcm-kernel.json','../fcm-map.json','../fcm-fronts.json'].map(u=>fetch(u,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(u+' '+r.status);return r.json()}))).then(([atlas,kernel,map,frontSpec])=>{D={atlas,kernel,map,frontSpec};initState();for(const op of kernel.operators){const o=document.createElement('option');o.value=op.id;o.textContent=op.id;$('opFilter').appendChild(o)}renderAll();view(['flow','fronts','operators','objects'].includes(location.hash.slice(1))?location.hash.slice(1):'flow')}).catch(err=>{document.body.innerHTML='<pre style="padding:20px;color:#e56b3f">FCM load failure\n'+esc(err.message)+'</pre>'});
+})();
+</script></body></html>
