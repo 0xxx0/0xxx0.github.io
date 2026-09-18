@@ -1,0 +1,357 @@
+{
+  "schema": "policy-resolution-trace/v0.1",
+  "trace_id": "policy-trace:example-001",
+  "started_at": "2026-09-18T17:20:00Z",
+  "finished_at": "2026-09-18T17:20:00Z",
+  "resolver": {
+    "router_schema": "/agent-router.json",
+    "policy_schema": "/person-resource-policy.schema.json",
+    "inheritance_schema": "/policy-inheritance.schema.json",
+    "selector_schema": "/policy-selector.schema.json",
+    "implementation": "synthetic-reference",
+    "version": "0.1"
+  },
+  "input_envelope": {
+    "event_ref": "event:example",
+    "source": "message",
+    "channel": "email",
+    "person_ref": "person:example-peer",
+    "resource_refs": [
+      "resource:door-lock"
+    ],
+    "adapter_id": "email",
+    "context_tags": [
+      "personal"
+    ],
+    "selector_facts_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111"
+  },
+  "policy_set": {
+    "ref": "policy-set:example",
+    "digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+    "revisions": [
+      {
+        "policy_id": "base:known-human",
+        "revision": 1,
+        "digest": "sha256:3333333333333333333333333333333333333333333333333333333333333333"
+      },
+      {
+        "policy_id": "person:example-peer",
+        "revision": 1,
+        "digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444"
+      },
+      {
+        "policy_id": "resource:door-lock",
+        "revision": 1,
+        "digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+      },
+      {
+        "policy_id": "channel:email-no-device-act",
+        "revision": 1,
+        "digest": "sha256:6666666666666666666666666666666666666666666666666666666666666666"
+      }
+    ]
+  },
+  "events": [
+    {
+      "seq": 0,
+      "event_id": "trace-event:000-selector-person",
+      "type": "selector_evaluated",
+      "stage": "selector",
+      "gate": null,
+      "policy_id": "person:example-peer",
+      "policy_revision": 1,
+      "cause_event_ids": [],
+      "prev_event_hash": null,
+      "event_hash": null,
+      "selector_id": "selector:example-peer",
+      "layer": "person",
+      "domain": null,
+      "matched": true,
+      "selector_kind": "criteria",
+      "specificity_class": "exact",
+      "specificity_rank": 400,
+      "matched_positive_clauses": 1,
+      "fallback_eligible": false,
+      "fallback_suppressed": false,
+      "clauses": [
+        {
+          "clause_index": 0,
+          "bucket": "all",
+          "kind": "exact",
+          "field": "person_ref",
+          "matched": true,
+          "observed": {
+            "mode": "inline",
+            "classification": "private",
+            "value": "person:example-peer"
+          },
+          "expected": {
+            "mode": "inline",
+            "classification": "public",
+            "value": "person:example-peer"
+          },
+          "reason": "exact canonical equality"
+        }
+      ]
+    },
+    {
+      "seq": 1,
+      "event_id": "trace-event:001-policy-person",
+      "type": "policy_matched",
+      "stage": "person",
+      "gate": null,
+      "policy_id": "person:example-peer",
+      "policy_revision": 1,
+      "cause_event_ids": [
+        "trace-event:000-selector-person"
+      ],
+      "prev_event_hash": null,
+      "event_hash": null,
+      "layer": "person",
+      "mode": "grant",
+      "selector_event_ids": [
+        "trace-event:000-selector-person"
+      ],
+      "authority_source": "user_explicit",
+      "authorization_ref": "grant:example-peer"
+    },
+    {
+      "seq": 2,
+      "event_id": "trace-event:002-inherit-base",
+      "type": "inheritance_step",
+      "stage": "person",
+      "gate": null,
+      "policy_id": null,
+      "policy_revision": null,
+      "cause_event_ids": [
+        "trace-event:001-policy-person"
+      ],
+      "prev_event_hash": null,
+      "event_hash": null,
+      "child_policy_id": "person:example-peer",
+      "parent_policy_id": "base:known-human",
+      "depth": 0,
+      "action": "expand",
+      "cycle_path": []
+    },
+    {
+      "seq": 3,
+      "event_id": "trace-event:003-op-grant",
+      "type": "operation_evaluated",
+      "stage": "person",
+      "gate": "remember",
+      "policy_id": "person:example-peer",
+      "policy_revision": 1,
+      "cause_event_ids": [
+        "trace-event:002-inherit-base"
+      ],
+      "prev_event_hash": null,
+      "event_hash": null,
+      "operation_index": 0,
+      "policy_mode": "grant",
+      "op": "grant_decision",
+      "path": "/permissions/remember/decision",
+      "before": {
+        "mode": "inline",
+        "classification": "public",
+        "value": "review"
+      },
+      "operand": {
+        "mode": "inline",
+        "classification": "public",
+        "value": "conditional"
+      },
+      "after": {
+        "mode": "inline",
+        "classification": "public",
+        "value": "conditional"
+      },
+      "outcome": "applied",
+      "reason_code": "peer.remember.derived"
+    },
+    {
+      "seq": 4,
+      "event_id": "trace-event:004-grant",
+      "type": "grant_evaluated",
+      "stage": "person",
+      "gate": "remember",
+      "policy_id": "person:example-peer",
+      "policy_revision": 1,
+      "cause_event_ids": [
+        "trace-event:003-op-grant"
+      ],
+      "prev_event_hash": null,
+      "event_hash": null,
+      "operation_event_id": "trace-event:003-op-grant",
+      "grant_ref": "grant:example-peer",
+      "authorization_ref": "grant:example-peer",
+      "authority_source": "user_explicit",
+      "path": "/permissions/remember/decision",
+      "requested": {
+        "mode": "inline",
+        "classification": "public",
+        "value": "conditional"
+      },
+      "accepted": true,
+      "rejection_reason": null,
+      "before": {
+        "mode": "inline",
+        "classification": "public",
+        "value": "review"
+      },
+      "after": {
+        "mode": "inline",
+        "classification": "public",
+        "value": "conditional"
+      }
+    },
+    {
+      "seq": 5,
+      "event_id": "trace-event:005-deny-act",
+      "type": "deny_applied",
+      "stage": "channel",
+      "gate": "act",
+      "policy_id": "channel:email-no-device-act",
+      "policy_revision": 1,
+      "cause_event_ids": [],
+      "prev_event_hash": null,
+      "event_hash": null,
+      "source_event_id": "trace-event:006-lock-act",
+      "path": "/permissions/act/decision",
+      "deny_kind": "explicit",
+      "value": {
+        "mode": "inline",
+        "classification": "public",
+        "value": "deny"
+      },
+      "dominates_event_ids": []
+    },
+    {
+      "seq": 6,
+      "event_id": "trace-event:006-lock-act",
+      "type": "lock_applied",
+      "stage": "channel",
+      "gate": "act",
+      "policy_id": "channel:email-no-device-act",
+      "policy_revision": 1,
+      "cause_event_ids": [
+        "trace-event:005-deny-act"
+      ],
+      "prev_event_hash": null,
+      "event_hash": null,
+      "source_event_id": "trace-event:005-deny-act",
+      "path": "/permissions/act/decision",
+      "action": "acquire",
+      "ancestor_path": null,
+      "blocked_event_ids": []
+    }
+  ],
+  "gate_results": {
+    "read": {
+      "decision": "allow",
+      "final_event_id": "trace-event:100-read",
+      "source_policy_ids": [
+        "base:known-human"
+      ],
+      "grant_event_ids": [],
+      "deny_event_ids": [],
+      "lock_event_ids": [],
+      "effective_scope_digest": null
+    },
+    "remember": {
+      "decision": "conditional",
+      "final_event_id": "trace-event:101-remember",
+      "source_policy_ids": [
+        "base:known-human",
+        "person:example-peer"
+      ],
+      "grant_event_ids": [
+        "trace-event:004-grant"
+      ],
+      "deny_event_ids": [],
+      "lock_event_ids": [],
+      "effective_scope_digest": null
+    },
+    "acknowledge": {
+      "decision": "allow",
+      "final_event_id": "trace-event:102-ack",
+      "source_policy_ids": [
+        "base:known-human"
+      ],
+      "grant_event_ids": [],
+      "deny_event_ids": [],
+      "lock_event_ids": [],
+      "effective_scope_digest": null
+    },
+    "answer": {
+      "decision": "allow",
+      "final_event_id": "trace-event:103-answer",
+      "source_policy_ids": [
+        "base:known-human"
+      ],
+      "grant_event_ids": [],
+      "deny_event_ids": [],
+      "lock_event_ids": [],
+      "effective_scope_digest": null
+    },
+    "draft": {
+      "decision": "allow",
+      "final_event_id": "trace-event:104-draft",
+      "source_policy_ids": [
+        "base:known-human"
+      ],
+      "grant_event_ids": [],
+      "deny_event_ids": [],
+      "lock_event_ids": [],
+      "effective_scope_digest": null
+    },
+    "act": {
+      "decision": "deny",
+      "final_event_id": "trace-event:105-act",
+      "source_policy_ids": [
+        "resource:door-lock",
+        "channel:email-no-device-act"
+      ],
+      "grant_event_ids": [],
+      "deny_event_ids": [
+        "trace-event:005-deny-act"
+      ],
+      "lock_event_ids": [
+        "trace-event:006-lock-act"
+      ],
+      "effective_scope_digest": null
+    },
+    "escalate": {
+      "decision": "allow",
+      "final_event_id": "trace-event:106-escalate",
+      "source_policy_ids": [
+        "base:known-human"
+      ],
+      "grant_event_ids": [],
+      "deny_event_ids": [],
+      "lock_event_ids": [],
+      "effective_scope_digest": null
+    }
+  },
+  "result": {
+    "status": "resolved",
+    "effective_policy_digest": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+    "final_event_id": "trace-event:199-final",
+    "replayable": false,
+    "replay_limits": [
+      "synthetic example omits repetitive final-gate events"
+    ]
+  },
+  "privacy": {
+    "raw_payload_embedded": false,
+    "secret_values_embedded": false,
+    "trace_storage": "private_local",
+    "redaction_policy": "synthetic example"
+  },
+  "hash_chain": {
+    "enabled": false,
+    "canonicalization": "RFC8785-JCS",
+    "algorithm": "SHA-256",
+    "chain_head": null
+  }
+}
