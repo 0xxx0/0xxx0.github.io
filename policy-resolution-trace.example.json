@@ -53,16 +53,56 @@
   },
   "events": [
     {
+      "event_id": "trace-event:000-base-known",
+      "type": "selector_evaluated",
+      "stage": "selector",
+      "gate": null,
+      "policy_id": "base:known-human",
+      "policy_revision": 1,
+      "selector_id": "selector:base-known",
+      "layer": "base",
+      "domain": "base",
+      "matched": true,
+      "selector_kind": "fallback",
+      "specificity_class": "fallback",
+      "specificity_rank": 100,
+      "matched_positive_clauses": 0,
+      "fallback_eligible": true,
+      "fallback_suppressed": false,
+      "clauses": [],
       "seq": 0,
-      "event_id": "trace-event:000-selector-person",
+      "cause_event_ids": [],
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:001-policy-base",
+      "type": "policy_matched",
+      "stage": "base",
+      "gate": null,
+      "policy_id": "base:known-human",
+      "policy_revision": 1,
+      "layer": "base",
+      "mode": "restrict",
+      "selector_event_ids": [
+        "trace-event:000-base-known"
+      ],
+      "authority_source": "system_default",
+      "authorization_ref": null,
+      "cause_event_ids": [
+        "trace-event:000-base-known"
+      ],
+      "seq": 1,
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:002-example-peer",
       "type": "selector_evaluated",
       "stage": "selector",
       "gate": null,
       "policy_id": "person:example-peer",
       "policy_revision": 1,
-      "cause_event_ids": [],
-      "prev_event_hash": null,
-      "event_hash": null,
       "selector_id": "selector:example-peer",
       "layer": "person",
       "domain": null,
@@ -90,63 +130,188 @@
             "classification": "public",
             "value": "person:example-peer"
           },
-          "reason": "exact canonical equality"
+          "reason": "synthetic canonical match"
         }
-      ]
+      ],
+      "seq": 2,
+      "cause_event_ids": [],
+      "prev_event_hash": null,
+      "event_hash": null
     },
     {
-      "seq": 1,
-      "event_id": "trace-event:001-policy-person",
+      "event_id": "trace-event:003-policy-person",
       "type": "policy_matched",
       "stage": "person",
       "gate": null,
       "policy_id": "person:example-peer",
       "policy_revision": 1,
-      "cause_event_ids": [
-        "trace-event:000-selector-person"
-      ],
-      "prev_event_hash": null,
-      "event_hash": null,
       "layer": "person",
       "mode": "grant",
       "selector_event_ids": [
-        "trace-event:000-selector-person"
+        "trace-event:002-example-peer"
       ],
       "authority_source": "user_explicit",
-      "authorization_ref": "grant:example-peer"
+      "authorization_ref": "grant:example-peer",
+      "cause_event_ids": [
+        "trace-event:002-example-peer"
+      ],
+      "seq": 3,
+      "prev_event_hash": null,
+      "event_hash": null
     },
     {
-      "seq": 2,
-      "event_id": "trace-event:002-inherit-base",
+      "event_id": "trace-event:004-door-lock",
+      "type": "selector_evaluated",
+      "stage": "selector",
+      "gate": null,
+      "policy_id": "resource:door-lock",
+      "policy_revision": 1,
+      "selector_id": "selector:door-lock",
+      "layer": "resource",
+      "domain": null,
+      "matched": true,
+      "selector_kind": "criteria",
+      "specificity_class": "exact",
+      "specificity_rank": 400,
+      "matched_positive_clauses": 1,
+      "fallback_eligible": false,
+      "fallback_suppressed": false,
+      "clauses": [
+        {
+          "clause_index": 0,
+          "bucket": "all",
+          "kind": "exact",
+          "field": "resource_ref",
+          "matched": true,
+          "observed": {
+            "mode": "inline",
+            "classification": "private",
+            "value": "resource:door-lock"
+          },
+          "expected": {
+            "mode": "inline",
+            "classification": "public",
+            "value": "resource:door-lock"
+          },
+          "reason": "synthetic canonical match"
+        }
+      ],
+      "seq": 4,
+      "cause_event_ids": [],
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:005-policy-resource",
+      "type": "policy_matched",
+      "stage": "resource",
+      "gate": null,
+      "policy_id": "resource:door-lock",
+      "policy_revision": 1,
+      "layer": "resource",
+      "mode": "restrict",
+      "selector_event_ids": [
+        "trace-event:004-door-lock"
+      ],
+      "authority_source": "operator_defined",
+      "authorization_ref": null,
+      "cause_event_ids": [
+        "trace-event:004-door-lock"
+      ],
+      "seq": 5,
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:006-email-device",
+      "type": "selector_evaluated",
+      "stage": "selector",
+      "gate": null,
+      "policy_id": "channel:email-no-device-act",
+      "policy_revision": 1,
+      "selector_id": "selector:email-device",
+      "layer": "channel",
+      "domain": null,
+      "matched": true,
+      "selector_kind": "criteria",
+      "specificity_class": "exact",
+      "specificity_rank": 400,
+      "matched_positive_clauses": 1,
+      "fallback_eligible": false,
+      "fallback_suppressed": false,
+      "clauses": [
+        {
+          "clause_index": 0,
+          "bucket": "all",
+          "kind": "exact",
+          "field": "channel",
+          "matched": true,
+          "observed": {
+            "mode": "inline",
+            "classification": "private",
+            "value": "email"
+          },
+          "expected": {
+            "mode": "inline",
+            "classification": "public",
+            "value": "email"
+          },
+          "reason": "synthetic canonical match"
+        }
+      ],
+      "seq": 6,
+      "cause_event_ids": [],
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:007-policy-channel",
+      "type": "policy_matched",
+      "stage": "channel",
+      "gate": null,
+      "policy_id": "channel:email-no-device-act",
+      "policy_revision": 1,
+      "layer": "channel",
+      "mode": "restrict",
+      "selector_event_ids": [
+        "trace-event:006-email-device"
+      ],
+      "authority_source": "operator_defined",
+      "authorization_ref": null,
+      "cause_event_ids": [
+        "trace-event:006-email-device"
+      ],
+      "seq": 7,
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:008-inherit",
       "type": "inheritance_step",
       "stage": "person",
       "gate": null,
       "policy_id": null,
       "policy_revision": null,
-      "cause_event_ids": [
-        "trace-event:001-policy-person"
-      ],
-      "prev_event_hash": null,
-      "event_hash": null,
       "child_policy_id": "person:example-peer",
       "parent_policy_id": "base:known-human",
       "depth": 0,
       "action": "expand",
-      "cycle_path": []
+      "cycle_path": [],
+      "cause_event_ids": [
+        "trace-event:003-policy-person",
+        "trace-event:001-policy-base"
+      ],
+      "seq": 8,
+      "prev_event_hash": null,
+      "event_hash": null
     },
     {
-      "seq": 3,
-      "event_id": "trace-event:003-op-grant",
+      "event_id": "trace-event:009-op-grant",
       "type": "operation_evaluated",
       "stage": "person",
       "gate": "remember",
       "policy_id": "person:example-peer",
       "policy_revision": 1,
-      "cause_event_ids": [
-        "trace-event:002-inherit-base"
-      ],
-      "prev_event_hash": null,
-      "event_hash": null,
       "operation_index": 0,
       "policy_mode": "grant",
       "op": "grant_decision",
@@ -167,22 +332,22 @@
         "value": "conditional"
       },
       "outcome": "applied",
-      "reason_code": "peer.remember.derived"
+      "reason_code": "peer.remember.derived",
+      "cause_event_ids": [
+        "trace-event:008-inherit"
+      ],
+      "seq": 9,
+      "prev_event_hash": null,
+      "event_hash": null
     },
     {
-      "seq": 4,
-      "event_id": "trace-event:004-grant",
+      "event_id": "trace-event:010-grant",
       "type": "grant_evaluated",
       "stage": "person",
       "gate": "remember",
       "policy_id": "person:example-peer",
       "policy_revision": 1,
-      "cause_event_ids": [
-        "trace-event:003-op-grant"
-      ],
-      "prev_event_hash": null,
-      "event_hash": null,
-      "operation_event_id": "trace-event:003-op-grant",
+      "operation_event_id": "trace-event:009-op-grant",
       "grant_ref": "grant:example-peer",
       "authorization_ref": "grant:example-peer",
       "authority_source": "user_explicit",
@@ -203,20 +368,123 @@
         "mode": "inline",
         "classification": "public",
         "value": "conditional"
-      }
+      },
+      "cause_event_ids": [
+        "trace-event:009-op-grant"
+      ],
+      "seq": 10,
+      "prev_event_hash": null,
+      "event_hash": null
     },
     {
-      "seq": 5,
-      "event_id": "trace-event:005-deny-act",
+      "event_id": "trace-event:011-op-resource-review",
+      "type": "operation_evaluated",
+      "stage": "resource",
+      "gate": "act",
+      "policy_id": "resource:door-lock",
+      "policy_revision": 1,
+      "operation_index": 0,
+      "policy_mode": "restrict",
+      "op": "restrict_decision",
+      "path": "/permissions/act/decision",
+      "before": {
+        "mode": "inline",
+        "classification": "public",
+        "value": "allow"
+      },
+      "operand": {
+        "mode": "inline",
+        "classification": "public",
+        "value": "review"
+      },
+      "after": {
+        "mode": "inline",
+        "classification": "public",
+        "value": "review"
+      },
+      "outcome": "applied",
+      "reason_code": "door.act.review",
+      "cause_event_ids": [
+        "trace-event:005-policy-resource"
+      ],
+      "seq": 11,
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:012-stage-subject",
+      "type": "stage_resolved",
+      "stage": "subject_parallel",
+      "gate": null,
+      "policy_id": null,
+      "policy_revision": null,
+      "resolved_stage": "subject_parallel",
+      "matched_policy_ids": [
+        "person:example-peer",
+        "resource:door-lock"
+      ],
+      "gate_decisions": {
+        "read": "allow",
+        "remember": "conditional",
+        "acknowledge": "allow",
+        "answer": "allow",
+        "draft": "allow",
+        "act": "review",
+        "escalate": "allow"
+      },
+      "state_digest": "sha256:8888888888888888888888888888888888888888888888888888888888888888",
+      "cause_event_ids": [
+        "trace-event:010-grant",
+        "trace-event:011-op-resource-review"
+      ],
+      "seq": 12,
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:013-op-deny",
+      "type": "operation_evaluated",
+      "stage": "channel",
+      "gate": "act",
+      "policy_id": "channel:email-no-device-act",
+      "policy_revision": 1,
+      "operation_index": 0,
+      "policy_mode": "restrict",
+      "op": "restrict_decision",
+      "path": "/permissions/act/decision",
+      "before": {
+        "mode": "inline",
+        "classification": "public",
+        "value": "review"
+      },
+      "operand": {
+        "mode": "inline",
+        "classification": "public",
+        "value": "deny"
+      },
+      "after": {
+        "mode": "inline",
+        "classification": "public",
+        "value": "deny"
+      },
+      "outcome": "applied",
+      "reason_code": "email.device.deny",
+      "cause_event_ids": [
+        "trace-event:007-policy-channel",
+        "trace-event:012-stage-subject"
+      ],
+      "seq": 13,
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:014-deny",
       "type": "deny_applied",
       "stage": "channel",
       "gate": "act",
       "policy_id": "channel:email-no-device-act",
       "policy_revision": 1,
-      "cause_event_ids": [],
-      "prev_event_hash": null,
-      "event_hash": null,
-      "source_event_id": "trace-event:006-lock-act",
+      "source_event_id": "trace-event:013-op-deny",
       "path": "/permissions/act/decision",
       "deny_kind": "explicit",
       "value": {
@@ -224,32 +492,380 @@
         "classification": "public",
         "value": "deny"
       },
-      "dominates_event_ids": []
+      "dominates_event_ids": [
+        "trace-event:011-op-resource-review"
+      ],
+      "cause_event_ids": [
+        "trace-event:013-op-deny"
+      ],
+      "seq": 14,
+      "prev_event_hash": null,
+      "event_hash": null
     },
     {
-      "seq": 6,
-      "event_id": "trace-event:006-lock-act",
+      "event_id": "trace-event:015-op-lock",
+      "type": "operation_evaluated",
+      "stage": "channel",
+      "gate": "act",
+      "policy_id": "channel:email-no-device-act",
+      "policy_revision": 1,
+      "operation_index": 1,
+      "policy_mode": "restrict",
+      "op": "lock",
+      "path": "/permissions/act/decision",
+      "before": {
+        "mode": "inline",
+        "classification": "public",
+        "value": false
+      },
+      "operand": {
+        "mode": "inline",
+        "classification": "public",
+        "value": true
+      },
+      "after": {
+        "mode": "inline",
+        "classification": "public",
+        "value": true
+      },
+      "outcome": "applied",
+      "reason_code": "email.device.lock",
+      "cause_event_ids": [
+        "trace-event:014-deny"
+      ],
+      "seq": 15,
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:016-lock",
       "type": "lock_applied",
       "stage": "channel",
       "gate": "act",
       "policy_id": "channel:email-no-device-act",
       "policy_revision": 1,
-      "cause_event_ids": [
-        "trace-event:005-deny-act"
-      ],
-      "prev_event_hash": null,
-      "event_hash": null,
-      "source_event_id": "trace-event:005-deny-act",
+      "source_event_id": "trace-event:015-op-lock",
       "path": "/permissions/act/decision",
       "action": "acquire",
       "ancestor_path": null,
-      "blocked_event_ids": []
+      "blocked_event_ids": [],
+      "cause_event_ids": [
+        "trace-event:015-op-lock"
+      ],
+      "seq": 16,
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:017-stage-channel",
+      "type": "stage_resolved",
+      "stage": "channel",
+      "gate": null,
+      "policy_id": null,
+      "policy_revision": null,
+      "resolved_stage": "channel",
+      "matched_policy_ids": [
+        "channel:email-no-device-act"
+      ],
+      "gate_decisions": {
+        "read": "allow",
+        "remember": "conditional",
+        "acknowledge": "allow",
+        "answer": "allow",
+        "draft": "allow",
+        "act": "deny",
+        "escalate": "allow"
+      },
+      "state_digest": "sha256:9999999999999999999999999999999999999999999999999999999999999999",
+      "cause_event_ids": [
+        "trace-event:016-lock"
+      ],
+      "seq": 17,
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:018-final-read",
+      "type": "gate_final",
+      "stage": "final",
+      "gate": "read",
+      "policy_id": null,
+      "policy_revision": null,
+      "decision": "allow",
+      "effective_scope": {
+        "mode": "digest",
+        "classification": "private",
+        "digest": "sha256:7272727272727272727272727272727272727272727272727272727272727272",
+        "shape": "effective gate scope"
+      },
+      "source_policy_ids": [
+        "base:known-human"
+      ],
+      "winning_event_ids": [
+        "trace-event:017-stage-channel"
+      ],
+      "grant_event_ids": [],
+      "deny_event_ids": [],
+      "lock_event_ids": [],
+      "reason_codes": [
+        "base.known.read"
+      ],
+      "cause_event_ids": [
+        "trace-event:017-stage-channel"
+      ],
+      "seq": 18,
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:019-final-remember",
+      "type": "gate_final",
+      "stage": "final",
+      "gate": "remember",
+      "policy_id": null,
+      "policy_revision": null,
+      "decision": "conditional",
+      "effective_scope": {
+        "mode": "digest",
+        "classification": "private",
+        "digest": "sha256:7272727272727272727272727272727272727272727272727272727272727272",
+        "shape": "effective gate scope"
+      },
+      "source_policy_ids": [
+        "base:known-human",
+        "person:example-peer"
+      ],
+      "winning_event_ids": [
+        "trace-event:010-grant"
+      ],
+      "grant_event_ids": [
+        "trace-event:010-grant"
+      ],
+      "deny_event_ids": [],
+      "lock_event_ids": [],
+      "reason_codes": [
+        "peer.remember.derived"
+      ],
+      "cause_event_ids": [
+        "trace-event:017-stage-channel",
+        "trace-event:010-grant"
+      ],
+      "seq": 19,
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:020-final-acknowledge",
+      "type": "gate_final",
+      "stage": "final",
+      "gate": "acknowledge",
+      "policy_id": null,
+      "policy_revision": null,
+      "decision": "allow",
+      "effective_scope": {
+        "mode": "digest",
+        "classification": "private",
+        "digest": "sha256:6161616161616161616161616161616161616161616161616161616161616161",
+        "shape": "effective gate scope"
+      },
+      "source_policy_ids": [
+        "base:known-human"
+      ],
+      "winning_event_ids": [
+        "trace-event:017-stage-channel"
+      ],
+      "grant_event_ids": [],
+      "deny_event_ids": [],
+      "lock_event_ids": [],
+      "reason_codes": [
+        "base.known.ack"
+      ],
+      "cause_event_ids": [
+        "trace-event:017-stage-channel"
+      ],
+      "seq": 20,
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:021-final-answer",
+      "type": "gate_final",
+      "stage": "final",
+      "gate": "answer",
+      "policy_id": null,
+      "policy_revision": null,
+      "decision": "allow",
+      "effective_scope": {
+        "mode": "digest",
+        "classification": "private",
+        "digest": "sha256:6161616161616161616161616161616161616161616161616161616161616161",
+        "shape": "effective gate scope"
+      },
+      "source_policy_ids": [
+        "base:known-human"
+      ],
+      "winning_event_ids": [
+        "trace-event:017-stage-channel"
+      ],
+      "grant_event_ids": [],
+      "deny_event_ids": [],
+      "lock_event_ids": [],
+      "reason_codes": [
+        "base.known.answer"
+      ],
+      "cause_event_ids": [
+        "trace-event:017-stage-channel"
+      ],
+      "seq": 21,
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:022-final-draft",
+      "type": "gate_final",
+      "stage": "final",
+      "gate": "draft",
+      "policy_id": null,
+      "policy_revision": null,
+      "decision": "allow",
+      "effective_scope": {
+        "mode": "digest",
+        "classification": "private",
+        "digest": "sha256:6464646464646464646464646464646464646464646464646464646464646464",
+        "shape": "effective gate scope"
+      },
+      "source_policy_ids": [
+        "base:known-human"
+      ],
+      "winning_event_ids": [
+        "trace-event:017-stage-channel"
+      ],
+      "grant_event_ids": [],
+      "deny_event_ids": [],
+      "lock_event_ids": [],
+      "reason_codes": [
+        "base.known.draft"
+      ],
+      "cause_event_ids": [
+        "trace-event:017-stage-channel"
+      ],
+      "seq": 22,
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:023-final-act",
+      "type": "gate_final",
+      "stage": "final",
+      "gate": "act",
+      "policy_id": null,
+      "policy_revision": null,
+      "decision": "deny",
+      "effective_scope": {
+        "mode": "digest",
+        "classification": "private",
+        "digest": "sha256:6161616161616161616161616161616161616161616161616161616161616161",
+        "shape": "effective gate scope"
+      },
+      "source_policy_ids": [
+        "resource:door-lock",
+        "channel:email-no-device-act"
+      ],
+      "winning_event_ids": [
+        "trace-event:014-deny",
+        "trace-event:016-lock"
+      ],
+      "grant_event_ids": [],
+      "deny_event_ids": [
+        "trace-event:014-deny"
+      ],
+      "lock_event_ids": [
+        "trace-event:016-lock"
+      ],
+      "reason_codes": [
+        "door.act.review",
+        "email.device.deny",
+        "email.device.lock"
+      ],
+      "cause_event_ids": [
+        "trace-event:017-stage-channel",
+        "trace-event:014-deny",
+        "trace-event:016-lock"
+      ],
+      "seq": 23,
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:024-final-escalate",
+      "type": "gate_final",
+      "stage": "final",
+      "gate": "escalate",
+      "policy_id": null,
+      "policy_revision": null,
+      "decision": "allow",
+      "effective_scope": {
+        "mode": "digest",
+        "classification": "private",
+        "digest": "sha256:6565656565656565656565656565656565656565656565656565656565656565",
+        "shape": "effective gate scope"
+      },
+      "source_policy_ids": [
+        "base:known-human"
+      ],
+      "winning_event_ids": [
+        "trace-event:017-stage-channel"
+      ],
+      "grant_event_ids": [],
+      "deny_event_ids": [],
+      "lock_event_ids": [],
+      "reason_codes": [
+        "base.known.escalate"
+      ],
+      "cause_event_ids": [
+        "trace-event:017-stage-channel"
+      ],
+      "seq": 24,
+      "prev_event_hash": null,
+      "event_hash": null
+    },
+    {
+      "event_id": "trace-event:025-resolution",
+      "type": "resolution_final",
+      "stage": "final",
+      "gate": null,
+      "policy_id": null,
+      "policy_revision": null,
+      "status": "resolved",
+      "effective_policy_digest": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+      "final_gate_event_ids": {
+        "read": "trace-event:018-final-read",
+        "remember": "trace-event:019-final-remember",
+        "acknowledge": "trace-event:020-final-acknowledge",
+        "answer": "trace-event:021-final-answer",
+        "draft": "trace-event:022-final-draft",
+        "act": "trace-event:023-final-act",
+        "escalate": "trace-event:024-final-escalate"
+      },
+      "chain_head": null,
+      "cause_event_ids": [
+        "trace-event:018-final-read",
+        "trace-event:019-final-remember",
+        "trace-event:020-final-acknowledge",
+        "trace-event:021-final-answer",
+        "trace-event:022-final-draft",
+        "trace-event:023-final-act",
+        "trace-event:024-final-escalate"
+      ],
+      "seq": 25,
+      "prev_event_hash": null,
+      "event_hash": null
     }
   ],
   "gate_results": {
     "read": {
       "decision": "allow",
-      "final_event_id": "trace-event:100-read",
+      "final_event_id": "trace-event:018-final-read",
       "source_policy_ids": [
         "base:known-human"
       ],
@@ -260,13 +876,13 @@
     },
     "remember": {
       "decision": "conditional",
-      "final_event_id": "trace-event:101-remember",
+      "final_event_id": "trace-event:019-final-remember",
       "source_policy_ids": [
         "base:known-human",
         "person:example-peer"
       ],
       "grant_event_ids": [
-        "trace-event:004-grant"
+        "trace-event:010-grant"
       ],
       "deny_event_ids": [],
       "lock_event_ids": [],
@@ -274,7 +890,7 @@
     },
     "acknowledge": {
       "decision": "allow",
-      "final_event_id": "trace-event:102-ack",
+      "final_event_id": "trace-event:020-final-acknowledge",
       "source_policy_ids": [
         "base:known-human"
       ],
@@ -285,7 +901,7 @@
     },
     "answer": {
       "decision": "allow",
-      "final_event_id": "trace-event:103-answer",
+      "final_event_id": "trace-event:021-final-answer",
       "source_policy_ids": [
         "base:known-human"
       ],
@@ -296,7 +912,7 @@
     },
     "draft": {
       "decision": "allow",
-      "final_event_id": "trace-event:104-draft",
+      "final_event_id": "trace-event:022-final-draft",
       "source_policy_ids": [
         "base:known-human"
       ],
@@ -307,23 +923,23 @@
     },
     "act": {
       "decision": "deny",
-      "final_event_id": "trace-event:105-act",
+      "final_event_id": "trace-event:023-final-act",
       "source_policy_ids": [
         "resource:door-lock",
         "channel:email-no-device-act"
       ],
       "grant_event_ids": [],
       "deny_event_ids": [
-        "trace-event:005-deny-act"
+        "trace-event:014-deny"
       ],
       "lock_event_ids": [
-        "trace-event:006-lock-act"
+        "trace-event:016-lock"
       ],
       "effective_scope_digest": null
     },
     "escalate": {
       "decision": "allow",
-      "final_event_id": "trace-event:106-escalate",
+      "final_event_id": "trace-event:024-final-escalate",
       "source_policy_ids": [
         "base:known-human"
       ],
@@ -336,11 +952,9 @@
   "result": {
     "status": "resolved",
     "effective_policy_digest": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
-    "final_event_id": "trace-event:199-final",
-    "replayable": false,
-    "replay_limits": [
-      "synthetic example omits repetitive final-gate events"
-    ]
+    "final_event_id": "trace-event:025-resolution",
+    "replayable": true,
+    "replay_limits": []
   },
   "privacy": {
     "raw_payload_embedded": false,
