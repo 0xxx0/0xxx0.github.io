@@ -21,8 +21,9 @@
   ],
   "epistemic_boundary": "Geometry is downstream of recorded state and never proof of external truth.",
   "verification": [
-    "JS syntax checked in local candidate",
-    "built-in self-test includes local-law and cross-district coupling invariants",
-    "public live verification pending Pages deploy"
+    "JS syntax checked in local 0.8 candidate",
+    "built-in self-test covers stable ids, open gate roads, four local-law deltas, cross-district coupling, POV/PLAIN state sharing, deterministic seal and field hash",
+    "GitHub Pages build completed successfully at showcase/manifest head",
+    "committed public bytes re-read after deploy; 0.8, coupled law and seal runtime present"
   ]
 }
