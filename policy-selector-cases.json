@@ -468,6 +468,72 @@
         "effective": "deny",
         "reason": "both policies enter merge; deny resolution happens after selector matching"
       }
+    },
+    {
+      "id": "less-specific-grant-cannot-widen",
+      "restriction": {
+        "layer": "person",
+        "selector_class": "exact",
+        "matched_positive_clauses": 1,
+        "decision": "review",
+        "explicit_deny": false,
+        "locked": false
+      },
+      "grant": {
+        "layer": "person",
+        "selector_class": "tag",
+        "matched_positive_clauses": 1,
+        "authority": "user_explicit",
+        "authorization_ref": "grant:peer"
+      },
+      "expect": {
+        "grant_applies": false,
+        "reason": "grant effective specificity is lower than restriction effective specificity"
+      }
+    },
+    {
+      "id": "more-specific-grant-may-widen-nondeny",
+      "restriction": {
+        "layer": "base",
+        "selector_class": "fallback",
+        "matched_positive_clauses": 0,
+        "decision": "review",
+        "explicit_deny": false,
+        "locked": false
+      },
+      "grant": {
+        "layer": "person",
+        "selector_class": "exact",
+        "matched_positive_clauses": 1,
+        "authority": "user_explicit",
+        "authorization_ref": "grant:peer"
+      },
+      "expect": {
+        "grant_applies": true,
+        "reason": "authorized grant is more specific and restriction is neither deny nor locked"
+      }
+    },
+    {
+      "id": "exact-grant-never-overrides-explicit-deny",
+      "restriction": {
+        "layer": "base",
+        "selector_class": "tag",
+        "matched_positive_clauses": 1,
+        "decision": "deny",
+        "explicit_deny": true,
+        "locked": false
+      },
+      "grant": {
+        "layer": "channel",
+        "selector_class": "exact",
+        "matched_positive_clauses": 2,
+        "authority": "user_explicit",
+        "authorization_ref": "grant:channel-exception"
+      },
+      "expect": {
+        "grant_applies": false,
+        "reason": "explicit deny is terminal regardless of specificity"
+      }
     }
   ]
 }
