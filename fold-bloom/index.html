@@ -24,4 +24,4 @@
 if('serviceWorker' in navigator){navigator.serviceWorker.getRegistrations().then(rs=>rs.forEach(r=>{if(r.scope.includes('/fold-bloom/'))r.unregister()})).catch(()=>{})}
 if('caches' in window){caches.keys().then(keys=>Promise.all(keys.filter(k=>/^fold-bloom/i.test(k)).map(k=>caches.delete(k)))).catch(()=>{})}
 </script>
-</body></html>
+<script src="/showcase-nav.js" defer></script></body></html>
