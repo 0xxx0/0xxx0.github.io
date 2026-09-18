@@ -7,6 +7,7 @@
   "required": [
     "schema",
     "policy_schema",
+    "selector_schema",
     "defaults",
     "resolution",
     "base_policies",
@@ -219,52 +220,7 @@
             "default": []
           },
           "selector": {
-            "type": "object",
-            "properties": {
-              "person_refs": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "resource_refs": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "resource_classes": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "channels": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "adapter_ids": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "context_tags": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              }
-            },
-            "additionalProperties": false
+            "$ref": "/policy-selector.schema.json#/$defs/base_selector"
           },
           "authority": {
             "type": "object",
@@ -578,52 +534,7 @@
             "default": []
           },
           "selector": {
-            "type": "object",
-            "properties": {
-              "person_refs": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "resource_refs": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "resource_classes": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "channels": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "adapter_ids": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "context_tags": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              }
-            },
-            "additionalProperties": false
+            "$ref": "/policy-selector.schema.json#/$defs/person_selector"
           },
           "authority": {
             "type": "object",
@@ -937,52 +848,7 @@
             "default": []
           },
           "selector": {
-            "type": "object",
-            "properties": {
-              "person_refs": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "resource_refs": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "resource_classes": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "channels": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "adapter_ids": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "context_tags": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              }
-            },
-            "additionalProperties": false
+            "$ref": "/policy-selector.schema.json#/$defs/resource_selector"
           },
           "authority": {
             "type": "object",
@@ -1296,52 +1162,7 @@
             "default": []
           },
           "selector": {
-            "type": "object",
-            "properties": {
-              "person_refs": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "resource_refs": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "resource_classes": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "channels": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "adapter_ids": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              },
-              "context_tags": {
-                "type": "array",
-                "uniqueItems": true,
-                "items": {
-                  "type": "string"
-                }
-              }
-            },
-            "additionalProperties": false
+            "$ref": "/policy-selector.schema.json#/$defs/channel_selector"
           },
           "authority": {
             "type": "object",
@@ -1618,7 +1439,18 @@
         ],
         "additionalProperties": false
       }
+    },
+    "selector_schema": {
+      "const": "/policy-selector.schema.json"
     }
   },
-  "additionalProperties": false
+  "additionalProperties": false,
+  "x-selector-resolution": {
+    "schema": "/policy-selector.schema.json",
+    "collection": "evaluate every selector in the current layer/branch against the canonical pre-policy facts permitted for selection",
+    "fallback": "activate matching fallback selectors only when zero non-fallback selectors matched that same layer/domain branch",
+    "ordering": "exact > pattern > tag > fallback for trace ordering only",
+    "merge": "all matched non-fallback policies enter policy merge; selector specificity never discards a broader restriction",
+    "declaration_order": "irrelevant"
+  }
 }
