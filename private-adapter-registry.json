@@ -1,0 +1,326 @@
+{
+  "schema": "private-adapter-registry/v0.1",
+  "updated": "2026-09-18",
+  "role": "Public capability declarations for private-runtime bindings. Contains no credentials, contact identifiers, private endpoints or claims of active connection.",
+  "states": [
+    "REFERENCE",
+    "PRIVATE_BINDING_REQUIRED",
+    "LOCAL_CANDIDATE"
+  ],
+  "permission_levels": [
+    "read",
+    "draft",
+    "act"
+  ],
+  "adapters": [
+    {
+      "id": "local-state",
+      "class": "state",
+      "label": "LOCAL STATE / JSONL",
+      "state": "LOCAL_CANDIDATE",
+      "channels": [
+        "filesystem",
+        "local database",
+        "append-only log"
+      ],
+      "inputs": [
+        "human note",
+        "message copy",
+        "sensor/log event",
+        "task",
+        "receipt"
+      ],
+      "outputs": [
+        "stored object",
+        "query result",
+        "receipt",
+        "rollback ref"
+      ],
+      "permissions": [
+        "read",
+        "draft",
+        "act"
+      ],
+      "side_effects": "local",
+      "contracts": [
+        "CAPTURE",
+        "PLAN",
+        "PROVE"
+      ],
+      "boundary": "private runtime only",
+      "fit": "Default evidence/state substrate; simplest first real adapter."
+    },
+    {
+      "id": "human-review",
+      "class": "handoff",
+      "label": "HUMAN REVIEW",
+      "state": "REFERENCE",
+      "channels": [
+        "local review queue"
+      ],
+      "inputs": [
+        "draft",
+        "uncertainty",
+        "proposed external action"
+      ],
+      "outputs": [
+        "approve",
+        "edit",
+        "reject",
+        "defer"
+      ],
+      "permissions": [
+        "read",
+        "draft",
+        "act"
+      ],
+      "side_effects": "local",
+      "contracts": [
+        "CAPTURE",
+        "REPRESENT",
+        "PROVE"
+      ],
+      "boundary": "private runtime only",
+      "fit": "Universal fallback before consequential external action."
+    },
+    {
+      "id": "email",
+      "class": "communication",
+      "label": "EMAIL",
+      "state": "PRIVATE_BINDING_REQUIRED",
+      "channels": [
+        "email"
+      ],
+      "inputs": [
+        "message event",
+        "thread context",
+        "draft"
+      ],
+      "outputs": [
+        "thread read",
+        "draft reply",
+        "sent message"
+      ],
+      "permissions": [
+        "read",
+        "draft",
+        "act"
+      ],
+      "side_effects": "external",
+      "contracts": [
+        "CAPTURE",
+        "REPRESENT",
+        "PLAN"
+      ],
+      "boundary": "credentials + correspondence remain private",
+      "fit": "Asynchronous human communication; high value once person/channel policy exists."
+    },
+    {
+      "id": "messaging",
+      "class": "communication",
+      "label": "MESSAGING",
+      "state": "PRIVATE_BINDING_REQUIRED",
+      "channels": [
+        "telegram",
+        "matrix",
+        "whatsapp-compatible bridge",
+        "other chat transport"
+      ],
+      "inputs": [
+        "message event",
+        "thread context",
+        "draft"
+      ],
+      "outputs": [
+        "thread read",
+        "draft reply",
+        "sent message",
+        "reaction/ack"
+      ],
+      "permissions": [
+        "read",
+        "draft",
+        "act"
+      ],
+      "side_effects": "external",
+      "contracts": [
+        "CAPTURE",
+        "REPRESENT",
+        "PLAN",
+        "PLAY"
+      ],
+      "boundary": "credentials + conversations remain private",
+      "fit": "Low-latency contact surface; provider-specific adapters bind under one semantic class."
+    },
+    {
+      "id": "calendar",
+      "class": "time",
+      "label": "CALENDAR",
+      "state": "PRIVATE_BINDING_REQUIRED",
+      "channels": [
+        "calendar"
+      ],
+      "inputs": [
+        "time-addressed commitment",
+        "availability request",
+        "event draft"
+      ],
+      "outputs": [
+        "availability",
+        "draft event",
+        "created/updated event"
+      ],
+      "permissions": [
+        "read",
+        "draft",
+        "act"
+      ],
+      "side_effects": "external",
+      "contracts": [
+        "PLAN"
+      ],
+      "boundary": "calendar data remains private",
+      "fit": "Turns PLAN outputs into explicit time commitments."
+    },
+    {
+      "id": "task-queue",
+      "class": "time",
+      "label": "TASK / QUEUE",
+      "state": "LOCAL_CANDIDATE",
+      "channels": [
+        "local task store",
+        "optional external task service"
+      ],
+      "inputs": [
+        "task",
+        "commitment",
+        "follow-up"
+      ],
+      "outputs": [
+        "queued item",
+        "status change",
+        "completion receipt"
+      ],
+      "permissions": [
+        "read",
+        "draft",
+        "act"
+      ],
+      "side_effects": "local",
+      "contracts": [
+        "CAPTURE",
+        "PLAN"
+      ],
+      "boundary": "prefer local store; external sync is a separate binding",
+      "fit": "Low-risk bridge between message understanding and deferred action."
+    },
+    {
+      "id": "home-assistant",
+      "class": "physical",
+      "label": "HOME ASSISTANT",
+      "state": "PRIVATE_BINDING_REQUIRED",
+      "channels": [
+        "local API",
+        "event bus"
+      ],
+      "inputs": [
+        "device state",
+        "sensor event",
+        "service-call draft"
+      ],
+      "outputs": [
+        "state read",
+        "service call",
+        "automation receipt"
+      ],
+      "permissions": [
+        "read",
+        "draft",
+        "act"
+      ],
+      "side_effects": "external",
+      "contracts": [
+        "CAPTURE",
+        "PLAY",
+        "PLAN",
+        "PROVE"
+      ],
+      "boundary": "LAN credentials + device topology remain private",
+      "fit": "Primary bridge from router semantics into House OS / physical action."
+    },
+    {
+      "id": "mqtt",
+      "class": "physical",
+      "label": "MQTT / HOUSEBUS",
+      "state": "LOCAL_CANDIDATE",
+      "channels": [
+        "MQTT"
+      ],
+      "inputs": [
+        "sensor event",
+        "command envelope",
+        "telemetry"
+      ],
+      "outputs": [
+        "published command",
+        "telemetry record",
+        "ack/receipt"
+      ],
+      "permissions": [
+        "read",
+        "draft",
+        "act"
+      ],
+      "side_effects": "external",
+      "contracts": [
+        "CAPTURE",
+        "PLAY",
+        "PROVE"
+      ],
+      "boundary": "broker address + credentials remain private",
+      "fit": "Small interoperable bus for sensors, cassettes and physical nodes."
+    },
+    {
+      "id": "webhook",
+      "class": "interop",
+      "label": "WEBHOOK",
+      "state": "PRIVATE_BINDING_REQUIRED",
+      "channels": [
+        "HTTP event/action"
+      ],
+      "inputs": [
+        "event envelope",
+        "action payload"
+      ],
+      "outputs": [
+        "event",
+        "response",
+        "external action receipt"
+      ],
+      "permissions": [
+        "read",
+        "draft",
+        "act"
+      ],
+      "side_effects": "external",
+      "contracts": [
+        "CAPTURE",
+        "PLAY",
+        "PLAN"
+      ],
+      "boundary": "URLs, secrets and payloads remain private",
+      "fit": "Escape hatch for services that do not merit bespoke adapters."
+    }
+  ],
+  "selection": {
+    "rule": "Capability contract selects semantic work; adapter selects where/how it can execute.",
+    "prefer": [
+      "local before remote when equivalent",
+      "least permission",
+      "reversible before irreversible",
+      "explicit receipts",
+      "one provider-specific binding behind one semantic class"
+    ],
+    "never": "A public registry entry is not proof that an account, credential, endpoint or permission exists."
+  }
+}
