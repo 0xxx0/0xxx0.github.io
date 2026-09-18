@@ -109,4 +109,20 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
 }
 
+function openReturnHash(){
+  const params=new URLSearchParams(location.hash.replace(/^#/,''));
+  const id=params.get('record');
+  if(!id)return;
+  const record=findRecord(state,id);
+  if(!record){setNotice('RETURN target not present in this local DayState: '+id,'warn');return}
+  selectedRecordId=id;
+  prefs.rightMode='state';
+  save();
+  render();
+  showLineage(id);
+  setNotice('RETURN target opened: '+id,'ok');
+}
+window.addEventListener('hashchange',openReturnHash);
+
 renderShell();
+openReturnHash();
