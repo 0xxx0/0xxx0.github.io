@@ -17,6 +17,16 @@
       "parent": null
     },
     {
+      "href": "/contact/",
+      "title": "CONTACT / RETURN",
+      "kind": "rendezvous",
+      "parent": "/",
+      "state": "STABLE",
+      "machine_state": "/contact/state.json",
+      "showcase_card": false,
+      "role": "Stable human ingress and continuity pointer; public semantics only, private contact/authority data excluded."
+    },
+    {
       "href": "/field-intake/",
       "title": "FIELD INTAKE 0.4",
       "kind": "artifact",
@@ -598,7 +608,8 @@
     "capability_map": "Root showcase now exposes a transfer-oriented reading of the same nine public cards. Transfer labels describe reusable mechanisms, not additional public artifacts or a claim that a monolithic agent already exists.",
     "routing": "Nine public showcase artifacts now expose accepts/transforms/emits/evidence contracts. agent-router.json may compose or skip stages and selects the smallest adequate route under permission, reversibility and evidence constraints.",
     "execution_boundary": "Showcase contracts are public semantic/reference interfaces only. Private personal traffic and credentials belong to private runtime adapters; no public showcase route is an implicit execution endpoint.",
-    "router_bench": "Deterministic public workbench over the live capability contracts and adapter declarations. It simulates routing/permission/RETURN only; private execution remains outside the public surface."
+    "router_bench": "Deterministic public workbench over the live capability contracts and adapter declarations. It simulates routing/permission/RETURN only; private execution remains outside the public surface.",
+    "human_return": "Public stable rendezvous for a known human when normal communication fails. No credentials/private contact graph/live-status claim; private execution and handoff remain behind the public boundary."
   },
   "capability_model": {
     "CAPTURE": {
@@ -649,4 +660,4 @@
   "router_tests": "/agent-router-cases.json",
   "adapter_registry": "/private-adapter-registry.json",
   "router_bench": "/router-bench/"
-}
+}\n
