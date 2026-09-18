@@ -597,13 +597,13 @@
       "state": "EXPERIMENT",
       "version": "0.1",
       "receipt": "/fcm/release.json",
-      "showcas_card": false,
       "inputs": [
         "/federation-atlas.json",
         "/fcm-kernel.json",
         "/fcm-map.json",
         "/fcm-fronts.json"
-      ]
+      ],
+      "showcase_card": false
     }
   ],
   "release_law": [
