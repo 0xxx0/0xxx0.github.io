@@ -1,0 +1,36 @@
+{
+  "schema": "release-receipt/v1",
+  "title": "Triangle Bench",
+  "version": "0.1",
+  "state": "EXPERIMENT",
+  "date": "2026-09-18",
+  "route": "/forward-field-proof/triangle/",
+  "parent": "/forward-field-proof/",
+  "showcase_card": false,
+  "private_source": "0xxx0/0:projects/triangle-bench/",
+  "issue": "https://github.com/0xxx0/0/issues/4",
+  "claim": "Tests whether direct simplex manipulation improves a bounded three-way attention allocation over a plain two-control representation.",
+  "vertices": [
+    "EXPLOIT",
+    "EXPLORE",
+    "PROVE"
+  ],
+  "calibration_trials": 6,
+  "static_coverage": {
+    "sample_steps": 40,
+    "showcase_trace": 0.244,
+    "house_manual_run": 0.319,
+    "forward_field_trials": 0.437
+  },
+  "survival_gate": {
+    "min_region_share": 0.05,
+    "max_triangle_error_delta": 0.05,
+    "max_triangle_time_ratio": 1.25
+  },
+  "mutation": "NONE",
+  "known_limits": [
+    "Candidate profiles are declared priors, not measured ground truth.",
+    "Human calibration evidence not yet collected.",
+    "No active-queue mutation occurs in-browser."
+  ]
+}
