@@ -2,7 +2,7 @@
   "schema": "showcase-release/v1",
   "surface": "Scale Lens Studio",
   "version": "RC11.2",
-  "patch": "g2-interop-1+spatial-donor-1",
+  "patch": "g2-interop-1+spatial-donor-1+mobile-importer-wrap-1",
   "route": "/fold-bloom/lens/",
   "state": "STABLE",
   "operation": "REPRESENT",
@@ -22,7 +22,8 @@
     "add optional Spatial Lineage Lens as a projection-only Matrix/CSS3D donor implementation",
     "expose a two-function snapshot/focus adapter so the spatial renderer cannot own canonical graph state",
     "render canonical ancestry as clickable six-face CSS3D slabs with drag rotation, wheel depth and keyboard reset/toggle",
-    "preserve canonical identity, local address, upstream RETURN and RC11.3 separation"
+    "preserve canonical identity, local address, upstream RETURN and RC11.3 separation",
+    "mobile importer reflow removes horizontal overflow at 390px without clipping controls"
   ],
   "validation": {
     "private_adapter_selftest": "11/11 PASS",
@@ -56,7 +57,8 @@
         "spatial_js": "f21e6bbd5696d61e4db73639e4097eddec2d38a9"
       },
       "live_browser_interaction": "UNVERIFIED_FROM_EXECUTION_ENVIRONMENT"
-    }
+    },
+    "live_smoke_patch": "pending rerun after 17/18 external Playwright result; sole failure was 225px mobile horizontal overflow"
   },
   "known_gap": "Representative live mobile/desktop interaction still belongs to the broader showcase audit. The spatial donor passed committed-source syntax/invariant checks but live Pages interaction could not be exercised from this execution environment. RC11.3 portrait work remains a separate unfinished branch and is not silently promoted here."
 }
