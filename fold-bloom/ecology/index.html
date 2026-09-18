@@ -33,7 +33,9 @@
       const timer = setTimeout(() => fail('load timeout'), 5000);
       new Response(new Blob([b]).stream().pipeThrough(new DecompressionStream('gzip'))).text().then(h => {
         clearTimeout(timer);
-        const nav = '<script src="/showcase-nav.js"><\\/script>';\n        h = h.includes('</body>') ? h.replace('</body>', nav + '</body>') : h + nav;\n        document.open(); document.write(h); document.close();
+        const nav = '<script src="/showcase-nav.js"><\\/script>';
+        h = h.includes('</body>') ? h.replace('</body>', nav + '</body>') : h + nav;
+        document.open(); document.write(h); document.close();
       }).catch(e => { clearTimeout(timer); fail(e); });
     } catch (e) { fail(e); }
   </script>
