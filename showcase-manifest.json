@@ -18,13 +18,16 @@
     },
     {
       "href": "/contact/",
-      "title": "CONTACT / RETURN",
+      "title": "0 / HUMAN PORT",
       "kind": "rendezvous",
       "parent": "/",
       "state": "STABLE",
       "machine_state": "/contact/state.json",
       "showcase_card": false,
-      "role": "Stable human ingress and continuity pointer; public semantics only, private contact/authority data excluded."
+      "role": "Stable human ingress/RETURN surface: usable now through local compose + native share; future private messaging/autoresponder transports bind behind the same public promise contract.",
+      "version": "0.2",
+      "receipt": "/contact/release.json",
+      "contract": "/contact/contract.json"
     },
     {
       "href": "/field-intake/",
@@ -627,7 +630,7 @@
     "routing": "Nine public showcase artifacts now expose accepts/transforms/emits/evidence contracts. agent-router.json may compose or skip stages and selects the smallest adequate route under permission, reversibility and evidence constraints.",
     "execution_boundary": "Showcase contracts are public semantic/reference interfaces only. Private personal traffic and credentials belong to private runtime adapters; no public showcase route is an implicit execution endpoint.",
     "router_bench": "Deterministic public workbench over the live capability contracts and adapter declarations. It simulates routing/permission/RETURN only; private execution remains outside the public surface.",
-    "human_return": "Public stable rendezvous for a known human when normal communication fails. No credentials/private contact graph/live-status claim; private execution and handoff remain behind the public boundary.",
+    "human_return": "0 / HUMAN PORT 0.2 is now an actual transport-neutral instrument rather than a passive placeholder: PING/REPLY/NEED/CHECK produce a local 0P1 envelope for native sharing now; future private adapters must inherit the public promise contract and may not impersonate the user or fabricate live state.",
     "person_resource_policy": "Deny-by-default seven-gate policy contract: READ, REMEMBER, ACKNOWLEDGE, ANSWER, DRAFT, ACT and ESCALATE. Public files contain schema/synthetic example only; real person/resource refs and policies belong to the private runtime.",
     "policy_inheritance": "Deterministic broad-to-narrow policy composition: base -> person/resource in parallel -> channel. Restriction is automatic; widening requires user_explicit grant authority. Same-stage deny wins, allow sets intersect, deny sets union, ceilings choose the minimum, locks are inherited and cannot be widened.",
     "policy_selectors": "Deterministic selector syntax for base/person/resource/channel policy matching. Exact > pattern > tag > fallback for trace/specificity; all matching non-fallback restrictions accumulate; fallback activates only when no non-fallback selector in that layer/domain matches; declaration order is never security-significant.",
