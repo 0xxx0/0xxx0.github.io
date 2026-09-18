@@ -338,5 +338,51 @@
     "accumulation": "all matched non-fallback policies enter the merge set; specificity does not erase broader restrictions",
     "fallback": "activate only when zero non-fallback selectors match the same layer/domain branch",
     "grant_floor": "authorized grants may widen only non-deny non-locked restrictions at lower-or-equal effective specificity; explicit denies and locks remain terminal"
+  },
+  "policy_selector_model": "/policy-selector-model.json",
+  "policy_selector_evaluation": {
+    "canonical_facts": [
+      "person_ref",
+      "resource_ref",
+      "resource_class",
+      "channel",
+      "adapter_id",
+      "event_source",
+      "person_tags",
+      "resource_tags",
+      "context_tags"
+    ],
+    "normalization": {
+      "opaque_refs": "person_ref/resource_ref are byte-for-byte opaque canonical refs; no display-name inference",
+      "canonical_fields": "channel, adapter_id, resource_class, event_source and tags use Unicode NFC then lowercase",
+      "fuzzy_matching": "forbidden"
+    },
+    "criteria": {
+      "all": "every clause must match",
+      "any": "at least one clause must match when present",
+      "none": "no clause may match when present",
+      "combine": "all AND any(if present) AND NOT none"
+    },
+    "exact": "exact canonical equality",
+    "pattern": "anchored glob-v1; * stays within ':' or '/' segment, ** crosses segments, ? matches one non-delimiter; no regex",
+    "tag": "set membership with any/all semantics",
+    "fallback": "eligible only when zero non-fallback selectors match the same layer/domain branch",
+    "precedence": {
+      "trace_order": [
+        "exact",
+        "pattern",
+        "tag",
+        "fallback"
+      ],
+      "authority_rule": "all matching non-fallback policies compose; specificity never suppresses broader restrictions",
+      "declaration_order": "ignored",
+      "final_authority": "policy inheritance deny/grant/lock algebra"
+    },
+    "branches": {
+      "base": "one base branch",
+      "person": "one branch for resolved person",
+      "resource": "one branch per resolved resource; resource branches intersect",
+      "channel": "one branch after subject resolution"
+    }
   }
 }
