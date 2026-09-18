@@ -1,0 +1,149 @@
+{
+  "schema": "agent-router-cases/v0.1",
+  "router": "/agent-router.json",
+  "cases": [
+    {
+      "id": "dense-human-message",
+      "input": {
+        "source": "message",
+        "payload": "mixed facts + several asks",
+        "reply_allowed": true,
+        "side_effects_allowed": "none"
+      },
+      "expect": {
+        "decision": "ANSWER",
+        "semantic_route": [
+          "/field-intake/",
+          "/fold-bloom/lens/"
+        ],
+        "external_side_effect": false
+      },
+      "assert": [
+        "raw source preserved",
+        "reply resolves requested outcome",
+        "RETURN receipt emitted"
+      ]
+    },
+    {
+      "id": "future-commitment-no-action-permission",
+      "input": {
+        "source": "message",
+        "payload": "commitment with a future date",
+        "reply_allowed": true,
+        "side_effects_allowed": "none"
+      },
+      "expect": {
+        "decision": "DRAFT",
+        "semantic_route": [
+          "/field-intake/",
+          "/atlas-dayline/"
+        ],
+        "external_side_effect": false
+      },
+      "assert": [
+        "time binding may be proposed",
+        "no calendar/message side effect is invented"
+      ]
+    },
+    {
+      "id": "one-blocking-fact",
+      "input": {
+        "source": "human",
+        "payload": "request cannot be completed without one essential value",
+        "reply_allowed": true,
+        "side_effects_allowed": "none"
+      },
+      "expect": {
+        "decision": "ASK_ONE",
+        "semantic_route": [],
+        "external_side_effect": false
+      },
+      "assert": [
+        "asks only the blocking question",
+        "does not expand into questionnaire"
+      ]
+    },
+    {
+      "id": "quiet-sensor-event",
+      "input": {
+        "source": "sensor",
+        "payload": "event below configured trigger threshold",
+        "reply_allowed": false,
+        "side_effects_allowed": "local"
+      },
+      "expect": {
+        "decision": "NO_ACTION",
+        "semantic_route": [
+          "/field-intake/"
+        ],
+        "external_side_effect": false
+      },
+      "assert": [
+        "event may be recorded locally",
+        "no notification manufactured"
+      ]
+    },
+    {
+      "id": "consequential-external-action",
+      "input": {
+        "source": "message",
+        "payload": "request implies consequential external commitment",
+        "reply_allowed": true,
+        "side_effects_allowed": "none"
+      },
+      "expect": {
+        "decision": "DRAFT",
+        "semantic_route": [
+          "/field-intake/"
+        ],
+        "external_side_effect": false
+      },
+      "assert": [
+        "source and uncertainty preserved",
+        "explicit permission required before ACT"
+      ]
+    },
+    {
+      "id": "interface-claim",
+      "input": {
+        "source": "internal",
+        "payload": "candidate rich interface claims better recovery/action than plain control",
+        "reply_allowed": false,
+        "side_effects_allowed": "none"
+      },
+      "expect": {
+        "decision": "ROUTE",
+        "semantic_route": [
+          "/foundry/convergence/identity-lab.html",
+          "/forward-field-proof/"
+        ],
+        "external_side_effect": false
+      },
+      "assert": [
+        "identity invariants checked",
+        "same-facts plain control retained",
+        "proof receipt emitted"
+      ]
+    },
+    {
+      "id": "private-adapter-required",
+      "input": {
+        "source": "message",
+        "payload": "send a reply through a real private channel",
+        "reply_allowed": true,
+        "side_effects_allowed": "external"
+      },
+      "expect": {
+        "decision": "ACT_IF_PRIVATE_ADAPTER_AUTHORIZED_ELSE_DRAFT",
+        "semantic_route": [
+          "/field-intake/"
+        ],
+        "external_side_effect": "conditional"
+      },
+      "assert": [
+        "public showcase URL never receives private payload",
+        "adapter compatibility and permission both required"
+      ]
+    }
+  ]
+}
