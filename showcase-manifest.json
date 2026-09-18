@@ -55,6 +55,17 @@
       "receipt": "/fold-bloom/ecology/release.json"
     },
     {
+      "href": "/sleeper/",
+      "title": "ASCII SLEEPER 0.8",
+      "kind": "artifact",
+      "parent": "/",
+      "family": "SLEEPER",
+      "operation": "PLAY",
+      "state": "EXPERIMENT",
+      "version": "0.8",
+      "receipt": "/sleeper/release.json"
+    },
+    {
       "href": "/fold-bloom/lens/",
       "title": "SCALE LENS",
       "kind": "artifact",
@@ -125,6 +136,7 @@
   "notes": {
     "ecology": "Recovered from exact uncompressed Library source; direct static HTML; packed transport removed.",
     "scope": "This manifest describes public release surfaces only. Private recovery/open-thread state is intentionally excluded.",
-    "field_intake": "Recovered from prior public release; runtime blobs preserved, service-worker cache cleanup narrowed to its own cache family."
+    "field_intake": "Recovered from prior public release; runtime blobs preserved, service-worker cache cleanup narrowed to its own cache family.",
+    "sleeper": "Public experiment. Same canonical state is exposed as first-person coupled law field and plain obligation list; geometry is explicitly not external truth."
   }
 }
