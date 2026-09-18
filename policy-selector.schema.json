@@ -67,7 +67,7 @@
           "type": "string",
           "minLength": 1,
           "maxLength": 256,
-          "description": "Anchored whole-string glob. '*' matches zero or more code points; '?' matches exactly one; backslash escapes literal '*', '?' and backslash. No regex, character classes or brace expansion."
+          "description": "Anchored whole-string glob-v1. '*' matches zero or more code points except ':' or '/'; '**' matches zero or more code points including ':' and '/'; '?' matches exactly one code point except ':' or '/'; backslash escapes literal '*', '?' and backslash. No regex, character classes or brace expansion."
         }
       },
       "additionalProperties": false
@@ -143,7 +143,8 @@
               }
             ]
           },
-          "default": []
+          "default": [],
+          "minItems": 1
         },
         "any": {
           "type": "array",
@@ -160,7 +161,8 @@
               }
             ]
           },
-          "default": []
+          "default": [],
+          "minItems": 1
         },
         "none": {
           "type": "array",
@@ -177,10 +179,12 @@
               }
             ]
           },
-          "default": []
+          "default": [],
+          "minItems": 1
         }
       },
-      "additionalProperties": false
+      "additionalProperties": false,
+      "minProperties": 1
     },
     "criteria_selector": {
       "type": "object",
@@ -225,7 +229,8 @@
                   }
                 ]
               },
-              "default": []
+              "default": [],
+              "minItems": 1
             },
             "any": {
               "type": "array",
@@ -242,7 +247,8 @@
                   }
                 ]
               },
-              "default": []
+              "default": [],
+              "minItems": 1
             },
             "none": {
               "type": "array",
@@ -259,10 +265,12 @@
                   }
                 ]
               },
-              "default": []
+              "default": [],
+              "minItems": 1
             }
           },
-          "additionalProperties": false
+          "additionalProperties": false,
+          "minProperties": 1
         }
       },
       "additionalProperties": false
@@ -323,7 +331,8 @@
                   }
                 ]
               },
-              "default": []
+              "default": [],
+              "minItems": 1
             },
             "any": {
               "type": "array",
@@ -340,7 +349,8 @@
                   }
                 ]
               },
-              "default": []
+              "default": [],
+              "minItems": 1
             },
             "none": {
               "type": "array",
@@ -357,10 +367,12 @@
                   }
                 ]
               },
-              "default": []
+              "default": [],
+              "minItems": 1
             }
           },
-          "additionalProperties": false
+          "additionalProperties": false,
+          "minProperties": 1
         }
       },
       "additionalProperties": false
@@ -514,7 +526,7 @@
       "minimum": "a criteria selector must contain at least one clause across all/any/none"
     },
     "exact": "canonical field value equals selector value exactly after field normalization",
-    "pattern": "anchored whole-string glob over the canonical field value",
+    "pattern": "anchored whole-string glob-v1 over the canonical field value: * stays within ':'/'/' segments; ** may cross segments; ? matches one non-delimiter code point",
     "tag": "set membership over canonical tags; match=any needs >=1 value, match=all needs every value",
     "fallback": "eligible only when its optional where criteria match and no non-fallback selector matched the same layer/domain branch"
   },
