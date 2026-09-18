@@ -598,6 +598,67 @@
       "showcase_card": false
     },
     {
+      "href": "/axial/",
+      "title": "AXIAL COMPOSITOR 0.1",
+      "kind": "artifact",
+      "parent": "/",
+      "operation": "PLAY",
+      "state": "EXPERIMENT",
+      "version": "0.1",
+      "receipt": "/axial/release.json",
+      "event_schema": "/axial/event.schema.json",
+      "transfer": [
+        "cylindrical state composition",
+        "provenance-first interaction",
+        "persistent indexed memory"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "addressed showcase object",
+            "rotary/axial gesture",
+            "commit input"
+          ],
+          "requires": [
+            "stable object address"
+          ],
+          "optional": [
+            "prior local detents"
+          ]
+        },
+        "transforms": {
+          "verb": "compose addressed object state across orthogonal projection and scale axes",
+          "preserves": [
+            "object identity",
+            "event ancestry",
+            "return path"
+          ],
+          "reversibility": "full",
+          "side_effects": "local"
+        },
+        "emits": {
+          "kinds": [
+            "current composed state",
+            "before/after event trace",
+            "restorable detent",
+            "receipt"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/axial/release.json",
+          "checks": [
+            "every mutation has state_before/state_after",
+            "parent event preserved",
+            "commit produces restorable detent",
+            "receipt export contains complete local trace"
+          ],
+          "return_path": "/axial/"
+        }
+      }
+    },
+    {
       "href": "/router-bench/",
       "title": "ROUTER BENCH 0.1",
       "kind": "workbench",
@@ -643,8 +704,8 @@
     "sleeper": "Public experiment. Same canonical state is exposed as first-person coupled law field and plain obligation list; geometry is explicitly not external truth.",
     "scale_lens": "RC11.2 remains the stable public head. G2 identity/RETURN is unchanged; optional spatial-donor-1 is projection-only. External smoke run 1 exposed mobile importer overflow; targeted importer-wrap patch fixed it and representative traversal passes at 390px + 1280px.",
     "triangle_bench": "Nested Field / Proof experiment. EXPLOIT / EXPLORE / PROVE simplex compared against a plain two-control allocation; no showcase card.",
-    "showcase_trace": "PASS: external Chromium representative-interaction smoke on all nine showcase cards at 390px + 1280px, 18/18. GitHub Actions run 35372320053. Rerun after public runtime changes.",
-    "capability_map": "Root showcase now exposes a transfer-oriented reading of the same nine public cards. Transfer labels describe reusable mechanisms, not additional public artifacts or a claim that a monolithic agent already exists.",
+    "showcase_trace": "PASS on the prior nine-card public set at 390px + 1280px, 18/18, GitHub Actions run 35372320053. AXIAL adds a tenth card and requires a fresh representative-interaction smoke before the trace can be promoted to the ten-card set.",
+    "capability_map": "Root showcase exposes a transfer-oriented reading of ten public cards. Transfer labels describe reusable mechanisms, not additional public artifacts or a claim that a monolithic agent already exists.",
     "routing": "Nine public showcase artifacts now expose accepts/transforms/emits/evidence contracts. agent-router.json may compose or skip stages and selects the smallest adequate route under permission, reversibility and evidence constraints.",
     "execution_boundary": "Showcase contracts are public semantic/reference interfaces only. Private personal traffic and credentials belong to private runtime adapters; no public showcase route is an implicit execution endpoint.",
     "router_bench": "Deterministic public workbench over the live capability contracts and adapter declarations. It simulates routing/permission/RETURN only; private execution remains outside the public surface.",
@@ -655,7 +716,7 @@
     "policy_selector": "Deterministic exact/pattern/tag/fallback selectors. Exact > pattern > tag > fallback is trace/fallback precedence only; every matching non-fallback policy composes, so broader denies and locks remain effective.",
     "policy_trace": "Append-only causal trace spans selector clauses, matched policy revisions, inheritance, every operation, accepted/rejected grants, deny events, lock events, stage results, seven final gates and terminal resolution; raw payload/secrets stay out.",
     "forward_center_mass": "Parallel control projection: 117 memory objects → 8 reusable operators → ≤3 active execution fronts → local RETURN receipts. Heuristic projection; does not rewrite federation canon.",
-    "axial": "Experimental physical/digital interface head. Not a tenth showcase card; promotion requires digital trial plus one physical nested-tube comparison with receipts."
+    "axial": "AXIAL 0.1 is a manifest-backed software proof of cylindrical state composition: theta changes projection, z changes resolution, PRESS commits a locally persistent detent, and each mutation emits an inspectable before/after event. Physical mechanics remain explicitly unvalidated."
   },
   "capability_model": {
     "CAPTURE": {
