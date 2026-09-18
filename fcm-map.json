@@ -1,0 +1,1708 @@
+{
+  "schema": "0xxx0/fcm-map/v0.1",
+  "generated": "2026-09-19",
+  "source": "/federation-atlas.json",
+  "count": 117,
+  "method": {
+    "operator_assignment": "keyword heuristic over scrubbed public fields",
+    "centrality": "numeric degree only, derived from private lineage/dependency graph; dependency identities are not published",
+    "fcm_score": "0.24 priority + 0.20 horizon + 0.18 state readiness + 0.23 normalized inbound centrality + 0.15 operator breadth"
+  },
+  "items": [
+    {
+      "id": "KS-002",
+      "operators": [
+        "ADDRESS",
+        "STATE",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 11,
+        "out": 2
+      },
+      "gravity": 0.846,
+      "fcm": 0.927,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "KS-003",
+      "operators": [
+        "ADDRESS"
+      ],
+      "centrality": {
+        "in": 13,
+        "out": 1
+      },
+      "gravity": 1,
+      "fcm": 0.887,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-001",
+      "operators": [
+        "PROJECT",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 8,
+        "out": 1
+      },
+      "gravity": 0.615,
+      "fcm": 0.837,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "C05",
+      "operators": [
+        "ROUTE",
+        "SURFACE",
+        "STATE",
+        "ACTUATE"
+      ],
+      "centrality": {
+        "in": 4,
+        "out": 2
+      },
+      "gravity": 0.308,
+      "fcm": 0.808,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "C08",
+      "operators": [
+        "SENSE",
+        "SURFACE",
+        "ROUTE",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 6,
+        "out": 1
+      },
+      "gravity": 0.462,
+      "fcm": 0.8,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "ST-001",
+      "operators": [
+        "ROUTE",
+        "ACTUATE"
+      ],
+      "centrality": {
+        "in": 8,
+        "out": 5
+      },
+      "gravity": 0.615,
+      "fcm": 0.793,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-017",
+      "operators": [
+        "PROJECT",
+        "ADDRESS",
+        "STATE",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 2
+      },
+      "gravity": 0.077,
+      "fcm": 0.788,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-001",
+      "operators": [
+        "ADDRESS",
+        "SURFACE",
+        "STATE",
+        "ROUTE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.788,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "C02",
+      "operators": [
+        "ADDRESS",
+        "SURFACE",
+        "STATE",
+        "ROUTE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.77,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "CONST-001",
+      "operators": [
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 6,
+        "out": 0
+      },
+      "gravity": 0.462,
+      "fcm": 0.764,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "IG-007",
+      "operators": [
+        "STATE",
+        "ROUTE",
+        "SENSE"
+      ],
+      "centrality": {
+        "in": 3,
+        "out": 2
+      },
+      "gravity": 0.231,
+      "fcm": 0.753,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "APP-001",
+      "operators": [
+        "PROJECT",
+        "STATE",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 7,
+        "out": 2
+      },
+      "gravity": 0.538,
+      "fcm": 0.751,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-017",
+      "operators": [
+        "ACTUATE",
+        "SURFACE",
+        "ROUTE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 4
+      },
+      "gravity": 0.077,
+      "fcm": 0.75,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "KS-004",
+      "operators": [
+        "ADDRESS",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 6,
+        "out": 1
+      },
+      "gravity": 0.462,
+      "fcm": 0.74,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "APP-000",
+      "operators": [
+        "SURFACE",
+        "ROUTE",
+        "SENSE",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 4,
+        "out": 2
+      },
+      "gravity": 0.308,
+      "fcm": 0.736,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-020",
+      "operators": [
+        "SURFACE",
+        "SENSE",
+        "STATE"
+      ],
+      "centrality": {
+        "in": 9,
+        "out": 2
+      },
+      "gravity": 0.692,
+      "fcm": 0.734,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "APP-041",
+      "operators": [
+        "SURFACE",
+        "STATE",
+        "ACTUATE"
+      ],
+      "centrality": {
+        "in": 6,
+        "out": 3
+      },
+      "gravity": 0.462,
+      "fcm": 0.733,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "A001",
+      "operators": [
+        "ADDRESS"
+      ],
+      "centrality": {
+        "in": 4,
+        "out": 1
+      },
+      "gravity": 0.308,
+      "fcm": 0.728,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "KS-001",
+      "operators": [
+        "PROJECT"
+      ],
+      "centrality": {
+        "in": 3,
+        "out": 1
+      },
+      "gravity": 0.231,
+      "fcm": 0.711,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "C10",
+      "operators": [
+        "PROJECT",
+        "ROUTE"
+      ],
+      "centrality": {
+        "in": 4,
+        "out": 2
+      },
+      "gravity": 0.308,
+      "fcm": 0.689,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-005",
+      "operators": [
+        "ADDRESS",
+        "PROJECT",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 3,
+        "out": 1
+      },
+      "gravity": 0.231,
+      "fcm": 0.689,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-016",
+      "operators": [
+        "PROJECT",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 3,
+        "out": 2
+      },
+      "gravity": 0.231,
+      "fcm": 0.672,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "IG-006",
+      "operators": [
+        "STATE",
+        "SENSE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.66,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "C06",
+      "operators": [
+        "SURFACE",
+        "ROUTE",
+        "ACTUATE",
+        "PROJECT"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.658,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "C03",
+      "operators": [
+        "PROVE",
+        "SURFACE",
+        "ADDRESS",
+        "STATE"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 1
+      },
+      "gravity": 0.154,
+      "fcm": 0.647,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "C13",
+      "operators": [
+        "SURFACE",
+        "STATE",
+        "ROUTE",
+        "ACTUATE"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 2
+      },
+      "gravity": 0.154,
+      "fcm": 0.647,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "KS-012",
+      "operators": [
+        "STATE",
+        "ADDRESS",
+        "PROVE",
+        "SENSE"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 1
+      },
+      "gravity": 0.154,
+      "fcm": 0.647,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "APP-031",
+      "operators": [
+        "PROJECT",
+        "ADDRESS",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 4,
+        "out": 3
+      },
+      "gravity": 0.308,
+      "fcm": 0.645,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "C09",
+      "operators": [
+        "ACTUATE",
+        "ROUTE",
+        "PROJECT"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 1
+      },
+      "gravity": 0.154,
+      "fcm": 0.639,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "KS-023",
+      "operators": [
+        "ADDRESS",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.636,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "SL-012",
+      "operators": [
+        "ADDRESS",
+        "PROJECT"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 2
+      },
+      "gravity": 0.077,
+      "fcm": 0.636,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "APP-050",
+      "operators": [
+        "ADDRESS",
+        "SENSE",
+        "STATE",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.63,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "C01",
+      "operators": [
+        "SURFACE",
+        "STATE",
+        "ROUTE",
+        "PROJECT"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.63,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "C15",
+      "operators": [
+        "SURFACE",
+        "ROUTE",
+        "ADDRESS",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.63,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-019",
+      "operators": [
+        "SURFACE",
+        "STATE",
+        "ROUTE",
+        "ACTUATE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 3
+      },
+      "gravity": 0.077,
+      "fcm": 0.63,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-002",
+      "operators": [
+        "ADDRESS",
+        "PROJECT"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 2
+      },
+      "gravity": 0.077,
+      "fcm": 0.616,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-003",
+      "operators": [
+        "PROJECT",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 2
+      },
+      "gravity": 0.077,
+      "fcm": 0.616,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "SL-003",
+      "operators": [
+        "PROJECT",
+        "ADDRESS"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 2
+      },
+      "gravity": 0.077,
+      "fcm": 0.616,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "ST-006",
+      "operators": [
+        "STATE",
+        "ROUTE",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 2
+      },
+      "gravity": 0.154,
+      "fcm": 0.61,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "KS-021",
+      "operators": [
+        "PROJECT",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.598,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "KS-022",
+      "operators": [
+        "STATE",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.598,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "C11",
+      "operators": [
+        "ROUTE",
+        "STATE",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.592,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "APP-032",
+      "operators": [
+        "PROJECT",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 3,
+        "out": 2
+      },
+      "gravity": 0.231,
+      "fcm": 0.59,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "APP-002",
+      "operators": [
+        "SURFACE",
+        "ADDRESS",
+        "STATE",
+        "PROJECT"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 3
+      },
+      "gravity": 0.154,
+      "fcm": 0.581,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "A003",
+      "operators": [
+        "ADDRESS"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 3
+      },
+      "gravity": 0.154,
+      "fcm": 0.576,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "C04",
+      "operators": [
+        "STATE",
+        "SURFACE",
+        "ROUTE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.575,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-007",
+      "operators": [
+        "PROJECT",
+        "ACTUATE",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 0
+      },
+      "gravity": 0,
+      "fcm": 0.575,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-010",
+      "operators": [
+        "PROJECT",
+        "ADDRESS",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.575,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-015",
+      "operators": [
+        "PROJECT",
+        "ADDRESS",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.575,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "APP-003",
+      "operators": [
+        "ADDRESS",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 2
+      },
+      "gravity": 0.154,
+      "fcm": 0.572,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "IG-001",
+      "operators": [
+        "STATE",
+        "ROUTE"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 0
+      },
+      "gravity": 0.154,
+      "fcm": 0.572,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "IG-005",
+      "operators": [
+        "SENSE",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 1
+      },
+      "gravity": 0.154,
+      "fcm": 0.572,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "SL-002",
+      "operators": [
+        "PROJECT",
+        "ADDRESS"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 1
+      },
+      "gravity": 0.154,
+      "fcm": 0.572,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "KS-009",
+      "operators": [
+        "ADDRESS"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.558,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "ST-003",
+      "operators": [
+        "ROUTE",
+        "ADDRESS"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.555,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "ST-008",
+      "operators": [
+        "ADDRESS",
+        "ROUTE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 2
+      },
+      "gravity": 0.077,
+      "fcm": 0.555,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "IG-003",
+      "operators": [
+        "STATE"
+      ],
+      "centrality": {
+        "in": 3,
+        "out": 2
+      },
+      "gravity": 0.231,
+      "fcm": 0.553,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-032",
+      "operators": [
+        "SURFACE",
+        "ROUTE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 3
+      },
+      "gravity": 0,
+      "fcm": 0.537,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "SL-005",
+      "operators": [
+        "PROJECT",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 2
+      },
+      "gravity": 0.077,
+      "fcm": 0.517,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "ST-002",
+      "operators": [
+        "ROUTE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.517,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-038",
+      "operators": [
+        "ADDRESS",
+        "SURFACE",
+        "ACTUATE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 3
+      },
+      "gravity": 0,
+      "fcm": 0.512,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "APP-030",
+      "operators": [
+        "PROJECT",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 1
+      },
+      "gravity": 0.154,
+      "fcm": 0.506,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "APP-004",
+      "operators": [
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.5,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "A002",
+      "operators": [
+        "ADDRESS"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.479,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "APP-040",
+      "operators": [
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 1
+      },
+      "gravity": 0.154,
+      "fcm": 0.469,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "ST-004",
+      "operators": [
+        "ROUTE"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 2
+      },
+      "gravity": 0.154,
+      "fcm": 0.469,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "APP-010",
+      "operators": [
+        "STATE",
+        "ROUTE",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.464,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "APP-062",
+      "operators": [
+        "SURFACE",
+        "PROJECT",
+        "ACTUATE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.464,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "C07",
+      "operators": [
+        "SENSE",
+        "SURFACE",
+        "ROUTE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.464,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "KS-010",
+      "operators": [
+        "ADDRESS",
+        "ACTUATE",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 2
+      },
+      "gravity": 0.077,
+      "fcm": 0.464,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-006",
+      "operators": [
+        "PROJECT",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.448,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-021",
+      "operators": [
+        "STATE",
+        "SURFACE",
+        "ROUTE",
+        "SENSE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.446,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "ST-005",
+      "operators": [
+        "ROUTE",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 2
+      },
+      "gravity": 0.154,
+      "fcm": 0.444,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "A004",
+      "operators": [
+        "ADDRESS",
+        "PROJECT"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.43,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-018",
+      "operators": [
+        "PROJECT",
+        "ADDRESS"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.43,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "APP-061",
+      "operators": [
+        "PROJECT",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.426,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "IG-004",
+      "operators": [
+        "PROJECT",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 2
+      },
+      "gravity": 0.077,
+      "fcm": 0.426,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "KS-019",
+      "operators": [
+        "ADDRESS",
+        "STATE",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 3
+      },
+      "gravity": 0.077,
+      "fcm": 0.426,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-019",
+      "operators": [
+        "PROJECT",
+        "ADDRESS",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 2
+      },
+      "gravity": 0.077,
+      "fcm": 0.426,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "C12",
+      "operators": [
+        "ROUTE",
+        "STATE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.409,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "C14",
+      "operators": [
+        "PROJECT",
+        "ROUTE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.409,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-004",
+      "operators": [
+        "STATE",
+        "PROJECT"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 0
+      },
+      "gravity": 0,
+      "fcm": 0.409,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "IG-008",
+      "operators": [
+        "SENSE",
+        "STATE",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.408,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-012",
+      "operators": [
+        "PROJECT",
+        "ADDRESS",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.408,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-013",
+      "operators": [
+        "ADDRESS",
+        "PROJECT",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.408,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "SL-010",
+      "operators": [
+        "ADDRESS",
+        "PROJECT",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.408,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-026",
+      "operators": [
+        "PROJECT",
+        "SURFACE",
+        "ADDRESS"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.408,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-030",
+      "operators": [
+        "SURFACE",
+        "STATE",
+        "PROJECT"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.408,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "APP-060",
+      "operators": [
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 2
+      },
+      "gravity": 0.154,
+      "fcm": 0.406,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "ST-007",
+      "operators": [
+        "ROUTE",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 2,
+        "out": 2
+      },
+      "gravity": 0.154,
+      "fcm": 0.406,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-033",
+      "operators": [
+        "ACTUATE",
+        "SURFACE",
+        "ROUTE",
+        "PROJECT"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 2
+      },
+      "gravity": 0.077,
+      "fcm": 0.406,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-011",
+      "operators": [
+        "PROJECT",
+        "ADDRESS"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 2
+      },
+      "gravity": 0.077,
+      "fcm": 0.388,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "SL-017",
+      "operators": [
+        "PROJECT",
+        "SURFACE",
+        "ADDRESS",
+        "ACTUATE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.388,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "KS-024",
+      "operators": [
+        "PROJECT",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.371,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-027",
+      "operators": [
+        "SURFACE",
+        "SENSE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.371,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-031",
+      "operators": [
+        "SURFACE",
+        "STATE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.371,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-034",
+      "operators": [
+        "ACTUATE",
+        "SURFACE",
+        "ROUTE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 2
+      },
+      "gravity": 0.077,
+      "fcm": 0.368,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "KS-011",
+      "operators": [
+        "STATE"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 2
+      },
+      "gravity": 0.077,
+      "fcm": 0.351,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "SL-007",
+      "operators": [
+        "PROJECT"
+      ],
+      "centrality": {
+        "in": 1,
+        "out": 1
+      },
+      "gravity": 0.077,
+      "fcm": 0.351,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-008",
+      "operators": [
+        "PROJECT",
+        "ADDRESS",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.351,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-009",
+      "operators": [
+        "PROJECT",
+        "ADDRESS",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.351,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "SL-016",
+      "operators": [
+        "SURFACE",
+        "ADDRESS",
+        "PROJECT"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.351,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-028",
+      "operators": [
+        "SURFACE",
+        "STATE",
+        "ACTUATE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.351,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-035",
+      "operators": [
+        "SURFACE",
+        "ROUTE",
+        "ACTUATE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.351,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-037",
+      "operators": [
+        "SURFACE",
+        "ACTUATE",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.351,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "IG-002",
+      "operators": [
+        "ROUTE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.333,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "IG-010",
+      "operators": [
+        "ROUTE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.333,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "KS-020",
+      "operators": [
+        "ADDRESS",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.313,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "MP-014",
+      "operators": [
+        "PROJECT",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.313,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "SL-011",
+      "operators": [
+        "PROJECT",
+        "ADDRESS"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.313,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "ST-009",
+      "operators": [
+        "ADDRESS",
+        "ROUTE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.313,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-036",
+      "operators": [
+        "SURFACE",
+        "ROUTE",
+        "ACTUATE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.291,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "KS-015",
+      "operators": [
+        "ADDRESS",
+        "PROJECT",
+        "SURFACE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.289,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "KS-016",
+      "operators": [
+        "ADDRESS",
+        "STATE",
+        "PROJECT"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 2
+      },
+      "gravity": 0,
+      "fcm": 0.289,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "IG-009",
+      "operators": [
+        "SENSE",
+        "SURFACE",
+        "PROVE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 0
+      },
+      "gravity": 0,
+      "fcm": 0.273,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "WD-029",
+      "operators": [
+        "SURFACE",
+        "ACTUATE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.194,
+      "basis": "heuristic-v0.1"
+    },
+    {
+      "id": "KS-018",
+      "operators": [
+        "STATE"
+      ],
+      "centrality": {
+        "in": 0,
+        "out": 1
+      },
+      "gravity": 0,
+      "fcm": 0.156,
+      "basis": "heuristic-v0.1"
+    }
+  ]
+}
