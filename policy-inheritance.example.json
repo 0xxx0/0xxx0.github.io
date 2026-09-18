@@ -109,7 +109,14 @@
       "locks": [
         "/permissions/read/scope/data_classes_deny"
       ],
-      "notes_ref": null
+      "notes_ref": null,
+      "selector": {
+        "selector_id": "selector:base-known-human",
+        "kind": "fallback",
+        "layer": "base",
+        "domain": "base",
+        "when": "no_nonfallback_match"
+      }
     }
   ],
   "person_policies": [
@@ -121,9 +128,18 @@
         "base:known-human"
       ],
       "selector": {
-        "person_refs": [
-          "person:example-peer"
-        ]
+        "selector_id": "selector:example-peer",
+        "kind": "criteria",
+        "layer": "person",
+        "criteria": {
+          "all": [
+            {
+              "kind": "exact",
+              "field": "person_ref",
+              "value": "person:example-peer"
+            }
+          ]
+        }
       },
       "authority": {
         "source": "user_explicit",
@@ -171,12 +187,18 @@
       "mode": "restrict",
       "extends": [],
       "selector": {
-        "resource_refs": [
-          "resource:door-lock"
-        ],
-        "resource_classes": [
-          "device"
-        ]
+        "selector_id": "selector:door-lock",
+        "kind": "criteria",
+        "layer": "resource",
+        "criteria": {
+          "all": [
+            {
+              "kind": "exact",
+              "field": "resource_ref",
+              "value": "resource:door-lock"
+            }
+          ]
+        }
       },
       "authority": {
         "source": "operator_defined",
@@ -219,12 +241,23 @@
       "mode": "restrict",
       "extends": [],
       "selector": {
-        "channels": [
-          "email"
-        ],
-        "resource_classes": [
-          "device"
-        ]
+        "selector_id": "selector:email-device",
+        "kind": "criteria",
+        "layer": "channel",
+        "criteria": {
+          "all": [
+            {
+              "kind": "exact",
+              "field": "channel",
+              "value": "email"
+            },
+            {
+              "kind": "exact",
+              "field": "resource_class",
+              "value": "device"
+            }
+          ]
+        }
       },
       "authority": {
         "source": "operator_defined",
@@ -251,5 +284,6 @@
       ],
       "notes_ref": null
     }
-  ]
+  ],
+  "selector_schema": "/policy-selector.schema.json"
 }
