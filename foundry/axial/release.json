@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "title": "AXIAL / STATE × TRANSFORM",
-  "version": "0.3",
+  "version": "0.4",
   "state": "EXPERIMENT",
   "updated": "2026-09-19",
   "route": "/foundry/axial/",
@@ -19,15 +19,20 @@
   "evidence": [
     "10-trial harness",
     "latched RUN semantics",
+    "per-mutation before/gesture/after provenance ledger",
+    "ancestry-linked interaction events",
     "RETURN receipts",
-    "machine-readable AXIAL_PACKET bridge"
+    "machine-readable AXIAL_PACKET bridge",
+    "/foundry/axial/event.schema.json"
   ],
-  "promotion_gate": "Do not promote to showcase card until digital trial and one physical nested-tube comparison produce interpretable receipts.",
+  "promotion_gate": "Do not promote to a root showcase card until the digital 10-trial harness produces an interpretable PASS and one physical nested-tube comparison produces interpretable receipts; root may link the lab as an explicitly gated experiment.",
   "lineage": [
     "AXIAL COMPOSITOR",
     "Memory Orb",
     "Scale Lens",
     "Two Dial",
     "Identity/RETURN kernel"
-  ]
+  ],
+  "research_question": "Can the low-level detent + twist/slide + transaction trace reconstruct what changed without a separate manual narrative?",
+  "known_gap": "Digital mechanics are proxies. Physical travel, detent force, backlash, eyes-free acquisition, nonlinear mappings, and mechanical state persistence remain unvalidated."
 }
