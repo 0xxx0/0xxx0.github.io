@@ -1,0 +1,46 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "FOLD//BLOOM Ecology Instrument 0.2",
+  "version": "0.2",
+  "route": "/fold-bloom/ecology/",
+  "state": "STABLE",
+  "operation": "PLAY",
+  "source": {
+    "authority": "0xxx0/0",
+    "path": "recovery/ecology-0.2/source.html",
+    "library_file_id": "libfile_deebb7a73d7c8191866e3304a4976ba1",
+    "library_file_id_version": "1",
+    "original_name": "fold_bloom_ecology_instrument_02.html",
+    "original_size_bytes": 97857,
+    "total_lines": 1242
+  },
+  "recovery": {
+    "reason": "Public gzip-in-HTML payload was corrupt in every stored public Ecology commit.",
+    "exact_source_recovered": true,
+    "reconstruction": false,
+    "public_transport": "direct static HTML",
+    "public_delta": [
+      "removed missing optional apple-touch-icon reference",
+      "added shared /showcase-nav.js return adapter"
+    ]
+  },
+  "validation": {
+    "inline_javascript_syntax": "PASS",
+    "expected_markers": [
+      "LOAF",
+      "RIVET",
+      "MANTA",
+      "FLOW",
+      "RATCHET",
+      "GARDEN"
+    ],
+    "obvious_private_fixture_scan": "PASS",
+    "packed_transport_markers": "ABSENT",
+    "local_dependencies": [
+      "manifest.webmanifest",
+      "sw.js",
+      "/showcase-nav.js"
+    ]
+  },
+  "known_gap": "Live mobile/desktop interaction smoke remains part of showcase audit."
+}
