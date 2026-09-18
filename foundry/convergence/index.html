@@ -91,5 +91,5 @@ function more(){openModal('SYSTEM',`<div class="list"><button class="item" oncli
 $$('#dock button').forEach(b=>b.onclick=()=>go(b.dataset.go));$('#captureBtn').onclick=capture;$('#nextBtn').onclick=()=>saveStage(true);$('#modeBtn').onclick=toggleMode;$('#moreBtn').onclick=more;$('#themeBtn').onclick=()=>{state.theme=state.theme==='sumi'?'dark':'sumi';save();render()};$('#back').onclick=closeModal;$('#closeModal').onclick=closeModal;
 render();
 </script>
-</body>
+<script src="/showcase-nav.js" defer></script></body>
 </html>
