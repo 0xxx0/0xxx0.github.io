@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#090b0d">
+<title>AXIAL / STATE × TRANSFORM 0.3</title>
+<style>
+:root{--bg:#090b0d;--p:#0f1317;--p2:#0b0f12;--ink:#edf1ed;--muted:#87939a;--line:#2c373c;--hot:#e56b3f;--cool:#68acd8;--green:#9ed88c;--gold:#d9ad62}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(14px,env(safe-area-inset-top)) 12px max(24px,env(safe-area-inset-bottom))}
+button{font:inherit;border-radius:0;color:inherit;background:var(--p2);border:1px solid var(--line);cursor:pointer}
+a{color:var(--cool)}main{width:min(1180px,100%);margin:auto}
+header{display:grid;grid-template-columns:1.25fr .75fr;gap:24px;align-items:end;padding:20px 0 14px;border-bottom:1px solid var(--line)}
+.ey{font-size:9px;letter-spacing:.18em;color:var(--hot)}h1{margin:7px 0 0;font:800 clamp(34px,7vw,76px)/.84 system-ui,sans-serif;letter-spacing:-.065em}
+.intro{color:#a6b0b5;font:12px/1.58 system-ui,sans-serif}.intro b{color:var(--ink)}
+.grid{display:grid;grid-template-columns:minmax(320px,.85fr) 1.15fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:12px}
+.pane{background:var(--p);padding:12px;min-width:0}.label{font-size:8px;letter-spacing:.14em;color:var(--muted);margin-bottom:6px}
+.instrument{position:relative;border:1px solid var(--line);background:#0a0e11;padding:9px 30px 11px;overflow:hidden}
+.instrument:after{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--hot);z-index:5;pointer-events:none}
+.ring{height:66px;border-top:1px solid #39454a;position:relative;overflow:hidden;touch-action:none;background:#11161a}.ring:last-child{border-bottom:1px solid #39454a}
+.ringname{position:absolute;left:7px;top:6px;font-size:8px;color:var(--muted);letter-spacing:.12em;z-index:3}
+.tokens{height:100%;display:grid;grid-template-columns:repeat(4,1fr)}
+.token{display:grid;place-items:center;border-left:1px dashed #324047;font:700 13px system-ui,sans-serif;letter-spacing:.03em;position:relative}
+.token small{position:absolute;bottom:5px;font:7px ui-monospace,monospace;color:#66747b}.token.on{color:#fff;background:#172027}.token.on:before{content:"";position:absolute;top:0;left:50%;height:7px;border-left:1px solid var(--hot)}
+.ring.locked{opacity:.55}.ring.locked .ringname:after{content:" · LOCK";color:var(--gold)}
+.body{height:175px;border:1px solid var(--line);margin-top:9px;position:relative;touch-action:none;overflow:hidden;background:
+linear-gradient(90deg,transparent 49.9%,#26343a 50%,transparent 50.1%),
+linear-gradient(0deg,transparent 49.9%,#26343a 50%,transparent 50.1%),#0a0e11}
+.orb{position:absolute;left:50%;top:50%;width:220px;height:78px;margin:-39px 0 0 -110px;border:2px solid #65737a;background:#11171b;display:grid;place-items:center;transform-origin:center}
+.orb:before,.orb:after{content:"";position:absolute;top:7px;bottom:7px;width:30px;border:1px solid #56636a;background:#0d1215}.orb:before{left:-16px}.orb:after{right:-16px}
+.reads{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:7px}.read{background:var(--p2);padding:7px}.read b{font-size:17px}
+.commit{display:grid;grid-template-columns:repeat(4,1fr);margin-top:9px}.commit button{min-height:36px;border-right:0}.commit button:last-child{border-right:1px solid var(--line)}.commit button.on{background:var(--ink);color:var(--bg)}.commit button.arm{background:var(--gold);color:#111}.commit button.run{background:var(--green);color:#111}
+.proj{height:290px;border:1px solid var(--line);background:#0a0e11;position:relative;overflow:hidden}.proj svg{width:100%;height:100%}
+.packet{white-space:pre-wrap;word-break:break-word;background:#080b0d;border:1px solid var(--line);padding:9px;min-height:150px;color:#aeb9bd;font-size:9px}
+.toolbar{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}.toolbar button{min-height:32px;padding:6px 9px}.toolbar .go{border-color:var(--green);color:var(--green)}
+.trial{border:1px solid var(--line);padding:9px;margin-top:9px}.trial strong{font-size:12px}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:7px}.m{background:var(--p2);padding:7px}.m b{font-size:16px;display:block}
+.log{margin-top:9px;border:1px solid var(--line);max-height:220px;overflow:auto}.row{display:grid;grid-template-columns:42px 1fr 110px 75px;gap:6px;padding:7px;border-bottom:1px solid var(--line);font-size:8px}.row:last-child{border-bottom:0}.ok{color:var(--green)}.bad{color:var(--hot)}
+.rule{margin-top:10px;border-left:2px solid var(--gold);background:#111319;padding:8px 10px;color:#aaa08c;font:9px/1.5 system-ui,sans-serif}
+footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);margin-top:12px;padding-top:8px;color:#66737a;font-size:8px}
+@media(max-width:820px){header,.grid{grid-template-columns:1fr}.proj{height:250px}.row{grid-template-columns:34px 1fr}.row span:nth-child(3),.row span:nth-child(4){grid-column:2}.metrics{grid-template-columns:1fr 1fr}footer{display:block}}
+</style></head>
+<body><main>
+<header><div><div class="ey">FOUNDRY / EXPERIMENT · 0.3</div><h1>STATE ×<br>TRANSFORM</h1></div>
+<div class="intro"><b>Meaning is discrete. Transformation is continuous. Consequence is latched.</b><br><br>
+A browser test bench for the same grammar intended for the physical axial compositor / Memory-Orb lineage. The cylinder is not the thesis; low-translation mapping between physical topology and computational meaning is.</div></header>
+
+<div class="grid">
+<section class="pane">
+<div class="label">A / DISCRETE GRAMMAR · click or swipe rings</div>
+<div class="instrument" id="rings"></div>
+<div class="label" style="margin-top:10px">B / CONTINUOUS BODY · drag horizontal = twist · vertical = axial</div>
+<div class="body" id="body"><div class="orb" id="orb"><span>TWIST × SLIDE</span></div></div>
+<div class="reads"><div class="read">AXIAL / 0–60 mm<br><b id="axial">30</b> mm</div><div class="read">TWIST / ±180°<br><b id="twist">0</b>°</div></div>
+<div class="label" style="margin-top:10px">C / TRANSACTION GATE</div><div class="commit" id="commit"></div>
+<div class="rule">SAFE edits freely · TEST previews · ARM snapshots and locks semantic state · RUN applies only the latched snapshot, writes a RETURN receipt, then falls back to SAFE.</div>
+</section>
+
+<section class="pane">
+<div class="label">PROJECTED OBJECT · changed state + preview ghost</div>
+<div class="proj"><svg viewBox="0 0 620 300"><g id="gridlines" opacity=".22"></g><g transform="translate(310 150)"><g id="ghost" opacity=".23"></g><g id="obj"></g></g><text id="caption" x="10" y="18" fill="#87939a" font-size="10" font-family="monospace"></text></svg></div>
+<div class="label" style="margin-top:9px">LIVE PACKET / physical bridge target</div><pre class="packet" id="packet"></pre>
+<div class="toolbar"><button id="copy">COPY PACKET</button><button id="reset">RESET</button></div>
+<div class="trial"><div class="label">10-TRIAL HARNESS</div><strong id="target">No active trial.</strong><div id="hint" style="color:#87939a;margin-top:4px">Match target → ARM → RUN. Exact semantic match; axial ±6 mm; twist ±15°.</div>
+<div class="metrics"><div class="m"><span>DONE</span><b id="done">0/10</b></div><div class="m"><span>MEDIAN</span><b id="med">—</b></div><div class="m"><span>MISSES</span><b id="miss">0</b></div><div class="m"><span>PASS</span><b id="pass">—</b></div></div>
+<div class="toolbar"><button class="go" id="start">START 10</button><button id="stop">STOP</button></div></div>
+<div class="label" style="margin-top:9px">RETURN / receipts</div><div class="log" id="log"><div class="row"><span>—</span><span>No receipts yet.</span></div></div>
+<div class="toolbar"><button id="export">EXPORT JSON</button><button id="clear">CLEAR RECEIPTS</button></div>
+</section>
+</div>
+<footer><span><a href="../">← FOUNDRY</a> · <a href="../../fcm/">FCM</a> · <a href="../../">SHOWCASE</a></span><span>OBJECT → OPERATOR → FRAME × AXIAL/TWIST → ARM → RUN → RETURN</span></footer>
+</main>
+<script>
+(()=>{'use strict';
+const V={object:['FIELD','NODE','PANEL','BLOOM'],operator:['SCALE','ROTATE','PHASE','APERTURE'],frame:['WORLD','LOCAL','LENS','SOURCE'],commit:['SAFE','TEST','ARM','RUN']},G=['00','01','11','10'];
+const S={i:{object:0,operator:0,frame:0,commit:0},axial:30,twist:0,latched:null,applied:{scale:1,rot:0,phase:0,aperture:1},receipts:[],trial:null,times:[],misses:0};
+const $=s=>document.querySelector(s),sel=k=>V[k][S.i[k]],clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function emit(type,payload={}){const d={type,at:Date.now(),...payload};dispatchEvent(new CustomEvent('axial:event',{detail:d}));try{const b=new BroadcastChannel('axial-compositor');b.postMessage(d);b.close()}catch(_){}}
+function setRing(k,n,src='ui'){if(k!=='commit'&&S.latched)return;S.i[k]=(n%4+4)%4;if(k==='commit')gate();emit('ring',{key:k,value:sel(k),source:src});render()}
+function ring(k){const r=document.createElement('div');r.className='ring';r.dataset.k=k;r.innerHTML='<div class="ringname">'+k.toUpperCase()+'</div><div class="tokens">'+V[k].map((x,j)=>'<div class="token" data-j="'+j+'">'+x+'<small>'+G[j]+'</small></div>').join('')+'</div>';r.querySelectorAll('.token').forEach(x=>x.onclick=()=>setRing(k,+x.dataset.j));let d=null;r.onpointerdown=e=>{if(S.latched)return;d={x:e.clientX,i:S.i[k]};r.setPointerCapture(e.pointerId)};r.onpointermove=e=>{if(!d)return;const n=d.i+Math.round((e.clientX-d.x)/48);if(n!==S.i[k])setRing(k,n,'drag')};r.onpointerup=()=>d=null;r.onpointercancel=()=>d=null;return r}
+['object','operator','frame'].forEach(k=>$('#rings').appendChild(ring(k)));
+function snap(){return{object:sel('object'),operator:sel('operator'),frame:sel('frame'),axial_mm:S.axial,twist_deg:S.twist}}
+function gate(){const c=sel('commit');if(c==='SAFE'||c==='TEST')S.latched=null;else if(c==='ARM'){S.latched=snap();emit('arm',{packet:S.latched})}else if(c==='RUN'){if(S.latched)run();else{S.i.commit=0;emit('reject',{reason:'RUN_WITHOUT_ARM'})}}}
+function run(){const c={...S.latched,commit:'RUN'},m=c.axial_mm/60;switch(c.operator){case'SCALE':S.applied.scale=.35+m*1.65;break;case'ROTATE':S.applied.rot=c.twist_deg;break;case'PHASE':S.applied.phase=(c.twist_deg+180)/360*Math.PI*2;break;case'APERTURE':S.applied.aperture=.15+m*.85}
+let trial=null,elapsed=0,res='APPLIED';if(S.trial){elapsed=Math.round(performance.now()-S.trial.started);const t=S.trial.target,sem=c.object===t.object&&c.operator===t.operator&&c.frame===t.frame,da=Math.abs(c.axial_mm-t.axial_mm),dt=Math.abs(c.twist_deg-t.twist_deg);trial={ok:sem&&da<=6&&dt<=15,da,dt};if(trial.ok){S.times.push(elapsed);S.trial.done++;nextTarget()}else{S.misses++;res='MISS';S.trial.started=performance.now()}}
+const r={schema:'axial-return/0.3',at:new Date().toISOString(),command:c,projection:{...S.applied},result:res,elapsed_ms:elapsed,trial};S.receipts.unshift(r);S.latched=null;S.i.commit=0;emit('return',{receipt:r});save();render()}
+function shape(o,color){if(o==='FIELD'){let z='';for(let i=-90;i<=90;i+=30)z+='<line x1="-105" y1="'+i+'" x2="105" y2="'+i+'" stroke="'+color+'"/><line x1="'+i+'" y1="-105" x2="'+i+'" y2="105" stroke="'+color+'"/>';return z}
+if(o==='NODE')return'<circle r="55" fill="none" stroke="'+color+'" stroke-width="3"/><circle r="7" fill="'+color+'"/><line x1="-90" y1="0" x2="90" y2="0" stroke="'+color+'"/><line x1="0" y1="-90" x2="0" y2="90" stroke="'+color+'"/>';
+if(o==='PANEL')return'<rect x="-95" y="-58" width="190" height="116" fill="none" stroke="'+color+'" stroke-width="3"/><line x1="-95" y1="-18" x2="95" y2="-18" stroke="'+color+'"/><line x1="-30" y1="-58" x2="-30" y2="58" stroke="'+color+'"/>';
+let z='';for(let i=0;i<8;i++)z+='<ellipse cx="0" cy="-52" rx="20" ry="54" fill="none" stroke="'+color+'" transform="rotate('+(i*45)+')"/>';return z}
+function xf(c,preview){let a={...S.applied};if(preview){const m=c.axial_mm/60;if(c.operator==='SCALE')a.scale=.35+m*1.65;if(c.operator==='ROTATE')a.rot=c.twist_deg;if(c.operator==='PHASE')a.phase=(c.twist_deg+180)/360*Math.PI*2;if(c.operator==='APERTURE')a.aperture=.15+m*.85}return'rotate('+a.rot+') scale('+(a.scale*(.55+.45*a.aperture))+') translate('+(Math.sin(a.phase)*20)+' 0)'}
+function draw(){const c=S.latched||snap(),mode=sel('commit');$('#obj').innerHTML=shape(c.object,'#68acd8');$('#obj').setAttribute('transform',xf(c,false));$('#ghost').innerHTML=shape(c.object,'#edf1ed');$('#ghost').style.display=(mode==='TEST'||mode==='ARM')?'block':'none';$('#ghost').setAttribute('transform',xf(c,true));$('#caption').textContent=mode+' · '+c.object+' / '+c.operator+' / '+c.frame}
+function median(a){if(!a.length)return null;const b=[...a].sort((x,y)=>x-y),m=Math.floor(b.length/2);return b.length%2?b[m]:Math.round((b[m-1]+b[m])/2)}
+function nextTarget(){if(!S.trial)return;if(S.trial.done>=10){S.trial.finished=true;S.trial.target=null;return}const p=a=>a[Math.floor(Math.random()*a.length)],q=x=>Math.round(x/5)*5;S.trial.target={object:p(V.object),operator:p(V.operator),frame:p(V.frame),axial_mm:q(Math.random()*60),twist_deg:q(-180+Math.random()*360)};S.trial.started=performance.now()}
+function render(){document.querySelectorAll('.ring').forEach(r=>{r.classList.toggle('locked',!!S.latched);r.querySelectorAll('.token').forEach((x,j)=>x.classList.toggle('on',j===S.i[r.dataset.k]))});$('#axial').textContent=S.axial;$('#twist').textContent=S.twist;$('#orb').style.transform='translateY('+((30-S.axial)*1.35)+'px) rotate('+(S.twist/10)+'deg)';
+$('#commit').innerHTML=V.commit.map((x,j)=>'<button data-j="'+j+'" class="'+(j===S.i.commit?'on ':'')+(x==='ARM'&&j===S.i.commit?'arm ':'')+(x==='RUN'&&j===S.i.commit?'run':'')+'">'+x+'</button>').join('');$('#commit').querySelectorAll('button').forEach(b=>b.onclick=()=>setRing('commit',+b.dataset.j));
+const c=S.latched||snap();$('#packet').textContent=JSON.stringify({schema:'axial.state-transform/0.3',semantic:{object:c.object,operator:c.operator,frame:c.frame},transform:{axial_mm:c.axial_mm,axial_norm:+(c.axial_mm/60).toFixed(3),twist_deg:c.twist_deg,twist_norm:+(c.twist_deg/180).toFixed(3)},transaction:{commit:sel('commit'),latched:!!S.latched},projection:S.applied},null,2);draw();
+if(S.trial){$('#target').textContent=S.trial.finished?'COMPLETE':S.trial.target.object+' / '+S.trial.target.operator+' / '+S.trial.target.frame+' · '+S.trial.target.axial_mm+' mm · '+S.trial.target.twist_deg+'°';$('#done').textContent=S.trial.done+'/10'}else{$('#target').textContent='No active trial.';$('#done').textContent='0/10'}const med=median(S.times);$('#med').textContent=med==null?'—':(med/1000).toFixed(1)+'s';$('#miss').textContent=S.misses;$('#pass').textContent=S.trial?.finished?(med<8000&&S.misses<=1?'YES':'NO'):'—';
+$('#log').innerHTML=S.receipts.length?S.receipts.slice(0,50).map((r,i)=>'<div class="row"><span>#'+(S.receipts.length-i)+'</span><span>'+r.command.object+'/'+r.command.operator+'/'+r.command.frame+'</span><span>'+r.command.axial_mm+'mm / '+r.command.twist_deg+'°</span><span class="'+(r.result==='APPLIED'?'ok':'bad')+'">'+r.result+'</span></div>').join(''):'<div class="row"><span>—</span><span>No receipts yet.</span></div>'}
+let drag=null;$('#body').onpointerdown=e=>{drag={x:e.clientX,y:e.clientY,a:S.axial,t:S.twist};$('#body').setPointerCapture(e.pointerId)};$('#body').onpointermove=e=>{if(!drag)return;S.twist=Math.round(clamp(drag.t+(e.clientX-drag.x)*1.1,-180,180)/5)*5;S.axial=Math.round(clamp(drag.a-(e.clientY-drag.y)*.4,0,60));render()};$('#body').onpointerup=()=>drag=null;$('#body').onpointercancel=()=>drag=null;
+$('#start').onclick=()=>{S.trial={done:0,finished:false,target:null,started:performance.now()};S.times=[];S.misses=0;S.latched=null;S.i.commit=0;nextTarget();render()};$('#stop').onclick=()=>{S.trial=null;render()};$('#clear').onclick=()=>{S.receipts=[];save();render()};$('#reset').onclick=()=>{localStorage.removeItem('axial-public-v03');location.reload()};$('#copy').onclick=()=>navigator.clipboard?.writeText($('#packet').textContent);$('#export').onclick=()=>{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({schema:'axial-export/0.3',receipts:S.receipts},null,2)],{type:'application/json'}));a.download='axial-receipts.json';a.click()};
+function save(){localStorage.setItem('axial-public-v03',JSON.stringify({i:S.i,axial:S.axial,twist:S.twist,applied:S.applied,receipts:S.receipts.slice(0,100)}))}try{const x=JSON.parse(localStorage.getItem('axial-public-v03')||'null');if(x){Object.assign(S.i,x.i||{});S.axial=x.axial??30;S.twist=x.twist??0;S.applied=x.applied||S.applied;S.receipts=x.receipts||[]}}catch(_){}
+window.axial={applyPacket(p){for(const k of['object','operator','frame']){if(p[k]){const i=V[k].indexOf(String(p[k]).toUpperCase());if(i>=0&&!S.latched)S.i[k]=i}}if(Number.isFinite(p.axial_mm))S.axial=clamp(p.axial_mm,0,60);if(Number.isFinite(p.twist_deg))S.twist=clamp(p.twist_deg,-180,180);if(p.commit){const i=V.commit.indexOf(String(p.commit).toUpperCase());if(i>=0){S.i.commit=i;gate()}}render()},state:()=>JSON.parse($('#packet').textContent)};
+addEventListener('message',e=>{if(e.data?.type==='AXIAL_PACKET')window.axial.applyPacket(e.data.packet||{})});
+let gl='';for(let x=0;x<=620;x+=31)gl+='<line x1="'+x+'" y1="0" x2="'+x+'" y2="300" stroke="#56636a"/>';for(let y=0;y<=300;y+=30)gl+='<line x1="0" y1="'+y+'" x2="620" y2="'+y+'" stroke="#56636a"/>';$('#gridlines').innerHTML=gl;render()
+})();
+</script></body></html>
