@@ -1,0 +1,230 @@
+{
+  "schema": "policy-resolution-cases/v0.1",
+  "inheritance_schema": "/policy-inheritance.schema.json",
+  "cases": [
+    {
+      "id": "base-allow-person-deny",
+      "stack": [
+        {
+          "layer": "base",
+          "effect": "allow",
+          "path": "/permissions/answer/decision"
+        },
+        {
+          "layer": "person",
+          "effect": "deny",
+          "path": "/permissions/answer/decision"
+        }
+      ],
+      "expect": {
+        "decision": "deny",
+        "reason": "narrower restrictive deny survives composition"
+      }
+    },
+    {
+      "id": "base-review-explicit-person-grant",
+      "stack": [
+        {
+          "layer": "base",
+          "effect": "review",
+          "path": "/permissions/remember/decision"
+        },
+        {
+          "layer": "person",
+          "mode": "grant",
+          "authority": "user_explicit",
+          "authorization_ref": "grant:peer",
+          "effect": "allow",
+          "path": "/permissions/remember/decision"
+        }
+      ],
+      "expect": {
+        "decision": "allow",
+        "reason": "authorized grant may widen inherited non-locked restriction"
+      }
+    },
+    {
+      "id": "person-allow-resource-deny",
+      "stack": [
+        {
+          "layer": "person",
+          "effect": "allow",
+          "path": "/permissions/act/decision"
+        },
+        {
+          "layer": "resource",
+          "effect": "deny",
+          "path": "/permissions/act/decision"
+        }
+      ],
+      "expect": {
+        "decision": "deny",
+        "reason": "person and resource constraints intersect in subject_parallel stage"
+      }
+    },
+    {
+      "id": "channel-deny-after-subject-allow",
+      "stack": [
+        {
+          "layer": "person",
+          "effect": "allow",
+          "path": "/permissions/act/decision"
+        },
+        {
+          "layer": "channel",
+          "effect": "deny",
+          "path": "/permissions/act/decision"
+        }
+      ],
+      "expect": {
+        "decision": "deny",
+        "reason": "matching channel restriction narrows the already-resolved subject authority"
+      }
+    },
+    {
+      "id": "locked-deny-blocks-grant",
+      "stack": [
+        {
+          "layer": "base",
+          "effect": "deny",
+          "lock": true,
+          "path": "/permissions/read/scope/data_classes_deny"
+        },
+        {
+          "layer": "person",
+          "mode": "grant",
+          "authority": "user_explicit",
+          "authorization_ref": "grant:peer",
+          "effect": "allow",
+          "path": "/permissions/read/scope/data_classes_deny"
+        }
+      ],
+      "expect": {
+        "decision": "deny",
+        "reason": "lock on path or ancestor path cannot be widened"
+      }
+    },
+    {
+      "id": "same-stage-deny-overrides-allow",
+      "stack": [
+        {
+          "layer": "channel",
+          "effect": "allow",
+          "path": "/permissions/answer/decision"
+        },
+        {
+          "layer": "channel",
+          "effect": "deny",
+          "path": "/permissions/answer/decision"
+        }
+      ],
+      "expect": {
+        "decision": "deny",
+        "reason": "same-stage conflict uses deny_overrides_allow independent of declaration order"
+      }
+    },
+    {
+      "id": "allow-set-intersection",
+      "stack": [
+        {
+          "layer": "base",
+          "op": "intersect_allow",
+          "path": "/permissions/draft/scope/channels",
+          "value": [
+            "email",
+            "messaging"
+          ]
+        },
+        {
+          "layer": "person",
+          "op": "intersect_allow",
+          "path": "/permissions/draft/scope/channels",
+          "value": [
+            "messaging",
+            "calendar"
+          ]
+        }
+      ],
+      "expect": {
+        "value": [
+          "messaging"
+        ],
+        "reason": "allow sets intersect"
+      }
+    },
+    {
+      "id": "deny-set-union",
+      "stack": [
+        {
+          "layer": "base",
+          "op": "union_deny",
+          "path": "/permissions/read/scope/data_classes_deny",
+          "value": [
+            "credentials"
+          ]
+        },
+        {
+          "layer": "person",
+          "op": "union_deny",
+          "path": "/permissions/read/scope/data_classes_deny",
+          "value": [
+            "medical"
+          ]
+        }
+      ],
+      "expect": {
+        "value": [
+          "credentials",
+          "medical"
+        ],
+        "reason": "deny sets union"
+      }
+    },
+    {
+      "id": "ceiling-minimum",
+      "stack": [
+        {
+          "layer": "base",
+          "op": "set_ceiling",
+          "path": "/permissions/act/scope/max_actions_per_event",
+          "value": 3
+        },
+        {
+          "layer": "resource",
+          "op": "set_ceiling",
+          "path": "/permissions/act/scope/max_actions_per_event",
+          "value": 1
+        }
+      ],
+      "expect": {
+        "value": 1,
+        "reason": "numeric ceilings choose minimum"
+      }
+    },
+    {
+      "id": "missing-gate-default-deny",
+      "stack": [],
+      "expect": {
+        "decision": "deny",
+        "reason": "missing gate resolves to defaults.missing_gate"
+      }
+    },
+    {
+      "id": "inheritance-cycle",
+      "extends": [
+        [
+          "base:a",
+          "base:b"
+        ],
+        [
+          "base:b",
+          "base:a"
+        ]
+      ],
+      "expect": {
+        "resolution": "reject_policy_set",
+        "reason": "cycles invalidate the policy set rather than choosing arbitrary order"
+      }
+    }
+  ]
+}
