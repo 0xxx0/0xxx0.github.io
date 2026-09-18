@@ -224,5 +224,66 @@
     "remember_is_not_action": "REMEMBER governs persistence only; it neither authorizes a reply nor grants ACT.",
     "read_is_not_memory": "READ authorizes bounded processing only; persistence still requires REMEMBER.",
     "fallback": "If a required gate is deny/expired/unresolved, choose NO_ACTION, DRAFT, or HANDOFF only when separately permitted; never widen authority."
+  },
+  "policy_inheritance_schema": "/policy-inheritance.schema.json",
+  "policy_inheritance_example": "/policy-inheritance.example.json",
+  "policy_resolution_tests": "/policy-resolution-cases.json",
+  "policy_resolution_algorithm": {
+    "inputs": [
+      "minimal event envelope",
+      "resolved person ref if any",
+      "resolved resource ref(s) if any",
+      "channel",
+      "adapter candidate",
+      "base/person/resource/channel policy sets"
+    ],
+    "stages": [
+      {
+        "stage": "base",
+        "rule": "topologically expand extends; reject cycles; merge all matching base restrictions; explicit same-stage deny wins"
+      },
+      {
+        "stage": "subject_parallel",
+        "rule": "evaluate matching person policies and resource policies independently, then intersect their effective authority; neither outranks the other"
+      },
+      {
+        "stage": "channel",
+        "rule": "apply every matching channel override to the already-resolved subject result"
+      }
+    ],
+    "within_stage": [
+      "apply restrictive operations as a commutative set",
+      "apply authorized grants only when source=user_explicit and authorization_ref is present",
+      "reapply explicit denies and path locks",
+      "never use declaration order as a security decision"
+    ],
+    "field_merge": {
+      "decision": "most restrictive unless an authorized non-locked grant explicitly widens it",
+      "allow_sets": "intersection",
+      "deny_sets": "union",
+      "numeric_or_stakes_ceiling": "minimum / most restrictive",
+      "requirements": "logical OR",
+      "permissions": "logical AND",
+      "conditions": "logical AND for inherited restrictive conditions",
+      "retention": "shortest; TTL uses minimum seconds",
+      "locks": "union; ancestor lock covers descendant paths"
+    },
+    "fallbacks": {
+      "missing_gate": "deny",
+      "unknown_subject": "policy-set default",
+      "missing_policy": "policy-set default",
+      "expired_policy": "policy-set default",
+      "condition_failure": "deny unless the governing policy explicitly specifies review"
+    },
+    "trace": [
+      "policy ids + revisions considered",
+      "selectors matched",
+      "extends expansion order",
+      "operations applied",
+      "grants accepted/rejected with authorization ref",
+      "locks encountered",
+      "per-gate before/after",
+      "final effective decision"
+    ]
   }
 }
