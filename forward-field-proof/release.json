@@ -1,0 +1,19 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "FIELD / PROOF",
+  "version": "1.0",
+  "route": "/forward-field-proof/",
+  "state": "STABLE",
+  "operation": "PROVE",
+  "released": "2026-09-18",
+  "representative_interaction": "choose same state in FIELD/PLAIN → START → BEGIN A/B → act/RETURN → END → EXPORT EVIDENCE",
+  "validation": {
+    "viewport_meta": "PASS",
+    "responsive_source": "PASS",
+    "inline_javascript_syntax": "PASS",
+    "required_controls": "PLAIN/FIELD/START/RETURN/studyStart/studyExport present",
+    "showcase_return_adapter": "PASS",
+    "source_route": "PASS"
+  },
+  "known_gap": "Live rendered mobile/desktop representative interaction remains externally unverified from this execution environment."
+}
