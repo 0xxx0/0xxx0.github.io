@@ -1,0 +1,97 @@
+{
+  "schema": "human-port-contract/v0.1",
+  "updated": "2026-09-19",
+  "title": "0 / HUMAN PORT",
+  "purpose": "One stable human-facing contact contract whose transport may change without changing what the sender has to understand.",
+  "current_surface": {
+    "transport": "local browser composer + native Web Share / clipboard",
+    "receives_server_side": false,
+    "stores_message": false,
+    "network_submission": false,
+    "works_without_private_backend": true
+  },
+  "intents": [
+    {
+      "id": "PING",
+      "meaning": "No response required; receipt or awareness is enough.",
+      "default_need": "none"
+    },
+    {
+      "id": "REPLY",
+      "meaning": "Reply when practical.",
+      "default_need": "answer"
+    },
+    {
+      "id": "NEED",
+      "meaning": "There is a concrete practical request or action.",
+      "default_need": "route"
+    },
+    {
+      "id": "CHECK",
+      "meaning": "Unexpected silence or concern; human attention matters more than automation.",
+      "default_need": "handoff"
+    }
+  ],
+  "envelope": {
+    "version": "0P1",
+    "fields": [
+      "intent",
+      "sender_label_optional",
+      "message",
+      "created_at",
+      "surface_url"
+    ],
+    "preserve_source_text": true
+  },
+  "promise_contract": {
+    "may": [
+      "preserve the sender's source text",
+      "acknowledge receipt when a bound transport can prove receipt",
+      "summarize or draft a response under policy",
+      "route a practical request to an appropriate private capability",
+      "hand off to a trusted human when policy or stakes require it"
+    ],
+    "must": [
+      "disclose automation when automation is speaking",
+      "keep public and private state separate",
+      "surface uncertainty rather than inventing personal state",
+      "respect per-person, per-resource and per-channel policy",
+      "leave a RETURN receipt for consequential routing"
+    ],
+    "must_not": [
+      "pretend to be me",
+      "fabricate a live status from silence or stale data",
+      "infer permission for external action from familiarity or tone",
+      "publish private correspondence to the public surface",
+      "take irreversible consequential action without explicit authority"
+    ]
+  },
+  "future_bindings": [
+    {
+      "class": "messaging_gateway",
+      "candidate": "Hermes Agent",
+      "state": "CANDIDATE",
+      "transports": ["telegram", "whatsapp", "signal", "email", "matrix", "webhook"],
+      "binding_rule": "private runtime only"
+    },
+    {
+      "class": "whatsapp_transport",
+      "candidate": "Baileys",
+      "state": "CANDIDATE",
+      "runtime": "TypeScript/JavaScript",
+      "binding_rule": "private runtime only; unofficial WhatsApp Web integration"
+    },
+    {
+      "class": "whatsapp_transport",
+      "candidate": "whatsmeow",
+      "state": "CANDIDATE",
+      "runtime": "Go",
+      "binding_rule": "private runtime only; unofficial WhatsApp Web integration"
+    }
+  ],
+  "references": {
+    "router": "/agent-router.json",
+    "adapter_registry": "/private-adapter-registry.json",
+    "state": "/contact/state.json"
+  }
+}
