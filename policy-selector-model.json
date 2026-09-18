@@ -19,7 +19,7 @@
       "*": "zero or more characters except ':' or '/'",
       "**": "zero or more characters including ':' and '/'",
       "?": "exactly one character except ':' or '/'",
-      "\\\\": "escape the next glob metacharacter"
+      "\\": "escape the next glob metacharacter"
     },
     "invalid": [
       "unclosed escape",
@@ -28,8 +28,8 @@
     ]
   },
   "evaluation": {
-    "selector_match": "normal selectors match only when every declared exact/pattern/tag clause resolves true",
-    "value_semantics": "values within one exact/pattern clause are OR; separate clauses are AND",
+    "selector_match": "criteria selectors: every all-clause must match, at least one any-clause must match when any exists, and no none-clause may match",
+    "value_semantics": "exact clauses compare one canonical value; tag clauses use any/all membership; criteria groups combine as all AND any(if present) AND none-not",
     "fallback": "fallback selector matches only when no non-fallback selector matched for the same resolution layer branch",
     "base_unselected": "a base policy with no selector is universal and always participates",
     "all_matches_compose": "every matching non-fallback policy in a layer/branch participates in merge; there is no winner-takes-all selector",
@@ -56,7 +56,7 @@
       "number_of_constrained_fields descending",
       "selector_id lexical ascending as trace-only final tie breaker"
     ],
-    "security_note": "specificity ordering is descriptive/trace ordering only; it never discards another matched policy."
+    "security_note": "Specificity only orders trace output and controls fallback eligibility. Every matching non-fallback policy composes; exact matches never suppress broader matching restrictions."
   },
   "branches": {
     "base": "one base branch; universal selectorless base policies always participate; matched selected bases also participate",
