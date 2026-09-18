@@ -1,0 +1,164 @@
+{
+  "schema": "0xxx0/return-index/v0.1",
+  "generated": "2026-09-19",
+  "source": "/showcase-manifest.json",
+  "count": 14,
+  "receipts_ok": 14,
+  "law": "A release without a return path is not closed.",
+  "items": [
+    {
+      "href": "/contact/",
+      "title": "0 / HUMAN PORT",
+      "state": "STABLE",
+      "version": "0.2",
+      "operation": "RETURN",
+      "receipt": "/contact/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/field-intake/",
+      "title": "FIELD INTAKE 0.4",
+      "state": "STABLE",
+      "version": "0.4",
+      "operation": "CAPTURE",
+      "receipt": "/field-intake/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "unknown",
+      "release_updated": null
+    },
+    {
+      "href": "/fold-bloom/two-dial/",
+      "title": "TWO DIAL",
+      "state": "STABLE",
+      "version": "0.9",
+      "operation": "PLAY",
+      "receipt": "/fold-bloom/two-dial/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "showcase-release/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/fold-bloom/ecology/",
+      "title": "ECOLOGY 0.2",
+      "state": "STABLE",
+      "version": "0.2",
+      "operation": "PLAY",
+      "receipt": "/fold-bloom/ecology/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "showcase-release/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/sleeper/",
+      "title": "ASCII SLEEPER 0.8",
+      "state": "EXPERIMENT",
+      "version": "0.8",
+      "operation": "PLAY",
+      "receipt": "/sleeper/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/fold-bloom/lens/",
+      "title": "SCALE LENS",
+      "state": "STABLE",
+      "version": "RC11.2",
+      "operation": "REPRESENT",
+      "receipt": "/fold-bloom/lens/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "showcase-release/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/foundry/verse-atlas/",
+      "title": "VERSE ATLAS",
+      "state": "STABLE",
+      "version": "—",
+      "operation": "REPRESENT",
+      "receipt": "/foundry/verse-atlas/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "showcase-release/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/foundry/axial/",
+      "title": "AXIAL / STATE × TRANSFORM 0.3",
+      "state": "EXPERIMENT",
+      "version": "0.3",
+      "operation": "PROVE",
+      "receipt": "/foundry/axial/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "showcase-release/v1",
+      "release_updated": "2026-09-19"
+    },
+    {
+      "href": "/foundry/convergence/identity-lab.html",
+      "title": "IDENTITY LAB",
+      "state": "STABLE",
+      "version": "CAP-IR 0.1",
+      "operation": "PROVE",
+      "receipt": "/foundry/convergence/identity-lab.release.json",
+      "receipt_ok": true,
+      "receipt_schema": "showcase-release/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/atlas-dayline/",
+      "title": "ATLAS DAYLINE",
+      "state": "STABLE",
+      "version": "Branch I",
+      "operation": "PLAN",
+      "receipt": "/atlas-dayline/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "showcase-release/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/forward-field-proof/",
+      "title": "FIELD / PROOF",
+      "state": "STABLE",
+      "version": "1.0",
+      "operation": "PROVE",
+      "receipt": "/forward-field-proof/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "showcase-release/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/forward-field-proof/triangle/",
+      "title": "TRIANGLE BENCH 0.1",
+      "state": "EXPERIMENT",
+      "version": "0.1",
+      "operation": "PROVE",
+      "receipt": "/forward-field-proof/triangle/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/router-bench/",
+      "title": "ROUTER BENCH 0.1",
+      "state": "EXPERIMENT",
+      "version": "0.1",
+      "operation": "RETURN",
+      "receipt": "/router-bench/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/fcm/",
+      "title": "FORWARD CENTER MASS 0.1",
+      "state": "EXPERIMENT",
+      "version": "0.1",
+      "operation": "ROUTE",
+      "receipt": "/fcm/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    }
+  ]
+}
