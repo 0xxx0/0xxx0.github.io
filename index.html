@@ -22,7 +22,7 @@ h1{margin:8px 0 0;font:800 clamp(42px,9vw,88px)/.84 system-ui,-apple-system,sans
 .section b{font-size:10px;letter-spacing:.16em}.section span{color:var(--muted);font-size:9px}
 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
 .card{grid-column:span 4;min-height:260px;background:var(--panel);padding:16px;display:flex;flex-direction:column;color:var(--ink);text-decoration:none}
-.card:hover,.card:focus{background:#121920;outline:none}.card[hidden]{display:none}.state{margin-left:auto;border:1px solid #314047;padding:2px 5px;font-size:7px;color:#7f8d94}.state.compat{color:var(--gold);border-color:#6b5731}.topline{display:flex;gap:8px;align-items:center}
+.card:hover,.card:focus{background:#121920;outline:none}.card[hidden]{display:none}.state{margin-left:auto;border:1px solid #314047;padding:2px 5px;font-size:7px;color:#7f8d94}.state.compat{color:var(--gold);border-color:#6b5731}.state.experiment{color:var(--hot);border-color:#734b2a}.topline{display:flex;gap:8px;align-items:center}
 .card.wide{grid-column:span 6}.card.full{grid-column:span 12;min-height:190px}
 .num{font-size:8px;color:#68747b;letter-spacing:.15em}
 .type{margin-top:4px;font-size:8px;letter-spacing:.13em}
@@ -50,7 +50,7 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:18px;paddi
   <span>OBJECT</span><span>ADDRESS</span><span>PROJECT</span><span>OPERATE</span><span>RETURN</span>
 </div>
 
-<div class="section"><div><b>INSTRUMENTS</b><span id="visibleCount" class="count">8 / 8 visible</span></div><div class="tools" aria-label="Showcase filters"><button class="on" data-filter="ALL">ALL</button><button data-filter="CAPTURE">CAPTURE</button><button data-filter="PLAY">PLAY</button><button data-filter="REPRESENT">REPRESENT</button><button data-filter="PLAN">PLAN</button><button data-filter="PROVE">PROVE</button><input id="focus" type="search" placeholder="/ focus" aria-label="Filter instruments"></div></div>
+<div class="section"><div><b>INSTRUMENTS</b><span id="visibleCount" class="count">9 / 9 visible</span></div><div class="tools" aria-label="Showcase filters"><button class="on" data-filter="ALL">ALL</button><button data-filter="CAPTURE">CAPTURE</button><button data-filter="PLAY">PLAY</button><button data-filter="REPRESENT">REPRESENT</button><button data-filter="PLAN">PLAN</button><button data-filter="PROVE">PROVE</button><input id="focus" type="search" placeholder="/ focus" aria-label="Filter instruments"></div></div>
 <section class="grid">
   <a class="card capture full" href="./field-intake/" data-operation="CAPTURE" data-search="field intake ingress capture typed candidate review conflict evidence provenance receipt rollback replay local offline">
     <div class="topline"><div class="num">00</div><div class="state">STABLE</div></div><div class="type">CAPTURE / INGRESS</div><div class="name">FIELD INTAKE 0.4</div>
@@ -68,6 +68,13 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:18px;paddi
     <div class="topline"><div class="num">02</div><div class="state">STABLE</div></div><div class="type">PLAY / ECOLOGY</div><div class="name">ECOLOGY 0.2</div>
     <div class="desc">LOAF, RIVET and MANTA inhabit a game/ecology branch with lineage, grafting, mode changes and a visual score that remains useful muted.</div>
     <div class="chain">AGENTS → LINEAGE / MODE → VISUAL + AUDIO SCORE</div><div class="go">OPEN →</div>
+  </a>
+
+
+  <a class="card play wide" href="./sleeper/" data-operation="PLAY" data-search="sleeper ascii pov labyrinth law districts constraint cartridge observe decide act plain seal return coupled field">
+    <div class="topline"><div class="num">02A</div><div class="state experiment">EXPERIMENT</div></div><div class="type">PLAY / CONSTRAINT FIELD</div><div class="name">ASCII SLEEPER 0.8</div>
+    <div class="desc">Walk a first-person ASCII law-city whose traversability is downstream of four explicit evidence contracts. Switch to a plain view of the same state; every resolved gate changes a coupled world and RETURN leaves a compact seal.</div>
+    <div class="chain">SOURCE → CONTRACT → COUPLED LAW FIELD → POV / PLAIN → RETURN SEAL</div><div class="go">OPEN →</div>
   </a>
 
   <a class="card represent" href="./fold-bloom/lens/" data-operation="REPRESENT" data-search="scale lens text atlas dayline datadisc object stable address provenance return">
