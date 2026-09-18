@@ -8,6 +8,7 @@
     "schema",
     "policy_schema",
     "selector_schema",
+    "selector_model",
     "defaults",
     "resolution",
     "base_policies",
@@ -1459,6 +1460,9 @@
     },
     "selector_schema": {
       "const": "/policy-selector.schema.json"
+    },
+    "selector_model": {
+      "const": "/policy-selector-model.json"
     }
   },
   "additionalProperties": false,
@@ -1468,6 +1472,10 @@
     "fallback": "activate matching fallback selectors only when zero non-fallback selectors matched that same layer/domain branch",
     "ordering": "exact > pattern > tag > fallback for trace ordering only",
     "merge": "all matched non-fallback policies enter policy merge; selector specificity never discards a broader restriction",
-    "declaration_order": "irrelevant"
+    "declaration_order": "irrelevant",
+    "model": "/policy-selector-model.json",
+    "normalization": "opaque person/resource refs compare byte-for-byte; channel/adapter/class/tags use canonical NFC-lowercase values",
+    "pattern": "glob-v1: anchored; * stays within ':'/'/' segment, ** crosses segments, ? matches one non-delimiter",
+    "branching": "base one branch; person one branch; each resource independently; channel one branch; person/resource results intersect later"
   }
 }
