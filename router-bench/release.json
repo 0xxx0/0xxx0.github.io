@@ -18,7 +18,8 @@
     "semantic routes resolve from live manifest operations",
     "ACT result still declares private adapter binding requirement",
     "mobile layout collapses to one column",
-    "RETURN receipt is rendered for every evaluated event"
+    "RETURN receipt is rendered for every evaluated event",
+    "COMMIT RETURN appends receipt-only records to browser localStorage and JSONL export; raw payload is not persisted"
   ],
   "limitations": [
     "keyword/control classifier is deterministic and intentionally shallow",
