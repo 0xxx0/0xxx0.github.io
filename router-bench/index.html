@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#090b0d">
+<title>Router Bench 0.1</title>
+<style>
+:root{--bg:#090b0d;--panel:#0f1317;--ink:#edf1ed;--muted:#8f989b;--line:#2c373c;--hot:#e56b3f;--cool:#68acd8;--gold:#d9ad62;--green:#9ed88c}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:14px}main{width:min(1180px,100%);margin:auto}
+a{color:#9fb8c4}.ey{color:var(--cool);font-size:9px;letter-spacing:.16em}h1{font:800 clamp(36px,8vw,76px)/.86 system-ui,sans-serif;letter-spacing:-.06em;margin:18px 0 9px}.sub{max-width:800px;color:#9da8ad;font:12px/1.6 system-ui,sans-serif}
+.top{display:flex;justify-content:space-between;gap:16px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:15px}.links{text-align:right;font-size:9px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:15px}.pane{background:var(--panel);padding:14px;min-width:0}.label{font-size:8px;letter-spacing:.14em;color:var(--muted);margin-bottom:6px}
+textarea,select,input,button{border:1px solid var(--line);border-radius:0;background:#0a0e11;color:var(--ink);font:10px ui-monospace,monospace}textarea{width:100%;height:150px;resize:vertical;padding:11px;line-height:1.5}select,input{min-height:34px;padding:6px 8px;width:100%}button{min-height:34px;padding:7px 9px;cursor:pointer}button:hover,button.on{border-color:var(--cool);color:#d8f2ff}.fields{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:8px}.toggles{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.toggles button{font-size:8px}.presets{display:flex;gap:5px;flex-wrap:wrap;margin:10px 0}.presets button{font-size:8px;min-height:28px}
+.verdict{display:grid;grid-template-columns:170px 1fr;gap:12px;border-bottom:1px solid var(--line);padding-bottom:13px}.action{font:800 30px/.95 system-ui,sans-serif;letter-spacing:-.04em}.why{color:#aab4b8;font:11px/1.55 system-ui,sans-serif}.depth{margin-top:10px;height:8px;border:1px solid var(--line);display:grid;grid-template-columns:repeat(8,1fr);gap:1px;background:var(--line)}.depth i{display:block;background:#0a0e11}.depth i.on{background:#748991}
+.pipe{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:13px;overflow:auto}.node{background:#0a0e11;padding:10px;min-width:120px;flex:1}.node b{display:block;font-size:9px}.node span{display:block;color:var(--muted);font-size:7px;margin-top:5px}.node.skip{opacity:.3}.node.live b{color:var(--green)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:12px}.box{background:#0a0e11;padding:10px;min-height:140px}.box h2{font-size:8px;letter-spacing:.14em;margin:0 0 8px;color:var(--muted)}pre{white-space:pre-wrap;word-break:break-word;margin:0;font:9px/1.5 ui-monospace,monospace;color:#aab4b8}
+.adapters{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:12px}.adapter{background:#0a0e11;padding:9px;min-height:92px}.adapter b{font-size:9px}.adapter small{display:block;color:var(--muted);margin-top:5px;font-size:7px}.adapter.fit{outline:1px solid var(--green);outline-offset:-1px}.adapter.blocked{outline:1px solid var(--gold);outline-offset:-1px}
+.foot{margin-top:13px;padding-top:10px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px;color:#657178;font-size:8px}
+@media(max-width:760px){.top{display:block}.links{text-align:left;margin-top:10px}.grid{grid-template-columns:1fr}.fields{grid-template-columns:1fr 1fr}.verdict{grid-template-columns:1fr}.cols{grid-template-columns:1fr}.adapters{grid-template-columns:1fr}.pipe{display:grid;grid-template-columns:1fr 1fr}.node{min-width:0}.foot{display:block}}
+</style>
+</head>
+<body><main>
+<div class="top"><div><div class="ey">ROUTER BENCH · 0.1 · DETERMINISTIC / LOCAL SIMULATION</div><h1>Event in.<br>Smallest useful move out.</h1><div class="sub">A playable reference router over the live showcase contracts. It does not send messages, mutate calendars, or control devices. It exposes the route, permission boundary, adapter fit and RETURN receipt we would require before a private runtime may do those things.</div></div><div class="links"><a href="/">SHOWCASE</a> · <a href="/agent-router.json">MODEL</a> · <a href="/private-adapter-registry.json">ADAPTERS</a></div></div>
+
+<div class="grid">
+<section class="pane">
+  <div class="label">EVENT PAYLOAD</div>
+  <textarea id="payload">Remind me Thursday to call Alex about the prototype, and draft a short reply saying I can send photos after dinner.</textarea>
+  <div class="presets" id="presets"></div>
+  <div class="fields">
+    <label><div class="label">SOURCE</div><select id="source"><option>human</option><option selected>message</option><option>sensor</option><option>schedule</option><option>internal</option></select></label>
+    <label><div class="label">PERMISSION</div><select id="permission"><option>unknown</option><option>read</option><option selected>draft</option><option>act</option></select></label>
+    <label><div class="label">STAKES</div><select id="stakes"><option selected>ordinary</option><option>meaningful</option><option>high</option></select></label>
+    <label><div class="label">SIDE EFFECT</div><select id="effects"><option selected>none</option><option>local</option><option>external</option></select></label>
+  </div>
+  <div class="toggles">
+    <button id="block">ONE FACT BLOCKS</button><button id="quiet">QUIET / BELOW THRESHOLD</button><button id="forceTime">TIME-BIND</button><button id="forceControl">CONTROL</button><button id="forceProve">PROVE</button>
+  </div>
+</section>
+
+<section class="pane">
+  <div class="verdict"><div><div class="label">DECISION</div><div class="action" id="action">—</div><div class="depth" id="depth"></div></div><div><div class="label">WHY</div><div class="why" id="why">Loading live contracts…</div></div></div>
+  <div class="label" style="margin-top:12px">SEMANTIC ROUTE</div><div class="pipe" id="pipe"></div>
+  <div class="cols">
+    <div class="box"><h2>NORMALIZED SIGNAL</h2><pre id="signal"></pre></div>
+    <div class="box"><h2>RETURN RECEIPT</h2><pre id="receipt"></pre></div>
+  </div>
+</section>
+</div>
+
+<div class="label" style="margin-top:15px">PRIVATE ADAPTER FIT · DECLARATIONS ONLY, NOT ACTIVE CONNECTIONS</div>
+<section class="adapters" id="adapters"></section>
+<div class="foot"><span>PUBLIC BENCH · NEVER RECEIVES PRIVATE RUNTIME CREDENTIALS</span><span id="status">loading manifest / router / adapters</span></div>
+</main>
+<script>
+(()=>{'use strict';
+const $=x=>document.getElementById(x), state={block:false,quiet:false,time:false,control:false,prove:false}, ACTIONS=['NO_ACTION','ACK','ANSWER','ASK_ONE','ROUTE','DRAFT','ACT','HANDOFF'];
+let manifest=null,router=null,registry=null,cases=null;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const routeByOp=op=>manifest.routes.filter(r=>r.kind==='artifact'&&r.operation===op).sort((a,b)=>(a.state==='STABLE'?0:1)-(b.state==='STABLE'?0:1));
+function features(text){
+ const s=text.toLowerCase(), wc=(s.match(/\S+/g)||[]).length;
+ return {
+  words:wc,
+  time:state.time||/\b(remind|schedule|calendar|appointment|tomorrow|tonight|later|thursday|friday|monday|tuesday|wednesday|saturday|sunday|next week|after dinner|before lunch|\d{1,2}[:.]\d{2})\b/.test(s),
+  external:/\b(send|email|reply|message|post|publish|book|call|create event|invite|notify)\b/.test(s),
+  control:state.control||/\b(turn on|turn off|toggle|set |adjust|device|robot|vacuum|fan|light|mqtt|home assistant|housebus)\b/.test(s),
+  prove:state.prove||/\b(compare|prove|verify|validate|benchmark|ablation|better interface|test whether)\b/.test(s),
+  represent:wc>28||/\b(summarize|summarise|brief|explain|translate|rewrite|draft|reply)\b/.test(s),
+  question:/\?/.test(s)||/^(what|why|how|can|could|should|is|are|do|does)\b/.test(s.trim()),
+  quiet:state.quiet||/\b(below threshold|no change|nominal|normal reading|quiet event)\b/.test(s)
+ };
+}
+function decide(){
+ if(!manifest)return;
+ const text=$('payload').value.trim(), source=$('source').value, permission=$('permission').value, stakes=$('stakes').value, effects=$('effects').value, f=features(text);
+ let action='ANSWER', why='Information can be resolved without an external side effect.';
+ if(!text){action='NO_ACTION';why='No payload: nothing useful to transform.'}
+ else if(state.block){action='ASK_ONE';why='One declared missing fact blocks useful progress; ask only that question.'}
+ else if(source==='sensor'&&f.quiet){action='NO_ACTION';why='Sensor event is below the declared notification threshold; retain evidence without manufacturing attention.'}
+ else if(stakes==='high'&&(f.external||effects==='external')){action='HANDOFF';why='High-stakes external consequence: preserve context and require explicit human review.'}
+ else if(f.external||effects==='external'||f.time){
+   if(permission==='act'&&stakes==='ordinary'){action='ACT';why='External/time action is requested and ACT permission is explicitly present; execution still requires a compatible private adapter.'}
+   else {action='DRAFT';why='The useful next move implies a commitment or external effect, but permission is not sufficient for execution.'}
+ } else if(f.prove||f.control){action='ROUTE';why='The event asks for a bounded control/proof transform rather than a prose-only answer.'}
+ else if(!f.question&&source==='message'&&text.length<40){action='ACK';why='A small inbound message appears to need receipt more than transformation.'}
+
+ let ops=[];
+ if(source!=='internal'||text)ops.push('CAPTURE');
+ if(f.represent&&action!=='NO_ACTION')ops.push('REPRESENT');
+ if(f.time)ops.push('PLAN');
+ if(f.control)ops.push('PLAY');
+ if(f.prove)ops.push('PROVE');
+ if(action==='HANDOFF'&&!ops.includes('REPRESENT'))ops.push('REPRESENT');
+ ops=[...new Set(ops)];
+
+ const chosen=[];
+ for(const op of ops){
+   const rs=routeByOp(op);
+   if(!rs.length)continue;
+   if(op==='PROVE'){
+     const id=rs.find(r=>/identity/i.test(r.title)), fp=rs.find(r=>/FIELD \/ PROOF/i.test(r.title));
+     if(f.prove&&id)chosen.push(id);
+     if(fp)chosen.push(fp); else chosen.push(rs[0]);
+   }else if(op==='PLAY'&&/constraint|obligation|law/i.test(text)){chosen.push(rs.find(r=>/SLEEPER/i.test(r.title))||rs[0]);}
+   else chosen.push(rs[0]);
+ }
+ const uniq=[...new Map(chosen.map(r=>[r.href,r])).values()];
+ render({text,source,permission,stakes,effects,f,action,why,route:uniq});
+}
+function render(x){
+ $('action').textContent=x.action;$('why').textContent=x.why;
+ $('depth').innerHTML=ACTIONS.map((a,i)=>'<i class="'+(i<=ACTIONS.indexOf(x.action)?'on':'')+'" title="'+a+'"></i>').join('');
+ const all=['CAPTURE','REPRESENT','PLAN','PLAY','PROVE'];
+ $('pipe').innerHTML=all.map(op=>{const r=x.route.find(q=>q.operation===op);return '<div class="node '+(r?'live':'skip')+'"><b>'+op+'</b><span>'+(r?esc(r.title):'SKIP')+'</span></div>'}).join('')+'<div class="node live"><b>RETURN</b><span>receipt</span></div>';
+ $('signal').textContent=JSON.stringify({source:x.source,permission:x.permission,stakes:x.stakes,side_effect:x.effects,features:x.f},null,2);
+ const compatible=new Set();
+ for(const a of registry.adapters)if(x.route.some(r=>(a.contracts||[]).includes(r.operation)))compatible.add(a.id);
+ const ext=x.action==='ACT';
+ const runnable=[...compatible].filter(id=>{const a=registry.adapters.find(z=>z.id===id);return !ext||a.state!=='REFERENCE'});
+ const receipt={event_id:'bench:'+simpleHash(x.text+'|'+x.source),decision:x.action,route:x.route.map(r=>r.href),result_summary:x.why,evidence:x.route.map(r=>r.receipt).filter(Boolean),uncertainty:'deterministic keyword/control simulation; not semantic AI inference',next_state:x.action==='ACT'?(runnable.length?'PRIVATE_ADAPTER_BINDING_REQUIRED':'DRAFT'):(x.action==='ASK_ONE'?'WAIT_FOR_FACT':'RETURN'),adapter_candidates:runnable};
+ $('receipt').textContent=JSON.stringify(receipt,null,2);
+ $('adapters').innerHTML=registry.adapters.map(a=>{const fit=compatible.has(a.id), blocked=fit&&x.action==='ACT'&&a.state==='PRIVATE_BINDING_REQUIRED';return '<div class="adapter '+(fit?'fit ':'')+(blocked?'blocked':'')+'"><b>'+esc(a.label)+'</b><small>'+esc(a.class)+' · '+esc(a.state)+'</small><small>'+(fit?'MATCH · ':'')+esc(a.fit)+'</small></div>'}).join('');
+ $('status').textContent='manifest '+manifest.routes.filter(r=>r.kind==='artifact').length+' contracts · '+registry.adapters.length+' adapter declarations · no side effects';
+}
+function simpleHash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return (h>>>0).toString(16).padStart(8,'0')}
+function bindToggle(id,key){$(id).onclick=()=>{state[key]=!state[key];$(id).classList.toggle('on',state[key]);decide()}}
+bindToggle('block','block');bindToggle('quiet','quiet');bindToggle('forceTime','time');bindToggle('forceControl','control');bindToggle('forceProve','prove');
+['payload','source','permission','stakes','effects'].forEach(id=>$(id).addEventListener(id==='payload'?'input':'change',decide));
+Promise.all([fetch('/showcase-manifest.json').then(r=>r.json()),fetch('/agent-router.json').then(r=>r.json()),fetch('/private-adapter-registry.json').then(r=>r.json()),fetch('/agent-router-cases.json').then(r=>r.json())]).then(([m,r,a,c])=>{
+ manifest=m;router=r;registry=a;cases=c;
+ const ps=[
+  ['DENSE','Can you pull this apart, summarize the actual issue, and tell me what I should reply?'],
+  ['TIME','Remind me Thursday to call Alex about the prototype.'],
+  ['SENSOR','Temperature event: normal reading, below threshold, no change.'],
+  ['DEVICE','Turn on the workshop fan after humidity crosses the configured threshold.'],
+  ['PROVE','Test whether the richer interface actually improves recovery versus a plain control.']
+ ];
+ $('presets').innerHTML=ps.map((p,i)=>'<button data-i="'+i+'">'+p[0]+'</button>').join('');
+ [...$('presets').querySelectorAll('button')].forEach(b=>b.onclick=()=>{$('payload').value=ps[+b.dataset.i][1];$('source').value=+b.dataset.i===2?'sensor':'message';decide()});
+ decide();
+}).catch(e=>{$('status').textContent='LOAD FAIL · '+e.message;$('why').textContent='Could not load one or more live control files.'});
+})();
+</script></body></html>
