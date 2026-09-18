@@ -384,5 +384,27 @@
       "resource": "one branch per resolved resource; resource branches intersect",
       "channel": "one branch after subject resolution"
     }
+  },
+  "policy_resolution_trace_schema": "/policy-resolution-trace.schema.json",
+  "policy_resolution_trace_example": "/policy-resolution-trace.example.json",
+  "policy_trace_tests": "/policy-trace-cases.json",
+  "policy_trace": {
+    "purpose": "append-only causal proof of selector matching and policy composition without embedding raw event payload or secrets",
+    "required_event_classes": [
+      "selector_evaluated",
+      "policy_matched",
+      "inheritance_step",
+      "operation_evaluated",
+      "grant_evaluated",
+      "deny_applied",
+      "lock_applied",
+      "stage_resolved",
+      "gate_final",
+      "resolution_final"
+    ],
+    "ordering": "seq is authoritative; cause_event_ids point backward only",
+    "finality": "exactly one gate_final event per read/remember/acknowledge/answer/draft/act/escalate and exactly one resolution_final",
+    "replay": "policy-set digests + selector-facts digest + ordered operations permit deterministic replay when referenced private values are available",
+    "tamper_evidence": "optional RFC8785-JCS + SHA-256 event hash chain"
   }
 }
