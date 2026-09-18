@@ -24,7 +24,12 @@
       "operation": "CAPTURE",
       "state": "STABLE",
       "version": "0.4",
-      "receipt": "/field-intake/release.json"
+      "receipt": "/field-intake/release.json",
+      "transfer": [
+        "inbox/case intake",
+        "sensor/log ingress",
+        "provenance + rollback"
+      ]
     },
     {
       "href": "/fold-bloom/",
@@ -42,7 +47,12 @@
       "operation": "PLAY",
       "state": "STABLE",
       "version": "0.9",
-      "receipt": "/fold-bloom/two-dial/release.json"
+      "receipt": "/fold-bloom/two-dial/release.json",
+      "transfer": [
+        "parameter steering",
+        "constrained control",
+        "expressive mapping"
+      ]
     },
     {
       "href": "/fold-bloom/ecology/",
@@ -53,7 +63,12 @@
       "operation": "PLAY",
       "state": "STABLE",
       "version": "0.2",
-      "receipt": "/fold-bloom/ecology/release.json"
+      "receipt": "/fold-bloom/ecology/release.json",
+      "transfer": [
+        "adaptive-agent feedback",
+        "multimodal state",
+        "mute-first signalling"
+      ]
     },
     {
       "href": "/sleeper/",
@@ -64,7 +79,12 @@
       "operation": "PLAY",
       "state": "EXPERIMENT",
       "version": "0.8",
-      "receipt": "/sleeper/release.json"
+      "receipt": "/sleeper/release.json",
+      "transfer": [
+        "constraint visualization",
+        "obligation gating",
+        "alternate views of one state"
+      ]
     },
     {
       "href": "/fold-bloom/lens/",
@@ -76,7 +96,12 @@
       "state": "STABLE",
       "version": "RC11.2",
       "receipt": "/fold-bloom/lens/release.json",
-      "patch": "g2-interop-1+spatial-donor-1"
+      "patch": "g2-interop-1+spatial-donor-1",
+      "transfer": [
+        "data inspection",
+        "provenance-preserving projection",
+        "compact handoff"
+      ]
     },
     {
       "href": "/foundry/",
@@ -93,7 +118,12 @@
       "family": "FOUNDRY",
       "operation": "REPRESENT",
       "state": "STABLE",
-      "receipt": "/foundry/verse-atlas/release.json"
+      "receipt": "/foundry/verse-atlas/release.json",
+      "transfer": [
+        "stable annotation",
+        "language/study interfaces",
+        "spatial + temporal reading"
+      ]
     },
     {
       "href": "/foundry/convergence/",
@@ -110,7 +140,12 @@
       "family": "FOUNDRY",
       "operation": "PROVE",
       "state": "STABLE",
-      "receipt": "/foundry/convergence/identity-lab.release.json"
+      "receipt": "/foundry/convergence/identity-lab.release.json",
+      "transfer": [
+        "transformation contracts",
+        "stable object identity",
+        "reversible pipelines"
+      ]
     },
     {
       "href": "/atlas-dayline/",
@@ -119,7 +154,12 @@
       "parent": "/",
       "operation": "PLAN",
       "state": "STABLE",
-      "receipt": "/atlas-dayline/release.json"
+      "receipt": "/atlas-dayline/release.json",
+      "transfer": [
+        "schedule projection",
+        "queue planning",
+        "export + replay"
+      ]
     },
     {
       "href": "/forward-field-proof/",
@@ -128,7 +168,12 @@
       "parent": "/",
       "operation": "PROVE",
       "state": "STABLE",
-      "receipt": "/forward-field-proof/release.json"
+      "receipt": "/forward-field-proof/release.json",
+      "transfer": [
+        "interface ablation",
+        "evidence-backed promotion",
+        "comparison receipts"
+      ]
     },
     {
       "href": "/forward-field-proof/triangle/",
@@ -158,6 +203,51 @@
     "sleeper": "Public experiment. Same canonical state is exposed as first-person coupled law field and plain obligation list; geometry is explicitly not external truth.",
     "scale_lens": "RC11.2 remains the stable public head. G2 identity/RETURN is unchanged; optional spatial-donor-1 adds a projection-only Matrix/CSS3D lineage view. RC11.3 remains an unfinished forward branch and is not silently promoted here.",
     "triangle_bench": "Nested Field / Proof experiment. EXPLOIT / EXPLORE / PROVE simplex compared against a plain two-control allocation; no showcase card.",
-    "showcase_trace": "All nine showcase cards now have a release receipt/status route. Source-level interaction/responsive checks are recorded; external live mobile/desktop smoke remains blocked from the current execution environment."
+    "showcase_trace": "All nine showcase cards now have a release receipt/status route. Source-level interaction/responsive checks are recorded; external live mobile/desktop smoke remains blocked from the current execution environment.",
+    "capability_map": "Root showcase now exposes a transfer-oriented reading of the same nine public cards. Transfer labels describe reusable mechanisms, not additional public artifacts or a claim that a monolithic agent already exists."
+  },
+  "capability_model": {
+    "CAPTURE": {
+      "job": "turn ambiguous incoming material into typed, reviewable objects",
+      "later_transfer": [
+        "messages",
+        "forms",
+        "human notes",
+        "sensor/log events"
+      ]
+    },
+    "PLAY": {
+      "job": "expose compact control over cyclic, agent and constraint state",
+      "later_transfer": [
+        "human steering",
+        "adaptive interfaces",
+        "physical controls"
+      ]
+    },
+    "REPRESENT": {
+      "job": "change projection without losing stable identity, provenance or return path",
+      "later_transfer": [
+        "context views",
+        "briefs",
+        "study interfaces",
+        "human-readable handoff"
+      ]
+    },
+    "PLAN": {
+      "job": "bind addressed state to time, queue, export and replay",
+      "later_transfer": [
+        "follow-up queues",
+        "schedules",
+        "commitments"
+      ]
+    },
+    "PROVE": {
+      "job": "test whether interfaces and transformations help, then leave evidence",
+      "later_transfer": [
+        "automation validation",
+        "safe handoff",
+        "release gates"
+      ]
+    }
   }
 }
