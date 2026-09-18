@@ -1,0 +1,25 @@
+{
+  "schema": "release-receipt/v1",
+  "title": "Forward Center Mass",
+  "version": "0.1",
+  "state": "EXPERIMENT",
+  "date": "2026-09-19",
+  "route": "/fcm/",
+  "parent": "/",
+  "showcase_card": false,
+  "claim": "Tests whether a three-layer control projection (117 memory objects → 8 capability operators → ≤3 active fronts → RETURN receipts) improves orientation and execution without rewriting federation canon.",
+  "inputs": [
+    "/federation-atlas.json",
+    "/fcm-kernel.json",
+    "/fcm-map.json",
+    "/fcm-fronts.json"
+  ],
+  "local_state": "fcm-local-v0.1",
+  "mutation": "LOCAL_ONLY",
+  "known_limits": [
+    "Operator mappings are heuristic projections, not canonical classifications.",
+    "FCM score is a transparent experimental orientation score, not objective priority.",
+    "RETURN receipts persist only in the current browser until exported.",
+    "Numeric centrality publishes only degree counts; private dependency identities remain private."
+  ]
+}
