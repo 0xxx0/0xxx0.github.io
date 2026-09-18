@@ -585,7 +585,8 @@
     "triangle_bench": "Nested Field / Proof experiment. EXPLOIT / EXPLORE / PROVE simplex compared against a plain two-control allocation; no showcase card.",
     "showcase_trace": "All nine showcase cards now have a release receipt/status route. Source-level interaction/responsive checks are recorded; external live mobile/desktop smoke remains blocked from the current execution environment.",
     "capability_map": "Root showcase now exposes a transfer-oriented reading of the same nine public cards. Transfer labels describe reusable mechanisms, not additional public artifacts or a claim that a monolithic agent already exists.",
-    "routing": "Nine public showcase artifacts now expose accepts/transforms/emits/evidence contracts. agent-router.json may compose or skip stages and selects the smallest adequate route under permission, reversibility and evidence constraints."
+    "routing": "Nine public showcase artifacts now expose accepts/transforms/emits/evidence contracts. agent-router.json may compose or skip stages and selects the smallest adequate route under permission, reversibility and evidence constraints.",
+    "execution_boundary": "Showcase contracts are public semantic/reference interfaces only. Private personal traffic and credentials belong to private runtime adapters; no public showcase route is an implicit execution endpoint."
   },
   "capability_model": {
     "CAPTURE": {
@@ -632,5 +633,6 @@
     }
   },
   "contract_schema": "/capability-contract.schema.json",
-  "router_model": "/agent-router.json"
+  "router_model": "/agent-router.json",
+  "router_tests": "/agent-router-cases.json"
 }
