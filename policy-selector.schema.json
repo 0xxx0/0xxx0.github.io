@@ -270,7 +270,39 @@
             }
           },
           "additionalProperties": false,
-          "minProperties": 1
+          "minProperties": 1,
+          "anyOf": [
+            {
+              "properties": {
+                "all": {
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "all"
+              ]
+            },
+            {
+              "properties": {
+                "any": {
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "any"
+              ]
+            },
+            {
+              "properties": {
+                "none": {
+                  "minItems": 1
+                }
+              },
+              "required": [
+                "none"
+              ]
+            }
+          ]
         }
       },
       "additionalProperties": false
@@ -425,6 +457,100 @@
                   "const": "person"
                 }
               }
+            },
+            {
+              "anyOf": [
+                {
+                  "properties": {
+                    "criteria": {
+                      "properties": {
+                        "all": {
+                          "contains": {
+                            "type": "object",
+                            "properties": {
+                              "field": {
+                                "enum": [
+                                  "person_ref",
+                                  "person_tags"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "field"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "all"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "criteria"
+                  ]
+                },
+                {
+                  "properties": {
+                    "criteria": {
+                      "properties": {
+                        "any": {
+                          "contains": {
+                            "type": "object",
+                            "properties": {
+                              "field": {
+                                "enum": [
+                                  "person_ref",
+                                  "person_tags"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "field"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "any"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "criteria"
+                  ]
+                },
+                {
+                  "properties": {
+                    "criteria": {
+                      "properties": {
+                        "none": {
+                          "contains": {
+                            "type": "object",
+                            "properties": {
+                              "field": {
+                                "enum": [
+                                  "person_ref",
+                                  "person_tags"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "field"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "none"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "criteria"
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -460,6 +586,103 @@
                   "const": "resource"
                 }
               }
+            },
+            {
+              "anyOf": [
+                {
+                  "properties": {
+                    "criteria": {
+                      "properties": {
+                        "all": {
+                          "contains": {
+                            "type": "object",
+                            "properties": {
+                              "field": {
+                                "enum": [
+                                  "resource_ref",
+                                  "resource_class",
+                                  "resource_tags"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "field"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "all"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "criteria"
+                  ]
+                },
+                {
+                  "properties": {
+                    "criteria": {
+                      "properties": {
+                        "any": {
+                          "contains": {
+                            "type": "object",
+                            "properties": {
+                              "field": {
+                                "enum": [
+                                  "resource_ref",
+                                  "resource_class",
+                                  "resource_tags"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "field"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "any"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "criteria"
+                  ]
+                },
+                {
+                  "properties": {
+                    "criteria": {
+                      "properties": {
+                        "none": {
+                          "contains": {
+                            "type": "object",
+                            "properties": {
+                              "field": {
+                                "enum": [
+                                  "resource_ref",
+                                  "resource_class",
+                                  "resource_tags"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "field"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "none"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "criteria"
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -495,6 +718,100 @@
                   "const": "channel"
                 }
               }
+            },
+            {
+              "anyOf": [
+                {
+                  "properties": {
+                    "criteria": {
+                      "properties": {
+                        "all": {
+                          "contains": {
+                            "type": "object",
+                            "properties": {
+                              "field": {
+                                "enum": [
+                                  "channel",
+                                  "adapter_id"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "field"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "all"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "criteria"
+                  ]
+                },
+                {
+                  "properties": {
+                    "criteria": {
+                      "properties": {
+                        "any": {
+                          "contains": {
+                            "type": "object",
+                            "properties": {
+                              "field": {
+                                "enum": [
+                                  "channel",
+                                  "adapter_id"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "field"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "any"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "criteria"
+                  ]
+                },
+                {
+                  "properties": {
+                    "criteria": {
+                      "properties": {
+                        "none": {
+                          "contains": {
+                            "type": "object",
+                            "properties": {
+                              "field": {
+                                "enum": [
+                                  "channel",
+                                  "adapter_id"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "field"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "none"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "criteria"
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -568,9 +885,20 @@
     ],
     "selector_class": "highest-ranked matched positive clause; fallback selectors are always fallback class",
     "within_class": "more matched positive clauses sorts first; final tie is selector_id lexical ascending",
-    "security_rule": "precedence is for deterministic trace ordering and fallback suppression only. All matching non-fallback policies enter the merge set; deny/lock/grant resolution remains governed by policy-inheritance.schema.json.",
+    "security_rule": "All matching non-fallback restrictive policies enter the merge set. Specificity never erases a broader restriction. It orders trace output, suppresses fallback, and bounds authorized widening: grants must be at least as specific as the restriction they widen. Explicit denies and locks remain terminal.",
     "fallback_rule": "fallback selectors activate only if zero non-fallback selectors matched the same layer/domain branch after criteria evaluation",
-    "declaration_order": "never used"
+    "declaration_order": "never used",
+    "effective_specificity": {
+      "stage_rank": {
+        "base": 0,
+        "person": 1,
+        "resource": 1,
+        "channel": 2
+      },
+      "tuple": "[stage_rank, selector_class_rank, matched_positive_clause_count]",
+      "comparison": "lexicographic ascending means less specific; descending means more specific",
+      "grant_floor": "An authorized grant may widen only a non-deny, non-locked restriction whose effective specificity tuple is <= the grant tuple."
+    }
   },
   "x-layer-rules": {
     "base": "may match canonical event/channel/adapter/resource-class/context facts; fallback supplies broad defaults",
