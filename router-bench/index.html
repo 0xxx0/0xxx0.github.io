@@ -48,6 +48,7 @@ textarea,select,input,button{border:1px solid var(--line);border-radius:0;backgr
     <div class="box"><h2>NORMALIZED SIGNAL</h2><pre id="signal"></pre></div>
     <div class="box"><h2>RETURN RECEIPT</h2><pre id="receipt"></pre></div>
   </div>
+  <div class="presets" style="margin-top:10px"><button id="commitReceipt">COMMIT RETURN</button><button id="exportLedger">EXPORT LEDGER</button><button id="clearLedger">CLEAR LOCAL</button><span class="label" id="ledgerState" style="align-self:center;margin:0">0 receipts</span></div>
 </section>
 </div>
 
@@ -58,7 +59,7 @@ textarea,select,input,button{border:1px solid var(--line);border-radius:0;backgr
 <script>
 (()=>{'use strict';
 const $=x=>document.getElementById(x), state={block:false,quiet:false,time:false,control:false,prove:false}, ACTIONS=['NO_ACTION','ACK','ANSWER','ASK_ONE','ROUTE','DRAFT','ACT','HANDOFF'];
-let manifest=null,router=null,registry=null,cases=null;
+let manifest=null,router=null,registry=null,cases=null,currentReceipt=null;
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const routeByOp=op=>manifest.routes.filter(r=>r.kind==='artifact'&&r.operation===op).sort((a,b)=>(a.state==='STABLE'?0:1)-(b.state==='STABLE'?0:1));
 function features(text){
@@ -122,10 +123,16 @@ function render(x){
  const ext=x.action==='ACT';
  const runnable=[...compatible].filter(id=>{const a=registry.adapters.find(z=>z.id===id);return !ext||a.state!=='REFERENCE'});
  const receipt={event_id:'bench:'+simpleHash(x.text+'|'+x.source),decision:x.action,route:x.route.map(r=>r.href),result_summary:x.why,evidence:x.route.map(r=>r.receipt).filter(Boolean),uncertainty:'deterministic keyword/control simulation; not semantic AI inference',next_state:x.action==='ACT'?(runnable.length?'PRIVATE_ADAPTER_BINDING_REQUIRED':'DRAFT'):(x.action==='ASK_ONE'?'WAIT_FOR_FACT':'RETURN'),adapter_candidates:runnable};
- $('receipt').textContent=JSON.stringify(receipt,null,2);
+ currentReceipt=receipt;$('receipt').textContent=JSON.stringify(receipt,null,2);
  $('adapters').innerHTML=registry.adapters.map(a=>{const fit=compatible.has(a.id), blocked=fit&&x.action==='ACT'&&a.state==='PRIVATE_BINDING_REQUIRED';return '<div class="adapter '+(fit?'fit ':'')+(blocked?'blocked':'')+'"><b>'+esc(a.label)+'</b><small>'+esc(a.class)+' · '+esc(a.state)+'</small><small>'+(fit?'MATCH · ':'')+esc(a.fit)+'</small></div>'}).join('');
  $('status').textContent='manifest '+manifest.routes.filter(r=>r.kind==='artifact').length+' contracts · '+registry.adapters.length+' adapter declarations · no side effects';
 }
+function ledger(){try{return JSON.parse(localStorage.getItem('router-bench:ledger')||'[]')}catch(_){return []}}
+function drawLedger(){const n=ledger().length;$('ledgerState').textContent=n+' receipt'+(n===1?'':'s')+' · browser-local'}
+$('commitReceipt').onclick=()=>{if(!currentReceipt)return;const xs=ledger();xs.push({...currentReceipt,committed_at:new Date().toISOString()});localStorage.setItem('router-bench:ledger',JSON.stringify(xs));drawLedger()};
+$('exportLedger').onclick=()=>{const xs=ledger(),blob=new Blob([xs.map(x=>JSON.stringify(x)).join('\n')+(xs.length?'\n':'')],{type:'application/x-ndjson'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='router-bench-ledger-'+new Date().toISOString().replace(/[:.]/g,'-')+'.jsonl';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+$('clearLedger').onclick=()=>{localStorage.removeItem('router-bench:ledger');drawLedger()};
+drawLedger();
 function simpleHash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return (h>>>0).toString(16).padStart(8,'0')}
 function bindToggle(id,key){$(id).onclick=()=>{state[key]=!state[key];$(id).classList.toggle('on',state[key]);decide()}}
 bindToggle('block','block');bindToggle('quiet','quiet');bindToggle('forceTime','time');bindToggle('forceControl','control');bindToggle('forceProve','prove');
