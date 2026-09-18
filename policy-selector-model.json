@@ -1,0 +1,67 @@
+{
+  "schema": "policy-selector-model/v0.1",
+  "selector_schema": "/policy-selector.schema.json",
+  "normalization": {
+    "refs": "compare opaque canonical refs exactly after private-runtime canonicalization; never infer refs from display names",
+    "channels": "lowercase canonical transport class, e.g. email, messaging, calendar",
+    "adapters": "registry adapter id",
+    "tags": "exact opaque tags; no stemming, synonym expansion or embedding similarity",
+    "patterns": "match canonical field value only; never match raw message content"
+  },
+  "glob_v1": {
+    "anchored": true,
+    "case_sensitive": true,
+    "delimiters": [
+      ":",
+      "/"
+    ],
+    "tokens": {
+      "*": "zero or more characters except ':' or '/'",
+      "**": "zero or more characters including ':' and '/'",
+      "?": "exactly one character except ':' or '/'",
+      "\\\\": "escape the next glob metacharacter"
+    },
+    "invalid": [
+      "unclosed escape",
+      "empty pattern",
+      "patterns over raw payload/body text"
+    ]
+  },
+  "evaluation": {
+    "selector_match": "normal selectors match only when every declared exact/pattern/tag clause resolves true",
+    "value_semantics": "values within one exact/pattern clause are OR; separate clauses are AND",
+    "fallback": "fallback selector matches only when no non-fallback selector matched for the same resolution layer branch",
+    "base_unselected": "a base policy with no selector is universal and always participates",
+    "all_matches_compose": "every matching non-fallback policy in a layer/branch participates in merge; there is no winner-takes-all selector",
+    "no_suppression": "an exact match does not suppress a matching pattern or tag policy; therefore a broad deny remains effective",
+    "person_resource": "person and each resource branch are matched independently before subject-parallel intersection",
+    "channel": "channel policies are matched after subject resolution but may also constrain person/resource/adapter fields"
+  },
+  "precedence": {
+    "authority_effect": [
+      "all matched exact/pattern/tag selectors compose",
+      "deny/lock/grant algebra from policy-inheritance resolves authority",
+      "fallback participates only if the branch has zero non-fallback matches"
+    ],
+    "trace_order": [
+      "exact",
+      "pattern",
+      "tag",
+      "fallback"
+    ],
+    "specificity_tuple": [
+      "has_exact: 1 before 0",
+      "has_pattern: 1 before 0",
+      "has_tag: 1 before 0",
+      "number_of_constrained_fields descending",
+      "selector_id lexical ascending as trace-only final tie breaker"
+    ],
+    "security_note": "specificity ordering is descriptive/trace ordering only; it never discards another matched policy."
+  },
+  "branches": {
+    "base": "one base branch; universal selectorless base policies always participate; matched selected bases also participate",
+    "person": "one branch for resolved person ref",
+    "resource": "one independent branch per resolved resource ref; branches intersect",
+    "channel": "one branch for the current canonical channel"
+  }
+}
