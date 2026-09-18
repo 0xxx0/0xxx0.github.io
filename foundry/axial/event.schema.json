@@ -1,0 +1,86 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/foundry/axial/event.schema.json",
+  "title": "AXIAL interaction event 0.4",
+  "type": "object",
+  "required": ["schema","event_id","at","object_id","state_before","gesture","state_after","evidence","parent_event"],
+  "properties": {
+    "schema": {"const": "axial-event/0.4"},
+    "event_id": {"type":"string","pattern":"^ax-[0-9]{4,}$"},
+    "at": {"type":"string","format":"date-time"},
+    "object_id": {"const":"/foundry/axial/"},
+    "state_before": {"$ref":"#/$defs/state"},
+    "gesture": {
+      "type":"object",
+      "required":["kind","axis","delta","source"],
+      "properties":{
+        "kind":{"enum":["detent","gate","transform","run","trial"]},
+        "axis":{"type":"string"},
+        "delta":{"oneOf":[{"type":"number"},{"type":"object","additionalProperties":{"type":"number"}}]},
+        "source":{"type":"string"}
+      },
+      "additionalProperties":false
+    },
+    "state_after": {"$ref":"#/$defs/state"},
+    "evidence": {
+      "type":"object",
+      "required":["route","packet_schema"],
+      "properties":{
+        "route":{"const":"/foundry/axial/"},
+        "packet_schema":{"const":"axial.state-transform/0.4"}
+      },
+      "additionalProperties":false
+    },
+    "parent_event":{"type":["string","null"]},
+    "meta":{"type":"object"}
+  },
+  "$defs":{
+    "state":{
+      "type":"object",
+      "required":["semantic","transform","transaction","projection"],
+      "properties":{
+        "semantic":{
+          "type":"object",
+          "required":["object","operator","frame"],
+          "properties":{
+            "object":{"enum":["FIELD","NODE","PANEL","BLOOM"]},
+            "operator":{"enum":["SCALE","ROTATE","PHASE","APERTURE"]},
+            "frame":{"enum":["WORLD","LOCAL","LENS","SOURCE"]}
+          },
+          "additionalProperties":false
+        },
+        "transform":{
+          "type":"object",
+          "required":["axial_mm","twist_deg"],
+          "properties":{
+            "axial_mm":{"type":"number","minimum":0,"maximum":60},
+            "twist_deg":{"type":"number","minimum":-180,"maximum":180}
+          },
+          "additionalProperties":false
+        },
+        "transaction":{
+          "type":"object",
+          "required":["commit","latched"],
+          "properties":{
+            "commit":{"enum":["SAFE","TEST","ARM","RUN"]},
+            "latched":{"type":"boolean"}
+          },
+          "additionalProperties":false
+        },
+        "projection":{
+          "type":"object",
+          "required":["scale","rot","phase","aperture"],
+          "properties":{
+            "scale":{"type":"number"},
+            "rot":{"type":"number"},
+            "phase":{"type":"number"},
+            "aperture":{"type":"number"}
+          },
+          "additionalProperties":false
+        }
+      },
+      "additionalProperties":false
+    }
+  },
+  "additionalProperties":false
+}

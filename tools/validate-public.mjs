@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict';
-const fs=require('fs'),path=require('path');
+import fs from 'node:fs';
+import path from 'node:path';
 const root=process.cwd(),fail=[];
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const exists=p=>fs.existsSync(path.join(root,p));
