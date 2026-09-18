@@ -1,0 +1,108 @@
+{
+  "schema": "policy-selector-examples/v0.1",
+  "selectors": [
+    {
+      "selector_id": "selector:base-known-context",
+      "kind": "criteria",
+      "layer": "base",
+      "criteria": {
+        "all": [
+          {
+            "kind": "tag",
+            "field": "context_tags",
+            "match": "any",
+            "values": [
+              "personal",
+              "house"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "selector_id": "selector:person-peer-exact",
+      "kind": "criteria",
+      "layer": "person",
+      "criteria": {
+        "all": [
+          {
+            "kind": "exact",
+            "field": "person_ref",
+            "value": "person:example-peer"
+          }
+        ],
+        "none": [
+          {
+            "kind": "tag",
+            "field": "context_tags",
+            "match": "any",
+            "values": [
+              "public-demo"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "selector_id": "selector:resource-sensor-pattern",
+      "kind": "criteria",
+      "layer": "resource",
+      "criteria": {
+        "all": [
+          {
+            "kind": "pattern",
+            "field": "resource_ref",
+            "glob": "resource:sensor/*"
+          },
+          {
+            "kind": "tag",
+            "field": "resource_tags",
+            "match": "all",
+            "values": [
+              "house",
+              "telemetry"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "selector_id": "selector:channel-message-exact",
+      "kind": "criteria",
+      "layer": "channel",
+      "criteria": {
+        "all": [
+          {
+            "kind": "exact",
+            "field": "channel",
+            "value": "messaging"
+          }
+        ]
+      }
+    },
+    {
+      "selector_id": "selector:person-fallback",
+      "kind": "fallback",
+      "layer": "person",
+      "domain": "person",
+      "when": "no_nonfallback_match",
+      "where": {
+        "all": [
+          {
+            "kind": "exact",
+            "field": "channel",
+            "value": "messaging"
+          }
+        ]
+      }
+    }
+  ],
+  "expected_order_if_all_relevant": [
+    "selector:person-peer-exact",
+    "selector:resource-sensor-pattern",
+    "selector:base-known-context",
+    "selector:channel-message-exact",
+    "selector:person-fallback"
+  ],
+  "note": "The displayed order is explanatory only across layers. Runtime layer order remains base -> person/resource parallel -> channel, and all matching non-fallback selectors remain active."
+}
