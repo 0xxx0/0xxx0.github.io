@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/axial/event.schema.json",
+  "title": "AXIAL COMPOSITOR event",
+  "type": "object",
+  "required": ["event_id","t","object_id","state_before","gesture","state_after","evidence","parent_event"],
+  "properties": {
+    "event_id": {"type":"string","pattern":"^ax-[0-9]{4,}$"},
+    "t": {"type":"string","format":"date-time"},
+    "object_id": {"type":["string","null"]},
+    "state_before": {"$ref":"#/$defs/state"},
+    "gesture": {
+      "type":"object",
+      "required":["kind","axis","delta","input"],
+      "properties":{
+        "kind":{"enum":["rotate","translate","press","address","restore"]},
+        "axis":{"enum":["theta","z","r","object","memory"]},
+        "delta":{"type":"number"},
+        "input":{"type":"string"}
+      },
+      "additionalProperties":false
+    },
+    "state_after": {"$ref":"#/$defs/state"},
+    "evidence": {
+      "type":"object",
+      "required":["source","route","manifest_state"],
+      "properties":{
+        "source":{"const":"/showcase-manifest.json"},
+        "route":{"type":["string","null"]},
+        "manifest_state":{"type":["string","null"]}
+      },
+      "additionalProperties":false
+    },
+    "parent_event":{"type":["string","null"]},
+    "meta":{"type":"object"}
+  },
+  "$defs":{
+    "state":{
+      "type":"object",
+      "required":["object_id","projection","scale","theta_index","z_index"],
+      "properties":{
+        "object_id":{"type":["string","null"]},
+        "projection":{"enum":["OBJECT","TRANSFER","CONTRACT","EVIDENCE","RETURN"]},
+        "scale":{"enum":["OVERVIEW","MECHANISM","STATE","EVENT","RAW"]},
+        "theta_index":{"type":"integer","minimum":0,"maximum":4},
+        "z_index":{"type":"integer","minimum":0,"maximum":4}
+      },
+      "additionalProperties":false
+    }
+  },
+  "additionalProperties":true
+}
