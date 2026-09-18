@@ -397,6 +397,24 @@
       "family": "FOUNDRY"
     },
     {
+      "href": "/foundry/axial/",
+      "title": "AXIAL / STATE × TRANSFORM 0.3",
+      "kind": "experiment",
+      "parent": "/foundry/",
+      "family": "FOUNDRY",
+      "operation": "PROVE",
+      "state": "EXPERIMENT",
+      "version": "0.3",
+      "receipt": "/foundry/axial/release.json",
+      "showcase_card": false,
+      "transfer": [
+        "tangible semantic control",
+        "continuous embodied transforms",
+        "transaction/commit semantics",
+        "machine-readable physical bridge"
+      ]
+    },
+    {
       "href": "/foundry/convergence/identity-lab.html",
       "title": "IDENTITY LAB",
       "kind": "artifact",
@@ -636,7 +654,8 @@
     "policy_selectors": "Deterministic selector syntax for base/person/resource/channel policy matching. Exact > pattern > tag > fallback for trace/specificity; all matching non-fallback restrictions accumulate; fallback activates only when no non-fallback selector in that layer/domain matches; declaration order is never security-significant.",
     "policy_selector": "Deterministic exact/pattern/tag/fallback selectors. Exact > pattern > tag > fallback is trace/fallback precedence only; every matching non-fallback policy composes, so broader denies and locks remain effective.",
     "policy_trace": "Append-only causal trace spans selector clauses, matched policy revisions, inheritance, every operation, accepted/rejected grants, deny events, lock events, stage results, seven final gates and terminal resolution; raw payload/secrets stay out.",
-    "forward_center_mass": "Parallel control projection: 117 memory objects → 8 reusable operators → ≤3 active execution fronts → local RETURN receipts. Heuristic projection; does not rewrite federation canon."
+    "forward_center_mass": "Parallel control projection: 117 memory objects → 8 reusable operators → ≤3 active execution fronts → local RETURN receipts. Heuristic projection; does not rewrite federation canon.",
+    "axial": "Experimental physical/digital interface head. Not a tenth showcase card; promotion requires digital trial plus one physical nested-tube comparison with receipts."
   },
   "capability_model": {
     "CAPTURE": {
