@@ -23,10 +23,10 @@ h1{margin:8px 0 0;font:800 clamp(42px,9vw,88px)/.84 system-ui,-apple-system,sans
 .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
 .card{grid-column:span 4;min-height:260px;background:var(--panel);padding:16px;display:flex;flex-direction:column;color:var(--ink);text-decoration:none}
 .card:hover,.card:focus{background:#121920;outline:none}.card[hidden]{display:none}.state{margin-left:auto;border:1px solid #314047;padding:2px 5px;font-size:7px;color:#7f8d94}.state.compat{color:var(--gold);border-color:#6b5731}.topline{display:flex;gap:8px;align-items:center}
-.card.wide{grid-column:span 6}
+.card.wide{grid-column:span 6}.card.full{grid-column:span 12;min-height:190px}
 .num{font-size:8px;color:#68747b;letter-spacing:.15em}
 .type{margin-top:4px;font-size:8px;letter-spacing:.13em}
-.play .type{color:var(--cool)}.represent .type{color:var(--gold)}.prove .type{color:var(--green)}.plan .type{color:#d58fb5}
+.capture .type{color:var(--hot)}.play .type{color:var(--cool)}.represent .type{color:var(--gold)}.prove .type{color:var(--green)}.plan .type{color:#d58fb5}
 .name{margin-top:26px;font:800 clamp(24px,4vw,38px)/.9 system-ui,-apple-system,sans-serif;letter-spacing:-.05em}
 .desc{margin-top:14px;color:#aab3b8;font:11px/1.55 system-ui,-apple-system,sans-serif}
 .chain{margin-top:auto;padding-top:18px;color:#78858c;font-size:8px;line-height:1.6}
@@ -36,7 +36,7 @@ h1{margin:8px 0 0;font:800 clamp(42px,9vw,88px)/.84 system-ui,-apple-system,sans
 footer{display:flex;justify-content:space-between;gap:16px;margin-top:18px;padding-top:10px;border-top:1px solid var(--line);color:#657178;font-size:8px}
 @media(max-width:760px){
  header{grid-template-columns:1fr;gap:16px}.kernel{grid-template-columns:1fr}.kernel span{text-align:left}.kernel span:not(:last-child)::after{content:""}
- .card,.card.wide{grid-column:span 12;min-height:220px}.hubs{grid-template-columns:1fr}.section{display:block}.section span{display:block;margin-top:4px}footer{display:block}footer span{display:block;margin-top:6px}
+ .card,.card.wide,.card.full{grid-column:span 12;min-height:220px}.hubs{grid-template-columns:1fr}.section{display:block}.section span{display:block;margin-top:4px}footer{display:block}footer span{display:block;margin-top:6px}
 }
 </style>
 </head>
@@ -50,8 +50,14 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:18px;paddi
   <span>OBJECT</span><span>ADDRESS</span><span>PROJECT</span><span>OPERATE</span><span>RETURN</span>
 </div>
 
-<div class="section"><div><b>INSTRUMENTS</b><span id="visibleCount" class="count">7 / 7 visible</span></div><div class="tools" aria-label="Showcase filters"><button class="on" data-filter="ALL">ALL</button><button data-filter="PLAY">PLAY</button><button data-filter="REPRESENT">REPRESENT</button><button data-filter="PLAN">PLAN</button><button data-filter="PROVE">PROVE</button><input id="focus" type="search" placeholder="/ focus" aria-label="Filter instruments"></div></div>
+<div class="section"><div><b>INSTRUMENTS</b><span id="visibleCount" class="count">8 / 8 visible</span></div><div class="tools" aria-label="Showcase filters"><button class="on" data-filter="ALL">ALL</button><button data-filter="CAPTURE">CAPTURE</button><button data-filter="PLAY">PLAY</button><button data-filter="REPRESENT">REPRESENT</button><button data-filter="PLAN">PLAN</button><button data-filter="PROVE">PROVE</button><input id="focus" type="search" placeholder="/ focus" aria-label="Filter instruments"></div></div>
 <section class="grid">
+  <a class="card capture full" href="./field-intake/" data-operation="CAPTURE" data-search="field intake ingress capture typed candidate review conflict evidence provenance receipt rollback replay local offline">
+    <div class="topline"><div class="num">00</div><div class="state">STABLE</div></div><div class="type">CAPTURE / INGRESS</div><div class="name">FIELD INTAKE 0.4</div>
+    <div class="desc">Turn compressed notes into typed candidates, force conflicts through explicit review, then preserve provenance, before-images, receipts, rollback and replay. Local-first; deliberately not another planner.</div>
+    <div class="chain">CAPTURE → TYPE → REVIEW → COMMIT → RECEIPT → ROLLBACK / REPLAY</div><div class="go">OPEN →</div>
+  </a>
+
   <a class="card play" href="./fold-bloom/two-dial/" data-operation="PLAY" data-search="two dial composition cyclic control motif form memory fold bloom">
     <div class="topline"><div class="num">01</div><div class="state">STABLE</div></div><div class="type">PLAY / COMPOSE</div><div class="name">TWO DIAL</div>
     <div class="desc">Two cyclic controls shape matter, harmony, bloom, fold and phrase memory through a compact embodied composition surface.</div>
