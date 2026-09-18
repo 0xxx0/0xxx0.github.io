@@ -1,0 +1,246 @@
+{
+  "schema": "person-resource-policy/v0.1",
+  "policy_id": "policy:example-peer",
+  "subject": {
+    "ref": "person:example-peer",
+    "kind": "person",
+    "labels": [
+      "known-human"
+    ]
+  },
+  "authority": {
+    "source": "operator_defined",
+    "issued_at": "2026-09-18T14:00:00Z",
+    "expires_at": null,
+    "revision": 1,
+    "supersedes": null,
+    "notes_ref": null
+  },
+  "applies_to": {
+    "channels": [
+      "messaging",
+      "email"
+    ],
+    "adapter_ids": [
+      "messaging",
+      "email",
+      "local-state"
+    ],
+    "max_stakes": "meaningful",
+    "requires_explicit_request": false,
+    "context_tags": [
+      "personal"
+    ]
+  },
+  "permissions": {
+    "read": {
+      "decision": "allow",
+      "scope": {
+        "channels": [
+          "messaging",
+          "email"
+        ],
+        "data_classes_allow": [
+          "message_body",
+          "thread_context"
+        ],
+        "data_classes_deny": [
+          "credentials"
+        ],
+        "history_max_items": 40,
+        "history_max_age_seconds": 2592000,
+        "attachments": "metadata_only"
+      },
+      "receipt_required": true,
+      "reason_code": "known-human.read"
+    },
+    "remember": {
+      "decision": "conditional",
+      "scope": {
+        "data_classes_allow": [
+          "preferences",
+          "commitments",
+          "open_loops"
+        ],
+        "data_classes_deny": [
+          "credentials",
+          "secrets"
+        ],
+        "raw_content": "deny",
+        "derived_facts": "allow",
+        "retention": {
+          "mode": "ttl",
+          "ttl_seconds": 7776000
+        },
+        "storage": "private_local",
+        "provenance_required": true,
+        "user_editable": true
+      },
+      "conditions": {
+        "all": [
+          {
+            "fact": "event.stakes",
+            "op": "in",
+            "value": [
+              "ordinary",
+              "meaningful"
+            ]
+          }
+        ]
+      },
+      "receipt_required": true,
+      "reason_code": "known-human.remember-derived"
+    },
+    "acknowledge": {
+      "decision": "allow",
+      "scope": {
+        "channels": [
+          "messaging"
+        ],
+        "max_stakes": "meaningful",
+        "requires_explicit_request": false,
+        "forms": [
+          "receipt",
+          "reaction",
+          "short_text"
+        ],
+        "rate_limit": {
+          "max_per_window": 6,
+          "window_seconds": 3600
+        }
+      },
+      "receipt_required": false,
+      "reason_code": "known-human.ack"
+    },
+    "answer": {
+      "decision": "allow",
+      "scope": {
+        "channels": [
+          "messaging",
+          "email"
+        ],
+        "max_stakes": "meaningful",
+        "requires_explicit_request": false,
+        "topics_deny": [
+          "credentials"
+        ],
+        "may_use_private_context": true,
+        "must_surface_uncertainty": true
+      },
+      "receipt_required": true,
+      "reason_code": "known-human.answer"
+    },
+    "draft": {
+      "decision": "allow",
+      "scope": {
+        "channels": [
+          "messaging",
+          "email"
+        ],
+        "adapter_ids": [
+          "messaging",
+          "email"
+        ],
+        "max_stakes": "meaningful",
+        "requires_explicit_request": false,
+        "draft_types": [
+          "message",
+          "email",
+          "calendar_event",
+          "task"
+        ],
+        "may_include_commitment": false,
+        "may_address_third_parties": false
+      },
+      "receipt_required": true,
+      "reason_code": "known-human.draft"
+    },
+    "act": {
+      "decision": "review",
+      "scope": {
+        "channels": [
+          "messaging",
+          "email"
+        ],
+        "adapter_ids": [
+          "messaging",
+          "email"
+        ],
+        "max_stakes": "ordinary",
+        "requires_explicit_request": true,
+        "action_types": [
+          "send_reply"
+        ],
+        "side_effects": [
+          "external"
+        ],
+        "reversibility": [
+          "bounded"
+        ],
+        "requires_confirmation": true,
+        "confirmation_ttl_seconds": 900,
+        "max_actions_per_event": 1
+      },
+      "receipt_required": true,
+      "reason_code": "known-human.act-review"
+    },
+    "escalate": {
+      "decision": "allow",
+      "scope": {
+        "channels": [
+          "messaging",
+          "email"
+        ],
+        "max_stakes": "high",
+        "requires_explicit_request": false,
+        "triggers": [
+          "explicit_request",
+          "review_required",
+          "high_stakes",
+          "low_confidence",
+          "missing_permission",
+          "repeated_failure"
+        ],
+        "target_refs": [
+          "human-review:self"
+        ],
+        "share_data_classes": [
+          "request_summary",
+          "uncertainty",
+          "proposed_action"
+        ],
+        "share_raw_content": false,
+        "minimize_payload": true
+      },
+      "receipt_required": true,
+      "reason_code": "known-human.escalate"
+    }
+  },
+  "resolution": {
+    "default_effect": "deny",
+    "unknown_subject": "review",
+    "conflict_rule": "deny_overrides_allow",
+    "specificity_order": [
+      "subject",
+      "channel",
+      "adapter",
+      "context",
+      "system_default"
+    ],
+    "expired_policy": "deny",
+    "condition_failure": "deny"
+  },
+  "audit": {
+    "receipt_required_for": [
+      "read",
+      "remember",
+      "answer",
+      "draft",
+      "act",
+      "escalate"
+    ],
+    "log_policy_decision": true,
+    "include_policy_revision": true,
+    "include_reason_code": true
+  }
+}
