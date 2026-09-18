@@ -2,23 +2,128 @@
   "schema": "showcase-manifest/v1",
   "updated": "2026-09-18",
   "root": "/",
-  "kernel": ["OBJECT", "ADDRESS", "PROJECT", "OPERATE", "RETURN"],
-  "routes": [
-    {"href":"/","title":"SHOWCASE","kind":"root","parent":null},
-    {"href":"/fold-bloom/","title":"FOLD // BLOOM","kind":"hub","parent":"/","family":"FOLD // BLOOM"},
-    {"href":"/fold-bloom/two-dial/","title":"TWO DIAL","kind":"artifact","parent":"/fold-bloom/","family":"FOLD // BLOOM","operation":"PLAY","state":"STABLE","version":"0.9"},
-    {"href":"/fold-bloom/ecology/","title":"ECOLOGY 0.2","kind":"artifact","parent":"/fold-bloom/","family":"FOLD // BLOOM","operation":"PLAY","state":"COMPAT","version":"0.2"},
-    {"href":"/fold-bloom/lens/","title":"SCALE LENS","kind":"artifact","parent":"/fold-bloom/","family":"FOLD // BLOOM","operation":"REPRESENT","state":"STABLE","version":"RC11.2"},
-    {"href":"/foundry/","title":"FOUNDRY","kind":"hub","parent":"/","family":"FOUNDRY"},
-    {"href":"/foundry/verse-atlas/","title":"VERSE ATLAS","kind":"artifact","parent":"/foundry/","family":"FOUNDRY","operation":"REPRESENT","state":"STABLE"},
-    {"href":"/foundry/convergence/","title":"CONVERGENCE FIELD","kind":"workbench","parent":"/foundry/","family":"FOUNDRY"},
-    {"href":"/foundry/convergence/identity-lab.html","title":"IDENTITY LAB","kind":"artifact","parent":"/foundry/convergence/","family":"FOUNDRY","operation":"PROVE","state":"STABLE"},
-    {"href":"/atlas-dayline/","title":"ATLAS DAYLINE","kind":"artifact","parent":"/","operation":"PLAN","state":"STABLE"},
-    {"href":"/forward-field-proof/","title":"FIELD / PROOF","kind":"artifact","parent":"/","operation":"PROVE","state":"STABLE"}
+  "kernel": [
+    "OBJECT",
+    "ADDRESS",
+    "PROJECT",
+    "OPERATE",
+    "RETURN"
   ],
-  "release_law": ["PRIVATE CANON","REVIEW","SCRUB","BUILD","PUBLIC ARTIFACT","VERIFY","RECEIPT"],
+  "routes": [
+    {
+      "href": "/",
+      "title": "SHOWCASE",
+      "kind": "root",
+      "parent": null
+    },
+    {
+      "href": "/field-intake/",
+      "title": "FIELD INTAKE 0.4",
+      "kind": "artifact",
+      "parent": "/",
+      "operation": "CAPTURE",
+      "state": "STABLE",
+      "version": "0.4",
+      "receipt": "/field-intake/release.json"
+    },
+    {
+      "href": "/fold-bloom/",
+      "title": "FOLD // BLOOM",
+      "kind": "hub",
+      "parent": "/",
+      "family": "FOLD // BLOOM"
+    },
+    {
+      "href": "/fold-bloom/two-dial/",
+      "title": "TWO DIAL",
+      "kind": "artifact",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "PLAY",
+      "state": "STABLE",
+      "version": "0.9"
+    },
+    {
+      "href": "/fold-bloom/ecology/",
+      "title": "ECOLOGY 0.2",
+      "kind": "artifact",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "PLAY",
+      "state": "COMPAT",
+      "version": "0.2"
+    },
+    {
+      "href": "/fold-bloom/lens/",
+      "title": "SCALE LENS",
+      "kind": "artifact",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "REPRESENT",
+      "state": "STABLE",
+      "version": "RC11.2"
+    },
+    {
+      "href": "/foundry/",
+      "title": "FOUNDRY",
+      "kind": "hub",
+      "parent": "/",
+      "family": "FOUNDRY"
+    },
+    {
+      "href": "/foundry/verse-atlas/",
+      "title": "VERSE ATLAS",
+      "kind": "artifact",
+      "parent": "/foundry/",
+      "family": "FOUNDRY",
+      "operation": "REPRESENT",
+      "state": "STABLE"
+    },
+    {
+      "href": "/foundry/convergence/",
+      "title": "CONVERGENCE FIELD",
+      "kind": "workbench",
+      "parent": "/foundry/",
+      "family": "FOUNDRY"
+    },
+    {
+      "href": "/foundry/convergence/identity-lab.html",
+      "title": "IDENTITY LAB",
+      "kind": "artifact",
+      "parent": "/foundry/convergence/",
+      "family": "FOUNDRY",
+      "operation": "PROVE",
+      "state": "STABLE"
+    },
+    {
+      "href": "/atlas-dayline/",
+      "title": "ATLAS DAYLINE",
+      "kind": "artifact",
+      "parent": "/",
+      "operation": "PLAN",
+      "state": "STABLE"
+    },
+    {
+      "href": "/forward-field-proof/",
+      "title": "FIELD / PROOF",
+      "kind": "artifact",
+      "parent": "/",
+      "operation": "PROVE",
+      "state": "STABLE"
+    }
+  ],
+  "release_law": [
+    "PRIVATE CANON",
+    "REVIEW",
+    "SCRUB",
+    "BUILD",
+    "PUBLIC ARTIFACT",
+    "VERIFY",
+    "RECEIPT"
+  ],
   "notes": {
     "ecology": "Compressed transport remains technical debt; compatibility fallback is present.",
-    "scope": "This manifest describes public release surfaces only. Private recovery/open-thread state is intentionally excluded."
+    "scope": "This manifest describes public release surfaces only. Private recovery/open-thread state is intentionally excluded.",
+    "field_intake": "Recovered from prior public release; runtime blobs preserved, service-worker cache cleanup narrowed to its own cache family."
   }
 }
