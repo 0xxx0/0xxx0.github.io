@@ -285,5 +285,67 @@
       "per-gate before/after",
       "final effective decision"
     ]
+  },
+  "policy_selector_schema": "/policy-selector.schema.json",
+  "policy_selector_example": "/policy-selector.example.json",
+  "policy_selector_tests": "/policy-selector-cases.json",
+  "policy_selector_resolution": {
+    "input_facts": {
+      "person_ref": "opaque exact ref; no fuzzy matching",
+      "resource_ref": "opaque exact ref; no fuzzy matching",
+      "resource_class": "canonical lowercase token",
+      "channel": "canonical lowercase token",
+      "adapter_id": "canonical lowercase token",
+      "event_source": "canonical lowercase token",
+      "person_tags": "canonical lowercase set",
+      "resource_tags": "canonical lowercase set",
+      "context_tags": "canonical lowercase set"
+    },
+    "clause_semantics": {
+      "exact": "exact canonical equality",
+      "pattern": "anchored whole-string glob; '*' and '?' only",
+      "tag": "set membership with any/all",
+      "fallback": "eligible only after zero non-fallback matches in same layer/domain branch"
+    },
+    "specificity": [
+      {
+        "class": "exact",
+        "rank": 400
+      },
+      {
+        "class": "pattern",
+        "rank": 300
+      },
+      {
+        "class": "tag",
+        "rank": 200
+      },
+      {
+        "class": "fallback",
+        "rank": 100
+      }
+    ],
+    "selection_algorithm": [
+      "1. Canonicalize permitted selector facts; opaque refs are never normalized or fuzzed.",
+      "2. Evaluate all non-fallback selectors in the active layer/branch.",
+      "3. Keep every matching non-fallback selector; do not choose a single winner.",
+      "4. If none matched, evaluate matching fallback selectors for that layer/domain.",
+      "5. Sort matched selectors for trace only by specificity class, matched-positive-clause count, then selector_id lexical ascending.",
+      "6. Pass all matched policy ids into policy inheritance/override resolution.",
+      "7. Never allow selector specificity or declaration order to override deny/lock/grant semantics."
+    ],
+    "trace_fields": [
+      "selector_id",
+      "layer",
+      "domain",
+      "matched",
+      "matched_clauses",
+      "failed_clauses",
+      "specificity_class",
+      "specificity_rank",
+      "fallback_eligible",
+      "fallback_suppressed",
+      "policy_id"
+    ]
   }
 }
