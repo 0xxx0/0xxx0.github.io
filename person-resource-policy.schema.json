@@ -1,0 +1,3158 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/person-resource-policy.schema.json",
+  "title": "Person / Resource Policy",
+  "description": "Deny-by-default private-runtime policy contract governing whether an identified person or resource may be read, remembered, acknowledged, answered, drafted for, acted on, or escalated.",
+  "type": "object",
+  "required": [
+    "schema",
+    "policy_id",
+    "subject",
+    "authority",
+    "permissions",
+    "resolution"
+  ],
+  "properties": {
+    "schema": {
+      "const": "person-resource-policy/v0.1"
+    },
+    "policy_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._:/-]{2,127}$"
+    },
+    "subject": {
+      "type": "object",
+      "required": [
+        "ref",
+        "kind"
+      ],
+      "properties": {
+        "ref": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._:/-]{2,127}$",
+          "description": "Opaque stable private-runtime reference. Do not put names, addresses, credentials or other secrets here merely for convenience."
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "person",
+            "resource"
+          ]
+        },
+        "resource_class": {
+          "type": "string",
+          "description": "Optional class such as device, project, file, location, account, service or household zone."
+        },
+        "labels": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "maxLength": 64
+          },
+          "description": "Non-secret routing labels only."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "resource"
+              }
+            },
+            "required": [
+              "kind"
+            ]
+          },
+          "then": {
+            "required": [
+              "resource_class"
+            ]
+          }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "source",
+        "issued_at",
+        "revision"
+      ],
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": [
+            "user_explicit",
+            "operator_defined",
+            "system_default",
+            "imported"
+          ]
+        },
+        "issued_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "expires_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "revision": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "supersedes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "notes_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Private reference to supporting context; never inline secrets in a public policy registry."
+        }
+      },
+      "additionalProperties": false
+    },
+    "applies_to": {
+      "type": "object",
+      "properties": {
+        "channels": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "adapter_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "content_classes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "max_stakes": {
+          "type": "string",
+          "enum": [
+            "ordinary",
+            "meaningful",
+            "high"
+          ]
+        },
+        "requires_explicit_request": {
+          "type": "boolean",
+          "default": false
+        },
+        "context_tags": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "permissions": {
+      "type": "object",
+      "required": [
+        "read",
+        "remember",
+        "acknowledge",
+        "answer",
+        "draft",
+        "act",
+        "escalate"
+      ],
+      "properties": {
+        "read": {
+          "type": "object",
+          "required": [
+            "decision"
+          ],
+          "properties": {
+            "decision": {
+              "type": "string",
+              "enum": [
+                "deny",
+                "allow",
+                "review",
+                "conditional"
+              ],
+              "description": "deny blocks; allow permits within scope; review requires human approval; conditional requires conditions to resolve true."
+            },
+            "conditions": {
+              "type": "object",
+              "properties": {
+                "all": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                },
+                "any": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                },
+                "none": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                }
+              },
+              "additionalProperties": false
+            },
+            "receipt_required": {
+              "type": "boolean",
+              "default": true
+            },
+            "reason_code": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"
+            },
+            "scope": {
+              "type": "object",
+              "properties": {
+                "channels": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "adapter_ids": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "content_classes": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "max_stakes": {
+                  "type": "string",
+                  "enum": [
+                    "ordinary",
+                    "meaningful",
+                    "high"
+                  ]
+                },
+                "requires_explicit_request": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "data_classes_allow": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "data_classes_deny": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "history_max_items": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "minimum": 0
+                },
+                "history_max_age_seconds": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "minimum": 0
+                },
+                "attachments": {
+                  "type": "string",
+                  "enum": [
+                    "deny",
+                    "metadata_only",
+                    "allow"
+                  ]
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "remember": {
+          "type": "object",
+          "required": [
+            "decision"
+          ],
+          "properties": {
+            "decision": {
+              "type": "string",
+              "enum": [
+                "deny",
+                "allow",
+                "review",
+                "conditional"
+              ],
+              "description": "deny blocks; allow permits within scope; review requires human approval; conditional requires conditions to resolve true."
+            },
+            "conditions": {
+              "type": "object",
+              "properties": {
+                "all": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                },
+                "any": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                },
+                "none": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                }
+              },
+              "additionalProperties": false
+            },
+            "receipt_required": {
+              "type": "boolean",
+              "default": true
+            },
+            "reason_code": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"
+            },
+            "scope": {
+              "type": "object",
+              "required": [
+                "retention",
+                "storage"
+              ],
+              "properties": {
+                "data_classes_allow": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "data_classes_deny": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "raw_content": {
+                  "type": "string",
+                  "enum": [
+                    "deny",
+                    "allow"
+                  ]
+                },
+                "derived_facts": {
+                  "type": "string",
+                  "enum": [
+                    "deny",
+                    "allow"
+                  ]
+                },
+                "retention": {
+                  "type": "object",
+                  "required": [
+                    "mode"
+                  ],
+                  "properties": {
+                    "mode": {
+                      "type": "string",
+                      "enum": [
+                        "none",
+                        "event",
+                        "session",
+                        "ttl",
+                        "persistent"
+                      ]
+                    },
+                    "ttl_seconds": {
+                      "type": [
+                        "integer",
+                        "null"
+                      ],
+                      "minimum": 1
+                    }
+                  },
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "mode": {
+                            "const": "ttl"
+                          }
+                        },
+                        "required": [
+                          "mode"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "ttl_seconds"
+                        ]
+                      }
+                    },
+                    {
+                      "if": {
+                        "not": {
+                          "properties": {
+                            "mode": {
+                              "const": "ttl"
+                            }
+                          }
+                        }
+                      },
+                      "then": {
+                        "properties": {
+                          "ttl_seconds": {
+                            "type": "null"
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "additionalProperties": false
+                },
+                "storage": {
+                  "type": "string",
+                  "enum": [
+                    "none",
+                    "private_local",
+                    "private_remote"
+                  ]
+                },
+                "provenance_required": {
+                  "type": "boolean",
+                  "default": true
+                },
+                "user_editable": {
+                  "type": "boolean",
+                  "default": true
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "acknowledge": {
+          "type": "object",
+          "required": [
+            "decision"
+          ],
+          "properties": {
+            "decision": {
+              "type": "string",
+              "enum": [
+                "deny",
+                "allow",
+                "review",
+                "conditional"
+              ],
+              "description": "deny blocks; allow permits within scope; review requires human approval; conditional requires conditions to resolve true."
+            },
+            "conditions": {
+              "type": "object",
+              "properties": {
+                "all": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                },
+                "any": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                },
+                "none": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                }
+              },
+              "additionalProperties": false
+            },
+            "receipt_required": {
+              "type": "boolean",
+              "default": true
+            },
+            "reason_code": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"
+            },
+            "scope": {
+              "type": "object",
+              "properties": {
+                "channels": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "adapter_ids": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "content_classes": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "max_stakes": {
+                  "type": "string",
+                  "enum": [
+                    "ordinary",
+                    "meaningful",
+                    "high"
+                  ]
+                },
+                "requires_explicit_request": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "forms": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "receipt",
+                      "reaction",
+                      "short_text",
+                      "status"
+                    ]
+                  }
+                },
+                "rate_limit": {
+                  "type": "object",
+                  "properties": {
+                    "max_per_window": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "window_seconds": {
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  },
+                  "required": [
+                    "max_per_window",
+                    "window_seconds"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "answer": {
+          "type": "object",
+          "required": [
+            "decision"
+          ],
+          "properties": {
+            "decision": {
+              "type": "string",
+              "enum": [
+                "deny",
+                "allow",
+                "review",
+                "conditional"
+              ],
+              "description": "deny blocks; allow permits within scope; review requires human approval; conditional requires conditions to resolve true."
+            },
+            "conditions": {
+              "type": "object",
+              "properties": {
+                "all": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                },
+                "any": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                },
+                "none": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                }
+              },
+              "additionalProperties": false
+            },
+            "receipt_required": {
+              "type": "boolean",
+              "default": true
+            },
+            "reason_code": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"
+            },
+            "scope": {
+              "type": "object",
+              "properties": {
+                "channels": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "adapter_ids": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "content_classes": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "max_stakes": {
+                  "type": "string",
+                  "enum": [
+                    "ordinary",
+                    "meaningful",
+                    "high"
+                  ]
+                },
+                "requires_explicit_request": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "topics_allow": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "topics_deny": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "may_use_private_context": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "must_surface_uncertainty": {
+                  "type": "boolean",
+                  "default": true
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "draft": {
+          "type": "object",
+          "required": [
+            "decision"
+          ],
+          "properties": {
+            "decision": {
+              "type": "string",
+              "enum": [
+                "deny",
+                "allow",
+                "review",
+                "conditional"
+              ],
+              "description": "deny blocks; allow permits within scope; review requires human approval; conditional requires conditions to resolve true."
+            },
+            "conditions": {
+              "type": "object",
+              "properties": {
+                "all": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                },
+                "any": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                },
+                "none": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                }
+              },
+              "additionalProperties": false
+            },
+            "receipt_required": {
+              "type": "boolean",
+              "default": true
+            },
+            "reason_code": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"
+            },
+            "scope": {
+              "type": "object",
+              "properties": {
+                "channels": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "adapter_ids": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "content_classes": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "max_stakes": {
+                  "type": "string",
+                  "enum": [
+                    "ordinary",
+                    "meaningful",
+                    "high"
+                  ]
+                },
+                "requires_explicit_request": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "draft_types": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "message",
+                      "email",
+                      "calendar_event",
+                      "task",
+                      "device_action",
+                      "document",
+                      "other"
+                    ]
+                  }
+                },
+                "may_include_commitment": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "may_address_third_parties": {
+                  "type": "boolean",
+                  "default": false
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "act": {
+          "type": "object",
+          "required": [
+            "decision"
+          ],
+          "properties": {
+            "decision": {
+              "type": "string",
+              "enum": [
+                "deny",
+                "allow",
+                "review",
+                "conditional"
+              ],
+              "description": "deny blocks; allow permits within scope; review requires human approval; conditional requires conditions to resolve true."
+            },
+            "conditions": {
+              "type": "object",
+              "properties": {
+                "all": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                },
+                "any": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                },
+                "none": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                }
+              },
+              "additionalProperties": false
+            },
+            "receipt_required": {
+              "type": "boolean",
+              "default": true
+            },
+            "reason_code": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"
+            },
+            "scope": {
+              "type": "object",
+              "properties": {
+                "channels": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "adapter_ids": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "content_classes": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "max_stakes": {
+                  "type": "string",
+                  "enum": [
+                    "ordinary",
+                    "meaningful",
+                    "high"
+                  ]
+                },
+                "requires_explicit_request": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "action_types": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "side_effects": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "none",
+                      "local",
+                      "external"
+                    ]
+                  }
+                },
+                "reversibility": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "full",
+                      "bounded",
+                      "none"
+                    ]
+                  }
+                },
+                "requires_confirmation": {
+                  "type": "boolean",
+                  "default": true
+                },
+                "confirmation_ttl_seconds": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "minimum": 1
+                },
+                "max_actions_per_event": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "default": 1
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        },
+        "escalate": {
+          "type": "object",
+          "required": [
+            "decision"
+          ],
+          "properties": {
+            "decision": {
+              "type": "string",
+              "enum": [
+                "deny",
+                "allow",
+                "review",
+                "conditional"
+              ],
+              "description": "deny blocks; allow permits within scope; review requires human approval; conditional requires conditions to resolve true."
+            },
+            "conditions": {
+              "type": "object",
+              "properties": {
+                "all": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                },
+                "any": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                },
+                "none": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "fact",
+                      "op"
+                    ],
+                    "properties": {
+                      "fact": {
+                        "type": "string",
+                        "enum": [
+                          "event.source",
+                          "event.channel",
+                          "event.stakes",
+                          "event.confidence",
+                          "event.requested_side_effect",
+                          "event.intent",
+                          "event.content_class",
+                          "adapter.id",
+                          "adapter.class",
+                          "capability.operation",
+                          "context.tag",
+                          "resource.state",
+                          "time.local_hour"
+                        ]
+                      },
+                      "op": {
+                        "type": "string",
+                        "enum": [
+                          "eq",
+                          "neq",
+                          "in",
+                          "not_in",
+                          "lte",
+                          "gte",
+                          "exists"
+                        ]
+                      },
+                      "value": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string"
+                                },
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    "allOf": [
+                      {
+                        "if": {
+                          "properties": {
+                            "op": {
+                              "const": "exists"
+                            }
+                          },
+                          "required": [
+                            "op"
+                          ]
+                        },
+                        "then": {
+                          "not": {
+                            "required": [
+                              "value"
+                            ]
+                          }
+                        },
+                        "else": {
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      }
+                    ],
+                    "additionalProperties": false
+                  },
+                  "default": []
+                }
+              },
+              "additionalProperties": false
+            },
+            "receipt_required": {
+              "type": "boolean",
+              "default": true
+            },
+            "reason_code": {
+              "type": "string",
+              "pattern": "^[a-z0-9][a-z0-9._-]{1,63}$"
+            },
+            "scope": {
+              "type": "object",
+              "required": [
+                "triggers"
+              ],
+              "properties": {
+                "channels": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "adapter_ids": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "content_classes": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "max_stakes": {
+                  "type": "string",
+                  "enum": [
+                    "ordinary",
+                    "meaningful",
+                    "high"
+                  ]
+                },
+                "requires_explicit_request": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "triggers": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "explicit_request",
+                      "policy_denied",
+                      "review_required",
+                      "high_stakes",
+                      "low_confidence",
+                      "missing_identity",
+                      "missing_permission",
+                      "no_compatible_adapter",
+                      "deadline_risk",
+                      "safety_threshold",
+                      "repeated_failure",
+                      "conflict",
+                      "other"
+                    ]
+                  }
+                },
+                "target_refs": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "description": "Opaque private-runtime target reference."
+                  }
+                },
+                "share_data_classes": {
+                  "type": "array",
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "share_raw_content": {
+                  "type": "boolean",
+                  "default": false
+                },
+                "minimize_payload": {
+                  "type": "boolean",
+                  "default": true
+                }
+              },
+              "additionalProperties": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "resolution": {
+      "type": "object",
+      "required": [
+        "default_effect",
+        "conflict_rule",
+        "specificity_order",
+        "unknown_subject"
+      ],
+      "properties": {
+        "default_effect": {
+          "const": "deny"
+        },
+        "unknown_subject": {
+          "type": "string",
+          "enum": [
+            "deny",
+            "read_only",
+            "review"
+          ]
+        },
+        "conflict_rule": {
+          "type": "string",
+          "enum": [
+            "deny_overrides_allow"
+          ]
+        },
+        "specificity_order": {
+          "type": "array",
+          "prefixItems": [
+            {
+              "const": "subject"
+            },
+            {
+              "const": "channel"
+            },
+            {
+              "const": "adapter"
+            },
+            {
+              "const": "context"
+            },
+            {
+              "const": "system_default"
+            }
+          ],
+          "items": false
+        },
+        "expired_policy": {
+          "type": "string",
+          "enum": [
+            "deny",
+            "review"
+          ],
+          "default": "deny"
+        },
+        "condition_failure": {
+          "type": "string",
+          "enum": [
+            "deny",
+            "review"
+          ],
+          "default": "deny"
+        }
+      },
+      "additionalProperties": false
+    },
+    "audit": {
+      "type": "object",
+      "properties": {
+        "receipt_required_for": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "enum": [
+              "read",
+              "remember",
+              "acknowledge",
+              "answer",
+              "draft",
+              "act",
+              "escalate"
+            ]
+          }
+        },
+        "log_policy_decision": {
+          "type": "boolean",
+          "default": true
+        },
+        "include_policy_revision": {
+          "type": "boolean",
+          "default": true
+        },
+        "include_reason_code": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
