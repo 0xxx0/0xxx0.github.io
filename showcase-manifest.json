@@ -73,7 +73,9 @@
       "family": "FOLD // BLOOM",
       "operation": "REPRESENT",
       "state": "STABLE",
-      "version": "RC11.2"
+      "version": "RC11.2",
+      "receipt": "/fold-bloom/lens/release.json",
+      "patch": "g2-interop-1"
     },
     {
       "href": "/foundry/",
@@ -137,6 +139,7 @@
     "ecology": "Recovered from exact uncompressed Library source; direct static HTML; packed transport removed.",
     "scope": "This manifest describes public release surfaces only. Private recovery/open-thread state is intentionally excluded.",
     "field_intake": "Recovered from prior public release; runtime blobs preserved, service-worker cache cleanup narrowed to its own cache family.",
-    "sleeper": "Public experiment. Same canonical state is exposed as first-person coupled law field and plain obligation list; geometry is explicitly not external truth."
+    "sleeper": "Public experiment. Same canonical state is exposed as first-person coupled law field and plain obligation list; geometry is explicitly not external truth.",
+    "scale_lens": "RC11.2 remains the stable public head; G2 interop preserves Field Intake canonical identity separately from Lens-local addresses. RC11.3 remains an unfinished forward branch."
   }
 }
