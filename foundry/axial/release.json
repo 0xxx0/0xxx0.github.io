@@ -1,0 +1,33 @@
+{
+  "schema": "showcase-release/v1",
+  "title": "AXIAL / STATE × TRANSFORM",
+  "version": "0.3",
+  "state": "EXPERIMENT",
+  "updated": "2026-09-19",
+  "route": "/foundry/axial/",
+  "parent": "/foundry/",
+  "operation": "PROVE",
+  "hypothesis": "Discrete semantic state + continuous embodied transform + explicit transaction commit can reduce translation cost between physical manipulation and computational meaning.",
+  "controls": [
+    "OBJECT ring",
+    "OPERATOR ring",
+    "FRAME ring",
+    "AXIAL 0–60 mm",
+    "TWIST ±180°",
+    "SAFE/TEST/ARM/RUN"
+  ],
+  "evidence": [
+    "10-trial harness",
+    "latched RUN semantics",
+    "RETURN receipts",
+    "machine-readable AXIAL_PACKET bridge"
+  ],
+  "promotion_gate": "Do not promote to showcase card until digital trial and one physical nested-tube comparison produce interpretable receipts.",
+  "lineage": [
+    "AXIAL COMPOSITOR",
+    "Memory Orb",
+    "Scale Lens",
+    "Two Dial",
+    "Identity/RETURN kernel"
+  ]
+}
