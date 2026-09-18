@@ -4,80 +4,131 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#090b0d">
-<title>0xxx0 · RETURN</title>
+<meta name="theme-color" content="#080a0c">
+<title>0 / HUMAN PORT</title>
 <style>
-:root{--bg:#090b0d;--panel:#0f1317;--ink:#edf1ed;--muted:#8f989b;--line:#2c373c;--hot:#e56b3f;--cool:#68acd8;--green:#9ed88c}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-body{padding:max(22px,env(safe-area-inset-top)) 14px max(28px,env(safe-area-inset-bottom))}
-main{width:min(780px,100%);margin:auto}
-header{padding:34px 0 18px;border-bottom:1px solid var(--line)}
-.ey{font-size:9px;letter-spacing:.18em;color:var(--hot)}
-h1{margin:8px 0 12px;font:800 clamp(48px,12vw,96px)/.82 system-ui,-apple-system,sans-serif;letter-spacing:-.075em}
-.lead{max-width:640px;color:#a7b0b4;font:13px/1.6 system-ui,-apple-system,sans-serif}
-.status{margin:18px 0;border:1px solid var(--line);display:grid;grid-template-columns:140px 1fr}
-.status>*{padding:12px}.status b{background:#0b0f12;color:var(--green);font-size:9px;letter-spacing:.14em}.status span{border-left:1px solid var(--line);font:12px/1.5 system-ui,-apple-system,sans-serif}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
-section{background:var(--panel);padding:18px;min-height:220px}
-section.full{grid-column:1/-1;min-height:0}
-section b{display:block;font-size:9px;letter-spacing:.14em;margin-bottom:12px}
-ol,ul{margin:0;padding-left:18px;color:#bac2c5;font:12px/1.65 system-ui,-apple-system,sans-serif}
-li+li{margin-top:7px}
-.note{color:var(--muted);font:10px/1.6 system-ui,-apple-system,sans-serif}
-.links{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:1px}
-.links a{flex:1 1 160px;background:#0b0f12;color:var(--ink);text-decoration:none;padding:12px;font-size:9px;letter-spacing:.1em}
-.links a:hover,.links a:focus{background:#121920;outline:none}
-footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);margin-top:18px;padding-top:10px;color:#657178;font-size:8px}
-@media(max-width:620px){.grid{grid-template-columns:1fr}.status{grid-template-columns:1fr}.status span{border-left:0;border-top:1px solid var(--line)}footer{display:block}footer span{display:block;margin-top:5px}}
+:root{--bg:#080a0c;--panel:#0e1215;--ink:#eef2ef;--muted:#8d989d;--line:#2b363b;--hot:#ea6b3d;--cool:#6cb4df;--green:#9ed88c;--gold:#d7ae67}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+button,textarea,input{font:inherit}button{border-radius:0}
+body{padding:max(18px,env(safe-area-inset-top)) 14px max(28px,env(safe-area-inset-bottom))}
+main{width:min(960px,100%);margin:auto}
+header{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:end;padding:30px 0 18px;border-bottom:1px solid var(--line)}
+.ey{font-size:9px;letter-spacing:.2em;color:var(--hot)}
+h1{margin:8px 0 10px;font:850 clamp(48px,10vw,92px)/.82 system-ui,-apple-system,sans-serif;letter-spacing:-.075em}
+.lead{max-width:620px;color:#aab3b7;font:13px/1.6 system-ui,-apple-system,sans-serif}
+.truth{border:1px solid var(--line);background:#0b0f12}
+.truth div{padding:10px 12px;border-bottom:1px solid var(--line)}
+.truth div:last-child{border:0}.truth b{display:block;color:var(--green);font-size:8px;letter-spacing:.15em}.truth span{display:block;margin-top:4px;color:#b6bec1;font:11px/1.45 system-ui,-apple-system,sans-serif}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:16px 0}
+.flow span{background:#0b0f12;padding:9px 8px;text-align:center;font-size:8px;letter-spacing:.11em}
+.sectionhead{display:flex;justify-content:space-between;gap:14px;align-items:end;margin:22px 0 8px}.sectionhead b{font-size:10px;letter-spacing:.16em}.sectionhead span{color:var(--muted);font-size:9px}
+.instrument{border:1px solid var(--line);background:var(--panel)}
+.modes{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
+.mode{appearance:none;border:0;background:#0b0f12;color:var(--ink);padding:12px;text-align:left;cursor:pointer;min-height:88px}
+.mode:hover,.mode:focus{background:#121920;outline:none}.mode.on{box-shadow:inset 0 -3px 0 var(--cool);background:#10171b}
+.mode b{display:block;font-size:10px;letter-spacing:.14em}.mode span{display:block;margin-top:7px;color:var(--muted);font:10px/1.4 system-ui,-apple-system,sans-serif}
+.mode[data-mode="CHECK"].on{box-shadow:inset 0 -3px 0 var(--hot)}
+.compose{display:grid;grid-template-columns:170px 1fr;gap:1px;background:var(--line);border-top:1px solid var(--line)}
+.compose label{background:#0b0f12;padding:12px;font-size:8px;letter-spacing:.13em;color:#96a1a6}
+.compose input,.compose textarea{width:100%;border:0;background:#0e1215;color:var(--ink);padding:12px;outline:none}
+.compose textarea{min-height:130px;resize:vertical;font:13px/1.55 system-ui,-apple-system,sans-serif}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-top:1px solid var(--line)}
+.actions button{border:0;background:#0b0f12;color:var(--ink);min-height:50px;padding:10px;cursor:pointer;font-size:9px;letter-spacing:.13em}
+.actions button:hover,.actions button:focus{background:#121920;outline:none}.actions button.primary{color:#dff4ff}
+.output{border-top:1px solid var(--line);padding:14px;display:none;background:#090d10}.output.on{display:block}
+.output .lab{font-size:8px;letter-spacing:.13em;color:var(--green);margin-bottom:8px}.packet{white-space:pre-wrap;word-break:break-word;color:#c6d0d4;font-size:10px;line-height:1.6}
+.local{display:flex;justify-content:space-between;gap:12px;border:1px solid var(--line);border-top:0;padding:9px 11px;color:#78858b;font-size:8px}.local b{color:var(--gold)}
+.contract{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.contract article{background:#0b0f12;padding:15px;min-height:190px}.contract b{display:block;font-size:9px;letter-spacing:.14em;margin-bottom:10px}.contract ul{margin:0;padding-left:15px;color:#a9b2b6;font:10px/1.55 system-ui,-apple-system,sans-serif}.contract li+li{margin-top:6px}.may b{color:var(--green)}.must b{color:var(--cool)}.never b{color:var(--hot)}
+.checknote{display:none;border:1px solid #68412d;border-top:0;padding:11px 12px;background:#120d0a;color:#d5b4a5;font:10px/1.55 system-ui,-apple-system,sans-serif}.checknote.on{display:block}
+.ports{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+.port{background:#0b0f12;padding:13px}.port b{display:flex;justify-content:space-between;gap:10px;font-size:9px;letter-spacing:.12em}.port em{font-style:normal;color:var(--muted);font-size:8px}.port p{margin:7px 0 0;color:#8e9a9f;font:10px/1.5 system-ui,-apple-system,sans-serif}
+.links{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:1px}.links a{flex:1 1 170px;background:#0b0f12;color:var(--ink);text-decoration:none;padding:11px;font-size:8px;letter-spacing:.1em}.links a:hover,.links a:focus{background:#121920;outline:none}
+footer{display:flex;justify-content:space-between;gap:14px;border-top:1px solid var(--line);margin-top:18px;padding-top:10px;color:#657178;font-size:8px}
+@media(max-width:720px){header{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.flow span{text-align:left}.modes{grid-template-columns:1fr 1fr}.compose{grid-template-columns:1fr}.contract,.ports{grid-template-columns:1fr}.sectionhead{display:block}.sectionhead span{display:block;margin-top:4px}}
+@media(max-width:430px){.modes{grid-template-columns:1fr}.actions{grid-template-columns:1fr}footer{display:block}footer span{display:block;margin-top:5px}}
 </style>
 </head>
 <body><main>
 <header>
-  <div class="ey">HUMAN RETURN · STABLE PUBLIC RENDEZVOUS</div>
-  <h1>IF YOU<br>NEED ME.</h1>
-  <div class="lead">If I explicitly told you to come here, you are in the right place. This URL is intended to remain stable even while projects, devices and communication methods change.</div>
+  <div>
+    <div class="ey">0 / HUMAN PORT · ONE ADDRESS, MANY CHANNELS</div>
+    <h1>FIND ME.<br>REACH ME.</h1>
+    <div class="lead">If I sent you this link, keep it. Today it makes a compact signal you can send through any channel we already share. Later the same signal can bind to private messaging and handoff systems without changing what you have to understand or do.</div>
+  </div>
+  <aside class="truth">
+    <div><b id="modeLabel">PUBLIC STATE · NORMAL</b><span id="stateMessage">Manual state, not live tracking.</span></div>
+    <div><b>WHAT WORKS NOW</b><span>Compose locally → Share / Copy → choose WhatsApp, Signal, Telegram, email, SMS, or whatever we already use.</span></div>
+    <div><b>WHAT THIS IS NOT</b><span>No inbox on GitHub. No hidden upload. No AI pretending to be me.</span></div>
+  </aside>
 </header>
 
-<div class="status"><b id="mode">RENDEZVOUS</b><span id="message">This page is a pointer, not live tracking. Absence of an update here is not evidence that anything is wrong.</span></div>
-
-<div class="grid">
-<section>
-  <b>01 · CONTACT</b>
-  <ol>
-    <li>Use the direct channel we already share.</li>
-    <li>If I am unexpectedly silent, try one other channel you already know belongs to me.</li>
-    <li>If the silence is genuinely unusual and concerning, contact someone who knows me in person.</li>
-  </ol>
-</section>
-<section>
-  <b>02 · IF I CANNOT ANSWER</b>
-  <ol>
-    <li>Immediate danger in Singapore: use the appropriate emergency service.</li>
-    <li>Preserve phone, wallet, keys and electronic devices. Do not reset or erase them.</li>
-    <li>Make sure animals and home have basic care and are physically secure.</li>
-    <li>Prefer reversible actions; preserve data and unfinished work.</li>
-  </ol>
-</section>
-<section class="full">
-  <b>03 · BOUNDARY</b>
-  <div class="note">This public surface deliberately contains no passwords, private contact graph, medical records, identity documents or private correspondence. A private handoff layer can bind behind it. Until then, use the channels and people you already know rather than treating this site as an inbox.</div>
-</section>
+<div class="flow" aria-label="Human port flow">
+  <span>PERSON</span><span>INTENT</span><span>ENVELOPE</span><span>CHANNEL</span><span>RETURN</span>
 </div>
+
+<div class="sectionhead"><div><b>SEND A SIGNAL</b><span>nothing leaves this page until you choose Share or Copy</span></div><span id="stamp">STATE · MANUAL</span></div>
+<section class="instrument" aria-label="Signal composer">
+  <div class="modes">
+    <button class="mode on" data-mode="PING"><b>PING</b><span>No reply needed. Awareness is enough.</span></button>
+    <button class="mode" data-mode="REPLY"><b>REPLY</b><span>Reply when practical.</span></button>
+    <button class="mode" data-mode="NEED"><b>NEED</b><span>A concrete practical ask or action.</span></button>
+    <button class="mode" data-mode="CHECK"><b>CHECK</b><span>Unexpected silence / human attention matters.</span></button>
+  </div>
+  <div class="compose"><label for="who">FROM · OPTIONAL</label><input id="who" maxlength="48" placeholder="name / nickname"></div>
+  <div class="compose"><label for="msg">MESSAGE</label><textarea id="msg" maxlength="1200" placeholder="What do you need me to know?"></textarea></div>
+  <div id="checknote" class="checknote">CHECK is not an emergency service and this page is not monitored. If you have a concrete reason to believe there is immediate physical danger, use a real human/emergency path rather than waiting here.</div>
+  <div class="actions">
+    <button id="share" class="primary">SHARE SIGNAL →</button>
+    <button id="copy">COPY SIGNAL</button>
+  </div>
+  <div id="output" class="output"><div class="lab">RETURN / ENVELOPE</div><div id="packet" class="packet"></div></div>
+</section>
+<div class="local"><span><b>LOCAL-FIRST</b> · text stays in this browser until you explicitly share/copy it</span><span>0P1</span></div>
+
+<div class="sectionhead"><div><b>PROMISE CONTRACT</b><span>the human contract future automation must inherit</span></div></div>
+<section class="contract">
+  <article class="may"><b>MAY</b><ul><li>preserve what you actually sent</li><li>acknowledge a proven receipt</li><li>summarize, draft or route under policy</li><li>hand off to a trusted human when needed</li></ul></article>
+  <article class="must"><b>MUST</b><ul><li>say when automation is speaking</li><li>keep private state off the public surface</li><li>surface uncertainty rather than invent my state</li><li>leave receipts for consequential routing</li></ul></article>
+  <article class="never"><b>NEVER</b><ul><li>pretend to be me</li><li>infer danger from stale status or silence alone</li><li>treat familiarity as permission</li><li>take irreversible consequential action without authority</li></ul></article>
+</section>
+
+<div class="sectionhead"><div><b>PORT MAP</b><span>same contract; replaceable transports underneath</span></div></div>
+<section class="ports">
+  <div class="port"><b>NOW · NATIVE SHARE <em>LIVE</em></b><p>Android / iOS / browser share sheet or clipboard. Zero backend; works immediately.</p></div>
+  <div class="port"><b>HERMES GATEWAY <em>CANDIDATE</em></b><p>One private gateway can front Telegram, WhatsApp, Signal, email, Matrix and webhooks.</p></div>
+  <div class="port"><b>WHATSAPP · BAILEYS <em>CANDIDATE</em></b><p>TypeScript transport option behind the same envelope and policy boundary.</p></div>
+  <div class="port"><b>WHATSAPP · WHATSMEOW <em>CANDIDATE</em></b><p>Go transport option; useful if the private runtime leans toward a small durable daemon.</p></div>
+</section>
 
 <nav class="links">
   <a href="../">WORK / SHOWCASE →</a>
-  <a href="./state.json">MACHINE STATE →</a>
-  <a href="../agent-router.json">ROUTER MODEL →</a>
+  <a href="./state.json">PUBLIC STATE →</a>
+  <a href="./contract.json">PORT CONTRACT →</a>
+  <a href="../agent-router.json">ROUTER →</a>
+  <a href="../private-adapter-registry.json">ADAPTERS →</a>
 </nav>
 
-<footer><span id="updated">UPDATED · 2026-09-18</span><span>PUBLIC POINTER · PRIVATE CANON ELSEWHERE · PRESERVE → HANDOFF → RETURN</span></footer>
+<footer><span id="updated">UPDATED · 2026-09-19</span><span>PRESERVE SOURCE → ROUTE MINIMALLY → DISCLOSE AUTOMATION → RETURN</span></footer>
 </main>
 <script>
-fetch('./state.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(s=>{
- if(!s)return;
- document.getElementById('mode').textContent=s.mode||'RENDEZVOUS';
- document.getElementById('message').textContent=s.message||document.getElementById('message').textContent;
- document.getElementById('updated').textContent='UPDATED · '+(s.updated||'UNKNOWN');
-}).catch(()=>{});
+(()=>{'use strict';
+let mode='PING';
+const qs=s=>document.querySelector(s), qsa=s=>[...document.querySelectorAll(s)];
+const msg=qs('#msg'),who=qs('#who'),out=qs('#output'),packet=qs('#packet'),check=qs('#checknote');
+const surface=location.origin+location.pathname;
+const meanings={PING:'no reply needed',REPLY:'reply when practical',NEED:'practical request',CHECK:'human check requested'};
+const build=()=>{
+  const at=new Date().toISOString();
+  const sender=who.value.trim()?('FROM '+who.value.trim()+' · '):'';
+  const body=msg.value.trim()||'(no message text)';
+  return '[0/PORT · '+mode+' · 0P1]\n'+sender+meanings[mode].toUpperCase()+'\n'+body+'\n\nRETURN '+surface+'\nCREATED '+at;
+};
+const show=()=>{packet.textContent=build();out.classList.add('on');};
+qsa('.mode').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;qsa('.mode').forEach(x=>x.classList.toggle('on',x===b));check.classList.toggle('on',mode==='CHECK');});
+qs('#copy').onclick=async()=>{const t=build();show();try{await navigator.clipboard.writeText(t);qs('#copy').textContent='COPIED ✓';setTimeout(()=>qs('#copy').textContent='COPY SIGNAL',1400)}catch(_){window.prompt('Copy signal',t)}};
+qs('#share').onclick=async()=>{const t=build();show();if(navigator.share){try{await navigator.share({title:'0 / HUMAN PORT · '+mode,text:t});return}catch(e){if(e&&e.name==='AbortError')return}}try{await navigator.clipboard.writeText(t);qs('#share').textContent='COPIED · CHOOSE CHANNEL';setTimeout(()=>qs('#share').textContent='SHARE SIGNAL →',1800)}catch(_){window.prompt('Copy signal',t)}};
+fetch('./state.json',{cache:'no-store'}).then(r=>r.ok?r.json():null).then(s=>{if(!s)return;qs('#modeLabel').textContent='PUBLIC STATE · '+(s.mode||'UNKNOWN');qs('#stateMessage').textContent=(s.message||'')+' '+(s.status_semantics||'');qs('#updated').textContent='UPDATED · '+(s.updated||'UNKNOWN');qs('#stamp').textContent='STATE · MANUAL · '+(s.updated||'UNKNOWN')}).catch(()=>{});
+})();
 </script>
 </body></html>
