@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#090b0d"><title>RETURN FIELD</title>
+<style>
+:root{--bg:#090b0d;--p:#0f1317;--p2:#0b0f12;--ink:#edf1ed;--muted:#859198;--line:#2c373c;--hot:#e56b3f;--cool:#68acd8;--green:#9ed88c;--gold:#d9ad62}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(14px,env(safe-area-inset-top)) 12px max(24px,env(safe-area-inset-bottom))}main{width:min(1180px,100%);margin:auto}
+a{color:inherit;text-decoration:none}header{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:end;padding:22px 0 14px;border-bottom:1px solid var(--line)}
+.ey{font-size:9px;letter-spacing:.18em;color:var(--green)}h1{margin:7px 0 0;font:800 clamp(38px,8vw,82px)/.84 system-ui,sans-serif;letter-spacing:-.07em}.intro{color:#a7b0b4;font:12px/1.6 system-ui,sans-serif}
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:12px 0}.m{background:var(--p2);padding:9px}.m b{font-size:21px;display:block}.m span{font-size:7px;color:var(--muted);letter-spacing:.1em}
+.controls{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px}.controls button,.controls input{border:1px solid var(--line);border-radius:0;background:var(--p2);color:var(--ink);font:9px ui-monospace,monospace;min-height:32px;padding:6px 8px}.controls button{cursor:pointer}.controls button.on{border-color:var(--cool);color:#d4f1ff}.controls input{width:min(250px,60vw)}
+.field{border:1px solid var(--line);background:var(--line);display:grid;grid-template-columns:repeat(2,1fr);gap:1px}.row{background:var(--p);min-height:132px;padding:12px;display:grid;grid-template-columns:44px 1fr auto;gap:10px;align-items:start}.row[hidden]{display:none}
+.glyph{width:38px;height:38px;border:1px solid #46545b;display:grid;place-items:center;font-size:16px}.glyph.capture{color:var(--hot)}.glyph.play{color:var(--cool)}.glyph.represent{color:var(--gold)}.glyph.plan{color:#d58fb5}.glyph.prove{color:var(--green)}.glyph.route{color:#bda8ff}.glyph.return{color:#98a4aa}
+.name{font:800 18px/1 system-ui,sans-serif;letter-spacing:-.03em}.meta{margin-top:6px;color:var(--muted);font-size:8px}.path{margin-top:10px;color:#a5afb4;font-size:8px}.status{text-align:right;font-size:8px}.status b{display:block;color:var(--green)}.status .exp{color:var(--hot)}.receipt{margin-top:8px;border-top:1px solid #263139;padding-top:7px;color:#718087;font-size:7px}
+footer{margin-top:12px;border-top:1px solid var(--line);padding-top:8px;display:flex;justify-content:space-between;gap:12px;color:#657178;font-size:8px}
+@media(max-width:760px){header{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}.field{grid-template-columns:1fr}.row{grid-template-columns:40px 1fr}.status{grid-column:2;text-align:left}footer{display:block}}
+</style></head><body><main>
+<header><div><div class="ey">RETURN FIELD · DERIVED EVIDENCE PROJECTION</div><h1>What came back?</h1></div><div class="intro">Not another gallery. This surface reads the release ledger sideways: artifact → operation → state → evidence. It is generated from the public manifest and release receipts, so change tracking is constrained by what actually returned.</div></header>
+<div class="metrics"><div class="m"><b id="count">—</b><span>ROUTED SURFACES</span></div><div class="m"><b id="ok">—</b><span>RECEIPTS PRESENT</span></div><div class="m"><b id="stable">—</b><span>STABLE</span></div><div class="m"><b id="experiment">—</b><span>EXPERIMENT</span></div></div>
+<div class="controls" id="filters"><button class="on" data-op="ALL">ALL</button><button data-op="CAPTURE">CAPTURE</button><button data-op="PLAY">PLAY</button><button data-op="REPRESENT">REPRESENT</button><button data-op="PLAN">PLAN</button><button data-op="PROVE">PROVE</button><button data-op="ROUTE">ROUTE</button><input id="q" type="search" placeholder="/ find return"></div>
+<section id="field" class="field"><div class="row"><div class="name">Loading…</div></div></section>
+<footer><span><a href="../">← SHOWCASE</a> · <a href="../fcm/">FCM</a> · <a href="../return-index.json">RAW RETURN INDEX</a></span><span>OBJECT → OPERATION → DELTA → EVIDENCE → RETURN</span></footer>
+</main><script>
+(()=>{'use strict';const $=s=>document.querySelector(s),field=$('#field'),q=$('#q');let D=null,op='ALL';
+const glyph={CAPTURE:'⌁',PLAY:'↻',REPRESENT:'◉',PLAN:'⌚',PROVE:'△',ROUTE:'⇄',RETURN:'↩'};
+const cls=x=>({CAPTURE:'capture',PLAY:'play',REPRESENT:'represent',PLAN:'plan',PROVE:'prove',ROUTE:'route'}[x]||'return');
+const esc=s=>String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+function draw(){if(!D)return;const t=q.value.trim().toLowerCase();let xs=D.items.filter(x=>(op==='ALL'||x.operation===op)&&(!t||[x.title,x.href,x.state,x.version,x.operation,x.receipt].join(' ').toLowerCase().includes(t)));
+field.innerHTML=xs.map(x=>'<a class="row" href="'+esc(x.href)+'"><div class="glyph '+cls(x.operation)+'">'+(glyph[x.operation]||glyph.RETURN)+'</div><div><div class="name">'+esc(x.title)+'</div><div class="meta">'+esc(x.operation)+' · '+esc(x.version)+' · '+esc(x.state)+'</div><div class="path">'+esc(x.href)+'</div><div class="receipt">RETURN '+esc(x.receipt)+' · '+esc(x.receipt_schema)+'</div></div><div class="status"><b class="'+(x.state==='EXPERIMENT'?'exp':'')+'">'+esc(x.state)+'</b><span>'+(x.receipt_ok?'RECEIPT ✓':'MISSING ×')+'</span></div></a>').join('')||'<div class="row"><div>No matching returns.</div></div>';
+$('#count').textContent=D.count;$('#ok').textContent=D.receipts_ok+'/'+D.count;$('#stable').textContent=D.items.filter(x=>x.state==='STABLE').length;$('#experiment').textContent=D.items.filter(x=>x.state==='EXPERIMENT').length}
+document.querySelectorAll('[data-op]').forEach(b=>b.onclick=()=>{op=b.dataset.op;document.querySelectorAll('[data-op]').forEach(x=>x.classList.toggle('on',x===b));draw()});q.oninput=draw;
+fetch('../return-index.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{D=d;draw()}).catch(e=>field.innerHTML='<div class="row">LOAD FAIL · '+esc(e.message)+'</div>')
+})();
+</script></body></html>
