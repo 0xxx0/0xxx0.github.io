@@ -172,5 +172,13 @@
       "action": "NO_ACTION",
       "why": "Record evidence without manufacturing a notification."
     }
-  ]
+  ],
+  "execution_boundary": {
+    "public_showcase_role": "semantic contract + reference implementation only",
+    "private_runtime_role": "holds personal context, channel credentials, contact policies and real side-effect adapters",
+    "hard_rule": "Never transmit private human/message/sensor payloads to public showcase URLs merely because a showcase contract matches.",
+    "binding_rule": "A route becomes executable only when a private runtime adapter explicitly declares compatibility with the same contract.",
+    "fallback": "Without a compatible private adapter, ANSWER/DRAFT locally or HANDOFF; do not fake ACT."
+  },
+  "test_vectors": "/agent-router-cases.json"
 }
