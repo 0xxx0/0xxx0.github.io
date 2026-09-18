@@ -1,0 +1,255 @@
+{
+  "schema": "policy-inheritance/v0.1",
+  "policy_schema": "/person-resource-policy.schema.json",
+  "defaults": {
+    "missing_gate": "deny",
+    "unknown_subject": "review",
+    "missing_policy": "deny",
+    "expired_policy": "deny"
+  },
+  "resolution": {
+    "stages": [
+      "base",
+      "subject_parallel",
+      "channel"
+    ],
+    "subject_parallel": "person and resource policies are evaluated independently, then intersected; neither silently outranks the other",
+    "same_stage_conflict": "deny_overrides_allow",
+    "restrict_vs_grant": "restrict_first_then_authorized_grant_then_reapply_explicit_denies_and_locks",
+    "grant_rule": "grant mode may widen inherited/default authority only when authority.source=user_explicit and authorization_ref is present",
+    "locked_rule": "a lock on a path or ancestor path cannot be widened by any descendant or later layer",
+    "cycle_rule": "reject_policy_set",
+    "trace_required": true
+  },
+  "field_algebra": {
+    "decision": {
+      "restrict_order": [
+        "allow",
+        "conditional",
+        "review",
+        "deny"
+      ],
+      "same_specificity": "choose_most_restrictive",
+      "explicit_deny": "wins_over_allow_at_same_stage_and_is_reapplied_after_grants",
+      "inherited_default_deny": "may_be_widened_only_by_authorized_grant"
+    },
+    "allow_sets": "intersection",
+    "deny_sets": "union",
+    "ceilings": "minimum_or_most_restrictive",
+    "required_booleans": "logical_or_for_requirements; logical_and_for_permissions",
+    "conditions": "logical_and_across_inherited_restrictive_conditions",
+    "retention": "shortest_retention_wins; ttl_uses_minimum_seconds",
+    "locks": "union_and_ancestor_path_applies_to_descendants"
+  },
+  "base_policies": [
+    {
+      "id": "base:known-human",
+      "layer": "base",
+      "mode": "restrict",
+      "extends": [],
+      "authority": {
+        "source": "system_default",
+        "issued_at": "2026-09-18T17:15:00Z",
+        "expires_at": null,
+        "revision": 1,
+        "authorization_ref": null
+      },
+      "operations": [
+        {
+          "op": "restrict_decision",
+          "path": "/permissions/read/decision",
+          "value": "allow",
+          "reason_code": "base.known.read"
+        },
+        {
+          "op": "restrict_decision",
+          "path": "/permissions/remember/decision",
+          "value": "review",
+          "reason_code": "base.known.remember"
+        },
+        {
+          "op": "restrict_decision",
+          "path": "/permissions/answer/decision",
+          "value": "allow",
+          "reason_code": "base.known.answer"
+        },
+        {
+          "op": "restrict_decision",
+          "path": "/permissions/draft/decision",
+          "value": "allow",
+          "reason_code": "base.known.draft"
+        },
+        {
+          "op": "restrict_decision",
+          "path": "/permissions/act/decision",
+          "value": "review",
+          "reason_code": "base.known.act"
+        },
+        {
+          "op": "restrict_decision",
+          "path": "/permissions/escalate/decision",
+          "value": "allow",
+          "reason_code": "base.known.escalate"
+        },
+        {
+          "op": "union_deny",
+          "path": "/permissions/read/scope/data_classes_deny",
+          "value": [
+            "credentials",
+            "secrets"
+          ],
+          "reason_code": "base.secret.deny"
+        },
+        {
+          "op": "lock",
+          "path": "/permissions/read/scope/data_classes_deny",
+          "reason_code": "base.secret.lock"
+        }
+      ],
+      "locks": [
+        "/permissions/read/scope/data_classes_deny"
+      ],
+      "notes_ref": null
+    }
+  ],
+  "person_policies": [
+    {
+      "id": "person:example-peer",
+      "layer": "person",
+      "mode": "grant",
+      "extends": [
+        "base:known-human"
+      ],
+      "selector": {
+        "person_refs": [
+          "person:example-peer"
+        ]
+      },
+      "authority": {
+        "source": "user_explicit",
+        "issued_at": "2026-09-18T17:16:00Z",
+        "expires_at": null,
+        "revision": 1,
+        "authorization_ref": "grant:example-peer"
+      },
+      "operations": [
+        {
+          "op": "grant_decision",
+          "path": "/permissions/remember/decision",
+          "value": "conditional",
+          "grant_ref": "grant:example-peer",
+          "reason_code": "peer.remember.derived"
+        },
+        {
+          "op": "intersect_allow",
+          "path": "/permissions/remember/scope/data_classes_allow",
+          "value": [
+            "preferences",
+            "commitments",
+            "open_loops"
+          ],
+          "reason_code": "peer.remember.classes"
+        },
+        {
+          "op": "cap_retention",
+          "path": "/permissions/remember/scope/retention",
+          "value": {
+            "mode": "ttl",
+            "ttl_seconds": 7776000
+          },
+          "reason_code": "peer.remember.ttl"
+        }
+      ],
+      "locks": [],
+      "notes_ref": null
+    }
+  ],
+  "resource_policies": [
+    {
+      "id": "resource:door-lock",
+      "layer": "resource",
+      "mode": "restrict",
+      "extends": [],
+      "selector": {
+        "resource_refs": [
+          "resource:door-lock"
+        ],
+        "resource_classes": [
+          "device"
+        ]
+      },
+      "authority": {
+        "source": "operator_defined",
+        "issued_at": "2026-09-18T17:17:00Z",
+        "expires_at": null,
+        "revision": 1,
+        "authorization_ref": null
+      },
+      "operations": [
+        {
+          "op": "restrict_decision",
+          "path": "/permissions/act/decision",
+          "value": "review",
+          "reason_code": "door.act.review"
+        },
+        {
+          "op": "intersect_allow",
+          "path": "/permissions/act/scope/reversibility",
+          "value": [
+            "full",
+            "bounded"
+          ],
+          "reason_code": "door.reversible"
+        },
+        {
+          "op": "set_ceiling",
+          "path": "/permissions/act/scope/max_actions_per_event",
+          "value": 1,
+          "reason_code": "door.one.action"
+        }
+      ],
+      "locks": [],
+      "notes_ref": null
+    }
+  ],
+  "channel_overrides": [
+    {
+      "id": "channel:email-no-device-act",
+      "layer": "channel",
+      "mode": "restrict",
+      "extends": [],
+      "selector": {
+        "channels": [
+          "email"
+        ],
+        "resource_classes": [
+          "device"
+        ]
+      },
+      "authority": {
+        "source": "operator_defined",
+        "issued_at": "2026-09-18T17:18:00Z",
+        "expires_at": null,
+        "revision": 1,
+        "authorization_ref": null
+      },
+      "operations": [
+        {
+          "op": "restrict_decision",
+          "path": "/permissions/act/decision",
+          "value": "deny",
+          "reason_code": "email.device.deny"
+        },
+        {
+          "op": "lock",
+          "path": "/permissions/act/decision",
+          "reason_code": "email.device.lock"
+        }
+      ],
+      "locks": [
+        "/permissions/act/decision"
+      ],
+      "notes_ref": null
+    }
+  ]
+}
