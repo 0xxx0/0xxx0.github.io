@@ -1,0 +1,19 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "TWO DIAL",
+  "version": "0.9",
+  "route": "/fold-bloom/two-dial/",
+  "state": "STABLE",
+  "operation": "PLAY",
+  "released": "2026-09-18",
+  "representative_interaction": "ENTER FIELD → manipulate MATTER/HARMONY dial field → observe BLOOM/FOLD/SPLIT/RETURN relation → EXPORT JSON",
+  "validation": {
+    "viewport_meta": "PASS",
+    "touch_first_full_viewport": "PASS",
+    "javascript_syntax": "5/5 PASS",
+    "required_controls": "playBtn/game/modeChoices/exportBtn present",
+    "showcase_return_adapter": "PASS",
+    "source_route": "PASS"
+  },
+  "known_gap": "Live rendered mobile/desktop representative interaction remains externally unverified from this execution environment."
+}
