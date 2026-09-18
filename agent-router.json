@@ -1,0 +1,176 @@
+{
+  "schema": "agent-router/v0.1",
+  "status": "DRAFT_EXECUTABLE_MODEL",
+  "purpose": "Route incoming human/message/sensor events toward the smallest useful response or capability without pretending all inputs require a reply.",
+  "principle": "MINIMUM SUFFICIENT USEFUL ACTION",
+  "input_envelope": {
+    "event_id": "stable id",
+    "source": "human | message | sensor | schedule | internal",
+    "channel": "free string; e.g. chat, email, webhook, local event",
+    "sender_ref": "opaque local identifier; optional",
+    "payload": "raw or normalized content",
+    "context_refs": [
+      "optional stable addresses into local/private context"
+    ],
+    "received_at": "ISO-8601",
+    "reply_allowed": "boolean or policy-derived",
+    "side_effects_allowed": "none | local | external"
+  },
+  "normalize": {
+    "extract": [
+      "requested outcome",
+      "facts supplied",
+      "constraints",
+      "time horizon",
+      "uncertainty",
+      "requested side effect"
+    ],
+    "never_infer": [
+      "permission for external action",
+      "identity from weak cues",
+      "urgency from tone alone"
+    ]
+  },
+  "decision_axes": [
+    {
+      "axis": "need",
+      "values": [
+        "none",
+        "acknowledge",
+        "answer",
+        "clarify",
+        "route",
+        "act",
+        "handoff"
+      ]
+    },
+    {
+      "axis": "confidence",
+      "values": [
+        "low",
+        "medium",
+        "high"
+      ]
+    },
+    {
+      "axis": "stakes",
+      "values": [
+        "ordinary",
+        "meaningful",
+        "high"
+      ]
+    },
+    {
+      "axis": "reversibility",
+      "values": [
+        "full",
+        "bounded",
+        "none"
+      ]
+    },
+    {
+      "axis": "permission",
+      "values": [
+        "unknown",
+        "read",
+        "draft",
+        "act"
+      ]
+    }
+  ],
+  "actions": {
+    "NO_ACTION": "Record/return state only; no outbound reply.",
+    "ACK": "Minimal acknowledgement where receipt itself is useful.",
+    "ANSWER": "Generate a bounded informational response.",
+    "ASK_ONE": "Ask the single blocking question only.",
+    "ROUTE": "Invoke one or more declared capability contracts.",
+    "DRAFT": "Prepare an outbound action but do not send/commit externally.",
+    "ACT": "Perform an explicitly permitted reversible or bounded side effect.",
+    "HANDOFF": "Escalate to a human or named external process with compact context + uncertainty."
+  },
+  "routing_order": [
+    "1. Normalize event without destroying raw source.",
+    "2. Check permission and whether any response is needed.",
+    "3. If information alone resolves it, ANSWER.",
+    "4. If one missing fact blocks progress, ASK_ONE.",
+    "5. Otherwise match required input/output against showcase capability contracts.",
+    "6. Prefer the shortest composition with adequate evidence and reversibility.",
+    "7. External or irreversible action requires explicit permission; otherwise DRAFT/HANDOFF.",
+    "8. Emit RETURN receipt containing source, route, transforms, result, uncertainty and next state."
+  ],
+  "capability_composition": {
+    "default": [
+      "CAPTURE",
+      "REPRESENT",
+      "PLAN_OR_PLAY",
+      "PROVE",
+      "RETURN"
+    ],
+    "skip_rule": "Every stage is optional; skip any stage that adds no information, control, safety, or evidence.",
+    "selection": "Match event requirements to route.contract.accepts and desired result to route.contract.emits.",
+    "tie_breakers": [
+      "fewer transforms",
+      "higher reversibility",
+      "stronger evidence",
+      "stable over experiment"
+    ]
+  },
+  "response_policy": {
+    "ordinary": "autonomous ANSWER/ROUTE allowed within granted permissions",
+    "meaningful": "prefer DRAFT when external side effects or commitments appear",
+    "high": "preserve source, surface uncertainty, require human review before consequential external action"
+  },
+  "return_receipt": {
+    "required": [
+      "event_id",
+      "decision",
+      "route",
+      "result_summary",
+      "evidence",
+      "uncertainty",
+      "next_state"
+    ],
+    "optional": [
+      "draft",
+      "external_action_ref",
+      "rollback_ref"
+    ]
+  },
+  "examples": [
+    {
+      "input": "A person sends a dense mixed request with facts plus an ask.",
+      "route": [
+        "FIELD INTAKE",
+        "SCALE LENS"
+      ],
+      "action": "ANSWER",
+      "why": "Structure first, then project the smallest useful human-readable view."
+    },
+    {
+      "input": "A follow-up commitment has a future date.",
+      "route": [
+        "FIELD INTAKE",
+        "ATLAS DAYLINE"
+      ],
+      "action": "DRAFT or ACT depending permission",
+      "why": "Capture identity/provenance, then bind it to time."
+    },
+    {
+      "input": "A proposed richer UI or automation claims to improve handling.",
+      "route": [
+        "IDENTITY LAB",
+        "FIELD / PROOF"
+      ],
+      "action": "ROUTE",
+      "why": "Verify identity preservation and compare against a plain control before promotion."
+    },
+    {
+      "input": "A sensor event is informational and below configured trigger thresholds.",
+      "route": [
+        "FIELD INTAKE"
+      ],
+      "action": "NO_ACTION",
+      "why": "Record evidence without manufacturing a notification."
+    }
+  ]
+}
