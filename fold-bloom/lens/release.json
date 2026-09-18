@@ -58,7 +58,19 @@
       },
       "live_browser_interaction": "UNVERIFIED_FROM_EXECUTION_ENVIRONMENT"
     },
-    "live_smoke_patch": "pending rerun after 17/18 external Playwright result; sole failure was 225px mobile horizontal overflow"
+    "live_smoke_patch": "pending rerun after 17/18 external Playwright result; sole failure was 225px mobile horizontal overflow",
+    "live_external_smoke": {
+      "status": "PASS",
+      "workflow_run": 35372320053,
+      "width_px": [
+        390,
+        1280
+      ],
+      "representative_interaction": "NEXT traversal changes canonical address",
+      "result": "2/2 PASS for Scale Lens within 18/18 nine-card run",
+      "prior_defect": "Run 1: +225px horizontal overflow at 390px",
+      "patch": "mobile-importer-wrap-1"
+    }
   },
-  "known_gap": "Representative live mobile/desktop interaction still belongs to the broader showcase audit. The spatial donor passed committed-source syntax/invariant checks but live Pages interaction could not be exercised from this execution environment. RC11.3 portrait work remains a separate unfinished branch and is not silently promoted here."
+  "known_gap": "No generic live-smoke gap remains. Further UI changes require rerunning the external smoke gate; RC11.3 portrait remains a separate unfinished branch."
 }
