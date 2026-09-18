@@ -5,27 +5,105 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#090b0d">
-<title>0xxx0 · Release Surface</title>
+<title>0xxx0 · Showcase</title>
 <style>
-:root{--bg:#090b0d;--panel:#0f1317;--ink:#edf1ed;--muted:#8f989b;--line:#2c373c;--hot:#e56b3f;--cool:#68acd8}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-body{display:grid;place-items:center;padding:18px}.shell{width:min(860px,100%);border:1px solid var(--line);padding:22px;background:var(--panel)}
-.tag{font-size:9px;letter-spacing:.16em;color:var(--hot)}h1{font:800 clamp(34px,8vw,68px)/.9 system-ui,sans-serif;letter-spacing:-.055em;margin:10px 0 14px}
-p{color:var(--muted);max-width:68ch}.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}
-a{display:block;border:1px solid var(--line);padding:14px;color:var(--ink);text-decoration:none}a:hover{border-color:var(--cool)}a b{display:block}a span{display:block;color:var(--muted);font-size:10px;margin-top:4px}
-.foot{border-top:1px solid var(--line);margin-top:18px;padding-top:10px;color:var(--muted);font-size:9px}
-@media(max-width:620px){.grid{grid-template-columns:1fr}}
+:root{--bg:#090b0d;--panel:#0f1317;--ink:#edf1ed;--muted:#8f989b;--line:#2c373c;--hot:#e56b3f;--cool:#68acd8;--gold:#d9ad62;--green:#9ed88c}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(18px,env(safe-area-inset-top)) 14px max(26px,env(safe-area-inset-bottom))}
+main{width:min(1120px,100%);margin:auto}
+header{display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:end;padding:30px 0 18px;border-bottom:1px solid var(--line)}
+.ey{font-size:9px;letter-spacing:.18em;color:var(--hot)}
+h1{margin:8px 0 0;font:800 clamp(42px,9vw,88px)/.84 system-ui,-apple-system,sans-serif;letter-spacing:-.07em}
+.intro{color:#a7b0b4;font:12px/1.6 system-ui,-apple-system,sans-serif}
+.kernel{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:16px 0}
+.kernel span{background:#0b0f12;padding:9px 8px;text-align:center;font-size:9px;letter-spacing:.12em}
+.kernel span:not(:last-child)::after{content:" →";color:#52616a}
+.section{display:flex;justify-content:space-between;gap:14px;align-items:end;margin:24px 0 8px}
+.section b{font-size:10px;letter-spacing:.16em}.section span{color:var(--muted);font-size:9px}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.card{grid-column:span 4;min-height:260px;background:var(--panel);padding:16px;display:flex;flex-direction:column;color:var(--ink);text-decoration:none}
+.card:hover,.card:focus{background:#121920;outline:none}
+.card.wide{grid-column:span 6}
+.num{font-size:8px;color:#68747b;letter-spacing:.15em}
+.type{margin-top:4px;font-size:8px;letter-spacing:.13em}
+.play .type{color:var(--cool)}.represent .type{color:var(--gold)}.prove .type{color:var(--green)}.plan .type{color:#d58fb5}
+.name{margin-top:26px;font:800 clamp(24px,4vw,38px)/.9 system-ui,-apple-system,sans-serif;letter-spacing:-.05em}
+.desc{margin-top:14px;color:#aab3b8;font:11px/1.55 system-ui,-apple-system,sans-serif}
+.chain{margin-top:auto;padding-top:18px;color:#78858c;font-size:8px;line-height:1.6}
+.go{margin-top:10px;padding-top:10px;border-top:1px solid #263139;font-size:9px;letter-spacing:.12em;font-weight:800}
+.hubs{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.hubs a{background:#0b0f12;color:var(--ink);text-decoration:none;padding:12px}.hubs b{display:block;font-size:10px}.hubs span{display:block;color:var(--muted);font-size:8px;margin-top:4px}
+footer{display:flex;justify-content:space-between;gap:16px;margin-top:18px;padding-top:10px;border-top:1px solid var(--line);color:#657178;font-size:8px}
+@media(max-width:760px){
+ header{grid-template-columns:1fr;gap:16px}.kernel{grid-template-columns:1fr}.kernel span{text-align:left}.kernel span:not(:last-child)::after{content:""}
+ .card,.card.wide{grid-column:span 12;min-height:220px}.hubs{grid-template-columns:1fr}.section{display:block}.section span{display:block;margin-top:4px}footer{display:block}footer span{display:block;margin-top:6px}
+}
 </style>
 </head>
-<body><main class="shell">
-<div class="tag">PUBLIC RELEASE SURFACE</div>
-<h1>Selected instruments.<br>Stable links.</h1>
-<p>This repository is a deployment mirror. Working source, experiments, internal notes and automation live privately; only intentional browser-facing releases remain here.</p>
-<div class="grid">
-<a href="./foundry/"><b>FOUNDRY →</b><span>Verse Atlas · convergence instruments</span></a>
-<a href="./fold-bloom/"><b>FOLD // BLOOM →</b><span>Three-branch interactive showcase</span></a>
-<a href="./atlas-dayline/"><b>ATLAS DAYLINE →</b><span>Radial-linear planning instrument</span></a>
-<a href="./forward-field-proof/"><b>FIELD / PROOF →</b><span>Proof bench and scorer</span></a>
+<body><main>
+<header>
+  <div><div class="ey">PUBLIC SHOWCASE · LOW-DISCOVERY RELEASE MIRROR</div><h1>Things that<br>actually run.</h1></div>
+  <div class="intro">Selected browser instruments from separate project lines. Each surface has a stable link and a bounded job. Shared mechanisms can converge without forcing the artifacts into one interface, one hierarchy, or one “latest” build.</div>
+</header>
+
+<div class="kernel" aria-label="Shared transformation kernel">
+  <span>OBJECT</span><span>ADDRESS</span><span>PROJECT</span><span>OPERATE</span><span>RETURN</span>
 </div>
-<div class="foot">PUBLIC BY LINK · LOW-DISCOVERY · PRIVATE CANON ELSEWHERE</div>
+
+<div class="section"><b>INSTRUMENTS</b><span>sorted by operation, not repository history</span></div>
+<section class="grid">
+  <a class="card play" href="./fold-bloom/two-dial/">
+    <div class="num">01</div><div class="type">PLAY / COMPOSE</div><div class="name">TWO DIAL</div>
+    <div class="desc">Two cyclic controls shape matter, harmony, bloom, fold and phrase memory through a compact embodied composition surface.</div>
+    <div class="chain">COMPOSITION STATE → CYCLIC CONTROL → MOTIF / FORM MEMORY</div><div class="go">OPEN →</div>
+  </a>
+
+  <a class="card play" href="./fold-bloom/ecology/">
+    <div class="num">02</div><div class="type">PLAY / ECOLOGY</div><div class="name">ECOLOGY 0.2</div>
+    <div class="desc">LOAF, RIVET and MANTA inhabit a game/ecology branch with lineage, grafting, mode changes and a visual score that remains useful muted.</div>
+    <div class="chain">AGENTS → LINEAGE / MODE → VISUAL + AUDIO SCORE</div><div class="go">OPEN →</div>
+  </a>
+
+  <a class="card represent" href="./fold-bloom/lens/">
+    <div class="num">03</div><div class="type">REPRESENT / SCALE</div><div class="name">SCALE LENS</div>
+    <div class="desc">Move one source through TEXT, ATLAS, DAYLINE, DATADISC and OBJECT views while preserving stable identity and provenance.</div>
+    <div class="chain">SOURCE → STABLE ADDRESS → PROJECTION → RETURN</div><div class="go">OPEN →</div>
+  </a>
+
+  <a class="card represent wide" href="./foundry/verse-atlas/">
+    <div class="num">04</div><div class="type">REPRESENT / LANGUAGE</div><div class="name">VERSE ATLAS</div>
+    <div class="desc">A four-line Chinese verse survives editing, grid addressing, typed traversal, study views, positional comparison, glyph compression and temporal reading without silently promoting geometry into meaning or prosody.</div>
+    <div class="chain">SOURCE → ADDRESS → TYPED PATH → EVIDENCE CLASS → RETURN</div><div class="go">OPEN →</div>
+  </a>
+
+  <a class="card plan wide" href="./atlas-dayline/">
+    <div class="num">05</div><div class="type">PLAN / TIME</div><div class="name">ATLAS DAYLINE</div>
+    <div class="desc">A local-first radial-linear planning instrument: same tasks, unequal temporal projections, explicit export and replay rather than hidden cloud state.</div>
+    <div class="chain">TASK STATE → TIME ADDRESS → RADIAL / LINEAR VIEW → EXPORT</div><div class="go">OPEN →</div>
+  </a>
+
+  <a class="card prove wide" href="./foundry/convergence/identity-lab.html">
+    <div class="num">06</div><div class="type">PROVE / IDENTITY</div><div class="name">IDENTITY LAB</div>
+    <div class="desc">CAP-IR test bench for stable identity, provenance and reversible transformation across unequal representations.</div>
+    <div class="chain">OBJECT ID → TRANSFORM → PROVENANCE → RETURN</div><div class="go">OPEN →</div>
+  </a>
+
+  <a class="card prove wide" href="./forward-field-proof/">
+    <div class="num">07</div><div class="type">PROVE / ABLATE</div><div class="name">FIELD / PROOF</div>
+    <div class="desc">A proof bench for asking whether richer spatial interfaces actually improve recovery, constraint retention and useful action over a plain control.</div>
+    <div class="chain">SAME FACTS → UNEQUAL UI → MEASURE → KEEP / DEMOTE</div><div class="go">OPEN →</div>
+  </a>
+</section>
+
+<div class="section"><b>FAMILY / WORKBENCH ENTRIES</b><span>secondary navigation; not extra artifacts</span></div>
+<nav class="hubs">
+  <a href="./fold-bloom/"><b>FOLD // BLOOM</b><span>three frozen branches · compare without silent merge</span></a>
+  <a href="./foundry/"><b>FOUNDRY</b><span>convergence releases and proof surfaces</span></a>
+  <a href="./foundry/convergence/"><b>CONVERGENCE FIELD</b><span>richer projection shell · workbench</span></a>
+</nav>
+
+<footer>
+  <span>PUBLIC BY LINK · NOINDEX · PRIVATE CANON ELSEWHERE</span>
+  <span>RELEASE LAW · WORK → REVIEW → SCRUB → STATIC SURFACE → VERIFY → RECEIPT</span>
+</footer>
 </main></body></html>
