@@ -124,6 +124,17 @@
       "parent": "/",
       "operation": "PROVE",
       "state": "STABLE"
+    },
+    {
+      "href": "/forward-field-proof/triangle/",
+      "title": "TRIANGLE BENCH 0.1",
+      "kind": "experiment",
+      "parent": "/forward-field-proof/",
+      "operation": "PROVE",
+      "state": "EXPERIMENT",
+      "version": "0.1",
+      "receipt": "/forward-field-proof/triangle/release.json",
+      "showcase_card": false
     }
   ],
   "release_law": [
@@ -140,6 +151,7 @@
     "scope": "This manifest describes public release surfaces only. Private recovery/open-thread state is intentionally excluded.",
     "field_intake": "Recovered from prior public release; runtime blobs preserved, service-worker cache cleanup narrowed to its own cache family.",
     "sleeper": "Public experiment. Same canonical state is exposed as first-person coupled law field and plain obligation list; geometry is explicitly not external truth.",
-    "scale_lens": "RC11.2 remains the stable public head; G2 interop preserves Field Intake canonical identity separately from Lens-local addresses. RC11.3 remains an unfinished forward branch."
+    "scale_lens": "RC11.2 remains the stable public head; G2 interop preserves Field Intake canonical identity separately from Lens-local addresses. RC11.3 remains an unfinished forward branch.",
+    "triangle_bench": "Nested Field / Proof experiment. EXPLOIT / EXPLORE / PROVE simplex compared against a plain two-control allocation; no showcase card."
   }
 }
