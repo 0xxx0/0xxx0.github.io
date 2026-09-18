@@ -14,7 +14,9 @@
     ],
     "received_at": "ISO-8601",
     "reply_allowed": "boolean or policy-derived",
-    "side_effects_allowed": "none | local | external"
+    "side_effects_allowed": "none | local | external",
+    "resource_ref": "opaque resource identifier; optional",
+    "policy_ref": "resolved private policy id/revision; runtime-derived, optional on ingress"
   },
   "normalize": {
     "extract": [
@@ -89,14 +91,17 @@
     "HANDOFF": "Escalate to a human or named external process with compact context + uncertainty."
   },
   "routing_order": [
-    "1. Normalize event without destroying raw source.",
-    "2. Check permission and whether any response is needed.",
-    "3. If information alone resolves it, ANSWER.",
-    "4. If one missing fact blocks progress, ASK_ONE.",
-    "5. Otherwise match required input/output against showcase capability contracts.",
-    "6. Prefer the shortest composition with adequate evidence and reversibility.",
-    "7. External or irreversible action requires explicit permission; otherwise DRAFT/HANDOFF.",
-    "8. Emit RETURN receipt containing source, route, transforms, result, uncertainty and next state."
+    "1. Resolve person/resource policy from the minimal pre-policy envelope.",
+    "2. Evaluate READ before inspecting payload, attachments, history or private context.",
+    "3. Normalize only the data READ permits, without destroying raw source.",
+    "4. Check whether any response is needed and which output gates are permitted.",
+    "5. If information alone resolves it and ANSWER permits, ANSWER.",
+    "6. If one missing fact blocks progress and asking is permitted, ASK_ONE.",
+    "7. Otherwise match required input/output against showcase capability contracts.",
+    "8. Prefer the shortest composition with adequate evidence and reversibility.",
+    "9. Evaluate DRAFT / ACT / ESCALATE independently against policy plus adapter permission.",
+    "10. Evaluate REMEMBER only for the exact material proposed for persistence.",
+    "11. Emit RETURN receipt containing route, result, evidence, uncertainty, policy revision and next state."
   ],
   "capability_composition": {
     "default": [
@@ -133,7 +138,10 @@
     "optional": [
       "draft",
       "external_action_ref",
-      "rollback_ref"
+      "rollback_ref",
+      "policy_ref",
+      "policy_revision",
+      "policy_decisions"
     ]
   },
   "examples": [
@@ -182,5 +190,39 @@
   },
   "test_vectors": "/agent-router-cases.json",
   "adapter_registry": "/private-adapter-registry.json",
-  "reference_bench": "/router-bench/"
+  "reference_bench": "/router-bench/",
+  "policy_schema": "/person-resource-policy.schema.json",
+  "policy_example": "/person-resource-policy.example.json",
+  "policy_evaluation": {
+    "principle": "DENY BY DEFAULT; PERMISSION IS PER OPERATION, NOT PER PERSON.",
+    "pre_policy_envelope": [
+      "event_id",
+      "source",
+      "channel",
+      "sender_ref/resource_ref",
+      "received_at"
+    ],
+    "pre_policy_rule": "Only routing metadata needed to resolve a subject/resource policy may be inspected before READ. Payload, attachments, history and private context remain unread until READ permits them.",
+    "order": [
+      "1. Resolve opaque person/resource ref from minimal envelope; weak identity => unknown-subject rule.",
+      "2. Load the most specific unexpired policy and revision.",
+      "3. Evaluate READ before opening payload/history/attachments/private context.",
+      "4. Normalize and route only over data permitted by READ.",
+      "5. Evaluate ACKNOWLEDGE / ANSWER / DRAFT / ACT independently; one allowed gate never implies another.",
+      "6. Evaluate REMEMBER on the exact data proposed for persistence; denied classes are discarded rather than silently summarized into memory.",
+      "7. Evaluate ESCALATE separately, including what data may be disclosed to the escalation target.",
+      "8. Apply deny-overrides-allow, then narrower subject/channel/adapter/context scope over broader defaults.",
+      "9. Emit policy ref + revision + gate decisions in RETURN evidence."
+    ],
+    "gate_to_router_action": {
+      "acknowledge": "ACK",
+      "answer": "ANSWER",
+      "draft": "DRAFT",
+      "act": "ACT",
+      "escalate": "HANDOFF"
+    },
+    "remember_is_not_action": "REMEMBER governs persistence only; it neither authorizes a reply nor grants ACT.",
+    "read_is_not_memory": "READ authorizes bounded processing only; persistence still requires REMEMBER.",
+    "fallback": "If a required gate is deny/expired/unresolved, choose NO_ACTION, DRAFT, or HANDOFF only when separately permitted; never widen authority."
+  }
 }
