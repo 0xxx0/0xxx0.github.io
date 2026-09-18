@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090c0f">
+<title>AXIAL COMPOSITOR 0.1</title>
+<style>
+:root{--bg:#090c0f;--panel:#0e1317;--line:#273139;--line2:#38454d;--ink:#edf1ee;--muted:#7f8b92;--soft:#a8b2b6;--green:#9ed88c;--amber:#d9ad62;--cyan:#a9dcff;--red:#d7857d}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}body{min-height:100vh}
+button,select{font:inherit;border-radius:0}button{cursor:pointer}
+.shell{width:min(1440px,100%);margin:0 auto;padding:14px;display:grid;gap:10px}
+header{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;padding:10px 0 12px;border-bottom:1px solid var(--line)}
+.ey{font-size:8px;letter-spacing:.16em;color:var(--muted)}h1{font:700 clamp(24px,4vw,54px)/.92 system-ui,sans-serif;letter-spacing:-.05em;margin:5px 0 0}.lede{max-width:560px;color:var(--soft);font:10px/1.55 system-ui,sans-serif;align-self:end}
+.kernel{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--line);background:var(--line);gap:1px}.kernel span{background:#0b0f12;padding:8px;text-align:center;font-size:8px;color:#9aa5aa}.kernel b{color:var(--ink)}
+.main{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(320px,.65fr);gap:10px}
+.panel{border:1px solid var(--line);background:var(--panel);min-width:0}
+.bar{min-height:38px;display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding:7px 9px}.bar b{font-size:9px;letter-spacing:.13em}.bar span{font-size:8px;color:var(--muted)}
+.controls{display:grid;grid-template-columns:minmax(0,1fr) auto auto;border-bottom:1px solid var(--line);gap:1px;background:var(--line)}
+.controls select,.controls button{min-height:42px;border:0;background:#0b0f12;color:var(--ink);padding:8px 10px}.controls select{width:100%}.controls button{font-size:9px;font-weight:800;letter-spacing:.08em}.controls button:hover,.controls button:focus{background:#151c21;outline:1px solid var(--soft);outline-offset:-1px}
+.stagewrap{display:grid;grid-template-columns:86px minmax(0,1fr) 94px;min-height:520px}
+.scaleRail,.thetaRail{border-right:1px solid var(--line);padding:12px 8px}.thetaRail{border-left:1px solid var(--line);border-right:0}
+.railTitle{font-size:7px;letter-spacing:.14em;color:var(--muted);margin-bottom:10px}.ticks{display:grid;gap:7px}.tick{border:1px solid var(--line);padding:7px 5px;font-size:7px;color:#68757b;background:#0a0e11}.tick.on{color:var(--ink);border-color:var(--cyan)}.tick small{display:block;color:var(--muted);margin-top:2px}
+.stage{position:relative;display:grid;place-items:center;overflow:hidden;touch-action:none;user-select:none;min-height:520px;background:linear-gradient(90deg,transparent 49.9%,#1d272d 50%,transparent 50.1%),linear-gradient(0deg,transparent 49.9%,#141d22 50%,transparent 50.1%)}
+.axisReadout{position:absolute;top:10px;left:10px;right:10px;display:flex;justify-content:space-between;font-size:8px;color:var(--muted);pointer-events:none}.axisReadout b{color:var(--ink)}
+.cylinder{width:min(420px,78vw);height:300px;position:relative;display:grid;place-items:center;filter:drop-shadow(0 16px 24px #0008)}
+.body{position:absolute;width:210px;height:246px;border:1px solid #667780;background:linear-gradient(90deg,#0c1114 0%,#1a242a 18%,#10171b 50%,#202b31 80%,#0b1013 100%);transform:translateY(var(--zpx,0px))}
+.body:before,.body:after{content:"";position:absolute;left:-1px;width:210px;height:36px;border:1px solid #667780;background:#11181c}.body:before{top:-18px}.body:after{bottom:-18px}
+.ring{position:absolute;width:278px;height:72px;border:1px solid var(--cyan);background:#0c1114dd;display:grid;grid-template-columns:repeat(5,1fr);align-items:center;overflow:hidden;transform:rotate(var(--rot,0deg));transition:transform .16s linear}.ring span{font-size:7px;color:#718087;text-align:center;transform:rotate(calc(-1 * var(--rot,0deg)));transition:transform .16s linear}.ring span.active{color:var(--ink);font-weight:900}.ring.top{top:52px}.ring.mid{top:114px;border-color:var(--green)}.ring.bot{top:176px;border-color:var(--amber)}
+.core{position:relative;z-index:4;width:90px;height:90px;border:1px solid var(--ink);background:#0a0e11;display:grid;place-items:center;text-align:center;padding:8px;box-shadow:0 0 0 7px #0a0e11,0 0 0 8px #39464e}.core b{font-size:10px;line-height:1.2}.core small{display:block;margin-top:5px;color:var(--muted);font-size:7px}
+.dragHint{position:absolute;bottom:12px;left:12px;right:12px;border-top:1px solid var(--line);padding-top:8px;text-align:center;color:#637078;font-size:8px}
+.objectState{display:grid;grid-template-columns:1fr 1fr;background:var(--line);gap:1px;border-top:1px solid var(--line)}.stateCell{background:#0b0f12;padding:10px;min-height:92px}.stateCell b{display:block;font-size:8px;color:var(--muted);letter-spacing:.1em}.stateCell strong{display:block;margin-top:6px;font:700 16px/1.05 system-ui,sans-serif}.stateCell p{margin:6px 0 0;color:#aab4b8;font:9px/1.45 system-ui,sans-serif}
+.trace{height:370px;overflow:auto}.event{display:grid;grid-template-columns:54px 1fr;gap:8px;padding:9px;border-bottom:1px solid #20292f}.event .id{color:#627078;font-size:7px}.event b{font-size:8px}.event p{margin:4px 0 0;color:#9aa5aa;font-size:8px;line-height:1.45}.event.commit{border-left:2px solid var(--green)}.event.current{background:#11191e}
+.memory{min-height:150px;max-height:220px;overflow:auto}.mem{display:grid;grid-template-columns:1fr auto;gap:8px;padding:9px;border-bottom:1px solid #20292f;background:#0b0f12}.mem button{border:1px solid var(--line2);background:#10161a;color:var(--ink);font-size:7px;padding:5px 7px}.mem b{font-size:8px}.mem small{display:block;color:var(--muted);font-size:7px;margin-top:4px}
+.actions{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.actions button{border:0;background:#0b0f12;color:var(--ink);min-height:44px;padding:8px;font-size:8px;font-weight:800;letter-spacing:.08em}.actions button.primary{color:var(--green)}.actions button:hover{background:#151d22}
+.status{padding:9px;color:var(--muted);font-size:8px;min-height:34px;border-top:1px solid var(--line)}
+footer{display:flex;justify-content:space-between;gap:12px;color:#68757b;font-size:8px;border-top:1px solid var(--line);padding-top:9px}
+@media(max-width:900px){.main{grid-template-columns:1fr}.stagewrap{min-height:430px;grid-template-columns:72px minmax(0,1fr) 74px}.stage{min-height:430px}.cylinder{transform:scale(.88)}.trace{height:260px}}
+@media(max-width:580px){.shell{padding:8px}.kernel{grid-template-columns:1fr 1fr 1fr}.kernel span:nth-child(4),.kernel span:nth-child(5){grid-column:span 1}header{grid-template-columns:1fr}.lede{display:none}.stagewrap{grid-template-columns:56px minmax(0,1fr) 58px}.scaleRail,.thetaRail{padding:8px 4px}.tick{padding:6px 3px;font-size:6px}.stage{min-height:390px}.cylinder{transform:scale(.72)}.objectState{grid-template-columns:1fr}.actions{grid-template-columns:1fr 1fr}.actions button:first-child{grid-column:1/-1}}
+</style>
+<script src="/showcase-nav.js" defer></script>
+</head>
+<body>
+<main class="shell">
+<header>
+  <div><div class="ey">PUBLIC EXPERIMENT · MANIFEST-BACKED CONTROL / EVIDENCE INSTRUMENT</div><h1>AXIAL<br>COMPOSITOR</h1></div>
+  <div class="lede">One addressed object. Two orthogonal continuous gestures. One explicit commit. Every transform leaves a before/after event and every commit becomes a locally persistent detent that can be restored or exported.</div>
+</header>
+
+<div class="kernel"><span>OBJECT <b id="kObject">—</b></span><span>θ / PROJECT <b id="kTheta">—</b></span><span>z / SCALE <b id="kZ">—</b></span><span>PRESS <b>COMMIT</b></span><span>RETURN <b>RECEIPT</b></span></div>
+
+<section class="main">
+  <section class="panel">
+    <div class="bar"><b>CONTROL SURFACE</b><span>drag horizontally = θ · vertically = z · SPACE = commit</span></div>
+    <div class="controls">
+      <select id="objectSelect" aria-label="Addressed showcase object"></select>
+      <button id="prevObject" title="Previous object">[ PREV</button>
+      <button id="nextObject" title="Next object">NEXT ]</button>
+    </div>
+
+    <div class="stagewrap">
+      <aside class="scaleRail"><div class="railTitle">z / SCALE</div><div class="ticks" id="scaleTicks"></div></aside>
+      <div class="stage" id="stage" tabindex="0" aria-label="AXIAL compositor gesture surface">
+        <div class="axisReadout"><span>θ <b id="thetaRead">OBJECT</b></span><span>z <b id="zRead">OVERVIEW</b></span></div>
+        <div class="cylinder">
+          <div class="body" id="body"></div>
+          <div class="ring top" id="ringTop"></div>
+          <div class="ring mid" id="ringMid"></div>
+          <div class="ring bot" id="ringBot"></div>
+          <div class="core"><div><b id="coreLabel">OBJECT</b><small id="coreScale">OVERVIEW</small></div></div>
+        </div>
+        <div class="dragHint">POINTER / TOUCH: DRAG · KEYS: ←→ θ · ↑↓ z · [ ] OBJECT · SPACE COMMIT</div>
+      </div>
+      <aside class="thetaRail"><div class="railTitle">θ / PROJECT</div><div class="ticks" id="thetaTicks"></div></aside>
+    </div>
+
+    <div class="objectState">
+      <div class="stateCell"><b>ACTIVE PROJECTION</b><strong id="projectionTitle">—</strong><p id="projectionBody">Loading manifest…</p></div>
+      <div class="stateCell"><b>STATE / EVIDENCE</b><strong id="stateTitle">—</strong><p id="stateBody">—</p></div>
+    </div>
+  </section>
+
+  <aside class="panel">
+    <div class="bar"><b>TRACE</b><span id="traceCount">0 events</span></div>
+    <div class="trace" id="trace"></div>
+    <div class="bar"><b>PHYSICAL-STATE MEMORY / SOFTWARE PROXY</b><span>persistent detents</span></div>
+    <div class="memory" id="memory"></div>
+    <div class="actions">
+      <button class="primary" id="commitBtn">PRESS / COMMIT</button>
+      <button id="exportBtn">EXPORT RECEIPT</button>
+      <button id="resetBtn">RESET SESSION</button>
+    </div>
+    <div class="status" id="status">BOOTING / showcase-manifest.json</div>
+  </aside>
+</section>
+
+<footer><span>AXIAL 0.1 · EXPERIMENT · LOCAL STATE ONLY</span><span><a href="./event.schema.json" style="color:#9ed88c">EVENT SCHEMA</a> · <a href="./release.json" style="color:#7f8b92">RELEASE RECEIPT</a></span></footer>
+</main>
+<script src="./axial.js"></script>
+</body>
+</html>
