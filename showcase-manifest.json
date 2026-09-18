@@ -610,7 +610,8 @@
     "execution_boundary": "Showcase contracts are public semantic/reference interfaces only. Private personal traffic and credentials belong to private runtime adapters; no public showcase route is an implicit execution endpoint.",
     "router_bench": "Deterministic public workbench over the live capability contracts and adapter declarations. It simulates routing/permission/RETURN only; private execution remains outside the public surface.",
     "human_return": "Public stable rendezvous for a known human when normal communication fails. No credentials/private contact graph/live-status claim; private execution and handoff remain behind the public boundary.",
-    "person_resource_policy": "Deny-by-default seven-gate policy contract: READ, REMEMBER, ACKNOWLEDGE, ANSWER, DRAFT, ACT and ESCALATE. Public files contain schema/synthetic example only; real person/resource refs and policies belong to the private runtime."
+    "person_resource_policy": "Deny-by-default seven-gate policy contract: READ, REMEMBER, ACKNOWLEDGE, ANSWER, DRAFT, ACT and ESCALATE. Public files contain schema/synthetic example only; real person/resource refs and policies belong to the private runtime.",
+    "policy_inheritance": "Deterministic broad-to-narrow policy composition: base -> person/resource in parallel -> channel. Restriction is automatic; widening requires user_explicit grant authority. Same-stage deny wins, allow sets intersect, deny sets union, ceilings choose the minimum, locks are inherited and cannot be widened."
   },
   "capability_model": {
     "CAPTURE": {
@@ -662,5 +663,8 @@
   "adapter_registry": "/private-adapter-registry.json",
   "router_bench": "/router-bench/",
   "policy_schema": "/person-resource-policy.schema.json",
-  "policy_example": "/person-resource-policy.example.json"
+  "policy_example": "/person-resource-policy.example.json",
+  "policy_inheritance_schema": "/policy-inheritance.schema.json",
+  "policy_inheritance_example": "/policy-inheritance.example.json",
+  "policy_resolution_tests": "/policy-resolution-cases.json"
 }
