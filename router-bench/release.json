@@ -1,0 +1,29 @@
+{
+  "schema": "release-receipt/v1",
+  "artifact": "ROUTER BENCH 0.1",
+  "route": "/router-bench/",
+  "date": "2026-09-18",
+  "state": "EXPERIMENT",
+  "purpose": "Deterministic playable reference router over live showcase capability contracts and public private-adapter declarations.",
+  "inputs": [
+    "/showcase-manifest.json",
+    "/agent-router.json",
+    "/agent-router-cases.json",
+    "/private-adapter-registry.json"
+  ],
+  "checks": [
+    "no network side effects beyond same-origin GET of public control files",
+    "no credentials or private identifiers accepted or stored",
+    "decision alphabet matches agent-router actions",
+    "semantic routes resolve from live manifest operations",
+    "ACT result still declares private adapter binding requirement",
+    "mobile layout collapses to one column",
+    "RETURN receipt is rendered for every evaluated event"
+  ],
+  "limitations": [
+    "keyword/control classifier is deterministic and intentionally shallow",
+    "adapter fit is declarative, not proof of a live connection",
+    "bench does not send, schedule, publish or control hardware"
+  ],
+  "rollback": "delete /router-bench/ and remove its workbench route from showcase-manifest.json"
+}
