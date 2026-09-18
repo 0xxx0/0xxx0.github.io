@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-18",
+  "updated": "2026-09-19",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -586,6 +586,24 @@
       "version": "0.1",
       "receipt": "/router-bench/release.json",
       "showcase_card": false
+    },
+    {
+      "href": "/fcm/",
+      "title": "FORWARD CENTER MASS 0.1",
+      "kind": "workbench",
+      "parent": "/",
+      "family": "FEDERATION",
+      "operation": "ROUTE",
+      "state": "EXPERIMENT",
+      "version": "0.1",
+      "receipt": "/fcm/release.json",
+      "showcas_card": false,
+      "inputs": [
+        "/federation-atlas.json",
+        "/fcm-kernel.json",
+        "/fcm-map.json",
+        "/fcm-fronts.json"
+      ]
     }
   ],
   "release_law": [
@@ -614,7 +632,8 @@
     "policy_inheritance": "Deterministic broad-to-narrow policy composition: base -> person/resource in parallel -> channel. Restriction is automatic; widening requires user_explicit grant authority. Same-stage deny wins, allow sets intersect, deny sets union, ceilings choose the minimum, locks are inherited and cannot be widened.",
     "policy_selectors": "Deterministic selector syntax for base/person/resource/channel policy matching. Exact > pattern > tag > fallback for trace/specificity; all matching non-fallback restrictions accumulate; fallback activates only when no non-fallback selector in that layer/domain matches; declaration order is never security-significant.",
     "policy_selector": "Deterministic exact/pattern/tag/fallback selectors. Exact > pattern > tag > fallback is trace/fallback precedence only; every matching non-fallback policy composes, so broader denies and locks remain effective.",
-    "policy_trace": "Append-only causal trace spans selector clauses, matched policy revisions, inheritance, every operation, accepted/rejected grants, deny events, lock events, stage results, seven final gates and terminal resolution; raw payload/secrets stay out."
+    "policy_trace": "Append-only causal trace spans selector clauses, matched policy revisions, inheritance, every operation, accepted/rejected grants, deny events, lock events, stage results, seven final gates and terminal resolution; raw payload/secrets stay out.",
+    "forward_center_mass": "Parallel control projection: 117 memory objects → 8 reusable operators → ≤3 active execution fronts → local RETURN receipts. Heuristic projection; does not rewrite federation canon."
   },
   "capability_model": {
     "CAPTURE": {
