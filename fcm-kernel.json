@@ -1,0 +1,72 @@
+{
+  "schema": "0xxx0/fcm-kernel/v0.1",
+  "status": "EXPERIMENT",
+  "invariant": "Increase reachable useful states while reducing the cost of choosing and entering them.",
+  "layers": [
+    {
+      "id": "L3",
+      "name": "FEDERATION / MEMORY",
+      "law": "Many objects may exist; existence creates no execution obligation."
+    },
+    {
+      "id": "L2",
+      "name": "CAPABILITY KERNEL",
+      "law": "Projects compose reusable transformations rather than competing as sovereign peers."
+    },
+    {
+      "id": "L1",
+      "name": "FORWARD CENTER MASS",
+      "law": "At most three active execution fronts; each must terminate in a RETURN receipt."
+    }
+  ],
+  "operators": [
+    {
+      "id": "ADDRESS",
+      "purpose": "stable identity + provenance"
+    },
+    {
+      "id": "STATE",
+      "purpose": "inspectable state + receipt + replay"
+    },
+    {
+      "id": "ROUTE",
+      "purpose": "request/resource → authorized actor/tool"
+    },
+    {
+      "id": "SENSE",
+      "purpose": "world → calibrated observation"
+    },
+    {
+      "id": "ACTUATE",
+      "purpose": "intent → physical/digital state change"
+    },
+    {
+      "id": "PROJECT",
+      "purpose": "canonical object → useful representation"
+    },
+    {
+      "id": "PROVE",
+      "purpose": "hypothesis → bounded evidence"
+    },
+    {
+      "id": "SURFACE",
+      "purpose": "internal state → usable/shareable interface"
+    }
+  ],
+  "flow": [
+    "RESERVOIR",
+    "STRAIGHTEN",
+    "NOZZLE",
+    "JET",
+    "RETURN"
+  ],
+  "admission": [
+    "benefits multiple domains or unlocks a high-value bottleneck",
+    "produces an observable state change in one bounded pass",
+    "failure leaves reusable information or artifact residue",
+    "cheap to abandon relative to dependency created",
+    "uses existing resources where practical",
+    "ships something or measurably expands future controllability"
+  ],
+  "note": "Operator assignment and FCM score are experimental projections, never canon."
+}
