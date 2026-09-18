@@ -1,0 +1,339 @@
+{
+  "schema": "policy-selector-cases/v0.1",
+  "selector_schema": "/policy-selector.schema.json",
+  "cases": [
+    {
+      "id": "exact-person-match",
+      "input": {
+        "person_ref": "person:alpha",
+        "channel": "messaging",
+        "person_tags": [
+          "known"
+        ]
+      },
+      "selectors": [
+        {
+          "selector_id": "selector:exact",
+          "kind": "criteria",
+          "layer": "person",
+          "criteria": {
+            "all": [
+              {
+                "kind": "exact",
+                "field": "person_ref",
+                "value": "person:alpha"
+              }
+            ]
+          }
+        },
+        {
+          "selector_id": "selector:tag",
+          "kind": "criteria",
+          "layer": "person",
+          "criteria": {
+            "all": [
+              {
+                "kind": "tag",
+                "field": "person_tags",
+                "match": "any",
+                "values": [
+                  "known"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "expect": {
+        "matched": [
+          "selector:exact",
+          "selector:tag"
+        ],
+        "trace_order": [
+          "selector:exact",
+          "selector:tag"
+        ],
+        "fallback_active": false
+      }
+    },
+    {
+      "id": "pattern-is-anchored",
+      "input": {
+        "resource_ref": "resource:sensor/kitchen"
+      },
+      "selectors": [
+        {
+          "selector_id": "selector:pattern",
+          "kind": "criteria",
+          "layer": "resource",
+          "criteria": {
+            "all": [
+              {
+                "kind": "pattern",
+                "field": "resource_ref",
+                "glob": "resource:sensor/*"
+              }
+            ]
+          }
+        },
+        {
+          "selector_id": "selector:no-substring",
+          "kind": "criteria",
+          "layer": "resource",
+          "criteria": {
+            "all": [
+              {
+                "kind": "pattern",
+                "field": "resource_ref",
+                "glob": "sensor/*"
+              }
+            ]
+          }
+        }
+      ],
+      "expect": {
+        "matched": [
+          "selector:pattern"
+        ],
+        "not_matched": [
+          "selector:no-substring"
+        ]
+      }
+    },
+    {
+      "id": "tag-all",
+      "input": {
+        "resource_tags": [
+          "house",
+          "telemetry",
+          "air"
+        ]
+      },
+      "selectors": [
+        {
+          "selector_id": "selector:alltags",
+          "kind": "criteria",
+          "layer": "resource",
+          "criteria": {
+            "all": [
+              {
+                "kind": "tag",
+                "field": "resource_tags",
+                "match": "all",
+                "values": [
+                  "house",
+                  "telemetry"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "expect": {
+        "matched": [
+          "selector:alltags"
+        ]
+      }
+    },
+    {
+      "id": "fallback-suppressed",
+      "input": {
+        "person_ref": "person:alpha"
+      },
+      "selectors": [
+        {
+          "selector_id": "selector:exact",
+          "kind": "criteria",
+          "layer": "person",
+          "criteria": {
+            "all": [
+              {
+                "kind": "exact",
+                "field": "person_ref",
+                "value": "person:alpha"
+              }
+            ]
+          }
+        },
+        {
+          "selector_id": "selector:fallback",
+          "kind": "fallback",
+          "layer": "person",
+          "domain": "person",
+          "when": "no_nonfallback_match"
+        }
+      ],
+      "expect": {
+        "matched": [
+          "selector:exact"
+        ],
+        "fallback_suppressed": [
+          "selector:fallback"
+        ]
+      }
+    },
+    {
+      "id": "fallback-activates",
+      "input": {
+        "person_ref": "person:unknown",
+        "channel": "messaging"
+      },
+      "selectors": [
+        {
+          "selector_id": "selector:exact",
+          "kind": "criteria",
+          "layer": "person",
+          "criteria": {
+            "all": [
+              {
+                "kind": "exact",
+                "field": "person_ref",
+                "value": "person:alpha"
+              }
+            ]
+          }
+        },
+        {
+          "selector_id": "selector:fallback",
+          "kind": "fallback",
+          "layer": "person",
+          "domain": "person",
+          "when": "no_nonfallback_match",
+          "where": {
+            "all": [
+              {
+                "kind": "exact",
+                "field": "channel",
+                "value": "messaging"
+              }
+            ]
+          }
+        }
+      ],
+      "expect": {
+        "matched": [
+          "selector:fallback"
+        ],
+        "fallback_active": true
+      }
+    },
+    {
+      "id": "all-matching-policies-survive",
+      "input": {
+        "person_ref": "person:alpha",
+        "person_tags": [
+          "known"
+        ],
+        "context_tags": [
+          "personal"
+        ]
+      },
+      "selectors": [
+        {
+          "selector_id": "selector:exact",
+          "kind": "criteria",
+          "layer": "person",
+          "criteria": {
+            "all": [
+              {
+                "kind": "exact",
+                "field": "person_ref",
+                "value": "person:alpha"
+              }
+            ]
+          }
+        },
+        {
+          "selector_id": "selector:tag",
+          "kind": "criteria",
+          "layer": "person",
+          "criteria": {
+            "all": [
+              {
+                "kind": "tag",
+                "field": "person_tags",
+                "match": "any",
+                "values": [
+                  "known"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "selector_id": "selector:context",
+          "kind": "criteria",
+          "layer": "person",
+          "criteria": {
+            "all": [
+              {
+                "kind": "tag",
+                "field": "context_tags",
+                "match": "any",
+                "values": [
+                  "personal"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "expect": {
+        "matched": [
+          "selector:exact",
+          "selector:tag",
+          "selector:context"
+        ],
+        "merge_all": true,
+        "reason": "specificity does not discard broader restrictions"
+      }
+    },
+    {
+      "id": "declaration-order-irrelevant",
+      "input": {
+        "channel": "email"
+      },
+      "selectors": [
+        {
+          "selector_id": "selector:z",
+          "kind": "criteria",
+          "layer": "channel",
+          "criteria": {
+            "all": [
+              {
+                "kind": "exact",
+                "field": "channel",
+                "value": "email"
+              }
+            ]
+          }
+        },
+        {
+          "selector_id": "selector:a",
+          "kind": "criteria",
+          "layer": "channel",
+          "criteria": {
+            "all": [
+              {
+                "kind": "exact",
+                "field": "channel",
+                "value": "email"
+              }
+            ]
+          }
+        }
+      ],
+      "expect": {
+        "matched": [
+          "selector:a",
+          "selector:z"
+        ],
+        "trace_order": [
+          "selector:a",
+          "selector:z"
+        ],
+        "decision_order_independent": true
+      }
+    }
+  ]
+}
