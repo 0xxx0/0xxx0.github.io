@@ -50,8 +50,9 @@
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "PLAY",
-      "state": "COMPAT",
-      "version": "0.2"
+      "state": "STABLE",
+      "version": "0.2",
+      "receipt": "/fold-bloom/ecology/release.json"
     },
     {
       "href": "/fold-bloom/lens/",
@@ -122,7 +123,7 @@
     "RECEIPT"
   ],
   "notes": {
-    "ecology": "Compressed transport remains technical debt; compatibility fallback is present.",
+    "ecology": "Recovered from exact uncompressed Library source; direct static HTML; packed transport removed.",
     "scope": "This manifest describes public release surfaces only. Private recovery/open-thread state is intentionally excluded.",
     "field_intake": "Recovered from prior public release; runtime blobs preserved, service-worker cache cleanup narrowed to its own cache family."
   }
