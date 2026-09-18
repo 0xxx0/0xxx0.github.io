@@ -1,0 +1,20 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "IDENTITY LAB",
+  "version": "CAP-IR 0.1",
+  "route": "/foundry/convergence/identity-lab.html",
+  "state": "STABLE",
+  "operation": "PROVE",
+  "released": "2026-09-18",
+  "representative_interaction": "switch TEXT/TABLE/DAYLINE/RUN/CASE/RETURN projections → inspect transform ledger + fixed object ID/hash → run/reset local lab",
+  "validation": {
+    "viewport_meta": "PASS",
+    "responsive_source": "PASS",
+    "module_graph": "identity-lab.js imports cap-ir.js; module exports present",
+    "required_controls": "projectionBody/testSummary/resetBtn/RETURN projection present",
+    "showcase_return_adapter": "PASS",
+    "source_route": "PASS"
+  },
+  "integrity_boundary": "hash32 is a lightweight checksum/fingerprint, not cryptographic integrity.",
+  "known_gap": "Live rendered mobile/desktop representative interaction remains externally unverified from this execution environment."
+}
