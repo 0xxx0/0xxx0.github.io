@@ -1,244 +1,80 @@
-<!--| We begin with HTML -->
 <!doctype html>
-<html><head id=HEAD><meta 
-charset='utf-8'    
-name="viewport"             
-content="user-scalable=no,user-scalable=0"/><title>
-    TITLE                       </title>
-<style id='root'>
-  :root{--SYSFONTS:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial, monospace;
-  --K0:#000;--K1:#444;--K2:#888;--K3:#CCC;--K4:#FFF;
-  --R1:#440000;--R2:#880000;--R3:#CC0000;--R4:#FF0000;
-  --B1:#000044;--B2:#000088;--B3:#0000CC;--B4:#0000FF;
-  --SHADE:rgba(128,128,128,.3);
-  --SCALE:1.618;
-  --TRANSITION:transform 300ms;
-/*[SCALES]*/
-/* [SIZES] */
---FONTSIZE:16px; --EM:1em; --VW:100vw ;--VH:100vh ;--PERSP:32em; --PERSPORIGIN:center ; --SVGW:100% ;--SVGH:100% ;--STROKE:.3 ; 
---XXS: calc(var(--EM)*0.01*var(--SCALE)); --XS:calc(var(--EM)*0.1*var(--SCALE));
---SIZE1:calc(var(--EM)*var(--SCALE))
-/*--SIZE1:calc(var(--EM)*var(--SCALE));*/
-/*;--MARQUEE: 5s linear infinite*/
-;--DEBUG:0.5px solid var(--SHADE); 
-/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–--------.--- [] */
-;--REVEALS: inset 0 0 calc(0.1*var(--SCALE)*var(--VW)) 1em var(--SHADE)
-;--OL0:none;--OL1:solid 1px var(--R3);
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07090b">
+<title>CENTRE MASS · Public Showcase</title>
+<style>
+:root{--bg:#07090b;--panel:#0c1014;--ink:#eef1ed;--muted:#89939a;--line:#2b343b;--cyan:#72c9ef;--gold:#d9ad62;--green:#9ed88c}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(18px,env(safe-area-inset-top)) 14px max(24px,env(safe-area-inset-bottom))}
+main{width:min(980px,100%);margin:auto}
+header{display:grid;grid-template-columns:1fr minmax(220px,360px);gap:24px;align-items:end;padding:30px 0 18px;border-bottom:1px solid var(--line)}
+.ey{font-size:9px;letter-spacing:.2em;color:var(--muted)}
+h1{margin:8px 0 0;font:800 clamp(38px,8vw,78px)/.86 system-ui,-apple-system,sans-serif;letter-spacing:-.065em}
+.intro{color:#a8b0b5;font:12px/1.6 system-ui,-apple-system,sans-serif}
+.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:1px;margin-top:16px;background:var(--line);border:1px solid var(--line)}
+.card{background:var(--panel);padding:20px;min-height:360px;display:flex;flex-direction:column}
+.kicker{font-size:9px;letter-spacing:.17em;color:#69757d}
+.name{margin-top:34px;font:800 clamp(29px,5vw,48px)/.9 system-ui,-apple-system,sans-serif;letter-spacing:-.055em}
+.desc{margin-top:18px;max-width:58ch;color:#aab3b9;font:12px/1.6 system-ui,-apple-system,sans-serif}
+.primary{display:block;margin-top:22px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--ink);text-decoration:none;font-weight:800;letter-spacing:.1em}
+.fold .primary{color:var(--cyan)} .verse .primary{color:var(--gold)}
+.leaves{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:auto;background:var(--line);border:1px solid var(--line)}
+.leaves a{background:#090d11;color:var(--ink);text-decoration:none;padding:11px;min-height:92px}
+.leaves b{display:block;font-size:10px}
+.leaves span{display:block;margin-top:5px;color:var(--muted);font-size:8px;line-height:1.45}
+.meta{margin-top:auto;padding-top:28px;color:var(--muted);font-size:9px;line-height:1.7}
+.meta b{color:var(--green)}
+footer{display:flex;justify-content:space-between;gap:20px;padding-top:13px;color:#65717a;font-size:9px}
+footer a{color:#7e8a91;text-decoration:none;border-bottom:1px solid #3b454c}
+@media(max-width:760px){
+ header,.grid{grid-template-columns:1fr}
+ header{gap:16px}
+ .card{min-height:0}
+ .name{margin-top:24px}
+ .leaves{grid-template-columns:1fr}
+ .leaves a{min-height:0}
+ footer{display:block}
+ footer span{display:block;margin-top:7px}
 }
 </style>
-<style id=core>
-  *,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;text-rendering: optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-kerning:auto;}
-  p{text-align:justify;}
-  p+p{margin-top:0;text-indent:2em;}
-  *+*{margin-top:0}.tight>*{margin-top:var(--XS)}.margins-off>*{margin-top:0;}
-  body{font-family:var(--SYSFONTS);font-size:var(--FONTSIZE);background-color:var(--K0);color:var(--K2); padding-top:-3;overflow:hidden;height:100vh;}
-  section *{height:auto;width:auto;}
-</style>
-<style id=cube>
-  .view
-    {--W:100vw
-    ;--H:100vh
-    ;--PERSP:32em
-    ;position:absolute
-    ;transform-origin:calc(-0.5*var(--W)) calc(-0.5*var(--H)) 0
-    ;overflow:hidden
-    ;perspective:var(--PERSP)
-    ;left:0;top:0
-    ;}
-.room
-    {height:var(--H)
-    ;width:var(--W)
-    ;margin:0
-    ;transform-style:preserve-3d
-    ;transform:translateZ(calc(-0.5*var(--W)))
-    ;transition:var(--TRANSITION)
-    ;}
-.room.face
-    {position:absolute
-    ;outline:var(--OL0)
-    ;box-shadow: var(--REVEALS)
-    ;height:100%;width:100%
-    ;}
-.room.f{transform:translateZ(calc(-0.5*var(--W)))}
-.room.o{transform:rotateX(0deg)translateZ(calc(0.5*var(--W)))}
-.room.l{transform:rotateY(90deg)translateZ(calc(-0.5*var(--W)))}
-.room.r{transform:rotateY(-90deg)translateZ(calc(-0.5*var(--W)))}
-.room.w{transform:rotateX(90deg)rotateZ(0deg)translateZ(calc(0.5*var(--W)))scaleY(-1);height:var(--W);}
-.room.e{transform:rotateX(90deg)translateZ(calc(0.5*var(--W)))translateZ(calc(-1*var(--H)));height:var(--W);}
-</style>
-<style id=interface>
-:focus{outline:var(--OL0);}
-input {font-size: var(--EM); background-color: transparent; border:none; color:var(--Cc3); width:3em;  opacity:.5;}
-input:focus {height:var(--EM); background-color: var(--Cc3);color:var(--K5);}
-#BODY{transition:var(--TRANSITION);}
+</head>
+<body>
+<main>
+<header>
+  <div><div class="ey">CENTRE MASS · PUBLIC SHOWCASE</div><h1>Stable surfaces.<br>Visible ancestry.</h1></div>
+  <div class="intro">A small index of finished browser instruments. Families stay separate when their interaction model or proof target differs; frozen releases are not silently merged into a single “latest” build.</div>
+</header>
 
-#MIND{position:absolute;height:100%;width:100%;left:0;top:0;z-index:1;}
-#WILL{z-index:1;width:auto;height:auto;}
+<section class="grid" aria-label="Public showcase">
+  <article class="card fold">
+    <div class="kicker">01 / FAMILY · THREE FROZEN BRANCHES</div>
+    <div class="name">FOLD//<br>BLOOM</div>
+    <div class="desc">Three deliberately separate experiments around composition, ecology and scale. Use the family hub to compare them, or enter a frozen branch directly.</div>
+    <a class="primary" href="./fold-bloom/">OPEN THREE-BRANCH SHOWCASE →</a>
+    <div class="leaves" aria-label="FOLD BLOOM branches">
+      <a href="./fold-bloom/two-dial/"><b>TWO DIAL</b><span>composition engine · embodied cyclic control</span></a>
+      <a href="./fold-bloom/ecology/"><b>ECOLOGY 0.2</b><span>game/ecology · lineage · mute-first score</span></a>
+      <a href="./fold-bloom/lens/"><b>SCALE LENS</b><span>stable identity · projection · reversible RETURN</span></a>
+    </div>
+  </article>
 
-#ENTRY{position:absolute;height:var(--EM);width:auto;z-index:2;outline:var(--OL1);}
-#ENTRY *{margin:calc(var(--HALF)*var(--EM));display:block;}
-#INPUT{position:relative;height:2em; width:auto; opacity:.5; outline:var(--OL1);}
-#OUT{bottom:-115%;width:calc(0.5*var(--CW));
-  position:relative; 
-  height:2em;
-  width:auto;
-  overflow-y:hidden;}
-#IN{width:calc(0.5*var(--CW));
-  position:relative; 
-  height:2em;
-  width:auto;} 
-#OUT *,#IN *{display:inline-block;margin:0;}
-#OUT>*:focus >*,#OUT>*:hover >*,#IN>*:focus >*,#IN>*:hover >*, #sider>*:focus >*, #sider>*:hover >*, #sidel>*:focus >*, #sidel>*:hover >*{
-  /*overflow:visible;*/
-  position:relative;
-  height:4em;width:4em;
-  /*transform:scale3d(2,2,1);*/
-  box-shadow:  0 0 3em var(--K3);
-  opacity:.5;
-  z-index:3;}
-/*#keyring:hover,#keyring:focus {box-shadow:  0 0 3em var(--C_3);} */
-/*#keyring:hover >*,#keyring:focus >* { transform:scale3d(1.5,1.5,1);}*/
-#keyring{  
-  height:8em;width:8em;
-  position:absolute;
-  top:0%;
-  right:100%;
-  /*left:-100%;*/
-  /*width:100%;*/
-  /*overflow:hidden;*/
-}
-#STACK{display:inline;height:2em;overflow-x:scroll;}
-#keyring *{display:inline;margin:0;}
-.icon { height: 2em; width:2em; 
-  outline:var(--OL1);
-  background-color:var(--K3);
-  position:relative;
-  overflow:hidden;
-  opacity:1;}
-.active{box-shadow: inset 0 0 1em var(--K3);color:var(--R4);}
-</style>
-<style id=utility>
-.reset-all-styles{all:initial;}
-.X{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
-.hidden{display:none;}
-.invisible{visibility:hidden;}
-.ref{position: relative; }.refcard{position:relative;visibility:hidden;left:100%;top:10%;width:100%;}.ref:hover{overflow:visible;}.ref:hover>.refcard{visibility: visible;}
-.nopoint{pointer-events:none !important;}.nopoint>*{pointer-events:auto !important;;}
-/*.pointed{pointer-events:auto;}*/
-.hlbg{background:var(--Cc5);}
-.untransform{transform:none !important;}
-.sunroof{background:linear-gradient(to bottom, #000066 10%,#1e528e 20%, #880000 50%, #e9ce5d 100%);}                                </style></head><body
-id=BODY                                           ><section 
-id=MIND class=''                                  ><span
-id=STACK class='X'                                ></span><form 
-id=WILL class='X'                                 ><div 
-id=ENTRY class=''                                 ><div 
-id=OUT  class=''                                  ></div><input
-id=INPUT type="text" class='' spellcheck='false'  /><div
-id=IN class=''                                    ></div></div></form></section><div 
-id=VIEW0 class=view                               ><div 
-id=ROOM0 class=room                               ><div 
-class='room face f'                               ></div><div
-class='room face l'                               ></div><div
-class='room face o'                               ></div><div
-class='room face w'                               ></div><div
-class='room face e'                               ></div><div
-class='room face r'                               ></div></div></div><script id="#">
-world=window,yes=true,no=false,duh=undefined
-let AudioContext = world.AudioContext||world.webkitAudioContext||false
-SENSES=
-[['ac',"new AudioContext"]
-,['utter',"new SpeechSynthesisUtterance"]
-,['cv',"document.body.appendChild(document.createElement('canvas')).getContext('2d')"]]
-PRELUDE=
-[['within',"o=>k=>o[k]"]
-,['wherewithin',"o=>k=>(a,b)=>o[k](a,b)"]
-,['protocall',"o=>m=>(...f)=>g=> o['prototype'][m]['call'](g,...f)"]
-,['properkeys',"x=>within(Object)('getOwnPropertyNames')(x)"]
-,['protokeys',"x=>properkeys(within(x)('prototype'))"]
-,['knowby',"(name,who_knows=this)=>thing=>who_knows[name]=thing"]
-,['release',"(where={})=>f=>xs=>xs.reduce((a,x)=>(knowby(x,a)(f(x)),a),where)"]
-release({})(b=>a=>eq(b)(type(a)))(split(',')(RC.TYPES.primitives))
-,['funpack',"(pack,where=this)=> pack.map(fun=>knowby(fun[0],fun[2]||where)(eval(fun[1])))"]
-,['BASICOPERATORS',`({add:b=>a=>a+b,sub:b=>a=>a-b,mul:b=>a=>a*b,div:b=>a=>a/b,pow:b=>a=>a**b,cyc:b=>a=>a%b,eq:b=>a=>a===b,ne:b=>a=>a!==b,gt:b=>a=>a>b,lt:b=>a=>a<b,lte:b=>a=>a<=b,gte:b=>a=>a>=b,or:b=>a=>a||b,and:b=>a=>a&&b,xor:b=>a=>(a&&!b)||(!a&&b),not:a=>!a,fort:a=>!!a,decr:(a,b=1)=>a-=b,incr:(a,b=1)=>a+=b,dec1:a=>a--,inc1:a=>a++,AND:b=>a=>a&b,OR:b=>a=>a|b,XOR:b=>a=>a^b,NOT:a=>~a,SHIFTL:b=>a=>a<<b,SHIFTR:b=>a=>a>>b,SHIFTR0:b=>a=>a>>>b,ife:a=>b=>a?a:b,ift:p=>f=>p?f:{},ifte:p=>f=>g=>p?f:g})`]
-]/*within wherewithin protocall proprekeys protokeys know_by release funpack BASICOPERATORS*/.map(fun=>world[fun[0]]=eval(fun[1]))
-FREEDOOM= /*  */
-[['captive',"(X,F,g)=>({X,F,Ks:typeof g==='function'?g(X):g})"]
-,['RELEASE',"({X,F,Ks})=>release(where) (F(X)) (Ks)"]
-,['RELEASE_THE',"(captives,where={})=> captives.reduce( (_,{X,F,Ks})=>release(where) (F(X)) (Ks))"]
-];[SENSES,PRELUDE,FREEDOOM].map(funs=>funpack(funs))
-KRAKEN=
-[[[Element,Node,Number,String,RegExp,Array],[protocall,protokeys]] 
-,[[document],[wherewithin, protokeys(Document).filter(s=>s.match(/(^get|create|element|query|url)/gi))]]//TODO: filterdox   
-,[[ac],  [wherewithin,  protokeys(/*BaseAudioContext*/AudioContext)] ]
-,[[utter], [wherewithin, protokeys(SpeechSynthesisUtterance)]]
-,[[speechSynthesis], [within, ['pause','resume','cancel', 'speaking','pending','paused', 'onvoiceschanged']]]
-,[[cv],[wherewithin,properkeys(CanvasRenderingContext2D.prototype).filter(s=>!s.match(/(fill|filter)/gi))] ]
-,[[Object,Date,Math,BASICOPERATORS],[within,properkeys]]
-].reduce((a,c,i,o)=>a.concat(o[i][0].map(x=>[x,...o[i][1]])),[])
-.map(captives=>captive(...captives))
-RELEASE_THE(KRAKEN,/*!!End the*/world)
+  <article class="card verse">
+    <div class="kicker">02 / FOUNDRY · CONVERGENCE GATE</div>
+    <div class="name">VERSE<br>ATLAS</div>
+    <div class="desc">One Chinese verse object projected through editing, grid addresses, typed paths, study views, positional comparison, glyph compression, temporal reading and RETURN—with evidence classes kept explicit.</div>
+    <a class="primary" href="./foundry/verse-atlas/">OPEN VERSE ATLAS →</a>
+    <div class="meta"><b>SEPARATE ON PURPOSE</b><br>FOLD//BLOOM explores playable systems. Verse Atlas tests identity, evidence and reversible projection. Shared mechanisms may converge later; the public release surface does not pretend they already have.</div>
+  </article>
+</section>
 
-LOGIC={}
-
-within = o=>k=>o[k]
-knowby = (k,o=this)=>v=>(o)[k]=v //Option to log this?
-
-type = (x)=>({}).toString.call(x).slice(8,-1).toLowerCase()
-
-head = ([xs])=>xs
-last = xs=>slice(-1)(xs)
-tillLast = xs=>slice(0,-1)(xs)
-tail = ([,...xs])=>xs
-
-flow = (...fs)=> reduce((L,R)=>(...xs) =>R(L(...xs)))(fs)
-wolf = (...fs)=> reduce((L,R)=>(...xs) =>L(R(...xs)))(fs)
-
-lens = get=>set=> ({get,set})
-get = l=>o=> within(l)('get')(o)
-set = (l)=>v=>o=> (within(l)('set')(v)(o),o)
-over = (l)=>f=>o=> (set(l)(f(get(l)(o)))(o),o)
-sentry=(o,l=fov)=>(z)=>(map(x=>set(lens(x[0]))(x[1])(z))(entries(o)),z)
-gentry=(xs,l=fov)=>(z)=>(reduce((a,x)=>(a[x]=get(lens(x))(z),a) ,{})(xs))
-getpath = (xs,l=fov)=>o=> flow(...map(get)(map(l)(xs)))(o)
-setpath = (xs,l=fov)=>v=>o=> (set(l(last(xs)))(v)(xs.length>1?getpath(tillLast(xs))(o):o),o)
-overpath = (xs,l=fov)=>f=>o=> (set(l(last(xs)))(f(getpath(xs)(o)))(xs.length>1?getpath(tillLast(xs))(o):o),o)
-
-fov = (k,lens)=> assign({get:o=>within(o)(k),set:v=>o=>knowby(k,o)(v)},lens)
-focii = (keys,lens=fov,ctx={})=>release(ctx)(fov)(keys)
-
-pusharr = v=>arr=> set(fov(arr.length))(v)(arr)
-
-// STORE
-store = (s={},is=[])=> ({state: ()=> s, transform: x=>o=> (s=x(s,o), is.map(i=>i(s)), s), listen: cb=> is.push(cb), listeners: is})
-// stock = $tore=>prop=> $tore.transform((state,o)=>over(fov(prop))(o)(state))
-stockpath = $tore=>props=> $tore.transform((state,o)=>setpath(props)(o)(state))
-
-// transducer
-across    = s=>i=>ns=>reduce(s,i)(ns)
-transduce = ings=>r=>i=>ns=>across(ings(r))(i)(ns)
-mapping   = g=>f=>(x,ns)=>f(x,g(ns))
-filtering = q=>r=>(p,ps)=>q(ps,p)?r(p,ps):p
-minding   = d=>r=>(p,xs,i=0)=>r(p,d(xs,p))
-finding   = q=>r=>(p,ps)=>q(ps,p)?r(p,ps):p
-dropping  = d=>r=>(p,q)=>--d>=0?p:r(p,q)
-taking    = d=>r=>(p,q)=>--d>=0?r(p,q):p
-gating    = e=>(...k)=>filtering(e(...k))
-shovel    = (hole,thing)=>(push(thing)(hole),hole)
-
-size=x=>LOGIC.size[type(x)](x)
-
-set
-  (fov('size'))
-   ({array: x=> x.length
-   ,string: x=> new Blob([x.replace(/./gu,'.')]).size
-   ,object: x=> x.size||x.length||Object.keys(x).length})
-  (LOGIC)
-
-focss = (k,lens)=>({get:o=>getComputedStyle(o).getPropertyValue(k),set:v=>o=>o.style.setProperty(k,v)})
-
-
-
-</script>
+<footer>
+  <span>RELEASE RULE · preserve ancestry · expose stable entry points · reopen only for visible gain or blocking defects.</span>
+  <span><a href="./foundry/">FOUNDRY WORKBENCH</a> · secondary / broader convergence index</span>
+</footer>
+</main>
 </body>
 </html>
