@@ -1,0 +1,19 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "VERSE ATLAS",
+  "route": "/foundry/verse-atlas/",
+  "state": "STABLE",
+  "operation": "REPRESENT",
+  "released": "2026-09-18",
+  "representative_interaction": "GRID/PATH projection → traverse stable addresses → RETURN → FREEZE receipt",
+  "validation": {
+    "viewport_meta": "PASS",
+    "responsive_source": "PASS",
+    "javascript_syntax": "PASS",
+    "required_controls": "tabs/matrix/RSVP play/RETURN freeze present",
+    "showcase_return_adapter": "PASS",
+    "source_route": "PASS"
+  },
+  "epistemic_boundary": "Geometry remains a projection; it is not silently promoted to prosody or meaning.",
+  "known_gap": "Live rendered mobile/desktop representative interaction remains externally unverified from this execution environment."
+}
