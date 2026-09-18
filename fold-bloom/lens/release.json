@@ -1,0 +1,40 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "Scale Lens Studio",
+  "version": "RC11.2",
+  "patch": "g2-interop-1",
+  "route": "/fold-bloom/lens/",
+  "state": "STABLE",
+  "operation": "REPRESENT",
+  "released": "2026-09-18",
+  "lineage": [
+    "Scale Lens RC11",
+    "Scale Lens RC11.2",
+    "G2 Intake→Lens identity adapter contract"
+  ],
+  "delta": [
+    "separate upstream canonical IDENTITY from Lens-local node/projection/range addresses",
+    "detect poly.ingress/v0.4 DayState imports and bind descendant nodes to upstream record identity",
+    "preserve upstream source evidence, refs, ingress event IDs and receipt IDs",
+    "emit exact Field Intake RETURN address #record=<canonical-id>",
+    "add release-safe synthetic Intake sample for direct interoperability testing"
+  ],
+  "validation": {
+    "private_adapter_selftest": "11/11 PASS",
+    "committed_javascript_syntax": "PASS",
+    "committed_parser_runtime_fixture": {
+      "pass": true,
+      "bound_nodes": 20,
+      "leaf_cells": 9,
+      "canonical_identity": "o:fixture-alpha-g2",
+      "return_address": "/field-intake/#record=o%3Afixture-alpha-g2",
+      "event_lineage": [
+        "event:g2:add"
+      ],
+      "receipt_lineage": [
+        "receipt:g2"
+      ]
+    }
+  },
+  "known_gap": "Representative live mobile/desktop interaction still belongs to the broader showcase audit. RC11.3 portrait work remains a separate unfinished branch and is not silently promoted here."
+}
