@@ -565,6 +565,17 @@
       "version": "0.1",
       "receipt": "/forward-field-proof/triangle/release.json",
       "showcase_card": false
+    },
+    {
+      "href": "/router-bench/",
+      "title": "ROUTER BENCH 0.1",
+      "kind": "workbench",
+      "parent": "/",
+      "family": "ROUTER",
+      "state": "EXPERIMENT",
+      "version": "0.1",
+      "receipt": "/router-bench/release.json",
+      "showcase_card": false
     }
   ],
   "release_law": [
@@ -586,7 +597,8 @@
     "showcase_trace": "All nine showcase cards now have a release receipt/status route. Source-level interaction/responsive checks are recorded; external live mobile/desktop smoke remains blocked from the current execution environment.",
     "capability_map": "Root showcase now exposes a transfer-oriented reading of the same nine public cards. Transfer labels describe reusable mechanisms, not additional public artifacts or a claim that a monolithic agent already exists.",
     "routing": "Nine public showcase artifacts now expose accepts/transforms/emits/evidence contracts. agent-router.json may compose or skip stages and selects the smallest adequate route under permission, reversibility and evidence constraints.",
-    "execution_boundary": "Showcase contracts are public semantic/reference interfaces only. Private personal traffic and credentials belong to private runtime adapters; no public showcase route is an implicit execution endpoint."
+    "execution_boundary": "Showcase contracts are public semantic/reference interfaces only. Private personal traffic and credentials belong to private runtime adapters; no public showcase route is an implicit execution endpoint.",
+    "router_bench": "Deterministic public workbench over the live capability contracts and adapter declarations. It simulates routing/permission/RETURN only; private execution remains outside the public surface."
   },
   "capability_model": {
     "CAPTURE": {
@@ -634,5 +646,7 @@
   },
   "contract_schema": "/capability-contract.schema.json",
   "router_model": "/agent-router.json",
-  "router_tests": "/agent-router-cases.json"
+  "router_tests": "/agent-router-cases.json",
+  "adapter_registry": "/private-adapter-registry.json",
+  "router_bench": "/router-bench/"
 }
