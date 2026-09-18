@@ -41,7 +41,8 @@
       "family": "FOLD // BLOOM",
       "operation": "PLAY",
       "state": "STABLE",
-      "version": "0.9"
+      "version": "0.9",
+      "receipt": "/fold-bloom/two-dial/release.json"
     },
     {
       "href": "/fold-bloom/ecology/",
@@ -91,7 +92,8 @@
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "REPRESENT",
-      "state": "STABLE"
+      "state": "STABLE",
+      "receipt": "/foundry/verse-atlas/release.json"
     },
     {
       "href": "/foundry/convergence/",
@@ -107,7 +109,8 @@
       "parent": "/foundry/convergence/",
       "family": "FOUNDRY",
       "operation": "PROVE",
-      "state": "STABLE"
+      "state": "STABLE",
+      "receipt": "/foundry/convergence/identity-lab.release.json"
     },
     {
       "href": "/atlas-dayline/",
@@ -115,7 +118,8 @@
       "kind": "artifact",
       "parent": "/",
       "operation": "PLAN",
-      "state": "STABLE"
+      "state": "STABLE",
+      "receipt": "/atlas-dayline/release.json"
     },
     {
       "href": "/forward-field-proof/",
@@ -123,7 +127,8 @@
       "kind": "artifact",
       "parent": "/",
       "operation": "PROVE",
-      "state": "STABLE"
+      "state": "STABLE",
+      "receipt": "/forward-field-proof/release.json"
     },
     {
       "href": "/forward-field-proof/triangle/",
@@ -152,6 +157,7 @@
     "field_intake": "Recovered from prior public release; runtime blobs preserved, service-worker cache cleanup narrowed to its own cache family.",
     "sleeper": "Public experiment. Same canonical state is exposed as first-person coupled law field and plain obligation list; geometry is explicitly not external truth.",
     "scale_lens": "RC11.2 remains the stable public head. G2 identity/RETURN is unchanged; optional spatial-donor-1 adds a projection-only Matrix/CSS3D lineage view. RC11.3 remains an unfinished forward branch and is not silently promoted here.",
-    "triangle_bench": "Nested Field / Proof experiment. EXPLOIT / EXPLORE / PROVE simplex compared against a plain two-control allocation; no showcase card."
+    "triangle_bench": "Nested Field / Proof experiment. EXPLOIT / EXPLORE / PROVE simplex compared against a plain two-control allocation; no showcase card.",
+    "showcase_trace": "All nine showcase cards now have a release receipt/status route. Source-level interaction/responsive checks are recorded; external live mobile/desktop smoke remains blocked from the current execution environment."
   }
 }
