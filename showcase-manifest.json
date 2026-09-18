@@ -398,21 +398,69 @@
     },
     {
       "href": "/foundry/axial/",
-      "title": "AXIAL / STATE × TRANSFORM 0.3",
+      "title": "AXIAL / STATE × TRANSFORM 0.4",
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "PROVE",
       "state": "EXPERIMENT",
-      "version": "0.3",
+      "version": "0.4",
       "receipt": "/foundry/axial/release.json",
       "showcase_card": false,
       "transfer": [
         "tangible semantic control",
         "continuous embodied transforms",
         "transaction/commit semantics",
+        "provenance-first interaction",
         "machine-readable physical bridge"
-      ]
+      ],
+      "event_schema": "/foundry/axial/event.schema.json",
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "detented semantic state",
+            "axial/twist transform",
+            "transaction gate"
+          ],
+          "requires": [],
+          "optional": [
+            "trial target",
+            "AXIAL_PACKET"
+          ]
+        },
+        "transforms": {
+          "verb": "compose discrete meaning with continuous embodied transform, then latch consequence through ARM/RUN",
+          "preserves": [
+            "semantic address",
+            "latched snapshot",
+            "event ancestry",
+            "return path"
+          ],
+          "reversibility": "bounded",
+          "side_effects": "local"
+        },
+        "emits": {
+          "kinds": [
+            "live state packet",
+            "interaction event",
+            "applied projection",
+            "RETURN receipt"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/foundry/axial/release.json",
+          "checks": [
+            "10-trial harness",
+            "before/gesture/after trace",
+            "ARM snapshot",
+            "RUN receipt",
+            "physical comparison still required"
+          ],
+          "return_path": "/foundry/axial/"
+        }
+      }
     },
     {
       "href": "/foundry/convergence/identity-lab.html",
@@ -655,7 +703,7 @@
     "policy_selector": "Deterministic exact/pattern/tag/fallback selectors. Exact > pattern > tag > fallback is trace/fallback precedence only; every matching non-fallback policy composes, so broader denies and locks remain effective.",
     "policy_trace": "Append-only causal trace spans selector clauses, matched policy revisions, inheritance, every operation, accepted/rejected grants, deny events, lock events, stage results, seven final gates and terminal resolution; raw payload/secrets stay out.",
     "forward_center_mass": "Parallel control projection: 117 memory objects → 8 reusable operators → ≤3 active execution fronts → local RETURN receipts. Heuristic projection; does not rewrite federation canon.",
-    "axial": "Experimental physical/digital interface head. Not a tenth showcase card; promotion requires digital trial plus one physical nested-tube comparison with receipts."
+    "axial": "Canonical AXIAL experiment remains /foundry/axial/ and is intentionally not a root showcase card. v0.4 adds an ancestry-linked before/gesture/after event ledger and schema; promotion still requires interpretable digital-trial and physical nested-tube receipts."
   },
   "capability_model": {
     "CAPTURE": {
