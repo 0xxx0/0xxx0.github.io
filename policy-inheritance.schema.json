@@ -67,7 +67,11 @@
         "grant_rule",
         "locked_rule",
         "cycle_rule",
-        "trace_required"
+        "trace_required",
+        "selector_match_rule",
+        "selector_precedence_rule",
+        "fallback_rule",
+        "grant_specificity_rule"
       ],
       "properties": {
         "stages": {
@@ -105,6 +109,18 @@
         },
         "trace_required": {
           "const": true
+        },
+        "selector_match_rule": {
+          "const": "all matching non-fallback policies remain in the merge set; specificity never discards broader restrictions"
+        },
+        "selector_precedence_rule": {
+          "const": "within a layer: exact > pattern > tag > fallback; more matched positive clauses breaks same-class ties; selector_id lexical order is trace-only"
+        },
+        "fallback_rule": {
+          "const": "fallback activates only when zero non-fallback selectors match the same layer/domain branch"
+        },
+        "grant_specificity_rule": {
+          "const": "authorized grant may widen only non-deny non-locked restrictions at lower-or-equal effective specificity; explicit deny and lock are never widened"
         }
       },
       "additionalProperties": false
@@ -194,7 +210,8 @@
           "layer",
           "mode",
           "authority",
-          "operations"
+          "operations",
+          "selector"
         ],
         "properties": {
           "id": {
