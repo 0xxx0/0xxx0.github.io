@@ -1,0 +1,137 @@
+{
+  "schema": "0xxx0/hermes-queue/v0.1",
+  "updated": "2026-09-19",
+  "authority": "READ / RESEARCH / RECOVER / ANALYZE / PREPARE_PACKETS. No canonical writes unless separately granted.",
+  "poll_order": [
+    "/dock/",
+    "/control/ORIENTATION.json",
+    "/control/CURRENT.json",
+    "/control/QUEUE.json",
+    "/control/HERMES_QUEUE.json",
+    "/control/MIGRATION.json",
+    "/control/CENSUS.json",
+    "/control/REPRESENTATION.json"
+  ],
+  "global_cycle": [
+    "REORIENT: state SCALE / OBJECT / STATE / DELTA / RECEIPT.",
+    "Select one task only.",
+    "Recover/source before synthesizing.",
+    "Produce one bounded packet or receipt.",
+    "Return to DOCK before selecting another task."
+  ],
+  "workers": [
+    {
+      "id": "ARCHAEOLOGIST",
+      "cadence": "continuous while idle",
+      "mission": "Reduce apparent project count and recover exact lineage.",
+      "loop": [
+        "locate exact artifact",
+        "record source/date/hash if possible",
+        "collapse exact duplicates",
+        "cluster versions",
+        "identify current head/donor/ancestor",
+        "state unique mechanism",
+        "prepare repo-copy packet",
+        "emit residue"
+      ],
+      "stop": "Do not redesign during ingest. Do not open a new architecture."
+    },
+    {
+      "id": "TRANSLATOR",
+      "cadence": "after an object is recovered or a front has a concrete representation problem",
+      "mission": "Test whether another projection materially improves action/recovery/comprehension.",
+      "inputs": [
+        "canonical object/state",
+        "current projection",
+        "candidate projection from REPRESENTATION.json"
+      ],
+      "output": [
+        "PRESERVES",
+        "HIDES",
+        "PERMITS",
+        "ROUND_TRIP",
+        "PLAIN_BASELINE",
+        "TEST",
+        "RETURN"
+      ],
+      "stop": "If candidate adds ornament but no improved task, keep it donor/experiment."
+    },
+    {
+      "id": "QA_RENAMER",
+      "cadence": "after recovery, before public promotion",
+      "mission": "Remove appslop/dashboard-porn patterns and make names/verbs intuitive without erasing lineage.",
+      "output": [
+        "CURRENT_NAME",
+        "ACTUAL_VERB",
+        "CONFUSION",
+        "DELETE_OR_RENAME",
+        "UNIQUE_MECHANISM",
+        "PUBLIC_SURFACE_DECISION"
+      ],
+      "stop": "Do not rename canonical IDs or rewrite history; aliases/public labels may change."
+    },
+    {
+      "id": "PIPELINE_SCOUT",
+      "cadence": "low priority / research only",
+      "mission": "Find existing tools that reduce implementation cost for media ingest, print/proof, messaging bridges, local automation, and artifact publication.",
+      "output": [
+        "TOOL",
+        "WHAT_FUNCTION_IT_REPLACES",
+        "LOCAL/REMOTE",
+        "DATA_BOUNDARY",
+        "REVERSIBILITY",
+        "INTEGRATION_COST",
+        "TEST_WITH_OWNED_DATA",
+        "REJECT_IF"
+      ],
+      "stop": "Research only tools that alter a current build decision."
+    }
+  ],
+  "ready_tasks": [
+    {
+      "id": "REP-01",
+      "worker": "TRANSLATOR",
+      "task": "Compare Fold/Bloom, Scale Lens, Dayline/Aperture, Painting/Path and plain-list projections against one shared object fixture. Identify the minimum state contract that all can read without flattening their vocabularies.",
+      "receipt": "adapter table + one proposed round-trip fixture"
+    },
+    {
+      "id": "REC-01",
+      "worker": "ARCHAEOLOGIST",
+      "task": "Continue Sep 05–19 Library census and exact duplicate collapse; prioritize runnable HTML/source packs and print/physical artifacts.",
+      "receipt": "CENSUS additions + repo-copy packets"
+    },
+    {
+      "id": "PRINT-01",
+      "worker": "TRANSLATOR",
+      "task": "Recover Print/Proof + Pattern/Stencil mechanisms from Cassette Atlas / House OS materials and specify one digital→SVG/PDF→print→physical mark→photo/evidence→RETURN loop.",
+      "receipt": "one end-to-end print fixture spec"
+    },
+    {
+      "id": "BODY-01",
+      "worker": "TRANSLATOR",
+      "task": "Recover the transferable structure of the health/body/case template without importing private medical content. Define observations, anatomical addresses, events, evidence confidence, interventions and return receipts as a Domain Pack candidate.",
+      "receipt": "privacy-safe body/health adapter schema"
+    },
+    {
+      "id": "QA-01",
+      "worker": "QA_RENAMER",
+      "task": "Review public routes for noun-heavy generic dashboard/site patterns. For each, name the one verb it enables, or demote it from public surface.",
+      "receipt": "route audit with KEEP / RENAME / MERGE / DONOR / HIDE"
+    }
+  ],
+  "return_contract": {
+    "required": [
+      "task_id",
+      "scale",
+      "object",
+      "sources",
+      "findings",
+      "delta_or_packet",
+      "evidence",
+      "residue",
+      "one_next"
+    ],
+    "preferred_channel": "If Hermes has GitHub write access, open/update the matching issue or PR. Otherwise emit a portable markdown/JSON packet for manual ingest.",
+    "forbidden": "Do not silently mutate canonical repo state, email/social accounts, calendars, files, or physical devices."
+  }
+}
