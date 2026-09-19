@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>MIGRATION / RECOVERY</title>
+<style>
+:root{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#e9ecec;background:#090b0c}
+*{box-sizing:border-box}body{margin:0}main{max-width:1180px;margin:auto;padding:24px 16px 72px}a{color:#9ed7ff}
+header{display:grid;grid-template-columns:1fr auto;gap:18px;border-bottom:1px solid #343b3f;padding:8px 0 18px}h1{margin:8px 0 0;font-size:clamp(38px,8vw,82px);line-height:.86;letter-spacing:-.06em}
+.tag{font-size:10px;letter-spacing:.16em;color:#b0babf}nav{display:flex;gap:7px;flex-wrap:wrap;align-items:start}nav a,button{border:1px solid #3c474c;background:#0b0f11;color:#dfe5e7;padding:7px 9px;text-decoration:none;font:10px ui-monospace,monospace}
+.laws{display:flex;flex-wrap:wrap;gap:5px;margin:18px 0}.laws span{border:1px solid #30383c;padding:5px 7px;font-size:9px;color:#aab3b7}
+.head{display:flex;justify-content:space-between;gap:12px;align-items:end;margin:26px 0 8px;border-bottom:1px solid #343b3f;padding-bottom:6px}.head b{letter-spacing:.13em}.head span{font-size:9px;color:#879197}
+.filters{display:flex;gap:5px;flex-wrap:wrap;margin:0 0 10px}button{cursor:pointer}button.on{border-color:#b9c7cf;color:white}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:#2c3438;border:1px solid #2c3438}.card{background:#0d1113;padding:14px;min-height:188px}.card[hidden]{display:none}
+.top{display:flex;justify-content:space-between;gap:8px}.state{font-size:9px;border:1px solid #344148;padding:2px 5px}.LIVE_HEAD{color:#99dfa9}.LIVE_DONOR{color:#c9be83}.RECOVER{color:#f0a760}.IMPORT{color:#82c8f2}.QUARANTINE{color:#d28798}
+.card h2{margin:18px 0 8px;font:800 24px/1 system-ui,-apple-system,sans-serif;letter-spacing:-.045em}.family{font-size:9px;color:#7f8a90}.card p{font:11px/1.5 system-ui,-apple-system,sans-serif;color:#b8c0c3;margin:8px 0}
+.action{border-top:1px solid #293135;padding-top:8px;margin-top:12px;color:#e8ecee!important}.source{display:block;margin-top:9px;font-size:10px}
+.queue{display:grid;gap:1px;background:#2c3438;border:1px solid #2c3438;counter-reset:q}.queue div{background:#0d1113;padding:12px}.queue div:before{counter-increment:q;content:counter(q,decimal-leading-zero);color:#6f7b81;margin-right:12px}
+footer{margin-top:28px;color:#748087;font-size:10px}@media(max-width:760px){header{grid-template-columns:1fr}.grid{grid-template-columns:1fr}}
+</style></head><body><main>
+<header><div><div class="tag">COPY FIRST / CLASSIFY SECOND / MERGE THIRD</div><h1>MIGRATION<br>FIELD</h1></div><nav><a href="../">CURRENT</a><a href="../../">ROOT</a><a href="../MIGRATION.json">RAW JSON</a></nav></header>
+<div id="app">Loading ledger…</div><footer>No deletion during ingest. Exact artifacts outrank recollection. Generic shells remain quarantined until a mechanism pays rent.</footer>
+<script>
+fetch('../MIGRATION.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+ const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+ let filter='ALL';
+ const render=()=>{
+  const cards=d.artifacts.map(x=>`<article class="card" data-state="${esc(x.status)}" ${filter!=='ALL'&&filter!==x.status?'hidden':''}><div class="top"><span class="family">${esc(x.family)}</span><span class="state ${esc(x.status)}">${esc(x.status)}</span></div><h2>${esc(x.name)}</h2><p>${esc(x.unique||'')}</p>${x.route?`<a class="source" href="../..${esc(x.route)}">REPO → ${esc(x.route)}</a>`:''}${x.source_url?`<a class="source" href="${esc(x.source_url)}">SOURCE ↗</a>`:''}<p class="action"><b>NEXT</b> · ${esc(x.action||'')}</p></article>`).join('');
+  document.querySelector('.grid').innerHTML=cards;
+ };
+ document.getElementById('app').innerHTML=`<div class="laws">${d.laws.map(x=>'<span>'+esc(x)+'</span>').join('')}</div><div class="head"><b>ARTIFACTS</b><span>${d.artifacts.length} tracked</span></div><div class="filters"></div><section class="grid"></section><div class="head"><b>INGEST QUEUE</b><span>bounded order</span></div><section class="queue">${d.ingest_queue.map(x=>'<div>'+esc(x)+'</div>').join('')}</section>`;
+ const states=['ALL',...Object.keys(d.statuses)];
+ const f=document.querySelector('.filters');
+ f.innerHTML=states.map(s=>'<button data-s="'+esc(s)+'">'+esc(s)+'</button>').join('');
+ const set=s=>{filter=s;[...f.children].forEach(b=>b.classList.toggle('on',b.dataset.s===s));render()};
+ f.addEventListener('click',e=>{if(e.target.dataset.s)set(e.target.dataset.s)});
+ set('ALL');
+}).catch(e=>document.getElementById('app').textContent='MIGRATION.json unavailable: '+e.message);
+</script></main></body></html>
