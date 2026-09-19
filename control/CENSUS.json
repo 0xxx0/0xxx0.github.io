@@ -70,5 +70,24 @@
       "action": "recover concepts/artifacts later; keep held"
     }
   ],
-  "next": "Hash/index all accessible recent files, then classify by lineage. Exact duplicates reduce count before semantic clustering."
+  "next": [
+    "Mechanism-diff the two recovered donor families against current heads.",
+    "Continue exact-source search only for blocked Sleeper, historical Laconic bank and isolated Game-of-Names artifact.",
+    "Keep generated image/physical-source harvest separate from app recovery; attach provenance before promotion."
+  ],
+  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
+  "recovered_this_pass": [
+    {
+      "family": "path-grid-language",
+      "route": "/recovery/path-grid/",
+      "classification": "EXACT_FROZEN_DONOR_FAMILY",
+      "receipt": "/recovery/foundry-cabinet-v4/manifest.json"
+    },
+    {
+      "family": "fold-bloom",
+      "route": "/recovery/fold-bloom/fold-weave-0.1/",
+      "classification": "EXACT_FROZEN_DONOR",
+      "receipt": "/recovery/fold-bloom/fold-weave-0.1/manifest.json"
+    }
+  ]
 }
