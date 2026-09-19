@@ -1,0 +1,62 @@
+{
+  "schema": "0xxx0/recovery-validation/v0.1",
+  "id": "RECOVERY-VALIDATION-2026-09-19-A",
+  "date": "2026-09-19",
+  "validated_through_commit": "e9ccb4bbfba2d0b71fe1bee664f5d7c0da56b43b",
+  "result": "PASS_WITH_RENDER_BOUNDARY",
+  "checks": [
+    {
+      "check": "Foundry Cabinet V4 repo content equals exact Library source",
+      "result": "PASS"
+    },
+    {
+      "check": "Six extracted Cabinet instruments equal decoded embedded payloads",
+      "result": "PASS"
+    },
+    {
+      "check": "Fold Weave Library duplicate pair is text-identical",
+      "result": "PASS"
+    },
+    {
+      "check": "Frozen Fold Weave repo donor equals canonical Library copy",
+      "result": "PASS"
+    },
+    {
+      "check": "Recovery vault and recovered donor routes exist in repository",
+      "result": "PASS"
+    },
+    {
+      "check": "Root, recovery vault, Fold/Bloom hub inline JavaScript parses",
+      "result": "PASS"
+    },
+    {
+      "check": "Verse Atlas app JavaScript parses after RETURN replay transfer",
+      "result": "PASS"
+    },
+    {
+      "check": "Verse Atlas replay control/parser/selftest hooks present exactly once",
+      "result": "PASS"
+    },
+    {
+      "check": "Latest validated commit has reported combined status checks",
+      "result": "NO_STATUSES_REPORTED"
+    },
+    {
+      "check": "Rendered GitHub Pages smoke test",
+      "result": "UNVERIFIED_ENVIRONMENT",
+      "note": "Public Pages surface was inaccessible through the available browser channel; no rendered-pass claim is made."
+    }
+  ],
+  "exactness_boundaries": [
+    "Sleeper City Engine and Painting/Path remain blocked until exact source/assets or authorized checkpoint bytes are available.",
+    "Historical Laconic Script Bank canonical list remains missing; related exact fragments are not promoted as the missing canon.",
+    "Game of Names has archive lineage evidence but no isolated runnable/glyph artifact recovered; private archive material stays private."
+  ],
+  "receipts": [
+    "/control/RECOVERY_RUN_2026-09-19.json",
+    "/control/MECHANISM_DIFF_2026-09-19.json",
+    "/recovery/foundry-cabinet-v4/manifest.json",
+    "/recovery/fold-bloom/fold-weave-0.1/manifest.json"
+  ],
+  "next_gate": "No more broad recovery on solved families. Transfer only missing mechanisms with a receipt; otherwise advance ingest/reality RETURN."
+}
