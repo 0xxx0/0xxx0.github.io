@@ -1,0 +1,12 @@
+{
+  "schema": "0xxx0/fold-weave-recovery/v0.1",
+  "recovered": "2026-09-19",
+  "canonical_library_source": "file_0000000039748211b1e86d7c749b0e30",
+  "exact_duplicate": "file_0000000078b88207a022f93685feac22",
+  "size_bytes": 102137,
+  "text_identity_verified": true,
+  "route": "/recovery/fold-bloom/fold-weave-0.1/",
+  "classification": "FROZEN_DONOR",
+  "receipt_requirement": "repo content equals both Library copies",
+  "stop_condition": "One canonical exact copy exists in repo; duplicate remains untouched in Library; mechanism comparison against Two Dial / Ecology / Scale Lens is next."
+}
