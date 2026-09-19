@@ -1,0 +1,101 @@
+{
+  "schema": "0xxx0/recovery-run/v0.1",
+  "id": "RECOVERY-RUN-2026-09-19-A",
+  "date": "2026-09-19",
+  "rule": "recover -> verify -> classify -> expose minimally -> stop before redesign",
+  "recovered_families": [
+    {
+      "id": "foundry-cabinet-v4-family",
+      "name": "Foundry Cabinet V4 / Path-Grid family",
+      "family": "path-grid-language",
+      "status": "EXACT_FROZEN_DONOR_FAMILY",
+      "route": "/recovery/path-grid/",
+      "source_route": "/recovery/foundry-cabinet-v4/",
+      "source": {
+        "library_file": "index(20260915-203323).html",
+        "size_bytes": 778925,
+        "sha256": "cd4b153ce233fd8df612737bab7a4bfc0e00265379f672907ab8523ac9d56d27"
+      },
+      "exact_repo_checks": true,
+      "payloads": [
+        [
+          "/recovery/path-grid/grid-path-compiler-v4/",
+          "Grid Path Compiler V4"
+        ],
+        [
+          "/recovery/path-grid/projection-harness/",
+          "Projection Harness"
+        ],
+        [
+          "/recovery/path-grid/foundry-federation/",
+          "Foundry Federation"
+        ],
+        [
+          "/recovery/path-grid/market-solver/",
+          "Market + Solver"
+        ],
+        [
+          "/recovery/path-grid/cell-foundry-r2/",
+          "Cell Foundry R2"
+        ],
+        [
+          "/recovery/path-grid/anthropy-pathweaver/",
+          "ANTHROPY Pathweaver"
+        ]
+      ],
+      "summary": "Exact self-contained cabinet plus all six embedded UTF-8 instruments frozen in-repo. Compiler visibly contains LATIN CONTROL, MEANTOME 16x16, source-faithful Nine-Gate, EN/ZH/MS/TA learning lenses, and GRID/TEXT/GLYPH/RSVP projections.",
+      "receipt_requirement": "Repo content compared equal to Library cabinet and decoded embedded payloads.",
+      "stop_condition": "Do not redesign or promote. Next operation is mechanism diff against Verse Atlas / current Foundry heads."
+    },
+    {
+      "id": "fold-weave-0-1",
+      "name": "Fold/Bloom Fold Weave 0.1",
+      "family": "fold-bloom",
+      "status": "EXACT_FROZEN_DONOR",
+      "route": "/recovery/fold-bloom/fold-weave-0.1/",
+      "source": {
+        "library_file": "fold_bloom_fold_weave_01.html",
+        "size_bytes": 102137,
+        "exact_duplicate": "fold_bloom_fold_weave_01(1).html"
+      },
+      "exact_repo_checks": true,
+      "summary": "Both Library copies compared text-identical; one exact canonical repo donor frozen, duplicate left untouched.",
+      "receipt_requirement": "Repo content equals both Library copies.",
+      "stop_condition": "Mechanism diff only; do not count duplicate as a branch."
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "sleeper-city-painting-import",
+      "status": "BLOCKED_EXACT_SOURCE",
+      "sources": [
+        "https://sleeper-one-return.metaname.chatgpt.site/",
+        "https://sleeper-one-return.metaname.chatgpt.site/painting"
+      ],
+      "evidence": "Recorded URLs were not retrievable by current web access and failed DNS resolution from the execution container on 2026-09-19.",
+      "adjacent_exact_source": "Library contains sleeper_pov_v0.7_private_checkpoint.zip, 213577 bytes.",
+      "blocker": "Checkpoint ZIP is a Project-backed file with no authorized raw-byte materialization path in this session; it also has no parsed readable content.",
+      "stop_condition": "Do not reconstruct the City Engine or Painting/Path from descriptions. Resume only from exact source/assets or an authorized byte path."
+    },
+    {
+      "id": "laconic-historical-bank",
+      "status": "PARTIAL_EVIDENCE_CANONICAL_MISSING",
+      "evidence": "Existing recovery ledger identifies exact related response-bank hits, but explicitly records the original canonical Laconic Script Bank list as missing.",
+      "privacy": "Do not dump private conversation exports or personal traffic into the public repo.",
+      "stop_condition": "Promote historical lines to EXACT only when exact source text + source reference are recovered; otherwise keep current /laconic/ items classified RECONSTRUCTED or NEW."
+    },
+    {
+      "id": "game-of-names-lineage",
+      "status": "ARCHIVE_EVIDENCE_ONLY",
+      "evidence": "Conversation archive contains strong naming/identity/glyph-system lineage, but no isolated exact runnable/glyph artifact was located in this pass.",
+      "privacy": "Archive includes personal naming context; no raw archive export to public repo.",
+      "stop_condition": "Hold until an exact artifact is isolated; extract only transferable operations with provenance."
+    }
+  ],
+  "next": [
+    "Run mechanism diff: Grid Path Compiler V4 family vs Verse Atlas / current Foundry; transfer only missing functions.",
+    "Run mechanism diff: Fold Weave 0.1 vs Two Dial / Ecology / Scale Lens.",
+    "Resume Sleeper import only from exact source/assets or an authorized checkpoint-byte path.",
+    "Continue selective exact-source Laconic/Game-of-Names archaeology without publishing private raw history."
+  ]
+}
