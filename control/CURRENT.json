@@ -123,26 +123,41 @@
       "name": "Triangle Bench",
       "state": "PARKED",
       "rule": "resume only if AXIAL/proof work requires comparison evidence"
+    },
+    {
+      "name": "Foundry Cabinet V4 / exact path-grid family",
+      "state": "FROZEN_DONOR_FAMILY",
+      "route": "/recovery/path-grid/",
+      "rule": "compare mechanisms against Verse Atlas/Foundry; transfer only missing capability"
+    },
+    {
+      "name": "Fold/Bloom Fold Weave 0.1",
+      "state": "FROZEN_DONOR",
+      "route": "/recovery/fold-bloom/fold-weave-0.1/",
+      "rule": "one canonical exact copy; duplicate collapsed; mechanism diff only"
     }
   ],
   "recovery_targets": [
     {
       "id": "laconic-iconic-exact",
-      "status": "ACTIVE_RECOVERY",
+      "status": "PARTIAL_EVIDENCE_CANONICAL_BANK_MISSING",
       "query": "exact historical Laconic Script Bank / response consolidation / 5–6 voice lineage / recurring situations / Pareto winners / conversational trajectories",
-      "payoff": "Replace NEW reconstruction seeds with source-grounded EXACT/RECONSTRUCTED material without losing provenance; preserve originality, charm, wit and memorability while preventing generic drift."
+      "payoff": "Related exact response-bank evidence survives; original canonical Script Bank remains explicitly missing. Current /laconic/ keeps EXACT/RECONSTRUCTED/NEW separation.",
+      "receipt": "/control/RECOVERY_RUN_2026-09-19.json"
     },
     {
       "id": "sleeper-deep-lineage",
-      "status": "ACTIVE_RECOVERY",
+      "status": "BLOCKED_EXACT_IMPORT",
       "query": "Hostage/Floating/Kite/Spiral → ONE RETURN/Nine Gate → Semantic City → Workfield → Sleeper POV → WAKE/Atlas → minigame cascade",
-      "payoff": "Import the external City Engine + Painting/Path surfaces and recover deeper Sleeper mechanics without replacing current /sleeper/."
+      "payoff": "External City/Painting sources are unresolved; private v0.7 checkpoint is located but raw-byte access is blocked. No reconstruction allowed.",
+      "receipt": "/control/RECOVERY_RUN_2026-09-19.json"
     },
     {
       "id": "path-grid-deep-lineage",
-      "status": "ACTIVE_RECOVERY",
+      "status": "RECOVERED_EXACT_DONOR_FAMILY",
       "query": "Grid Path Compiler v4 → LATIN CONTROL / English geometry control → MEANTOME 16×16 → Anthropy Pathweaver → Foundry → Verse Atlas",
-      "payoff": "Recover the broader multilingual/path-weave artifacts that disappeared from visible navigation; freeze exact donors before dedup."
+      "payoff": "Exact Cabinet V4 + six embedded instruments now live under /recovery/path-grid/. Current Verse Atlas remains head; next action is mechanism diff.",
+      "receipt": "/control/RECOVERY_RUN_2026-09-19.json"
     },
     {
       "id": "image-artifact-harvest",
@@ -152,8 +167,8 @@
     }
   ],
   "next_single_action": {
-    "id": "recovery-census-01",
-    "instruction": "Continue exact-source recovery and recent-Library clustering. Preserve first, classify second, deduplicate third. In parallel, prepare a local-first file/media ingest dry-run that writes hashes/tags/reports but performs no unreviewed destructive moves."
+    "id": "mechanism-diff-01",
+    "instruction": "Compare the exact recovered Grid Path family against Verse Atlas/current Foundry, and Fold Weave against Two Dial/Ecology/Scale Lens. Transfer only a function that is demonstrably missing; otherwise leave donors frozen. Blocked Sleeper/Laconic/Game-of-Names archaeology proceeds exact-source-only."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
@@ -178,5 +193,6 @@
   ],
   "orientation": "/control/ORIENTATION.json",
   "execution_queue": "/control/QUEUE.json",
-  "dock": "/dock/"
+  "dock": "/dock/",
+  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json"
 }
