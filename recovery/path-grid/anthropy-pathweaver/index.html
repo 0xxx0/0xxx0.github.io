@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07090b">
+<title>ANTHROPY // PATHWEAVER</title>
+<style>
+:root{
+ --bg:#060708;--panel:#0b0f12;--panel2:#10161a;--ink:#eef1ed;--muted:#7e8d96;
+ --hair:#29343b;--hair2:#3a4850;--hot:#f2a24a;--cyan:#70d6e8;--green:#9bd17d;
+ --pink:#ef88b5;--red:#ef776f;--shadow:rgba(0,0,0,.42)
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:12px/1.38 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+button,input,select,textarea{font:inherit;color:inherit;background:#10161a;border:1px solid var(--hair);border-radius:8px;padding:8px}
+button{cursor:pointer;transition:.12s ease}button:hover{border-color:#61737d;transform:translateY(-1px)}
+button:active{transform:translateY(0)}
+button.primary{background:#19140d;border-color:#7b5832;color:#ffc77f}
+button.good{border-color:#527640;color:#bfe7a7}.danger{border-color:#75423f;color:#f3a29d}
+a{color:var(--cyan)}
+.app{height:100vh;display:grid;grid-template-rows:auto 1fr auto;overflow:hidden}
+.top{display:flex;align-items:center;gap:6px;padding:8px;border-bottom:1px solid var(--hair);background:#080b0dec;backdrop-filter:blur(8px);overflow:auto;z-index:20}
+.brand{font-weight:1000;letter-spacing:.15em;margin-right:8px;white-space:nowrap}
+.brand span{color:var(--hot)}
+.nav{white-space:nowrap}.nav.active{border-color:var(--hot);color:var(--hot)}
+.spacer{flex:1}.iconBtn{min-width:36px}
+.shell{min-height:0;display:grid;grid-template-columns:290px 1fr 310px}
+.side{background:var(--panel);overflow:auto;padding:10px}.left{border-right:1px solid var(--hair)}.right{border-left:1px solid var(--hair)}
+.stage{min-width:0;min-height:0;position:relative;background:radial-gradient(circle at 50% 45%,#121a1e,#030405 68%);overflow:hidden}
+#canvas{width:100%;height:100%;display:block;touch-action:none}
+.k{color:var(--muted);font-size:9px;letter-spacing:.15em;margin:13px 0 5px;text-transform:uppercase}
+.sub{color:var(--muted);font-size:10px}.mono{white-space:pre-wrap;color:#b7c2c8}.cyan{color:var(--cyan)}.hot{color:var(--hot)}.green{color:var(--green)}
+.row{display:flex;gap:5px;flex-wrap:wrap}.row>*{flex:1}.row button{min-width:max-content}
+.card{border:1px solid var(--hair);border-radius:9px;background:#0d1215;padding:9px;margin-bottom:7px}
+.card.sel{border-color:var(--cyan);box-shadow:0 0 0 1px #244c57 inset}.card h3{margin:0 0 4px;font-size:12px}
+.pill{display:inline-block;border:1px solid var(--hair);border-radius:999px;padding:2px 6px;margin:2px 2px 0 0;color:var(--muted);font-size:9px}
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:5px}.metric{border:1px solid var(--hair);border-radius:8px;padding:7px}.metric b{display:block;font-size:15px;color:var(--cyan)}
+.hero{position:absolute;left:14px;right:14px;bottom:14px;display:flex;gap:8px;align-items:end;pointer-events:none}
+.hero .box{max-width:690px;background:#080b0de9;border:1px solid var(--hair);border-radius:11px;padding:10px;box-shadow:0 12px 40px var(--shadow);pointer-events:auto}
+.hero .mission{font-size:15px;font-weight:900}.hero .instruction{margin-top:4px;color:#bac5ca}.hero .progress{height:3px;background:#182126;margin-top:8px;border-radius:4px;overflow:hidden}.hero .progress i{display:block;height:100%;background:var(--hot);width:0%}
+.toast{position:absolute;top:12px;left:50%;transform:translateX(-50%);background:#0a0e11ee;border:1px solid var(--hair);padding:8px 11px;border-radius:999px;opacity:0;pointer-events:none;transition:.2s;z-index:15}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(3px)}
+.modePanel{display:none}.modePanel.active{display:block}
+.sourceCard{cursor:pointer}.sourceCard .name{font-weight:800}.sourceCard .note{color:var(--muted);font-size:10px;margin-top:3px}
+.missionCard{cursor:pointer;position:relative;padding-left:34px}.missionCard .num{position:absolute;left:9px;top:9px;width:18px;height:18px;border:1px solid var(--hair);display:grid;place-items:center;border-radius:50%;color:var(--muted)}.missionCard.done .num{background:#18301d;border-color:#456a48;color:#bde7bd}.missionCard.locked{opacity:.42;cursor:not-allowed}
+textarea{width:100%;resize:vertical}
+.formLine{display:grid;grid-template-columns:22px 1fr 34px;gap:5px;align-items:center;margin-bottom:5px}.formLine input{min-width:0;font-size:17px;padding:7px}.count{color:var(--muted);text-align:right}.count.bad{color:var(--red)}.count.good{color:var(--green)}
+.segment{display:flex;gap:3px;flex-wrap:wrap;margin:4px 0 8px}.segment span{padding:3px 6px;border:1px solid var(--hair);border-radius:5px;min-width:24px;text-align:center}.segment .caes{margin-right:7px}
+#traceRead{font-size:14px;word-break:break-all}.capture{border-left:2px solid var(--hair);padding-left:7px;margin:7px 0}.capture:hover{border-left-color:var(--cyan)}
+#forgePreview{width:100%;aspect-ratio:1;border:1px solid var(--hair);border-radius:9px;background:#050708}
+.switches{display:grid;grid-template-columns:repeat(2,1fr);gap:5px}
+details{border:1px solid var(--hair);border-radius:8px;padding:7px;margin-bottom:6px;background:#0c1114}summary{cursor:pointer;font-weight:800}
+.sourceTruth{display:grid;grid-template-columns:auto 1fr;gap:5px 8px}.sourceTruth b{color:var(--muted)}
+.bottom{display:flex;gap:7px;align-items:center;padding:6px 9px;border-top:1px solid var(--hair);background:#080b0d;color:var(--muted);font-size:10px}.bottom .status{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.overlay{position:fixed;inset:0;background:#040506f0;z-index:100;display:grid;place-items:center;padding:16px}.overlay.hidden{display:none}
+.welcome{width:min(920px,100%);border:1px solid var(--hair);border-radius:16px;background:linear-gradient(160deg,#10161a,#080b0e);padding:clamp(18px,4vw,38px);box-shadow:0 30px 90px #000}
+.eyebrow{color:var(--hot);font-size:10px;letter-spacing:.2em}.welcome h1{font-size:clamp(32px,7vw,78px);line-height:.86;letter-spacing:-.055em;margin:15px 0}.welcome p{color:#acb7bd;max-width:760px;font-size:14px}.choices{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:22px}.choice{padding:15px;text-align:left;background:#0c1114;border:1px solid var(--hair);border-radius:11px}.choice b{display:block;font-size:15px;margin-bottom:5px}.choice small{color:var(--muted)}
+.helpOverlay .welcome{max-width:760px}.helpGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.helpGrid div{border:1px solid var(--hair);padding:9px;border-radius:8px}
+kbd{border:1px solid #44525a;border-bottom-width:2px;padding:1px 4px;border-radius:4px;color:#cbd3d7}
+@media(max-width:980px){
+ .shell{grid-template-columns:1fr}.side{position:fixed;top:49px;bottom:29px;width:min(90vw,350px);z-index:40;box-shadow:0 0 45px #000}.left{left:0}.right{right:0}.side.mobileHidden{display:none}.stage{height:calc(100vh - 79px)}.choices{grid-template-columns:1fr}.helpGrid{grid-template-columns:1fr}.hero{bottom:8px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+ <div class="brand">ANTHROPY <span>// PATHWEAVER</span></div>
+ <button class="nav active" data-appmode="PLAY">PLAY</button>
+ <button class="nav" data-appmode="COMPOSE">COMPOSE</button>
+ <button class="nav" data-appmode="FORGE">FORGE</button>
+ <button class="nav" data-appmode="SOURCE">SOURCE</button>
+ <div class="spacer"></div>
+ <button id="leftToggle" class="iconBtn">☰</button><button id="helpBtn" class="iconBtn">?</button><button id="rightToggle" class="iconBtn">◎</button>
+</header>
+
+<div class="shell">
+<aside class="side left" id="left">
+ <section class="modePanel active" data-panel="PLAY">
+  <div class="k">Five-minute apprenticeship</div>
+  <div class="sub">Each mission teaches one operation, then removes the scaffold. No score farming; completion unlocks a genuinely useful capability.</div>
+  <div id="missions"></div>
+  <div class="k">After the missions</div>
+  <button id="enterSandbox" class="primary" style="width:100%">OPEN SANDBOX</button>
+ </section>
+
+ <section class="modePanel" data-panel="COMPOSE">
+  <div class="k">Verse source</div>
+  <div class="card"><b>七言 workbench</b><div class="sub">Four editable seven-character lines. The archived opener remains source; 空 is kept as an explicit hinge, not silently inserted.</div></div>
+  <div class="formLine"><span>1</span><input id="l1" value="未始来时末已示"><span id="lc1" class="count"></span></div>
+  <div class="formLine"><span>2</span><input id="l2" placeholder="□□□□□□□"><span id="lc2" class="count"></span></div>
+  <div class="formLine"><span>3</span><input id="l3" placeholder="□□□□□□□"><span id="lc3" class="count"></span></div>
+  <div class="formLine"><span>4</span><input id="l4" placeholder="□□□□□□□"><span id="lc4" class="count"></span></div>
+  <div class="row"><button id="hingeBtn">空 HINGE: OFF</button><button id="rotateLines">ROTATE LINES</button></div>
+  <div class="k">Phrase cut</div>
+  <select id="caesura" style="width:100%"><option value="223">2 · 2 · 3</option><option value="43">4 · 3</option><option value="custom">continuous</option></select>
+  <div id="segments"></div>
+  <div class="k">Relation notes</div>
+  <div class="sub">Optional annotations; they do not pretend to be a complete theory of 絕句.</div>
+  <input id="rel12" style="width:100%;margin-bottom:4px" placeholder="L1 → L2: echo / extend / contrast / ...">
+  <input id="rel23" style="width:100%;margin-bottom:4px" placeholder="L2 → L3: turn / cut / displace / ...">
+  <input id="rel34" style="width:100%" placeholder="L3 → L4: bind / answer / reopen / ...">
+  <div class="k">Build</div><div class="row"><button id="verseMatrix" class="primary">MAKE 4×7 FIELD</button><button id="versePlay">HEAR SHAPE</button></div>
+ </section>
+
+ <section class="modePanel" data-panel="FORGE">
+  <div class="k">Construction source</div>
+  <div class="card"><b id="forgeSourceName">Current path</b><div class="sub" id="forgeSourceDesc">Any captured or live traversal can become a construction.</div></div>
+  <div class="k">Symmetry</div>
+  <select id="symmetry" style="width:100%"><option value="1">none</option><option value="2">mirror pair</option><option value="4">quarter-turn ×4</option><option value="8">radial ×8</option></select>
+  <div class="k">Stroke / fabrication preview</div>
+  <label>stroke <input id="stroke" type="range" min="1" max="18" value="5" style="width:100%"></label>
+  <label>simplify <input id="simplify" type="range" min="0" max="8" value="1" style="width:100%"></label>
+  <label>stamp size mm <input id="stampSize" type="range" min="15" max="80" value="35" style="width:100%"></label>
+  <canvas id="forgePreview" width="500" height="500"></canvas>
+  <div id="forgeWarn" class="sub"></div>
+ </section>
+
+ <section class="modePanel" data-panel="SOURCE">
+  <div class="k">Corpus cards</div><div id="sources"></div>
+  <div class="k">Your source</div><textarea id="customSource" rows="6" placeholder="Paste a short source and press LOAD"></textarea>
+  <div class="row"><button id="loadCustom">LOAD</button><button id="exportSession">EXPORT SESSION</button></div>
+  <input type="file" id="importFile" accept=".json" style="display:none"><button id="importSession" style="width:100%;margin-top:5px">IMPORT SESSION</button>
+ </section>
+</aside>
+
+<main class="stage">
+ <canvas id="canvas"></canvas>
+ <div class="toast" id="toast"></div>
+ <div class="hero" id="hero">
+   <div class="box">
+    <div class="mission" id="heroTitle">Mission 1 — Read the field</div>
+    <div class="instruction" id="heroText">Tap START. The first mission only asks you to see how a source becomes a field.</div>
+    <div class="row" style="margin-top:8px"><button id="heroAction" class="primary">START MISSION</button><button id="skipGuide">SANDBOX</button></div>
+    <div class="progress"><i id="heroProgress"></i></div>
+   </div>
+ </div>
+</main>
+
+<aside class="side right" id="right">
+ <section class="modePanel active" data-panel="PLAY">
+  <div class="k">Mission state</div><div id="missionState" class="card"></div>
+  <div class="k">Live reading</div><div id="traceRead" class="mono">∅</div>
+  <div class="k">Path law</div>
+  <select id="law" style="width:100%"><option>ROWS</option><option>COLUMNS</option><option>BOUSTROPHEDON</option><option>DIAGONALS</option><option>SPIRAL</option><option>REVERSE</option><option>CUSTOM</option></select>
+  <div class="row" style="margin-top:5px"><button id="applyLaw">APPLY</button><button id="clearPath">CLEAR</button><button id="playPath">PLAY</button></div>
+  <div class="k">Observed</div><div class="metrics"><div class="metric">cells<b id="mcells">0</b></div><div class="metric">unique<b id="munique">0</b></div><div class="metric">entropy<b id="mentropy">0</b></div><div class="metric">path<b id="mpath">0</b></div></div>
+  <div class="k">Captures</div><div id="captures"></div>
+ </section>
+
+ <section class="modePanel" data-panel="COMPOSE">
+  <div class="k">Composition diagnostics</div><div id="verseDiag" class="card"></div>
+  <div class="k">Column readings</div><div id="columnRead" class="mono"></div>
+  <div class="k">Constraint ledger</div>
+  <div id="constraints"></div>
+  <div class="k">Capture</div><button id="captureVerse" class="primary" style="width:100%">CAPTURE COMPOSITION</button>
+ </section>
+
+ <section class="modePanel" data-panel="FORGE">
+  <div class="k">Output</div><div class="card"><b>One path, unequal projections.</b><div class="sub">The glyph and score are siblings from the same ordered path. Neither is treated as evidence for the other.</div></div>
+  <div class="k">Sound mapping</div>
+  <label>tempo <input id="tempo" type="range" min="55" max="220" value="108" style="width:100%"></label>
+  <select id="scale" style="width:100%;margin-top:5px"><option value="pent">pentatonic</option><option value="minor">minor</option><option value="whole">whole tone</option></select>
+  <div class="row" style="margin-top:5px"><button id="perform" class="primary">PERFORM</button><button id="stopAudio">STOP</button></div>
+  <div class="k">Export construction</div><div class="row"><button id="exportGlyph">SVG</button><button id="exportCard">JSON</button></div>
+  <div class="k">Construction receipt</div><div id="receipt" class="mono"></div>
+ </section>
+
+ <section class="modePanel" data-panel="SOURCE">
+  <div class="k">Visible state</div><div id="sourceTruth" class="sourceTruth"></div>
+  <div class="k">Why these operators exist</div>
+  <details open><summary>Matrix</summary><div class="sub">The source becomes addressable without claiming that the grid is its only valid form.</div></details>
+  <details><summary>Traversal</summary><div class="sub">Rows, columns, reversal, boustrophedon and custom paths expose different readings while preserving the source and the law used.</div></details>
+  <details><summary>Glyph / score</summary><div class="sub">Both are projections of one ordered path. This is a compositional experiment, not a claim that shape and sound mean the same thing.</div></details>
+  <details><summary>Jue Ju</summary><div class="sub">Character count, segmentation, rhyme, historical tone and thematic relation remain distinct constraints. The app deliberately does not fake a historical prosody checker.</div></details>
+  <div class="k">Session</div><div class="row"><button id="resetAll" class="danger">RESET</button><button id="saveNow">SAVE</button></div>
+ </section>
+</aside>
+</div>
+
+<footer class="bottom"><span id="status" class="status">PLAY: learn one mechanic at a time; nothing important is hidden.</span><span id="saveState" class="pill">local save</span></footer>
+</div>
+
+<div class="overlay" id="welcome">
+ <div class="welcome">
+  <div class="eyebrow">SOURCE → PATH → READING → GLYPH / SCORE → RETURN</div>
+  <h1>TOUCH<br>THE LAW.</h1>
+  <p>A short playable instrument built from the ANTHROPY poetry draft and our later path/glyph work. You do not need to understand the theory first. Pick a door; the machine teaches itself.</p>
+  <div class="choices">
+   <button class="choice" data-enter="PLAY"><b>PLAY · 5 MIN</b><small>Five escalating missions. Learn the machine by solving it.</small></button>
+   <button class="choice" data-enter="COMPOSE"><b>COMPOSE · JUE JU</b><small>Start from the unresolved seven-character opener and construct a 4×7 field.</small></button>
+   <button class="choice" data-enter="FORGE"><b>EXPLORE · FREE</b><small>Skip instruction. Load sources, invent paths, forge glyphs and sound.</small></button>
+  </div>
+ </div>
+</div>
+
+<div class="overlay helpOverlay hidden" id="help">
+ <div class="welcome">
+  <div class="eyebrow">QUICK MAP</div><h2 style="font-size:28px;margin:9px 0">Every screen answers one question.</h2>
+  <div class="helpGrid">
+   <div><b>PLAY</b><br><span class="sub">What does a traversal law actually do?</span></div>
+   <div><b>COMPOSE</b><br><span class="sub">Can one poem survive several useful projections?</span></div>
+   <div><b>FORGE</b><br><span class="sub">What glyph and score does this exact path construct?</span></div>
+   <div><b>SOURCE</b><br><span class="sub">What came from where, and what is only an experiment?</span></div>
+  </div>
+  <p class="sub"><kbd>1</kbd> PLAY · <kbd>2</kbd> COMPOSE · <kbd>3</kbd> FORGE · <kbd>4</kbd> SOURCE · <kbd>Space</kbd> perform · <kbd>?</kbd> help</p>
+  <button id="closeHelp" class="primary">BACK TO THE MACHINE</button>
+ </div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const C=$('#canvas'),X=C.getContext('2d'),F=$('#forgePreview'),FX=F.getContext('2d'),TAU=Math.PI*2;
+const SOURCES=[
+ {id:'rule',name:'RULE IS JUST LAW',section:'1',note:'partition / connectivity / ascent',text:'NOUNS HELP TABLE EMPTY CHAIR SKIES PHOTO LOST HOLD SOLD COULD FRAME FAST SLOW CHAOS CELLS SHIPS KANT JUST REIGN STIR QUIT JOIN INTO FIRE MOVE COME MIND LEFT BODY YOURS PART SOUL MINE GAP ANTI SOFT COOL EYES SAFE GATE FINE CITY GUILT GAMES SHAME MUSIC VERSE ENDS FACE PRIDE PAINT GAIN FAMES STORY'},
+ {id:'meantome',name:'MEANTOME',section:'2',note:'reversal / repeated fragments / CODE-SEAL-TIME-TOME',text:'COME RISE SIRE IRES WHET IRES FEAR MEAN NAMES AMEN ENAM META TEAM MATE TAME CODE SEAL TIME TOME MOVE OVER'},
+ {id:'carcer',name:'CRASTI CARCER',section:'3',note:'room / proof / cycle / shapes',text:'FIND DONT WANT WONT POINT GEAR STOP FEAR TALK PATHS VALOR LOSE ONLY HAVE TEST ERROR ROPE FLOW HOPE KNOW PLANE PROOF SCAPE CYCLE RULE SHAPES ROOM INROOM DOOM NEVER CAME UNDO STAND'},
+ {id:'notOver',name:'ITS NOT OVER',section:'4',note:'reversal / boustrophedon / container tension',text:'REMEMBER ME I WILL BE YOU NEW CONTROL DONT FORGET FINISH WHAT YOU STARTED CHANGE TILL YOU WILL DIE RESOLUTELY ANOTHER WAY ABIDE SERVE TENET LEVEL PURPOSEFULLY DEFIED'},
+ {id:'axis',name:'01xis + i∩∪',section:'5',note:'recursive self-location / another way',text:'ZERO ONE NORTH SOUTH SIN IS LIVE ISEV VENI EVIL END INTERSECT UNION ANOTHER WAY FRIEND STRANGER CITY'},
+ {id:'manifest',name:'MOVE TO PROVE',section:'closing',note:'line / word / mark / pause / movement',text:'BREATHE WAKE TRAIN REMEMBER LEAVE LIVE MOVE TO PROVE MOVEMENT IS PROOF MEET SEE HEAR LINE WORD POINT CAUSE MARK MOMENT SPACE PAUSE GAP EDGE PATH PROOF MEMORY BIRTH DEATH JOURNEY VOID PURPOSE POWER ACT POSSIBILITY MOVE BODY COMPLEX PLANE PAIN KNOWING THINK HOLD'}
+];
+const MISSIONS=[
+ {title:'Read the field',desc:'See a source become addressable.',source:'meantome',law:'ROWS',goal:'apply',help:'Press APPLY. Nothing clever yet: this establishes source → field → ordered reading.'},
+ {title:'Turn the river',desc:'Use boustrophedon: alternate row direction.',source:'notOver',law:'BOUSTROPHEDON',goal:'law',help:'Choose BOUSTROPHEDON and APPLY. Watch every second row reverse direction.'},
+ {title:'Make your own law',desc:'Trace a continuous path through neighboring cells.',source:'manifest',law:'CUSTOM',goal:'custom',help:'Choose CUSTOM, then drag through at least 8 neighboring cells. Your gesture becomes an explicit reading law.'},
+ {title:'Freeze a construction',desc:'Capture source + path before changing anything.',source:'manifest',law:'CUSTOM',goal:'capture',help:'Press CAPTURE PATH. A construction is only useful if its source and law remain recoverable.'},
+ {title:'Project without pretending',desc:'Forge one path as both glyph and score.',source:'manifest',law:'CUSTOM',goal:'forge',help:'Open FORGE, press PERFORM, then export the SVG. The two outputs share a path, not a meaning.'}
+];
+let S={
+ mode:'PLAY',sourceId:'meantome',matrixW:9,grid:[],gw:9,gh:1,path:[],law:'ROWS',custom:[],
+ mission:0,done:[false,false,false,false,false],captures:[],hinge:false,verse:['未始来时末已示','','',''],
+ caesura:'223',relations:['','',''],sandbox:false,traceDragging:false,lastCell:-1
+};
+let audioCtx=null,audioNodes=[],pointerDown=false;
+function chars(s){return [...s.replace(/\s+/g,'').trim()]}
+function wordsSource(id){if(id==='verse')return {id:'verse',name:'JUE JU COMPOSITION',section:'J',note:'user composition',text:S.verse.join('')+(S.hinge?'空':'')};return SOURCES.find(s=>s.id===id)||SOURCES[0]}
+function currentText(){return wordsSource(S.sourceId).text}
+function toast(t){let e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),1500)}
+function save(){localStorage.setItem('anthropy-pathweaver-v1',JSON.stringify(S));$('#saveState').textContent='saved';setTimeout(()=>$('#saveState').textContent='local save',700)}
+function load(){try{let q=JSON.parse(localStorage.getItem('anthropy-pathweaver-v1')||'null');if(q)S={...S,...q}}catch(e){}}
+function sourceTokens(text=currentText()){return chars(text)}
+function buildGrid(text=currentText(),forceW=null){
+ let a=sourceTokens(text),w=forceW||S.matrixW;S.gw=Math.max(3,Math.min(18,w));S.gh=Math.max(1,Math.ceil(a.length/S.gw));S.grid=Array.from({length:S.gw*S.gh},(_,i)=>a[i]||'·');
+ if(S.law!=='CUSTOM')S.path=makePath(S.law);updateAll()
+}
+function idx(x,y){return x+y*S.gw}
+function xy(i){return [i%S.gw,(i/S.gw)|0]}
+function makePath(law){
+ let p=[];
+ if(law==='ROWS')for(let y=0;y<S.gh;y++)for(let x=0;x<S.gw;x++)p.push(idx(x,y));
+ if(law==='COLUMNS')for(let x=0;x<S.gw;x++)for(let y=0;y<S.gh;y++)p.push(idx(x,y));
+ if(law==='BOUSTROPHEDON')for(let y=0;y<S.gh;y++){if(y%2===0)for(let x=0;x<S.gw;x++)p.push(idx(x,y));else for(let x=S.gw-1;x>=0;x--)p.push(idx(x,y))}
+ if(law==='DIAGONALS')for(let s=0;s<S.gw+S.gh-1;s++)for(let y=0;y<S.gh;y++){let x=s-y;if(x>=0&&x<S.gw)p.push(idx(x,y))}
+ if(law==='SPIRAL'){let l=0,r=S.gw-1,t=0,b=S.gh-1;while(l<=r&&t<=b){for(let x=l;x<=r;x++)p.push(idx(x,t));t++;for(let y=t;y<=b;y++)p.push(idx(r,y));r--;if(t<=b){for(let x=r;x>=l;x--)p.push(idx(x,b));b--}if(l<=r){for(let y=b;y>=t;y--)p.push(idx(l,y));l++}}}
+ if(law==='REVERSE')for(let i=S.grid.length-1;i>=0;i--)p.push(i);
+ if(law==='CUSTOM')p=S.custom.slice();
+ return p
+}
+function entropy(a){let m=new Map;for(let v of a)m.set(v,(m.get(v)||0)+1);let e=0,n=a.length||1;for(let v of m.values()){let p=v/n;e-=p*Math.log2(p)}return e}
+function reading(){return S.path.map(i=>S.grid[i]||'').join('').replaceAll('·','')}
+function geom(){
+ let r=C.getBoundingClientRect(),w=r.width,h=r.height,margin=42,cw=Math.min((w-margin*2)/S.gw,(h-margin*2)/S.gh),ox=(w-cw*S.gw)/2,oy=(h-cw*S.gh)/2;
+ return{w,h,cw,ox,oy}
+}
+function resize(){let d=devicePixelRatio||1,r=C.getBoundingClientRect();C.width=Math.max(1,r.width*d);C.height=Math.max(1,r.height*d);X.setTransform(d,0,0,d,0,0);draw();forgeDraw()}
+addEventListener('resize',resize);
+function draw(){
+ let g=geom(),{w,h,cw,ox,oy}=g;X.clearRect(0,0,w,h);let src=wordsSource(S.sourceId);
+ // subtle field
+ X.strokeStyle='#10181c';X.lineWidth=1;for(let k=0;k<12;k++){X.beginPath();X.arc(w/2,h/2,40+k*45,0,TAU);X.stroke()}
+ X.font=`${Math.max(8,Math.min(19,cw*.42))}px ui-monospace,monospace`;X.textAlign='center';X.textBaseline='middle';
+ let inPath=new Map(S.path.map((v,k)=>[v,k]));
+ for(let y=0;y<S.gh;y++)for(let x=0;x<S.gw;x++){let i=idx(x,y),px=ox+(x+.5)*cw,py=oy+(y+.5)*cw,hit=inPath.has(i);
+   X.fillStyle=hit?'#111d21':'#090d10';X.fillRect(ox+x*cw,oy+y*cw,cw,cw);
+   X.strokeStyle=hit?'#3e6570':'#253037';X.strokeRect(ox+x*cw,oy+y*cw,cw,cw);
+   if(hit){X.fillStyle='#17313a';X.beginPath();X.arc(px,py,Math.min(10,cw*.17),0,TAU);X.fill()}
+   X.fillStyle=hit?'#f0f4ef':'#9aa7ad';X.fillText(S.grid[i],px,py)
+ }
+ if(S.path.length>1){X.strokeStyle=src.id==='notOver'?'#ef88b5':'#70d6e8';X.lineWidth=Math.max(1.2,Math.min(3,cw*.07));X.globalAlpha=.82;X.beginPath();S.path.forEach((i,k)=>{let [x,y]=xy(i),px=ox+(x+.5)*cw,py=oy+(y+.5)*cw;k?X.lineTo(px,py):X.moveTo(px,py)});X.stroke();X.globalAlpha=1}
+ if(S.law==='CUSTOM'&&S.path.length){let i=S.path.at(-1),[x,y]=xy(i);X.fillStyle='#f2a24a';X.beginPath();X.arc(ox+(x+.5)*cw,oy+(y+.5)*cw,Math.min(6,cw*.12),0,TAU);X.fill()}
+ // title
+ X.textAlign='left';X.fillStyle='#819099';X.font='10px ui-monospace,monospace';X.fillText(`${src.section} // ${src.name} · ${S.law}`,14,18)
+}
+function cellAt(clientX,clientY){
+ let r=C.getBoundingClientRect(),g=geom(),x=Math.floor((clientX-r.left-g.ox)/g.cw),y=Math.floor((clientY-r.top-g.oy)/g.cw);
+ if(x<0||y<0||x>=S.gw||y>=S.gh)return -1;return idx(x,y)
+}
+function adjacent(a,b){if(a<0||b<0)return false;let [ax,ay]=xy(a),[bx,by]=xy(b);return Math.max(Math.abs(ax-bx),Math.abs(ay-by))<=1 && a!==b}
+function customAdd(i){
+ if(i<0||i===S.lastCell)return;if(!S.custom.length||adjacent(S.custom.at(-1),i)){S.custom.push(i);S.path=S.custom.slice();S.lastCell=i;updateAll(false)}
+}
+C.addEventListener('pointerdown',e=>{pointerDown=true;C.setPointerCapture(e.pointerId);if(S.law==='CUSTOM'){customAdd(cellAt(e.clientX,e.clientY));checkMission('custom')}})
+C.addEventListener('pointermove',e=>{if(pointerDown&&S.law==='CUSTOM')customAdd(cellAt(e.clientX,e.clientY))})
+C.addEventListener('pointerup',()=>{pointerDown=false;S.lastCell=-1;save()});C.addEventListener('pointercancel',()=>{pointerDown=false;S.lastCell=-1});
+function updateAll(doSave=true){
+ $('#traceRead').textContent=reading()||'∅';$('#mcells').textContent=S.grid.filter(x=>x!=='·').length;$('#munique').textContent=new Set(S.grid.filter(x=>x!=='·')).size;$('#mentropy').textContent=entropy(S.grid.filter(x=>x!=='·')).toFixed(2);$('#mpath').textContent=S.path.length;
+ draw();renderMission();renderCaptures();forgeDraw();renderReceipt();renderSourceTruth();if(doSave)save()
+}
+function setMode(mode){
+ S.mode=mode;$$('.nav').forEach(b=>b.classList.toggle('active',b.dataset.appmode===mode));$$('.modePanel').forEach(p=>p.classList.toggle('active',p.dataset.panel===mode));
+ $('#status').textContent={PLAY:'PLAY: touch laws, see consequences, then make your own.',COMPOSE:'COMPOSE: keep source, constraint and experiment visibly separate.',FORGE:'FORGE: one ordered path becomes a glyph and a score.',SOURCE:'SOURCE: provenance and state stay inspectable.'}[mode];
+ if(mode==='FORGE')checkMission('forge');if(innerWidth<980){$('#left').classList.add('mobileHidden');$('#right').classList.add('mobileHidden')}forgeDraw();save()
+}
+$$('.nav').forEach(b=>b.onclick=()=>setMode(b.dataset.appmode));
+function renderMissions(){
+ let e=$('#missions');e.innerHTML='';MISSIONS.forEach((m,i)=>{let d=document.createElement('div'),locked=i>0&&!S.done[i-1]&&!S.sandbox;d.className='card missionCard'+(S.done[i]?' done':'')+(locked?' locked':'')+(S.mission===i?' sel':'');d.innerHTML=`<span class="num">${S.done[i]?'✓':i+1}</span><h3>${m.title}</h3><div class="sub">${m.desc}</div>`;d.onclick=()=>{if(!locked){S.mission=i;startMission(i)}};e.append(d)})
+}
+function startMission(i){
+ let m=MISSIONS[i];S.mission=i;S.sourceId=m.source;S.law=m.law;$('#law').value=S.law;S.custom=[];S.path=[];buildGrid();renderMissions();$('#heroAction').textContent=i===0?'APPLY ROWS':i===1?'SET BOUSTROPHEDON':i===2?'START TRACING':i===3?'CAPTURE PATH':'OPEN FORGE';renderMission();save()
+}
+function renderMission(){
+ renderMissions();let m=MISSIONS[S.mission],pct=(S.done.filter(Boolean).length/MISSIONS.length)*100;$('#heroProgress').style.width=pct+'%';
+ $('#heroTitle').textContent=`Mission ${S.mission+1} — ${m.title}`;$('#heroText').textContent=m.help;
+ let state=S.done[S.mission]?'<b class="green">COMPLETE</b>':`<b>${m.title}</b>`;$('#missionState').innerHTML=`${state}<div class="sub">${m.desc}</div><div class="pill">${wordsSource(m.source).name}</div><div class="pill">${m.law}</div>`;
+}
+function completeMission(i){
+ if(S.done[i])return;S.done[i]=true;toast('MISSION COMPLETE');if(i<MISSIONS.length-1){setTimeout(()=>{S.mission=i+1;startMission(i+1)},650)}else{$('#heroTitle').textContent='The machine is yours.';$('#heroText').textContent='You can now switch source, law, composition and projection without losing the construction record.';$('#heroAction').textContent='OPEN SANDBOX'}save()
+}
+function checkMission(event){
+ let i=S.mission,m=MISSIONS[i];if(S.done[i])return;
+ if(i===0&&event==='apply')completeMission(i);
+ if(i===1&&event==='law'&&S.law==='BOUSTROPHEDON')completeMission(i);
+ if(i===2&&event==='custom'&&S.custom.length>=8)completeMission(i);
+ if(i===3&&event==='capture'&&S.captures.length)completeMission(i);
+ if(i===4&&event==='forge')completeMission(i)
+}
+$('#heroAction').onclick=()=>{
+ let i=S.mission;if(S.done.every(Boolean)){S.sandbox=true;setMode('SOURCE');return}
+ if(i===0){$('#law').value='ROWS';applyLaw();checkMission('apply')}
+ else if(i===1){$('#law').value='BOUSTROPHEDON';applyLaw();checkMission('law')}
+ else if(i===2){$('#law').value='CUSTOM';applyLaw();toast('DRAG THROUGH NEIGHBORING CELLS')}
+ else if(i===3){capturePath()}
+ else if(i===4){setMode('FORGE')}
+};
+$('#skipGuide').onclick=$('#enterSandbox').onclick=()=>{S.sandbox=true;$('#hero').style.display='none';setMode('SOURCE');toast('SANDBOX OPEN')};
+function applyLaw(){S.law=$('#law').value;if(S.law==='CUSTOM'){S.custom=[];S.path=[]}else S.path=makePath(S.law);updateAll();checkMission(S.law==='BOUSTROPHEDON'?'law':'apply')}
+$('#applyLaw').onclick=applyLaw;$('#law').onchange=()=>{S.law=$('#law').value;if(S.law!=='CUSTOM')S.path=makePath(S.law);else{S.custom=[];S.path=[]}updateAll();checkMission('law')};
+$('#clearPath').onclick=()=>{S.custom=[];S.path=S.law==='CUSTOM'?[]:makePath(S.law);updateAll()};
+function capturePath(){
+ if(!S.path.length){toast('MAKE A PATH FIRST');return}
+ S.captures.unshift({id:Date.now(),sourceId:S.sourceId,source:wordsSource(S.sourceId).name,law:S.law,path:S.path.slice(),reading:reading().slice(0,220),gw:S.gw,gh:S.gh,grid:S.grid.slice()});S.captures=S.captures.slice(0,12);renderCaptures();checkMission('capture');save();toast('CONSTRUCTION CAPTURED')
+}
+function renderCaptures(){
+ let e=$('#captures');e.innerHTML='';S.captures.slice(0,5).forEach((c,i)=>{let d=document.createElement('div');d.className='capture';d.innerHTML=`<b>${c.source}</b> <span class="pill">${c.law}</span><div class="sub">${c.reading.slice(0,70)}</div>`;d.onclick=()=>{S.sourceId=c.sourceId;S.law=c.law;S.gw=c.gw;S.gh=c.gh;S.grid=c.grid.slice();S.path=c.path.slice();S.custom=S.law==='CUSTOM'?S.path.slice():[];$('#law').value=S.law;updateAll();toast('CAPTURE RESTORED')};e.append(d)})
+}
+$('#playPath').onclick=()=>performPath(S.path,S.grid,100,$('#scale')?.value||'pent');
+function ensureAudio(){audioCtx=audioCtx||new (window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==='suspended')audioCtx.resume();return audioCtx}
+function performPath(path,grid,tempo=108,scaleName='pent'){
+ stopAudio();if(!path.length){toast('NO PATH TO PLAY');return}let ac=ensureAudio(),now=ac.currentTime,scales={pent:[0,2,4,7,9],minor:[0,2,3,5,7,8,10],whole:[0,2,4,6,8,10]},scale=scales[scaleName]||scales.pent,step=60/tempo/2;
+ path.slice(0,96).forEach((ii,k)=>{let cp=(grid[ii]||' ').codePointAt(0)||32,degree=cp%scale.length,oct=((cp>>3)%3),freq=110*Math.pow(2,(scale[degree]+12*oct)/12),o=ac.createOscillator(),g=ac.createGain(),p=ac.createStereoPanner();o.type=k%4?'sine':'triangle';o.frequency.value=freq;p.pan.value=((ii%Math.max(1,S.gw))/(Math.max(1,S.gw-1)))*2-1;g.gain.setValueAtTime(.0001,now+k*step);g.gain.exponentialRampToValueAtTime(.025,now+k*step+.012);g.gain.exponentialRampToValueAtTime(.0001,now+k*step+step*.82);o.connect(g).connect(p).connect(ac.destination);o.start(now+k*step);o.stop(now+k*step+step);audioNodes.push(o)})
+}
+function stopAudio(){audioNodes.forEach(n=>{try{n.stop()}catch(e){}});audioNodes=[]}
+$('#stopAudio').onclick=stopAudio;
+
+// COMPOSE
+function verseLines(){return [1,2,3,4].map(n=>$('#l'+n).value.trim())}
+function renderVerse(){
+ let ls=verseLines();S.verse=ls;S.hinge=$('#hingeBtn').dataset.on==='1';S.caesura=$('#caesura').value;S.relations=[$('#rel12').value,$('#rel23').value,$('#rel34').value];
+ ls.forEach((s,i)=>{let e=$('#lc'+(i+1)),n=[...s].length;e.textContent=n;e.className='count '+(n===7?'good':s?'bad':'')});
+ let seg=$('#segments');seg.innerHTML='';ls.forEach((s,li)=>{if(!s)return;let a=[...s],cuts=S.caesura==='223'?[2,4]:S.caesura==='43'?[4]:[],div=document.createElement('div');div.className='segment';a.forEach((ch,i)=>{let x=document.createElement('span');x.textContent=ch;if(cuts.includes(i+1))x.classList.add('caes');div.append(x)});seg.append(div)});
+ let exact=ls.filter(Boolean).length&&ls.every(x=>[...x].length===7),end2=ls[1]?[...ls[1]].at(-1):'—',end4=ls[3]?[...ls[3]].at(-1):'—';
+ $('#verseDiag').innerHTML=`<b>${exact?'<span class="green">4×7 count satisfied</span>':'Count is still open'}</b><div class="sub">L2 end: ${end2} · L4 end: ${end4} · 空 hinge: ${S.hinge?'external / explicit':'off'}</div>`;
+ $('#columnRead').textContent=columnReadings(ls).join('\n');
+ let cs=[['4 lines',ls.filter(Boolean).length===4],['7 chars each',exact],['rhyme relation',end2!=='—'&&end4!=='—'?null:false],['historical tones','not automatically checked'],['source opener preserved',ls[0]==='未始来时末已示']];
+ $('#constraints').innerHTML=cs.map(([n,v])=>`<div class="card"><b>${v===true?'✓':v===false?'○':'◇'} ${n}</b>${v===null?'<div class="sub">Needs a rhyme dictionary or your annotation; identical final characters are not required.</div>':v==='not automatically checked'?'<div class="sub">Deliberately not faked from modern Mandarin.</div>':''}</div>`).join('');
+ save()
+}
+function columnReadings(ls){let out=[];for(let c=0;c<7;c++){let s='';for(let r=0;r<4;r++)s+=([...ls[r]||[]][c]||'·');out.push(`C${c+1}  ${s}`)}return out}
+[1,2,3,4].forEach(n=>$('#l'+n).oninput=renderVerse);$('#caesura').onchange=renderVerse;['rel12','rel23','rel34'].forEach(id=>$('#'+id).oninput=renderVerse);
+$('#hingeBtn').onclick=()=>{let on=$('#hingeBtn').dataset.on!=='1';$('#hingeBtn').dataset.on=on?'1':'0';$('#hingeBtn').textContent='空 HINGE: '+(on?'ON':'OFF');renderVerse()};
+$('#rotateLines').onclick=()=>{let a=verseLines();a.push(a.shift());a.forEach((v,i)=>$('#l'+(i+1)).value=v);renderVerse()};
+$('#verseMatrix').onclick=()=>{let ls=verseLines();if(!ls.some(Boolean)){toast('WRITE A LINE FIRST');return}S.sourceId='verse';let text=ls.join('')+(S.hinge?'空':'');S.matrixW=7;S.gw=7;let a=chars(text);S.gh=Math.ceil(a.length/7);S.grid=Array.from({length:S.gw*S.gh},(_,i)=>a[i]||'·');S.law='ROWS';S.path=makePath('ROWS');$('#law').value='ROWS';setMode('COMPOSE');updateAll();toast('4×7 FIELD BUILT')};
+$('#versePlay').onclick=()=>{let ls=verseLines(),a=chars(ls.join('')+(S.hinge?'空':'')),grid=a,path=a.map((_,i)=>i);performPath(path,grid,92,'pent')};
+$('#captureVerse').onclick=()=>{S.captures.unshift({id:Date.now(),sourceId:'verse',source:'JUE JU COMPOSITION',law:'4×7 ROWS',path:S.path.slice(),reading:verseLines().join(' / ')+(S.hinge?' + 空':''),gw:7,gh:4,grid:chars(verseLines().join(''))});S.captures=S.captures.slice(0,12);save();toast('COMPOSITION CAPTURED')};
+
+// FORGE
+function pathPoints(path=S.path,gridW=S.gw,gridH=S.gh){
+ if(!path.length)return[];let W=500,H=500,pad=58,cw=Math.min((W-pad*2)/Math.max(1,gridW),(H-pad*2)/Math.max(1,gridH)),ox=(W-cw*gridW)/2,oy=(H-cw*gridH)/2;
+ return path.map(i=>{let x=i%gridW,y=(i/gridW)|0;return [ox+(x+.5)*cw,oy+(y+.5)*cw]})
+}
+function simplifiedPoints(pts,n){n=+n;if(n<=0)return pts;return pts.filter((_,i)=>i===0||i===pts.length-1||i%(n+1)===0)}
+function forgeDraw(){
+ if(!F)return;let W=F.width,H=F.height;FX.fillStyle='#050708';FX.fillRect(0,0,W,H);let pts=simplifiedPoints(pathPoints(),$('#simplify')?.value||1);let sym=+($('#symmetry')?.value||1),stroke=+($('#stroke')?.value||5);
+ FX.translate(W/2,H/2);for(let s=0;s<sym;s++){FX.save();FX.rotate(s*TAU/sym);FX.translate(-W/2,-H/2);FX.strokeStyle=s%2?'rgba(239,136,181,.72)':'rgba(112,214,232,.84)';FX.lineWidth=stroke;FX.lineCap='round';FX.lineJoin='round';FX.beginPath();pts.forEach((p,i)=>i?FX.lineTo(...p):FX.moveTo(...p));FX.stroke();FX.restore()}FX.setTransform(1,0,0,1,0,0);
+ let mm=+($('#stampSize')?.value||35),estimated=stroke/500*mm,warning=estimated<.5?'Thin for a small physical stamp; consider more stroke.':pts.length>60?'Dense construction: simplify before fabrication.':'Construction is visually plausible; physical fabrication still needs a real test.';
+ if($('#forgeWarn'))$('#forgeWarn').textContent=`estimated line width ≈ ${estimated.toFixed(2)} mm · ${warning}`
+}
+['symmetry','stroke','simplify','stampSize'].forEach(id=>$('#'+id)?.addEventListener('input',forgeDraw));
+$('#perform').onclick=()=>performPath(S.path,S.grid,+$('#tempo').value,$('#scale').value);$('#playPath').onclick=()=>performPath(S.path,S.grid,100,'pent');
+function svgString(){
+ let pts=simplifiedPoints(pathPoints(),+$('#simplify').value),sym=+$('#symmetry').value,stroke=+$('#stroke').value,polys='';
+ for(let s=0;s<sym;s++){let a=s*360/sym;polys+=`<polyline points="${pts.map(p=>p.join(',')).join(' ')}" transform="rotate(${a} 250 250)" fill="none" stroke="black" stroke-width="${stroke}" stroke-linecap="round" stroke-linejoin="round"/>`}
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500"><rect width="500" height="500" fill="white"/>${polys}</svg>`
+}
+$('#exportGlyph').onclick=()=>{if(!S.path.length){toast('NO PATH');return}let a=document.createElement('a');a.download='anthropy-glyph.svg';a.href=URL.createObjectURL(new Blob([svgString()],{type:'image/svg+xml'}));a.click();toast('SVG EXPORTED')};
+function receiptObj(){return{format:'ANTHROPY/PATHWEAVER-1',source:{id:S.sourceId,name:wordsSource(S.sourceId)?.name||'CUSTOM'},law:S.law,matrix:{w:S.gw,h:S.gh},path:S.path,reading:reading(),projection:{symmetry:+$('#symmetry')?.value||1,stroke:+$('#stroke')?.value||5,simplify:+$('#simplify')?.value||1,tempo:+$('#tempo')?.value||108,scale:$('#scale')?.value||'pent'},timestamp:new Date().toISOString()}}
+function renderReceipt(){if($('#receipt'))$('#receipt').textContent=JSON.stringify(receiptObj(),null,2)}
+$('#exportCard').onclick=()=>{let a=document.createElement('a');a.download='anthropy-construction.json';a.href=URL.createObjectURL(new Blob([JSON.stringify(receiptObj(),null,2)],{type:'application/json'}));a.click()};
+['tempo','scale'].forEach(id=>$('#'+id)?.addEventListener('input',renderReceipt));
+
+// SOURCE + provenance
+function renderSources(){
+ let e=$('#sources');e.innerHTML='';SOURCES.forEach(s=>{let d=document.createElement('div');d.className='card sourceCard'+(S.sourceId===s.id?' sel':'');d.innerHTML=`<div class="name">${s.section} // ${s.name}</div><div class="note">${s.note}</div>`;d.onclick=()=>{S.sourceId=s.id;S.matrixW=s.id==='meantome'?9:10;S.law='ROWS';$('#law').value='ROWS';S.custom=[];buildGrid();renderSources();toast('SOURCE LOADED')};e.append(d)})
+}
+function renderSourceTruth(){
+ let src=wordsSource(S.sourceId),e=$('#sourceTruth');if(!e)return;
+ let rows=[['SOURCE',src?.name||'CUSTOM'],['STATUS',S.sourceId==='verse'?'user composition':'compact transcription / derived fixture'],['LAW',S.law],['PATH',S.path.length+' addressed cells'],['READING',reading().slice(0,80)||'∅'],['PROMISE','source and law remain recoverable'],['NOT CLAIMED','visual/audio similarity = semantic identity']];
+ e.innerHTML=rows.map(r=>`<b>${r[0]}</b><span>${r[1]}</span>`).join('')
+}
+$('#loadCustom').onclick=()=>{let t=$('#customSource').value.trim();if(!t){toast('PASTE A SOURCE FIRST');return}SOURCES.push({id:'custom'+Date.now(),name:'CUSTOM SOURCE',section:'U',note:'user supplied',text:t});S.sourceId=SOURCES.at(-1).id;S.law='ROWS';S.matrixW=9;buildGrid();renderSources();toast('CUSTOM SOURCE LOADED')};
+$('#exportSession').onclick=()=>{let a=document.createElement('a');a.download='anthropy-session.json';a.href=URL.createObjectURL(new Blob([JSON.stringify(S,null,2)],{type:'application/json'}));a.click()};
+$('#importSession').onclick=()=>$('#importFile').click();$('#importFile').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let q=JSON.parse(await f.text());S={...S,...q};hydrate();toast('SESSION IMPORTED')}catch(err){toast('INVALID SESSION')}};
+$('#resetAll').onclick=()=>{if(confirm('Reset local ANTHROPY session?')){localStorage.removeItem('anthropy-pathweaver-v1');location.reload()}};
+$('#saveNow').onclick=()=>{save();toast('SAVED LOCALLY')};
+
+// UI / onboarding
+function hydrate(){
+ $('#law').value=S.law;[1,2,3,4].forEach((n,i)=>$('#l'+n).value=S.verse[i]||'');$('#caesura').value=S.caesura||'223';$('#rel12').value=S.relations?.[0]||'';$('#rel23').value=S.relations?.[1]||'';$('#rel34').value=S.relations?.[2]||'';
+ $('#hingeBtn').dataset.on=S.hinge?'1':'0';$('#hingeBtn').textContent='空 HINGE: '+(S.hinge?'ON':'OFF');renderSources();renderVerse();startMission(S.mission||0);setMode(S.mode||'PLAY');updateAll(false);resize()
+}
+$$('[data-enter]').forEach(b=>b.onclick=()=>{$('#welcome').classList.add('hidden');let m=b.dataset.enter;if(m==='FORGE'){S.sandbox=true;$('#hero').style.display='none';setMode('FORGE')}else setMode(m)});
+$('#helpBtn').onclick=()=>$('#help').classList.remove('hidden');$('#closeHelp').onclick=()=>$('#help').classList.add('hidden');
+$('#leftToggle').onclick=()=>$('#left').classList.toggle('mobileHidden');$('#rightToggle').onclick=()=>$('#right').classList.toggle('mobileHidden');
+addEventListener('keydown',e=>{if(['INPUT','TEXTAREA','SELECT'].includes(document.activeElement.tagName))return;if(e.key==='1')setMode('PLAY');if(e.key==='2')setMode('COMPOSE');if(e.key==='3')setMode('FORGE');if(e.key==='4')setMode('SOURCE');if(e.key==='?')$('#help').classList.remove('hidden');if(e.code==='Space'){e.preventDefault();performPath(S.path,S.grid,+($('#tempo')?.value||108),$('#scale')?.value||'pent')}});
+
+load();hydrate();
+</script>
+</body>
+</html>
