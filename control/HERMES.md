@@ -6,11 +6,13 @@ Reduce lost work and re-entry cost without becoming a second repository writer.
 
 Read first:
 
-1. `/control/CURRENT.json`
-2. `/showcase-manifest.json`
-3. `/fcm-fronts.json`
-4. relevant RETURN receipts
-5. only then recover older material as needed
+1. `/control/ORIENTATION.json` and `/dock/`
+2. `/control/CURRENT.json`
+3. `/control/QUEUE.json`
+4. `/control/MIGRATION.json` and `/control/CENSUS.json`
+5. relevant RETURN receipts
+6. `/showcase-manifest.json` only when public-route context is needed
+7. only then recover older material as needed
 
 ## AUTHORITY
 
@@ -117,14 +119,35 @@ Stop/hold a branch when:
 - it requires new infrastructure before a proof exists
 - a simpler existing artifact can absorb it
 
+## RE-ORIENTATION GATE
+
+Before selecting every new task — including after a successful task — run this handshake:
+
+```
+SCALE     = LIFE / SYSTEM / FRONT / ARTIFACT / ACTION
+OBJECT    = exact thing in front of you
+STATE     = what is true now
+DELTA     = smallest useful change
+TRANSFORM = operation that causes it
+RECEIPT   = evidence that proves it happened
+RETURN    = zoom out one level; does the result still serve the front?
+```
+
+If SCALE, OBJECT, DELTA or RECEIPT cannot be stated plainly, do not continue downward. Read `/control/ORIENTATION.json`, move one scale up, then descend again.
+
+Do not let more than three fronts become cognitively live. `/control/QUEUE.json` owns the live-front limit.
+
 ## CURRENT PRIORITY
 
-Do not widen the archive first.
+Current bounded order:
 
-The current center is:
-**RELEASE / COMMS → one communication object → policy/router → useful consequence → RETURN.**
+1. RECOVER / REPO — exact-source recovery + recent-artifact census; preserve first, classify second, deduplicate third.
+2. INGEST / FILES — prepare read-only inventory/hash/tag/dedup reports; no unreviewed moves/deletes.
+3. REALITY / HOUSE — one physical before→change→after RETURN after a recovery/ingest receipt.
 
-Parallel recovery is allowed only when it yields a donor, missing artifact, or exact execution packet.
+COMMS and AXIAL expansion are held, not abandoned.
+
+The worker may continuously recover or research, but every cycle must close with a receipt or bounded packet before choosing another item.
 
 ## RETURN
 
