@@ -673,6 +673,15 @@
         "/fcm-fronts.json"
       ],
       "showcase_card": false
+    },
+    {
+      "href": "/control/",
+      "title": "CURRENT / CONTROL",
+      "kind": "control",
+      "parent": "/",
+      "state": "ACTIVE",
+      "showcase_card": false,
+      "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff."
     }
   ],
   "release_law": [
