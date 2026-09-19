@@ -30,6 +30,70 @@
       "contract": "/contact/contract.json"
     },
     {
+      "href": "/laconic/",
+      "title": "LACONIC / ICONIC RECOVERY 0.1",
+      "kind": "artifact",
+      "parent": "/",
+      "family": "COMMS",
+      "operation": "DRAFT",
+      "state": "EXPERIMENT",
+      "version": "0.1",
+      "receipt": "/laconic/release.json",
+      "transfer": [
+        "response drafting",
+        "conversation recovery",
+        "provenance-aware curation",
+        "multi-turn trajectory design"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "communication situation",
+            "recovered response source",
+            "drafting constraint"
+          ],
+          "requires": [],
+          "optional": [
+            "move",
+            "voice/lens",
+            "source provenance",
+            "source ref"
+          ]
+        },
+        "transforms": {
+          "verb": "address a situation, select a compact response candidate, curate it, and hand it to the explicit human share boundary",
+          "preserves": [
+            "source provenance",
+            "human review boundary",
+            "no-send default",
+            "trajectory/return path"
+          ],
+          "reversibility": "full",
+          "side_effects": "local"
+        },
+        "emits": {
+          "kinds": [
+            "draft candidate",
+            "KEEP/DROP curation state",
+            "recovery source pack",
+            "HUMAN PORT handoff"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/laconic/release.json",
+          "checks": [
+            "EXACT/RECONSTRUCTED/NEW separation",
+            "local-only curation",
+            "no transport credentials",
+            "human-triggered handoff"
+          ],
+          "return_path": "/laconic/"
+        }
+      }
+    },
+    {
       "href": "/field-intake/",
       "title": "FIELD INTAKE 0.4",
       "kind": "artifact",
