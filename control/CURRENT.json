@@ -21,41 +21,30 @@
       "evidence": [
         "/control/migration/",
         "/control/MIGRATION.json",
+        "/recovery/path-grid/",
         "/fold-bloom/lens/",
         "/foundry/verse-atlas/",
         "/sleeper/"
       ]
     },
     {
-      "id": "release-comms",
-      "state": "HOLD_WHILE_MIGRATING",
-      "center": "/contact/ + router/policy + planning/RETURN",
-      "objective": "Make one fixed human entry point become genuinely useful for communication, coordination, commitments and return without exposing private state.",
+      "id": "ingest-files-media",
+      "state": "ACTIVE_SUPPORT",
+      "center": "local-first inventory / hashes / tags / duplicate review before automatic moves",
+      "objective": "Create a reversible ingest substrate for files, media, generated artifacts and source packs so recovery becomes continuous rather than another archaeology event.",
       "evidence": [
-        "/contact/",
-        "/agent-router.json",
-        "/person-resource-policy.schema.json",
-        "/router-bench/",
-        "/atlas-dayline/"
+        "/control/QUEUE.json",
+        "/dock/"
       ]
     },
     {
-      "id": "housebus",
+      "id": "reality-house",
       "state": "ACTIVE_REALITY_GATED",
-      "center": "owned home/cat/robot/sensor endpoints",
-      "objective": "Complete one measured world → sense → state → decide → act → measure → RETURN episode before further hardware expansion.",
+      "center": "one bounded physical/home zone or owned endpoint",
+      "objective": "Produce one before→change→after RETURN in the physical environment so the abstraction stack remains anchored to lived reality.",
       "evidence": [
+        "/control/QUEUE.json",
         "/fcm-fronts.json"
-      ]
-    },
-    {
-      "id": "machine-representation",
-      "state": "ACTIVE_EXPERIMENT",
-      "center": "AXIAL / STATE × TRANSFORM",
-      "objective": "Prove one canonical object survives embodied/digital transformation with interpretable event trace and RETURN.",
-      "evidence": [
-        "/foundry/axial/",
-        "/foundry/axial/event.schema.json"
       ]
     }
   ],
@@ -156,8 +145,8 @@
     }
   ],
   "next_single_action": {
-    "id": "migration-pass-01",
-    "instruction": "Recover exact Grid Path Compiler v4 / LATIN CONTROL / MEANTOME / Anthropy Pathweaver and source for the two Sleeper metaname surfaces; copy each into a frozen repo route before redesign, dedup or merge. Keep current heads live."
+    "id": "recovery-census-01",
+    "instruction": "Continue exact-source recovery and recent-Library clustering. Preserve first, classify second, deduplicate third. In parallel, prepare a local-first file/media ingest dry-run that writes hashes/tags/reports but performs no unreviewed destructive moves."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
@@ -165,5 +154,22 @@
     "chatgpt": "cross-thread retrieval, synthesis, steering, context packets",
     "repository": "durable executable/public state",
     "returns": "evidence / ground truth"
-  }
+  },
+  "held_fronts": [
+    {
+      "id": "release-comms",
+      "state": "HOLD",
+      "center": "/contact/ + router/policy + planning/RETURN",
+      "reason": "Important but not cognitively live until the recovery/orientation pass is stable."
+    },
+    {
+      "id": "machine-representation",
+      "state": "HOLD_CURRENT_HEAD",
+      "center": "AXIAL / STATE × TRANSFORM",
+      "reason": "Keep the existing experiment and evidence; do not fan out further unless recovery or a physical test creates a concrete need."
+    }
+  ],
+  "orientation": "/control/ORIENTATION.json",
+  "execution_queue": "/control/QUEUE.json",
+  "dock": "/dock/"
 }
