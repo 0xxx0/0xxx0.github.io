@@ -112,7 +112,7 @@ function choose(id){
 function makeButtons(){
  const moves=['','ACK','ANSWER','ASK_ONE','DRAFT'];
  $('#moves').innerHTML=moves.map(x=>'<button data-m="'+x+'" class="'+(move===x?'on':'')+'">'+(x||'ANY')+'</button>').join('');
- $('#voices').innerHTML=('<button data-vc="" class="'+(!voice?'on':'')+'">ANY</button>')+data.voices.map(x=>'<button data-vc="'+esc(x.id)+'" title="'+esc(x.law)+'">'+esc(x.id)+'</button>').join('');
+ $('#voices').innerHTML=('<button data-vc="" class="'+(!voice?'on':'')+'">ANY</button>')+data.voices.map(x=>'<button data-vc="'+esc(x.id)+'" class="'+(voice===x.id?'on':'')+'" title="'+esc(x.law)+'">'+esc(x.id)+'</button>').join('');
 }
 $('#results').addEventListener('click',e=>{
  const card=e.target.closest('[data-id]'); if(!card)return;
