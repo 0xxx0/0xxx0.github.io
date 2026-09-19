@@ -47,7 +47,12 @@
         "Grid Path Compiler",
         "MEANTOME"
       ],
-      "action": "KEEP HEAD, but do not let it stand in for the English/Latin/cell-poetry lineage."
+      "action": "KEEP HEAD, but do not let it stand in for the English/Latin/cell-poetry lineage.",
+      "recovery_transfer": {
+        "from": "/recovery/path-grid/grid-path-compiler-v4/",
+        "shipped": "validated RETURN receipt replay/import",
+        "decision": "keep general donor workbench frozen"
+      }
     },
     {
       "id": "grid-path-compiler-v4",
@@ -220,7 +225,12 @@
       "source_type": "library-recovered-exact",
       "unique": "Recent runnable Fold/Bloom branch requiring mechanism comparison against Two Dial / Ecology / Scale Lens.",
       "action": "ONE exact canonical repo donor frozen. Library duplicate proven identical; next step is mechanism diff, not another branch.",
-      "route": "/recovery/fold-bloom/fold-weave-0.1/"
+      "route": "/recovery/fold-bloom/fold-weave-0.1/",
+      "mechanism_diff": {
+        "against": "/fold-bloom/ecology/",
+        "unique": "persistent crease anchors / authored topology / WEAVE LAB",
+        "decision": "playable sibling; no merge pending direct playtest"
+      }
     },
     {
       "id": "game-of-names-lineage",
@@ -312,5 +322,6 @@
     "GAME OF NAMES: locate isolated exact runnable/glyph artifact before public recovery; keep personal archive private.",
     "QUARANTINE: generic site shells stay out of primary surface unless a unique mechanism earns transfer."
   ],
-  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json"
+  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
+  "last_mechanism_diff": "/control/MECHANISM_DIFF_2026-09-19.json"
 }
