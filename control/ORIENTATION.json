@@ -1,0 +1,149 @@
+{
+  "schema": "0xxx0/orientation/v0.1",
+  "updated": "2026-09-19",
+  "anchor": {
+    "one_line": "Turn lived uncertainty into manipulable state, transform it deliberately, and get evidence back without losing identity, provenance, or the path home.",
+    "why": "The work is not a collection of apps. It is a practice of preserving orientation while moving between body, matter, sound, symbol, computation, room, network, and public artifact.",
+    "success": "More reality becomes inspectable and transformable while the number of live commitments stays small."
+  },
+  "invariant_loop": [
+    "WORLD",
+    "SENSE",
+    "ADDRESS",
+    "STATE",
+    "TRANSFORM",
+    "PROJECT",
+    "ACT",
+    "MEASURE",
+    "RETURN"
+  ],
+  "scale_ladder": [
+    {
+      "scale": "LIFE",
+      "question": "Why is this worth carrying at all?",
+      "exit": "Name the durable capability or practice, not a project title."
+    },
+    {
+      "scale": "SYSTEM",
+      "question": "What recurring loop connects several domains?",
+      "exit": "Name the shared primitive and its bounds."
+    },
+    {
+      "scale": "FRONT",
+      "question": "Which ≤3 live fronts currently deserve energy?",
+      "exit": "Each front must have a next receipt-producing move."
+    },
+    {
+      "scale": "ARTIFACT",
+      "question": "What exact thing are we changing?",
+      "exit": "One object, current state, desired delta."
+    },
+    {
+      "scale": "ACTION",
+      "question": "What can happen now without inventing another architecture?",
+      "exit": "Bounded operation + observable result."
+    }
+  ],
+  "media": [
+    {
+      "medium": "PHYSICAL / BODY / ROOM",
+      "state": "force, position, tension, material, physiology, environment",
+      "transform": "move / join / compress / heat / route / train",
+      "evidence": "measurement, changed geometry, felt/observed response, photo/log",
+      "portable": "state × transform × constraint × return"
+    },
+    {
+      "medium": "MUSIC / RHYTHM",
+      "state": "pulse, phase, pitch, timbre, motif, energy",
+      "transform": "cycle / shift / layer / gate / resolve",
+      "evidence": "audible recurrence, playable control, recording",
+      "portable": "small law → temporal consequence"
+    },
+    {
+      "medium": "VISUAL / GLYPH / ART",
+      "state": "shape, adjacency, scale, contrast, mark, route",
+      "transform": "project / compress / compose / reveal",
+      "evidence": "recognizable invariant across views/fabrication",
+      "portable": "identity through unequal projections"
+    },
+    {
+      "medium": "MATH",
+      "state": "relation, invariant, coordinate, topology, constraint",
+      "transform": "map / compose / invert / optimize",
+      "evidence": "proof, counterexample, conserved property",
+      "portable": "what must survive transformation"
+    },
+    {
+      "medium": "SOFTWARE",
+      "state": "typed object, event, address, permission, history",
+      "transform": "parse / route / mutate / simulate / execute",
+      "evidence": "test, trace, diff, receipt, replay",
+      "portable": "executable state machine"
+    },
+    {
+      "medium": "LANGUAGE / NAMING",
+      "state": "meaning, referent, grammar, context",
+      "transform": "name / translate / compress / traverse",
+      "evidence": "recoverable referent and preserved distinction",
+      "portable": "semantic address"
+    },
+    {
+      "medium": "HOME / HOUSE OS",
+      "state": "actual people, cats, devices, air, water, clutter, schedules",
+      "transform": "sense / decide / automate / rearrange / repair",
+      "evidence": "world changes and stays changed",
+      "portable": "reality gate for every abstraction"
+    }
+  ],
+  "dock_handshake": [
+    "LOCATE — Which scale am I currently operating at?",
+    "OBJECT — What exact thing exists in front of me?",
+    "STATE — What is true about it now?",
+    "DELTA — What small change would matter?",
+    "TRANSFORM — What operation causes that delta?",
+    "RECEIPT — What observable evidence proves it happened?",
+    "RETURN — Zoom out one level. Does the result still serve the larger front?"
+  ],
+  "drift_signals": [
+    "More than three fronts feel simultaneously urgent.",
+    "We are naming architectures faster than producing receipts.",
+    "A descendant UI is mistaken for the whole lineage.",
+    "The same mechanism is rebuilt because provenance was lost.",
+    "A polished shell exists without a unique operation.",
+    "We cannot state the current object and desired delta in one sentence."
+  ],
+  "drift_response": [
+    "Do not branch.",
+    "Move one scale upward until the purpose is obvious, then one scale downward until an object is concrete.",
+    "Choose one reversible or cheaply testable transformation.",
+    "Ship or measure it.",
+    "Record the return before reopening the larger action space."
+  ],
+  "goal_contract": {
+    "required": [
+      "object",
+      "current_state",
+      "desired_delta",
+      "evidence",
+      "horizon",
+      "stop_rule"
+    ],
+    "rejected": [
+      "improve everything",
+      "organize everything",
+      "finish project",
+      "make it more powerful",
+      "build platform"
+    ],
+    "template": "By <horizon>, transform <object> from <current_state> to <desired_delta>. Evidence = <receipt>. Stop when <stop_rule>."
+  },
+  "topology": {
+    "dock": "WHY / WHERE / SCALE / ALIGNMENT",
+    "current": "LIVE FRONTS / HEADS / NEXT",
+    "migration": "RECOVER / IMPORT / DEDUP / QUARANTINE",
+    "return": "EVIDENCE / RECEIPTS",
+    "showcase_root": "ENTRY TO RUNNING + RECOVERING SURFACES",
+    "dayline": "TIME PROJECTION",
+    "fcm": "ATTENTION PROJECTION"
+  }
+}
