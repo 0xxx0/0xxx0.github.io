@@ -1,0 +1,100 @@
+{
+  "schema": "0xxx0/local-ingest/v0.1",
+  "updated": "2026-09-19",
+  "purpose": "Continuously recover files/media/artifacts without letting automatic organization destroy provenance.",
+  "law": "INDEX → HASH → TAG → REVIEW → ROUTE. Automatic move/delete is last, never first.",
+  "stages": [
+    {
+      "id": "inventory",
+      "mode": "SAFE_DEFAULT",
+      "operation": "read filesystem metadata; emit path/size/time/type/hash index",
+      "side_effects": "creates report only",
+      "tool_candidates": [
+        "scripts/ingest-scan.sh",
+        "Spotlight/mdfind",
+        "ExifTool",
+        "ffprobe"
+      ]
+    },
+    {
+      "id": "exact-dedup",
+      "mode": "REVIEW_ONLY",
+      "operation": "group byte-identical files by size + content hash",
+      "side_effects": "none unless explicitly promoted later",
+      "tool_candidates": [
+        "Czkawka/Krokiet"
+      ],
+      "rule": "Never delete duplicate groups automatically during recovery. Choose canonical copy only after lineage/path context is visible."
+    },
+    {
+      "id": "semantic-overlay",
+      "mode": "NON_DESTRUCTIVE",
+      "operation": "add searchable tags/fields over existing paths",
+      "side_effects": "metadata/index database only",
+      "tool_candidates": [
+        "TagStudio"
+      ],
+      "rule": "Prefer overlay to forced folder taxonomy; a file may belong to multiple lineages."
+    },
+    {
+      "id": "media",
+      "mode": "OPTIONAL_DOMAIN_LAYER",
+      "operation": "photo/video search, similarity, faces, duplicate review",
+      "side_effects": "separate media index/library",
+      "tool_candidates": [
+        "Immich"
+      ],
+      "rule": "Use for media once originals/external-library semantics are understood; not as the universal file canon."
+    },
+    {
+      "id": "automation",
+      "mode": "GATED",
+      "operation": "watch known ingress folders; rename/tag/move using deterministic rules",
+      "side_effects": "filesystem mutation",
+      "tool_candidates": [
+        "Forel"
+      ],
+      "rule": "Enable only rules that have already survived dry-run/review. No AI-generated destination may become an automatic move rule without explicit promotion."
+    },
+    {
+      "id": "semantic-suggestion",
+      "mode": "EXPERIMENT",
+      "operation": "local model proposes categories/near-duplicates",
+      "side_effects": "proposal report only",
+      "tool_candidates": [
+        "FileForge + Ollama"
+      ],
+      "rule": "Suggestions never mutate source files. Treat semantic similarity as review evidence, not duplicate proof."
+    }
+  ],
+  "canonical_record": {
+    "fields": [
+      "content_hash",
+      "path",
+      "size",
+      "mtime",
+      "mime",
+      "media_metadata",
+      "source_context",
+      "tags",
+      "lineage",
+      "status"
+    ],
+    "identity_rule": "Content hash identifies exact bytes; project/artifact identity is a separate semantic layer and must not be collapsed into the hash."
+  },
+  "initial_scope": [
+    "Recent ChatGPT/Library-generated artifacts",
+    "Downloads and Desktop ingress",
+    "project export/source packs",
+    "generated images and reference media"
+  ],
+  "excluded_initially": [
+    "system directories",
+    "application bundles",
+    "large opaque caches",
+    "automatic deletion",
+    "mass renaming",
+    "moving originals into a new universal taxonomy"
+  ],
+  "promotion_gate": "A routing rule becomes automatic only after at least one review pass shows no lineage/provenance damage and its inverse/recovery path is known."
+}
