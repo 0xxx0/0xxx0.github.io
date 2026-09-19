@@ -1,0 +1,532 @@
+{
+ "schema": "housebus-public-projection/v1",
+ "classification": "PUBLIC PROJECTION \u2014 generated, whitelist-only. Private runtime authority remains Home Assistant / HOUSEBUS.",
+ "generated_at": "2026-09-19T08:10:36+00:00",
+ "generator": "HOUSEBUS private normalizer (scripts/project-public.py)",
+ "source_age_seconds": 20370,
+ "source_age_class": "FRESH",
+ "runtime_health_class": "HEALTHY",
+ "runtime": {
+  "haos": {
+   "class": "HEALTHY",
+   "epistemic": "OBSERVED",
+   "note": "HTTP probe of the control plane (HAOS serves on :80, falls back to :8123)",
+   "serving_port_class": "80",
+   "onboarding": "COMPLETE"
+  },
+  "mqtt": {
+   "class": "HEALTHY",
+   "epistemic": "OBSERVED",
+   "note": "pre-existing household broker (phone/pixel mesh); HA broker not yet installed"
+  },
+  "tuya_lan": {
+   "class": "HEALTHY",
+   "epistemic": "OBSERVED",
+   "devices_visible": 6,
+   "source_age_seconds": 20370,
+   "source_age_class": "FRESH",
+   "note": "LAN discovery is lossy: 0-6 devices per scan across 230 scans"
+  },
+  "local_control": {
+   "class": "UNAVAILABLE",
+   "epistemic": "OBSERVED",
+   "note": "local Tuya control requires per-device keys"
+  },
+  "hacs": {
+   "class": "BLOCKED",
+   "epistemic": "OBSERVED",
+   "note": "requires healthy, backed-up HA"
+  },
+  "tuya_account": {
+   "class": "BLOCKED",
+   "epistemic": "OBSERVED",
+   "note": "requires the account census step (human QR gate)"
+  }
+ },
+ "counts": {
+  "objects": 8,
+  "areas_represented": 2,
+  "capabilities": 15,
+  "lifecycle": {
+   "SEEN": 5,
+   "IDENTIFIED": 1,
+   "PAIRED": 0,
+   "INGESTED": 0,
+   "CONTROLLED": 0,
+   "LOCALIZED": 0,
+   "TESTED": 0,
+   "ADOPTED": 1
+  },
+  "flags": {
+   "QUARANTINED": 1,
+   "BLOCKED": 0,
+   "RETIRED": 0
+  },
+  "unresolved_identities": 10,
+  "policies": 13
+ },
+ "objects": [
+  {
+   "label": "PETREE Litterbox (Gen-2 / Petree 2.0 family)",
+   "area": "study",
+   "class": "HIGH",
+   "status": "IDENTIFIED",
+   "capabilities": [
+    "state",
+    "fault_codes",
+    "clean_schedule_config",
+    "deodorize_button"
+   ],
+   "transport": "tuya-lan",
+   "control_locality": "NONE",
+   "observation": "none",
+   "control": "none",
+   "confidence": "medium",
+   "last_verified": "2026-09-19",
+   "last_verified_class": "AGING",
+   "open_questions": 1,
+   "epistemic": "OBSERVED"
+  },
+  {
+   "label": "CATLINK Scooper Luxury Pro-X",
+   "area": "unknown",
+   "class": "HIGH",
+   "status": "QUARANTINED",
+   "capabilities": [
+    "litter_state",
+    "cat_state",
+    "device_state"
+   ],
+   "transport": "vendor-cloud",
+   "control_locality": "NONE",
+   "observation": "none",
+   "control": "none",
+   "confidence": "low",
+   "last_verified": "2026-09-19",
+   "last_verified_class": "AGING",
+   "open_questions": 1,
+   "epistemic": "OBSERVED"
+  },
+  {
+   "label": "Robot vacuum (identity unresolved)",
+   "area": "unknown",
+   "class": "MEDIUM",
+   "status": "SEEN",
+   "capabilities": [],
+   "transport": "unknown",
+   "control_locality": "NONE",
+   "observation": "none",
+   "control": "none",
+   "confidence": "low",
+   "last_verified": "2026-09-19",
+   "last_verified_class": "AGING",
+   "open_questions": 1,
+   "epistemic": "OBSERVED"
+  },
+  {
+   "label": "Midea appliance (Tuya-protocol hypothesis)",
+   "area": "unknown",
+   "class": "MEDIUM",
+   "status": "SEEN",
+   "capabilities": [],
+   "transport": "tuya-lan",
+   "control_locality": "NONE",
+   "observation": "none",
+   "control": "none",
+   "confidence": "low",
+   "last_verified": "2026-06-10",
+   "last_verified_class": "STALE",
+   "open_questions": 1,
+   "epistemic": "OBSERVED"
+  },
+  {
+   "label": "Tuya LAN-visible devices (6 today, 7 distinct product keys since 2026-06-10)",
+   "area": "unknown",
+   "class": "unknown",
+   "status": "SEEN",
+   "capabilities": [],
+   "transport": "tuya-lan",
+   "control_locality": "NONE",
+   "observation": "presence only",
+   "control": "none",
+   "confidence": "high",
+   "last_verified": "2026-09-19",
+   "last_verified_class": "AGING",
+   "open_questions": 1,
+   "epistemic": "OBSERVED"
+  },
+  {
+   "label": "Galaxy Note10+ home node",
+   "area": "unknown",
+   "class": "LOW",
+   "status": "ADOPTED",
+   "capabilities": [
+    "sensors",
+    "camera",
+    "microphone",
+    "mqtt_publish"
+   ],
+   "transport": "mqtt",
+   "control_locality": "UNKNOWN",
+   "observation": "good (retained telemetry)",
+   "control": "limited",
+   "confidence": "medium",
+   "last_verified": "2026-09-19",
+   "last_verified_class": "AGING",
+   "open_questions": 0,
+   "epistemic": "OBSERVED"
+  },
+  {
+   "label": "Ceiling fan with light (Ovlaim / Casafan FP9805_TAIDE family)",
+   "area": "living",
+   "class": "LOW",
+   "status": "SEEN",
+   "capabilities": [
+    "fan",
+    "light",
+    "select"
+   ],
+   "transport": "tuya-lan",
+   "control_locality": "NONE",
+   "observation": "none",
+   "control": "none",
+   "confidence": "high",
+   "last_verified": "2026-09-19",
+   "last_verified_class": "AGING",
+   "open_questions": 1,
+   "epistemic": "OBSERVED"
+  },
+  {
+   "label": "Tuya litter box on the LAN (Migou MINI-C-Public family)",
+   "area": "unknown",
+   "class": "HIGH",
+   "status": "SEEN",
+   "capabilities": [
+    "litter_state",
+    "sensors",
+    "buttons",
+    "select",
+    "light"
+   ],
+   "transport": "tuya-lan",
+   "control_locality": "NONE",
+   "observation": "none",
+   "control": "none",
+   "confidence": "medium",
+   "last_verified": "2026-09-19",
+   "last_verified_class": "AGING",
+   "open_questions": 1,
+   "epistemic": "OBSERVED"
+  }
+ ],
+ "capabilities": [
+  {
+   "id": "light",
+   "objects": 2,
+   "observation": "none",
+   "control": "none"
+  },
+  {
+   "id": "litter_state",
+   "objects": 2,
+   "observation": "none",
+   "control": "none"
+  },
+  {
+   "id": "select",
+   "objects": 2,
+   "observation": "none",
+   "control": "none"
+  },
+  {
+   "id": "sensors",
+   "objects": 2,
+   "observation": "partial",
+   "control": "partial"
+  },
+  {
+   "id": "buttons",
+   "objects": 1,
+   "observation": "none",
+   "control": "none"
+  },
+  {
+   "id": "camera",
+   "objects": 1,
+   "observation": "partial",
+   "control": "partial"
+  },
+  {
+   "id": "cat_state",
+   "objects": 1,
+   "observation": "none",
+   "control": "none"
+  },
+  {
+   "id": "clean_schedule_config",
+   "objects": 1,
+   "observation": "none",
+   "control": "none"
+  },
+  {
+   "id": "deodorize_button",
+   "objects": 1,
+   "observation": "none",
+   "control": "none"
+  },
+  {
+   "id": "device_state",
+   "objects": 1,
+   "observation": "none",
+   "control": "none"
+  },
+  {
+   "id": "fan",
+   "objects": 1,
+   "observation": "none",
+   "control": "none"
+  },
+  {
+   "id": "fault_codes",
+   "objects": 1,
+   "observation": "none",
+   "control": "none"
+  },
+  {
+   "id": "microphone",
+   "objects": 1,
+   "observation": "partial",
+   "control": "partial"
+  },
+  {
+   "id": "mqtt_publish",
+   "objects": 1,
+   "observation": "partial",
+   "control": "partial"
+  },
+  {
+   "id": "state",
+   "objects": 1,
+   "observation": "none",
+   "control": "none"
+  }
+ ],
+ "areas": [
+  {
+   "id": "study",
+   "label": "Study / work area",
+   "objects": 1
+  },
+  {
+   "id": "living",
+   "label": "Living area",
+   "objects": 1
+  }
+ ],
+ "integration_health": [
+  {
+   "id": "haos",
+   "class": "HEALTHY",
+   "role": "private runtime authority"
+  },
+  {
+   "id": "mqtt_host",
+   "class": "HEALTHY",
+   "role": "household phone/pixel mesh (pre-existing)"
+  },
+  {
+   "id": "mqtt_ha",
+   "class": "BLOCKED",
+   "role": "HA broker (Mosquitto App)"
+  },
+  {
+   "id": "hacs",
+   "class": "BLOCKED",
+   "role": "custom integration manager"
+  },
+  {
+   "id": "tuya_account",
+   "class": "BLOCKED",
+   "role": "account/device census"
+  },
+  {
+   "id": "tuya_local",
+   "class": "STAGED",
+   "role": "preferred local Tuya transport"
+  },
+  {
+   "id": "esphome",
+   "class": "STAGED",
+   "role": "future owned nodes"
+  },
+  {
+   "id": "catlink",
+   "class": "QUARANTINED",
+   "role": "software research only"
+  }
+ ],
+ "recent_receipts": [
+  {
+   "date": "2026-09-19",
+   "id": "A",
+   "title": "Host reconnaissance",
+   "path": "/house/",
+   "state": "RECORDED"
+  },
+  {
+   "date": "2026-09-19",
+   "id": "B",
+   "title": "Canonical repository established",
+   "path": "/house/",
+   "state": "RECORDED"
+  },
+  {
+   "date": "2026-09-19",
+   "id": "C",
+   "title": "Hypervisor decision checked against current docs",
+   "path": "/house/",
+   "state": "RECORDED"
+  },
+  {
+   "date": "2026-09-19",
+   "id": "D",
+   "title": "Bounded LAN inventory pass",
+   "path": "/house/",
+   "state": "RECORDED"
+  },
+  {
+   "date": "2026-09-19",
+   "id": "E",
+   "title": "Device lanes + image staging",
+   "path": "/house/",
+   "state": "RECORDED"
+  },
+  {
+   "date": "2026-09-19",
+   "id": "F",
+   "title": "Device identification by product-key match",
+   "path": "/house/",
+   "state": "RECORDED"
+  },
+  {
+   "date": "2026-09-19",
+   "id": "G",
+   "title": "HAOS VM built, bridged, running",
+   "path": "/house/",
+   "state": "RECORDED"
+  },
+  {
+   "date": "2026-09-19",
+   "id": "H",
+   "title": "Recorded receipt",
+   "path": "/house/",
+   "state": "RECORDED"
+  }
+ ],
+ "uncertainties": [
+  {
+   "id": "petree_vs_lan_litter",
+   "question": "Is the LAN-visible litter box the PETREE 2.0 unit, or a second, different box?",
+   "confidence": "low",
+   "next_evidence": "Smart Life device info page: device id + product id + display name for the unit in the study"
+  },
+  {
+   "id": "tuya_unmapped_keys",
+   "question": "Which physical objects own the Tuya product keys with no tuya-local config?",
+   "confidence": "high",
+   "next_evidence": "Smart Life account device list (official Tuya integration census) mapping name -> product key"
+  },
+  {
+   "id": "ovlaim_unit_count",
+   "question": "Does the Ovlaim ceiling fan-with-light product key represent one physical unit or two?",
+   "confidence": "medium",
+   "next_evidence": "Smart Life display names for both device ids; physical room check"
+  },
+  {
+   "id": "vacuum_identity",
+   "question": "What is the actual robot vacuum model, and which app owns it?",
+   "confidence": "low",
+   "next_evidence": "hostname, MAC OUI, current vendor app, physical model label, network services"
+  },
+  {
+   "id": "midea_model_and_protocol",
+   "question": "Which Midea appliance is it, and is it Tuya-firmware or native M-Smart?",
+   "confidence": "low",
+   "next_evidence": "exact model label, current app, and whether Smart Life or Midea SmartHome sees it"
+  },
+  {
+   "id": "catlink_family_mapping",
+   "question": "Which hasscc/catlink device family does the CATLINK Scooper Luxury Pro-X correspond to?",
+   "confidence": "low",
+   "next_evidence": "vendor model/serial from the unit's label or the CATLINK app, read WITHOUT powering the unit on"
+  },
+  {
+   "id": "privacy_mac_hosts",
+   "question": "Which devices are the locally-administered MAC hosts seen on the LAN?",
+   "confidence": "low",
+   "next_evidence": "device-side Wi-Fi settings, or correlation with a phone being awake"
+  },
+  {
+   "id": "ha_host_address_stability",
+   "question": "Should the HAOS guest keep a DHCP lease or get a router reservation?",
+   "confidence": "high",
+   "next_evidence": "router DHCP reservation (human action on the router)"
+  },
+  {
+   "id": "pet_fountain_presence",
+   "question": "Does the household's water fountain (weekly cleaning per household-os) appear as a smart device?",
+   "confidence": "low",
+   "next_evidence": "Smart Life account device list"
+  },
+  {
+   "id": "house_mqtt_convergence",
+   "question": "When, if ever, should the host phone-mesh bus and the HAOS broker converge?",
+   "confidence": "medium",
+   "next_evidence": "observed ESPHome/custom-node needs after HA is online"
+  }
+ ],
+ "policy_summary": {
+  "ladder": [
+   "OBSERVE",
+   "NOTIFY",
+   "SUGGEST",
+   "ARM",
+   "ACT"
+  ],
+  "rule": "Never jump from a sensor directly to ACT.",
+  "gates": [
+   "mechanism.supervisory_only",
+   "litter.no_unattended_clean",
+   "litter.read_only_first",
+   "catlink.quarantined",
+   "vacuum.no_root",
+   "tuya.one_local_integration",
+   "tuya.localize_order",
+   "tuya.no_cloud_firewall_yet",
+   "observation.no_surveillance",
+   "secrets.never_public",
+   "remote_access.no_port_forward",
+   "backup.before_experiment",
+   "hermes.not_single_path"
+  ],
+  "mechanism_safety": "Hardware interlocks and device firmware remain authoritative; automation is supervisory."
+ },
+ "sanitization": {
+  "method": "whitelist construction + forbidden-pattern scan on the serialized document",
+  "checked_classes": [
+   "rfc1918",
+   "mac",
+   "tuya_device_id",
+   "tuya_product_key",
+   "tokenish",
+   "bearer",
+   "tailnet",
+   "private_path"
+  ],
+  "result": "PASS"
+ },
+ "honesty": {
+  "live_state": false,
+  "note": "This is a projection with a timestamp, not a live feed. Staleness or silence is not evidence of danger."
+ }
+}

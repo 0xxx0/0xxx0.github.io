@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090b0d"><title>HOUSE / FIELD</title>
+<style>
+:root{--bg:#090b0d;--p:#0f1317;--p2:#0b0f12;--ink:#edf1ed;--muted:#859198;--line:#2c373c;--hot:#e56b3f;--cool:#68acd8;--green:#9ed88c;--gold:#d9ad62}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(14px,env(safe-area-inset-top)) 12px max(28px,env(safe-area-inset-bottom))}main{width:min(1120px,100%);margin:auto}
+a{color:inherit;text-decoration:none}a:hover{background:#121920}
+header{display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:end;padding:26px 0 16px;border-bottom:1px solid var(--line)}
+.ey{font-size:9px;letter-spacing:.18em;color:var(--gold)}h1{margin:8px 0 0;font:800 clamp(38px,8vw,78px)/.84 system-ui,-apple-system,sans-serif;letter-spacing:-.07em}
+.intro{color:#a7b0b4;font:12px/1.6 system-ui,-apple-system,sans-serif}
+.kernel{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-top:0;margin-top:14px}
+.kernel span{background:var(--p2);padding:7px 6px;font-size:8px;letter-spacing:.14em;color:var(--muted);text-align:center}
+.kernel span.on{color:var(--gold)}
+.bar{display:flex;gap:14px;flex-wrap:wrap;align-items:center;padding:9px 0;border-bottom:1px solid var(--line);color:var(--muted);font-size:9px;letter-spacing:.1em}
+.bar b{color:var(--ink)}
+.section{margin-top:22px}
+.section>h2{margin:0 0 8px;font:700 11px/1 system-ui,sans-serif;letter-spacing:.2em;color:var(--muted);text-transform:uppercase}
+table{width:100%;border-collapse:collapse;border:1px solid var(--line)}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);font-size:10px;vertical-align:top}
+th{color:var(--muted);font-size:8px;letter-spacing:.12em;text-transform:uppercase;background:var(--p2)}
+tr:last-child td{border-bottom:0}
+.h{color:var(--green)}.p{color:var(--gold)}.o{color:var(--hot)}.m{color:var(--muted)}.c{color:var(--cool)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.cell{background:var(--p2);padding:10px}
+.cell b{display:block;font-size:9px;letter-spacing:.12em;color:var(--muted)}
+.cell strong{display:block;margin-top:6px;font:800 17px/1 system-ui,sans-serif;letter-spacing:-.03em}
+.tag{display:inline-block;border:1px solid var(--line);padding:1px 5px;font-size:8px;letter-spacing:.1em;color:var(--muted);margin-right:4px}
+ul{margin:6px 0 0;padding-left:16px;color:#a7b0b4;font-size:10px}
+li{margin:3px 0}
+footer{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:9px;line-height:1.7}
+@media(max-width:700px){header{grid-template-columns:1fr}.kernel{grid-template-columns:repeat(3,1fr)}}
+</style></head>
+<body><main>
+<header>
+  <div>
+    <div class="ey">HOUSE / FIELD · PUBLIC PROJECTION</div>
+    <h1>HOUSE<br>FIELD</h1>
+  </div>
+  <div class="intro">Addressed physical resources, capabilities, integration health and evidence for one apartment's control plane. <b>Private runtime authority remains Home Assistant / HOUSEBUS.</b> This page is a generated projection, never a control endpoint.</div>
+</header>
+<div class="kernel"><span class="on">OBJECT</span><span class="on">ADDRESS</span><span class="on">PROJECT</span><span>OPERATE</span><span>RETURN</span></div>
+<div class="bar">
+  <span>generated <b id="gen">—</b></span><span>source age <b id="age">—</b></span>
+  <span>runtime <b id="rt">—</b></span><span>schema <b id="sch">—</b></span>
+  <a href="../" aria-label="Field index">← FIELD INDEX</a><a href="../returns/" aria-label="Return field">RETURN →</a>
+</div>
+<div id="app"><div class="section"><table><tr><td class="m">Loading projection…</td></tr></table></div></div>
+<footer>
+  <div id="law"></div>
+  <div class="m" id="foot">OBSERVED · INFERRED · STALE · UNAVAILABLE are kept distinct. No private addresses, identifiers, keys, presence data or streams appear here.</div>
+</footer>
+</main>
+<script>
+(function(){
+ var cls={HEALTHY:'h',PARTIAL:'p',OFFLINE:'o',BLOCKED:'o',STAGED:'m',QUARANTINED:'c',UNAVAILABLE:'m',FRESH:'h',AGING:'p',STALE:'o',RECORDED:'m'};
+ function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]})}
+ function badge(v){return '<span class="tag '+esc(cls[v]||'m')+'">'+esc(v)+'</span>'}
+ function table(head,rows){return '<table><thead><tr>'+head.map(function(h){return '<th>'+esc(h)+'</th>'}).join('')+'</tr></thead><tbody>'+rows+'</tbody></table>'}
+ function ageStr(s){if(s==null)return 'UNAVAILABLE';if(s<90)return s+'s';if(s<5400)return Math.round(s/60)+'m';if(s<172800)return Math.round(s/3600)+'h';return Math.round(s/86400)+'d'}
+ var app=document.getElementById('app');
+ function render(d){
+  document.getElementById('gen').textContent=d.generated_at||'—';
+  document.getElementById('age').textContent=ageStr(d.source_age_seconds)+' ('+(d.source_age_class||'—')+')';
+  document.getElementById('rt').textContent=d.runtime_health_class||'—';
+  document.getElementById('sch').textContent=d.schema||'—';
+  var c=d.counts||{},h='';
+  // RUNTIME
+  var rr=[];for(var k in (d.runtime||{})){var v=d.runtime[k];rr.push('<tr><td>'+esc(k)+'</td><td>'+badge(v.class)+'</td><td class="m">'+esc(v.note||'')+'</td><td class="m">'+esc(v.epistemic||'')+'</td></tr>')}
+  h+='<div class="section"><h2>Runtime</h2>'+table(['service','state','note','epistemic'],rr.join(''))+'</div>';
+  // OBJECTS by lifecycle
+  var lc=c.lifecycle||{},cells='';
+  for(var i in lc){cells+='<div class="cell"><b>'+esc(i)+'</b><strong>'+esc(lc[i])+'</strong></div>'}
+  for(var j in (c.flags||{})){cells+='<div class="cell"><b>'+esc(j)+'</b><strong class="c">'+esc(c.flags[j])+'</strong></div>'}
+  cells+='<div class="cell"><b>UNRESOLVED</b><strong>'+esc(c.unresolved_identities)+'</strong></div>';
+  cells+='<div class="cell"><b>AREAS REPRESENTED</b><strong>'+esc(c.areas_represented)+'</strong></div>';
+  cells+='<div class="cell"><b>CAPABILITIES</b><strong>'+esc(c.capabilities)+'</strong></div>';
+  h+='<div class="section"><h2>Objects · lifecycle (ordered, never collapsed)</h2><div class="grid2">'+cells+'</div></div>';
+  // OBJECT rows
+  var orows=(d.objects||[]).map(function(o){
+   return '<tr><td><b>'+esc(o.label)+'</b></td><td>'+esc(o.area)+'</td><td class="m">'+esc((o.capabilities||[]).join(' · '))+'</td><td>'+badge(o.status)+'</td><td class="m">'+esc(o.control_locality)+'</td><td class="m">'+esc(o.confidence)+'</td><td class="m">'+esc(o.last_verified_class)+'</td><td class="m">'+esc(o.epistemic)+'</td></tr>'});
+  h+='<div class="section"><h2>Object rows</h2>'+table(['object','area','capabilities','adoption','control locality','confidence','verified','epistemic'],orows.join(''))+'</div>';
+  // CAPABILITIES
+  var crows=(d.capabilities||[]).map(function(x){return '<tr><td>'+esc(x.id)+'</td><td>'+esc(x.objects)+'</td><td class="m">'+esc(x.observation)+'</td><td class="m">'+esc(x.control)+'</td></tr>'});
+  h+='<div class="section"><h2>Capabilities present in known objects</h2>'+table(['capability','objects','observation','control'],crows.join('')||'<tr><td class="m" colspan="4">none recorded</td></tr>')+'</div>';
+  // INTEGRATIONS
+  var irows=(d.integration_health||[]).map(function(x){return '<tr><td>'+esc(x.id)+'</td><td>'+badge(x.class)+'</td><td class="m">'+esc(x.role)+'</td></tr>'});
+  h+='<div class="section"><h2>Integration health</h2>'+table(['integration','state','role'],irows.join(''))+'</div>';
+  // UNCERTAINTIES
+  var urows=(d.uncertainties||[]).map(function(u){return '<tr><td>'+esc(u.id)+'</td><td>'+esc(u.question)+'</td><td class="m">'+esc(u.confidence)+'</td><td class="m">'+esc(u.next_evidence)+'</td></tr>'});
+  h+='<div class="section"><h2>Uncertainties (recorded, never guessed)</h2>'+table(['id','question','confidence','next evidence'],urows.join(''))+'</div>';
+  // RECEIPTS
+  var kr=(d.recent_receipts||[]).map(function(r){return '<tr><td>'+esc(r.date)+'</td><td>'+esc(r.id)+'</td><td>'+esc(r.title)+'</td><td class="m">'+esc(r.state)+'</td></tr>'});
+  h+='<div class="section"><h2>Return · receipts</h2>'+table(['date','id','receipt','state'],kr.join(''))+'</div>';
+  // POLICY
+  var ps=d.policy_summary||{};
+  h+='<div class="section"><h2>Policy</h2><table><tr><td class="m">ladder</td><td>'+esc((ps.ladder||[]).join(' → '))+'</td></tr><tr><td class="m">rule</td><td>'+esc(ps.rule||'')+'</td></tr><tr><td class="m">gates</td><td class="m">'+esc((ps.gates||[]).join(' · '))+'</td></tr><tr><td class="m">mechanism safety</td><td>'+esc(ps.mechanism_safety||'')+'</td></tr></table></div>';
+  app.innerHTML=h;
+  document.getElementById('law').innerHTML='<b>'+esc(d.classification||'')+'</b> · sanitization '+esc((d.sanitization||{}).result)+' · '+(d.honesty&&d.honesty.live_state===false?'not a live feed':'');
+ }
+ function offline(msg){
+  app.innerHTML='<div class="section">'+table(['state','meaning'],[
+   '<tr><td>'+badge('UNAVAILABLE')+'</td><td class="m">Projection not loadable: '+esc(msg)+'</td></tr>',
+   '<tr><td class="m">runtime</td><td class="m">Private runtime authority (Home Assistant / HOUSEBUS) is not reachable from this page by design.</td></tr>',
+   '<tr><td class="m">return</td><td class="m">Receipts and the registry remain the record. <a href="../returns/">RETURN FIELD →</a></td></tr>'
+  ].join(''))+'</div>';
+  document.getElementById('gen').textContent='—';
+  document.getElementById('rt').textContent='UNAVAILABLE';
+ }
+ fetch('./state.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(render).catch(function(e){offline(e.message||'unavailable')});
+})();
+</script>
+</body></html>

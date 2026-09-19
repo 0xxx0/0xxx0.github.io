@@ -1,0 +1,39 @@
+{
+ "schema": "house-field-contract/v0.1",
+ "updated": "2026-09-19",
+ "title": "HOUSE / FIELD",
+ "purpose": "Public-safe projection of addressed physical resources, capabilities, integration health and evidence for one household control plane. Private runtime authority remains Home Assistant / HOUSEBUS.",
+ "current_surface": {
+  "kind": "generated static projection",
+  "queries_runtime": false,
+  "control_endpoint": false,
+  "automatic_sync": false,
+  "generator": "private normalizer in the HOUSEBUS repository (scripts/project-public.py)",
+  "refresh": "manual: run the generator, then commit the regenerated state.json",
+  "semantics": "A projection with a timestamp, not a live feed. Staleness or silence is not evidence of danger."
+ },
+ "epistemic_classes": [
+  "OBSERVED",
+  "INFERRED",
+  "STALE",
+  "UNAVAILABLE"
+ ],
+ "forbidden_classes": [
+  "private IPv4 addresses",
+  "MAC addresses",
+  "vendor device identifiers that function as credentials",
+  "local keys or tokens",
+  "account details",
+  "exact human or animal presence",
+  "occupancy timestamps",
+  "camera or microphone streams",
+  "exact address or coordinates",
+  "private overlay names",
+  "local filesystem paths",
+  "operational security details"
+ ],
+ "enforcement": "The generator builds the public document by whitelist and then scans the serialized JSON for forbidden patterns; it refuses to write on any match. The committed state.json carries its own sanitization result.",
+ "kernel_role": "OBJECT -> ADDRESS -> PROJECT (this page). OPERATE is private (Home Assistant). RETURN is /returns/ plus the receipt ledger.",
+ "return_path": "/returns/",
+ "machine_state": "/house/state.json"
+}

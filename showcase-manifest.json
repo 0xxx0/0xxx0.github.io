@@ -794,7 +794,21 @@
       "showcase_card": false,
       "role": "Persistent crease-anchor topology branch retained beside Ecology pending playtest."
     }
-  ],
+  ,
+    {
+      "href": "/house/",
+      "title": "HOUSE / FIELD",
+      "kind": "system",
+      "parent": "/",
+      "state": "STABLE",
+      "machine_state": "/house/state.json",
+      "showcase_card": false,
+      "role": "Public-safe projection of addressed physical resources, capabilities, integration health and evidence. Private runtime authority remains Home Assistant / HOUSEBUS. Not a control endpoint.",
+      "version": "0.1",
+      "receipt": "/house/release.json",
+      "contract": "/house/contract.json"
+    }
+],
   "release_law": [
     "PRIVATE CANON",
     "REVIEW",
