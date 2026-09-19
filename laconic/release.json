@@ -1,0 +1,26 @@
+{
+  "schema": "release-receipt/v1",
+  "artifact": "LACONIC / ICONIC RECOVERY",
+  "route": "/laconic/",
+  "version": "0.1",
+  "released": "2026-09-19",
+  "state": "EXPERIMENT",
+  "changes": [
+    "reified the recovered Laconic/Iconic response-bank concept as a local-first drafting and curation instrument",
+    "separated EXACT / RECONSTRUCTED / NEW provenance so recovery cannot silently become invention",
+    "added deterministic situation/move/voice filtering and browser-local KEEP/DROP curation",
+    "added trajectory links so winning lines can grow into multi-turn conversational paths",
+    "added clipboard/source-pack recovery staging for the still-missing exact v0.01 artifact",
+    "bound selected drafts to HUMAN PORT through an explicit human share/copy boundary",
+    "kept transport, policy and sending authority outside the public drafting surface"
+  ],
+  "checks": [
+    "bank seed entries are marked NEW, never EXACT",
+    "source-pack export defaults to UNCLASSIFIED",
+    "no form submit or remote write endpoint exists",
+    "draft handoff uses HUMAN PORT and remains human-triggered",
+    "KEEP/DROP state is localStorage only",
+    "router DRAFT and policy draft gate remain the authority boundary"
+  ],
+  "return": "/laconic/"
+}
