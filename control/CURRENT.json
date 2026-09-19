@@ -1,0 +1,156 @@
+{
+  "schema": "0xxx0/control-current/v0.1",
+  "updated": "2026-09-19",
+  "mode": "seal-recover-execute",
+  "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
+  "laws": [
+    "RECOVER BEFORE INVENTING",
+    "ONE THING, MANY LAWFUL READINGS, FEW LAWFUL TRANSFORMATIONS",
+    "IDENTITY ≠ LOCATION ≠ PROJECTION ADDRESS",
+    "SOURCE → ADDRESS → STATE → TRANSFORM → PROJECTION → PROVE → RETURN",
+    "NO NEW CORE WITHOUT A MISSING FUNCTION",
+    "DEPTH ↑ WHILE VISIBLE SURFACE AREA STAYS SMALL",
+    "COMPRESSION MUST RETAIN A RETURN PATH"
+  ],
+  "active_fronts": [
+    {
+      "id": "release-comms",
+      "state": "ACTIVE",
+      "center": "/contact/ + router/policy + planning/RETURN",
+      "objective": "Make one fixed human entry point become genuinely useful for communication, coordination, commitments and return without exposing private state.",
+      "evidence": [
+        "/contact/",
+        "/agent-router.json",
+        "/person-resource-policy.schema.json",
+        "/router-bench/",
+        "/atlas-dayline/"
+      ]
+    },
+    {
+      "id": "housebus",
+      "state": "ACTIVE_REALITY_GATED",
+      "center": "owned home/cat/robot/sensor endpoints",
+      "objective": "Complete one measured world → sense → state → decide → act → measure → RETURN episode before further hardware expansion.",
+      "evidence": [
+        "/fcm-fronts.json"
+      ]
+    },
+    {
+      "id": "machine-representation",
+      "state": "ACTIVE_EXPERIMENT",
+      "center": "AXIAL / STATE × TRANSFORM",
+      "objective": "Prove one canonical object survives embodied/digital transformation with interpretable event trace and RETURN.",
+      "evidence": [
+        "/foundry/axial/",
+        "/foundry/axial/event.schema.json"
+      ]
+    }
+  ],
+  "current_heads": [
+    {
+      "lineage": "scale-lens",
+      "head": "SCALE LENS RC11.2",
+      "state": "STABLE",
+      "route": "/fold-bloom/lens/",
+      "retained_function": "Stable identity across unequal projections with provenance and RETURN."
+    },
+    {
+      "lineage": "path-poetry",
+      "head": "VERSE ATLAS / Foundry path engine",
+      "state": "STABLE",
+      "route": "/foundry/verse-atlas/",
+      "retained_function": "CELL identity + typed BY/EDGE + PATH program + ADDRESS compression + replayable RETURN; geometry is not semantics."
+    },
+    {
+      "lineage": "sleeper-one-return",
+      "head": "ASCII SLEEPER 0.8",
+      "state": "EXPERIMENT",
+      "route": "/sleeper/",
+      "retained_function": "Constraint field / alternate lawful views / evidence-bearing return. Workfield v1.2 remains an important donor/head in the deeper lineage."
+    },
+    {
+      "lineage": "fold-bloom",
+      "head": "Two Dial 0.9 + Ecology 0.2",
+      "state": "STABLE_FROZEN_BRANCHES",
+      "route": "/fold-bloom/",
+      "retained_function": "Embodied cyclic control + persistence/lineage; do not silently merge branches."
+    },
+    {
+      "lineage": "axial",
+      "head": "AXIAL / STATE × TRANSFORM 0.4",
+      "state": "EXPERIMENT",
+      "route": "/foundry/axial/",
+      "retained_function": "Discrete semantic token × continuous transform × explicit transaction gate → evidence."
+    },
+    {
+      "lineage": "comms",
+      "head": "HUMAN PORT 0.2 + Router Bench + policy algebra",
+      "state": "ACTIVE",
+      "route": "/contact/",
+      "retained_function": "Public rendezvous plus transport-neutral intent/policy/RETURN substrate; real shared comms/planning remains the current missing vertical slice."
+    }
+  ],
+  "donors_and_holds": [
+    {
+      "name": "Living Field / CYCLIC-3/10",
+      "state": "QUARRY",
+      "rule": "mine mechanisms; do not promote as current head"
+    },
+    {
+      "name": "Fold/Bloom RC11.3 and Forward Field variants",
+      "state": "HOLD/DONOR",
+      "rule": "recover exact mechanisms only when a current head needs them"
+    },
+    {
+      "name": "Center Mass 0.3",
+      "state": "DONOR",
+      "rule": "PLAIN/FCM absorbed the useful control-surface direction"
+    },
+    {
+      "name": "Surface Bank",
+      "state": "RETIRED/DONOR",
+      "rule": "do not revive as a competing surface"
+    },
+    {
+      "name": "Singapore Law Game R0",
+      "state": "DONOR",
+      "rule": "CASE/evidence mechanics may transfer; not an active front"
+    },
+    {
+      "name": "Triangle Bench",
+      "state": "PARKED",
+      "rule": "resume only if AXIAL/proof work requires comparison evidence"
+    }
+  ],
+  "recovery_targets": [
+    {
+      "id": "sleeper-deep-lineage",
+      "status": "RECOVER_WHEN_PAYOFF",
+      "query": "Hostage/Floating/Kite/Spiral → ONE RETURN/Nine Gate → Semantic City → Workfield → Sleeper POV → WAKE/Atlas → minigame cascade",
+      "payoff": "Recover lost mechanics/artifacts without replacing current Sleeper head."
+    },
+    {
+      "id": "path-grid-deep-lineage",
+      "status": "RECOVER_WHEN_PAYOFF",
+      "query": "grid/path/cell → Jueju → MEANTOME/addressed poetry → Foundry → Verse Atlas",
+      "payoff": "Preserve the exact transition from geometry to typed semantic traversal."
+    },
+    {
+      "id": "image-artifact-harvest",
+      "status": "OPEN",
+      "query": "generated images/paintings/interfaces → reusable UI/physical donors → GitHub artifact or source pack",
+      "payoff": "Stop visual work from disappearing in chat-only history."
+    }
+  ],
+  "next_single_action": {
+    "id": "comms-proof-slice",
+    "instruction": "Keep archaeology subordinate. Make one real/synthetic communication object traverse HUMAN PORT/router/policy → commitment/time or draft → RETURN, then surface only what that proof earns."
+  },
+  "downstream": {
+    "codex": "repository writer / bounded implementation",
+    "hermes": "read-only recovery/research/ambient operator until explicit write authority",
+    "chatgpt": "cross-thread retrieval, synthesis, steering, context packets",
+    "repository": "durable executable/public state",
+    "returns": "evidence / ground truth"
+  }
+}
