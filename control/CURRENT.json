@@ -14,8 +14,21 @@
   ],
   "active_fronts": [
     {
+      "id": "repo-convergence",
+      "state": "ACTIVE_NOW",
+      "center": "/control/migration/ + exact artifact recovery + public root simplification",
+      "objective": "Recover and repo the last ~2 weeks of runnable artifacts in batches, preserve unique mechanisms/style/lineage, quarantine generic website drift, and make every surviving thing findable without silently merging it.",
+      "evidence": [
+        "/control/migration/",
+        "/control/MIGRATION.json",
+        "/fold-bloom/lens/",
+        "/foundry/verse-atlas/",
+        "/sleeper/"
+      ]
+    },
+    {
       "id": "release-comms",
-      "state": "ACTIVE",
+      "state": "HOLD_WHILE_MIGRATING",
       "center": "/contact/ + router/policy + planning/RETURN",
       "objective": "Make one fixed human entry point become genuinely useful for communication, coordination, commitments and return without exposing private state.",
       "evidence": [
@@ -125,15 +138,15 @@
   "recovery_targets": [
     {
       "id": "sleeper-deep-lineage",
-      "status": "RECOVER_WHEN_PAYOFF",
+      "status": "ACTIVE_RECOVERY",
       "query": "Hostage/Floating/Kite/Spiral → ONE RETURN/Nine Gate → Semantic City → Workfield → Sleeper POV → WAKE/Atlas → minigame cascade",
-      "payoff": "Recover lost mechanics/artifacts without replacing current Sleeper head."
+      "payoff": "Import the external City Engine + Painting/Path surfaces and recover deeper Sleeper mechanics without replacing current /sleeper/."
     },
     {
       "id": "path-grid-deep-lineage",
-      "status": "RECOVER_WHEN_PAYOFF",
-      "query": "grid/path/cell → Jueju → MEANTOME/addressed poetry → Foundry → Verse Atlas",
-      "payoff": "Preserve the exact transition from geometry to typed semantic traversal."
+      "status": "ACTIVE_RECOVERY",
+      "query": "Grid Path Compiler v4 → LATIN CONTROL / English geometry control → MEANTOME 16×16 → Anthropy Pathweaver → Foundry → Verse Atlas",
+      "payoff": "Recover the broader multilingual/path-weave artifacts that disappeared from visible navigation; freeze exact donors before dedup."
     },
     {
       "id": "image-artifact-harvest",
@@ -143,8 +156,8 @@
     }
   ],
   "next_single_action": {
-    "id": "comms-proof-slice",
-    "instruction": "Keep archaeology subordinate. Make one real/synthetic communication object traverse HUMAN PORT/router/policy → commitment/time or draft → RETURN, then surface only what that proof earns."
+    "id": "migration-pass-01",
+    "instruction": "Recover exact Grid Path Compiler v4 / LATIN CONTROL / MEANTOME / Anthropy Pathweaver and source for the two Sleeper metaname surfaces; copy each into a frozen repo route before redesign, dedup or merge. Keep current heads live."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
