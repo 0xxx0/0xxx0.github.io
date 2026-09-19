@@ -1,0 +1,61 @@
+{
+  "schema": "0xxx0/foundry-cabinet-v4-recovery/v0.1",
+  "recovered": "2026-09-19",
+  "source": {
+    "library_file_id": "file_00000000eac8820795d8dba15bfdc92b",
+    "filename": "index(20260915-203323).html",
+    "size_bytes": 778925,
+    "sha256": "cd4b153ce233fd8df612737bab7a4bfc0e00265379f672907ab8523ac9d56d27",
+    "repo_route": "/recovery/foundry-cabinet-v4/"
+  },
+  "extraction": "Exact UTF-8 payloads decoded from the cabinet's embedded APPS base64 map; no redesign or semantic rewrite.",
+  "payloads": [
+    {
+      "id": "compiler",
+      "route": "/recovery/path-grid/grid-path-compiler-v4/",
+      "size_bytes": 117382,
+      "sha256": "c4e95fa5e5458f8165869a10a4df3a4129e532e77e7fa8f4478f3a00e0be92a5",
+      "contains": [
+        "LATIN 4x4 CONTROL",
+        "MEANTOME 16x16",
+        "NINE-GATE CITY source-faithful",
+        "EN/ZH/MS/TA learning lenses",
+        "GRID/TEXT/GLYPH/RSVP views"
+      ]
+    },
+    {
+      "id": "projection",
+      "route": "/recovery/path-grid/projection-harness/",
+      "size_bytes": 33054,
+      "sha256": "edc2e5f92e5bd928b75526543f607e46596f7e511b2cd7b87d00b918c7eb8485"
+    },
+    {
+      "id": "federation",
+      "route": "/recovery/path-grid/foundry-federation/",
+      "size_bytes": 231730,
+      "sha256": "d773d4876ca12164708755def7775084c945bb304c0690ef12aac5c09d818820"
+    },
+    {
+      "id": "market",
+      "route": "/recovery/path-grid/market-solver/",
+      "size_bytes": 94190,
+      "sha256": "d9b3f843e928677fe42f0f4e185a165aa576f09f912a8bb6e61786106cd50d7a"
+    },
+    {
+      "id": "field",
+      "route": "/recovery/path-grid/cell-foundry-r2/",
+      "size_bytes": 61409,
+      "sha256": "85bd0d44f0f6fbf007120f58e5af8814f035bbd91498e0d009339891a8cab25c"
+    },
+    {
+      "id": "path",
+      "route": "/recovery/path-grid/anthropy-pathweaver/",
+      "size_bytes": 42431,
+      "sha256": "5135baf40876a0550a8c24c0227832c8a3b951d3dd27020b7efb5d89738bd396"
+    }
+  ],
+  "classification": "FROZEN_DONOR_FAMILY",
+  "public_promotion": "NO: compare against current Verse Atlas / Foundry head before merge or root-card promotion.",
+  "receipt_requirement": "repo bytes reproduce source/payload content; routes load; provenance and hashes remain attached.",
+  "stop_condition": "Exact cabinet and all embedded payloads are frozen in-repo. Stop recovery and switch to mechanism diff; no redesign during ingest."
+}
