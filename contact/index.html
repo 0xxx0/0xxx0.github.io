@@ -96,13 +96,13 @@ footer{display:flex;justify-content:space-between;gap:14px;border-top:1px solid 
 <div class="sectionhead"><div><b>PORT MAP</b><span>same contract; replaceable transports underneath</span></div></div>
 <section class="ports">
   <div class="port"><b>NOW · NATIVE SHARE <em>LIVE</em></b><p>Android / iOS / browser share sheet or clipboard. Zero backend; works immediately.</p></div>
-  <div class="port"><b>HERMES GATEWAY <em>CANDIDATE</em></b><p>One private gateway can front Telegram, WhatsApp, Signal, email, Matrix and webhooks.</p></div>
+  <div class="port"><b>LACONIC / ICONIC <em>LIVE DRAFT</em></b><p>Local response-bank + recovery layer. It prepares text only; HUMAN PORT remains the explicit share/copy boundary.</p></div>\n  <div class="port"><b>HERMES GATEWAY <em>CANDIDATE</em></b><p>One private gateway can front Telegram, WhatsApp, Signal, email, Matrix and webhooks.</p></div>
   <div class="port"><b>WHATSAPP · BAILEYS <em>CANDIDATE</em></b><p>TypeScript transport option behind the same envelope and policy boundary.</p></div>
   <div class="port"><b>WHATSAPP · WHATSMEOW <em>CANDIDATE</em></b><p>Go transport option; useful if the private runtime leans toward a small durable daemon.</p></div>
 </section>
 
 <nav class="links">
-  <a href="../">WORK / SHOWCASE →</a>
+  <a href="../">WORK / SHOWCASE →</a>\n  <a href="../laconic/">LACONIC DRAFT →</a>
   <a href="./state.json">PUBLIC STATE →</a>
   <a href="./contract.json">PORT CONTRACT →</a>
   <a href="../agent-router.json">ROUTER →</a>
@@ -117,7 +117,7 @@ let mode='PING';
 const qs=s=>document.querySelector(s), qsa=s=>[...document.querySelectorAll(s)];
 const msg=qs('#msg'),who=qs('#who'),out=qs('#output'),packet=qs('#packet'),check=qs('#checknote');
 const surface=location.origin+location.pathname;
-const meanings={PING:'no reply needed',REPLY:'reply when practical',NEED:'practical request',CHECK:'human check requested'};
+const meanings={PING:'no reply needed',REPLY:'reply when practical',NEED:'practical request',CHECK:'human check requested'};\nconst params=new URLSearchParams(location.search),requestedMode=params.get('mode'),incomingDraft=params.get('draft');\nif(['PING','REPLY','NEED','CHECK'].includes(requestedMode))mode=requestedMode;\nif(incomingDraft)msg.value=incomingDraft.slice(0,1200);\nqsa('.mode').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));check.classList.toggle('on',mode==='CHECK');
 const build=()=>{
   const at=new Date().toISOString();
   const sender=who.value.trim()?('FROM '+who.value.trim()+' · '):'';
