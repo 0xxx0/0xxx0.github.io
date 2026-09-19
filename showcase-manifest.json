@@ -682,6 +682,24 @@
       "state": "ACTIVE",
       "showcase_card": false,
       "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff."
+    },
+    {
+      "href": "/returns/",
+      "title": "RETURN LEDGER",
+      "kind": "evidence",
+      "parent": "/",
+      "state": "STABLE",
+      "showcase_card": false,
+      "role": "Shared public receipt/evidence surface; durable result and residue rather than another planning view."
+    },
+    {
+      "href": "/showcase-selftest/",
+      "title": "SHOWCASE SELFTEST",
+      "kind": "validator",
+      "parent": "/",
+      "state": "UTILITY",
+      "showcase_card": false,
+      "role": "Public route/link smoke surface for validating the showcase graph."
     }
   ],
   "release_law": [
@@ -712,7 +730,10 @@
     "policy_selector": "Deterministic exact/pattern/tag/fallback selectors. Exact > pattern > tag > fallback is trace/fallback precedence only; every matching non-fallback policy composes, so broader denies and locks remain effective.",
     "policy_trace": "Append-only causal trace spans selector clauses, matched policy revisions, inheritance, every operation, accepted/rejected grants, deny events, lock events, stage results, seven final gates and terminal resolution; raw payload/secrets stay out.",
     "forward_center_mass": "Parallel control projection: 117 memory objects → 8 reusable operators → ≤3 active execution fronts → local RETURN receipts. Heuristic projection; does not rewrite federation canon.",
-    "axial": "Canonical AXIAL experiment remains /foundry/axial/ and is intentionally not a root showcase card. v0.4 adds an ancestry-linked before/gesture/after event ledger and schema; promotion still requires interpretable digital-trial and physical nested-tube receipts."
+    "axial": "Canonical AXIAL experiment remains /foundry/axial/ and is intentionally not a root showcase card. v0.4 adds an ancestry-linked before/gesture/after event ledger and schema; promotion still requires interpretable digital-trial and physical nested-tube receipts.",
+    "forward_field_proof": "FIELD / PROOF remains the public PROVE adapter for PLAIN-vs-rich representation, interruption recovery, constraint retention and opportunity noticing. Its general attention-control lessons are absorbed into FCM; its time/execution lessons route to Atlas Dayline rather than creating another planner runtime.",
+    "now_projection": "Root NOW filter highlights the current human-facing heads; FCM 0.2 owns NOW/NEXT/HOLD/DROP attention projection and common RETURN receipts. CURRENT.json remains the cold-start source of truth.",
+    "reachability": "All public directory index surfaces are reachable from the showcase graph; nested experiments stay reachable through their parent rather than receiving new cards."
   },
   "capability_model": {
     "CAPTURE": {
