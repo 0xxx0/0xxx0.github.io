@@ -1,0 +1,74 @@
+{
+  "schema": "0xxx0/library-census-seed/v0.1",
+  "updated": "2026-09-19",
+  "scope": "Recent Library artifacts surfaced during recovery; seed only, not a complete inventory.",
+  "confirmed_exact_duplicates": [
+    {
+      "canonical_candidate": "fold_bloom_fold_weave_01.html",
+      "duplicate": "fold_bloom_fold_weave_01(1).html",
+      "size_bytes": 102137,
+      "lines": 1317,
+      "verification": "Both 1–1000 and 1001–1317 text ranges compare equal; same reported byte size.",
+      "action": "Count as one artifact pending canonical-path selection."
+    }
+  ],
+  "visible_clusters": [
+    {
+      "cluster": "Fold/Bloom",
+      "examples": [
+        "fold_bloom_fold_weave_01.html"
+      ],
+      "action": "compare mechanism to current frozen heads"
+    },
+    {
+      "cluster": "AXIAL / state-transform",
+      "examples": [
+        "state_transform_instrument_v0_3.html",
+        "axial_compositor_v0_2_print_template.svg",
+        "axial_compositor_v0_2_build_notes.txt"
+      ],
+      "action": "preserve digital + physical bridge as one lineage"
+    },
+    {
+      "cluster": "ENV0 / House physical interface",
+      "examples": [
+        "ENV0_Atlas_v0_1_A2.pdf",
+        "ENV0_symbols_A2_v0_1.svg",
+        "ENV0_P0_BUILD_SHEET_A3.pdf"
+      ],
+      "action": "treat as physical/reality lineage, not gallery-card proliferation"
+    },
+    {
+      "cluster": "House OS visual boards",
+      "examples": [
+        "House OS: Practical Apartment Builds.png",
+        "Apartment Home OS: Modular Living Blueprint.png",
+        "The Living Prototype 2.0: Systems for Life.png"
+      ],
+      "action": "visual donor batch; dedup ideas before publishing"
+    },
+    {
+      "cluster": "Sleeper",
+      "examples": [
+        "sleeper_pov_v0.7_private_checkpoint.zip"
+      ],
+      "action": "compare checkpoint to current /sleeper/ and external donor lineage"
+    },
+    {
+      "cluster": "Path / Verse / Foundry",
+      "examples": [
+        "verse_atlas.html",
+        "Foundry Cabinet V4"
+      ],
+      "action": "preserve unequal corpus branches"
+    },
+    {
+      "cluster": "Naming / Game of Names",
+      "examples": [
+        "archive conversation + generated image batch"
+      ],
+      "action": "recover concepts/artifacts later; keep held"
+    }
+  ],
+  "next": "Hash/index all accessible recent files, then classify by lineage. Exact duplicates reduce count before semantic clustering."
+}
