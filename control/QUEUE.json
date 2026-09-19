@@ -1,0 +1,65 @@
+{
+  "schema": "0xxx0/execution-queue/v0.1",
+  "updated": "2026-09-19",
+  "max_live": 3,
+  "live": [
+    {
+      "id": "recover-repo",
+      "goal": "Move the last ~2 weeks of distinctive runnable work into durable repo lineage without redesigning it during ingest.",
+      "horizon": "current pass",
+      "next": [
+        "Freeze exact Grid Path Compiler V4 cabinet when a byte-safe transfer path is available.",
+        "Recover Sleeper City Engine and Painting/Path source as separate specimens.",
+        "Cluster recent Library artifacts by lineage and exact/near duplicate status."
+      ],
+      "receipt": "repo paths + hashes + migration classification"
+    },
+    {
+      "id": "ingest-files-media",
+      "goal": "Create one reversible local ingest layer for Downloads/Library/media that labels and deduplicates before moving anything.",
+      "horizon": "next bounded setup",
+      "next": [
+        "Start with inventory + hashes + metadata only.",
+        "Add semantic/tag layer without changing original paths.",
+        "Enable automatic moves only for deterministic high-confidence rules after review."
+      ],
+      "receipt": "dry-run report + duplicate groups + tag/index database + zero unreviewed destructive moves"
+    },
+    {
+      "id": "reality-house",
+      "goal": "Make one visible physical/home state simpler and measurable so the abstract system remains reality-gated.",
+      "horizon": "after one repo/ingest receipt",
+      "next": [
+        "Pick one bounded physical zone or owned endpoint.",
+        "Record before-state.",
+        "Perform one reversible cleanup/routing/automation change.",
+        "Record after-state and what became easier."
+      ],
+      "receipt": "before/after + measured or plainly observable delta"
+    }
+  ],
+  "held": [
+    {
+      "id": "comms",
+      "reason": "Important, but held while recovery/orientation is being stabilized."
+    },
+    {
+      "id": "axial-expansion",
+      "reason": "Keep current experiment; no new branch until current recovery produces a need."
+    },
+    {
+      "id": "new-site-design",
+      "reason": "No new public shell unless an existing instrument cannot express a required function."
+    },
+    {
+      "id": "new-hardware",
+      "reason": "Existing owned endpoints and physical environment must produce a RETURN first."
+    }
+  ],
+  "turn_order": [
+    "TURN A — recover/classify exact artifacts; no redesign.",
+    "TURN B — install file/media ingest dry-run and dedup index.",
+    "TURN C — one physical reality cleanup/House episode.",
+    "TURN D — review receipts at DOCK; reopen only the front that earned continuation."
+  ]
+}
