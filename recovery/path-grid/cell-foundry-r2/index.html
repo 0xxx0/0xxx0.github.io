@@ -1,0 +1,700 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07090a">
+<title>CELL FOUNDRY // REFINED 2</title>
+<style>
+:root{
+  --bg:#060708;--panel:#0a0f12;--panel2:#0e1519;--panel3:#121b20;
+  --ink:#eef2ef;--muted:#819099;--hair:#25323a;--hair2:#3a4b55;
+  --cyan:#77d7ea;--hot:#f1a44c;--green:#9bd27d;--pink:#ed8ab8;--red:#ee7670;--violet:#b5a0eb;
+  --dock:62px;--top:49px;--status:25px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;width:100%;max-width:100%;min-width:0;height:100%;overflow:hidden;overscroll-behavior:none;background:var(--bg);color:var(--ink);
+  font:12px/1.38 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+button,input,select{font:inherit;color:inherit;background:#10171b;border:1px solid var(--hair);border-radius:9px}
+button{min-height:38px;padding:7px 10px;cursor:pointer;transition:transform .12s,border-color .12s,background .12s,color .12s}
+button:hover{border-color:#60737e}button:active{transform:translateY(1px)}
+button.active{border-color:var(--hot);color:#ffd39a;background:#19130d}
+button.primary{border-color:#8b6231;color:#ffd39a;background:#1a140d}
+button.good{border-color:#466942;color:#b9e8a7}
+input,select{min-height:38px;padding:7px 9px}
+input[type=range]{padding:0;min-height:auto;width:100%}
+label{color:var(--muted);font-size:10px}
+kbd{border:1px solid var(--hair);border-radius:5px;padding:1px 4px;color:#bac6cb;background:#0b1013}
+.goodTxt{color:var(--green)}.badTxt{color:var(--red)}.cyan{color:var(--cyan)}.hot{color:var(--hot)}
+.app{width:100%;max-width:100vw;min-width:0;height:var(--app-h,100vh);display:grid;grid-template-rows:var(--top) minmax(0,1fr) var(--status);overflow:hidden}
+.top{
+  z-index:60;display:flex;align-items:center;gap:7px;padding:7px 9px;border-bottom:1px solid var(--hair);
+  background:#080b0df2;backdrop-filter:blur(12px)
+}
+.brand{font-weight:900;letter-spacing:.12em;white-space:nowrap}.brand em{font-style:normal;color:var(--hot)}
+.top .spacer{flex:1}.iconBtn{width:38px;padding:0;display:grid;place-items:center}
+.shell{width:100%;max-width:100%;min-width:0;min-height:0;overflow:hidden;display:grid;grid-template-columns:280px minmax(0,1fr) 310px}
+.panel{min-height:0;overflow:auto;background:var(--panel);padding:10px;scrollbar-width:thin;scrollbar-color:#28353c transparent}
+.left{border-right:1px solid var(--hair)}.right{border-left:1px solid var(--hair)}
+.modePanel{display:none}.modePanel.active{display:block}
+.stage{position:relative;width:100%;max-width:100%;min-width:0;min-height:0;overflow:hidden;background:
+  radial-gradient(circle at 50% 44%,#111a1e 0,#080b0e 34%,#030405 76%)}
+#main{width:100%;height:100%;display:block;touch-action:none}
+.stageHead{
+  position:absolute;z-index:8;left:10px;top:9px;right:10px;display:flex;gap:8px;align-items:flex-start;pointer-events:none
+}
+.question{font-size:10px;color:#b9c4c9;letter-spacing:.05em;background:#080b0dbf;border:1px solid #202d34;border-radius:999px;padding:5px 8px}
+.contract{margin-left:auto;font-size:9px;color:var(--muted);background:#080b0dbf;border:1px solid #202d34;border-radius:999px;padding:5px 8px;white-space:nowrap}
+.toast{position:absolute;z-index:50;top:44px;left:50%;transform:translate(-50%,-8px);opacity:0;pointer-events:none;
+  padding:7px 10px;border:1px solid var(--hair2);border-radius:999px;background:#090d10f2;transition:.18s;box-shadow:0 10px 30px #0008}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.coach{
+  position:absolute;z-index:20;left:12px;bottom:12px;max-width:min(660px,calc(100% - 24px));padding:9px;
+  border:1px solid var(--hair);border-radius:12px;background:#090d10e8;box-shadow:0 14px 45px #000a;backdrop-filter:blur(9px)
+}
+.coachRow{display:flex;gap:8px;align-items:center}.coachText{flex:1;min-width:0}.coachTitle{font-weight:850;font-size:13px}.coachDetail{font-size:10px;color:var(--muted);margin-top:2px}
+.coach button{min-height:34px}.progress{height:2px;background:#192226;border-radius:9px;overflow:hidden;margin-top:7px}.progress i{display:block;height:100%;background:var(--hot)}
+.modeDock{
+  position:absolute;z-index:25;top:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px;
+  padding:4px;border:1px solid var(--hair);border-radius:12px;background:#080b0ddf;backdrop-filter:blur(10px)
+}
+.modeDock button{min-height:32px;padding:5px 9px;font-size:10px}
+.statusbar{min-width:0;display:flex;align-items:center;gap:6px;padding:3px 8px;border-top:1px solid var(--hair);color:var(--muted);background:#080b0d;font-size:9px}
+.statusbar .status{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.carry{white-space:nowrap;cursor:pointer;border-color:#36515c;color:#a9dce6}
+.k{color:var(--muted);font-size:9px;letter-spacing:.15em;text-transform:uppercase;margin:13px 0 6px}
+.sub{color:var(--muted);font-size:10px}.tiny{font-size:9px;color:var(--muted)}
+.card{border:1px solid var(--hair);border-radius:10px;background:#0d1316;padding:9px;margin-bottom:7px}
+.card.sel{border-color:var(--cyan);box-shadow:0 0 0 1px #244a55 inset}.card h3{font-size:12px;margin:0 0 4px}
+.row{display:flex;gap:5px;align-items:center}.row>*{flex:1}.row.wrap{flex-wrap:wrap}.row.wrap>*{min-width:90px}
+.pill{display:inline-flex;align-items:center;border:1px solid var(--hair);border-radius:999px;padding:2px 6px;margin:2px 2px 2px 0;font-size:9px;color:var(--muted)}
+.pill.live{border-color:#416445;color:#bce5aa}.pill.warn{border-color:#735338;color:#efc18c}.pill.bad{border-color:#71413e;color:#ef9b96}
+.metrics{display:grid;grid-template-columns:1fr 1fr;gap:5px}.metric{border:1px solid var(--hair);border-radius:9px;padding:7px;background:#0c1215}
+.metric b{display:block;color:var(--cyan);font-size:15px}
+.mission{cursor:pointer}.mission.locked{opacity:.42}.badge{display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;border:1px solid var(--hair);font-size:9px;margin-right:4px}
+.claim{border-left:2px solid var(--hair);padding-left:8px;margin:8px 0}.claim.O{border-color:var(--green)}.claim.I{border-color:var(--cyan)}.claim.H{border-color:var(--hot)}.claim.R{border-color:var(--red)}
+.diffRow{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px;align-items:center;padding:5px 0;border-bottom:1px dotted #25323a}.diffRow:last-child{border-bottom:0}
+#tileMini,#glyphMini{width:100%;aspect-ratio:1;border:1px solid var(--hair);border-radius:9px;background:#050708}
+.log{max-height:160px;overflow:auto;border:1px solid var(--hair);border-radius:9px;background:#080c0e;padding:7px}.log div{padding:3px 0;border-bottom:1px dotted #202b30}.log div:last-child{border:0}
+.routeRead b{font-size:15px}.routeRead .chars{letter-spacing:.15em}
+.sheetShade{display:none}
+.orientation{position:fixed;z-index:120;inset:0;background:#020304d9;display:grid;place-items:center;padding:14px;backdrop-filter:blur(10px)}
+.orientation.hidden{display:none}
+.orientationCard{width:min(640px,100%);border:1px solid var(--hair2);border-radius:16px;background:linear-gradient(160deg,#10171b,#080c0f);padding:18px;box-shadow:0 30px 100px #000}
+.orientationCard h2{font-size:clamp(22px,5vw,38px);letter-spacing:-.035em;margin:4px 0 12px}
+.orientationSteps{display:grid;gap:6px;margin:12px 0}.orientationStep{display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:start;border:1px solid var(--hair);border-radius:10px;padding:8px;background:#0c1215}
+.orientationStep b{color:var(--cyan)}.safeNote{border-left:2px solid var(--green);padding:6px 8px;margin:10px 0;color:#b8c5c9;font-size:10px}
+.lab{
+  position:fixed;z-index:110;inset:0;background:#020304dc;display:grid;place-items:center;padding:14px;backdrop-filter:blur(10px)
+}.lab.hidden{display:none}
+.labCard{width:min(950px,100%);max-height:90dvh;overflow:auto;border:1px solid var(--hair2);border-radius:16px;background:#0a1013;padding:14px;box-shadow:0 30px 100px #000}
+.labHead{display:flex;gap:8px;align-items:center}.labHead h2{margin:0;flex:1}.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin-top:10px}
+.check{border:1px solid var(--hair);border-radius:9px;padding:8px;background:#0d1417}.check.pass{border-color:#3d603f}.check.fail{border-color:#70403d}.check b{display:block}
+.quality{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.quality .card{margin:0}
+.mobileOnly{display:none}
+@media(max-width:980px){
+  :root{--top:49px;--status:22px}
+  .shell{display:block;width:100%;max-width:100vw;min-width:0}.stage{width:100%;max-width:100vw;min-width:0;height:100%}
+  .panel{
+    position:fixed;z-index:75;left:8px;right:8px;bottom:calc(var(--dock) + var(--status) + 8px);
+    top:auto;max-height:min(65dvh,620px);border:1px solid var(--hair2);border-radius:16px;padding:11px;
+    box-shadow:0 20px 60px #000c;transform:translateY(calc(100% + 100px));transition:transform .2s ease;
+  }
+  .panel.open{transform:translateY(0)}.left,.right{border:1px solid var(--hair2)}
+  .sheetShade{display:block;position:fixed;z-index:70;inset:var(--top) 0 calc(var(--dock) + var(--status)) 0;background:#0008;opacity:0;pointer-events:none;transition:.18s}
+  .sheetShade.show{opacity:1;pointer-events:auto}
+  .modeDock{position:fixed;top:auto;bottom:var(--status);left:0;right:0;transform:none;height:var(--dock);border-radius:0;border-left:0;border-right:0;border-bottom:0;
+    display:grid;grid-template-columns:repeat(5,1fr);gap:4px;padding:6px 7px;background:#080b0df5}
+  .modeDock button{min-height:48px;padding:3px;font-size:9px}
+  .modeDock button span{display:block;font-size:14px;line-height:1;margin-bottom:3px}
+  .brand{max-width:58vw;overflow:hidden;text-overflow:ellipsis}.desktopOnly{display:none}.mobileOnly{display:inline-grid}
+  .stageHead{top:7px}.question{max-width:65vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.contract{font-size:8px}
+  .coach{left:8px;right:8px;bottom:calc(var(--dock) + 8px);max-width:none}.coachDetail{display:none}
+  .coachRow{gap:5px}.coach button{min-width:74px;padding:5px 7px}
+  .statusbar{font-size:8px}.top,.modeDock,.coach,.orientation,.lab{backdrop-filter:none!important}.orientationCard{max-height:calc(var(--app-h,100vh) - 28px);overflow:auto}
+  .checks{grid-template-columns:1fr}.quality{grid-template-columns:1fr}
+}
+@media(max-width:520px){
+  .brand{font-size:11px;max-width:57vw}.stageHead{right:7px;left:7px}.contract{display:none}
+  .coachTitle{font-size:11px}.coach{padding:7px}.coach button{min-height:36px}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="brand">CELL FOUNDRY <em>// R2</em></div>
+  <div class="spacer"></div>
+  <button id="undo" title="Undo">↶</button><button id="redo" title="Redo">↷</button>
+  <button id="leftToggle" class="iconBtn" title="Open controls">☰</button>
+  <button id="guideBtn" class="iconBtn" title="What is this / guide">?</button>
+  <button id="labBtn" class="iconBtn" title="Diagnostics / refinement lab">✓</button>
+  <button id="rightToggle" class="iconBtn" title="Open inspector">◎</button>
+</header>
+
+<div class="shell">
+<div class="sheetShade" id="shade"></div>
+<aside class="panel left" id="leftPanel">
+  <section class="modePanel active" data-panel="PLAY">
+    <div class="k">Research loop</div><div id="missions"></div>
+    <div class="k">Gesture</div>
+    <div class="card"><b>Trace directly on the field.</b><div class="sub">Drag through legal neighboring cells. A single tap selects its 4×4 tile. Search is a helper, not the only interaction.</div></div>
+    <div class="k">Contract</div>
+    <div class="card"><b>Default movement</b><div class="sub">U / D / L / R · no repeated cell. A diagonal is an explicit exceptional edge, never a hidden convenience.</div></div>
+  </section>
+
+  <section class="modePanel" data-panel="ATLAS">
+    <div class="k">Evidence ledger</div><div id="claims"></div>
+    <div class="k">Rule</div><div class="card"><b>Discovery ≠ authorship.</b><div class="sub">Latent routes remain machine discoveries until evidence promotes them. Topology changes remain named operations.</div></div>
+  </section>
+
+  <section class="modePanel" data-panel="COMPOSE">
+    <div class="k">Selected 4×4 cell</div><canvas id="tileMini" width="420" height="420"></canvas><div id="tileInfo" class="card"></div>
+    <div class="k">Named operations</div>
+    <div class="row wrap"><button data-op="rot">ROTATE</button><button data-op="mx">MIRROR X</button><button data-op="my">MIRROR Y</button><button id="markSwap">MARK / SWAP</button></div>
+    <div class="k">History</div><div id="transformLog" class="log"></div>
+    <div class="row" style="margin-top:6px"><button id="resetDerivative">RESET TO REFERENCE</button></div>
+  </section>
+
+  <section class="modePanel" data-panel="VERIFY">
+    <div class="k">What is being verified?</div>
+    <div class="card"><b>Three distinct questions.</b><div class="sub">1. Is the authored path still at its address? 2. If not, is its word still reachable elsewhere? 3. Did the engine itself preserve the declared edge law?</div></div>
+    <div class="k">Authored anchor audit</div><div id="anchorAudit"></div>
+  </section>
+
+  <section class="modePanel" data-panel="TYPE">
+    <div class="k">Route → glyph projection</div><canvas id="glyphMini" width="500" height="500"></canvas>
+    <div class="row"><label>stroke<input id="stroke" type="range" min="1" max="22" value="6"></label><label>symmetry<select id="sym"><option value="1">1×</option><option value="2">2×</option><option value="4">4×</option><option value="8">8×</option></select></label></div>
+    <div class="row" style="margin-top:5px"><label>simplify<input id="simp" type="range" min="0" max="6" value="0"></label><label>size mm<input id="mm" type="range" min="15" max="90" value="35"></label></div>
+    <div id="typeCheck" class="card"></div>
+    <div class="row"><button id="exportSvg" class="primary">SVG</button><button id="perform">PLAY</button></div>
+  </section>
+</aside>
+
+<main class="stage" id="stage">
+  <canvas id="main"></canvas>
+  <div class="stageHead"><div id="question" class="question">What routes are actually permitted?</div><div id="contractTag" class="contract">SEALED · ORTHOGONAL</div></div>
+  <nav class="modeDock" aria-label="Foundry modes">
+    <button class="nav active" data-mode="PLAY"><span>◎</span>PLAY</button>
+    <button class="nav" data-mode="ATLAS"><span>⌘</span>ATLAS</button>
+    <button class="nav" data-mode="COMPOSE"><span>◇</span>COMPOSE</button>
+    <button class="nav" data-mode="VERIFY"><span>✓</span>VERIFY</button>
+    <button class="nav" data-mode="TYPE"><span>字</span>TYPE</button>
+  </nav>
+  <div class="toast" id="toast"></div>
+  <div class="coach" id="coach">
+    <div class="coachRow"><div class="coachText"><div class="coachTitle" id="coachTitle"></div><div class="coachDetail" id="coachDetail"></div></div>
+      <button id="coachGo" class="primary">FIND CODE</button><button id="coachHide">DISMISS</button></div>
+    <div class="progress"><i id="progress"></i></div>
+  </div>
+</main>
+
+<aside class="panel right" id="rightPanel">
+  <section class="modePanel active" data-panel="PLAY">
+    <div class="k">Live edge contract</div>
+    <select id="seams" style="width:100%"><option value="sealed">SEALED · 16 tiles</option><option value="strips">STRIPS · 4 vertical bands</option><option value="global">GLOBAL · fully stitched</option></select>
+    <div class="row" style="margin-top:5px"><button id="diag">DIAGONALS OFF</button><button id="reference">REFERENCE</button></div>
+    <div class="k">Route</div><input id="target" value="CODE" maxlength="18" style="width:100%;text-transform:uppercase">
+    <div class="row" style="margin-top:5px"><button id="find" class="primary">FIND</button><button id="nextRoute">NEXT</button></div>
+    <div id="routeRead" class="card routeRead"></div>
+    <div class="k">Graph</div><div class="metrics"><div class="metric">edges<b id="edges">0</b></div><div class="metric">components<b id="components">0</b></div><div class="metric">routes<b id="routes">0</b></div><div class="metric">diag steps<b id="diagSteps">0</b></div></div>
+    <div class="k">Validated benchmark</div><div id="bench" class="card"></div>
+  </section>
+
+  <section class="modePanel" data-panel="ATLAS">
+    <div class="k">Current tile</div><div id="atlasTile" class="card"></div>
+    <div class="metrics"><div class="metric">Latin<b id="latinN">0</b></div><div class="metric">double sym<b id="symN">0</b></div><div class="metric">atlas V4<b>9</b></div><div class="metric">open<b>7</b></div></div>
+    <div class="k">Structural hypothesis</div><div class="card"><b>Nine ≠ proof.</b><div class="sub">The nine V4 cells are a strong structural fact. Their identification with the Nine Gates remains intent-unproven.</div></div>
+  </section>
+
+  <section class="modePanel" data-panel="COMPOSE">
+    <div class="k">Derivative status</div><div id="composeStatus" class="card"></div>
+    <div class="k">Algorithms beside the work</div><div id="algoRail"></div>
+    <div class="k">Search this derivative</div><input id="composeTarget" value="TIME" style="width:100%;text-transform:uppercase"><button id="composeFind" style="width:100%;margin-top:5px">SEARCH</button>
+  </section>
+
+  <section class="modePanel" data-panel="VERIFY">
+    <div class="k">Verdict</div><div id="verdict" class="card"></div>
+    <div class="k">Engine invariants</div><div id="engineChecks"></div>
+    <div class="k">Legend</div>
+    <div class="card"><span class="pill live">EXACT</span> same authored route at same coordinates<br><span class="pill warn">MIGRATED</span> authored address changed, but word remains reachable<br><span class="pill bad">LOST</span> word no longer reachable under current contract</div>
+  </section>
+
+  <section class="modePanel" data-panel="TYPE">
+    <div class="k">Projection receipt</div><div id="receipt" class="card sub" style="white-space:pre-wrap"></div>
+    <div class="row"><button id="exportReceipt">RECEIPT JSON</button></div>
+    <div class="k">Contract</div><div class="card"><b>Render ≠ meaning.</b><div class="sub">The SVG records a route projection and its provenance. Legibility and fabrication remain separate tests.</div></div>
+  </section>
+</aside>
+</div>
+<footer class="statusbar"><span id="status" class="status"></span><span id="carryPill" class="pill carry" title="Current route carried across modes">route ∅</span><span id="branchPill" class="pill" title="Reference or derivative state">REF</span><span id="savePill" class="pill live">local</span></footer>
+</div>
+
+<div class="orientation hidden" id="orientation">
+  <div class="orientationCard">
+    <div class="k" style="margin:0 0 3px">20-SECOND ORIENTATION</div>
+    <h2>This is a field you can read by moving through it.</h2>
+    <div class="orientationSteps">
+      <div class="orientationStep"><b>1</b><div><strong>Letters are the source.</strong><div class="sub">The 16×16 field is made of sixteen 4×4 cells.</div></div></div>
+      <div class="orientationStep"><b>2</b><div><strong>Drag through neighboring letters.</strong><div class="sub">That ordered movement is a route; the letters along it become a reading.</div></div></div>
+      <div class="orientationStep"><b>3</b><div><strong>Thick seams are real rules.</strong><div class="sub">SEALED / STRIPS / GLOBAL changes which moves are legal. COMPOSE changes a copy, never the reference.</div></div></div>
+    </div>
+    <div class="safeNote">Nothing fragile is at stake here: experimental edits are undoable, and REFERENCE restores the source.<br><span class="tiny">Bottom = modes · ☰ = actions · ◎ = details/evidence.</span></div>
+    <div class="row"><button id="orientTrace" class="primary">TRY: TRACE C → O → D → E</button><button id="orientFree">JUST EXPLORE</button></div>
+  </div>
+</div>
+
+<div class="lab hidden" id="lab">
+  <div class="labCard">
+    <div class="labHead"><div><div class="k" style="margin:0 0 3px">REFINEMENT HARNESS</div><h2>Build → test → feel → cut → keep</h2></div><button id="closeLab">CLOSE</button></div>
+    <p class="sub">This panel is intentionally part of the single file. Automated checks catch structural breakage; the manual gates catch the things code cannot decide for us.</p>
+    <div class="row"><button id="runChecks" class="primary">RUN SELF-TESTS</button><button id="exportDiag">EXPORT DIAGNOSTICS</button></div>
+    <div id="checks" class="checks"></div>
+    <div class="k">Quality gates · use these before adding features</div>
+    <div class="quality">
+      <div class="card"><b>1 · FUNCTION</b><div class="sub">Every visible control changes a visible state or produces an artifact.</div></div>
+      <div class="card"><b>2 · LEGIBILITY</b><div class="sub">One focal object per viewport; secondary detail is a sheet, not another dashboard.</div></div>
+      <div class="card"><b>3 · REVERSIBILITY</b><div class="sub">Experimental operations can be undone; reference material cannot be silently overwritten.</div></div>
+      <div class="card"><b>4 · PROVENANCE</b><div class="sub">Observed / inferred / hypothetical / generated are not visually laundered into one status.</div></div>
+      <div class="card"><b>5 · MOBILE</b><div class="sub">No essential control depends on hover or clipped side rails. Touch targets survive a phone viewport.</div></div>
+      <div class="card"><b>6 · DELIGHT</b><div class="sub">Motion, sound and visual drama must reveal state, causality or rhythm—not decorate inactivity.</div></div>
+    </div>
+    <div class="k">Extension boundary</div>
+    <div class="card sub">A proposed addition must enter as one of: <b>operation</b> · <b>analyzer</b> · <b>renderer</b> · <b>exporter</b> · <b>fixture</b> · <b>test</b>. Otherwise it stays in notes until the architecture earns another category.</div>
+  </div>
+</div>
+
+<script>
+(()=>{'use strict';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],TAU=Math.PI*2;
+const C=$('#main'),X=C.getContext('2d'),TM=$('#tileMini'),TX=TM.getContext('2d'),GM=$('#glyphMini'),GX=GM.getContext('2d');
+
+const SOURCE_ROWS=[
+['COME','RISE','SIRE','IRES'],['WHET','IRES','ISER','RISE'],['FEAR','SERE','NADI','ASKR'],['VIES','ESIR','ERTS','SERV'],
+['MEAN','NAME','SANE','NEMA'],['EMNA','ANEM','AMEN','ENAM'],['ANME','MEND','NEMA','MANE'],['NAEM','EMAN','DNAM','AMEN'],
+['META','TEAM','MATE','MESA'],['EMAT','ETMA','AMET','EMAS'],['TAME','AMTE','TEMA','SAME'],['ATEM','MAET','ETAM','ASEM'],
+['CODE','SEAL','TIME','TOME'],['OCED','ESLA','ITEM','OVER'],['DECO','ALSE','METI','METO'],['EDOC','LAES','EMIT','EMOT']
+];
+const REF=SOURCE_ROWS.map(r=>[...r.join('')]);
+const V4_POS=new Set(['2,1','2,4','3,1','3,2','3,3','3,4','4,1','4,2','4,3']);
+const BENCH={
+ sealed:{edges:384,components:16,words:260},strips:{edges:432,components:4,words:420},global:{edges:480,components:1,words:562},
+ sealedDiagonal:{words:846}
+};
+const ANCHORS=[
+ ['COME',0,0],['RISE',0,4],['SIRE',0,8],['IRES',0,12],
+ ['MEAN',4,0],['NAME',4,4],['SANE',4,8],['NEMA',4,12],
+ ['META',8,0],['TEAM',8,4],['MATE',8,8],['MESA',8,12],
+ ['CODE',12,0],['SEAL',12,4],['TIME',12,8],['TOME',12,12]
+].map(([word,y,x])=>({word,path:[0,1,2,3].map(k=>id(x+k,y))}));
+const CLAIMS=[
+ ['O','Observed','MEANTOME supports sealed tiles, vertical strips, and fully stitched topology as distinct edge contracts.'],
+ ['O','Observed','Exactly nine validated atlas tiles are doubly symmetric Latin/V4 cells.'],
+ ['I','Interpretation','Formal closure and lexical fertility oppose one another in the measured corpus.'],
+ ['H','Hypothesis','The nine V4 cells may mechanically correspond to the Nine Gates; structural fit is not proof of intent.'],
+ ['R','Rejected default','Global diagonals erase discrimination by multiplying reachable language; keep them exceptional.']
+];
+const QUESTIONS={
+ PLAY:'What routes are actually permitted?',
+ ATLAS:'What is observed, inferred, or merely possible?',
+ COMPOSE:'What changes when the geometry changes?',
+ VERIFY:'What survived at the same address—and what only migrated?',
+ TYPE:'What can this exact route become without pretending the rendering is the meaning?'
+};
+const MOBILE_QUESTIONS={
+ PLAY:'Drag neighboring letters to make a route.',
+ ATLAS:'Tap a 4×4 cell · ☰/◎ for structure.',
+ COMPOSE:'Tap a tile · ☰ to rotate, mirror, or swap.',
+ VERIFY:'◎ shows EXACT / MIGRATED / LOST.',
+ TYPE:'Current route → glyph · ☰ for stroke · ◎ to export.'
+};
+const STATUSES={
+ PLAY:'Trace directly, or search a target. Edge laws stay visible.',
+ ATLAS:'Machine discovery is kept distinct from authored evidence.',
+ COMPOSE:'Every mutation is named, undoable, and compared with the immutable reference.',
+ VERIFY:'Exact address preservation, migrated reachability, and engine invariants are reported separately.',
+ TYPE:'The current route can become a glyph, sound, and receipt while provenance remains attached.'
+};
+
+const State={
+ mode:'PLAY',topology:'sealed',diagonal:false,work:clone(REF),selected:{r:1,c:0},path:[],routes:[],routeIndex:0,
+ ops:[],history:[],future:[],swapMark:null,mission:0,done:[false,false,false,false,false],playing:false,playT:0,
+ traceActive:false,traceMoved:false,traceError:false,showHint:false
+};
+const GraphCache=new Map();
+
+const Registry={operations:new Map(),analyzers:new Map(),renderers:new Map(),exporters:new Map(),tests:new Map()};
+function register(kind,name,spec){Registry[kind].set(name,spec);return spec}
+
+function clone(m){return m.map(r=>r.slice())}
+function id(x,y){return x+y*16}function pos(i){return[i%16,(i/16)|0]}
+function snapshot(){return{work:clone(State.work),ops:State.ops.slice(),selected:{...State.selected},swapMark:State.swapMark?{...State.swapMark}:null}}
+function restore(s){State.work=clone(s.work);State.ops=s.ops.slice();State.selected={...s.selected};State.swapMark=s.swapMark?{...s.swapMark}:null;State.path=[];State.routes=[]}
+function safeStore(k,v){try{localStorage.setItem(k,v);return true}catch(e){return false}}
+function safeLoad(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function persist(){
+ let ok=safeStore('cell-foundry-refined',JSON.stringify({work:State.work,ops:State.ops,done:State.done,mission:State.mission}));
+ $('#savePill').textContent=ok?'saved':'session';clearTimeout(persist.t);persist.t=setTimeout(()=>$('#savePill').textContent=ok?'local':'session',650)
+}
+function load(){
+ try{let q=JSON.parse(safeLoad('cell-foundry-refined')||'null');if(q){State.work=q.work||State.work;State.ops=q.ops||[];State.done=q.done||State.done;State.mission=q.mission||0}}catch(e){}
+}
+function toast(s){let e=$('#toast');e.textContent=s;e.classList.add('show');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('show'),1400)}
+function buzz(n=8){try{navigator.vibrate&&navigator.vibrate(n)}catch(e){}}
+
+const Graph=register('analyzers','graph',{
+ key(contract={topology:State.topology,diagonal:State.diagonal}){return `${contract.topology}|${contract.diagonal?1:0}`},
+ edges(contract={topology:State.topology,diagonal:State.diagonal}){
+   let key=this.key(contract),cached=GraphCache.get(key);if(cached&&cached.edges)return cached.edges;
+   let E=[],dirs=contract.diagonal?[[1,0],[0,1],[1,1],[-1,1]]:[[1,0],[0,1]];
+   for(let y=0;y<16;y++)for(let x=0;x<16;x++)for(const[dx,dy]of dirs){
+     let nx=x+dx,ny=y+dy;if(nx<0||ny<0||nx>=16||ny>=16)continue;
+     let ok=contract.topology==='global';
+     if(contract.topology==='sealed')ok=(x>>2)===(nx>>2)&&(y>>2)===(ny>>2);
+     if(contract.topology==='strips')ok=(x>>2)===(nx>>2)&&((dx===0)||((y>>2)===(ny>>2)));
+     if(ok)E.push([id(x,y),id(nx,ny)]);
+   }
+   GraphCache.set(key,{...(cached||{}),edges:E});return E
+ },
+ adjacency(contract={topology:State.topology,diagonal:State.diagonal}){
+   let key=this.key(contract),cached=GraphCache.get(key);if(cached&&cached.adj)return cached.adj;
+   let a=Array.from({length:256},()=>[]);for(const[u,v]of this.edges(contract)){a[u].push(v);a[v].push(u)}
+   GraphCache.set(key,{...(GraphCache.get(key)||{}),adj:a});return a
+ },
+ components(contract={topology:State.topology,diagonal:State.diagonal}){
+   let key=this.key(contract),cached=GraphCache.get(key);if(cached&&cached.components!=null)return cached.components;
+   let a=this.adjacency(contract),seen=new Set(),n=0;for(let i=0;i<256;i++)if(!seen.has(i)){n++;let q=[i];seen.add(i);while(q.length){let u=q.pop();for(let v of a[u])if(!seen.has(v)){seen.add(v);q.push(v)}}}
+   GraphCache.set(key,{...(GraphCache.get(key)||{}),components:n});return n
+ },
+ find(word,m=State.work,contract={topology:State.topology,diagonal:State.diagonal},limit=200){
+   word=(word||'').toUpperCase().replace(/[^A-Z0-9]/g,'');if(!word)return[];
+   let a=this.adjacency(contract),res=[],used=new Uint8Array(256);
+   function dfs(i,k,path){if(res.length>=limit)return;let[x,y]=pos(i);if(m[y][x]!==word[k])return;if(k===word.length-1){res.push(path.concat(i));return}
+     used[i]=1;for(let v of a[i])if(!used[v])dfs(v,k+1,path.concat(i));used[i]=0}
+   for(let i=0;i<256&&res.length<limit;i++){let[x,y]=pos(i);if(m[y][x]===word[0])dfs(i,0,[])}return res
+ },
+ legalStep(a,b,contract={topology:State.topology,diagonal:State.diagonal}){
+   if(a===b)return false;let A=pos(a),B=pos(b),dx=Math.abs(A[0]-B[0]),dy=Math.abs(A[1]-B[1]);
+   if(contract.diagonal?Math.max(dx,dy)!==1:(dx+dy)!==1)return false;
+   if(contract.topology==='global')return true;
+   if(contract.topology==='sealed')return (A[0]>>2)===(B[0]>>2)&&(A[1]>>2)===(B[1]>>2);
+   if(contract.topology==='strips')return (A[0]>>2)===(B[0]>>2)&&(A[0]===B[0]||((A[1]>>2)===(B[1]>>2)));
+   return false
+ }
+});
+
+const Tiles=register('analyzers','tiles',{
+ get(m,tr,tc){return m.slice(tr*4,tr*4+4).map(r=>r.slice(tc*4,tc*4+4))},
+ put(m,tr,tc,t){for(let y=0;y<4;y++)for(let x=0;x<4;x++)m[tr*4+y][tc*4+x]=t[y][x]},
+ props(tr,tc,m=State.work){
+   let t=this.get(m,tr,tc),symbols=new Set(t[0]),eq=(a,b)=>a.size===b.size&&[...a].every(x=>b.has(x));
+   let latin=symbols.size===4&&t.every(r=>eq(new Set(r),symbols))&&[0,1,2,3].every(c=>eq(new Set(t.map(r=>r[c])),symbols));
+   let transpose=[0,1,2,3].every(r=>[0,1,2,3].every(c=>t[r][c]===t[c][r]));
+   let half=[0,1,2,3].every(r=>[0,1,2,3].every(c=>t[r][c]===t[3-r][3-c]));
+   return{latin,transpose,half,v4Atlas:V4_POS.has(`${tr+1},${tc+1}`),rows:t.map(r=>r.join(''))}
+ }
+});
+
+function pathWord(path=State.path,m=State.work){return path.map(i=>{let[x,y]=pos(i);return m[y][x]}).join('')}
+function diagonalSteps(path=State.path){let n=0;for(let i=1;i<path.length;i++){let a=pos(path[i-1]),b=pos(path[i]);if(Math.abs(a[0]-b[0])===1&&Math.abs(a[1]-b[1])===1)n++}return n}
+function seamCrossings(path=State.path){let n=0;for(let i=1;i<path.length;i++){let a=pos(path[i-1]),b=pos(path[i]);if((a[0]>>2)!==(b[0]>>2)||(a[1]>>2)!==(b[1]>>2))n++}return n}
+function fingerprint(m=State.work){return m.map(r=>r.join('')).join('|')}
+function diffCount(){let n=0;for(let y=0;y<16;y++)for(let x=0;x<16;x++)if(State.work[y][x]!==REF[y][x])n++;return n}
+function sameInventory(){return REF.flat().slice().sort().join('')===State.work.flat().slice().sort().join('')}
+
+const Verifier=register('analyzers','verify',{
+ anchors(m=State.work,contract={topology:State.topology,diagonal:State.diagonal}){
+   return ANCHORS.map(a=>{
+     let exact=pathWord(a.path,m)===a.word;
+     let reachable=Graph.find(a.word,m,contract,1).length>0;
+     return{...a,exact,reachable,status:exact?'EXACT':reachable?'MIGRATED':'LOST'}
+   })
+ },
+ engine(){
+   return ['sealed','strips','global'].map(t=>({name:t,
+     edges:Graph.edges({topology:t,diagonal:false}).length,
+     components:Graph.components({topology:t,diagonal:false}),
+     expected:BENCH[t],
+     pass:Graph.edges({topology:t,diagonal:false}).length===BENCH[t].edges&&Graph.components({topology:t,diagonal:false})===BENCH[t].components
+   }))
+ },
+ summary(){
+   let a=this.anchors(),exact=a.filter(x=>x.exact).length,mig=a.filter(x=>x.status==='MIGRATED').length,lost=a.filter(x=>x.status==='LOST').length;
+   let level=lost?'broken':exact===a.length?'exact':'branch';
+   return{anchors:a,exact,mig,lost,level,inventory:sameInventory(),diff:diffCount()}
+ }
+});
+
+register('operations','rotate',{label:'ROTATE 90°',apply({tr,tc}){let t=Tiles.get(State.work,tr,tc),n=Array.from({length:4},()=>Array(4));for(let y=0;y<4;y++)for(let x=0;x<4;x++)n[x][3-y]=t[y][x];Tiles.put(State.work,tr,tc,n)}});
+register('operations','mirrorX',{label:'MIRROR X',apply({tr,tc}){Tiles.put(State.work,tr,tc,Tiles.get(State.work,tr,tc).map(r=>r.slice().reverse()))}});
+register('operations','mirrorY',{label:'MIRROR Y',apply({tr,tc}){Tiles.put(State.work,tr,tc,Tiles.get(State.work,tr,tc).slice().reverse().map(r=>r.slice()))}});
+register('operations','swap',{label:'SWAP',apply({a,b}){let A=Tiles.get(State.work,a.r,a.c),B=Tiles.get(State.work,b.r,b.c);Tiles.put(State.work,a.r,a.c,B);Tiles.put(State.work,b.r,b.c,A)}});
+
+function commit(name,args,desc){
+ let op=Registry.operations.get(name);State.history.push(snapshot());if(State.history.length>30)State.history.shift();State.future=[];op.apply(args);
+ State.ops.push(desc||op.label);State.path=[];State.routes=[];State.playing=false;update();checkMission();buzz()
+}
+function undo(){if(!State.history.length)return toast('NOTHING TO UNDO');State.future.push(snapshot());restore(State.history.pop());update();toast('UNDO')}
+function redo(){if(!State.future.length)return toast('NOTHING TO REDO');State.history.push(snapshot());restore(State.future.pop());update();toast('REDO')}
+$('#undo').onclick=undo;$('#redo').onclick=redo;
+
+const MISSIONS=[
+ {title:'Make one route',detail:'Goal: read CODE. Drag C → O → D → E yourself, or use the helper to show one legal route.',cta:'FIND CODE',done:'CODE found — this path is legal.',go(){State.topology='sealed';State.diagonal=false;$('#target').value='CODE';findRoutes('#target')},ok(){return pathWord()==='CODE'}},
+ {title:'Open one seam class',detail:'Open STRIPS: sixteen sealed cells become four vertical bands. Watch components change 16 → 4.',cta:'OPEN STRIPS',done:'STRIPS open — the movement graph changed.',go(){setTopology('strips')},ok(){return State.topology==='strips'&&Graph.edges().length===432}},
+ {title:'Allow the exception',detail:'Return to SEALED, then allow diagonal steps. This deliberately changes what counts as a legal move.',cta:'ENABLE DIAGONALS',done:'Diagonal exception enabled — route space is now much larger.',go(){State.topology='sealed';$('#seams').value='sealed';setDiagonal(true)},ok(){return State.topology==='sealed'&&State.diagonal}},
+ {title:'Inspect formal closure',detail:'Select a validated V4 cell: Latin + transpose-invariant + 180°-invariant. You can also tap highlighted cells yourself.',cta:'SHOW V4 CELL',done:'V4 cell selected — structure, not just appearance, is being classified.',go(){setMode('ATLAS');selectTile(2,1)},ok(){let p=Tiles.props(State.selected.r,State.selected.c);return p.v4Atlas&&p.latin&&p.transpose&&p.half}},
+ {title:'Make one safe derivative',detail:'Open COMPOSE, then choose ROTATE, MIRROR, or SWAP. The reference stays safe; Undo is always available.',cta:'OPEN COMPOSE',done:'Derivative created — now VERIFY what stayed exact, migrated, or was lost.',go(){setMode('COMPOSE')},ok(){return State.ops.length>0}}
+]
+
+function setMode(m){
+ State.mode=m;$$('.nav').forEach(b=>b.classList.toggle('active',b.dataset.mode===m));$$('.modePanel').forEach(p=>p.classList.toggle('active',p.dataset.panel===m));
+ $('#question').textContent=(innerWidth<=980?MOBILE_QUESTIONS:QUESTIONS)[m];$('#status').textContent=STATUSES[m];closeSheets();draw();updatePanels()
+}
+$$('.nav').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
+function setTopology(t){State.topology=t;$('#seams').value=t;State.path=[];State.routes=[];update();checkMission()}
+function setDiagonal(v){State.diagonal=v;State.path=[];State.routes=[];$('#diag').classList.toggle('active',v);update();checkMission()}
+$('#seams').onchange=e=>setTopology(e.target.value);$('#diag').onclick=()=>setDiagonal(!State.diagonal);
+$('#reference').onclick=()=>{State.history.push(snapshot());State.work=clone(REF);State.ops=[];State.future=[];State.path=[];State.routes=[];State.swapMark=null;update();toast('REFERENCE RESTORED')};
+
+function findRoutes(sel='#target'){
+ State.showHint=false;let word=$(sel).value;State.routes=Graph.find(word);State.routeIndex=0;State.path=State.routes[0]||[];State.playing=false;update();toast(State.routes.length?`${State.routes.length}${State.routes.length>=200?'+':''} ROUTE${State.routes.length===1?'':'S'}`:'NO ROUTE');checkMission()
+}
+$('#find').onclick=()=>findRoutes();$('#target').onkeydown=e=>{if(e.key==='Enter')findRoutes()};
+$('#nextRoute').onclick=()=>{if(!State.routes.length)return;State.routeIndex=(State.routeIndex+1)%State.routes.length;State.path=State.routes[State.routeIndex];update()};
+$('#composeFind').onclick=()=>findRoutes('#composeTarget');
+
+function selectTile(tr,tc){State.selected={r:tr,c:tc};updatePanels();draw()}
+$$('[data-op]').forEach(b=>b.onclick=()=>{let map={rot:'rotate',mx:'mirrorX',my:'mirrorY'},name=map[b.dataset.op],tr=State.selected.r,tc=State.selected.c;commit(name,{tr,tc},`${Registry.operations.get(name).label} · R${tr+1}C${tc+1}`)});
+$('#markSwap').onclick=()=>{
+ if(!State.swapMark){State.swapMark={...State.selected};toast(`MARKED R${State.swapMark.r+1}C${State.swapMark.c+1} · SELECT SECOND TILE`);updatePanels()}
+ else{let a=State.swapMark,b={...State.selected};State.swapMark=null;commit('swap',{a,b},`SWAP · R${a.r+1}C${a.c+1} ↔ R${b.r+1}C${b.c+1}`)}
+};
+$('#resetDerivative').onclick=()=>{$('#reference').click()};
+
+function renderMissions(){
+ $('#missions').innerHTML=MISSIONS.map((m,i)=>`<div class="card mission ${i===State.mission?'sel':''} ${i>0&&!State.done[i-1]?'locked':''}" data-mi="${i}">
+ <span class="badge">${State.done[i]?'✓':i+1}</span><b>${m.title}</b><div class="sub">${m.detail}</div></div>`).join('');
+ $$('.mission').forEach(el=>el.onclick=()=>{let i=+el.dataset.mi;if(i===0||State.done[i-1]){State.mission=i;MISSIONS[i].go();renderMissions()}});
+ let m=MISSIONS[State.mission];$('#coachTitle').textContent=`${State.mission+1}/${MISSIONS.length} · ${m.title}`;$('#coachDetail').textContent=m.detail;
+ $('#progress').style.width=`${State.done.filter(Boolean).length/MISSIONS.length*100}%`;$('#coachGo').textContent=State.done.every(Boolean)?'OPEN FREE LAB':m.cta
+}
+function checkMission(){let m=MISSIONS[State.mission];if(!State.done[State.mission]&&m.ok()){State.done[State.mission]=true;State.showHint=false;toast(m.done||'STEP COMPLETE');buzz(12);if(State.mission<MISSIONS.length-1)State.mission++;renderMissions();persist()}}
+$('#coachGo').onclick=()=>{if(State.done.every(Boolean)){$('#coach').style.display='none';setMode('COMPOSE')}else MISSIONS[State.mission].go()};
+$('#coachHide').onclick=()=>{$('#coach').style.display='none';toast('GUIDE HIDDEN · ? BRINGS IT BACK')};
+$('#guideBtn').addEventListener('dblclick',()=>{$('#coach').style.display='block'});
+
+function contractText(){return `${State.topology.toUpperCase()} · ${State.diagonal?'8-NEIGHBOR EXCEPTION':'ORTHOGONAL'}`}
+function updateLive(){
+ $('#seams').value=State.topology;$('#diag').textContent=State.diagonal?'DIAGONALS ON':'DIAGONALS OFF';$('#diag').classList.toggle('active',State.diagonal);
+ $('#contractTag').textContent=contractText();$('#edges').textContent=Graph.edges().length;$('#components').textContent=Graph.components();
+ $('#routes').textContent=State.routes.length>=200?'200+':State.routes.length;$('#diagSteps').textContent=diagonalSteps();
+ let word=pathWord();$('#routeRead').innerHTML=State.path.length?`<b class="chars">${word}</b><div class="sub">${State.path.length} cells · ${seamCrossings()} seam crossing(s) · ${diagonalSteps()} diagonal(s) · ${State.routes.length?'machine route':'direct trace'}</div>`:`<b>∅</b><div class="sub">Start by dragging adjacent letters. For the first move, try C → O → D → E in the bottom-left cell—or press FIND CODE.</div>`;
+ $('#carryPill').textContent=State.path.length?`${word||'route'} · ${State.path.length}`:'route ∅';
+ let dc=diffCount();$('#branchPill').textContent=dc?`Δ${dc}`:'REF';$('#branchPill').className=`pill ${dc?'warn':'live'}`;
+ let b=BENCH[State.topology];$('#bench').innerHTML=`<b>${State.topology.toUpperCase()}</b> · ${b.edges} edges · ${b.components} component(s)<br><span class="cyan">${b.words}</span> validated orthogonal dictionary hits${State.topology==='sealed'?` · diagonal benchmark ${BENCH.sealedDiagonal.words}`:''}.<div class="sub">Benchmark is a retained validated result, not a fake live dictionary count.</div>`
+}
+function renderClaims(){
+ $('#claims').innerHTML=CLAIMS.map(([tier,t,x])=>`<div class="claim ${tier}"><b>${tier} · ${t}</b><div class="sub">${x}</div></div>`).join('')
+}
+function drawTile(){
+ let t=Tiles.get(State.work,State.selected.r,State.selected.c),w=TM.width,c=w/4;TX.fillStyle='#050708';TX.fillRect(0,0,w,w);TX.textAlign='center';TX.textBaseline='middle';TX.font='48px ui-monospace,monospace';
+ for(let y=0;y<4;y++)for(let x=0;x<4;x++){TX.fillStyle='#10171b';TX.fillRect(x*c,y*c,c,c);TX.strokeStyle='#3e4e57';TX.strokeRect(x*c,y*c,c,c);TX.fillStyle='#eef2ef';TX.fillText(t[y][x],(x+.5)*c,(y+.5)*c)}
+}
+function updatePanels(){
+ let p=Tiles.props(State.selected.r,State.selected.c),name=`R${State.selected.r+1}C${State.selected.c+1}`;
+ $('#tileInfo').innerHTML=`<b>${name} · ${p.rows.join(' / ')}</b><div>${p.latin?'<span class="pill live">LATIN</span>':'<span class="pill">OPEN</span>'}${p.transpose?'<span class="pill live">TRANSPOSE</span>':''}${p.half?'<span class="pill live">180°</span>':''}${p.v4Atlas?'<span class="pill warn">ATLAS V4</span>':''}${State.swapMark&&State.swapMark.r===State.selected.r&&State.swapMark.c===State.selected.c?'<span class="pill warn">SWAP MARK</span>':''}</div>`;
+ $('#atlasTile').innerHTML=$('#tileInfo').innerHTML;let ps=[];for(let r=0;r<4;r++)for(let c=0;c<4;c++)ps.push(Tiles.props(r,c));$('#latinN').textContent=ps.filter(x=>x.latin).length;$('#symN').textContent=ps.filter(x=>x.transpose&&x.half).length;
+ $('#composeStatus').innerHTML=`<b>${State.ops.length?'NAMED DERIVATIVE':'REFERENCE GEOMETRY'}</b><div class="sub">${diffCount()} / 256 addressed letters differ · ${State.ops.length} operation(s) · ${State.history.length} undo state(s)</div>`;
+ $('#algoRail').innerHTML=[
+ ['tile classifier',`${ps.filter(x=>x.latin).length} Latin · ${ps.filter(x=>x.transpose&&x.half).length} double-symmetric`],
+ ['graph extractor',`${Graph.edges().length} edges · ${Graph.components()} components`],
+ ['current route',`${State.path.length?pathWord():'none'} · ${diagonalSteps()} diagonal(s)`],
+ ['layout diff',`${diffCount()} changed addresses · inventory ${sameInventory()?'preserved':'changed'}`]
+ ].map(x=>`<div class="card"><b>${x[0]}</b><div class="sub">${x[1]}</div></div>`).join('');
+ $('#transformLog').innerHTML=State.ops.length?State.ops.map((x,i)=>`<div>${String(i+1).padStart(2,'0')} · ${x}</div>`).join(''):'<div>reference / no derivative</div>';
+ renderVerify();drawTile();drawGlyphMini();renderReceipt()
+}
+function renderVerify(){
+ let s=Verifier.summary();
+ $('#anchorAudit').innerHTML=s.anchors.map(a=>`<div class="diffRow"><span>${a.word}</span><b class="${a.status==='EXACT'?'goodTxt':a.status==='MIGRATED'?'hot':'badTxt'}">${a.status}</b><span class="tiny">${a.exact?'same address':a.reachable?'elsewhere':'absent'}</span></div>`).join('');
+ let msg=s.level==='exact'?['EXACT LAYOUT CONTRACT','All registered authored anchors remain at their original addresses.']:
+   s.level==='branch'?['LAYOUT BRANCHED · LANGUAGE STILL REACHABLE',`${s.mig} authored anchor(s) migrated. This is a real derivative, not an invisible cleanup.`]:
+   ['ROUTE CONTRACT BROKEN',`${s.lost} authored word(s) are no longer reachable under the current edge contract.`];
+ $('#verdict').innerHTML=`<b class="${s.level==='exact'?'goodTxt':s.level==='branch'?'hot':'badTxt'}">${msg[0]}</b><div class="sub">${msg[1]} Inventory ${s.inventory?'preserved':'changed'} · ${s.diff} addresses differ.</div>`;
+ $('#engineChecks').innerHTML=Verifier.engine().map(e=>`<div class="diffRow"><span>${e.name}</span><b class="${e.pass?'goodTxt':'badTxt'}">${e.pass?'PASS':'FAIL'}</b><span class="tiny">${e.edges}/${e.expected.edges} edges · ${e.components}/${e.expected.components} comp</span></div>`).join('')
+}
+function renderReceipt(){
+ let r={format:'CELL-FOUNDRY/2',source:'MEANTOME_4x4x4x4/current-drive',source_state:diffCount()?'named-derivative':'reference',
+ operations:State.ops,edge_contract:{topology:State.topology,diagonal:State.diagonal,cell_reuse:false},
+ route:{word:pathWord(),coordinates:State.path.map(pos),diagonal_steps:diagonalSteps(),seam_crossings:seamCrossings()},
+ projection:{symmetry:+$('#sym').value,stroke:+$('#stroke').value,simplify:+$('#simp').value,size_mm:+$('#mm').value},
+ verification:Verifier.summary().level};
+ $('#receipt').textContent=JSON.stringify(r,null,2);return r
+}
+
+function canvasGeom(){
+ let r=C.getBoundingClientRect(),mobile=innerWidth<=980,reserve=mobile?120:40;
+ let maxH=Math.max(180,r.height-reserve),s=Math.min(r.width*(mobile?.92:.86),maxH*(mobile?.92:.88),820);
+ return{r,s,ox:(r.width-s)/2,oy:Math.max(52,(r.height-s)/2-8),c:s/16}
+}
+function draw(){
+ let g=canvasGeom(),{r,s,ox,oy,c}=g;X.clearRect(0,0,r.width,r.height);X.fillStyle='#030405';X.fillRect(0,0,r.width,r.height);
+ if(State.mode==='TYPE'){drawTypeStage(g);return}
+ const pset=new Map(State.path.map((i,k)=>[i,k])),verify=State.mode==='VERIFY'?Verifier.summary():null,anchorMap=new Map();
+ if(verify)for(let a of verify.anchors)for(let i of a.path)anchorMap.set(i,a.status);
+ const tileCache=Array.from({length:4},(_,tr)=>Array.from({length:4},(_,tc)=>Tiles.props(tr,tc)));
+ X.textAlign='center';X.textBaseline='middle';X.font=`${Math.max(7,Math.min(18,c*.47))}px ui-monospace,monospace`;
+ for(let y=0;y<16;y++)for(let x=0;x<16;x++){
+   let i=id(x,y),tr=y>>2,tc=x>>2,p=tileCache[tr][tc],hit=pset.has(i),sel=State.selected.r===tr&&State.selected.c===tc,changed=State.work[y][x]!==REF[y][x];
+   let fill='#090e11';
+   if(State.mode==='ATLAS')fill=p.v4Atlas?'#0e1a16':'#0b1013';
+   if(State.mode==='COMPOSE'&&changed)fill='#201317';
+   if(State.mode==='VERIFY'&&anchorMap.has(i))fill=anchorMap.get(i)==='EXACT'?'#102014':anchorMap.get(i)==='MIGRATED'?'#21190d':'#251112';
+   if(hit)fill='#17313a'; if(sel&&!hit&&State.mode!=='VERIFY')fill='#17151c';
+   X.fillStyle=fill;X.fillRect(ox+x*c,oy+y*c,c,c);X.strokeStyle='#202b31';X.strokeRect(ox+x*c,oy+y*c,c,c);
+   if(State.mode==='COMPOSE'&&changed){X.fillStyle='#68434f';X.font=`${Math.max(5,c*.23)}px ui-monospace`;X.fillText(REF[y][x],ox+(x+.18)*c,oy+(y+.18)*c);X.font=`${Math.max(7,Math.min(18,c*.47))}px ui-monospace`}
+   X.fillStyle=hit?'#fff':p.v4Atlas?'#b9dbb0':'#bec9cd';X.fillText(State.work[y][x],ox+(x+.5)*c,oy+(y+.5)*c)
+ }
+ // topology seams
+ for(let k=0;k<=4;k++){
+   let p=k*4*c;
+   X.strokeStyle=State.topology==='global'?'#2d3b42':'#56666f';
+   X.lineWidth=State.topology==='global'?1.1:(State.topology==='strips'?2.3:3.0);X.beginPath();X.moveTo(ox+p,oy);X.lineTo(ox+p,oy+s);X.stroke();
+   X.lineWidth=State.topology==='sealed'?3.0:1.1;X.beginPath();X.moveTo(ox,oy+p);X.lineTo(ox+s,oy+p);X.stroke()
+ }
+ if(State.mode==='ATLAS'){
+   X.font=`${Math.max(7,c*.24)}px ui-monospace`;X.textAlign='left';for(let tr=0;tr<4;tr++)for(let tc=0;tc<4;tc++){let p=tileCache[tr][tc];X.fillStyle=p.v4Atlas?'#9bd27d':'#697780';X.fillText(`R${tr+1}C${tc+1}${p.v4Atlas?' · V4':''}`,ox+tc*4*c+4,oy+tr*4*c+10)}
+ }
+ if(State.showHint&&State.mode==='PLAY'&&!State.path.length&&!State.done[0]){
+   let hp=ANCHORS.find(a=>a.word==='CODE').path;X.save();X.setLineDash([5,5]);X.strokeStyle='rgba(241,164,76,.72)';X.lineWidth=Math.max(1.5,c*.08);X.beginPath();hp.forEach((i,k)=>{let[x,y]=pos(i),px=ox+(x+.5)*c,py=oy+(y+.5)*c;k?X.lineTo(px,py):X.moveTo(px,py)});X.stroke();X.setLineDash([]);hp.forEach(i=>{let[x,y]=pos(i);X.strokeStyle='#f1a44c';X.lineWidth=1.5;X.beginPath();X.arc(ox+(x+.5)*c,oy+(y+.5)*c,Math.max(5,c*.22),0,TAU);X.stroke()});X.restore()
+ }
+ if(State.path.length>1){
+   X.lineWidth=Math.max(2,c*.13);X.strokeStyle=State.diagonal?'#f1a44c':'#77d7ea';X.lineCap='round';X.lineJoin='round';X.beginPath();
+   State.path.forEach((i,k)=>{let[x,y]=pos(i),px=ox+(x+.5)*c,py=oy+(y+.5)*c;k?X.lineTo(px,py):X.moveTo(px,py)});X.stroke();
+   if(State.playing){let q=pointOnPath(State.path,State.playT,g);X.fillStyle='#fff';X.beginPath();X.arc(q[0],q[1],Math.max(3,c*.16),0,TAU);X.fill()}
+ }
+ if(State.mode!=='VERIFY'){X.strokeStyle='#ed8ab8';X.lineWidth=2;X.strokeRect(ox+State.selected.c*4*c,oy+State.selected.r*4*c,4*c,4*c)}
+}
+function pointOnPath(path,t,g){if(path.length<2){let[x,y]=pos(path[0]||0);return[g.ox+(x+.5)*g.c,g.oy+(y+.5)*g.c]}
+ let f=(t%(path.length-1));let k=Math.floor(f),u=f-k,a=pos(path[k]),b=pos(path[k+1]);return[g.ox+(a[0]+.5+(b[0]-a[0])*u)*g.c,g.oy+(a[1]+.5+(b[1]-a[1])*u)*g.c]}
+function glyphPoints(size=500){if(!State.path.length)return[];let pad=size*.11,s=size-pad*2;return State.path.map(i=>{let[x,y]=pos(i);return[pad+(x/15)*s,pad+(y/15)*s]})}
+function simplifyPoints(p,n){n=+n;if(!n)return p;return p.filter((_,i)=>i===0||i===p.length-1||i%(n+1)===0)}
+function drawGlyph(ctx,size){
+ let p=simplifyPoints(glyphPoints(size),+$('#simp').value),sym=+$('#sym').value,stroke=+$('#stroke').value*(size/500);ctx.save();ctx.fillStyle='#050708';ctx.fillRect(0,0,size,size);if(p.length){
+  ctx.translate(size/2,size/2);for(let k=0;k<sym;k++){ctx.save();ctx.rotate(k*TAU/sym);ctx.translate(-size/2,-size/2);ctx.strokeStyle=k%2?'rgba(237,138,184,.74)':'rgba(119,215,234,.9)';ctx.lineWidth=stroke;ctx.lineCap='round';ctx.lineJoin='round';ctx.beginPath();p.forEach((q,i)=>i?ctx.lineTo(...q):ctx.moveTo(...q));ctx.stroke();ctx.restore()}}
+ ctx.restore();return p
+}
+function drawGlyphMini(){
+ let p=drawGlyph(GX,GM.width),mm=+$('#mm').value,lineMm=+$('#stroke').value/500*mm,minGap=approxMinGap(p)*mm/500;
+ $('#typeCheck').innerHTML=`<b>${p.length?'ROUTE COMPILED':'NO ROUTE SELECTED'}</b><div class="sub">approx stroke ${lineMm.toFixed(2)} mm · rough non-adjacent point gap ${Number.isFinite(minGap)?minGap.toFixed(2):'—'} mm<br>${lineMm<.5?'<span class="badTxt">thin physical stroke</span>':'<span class="goodTxt">screen geometry plausible</span>'} · still requires a real fabrication test.</div>`
+}
+function drawTypeStage(g){let size=Math.min(g.r.width*.72,g.r.height*.72,760),offX=(g.r.width-size)/2,offY=(g.r.height-size)/2;X.save();X.translate(offX,offY);drawGlyph(X,size);X.restore();X.fillStyle='#819099';X.font='10px ui-monospace';X.textAlign='center';X.fillText(pathWord()||'SELECT OR TRACE A ROUTE FIRST',g.r.width/2,offY+size+22)}
+function approxMinGap(p){if(p.length<3)return Infinity;let d=Infinity;for(let i=0;i<p.length;i++)for(let j=i+2;j<p.length;j++)d=Math.min(d,Math.hypot(p[i][0]-p[j][0],p[i][1]-p[j][1]));return d}
+
+function cellAtEvent(e){
+ let g=canvasGeom(),r=C.getBoundingClientRect(),x=Math.floor((e.clientX-r.left-g.ox)/g.c),y=Math.floor((e.clientY-r.top-g.oy)/g.c);
+ return x>=0&&y>=0&&x<16&&y<16?id(x,y):null
+}
+function cellsAlongSegment(a,b){
+ if(a==null||b==null||a===b)return b==null?[]:[b];
+ let A=pos(a),B=pos(b),dx=B[0]-A[0],dy=B[1]-A[1],steps=Math.max(Math.abs(dx),Math.abs(dy))*5,out=[];
+ for(let k=1;k<=Math.max(1,steps);k++){
+   let t=k/Math.max(1,steps),x=Math.round(A[0]+dx*t),y=Math.round(A[1]+dy*t),i=id(x,y);
+   if(out[out.length-1]!==i)out.push(i)
+ }
+ return out
+}
+function extendTraceTo(target){
+ if(target==null||!State.path.length)return;let last=State.path[State.path.length-1];
+ for(const i of cellsAlongSegment(last,target)){
+   let cur=State.path[State.path.length-1];if(i===cur)continue;
+   if(State.path.includes(i)){State.traceError=true;break}
+   if(!Graph.legalStep(cur,i)){State.traceError=true;break}
+   State.path.push(i);State.traceMoved=true
+ }
+}
+C.addEventListener('pointerdown',e=>{if(State.mode==='TYPE')return;let i=cellAtEvent(e);if(i==null)return;State.showHint=false;if(C.setPointerCapture)try{C.setPointerCapture(e.pointerId)}catch(_){}State.traceActive=true;State.traceMoved=false;State.traceError=false;State.path=[i];State.routes=[];draw()});
+C.addEventListener('pointermove',e=>{if(!State.traceActive)return;extendTraceTo(cellAtEvent(e));draw()});
+function endTrace(){if(!State.traceActive)return;State.traceActive=false;let first=State.path[0];if(!State.traceMoved&&first!=null){let q=pos(first);selectTile(q[1]>>2,q[0]>>2)}else{toast(pathWord()||'TRACE');checkMission();buzz(6)}updateLive();renderReceipt()}
+C.addEventListener('pointerup',endTrace);C.addEventListener('pointercancel',()=>{State.traceActive=false});C.addEventListener('lostpointercapture',()=>{if(State.traceActive)endTrace()});
+function syncViewport(){let vv=window.visualViewport,h=vv&&vv.height?vv.height:window.innerHeight;document.documentElement.style.setProperty('--app-h',Math.round(h)+'px')}
+function resize(){syncViewport();let mobile=window.innerWidth<=980,d=Math.min(window.devicePixelRatio||1,mobile?2:2.5),r=C.getBoundingClientRect();C.width=Math.max(1,Math.floor(r.width*d));C.height=Math.max(1,Math.floor(r.height*d));X.setTransform(d,0,0,d,0,0);$('#question').textContent=(mobile?MOBILE_QUESTIONS:QUESTIONS)[State.mode];draw()}
+addEventListener('resize',resize);if(window.visualViewport){window.visualViewport.addEventListener('resize',resize);window.visualViewport.addEventListener('scroll',syncViewport)}
+
+function svg(){
+ let p=simplifyPoints(glyphPoints(500),+$('#simp').value),sym=+$('#sym').value,stroke=+$('#stroke').value,parts='';
+ for(let k=0;k<sym;k++)parts+=`<polyline points="${p.map(q=>q.join(',')).join(' ')}" transform="rotate(${k*360/sym} 250 250)" fill="none" stroke="black" stroke-width="${stroke}" stroke-linecap="round" stroke-linejoin="round"/>`;
+ return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500"><rect width="500" height="500" fill="white"/>${parts}</svg>`
+}
+function download(name,data,type){let a=document.createElement('a');a.download=name;a.href=URL.createObjectURL(new Blob([data],{type}));a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1500)}
+$('#exportSvg').onclick=()=>State.path.length?download('cell-foundry-route.svg',svg(),'image/svg+xml'):toast('SELECT A ROUTE FIRST');
+$('#exportReceipt').onclick=()=>download('cell-foundry-receipt.json',JSON.stringify(renderReceipt(),null,2),'application/json');
+['stroke','sym','simp','mm'].forEach(idn=>$('#'+idn).oninput=()=>{drawGlyphMini();draw();renderReceipt()});
+
+let audio=null;
+$('#perform').onclick=()=>{
+ if(!State.path.length)return toast('NO ROUTE');audio=audio||new (window.AudioContext||window.webkitAudioContext)();if(audio.resume)audio.resume();
+ let now=audio.currentTime,scale=[0,2,4,7,9],step=.09;State.path.slice(0,64).forEach((ii,k)=>{let[x,y]=pos(ii),cp=State.work[y][x].codePointAt(0),o=audio.createOscillator(),g=audio.createGain(),p=audio.createStereoPanner();o.type=k%3?'sine':'triangle';o.frequency.value=110*Math.pow(2,(scale[cp%5]+12*((cp>>3)%3))/12);p.pan.value=x/15*2-1;g.gain.setValueAtTime(.0001,now+k*step);g.gain.exponentialRampToValueAtTime(.025,now+k*step+.01);g.gain.exponentialRampToValueAtTime(.0001,now+k*step+.075);o.connect(g).connect(p).connect(audio.destination);o.start(now+k*step);o.stop(now+k*step+.08)});
+ State.playing=true;State.playT=0;animateStart=performance.now();requestAnimationFrame(anim)
+};
+let animateStart=0;
+function anim(t){if(!State.playing)return;State.playT=(t-animateStart)/180;if(State.playT>Math.max(1,State.path.length-1)){State.playing=false;draw();return}draw();requestAnimationFrame(anim)}
+
+function update(){updateLive();updatePanels();renderMissions();draw();persist()}
+renderClaims();
+
+function openSheet(which){if(innerWidth>980)return;$('#shade').classList.add('show');$('#leftPanel').classList.toggle('open',which==='left');$('#rightPanel').classList.toggle('open',which==='right')}
+function closeSheets(){$('#shade').classList.remove('show');$('#leftPanel').classList.remove('open');$('#rightPanel').classList.remove('open')}
+$('#leftToggle').onclick=()=>openSheet('left');$('#rightToggle').onclick=()=>openSheet('right');$('#shade').onclick=closeSheets;$('#carryPill').onclick=()=>{if(State.path.length)setMode('TYPE');else toast('TRACE OR FIND A ROUTE FIRST')};
+
+const SelfTest={results:[],
+ add(name,fn){register('tests',name,{fn})},
+ run(){
+  this.results=[];for(const[name,t]of Registry.tests){try{let x=t.fn();this.results.push({name,pass:x===true,detail:x===true?'ok':String(x)})}catch(e){this.results.push({name,pass:false,detail:e.message})}}
+  renderChecks();return this.results
+ }};
+SelfTest.add('reference is 16 × 16',()=>REF.length===16&&REF.every(r=>r.length===16));
+SelfTest.add('sealed graph = 384 edges / 16 components',()=>Graph.edges({topology:'sealed',diagonal:false}).length===384&&Graph.components({topology:'sealed',diagonal:false})===16);
+SelfTest.add('strips graph = 432 edges / 4 components',()=>Graph.edges({topology:'strips',diagonal:false}).length===432&&Graph.components({topology:'strips',diagonal:false})===4);
+SelfTest.add('global graph = 480 edges / 1 component',()=>Graph.edges({topology:'global',diagonal:false}).length===480&&Graph.components({topology:'global',diagonal:false})===1);
+SelfTest.add('exactly nine validated V4 positions',()=>{let n=0;for(let r=0;r<4;r++)for(let c=0;c<4;c++)n+=Tiles.props(r,c,REF).v4Atlas?1:0;return n===9});
+SelfTest.add('all printed anchors exact in reference',()=>Verifier.anchors(REF,{topology:'sealed',diagonal:false}).every(a=>a.exact));
+SelfTest.add('CODE reachable in sealed reference',()=>Graph.find('CODE',REF,{topology:'sealed',diagonal:false},1).length===1);
+SelfTest.add('four rotations restore a tile',()=>{let m=clone(REF),tr=1,tc=0,orig=Tiles.get(m,tr,tc).map(r=>r.join('')).join('|');for(let z=0;z<4;z++){let t=Tiles.get(m,tr,tc),n=Array.from({length:4},()=>Array(4));for(let y=0;y<4;y++)for(let x=0;x<4;x++)n[x][3-y]=t[y][x];Tiles.put(m,tr,tc,n)}return Tiles.get(m,tr,tc).map(r=>r.join('')).join('|')===orig});
+SelfTest.add('current inventory preserved by registered transforms',()=>sameInventory());
+SelfTest.add('essential DOM exists',()=>['main','seams','target','find','verdict','lab'].every(idn=>!!document.getElementById(idn)));
+SelfTest.add('closed mobile sheets do not own viewport',()=>innerWidth>980||(!$('#leftPanel').classList.contains('open')&&!$('#rightPanel').classList.contains('open')));
+SelfTest.add('visible mode controls have touchable height',()=>$$('.modeDock button').every(b=>b.getBoundingClientRect().height>=32));
+SelfTest.add('mobile stage contained by viewport',()=>innerWidth>980||document.querySelector('.stage').getBoundingClientRect().width<=innerWidth+1);
+SelfTest.add('trace interpolation fills horizontal skipped cells',()=>{let a=id(0,12),b=id(3,12),q=cellsAlongSegment(a,b);return q.includes(id(1,12))&&q.includes(id(2,12))&&q[q.length-1]===b});
+SelfTest.add('graph cache stable across repeated reads',()=>Graph.edges({topology:'sealed',diagonal:false})===Graph.edges({topology:'sealed',diagonal:false}));
+
+function renderChecks(){
+ let r=SelfTest.results,pass=r.filter(x=>x.pass).length;$('#checks').innerHTML=`<div class="check ${pass===r.length?'pass':'fail'}"><b>${pass}/${r.length} checks passing</b><span class="sub">Structural smoke tests, not a substitute for human use.</span></div>`+
+ r.map(x=>`<div class="check ${x.pass?'pass':'fail'}"><b>${x.pass?'PASS':'FAIL'} · ${x.name}</b><span class="sub">${x.detail}</span></div>`).join('')
+}
+function showOrientation(){closeSheets();$('#orientation').classList.remove('hidden')}
+function hideOrientation(mark=true){$('#orientation').classList.add('hidden');if(mark)safeStore('cell-foundry-oriented','1')}
+$('#guideBtn').onclick=showOrientation;
+$('#orientTrace').onclick=()=>{hideOrientation();$('#coach').style.display='block';setMode('PLAY');State.mission=0;State.showHint=true;State.path=[];State.routes=[];renderMissions();draw();toast('FOLLOW THE AMBER HINT — OR DRAW YOUR OWN CODE ROUTE')};
+$('#orientFree').onclick=()=>{hideOrientation();$('#coach').style.display='block';setMode('PLAY')};
+$('#orientation').addEventListener('click',e=>{if(e.target===$('#orientation'))hideOrientation()});
+$('#labBtn').onclick=()=>{$('#lab').classList.remove('hidden');SelfTest.run()};$('#closeLab').onclick=()=>$('#lab').classList.add('hidden');$('#runChecks').onclick=()=>SelfTest.run();
+$('#exportDiag').onclick=()=>download('cell-foundry-diagnostics.json',JSON.stringify({generated:new Date().toISOString(),results:SelfTest.run(),registry:Object.fromEntries(Object.entries(Registry).map(([k,v])=>[k,[...v.keys()]])),state:{mode:State.mode,topology:State.topology,diagonal:State.diagonal,diff:diffCount(),ops:State.ops},verify:Verifier.summary()},null,2),'application/json');
+
+addEventListener('keydown',e=>{
+ if(e.key==='Escape'){closeSheets();$('#lab').classList.add('hidden');hideOrientation(false)}
+ if(e.key==='`'||e.key==='~'){$('#lab').classList.toggle('hidden');if(!$('#lab').classList.contains('hidden'))SelfTest.run()}
+ if(!e.metaKey&&!e.ctrlKey&&['1','2','3','4','5'].includes(e.key))setMode(['PLAY','ATLAS','COMPOSE','VERIFY','TYPE'][+e.key-1])
+ if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==='z'){e.preventDefault();e.shiftKey?redo():undo()}
+});
+
+function init(){
+ load();renderClaims();renderMissions();setMode('PLAY');resize();update();SelfTest.run();
+ if(!safeLoad('cell-foundry-oriented')&&!State.done.some(Boolean))setTimeout(showOrientation,180);
+}
+init();
+})();
+</script>
+</body>
+</html>
