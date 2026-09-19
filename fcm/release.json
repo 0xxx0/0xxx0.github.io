@@ -1,7 +1,7 @@
 {
   "schema": "release-receipt/v1",
   "title": "Forward Center Mass",
-  "version": "0.1",
+  "version": "0.2",
   "state": "EXPERIMENT",
   "date": "2026-09-19",
   "route": "/fcm/",
@@ -21,5 +21,19 @@
     "FCM score is a transparent experimental orientation score, not objective priority.",
     "RETURN receipts persist only in the current browser until exported.",
     "Numeric centrality publishes only degree counts; private dependency identities remain private."
+  ],
+  "updated": "2026-09-19",
+  "summary": "Attention projection over the federation: NOW/NEXT/HOLD/DROP, ≤3 live execution tokens, shared RETURN receipt v0.2, with temporal execution delegated to Atlas Dayline and representation ablation delegated to FIELD / PROOF.",
+  "dependencies": [
+    "/federation-atlas.json",
+    "/fcm-kernel.json",
+    "/fcm-map.json",
+    "/fcm-fronts.json",
+    "/control/CURRENT.json"
+  ],
+  "proof_routes": [
+    "/forward-field-proof/",
+    "/atlas-dayline/",
+    "/returns/"
   ]
 }
