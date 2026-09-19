@@ -32,7 +32,7 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:22px;paddi
 <header>
   <div><div class="ey">RUN / RECOVER / RETURN</div><h1>FIELD<br>INDEX</h1></div>
   <div><p>Not a portfolio. A working index of executable surfaces, current heads, and recovered donors. Nothing here needs a company story.</p>
-  <nav><a href="./dock/">DOCK</a><a href="./control/">CURRENT</a><a href="./control/migration/">MIGRATION</a><a href="./returns/">RETURN</a><a href="./showcase-manifest.json">MANIFEST</a></nav></div>
+  <nav><a href="./dock/">DOCK</a><a href="./control/">CURRENT</a><a href="./control/migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./showcase-manifest.json">MANIFEST</a></nav></div>
 </header>
 
 <section>
@@ -45,11 +45,16 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:22px;paddi
   <div id="recovering" class="rows"><div class="row"><div class="job">Loading migration ledger…</div></div></div>
 </section>
 
+<section class="rec exact">
+  <div class="bar"><div><b>RECOVERED EXACT</b><span>frozen donors · runnable · not promoted heads</span></div><a href="./recovery/" style="color:#9ed7ff;text-decoration:none;font-size:9px">OPEN VAULT →</a></div>
+  <div id="recovered" class="rows"><div class="row"><div class="job">Loading recovery receipt…</div></div></div>
+</section>
+
 <section>
   <div class="bar"><div><b>SYSTEM</b><span>support surfaces, not products</span></div></div>
   <div class="system">
     <a href="./dock/"><b>DOCK / ORIENTATION</b><span>why / where / scale / three live fronts / drift reset</span></a><a href="./control/"><b>CURRENT / CONTROL</b><span>what is active, what is held, what happens next</span></a>
-    <a href="./control/migration/"><b>MIGRATION FIELD</b><span>dedup / recovery / import / quarantine ledger</span></a>
+    <a href="./control/migration/"><b>MIGRATION FIELD</b><span>dedup / recovery / import / quarantine ledger</span></a>\n    <a href="./recovery/"><b>RECOVERY VAULT</b><span>exact frozen donors + explicit blockers + receipts</span></a>
     <a href="./returns/"><b>RETURN LEDGER</b><span>receipts and evidence</span></a>
     <a href="./foundry/"><b>FOUNDRY</b><span>path / identity / machine-representation family</span></a>
     <a href="./fold-bloom/"><b>FOLD // BLOOM</b><span>two dial / ecology / scale lens family</span></a>
@@ -78,6 +83,10 @@ fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
 }).catch(e=>document.getElementById('running').textContent='manifest unavailable: '+e.message);
 document.querySelector('.tools').addEventListener('click',e=>{if(!e.target.dataset.filter)return;filter=e.target.dataset.filter;document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('on',b.dataset.filter===filter));renderRoutes()});
 document.getElementById('focus').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();renderRoutes()});
+
+fetch('./control/RECOVERY_RUN_2026-09-19.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+ document.getElementById('recovered').innerHTML=d.recovered_families.map(x=>`<a class="row" href=".${esc(x.route)}"><div><div class="name">${esc(x.name)}</div><div class="family">${esc(x.family)}</div></div><div class="state">${esc(x.status)}</div><div class="job">${esc(x.summary)}</div><div class="go">OPEN →</div></a>`).join('');
+}).catch(e=>document.getElementById('recovered').textContent='recovery receipt unavailable: '+e.message);
 
 fetch('./control/MIGRATION.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
  const xs=d.artifacts.filter(x=>['RECOVER','IMPORT','QUARANTINE','MERGE_CANDIDATE'].includes(x.status));
