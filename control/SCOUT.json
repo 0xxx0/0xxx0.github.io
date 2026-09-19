@@ -1,0 +1,55 @@
+{
+  "schema": "0xxx0/scout/v0.1",
+  "updated": "2026-09-19",
+  "rule": "Adopt only when a tool replaces a named function in a current loop. Research novelty is not a reason to integrate.",
+  "candidates": [
+    {
+      "name": "Partial Lenses",
+      "url": "https://github.com/calmm-js/partial.lenses",
+      "function": "Bidirectional optics over JSON; read/write through the same optic, partial isomorphisms, pointer-based lenses.",
+      "fit": "High conceptual fit for projection round-trip experiments.",
+      "decision": "TEST_IN_FIXTURE_ONLY",
+      "test": "Implement one tiny projection mapping and verify GET–PUT / PUT–GET / rejection. Do not make the kernel depend on it unless it materially reduces adapter code."
+    },
+    {
+      "name": "Tuval",
+      "url": "https://github.com/namlifurkan/tuval",
+      "function": "Local-first pages/databases/issues/infinite canvas over one record set; board ↔ semantic Markdown/JSON agent round-trip.",
+      "fit": "Very close to the 'one object, many views, agent handoff' problem.",
+      "decision": "DONOR_STUDY",
+      "test": "Study its board semantic graph export and agent round-trip. Borrow mechanism only; do not replace current repo/control topology."
+    },
+    {
+      "name": "vpype-js",
+      "url": "https://github.com/plottertools/vpype-js",
+      "function": "TypeScript/browser/Node SVG transformation pipeline, layout, path optimization, layers, HPGL.",
+      "fit": "Excellent for digital → stencil/plot/proof pipeline and keeps vector transforms scriptable.",
+      "decision": "HIGH_PRIORITY_TEST",
+      "test": "Run one existing SVG through layout + stat + optimized SVG output; preserve source hash and generate a Return receipt."
+    },
+    {
+      "name": "Typst",
+      "url": "https://github.com/typst/typst",
+      "function": "Programmable typesetting with CLI compile/watch and strong PDF output.",
+      "fit": "Excellent for data-driven A3 plans, build sheets, labels and printable reference plates.",
+      "decision": "HIGH_PRIORITY_TEST",
+      "test": "Generate one A3 proof sheet from canonical JSON without hand-editing layout."
+    },
+    {
+      "name": "Automerge",
+      "url": "https://github.com/automerge/automerge",
+      "function": "Local-first JSON-like CRDT with mergeable change history.",
+      "fit": "Potential future sync substrate if the same canonical object genuinely needs multi-device concurrent editing.",
+      "decision": "HOLD_UNTIL_CONCURRENCY_EXISTS",
+      "test": "None now. Append-only local events are simpler for current proofs."
+    },
+    {
+      "name": "Project Nodal / GraphLink class",
+      "url": "https://github.com/yibie/project-nodal",
+      "function": "Spatial/local-first graph interfaces for AI conversations and reasoning branches.",
+      "fit": "Useful interface donors for conversation archaeology and spatial re-entry.",
+      "decision": "QUARRY_ONLY",
+      "test": "Extract one navigation/re-entry mechanism; reject wholesale Thinking-OS/dashboard adoption."
+    }
+  ]
+}
