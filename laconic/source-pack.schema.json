@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/laconic/source-pack.schema.json",
+  "title": "Laconic / Iconic Recovery Source Pack",
+  "type": "object",
+  "required": ["schema","captured_at","source_class","items"],
+  "properties": {
+    "schema": {"const":"laconic-iconic-source-pack/v0.1"},
+    "captured_at":{"type":"string","format":"date-time"},
+    "source_class":{"enum":["EXACT","RECONSTRUCTED","UNCLASSIFIED"]},
+    "source_ref":{"type":["string","null"]},
+    "notes":{"type":["string","null"]},
+    "items":{
+      "type":"array",
+      "items":{
+        "type":"object",
+        "required":["ordinal","text"],
+        "properties":{
+          "ordinal":{"type":"integer","minimum":1},
+          "text":{"type":"string","minLength":1}
+        },
+        "additionalProperties":false
+      }
+    }
+  },
+  "additionalProperties":false
+}
