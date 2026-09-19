@@ -4,16 +4,22 @@
   "route": "/foundry/verse-atlas/",
   "state": "STABLE",
   "operation": "REPRESENT",
-  "released": "2026-09-18",
-  "representative_interaction": "GRID/PATH projection → traverse stable addresses → RETURN → FREEZE receipt",
+  "released": "2026-09-19",
+  "representative_interaction": "GRID/PATH projection → traverse stable addresses → RETURN → FREEZE/DOWNLOAD → REPLAY exact receipt",
   "validation": {
     "viewport_meta": "PASS",
     "responsive_source": "PASS",
     "javascript_syntax": "PASS",
-    "required_controls": "tabs/matrix/RSVP play/RETURN freeze present",
+    "required_controls": "tabs/matrix/RSVP play/RETURN freeze/download/replay present",
     "showcase_return_adapter": "PASS",
-    "source_route": "PASS"
+    "source_route": "PASS",
+    "return_round_trip_selftest": "PASS_BY_SOURCE_TEST"
   },
   "epistemic_boundary": "Geometry remains a projection; it is not silently promoted to prosody or meaning.",
-  "known_gap": "Live rendered mobile/desktop representative interaction remains externally unverified from this execution environment."
+  "known_gap": "Live rendered mobile/desktop representative interaction remains externally unverified from this execution environment.",
+  "recovery_transfer": {
+    "donor": "/recovery/path-grid/grid-path-compiler-v4/",
+    "transferred": "RETURN receipt replay/import only",
+    "excluded": "general corpus presets, route search/review, multilingual lenses and motif promotion remain frozen donor capabilities pending separate missing-function tests"
+  }
 }
