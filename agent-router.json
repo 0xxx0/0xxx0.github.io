@@ -86,7 +86,7 @@
     "ANSWER": "Generate a bounded informational response.",
     "ASK_ONE": "Ask the single blocking question only.",
     "ROUTE": "Invoke one or more declared capability contracts.",
-    "DRAFT": "Prepare an outbound action but do not send/commit externally.",
+    "DRAFT": "Prepare outbound content but do not send/commit externally; /laconic/ is the public local drafting/reference surface when a response-bank projection is useful.",
     "ACT": "Perform an explicitly permitted reversible or bounded side effect.",
     "HANDOFF": "Escalate to a human or named external process with compact context + uncertainty."
   },
@@ -179,6 +179,15 @@
       ],
       "action": "NO_ACTION",
       "why": "Record evidence without manufacturing a notification."
+    },
+    {
+      "input": "An ordinary human exchange needs a concise, character-preserving reply, but no external send authority is granted.",
+      "route": [
+        "LACONIC / ICONIC",
+        "HUMAN PORT"
+      ],
+      "action": "DRAFT",
+      "why": "Select and curate a provenance-visible candidate locally, then cross the share/copy boundary only through explicit human action."
     }
   ],
   "execution_boundary": {
@@ -186,7 +195,8 @@
     "private_runtime_role": "holds personal context, channel credentials, contact policies and real side-effect adapters",
     "hard_rule": "Never transmit private human/message/sensor payloads to public showcase URLs merely because a showcase contract matches.",
     "binding_rule": "A route becomes executable only when a private runtime adapter explicitly declares compatibility with the same contract.",
-    "fallback": "Without a compatible private adapter, ANSWER/DRAFT locally or HANDOFF; do not fake ACT."
+    "fallback": "Without a compatible private adapter, ANSWER/DRAFT locally or HANDOFF; do not fake ACT.",
+    "drafting_reference": "/laconic/"
   },
   "test_vectors": "/agent-router-cases.json",
   "adapter_registry": "/private-adapter-registry.json",

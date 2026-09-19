@@ -8,7 +8,9 @@
     "receives_server_side": false,
     "stores_message": false,
     "network_submission": false,
-    "works_without_private_backend": true
+    "works_without_private_backend": true,
+    "draft_surface": "/laconic/",
+    "draft_surface_role": "local candidate selection and recovery only; HUMAN PORT remains the explicit share/copy boundary"
   },
   "intents": [
     {
@@ -71,7 +73,14 @@
       "class": "messaging_gateway",
       "candidate": "Hermes Agent",
       "state": "CANDIDATE",
-      "transports": ["telegram", "whatsapp", "signal", "email", "matrix", "webhook"],
+      "transports": [
+        "telegram",
+        "whatsapp",
+        "signal",
+        "email",
+        "matrix",
+        "webhook"
+      ],
       "binding_rule": "private runtime only"
     },
     {
@@ -92,6 +101,7 @@
   "references": {
     "router": "/agent-router.json",
     "adapter_registry": "/private-adapter-registry.json",
-    "state": "/contact/state.json"
+    "state": "/contact/state.json",
+    "laconic_drafting": "/laconic/"
   }
 }

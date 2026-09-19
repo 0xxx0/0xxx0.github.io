@@ -24,7 +24,8 @@
         "/recovery/path-grid/",
         "/fold-bloom/lens/",
         "/foundry/verse-atlas/",
-        "/sleeper/"
+        "/sleeper/",
+        "/laconic/"
       ]
     },
     {
@@ -86,10 +87,10 @@
     },
     {
       "lineage": "comms",
-      "head": "HUMAN PORT 0.2 + Router Bench + policy algebra",
+      "head": "LACONIC / ICONIC RECOVERY 0.1 + HUMAN PORT 0.2 + Router / Policy",
       "state": "ACTIVE",
-      "route": "/contact/",
-      "retained_function": "Public rendezvous plus transport-neutral intent/policy/RETURN substrate; real shared comms/planning remains the current missing vertical slice."
+      "route": "/laconic/",
+      "retained_function": "Provenance-aware response recovery and curation → explicit human drafting boundary → transport-neutral intent/policy/RETURN substrate."
     }
   ],
   "donors_and_holds": [
@@ -126,6 +127,12 @@
   ],
   "recovery_targets": [
     {
+      "id": "laconic-iconic-exact",
+      "status": "ACTIVE_RECOVERY",
+      "query": "exact historical Laconic Script Bank / response consolidation / 5–6 voice lineage / recurring situations / Pareto winners / conversational trajectories",
+      "payoff": "Replace NEW reconstruction seeds with source-grounded EXACT/RECONSTRUCTED material without losing provenance; preserve originality, charm, wit and memorability while preventing generic drift."
+    },
+    {
       "id": "sleeper-deep-lineage",
       "status": "ACTIVE_RECOVERY",
       "query": "Hostage/Floating/Kite/Spiral → ONE RETURN/Nine Gate → Semantic City → Workfield → Sleeper POV → WAKE/Atlas → minigame cascade",
@@ -160,7 +167,7 @@
       "id": "release-comms",
       "state": "HOLD",
       "center": "/contact/ + router/policy + planning/RETURN",
-      "reason": "Important but not cognitively live until the recovery/orientation pass is stable."
+      "reason": "Transport/autoresponder expansion remains held; the bounded Laconic/Iconic recovery + DRAFT slice advances under repo-convergence without activating external sending."
     },
     {
       "id": "machine-representation",

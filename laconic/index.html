@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#080a0b">
+<title>LACONIC / ICONIC RECOVERY 0.1</title>
+<style>
+:root{--bg:#080a0b;--panel:#0c1012;--ink:#eef1ee;--muted:#7f8b91;--line:#30383d;--hot:#ea7445;--cool:#79bde7;--green:#95d59e;--gold:#d5ad68}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+button,input,textarea,select{font:inherit;border-radius:0}button{cursor:pointer}
+body{padding:max(16px,env(safe-area-inset-top)) 14px max(30px,env(safe-area-inset-bottom))}
+main{width:min(1120px,100%);margin:auto}
+header{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:end;padding:28px 0 16px;border-bottom:1px solid var(--line)}
+.ey{font-size:9px;letter-spacing:.18em;color:var(--hot)}h1{margin:8px 0 0;font:850 clamp(44px,9vw,88px)/.82 system-ui,-apple-system,sans-serif;letter-spacing:-.07em}
+header p{margin:0;color:#aab3b6;font:12px/1.6 system-ui,-apple-system,sans-serif}
+.law{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}.law div{background:#0a0d0f;padding:9px 11px}.law b{color:var(--green);font-size:8px;letter-spacing:.13em}.law span{display:block;margin-top:3px;color:#a6b0b4;font:10px/1.45 system-ui,sans-serif}
+.flow{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:16px 0}.flow span{background:#0a0d0f;padding:8px;text-align:center;font-size:8px;letter-spacing:.1em}
+.grid{display:grid;grid-template-columns:340px 1fr;gap:12px}.panel{border:1px solid var(--line);background:var(--panel)}.ph{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line)}.ph b{font-size:9px;letter-spacing:.15em}.ph span{font-size:8px;color:var(--muted)}
+.field{border-bottom:1px solid var(--line)}.field label{display:block;padding:8px 10px 0;color:#7f8b91;font-size:8px;letter-spacing:.12em}.field textarea,.field input,.field select{width:100%;border:0;background:#0b0f11;color:var(--ink);padding:10px;outline:none}.field textarea{min-height:105px;resize:vertical;font:12px/1.5 system-ui,sans-serif}
+.chips{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);padding:1px}.chips button{border:0;background:#0a0d0f;color:#aeb8bc;padding:8px 9px;font-size:8px;letter-spacing:.09em}.chips button.on{background:#131b20;color:#fff;box-shadow:inset 0 -2px 0 var(--cool)}
+.voice button.on{box-shadow:inset 0 -2px 0 var(--gold)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-top:1px solid var(--line)}.actions button{border:0;background:#0a0d0f;color:var(--ink);padding:10px;min-height:42px;font-size:8px;letter-spacing:.1em}.actions button:hover{background:#12181c}
+.note{padding:9px 11px;color:#748087;font-size:8px}.results{display:grid;gap:1px;background:var(--line)}.card{background:#0a0d0f;padding:12px;display:grid;grid-template-columns:1fr auto;gap:12px}.card:hover{background:#0e1417}.meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:7px}.tag{border:1px solid #354047;padding:2px 5px;font-size:7px;letter-spacing:.08em;color:#93a0a5}.tag.NEW{color:#e3a06b}.tag.EXACT{color:var(--green)}.tag.RECONSTRUCTED{color:var(--gold)}
+.line{font:15px/1.45 system-ui,-apple-system,sans-serif;letter-spacing:-.01em}.side{display:flex;flex-direction:column;gap:4px}.side button{border:1px solid var(--line);background:#0b1012;color:#aab4b8;padding:6px 7px;font-size:7px}.side button.keep.on{border-color:#52765c;color:#a9e5b2}.side button.drop.on{border-color:#704b4b;color:#e0a3a3}
+.selected{border-top:1px solid var(--line);padding:12px}.selected .big{font:18px/1.4 system-ui,sans-serif;margin:5px 0 12px}.selected .path{color:#87949a;font-size:8px}.selected .buttons{display:flex;gap:1px;background:var(--line)}.selected .buttons button,.selected .buttons a{flex:1;border:0;background:#0a0d0f;color:var(--ink);padding:10px;text-decoration:none;text-align:center;font-size:8px;letter-spacing:.1em}
+.tabs{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:12px}.tabs button{flex:1;border:0;background:#0a0d0f;color:#98a4a9;padding:9px;font-size:8px;letter-spacing:.12em}.tabs button.on{color:#fff;background:#11181c}
+.recover{display:none;border:1px solid var(--line);border-top:0}.recover.on{display:block}.recover .row{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--line)}.recover .row>*{border:0;border-right:1px solid var(--line);background:#0a0d0f;color:var(--ink);padding:10px}.recover textarea{width:100%;min-height:170px;border:0;background:#0a0d0f;color:var(--ink);padding:12px;resize:vertical}.recover .buttons{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}.recover .buttons button{border:0;background:#0a0d0f;color:var(--ink);padding:11px}
+footer{display:flex;justify-content:space-between;gap:12px;margin-top:18px;padding-top:10px;border-top:1px solid var(--line);color:#68747a;font-size:8px}
+@media(max-width:780px){header,.grid{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.flow span{text-align:left}.recover .row{grid-template-columns:1fr}.card{grid-template-columns:1fr}.side{flex-direction:row}footer{display:block}}
+</style>
+</head>
+<body><main>
+<header>
+<div><div class="ey">RECOVER / CURATE / DRAFT · 0.1</div><h1>LACONIC<br>/ ICONIC</h1><p>Not an autoresponder. A provenance-aware response instrument: recover exact lines, distinguish reconstruction from invention, curate Pareto winners, grow winners into trajectories, then hand a draft to HUMAN PORT.</p></div>
+<div class="law">
+<div><b>CORE LAW</b><span>Compression must retain character, situation fit, and a return path.</span></div>
+<div><b>AUTHORITY</b><span>DRAFT is not SEND. This public surface has no transport credentials and performs no external action.</span></div>
+<div><b>RECOVERY</b><span>EXACT ≠ RECONSTRUCTED ≠ NEW. Never blur them.</span></div>
+</div>
+</header>
+
+<div class="flow"><span>SITUATION</span><span>MOVE</span><span>VOICE</span><span>CANDIDATE</span><span>CURATE</span><span>HUMAN PORT</span><span>RETURN</span></div>
+
+<div class="grid">
+<section class="panel">
+<div class="ph"><b>ADDRESS THE EXCHANGE</b><span id="count">BANK</span></div>
+<div class="field"><label for="q">SITUATION / KEYWORDS</label><textarea id="q" placeholder="e.g. delayed reply, need one missing fact, warm but not gushy"></textarea></div>
+<div class="ph"><b>MOVE</b><span>router-compatible</span></div>
+<div id="moves" class="chips"></div>
+<div class="ph"><b>VOICE / LENS</b><span>one constraint, not a persona</span></div>
+<div id="voices" class="chips voice"></div>
+<div class="actions"><button id="clear">CLEAR FILTERS</button><button id="drops">SHOW DROPPED · OFF</button></div>
+<div class="note">KEEP / DROP is browser-local evidence. It does not mutate the repository.</div>
+</section>
+
+<section class="panel">
+<div class="ph"><b>CANDIDATES</b><span id="mode">deterministic local selection</span></div>
+<div id="results" class="results"><div class="card"><div>Loading bank…</div></div></div>
+<div id="selected" class="selected" hidden></div>
+</section>
+</div>
+
+<div class="tabs"><button class="on" data-tab="bank">BANK / CURATE</button><button data-tab="recover">RECOVER / PASTE SOURCE</button></div>
+<section id="recover" class="recover">
+<div class="row"><select id="sourceClass"><option>UNCLASSIFIED</option><option>EXACT</option><option>RECONSTRUCTED</option></select><input id="sourceRef" placeholder="source ref / date / thread / file"></div>
+<textarea id="sourceText" placeholder="Paste the recovered v0.01 artifact or line bank here. Blank lines are ignored; no network request is made."></textarea>
+<div class="buttons"><button id="copyPack">COPY SOURCE PACK</button><button id="downloadPack">DOWNLOAD SOURCE PACK</button></div>
+<div class="note" id="recoverNote">Default is UNCLASSIFIED. Mark EXACT only for verbatim recovered source.</div>
+</section>
+
+<footer><span>EXACT / RECONSTRUCTED / NEW · NEVER COLLAPSE PROVENANCE</span><span><a href="../contact/" style="color:#8fcdf2">HUMAN PORT →</a> · <a href="./bank.json" style="color:#8fcdf2">BANK →</a> · <a href="./README.md" style="color:#8fcdf2">RECOVERY CONTRACT →</a></span></footer>
+
+<script>
+(()=>{'use strict';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+let data=null, move='', voice='', showDropped=false, selectedId=null;
+const storeKey='laconic.iconic.verdicts.v01';
+const verdicts=()=>{try{return JSON.parse(localStorage.getItem(storeKey)||'{}')}catch(_){return {}}};
+const save=v=>localStorage.setItem(storeKey,JSON.stringify(v));
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const tokens=s=>String(s||'').toLowerCase().split(/[^a-z0-9]+/).filter(x=>x.length>1);
+function score(x,q){
+ const vt=verdicts()[x.id];
+ if(vt==='DROP'&&!showDropped)return -999;
+ let n=vt==='KEEP'?8:0;
+ if(move&&x.move!==move)n-=20; else if(move)n+=6;
+ if(voice&&x.voice!==voice)n-=20; else if(voice)n+=5;
+ const hay=[x.scenario,x.move,x.voice,(x.tags||[]).join(' '),x.text].join(' ').toLowerCase();
+ tokens(q).forEach(t=>{if(hay.includes(t))n+=3});
+ return n;
+}
+function render(){
+ if(!data)return;
+ const q=$('#q').value.trim();
+ const xs=data.lines.map(x=>({x,s:score(x,q)})).filter(o=>o.s>-100).sort((a,b)=>b.s-a.s||a.x.id.localeCompare(b.x.id)).slice(0,12);
+ $('#count').textContent=data.lines.length+' LINES · '+xs.length+' VISIBLE';
+ const v=verdicts();
+ $('#results').innerHTML=xs.map(o=>{
+   const x=o.x, vv=v[x.id]||'';
+   return '<article class="card" data-id="'+esc(x.id)+'"><div><div class="meta"><span class="tag '+esc(x.provenance)+'">'+esc(x.provenance)+'</span><span class="tag">'+esc(x.scenario.toUpperCase())+'</span><span class="tag">'+esc(x.move)+'</span><span class="tag">'+esc(x.voice)+'</span></div><div class="line">'+esc(x.text)+'</div></div><div class="side"><button class="keep '+(vv==='KEEP'?'on':'')+'" data-v="KEEP">KEEP</button><button class="drop '+(vv==='DROP'?'on':'')+'" data-v="DROP">DROP</button><button data-v="OPEN">OPEN</button></div></article>';
+ }).join('')||'<div class="card"><div>No candidates under current constraints.</div></div>';
+}
+function choose(id){
+ const x=data.lines.find(z=>z.id===id); if(!x)return; selectedId=id;
+ const next=(x.next||[]).map(id=>data.lines.find(z=>z.id===id)).filter(Boolean);
+ $('#selected').hidden=false;
+ $('#selected').innerHTML='<div class="path">'+esc(x.id)+' · '+esc(x.provenance)+' · '+esc(x.scenario)+' → '+esc(x.move)+' → '+esc(x.voice)+'</div><div class="big">'+esc(x.text)+'</div><div class="path">NEXT · '+(next.length?next.map(n=>esc(n.text)).join(' / '):'terminal or unscripted')+'</div><div class="buttons"><button id="copyLine">COPY LINE</button><a id="portLink" href="../contact/?mode=REPLY&draft='+encodeURIComponent(x.text)+'">OPEN IN HUMAN PORT →</a></div>';
+ $('#copyLine').onclick=async()=>{try{await navigator.clipboard.writeText(x.text);$('#copyLine').textContent='COPIED ✓'}catch(_){window.prompt('Copy line',x.text)}};
+}
+function makeButtons(){
+ const moves=['','ACK','ANSWER','ASK_ONE','DRAFT'];
+ $('#moves').innerHTML=moves.map(x=>'<button data-m="'+x+'" class="'+(move===x?'on':'')+'">'+(x||'ANY')+'</button>').join('');
+ $('#voices').innerHTML=('<button data-vc="" class="'+(!voice?'on':'')+'">ANY</button>')+data.voices.map(x=>'<button data-vc="'+esc(x.id)+'" class="'+(voice===x.id?'on':'')+'" title="'+esc(x.law)+'">'+esc(x.id)+'</button>').join('');
+}
+$('#results').addEventListener('click',e=>{
+ const card=e.target.closest('[data-id]'); if(!card)return;
+ const id=card.dataset.id, action=e.target.dataset.v;
+ if(action==='OPEN'||!action){choose(id);return}
+ const v=verdicts(); v[id]=v[id]===action?'':action; save(v); render(); if(selectedId===id)choose(id);
+});
+$('#moves').addEventListener('click',e=>{if(e.target.dataset.m===undefined)return;move=e.target.dataset.m;makeButtons();render()});
+$('#voices').addEventListener('click',e=>{if(e.target.dataset.vc===undefined)return;voice=e.target.dataset.vc;makeButtons();render()});
+$('#q').addEventListener('input',render);
+$('#clear').onclick=()=>{move='';voice='';$('#q').value='';makeButtons();render()};
+$('#drops').onclick=()=>{showDropped=!showDropped;$('#drops').textContent='SHOW DROPPED · '+(showDropped?'ON':'OFF');render()};
+$$('.tabs button').forEach(b=>b.onclick=()=>{$$('.tabs button').forEach(x=>x.classList.toggle('on',x===b));$('#recover').classList.toggle('on',b.dataset.tab==='recover')});
+function sourcePack(){
+ const items=$('#sourceText').value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map((text,i)=>({ordinal:i+1,text}));
+ return {schema:'laconic-iconic-source-pack/v0.1',captured_at:new Date().toISOString(),source_class:$('#sourceClass').value,source_ref:$('#sourceRef').value.trim()||null,notes:null,items};
+}
+$('#copyPack').onclick=async()=>{const t=JSON.stringify(sourcePack(),null,2);try{await navigator.clipboard.writeText(t);$('#recoverNote').textContent='SOURCE PACK COPIED · '+sourcePack().items.length+' items'}catch(_){window.prompt('Copy source pack',t)}};
+$('#downloadPack').onclick=()=>{const t=JSON.stringify(sourcePack(),null,2),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'application/json'}));a.download='laconic-iconic-source-pack.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
+fetch('./bank.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{data=d;makeButtons();render()}).catch(e=>$('#results').textContent='bank unavailable: '+e.message);
+})();
+</script>
+</main></body></html>
