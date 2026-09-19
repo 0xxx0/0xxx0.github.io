@@ -1,0 +1,158 @@
+{
+  "schema": "0xxx0/interphase/v0.1",
+  "object": {
+    "id": "front:recover-repo",
+    "kind": "work-front",
+    "label": "Recover / Repo",
+    "domain": "control",
+    "status": "ACTIVE_NOW",
+    "source_refs": [
+      {
+        "id": "control/current",
+        "uri": "/control/CURRENT.json"
+      },
+      {
+        "id": "control/migration",
+        "uri": "/control/MIGRATION.json"
+      }
+    ],
+    "addresses": [
+      {
+        "projection": "dock",
+        "value": "/dock/#three-live-fronts",
+        "frame": "orientation"
+      },
+      {
+        "projection": "current",
+        "value": "/control/#active-fronts",
+        "frame": "execution"
+      },
+      {
+        "projection": "queue",
+        "value": "/control/QUEUE.json#recover-repo",
+        "frame": "task"
+      }
+    ],
+    "state": {
+      "objective": "Recover exact artifacts; preserve first, classify second, deduplicate third.",
+      "max_parallel_mutations": 1
+    },
+    "tags": [
+      "recovery",
+      "migration",
+      "repo"
+    ]
+  },
+  "events": [
+    {
+      "id": "evt:recover-repo:001",
+      "at": "2026-09-19",
+      "actor": "chatgpt",
+      "kind": "REGISTER_FRONT",
+      "target": "front:recover-repo",
+      "payload": {
+        "state": "ACTIVE_NOW"
+      },
+      "authority": "confirm",
+      "reversibility": "easy",
+      "evidence_status": "attested",
+      "evidence_refs": [
+        "/control/CURRENT.json"
+      ]
+    }
+  ],
+  "projections": [
+    {
+      "id": "dock",
+      "route": "/dock/",
+      "question": "Why is this front live and where does it sit in the larger system?",
+      "reads": [
+        "id",
+        "label",
+        "status",
+        "state.objective"
+      ],
+      "preserves": [
+        "canonical id",
+        "front status",
+        "objective"
+      ],
+      "hides": [
+        "artifact-level migration detail"
+      ],
+      "permits": "read",
+      "fallback": "Read /control/ORIENTATION.json and /control/QUEUE.json.",
+      "round_trip_test": "read-only projection; no mutation"
+    },
+    {
+      "id": "current",
+      "route": "/control/",
+      "question": "What is live now?",
+      "reads": [
+        "id",
+        "label",
+        "status",
+        "state"
+      ],
+      "preserves": [
+        "canonical id",
+        "status",
+        "evidence pointers"
+      ],
+      "hides": [
+        "full lineage archive"
+      ],
+      "permits": "read",
+      "fallback": "Read /control/CURRENT.json.",
+      "round_trip_test": "read-only projection; no mutation"
+    },
+    {
+      "id": "issue",
+      "route": "https://github.com/0xxx0/0xxx0.github.io/issues/6",
+      "question": "What bounded action advances the front?",
+      "reads": [
+        "id",
+        "state.objective"
+      ],
+      "preserves": [
+        "front identity through explicit source link"
+      ],
+      "hides": [
+        "other fronts"
+      ],
+      "permits": "propose",
+      "fallback": "Use /control/HERMES_QUEUE.json task REC-01.",
+      "round_trip_test": "proposal must return as packet/receipt before canonical status changes"
+    }
+  ],
+  "return": {
+    "object_id": "front:recover-repo",
+    "event_ids": [
+      "evt:recover-repo:001"
+    ],
+    "before": {
+      "state": "unbounded archive / unclear live surface"
+    },
+    "after": {
+      "state": "bounded recovery front with migration ledger and archaeology loop"
+    },
+    "delta": [
+      "front registered",
+      "exact-source recovery rule established",
+      "recurring archaeology enabled"
+    ],
+    "evidence": [
+      "/control/CURRENT.json",
+      "/control/MIGRATION.json",
+      "/control/HERMES_QUEUE.json"
+    ],
+    "residue": [
+      "exact Grid Path V4 byte copy pending",
+      "Sleeper external source recovery pending"
+    ],
+    "next_routes": [
+      "/control/migration/",
+      "https://github.com/0xxx0/0xxx0.github.io/issues/6"
+    ]
+  }
+}
