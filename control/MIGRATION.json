@@ -53,8 +53,8 @@
       "id": "grid-path-compiler-v4",
       "name": "Grid Path Compiler v4",
       "family": "path-grid-language",
-      "status": "RECOVER",
-      "source_type": "prior-artifact",
+      "status": "LIVE_DONOR",
+      "source_type": "library-recovered-exact",
       "known_features": [
         "LATIN CONTROL",
         "MEANTOME 16×16 cell poetry",
@@ -63,34 +63,40 @@
         "GRID/TEXT/GLYPH/RSVP views"
       ],
       "unique": "The broader multilingual/general grid/path workbench that preceded the poetry-specialized current head.",
-      "action": "RECOVER EXACT HTML/PACK FROM archive/chat/library. Repo it as a frozen donor before any merge."
+      "action": "FROZEN EXACT DONOR. Mechanism-diff against Verse Atlas; transfer only missing capability, never wholesale-merge by resemblance.",
+      "route": "/recovery/path-grid/grid-path-compiler-v4/",
+      "source_manifest": "/recovery/foundry-cabinet-v4/manifest.json"
     },
     {
       "id": "latin-control",
       "name": "Latin / English geometry control",
       "family": "path-grid-language",
-      "status": "RECOVER",
-      "source_type": "embedded-in-grid-path",
+      "status": "LIVE_DONOR",
+      "source_type": "embedded-exact-recovered",
       "unique": "Non-Chinese control proving that path/address machinery is not inherently a Chinese-poetry UI.",
-      "action": "RESTORE AS A SELECTABLE DATASET/fixture or frozen specimen; do not rewrite it into Verse Atlas semantics."
+      "action": "RECOVERED inside exact V4 compiler as LATIN 4x4 CONTROL. Keep as non-poetry geometry/control fixture.",
+      "route": "/recovery/path-grid/grid-path-compiler-v4/"
     },
     {
       "id": "meantome",
       "name": "MEANTOME / 16×16 cell poetry",
       "family": "path-grid-language",
-      "status": "RECOVER",
-      "source_type": "embedded-in-grid-path",
+      "status": "LIVE_DONOR",
+      "source_type": "embedded-exact-recovered",
       "unique": "Addressed cell-poetry / graph traversal branch distinct from regulated-verse structure.",
-      "action": "RECOVER EXACT DATA + UI behavior; classify as donor or sibling after comparison."
+      "action": "RECOVERED exact source/UI behavior. Keep cell-poetry mechanics distinct from regulated-verse semantics.",
+      "route": "/recovery/path-grid/grid-path-compiler-v4/",
+      "companion_route": "/recovery/path-grid/cell-foundry-r2/"
     },
     {
       "id": "anthropy-pathweaver",
       "name": "Anthropy Pathweaver",
       "family": "path-grid-language",
-      "status": "RECOVER",
-      "source_type": "prior-artifact",
+      "status": "LIVE_DONOR",
+      "source_type": "library-recovered-exact",
       "unique": "English/Latin/path-weave branch named alongside Foundry federation companions.",
-      "action": "RECOVER EXACT FILE FIRST. Do not infer or regenerate from name."
+      "action": "FROZEN exact Pathweaver donor; preserve source->path->projection->RETURN mechanics and explicit provenance.",
+      "route": "/recovery/path-grid/anthropy-pathweaver/"
     },
     {
       "id": "ascii-sleeper-0-8",
@@ -110,7 +116,10 @@
       "source_type": "external-live",
       "source_url": "https://sleeper-one-return.metaname.chatgpt.site/",
       "unique": "Phrase + verse cell + figure compile into reproducible ASCII city; eight proofs + ninth RETURN; distinct source-material compiler and figure physics.",
-      "action": "IMPORT SOURCE/ASSETS AS FROZEN DONOR. Compare compiler/gate mechanics against /sleeper/; do not redesign during import."
+      "action": "KEEP IMPORT OPEN, but do not reconstruct from prose. Resume from exact source/assets or authorized checkpoint bytes.",
+      "retrieval_state": "BLOCKED_EXACT_SOURCE_2026-09-19",
+      "blocker": "Recorded external URL is currently inaccessible through available retrieval; exact source/assets not imported.",
+      "checkpoint": "Library sleeper_pov_v0.7_private_checkpoint.zip exists (213577 bytes) but raw-byte access is not authorized in this session."
     },
     {
       "id": "sleeper-painting-path",
@@ -120,7 +129,9 @@
       "source_type": "external-live",
       "source_url": "https://sleeper-one-return.metaname.chatgpt.site/painting",
       "unique": "Painting itself as navigable interface: select detail → read/speak/route/finding, with zoom/outline/route interactions.",
-      "action": "IMPORT SOURCE/ASSETS AS A SEPARATE SPECIMEN. Preserve the painting-first interaction instead of converting it to cards/forms."
+      "action": "KEEP IMPORT OPEN. Painting-first interaction must be recovered exactly; no cards/forms reconstruction.",
+      "retrieval_state": "BLOCKED_EXACT_SOURCE_2026-09-19",
+      "blocker": "Recorded external /painting URL is currently inaccessible through available retrieval; exact source/assets not imported."
     },
     {
       "id": "two-dial-0-9",
@@ -205,10 +216,11 @@
       "id": "fold-bloom-fold-weave-01",
       "name": "Fold/Bloom Fold Weave 0.1",
       "family": "fold-bloom",
-      "status": "RECOVER",
-      "source_type": "library",
+      "status": "LIVE_DONOR",
+      "source_type": "library-recovered-exact",
       "unique": "Recent runnable Fold/Bloom branch requiring mechanism comparison against Two Dial / Ecology / Scale Lens.",
-      "action": "Recover one canonical copy only. Two Library copies created 2026-09-18 were confirmed text-identical across all 1,317 lines; treat the second as duplicate, not a branch."
+      "action": "ONE exact canonical repo donor frozen. Library duplicate proven identical; next step is mechanism diff, not another branch.",
+      "route": "/recovery/fold-bloom/fold-weave-0.1/"
     },
     {
       "id": "game-of-names-lineage",
@@ -217,7 +229,9 @@
       "status": "RECOVER",
       "source_type": "archive/library",
       "unique": "Long-running naming work treats names as symbolic compression / identity-transform machinery, with metaphor, sound, multilingual structure, symmetry and digital identity constraints.",
-      "action": "HOLD as recovery lineage. Locate exact runnable/glyph artifacts and extract naming operations into the semantic-address layer only when evidence supports it; do not invent a new mega-app."
+      "action": "HOLD. Exact archive lineage confirmed; isolate a runnable/glyph artifact before repoing it. Otherwise extract only provenance-backed transferable operations.",
+      "evidence_state": "ARCHIVE_EVIDENCE_NO_ISOLATED_RUNNABLE",
+      "privacy": "Do not publish raw personal naming archive."
     },
     {
       "id": "one-return-seam-engine-v0-2",
@@ -228,14 +242,75 @@
       "route": "/recovery/seam-engine/ONE_RETURN_SEAM_ENGINE_v0.2.md",
       "unique": "Typed replayable event/state substrate with linked projections, view round-trip laws, authority/reversibility/evidence gates, physical correspondence, and RETURN.",
       "action": "Use as recovered substrate for projection/adaptor tests. Do not promote into a universal ontology or replace domain vocabularies."
+    },
+    {
+      "id": "foundry-cabinet-v4",
+      "name": "Foundry Cabinet V4",
+      "family": "path-grid-language",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/foundry-cabinet-v4/",
+      "source_type": "library-recovered-exact",
+      "unique": "Exact self-contained donor cabinet carrying six unequal instruments under one source-faithful bundle.",
+      "action": "KEEP FROZEN. Use /recovery/path-grid/ for extracted exact instruments; cabinet itself remains provenance/source bundle."
+    },
+    {
+      "id": "projection-harness-v4",
+      "name": "Projection Harness",
+      "family": "path-grid-language",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/path-grid/projection-harness/",
+      "source_type": "embedded-exact-recovered",
+      "unique": "Unequal RECT/RADIAL/FAN/ROOM projections over stable addressed construction.",
+      "action": "KEEP FROZEN; compare mechanisms before transfer."
+    },
+    {
+      "id": "foundry-federation-v4",
+      "name": "Foundry Federation",
+      "family": "path-grid-language",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/path-grid/foundry-federation/",
+      "source_type": "embedded-exact-recovered",
+      "unique": "Unequal native engines under one federation/workbench contract.",
+      "action": "KEEP FROZEN; compare mechanisms before transfer."
+    },
+    {
+      "id": "market-solver-v4",
+      "name": "Market + Solver",
+      "family": "path-grid-language",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/path-grid/market-solver/",
+      "source_type": "embedded-exact-recovered",
+      "unique": "Constrained lexicon/bag and least-change route construction donor.",
+      "action": "KEEP FROZEN; compare mechanisms before transfer."
+    },
+    {
+      "id": "cell-foundry-r2",
+      "name": "Cell Foundry R2",
+      "family": "path-grid-language",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/path-grid/cell-foundry-r2/",
+      "source_type": "embedded-exact-recovered",
+      "unique": "Cell-poetry topology, route/search, verification and evidence donor.",
+      "action": "KEEP FROZEN; compare mechanisms before transfer."
+    },
+    {
+      "id": "laconic-historical-bank",
+      "name": "Historical Laconic Script Bank",
+      "family": "comms",
+      "status": "RECOVER",
+      "source_type": "archive/library",
+      "unique": "Original canonical deployable response-bank lineage distinct from the current reconstructed/new /laconic/ seed set.",
+      "evidence_state": "RELATED_EXACT_HITS_FOUND_CANONICAL_LIST_STILL_MISSING",
+      "action": "RECOVER exact source text + provenance only. Do not synthesize a replacement and label it recovered; do not publish private raw conversations."
     }
   ],
   "ingest_queue": [
-    "Recover exact Grid Path Compiler v4 pack + LATIN CONTROL + MEANTOME + Anthropy Pathweaver.",
-    "Acquire source/assets for both sleeper-one-return.metaname.chatgpt.site surfaces.",
-    "Copy each recovered artifact into a frozen repo route before dedup/merge.",
-    "Run mechanism diff against current heads; mark KEEP / DONOR / MERGE / QUARANTINE.",
-    "Only then simplify the public root around direct instruments + lineage/recovery, not portfolio language.",
-    "Collapse confirmed exact duplicates before counting branches; current proof: Fold/Bloom fold_weave_01 duplicate pair is one artifact."
-  ]
+    "MECHANISM DIFF: exact recovered Grid Path family vs Verse Atlas/current Foundry; transfer only missing functions.",
+    "MECHANISM DIFF: exact Fold Weave 0.1 vs Two Dial / Ecology / Scale Lens.",
+    "SLEEPER: acquire exact City Engine + Painting/Path source/assets or authorized checkpoint bytes; no reconstruction from descriptions.",
+    "LACONIC: isolate exact historical bank lines with source refs; preserve EXACT / RECONSTRUCTED / NEW firewall.",
+    "GAME OF NAMES: locate isolated exact runnable/glyph artifact before public recovery; keep personal archive private.",
+    "QUARANTINE: generic site shells stay out of primary surface unless a unique mechanism earns transfer."
+  ],
+  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json"
 }
