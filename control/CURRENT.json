@@ -167,8 +167,8 @@
     }
   ],
   "next_single_action": {
-    "id": "mechanism-diff-01",
-    "instruction": "Compare the exact recovered Grid Path family against Verse Atlas/current Foundry, and Fold Weave against Two Dial/Ecology/Scale Lens. Transfer only a function that is demonstrably missing; otherwise leave donors frozen. Blocked Sleeper/Laconic/Game-of-Names archaeology proceeds exact-source-only."
+    "id": "residual-recovery-or-ingest",
+    "instruction": "Do not broaden the recovered heads. Resume Sleeper only from exact bytes/source; continue exact-only Laconic/Game-of-Names archaeology. Otherwise move to the local-first file/media ingest dry-run and one physical RETURN."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
@@ -194,5 +194,6 @@
   "orientation": "/control/ORIENTATION.json",
   "execution_queue": "/control/QUEUE.json",
   "dock": "/dock/",
-  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json"
+  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
+  "last_mechanism_diff": "/control/MECHANISM_DIFF_2026-09-19.json"
 }
