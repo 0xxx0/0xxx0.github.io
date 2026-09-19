@@ -1,0 +1,58 @@
+{
+  "schema": "0xxx0/public-surface-qa/v0.1",
+  "updated": "2026-09-19",
+  "principle": "A public surface is an instrument, not a brochure or control-room costume.",
+  "tests": [
+    {
+      "id": "VERB",
+      "question": "What can I do here in one verb?",
+      "fail": "If the answer is browse/explore dashboard, find the actual operation or demote the surface."
+    },
+    {
+      "id": "UNIQUE",
+      "question": "What operation exists here that another current surface does not already perform?",
+      "fail": "Duplicate operation → merge route, donor, or hide."
+    },
+    {
+      "id": "OBJECT",
+      "question": "What exact object/state am I manipulating or inspecting?",
+      "fail": "No object → likely presentation shell."
+    },
+    {
+      "id": "RETURN",
+      "question": "What durable receipt or changed object comes back?",
+      "fail": "No return → experiment only."
+    },
+    {
+      "id": "PLAIN",
+      "question": "Would a list/text/file perform this task as well?",
+      "fail": "If yes, prefer the plain surface."
+    },
+    {
+      "id": "NAMING",
+      "question": "Does the name evoke its operation after one use?",
+      "fail": "Rename public label; preserve canonical lineage ID separately."
+    },
+    {
+      "id": "MOBILE",
+      "question": "Is the primary action obvious without hover, side panels, or decorative metrics?",
+      "fail": "Simplify."
+    },
+    {
+      "id": "PHYSICAL",
+      "question": "Can this project into a print/manual/physical fallback when relevant?",
+      "fail": "Declare why digital-only is necessary."
+    }
+  ],
+  "banned_defaults": [
+    "generic hero + feature-card grid",
+    "dashboard KPI cards without decisions",
+    "rounded SaaS control chrome",
+    "decorative charts",
+    "duplicate navigation taxonomies",
+    "marketing copy explaining value instead of exposing operation",
+    "new app names for minor view variations"
+  ],
+  "naming_rule": "Canonical IDs remain stable. Public names may be concise operational aliases. Prefer memorable metaphor only when the interaction earns it; otherwise VERB / OBJECT.",
+  "promotion": "A surface enters root RUNNING only after VERB + UNIQUE + OBJECT + RETURN pass."
+}
