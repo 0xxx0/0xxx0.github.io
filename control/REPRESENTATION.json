@@ -1,0 +1,217 @@
+{
+  "schema": "0xxx0/representation-kernel/v0.1",
+  "updated": "2026-09-19",
+  "source": "/recovery/seam-engine/ONE_RETURN_SEAM_ENGINE_v0.2.md",
+  "claim": "One canonical event/state object may have many unequal lawful projections. A projection earns survival only when it changes a decision, exposes a constraint, improves manipulation/recovery, or verifies a return.",
+  "not_claimed": [
+    "This is not a universal ontology.",
+    "Projection equivalence is not visual sameness.",
+    "No category-theory theorem is being claimed.",
+    "Do not collapse distinct domain vocabularies into one schema."
+  ],
+  "mathematical_analogy": {
+    "useful": "Functor/lens-like discipline: preserve identity and lawful relations under projection; require round-trip laws for editable views; compare transformations by what structure survives.",
+    "yonedaish": "The Yoneda-like intuition is that an object becomes more legible through its lawful relations/observations across many probes, but implementation should remain explicit adapters + tests rather than mathematical cosplay.",
+    "hard_rule": "If two views cannot state what structure is preserved and how edits return, their resemblance is aesthetic only."
+  },
+  "canonical_contract": {
+    "identity": "stable ID independent of screen coordinate, parent, projection or current address",
+    "history": "append-only events; rollback is a compensating event",
+    "mutation": "view emits intent → rule checks authority/reversibility/evidence → accepted event → reducer → projections",
+    "return": "every bounded run emits before/after/delta/evidence/residue/next",
+    "degradation": "plain file / printed card / manual control remains valid lower-fidelity host"
+  },
+  "projections": [
+    {
+      "id": "scale-lens",
+      "current": "/fold-bloom/lens/",
+      "preserves": [
+        "stable identity",
+        "source/provenance",
+        "range",
+        "nested address",
+        "return"
+      ],
+      "good_for": [
+        "unequal zoom",
+        "dataset/table/record/cell scale changes",
+        "source-aware inspection"
+      ],
+      "hides": [
+        "temporal rhythm",
+        "physical material state"
+      ]
+    },
+    {
+      "id": "fold-bloom",
+      "current": "/fold-bloom/",
+      "preserves": [
+        "cycle",
+        "phase",
+        "lineage",
+        "bounded control"
+      ],
+      "good_for": [
+        "embodied/pleasant manipulation",
+        "rhythm",
+        "state transitions that benefit from tactile metaphor"
+      ],
+      "hides": [
+        "full provenance ledger",
+        "large archive"
+      ]
+    },
+    {
+      "id": "aperture-dayline",
+      "current": "/atlas-dayline/",
+      "preserves": [
+        "stable task/object IDs",
+        "commitments",
+        "time bearings",
+        "re-entry"
+      ],
+      "good_for": [
+        "what-now",
+        "lookahead",
+        "temporal/radial orientation"
+      ],
+      "hides": [
+        "deep archive",
+        "domain-specific detail"
+      ]
+    },
+    {
+      "id": "painting-path",
+      "current": "RECOVER_EXTERNAL",
+      "preserves": [
+        "spatial mark/path",
+        "attention route",
+        "image as functional surface"
+      ],
+      "good_for": [
+        "navigation through visual field",
+        "non-dashboard control",
+        "art-as-interface"
+      ],
+      "hides": [
+        "exact canonical structure unless linked by explicit addresses"
+      ]
+    },
+    {
+      "id": "path-glyph",
+      "current": "/foundry/verse-atlas/",
+      "preserves": [
+        "cell identity",
+        "typed edge",
+        "ordered path",
+        "address",
+        "return"
+      ],
+      "good_for": [
+        "route-as-program",
+        "language/glyph/poetry",
+        "semantic traversal"
+      ],
+      "hides": [
+        "non-path state unless separately projected"
+      ]
+    },
+    {
+      "id": "print-proof",
+      "current": "RECOVERED_DONOR",
+      "evidence_source": "Library cassette atlas + House OS Field System",
+      "preserves": [
+        "stable ID",
+        "scale",
+        "layout",
+        "registration",
+        "revision state",
+        "manual fallback"
+      ],
+      "good_for": [
+        "A3 build sheets",
+        "labels",
+        "stickers",
+        "stencils",
+        "templates",
+        "proof plates",
+        "offline continuity"
+      ],
+      "hides": [
+        "live event history unless encoded in receipt/QR/address"
+      ]
+    },
+    {
+      "id": "house-physical",
+      "current": "REALITY_GATE",
+      "preserves": [
+        "object ID",
+        "ports",
+        "route",
+        "state",
+        "before/after evidence"
+      ],
+      "good_for": [
+        "room",
+        "fixture",
+        "tool",
+        "sensor",
+        "cat/home endpoint",
+        "physical proof"
+      ],
+      "hides": [
+        "abstract alternatives not instantiated"
+      ]
+    },
+    {
+      "id": "body-health",
+      "current": "ADAPTER_CANDIDATE",
+      "preserves": [
+        "anatomical region/object identity",
+        "observation time",
+        "source confidence",
+        "intervention/event history"
+      ],
+      "good_for": [
+        "pain/body map",
+        "training",
+        "labs/medical chronology",
+        "microcosm/self state"
+      ],
+      "hides": [
+        "causal certainty unless evidence earns it"
+      ],
+      "safety": "Observation ≠ diagnosis. Inference/confidence must remain explicit."
+    },
+    {
+      "id": "media-library",
+      "current": "ADAPTER_CANDIDATE",
+      "preserves": [
+        "content hash",
+        "source path",
+        "capture/export time",
+        "lineage",
+        "tags"
+      ],
+      "good_for": [
+        "photos",
+        "video",
+        "generated images",
+        "audio",
+        "artifact archaeology"
+      ],
+      "hides": [
+        "project meaning unless linked by semantic lineage"
+      ]
+    }
+  ],
+  "projection_acceptance": [
+    "What exact question does this view answer better than plain text/list?",
+    "What identity/relations/state does it preserve?",
+    "What does it deliberately hide?",
+    "What operations may it emit?",
+    "Can edits round-trip without ad-hoc synchronization?",
+    "What is the fallback when the projection is unavailable?",
+    "What receipt proves it helped?"
+  ]
+}
