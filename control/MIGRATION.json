@@ -200,6 +200,24 @@
       "source_type": "mixed",
       "unique": "Unknown until inventoried; visual polish, dashboards, hero sections, pricing/company/feature patterns are not evidence of a unique mechanism.",
       "action": "COPY SOURCE IF NEEDED, REMOVE FROM PRIMARY NAV, compare only for reusable mechanism/content. Do not spend time beautifying."
+    },
+    {
+      "id": "fold-bloom-fold-weave-01",
+      "name": "Fold/Bloom Fold Weave 0.1",
+      "family": "fold-bloom",
+      "status": "RECOVER",
+      "source_type": "library",
+      "unique": "Recent runnable Fold/Bloom branch requiring mechanism comparison against Two Dial / Ecology / Scale Lens.",
+      "action": "Recover one canonical copy only. Two Library copies created 2026-09-18 were confirmed text-identical across all 1,317 lines; treat the second as duplicate, not a branch."
+    },
+    {
+      "id": "game-of-names-lineage",
+      "name": "Game of Names / naming + identity lineage",
+      "family": "language-glyph-identity",
+      "status": "RECOVER",
+      "source_type": "archive/library",
+      "unique": "Long-running naming work treats names as symbolic compression / identity-transform machinery, with metaphor, sound, multilingual structure, symmetry and digital identity constraints.",
+      "action": "HOLD as recovery lineage. Locate exact runnable/glyph artifacts and extract naming operations into the semantic-address layer only when evidence supports it; do not invent a new mega-app."
     }
   ],
   "ingest_queue": [
@@ -207,6 +225,7 @@
     "Acquire source/assets for both sleeper-one-return.metaname.chatgpt.site surfaces.",
     "Copy each recovered artifact into a frozen repo route before dedup/merge.",
     "Run mechanism diff against current heads; mark KEEP / DONOR / MERGE / QUARANTINE.",
-    "Only then simplify the public root around direct instruments + lineage/recovery, not portfolio language."
+    "Only then simplify the public root around direct instruments + lineage/recovery, not portfolio language.",
+    "Collapse confirmed exact duplicates before counting branches; current proof: Fold/Bloom fold_weave_01 duplicate pair is one artifact."
   ]
 }
