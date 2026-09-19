@@ -4,178 +4,88 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#090b0d">
-<title>0xxx0 · Showcase</title>
+<meta name="theme-color" content="#080a0b">
+<title>0xxx0 / FIELD INDEX</title>
 <style>
-:root{--bg:#090b0d;--panel:#0f1317;--ink:#edf1ed;--muted:#8f989b;--line:#2c373c;--hot:#e56b3f;--cool:#68acd8;--gold:#d9ad62;--green:#9ed88c}
+:root{--bg:#080a0b;--ink:#edf0ed;--muted:#818c91;--line:#30383c;--hot:#e87548;--cool:#78bce5;--green:#98d6a2}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-body{padding:max(18px,env(safe-area-inset-top)) 14px max(26px,env(safe-area-inset-bottom))}
-main{width:min(1120px,100%);margin:auto}
-header{display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:end;padding:30px 0 18px;border-bottom:1px solid var(--line)}
-.ey{font-size:9px;letter-spacing:.18em;color:var(--hot)}
-h1{margin:8px 0 0;font:800 clamp(42px,9vw,88px)/.84 system-ui,-apple-system,sans-serif;letter-spacing:-.07em}
-.intro{color:#a7b0b4;font:12px/1.6 system-ui,-apple-system,sans-serif}.resume{display:none;margin-top:12px;border:1px solid var(--line);padding:9px 10px;color:var(--ink);text-decoration:none}.resume.on{display:block}.resume b{color:var(--green)}
-.kernel{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:16px 0}
-.kernel span{background:#0b0f12;padding:9px 8px;text-align:center;font-size:9px;letter-spacing:.12em}
-.kernel span:not(:last-child)::after{content:" →";color:#52616a}
-.capmap{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:8px 0 0}
-.cap{background:#0b0f12;padding:12px;min-height:126px}.cap b{display:block;font-size:9px;letter-spacing:.14em}.cap strong{display:block;margin-top:8px;font:800 18px/1 system-ui,-apple-system,sans-serif;letter-spacing:-.035em}.cap p{margin:9px 0 0;color:#9aa5aa;font:10px/1.5 system-ui,-apple-system,sans-serif}.cap small{display:block;margin-top:10px;color:#68767d;font-size:7px;line-height:1.55}
-.bridge{border:1px solid var(--line);border-top:0;padding:10px 12px;color:#87949a;font-size:8px;line-height:1.7}.bridge b{color:var(--ink);letter-spacing:.12em}.bridge span{color:#5f6b71}
-.returnbar{display:grid;grid-template-columns:145px 1fr auto;gap:0;border:1px solid var(--line);margin:8px 0 16px;color:var(--ink);text-decoration:none;background:var(--line)}.returnbar>*{background:#0b0f12;padding:10px 12px}.returnbar b{color:var(--green);font-size:9px;letter-spacing:.14em}.returnbar span{color:#a7b0b4;font:10px/1.5 system-ui,-apple-system,sans-serif}.returnbar em{color:var(--ink);font-style:normal;font-size:9px;letter-spacing:.12em;white-space:nowrap}.returnbar:hover>*{background:#121920}\n.section{display:flex;justify-content:space-between;gap:14px;align-items:end;margin:24px 0 8px}.tools{display:flex;gap:5px;flex-wrap:wrap;align-items:center}.tools button,.tools input{border:1px solid var(--line);border-radius:0;background:#0b0f12;color:var(--ink);font:9px ui-monospace,monospace;min-height:30px;padding:6px 8px}.tools button{cursor:pointer}.tools button.on{border-color:var(--cool);color:#cfefff}.tools input{width:150px}.count{color:var(--muted);font-size:8px}
-.section b{font-size:10px;letter-spacing:.16em}.section span{color:var(--muted);font-size:9px}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-.card{grid-column:span 4;min-height:260px;background:var(--panel);padding:16px;display:flex;flex-direction:column;color:var(--ink);text-decoration:none}
-.card:hover,.card:focus{background:#121920;outline:none}.card[hidden]{display:none}.state{margin-left:auto;border:1px solid #314047;padding:2px 5px;font-size:7px;color:#7f8d94}.state.compat{color:var(--gold);border-color:#6b5731}.state.experiment{color:var(--hot);border-color:#734b2a}.topline{display:flex;gap:8px;align-items:center}
-.card.wide{grid-column:span 6}.card.full{grid-column:span 12;min-height:190px}
-.num{font-size:8px;color:#68747b;letter-spacing:.15em}
-.type{margin-top:4px;font-size:8px;letter-spacing:.13em}
-.capture .type{color:var(--hot)}.play .type{color:var(--cool)}.represent .type{color:var(--gold)}.prove .type{color:var(--green)}.plan .type{color:#d58fb5}
-.name{margin-top:26px;font:800 clamp(24px,4vw,38px)/.9 system-ui,-apple-system,sans-serif;letter-spacing:-.05em}
-.desc{margin-top:14px;color:#aab3b8;font:11px/1.55 system-ui,-apple-system,sans-serif}
-.transfer{margin-top:11px;color:#87959c;font-size:8px;line-height:1.55}.transfer b{color:#c4cdd1;font-size:7px;letter-spacing:.12em}
-.chain{margin-top:auto;padding-top:18px;color:#78858c;font-size:8px;line-height:1.6}
-.go{margin-top:10px;padding-top:10px;border-top:1px solid #263139;font-size:9px;letter-spacing:.12em;font-weight:800}
-.hubs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
-.hubs a{background:#0b0f12;color:var(--ink);text-decoration:none;padding:12px}.hubs b{display:block;font-size:10px}.hubs span{display:block;color:var(--muted);font-size:8px;margin-top:4px}
-.fedhead .tools a{border:1px solid var(--line);background:#0b0f12;color:#a7b0b4;text-decoration:none;font-size:8px;min-height:30px;padding:7px 8px}.fedsum{display:grid;grid-template-columns:repeat(6,1fr) auto auto;gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:10px}.fedsum span,.fedsum a{background:#0b0f12;padding:9px 10px}.fedsum span{display:grid;gap:2px}.fedsum b{font-size:14px;font-weight:600}.fedsum small{font-size:7px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}.fedsum a{display:flex;align-items:center;justify-content:center;color:#cfefff;text-decoration:none;font-size:8px;letter-spacing:.09em;white-space:nowrap}.fedsum a.fcmgo{color:var(--green)}.federation{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}.province{background:#0c1013}.province summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:10px;padding:13px 14px;border-bottom:1px solid transparent}.province summary::-webkit-details-marker{display:none}.province[open] summary{border-bottom-color:var(--line)}.province summary b{font-size:10px;letter-spacing:.12em}.province summary span{font-size:8px;color:var(--muted)}.fedrows{display:grid}.fedrow{display:grid;grid-template-columns:62px minmax(0,1fr);gap:10px;padding:9px 12px;border-bottom:1px solid #202a2f}.fedrow:last-child{border-bottom:0}.fedid{font-size:8px;color:#68747b;letter-spacing:.06em}.fedname{font:700 13px/1.15 system-ui,-apple-system,sans-serif;letter-spacing:-.015em}.fedmeta{margin-top:3px;font-size:7px;color:#7d8990;text-transform:uppercase;letter-spacing:.06em}.fedpurpose{margin-top:5px;color:#9ba5a9;font:9px/1.45 system-ui,-apple-system,sans-serif}.fedempty{padding:18px;color:var(--muted);font-size:9px}.fedlegend{display:flex;justify-content:space-between;gap:12px;padding:7px 0 0;color:#657178;font-size:8px}.fedlegend b{color:#9ed88c;font-weight:500}
-footer{display:flex;justify-content:space-between;gap:16px;margin-top:18px;padding-top:10px;border-top:1px solid var(--line);color:#657178;font-size:8px}
-@media(max-width:760px){
- .fedsum{grid-template-columns:repeat(2,1fr)}.fedsum a{grid-column:1/-1}.federation{grid-template-columns:1fr}.fedlegend{display:block}.fedlegend span{display:block;margin-top:4px}
- header{grid-template-columns:1fr;gap:16px}.returnbar{grid-template-columns:1fr}.returnbar em{display:none}.kernel{grid-template-columns:1fr}.kernel span{text-align:left}.kernel span:not(:last-child)::after{content:""}
- .capmap{grid-template-columns:1fr}.cap{min-height:0}.card,.card.wide,.card.full{grid-column:span 12;min-height:220px}.hubs{grid-template-columns:1fr}.section{display:block}.section span{display:block;margin-top:4px}footer{display:block}footer span{display:block;margin-top:6px}
-}
+body{padding:max(16px,env(safe-area-inset-top)) 14px max(30px,env(safe-area-inset-bottom))}
+main{width:min(1080px,100%);margin:auto}
+header{display:grid;grid-template-columns:1fr auto;gap:20px;align-items:end;padding:28px 0 16px;border-bottom:1px solid var(--line)}
+.ey{font-size:9px;letter-spacing:.18em;color:var(--hot)}h1{margin:8px 0 0;font:850 clamp(44px,10vw,96px)/.8 system-ui,-apple-system,sans-serif;letter-spacing:-.075em}
+header p{max-width:360px;margin:0;color:#aab2b5;font:12px/1.6 system-ui,-apple-system,sans-serif}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 0}nav a,button,input{border:1px solid var(--line);border-radius:0;background:#0a0d0f;color:var(--ink);font:9px ui-monospace,monospace;min-height:30px;padding:7px 9px}
+nav a{text-decoration:none}.bar{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:end;margin:26px 0 8px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.bar b{letter-spacing:.16em;font-size:10px}.bar span{font-size:9px;color:var(--muted)}
+.rows{border-top:1px solid var(--line)}.row{display:grid;grid-template-columns:minmax(190px,1.1fr) 95px 90px 2fr auto;gap:12px;align-items:start;border-bottom:1px solid #242b2f;padding:12px 4px;color:var(--ink);text-decoration:none}
+.row:hover{background:#0d1113}.name{font:750 16px/1.1 system-ui,-apple-system,sans-serif;letter-spacing:-.025em}.family{margin-top:4px;font-size:8px;color:#6f7c82}
+.op,.state{font-size:8px;letter-spacing:.1em}.op{color:var(--cool)}.state{color:var(--green)}.state.EXPERIMENT,.state.RECOVER,.state.IMPORT{color:#e7a065}.state.QUARANTINE{color:#c98a99}
+.job{color:#9ea8ac;font:10px/1.45 system-ui,-apple-system,sans-serif}.go{font-size:10px;white-space:nowrap;color:#b9c2c6}
+.rec .row{grid-template-columns:minmax(190px,1.1fr) 110px 2fr auto}.external{color:#8ccdf2}
+.tools{display:flex;gap:5px;flex-wrap:wrap}.tools input{width:170px}.tools button{cursor:pointer}.tools button.on{border-color:#819198}
+.system{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.system a{background:#0a0d0f;padding:12px;color:var(--ink);text-decoration:none}.system b{display:block;font-size:10px}.system span{display:block;color:var(--muted);font-size:8px;margin-top:4px}
+footer{display:flex;justify-content:space-between;gap:16px;margin-top:22px;padding-top:10px;border-top:1px solid var(--line);color:#68747a;font-size:8px}
+@media(max-width:760px){header{grid-template-columns:1fr}.row,.rec .row{grid-template-columns:1fr auto;gap:5px}.row .op,.row .state,.row .job{grid-column:1}.row .go{grid-column:2;grid-row:1/-1}.system{grid-template-columns:1fr}.bar{grid-template-columns:1fr}.tools input{width:100%}footer{display:block}}
 </style>
 </head>
 <body><main>
 <header>
-  <div><div class="ey">PUBLIC SHOWCASE · LOW-DISCOVERY RELEASE MIRROR</div><h1>Things that<br>actually run.</h1></div>
-  <div class="intro">Selected browser instruments from separate project lines. Each surface has a stable link and a bounded job. Read them once as runnable specimens, and again as reusable capabilities. Shared mechanisms can converge without forcing the artifacts into one interface, one hierarchy, or one “latest” build.<a id="resume" class="resume" href="#"><b>RETURN</b> · <span></span></a></div>
+  <div><div class="ey">RUN / RECOVER / RETURN</div><h1>FIELD<br>INDEX</h1></div>
+  <div><p>Not a portfolio. A working index of executable surfaces, current heads, and recovered donors. Nothing here needs a company story.</p>
+  <nav><a href="./control/">CURRENT</a><a href="./control/migration/">MIGRATION</a><a href="./returns/">RETURN</a><a href="./showcase-manifest.json">MANIFEST</a></nav></div>
 </header>
 
-<div class="kernel" aria-label="Shared transformation kernel">
-  <span>OBJECT</span><span>ADDRESS</span><span>PROJECT</span><span>OPERATE</span><span>RETURN</span>
-</div>
-
-<a class="returnbar" href="./contact/" aria-label="Contact and continuity rendezvous"><b>CONTACT / RETURN</b><span>If I sent you here, or you need to find me when the normal channel fails, start here. Stable public pointer; private details stay private.</span><em>OPEN →</em></a>
-
-<div class="section"><div><b>CAPABILITY MAP</b><span>the same nine surfaces, read as mechanisms that can transfer</span></div></div>
-<section class="capmap" aria-label="Reusable capability map">
-  <div class="cap"><b>CAPTURE · 1</b><strong>Structure ingress.</strong><p>Turn ambiguous incoming material into typed, reviewable objects with provenance and rollback.</p><small>messages · forms · notes · sensor/log events</small></div>
-  <div class="cap"><b>PLAY · 3</b><strong>Steer live state.</strong><p>Expose compact control over cyclic, agent and constraint fields while keeping feedback visible.</p><small>human steering · adaptive interfaces · physical controls</small></div>
-  <div class="cap"><b>REPRESENT · 2</b><strong>Change the view.</strong><p>Compress or re-project information without silently losing identity, source or return path.</p><small>context views · briefs · study · handoff</small></div>
-  <div class="cap"><b>PLAN · 1</b><strong>Bind state to time.</strong><p>Project the same commitments through time, queues and replayable/exportable views.</p><small>follow-up queues · schedules · commitments</small></div>
-  <div class="cap"><b>PROVE · 2</b><strong>Test the transform.</strong><p>Compare interfaces and transformations against controls, then leave evidence and receipts.</p><small>automation validation · safe handoff · release gates</small></div>
-</section>
-<div class="bridge"><b>COMPOSITION VECTOR</b> · HUMAN / MESSAGE / SENSOR → CAPTURE → REPRESENT → PLAN / PLAY → PROVE → RETURN <span>· reuse direction, not a claim that one monolithic agent already exists</span></div>
-
-<div class="section"><div><b>INSTRUMENTS</b><span id="visibleCount" class="count">9 / 9 visible</span></div><div class="tools" aria-label="Showcase filters"><button class="on" data-filter="ALL">ALL</button><button data-filter="NOW">NOW</button><button data-filter="CAPTURE">CAPTURE</button><button data-filter="PLAY">PLAY</button><button data-filter="REPRESENT">REPRESENT</button><button data-filter="PLAN">PLAN</button><button data-filter="PROVE">PROVE</button><input id="focus" type="search" placeholder="/ focus" aria-label="Filter instruments"></div></div>
-<section class="grid">
-  <a class="card capture full" href="./field-intake/" data-operation="CAPTURE" data-search="field intake ingress capture typed candidate review conflict evidence provenance receipt rollback replay local offline">
-    <div class="topline"><div class="num">00</div><div class="state">STABLE</div></div><div class="type">CAPTURE / INGRESS</div><div class="name">FIELD INTAKE 0.4</div>
-    <div class="desc">Turn compressed notes into typed candidates, force conflicts through explicit review, then preserve provenance, before-images, receipts, rollback and replay. Local-first; deliberately not another planner.</div>
-    <div class="transfer"><b>TRANSFER</b> · inbox / case intake · sensor / log ingress · provenance + rollback</div>
-    <div class="chain">CAPTURE → TYPE → REVIEW → COMMIT → RECEIPT → ROLLBACK / REPLAY</div><div class="go">OPEN →</div>
-  </a>
-
-  <a class="card play" href="./fold-bloom/two-dial/" data-now="1" data-operation="PLAY" data-search="two dial composition cyclic control motif form memory fold bloom">
-    <div class="topline"><div class="num">01</div><div class="state">STABLE</div></div><div class="type">PLAY / COMPOSE</div><div class="name">TWO DIAL</div>
-    <div class="desc">Two cyclic controls shape matter, harmony, bloom, fold and phrase memory through a compact embodied composition surface.</div>
-    <div class="transfer"><b>TRANSFER</b> · parameter steering · constrained control · expressive mapping</div>
-    <div class="chain">COMPOSITION STATE → CYCLIC CONTROL → MOTIF / FORM MEMORY</div><div class="go">OPEN →</div>
-  </a>
-
-  <a class="card play" href="./fold-bloom/ecology/" data-now="1" data-operation="PLAY" data-search="ecology loaf rivet manta lineage grafting visual audio score">
-    <div class="topline"><div class="num">02</div><div class="state">STABLE</div></div><div class="type">PLAY / ECOLOGY</div><div class="name">ECOLOGY 0.2</div>
-    <div class="desc">LOAF, RIVET and MANTA inhabit a game/ecology branch with lineage, grafting, mode changes and a visual score that remains useful muted.</div>
-    <div class="transfer"><b>TRANSFER</b> · adaptive-agent feedback · multimodal state · mute-first signalling</div>
-    <div class="chain">AGENTS → LINEAGE / MODE → VISUAL + AUDIO SCORE</div><div class="go">OPEN →</div>
-  </a>
-
-
-  <a class="card play wide" href="./sleeper/" data-now="1" data-operation="PLAY" data-search="sleeper ascii pov labyrinth law districts constraint cartridge observe decide act plain seal return coupled field">
-    <div class="topline"><div class="num">02A</div><div class="state experiment">EXPERIMENT</div></div><div class="type">PLAY / CONSTRAINT FIELD</div><div class="name">ASCII SLEEPER 0.8</div>
-    <div class="desc">Walk a first-person ASCII law-city whose traversability is downstream of four explicit evidence contracts. Switch to a plain view of the same state; every resolved gate changes a coupled world and RETURN leaves a compact seal.</div>
-    <div class="transfer"><b>TRANSFER</b> · constraint visualization · obligation gating · alternate views of one state</div>
-    <div class="chain">SOURCE → CONTRACT → COUPLED LAW FIELD → POV / PLAIN → RETURN SEAL</div><div class="go">OPEN →</div>
-  </a>
-
-  <a class="card represent" href="./fold-bloom/lens/" data-now="1" data-operation="REPRESENT" data-search="scale lens text atlas dayline datadisc object stable address provenance return">
-    <div class="topline"><div class="num">03</div><div class="state">STABLE</div></div><div class="type">REPRESENT / SCALE</div><div class="name">SCALE LENS</div>
-    <div class="desc">Move one source through TEXT, ATLAS, DAYLINE, DATADISC and OBJECT views while preserving stable identity and provenance.</div>
-    <div class="transfer"><b>TRANSFER</b> · data inspection · provenance-preserving projection · compact handoff</div>
-    <div class="chain">SOURCE → STABLE ADDRESS → PROJECTION → RETURN</div><div class="go">OPEN →</div>
-  </a>
-
-  <a class="card represent wide" href="./foundry/verse-atlas/" data-now="1" data-operation="REPRESENT" data-search="verse atlas chinese language grid path evidence study glyph rsvp return">
-    <div class="topline"><div class="num">04</div><div class="state">STABLE</div></div><div class="type">REPRESENT / LANGUAGE</div><div class="name">VERSE ATLAS</div>
-    <div class="desc">A four-line Chinese verse survives editing, grid addressing, typed traversal, study views, positional comparison, glyph compression and temporal reading without silently promoting geometry into meaning or prosody.</div>
-    <div class="transfer"><b>TRANSFER</b> · stable annotation · language / study interfaces · spatial + temporal reading</div>
-    <div class="chain">SOURCE → ADDRESS → TYPED PATH → EVIDENCE CLASS → RETURN</div><div class="go">OPEN →</div>
-  </a>
-
-  <a class="card plan wide" href="./atlas-dayline/" data-now="1" data-operation="PLAN" data-search="atlas dayline radial linear planning tasks time routes export replay">
-    <div class="topline"><div class="num">05</div><div class="state">STABLE</div></div><div class="type">PLAN / TIME</div><div class="name">ATLAS DAYLINE</div>
-    <div class="desc">A local-first radial-linear planning instrument: same tasks, unequal temporal projections, explicit export and replay rather than hidden cloud state.</div>
-    <div class="transfer"><b>TRANSFER</b> · schedule projection · queue planning · export + replay</div>
-    <div class="chain">TASK STATE → TIME ADDRESS → RADIAL / LINEAR VIEW → EXPORT</div><div class="go">OPEN →</div>
-  </a>
-
-  <a class="card prove wide" href="./foundry/convergence/identity-lab.html" data-operation="PROVE" data-search="identity lab cap ir provenance transform reversible return">
-    <div class="topline"><div class="num">06</div><div class="state">STABLE</div></div><div class="type">PROVE / IDENTITY</div><div class="name">IDENTITY LAB</div>
-    <div class="desc">CAP-IR test bench for stable identity, provenance and reversible transformation across unequal representations.</div>
-    <div class="transfer"><b>TRANSFER</b> · transformation contracts · stable object identity · reversible pipelines</div>
-    <div class="chain">OBJECT ID → TRANSFORM → PROVENANCE → RETURN</div><div class="go">OPEN →</div>
-  </a>
-
-  <a class="card prove wide" href="./forward-field-proof/" data-operation="PROVE" data-search="field proof ablation plain recovery constraints measure interface">
-    <div class="topline"><div class="num">07</div><div class="state">STABLE</div></div><div class="type">PROVE / ABLATE</div><div class="name">FIELD / PROOF</div>
-    <div class="desc">A proof bench for asking whether richer spatial interfaces actually improve recovery, constraint retention and useful action over a plain control.</div>
-    <div class="transfer"><b>TRANSFER</b> · interface ablation · evidence-backed promotion · comparison receipts</div>
-    <div class="chain">SAME FACTS → UNEQUAL UI → MEASURE → KEEP / DEMOTE</div><div class="go">OPEN →</div>
-  </a>
+<section>
+  <div class="bar"><div><b>RUNNING</b><span id="runCount"></span></div><div class="tools"><button class="on" data-filter="ALL">ALL</button><button data-filter="STABLE">STABLE</button><button data-filter="EXPERIMENT">EXPERIMENT</button><input id="focus" type="search" placeholder="/ find"></div></div>
+  <div id="running" class="rows"><div class="row"><div class="job">Loading manifest…</div></div></div>
 </section>
 
-<div class="section fedhead"><div><b>FEDERATION / <span id="fedTotal">117</span></b><span>scrubbed identity map · registry ≠ release · grouped rather than flattened</span></div><div class="tools"><input id="fedFocus" type="search" placeholder="/ federation" aria-label="Filter federation"><a href="./federation-atlas.json">RAW JSON</a></div></div>
-<div class="fedsum" aria-label="Federation province summary">
-  <span><b>25</b><small>Knowledge Substrate</small></span>
-  <span><b>11</b><small>Inner Governance</small></span>
-  <span><b>17</b><small>Symbolic Language</small></span>
-  <span><b>20</b><small>Mythic + Poetic</small></span>
-  <span><b>11</b><small>Sovereign Toolchain</small></span>
-  <span><b>33</b><small>World Deployment</small></span>
-  <a href="#federation">OPEN FULL ATLAS ↓</a>
-  <a class="fcmgo" href="./fcm/">FCM CONTROL →</a>
-</div>
-<section class="federation" id="federation" aria-label="Federation atlas"><div class="fedempty">Loading 117-record federation atlas…</div></section>
-<div class="fedlegend"><span><b>117 PROJECT / SUBSYSTEM RECORDS</b> · six provinces · IDs preserved</span><span>TODO fields intentionally omitted from this public projection</span></div>
+<section class="rec">
+  <div class="bar"><div><b>RECOVERING</b><span>copy first · classify second · merge third</span></div><a href="./control/migration/" style="color:#9ed7ff;text-decoration:none;font-size:9px">OPEN LEDGER →</a></div>
+  <div id="recovering" class="rows"><div class="row"><div class="job">Loading migration ledger…</div></div></div>
+</section>
 
-<div class="section"><b>FAMILY / WORKBENCH ENTRIES</b><span>secondary navigation; not extra artifacts</span></div>
-<nav class="hubs">
-  <a href="./fcm/"><b>NOW / FORWARD CENTER MASS</b><span>≤3 live fronts · NOW / NEXT / HOLD / DROP · RETURN receipts</span></a>
-  <a href="./fold-bloom/"><b>FOLD // BLOOM</b><span>three frozen branches · compare without silent merge</span></a>
-  <a href="./foundry/"><b>FOUNDRY</b><span>convergence releases and proof surfaces</span></a>
-  <a href="./foundry/convergence/"><b>CONVERGENCE FIELD</b><span>richer projection shell · workbench</span></a>
-  <a href="./foundry/axial/"><b>AXIAL / STATE × TRANSFORM</b><span>experiment · detents × twist/slide · provenance trace · ARM/RUN · promotion gated</span></a>
-</nav>
+<section>
+  <div class="bar"><div><b>SYSTEM</b><span>support surfaces, not products</span></div></div>
+  <div class="system">
+    <a href="./control/"><b>CURRENT / CONTROL</b><span>what is active, what is held, what happens next</span></a>
+    <a href="./control/migration/"><b>MIGRATION FIELD</b><span>dedup / recovery / import / quarantine ledger</span></a>
+    <a href="./returns/"><b>RETURN LEDGER</b><span>receipts and evidence</span></a>
+    <a href="./foundry/"><b>FOUNDRY</b><span>path / identity / machine-representation family</span></a>
+    <a href="./fold-bloom/"><b>FOLD // BLOOM</b><span>two dial / ecology / scale lens family</span></a>
+    <a href="./fcm/"><b>FCM</b><span>NOW / NEXT / HOLD / DROP attention projection</span></a>
+  </div>
+</section>
 
-<footer>
-  <span>PUBLIC BY LINK · NOINDEX · PRIVATE CANON ELSEWHERE</span>
-  <span><a href="./control/" style="color:#d9ad62">CONTROL</a> · <a href="./returns/" style="color:#9ed88c">RETURNS</a> · <a href="./showcase-selftest/" style="color:#68767d">SELFTEST</a> · <a href="./showcase-manifest.json" style="color:#7d8990">MANIFEST</a> · <a href="./federation-atlas.json" style="color:#9ed88c">ATLAS 117</a> · <a href="./agent-router.json" style="color:#7d8990">ROUTER</a> · <a href="./router-bench/" style="color:#9ed88c">BENCH</a> · <a href="./private-adapter-registry.json" style="color:#7d8990">ADAPTERS</a> · <a href="./capability-contract.schema.json" style="color:#7d8990">CONTRACT</a> · <a href="./person-resource-policy.schema.json" style="color:#d9ad62">POLICY</a> · <a href="./policy-inheritance.schema.json" style="color:#d9ad62">MERGE</a> · <a href="./policy-selector.schema.json" style="color:#d9ad62">SELECT</a> · <a href="./policy-resolution-trace.schema.json" style="color:#d9ad62">TRACE</a> · RELEASE LAW · WORK → REVIEW → SCRUB → STATIC SURFACE → VERIFY → RECEIPT</span>
-</footer>
-</main><script>
-(()=>{'use strict';
-const cards=[...document.querySelectorAll('.card[data-operation]')],buttons=[...document.querySelectorAll('[data-filter]')],q=document.getElementById('focus'),count=document.getElementById('visibleCount'),resume=document.getElementById('resume');
-let filter=(location.hash.slice(1)||'ALL').toUpperCase(),term='';
-const apply=()=>{let n=0;for(const c of cards){const scope=filter==='ALL'||(filter==='NOW'?c.dataset.now==='1':c.dataset.operation===filter);const ok=scope&&(!term||c.dataset.search.includes(term)||c.textContent.toLowerCase().includes(term));c.hidden=!ok;if(ok)n++;}count.textContent=n+' / '+cards.length+' visible';buttons.forEach(b=>b.classList.toggle('on',b.dataset.filter===filter));};
-buttons.forEach(b=>b.onclick=()=>{filter=b.dataset.filter;history.replaceState(null,'',filter==='ALL'?location.pathname:'#'+filter);apply();});
-q.oninput=()=>{term=q.value.trim().toLowerCase();apply();};
-addEventListener('keydown',e=>{if(e.key==='/'&&document.activeElement!==q){e.preventDefault();q.focus();}else if(e.key==='Escape'&&document.activeElement===q){q.value='';term='';q.blur();apply();}});
-try{const last=JSON.parse(localStorage.getItem('showcase:last')||'null');if(last?.href){resume.href=last.href;resume.querySelector('span').textContent=last.title+(last.operation?' · '+last.operation:'');resume.classList.add('on');}}catch(_){}
-const fed=document.getElementById('federation'),fedQ=document.getElementById('fedFocus'),fedTotal=document.getElementById('fedTotal');let fedData=null;
+<noscript><p><a href="./field-intake/">FIELD INTAKE</a> · <a href="./fold-bloom/two-dial/">TWO DIAL</a> · <a href="./fold-bloom/ecology/">ECOLOGY</a> · <a href="./sleeper/">SLEEPER</a> · <a href="./fold-bloom/lens/">SCALE LENS</a> · <a href="./foundry/verse-atlas/">VERSE ATLAS</a> · <a href="./atlas-dayline/">ATLAS DAYLINE</a> · <a href="./foundry/convergence/identity-lab.html">IDENTITY LAB</a> · <a href="./forward-field-proof/">FIELD / PROOF</a></p></noscript>
+
+<footer><span>NO FEATURE GRID · NO SALES LANGUAGE · NO FAKE UNIFICATION</span><span>git history keeps the old root · routes remain intact</span></footer>
+
+<script>
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-function renderFed(){if(!fedData)return;const term=fedQ.value.trim().toLowerCase();let shown=0;fed.innerHTML=fedData.provinces.map((g,gi)=>{const rows=g.items.filter(x=>!term||[x.id,x.subprogram,x.title,x.type,x.state,x.epistemic_status,x.priority,x.horizon,x.output_class,x.purpose].join(' ').toLowerCase().includes(term));shown+=rows.length;if(term&&!rows.length)return'';const body=rows.map(x=>'<div class="fedrow"><div class="fedid">'+esc(x.id)+'</div><div><div class="fedname">'+esc(x.title)+'</div><div class="fedmeta">'+esc(x.subprogram)+' · '+esc(x.type)+' · '+esc(x.state)+' · '+esc(x.priority)+' / '+esc(x.horizon)+'</div><div class="fedpurpose">'+esc(x.purpose)+'</div></div></div>').join('');return'<details class="province" '+((term||gi===0)?'open':'')+'><summary><b>'+esc(g.province)+'</b><span>'+rows.length+' / '+g.items.length+'</span></summary><div class="fedrows">'+body+'</div></details>'}).join('')||'<div class="fedempty">No federation records match.</div>';fedTotal.textContent=term?shown+' / '+fedData.count:fedData.count}
-fedQ.oninput=renderFed;
-fetch('./federation-atlas.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(d=>{fedData=d;renderFed()}).catch(()=>{fed.innerHTML='<div class="fedempty">Federation atlas unavailable. Use RAW JSON or refresh.</div>'});
-apply();
-})();
-</script></body></html>
+let routes=[],filter='ALL',q='';
+function renderRoutes(){
+  const visible=routes.filter(x=>(filter==='ALL'||x.state===filter)&&(!q||[x.title,x.operation,x.family,x.job,x.href].join(' ').toLowerCase().includes(q)));
+  document.getElementById('runCount').textContent=visible.length+' visible';
+  document.getElementById('running').innerHTML=visible.map(x=>`<a class="row" href=".${esc(x.href)}"><div><div class="name">${esc(x.title)}</div><div class="family">${esc(x.family||x.kind)}</div></div><div class="op">${esc(x.operation||x.kind)}</div><div class="state ${esc(x.state)}">${esc(x.state)}</div><div class="job">${esc(x.job)}</div><div class="go">OPEN →</div></a>`).join('')||'<div class="row"><div class="job">No match.</div></div>';
+}
+fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+ routes=d.routes.filter(x=>x.kind==='artifact' || (x.kind==='experiment'&&x.showcase_card!==false)).map(x=>({
+   ...x,
+   job:x.contract?.transforms?.verb || x.role || (x.transfer||[]).join(' · ') || ''
+ }));
+ renderRoutes();
+}).catch(e=>document.getElementById('running').textContent='manifest unavailable: '+e.message);
+document.querySelector('.tools').addEventListener('click',e=>{if(!e.target.dataset.filter)return;filter=e.target.dataset.filter;document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('on',b.dataset.filter===filter));renderRoutes()});
+document.getElementById('focus').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();renderRoutes()});
+
+fetch('./control/MIGRATION.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+ const xs=d.artifacts.filter(x=>['RECOVER','IMPORT','QUARANTINE','MERGE_CANDIDATE'].includes(x.status));
+ document.getElementById('recovering').innerHTML=xs.map(x=>{
+   const href=x.source_url||x.route||'./control/migration/';
+   const external=!!x.source_url;
+   return `<a class="row" href="${external?esc(href):'.'+esc(href)}" ${external?'target="_blank" rel="noreferrer"':''}><div><div class="name">${esc(x.name)}</div><div class="family">${esc(x.family)}</div></div><div class="state ${esc(x.status)}">${esc(x.status)}</div><div class="job">${esc(x.action||x.unique||'')}</div><div class="go ${external?'external':''}">${external?'SOURCE ↗':'OPEN →'}</div></a>`;
+ }).join('');
+}).catch(e=>document.getElementById('recovering').textContent='migration ledger unavailable: '+e.message);
+</script>
+</main></body></html>
