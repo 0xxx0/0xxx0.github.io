@@ -1,0 +1,318 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0xxx0.github.io/kernel/INTERPHASE.schema.json",
+  "title": "INTERPHASE / canonical object + projections + RETURN",
+  "type": "object",
+  "required": [
+    "schema",
+    "object",
+    "events",
+    "projections"
+  ],
+  "properties": {
+    "schema": {
+      "const": "0xxx0/interphase/v0.1"
+    },
+    "object": {
+      "$ref": "#/$defs/canonicalObject"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/event"
+      }
+    },
+    "projections": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/projection"
+      }
+    },
+    "return": {
+      "$ref": "#/$defs/returnArtifact"
+    }
+  },
+  "$defs": {
+    "sourceRef": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "uri": {
+          "type": "string"
+        },
+        "hash": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "observed_at": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "address": {
+      "type": "object",
+      "required": [
+        "projection",
+        "value"
+      ],
+      "properties": {
+        "projection": {
+          "type": "string",
+          "minLength": 1
+        },
+        "value": {
+          "type": "string",
+          "minLength": 1
+        },
+        "frame": {
+          "type": "string"
+        },
+        "parent": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "range": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "canonicalObject": {
+      "type": "object",
+      "required": [
+        "id",
+        "kind",
+        "state"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "label": {
+          "type": "string"
+        },
+        "source_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceRef"
+          }
+        },
+        "addresses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/address"
+          }
+        },
+        "state": {
+          "type": "object"
+        },
+        "relations": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "domain": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "event": {
+      "type": "object",
+      "required": [
+        "id",
+        "at",
+        "actor",
+        "kind",
+        "target",
+        "payload",
+        "authority",
+        "reversibility",
+        "evidence_status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "at": {
+          "type": "string"
+        },
+        "actor": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "payload": {},
+        "source": {
+          "type": "string"
+        },
+        "authority": {
+          "enum": [
+            "observe",
+            "propose",
+            "confirm",
+            "execute"
+          ]
+        },
+        "reversibility": {
+          "enum": [
+            "easy",
+            "costly",
+            "irreversible"
+          ]
+        },
+        "evidence_status": {
+          "enum": [
+            "unknown",
+            "attested",
+            "inferred",
+            "tested",
+            "rejected"
+          ]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "projection": {
+      "type": "object",
+      "required": [
+        "id",
+        "reads",
+        "preserves",
+        "hides",
+        "permits",
+        "fallback"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "route": {
+          "type": "string"
+        },
+        "reads": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "preserves": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hides": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "permits": {
+          "enum": [
+            "read",
+            "propose",
+            "command"
+          ]
+        },
+        "fallback": {
+          "type": "string"
+        },
+        "question": {
+          "type": "string"
+        },
+        "intent_map": {
+          "type": "object"
+        },
+        "round_trip_test": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "returnArtifact": {
+      "type": "object",
+      "required": [
+        "object_id",
+        "event_ids",
+        "before",
+        "after",
+        "delta",
+        "evidence",
+        "residue",
+        "next_routes"
+      ],
+      "properties": {
+        "object_id": {
+          "type": "string"
+        },
+        "event_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "before": {},
+        "after": {},
+        "delta": {
+          "type": "array",
+          "items": {}
+        },
+        "evidence": {
+          "type": "array",
+          "items": {}
+        },
+        "residue": {
+          "type": "array",
+          "items": {}
+        },
+        "next_routes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}
