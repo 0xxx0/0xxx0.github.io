@@ -70,3 +70,37 @@ Inventory may grow to hundreds or thousands without increasing control cardinali
 `{ identity, address, state_in, transform, projection?, act?, state_out, evidence, reversibility, provenance, return }`
 
 Different media may specialize or omit fields, but must not erase the path from source to consequence and back.
+
+
+## SYSTEM FIT
+
+REAL CENTER is the **constitutional / selection layer**, not the scheduler, inventory, runtime or reality source.
+
+- **DOCK / ORIENTATION** asks: where am I, at what scale, and why?
+- **REAL CENTER** asks: what must survive, and what counts as a lawful transfer?
+- **FIELD INDEX** asks: what capabilities / ports / outputs actually exist?
+- **CURRENT / CONTROL** asks: what is live, held, recovering or next?
+- **MIGRATION / RECOVERY** asks: what exact donors exist?
+- **FOUNDRY** asks: how can a mechanism transform or be proved?
+- **HOUSE / REALITY** asks: does it survive matter, geometry, devices, people, animals and measurement?
+- **RETURN** asks: what actually changed?
+
+A useful Real Center decision is therefore not “what should I do next?” but “is this proposed branch actually new capability, a lawful projection/transfer, or architecture drift?”
+
+## CENTER IS A CRITERION, NOT A POINT
+
+The word **center** does not imply one universal geometric center.
+
+A triangle already has several legitimate centers because each preserves or optimizes a different relation:
+
+- **centroid G** — mean / center of mass;
+- **circumcenter O** — equal distance to vertices;
+- **incenter I** — equal distance to sides;
+- **orthocenter H** — concurrence of altitudes;
+- **nine-point center N** — derived center midway between O and H.
+
+For a non-equilateral triangle, G, O, H and N lie on the **Euler line**; I generally does not. The lesson is structural, not mystical: **the criterion defines the center**.
+
+Use triangle/simplex geometry only when the problem truly has three quantities/vertices and the mathematics matches the operation (for example a three-way conserved allocation). Do **not** compress the nine-stage invariant loop or eight convergences into a triangle for visual elegance.
+
+**Transfer rule:** name the invariant or optimization criterion first; choose geometry second. No semantic mapping is canon merely because a diagram looks suggestive.
