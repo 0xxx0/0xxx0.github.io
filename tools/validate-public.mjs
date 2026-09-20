@@ -13,6 +13,18 @@ const routeFile=href=>{
   if(p.endsWith('/'))return p+'index.html';
   return p;
 };
+const duplicateValues=xs=>[...new Set(xs.filter((x,i)=>xs.indexOf(x)!==i))];
+const collectInternalPaths=(x,out=[])=>{
+  if(typeof x==='string'){if(x.startsWith('/')&&!x.includes(' → '))out.push(x);return out}
+  if(Array.isArray(x)){for(const y of x)collectInternalPaths(y,out);return out}
+  if(x&&typeof x==='object')for(const y of Object.values(x))collectInternalPaths(y,out);
+  return out;
+};
+const internalExists=v=>{
+  const clean=v.split('#')[0].split('?')[0];
+  if(clean==='/')return true;
+  return exists(routeFile(clean));
+};
 const compileInline=(p)=>{
   if(!p.endsWith('.html')||!exists(p))return;
   const s=read(p),re=/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi;let m,n=0;
@@ -22,6 +34,11 @@ const manifest=parse('showcase-manifest.json');
 const runtimeKinds=new Set(['artifact','experiment','workbench','rendezvous']);
 if(manifest){
   check(manifest.schema==='showcase-manifest/v1','unexpected manifest schema');
+  const hrefs=(manifest.routes||[]).map(r=>r.href);
+  for(const h of duplicateValues(hrefs))fail.push('duplicate manifest href '+h);
+  for(const p of [...new Set(collectInternalPaths(manifest))]){
+    check(internalExists(p),'broken internal manifest path '+p);
+  }
   for(const r of manifest.routes||[]){
     const rf=routeFile(r.href);
     check(exists(rf),'missing route '+r.href+' -> '+rf);
@@ -39,6 +56,20 @@ if(ret){
   check(ret.count===ret.items.length,'return-index count mismatch');
   check(ret.receipts_ok===ret.items.filter(x=>x.receipt_ok).length,'return-index receipt count mismatch');
   for(const x of ret.items){check(exists(routeFile(x.href)),'return route missing '+x.href);check(exists(x.receipt.replace(/^\//,'')),'return receipt missing '+x.receipt)}
+}
+const migration=parse('control/MIGRATION.json');
+if(migration){
+  const ids=(migration.artifacts||[]).map(x=>x.id);
+  for(const id of duplicateValues(ids))fail.push('duplicate migration artifact id '+id);
+  const queue=migration.ingest_queue||[];
+  check(queue.length<=10,'migration queue too broad: '+queue.length+' items');
+  for(const q of queue)check(!/^ROOM\/FU:\s*DONE/i.test(q),'completed migration queue item remains: '+q);
+}
+const migrationNow=parse('control/MIGRATION_NOW.json');
+if(migrationNow){
+  check((migrationNow.now||[]).length<=3,'MIGRATION NOW exceeds three items');
+  const nowIds=(migrationNow.now||[]).map(x=>x.id);
+  for(const id of duplicateValues(nowIds))fail.push('duplicate MIGRATION NOW id '+id);
 }
 const home=read('index.html');
 const fi=parse('control/FIELD_INDEX_CONTRACT.json');
@@ -67,3 +98,6 @@ console.log('manifest routes:',manifest?.routes?.length||0);
 console.log('FIELD INDEX contract:',fi?.schema||'missing');
 console.log('return receipts:',ret?.receipts_ok+'/'+ret?.count);
 console.log('AXIAL contract: present / non-card');
+console.log('migration artifacts:',migration?.artifacts?.length||0);
+console.log('migration NOW:',migrationNow?.now?.length||0);
+console.log('migration queue:',migration?.ingest_queue?.length||0);

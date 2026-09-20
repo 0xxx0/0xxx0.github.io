@@ -1,0 +1,85 @@
+{
+  "schema": "0xxx0/migration-now/v0.1",
+  "updated": "2026-09-21",
+  "home": "/migration/",
+  "law": "Large archive, small active surface. Broad archaeology stops when it stops producing exact artifacts, duplicate collapse, lineage correction, donor packets, or useful rejection receipts.",
+  "now": [
+    {
+      "id": "CENSUS-DEDUP",
+      "verb": "INGEST",
+      "object": "newly surfaced Library / Drive / repo artifacts",
+      "delta": "hash/source-grounded inventory; exact duplicates collapse before semantic branching",
+      "receipt": "CENSUS / recovery packet / duplicate receipt",
+      "stop": "No destructive moves; no project creation from filenames."
+    },
+    {
+      "id": "EXACT-GAPS",
+      "verb": "RECOVER",
+      "object": "known source gaps with a concrete anchor",
+      "delta": "freeze exact bytes/spec/evidence or make blocker more precise",
+      "priority": [
+        "Sleeper City Engine / Painting-Path",
+        "historical Laconic exact outputs",
+        "Game-of-Names isolated public-safe artifact",
+        "ENV-0 PDF byte mirror",
+        "desktop pets beyond recovered KALA only when a proper-name/source anchor appears"
+      ],
+      "stop": "No broad search tourism. If no concrete anchor emerges, stop and return."
+    },
+    {
+      "id": "CONTAIN-PROMOTE",
+      "verb": "CLASSIFY",
+      "object": "recovered families + quarantine candidates",
+      "delta": "family shelf / donor / head / recovery / quarantine / attic disposition; promote only when a mechanism pays rent",
+      "receipt": "MIGRATION.json + route audit + quarantine receipt",
+      "stop": "No beautification debt for fossils/quarantine; no public card merely because a file renders."
+    }
+  ],
+  "closed_recently": [
+    "KALA 2018/2020 exact family recovered; broader pet lineage remains anchor-only.",
+    "FU Room representatives frozen and duplicate families collapsed.",
+    "INTERPHASE/cylinder representatives frozen and duplicate backups collapsed.",
+    "Older audio sweep closed with no new promotion; generic Tone/MIDI/WebAudio examples rejected.",
+    "POLY/FURNISHER 2019–2021 core evidence frozen."
+  ],
+  "open_gaps": [
+    {
+      "id": "painting-city",
+      "state": "BLOCKED_EXACT_SOURCE",
+      "next_trigger": "exact HTML/JS/CSS/assets, authorized checkpoint bytes, saved page/site, or source archive"
+    },
+    {
+      "id": "naming",
+      "state": "ISOLATED_PUBLIC_SAFE_ARTIFACT_MISSING",
+      "next_trigger": "exact runnable/source/glyph artifact"
+    },
+    {
+      "id": "env0-pdfs",
+      "state": "EXACT_LIBRARY_BYTES_REPO_COPY_PENDING",
+      "next_trigger": "byte-copy + hash verification"
+    },
+    {
+      "id": "laconic-voices",
+      "state": "EXACT_OUTPUTS_OPEN",
+      "next_trigger": "exact generated voice outputs/adoption evidence"
+    },
+    {
+      "id": "desktop-pets-beyond-kala",
+      "state": "ANCHOR_REQUIRED",
+      "next_trigger": "proper name, screenshot, source filename, or code"
+    }
+  ],
+  "automation": {
+    "existing_workflow": "/.github/workflows/public-surface-check.yml",
+    "validator": "/tools/validate-public.mjs",
+    "desired_checks": [
+      "manifest route target exists",
+      "manifest receipt target exists",
+      "internal manifest path references resolve",
+      "duplicate manifest hrefs fail",
+      "duplicate migration artifact IDs fail",
+      "tracked runtime routes carry updated_at + work_modes"
+    ],
+    "hermes_queue": "/control/HERMES_QUEUE.json"
+  }
+}

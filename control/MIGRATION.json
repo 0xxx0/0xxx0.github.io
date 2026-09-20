@@ -510,17 +510,13 @@
     }
   ],
   "ingest_queue": [
-    "CENSUS: continue hash/source-grounded ingest of new artifacts; exact duplicates collapse before semantic branching.",
-    "SLEEPER: acquire exact City Engine + Painting/Path source/assets or authorized checkpoint bytes; no reconstruction from descriptions.",
-    "LACONIC: isolate exact historical bank lines with source refs; preserve EXACT / RECONSTRUCTED / NEW firewall.",
-    "GAME OF NAMES: locate isolated exact runnable/glyph artifact before public recovery; keep personal archive private.",
-    "QUARANTINE: generic site shells stay out of primary surface unless a unique mechanism earns transfer.",
-    "ENV-0: byte-copy/hash-verify the two exact located PDFs; then use one plate/build-sheet as a bounded PRINT→PHYSICAL→RETURN fixture.",
-    "SLEEPER/PAINTING: Workfield v1.2 is frozen exactly; continue City/Painting only from exact source/assets.",
-    "NAMING: public-safe recovery status exists; locate one isolated exact runnable/source/glyph artifact before promotion.",
-    "ROOM/FU: DONE exact representatives frozen + duplicate families verified; only mine mechanisms when a current surface needs one.",
-    "DESKTOP AGENT/PET: recover exact name/source/chronology for the pre-current-AI desktop-character lineage; reject generic Clippy/Bonzi search noise.",
-    "MEDIA: exact RSVP/DataDisc already frozen; older audio search found no additional project-specific executable organism. Do not promote generic Tone/MIDI/WebAudio examples."
+    "CENSUS: hash/source-grounded ingest of newly surfaced artifacts; collapse exact duplicates before semantic branching.",
+    "SLEEPER / PAINTING: exact-source only. Resume from HTML/JS/CSS/assets, authorized checkpoint bytes, saved page/site, or source archive; no prose reconstruction.",
+    "LACONIC: recover exact historical voice outputs/adoption evidence; preserve EXACT / RECONSTRUCTED / NEW firewall.",
+    "NAMING / GAME OF NAMES: locate one isolated public-safe exact runnable/source/glyph artifact before promotion.",
+    "ENV-0: byte-copy/hash-verify the two exact located PDFs, then hand one print/physical fixture to the appropriate active front.",
+    "DESKTOP PETS BEYOND KALA: anchor-only recovery from proper name/source/screenshot/code; no generic mascot search.",
+    "QUARANTINE: classify generic site shells only when source/provenance is known; extract a named mechanism or attic them."
   ],
   "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
   "last_mechanism_diff": "/control/MECHANISM_DIFF_2026-09-19.json",
@@ -554,7 +550,9 @@
       "SPEC": "What it meant or promised; original notes and later reconstruction stay distinct.",
       "IMAGE": "Appearance evidence only; never substitutes for behavior/source.",
       "RECEIPT": "Observed behavior/result for a particular run/version."
-    }
+    },
+    "active_surface": "/control/MIGRATION_NOW.json"
   },
-  "last_quarantine_receipt": "/control/QUARANTINE_2026-09-20.json"
+  "last_quarantine_receipt": "/control/QUARANTINE_2026-09-20.json",
+  "now": "/control/MIGRATION_NOW.json"
 }

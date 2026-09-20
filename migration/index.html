@@ -30,15 +30,16 @@ nav{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px}nav a,.chip{border:1px s
 .row:hover{background:#0b0f11}.name{font:750 17px/1.05 system-ui;letter-spacing:-.025em}.family{font-size:8px;color:#66737a;margin-top:4px}.state{font-size:8px;letter-spacing:.08em}
 .LIVE_HEAD{color:var(--green)}.LIVE_DONOR{color:var(--gold)}.RECOVER,.IMPORT,.MERGE_CANDIDATE{color:#e7a065}.QUARANTINE{color:var(--pink)}
 .job{color:#9da7ab;font:10px/1.5 system-ui}.go{font-size:9px;color:#aeb9bd;white-space:nowrap}
-.trophies .row{grid-template-columns:minmax(210px,1fr) 150px 2fr auto}
+.nowgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.nowcard{background:var(--panel);padding:16px;min-height:180px}.nowcard .verb{color:var(--hot);font-size:9px;letter-spacing:.12em}.nowcard h2{font:800 24px/1 system-ui;margin:8px 0}.nowcard p{color:#9da7ab;font:10px/1.5 system-ui}.nowcard .stop{color:#6f7b80}
+.shelves{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}details.shelf{background:var(--panel)}details.shelf>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:minmax(210px,1fr) auto auto;gap:14px;padding:14px;align-items:center}details.shelf>summary::-webkit-details-marker{display:none}.shelfname{font:800 18px/1 system-ui}.shelfmeta{color:var(--muted);font-size:9px}.shelfcount{color:var(--gold);font-size:9px}.shelf .rows{border-top:1px solid var(--line);padding:0 12px}.trophies .row{grid-template-columns:minmax(210px,1fr) 150px 2fr auto}
 .blocked .row{grid-template-columns:minmax(210px,1fr) 150px 2fr}.blocked .state{color:#e7a065}
 .qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
 .qcard{background:var(--panel);padding:16px;min-height:170px}.qcard h2{margin:10px 0 8px;font:800 24px/1 system-ui;letter-spacing:-.04em}.qcard p{color:#9ba5a9;font:11px/1.5 system-ui}.qcard .state{float:right}
 .queue{counter-reset:q;border-top:1px solid var(--line)}.queue div{padding:12px 4px;border-bottom:1px solid #232a2e;color:#a8b1b4}.queue div:before{counter-increment:q;content:counter(q,decimal-leading-zero);color:#657279;margin-right:13px}
 .gate{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.gate div{background:#0a0d0f;padding:13px}.gate b{display:block;color:var(--cool);font-size:10px}.gate span{display:block;color:#8d989d;font:9px/1.45 system-ui;margin-top:5px}
 footer{margin:30px 0 12px;padding-top:10px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;color:#657178;font-size:8px}
-@media(max-width:800px){header{grid-template-columns:1fr;min-height:auto;padding-top:42px}.side{border-left:0;border-top:1px solid var(--line);padding:16px 0 0}.kit,.gate{grid-template-columns:1fr 1fr}.qgrid{grid-template-columns:1fr}.row,.trophies .row,.blocked .row{grid-template-columns:1fr auto}.row .state,.row .job,.blocked .row .state,.blocked .row .job{grid-column:1}.go{grid-column:2;grid-row:1/-1}}
-@media(max-width:480px){.kit,.gate{grid-template-columns:1fr}h1{font-size:58px}}
+@media(max-width:800px){header{grid-template-columns:1fr;min-height:auto;padding-top:42px}.side{border-left:0;border-top:1px solid var(--line);padding:16px 0 0}.kit,.gate,.nowgrid{grid-template-columns:1fr 1fr}.qgrid{grid-template-columns:1fr}.row,.trophies .row,.blocked .row{grid-template-columns:1fr auto}.row .state,.row .job,.blocked .row .state,.blocked .row .job{grid-column:1}.go{grid-column:2;grid-row:1/-1}}
+@media(max-width:480px){.kit,.gate,.nowgrid{grid-template-columns:1fr}details.shelf>summary{grid-template-columns:1fr auto}.shelfmeta{grid-column:1}h1{font-size:58px}}
 </style>
 </head>
 <body><main>
@@ -56,6 +57,11 @@ footer{margin:30px 0 12px;padding-top:10px;border-top:1px solid var(--line);disp
     <p class="quote">QUARANTINE = PRESERVED WITHOUT PROMOTION.</p>
   </aside>
 </header>
+
+<section>
+  <div class="bar"><div><b>NOW</b><span>≤3 migration moves · everything else waits below</span></div><a href="../control/MIGRATION_NOW.json" style="color:#8fd0f2;font-size:9px">RAW NOW →</a></div>
+  <div id="now" class="nowgrid"><div class="nowcard"><p>Loading active migration surface…</p></div></div>
+</section>
 
 <section>
   <div class="bar"><div><b>FIELD KIT</b><span>four evidence classes · do not blur them</span></div></div>
@@ -79,8 +85,8 @@ footer{margin:30px 0 12px;padding-top:10px;border-top:1px solid var(--line);disp
 </section>
 
 <section class="trophies">
-  <div class="bar"><div><b>TROPHY CASE</b><span id="trophyCount">exact donors that earned survival</span></div></div>
-  <div id="trophies" class="rows"><div class="row"><div class="job">Loading exact recoveries…</div></div></div>
+  <div class="bar"><div><b>FAMILY SHELVES</b><span id="trophyCount">exact donors grouped so the archive stays small at first glance</span></div></div>
+  <div id="trophies" class="shelves"><div class="row"><div class="job">Loading exact recoveries…</div></div></div>
 </section>
 
 <section class="blocked">
@@ -109,11 +115,16 @@ footer{margin:30px 0 12px;padding-top:10px;border-top:1px solid var(--line);disp
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 Promise.all([
  fetch('../control/MIGRATION.json',{cache:'no-store'}).then(r=>r.json()),
- fetch('../control/RECOVERY_POPULATION_2026-09-20.json',{cache:'no-store'}).then(r=>r.json())
-]).then(([m,r])=>{
+ fetch('../control/RECOVERY_POPULATION_2026-09-20.json',{cache:'no-store'}).then(r=>r.json()),
+ fetch('../control/MIGRATION_NOW.json',{cache:'no-store'}).then(r=>r.json())
+]).then(([m,r,n])=>{
+ now.innerHTML=(n.now||[]).slice(0,3).map(x=>'<article class="nowcard"><div class="verb">'+esc(x.verb)+'</div><h2>'+esc(x.id)+'</h2><p><b>OBJECT</b> · '+esc(x.object)+'</p><p><b>DELTA</b> · '+esc(x.delta)+'</p><p class="stop"><b>STOP</b> · '+esc(x.stop)+'</p></article>').join('');
  const donors=m.artifacts.filter(x=>x.status==='LIVE_DONOR' && (String(x.source_type||'').includes('exact') || x.sha256 || String(x.action||'').includes('FROZEN')));
- trophyCount.textContent=donors.length+' exact / frozen donors';
- trophies.innerHTML=donors.map(x=>'<a class="row" href="'+(x.route?'..'+esc(x.route):'../control/migration/')+'"><div><div class="name">'+esc(x.name)+'</div><div class="family">'+esc(x.family||'')+'</div></div><div class="state LIVE_DONOR">TROPHY / DONOR</div><div class="job">'+esc(x.unique||x.action||'')+'</div><div class="go">OPEN →</div></a>').join('')||'<div class="row"><div class="job">No exact donors yet.</div></div>';
+ const groups={};
+ donors.forEach(x=>(groups[x.family||'UNCLASSIFIED']??=[]).push(x));
+ const shelves=Object.entries(groups).sort((a,b)=>b[1].length-a[1].length||a[0].localeCompare(b[0]));
+ trophyCount.textContent=donors.length+' exact/frozen donors · '+shelves.length+' families';
+ trophies.innerHTML=shelves.map(([family,xs],i)=>'<details class="shelf" '+(i<2?'open':'')+'><summary><span class="shelfname">'+esc(family)+'</span><span class="shelfmeta">'+esc(xs.map(x=>x.name).slice(0,3).join(' · '))+(xs.length>3?' · …':'')+'</span><span class="shelfcount">'+xs.length+'</span></summary><div class="rows">'+xs.map(x=>'<a class="row" href="'+(x.route?'..'+esc(x.route):'../control/migration/')+'"><div><div class="name">'+esc(x.name)+'</div><div class="family">'+esc(x.family||'')+'</div></div><div class="state LIVE_DONOR">DONOR</div><div class="job">'+esc(x.unique||x.action||'')+'</div><div class="go">OPEN →</div></a>').join('')+'</div></details>').join('')||'<div class="row"><div class="job">No exact donors yet.</div></div>';
  const unresolved=(r.unresolved||[]).map(x=>({name:x.id,status:x.status,job:x.evidence||x.blocker||'',route:x.route})).concat(
    m.artifacts.filter(x=>['RECOVER','IMPORT','MERGE_CANDIDATE'].includes(x.status)).map(x=>({name:x.name,status:x.status,job:x.action||x.unique||'',route:x.route,source:x.source_url}))
  );
