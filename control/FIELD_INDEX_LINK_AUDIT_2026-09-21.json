@@ -1,0 +1,18 @@
+{
+  "schema": "field-index-link-audit/v0.1",
+  "at": "2026-09-21",
+  "validator_commit": "5ff6bbd280529ac6b5705a71057f6d9ed128b3a9",
+  "workflow_run": 35530375757,
+  "result": "PASS",
+  "scope": "Static href/src targets on live/support manifest surfaces; manifest paths, route existence, aliases and parents are also checked.",
+  "frozen_fossil_policy": "FROZEN_DONOR/recovery fossils are not failed for historical internal dependencies; source fidelity outranks modernization.",
+  "checks": [
+    "local static href/src resolution",
+    "manifest route file existence",
+    "manifest internal path existence",
+    "alias target presence",
+    "parent route presence",
+    "complete directory-index sitemap coverage"
+  ],
+  "note": "Dynamic runtime-generated links remain governed by manifest addresses and route-specific interaction tests."
+}
