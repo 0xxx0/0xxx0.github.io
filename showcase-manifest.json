@@ -1538,6 +1538,108 @@
       }
     },
     {
+      "href": "/body/",
+      "title": "BODY / FIELD 0.1",
+      "kind": "workbench",
+      "parent": "/",
+      "family": "BODY",
+      "operation": "OBSERVE",
+      "state": "EXPERIMENT",
+      "version": "0.1",
+      "receipt": "/body/release.json",
+      "contract": "/body/contract.json",
+      "machine_state": "/body/model.json",
+      "role": "Embodied spatial-state projection: address body regions; compare experience, anatomy, movement and environment without collapsing their truth boundaries.",
+      "transfer": [
+        "body-region addressing",
+        "observation/movement context",
+        "body↔environment interface relations",
+        "privacy-safe embodied-state projection"
+      ],
+      "contract_summary": {
+        "accepts": [
+          "surface selection",
+          "body observation concept",
+          "movement/environment context"
+        ],
+        "transforms": "address → observe → test/context → compare → return",
+        "preserves": [
+          "source/frame identity",
+          "raw observation boundary",
+          "non-causal relation semantics",
+          "privacy boundary"
+        ],
+        "return_path": "/body/release.json"
+      },
+      "field": {
+        "roles": [
+          "WORLD_IN",
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "body-region selection",
+            "interface": "surface map"
+          },
+          {
+            "medium": "DATA",
+            "kind": "observation/context",
+            "interface": "private adapter / public-safe fixture"
+          },
+          {
+            "medium": "SIGNAL",
+            "kind": "movement/environment measurement",
+            "interface": "typed adapter"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "addressed embodied-state relation",
+            "interface": "projection/model"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "return receipt / unresolved registration",
+            "interface": "RETURN"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "HOUSE_ENVIRONMENT",
+            "status": "AVAILABLE",
+            "via": "ENV-0 typed relation bridge"
+          },
+          {
+            "class": "ANATOMY",
+            "status": "ADAPTER_REQUIRED",
+            "via": "Open Twin registration"
+          },
+          {
+            "class": "MOVEMENT",
+            "status": "ADAPTER_REQUIRED",
+            "via": "OpenCap/OpenSim"
+          },
+          {
+            "class": "RETURN",
+            "status": "AVAILABLE",
+            "via": "/returns/"
+          }
+        ],
+        "physical_fit": "Human↔environment seam: observations can inform House/environment evaluation without becoming building truth or diagnosis."
+      },
+      "index": {
+        "updated_at": "2026-09-20T19:10:00+08:00",
+        "work_modes": [
+          "RESEARCH",
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      }
+    },
+    {
       "href": "/house/spatial/",
       "title": "HOUSE / SPATIAL",
       "kind": "workbench",
