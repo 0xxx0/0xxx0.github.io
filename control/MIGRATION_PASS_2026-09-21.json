@@ -1,0 +1,51 @@
+{
+  "schema": "0xxx0/migration-pass/v0.2",
+  "id": "MIGRATION-PASS-2026-09-21-A",
+  "at": "2026-09-21T02:11:00+08:00",
+  "object": "Migration / Salvage Push",
+  "before": {
+    "visible_shape": "flat donor wall + duplicated/stale ingest queue + broad archaeology cadence",
+    "migration_artifacts": 42,
+    "known_problem": "archive depth was beginning to increase visible-surface clutter"
+  },
+  "delta": [
+    "Added /control/MIGRATION_NOW.json with ≤3 live migration moves.",
+    "Collapsed ingest queue to seven non-duplicate bounded instructions; removed completed ROOM/FU and closed audio instructions.",
+    "Changed /migration/ from flat trophy list to family shelves with only the two largest open by default.",
+    "Changed EXPEDITIONS to one canonical open-gap list instead of recombining multiple ledgers.",
+    "Added public family labels without renaming canonical family IDs.",
+    "Bound Hermes ARCHAEOLOGIST to anchored one-cycle work and added MIGRATION_WARDEN.",
+    "Strengthened existing public-surface CI validator for duplicate hrefs, duplicate migration IDs, route-shaped internal refs, and ≤3 MIGRATION NOW.",
+    "Recovered Game-of-Names visual batch B260728B as one visual deliverable via exact Library index metadata; runnable/source engine remains open."
+  ],
+  "evidence": [
+    "/control/MIGRATION_NOW.json",
+    "/control/MIGRATION.json",
+    "/control/HERMES_QUEUE.json",
+    "/control/QUARANTINE_2026-09-20.json",
+    "/recovery/naming/visual-batch-B260728B.json",
+    "/recovery/naming/status.json",
+    "/tools/validate-public.mjs",
+    "/migration/"
+  ],
+  "audit": "/control/FIELD_INDEX_AUDIT_2026-09-21.json",
+  "result": {
+    "manifest_routes": "67/67",
+    "internal_manifest_paths": "133/133",
+    "duplicate_manifest_hrefs": 0,
+    "duplicate_migration_ids": 0,
+    "migration_now_count": 3,
+    "migration_queue_count": 7,
+    "migration_home_script_errors": 0,
+    "unclassified_unmanifested_html": 0
+  },
+  "residue": [
+    "Painting/City exact executable package remains blocked.",
+    "ENV-0 PDF byte mirror remains pending.",
+    "Naming has exact-indexed visual batch evidence but no runnable/source engine.",
+    "Desktop pets beyond KALA remain proper-name/source-anchor only.",
+    "Historical Laconic exact voice outputs remain open."
+  ],
+  "one_next": "Next Migration cycle should be triggered by one concrete exact-source anchor or a scheduled census slice, not by archive curiosity.",
+  "stop_rule": "Stop broad archaeology now. Migration remains maintenance/containment until an anchor or bounded census window reopens it."
+}
