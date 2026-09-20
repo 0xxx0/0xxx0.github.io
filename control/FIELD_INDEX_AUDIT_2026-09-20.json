@@ -2,19 +2,22 @@
   "schema": "0xxx0/field-index-audit/v0.1",
   "date": "2026-09-20",
   "manifest_routes": {
-    "total": 60,
-    "ok": 60,
+    "total": 62,
+    "ok": 62,
     "missing": []
   },
   "internal_path_references": {
-    "total": 119,
-    "ok": 119,
+    "total": 122,
+    "ok": 122,
     "missing": []
   },
   "html_surface_coverage": {
-    "repo_html_files": 58,
-    "manifest_addressed": 57,
+    "repo_html_files": 63,
+    "manifest_addressed": 59,
     "underindexed": [
+      "recovery/poly-furnisher/room-lineage/EMPTY3-RF.html",
+      "recovery/poly-furnisher/room-lineage/FU5X2.html",
+      "recovery/poly-furnisher/room-lineage/scratch.html",
       "recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html"
     ]
   },
@@ -39,7 +42,10 @@
     "Naming/Game-of-Names gets a public-safe recovery-gap route without publishing private archives.",
     "ENV-0 editable SVG masters individually addressed as frozen donors.",
     "Recovery Vault now discovers nested /recovery/ donors and uses the Sep 20 population receipt.",
-    "POLY/FURNISHER exact 2019–2021 evidence family frozen and indexed: KRAKEN, proto-kernel, SINDERESIS/PRELUDE notes, FUN/MVP/tiny-prelude contraction sequence."
+    "POLY/FURNISHER exact 2019–2021 evidence family frozen and indexed: KRAKEN, proto-kernel, SINDERESIS/PRELUDE notes, FUN/MVP/tiny-prelude contraction sequence.",
+    "Root /migration/ Salvage Yard created as human recovery home; /control/migration/ retained as ledger.",
+    "Migration thread charter added with evidence classes, promotion gate, quarantine/attic semantics and excursion return contract.",
+    "FU5X2 / EMPTY3-RF / scratch exact room-lineage representatives frozen; one duplicate copy of each byte-verified by Git blob SHA."
   ],
   "stop_rule": "Do not add a route merely for completeness; address runnable/support surfaces and preserve raw payloads as assets when their parent recovery route already owns them."
 }
