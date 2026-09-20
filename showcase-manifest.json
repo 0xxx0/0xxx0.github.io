@@ -1545,15 +1545,16 @@
       "family": "HOUSE / SPATIAL STATE",
       "operation": "REPRESENT",
       "state": "EXPERIMENT",
-      "version": "0.3",
+      "version": "0.4",
       "receipt": "/house/spatial/release.json",
-      "role": "Runnable multi-projection spatial workbench: plan, ceiling/RCP, addressed surfaces, section, 3D, field/HA mappings and provenance over one evidence-bounded substrate.",
+      "role": "Runnable multi-projection spatial workbench: plan, ceiling/RCP, addressed surfaces, section, 3D, field/HA mappings, TRACE ink-path and provenance over one evidence-bounded substrate.",
       "transfer": [
         "plan/RCP/section/3D identity",
         "surface addressing",
         "local calibration",
         "HA entity mapping",
-        "uncertainty-preserving projection"
+        "uncertainty-preserving projection",
+        "addressed/replayable traversal trace"
       ],
       "contract": {
         "transforms": {
@@ -1574,11 +1575,12 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-20T18:38:41+08:00",
+        "updated_at": "2026-09-20T20:54:00+08:00",
         "work_modes": [
-          "INVESTIGATE",
+          "RECOVER",
           "SPECIFY",
-          "IMPLEMENT"
+          "IMPLEMENT",
+          "VERIFY"
         ]
       },
       "family_href": "/house/"
