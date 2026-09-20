@@ -37,5 +37,6 @@
     "no validated triage/urgency engine by design",
     "no FHIR QuestionnaireResponse extraction yet; BODYFIELD FHIR bridge remains donor"
   ],
-  "return": "/care/"
+  "return": "/care/",
+  "validation": "/control/CARE_VALIDATION_2026-09-21.json"
 }
