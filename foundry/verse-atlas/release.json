@@ -21,5 +21,10 @@
     "donor": "/recovery/path-grid/grid-path-compiler-v4/",
     "transferred": "RETURN receipt replay/import only",
     "excluded": "general corpus presets, route search/review, multilingual lenses and motif promotion remain frozen donor capabilities pending separate missing-function tests"
+  },
+  "updated": "2026-09-20",
+  "round_trip": {
+    "freeze_export": "COPY/DOWNLOAD now serialize lastReceipt after FREEZE; live receipt is used only when no frozen receipt exists.",
+    "validation": "Core source/path/caesura/parallel replay contract passes; frozen-export regression fixed 2026-09-20."
   }
 }
