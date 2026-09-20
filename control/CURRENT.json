@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-19",
+  "updated": "2026-09-20",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -30,17 +30,19 @@
     },
     {
       "id": "ingest-files-media",
-      "state": "ACTIVE_NOW",
+      "state": "ACTIVE_MAINTENANCE",
       "center": "local-first inventory / hashes / tags / duplicate review before automatic moves",
       "objective": "Create a reversible ingest substrate for files, media, generated artifacts and source packs so recovery becomes continuous rather than another archaeology event.",
       "evidence": [
         "/control/QUEUE.json",
-        "/dock/"
+        "/dock/",
+        "/control/INGEST_RUN_2026-09-20.json",
+        "/control/REPRESENTATION_01.json"
       ]
     },
     {
       "id": "reality-house",
-      "state": "ACTIVE_REALITY_GATED",
+      "state": "ACTIVE_NOW",
       "center": "one bounded physical/home zone or owned endpoint",
       "objective": "Produce one before→change→after RETURN in the physical environment so the abstraction stack remains anchored to lived reality.",
       "evidence": [
@@ -167,8 +169,8 @@
     }
   ],
   "next_single_action": {
-    "id": "ingest-dry-run-01",
-    "instruction": "Run /scripts/ingest-scan.sh against one bounded local ingress directory. Produce inventory.tsv, duplicates.tsv and run.json with zero source mutation. Feed one resulting record/duplicate cluster into Representation 01 rather than opening another recovery branch."
+    "id": "physical-return-01",
+    "instruction": "Produce one actual physical/print before→change→after RETURN from an owned artifact or endpoint. Preferred bounded candidates are the AXIAL print template/build notes or ENV0 build sheet already indexed. Record what was instantiated, what changed, evidence, residue and next; do not count a plan or render as the physical receipt."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
@@ -196,5 +198,7 @@
   "dock": "/dock/",
   "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
   "last_mechanism_diff": "/control/MECHANISM_DIFF_2026-09-19.json",
-  "last_validation": "/control/RECOVERY_VALIDATION_2026-09-19.json"
+  "last_validation": "/control/RECOVERY_VALIDATION_2026-09-19.json",
+  "last_ingest_run": "/control/INGEST_RUN_2026-09-20.json",
+  "last_representation": "/control/REPRESENTATION_01.json"
 }
