@@ -129,7 +129,7 @@ Promise.all([
 ]).then(([d,m])=>{
  const base=(d.recovered_families||[]).map(x=>({name:x.name,family:x.family,status:x.status,summary:x.summary,route:x.route}));
  const seen=new Set(base.map(x=>x.route));
- const newer=(m.routes||[]).filter(x=>x.kind==='donor'&&x.parent==='/recovery/'&&!seen.has(x.href)).map(x=>({name:x.title,family:x.family||'RECOVERY',status:x.state||'FROZEN_DONOR',summary:x.role||'Recovered donor.',route:x.href}));
+ const newer=(m.routes||[]).filter(x=>x.kind==='donor'&&String(x.href||'').startsWith('/recovery/')&&!seen.has(x.href)).map(x=>({name:x.title,family:x.family||'RECOVERY',status:x.state||'FROZEN_DONOR',summary:x.role||'Recovered donor.',route:x.href}));
  document.getElementById('recovered').innerHTML=[...base,...newer].map(x=>`<a class="row" href=".${esc(x.route)}"><div><div class="name">${esc(x.name)}</div><div class="family">${esc(x.family)}</div></div><div class="state">${esc(x.status)}</div><div class="job">${esc(x.summary)}</div><div class="go">OPEN →</div></a>`).join('');
 }).catch(e=>document.getElementById('recovered').textContent='recovery state unavailable: '+e.message);
 
