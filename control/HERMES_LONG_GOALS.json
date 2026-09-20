@@ -1,0 +1,87 @@
+{
+  "schema": "0xxx0/hermes-long-goals/v0.1",
+  "updated": "2026-09-21",
+  "authority": "Default READ / FETCH / HASH / INDEX / RESEARCH / REPORT. Canonical writes require an explicit bounded task and a clean verified branch.",
+  "global_guards": [
+    "Always git fetch --prune origin before trusting local origin/master.",
+    "Report local branch, dirty state, local HEAD, origin/master and divergence before any repo mutation.",
+    "Never merge/rebase a user WIP branch as housekeeping.",
+    "Resolve applicable policy paths through /control/POLICY_INDEX.json before persistent action.",
+    "Do not widen a failed source search into broad archaeology.",
+    "No delete/move/rename/mass-format in archive or backup ingress.",
+    "Notify/report only on meaningful delta, blocker, contradiction, or concrete recovery packet."
+  ],
+  "goals": [
+    {
+      "id": "CONTINUITY-WARDEN",
+      "mode": "overnight / daily lightweight",
+      "purpose": "Detect stale local repo state, broken control pointers, validation failures and branch drift before they become coordination errors.",
+      "loop": [
+        "git fetch --prune origin",
+        "record branch + dirty state + HEAD + origin/master + ahead/behind",
+        "read CURRENT, POLICY_INDEX, relevant NOW/QUEUE surfaces",
+        "run existing public-surface validator",
+        "check that referenced control/charter/policy paths exist",
+        "compare local claims against canonical origin/master"
+      ],
+      "output": "Only emit a receipt when state changed, validation failed, a pointer is stale, or local/canonical state diverges materially.",
+      "stop": "No canonical write by default. Never clean/rebase/merge a WIP branch automatically."
+    },
+    {
+      "id": "BACKUP-INTAKE-WARDEN",
+      "mode": "armed when BACKUP_INGRESS path is supplied",
+      "purpose": "Turn old/new backup drops into recoverable evidence without reorganizing the user's filesystem.",
+      "inputs": [
+        "one explicit BACKUP_INGRESS directory only"
+      ],
+      "loop": [
+        "inventory file path / size / mtime / mime",
+        "hash files where practical",
+        "group exact duplicates",
+        "identify strong source anchors / known repo counterparts",
+        "prepare candidate recovery packets",
+        "separate exact duplicate from semantic/version similarity"
+      ],
+      "output": "inventory receipt + duplicate clusters + at most a few high-value source anchors",
+      "stop": "No move/delete/rename. Do not scan the whole home directory. Stop when the bounded ingress is indexed."
+    },
+    {
+      "id": "POLICY-WARDEN",
+      "mode": "periodic / after policy or agent-rule changes",
+      "purpose": "Prevent charter/rule/contract drift across ChatGPT, Hermes and future messaging agents.",
+      "loop": [
+        "read /control/POLICY_INDEX.json",
+        "verify indexed policy paths exist",
+        "check consumers still point at canonical policies rather than copied prose",
+        "identify stale, duplicate or conflicting rules",
+        "distinguish policy conflict from observed-state mismatch",
+        "prepare one bounded amendment/cross-reference packet if needed"
+      ],
+      "output": "POLICY_OK or POLICY_CONFLICT with exact paths/scopes + affected consumers",
+      "stop": "Never silently reconcile contradictory policy. Never create a synonym policy when a cross-reference will do."
+    },
+    {
+      "id": "ANCHORED-SOURCE-SCOUT",
+      "mode": "low-frequency / only when a concrete anchor exists",
+      "purpose": "Recover known missing sources without letting archaeology become ambient entertainment.",
+      "sources": [
+        "repo",
+        "explicit backup ingress",
+        "known public URL/source",
+        "other explicitly connected source Hermes can actually access"
+      ],
+      "priority_source": "/control/MIGRATION_NOW.json open_gaps",
+      "loop": [
+        "choose one gap with a concrete new anchor",
+        "search only the bounded source space",
+        "freeze/packet exact source if found or sharpen blocker if not",
+        "run promotion gate",
+        "RETURN and stop"
+      ],
+      "output": "one exact artifact / duplicate collapse / lineage correction / precise blocker / rejection receipt",
+      "stop": "One gain or one failed anchor per cycle. No broad search tourism."
+    }
+  ],
+  "notify_rule": "Do not wake the user for 'still OK'. Surface only concrete delta, failure, contradiction, recovery, or decision-worthy packet.",
+  "setup_note": "BACKUP-INTAKE-WARDEN remains dormant until the user supplies the exact backup ingress folder path."
+}
