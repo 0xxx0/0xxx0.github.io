@@ -1424,6 +1424,43 @@
         "HA entity mapping",
         "evidence return"
       ]
+    },
+    {
+      "href": "/house/spatial/",
+      "title": "HOUSE / SPATIAL",
+      "kind": "workbench",
+      "parent": "/house/",
+      "family": "HOUSE / SPATIAL STATE",
+      "operation": "REPRESENT",
+      "state": "EXPERIMENT",
+      "version": "0.2",
+      "receipt": "/house/spatial/release.json",
+      "role": "Runnable multi-projection spatial workbench: plan, ceiling/RCP, addressed surfaces, section, 3D, field/HA mappings and provenance over one evidence-bounded substrate.",
+      "transfer": [
+        "plan/RCP/section/3D identity",
+        "surface addressing",
+        "local calibration",
+        "HA entity mapping",
+        "uncertainty-preserving projection"
+      ],
+      "contract": {
+        "transforms": {
+          "verb": "project one addressed house substrate across spatial/state views",
+          "preserves": [
+            "stable IDs",
+            "evidence class",
+            "uncertainty",
+            "manual fallback",
+            "HA authority boundary"
+          ],
+          "reversibility": "full",
+          "side_effects": "local browser state only"
+        },
+        "evidence": {
+          "receipt": "/house/spatial/release.json",
+          "return_path": "/house/spatial/"
+        }
+      }
     }
   ],
   "release_law": [
