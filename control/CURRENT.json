@@ -217,6 +217,12 @@
       "state": "FROZEN_EXACT_VARIANT_FAMILY",
       "route": "/recovery/poly-furnisher/interphase-lineage/",
       "rule": "Three exact representatives; duplicate backups collapsed. Later Interphase descendants remain separate. Do not treat this as Painting/City recovery."
+    },
+    {
+      "name": "KALA / DESKTOP CHARACTER 2018–2020",
+      "state": "FROZEN_EXACT_AGENT_INTERFACE_FAMILY",
+      "route": "/recovery/kala/",
+      "rule": "Preserve exact browser-character/room variants. Interface evidence only; wider desktop-pet lineage remains open."
     }
   ],
   "recovery_targets": [
@@ -324,7 +330,8 @@
     "house_frontier": "/control/confluence/HOUSE_FRONTIER.md",
     "retrieval_canon": "/control/confluence/RETRIEVAL_CANON.md",
     "retrieval_canon_machine": "/control/confluence/RETRIEVAL_CANON.json",
-    "interphase_lineage": "/recovery/poly-furnisher/interphase-lineage/"
+    "interphase_lineage": "/recovery/poly-furnisher/interphase-lineage/",
+    "kala_recovery": "/recovery/kala/"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
@@ -364,5 +371,7 @@
   },
   "last_recovery_survey": "/control/RECOVERY_SURVEY_2026-09-20_B.json",
   "last_recovery_population": "/control/RECOVERY_POPULATION_2026-09-20.json",
-  "last_field_index_audit": "/control/FIELD_INDEX_AUDIT_2026-09-20.json"
+  "last_field_index_audit": "/control/FIELD_INDEX_AUDIT_2026-09-20.json",
+  "last_migration_push": "/control/MIGRATION_PUSH_2026-09-20.json",
+  "last_quarantine_receipt": "/control/QUARANTINE_2026-09-20.json"
 }

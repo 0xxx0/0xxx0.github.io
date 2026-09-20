@@ -1,0 +1,79 @@
+{
+  "schema": "0xxx0/migration-push/v0.1",
+  "id": "MIGRATION-PUSH-2026-09-20-D",
+  "date": "2026-09-20",
+  "hierarchy": {
+    "human_home": "/migration/",
+    "control_ledger": "/control/migration/",
+    "recovery_vault": "/recovery/",
+    "promotion_surface": "/",
+    "statement": "Migration orchestrates recovery/classification. Recovery stores exact frozen evidence. Control stores machine state. Field Index exposes only earned addresses."
+  },
+  "priorities": [
+    {
+      "id": "painting-city",
+      "status": "BLOCKED_EXACT_EXECUTABLE_PACKAGE",
+      "result": "Drive/File Library/public-host searches did not expose exact City Engine / Painting-Path source package. Later Seam/Interphase specs and Workfield are adjacent evidence only.",
+      "next": "Resume only from exact HTML/JS/CSS/assets, authorized checkpoint bytes, or a browser-saved copy from the still-live external surface."
+    },
+    {
+      "id": "desktop-agent-pet",
+      "status": "PARTIAL_EXACT_RECOVERY_KALA",
+      "result": "Recovered exact old-KALA-0-room.html (2018) and ancient-kala test (2020) at /recovery/kala/. Broader unnamed pet/character set remains open.",
+      "evidence": [
+        "/recovery/kala/manifest.json"
+      ],
+      "next": "Only pursue additional pets from a proper name/source/screenshot anchor."
+    },
+    {
+      "id": "interphase-spatial",
+      "status": "EXACT_VARIANT_FAMILY_FROZEN",
+      "result": "Frozen rotating-cylinder 2019, terse proto 2020, and integrated Interphase 2020 representatives; exact duplicate copies collapsed.",
+      "evidence": [
+        "/recovery/poly-furnisher/interphase-lineage/manifest.json"
+      ],
+      "next": "Mechanism transfer only from a named current capability gap."
+    },
+    {
+      "id": "older-audio",
+      "status": "NO_NEW_PROMOTION",
+      "result": "RSVP/TTS + DataDisc remain the exact historical media fixtures. Tone/MIDI pages are third-party docs/examples; 0-sound.js held for weak provenance; SonoAerius remains concept/incubate without exact executable proof.",
+      "evidence": [
+        "/control/QUARANTINE_2026-09-20.json"
+      ],
+      "next": "Stop until project-specific executable provenance appears."
+    },
+    {
+      "id": "quarantine",
+      "status": "POLICY_AND_RECEIPT_ESTABLISHED",
+      "result": "Quarantine/attic negative-knowledge receipt created; generic shells preserved without promotion and no beautification debt.",
+      "evidence": [
+        "/control/QUARANTINE_2026-09-20.json",
+        "/migration/CHARTER.md"
+      ],
+      "next": "Classify future weak candidates at ingest time instead of allowing conceptual accumulation."
+    }
+  ],
+  "additional_gain": {
+    "poly_furnisher_room": "FU5X2 / EMPTY3-RF / scratch exact room-lineage representatives frozen; duplicate families verified.",
+    "migration_home": "/migration/ SALVAGE YARD promoted as human home; CURRENT now points repo-convergence through Migration → ledger → Recovery → Field Index."
+  },
+  "audit": {
+    "manifest_routes": "64/64 resolve",
+    "internal_manifest_paths": "127/127 resolve",
+    "repo_html_files": 70,
+    "manifest_addressed_html": 61,
+    "intentionally_parent_owned_raw_html": [
+      "recovery/kala/ancient-kala-test-2020.html",
+      "recovery/kala/old-kala-0-room-2018.html",
+      "recovery/poly-furnisher/interphase-lineage/interphase-2020.html",
+      "recovery/poly-furnisher/interphase-lineage/proto1-terse-2020.html",
+      "recovery/poly-furnisher/interphase-lineage/rotating-cylinder-2019.html",
+      "recovery/poly-furnisher/room-lineage/EMPTY3-RF.html",
+      "recovery/poly-furnisher/room-lineage/FU5X2.html",
+      "recovery/poly-furnisher/room-lineage/scratch.html",
+      "recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html"
+    ]
+  },
+  "stop_rule": "Do not continue broad archaeology merely because more old files exist. Reopen only from an exact recovery anchor, current missing-function request, or bounded census pass."
+}
