@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>E2d - Dynamic Data Changes</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+</head>
+<body style='padding:10px;font-family:arial'>
+<center>
+<h4>Dynamic Data Changes</h4>
+<div id='xxx'> Zzzz </div>
+<table>
+<tr>
+<td>
+<div id=svgDiv style='width:440px;height:440px;background-color:none;'>
+<svg id="mySVG" width="440" height="440" overflow="hidden">
+<g id="discG" />
+</svg>
+</div>
+<div id=StatusRect style='border:black 2px solid;border-radius:3px;position:absolute;top:0px;left:0px;padding:5px;visibility:hidden'></div>
+</td>
+<td>
+<div id=changeTableDiv style='width:300px;height:440px;overflow:auto'>
+
+<b>Record Of Changes:</b>
+<table id=changeTable>
+<tr style=font-weight:bold;><td>#</td><td>disc id</td><td>Type</td><td>Time</td></tr>
+
+</table>
+</div>
+</td>
+</tr>
+</table>
+<b>150 Data Discs</b> Sort On Status:<input type=checkbox id=sortOnStatusCheck />
+ <button onClick=randomDataChange()>random data</button>
+
+<!--
+SVG Source:
+<div id=svgSourceDiv style=overflow:auto;width:100%;height:1px;text-align:left; /></div>
+Javascript:
+<div id=jsCodeDiv style=overflow:auto;width:100%;text-align:left; /></div>
+</center>
+<div id='browserDiv' style='padding:5px;position:absolute;top:5px;left:5px;background-color:gainsboro;'>OK in:IE11/CH32/FF23<br /></div>
+</body>
+-->
+
+<script>
+//----Build a disc with following components-----
+NS = ({ html: "http://www.w3.org/1999/xhtml" , svg: "http://www.w3.org/2000/svg" })
+
+const range = (n,x) => Array(n).fill(null).map((_, i) => x?(x[i]||x):i)
+, zip = (arr, ...arrs) => { return arr.map((val, i) => arrs.reduce((a, arr) => [...a, arr[i]], [val])); }
+, TYPE_OF = (x)=> Object.prototype.toString.call(x).slice(8,-1)
+, jsonml2dom = (markup,nmspc=NS.html)=> {
+    const el = document.createElementNS(nmspc,markup[0])
+        markup.slice(1).forEach((node) =>
+            TYPE_OF(node)==='Object' ? Object.entries(node).map(e => el.setAttribute(e[0],e[1]))
+          : TYPE_OF(node) === 'Array' ? el.appendChild(jsonml2dom(node, nmspc))
+          : TYPE_OF(node) === 'String' ? el.appendChild(document.createTextNode(node))
+          : new Error(`Invalid type ${TYPE_OF(node)} for ${node}`) );return el }
+
+, render = (target)=>(dat)=> target.appendChild(dat)
+, renderScript = (script)=> render(document.head)(script) //console.log('Added script to head')// TODO: cleanup message
+, AP_C = (op)=>(fn)=>(xs)=> Array.prototype[op].call(xs, fn)
+//    , umap = (fn)=>(dat)=>(xs)=> AP_C('map')(xs)()
+, umap = (fn)=>(dat)=>(xs)=> Array.prototype.map.call(xs, (x,i,o)=>fn(x,i,o)(dat))
+, objectify = (a)=> a.reduce((o,[k,v])=>(o[k]=v,o),{})
+, mapStats  = (dict)=>(n)=>(xs)=> umap( (x,i)=>(dat)=>attr(x)(objectify(dat[n])) )(dict)(xs)
+, attr=(node)=>(a)=>
+     typeof a === 'string'? node.getAttribute(a)
+	:typeof a === 'object'? Object.entries(a).map(entry=>(node.setAttribute(entry[0],entry[1]) ) )
+//    ,console.log(`Set ${node||node.valueOf()}'s attribute '${entry[0]}':'${entry[1]}'`)
+    :new Error(`prob w ${node}:${node.id}:'${entry[0]}' to '${entry[1]}'`)
+
+
+
+
+//without = (a)=>(i)=> (i=a.indexOf(i),i==-1)?a:a.slice(0,i).concat(a.slice(i+1))
+
+
+buildDataDisc = ()=> {
+    Disc_Schema=(
+    { names:['Disc','Ellipse','SpineUL','SpineUR','SpineLL','SpineLR','Rect','Circle','SatLeft','SatRight','SatTop','SatBot','Tag']
+    , types:['g','ellipse','path','path','path','path','rect','circle','circle','circle','circle','circle','text']
+    , attrs:[ {"id":"Disc"}
+    , {"fill":"black","stroke":"white"    ,"stroke-width":"4",    "cx":"0","cy":"0","rx":"120","ry":"36"}
+    , {"fill":"black","stroke":"white"    ,"stroke-width":"2",    "d":"M0,0 v-120 a120,120 0 0,1 -120,120 z"}
+    , {"fill":"black","stroke":"white"    ,"stroke-width":"2",    "d":"M0,0 v-120 a120,120 0 0,0 120,120 z"}
+    , {"fill":"black","stroke":"white"    ,"stroke-width":"2",    "d":"M0,0 v120 a120,120 0 0,0 -120,-120 z"}
+    , {"fill":"black","stroke":"white"    ,"stroke-width":"2",    "d":"M0,0 v120 a120,120 0 0,1 120,-120 z"}
+    , {"fill":"none" ,"stroke":"black","stroke-width":"1",    "width":"130",    "height":"130",    "x":"-65",    "y":"-65"}
+    , {"fill":"none" ,"stroke":"blue"      ,"stroke-width":"4",    "cx":"0","cy":"0","r":"40"}
+    , {"fill":"none" ,"stroke":"black"     ,"stroke-width":"1.5",  "cx":"-130","cy":"0","r":"8"}
+    , {"fill":"none" ,"stroke":"black"     ,"stroke-width":"1.5",  "cx":"130","cy":"0","r":"8"}
+    , {"fill":"none" ,"stroke":"black"     ,"stroke-width":"1.5",  "cx":"0","cy":"-130","r":"8"}
+    , {"fill":"none" ,"stroke":"black"     ,"stroke-width":"1.5",  "cx":"0","cy":"130","r":"8"}
+    , {"fill":"none" ,"x":"0","y":"-16","font-size":"20","font-family":"arial","text-anchor":"middle", data:"Tag"} ]
+    })
+//console.log(zip(Disc_Schema.types,Disc_Schema.names,Disc_Schema.attrs))
+console.log(zip(Disc_Schema.types,Disc_Schema.names,Disc_Schema.attrs).map(a=>this[a[1]]=jsonml2dom([a[0],a[2],''],NS.svg)))
+console.log(AP_C('map')(x=>Disc.appendChild(window[x]))(Disc_Schema.names.slice(1)))
+//    ["black", "yellow", "4", [0,0,120,36]]
+//    ...
+
+//    ['symbol',]
+//    Disc = H([])
+//([Ellipse,SpineUL,SpineUR,SpineLL,SpineLR,Rect,Circle,SatLeft,SatRight,SatTop,SatBot,Tag])
+   //---create a clone for the spiral
+}
+buildDataDisc()
+
+spiralConf= //numPts, PtScale, origin, angle, dT, spc, revs
+      [ 150 , 0.33 , [240,240] , 4 , 0.4 , 80 , 2 ]
+const loadBaseSpiral = ([numPts, PtScale, origin, angle, dT, spc, revs])=>(target)=> {
+	//--clear previous spiral/discs----
+	for(var k=target.childNodes.length-1;k>=0;k--) target.removeChild(target.childNodes.item(k))
+//Array.prototype.map.call(svg.childNodes,(a,i,o)=>svg.removeChild(a))
+//    Array.prototype.map.call(Array.prototype.slice.call(svg.childNodes) ,(c)=>c.parentNode.removeChild(c))
+//[points, scale, [X,Y], angle, torsion, revolutions, space]
+//[150,0.33,[240,240],4,0.4,2,80]
+    let S=spc/(2*Math.PI)
+	  , DegSep=(2*Math.PI*revs/numPts)
+      , Ax=(a)=>(S*a)*Math.cos(a)+origin[0]
+      , Ay=(a)=>-(S*a)*Math.sin(a)+origin[1]
+range(numPts).map(i=>{
+    a=i*DegSep+angle,
+    node=Disc.cloneNode(true)
+, attr(node)( { "transform":`translate(${Ax(a)},${Ay(a)}) scale(${PtScale}) rotate(${dT*(i)})`
+            , "id":`disc${(i+1)}`
+            , "status":"0"                     // DATA~> STATUS
+            , "onmouseover":"showDiscId(evt)"  // LISTENER
+                } )
+    node.childNodes.item(12).firstChild.data=(i+1)
+    render(target)(node)
+    })        }
+
+//umap = (fn)=>(dict)=>(xs)=> Array.prototype.map.call(xs, (x,i,o)=>fn(x,i,o)(dict))
+//objectify = (a)=> a.reduce((o,[k,v])=>(o[k]=v,o),{})
+showStatus = (num)=> {
+    conf=
+    [ [["stroke","red"]]
+    , [["fill","darkorange"]]
+    , [["fill","lime"]]
+    , [["fill","orchid"]]
+    , [["fill","blue"]]
+    , [["fill","red"]]
+    , [["fill","red"]]
+    , [["stroke","crimson"],["fill","red"]]
+    , [["stroke","gainsboro"],["fill","white"]]
+    , [["stroke","gray"],["fill","gainsboro"]]
+    , [["fill","red"],["stroke","black"]]
+    , [["transform","rotate(90)"],["fill","white"],["stroke","black"]] ]
+    symSets=
+    [ [SpineUL,SpineLL,SpineLR,SpineUR]
+    , [Ellipse]
+    , [SatLeft,SatRight,SatTop,SatBot]
+    , [SatLeft,SatRight,SatTop,SatBot]
+    , [SatLeft,SatRight,SatTop,SatBot]
+    , [SatLeft,SatRight,SatTop,SatBot]
+    , [Circle]
+    , [Rect]
+    , [Rect]
+    , [SpineUL,SpineLL,SpineLR,SpineUR,Ellipse,Circle,Rect,SatLeft,SatRight,SatTop,SatBot]
+    , [SpineUL,SpineLL,SpineLR,SpineUR,Ellipse,Circle,Rect,SatLeft,SatRight,SatTop,SatBot]
+    , [Ellipse] ]
+    mapStats_ = mapStats(conf)(num-1)(symSets[num-1])
+}
+
+
+
+
+var PrevDisc=null
+var changeRowCnt=2
+
+randomDataChange = ()=>{
+	changeRowCnt=1
+	//--CLEAR TABLE---
+	var rows=changeTable.rows
+	var n=rows.length
+	for(var k=n-1;k>0;k--) changeTable.deleteRow(k)
+
+
+	loadBaseSpiral(spiralConf)(discG) //---totally rewrites spiral and discs---
+	//----how many elements to change?: 30 thru 100
+	var changedElems=rnd(1,24)
+	//---which elements to change?---
+	var elemIdArray=[]
+	var elemDupString="," //---only a single status for each elem---
+	for(var k=0;k<changedElems;k++) {
+		var idNum=rnd(1,99)
+		if(elemDupString.indexOf(","+idNum+",")==-1) { elemIdArray[k]=idNum; elemDupString+=idNum+"," }
+		else k-- }
+	//---what status type for the elem?----
+	for(var k=0;k<elemIdArray.length;k++) elemIdArray[k]+=","+rnd(1,12)
+	var time=new Date()
+
+	for(var k=0;k<elemIdArray.length;k++)
+	{
+		var split=elemIdArray[k].split(",")
+		var idNum=split[0]
+		var statusNum=split[1]
+		var changeDisc=document.getElementById("disc"+idNum)
+
+		Ellipse    =changeDisc.childNodes.item(1)
+		SpineUL    =changeDisc.childNodes.item(2)
+		SpineUR    =changeDisc.childNodes.item(3)
+		SpineLL    =changeDisc.childNodes.item(4)
+		SpineLR    =changeDisc.childNodes.item(5)
+		Rect       =changeDisc.childNodes.item(6)
+		Circle     =changeDisc.childNodes.item(7)
+		SatLeft    =changeDisc.childNodes.item(8)
+		SatRight   =changeDisc.childNodes.item(9)
+		SatTop     =changeDisc.childNodes.item(10)
+		SatBot     =changeDisc.childNodes.item(11)
+
+		changeDisc.setAttribute("status",statusNum)
+		showStatus(statusNum)
+
+		var row = changeTable.insertRow(changeRowCnt++);
+		var cntCell = row.insertCell(0);
+		var idCell = row.insertCell(1);
+		var statusCell = row.insertCell(2);
+		statusCell.align="center"
+		var timeCell = row.insertCell(3);
+
+		// Add some text to the new cells:
+		cntCell.innerHTML = changeRowCnt-1
+		idCell.innerHTML = "<a title='zoom to me' href=javascript:zoomMe("+idNum+") >disc"+idNum+"</a>"
+		statusCell.innerHTML = statusNum
+		timeCell.innerHTML = time
+	}
+
+	if(PrevDisc) discG.removeChild(PrevDisc)
+	PrevDisc=null
+	hideDiscId()
+
+	if(sortOnStatusCheck.checked==true) sortOnStatus()
+}
+
+//---onmouseover----
+var PrevIdDisc=null
+showDiscId = (evt)=> {
+	var x=evt.clientX
+	var y=evt.clientY
+	var target=evt.target.parentNode
+	var disc=target
+	var targetId=disc.getAttribute("id")
+	var reDisc=/disc/
+	var discNum=parseInt(targetId.replace(reDisc,""));
+	var status=disc.getAttribute("status")
+
+	var myMouseX=evt.clientX;
+	var myMouseY=evt.clientY;
+	var statusX = myMouseX + document.documentElement.scrollLeft;
+	var statusY = myMouseY + document.documentElement.scrollTop;
+	StatusRect.style.visibility="visible"
+
+	StatusRect.style.left=(statusX+15)+"px"
+	StatusRect.style.top=(statusY+5)+"px"
+
+	if(status=="0") StatusRect.style.backgroundColor="lemonchiffon"
+	else StatusRect.style.backgroundColor="darkorange"
+
+	StatusRect.innerHTML=(discNum)+' hi!'
+
+	if(PrevIdDisc)
+	{   var transform=PrevIdDisc.getAttribute("transform")
+		var transSplit=transform.split(" scale(1.6)")
+		transform=transSplit[0]
+		PrevIdDisc.setAttribute("transform",transform) }
+
+	var transform=disc.getAttribute("transform")
+	transform+=" scale(1.6)"
+	disc.setAttribute("transform",transform)
+//  disc.setAttribute('')
+attr(disc)({x:0, y:0})
+
+	PrevIdDisc=disc
+}
+
+hideDiscId = ()=> {
+	StatusRect.style.visibility="hidden"
+	if(PrevIdDisc) {
+		var transform=PrevIdDisc.getAttribute("transform")
+		var transSplit=transform.split(" scale(1.6)")
+		transform=transSplit[0]
+		PrevIdDisc.setAttribute("transform",transform) }
+	PrevIdDisc=null }
+
+//----checkbox----
+var SortArray=[]
+var SortNormalArray=[]
+sortOnStatus = ()=> {
+if(sortOnStatusCheck.checked==true)	{
+		SortArray=[]
+		SortNormalArray=[]
+		for(var k=0;k<=12;k++) {
+			for(var m=0;m<discG.childNodes.length;m++) {
+				var elem=discG.childNodes.item(m)
+				if(elem.getAttribute("status")) {
+					var status=elem.getAttribute("status")
+				    if(status==k)
+					{	if(status==0) SortNormalArray[SortNormalArray.length]=elem.cloneNode(true)
+						else SortArray[SortArray.length]=elem.cloneNode(true) } } } }
+	   	buildSortSpiral() }  else { unbuildSortSpiral() } }
+
+buildSortSpiral = ()=>
+{
+	//--clear previous spiral/discs----
+	for(var k=discG.childNodes.length-1;k>=0;k--)
+		discG.removeChild(discG.childNodes.item(k))
+
+	var concatSortArray=SortNormalArray.concat(SortArray)
+	var discNum=concatSortArray.length
+
+	var discScale=.33
+	var centerX=240
+	var centerY=240
+	//---radians---
+	var startAngle=4
+	var discTwist=.4
+	var separation=80
+	var revs=1.98
+
+	var S=separation/(2*Math.PI)
+
+	//---degrees of separation between points(in radians)---
+	var DegSep=(2*Math.PI*revs/discNum)
+	var disc=null
+	var NextAngle=null
+	var Ax=null
+	var Ay=null
+	var twist=0
+
+	for(var k=0;k<discNum;k++)
+	{
+		NextAngle=DegSep*k+startAngle
+		Ax=(S*NextAngle)*Math.cos(NextAngle)+centerX
+		Ay=-(S*NextAngle)*Math.sin(NextAngle)+centerY
+
+		disc=concatSortArray[k]
+		twist+=discTwist
+		disc.setAttribute("transform"," translate("+Ax+" "+Ay+") scale("+discScale+") rotate("+twist+")")
+//        discG.appendChild(disc)
+		discG.appendChild(jsonml2dom(["use",{href:"Disc"},'']))
+	} }
+
+unbuildSortSpiral = ()=>
+{
+	//--clear previous spiral/discs----
+	for(var k=discG.childNodes.length-1;k>=0;k--) discG.removeChild(discG.childNodes.item(k))
+
+	var concatSortArray=SortNormalArray.concat(SortArray)
+	var discNum=concatSortArray.length
+	var dotPairArray=[]
+	var re=/disc/
+	for(var k=0;k<concatSortArray.length;k++)
+	{
+		var sortDisc=concatSortArray[k]
+		var sortDiscId=sortDisc.getAttribute("id")
+		var idNum=sortDiscId.replace(re,"")
+		dotPairArray[dotPairArray.length]=idNum+"."+k
+	}
+	dotPairArray.sort(numSort)
+	var discScale=.25
+	var centerX=165
+	var centerY=165
+	//---radians---
+	var startAngle=4
+	var discTwist=.4
+	var separation=56
+	var revs=1.98
+	var S=separation/(2*Math.PI)
+	//---degrees of separation between points(in radians)---
+	var DegSep=(2*Math.PI*revs/discNum)
+	var disc=null
+	var NextAngle=null
+	var Ax=null
+	var Ay=null
+	var twist=0
+	var discDot=null
+
+	for(var k=0;k<discNum;k++)
+	{
+		NextAngle=DegSep*k+startAngle
+		Ax=(S*NextAngle)*Math.cos(NextAngle)+centerX
+		Ay=-(S*NextAngle)*Math.sin(NextAngle)+centerY
+
+		discDot=dotPairArray[k].split(".")
+		disc=concatSortArray[discDot[1]]
+		twist+=discTwist
+		disc.setAttribute("transform"," translate("+Ax+" "+Ay+") scale("+discScale+") rotate("+twist+")")
+		discG.appendChild(disc)
+    } }
+
+
+//---obtain a random whole number from a thru b---
+rnd = (a,b)=> a+Math.floor(Math.random()*(b-a+1))
+//---used in dotPairArray---
+numSort = (a,b)=> a-b
+
+init = ()=> { buildDataDisc(),randomDataChange(),console.log('init!!!!!!!') }
+//	browserVersion() //	D3ZoomG=d3.select("#discG") //	callZoomBehavior() //showSourceSVG() //showSourceJS()
+
+document.addEventListener("onload",init(),false)
+
+
+render(xxx)(jsonml2dom(['style', {},
+`#terminal{border:1px solid red;}
+#tilde input{width:100%;}
+
+#tilde ul { margin: 0; padding: 0; list-style: none; }
+#dict { padding: 2px 18px; cursor: pointer; font-color:black; font-size: 1em; height:5em; overflow:scroll;}
+#tilde li:hover { background-color: black; color: whie; }
+
+#tildeBtn{background-color:blue;}
+#logger{background-color:#333; font-size:.5em;outline: dotted; height: 10%    ; width: 100%; overflow: scroll;}
+    .log-Boolean{color: blue;}
+    .log-Undefined {color: magenta;}
+    .log-Object{color:yellow;}
+    .log-String {color: orange;}
+    .log-Number {color: cyan;}
+    .log-RegExp {color: red;}
+    .log-Function {color: black; background-color:white;}
+    .log-Date {color: purple;}
+    `]))
+render(xxx)(jsonml2dom(['div',{id:'terminal'},['div', {id:'logger'}],['div',{id:'tilde'},['input',{id:'tildeBtn',type:'button',value:'EVALUATE'}],['input',{ type:'text', id:'tildeText',placeholder:'----console input-----'}],['div',{id:'suggestions'},['ul',{id:'dict'}]]]]))
+console.error=console.warn=console.info=console.log=console.debug=(x)=>{
+render(logger)(jsonml2dom(['div',{},['date',{style:'margin-left:1em; color:grey;font-size:0.1em'}, `${(new Date()).toISOString()}`],['code',{style:`color:white;background-color:grey;`},`${TYPE_OF(x)}  `],['span',{class:`log-${TYPE_OF(x)}`,style:'padding-left:1em'}, `${JSON.stringify(x)||x.toString()}`],['br']]))
+    logger.scrollTop = logger.scrollHeight    }
+
+window.onerror = (msg, src, row, col, err)=> console.log(`${msg}, L(${row}),C(${col}), SRC:${src}   -- ErrorObj:${JSON.stringify(err).name} --${Error.prototype.toString(err)}`)
+
+tildeText.addEventListener('keypress', (e)=>e.code==='Enter'?(console.log(eval(tildeText.value),console.log({input: tildeText.value}, )),tildeText.value=''):'')
+tildeBtn.addEventListener('click', ()=>console.log(eval(tildeText.value),console.log({input: tildeText.value}, )),tildeText.value='')
+
+
+
+
+
+
+
+	//---attach to root svg---
+//	d3.select("#mySVG")
+//	.call(myZoom)
+	//---reset fr    om previous file call---
+//	myZoom.translate([0,0])
+//	myZoom.scale(1)
+//	PrevScale=1
+//	D3ZoomG=d3.select("#discG")
+
+//path_params = { M: ['x', 'y'], m: ['x', 'y'], L: ['x', 'y'], l: ['x', 'y'], H: ['x'], h: ['x'], V: ['y'], v: ['y'], C: ['x1', 'y1', 'x2', 'y2', 'x', 'y'], c: ['x1', 'y1', 'x2', 'y2', 'x', 'y'], S: ['x2', 'y2', 'x', 'y'], s: ['x2', 'y2', 'x', 'y'], Q: ['x1', 'y1', 'x', 'y'], q: ['x1', 'y1', 'x', 'y'], T: ['x', 'y'], t: ['x', 'y'], A: ['rx', 'ry', 'xAxisRotation', 'largeArcFlag', 'sweepFlag', 'x', 'y'], a: ['rx', 'ry', 'xAxisRotation', 'largeArcFlag', 'sweepFlag', 'x', 'y'], Z: [], z: [] }
+
+	//----normal status fill/stroke----
+
+//[
+//"black", "yellow",       "4",
+//"black", "yellow",       "2",
+//"black", "yellow",       "2",
+//"black", "yellow",       "2",
+//"black", "yellow",       "2",
+//"plum", "darkorchid",   "4",
+//"lime", "blue",         "4",
+//"none", "black",        "1.5",
+//"none", "black",        "1.5",
+//"none", "black",        "1.5",
+//"none", "black",        "1.5",
+//"black",     ]
+
+//[0,0,90,36]
+//['M','v','a','Z']
+//[ [0,0], [-60], [[120,60], [0], [0,1], [-120, 60]]
+//, [0,0], [-60], [[120,60], [0], [0,0], [ 120, 60]]
+//, [0,0], [60] , [[120,60], [0], [0,0], [-120,-60]]
+//, [0,0], [60] , [[120,60], [0], [0,1], [ 120,-60]] ]
+//
+//[ 'width','height','x','y']
+//, [110, 66, -55, -33] ]
+
+
+//"black", "black", "black", "black", "black", "plum", "lime", "none", "none", "none", "none", "black"
+//"yellow", "yellow", "yellow", "yellow", "yellow", "darkorchid", "blue", "black", "black", "black", "black"
+
+//    ["svg",{"id":"mySVG","width":"400","height":"400"},
+//     ["g",{"transform":"translate(200 200)"}
+//      ,    ["ellipse",   {"fill":"black","stroke":"yellow","stroke-width":"4","cx":"0","cy":"0","rx":"90","ry":"36"}]
+//      ,    ["path",      {"fill":"black","stroke":"yellow","stroke-width":"2","d":"M0,0 v-60 a120,60 0 0,1 -120,60 z"}]
+//      ,    ["path",      {"fill":"black","stroke":"yellow","stroke-width":"2","d":"M0,0 v-60 a120,60 0 0,0 120,60 z"}]
+//      ,    ["path",      {"fill":"black","stroke":"yellow","stroke-width":"2","d":"M0,0 v60 a120,60 0 0,0 -120,-60 z"}]
+//      ,    ["path",      {"fill":"black","stroke":"yellow","stroke-width":"2","d":"M0,0 v60 a120,60 0 0,1 120,-60 z"}]
+//      ,    ["rect",      {"fill":"plum","stroke":"darkorchid","stroke-width":"4","width":"110","height":"66","x":"-55","y":"-33","rx":"15","ry":"15"}]
+//      ,    ["circle",    {"fill":"lime","stroke":"blue","stroke-width":"4","cx":"0","cy":"0","r":"40"}]
+//      ,    ["circle",    {"fill":"none","stroke":"black","stroke-width":"1.5","cx":"-130","cy":"0","r":"8"}]
+//      ,    ["circle",    {"fill":"none","stroke":"black","stroke-width":"1.5","cx":"130","cy":"0","r":"8"}]
+//      ,    ["circle",    {"fill":"none","stroke":"black","stroke-width":"1.5","cx":"0","cy":"-70","r":"8"}]
+//      ,    ["circle",    {"fill":"none","stroke":"black","stroke-width":"1.5","cx":"0","cy":"70","r":"8"}]
+//      ,    ["text",      {"fill":"black","x":"0","y":"-16","font-size":"20","font-family":"arial","text-anchor":"middle"},"Tag"]]]
+//createEl render(j[tag]
+// rect=               ['fill','stroke','stroke-width',    'width','height','x','y','rx','ry']
+// ellipse=            ['fill','stroke','stroke-width',    'cx','cy','rx','ry']
+// circle=             ['fill','stroke','stroke-width',    'cx','cy','r']
+// path=               ['fill','stroke','stroke-width',    'd',['M', path_params ,'z']]
+// text=               ['fill',                            'x','y','font-size','font-family','text-anchor']
+
+
+
+	//---reset zoom--
+//    if(myZoom)
+//	{
+//		myZoom.translate([0,0])
+//		myZoom.scale(1)
+//		D3ZoomG.attr("transform", "translate([0,0])scale(1)")
+//		PrevTransX=0
+//		PrevTransY=0
+//		PrevScale=1
+//	}
+
+
+
+//var	SpiralPnts=200 var	CenterX=180 var	CenterY=180 var	Density=12; var	Revs=2.3; var ellipseRy= 12.; var ellipseRx= 20.; var NS="http://www.w3.org/2000/svg"  //---all elems in the spiral---
+//function elementsOnSpiral() { //---degrees of separation between points(in radians)---
+//	var DegSep=(2*Math.PI*Revs/SpiralPnts)
+//	for(var i=0;i<SpiralPnts;i++) { NextAngle=DegSep*i
+//		var Ax=(Density*NextAngle)*Math.cos(NextAngle)+CenterX
+//		var Ay=(Density*NextAngle)*Math.sin(NextAngle)+CenterY
+//
+//
+
+</script>
+</html>
