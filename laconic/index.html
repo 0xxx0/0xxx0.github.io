@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#080a0b">
-<title>LACONIC / ICONIC 0.2</title>
+<title>LACONIC / ICONIC 0.3</title>
 <style>
 :root{--bg:#080a0b;--panel:#0b0f11;--ink:#edf1ed;--muted:#7f8b91;--line:#30383d;--hot:#e87548;--cool:#79bde7;--green:#95d59e;--gold:#d5ad68;--violet:#c6a6e8}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -28,7 +28,7 @@ header p{max-width:700px;margin:12px 0 0;color:#aab3b6;font:12px/1.6 system-ui,-
 .selected{border-top:1px solid var(--line);padding:12px}.selected .big{font:18px/1.4 system-ui,sans-serif;margin:5px 0 12px}.selected .path{color:#87949a;font-size:8px}.selected .buttons{display:flex;gap:1px;background:var(--line)}.selected .buttons button,.selected .buttons a{flex:1;border:0;background:#0a0d0f;color:var(--ink);padding:10px;text-decoration:none;text-align:center;font-size:8px;letter-spacing:.1em}
 .scenegrid{display:grid;grid-template-columns:320px 1fr;gap:12px}.scenes{border:1px solid var(--line)}.sceneitem{width:100%;border:0;border-bottom:1px solid var(--line);background:#0a0d0f;color:var(--ink);padding:12px;text-align:left}.sceneitem:last-child{border-bottom:0}.sceneitem.on{background:#11191d;box-shadow:inset 3px 0 0 var(--cool)}.sceneitem b{display:block;font-size:11px}.sceneitem span{display:block;margin-top:5px;color:#7f8b91;font:9px/1.4 system-ui,sans-serif}
 .runner{border:1px solid var(--line);min-height:420px;background:#0a0d0f}.runnerhead{padding:11px 13px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px}.runnerhead b{letter-spacing:.13em;font-size:9px}.runnerbody{padding:16px}.scene-note{color:#8d999e;font:10px/1.55 system-ui,sans-serif;max-width:760px}.utter{margin:20px 0 14px;border-left:2px solid var(--cool);padding:4px 0 4px 14px;font:600 clamp(20px,3.5vw,34px)/1.25 system-ui,-apple-system,sans-serif;letter-spacing:-.025em}.variantbar,.choicebar{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);margin-top:8px}.variantbar button,.choicebar button{border:0;background:#0b1012;color:#aeb8bc;padding:9px 10px;font-size:8px;letter-spacing:.08em}.variantbar button.on{color:#fff;box-shadow:inset 0 -2px 0 var(--gold)}.choicebar button{flex:1 1 160px;text-align:left}.choicebar button:hover{background:#131a1e;color:#fff}.trail{border-top:1px solid var(--line);margin-top:18px;padding-top:10px;color:#69767c;font-size:8px}.observed{border:1px solid var(--line);margin-bottom:10px}.observed .field textarea{min-height:62px}.observed .note{border-top:1px solid var(--line)}
-.fragments{border:1px solid var(--line)}.fragment{display:grid;grid-template-columns:90px 1fr 130px auto;gap:12px;align-items:center;border-bottom:1px solid #242b2f;padding:11px}.fragment:last-child{border-bottom:0}.fragment .text{font:14px/1.35 system-ui,sans-serif}.fragment button{border:1px solid var(--line);background:#0b1012;color:var(--ink);padding:7px;font-size:7px}.origin{font-size:8px;color:#819097}.src{font-size:8px;color:#66747a}
+.fragments{border:1px solid var(--line)}.fragment{display:grid;grid-template-columns:90px 1fr 130px auto;gap:12px;align-items:center;border-bottom:1px solid #242b2f;padding:11px}.fragment:last-child{border-bottom:0}.fragment .text{font:14px/1.35 system-ui,sans-serif}.fragment button{border:1px solid var(--line);background:#0b1012;color:var(--ink);padding:7px;font-size:7px}.origin{font-size:8px;color:#819097}.src{font-size:8px;color:#66747a}.vaultbar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-bottom:0}.vaultbar button{border:0;background:#0a0d0f;color:#8f9ba0;padding:10px;font-size:8px;letter-spacing:.1em}.vaultbar button.on{color:#fff;box-shadow:inset 0 -2px 0 var(--gold);background:#12191d}.vaultsearch{border:1px solid var(--line);border-bottom:0}.vaultsearch input{width:100%;border:0;background:#0a0d0f;color:var(--ink);padding:11px;outline:none}.vaultcat{border:1px solid var(--line);border-bottom:0;background:#0b0f11;padding:10px 12px;display:flex;justify-content:space-between;gap:12px}.vaultcat b{font-size:9px;letter-spacing:.13em}.vaultcat span{color:var(--muted);font-size:8px}.lineageitem{border-bottom:1px solid #242b2f;padding:12px;background:#0a0d0f}.lineageitem:last-child{border-bottom:0}.lineageitem b{font-size:10px;letter-spacing:.06em}.lineageitem p{margin:6px 0 0;color:#aab3b6;font:11px/1.5 system-ui,sans-serif}.gapline{border-left:2px solid var(--hot)}
 .recover{border:1px solid var(--line)}.recover .row{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--line)}.recover .row>*{border:0;border-right:1px solid var(--line);background:#0a0d0f;color:var(--ink);padding:10px}.recover textarea{width:100%;min-height:220px;border:0;background:#0a0d0f;color:var(--ink);padding:12px;resize:vertical}.recover .buttons{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}.recover .buttons button{border:0;background:#0a0d0f;color:var(--ink);padding:11px}
 footer{display:flex;justify-content:space-between;gap:12px;margin-top:18px;padding-top:10px;border-top:1px solid var(--line);color:#68747a;font-size:8px}footer a{color:#8fcdf2}
 @media(max-width:800px){header,.grid,.scenegrid{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.flow span{text-align:left}.tabs{grid-template-columns:1fr 1fr}.fragment{grid-template-columns:1fr auto}.fragment .origin,.fragment .src{grid-column:1}.recover .row{grid-template-columns:1fr}.card{grid-template-columns:1fr}.side{flex-direction:row}footer{display:block}}
@@ -36,7 +36,7 @@ footer{display:flex;justify-content:space-between;gap:12px;margin-top:18px;paddi
 </head>
 <body><main>
 <header>
-<div><div class="ey">RECOVER / SCENE / CARE / DRAFT · 0.2</div><h1>LACONIC<br>/ ICONIC</h1><p>A response instrument, not an autoresponder. Lines remain useful; scenes restore the older multi-turn machinery. Care is a selectable response mode, humor is a branch rather than a compulsory persona, and recovered fragments stay separate from deployable replies.</p></div>
+<div><div class="ey">LINE / SCENE / VAULT / RETURN · 0.3</div><h1>LACONIC<br>/ ICONIC</h1><p>A response instrument with an attached source vault. The active layer stays small and bounded; the archive keeps the strange, funny, exact historical material visible without pretending recovered assistant output is automatically adopted canon.</p></div>
 <div class="law">
 <div><b>PROVENANCE</b><span>EXACT ≠ RECONSTRUCTED ≠ NEW. Recovered does not automatically mean canonical.</span></div>
 <div><b>PSYCH BOUNDARY</b><span>Record what happened. Keep possible needs tentative. Choose a move. Do not diagnose.</span></div>
@@ -49,7 +49,7 @@ footer{display:flex;justify-content:space-between;gap:12px;margin-top:18px;paddi
 <nav class="tabs">
 <button class="on" data-tab="lines">LINES</button>
 <button data-tab="scenes">SCENES</button>
-<button data-tab="fragments">FRAGMENTS</button>
+<button data-tab="fragments">VAULT</button>
 <button data-tab="recover">RECOVER</button>
 </nav>
 
@@ -86,8 +86,16 @@ footer{display:flex;justify-content:space-between;gap:12px;margin-top:18px;paddi
 </section>
 
 <section id="view-fragments" class="view">
-<div class="ph" style="border:1px solid var(--line);border-bottom:0"><b>RECOVERED FRAGMENTS / OPERATORS</b><span>exact ≠ deployable reply</span></div>
-<div id="fragments" class="fragments"><div class="fragment"><div class="text">Loading recovered fragments…</div></div></div>
+<div class="ph" style="border:1px solid var(--line);border-bottom:0"><b>VAULT / RECOVERED SOURCE</b><span>exact ≠ adopted ≠ current canon</span></div>
+<div id="vaultModes" class="vaultbar">
+<button class="on" data-vault="STARS">STARS</button>
+<button data-vault="BANK">2025 BANK</button>
+<button data-vault="TAGS">TAGS</button>
+<button data-vault="LINEAGE">LINEAGE</button>
+</div>
+<div class="vaultsearch"><input id="vaultQ" placeholder="search exact source / category / lineage"></div>
+<div class="note">Archive abundance lives here. COPY does not promote. Current LINES remains the bounded drafting layer.</div>
+<div id="vault" class="fragments"><div class="fragment"><div class="text">Loading vault…</div></div></div>
 </section>
 
 <section id="view-recover" class="view">
@@ -107,8 +115,9 @@ footer{display:flex;justify-content:space-between;gap:12px;margin-top:18px;paddi
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const tokens=s=>String(s||'').toLowerCase().split(/[^a-z0-9]+/).filter(x=>x.length>1);
-let bank=null, scenesData=null, fragmentsData=null;
+let bank=null, scenesData=null, fragmentsData=null, historicData=null, lexiconData=null, lineageData=null, earlyDonors=null;
 let move='', voice='', showDropped=false, selectedId=null;
+let vaultMode='STARS';
 let lane='', activeSceneId='', activeNodeId='', activeVariant=0, trail=[];
 const storeKey='laconic.iconic.verdicts.v01';
 const verdicts=()=>{try{return JSON.parse(localStorage.getItem(storeKey)||'{}')}catch(_){return {}}};
@@ -211,11 +220,43 @@ $('#runner').onclick=e=>{
  if(e.target.dataset.reset){const s=sceneById(activeSceneId);activeNodeId=s.start;activeVariant=0;trail=[activeNodeId];renderRunner()}
 };
 
-function renderFragments(){
- if(!fragmentsData)return;
- $('#fragments').innerHTML=fragmentsData.items.map(x=>'<div class="fragment"><div class="origin">'+esc(x.origin.toUpperCase())+' · '+esc(x.status)+'</div><div><div class="text">'+esc(x.text)+'</div><div class="src">'+esc(x.source)+' · '+esc(x.date)+' · '+esc(x.use)+'</div></div><div class="meta"><span class="tag EXACT">EXACT</span>'+x.class.map(c=>'<span class="tag">'+esc(c)+'</span>').join('')+'</div><button data-copyfrag="'+esc(x.id)+'">COPY</button></div>').join('');
+function vaultHay(x){return JSON.stringify(x).toLowerCase()}
+function vaultMatch(x){const q=$('#vaultQ')?.value.trim().toLowerCase();return !q||vaultHay(x).includes(q)}
+function renderVaultModes(){
+ $('#vaultModes button').forEach(b=>b.classList.toggle('on',b.dataset.vault===vaultMode));
 }
-$('#fragments').onclick=e=>{const id=e.target.dataset.copyfrag;if(!id)return;const x=fragmentsData.items.find(z=>z.id===id);if(x)copyText(x.text,e.target)};
+function renderVault(){
+ if(!fragmentsData||!historicData||!lexiconData||!lineageData||!earlyDonors)return;
+ renderVaultModes();
+ const root=$('#vault');
+ if(vaultMode==='STARS'){
+   const xs=fragmentsData.items.filter(vaultMatch);
+   root.innerHTML=xs.map(x=>'<div class="fragment"><div class="origin">'+esc(x.origin.toUpperCase())+' · '+esc(x.status)+'</div><div><div class="text">'+esc(x.text)+'</div><div class="src">'+esc(x.source)+' · '+esc(x.date)+' · '+esc(x.use)+'</div></div><div class="meta"><span class="tag EXACT">EXACT</span>'+x.class.map(c=>'<span class="tag">'+esc(c)+'</span>').join('')+'</div><button data-copy="'+esc(x.text)+'">COPY</button></div>').join('')||'<div class="note">No exact stars match.</div>';
+   return;
+ }
+ if(vaultMode==='BANK'){
+   const blocks=historicData.categories.map(c=>{
+     const lines=c.lines.filter(t=>vaultMatch({text:t,category:c.label,tone:c.tone_note}));
+     if(!lines.length)return '';
+     return '<div class="vaultcat"><b>'+esc(c.label.toUpperCase())+'</b><span>'+esc(c.tone_note)+' · EXACT SOURCE / ASSISTANT</span></div>'+
+       lines.map(t=>'<div class="fragment"><div class="origin">2025-10-21</div><div><div class="text">'+esc(t)+'</div><div class="src">'+esc(c.source_note)+' · SOURCE DONOR ONLY</div></div><div class="meta"><span class="tag EXACT">EXACT</span><span class="tag">NOT ADOPTED BY DEFAULT</span></div><button data-copy="'+esc(t)+'">COPY</button></div>').join('');
+   }).join('');
+   root.innerHTML=blocks||'<div class="note">No historical lines match.</div>';
+   return;
+ }
+ if(vaultMode==='TAGS'){
+   const xs=lexiconData.tags.filter(vaultMatch);
+   root.innerHTML=xs.map(x=>'<div class="fragment"><div class="origin">2025 TAG</div><div><div class="text">'+esc(x.tag)+'</div><div class="src">'+esc(x.meaning)+'</div></div><div class="meta"><span class="tag EXACT">EXACT</span><span class="tag">EXPRESSION</span></div><button data-copy="'+esc(x.tag)+'">COPY</button></div>').join('')||'<div class="note">No tags match.</div>';
+   return;
+ }
+ const ants=(lineageData.parallel_antecedents||[]).filter(vaultMatch).map(x=>'<div class="lineageitem"><div class="meta"><span class="tag EXACT">'+esc(x.evidence_class)+'</span><span class="tag">'+esc(x.date)+'</span></div><b>'+esc(x.id)+'</b><p>'+esc(x.mechanism)+'</p>'+(x.exact?'<p>“'+esc(x.exact)+'”</p>':'')+'<div class="src">'+esc(x.caution||'')+'</div></div>').join('');
+ const stages=(lineageData.stages||[]).filter(vaultMatch).map(x=>'<div class="lineageitem"><div class="meta"><span class="tag">'+esc(x.evidence_class)+'</span><span class="tag">'+esc(x.date)+'</span></div><b>'+esc(String(x.stage).padStart(2,'0')+' · '+x.label)+'</b><p>'+esc(x.mechanism||x.mechanism_change||x.adoption||x.exact_interpretation||x.framing||x.user_intent||'Recovered lineage stage.')+'</p></div>').join('');
+ const gaps=(earlyDonors.unresolved||[]).filter(vaultMatch).map(x=>'<div class="lineageitem gapline"><div class="meta"><span class="tag">OPEN</span></div><b>'+esc(x.id)+'</b><p>'+esc(x.missing)+'</p></div>').join('');
+ root.innerHTML='<div class="vaultcat"><b>PARALLEL ANTECEDENTS</b><span>do not force a single origin</span></div>'+ants+'<div class="vaultcat"><b>RECOVERED CONVERGENCE</b><span>direct + explicitly marked secondary evidence</span></div>'+stages+'<div class="vaultcat"><b>OPEN SEAMS</b><span>absence is not nonexistence</span></div>'+gaps;
+}
+$('#vaultModes').onclick=e=>{const m=e.target.dataset.vault;if(!m)return;vaultMode=m;renderVault()};
+$('#vaultQ').oninput=renderVault;
+$('#vault').onclick=e=>{const t=e.target.dataset.copy;if(t!==undefined)copyText(t,e.target)};
 
 async function copyText(t,b){try{await navigator.clipboard.writeText(t);if(b){const old=b.textContent;b.textContent='COPIED ✓';setTimeout(()=>b.textContent=old,1200)}}catch(_){window.prompt('Copy',t)}}
 function sourcePack(){
@@ -228,11 +269,15 @@ $('#downloadPack').onclick=()=>{const t=JSON.stringify(sourcePack(),null,2),a=do
 Promise.all([
  fetch('./bank.json',{cache:'no-store'}).then(r=>r.json()),
  fetch('./scenes.json',{cache:'no-store'}).then(r=>r.json()),
- fetch('./fragments.json',{cache:'no-store'}).then(r=>r.json())
-]).then(([b,s,f])=>{
- bank=b;scenesData=s;fragmentsData=f;
- makeLineButtons();renderLines();renderLaneChips();renderSceneList();renderFragments();
-}).catch(e=>{$('#results').textContent='data unavailable: '+e.message;$('#runner').textContent='data unavailable: '+e.message});
+ fetch('./fragments.json',{cache:'no-store'}).then(r=>r.json()),
+ fetch('./recovered/iconic-laconic-library-2025-10-21.json',{cache:'no-store'}).then(r=>r.json()),
+ fetch('./recovered/companion-lexicon-2025-10-21.json',{cache:'no-store'}).then(r=>r.json()),
+ fetch('./recovered/persona-to-council-lineage.json',{cache:'no-store'}).then(r=>r.json()),
+ fetch('./recovered/early-plurality-donors-2024.json',{cache:'no-store'}).then(r=>r.json())
+]).then(([b,s,f,hist,lex,lineage,early])=>{
+ bank=b;scenesData=s;fragmentsData=f;historicData=hist;lexiconData=lex;lineageData=lineage;earlyDonors=early;
+ makeLineButtons();renderLines();renderLaneChips();renderSceneList();renderVault();
+}).catch(e=>{$('#results').textContent='data unavailable: '+e.message;$('#runner').textContent='data unavailable: '+e.message;$('#vault').textContent='data unavailable: '+e.message});
 })();
 </script>
 </main><script src="/showcase-nav.js" defer></script></body></html>
