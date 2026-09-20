@@ -121,5 +121,17 @@
     "dwell-time brush width",
     "temporal-Z trace sculpture",
     "knight-move generator after exact lineage recovery"
-  ]
+  ],
+  "runtime_boundary": {
+    "current": "TRACE v0.1 is MANUAL_LOCAL only.",
+    "future_observed_ingest": {
+      "authority": "Home Assistant / HOUSEBUS",
+      "consume": [
+        "house-state/v1",
+        "house-object/v1",
+        "house-receipt/v1"
+      ],
+      "rule": "Public HOUSE/SPATIAL consumes typed public-safe outputs; it does not query or actuate the private HA runtime directly."
+    }
+  }
 }
