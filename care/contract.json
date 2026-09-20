@@ -117,7 +117,7 @@
     ]
   },
   "course_research": "/control/research/CARE_COURSE_2026-09-21.md",
-  "validation": "/control/CARE_VALIDATION_2026-09-21_V02.json",
+  "validation": "/control/CARE_VALIDATION_2026-09-21_V03.json",
   "case_schema": "/care/case.schema.json",
   "body_plan": {
     "registry": "/bodyplans/registry.js",
@@ -133,7 +133,8 @@
       "display label is not identity",
       "reference body plan is not registered personal anatomy",
       "no remote anatomy asset fetch at runtime",
-      "trace coordinates remain in the active plan/view SVG coordinate frame"
+      "trace coordinates remain in the active plan/view SVG coordinate frame",
+      "event body_map stores geometry_version + view_box + trace coordinate space for replay"
     ]
   }
 }
