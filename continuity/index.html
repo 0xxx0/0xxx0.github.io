@@ -130,7 +130,7 @@ button{border:1px solid var(--line);background:var(--panel2);color:var(--ink);pa
   <button id="buildHandoff" class="primary">BUILD HANDOFF</button>
   <button id="copyHandoff">COPY HANDOFF</button>
   <button id="humanPort">SEND HANDOFF TO CONTACT →</button>
-  <a href="../field-intake/" style="text-decoration:none"><button type="button">FIELD INTAKE →</button></a>
+  <button id="fieldIntake">FIELD INTAKE REVIEW →</button>
   <a href="../control/confluence/RETRIEVAL_CANON.md" style="text-decoration:none"><button type="button">PROTOCOL →</button></a>
 </div>
 </section>
@@ -229,6 +229,22 @@ $('#addClaim').onclick=()=>{const text=$('#claimText').value.trim();if(!text)ret
 $('#runReview').onclick=review;$('#buildHandoff').onclick=handoff;
 $('#copyHandoff').onclick=async()=>{const t=handoff();try{await navigator.clipboard.writeText(t);$('#copyHandoff').textContent='COPIED ✓';setTimeout(()=>$('#copyHandoff').textContent='COPY HANDOFF',1200)}catch(_){window.prompt('Copy handoff',t)}};
 $('#humanPort').onclick=()=>{const t=handoff();try{sessionStorage.setItem('human.port.handoff.v01',JSON.stringify({draft:t.slice(0,1200),mode:'REPLY',source:'continuity',created_at:new Date().toISOString()}));location.assign('../contact/')}catch(_){location.assign('../contact/?mode=REPLY')}};
+function intakeToken(s){return String(s??'').toLowerCase().replace(/[^a-z0-9:_-]+/g,'-').replace(/^-|-$/g,'').slice(0,72)||'continuity'}
+function intakeText(s){return String(s??'').replace(/\r?\n/g,' ').replace(/\/\//g,'/ /').replace(/#/g,'＃').replace(/@/g,'＠').replace(/\bref:/gi,'ref∶').replace(/\s+/g,' ').trim()}
+function fieldIntakePacket(){
+ pullForm();review();
+ const caseRef=intakeToken(current.id),context=intakeToken(current.domain||'other').replace(/:/g,'-'),lines=[];
+ (current.claims||[]).forEach(c=>{
+   const lane=intakeToken(c.lane||'claim').replace(/:/g,'-'),claimId='continuity:'+intakeToken(c.id),refs=['ref:'+caseRef];
+   if(c.source_id)refs.push('ref:'+intakeToken(c.source_id));
+   const prefix=c.lane==='FACT'?'':String(c.lane||'CLAIM')+' — ';
+   const notes=['CONTINUITY '+(c.lane||'CLAIM'),'provenance '+(c.provenance||'UNKNOWN'),'confidence '+(c.confidence||'UNKNOWN')];
+   if(c.next_evidence)notes.push('next evidence '+intakeText(c.next_evidence));
+   lines.push('[claim] '+prefix+intakeText(c.text)+' id:'+claimId+' @'+context+' #continuity #'+lane+' '+refs.join(' ')+' // '+notes.join(' · '));
+ });
+ return {schema:'0xxx0/continuity-to-field-intake/v0.1',source:'CONTINUITY / CASE',source_case_id:current.id,subject:current.subject,domain:current.domain,created_at:now(),capture:lines.join('\n'),truth:'Review candidates only. Original raw sources remain in CONTINUITY; FIELD INTAKE canonical state changes only through its visible resolution gate.'};
+}
+$('#fieldIntake').onclick=()=>{const p=fieldIntakePacket();if(!p.capture){alert('Add at least one reviewed claim before handing to FIELD INTAKE.');return}try{sessionStorage.setItem('field.intake.handoff.v01',JSON.stringify(p));location.assign('../field-intake/')}catch(_){location.assign('../field-intake/')}};
 $('#exportBtn').onclick=()=>{pullForm();review();const blob=new Blob([JSON.stringify(current,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(current.subject||'continuity-case').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'-'+current.id+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 $('#importBtn').onclick=()=>$('#importFile').click();
 $('#importFile').onchange=e=>{const f=e.target.files&&e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const j=JSON.parse(rd.result);if(!j||!Array.isArray(j.sources)||!Array.isArray(j.claims))throw new Error('invalid case');current=j;render()}catch(err){alert('Import failed: '+err.message)}};rd.readAsText(f)};
