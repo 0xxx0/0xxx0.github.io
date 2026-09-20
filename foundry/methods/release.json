@@ -1,0 +1,19 @@
+{
+  "schema": "release-receipt/v1",
+  "title": "SHAPE / LAW ATLAS",
+  "version": "0.1",
+  "state": "EXPERIMENT",
+  "date": "2026-09-21",
+  "route": "/foundry/methods/",
+  "parent": "/foundry/",
+  "showcase_card": false,
+  "claim": "Tests whether external mathematical/design/security methods can be admitted by explicit invariant matching rather than visual analogy.",
+  "model": "/foundry/methods/methods.json",
+  "working_doc": "/control/research/SHAPE_LAW_ATLAS.md",
+  "mutation": "NONE / research projection",
+  "known_limits": [
+    "Method-to-project mappings are hypotheses until a bounded test changes a real decision.",
+    "External frameworks remain attributed donors, not local canon.",
+    "Triangle/simplex, triangle-center geometry, triads, graph problems and process diamonds are intentionally kept distinct."
+  ]
+}
