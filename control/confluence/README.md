@@ -27,6 +27,24 @@ The existing FI law remains authoritative:
 
 A thread can think for hours without changing shared durable state. If it commits a tracked surface, it must perform the corresponding FI touch.
 
+
+## Collaboration corpus
+
+The collaboration history itself is a recoverable source field: chats, user asks, generated images, code/artifacts, physical experiments, research and failed branches.
+
+It is **not** a competing canonical runtime.
+
+Use it to recover lineage and intent, then reconcile against current evidence.
+
+Four standing rules:
+
+1. **Chat history is source material, not present-state authority.** Current repo/live evidence wins when they disagree.
+2. **Recover lineage, not project titles.** Preserve transformations, donors, rejected branches and current heads rather than treating every named chat/artifact as sovereign.
+3. **Downstream agents receive bounded packets.** A useful handoff carries objective, current head, donor only if needed, delta, authority, acceptance test and RETURN.
+4. **Large archive / small active surface.** Recovery may grow indefinitely; cognitively live fronts stay bounded by `CURRENT` / `QUEUE`.
+
+When mining prior conversations, user messages deserve special attention because asks, corrections, constraints and unfinished transformations are often embedded inside digressions. Recover what the user was trying to make happen, then verify what actually happened.
+
 ## Current confluence packets
 
 - [LAW ZOO / tiny-law branch](./LAW_ZOO.md)
