@@ -145,6 +145,7 @@ It therefore does **not** need a competing public app.
 Operational landing zones:
 
 - **CONFLUENCE** — owns this cross-thread method.
+- **CONTINUITY / CASE** — executable local-first projection at `/continuity/`; turns sources + claims into a reviewed canonical packet without server-side private storage.
 - **FIELD INTAKE** — can ingest recovered packets and resolve KEEP BOTH / REPLACE / REJECT while preserving before-state and provenance.
 - **MIGRATION / RECOVERY** — performs artifact archaeology and exact-source recovery.
 - **CURRENT** — references the method for cold-start workers.
