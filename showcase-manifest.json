@@ -31,8 +31,8 @@
       "state": "STABLE",
       "machine_state": "/contact/state.json",
       "showcase_card": false,
-      "role": "Stable human ingress/RETURN surface: usable now through local compose + native share; future private messaging/autoresponder transports bind behind the same public promise contract.",
-      "version": "0.2",
+      "role": "Stable ingress/RETURN surface: manual compose/share works now; future private human or delegated-agent transports bind behind explicit disclosure, policy, provenance and authority boundaries.",
+      "version": "0.3",
       "receipt": "/contact/release.json",
       "contract": "/contact/contract.json",
       "field": {
@@ -65,10 +65,10 @@
             "via": "human review/share"
           }
         ],
-        "physical_fit": "Safe final human boundary; useful whenever automation is unnecessary."
+        "physical_fit": "Explicit external-action boundary: manual human share is the safe fallback; disclosed delegated automation may bind behind policy without claiming direct human authorship."
       },
       "index": {
-        "updated_at": "2026-09-20T23:18:00+08:00",
+        "updated_at": "2026-09-21T00:15:00+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
@@ -2865,7 +2865,7 @@
     "routing": "Nine public showcase artifacts now expose accepts/transforms/emits/evidence contracts. agent-router.json may compose or skip stages and selects the smallest adequate route under permission, reversibility and evidence constraints.",
     "execution_boundary": "Showcase contracts are public semantic/reference interfaces only. Private personal traffic and credentials belong to private runtime adapters; no public showcase route is an implicit execution endpoint.",
     "router_bench": "Deterministic public workbench over the live capability contracts and adapter declarations. It simulates routing/permission/RETURN only; private execution remains outside the public surface.",
-    "human_return": "0 / HUMAN PORT 0.2 is now an actual transport-neutral instrument rather than a passive placeholder: PING/REPLY/NEED/CHECK produce a local 0P1 envelope for native sharing now; future private adapters must inherit the public promise contract and may not impersonate the user or fabricate live state.",
+    "human_return": "0 / HUMAN PORT 0.3 is transport-neutral: PING/REPLY/NEED/CHECK produce a local 0P1 envelope for native sharing now. Future private human or nonhuman agent/clone bindings are permitted only under explicit policy, disclosed representation, provenance and bounded authority; undisclosed impersonation/false attribution remain forbidden.",
     "person_resource_policy": "Deny-by-default seven-gate policy contract: READ, REMEMBER, ACKNOWLEDGE, ANSWER, DRAFT, ACT and ESCALATE. Public files contain schema/synthetic example only; real person/resource refs and policies belong to the private runtime.",
     "policy_inheritance": "Deterministic broad-to-narrow policy composition: base -> person/resource in parallel -> channel. Restriction is automatic; widening requires user_explicit grant authority. Same-stage deny wins, allow sets intersect, deny sets union, ceilings choose the minimum, locks are inherited and cannot be widened.",
     "policy_selectors": "Deterministic selector syntax for base/person/resource/channel policy matching. Exact > pattern > tag > fallback for trace/specificity; all matching non-fallback restrictions accumulate; fallback activates only when no non-fallback selector in that layer/domain matches; declaration order is never security-significant.",
