@@ -43,17 +43,19 @@
       ]
     },
     {
-      "id": "reality-house",
+      "id": "human-port-use",
       "state": "ACTIVE_NOW",
-      "center": "/house/spatial/ + Home Assistant/HOUSEBUS + one bounded physical/home RETURN",
-      "objective": "Converge the actual dwelling through one addressed spatial substrate: recover/verify geometry and surfaces, coordinate state with Home Assistant authority, and keep changes reality-gated through receipts.",
+      "center": "/port/ + one real local/manual circuit through BURST / LACONIC / CONTACT or RESIDUE / IDEA ATLAS",
+      "objective": "Prove that HUMAN PORT 1.2 actually reduces interaction/re-entry cost: complete one real bounded circuit, preserve source/authority boundaries, and RETURN what happened before adding private transport or automation.",
       "evidence": [
-        "/control/QUEUE.json",
-        "/fcm-fronts.json",
-        "/house/",
-        "/house/spatial/",
-        "/house/confluence.json",
-        "/house/spatial-state.json"
+        "/port/",
+        "/port/suite-1.2.json",
+        "/contact/burst/",
+        "/laconic/",
+        "/contact/",
+        "/contact/residue/",
+        "/app-atlas/",
+        "/control/confluence/HUMAN_PORT_CONVERGENCE_2026-09-21.md"
       ]
     }
   ],
@@ -275,8 +277,8 @@
     }
   ],
   "next_single_action": {
-    "id": "house-instance-verify-01",
-    "instruction": "When convenient, identify/verify the current physical house instance and orientation against the real door/kitchen/window/corner condition. Do not force section/ceiling measurement now. Preserve the earlier 93 m²/#17-103 donor as a separate recovered instance until verified."
+    "id": "field-index-first-contact-01",
+    "instruction": "Use the rebuilt FIELD INDEX as an unfamiliar visitor: locate HUMAN PORT, one retained current head, one donor/recovery branch, and one OPEN PORT without relying on memory. If the map fails, repair orientation only. If it succeeds, choose one non-House OPEN PORT with a concrete missing function and execute the smallest evidence-bearing graft."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
@@ -297,6 +299,12 @@
       "state": "HOLD_CURRENT_HEAD",
       "center": "AXIAL / STATE APERTURE 0.5",
       "reason": "Current head now incorporates the exact 2019 cylinder donor as mechanism evidence and corrects APERTURE/frame semantics. Hold further expansion until comparative or physical readback evidence."
+    },
+    {
+      "id": "reality-house",
+      "state": "HOLD_USER_DIRECTED",
+      "center": "/house/spatial/ + Home Assistant/HOUSEBUS + one bounded physical/home RETURN",
+      "reason": "User explicitly directed this pass to leave HOUSE/SPATIAL and walk the wider field. Preserve HOUSE/SPATIAL 0.6 as current head; do not reopen measurements/geometry/TRACE until deliberately selected again."
     }
   ],
   "orientation": "/control/ORIENTATION.json",
