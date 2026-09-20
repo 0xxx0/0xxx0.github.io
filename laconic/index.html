@@ -144,8 +144,9 @@ function chooseLine(id){
  const x=bank.lines.find(z=>z.id===id);if(!x)return;selectedId=id;
  const next=(x.next||[]).map(id=>bank.lines.find(z=>z.id===id)).filter(Boolean);
  $('#selected').hidden=false;
- $('#selected').innerHTML='<div class="path">'+esc(x.id)+' · '+esc(x.provenance)+' · '+esc(x.scenario)+' → '+esc(x.move)+' → '+esc(x.voice)+'</div><div class="big">'+esc(x.text)+'</div><div class="path">NEXT · '+(next.length?next.map(n=>esc(n.text)).join(' / '):'terminal or unscripted')+'</div><div class="buttons"><button id="copyLine">COPY LINE</button><a href="../contact/?mode=REPLY&draft='+encodeURIComponent(x.text)+'">OPEN IN HUMAN PORT →</a></div>';
+ $('#selected').innerHTML='<div class="path">'+esc(x.id)+' · '+esc(x.provenance)+' · '+esc(x.scenario)+' → '+esc(x.move)+' → '+esc(x.voice)+'</div><div class="big">'+esc(x.text)+'</div><div class="path">NEXT · '+(next.length?next.map(n=>esc(n.text)).join(' / '):'terminal or unscripted')+'</div><div class="buttons"><button id="copyLine">COPY LINE</button><button id="openPortLine">OPEN IN HUMAN PORT →</button></div>';
  $('#copyLine').onclick=()=>copyText(x.text,$('#copyLine'));
+ $('#openPortLine').onclick=()=>openHumanPortDraft(x.text);
 }
 function makeLineButtons(){
  const moves=['','ACK','ANSWER','ASK_ONE','DRAFT'];
@@ -191,9 +192,10 @@ function renderRunner(){
  $('#runner').innerHTML='<div class="runnerhead"><b>'+esc(scene.title)+'</b><span>'+esc(scene.lane)+' · '+esc(scene.provenance)+'</span></div><div class="runnerbody"><div class="scene-note">'+esc(scene.note)+'</div><div class="meta" style="margin-top:12px"><span class="tag '+esc(node.provenance)+'">'+esc(node.provenance)+'</span><span class="tag">'+esc(node.id)+'</span></div><div class="utter">'+esc(draft)+'</div>'+
  (vars.length>1?'<div class="variantbar">'+vars.map((t,i)=>'<button data-variant="'+i+'" class="'+(activeVariant===i?'on':'')+'">VAR '+(i+1)+' · '+esc(t)+'</button>').join('')+'</div>':'')+
  '<div class="choicebar">'+(node.choices.length?node.choices.map(c=>'<button data-next="'+esc(c.next)+'">'+esc(c.label)+' →</button>').join(''):'<button data-reset="1">END / RESET SCENE</button>')+'</div>'+
- '<div class="actions" style="margin-top:12px"><button id="copyScene">COPY CURRENT</button><a class="actionlink" href="../contact/?mode=REPLY&draft='+encodeURIComponent(draft)+'">OPEN IN HUMAN PORT →</a></div>'+
+ '<div class="actions" style="margin-top:12px"><button id="copyScene">COPY CURRENT</button><button id="openPortScene" class="actionlink">OPEN IN HUMAN PORT →</button></div>'+
  '<div class="trail">TRAIL · '+esc(trail.length?trail.join(' → '):node.id)+'</div></div>';
  $('#copyScene').onclick=()=>copyText(draft,$('#copyScene'));
+ $('#openPortScene').onclick=()=>openHumanPortDraft(draft);
 }
 $('#laneChips').onclick=e=>{if(e.target.dataset.lane===undefined)return;lane=e.target.dataset.lane;renderLaneChips();renderSceneList()};
 $('#sceneList').onclick=e=>{const b=e.target.closest('[data-scene]');if(!b)return;activeSceneId=b.dataset.scene;const s=sceneById(activeSceneId);activeNodeId=s.start;activeVariant=0;trail=[activeNodeId];renderSceneList()};
@@ -209,6 +211,12 @@ function renderFragments(){
 }
 $('#fragments').onclick=e=>{const id=e.target.dataset.copyfrag;if(!id)return;const x=fragmentsData.items.find(z=>z.id===id);if(x)copyText(x.text,e.target)};
 
+function openHumanPortDraft(t){
+ try{
+  sessionStorage.setItem('human.port.handoff.v01',JSON.stringify({draft:String(t||'').slice(0,1200),mode:'REPLY',source:'laconic',created_at:new Date().toISOString()}));
+  location.assign('../contact/');
+ }catch(_){location.assign('../contact/')}
+}
 async function copyText(t,b){try{await navigator.clipboard.writeText(t);if(b){const old=b.textContent;b.textContent='COPIED ✓';setTimeout(()=>b.textContent=old,1200)}}catch(_){window.prompt('Copy',t)}}
 function sourcePack(){
  const items=$('#sourceText').value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map((text,i)=>({ordinal:i+1,text}));
