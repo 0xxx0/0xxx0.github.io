@@ -22,6 +22,8 @@ nav a{text-decoration:none}.bar{display:grid;grid-template-columns:1fr auto;gap:
 .op,.state{font-size:8px;letter-spacing:.1em}.op{color:var(--cool)}.mode{display:block;margin-top:3px;color:#b8a476;font-size:7px;letter-spacing:.08em}.touch{color:#69757b;font-size:7px;margin-top:3px}.state{color:var(--green)}.state.EXPERIMENT,.state.RECOVER,.state.IMPORT{color:#e7a065}.state.QUARANTINE{color:#c98a99}
 .job{color:#9ea8ac;font:10px/1.45 system-ui,-apple-system,sans-serif}.go{font-size:10px;white-space:nowrap;color:#b9c2c6}
 .rec .row{grid-template-columns:minmax(190px,1.1fr) 110px 2fr auto}.external{color:#8ccdf2}
+.frontier .row{grid-template-columns:minmax(190px,1.1fr) 120px 130px 2fr auto}
+.frontier .state.ADAPTER_REQUIRED{color:#e7a065}.frontier .state.CANDIDATE{color:#d9ad62}.frontier .state.SPECIFIED{color:#78bce5}.frontier .state.HUMAN_EVIDENCE_REQUIRED{color:#c98a99}.frontier .state.REFERENCE{color:#87939a}
 .tools{display:flex;gap:5px;flex-wrap:wrap}.tools input{width:170px}.tools button{cursor:pointer}.tools button.on{border-color:#819198}
 .system{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.system a{background:#0a0d0f;padding:12px;color:var(--ink);text-decoration:none}.system b{display:block;font-size:10px}.system span{display:block;color:var(--muted);font-size:8px;margin-top:4px}
 footer{display:flex;justify-content:space-between;gap:16px;margin-top:22px;padding-top:10px;border-top:1px solid var(--line);color:#68747a;font-size:8px}
@@ -38,6 +40,11 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:22px;paddi
 <section>
   <div class="bar"><div><b>RUNNING</b><span id="runCount"></span></div><div class="tools"><button class="on" data-filter="ALL">ALL</button><button data-filter="STABLE">STABLE</button><button data-filter="EXPERIMENT">EXPERIMENT</button><button class="on" data-view="CAPABILITY">CAPABILITY</button><button data-view="IO">I/O</button><button class="on" data-sort="UPDATED">UPDATED ↓</button><button data-sort="MANIFEST">MANIFEST</button><input id="focus" type="search" placeholder="/ find"></div></div>
   <div id="running" class="rows"><div class="row"><div class="job">Loading manifest…</div></div></div>
+</section>
+
+<section class="frontier">
+  <div class="bar"><div><b>BOTTLENECKS</b><span id="frontCount">unresolved exits from FIELD contracts</span></div><div class="tools" id="frontTools"><button class="on" data-front="ALL">ALL</button><button data-front="ADAPTER_REQUIRED">ADAPTER</button><button data-front="CANDIDATE">CANDIDATE</button><button data-front="SPECIFIED">SPECIFIED</button><button data-front="HUMAN_EVIDENCE_REQUIRED">EVIDENCE</button></div></div>
+  <div id="frontier" class="rows"><div class="row"><div class="job">Deriving unresolved exits…</div></div></div>
 </section>
 
 <section class="rec">
@@ -69,7 +76,7 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:22px;paddi
 
 <script>
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-let routes=[],filter='ALL',q='',view='CAPABILITY',sort='UPDATED';
+let routes=[],filter='ALL',q='',view='CAPABILITY',sort='UPDATED',frontFilter='ALL';
 const portText=ps=>(ps||[]).slice(0,3).map(p=>p.medium+':'+p.kind).join(' · ');
 function jobText(x){
   if(view==='IO'){
@@ -84,19 +91,34 @@ function renderRoutes(){
   document.getElementById('runCount').textContent=visible.length+' visible · '+(sort==='UPDATED'?'updated ↓':'manifest order');
   document.getElementById('running').innerHTML=visible.map(x=>`<a class="row" href=".${esc(x.href)}"><div><div class="name">${esc(x.title)}</div><div class="family">${esc((x.field?.roles||[]).join(' / ')||x.family||x.kind)}</div><div class="touch">TOUCH ${esc(x.index?.updated_at||'UNTRACKED')}</div></div><div class="op">${esc(x.operation||x.kind)}<span class="mode">${esc((x.index?.work_modes||['UNKNOWN']).join(' · '))}</span></div><div class="state ${esc(x.state)}">${esc(x.state)}</div><div class="job">${esc(jobText(x))}</div><div class="go">OPEN →</div></a>`).join('')||'<div class="row"><div class="job">No match.</div></div>';
 }
+function renderFrontier(){
+  let xs=routes.flatMap(x=>(x.field?.exit_paths||[]).filter(e=>e.status!=='AVAILABLE').map(e=>({route:x,exit:e})));
+  xs=xs.filter(x=>(frontFilter==='ALL'||x.exit.status===frontFilter)&&(!q||[x.route.title,x.route.href,x.route.operation,x.exit.class,x.exit.status,x.exit.via,x.route.field?.physical_fit].join(' ').toLowerCase().includes(q)));
+  const rank={ADAPTER_REQUIRED:0,HUMAN_EVIDENCE_REQUIRED:1,SPECIFIED:2,CANDIDATE:3,REFERENCE:4};
+  xs.sort((a,b)=>(rank[a.exit.status]??9)-(rank[b.exit.status]??9)||String(b.route.index?.updated_at||'').localeCompare(String(a.route.index?.updated_at||'')));
+  document.getElementById('frontCount').textContent=xs.length+' unresolved exits · derived live from route.field.exit_paths';
+  document.getElementById('frontier').innerHTML=xs.map(x=>`<a class="row" href=".${esc(x.route.href)}"><div><div class="name">${esc(x.route.title)}</div><div class="family">${esc((x.route.field?.roles||[]).join(' / ')||x.route.family||x.route.kind)}</div></div><div class="op">${esc(x.exit.class||'EXIT')}</div><div class="state ${esc(x.exit.status)}">${esc(x.exit.status)}</div><div class="job">${esc(x.exit.via||'unspecified interface')}${x.route.field?.physical_fit?' · '+esc(x.route.field.physical_fit):''}</div><div class="go">OPEN →</div></a>`).join('')||'<div class="row"><div class="job">No unresolved exit matches this filter.</div></div>';
+}
 fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
  routes=d.routes.map((x,i)=>({...x,_manifestIndex:i})).filter(x=>['artifact','experiment','workbench','rendezvous'].includes(x.kind)&&x.state).map(x=>({
    ...x,
    job:x.contract?.transforms?.verb || x.role || (x.transfer||[]).join(' · ') || x.field?.physical_fit || ''
  }));
  renderRoutes();
-}).catch(e=>document.getElementById('running').textContent='manifest unavailable: '+e.message);
+ renderFrontier();
+}).catch(e=>{document.getElementById('running').textContent='manifest unavailable: '+e.message;document.getElementById('frontier').textContent='manifest unavailable: '+e.message});
 document.querySelector('.tools').addEventListener('click',e=>{
  if(e.target.dataset.filter){filter=e.target.dataset.filter;document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('on',b.dataset.filter===filter));renderRoutes();return}
  if(e.target.dataset.view){view=e.target.dataset.view;document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('on',b.dataset.view===view));renderRoutes();return}
  if(e.target.dataset.sort){sort=e.target.dataset.sort;document.querySelectorAll('[data-sort]').forEach(b=>b.classList.toggle('on',b.dataset.sort===sort));renderRoutes()}
 });
-document.getElementById('focus').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();renderRoutes()});
+document.getElementById('frontTools').addEventListener('click',e=>{
+ if(!e.target.dataset.front)return;
+ frontFilter=e.target.dataset.front;
+ document.querySelectorAll('[data-front]').forEach(b=>b.classList.toggle('on',b.dataset.front===frontFilter));
+ renderFrontier();
+});
+document.getElementById('focus').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();renderRoutes();renderFrontier()});
 
 Promise.all([
  fetch('./control/RECOVERY_RUN_2026-09-19.json',{cache:'no-store'}).then(r=>r.json()),
