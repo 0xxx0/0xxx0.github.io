@@ -1,9 +1,9 @@
 {
-  "schema": "0xxx0/field-index-audit/v0.2",
+  "schema": "0xxx0/field-index-audit/v0.3",
   "date": "2026-09-21",
   "manifest_routes": {
-    "total": 67,
-    "ok": 67,
+    "total": 68,
+    "ok": 68,
     "missing": []
   },
   "internal_manifest_path_references": {
@@ -36,78 +36,10 @@
   },
   "repo_html": {
     "total": 87,
-    "manifest_addressed": 64,
-    "parent_owned_unmanifested": [
-      {
-        "path": "app-atlas/index.html",
-        "owner": "/port/",
-        "classification": "HUMAN_PORT_FAMILY_SURFACE"
-      },
-      {
-        "path": "bodyplans/index.html",
-        "owner": "/care/",
-        "classification": "CARE_SUPPORT_SURFACE"
-      },
-      {
-        "path": "contact/agent/index.html",
-        "owner": "/contact/ + /port/",
-        "classification": "HUMAN_PORT_CHILD"
-      },
-      {
-        "path": "contact/backstage/index.html",
-        "owner": "/contact/ + /port/",
-        "classification": "HUMAN_PORT_CHILD"
-      },
-      {
-        "path": "contact/burst/index.html",
-        "owner": "/contact/ + /port/",
-        "classification": "HUMAN_PORT_CHILD"
-      },
-      {
-        "path": "contact/capsule/index.html",
-        "owner": "/contact/ + /port/",
-        "classification": "HUMAN_PORT_CHILD"
-      },
-      {
-        "path": "contact/family/index.html",
-        "owner": "/contact/ + /port/",
-        "classification": "HUMAN_PORT_CHILD"
-      },
-      {
-        "path": "contact/friend/index.html",
-        "owner": "/contact/ + /port/",
-        "classification": "HUMAN_PORT_CHILD"
-      },
-      {
-        "path": "contact/interpret/index.html",
-        "owner": "/contact/ + /port/",
-        "classification": "HUMAN_PORT_CHILD"
-      },
-      {
-        "path": "contact/make/index.html",
-        "owner": "/contact/ + /port/",
-        "classification": "HUMAN_PORT_CHILD"
-      },
-      {
-        "path": "contact/next/index.html",
-        "owner": "/contact/ + /port/",
-        "classification": "HUMAN_PORT_CHILD"
-      },
-      {
-        "path": "contact/residue/index.html",
-        "owner": "/contact/ + /port/",
-        "classification": "HUMAN_PORT_CHILD"
-      },
-      {
-        "path": "contact/work/index.html",
-        "owner": "/contact/ + /port/",
-        "classification": "HUMAN_PORT_CHILD"
-      },
-      {
-        "path": "port/index.html",
-        "owner": "/port/",
-        "classification": "HUMAN_PORT_FAMILY_SURFACE"
-      },
+    "manifest_addressed": 65,
+    "parent_owned_mapped": 13,
+    "mapped_total": 78,
+    "raw_recovery_payloads": [
       {
         "path": "recovery/kala/ancient-kala-test-2020.html",
         "owner": "nearest /recovery/ family hub",
@@ -153,7 +85,143 @@
         "owner": "nearest /recovery/ family hub",
         "classification": "RAW_RECOVERY_PAYLOAD"
       }
+    ],
+    "unexpected_unmapped": [],
+    "parent_owned_surfaces": [
+      {
+        "path": "app-atlas/index.html",
+        "owner": "/port/",
+        "classification": "PARENT_OWNED_MAPPED_SURFACE",
+        "title": "IDEA ATLAS",
+        "state": "ACTIVE"
+      },
+      {
+        "path": "contact/interpret/index.html",
+        "owner": "/port/",
+        "classification": "PARENT_OWNED_MAPPED_SURFACE",
+        "title": "INTERPRET",
+        "state": "ACTIVE"
+      },
+      {
+        "path": "contact/burst/index.html",
+        "owner": "/port/",
+        "classification": "PARENT_OWNED_MAPPED_SURFACE",
+        "title": "BURST",
+        "state": "UTILITY"
+      },
+      {
+        "path": "contact/capsule/index.html",
+        "owner": "/port/",
+        "classification": "PARENT_OWNED_MAPPED_SURFACE",
+        "title": "CAPSULE",
+        "state": "CANDIDATE"
+      },
+      {
+        "path": "contact/make/index.html",
+        "owner": "/port/",
+        "classification": "PARENT_OWNED_MAPPED_SURFACE",
+        "title": "MAKE CAPSULE",
+        "state": "UTILITY"
+      },
+      {
+        "path": "contact/backstage/index.html",
+        "owner": "/port/",
+        "classification": "PARENT_OWNED_MAPPED_SURFACE",
+        "title": "BACKSTAGE",
+        "state": "ACTIVE"
+      },
+      {
+        "path": "contact/residue/index.html",
+        "owner": "/port/",
+        "classification": "PARENT_OWNED_MAPPED_SURFACE",
+        "title": "SOCIAL RESIDUE",
+        "state": "ACTIVE"
+      },
+      {
+        "path": "contact/friend/index.html",
+        "owner": "/port/",
+        "classification": "PARENT_OWNED_MAPPED_SURFACE",
+        "title": "FRIEND LENS",
+        "state": "UTILITY"
+      },
+      {
+        "path": "contact/family/index.html",
+        "owner": "/port/",
+        "classification": "PARENT_OWNED_MAPPED_SURFACE",
+        "title": "FAMILY LENS",
+        "state": "UTILITY"
+      },
+      {
+        "path": "contact/work/index.html",
+        "owner": "/port/",
+        "classification": "PARENT_OWNED_MAPPED_SURFACE",
+        "title": "WORK LENS",
+        "state": "UTILITY"
+      },
+      {
+        "path": "contact/agent/index.html",
+        "owner": "/port/",
+        "classification": "PARENT_OWNED_MAPPED_SURFACE",
+        "title": "AGENT LENS",
+        "state": "UTILITY"
+      },
+      {
+        "path": "contact/next/index.html",
+        "owner": "/port/",
+        "classification": "PARENT_OWNED_MAPPED_SURFACE",
+        "title": "HUMAN PORT / MOVED",
+        "state": "UTILITY"
+      },
+      {
+        "path": "bodyplans/index.html",
+        "owner": "/care/",
+        "classification": "PARENT_OWNED_MAPPED_SURFACE",
+        "title": "BODY PLANS / REGISTRY",
+        "state": "UTILITY"
+      }
     ]
   },
-  "interpretation": "Unmanifested HTML is not automatically missing. Parent-owned HUMAN PORT / CARE support surfaces and raw recovery payloads remain deliberately below the Field Index unless separately promoted."
+  "interpretation": "FIELD INDEX is now a map rather than an activity feed: CURRENT owns attention; manifest + parent-owned surfaces own addressability; OPEN PORTS expose declared interface debt; RECENT remains secondary mutation evidence.",
+  "lifecycle": {
+    "deprecated_states": [
+      "EXPERIMENT"
+    ],
+    "deprecated_present": [],
+    "ok": true
+  },
+  "field_index_makeover": {
+    "status": "PASS",
+    "contract": "/control/FIELD_INDEX_CONTRACT.json",
+    "contract_schema": "field-index-contract/v0.2",
+    "readings": [
+      "NOW",
+      "HEADS",
+      "MAP",
+      "OPEN_PORTS",
+      "RECENT"
+    ],
+    "default_reading": "STRUCTURE / MAP",
+    "laws": [
+      "ATTENTION ≠ RECENCY",
+      "MAP ≠ BACKLOG",
+      "DONOR ≠ HEAD",
+      "DISCUSSION ≠ TOUCH"
+    ],
+    "canonical_human_port": "/port/",
+    "parent_owned_mapping": "Manifest routes may declare owned_surfaces so family tools/aliases appear in the sitemap without promotion to independent canon routes.",
+    "return_index": {
+      "count": 41,
+      "receipts_ok": 41
+    },
+    "open_ports": 22,
+    "source_validation": [
+      "all manifest route files exist",
+      "all declared receipt paths exist",
+      "no duplicate manifest hrefs",
+      "root inline JavaScript parses",
+      "CURRENT comms head points to /port/",
+      "FCM current version is 0.2",
+      "no unexpected unmapped HTML"
+    ]
+  }
 }
