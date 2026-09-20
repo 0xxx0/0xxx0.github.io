@@ -211,10 +211,10 @@
     },
     {
       "id": "rsvp-temporal-focus-watch-lineage",
-      "status": "EXACT_2018_BYTES_RECOVERED_IMPORT_PENDING",
+      "status": "EXACT_2018_IMPORTED_FROZEN_DONOR",
       "query": "RSVP+TTS TMP-SPEECHSYNTH 20180502 + Reedy + Galaxy Watch 6/Wear OS + JUE/JU/Sleeper/Painting Path temporal-focus lineage",
-      "payoff": "The historical 2018 temporal-focus fixture is now exact-source grounded: two 32183-byte Drive copies were fetched and compared byte-identical; prior registry supplies SHA-256. Import one frozen donor, then mechanism-diff before building a modern Watch/phone reader.",
-      "receipt": "/control/confluence/RSVP_RECOVERY.md"
+      "payoff": "The historical 2018 temporal-focus fixture is exact-source grounded and now frozen at /recovery/rsvp/: duplicate raw Drive payloads were byte-identical and GitHub readback equals the recovered source text. Next is mechanism diff before any modern Watch/phone reader build.",
+      "receipt": "/recovery/rsvp/manifest.json"
     }
   ],
   "next_single_action": {
