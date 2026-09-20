@@ -1,0 +1,104 @@
+{
+  "schema": "laconic-early-plurality-donors/v0.1",
+  "recovered": "2026-09-21",
+  "status": "EXACT_DONORS_NOT_SINGLE_ORIGIN",
+  "law": "These are antecedent mechanisms/images. They may converge later, but none is silently declared the sole origin of Council of Selves.",
+  "donors": [
+    {
+      "id": "donor:group-dynamics-2024-12-13",
+      "date": "2024-12-13",
+      "source": {
+        "file": "conversations-001.json",
+        "role": "assistant",
+        "message_id": "6089e0d6-daad-484d-953b-4fbae4741fce",
+        "provenance": "EXACT"
+      },
+      "mechanism": "Several named figures speak to and about one another; plurality is interaction, not merely alternate style.",
+      "relation": "EARLY_MULTI_CHARACTER_INTERACTION_DONOR",
+      "exact_interactions": [
+        {
+          "participants": [
+            "Sleeper",
+            "W8"
+          ],
+          "lines": [
+            "You’re heavy!",
+            "You’re weak!",
+            "Touché."
+          ]
+        },
+        {
+          "participants": [
+            "Conch",
+            "Keris"
+          ],
+          "lines": [
+            "Your edge is useless without my hum.",
+            "Your hum is meaningless without my edge.",
+            "The Sleeper is an idiot."
+          ]
+        },
+        {
+          "participants": [
+            "Specter",
+            "Sleeper"
+          ],
+          "lines": [
+            "You’ll never be rid of me.",
+            "Who said I want to be?"
+          ]
+        }
+      ],
+      "caution": "Sleeper/Conch/Keris/W8 lineage is not automatically the later Council of Selves cast."
+    },
+    {
+      "id": "donor:council-care-joke-2024-12-28",
+      "date": "2024-12-28",
+      "source": {
+        "file": "conversations-001.json",
+        "conversation_title": "Ode to O3",
+        "role": "user",
+        "message_id": null,
+        "provenance": "EXACT"
+      },
+      "mechanism": "The word/image `the council` is already used as a comic social institution inside Laconic/Iconic response work.",
+      "relation": "EARLY_COUNCIL_IMAGE_DONOR",
+      "exact": "I am sorry to hear that. The council sends you this invisible recovery hamper and a voucher for one cosmic hug.",
+      "caution": "This proves generic/lowercase `the council` imagery before the Dec-29 persona experiment. It does not prove the proper-name project `Council of Selves` already existed."
+    },
+    {
+      "id": "donor:persona-switching-2024-12-29",
+      "date": "2024-12-29",
+      "source": {
+        "file": "conversations-001.json",
+        "role": "user",
+        "message_id": "bbb212fd-8de3-49eb-bd6f-09fcf1420ea9",
+        "provenance": "EXACT"
+      },
+      "mechanism": "Persona variation is explicitly described by the user as a real experiment in behavior; later turns prioritize testing personas and scenarios.",
+      "relation": "DIRECT_PERSONA_MECHANISM",
+      "exact": "The im trying out new personality settings thing is literally true and I've said it less cool sounding before I think.",
+      "adoption_ref": "./selection-chain-2024-12-29.json"
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "gap:voice-output-5-6",
+      "state": "OPEN",
+      "known_exact_request": "maybe try to generate 5 or.6.distinct styles and voices for rrsspective personas internal selves",
+      "missing": "the direct generated 5–6 voice output set and its exact voice identities"
+    },
+    {
+      "id": "gap:first-five-selves-chatter",
+      "state": "OPEN",
+      "known_secondary_report": "5 selves chatter – realistic personas",
+      "missing": "direct initiating user turn + first assistant multi-self scene"
+    },
+    {
+      "id": "gap:first-proper-name-council-of-selves",
+      "state": "OPEN",
+      "known": "generic `the council` is exact on 2024-12-28; full proper name is directly recovered in later 2025 material",
+      "missing": "earliest direct occurrence of the exact proper name `Council of Selves`"
+    }
+  ]
+}
