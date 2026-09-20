@@ -15,7 +15,7 @@ const routeFile=href=>{
 };
 const duplicateValues=xs=>[...new Set(xs.filter((x,i)=>xs.indexOf(x)!==i))];
 const collectInternalPaths=(x,out=[])=>{
-  if(typeof x==='string'){if(x.startsWith('/')&&!x.includes(' → '))out.push(x);return out}
+  if(typeof x==='string'){if(x.startsWith('/')&&!x.includes(' → ')&&!/\s/.test(x))out.push(x);return out}
   if(Array.isArray(x)){for(const y of x)collectInternalPaths(y,out);return out}
   if(x&&typeof x==='object')for(const y of Object.values(x))collectInternalPaths(y,out);
   return out;
