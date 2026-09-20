@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0a0c0d">
+<meta name="description" content="CONTINUITY / CASE — local-first source-to-canon workbench with provenance, anti-merge, gap review and RETURN.">
+<title>CONTINUITY / CASE</title>
+<style>
+:root{--bg:#0a0c0d;--panel:#0f1315;--panel2:#0c1012;--ink:#edf0ed;--muted:#879298;--line:#30383c;--hot:#e87548;--cool:#78bce5;--green:#98d6a2;--gold:#d9ad62;--pink:#c98a99}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.48 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(14px,env(safe-area-inset-top)) 12px max(36px,env(safe-area-inset-bottom))}
+button,input,textarea,select{font:inherit;border-radius:0}button{cursor:pointer}a{color:inherit}
+main{width:min(1180px,100%);margin:auto}
+header{display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:end;padding:26px 0 15px;border-bottom:1px solid var(--line)}
+.ey{font-size:9px;letter-spacing:.18em;color:var(--hot)}h1{margin:8px 0 7px;font:850 clamp(42px,9vw,88px)/.82 system-ui,-apple-system,sans-serif;letter-spacing:-.075em}
+.lead{max-width:660px;color:#aab3b7;font:12px/1.6 system-ui,-apple-system,sans-serif}
+.truth{border:1px solid var(--line);background:var(--panel2)}.truth div{padding:9px 11px;border-bottom:1px solid var(--line)}.truth div:last-child{border:0}.truth b{display:block;color:var(--green);font-size:8px;letter-spacing:.14em}.truth span{display:block;margin-top:4px;color:#aeb7bb;font:10px/1.45 system-ui,sans-serif}
+.flow{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:14px 0}.flow span{background:var(--panel2);padding:7px 4px;text-align:center;font-size:7px;letter-spacing:.1em;color:var(--muted)}.flow span.on{color:var(--gold)}
+.topbar{display:grid;grid-template-columns:1fr auto;gap:8px;margin:13px 0}.casepick{display:grid;grid-template-columns:1fr 120px 120px;gap:1px;background:var(--line);border:1px solid var(--line)}
+input,textarea,select{width:100%;border:0;background:var(--panel);color:var(--ink);padding:10px;outline:none}textarea{min-height:92px;resize:vertical;font:12px/1.55 system-ui,sans-serif}
+button{border:1px solid var(--line);background:var(--panel2);color:var(--ink);padding:8px 10px;min-height:34px;letter-spacing:.08em;font-size:8px}button:hover,button:focus{background:#141a1d;outline:none;border-color:#56636a}.primary{color:#dff4ff}.danger{color:#e8a28b}
+.section{margin-top:19px}.head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:7px}.head b{font-size:10px;letter-spacing:.16em}.head span{color:var(--muted);font-size:8px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.card{border:1px solid var(--line);background:var(--panel2);padding:12px}.card h2{margin:0 0 8px;font:750 14px system-ui,sans-serif}.card p{color:#98a3a8;font:10px/1.5 system-ui,sans-serif;margin:5px 0}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}.row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+.field{background:var(--panel2);padding:8px}.field label{display:block;color:var(--muted);font-size:7px;letter-spacing:.12em;margin-bottom:5px}
+.actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}
+.list{border:1px solid var(--line);background:var(--panel2)}.item{padding:10px;border-bottom:1px solid #262e32}.item:last-child{border-bottom:0}.itemtop{display:flex;justify-content:space-between;gap:10px}.item b{font-size:9px}.meta{color:var(--muted);font-size:7px;letter-spacing:.07em}.claim{margin-top:6px;color:#d9dede;font:11px/1.45 system-ui,sans-serif;white-space:pre-wrap}.excerpt{margin-top:5px;padding-left:8px;border-left:2px solid #384247;color:#8f9ba0;font:9px/1.45 system-ui,sans-serif;white-space:pre-wrap}
+.tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}.tag{display:inline-block;border:1px solid var(--line);padding:2px 5px;font-size:7px;letter-spacing:.08em;color:var(--muted)}.tag.SOURCE,.tag.FACT{color:var(--green)}.tag.CONFLICT,.tag.HOLD{color:var(--hot)}.tag.UNKNOWN{color:var(--gold)}.tag.ASSISTANT_INFERENCE,.tag.CURRENT_INFERENCE{color:var(--pink)}.tag.SUPERSEDED{color:var(--cool)}
+.review{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.metric{background:var(--panel2);padding:10px}.metric b{display:block;color:var(--muted);font-size:7px;letter-spacing:.1em}.metric strong{display:block;margin-top:5px;font:800 23px/1 system-ui,sans-serif}.metric.warn strong{color:var(--gold)}.metric.bad strong{color:var(--hot)}
+.reviewtext{border:1px solid var(--line);border-top:0;padding:12px;background:#0b0f11}.reviewtext ul{margin:0;padding-left:17px;color:#aeb7bb}.reviewtext li+li{margin-top:4px}
+.output{white-space:pre-wrap;word-break:break-word;border:1px solid var(--line);background:#090c0e;padding:12px;color:#c6d0d4;min-height:120px}
+.privacy{color:var(--gold)}footer{display:flex;justify-content:space-between;gap:14px;margin-top:22px;padding-top:10px;border-top:1px solid var(--line);color:#69767c;font-size:8px}
+@media(max-width:760px){header,.grid{grid-template-columns:1fr}.flow{grid-template-columns:repeat(4,1fr)}.casepick{grid-template-columns:1fr 1fr}.casepick select{grid-column:1/-1}.row2,.row3{grid-template-columns:1fr}.review{grid-template-columns:1fr 1fr}.review .metric:last-child{grid-column:1/-1}.head{display:block}.head span{display:block;margin-top:4px}footer{display:block}}
+</style>
+</head>
+<body><main>
+<header>
+<div>
+  <div class="ey">CONTINUITY / CASE · LOCAL-FIRST CANON WORKBENCH</div>
+  <h1>RECOVER.<br>DON'T MERGE.</h1>
+  <div class="lead">Turn fragments about a person, animal, house, device, project or other continuing subject into evidence-graded state. Preserve raw source, distinguish inference, keep unresolved identities apart, expose gaps, then hand off only what survives review.</div>
+</div>
+<aside class="truth">
+  <div><b>PRIVATE BY DEFAULT</b><span>No server submission. Nothing entered here is written to GitHub. SAVE stores only in this browser; EXPORT creates a local JSON file.</span></div>
+  <div><b>LAW</b><span>SOURCE → SCHEMA → ANCHOR → RETRIEVE → SPLIT → ANTI-MERGE → CANON → GAP → DERIVE → RETURN.</span></div>
+  <div><b>NOT AN AI ORACLE</b><span>This tool does not infer missing facts. It helps you keep source, interpretation and uncertainty from collapsing into one story.</span></div>
+</aside>
+</header>
+
+<div class="flow"><span class="on">SOURCE</span><span class="on">REFLECT</span><span class="on">ANCHOR</span><span class="on">CLAIM</span><span class="on">ANTI-MERGE</span><span class="on">REVIEW</span><span class="on">RETURN</span></div>
+
+<div class="topbar">
+  <div class="casepick">
+    <select id="caseList" aria-label="Saved cases"></select>
+    <button id="newCase">NEW CASE</button>
+    <button id="saveCase" class="primary">SAVE LOCAL</button>
+  </div>
+  <div class="actions" style="margin:0">
+    <button id="importBtn">IMPORT</button>
+    <button id="exportBtn">EXPORT JSON</button>
+  </div>
+</div>
+<input id="importFile" type="file" accept="application/json,.json" hidden>
+
+<section class="section">
+<div class="head"><div><b>01 / CASE ADDRESS</b><span>stable subject ≠ current interpretation</span></div><span id="caseIdView">UNSAVED</span></div>
+<div class="row3">
+  <div class="field"><label>SUBJECT LABEL</label><input id="subject" placeholder="Dad / Freckles / Kiwi / litter box / Foundry…"></div>
+  <div class="field"><label>SUBJECT KIND</label><select id="kind"><option>PERSON</option><option>ANIMAL</option><option>HOUSE</option><option>DEVICE</option><option>PROJECT</option><option>ORGANIZATION</option><option>OTHER</option></select></div>
+  <div class="field"><label>DOMAIN / CASE</label><select id="domain"><option>HEALTH</option><option>CARE</option><option>COMMS</option><option>HOUSE</option><option>PROJECT</option><option>LOGISTICS</option><option>RESEARCH</option><option>OTHER</option></select></div>
+</div>
+<div class="row2" style="margin-top:1px">
+  <div class="field"><label>REFLECTED QUESTION / INTENT</label><textarea id="reflection" placeholder="What do I currently understand the actual question / desired use to be? Preserve the original sources below."></textarea></div>
+  <div class="field"><label>ANCHORS · COMMA-SEPARATED</label><textarea id="anchors" placeholder="exact name, rare phrase, date, ID, measurement, location…"></textarea></div>
+</div>
+</section>
+
+<section class="section">
+<div class="head"><div><b>02 / SOURCES</b><span>raw fragments survive every later compression</span></div><span id="sourceCount">0</span></div>
+<div class="card">
+  <div class="row3">
+    <div class="field"><label>SOURCE REF / LABEL</label><input id="sourceRef" placeholder="WhatsApp 2025-06-23 / NUH report / chat turn / photo"></div>
+    <div class="field"><label>EVENT / SOURCE TIME</label><input id="sourceTime" placeholder="2025-06-23 13:39 / approximate / unknown"></div>
+    <div class="field"><label>SOURCE TYPE</label><select id="sourceType"><option>USER_MESSAGE</option><option>DOCUMENT</option><option>REPORT</option><option>OBSERVATION</option><option>CHAT_ARCHIVE</option><option>PHOTO</option><option>SENSOR</option><option>OTHER</option></select></div>
+  </div>
+  <div class="field" style="border:1px solid var(--line);border-top:0"><label>EXACT / RAW SOURCE TEXT</label><textarea id="sourceText" placeholder="Paste the fragment exactly. Do not clean it first."></textarea></div>
+  <div class="actions"><button id="addSource" class="primary">ADD SOURCE</button></div>
+</div>
+<div id="sources" class="list" style="margin-top:7px"></div>
+</section>
+
+<section class="section">
+<div class="head"><div><b>03 / CLAIMS</b><span>what we think the sources establish — with provenance visible</span></div><span id="claimCount">0</span></div>
+<div class="card">
+  <div class="row3">
+    <div class="field"><label>LANE</label><select id="lane"><option>FACT</option><option>CONFLICT</option><option>UNKNOWN</option><option>HOLD</option><option>SUPERSEDED</option></select></div>
+    <div class="field"><label>PROVENANCE</label><select id="provenance"><option>SOURCE</option><option>REPORTED</option><option>ASSISTANT_SUMMARY</option><option>ASSISTANT_INFERENCE</option><option>CURRENT_INFERENCE</option></select></div>
+    <div class="field"><label>CONFIDENCE</label><select id="confidence"><option>HIGH</option><option>MEDIUM</option><option>LOW</option><option>UNKNOWN</option></select></div>
+  </div>
+  <div class="field" style="border:1px solid var(--line);border-top:0"><label>CLAIM / GAP / HOLD</label><textarea id="claimText" placeholder="One assertion. For HOLD: state what must remain distinct and why. For UNKNOWN: state the missing field, not a guessed answer."></textarea></div>
+  <div class="row3" style="margin-top:1px">
+    <div class="field"><label>SOURCE</label><select id="claimSource"><option value="">— no source selected —</option></select></div>
+    <div class="field"><label>TIME / VALIDITY</label><input id="claimTime" placeholder="as-of / event time / unknown"></div>
+    <div class="field"><label>NEXT EVIDENCE</label><input id="nextEvidence" placeholder="report / exact date / image / person / measurement"></div>
+  </div>
+  <div class="field" style="border:1px solid var(--line);border-top:0"><label>SOURCE EXCERPT / RETURN CUE</label><textarea id="excerpt" placeholder="Short exact excerpt or cue that lets a later worker verify the claim."></textarea></div>
+  <div class="actions"><button id="addClaim" class="primary">ADD CLAIM</button></div>
+</div>
+<div id="claims" class="list" style="margin-top:7px"></div>
+</section>
+
+<section class="section">
+<div class="head"><div><b>04 / STEP BACK</b><span>review the unfinished composition before deriving forward</span></div><button id="runReview">REVIEW NOW</button></div>
+<div class="review">
+  <div class="metric"><b>SOURCES</b><strong id="mSources">0</strong></div>
+  <div class="metric"><b>GROUNDED FACTS</b><strong id="mGrounded">0</strong></div>
+  <div class="metric warn"><b>UNKNOWNS</b><strong id="mUnknown">0</strong></div>
+  <div class="metric warn"><b>CONFLICT / HOLD</b><strong id="mConflict">0</strong></div>
+  <div class="metric bad"><b>CONTAMINATION RISKS</b><strong id="mRisk">0</strong></div>
+</div>
+<div class="reviewtext"><ul id="reviewList"><li>No review yet.</li></ul></div>
+</section>
+
+<section class="section">
+<div class="head"><div><b>05 / RETURN</b><span>compact handoff; original source remains inside the case JSON</span></div><span class="privacy">PUBLIC CODE · PRIVATE LOCAL DATA</span></div>
+<div id="handoff" class="output">Add case state, then build a handoff.</div>
+<div class="actions">
+  <button id="buildHandoff" class="primary">BUILD HANDOFF</button>
+  <button id="copyHandoff">COPY HANDOFF</button>
+  <button id="humanPort">OPEN HUMAN PORT →</button>
+  <a href="../field-intake/" style="text-decoration:none"><button type="button">FIELD INTAKE →</button></a>
+  <a href="../control/confluence/RETRIEVAL_CANON.md" style="text-decoration:none"><button type="button">PROTOCOL →</button></a>
+</div>
+</section>
+
+<footer><span>CONTINUITY / CASE 0.1 · SOURCE IS NEVER REPLACED BY THE STORY ABOUT IT</span><span>FIELD INDEX · CONFLUENCE · HUMAN PORT · RETURN</span></footer>
+
+<script>
+(()=>{'use strict';
+const KEY='0xxx0.continuity.case.v01';
+const $=s=>document.querySelector(s);
+let current=null;
+const now=()=>new Date().toISOString();
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const id=prefix=>prefix+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7);
+const blank=()=>({schema:'0xxx0/continuity-case/v0.1',id:id('case'),created_at:now(),updated_at:now(),subject:'',kind:'PERSON',domain:'HEALTH',reflection:'',anchors:[],sources:[],claims:[],review:null});
+const store=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(_){return{}}};
+const writeStore=o=>localStorage.setItem(KEY,JSON.stringify(o));
+function sourceLabel(s){return (s.ref||s.type||s.id)+(s.time?' · '+s.time:'')}
+function pullForm(){
+ current.subject=$('#subject').value.trim();
+ current.kind=$('#kind').value;
+ current.domain=$('#domain').value;
+ current.reflection=$('#reflection').value.trim();
+ current.anchors=$('#anchors').value.split(',').map(x=>x.trim()).filter(Boolean);
+ current.updated_at=now();
+}
+function pushForm(){
+ $('#subject').value=current.subject||'';$('#kind').value=current.kind||'PERSON';$('#domain').value=current.domain||'HEALTH';
+ $('#reflection').value=current.reflection||'';$('#anchors').value=(current.anchors||[]).join(', ');
+ $('#caseIdView').textContent=current.id||'UNSAVED';
+}
+function renderCaseList(){
+ const db=store(), sel=$('#caseList'), ids=Object.keys(db).sort((a,b)=>String(db[b].updated_at||'').localeCompare(String(db[a].updated_at||'')));
+ sel.innerHTML='<option value="">CURRENT / UNSAVED</option>'+ids.map(k=>'<option value="'+esc(k)+'">'+esc((db[k].subject||'untitled')+' · '+(db[k].domain||'OTHER'))+'</option>').join('');
+ if(db[current?.id]) sel.value=current.id;
+}
+function renderSources(){
+ const root=$('#sources');$('#sourceCount').textContent=(current.sources||[]).length+' SOURCES';
+ root.innerHTML=(current.sources||[]).map(s=>'<div class="item"><div class="itemtop"><b>'+esc(sourceLabel(s))+'</b><span class="meta">'+esc(s.type)+' · '+esc(s.id)+'</span></div><div class="claim">'+esc(s.text)+'</div></div>').join('')||'<div class="item meta">No source fragments yet.</div>';
+ const sel=$('#claimSource');sel.innerHTML='<option value="">— no source selected —</option>'+(current.sources||[]).map(s=>'<option value="'+esc(s.id)+'">'+esc(sourceLabel(s))+'</option>').join('');
+}
+function renderClaims(){
+ $('#claimCount').textContent=(current.claims||[]).length+' CLAIMS';
+ $('#claims').innerHTML=(current.claims||[]).map(c=>{
+  const src=current.sources.find(s=>s.id===c.source_id);
+  return '<div class="item"><div class="itemtop"><b>'+esc(c.lane)+'</b><span class="meta">'+esc(c.time||'time ?')+' · '+esc(c.confidence)+'</span></div><div class="claim">'+esc(c.text)+'</div><div class="tags"><span class="tag '+esc(c.lane)+'">'+esc(c.lane)+'</span><span class="tag '+esc(c.provenance)+'">'+esc(c.provenance)+'</span>'+(src?'<span class="tag">↩ '+esc(src.ref||src.id)+'</span>':'')+(c.next_evidence?'<span class="tag">NEXT '+esc(c.next_evidence)+'</span>':'')+'</div>'+(c.excerpt?'<div class="excerpt">'+esc(c.excerpt)+'</div>':'')+'</div>';
+ }).join('')||'<div class="item meta">No claims yet.</div>';
+}
+function review(){
+ pullForm();
+ const cs=current.claims||[], ss=current.sources||[];
+ const grounded=cs.filter(c=>c.lane==='FACT'&&['SOURCE','REPORTED'].includes(c.provenance)&&c.source_id).length;
+ const unknown=cs.filter(c=>c.lane==='UNKNOWN').length;
+ const conflict=cs.filter(c=>['CONFLICT','HOLD'].includes(c.lane)).length;
+ const risks=[];
+ cs.forEach((c,i)=>{
+   if(c.lane==='FACT'&&['ASSISTANT_INFERENCE','CURRENT_INFERENCE'].includes(c.provenance)) risks.push('FACT '+(i+1)+' is inference promoted into the fact lane.');
+   if(c.lane==='FACT'&&!c.source_id) risks.push('FACT '+(i+1)+' has no source return path.');
+   if(['SOURCE','REPORTED'].includes(c.provenance)&&!c.source_id) risks.push('Claim '+(i+1)+' says '+c.provenance+' but does not point to a stored source.');
+   if(c.lane==='UNKNOWN'&&!c.next_evidence) risks.push('UNKNOWN '+(i+1)+' has no next-evidence route.');
+ });
+ const notes=[];
+ if(!current.subject) notes.push('Subject address is missing.');
+ if(!current.reflection) notes.push('No reflected question/intent yet; acceptable for pure archival intake, weak for decision handoff.');
+ if(!(current.anchors||[]).length) notes.push('No high-information anchors recorded.');
+ if(!ss.length) notes.push('No raw source survives the compression yet.');
+ if(cs.length>=5&&!unknown&&!conflict) notes.push('The case is unusually coherent: run an adversarial omission/contradiction pass before deriving.');
+ if(conflict) notes.push(conflict+' conflict/anti-merge hold(s) remain intentionally unresolved.');
+ if(unknown) notes.push(unknown+' unknown(s) remain; rank by information gain before more generic research.');
+ if(!risks.length&&ss.length&&cs.length) notes.push('No obvious provenance contamination found by the local rule set.');
+ notes.push(...risks);
+ current.review={at:now(),grounded,unknown,conflict,risks:risks.length,notes};
+ $('#mSources').textContent=ss.length;$('#mGrounded').textContent=grounded;$('#mUnknown').textContent=unknown;$('#mConflict').textContent=conflict;$('#mRisk').textContent=risks.length;
+ $('#reviewList').innerHTML=notes.map(x=>'<li>'+esc(x)+'</li>').join('');
+ return current.review;
+}
+function handoff(){
+ pullForm();const r=review(), cs=current.claims||[];
+ const lines=['CASE / CONTINUITY','SUBJECT '+(current.subject||'?')+' · '+current.kind+' · '+current.domain,'AS OF '+current.updated_at];
+ if(current.reflection)lines.push('REFLECT '+current.reflection);
+ if(current.anchors.length)lines.push('ANCHORS '+current.anchors.join(' · '));
+ const lane=name=>cs.filter(c=>c.lane===name);
+ const emit=(title,xs)=>{if(xs.length){lines.push('',title);xs.forEach(c=>lines.push('- '+c.text+' ['+c.provenance+(c.confidence?' / '+c.confidence:'')+']'))}};
+ emit('KNOWN',lane('FACT'));emit('CONFLICT',lane('CONFLICT'));emit('ANTI-MERGE HOLDS',lane('HOLD'));emit('SUPERSEDED',lane('SUPERSEDED'));emit('UNKNOWN',lane('UNKNOWN'));
+ const next=[...new Set(cs.map(c=>c.next_evidence).filter(Boolean))];if(next.length){lines.push('','NEXT EVIDENCE');next.forEach(x=>lines.push('- '+x))}
+ lines.push('','STEP BACK '+r.grounded+' grounded · '+r.unknown+' unknown · '+r.conflict+' conflict/hold · '+r.risks+' contamination risk');
+ lines.push('RETURN original sources preserved in local/exported case JSON · '+current.id);
+ const out=lines.join('\n');$('#handoff').textContent=out;return out;
+}
+function render(){pushForm();renderSources();renderClaims();renderCaseList();if(current.review)review()}
+$('#newCase').onclick=()=>{current=blank();render();$('#caseList').value=''};
+$('#saveCase').onclick=()=>{pullForm();review();const db=store();db[current.id]=current;writeStore(db);renderCaseList();$('#saveCase').textContent='SAVED ✓';setTimeout(()=>$('#saveCase').textContent='SAVE LOCAL',1200)};
+$('#caseList').onchange=e=>{const db=store();if(e.target.value&&db[e.target.value]){current=db[e.target.value];render()}};
+$('#addSource').onclick=()=>{const text=$('#sourceText').value.trim();if(!text)return;current.sources.push({id:id('src'),ref:$('#sourceRef').value.trim(),time:$('#sourceTime').value.trim(),type:$('#sourceType').value,text,added_at:now()});$('#sourceText').value='';$('#sourceRef').value='';$('#sourceTime').value='';renderSources();review()};
+$('#addClaim').onclick=()=>{const text=$('#claimText').value.trim();if(!text)return;current.claims.push({id:id('clm'),lane:$('#lane').value,provenance:$('#provenance').value,confidence:$('#confidence').value,text,source_id:$('#claimSource').value||null,time:$('#claimTime').value.trim(),next_evidence:$('#nextEvidence').value.trim(),excerpt:$('#excerpt').value.trim(),added_at:now()});$('#claimText').value='';$('#claimTime').value='';$('#nextEvidence').value='';$('#excerpt').value='';renderClaims();review()};
+$('#runReview').onclick=review;$('#buildHandoff').onclick=handoff;
+$('#copyHandoff').onclick=async()=>{const t=handoff();try{await navigator.clipboard.writeText(t);$('#copyHandoff').textContent='COPIED ✓';setTimeout(()=>$('#copyHandoff').textContent='COPY HANDOFF',1200)}catch(_){window.prompt('Copy handoff',t)}};
+$('#humanPort').onclick=()=>{const t=handoff();location.href='../contact/?mode=REPLY&draft='+encodeURIComponent(t.slice(0,1200))};
+$('#exportBtn').onclick=()=>{pullForm();review();const blob=new Blob([JSON.stringify(current,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(current.subject||'continuity-case').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'-'+current.id+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+$('#importBtn').onclick=()=>$('#importFile').click();
+$('#importFile').onchange=e=>{const f=e.target.files&&e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const j=JSON.parse(rd.result);if(!j||!Array.isArray(j.sources)||!Array.isArray(j.claims))throw new Error('invalid case');current=j;render()}catch(err){alert('Import failed: '+err.message)}};rd.readAsText(f)};
+current=blank();render();
+})();
+</script>
+<script src="/showcase-nav.js"></script>
+</main></body></html>
