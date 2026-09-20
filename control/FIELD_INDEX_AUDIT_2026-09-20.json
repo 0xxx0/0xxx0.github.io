@@ -2,19 +2,24 @@
   "schema": "0xxx0/field-index-audit/v0.1",
   "date": "2026-09-20",
   "manifest_routes": {
-    "total": 62,
-    "ok": 62,
+    "total": 64,
+    "ok": 64,
     "missing": []
   },
   "internal_path_references": {
-    "total": 122,
-    "ok": 122,
+    "total": 127,
+    "ok": 127,
     "missing": []
   },
   "html_surface_coverage": {
-    "repo_html_files": 63,
-    "manifest_addressed": 59,
+    "repo_html_files": 70,
+    "manifest_addressed": 61,
     "underindexed": [
+      "recovery/kala/ancient-kala-test-2020.html",
+      "recovery/kala/old-kala-0-room-2018.html",
+      "recovery/poly-furnisher/interphase-lineage/interphase-2020.html",
+      "recovery/poly-furnisher/interphase-lineage/proto1-terse-2020.html",
+      "recovery/poly-furnisher/interphase-lineage/rotating-cylinder-2019.html",
       "recovery/poly-furnisher/room-lineage/EMPTY3-RF.html",
       "recovery/poly-furnisher/room-lineage/FU5X2.html",
       "recovery/poly-furnisher/room-lineage/scratch.html",
@@ -23,8 +28,40 @@
   },
   "intentional_exclusions": [
     {
+      "path": "recovery/kala/ancient-kala-test-2020.html",
+      "reason": "raw exact recovery payload owned by a parent recovery route; not promoted as an independent Field Index surface"
+    },
+    {
+      "path": "recovery/kala/old-kala-0-room-2018.html",
+      "reason": "raw exact recovery payload owned by a parent recovery route; not promoted as an independent Field Index surface"
+    },
+    {
+      "path": "recovery/poly-furnisher/interphase-lineage/interphase-2020.html",
+      "reason": "raw exact recovery payload owned by a parent recovery route; not promoted as an independent Field Index surface"
+    },
+    {
+      "path": "recovery/poly-furnisher/interphase-lineage/proto1-terse-2020.html",
+      "reason": "raw exact recovery payload owned by a parent recovery route; not promoted as an independent Field Index surface"
+    },
+    {
+      "path": "recovery/poly-furnisher/interphase-lineage/rotating-cylinder-2019.html",
+      "reason": "raw exact recovery payload owned by a parent recovery route; not promoted as an independent Field Index surface"
+    },
+    {
+      "path": "recovery/poly-furnisher/room-lineage/EMPTY3-RF.html",
+      "reason": "raw exact recovery payload owned by a parent recovery route; not promoted as an independent Field Index surface"
+    },
+    {
+      "path": "recovery/poly-furnisher/room-lineage/FU5X2.html",
+      "reason": "raw exact recovery payload owned by a parent recovery route; not promoted as an independent Field Index surface"
+    },
+    {
+      "path": "recovery/poly-furnisher/room-lineage/scratch.html",
+      "reason": "raw exact recovery payload owned by a parent recovery route; not promoted as an independent Field Index surface"
+    },
+    {
       "path": "recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html",
-      "reason": "raw recovered payload linked through /recovery/rsvp/; not a separate promoted/indexed instrument"
+      "reason": "raw exact recovery payload owned by a parent recovery route; not promoted as an independent Field Index surface"
     }
   ],
   "repaired_this_pass": [
@@ -45,7 +82,11 @@
     "POLY/FURNISHER exact 2019–2021 evidence family frozen and indexed: KRAKEN, proto-kernel, SINDERESIS/PRELUDE notes, FUN/MVP/tiny-prelude contraction sequence.",
     "Root /migration/ Salvage Yard created as human recovery home; /control/migration/ retained as ledger.",
     "Migration thread charter added with evidence classes, promotion gate, quarantine/attic semantics and excursion return contract.",
-    "FU5X2 / EMPTY3-RF / scratch exact room-lineage representatives frozen; one duplicate copy of each byte-verified by Git blob SHA."
+    "FU5X2 / EMPTY3-RF / scratch exact room-lineage representatives frozen; one duplicate copy of each byte-verified by Git blob SHA.",
+    "KALA 2018/2020 exact desktop-character variants recovered and parent-routed.",
+    "Interphase/cylinder 2019–2020 exact representative variants frozen; duplicate backups collapsed.",
+    "Quarantine/attic receipt established for generic shells, third-party audio examples and weak-provenance candidates.",
+    "Migration hierarchy clarified: /migration/ human home → /control/migration/ ledger → /recovery/ vault → Field Index promotion."
   ],
   "stop_rule": "Do not add a route merely for completeness; address runnable/support surfaces and preserve raw payloads as assets when their parent recovery route already owns them."
 }
