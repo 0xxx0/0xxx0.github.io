@@ -74,6 +74,14 @@ $('#traceBtn').onclick=renderTrace;$('#clearBtn').onclick=()=>{['raw','observed'
 $('#toLaconic').onclick=()=>{const p=last||build();try{sessionStorage.setItem('laconic.handoff.v01',JSON.stringify({raw:p.raw,observed:p.observed,possible:p.possible.map(x=>x.reading),unresolved:p.unresolved,moves:p.move_set,created_at:new Date().toISOString()}));location.assign('../../laconic/')}catch(_){location.assign('../../laconic/')}};
 $('#packBtn').onclick=build;$('#copyBtn').onclick=()=>copy(JSON.stringify(last||build(),null,2),$('#copyBtn'));
 $('#downloadBtn').onclick=()=>{const t=JSON.stringify(last||build(),null,2),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'application/json'}));a.download='human-port-interpretation-0I1.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
+function consumePortIntake(){
+ try{
+  const raw=sessionStorage.getItem('human.port.interpret.handoff.v01');if(!raw)return;
+  sessionStorage.removeItem('human.port.interpret.handoff.v01');
+  const h=JSON.parse(raw);if(h&&typeof h.raw==='string'){$('#raw').value=h.raw.slice(0,12000);$('#mode').value='burst';renderTrace();}
+ }catch(_){}
+}
 if(new URLSearchParams(location.hash.slice(1)).get('mode')==='burst')$('#mode').value='burst';
+consumePortIntake();
 })();
 </script></main></body></html>
