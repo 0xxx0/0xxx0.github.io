@@ -3660,6 +3660,70 @@
           "OPERATE"
         ]
       }
+    },
+    {
+      "href": "/field-play.html",
+      "title": "FIELD / PLAY",
+      "kind": "workbench",
+      "parent": "/",
+      "family": "FIELD / PARTICIPATION",
+      "operation": "VERIFY",
+      "state": "ACTIVE",
+      "version": "0.1",
+      "receipt": "/field-play.release.json",
+      "showcase_card": false,
+      "role": "Public-safe contributor mission deck derived from declared FIELD proof/recovery/interface gaps. One bounded move → evidence-bearing RETURN; no private access, auto-write, scoring authority or autoplay.",
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "public-safe unresolved FIELD gap"
+          ],
+          "requires": [
+            "manifest address",
+            "named gap/proof/interface"
+          ],
+          "optional": [
+            "human observation",
+            "bounded artifact"
+          ]
+        },
+        "transforms": {
+          "verb": "select one bounded mission and package its RETURN",
+          "preserves": [
+            "target address",
+            "gap status",
+            "authority boundary"
+          ],
+          "reversibility": "full",
+          "side_effects": "browser-local return counter only"
+        },
+        "emits": {
+          "kinds": [
+            "field-game-mission/v0.1",
+            "field-game-return/v0.1"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/field-play.release.json",
+          "checks": [
+            "mission deck derived from manifest",
+            "public-sensitive routes excluded",
+            "no network write"
+          ],
+          "return_path": "/field-play.html"
+        }
+      },
+      "index": {
+        "updated_at": "2026-09-21T03:10:00+08:00",
+        "work_modes": [
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY",
+          "RELEASE"
+        ]
+      }
     }
   ],
   "release_law": [
@@ -3850,7 +3914,9 @@
       "STRUCTURE",
       "RECENT"
     ],
-    "pulse_donor": "/control/confluence/FIELD_INDEX_DATADISC_GRAFT_2026-09-21.json"
+    "pulse_donor": "/control/confluence/FIELD_INDEX_DATADISC_GRAFT_2026-09-21.json",
+    "play": "/field-play.html",
+    "play_law": "Mission selection is participation, not authority: public-safe gap → one bounded move → evidence → RETURN → explicit review/replan."
   },
   "policy_trace_verification": "/policy-trace-verification.json",
   "policy_trace_event_model": "/policy-trace-event-model.json",
