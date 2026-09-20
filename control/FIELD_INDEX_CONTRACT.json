@@ -45,6 +45,22 @@
   "ui_contract": {
     "root_running": "show updated order by default; allow manifest-order fallback; display last work_modes and touch date",
     "corner_nav": "shared showcase route adapter remains the canonical BACK/PARENT/SHOWCASE control on tracked non-root routes",
-    "style": "presentation/theme controls are a separate cross-site concern and must not alter semantic ordering/state"
+    "style": "presentation/theme controls are a separate cross-site concern and must not alter semantic ordering/state",
+    "root_frontier": "Derive BOTTLENECKS live from route.field.exit_paths; never maintain a duplicate hand-written backlog of the same exits."
+  },
+  "query_semantics": {
+    "BOTTLENECK": {
+      "status": "EXECUTABLE_ON_ROOT",
+      "source": "showcase-manifest route.field.exit_paths",
+      "rule": "Return every declared exit whose status is not AVAILABLE. Filtering never changes route or evidence state.",
+      "returns": [
+        "route",
+        "exit class",
+        "status",
+        "via",
+        "physical_fit"
+      ],
+      "non_claim": "Unresolved exit status exposes interface/proof debt; it is not an automatic priority ranking or evidence that an adapter works."
+    }
   }
 }
