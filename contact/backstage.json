@@ -1,0 +1,49 @@
+{
+  "schema": "human-port-backstage/v0.1",
+  "purpose": "Preserve the making-history of artifacts: weird turns, jokes, accidental names, corrections, discoveries and compact human/AI exchanges that explain how a thing actually emerged.",
+  "default_visibility": "LOCAL_PRIVATE",
+  "laws": [
+    "PRIVATE BY DEFAULT",
+    "CURATE, DO NOT DUMP CHAT LOGS",
+    "EXACT QUOTE REQUIRES EXACT SOURCE",
+    "PARAPHRASE MUST SAY PARAPHRASE",
+    "JOKE != DECISION",
+    "A FUNNY MOMENT MAY STILL BE A DESIGN DONOR",
+    "PRESERVE WHAT CHANGED THE ARTIFACT",
+    "DO NOT PUBLISH OTHER PEOPLE'S PRIVATE WORDS WITHOUT AUTHORITY"
+  ],
+  "entry_types": [
+    "TURN",
+    "JOKE",
+    "ACCIDENTAL_NAME",
+    "CORRECTION",
+    "DISCOVERY",
+    "DESIGN_SHIFT",
+    "FAILED_BRANCH",
+    "RETURN"
+  ],
+  "entry_fields": [
+    "id",
+    "artifact_ref",
+    "type",
+    "speaker_label",
+    "text",
+    "source_class",
+    "source_ref_optional",
+    "why_it_matters",
+    "tags",
+    "visibility"
+  ],
+  "source_classes": [
+    "EXACT",
+    "PARAPHRASE",
+    "RECONSTRUCTED"
+  ],
+  "visibility": [
+    "LOCAL_PRIVATE",
+    "CAPSULE_PRIVATE",
+    "PUBLIC_CURATED"
+  ],
+  "projection": "A scrolling conversational marginalia layer beside/behind an artifact, not the artifact's primary interface.",
+  "promotion_rule": "Only curated entries explicitly marked PUBLIC_CURATED may enter a public artifact history."
+}
