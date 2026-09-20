@@ -1,0 +1,31 @@
+{
+  "schema": "release-receipt/v1",
+  "title": "FOUNDRY / INSTRUMENT GATEWAY",
+  "version": "0.2",
+  "state": "ACTIVE",
+  "date": "2026-09-20",
+  "route": "/foundry/",
+  "parent": "/",
+  "operation": "ORIENT",
+  "claim": "A small public gateway separates slow orientation, runnable instruments, proof surfaces and exact recovery donors while live priority remains delegated to /control/CURRENT.json.",
+  "live_state": "/control/CURRENT.json",
+  "slow_center": "/foundry/core/",
+  "recovery_home": "/migration/",
+  "recovery_vault": "/recovery/",
+  "known_limits": [
+    "The gateway is navigation/orientation, not runtime authority.",
+    "A linked donor is not thereby promoted to current head or canon.",
+    "CURRENT.json may change independently of this static route map.",
+    "Public recovery routes are scrubbed projections; private source/context may remain elsewhere."
+  ],
+  "receipt": {
+    "change": "Replaced the legacy flat menu with ORIENT / OPERATE / PROVE / RECOVER strata and a live CURRENT front strip.",
+    "preserves": [
+      "existing canonical Foundry instruments",
+      "slow-model/live-control separation",
+      "donor/head distinction",
+      "GitHub Pages static operation"
+    ],
+    "next": "Use route-specific receipts and CURRENT/FIELD INDEX rather than adding more cards unless a distinct public function is missing."
+  }
+}
