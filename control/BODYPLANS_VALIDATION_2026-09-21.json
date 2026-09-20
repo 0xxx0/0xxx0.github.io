@@ -1,0 +1,45 @@
+{
+  "schema": "0xxx0/bodyplans-validation/v0.1",
+  "at": "2026-09-21T01:35:00+08:00",
+  "artifact": "/bodyplans/",
+  "result": "PASS_STATIC_CONTRACT",
+  "checks": {
+    "registry_js_syntax": "PASS",
+    "inspector_js_syntax": "PASS",
+    "registry_json_parse": "PASS",
+    "geometry_versions_present": true,
+    "unique_region_ids_per_view": true,
+    "standalone_svg_counts_match_registry": true,
+    "no_remote_image_or_svg_dependency": true,
+    "full_third_party_mit_notices": true
+  },
+  "plan_counts": {
+    "human-reference-m": {
+      "front": 89,
+      "back": 70
+    },
+    "human-reference-f": {
+      "front": 92,
+      "back": 66
+    },
+    "feline-reference": {
+      "left": 18,
+      "right": 18
+    }
+  },
+  "geometry_versions": {
+    "human-reference-m": "sha1:7b84075be7ab35575baf3c2f8ad8fb731c664890",
+    "human-reference-f": "sha1:7b84075be7ab35575baf3c2f8ad8fb731c664890",
+    "feline-reference": "project:feline-v0.1"
+  },
+  "source_pin": {
+    "repo": "eslamelfateh/react-native-body-parts-anatomy",
+    "commit": "0935ce05a0d0bdad371b16d295ae4526a38ecd44",
+    "blob": "7b84075be7ab35575baf3c2f8ad8fb731c664890"
+  },
+  "open_gaps": [
+    "no robot body plan yet",
+    "feline map has not been externally validated as an anatomical atlas",
+    "no personal-body registration layer yet"
+  ]
+}
