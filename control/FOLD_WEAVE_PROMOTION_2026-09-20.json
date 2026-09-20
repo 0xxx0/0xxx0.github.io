@@ -1,0 +1,38 @@
+{
+  "schema": "0xxx0/mechanism-promotion/v0.1",
+  "id": "FOLD-WEAVE-PROMOTION-2026-09-20-A",
+  "date": "2026-09-20",
+  "head": "/fold-bloom/ecology/",
+  "donor": "/recovery/fold-bloom/fold-weave-0.1/",
+  "comparison": {
+    "ecology": {
+      "fold_topology": "FIXED_MIRROR",
+      "persistence": "No authored fold relation is written by play. FOLD checks (start + N/2) % N on each resolution.",
+      "traversal": "When FOLD is live, a same-type opposite cell may join. CASCADE then breadth-first traverses current gene neighborSet over same-type cells.",
+      "strength": "Very legible and predictable; integrates cleanly with Ecology's richer breeding, memory, Garden and gene-topology systems."
+    },
+    "fold_weave": {
+      "fold_topology": "AUTHORED_PERSISTENT_CREASE",
+      "persistence": "foldAnchors[type] stores the last valid authored crease endpoint for each symbol family; CREASE_SET and CREASE_BREAK make changes explicit and RETURN preserves anchors.",
+      "traversal": "predictWeave starts at the current bloom, adds the valid authored anchor as an explicit fold edge, then CASCADE begins from all reached nodes. Past play therefore changes future reachable topology.",
+      "failure_behavior": "Anchors break when their cell changes type by DRIFT or RETURN mutation rather than silently pointing at invalid state.",
+      "strength": "Turns FOLD from a static symmetry rule into player-authored graph memory; predictive graph and crease echoes make the causal path inspectable."
+    }
+  },
+  "decision": {
+    "promote": "AUTHORED_CREASE_TOPOLOGY_KERNEL",
+    "tier": "EXPERIMENTAL_SELECTABLE_MODE",
+    "do_not_promote": "Fold Weave donor wholesale; do not replace Ecology's stable MIRROR default yet.",
+    "minimal_transfer": [
+      "foldAnchors per symbol family",
+      "validFoldAnchor",
+      "predictWeave explicit fold/cascade edges",
+      "CREASE_SET / CREASE_BREAK events",
+      "RETURN preservation of anchors",
+      "crease forecast/echo sufficient to make causality legible"
+    ],
+    "rationale": "This mechanism adds a missing capability—player-authored persistent topology—without requiring the donor's whole app. It changes causal law, so default promotion still requires direct comparative play evidence."
+  },
+  "promotion_gate": "Add MIRROR / CREASE as explicit testable alternatives in a lab/experimental mode. Make CREASE default only after a direct playtest shows better agency/replay without materially degrading flow, legibility or ecology.",
+  "status": "PROMOTE_MECHANISM_EXPERIMENTALLY_NOT_DEFAULT"
+}
