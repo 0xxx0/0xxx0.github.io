@@ -1,0 +1,97 @@
+{
+  "schema": "0xxx0/recovery/poly-furnisher/v0.1",
+  "status": "EXACT_FROZEN_CORE_EVIDENCE_FAMILY",
+  "recovered_at": "2026-09-20",
+  "thesis": "Preserve the historical executable organisms and intent/contraction evidence before any new POLY/FURNISHER implementation.",
+  "exact_sources": [
+    {
+      "year": 2019,
+      "name": "KRAKEN browser organism",
+      "route": "/recovery/poly-furnisher/kraken-2019/",
+      "drive_id": "1qYEoY7ZPXewgNNAxlQAnGBj9iBUnOllN",
+      "size_bytes": 27487,
+      "sha256": "80437ca2b2cbed50ec38ef7e6823136170b3c83ba0ffa8bbd90f9866d0d27b90",
+      "role": "golden executable fossil"
+    },
+    {
+      "year": 2019,
+      "name": "NotesforDraftofSINDERESIS.md",
+      "route": "/recovery/poly-furnisher/evidence/NotesforDraftofSINDERESIS.md",
+      "drive_id": "1T5oueqjCCSigWmdu9s2qI3bV-eiQKVTi",
+      "size_bytes": 50470,
+      "sha256": "604d843c8ac5de6f7016dad451b7da0f36d1ad6d2fcaa3041fcb27e62bed8255",
+      "role": "formal/intention layer"
+    },
+    {
+      "year": 2019,
+      "name": "FUN.js",
+      "route": "/recovery/poly-furnisher/evidence/FUN.js",
+      "drive_id": "1UZnoKhF402IsLTcWBbDfeB2DBzWERXt9",
+      "size_bytes": 21673,
+      "sha256": "420a95cf4cefb4e24b6446d1c1fb71c7a44e2c865c72b5a0a38389c7dfe9841f",
+      "role": "broad functional nucleus"
+    },
+    {
+      "year": 2020,
+      "name": "IMPT xducers/matrix/lenses proto-kernel",
+      "route": "/recovery/poly-furnisher/proto-kernel-2020/",
+      "drive_id": "1cpuRBcRYr9f6674oZ0Arng6ZeVY9rgt7",
+      "size_bytes": 31889,
+      "sha256": "11b4f72e9e742ceb2ba52cbc20c39c8bba889e515167d1752e5e72d52502c8b4",
+      "role": "closest integrated proto-kernel before formal cleanup"
+    },
+    {
+      "year": 2020,
+      "name": "mvp.js",
+      "route": "/recovery/poly-furnisher/evidence/mvp.js",
+      "drive_id": "1FWsfaQXX7d4zZjijR2hGFJZ9NrpDH7HS",
+      "size_bytes": 17309,
+      "sha256": "ee70a213c22312333e2ee400e4a21e0ee53113f7a170c19fcf97a8a277d9eac1",
+      "role": "INPUT→XFORM→FOCUS→OUTPUT contraction evidence"
+    },
+    {
+      "year": 2020,
+      "name": "PRELUDE-DRAFT-NOTES.md",
+      "route": "/recovery/poly-furnisher/evidence/PRELUDE-DRAFT-NOTES.md",
+      "drive_id": "1LpG4gp7mbDgRm1s7z-quyn1XmNnOE-bn",
+      "size_bytes": 44806,
+      "sha256": "c7385f746af1752f901555057edf0e25327e8362a2f28fd0ee35e9372ef03e16",
+      "role": "cognitive/interface intent and FURNISHER vocabulary"
+    },
+    {
+      "year": 2021,
+      "name": "prelude.js",
+      "route": "/recovery/poly-furnisher/evidence/prelude.js",
+      "drive_id": "1UshUHfYgTazMZak09StEkXazVWTaY1mU",
+      "size_bytes": 802,
+      "sha256": "3cabcab34e130b834bb3df925b6d8558f71a11f88f0330e39d73d7041e805a87",
+      "role": "smallest historical contraction"
+    }
+  ],
+  "companion_interpretive_spec": {
+    "name": "poly-furnisher-v0-survey-spec.md",
+    "location": "ChatGPT File Library",
+    "repo_exact_bytes": "NOT_MIRRORED",
+    "role": "2026 archaeological synthesis: treats FURNISHER, DataDisc, room/cube, RSVP, fan/radial, verse/audio/physical fold as unequal interpreters/projections; identifies KRAKEN as golden fixture and explicit Host capability packaging as surviving mechanism.",
+    "rule": "Use to interpret the fossils, but do not confuse later synthesis with 2019–2021 source evidence."
+  },
+  "chronology": [
+    "2019 broad functional laboratory: FUN / recursion schemes / transducers / lenses / state / room / KRAKEN",
+    "2020 contraction: flow / store / xduce / Lens+Iso / DOM / INPUT→XFORM→FOCUS→OUTPUT",
+    "2021 tiny PRELUDE + proposed core/sight/sound/data/compact decomposition"
+  ],
+  "preservation_rule": "Never modernize the exact fossils in place. Any new implementation is a descendant/projection and must keep these byte-verified sources untouched.",
+  "audio_candidate_review": {
+    "rejected": [
+      "Tone.html",
+      "Tone2.html",
+      "Tone3.html",
+      "Midi.html"
+    ],
+    "reason": "Saved Arduino documentation pages, not project-lineage instruments.",
+    "held": [
+      "0-sound.js"
+    ],
+    "reason_held": "Runnable WebAudio keyboard example but provenance as a project-specific organism is not established; do not promote on filename alone."
+  }
+}
