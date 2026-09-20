@@ -2,9 +2,9 @@
   "schema": "release-receipt/v1",
   "artifact": "CONTINUITY / CASE",
   "route": "/continuity/",
-  "version": "0.1",
-  "released": "2026-09-20",
-  "state": "EXPERIMENT",
+  "version": "0.2",
+  "released": "2026-09-21",
+  "state": "ACTIVE",
   "origin": "Retrieval/canonicalization pattern recovered during a private health-case reconstruction; private case content is not included.",
   "changes": [
     "created local-first generic case workbench for people, animals, house, devices and projects",
@@ -13,7 +13,11 @@
     "implements anti-merge holds and next-evidence fields",
     "adds STEP BACK review for missing return paths and inference contamination",
     "exports canonical JSON and compact HUMAN PORT handoff",
-    "keeps private data out of repository/server by design"
+    "keeps private data out of repository/server by design",
+    "added explicit FIELD INTAKE REVIEW handoff from reviewed CONTINUITY claims",
+    "encodes claims into poly.ingress/v0.4 capture grammar with stable claim IDs, case/source refs, lane/provenance/confidence notes and next-evidence cues",
+    "same-origin sessionStorage carries the handoff only; original raw sources remain in CONTINUITY/exported case JSON",
+    "FIELD INTAKE receives candidates only; canonical state still requires visible KEEP/REPLACE/REJECT resolution and APPLY"
   ],
   "checks": [
     "no form/network submission path exists",
@@ -22,13 +26,25 @@
     "HUMAN PORT transfer requires explicit button action",
     "review flags inference in FACT lane",
     "review flags SOURCE/REPORTED claims without stored source",
-    "raw source is retained in exported packet"
+    "raw source is retained in exported packet",
+    "CONTINUITY handoff contains derived reviewed claims rather than duplicating raw source archive",
+    "FIELD INTAKE handoff is same-origin/local and consumed once",
+    "handoff does not mutate Field Intake canonical state directly",
+    "existing Field Intake receipt/rollback gate remains authority"
   ],
   "open_gaps": [
-    "direct FIELD INTAKE canonical-packet import adapter",
     "encrypted private cross-device sync",
     "optional retrieval connector that can populate candidate sources without auto-promoting claims",
     "case-to-case relationship graph remains intentionally unimplemented"
   ],
-  "return": "/continuity/"
+  "return": "/continuity/",
+  "prior_release": {
+    "version": "0.1",
+    "released": "2026-09-20",
+    "state": "EXPERIMENT"
+  },
+  "current_classification": "ACTIVE",
+  "sources": [
+    "/continuity/field-intake-adapter.json"
+  ]
 }
