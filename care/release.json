@@ -1,0 +1,39 @@
+{
+  "schema": "release-receipt/v1",
+  "artifact": "CARE / FIELD",
+  "route": "/care/",
+  "version": "0.1",
+  "released": "2026-09-21",
+  "state": "EXPERIMENT",
+  "relation": "specialized CONTINUITY projection; BODYFIELD spatial capture donor; HUMAN PORT downstream handoff",
+  "changes": [
+    "compressed interaction to OBSERVE / FOLLOW / BRIEF",
+    "added human and animal spatial maps with tap/trace capture",
+    "added own-words-first observation and region-adaptive descriptive chips",
+    "added NEW/WORSE/SAME/BETTER longitudinal events",
+    "added event workflow status PLANNED/SCHEDULED/PERFORMED/RESULTED/REVIEWED/ACTED",
+    "separated interpretation from observation",
+    "added baseline/treatment/provider-plan/ASK/unknown case context",
+    "added BODYFIELD ledger and CONTINUITY case import paths",
+    "added CARE and CONTINUITY JSON exports",
+    "added concise clinician/vet brief and explicit HUMAN PORT handoff",
+    "added STEP BACK structural gap review"
+  ],
+  "checks": [
+    "no fetch/XHR/WebSocket/sendBeacon/form submission path",
+    "localStorage only after explicit SAVE LOCAL",
+    "brief generation cannot send without explicit HUMAN PORT/share action",
+    "interpretation stored separately from raw_note",
+    "workflow events can preserve status rather than collapsing planned and performed",
+    "BODYFIELD import does not fabricate interpretation",
+    "CONTINUITY import preserves unknowns and source-derived baseline as imported context"
+  ],
+  "open_gaps": [
+    "full 317-fragment BODYFIELD geometry remains in BODYFIELD; CARE uses compact tap/trace projection",
+    "no private image/file attachment store yet; source cue only",
+    "no clinician-authored adaptive question bank",
+    "no validated triage/urgency engine by design",
+    "no FHIR QuestionnaireResponse extraction yet; BODYFIELD FHIR bridge remains donor"
+  ],
+  "return": "/care/"
+}
