@@ -328,19 +328,20 @@
       "id": "rsvp-temporal-focus-2018",
       "name": "RSVP+TTS temporal-focus fixture (2018)",
       "family": "reading-attention-temporal",
-      "status": "IMPORT",
-      "source_type": "drive-recovered-exact",
+      "status": "LIVE_DONOR",
+      "source_type": "drive-recovered-exact-repo-frozen",
       "source_url": "https://drive.google.com/file/d/1gigXHdVmRrvaZUVhUI4GPqYzenGK4Nq9/view",
       "unique": "Historical runnable temporal-focus experiment with word segmentation, speech-boundary events, synchronized highlighting and scheduling/audio experiments; distinct from the later Galaxy Watch starter sketch.",
-      "action": "IMPORT one unchanged copy into recovery vault with source IDs/hash/duplicate proof; then mechanism-diff against current RSVP/Sleeper/Painting Path/JUE-JU before modern reader or Watch revival.",
-      "retrieval_state": "EXACT_RAW_PAIR_RECOVERED_BYTE_IDENTICAL_2026-09-20",
+      "action": "FROZEN EXACT DONOR. Mechanism-diff against current RSVP/Sleeper/Painting Path/JUE-JU before any modern phone/Wear OS reader revival.",
+      "retrieval_state": "IMPORTED_VERIFIED_2026-09-20",
       "source_ids": [
         "1gigXHdVmRrvaZUVhUI4GPqYzenGK4Nq9",
         "19AZV9gIksZ_Whplne3DCbu_nL4BenWsp"
       ],
       "size_bytes": 32183,
       "sha256": "2f0167930b5c1a19e43ad8b626b702db017d576f48644237f05d849ce87d627d",
-      "confluence": "/control/confluence/RSVP_RECOVERY.md"
+      "confluence": "/control/confluence/RSVP_RECOVERY.md",
+      "route": "/recovery/rsvp/"
     }
   ],
   "ingest_queue": [
@@ -351,7 +352,7 @@
     "GAME OF NAMES: locate isolated exact runnable/glyph artifact before public recovery; keep personal archive private.",
     "QUARANTINE: generic site shells stay out of primary surface unless a unique mechanism earns transfer.",
     "LAW ZOO: import exact five-machine suite as one family; preserve unequal children and anti-convergence boundaries.",
-    "RSVP: import one exact 2018 temporal-focus fixture, record duplicate proof, then mechanism-diff before any new Wear OS reader."
+    "RSVP: mechanism-diff frozen 2018 temporal-focus donor against current reading/learning surfaces before new Wear OS implementation."
   ],
   "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
   "last_mechanism_diff": "/control/MECHANISM_DIFF_2026-09-19.json"
