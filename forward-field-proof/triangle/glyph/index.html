@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0d1012">
+<title>Triangle Glyph Lab · 8-Locus Grammar</title>
+<style>
+:root{--bg:#0d1012;--p:#12171a;--p2:#0a0e10;--ink:#eef1ea;--muted:#839096;--line:#334047;--hot:#e56b3f;--cool:#67acd6;--green:#a8d58d;--gold:#d6ad63}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(12px,env(safe-area-inset-top)) 12px max(28px,env(safe-area-inset-bottom))}
+button,input{font:inherit;color:inherit;border-radius:0}.app{width:min(1180px,100%);margin:auto}
+header{display:grid;grid-template-columns:1fr minmax(280px,.6fr);gap:22px;align-items:end;padding:24px 0 12px;border-bottom:1px solid var(--line)}
+.ey{font-size:9px;letter-spacing:.16em;color:var(--hot)}h1{margin:5px 0 0;font:800 clamp(36px,7vw,74px)/.86 system-ui,-apple-system,sans-serif;letter-spacing:-.065em}
+.lead{color:#aeb6ba;font:11px/1.6 system-ui,-apple-system,sans-serif}.lead a{color:var(--cool);text-decoration:none;border-bottom:1px solid #375563}
+.law{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:10px 0}.law>div{background:var(--p2);padding:9px}.law b{display:block;font-size:9px;letter-spacing:.1em}.law span{display:block;margin-top:3px;color:var(--muted);font:8px/1.35 system-ui,-apple-system,sans-serif}
+.toolbar{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);overflow:auto}.presets,.tools{display:flex}.toolbar button{min-height:32px;border:1px solid var(--line);border-right:0;background:var(--p2);padding:6px 9px;font-size:8px;letter-spacing:.08em;cursor:pointer;white-space:nowrap}.toolbar button:last-child{border-right:1px solid var(--line)}.toolbar button.on{border-color:var(--cool);color:#d8f3ff}.toolbar button.mark{color:var(--gold)}.toolbar button.unk{color:var(--green)}
+.grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px}.pane{background:var(--p);padding:12px}
+.stage{min-height:610px;border:1px solid #263138;background:radial-gradient(circle at 50% 50%,#12181b 0,#0d1113 67%,#090c0e 100%);display:grid;place-items:center;position:relative;overflow:hidden}
+.stage svg{width:min(94%,760px);height:auto;touch-action:manipulation}.tri{fill:#0c1012;stroke:#526068;stroke-width:1.4}.edgehit{stroke:transparent;stroke-width:26;cursor:pointer}.edgevis{stroke:#536067;stroke-width:1.1}.corner{fill:#11171a;stroke:#6e7c82;stroke-width:1.2;cursor:pointer}.center{fill:#101518;stroke:#68767d;stroke-width:1.1;cursor:pointer}.outside{fill:none;stroke:#2e3a40;stroke-width:1;stroke-dasharray:5 7;cursor:pointer}.sel{stroke:var(--cool)!important;stroke-width:3!important}.marked{stroke:var(--gold)!important;stroke-width:3!important}.unknown{stroke:var(--green)!important;stroke-dasharray:4 3}.label{font:700 12px ui-monospace,monospace;fill:var(--ink);pointer-events:none}.value{font:17px ui-monospace,monospace;fill:#cdd4d6;pointer-events:none}.micro{font:8px ui-monospace,monospace;fill:var(--muted);pointer-events:none}.edgeLabel{font:9px ui-monospace,monospace;fill:#a8b2b6;pointer-events:none}.outsideLabel{font:9px ui-monospace,monospace;fill:#66747a;letter-spacing:.09em;pointer-events:none}
+.legend{position:absolute;left:9px;bottom:8px;font-size:8px;color:var(--muted);background:#0b0f11d9;padding:5px 7px;border-left:1px solid var(--line)}
+.editor h2{margin:0;font:700 18px system-ui,-apple-system,sans-serif}.locus{margin:4px 0 12px;color:var(--cool);font-size:8px;letter-spacing:.12em}.editor label{display:grid;gap:3px;margin:8px 0;color:var(--muted);font-size:8px}.editor input{width:100%;min-height:36px;border:1px solid var(--line);background:var(--p2);padding:7px}.row{display:grid;grid-template-columns:1fr 1fr;gap:6px}.editBtns{display:grid;grid-template-columns:repeat(3,1fr);gap:5px;margin:10px 0}.editBtns button{min-height:35px;border:1px solid var(--line);background:transparent;font-size:8px}.editBtns .onmark{border-color:var(--gold);color:var(--gold)}.editBtns .onunknown{border-color:var(--green);color:var(--green)}
+.readout{border-top:1px solid var(--line);margin-top:12px;padding-top:10px}.readout h3{margin:0 0 5px;font-size:9px;letter-spacing:.11em}.readout pre{white-space:pre-wrap;word-break:break-word;border:1px solid var(--line);background:var(--p2);padding:9px;min-height:48px;color:#cbd4d7;font-size:9px}.meaning{border-left:2px solid var(--cool);padding:8px 9px;background:#10171b;color:#aeb8bc;font:9px/1.5 system-ui,-apple-system,sans-serif}.meaning b{color:var(--ink)}
+.actionrow{display:flex;flex-wrap:wrap;gap:5px}.actionrow button{min-height:32px;border:1px solid var(--line);background:transparent;padding:6px 8px;font-size:8px}
+.note{margin-top:10px;color:#9d9582;border-left:2px solid var(--gold);padding:7px 9px;background:#14130f;font:9px/1.5 system-ui,-apple-system,sans-serif}
+footer{display:flex;justify-content:space-between;gap:10px;border-top:1px solid var(--line);margin-top:12px;padding-top:8px;color:#66747a;font-size:8px}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#11171a;border:1px solid var(--line);padding:7px 10px;opacity:0;pointer-events:none;transition:.15s}.toast.on{opacity:1}
+@media(max-width:780px){header{grid-template-columns:1fr}.law{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr}.stage{min-height:450px}.toolbar{align-items:flex-start}.tools{display:none}footer{display:block}footer span{display:block;margin-top:4px}}
+</style>
+</head>
+<body><div class="app">
+<header><div><div class="ey">TRIANGLE GLYPH LAB · EXPERIMENT 0.1</div><h1>THREE POINTS.<br>EIGHT LOCI.</h1></div><div class="lead">Treat the triangle as a compact relational glyph rather than only a simplex. Corners can hold entities; edges can hold transforms; the interior can hold a relation or unknown; the outside can hold context. <a href="../">← TRIANGLE BENCH</a></div></header>
+
+<div class="law">
+  <div><b>3 VERTICES</b><span>things / states / terms</span></div>
+  <div><b>3 EDGES</b><span>relations / transforms / constraints</span></div>
+  <div><b>1 INTERIOR</b><span>composition / delta / unknown</span></div>
+  <div><b>1 OUTSIDE</b><span>frame / domain / unmarked context</span></div>
+</div>
+
+<div class="toolbar"><div class="presets">
+<button data-preset="message">MESSAGE</button><button data-preset="return">RETURN</button><button data-preset="power">POWER</button><button data-preset="field">FIELD</button>
+</div><div class="tools"><button id="rotate">ROTATE</button><button id="clearMarks">CLEAR MARKS</button><button id="reset">RESET</button></div></div>
+
+<div class="grid">
+<section class="pane"><div class="stage">
+<svg id="glyph" viewBox="0 0 700 610" role="img" aria-label="Eight locus triangle glyph editor">
+<rect id="outside" class="outside locusShape" x="28" y="28" width="644" height="550" rx="0" data-id="O"></rect>
+<polygon class="tri" points="350,92 112,500 588,500"></polygon>
+
+<line class="edgevis" x1="350" y1="92" x2="112" y2="500"></line>
+<line class="edgevis" x1="112" y1="500" x2="588" y2="500"></line>
+<line class="edgevis" x1="588" y1="500" x2="350" y2="92"></line>
+<line class="edgehit locusShape" data-id="AB" x1="350" y1="92" x2="112" y2="500"></line>
+<line class="edgehit locusShape" data-id="BC" x1="112" y1="500" x2="588" y2="500"></line>
+<line class="edgehit locusShape" data-id="CA" x1="588" y1="500" x2="350" y2="92"></line>
+
+<circle id="A" class="corner locusShape" data-id="A" cx="350" cy="92" r="45"></circle>
+<circle id="B" class="corner locusShape" data-id="B" cx="112" cy="500" r="45"></circle>
+<circle id="C" class="corner locusShape" data-id="C" cx="588" cy="500" r="45"></circle>
+<circle id="I" class="center locusShape" data-id="I" cx="350" cy="355" r="48"></circle>
+
+<text id="AL" class="label" x="350" y="82" text-anchor="middle"></text><text id="AV" class="value" x="350" y="108" text-anchor="middle"></text>
+<text id="BL" class="label" x="112" y="490" text-anchor="middle"></text><text id="BV" class="value" x="112" y="516" text-anchor="middle"></text>
+<text id="CL" class="label" x="588" y="490" text-anchor="middle"></text><text id="CV" class="value" x="588" y="516" text-anchor="middle"></text>
+<text id="IL" class="label" x="350" y="348" text-anchor="middle"></text><text id="IV" class="value" x="350" y="372" text-anchor="middle"></text>
+
+<text id="ABL" class="edgeLabel" x="214" y="285" transform="rotate(-60 214 285)" text-anchor="middle"></text>
+<text id="BCL" class="edgeLabel" x="350" y="488" text-anchor="middle"></text>
+<text id="CAL" class="edgeLabel" x="486" y="285" transform="rotate(60 486 285)" text-anchor="middle"></text>
+<text id="OL" class="outsideLabel" x="48" y="54"></text>
+</svg>
+<div class="legend">CLICK ANY LOCUS · MARK ≠ UNKNOWN · blank space is addressable</div>
+</div></section>
+
+<aside class="pane editor">
+<h2 id="editTitle">VERTEX A</h2><div id="locusType" class="locus">ENTITY / TERM</div>
+<label>Label<input id="labelInput" maxlength="26"></label>
+<label>Value / payload<input id="valueInput" maxlength="80"></label>
+<div class="editBtns"><button id="markBtn">MARK</button><button id="unknownBtn">?</button><button id="blankBtn">BLANK</button></div>
+
+<div class="meaning" id="meaning"></div>
+<div class="readout"><h3>COMPACT GLYPH</h3><pre id="compact"></pre><h3>READABLE EXPANSION</h3><pre id="expanded"></pre></div>
+<div class="actionrow"><button id="copyGlyph">COPY GLYPH</button><button id="copyLink">COPY LINK</button><button id="export">EXPORT JSON</button></div>
+<div class="note"><b>FORM NOTE.</b> MARK here means “draw attention to / distinguish this locus.” It is intentionally <em>not</em> an implementation of Spencer-Brown’s primary algebra. The lab borrows the operational idea that a distinction makes a boundary and therefore a marked/unmarked difference.</div>
+</aside>
+</div>
+<footer><span>RELATION TRIANGLE + DISTINCTION MARKS · LOCAL ONLY · NO CANON MUTATION</span><span>3 + 3 + 1 + 1 = 8 ADDRESSABLE LOCI</span></footer>
+</div><div id="toast" class="toast"></div>
+<script>
+(()=>{'use strict';
+const K='triangle-glyph-lab-v0.1', ids=['A','B','C','AB','BC','CA','I','O'];
+const PRESETS={
+message:{name:'MESSAGE',loci:{A:['SIGNAL','what matters'],B:['BOUND','what must stay true'],C:['ASK','what you want back'],AB:['CONSTRAIN',''],BC:['RETURN',''],CA:['ORIENT',''],I:['MSG','→'],O:['LACONIC / ICONIC','']}},
+return:{name:'RETURN',loci:{A:['BEFORE','state₀'],B:['ACT','Δ'],C:['AFTER','state₁'],AB:['INTERVENE',''],BC:['OBSERVE',''],CA:['COMPARE',''],I:['RETURN','Δ'],O:['EVIDENCE LOOP','']}},
+power:{name:'POWER',loci:{A:['BASE','2'],B:['EXP','3'],C:['RESULT','8'],AB:['ROOT',''],BC:['POWER',''],CA:['LOG',''],I:['RELATION','='],O:['bᵉ = p','']}},
+field:{name:'FIELD',loci:{A:['EXPLOIT','known → output'],B:['EXPLORE','unknown → option'],C:['PROVE','claim → evidence'],AB:['TRADE',''],BC:['LEARN',''],CA:['SHIP',''],I:['BUDGET','100'],O:['ATTENTION FIELD','']}}
+};
+const TYPES={A:'VERTEX / ENTITY',B:'VERTEX / ENTITY',C:'VERTEX / ENTITY',AB:'EDGE / TRANSFORM',BC:'EDGE / TRANSFORM',CA:'EDGE / TRANSFORM',I:'INTERIOR / RELATION',O:'OUTSIDE / CONTEXT'};
+let S=load(),selected=S.selected||'A'; const $=id=>document.getElementById(id);
+function base(p='message'){const q=PRESETS[p],l={};for(const id of ids){l[id]={label:q.loci[id][0],value:q.loci[id][1],marked:false,unknown:false}}return{version:'triangle-glyph/v0.1',preset:p,selected:'A',loci:l}}
+function load(){try{const h=decodeURIComponent(location.hash.slice(1));if(h){const x=JSON.parse(h);if(x?.loci)return x}}catch(_){}try{const x=JSON.parse(localStorage.getItem(K));if(x?.loci)return x}catch(_){}return base()}
+function save(){S.selected=selected;localStorage.setItem(K,JSON.stringify(S))}
+function toast(s){const n=$('toast');n.textContent=s;n.classList.add('on');clearTimeout(n._t);n._t=setTimeout(()=>n.classList.remove('on'),1300)}
+function txt(id,s){$(id).textContent=s||''}
+function payload(id){const x=S.loci[id];return x.unknown?'?':(x.value||'∅')}
+function powerMeaning(){if(S.preset!=='power')return null;const a=S.loci.A,b=S.loci.B,c=S.loci.C, unk=[a,b,c].filter(x=>x.unknown).length;if(unk!==1)return 'POWER preset: mark exactly one vertex as ? to turn the same spatial relation into an inverse question.';const A=parseFloat(a.value),B=parseFloat(b.value),C=parseFloat(c.value);if(c.unknown&&Number.isFinite(A)&&Number.isFinite(B))return 'RESULT missing → exponentiation: '+A+' ^ '+B+' = '+Math.pow(A,B);if(b.unknown&&A>0&&A!==1&&C>0)return 'EXPONENT missing → logarithm: log_'+A+'('+C+') = '+(Math.log(C)/Math.log(A)).toFixed(6);if(a.unknown&&B!==0&&C>=0)return 'BASE missing → root: '+B+'√'+C+' = '+Math.pow(C,1/B).toFixed(6);return 'POWER relation is structurally queryable, but the current numeric payload is not solvable by this tiny demo.'}
+function compact(){const v=id=>{const x=S.loci[id],m=x.marked?'!':'',u=x.unknown?'?':(x.value||'·');return m+(x.label||id)+':'+u};return '△{'+v('A')+' | '+v('B')+' | '+v('C')+'} ['+v('AB')+' / '+v('BC')+' / '+v('CA')+'] ⊙'+v('I')+' @'+v('O')}
+function expanded(){return [
+'CONTEXT  '+S.loci.O.label+(S.loci.O.value?' — '+payload('O'):''),
+'A        '+S.loci.A.label+' = '+payload('A'),
+'B        '+S.loci.B.label+' = '+payload('B'),
+'C        '+S.loci.C.label+' = '+payload('C'),
+'A↔B      '+S.loci.AB.label+(S.loci.AB.value?' = '+payload('AB'):''),
+'B↔C      '+S.loci.BC.label+(S.loci.BC.value?' = '+payload('BC'):''),
+'C↔A      '+S.loci.CA.label+(S.loci.CA.value?' = '+payload('CA'):''),
+'INTERIOR '+S.loci.I.label+' = '+payload('I'),
+'MARKED   '+ids.filter(id=>S.loci[id].marked).join(', ')
+].join('\n')}
+function renderSVG(){for(const id of ['A','B','C','I']){txt(id+'L',S.loci[id].label);txt(id+'V',payload(id))}for(const id of ['AB','BC','CA'])txt(id+'L',S.loci[id].label);txt('OL',S.loci.O.label+(S.loci.O.value?' · '+payload('O'):''));document.querySelectorAll('.locusShape').forEach(n=>{const id=n.dataset.id,x=S.loci[id];n.classList.toggle('sel',id===selected);n.classList.toggle('marked',!!x.marked);n.classList.toggle('unknown',!!x.unknown)})}
+function renderEditor(){const x=S.loci[selected];$('editTitle').textContent=x.label||selected;$('locusType').textContent=selected+' · '+TYPES[selected];$('labelInput').value=x.label;$('valueInput').value=x.value;$('markBtn').classList.toggle('onmark',x.marked);$('markBtn').textContent=x.marked?'MARKED':'MARK';$('unknownBtn').classList.toggle('onunknown',x.unknown);$('unknownBtn').textContent=x.unknown?'? ACTIVE':'?';const pm=powerMeaning();$('meaning').innerHTML=pm?'<b>QUERY.</b> '+pm:'<b>LOCUS.</b> '+TYPES[selected]+'. Marking distinguishes this locus; ? makes its payload explicitly unknown; blank keeps the locus but removes content.';$('compact').textContent=compact();$('expanded').textContent=expanded();document.querySelectorAll('[data-preset]').forEach(b=>b.classList.toggle('on',b.dataset.preset===S.preset))}
+function render(){renderSVG();renderEditor();save()}
+document.querySelectorAll('.locusShape').forEach(n=>n.addEventListener('click',e=>{e.stopPropagation();selected=n.dataset.id;render()}));
+$('labelInput').oninput=()=>{S.loci[selected].label=$('labelInput').value;render()};
+$('valueInput').oninput=()=>{S.loci[selected].value=$('valueInput').value;S.loci[selected].unknown=false;render()};
+$('markBtn').onclick=()=>{S.loci[selected].marked=!S.loci[selected].marked;render()};
+$('unknownBtn').onclick=()=>{S.loci[selected].unknown=!S.loci[selected].unknown;render()};
+$('blankBtn').onclick=()=>{S.loci[selected].value='';S.loci[selected].unknown=false;render()};
+document.querySelectorAll('[data-preset]').forEach(b=>b.onclick=()=>{S=base(b.dataset.preset);selected='A';render()});
+$('rotate').onclick=()=>{const a=S.loci.A,b=S.loci.B,c=S.loci.C;S.loci.A=c;S.loci.B=a;S.loci.C=b;const ab=S.loci.AB,bc=S.loci.BC,ca=S.loci.CA;S.loci.AB=ca;S.loci.BC=ab;S.loci.CA=bc;render()};
+$('clearMarks').onclick=()=>{ids.forEach(id=>S.loci[id].marked=false);render()};
+$('reset').onclick=()=>{S=base(S.preset||'message');selected='A';render()};
+$('copyGlyph').onclick=async()=>{try{await navigator.clipboard.writeText(compact());toast('GLYPH COPIED')}catch(_){toast('COPY BLOCKED')}};
+$('copyLink').onclick=async()=>{location.hash=encodeURIComponent(JSON.stringify(S));try{await navigator.clipboard.writeText(location.href);toast('LINK COPIED')}catch(_){toast('HASH SET')}};
+$('export').onclick=()=>{const out={schema:'triangle-glyph-export/v0.1',exported_at:new Date().toISOString(),state:S,compact:compact(),expanded:expanded()};const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='triangle-glyph.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+render();
+})();
+</script>
+</body></html>
