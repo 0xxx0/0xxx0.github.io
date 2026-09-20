@@ -417,6 +417,8 @@
     "replay": "policy-set digests + selector-facts digest + ordered operations permit deterministic replay when referenced private values are available",
     "tamper_evidence": "optional RFC8785-JCS + SHA-256 event hash chain",
     "verification": {
+      "spec": "/policy-trace-verification.json",
+      "version": "0.2",
       "profiles": [
         "structural",
         "replay",
@@ -427,7 +429,13 @@
         "FAIL",
         "INDETERMINATE"
       ],
-      "rule": "Never report PASS when required private replay material or schema validation is unavailable; use INDETERMINATE.",
+      "status_precedence": "FAIL > INDETERMINATE > PASS",
+      "parent_requirement": {
+        "replay": "structural PASS",
+        "sealed": "replay PASS"
+      },
+      "sealed_absent_rule": "FAIL when sealed verification is requested and hash_chain is absent or disabled",
+      "unavailable_evidence_rule": "INDETERMINATE when required evidence or verifier capability is unavailable and no required check has failed",
       "reference_verifier": "/policy-trace-verifier.mjs"
     },
     "tag_bridge": "/policy-selector-model.json#tag_projection_bridge"
