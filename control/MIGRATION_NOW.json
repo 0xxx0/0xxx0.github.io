@@ -53,9 +53,9 @@
     {
       "id": "naming",
       "name": "Naming / Game of Names",
-      "state": "ISOLATED_ARTIFACT_MISSING",
+      "state": "VISUAL_BATCH_FOUND_RUNNABLE_SOURCE_OPEN",
       "route": "/recovery/naming/",
-      "next_trigger": "exact public-safe runnable/source/glyph artifact"
+      "next_trigger": "isolated exact runnable/source/glyph artifact; visual batch B260728B is already registered and should stay one batch"
     },
     {
       "id": "env0-pdfs",
