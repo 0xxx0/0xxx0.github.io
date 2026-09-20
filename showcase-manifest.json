@@ -59,6 +59,12 @@
           }
         ],
         "physical_fit": "Safe final human boundary; useful whenever automation is unnecessary."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "UNKNOWN"
+        ]
       }
     },
     {
@@ -183,6 +189,12 @@
           }
         ],
         "physical_fit": "Coordination/handoff for physical work; not a manipulation tool."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "UNKNOWN"
+        ]
       }
     },
     {
@@ -296,6 +308,12 @@
           }
         ],
         "physical_fit": "Primary reality-ingress surface once observations/sensors have an adapter."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "UNKNOWN"
+        ]
       }
     },
     {
@@ -394,6 +412,12 @@
           }
         ],
         "physical_fit": "Control primitive; candidate for tangible dial/encoder interfaces."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "UNKNOWN"
+        ]
       }
     },
     {
@@ -492,6 +516,12 @@
           }
         ],
         "physical_fit": "Useful as a feedback/control-loop donor, not yet a House controller."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "UNKNOWN"
+        ]
       }
     },
     {
@@ -591,6 +621,12 @@
           }
         ],
         "physical_fit": "Can gate workshop/home procedures when obligations are explicit."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "UNKNOWN"
+        ]
       }
     },
     {
@@ -688,6 +724,12 @@
           }
         ],
         "physical_fit": "Prepare addressed objects/specs for decision or fabrication; should not actuate directly."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "UNKNOWN"
+        ]
       }
     },
     {
@@ -798,6 +840,12 @@
           }
         ],
         "physical_fit": "Promising for assembly/procedure routes once addresses point to real objects/steps."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "UNKNOWN"
+        ]
       }
     },
     {
@@ -925,6 +973,12 @@
           }
         ],
         "physical_fit": "Digital bench for a physical semantic controller; physical comparison remains the real simulation-gap test."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "UNKNOWN"
+        ]
       }
     },
     {
@@ -1021,6 +1075,12 @@
           }
         ],
         "physical_fit": "Prove digital↔physical mapping invariants before trusting an adapter."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "UNKNOWN"
+        ]
       }
     },
     {
@@ -1122,6 +1182,12 @@
           }
         ],
         "physical_fit": "Direct bridge from digital intent to scheduled human physical work."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "UNKNOWN"
+        ]
       }
     },
     {
@@ -1215,6 +1281,12 @@
           }
         ],
         "physical_fit": "Use to kill clever physical interfaces that do not outperform plain control."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "UNKNOWN"
+        ]
       }
     },
     {
@@ -1258,6 +1330,12 @@
           }
         ],
         "physical_fit": "Attention-allocation experiment; not a physical actuator."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "UNKNOWN"
+        ]
       }
     },
     {
@@ -1301,6 +1379,12 @@
           }
         ],
         "physical_fit": "Can route toward physical adapters semantically; public bench itself never actuates."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "UNKNOWN"
+        ]
       }
     },
     {
@@ -1346,6 +1430,12 @@
           }
         ],
         "physical_fit": "Attention projection; useful for selecting physical work, not doing it."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "UNKNOWN"
+        ]
       }
     },
     {
@@ -1415,7 +1505,7 @@
       "machine_state": "/house/state.json",
       "showcase_card": false,
       "role": "Addressed spatial/state projection coordinated with Home Assistant / HOUSEBUS. Spatial Engine owns address/geometry/evidence; private HA runtime owns device truth and actuation.",
-      "version": "0.2",
+      "version": "0.4",
       "receipt": "/house/release.json",
       "contract": "/house/contract.json",
       "transfer": [
@@ -1423,7 +1513,15 @@
         "manual-to-sensor state",
         "HA entity mapping",
         "evidence return"
-      ]
+      ],
+      "family_href": "/house/",
+      "index": {
+        "updated_at": "2026-09-20T17:49:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "OPERATE"
+        ]
+      }
     },
     {
       "href": "/house/spatial/",
@@ -1433,7 +1531,7 @@
       "family": "HOUSE / SPATIAL STATE",
       "operation": "REPRESENT",
       "state": "EXPERIMENT",
-      "version": "0.2",
+      "version": "0.3",
       "receipt": "/house/spatial/release.json",
       "role": "Runnable multi-projection spatial workbench: plan, ceiling/RCP, addressed surfaces, section, 3D, field/HA mappings and provenance over one evidence-bounded substrate.",
       "transfer": [
@@ -1460,7 +1558,16 @@
           "receipt": "/house/spatial/release.json",
           "return_path": "/house/spatial/"
         }
-      }
+      },
+      "index": {
+        "updated_at": "2026-09-20T17:49:00+08:00",
+        "work_modes": [
+          "INVESTIGATE",
+          "SPECIFY",
+          "IMPLEMENT"
+        ]
+      },
+      "family_href": "/house/"
     }
   ],
   "release_law": [
@@ -1596,6 +1703,20 @@
       "SALVAGE",
       "MOVE",
       "RETURN"
+    ],
+    "contract": "/control/FIELD_INDEX_CONTRACT.json",
+    "default_order": "UPDATED_DESC",
+    "activity_modes": [
+      "RECOVER",
+      "INVESTIGATE",
+      "RESEARCH",
+      "SPECULATE",
+      "SPECIFY",
+      "IMPLEMENT",
+      "VERIFY",
+      "OPERATE",
+      "RELEASE",
+      "UNKNOWN"
     ]
   }
 }
