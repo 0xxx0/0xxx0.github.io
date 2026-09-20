@@ -2,23 +2,28 @@
   "schema": "release-receipt/v1",
   "artifact": "0 / HUMAN PORT",
   "route": "/contact/",
-  "version": "0.2",
-  "released": "2026-09-19",
-  "state": "STABLE",
+  "version": "0.3",
+  "released": "2026-09-20",
+  "state": "RELEASE_CANDIDATE",
   "changes": [
-    "replaced passive placeholder with a usable transport-neutral signal composer",
-    "added PING / REPLY / NEED / CHECK intent grammar",
-    "added native Web Share and clipboard RETURN paths",
-    "made zero-server / zero-storage behavior explicit",
-    "added machine-readable promise contract for future autoresponder bindings",
-    "kept private identifiers, credentials and correspondence outside the public surface"
+    "replaced Laconic URL draft handoff with same-origin sessionStorage handoff",
+    "upgraded envelope from 0P1 to 0P2 with stable event identity and reply correlation",
+    "added privacy-safe RETURN links carrying only event ids in URL fragments",
+    "added optional human-written BY constraint without automatic parsing or scheduling",
+    "made displayed RETURN bytes identical to the bytes passed to Share or Copy",
+    "added one-click stable port-address copy for sharing the HUMAN PORT itself",
+    "retained zero-backend behavior and explicit external share/copy boundary"
   ],
   "checks": [
     "message composer operates locally",
     "no form submit or public backend endpoint exists",
+    "Laconic draft text is absent from HUMAN PORT URLs",
+    "event ids are correlation tokens only and convey no authority",
+    "RETURN link contains event id but not message text",
+    "same composed signal keeps one event id until its content or intent changes",
     "CHECK mode visibly prefers human attention over automation",
-    "machine contract separates current static behavior from candidate future adapters",
-    "root showcase route remains separate from the nine showcase instruments"
+    "machine contract separates current static behavior from candidate future adapters"
   ],
-  "return": "/contact/"
+  "return": "/contact/",
+  "next_gate": "browser syntax + privacy invariant validation, then human mobile share test before merge"
 }
