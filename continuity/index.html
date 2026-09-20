@@ -17,7 +17,7 @@ header{display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:end;pa
 .ey{font-size:9px;letter-spacing:.18em;color:var(--hot)}h1{margin:8px 0 7px;font:850 clamp(42px,9vw,88px)/.82 system-ui,-apple-system,sans-serif;letter-spacing:-.075em}
 .lead{max-width:660px;color:#aab3b7;font:12px/1.6 system-ui,-apple-system,sans-serif}
 .truth{border:1px solid var(--line);background:var(--panel2)}.truth div{padding:9px 11px;border-bottom:1px solid var(--line)}.truth div:last-child{border:0}.truth b{display:block;color:var(--green);font-size:8px;letter-spacing:.14em}.truth span{display:block;margin-top:4px;color:#aeb7bb;font:10px/1.45 system-ui,sans-serif}
-.flow{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:14px 0}.flow span{background:var(--panel2);padding:7px 4px;text-align:center;font-size:7px;letter-spacing:.1em;color:var(--muted)}.flow span.on{color:var(--gold)}
+.flow{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:14px 0}.startsimple{border:1px solid var(--line);background:var(--panel2);padding:11px 12px;margin:0 0 13px;color:#aeb7bb;font:10px/1.5 system-ui,sans-serif}.startsimple b{color:var(--gold)}.flow span{background:var(--panel2);padding:7px 4px;text-align:center;font-size:7px;letter-spacing:.1em;color:var(--muted)}.flow span.on{color:var(--gold)}
 .topbar{display:grid;grid-template-columns:1fr auto;gap:8px;margin:13px 0}.casepick{display:grid;grid-template-columns:1fr 120px 120px;gap:1px;background:var(--line);border:1px solid var(--line)}
 input,textarea,select{width:100%;border:0;background:var(--panel);color:var(--ink);padding:10px;outline:none}textarea{min-height:92px;resize:vertical;font:12px/1.55 system-ui,sans-serif}
 button{border:1px solid var(--line);background:var(--panel2);color:var(--ink);padding:8px 10px;min-height:34px;letter-spacing:.08em;font-size:8px}button:hover,button:focus{background:#141a1d;outline:none;border-color:#56636a}.primary{color:#dff4ff}.danger{color:#e8a28b}
@@ -49,7 +49,7 @@ button{border:1px solid var(--line);background:var(--panel2);color:var(--ink);pa
 </aside>
 </header>
 
-<div class="flow"><span class="on">SOURCE</span><span class="on">REFLECT</span><span class="on">ANCHOR</span><span class="on">CLAIM</span><span class="on">ANTI-MERGE</span><span class="on">REVIEW</span><span class="on">RETURN</span></div>
+<div class="flow"><span class="on">NAME IT</span><span class="on">ADD SOURCE</span><span class="on">SAY WHAT IS KNOWN</span><span class="on">KEEP GAPS OPEN</span><span class="on">CHECK CONFLICTS</span><span class="on">REVIEW</span><span class="on">HAND OFF</span></div><div class="startsimple"><b>START SIMPLE</b> · Name the case. Paste the exact source. Add only claims you can distinguish from guesses. Review conflicts and unknowns. Build a handoff only when someone else needs the state.</div>
 
 <div class="topbar">
   <div class="casepick">
@@ -129,13 +129,13 @@ button{border:1px solid var(--line);background:var(--panel2);color:var(--ink);pa
 <div class="actions">
   <button id="buildHandoff" class="primary">BUILD HANDOFF</button>
   <button id="copyHandoff">COPY HANDOFF</button>
-  <button id="humanPort">OPEN HUMAN PORT →</button>
+  <button id="humanPort">SEND HANDOFF TO CONTACT →</button>
   <a href="../field-intake/" style="text-decoration:none"><button type="button">FIELD INTAKE →</button></a>
   <a href="../control/confluence/RETRIEVAL_CANON.md" style="text-decoration:none"><button type="button">PROTOCOL →</button></a>
 </div>
 </section>
 
-<footer><span>CONTINUITY / CASE 0.1 · SOURCE IS NEVER REPLACED BY THE STORY ABOUT IT</span><span>FIELD INDEX · CONFLUENCE · HUMAN PORT · RETURN</span></footer>
+<footer><span>CONTINUITY / CASE 0.2 · SOURCE IS NEVER REPLACED BY THE STORY ABOUT IT</span><span><a href="../port/">HUMAN PORT →</a> · FIELD INDEX · CONFLUENCE · RETURN</span></footer>
 
 <script>
 (()=>{'use strict';
@@ -228,7 +228,7 @@ $('#addSource').onclick=()=>{const text=$('#sourceText').value.trim();if(!text)r
 $('#addClaim').onclick=()=>{const text=$('#claimText').value.trim();if(!text)return;current.claims.push({id:id('clm'),lane:$('#lane').value,provenance:$('#provenance').value,confidence:$('#confidence').value,text,source_id:$('#claimSource').value||null,time:$('#claimTime').value.trim(),next_evidence:$('#nextEvidence').value.trim(),excerpt:$('#excerpt').value.trim(),added_at:now()});$('#claimText').value='';$('#claimTime').value='';$('#nextEvidence').value='';$('#excerpt').value='';renderClaims();review()};
 $('#runReview').onclick=review;$('#buildHandoff').onclick=handoff;
 $('#copyHandoff').onclick=async()=>{const t=handoff();try{await navigator.clipboard.writeText(t);$('#copyHandoff').textContent='COPIED ✓';setTimeout(()=>$('#copyHandoff').textContent='COPY HANDOFF',1200)}catch(_){window.prompt('Copy handoff',t)}};
-$('#humanPort').onclick=()=>{const t=handoff();location.href='../contact/?mode=REPLY&draft='+encodeURIComponent(t.slice(0,1200))};
+$('#humanPort').onclick=()=>{const t=handoff();try{sessionStorage.setItem('human.port.handoff.v01',JSON.stringify({draft:t.slice(0,1200),mode:'REPLY',source:'continuity',created_at:new Date().toISOString()}));location.assign('../contact/')}catch(_){location.assign('../contact/?mode=REPLY')}};
 $('#exportBtn').onclick=()=>{pullForm();review();const blob=new Blob([JSON.stringify(current,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=(current.subject||'continuity-case').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'-'+current.id+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 $('#importBtn').onclick=()=>$('#importFile').click();
 $('#importFile').onchange=e=>{const f=e.target.files&&e.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const j=JSON.parse(rd.result);if(!j||!Array.isArray(j.sources)||!Array.isArray(j.claims))throw new Error('invalid case');current=j;render()}catch(err){alert('Import failed: '+err.message)}};rd.readAsText(f)};

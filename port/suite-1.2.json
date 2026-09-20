@@ -1,0 +1,57 @@
+{
+  "schema": "human-port-suite-receipt/v0.1",
+  "version": "1.2-preview",
+  "date": "2026-09-21",
+  "state": "INTEGRATION_CANDIDATE",
+  "goal": "Advance existing HUMAN PORT fronts as one usable circuit rather than adding more disconnected tools.",
+  "fronts": {
+    "port": "stable first-time map; unchanged in this pass",
+    "contact": "explicit outbound boundary; existing session handoff retained",
+    "burst": "adds one-step local handoff into Laconic",
+    "laconic_iconic": [
+      "simpler first screen and human labels",
+      "common-move shortcuts",
+      "search now filters irrelevant lines instead of merely reranking them",
+      "core bank remains usable when optional archive donors fail",
+      "accepts BURST context locally",
+      "selected line hands to Contact"
+    ],
+    "continuity": [
+      "plain-language start sequence",
+      "handoff no longer embeds case text in URL",
+      "returns to Contact through local session handoff"
+    ],
+    "capsule": "reframed as a contextual share link for ordinary visitors",
+    "social_residue": [
+      "upgraded from explainer to local capture instrument",
+      "explicit strength retained",
+      "RETURN outcomes editable through one-click local actions",
+      "IDEA residue can hand to Idea Atlas for review"
+    ],
+    "idea_atlas": "accepts reviewed HUMAN PORT idea handoff without auto-saving or auto-building",
+    "backstage": "adds privacy-safe donor candidate harvesting without copying raw conversation",
+    "lens_studio": "kept stable; remains a projection donor and is discoverable from /port/"
+  },
+  "circuits": [
+    "BURST -> LACONIC -> CONTACT",
+    "SOCIAL RESIDUE[IDEA] -> IDEA ATLAS",
+    "CONTINUITY -> CONTACT",
+    "BACKSTAGE -> DONOR CANDIDATE"
+  ],
+  "laws": [
+    "SOURCE != INTERPRETATION != EXPRESSION",
+    "DRAFT != SEND",
+    "RESIDUE != OBLIGATION",
+    "IDEA != BUILD COMMITMENT",
+    "BINDING != AUTHORITY != ACTIVATION",
+    "PRIVATE RAW CHAT != PUBLIC DONOR MATERIAL"
+  ],
+  "next_reality_tests": [
+    "paste one real high-entropy message into BURST and send it to Laconic",
+    "choose a Laconic line and verify Contact receives it with no draft text in the URL",
+    "capture one real conversational IDEA in Social Residue and hand it to Idea Atlas",
+    "build one Continuity handoff and verify no case text appears in URL",
+    "pin one Backstage moment and harvest a donor candidate",
+    "test all flows at mobile width"
+  ]
+}
