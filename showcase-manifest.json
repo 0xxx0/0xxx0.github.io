@@ -2036,7 +2036,7 @@
       "family": "FEDERATION",
       "operation": "ROUTE",
       "state": "DONOR",
-      "version": "0.1",
+      "version": "0.2",
       "receipt": "/fcm/release.json",
       "inputs": [
         "/federation-atlas.json",
@@ -2073,7 +2073,7 @@
         "physical_fit": "Attention projection; useful for selecting physical work, not doing it."
       },
       "index": {
-        "updated_at": "2026-09-20T23:58:00+08:00",
+        "updated_at": "2026-09-21T02:22:00+08:00",
         "work_modes": [
           "VERIFY",
           "OPERATE"
