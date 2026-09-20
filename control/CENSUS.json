@@ -86,7 +86,7 @@
         "RSVP+TTS TMP-SPEECHSYNTH (20180502)",
         "[CODE] RSVP Reader App for Galaxy Watch"
       ],
-      "action": "Exact 2018 Drive duplicate pair recovered and byte-identical; import one frozen donor, keep later Watch thread as intent/starter-sketch lineage, then mechanism-diff."
+      "action": "RECOVERED EXACT + IMPORTED FROZEN at /recovery/rsvp/. Next: mechanism-diff; later Galaxy Watch thread remains intent/starter-sketch evidence only."
     }
   ],
   "next": [
@@ -107,6 +107,12 @@
       "route": "/recovery/fold-bloom/fold-weave-0.1/",
       "classification": "EXACT_FROZEN_DONOR",
       "receipt": "/recovery/fold-bloom/fold-weave-0.1/manifest.json"
+    },
+    {
+      "family": "rsvp-temporal-focus",
+      "route": "/recovery/rsvp/",
+      "classification": "EXACT_FROZEN_DONOR",
+      "receipt": "/recovery/rsvp/manifest.json"
     }
   ]
 }
