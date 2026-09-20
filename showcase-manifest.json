@@ -1403,6 +1403,27 @@
       "state": "FROZEN_DONOR",
       "showcase_card": false,
       "role": "Persistent crease-anchor topology branch retained beside Ecology pending playtest."
+    },
+    {
+      "href": "/house/",
+      "title": "HOUSE / FIELD",
+      "kind": "system",
+      "parent": "/",
+      "family": "HOUSE / SPATIAL STATE",
+      "operation": "PROJECT",
+      "state": "STABLE",
+      "machine_state": "/house/state.json",
+      "showcase_card": false,
+      "role": "Addressed spatial/state projection coordinated with Home Assistant / HOUSEBUS. Spatial Engine owns address/geometry/evidence; private HA runtime owns device truth and actuation.",
+      "version": "0.2",
+      "receipt": "/house/release.json",
+      "contract": "/house/contract.json",
+      "transfer": [
+        "spatial addressing",
+        "manual-to-sensor state",
+        "HA entity mapping",
+        "evidence return"
+      ]
     }
   ],
   "release_law": [
