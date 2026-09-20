@@ -1,6 +1,6 @@
 {
   "schema": "human-port-descriptor/v0.1",
-  "version": "1.2-preview",
+  "version": "1.3-preview",
   "canonical": "https://0xxx0.github.io/port/",
   "surfaces": {
     "plain": "/contact/",
@@ -177,40 +177,47 @@
     }
   },
   "surface_strategy": {
-    "port": "canonical HUMAN PORT map/workbench",
+    "port": "canonical HUMAN PORT local intake/router and map",
     "contact": "conventional human-facing reach-me surface",
     "compatibility": "existing /contact/* tool routes remain valid while /port/ provides the coherent map"
   },
   "home": {
     "route": "/port/",
-    "first_time_doors": [
+    "model": "ONE SOURCE → EXPLICIT ROUTE",
+    "primary_input": "local text/source intake",
+    "routes": [
       {
-        "label": "SEND ME SOMETHING",
+        "label": "SHARE / REPLY",
         "system": "CONTACT",
-        "route": "/contact/"
+        "route": "/contact/",
+        "handoff": "human.port.handoff.v01"
       },
       {
-        "label": "UNTANGLE A MESSY MESSAGE",
+        "label": "UNTANGLE IT",
         "system": "BURST / INTERPRET",
-        "route": "/contact/burst/"
+        "route": "/contact/burst/",
+        "handoff": "human.port.interpret.handoff.v01"
       },
       {
-        "label": "KEEP AN IDEA ALIVE",
+        "label": "KEEP THE IDEA",
         "system": "IDEA ATLAS",
-        "route": "/app-atlas/"
+        "route": "/app-atlas/",
+        "handoff": "app.atlas.handoff.v01"
       },
       {
-        "label": "REMEMBER WHAT MATTERS",
+        "label": "REMEMBER IT",
         "system": "SOCIAL RESIDUE",
-        "route": "/contact/residue/"
+        "route": "/contact/residue/",
+        "handoff": "human.port.residue.handoff.v01"
       },
       {
-        "label": "SEE IT ANOTHER WAY",
-        "system": "SCALE LENS STUDIO",
-        "route": "/fold-bloom/lens/"
+        "label": "CHANGE THE VIEW",
+        "system": "SCALE LENS",
+        "route": "/fold-bloom/lens/",
+        "handoff": "scale.lens.handoff.v01"
       }
     ],
-    "rule": "Plain-language action first; internal system name second."
+    "rule": "Port preserves one source and requires an explicit human route choice; it does not auto-classify, upload or send."
   },
   "handoffs": {
     "burst_to_laconic": {
@@ -237,6 +244,31 @@
       "state": "LIVE_LOCAL_COPY",
       "carrier": "clipboard",
       "rule": "Harvest bounded mechanism/provenance metadata; raw private text excluded by default."
+    },
+    "port_to_contact": {
+      "state": "LIVE_LOCAL",
+      "carrier": "sessionStorage",
+      "rule": "Port source preloads Contact; external action still requires explicit Share/Copy."
+    },
+    "port_to_interpret": {
+      "state": "LIVE_LOCAL",
+      "carrier": "sessionStorage",
+      "rule": "Port source preloads BURST as RAW; interpretation remains tentative."
+    },
+    "port_to_idea_atlas": {
+      "state": "LIVE_LOCAL",
+      "carrier": "sessionStorage",
+      "rule": "Port source preloads idea review; capture does not create build commitment."
+    },
+    "port_to_social_residue": {
+      "state": "LIVE_LOCAL",
+      "carrier": "sessionStorage",
+      "rule": "Port source preloads residue capture; no obligation is inferred."
+    },
+    "port_to_scale_lens": {
+      "state": "LIVE_LOCAL",
+      "carrier": "sessionStorage",
+      "rule": "Port source preloads Scale Lens as the same source object for projection."
     }
   },
   "suite_law": "Tools should form reversible handoffs, not isolated mini-apps. Each transfer preserves source identity and does not silently upgrade authority or commitment."

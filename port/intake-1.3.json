@@ -1,0 +1,37 @@
+{
+  "schema": "human-port-intake-receipt/v0.1",
+  "version": "1.3-preview",
+  "date": "2026-09-21",
+  "state": "INTEGRATION_CANDIDATE",
+  "problem": "The HUMAN PORT home was legible but behaved mostly like a contact-oriented menu. A user still had to understand routes and repaste the same source into downstream tools.",
+  "delta": [
+    "one local source intake at /port/",
+    "explicit route choice; no automatic classification",
+    "preload handoffs to Contact, BURST, Idea Atlas, Social Residue and Scale Lens",
+    "Contact rebranded as explicit outbound boundary",
+    "sample fixtures for messy note / idea / follow-up"
+  ],
+  "laws": [
+    "ONE SOURCE, MANY LAWFUL ROUTES",
+    "ROUTING != CLASSIFICATION",
+    "CONTACT != HUMAN PORT",
+    "LOCAL HANDOFF != EXTERNAL SEND",
+    "IDEA != BUILD COMMITMENT",
+    "RESIDUE != OBLIGATION",
+    "SOURCE STAYS SOURCE"
+  ],
+  "handoff_keys": [
+    "human.port.handoff.v01",
+    "human.port.interpret.handoff.v01",
+    "app.atlas.handoff.v01",
+    "human.port.residue.handoff.v01",
+    "scale.lens.handoff.v01"
+  ],
+  "reality_tests": [
+    "messy sample -> BURST",
+    "idea sample -> Idea Atlas",
+    "follow-up sample -> Social Residue",
+    "arbitrary text -> Scale Lens",
+    "arbitrary message -> Contact -> explicit Share/Copy"
+  ]
+}

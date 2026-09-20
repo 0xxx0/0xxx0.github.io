@@ -1,87 +1,114 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#080a0c">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#07090b">
 <title>HUMAN PORT</title>
 <style>
-:root{--bg:#080a0c;--panel:#0b0f12;--ink:#eef2ef;--mut:#8a969b;--line:#2b363b;--hot:#ed7245;--cool:#73bce8;--green:#9ed88c;--gold:#d7ae67}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}a{color:inherit;text-decoration:none}body{padding:max(18px,env(safe-area-inset-top)) 14px max(34px,env(safe-area-inset-bottom))}main{width:min(1040px,100%);margin:auto}
-header{padding:36px 0 22px;border-bottom:1px solid var(--line)}.ey{font-size:9px;letter-spacing:.19em;color:var(--hot)}h1{margin:10px 0 12px;font:900 clamp(56px,12vw,116px)/.8 system-ui,-apple-system,sans-serif;letter-spacing:-.08em}.lead{max-width:760px;font:16px/1.5 system-ui,-apple-system,sans-serif;color:#c0c8cb}.sub{max-width:760px;margin-top:8px;color:#879399;font:11px/1.55 system-ui,-apple-system,sans-serif}
+:root{--bg:#07090b;--panel:#0b0f12;--ink:#eef2ef;--mut:#859197;--line:#2b363b;--hot:#ed7245;--cool:#73bce8;--green:#9ed88c;--gold:#d7ae67}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}button,input,textarea{font:inherit;border-radius:0}button{cursor:pointer}a{color:inherit;text-decoration:none}body{padding:max(18px,env(safe-area-inset-top)) 14px max(34px,env(safe-area-inset-bottom))}main{width:min(1040px,100%);margin:auto}
+header{padding:36px 0 22px;border-bottom:1px solid var(--line)}.ey{font-size:9px;letter-spacing:.19em;color:var(--hot)}h1{margin:10px 0 12px;font:900 clamp(58px,12vw,118px)/.78 system-ui,-apple-system,sans-serif;letter-spacing:-.085em}.lead{max-width:780px;font:16px/1.5 system-ui,-apple-system,sans-serif;color:#c1c9cc}.sub{max-width:760px;margin-top:9px;color:#859197;font:10px/1.55 system-ui,-apple-system,sans-serif}
+.intake{margin-top:20px;border:1px solid var(--line);background:var(--panel)}.intakehead{display:flex;justify-content:space-between;gap:12px;padding:9px 11px;border-bottom:1px solid var(--line);font-size:8px;letter-spacing:.13em}.intakehead span:last-child{color:var(--green)}.labelrow{display:grid;grid-template-columns:160px 1fr;gap:1px;background:var(--line)}.labelrow label{background:#090d10;padding:11px;color:var(--mut);font-size:8px;letter-spacing:.11em}.labelrow input{border:0;background:#0b0f12;color:var(--ink);padding:11px;outline:none}.intake textarea{width:100%;min-height:180px;border:0;border-top:1px solid var(--line);background:#0b0f12;color:var(--ink);padding:14px;resize:vertical;outline:none;font:15px/1.55 system-ui,-apple-system,sans-serif}
+.samples{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);border-top:1px solid var(--line)}.samples button{border:0;background:#090d10;color:#7f8b90;padding:8px 10px;font-size:8px}.samples button:hover{background:#11181c;color:#fff}
+.routes{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.route{border:0;background:#0a0e10;color:var(--ink);padding:13px 11px;text-align:left;min-height:110px}.route:hover,.route:focus{background:#12191d;outline:none}.route b{display:block;font:800 15px/1.05 system-ui,sans-serif;letter-spacing:-.02em}.route small{display:block;margin-top:6px;color:var(--cool);font-size:7px;letter-spacing:.11em}.route span{display:block;margin-top:8px;color:#839097;font:9px/1.45 system-ui,sans-serif}.route.idea small{color:var(--gold)}.route.share small{color:var(--green)}.status{min-height:31px;border-top:1px solid var(--line);padding:8px 11px;color:#718087;font-size:8px}.status.hot{color:var(--hot)}
 .sectionhead{display:flex;justify-content:space-between;gap:12px;align-items:end;margin:26px 0 8px}.sectionhead b{font-size:9px;letter-spacing:.15em}.sectionhead span{font-size:8px;color:var(--mut)}
-.doors{display:grid;grid-template-columns:1fr;gap:1px;background:var(--line);border:1px solid var(--line)}.door{display:grid;grid-template-columns:64px 1.3fr 1.5fr 30px;gap:14px;align-items:center;background:var(--panel);padding:17px 16px;min-height:106px}.door:hover,.small:hover{background:#11181c}.num{font:800 28px/1 system-ui,sans-serif;color:#4d5a60}.title{font:850 clamp(22px,3.5vw,34px)/.95 system-ui,sans-serif;letter-spacing:-.04em}.title small{display:block;margin-top:7px;font:8px/1.2 ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.14em;color:var(--cool)}.door:nth-child(1) .title small{color:var(--gold)}.what{color:#a1acb0;font:12px/1.55 system-ui,-apple-system,sans-serif}.what b{color:var(--ink);font-weight:650}.arrow{font-size:18px;color:#68757b}
-.examples{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-top:0}.examples div{background:#090d10;padding:8px 10px;color:#748086;font-size:8px;min-height:47px}
-.smallgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.small{background:var(--panel);padding:13px;min-height:90px}.small b{display:block;font-size:8px;letter-spacing:.12em}.small span{display:block;margin-top:6px;color:#7f8c91;font:9px/1.45 system-ui,sans-serif}
-.explain{margin-top:18px;border:1px solid var(--line);background:#090d10}.explain summary{cursor:pointer;list-style:none;padding:11px 13px;font-size:8px;letter-spacing:.13em;color:#a8b1b5}.explain summary::-webkit-details-marker{display:none}.explain summary:after{content:' +';color:var(--cool)}.explain[open] summary:after{content:' −'}.inside{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}.inside div{background:var(--panel);padding:12px}.inside b{display:block;font-size:8px;letter-spacing:.1em}.inside span{display:block;margin-top:5px;color:#7d898f;font:9px/1.45 system-ui,sans-serif}
+.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.tool{background:var(--panel);padding:14px;min-height:112px}.tool:hover{background:#11181c}.tool b{display:block;font-size:9px;letter-spacing:.12em}.tool span{display:block;margin-top:7px;color:#849096;font:9px/1.5 system-ui,sans-serif}
+.explain{margin-top:18px;border:1px solid var(--line);background:#090d10}.explain summary{cursor:pointer;list-style:none;padding:11px 13px;font-size:8px;letter-spacing:.13em;color:#a8b1b5}.explain summary::-webkit-details-marker{display:none}.explain summary:after{content:' +';color:var(--cool)}.explain[open] summary:after{content:' −'}.inside{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line)}.inside div{background:var(--panel);padding:12px}.inside b{display:block;font-size:8px;letter-spacing:.1em}.inside span{display:block;margin-top:5px;color:#7d898f;font:9px/1.45 system-ui,sans-serif}
+.truth{margin-top:16px;border-left:2px solid var(--gold);padding:9px 11px;color:#8e9a9f;font:10px/1.55 system-ui,sans-serif}.truth b{color:#d8bd88}
 footer{margin-top:20px;padding-top:10px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;color:#68747a;font-size:8px}footer a{color:#8fcdf2}
-@media(max-width:760px){.door{grid-template-columns:48px 1fr 24px;gap:10px}.what{grid-column:2/4}.examples{display:none}.smallgrid,.inside{grid-template-columns:1fr 1fr}.sectionhead{display:block}.sectionhead span{display:block;margin-top:4px}footer{display:block}}
-@media(max-width:440px){.door{grid-template-columns:38px 1fr 20px;padding:15px 12px}.num{font-size:21px}.title{font-size:24px}.smallgrid,.inside{grid-template-columns:1fr}}
+@media(max-width:800px){.routes{grid-template-columns:1fr 1fr}.tools{grid-template-columns:1fr 1fr}.inside{grid-template-columns:1fr}.labelrow{grid-template-columns:1fr}.sectionhead{display:block}.sectionhead span{display:block;margin-top:4px}}
+@media(max-width:460px){.routes,.tools{grid-template-columns:1fr}.route{min-height:auto}footer{display:block}}
 </style></head><body><main>
 <header>
-  <div class="ey">0 / HUMAN PORT</div>
-  <h1>WHAT DO YOU<br>NEED TO DO?</h1>
-  <div class="lead">Reach me, untangle something you said, keep an idea, remember something worth returning to, or look at the same thing from another angle.</div>
-  <div class="sub">You do not need to understand the system first. Pick the closest door.</div>
+  <div class="ey">0 / HUMAN PORT · LOCAL INTAKE / ROUTER</div>
+  <h1>BRING<br>SOMETHING IN.</h1>
+  <div class="lead">A message. A messy thought. An idea. A promise. A piece of text or data. Keep the source intact, then route it to the smallest useful instrument.</div>
+  <div class="sub">Nothing here uploads by itself. Nothing here sends as you. The same source can take different lawful paths without becoming five different things.</div>
 </header>
 
-<div class="sectionhead"><b>START HERE</b><span>five useful doors</span></div>
-<section class="doors">
-  <a class="door" href="../contact/">
-    <div class="num">01</div>
-    <div class="title">SEND ME SOMETHING<small>CONTACT</small></div>
-    <div class="what"><b>Use this when you just want to reach me.</b> Write a short message, then share or copy it into a channel we already use.</div>
-    <div class="arrow">→</div>
-  </a>
-  <a class="door" href="../contact/burst/">
-    <div class="num">02</div>
-    <div class="title">UNTANGLE A MESSY MESSAGE<small>BURST / INTERPRET</small></div>
-    <div class="what"><b>Use this when the wording is fragmented, overloaded, or ambiguous.</b> Keep the original text while pulling apart asks, corrections, callbacks and possible meanings.</div>
-    <div class="arrow">→</div>
-  </a>
-  <a class="door" href="../app-atlas/">
-    <div class="num">03</div>
-    <div class="title">KEEP AN IDEA ALIVE<small>IDEA ATLAS</small></div>
-    <div class="what"><b>Use this when something might become a project, tool, experiment or donor later.</b> Capture the idea once without pretending you have committed to build it.</div>
-    <div class="arrow">→</div>
-  </a>
-  <a class="door" href="../contact/residue/">
-    <div class="num">04</div>
-    <div class="title">REMEMBER WHAT MATTERS<small>SOCIAL RESIDUE</small></div>
-    <div class="what"><b>Use this after a conversation leaves something worth returning to.</b> An offer, promise, follow-up, question or useful idea can be remembered without becoming a guilt-driven task.</div>
-    <div class="arrow">→</div>
-  </a>
-  <a class="door" href="../fold-bloom/lens/">
-    <div class="num">05</div>
-    <div class="title">SEE IT ANOTHER WAY<small>SCALE LENS STUDIO</small></div>
-    <div class="what"><b>Use this when one thing needs to be viewed at different scales or from different projections.</b> Keep the same underlying object while changing how you inspect it.</div>
-    <div class="arrow">→</div>
-  </a>
+<section class="intake" aria-label="Human Port intake">
+  <div class="intakehead"><span>PORT INTAKE · ONE SOURCE</span><span>LOCAL / SESSION ONLY</span></div>
+  <div class="labelrow"><label for="label">LABEL · OPTIONAL</label><input id="label" maxlength="100" placeholder="cousin app idea / reply to Amy / weird note / dataset"></div>
+  <textarea id="payload" maxlength="12000" placeholder="Paste or write the thing here. Do not clean it first."></textarea>
+  <div class="samples">
+    <button data-sample="messy">TRY MESSY NOTE</button>
+    <button data-sample="idea">TRY IDEA</button>
+    <button data-sample="follow">TRY FOLLOW-UP</button>
+    <button id="clear">CLEAR</button>
+  </div>
+  <div class="routes">
+    <button class="route share" data-route="contact"><b>SHARE / REPLY</b><small>CONTACT</small><span>Prepare it for explicit Share or Copy through a real channel.</span></button>
+    <button class="route" data-route="burst"><b>UNTANGLE IT</b><small>BURST / INTERPRET</small><span>Preserve the raw source and separate asks, corrections, callbacks and possible readings.</span></button>
+    <button class="route idea" data-route="idea"><b>KEEP THE IDEA</b><small>IDEA ATLAS</small><span>Capture lineage and invariant without committing to build it.</span></button>
+    <button class="route" data-route="residue"><b>REMEMBER IT</b><small>SOCIAL RESIDUE</small><span>Keep an offer, follow-up, question or promise without turning it into debt.</span></button>
+    <button class="route" data-route="lens"><b>CHANGE THE VIEW</b><small>SCALE LENS</small><span>Project the same source across scale, structure and address.</span></button>
+  </div>
+  <div id="status" class="status">Paste one thing, then choose what you want done with it.</div>
 </section>
 
-<section class="examples" aria-label="Examples">
-  <div>“hey, can you call me?”</div>
-  <div>“I said six things at once; what was I actually asking?”</div>
-  <div>“my cousin has an app idea…”</div>
-  <div>“I said I’d look at those paintings.”</div>
-  <div>“show me the same object as a timeline / graph / spatial view.”</div>
-</section>
-
-<div class="sectionhead"><b>OTHER DOORS</b><span>useful once you know why you need them</span></div>
-<section class="smallgrid">
-  <a class="small" href="../contact/make/"><b>MAKE A CAPSULE</b><span>Share a custom link with just enough context for one person or encounter.</span></a>
-  <a class="small" href="../contact/backstage/"><b>BACKSTAGE</b><span>Keep the strange/funny making-history that actually changed an artifact.</span></a>
-  <a class="small" href="../continuity/"><b>CONTINUITY / CASE</b><span>Preserve sources, unknowns and handoff state when a situation needs more care.</span></a>
-  <a class="small" href="../laconic/"><b>LACONIC / ICONIC</b><span>Shape a response after the meaning and allowed move are clear enough.</span></a>
+<div class="sectionhead"><b>SPECIALIZED TOOLS</b><span>use directly when the job is already clear</span></div>
+<section class="tools">
+  <a class="tool" href="../laconic/"><b>WRITE A REPLY · LACONIC / ICONIC</b><span>Choose a move and shape the line. Best after you already know what the response should do.</span></a>
+  <a class="tool" href="../contact/make/"><b>MAKE A CAPSULE</b><span>Create a contextual share link for one person, encounter or artifact.</span></a>
+  <a class="tool" href="../continuity/"><b>BUILD A CASE · CONTINUITY</b><span>Preserve sources, facts, gaps and conflicts before handing a situation onward.</span></a>
+  <a class="tool" href="../contact/backstage/"><b>KEEP THE MAKING HISTORY</b><span>Pin the strange/funny turn that actually changed an artifact; harvest mechanisms, not raw people.</span></a>
 </section>
 
 <details class="explain">
-  <summary>HOW HUMAN PORT WORKS UNDERNEATH</summary>
+  <summary>WHAT HUMAN PORT ACTUALLY IS</summary>
   <div class="inside">
-    <div><b>1 · ADDRESS</b><span>Who or what is reaching whom?</span></div>
-    <div><b>2 · INTERPRET</b><span>What was actually said, and what might it mean?</span></div>
-    <div><b>3 · PERMISSION</b><span>What is actually allowed to happen?</span></div>
-    <div><b>4 · RETURN</b><span>What changed, what survived, and what remains open?</span></div>
+    <div><b>ADDRESS</b><span>What is entering, and where should it go?</span></div>
+    <div><b>INTERPRET</b><span>What is observed, possible and unresolved?</span></div>
+    <div><b>POLICY</b><span>What is actually permitted?</span></div>
+    <div><b>TRANSFORM</b><span>Draft, preserve, project, route or hand off.</span></div>
+    <div><b>RETURN</b><span>What changed, what survived, what remains open?</span></div>
   </div>
 </details>
 
-<footer><span>SMALL PUBLIC SURFACE · DEEP RECOVERABLE CONTEXT</span><span><a href="../contact/">CONTACT →</a> · <a href="../.well-known/human-port.json">MACHINE →</a> · <a href="../">FIELD →</a></span></footer>
+<div class="truth"><b>CONTACT IS ONLY ONE PORT.</b> The public Contact page is the conventional “reach me” door. HUMAN PORT is the larger selective boundary between a source and the tools, people, agents or projections that may lawfully receive it.</div>
+
+<footer><span>ONE SOURCE · MANY LAWFUL ROUTES · NARROW AUTHORITY</span><span><a href="../contact/">CONTACT →</a> · <a href="../.well-known/human-port.json">MACHINE →</a> · <a href="../">FIELD →</a></span></footer>
+
+<script>
+(()=>{'use strict';
+const $=s=>document.querySelector(s),payload=$('#payload'),label=$('#label'),status=$('#status');
+const firstLine=s=>String(s||'').split(/\r?\n/).map(x=>x.trim()).find(Boolean)||'Untitled intake';
+function note(t,hot=false){status.textContent=t;status.classList.toggle('hot',hot)}
+function source(){const text=payload.value.trim();if(!text){note('PASTE OR WRITE SOMETHING FIRST.',true);return null}return{text,label:label.value.trim()||firstLine(text).slice(0,96),created_at:new Date().toISOString(),source:'human-port-intake'}}
+function go(kind){
+ const x=source();if(!x)return;
+ try{
+  if(kind==='contact'){
+   sessionStorage.setItem('human.port.handoff.v01',JSON.stringify({draft:x.text.slice(0,1200),mode:'REPLY',source:x.source,created_at:x.created_at}));
+   location.assign('../contact/');return;
+  }
+  if(kind==='burst'){
+   sessionStorage.setItem('human.port.interpret.handoff.v01',JSON.stringify({raw:x.text,label:x.label,source:x.source,created_at:x.created_at}));
+   location.assign('../contact/burst/');return;
+  }
+  if(kind==='idea'){
+   sessionStorage.setItem('app.atlas.handoff.v01',JSON.stringify({name:x.label,invariant:x.text,lineage:['HUMAN PORT','PORT INTAKE'],source:x.text,created_at:x.created_at}));
+   location.assign('../app-atlas/');return;
+  }
+  if(kind==='residue'){
+   sessionStorage.setItem('human.port.residue.handoff.v01',JSON.stringify({subject:x.label,source:x.text,created_at:x.created_at}));
+   location.assign('../contact/residue/');return;
+  }
+  if(kind==='lens'){
+   sessionStorage.setItem('scale.lens.handoff.v01',JSON.stringify({text:x.text,label:x.label,created_at:x.created_at}));
+   location.assign('../fold-bloom/lens/');return;
+  }
+ }catch(e){note('LOCAL HANDOFF FAILED · '+e.message,true)}
+}
+document.querySelectorAll('[data-route]').forEach(b=>b.onclick=()=>go(b.dataset.route));
+document.querySelectorAll('[data-sample]').forEach(b=>b.onclick=()=>{
+ const samples={
+  messy:"ok wait no — I meant send the draft to her, but not tonight. also remind me what we decided about the paintings? and haha the weird donor-organ joke probably actually contains a mechanism somehow",
+  idea:"My cousin has an app idea: one object can appear as a map, timeline, message and game without losing its identity. I said I could help think it through.",
+  follow:"I told them I would look at the paintings and send thoughts. I still care about the work, but I am not sure the original follow-up is the right next move."
+ };
+ payload.value=samples[b.dataset.sample]||'';label.value={messy:'messy multi-thread note',idea:'cousin app idea',follow:'paintings follow-up'}[b.dataset.sample]||'';note('SAMPLE LOADED · CHOOSE A ROUTE');
+});
+$('#clear').onclick=()=>{payload.value='';label.value='';note('CLEARED · NOTHING STORED')};
+})();
+</script>
 </main></body></html>

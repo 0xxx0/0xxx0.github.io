@@ -45,16 +45,18 @@
     {
       "id": "human-port-use",
       "state": "ACTIVE_NOW",
-      "center": "/port/ + one real local/manual circuit through BURST / LACONIC / CONTACT or RESIDUE / IDEA ATLAS",
-      "objective": "Prove that HUMAN PORT 1.2 actually reduces interaction/re-entry cost: complete one real bounded circuit, preserve source/authority boundaries, and RETURN what happened before adding private transport or automation.",
+      "center": "/port/ one-source intake → explicit local route → target tool → RETURN",
+      "objective": "Prove HUMAN PORT 1.3 reduces repasting and route confusion: paste one real source once, choose one explicit route, verify the target arrives preloaded, and RETURN what failed before adding private transport or autonomous sending.",
       "evidence": [
         "/port/",
-        "/port/suite-1.2.json",
+        "/port/intake-1.3.json",
+        "/contact/",
         "/contact/burst/",
         "/laconic/",
-        "/contact/",
         "/contact/residue/",
         "/app-atlas/",
+        "/fold-bloom/lens/",
+        "/continuity/",
         "/control/confluence/HUMAN_PORT_CONVERGENCE_2026-09-21.md"
       ]
     }
@@ -104,10 +106,10 @@
     },
     {
       "lineage": "comms",
-      "head": "HUMAN PORT 1.2 preview + CONTACT 0.3 + LACONIC / ICONIC 0.3 + Router / Policy",
+      "head": "HUMAN PORT 1.3 intake + CONTACT 0.3 + LACONIC / ICONIC 0.3 + Router / Policy",
       "state": "ACTIVE",
       "route": "/port/",
-      "retained_function": "Small public aperture with five plain-language doors → raw-preserving interpretation / idea ancestry / social residue / projection → explicit CONTACT send boundary; LACONIC remains the bounded drafting layer and policy/router remains the authority substrate."
+      "retained_function": "One local source enters /port/, then the human explicitly routes it to interpretation, idea ancestry, social residue, projection or Contact. Contact remains the explicit external Share/Copy boundary; Laconic remains bounded drafting; policy/router remains the authority substrate."
     },
     {
       "lineage": "house-spatial",
@@ -277,8 +279,8 @@
     }
   ],
   "next_single_action": {
-    "id": "human-port-real-circuit-01",
-    "instruction": "Keep HOUSE held. Use HUMAN PORT 1.2 on one real interaction when convenient: either BURST → LACONIC → CONTACT or SOCIAL RESIDUE[IDEA] → IDEA ATLAS. Record only whether the circuit reduced re-entry/interaction cost and what failed; do not add private transport or autonomous sending before that RETURN."
+    "id": "human-port-real-intake-01",
+    "instruction": "Use HUMAN PORT 1.3 on one real source when convenient: paste it once at /port/, choose BURST / IDEA ATLAS / SOCIAL RESIDUE / SCALE LENS / CONTACT, verify the target arrives preloaded, and record only what reduced re-entry cost or failed. Do not add private transport or autonomous sending before that RETURN."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
