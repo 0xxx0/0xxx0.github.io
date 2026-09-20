@@ -67,7 +67,7 @@ footer{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:v
 </main>
 <script>
 (function(){
- var cls={HEALTHY:'h',PARTIAL:'p',OFFLINE:'o',BLOCKED:'o',STAGED:'m',QUARANTINED:'c',UNAVAILABLE:'m',FRESH:'h',AGING:'p',STALE:'o',RECORDED:'m'};
+ var cls={HEALTHY:'h',PARTIAL:'p',OFFLINE:'o',BLOCKED:'o',STAGED:'m',QUARANTINED:'c',UNAVAILABLE:'m',FRESH:'h',AGING:'p',STALE:'o',RECORDED:'m',OBSERVED:'h',UNKNOWN:'p',LOCAL:'h',CLOUD:'c',SAFE:'h',DISABLED:'o',LIVE_IN_HA:'h',LIVE_OUTSIDE_HA:'c',HISTORICALLY_SEEN:'p',NOT_YET_INGESTED:'m',UNRESOLVED:'p',NO_DIRECT_ACTUATION:'m'};
  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]})}
  function badge(v){return '<span class="tag '+esc(cls[v]||'m')+'">'+esc(v)+'</span>'}
  function table(head,rows){return '<table><thead><tr>'+head.map(function(h){return '<th>'+esc(h)+'</th>'}).join('')+'</tr></thead><tbody>'+rows+'</tbody></table>'}
@@ -92,7 +92,7 @@ footer{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:v
   h+='<div class="section"><h2>Objects · lifecycle (ordered, never collapsed)</h2><div class="grid2">'+cells+'</div></div>';
   // OBJECT rows
   var orows=(d.objects||[]).map(function(o){
-   return '<tr><td><b>'+esc(o.label)+'</b></td><td>'+esc(o.area)+'</td><td class="m">'+esc((o.capabilities||[]).join(' · '))+'</td><td>'+badge(o.status)+'</td><td class="m">'+esc(o.control_locality)+'</td><td class="m">'+esc(o.confidence)+'</td><td class="m">'+esc(o.last_verified_class)+'</td><td class="m">'+esc(o.epistemic)+'</td></tr>'});
+   return '<tr><td><b>'+esc(o.label)+'</b></td><td>'+esc(o.area)+'</td><td class="m">'+esc((o.capabilities||[]).join(' · '))+'</td><td>'+badge(o.status)+'</td><td>'+badge(o.control_locality)+'</td><td class="m">'+esc(o.confidence)+'</td><td>'+badge(o.last_verified_class)+'</td><td>'+badge(o.epistemic)+'</td></tr>'});
   h+='<div class="section"><h2>Object rows</h2>'+table(['object','area','capabilities','adoption','control locality','confidence','verified','epistemic'],orows.join(''))+'</div>';
   // CAPABILITIES
   var crows=(d.capabilities||[]).map(function(x){return '<tr><td>'+esc(x.id)+'</td><td>'+esc(x.objects)+'</td><td class="m">'+esc(x.observation)+'</td><td class="m">'+esc(x.control)+'</td></tr>'});
