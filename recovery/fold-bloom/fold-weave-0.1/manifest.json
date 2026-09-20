@@ -6,7 +6,19 @@
   "size_bytes": 102137,
   "text_identity_verified": true,
   "route": "/recovery/fold-bloom/fold-weave-0.1/",
-  "classification": "FROZEN_DONOR",
-  "receipt_requirement": "repo content equals both Library copies",
-  "stop_condition": "One canonical exact copy exists in repo; duplicate remains untouched in Library; mechanism comparison against Two Dial / Ecology / Scale Lens is next."
+  "classification": "FROZEN_DONOR_EXACT_RESTORED",
+  "receipt_requirement": "Repo index.html must equal the complete 1317-line canonical Library source, not merely its prefix. Exact recovery and playability are separate claims.",
+  "stop_condition": "Exact source restored and equality verified; artifact remains FROZEN_DONOR until a real playtest establishes whether its distinct weave law is worth preserving or transferring.",
+  "repo_restore": {
+    "date": "2026-09-20",
+    "status": "CORRECTED",
+    "prior_repo_blob_sha": "fa8969551e3639acf409a622e7dd533406ff8cb8",
+    "fault": "Initial repo ingest stopped after line 1000 / function loop(...), omitting 317 source lines and leaving the JavaScript/IIFE/HTML unclosed.",
+    "canonical_source_file_id": "file_0000000039748211b1e86d7c749b0e30",
+    "source_lines": 1317,
+    "source_chars": 102009,
+    "source_utf8_bytes": 102137,
+    "source_script_compile": "PASS",
+    "proof": "Restored repo file is written directly from the canonical Library source text; post-write equality verification required before closing."
+  }
 }
