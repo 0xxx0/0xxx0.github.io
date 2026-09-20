@@ -271,6 +271,11 @@
             "medium": "EVIDENCE",
             "kind": "receipt",
             "interface": "RETURN"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "physical observation event",
+            "interface": "house event envelope"
           }
         ],
         "exit_paths": [
