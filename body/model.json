@@ -1,0 +1,160 @@
+{
+  "schema": "body-field-model/v0.1",
+  "updated": "2026-09-20",
+  "canonical_id": "BODY-01",
+  "title": "BODY / FIELD",
+  "scope": "privacy-safe public reference model; no personal health record",
+  "operation": "OBSERVE",
+  "laws": [
+    "OBSERVATION != DIAGNOSIS",
+    "ATLAS DONOR != PERSONAL BODY",
+    "ONTOLOGY CONCEPT != STRUCTURE INSTANCE",
+    "NEAR IN TIME != CAUSE",
+    "MISSING != ZERO",
+    "PROJECTIONS DO NOT OWN CANONICAL STATE"
+  ],
+  "projections": [
+    {
+      "id": "SURFACE",
+      "preserves": [
+        "selected region",
+        "surface address"
+      ],
+      "hides": [
+        "deep anatomy",
+        "physiology",
+        "interpretation"
+      ]
+    },
+    {
+      "id": "LAYERS",
+      "preserves": [
+        "frame identity",
+        "truth boundary"
+      ],
+      "hides": [
+        "implementation detail"
+      ]
+    },
+    {
+      "id": "MOVE",
+      "preserves": [
+        "observation",
+        "movement context",
+        "interval"
+      ],
+      "hides": [
+        "causal interpretation"
+      ]
+    },
+    {
+      "id": "ENV-0",
+      "preserves": [
+        "environment measurement",
+        "body observation",
+        "time",
+        "typed relation"
+      ],
+      "hides": [
+        "unsupported causality"
+      ]
+    },
+    {
+      "id": "ATLAS",
+      "preserves": [
+        "source identity",
+        "provenance",
+        "registration status"
+      ],
+      "hides": [
+        "personal claims"
+      ]
+    },
+    {
+      "id": "PLAIN",
+      "preserves": [
+        "canonical readable facts"
+      ],
+      "hides": [
+        "specialized interaction"
+      ]
+    }
+  ],
+  "frames": [
+    {
+      "id": "BODY-SURFACE",
+      "role": "interaction/address frame",
+      "source": "react-native-body-parts-anatomy",
+      "status": "ACTIVE_REFERENCE"
+    },
+    {
+      "id": "OPEN-TWIN",
+      "role": "donor anatomy / ontology-rich structure frame",
+      "status": "PINNED_INTEGRATION"
+    },
+    {
+      "id": "OPENCAP",
+      "role": "movement / kinematics frame",
+      "status": "PINNED_INTEGRATION"
+    },
+    {
+      "id": "PERSONAL-BODY",
+      "role": "persistent user-specific exterior/pose frame",
+      "status": "OPEN_RESEARCH"
+    },
+    {
+      "id": "SPARC",
+      "role": "connectivity / neural-organ knowledge frame",
+      "status": "DEFERRED"
+    },
+    {
+      "id": "ENV-0",
+      "role": "body-world interface relation frame",
+      "status": "BRIDGE"
+    }
+  ],
+  "env0_bridge": {
+    "principle": "body observations can be evidence about environment when paired with environment measurements and time; neither source silently becomes the other",
+    "channels": [
+      "THERMAL",
+      "AIR",
+      "LIGHT",
+      "SOUND",
+      "CONTACT_LOAD",
+      "MOTION"
+    ],
+    "relation_classes": [
+      "CONTACTS",
+      "EXPOSED_TO",
+      "SUPPORTED_BY",
+      "MOVES_WITH",
+      "OBSERVED_DURING",
+      "COINCIDENT_WITH"
+    ],
+    "forbidden_auto_relation": "CAUSED_BY"
+  },
+  "privacy": {
+    "public_surface": "structural/demo/reference only",
+    "forbidden": [
+      "personal diagnoses",
+      "personal medication records",
+      "private biometrics",
+      "private health chronology",
+      "exact live location"
+    ]
+  },
+  "sources": {
+    "body_surface": {
+      "repo": "eslamelfateh/react-native-body-parts-anatomy",
+      "commit": "0935ce05a0d0bdad371b16d295ae4526a38ecd44"
+    },
+    "open_twin": {
+      "repo": "Opening-Science/open-twin-xr",
+      "commit": "6a891e518a55ca118ec50ed93ec5bd55b5cdd97b"
+    },
+    "opencap": {
+      "repo": "opencap-org/opencap-core",
+      "commit": "bd2cfe2dee41a9f0e75318d248270bc421e0ef81"
+    }
+  }
+}
