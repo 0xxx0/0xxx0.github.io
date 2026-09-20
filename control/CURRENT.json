@@ -57,6 +57,13 @@
   ],
   "current_heads": [
     {
+      "lineage": "field-index",
+      "head": "FIELD INDEX / CAPABILITY ↔ I/O",
+      "state": "CORE_ACTIVE",
+      "route": "/",
+      "retained_function": "One field for apps, adapters and later observed physical assets: INPUT → PORT → ADDRESS/STATE → TRANSFORM → OUTPUT → EVIDENCE → RETURN."
+    },
+    {
       "lineage": "scale-lens",
       "head": "SCALE LENS RC11.2",
       "state": "STABLE",
@@ -180,8 +187,8 @@
     }
   ],
   "next_single_action": {
-    "id": "physical-return-01",
-    "instruction": "Produce one actual physical/print before→change→after RETURN from an owned artifact or endpoint. Preferred bounded candidates are the AXIAL print template/build notes or ENV0 build sheet already indexed. Record what was instantiated, what changed, evidence, residue and next; do not count a plan or render as the physical receipt."
+    "id": "physical-return-field-seed-01",
+    "instruction": "Use one ordinary bounded physical/home/workshop action or endpoint. Record OBSERVED → ACTION → RESULT with the smallest useful evidence. Then add that observed object/zone to FIELD INDEX with ports/location/mobility and ask one CONNECT or MOVE question. Do not manufacture a special experiment."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
@@ -217,5 +224,26 @@
     "instrument_charters": "/control/INSTRUMENT_CHARTERS.json",
     "interaction_history_research": "/control/research/INTERACTION_HISTORY.md",
     "irl_recovery": "/control/IRL_RECOVERY.json"
+  },
+  "field_index": {
+    "model": "/showcase-manifest.json#field_index",
+    "private_canon": "registry/field-index/FIELD_INDEX.v0.1.json",
+    "query_families": [
+      "PRODUCES",
+      "CONSUMES",
+      "CONNECT",
+      "PATH",
+      "WORLD_IN",
+      "WORLD_OUT",
+      "REIFY",
+      "VERIFY",
+      "SUBSTITUTE",
+      "BOTTLENECK",
+      "SALVAGE",
+      "MOVE",
+      "RETURN"
+    ],
+    "physical_admission_rule": "Add owned/physical entities only from observed state or explicit confirmation; do not infer possession from shopping/recovery history.",
+    "first_physical_seed": "Use the next real House/workshop RETURN to add one object/zone with location, mobility, dependencies and physical ports."
   }
 }
