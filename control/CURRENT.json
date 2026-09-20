@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -102,10 +102,10 @@
     },
     {
       "lineage": "comms",
-      "head": "LACONIC / ICONIC 0.2 + HUMAN PORT 0.2 + Router / Policy",
+      "head": "LACONIC / ICONIC 0.2 + HUMAN PORT 0.3 + Router / Policy",
       "state": "ACTIVE",
       "route": "/laconic/",
-      "retained_function": "Observed/possible/move discipline + provenance-aware LINE/SCENE recovery + PLAY/CARE/CELEBRATE/REPAIR trajectories → explicit human drafting boundary → transport-neutral policy/RETURN substrate."
+      "retained_function": "Observed/possible/move discipline + provenance-aware LINE/SCENE recovery + PLAY/CARE/CELEBRATE/REPAIR trajectories → explicit drafting/representation boundary → transport-neutral policy/RETURN substrate; disclosed delegated agents may represent only within bounded authority and provenance."
     },
     {
       "lineage": "house-spatial",
@@ -333,7 +333,9 @@
     "interphase_lineage": "/recovery/poly-furnisher/interphase-lineage/",
     "kala_recovery": "/recovery/kala/",
     "continuity_case": "/continuity/",
-    "technique_quarry": "/control/confluence/TECHNIQUE_QUARRY.md"
+    "technique_quarry": "/control/confluence/TECHNIQUE_QUARRY.md",
+    "possession_participation_ablation": "/control/confluence/POSSESSION_PARTICIPATION.md",
+    "possession_participation_receipt": "/control/confluence/POSSESSION_PARTICIPATION.receipt.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
