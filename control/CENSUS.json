@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/library-census-seed/v0.1",
-  "updated": "2026-09-19",
+  "updated": "2026-09-20",
   "scope": "Recent Library artifacts surfaced during recovery; seed only, not a complete inventory.",
   "confirmed_exact_duplicates": [
     {
@@ -68,6 +68,25 @@
         "archive conversation + generated image batch"
       ],
       "action": "recover concepts/artifacts later; keep held"
+    },
+    {
+      "cluster": "LAW ZOO / tiny-law executable material",
+      "examples": [
+        "LAW ZOO Field Guide",
+        "PALIMPSEST",
+        "LAW DISTRICTS",
+        "ONE LAW / TWO SENSES",
+        "ERROR GARDEN"
+      ],
+      "action": "IMPORT_READY. Preserve as one family with unequal instruments; do not normalize onto one runtime. Confluence: /control/confluence/LAW_ZOO.md."
+    },
+    {
+      "cluster": "RSVP / temporal focus",
+      "examples": [
+        "RSVP+TTS TMP-SPEECHSYNTH (20180502)",
+        "[CODE] RSVP Reader App for Galaxy Watch"
+      ],
+      "action": "Exact 2018 Drive duplicate pair recovered and byte-identical; import one frozen donor, keep later Watch thread as intent/starter-sketch lineage, then mechanism-diff."
     }
   ],
   "next": [
