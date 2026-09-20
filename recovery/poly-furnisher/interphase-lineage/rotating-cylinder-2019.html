@@ -1,0 +1,686 @@
+<!doctype html>												<head id=
+HEAD														><meta 
+charset='utf-8'name="viewport"content="user-scalable=no,user-scalable=0"/>
+<!-- #################################################### --><title>
+			   	-=* INTERPHASE-PROTO-1 *=-  	 			</title>
+<!-- #################################################### --><link href=
+"./styles/reset.css" 						rel="stylesheet"><link href=
+"./styles/root.css" 						rel="stylesheet"><link href=
+"./styles/main.css" 						rel="stylesheet"><link href=
+"./styles/env_3d.css" 						rel="stylesheet"><link href=
+"./styles/cuboid.css" 						rel="stylesheet"><link href=
+"./styles/main_svg.css" 					rel="stylesheet"><link href=
+"./styles/statemode.css" 					rel="stylesheet"><style id=
+css_inline_core												 >
+/* ------------------------------------------------------- */
+ #ROOM
+	{transform:translateZ(var(--tz))translateX(var(--tx))translateY(var(--ty))rotateX(var(--rx))rotateY(var(--ry))rotateZ(var(--rz)) ;
+	}
+
+ #ROOM>.o{pointer-events:none;}
+ .rot360{animation: rot360 4s linear infinite;}
+/* ------------------------------------------------------- */
+
+        .world {
+          width: 400px;
+          height: 360px;
+          position: relative;
+          top: 25%;
+          left: 35%;
+          transform: rotateY(25deg) rotateZ(-35deg) translate(-50%, -50%);
+          transform-origin: center center;
+          transform-style: preserve-3d;
+        }
+        .world .container {
+          width: 400px;
+          height: 40px;
+          line-height: 40px;
+          position: relative;
+          margin-bottom: 20px;
+          text-align: center;
+          transform-style: preserve-3d;
+          perspective: 1200px;
+          animation: rot360 4s linear infinite;
+        }
+        .world .container:nth-of-type(6) {animation-duration: @index*1.9s; }
+        .world .container:nth-of-type(5) {animation-duration: @index*1.9s; }
+        .world .container:nth-of-type(4) {animation-duration: @index*1.9s; }
+        .world .container:nth-of-type(3) {animation-duration: @index*1.9s; }
+        .world .container:nth-of-type(2) {animation-duration: @index*1.9s; }
+        .world .container:nth-of-type(1) {animation-duration: @index*1.9s; }
+        .world .container > * {position: absolute; max-width: 80px; }
+        .world .container > *:nth-of-type(6) {transform: rotateY(360deg) translateZ(133.33333333px); }
+        .world .container > *:nth-of-type(5) {transform: rotateY(300deg) translateZ(133.33333333px); }
+        .world .container > *:nth-of-type(4) {transform: rotateY(240deg) translateZ(133.33333333px); }
+        .world .container > *:nth-of-type(3) {transform: rotateY(180deg) translateZ(133.33333333px); }
+        .world .container > *:nth-of-type(2) {transform: rotateY(120deg) translateZ(133.33333333px); }
+        .world .container > *:nth-of-type(1) {transform: rotateY(60deg) translateZ(133.33333333px); }
+        .world:hover .container {animation-play-state: paused; }
+
+        @keyframes rot360 {
+          from {transform: rotateY(0deg); }
+          to {transform: rotateY(360deg); } }
+
+        :root {
+          --blur: 0px;
+          --kerning: 0em;
+          --textColor: #ffffff;
+          --color1: #3A0082;
+          --color2: #FF0000;
+          --gradientType: linear-gradient(45deg, var(--color1), var(--color2));
+        }
+
+        body {
+          background: var(--gradientType);
+          height: 100vh;
+          font-family: Montserrat;
+          text-align: center;
+        }
+
+        label {
+          display: block;
+          text-transform: uppercase;
+          color: var(--textColor);
+          font-size: 10px;
+          letter-spacing: 0.13em;
+          margin-bottom: 10px;
+        }
+        label.inline-label input {margin-left: 10px; }
+        input[type=text] {
+          background: rgba(255, 255, 255, 0.1);
+          border: 1px solid rgba(255, 255, 255, 0.5);
+          outline: none;
+          padding: 8px;
+          color: var(--textColor);
+          font-family: Montserrat;
+        }
+
+        input[type=text]::placeholder {color: rgba(255, 255, 255, 0.5); }
+        input[type=color] {
+          border: 1px solid rgba(255, 255, 255, 0.5);
+          border-radius: 4px;
+          background: rgba(255, 255, 255, 0.1);
+          outline: none;
+        }
+
+        input[type=color]:focus {border: 1px solid rgba(255, 255, 255, 0.7); background: rgba(255, 255, 255, 0.3); }
+        input[type='radio' i] {background-color: transparent; cursor: pointer; }
+        #textToDisplayWrap {margin-top: 50px; }
+        #textProperties,
+        #backgroundProperties {
+          max-width: 600px;
+          margin: 30px auto;
+          display: flex;
+          justify-content: space-between;
+        }
+        #textProperties p,
+        #backgroundProperties p {color: var(--textColor); }
+        #gradientType {padding-top: 3px; }
+        #gradientType .property, #gradientType .radio {padding: 5px; }
+
+        #text {
+          font-family: Montserrat;
+          font-size: 100px;
+          -webkit-font-smoothing: antialiased;
+          color: var(--textColor);
+          text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+          filter: blur(var(--blur));
+          letter-spacing: var(--kerning);
+        }
+
+/*html,
+body {height: 100%; }
+body {background: linear-gradient(to bottom, #1e528e 0%, #728a7c 50%, #e9ce5d 100%); }*/
+
+/* ------------------------------------------------------- */</style><style id=
+css_SCRATCH												 	>
+
+/* ------------------------------------------------------- */</style>
+															 </head><body id=
+BODY														><div id=
+    VIEWPORT												><div id=
+    	CAMERA 												><div id=
+    		SCENE 											><template>
+    			
+    		</template>
+<!--- -------------------------------------------------- ---><div id=
+	   ROOM class='cuboid'				 					><div id=
+		 $r class=r											></div><div id=
+		 $e class=e 										></div><div id=
+		 $w class=w 										></div><div id=
+		 $o class=o 										></div><div id=	
+		 $l class=l 										></div><div id=    	
+		 $f class=f					 						><h1 id="text">---!</h1></div></div>
+
+
+
+<div class="world">
+  <div class="container">
+<!--     <select>
+      <option>select</option>
+    </select>
+    <select>
+      <option>select</option>
+    </select>
+    <select>
+      <option>select</option>
+    </select>
+    <select>
+      <option>select</option>
+    </select>
+    <select>
+      <option>select</option>
+    </select>
+    <select>
+      <option>select</option>
+    </select> -->
+
+<div id="textToDisplayWrap">
+  <label for="textToDisplay">Text to display:</label>
+  <input id="textToDisplay" type="text" name="Hi" placeholder="Change!">
+</div>
+
+  </div>
+  <div class="container">
+
+
+<div id="textProperties">
+  <p>Text Properties</p>
+  <div class="property">
+    <label for="blur">Blur</label>
+    <input id ="blur" type="range" min="0" max="40" value="0" name="blur" data-unit="px">
+  </div>
+  <div class="property">
+    <label for="kerning">Kerning</label>
+    <input id="kerning" type="range" min="0" max="100" value="0" name="kerning" data-unit="em">
+  </div>
+  <div class="property">
+    <label for="color">Color</label>
+    <input id="color" type="color" value="#ffffff" name="textColor">
+  </div>
+</div>
+
+  <div class="container">
+<div id="backgroundProperties">
+  <p>Background Properties</p>
+  <div id="gradientType">
+    <div class="radio">
+    </div>
+    <div class="radio">
+      <label class="inline-label">Radial<input type="radio" name="gradientType" data-gradientType="radial"></label>
+    </div>
+  </div>
+  <div class="property">
+    <label class="inline-label">Color 1<input type="color" value="#3A0082" name="color1"></label>
+    <label class="inline-label">Color 2<input type="color" value="#FF0000" name="color2"></label>
+  </div>
+</div>
+
+  <div class="container"> <</div> <div class="container"> <input type="color"/> <input type="color"/> <input type="color"/> <input type="color"/>
+    <input type="color"/>
+    <input type="color"/>
+  </div>
+</div>
+		 
+<!--- -------------------------------------------------- ---></div>
+<!-- prolly also add svg or other display things|print.css... for no-js in future -->
+<!-- ~~~~~~~~~~~~~~~~~ END OF PURE HTML ~~~~~~~~~~~~~~~~~ --></div></div></body>
+<!-- ======== LOW DEPENDENCY AND CRITICAL SCRIPTS ========  --><script src=
+'./scripts/prelude.js'										>
+--> 00 Prelude
+	--> LXXX 	flow, wolf
+	--> LXXX  
+	--> LXXX	Bop 
+/* ------------------------------------------------------- */</script><script src=
+'./scripts/store.js'										></script><script src=
+'./scripts/matrix.js'										></script><script src=
+'./scripts/lens.js'											></script><script src=
+'./scripts/optics.js'										></script><script src=
+'./scripts/xducers.js'										></script>
+<!-- ======== HIGH DEPENDENCY AND TEMP SCRIPTS =========  --><script src=
+'./scripts/hdom.js'											></script><script src=
+'./scripts/eve.js'											></script><script src=
+'./scripts/matrix_css3d.js'									></script>
+<!-- ===== DOM, UI, CONTROLLER, TEMPLATES, H, DATA ====== --><script src=
+'./scripts/templates/glyph.js'								></script><script src=
+'./scripts/templates/hex.js'								></script><script src=
+'./scripts/onbutt_ick/kb.js'								></script>
+<!-- ======== SCRATCH, TESTS, UNSTABLE, RANDOM =========  - -><script src=
+'./scripts/SCRATCH/SCRATCH0.js'								></script><script src=
+'./scripts/SCRATCH/temp_testing.js'							></script>
+<!-- ================================================ 61 --><script>
+/************************************************************/
+<!--				    #_TOC
+-->
+--> 00 Prelude
+	--> LXXX 	flow, wolf
+	--> LXXX  
+	--> LXXX	Bop 
+--> 01 Store
+	--> LXXX    ???~~~> MACHINE||FSM 
+--> 02 Matrix
+	--> LXXX idm - identity matrix
+	--> LXXX vUv, v.... - vector methods
+--> 03 Lens
+--> 04 Optics
+--> 05 Xducers
+--> 06  
+--> 07 
+--> 08
+
+
+
+--> 99 Inputs Controls Keys
+--> 99 kb
+	--> LXXX keys
+/*************************************************************/
+/* 
+,state-handling
+	- FSM, stochastic matrices... OMM....
+	- 
+,controllers | interfaces
+	- prism | cylinder 
+	- hex, glyph | mandala
+
+,omni-search
+
+,microlight
+,rsvp
+,TTS
+,WebAudio
+*/
+
+/* ----------------------------------------------------- */
+
+// rect is a DOMRect object with eight properties: left, top, right, bottom, x, y, width, height
+rect = (el)=> el.getBoundingClientRect() //    relative to: viewport, physical screen, event target, html
+pointing = (e)=> (// TODO: getE = (ev) => { return ev.touches ? ev.touches[0] : ev }
+  {  client: { x: e.clientX, y: e.clientY }
+  ,  screen: { x: e.screenX, y: e.screenY }
+  ,  offset: { x: e.clientX-rect(e.target).left, y: e.clientY-rect(e.target).top }
+  ,  page:   { x: e.pageX||e.clientX, y: e.pageY||e.clientY }  } )
+zip = (arr, ...arrs) => arr.map((val, i) => arrs.reduce((a, arr) => [...a, arr[i]], [val]))
+getElementCoordinates = (el,rel=document.body)=> ({oY:rect(el).top-rect(rel).top,oX:rect(el).left-rect(rel).left})
+
+
+
+
+
+
+
+
+
+
+(function(){
+  // rotation via mousemove
+  var cont = document.querySelector('.world'),
+  factor = 4;
+  document.addEventListener('mousemove', updRotation, false);
+  function updRotation(e){
+    cont.style.webkitTransform = 'rotateY(' + e.x / factor + 'deg) rotateZ(-' + e.y / factor + 'deg)';   
+    cont.style.transform = 'rotateY(' + e.x / factor + 'deg) rotateZ(-' + e.y / factor + 'deg)';   
+  }
+  
+})()
+
+
+
+
+
+const textInput = document.querySelector('#textToDisplayWrap input');
+const textOutput = document.getElementById('text');
+const propertyInputs = document.querySelectorAll('.property input');
+const radioInputs = document.querySelectorAll('.radio input');
+changeText=()=>textOutput.innerHTML = textInput.value || 'Change!';
+updateProperty=e=> document.documentElement.style.setProperty(`--${e.target.name}`, e.target.dataset.unit==='em'?e.target.value*0.005:e.target.value + e.target.dataset.unit || '')
+updateGradientType=(e,g=e.target.dataset.gradienttype)=>gradientType === "linear" ? document.documentElement.style.setProperty(`--${e.target.name}`, `${gradientType}-gradient(45deg, var(--color1), var(--color2)`) :  document.documentElement.style.setProperty(`--${e.target.name}`, `${gradientType}-gradient(var(--color1), var(--color2)`)
+
+// function updateGradientType() {
+//   gradientType === "linear" ? document.documentElement.style.setProperty(`--${e.target.name}`, `${gradientType}-gradient(45deg, var(--color1), var(--color2)`) :  document.documentElement.style.setProperty(`--${e.target.name}`, `${gradientType}-gradient(var(--color1), var(--color2)`)}
+
+textInput.addEventListener('keyup', changeText);
+propertyInputs.forEach(input => input.addEventListener('mousemove', updateProperty))
+propertyInputs.forEach(input => input.addEventListener('change', updateProperty))
+radioInputs.forEach(input => input.addEventListener('change', updateGradientType))
+
+
+/* ----------------------------------------------------- */
+
+/* SVG stuff, markers... ------------------------------------- * /
+trycicle=h.circle({r:1,style:`stroke-width:0.5;stroke:var(--C_5);fill:var(--Cc3)`})
+tryl=h.line({x1:0,x2:0,y1:-3,yat2:3 ,style:`stroke-width:.3;stroke:var(--Ca5);`})
+
+// tryangle=h.path({d:'M -5,-5 L0,5 L5,-5 z',style:`stroke-width:.5;stroke:var(--Ca5);fill:var(--Cc3)`})","({viewBox:'-6 -6 12 12'})
+
+star=h.polygon({points:'-5,-5 -3,0 -5,5 0,3 5,5 3,0 5,-5 0,-3'})","({viewBox:'-5 -5 10 10'})
+crosshatch=h.rect({width:'100%',height:'100%',fill:'TRANSLUSCENT'}),h.path({d:'M0 0L8 8ZM8 0L0 8Z',style:'stroke-width:0.5;stroke:#aaa;'})// ",`({viewBox:"0,0,10,10"}
+
+sympol=(...shapes)=>(id,attrs={},title='',desc='')=>h.symbol(config({id})(attrs),h.title(title),h.desc(desc),...shapes)
+maketh=(marpat='pattern')=>(symbolid,attrs,id=symbolid+marpat)=>h[marpat]({id},h.use({href:'#'+symbolid}))
+
+defineit=(...xs)=>h.defs(...xs)
+knit=(el,sof=0)=>patternid=>scs(['fill','stroke'][sof?1:0])(`url(#${patternid}pattern)`)(el)
+markit=where=>markerid=>way=>tat(way)({[`marker-${where}`]:`url(#${markerid}marker)`})
+markers_patterns=symbols=>target=>domo(h.defs(...reduce((a,x)=>a.concat([maketh('pattern')(x),maketh('marker')(x)]),[])(symbols)))(target)
+
+
+//UNIVERSAL PATH -> PROGRESS METER
+bbox=(el)=> el.getBoundingClientRect()
+plength=pathEl=>pathEl.getTotalLength()
+setDash=way=>map(dash=>scs(dash)(plength(way))(way))(['stroke-dashoffset','stroke-dasharray'])
+wherefore=pathEl=>prog=>pathEl.getPointAtLength(plength(pathEl)*prog)
+wayfar=way=>prog=>(/*for safari* /
+bbox(way),setDash(way),scs('stroke-dashoffset')(plength(way)*(1-prog))(way))
+wayset=(el,attrs={},SYM=h.circle)=>domo(SYM( config(attrs)({ id:nom('waypoint') }))) (el)
+wayptr=el=>({x,y},r=1)=> tat(el)({cx:x,cy:y,r,style:'stroke:var(--Ca5)'})
+wayin=(target,waypt=(qsa(`#${target.id} + *[id^="waypoint"]`)||wayset(target)))=>rate=>(wayfar(target)(rate),wayptr(waypt)(wherefore(target)(rate)))
+poi=g=>join(' ')(map(el=>map(tat(el))(['x','y']))([...g.children]))
+
+
+
+DISTPLACE=
+[['metallicRatio',"(n=1)=>(n+sqrt(  pow(2)(n)  +4)   )/2"]
+,['ra',"(k=1,ratio=1,scale=1/metallicRatio(ratio))=>n=>mul(k)(pow(n)(scale))"]
+,['addvert',"twith((a,b)=>a+b,0)"]
+,['arcpt',"t=>(r,[cx,cy]=[0,0],offs=-PI/2,newLims=[0,PI*2],oldLims=[0,1])=> map(precisely(3)) (RT_XY([r,convert(offs,oldLims,newLims)(t)],[cx,cy]))"]
+,['RT_XY', "([r,t],[cx,cy]=[0,0])=> map(precisely(3))([r*cos(t)+cx, r*sin(t)+cy])"]
+,['XY_RT', "([x,y],[cx,cy]=[0,0])=> (i=x-cx,j=y-cy, [sqrt(i*i + j*j),atan2(j, i)])"]
+,['belong',"([a1,z1]=[0,PI*2])=>([a0,z0]=[0,1])=>(x,offs=0)=> (x-a0)/(z0-a0)*(z1-a1)+a1+offs"]
+,['convert',"(offs=-PI/2,oldLims=[0,1],newLims=[0,PI*2])=>x=>belong(newLims)(oldLims)(x,offs)"]
+,['repeat',"n=>f=>x=> (n>0?repeat(n-1)(f)(f(x)):x)"]
+,['epic',`(r=ra(5))=>(t=(s,i,n)=>addvert(n[1],...slice(1,i+1)(n)))=>(es)=> transduce(
+  flow( mapping(map((s,i,n)=>t(s,i,n)))
+    , mapping(map((s,i,n)=>arcpt(s)(r(i),[0,0],convert()(n[i?i-1:0]))) )))
+    // removing the convert term introduces some perspective effect
+  (shovel)([])
+  (es)`]
+// ,['tracepath',]
+,['legend',`(d=x=>size(x.i)===5)=>faxdat=>transduce(
+  flow( mapping(x=>slice(0)(get(fov('e'))(x)))
+    , filtering(x=>ist.object(x)&&d(x))))
+  (shovel)([]) 
+  (deepFlatten(faxdat))`]
+,['faxline',"(fax,rel=(a,i)=>i===0?' M0,0 ':_d.L(a),o=[0,0])=>way=> tat(way)({d:_d.M(o) +(map(x=>(join('')(map((s,i,n)=>rel(s,i,n))(x))))(fax))})"]
+,['cord',"(r,c=[0,0],o=-PI/2,d=[0,PI*2])=>x=>arcpt(x)(r,c,o,d)"]
+,['co',"(r,o)=>x=>arcpt(x)(r,o)"]
+,['appoint',"(x,i,o)=>([o[i>0?i-1:0],x])"]
+,['dis',`(place=x=>x)=>(xs, max=xs=>size(xs), idxs=(x,i)=>i)=> map((x,i,xs)=>place(div(max(xs))(idxs(x,i,xs))))(xs)`]
+,['very',`vs=>(SYM=circ())=>(target)=>
+  flow (map(SYM) ,map(flip(domo)(target)) )(vs)`]
+,['pointificate',"(r,f=dis( cord(r,[0,0],0)))=>xs=> f(xs)"]
+]
+/* ----------------------------------------------------- */
+H={svg:{ns:'svg',viewBox:'-16 -16 32 32'}
+    ,pattern:{ns:'svg',viewBox:'0 0 32 32',width:'5%',height:'5%',patternUnits:'userSpaceOnUse'}
+    ,circle:{ns:'svg',cx:0,cy:0,r:0.1}
+    ,rect:{ns:'svg',x:0,y:0,width:1,height:1}
+    ,symbol:{ns:'svg',viewBox:'-4 -4 8 8'}
+    ,marker:{ns:'svg',viewBox:'0 0 32 32',refX:0, refY:0,markerWidth:10,markerHeight:10,orient:'auto'}
+    ,a:{href:'#'}
+    ,path:{ns:'svg'}
+    ,preconf:{FAXLINE:
+          {class:'faxline'
+          ,style:'stroke:var(--color-accent-1);stroke-width:0.01;fill:none;'
+          ,'marker-mid':'url(#tryciclemarker)'
+          // ,'marker-end':'url(#TRYANGLE)'
+          // ,'marker-start':'url(#TRYANGLE)'
+          }
+  ,SECTOGRAPH:
+        {style:`stroke:var(--Cb5);stroke-width:.1;fill:var(--TRANSLUSCENT);opacity:1;`}
+  , PATHLINE:
+          {style:'stroke:var(--C_2);stroke-width:0.15;fill:var(--Cc5);'
+          ,'marker-mid':'url(#tryciclemarker)'
+          ,'marker-start':'url(#tryanglemarker)'
+          ,'marker-end':'url(#tryanglemarker)' 
+          } }}
+
+rebase=([a1,z1]=[0,PI*2])=>([a0,z0]=[0,1])=>(x,offs=0)=> (x-a0)/(z0-a0)*(z1-a1)+a1+offs
+lim=([a,z]=[])=>x=> x<=a?a:x>=z?z:x
+ // ifte(f(a)(x))(a)(ifte(g(z)(x))(z)(x))
+abs=Math.abs
+
+duh=undefined
+
+// circ=(r=0.1,form={})=>([cx,cy])=>h.get(['circle',({...{r,cx,cy},...form})])
+draw={}
+draw.c=(r=0.1,[cx,cy]=[0,0],form={})=>h.get(['circle',({...{r,cx,cy},...form})])
+
+
+pline=(o,form={})=>(...ps)=>h.polyline(assign({points:`${o} ${(ist.array(ps)?[ps]:[ps]).join(' ')}`},form))
+sector=(a1,a0)=>(r1,r2=r1+1)=>
+  (a1=convert()(lim([1e-4,1])(a1)),a0=convert()(a0)
+  ,_d.M(RT_XY([r1,a0]))
+  +_d.A(a1,a0)(r1)(duh,duh,0,<=(PI)(abs(a1-a0))?0:1)
+  +_d.L(RT_XY([r2,a1]))
+  +_d.A(a0,a1)(r2)(duh,duh,1,<=(PI)(abs(a0-a1))?0:1)
+  +_d.Z)
+opensect=(a,a0)=>(r1,r2=r1+1)=>
+  (a1=convert()(lim([0,1])(a)),a0=convert()(lim([0,1])(a0))
+  ,_d.M(RT_XY([r1,max(a1,a0)]))
+  +_d.A(...(  sort((a,b)=>b<a) ([a1,a0]) ) )(r1)(duh,duh,0,<=(PI)(abs(a1-a0))?0:1)
+  +_d.M(RT_XY([r1,a0]))
+  +_d.L(RT_XY([r2,a0])))
+
+sect=(r1=8,r2=r1+2,form=H.sect)=>([start,end])=>['path',({ ...{d:sector(start,end)(r1,r2), class:'testsect','data-bounds':`from ${start} to ${end} inner:${r1} outer:${r2}`},...form})]
+arctrail=(r1=i=>4+i,r2=i=>r1(i+1))=>xs=>'M0,'+r1(0)+((xs.map((s,i,n)=>opensect(...(n.slice(i,i+2,i)))(r1(i),r2(i)))  ).slice(0,-1).join(' '))
+
+/**/
+/**/<!-- --------- CONVENIENCE CONSTRUCTOR ---------------------------- */
+/* !!! TODO: clean-up, ensure H? */
+/**/	tml_CHECKCONF=([tag,...els])=>tml([tag, ({...H&&H[tag]?H[tag]:{},...(els[0]&&type(els[0])==='object')?els.shift():{}}),...els]) 
+/**/<!-- --------- LENS-BASED ISO CONSTRUCTOR ---------------------------- */
+/**/	h=Iso(tml_CHECKCONF/*lmt*/)(lmt)
+/**/
+
+
+
+
+/* ----------------------------------------------------- */
+
+
+//https://codegolf.stackexchange.com/questions/109155/create-a-checkbox?rq=1
+checkbox = `<p onclick=innerHTML^=1>0`
+//<p style=height:20;border:solid onClick=t=this;t.innerHTML=(t.e=!t.e)?'x':''>
+//<p id=d style="width:20px;height:20px;border:solid 1px"onClick="d.innerHTML=d.innerHTML=='x'?'':'x'"align=center>
+
+<!-- --------- FORMS------- DATA-PERSIST---------------------
+// <input type=text data-persist=demo placeholder="Data-persist attribute saves to LS">
+fields = document.querySelectorAll('[data-persist]')
+fields.forEach((field)=>{let stored=localStorage.getItem(field.getAttribute('data-persist'))
+	; if (stored) console.log(field.value=stored)
+	; field.addEventListener('input',()=>localStorage.setItem(field.getAttribute('data-persist'),field.value)) })
+
+
+/* ----------------------------------------------------- */
+
+runPromisesInSeries = ps => ps.reduce((p, next) => p.then(next), Promise.resolve());
+//delay = d => new Promise(r => setTimeout(r, d));
+//runPromisesInSeries([() => delay(1000), () => delay(2000)]); // Executes each promise sequentially, taking a total of 3 seconds to complete
+
+
+
+// FETCH // lens
+WEBDAT= (
+	{ HTTPS:"https://"
+	, CORS:"cors-anywhere.herokuapp.com" /* CORS -> try CORS if fail // OPT (?) */
+	, EGURL1:"api.github.com/repos/javascript-tutorial/en.javascript.info/commits"
+	})
+
+const fetchURL=async (url,n=0,t="text,json,formData,blob,arrayBuffer".split(",")[n])=>(response = await fetch(url),response.ok?await response[t]():alert(alert("HTTP-Error: " + response.status)))
+
+/*************************************************************/
+<!--				    ###_OPTICS_PREFAB
+/*************************************************************/	
+// ISOS
+numtostr=num=>''+num , strtonum=str=>  +str , arrtostr=arr=> JSON.stringify(arr) /* arr.join('') */ , strtoarr=str=>[...str] , num_str=Iso(numtostr)(strtonum) , arr_str=Iso(arrtostr)(strtoarr) , json_parsed =Iso (JSON.stringify)(JSON.parse)
+/* # Prefab Lenses */ 
+	, fat=k=>Lens(o=>o.getAttribute(k))(v=>o=>o.setAttribute(k,v))
+	, fcs=k=>Lens(o=>getComputedStyle(o).getPropertyValue(k))(v=>o=>(o.style.setProperty(k,v),o))
+// Lens: (async URL) (async post to URL)
+	, fet = (o,n)=>Lens( k=> fetchURL(o+k,n)) (v=> k=>  fetch(o+k,{method: 'POST',headers: {'Content-Type': 'application/json;charset=utf-8'} ,body: JSON.stringify(v) })) /* !!! TODO: refactor w fetchURL */ 
+/*************************************************************/
+<!--				    ###_OPTICS_CONVENIENCE_SCRATCH
+/*************************************************************/	
+/* TEMP(?) */ , got = l=>o=>(['string','number'].includes(typeof(l))?l=fov(l):'',l.get(o)		) , mot = l=>f=>o=>(['string','number'].includes(typeof(l))?l=fov(l):'',l.mod(f)(o)) , moo = l=>o=>f=>l.mod(f)(o)
+
+
+/*************************************************************/
+<!--				    ###_CONTROLLER
+/*************************************************************/	
+
+
+
+/*************************************************************/
+<!--				    ###_PRIME_HASH
+/*************************************************************/	
+/* Apply = product, Option|Logic|Or = sum */
+/* -----------------------------------------------------*/ </script>
+<!--_================================================ 60--><script id=
+				    $$$INITIALISE 						   >
+
+wind=ass=>ass.map(([x,y])=>r+=Math.atan2(y*b-x*c,y*c+x*b,b=x,c=y),b=c=r=0)&&r/Math.PI/2
+
+levdistMatrix = (s)=>(t)=> {let x=[];[...s].map((u,i)=>w=w.map((v,j)=>p=j--?Math.min(p,v,w[j]-(u==t[j]))+1:i+1,x.push(w)),w=[...[,...t].keys()])|x.push(w);return x}  //dist is bottom right/last cell
+lev = (s)=>(t)=> [...s].map((u,i)=>w=w.map((v,j)=>p=j--?(Math.min(p,v,w[j]-(u==t[j]))+1,console.log('move'+u)):(i+1)),w=[...[,...t].keys()])|p  //dist is bottom
+/* ---------  TEXT ---------  */
+combis=(a,b,z,c=[])=>((d=(e,f,g=[])=>f*e?g.push(e)+d(e-1,f-1,g)+g.pop
+()+d(e-1,f,g):f||c.push(g.map(b=>a[b-1])))(a.length,b),c)
+//TODO: skip-gram e.g.~> combis([0,1,2,3,4].reverse(),3).filter(x=>x[2]-x[0]<4) // WIP
+skipgram=words=>combis([0,1,2,3,4,5,6,7,8].reverse(),3).filter(x=>x[2]-x[0]<4).map(x=>map((i)=>words[i])(x))
+nextwords=(xs)=> reduce((a,q)=>(a[q]=map(i=>xs[i+1])(findIdxs(xs,q)),a),{}) ([...new Set(xs)])
+
+
+
+
+
+// (xs)=> [...new Set(xs)].reduce((a,q)=>(a[q]=findIdxs(xs, q),a),{})
+// H='calc(0.2*var(--H))',W='calc(0.2*var(--W))',D='calc(0.2*var(--D))'
+
+$$=document.querySelectorAll
+if_unnamed=(s,count=document.querySelectorAll('[id^='+s).length+1)=>s+count
+
+makeCube=({H='20vh',W='20vw',D=W,Aunit='deg',Lunit='px',rx='0',ry='0',rz='0',tx='0',ty='0',tz='0'})=> (el,id=if_unnamed('room'))=>el.appendChild(tml(['div',({class:'cuboid', style:'',id}) ,['style',`#${id}{--H:${H};--W:${W};--D:${D};--rx:${rx+Aunit};--ry:${ry+Aunit};--rz:${rz+Aunit};--tx:${tx+Lunit};--ty:${ty+Lunit};--tz:${tz+Lunit};transform:translateZ(var(--tz))translateX(var(--tx))translateY(var(--ty))rotateX(var(--rx))rotateY(var(--ry))rotateZ(var(--rz));}#${id}>*{background-color:var(--c4);opacity:0.3;outline:2px solid red}`],...[...'werofl'].map(face=> ['div',({class:`room face ${face}`})] ) ]))
+
+
+
+
+
+
+
+
+
+// EVE=eventMon()
+// Object.getOwnPropertyNames(window).filter(x=>x.match(/^on/)).map(x=>x.replace(/on/,'')).map(x=>document.addEventListener(x,d=>EVE.emit(x,d)))
+
+//THEME
+DARK=({"--color":"var(--c5)","--background-color":"var(--c1)"})
+config(DARK,fcs)(BODY)
+
+
+
+
+testx=wolf( filtering(x=>x%2===0)
+      ,   mapping((x,i=0)=>(i+=3,x*2))
+      )
+
+
+SCENE.appendChild(tml(['input',
+	{id:'mushroom'
+	,style:'width:100px;outline:1px solid white'
+	},'arstaf']))
+
+
+
+
+// EVE.on('click',PLACEBLUEBOXES=x=>console.log(BODY.appendChild(tml(['div',{style:`position:absolute;top:${x.clientY}px;left:${x.clientX}px;width:100px;background-color:blue;`},''+x.clientX+','+x.clientY]))))
+
+// EVE.on('mousemove',PLACEBLUEBOXES=x=>console.log(BODY.appendChild(tml(['div',{style:`position:absolute;top:${x.clientY}px;left:${x.clientX}px;width:100px;background-color:blue;`},''+x.clientX+','+x.clientY]))))
+
+glyph=h.get(['style',`
+	.glyph
+	{--H:2em
+	;--W:2em
+	;--W$l:20%;
+	;--W$r:20%;
+	;--H$w:20%;
+	;--H$e:20%;
+	;--
+	;--Xpos:0
+	;--Ypos:0
+	;--
+		position:absolute;margin:0;height:var(--H); width:var(--W);}
+	.glyph *{outline:1px solid white;margin:0;position:absolute;}
+	.glyph .o{}
+	.glyph .w{top:0;height:var(--H$w);width:100%;}
+	.glyph .l{left:0;width:20%;height:100%;}
+	.glyph .r{right:0;width:20%;height:100%;}
+	.glyph .e{bottom:0;height:20%;width:100%;}
+	.glyph .f{left:20%;top:20%;height:60%;width:60%;}`
+	])
+testg=h.get(['div', {id:'glyph1',class:'glyph X'},...[...'owlref'].map(x=>['div',{class:x}])])
+makeCube({rx:40,ry:30,rz:25,tz:300,tx:100,ty:100})(ROOM)
+
+$w.style="background:linear-gradient(to bottom, skyblue 10%,skyblue 20%, white 100%);"
+$f.style="background: radial-gradient(circle,red,yellow,skyblue 70%); "
+$l.style=`background-color:white;
+background-image:
+radial-gradient(var(--background-color) 9px, transparent 10px),
+repeating-radial-gradient(var(--background-color) 0, var(--background-color) 4px, transparent 5px, transparent 20px, var(--background-color) 21px, var(--background-color) 25px, transparent 26px, transparent 50px);
+background-size: 30px 30px, 90px 90px;
+background-position: 0 0;`
+$r.style=`background-color:white;
+background-image:
+radial-gradient(var(--background-color) 9px, transparent 10px),
+repeating-radial-gradient(var(--background-color) 0, var(--background-color) 4px, transparent 5px, transparent 20px, var(--background-color) 21px, var(--background-color) 25px, transparent 26px, transparent 50px);
+background-size: 30px 30px, 90px 90px;
+background-position: 0 0;`
+$e.style='background-color:var(--background-color)'
+
+		/* radial gradient background */
+		// #radial-gradient {background: radial-gradient(circle, black, white); }
+
+
+		// .sunroof{background:linear-gradient(to bottom, #000066 10%,#1e528e 20%, #880000 50%, #e9ce5d 100%);}
+		// background: #36c;
+		// background:
+		// linear-gradient(115deg, transparent 75%, rgba(255,255,255,.8) 75%) 0 0,
+		// linear-gradient(245deg, transparent 75%, rgba(255,255,255,.8) 75%) 0 0,
+		// linear-gradient(115deg, transparent 75%, rgba(255,255,255,.8) 75%) 7px -15px,
+		// linear-gradient(245deg, transparent 75%, rgba(255,255,255,.8) 75%) 7px -15px,
+		// #36c;
+		// background-size: 15px 30px;
+
+		// background: #36c;
+		// background:
+		// linear-gradient(115deg, transparent 75%, rgba(0,0,0,.8) 75%) 0 0,
+		// linear-gradient(245deg, transparent 75%, rgba(0,0,0,.8) 75%) 0 0,
+		// linear-gradient(115deg, transparent 75%, rgba(0,0,0,.8) 75%) 7px -15px,
+		// linear-gradient(245deg, transparent 75%, rgba(0,0,0,.8) 75%) 7px -15px,
+		// #36c;
+		// background-size: 15px 30px;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// <p><video id=v loop><p><a href=# onclick=c=[];m.start(10)>Record<p>
+// <a onclick="m.stop();blob=new Blob(c,{type:y});v.src=l.href=window.URL.createObjectURL(blob);v.play()"href=#>Stop<p><a id=l download>Download</a><p><body onload="y='video/webm';navigator.getUserMedia({video:1,audio:1},a=s=>{v.src=URL.createObjectURL(s),v.play(),m=new MediaRecorder(s,{mimeType:y}),c=[],m.ondataavailable=e=>e.data&&e.data.size&&c.push(e.data)},a)">
+
+
+
+BODY.appendChild(glyph)
+SCENE.appendChild(testg)
+
+/* ----------------------------------------------------- */</script>

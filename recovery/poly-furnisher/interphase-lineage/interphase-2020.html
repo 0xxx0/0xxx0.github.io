@@ -1,0 +1,577 @@
+<!doctype html>												<title>
+				-=* INTERPHASE-PROTO-1 *=-  	</title>
+
+
+
+
+																												<style id=
+CSSCORE														>
+/* Reset */ 	/* Font */ 		/* Layout */
+  :root{
+  	--SYSFONTS:
+  		-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial, monospace;
+
+
+
+/* INSERT Calculation-based CSS | LOGIC */
+	/* e.g. thin borders  */
+	/* e.g. opposite colors -> for toggling light\darkthemes etc */
+
+--size-font:16px
+; --base-em:1em
+; --overflow:hidden
+; --persp:32em
+; --persp-o:center
+; --W:100vw
+; --H:100vh
+
+; --cam-border: 2px solid red;
+; --circle:border-radius:50%;
+	}
+
+body {margin:0;}
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–-- [BOX-SIZING] */
+*,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;text-rendering: optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-kerning:auto;}
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- --- [LOBOTOMIZED OWL] */
+p{text-align: justify;}p+p{margin-top: 0; text-indent: 2em;}*+*{margin/*-top*/:var(--S01)}.tight>*{margin-top:var(--S01)} .margins-off>*{margin-top: 0;}
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–-------- [MAIN] */
+body{font-family:var(--SYSFONTS);font-size:var(--FONTSIZE); background-color:var(--C_0); color:var(--C_2); padding-top:0; overflow:hidden;  /*margin-bottom:0;*/ height:100vh;
+}
+section *{height:auto;width:auto; }
+/*::-webkit-scrollbar {width:0.1em; height:0.1em;}*/
+/*::-webkit-scrollbar-track {height:1em; width:1em;}*/
+::-webkit-scrollbar {width:.5em; height:.5em;}
+/*::-webkit-scrollbar-track {box-shadow: inset 0 0 3px var(--C_5); }*/
+
+
+
+#VIEWPORT {position: relative; width: var(--W);height:var(--H); overflow: var(--overflow); border: 1px solid; perspective: var(--persp); padding:0
+	/* ;top:-50%;left:-50% */
+	;}
+#VIEWPORT * { transform-style: preserve-3d; box-sizing: border-box; }
+#CAMERA {position: absolute; width: 0; height: 0; top:calc(0.5*var(--W)); left:calc(0.5*var(--H)); border: var(--cam-border)}
+#SCENE { transition: .5s linear; }
+.plane, .sprite, .group { transition: .5s linear; }
+/*.origin-top { transform-origin: top center }*/
+	/* Utility */  	/* Logical */  	/* Templates */
+
+/*  ROOM STYLE IN CASE ANYTHING DOESNT WORK */
+		.room{height:var(--H)
+		     ;width:var(--W)
+		     ;margin:0
+		     ;transform-style:preserve-3d
+		     ;transition:var(--TRANSITION)
+		     ;}
+		.room >* {position:absolute
+		       ;outline:1px solid black
+		       ;box-shadow: var(--REVEALS)
+		       ;height:100%;width:100%
+		       ;}
+		.room #\$r{transform:rotateY(-90deg)translateZ(calc(-0.5*var(--W)))}
+		.room #\$e{transform:rotateX(90deg)translateZ(calc(0.5*var(--W)))translateZ(calc(-1*var(--H))) ;height:var(--W);}
+		.room #\$f{transform:translateZ(calc(-0.5*var(--W)))}
+		.room #\$l{transform:rotateY(90deg)translateZ(calc(-0.5*var(--W)))}
+		.room #\$o{transform:rotateX(0deg)translateZ(calc(0.5*var(--W)))}
+		.room #\$w{transform:rotateX(90deg)rotateZ(0deg)translateZ(calc(0.5*var(--W)))scaleY(-1)
+		       ;height:var(--W);}
+		.room{transform:translateZ(calc(-0.5*var(--W)))}}
+
+											</style><body id=BODY>
+
+												<div id=
+	    VIEWPORT							><!-- --><div id=
+			ROOM class='room'	 			><div id=
+			 $r								></div><div id=
+			 $e 							></div><div id=
+			 $w 							></div><div id=
+			 $o 							></div><div id=
+			 $l 							></div><div id=
+			 $f	 							></div></div><!-- --><div id=
+	    	CAMERA 							><div id=
+	    		SCENE 						></div></div></div><</body>
+
+
+
+
+
+					<!-- ================================================ 60--><script id=
+									    #_PRELUDE 							   >
+					/*********************************************************\
+					|*  //  !!! -------> state store ???
+					|*  		RC={}
+					|* 			,LOGIC={}
+					\*********************************************************/
+						const  flow = (...gs)=> gs.reduce((l,r)=>(...xs)=>r(l(...xs)))
+							,  wolf = (...gs)=> flow(...gs.reverse())
+							,  type=(x)=>({}).toString.call(x).slice(8,-1).toLowerCase()
+							,  size_logic=({array:x=> x.length ,string: x=> new Blob([x.replace(/./gu,'.')]).size ,object: x=> x.size||x.length||Object.keys(x).length }), size=x=>size_logic[type(x)](x)
+							,  carry=(f,d=f.length,...as)=>d<=as.length?f(...as):carry.bind(null,f,d,...as)
+							,  uncarry=(f,d=1)=>(...as)=>as.slice(0,d).reduce((x,y)=>x(y),f)
+							,  flatd =a=>a.map?[].concat(...a.map(flatd)):a
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    #_FUNKEYS							   >
+					/* Reduce|(F)old,Map,N-range(N),(A)pply,(R)eapply,(T)able */
+						const  F=(f,x)=>(l,n=l.length)=>n--?f(F(f,x)(l,n),l[n]):x
+							,  M=f=>l=>F((a,b)=>[...a,f(b)],[])(l)
+							,  N=n=>n--?[...N(n),n+1]:[]
+							,  A=f=>l=>f(...l)
+							,  R=(f,i,n)=>f(--n?R(f,i,n):i)
+							,  T=(f,b)=>([n,x]=b,M(q=>f(q+n-1))(N(x-n+1)))
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    #_OPTICS								   >
+						/* # Core -------------------------------------- */
+						const Lens=get=>set=>({type:"lens",get,set,mod:f=>o=>(set((typeof f==='function'?f:(()=>f))(get(o)))(o))})
+							, fov = k=>Lens(o=>o[k])(v=>o=>Object.assign(Array.isArray(o)?[]:{},o,{[k]:v}))
+							, get = l=>o=>l.get(o)
+							, set = l=>v=>o=>l.set(v)(o)
+							, mod /* ~over */ = l=>f=>o=>   l.mod(f)(o)
+					/* TEMP? */, moo = l=>o=>f=>   l.mod(f)(o)
+						/* # Composition  ---------------------------------  */
+						const compound=(l1,l2)=>Lens(o=>get(l1)(get(l2)(o)))(v=>o=>mod(l2)(mod(l1)(typeof v==='function'?v:(()=>v))(get(l2)(o)))  (o))
+					//		, scope=ls=>ls.reduce(compound)
+							, focus=(ls,l=fov)=> ls.reverse().map(x=>['lens','iso','traversal','optional'].includes(x.type)?x:l(x)).reduce(compound)
+						/* # Convenience  ---------------------------------  */
+							, focii = (ks,l=fov,i={})=>ks.reduce((a,k)=>(a[k]=(l(k)),a),i)
+							, gentry = (ks,lens=fov)=>z=>ks.reduce((a,k)=>(a[k]=get(lens(k))(z),a) ,{})
+							, sentry = (o,lens=fov)=>z=>(Object.entries(o).map(x=>set(lens(x[0]))(x[1])(z)),z)
+							, oentry = (o,lens=fov)=>z=>(Object.entries(o).map(x=>mod(lens(x[0])) (typeof x[1]==='function'?x[1]:()=>x[1]) (z)),z)
+							, config = (x,lens)=>Array.isArray(x)?gentry(x,lens):sentry(x,lens)
+						/* # Prefab Lenses --------------------------------- */
+							, fat=k=>Lens(o=>o.getAttribute(k))(v=>o=>o.setAttribute(k,v))
+							, fcs=k=>Lens(o=>getComputedStyle(o).getPropertyValue(k))(v=>o=>o.style.setProperty(k,v))
+
+						/* Iso - Forward|Backward --------------------- */
+						const Iso=get=>reget=>({type:"iso",get,reget,mod:f=>a=>get(f(reget(a)))})
+							, over=i=>f=>a=> i.get(f(i.reget(a)))//~> lift-apply name?
+							, under=i=>f=>a=> over(from(i))(f)(a)
+							, from=({get,reget})=>Iso(reget)(get)
+
+						/* # Traversal/Prism -------------------------------------- */
+						const Only = pred => ({type:"traversal",get:o=>Object.entries(o).filter(([key,value])=>pred({key,value})).map(x=>x[1])
+							,mod:f=>o=>Only(pred).get(o).map(f)   // TODO: IMPROVE
+									})
+							, All = () => ({type:"traversal",get:x=>x,mod:f=>o=>All().get(o).map(f)});
+						/* Optional - Maybe|Else --------------------- */
+						const Maybe= (k,l=fov) => (
+								{type:"optional"
+								,get: o=>o&&get(l(k))(o)
+							    ,mod: f=>o=>(o&&get(l(k))(o)?mod(l(k))(f)(o):o)
+							  	})
+							, Ifnot = (k,l=fov,f=Maybe(k,l))=>e=>(
+							  	{type:"optional"
+							  	,get: o=>get(f)(o)?get(f)(o):e
+							    ,mod: g=>o=>get(f)(o)?g(get(f)(o)):g(e)
+							  	})
+
+
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    #_STORE								   >
+					/*********************************************************\
+					|*  // default update|set state function
+					|* 		updateStore=
+					|* 			typeof(set)!=='undefined'
+					|* 			?
+					|* 			:
+					\*********************************************************/
+						const Store = (s={},is=[])=>(
+							  {state: ()=>s
+							  ,subscribe: i=>is.push(i)
+							  ,listeners: is
+							  ,action: u=>n=>
+							    (s=u(s,n)
+							    ,is.map(i=>i(n,s)),s)
+							  })
+					/* -------------------------------------------------- 60 */</script>
+					<!-- ================================================ 60--><script id=
+									    #_REDUCERS 	   				 		   >
+					/*********************************************************\
+					|* Set protocol for "reducer" ~> implicaions for transducers...
+					\*********************************************************/
+						reduce = (f,i)=> xs => {
+						  for (let x of xs){
+						    let next = f(i, item);
+						    i = next && next[reduce.d]||next;
+						    if (next[reduce.d]){break;}} return i;};
+						Object.defineProperty(reduce, 'd', {
+							value: Symbol('halt - reduced')
+						});
+
+					/* Reducers (a,c)=>f(a,c) */
+						const
+							 push=(a,b)=>(a.push(b),a)
+							,cat=(a,b)=>a.concat([b])
+
+					/* -------------------------------------------------- 60 */</script>
+					<!-- ================================================ 60--><script id=
+									    #_TRANSDUCERS						   >
+					/*********************************************************\
+					|*  		!!! TODO: ESTABLISH PROTOCOL !!!
+					\*********************************************************/
+						// Define Reduce function
+						typeof(reduce)!=='undefined'?reduce:reduce=(f,i)=>xs=>xs.reduce(f,i)
+						/* # Transducer  ---------------------------------  */
+						const xduce = (t,r=(a,b)=>(a.push(b),a),i=[])=>(ks,c=reduce)=> c(t(r),i)(ks)
+							, mapping=f=>r=>(a,y,s)=>r(a,f(y,s,a))
+							, filtering = p=>r=>(a,y,s)=> p(y,s,a)?r(a,y):a
+
+							, dropping=s=>r=>(a,y,_s=s)=> (--s>=0?a:r(a,y,_s))
+							, taking=s=>r=>(a,y,_s=s)=> (--s>=0?r(a,y,_s):a)
+							, lazytaking=s=>r=>(a,y,_s=s)=> (--s>=0?r(a,y,_s):{[reduce.stopper]:a})
+
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    #_MATRIX 							   >
+					/*********************************************************\
+					|* !!! TODO: FANGCHENG|GAUSSIAN_ELIMINATION->det,inverse fn,eigen... !!!
+					\*********************************************************/
+						const idm   = n=>   Array(n).fill(0).map((_,i,a)=> a.map((_,j)=> i===j?1:0))
+							, TT   = a=>     a[0].map((_,i)=>a.map(y=>y[i]))
+							, dot = a=>b=>   (a.map((x,i)=> a[i]*b[i])).reduce((a,b)=>a+b)
+							, mXv = n=>m=>   m.map(x=>x.map(y=>y*=n))
+							, vUv = v=>w=> v.map((x,i)=> x+(w[i]||0))
+							// ,mXm = m=>t=>   m.map(x=> TT(t).map(y=> dot(x)(y)))
+							, mXm=m1=>(m2,s=(a,b)=>a+b,p=(a,b)=>a*b,o=0)=> m1.map(c=>m2[0].map ((_,i)=> m2.reduce((r,d,j)=>s(r,p(d[i],c[j]),r),o)))
+							, row = r=>a=> a.reduce((c,k,i)=> (i%r===0?c.push([k]):c[c.length-1].push(k))&&c,[])
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    #CATEGORY 							   >
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    #GEOMETRY 							   >
+					// Coordinate systems
+					// Basic calculations, metric, distances...
+					// ** Algos **
+					// eg. polar(r,theta) -> need this for radial interfaces, gestures...
+
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    #TEXT				 				   >
+					// Text stats
+					// Word vectors
+					// Translation
+					// Multilingual
+					// Constrained Vocab
+					// Definitions
+
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    ##CSS3D				 				   >
+					/*********************************************************\
+					|*  Dependencies: MATRIX: TT,mXm; type, flatd        |
+					\****************************************************/
+						const REGEX={inParens:/\(([^\)]+)\)/}
+							// ,flatd =a=>a.map?[].concat(...a.map(flatd)):a
+
+							, cos=Math.cos,sin=Math.sin,PI=Math.PI
+							, CSSMAT3D={perspective:d=> [1,0,0,0,0,1,0,0,0,0,0,-1/d,0,0,0,1]
+								    ,scale:(w=1,h=w,d=w)=> [w,0,0,0,0,h,0,0,0,0,d,0,0,0,0,1]
+								    ,translate:(x=0,y=0,z=0)=> [1,0,0,0,0,1,0,0,0,0,1,0,x,y,z,1]
+								    ,rotate:{ x: a=> [1,0,0,0,0,cos(a),-sin(a),0,0,sin(a),cos(a),0,0,0,0,1]
+								            , y: a=> [cos(a),0,sin(a),0,0,1,0,0,-sin(a),0,cos(a),0,0,0,0,1]
+								            , z: a=> [cos(a),-sin(a),0,0,sin(a),cos(a),0,0,0,0,1,0,0,0,0,1] }}
+					// MAKE ISO
+							, m3d = a=>            `matrix3d(${''+a})`
+							, m2d = a=>            `matrix(${( [0,1,4,5,12,13].map(i=>flatd(a)[i]) ).join(',')})`
+							, domgen = ([...ms])=> TT( (ms.map(m=>TT(row(4)(m))) ).reduce ((a,c)=>mXm(a)(c)) )
+							, modcss = ([...values],d=0)=> (d ? m2d : m3d) (domgen(values))
+							, m6to16 = o=> o.length>6 ? o : [0,1,4,5,12,13].reduce((a,c,i)=>(a[c]=o[i],a),flatd(TT(idm(4))))
+							, css3dm = (el,t=getComputedStyle(el).transform,d=type(el).startsWith('svg'))=>tfm=>
+							          t==='none'? modcss(tfm,d)
+							                    : modcss((tfm).concat([m6to16(t.match(REGEX.inParens)[1].split(','))]),d)
+
+							, mv =   tfm=>(el,d)=>     el.style.setProperty('transform',css3dm(el,d)(tfm))
+
+							, rot = (angle=PI/2,axis='z')=>  CSSMAT3D.rotate[axis](angle)
+							, tra =     (x=0,y=0,z=0)=>   CSSMAT3D.translate(x,y,z)
+							, sca =     (x=1,y=x,z=1)=>   CSSMAT3D.scale(x,y,z)
+							, around = (an,ax)=>(x,y,z)=>   [tra(x,y,z),rot(an,ax),tra(-x,-y,-z)]
+							// 26 LOC
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    #TML 								   >
+					/* Templating JSONML -> XML */
+					const getns=(a='html')=>"http://www.w3.org/"+{html:"1999/xhtml",svg:"2000/svg",mathml:"1998/Math/MathML"}[a]
+						, tml_logic=(
+						  {array: x=>el=> el.appendChild  (tml(x))
+						  ,string: x=>el=> el.appendChild (document.createTextNode(x))
+						  ,object: x=>el=> Object.entries(x).map(([k,v])=>el.setAttribute(k,v),el)
+						  })
+						, tml=((ml,ns,e=document.createElementNS(ml[1]?getns(ml[1].ns?ml[1].ns:'html'):'html',ml[0]))=>
+						  (ml.slice(1).forEach(n=>tml_logic[type(n)](n)(e)),e))
+					/* Templating XML -> JSONML */
+					const lmt_logic=(
+							{'hasAttributes':f=>el=>attrs=>([...f.attributes].forEach((attr)=> attrs[attr.name]=attr.value),el.push(attrs))
+							,'1': el=>node=> el.push(asJML(node))
+							,'3': el=>node=>el.push(node.data)
+							,string: x=> asJML(document.createElement('span').innerHTML=x)
+							,recur: f=> asJML(f)
+							})
+						, lmt=(asJML=(f,el=[f.nodeName],attrs={})=>
+							 ((f.attributes)?lmt_logic['hasAttributes'](f)(el)(attrs):'Nothing'
+							 ,[...f.childNodes].forEach((node)=>([1,3]).includes(node.nodeType)?lmt_logic[node.nodeType](el)(node):x=>x,el),el)
+							,parse=(f)=>(lmt_logic[typeof(f)]||lmt_logic['recur']) (f),parse)
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    ##EVE 								   >
+					/* Event handler */
+						const debounce = (fn, ms = 0) => {let timeoutId; return function(...args) {clearTimeout(timeoutId); timeoutId=setTimeout(()=> fn.apply(this, args), ms) }}
+							, defer = (fn, ...args) => setTimeout(fn, 1, ...args)
+
+							, eventMon=()=> ( // !!! TODO: REFACTOR
+								{ listeners: Object.create(null)
+								, emit(event, data) { (this.listeners[event]||[]).forEach((handler)=> handler(data)) }
+								, on(event, handler) { if (!this.listeners[event]) this.listeners[event] = []; this.listeners[event].push(handler) }
+								, off(event, handler) { const i = (this.listeners[event]||[]).findIndex((h)=> h === handler); if (i > -1) this.listeners[event].splice(i, 1) }
+								, clear(event) { this.listeners[event]=[] }
+								})
+
+							, timers=(
+								{active: {}
+								, make(f,t) {let newIntrvls=setInterval.apply(window,[f, t].concat([].slice.call(arguments,2))); this.active[newIntrvls] = {on:true,fn:f.toString()}; return newIntrvls }
+								, clear(id) {timers.active[id].on=false;return clearInterval(id)}
+								, clearAll() { forEach(id=>(clearInterval(id),timers.active[id].on=false))(keys(this.active))}
+								})
+
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    ##DRAW 								   >
+					/* Simple
+					Requires $GEOMETRY
+					// Universal drawing functions
+					// Diagram (data->geometry->     ???   )
+
+					// SVG specific
+					// CANVAS specific
+
+					// -= INTERACTIVE =-
+						// $$$$: Doodle Tml
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    ##AUDIO 							   >
+					// WebAudio
+						// Basic config
+					// Text to Speech ---maybefallback:refjs1kTTS(useful for IPA)
+
+					// -= INTERACTIVE =-
+						// keyboard | 2dgrid | rhythm-clock
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    ##WEBDATAAPI 						   >
+
+					// FETCH
+						// lens
+					WEBDAT= (
+						{ HTTPS:"https://"
+						, CORS:"cors-anywhere.herokuapp.com"
+						, EGURL1:"api.github.com/repos/javascript-tutorial/en.javascript.info/commits"
+						})
+					// CORS -> try CORS if fail
+						// OPT (?)
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    ###REPRESENT 							>
+
+					// Iso: (JSON)<->(DOM)
+					_h 	= Iso(tml)(lmt)
+					// ISOS
+					numtostr=num=>''+num
+					,strtonum=str=>  +str
+					,arrtostr=arr=> JSON.stringify(arr) //arr.join('')
+					,strtoarr=str=>[...str]
+					,num_str=Iso(numtostr)(strtonum)
+					,arr_str=Iso(arrtostr)(strtoarr)
+					,json_parsed =Iso (JSON.stringify)(JSON.parse)
+
+
+
+					/*
+
+					async f=>url {
+					let response = await fetch(url);
+					response.ok?await response.json():alert(alert("HTTP-Error: " + response.status))
+					if (response.ok) { // if HTTP-status is 200-299
+					  // get the response body (the method explained below)
+					}
+
+					}
+
+
+
+					// MATRIX ISOS
+						// (Column-Major) <-> (Matrix)
+						//  (matrix3d(...)) <-> (Column-Major)
+						// (matrix3d(...)) <-> (matrix(...))
+
+						// ? (Matrix) <-> (Fangcheng)
+
+
+					// data -> format -> format(data)
+					// factorization | ast -> trees -> ast
+					// Diagram
+
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    $$READER 							   >
+					//
+
+					// CONTEXT (lines, words...)~><units>
+						// Fovea -> +/- <units>
+						// SYNAESTHESIA ~> Multimodal
+					// RSVP, TTS
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    $$EDITOR 							   >
+					// FUNCTIONAL EDITOR
+						// Undo history
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    $$NAVIGATOR 						   >
+					// Generic user controls (u,d,l,r, back,confirm,x)
+					//
+					// Input customization, remapping, macro bindings
+						// *: Should be able to set "Theremin" here ie x,y from mouse -> audio
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    $$TESTING		 					   >
+					// ACCURACY|(precision?)
+						// T(x=>x*3,([2,5])) //=>[6, 9, 12, 15]
+						// F((a,b)=>(a.add(b)),new Set())([1,2,3,5,5,5]) //=>Set(4) {1, 2, 3, 5}
+					// PERFORMANCE
+						// App, Function Performance
+						// User Performance
+						// User Mind-Machine-Interface
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    $$WORKERS 							   >
+					// Web workers
+					// Service Workers
+					// AUTO-UPDATE (PULL) && FALLBACK
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    $$SERVERSIDE 						   >
+					// CORS
+					// AUTO-UPDATE (PUSH)
+
+
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    $$CRYPTO		 					   >
+
+
+
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    $$PWA		 						   >
+					// DISTRIBUTION / INSTALL
+					// web manifest & fallback
+					/* ----------------------------------------------------- */</script>
+					<!-- ================================================ 60--><script id=
+									    $$$DATA		 						   >
+
+					const fetchURL=async (url,n=0,t="text,json,formData,blob,arrayBuffer".split(",")[n])=>(response = await fetch(url),response.ok?await response[t]():alert(alert("HTTP-Error: " + response.status)))
+
+											/* --- ADDITIONAL OPTICS --- */
+
+					// Lens: (async URL) (async post to URL)
+					fet = o=>Lens( k=> fetchURL(o+k))  // !!! NOTE: reversed o and k for more natural syntax
+						(v=> k=>  fetch(o+k, // !!! TODO: refactor w fetchURL
+							{method: 'POST'
+							,headers: {'Content-Type': 'application/json;charset=utf-8'}
+							,body: JSON.stringify(v)
+							}))
+					/* ----------------------------------------------------- */</script>
+					<!--_================================================ 60--><script id=
+									    $$$INITIALISE 						   >
+
+					// State
+						// CSS3D_engine
+							// c = {         }
+
+					// Events
+
+						// Initialise EVE as an event sink
+						EVE=eventMon()
+						// Register all possible events
+						Object.getOwnPropertyNames(window).filter(x=>x.match(/^on/)).map(x=>x.replace(/on/,'')).map(x=>document.addEventListener(x,debounce(d=>EVE.emit(x,d),10)))
+
+					<!--CAN PROBABLY REFACTOR
+						--> eventMon into Store e.g.,
+							e_handlers=(event,eventMon=EVE)=>get(focus(['listeners',event]))(EVE)// e_on   // _e.
+
+
+					// Load default configuration
+
+
+					// Environment
+						// Controllers
+						// Representations
+
+
+
+					/* ----------------------------------------------------- */</script>
+					<!--_================================================ 60--><script id=
+										_SCRATCH_ 					   		   >
+
+
+					//THEME
+					DARK=(
+					{"background-color":"black"
+					,			"color":"white"
+					,
+					})
+
+					testx=wolf( filtering(x=>x%2===0)
+					      ,   mapping((x,i=0)=>(i+=3,x*2))
+					      )
+
+
+
+					// config(DARK,fcs)(VIEWPORT)
+
+
+					SCENE.appendChild(tml(['div',
+						{id:'mushroom'
+						,style:'width:100px;outline:1px solid white'
+						},'arstaf']))
+
+					EVE.on('click',PLACEBLUEBOXES=x=>console.log(BODY.appendChild(tml(['div',{style:`position:absolute;top:${x.clientY}px;left:${x.clientX}px;width:100px;background-color:blue;`},''+x.clientX+','+x.clientY]))))
+
+					//    __________  ______  __  __
+					//   / ____/ /\ \/ / __ \/ / / /
+					//  / / __/ /  \  / /_/ / /_/ /
+					// / /_/ / /___/ / ____/ __  /
+					// \____/_____/_/_/   /_/ /_/
+
+					// GLYPH LAYOUT
+
+					// {+]===[+} 1
+					// [|](X)[|] 2,3,4
+					// {+]===[+} 5
+					//  [~meta]  6
+
+					// GLYPH DOM LAYOUT
+																		/////		  /////
+					// [[1],[2,3,4],[5],6]
+					// [['w'],['l','f','r'],['e'],'o']
+					// tml(['div',{class:'glyph'},['div',{class:'o'},['div',{class:'w'}],['div',['div',{class:'l'}],['div',{class:'f'}],['div',{class:'r'}]],['div',{class:'e'}]]])
+					glyph=_h.get(
+					['style',`.glyph{position:absolute;margin:0;height:2em; width:2em;}
+						.glyph *{outline:1px solid white;margin:0;position:absolute;}
+						.glyph .o{}
+						.glyph .w{top:0;height:20%;width:100%;}
+						.glyph .l{left:0;width:20%;height:100%;}
+						.glyph .r{right:0;width:20%;height:100%;}
+						.glyph .e{bottom:0;height:20%;width:100%;}
+						.glyph .f{left:20%;top:20%;height:60%;width:60%;}`]
+					)
+					testg=_h.get(['div', {class:'glyph X'},...[...'owlref'].map(x=>['div',{class:x}])])
+					// tml(['div',{class:'glyph'},['div',{class:'o'},['div',{class:'w'}],['div',['div',{class:'l'}],['div',{class:'f'}],['div',{class:'r'}]],['div',{class:'e'}]]])
+
+					BODY.appendChild((glyph))
+					SCENE.appendChild(testg)
+
+
+					/* ----------------------------------------------------- */</script>

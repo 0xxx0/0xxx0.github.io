@@ -1,0 +1,379 @@
+<!doctype html>												<title>
+    -=* INTERPHASE-PROTO-1 *=-  	 			</title><style id=
+CSSCORE														>
+/* Reset */ 	/* Font */ 		/* Layout */
+:root{
+--sys-fonts:
+-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial, monospace
+/* INSERT Calculation-based CSS | LOGIC */
+/* e.g. thin borders  */
+/* e.g. opposite colors -> for toggling light\darkthemes etc */
+
+; --size-font:16px
+; --base-em:1em
+; --overflow:hidden
+; --perspective:32em
+; --perspective-origin:center
+; --transform-origin:center
+; --W:100vw 
+; --H:100vh
+; --transition:.5s linear
+; --Lunit:'em'
+; --Aunit:'rad'
+
+; --cam-border: 2px solid red
+; --circle:border-radius:50%
+
+/*; --s:;*/
+; --c1:black ; --c2:red ; --c3:yellow ; --c4:blue ; --c5:white
+/*
+; --accent1:
+; --accent2:
+; --accent3:
+; --accent4:
+; --accent5:
+
+*/	;}
+
+body {margin:0;}
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–-- [BOX-SIZING] */
+*,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;text-rendering: optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-kerning:auto;}
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- --- [LOBOTOMIZED OWL] */
+p{text-align: justify;}p+p{margin-top: 0; text-indent: 2em;}*+*{margin/*-top*/:0}.tight>*{margin-top:0} .margins-off>*{margin-top: 0;}
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–-------- [MAIN] */
+body{font-family:var(--sys-fonts);font-size:var(--size-font); background-color:var(--color5); color:var(--C_2); padding-top:0; overflow:hidden;  /*margin-bottom:0;*/ height:100vh;
+}
+section *{height:auto;width:auto; }
+/*::-webkit-scrollbar {width:0.1em; height:0.1em;}*/
+/*::-webkit-scrollbar-track {height:1em; width:1em;}*/
+::-webkit-scrollbar {width:.5em; height:.5em;}
+/*::-webkit-scrollbar-track {box-shadow: inset 0 0 3px var(--C_5); }*/
+
+#VIEWPORT {position: relative; width: var(--W);height:var(--H); overflow: var(--overflow); border: 1px solid; perspective: var(--perspective); padding:0
+
+;--tx:0
+;--ty:0
+;--tz:0
+;--rx:0
+;--ry:1
+;--rz:0
+;--sx:1
+;--sy:1
+;--sz:1
+;--a:30;
+;--Lunit:'px'
+/*;--Aunit:'rad'*/
+ ;
+transform: rotate3d(var(--rx),var(--ry),var(--rz),var(--a) deg) translateX(var(--tx)var(--Lunit))translateY(var(--ty)var(--Lunit))translateZ(var(--tz)var(--Lunit))
+ ;
+
+/*`translateX(-50%)translateY(-50%)translateX(${o.x}${C.unit})translateY(${o.y}${C.unit})translateZ(${o.z}${C.unit})rotateX(${o.rx}deg)rotateY(${o.ry}deg)rotateZ(${o.rz}deg)scaleX(${o.sx})scaleY(${o.sy})scaleZ(${o.sz})`
+`translateX(-50%)translateY(-50%)translateX(${o.x}${C.unit})translateY(${o.y}${C.unit})translateZ(${o.z}${C.unit})rotateX(${o.rx}deg)rotateY(${o.ry}deg)rotateZ(${o.rz}deg)scaleX(${o.sx})scaleY(${o.sy})scaleZ(${o.sz})`
+}
+*/
+
+}
+#VIEWPORT * { transform-style: preserve-3d; box-sizing: border-box; }
+#CAMERA {position: absolute; width: 0; height: 0; top:calc(0.5*var(--W)); left:calc(0.5*var(--H)); border: var(--cam-border)}
+#SCENE { transition: .5s linear; }
+.plane, .sprite, .group { transition:var(--transition); }
+/*.origin-top { transform-origin: top center }*/
+/* Utility */  	/* Logical */  	/* Templates */	
+
+/*  ROOM STYLE IN CASE ANYTHING DOESNT WORK */
+.cuboid{height:var(--H)
+ ;width:var(--W)
+ ;margin:0
+ ;transform-style:preserve-3d
+ ;transition:var(--transition)
+ ;top:0%
+ ;left:0%}
+ /*
+ ;Lunit:;
+ ;Aunit:;    */
+ 
+/*#ROOM{}*/
+
+.cuboid >* {position:absolute
+   ;outline:2px solid black
+   /*;box-shadow: var(--REVEALS)*/
+   ;height:100%
+   ;width:100%
+   ;}
+.cuboid .r {transform:rotateY(-90deg)translateZ(calc(-0.5*var(--W)))}
+.cuboid .e {transform:rotateX(90deg)translateZ(calc(0.5*var(--W)))translateZ(calc(-1*var(--H)));height:var(--W);}
+.cuboid .f {transform:translateZ(calc(-0.5*var(--W)))}
+.cuboid .l {transform:rotateY(90deg)translateZ(calc(-0.5*var(--W)))}
+.cuboid .o {transform:rotateX(0deg)translateZ(calc(0.5*var(--W)))}
+.cuboid .w {transform:rotateX(90deg)rotateZ(0deg)translateZ(calc(0.5*var(--W)))scaleY(-1)
+   ;height:var(--W);}
+
+.cuboid{transform:translateZ(calc(-0.5*var(--W)))}}
+
+                                </style><body id=
+BODY                            ><div id=
+VIEWPORT						><!-- --><div id=
+ROOM class='cuboid'	 			><div id=
+ $r class=r						></div><div id=
+ $e class=e 					></div><div id=
+ $w class=w 					></div><div id=
+ $o class=o 					></div><div id=	
+ $l class=l 					></div><div id=    			
+ $f class=f	 					></div></div><!-- --><div id=
+CAMERA 							><div id=
+    SCENE 						></div></div></div></body>
+<!-- ================================================ 60--><script id=
+DEFINITIONS >
+
+const  flow = (...gs)=> gs.reduce((l,r)=>(...xs)=>r(l(...xs)))
+    ,  wolf = (...gs)=> gs.reduce((r,l)=>(...xs)=>r(l(...xs)))
+    ,  type=(x)=>({}).toString.call(x).slice(8,-1).toLowerCase()
+    ,  size_logic=({array:x=> x.length ,string: x=> new Blob([x.replace(/./gu,'.')]).size ,object: x=> x.size||x.length||Object.keys(x).length }), size=x=>size_logic[type(x)](x)
+    ,  carry=(f,d=f.length,...as)=>d<=as.length?f(...as):carry.bind(null,f,d,...as)
+    ,  uncarry=(f,d=1)=>(...as)=>as.slice(0,d).reduce((x,y)=>x(y),f)
+    ,  flatd =a=>a.map?[].concat(...a.map(flatd)):a
+
+
+        /*********************************************************\
+        |* Set protocol for "reducer" ~> implicaions for transducers...
+        \*********************************************************/
+reduce = (f,i,xs) => {
+    for (let x of xs){
+        let next = f(i,x);
+        i = next && next[reduce.d]||next;
+        if (next[reduce.d]){break;}}
+    return i;};
+//SHORT CIRCUIT
+Object.defineProperty(reduce, 'd', { value: Symbol('halt - reduced') })
+
+/* # Transducer  ---------------------------------  */
+xduce = (t,r=(a,b)=>(a.push(b),a),i=[])=>(ks,c=reduce)=> c(t(r),i,ks)
+    
+    mapping=f=>r=>(a,y,s)=>r(a,f(y,s,a))
+    filtering = p=>r=>(a,y,s)=> p(y,s,a)?r(a,y):a
+   
+    dropping=s=>r=>(a,y,_s=s)=> (--s>=0?a:r(a,y,_s))
+    taking=s=>r=>(a,y,_s=s)=> (--s>=0?r(a,y,_s):a)
+   
+    lazytaking=s=>r=>(a,y,_s=s)=> (--s>=0?r(a,y,_s):{[reduce.d]:a})
+   
+/*********************************************************\
+|*  		!!! TODO: ESTABLISH PROTOCOL !!!
+\*********************************************************/
+
+
+/* Reducers (a,c)=>f(a,c) */
+push=(a,b)=>(a.push(b),a)
+cat=(a,b)=>a.concat([b])
+
+/*********************************************************\
+|*  		!!! TODO: ESTABLISH XFORM CONSTRUCTOR ~> 
+
+r=> ({init, step:(a,c)=>r(a,c), result, type:"transducer"})
+
+\*********************************************************/
+
+const Store = 
+    (s={},is=[])=>(
+    {state: ()=>s
+    ,listen: i=>is.push(i)
+    ,listeners: is
+    ,action: u=>n=>
+        (s=u(s,n)
+        ,is.map(i=>i(n,s)),s)
+    })
+eve=(Ls={})=>(
+		{em:(e,dat)=>(Ls[e]||[]).forEach((cb)=>cb(dat))
+		,on:(e,cb)=> !Ls[e]?Ls[e]=[cb]:Ls[e].push(cb)
+		})
+
+/*********************************************************\
+|* !!! TODO: FANGCHENG|GAUSSIAN_ELIMINATION->det,inverse fn,eigen... !!!
+\*********************************************************/
+const idm   = n=>   Array(n).fill(0).map((_,i,a)=> a.map((_,j)=> i===j?1:0))
+    , TT   = a=>     a[0].map((_,i)=>a.map(y=>y[i]))
+    , dot = a=>b=>   (a.map((x,i)=> a[i]*b[i])).reduce((a,b)=>a+b)
+    , mXv = n=>m=>   m.map(x=>x.map(y=>y*=n))
+    , vUv = v=>w=> v.map((x,i)=> x+(w[i]||0))
+    // ,mXm = m=>t=>   m.map(x=> TT(t).map(y=> dot(x)(y)))
+    , mXm=m1=>(m2,s=(a,b)=>a+b,p=(a,b)=>a*b,o=0)=> m1.map(c=>m2[0].map ((_,i)=> m2.reduce((r,d,j)=>s(r,p(d[i],c[j]),r),o)))
+    , row = r=>a=> a.reduce((c,k,i)=> (i%r===0?c.push([k]):c[c.length-1].push(k))&&c,[])
+    , Maj =(M,form='col')=>({col:xpo,row:x=>x})[form]  (M).reduce((a,c)=>(a.concat(c)),[])
+    , det = m=> m.length<3 ?( {1:m[0][0] ,2:m[0][0]*m[1][1]-m[0][1]*m[1][0]})[m.length] :m[0].reduce((r,e,i)=> r+(-1)**(i+2)*e*det(m.slice(1).map(c => c.filter((_,j) => i != j))),0)
+
+
+/* Templating JSONML -> XML */
+const getns=(a='html')=>"http://www.w3.org/"+{html:"1999/xhtml",svg:"2000/svg",mathml:"1998/Math/MathML"}[a]
+    , tml_logic=(
+      {array: x=>el=> el.appendChild  (tml(x))
+      ,string: x=>el=> el.appendChild (document.createTextNode(x))
+      ,object: x=>el=> Object.entries(x).map(([k,v])=>el.setAttribute(k,v),el)
+      })
+    , tml=( (ml
+            ,ns
+            ,e=document.createElementNS(ml[1]
+                                       ?getns(ml[1].ns
+                                        ?ml[1].ns
+                                        :'html')
+                                       :'html'
+            ,ml[0]))=>
+      (ml.slice(1).forEach(n=>tml_logic[type(n)](n)(e)),e))
+
+/* Templating XML -> JSONML */
+const lmt_logic=(
+        {'hasAttributes':f=>el=>attrs=>([...f.attributes].forEach((attr)=> attrs[attr.name]=attr.value),el.push(attrs))
+        ,'1': el=>node=> el.push(asJML(node))
+        ,'3': el=>node=>el.push(node.data)
+        ,string: x=> asJML(document.createElement('span').innerHTML=x)
+        ,recur: f=> asJML(f)
+        })
+    , lmt=(asJML=(f,el=[f.nodeName],attrs={})=>
+         ((f.attributes)?lmt_logic['hasAttributes'](f)(el)(attrs):'Nothing'
+         ,[...f.childNodes].forEach((node)=>([1,3]).includes(node.nodeType)?lmt_logic[node.nodeType](el)(node):x=>x,el),el)
+        ,parse=f=>(lmt_logic[typeof(f)]||lmt_logic['recur'])(f),parse)
+
+
+/* ----------------------------------------------------- */</script>
+<!-- ================================================ 60--><script id=
+SETUP >
+
+FOLD
+
+GETTER=o=>(
+    {object:k=>(o[k])
+    ,map:k=>o.get(k)
+    ,set:k=>o.has(k)&&k
+    })[type(o)]
+SETTER=o=>(
+    {object:(v,k)=>(o[k]=v,o)
+    ,map:(v,k)=>o.set(k,v)
+    ,set:(v,k)=>o.has(k)?o.add(v):(o.delete(k),o.add(v))
+    })[type(o)]
+
+
+
+LENS=(get,set)=>({type:"LENS",get,set,mod:f=>o=>(set((typeof f==='function'?f:(()=>f))(get(o)))(o)) })
+ISO=(get,reget)=>({type:"ISO",get,reget,back:()=>Iso(reget)(get),mod:f=>o=>get(f(reget(o))) })
+OPTIONAL=(k,Nothing=x=>null)=>(l=fov)=>({type:'OPTIONAL',get:o=>o&&l(k).get(o)||Nothing(o),mod: f=>o=> l(k).get(o)?l(k).mod(f)(o):o})
+TRAVERSAL=(get,set)=>({type:'TRAVERSAL',get,set,mod})
+
+
+
+MaybeIn=(a,s)=>(Just=x=>x,Nothing)=>a in s ? Just(a,s) : Nothing
+
+Prism=(Option,reget)=>({get:Option,mod:reget(Option)})  // TYPE OF OPTIONAL, ISO THAT CAN FAIL IN EITHER DIRECTION
+
+Optional=(Option,set)=> ({get:Option,mod:set(this.get(a,s)) })
+
+
+
+
+    // # TRAVERSALS // can target any number of elements. TODO: ensure no intermediate rep / xduce
+    Traversal=(p=o=>o,v=>(_,k)=>k)=>({  type:"Traversal",get:p,set:v })
+    All    =  ()=>({get:o=>o ,mod:f=>o=>  f(All().get(o)) } )   // FIXME: problem with mod
+
+        Only = (pred=x=>x) => ({get:o=>o.filter(pred),mod:f=>o=> f(Only(pred).get(o)) })  // TODO: rename to "when"?
+        OnlyKV = pred=> ({get:o=>Object.entries(o).filter(([key,value])=>pred({key,value})).reduce((a,c,i)=>(a[Array.isArray(o)?i:c[0]]=c[1],a),Array.isArray(o)?[]:{}),mod:f=>o=>Only(pred).get(o).map(f)/*TODO: Refactor*/})
+
+
+Optional()
+    // # OPTIONALS // target a single element that may not be defined 
+Maybe= (k,l=fov) =>({get: o=>o&&get(l(k),o)||o, mod:f=>o=>f(o&&get(l(k),o))||o})// FIXME:problems composing in scope
+    MaybeElse = (k,e,l=fov) =>({get: o=>o&&get(l(k),o)||get(l(e),o), mod:f=>o=> f(get(MaybeElse(k,e,l),o)) })
+
+
+// # LENSES // are a restriction of traversals that target a single element 
+Lens = cu((get,set)=>({get,set,mod:f=>o=>(set((typeof f==='function'?f:(()=>f)) (get(o)) )(o))}))
+// # ISOMORPHISMS // are a restriction of lenses with an inverse.
+Iso = cu((to,from)=>({get:to,back:from,inv:()=>Iso(from)(to),mod:f=>a=>to(f(from(a)))}))
+/* -------------------------------------------------------- */
+/* TODO: set default lens in settings/config */defaultLens=fov//~> TODO: function to get/set BASE/BASIC/DEFAULT
+focus= (l,def=defaultLens||fov)=>l['get']?l:def(l)
+/* cu, focus */ get = cu((l,o)=> focus(l).get(o))
+/* cu, focus */ mod = cu((l,v,o)=> focus(l).mod(typeof v==='function'?v:(()=>v))(o))
+/* # Composition  ---------------------------------  */
+/* cu, focus, get, mod, Lens */ compound=(l2,l1)=>Lens(o=>get(l1,get(l2,o)),f=>o=>mod(l2,mod(l1,f,get(l2,o)),o))
+/* cu, focus, get, mod, Lens, compound */scope=(...ls)=>ls.reduce(compound)
+    /* # Convenience  ---------------------------------  */
+         focii = (ks,l=fov,i={})=>ks.reduce((a,k)=>(a[k]=(l(k)),a),i)
+         gentry = (ks,l=fov)=>z=>ks.reduce((a,k)=>(a[k]=get(l(k))(z),a),{})
+         sentry = (o,l=fov)=>z=>Object.entries(o).reduce((a,x)=>a=mod(l(x[0]))(x[1])(a),z)
+         config = (x,l=fov)=> (
+            {"object":sentry(x,l)
+            ,"array":gentry(x,l)
+            ,"string":get(l(x))
+            ,"number":get(l(x))})[type(x)]
+
+
+
+
+
+
+// elStyle = (k,lens)=>({get:o=>getComputedStyle(o).getPropertyValue(k),set:v=>o=>o.style.setProperty(k,v)})
+
+
+/* ZIPPER-ISH
+    // MODIFY
+    Rep: k -> v
+    Add: set(o)(v, k?!o[k]&&k:o.length ) 
+    Ins: 
+    Del: 
+
+node
+root|parent
+siblings
+children
+
+left,right,rightmost,leftmost,last,first
+up,down
+next,prev
+
+*/
+
+
+
+
+
+/* ----------------------------------------------------- */</script>
+<!-- ================================================ 60--><script id=
+INITIALISE >
+
+const debounce = (fn, ms = 0) => {let timeoutId; return function(...args) {clearTimeout(timeoutId); timeoutId=setTimeout(()=> fn.apply(this, args), ms) }}
+, defer = (fn, ...args) => setTimeout(fn, 1, ...args)                                                          
+
+EventHandlers={}
+dumpDOMevents=pool=>
+
+Object.getOwnPropertyNames(window)
+	.filter(x=>x.match(/^on/))
+	.map(x=>document.addEventListener(x.slice(2),d=>eve(pool)
+		.em(x,d)))
+
+
+
+
+
+['div',{class:'cuboid'}
+,['div',{class:'f'}]
+,['div',{class:'l'}]
+,['div',{class:'o'}]
+,['div',{class:'r'}]
+,['div',{class:'w'}]
+,['div',{class:'e'}]
+]
+/* ----------------------------------------------------- */</script>
+
+
+
+
+
+
+
+
+<!-- ================================================ 60--><script id=
+SCRATCH >
+
+// HORS
+    cata = (f,xs)=>f(xs.map(ys=>cata(f,ys)))
+
+/* ----------------------------------------------------- */</script>
