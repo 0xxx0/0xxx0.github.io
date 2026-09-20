@@ -1,0 +1,34 @@
+{
+  "schema": "release-receipt/v1",
+  "artifact": "CONTINUITY / CASE",
+  "route": "/continuity/",
+  "version": "0.1",
+  "released": "2026-09-20",
+  "state": "EXPERIMENT",
+  "origin": "Retrieval/canonicalization pattern recovered during a private health-case reconstruction; private case content is not included.",
+  "changes": [
+    "created local-first generic case workbench for people, animals, house, devices and projects",
+    "preserves exact raw source fragments separately from derived claims",
+    "adds provenance classes and FACT / CONFLICT / UNKNOWN / HOLD / SUPERSEDED lanes",
+    "implements anti-merge holds and next-evidence fields",
+    "adds STEP BACK review for missing return paths and inference contamination",
+    "exports canonical JSON and compact HUMAN PORT handoff",
+    "keeps private data out of repository/server by design"
+  ],
+  "checks": [
+    "no form/network submission path exists",
+    "SAVE LOCAL is explicit and browser-local",
+    "export is user-triggered",
+    "HUMAN PORT transfer requires explicit button action",
+    "review flags inference in FACT lane",
+    "review flags SOURCE/REPORTED claims without stored source",
+    "raw source is retained in exported packet"
+  ],
+  "open_gaps": [
+    "direct FIELD INTAKE canonical-packet import adapter",
+    "encrypted private cross-device sync",
+    "optional retrieval connector that can populate candidate sources without auto-promoting claims",
+    "case-to-case relationship graph remains intentionally unimplemented"
+  ],
+  "return": "/continuity/"
+}
