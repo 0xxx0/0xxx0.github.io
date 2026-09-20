@@ -1,0 +1,56 @@
+{
+  "schema": "house-trace-path-laws/v0.1",
+  "updated": "2026-09-20",
+  "status": "EXPERIMENT",
+  "truth_class": "GAME_RULE / COGNITIVE_PROJECTION",
+  "law": "Path laws constrain or score an authored TRACE. They do not assert physical adjacency, accessibility, human behavior, or Home Assistant truth.",
+  "source_donor": {
+    "address": "/control/confluence/LAW_ZOO.md",
+    "transfer_unit": "tiny law → disproportionate path phenotype",
+    "adaptation": "laws act on ordered HOUSE addresses rather than cellular update physics"
+  },
+  "specimens": [
+    {
+      "id": "NO_ECHO",
+      "label": "NO ECHO",
+      "rule": "Forbid A → B → A immediate return.",
+      "test": "For every i>=2, nodes[i] != nodes[i-2]."
+    },
+    {
+      "id": "ONE_STROKE",
+      "label": "ONE STROKE",
+      "rule": "A directed segment may be traversed at most once.",
+      "test": "Every ordered pair nodes[i-1]→nodes[i] is unique."
+    },
+    {
+      "id": "PILGRIM",
+      "label": "PILGRIM",
+      "rule": "Visit each addressed room at most once.",
+      "test": "All node addresses are unique."
+    },
+    {
+      "id": "HOME",
+      "label": "HOME",
+      "rule": "After leaving, finish at the starting address.",
+      "test": "With >=3 nodes, last address equals first address."
+    },
+    {
+      "id": "FIVE_GATES",
+      "label": "FIVE GATES",
+      "rule": "Visit at least five distinct addresses and return home.",
+      "test": "unique(addresses)>=5 and nodes.length>=6 and last==first."
+    }
+  ],
+  "composition": {
+    "mode": "AND",
+    "meaning": "Every enabled specimen must pass for the path program to PASS.",
+    "empty": "No enabled laws = UNCONSTRAINED."
+  },
+  "evaluation_status": [
+    "PASS",
+    "FAIL",
+    "PENDING",
+    "UNCONSTRAINED"
+  ],
+  "stop_condition": "Do not add geometry/adjacency laws until the current physical house graph is verified or the law is explicitly labeled as a donor-topology game."
+}
