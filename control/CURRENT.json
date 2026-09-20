@@ -118,6 +118,13 @@
       "state": "ACTIVE",
       "route": "/house/spatial/",
       "retained_function": "One addressed physical substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS. TRACE supports authored route RETURN→REPLAY, temporal focus, ink sediment, and Law Zoo-derived micro-law stacks; HA/HOUSEBUS retains device truth and actuation."
+    },
+    {
+      "lineage": "shopping-field",
+      "head": "SHOPPING FIELD 0.1 / FI-SHOP-001",
+      "state": "ACTIVE_ADAPTER",
+      "route": "/shopping/",
+      "retained_function": "Capability gap/listing/receipt → freshness + landed SGD + explicit purchase gate + lifecycle → bounded research packet / BOM / inventory candidate / explicit non-action. Personal state remains local/private; money and seller contact remain human actions."
     }
   ],
   "donors_and_holds": [
@@ -378,7 +385,9 @@
     "field_index_datadisc_graft": "/control/confluence/FIELD_INDEX_DATADISC_GRAFT_2026-09-21.json",
     "replica_replan": "/control/confluence/REPLICA_REPLAN.md",
     "field_play": "/field-play.html",
-    "field_play_release": "/field-play.release.json"
+    "field_play_release": "/field-play.release.json",
+    "shopping_field": "/control/confluence/SHOPPING_FIELD.md",
+    "shopping_contract": "/shopping/contract.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
