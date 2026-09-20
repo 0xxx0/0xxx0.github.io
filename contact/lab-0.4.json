@@ -1,0 +1,42 @@
+{
+  "schema": "human-port-lab-receipt/v0.1",
+  "id": "HUMAN-PORT-0.4-CAPSULE-LAB",
+  "date": "2026-09-20",
+  "base": "human-port-v03",
+  "state": "LAB_READY_FOR_BROWSER_TEST",
+  "problem": "One static rendezvous needed to become relationship-aware, bespoke-shareable and agent-readable without publishing private contacts or requiring a public inbound server.",
+  "changes": [
+    "added DEFAULT/FAMILY/FRIEND/WORK/AGENT language lenses over the same PING/REPLY/NEED/CHECK semantics",
+    "added bearer capsule builder using URL fragments for title/note/direct-line links",
+    "added slash projection routes /contact/family/, /friend/, /work/, /agent/, /make/",
+    "added generic Telegram Mini App return adapter extracted from HOUSEBUS mechanism",
+    "added /.well-known/human-port.json for agent discovery",
+    "reserved a private person/relation/channel/routine registry outside the public repository",
+    "reworded the root surface toward ordinary human language while retaining internal packet codes"
+  ],
+  "security": [
+    "no real phone number, Telegram identity, email address or relationship roster committed",
+    "capsule links allow only https/tg/mailto/tel/sms protocols",
+    "capsule fragment is bearer-visible and must not be treated as secret",
+    "Telegram adapter contains no bot token or chat id",
+    "Telegram return payload enforces 4096-byte client limit",
+    "EVENT ids remain correlation only; not authentication or authority"
+  ],
+  "validation": [
+    "root inline JavaScript syntax PASS",
+    "capsule inline JavaScript syntax PASS",
+    "telegram-port.js syntax PASS",
+    "lenses/capsule-schema/descriptor JSON PASS",
+    "no numeric private phone pattern found in lab files",
+    "fragment carrier present",
+    "bounded protocols present",
+    "Telegram 4096-byte check present"
+  ],
+  "next_reality_gates": [
+    "open /contact/family/ and /contact/agent/ on mobile",
+    "use /contact/make/ to create one private test capsule with Telegram + line A + line B",
+    "verify capsule contents do not appear before #",
+    "launch HUMAN PORT from a Telegram bot KeyboardButton and confirm WebAppData reaches private polling bot",
+    "only after that, design private PERSON/RELATION/CHANNEL/ROUTINE harvest and routing registry"
+  ]
+}
