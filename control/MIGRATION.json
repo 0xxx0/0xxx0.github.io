@@ -224,7 +224,8 @@
       "source_type": "mixed",
       "unique": "Unknown until inventoried; visual polish, dashboards, hero sections, pricing/company/feature patterns are not evidence of a unique mechanism.",
       "action": "PRESERVE WITHOUT PROMOTION. Do not beautify. Extract only a named mechanism/content fragment that clears the promotion gate; otherwise ATTIC the candidate after source/provenance receipt.",
-      "evidence_state": "QUARANTINE_POLICY_DEFINED_IN_CONTROL_QUARANTINE_2026-09-20"
+      "evidence_state": "QUARANTINE_POLICY_DEFINED_IN_CONTROL_QUARANTINE_2026-09-20",
+      "receipt": "/control/QUARANTINE_2026-09-20.json"
     },
     {
       "id": "fold-bloom-fold-weave-01",
@@ -554,5 +555,6 @@
       "IMAGE": "Appearance evidence only; never substitutes for behavior/source.",
       "RECEIPT": "Observed behavior/result for a particular run/version."
     }
-  }
+  },
+  "last_quarantine_receipt": "/control/QUARANTINE_2026-09-20.json"
 }
