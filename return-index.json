@@ -2,8 +2,8 @@
   "schema": "0xxx0/return-index/v0.1",
   "generated": "2026-09-20",
   "source": "/showcase-manifest.json",
-  "count": 16,
-  "receipts_ok": 16,
+  "count": 17,
+  "receipts_ok": 17,
   "law": "A release without a return path is not closed.",
   "items": [
     {
@@ -27,6 +27,17 @@
       "receipt_ok": true,
       "receipt_schema": "unknown",
       "release_updated": null
+    },
+    {
+      "href": "/continuity/",
+      "title": "CONTINUITY / CASE 0.1",
+      "state": "EXPERIMENT",
+      "version": "0.1",
+      "operation": "CANONICALIZE",
+      "receipt": "/continuity/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": "2026-09-20"
     },
     {
       "href": "/fold-bloom/two-dial/",
