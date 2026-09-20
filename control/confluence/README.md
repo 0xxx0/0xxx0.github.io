@@ -38,6 +38,7 @@ A thread can think for hours without changing shared durable state. If it commit
 - [TECHNIQUE QUARRY](./TECHNIQUE_QUARRY.md) — cross-domain methods and research tangents held as quarry until a bounded test earns promotion
 - [HOUSE confluence model](../../house/confluence.json)
 - [HOUSE frontier / open hardware + robotics + XR + motion-tool](./HOUSE_FRONTIER.md) — parked/reopenable donor packet; re-enter only from a named HOUSE/AXIAL capability gap
+- [POSSESSION → PARTICIPATION / plain-language ablation](./POSSESSION_PARTICIPATION.md) — tests whether the useful transformation survives removal of spiritual/poetic vocabulary; candidate transfer only, no core promotion
 
 ## Agent roles
 
