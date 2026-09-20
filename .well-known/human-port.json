@@ -1,6 +1,6 @@
 {
   "schema": "human-port-descriptor/v0.1",
-  "version": "1.0-preview",
+  "version": "1.1-preview",
   "canonical": "https://0xxx0.github.io/port/",
   "surfaces": {
     "plain": "/contact/",
@@ -15,7 +15,8 @@
     "backstage": "/contact/backstage/",
     "port": "/port/",
     "contact": "/contact/",
-    "idea_atlas": "/app-atlas/"
+    "idea_atlas": "/app-atlas/",
+    "social_residue": "/contact/residue/"
   },
   "laws": [
     "SOURCE STAYS SOURCE",
@@ -101,7 +102,8 @@
     "context_frame": "/contact/context-frame.json",
     "line_object": "/contact/line-object.json",
     "continuity": "/contact/continuity.json",
-    "social_residue": "/contact/social-residue.json"
+    "social_residue": "/contact/social-residue.json",
+    "social_residue_contract": "/contact/social-residue.json"
   },
   "interpretation": {
     "state": "LAB",
@@ -178,5 +180,36 @@
     "port": "canonical HUMAN PORT map/workbench",
     "contact": "conventional human-facing reach-me surface",
     "compatibility": "existing /contact/* tool routes remain valid while /port/ provides the coherent map"
+  },
+  "home": {
+    "route": "/port/",
+    "first_time_doors": [
+      {
+        "label": "SEND ME SOMETHING",
+        "system": "CONTACT",
+        "route": "/contact/"
+      },
+      {
+        "label": "UNTANGLE A MESSY MESSAGE",
+        "system": "BURST / INTERPRET",
+        "route": "/contact/burst/"
+      },
+      {
+        "label": "KEEP AN IDEA ALIVE",
+        "system": "IDEA ATLAS",
+        "route": "/app-atlas/"
+      },
+      {
+        "label": "REMEMBER WHAT MATTERS",
+        "system": "SOCIAL RESIDUE",
+        "route": "/contact/residue/"
+      },
+      {
+        "label": "SEE IT ANOTHER WAY",
+        "system": "SCALE LENS STUDIO",
+        "route": "/fold-bloom/lens/"
+      }
+    ],
+    "rule": "Plain-language action first; internal system name second."
   }
 }

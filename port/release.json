@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "artifact": "HUMAN PORT",
   "route": "/port/",
-  "version": "1.0-preview",
+  "version": "1.1-preview",
   "date": "2026-09-21",
   "state": "PREVIEW_CANDIDATE",
   "decision": "Canonical HUMAN PORT surface moves to /port/. /contact/ remains the conventional contact surface and compatibility route.",
@@ -37,5 +37,14 @@
     "make one capsule",
     "capture one real idea",
     "return one social residue item without making it a task"
-  ]
+  ],
+  "delta": [
+    "replace system-first hero with plain-language first-time orientation",
+    "promote five primary doors: CONTACT, BURST, IDEA ATLAS, SOCIAL RESIDUE, SCALE LENS STUDIO",
+    "put user action phrase before internal system name",
+    "move capsules/backstage/continuity/laconic to secondary doors",
+    "move architecture into optional disclosure",
+    "add human-readable Social Residue surface instead of linking first-time visitors to JSON"
+  ],
+  "first_time_test": "A visitor should be able to choose the right door within 10 seconds without knowing FIELD terminology."
 }
