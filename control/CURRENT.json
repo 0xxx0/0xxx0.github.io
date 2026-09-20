@@ -148,6 +148,12 @@
       "state": "FROZEN_DONOR",
       "route": "/recovery/fold-bloom/fold-weave-0.1/",
       "rule": "one canonical exact copy; duplicate collapsed; mechanism diff only"
+    },
+    {
+      "name": "HOUSE / FIELD (house-field-v01 @ 89ac69c)",
+      "state": "SUPERSEDED_DONOR",
+      "route": "branch: house-field-v01",
+      "rule": "preserved, not deleted, not merged (ahead 1 / behind 23). Retained mechanisms: private->public whitelist projection; sanitization boundary; physical-resource/capability projection; evidence/RETURN integration; honest live-vs-snapshot state semantics. No retained function is missing versus FIELD INDEX - all five are already carried by CURRENT field_index plus the /contact/ 0.2 live_status semantics. Do not revive /house/ as a public head; mine mechanisms only if a concrete missing function survives comparison."
     }
   ],
   "recovery_targets": [
