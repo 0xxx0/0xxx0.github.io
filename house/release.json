@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "artifact": "HOUSE / FIELD",
   "route": "/house/",
-  "version": "0.3",
+  "version": "0.4",
   "released": "2026-09-20",
   "state": "STABLE",
   "changes": [
@@ -12,7 +12,9 @@
     "Kept the public page projection-only and timestamped; no public control endpoint was introduced.",
     "Registered HOUSE / FIELD in FIELD INDEX, federation atlas and RETURN ledger.",
     "Added /house/spatial/ as the runnable Spatial State Engine workbench with PLAN/RCP/SURFACE/SECTION/3D/FIELD/ATLAS projections over one addressed substrate.",
-    "Corrected the earlier overly restrictive 2D-first wording: 3D is allowed whenever it preserves identity, provenance and uncertainty; unmeasured Z remains explicitly unknown."
+    "Corrected the earlier overly restrictive 2D-first wording: 3D is allowed whenever it preserves identity, provenance and uncertainty; unmeasured Z remains explicitly unknown.",
+    "Drafted /house/confluence.json to coordinate HOUSE instance/substrate/state/runtime/projection layers without vocabulary collapse.",
+    "Restored the shared bottom-left showcase route adapter to HOUSE and linked the Spatial State current head."
   ],
   "checks": {
     "boundary": "public projection remains non-authoritative and non-actuating",
@@ -27,7 +29,9 @@
     "/house/contract.json",
     "/house/spatial-state.json",
     "/house/spatial/model.json",
-    "/house/spatial/release.json"
+    "/house/spatial/release.json",
+    "/house/confluence.json",
+    "/control/FIELD_INDEX_CONTRACT.json"
   ],
   "honesty": "The device snapshot is timestamped source material from the HOUSE branch; this Sep 20 convergence pass did not claim to refresh live Home Assistant state."
 }
