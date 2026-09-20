@@ -111,7 +111,7 @@ function subtreeHas(r,cm){
   return (cm.get(r.href)||[]).some(c=>subtreeHas(c,cm));
 }
 function renderChildren(parent,cm,depth){
-  return (cm.get(parent)||[]).filter(r=>subtreeHas(r,cm)).map(r=>routeLine(r,depth)+(cm.get(r.href)||[]).length?'<div>'+renderChildren(r.href,cm,depth+1)+'</div>':'').join('');
+  return (cm.get(parent)||[]).filter(r=>subtreeHas(r,cm)).map(r=>routeLine(r,depth)+((cm.get(r.href)||[]).length?'<div>'+renderChildren(r.href,cm,depth+1)+'</div>':'')).join('');
 }
 function renderStructure(){
   const cm=childrenMap();
