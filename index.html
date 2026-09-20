@@ -34,7 +34,7 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:22px;paddi
 <header>
   <div><div class="ey">FI / φ · RUN / RECOVER / RETURN</div><h1>FIELD<br>INDEX</h1></div>
   <div><p>Not a portfolio. A working index of executable surfaces, current heads, and recovered donors. Nothing here needs a company story.</p>
-  <nav><a href="./dock/">DOCK</a><a href="./control/">CURRENT</a><a href="./docs/">DOCS</a><a href="./control/confluence/">CONFLUENCE</a><a href="./control/migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./showcase-manifest.json">MANIFEST</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><a href="./control/FIELD_INDEX_AUDIT_2026-09-20.json">AUDIT</a></nav></div>
+  <nav><a href="./dock/">DOCK</a><a href="./control/">CURRENT</a><a href="./docs/">DOCS</a><a href="./control/confluence/">CONFLUENCE</a><a href="./migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./showcase-manifest.json">MANIFEST</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><a href="./control/FIELD_INDEX_AUDIT_2026-09-20.json">AUDIT</a></nav></div>
 </header>
 
 <section>
@@ -48,7 +48,7 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:22px;paddi
 </section>
 
 <section class="rec">
-  <div class="bar"><div><b>RECOVERING</b><span>copy first · classify second · merge third</span></div><a href="./control/migration/" style="color:#9ed7ff;text-decoration:none;font-size:9px">OPEN LEDGER →</a></div>
+  <div class="bar"><div><b>RECOVERING</b><span>copy first · classify second · merge third</span></div><a href="./migration/" style="color:#9ed7ff;text-decoration:none;font-size:9px">OPEN SALVAGE YARD →</a></div>
   <div id="recovering" class="rows"><div class="row"><div class="job">Loading migration ledger…</div></div></div>
 </section>
 
@@ -61,7 +61,7 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:22px;paddi
   <div class="bar"><div><b>SYSTEM</b><span>support surfaces, not products</span></div></div>
   <div class="system">
     <a href="./dock/"><b>DOCK / ORIENTATION</b><span>why / where / scale / three live fronts / drift reset</span></a><a href="./control/"><b>CURRENT / CONTROL</b><span>what is active, what is held, what happens next</span></a>
-    <a href="./control/migration/"><b>MIGRATION FIELD</b><span>dedup / recovery / import / quarantine ledger</span></a>
+    <a href="./migration/"><b>MIGRATION / SALVAGE</b><span>trophies / expeditions / quarantine / attic · human recovery home</span></a>
     <a href="./recovery/"><b>RECOVERY VAULT</b><span>exact frozen donors + explicit blockers + receipts</span></a>
     <a href="./returns/"><b>RETURN LEDGER</b><span>receipts and evidence</span></a>
     <a href="./house/"><b>HOUSE / FIELD · φ</b><span>spatial state / HA projection / evidence · private OPERATE</span></a>
@@ -124,10 +124,10 @@ document.getElementById('frontTools').addEventListener('click',e=>{
 document.getElementById('focus').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();renderRoutes();renderFrontier()});
 
 Promise.all([
- fetch('./control/RECOVERY_RUN_2026-09-19.json',{cache:'no-store'}).then(r=>r.json()),
+ fetch('./control/RECOVERY_POPULATION_2026-09-20.json',{cache:'no-store'}).then(r=>r.json()),
  fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>r.json())
 ]).then(([d,m])=>{
- const base=(d.recovered_families||[]).map(x=>({name:x.name,family:x.family,status:x.status,summary:x.summary,route:x.route}));
+ const base=(d.recovered||d.recovered_families||[]).map(x=>({name:x.name||x.id,family:x.family||'RECOVERY',status:x.status,summary:x.summary||x.unique||x.verification||'',route:x.route}));
  const seen=new Set(base.map(x=>x.route));
  const newer=(m.routes||[]).filter(x=>x.kind==='donor'&&String(x.href||'').startsWith('/recovery/')&&!seen.has(x.href)).map(x=>({name:x.title,family:x.family||'RECOVERY',status:x.state||'FROZEN_DONOR',summary:x.role||'Recovered donor.',route:x.href}));
  document.getElementById('recovered').innerHTML=[...base,...newer].map(x=>`<a class="row" href=".${esc(x.route)}"><div><div class="name">${esc(x.name)}</div><div class="family">${esc(x.family)}</div></div><div class="state">${esc(x.status)}</div><div class="job">${esc(x.summary)}</div><div class="go">OPEN →</div></a>`).join('');
