@@ -1,0 +1,196 @@
+{
+  "schema": "0xxx0/shape-law-atlas/v0.1",
+  "updated": "2026-09-21",
+  "status": "R&D",
+  "purpose": "Distinguish mathematically meaningful geometry/process/security structures from merely suggestive shapes before transferring them into Foundry, House, policy, proof or planning.",
+  "admission_rule": "Name the invariant/constraint/objective first. Choose a shape or method only if its mathematics/process semantics implement that invariant. Reject visual analogy without operational consequence.",
+  "classes": [
+    {
+      "id": "GEOMETRIC",
+      "meaning": "Metric/affine/projective relations where coordinates, distances, incidence or centers have mathematical force."
+    },
+    {
+      "id": "TOPOLOGICAL",
+      "meaning": "Connectivity, crossing, adjacency and coloring constraints; geometry may deform while graph structure remains."
+    },
+    {
+      "id": "MULTIOBJECTIVE",
+      "meaning": "Tradeoffs among several objectives; simplex only when a conserved composition exists, Pareto when objectives can vary independently."
+    },
+    {
+      "id": "PROCESS",
+      "meaning": "Divergence/convergence or staged work models; shape denotes workflow, not metric geometry."
+    },
+    {
+      "id": "SECURITY_PRIVACY",
+      "meaning": "Goal/threat/risk frameworks; labels are dimensions or categories, not points in a Euclidean figure unless explicitly modeled that way."
+    }
+  ],
+  "methods": [
+    {
+      "id": "simplex-barycentric",
+      "class": "GEOMETRIC",
+      "name": "Simplex / barycentric triangle",
+      "law": "Three non-negative weights normalized to sum to 1 identify a point in a 2-simplex.",
+      "use_when": "The state is genuinely a conserved three-way composition or allocation.",
+      "do_not_use": "Three objectives are independent, can all rise/fall together, or do not exhaust a fixed budget.",
+      "current_transfer": "Triangle Bench allocation gesture only; useful elsewhere only with an explicit sum constraint.",
+      "status": "PARKED / VALID MECHANISM",
+      "sources": [
+        "https://mathworld.wolfram.com/BarycentricCoordinates.html"
+      ]
+    },
+    {
+      "id": "triangle-centers",
+      "class": "GEOMETRIC",
+      "name": "Triangle centers / Euler line",
+      "law": "Different center definitions preserve different criteria; O, G, H and N lie on the Euler line, while I generally follows a different relation.",
+      "use_when": "The center criterion itself maps to a real invariant: balance, equal vertex distance, side clearance, etc.",
+      "do_not_use": "Assign semantic meaning after seeing an attractive construction.",
+      "current_transfer": "Center Lab explanatory probe; no canonical project prioritization mapping.",
+      "status": "EXPLANATORY / RESEARCH",
+      "sources": [
+        "https://mathworld.wolfram.com/EulerLine.html",
+        "https://mathworld.wolfram.com/TriangleCenter.html"
+      ]
+    },
+    {
+      "id": "planarity-k33",
+      "class": "TOPOLOGICAL",
+      "name": "Planarity / K₃,₃ utilities graph",
+      "law": "K₃,₃ is non-planar; Kuratowski characterizes non-planarity via subdivisions of K₃,₃ or K₅.",
+      "use_when": "Routing on one layer/surface must avoid crossings and the graph topology is the actual constraint.",
+      "do_not_use": "Crossovers, multiple layers, bridges, 3D routing or time-multiplexing are available and legal.",
+      "current_transfer": "Candidate diagnostic for House wiring/hoses/marks/routes: proves when a single planar layer is structurally insufficient.",
+      "status": "CANDIDATE",
+      "sources": [
+        "https://mathworld.wolfram.com/KuratowskisTheorem.html",
+        "https://mathworld.wolfram.com/UtilityGraph.html"
+      ]
+    },
+    {
+      "id": "graph-coloring",
+      "class": "TOPOLOGICAL",
+      "name": "Graph coloring",
+      "law": "Assign labels/colors so adjacent conflicting graph elements receive different labels; the required number depends on the graph.",
+      "use_when": "Objects that conflict through adjacency/interference must be assigned channels, tools, times, markings or resources.",
+      "do_not_use": "The problem is routing/planarity. The utilities problem is not a three-color theorem.",
+      "current_transfer": "Candidate for channel/resource allocation, House marks, mutually incompatible operations or tool scheduling.",
+      "status": "CANDIDATE",
+      "sources": [
+        "https://mathworld.wolfram.com/GraphColoring.html"
+      ]
+    },
+    {
+      "id": "voronoi-delaunay",
+      "class": "GEOMETRIC",
+      "name": "Voronoi / Delaunay dual",
+      "law": "Voronoi partitions space by nearest site; Delaunay connects sites with adjacent Voronoi regions.",
+      "use_when": "Nearest-resource territory and neighborhood adjacency are real spatial questions.",
+      "do_not_use": "Semantic importance or workflow dependency is being mistaken for physical proximity.",
+      "current_transfer": "Strong candidate for House nearest-tool/resource lookup, sensor coverage and spatial adjacency.",
+      "status": "CANDIDATE",
+      "sources": [
+        "https://mathworld.wolfram.com/VoronoiDiagram.html",
+        "https://mathworld.wolfram.com/DelaunayTriangulation.html"
+      ]
+    },
+    {
+      "id": "pareto-front",
+      "class": "MULTIOBJECTIVE",
+      "name": "Pareto frontier",
+      "law": "Keep non-dominated alternatives: no other feasible option is at least as good in every objective and strictly better in one.",
+      "use_when": "Several independent objectives conflict and no single weighting is justified.",
+      "do_not_use": "A fixed budget already makes barycentric/simplex allocation the correct model, or one objective is a hard constraint rather than a tradeoff.",
+      "current_transfer": "High-value candidate for shopping/procurement, build choices, latency/privacy/cost tradeoffs and hardware selection.",
+      "status": "PROMISING",
+      "sources": [
+        "https://en.wikipedia.org/wiki/Pareto_front"
+      ]
+    },
+    {
+      "id": "double-diamond",
+      "class": "PROCESS",
+      "name": "Design Council Double Diamond",
+      "law": "Discover and Develop diverge; Define and Deliver converge. The process explicitly allows returning to earlier stages as learning changes the problem.",
+      "use_when": "A design/research problem needs disciplined divergence before commitment and another divergence before delivery.",
+      "do_not_use": "A known bounded repair/action is already specified; adding discovery would only delay execution.",
+      "current_transfer": "Donor for RECOVER/INVESTIGATE → SPECIFY → IMPLEMENT/VERIFY rhythm; not a replacement for RETURN or current control.",
+      "status": "DONOR / PROCESS",
+      "sources": [
+        "https://www.designcouncil.org.uk/resources/the-double-diamond/"
+      ]
+    },
+    {
+      "id": "cia-triad",
+      "class": "SECURITY_PRIVACY",
+      "name": "CIA security triad",
+      "law": "Confidentiality, Integrity and Availability are distinct assurance objectives.",
+      "use_when": "Checking whether a system/security change protects information access, correctness and service availability.",
+      "do_not_use": "Treating CIA as a simplex whose components must sum to a fixed budget, or assuming a literal geometric triangle adds security meaning.",
+      "current_transfer": "Baseline checks for Human Port, Router/Policy, local agents, House control endpoints and public/private projections.",
+      "status": "BASELINE",
+      "sources": [
+        "https://csrc.nist.gov/glossary/term/confidentiality_integrity_availability"
+      ]
+    },
+    {
+      "id": "stride",
+      "class": "SECURITY_PRIVACY",
+      "name": "STRIDE threat categories",
+      "law": "Classify threats as Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service or Elevation of Privilege.",
+      "use_when": "Threat-modeling an actual data flow, trust boundary, actor/resource or control endpoint.",
+      "do_not_use": "As a decorative checklist without assets, trust boundaries and mitigations.",
+      "current_transfer": "Very strong candidate for Router/Policy, HUMAN PORT delegation, contact surfaces and House automation authority.",
+      "status": "PROMISING / PRACTICAL",
+      "sources": [
+        "https://learn.microsoft.com/en-us/azure/security/develop/threat-modeling-tool-threats"
+      ]
+    },
+    {
+      "id": "nist-privacy-framework",
+      "class": "SECURITY_PRIVACY",
+      "name": "NIST Privacy Framework",
+      "law": "Manage privacy risk as an organizational/system risk problem rather than reducing privacy to secrecy alone.",
+      "use_when": "Personal data, health/care context, people, cameras/sensors or delegated agents create privacy risk over a lifecycle.",
+      "do_not_use": "As a geometry or as proof that a particular implementation is private.",
+      "current_transfer": "Baseline donor for private adapters, Human Port, House sensing and any future continuous personal-data ingestion.",
+      "status": "BASELINE / DONOR",
+      "sources": [
+        "https://www.nist.gov/privacy-framework"
+      ]
+    }
+  ],
+  "bounded_tests": [
+    {
+      "id": "T1",
+      "method": "planarity-k33",
+      "head": "HOUSE / SPATIAL",
+      "question": "Can one real routing/marking problem be represented as a graph where a single-layer planar constraint changes the design decision?"
+    },
+    {
+      "id": "T2",
+      "method": "voronoi-delaunay",
+      "head": "HOUSE / SPATIAL",
+      "question": "Does nearest-resource / adjacency projection improve one actual tool, sensor or zone decision over ordinary plan view?"
+    },
+    {
+      "id": "T3",
+      "method": "pareto-front",
+      "head": "FIELD INDEX / procurement",
+      "question": "Does Pareto pruning remove dominated purchase/build options without inventing weights?"
+    },
+    {
+      "id": "T4",
+      "method": "stride",
+      "head": "HUMAN PORT / Router / Policy",
+      "question": "Can STRIDE reveal one missing trust-boundary control not already represented by current policy schemas?"
+    },
+    {
+      "id": "T5",
+      "method": "double-diamond",
+      "head": "recovery → implementation",
+      "question": "Does explicit divergence/convergence reduce premature building on one ambiguous recovered branch, or does existing RECOVER→DISTINGUISH→ENACT→RETURN already dominate it?"
+    }
+  ]
+}
