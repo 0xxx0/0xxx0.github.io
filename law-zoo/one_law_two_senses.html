@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ONE LAW / TWO SENSES</title>
+<style>
+:root{--bg:#050608;--panel:#0d1115;--ink:#e6ebe7;--muted:#7e8e98;--hair:#26313a;--cyan:#70d5e8;--hot:#f3a34b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.35 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow:hidden}
+canvas{position:fixed;inset:0;width:100%;height:100%;background:#020304}.panel{position:fixed;left:12px;top:12px;width:min(390px,calc(100vw - 24px));background:#080c10df;border:1px solid var(--hair);border-radius:10px;padding:10px;backdrop-filter:blur(8px)}
+.title{font-weight:900;letter-spacing:.13em;font-size:15px}.sub{color:var(--muted);margin:4px 0 9px}.law{color:var(--cyan);white-space:pre-wrap;border:1px solid var(--hair);padding:8px;border-radius:7px}
+.row{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}button,select,input{font:inherit;color:inherit;background:#10161c;border:1px solid var(--hair);border-radius:7px;padding:7px}button{cursor:pointer}.hot{border-color:#8f6238;background:#1b140e}.meter{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:8px}.m{border:1px solid var(--hair);padding:6px;border-radius:6px}.m b{display:block;font-size:14px}.hint{position:fixed;right:10px;bottom:10px;color:var(--muted);background:#070a0bcc;padding:6px 8px;border-radius:7px;border:1px solid var(--hair)}a{color:var(--cyan)}
+@media(max-width:600px){.panel{font-size:11px}.hint{display:none}}
+</style></head><body>
+<canvas id="c"></canvas><div class="panel">
+<div class="title">ONE LAW / TWO SENSES</div>
+<div class="sub">No visualization-of-a-song and no sonification-of-an-image. One recurrence state is sampled simultaneously by light and sound.</div>
+<div class="law" id="law"></div>
+<div class="row"><select id="family"><option value="dejong">DE JONG</option><option value="clifford">CLIFFORD</option><option value="ikeda">IKEDA</option></select><button id="audio" class="hot">ENABLE AUDIO</button><button id="seed">NEW SEED</button><button id="scar">TRAILS</button></div>
+<div class="row"><label>a <input id="a" type="range" min="-300" max="300" value="140"></label><label>b <input id="b" type="range" min="-300" max="300" value="-230"></label></div>
+<div class="row"><label>c <input id="cc" type="range" min="-300" max="300" value="240"></label><label>d <input id="d" type="range" min="-300" max="300" value="-210"></label></div>
+<div class="meter"><div class="m">x<b id="mx"></b></div><div class="m">y<b id="my"></b></div><div class="m">|Δ|<b id="md"></b></div><div class="m">phase<b id="mp"></b></div></div>
+<div class="row"><button onclick="location.href='index.html'">SUITE</button></div>
+</div><div class="hint">drag across the field: X/Y retunes two coefficients; movement itself becomes part of the recurrence</div>
+<script>
+const C=document.querySelector('#c'),X=C.getContext('2d'),$=s=>document.querySelector(s);let x=.1,y=.1,px=.1,py=.1,phase=0,last=0,trails=true,drag=false;
+let AC=null,osc1,osc2,gain,pan,filter;
+function resize(){C.width=innerWidth*devicePixelRatio;C.height=innerHeight*devicePixelRatio;X.setTransform(devicePixelRatio,0,0,devicePixelRatio,1?0:0,0);X.fillStyle='#020304';X.fillRect(0,0,innerWidth,innerHeight)}
+addEventListener('resize',resize);resize();
+function coeff(){return [+$(' #a'.trim()).value/100,+$('#b').value/100,+$('#cc').value/100,+$('#d').value/100]}
+function step(){
+ let [a,b,c,d]=coeff(),nx,ny,f=$('#family').value;
+ if(f==='dejong'){nx=Math.sin(a*y)-Math.cos(b*x);ny=Math.sin(c*x)-Math.cos(d*y)}
+ else if(f==='clifford'){nx=Math.sin(a*y)+c*Math.cos(a*x);ny=Math.sin(b*x)+d*Math.cos(b*y)}
+ else {let u=.4-.6/(1+x*x+y*y);nx=1+.9*(x*Math.cos(u)-y*Math.sin(u));ny=.9*(x*Math.sin(u)+y*Math.cos(u))}
+ px=x;py=y;x=nx;y=ny;phase=(phase+Math.atan2(y-py,x-px))%(Math.PI*2)
+}
+function audioUpdate(){
+ if(!AC)return;let now=AC.currentTime,dx=x-px,dy=y-py,spd=Math.hypot(dx,dy);
+ let f1=55+Math.abs(x)*150+Math.abs(phase)*11,f2=82+Math.abs(y)*190+spd*240;
+ osc1.frequency.setTargetAtTime(Math.min(950,f1),now,.015);osc2.frequency.setTargetAtTime(Math.min(1200,f2),now,.02);
+ gain.gain.setTargetAtTime(.025+Math.min(.055,spd*.018),now,.025);pan.pan.setTargetAtTime(Math.max(-1,Math.min(1,x/2.5)),now,.03);filter.frequency.setTargetAtTime(220+Math.abs(y)*1200,now,.03)
+}
+function lawText(){let [a,b,c,d]=coeff(),f=$('#family').value,txt=f==='dejong'?`x′ = sin(${a.toFixed(2)}·y) − cos(${b.toFixed(2)}·x)\ny′ = sin(${c.toFixed(2)}·x) − cos(${d.toFixed(2)}·y)`:f==='clifford'?`x′ = sin(${a.toFixed(2)}·y) + ${c.toFixed(2)}·cos(${a.toFixed(2)}·x)\ny′ = sin(${b.toFixed(2)}·x) + ${d.toFixed(2)}·cos(${b.toFixed(2)}·y)`:`u=.4−.6/(1+x²+y²)\n[x′,y′] = rotate(u)·[x,y]·.9 + [1,0]`;
+ $('#law').textContent=txt+'\n\nLIGHT: position/history ← same [x,y,Δ,phase]\nSOUND: pitch/gain/pan/filter ← same [x,y,Δ,phase]'}
+function frame(now){
+ let dt=(now-last)/1000||0;last=now;if(!trails||dt>.1){X.fillStyle='#020304';X.fillRect(0,0,innerWidth,innerHeight)}else{X.fillStyle='rgba(2,3,4,.035)';X.fillRect(0,0,innerWidth,innerHeight)}
+ X.globalCompositeOperation='lighter';
+ for(let i=0;i<650;i++){step();let xx=innerWidth*.5+x*innerWidth*.19,yy=innerHeight*.5+y*innerHeight*.19,spd=Math.hypot(x-px,y-py);let r=Math.min(3.2,.5+spd*.7);X.fillStyle=i%3?'rgba(105,211,231,.13)':'rgba(243,163,75,.18)';X.fillRect(xx,yy,r,r)}
+ X.globalCompositeOperation='source-over';audioUpdate();$('#mx').textContent=x.toFixed(3);$('#my').textContent=y.toFixed(3);$('#md').textContent=Math.hypot(x-px,y-py).toFixed(3);$('#mp').textContent=phase.toFixed(2);lawText();requestAnimationFrame(frame)
+}
+$('#audio').onclick=async()=>{
+ if(AC){if(AC.state==='running'){await AC.suspend();$('#audio').textContent='RESUME AUDIO'}else{await AC.resume();$('#audio').textContent='MUTE AUDIO'}return}
+ AC=new (AudioContext||webkitAudioContext)();osc1=AC.createOscillator();osc2=AC.createOscillator();gain=AC.createGain();pan=AC.createStereoPanner();filter=AC.createBiquadFilter();
+ osc1.type='sine';osc2.type='triangle';gain.gain.value=.03;filter.type='lowpass';osc1.connect(gain);osc2.connect(gain);gain.connect(filter).connect(pan).connect(AC.destination);osc1.start();osc2.start();$('#audio').textContent='MUTE AUDIO'
+};
+$('#seed').onclick=()=>{x=Math.random()*.6-.3;y=Math.random()*.6-.3;phase=0;X.fillStyle='#020304';X.fillRect(0,0,innerWidth,innerHeight)};
+$('#scar').onclick=()=>{trails=!trails;$('#scar').textContent=trails?'TRAILS':'CLEAR'};
+C.onpointerdown=e=>{drag=true;C.setPointerCapture(e.pointerId)};C.onpointerup=C.onpointercancel=()=>drag=false;C.onpointermove=e=>{if(!drag)return;$('#a').value=Math.round(((e.clientX/innerWidth)*6-3)*100);$('#d').value=Math.round(((e.clientY/innerHeight)*6-3)*100)};
+requestAnimationFrame(frame);
+</script></body></html>
