@@ -1,0 +1,91 @@
+{
+  "schema": "care-field-contract/v0.1",
+  "updated": "2026-09-21",
+  "title": "CARE / FIELD",
+  "role": "specialized projection of CONTINUITY for real-world human/animal care observation, longitudinal follow-up and clinician/vet handoff",
+  "not_a_new_core": true,
+  "parents": [
+    "/continuity/",
+    "BODYFIELD private lineage",
+    "/contact/"
+  ],
+  "interaction_law": [
+    "OBSERVE",
+    "FOLLOW",
+    "BRIEF"
+  ],
+  "invariants": [
+    "raw observation precedes interpretation",
+    "CASE != BRIEF != SEND",
+    "no generated diagnosis or urgency score",
+    "provider/vet plan is stored with source when known",
+    "spatial marks are evidence, not anatomical diagnosis",
+    "unknowns remain explicit",
+    "private case state remains browser-local unless user explicitly exports/shares"
+  ],
+  "capture": {
+    "primary_prompt": "What changed?",
+    "progressive": [
+      "where",
+      "trend",
+      "region-adaptive qualities",
+      "magnitude",
+      "event type/status",
+      "measurement",
+      "evidence kind",
+      "interpretation",
+      "source cue"
+    ],
+    "subject_kinds": [
+      "PERSON",
+      "ANIMAL"
+    ],
+    "event_types": [
+      "OBSERVATION",
+      "MEASUREMENT",
+      "TREATMENT",
+      "APPOINTMENT",
+      "RESULT"
+    ],
+    "workflow_status": [
+      "PLANNED",
+      "SCHEDULED",
+      "PERFORMED",
+      "RESULTED",
+      "REVIEWED",
+      "ACTED"
+    ]
+  },
+  "conversions": {
+    "imports": [
+      "0xxx0/continuity-case/v0.1",
+      "BODYFIELD_EVENT_LEDGER_3",
+      "0xxx0/care-case/v0.1"
+    ],
+    "exports": [
+      "0xxx0/care-case/v0.1",
+      "0xxx0/continuity-case/v0.1",
+      "plain-text clinician/vet brief"
+    ],
+    "human_port": "explicit user action only"
+  },
+  "step_back_checks": [
+    "missing subject",
+    "missing baseline",
+    "missing ASK",
+    "plan without source",
+    "measurement without unit",
+    "workflow event without status",
+    "interpretation without underlying observation",
+    "single-event case has no trajectory",
+    "explicit unknown count and latest-event freshness"
+  ],
+  "non_goals": [
+    "diagnosis ranking",
+    "unvalidated triage scoring",
+    "medical record authority",
+    "automatic messaging",
+    "public storage of case data"
+  ],
+  "research": "/control/research/CARE_STATE_2026-09-21.md"
+}
