@@ -24,7 +24,8 @@
   },
   "repo_ingest_verification": {
     "method": "Drive text fetch from the byte-verified canonical candidate; GitHub readback must equal fetched content",
-    "status": "PENDING_READBACK"
+    "status": "PASS_GITHUB_READBACK_EQUALS_DRIVE_FETCH",
+    "verified_on": "2026-09-20"
   },
   "retain": [
     "word segmentation",
