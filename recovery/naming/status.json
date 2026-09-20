@@ -1,0 +1,15 @@
+{
+  "schema": "0xxx0/recovery/naming/v0.1",
+  "status": "RECOVER_BLOCKED_ISOLATED_ARTIFACT",
+  "updated": "2026-09-20",
+  "branch": "Naming / Game-of-Names / identity-glyph lineage",
+  "evidence": "Exact archive lineage exists, including the 3×3 hacker-name/game branch and later identity/naming abstractions, but no isolated public-safe runnable/source artifact has been located.",
+  "privacy_boundary": "Raw conversation exports and personal naming context are not published to the public repository.",
+  "current_transferable_mechanisms": [
+    "stable semantic identity distinct from label/alias",
+    "names as manifestations rather than ontology",
+    "constraint-based generative naming",
+    "symmetry/palindrome/grid traversal as operations"
+  ],
+  "next_exact_recovery": "Locate an isolated HTML/JSON/Markdown/glyph artifact or source pack. Until then, preserve this as a gap rather than synthesize a fake recovered app."
+}
