@@ -2533,6 +2533,77 @@
           "VERIFY"
         ]
       }
+    },
+    {
+      "href": "/recovery/poly-furnisher/",
+      "title": "POLY / FURNISHER RECOVERY",
+      "kind": "recovery",
+      "parent": "/recovery/",
+      "family": "POLY / FURNISHER",
+      "state": "ACTIVE",
+      "showcase_card": false,
+      "role": "Exact 2019–2021 executable + intent/contraction evidence family; later survey spec remains interpretive rather than source evidence.",
+      "receipt": "/recovery/poly-furnisher/manifest.json",
+      "index": {
+        "updated_at": "2026-09-20T22:40:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY",
+          "INVESTIGATE"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/poly-furnisher/kraken-2019/",
+      "title": "KRAKEN · 2019",
+      "kind": "donor",
+      "parent": "/recovery/poly-furnisher/",
+      "family": "POLY / FURNISHER",
+      "operation": "HOST",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "Exact byte-verified golden executable fossil: capability packaging, room/state, lenses, transducers, combinators and geometry.",
+      "receipt": "/recovery/poly-furnisher/manifest.json",
+      "contract": {
+        "transforms": {
+          "verb": "expose and package selected host capabilities for a compact browser organism",
+          "preserves": [
+            "exact historical source",
+            "host capability surface",
+            "state/optics/transducer mechanisms"
+          ],
+          "reversibility": "view-only fossil",
+          "side_effects": "historical runtime behavior only"
+        }
+      },
+      "index": {
+        "updated_at": "2026-09-20T22:40:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY",
+          "INVESTIGATE"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/poly-furnisher/proto-kernel-2020/",
+      "title": "POLY PROTO-KERNEL · 2020",
+      "kind": "donor",
+      "parent": "/recovery/poly-furnisher/",
+      "family": "POLY / FURNISHER",
+      "operation": "TRANSFORM",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "Exact byte-verified xducers/matrix/lenses proto-kernel with representation swapping, scheduling and linear↔radial geometry.",
+      "receipt": "/recovery/poly-furnisher/manifest.json",
+      "index": {
+        "updated_at": "2026-09-20T22:40:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY",
+          "INVESTIGATE"
+        ]
+      }
     }
   ],
   "release_law": [
