@@ -2,8 +2,8 @@
   "schema": "release-receipt/v1",
   "artifact": "0 / HUMAN PORT",
   "route": "/contact/",
-  "version": "0.2",
-  "released": "2026-09-19",
+  "version": "0.3",
+  "released": "2026-09-21",
   "state": "STABLE",
   "changes": [
     "replaced passive placeholder with a usable transport-neutral signal composer",
@@ -13,7 +13,8 @@
     "added machine-readable promise contract for future autoresponder bindings",
     "kept private identifiers, credentials and correspondence outside the public surface",
     "added reflective ingress rule: restate/confirm materially ambiguous questions while preserving source wording",
-    "bound CONTINUITY / CASE as an upstream local canonical-state handoff; CASE != DRAFT != SEND"
+    "bound CONTINUITY / CASE as an upstream local canonical-state handoff; CASE != DRAFT != SEND",
+    "replaced the accidental human-only/anti-clone promise with an authority-and-disclosure boundary: disclosed delegated agents/clones may represent under policy; undisclosed impersonation and false attribution remain forbidden"
   ],
   "checks": [
     "message composer operates locally",
@@ -22,8 +23,9 @@
     "machine contract separates current static behavior from candidate future adapters",
     "root showcase route remains separate from the nine showcase instruments",
     "reflection rule cannot overwrite source wording or promote interpretation into source fact",
-    "continuity case state cannot send; HUMAN PORT remains explicit external-action boundary"
+    "continuity case state cannot send; HUMAN PORT remains explicit external-action boundary",
+    "contract distinguishes nonhuman representation from undisclosed impersonation and requires explicit delegated authority plus provenance"
   ],
   "return": "/contact/",
-  "amended": "2026-09-20"
+  "amended": "2026-09-21"
 }
