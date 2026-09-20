@@ -1,0 +1,119 @@
+{
+  "schema": "0xxx0/axial-aperture-contract/v0.1",
+  "updated": "2026-09-21",
+  "status": "CURRENT_SYNTHESIS_PROOF_REQUIRED",
+  "route": "/foundry/axial/",
+  "proposition": "A cylindrical interface is useful when physical topology makes computational address, transform, visibility and authority directly readable rather than merely decorative.",
+  "layers": {
+    "SPEC": "lawful mapping; no embodiment claim",
+    "LAB": "browser correspondence model at /foundry/axial/",
+    "BODY": "passive nested-cylinder / ring / aperture mechanism",
+    "BRIDGE": "optional sensing/actuation adapter carrying AXIAL_PACKET",
+    "WORLD": "external object/system being inspected or changed",
+    "PROOF": "comparison + physical readback/repeatability evidence",
+    "RETURN": "receipt preserving before/gesture/after/result/residue"
+  },
+  "exact_recovered": [
+    {
+      "source": "/recovery/poly-furnisher/interphase-lineage/rotating-cylinder-2019.html",
+      "date": "2019-11-01",
+      "observed": [
+        "rotating cylindrical control geometry",
+        "controllers/interfaces: prism | cylinder",
+        "room/cube bridge",
+        "state/transform experiments"
+      ]
+    },
+    {
+      "source": "/recovery/axial/state-transform-v0.3/",
+      "observed": [
+        "OBJECT/OPERATOR/FRAME rings",
+        "0–60 mm axial",
+        "±180° twist",
+        "SAFE/TEST/ARM/RUN",
+        "AXIAL_PACKET",
+        "two nested tubes physical target"
+      ]
+    },
+    {
+      "source": "/recovery/axial/compositor-v0.2/print-template.svg",
+      "observed": [
+        "five independent rotary rings",
+        "fixed reference spine",
+        "four detents per ring",
+        "physical state readable at index line"
+      ]
+    }
+  ],
+  "reconstructed_transfer": [
+    "Scale Lens: one identity may survive unequal lawful projections",
+    "RETURN: consequential operation leaves durable evidence",
+    "product-demo lineage: model/world correspondence must be measured rather than assumed"
+  ],
+  "inspiration_not_provenance": [
+    "Blade Runner / Memory-Orb association is a user-recognized visual/mechanical analogue; no recovered evidence establishes it as the historical source of the cylinder lineage."
+  ],
+  "body_mapping": {
+    "semantic": [
+      "OBJECT ring",
+      "OPERATOR ring",
+      "FRAME ring"
+    ],
+    "continuous": {
+      "theta": "twist ±180°",
+      "z": "axial slide 0–60 mm"
+    },
+    "aperture": "outer sleeve/window reveals bounded addressed state; APERTURE changes window size/offset, never object identity",
+    "reference": "fixed spine/index line makes state readable without software",
+    "authority": [
+      "SAFE",
+      "TEST",
+      "ARM",
+      "RUN"
+    ]
+  },
+  "projection_laws": {
+    "WORLD": "world-fixed transform/order",
+    "LOCAL": "object-local transform/order",
+    "LENS": "bounded clip/aperture projection",
+    "SOURCE": "source-preserving derivative/overlay"
+  },
+  "operator_motion": {
+    "SCALE": [
+      "z/axial"
+    ],
+    "ROTATE": [
+      "theta/twist"
+    ],
+    "PHASE": [
+      "theta/twist"
+    ],
+    "APERTURE": [
+      "z/axial",
+      "theta/twist"
+    ]
+  },
+  "invariants": [
+    "Discrete semantic address and continuous transform are not interchangeable controls.",
+    "APERTURE reveals/selects scope; it does not silently mutate canonical identity.",
+    "TEST never applies WORLD consequence.",
+    "ARM snapshots the addressed state and transform before RUN.",
+    "RUN acts only on the latched packet and emits RETURN.",
+    "Bridge packets traverse the same provenance path as human interaction.",
+    "Physical promotion requires state readback without software."
+  ],
+  "first_physical_return": {
+    "prerequisite": "Use the already recovered one-MODE-ring diagnostic packet before fabricating the whole body.",
+    "then": "Add one opaque sliding/rotating sleeve with a literal window over a printed state field; keep it passive.",
+    "question": "Can a person inspect, save, disturb, and restore an addressed state from the object itself without software?",
+    "evidence": [
+      "target state before disturbance",
+      "restored ring/window address",
+      "readback error",
+      "restore time",
+      "photo of fixed index/window",
+      "residue/ambiguity"
+    ],
+    "no_claim": "No sensing, haptics, model-fit or low-translation advantage is established until measured."
+  }
+}
