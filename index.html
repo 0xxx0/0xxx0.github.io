@@ -4,152 +4,151 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
-<meta name="theme-color" content="#07090a">
+<meta name="theme-color" content="#080a0b">
 <title>0xxx0 / FIELD INDEX</title>
 <style>
-:root{--bg:#07090a;--p:#0b0f11;--p2:#101619;--ink:#edf0ed;--mut:#7d898f;--line:#2a3439;--hot:#ed7447;--cool:#72bce7;--green:#98d49b;--gold:#d5ad68;--bad:#cc8792}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-body{padding:max(14px,env(safe-area-inset-top)) 12px max(30px,env(safe-area-inset-bottom))}a{color:inherit;text-decoration:none}button,input{font:inherit;color:inherit;background:#090d0f;border:1px solid var(--line);border-radius:0}
-button{cursor:pointer;min-height:30px;padding:6px 8px}button.on{border-color:var(--cool);color:#dff4ff;background:#0d171c}main{width:min(1240px,100%);margin:auto}
-header{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end;padding:30px 0 16px;border-bottom:1px solid var(--line)}
-.ey{font-size:8px;letter-spacing:.18em;color:var(--hot)}h1{margin:8px 0 0;font:900 clamp(48px,10vw,100px)/.78 system-ui,-apple-system,sans-serif;letter-spacing:-.08em}
-.intro{color:#a9b3b6;font:12px/1.58 system-ui,sans-serif;max-width:580px}.intro b{color:var(--ink)}nav{display:flex;gap:5px;flex-wrap:wrap;margin-top:13px}nav a{border:1px solid var(--line);padding:6px 8px;font-size:8px;letter-spacing:.08em}
-.laws{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px}.law{background:#090d0f;padding:8px}.law b{display:block;color:var(--cool);font-size:8px}.law span{display:block;margin-top:3px;color:var(--mut);font-size:7px}
-.section{margin-top:26px}.sectionHead{display:grid;grid-template-columns:1fr auto;align-items:end;gap:12px;border-bottom:1px solid var(--line);padding-bottom:7px;margin-bottom:8px}.sectionHead b{font-size:10px;letter-spacing:.16em}.sectionHead span{font-size:8px;color:var(--mut)}
-.nowGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.front{background:var(--p);padding:13px;min-height:150px;display:flex;flex-direction:column}.front:hover{background:#101619}.front .num{font-size:8px;color:var(--hot)}.front h2{margin:18px 0 7px;font:800 20px/1 system-ui,sans-serif;letter-spacing:-.04em}.front p{margin:0;color:#a5afb2;font:9px/1.55 system-ui,sans-serif}.front .state{margin-top:auto;padding-top:14px;color:var(--green);font-size:7px;letter-spacing:.1em}
-.heads{border-top:1px solid var(--line)}.head{display:grid;grid-template-columns:minmax(180px,.8fr) 120px 2fr auto;gap:12px;padding:9px 3px;border-bottom:1px solid #20282c;align-items:start}.head:hover{background:#0b1012}.head strong{font:750 14px/1.1 system-ui,sans-serif}.head .hs{font-size:7px;letter-spacing:.09em;color:var(--green)}.head p{margin:0;color:#96a2a6;font:9px/1.45 system-ui,sans-serif}.arrow{color:#7a878d}
-.mapTools{display:flex;gap:4px;flex-wrap:wrap}.mapTools input{min-height:30px;padding:6px 8px;width:190px}.mapGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.branch{border:1px solid var(--line);background:var(--p)}.branch>summary{list-style:none;cursor:pointer;padding:10px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start}.branch>summary::-webkit-details-marker{display:none}.branch[open]>summary{border-bottom:1px solid var(--line)}.routeName{font:750 14px/1.1 system-ui,sans-serif}.routeMeta{margin-top:4px;color:#708087;font-size:7px;letter-spacing:.06em}.routeRole{margin-top:6px;color:#98a4a8;font:8.5px/1.4 system-ui,sans-serif;max-width:68ch}.badges{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end}.badge{border:1px solid #303a3f;padding:2px 4px;font-size:6px;letter-spacing:.07em;color:#88969c}.badge.ACTIVE,.badge.STABLE{color:var(--green)}.badge.PROOF_REQUIRED,.badge.RECOVER{color:#e1a06b}.badge.CANDIDATE,.badge.PARKED{color:var(--gold)}.badge.DONOR,.badge.FROZEN_DONOR{color:var(--cool)}.badge.REFERENCE,.badge.UTILITY{color:#8e9a9f}
-.kids{padding:4px 8px 8px}.kid{display:grid;grid-template-columns:1fr auto;gap:8px;border-bottom:1px solid #1d2529;padding:7px 2px}.kid:last-child{border-bottom:0}.kid:hover{background:#0d1316}.kid .routeName{font-size:11px}.kid .routeRole{font-size:8px}.depth2{margin-left:13px;border-left:1px solid #273238;padding-left:8px}
-.flat{border-top:1px solid var(--line)}.flatRow{display:grid;grid-template-columns:minmax(190px,1fr) 110px 110px 2fr auto;gap:10px;padding:9px 3px;border-bottom:1px solid #20282c}.flatRow:hover{background:#0b1012}.flatRow .name{font:750 13px/1.1 system-ui,sans-serif}.flatRow .meta{font-size:7px;color:var(--mut)}.flatRow .status{font-size:7px;letter-spacing:.08em}.flatRow .desc{font:8.5px/1.4 system-ui,sans-serif;color:#96a2a6}
-.ports{border-top:1px solid var(--line)}.portRow{display:grid;grid-template-columns:minmax(170px,.75fr) 130px 150px 2fr auto;gap:10px;padding:8px 3px;border-bottom:1px solid #20282c}.portRow:hover{background:#0b1012}.portRow .name{font:750 12px/1.1 system-ui,sans-serif}.portRow .kind{font-size:7px;color:var(--cool);letter-spacing:.08em}.portRow .status{font-size:7px;color:var(--gold);letter-spacing:.06em}.portRow .via{font:8.5px/1.4 system-ui,sans-serif;color:#96a2a6}
-.foot{display:flex;justify-content:space-between;gap:18px;margin-top:24px;padding-top:9px;border-top:1px solid var(--line);font-size:7px;color:#657278}
-@media(max-width:820px){header{grid-template-columns:1fr}.laws{grid-template-columns:1fr 1fr}.nowGrid,.mapGrid{grid-template-columns:1fr}.head{grid-template-columns:1fr auto}.head p{grid-column:1/-1}.flatRow,.portRow{grid-template-columns:1fr auto}.flatRow .meta,.flatRow .status,.flatRow .desc,.portRow .kind,.portRow .status,.portRow .via{grid-column:1}.flatRow .arrow,.portRow .arrow{grid-column:2;grid-row:1/-1}.sectionHead{grid-template-columns:1fr}.mapTools input{width:100%}.foot{display:block}}
+:root{--bg:#080a0b;--panel:#0b0f11;--ink:#eef1ee;--mut:#78848a;--line:#293136;--line2:#1d2428;--hot:#ed7648;--cool:#78bce5;--ok:#9bd0a0;--warn:#d7aa63}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.48 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(14px,env(safe-area-inset-top)) 12px max(28px,env(safe-area-inset-bottom))}
+a{color:inherit;text-decoration:none}button,input{font:inherit;border:1px solid var(--line);border-radius:0;background:#090d0f;color:var(--ink);min-height:30px;padding:6px 8px}
+button{cursor:pointer}.wrap{width:min(1160px,100%);margin:auto}
+header{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:end;padding:28px 0 15px;border-bottom:1px solid var(--line)}
+.ey{font-size:8px;letter-spacing:.2em;color:var(--hot)}h1{margin:7px 0 0;font:850 clamp(48px,9vw,100px)/.78 system-ui,-apple-system,sans-serif;letter-spacing:-.075em}
+.intro{max-width:430px;color:#aab3b7;font:12px/1.65 system-ui,sans-serif}.law{margin-top:9px;color:var(--mut);font-size:8px}.law b{color:var(--ink)}
+.nav{display:flex;gap:5px;flex-wrap:wrap;margin-top:13px}.nav a,.nav button{border:1px solid var(--line);padding:7px 9px;font-size:8px;letter-spacing:.08em}.nav a:hover,.nav button:hover,.nav button.on{border-color:#6e7b81;background:#0d1215}
+.reading{border-bottom:1px solid var(--line);padding:18px 0}.head{display:grid;grid-template-columns:115px 1fr auto;gap:12px;align-items:baseline;margin-bottom:9px}.head h2{margin:0;font-size:10px;letter-spacing:.17em}.head p{margin:0;color:var(--mut);font-size:8px}.count{color:#657178;font-size:8px}
+.rows{border-top:1px solid var(--line)}.row{display:grid;grid-template-columns:minmax(170px,1.05fr) 115px minmax(260px,2fr) auto;gap:12px;padding:10px 4px;border-bottom:1px solid var(--line2);align-items:start}.row:hover{background:#0b1012}
+.name{font:760 15px/1.08 system-ui,-apple-system,sans-serif;letter-spacing:-.025em}.meta{margin-top:4px;color:#707c82;font-size:7px;letter-spacing:.06em}.state{font-size:8px;letter-spacing:.08em;color:var(--ok)}.state.PROOF_REQUIRED,.state.RECOVER{color:var(--hot)}.state.CANDIDATE,.state.PARKED{color:var(--warn)}.state.DONOR,.state.FROZEN_DONOR{color:var(--cool)}.state.UTILITY,.state.REFERENCE{color:#89959a}
+.desc{color:#a2acb0;font:10px/1.45 system-ui,-apple-system,sans-serif}.go{color:#748087;white-space:nowrap}.fronts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.front{background:var(--panel);padding:13px;min-height:132px}.front .n{font:800 18px/1 system-ui,sans-serif}.front .s{color:var(--hot);font-size:7px;letter-spacing:.12em;margin-top:5px}.front p{color:#a4adb1;font:10px/1.5 system-ui,sans-serif;margin:16px 0 0}.front code{display:block;color:#7e8a90;font-size:7px;margin-top:9px}
+.maptools{display:flex;gap:5px;flex-wrap:wrap}.maptools input{width:min(260px,45vw)}.tree{border-top:1px solid var(--line)}details.node{border-bottom:1px solid var(--line2)}details.node>summary{list-style:none;cursor:pointer}.treeRow{display:grid;grid-template-columns:minmax(170px,1fr) 120px 105px 2fr auto;gap:10px;align-items:start;padding:9px 4px}.treeRow:hover{background:#0b1012}.treeRow .kind{color:var(--cool);font-size:8px}.indent{padding-left:calc(var(--depth,0) * 16px)}.children{margin-left:12px;border-left:1px solid #20282c}.leaf{border-bottom:1px solid var(--line2)}
+.recentStamp{color:#6d797f;font-size:8px}.port{display:grid;grid-template-columns:minmax(170px,1fr) 125px 135px minmax(250px,2fr) auto;gap:10px;padding:9px 4px;border-bottom:1px solid var(--line2)}.port .status{color:var(--warn);font-size:8px}.port .status.HUMAN_EVIDENCE_REQUIRED{color:#d78a99}.port .status.ADAPTER_REQUIRED{color:var(--hot)}
+.support{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:13px}.support a{background:#090d0f;padding:10px}.support b{display:block;font-size:8px}.support span{display:block;color:var(--mut);font-size:7px;margin-top:3px}
+footer{display:flex;justify-content:space-between;gap:18px;color:#657178;font-size:8px;padding-top:12px}
+@media(max-width:780px){header{grid-template-columns:1fr}.fronts{grid-template-columns:1fr}.head{grid-template-columns:1fr}.row,.treeRow,.port{grid-template-columns:1fr auto;gap:4px}.row .state,.row .desc,.treeRow .kind,.treeRow .state,.treeRow .desc,.port .status,.port .desc{grid-column:1}.row .go,.treeRow .go,.port .go{grid-column:2;grid-row:1/-1}.support{grid-template-columns:1fr 1fr}.maptools input{width:100%}footer{display:block}}
 </style>
 </head>
-<body><main>
+<body><main class="wrap">
 <header>
-  <div><div class="ey">FI / φ · ORIENT / FIND / CONNECT / RETURN</div><h1>FIELD<br>INDEX</h1></div>
-  <div class="intro"><b>A map, not a feed.</b> NOW says where attention is. HEADS says what currently survives. MAP says what exists. OPEN PORTS says what still cannot connect. Recent activity is useful evidence, but it does not decide importance.
-    <nav><a href="./port/">HUMAN PORT</a><a href="./dock/">DOCK</a><a href="./control/">CURRENT</a><a href="./foundry/">FOUNDRY</a><a href="./migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./control/confluence/">CONFLUENCE</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav>
-    <div class="laws"><div class="law"><b>ATTENTION ≠ RECENCY</b><span>CURRENT owns NOW.</span></div><div class="law"><b>MAP ≠ BACKLOG</b><span>Existence is not obligation.</span></div><div class="law"><b>DONOR ≠ HEAD</b><span>Transfer without resurrection.</span></div><div class="law"><b>DISCUSSION ≠ TOUCH</b><span>Only durable mutation bumps activity.</span></div></div>
+  <div><div class="ey">FI / φ · ORIENT / FIND / RETURN</div><h1>FIELD<br>INDEX</h1></div>
+  <div class="intro">One durable map of what exists, what matters now, and where the open interfaces are. <b>NOW is attention. MAP is existence. RECENT is mutation.</b>
+    <div class="law">SURVIVAL LAW · <b>depth may grow; the active human surface stays small.</b></div>
+    <nav class="nav">
+      <a href="#now">NOW</a><a href="#heads">HEADS</a><a href="#map">MAP</a><a href="#ports">OPEN PORTS</a>
+      <a href="./returns/">RETURN</a><a href="./control/">CONTROL</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a>
+    </nav>
   </div>
 </header>
 
-<section class="section">
-  <div class="sectionHead"><div><b>NOW</b><span id="nowMeta">loading current attention…</span></div><span>≤3 execution fronts · from CURRENT</span></div>
-  <div id="now" class="nowGrid"><div class="front"><p>Loading /control/CURRENT.json…</p></div></div>
+<section class="reading" id="now">
+  <div class="head"><h2>NOW</h2><p>≤3 execution fronts from CURRENT. This is the only reading that implies attention.</p><span class="count" id="nowCount">loading</span></div>
+  <div class="fronts" id="fronts"><div class="front">Loading CURRENT…</div></div>
 </section>
 
-<section class="section">
-  <div class="sectionHead"><div><b>HEADS</b><span id="headMeta">retained current lineages</span></div><span>current ≠ active ≠ stable</span></div>
-  <div id="heads" class="heads"><div class="head"><p>Loading current heads…</p></div></div>
+<section class="reading" id="heads">
+  <div class="head"><h2>HEADS</h2><p>Retained lineage heads. Stable, active, held and proof-required can all live here without becoming NOW.</p><span class="count" id="headCount">loading</span></div>
+  <div class="rows" id="headsRows"><div class="row"><div class="desc">Loading heads…</div></div></div>
 </section>
 
-<section class="section">
-  <div class="sectionHead"><div><b>MAP</b><span id="mapMeta">durable address graph</span></div><div class="mapTools" id="mapTools"><button class="on" data-mode="STRUCTURE">STRUCTURE</button><button data-mode="ACTIVE">LIVE</button><button data-mode="HEADS">HEADS</button><button data-mode="DONORS">DONORS</button><button data-mode="SUPPORT">SUPPORT</button><button data-mode="RECENT">RECENT</button><input id="find" type="search" placeholder="/ find route / mechanism"></div></div>
-  <div id="map" class="mapGrid"><div class="branch"><div style="padding:12px;color:var(--mut)">Loading manifest…</div></div></div>
+<section class="reading" id="map">
+  <div class="head"><h2>MAP</h2><p>Self-maintaining sitemap from manifest parent relations. Existence is not priority.</p><span class="count" id="mapCount">loading</span></div>
+  <div class="maptools">
+    <button class="on" data-mode="STRUCTURE">STRUCTURE</button>
+    <button data-mode="RECENT">RECENT</button>
+    <input id="mapSearch" type="search" placeholder="/ find any surface">
+  </div>
+  <div id="mapBody" class="tree" style="margin-top:8px"><div class="treeRow"><div class="desc">Loading manifest…</div></div></div>
 </section>
 
-<section class="section">
-  <div class="sectionHead"><div><b>OPEN PORTS</b><span id="portMeta">derived from declared exit paths</span></div><span>interface debt · not automatic priority</span></div>
-  <div id="ports" class="ports"><div class="portRow"><div class="via">Loading unresolved interfaces…</div></div></div>
+<section class="reading" id="ports">
+  <div class="head"><h2>OPEN PORTS</h2><p>Declared interface/proof debt derived live from route contracts. Questions, not automatic backlog.</p><span class="count" id="portCount">loading</span></div>
+  <div id="portsRows" class="rows"><div class="row"><div class="desc">Deriving open ports…</div></div></div>
 </section>
 
-<div class="foot"><span>OBJECT → ADDRESS → STATE → TRANSFORM → PROJECTION → EVIDENCE → RETURN</span><span>FIELD INDEX is orientation; CURRENT is attention; CONFLUENCE moves bounded mechanisms between unequal lineages.</span></div>
-</main>
+<section class="reading">
+  <div class="head"><h2>SUPPORT</h2><p>Deep machinery stays reachable without competing with the index.</p><span></span></div>
+  <div class="support">
+    <a href="./port/"><b>HUMAN PORT</b><span>human ingress / return</span></a>
+    <a href="./foundry/"><b>FOUNDRY</b><span>instruments / methods</span></a>
+    <a href="./migration/"><b>MIGRATION</b><span>salvage / recovery work</span></a>
+    <a href="./recovery/"><b>RECOVERY</b><span>exact donors / fossils</span></a>
+    <a href="./docs/"><b>DOCS</b><span>control docs / readable state</span></a>
+  </div>
+</section>
+
+<footer><span>ATTENTION ≠ RECENCY · MAP ≠ BACKLOG · DONOR ≠ HEAD</span><span>DISCUSSION ≠ INDEX TOUCH · MUTATION → INDEX TOUCH</span></footer>
 
 <script>
-(()=>{'use strict';
-const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-let manifest=null,current=null,routes=[],mode='STRUCTURE',query='',headSet=new Set;
-const routeByHref=()=>new Map(routes.map(r=>[r.href,r]));
-const stateLive=s=>['ACTIVE','PROOF_REQUIRED','CANDIDATE'].includes(String(s||''));
-const isDonor=r=>String(r.state||'').includes('DONOR')||String(r.kind||'').includes('donor');
-const isSupport=r=>['control','documentation','validator','evidence','recovery'].includes(r.kind)||r.state==='UTILITY'||r.href==='/migration/'||r.href==='/dock/'||r.href==='/returns/';
-function textOf(r){return [r.title,r.href,r.family,r.kind,r.state,r.operation,r.role,(r.transfer||[]).join(' '),JSON.stringify(r.field||{})].join(' ').toLowerCase()}
-function badge(v){return v?'<span class="badge '+esc(v)+'">'+esc(v)+'</span>':''}
-function role(r){return r.role||r.contract?.transforms?.verb||(r.transfer||[]).slice(0,2).join(' · ')||r.field?.physical_fit||''}
-function hrefForFront(f){
-  const map=routeByHref();
-  const ev=(f.evidence||[]).find(x=>map.has(x));
-  if(ev)return ev;
-  const m=String(f.center||'').match(/\/[A-Za-z0-9._/-]*\//);
-  return m&&map.has(m[0])?m[0]:'/control/';
-}
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+let manifest,current,mapMode='STRUCTURE',mapQuery='';
+const hrefFor=h=>h==='/'?'./':'.'+h;
+function routeByHref(h){return (manifest?.routes||[]).find(r=>r.href===h)}
 function renderNow(){
-  const fs=(current?.active_fronts||[]).slice(0,3);
-  $('nowMeta').textContent=fs.length+' active fronts · attention source /control/CURRENT.json';
-  $('now').innerHTML=fs.map((f,i)=>'<a class="front" href=".'+esc(hrefForFront(f))+'"><div class="num">0'+(i+1)+' / '+esc(f.id)+'</div><h2>'+esc(String(f.id).replace(/-/g,' ').toUpperCase())+'</h2><p>'+esc(f.objective||f.center||'')+'</p><div class="state">'+esc(f.state||'ACTIVE')+' · OPEN →</div></a>').join('')||'<div class="front"><p>No active fronts declared.</p></div>';
+ const xs=(current?.active_fronts||[]).slice(0,3);
+ nowCount.textContent=xs.length+' / 3';
+ fronts.innerHTML=xs.map((f,i)=>'<div class="front"><div class="s">0'+(i+1)+' · '+esc(f.state)+'</div><div class="n">'+esc(f.id.replaceAll('-',' / ').toUpperCase())+'</div><p>'+esc(f.objective||f.center||'')+'</p><code>'+esc(f.center||'')+'</code></div>').join('')||'<div class="front">No active fronts.</div>';
 }
 function renderHeads(){
-  const hs=current?.current_heads||[];
-  headSet=new Set(hs.map(h=>h.route));
-  $('headMeta').textContent=hs.length+' retained heads · source /control/CURRENT.json';
-  $('heads').innerHTML=hs.map(h=>'<a class="head" href=".'+esc(h.route)+'"><strong>'+esc(h.head)+'</strong><span class="hs">'+esc(h.state)+'</span><p>'+esc(h.retained_function||'')+'</p><span class="arrow">OPEN →</span></a>').join('')||'<div class="head"><p>No current heads declared.</p></div>';
+ const xs=current?.current_heads||[];
+ headCount.textContent=xs.length+' retained';
+ headsRows.innerHTML=xs.map(h=>'<a class="row" href="'+esc(hrefFor(h.route))+'"><div><div class="name">'+esc(h.head)+'</div><div class="meta">'+esc(h.lineage)+'</div></div><div class="state '+esc(h.state)+'">'+esc(h.state)+'</div><div class="desc">'+esc(h.retained_function||'')+'</div><div class="go">OPEN →</div></a>').join('');
 }
-function matchMode(r){
-  if(query&&!textOf(r).includes(query))return false;
-  if(mode==='STRUCTURE')return true;
-  if(mode==='ACTIVE')return stateLive(r.state);
-  if(mode==='HEADS')return headSet.has(r.href);
-  if(mode==='DONORS')return isDonor(r);
-  if(mode==='SUPPORT')return isSupport(r);
-  return true;
+function matches(r){
+ if(!mapQuery)return true;
+ const hay=[r.title,r.href,r.kind,r.state,r.family,r.operation,r.role,(r.index?.work_modes||[]).join(' ')].join(' ').toLowerCase();
+ return hay.includes(mapQuery);
 }
-function routeLine(r,depth){
-  const cls=depth?'kid '+(depth>1?'depth2':''):'';
-  const body='<div><div class="routeName">'+esc(r.title||r.href)+'</div><div class="routeMeta">'+esc(r.href)+' · '+esc(r.operation||r.kind||'route')+(r.index?.updated_at?' · '+esc(r.index.updated_at):'')+'</div>'+(role(r)?'<div class="routeRole">'+esc(role(r))+'</div>':'')+'</div><div class="badges">'+badge(r.state)+badge(r.kind)+(headSet.has(r.href)?'<span class="badge ACTIVE">HEAD</span>':'')+'</div>';
-  return '<a class="'+cls+'" href=".'+esc(r.href)+'">'+body+'</a>';
+function hasMatchingDesc(h,byParent){
+ return (byParent.get(h)||[]).some(r=>matches(r)||hasMatchingDesc(r.href,byParent));
 }
-function childrenMap(){
-  const m=new Map;
-  routes.forEach(r=>{const p=r.parent||'/';if(!m.has(p))m.set(p,[]);m.get(p).push(r)});
-  return m;
-}
-function subtreeHas(r,cm){
-  if(matchMode(r))return true;
-  return (cm.get(r.href)||[]).some(c=>subtreeHas(c,cm));
-}
-function renderChildren(parent,cm,depth){
-  return (cm.get(parent)||[]).filter(r=>subtreeHas(r,cm)).map(r=>routeLine(r,depth)+((cm.get(r.href)||[]).length?'<div>'+renderChildren(r.href,cm,depth+1)+'</div>':'')).join('');
+function routeRow(r,depth,hasChildren){
+ const state=r.state||'—',kind=r.kind||'route',touch=r.index?.updated_at||'UNTRACKED';
+ const role=r.role||r.contract?.transforms?.verb||((r.index?.work_modes||[]).join(' · '));
+ return '<div class="treeRow indent" style="--depth:'+depth+'"><div><div class="name">'+esc(r.title||r.href)+'</div><div class="meta">'+esc(r.href)+'</div></div><div class="kind">'+esc(kind)+'</div><div class="state '+esc(state)+'">'+esc(state)+'</div><div class="desc">'+esc(role||'')+(mapMode==='RECENT'?'<div class="recentStamp">TOUCH '+esc(touch)+'</div>':'')+'</div><div class="go">'+(hasChildren?'':'OPEN →')+'</div></div>';
 }
 function renderStructure(){
-  const cm=childrenMap();
-  const roots=(cm.get('/')||[]).filter(r=>r.href!=='/'&&subtreeHas(r,cm));
-  $('mapMeta').textContent=routes.length+' mapped addresses · manifest routes + declared parent-owned surfaces';
-  $('map').className='mapGrid';
-  $('map').innerHTML=roots.map(r=>{
-    const kids=(cm.get(r.href)||[]).filter(c=>subtreeHas(c,cm));
-    const open=headSet.has(r.href)||stateLive(r.state)||query;
-    if(!kids.length)return '<div class="branch">'+routeLine(r,0)+'</div>';
-    return '<details class="branch" '+(open?'open':'')+'><summary><div><div class="routeName">'+esc(r.title||r.href)+'</div><div class="routeMeta">'+esc(r.href)+' · '+esc(r.operation||r.kind||'route')+'</div>'+(role(r)?'<div class="routeRole">'+esc(role(r))+'</div>':'')+'</div><div class="badges">'+badge(r.state)+badge(r.kind)+(headSet.has(r.href)?'<span class="badge ACTIVE">HEAD</span>':'')+'</div></summary><div class="kids">'+renderChildren(r.href,cm,1)+'</div></details>';
-  }).join('')||'<div class="branch"><div style="padding:12px;color:var(--mut)">No routes match.</div></div>';
+ const rs=manifest?.routes||[],byParent=new Map;
+ for(const r of rs){const p=r.parent??'__ROOT__';if(!byParent.has(p))byParent.set(p,[]);byParent.get(p).push(r)}
+ function node(r,depth){
+   const kids=byParent.get(r.href)||[],visibleKids=kids.filter(k=>matches(k)||hasMatchingDesc(k.href,byParent));
+   if(!matches(r)&&!visibleKids.length)return '';
+   if(kids.length){
+     return '<details class="node" '+(depth<1||mapQuery?'open':'')+'><summary>'+routeRow(r,depth,true)+'</summary><div class="children">'+visibleKids.map(k=>node(k,depth+1)).join('')+'</div></details>';
+   }
+   return '<a class="leaf" href="'+esc(hrefFor(r.href))+'">'+routeRow(r,depth,false)+'</a>';
+ }
+ const roots=(byParent.get(null)||byParent.get('__ROOT__')||[]).filter(r=>r.href!=='/');
+ const top=(rs.filter(r=>r.parent==='/'&&r.href!=='/'));
+ const seed=top.length?top:roots;
+ mapBody.innerHTML=seed.map(r=>node(r,0)).join('')||'<div class="treeRow"><div class="desc">No matching surface.</div></div>';
+ mapCount.textContent=rs.length+' addressed surfaces';
 }
 function renderRecent(){
-  let xs=routes.filter(matchMode).filter(r=>r.index?.updated_at).sort((a,b)=>String(b.index.updated_at).localeCompare(String(a.index.updated_at))).slice(0,30);
-  $('mapMeta').textContent=xs.length+' recent durable touches · RECENT is evidence, not priority';
-  $('map').className='flat';
-  $('map').innerHTML=xs.map(r=>'<a class="flatRow" href=".'+esc(r.href)+'"><div><div class="name">'+esc(r.title)+'</div><div class="meta">'+esc(r.href)+'</div></div><div class="meta">'+esc(r.index.updated_at)+'</div><div class="status">'+esc((r.index.work_modes||['UNKNOWN']).join(' · '))+'</div><div class="desc">'+esc(role(r))+'</div><div class="arrow">OPEN →</div></a>').join('')||'<div class="flatRow"><div class="desc">No recent routes match.</div></div>';
+ const rs=(manifest?.routes||[]).filter(r=>r.href!=='/'&&r.index?.updated_at&&matches(r)).sort((a,b)=>String(b.index.updated_at).localeCompare(String(a.index.updated_at)));
+ mapBody.innerHTML=rs.map(r=>'<a class="leaf" href="'+esc(hrefFor(r.href))+'">'+routeRow(r,0,false)+'</a>').join('')||'<div class="treeRow"><div class="desc">No matching recent surface.</div></div>';
+ mapCount.textContent=rs.length+' touched routes · mutation order';
 }
-function renderMap(){mode==='RECENT'?renderRecent():renderStructure()}
+function renderMap(){mapMode==='RECENT'?renderRecent():renderStructure()}
 function renderPorts(){
- const rank={HUMAN_EVIDENCE_REQUIRED:0,ADAPTER_REQUIRED:1,REQUIRED:2,SPECIFIED:3,CANDIDATE:4,REFERENCE:5};
- let xs=routes.flatMap(r=>(r.field?.exit_paths||[]).filter(e=>e.status!=='AVAILABLE').map(e=>({r,e})));
- xs.sort((a,b)=>(rank[a.e.status]??9)-(rank[b.e.status]??9)||String(b.r.index?.updated_at||'').localeCompare(String(a.r.index?.updated_at||'')));
- $('portMeta').textContent=xs.length+' unresolved declared exits · derived live from manifest';
- $('ports').innerHTML=xs.map(x=>'<a class="portRow" href=".'+esc(x.r.href)+'"><div><div class="name">'+esc(x.r.title)+'</div><div class="routeMeta">'+esc(x.r.href)+'</div></div><div class="kind">'+esc(x.e.class||'EXIT')+'</div><div class="status">'+esc(x.e.status||'OPEN')+'</div><div class="via">'+esc(x.e.via||'unspecified interface')+'</div><div class="arrow">OPEN →</div></a>').join('')||'<div class="portRow"><div class="via">No unresolved exit paths declared.</div></div>';
+ let xs=(manifest?.routes||[]).flatMap(r=>(r.field?.exit_paths||[]).filter(e=>e.status!=='AVAILABLE').map(e=>({r,e})));
+ xs.sort((a,b)=>String(b.r.index?.updated_at||'').localeCompare(String(a.r.index?.updated_at||'')));
+ portCount.textContent=xs.length+' declared';
+ portsRows.innerHTML=xs.map(x=>'<a class="port" href="'+esc(hrefFor(x.r.href))+'"><div><div class="name">'+esc(x.r.title)+'</div><div class="meta">'+esc(x.r.href)+'</div></div><div>'+esc(x.e.class||'EXIT')+'</div><div class="status '+esc(x.e.status)+'">'+esc(x.e.status)+'</div><div class="desc">'+esc(x.e.via||x.r.field?.physical_fit||'unspecified interface')+'</div><div class="go">OPEN →</div></a>').join('')||'<div class="row"><div class="desc">No declared open ports.</div></div>';
 }
 Promise.all([
  fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('manifest '+r.status);return r.json()}),
  fetch('./control/CURRENT.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('current '+r.status);return r.json()})
-]).then(([m,c])=>{
- manifest=m;current=c;routes=(m.routes||[]).filter(r=>r.href!=='/');
- const owned=routes.flatMap(r=>(r.owned_surfaces||[]).map(o=>({title:o.title||o.label||o.href,href:o.href,parent:r.href,kind:o.kind||'owned',state:o.state||'UTILITY',operation:o.operation||'OPEN',role:o.role||'Parent-owned surface; mapped here without promotion to independent manifest route.',family:r.family,_owned:true})));
- const known=new Set(routes.map(r=>r.href));routes=routes.concat(owned.filter(r=>!known.has(r.href)));
- renderNow();renderHeads();renderMap();renderPorts();
-}).catch(e=>{ $('now').innerHTML='<div class="front"><p>Control load failed · '+esc(e.message)+'</p></div>'; $('map').innerHTML='<div class="branch"><div style="padding:12px">Manifest unavailable.</div></div>'});
-$('mapTools').onclick=e=>{const m=e.target.dataset.mode;if(!m)return;mode=m;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));renderMap()};
-$('find').oninput=e=>{query=e.target.value.trim().toLowerCase();renderMap()};
-})();
+]).then(([m,c])=>{manifest=m;current=c;renderNow();renderHeads();renderMap();renderPorts()}).catch(e=>{
+ fronts.innerHTML='<div class="front">CONTROL UNAVAILABLE · '+esc(e.message)+'</div>';
+ headsRows.innerHTML='<div class="row"><div class="desc">CURRENT unavailable.</div></div>';
+ mapBody.innerHTML='<div class="treeRow"><div class="desc">MANIFEST unavailable.</div></div>';
+ portsRows.innerHTML='<div class="row"><div class="desc">Ports unavailable.</div></div>';
+});
+document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{
+ mapMode=b.dataset.mode;
+ document.querySelectorAll('[data-mode]').forEach(x=>x.classList.toggle('on',x===b));
+ renderMap();
+});
+mapSearch.oninput=e=>{mapQuery=e.target.value.trim().toLowerCase();renderMap()};
 </script>
-</body></html>
+</main></body></html>
