@@ -9,7 +9,11 @@
     "GENERIC SITE SHELLS STAY QUARANTINED UNTIL THEY PAY RENT",
     "CURRENT HEADS DO NOT ERASE DONORS",
     "ONE ARTIFACT MAY BE A DONOR WITHOUT BEING A PUBLIC HEAD",
-    "REPO COPY + SOURCE/PROVENANCE BEFORE REDESIGN"
+    "REPO COPY + SOURCE/PROVENANCE BEFORE REDESIGN",
+    "EXACT BYTES ESTABLISH THE ARTIFACT; A SPEC DOES NOT SUBSTITUTE FOR SOURCE BYTES.",
+    "SPECS ESTABLISH INTENT / CONTRACT / EXPECTED BEHAVIOR; KEEP ORIGINAL-SOURCE AND LATER-INTERPRETIVE SPECS DISTINCT.",
+    "SCREENSHOTS ESTABLISH APPEARANCE, NOT EXECUTABLE BEHAVIOR.",
+    "RECEIPTS / TESTS ESTABLISH OBSERVED BEHAVIOR FOR A PARTICULAR RUN OR VERSION."
   ],
   "statuses": {
     "LIVE_HEAD": "Canonical/live enough to use now.",
@@ -423,6 +427,40 @@
       "sha256": "34b106654afdb0ceb3fd94c6b094539d400673fe6e5b49e76259a998fc1f3461",
       "unique": "Editable symbol/type grammar for ports, boundaries, operations, confidence and print rules.",
       "action": "FROZEN exact donor. Use as grammar/print fixture; preserve uncertainty and confidence semantics."
+    },
+    {
+      "id": "poly-furnisher-core-evidence",
+      "name": "POLY / FURNISHER CORE EVIDENCE",
+      "family": "poly-furnisher",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/poly-furnisher/",
+      "source_type": "drive-recovered-exact-byte-verified-family",
+      "unique": "2019–2021 executable + intent/contraction lineage: SINDERESIS notes, FUN nucleus, KRAKEN golden organism, 2020 proto-kernel/MVP, PRELUDE notes and tiny 2021 prelude.",
+      "action": "KEEP EXACT FROZEN. Use later survey spec as interpretation, not source. Any new POLY implementation must be a descendant/projection and leave fossils untouched."
+    },
+    {
+      "id": "kraken-2019",
+      "name": "KRAKEN 2019",
+      "family": "poly-furnisher",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/poly-furnisher/kraken-2019/",
+      "source_type": "drive-recovered-exact-byte-verified",
+      "size_bytes": 27487,
+      "sha256": "80437ca2b2cbed50ec38ef7e6823136170b3c83ba0ffa8bbd90f9866d0d27b90",
+      "unique": "Golden executable fossil: room/cube, capability exposure/packaging, lenses, state, transducers, combinators, text factorization and geometry.",
+      "action": "Preserve untouched; mine tests/mechanisms rather than modernizing in place."
+    },
+    {
+      "id": "poly-proto-kernel-2020",
+      "name": "POLY proto-kernel 2020",
+      "family": "poly-furnisher",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/poly-furnisher/proto-kernel-2020/",
+      "source_type": "drive-recovered-exact-byte-verified",
+      "size_bytes": 31889,
+      "sha256": "11b4f72e9e742ceb2ba52cbc20c39c8bba889e515167d1752e5e72d52502c8b4",
+      "unique": "Closest integrated proto-kernel before formal cleanup: reducer/transducer protocol, matrices, lenses, representation swapping, scheduling and linear↔radial geometry.",
+      "action": "Preserve untouched; compare against current representation kernel only through explicit mechanism tests."
     }
   ],
   "ingest_queue": [
