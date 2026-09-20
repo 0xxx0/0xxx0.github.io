@@ -1,15 +1,18 @@
 {
   "schema": "0xxx0/hermes-queue/v0.1",
-  "updated": "2026-09-19",
+  "updated": "2026-09-21",
   "authority": "READ / RESEARCH / RECOVER / ANALYZE / PREPARE_PACKETS. No canonical writes unless separately granted.",
   "poll_order": [
     "/dock/",
     "/control/ORIENTATION.json",
     "/control/CURRENT.json",
     "/control/QUEUE.json",
-    "/control/HERMES_QUEUE.json",
+    "/migration/",
+    "/control/MIGRATION_NOW.json",
     "/control/MIGRATION.json",
+    "/control/QUARANTINE_2026-09-20.json",
     "/control/CENSUS.json",
+    "/control/HERMES_QUEUE.json",
     "/control/REPRESENTATION.json"
   ],
   "global_cycle": [
@@ -22,8 +25,8 @@
   "workers": [
     {
       "id": "ARCHAEOLOGIST",
-      "cadence": "continuous while idle",
-      "mission": "Reduce apparent project count and recover exact lineage.",
+      "cadence": "one bounded cycle only when MIGRATION_NOW, a concrete source anchor, or a scheduled census window supplies a target",
+      "mission": "Reduce apparent project count and recover exact lineage without turning idle time into endless archaeology.",
       "loop": [
         "locate exact artifact",
         "record source/date/hash if possible",
@@ -34,7 +37,7 @@
         "prepare repo-copy packet",
         "emit residue"
       ],
-      "stop": "Do not redesign during ingest. Do not open a new architecture."
+      "stop": "Do not redesign during ingest. Do not open a new architecture. Stop after one concrete gain/rejection receipt or when the anchor fails."
     },
     {
       "id": "TRANSLATOR",
@@ -85,6 +88,34 @@
         "REJECT_IF"
       ],
       "stop": "Research only tools that alter a current build decision."
+    },
+    {
+      "id": "MIGRATION_WARDEN",
+      "cadence": "after repo/recovery mutations or before a migration archaeology cycle",
+      "mission": "Keep Migration small, non-repetitive and addressable.",
+      "inputs": [
+        "/control/MIGRATION_NOW.json",
+        "/control/MIGRATION.json",
+        "/control/CENSUS.json",
+        "/control/QUARANTINE_2026-09-20.json",
+        "/showcase-manifest.json"
+      ],
+      "loop": [
+        "verify MIGRATION NOW has at most three items",
+        "collapse duplicate or completed queue instructions",
+        "group exact donors by canonical family without renaming canonical IDs",
+        "check open gaps have a concrete next trigger",
+        "run/inspect public-surface validation",
+        "emit one cleanup receipt only if state changed"
+      ],
+      "output": [
+        "QUEUE_DELTA",
+        "OPEN_GAP_DELTA",
+        "FAMILY_SHELF_DELTA",
+        "VALIDATION",
+        "ONE_NEXT"
+      ],
+      "stop": "No archaeology unless a concrete anchor is present. No public promotion from organization alone."
     }
   ],
   "ready_tasks": [
@@ -132,6 +163,31 @@
       "one_next"
     ],
     "preferred_channel": "If Hermes has GitHub write access, open/update the matching issue or PR. Otherwise emit a portable markdown/JSON packet for manual ingest.",
-    "forbidden": "Do not silently mutate canonical repo state, email/social accounts, calendars, files, or physical devices."
-  }
+    "forbidden": "Do not silently mutate canonical repo state, email/social accounts, calendars, files, or physical devices.",
+    "migration_extra": [
+      "anchor_or_trigger",
+      "promotion_gate_result",
+      "quarantine_or_family_disposition"
+    ]
+  },
+  "migration_tasks": [
+    {
+      "id": "MIG-CENSUS",
+      "worker": "ARCHAEOLOGIST",
+      "task": "Run one hash/source-grounded census slice on newly surfaced artifacts; collapse exact duplicates before semantic grouping.",
+      "receipt": "one exact artifact/duplicate/lineage packet or explicit no-gain stop"
+    },
+    {
+      "id": "MIG-GAPS",
+      "worker": "ARCHAEOLOGIST",
+      "task": "Choose exactly one open gap from MIGRATION_NOW that has acquired a concrete source anchor. Recover bytes/spec/evidence or sharpen the blocker; do not broad-search all gaps.",
+      "receipt": "one frozen source packet or blocker delta"
+    },
+    {
+      "id": "MIG-CONTAIN",
+      "worker": "MIGRATION_WARDEN",
+      "task": "Keep the human Migration surface at ≤3 NOW items, family-shelved donors, one open-gap list and explicit quarantine/attic dispositions.",
+      "receipt": "small-surface + validation receipt"
+    }
+  ]
 }
