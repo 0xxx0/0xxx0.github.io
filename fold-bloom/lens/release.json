@@ -2,7 +2,7 @@
   "schema": "showcase-release/v1",
   "surface": "Scale Lens Studio",
   "version": "RC11.2",
-  "patch": "g2-interop-1+spatial-donor-1+mobile-importer-wrap-1",
+  "patch": "g2-interop-1+spatial-donor-1+mobile-importer-wrap-1+field-index-route-handoff-1",
   "route": "/fold-bloom/lens/",
   "state": "STABLE",
   "operation": "REPRESENT",
@@ -23,7 +23,8 @@
     "expose a two-function snapshot/focus adapter so the spatial renderer cannot own canonical graph state",
     "render canonical ancestry as clickable six-face CSS3D slabs with drag rotation, wheel depth and keyboard reset/toggle",
     "preserve canonical identity, local address, upstream RETURN and RC11.3 separation",
-    "mobile importer reflow removes horizontal overflow at 390px without clipping controls"
+    "mobile importer reflow removes horizontal overflow at 390px without clipping controls",
+    "accept FIELD INDEX selected-route handoff through existing scale.lens.handoff.v01 consumer; route identity/state/operation/role are serialized as the same addressed source object before re-projection"
   ],
   "validation": {
     "private_adapter_selftest": "11/11 PASS",
@@ -70,7 +71,17 @@
       "result": "2/2 PASS for Scale Lens within 18/18 nine-card run",
       "prior_defect": "Run 1: +225px horizontal overflow at 390px",
       "patch": "mobile-importer-wrap-1"
+    },
+    "field_index_route_handoff": {
+      "status": "PASS_STATIC_WIRING",
+      "sender": "/ index.html",
+      "recipient": "/fold-bloom/lens/ studio-v12.js consumePortIntake()",
+      "carrier": "sessionStorage",
+      "key": "scale.lens.handoff.v01",
+      "rule": "FIELD route identity is preserved as source text/object; Lens re-projects it and does not own canonical FIELD state.",
+      "public_surface_check_run": 35530945950
     }
   },
-  "known_gap": "No generic live-smoke gap remains. Further UI changes require rerunning the external smoke gate; RC11.3 portrait remains a separate unfinished branch."
+  "known_gap": "No generic live-smoke gap remains. Further UI changes require rerunning the external smoke gate; RC11.3 portrait remains a separate unfinished branch.",
+  "updated": "2026-09-21"
 }
