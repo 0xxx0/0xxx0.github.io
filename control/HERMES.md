@@ -54,6 +54,47 @@ Use:
 
 Prefer transformation over taxonomy.
 
+
+## COLLABORATION-CORPUS RULE
+
+The long-running chat/conversation corpus is a **source field**, not the canonical runtime state.
+
+Use it to recover:
+- explicit user asks and unfinished promises;
+- corrections, dislikes and rejected directions;
+- latent tasks embedded inside tangents;
+- exact names, phrases, image/artifact references and lineage joins;
+- moments of unusually high alignment that produced durable mechanisms;
+- abandoned branches whose mechanisms may still donate to current heads.
+
+User messages are first-class evidence of **intent and requested transformation**, but they do not by themselves prove that implementation happened.
+
+When recovering from chats:
+
+```
+CURRENT REPO / LIVE EVIDENCE
+        outranks
+RECOVERED SOURCE CHAT
+        outranks
+PRIOR ASSISTANT SUMMARY
+        outranks
+CURRENT INFERENCE
+```
+
+Do not summarize conversations by topic alone. Recover:
+
+```
+SOURCE ASK
+→ WHAT WAS ACTUALLY BUILT / DECIDED
+→ WHAT FAILED / STALLED / WAS REJECTED
+→ CURRENT HEAD
+→ SURVIVING DONOR MECHANISM
+→ UNEXECUTED DELTA
+→ RETURN PATH
+```
+
+Treat threads as context-local workers. A useful chat result becomes durable only when it lands as a source-backed control entry, artifact, execution packet or RETURN.
+
 ## CONTINUOUS TASK
 
 While idle, work through these queues in order:
