@@ -1633,6 +1633,136 @@
           "IMPLEMENT"
         ]
       }
+    },
+    {
+      "href": "/foundry/core/",
+      "title": "FOUNDRY / REAL CENTER 0.1",
+      "kind": "workbench",
+      "parent": "/foundry/",
+      "family": "FOUNDRY",
+      "operation": "ORIENT",
+      "state": "EXPERIMENT",
+      "version": "0.1",
+      "receipt": "/foundry/core/release.json",
+      "showcase_card": false,
+      "role": "Slow canonical candidate + live control projection for the cross-media endeavour; current heads/fronts remain dynamically separate.",
+      "transfer": [
+        "cross-media convergence",
+        "signature-law orientation",
+        "slow-model/live-control separation",
+        "corpus demotion",
+        "future-controllability admission gate"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "cross-lineage mechanism",
+            "current control state",
+            "recovered donor",
+            "physical/digital consequence"
+          ],
+          "requires": [],
+          "optional": [
+            "current head",
+            "front",
+            "corpus item"
+          ]
+        },
+        "transforms": {
+          "verb": "project recurrent cross-media mechanisms into a slow center/laws/convergence model while keeping live heads/fronts separate",
+          "preserves": [
+            "identity/provenance boundary",
+            "current ≠ constitution",
+            "117 ≠ canon",
+            "RETURN path"
+          ],
+          "reversibility": "full",
+          "side_effects": "none"
+        },
+        "emits": {
+          "kinds": [
+            "orientation model",
+            "convergence aperture",
+            "signature-law view",
+            "live current-head projection",
+            "canonical one-page draft"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/foundry/core/release.json",
+          "checks": [
+            "model.json is source for slow layer",
+            "CURRENT.json supplies live layer",
+            "117 explicitly non-canonical",
+            "no runtime authority"
+          ],
+          "return_path": "/foundry/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "cross-lineage mechanism",
+            "interface": "model.json"
+          },
+          {
+            "medium": "DATA",
+            "kind": "live control state",
+            "interface": "/control/CURRENT.json"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "convergence model",
+            "interface": "HTML/SVG"
+          },
+          {
+            "medium": "DATA",
+            "kind": "canonical candidate",
+            "interface": "model.json / CANON.md"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "orientation receipt",
+            "interface": "release.json"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "IMPLEMENTATION",
+            "status": "AVAILABLE",
+            "via": "current head / Field Index"
+          },
+          {
+            "class": "REALITY",
+            "status": "AVAILABLE",
+            "via": "HOUSE / SPATIAL"
+          },
+          {
+            "class": "DONOR",
+            "status": "AVAILABLE",
+            "via": "recovery vault / migration ledger"
+          }
+        ],
+        "physical_fit": "Orientation layer only; physical truth remains reality-gated through House/workshop evidence and RETURN."
+      },
+      "index": {
+        "updated_at": "2026-09-20T19:12:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "INVESTIGATE",
+          "SPECIFY",
+          "VERIFY"
+        ]
+      }
     }
   ],
   "release_law": [
@@ -1671,7 +1801,8 @@
     "verse_atlas_replay": "Recovered Grid Path Compiler RETURN→REPLAY closed a concrete head gap: Verse Atlas now validates and replays its own FOUNDRY/VERSE-ATLAS-1 JSON receipt. General donor workbench features remain frozen.",
     "fold_weave": "Fold Weave 0.1 is an exact recovered sibling with persistent crease anchors / authored topology. It is linked from Fold/Bloom but is not promoted over Ecology pending direct playtest.",
     "confluence": "Cross-lineage handoff shelf under /control/confluence/: unequal projects may share explicit transfers while preserving differences and source return.",
-    "docs_reader": "Read-only /docs/ surface makes key JSON/Markdown control documents directly readable without creating another current-head product."
+    "docs_reader": "Read-only /docs/ surface makes key JSON/Markdown control documents directly readable without creating another current-head product.",
+    "foundry_real_center": "Foundry real-center workbench separates slow canon candidate from live control. The 117 federation is explicitly a non-canonical donor corpus; convergences are recurrent cross-media mechanisms, not project categories."
   },
   "capability_model": {
     "CAPTURE": {
