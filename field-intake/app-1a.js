@@ -1,6 +1,7 @@
 const STORAGE = 'poly-field-intake-v04-state';
 const DRAFT = 'poly-field-intake-v04-draft';
 const PREFS = 'poly-field-intake-v04-prefs';
+const HANDOFF = 'field.intake.handoff.v01';
 const sampleCapture = `[obs] fan-off test increased enclosure odor @workspace #ventilation at:11:10 // observation only, not a conclusion
 [measure] shelf deflection 3 mm at center @workbench #prototype
 [claim] untreated paper may increase ink bleed ?0.55 #print-test
@@ -26,13 +27,21 @@ state.claims ||= [];
 state.measurements ||= [];
 state.events ||= [];
 state.ingressReceipts ||= [];
-let draft = localStorage.getItem(DRAFT) ?? sampleCapture;
+let incomingHandoff = null;
+try {
+  const parsed = JSON.parse(sessionStorage.getItem(HANDOFF) || 'null');
+  if (parsed?.schema === '0xxx0/continuity-to-field-intake/v0.1' && typeof parsed.capture === 'string' && parsed.capture.trim()) {
+    incomingHandoff = parsed;
+    sessionStorage.removeItem(HANDOFF);
+  }
+} catch {}
+let draft = incomingHandoff?.capture || localStorage.getItem(DRAFT) ?? sampleCapture;
 let prefs = { defaultKind: 'task', rightMode: 'trace', filter: 'all', density: 'full', ...loadJson(PREFS, {}) };
-let envelope = makeEnvelope(state, compileCapture(draft, prefs.defaultKind), { kind: 'capture', raw: draft });
+let envelope = makeEnvelope(state, compileCapture(draft, prefs.defaultKind), { kind: incomingHandoff ? 'continuity-handoff' : 'capture', raw: draft, sourceCaseId: incomingHandoff?.source_case_id || null });
 let selectedCandidateId = envelope.candidates[0]?.candidateId || null;
 let selectedRecordId = null;
-let notice = '';
-let noticeTone = 'ok';
+let notice = incomingHandoff ? 'CONTINUITY handoff loaded as review candidates. Canonical state is unchanged until you resolve and APPLY.' : '';
+let noticeTone = incomingHandoff ? 'warn' : 'ok';
 let timer = null;
 let installPrompt = null;
 
