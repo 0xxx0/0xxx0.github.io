@@ -1,6 +1,6 @@
 {
   "schema": "house-confluence-model/v0.1",
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "title": "HOUSE CONFLUENCE MODEL",
   "status": "DRAFT / ACTIVE",
   "law": "Confluence coordinates unequal lineages through shared addresses, transforms and receipts; it does not require vocabulary collapse.",
@@ -166,6 +166,21 @@
         "path as perceptual/cognitive surface"
       ],
       "exclusion": "Visual stroke properties must name their encoded variable; no aesthetic mark may masquerade as measurement."
+    },
+    {
+      "name": "HOUSE OS FIELD SYSTEM v1.1 / MARKS",
+      "disposition": "CONFLUENCE_DONOR / PROOF_REQUIRED",
+      "source": "/control/confluence/HOUSE_MARKS.md",
+      "contributes": [
+        "reversible glyph/type/color/position marking grammar",
+        "Interface Tile human-machine boundary",
+        "Observed/Measured/Inferred/Proposed visual evidence annotations",
+        "fold/occlusion/light as explicit transform channels",
+        "progressive enhancement with manual fallback",
+        "legibility/function ablation and RETURN tests",
+        "procurement gated by measured capability gap"
+      ],
+      "exclusion": "Do not promote HOS test IDs, a standalone registry, canonical glyph meanings, machine-readable tags as authority, or a new HOUSE subsystem. Recipient-side physical evidence is required."
     }
   ],
   "trace_projection_hypotheses": [
@@ -199,5 +214,41 @@
     "vertical/section measurements",
     "which cognitive/spatial projections improve real tasks versus merely delight"
   ],
-  "next_safe_delta": "Use TRACE as a playable spatial instrument: author a route, enable tiny-law stacks, observe sediment/edge recurrence, export/replay. Promote only law mechanics that reveal a useful spatial/cognitive decision; keep physical adjacency/occupancy claims reality-gated."
+  "next_safe_delta": "Use TRACE as a playable spatial instrument: author a route, enable tiny-law stacks, observe sediment/edge recurrence, export/replay. Promote only law mechanics that reveal a useful spatial/cognitive decision; keep physical adjacency/occupancy claims reality-gated.",
+  "mark_projection_candidate": {
+    "id": "MARK",
+    "status": "CONFLUENCE_DONOR / PROOF_REQUIRED",
+    "source": "/control/confluence/HOUSE_MARKS.md",
+    "reads_from": [
+      "HOUSE_1 spatial addresses/surfaces",
+      "HOUSE_2 state/event/evidence"
+    ],
+    "may_project": [
+      "identity",
+      "state",
+      "relation",
+      "route",
+      "warning/forbidden state",
+      "next permissible action",
+      "evidence annotation"
+    ],
+    "carriers": [
+      "paper/tape",
+      "removable vinyl",
+      "fold/cassette",
+      "screen",
+      "optional light",
+      "QR/NFC/fiducial pointer"
+    ],
+    "invariants": [
+      "canonical target identity",
+      "declared reference frame",
+      "manual fallback",
+      "provenance/evidence distinction",
+      "reversibility where claimed",
+      "RETURN path"
+    ],
+    "authority_boundary": "MARK may expose an intent or pointer; HOUSE_3 / Home Assistant remains the authority for device truth and actuation.",
+    "promotion_gate": "One bounded physical RETURN must show lower ambiguity, faster recovery, safer action, or better state correspondence than the PLAIN/control condition."
+  }
 }
