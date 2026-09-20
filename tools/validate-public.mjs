@@ -31,7 +31,7 @@ const compileInline=(p)=>{
   while((m=re.exec(s))){if(!m[1].trim())continue;n++;try{new Function(m[1])}catch(e){fail.push('JS '+p+' #'+n+': '+e.message)}}
 };
 const manifest=parse('showcase-manifest.json');
-const runtimeKinds=new Set(['artifact','experiment','workbench','rendezvous']);
+const runtimeKinds=new Set(['artifact','experiment','workbench','rendezvous','hub','system']);
 if(manifest){
   check(manifest.schema==='showcase-manifest/v1','unexpected manifest schema');
   const hrefs=(manifest.routes||[]).map(r=>r.href);
@@ -50,6 +50,13 @@ if(manifest){
   const axial=(manifest.routes||[]).find(r=>r.href==='/foundry/axial/');
   check(!!axial,'AXIAL route absent');
   if(axial)check(axial.showcase_card===false,'AXIAL must remain non-card experiment');
+  const port=(manifest.routes||[]).find(r=>r.href==='/port/');
+  check(!!port,'canonical HUMAN PORT route absent');
+  if(port){check(port.state==='ACTIVE','HUMAN PORT must be ACTIVE');check(Array.isArray(port.owned_surfaces)&&port.owned_surfaces.length>=5,'HUMAN PORT owned surfaces missing');}
+  const deprecated=new Set(['EXPERIMENT']);
+  for(const r of manifest.routes||[])if(deprecated.has(r.state))fail.push('deprecated route.state '+r.state+': '+r.href);
+  const fcm=(manifest.routes||[]).find(r=>r.href==='/fcm/');
+  if(fcm)check(fcm.version==='0.2','FCM current version drifted from 0.2');
 }
 const ret=parse('return-index.json');
 if(ret){
@@ -74,9 +81,16 @@ if(migrationNow){
 const home=read('index.html');
 const fi=parse('control/FIELD_INDEX_CONTRACT.json');
 check(!!fi,'FIELD INDEX contract missing/unreadable');
+if(fi){check(fi.schema==='field-index-contract/v0.2','FIELD INDEX contract must be v0.2');check(fi.root_readings?.NOW&&fi.root_readings?.MAP&&fi.root_readings?.OPEN_PORTS,'FIELD INDEX readings incomplete');}
 check(home.includes('href="./returns/"'),'root missing RETURN FIELD link');
-check(home.includes('data-sort="UPDATED"'),'root missing UPDATED sort');
+check(home.includes('data-mode="STRUCTURE"'),'root missing STRUCTURE map mode');
+check(home.includes('data-mode="RECENT"'),'root missing RECENT lens');
+check(home.includes('>NOW<'),'root missing NOW reading');
+check(home.includes('>HEADS<'),'root missing HEADS reading');
+check(home.includes('>MAP<'),'root missing MAP reading');
+check(home.includes('>OPEN PORTS<'),'root missing OPEN PORTS reading');
 check(home.includes('FIELD_INDEX_CONTRACT.json'),'root missing FI contract link');
+compileInline('index.html');
 if(manifest){
   const tracked=runtimeKinds;
   for(const r of manifest.routes||[]){
