@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/execution-queue/v0.1",
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "max_live": 3,
   "live": [
     {
@@ -9,13 +9,13 @@
       "horizon": "maintenance / opportunistic",
       "next": [
         "Do not reopen Grid Path V4 or Fold Weave recovery unless a concrete missing function is identified.",
-        "Resume Sleeper City/Painting only from exact source/assets or authorized checkpoint bytes.",
-        "Continue exact-only Laconic/Game-of-Names archaeology when an isolated source artifact appears.",
-        "Feed newly found artifacts through CENSUS/MIGRATION instead of creating new public heads.",
-        "Mechanism-diff the newly frozen 2018 RSVP temporal-focus donor against current Sleeper/Painting Path/JUE-JU/Verse RSVP before rebuilding a reader.",
-        "Import LAW ZOO / FIVE MACHINES as one family with unequal children when exact local suite bytes are available to the repo writer; do not redesign during ingest."
+        "NEXT RECOVERY MOVE: freeze the exact File Library painting-path.html surfaced during RSVP diff into /recovery/ with byte hash + manifest, then feed it through CENSUS/MIGRATION without redesign.",
+        "Keep Sleeper City Engine blocked until exact source/assets or authorized checkpoint bytes surface; Painting Path is no longer part of that exact-source gap.",
+        "Continue exact-only Laconic archaeology only from source-level voice outputs/adoption evidence; do not reconstruct missing voices.",
+        "Complete ENV-0 PDF byte-copy/hash verification when exact PDF bytes are materializable to the repo writer.",
+        "Continue Game-of-Names only from isolated runnable/source artifacts; visual/name doctrine evidence alone does not establish a game."
       ],
-      "receipt": "/control/RECOVERY_RUN_2026-09-19.json + mechanism-diff packet(s)"
+      "receipt": "/control/RECOVERY_RUN_2026-09-19.json + /control/RSVP_MECHANISM_DIFF_2026-09-21.json"
     },
     {
       "id": "ingest-files-media",
@@ -68,5 +68,6 @@
   ],
   "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
   "last_ingest_run": "/control/INGEST_RUN_2026-09-20.json",
-  "last_representation": "/control/REPRESENTATION_01.json"
+  "last_representation": "/control/REPRESENTATION_01.json",
+  "last_recovery_mechanism_diff": "/control/RSVP_MECHANISM_DIFF_2026-09-21.json"
 }
