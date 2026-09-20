@@ -1606,6 +1606,26 @@
           "IMPLEMENT"
         ]
       }
+    },
+    {
+      "href": "/recovery/rsvp/",
+      "title": "RSVP / TEMPORAL FOCUS 2018",
+      "kind": "donor",
+      "parent": "/recovery/",
+      "family": "READING / TEMPORAL FOCUS",
+      "operation": "REPRESENT",
+      "state": "FROZEN_DONOR",
+      "showase_card": false,
+      "role": "Exact recovered 2018 temporal-focus fixture: word segmentation, speech-boundary synchronization and highlighting; later Watch reader work remains separate.",
+      "receipt": "/recovery/rsvp/manifest.json",
+      "index": {
+        "updated_at": "2026-09-20T19:00:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      }
     }
   ],
   "release_law": [
