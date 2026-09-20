@@ -1,0 +1,61 @@
+{
+  "schema": "0xxx0/recovery-survey/v0.1",
+  "id": "RECOVERY-SURVEY-2026-09-20-B",
+  "date": "2026-09-20",
+  "scope": "Laconic exact bank + Foundry donor status + Game-of-Names narrowing + public index sanity",
+  "findings": [
+    {
+      "id": "laconic-2025-bank",
+      "status": "EXACT_SOURCE_RECOVERED",
+      "evidence": [
+        "conversations-004.json / Iconic laconic responses / 2025-10-21 / message a3eabd67-4224-44eb-b34b-1bc4255bb118",
+        "60 exact lines across six categories",
+        "companion tag lexicon recovered from later exact message f36e9bc7-5038-44a9-b002-a42cb6618e39"
+      ],
+      "disposition": "Store as recovered donor corpus; do not bulk-promote into /laconic/ 0.2.",
+      "next": "Recover source-level 5–6 voice outputs and adoption/reuse evidence."
+    },
+    {
+      "id": "laconic-voice-lineage",
+      "status": "REQUEST_EXACTLY_EVIDENCED_OUTPUT_NOT_YET_RECOVERED",
+      "evidence": [
+        "Response Consolidation Strategy thread report records explicit request to consolidate bangers/highest-frequency phrases and generate 5–6 distinct styles/voices for internal selves.",
+        "A003 recovery run found 374 exact hits for Response Consolidation Strategy and 86 for Iconic laconic responses."
+      ],
+      "disposition": "Recovery target remains open; do not reconstruct voice definitions from Council personas by analogy."
+    },
+    {
+      "id": "path-grid-foundry",
+      "status": "MECHANISM_DIFF_ALREADY_SUFFICIENT",
+      "evidence": [
+        "/control/MECHANISM_DIFF_2026-09-19.json"
+      ],
+      "disposition": "No further transfer now. Grid V4 general corpus/search/review/motif machinery remains frozen donor-only; Verse Atlas keeps current head."
+    },
+    {
+      "id": "game-of-names",
+      "status": "EXACT_MECHANISM_NARROWED",
+      "evidence": [
+        "phantom-grid-v24.html exact section: THE GAME OF NAMES — NAMING IS ARCHITECTURE",
+        "name propagates across project directory, service, MQTT client ID, Tailscale hostname, TLS certificate subject, log prefixes and git remote",
+        "constraints: lowercase, hyphens, no spaces/underscores; device naming by physical location + function"
+      ],
+      "disposition": "Treat as naming/addressing doctrine embedded in a systems manual, not a proven standalone game. Issue #9 stays HOLD until a distinct runnable game artifact is found."
+    },
+    {
+      "id": "public-index",
+      "status": "NO_OBVIOUS_STRANDED_PUBLIC_ROUTE",
+      "evidence": [
+        "recursive master tree compared with showcase-manifest routes"
+      ],
+      "result": "All non-recovery artifact directories with index.html were represented in showcase-manifest at this pass.",
+      "caveat": "This does not mean recovery/library census is complete; exact archived artifacts can still be absent from the repo."
+    }
+  ],
+  "result": "RECOVER SOURCE CORPUS; DO NOT REARCHITECT HEADS",
+  "next": [
+    "source-level Laconic 5–6 voice recovery",
+    "hash/metadata-first Library census for ENV0/images/Sleeper as already queued in issue #6",
+    "only promote a recovered mechanism when it fills a demonstrated missing function"
+  ]
+}
