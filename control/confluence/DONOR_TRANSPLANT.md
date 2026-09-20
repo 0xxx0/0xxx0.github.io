@@ -178,3 +178,43 @@ It is now bounded by these invariants:
 - removing the tag projection must not damage canon
 
 No further taxonomy work is required until real retrieval/routing friction supplies evidence for a change.
+
+
+## Candidate reading: COMPLEMENT / CO-SIGNAL
+
+Status: **PROPOSED / TEST BEFORE CANON**  
+Source interaction: HUMAN PORT convergence thread, 2026-09-21.
+
+The current HUMAN PORT work exposed a useful possible donor distinction: some transferred mechanisms do not supply a whole capability by themselves; they **modulate whether another signal/mechanism should activate**.
+
+This is closest to a complement / co-signal reading:
+
+```
+incoming signal
+   + complement / co-signal
+   + recipient context
+   ↓
+activation threshold / route changes
+```
+
+Candidate transfer unit:
+
+**BINDING != INTERPRETATION != AUTHORITY != ACTIVATION.**
+
+Related harvested mechanism:
+
+**CONVERSATION MAY LEAVE USEFUL RESIDUE WITHOUT CREATING AN OBLIGATION.**
+
+Possible recipients include HUMAN PORT policy, agent routing, continuity escalation, Atlas promotion and other systems where one observation should not automatically become action.
+
+### Privacy / provenance boundary
+
+Do **not** treat raw human conversation as a quarry to publish or mine wholesale.
+
+A human interaction may donate a bounded mechanism only when the transfer unit can be stated independently of private wording. Preserve the source as a private/protected reference when needed; publish only curated paraphrase or explicitly authorized excerpts.
+
+### Test before promotion
+
+Use COMPLEMENT only if a real recipient requires a missing co-signal/activation distinction that GRAFT/SEED/etc. cannot already express cleanly. If it does not improve a recipient-side decision or prevent false activation, leave this reading dormant.
+
+This note records the interaction as donor evidence without turning the joke/metaphor itself into canon.
