@@ -98,9 +98,15 @@ document.querySelector('.tools').addEventListener('click',e=>{
 });
 document.getElementById('focus').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();renderRoutes()});
 
-fetch('./control/RECOVERY_RUN_2026-09-19.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
- document.getElementById('recovered').innerHTML=d.recovered_families.map(x=>`<a class="row" href=".${esc(x.route)}"><div><div class="name">${esc(x.name)}</div><div class="family">${esc(x.family)}</div></div><div class="state">${esc(x.status)}</div><div class="job">${esc(x.summary)}</div><div class="go">OPEN →</div></a>`).join('');
-}).catch(e=>document.getElementById('recovered').textContent='recovery receipt unavailable: '+e.message);
+Promise.all([
+ fetch('./control/RECOVERY_RUN_2026-09-19.json',{cache:'no-store'}).then(r=>r.json()),
+ fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>r.json())
+]).then(([d,m])=>{
+ const base=(d.recovered_families||[]).map(x=>({name:x.name,family:x.family,status:x.status,summary:x.summary,route:x.route}));
+ const seen=new Set(base.map(x=>x.route));
+ const newer=(m.routes||[]).filter(x=>x.kind==='donor'&&x.parent==='/recovery/'&&!seen.has(x.href)).map(x=>({name:x.title,family:x.family||'RECOVERY',status:x.state||'FROZEN_DONOR',summary:x.role||'Recovered donor.',route:x.href}));
+ document.getElementById('recovered').innerHTML=[...base,...newer].map(x=>`<a class="row" href=".${esc(x.route)}"><div><div class="name">${esc(x.name)}</div><div class="family">${esc(x.family)}</div></div><div class="state">${esc(x.status)}</div><div class="job">${esc(x.summary)}</div><div class="go">OPEN →</div></a>`).join('');
+}).catch(e=>document.getElementById('recovered').textContent='recovery state unavailable: '+e.message);
 
 fetch('./control/MIGRATION.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
  const xs=d.artifacts.filter(x=>['RECOVER','IMPORT','QUARANTINE','MERGE_CANDIDATE'].includes(x.status));
