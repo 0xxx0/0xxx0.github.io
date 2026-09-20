@@ -1,8 +1,24 @@
 {
-  "schema": "laconic-iconic-fragments/v0.2",
-  "updated": "2026-09-20",
+  "schema": "laconic-iconic-fragments/v0.3",
+  "updated": "2026-09-21",
   "purpose": "Recovered exact fragments/operators kept separate from everyday reply candidates. Exact does not imply current canon or deployability.",
   "items": [
+    {
+      "id": "frag:USER:COUNCIL-HAMPER",
+      "text": "I am sorry to hear that. The council sends you this invisible recovery hamper and a voucher for one cosmic hug.",
+      "provenance": "EXACT",
+      "origin": "user",
+      "source": "Ode to O3",
+      "date": "2024-12-28",
+      "class": [
+        "COM",
+        "ONE",
+        "CARE"
+      ],
+      "status": "STAR",
+      "use": "comic care / early council-image donor",
+      "note": "Exact user-authored response proposal; generic `the council` predates the Dec-29 persona experiment."
+    },
     {
       "id": "frag:L071",
       "text": "Love, but with version control.",
