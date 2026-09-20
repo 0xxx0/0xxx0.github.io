@@ -9,7 +9,7 @@
 header{padding:30px 0 18px;border-bottom:1px solid var(--line)}.ey{font-size:9px;letter-spacing:.18em;color:var(--hot)}h1{margin:10px 0 8px;font:850 clamp(46px,9vw,88px)/.84 system-ui,sans-serif;letter-spacing:-.07em}.lead{max-width:760px;color:#a8b3b7;font:13px/1.6 system-ui,sans-serif}
 .laws{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);border:1px solid var(--line);margin:16px 0}.laws span{flex:1 1 180px;background:#0a0e10;padding:9px;font-size:8px;letter-spacing:.1em}.laws b{color:var(--green)}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.panel{border:1px solid var(--line);background:var(--p)}.ph{display:flex;justify-content:space-between;gap:8px;padding:10px 12px;border-bottom:1px solid var(--line)}.ph b{font-size:9px;letter-spacing:.14em}.ph span{font-size:8px;color:var(--mut)}.field{border-bottom:1px solid var(--line)}.field label{display:block;padding:8px 10px 0;color:var(--mut);font-size:8px;letter-spacing:.11em}.field textarea,.field input,.field select{width:100%;border:0;background:#0a0e10;color:var(--ink);padding:10px;outline:none}.field textarea{min-height:130px;resize:vertical;font:13px/1.55 system-ui,sans-serif}
-.controls{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}.controls button{border:0;background:#0a0e10;color:var(--ink);padding:11px;font-size:8px;letter-spacing:.09em}.controls button:hover{background:#12191d}.trace{display:grid;gap:1px;background:var(--line)}.seg{background:#0a0e10;padding:10px}.seg .tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px}.tag{border:1px solid #354047;padding:2px 5px;font-size:7px;color:#99a7ad}.tag.ask{color:var(--cool)}.tag.correction{color:var(--hot)}.tag.joke{color:var(--gold)}.seg p{margin:0;font:12px/1.45 system-ui,sans-serif}
+.controls{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}.controls button{border:0;background:#0a0e10;color:var(--ink);padding:11px;font-size:8px;letter-spacing:.09em}.controls button:hover{background:#12191d}.trace{display:grid;gap:1px;background:var(--line)}.seg{background:#0a0e10;padding:10px}.seg .tags{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:6px}.tag{border:1px solid #354047;padding:2px 5px;font-size:7px;color:#99a7ad}.tag.ask{color:var(--cool)}.tag.correction{color:var(--hot)}.tag.joke{color:var(--gold)}.seg p{margin:0;font:12px/1.45 system-ui,sans-serif}
 .note{padding:10px;color:#748087;font-size:8px}.out{white-space:pre-wrap;word-break:break-word;padding:12px;background:#090d10;color:#c6d0d4;font-size:9px;line-height:1.55;max-height:420px;overflow:auto}
 footer{margin-top:18px;padding-top:10px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#68747a;font-size:8px}footer a{color:#8fcdf2;text-decoration:none}
 @media(max-width:760px){.grid{grid-template-columns:1fr}.controls{grid-template-columns:1fr}footer{display:block}}
@@ -34,12 +34,12 @@ footer{margin-top:18px;padding-top:10px;border-top:1px solid var(--line);display
   <div class="field"><label for="possible">POSSIBLE READINGS · ONE PER LINE</label><textarea id="possible" placeholder="Could mean…"></textarea></div>
   <div class="field"><label for="unresolved">UNRESOLVED · ONE PER LINE</label><textarea id="unresolved" placeholder="that / it / later / which thing?"></textarea></div>
   <div class="field"><label for="moves">MOVE SET · ONE PER LINE</label><textarea id="moves" placeholder="answer current ask&#10;continue previous build&#10;ask one blocking question"></textarea></div>
-  <div class="controls"><button id="packBtn">BUILD 0I1</button><button id="copyBtn">COPY 0I1</button><button id="downloadBtn">DOWNLOAD</button></div>
+  <div class="controls"><button id="toLaconic">DRAFT A REPLY →</button><button id="packBtn">BUILD 0I1</button><button id="copyBtn">COPY 0I1</button><button id="downloadBtn">DOWNLOAD</button></div>
   <div id="out" class="out">No packet yet.</div>
 </section>
 </div>
 
-<footer><span>RAW → TRACE → OBSERVED → POSSIBLE → UNRESOLVED → MOVE SET → POLICY → EXPRESSION → RETURN</span><span><a href="../">HUMAN PORT →</a> · <a href="../../laconic/">LACONIC / ICONIC →</a> · <a href="../backstage/">BACKSTAGE →</a></span></footer>
+<footer><span>RAW → TRACE → OBSERVED → POSSIBLE → UNRESOLVED → MOVE SET → EXPRESSION → RETURN</span><span><a href="../../port/">HUMAN PORT →</a> · <a href="../../laconic/">LACONIC / ICONIC →</a> · <a href="../backstage/">BACKSTAGE →</a></span></footer>
 <script>
 (()=>{'use strict';
 const $=s=>document.querySelector(s); let last=null;
@@ -71,6 +71,7 @@ function build(){
 }
 async function copy(t,b){try{await navigator.clipboard.writeText(t);const old=b.textContent;b.textContent='COPIED ✓';setTimeout(()=>b.textContent=old,1200)}catch(_){window.prompt('Copy',t)}}
 $('#traceBtn').onclick=renderTrace;$('#clearBtn').onclick=()=>{['raw','observed','possible','unresolved','moves'].forEach(id=>$('#'+id).value='');renderTrace();$('#out').textContent='No packet yet.';last=null};$('#copyRaw').onclick=()=>copy($('#raw').value,$('#copyRaw'));
+$('#toLaconic').onclick=()=>{const p=last||build();try{sessionStorage.setItem('laconic.handoff.v01',JSON.stringify({raw:p.raw,observed:p.observed,possible:p.possible.map(x=>x.reading),unresolved:p.unresolved,moves:p.move_set,created_at:new Date().toISOString()}));location.assign('../../laconic/')}catch(_){location.assign('../../laconic/')}};
 $('#packBtn').onclick=build;$('#copyBtn').onclick=()=>copy(JSON.stringify(last||build(),null,2),$('#copyBtn'));
 $('#downloadBtn').onclick=()=>{const t=JSON.stringify(last||build(),null,2),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'application/json'}));a.download='human-port-interpretation-0I1.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
 if(new URLSearchParams(location.hash.slice(1)).get('mode')==='burst')$('#mode').value='burst';
