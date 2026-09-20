@@ -1,21 +1,23 @@
 {
-  "schema": "field-index-contract/v0.1",
-  "updated": "2026-09-20",
-  "purpose": "Make FIELD INDEX ordering and activity semantics explicit so repo-writing threads/agents update the same public working index without inflating discussion into progress.",
+  "schema": "field-index-contract/v0.2",
+  "updated": "2026-09-21",
+  "purpose": "Keep FIELD INDEX a durable orientation map: separate attention, current heads, address structure, unresolved interfaces and recent mutation so increasing system depth does not collapse into one activity feed.",
   "laws": [
-    "DISCUSSION ≠ INDEX TOUCH. A chat/thread mention does not change FIELD INDEX ordering by itself.",
+    "ATTENTION ≠ RECENCY. /control/CURRENT.json owns NOW; route.index.updated_at records mutation evidence only.",
+    "MAP ≠ BACKLOG. A route may exist without being active, owed, important or scheduled.",
+    "DONOR ≠ HEAD. Recovered and transfer-capable artifacts remain discoverable without competing for current-head status.",
+    "DISCUSSION ≠ INDEX TOUCH. A chat/thread mention does not change FIELD INDEX activity by itself.",
     "MUTATION → INDEX TOUCH. Any committed change to a tracked public surface updates that route's index.updated_at in the same bounded repo change.",
     "ACTIVITY MODE ≠ OPERATION. Operation names what the artifact does; work_modes name what kind of work produced the current delta.",
-    "UPDATED ORDER ≠ PRIORITY. Root RUNNING defaults to most recently touched tracked surface; FCM/CURRENT own attention priority.",
     "SPECULATION IS LEGIBLE, NOT PROMOTED. SPECULATE/SPECIFY may be indexed without implying implementation or evidence.",
     "RECEIPT WHEN CLAIM CHANGES. If implementation/test/release status changes, update or create the relevant receipt and RETURN entry."
   ],
   "root_order": {
-    "default": "UPDATED_DESC",
-    "key": "route.index.updated_at",
-    "tie_break": "manifest order",
-    "alternative": "MANIFEST_ORDER",
-    "meaning": "Declared tracked-surface touch time, not filesystem mtime, not browser visit time, and not mere conversation time."
+    "default": "STRUCTURE",
+    "structure_key": "route.parent + manifest identity",
+    "recent_key": "route.index.updated_at",
+    "recent_tie_break": "manifest order",
+    "meaning": "Root defaults to address structure. UPDATED_DESC remains available only as the RECENT reading."
   },
   "activity_modes": {
     "RECOVER": "Retrieve exact prior artifacts/lineage before synthesis.",
@@ -43,10 +45,13 @@
     ]
   },
   "ui_contract": {
-    "root_running": "show updated order by default; allow manifest-order fallback; display last work_modes and touch date",
-    "corner_nav": "shared showcase route adapter remains the canonical BACK/PARENT/SHOWCASE control on tracked non-root routes",
-    "style": "presentation/theme controls are a separate cross-site concern and must not alter semantic ordering/state",
-    "root_frontier": "Derive BOTTLENECKS live from route.field.exit_paths; never maintain a duplicate hand-written backlog of the same exits."
+    "root_now": "Render CURRENT.active_fronts first and cap visible execution fronts at three.",
+    "root_heads": "Render CURRENT.current_heads independently from NOW so stable/held lineages remain recoverable without claiming attention.",
+    "root_map": "Render every significant manifest-addressed public surface as a searchable parent/child map; aliases/support/donors remain distinguishable by kind/state.",
+    "root_recent": "Expose index.updated_at as a secondary RECENT lens, never the default ordering.",
+    "root_frontier": "Derive OPEN PORTS live from route.field.exit_paths; never maintain a duplicate hand-written backlog of the same exits.",
+    "corner_nav": "Shared showcase route adapter remains the canonical BACK/PARENT/SHOWCASE control on tracked non-root routes.",
+    "style": "Presentation/theme controls are a separate cross-site concern and must not alter semantic ordering/state."
   },
   "query_semantics": {
     "BOTTLENECK": {
@@ -86,5 +91,27 @@
       "Put unresolved consequence/proof requirements in route.field.exit_paths and PROOF_REQUIRED when they block the artifact's own promotion claim.",
       "Historical release receipts may retain their contemporaneous state; append current classification rather than rewriting provenance."
     ]
+  },
+  "root_readings": {
+    "NOW": {
+      "source": "/control/CURRENT.json#active_fronts",
+      "meaning": "At most three attention/execution fronts. This is the only root reading that implies current focus."
+    },
+    "HEADS": {
+      "source": "/control/CURRENT.json#current_heads",
+      "meaning": "Retained current lineage heads. A head may be stable, active, held or proof-required without occupying NOW."
+    },
+    "MAP": {
+      "source": "/showcase-manifest.json#routes",
+      "meaning": "Durable public address graph using parent relations and lifecycle state. Existence is not priority."
+    },
+    "OPEN_PORTS": {
+      "source": "route.field.exit_paths where status != AVAILABLE",
+      "meaning": "Declared interface/proof debt. Open ports are selectors/questions, not an automatic backlog."
+    },
+    "RECENT": {
+      "source": "route.index.updated_at",
+      "meaning": "Secondary mutation-history reading only. Recent touch never overrides CURRENT attention."
+    }
   }
 }
