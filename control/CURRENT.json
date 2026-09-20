@@ -202,6 +202,12 @@
       "state": "FROZEN_EXACT_CORE_EVIDENCE_FAMILY",
       "route": "/recovery/poly-furnisher/",
       "rule": "KRAKEN/proto-kernel/source notes are exact fossils; later survey is interpretive evidence. New work may mine mechanisms but must not overwrite the originals."
+    },
+    {
+      "name": "FU ROOM / INTERPHASE ROOM LINEAGE",
+      "state": "FROZEN_EXACT_DONOR_FAMILY",
+      "route": "/recovery/poly-furnisher/room-lineage/",
+      "rule": "Three exact fossils; room is projection/testbed, not kernel. Duplicate families collapsed before promotion."
     }
   ],
   "recovery_targets": [
@@ -302,7 +308,10 @@
     "axial_recovery": "/recovery/axial/",
     "media_recovery": "/recovery/media/",
     "naming_recovery": "/recovery/naming/",
-    "poly_furnisher_recovery": "/recovery/poly-furnisher/"
+    "poly_furnisher_recovery": "/recovery/poly-furnisher/",
+    "migration_home": "/migration/",
+    "migration_ledger": "/control/migration/",
+    "poly_furnisher_room_lineage": "/recovery/poly-furnisher/room-lineage/"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
