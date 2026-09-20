@@ -2,18 +2,18 @@
   "schema": "0xxx0/field-index-audit/v0.1",
   "date": "2026-09-20",
   "manifest_routes": {
-    "total": 57,
-    "ok": 57,
+    "total": 60,
+    "ok": 60,
     "missing": []
   },
   "internal_path_references": {
-    "total": 115,
-    "ok": 115,
+    "total": 119,
+    "ok": 119,
     "missing": []
   },
   "html_surface_coverage": {
-    "repo_html_files": 55,
-    "manifest_addressed": 54,
+    "repo_html_files": 58,
+    "manifest_addressed": 57,
     "underindexed": [
       "recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html"
     ]
@@ -38,7 +38,8 @@
     "DataDisc 2019 recovered byte-for-byte from Drive and SHA-256 verified.",
     "Naming/Game-of-Names gets a public-safe recovery-gap route without publishing private archives.",
     "ENV-0 editable SVG masters individually addressed as frozen donors.",
-    "Recovery Vault now discovers nested /recovery/ donors and uses the Sep 20 population receipt."
+    "Recovery Vault now discovers nested /recovery/ donors and uses the Sep 20 population receipt.",
+    "POLY/FURNISHER exact 2019–2021 evidence family frozen and indexed: KRAKEN, proto-kernel, SINDERESIS/PRELUDE notes, FUN/MVP/tiny-prelude contraction sequence."
   ],
   "stop_rule": "Do not add a route merely for completeness; address runnable/support surfaces and preserve raw payloads as assets when their parent recovery route already owns them."
 }
