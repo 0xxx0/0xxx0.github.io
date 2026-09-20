@@ -3,7 +3,7 @@ const $=s=>document.querySelector(s), clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
 const DOMAINS={TEXT:['LETTER','WORD','PHRASE','SENTENCE','PARAGRAPH','SECTION','CHAPTER','BOOK','LIBRARY'],ATLAS:['PULSE','TASK','ROUTE','SESSION','DAY','WEEK','PROJECT','PROGRAM','FEDERATION'],DAYLINE:['MOMENT','ACTION','BLOCK','ARC','DAY','WEEK','CYCLE','SEASON','HISTORY'],DATADISC:['CELL','FIELD','ROW','RECORD','TABLE','DATASET','CORPUS','WAREHOUSE','ECOSYSTEM'],OBJECT:['TRACE','FEATURE','PART','COMPONENT','MODULE','ASSEMBLY','MACHINE','LINE','FLEET']};
 const WINDOWS=[1,2,4,8,16,32,64,128,256], OPS=[['⊙','SELECT'],['↔','ALIGN'],['⊗','COMPOSE'],['⇢','PROPAGATE'],['✓','COMMIT'],['↩','RETURN']];
 const DATA_KIND=['CELL','FIELD','ROW','RECORD','TABLE','DATASET','DATASET','DATASET','DATASET'];
-let graph=null,map=new Map(),leaves=[],domain='DATADISC',scope=3,selected=0,activeOp='⊙',receipts=[],undoStack=[],receiptSeq=0,displayScope=3,targetScope=3,drag=null;
+let graph=null,map=new Map(),leaves=[],domain='DATADISC',scope=3,selected=0,activeOp='⊙',receipts=[],undoStack=[],receiptSeq=0,displayScope=3,targetScope=3,drag=null,inboundReturn=null;
 const cv=$('#cv'),ctx=cv.getContext('2d');
 function hash(s){let h=2166136261;for(const ch of String(s)){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
 function h36(s){return hash(s).toString(36)}
@@ -27,7 +27,7 @@ function applyState(st){if(!st)return;domain=st.domain||domain;scope=targetScope
 function receipt(op,subject,result,before=state(),after=state()){const r={id:'r'+(++receiptSeq),at:new Date().toISOString(),op,domain,scope:DOMAINS[domain][scope],subject,result,before,after,returned:false};receipts.push(r);if(receipts.length>80)receipts.shift();const a=leaves[selected];if(a&&!a.history.includes(r.id))a.history.push(r.id);renderReceipts();return r}
 function transact(op,subject,fn,result=''){const before=state();fn();const after=state(),r=receipt(op,subject,result,before,after);undoStack.push(r.id);syncHash();renderAll();return r}
 function identity(a=leaves[selected]){return a?.canonicalOwnerId||a?.canonicalId||a?.id||null}
-function address(a=leaves[selected]){const g=currentGroup()||{start:selected,end:selected};return{identity:identity(a),canonical:`scale://${graph.source.id}/object/${a.id}`,projection:`scale://${graph.source.id}/${domain.toLowerCase()}/${DOMAINS[domain][scope].toLowerCase()}/${g.start}-${g.end}`,range:`rng://${graph.source.id}/${g.start}-${g.end}`,returnAddress:a?.returnAddress||null}}
+function address(a=leaves[selected]){const g=currentGroup()||{start:selected,end:selected};return{identity:identity(a),canonical:`scale://${graph.source.id}/object/${a.id}`,projection:`scale://${graph.source.id}/${domain.toLowerCase()}/${DOMAINS[domain][scope].toLowerCase()}/${g.start}-${g.end}`,range:`rng://${graph.source.id}/${g.start}-${g.end}`,returnAddress:a?.returnAddress||inboundReturn||null}}
 function firstLeaf(id){if(graph.leafIds.includes(id))return id;const q=[...(map.get(id)?.childrenIds||[])],seen=new Set();while(q.length){const x=q.shift();if(seen.has(x))continue;seen.add(x);if(graph.leafIds.includes(x))return x;q.push(...(map.get(x)?.childrenIds||[]))}return null}
 function jumpNode(id,subject='jump'){const n=map.get(id);if(!n)return;const lid=firstLeaf(id)||id,i=leaves.findIndex(a=>a.id===lid);if(i<0)return;transact('⊙',subject,()=>{selected=i;if(domain==='DATADISC'){const k=DATA_KIND.indexOf(n.kind);if(k>=0)scope=targetScope=k}},`${n.kind} ${n.label}`)}
 function setScope(n,subject='scope'){n=clamp(n,0,8);if(n===scope)return;transact('⇢',subject,()=>{scope=targetScope=n},DOMAINS[domain][n])}
@@ -50,6 +50,37 @@ function notifySpatial(){if(typeof window!=='undefined'&&window.ScaleLensSpatial
 function renderAll(){renderOps();renderDomains();renderScopes();renderAddress();renderSpec();renderSchema();renderIso();renderMetrics();renderReceipts();notifySpatial()}
 function search(q){q=String(q).trim().toLowerCase();if(!q||!graph)return[];const exact=q.match(/\/object\/([^/?#]+)/)?.[1];if(exact&&map.has(exact))return[map.get(exact)];return graph.nodes.filter(n=>n.id.toLowerCase().includes(q)||String(n.label).toLowerCase().includes(q)||String(n.value??'').toLowerCase().includes(q)||String(n.provenance?.pointer||'').toLowerCase().includes(q)).slice(0,10)}
 function renderResults(rs){const b=$('#results');b.innerHTML='';rs.forEach(n=>{const x=document.createElement('button');x.className='result';x.innerHTML=`<b>${esc(n.kind)}</b><span>${esc(n.label)}</span><small>${esc(n.id)}</small>`;x.onclick=()=>jumpNode(n.id,'address search');b.appendChild(x)})}
+async function bootstrapInbound(){
+  const q=new URLSearchParams(location.search),ret=q.get('return');
+  if(ret)inboundReturn=ret;
+  const source=q.get('source');
+  if(source){
+    try{
+      const u=new URL(source,location.origin);
+      if(u.origin!==location.origin)throw new Error('cross-origin source blocked');
+      const r=await fetch(u.pathname+u.search,{cache:'no-store'});
+      if(!r.ok)throw new Error('HTTP '+r.status);
+      const t=(await r.text()).slice(0,250000);
+      $('#text').value=t;
+      load(t,u.pathname.split('/').filter(Boolean).at(-1)||u.pathname);
+      if(graph)graph.source.originUrl=u.pathname+u.search;
+      return true;
+    }catch(e){console.warn('Scale Lens inbound source failed',e)}
+  }
+  if(q.get('handoff')==='1'){
+    try{
+      const p=JSON.parse(sessionStorage.getItem('scale-lens:handoff:v1')||'null');
+      if(p?.text){
+        inboundReturn=p.returnAddress||inboundReturn;
+        $('#text').value=String(p.text).slice(0,250000);
+        load($('#text').value,p.title||'page handoff');
+        if(graph)graph.source.originUrl=p.sourceUrl||null;
+        return true;
+      }
+    }catch(e){console.warn('Scale Lens handoff failed',e)}
+  }
+  return false;
+}
 function load(text,name){try{graph=parseSource(text,name);map=new Map();leaves=[];selected=0;domain=graph.source.format==='text'?'TEXT':'DATADISC';scope=targetScope=graph.source.format==='text'?1:3;indexGraph();if(graph.source.primaryCanonicalId){const upstreamIndex=leaves.findIndex(a=>a.canonicalOwnerId===graph.source.primaryCanonicalId);if(upstreamIndex>=0)selected=upstreamIndex}applyHash();receipt('⊙','parse',`${name} · ${leaves.length} typed atoms`);syncHash();renderAll()}catch(e){console.error(e);alert('Parse failed: '+e.message)}}
 function drawLevel(level,alpha){const gs=groups(level),cx=cv.width/2,cy=cv.height/2,r=Math.min(cv.width,cv.height)*.32;ctx.save();ctx.globalAlpha=alpha;gs.slice(0,180).forEach((gr,i)=>{const a=-Math.PI/2+i/Math.max(1,gs.length)*Math.PI*2,rr=r+(gr.hash%31)-15,x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr,rad=4+Math.log2(gr.count+1)*3;ctx.fillStyle=`hsla(${gr.hash%360},72%,68%,.78)`;ctx.beginPath();ctx.arc(x,y,rad,0,Math.PI*2);ctx.fill();if(selected>=gr.start&&selected<=gr.end){ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.beginPath();ctx.arc(x,y,rad+6,0,Math.PI*2);ctx.stroke()}});ctx.restore()}
 function draw(){ctx.fillStyle='#05070b';ctx.fillRect(0,0,cv.width,cv.height);displayScope+=(targetScope-displayScope)*.14;const lo=Math.floor(displayScope),hi=Math.min(8,lo+1),f=displayScope-lo;drawLevel(lo,1-f);if(hi!==lo)drawLevel(hi,f);ctx.fillStyle='rgba(255,255,255,.88)';ctx.textAlign='center';ctx.font='15px ui-monospace';ctx.fillText(`${activeOp} ${DOMAINS[domain][scope]}`,cv.width/2,cv.height/2);ctx.fillStyle='rgba(255,255,255,.4)';ctx.font='11px ui-monospace';ctx.fillText('click group · vertical drag / wheel = scale · anchor survives',cv.width/2,cv.height/2+22);$('#hud').textContent=`${graph?.source.format?.toUpperCase()||'—'} · ${domain} · ${leaves.length} atoms · ${groups().length} groups`;requestAnimationFrame(draw)}
@@ -62,4 +93,4 @@ $('#send').onclick=()=>{if(!graph)return;const packet={schema:'scale-lens.packet
 $('#export').onclick=()=>{if(!graph)return;const p={schema:'scale-lens.return.v3',at:new Date().toISOString(),source:graph.source,schemaModel:graph.schema,nodes:graph.nodes,leafIds:graph.leafIds,domain,scope,operator:activeOp,focus:{...address(),objectId:leaves[selected].id},receipts};const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(p,null,2)],{type:'application/json'}));a.download='scale-lens-return-v3.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500);receipt('↩','export','return packet')};
 cv.addEventListener('click',canvasSelect);cv.addEventListener('pointerdown',e=>{drag={y:e.clientY,scope};cv.setPointerCapture?.(e.pointerId)});cv.addEventListener('pointermove',e=>{if(!drag)return;const n=clamp(Math.round(drag.scope+(drag.y-e.clientY)/42),0,8);if(n!==scope){scope=targetScope=n;renderAll()}});cv.addEventListener('pointerup',()=>{if(!drag)return;const from=drag.scope;drag=null;if(from!==scope){const before={...state(),scope:from};const r=receipt('⇢','scope drag',DOMAINS[domain][scope],before,state());undoStack.push(r.id);syncHash()}});cv.addEventListener('wheel',e=>{e.preventDefault();setScope(scope+(e.deltaY>0?1:-1),'wheel')},{passive:false});addEventListener('hashchange',()=>{applyHash();renderAll()});
 window.ScaleLensSpatialAPI=Object.freeze({snapshot:spatialSnapshot,focus:id=>{if(map.has(id))jumpNode(id,'spatial projection')}});
-$('#sample').click();draw();
+bootstrapInbound().then(ok=>{if(!ok)$('#sample').click()}).catch(e=>{console.warn(e);$('#sample').click()}).finally(()=>draw());
