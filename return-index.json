@@ -1,9 +1,9 @@
 {
   "schema": "0xxx0/return-index/v0.1",
-  "generated": "2026-09-20",
+  "generated": "2026-09-21",
   "source": "/showcase-manifest.json",
-  "count": 17,
-  "receipts_ok": 17,
+  "count": 18,
+  "receipts_ok": 18,
   "law": "A release without a return path is not closed.",
   "items": [
     {
@@ -38,6 +38,17 @@
       "receipt_ok": true,
       "receipt_schema": "release-receipt/v1",
       "release_updated": "2026-09-20"
+    },
+    {
+      "href": "/care/",
+      "title": "CARE / FIELD 0.1",
+      "state": "EXPERIMENT",
+      "version": "0.1",
+      "operation": "CAPTURE",
+      "receipt": "/care/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": "2026-09-21"
     },
     {
       "href": "/fold-bloom/two-dial/",
