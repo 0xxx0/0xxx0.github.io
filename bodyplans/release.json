@@ -12,7 +12,8 @@
     "added human reference M/F front/back plans with stable region IDs",
     "added original feline left/right lateral reference plan",
     "added standalone SVG exports plus JS/JSON registry and visual inspector",
-    "defined stable address law: plan_id + view + region_id; labels are presentation only"
+    "defined stable address law: plan_id + view + region_id; labels are presentation only",
+    "bound each plan to explicit geometryVersion so stored traces/addresses cannot silently drift"
   ],
   "checks": [
     "registry JS parses locally",
@@ -21,7 +22,8 @@
     "feline views each expose 18 regions",
     "no remote image/SVG/CDN dependency",
     "standalone SVGs contain only local vector geometry",
-    "full third-party MIT notices preserved"
+    "full third-party MIT notices preserved",
+    "every plan declares geometryVersion"
   ],
   "truth_boundary": [
     "reference plan is not personal anatomy",
