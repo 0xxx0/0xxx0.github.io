@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0xxx0.github.io/contact/backstage.schema.json",
+  "title": "HUMAN PORT Backstage Pack",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "artifact_ref",
+    "entries"
+  ],
+  "properties": {
+    "version": {
+      "const": "0B1"
+    },
+    "artifact_ref": {
+      "type": "string"
+    },
+    "entries": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "type",
+          "speaker_label",
+          "text",
+          "source_class",
+          "why_it_matters",
+          "tags",
+          "visibility"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "TURN",
+              "JOKE",
+              "ACCIDENTAL_NAME",
+              "CORRECTION",
+              "DISCOVERY",
+              "DESIGN_SHIFT",
+              "FAILED_BRANCH",
+              "RETURN"
+            ]
+          },
+          "speaker_label": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "source_class": {
+            "enum": [
+              "EXACT",
+              "PARAPHRASE",
+              "RECONSTRUCTED"
+            ]
+          },
+          "source_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "why_it_matters": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "visibility": {
+            "enum": [
+              "LOCAL_PRIVATE",
+              "CAPSULE_PRIVATE",
+              "PUBLIC_CURATED"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
