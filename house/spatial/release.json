@@ -44,5 +44,12 @@
     "/house/spatial/trace-transplants.json",
     "/house/spatial/trace-path-laws.json"
   ],
-  "honesty": "This is a reconstructed current head from recovered interface/spec evidence. It is not claimed to be the exact lost Sep 3 file."
+  "honesty": "This is a reconstructed current head from recovered interface/spec evidence. It is not claimed to be the exact lost Sep 3 file.",
+  "current_classification": {
+    "reviewed_at": "2026-09-20T23:58:00+08:00",
+    "state": "ACTIVE",
+    "basis": "Current HOUSE/SPATIAL head and active reality-house surface; local-only/no-actuation boundary remains explicit.",
+    "receipt": "/control/EXPERIMENT_WRANGLE_2026-09-20.json",
+    "provenance_note": "Original release state remains contemporaneous provenance; this field records the later lifecycle classification."
+  }
 }
