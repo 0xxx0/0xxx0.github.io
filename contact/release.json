@@ -12,7 +12,8 @@
     "made zero-server / zero-storage behavior explicit",
     "added machine-readable promise contract for future autoresponder bindings",
     "kept private identifiers, credentials and correspondence outside the public surface",
-    "added reflective ingress rule: restate/confirm materially ambiguous questions while preserving source wording"
+    "added reflective ingress rule: restate/confirm materially ambiguous questions while preserving source wording",
+    "bound CONTINUITY / CASE as an upstream local canonical-state handoff; CASE != DRAFT != SEND"
   ],
   "checks": [
     "message composer operates locally",
@@ -20,7 +21,8 @@
     "CHECK mode visibly prefers human attention over automation",
     "machine contract separates current static behavior from candidate future adapters",
     "root showcase route remains separate from the nine showcase instruments",
-    "reflection rule cannot overwrite source wording or promote interpretation into source fact"
+    "reflection rule cannot overwrite source wording or promote interpretation into source fact",
+    "continuity case state cannot send; HUMAN PORT remains explicit external-action boundary"
   ],
   "return": "/contact/",
   "amended": "2026-09-20"
