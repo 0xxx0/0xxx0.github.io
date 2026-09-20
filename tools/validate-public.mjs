@@ -38,9 +38,19 @@ if(ret){
   for(const x of ret.items){check(exists(routeFile(x.href)),'return route missing '+x.href);check(exists(x.receipt.replace(/^\//,'')),'return receipt missing '+x.receipt)}
 }
 const home=read('index.html');
-const cards=(home.match(/<a class="card\b/g)||[]).length;
-check(cards===9,'root showcase card count drift: '+cards+' (expected 9)');
+const fi=parse('control/FIELD_INDEX_CONTRACT.json');
+check(!!fi,'FIELD INDEX contract missing/unreadable');
 check(home.includes('href="./returns/"'),'root missing RETURN FIELD link');
+check(home.includes('data-sort="UPDATED"'),'root missing UPDATED sort');
+check(home.includes('FIELD_INDEX_CONTRACT.json'),'root missing FI contract link');
+if(manifest){
+  const tracked=new Set(['artifact','experiment','workbench','rendezvous']);
+  for(const r of manifest.routes||[]){
+    if(!tracked.has(r.kind)||!r.state)continue;
+    check(!!r.index?.updated_at,'tracked route missing index.updated_at: '+r.href);
+    check(Array.isArray(r.index?.work_modes)&&r.index.work_modes.length>0,'tracked route missing index.work_modes: '+r.href);
+  }
+}
 const axialPath='foundry/axial/index.html';
 if(exists(axialPath)){
   const a=read(axialPath);
@@ -51,6 +61,6 @@ for(const p of ['returns/index.html','foundry/index.html','fcm/index.html','rout
 if(fail.length){console.error('PUBLIC SURFACE CHECK FAIL\n- '+fail.join('\n- '));process.exit(1)}
 console.log('PUBLIC SURFACE CHECK PASS');
 console.log('manifest routes:',manifest?.routes?.length||0);
-console.log('root cards:',cards);
+console.log('FIELD INDEX contract:',fi?.schema||'missing');
 console.log('return receipts:',ret?.receipts_ok+'/'+ret?.count);
 console.log('AXIAL contract: present / non-card');
