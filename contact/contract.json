@@ -1,6 +1,6 @@
 {
   "schema": "human-port-contract/v0.1",
-  "updated": "2026-09-19",
+  "updated": "2026-09-20",
   "title": "0 / HUMAN PORT",
   "purpose": "One stable human-facing contact contract whose transport may change without changing what the sender has to understand.",
   "current_surface": {
@@ -10,7 +10,8 @@
     "network_submission": false,
     "works_without_private_backend": true,
     "draft_surface": "/laconic/",
-    "draft_surface_role": "local candidate selection and recovery only; HUMAN PORT remains the explicit share/copy boundary"
+    "draft_surface_role": "local candidate selection and recovery only; HUMAN PORT remains the explicit share/copy boundary",
+    "drafting_law": "DRAFT != SEND; candidates remain local until explicit human share/copy."
   },
   "intents": [
     {
@@ -58,6 +59,7 @@
       "keep public and private state separate",
       "surface uncertainty rather than inventing personal state",
       "respect per-person, per-resource and per-channel policy",
+      "require readback or confirmation when ambiguity could materially change a consequential or irreversible action",
       "leave a RETURN receipt for consequential routing"
     ],
     "must_not": [
