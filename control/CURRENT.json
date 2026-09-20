@@ -371,7 +371,10 @@
     "continuity_field_intake_adapter": "/continuity/field-intake-adapter.json",
     "policy_index": "/control/POLICY_INDEX.json",
     "field_index_sitemap_audit": "/control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json",
-    "field_index_route_health": "/control/FIELD_INDEX_ROUTE_HEALTH_2026-09-21.json"
+    "field_index_route_health": "/control/FIELD_INDEX_ROUTE_HEALTH_2026-09-21.json",
+    "field_index_link_audit": "/control/FIELD_INDEX_LINK_AUDIT_2026-09-21.json",
+    "field_index_legacy_mode_recovery": "/control/FIELD_INDEX_LEGACY_MODE_RECOVERY_2026-09-21.json",
+    "field_index_datadisc_graft": "/control/confluence/FIELD_INDEX_DATADISC_GRAFT_2026-09-21.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
