@@ -62,5 +62,29 @@
       ],
       "non_claim": "Unresolved exit status exposes interface/proof debt; it is not an automatic priority ranking or evidence that an adapter works."
     }
+  },
+  "route_state_contract": {
+    "law": "route.kind answers what a surface is; route.state answers its current lifecycle/evidence posture. EXPERIMENT remains a valid kind but is deprecated as a route.state.",
+    "deprecated_states": [
+      "EXPERIMENT"
+    ],
+    "states": {
+      "STABLE": "Verified or settled public surface; ordinary use does not require an outstanding named proof gate.",
+      "ACTIVE": "Current runnable/operational head. May still have bounded limitations or unresolved exits.",
+      "PROOF_REQUIRED": "Runnable/specifiable surface whose own named promotion or consequence claim is blocked on explicit evidence.",
+      "CANDIDATE": "Bounded candidate model/orientation that is intentionally revisable and not canonical.",
+      "REFERENCE": "Runnable/reference fixture used to inspect or compare a mechanism; not itself proof of a live adapter or deployment.",
+      "PARKED": "Preserved runnable/comparison surface with no current execution obligation; resume only on a named dependency.",
+      "DONOR": "Useful surviving mechanism/source whose current role is transfer into another head rather than independent advancement.",
+      "FROZEN_DONOR": "Exact recovered donor preserved against in-place modernization; transfer only named mechanisms while keeping source bytes/identity intact.",
+      "RECOVER": "Known gap or partial recovery where exact source/evidence is still required.",
+      "UTILITY": "Validator/docs/support surface rather than a product/head lifecycle."
+    },
+    "rules": [
+      "Do not use EXPERIMENT as a substitute for uncertainty, lack of proof, parking, donor status or active use.",
+      "Put experimental form in route.kind or the release hypothesis/known_limits.",
+      "Put unresolved consequence/proof requirements in route.field.exit_paths and PROOF_REQUIRED when they block the artifact's own promotion claim.",
+      "Historical release receipts may retain their contemporaneous state; append current classification rather than rewriting provenance."
+    ]
   }
 }
