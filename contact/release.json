@@ -11,14 +11,17 @@
     "added native Web Share and clipboard RETURN paths",
     "made zero-server / zero-storage behavior explicit",
     "added machine-readable promise contract for future autoresponder bindings",
-    "kept private identifiers, credentials and correspondence outside the public surface"
+    "kept private identifiers, credentials and correspondence outside the public surface",
+    "added reflective ingress rule: restate/confirm materially ambiguous questions while preserving source wording"
   ],
   "checks": [
     "message composer operates locally",
     "no form submit or public backend endpoint exists",
     "CHECK mode visibly prefers human attention over automation",
     "machine contract separates current static behavior from candidate future adapters",
-    "root showcase route remains separate from the nine showcase instruments"
+    "root showcase route remains separate from the nine showcase instruments",
+    "reflection rule cannot overwrite source wording or promote interpretation into source fact"
   ],
-  "return": "/contact/"
+  "return": "/contact/",
+  "amended": "2026-09-20"
 }
