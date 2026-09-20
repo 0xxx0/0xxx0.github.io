@@ -1,0 +1,47 @@
+{
+  "schema": "0xxx0/care-validation/v0.1",
+  "at": "2026-09-21T00:28:00+08:00",
+  "artifact": "/care/",
+  "result": "PASS",
+  "checks": {
+    "javascript_syntax": "PASS",
+    "network_submission_absent": true,
+    "local_storage_present": true,
+    "visible_modes": [
+      "OBSERVE",
+      "FOLLOW",
+      "BRIEF"
+    ],
+    "observation_interpretation_split": true,
+    "workflow_status": [
+      "PLANNED",
+      "SCHEDULED",
+      "PERFORMED",
+      "RESULTED",
+      "REVIEWED",
+      "ACTED"
+    ],
+    "continuity_import_export": true,
+    "bodyfield_import": true,
+    "bodyfield_coordinate_policy": "Preserve BODYFIELD fragment metadata and [x,y] traces in BODYFIELD source frame; do not project onto CARE silhouette without explicit registration.",
+    "human_port_explicit": true,
+    "field_index_registered": true,
+    "continuity_projection_link": true,
+    "return_index_registered": true,
+    "research_packet": "/control/research/CARE_STATE_2026-09-21.md"
+  },
+  "open_gaps": [
+    "full 317-fragment BODYFIELD geometry remains in BODYFIELD; CARE uses compact tap/trace projection",
+    "no private image/file attachment store yet; source cue only",
+    "no clinician-authored adaptive question bank",
+    "no validated triage/urgency engine by design",
+    "no FHIR QuestionnaireResponse extraction yet; BODYFIELD FHIR bridge remains donor"
+  ],
+  "evidence": {
+    "care_html_sha": "b248fb53ac41014713ebf3c6f4ed26631c70b0ae",
+    "care_contract_sha": "38d81c54060ac306b7e08e3c3fb1a80b5542817d",
+    "care_release_sha": "5c066656d48fee2026641262c4b8417fcb0024d6",
+    "manifest_sha": "cf50fd5d9b42cca33221c890f53954524a02c4f1",
+    "return_index_sha": "62987dc2c6b675cd7a49533be2d5494aed20f153"
+  }
+}
