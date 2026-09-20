@@ -1,6 +1,6 @@
 {
   "schema": "spatial-state-lineage/v0.4",
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "canonical_id": "APP-041",
   "title": "Spatial State Engine / House OS",
   "status": "ACTIVE / COORDINATED",
@@ -140,6 +140,13 @@
       "name": "Semantic Painting / path lineage",
       "use": "movement/displacement/time traces as optional projections",
       "status": "PROJECTION_DONOR"
+    },
+    {
+      "name": "HOUSE OS FIELD SYSTEM v1.1 / MARKS",
+      "use": "reversible physical marking/interface grammar; Interface Tile; legibility/function tests; manual-first physical-digital correspondence",
+      "status": "CONFLUENCE_DONOR / PROOF_REQUIRED",
+      "route": "/control/confluence/HOUSE_MARKS.md",
+      "gate": "Do not add MARK to canonical projections until one bounded physical RETURN beats a PLAIN/control condition."
     }
   ],
   "trace_projection": {
