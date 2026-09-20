@@ -290,12 +290,16 @@
           "href": "/recovery/"
         },
         {
-          "label": "MIGRATION FIELD",
-          "href": "/control/migration/"
+          "label": "MIGRATION / SALVAGE YARD",
+          "href": "/migration/"
         },
         {
           "label": "FIELD INDEX",
           "href": "/"
+        },
+        {
+          "label": "MIGRATION LEDGER",
+          "href": "/control/migration/"
         }
       ]
     }
