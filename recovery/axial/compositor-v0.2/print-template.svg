@@ -1,0 +1,237 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="297mm" height="210mm" viewBox="0 0 297 210">
+<style>
+text { font-family: Arial, Helvetica, sans-serif; fill:#000; }
+.small { font-size:3px; }
+.med { font-size:4px; }
+.big { font-size:5.5px; font-weight:700; }
+.h { font-size:7px; font-weight:700; }
+.cut { fill:none; stroke:#000; stroke-width:0.35; }
+.fold { fill:none; stroke:#000; stroke-width:0.25; stroke-dasharray:2,1.5; }
+.guide { fill:none; stroke:#777; stroke-width:0.2; }
+.gray { fill:#eee; stroke:#000; stroke-width:0.25; }
+.black { fill:#000; }
+.white { fill:#fff; stroke:#000; stroke-width:0.2; }
+</style>
+<rect x="0.5" y="0.5" width="296" height="209" class="cut"/>
+<text x="8" y="10" class="h">AXIAL COMPOSITOR v0.2 — 1:1 PAPER / CARD TEMPLATE</text>
+<text x="8" y="16" class="med">Default: 50 mm OD core tube · 5 rings · 4 detents each · print at 100% / no fit-to-page.</text>
+<text x="8" y="21" class="small">If core differs: scale whole page by target_core_OD / 50. Example 45 mm core → 90%.</text>
+
+<rect x="8" y="28.0" width="173.363" height="22.0" class="cut"/>
+<rect x="8" y="28.0" width="10.0" height="22.0" class="gray"/>
+<text x="9.5" y="35.0" class="small">GLUE</text>
+<text x="9.5" y="39.0" class="small">TAB</text>
+<line x1="18.0" y1="28.0" x2="18.0" y2="50.0" class="fold"/>
+<rect x="18.000" y="28.0" width="40.841" height="22.0" class="guide"/>
+<text x="38.420" y="36.0" text-anchor="middle" class="big">AIR</text>
+<text x="38.420" y="42.0" text-anchor="middle" class="small">MODE</text>
+<rect x="33.42035224833366" y="44.0" width="4" height="4" class="white"/>
+<rect x="38.42035224833366" y="44.0" width="4" height="4" class="white"/>
+<path d="M 36.620,28.000 L 38.420,30.200 L 40.220,28.000" class="cut"/>
+<rect x="58.841" y="28.0" width="40.841" height="22.0" class="guide"/>
+<text x="79.261" y="36.0" text-anchor="middle" class="big">LIGHT</text>
+<text x="79.261" y="42.0" text-anchor="middle" class="small">MODE</text>
+<rect x="74.26105674500097" y="44.0" width="4" height="4" class="white"/>
+<rect x="79.26105674500097" y="44.0" width="4" height="4" class="black"/>
+<path d="M 77.461,28.000 L 79.261,30.200 L 81.061,28.000" class="cut"/>
+<rect x="99.681" y="28.0" width="40.841" height="22.0" class="guide"/>
+<text x="120.102" y="36.0" text-anchor="middle" class="big">CLEAN</text>
+<text x="120.102" y="42.0" text-anchor="middle" class="small">MODE</text>
+<rect x="115.10176124166829" y="44.0" width="4" height="4" class="black"/>
+<rect x="120.10176124166829" y="44.0" width="4" height="4" class="black"/>
+<path d="M 118.302,28.000 L 120.102,30.200 L 121.902,28.000" class="cut"/>
+<rect x="140.522" y="28.0" width="40.841" height="22.0" class="guide"/>
+<text x="160.942" y="36.0" text-anchor="middle" class="big">FEED</text>
+<text x="160.942" y="42.0" text-anchor="middle" class="small">MODE</text>
+<rect x="155.9424657383356" y="44.0" width="4" height="4" class="black"/>
+<rect x="160.9424657383356" y="44.0" width="4" height="4" class="white"/>
+<path d="M 159.142,28.000 L 160.942,30.200 L 162.742,28.000" class="cut"/>
+<text x="184.36281798666926" y="33.0" class="med">1. MODE</text>
+<text x="184.36281798666926" y="38.0" class="small">V-notch = detent</text>
+<text x="184.36281798666926" y="42.0" class="small">Gray marks = future sensing</text>
+<rect x="8" y="54.0" width="173.363" height="22.0" class="cut"/>
+<rect x="8" y="54.0" width="10.0" height="22.0" class="gray"/>
+<text x="9.5" y="61.0" class="small">GLUE</text>
+<text x="9.5" y="65.0" class="small">TAB</text>
+<line x1="18.0" y1="54.0" x2="18.0" y2="76.0" class="fold"/>
+<rect x="18.000" y="54.0" width="40.841" height="22.0" class="guide"/>
+<text x="38.420" y="62.0" text-anchor="middle" class="big">CAT</text>
+<text x="38.420" y="68.0" text-anchor="middle" class="small">TARGET</text>
+<rect x="33.42035224833366" y="70.0" width="4" height="4" class="white"/>
+<rect x="38.42035224833366" y="70.0" width="4" height="4" class="white"/>
+<path d="M 36.620,54.000 L 38.420,56.200 L 40.220,54.000" class="cut"/>
+<rect x="58.841" y="54.0" width="40.841" height="22.0" class="guide"/>
+<text x="79.261" y="62.0" text-anchor="middle" class="big">DESK</text>
+<text x="79.261" y="68.0" text-anchor="middle" class="small">TARGET</text>
+<rect x="74.26105674500097" y="70.0" width="4" height="4" class="white"/>
+<rect x="79.26105674500097" y="70.0" width="4" height="4" class="black"/>
+<path d="M 77.461,54.000 L 79.261,56.200 L 81.061,54.000" class="cut"/>
+<rect x="99.681" y="54.0" width="40.841" height="22.0" class="guide"/>
+<text x="120.102" y="62.0" text-anchor="middle" class="big">ENTRY</text>
+<text x="120.102" y="68.0" text-anchor="middle" class="small">TARGET</text>
+<rect x="115.10176124166829" y="70.0" width="4" height="4" class="black"/>
+<rect x="120.10176124166829" y="70.0" width="4" height="4" class="black"/>
+<path d="M 118.302,54.000 L 120.102,56.200 L 121.902,54.000" class="cut"/>
+<rect x="140.522" y="54.0" width="40.841" height="22.0" class="guide"/>
+<text x="160.942" y="62.0" text-anchor="middle" class="big">BED</text>
+<text x="160.942" y="68.0" text-anchor="middle" class="small">TARGET</text>
+<rect x="155.9424657383356" y="70.0" width="4" height="4" class="black"/>
+<rect x="160.9424657383356" y="70.0" width="4" height="4" class="white"/>
+<path d="M 159.142,54.000 L 160.942,56.200 L 162.742,54.000" class="cut"/>
+<text x="184.36281798666926" y="59.0" class="med">2. TARGET</text>
+<text x="184.36281798666926" y="64.0" class="small">V-notch = detent</text>
+<text x="184.36281798666926" y="68.0" class="small">Gray marks = future sensing</text>
+<rect x="8" y="80.0" width="173.363" height="22.0" class="cut"/>
+<rect x="8" y="80.0" width="10.0" height="22.0" class="gray"/>
+<text x="9.5" y="87.0" class="small">GLUE</text>
+<text x="9.5" y="91.0" class="small">TAB</text>
+<line x1="18.0" y1="80.0" x2="18.0" y2="102.0" class="fold"/>
+<rect x="18.000" y="80.0" width="40.841" height="22.0" class="guide"/>
+<text x="38.420" y="88.0" text-anchor="middle" class="big">LOW</text>
+<text x="38.420" y="94.0" text-anchor="middle" class="small">RANGE</text>
+<rect x="33.42035224833366" y="96.0" width="4" height="4" class="white"/>
+<rect x="38.42035224833366" y="96.0" width="4" height="4" class="white"/>
+<path d="M 36.620,80.000 L 38.420,82.200 L 40.220,80.000" class="cut"/>
+<rect x="58.841" y="80.0" width="40.841" height="22.0" class="guide"/>
+<text x="79.261" y="88.0" text-anchor="middle" class="big">MED</text>
+<text x="79.261" y="94.0" text-anchor="middle" class="small">RANGE</text>
+<rect x="74.26105674500097" y="96.0" width="4" height="4" class="white"/>
+<rect x="79.26105674500097" y="96.0" width="4" height="4" class="black"/>
+<path d="M 77.461,80.000 L 79.261,82.200 L 81.061,80.000" class="cut"/>
+<rect x="99.681" y="80.0" width="40.841" height="22.0" class="guide"/>
+<text x="120.102" y="88.0" text-anchor="middle" class="big">HIGH</text>
+<text x="120.102" y="94.0" text-anchor="middle" class="small">RANGE</text>
+<rect x="115.10176124166829" y="96.0" width="4" height="4" class="black"/>
+<rect x="120.10176124166829" y="96.0" width="4" height="4" class="black"/>
+<path d="M 118.302,80.000 L 120.102,82.200 L 121.902,80.000" class="cut"/>
+<rect x="140.522" y="80.0" width="40.841" height="22.0" class="guide"/>
+<text x="160.942" y="88.0" text-anchor="middle" class="big">MAX</text>
+<text x="160.942" y="94.0" text-anchor="middle" class="small">RANGE</text>
+<rect x="155.9424657383356" y="96.0" width="4" height="4" class="black"/>
+<rect x="160.9424657383356" y="96.0" width="4" height="4" class="white"/>
+<path d="M 159.142,80.000 L 160.942,82.200 L 162.742,80.000" class="cut"/>
+<text x="184.36281798666926" y="85.0" class="med">3. RANGE</text>
+<text x="184.36281798666926" y="90.0" class="small">V-notch = detent</text>
+<text x="184.36281798666926" y="94.0" class="small">Gray marks = future sensing</text>
+<rect x="8" y="106.0" width="173.363" height="22.0" class="cut"/>
+<rect x="8" y="106.0" width="10.0" height="22.0" class="gray"/>
+<text x="9.5" y="113.0" class="small">GLUE</text>
+<text x="9.5" y="117.0" class="small">TAB</text>
+<line x1="18.0" y1="106.0" x2="18.0" y2="128.0" class="fold"/>
+<rect x="18.000" y="106.0" width="40.841" height="22.0" class="guide"/>
+<text x="38.420" y="114.0" text-anchor="middle" class="big">AUTO</text>
+<text x="38.420" y="120.0" text-anchor="middle" class="small">ACTION</text>
+<rect x="33.42035224833366" y="122.0" width="4" height="4" class="white"/>
+<rect x="38.42035224833366" y="122.0" width="4" height="4" class="white"/>
+<path d="M 36.620,106.000 L 38.420,108.200 L 40.220,106.000" class="cut"/>
+<rect x="58.841" y="106.0" width="40.841" height="22.0" class="guide"/>
+<text x="79.261" y="114.0" text-anchor="middle" class="big">PULSE</text>
+<text x="79.261" y="120.0" text-anchor="middle" class="small">ACTION</text>
+<rect x="74.26105674500097" y="122.0" width="4" height="4" class="white"/>
+<rect x="79.26105674500097" y="122.0" width="4" height="4" class="black"/>
+<path d="M 77.461,106.000 L 79.261,108.200 L 81.061,106.000" class="cut"/>
+<rect x="99.681" y="106.0" width="40.841" height="22.0" class="guide"/>
+<text x="120.102" y="114.0" text-anchor="middle" class="big">HOLD</text>
+<text x="120.102" y="120.0" text-anchor="middle" class="small">ACTION</text>
+<rect x="115.10176124166829" y="122.0" width="4" height="4" class="black"/>
+<rect x="120.10176124166829" y="122.0" width="4" height="4" class="black"/>
+<path d="M 118.302,106.000 L 120.102,108.200 L 121.902,106.000" class="cut"/>
+<rect x="140.522" y="106.0" width="40.841" height="22.0" class="guide"/>
+<text x="160.942" y="114.0" text-anchor="middle" class="big">OFF</text>
+<text x="160.942" y="120.0" text-anchor="middle" class="small">ACTION</text>
+<rect x="155.9424657383356" y="122.0" width="4" height="4" class="black"/>
+<rect x="160.9424657383356" y="122.0" width="4" height="4" class="white"/>
+<path d="M 159.142,106.000 L 160.942,108.200 L 162.742,106.000" class="cut"/>
+<text x="184.36281798666926" y="111.0" class="med">4. ACTION</text>
+<text x="184.36281798666926" y="116.0" class="small">V-notch = detent</text>
+<text x="184.36281798666926" y="120.0" class="small">Gray marks = future sensing</text>
+<rect x="8" y="132.0" width="173.363" height="22.0" class="cut"/>
+<rect x="8" y="132.0" width="10.0" height="22.0" class="gray"/>
+<text x="9.5" y="139.0" class="small">GLUE</text>
+<text x="9.5" y="143.0" class="small">TAB</text>
+<line x1="18.0" y1="132.0" x2="18.0" y2="154.0" class="fold"/>
+<rect x="18.000" y="132.0" width="40.841" height="22.0" class="guide"/>
+<text x="38.420" y="140.0" text-anchor="middle" class="big">ARM</text>
+<text x="38.420" y="146.0" text-anchor="middle" class="small">COMMIT</text>
+<rect x="33.42035224833366" y="148.0" width="4" height="4" class="white"/>
+<rect x="38.42035224833366" y="148.0" width="4" height="4" class="white"/>
+<path d="M 36.620,132.000 L 38.420,134.200 L 40.220,132.000" class="cut"/>
+<rect x="58.841" y="132.0" width="40.841" height="22.0" class="guide"/>
+<text x="79.261" y="140.0" text-anchor="middle" class="big">RUN</text>
+<text x="79.261" y="146.0" text-anchor="middle" class="small">COMMIT</text>
+<rect x="74.26105674500097" y="148.0" width="4" height="4" class="white"/>
+<rect x="79.26105674500097" y="148.0" width="4" height="4" class="black"/>
+<path d="M 77.461,132.000 L 79.261,134.200 L 81.061,132.000" class="cut"/>
+<rect x="99.681" y="132.0" width="40.841" height="22.0" class="guide"/>
+<text x="120.102" y="140.0" text-anchor="middle" class="big">TEST</text>
+<text x="120.102" y="146.0" text-anchor="middle" class="small">COMMIT</text>
+<rect x="115.10176124166829" y="148.0" width="4" height="4" class="black"/>
+<rect x="120.10176124166829" y="148.0" width="4" height="4" class="black"/>
+<path d="M 118.302,132.000 L 120.102,134.200 L 121.902,132.000" class="cut"/>
+<rect x="140.522" y="132.0" width="40.841" height="22.0" class="guide"/>
+<text x="160.942" y="140.0" text-anchor="middle" class="big">SAFE</text>
+<text x="160.942" y="146.0" text-anchor="middle" class="small">COMMIT</text>
+<rect x="155.9424657383356" y="148.0" width="4" height="4" class="black"/>
+<rect x="160.9424657383356" y="148.0" width="4" height="4" class="white"/>
+<path d="M 159.142,132.000 L 160.942,134.200 L 162.742,132.000" class="cut"/>
+<text x="184.36281798666926" y="137.0" class="med">5. COMMIT</text>
+<text x="184.36281798666926" y="142.0" class="small">V-notch = detent</text>
+<text x="184.36281798666926" y="146.0" class="small">Gray marks = future sensing</text>
+<text x="205" y="25" class="big">REFERENCE SPINE</text>
+<rect x="205" y="30" width="16" height="124" class="cut"/>
+<rect x="208" y="38" width="10" height="16" class="cut"/>
+<line x1="213" y1="38" x2="213" y2="54" class="cut"/>
+<text x="223" y="44" class="small">window 1</text>
+<text x="223" y="48" class="small">paperclip pawl at top edge</text>
+<rect x="208" y="62" width="10" height="16" class="cut"/>
+<line x1="213" y1="62" x2="213" y2="78" class="cut"/>
+<text x="223" y="68" class="small">window 2</text>
+<text x="223" y="72" class="small">paperclip pawl at top edge</text>
+<rect x="208" y="86" width="10" height="16" class="cut"/>
+<line x1="213" y1="86" x2="213" y2="102" class="cut"/>
+<text x="223" y="92" class="small">window 3</text>
+<text x="223" y="96" class="small">paperclip pawl at top edge</text>
+<rect x="208" y="110" width="10" height="16" class="cut"/>
+<line x1="213" y1="110" x2="213" y2="126" class="cut"/>
+<text x="223" y="116" class="small">window 4</text>
+<text x="223" y="120" class="small">paperclip pawl at top edge</text>
+<rect x="208" y="134" width="10" height="16" class="cut"/>
+<line x1="213" y1="134" x2="213" y2="150" class="cut"/>
+<text x="223" y="140" class="small">window 5</text>
+<text x="223" y="144" class="small">paperclip pawl at top edge</text>
+<text x="205" y="162" class="small">Mount spine only at top/bottom standoffs.</text>
+<text x="205" y="166" class="small">Leave ~1–2 mm clearance over rotating rings.</text>
+<text x="8" y="156" class="big">FIXED SPACER COLLARS — glue to core between rings</text>
+<rect x="8" y="160.0" width="167.28" height="4.5" class="cut"/>
+<line x1="16" y1="160.0" x2="16" y2="164.5" class="fold"/>
+<text x="9" y="163.1" class="small">TAB</text>
+<text x="20" y="163.1" class="small">COLLAR 1</text>
+<rect x="8" y="166.5" width="167.28" height="4.5" class="cut"/>
+<line x1="16" y1="166.5" x2="16" y2="171.0" class="fold"/>
+<text x="9" y="169.6" class="small">TAB</text>
+<text x="20" y="169.6" class="small">COLLAR 2</text>
+<rect x="8" y="173.0" width="167.28" height="4.5" class="cut"/>
+<line x1="16" y1="173.0" x2="16" y2="177.5" class="fold"/>
+<text x="9" y="176.1" class="small">TAB</text>
+<text x="20" y="176.1" class="small">COLLAR 3</text>
+<rect x="8" y="179.5" width="167.28" height="4.5" class="cut"/>
+<line x1="16" y1="179.5" x2="16" y2="184.0" class="fold"/>
+<text x="9" y="182.6" class="small">TAB</text>
+<text x="20" y="182.6" class="small">COLLAR 4</text>
+<rect x="8" y="186.0" width="167.28" height="4.5" class="cut"/>
+<line x1="16" y1="186.0" x2="16" y2="190.5" class="fold"/>
+<text x="9" y="189.1" class="small">TAB</text>
+<text x="20" y="189.1" class="small">COLLAR 5</text>
+<rect x="8" y="192.5" width="167.28" height="4.5" class="cut"/>
+<line x1="16" y1="192.5" x2="16" y2="197.0" class="fold"/>
+<text x="9" y="195.6" class="small">TAB</text>
+<text x="20" y="195.6" class="small">COLLAR 6</text>
+<text x="205" y="166" class="big">STACK</text>
+<text x="205" y="172" class="small">core tube ≈ 50 mm OD × 130 mm</text>
+<text x="205" y="177" class="small">ring height = 22 mm</text>
+<text x="205" y="182" class="small">gap/collar ≈ 2–4 mm</text>
+<text x="205" y="187" class="small">4 positions → 90° per click</text>
+<text x="205" y="192" class="small">5×4-state rings = 1,024 raw states</text>
+<text x="205" y="197" class="small">example: AIR / CAT / LOW / AUTO / ARM</text>
+<text x="205" y="202" class="small">Solid = CUT · dashed = FOLD/SEAM · V = detent notch</text>
+</svg>
