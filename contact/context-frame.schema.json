@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0xxx0.github.io/contact/context-frame.schema.json",
+  "title": "HUMAN PORT Context Frame",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version"
+  ],
+  "properties": {
+    "version": {
+      "const": "0C1"
+    },
+    "relation": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "audience": {
+      "enum": [
+        "human",
+        "agent",
+        "system",
+        null
+      ]
+    },
+    "language": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "culture_pack_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "register": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "phase": {
+      "enum": [
+        "seed",
+        "formation",
+        "crossing",
+        "exit",
+        "unknown",
+        null
+      ]
+    },
+    "temporal_horizon": {
+      "enum": [
+        "now",
+        "today",
+        "soon",
+        "later",
+        "open",
+        "unknown",
+        null
+      ]
+    },
+    "communication_capacity": {
+      "enum": [
+        "normal",
+        "limited",
+        "overloaded",
+        "offline",
+        "handoff",
+        null
+      ]
+    },
+    "private_context_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "continuity_state": {
+      "enum": [
+        "normal",
+        "missed-checkin",
+        "unreachable-unverified",
+        "human-handoff",
+        "incapacity-confirmed-private",
+        "death-confirmed-private",
+        null
+      ]
+    }
+  }
+}

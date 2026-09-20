@@ -105,6 +105,7 @@ footer{display:flex;justify-content:space-between;gap:14px;border-top:1px solid 
 <nav class="links">
   <a href="../">WORK / SHOWCASE →</a>
   <a href="../laconic/">LACONIC DRAFT →</a>
+  <a href="./next/">NEXT / LAB →</a>
   <a href="./state.json">PUBLIC STATE →</a>
   <a href="./contract.json">PORT CONTRACT →</a>
   <a href="../agent-router.json">ROUTER →</a>
@@ -120,9 +121,22 @@ const qs=s=>document.querySelector(s), qsa=s=>[...document.querySelectorAll(s)];
 const msg=qs('#msg'),who=qs('#who'),out=qs('#output'),packet=qs('#packet'),check=qs('#checknote');
 const surface=location.origin+location.pathname;
 const meanings={PING:'no reply needed',REPLY:'reply when practical',NEED:'practical request',CHECK:'human check requested'};
-const params=new URLSearchParams(location.search),requestedMode=params.get('mode'),incomingDraft=params.get('draft');
-if(['PING','REPLY','NEED','CHECK'].includes(requestedMode))mode=requestedMode;
-if(incomingDraft)msg.value=incomingDraft.slice(0,1200);
+const handoffKey='human.port.handoff.v01';
+const params=new URLSearchParams(location.search),requestedMode=params.get('mode');
+try{
+  const raw=sessionStorage.getItem(handoffKey);
+  if(raw){
+    sessionStorage.removeItem(handoffKey);
+    const h=JSON.parse(raw);
+    if(h&&typeof h.draft==='string')msg.value=h.draft.slice(0,1200);
+    if(h&&['PING','REPLY','NEED','CHECK'].includes(h.mode))mode=h.mode;
+  }else if(['PING','REPLY','NEED','CHECK'].includes(requestedMode))mode=requestedMode;
+}catch(_){if(['PING','REPLY','NEED','CHECK'].includes(requestedMode))mode=requestedMode}
+if(params.has('draft')){
+  params.delete('draft');
+  const q=params.toString();
+  history.replaceState(null,'',location.pathname+(q?'?'+q:'')+location.hash);
+}
 qsa('.mode').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));check.classList.toggle('on',mode==='CHECK');
 const build=()=>{
   const at=new Date().toISOString();

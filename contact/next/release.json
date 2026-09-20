@@ -1,0 +1,37 @@
+{
+  "schema": "release-receipt/v1",
+  "artifact": "HUMAN PORT NEXT",
+  "route": "/contact/next/",
+  "version": "0.1-live-preview",
+  "date": "2026-09-20",
+  "state": "PREVIEW_CANDIDATE",
+  "strategy": "Keep /contact/ stable; ship experimental mechanisms as additive live routes under /contact/next/ and promote only after real use.",
+  "changes": [
+    "patched Laconic -> HUMAN PORT handoff to use same-tab sessionStorage rather than ?draft= URL content",
+    "stable /contact/ now exposes only a small NEXT / LAB door in addition to existing navigation",
+    "added /contact/next/ gateway",
+    "staged relation lenses and bearer-capsule maker as additive routes",
+    "staged BURST interpretation and BACKSTAGE as additive routes",
+    "staged context-frame / line-object / continuity contracts and public machine descriptor",
+    "left stable /contact/ composer and public contract otherwise intact"
+  ],
+  "checks": [
+    "contact inline JS syntax PASS",
+    "laconic inline JS syntax PASS",
+    "capsule / interpret / backstage inline JS syntax PASS",
+    "telegram adapter syntax PASS",
+    "context / line / continuity / descriptor JSON PASS",
+    "no Laconic ?draft= handoff remains",
+    "legacy draft query contents are ignored and stripped by HUMAN PORT",
+    "sessionStorage handoff present on both sides",
+    "/contact/next/ contains no script or network submission"
+  ],
+  "reality_gates": [
+    "open /contact/next/ from phone and navigate all visible routes",
+    "Laconic -> HUMAN PORT draft arrives with no draft text in URL",
+    "make one capsule and open it on another device",
+    "paste one real BURST message and test whether trace is useful",
+    "pin 3-5 BACKSTAGE moments and decide whether it improves re-entry",
+    "only promote stable-root behavior after those tests"
+  ]
+}

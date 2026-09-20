@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0xxx0.github.io/contact/interpretation.schema.json",
+  "title": "HUMAN PORT Interpretation Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "mode",
+    "raw",
+    "observed",
+    "possible",
+    "unresolved",
+    "move_set"
+  ],
+  "properties": {
+    "version": {
+      "const": "0I1"
+    },
+    "mode": {
+      "enum": [
+        "plain",
+        "burst",
+        "dialogue"
+      ]
+    },
+    "raw": {
+      "type": "string"
+    },
+    "source_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "trace": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "text",
+          "tags"
+        ],
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "ASK",
+                "CORRECTION",
+                "CALLBACK",
+                "ASIDE",
+                "DEFER",
+                "STATE",
+                "JOKE",
+                "ANCHOR",
+                "QUESTION",
+                "CONSTRAINT",
+                "UNKNOWN"
+              ]
+            }
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "observed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "possible": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "reading",
+          "confidence",
+          "basis",
+          "changes_action_if_wrong"
+        ],
+        "properties": {
+          "reading": {
+            "type": "string"
+          },
+          "confidence": {
+            "enum": [
+              "LOW",
+              "MEDIUM",
+              "HIGH"
+            ]
+          },
+          "basis": {
+            "type": "string"
+          },
+          "changes_action_if_wrong": {
+            "type": "boolean"
+          }
+        }
+      }
+    },
+    "unresolved": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "move_set": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "chosen_move": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "expression": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "return_note": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

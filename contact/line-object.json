@@ -1,0 +1,61 @@
+{
+  "schema": "human-port-line-object/v0.1",
+  "purpose": "Treat one utterance/line as one semantic object with unequal projections for communication, decorum, language study and rehearsal.",
+  "laws": [
+    "SEMANTIC INTENT IS NOT THE SAME AS WORDING",
+    "TRANSLATION MUST PRESERVE UNCERTAINTY",
+    "REGISTER CHANGE MUST NOT SILENTLY CHANGE COMMITMENT",
+    "REHEARSAL PROJECTIONS ARE NOT SEND ACTIONS",
+    "CULTURE-SPECIFIC DECORUM REQUIRES AN EXPLICIT PACK OR HUMAN REVIEW",
+    "TEMPORAL-FOCUS/RSVP IS A PROJECTION, NOT A NEW SOURCE"
+  ],
+  "donor": {
+    "exact": "/recovery/rsvp/manifest.json",
+    "retained": [
+      "word segmentation",
+      "speech-boundary events",
+      "synchronized highlighting",
+      "temporal/sequential focus"
+    ]
+  },
+  "canonical_fields": [
+    "line_id",
+    "source_text",
+    "language",
+    "intent",
+    "relation",
+    "meaning_notes",
+    "uncertainty",
+    "source_refs"
+  ],
+  "projections": {
+    "sendable": {
+      "role": "Current message wording for actual human use."
+    },
+    "courteous": {
+      "role": "Polite/courteous expression preserving semantic commitment."
+    },
+    "formal": {
+      "role": "Formal register preserving intent."
+    },
+    "elegant": {
+      "role": "Compressed/refined expression preserving intent and decorum."
+    },
+    "literal_gloss": {
+      "role": "Study projection showing literal structure/meaning."
+    },
+    "pronunciation": {
+      "role": "Pronunciation/transliteration/phonetic cues where appropriate."
+    },
+    "rehearsal": {
+      "role": "Chunked cueing, pauses, stress, turn-taking or memorization units."
+    },
+    "rsvp": {
+      "role": "Temporal-focus sequence derived from the line; never canonical source."
+    },
+    "backtranslation": {
+      "role": "Meaning-check projection to detect drift after translation/register transform."
+    }
+  },
+  "round_trip_rule": "A transformed line is acceptable only if backtranslation/readback preserves the consequential meaning of the canonical intent within declared uncertainty."
+}
