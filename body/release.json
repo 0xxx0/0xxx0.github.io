@@ -1,0 +1,36 @@
+{
+  "schema": "release-receipt/v1",
+  "artifact": "BODY / FIELD",
+  "route": "/body/",
+  "version": "0.1",
+  "released": "2026-09-20",
+  "state": "EXPERIMENT",
+  "changes": [
+    "Added BODY / FIELD as a sibling support surface to HOUSE / FIELD in FIELD INDEX.",
+    "Made the public operation OBSERVE: select a real addressable surface region, then inspect unequal projections without importing personal health records.",
+    "Separated BODY from ENV-0: BODY owns embodied addresses/observations; ENV-0 owns typed body<->world contact/exposure/context relations.",
+    "Added SURFACE, LAYERS, MOVE, ENV-0, ATLAS and PLAIN projections.",
+    "Used a pinned react-native-body-parts-anatomy dataset for the interactive surface and refuse to fabricate a replacement on source failure.",
+    "Kept the deeper Open Twin XR + OpenCap integration as the proof boundary rather than the primary public interface.",
+    "Grounded the ENV-0 human-as-sensor seam in occupant/environment research while preserving non-causal and privacy boundaries."
+  ],
+  "checks": {
+    "public_privacy": "no personal health records or exact location embedded",
+    "surface_source": "pinned external body-surface dataset",
+    "plain_ablation": "PLAIN remains readable",
+    "house_relation": "HOUSE remains sibling; ENV-0 is bridge",
+    "causality": "environment/movement context is not automatically causal"
+  },
+  "sources": [
+    "/body/model.json",
+    "/body/contract.json",
+    "/house/spatial/",
+    "/control/FIELD_INDEX_CONTRACT.json",
+    "https://github.com/eslamelfateh/react-native-body-parts-anatomy",
+    "https://github.com/Opening-Science/open-twin-xr",
+    "https://github.com/opencap-org/opencap-core",
+    "https://kilthub.cmu.edu/articles/thesis/Are_Humans_Good_Sensors_Using_Occupants_as_Sensors_for_Indoor_Environmental_Quality_Assessment_and_for_Developing_Thresholds_that_Matter/6714842",
+    "https://www.mdpi.com/2075-5309/16/6/1267"
+  ],
+  "honesty": "Public-safe reference/projection surface, not a live personal body model or diagnostic system. The deeper Open Twin/OpenCap cassette still awaits a real atlas binary and personal registration."
+}
