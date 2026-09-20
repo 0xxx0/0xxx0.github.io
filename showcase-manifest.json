@@ -1373,11 +1373,12 @@
       "role": "Public instrument gateway separating ORIENT / OPERATE / PROVE / RECOVER while live priority remains in control/CURRENT.json.",
       "showcase_card": false,
       "index": {
-        "updated_at": "2026-09-20T22:57:00+08:00",
+        "updated_at": "2026-09-21T04:05:00+08:00",
         "work_modes": [
-          "OPERATE",
           "RECOVER",
-          "VERIFY"
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
         ]
       }
     },
@@ -1484,12 +1485,11 @@
         "physical_fit": "Promising for assembly/procedure routes once addresses point to real objects/steps."
       },
       "index": {
-        "updated_at": "2026-09-20",
+        "updated_at": "2026-09-21T04:05:00+08:00",
         "work_modes": [
-          "RECOVER",
           "IMPLEMENT",
           "VERIFY",
-          "RELEASE"
+          "OPERATE"
         ]
       }
     },
@@ -3883,6 +3883,80 @@
       "version": "0.1",
       "receipt": "/forward-field-proof/triangle/glyph/release.json",
       "showcase_card": false
+    },
+    {
+      "href": "/poetry/",
+      "title": "CHINESE POETRY COPILOT",
+      "kind": "workbench",
+      "parent": "/",
+      "family": "PATH / POETRY",
+      "operation": "COMPOSE",
+      "state": "ACTIVE_RECONNECTION",
+      "showcase_card": true,
+      "role": "User-facing Jueju composition/study head over Verse Atlas; keeps Pathweaver/Grid-Path/MEANTOME as explicit donors and English Jue Ju as an open, not-implemented target.",
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "four-line seven-character Chinese verse draft",
+            "Jueju study source",
+            "recovered unresolved opener"
+          ],
+          "requires": [],
+          "optional": [
+            "path",
+            "caesura",
+            "study projection"
+          ]
+        },
+        "transforms": {
+          "verb": "compose / study / project while preserving line-character identity and evidence class",
+          "preserves": [
+            "source line identity",
+            "character address",
+            "open-vs-verified claim status",
+            "return path"
+          ],
+          "reversibility": "full",
+          "side_effects": "local"
+        },
+        "emits": {
+          "kinds": [
+            "verse state",
+            "study projection",
+            "path/glyph/RSVP projection",
+            "RETURN receipt"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/foundry/verse-atlas/?view=return",
+          "checks": [
+            "7-character source shape",
+            "historical rime remains OPEN without source",
+            "平/仄 remains OPEN without source",
+            "RETURN replay"
+          ],
+          "return_path": "/poetry/"
+        }
+      },
+      "transfer": [
+        "open composition flow from Pathweaver",
+        "Verse Atlas evidence firewall",
+        "study projection",
+        "temporal reading",
+        "explicit donor lineage"
+      ],
+      "index": {
+        "updated_at": "2026-09-21T04:05:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      }
     }
   ],
   "release_law": [
