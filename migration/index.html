@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#07090a">
+<title>MIGRATION / SALVAGE YARD</title>
+<style>
+:root{--bg:#07090a;--panel:#0b0e10;--ink:#edf1ef;--muted:#7f8a8f;--line:#30383c;--hot:#e87548;--cool:#7ec7ef;--green:#9ad8a6;--gold:#d9b56d;--pink:#d08b9e}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(14px,env(safe-area-inset-top)) 14px max(30px,env(safe-area-inset-bottom))}
+main{width:min(1180px,100%);margin:auto}
+a{color:inherit;text-decoration:none}button{font:inherit}
+header{min-height:70vh;display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:end;padding:7vh 0 26px;border-bottom:1px solid var(--line)}
+.ey{font-size:9px;letter-spacing:.2em;color:var(--hot)}
+h1{margin:12px 0 18px;font:900 clamp(60px,13vw,150px)/.72 system-ui,-apple-system,sans-serif;letter-spacing:-.09em}
+.lede{max-width:650px;font:14px/1.55 system-ui,-apple-system,sans-serif;color:#b9c2c5}
+.mantra{font:800 clamp(20px,3vw,34px)/1 system-ui;letter-spacing:-.04em;margin:18px 0 8px}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin-top:18px}nav a,.chip{border:1px solid var(--line);padding:7px 9px;font-size:9px}
+.side{align-self:end;border-left:1px solid var(--line);padding-left:18px}
+.side b{display:block;font:800 18px/1 system-ui;margin-bottom:10px}.side p{color:#96a0a4;margin:0 0 12px;font:11px/1.55 system-ui}
+.quote{color:var(--gold);font-size:10px;letter-spacing:.05em}
+.bar{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:end;border-bottom:1px solid var(--line);padding:28px 0 8px;margin-bottom:0}
+.bar b{letter-spacing:.16em;font-size:10px}.bar span{color:var(--muted);font-size:9px}
+.kit{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:1px}
+.kit div{background:var(--panel);padding:16px;min-height:130px}.kit strong{display:block;font:800 18px system-ui;margin-bottom:9px}.kit p{color:#98a3a7;font:10px/1.5 system-ui;margin:0}
+.kit .n{color:var(--hot);font-size:9px;margin-bottom:5px}
+.rows{border-top:1px solid var(--line)}.row{display:grid;grid-template-columns:minmax(210px,1fr) 120px 2fr auto;gap:14px;border-bottom:1px solid #232a2e;padding:13px 4px;align-items:start}
+.row:hover{background:#0b0f11}.name{font:750 17px/1.05 system-ui;letter-spacing:-.025em}.family{font-size:8px;color:#66737a;margin-top:4px}.state{font-size:8px;letter-spacing:.08em}
+.LIVE_HEAD{color:var(--green)}.LIVE_DONOR{color:var(--gold)}.RECOVER,.IMPORT,.MERGE_CANDIDATE{color:#e7a065}.QUARANTINE{color:var(--pink)}
+.job{color:#9da7ab;font:10px/1.5 system-ui}.go{font-size:9px;color:#aeb9bd;white-space:nowrap}
+.trophies .row{grid-template-columns:minmax(210px,1fr) 150px 2fr auto}
+.blocked .row{grid-template-columns:minmax(210px,1fr) 150px 2fr}.blocked .state{color:#e7a065}
+.qgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.qcard{background:var(--panel);padding:16px;min-height:170px}.qcard h2{margin:10px 0 8px;font:800 24px/1 system-ui;letter-spacing:-.04em}.qcard p{color:#9ba5a9;font:11px/1.5 system-ui}.qcard .state{float:right}
+.queue{counter-reset:q;border-top:1px solid var(--line)}.queue div{padding:12px 4px;border-bottom:1px solid #232a2e;color:#a8b1b4}.queue div:before{counter-increment:q;content:counter(q,decimal-leading-zero);color:#657279;margin-right:13px}
+.gate{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.gate div{background:#0a0d0f;padding:13px}.gate b{display:block;color:var(--cool);font-size:10px}.gate span{display:block;color:#8d989d;font:9px/1.45 system-ui;margin-top:5px}
+footer{margin:30px 0 12px;padding-top:10px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;color:#657178;font-size:8px}
+@media(max-width:800px){header{grid-template-columns:1fr;min-height:auto;padding-top:42px}.side{border-left:0;border-top:1px solid var(--line);padding:16px 0 0}.kit,.gate{grid-template-columns:1fr 1fr}.qgrid{grid-template-columns:1fr}.row,.trophies .row,.blocked .row{grid-template-columns:1fr auto}.row .state,.row .job,.blocked .row .state,.blocked .row .job{grid-column:1}.go{grid-column:2;grid-row:1/-1}}
+@media(max-width:480px){.kit,.gate{grid-template-columns:1fr}h1{font-size:58px}}
+</style>
+</head>
+<body><main>
+<header>
+  <div>
+    <div class="ey">MIGRATION / SALVAGE / ARCHAEOLOGY / QUARANTINE</div>
+    <h1>SALVAGE<br>YARD</h1>
+    <div class="mantra">BRING BACK PROOF, NOT CLUTTER.</div>
+    <p class="lede">Old does not mean important. Weird does not mean worthless. Polish does not mean alive. We preserve first, identify the mechanism, and only then decide whether a thing becomes a head, a donor, evidence, quarantine, or attic.</p>
+    <nav><a href="../">FIELD INDEX</a><a href="../recovery/">RECOVERY VAULT</a><a href="../control/migration/">CONTROL LEDGER</a><a href="../control/MIGRATION.json">RAW JSON</a><a href="../dock/">DOCK</a></nav>
+  </div>
+  <aside class="side">
+    <b>THE VOID PAYS IN MECHANISMS.</b>
+    <p>The trophy is not possession. The trophy is a surviving operation, proof, source, constraint, or strange little machine that still changes what we can do.</p>
+    <p class="quote">QUARANTINE = PRESERVED WITHOUT PROMOTION.</p>
+  </aside>
+</header>
+
+<section>
+  <div class="bar"><div><b>FIELD KIT</b><span>four evidence classes · do not blur them</span></div></div>
+  <div class="kit">
+    <div><div class="n">01</div><strong>BYTES</strong><p>What actually existed: source, executable, assets, archive. Exact hash when possible.</p></div>
+    <div><div class="n">02</div><strong>SPEC</strong><p>What it meant or promised. Original notes outrank later reconstruction; both stay labeled.</p></div>
+    <div><div class="n">03</div><strong>IMAGE</strong><p>What it looked like. Screenshots can recover appearance, never executable behavior.</p></div>
+    <div><div class="n">04</div><strong>RECEIPT</strong><p>What actually happened in use: test, replay, measurement, RETURN.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="bar"><div><b>PROMOTION GATE</b><span>nothing becomes a public head merely because we found it</span></div></div>
+  <div class="gate">
+    <div><b>IDENTITY</b><span>Can we say exactly what this object is?</span></div>
+    <div><b>PROVENANCE</b><span>Do we know where the evidence came from?</span></div>
+    <div><b>MECHANISM</b><span>What operation survives beyond its old skin?</span></div>
+    <div><b>PAY RENT</b><span>Does it add capability, evidence, lineage, or a useful constraint?</span></div>
+    <div><b>RETURN</b><span>Can we verify the result without erasing the source?</span></div>
+  </div>
+</section>
+
+<section class="trophies">
+  <div class="bar"><div><b>TROPHY CASE</b><span id="trophyCount">exact donors that earned survival</span></div></div>
+  <div id="trophies" class="rows"><div class="row"><div class="job">Loading exact recoveries…</div></div></div>
+</section>
+
+<section class="blocked">
+  <div class="bar"><div><b>EXPEDITIONS</b><span>real gaps · source first · reconstruction only if explicitly named</span></div></div>
+  <div id="blocked" class="rows"><div class="row"><div class="job">Loading unresolved recoveries…</div></div></div>
+</section>
+
+<section>
+  <div class="bar"><div><b>QUARANTINE</b><span>preserve it · do not make it important by staring at it</span></div></div>
+  <div id="quarantine" class="qgrid"><div class="qcard"><p>Loading quarantine…</p></div></div>
+</section>
+
+<section>
+  <div class="bar"><div><b>ATTIC / REJECTED CANDIDATES</b><span>useful negative knowledge · prevents future re-import</span></div></div>
+  <div id="attic" class="rows"><div class="row"><div class="job">Loading rejected candidates…</div></div></div>
+</section>
+
+<section>
+  <div class="bar"><div><b>INGEST QUEUE</b><span>bounded next excursions</span></div></div>
+  <div id="queue" class="queue"></div>
+</section>
+
+<footer><span>COPY FIRST · CLASSIFY SECOND · COMPARE THIRD · PROMOTE LAST</span><span>OLD ≠ IMPORTANT · WEIRD ≠ WORTHLESS · SHINY ≠ TRUE</span></footer>
+
+<script>
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+Promise.all([
+ fetch('../control/MIGRATION.json',{cache:'no-store'}).then(r=>r.json()),
+ fetch('../control/RECOVERY_POPULATION_2026-09-20.json',{cache:'no-store'}).then(r=>r.json())
+]).then(([m,r])=>{
+ const donors=m.artifacts.filter(x=>x.status==='LIVE_DONOR' && (String(x.source_type||'').includes('exact') || x.sha256 || String(x.action||'').includes('FROZEN')));
+ trophyCount.textContent=donors.length+' exact / frozen donors';
+ trophies.innerHTML=donors.map(x=>'<a class="row" href="'+(x.route?'..'+esc(x.route):'../control/migration/')+'"><div><div class="name">'+esc(x.name)+'</div><div class="family">'+esc(x.family||'')+'</div></div><div class="state LIVE_DONOR">TROPHY / DONOR</div><div class="job">'+esc(x.unique||x.action||'')+'</div><div class="go">OPEN →</div></a>').join('')||'<div class="row"><div class="job">No exact donors yet.</div></div>';
+ const unresolved=(r.unresolved||[]).map(x=>({name:x.id,status:x.status,job:x.evidence||x.blocker||'',route:x.route})).concat(
+   m.artifacts.filter(x=>['RECOVER','IMPORT','MERGE_CANDIDATE'].includes(x.status)).map(x=>({name:x.name,status:x.status,job:x.action||x.unique||'',route:x.route,source:x.source_url}))
+ );
+ const seen=new Set();
+ const uniq=unresolved.filter(x=>{const k=x.name+'|'+x.status;if(seen.has(k))return false;seen.add(k);return true});
+ blocked.innerHTML=uniq.map(x=>'<'+(x.route||x.source?'a':'div')+' class="row" '+(x.route?'href="..'+esc(x.route)+'"':x.source?'href="'+esc(x.source)+'"':'')+'><div><div class="name">'+esc(x.name)+'</div></div><div class="state '+esc(x.status)+'">'+esc(x.status)+'</div><div class="job">'+esc(x.job)+'</div></'+(x.route||x.source?'a':'div')+'>').join('');
+ const qs=m.artifacts.filter(x=>x.status==='QUARANTINE');
+ quarantine.innerHTML=qs.map(x=>'<article class="qcard"><span class="state QUARANTINE">QUARANTINE</span><div class="family">'+esc(x.family||'')+'</div><h2>'+esc(x.name)+'</h2><p>'+esc(x.unique||'')+'</p><p><b>DISPOSITION</b> · '+esc(x.action||'preserve without promotion')+'</p></article>').join('')||'<article class="qcard"><h2>EMPTY</h2><p>No explicit quarantine entries.</p></article>';
+ const rejected=r.rejected_candidates||[];
+ attic.innerHTML=rejected.map(x=>'<div class="row"><div><div class="name">'+esc(x.group||'REJECTED')+'</div><div class="family">'+esc((x.candidates||[]).join(' · '))+'</div></div><div class="state QUARANTINE">'+esc(x.disposition||'HOLD')+'</div><div class="job">'+esc(x.reason||'')+(x.held_candidate?' · HELD: '+esc(x.held_candidate)+' — '+esc(x.held_reason||''):'')+'</div><div class="go">LEAVE IT</div></div>').join('')||'<div class="row"><div class="job">No rejected-candidate receipt yet.</div></div>';
+ queue.innerHTML=(m.ingest_queue||[]).map(x=>'<div>'+esc(x)+'</div>').join('');
+}).catch(e=>{document.body.insertAdjacentHTML('beforeend','<pre>'+esc(e.message)+'</pre>')});
+</script>
+</main></body></html>
