@@ -16,8 +16,9 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T02:58:00+08:00",
+        "updated_at": "2026-09-21T02:53:05+08:00",
         "work_modes": [
+          "RECOVER",
           "INVESTIGATE",
           "SPECIFY",
           "IMPLEMENT",
@@ -3703,7 +3704,9 @@
     "field_index_root": "Root now renders CURRENT-owned NOW/HEADS separately from manifest-owned MAP/RECENT and contract-derived OPEN PORTS. MAP is generated from route.parent so new addressed surfaces do not require manual homepage insertion.",
     "sitemap_manifest": "All repository directory index surfaces are now explicitly addressable in the manifest. Redirect/lens doors use kind=alias so completeness does not imply independent project status.",
     "sitemap_health": "PASS 2026-09-21: all 70 repository directory index surfaces have manifest addresses; 7 compatibility/lens doors are typed aliases; missing-parent count 0. Enforced by public validator.",
-    "legacy_work_mode_recovery": "Seven legacy UNKNOWN route work-mode records were evidence-backfilled from exact release receipts on 2026-09-21. Their historical touch dates were preserved; no fake recency bump."
+    "legacy_work_mode_recovery": "Seven legacy UNKNOWN route work-mode records were evidence-backfilled from exact release receipts on 2026-09-21. Their historical touch dates were preserved; no fake recency bump.",
+    "field_index_visual_recovery": "Recovered the stronger pre-regression FI visual grammar, retained CURRENT/MAP ownership separation, and added a navigable SVG sitemap rather than reverting control semantics.",
+    "field_index_pulse": "PULSE is a DataDisc-2019 donor graft: route mutation history projected as a spiral field. It is explicitly secondary to STRUCTURE and NOW; spiral proximity/recency never imply semantic similarity or priority."
   },
   "capability_model": {
     "CAPTURE": {
@@ -3835,7 +3838,14 @@
       "active": "runnable/current surface; priority still owned by NOW",
       "stable": "settled usable surface"
     },
-    "route_health": "/control/FIELD_INDEX_ROUTE_HEALTH_2026-09-21.json"
+    "route_health": "/control/FIELD_INDEX_ROUTE_HEALTH_2026-09-21.json",
+    "visual_modes": [
+      "VISUAL",
+      "PULSE",
+      "STRUCTURE",
+      "RECENT"
+    ],
+    "pulse_donor": "/control/confluence/FIELD_INDEX_DATADISC_GRAFT_2026-09-21.json"
   },
   "policy_trace_verification": "/policy-trace-verification.json",
   "policy_trace_event_model": "/policy-trace-event-model.json",
