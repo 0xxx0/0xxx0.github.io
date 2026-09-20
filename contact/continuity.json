@@ -1,0 +1,82 @@
+{
+  "schema": "human-port-continuity/v0.1",
+  "purpose": "Handle reduced capacity, missed check-ins, incapacity and death without turning silence into an automatic destructive trigger.",
+  "name": "CONTINUITY GATE",
+  "anti_pattern": "DEAD-MAN SWITCH THAT PUBLISHES/DELETES/TRANSFERS ON A TIMER ALONE",
+  "states": [
+    "NORMAL",
+    "LIMITED",
+    "MISSED_CHECKIN",
+    "UNREACHABLE_UNVERIFIED",
+    "HUMAN_CHECK",
+    "HANDOFF_CONFIRMED",
+    "INCAPACITY_CONFIRMED_PRIVATE",
+    "DEATH_CONFIRMED_PRIVATE"
+  ],
+  "evidence_ladder": [
+    {
+      "level": 0,
+      "name": "timer_or_silence",
+      "may": [
+        "create local missed-checkin event",
+        "request check"
+      ],
+      "must_not": [
+        "declare danger",
+        "declare incapacity",
+        "declare death",
+        "release secrets",
+        "publish",
+        "delete",
+        "transfer assets"
+      ]
+    },
+    {
+      "level": 1,
+      "name": "independent_channel_failure",
+      "may": [
+        "try declared alternate channels",
+        "escalate to named human check if pre-authorized"
+      ],
+      "must_not": [
+        "infer cause"
+      ]
+    },
+    {
+      "level": 2,
+      "name": "trusted_human_attestation",
+      "may": [
+        "enter HUMAN_CHECK or HANDOFF_CONFIRMED depending contract"
+      ],
+      "must_not": [
+        "execute irreversible legacy actions unless separately authorized"
+      ]
+    },
+    {
+      "level": 3,
+      "name": "authoritative_or_explicit_confirmation",
+      "may": [
+        "enter confirmed private continuity state",
+        "release only pre-authorized bounded handoff packets"
+      ],
+      "must_not": [
+        "broaden authority beyond the stored contract"
+      ]
+    }
+  ],
+  "handoff_packet": {
+    "design": "prewritten, bounded, reversible where possible, named recipient, explicit scope and expiry/review",
+    "examples_of_scope": [
+      "care instructions",
+      "contact tree",
+      "current commitments",
+      "how to preserve devices/files",
+      "animal/home continuity",
+      "project stop/hold instructions"
+    ],
+    "secret_rule": "Secrets and credentials remain in private storage; public HUMAN PORT only exposes instructions to use the proper private handoff channel."
+  },
+  "health_boundary": "HUMAN PORT may expose communication capacity or handoff state, not medical diagnosis or detailed health/lifestyle state, unless the owner explicitly authors such a projection.",
+  "experiment_boundary": "Routine/training/lifestyle experiments may exist as private context refs that modulate expected availability or response latency; they are not public by default.",
+  "return_rule": "Every continuity transition records evidence, actor, before/after state, uncertainty and next allowed actions."
+}
