@@ -144,6 +144,39 @@
     "return": "EVIDENCE / RECEIPTS",
     "showcase_root": "ENTRY TO RUNNING + RECOVERING SURFACES",
     "dayline": "TIME PROJECTION",
-    "fcm": "ATTENTION PROJECTION"
+    "fcm": "ATTENTION PROJECTION",
+    "field_index": "CAPABILITY / I-O PORTS / EXIT PATHS / QUERY"
+  },
+  "io_lens": {
+    "law": "INPUT → PORT → ADDRESS/STATE → TRANSFORM → OUTPUT → EVIDENCE → RETURN",
+    "role": "Orthogonal lens over the existing invariant loop; not a replacement ontology.",
+    "reason": "Ports make cross-domain composability explicit: what produces something, what can consume it, which adapter closes a gap, and how a representation exits simulation.",
+    "physical_media": [
+      "force",
+      "motion",
+      "energy",
+      "material",
+      "air/fluid",
+      "heat",
+      "light",
+      "sound",
+      "space",
+      "human action"
+    ],
+    "query_families": [
+      "PRODUCES",
+      "CONSUMES",
+      "CONNECT",
+      "PATH",
+      "WORLD_IN",
+      "WORLD_OUT",
+      "REIFY",
+      "VERIFY",
+      "SUBSTITUTE",
+      "BOTTLENECK",
+      "SALVAGE",
+      "MOVE",
+      "RETURN"
+    ]
   }
 }
