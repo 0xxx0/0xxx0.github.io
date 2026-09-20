@@ -119,6 +119,14 @@
         "interphase-2020.html"
       ],
       "action": "Three exact representatives frozen under /recovery/poly-furnisher/interphase-lineage/. Duplicate old copies collapsed; bulk backup family not imported. Keep later 2026 Interphase Bridge/Ω descendants evidence-distinct."
+    },
+    {
+      "cluster": "KALA / desktop character-agent interface",
+      "examples": [
+        "old-KALA-0-room.html",
+        "(ancient-kala)-00-test.html"
+      ],
+      "action": "Exact 2018 + 2020 variants frozen at /recovery/kala/. Treat as interface/character fossil linked to room/Interphase substrate; do not retrofit modern AI-agent capability claims."
     }
   ],
   "next": [
@@ -182,6 +190,12 @@
       "route": "/recovery/poly-furnisher/interphase-lineage/",
       "classification": "EXACT_FROZEN_VARIANT_FAMILY",
       "receipt": "/recovery/poly-furnisher/interphase-lineage/manifest.json"
+    },
+    {
+      "family": "KALA / desktop character",
+      "route": "/recovery/kala/",
+      "classification": "EXACT_FROZEN_AGENT_INTERFACE_FAMILY",
+      "receipt": "/recovery/kala/manifest.json"
     }
   ]
 }
