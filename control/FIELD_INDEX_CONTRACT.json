@@ -10,7 +10,8 @@
     "MUTATION → INDEX TOUCH. Any committed change to a tracked public surface updates that route's index.updated_at in the same bounded repo change.",
     "ACTIVITY MODE ≠ OPERATION. Operation names what the artifact does; work_modes name what kind of work produced the current delta.",
     "SPECULATION IS LEGIBLE, NOT PROMOTED. SPECULATE/SPECIFY may be indexed without implying implementation or evidence.",
-    "RECEIPT WHEN CLAIM CHANGES. If implementation/test/release status changes, update or create the relevant receipt and RETURN entry."
+    "RECEIPT WHEN CLAIM CHANGES. If implementation/test/release status changes, update or create the relevant receipt and RETURN entry.",
+    "ADDRESS EVERY SURFACE; PROMOTE ALMOST NONE. Every directory index surface gets a manifest address or explicit alias disposition; sitemap inclusion never implies NOW, HEAD, priority or canon."
   ],
   "root_order": {
     "default": "STRUCTURE",
@@ -47,11 +48,12 @@
   "ui_contract": {
     "root_now": "Render CURRENT.active_fronts first and cap visible execution fronts at three.",
     "root_heads": "Render CURRENT.current_heads independently from NOW so stable/held lineages remain recoverable without claiming attention.",
-    "root_map": "Render every significant manifest-addressed public surface as a searchable parent/child map; aliases/support/donors remain distinguishable by kind/state.",
+    "root_map": "Render repository directory index surfaces from manifest parent relations as a searchable collapsed tree. Every directory index surface must have a manifest address; redirect/lens doors use kind=alias. Sitemap completeness never implies priority.",
     "root_recent": "Expose index.updated_at as a secondary RECENT lens, never the default ordering.",
     "root_frontier": "Derive OPEN PORTS live from route.field.exit_paths; never maintain a duplicate hand-written backlog of the same exits.",
     "corner_nav": "Shared showcase route adapter remains the canonical BACK/PARENT/SHOWCASE control on tracked non-root routes.",
-    "style": "Presentation/theme controls are a separate cross-site concern and must not alter semantic ordering/state."
+    "style": "Presentation/theme controls are a separate cross-site concern and must not alter semantic ordering/state.",
+    "root_map_audit": "/control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json"
   },
   "query_semantics": {
     "BOTTLENECK": {
