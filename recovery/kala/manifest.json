@@ -1,0 +1,57 @@
+{
+  "schema": "0xxx0/recovery/kala/v0.1",
+  "status": "EXACT_FROZEN_AGENT_INTERFACE_FAMILY",
+  "recovered_at": "2026-09-20",
+  "classification": "historical desktop-character / spatial-agent-interface experiment",
+  "evidence_boundary": "Exact HTML proves the visible/interface behavior and embedded code below. It does not prove a functioning language model, autonomous agent, or external intelligence backend.",
+  "variants": [
+    {
+      "name": "old-KALA-0-room.html",
+      "year": 2018,
+      "route": "/recovery/kala/old-kala-0-room-2018.html",
+      "drive_id": "1hMd5n6cVf3M-eofpVE3h15UesBTYp50t",
+      "size_bytes": 10999,
+      "sha256": "52817acd6d805b33f38164cfd619fd8079ee36f237d2b58c23093035d123c1a0",
+      "observed": [
+        "ASCII character face labeled kala",
+        "CSS3D six-face room",
+        "text input + response region (#textin / #res) inside communication strip",
+        "X/Y range controls",
+        "cursor-derived face/room transform",
+        "matrix/geometry helpers"
+      ]
+    },
+    {
+      "name": "(ancient-kala)-00-test.html",
+      "year": 2020,
+      "route": "/recovery/kala/ancient-kala-test-2020.html",
+      "drive_id": "1JPJQSzd_UOl2w-2fjTorQxJlCv6Z6CtK",
+      "size_bytes": 11514,
+      "sha256": "bf6ed67e507af8d58dc9b2d25e602620051c7c6d0ff69a543605c679508d76fa",
+      "observed": [
+        "same KALA face/room/communication grammar",
+        "six delayed .seek bodies following pointer",
+        "drag/view control",
+        "matrix/geometry helpers"
+      ],
+      "relation": "later variant; not byte-identical to 2018 source"
+    }
+  ],
+  "relations": [
+    {
+      "to": "/recovery/poly-furnisher/room-lineage/",
+      "kind": "shared room/spatial substrate"
+    },
+    {
+      "to": "/recovery/poly-furnisher/interphase-lineage/",
+      "kind": "shared geometry/control ancestry"
+    },
+    {
+      "to": "ancient desktop pet memory",
+      "kind": "KALA branch recovered; wider pet/character set remains unresolved"
+    }
+  ],
+  "unique": "Early desktop-character/spatial-interface experiment where a visible character, communication field, cursor/body following and room projection occupy the same browser space.",
+  "disposition": "LIVE_DONOR_FAMILY",
+  "stop_rule": "Preserve exact variants. Do not retrofit modern agent claims. Recover any other remembered desktop pets by proper name/source before grouping them with KALA."
+}
