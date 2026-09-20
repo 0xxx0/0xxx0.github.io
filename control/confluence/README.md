@@ -59,6 +59,7 @@ When mining prior conversations, user messages deserve special attention because
 - [HOUSE confluence model](../../house/confluence.json)
 - [HOUSE frontier / open hardware + robotics + XR + motion-tool](./HOUSE_FRONTIER.md) — parked/reopenable donor packet; re-enter only from a named HOUSE/AXIAL capability gap
 - [HOUSE / MARKS](./HOUSE_MARKS.md) — reversible physical mark/interface donor: glyph, position, type, fold, light and machine-readable pointers over existing HOUSE/FIELD identity; no parallel registry or runtime authority
+- [SOVEREIGN NODE / PROVIDER FRONTIER](./SOVEREIGN_NODE_FRONTIER.md) — parked executable donor for typed Decision/Media/Agent provider boundaries, explicit fallback, external canonical state and measured control-plane bake-offs
 - [POSSESSION → PARTICIPATION / plain-language ablation](./POSSESSION_PARTICIPATION.md) — tests whether the useful transformation survives removal of spiritual/poetic vocabulary; candidate transfer only, no core promotion
 - [REPLICA / REPLAN](./REPLICA_REPLAN.md) — reconstruction test + execution gate: preserve generalized substrate, execute one bounded move, RETURN, then explicitly replan
 
