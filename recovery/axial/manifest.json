@@ -1,0 +1,38 @@
+{
+  "schema": "0xxx0/recovery/axial/v0.1",
+  "status": "EXACT_FROZEN_DONOR_FAMILY",
+  "recovered_at": "2026-09-20",
+  "members": [
+    {
+      "name": "STATE × TRANSFORM INSTRUMENT v0.3",
+      "route": "/recovery/axial/state-transform-v0.3/",
+      "size_bytes": 19898,
+      "sha256": "32a965e4c010d35fa85cdf0190f831fb82bda2395524b06385a2a3260638a677",
+      "exact_text_verified": true
+    },
+    {
+      "name": "STATE × TRANSFORM v0.3 README",
+      "route": "/recovery/axial/state-transform-v0.3/README.txt",
+      "size_bytes": 2757,
+      "sha256": "cd12337fe3a372578961d4acef48e8d4fb8fd5bf05668bedc9c50341823f2a12",
+      "exact_text_verified": true
+    },
+    {
+      "name": "AXIAL COMPOSITOR v0.2 print template",
+      "route": "/recovery/axial/compositor-v0.2/print-template.svg",
+      "size_bytes": 15948,
+      "sha256": "4fda827b558d59c6de8a2033221009bfe31c5d555392c5f61a18e6e5d982e821",
+      "exact_text_verified": true
+    },
+    {
+      "name": "AXIAL COMPOSITOR v0.2 build notes",
+      "route": "/recovery/axial/compositor-v0.2/build-notes.txt",
+      "size_bytes": 2014,
+      "sha256": "7d4036c0751665a52f6815baee726525d1f7d294ce8450b015077b1d1525e7a7",
+      "exact_text_verified": true
+    }
+  ],
+  "relation_to_head": "/foundry/axial/ remains current AXIAL experiment; recovered v0.3/v0.2 material are donors and physical-return fixtures.",
+  "unique": "Discrete semantic state × continuous embodied transform × explicit SAFE/TEST/ARM/RUN transaction gate → changed object + RETURN receipt, with a printable physical correspondence packet.",
+  "stop_rule": "Do not silently replace /foundry/axial/. Compare/transfer only named missing capability or use print packet as bounded physical return."
+}
