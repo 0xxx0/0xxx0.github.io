@@ -1,7 +1,7 @@
 {
   "schema": "human-port-descriptor/v0.1",
-  "version": "0.6-lab",
-  "canonical": "https://0xxx0.github.io/contact/",
+  "version": "1.0-preview",
+  "canonical": "https://0xxx0.github.io/port/",
   "surfaces": {
     "plain": "/contact/",
     "capsule": "/contact/capsule/",
@@ -12,7 +12,10 @@
     "agent": "/contact/agent/",
     "interpret": "/contact/interpret/",
     "burst": "/contact/burst/",
-    "backstage": "/contact/backstage/"
+    "backstage": "/contact/backstage/",
+    "port": "/port/",
+    "contact": "/contact/",
+    "idea_atlas": "/app-atlas/"
   },
   "laws": [
     "SOURCE STAYS SOURCE",
@@ -97,7 +100,8 @@
     "backstage": "/contact/backstage.json",
     "context_frame": "/contact/context-frame.json",
     "line_object": "/contact/line-object.json",
-    "continuity": "/contact/continuity.json"
+    "continuity": "/contact/continuity.json",
+    "social_residue": "/contact/social-residue.json"
   },
   "interpretation": {
     "state": "LAB",
@@ -157,5 +161,22 @@
     "state": "LAB_CONTRACT_ONLY",
     "contract": "/contact/continuity.json",
     "law": "Silence/timer alone may trigger a check, never a declaration of danger/incapacity/death or irreversible legacy action."
+  },
+  "social_residue": {
+    "state": "LAB_CONTRACT_ONLY",
+    "contract": "/contact/social-residue.json",
+    "schema": "/contact/social-residue.schema.json",
+    "rule": "Conversation may create useful residue without creating a binding obligation.",
+    "promotion": "Automated interpretation may propose candidates; COMMIT/SCHEDULED require explicit source wording or human confirmation.",
+    "projections": {
+      "human_port": "person/thread-local residue",
+      "atlas": "idea/project lineage and durable value",
+      "dayline": "only temporal commitments that earned scheduling"
+    }
+  },
+  "surface_strategy": {
+    "port": "canonical HUMAN PORT map/workbench",
+    "contact": "conventional human-facing reach-me surface",
+    "compatibility": "existing /contact/* tool routes remain valid while /port/ provides the coherent map"
   }
 }

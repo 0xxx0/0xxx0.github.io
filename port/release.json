@@ -1,0 +1,41 @@
+{
+  "schema": "release-receipt/v1",
+  "artifact": "HUMAN PORT",
+  "route": "/port/",
+  "version": "1.0-preview",
+  "date": "2026-09-21",
+  "state": "PREVIEW_CANDIDATE",
+  "decision": "Canonical HUMAN PORT surface moves to /port/. /contact/ remains the conventional contact surface and compatibility route.",
+  "recovered_user_functions": [
+    "ADDRESS",
+    "INTERPRET",
+    "RELATE",
+    "HARVEST",
+    "RETURN"
+  ],
+  "visible_routes": [
+    "/contact/",
+    "/contact/make/",
+    "/contact/burst/",
+    "/app-atlas/",
+    "/contact/backstage/",
+    "/continuity/",
+    "/fold-bloom/lens/",
+    "/atlas-dayline/",
+    "/laconic/"
+  ],
+  "laws": [
+    "CONTACT != ACTIVATION",
+    "SOURCE STAYS SOURCE",
+    "CONTEXT != AUTHORITY",
+    "RETURN WHAT HAPPENED"
+  ],
+  "promotion_rule": "Keep /contact/ simple. Promote deeper mechanisms onto /port/ only when they reduce real interaction/re-entry cost.",
+  "next_tests": [
+    "open /port/ as an unfamiliar visitor",
+    "open /port/ as owner and locate BURST/Idea Atlas in under 10 seconds",
+    "make one capsule",
+    "capture one real idea",
+    "return one social residue item without making it a task"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "schema": "app-atlas-surface/v0.1",
+  "route": "/app-atlas/",
+  "state": "RECOVERED_CORE_SEED_PLUS_LOCAL_CAPTURE",
+  "source": "app_atlas_v1.json / APP_ATLAS_V1.md / app_foundry_atlas_v1.html",
+  "source_date": "2026-08-09",
+  "exact_invariants_preserved": [
+    "Capture an idea once; preserve ancestry while it branches, merges, is tested, built, or killed.",
+    "Raw artifacts stay where they are; inspectable context records explain why they matter and generate alternate views.",
+    "One command surface shows projects, evidence, decisions, artifacts, branches, gaps, and next safe moves.",
+    "Move mechanisms across projects without copying surface vocabulary.",
+    "Protect attention by turning communication obligations into explicit queues, drafts, promises, follow-ups, and closure."
+  ],
+  "limitation": "Only a core subset of historical records is embedded here. Do not treat this surface as the complete recovered App Atlas.",
+  "local_capture": "Browser localStorage only. No network submission."
+}
