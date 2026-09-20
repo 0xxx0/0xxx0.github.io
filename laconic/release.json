@@ -2,17 +2,16 @@
   "schema": "release-receipt/v1",
   "artifact": "LACONIC / ICONIC",
   "route": "/laconic/",
-  "version": "0.2",
-  "released": "2026-09-20",
-  "state": "EXPERIMENT",
+  "version": "0.3",
+  "released": "2026-09-21",
+  "state": "ACTIVE",
   "changes": [
-    "restored multi-turn SCENE as a first-class object beside single-turn LINE",
-    "recovered three exact 2024 branching banter scenes from the conversation archive",
-    "reconstructed the older compassionate support-tree mechanism as public-safe CARE modes without exposing sensitive source specifics",
-    "added PLAY / CARE / CELEBRATE / REPAIR lanes so humor is contextual rather than a global persona",
-    "added an OBSERVED scratch field whose contents remain local and are not interpreted automatically",
-    "added research-informed response principles covering responsiveness, support-mode choice, validation limits, emotional granularity and positive-event capitalization",
-    "separated exact memorable FRAGMENTS / operators from deployable reply candidates",
+    "renamed the recovered-fragments surface to VAULT and kept the active drafting layer small",
+    "made the exact 2025 60-line Iconic/Laconic source bank browseable by original category without bulk-promoting it into current LINES",
+    "made the exact Ping / Flux / Fuse / Myth / Pulse / Void / Glitch / Echo companion lexicon browseable as historical expression vocabulary",
+    "surfaced evidence-graded persona/plurality/Council lineage and explicit open seams",
+    "added the exact user-authored `the council sends you this invisible recovery hamper...` fragment as a STAR",
+    "corrected the persona-to-Council lineage from a single-origin story to multi-donor convergence",
     "preserved HUMAN PORT as the explicit external share/copy boundary"
   ],
   "recovered_evidence": [
@@ -33,14 +32,24 @@
     {
       "source": "LACONIC_MASTER_LEDGER.md",
       "retained": "exact phrase/operator fragments remain distinct from reply candidates"
+    },
+    {
+      "source": "conversation archive / Ode to O3 / 2024-12-28",
+      "retained": "exact user-authored comic-care line using `the council` before the 2024-12-29 persona experiment",
+      "public_handling": "STAR fragment + lineage donor; generic council image is not backdated into the proper-name Council of Selves"
+    },
+    {
+      "source": "conversation archive / 2024-12-13 assistant source / message 6089e0d6-daad-484d-953b-4fbae4741fce",
+      "retained": "exact early multi-character Group Dynamics interactions among Sleeper/W8, Conch/Keris and Specter/Sleeper",
+      "public_handling": "lineage donor only; not silently recast as internal-persona Council canon"
     }
   ],
   "checks": [
+    "VAULT source remains separate from current LINES",
+    "exact historical assistant bank is labeled source donor rather than user-adopted canon",
+    "generic `the council` and proper-name `Council of Selves` remain distinct",
+    "5–6 voice outputs and first five-selves chatter remain OPEN rather than reconstructed",
     "EXACT / RECONSTRUCTED / NEW remain visibly distinct",
-    "all public CARE wording created in v0.2 is marked NEW",
-    "scene-level private donor is RECONSTRUCTED rather than quoted",
-    "no diagnostic or sentiment classifier is present",
-    "OBSERVED scratch text has no submission path",
     "no auto-send or transport credential exists",
     "HUMAN PORT handoff remains human-triggered"
   ],
@@ -49,10 +58,9 @@
     "shared /showcase-nav.js showcase RETURN adapter present"
   ],
   "current_classification": {
-    "reviewed_at": "2026-09-20T23:58:00+08:00",
+    "reviewed_at": "2026-09-21T01:06:00+08:00",
     "state": "ACTIVE",
-    "basis": "Current communications head with runnable bounded drafting/scene behavior and explicit HUMAN PORT boundary.",
-    "receipt": "/control/EXPERIMENT_WRANGLE_2026-09-20.json",
-    "provenance_note": "Original release state remains contemporaneous provenance; this field records the later lifecycle classification."
+    "basis": "Current communications head now couples a bounded drafting/scene instrument with a provenance-visible exact-source vault.",
+    "provenance_note": "Historical abundance is browseable but does not gain adoption/canon status by visibility."
   }
 }
