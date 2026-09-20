@@ -5,83 +5,122 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#080a0b">
-<title>LACONIC / ICONIC RECOVERY 0.1</title>
+<title>LACONIC / ICONIC 0.2</title>
 <style>
-:root{--bg:#080a0b;--panel:#0c1012;--ink:#eef1ee;--muted:#7f8b91;--line:#30383d;--hot:#ea7445;--cool:#79bde7;--green:#95d59e;--gold:#d5ad68}
+:root{--bg:#080a0b;--panel:#0b0f11;--ink:#edf1ed;--muted:#7f8b91;--line:#30383d;--hot:#e87548;--cool:#79bde7;--green:#95d59e;--gold:#d5ad68;--violet:#c6a6e8}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
 button,input,textarea,select{font:inherit;border-radius:0}button{cursor:pointer}
 body{padding:max(16px,env(safe-area-inset-top)) 14px max(30px,env(safe-area-inset-bottom))}
-main{width:min(1120px,100%);margin:auto}
-header{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:end;padding:28px 0 16px;border-bottom:1px solid var(--line)}
+main{width:min(1160px,100%);margin:auto}
+header{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:end;padding:28px 0 16px;border-bottom:1px solid var(--line)}
 .ey{font-size:9px;letter-spacing:.18em;color:var(--hot)}h1{margin:8px 0 0;font:850 clamp(44px,9vw,88px)/.82 system-ui,-apple-system,sans-serif;letter-spacing:-.07em}
-header p{margin:0;color:#aab3b6;font:12px/1.6 system-ui,-apple-system,sans-serif}
+header p{max-width:700px;margin:12px 0 0;color:#aab3b6;font:12px/1.6 system-ui,-apple-system,sans-serif}
 .law{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}.law div{background:#0a0d0f;padding:9px 11px}.law b{color:var(--green);font-size:8px;letter-spacing:.13em}.law span{display:block;margin-top:3px;color:#a6b0b4;font:10px/1.45 system-ui,sans-serif}
 .flow{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:16px 0}.flow span{background:#0a0d0f;padding:8px;text-align:center;font-size:8px;letter-spacing:.1em}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:18px 0 10px}.tabs button{border:0;background:#0a0d0f;color:#8f9ba0;padding:11px;font-size:8px;letter-spacing:.13em}.tabs button.on{background:#12191d;color:#fff;box-shadow:inset 0 -2px 0 var(--cool)}
+.view{display:none}.view.on{display:block}
 .grid{display:grid;grid-template-columns:340px 1fr;gap:12px}.panel{border:1px solid var(--line);background:var(--panel)}.ph{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line)}.ph b{font-size:9px;letter-spacing:.15em}.ph span{font-size:8px;color:var(--muted)}
-.field{border-bottom:1px solid var(--line)}.field label{display:block;padding:8px 10px 0;color:#7f8b91;font-size:8px;letter-spacing:.12em}.field textarea,.field input,.field select{width:100%;border:0;background:#0b0f11;color:var(--ink);padding:10px;outline:none}.field textarea{min-height:105px;resize:vertical;font:12px/1.5 system-ui,sans-serif}
-.chips{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);padding:1px}.chips button{border:0;background:#0a0d0f;color:#aeb8bc;padding:8px 9px;font-size:8px;letter-spacing:.09em}.chips button.on{background:#131b20;color:#fff;box-shadow:inset 0 -2px 0 var(--cool)}
-.voice button.on{box-shadow:inset 0 -2px 0 var(--gold)}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-top:1px solid var(--line)}.actions button{border:0;background:#0a0d0f;color:var(--ink);padding:10px;min-height:42px;font-size:8px;letter-spacing:.1em}.actions button:hover{background:#12181c}
-.note{padding:9px 11px;color:#748087;font-size:8px}.results{display:grid;gap:1px;background:var(--line)}.card{background:#0a0d0f;padding:12px;display:grid;grid-template-columns:1fr auto;gap:12px}.card:hover{background:#0e1417}.meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:7px}.tag{border:1px solid #354047;padding:2px 5px;font-size:7px;letter-spacing:.08em;color:#93a0a5}.tag.NEW{color:#e3a06b}.tag.EXACT{color:var(--green)}.tag.RECONSTRUCTED{color:var(--gold)}
+.field{border-bottom:1px solid var(--line)}.field label{display:block;padding:8px 10px 0;color:#7f8b91;font-size:8px;letter-spacing:.12em}.field textarea,.field input,.field select{width:100%;border:0;background:#0a0d0f;color:var(--ink);padding:10px;outline:none}.field textarea{min-height:94px;resize:vertical;font:12px/1.5 system-ui,sans-serif}
+.chips{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);padding:1px}.chips button{border:0;background:#0a0d0f;color:#aeb8bc;padding:8px 9px;font-size:8px;letter-spacing:.09em}.chips button.on{background:#131b20;color:#fff;box-shadow:inset 0 -2px 0 var(--cool)}.voice button.on{box-shadow:inset 0 -2px 0 var(--gold)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-top:1px solid var(--line)}.actions button,.actionlink{border:0;background:#0a0d0f;color:var(--ink);padding:10px;min-height:42px;font-size:8px;letter-spacing:.1em;text-decoration:none;text-align:center}.actions button:hover,.actionlink:hover{background:#12181c}
+.note{padding:9px 11px;color:#748087;font-size:8px}.results{display:grid;gap:1px;background:var(--line)}.card{background:#0a0d0f;padding:12px;display:grid;grid-template-columns:1fr auto;gap:12px}.card:hover{background:#0e1417}.meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:7px}.tag{border:1px solid #354047;padding:2px 5px;font-size:7px;letter-spacing:.08em;color:#93a0a5}.tag.NEW{color:#e3a06b}.tag.EXACT{color:var(--green)}.tag.RECONSTRUCTED{color:var(--gold)}.tag.RESEARCH_INFORMED{color:var(--violet)}
 .line{font:15px/1.45 system-ui,-apple-system,sans-serif;letter-spacing:-.01em}.side{display:flex;flex-direction:column;gap:4px}.side button{border:1px solid var(--line);background:#0b1012;color:#aab4b8;padding:6px 7px;font-size:7px}.side button.keep.on{border-color:#52765c;color:#a9e5b2}.side button.drop.on{border-color:#704b4b;color:#e0a3a3}
 .selected{border-top:1px solid var(--line);padding:12px}.selected .big{font:18px/1.4 system-ui,sans-serif;margin:5px 0 12px}.selected .path{color:#87949a;font-size:8px}.selected .buttons{display:flex;gap:1px;background:var(--line)}.selected .buttons button,.selected .buttons a{flex:1;border:0;background:#0a0d0f;color:var(--ink);padding:10px;text-decoration:none;text-align:center;font-size:8px;letter-spacing:.1em}
-.tabs{display:flex;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:12px}.tabs button{flex:1;border:0;background:#0a0d0f;color:#98a4a9;padding:9px;font-size:8px;letter-spacing:.12em}.tabs button.on{color:#fff;background:#11181c}
-.recover{display:none;border:1px solid var(--line);border-top:0}.recover.on{display:block}.recover .row{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--line)}.recover .row>*{border:0;border-right:1px solid var(--line);background:#0a0d0f;color:var(--ink);padding:10px}.recover textarea{width:100%;min-height:170px;border:0;background:#0a0d0f;color:var(--ink);padding:12px;resize:vertical}.recover .buttons{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}.recover .buttons button{border:0;background:#0a0d0f;color:var(--ink);padding:11px}
-footer{display:flex;justify-content:space-between;gap:12px;margin-top:18px;padding-top:10px;border-top:1px solid var(--line);color:#68747a;font-size:8px}
-@media(max-width:780px){header,.grid{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.flow span{text-align:left}.recover .row{grid-template-columns:1fr}.card{grid-template-columns:1fr}.side{flex-direction:row}footer{display:block}}
+.scenegrid{display:grid;grid-template-columns:320px 1fr;gap:12px}.scenes{border:1px solid var(--line)}.sceneitem{width:100%;border:0;border-bottom:1px solid var(--line);background:#0a0d0f;color:var(--ink);padding:12px;text-align:left}.sceneitem:last-child{border-bottom:0}.sceneitem.on{background:#11191d;box-shadow:inset 3px 0 0 var(--cool)}.sceneitem b{display:block;font-size:11px}.sceneitem span{display:block;margin-top:5px;color:#7f8b91;font:9px/1.4 system-ui,sans-serif}
+.runner{border:1px solid var(--line);min-height:420px;background:#0a0d0f}.runnerhead{padding:11px 13px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px}.runnerhead b{letter-spacing:.13em;font-size:9px}.runnerbody{padding:16px}.scene-note{color:#8d999e;font:10px/1.55 system-ui,sans-serif;max-width:760px}.utter{margin:20px 0 14px;border-left:2px solid var(--cool);padding:4px 0 4px 14px;font:600 clamp(20px,3.5vw,34px)/1.25 system-ui,-apple-system,sans-serif;letter-spacing:-.025em}.variantbar,.choicebar{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);margin-top:8px}.variantbar button,.choicebar button{border:0;background:#0b1012;color:#aeb8bc;padding:9px 10px;font-size:8px;letter-spacing:.08em}.variantbar button.on{color:#fff;box-shadow:inset 0 -2px 0 var(--gold)}.choicebar button{flex:1 1 160px;text-align:left}.choicebar button:hover{background:#131a1e;color:#fff}.trail{border-top:1px solid var(--line);margin-top:18px;padding-top:10px;color:#69767c;font-size:8px}.observed{border:1px solid var(--line);margin-bottom:10px}.observed .field textarea{min-height:62px}.observed .note{border-top:1px solid var(--line)}
+.fragments{border:1px solid var(--line)}.fragment{display:grid;grid-template-columns:90px 1fr 130px auto;gap:12px;align-items:center;border-bottom:1px solid #242b2f;padding:11px}.fragment:last-child{border-bottom:0}.fragment .text{font:14px/1.35 system-ui,sans-serif}.fragment button{border:1px solid var(--line);background:#0b1012;color:var(--ink);padding:7px;font-size:7px}.origin{font-size:8px;color:#819097}.src{font-size:8px;color:#66747a}
+.recover{border:1px solid var(--line)}.recover .row{display:grid;grid-template-columns:160px 1fr;border-bottom:1px solid var(--line)}.recover .row>*{border:0;border-right:1px solid var(--line);background:#0a0d0f;color:var(--ink);padding:10px}.recover textarea{width:100%;min-height:220px;border:0;background:#0a0d0f;color:var(--ink);padding:12px;resize:vertical}.recover .buttons{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}.recover .buttons button{border:0;background:#0a0d0f;color:var(--ink);padding:11px}
+footer{display:flex;justify-content:space-between;gap:12px;margin-top:18px;padding-top:10px;border-top:1px solid var(--line);color:#68747a;font-size:8px}footer a{color:#8fcdf2}
+@media(max-width:800px){header,.grid,.scenegrid{grid-template-columns:1fr}.flow{grid-template-columns:1fr}.flow span{text-align:left}.tabs{grid-template-columns:1fr 1fr}.fragment{grid-template-columns:1fr auto}.fragment .origin,.fragment .src{grid-column:1}.recover .row{grid-template-columns:1fr}.card{grid-template-columns:1fr}.side{flex-direction:row}footer{display:block}}
 </style>
 </head>
 <body><main>
 <header>
-<div><div class="ey">RECOVER / CURATE / DRAFT · 0.1</div><h1>LACONIC<br>/ ICONIC</h1><p>Not an autoresponder. A provenance-aware response instrument: recover exact lines, distinguish reconstruction from invention, curate Pareto winners, grow winners into trajectories, then hand a draft to HUMAN PORT.</p></div>
+<div><div class="ey">RECOVER / SCENE / CARE / DRAFT · 0.2</div><h1>LACONIC<br>/ ICONIC</h1><p>A response instrument, not an autoresponder. Lines remain useful; scenes restore the older multi-turn machinery. Care is a selectable response mode, humor is a branch rather than a compulsory persona, and recovered fragments stay separate from deployable replies.</p></div>
 <div class="law">
-<div><b>CORE LAW</b><span>Compression must retain character, situation fit, and a return path.</span></div>
-<div><b>AUTHORITY</b><span>DRAFT is not SEND. This public surface has no transport credentials and performs no external action.</span></div>
-<div><b>RECOVERY</b><span>EXACT ≠ RECONSTRUCTED ≠ NEW. Never blur them.</span></div>
+<div><b>PROVENANCE</b><span>EXACT ≠ RECONSTRUCTED ≠ NEW. Recovered does not automatically mean canonical.</span></div>
+<div><b>PSYCH BOUNDARY</b><span>Record what happened. Keep possible needs tentative. Choose a move. Do not diagnose.</span></div>
+<div><b>AUTHORITY</b><span>DRAFT is not SEND. HUMAN PORT remains the explicit external boundary.</span></div>
 </div>
 </header>
 
-<div class="flow"><span>SITUATION</span><span>MOVE</span><span>VOICE</span><span>CANDIDATE</span><span>CURATE</span><span>HUMAN PORT</span><span>RETURN</span></div>
+<div class="flow"><span>OBSERVED</span><span>POSSIBLE</span><span>MOVE</span><span>LINE / SCENE</span><span>CURATE</span><span>HUMAN PORT</span><span>RETURN</span></div>
 
+<nav class="tabs">
+<button class="on" data-tab="lines">LINES</button>
+<button data-tab="scenes">SCENES</button>
+<button data-tab="fragments">FRAGMENTS</button>
+<button data-tab="recover">RECOVER</button>
+</nav>
+
+<section id="view-lines" class="view on">
 <div class="grid">
 <section class="panel">
 <div class="ph"><b>ADDRESS THE EXCHANGE</b><span id="count">BANK</span></div>
-<div class="field"><label for="q">SITUATION / KEYWORDS</label><textarea id="q" placeholder="e.g. delayed reply, need one missing fact, warm but not gushy"></textarea></div>
+<div class="field"><label for="q">SITUATION / KEYWORDS</label><textarea id="q" placeholder="delayed reply / warm not gushy / ask one thing / playful"></textarea></div>
 <div class="ph"><b>MOVE</b><span>router-compatible</span></div>
 <div id="moves" class="chips"></div>
-<div class="ph"><b>VOICE / LENS</b><span>one constraint, not a persona</span></div>
+<div class="ph"><b>REGISTER</b><span>constraint, not persona</span></div>
 <div id="voices" class="chips voice"></div>
 <div class="actions"><button id="clear">CLEAR FILTERS</button><button id="drops">SHOW DROPPED · OFF</button></div>
 <div class="note">KEEP / DROP is browser-local evidence. It does not mutate the repository.</div>
 </section>
-
 <section class="panel">
-<div class="ph"><b>CANDIDATES</b><span id="mode">deterministic local selection</span></div>
+<div class="ph"><b>CANDIDATES</b><span>single-turn / local</span></div>
 <div id="results" class="results"><div class="card"><div>Loading bank…</div></div></div>
 <div id="selected" class="selected" hidden></div>
 </section>
 </div>
+</section>
 
-<div class="tabs"><button class="on" data-tab="bank">BANK / CURATE</button><button data-tab="recover">RECOVER / PASTE SOURCE</button></div>
-<section id="recover" class="recover">
+<section id="view-scenes" class="view">
+<div class="observed">
+<div class="field"><label for="observed">OBSERVED / OPTIONAL · WHAT WAS ACTUALLY SAID OR DONE</label><textarea id="observed" placeholder="Local scratch field. The app does not classify or upload this text."></textarea></div>
+<div class="note">Use this as an evidence anchor, not a sentiment oracle. Possible needs remain hypotheses until the other person confirms them.</div>
+</div>
+<div id="laneChips" class="chips" style="margin-bottom:10px"></div>
+<div class="scenegrid">
+<div id="sceneList" class="scenes"><div class="sceneitem"><span>Loading scenes…</span></div></div>
+<section id="runner" class="runner"></section>
+</div>
+</section>
+
+<section id="view-fragments" class="view">
+<div class="ph" style="border:1px solid var(--line);border-bottom:0"><b>RECOVERED FRAGMENTS / OPERATORS</b><span>exact ≠ deployable reply</span></div>
+<div id="fragments" class="fragments"><div class="fragment"><div class="text">Loading recovered fragments…</div></div></div>
+</section>
+
+<section id="view-recover" class="view">
+<section class="recover">
+<div class="ph"><b>RECOVER / PASTE SOURCE</b><span>staging only</span></div>
 <div class="row"><select id="sourceClass"><option>UNCLASSIFIED</option><option>EXACT</option><option>RECONSTRUCTED</option></select><input id="sourceRef" placeholder="source ref / date / thread / file"></div>
-<textarea id="sourceText" placeholder="Paste the recovered v0.01 artifact or line bank here. Blank lines are ignored; no network request is made."></textarea>
+<textarea id="sourceText" placeholder="Paste recovered material here. Blank lines are ignored; nothing is submitted."></textarea>
 <div class="buttons"><button id="copyPack">COPY SOURCE PACK</button><button id="downloadPack">DOWNLOAD SOURCE PACK</button></div>
 <div class="note" id="recoverNote">Default is UNCLASSIFIED. Mark EXACT only for verbatim recovered source.</div>
 </section>
+</section>
 
-<footer><span>EXACT / RECONSTRUCTED / NEW · NEVER COLLAPSE PROVENANCE</span><span><a href="../contact/" style="color:#8fcdf2">HUMAN PORT →</a> · <a href="./bank.json" style="color:#8fcdf2">BANK →</a> · <a href="./README.md" style="color:#8fcdf2">RECOVERY CONTRACT →</a></span></footer>
+<footer><span>PLAY ↔ CARE · LINE ↔ SCENE · OBSERVED ↔ POSSIBLE ↔ MOVE</span><span><a href="./research/response-principles.md">RESEARCH DONORS →</a> · <a href="../contact/">HUMAN PORT →</a> · <a href="./README.md">CONTRACT →</a></span></footer>
 
 <script>
 (()=>{'use strict';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-let data=null, move='', voice='', showDropped=false, selectedId=null;
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const tokens=s=>String(s||'').toLowerCase().split(/[^a-z0-9]+/).filter(x=>x.length>1);
+let bank=null, scenesData=null, fragmentsData=null;
+let move='', voice='', showDropped=false, selectedId=null;
+let lane='', activeSceneId='', activeNodeId='', activeVariant=0, trail=[];
 const storeKey='laconic.iconic.verdicts.v01';
 const verdicts=()=>{try{return JSON.parse(localStorage.getItem(storeKey)||'{}')}catch(_){return {}}};
 const save=v=>localStorage.setItem(storeKey,JSON.stringify(v));
-const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-const tokens=s=>String(s||'').toLowerCase().split(/[^a-z0-9]+/).filter(x=>x.length>1);
-function score(x,q){
+
+$$('.tabs button').forEach(b=>b.onclick=()=>{
+  $$('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  $$('.view').forEach(v=>v.classList.remove('on'));
+  $('#view-'+b.dataset.tab).classList.add('on');
+});
+
+function lineScore(x,q){
  const vt=verdicts()[x.id];
  if(vt==='DROP'&&!showDropped)return -999;
  let n=vt==='KEEP'?8:0;
@@ -91,48 +130,101 @@ function score(x,q){
  tokens(q).forEach(t=>{if(hay.includes(t))n+=3});
  return n;
 }
-function render(){
- if(!data)return;
- const q=$('#q').value.trim();
- const xs=data.lines.map(x=>({x,s:score(x,q)})).filter(o=>o.s>-100).sort((a,b)=>b.s-a.s||a.x.id.localeCompare(b.x.id)).slice(0,12);
- $('#count').textContent=data.lines.length+' LINES · '+xs.length+' VISIBLE';
- const v=verdicts();
+function renderLines(){
+ if(!bank)return;
+ const q=$('#q').value.trim(),v=verdicts();
+ const xs=bank.lines.map(x=>({x,s:lineScore(x,q)})).filter(o=>o.s>-100).sort((a,b)=>b.s-a.s||a.x.id.localeCompare(b.x.id)).slice(0,14);
+ $('#count').textContent=bank.lines.length+' LINES · '+xs.length+' VISIBLE';
  $('#results').innerHTML=xs.map(o=>{
-   const x=o.x, vv=v[x.id]||'';
-   return '<article class="card" data-id="'+esc(x.id)+'"><div><div class="meta"><span class="tag '+esc(x.provenance)+'">'+esc(x.provenance)+'</span><span class="tag">'+esc(x.scenario.toUpperCase())+'</span><span class="tag">'+esc(x.move)+'</span><span class="tag">'+esc(x.voice)+'</span></div><div class="line">'+esc(x.text)+'</div></div><div class="side"><button class="keep '+(vv==='KEEP'?'on':'')+'" data-v="KEEP">KEEP</button><button class="drop '+(vv==='DROP'?'on':'')+'" data-v="DROP">DROP</button><button data-v="OPEN">OPEN</button></div></article>';
+  const x=o.x,vv=v[x.id]||'';
+  return '<article class="card" data-id="'+esc(x.id)+'"><div><div class="meta"><span class="tag '+esc(x.provenance)+'">'+esc(x.provenance)+'</span><span class="tag">'+esc(x.scenario.toUpperCase())+'</span><span class="tag">'+esc(x.move)+'</span><span class="tag">'+esc(x.voice)+'</span></div><div class="line">'+esc(x.text)+'</div></div><div class="side"><button class="keep '+(vv==='KEEP'?'on':'')+'" data-v="KEEP">KEEP</button><button class="drop '+(vv==='DROP'?'on':'')+'" data-v="DROP">DROP</button><button data-v="OPEN">OPEN</button></div></article>';
  }).join('')||'<div class="card"><div>No candidates under current constraints.</div></div>';
 }
-function choose(id){
- const x=data.lines.find(z=>z.id===id); if(!x)return; selectedId=id;
- const next=(x.next||[]).map(id=>data.lines.find(z=>z.id===id)).filter(Boolean);
+function chooseLine(id){
+ const x=bank.lines.find(z=>z.id===id);if(!x)return;selectedId=id;
+ const next=(x.next||[]).map(id=>bank.lines.find(z=>z.id===id)).filter(Boolean);
  $('#selected').hidden=false;
- $('#selected').innerHTML='<div class="path">'+esc(x.id)+' · '+esc(x.provenance)+' · '+esc(x.scenario)+' → '+esc(x.move)+' → '+esc(x.voice)+'</div><div class="big">'+esc(x.text)+'</div><div class="path">NEXT · '+(next.length?next.map(n=>esc(n.text)).join(' / '):'terminal or unscripted')+'</div><div class="buttons"><button id="copyLine">COPY LINE</button><a id="portLink" href="../contact/?mode=REPLY&draft='+encodeURIComponent(x.text)+'">OPEN IN HUMAN PORT →</a></div>';
- $('#copyLine').onclick=async()=>{try{await navigator.clipboard.writeText(x.text);$('#copyLine').textContent='COPIED ✓'}catch(_){window.prompt('Copy line',x.text)}};
+ $('#selected').innerHTML='<div class="path">'+esc(x.id)+' · '+esc(x.provenance)+' · '+esc(x.scenario)+' → '+esc(x.move)+' → '+esc(x.voice)+'</div><div class="big">'+esc(x.text)+'</div><div class="path">NEXT · '+(next.length?next.map(n=>esc(n.text)).join(' / '):'terminal or unscripted')+'</div><div class="buttons"><button id="copyLine">COPY LINE</button><a href="../contact/?mode=REPLY&draft='+encodeURIComponent(x.text)+'">OPEN IN HUMAN PORT →</a></div>';
+ $('#copyLine').onclick=()=>copyText(x.text,$('#copyLine'));
 }
-function makeButtons(){
+function makeLineButtons(){
  const moves=['','ACK','ANSWER','ASK_ONE','DRAFT'];
  $('#moves').innerHTML=moves.map(x=>'<button data-m="'+x+'" class="'+(move===x?'on':'')+'">'+(x||'ANY')+'</button>').join('');
- $('#voices').innerHTML=('<button data-vc="" class="'+(!voice?'on':'')+'">ANY</button>')+data.voices.map(x=>'<button data-vc="'+esc(x.id)+'" class="'+(voice===x.id?'on':'')+'" title="'+esc(x.law)+'">'+esc(x.id)+'</button>').join('');
+ $('#voices').innerHTML='<button data-vc="" class="'+(!voice?'on':'')+'">ANY</button>'+bank.voices.map(x=>'<button data-vc="'+esc(x.id)+'" class="'+(voice===x.id?'on':'')+'" title="'+esc(x.law)+'">'+esc(x.id)+'</button>').join('');
 }
 $('#results').addEventListener('click',e=>{
- const card=e.target.closest('[data-id]'); if(!card)return;
- const id=card.dataset.id, action=e.target.dataset.v;
- if(action==='OPEN'||!action){choose(id);return}
- const v=verdicts(); v[id]=v[id]===action?'':action; save(v); render(); if(selectedId===id)choose(id);
+ const card=e.target.closest('[data-id]');if(!card)return;
+ const id=card.dataset.id,action=e.target.dataset.v;
+ if(action==='OPEN'||!action){chooseLine(id);return}
+ const v=verdicts();v[id]=v[id]===action?'':action;save(v);renderLines();if(selectedId===id)chooseLine(id);
 });
-$('#moves').addEventListener('click',e=>{if(e.target.dataset.m===undefined)return;move=e.target.dataset.m;makeButtons();render()});
-$('#voices').addEventListener('click',e=>{if(e.target.dataset.vc===undefined)return;voice=e.target.dataset.vc;makeButtons();render()});
-$('#q').addEventListener('input',render);
-$('#clear').onclick=()=>{move='';voice='';$('#q').value='';makeButtons();render()};
-$('#drops').onclick=()=>{showDropped=!showDropped;$('#drops').textContent='SHOW DROPPED · '+(showDropped?'ON':'OFF');render()};
-$$('.tabs button').forEach(b=>b.onclick=()=>{$$('.tabs button').forEach(x=>x.classList.toggle('on',x===b));$('#recover').classList.toggle('on',b.dataset.tab==='recover')});
+$('#moves').onclick=e=>{if(e.target.dataset.m===undefined)return;move=e.target.dataset.m;makeLineButtons();renderLines()};
+$('#voices').onclick=e=>{if(e.target.dataset.vc===undefined)return;voice=e.target.dataset.vc;makeLineButtons();renderLines()};
+$('#q').oninput=renderLines;
+$('#clear').onclick=()=>{move='';voice='';$('#q').value='';makeLineButtons();renderLines()};
+$('#drops').onclick=()=>{showDropped=!showDropped;$('#drops').textContent='SHOW DROPPED · '+(showDropped?'ON':'OFF');renderLines()};
+
+function sceneById(id){return scenesData?.scenes.find(x=>x.id===id)}
+function nodeById(scene,id){return scene?.nodes.find(x=>x.id===id)}
+function renderLaneChips(){
+ if(!scenesData)return;
+ const lanes=['',...scenesData.lanes.map(x=>x.id)];
+ $('#laneChips').innerHTML=lanes.map(x=>'<button data-lane="'+x+'" class="'+(lane===x?'on':'')+'">'+(x||'ALL SCENES')+'</button>').join('');
+}
+function renderSceneList(){
+ if(!scenesData)return;
+ const xs=scenesData.scenes.filter(s=>!lane||s.lane===lane);
+ $('#sceneList').innerHTML=xs.map(s=>'<button class="sceneitem '+(s.id===activeSceneId?'on':'')+'" data-scene="'+esc(s.id)+'"><b>'+esc(s.title)+'</b><div class="meta" style="margin-top:6px"><span class="tag">'+esc(s.lane)+'</span><span class="tag '+esc(s.provenance)+'">'+esc(s.provenance)+'</span></div><span>'+esc(s.note)+'</span></button>').join('');
+ if(activeSceneId&&!xs.some(x=>x.id===activeSceneId)){activeSceneId='';activeNodeId='';trail=[]}
+ renderRunner();
+}
+function nodeDraft(node){return [node.text,...(node.variants||[])][activeVariant]||node.text}
+function renderRunner(){
+ const scene=sceneById(activeSceneId);
+ if(!scene){
+  $('#runner').innerHTML='<div class="runnerhead"><b>SCENE RUNNER</b><span>choose a trajectory</span></div><div class="runnerbody"><div class="scene-note">Recovered scenes preserve the old branching machinery. CARE and CELEBRATE are separate lanes so humor does not flatten every exchange into the same voice.</div></div>';
+  return;
+ }
+ const node=nodeById(scene,activeNodeId||scene.start);if(!node)return;
+ activeNodeId=node.id;
+ const vars=[node.text,...(node.variants||[])],draft=nodeDraft(node);
+ $('#runner').innerHTML='<div class="runnerhead"><b>'+esc(scene.title)+'</b><span>'+esc(scene.lane)+' · '+esc(scene.provenance)+'</span></div><div class="runnerbody"><div class="scene-note">'+esc(scene.note)+'</div><div class="meta" style="margin-top:12px"><span class="tag '+esc(node.provenance)+'">'+esc(node.provenance)+'</span><span class="tag">'+esc(node.id)+'</span></div><div class="utter">'+esc(draft)+'</div>'+
+ (vars.length>1?'<div class="variantbar">'+vars.map((t,i)=>'<button data-variant="'+i+'" class="'+(activeVariant===i?'on':'')+'">VAR '+(i+1)+' · '+esc(t)+'</button>').join('')+'</div>':'')+
+ '<div class="choicebar">'+(node.choices.length?node.choices.map(c=>'<button data-next="'+esc(c.next)+'">'+esc(c.label)+' →</button>').join(''):'<button data-reset="1">END / RESET SCENE</button>')+'</div>'+
+ '<div class="actions" style="margin-top:12px"><button id="copyScene">COPY CURRENT</button><a class="actionlink" href="../contact/?mode=REPLY&draft='+encodeURIComponent(draft)+'">OPEN IN HUMAN PORT →</a></div>'+
+ '<div class="trail">TRAIL · '+esc(trail.length?trail.join(' → '):node.id)+'</div></div>';
+ $('#copyScene').onclick=()=>copyText(draft,$('#copyScene'));
+}
+$('#laneChips').onclick=e=>{if(e.target.dataset.lane===undefined)return;lane=e.target.dataset.lane;renderLaneChips();renderSceneList()};
+$('#sceneList').onclick=e=>{const b=e.target.closest('[data-scene]');if(!b)return;activeSceneId=b.dataset.scene;const s=sceneById(activeSceneId);activeNodeId=s.start;activeVariant=0;trail=[activeNodeId];renderSceneList()};
+$('#runner').onclick=e=>{
+ if(e.target.dataset.variant!==undefined){activeVariant=Number(e.target.dataset.variant);renderRunner();return}
+ if(e.target.dataset.next){activeNodeId=e.target.dataset.next;activeVariant=0;trail.push(activeNodeId);renderRunner();return}
+ if(e.target.dataset.reset){const s=sceneById(activeSceneId);activeNodeId=s.start;activeVariant=0;trail=[activeNodeId];renderRunner()}
+};
+
+function renderFragments(){
+ if(!fragmentsData)return;
+ $('#fragments').innerHTML=fragmentsData.items.map(x=>'<div class="fragment"><div class="origin">'+esc(x.origin.toUpperCase())+' · '+esc(x.status)+'</div><div><div class="text">'+esc(x.text)+'</div><div class="src">'+esc(x.source)+' · '+esc(x.date)+' · '+esc(x.use)+'</div></div><div class="meta"><span class="tag EXACT">EXACT</span>'+x.class.map(c=>'<span class="tag">'+esc(c)+'</span>').join('')+'</div><button data-copyfrag="'+esc(x.id)+'">COPY</button></div>').join('');
+}
+$('#fragments').onclick=e=>{const id=e.target.dataset.copyfrag;if(!id)return;const x=fragmentsData.items.find(z=>z.id===id);if(x)copyText(x.text,e.target)};
+
+async function copyText(t,b){try{await navigator.clipboard.writeText(t);if(b){const old=b.textContent;b.textContent='COPIED ✓';setTimeout(()=>b.textContent=old,1200)}}catch(_){window.prompt('Copy',t)}}
 function sourcePack(){
  const items=$('#sourceText').value.split(/\r?\n/).map(x=>x.trim()).filter(Boolean).map((text,i)=>({ordinal:i+1,text}));
  return {schema:'laconic-iconic-source-pack/v0.1',captured_at:new Date().toISOString(),source_class:$('#sourceClass').value,source_ref:$('#sourceRef').value.trim()||null,notes:null,items};
 }
-$('#copyPack').onclick=async()=>{const t=JSON.stringify(sourcePack(),null,2);try{await navigator.clipboard.writeText(t);$('#recoverNote').textContent='SOURCE PACK COPIED · '+sourcePack().items.length+' items'}catch(_){window.prompt('Copy source pack',t)}};
+$('#copyPack').onclick=()=>copyText(JSON.stringify(sourcePack(),null,2),$('#copyPack'));
 $('#downloadPack').onclick=()=>{const t=JSON.stringify(sourcePack(),null,2),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'application/json'}));a.download='laconic-iconic-source-pack.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
-fetch('./bank.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{data=d;makeButtons();render()}).catch(e=>$('#results').textContent='bank unavailable: '+e.message);
+
+Promise.all([
+ fetch('./bank.json',{cache:'no-store'}).then(r=>r.json()),
+ fetch('./scenes.json',{cache:'no-store'}).then(r=>r.json()),
+ fetch('./fragments.json',{cache:'no-store'}).then(r=>r.json())
+]).then(([b,s,f])=>{
+ bank=b;scenesData=s;fragmentsData=f;
+ makeLineButtons();renderLines();renderLaneChips();renderSceneList();renderFragments();
+}).catch(e=>{$('#results').textContent='data unavailable: '+e.message;$('#runner').textContent='data unavailable: '+e.message});
 })();
 </script>
 </main></body></html>
