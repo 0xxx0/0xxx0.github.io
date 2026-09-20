@@ -59,6 +59,7 @@
       "keep public and private state separate",
       "surface uncertainty rather than inventing personal state",
       "respect per-person, per-resource and per-channel policy",
+      "reflect or confirm the understood question when ambiguity could materially change the response or downstream action",
       "require readback or confirmation when ambiguity could materially change a consequential or irreversible action",
       "leave a RETURN receipt for consequential routing"
     ],
@@ -104,6 +105,27 @@
     "router": "/agent-router.json",
     "adapter_registry": "/private-adapter-registry.json",
     "state": "/contact/state.json",
-    "laconic_drafting": "/laconic/"
+    "laconic_drafting": "/laconic/",
+    "retrieval_canon": "/control/confluence/RETRIEVAL_CANON.md"
+  },
+  "reflection_rule": {
+    "law": "REFLECT WHEN USEFUL; PRESERVE THE ORIGINAL.",
+    "purpose": "Reduce ambiguity at human/automation handoff without replacing the sender's wording.",
+    "use_when": [
+      "material ambiguity",
+      "consequential or irreversible interpretation",
+      "interview/handoff",
+      "multi-part request"
+    ],
+    "avoid_when": [
+      "trivial question",
+      "restatement adds no information"
+    ],
+    "requirements": [
+      "keep source wording available",
+      "state assumptions when materially relevant",
+      "make correction cheap before action",
+      "do not convert a reflected interpretation into claimed source text"
+    ]
   }
 }
