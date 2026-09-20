@@ -12,7 +12,7 @@ const fallbackParent=p=>{
 const go=u=>{location.href=u;};
 const readTrail=()=>{try{const x=JSON.parse(sessionStorage.getItem(TRAIL_KEY)||'[]');return Array.isArray(x)?x:[]}catch(_){return []}};
 const writeTrail=x=>{try{sessionStorage.setItem(TRAIL_KEY,JSON.stringify(x.slice(-40)))}catch(_){}};
-const pushTrail=p=>{const t=readTrail(),n=norm(p);if(norm(t.at(-1))!==n)t.push(n);writeTrail(t);return t};
+const pushTrail=p=>{const t=readTrail(),n=norm(p);if(!t.length||norm(t.at(-1))!==n)t.push(n);writeTrail(t);return t};
 async function start(){
   if(norm()==='/') return;
   let data=null;
