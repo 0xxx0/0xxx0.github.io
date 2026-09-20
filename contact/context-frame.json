@@ -1,0 +1,152 @@
+{
+  "schema": "human-port-context-frame/v0.1",
+  "purpose": "Context narrows projection and permission without changing canonical person/address or silently exposing private state.",
+  "laws": [
+    "ONE PERSON, MANY CONTEXTUAL PROJECTIONS",
+    "CONTEXT MODULATES EXPRESSION; IT DOES NOT CREATE AUTHORITY",
+    "PUBLIC CAPACITY MAY BE COARSE; PRIVATE CAUSE STAYS PRIVATE",
+    "CULTURE/REGISTER RULES MUST BE EXPLICIT DONORS, NOT UNIVERSAL STEREOTYPES",
+    "TIME/PHASE MAY CHANGE THE RIGHT MOVE",
+    "SILENCE ALONE IS NOT PROOF OF DANGER, INCAPACITY OR DEATH",
+    "CONFIRMED CONTINUITY EVENTS REQUIRE HUMAN OR AUTHORITATIVE EVIDENCE",
+    "REVERSIBLE HANDOFF BEFORE IRREVERSIBLE RELEASE"
+  ],
+  "provenance": {
+    "exact_repo_donor": "/kernel/INTERPHASE.schema.json",
+    "reconstructed_conceptual_donors": [
+      {
+        "name": "XUAN / transition-state line",
+        "status": "RECONSTRUCTED_FROM_CONVERSATION_NOT_EXACT_ARTIFACT",
+        "retained_mechanisms": [
+          "receive / hold / act",
+          "seed / formation / crossing / exit"
+        ]
+      },
+      {
+        "name": "I Ching / Taixuan operational framing",
+        "status": "RECONSTRUCTED_FROM_CONVERSATION_NOT_EXACT_ARTIFACT",
+        "retained_mechanisms": [
+          "enter / hold / exit timing",
+          "principle / human agency / resources as unequal registers"
+        ]
+      }
+    ]
+  },
+  "dimensions": {
+    "relation": {
+      "description": "How this address is related to the other party. Unknown is valid.",
+      "examples": [
+        "unknown",
+        "new-contact",
+        "family",
+        "friend",
+        "work",
+        "close",
+        "agent"
+      ]
+    },
+    "audience": {
+      "examples": [
+        "human",
+        "agent",
+        "system"
+      ],
+      "description": "Changes projection grammar, never authority by itself."
+    },
+    "language": {
+      "format": "BCP-47-or-open-label",
+      "description": "Language of expression; separate from register and relation."
+    },
+    "culture_pack_ref": {
+      "nullable": true,
+      "description": "Explicit etiquette/decorum donor for a language/community/occasion. Absence means do not invent culture-specific rules."
+    },
+    "register": {
+      "description": "Expression register, independent of semantic intent.",
+      "examples": [
+        "plain",
+        "courteous",
+        "formal",
+        "elegant",
+        "ceremonial",
+        "playful"
+      ]
+    },
+    "phase": {
+      "description": "Current transition phase; used as attention/timing, not divination.",
+      "values": [
+        "seed",
+        "formation",
+        "crossing",
+        "exit",
+        "unknown"
+      ]
+    },
+    "temporal_horizon": {
+      "values": [
+        "now",
+        "today",
+        "soon",
+        "later",
+        "open",
+        "unknown"
+      ]
+    },
+    "communication_capacity": {
+      "description": "Derived communication capacity only; not a diagnosis.",
+      "values": [
+        "normal",
+        "limited",
+        "overloaded",
+        "offline",
+        "handoff"
+      ],
+      "public_rule": "Project only the coarse derived state if explicitly enabled. Never expose underlying private reason by default."
+    },
+    "private_context_refs": {
+      "description": "Opaque references to private state such as routine/training/lifestyle experiments, travel, workload or other conditions that may affect communication.",
+      "public_projection": "NEVER by default"
+    },
+    "continuity_state": {
+      "values": [
+        "normal",
+        "missed-checkin",
+        "unreachable-unverified",
+        "human-handoff",
+        "incapacity-confirmed-private",
+        "death-confirmed-private"
+      ],
+      "description": "Continuity state is evidence-gated. The last two states are private and require explicit confirmation."
+    }
+  },
+  "projection_order": [
+    "resolve canonical person/address",
+    "read permitted context dimensions",
+    "choose language/register/relation projection",
+    "apply communication-capacity limits",
+    "apply phase/temporal horizon",
+    "interpret message without granting new authority",
+    "route under policy",
+    "shape expression through Laconic/Iconic or another declared projection",
+    "RETURN actual outcome"
+  ],
+  "interphase_mapping": {
+    "object": "canonical person/address or communication object",
+    "projection": "family/friend/work/agent/language/register/rehearsal/public-continuity views",
+    "reads": "only explicitly permitted context dimensions",
+    "preserves": [
+      "canonical identity",
+      "source text",
+      "intent semantics",
+      "authority boundaries",
+      "return path"
+    ],
+    "hides": [
+      "private causes",
+      "unneeded health/lifestyle detail",
+      "credentials",
+      "private relationships unless explicitly projected"
+    ],
+    "permits": "read/propose/command according to independent policy"
+  }
+}
