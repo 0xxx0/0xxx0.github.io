@@ -687,7 +687,15 @@
       "title": "FOLD // BLOOM",
       "kind": "hub",
       "parent": "/",
-      "family": "FOLD // BLOOM"
+      "family": "FOLD // BLOOM",
+      "index": {
+        "updated_at": "2026-09-21T01:34:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      }
     },
     {
       "href": "/fold-bloom/two-dial/",
@@ -1093,9 +1101,10 @@
         "physical_fit": "Prepare addressed objects/specs for decision or fabrication; should not actuate directly."
       },
       "index": {
-        "updated_at": "2026-09-20",
+        "updated_at": "2026-09-21T01:34:00+08:00",
         "work_modes": [
-          "UNKNOWN"
+          "IMPLEMENT",
+          "VERIFY"
         ]
       }
     },
@@ -3150,7 +3159,7 @@
     "scope": "This manifest describes public release surfaces only. Private recovery/open-thread state is intentionally excluded.",
     "field_intake": "Recovered from prior public release; runtime blobs preserved, service-worker cache cleanup narrowed to its own cache family.",
     "sleeper": "Public experiment. Same canonical state is exposed as first-person coupled law field and plain obligation list; geometry is explicitly not external truth.",
-    "scale_lens": "RC11.2 remains the stable public head. G2 identity/RETURN is unchanged; optional spatial-donor-1 is projection-only. External smoke run 1 exposed mobile importer overflow; targeted importer-wrap patch fixed it and representative traversal passes at 390px + 1280px.",
+    "scale_lens": "RC11.2 remains the stable deep head. Aperture pass adds same-origin/page handoff through the global route adapter plus hard-edge hierarchy; parser, stable identity, provenance, projections and RETURN are preserved.",
     "triangle_bench": "Nested Field / Proof experiment. EXPLOIT / EXPLORE / PROVE simplex compared against a plain two-control allocation; no showcase card.",
     "showcase_trace": "PASS: external Chromium representative-interaction smoke on all nine showcase cards at 390px + 1280px, 18/18. GitHub Actions run 35372320053. Rerun after public runtime changes.",
     "capability_map": "Root showcase now exposes a transfer-oriented reading of the same nine public cards. Transfer labels describe reusable mechanisms, not additional public artifacts or a claim that a monolithic agent already exists.",
@@ -3170,7 +3179,7 @@
     "reachability": "All public directory index surfaces are reachable from the showcase graph; nested experiments stay reachable through their parent rather than receiving new cards.",
     "recovery_vault": "Exact recovered donors are now visible through /recovery/ without becoming showcase cards or current heads. Source fidelity and blockers live in control/RECOVERY_RUN_2026-09-19.json.",
     "verse_atlas_replay": "Recovered Grid Path Compiler RETURN→REPLAY closed a concrete head gap: Verse Atlas now validates and replays its own FOUNDRY/VERSE-ATLAS-1 JSON receipt. General donor workbench features remain frozen.",
-    "fold_weave": "Fold Weave 0.1 is an exact recovered sibling with persistent crease anchors / authored topology. It is linked from Fold/Bloom but is not promoted over Ecology pending direct playtest.",
+    "fold_weave": "Fold Weave 0.1 exact recovered donor is surfaced from the Fold/Bloom hub as the current convergence candidate. Exact donor remains untouched; Ecology 0.2 remains the retained MIRROR comparison; authored CREASE remains experimental pending direct comparative play.",
     "confluence": "Cross-lineage handoff shelf under /control/confluence/: unequal projects may share explicit transfers while preserving differences and source return.",
     "docs_reader": "Read-only /docs/ surface makes key JSON/Markdown control documents directly readable without creating another current-head product.",
     "foundry_real_center": "Foundry real-center workbench separates slow canon candidate from live control. The 117 federation is explicitly a non-canonical donor corpus; convergences are recurrent cross-media mechanisms, not project categories.",
