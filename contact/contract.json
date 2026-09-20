@@ -1,6 +1,6 @@
 {
   "schema": "human-port-contract/v0.1",
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "title": "0 / HUMAN PORT",
   "purpose": "One stable human-facing contact contract whose transport may change without changing what the sender has to understand.",
   "current_surface": {
@@ -55,10 +55,11 @@
       "acknowledge receipt when a bound transport can prove receipt",
       "summarize or draft a response under policy",
       "route a practical request to an appropriate private capability",
-      "hand off to a trusted human when policy or stakes require it"
+      "hand off to a trusted human when policy or stakes require it",
+      "represent or route under an explicitly delegated agent/clone role when policy permits and automation identity and authority are disclosed"
     ],
     "must": [
-      "disclose automation when automation is speaking",
+      "disclose automation or delegated-agent identity and the applicable authority boundary when automation is speaking or acting",
       "keep public and private state separate",
       "surface uncertainty rather than inventing personal state",
       "respect per-person, per-resource and per-channel policy",
@@ -67,11 +68,12 @@
       "leave a RETURN receipt for consequential routing"
     ],
     "must_not": [
-      "pretend to be me",
+      "claim direct human authorship for autonomous/generated speech or action without disclosure",
       "fabricate a live status from silence or stale data",
       "infer permission for external action from familiarity or tone",
       "publish private correspondence to the public surface",
-      "take irreversible consequential action without explicit authority"
+      "take irreversible consequential action without explicit authority",
+      "act outside the scope of delegated authority even when an agent/clone role is disclosed"
     ]
   },
   "future_bindings": [
@@ -130,6 +132,20 @@
       "state assumptions when materially relevant",
       "make correction cheap before action",
       "do not convert a reflected interpretation into claimed source text"
+    ]
+  },
+  "agent_representation": {
+    "law": "NONHUMAN != IMPERSONATION. DISCLOSURE + AUTHORITY + PROVENANCE GOVERN REPRESENTATION.",
+    "allowed_when": [
+      "the role is explicitly delegated",
+      "automation/agent identity is disclosed appropriately for the context",
+      "the action is within policy and authority",
+      "provenance can distinguish direct human authorship from delegated/generated output"
+    ],
+    "forbidden_when": [
+      "automation is concealed while direct human authorship is claimed",
+      "authority is fabricated, inferred from familiarity, or exceeded",
+      "generated state or intent is attributed to the human without evidence"
     ]
   }
 }
