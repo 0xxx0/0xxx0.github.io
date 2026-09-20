@@ -1117,6 +1117,9 @@
         },
         "reason": {
           "type": "string"
+        },
+        "fact_provenance": {
+          "$ref": "#/$defs/fact_provenance"
         }
       },
       "additionalProperties": false
@@ -3720,6 +3723,79 @@
         }
       },
       "additionalProperties": false
+    },
+    "fact_provenance": {
+      "type": "object",
+      "required": [
+        "source_kind"
+      ],
+      "properties": {
+        "source_kind": {
+          "type": "string",
+          "enum": [
+            "canonical_identity",
+            "canonical_resource",
+            "adapter_registry",
+            "runtime_context",
+            "tag_projection",
+            "policy_static"
+          ]
+        },
+        "source_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_digest": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "asserted_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "confidence": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0,
+          "maximum": 1
+        },
+        "tag_status": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "enum": [
+            "asserted",
+            "derived",
+            "proposed",
+            null
+          ]
+        },
+        "namespace": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false
     }
   },
   "additionalProperties": false,
@@ -3735,6 +3811,8 @@
     "every one of the seven gates has exactly one gate_final event",
     "result.final_event_id references exactly one resolution_final event",
     "declaration order is never used as an authority signal",
-    "raw event payload and secrets are not embedded"
+    "raw event payload and secrets are not embedded",
+    "matched tag clauses in replayable traces carry fact_provenance with source_kind=tag_projection or are fully covered by selector_facts_digest and referenced private replay material",
+    "tag provenance may explain selector applicability but never supplies authority_source, authorization_ref, grant_ref, deny authority or lock authority"
   ]
 }
