@@ -45,27 +45,37 @@
   "open_gaps": [
     {
       "id": "painting-city",
+      "name": "Sleeper City Engine / Painting-Path",
       "state": "BLOCKED_EXACT_SOURCE",
+      "route": "/recovery/sleeper/",
       "next_trigger": "exact HTML/JS/CSS/assets, authorized checkpoint bytes, saved page/site, or source archive"
     },
     {
       "id": "naming",
-      "state": "ISOLATED_PUBLIC_SAFE_ARTIFACT_MISSING",
-      "next_trigger": "exact runnable/source/glyph artifact"
+      "name": "Naming / Game of Names",
+      "state": "ISOLATED_ARTIFACT_MISSING",
+      "route": "/recovery/naming/",
+      "next_trigger": "exact public-safe runnable/source/glyph artifact"
     },
     {
       "id": "env0-pdfs",
-      "state": "EXACT_LIBRARY_BYTES_REPO_COPY_PENDING",
-      "next_trigger": "byte-copy + hash verification"
+      "name": "ENV-0 PDF mirror",
+      "state": "BYTE_COPY_PENDING",
+      "route": "/recovery/env0/",
+      "next_trigger": "byte-copy + SHA-256 verification of the already-located Atlas and build-sheet PDFs"
     },
     {
       "id": "laconic-voices",
+      "name": "Historical Laconic voice outputs",
       "state": "EXACT_OUTPUTS_OPEN",
-      "next_trigger": "exact generated voice outputs/adoption evidence"
+      "route": "/laconic/",
+      "next_trigger": "exact generated voice outputs / adoption evidence"
     },
     {
       "id": "desktop-pets-beyond-kala",
+      "name": "Desktop pets beyond KALA",
       "state": "ANCHOR_REQUIRED",
+      "route": "/recovery/kala/",
       "next_trigger": "proper name, screenshot, source filename, or code"
     }
   ],
@@ -81,5 +91,28 @@
       "tracked runtime routes carry updated_at + work_modes"
     ],
     "hermes_queue": "/control/HERMES_QUEUE.json"
+  },
+  "family_labels": {
+    "path-grid-language": "PATH / GRID",
+    "poly-furnisher": "POLY / FURNISHER",
+    "fold-bloom": "FOLD // BLOOM",
+    "physical-print-reification": "PHYSICAL / PRINT",
+    "sleeper": "SLEEPER",
+    "sleeper-one-return": "SLEEPER / ONE RETURN",
+    "comms": "COMMS",
+    "axial": "AXIAL",
+    "machine-representation": "AXIAL / MACHINE",
+    "agent-interface-history": "AGENT / INTERFACE",
+    "representation": "REPRESENTATION",
+    "representation-kernel": "REPRESENTATION KERNEL",
+    "painting-interface": "PAINTING / INTERFACE",
+    "planning": "PLANNING",
+    "ingress": "INGRESS",
+    "proof": "PROOF",
+    "language-glyph-identity": "LANGUAGE / IDENTITY",
+    "tiny-law-executable-material": "LAW ZOO / TINY LAW",
+    "reading-attention-temporal": "READING / TEMPORAL",
+    "media-representation": "MEDIA / REPRESENTATION",
+    "quarantine": "QUARANTINE"
   }
 }
