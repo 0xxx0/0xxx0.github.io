@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/recovery/naming/v0.1",
-  "status": "RECOVER_BLOCKED_ISOLATED_ARTIFACT",
-  "updated": "2026-09-20",
+  "status": "VISUAL_BATCH_FOUND_RUNNABLE_SOURCE_OPEN",
+  "updated": "2026-09-21",
   "branch": "Naming / Game-of-Names / identity-glyph lineage",
   "evidence": "Exact archive lineage exists, including the 3×3 hacker-name/game branch and later identity/naming abstractions, but no isolated public-safe runnable/source artifact has been located.",
   "privacy_boundary": "Raw conversation exports and personal naming context are not published to the public repository.",
@@ -11,5 +11,11 @@
     "constraint-based generative naming",
     "symmetry/palindrome/grid traversal as operations"
   ],
-  "next_exact_recovery": "Locate an isolated HTML/JSON/Markdown/glyph artifact or source pack. Until then, preserve this as a gap rather than synthesize a fake recovered app."
+  "next_exact_recovery": "Runnable/source/glyph artifact remains open. Do not treat the visual batch as a working Game-of-Names engine.",
+  "visual_evidence": {
+    "batch": "B260728B",
+    "receipt": "/recovery/naming/visual-batch-B260728B.json",
+    "source_index": "影庫_INDEX_v0.1.md / file_00000000b59c8211bba8b734cfa0ccc6",
+    "state": "coherent eight-image Library batch indexed exactly; image bytes not yet mirrored to repo"
+  }
 }
