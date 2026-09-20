@@ -1,6 +1,6 @@
 {
   "schema": "human-port-descriptor/v0.1",
-  "version": "0.4-lab",
+  "version": "0.5-lab",
   "canonical": "https://0xxx0.github.io/contact/",
   "surfaces": {
     "plain": "/contact/",
@@ -9,7 +9,10 @@
     "family": "/contact/family/",
     "friend": "/contact/friend/",
     "work": "/contact/work/",
-    "agent": "/contact/agent/"
+    "agent": "/contact/agent/",
+    "interpret": "/contact/interpret/",
+    "burst": "/contact/burst/",
+    "backstage": "/contact/backstage/"
   },
   "laws": [
     "SOURCE STAYS SOURCE",
@@ -89,6 +92,28 @@
     "router": "/agent-router.json",
     "policy": "/private-policy.example.json",
     "public_state": "/contact/state.json",
-    "laconic": "/laconic/"
+    "laconic": "/laconic/",
+    "interpretation": "/contact/interpretation.json",
+    "backstage": "/contact/backstage.json"
+  },
+  "interpretation": {
+    "state": "LAB",
+    "contract": "/contact/interpretation.json",
+    "schema": "/contact/interpretation.schema.json",
+    "modes": [
+      "plain",
+      "burst",
+      "dialogue"
+    ],
+    "law": "Preserve RAW; emit OBSERVED/POSSIBLE/UNRESOLVED/MOVE_SET; narrow only when consequence requires it.",
+    "owner_burst": "Fragmented, recursive, interruption-heavy owner speech is first-class input. Recover concurrent asks/corrections/callbacks; do not normalize away jumps."
+  },
+  "backstage": {
+    "state": "LAB_LOCAL_PRIVATE",
+    "contract": "/contact/backstage.json",
+    "schema": "/contact/backstage.schema.json",
+    "surface": "/contact/backstage/",
+    "law": "Curated making-history, never automatic raw-chat publication.",
+    "public_promotion": "Only explicitly curated PUBLIC_CURATED entries may become public artifact history."
   }
 }
