@@ -106,7 +106,7 @@ export function verifyStructural(trace,{schemaValidator=null,now=()=>new Date().
     profile:'structural',
     status,
     verified_at:now(),
-    verifier:{implementation:'policy-trace-verifier.mjs',version:'0.1'},
+    verifier:{implementation:'policy-trace-verifier.mjs',version:'0.2'},
     checks,
     summary
   };
@@ -134,17 +134,33 @@ export function verifyReplay(trace,options={}){
 export function verifyTrace(trace,{profile='structural',...options}={}){
   if(profile==='structural') return verifyStructural(trace,options);
   if(profile==='replay') return verifyReplay(trace,options);
+
   const r=verifyReplay(trace,options);
   r.profile='sealed';
-  r.checks.push(out('hash.canonicalization','INDETERMINATE','ERROR','sealed verification requires RFC8785-JCS + SHA-256 implementation'));
-  r.checks.push(out('hash.chain','INDETERMINATE','ERROR','sealed verification requires hash-chain implementation'));
-  r.checks.push(out('hash.head','INDETERMINATE','ERROR','sealed verification requires hash-chain implementation'));
+
+  const hc=trace?.hash_chain;
+  if(!hc || hc.enabled!==true){
+    r.checks.push(out('hash.enabled','FAIL','ERROR','sealed profile requires hash_chain.enabled == true'));
+    r.checks.push(out('hash.canonicalization','SKIP','ERROR','seal absent/disabled'));
+    r.checks.push(out('hash.chain','SKIP','ERROR','seal absent/disabled'));
+    r.checks.push(out('hash.head','SKIP','ERROR','seal absent/disabled'));
+  }else{
+    const profileOk=hc.canonicalization==='RFC8785-JCS' && hc.algorithm==='SHA-256';
+    r.checks.push(out('hash.enabled','PASS','ERROR',null));
+    r.checks.push(out('hash.canonicalization',profileOk?'PASS':'FAIL','ERROR',
+      profileOk?null:'sealed trace must declare RFC8785-JCS + SHA-256'));
+    r.checks.push(out('hash.chain','INDETERMINATE','ERROR',
+      'reference verifier does not embed RFC8785-JCS/SHA-256 hash recomputation'));
+    r.checks.push(out('hash.head','INDETERMINATE','ERROR',
+      'chain head cannot be certified until event hashes are recomputed'));
+  }
+
   r.summary={
     pass:r.checks.filter(c=>c.status==='PASS').length,
     fail:r.checks.filter(c=>c.status==='FAIL').length,
     indeterminate:r.checks.filter(c=>c.status==='INDETERMINATE').length,
     skip:r.checks.filter(c=>c.status==='SKIP').length
   };
-  r.status=r.summary.fail?'FAIL':'INDETERMINATE';
+  r.status=r.summary.fail?'FAIL':(r.summary.indeterminate?'INDETERMINATE':'PASS');
   return r;
 }
