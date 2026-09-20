@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#080a0c">
-<title>0 / HUMAN PORT 0.3</title>
+<link rel="alternate" type="application/json" href="/.well-known/human-port.json" title="HUMAN PORT descriptor">
+<title>0 / HUMAN PORT 0.4 LAB</title>
 <style>
 :root{--bg:#080a0c;--panel:#0e1215;--ink:#eef2ef;--muted:#8d989d;--line:#2b363b;--hot:#ea6b3d;--cool:#6cb4df;--green:#9ed88c;--gold:#d7ae67}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -52,13 +53,13 @@ footer{display:flex;justify-content:space-between;gap:14px;border-top:1px solid 
 <body><main>
 <header>
   <div>
-    <div class="ey">0 / HUMAN PORT · 0.3 · ONE ADDRESS, MANY CHANNELS</div>
-    <h1>FIND ME.<br>REACH ME.</h1>
-    <div class="lead">If I sent you this link, keep it. It makes a compact signal you can carry through any channel we already share. Each signal gets a portable identity and return path; future private transports can bind underneath without changing the human contract.</div>
+    <div class="ey">0 / HUMAN PORT · 0.4 LAB · ONE ADDRESS, MANY LINES</div>
+    <h1>THIS IS A LINE<br>TO ME.</h1>
+    <div class="lead">Keep this address. Tell me something, ask me something, check on me, or hand the same protocol to an agent. The channel may change; the meaning and return path should survive.</div>
   </div>
   <aside class="truth">
     <div><b id="modeLabel">PUBLIC STATE · NORMAL</b><span id="stateMessage">Manual state, not live tracking.</span></div>
-    <div><b>WHAT WORKS NOW</b><span>Compose locally → Share / Copy → choose any channel we already use. Signal identity and reply-chain survive the transport.</span></div>
+    <div><b>WHAT WORKS NOW</b><span>Write here → Share / Copy. Or open a FAMILY / FRIEND / WORK capsule that speaks normal human instead of protocol labels.</span></div>
     <div><b>WHAT THIS IS NOT</b><span>No inbox on GitHub. No hidden upload. No AI pretending to be me.</span></div>
   </aside>
 </header>
@@ -70,10 +71,10 @@ footer{display:flex;justify-content:space-between;gap:14px;border-top:1px solid 
 <div class="sectionhead"><div><b>SEND A SIGNAL</b><span>nothing leaves this page until you choose Share or Copy</span></div><span id="stamp">STATE · MANUAL</span></div>
 <section class="instrument" aria-label="Signal composer">
   <div class="modes">
-    <button class="mode on" data-mode="PING"><b>· PING</b><span>No reply needed. Awareness is enough.</span></button>
-    <button class="mode" data-mode="REPLY"><b>↩ REPLY</b><span>Reply when practical.</span></button>
-    <button class="mode" data-mode="NEED"><b>→ NEED</b><span>A concrete practical ask or action.</span></button>
-    <button class="mode" data-mode="CHECK"><b>! CHECK</b><span>Unexpected silence / human attention matters.</span></button>
+    <button class="mode on" data-mode="PING"><b>· JUST TELLING ME</b><span>PING · no reply needed.</span></button>
+    <button class="mode" data-mode="REPLY"><b>↩ WRITE BACK</b><span>REPLY · when practical.</span></button>
+    <button class="mode" data-mode="NEED"><b>→ I NEED SOMETHING</b><span>NEED · a concrete ask.</span></button>
+    <button class="mode" data-mode="CHECK"><b>! ARE YOU OKAY?</b><span>CHECK · human attention matters.</span></button>
   </div>
   <div id="replyctx" class="replyctx"></div>
   <div class="compose"><label for="who">FROM · OPTIONAL</label><input id="who" maxlength="48" placeholder="name / nickname"></div>
@@ -89,32 +90,35 @@ footer{display:flex;justify-content:space-between;gap:14px;border-top:1px solid 
 </section>
 <div class="local"><span><b>LOCAL-FIRST</b> · message, name, BY and Laconic handoffs are not submitted to this site</span><span>0P2</span></div>
 
-<div class="sectionhead"><div><b>PROMISE CONTRACT</b><span>the human contract future automation must inherit</span></div></div>
+<div class="sectionhead"><div><b>THE RULES</b><span>any future bot or agent has to inherit these too</span></div></div>
 <section class="contract">
-  <article class="may"><b>MAY</b><ul><li>preserve what you actually sent</li><li>acknowledge a proven receipt</li><li>summarize, draft or route under policy</li><li>hand off to a trusted human when needed</li></ul></article>
-  <article class="must"><b>MUST</b><ul><li>say when automation is speaking</li><li>keep private state off the public surface</li><li>surface uncertainty rather than invent my state</li><li>respect per-person, per-resource and per-channel policy</li><li>read back / confirm ambiguity before consequential or irreversible action</li><li>leave receipts for consequential routing</li></ul></article>
-  <article class="never"><b>NEVER</b><ul><li>pretend to be me</li><li>infer danger from stale status or silence alone</li><li>treat familiarity as permission</li><li>take irreversible consequential action without authority</li></ul></article>
+  <article class="may"><b>IT MAY</b><ul><li>preserve what you actually sent</li><li>acknowledge a proven receipt</li><li>summarize, draft or route under policy</li><li>hand off to a trusted human when needed</li></ul></article>
+  <article class="must"><b>IT MUST</b><ul><li>say when automation is speaking</li><li>keep private state off the public surface</li><li>surface uncertainty rather than invent my state</li><li>respect per-person, per-resource and per-channel policy</li><li>read back / confirm ambiguity before consequential or irreversible action</li><li>leave receipts for consequential routing</li></ul></article>
+  <article class="never"><b>IT WILL NOT</b><ul><li>pretend to be me</li><li>infer danger from stale status or silence alone</li><li>treat familiarity as permission</li><li>take irreversible consequential action without authority</li></ul></article>
 </section>
 
-<div class="sectionhead"><div><b>PORT MAP</b><span>same contract; replaceable transports underneath</span></div></div>
+<div class="sectionhead"><div><b>BEHIND THE LINE</b><span>same object; unequal surfaces and replaceable transports</span></div></div>
 <section class="ports">
-  <div class="port"><b>NOW · NATIVE SHARE <em>LIVE</em></b><p>Android / iOS / browser share sheet or clipboard. Zero backend; works immediately.</p></div>
-  <div class="port"><b>LACONIC / ICONIC <em>LIVE DRAFT</em></b><p>Local response-bank + recovery layer. It prepares text only; HUMAN PORT remains the explicit share/copy boundary.</p></div>
-  <div class="port"><b>HERMES GATEWAY <em>CANDIDATE</em></b><p>One private gateway can front Telegram, WhatsApp, Signal, email, Matrix and webhooks.</p></div>
-  <div class="port"><b>WHATSAPP · BAILEYS <em>CANDIDATE</em></b><p>TypeScript transport option behind the same envelope and policy boundary.</p></div>
-  <div class="port"><b>WHATSAPP · WHATSMEOW <em>CANDIDATE</em></b><p>Go transport option; useful if the private runtime leans toward a small durable daemon.</p></div>
+  <div class="port"><b>NATIVE SHARE <em>LIVE</em></b><p>Copy/share the exact 0P2 signal into Telegram, SMS, email or whichever line you already share.</p></div>
+  <div class="port"><b>PORT CAPSULE <em>LAB</em></b><p>FAMILY / FRIEND / WORK / AGENT projections plus bespoke bearer links. Capsule content rides after # and is not sent to GitHub.</p></div>
+  <div class="port"><b>TELEGRAM MINI APP <em>LAB</em></b><p>Recovered HOUSEBUS mechanism generalized: keyboard-launched Mini App can return the packet directly to a private polling bot.</p></div>
+  <div class="port"><b>PRIVATE CHANNEL REGISTRY <em>NEXT</em></b><p>Person → relation → Telegram / phone line A / phone line B / email / routines / authority. Never committed to this public repo.</p></div>
+  <div class="port"><b>LACONIC / ICONIC <em>LIVE DRAFT</em></b><p>Compose/recover expression locally. HUMAN PORT remains the external boundary: DRAFT ≠ SEND.</p></div>
+  <div class="port"><b>AGENT PORT <em>LIVE DESCRIPTOR</em></b><p>A machine-readable public contract at /.well-known/human-port.json; agents get rules without being handed private authority.</p></div>
 </section>
 
 <nav class="links">
-  <a href="../">WORK / SHOWCASE →</a>
-  <a href="../laconic/">LACONIC DRAFT →</a>
+  <a href="./family/">FAMILY →</a>
+  <a href="./friend/">FRIEND →</a>
+  <a href="./work/">WORK →</a>
+  <a href="./agent/">AGENT →</a>
+  <a href="./make/">MAKE A BESPOKE LINK →</a>
+  <a href="../laconic/">LACONIC / ICONIC →</a>
   <a href="./state.json">PUBLIC STATE →</a>
-  <a href="./contract.json">PORT CONTRACT →</a>
-  <a href="../agent-router.json">ROUTER →</a>
-  <a href="../private-adapter-registry.json">ADAPTERS →</a>
+  <a href="/.well-known/human-port.json">MACHINE DESCRIPTOR →</a>
 </nav>
 
-<footer><span id="updated">UPDATED · 2026-09-19</span><span>PRESERVE SOURCE → ROUTE MINIMALLY → DISCLOSE AUTOMATION → RETURN</span></footer>
+<footer><span id="updated">UPDATED · 2026-09-20</span><span>PRESERVE SOURCE → ROUTE MINIMALLY → DISCLOSE AUTOMATION → RETURN</span></footer>
 </main>
 <script>
 (()=>{'use strict';
