@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T02:46:00+08:00",
+        "updated_at": "2026-09-21T02:52:00+08:00",
         "work_modes": [
           "INVESTIGATE",
           "SPECIFY",
@@ -3809,6 +3809,16 @@
       "MAP": "/showcase-manifest.json#routes parent graph",
       "OPEN_PORTS": "route.field.exit_paths where status != AVAILABLE",
       "RECENT": "route.index.updated_at"
+    },
+    "sitemap_audit": "/control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json",
+    "map_dispositions": {
+      "alias": "compatibility/lens door; discoverable but not sovereign",
+      "utility": "support/validator/docs surface",
+      "donor": "transfer source; not current head",
+      "frozen_donor": "exact preserved transfer source",
+      "recover": "known gap requiring source/evidence",
+      "active": "runnable/current surface; priority still owned by NOW",
+      "stable": "settled usable surface"
     }
   },
   "policy_trace_verification": "/policy-trace-verification.json",
