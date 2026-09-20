@@ -46,8 +46,8 @@ async function start(){
   <nav class="panel" aria-label="Showcase route">
     <div class="head"><span class="state ${String(route.state||'').toLowerCase()}">${route.state||route.kind.toUpperCase()}</span><div class="ey">${route.operation||route.family||'PUBLIC ROUTE'}</div><div class="title">${route.title}</div></div>
     <div class="actions"><button data-a="back" title="Previous showcase route; does not undo artifact state">← BACK</button><button data-a="up" title="Declared hierarchy parent">↑ PARENT</button><button data-a="home">⌂ SHOWCASE</button></div>
-    ${route.family?'<a class="family" href="'+(route.family==='FOLD // BLOOM'?'/fold-bloom/':'/foundry/')+'">'+route.family+' / FAMILY</a>':''}
-    <div class="meta"><a href="/showcase-manifest.json">MANIFEST</a>${route.receipt?'<a href="'+route.receipt+'">RECEIPT</a>':''}<a href="/control/INTERACTION_SEMANTICS.json">ACTION LAW</a></div>
+    ${route.family?'<a class="family" href="'+(route.family_href||(route.family==='FOLD // BLOOM'?'/fold-bloom/':route.family==='FOUNDRY'?'/foundry/':parent||ROOT))+'">'+route.family+' / FAMILY</a>':''}
+    <div class="meta"><a href="/showcase-manifest.json">MANIFEST</a>${route.receipt?'<a href="'+route.receipt+'">RECEIPT</a>':''}<a href="/control/INTERACTION_SEMANTICS.json">ACTION LAW</a><a href="/control/FIELD_INDEX_CONTRACT.json">FI LAW</a></div>
     <div class="foot">BACK = prior showcase route, never UNDO · ALT+↑ parent · ALT+HOME showcase · ESC close</div>
   </nav>`;
   document.documentElement.appendChild(host);
