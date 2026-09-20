@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/laconic/scenes.schema.json",
+  "title": "Laconic / Iconic Multi-turn Scenes",
+  "type": "object",
+  "required": [
+    "schema",
+    "lanes",
+    "scenes"
+  ],
+  "properties": {
+    "schema": {
+      "const": "laconic-iconic-scenes/v0.2"
+    },
+    "lanes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "law"
+        ]
+      }
+    },
+    "scenes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "lane",
+          "provenance",
+          "start",
+          "nodes"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^scene:[a-z0-9-]+$"
+          },
+          "provenance": {
+            "enum": [
+              "EXACT",
+              "RECONSTRUCTED",
+              "NEW",
+              "RESEARCH_INFORMED"
+            ]
+          },
+          "start": {
+            "type": "string"
+          },
+          "nodes": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "speaker",
+                "text",
+                "provenance",
+                "variants",
+                "choices"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "speaker": {
+                  "enum": [
+                    "YOU"
+                  ]
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "provenance": {
+                  "enum": [
+                    "EXACT",
+                    "RECONSTRUCTED",
+                    "NEW"
+                  ]
+                },
+                "variants": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "choices": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "label",
+                      "next"
+                    ],
+                    "properties": {
+                      "label": {
+                        "type": "string"
+                      },
+                      "next": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
