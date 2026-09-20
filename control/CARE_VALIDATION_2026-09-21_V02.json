@@ -1,0 +1,79 @@
+{
+  "schema": "0xxx0/care-validation/v0.2",
+  "at": "2026-09-21T00:55:00+08:00",
+  "artifact": "/care/",
+  "result": "PASS_STATIC_CONTRACT",
+  "delta": "CARE COURSE: current phase -> next step -> conditional gate -> owner/when + descriptive measurement trajectories + private HUMAN PORT carrier",
+  "checks": {
+    "javascript_syntax": "PASS",
+    "case_schema": "0xxx0/care-case/v0.2",
+    "care_v01_import_compat": true,
+    "course_fields": [
+      "CURRENT_PHASE",
+      "NEXT_STEP",
+      "CONDITIONAL_GATE",
+      "GATE_SOURCE",
+      "OWNER",
+      "WHEN"
+    ],
+    "measurement_fields": [
+      "NAME",
+      "VALUE",
+      "UNIT"
+    ],
+    "descriptive_metric_trajectory": true,
+    "automatic_thresholds": false,
+    "observation_interpretation_split": true,
+    "human_port_transport": "sessionStorage human.port.handoff.v01",
+    "brief_text_in_url": false,
+    "print_pdf_brief": true,
+    "network_submission_absent": true,
+    "continuity_course_export": true,
+    "field_index_version": "0.2",
+    "planning_exit": "SPECIFIED",
+    "fhir_interop": "CANDIDATE"
+  },
+  "evidence": {
+    "care_html_git_blob": "0842b6bbd55c1a377fc5811b515d988471ccb5d1",
+    "care_contract_git_blob": "5c2cfc5cdfa89228352aa721e90f59ffc7d0790f",
+    "care_release_git_blob": "490eda355fc9ccacb43582f1a0f3c8bf1aa74347",
+    "care_case_schema_git_blob": "ee8852696b836396aca54e1a1d67f8da01e72bed",
+    "manifest_git_blob": "6ad96bff80625913e0993c0bd4feff27f90cc561"
+  },
+  "case_shape_tests": [
+    {
+      "shape": "STAGED_TREATMENT",
+      "need": "represent current phase, next planned intervention, prerequisite/conditional decision, measurement course, and question for clinician without inventing medical advice",
+      "supported_by": [
+        "course.phase",
+        "course.next",
+        "course.gate",
+        "course.gate_source",
+        "measurement series",
+        "ASK",
+        "BRIEF"
+      ]
+    },
+    {
+      "shape": "MONITOR_THEN_ESCALATE",
+      "need": "represent adherence/current routine, repeated objective measurement, recheck, and sourced IF/WHEN escalation while preserving caregiver handoff",
+      "supported_by": [
+        "treatment",
+        "measurement series",
+        "course.gate",
+        "course.owner",
+        "course.due",
+        "identity_note",
+        "BRIEF"
+      ]
+    }
+  ],
+  "open_gaps": [
+    "manual browser/mobile interaction test on deployed route",
+    "no private attachment store yet",
+    "no clinician-authored adaptive question modules yet",
+    "no automatic threshold or urgency engine by design",
+    "FHIR CarePlan / QuestionnaireResponse export remains candidate",
+    "Dayline/FCM planning adapter is specified but not implemented"
+  ]
+}
