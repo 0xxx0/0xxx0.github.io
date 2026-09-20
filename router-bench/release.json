@@ -26,5 +26,12 @@
     "adapter fit is declarative, not proof of a live connection",
     "bench does not send, schedule, publish or control hardware"
   ],
-  "rollback": "delete /router-bench/ and remove its workbench route from showcase-manifest.json"
+  "rollback": "delete /router-bench/ and remove its workbench route from showcase-manifest.json",
+  "current_classification": {
+    "reviewed_at": "2026-09-20T23:58:00+08:00",
+    "state": "REFERENCE",
+    "basis": "Release defines a deterministic playable reference router; live/private adapter fit remains declarative rather than proven.",
+    "receipt": "/control/EXPERIMENT_WRANGLE_2026-09-20.json",
+    "provenance_note": "Original release state is retained above as contemporaneous provenance; this field records the later lifecycle classification."
+  }
 }
