@@ -25,6 +25,7 @@
           "id",
           "kind",
           "label",
+          "geometryVersion",
           "defaultView",
           "views",
           "provenance"
@@ -117,6 +118,10 @@
           },
           "provenance": {
             "type": "object"
+          },
+          "geometryVersion": {
+            "type": "string",
+            "description": "Immutable geometry identity for replay of selections/traces."
           }
         },
         "additionalProperties": true
