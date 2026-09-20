@@ -1,0 +1,21 @@
+{
+  "schema": "release-receipt/v1",
+  "title": "FOUNDRY / REAL CENTER",
+  "version": "0.1",
+  "state": "EXPERIMENT",
+  "date": "2026-09-20",
+  "route": "/foundry/core/",
+  "parent": "/foundry/",
+  "showcase_card": false,
+  "claim": "Tests a slow canonical layer (center/laws/convergences) against live control state without promoting current heads, fronts or the 117-project corpus into the definition of the endeavour.",
+  "source_model": "/foundry/core/model.json",
+  "canonical_draft": "/foundry/core/CANON.md",
+  "live_state": "/control/CURRENT.json",
+  "mutation": "NONE / orientation projection only",
+  "known_limits": [
+    "CANON_CANDIDATE is a draft status, not an irreversible declaration.",
+    "Convergence names compress cross-lineage patterns and should be revised if they erase distinct mechanisms.",
+    "Live heads and fronts are fetched from control state and may change independently of the slow model.",
+    "The 117-project federation remains a non-canonical donor corpus."
+  ]
+}
