@@ -1,5 +1,5 @@
 {
-  "schema": "spatial-state-lineage/v0.3",
+  "schema": "spatial-state-lineage/v0.4",
   "updated": "2026-09-20",
   "canonical_id": "APP-041",
   "title": "Spatial State Engine / House OS",
@@ -87,6 +87,7 @@
       "SECTION",
       "3D",
       "FIELD",
+      "TRACE",
       "ATLAS",
       "HA_STATE"
     ],
@@ -102,7 +103,7 @@
   },
   "operational_head": {
     "route": "/house/spatial/",
-    "version": "0.3",
+    "version": "0.4",
     "status": "RECONSTRUCTED_CURRENT_HEAD",
     "exactness": "Reconstructed from recovered Sep 3 interface/spec evidence plus the exact Sep 9 single-HTML donor; not claimed to be the exact lost Sep 3 file.",
     "machine_model": "/house/spatial/model.json"
@@ -141,5 +142,14 @@
       "status": "PROJECTION_DONOR"
     }
   ],
-  "proposed_projection": "TRACE / ink-path remains proposed: stroke variables must each name one encoded quantity; physical Z and time are separate projections."
+  "trace_projection": {
+    "status": "EXPERIMENT / IMPLEMENTED_V0_1",
+    "route": "/house/spatial/#TRACE",
+    "rules": "/house/spatial/trace-rules.json",
+    "record_schema": "house-trace/v0.1",
+    "current_source": "MANUAL_LOCAL",
+    "current_encoding": "centerline = ordered room addresses; width = segment traversal count; opacity fixed; no Z encoding",
+    "return": "export JSON",
+    "runtime_boundary": "Future OBSERVED traces consume typed HA/HOUSEBUS public-safe state; public workbench never becomes runtime authority."
+  }
 }
