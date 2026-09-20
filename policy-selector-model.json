@@ -63,5 +63,39 @@
     "person": "one branch for resolved person ref",
     "resource": "one independent branch per resolved resource ref; branches intersect",
     "channel": "one branch for the current canonical channel"
+  },
+  "tag_projection_bridge": {
+    "role": "Tags are disposable projections/lenses over canonical state used for retrieval, grouping and routing; they are not identity or authority.",
+    "selector_fields": [
+      "person_tags",
+      "resource_tags",
+      "context_tags"
+    ],
+    "input_classes": {
+      "asserted": "directly asserted/canonicalized tag",
+      "derived": "derived from evidence or deterministic transform",
+      "proposed": "candidate tag not yet promoted"
+    },
+    "provenance": {
+      "required_for_replayable_trace": true,
+      "trace_field": "selector_evaluated.clauses[].fact_provenance",
+      "preferred_source_kind": "tag_projection",
+      "fields": [
+        "source_ref",
+        "source_digest",
+        "asserted_at",
+        "confidence",
+        "tag_status",
+        "namespace",
+        "evidence_refs"
+      ]
+    },
+    "authority_firewall": [
+      "tag match may cause a policy to enter the merge set",
+      "tag match may not create authority_source, authorization_ref, grant_ref, deny authority or lock authority",
+      "authorized grants remain user_explicit policy authority",
+      "deleting/reclassifying a tag must not destroy canonical source identity or provenance"
+    ],
+    "confidence_rule": "proposed/derived tags may carry confidence for provenance, but confidence never scales permission; policy merge remains discrete deny/conditional/review/allow plus explicit grant/lock semantics"
   }
 }
