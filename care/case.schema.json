@@ -269,6 +269,18 @@
                     "items": {
                       "type": "string"
                     }
+                  },
+                  "geometry_version": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "trace_space": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
                   }
                 },
                 "additionalProperties": true
