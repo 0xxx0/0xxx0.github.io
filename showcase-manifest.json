@@ -16,13 +16,12 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T02:58:00+08:00",
+        "updated_at": "2026-09-21T02:53:26+08:00",
         "work_modes": [
-          "INVESTIGATE",
           "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
-          "RELEASE"
+          "OPERATE"
         ]
       }
     },
@@ -2107,7 +2106,15 @@
       "parent": "/",
       "state": "ACTIVE",
       "showcase_card": false,
-      "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff."
+      "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff.",
+      "index": {
+        "updated_at": "2026-09-21T02:53:26+08:00",
+        "work_modes": [
+          "SPECIFY",
+          "IMPLEMENT",
+          "OPERATE"
+        ]
+      }
     },
     {
       "href": "/returns/",
@@ -2266,12 +2273,10 @@
       "showcase_card": false,
       "role": "Readable cross-lineage handoff shelf; coordinates unequal lineages through explicit differences, ablations and recipient-side RETURN without vocabulary collapse.",
       "index": {
-        "updated_at": "2026-09-21T00:15:00+08:00",
+        "updated_at": "2026-09-21T02:53:26+08:00",
         "work_modes": [
-          "RECOVER",
-          "VERIFY",
           "SPECIFY",
-          "IMPLEMENT"
+          "OPERATE"
         ]
       }
     },
@@ -3703,7 +3708,8 @@
     "field_index_root": "Root now renders CURRENT-owned NOW/HEADS separately from manifest-owned MAP/RECENT and contract-derived OPEN PORTS. MAP is generated from route.parent so new addressed surfaces do not require manual homepage insertion.",
     "sitemap_manifest": "All repository directory index surfaces are now explicitly addressable in the manifest. Redirect/lens doors use kind=alias so completeness does not imply independent project status.",
     "sitemap_health": "PASS 2026-09-21: all 70 repository directory index surfaces have manifest addresses; 7 compatibility/lens doors are typed aliases; missing-parent count 0. Enforced by public validator.",
-    "legacy_work_mode_recovery": "Seven legacy UNKNOWN route work-mode records were evidence-backfilled from exact release receipts on 2026-09-21. Their historical touch dates were preserved; no fake recency bump."
+    "legacy_work_mode_recovery": "Seven legacy UNKNOWN route work-mode records were evidence-backfilled from exact release receipts on 2026-09-21. Their historical touch dates were preserved; no fake recency bump.",
+    "replica_replan": "Bounded Confluence transfer: generalized event/state substrate remains primary; after one bounded move, RETURN closes route authority and the next move requires explicit replan. Multi-agent Director/Worker/Critic choreography is not promoted by this evidence."
   },
   "capability_model": {
     "CAPTURE": {
@@ -3768,7 +3774,7 @@
   "policy_trace_tests": "/policy-trace-cases.json",
   "field_index": {
     "schema": "0xxx0/public-field-projection/v0.1",
-    "law": "INPUT → PORT → ADDRESS/STATE → TRANSFORM → OUTPUT → EVIDENCE → RETURN",
+    "law": "INPUT → PORT → ADDRESS/STATE → TRANSFORM → OUTPUT → EVIDENCE → RETURN → REPLAN",
     "purpose": "Safe public projection of how current surfaces connect. Private device topology, credentials, owned-asset inventory and physical addresses stay outside this manifest.",
     "media": [
       "DATA",
