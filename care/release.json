@@ -2,11 +2,20 @@
   "schema": "release-receipt/v1",
   "artifact": "CARE / FIELD",
   "route": "/care/",
-  "version": "0.1",
+  "version": "0.2",
   "released": "2026-09-21",
   "state": "EXPERIMENT",
-  "relation": "specialized CONTINUITY projection; BODYFIELD spatial capture donor; HUMAN PORT downstream handoff",
+  "relation": "specialized CONTINUITY projection; BODYFIELD spatial capture donor; HUMAN PORT downstream handoff; COURSE adds sourced care-path continuity without diagnosis",
   "changes": [
+    "added CARE COURSE spine: CURRENT PHASE -> NEXT STEP -> IF/WHEN DECISION GATE -> OWNER/WHEN",
+    "added explicit source field for conditional gates so escalation logic remains attributable",
+    "split measurement capture into name/value/unit while preserving v0.1 import compatibility",
+    "added descriptive measurement trajectory cards + sparklines over numeric measurements",
+    "extended clinician/vet brief with CARE PATH and named measurements",
+    "extended STEP BACK review to flag gate-without-source, next-without-owner, and under-specified measurements",
+    "preserved course state in CONTINUITY export as explicit claims rather than flattening it into observation",
+    "replaced CARE -> HUMAN PORT URL draft transport with current same-origin sessionStorage carrier",
+    "added PRINT/PDF brief action with print-only compact rendering",
     "compressed interaction to OBSERVE / FOLLOW / BRIEF",
     "added human and animal spatial maps with tap/trace capture",
     "added own-words-first observation and region-adaptive descriptive chips",
@@ -17,26 +26,27 @@
     "added BODYFIELD ledger and CONTINUITY case import paths",
     "added CARE and CONTINUITY JSON exports",
     "added concise clinician/vet brief and explicit HUMAN PORT handoff",
-    "added STEP BACK structural gap review",
-    "BODYFIELD import now preserves original fragment/trace geometry in its source coordinate frame instead of falsely projecting it onto CARE's compact silhouette"
+    "added STEP BACK structural gap review"
   ],
   "checks": [
+    "no brief text placed in URL during HUMAN PORT handoff",
+    "sessionStorage carrier matches HUMAN PORT human.port.handoff.v01 contract",
+    "conditional gate is stored separately from observation and requires source review",
+    "measurement trajectories are descriptive only and do not synthesize thresholds",
+    "v0.1 CARE imports upgrade in-memory to v0.2 without discarding events",
+    "BODYFIELD geometry remains source-frame-preserved and unregistered",
+    "CONTINUITY export retains course phase/next/gate as explicit claims",
     "no fetch/XHR/WebSocket/sendBeacon/form submission path",
-    "localStorage only after explicit SAVE LOCAL",
-    "brief generation cannot send without explicit HUMAN PORT/share action",
-    "interpretation stored separately from raw_note",
-    "workflow events can preserve status rather than collapsing planned and performed",
-    "BODYFIELD import does not fabricate interpretation",
-    "CONTINUITY import preserves unknowns and source-derived baseline as imported context",
-    "BODYFIELD [x,y] trace arrays are preserved losslessly with source view metadata; CARE does not claim coordinate registration"
+    "localStorage only after explicit SAVE LOCAL"
   ],
   "open_gaps": [
-    "full 317-fragment BODYFIELD geometry remains in BODYFIELD; CARE uses compact tap/trace projection",
     "no private image/file attachment store yet; source cue only",
     "no clinician-authored adaptive question bank",
     "no validated triage/urgency engine by design",
-    "no FHIR QuestionnaireResponse extraction yet; BODYFIELD FHIR bridge remains donor"
+    "no FHIR CarePlan/QuestionnaireResponse export yet",
+    "no automatic metric threshold interpretation by design",
+    "full 317-fragment BODYFIELD geometry remains in BODYFIELD; CARE uses compact tap/trace projection"
   ],
   "return": "/care/",
-  "validation": "/control/CARE_VALIDATION_2026-09-21.json"
+  "validation": "/control/CARE_VALIDATION_2026-09-21_V02.json"
 }

@@ -483,13 +483,13 @@
     },
     {
       "href": "/care/",
-      "title": "CARE / FIELD 0.1",
+      "title": "CARE / FIELD 0.2",
       "kind": "workbench",
       "parent": "/continuity/",
       "family": "CONFLUENCE / CONTINUITY",
       "operation": "CAPTURE",
       "state": "EXPERIMENT",
-      "version": "0.1",
+      "version": "0.2",
       "receipt": "/care/release.json",
       "transfer": [
         "human/animal care observation",
@@ -497,7 +497,11 @@
         "event-series follow-up",
         "doctor/vet handoff",
         "BODYFIELD conversion",
-        "CONTINUITY conversion"
+        "CONTINUITY conversion",
+        "care-course / staged treatment path",
+        "conditional decision gates with provenance",
+        "measurement trajectory compression",
+        "privacy-safe clinician/vet consult handoff"
       ],
       "contract": {
         "accepts": {
@@ -518,11 +522,16 @@
             "quality",
             "magnitude",
             "workflow status",
-            "source cue"
+            "source cue",
+            "measurement name/value/unit",
+            "current phase",
+            "next step",
+            "conditional gate + source",
+            "owner / when"
           ]
         },
         "transforms": {
-          "verb": "capture what changed with minimal interaction, preserve spatial/time evidence, maintain trajectory, then compress into a reviewed clinician/vet brief",
+          "verb": "capture what changed, preserve measurement/body evidence, keep the care course explicit (current → next → conditional gate → owner/when), then compress into a reviewed clinician/vet brief",
           "preserves": [
             "raw wording",
             "body/region marks",
@@ -532,7 +541,12 @@
             "interpretation separation",
             "unknowns",
             "plan source",
-            "explicit ASK"
+            "explicit ASK",
+            "measurement identity",
+            "course phase",
+            "next-step ownership",
+            "conditional gate source",
+            "URL-private HUMAN PORT handoff"
           ],
           "reversibility": "full",
           "side_effects": "browser-local only after explicit SAVE"
@@ -544,7 +558,9 @@
             "clinician/vet brief",
             "CARE JSON",
             "CONTINUITY JSON",
-            "HUMAN PORT handoff"
+            "HUMAN PORT handoff",
+            "care-course state",
+            "descriptive measurement trajectory"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -555,6 +571,9 @@
             "no network submission",
             "observation/interpretation separation",
             "planned/performed status preservation",
+            "conditional gate/source separation",
+            "measurement trend has no invented threshold",
+            "HUMAN PORT brief text not placed in URL",
             "explicit send boundary"
           ],
           "return_path": "/care/"
@@ -593,6 +612,11 @@
             "medium": "EVIDENCE",
             "kind": "step-back gap review",
             "interface": "local review"
+          },
+          {
+            "medium": "DATA",
+            "kind": "care course / decision gate state",
+            "interface": "local/exported JSON"
           }
         ],
         "exit_paths": [
@@ -620,14 +644,25 @@
             "class": "ADAPTIVE_QUESTIONS",
             "status": "CANDIDATE",
             "via": "clinician/vet-authored question modules; no generic diagnosis engine"
+          },
+          {
+            "class": "PLANNING",
+            "status": "SPECIFIED",
+            "via": "course NEXT / OWNER / WHEN -> Dayline or FCM adapter"
+          },
+          {
+            "class": "FHIR_INTEROP",
+            "status": "CANDIDATE",
+            "via": "Observation + CarePlan + QuestionnaireResponse mapping after schema hardening"
           }
         ],
-        "physical_fit": "Observation/handoff tool for care episodes involving people or animals; no diagnostic or triage authority."
+        "physical_fit": "Observation/course/handoff tool for care episodes involving people or animals; no diagnostic, triage, threshold or treatment authority."
       },
       "index": {
-        "updated_at": "2026-09-21T00:28:00+08:00",
+        "updated_at": "2026-09-21T00:55:00+08:00",
         "work_modes": [
           "RECOVER",
+          "INVESTIGATE",
           "RESEARCH",
           "SPECIFY",
           "IMPLEMENT",

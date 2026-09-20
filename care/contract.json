@@ -1,5 +1,5 @@
 {
-  "schema": "care-field-contract/v0.1",
+  "schema": "care-field-contract/v0.2",
   "updated": "2026-09-21",
   "title": "CARE / FIELD",
   "role": "specialized projection of CONTINUITY for real-world human/animal care observation, longitudinal follow-up and clinician/vet handoff",
@@ -11,7 +11,7 @@
   ],
   "interaction_law": [
     "OBSERVE",
-    "FOLLOW",
+    "FOLLOW_COURSE",
     "BRIEF"
   ],
   "invariants": [
@@ -31,7 +31,7 @@
       "region-adaptive qualities",
       "magnitude",
       "event type/status",
-      "measurement",
+      "measurement name/value/unit",
       "evidence kind",
       "interpretation",
       "source cue"
@@ -60,14 +60,15 @@
     "imports": [
       "0xxx0/continuity-case/v0.1",
       "BODYFIELD_EVENT_LEDGER_3",
-      "0xxx0/care-case/v0.1"
+      "0xxx0/care-case/v0.1",
+      "0xxx0/care-case/v0.2"
     ],
     "exports": [
-      "0xxx0/care-case/v0.1",
+      "0xxx0/care-case/v0.2",
       "0xxx0/continuity-case/v0.1",
       "plain-text clinician/vet brief"
     ],
-    "human_port": "explicit user action only",
+    "human_port": "sessionStorage carrier human.port.handoff.v01; explicit user action only; no brief text in URL",
     "bodyfield_geometry_rule": "Preserve BODYFIELD fragment metadata and trace point arrays in their source coordinate frame; do not render them on CARE's compact silhouette without an explicit registration transform."
   },
   "step_back_checks": [
@@ -75,7 +76,10 @@
     "missing baseline",
     "missing ASK",
     "plan without source",
+    "conditional gate without source",
+    "next step without owner",
     "measurement without unit",
+    "measurement without name/context",
     "workflow event without status",
     "interpretation without underlying observation",
     "single-event case has no trajectory",
@@ -86,7 +90,29 @@
     "unvalidated triage scoring",
     "medical record authority",
     "automatic messaging",
-    "public storage of case data"
+    "public storage of case data",
+    "automatic threshold alerts",
+    "automatic causal interpretation of metric change"
   ],
-  "research": "/control/research/CARE_STATE_2026-09-21.md"
+  "research": "/control/research/CARE_STATE_2026-09-21.md",
+  "course": {
+    "purpose": "represent clinician/vet-supplied or deliberately chosen care trajectory without turning the tool into a diagnosis engine",
+    "fields": [
+      "CURRENT_PHASE",
+      "NEXT_STEP",
+      "CONDITIONAL_GATE",
+      "GATE_SOURCE",
+      "OWNER",
+      "WHEN"
+    ],
+    "law": [
+      "NEXT STEP is not DONE",
+      "CONDITIONAL GATE must retain source when known",
+      "metric trend is descriptive only; no threshold is invented",
+      "owner/when belongs to handoff continuity, not clinical interpretation"
+    ]
+  },
+  "course_research": "/control/research/CARE_COURSE_2026-09-21.md",
+  "validation": "/control/CARE_VALIDATION_2026-09-21_V02.json",
+  "case_schema": "/care/case.schema.json"
 }
