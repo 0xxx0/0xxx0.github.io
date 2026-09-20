@@ -86,6 +86,22 @@
       "route": "/recovery/poly-furnisher/room-lineage/",
       "verification": "FU5X2.html (53,646 B), EMPTY3-RF.html (47,830 B) and scratch.html (40,747 B) frozen from Drive. SHA-256 recorded. A second Drive copy for each produced the identical Git blob SHA, proving byte-exact duplicate families.",
       "boundary": "Treat the 2024 upload set as one recovery slice, not an assumed linear version chain. Room is a projection/testbed, not kernel."
+    },
+    {
+      "id": "interphase-cylinder-lineage",
+      "family": "poly-furnisher",
+      "status": "EXACT_FROZEN_VARIANT_FAMILY",
+      "route": "/recovery/poly-furnisher/interphase-lineage/",
+      "verification": "Integrated Interphase 25,174-byte branch and rotating-cylinder 28,647-byte branch each have duplicate old Drive copies proven exact by identical Git blob SHA; terse 14,094-byte proto preserved as distinct variant.",
+      "boundary": "Later 2026 Interphase Bridge/Ω descendants remain evidence-distinct; this does not resolve Painting/City."
+    },
+    {
+      "id": "kala-agent-interface-2018-2020",
+      "family": "agent-interface-history",
+      "status": "EXACT_FROZEN_AGENT_INTERFACE_FAMILY",
+      "route": "/recovery/kala/",
+      "verification": "Exact 2018 (10,999 B) and 2020 (11,514 B) KALA HTML variants frozen from Drive with SHA-256 recorded.",
+      "boundary": "Proves historical desktop-character/spatial interface behavior, not a modern autonomous agent backend. Other remembered pets remain unresolved."
     }
   ],
   "unresolved": [
@@ -109,9 +125,9 @@
     },
     {
       "id": "ancient-desktop-agent-pet-lineage",
-      "status": "USER_PIN_EXACT_SOURCE_UNKNOWN",
-      "evidence": "User recalls a pre-current-AI desktop-character/agent lineage, described as a 'Kala guy' and desktop pets in the post-Clippy/pre-current-corporate-AI era. Drive/File-Library searches so far return generic noise or unrelated Kala/Kirtimukha material.",
-      "route": "/migration/"
+      "status": "PARTIAL_EXACT_RECOVERY_KALA_FOUND_WIDER_PETS_OPEN",
+      "evidence": "KALA exact 2018/2020 variants recovered at /recovery/kala/. Other remembered desktop pets/characters still lack exact proper names/source.",
+      "route": "/recovery/kala/"
     }
   ],
   "next": [
