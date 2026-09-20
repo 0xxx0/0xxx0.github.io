@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "artifact": "HOUSE / SPATIAL",
   "route": "/house/spatial/",
-  "version": "0.3",
+  "version": "0.4",
   "released": "2026-09-20",
   "state": "EXPERIMENT",
   "changes": [
@@ -12,19 +12,25 @@
     "Made floor, ceiling and wall surfaces first-class; vertical geometry remains explicitly unmeasured until calibrated.",
     "Preserved the 93 m² / #17-103 donor versus later current-house 3-room record as an unresolved physical-instance conflict.",
     "Pinned POLY/FURNISHER, SEAM ENGINE, SINDER/Furnisher, mandala/lens and Semantic Painting as unequal donors through the HOUSE Confluence model.",
-    "Restored the shared bottom-left route adapter and FI/Confluence re-entry paths."
+    "Restored the shared bottom-left route adapter and FI/Confluence re-entry paths.",
+    "Implemented TRACE / INK PATH as a reversible manual-local projection: room clicks append stable addresses, repeated segments thicken by traversal count, and JSON RETURN exports house-trace/v0.1.",
+    "Defined trace-rules.json so visual channels cannot silently mix semantics; knight-path remains user-recalled/unrecovered rather than canonized.",
+    "Kept Home Assistant boundary intact: future OBSERVED traces may consume typed house-state/object/receipt outputs, but the public spatial workbench does not query or actuate HA directly."
   ],
   "checks": {
     "no_live_actuation": true,
     "local_calibration_only": true,
     "identity_conflict_visible": true,
-    "vertical_unknowns_visible": true
+    "vertical_unknowns_visible": true,
+    "trace_manual_local_only": true,
+    "trace_export_schema": "house-trace/v0.1"
   },
   "sources": [
     "/house/spatial/model.json",
     "/house/spatial-state.json",
     "/house/confluence.json",
-    "/control/FIELD_INDEX_CONTRACT.json"
+    "/control/FIELD_INDEX_CONTRACT.json",
+    "/house/spatial/trace-rules.json"
   ],
   "honesty": "This is a reconstructed current head from recovered interface/spec evidence. It is not claimed to be the exact lost Sep 3 file."
 }
