@@ -1036,7 +1036,8 @@
       "index": {
         "updated_at": "2026-09-20",
         "work_modes": [
-          "UNKNOWN"
+          "VERIFY",
+          "RELEASE"
         ]
       }
     },
@@ -1140,7 +1141,10 @@
       "index": {
         "updated_at": "2026-09-20",
         "work_modes": [
-          "UNKNOWN"
+          "RECOVER",
+          "IMPLEMENT",
+          "VERIFY",
+          "RELEASE"
         ]
       }
     },
@@ -1480,7 +1484,10 @@
       "index": {
         "updated_at": "2026-09-20",
         "work_modes": [
-          "UNKNOWN"
+          "RECOVER",
+          "IMPLEMENT",
+          "VERIFY",
+          "RELEASE"
         ]
       }
     },
@@ -1727,7 +1734,8 @@
       "index": {
         "updated_at": "2026-09-20",
         "work_modes": [
-          "UNKNOWN"
+          "VERIFY",
+          "RELEASE"
         ]
       }
     },
@@ -1834,7 +1842,8 @@
       "index": {
         "updated_at": "2026-09-20",
         "work_modes": [
-          "UNKNOWN"
+          "VERIFY",
+          "RELEASE"
         ]
       }
     },
@@ -1933,7 +1942,9 @@
       "index": {
         "updated_at": "2026-09-20",
         "work_modes": [
-          "UNKNOWN"
+          "IMPLEMENT",
+          "VERIFY",
+          "RELEASE"
         ]
       }
     },
@@ -3691,7 +3702,8 @@
     "laconic": "v0.3 couples a deliberately small current LINE/SCENE instrument to a browseable exact-source VAULT. Historical assistant output remains source-donor material unless adoption/reuse evidence promotes it; persona/plurality/Council lineage is represented as multi-donor convergence with open seams.",
     "field_index_root": "Root now renders CURRENT-owned NOW/HEADS separately from manifest-owned MAP/RECENT and contract-derived OPEN PORTS. MAP is generated from route.parent so new addressed surfaces do not require manual homepage insertion.",
     "sitemap_manifest": "All repository directory index surfaces are now explicitly addressable in the manifest. Redirect/lens doors use kind=alias so completeness does not imply independent project status.",
-    "sitemap_health": "PASS 2026-09-21: all 70 repository directory index surfaces have manifest addresses; 7 compatibility/lens doors are typed aliases; missing-parent count 0. Enforced by public validator."
+    "sitemap_health": "PASS 2026-09-21: all 70 repository directory index surfaces have manifest addresses; 7 compatibility/lens doors are typed aliases; missing-parent count 0. Enforced by public validator.",
+    "legacy_work_mode_recovery": "Seven legacy UNKNOWN route work-mode records were evidence-backfilled from exact release receipts on 2026-09-21. Their historical touch dates were preserved; no fake recency bump."
   },
   "capability_model": {
     "CAPTURE": {
