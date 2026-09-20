@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0xxx0.github.io/contact/social-residue.schema.json",
+  "title": "HUMAN PORT Social Residue Record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "id",
+    "source_ref",
+    "type",
+    "strength",
+    "subject",
+    "status"
+  ],
+  "properties": {
+    "version": {
+      "const": "0R1"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_excerpt_or_hash": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "type": {
+      "enum": [
+        "OFFER",
+        "REQUEST",
+        "INTENT",
+        "PROMISE_CANDIDATE",
+        "FOLLOW_UP",
+        "IDEA",
+        "QUESTION",
+        "ARTIFACT",
+        "DECISION_SEED",
+        "RELATION_NOTE"
+      ]
+    },
+    "strength": {
+      "enum": [
+        "MENTION",
+        "MAYBE",
+        "INTEND",
+        "COMMIT",
+        "SCHEDULED"
+      ]
+    },
+    "private_person_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "relation_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "why_it_matters": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "next_safe_move": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "time_horizon": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "enum": [
+        "CANDIDATE",
+        "HELD",
+        "ACTIVE",
+        "WAITING",
+        "RETURNED",
+        "RELEASED",
+        "SUPERSEDED",
+        "EXPIRED"
+      ]
+    },
+    "return": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "outcome": {
+          "enum": [
+            "DONE",
+            "VALUE_TAKEN",
+            "RELEASED",
+            "DEFERRED",
+            "HANDOFF",
+            "SUPERSEDED",
+            "UNKNOWN"
+          ]
+        },
+        "note": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "evidence_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
