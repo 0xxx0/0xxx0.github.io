@@ -3659,9 +3659,9 @@
     "sleeper": "Public experiment. Same canonical state is exposed as first-person coupled law field and plain obligation list; geometry is explicitly not external truth.",
     "scale_lens": "RC11.2 remains the stable public head. G2 identity/RETURN is unchanged; optional spatial-donor-1 is projection-only. External smoke run 1 exposed mobile importer overflow; targeted importer-wrap patch fixed it and representative traversal passes at 390px + 1280px.",
     "triangle_bench": "Nested Field / Proof experiment. EXPLOIT / EXPLORE / PROVE simplex compared against a plain two-control allocation; no showcase card.",
-    "showcase_trace": "PASS: external Chromium representative-interaction smoke on all nine showcase cards at 390px + 1280px, 18/18. GitHub Actions run 35372320053. Rerun after public runtime changes.",
-    "capability_map": "Root showcase now exposes a transfer-oriented reading of the same nine public cards. Transfer labels describe reusable mechanisms, not additional public artifacts or a claim that a monolithic agent already exists.",
-    "routing": "Nine public showcase artifacts now expose accepts/transforms/emits/evidence contracts. agent-router.json may compose or skip stages and selects the smallest adequate route under permission, reversibility and evidence constraints.",
+    "showcase_trace": "HISTORICAL VALIDATION: the former nine-card showcase interaction smoke passed 18/18 at 390px + 1280px on GitHub Actions run 35372320053. This is preserved as historical evidence, not a claim about the current FIELD INDEX root.",
+    "capability_map": "Legacy capability-contract views remain useful, but FIELD INDEX no longer treats any fixed card set as the complete public map. Root orientation is NOW / HEADS / MAP / OPEN PORTS with RECENT as a secondary mutation lens.",
+    "routing": "Capability contracts remain composable through agent-router.json. Route count and sitemap membership are independent of the older bounded routing fixture; aliases/support/donors do not automatically become execution stages.",
     "execution_boundary": "Showcase contracts are public semantic/reference interfaces only. Private personal traffic and credentials belong to private runtime adapters; no public showcase route is an implicit execution endpoint.",
     "router_bench": "Deterministic public workbench over the live capability contracts and adapter declarations. It simulates routing/permission/RETURN only; private execution remains outside the public surface.",
     "human_return": "0 / HUMAN PORT 0.3 is transport-neutral: PING/REPLY/NEED/CHECK produce a local 0P1 envelope for native sharing now. Future private human or nonhuman agent/clone bindings are permitted only under explicit policy, disclosed representation, provenance and bounded authority; undisclosed impersonation/false attribution remain forbidden.",
@@ -3673,7 +3673,7 @@
     "forward_center_mass": "Parallel control projection: 117 memory objects → 8 reusable operators → ≤3 active execution fronts → local RETURN receipts. Heuristic projection; does not rewrite federation canon.",
     "axial": "Canonical AXIAL experiment remains /foundry/axial/ and is intentionally not a root showcase card. v0.4 adds an ancestry-linked before/gesture/after event ledger and schema; promotion still requires interpretable digital-trial and physical nested-tube receipts.",
     "forward_field_proof": "FIELD / PROOF remains the public PROVE adapter for PLAIN-vs-rich representation, interruption recovery, constraint retention and opportunity noticing. Its general attention-control lessons are absorbed into FCM; its time/execution lessons route to Atlas Dayline rather than creating another planner runtime.",
-    "now_projection": "Root NOW filter highlights the current human-facing heads; FCM 0.2 owns NOW/NEXT/HOLD/DROP attention projection and common RETURN receipts. CURRENT.json remains the cold-start source of truth.",
+    "now_projection": "CURRENT.json owns NOW. FIELD INDEX renders active_fronts directly; HEADS is a separate retained-lineage reading. FCM remains a donor/attention projection rather than root authority.",
     "reachability": "All public directory index surfaces are reachable from the showcase graph; nested experiments stay reachable through their parent rather than receiving new cards.",
     "recovery_vault": "Exact recovered donors are now visible through /recovery/ without becoming showcase cards or current heads. Source fidelity and blockers live in control/RECOVERY_RUN_2026-09-19.json.",
     "verse_atlas_replay": "Recovered Grid Path Compiler RETURN→REPLAY closed a concrete head gap: Verse Atlas now validates and replays its own FOUNDRY/VERSE-ATLAS-1 JSON receipt. General donor workbench features remain frozen.",
@@ -3789,7 +3789,7 @@
       "RETURN"
     ],
     "contract": "/control/FIELD_INDEX_CONTRACT.json",
-    "default_order": "UPDATED_DESC",
+    "default_order": "STRUCTURE",
     "activity_modes": [
       "RECOVER",
       "INVESTIGATE",
@@ -3801,7 +3801,15 @@
       "OPERATE",
       "RELEASE",
       "UNKNOWN"
-    ]
+    ],
+    "secondary_order": "RECENT_UPDATED_DESC",
+    "readings": {
+      "NOW": "/control/CURRENT.json#active_fronts",
+      "HEADS": "/control/CURRENT.json#current_heads",
+      "MAP": "/showcase-manifest.json#routes parent graph",
+      "OPEN_PORTS": "route.field.exit_paths where status != AVAILABLE",
+      "RECENT": "route.index.updated_at"
+    }
   },
   "policy_trace_verification": "/policy-trace-verification.json",
   "policy_trace_event_model": "/policy-trace-event-model.json",
