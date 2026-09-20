@@ -1,5 +1,5 @@
 {
-  "schema": "house-trace-rules/v0.2",
+  "schema": "house-trace-rules/v0.3",
   "updated": "2026-09-20",
   "title": "TRACE / INK PATH",
   "status": "EXPERIMENT",
@@ -144,5 +144,18 @@
     },
     "donor_transplants": "/house/spatial/trace-transplants.json",
     "source_truth": "Imported traces become REPLAYED projection state; import does not claim physical observation."
+  },
+  "v0_3": {
+    "path_laws": "/house/spatial/trace-path-laws.json",
+    "law_stack": "Enabled laws compose by AND and score the same authored path live as PASS / FAIL / PENDING.",
+    "implemented": [
+      "NO_ECHO",
+      "ONE_STROKE",
+      "PILGRIM",
+      "HOME",
+      "FIVE_GATES"
+    ],
+    "sediment": "TRACE room fill accumulates with visit count while segment width continues to encode directed-segment traversal count.",
+    "truth_boundary": "Law score is a GAME_RULE / COGNITIVE_PROJECTION. Sediment is derived only from local authored trace history, not observed occupancy."
   }
 }
