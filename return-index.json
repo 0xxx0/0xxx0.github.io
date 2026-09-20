@@ -1,9 +1,9 @@
 {
   "schema": "0xxx0/return-index/v0.1",
-  "generated": "2026-09-19",
+  "generated": "2026-09-20",
   "source": "/showcase-manifest.json",
-  "count": 14,
-  "receipts_ok": 14,
+  "count": 15,
+  "receipts_ok": 15,
   "law": "A release without a return path is not closed.",
   "items": [
     {
@@ -159,6 +159,17 @@
       "receipt_ok": true,
       "receipt_schema": "release-receipt/v1",
       "release_updated": null
+    },
+    {
+      "href": "/house/",
+      "title": "HOUSE / FIELD",
+      "state": "STABLE",
+      "version": "0.2",
+      "operation": "PROJECT",
+      "receipt": "/house/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": "2026-09-20"
     }
   ]
 }
