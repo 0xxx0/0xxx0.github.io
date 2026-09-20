@@ -1,45 +1,52 @@
 {
   "schema": "showcase-release/v1",
-  "title": "AXIAL / STATE × TRANSFORM",
-  "version": "0.4",
+  "title": "AXIAL / STATE APERTURE",
+  "version": "0.5",
   "state": "EXPERIMENT",
-  "updated": "2026-09-19",
+  "updated": "2026-09-21",
   "route": "/foundry/axial/",
   "parent": "/foundry/",
   "operation": "PROVE",
-  "hypothesis": "Discrete semantic state + continuous embodied transform + explicit transaction commit can reduce translation cost between physical manipulation and computational meaning.",
+  "hypothesis": "A cylindrical controller can compress semantic address, continuous transform, bounded visibility and explicit commit into a physically readable state with lower translation burden than separated controls.",
   "controls": [
     "OBJECT ring",
     "OPERATOR ring",
     "FRAME ring",
-    "AXIAL 0–60 mm",
-    "TWIST ±180°",
+    "θ / TWIST ±180°",
+    "z / AXIAL 0–60 mm",
+    "literal APERTURE window",
     "SAFE/TEST/ARM/RUN"
   ],
   "evidence": [
-    "10-trial harness",
+    "operator-specific 10-trial mapping check (descriptive only)",
+    "frame-specific projection behavior",
+    "literal aperture clipping rather than scale proxy",
     "latched RUN semantics",
-    "per-mutation before/gesture/after provenance ledger",
-    "ancestry-linked interaction events",
+    "before/gesture/after provenance ledger",
+    "packet events traverse same ledger",
     "RETURN receipts",
-    "machine-readable AXIAL_PACKET bridge",
-    "/foundry/axial/event.schema.json"
+    "/foundry/axial/aperture.contract.json"
   ],
-  "promotion_gate": "Do not promote to a root showcase card until the digital 10-trial harness produces an interpretable PASS and one physical nested-tube comparison produces interpretable receipts; root may link the lab as an explicitly gated experiment.",
-  "lineage": [
-    "AXIAL COMPOSITOR",
-    "Memory Orb",
+  "promotion_gate": "Remain PROOF_REQUIRED until (1) comparative digital evidence is produced through FIELD / PROOF or equivalent control, and (2) one passive physical cylinder/aperture readback-and-restore comparison produces interpretable receipts. A runnable browser instrument is not physical proof.",
+  "lineage_exact": [
+    "2019 rotating-cylinder / INTERPHASE donor",
+    "STATE × TRANSFORM v0.3",
+    "AXIAL COMPOSITOR v0.2"
+  ],
+  "lineage_transfer": [
     "Scale Lens",
-    "Two Dial",
-    "Identity/RETURN kernel"
+    "Identity/RETURN kernel",
+    "product-demo MODEL↔WORLD / simulation-gap analysis"
   ],
-  "research_question": "Can the low-level detent + twist/slide + transaction trace reconstruct what changed without a separate manual narrative?",
-  "known_gap": "Digital mechanics are proxies. Physical travel, detent force, backlash, eyes-free acquisition, nonlinear mappings, and mechanical state persistence remain unvalidated.",
+  "inspiration_not_provenance": [
+    "Blade Runner / Memory-Orb visual/mechanical association"
+  ],
+  "research_question": "Can one physically inspect, set, disturb, restore and commit meaningful state through ring + θ/z + aperture topology with less translation and fewer mode errors than a plain separated control surface?",
+  "known_gap": "No physical aperture/sleeve result exists yet. Detent force, backlash, eyes-free acquisition, readback, restoration, nonlinear mappings and comparative advantage remain unvalidated.",
   "current_classification": {
-    "reviewed_at": "2026-09-20T23:58:00+08:00",
+    "reviewed_at": "2026-09-21T00:59:00+08:00",
     "state": "PROOF_REQUIRED",
-    "basis": "Own promotion gate still requires interpretable digital 10-trial evidence plus one physical nested-tube comparison receipt.",
-    "receipt": "/control/EXPERIMENT_WRANGLE_2026-09-20.json",
-    "provenance_note": "Original release state remains contemporaneous provenance; this field records the later lifecycle classification."
+    "basis": "0.5 corrects semantics and physical correspondence but deliberately does not promote evidence status.",
+    "receipt": "/foundry/axial/release.json"
   }
 }
