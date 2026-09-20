@@ -13,7 +13,11 @@
     "EXACT BYTES ESTABLISH THE ARTIFACT; A SPEC DOES NOT SUBSTITUTE FOR SOURCE BYTES.",
     "SPECS ESTABLISH INTENT / CONTRACT / EXPECTED BEHAVIOR; KEEP ORIGINAL-SOURCE AND LATER-INTERPRETIVE SPECS DISTINCT.",
     "SCREENSHOTS ESTABLISH APPEARANCE, NOT EXECUTABLE BEHAVIOR.",
-    "RECEIPTS / TESTS ESTABLISH OBSERVED BEHAVIOR FOR A PARTICULAR RUN OR VERSION."
+    "RECEIPTS / TESTS ESTABLISH OBSERVED BEHAVIOR FOR A PARTICULAR RUN OR VERSION.",
+    "QUARANTINE MEANS PRESERVED WITHOUT PROMOTION; IT DOES NOT MEAN DELETE.",
+    "OLD ≠ IMPORTANT; WEIRD ≠ WORTHLESS; SHINY ≠ TRUE.",
+    "NO BEAUTIFICATION DEBT FOR QUARANTINED OR FROZEN FOSSILS.",
+    "PROMOTE ONLY AFTER IDENTITY + PROVENANCE + MECHANISM + PAY-RENT + RETURN."
   ],
   "statuses": {
     "LIVE_HEAD": "Canonical/live enough to use now.",
@@ -461,6 +465,25 @@
       "sha256": "11b4f72e9e742ceb2ba52cbc20c39c8bba889e515167d1752e5e72d52502c8b4",
       "unique": "Closest integrated proto-kernel before formal cleanup: reducer/transducer protocol, matrices, lenses, representation swapping, scheduling and linear↔radial geometry.",
       "action": "Preserve untouched; compare against current representation kernel only through explicit mechanism tests."
+    },
+    {
+      "id": "poly-furnisher-room-lineage",
+      "name": "FU ROOM / INTERPHASE ROOM LINEAGE",
+      "family": "poly-furnisher",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/poly-furnisher/room-lineage/",
+      "source_type": "drive-recovered-exact-byte-verified-family",
+      "unique": "Three exact spatial/interface fossils—FU5X2, EMPTY3-RF and scratch—showing room/cube, optics, matrix, state, focus, speech/audio and KRAKEN mechanisms. Duplicate copies proven byte-identical.",
+      "action": "KEEP FROZEN AS ONE DONOR FAMILY. The room is a projection/testbed, not the kernel. Mine named mechanisms only; no in-place cleanup."
+    },
+    {
+      "id": "ancient-desktop-agent-pet-lineage",
+      "name": "Ancient desktop agent / pet lineage",
+      "family": "agent-interface-history",
+      "status": "RECOVER",
+      "source_type": "user-pinned-exact-source-unknown",
+      "unique": "User remembers a pre-current-AI desktop-character/agent lineage ('Kala guy' / desktop pets after Clippy era). Exact names, code and chronology are unresolved.",
+      "action": "RECOVER exact names/source/screenshots/code before interpretation. Do not conflate 'Kala' with the unrelated Kala/Kirtimukha visual thread or import generic mascot software as evidence."
     }
   ],
   "ingest_queue": [
@@ -472,8 +495,42 @@
     "ENV-0: byte-copy/hash-verify the two exact located PDFs; then use one plate/build-sheet as a bounded PRINT→PHYSICAL→RETURN fixture.",
     "SLEEPER/PAINTING: Workfield v1.2 is frozen exactly; continue City/Painting only from exact source/assets.",
     "NAMING: public-safe recovery status exists; locate one isolated exact runnable/source/glyph artifact before promotion.",
-    "MEDIA: DataDisc 2019 and RSVP 2018 are exact fixtures; mechanism-diff only when a current projection/reader needs a named capability."
+    "MEDIA: DataDisc 2019 and RSVP 2018 are exact fixtures; mechanism-diff only when a current projection/reader needs a named capability.",
+    "ROOM/FU: DONE exact representatives frozen + duplicate families verified; only mine mechanisms when a current surface needs one.",
+    "DESKTOP AGENT/PET: recover exact name/source/chronology for the pre-current-AI desktop-character lineage; reject generic Clippy/Bonzi search noise."
   ],
   "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
-  "last_mechanism_diff": "/control/MECHANISM_DIFF_2026-09-19.json"
+  "last_mechanism_diff": "/control/MECHANISM_DIFF_2026-09-19.json",
+  "process": {
+    "human_home": "/migration/",
+    "control_ledger": "/control/migration/",
+    "sequence": [
+      "INGEST",
+      "PROVE_IDENTITY",
+      "PRESERVE_EXACT_SOURCE",
+      "CLASSIFY",
+      "COMPARE_MECHANISM",
+      "PROMOTE_OR_QUARANTINE",
+      "RETURN"
+    ],
+    "zones": {
+      "TROPHY": "Exact/frozen donor or evidence that earned survival by mechanism, provenance, capability, or lineage.",
+      "EXPEDITION": "Known gap worth exact recovery; reconstruction is not recovery.",
+      "QUARANTINE": "Preserved without promotion. No beautification debt.",
+      "ATTIC": "Rejected or weakly proven candidates retained as negative knowledge so they are not repeatedly rediscovered."
+    },
+    "promotion_gate": [
+      "IDENTITY: exact object/version is distinguishable.",
+      "PROVENANCE: source/evidence class is explicit.",
+      "MECHANISM: surviving operation is named.",
+      "PAY_RENT: adds capability, evidence, lineage, constraint, or a needed source.",
+      "RETURN: effect can be verified without erasing source."
+    ],
+    "evidence_classes": {
+      "BYTES": "What actually existed: exact source/executable/assets/archive.",
+      "SPEC": "What it meant or promised; original notes and later reconstruction stay distinct.",
+      "IMAGE": "Appearance evidence only; never substitutes for behavior/source.",
+      "RECEIPT": "Observed behavior/result for a particular run/version."
+    }
+  }
 }
