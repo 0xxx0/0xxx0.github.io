@@ -1,0 +1,122 @@
+{
+  "schema": "human-port-lenses/v0.1",
+  "purpose": "Unequal human projections over the same four HUMAN PORT intents. Relationship changes language, not packet semantics or authority.",
+  "internal_intents": [
+    "PING",
+    "REPLY",
+    "NEED",
+    "CHECK"
+  ],
+  "lenses": {
+    "default": {
+      "label": "DEFAULT",
+      "prompt": "WHAT DO YOU WANT TO DO?",
+      "projection": {
+        "PING": {
+          "label": "· JUST TELLING YOU",
+          "note": "No reply needed."
+        },
+        "REPLY": {
+          "label": "↩ WRITE BACK",
+          "note": "Reply when practical."
+        },
+        "NEED": {
+          "label": "→ I NEED SOMETHING",
+          "note": "There is a concrete ask."
+        },
+        "CHECK": {
+          "label": "! ARE YOU OKAY?",
+          "note": "Human attention matters."
+        }
+      }
+    },
+    "family": {
+      "label": "FAMILY",
+      "prompt": "WHAT DO YOU NEED FROM ME?",
+      "projection": {
+        "PING": {
+          "label": "· JUST TELLING YOU",
+          "note": "Keep me in the loop."
+        },
+        "REPLY": {
+          "label": "↩ CALL / REPLY",
+          "note": "Come back when you can."
+        },
+        "NEED": {
+          "label": "→ I NEED HELP",
+          "note": "Something practical needs doing."
+        },
+        "CHECK": {
+          "label": "! ARE YOU OKAY?",
+          "note": "A human check; silence alone proves nothing."
+        }
+      }
+    },
+    "friend": {
+      "label": "FRIEND",
+      "prompt": "WHAT IS IT?",
+      "projection": {
+        "PING": {
+          "label": "· FYI",
+          "note": "No reply needed."
+        },
+        "REPLY": {
+          "label": "↩ HIT ME BACK",
+          "note": "When you have bandwidth."
+        },
+        "NEED": {
+          "label": "→ CAN YOU HELP?",
+          "note": "There is an actual ask."
+        },
+        "CHECK": {
+          "label": "! YOU GOOD?",
+          "note": "A human check, not an alarm."
+        }
+      }
+    },
+    "work": {
+      "label": "WORK",
+      "prompt": "WHAT KIND OF SIGNAL?",
+      "projection": {
+        "PING": {
+          "label": "· FYI",
+          "note": "Awareness only."
+        },
+        "REPLY": {
+          "label": "↩ RESPONSE",
+          "note": "A reply is requested."
+        },
+        "NEED": {
+          "label": "→ ACTION",
+          "note": "A concrete action is requested."
+        },
+        "CHECK": {
+          "label": "! HUMAN CHECK",
+          "note": "Automation should stop and a person should look."
+        }
+      }
+    },
+    "agent": {
+      "label": "AGENT",
+      "prompt": "REQUESTED MOVE",
+      "projection": {
+        "PING": {
+          "label": "OBSERVE",
+          "note": "Record or acknowledge only."
+        },
+        "REPLY": {
+          "label": "DRAFT",
+          "note": "Prepare response; do not send."
+        },
+        "NEED": {
+          "label": "REQUEST ACTION",
+          "note": "Route only under explicit authority."
+        },
+        "CHECK": {
+          "label": "HANDOFF",
+          "note": "Escalate to a human with uncertainty intact."
+        }
+      }
+    }
+  }
+}
