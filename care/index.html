@@ -347,13 +347,24 @@ function importAny(j,name){
    const unk=(j.claims||[]).filter(x=>x.lane==='UNKNOWN').map(x=>x.text);
    C=blank();C.subject={label:j.subject||name||'',kind:j.kind==='ANIMAL'?'ANIMAL':'PERSON'};C.baseline=facts;C.unknowns=unk;C.identity_note='Imported from CONTINUITY '+(j.id||'');C.imports.push({type:'CONTINUITY',at:now(),source:j.id||name||'import',raw:j});renderAll();return;
  }
- if(j.schema==='BODYFIELD_EVENT_LEDGER_3'||j.schema==='BODYFIELD_EVENT_LEDGER_3'){
+ if(j.schema==='BODYFIELD_EVENT_LEDGER_3'){
    if(!C.subject.label)C.subject.label='BODYFIELD import';C.subject.kind='PERSON';
    (j.records||[]).filter(r=>r.type==='body.observation').forEach(r=>{
-     const fr=(r.observation?.fragments||[]).map(f=>f.parentSlug||f.slug).filter(Boolean),tr=(r.observation?.traces||[])[0];
-     let pts=[];if(Array.isArray(tr?.points))pts=tr.points.map(p=>({x:Number(p.x)||0,y:Number(p.y)||0}));
-     C.events.push({id:uid('evt'),at:r.at||now(),type:'OBSERVATION',status:null,raw_note:r.observation?.raw_note||'',regions:[...new Set(fr)],trace:pts,qualities:r.observation?.qualities||[],magnitude:r.observation?.magnitude??null,trend:'NEW',evidence_kind:'SELF_OBSERVED',measurement:null,interpretation:null,source_cue:'BODYFIELD '+(r.id||''),prior_same_region_id:null});
-   });C.imports.push({type:'BODYFIELD',at:now(),source:name||'ledger'});renderAll();return;
+     const fr=(r.observation?.fragments||[]).map(f=>f.parentSlug||f.slug).filter(Boolean);
+     const traceSets=(r.observation?.traces||[]).map(t=>({
+       view:t.view||r.observation?.view_at_return||null,
+       points:Array.isArray(t.points)?t.points.map(p=>Array.isArray(p)?[Number(p[0])||0,Number(p[1])||0]:[Number(p.x)||0,Number(p.y)||0]):[]
+     }));
+     C.events.push({
+       id:uid('evt'),at:r.at||now(),type:'OBSERVATION',status:null,raw_note:r.observation?.raw_note||'',
+       regions:[...new Set(fr)],trace:[],qualities:r.observation?.qualities||[],magnitude:r.observation?.magnitude??null,trend:'NEW',
+       evidence_kind:'SELF_OBSERVED',measurement:null,interpretation:null,source_cue:'BODYFIELD '+(r.id||''),prior_same_region_id:null,
+       bodyfield_geometry:{source:r.source||null,view:r.observation?.view_at_return||null,fragments:r.observation?.fragments||[],traces:traceSets},
+       bodyfield_dimensions:{valence:r.observation?.valence??null,depth:r.observation?.depth??null,spread:r.observation?.spread??null,motion:r.observation?.motion||null}
+     });
+   });
+   C.imports.push({type:'BODYFIELD',at:now(),source:name||'ledger',policy:'geometry preserved in BODYFIELD coordinate frame; not projected onto CARE silhouette'});
+   renderAll();return;
  }
  throw new Error('Unsupported JSON schema');
 }
