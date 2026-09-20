@@ -1,0 +1,124 @@
+{
+  "schema": "0xxx0/interaction-semantics/v0.1",
+  "updated": "2026-09-20",
+  "purpose": "Keep navigation, reversal, evidence, and re-entry distinct across the showcase so a familiar arrow cannot silently mean several incompatible operations.",
+  "core_law": "BACK ≠ UNDO ≠ RETURN ≠ PARENT ≠ RESET",
+  "operations": [
+    {
+      "id": "BACK",
+      "class": "NAVIGATION",
+      "meaning": "Move to the prior showcase route in the current browsing session.",
+      "mutates_domain_state": false,
+      "creates_receipt": false,
+      "fallback": "PARENT when no prior showcase route is known",
+      "owner": "shared showcase route adapter",
+      "test": "After BACK, artifact state is unchanged except for ordinary page persistence/reload behavior."
+    },
+    {
+      "id": "PARENT",
+      "class": "NAVIGATION",
+      "meaning": "Move one declared artifact/family hierarchy level upward.",
+      "mutates_domain_state": false,
+      "creates_receipt": false,
+      "owner": "shared showcase route adapter",
+      "test": "Destination is determined by manifest parent, not visit history."
+    },
+    {
+      "id": "UNDO",
+      "class": "REVERSAL",
+      "meaning": "Apply the inverse of a prior reversible domain mutation when that inverse remains meaningful in the current state.",
+      "mutates_domain_state": true,
+      "creates_receipt": "recommended",
+      "owner": "artifact",
+      "forbidden": "Never implement UNDO as browser BACK or by pretending an irreversible external action never happened.",
+      "test": "The inverse is explicit, state-valid, and provenance records both the original operation and reversal."
+    },
+    {
+      "id": "RETURN",
+      "class": "EVIDENCE",
+      "meaning": "Emit a durable checkpoint/receipt containing result, provenance, residue, and a re-entry path.",
+      "mutates_domain_state": "may checkpoint/commit but does not imply reversal",
+      "creates_receipt": true,
+      "owner": "artifact/kernel",
+      "forbidden": "RETURN is not navigation and does not claim that the world reverted.",
+      "test": "Another session can resume or audit without reconstructing the whole interaction."
+    },
+    {
+      "id": "REPLAY",
+      "class": "RECONSTRUCTION",
+      "meaning": "Reconstruct a recorded state or operation sequence from a receipt/history.",
+      "mutates_domain_state": true,
+      "creates_receipt": "optional",
+      "owner": "artifact/kernel",
+      "test": "Replayed canonical state/fingerprint matches the recorded receipt under the same contract."
+    },
+    {
+      "id": "RESTORE",
+      "class": "REVERSAL",
+      "meaning": "Restore an owned prior snapshot/baseline and record the restoration as a new event.",
+      "mutates_domain_state": true,
+      "creates_receipt": "recommended",
+      "owner": "artifact",
+      "test": "History remains append-only; restoration does not delete the path that led to it."
+    },
+    {
+      "id": "RESET",
+      "class": "INITIALIZATION",
+      "meaning": "Start a fresh baseline or clear local working state.",
+      "mutates_domain_state": true,
+      "creates_receipt": false,
+      "owner": "artifact",
+      "forbidden": "Do not present RESET as if it were UNDO.",
+      "test": "The new baseline is explicit and old durable receipts remain intact."
+    },
+    {
+      "id": "RE_ENTER",
+      "class": "ORIENTATION",
+      "meaning": "Resume an interrupted task from retained context, current state, and unresolved next action.",
+      "mutates_domain_state": false,
+      "creates_receipt": false,
+      "owner": "artifact/orientation layer",
+      "test": "The user can identify the correct next action without reconstructing the full session."
+    },
+    {
+      "id": "ESC",
+      "class": "VIEW",
+      "meaning": "Dismiss the current overlay/panel/mode shell without changing canonical domain state.",
+      "mutates_domain_state": false,
+      "creates_receipt": false,
+      "owner": "view",
+      "test": "ESC changes visibility/focus only."
+    }
+  ],
+  "implementation": {
+    "shared_showcase_back": {
+      "storage": "sessionStorage",
+      "key": "showcase:trail:v1",
+      "behavior": "previous distinct showcase route; parent fallback",
+      "rationale": "Keep shared BACK local to the showcase and non-mutating instead of conflating it with artifact undo or arbitrary external browser history."
+    },
+    "native_browser_back": "Remains available through the browser/OS and keeps its ordinary browser semantics."
+  },
+  "research_anchors": [
+    {
+      "kind": "selective-undo",
+      "ref": "Berlage 1994, ACM TOCHI, DOI 10.1145/196699.196721",
+      "lesson": "An inverse should only be applied when meaningful in the current state."
+    },
+    {
+      "kind": "branching-history",
+      "ref": "Derthick & Roth 2001, Knowledge-Based Systems, DOI 10.1016/S0950-7051(00)00101-5",
+      "lesson": "Exploratory work benefits from preserving alternative history branches rather than forcing one linear past."
+    },
+    {
+      "kind": "analytic-provenance",
+      "ref": "Xu et al. 2020, Computer Graphics Forum, DOI 10.1111/cgf.14035",
+      "lesson": "Interaction history can be treated as analyzable provenance rather than disposable UI exhaust."
+    },
+    {
+      "kind": "irreversibility",
+      "ref": "Point of no Undo, CHI 2023, DOI 10.1145/3544548.3581433",
+      "lesson": "Not every consequential interaction should be cosmetically reversible; irreversibility itself can carry meaning."
+    }
+  ]
+}
