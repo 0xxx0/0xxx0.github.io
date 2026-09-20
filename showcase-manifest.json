@@ -1607,8 +1607,9 @@
       "showcase_card": false,
       "role": "Readable cross-lineage handoff shelf; coordinates unequal lineages without vocabulary collapse.",
       "index": {
-        "updated_at": "2026-09-20T19:00:00+08:00",
+        "updated_at": "2026-09-20T19:50:00+08:00",
         "work_modes": [
+          "RECOVER",
           "SPECIFY",
           "IMPLEMENT"
         ]
@@ -1805,7 +1806,8 @@
     "foundry_real_center": "Foundry real-center workbench separates slow canon candidate from live control. The 117 federation is explicitly a non-canonical donor corpus; convergences are recurrent cross-media mechanisms, not project categories.",
     "policy_trace_verification": "Trace verification now has structural/replay/sealed profiles with PASS/FAIL/INDETERMINATE. A reference verifier executes structural checks and deliberately returns INDETERMINATE when schema validation/private replay material is unavailable.",
     "tag_policy_bridge": "TAG-style labels remain disposable projections/lenses over canonical state. person_tags/resource_tags/context_tags may select applicable policies with provenance, but tags never create grants, denies, locks or authority.",
-    "policy_trace_regression": "Negative verifier vectors pin sequence, causal ordering, gate finality, privacy and tag-provenance failures so future implementations cannot silently weaken verification."
+    "policy_trace_regression": "Negative verifier vectors pin sequence, causal ordering, gate finality, privacy and tag-provenance failures so future implementations cannot silently weaken verification.",
+    "donor_transplant": "CONFLUENCE donor law: recover a bounded transferable mechanism, preserve source/recipient identities and evidence class, distinguish graft/clone/seed/compost, and require recipient-side RETURN before adoption. TAG projections may discover donors but never establish lineage or authority."
   },
   "capability_model": {
     "CAPTURE": {

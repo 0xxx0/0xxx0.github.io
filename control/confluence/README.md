@@ -32,6 +32,7 @@ A thread can think for hours without changing shared durable state. If it commit
 - [LAW ZOO / tiny-law branch](./LAW_ZOO.md)
 - [Cross-system perceptual / learning expedition](./CROSS_SYSTEM_EXPEDITION.md)
 - [RSVP temporal-focus recovery](./RSVP_RECOVERY.md)
+- [DONOR / TRANSPLANT](./DONOR_TRANSPLANT.md) — bounded mechanism transfer, graft/clone/seed distinctions, lineage-safe handoff
 - [HOUSE confluence model](../../house/confluence.json)
 
 ## Agent roles
