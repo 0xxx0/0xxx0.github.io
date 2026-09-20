@@ -60,10 +60,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX / CAPABILITY ↔ I/O",
+      "head": "FIELD INDEX / NOW · HEADS · MAP · OPEN PORTS",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "One field for apps, adapters and later observed physical assets: INPUT → PORT → ADDRESS/STATE → TRANSFORM → OUTPUT → EVIDENCE → RETURN."
+      "retained_function": "Orientation layer that keeps attention, retained lineage heads, durable address structure, unresolved interfaces and recent mutation separate so growing depth does not become one feed/backlog."
     },
     {
       "lineage": "scale-lens",
@@ -102,10 +102,10 @@
     },
     {
       "lineage": "comms",
-      "head": "LACONIC / ICONIC 0.3 + HUMAN PORT 0.3 + Router / Policy",
+      "head": "HUMAN PORT 1.2 preview + CONTACT 0.3 + LACONIC / ICONIC 0.3 + Router / Policy",
       "state": "ACTIVE",
-      "route": "/laconic/",
-      "retained_function": "Small bounded drafting/scene layer + exact-source VAULT (stars / 2025 bank / tags / lineage) with provenance/adoption separation → explicit HUMAN PORT boundary → transport-neutral policy/RETURN substrate."
+      "route": "/port/",
+      "retained_function": "Small public aperture with five plain-language doors → raw-preserving interpretation / idea ancestry / social residue / projection → explicit CONTACT send boundary; LACONIC remains the bounded drafting layer and policy/router remains the authority substrate."
     },
     {
       "lineage": "house-spatial",
@@ -323,7 +323,7 @@
     "house_trace_rules": "/house/spatial/trace-rules.json",
     "house_trace_transplants": "/house/spatial/trace-transplants.json",
     "house_trace_path_laws": "/house/spatial/trace-path-laws.json",
-    "field_index_audit": "/control/FIELD_INDEX_AUDIT_2026-09-20.json",
+    "field_index_audit": "/control/FIELD_INDEX_AUDIT_2026-09-21.json",
     "env0_recovery": "/recovery/env0/",
     "sleeper_recovery": "/recovery/sleeper/",
     "axial_recovery": "/recovery/axial/",
@@ -356,7 +356,8 @@
     "body_plan_notices": "/bodyplans/THIRD_PARTY_NOTICES.md",
     "bodyplans_validation": "/control/BODYPLANS_VALIDATION_2026-09-21.json",
     "migration_now": "/control/MIGRATION_NOW.json",
-    "quarantine": "/control/QUARANTINE_2026-09-20.json"
+    "quarantine": "/control/QUARANTINE_2026-09-20.json",
+    "human_port_convergence": "/control/confluence/HUMAN_PORT_CONVERGENCE_2026-09-21.md"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
@@ -392,7 +393,15 @@
       "RELEASE",
       "UNKNOWN"
     ],
-    "touch_rule": "A tracked public route changes order only when a durable repo mutation updates route.index.updated_at; discussion alone never bumps it."
+    "touch_rule": "A tracked public route changes RECENT only when a durable repo mutation updates route.index.updated_at; discussion alone never bumps it. CURRENT, not RECENT, owns attention.",
+    "default_reading": "STRUCTURE",
+    "readings": {
+      "NOW": "/control/CURRENT.json#active_fronts",
+      "HEADS": "/control/CURRENT.json#current_heads",
+      "MAP": "/showcase-manifest.json#routes",
+      "OPEN_PORTS": "route.field.exit_paths where status != AVAILABLE",
+      "RECENT": "route.index.updated_at secondary lens only"
+    }
   },
   "last_recovery_survey": "/control/RECOVERY_SURVEY_2026-09-20_B.json",
   "last_recovery_population": "/control/RECOVERY_POPULATION_2026-09-20.json",
