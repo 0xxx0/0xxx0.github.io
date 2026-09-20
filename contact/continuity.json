@@ -78,5 +78,15 @@
   },
   "health_boundary": "HUMAN PORT may expose communication capacity or handoff state, not medical diagnosis or detailed health/lifestyle state, unless the owner explicitly authors such a projection.",
   "experiment_boundary": "Routine/training/lifestyle experiments may exist as private context refs that modulate expected availability or response latency; they are not public by default.",
-  "return_rule": "Every continuity transition records evidence, actor, before/after state, uncertainty and next allowed actions."
+  "return_rule": "Every continuity transition records evidence, actor, before/after state, uncertainty and next allowed actions.",
+  "provenance": {
+    "exact_repo_donor": "/contact/state.json",
+    "retained": [
+      "manual public state only",
+      "silence or staleness is not evidence of danger",
+      "alternate known channels before escalation",
+      "preserve devices/files and prefer reversible actions",
+      "private handoff information stays outside the public repository"
+    ]
+  }
 }
