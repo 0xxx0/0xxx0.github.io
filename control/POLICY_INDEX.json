@@ -1,0 +1,177 @@
+{
+  "schema": "0xxx0/policy-index/v0.1",
+  "updated": "2026-09-21",
+  "purpose": "Index governing rules without duplicating them; make scope, authority, precedence, conflicts and update paths explicit.",
+  "meta_policy": {
+    "laws": [
+      "POLICIES ARE SCOPED. A rule governs only the surfaces/actions it names or clearly owns.",
+      "REFERENCE, DO NOT COPY. Tasks should cite canonical policy paths instead of embedding divergent copies.",
+      "MORE SPECIFIC VALID POLICY OVERRIDES A MORE GENERAL POLICY WITHIN ITS SCOPE; IT DOES NOT ERASE THE GENERAL POLICY ELSEWHERE.",
+      "SAFETY / PRIVACY / AUTHORITY BOUNDARIES OUTRANK CONVENIENCE, AESTHETICS, SPEED AND AUTOMATION.",
+      "OBSERVED REPO/DEVICE/ACCOUNT STATE OUTRANKS A STALE POLICY POINTER; FIX THE POINTER, DO NOT PRETEND THE STATE MATCHES.",
+      "CONFLICTS ARE PRESERVED AND RETURNED. Do not silently reconcile contradictory rules.",
+      "POLICY CHANGE REQUIRES: source → scope → delta → affected dependents → receipt.",
+      "TEMPORARY TASK INSTRUCTIONS DO NOT BECOME STANDING POLICY UNLESS PROMOTED INTO THIS INDEX.",
+      "NO POLICY PROLIFERATION: prefer amending/cross-referencing an existing authority over creating a synonym document."
+    ],
+    "conflict_resolution": [
+      "1. Stop the consequential action if authority is unclear.",
+      "2. Identify exact conflicting policy paths and scopes.",
+      "3. Prefer the more specific valid policy only within overlapping scope.",
+      "4. Preserve unresolved contradiction in the RETURN.",
+      "5. Amend the canonical source or index; do not patch copies downstream."
+    ],
+    "policy_object_fields": [
+      "id",
+      "path",
+      "scope",
+      "authority",
+      "status",
+      "depends_on",
+      "supersedes",
+      "conflicts_with",
+      "consumers"
+    ]
+  },
+  "authorities": [
+    {
+      "id": "orientation",
+      "path": "/control/ORIENTATION.json",
+      "scope": "global collaboration orientation, scale, drift response",
+      "authority": "GLOBAL_ORIENTATION",
+      "status": "ACTIVE",
+      "consumers": [
+        "DOCK",
+        "CURRENT",
+        "Hermes",
+        "migration",
+        "representation"
+      ]
+    },
+    {
+      "id": "current",
+      "path": "/control/CURRENT.json",
+      "scope": "current heads, active fronts, current pointers",
+      "authority": "CURRENT_STATE_INDEX",
+      "status": "ACTIVE",
+      "depends_on": [
+        "orientation"
+      ]
+    },
+    {
+      "id": "migration-operating",
+      "path": "/migration/OPERATING_CHARTER.md",
+      "scope": "migration/recovery/ingest/classification/promotion daily operation",
+      "authority": "DOMAIN_OPERATING_POLICY",
+      "status": "ACTIVE",
+      "depends_on": [
+        "orientation",
+        "current"
+      ],
+      "consumers": [
+        "MIGRATION_NOW",
+        "HERMES_QUEUE",
+        "migration UI"
+      ]
+    },
+    {
+      "id": "migration-full",
+      "path": "/migration/CHARTER.md",
+      "scope": "migration role, non-goals, evidence classes, history",
+      "authority": "DOMAIN_CHARTER",
+      "status": "ACTIVE",
+      "depends_on": [
+        "migration-operating"
+      ]
+    },
+    {
+      "id": "migration-now",
+      "path": "/control/MIGRATION_NOW.json",
+      "scope": "≤3 current migration moves and open exact-source gaps",
+      "authority": "DOMAIN_CURRENT_STATE",
+      "status": "ACTIVE",
+      "depends_on": [
+        "migration-operating"
+      ]
+    },
+    {
+      "id": "hermes-authority",
+      "path": "/control/HERMES_QUEUE.json",
+      "scope": "Hermes worker authority, cadence, tasks, return contract",
+      "authority": "AGENT_POLICY",
+      "status": "ACTIVE",
+      "depends_on": [
+        "orientation",
+        "current",
+        "migration-operating"
+      ]
+    },
+    {
+      "id": "quarantine",
+      "path": "/control/QUARANTINE_2026-09-20.json",
+      "scope": "quarantine/attic disposition and negative knowledge",
+      "authority": "DOMAIN_RECEIPT_POLICY",
+      "status": "ACTIVE",
+      "depends_on": [
+        "migration-operating"
+      ]
+    },
+    {
+      "id": "representation",
+      "path": "/control/REPRESENTATION.json",
+      "scope": "lawful projections/adapters and representation tests",
+      "authority": "DOMAIN_POLICY",
+      "status": "ACTIVE",
+      "depends_on": [
+        "orientation"
+      ]
+    },
+    {
+      "id": "public-qa",
+      "path": "/control/QA.json",
+      "scope": "public surface promotion, naming, appslop/card/dashboard rejection",
+      "authority": "PUBLIC_SURFACE_POLICY",
+      "status": "ACTIVE",
+      "depends_on": [
+        "orientation",
+        "current"
+      ]
+    },
+    {
+      "id": "human-port-contract",
+      "path": "/contact/contract.json",
+      "scope": "human communication authority, disclosure, routing and RETURN",
+      "authority": "HUMAN_COMMS_CONTRACT",
+      "status": "ACTIVE",
+      "consumers": [
+        "HUMAN PORT",
+        "agent-router",
+        "future messaging adapters",
+        "Hermes communications work"
+      ]
+    },
+    {
+      "id": "agent-router",
+      "path": "/agent-router.json",
+      "scope": "agent/action routing policy",
+      "authority": "ROUTING_POLICY",
+      "status": "ACTIVE",
+      "depends_on": [
+        "human-port-contract"
+      ]
+    },
+    {
+      "id": "private-adapters",
+      "path": "/private-adapter-registry.json",
+      "scope": "private transport/adapter capabilities and boundaries",
+      "authority": "ADAPTER_REGISTRY",
+      "status": "ACTIVE",
+      "depends_on": [
+        "human-port-contract",
+        "agent-router"
+      ]
+    }
+  ],
+  "task_rule": "Before a persistent agent/automation acts, it should resolve the smallest applicable policy set from this index, cite those paths in its receipt, and avoid copying their prose into task-local doctrine.",
+  "update_rule": "When a policy is added or materially changed, update this index and name affected consumers; do not silently fan the change out by hand."
+}
