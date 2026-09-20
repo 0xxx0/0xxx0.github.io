@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#090b0d">
-<title>AXIAL / STATE APERTURE 0.5</title>
+<title>AXIAL / STATE APERTURE 0.5.1</title>
 <style>
 :root{--bg:#090b0d;--p:#0f1317;--p2:#0b0f12;--ink:#edf1ed;--muted:#87939a;--line:#2c373c;--hot:#e56b3f;--cool:#68acd8;--green:#9ed88c;--gold:#d9ad62}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -13,6 +13,8 @@ a{color:var(--cool)}main{width:min(1180px,100%);margin:auto}
 header{display:grid;grid-template-columns:1.25fr .75fr;gap:24px;align-items:end;padding:20px 0 14px;border-bottom:1px solid var(--line)}
 .ey{font-size:9px;letter-spacing:.18em;color:var(--hot)}h1{margin:7px 0 0;font:800 clamp(34px,7vw,76px)/.84 system-ui,sans-serif;letter-spacing:-.065em}
 .intro{color:#a6b0b5;font:12px/1.58 system-ui,sans-serif}.intro b{color:var(--ink)}
+.onboard{display:grid;grid-template-columns:1.2fr 1.8fr auto;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:12px}.onboard>div{background:#0b0f12;padding:11px 12px}.onboard b{display:block;font:800 13px/1.15 system-ui,sans-serif;letter-spacing:-.02em}.onboard p{margin:5px 0 0;color:#a6b0b5;font:10px/1.45 system-ui,sans-serif}.onboard .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.onboard .step{border-left:1px solid #38444a;padding-left:8px}.onboard .step strong{display:block;color:var(--ink);font-size:8px;letter-spacing:.1em}.onboard .step span{display:block;color:var(--muted);font-size:8px;margin-top:3px}.onboard button{height:100%;min-width:112px;padding:10px;border-color:var(--hot);color:#ffd9ca}
+.whygrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-top:0}.whygrid>div{background:#0a0e11;padding:9px 11px}.whygrid b{display:block;font-size:8px;letter-spacing:.12em;color:var(--cool)}.whygrid span{display:block;margin-top:4px;color:#98a3a8;font:9px/1.4 system-ui,sans-serif}
 .layers{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:12px}.layers>div{background:#0b0f12;padding:8px 9px}.layers b{display:block;font-size:9px;letter-spacing:.12em}.layers span{display:block;color:var(--muted);font-size:7px;margin-top:3px}.layers .live b{color:var(--cool)}
 .grid{display:grid;grid-template-columns:minmax(320px,.85fr) 1.15fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:12px}
 .pane{background:var(--p);padding:12px;min-width:0}.label{font-size:8px;letter-spacing:.14em;color:var(--muted);margin-bottom:6px}
@@ -40,12 +42,28 @@ linear-gradient(0deg,transparent 49.9%,#26343a 50%,transparent 50.1%),#0a0e11}
 .log{margin-top:9px;border:1px solid var(--line);max-height:220px;overflow:auto}.row{display:grid;grid-template-columns:42px 1fr 110px 75px;gap:6px;padding:7px;border-bottom:1px solid var(--line);font-size:8px}.row:last-child{border-bottom:0}.ok{color:var(--green)}.bad{color:var(--hot)}
 .rule{margin-top:10px;border-left:2px solid var(--gold);background:#111319;padding:8px 10px;color:#aaa08c;font:9px/1.5 system-ui,sans-serif}
 footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);margin-top:12px;padding-top:8px;color:#66737a;font-size:8px}
-@media(max-width:820px){header,.grid{grid-template-columns:1fr}.layers{grid-template-columns:repeat(4,1fr)}.proj{height:250px}.row{grid-template-columns:34px 1fr}.row span:nth-child(3),.row span:nth-child(4){grid-column:2}.metrics{grid-template-columns:1fr 1fr}footer{display:block}}
+@media(max-width:820px){header,.grid{grid-template-columns:1fr}.onboard{grid-template-columns:1fr}.onboard .steps{grid-template-columns:1fr 1fr}.onboard button{min-height:44px}.whygrid{grid-template-columns:1fr}.layers{grid-template-columns:repeat(4,1fr)}.proj{height:250px}.row{grid-template-columns:34px 1fr}.row span:nth-child(3),.row span:nth-child(4){grid-column:2}.metrics{grid-template-columns:1fr 1fr}footer{display:block}}
 </style></head>
 <body><main>
-<header><div><div class="ey">FOUNDRY / PROOF REQUIRED · 0.5</div><h1>AXIAL<br>STATE APERTURE</h1></div>
+<header><div><div class="ey">FOUNDRY / PROOF REQUIRED · 0.5.1</div><h1>AXIAL<br>STATE APERTURE</h1></div>
 <div class="intro"><b>One state field. One physical address. One bounded view. One explicit consequence.</b><br><br>
 The recovered cylinder lineage is now treated as an interface mechanism, not a prop: discrete rings address meaning; twist/slide carry continuous transform; a literal aperture reveals state; ARM/RUN crosses the authority boundary; RETURN preserves what happened.</div></header>
+
+<section class="onboard" aria-label="AXIAL first contact">
+  <div><b>WHY THIS EXISTS</b><p>Most interfaces split WHAT / HOW / WHERE / AMOUNT / COMMIT across menus, sliders and screens. AXIAL tests whether one graspable state can carry those relations and still be readable after you look away.</p></div>
+  <div class="steps">
+    <div class="step"><strong>1 · ADDRESS</strong><span>click a word in each row</span></div>
+    <div class="step"><strong>2 · MOVE</strong><span>drag sleeve: ↔ twist · ↕ slide</span></div>
+    <div class="step"><strong>3 · TEST / ARM</strong><span>preview, then freeze intent</span></div>
+    <div class="step"><strong>4 · RUN</strong><span>apply + leave a receipt</span></div>
+  </div>
+  <div><button id="demo">LOAD 20s DEMO</button></div>
+</section>
+<section class="whygrid" aria-label="AXIAL possible leverage">
+  <div><b>HOUSE / ROBOTICS</b><span>Screen-light supervisory control: address a resource/action, set scope or amount, then require an explicit commit boundary.</span></div>
+  <div><b>MAKER / MACHINE</b><span>Keep operation, reference frame and amount physically coupled instead of scattering them across knobs, menus and modes.</span></div>
+  <div><b>DATA / CONTEXT</b><span>Use a movable aperture as a read head over dense state: reveal one lawful view while preserving source identity and a return path.</span></div>
+</section>
 
 <section class="layers" aria-label="AXIAL reality layers">
   <div><b>SPEC</b><span>law / grammar</span></div>
@@ -59,14 +77,14 @@ The recovered cylinder lineage is now treated as an interface mechanism, not a p
 
 <div class="grid">
 <section class="pane">
-<div class="label">A / DISCRETE GRAMMAR · click or swipe rings</div>
+<div class="label">A / ADDRESS · click a state OR click-drag a row horizontally</div>
 <div class="instrument" id="rings"></div>
 <div class="label" style="margin-top:10px">B / BODY · drag sleeve: horizontal = θ / twist · vertical = z / slide</div>
 <div class="body" id="body"><div class="sleeve" id="sleeve"><div class="apwin" id="bodyAperture"><div class="apread"><b id="apRead">FIELD</b><span id="apSub">WORLD · SCALE</span></div></div></div></div>
 <div class="reads"><div class="read">AXIAL / 0–60 mm<br><b id="axial">30</b> mm</div><div class="read">TWIST / ±180°<br><b id="twist">0</b>°</div></div>
 <div class="label" style="margin-top:10px">C / TRANSACTION GATE</div><div class="commit" id="commit"></div>
 <div class="rule">SAFE edits freely · TEST previews only · ARM freezes the addressed state + transform · RUN applies only that frozen packet, emits RETURN, then falls back to SAFE.</div>
-<div class="phys"><div><b>BODY TARGET</b><br><span>≈50 mm core · 3 semantic rings · fixed reference spine · outer sliding/rotating sleeve · 0–60 mm z · ±180° θ · literal read window · no electronics required for first proof.</span></div><a href="./aperture.contract.json">SPEC →</a></div>
+<div class="phys"><div><b>BODY TARGET</b><br><span>3 semantic rings · fixed reference spine · outer sliding/rotating sleeve · finite z travel · finite θ twist · literal read window · no electronics required for first proof. The recovered fixture used a ≈50 mm OD tube only as a convenient cheap build size; diameter is not part of the law.</span></div><a href="./aperture.contract.json">SPEC →</a></div>
 </section>
 
 <section class="pane">
@@ -159,6 +177,7 @@ const STORE='axial-public-v05';
 function save(){localStorage.setItem(STORE,JSON.stringify({i:S.i,axial:S.axial,twist:S.twist,applied:S.applied,receipts:S.receipts.slice(0,100),events:S.events.slice(0,200),seq:S.seq}))}try{const x=JSON.parse(localStorage.getItem(STORE)||localStorage.getItem('axial-public-v04')||localStorage.getItem('axial-public-v03')||'null');if(x){Object.assign(S.i,x.i||{});S.axial=x.axial??30;S.twist=x.twist??0;S.applied=x.applied||S.applied;if(typeof S.applied.aperture==='number')S.applied.aperture={size:S.applied.aperture,offset:0};S.applied.aperture=S.applied.aperture||{size:.62,offset:0};S.receipts=x.receipts||[];S.events=x.events||[];S.seq=x.seq||S.events.reduce((n,e)=>Math.max(n,Number(String(e.event_id||'').replace(/\D/g,''))||0),0)}}catch(_){}
 window.axial={applyPacket(p){const before=fullSnap(),q={...(p.semantic||{}),...(p.transform||{}),...p};if(!S.latched){for(const k of['object','operator','frame'])if(q[k]){const i=V[k].indexOf(String(q[k]).toUpperCase());if(i>=0)S.i[k]=i}if(Number.isFinite(q.axial_mm))S.axial=Math.round(clamp(q.axial_mm,0,60));if(Number.isFinite(q.twist_deg))S.twist=Math.round(clamp(q.twist_deg,-180,180));const after=fullSnap();if(JSON.stringify(before)!==JSON.stringify(after))record('packet','bridge',{axial_mm:S.axial-before.transform.axial_mm,twist_deg:S.twist-before.transform.twist_deg},before,after,'packet',{schema:p.schema||'legacy'})}const commit=q.commit||p.transaction?.commit;if(commit){const i=V.commit.indexOf(String(commit).toUpperCase());if(i>=0)setRing('commit',i,'packet')}render()},state:()=>JSON.parse($('#packet').textContent)};
 addEventListener('message',e=>{if(e.data?.type==='AXIAL_PACKET')window.axial.applyPacket(e.data.packet||{})});
+$('#demo').onclick=()=>{if(S.latched){S.latched=null;S.i.commit=0}window.axial.applyPacket({schema:'axial.demo/0.5.1',object:'BLOOM',operator:'APERTURE',frame:'LENS',axial_mm:18,twist_deg:-80,commit:'TEST'});$('#body').scrollIntoView({behavior:'smooth',block:'center'})};
 let gl='';for(let x=0;x<=620;x+=31)gl+='<line x1="'+x+'" y1="0" x2="'+x+'" y2="300" stroke="#56636a"/>';for(let y=0;y<=300;y+=30)gl+='<line x1="0" y1="'+y+'" x2="620" y2="'+y+'" stroke="#56636a"/>';$('#gridlines').innerHTML=gl;render();renderTrace()
 })();
 </script></body></html>
