@@ -1,5 +1,5 @@
 {
-  "schema": "spatial-state-lineage/v0.2",
+  "schema": "spatial-state-lineage/v0.3",
   "updated": "2026-09-20",
   "canonical_id": "APP-041",
   "title": "Spatial State Engine / House OS",
@@ -102,7 +102,7 @@
   },
   "operational_head": {
     "route": "/house/spatial/",
-    "version": "0.2",
+    "version": "0.3",
     "status": "RECONSTRUCTED_CURRENT_HEAD",
     "exactness": "Reconstructed from recovered Sep 3 interface/spec evidence plus the exact Sep 9 single-HTML donor; not claimed to be the exact lost Sep 3 file.",
     "machine_model": "/house/spatial/model.json"
@@ -112,5 +112,34 @@
     "earlier_donor": "93 m² / #17-103 / 4-room brochure-topology branch",
     "later_current_house_record": "current 10A corner unit has also been recorded as 3-room",
     "rule": "Preserve both records; verify physical instance and plan orientation before metric calibration."
-  }
+  },
+  "confluence_model": "/house/confluence.json",
+  "donor_pins": [
+    {
+      "name": "POLY / FURNISHER",
+      "use": "stable identity, signed-axis room/orientation and projection discipline",
+      "status": "DONOR"
+    },
+    {
+      "name": "ONE RETURN / SEAM ENGINE",
+      "use": "event/state, seam truth, round-trip projection and RETURN",
+      "status": "DONOR"
+    },
+    {
+      "name": "SINDER / FURNISHER",
+      "use": "functional presence; Point/Path/Plane/Power; reconfigurable-space and ink-brush lineage",
+      "status": "DONOR"
+    },
+    {
+      "name": "Mandala / Compass / FLOWER",
+      "use": "radial/topological cognitive lens library",
+      "status": "LENS_DONOR"
+    },
+    {
+      "name": "Semantic Painting / path lineage",
+      "use": "movement/displacement/time traces as optional projections",
+      "status": "PROJECTION_DONOR"
+    }
+  ],
+  "proposed_projection": "TRACE / ink-path remains proposed: stroke variables must each name one encoded quantity; physical Z and time are separate projections."
 }
