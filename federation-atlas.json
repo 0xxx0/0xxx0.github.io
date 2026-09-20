@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/public-federation-atlas/v0.1",
-  "generated": "2026-09-18",
+  "generated": "2026-09-20",
   "projection": "SCRUBBED_IDENTITY_MAP",
   "count": 117,
   "provinces": [
@@ -1285,13 +1285,13 @@
           "subprogram": "House OS",
           "title": "Spatial State Engine / House OS",
           "type": "app/system",
-          "state": "triaged",
+          "state": "active",
           "epistemic_status": "testable hypothesis",
           "confirmation": "confirmed artifact",
           "priority": "P0",
-          "horizon": "next",
+          "horizon": "now",
           "output_class": "dashboard",
-          "purpose": "Attach state and action to place, object and transition with graceful manual fallback."
+          "purpose": "Coordinate addressed room/object/surface state with Home Assistant device authority: Spatial State owns geometry, addresses, evidence and uncertainty; HA/HOUSEBUS owns device truth and actuation; manual fallback and RETURN remain valid."
         },
         {
           "id": "WD-019",
