@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "title": "AXIAL / STATE APERTURE",
-  "version": "0.5",
+  "version": "0.5.1",
   "state": "EXPERIMENT",
   "updated": "2026-09-21",
   "route": "/foundry/axial/",
@@ -25,7 +25,8 @@
     "before/gesture/after provenance ledger",
     "packet events traverse same ledger",
     "RETURN receipts",
-    "/foundry/axial/aperture.contract.json"
+    "/foundry/axial/aperture.contract.json",
+    "onboarding correction: explicit first-contact path + runnable aperture demo; no proof-state change"
   ],
   "promotion_gate": "Remain PROOF_REQUIRED until (1) comparative digital evidence is produced through FIELD / PROOF or equivalent control, and (2) one passive physical cylinder/aperture readback-and-restore comparison produces interpretable receipts. A runnable browser instrument is not physical proof.",
   "lineage_exact": [
@@ -44,9 +45,9 @@
   "research_question": "Can one physically inspect, set, disturb, restore and commit meaningful state through ring + θ/z + aperture topology with less translation and fewer mode errors than a plain separated control surface?",
   "known_gap": "No physical aperture/sleeve result exists yet. Detent force, backlash, eyes-free acquisition, readback, restoration, nonlinear mappings and comparative advantage remain unvalidated.",
   "current_classification": {
-    "reviewed_at": "2026-09-21T00:59:00+08:00",
+    "reviewed_at": "2026-09-21T01:12:00+08:00",
     "state": "PROOF_REQUIRED",
-    "basis": "0.5 corrects semantics and physical correspondence but deliberately does not promote evidence status.",
+    "basis": "0.5.1 improves legibility/onboarding and demotes 50 mm to a non-canonical fixture dimension; proof requirements are unchanged.",
     "receipt": "/foundry/axial/release.json"
   }
 }
