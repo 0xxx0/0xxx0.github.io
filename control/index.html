@@ -30,6 +30,7 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&
 const links=x=>(x.evidence||[]).map(e=>'<a class="route" href="..'+esc(e)+'">'+esc(e)+'</a>').join('');
 document.getElementById('app').innerHTML=
 '<div class="laws">'+d.laws.map(x=>'<span>'+esc(x)+'</span>').join('')+'</div>'+
+'<section class="next"><b>MOVE GATE / '+esc(d.execution_contract?.loop||'RETURN → REPLAN')+'</b><p>'+esc(d.execution_contract?.gate||'A second move requires a fresh decision from returned state.')+'</p></section>'+
 '<section><div class="head"><b>ACTIVE FRONTS</b><span>'+d.active_fronts.length+'</span></div><div class="grid">'+
 d.active_fronts.map(x=>'<div class="card"><b>'+esc(x.id.toUpperCase())+'</b><div class="state">'+esc(x.state)+'</div><p>'+esc(x.objective)+'</p>'+links(x)+'</div>').join('')+
 '</div></section>'+
