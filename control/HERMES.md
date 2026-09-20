@@ -10,9 +10,10 @@ Read first:
 2. `/control/CURRENT.json`
 3. `/control/QUEUE.json`
 4. `/control/MIGRATION.json` and `/control/CENSUS.json`
-5. relevant RETURN receipts
-6. `/showcase-manifest.json` only when public-route context is needed
-7. only then recover older material as needed
+5. `/control/FIELD_INDEX_CONTRACT.json` when work may affect a tracked public surface
+6. relevant RETURN receipts
+7. `/showcase-manifest.json` only when public-route context is needed
+8. only then recover older material as needed
 
 ## AUTHORITY
 
@@ -110,6 +111,8 @@ RETURN FORMAT
 
 One packet = one bounded mutation.
 
+If the packet mutates a tracked public route, include the FI touch in the same mutation: update `showcase-manifest.json -> route.index.updated_at` and `route.index.work_modes` according to `/control/FIELD_INDEX_CONTRACT.json`. Discussion/research without a durable route mutation must not bump FI ordering.
+
 ## STOP CONDITIONS
 
 Stop/hold a branch when:
@@ -143,7 +146,7 @@ Current bounded order:
 
 1. RECOVER / REPO — exact-source recovery + recent-artifact census; preserve first, classify second, deduplicate third.
 2. INGEST / FILES — prepare read-only inventory/hash/tag/dedup reports; no unreviewed moves/deletes.
-3. REALITY / HOUSE — one physical before→change→after RETURN after a recovery/ingest receipt.
+3. REALITY / HOUSE — current head is `/house/spatial/`: recover/verify the actual house instance and coordinate its addressed substrate with Home Assistant/HOUSEBUS. A physical before→change→after RETURN remains valuable, but do not force section/ceiling measurement merely to advance the queue.
 
 COMMS and AXIAL expansion are held, not abandoned.
 
