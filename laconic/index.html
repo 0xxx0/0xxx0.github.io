@@ -177,12 +177,13 @@ function consumeBurstHandoff(){
  try{
   const raw=sessionStorage.getItem('laconic.handoff.v01');if(!raw)return;
   sessionStorage.removeItem('laconic.handoff.v01');
-  const h=JSON.parse(raw);const parts=[];
-  if(h.observed?.length)parts.push('observed: '+h.observed.join(' / '));
-  if(h.possible?.length)parts.push('possible: '+h.possible.join(' / '));
-  if(h.moves?.length)parts.push('move: '+h.moves.join(' / '));
-  if(!parts.length&&h.raw)parts.push(String(h.raw).slice(0,900));
-  $('#q').value=parts.join('\n');$('#handoffNote').classList.add('on');
+  const h=JSON.parse(raw),parts=[],m=(h.moves||[]).join(' ').toLowerCase();
+  if(h.observed?.length)parts.push('OBSERVED · '+h.observed.join(' / '));
+  if(h.possible?.length)parts.push('POSSIBLE · '+h.possible.join(' / '));
+  if(h.unresolved?.length)parts.push('UNRESOLVED · '+h.unresolved.join(' / '));
+  if(!parts.length&&h.raw)parts.push('RAW · '+String(h.raw).slice(0,700));
+  if(/ask|clarif/.test(m))move='ASK_ONE';else if(/answer|reply|respond/.test(m))move='ANSWER';else if(/ack|receipt/.test(m))move='ACK';
+  $('#handoffNote').textContent='FROM BURST · '+parts.join(' · ');$('#handoffNote').classList.add('on');
  }catch(_){}
 }
 $('#q').oninput=renderLines;
