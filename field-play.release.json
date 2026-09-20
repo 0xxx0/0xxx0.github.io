@@ -16,10 +16,16 @@
   ],
   "representative_interaction": "ROLL MISSION → OPEN TARGET → perform one bounded move → PASS/PARTIAL/FAIL → COPY RETURN JSON",
   "validation": {
-    "inline_javascript_syntax": "pending public validator",
+    "inline_javascript_syntax": "PASS",
     "manifest_derived_deck": true,
     "local_storage_only": "return count only",
-    "network_write": "NONE"
+    "network_write": "NONE",
+    "public_surface_check": {
+      "status": "PASS",
+      "workflow_run": 35530945950,
+      "commit": "d2ef134cd19ba5828f9061d3d4d18b2ea862d295"
+    },
+    "public_safe_filter": "PASS_BY_SOURCE_RULE: excludes /port, /continuity, /care, /field-intake, /router-bench, /atlas-dayline and private/clinical/vet/messaging/encrypted/sensor-bind gaps from public deck."
   },
   "known_gap": "No submission transport or shared scoreboard by design; contributor returns are copied explicitly and reviewed before repo mutation."
 }
