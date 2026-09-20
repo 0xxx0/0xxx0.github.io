@@ -16,14 +16,16 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T02:55:41+08:00",
+        "updated_at": "2026-09-21T03:01:45+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "RELEASE"
         ]
-      }
+      },
+      "role": "Visual orientation layer over CURRENT + manifest + exit contracts: explicit scale navigation, DataDisc-derived PULSE, bounded MOVE GATE, and route handoff into Scale Lens."
     },
     {
       "href": "/contact/",
@@ -1263,11 +1265,12 @@
       "state": "STABLE",
       "version": "RC11.2",
       "receipt": "/fold-bloom/lens/release.json",
-      "patch": "g2-interop-1+spatial-donor-1+mobile-importer-wrap-1",
+      "patch": "g2-interop-1+spatial-donor-1+mobile-importer-wrap-1+field-index-route-handoff-1",
       "transfer": [
         "data inspection",
         "provenance-preserving projection",
-        "compact handoff"
+        "compact handoff",
+        "FIELD route re-projection via local handoff"
       ],
       "contract": {
         "accepts": {
@@ -1350,7 +1353,7 @@
         "physical_fit": "Prepare addressed objects/specs for decision or fabrication; should not actuate directly."
       },
       "index": {
-        "updated_at": "2026-09-21T02:45:00+08:00",
+        "updated_at": "2026-09-21T03:01:45+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2094,150 +2097,6 @@
       "index": {
         "updated_at": "2026-09-21T02:22:00+08:00",
         "work_modes": [
-          "VERIFY",
-          "OPERATE"
-        ]
-      }
-    },
-    {
-      "href": "/shopping/",
-      "title": "SHOPPING FIELD 0.1",
-      "kind": "adapter",
-      "parent": "/fcm/",
-      "family": "RESOURCE / PROCUREMENT",
-      "operation": "ACQUIRE",
-      "state": "ACTIVE",
-      "version": "0.1",
-      "showcase_card": false,
-      "receipt": "/shopping/release.json",
-      "transfer": [
-        "capability-gap procurement",
-        "legacy House OS shopping migration",
-        "landed-SGD normalization",
-        "freshness-aware listing review",
-        "purchase/adoption lifecycle",
-        "bounded agent research packet"
-      ],
-      "contract": {
-        "accepts": {
-          "kinds": [
-            "capability gap",
-            "listing",
-            "recommendation",
-            "owned-item claim",
-            "receipt/purchase record",
-            "legacy House OS shopping export",
-            "materialization idea"
-          ],
-          "requires": [],
-          "optional": [
-            "source URL",
-            "observed_at",
-            "exact SKU",
-            "seller/channel",
-            "quantity",
-            "project refs",
-            "storage home",
-            "adoption criterion",
-            "cost components"
-          ]
-        },
-        "transforms": {
-          "verb": "normalize provenance, freshness, landed SGD, purchase gates and lifecycle state without status laundering",
-          "preserves": [
-            "source/legacy state",
-            "human money/action authority",
-            "FOUND/BOUGHT/RECEIVED/TESTED/ADOPTED distinction",
-            "unknowns",
-            "private inventory boundary"
-          ],
-          "reversibility": "full",
-          "side_effects": "browser-local only"
-        },
-        "emits": {
-          "kinds": [
-            "shopping-field JSON",
-            "agent research packet",
-            "landed-SGD comparison",
-            "purchase-gate state",
-            "project/BOM candidate",
-            "inventory/capability candidate",
-            "explicit non-action"
-          ],
-          "machine_readable": true,
-          "human_readable": true
-        },
-        "evidence": {
-          "receipt": "/shopping/release.json",
-          "checks": [
-            "legacy CONFIRMED→VERIFY migration",
-            "freshness derived from observation time",
-            "landed-cost components visible",
-            "explicit manual state changes",
-            "import/export round-trip",
-            "no network submission"
-          ],
-          "return_path": "/shopping/"
-        }
-      },
-      "field": {
-        "roles": [
-          "WORLD_IN",
-          "WORLD_THROUGH"
-        ],
-        "inputs": [
-          {
-            "medium": "DATA",
-            "kind": "capability gap / listing / receipt",
-            "interface": "local entry/import"
-          },
-          {
-            "medium": "DATA",
-            "kind": "legacy shopping ledger",
-            "interface": "JSON import"
-          }
-        ],
-        "outputs": [
-          {
-            "medium": "DATA",
-            "kind": "procurement/research packet",
-            "interface": "JSON"
-          },
-          {
-            "medium": "DATA",
-            "kind": "inventory/BOM/capability candidate",
-            "interface": "explicit export"
-          },
-          {
-            "medium": "EVIDENCE",
-            "kind": "lifecycle/gate state",
-            "interface": "browser-local"
-          }
-        ],
-        "exit_paths": [
-          {
-            "class": "RESEARCH",
-            "status": "AVAILABLE",
-            "via": "bounded agent packet"
-          },
-          {
-            "class": "INVENTORY",
-            "status": "EXPLICIT_EXPORT_REQUIRED",
-            "via": "TEST/ADOPT evidence"
-          },
-          {
-            "class": "WORLD_OUT",
-            "status": "HUMAN_ONLY",
-            "via": "money/seller action"
-          }
-        ],
-        "physical_fit": "Acquisition adapter for House/maker/cat/robotics capability gaps; no automatic buying."
-      },
-      "index": {
-        "updated_at": "2026-09-21T02:54:00+08:00",
-        "work_modes": [
-          "RECOVER",
-          "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
@@ -3860,7 +3719,7 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-21T03:10:00+08:00",
+        "updated_at": "2026-09-21T03:01:17+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
@@ -3919,8 +3778,7 @@
     "legacy_work_mode_recovery": "Seven legacy UNKNOWN route work-mode records were evidence-backfilled from exact release receipts on 2026-09-21. Their historical touch dates were preserved; no fake recency bump.",
     "field_index_visual_recovery": "Recovered the stronger pre-regression FI visual grammar, retained CURRENT/MAP ownership separation, and added a navigable SVG sitemap rather than reverting control semantics.",
     "field_index_pulse": "PULSE is a DataDisc-2019 donor graft: route mutation history projected as a spiral field. It is explicitly secondary to STRUCTURE and NOW; spiral proximity/recency never imply semantic similarity or priority.",
-    "replica_replan": "Bounded Confluence transfer: generalized event/state substrate remains primary; after one bounded move, RETURN closes route authority and the next move requires explicit replan. Multi-agent Director/Worker/Critic choreography is not promoted by this evidence.",
-    "shopping_field": "FI-SHOP-001 absorbed the recovered House OS Shopping/Inventory Console and Shopping Field Menu contract as an FCM child adapter. Public route contains no personal inventory; legacy v0.4 exports import locally, with ambiguous CONFIRMED state conservatively mapped to VERIFY."
+    "replica_replan": "Bounded Confluence transfer: generalized event/state substrate remains primary; after one bounded move, RETURN closes route authority and the next move requires explicit replan. Multi-agent Director/Worker/Critic choreography is not promoted by this evidence."
   },
   "capability_model": {
     "CAPTURE": {
@@ -4061,7 +3919,9 @@
     ],
     "pulse_donor": "/control/confluence/FIELD_INDEX_DATADISC_GRAFT_2026-09-21.json",
     "play": "/field-play.html",
-    "play_law": "Mission selection is participation, not authority: public-safe gap → one bounded move → evidence → RETURN → explicit review/replan."
+    "play_law": "Mission selection is participation, not authority: public-safe gap → one bounded move → evidence → RETURN → explicit review/replan.",
+    "scale_navigation": "VISUAL drill depth is explicit SCALE: ROOT=0, child family/local projections increase depth; SCALE − returns one parent without changing route identity.",
+    "scale_lens_handoff": "Selected MAP route can be handed locally into SCALE LENS through scale.lens.handoff.v01 as the same addressed object."
   },
   "policy_trace_verification": "/policy-trace-verification.json",
   "policy_trace_event_model": "/policy-trace-event-model.json",
