@@ -1,0 +1,1293 @@
+
+
+
+
+<style>
+	
+
+
+/* Reset */ 	/* Font */ 		/* Layout */
+  :root{
+  	--SYSFONTS:
+  		-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial, monospace;
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–------ [COLORS] */
+/*--CONTRAST:0.91 ;*/
+--C0:0,0,0;--C1:51,51,51;--C2:102,102,102;--C3:154,154,154;--C4:205,205,205;--C5:255,255,255;
+--C_0:#000;--C_1:#333;--C_2:#666;--C_3:#AAA;--C_4:#CCC;--C_5:#FFF;
+--Ca0:#330000;--Ca1:#660000;--Ca2:#880000;--Ca3:#AA0000;--Ca4:#CC0000;--Ca5:#FF0000;
+--Cb0:#000033;--Cb1:#000066;--Cb2:#000088;--Cb3:#0000AA;--Cb4:#0000CC;--Cb5:#0000FF;
+--Cc0:rgba(var(--C0),0.3);
+--Cc1:rgba(var(--C1),0.3);--Cc2:rgba(var(--C2),0.3);--Cc3:rgba(var(--C3),0.3);--Cc4:rgba(var(--C4),0.3);--Cc5:rgba(var(--C5),0.3);
+--TRANSLUSCENT: rgba(128,128,128,.3) ;--TRANSLUSCENT2: rgba(0,0,0,.3) ;--TRANSLUSCENT3: rgba(255,255,255,.3)
+;--REVEALS: inset 0 0 calc(.2*var(--VW)) 1em var(--Cc2)
+;--OUTLINE: none;/*solid .3px *//*var(--Ca3)*/ ;
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–----- [NUMBERS] */
+--SCALE:var(--PHI)/*1.5*/;--MIN2nd:1.067;--MAJ2nd:1.125;--MIN3rd:1.2/*6/5*/ ;--MAJ3rd:1.25;--PER4th:1.333;--AUGM4th:1.414;--PER5th:1.5;--PHI:1.618/* CaSCHEME~>lum/5*/; --NEG:-1;--THIRD:calc(1/3);--HALF:0.5;
+--DEC:0.1; --CEN:0.01;
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–------- [SIZES] */
+--FONTSIZE:16px; --EM:1em; --VW:100vw ;--VH:100vh ;--PERSP:32em; --PERSPORIGIN:center ; --SVGW:100% ;--SVGH:100% ;--STROKE:.3 ; 
+--S00: 0.01em; --S01:0.1em;
+/*--SIZE1:calc(var(--EM)*var(--SCALE)); */
+/*;--MARQUEE: 5s linear infinite*/
+--PERCENT:1%;
+; --DEBUG:0.5px solid var(--TRANSLUSCENT); 
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–--------.--- [] */
+	}
+/*  ROOM STYLE IN CASE ANYTHING DOESNT WORK */
+		.room{height:var(--H)
+		     ;width:var(--W)
+		     ;margin:0
+		     ;transform-style:preserve-3d
+		     ;transition:var(--TRANSITION)
+		     ;}
+		.room.face{position:absolute
+		       /*;outline:var(--OUTLINE)*/
+		       ;box-shadow: var(--REVEALS)
+		       ;height:100%;width:100%
+		       ;}
+		.room.f{transform:translateZ(calc(-0.5*var(--W)))}
+		.room.o{transform:rotateX(0deg)translateZ(calc(0.5*var(--W)))}
+		.room.l{transform:rotateY(90deg)translateZ(calc(-0.5*var(--W)))}
+		.room.r{transform:rotateY(-90deg)translateZ(calc(-0.5*var(--W)))}
+		.room.w{transform:rotateX(90deg)rotateZ(0deg)translateZ(calc(0.5*var(--W)))scaleY(-1)
+		       ;height:var(--W);}
+		.room.e{transform:rotateX(90deg)translateZ(calc(0.5*var(--W)))translateZ(calc(-1*var(--H)))
+		       ;height:var(--W);}
+		.room{transform:translateZ(calc(-0.5*var(--W)))}}
+
+
+BODY {margin:0;}
+#VIEWPORT { width: 100vw; height: 100vh; overflow: hidden; border: 1px solid; position: relative; perspective: 700px; padding:0;}
+#VIEWPORT * { transform-style: preserve-3d; box-sizing: border-box; }
+#CAMERA { width: 0; height: 0; position: absolute; top: 50%; left: 50%; border: 2px solid red; border-radius:5;}
+#SCENE { transition: .5s linear; }
+.plane, .sprite, .group { transition: .5s linear; border:2px solid }
+.origin-top { transform-origin: top center }
+/* Utility */  	/* Logical */  	/* Templates */
+
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–--------. [SVG] */
+svg {width:100%;height:100%;stroke:var(--C_3); overflow:hidden; 
+  /*outline:1px solid var(--C_3); */
+/*display:inline-block;*/ 
+position:absolute;
+}
+svg *{transition:transform 300ms;}
+circle { fill:none;stroke-width:.2;}
+ellipse { fill:none;stroke-width:.2;}
+rect { fill:none;stroke-width:.2;}
+text {text-anchor:middle; dominant-baseline:central; font-size:.2em; fill:var(--C_3); stroke:none;}
+path {fill:none;stroke-width:.2; stroke:var(--C_3);
+  /*vector-effect: non-scaling-stroke;*/
+}
+polyline{fill:none;stroke-width:.1; stroke:var(--C_3);}
+foreignObject {height:auto;width:100%;overflow;}
+foreignObject>*{display:inline-block;float:left;font-size:calc(5*var(--PERCENT));width:calc(35*var(--PERCENT));color:var(--C_3);}
+														
+
+
+
+
+
+
+</style>
+<body></body>
+<script>
+	
+
+<!-- SPECIAL FEATURES | USE CASES
+
+
+
+// GENERAL
+	 --> MALI 	!!!~>"Learners", Adversary
+	 --> RARV 	WebXR
+	 --> NSNM 	...
+
+	 --> BLAM   Church-Encoding, Lispy, ...
+
+
+//PEOPLE->PROGRAMS
+<!--f0m
+	 --> JAWS	training, handstands
+	 --> THIS   // pangshai
+	 --> COGM 	aac * illiterate * foreignlang (cantonese)
+	 --> TOAS   novel writing, photo, (flaneuring?)
+	 --> FREC   statutes, case-by-case | case-tree | (pattern...?)	 
+	 --> WEBD   // trafficsigns
+	 --> NOID   // dionne
+	 --> NASR   // nasr
+	 --> GAMY 	//amyg	 
+<!--fam
+	 --> WAJI   apothecary, 
+	 --> LAWL 	research, productivity
+	 --> UNCH	spreadsheets, project-mgmt, self-reprogramming
+	 --> PLZY   //liz
+	 --> NNIG 	big thing, small thing, ...
+	 --> XANU 	hermit-mode, ..., (purpose-compass...?)
+	 --> GUYS 	comedy, (film-making|planning?), vid
+	 --> COUS   //cousins in general - kaier?
+	 --> MAPA   travel weblog, photo + commentary
+	 --> XQYJ 	edu, world-building, memory
+	 --> HURI 	scheduling, // jie
+	 --> NISH   color, 
+<!-- rip
+	 --> PNT_   // eclectic
+	 --> SUNS 	webgazer
+	 --> ANNI 	multiling, culture
+	 --> WEST   
+	 --> ARON 
+	 --> HAON   'theory of theory by NL'
+<!-- sin
+	 --> 1033   // Reserved
+	 --> 3301	// Reserved
+	 --> $$$$	trading, site-factory
+
+//prelude
+	// ,that=this
+	// ,  wolf = (...gs)=> gs.reduce((l,r)=>(...xs)=>l(r(...xs))) //repetitive?1lessfncall
+
+	// ,  isfun =x=> (L)=>(R=undefined)=>(typeof x!=='undefined'?x.name+" defined as "+x.toString():R)
+	// ,maybe=x=>(L=a=>a)=>(R=undefined)=>(that[x]!==undefined&&that[x]!==null?L(that[x]):R)
+	//console.log	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// LENS
+
+
+//LENS TEST
+	// eq ( config({a:{b:{c:33}}})({a:{b:{c:'hello'}}}) ) ( set(focus(['a','b','c']),33)({a:{b:{c:'hello'}}}) )
+/* LENS TESTS  */
+	testo=({a:{b:[[1,4,5,6]]}})
+	  numtostr=num=>''+num
+	  strtonum=str=>  +str
+	  arrtostr=arr=> JSON.stringify(arr) //arr.join('')
+	  strtoarr=str=>[...str]
+	  num_str=Iso(numtostr)(strtonum)
+	  arr_str=Iso(arrtostr)(strtoarr)
+	  // num_str=x=>Iso(numtostr(x))(strtonum(x))
+	  // arr_str=x=>Iso(arrtostr(x))(strtoarr(x))
+	get(focus(['a','b',arr_str,2]))(testo) //=>'4'
+	get(focus(['a','b',0,Only(x=>x.value>2),0,num_str]))(testo) //=>'4'
+	get(focus(['a','b',0,Only(x=>x.value>2&&x.value<6),num_str]))(testo)
+	// Modifying ISO
+	mod(focus(['a','b',0,0,num_str]))  (x=>x*2)  (testo)
+	// Modifying TRAVERSAL
+	mod(focus(['a','b',0,Only(x=>x.value>2&&x.value<6)])) (x=>x/2)  (testo)
+	mod(focus(['a','b',0,All()]))  (x=>x*2) (testo)
+	// Set all to literal
+	mod(focus(['a','b',0,All()]))  ('3') (testo)
+//ISSUE:Can't compose traversal ~> think its by design? what's the shades hack
+
+
+
+
+
+
+
+		// ,fov=k=>Lens(o=>o[k])(v=>o=>o[k]=v)
+		// ,set = l=>v=>o=>  (l.set(v)(o),o)
+
+		// TODO: -> MOD ???
+	Matches = pred => ({type:"traversal",get:o=>Object.entries(o).filter(([key,value])=>pred({key,value})).map(x=>x[1]),
+		// mod:f=>map(n=>(pred(n)?f(n):n)) //mod(l) (x=>x.map( f   ))( o ) ???
+				})
+
+
+
+attr= name => (
+	{ get: obj => 
+  		!obj[name] && typeof obj.get === 'function'
+  		?obj.get(name)
+  		:obj[name]
+  	,mod: f => (obj, ...params) =>
+	    typeof obj.set === 'function'
+	    ?  obj.set(name, f(obj[name] || obj.get(name))
+	    : (Array.isArray(obj)) 
+	    ? obj
+	        .slice(0, name)
+	        .concat(f(obj[name], ...params))
+	        .concat(obj.slice(name + 1));
+	    : else
+	      ({ ...obj, [name]: f(obj[name], ...params) })
+	})
+
+//TRAVERSAL
+all = () => ({get: identity, mod: map, type:"traversal"});
+matching = pred => {
+  const predFxn = into(pred);
+  return {
+    get: filter(predFxn),
+    mod: f => map(n => (predFxn(n) ? f(n) : n)),
+    traversal: true
+  };
+};
+unless=pred => matching(not(pred)) 
+//OPTIONAL
+Maybe= (k,l=fov) => (
+	{type:"optional"
+	,get: o=>o&&get(l(k))(o)
+    ,mod: f=>o=>(o&&get(l(k))(o)?mod(l(k))(f)(o):o)
+  	})
+Else = e=>(
+  	{type:"optional"
+  	,get: (k,l=fov)=>o=>get(Maybe(k,l))(o)?get(Maybe(k,l))(o):e
+    ,mod: (k,l=fov)=>f=>get(Maybe(k,l))(o)?f(get(Maybe(k,l))(o)):f(e)
+  	})
+
+
+ compile = lens => 
+  (['string', 'number'].includes(typeof lens)) 
+  ? Lens(lens)
+  : lens
+
+get = (...lenses) => compose(...lenses).get;
+mod = (...lenses) => compose(...lenses).mod;
+set = (...lenses) => newValue =>compose(...lenses).mod(always(newValue))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// fet=(k,n,t="text,json,formData,blob,arrayBuffer".split(",")[n])=>Lens(async o=> await (await fetch(o+k))[t]() )
+// 	(async v=>await (f=>  fetch(o+k,{method: 'POST',headers: {'Content-Type': 'application/json;charset=utf-8'} ,body: JSON.stringify(v) } )) )
+
+
+
+// await fetch('/article/fetch/post/user', {
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json;charset=utf-8'
+//   },
+//   body: JSON.stringify(user)
+// });
+
+fet(/* hash */)(/* domain */)
+await fetch('https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits')
+
+let response = await fetch(url);
+response.ok?await response.json():alert(alert("HTTP-Error: " + response.status))
+if (response.ok) { // if HTTP-status is 200-299
+  // get the response body (the method explained below)
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// STATE STORE
+/*					
+	const
+		Store = (s={},is=[])=>(
+		  {state: ()=>s
+		  ,subscribe: i=>is.push(i)
+		  ,listeners: is
+		  ,action: u=>n=>
+		    (s=u(s,n)           // new state=transform(state,event)
+		    ,is.map(i=>i(n,s)),s) // set off each trigger on new state
+		  })							
+
+		Store 				=(
+		s={},is=[]			)=>({
+		state 				: 
+			()				=>
+			s 				,
+		subscribe 			: 
+			i 				=>
+				is 			.
+				push 		(
+				i 			),
+		listeners 			: 
+		 	is 				,
+		action 				: 
+			u 				=>
+			n 				=>(
+		    s 				=
+		    	u 			(
+		    	s,n 		),
+		    is 				.
+		    map 			(
+		    	i 			=>
+		    	i 			(
+		    	n,s 		)),
+		    	s 			) // set off each trigger on new state
+		  					})		
+
+*/
+
+
+
+// REDUCERS
+/* IMPLIED...
+accumulatable=(accumulate,o={})=>({...o,{accumulate}})
+isMethodAt=(thing, key)=> thing && typeof thing[key] === 'function'
+const End = 'Token for end of accumulation';
+accumulate=(source, next, initial)=>
+  (isMethodAt(source, 'accumulate') 
+    ? source.accumulate(next, initial) 
+    : isMethodAt(source, 'reduce') 
+    ? next(source.reduce(next, initial), end) 
+    : source == null 
+    ? next(initial, end) 
+    : next(next(initial, source), end))
+ */	
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+				    $CATEGORY 							   >		
+Functor 
+Applicative 
+FreeMonad
+
+
+// id :: Category a => Type a -> a b b
+const id = Category =>
+  Category === Function ? (x => x) : Category.id;
+
+// compose :: Semigroupoid a => a c d -> a b c -> a b d
+const compose = (f, g) => {
+  if (typeof f.compose === 'function') return f.compose(g);
+  if (typeof f === 'function' && typeof g === 'function') return x => f(g(x));
+  throw new TypeError('Expected Semigroupoid');
+};
+
+// pipe :: Semigroupoid a => a b c -> a c d -> a b d
+const pipe = (f, g) => compose(g, f);
+
+// module.exports = {id, compose, pipe };
+
+
+
+
+
+
+*/
+
+
+
+
+// CSS3D
+
+<!--ABSTRACT away 'css' details 
+  --> ie "Column-Major" 
+
+	/*REFACTOR
+	CSSMAT3D=
+[1,0,0,0,0,1,0,0,0,0,0,_,0,0,0,1]  
+[_,0,0,0,0,_,0,0,0,0,_,0,0,0,0,1] 
+[1,0,0,0,0,1,0,0,0,0,1,0,_,_,_,1] 
+           5 c 6 -s 9 s 10 c
+[1,0,0,0,0,_,_,0,0,_,_,0,0,0,0,1]     
+ 0   2  8 10
+}
+[_,0,_,0,0,1,0,0,_,0,_,0,0,0,0,1]
+[_,_,0,0,_,_,0,0,0,0,1,0,0,0,0,1]	
+	'1000010000100001'
+	{idm:[1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1]
+	,persp:d=>  idm.reduce ((a,({k,v}))=>a[k]=v,{10:0,11:,-1/d})
+	,scale:(w=1,h=w,d=w)=> idm.reduce ((a,({k,v}))=>a[k]=v,{0:w,5:h,10:d})
+	,translate:(x=0,y=0,z=0)=> idm.reduce ((a,({k,v}))=>a[k]=v,{12:x,13:y,14:z})
+	,rotate:{x:a=> cos(a),-sin(a),sin(a),cos(a),  
+		// (i=[Math.sin(a),Math.cos(a)],{5:i[1],6:-i[0],9:i[0],10:i[1]})
+	      ,y:a=> ? ? ?
+	      ,z:a=> ? ? ? 
+	    } ???REDUCE 1st FOR COMP ROTS???
+	    
+		[['X','Y','Z'],['rotate','translate']]
+					// .map((x,i,o)=> )
+					//rotateX...scaleX( n units )...
+	    */
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+	  ____   __________        _      __________ __________
+	 6MMMMb\ MMMMMMMMMM       dM.     MMMMMMMMMM `MMMMMMMMM
+	6M'    ` /   MM   \      ,MMb     /   MM   \  MM      \
+	MM           MM          d'YM.        MM      MM
+	YM.          MM         ,P `Mb        MM      MM    ,
+	 YMMMMb      MM         d'  YM.       MM      MMMMMMM
+	     `Mb     MM        ,P   `Mb       MM      MM    `
+	      MM     MM        d'    YM.      MM      MM
+	      MM     MM       ,MMMMMMMMb      MM      MM
+	L    ,M9     MM       d'      YM.     MM      MM      /
+	MYMMMM9     _MM_    _dM_     _dMM_   _MM_    _MMMMMMMMM
+	___       ___   ____   ___       _____________
+	`MMb     dMM'  6MMMMb/ `MMb     dMM'MMMMMMMMMM
+	 MMM.   ,PMM  8P    YM  MMM.   ,PMM /   MM   \
+	 M`Mb   d'MM 6M      Y  M`Mb   d'MM     MM
+	 M YM. ,P MM MM         M YM. ,P MM     MM
+	 M `Mb d' MM MM         M `Mb d' MM     MM
+	 M  YM.P  MM MM     ___ M  YM.P  MM     MM
+	 M  `Mb'  MM MM     `M' M  `Mb'  MM     MM
+	 M   YP   MM YM      M  M   YP   MM     MM
+	 M   `'   MM  8b    d9  M   `'   MM     MM
+	_M_      _MM_  YMMMM9  _M_      _MM_   _MM_
+	
+*/
+
+
+
+
+probabilityTable = 
+[ [.2, .65, .15]
+, [.1, .8, .1]
+, [.7, .25, .05]
+]
+states = 
+{ animatedGIF:0
+, photos:1
+, video:2
+}
+OMMgetP=(sc,ps)=> sc.slice(0,sc.length-1).reduce((p,s,i)=>p*=ps[s][sc[i+1]],1)
+OMMtrans=(s,ps)=> 1/(1-ps[s][s])            
+//expectedDurationOfState
+// GIVEN AN OBSERVATION SEQUENCE O = (o1,...,ot,...,oT)
+  // An nth order Markov Chain or n-gram model computes the probability P(o1,...,oT)
+  // An HMM computes the probability P(X1,...,XT,o1,...,oT) where state seq is hidden
+// What is the probability that the given model is able generate the sequence of 
+  // being Normal on day 1, Cold on day2, and Dizzy on day 3?
+
+hmmeg=     //Healhy, Fever   //Normal, Cold, Dizzy
+{initial:[0.6, 0.4]
+,transitions:[[0.7,0.3],[0.4,0.6]]
+,emissions:[[0.5,0.4,0.1],[0.1,0.3,0.6]]
+,i:0}
+alpha = []
+// 0.03628
+// alpha ===[[0.3,0.04000000000000001],[0.09040000000000001,0.0342],[0.007696000000000001,0.028584000000000002]]
+
+  // MARKOV ASSUMPTION        (only attend to previous state)
+  // STATIONARY DISTRIBUTION  (~> transition bias cannot change with position in seq )
+HMM=()=>({initial:[],transitions:[],emissions:[],i:0})  //cSV:[]??
+
+// naive_argmax(sort(states))
+/*
+forward=hmm=>(O=[],A=[],p=0)=>{
+    reduce((a,c,i)=> A[0][i] = hmm.iSV[i] * hmm.eSM[i][O[0]]) (A[i]=[]) (hmm.tSM)
+    reduce(A[i]=[]; ) (  ) (tail(O))
+}
+'for every possible state transition'
+'for every observation after the first'
+*/
+
+forward=hmm=>(O=[],A=[])=> {
+    let p = 0
+  map(i=>(A[i]=[],A[0][i]=hmm.initial[i]*hmm.emissions[i][O[0]]))(fillar(hmm.transitions.length))
+  for (let i=1;i<O.length;i++)
+    {A[i]=[];                       // for every observation after the first
+      for (var j = 0; j<hmm.transitions.length; j++) {
+          let result = 0;
+          for (let l = 0; l <hmm.transitions.length; l++) // for every possible state transition
+            {result += A[i-1][l] * hmm.transitions[l][j] * hmm.emissions[j][O[i]]; }
+      A[i][j] = result; } }
+  for (let i = 0; i <hmm.transitions.length; i++)  // for every possible state transition
+    {p += A[O.length-1][i]}
+  return p }   
+// forward(hmmeg)([0,1,2],alpha)
+
+//https://gist.github.com/lancejpollard/8840496
+// Viterbi algorithm for finding hidden relationships
+function Viterbi(data) {
+    var V = [{}];
+    var path = {};
+    // Initialize base cases (t == 0)
+    for(var i=0;i<data.states.length;i++) {
+        var state = data.states[i];
+        V[0][state] = data.start[state] * data.emission[state][data.observations[0]];
+        path[state] = [state];
+    }
+    // Run Viterbi for t > 0
+    for(var t=1;t<data.observations.length;t++) {
+      V.push({});
+        var newpath = {};
+        
+        for(var i=0;i<data.states.length;i++) {
+            var state = data.states[i];
+            var max = [0,null];
+            for(var j=0;j<data.states.length;j++) {
+                var state0 = data.states[j];
+                // Calculate the probablity
+                var calc = V[t-1][state0]
+                    * data.transition[state0][state]
+                    * data.emission[state][data.observations[t]];
+                if(calc > max[0]) max = [calc,state0];
+            }
+            V[t][state] = max[0];
+            newpath[state] = path[max[1]].concat(state);
+        }
+        path = newpath;
+    }
+    var max = [0,null];
+    for(var i=0;i<data.states.length;i++) {
+        var state = data.states[i];
+        var calc = V[data.observations.length-1][state];
+        if(calc > max[0]) max = [calc,state];
+    }
+    return [max[0], path[max[1]]];
+}
+// quadratic for states but linear for obsvs so use for long strings
+/* EG
+var result = Viterbi({
+    states: ['Rainy', 'Sunny'],
+    observations: ['walk', 'shop', 'clean'],
+    start: {'Rainy': 0.6, 'Sunny': 0.4 },
+    transition: {'Rainy' : {'Rainy': 0.7, 'Sunny': 0.3}, 'Sunny' : {'Rainy': 0.4, 'Sunny': 0.6}, },
+    emission: {'Rainy' : {'walk': 0.1, 'shop': 0.4, 'clean': 0.5}, 'Sunny' : {'walk': 0.6, 'shop': 0.3, 'clean': 0.1}, }
+})
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// det([[1, 0, 2, -1],[3, 0, 0, 5],[2, 1, 4, -3],[1, 0, 5, 0]])//=>30
+		// , TensorX=m1=>(m2,s=(a,b)=>a+b,p=(a,b)=>a*b,o=0)=> m1.map(c=>m2[0].map ((_,i)=> m2.reduce((r,d,j)=>s(r,p(d[i],c[j]),r),o)))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+	
+	
+	__________ __________ ____      ___ __________
+	MMMMMMMMMM `MMMMMMMMM `MM(      )M' MMMMMMMMMM
+	/   MM   \  MM      \  `MM.     d'  /   MM   \
+	    MM      MM          `MM.   d'       MM
+	    MM      MM    ,      `MM. d'        MM
+	    MM      MMMMMMM       `MMd          MM
+	    MM      MM    `        dMM.         MM
+	    MM      MM            d'`MM.        MM
+	    MM      MM           d'  `MM.       MM
+	    MM      MM      /   d'    `MM.      MM
+	   _MM_    _MMMMMMMMM _M(_    _)MM_    _MM_
+	
+	
+	________ ____     ______      ___
+	`MMMMMMM `MM'     `M'`MM\     `M'
+	 MM    \  MM       M  MMM\     M
+	 MM       MM       M  M\MM\    M
+	 MM   ,   MM       M  M \MM\   M
+	 MMMMMM   MM       M  M  \MM\  M
+	 MM   `   MM       M  M   \MM\ M
+	 MM       MM       M  M    \MM\M
+	 MM       YM       M  M     \MMM
+	 MM        8b     d8  M      \MM
+	_MM_        YMMMMM9  _M_      \M
+	
+	
+	
+*/
+
+
+
+
+
+
+<!-- TEXT FUN
+	--> Use Cases
+		// from Generic|General|(Accurate) > Specific|Precise
+			// ....
+		//
+	--> Textstats
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+stringstats=s=>reduce((a,c)=>(a[c.name]=c(s),a),{})([avgWPS
+,avgSPW
+,fleschKincaidReadingEase
+,fleschKincaidGradeLevel
+,gunningFogScore
+,colemanLiauIndex
+,smogIndex
+,automatedReadabilityIndex])
+
+cleanText = (text) => {
+    // all these tags should be preceeded by a full stop.
+    var fullStopTags = ['li', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'dd'];
+    fullStopTags.forEach(function(tag) { text = text.replace("</" + tag + ">","."); });
+      text = text
+      .replace(/<[^>]+>/g, "")        // Strip tags
+      .replace(/[,:;()\/&+]|--/g, " ")    // Replace commas, hyphens etc (count them as spaces)
+      .replace(/[\.!?]/g, ".")          // Unify terminators
+      .replace(/^\s+/, "")            // Strip leading whitespace
+      .replace(/[\.]?(\w+)[\.]?(\w+)@(\w+)[\.](\w+)[\.]?/g, "$1$2@$3$4")  // strip periods in email addresses (so they remain counted as one word)
+      .replace(/[ ]*(\n|\r\n|\r)[ ]*/g, ".")  // Replace new lines with periods
+      .replace(/([\.])[\.]+/g, ".")     // Check for duplicated terminators
+      .replace(/[ ]*([\.])/g, ". ")       // Pad sentence terminators
+      .replace(/\s+/g, " ")           // Remove multiple spaces
+      .replace(/\s+$/, "");         // Strip trailing whitespace
+    if(text.slice(-1) != '.') { text += ".";  }// Add final terminator, just in case it's missing.
+    return text; }
+//  /   vC = (w)=> w.reduce((p,c)=> c.match(/[aeiouy]+/ig)?++p:p,0,w)
+TEXTSTATS = (()=>{
+//t=([q])=>{s=((t[m="match"](/[!?.]+/g)||q)[l="length"]||1);y=(t[m](/[aeiouy]+/g)||q)[l]-(t[m](/[^aeiou][aeiou][s\s,'.?!]/g)||q)[l]*.33;w=(t.split(/\s+/g))[l];return(206.835-1.015*w/s-84.6*y/w)}
+fleschKincaidReadingEase = (text)=> Math.round((206.835 - (1.015 * avgWPS(text)) - (84.6 * avgSPW(text)))*10)/10
+fleschKincaidGradeLevel = (text)=> Math.round(((0.39 * avgWPS(text)) + (11.8 * avgSPW(text)) - 15.59)*10)/10
+gunningFogScore = (text)=> Math.round(((avgWPS(text) + gte3SylsPW(text, false)) * 0.4)*10)/10
+colemanLiauIndex = (text)=> Math.round(((5.89 * (letterCount(text) / wc(text))) - (0.3 * (sc(text) / wc(text))) - 15.8 ) *10)/10
+smogIndex = (text)=> Math.round(1.043 * Math.sqrt((gte3Syls(text) * (30 / sc(text))) + 3.1291)*10)/10
+automatedReadabilityIndex = t=> Math.round(((4.71 * (letterCount(t) / wc(t))) + (0.5 * (wc(t) / sc(t))) - 21.43)*10)/10
+textLength = t=> t.length
+letterCount = t=> t.replace(/[^a-z]+/ig,"").length
+sc = t=> t.replace(/[^\.!?]/g, '').length||1
+wc = t=> t.split(/[^a-z0-9'@\.\-]+/i).length||1
+//sylC = s=>match((/[$aeiouy][^aeiouy]+/ig)(s).length
+avgWPS = (text)=> wc(text) / sc(text)    // rate (count_of(words))(count_of(...))
+// rate the work of a by b  -  // rate = // wps = (WORDS / SENTENCES)  (src)
+avgSPW = (text)=>  (text.split(/\s+/).reduce((syllables,word)=> syllables += sylC(word), 0)||1)/(wc(text)||1)
+gte3Syls = (text, countProperNouns=0)=> text.split(/\s+/).filter(word=>(countProperNouns?/^[A-z]/:/^[a-z]/).test(word)).filter((word)=>sylC(word)>2).length
+gte3SylsPW = (text, countProperNouns)=> (gte3Syls(text,countProperNouns) / wc(text))
+
+
+subSyllables = [/cial/,/tia/,/cius/,/cious/,/giu/,/ion/,/iou/,/sia$/,/[^aeiuoyt]{2,}ed$/,/.ely$/,/[cg]h?e[rsd]?$/,/rved?$/,/[aeiouy][dt]es?$/,/[aeiouy][^aeiouydt]e[rsd]?$/,/^[dr]e[aeiou][^aeiou]+$/,/[aeiouy]rse$/]
+, addSyllables = [/ia/,/riet/,/dien/,/iu/,/io/,/ii/,/[aeiouym]bl$/,/[aeiou]{3}/,/^mc/,/ism$/,/([^aeiouy])\1l$/,/[^l]lien/,/^coa[dglx]./,/[^gq]ua[^auieo]/,/dnt$/,/uity$/,/ie(r|st)$/]
+, prefixSuffix = [/^un/,/^fore/,/ly$/,/less$/,/ful$/,/ers?$/,/ings?$/]
+
+
+sylC = (word,problemWords={ "simile": 3, "forever": 3, "shoreline": 2 })=> {
+    let sylC = 0, prefixSuffixCount = 0, wordPartCount = 0;
+    word = word.toLowerCase().replace(/[^a-z]/g,"")
+    if (problemWords[word]) return problemWords[word]
+    prefixSuffix.forEach((regex)=>{ if (word.match(regex)) { word=word.replace(regex,""); prefixSuffixCount++; } });
+    wordPartCount = word.split(/[^aeiouy]+/ig).filter((wordPart)=> !!wordPart.replace(/\s+/ig,"").length).length
+    sylC = wordPartCount + prefixSuffixCount;
+    subSyllables.forEach((syllable)=> {if (word.match(syllable)) sylC--;})
+    addSyllables.forEach((syllable)=> {if (word.match(syllable)) sylC++;})
+    return sylC || 1; }
+
+
+Freq=(s,_=/\w+/g)=>{s.match(_).map(x=>_[x]=-~_[x]); return keys(_).sort((a,b)=>_[a]<_[b]).reduce((a,x)=>(a[x]=_[x],a),{})}
+//s.match(_=/\w+/g).map(x=>_[x]=-~_[x]);keys(_).sort((a,b)=>_[a]<_[b]).map(x=>x+':'+_[x])
+//F=a=>[...'ABCDEFGHIJKLMNOPQRSTUVWXYZ'].sort(f=(b,c)=>c?f(c)-f(b):a.split(RegExp(b,'i')).length).join('')
+countFreqOf = (arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a + 0), 0)
+wordFreq = (xs)=> [...new Set(xs)].reduce((a,q)=> (a[q]=countFreqOf(xs, q),a),{})
+findIdxs = (arr, val)=> arr.reduce((idxs,el,i) => (el===val&&idxs.push(i),idxs),[])
+uniqIdxs = (xs)=> [...new Set(xs)].reduce((a,q)=>(a[q]=findIdxs(xs, q),a),{})
+lowerAndStrip = text => text.toLowerCase().replace(/\W/g, ' ').replace(/\s+/g, ' ').trim()
+splitWords = (str, re=/[^a-zA-Z-]+/)=> str.split(re).filter(Boolean)
+splitLines = str => str.split(/\r?\n/)
+tokenize = (text)=> text
+      .replace(/'/g, '')
+      .replace(/[^A-Za-zА-Яа-яçÇğĞıİöÖşŞüÜ0-9_]/g,' ')
+      .replace(/\s\s+/g, ' ')
+      .split(' ').map(s=> s.toLowerCase())
+termFreqMap = (words)=> words.reduce((termFreq,w)=> {termFreq[w]=(termFreq[w]||0)+1;return termFreq},{})
+addKeysToDict = (tf_d, dict)=> {Object.keys(tf_d).map((key)=>dict[key]=true);return dict}
+tfMapToVec = (map, dict)=> Object.keys(dict).map((term)=>map[term]||0)
+vecDotProd = (vecA)=>(vecB)=> vecA.reduce((a,x,i)=>a+=x*vecB[i],0)
+vecMag = (vec)=> Math.sqrt(vec.reduce((a,x)=>a+=x*x))
+cosSimilarity = (a)=>(b)=> vecDotProd(a)(b)/(vecMag(a)*vecMag(b))
+textCosSimilarity = (a)=>(b)=>{
+  let tfA = termFreqMap(a), tfB = termFreqMap(b), dict = {}
+  addKeysToDict(tfA, dict),addKeysToDict(tfB, dict)
+  let tfvA = tfMapToVec(tfA, dict), tfvB = tfMapToVec(tfB, dict)
+  return cosSimilarity(tfvA)(tfvB)}
+dictFrom = (xs)=> {
+    let dict={},keys=[],words;
+    xs = Array.isArray(xs) ? xs : [xs];
+    xs.forEach((text)=> {
+      words = splitWords(text);
+      words.forEach(w=>{w=w.toLowerCase();(!dict[w]&&w!=='')?(dict[w]=1,keys.push(w)):dict[w]+=1}) })
+    return {words:keys,dict:dict} }
+//bow=(text, vocabulary)=> vocabulary.words.reduce((a,w)=>a.push(extractDictionary([text]).dict[w]||0),[])
+//bow2 = testText=> tfMap-ToVec(termFreqMap(splitWords(testText)),addKeysToDict(termFreqMap(splitWords(testText)),{}))
+//same as ~> tfMapToVec(termFreqMap(splitWords(testText)),addKeysToDict(termFreqMap(splitWords(testText)),{}))
+bow=(text, vocabulary)=> vocabulary.words.reduce((a,w)=>a.push(extractDictionary([text]).dict[w]||0),[])
+tf = (w,text)=> dictFrom(text).dict[w.toLowerCase()]||0 / splitWords(text).length
+df = (w, texts)=> texts.reduce((sum,text)=> sum+=splitWords(text).indexOf(w)>-1?1:0,0)
+occ = (w, texts)=> texts.map((text,i)=>splitWords(text).indexOf(w)>-1?1:0)
+idf = (w,texts)=> Math.log(texts.length / (1 + df(w, texts)))
+tfidf = (w,text,texts)=> tf(w,text)*idf(w,texts)  
+// keywords(([TESTTEXT1,TESTTEXT2,TESTTEXT3]).map(x=>naiveContentWords(x)(fnwords)).map(join(' ')))
+keywords = (texts,n=5)=> (texts.forEach((t,docNum)=> {
+  let scores = {};
+  splitWords(t).forEach((word)=> scores[word] = tfidf(word, t, texts))
+  scores = Object.keys(scores).map((word)=> ({word:word,score:scores[word]}))
+  scores.sort((a, b)=>a.score<b.score?1:-1)
+  result=(scores.splice(0, n))}),result)
+//STOPWORDS = fnwords.concat(missinginfnwords)
+naiveContentWords=(src)=>(stops)=>splitWords(lowerAndStrip(src)).filter(x=>stops.indexOf(x)<0)
+// clozePassage(SRC0)(naiveContentWords(SRC1)(STOPWORDS))
+// clozePassage(SRCTEXT)(WORDS TO BLANK)
+clozePassage=(txt)=>(lex)=>{let c=txt;return c.replace(new RegExp('\\b('+lex.join('|')+')\\b','gi'),'_')}
+fuzzyStrScore = (g,m,s)=>{
+  if(g==m){return 1};if(m==""){return 0}
+  let f=0,q=m.length,p=g.length,o,k,e=1,j
+  for(let d=0,r,n,h,a,b,l;d<q;++d){
+    h=m.charAt(d)
+    a=g.indexOf(h.toLowerCase())
+    b=g.indexOf(h.toUpperCase())
+    l=Math.min(a, b)
+    n=(l>-1)?l:Math.max(a,b)
+    if(n===-1){if(s){e+=1-s;continue}else{return 0}}else{r=0.1}
+    if(g[n]===h){r+=0.1}
+    if(n===0){r+=0.6;if(d===0){o=1}}else{if(g.charAt(n-1)===" "){r+=0.8}}
+    g=g.substring(n+1,p)
+    f+=r}
+  j=(((f/p))+f/q)/(2*e)
+  if(o&&(j+0.15<1)){j+=0.15}
+  return j}
+  return {fleschKincaidReadingEase,fleschKincaidGradeLevel,gunningFogScore,colemanLiauIndex,smogIndex,automatedReadabilityIndex,termFreqMap,findIdxs,uniqIdxs,splitWords,textLength,letterCount,sc,wc,avgWPS,avgSPW,gte3Syls,gte3SylsPW,sylC,fuzzyStrScore,dictFrom,bow,tf,df,idf,tfidf,keywords,clozePassage } } )()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* from  https://keithclark.co.uk/articles/js1k-2019-flux/ 
+//  took it for the unicode diagram
+
+t => (t>>5|t>>6|t) + (t*22|t>>4|t<<2) + (t>7e4&&(t%128|31));
+
+//   ┖─────┬─────┚   ┖───────┬──────┚   ┖─────────┬───────┚
+//         │                 │                    │
+//         │                 │                    └──  Vary the melody for the 2nd half
+//         │                 └───────────────────────  Siren effect
+//         └─────────────────────────────────────────  Bass line and melody
+
+
+
+
+*/
+
+
+
+
+
+/*
+	
+//   ┖─────┬─────┚   ┖───────┬──────┚   ┖─────────┬───────┚
+//         │                 │                    │
+//         │                 │                    └── COMMENT0- ~>inputs
+//         │                 └─────────────────────── COMMENT1- ~>func
+//         └───────────────────────────────────────── COMMENT2- ~>return
+
+	____     _______
+	`MM'     `M'`MM'
+	 MM       M  MM
+	 MM       M  MM
+	 MM       M  MM
+	 MM       M  MM
+	 MM       M  MM
+	 MM       M  MM
+	 YM       M  MM
+	  8b     d8  MM
+	   YMMMMM9  _MM_
+	
+	
+	
+	
+	
+	   ____      ____    ___      _____________
+	  6MMMMb/   6MMMMb   `MM\     `M'MMMMMMMMMM
+	 8P    YM  8P    Y8   MMM\     M /   MM   \
+	6M      Y 6M      Mb  M\MM\    M     MM
+	MM        MM      MM  M \MM\   M     MM
+	MM        MM      MM  M  \MM\  M     MM
+	MM        MM      MM  M   \MM\ M     MM
+	MM        MM      MM  M    \MM\M     MM
+	YM      6 YM      M9  M     \MMM     MM
+	 8b    d9  8b    d8   M      \MM     MM
+	  YMMMM9    YMMMM9   _M_      \M    _MM_
+	________       ____    ____       ____
+	`MMMMMMMb.    6MMMMb   `MM'      6MMMMb\
+	 MM    `Mb   8P    Y8   MM      6M'    `
+	 MM     MM  6M      Mb  MM      MM
+	 MM     MM  MM      MM  MM      YM.
+	 MM    .M9  MM      MM  MM       YMMMMb
+	 MMMMMMM9'  MM      MM  MM           `Mb
+	 MM  \M\    MM      MM  MM            MM
+	 MM   \M\   YM      M9  MM            MM
+	 MM    \M\   8b    d8   MM    / L    ,M9
+	_MM_    \M\_  YMMMM9   _MMMMMMM MYMMMM9
+	
+	
+	
+*/
+
+// 
+
+
+<!--UI CONTROLLER 
+
+	--> L U N D R Y M
+	// up down left right yes no m. 
+
+	--> PHAXED
+	//  [1,2,3,4,5,6]
+	//   select(n)
+	--> 
+
+	--> RINGS, SPIRALS
+
+		// Prog = (o=iterable) => o.reader.focus_index / size( o )
+		// Ring = (dat,style=default||{type,interactive,appearance...,css...})=>
+				// (r, pos=(fixed?(ctx,cx,cy):logic=>(cx,cy)))=>...
+				// discrete = points? | continuous Ring
+
+		// indicate(config_Ring_indicators) (Prog(dat)) = ( Prog*2PI )
+
+		// Spiral = 
+
+		// Screw =  ( rot(xy?) , translateZ )
+
+		// Cycle = //~modular-arithmetic
+
+
+
+	--> CLI TEXT-BASED | INPUT | PARSER
+
+
+
+		/*  RANDOM ORPHAN NOTE SCRAP FOUND
+		INPUT
+		<!-- REMINDER: DEFINE INDEPENDENT OF HTML|DOM
+			-->  if context must be assumed, 
+				- ensure it is a larger space than DOM assumption
+					- e.g. entirely text based interface (like aemki)
+				- state assumptions i.e. base requirements
+		keymapping combis
+		hint
+		follow hints
+		*/
+
+
+
+	--> GESTURE
+	--> Voice|Sound
+	--> Webgazer
+	--> Single Button Mode
+
+
+
+
+
+
+
+  // ,set_origin:o=> o.orig.split(" ")
+		// 		  .reduce((a,c)=>a[c](), {top:     ()=>o.y+=o.h/2 // incr(y,h/2)
+		// 		                         ,bottom:  ()=>o.y-=o.h/2 // decr(y,h/2)
+		// 		                         ,left:    ()=>o.x+=o.w/2 // incr(x,w/2)
+		// 		                         ,right:   ()=>o.x-=o.w/2 // decr(x,w/2)
+		// 		                         ,center:  ()=>'center'         // noop
+		// 		                         })
+
+
+
+
+
+
+
+
+
+
+// camera,move,tr,
+// init,group,
+// plane,sprite,cube,pyramid,
+
+{n,g:'SCENE',orig:'center',cls:'',html:'', // b
+,sx:1 ,sy:1 ,sz:1
+,rx:0 ,ry:0 ,rz:0
+,x:0 ,y:0 ,z:0
+,w:0 ,h:0// ,d:0
+}
+
+C = 
+  {unit: "px"
+  ,cam:{x:0,y:0,z:0,rx:0,ry:0,rz:0}
+  // ,cam2:{x:0,y:0,z:0,rx:0,ry:0,rz:0}
+  ,sprite_count: 0
+  ,sprites: []
+  ,plane_count: 0
+  ,cube_count: 0
+  ,pyramid_count: 0
+  ,objects: {}
+  
+  ,getById: id => document.getElementById(id)
+  // ,$:id => document.getElementById(id)
+  
+  ,set_unit: u => {C.unit = u;}
+  
+  ,set_perspective: o => {viewport.style.perspective = `${o}${C.unit}`;}
+  ,set_origin:o=> o.orig==='center'?'center':o.orig.split(' ').map(x=>(
+  										 {top:     ()=>o.y+=o.h/2 // incr(y,h/2)
+				                         ,bottom:  ()=>o.y-=o.h/2 // decr(y,h/2)
+				                         ,left:    ()=>o.x+=o.w/2 // incr(x,w/2)
+				                         ,right:   ()=>o.x-=o.w/2 // decr(x,w/2)
+				                         ,center:  ()=>'center'         // noop
+				                         })[x]())				  
+
+, set_perspective: o => {viewport.style.perspective = `${o}${C.unit}`; }
+
+
+  // !!! TODO: 'SCENE' should not be hardcoded -> default settings
+
+, init: o=>(C.set_origin(o={...{g:'SCENE',orig:'center',cls:'',html:'',sx:1,sy:1,sz:1,rx:0,ry:0,rz:0,x:0,y:0,z:0,w:0,h:0},...o}),C.objects[o.n]=o, o)
+
+, group: o => {
+//1 DESTRUCTURE THE TEMPLATE
+    let {n,cls,w,d,g}=o
+
+// d. SET DEPTH TO HEIGHT ~> 
+	//"depth" is a concept (?) 2d will do. but, represent in state (?)
+    ;(!d&&!(d===0))?(o.d=o.h):''
+    
+// Find Element in document by id of groupname //~> DEFAULT IS IMPT !!!
+    ;C.getById(C.init(o).g)
+    					.appendChild(tml(['div',
+                                      {id:n
+                                      ,class:"group "+cls?cls:''
+                                      ,style:// fcs
+                                        `position:'absolute'
+                                        ,width:${w+C.unit}
+                                        ,height:${d+C.unit}
+                                        ,transform:${C.xf(o)}
+                                        `
+                                      }, 
+                                      ]))}
+,  plane: o => { 
+//1 DESTRUCTURE THE TEMPLATE
+	let {n,g,cls,w,h,b,html}=o
+    ;if(!o.n) o.n = `plane${C.plane_count++}`;
+    C.init(o);
+    C.getById(o.g).innerHTML += `<div id="${o.n}"class="plane ${o.cls}"style="position:absolute;width:${o.w}${C.unit};height:${o.h}${C.unit};background:${o.b};transform-origin:${o.orig};transform:${C.xf(o)}">${o.html}`;
+    C.camera();
+  }
+
+,  sprite: o => {
+//1 DESTRUCTURE THE TEMPLATE
+let{n,g,w,h,cls,orig,b,html}=o
+//2 NAME THE OBJECT
+   ; if(!o.n) o.n = `sprite${C.sprite_count++}`
+//3 RENDER THE OBJECT TO GROUP OR DEFAULT  - Directly (no children)
+   ; C.getById(C.init(o).g).innerHTML += `<div id="${n}"class="sprite ${cls}"style="position:absolute;width:${w}${C.unit};height:${h}${C.unit};background:${b};transform-origin:${orig};transform:${C.xf(o)}">${html}`
+//0 REGISTER OBJECT
+   ; C.sprites.push(n); C.camera();
+  }
+
+, cube: o=> {
+//1 DESTRUCTURE THE TEMPLATE
+    let {n,g,x,y,w,h,d,rz,b}=o
+
+//2 NAME THE OBJECT
+    ;o.n?o.n:o[n]=`cube${C.cube_count++}` // !!! TODO:Sub with Naming function
+
+//3 RENDER THE OBJECT TO GROUP OR DEFAULT
+    ;C.group(C.init(o))
+
+//4 MAP THE PLANES
+    ;(
+      [{g:n,x:w/2,y:d/2    ,w:w,h:d,b:b ,cls:"bottom"} // bottom
+      ,{g:n      ,y:d/2    ,w:d,h:h,b:b ,orig:"bottom",cls:"left" ,rx:-90,ry:-90} // left
+      ,{g:n,x:w  ,y:d/2    ,w:d,h:h,b:b ,orig:"bottom",cls:"right",rx:-90,ry:-90} // right
+      ,{g:n,x:w/2,y:0      ,w:w,h:h,b:b ,orig:"bottom",cls:"back" ,rx:-90} // back
+      ,{g:n,x:w/2,y:d      ,w:w,h:h,b:b ,orig:"bottom",cls:"front",rx:-90} // front
+      ,{g:n,x:w/2,y:d/2,z:h,w:w,h:d,b:b ,cls:"top"} // top
+      ]
+    .map(C.plane) )}
+ 
+ ,pyramid: o => {
+//1 DESTRUCTURE THE TEMPLATE
+ 	let {n,g,x,y,w,h,d,rx,ry,rz,b,cls}=C.init(o)
+//2 NAME THE OBJECT
+    ;o.n?o.n:o[n]=`pyramid${C.pyramid_count++}`; // USE LENSES
+//3 RENDER THE OBJECT TO GROUP OR DEFAULT    
+    C.group({n,cls,g,x,y,z,w:100,d:100,rx,ry,rz,sx:w/100,sy:d/100,sz:h/86.6025})
+//4 MAP THE PLANES
+    ;(
+    [{g:n,x:50,y:50,w:100,h:100,b,cls:"bottom"} // bottom
+    ,{g:n,y:50,w:100,h:100,b,ry:-60,rz:90,cls:"triangle left",orig:"bottom"} // left
+    ,{g:n,x:100,y:50,w:100,h:100,b,ry:-120,rz:90,cls:"triangle right",orig:"bottom"} // right
+    ,{g:n,x:50,y:0,w:100,h:100,b,rx:-120,cls:"triangle back",orig:"bottom"} // back
+    ,{g:n,x:50,y:100,w:100,h:100,b,rx:-60,cls:"triangle front",orig:"bottom"} // front
+    ]
+    .map(C.plane)
+    )}
+}
+// TRELLIS - ~>(Tr)ansforms (El)ements (Lis)ts 
+	// 3DENV scaffold || framework
+
+
+  // STATE
+trellis=  
+  {unit: "px"
+  ,angle: "rad"
+  ,cam:{x:0,y:0,z:0,rx:0,ry:0,rz:0}
+  // ,cam2:{x:0,y:0,z:0,rx:0,ry:0,rz:0}
+  ,sprite_count: 0
+  ,sprites: []
+  ,plane_count: 0
+  ,cube_count: 0
+  ,pyramid_count: 0
+  ,objects: {}
+  }
+
+
+
+sprite: o => {
+//1 DESTRUCTURE THE TEMPLATE
+let{n,g,w,h,cls,orig,b,html}=o
+//2 NAME THE OBJECT
+   ; if(!o.n) o.n = `sprite${C.sprite_count++}`
+//3 RENDER THE OBJECT TO GROUP OR DEFAULT  - Directly (no children)
+   ; C.getById(C.init(o).g).innerHTML += `<div id="${n}"class="sprite ${cls}"style="position:absolute;width:${w}${C.unit};height:${h}${C.unit};background:${b};transform-origin:${orig};transform:${C.xf(o)}">${html}`
+//0 REGISTER OBJECT
+   ; C.sprites.push(n); C.camera();
+  }
+
+
+face_sprites=(rz,rx,ry)=>
+	{for(var i in C.sprites) {
+		  let s = C.getById(C.sprites[i])
+	      , t = s.style.transform.replace(/ *rotate.*\(.*?deg\)/g,"");      
+	      s.style.transform = t + `rotateZ(${-rz}deg)rotateX(${-rx}deg)
+	      rotateY(${-ry}deg)`;}}
+
+camera=o=>(cam,scene=SCENE)=>( {x,y,z,rx,ry,rz}=cam={...cam,...{x:0,y:0,z:0,rx:0,ry:0,rz:0},...o}, set(fcs('transform'))(cssTxf(cam))( scene ),face_sprites(rz,rx,ry) )
+
+byId=x=>document.getElementById(x)
+
+moves = (o,n2=null)=>((o.n||n2)
+      ?({n,x,y,z,rx,ry,rz}={...{x:0,y:0,z:0,rx:0,ry:0,rz:0}
+      	,...(typeof(C)!=='undefined'&&C['objects']||window)[o.n||n2],...o})
+      :'No target name to move'
+      ,set (fcs('transform')) (cssTxf(o)) (byId(n))
+      )   
+
+
+
+cssTxf=(o,u='px',a='deg')=>Object.values(config(cssTransforms(u,a),Maybe)(o)).join('')
+cssTransforms=(unit,angle)=>(
+{x:x=>`translateX(${-x}${unit})`
+,y:y=>`translateY(${-y}${unit})`
+,z:z=>`translateZ(${-z}${unit})`
+,rx:rx=>`rotateX(${rx}${angle})`
+,ry:ry=>`rotateY(${ry}${angle})`
+,rz:rz=>`rotateZ(${rz}${angle})`
+,sx:sx=>`scaleX(${sx})`
+,sy:sy=>`scaleY(${sy})`
+,sz:sz=>`scaleZ(${sz})`
+})
+
+
+
+
+// FACE SPRITES -> can use to direct attention (?) ~> eg eye|follow cursor 
+
+// ,face_sprites=(rz,rx,ry)=>
+// 	{for(var i in C.sprites) {
+// 		  let s = C.getById(C.sprites[i])
+// 	      , t = s.style.transform.replace(/ *rotate.*\(.*?deg\)/g,"");      
+// 	      s.style.transform = t + `rotateZ(${-rz}deg)rotateX(${-rx}deg)
+// 	      rotateY(${-ry}deg)`;}}
+
+// VIEW FROM ? MULTIPLE CAMERAS ? SAVING VIEWS? // ANIMATED FLY-BYS ?
+// , camera: o => {
+// 1 DESTRUCTURING & REGISTERING C.cam
+	// cameraPREVIOUS  (?)
+	// let {x,y,z,rx,ry,rz}=C.cam=({...C.cam,...{x:0,y:0,z:0,rx:0,ry:0,rz:0},...o})    
+// ??? QUESTION: What's this for?
+	// C.camX += ((Math.random() - .5)/1000) 
+// a. APPLYING STYLE.TRANSFORM
+	// ;    SCENE.style.transform=
+	//     `translateX(${-x}${C.unit})
+	//      translateY(${-y}${C.unit})
+	//      translateZ(${-z}${C.unit})
+	//      rotateX(${rx}deg)
+	//      rotateY(${ry}deg)
+	//      rotateZ(${rz}deg)
+	//     `
+	// ; 	C.face_sprites(rz,rx,ry)
+	// 	}
+
+// cssTxf=o=>(o={...{x:0,y:0,z:0,rx:0,ry:0,rz:0,sz:0,sx:0,sy:0},...o},   `translateX(-50%)translateY(-50%)translateX(${o.x}${C.unit})translateY(${o.y}${C.unit})translateZ(${o.z}${C.unit})rotateX(${o.rx}deg)rotateY(${o.ry}deg)rotateZ(${o.rz}deg)scaleX(${o.sx})scaleY(${o.sy})scaleZ(${o.sz})`)
+
+
+
+
+
+
+
+// , move: o => {
+//    ;n?
+//    ({n,x,y,z,rx,ry,rz}=
+//    	{...{x:0,y:0,z:0,rx:0,ry:0,rz:0}
+//    	,...C.objects[o.n]
+//    	,...o
+//    	}):'No movement target'
+//    ;C.getById(n).style.transform=cssTxf(o);
+//    }   
+// ,  xf: o => (o={...{x:0,y:0,z:0,rx:0,ry:0,rz:0,sz:0,sx:0,sy:0},...o},   `translateX(-50%)translateY(-50%)translateX(${o.x}${C.unit})translateY(${o.y}${C.unit})translateZ(${o.z}${C.unit})rotateX(${o.rx}deg)rotateY(${o.ry}deg)rotateZ(${o.rz}deg)scaleX(${o.sx})scaleY(${o.sy})scaleZ(${o.sz})`)
+
+
+/*
+
+#viewport{width:500px;height:500px;overflow:hidden;border:1px solid;position:relative;perspective:500px}
+#viewport *{transform-style:preserve-3d;box-sizing:border-box}
+#camera{width:0;height:0;position:absolute;top:50%;left:50%}
+#scene{transition:.5s}
+.plane,.sprite,.group{transition:.5s linear}
+
+/*Shapes (optional) 
+
+.triangle{clip-path:polygon(50% 0,100% 100%,0 100%);border:none}
+.triangle-bottom{clip-path:polygon(0 0,100% 0,50% 100%)}
+.triangle-left{clip-path:polygon(0 50%,100% 0,100% 100%)}
+.triangle-right{clip-path:polygon(0 0,100% 50%,0 100%)}
+.triangle-top-left{clip-path:polygon(0 0,100% 0,0 100%)}
+.triangle-top-right{clip-path:polygon(0 0,100% 0,100% 100%)}
+.triangle-bottom-left{clip-path:polygon(0 0,100% 100%,0 100%)}
+.triangle-bottom-right{clip-path:polygon(100% 0,100% 100%,0 100%)}
+.circle{border-radius:50%}
+
+* /
+
+C.plane({n:"ground",x:0,y:0,z:0,w:450,h:450,b:"#8D8"})
+C.camera({x:0,y:0,z:150})
+C.camera({rx:45,ry:0,rz:0})
+C.plane({n:"p1",w:100,h:100,x:0,y:0,z:0,rx:-90,b:"#def",orig:"bottom"})
+C.plane({n:"t1",w:100,h:100,x:-150,y:-150,z:0,rx:-90,ry:30,b:"#edf",cls:"triangle",orig:"bottom"})
+C.sprite({n:"s1",w:100,h:200,x:150,y:-150,z:0,b:"#fed",orig:"bottom"})
+C.sprite({n:"s2",w:100,h:100,x:0,y:-150,z:0,b:"#efd",cls:"circle",orig:"bottom"})
+C.cube({n:"c1",g:"g1",x:120,y:120,w:120,h:75,d:100,rz:45,b:"#ddd"})
+C.pyramid({n:"py1",g:"g1",x:-120,y:120,w:110,h:150,d:100,rz:-45,b:"#777"})
+C.move({n:"p1",x:0,y:10,z:250,rx:0,rz:0});
+C.move({n:"c1",z:50,ry:45});
+
+*/
+</script>

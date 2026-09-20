@@ -1,0 +1,1193 @@
+
+<style>
+/**{background-color:black; color:white;}*/
+input {width: 5em;}
+#c{width:90px;height:90px;margin:90px;position:relative;perspective:180px;}
+#o{position:absolute;width:90px;height:90px;transform-style:preserve-3d;transform-origin:45px 45px 0px;    transition: transform 500ms; }
+#o *{position:absolute;width:90px;height:90px;border:2px solid black; }
+#f{transform:translateZ(45px)}
+#b{transform:rotateX(180deg)translateZ(45px)}
+#r{transform:rotateY(90deg)translateZ(45px)}
+#l{transform:rotateY(-90deg)translateZ(45px)}
+#u{transform:rotateX(90deg)translateZ(45px)}
+#d{transform:rotateX(-90deg)translateZ(45px)}
+
+
+
+
+.content{font-size:3rem; width:100%; height: 100%; opacity:1;}
+.rotator { width: 20vw; height: 20vh; position: absolute;
+/*    top: 0%; */
+/*    left: 50%; */
+    perspective: 108em;
+/*    perspective-origin:top; */
+    transform-style: preserve-3d; outline: 0.1rem dashed blue;  }
+.rotatornode { transform-style: preserve-3d; position: absolute;
+    width: 10vh;
+    height: 10vh;
+    color: black;
+    border: 0.1rem solid black;
+    transition: transform ease-in-out 0ms;
+    user-select: none;
+    overflow: hidden;
+    cursor: pointer;
+/*    background-color: dimgray; */
+/*    opacity:.5;*/
+    background-color: transparent;
+    }
+    .n1 {width:100%;}
+.rotatornode:hover { border: .2rem solid RED; font-size:5rem; overflow:visible; opacity:1;}
+
+.pulse{color: #FFF; animation: blur 1s ease-out infinite; text-shadow: 0px 0px 5px #fff, 0px 0px 7px #fff;}
+@keyframes blur { from { text-shadow: 0px 0px 10px #fff,  0px 0px 25px #fff,0px 0px 50px #fff,  0px 0px 150px #000, 0px 10px 100px #999, 0px -10px 100px #666, 0px -10px 100px #999;} }
+
+</style>
+<div>
+
+</div>
+<!--
+<textarea name="cpy" id="cpy" cols="30" rows="10"></textarea>
+<div>
+<a href="#" class="copyIt">Copy</a>
+</div>
+<input id=textentry/>-->
+<!--<input id=textentryresponse></div>-->
+<!--
+Behavior
+Validate inputs to local dict
+    Debounce searching with visual feedback
+-->
+<style>
+
+body {
+	font-family: 'Roboto', sans-serif;
+/*	background-color: #4285F4;*/
+/*	color: #FFF;*/
+	letter-spacing: 1.5px;
+	width: 500px;
+	margin: 2% auto;
+}
+
+a { text-decoration: none; color: #000; }
+h1 { margin-left: 25px; }
+#search {
+	background-color: #71A3F7;
+	outline: none;
+	border: none;
+	width: 450px;
+	height: 50px;
+	border-radius: 2px;
+	box-shadow: 0 1px 1.5px rgba(0, 0, 0, 0.06), 0 1px 1px rgba(0, 0, 0, 0.12);
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	letter-spacing: 1.5px;
+	font-size: 20px;
+	color: #FFF;
+	padding-left: 10px;
+	display: block;
+	margin: 2% auto 0;
+	text-align: left;
+}
+#suggestions { list-style-type: none; width: 461px; margin: 0 auto; margin-top: 0; text-align: left; }
+#suggestions a { display: block; padding: 10px 5px; padding-left: 10px; list-style: none; color: #000; background-color: #FFF; font-size: 15px; }
+#suggestions a:hover { background-color: red; }
+
+/*svg {vector-effect: non-scaling-stroke;}    */
+
+</style>
+
+<!--<input type="range" min="14" max="60" value="16" oninput="document.documentElement.style.setProperty(&quot;--fontSize&quot;, `${this.value}px`)" title="Adjust font size"/>-->
+
+<div id=xxx></div>
+
+
+
+<svg id="mySVG" width="200" height="150">
+<text id="myText" x="100" y="100" stroke-width="1" stroke="black" fill="#173859" text-anchor="middle" font-size="100">
+✢</text>
+</svg>
+<input id="hexValue" type="text" style="font-size:120%;font-weight:bold;border-width:0px;width:100px">
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none">
+    <symbol id="SYM_circle" viewBox="-100 -100 200 200">
+        <title>circle</title>
+        <desc>original-file's-desc</desc>
+        <circle cx=0 cy=0 r=50></circle>
+  </symbol>
+    <symbol id="SYM_triangle" viewBox="-100 -100 200 200">
+        <title>original-file's-title</title>
+        <desc>original-file's-desc</desc>
+        <polygon points="0,50 43.30127018922193,-25 -43.30127018922193,-25"></circle>
+  </symbol>
+    <symbol id="SYM_square" viewBox="-100 -100 200 200">
+        <title>original-file's-title</title>
+        <desc>original-file's-desc</desc>
+        <rect x=-50 y=-50 width=100 height=100></circle>
+  </symbol>
+      <defs>
+    <pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse">
+      <path d="M 10 0 L 0 0 0 10" fill="none" stroke="gray" stroke-width="0.5"> </path>
+    </pattern>
+    <pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse">
+      <rect width="100" height="100" fill="url(#smallGrid)"> </rect>
+      <path d="M 100 0 L 0 0 0 100" fill="none" stroke="gray" stroke-width="1"> </path>
+    </pattern>
+  </defs>
+</svg>
+
+
+
+<!--<svg id="mySVG" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"> -->
+<!--  <rect width="100%" height="100%" fill="url(#grid)"> </rect> -->
+<!--</svg>-->
+<select id="voiceSelect"></select>
+
+<input onfocus='with(new webkitSpeechRecognition)start(onresult=e=>value=e.results[0][0].transcript)'onblur='speechSynthesis.speak(new SpeechSynthesisUtterance(value))'>
+
+
+<!--
+<style>
+html { --angle: 90deg; --bg1: red; --stop1: 0%; --bg2: blue; --stop2: 100% }
+div { --gradient: linear-gradient( var(--angle), var(--bg1) var(--stop1), var(--bg2) var(--stop2) );
+  margin: 1em; width: 100px; height: 100px; background: var(--gradient); }
+.css { --angle: 45deg; --bg1: lime; --stop1: 25%; --bg2: hotpink; --stop2: 75%; }
+</style>
+Normal Gradient
+<div></div>
+
+Override from CSS
+<div class=css></div>
+
+Override from HTML
+<div style="
+  --angle: -45deg;
+  --bg1: orange;
+  --stop1: 25%;
+  --bg2: cyan;
+  --stop2: 75%;
+"></div>
+
+Override from JS
+<div class=js></div>
+<script>
+
+  var js = document.querySelector('.js')
+
+js.style.setProperty('--angle', '0')
+js.style.setProperty('--bg1', 'black')
+js.style.setProperty('--stop1', '0%')
+js.style.setProperty('--bg2', 'white')
+js.style.setProperty('--stop2', '100%')
+
+ -->
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    //--cursor over name--
+changeText = (charCode) =>{
+    console.log(charCode)
+//    var code=parseInt(hexNum,16)
+//    var text=String.fromCharCode(code)
+    //  ( 119648, 119665 )
+    myText.innerHTML="&#"+charCode+";"
+//  i=0;setInterval(`document.body.innerHTML="&#"+i++`,99)
+    myText.setAttribute("fill",rcolor())
+    hexValue.value=hexNum  }
+hexValue.addEventListener('input',()=>changeText(hexValue.value))
+
+</script>
+
+digitize = n => [...`${n}`].map(i => parseInt(i));
+
+1D36[0-F]
+1D37[0-1]
+
+<div id=c><div id=o><div id=f></div><div id=b></div><div id=r></div><div id=l></div><div id=u></div><div id=d></div>
+
+
+<script>
+
+circle=(r,cls,[cx,cy]=[0,0])=>jsonml2dom(['circle',{r:r,cx:cx,cy:cy,class:cls?cls:''}],NS.svg)
+line=([x1,x2,y1,y2],cls)=>jsonml2dom(['line',{x1,x2,y1,y2}],NS.svg)
+
+
+//fuzzySearch=(s,l,i=t=>t.indexOf(s))=>l.filter(t=>~i(t)).sort((t,u)=>i(t)-i(u))
+fuzzySearch=(a,b)=> a.match(RegExp(b.trim().split(/\s+/).map((c)=> c.split('').join('\\W*')).join('|'),'gi'))
+
+
+
+
+
+// https://github.com/bevacqua/fuzzysearch
+fuzzySearch_2 = (needle, haystack) =>{
+  var hlen = haystack.length;
+  var nlen = needle.length;
+  (nlen > hlen) ? console.error(`sizes of (needle: [${needle}] < haystack:[${haystack}] )`)
+  : (nlen === hlen) ? console.error(`sizes of (needle: [${needle}] === haystack: [${haystack}])`) : ''
+  outer: for (var i = 0, j = 0; i < nlen; i++) {
+    var nch = needle.toLowerCase().charCodeAt(i)
+    while (j < hlen) { if (haystack.toLowerCase().charCodeAt(j++) === nch) { continue outer } }
+    return '' }
+  return haystack }
+
+
+run=()=>console.log(output1.textContent=source.value.split(/.\s|,/).map(a=>fuzzySearch_2(s.value,a)))
+//run=()=>console.log(output1.textContent=source.value.split(/.\s|,/).map(a=>fuzzySearch(a,s.value)).map(x=>x))
+//s.addEventListener('input',run)
+
+ringConf=({w:"20vw",h:"20vh",sw:"4",bg:"grey",col:"white"})
+
+
+
+/*-----------------------------         ------------------------------------/
+// DOM
+
+
+parent.appendChild(child)                         // append child.
+parent.insertBefore(child, parent.childNodes[0]) // prepend child.
+child.parentNode.removeChild(child)             // remove child
+child.parentNode.replaceChild(child)            // replace child
+
+/*-----------------------------         ------------------------------------*/
+TYPE_OF = (x)=> Object.prototype.toString.call(x).slice(8,-1)
+NS=({html:"http://www.w3.org/1999/xhtml",svg:"http://www.w3.org/2000/svg",svgRE:/svg|circle|ellipse|marker|line|path|rect|use|symbol|text|g/i})
+jsonml2dom = (markup,nmspc=(markup==NS.svgRE.test(markup)?NS.svg:NS.html))=> {
+    let el = document.createElementNS(nmspc,markup[0])
+    markup.slice(1).forEach((node)=> TYPE_OF(node)===
+          'Object' ? Object.entries(node).map(e => el.setAttribute(e[0],e[1]))
+          : TYPE_OF(node) === 'Array' ? el.appendChild(jsonml2dom(node, NS.svgRE.test(node)?NS.svg:NS.html))
+          : TYPE_OF(node) === 'String' ? el.appendChild(document.createTextNode(node))
+          : new Error(`Invalid type ${TYPE_OF(node)} for ${node}`) );return el }
+
+
+render = (target)=>(dat)=> target.appendChild(dat)
+renderScript = (script)=> {render(document.head)(script);console.log('Added script to head')} //: console.log('todo: some err msg')// TODO: cleanup message
+, AP_C = (op)=>(fn)=>(xs)=> Array.prototype[op].call(xs, fn) // Array.prototype._.call
+//    , umap = (fn)=>(dat)=>(xs)=> AP_C('map')(xs)()
+, umap = (fn)=>(dat)=>(xs)=> Array.prototype.map.call(xs, (x,i,o)=>fn(x,i,o)(dat))
+, objectify = (a)=> a.reduce((o,[k,v])=>(o[k]=v,o),{})
+, mapStats  = (dict)=>(n)=>(xs)=> umap( (x,i)=>(dat)=>attr(x)(objectify(dat[n])) )(dict)(xs)
+, attr=(node)=>(a)=>
+     typeof a === 'string'? node.getAttribute(a)
+	  :typeof a === 'object'? Object.entries(a).map(entry=>(node.setAttribute(entry[0],entry[1]) ) )
+    :new Error(`prob w ${node}:${node.id}:'${entry[0]}' to '${entry[1]}'`)
+
+modCSSbase=(sel, p, v,ss=document.styleSheets[0]) =>{
+    for(var i = 0; i < ss.cssRules.length; i++) {
+        (ss.cssRules[i].selectorText === sel) ? ss.cssRules[i].style[p] = v : ''} ss.insertRule(sel + " { " + p + ": " + v + "; }", 0);}
+
+/*-----------------------------         ------------------------------------*/
+// EVENTS
+/*-----------------------------         ------------------------------------*/
+addE = ev=>fn=>el=>el.addEventListener(ev,fn)
+remE = ev=>fn=>el=>el.removeEventListener(ev,fn)
+toggleSensor = cond=>el=>ev=>fn=>ifte(cond)(addE(el)(ev)(fn))(remE(el)(ev)(fn))
+    // log the time and event actions/changes/diffs on toggling on/off
+ifte = (pred)=>(then)=>(ifnot)=> pred?then:ifnot // condition ? reaction : contingency
+ife = (pred)=>(ifnot)=> pred?pred:ifnot // (pred)=>(ifnot)=>ifte(pred)(pred)(ifnot)
+pgH = ()=> (document.body.scrollLeft)+(document.documentElement.scrollLeft)
+pgV = ()=> (document.body.scrollTop)+(document.documentElement.scrollTop)  // rect is a DOMRect object with eight properties: left, top, right, bottom, x, y, width, height
+rect = (el)=> el.getBoundingClientRect() //    relative to: viewport, physical screen, event target, html
+
+pointing = (e)=> (// TODO: getE = (ev) => { return ev.touches ? ev.touches[0] : ev }
+  {  client: { x: e.clientX, y: e.clientY }
+  ,  screen: { x: e.screenX, y: e.screenY }
+  ,  offset: { x: e.clientX-rect(e.target).left, y: e.clientY-rect(e.target).top }
+  ,  page:   { x: ife(e.pageX)(e.clientX+pgH()), y: ife(e.pageY)(e.clientY+pgV()) }  } )
+zip = (arr, ...arrs) => arr.map((val, i) => arrs.reduce((a, arr) => [...a, arr[i]], [val]))
+
+getElementCoordinates = (el,rel=document.body)=> ({oY:rect(el).top-rect(rel).top,oX:rect(el).left-rect(rel).left})
+
+
+var $ = document;
+ $$ = function $$(sel) {
+	var arr = void 0;
+	if (sel.charAt('0') === '#' && sel.indexOf(' ') < 0) { return $.getElementById(sel.replace('#', '')); }
+	arr = [].slice.call($.querySelectorAll(sel));
+	if (arr.length < 2) arr = arr[0];
+	return arr; };
+
+Object.getOwnPropertyNames(Math).map(function (p) { window[p] = Math[p]; });
+
+var rand = function rand() {
+	var max = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+	var min = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+	var _int = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
+	var gen = min + (max - min) * random();
+	return _int ? round(gen) : gen; };
+
+
+var randsgn = function randsgn() { return random() > .5 ? 1 : -1; };
+
+
+_add = function (content, before, tag, classes, dataset, ns) {
+	var node = void 0,
+	    n = void 0;
+	node = tag ? ns ? $.createElementNS(ns, tag) : $.createElement(tag) : $.createTextNode(content);
+
+	if (tag) { if (classes) { n = classes.length;
+			while (n--) { node.classList.add(classes[n]); } }
+		if (content || content === 0) node.textContent = content;
+		if (dataset) node._attr(dataset); }
+	if (typeof before === 'number') this.insertBefore(node, before);else this.appendChild(node);
+	return node; };
+
+arrayHasOwnIndex = (array, prop) => array.hasOwnProperty(prop) && /^0$|^[1-9]\d*$/.test(prop) && prop <= 4294967294; // 2^32 - 2
+// eg for (key in a) { if (arrayHasOwnIndex(a, key)) { console.log(a[key]);} }
+
+/*-----------------------------         ------------------------------------*/
+// MATRIIX UTILS
+  // inverse, determinant, augment... statistical...
+
+  // TMPnote: det applications: linear indpdc, orientation of basis, volume&jacobian
+  // alternant, circulant
+  //A commonly known special Vandermonde matrix is the discrete Fourier transform matrix (DFT matrix), where the numbers αi are chosen to be the m different mth roots of unity.
+/*-----------------------------         ------------------------------------*/
+const id_Sq =(n)=>Array(n).fill(null).map((_,i,a)=> a.map((c2,i2)=>i===i2?1:0))
+//    , range = (n)=> Array(n).fill(null).map((_,i) => i)
+    , range = (n,x) => Array(n).fill(null).map((_, i) => x?(x[i]||x):i)
+    , dimensions = (arr)=>(c)=>arr.reduce((r,k,i)=>(i%c===0?r.push([k]):r[r.length-1].push(k))&&r,[])
+    , mmultiply = (a)=>(b)=> a.map((x,i) => T(b).map((y,k)=>dotproduct(x)(y)))
+    , dotproduct = (a)=>(b)=> a.map((x,i)=> a[i]*b[i]).reduce((m,n)=>m+n)
+    , T = (a)=> a[0].map((_,i) => a.map((y) => y[i]))
+    , generate = ([...ms])=> ms.reduce((a,c)=>mmultiply(a)(c))
+/*-----------------------------         ------------------------------------*/
+// TMP HACKY DOM_MATRIX MANIPULATION
+/*-----------------------------         ------------------------------------*/
+const id_m16=()=>T(id_Sq(4)).join(',').split(',').map(parseFloat)
+    , mXv=(M,V)=>mmultiply(T(dimensions(M)(4)))(T([V])).reduce((a,c)=>a.concat(c))
+    , mXm16=(M1,M2)=>(mmultiply(dimensions(M1)(4))(dimensions(M2)(4))).reduce((a,c)=>a.concat(c))
+    , csscolmaj = (m)=> T(dimensions(m)(4))
+    , domgen = ([...ms])=> T(ms.map(m=>csscolmaj(m)).reduce((a,c)=>mmultiply(a)(c)))
+    , m6to16 = (o)=> o.length>6?o:[0,1,4,5,12,13].reduce((a,c,i)=>{a[c]=o[i]; return a},id_m16())
+//,m16to6 = (o)=> [0,1,4,5,12,13].map(i=>o[i])
+
+
+    extract = (s)=> s.match(/\(([^\)]+)\)/)[1].split(',').map(parseFloat)
+
+//mod2d=(TFMs)=>(A6)=>m2d(m16to6(extract(mod3dcss(TFMs.concat[(A6)]))))
+    , m3d = n => `matrix3d(${n.join(',')})`
+    , m2d = M3d => `matrix(${[0,1,4,5,12,13].map(i=>extract(M3d)[i]).join(',')})`
+    , mod3dcss = ([...values]) => m3d(domgen(values))
+//, mod2dcss=([...values]) =>m2d(domgen(values))
+    , mod = ([...values],d=false)=> !d?  m3d(domgen(values)):m2d(m3d(domgen(values)))
+
+/*-----------------------------         ------------------------------------*/
+// TRANSFORMATION MATRICES
+/*-----------------------------         ------------------------------------*/
+const rad360 = a=> a * 180 / Math.PI
+//a > 6.283 ? a *= (180 / Math.PI) : a //TODO:addstring has'deg'condition
+    , sin = (a,d)=> Math.sin(d?rad360(a):a)
+    , cos = (a,d)=> Math.cos(d?rad360(a):a)
+    , tan = (a,d)=> Math.tan(d?rad360(a):a)
+    , perspective = (d) =>   [1,0,0,0,0,1,0,0,0,0,0,-1/d,0,0,0,1]
+    , scale = (w=1,h=1,d=1)=> [w,0,0,0,0,h,0,0,0,0,d,0,0,0,0,1]
+    , translate = (x=0,y=0,z=0)=> [ 1,0,0,0,0,1,0,0,0,0,1,0,x,y,z,1]
+    , rotate =
+        ({ x:(a)=> [1,0,0,0,0,cos(a),-sin(a),0,0,sin(a),cos(a),0,0,0,0,1]
+         , y:(a)=> [cos(a),0,sin(a),0,0,1,0,0,-sin(a),0,cos(a),0,0,0,0,1]
+         , z:(a)=> [cos(a),-sin(a),0,0,sin(a),cos(a),0,0,0,0,1,0,0,0,0,1] })
+    , rotate_around = (axis,a)=>(x,y)=> [translate(-x,-y),rotate.axis(a),translate(x,y)]
+/*-----------------------------         ------------------------------------*/
+    ,mvmt = (el,d)=>(tfm)=> getComputedStyle(el).transform==="none" ? mod(tfm,d):mod((tfm).concat([m6to16(getComputedStyle(el).transform.match(/\(([^\)]+)\)/)[1].split(','))]),d)
+    ,mv = (el,d)=>(tfm)=> el.style.transform = mvmt(el,d)(tfm)
+    ,v2 = (x)=>(y)=>[x,y]
+
+/*-----------------------------         ------------------------------------*/
+// COORDINATE SYSTEM CONVERSIONS (radians)
+/*-----------------------------         ------------------------------------*/
+// RT = polar, XY = cartesian, RTZ = cylindrical, RTP = spherical, XYZ = 3dCartesian, LT = log-polar
+RT_XY = ([r,t])=> [r * Math.cos(t), r * Math.sin(t)]
+XY_RT = ([x,y],[cx,cy]=[0,0])=> {let i=x-cx,j=y-cx; return [Math.sqrt(i*i + j*j), Math.atan2(j, i)]}
+XYZ_RTZ = ([x,y,z],[cx,cy]=[0,0])=> XYtoRT([x,y],[cx,cy]).concat(z)
+
+RTZ_RTP = ([r,t,z])=> [Math.sqrt(r*r + z*z), t, Math.atan2(r, z)]
+RTP_RTZ = ([r,t,p])=> [r*Math.sin(p),t,r*Math.cos(p)]
+RTP_XYZ = ([r,t,p])=> [r*Math.sin(p)*Math.cos(t),r*Math.sin(p)*Math.sin(t),r*Math.cos(p)]
+
+XY_LT = ([x,y],[cx,cy]=[0,0])=> {let i=x-cx,j=y-cx; return [Math.log(Math.sqrt(i*i + j*j)), Math.atan2(j, i)]} // if i>0
+LT_XY = ([l,t])=> [Math.exp(l) * Math.cos(t), Math.exp(l) * Math.sin(t)]
+
+MID = (a, b) => (a.x?['x','y']:[0,1]).map(XY=>a[XY]>b[XY]?(a[XY]-b[XY])/2+b[XY]:(b[XY]-a[XY])/2+a[XY])
+
+
+pathTypes = ({
+  M: ['x', 'y'],
+  m: ['x', 'y'],
+  L: ['x', 'y'],
+  l: ['x', 'y'],
+  H: ['x'],
+  h: ['x'],
+  V: ['y'],
+  v: ['y'],
+  C: [['x1', 'y1'], ['x2', 'y2'], ['x', 'y']],
+  c: [['x1', 'y1'], ['x2', 'y2'], ['x', 'y']],
+  S: [['x2', 'y2'], ['x', 'y']],
+  s: [['x2', 'y2'], ['x', 'y']],
+  Q: [['x1', 'y1'], ['x', 'y']],
+  q: [['x1', 'y1'], ['x', 'y']],
+  T: ['x', 'y'],
+  t: ['x', 'y'] })
+
+d=(pType)=>(c)=>`M${c[0].join()} ${pType}${c.slice(1).join(" ")}Z`
+$Path = (pts)=>(col)=>(strk)=>(strkW)=>(id)=> ['path', {d:d("C")(pts),fill:col,stroke:strk,'stroke-width':strkW, id:`p-${id}`}, '']
+//pathTypes=({ C:[['x1','y1'], ['x2','y2'], ['x','y']] })
+numPtVars = pType=> pathTypes[pType].length+1
+calcPoints=(numpts)=>(reps)=>(ptFX)=>(dat)=>range(numpts,[]).map((pt,i0)=>(range(reps).map(rep=>ptFX(i0,rep,dat)) ) )
+//points = calcPoints(numPtVars("C"))(reps)((i,dat)=>dat*(i+1)/10)(1)
+fxs = (a)=>(reps)=>(size)=>(pts)=> range(reps).map(rep=>range(2*Math.PI/a).map(side=>[1,2].map((i,i0)=>pts.map((pt,i1)=> [Math.cos, Math.sin].map((f,i2)=>(size/2)*(1+pt[rep]*f(a*(side+i*(i1<2?i0:1/i)))))))))
+t0=pts=>pts.map((t,i0)=>t.map((z,i1)=>z.map((c,i2)=>$Path(c)('none')('black')(2)(''+i0+i1+i2)))).reduce((a,c)=>a.concat(c))
+angle=N=>(Math.PI/(N) )//-Math.PI
+
+
+
+
+
+
+
+render(document.body)(jsonml2dom(['div',{id:`tooltip`, style:`border:.1em solid red; color:black;background-color:#59ACE0E8;position:absolute;visibility:hidden`} ]))
+showMyTooltip = (evt)=>
+{
+//    fovea(attr(evt.target)('data'))
+//    render   LINE FROM TARGET TO TOOLTIP
+    evt.target!==document.body? tooltip.style.visibility='visible': tooltip.style.visibility='hidden'
+    tooltip.style.top = `${(evt).clientY+pageYOffset-30}px`
+    tooltip.style.left = `${(evt).clientX+pageXOffset+30}px`
+    tooltip.innerHTML=
+//        evt.target.nodeName +
+//        attr(evt.target)('data')||attr(evt.target)('d')+
+    evt.target.getAttributeNames().map((prop)=>`{<strong>${prop}</strong>:${attr(evt.target)(prop)}}<br>`).join('\n')
+
+//        (jsonml2dom(['span',{id:"tooltip"},(attr(evt.target)('data')||evt.target.nodeName)]))
+}
+window.addEventListener('mouseover',showMyTooltip)
+
+
+
+spiralConf={PtScale:0.33, origin:[240,240], angle:4, torsion:0.4, spc:80, revs:2}
+
+
+ spiral = ({PtScale, origin, angle, torsion, spc, revs})=>(numPts)=> {
+    let S=spc/(2*Math.PI)
+	  , DegSep=(2*Math.PI*revs/numPts)
+      , a= (i)=>i*DegSep+angle
+      , Tx=(i)=>(S*a(i))*Math.cos(a(i))+origin[0]
+      , Ty=(i)=>-(S*a(i))*Math.sin(a(i))+origin[1]
+//return range(numPts).map(i=>[i, Tx(i), Ty(i), PtScale, torsion*i] ) }
+return range(numPts).map(i=>[i, [translate(Tx(i), Ty(i), i), scale(PtScale,PtScale), rotate.z(torsion*i)] ] ) }
+
+
+
+CONTAIN = (shape,conf)=>(attrs)=>(xs)=> {
+    sp=shape(conf)(xs.length);
+    return    jsonml2dom(["div", attrs]
+               .concat(
+        AP_C('map')(
+            (x,i)=>["div",
+                    {class:`rotatornode n${i+1}`},
+                    ["span", {class:"content"}, `${x}`]])(xs)
+
+)    )
+}
+
+rotator = (e, DELAY=100)=>
+{ let n = (el)=>el.classList[1]
+    , item=e.target.classList[0]==="rotatornode"?e.target:e.target.offsetParent
+    , items=item.parentElement.children, i = items.length
+    , a=n(item).slice(1),x=(a>i/2?Math.abs((a-i)%i-1):a%i-1)
+//console.log(a,x)     //TODO:    , uuid=  / hash to allow multiple spiral rotators?
+ Array.prototype.forEach.call(items, (el)=> { nr=parseInt(n(el).slice(1))
+                                            ; a<=(i/2)?((nr>1)?nr--:nr=i)
+//                :x===0?    console.log('NOOP-~>TODO:SELECT_2 ELEMENT')
+                                            : (nr<i)?nr++:nr=1
+                                            ; el.setAttribute('class',`rotatornode n${nr}`)})
+x>0?setTimeout(()=>(Array(x).fill(e.target.click()).map(a=>
+//a
+ {a;speech = new SpeechSynthesisUtterance($$('.n1').firstChild.textContent)
+ ;attr(speech)({lang:'en-EN',rate:2})
+ ;console.log(speech);speechSynthesis.speak(speech).rate=2}
+                                                       ))
+               ,DELAY):''}
+
+matchPathPoints = (el)=> attr(el)('d').match(/(?!\(,)([-\d\.]+)/g).map(parseFloat)
+showPathPoints = (pathNode,tmpl)=> dimensions(attr(pathNode)('d').match(/(?!\(,)([-\d\.]+)/g).map(parseFloat))(2)
+    .map((a,i)=>render(pathNode.parentElement)(jsonml2dom(['circle',{class:"PathPoints pulse",fill:'none',stroke:`rgb(${i}00,${i},${i})`,'stroke-width':2,cx:a[0],cy:a[1],r:8,data:`[${i}, ${a}, ${pathNode}]`}],NS.svg)))
+
+
+/*-----------------------------         ------------------------------------* /
+// PROGRESS RING
+/*-----------------------------         ------------------------------------*/
+progRingConf=({w:"20vw",h:"20vh",r:16,sw:"2",bg:"grey",col:"black"})
+generateRing = (inputs,target,desc,conf=progRingConf)=>{
+render(target||document.body)(
+  jsonml2dom([ 'svg', {viewBox:"-18 -18 36 36",width:`${conf.w}`, height: `${conf.h}`, fill:'none', 'stroke-width':conf.sw, x:conf.x||'',y:conf.y||'' }].concat(
+    [].concat(inputs).map((input,i)=> {prog = input.max?parseFloat(input.value)/parseFloat(input.max) : input<0 ? input*100.531 : input;
+return (['g',{"id":`RING_${input.id?input.id:Date.now()}_${i}`
+              ,onclick:`console.log(clickArcRatio(${input.id}))`
+             },
+    ['circle',{r:conf.r-i*conf.sw,cx:0,cy:0,class:'meter', stroke:conf.bg}]
+    , ['circle',{r:conf.r-i*conf.sw,cx:0,cy:0,class:'progress', stroke:conf.col, data:input,
+style:`transition: stroke-dashoffset 0.35s; transform-origin: 50% 50% 0px; transform: rotate(-90deg); stroke-dasharray: 100.531; stroke-dashoffset: ${(1-prog)*100.531}`}]]) })) ,NS.svg)           ) }
+
+
+setProgress = (ringID)=>(input)=> {
+  let ring = ringID.childNodes.item(1)
+//    , ringbg = ringID.childNodes.item(0)
+    , circ = ring.r.baseVal.value * 2 * Math.PI
+    , prog = input.max? parseFloat(input.value)/parseFloat(input.max) : input<1 ? input : input/100
+  ring.style.strokeDasharray = 100.531
+, ring.style.strokeDashoffset = (1-prog) * 100.531
+input.value ? input.addEventListener( 'change', (e)=> setProgress(ringID)(input) ) :''
+}
+clickArcRatio = (input)=>(e)=> {
+    console.log('ho')
+    pos= pointing(e).offset
+    t = Math.atan(pos.y/pos.x)
+    res=(pos.y+pos.x< e.target.getBoundingClientRect().width/2? (Math.PI-t/2)/Math.PI:  t/2 )
+//    e.target.parentElement
+    input.value=res*input.max
+    setProgress(e.target.parentElement)(input)
+    }
+
+
+render(document.body)(jsonml2dom(['input',{id:'range1',type:'number', max:60}]))
+generateRing(range1)
+//zz=x=>setProgress(x)(inputRing)
+//zz2=x=>x.addEventListener( 'click', clickArcRatio(x) )
+
+/*-----------------------------         ------------------------------------*/
+/*-----------------------------         ------------------------------------*/
+
+
+//---mouseover element--
+//render(document.body)(jsonml2dom(['div', {id:"tooltip", style:"color:black;padding:5px;position:absolute;top:0px;left:0px;"}]))
+
+//<div id="tooltip" style="color:black;padding:5px;position:absolute;top:0px;left:0px;"></div>
+//AP_C('map')(x=>addE('mouseover')(e=>showMyTooltip(e))(x))($$('.pathpoints'))
+
+
+use = ([x0,y0]=[0,0],rot)=>(w,h=w)=>(sym)=> jsonml2dom(['use', {href:`#${sym}`, x: x0-w/2, y: y0-h/2, width:w, height:h}],NS.svg)
+
+
+
+
+render(xxx)(jsonml2dom(['svg',{id:`svg_${$$('svg').length}`,width:600,height:600,viewBox:'-100 -100 200 200',style:'border:1px solid black',fill:'none',stroke:'blue'}],NS.svg))
+//    render(    )(line([0,0,-100,100]),line([-100,100,0,0]))
+//    render(svg_5)(line([-100,100,0,0]))
+//CANVAS=>  [line([0,0,-100,100]),line([-100,100,0,0])].map(x=>render(CANVAS)(x))
+
+distribute = (N)=>(R)=>(SYMBOL)=>(SCALE)=>(CANVAS)=> range(N).map(x=>RT_XY([R,x*PI*2/N])).map((xy,i)=>render(CANVAS)(
+    use(xy)(SCALE)(SYMBOL)
+))
+
+distribute2 = (N)=>(R)=>(INPUT)=>(SCALE)=>(CANVAS)=> range(N).map(x=>RT_XY([R,x*PI*2/N])).map((xy,i)=>
+    generateRing(INPUT,CANVAS,'test',{x:xy[0]-SCALE/2,y:xy[1]-SCALE/2,w:SCALE,h:SCALE,r:R,sw:"2",bg:"grey",col:"black"})
+)
+
+
+//distribute2(4)(16)([1,4,.5])(15)(svg_3)
+//distribute(8)(32)('SYM_circle')(50)(svg_3)
+//distribute(8)(32)('SYM_square')(50)(svg_3)
+//distribute(8)(32)('SYM_triangle')(50)(svg_3)
+//distribute(8)(32)('SYM_circle')(25)(svg_3)
+//distribute(8)(32)('SYM_square')(25)(svg_3)
+//distribute(8)(32)('SYM_triangle')(25)(svg_3)
+
+
+polar = (N)=>(R)=> range(N).map(x=>RT_XY([R,x*PI*2/N]))
+
+polarGuideLines=(N)=>(R)=>(CANVAS)=>(props)=> polar(N)(R).map(([x,y])=>render(CANVAS)(line([0,x,0,y]))).map(x=>attr(x)(props))
+
+
+polarGuideLines(36)(150)(svg_3)({stroke:'black',transform:'rotate(-90)', 'stroke-width':.1})
+
+render(document.head)(jsonml2dom(['style',{},`use:hover{fill:red}`]))
+
+//test=(target)=>(id)=>(size)=>(N)=>(reps)=>(d)=>(jsonml2dom(["svg",{id:id,width:size+'px',height:size+'px',viewBox:`${-size/2} ${-size/2} ${size*2} ${size*2}`, transform:'rotate(90)'}].concat(t0(fxs(angle(N/2))(reps)(size)(calcPoints(numPtVars("C"))(reps)((i0,rep,dat)=>dat[i0]/10/(rep+1))(d))).reduce((x,i,o)=>x.concat(i))),NS.svg))
+
+
+test=(target)=>(id)=>(size)=>(N)=>(reps)=>(d)=>(jsonml2dom(["g", {
+    id:id,
+    width:size+'px',height:size+'px',
+//    x:size/2, y:-size/2,
+//    viewBox:`0 0 ${size} ${size}`
+    transform:`rotate(26.5) translate(${-size/2} ${-size/2})`
+}].concat(t0(fxs(angle(N/2))(reps)(size)(calcPoints(numPtVars("C"))(reps)((i0,rep,dat)=>dat[i0]/10/(rep+1))(d))).reduce((x,i,o)=>x.concat(i))),NS.svg))
+
+render(xxx)(
+    jsonml2dom([
+        'div',{id:"x01"}
+//        'div',{oninput:`test(${target})(${name})(${size})(${N})(${revs})([${M},${C0},${C1},${Z}])`}
+//        , ['input',{type:'text', id:'target'  , value:'document.body'}  ]
+        , ['input',{type:'text', id:'name'    , value:'svg_3'}    ]
+        , ['input',{type:'number', id:'size'  , value:'100'}     ]
+        , ['input',{type:'number', id:'N'     , min:"1", value:'4'}       ]
+        , ['input',{type:'number', id:'revs'  , value:'1'}       ]
+        , ['div',{id:'pathd'}
+            , ['input',{type:'number', id:'M' , value:'0'  , max: 99  }]
+            , ['input',{type:'number', id:'C0', value:'7'  , max: 99  }]
+            , ['input',{type:'number', id:'C1', value:'19' , max: 99   }]
+            , ['input',{type:'number', id:'Z' , value:'9'  , max: 99  }]
+          ],
+        ['div', {id:'resp'}]
+    ])  )
+
+xx = ()=> {
+    document.getElementById('moo')?moo.parentElement.removeChild(moo):''
+    svg_3.appendChild(test(svg_3)('moo')(size.value)(N.value)(revs.value)([M.value,C0.value,C1.value,Z.value]));
+    mv(moo)([rotate.z(90)])
+    AP_C('map')((el)=>showPathPoints(el))(moo.children) }
+
+xx()
+
+
+
+
+
+
+x01.addEventListener('wheel', (e)=>console.log(e.deltaY))
+//mv(moo)([translate(-100 -100 0)])
+
+x01.addEventListener('input', xx)
+
+
+
+render(xxx)(jsonml2dom(['style', {},     `#terminal{border:1px solid red;}
+#tilde input{width:100%;}
+
+
+#tilde ul { margin: 0; padding: 0; list-style: none; }
+#dict { padding: 2px 18px; cursor: pointer; font-color:black; font-size: 1em; height:5em; overflow:scroll;}
+#tilde li:hover { background-color: black; color: whie; }
+
+#tildeBtn{background-color:blue;}
+#logger{background-color:#333; font-size:.5em;outline: dotted; height: 10%    ; width: 100%; overflow: scroll;}
+    .log-Boolean{color: blue;}
+    .log-Undefined {color: magenta;}
+    .log-Object{color:yellow;}
+    .log-String {color: orange;}
+    .log-Number {color: cyan;}
+    .log-RegExp {color: red;}
+    .log-Function {color: black; background-color:white;}
+    .log-Date {color: purple;}
+    `]))
+
+
+
+render(xxx)(jsonml2dom(['div',{id:'terminal'},['div', {id:'logger'}],['div',{id:'tilde'},['input',{id:'tildeBtn',type:'button',value:'EVALUATE'}],['input',{ type:'text', id:'tildeText',placeholder:'----console input-----'}],['div',{id:'suggestions'},['ul',{id:'dict'}]]]]))
+// [attr*=value]
+//
+console.error=console.warn=console.info=console.log=console.debug=(x)=>{
+render(logger)(jsonml2dom(['div',{},['date',{style:'margin-left:1em; color:grey;font-size:0.1em'}, `${(new Date()).toISOString()}`],['code',{style:`color:white;background-color:grey;`},`${TYPE_OF(x)}  `],['span',{class:`log-${TYPE_OF(x)}`,style:'padding-left:1em'}, `${JSON.stringify(x)||x.toString()}`],['br']]))
+    logger.scrollTop = logger.scrollHeight    }
+
+
+window.onerror = (msg, src, row, col, err)=> console.log(`${msg}, L(${row}),C(${col}), SRC:${src}   -- ErrorObj:${JSON.stringify(err).name} --${Error.prototype.toString(err)}`)
+
+
+
+
+
+//<input id=A oninput=a.src=value><input id=B oninput=b.src=value>
+//<iframe id=a></iframe><iframe id=b></iframe>
+//<input id=C oninput=c.src=value><input id=D oninput=d.src=value>
+//<iframe id=c></iframe><iframe id=d></iframe>
+//<script>
+//onbeforeunload=function(e){return false}
+//    < /script>
+//<style>
+//* { margin: 0; padding: 0; outline: 0; box-sizing: border-box; }
+//input { width: 50% }
+//iframe { width: 50%; height: calc(50vh - 20px) }
+
+// EG youtube:     <iframe width="560" height="315" src="https://www.youtube.com/embed/ydmrUO1nMns" frameborder="0" allowfullscreen  rel="0"></iframe>
+
+
+
+
+
+
+
+
+const fnwords = [" ", ".", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "+", "?", "/", "a", "aardvark", "abandon", "abandoned", "abandoning", "abandons", "abbreviate", "abbreviated", "abbreviates", "abbreviating", "abbreviation", "abbreviation's", "abbreviations", "abide", "abilities", "ability", "ability's", "able", "abnormal", "abnormally", "abolish", "abolished", "abolishes", "abolishing", "abolition", "abort", "aborted", "aborting", "abortion", "aborts", "about", "above", "abroad", "absence", "absent", "absolute", "absolutely", "absorb", "absorbed", "absorbing", "absorbs", "abstract", "abstraction", "absurd", "abuse", "abused", "abuses", "abusing", "abusive", "abysmal", "academic", "academic's", "academics", "accelerate", "accent", "accent's", "accents", "accept", "acceptable", "acceptance", "accepted", "accepting", "accepts", "access", "access's", "accessed", "accesses", "accessible", "accessing", "accident", "accident's", "accidental", "accidentally", "accidents", "accommodate", "accommodation", "accompanied", "accompanies", "accompany", "accompanying", "accomplish", "accomplished", "accomplishes", "accomplishing", "a", "(/e~/)", "about", "above", "after", "after", "again", "against", "ago", "ahead", "all", "almost", "almost", "along", "already", "also", "although", "always", "am", "(/m~m~m/)", "among", "an", "/n~n/)", "and", "(/nd~n~n/)", "any", "are", "/a:~/", "aren't", "around", "as", "(/z~z/)", "at", "(/t~t/)", "away", "backward", "backwards", "be", "because", "before", "behind", "below", "beneath", "beside", "between", "both", "but", "by", "can", "(/kn~kn/)", "cannot", "can't", "cause", "'cos", "could", "couldn't", "'d", "(had)", "despite", "did", "didn't", "do", "does", "doesn't", "don't", "down", "during", "each", "either", "even", "ever", "every", "except", "for", "(/faw~f/)", "forward", "from", "(/frm~frm/)", "had", "hadn't", "has", "hasn't", "have", "(/hv~hv~v~v/)", "haven't", "he", "(hi:~h/)", "her", "(/h~/)", "here", "hers", "herself", "him", "(/hm~m/)", "himself", "his", "(/hz~z/)", "how", "however","I", "if", "in", "inside", "inspite", "instead", "into", "is", "(/z~z/)", "isn't", "it", "its", "itself", "just", "'ll", "(will/shall", "/l/)", "least", "less", "like", "'m", "(them", "/m/)", "many", "may", "mayn't", "me", "might", "mightn't", "mine", "more", "most", "much", "must", "mustn't", "my", "myself", "near", "need", "needn't", "needs", "neither", "never", "no", "none", "nor", "not", "now", "of", "(/v~v/)", "off", "often", "on", "once", "only", "onto", "or", "ought", "oughtn't", "our", "ours", "ourselves", "out", "outside", "over", "past", "perhaps", "quite", "'re", "(are)", "rather", "'s", "(/z/)", "seldom", "several", "shall", "shan't", "she", "should", "shouldn't", "since", "so", "some", "sometimes", "soon", "than", "that", "the", "(/i:~/)", "their", "theirs", "them", "themselves", "then", "there", "therefore", "these", "they", "this", "those", "though", "through","thus", "till", "to", "(/tu~t/)", "together", "too", "towards", "under", "unless", "until", "up", "upon", "us", "used", "usedn't", "(/jusnt/)	usen't", "usually", "'ve", "very", "was", "(wz~wz/)", "wasn't", "we", "well", "were", "weren't", "what", "when", "where", "whether", "which", "while", "who", "whom", "whose", "why", "will", "with", "without", "won't", "would", "wouldn't", "yet", "you", "your", "yours", "yourself", "yourselves"]
+//
+
+const textInput = tildeText.value.split(" ").slice(-1).toString()
+//    textInput=tildeText
+//tildeText.value.split(" ").pop()
+//    dict=dict
+let picker = -1
+let picked = false
+//
+suggestionBox= (e) => {
+  let input = e.target.value.split(" ").slice(-1).toString()
+    , vocab=fnwords
+
+  console.log(input)
+
+  if (input === "") {
+    output.innerHTML = ""
+    suggestions.hidden = true
+  } else {
+    let list = ""
+//    let matchedTerms = vocab.filter(term => input.slice(0, input.length).toLowerCase() === term.toLowerCase().slice(0, input.length))
+let matchedTerms = vocab.filter(haystack=>fuzzySearch_2(tildeText.value.split(" ").slice(-1).toString(), haystack))
+
+if (matchedTerms.length === 0) { suggestions.hidden = true } else {output.innerHTML=`(${matchedTerms.length})`
+ matchedTerms.map(x=>output.appendChild(jsonml2dom(['li',x])))
+      suggestions.hidden = false
+//      dict.innerHTML = list
+
+      let lexicon = document.getElementsByTagName('li')
+      let mapped = Array.from(lexicon).forEach((suggestion) => {
+        suggestion.addEventListener('click', populateInput) }) } }
+  picker = -1 }
+
+populateInput = (e)=> {textInput.value = e.target.innerHTML}
+
+document.addEventListener('keydown', (e)=>{
+  let lexicon = Array.from(document.getElementsByTagName('LI'))
+  if (e.keyCode === 9) {
+    e.preventDefault()
+    picker++;
+e.target.value=e.target.value.split(" ").slice(0,-1).concat(lexicon[picker].textContent).join(' ')
+    if (picker < lexicon.length) {
+      lexicon.forEach(suggestion => {
+        if (suggestion.style.backgroundColor === 'slategray') {
+            attr(suggestion)({style:"background-color:'';color:black"})}})
+      let style = lexicon[picker].style
+      attr(lexicon[picker])({style:"background-color:slategray;color:black"})}
+//      style.backgroundColor = 'slategray'
+//      style.color = 'black'}
+      else {picker = -1}
+  } else if (e.keyCode === 13) {
+    e.preventDefault()
+    if (lexicon[picker]) {
+//      textInput.value = e.target.value. lexicon[picker].innerHTML
+       e.target.value=     e.target.value.split(" ").slice(0,-1).concat(lexicon[picker].textContent+" ").join(' ')
+
+      output.innerHTML = ""
+      suggestions.hidden = true} } }, false);
+suggestions.hidden = true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+<div class="wrap">
+  <span class="label">start typing...</span>
+  <div class="js-sayt sayt">
+    <input type="text" class="sayt__input">
+    <span class="js-sayt-suggestion sayt__suggestion"></span>
+    <span class="js-sayt-text-dump sayt__text-dump"></span>
+  </div>
+</div>
+
+
+html {
+  height: 100%;
+}
+
+body {
+  background: #a7cfdf;
+background: -moz-linear-gradient(-45deg,  #a7cfdf 0%, #23538a 100%);
+background: -webkit-linear-gradient(-45deg,  #a7cfdf 0%,#23538a 100%);
+background: linear-gradient(135deg,  #a7cfdf 0%,#23538a 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a7cfdf', endColorstr='#23538a',GradientType=1 );
+  height: 100%;
+}
+
+.label {
+  font-size: 0.9em;
+  color: #19556d;
+}
+
+.wrap {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.sayt {
+  width: 100%;
+  position: relative;
+  padding: 10px;
+  border: 1px solid #23538a;
+  display: inline-block;
+  border-radius: 3px;
+
+  &__input {
+    background: none;
+    border: 0;
+    margin: 0;
+    outline: 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+    z-index: 10;
+  }
+  &__suggestion {
+    color: #23538a;
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 5;
+  }
+  &__input,
+  &__suggestion {
+    font-family: "SF Mono Light", monospace;
+    font-size: 16px;
+  }
+}
+*/
+// https://codepen.io/dwidomski/pen/OWOBdr
+//TODO:  Want to implement the inline completion ( 20180127-210942+0800 )
+
+/*
+const dictionary = [
+  'package.json',
+  'composer.json',
+  'computer',
+  'yarn.lock',
+  'composer.lock',
+  '.bashrc',
+  '.bash-profile'
+];
+
+function closest(query, dictionary) {
+  let candidate = undefined;
+
+  for (const term of dictionary) {
+    if (term.startsWith(query)) {
+      if (!candidate || (term.length < candidate.length)) {
+        candidate = term;
+      }
+    }
+  }
+
+  return candidate;
+}
+
+const sayt = document.querySelector('.js-sayt');
+const suggestionOutput = document.querySelector('.js-sayt-suggestion')
+let currentSuggestion = '';
+
+function displaySuggestion(text = currentSuggestion) {
+  suggestionOutput.innerText = text;
+}
+
+sayt.addEventListener('keydown', event => {
+  if (event.key === 'Tab' && currentSuggestion.length) {
+    event.preventDefault();
+
+    event.target.value = currentSuggestion;
+    currentSuggestion = '';
+    displaySuggestion();
+  }
+});
+
+sayt.addEventListener('input', event => {
+  const input = event.target;
+  const value = input.value;
+
+  currentSuggestion = closest(value, dictionary);
+
+  if (value === '' || value === currentSuggestion || !currentSuggestion) {
+    currentSuggestion = '';
+  }
+
+  displaySuggestion();
+});
+/*
+
+
+* /
+
+
+
+
+<form name="frm" class="wrapper" action="#" title="Type Java, script, lisp, scheme...">
+  <label for="cod">Programming Languages:</label>
+  <input name="cod" id="cod" list="lang"
+   required autofocus autocomplete="off"
+         aria-autocomplete="list"
+         placeholder="Type Java, script, lisp" />
+  <datalist id="lang">
+    Select is a workaround for Safari
+    <select name="lang_sel" id="lang_sel">
+      JS code will change options here
+    </select>
+  </datalist>
+</form>
+////
+
+function autocomplete(rsp) {
+  let sel = document.getElementById("lang_sel");
+  sel.textContent = ""; // remove sel options.
+  let fragment = document.createDocumentFragment();
+  for (let item of rsp) {
+    // const item throws an error in FF 50(bug).
+    let option = document.createElement("option");
+    [option.value, option.text] = [item, item];
+    fragment.appendChild(option);
+  }
+  sel.appendChild(fragment);
+}
+
+function search(e) {
+  // this == e.currentTarget = input#cod
+  const val = this.value;
+  if (val.length === 0) return;
+  const url = getURL(location.protocol);
+  let xhr = new XMLHttpRequest();
+  xhr.onload = ev => {
+    if (xhr.status === 200) { // success
+      let rsp = JSON.parse(xhr.responseText);
+      autocomplete(rsp);
+    }
+  };
+  xhr.open("POST", url, true); // true = asynchronous.
+  xhr.setRequestHeader("Content-type",
+    "application/x-www-form-urlencoded");
+  xhr.setRequestHeader("Connection", "close");
+  xhr.send("l=" + val);
+}
+
+(function(doc) {
+  doc.addEventListener("DOMContentLoaded", function() {
+    var input = doc.getElementById("cod");
+    /* Prefer onkeyup because oninput will
+       fire whenever user selects an option
+       in datalist, thus triggering unneeded
+       AJAX requests in search() function.
+     * /
+    if (input) input.addEventListener(
+      "keyup", search, false);
+  });
+})(document);
+
+function getURL(p) {
+  const map = new Map() // Map is chainable.
+    .set("http:", "jrfaq.com.br")
+    .set("https:", "jrfaq1.websiteseguro.com");
+  return p + "//" + map.get(p) + "/lang.asp";
+}
+
+
+*/
+
+
+
+
+/*
+https://codepen.io/flamingspew/pen/MyZmam
+window._graph = {
+  xPos:0,
+  objectMap:{},
+  xAxis: 20,
+  labelSkew: 50,
+  draw: function(val, color , label, multiplier, vSize) {
+    var map = this.objectMap[color];
+    var target = document.getElementById('tiny-graph');
+    var node = document.createElement('div');
+    if( ! multiplier ){ multiplier = 1;}
+    if( !vSize ){ vSize = 3;}
+    if( !map){
+      var l = document.createElement('div');
+      l.style.position = 'absolute';
+      l.style.color = color;
+      l.innerHTML = label;
+      target.appendChild(l);
+      this.objectMap[color] = {
+        label:l,
+        skew: this.labelSkew
+      };
+      this.labelSkew -= 10;
+      map = this.objectMap[color];
+    }
+    val = val * multiplier;
+    node.style.cssText = 'width:3px;height:'+ vSize+'px;background-color:' + color+ ';position:absolute;';
+    node.style.marginLeft = this.xPos+ 'px';
+    node.style.marginTop = (val + this.xAxis) + 'px';
+    target.appendChild(node);
+    map.label.style.marginLeft =  this.xPos + 20 + 'px';
+    map.label.style.marginTop = (val + this.xAxis - 15 + map.skew ) + 'px';
+    this.xPos += .25;
+  },
+  tag:function(val){
+    var target = document.getElementById('graph');
+    var node = document.createElement('div');
+    node.style.position = 'absolute';
+    node.style.color = 'white';
+    node.innerHTML = '* ' + val;
+    node.style.marginLeft = (this.xPos  ) + 'px';
+    node.style.marginTop = '7px';
+    target.appendChild(node);
+  }
+};
+*/
+
+//suggestionBox = fuzzySearch(tildeText.value, fnwords)
+
+tildeText.addEventListener('input', suggestionBox)
+
+testSpiralData=fnwords.slice(300)
+render(document.body)(CONTAIN(spiral,{PtScale:.33, origin:[0,0], angle: 22, torsion:Math.PI/(0.5*testSpiralData.length/1), spc:30, revs:1})({id:"testSpiral",class:"rotator"})(testSpiralData))
+render(document.body)(jsonml2dom(['style',{id:'testSpiralCSS'},
+
+    (sp).map((x,i,a)=>( `.n${i+2}{transform:${mvmt(testSpiral.children[i])(x[1])} ;}`)).join('\n')]) )
+
+testSpiral.addEventListener("click",rotator)
+
+render(document.head)(jsonml2dom(['style',`#root { display: flex; width: 100%; height: 100vh; justify-content: center; }
+#root > * { flex: 1 1 50%; height: 100vh; overflow: auto; box-sizing: border-box; }
+#root #editor { padding: 2em; font-weight: 300; font-size: 1.4em; line-height: 1.5; }
+#root #editor .word { display: inline-block; transition: background-color 1s ease-out; background-color: #fff; }
+#root #editor .word:first-child { text-transform: capitalize; }
+#root #editor .word.added { background-color: #ff9;}
+#root .words { background: #eeeeee; margin: 0; padding: 2em; }
+#root .words .word { display: inline-block; border: 1px solid black; padding: .3em; margin: .2em; height: 1em; }
+#root .words .word:hover { background: #9ac; }`]))
+
+render(document.body)(jsonml2dom(['div',{id:'root'},['div', {id:'clear'},'clear'], ['div',{id:'editor', disabled:true}],['p', {class:'words'}]]))
+
+//words = wordlist.textContent.split("\n")
+words = [" ", "apple", "dog", '1', '3', "."]
+$wordsContainer = document.querySelector('p.words')
+words.map(word=>render($wordsContainer)(jsonml2dom(['span',{class:'word'},word])))
+
+$wordsContainer.addEventListener( 'click', (e)=> {
+	let $word = e.target
+    !$word.classList.contains('word') ? console.log('AA')
+ : editor.appendChild($word.cloneNode(true))
+    .classList.add('added')
+setTimeout(()=>{editor.classList.remove('added')})})
+
+clear.addEventListener( 'click', ()=> editor.innerHTML='' )
+
+tildeText.addEventListener('keypress', (e)=>e.code==='Enter'?(console.log(eval(tildeText.value),console.log({input: tildeText.value}, )),tildeText.value=''):'')
+
+tildeBtn.addEventListener('click', ()=>console.log(eval(tildeText.value),console.log({input: tildeText.value}, )),tildeText.value='')
+
+//var tildeText = document.getElementById('tildeText')
+
+
+// render(xxx)(
+//    jsonml2dom([
+//        'div',{id:"x01",
+//               }
+// //        'div',{oninput:`test(${target})(${name})(${size})(${N})(${revs})([${M},${C0},${C1},${Z}])`}
+// //        , ['input',{type:'text', id:'target'  , value:'document.body'}  ]
+//        , ['input',{type:'text', id:'name'    , value:'svg_3'}    ]
+//        , ['input',{type:'number', id:'size'  , value:'200'}     ]
+//        , ['input',{type:'number', id:'N'     , min:"1", value:'4'}       ]
+//        , ['input',{type:'number', id:'revs'  , value:'1'}       ]
+//        , ['div',{id:'pathd'}
+//            , ['input',{type:'number', id:'M' , value:'0'  , max: 99  }]
+//            , ['input',{type:'number', id:'C0', value:'7'  , max: 99  }]
+//            , ['input',{type:'number', id:'C1', value:'19' , max: 99   }]
+//            , ['input',{type:'number', id:'Z' , value:'9'  , max: 99  }]
+//          ],
+//        ['div', {id:'resp'}]
+//    ])  )
+
+//genInputs = (targ)=>(fn)=>(params)=>
+//['url','cb']
+
+
+var output = document.getElementById('suggestions');
+
+wikicb=    (data)=> {
+
+   console.log('wikicb')
+	output.innerHTML = "";
+    output.hidden=false
+    console.log(data,Object.keys(data.query.pages))
+    Object.keys(data.query.pages).map((key,i)=>render(output)(
+        jsonml2dom(['div', {href:data.query.pages[key].pageid,target:'blank'},
+                    `"${data.query.pages[key].title}":    `,
+                    ['span',{},data.query.pages[key].extract], data.query.pages[key].thumbnail?['img', {style:'display:block; left:0;',src:data.query.pages[key].thumbnail.source}]:'' ] ) ) )}
+
+
+
+tildeText.addEventListener('keyup', ()=>{let query= tildeText.value.substr(5); tildeText.value.substr(0,4)==="wiki"&&tildeText.value.substr(5)?(
+
+       e=(a,b,c,d)=>{document.body.appendChild(document.createElement(d="script")).src=a+(c=d+(e.a=-~e.a));(a=window)[c]=(d)=>a[c]=b(d)}
+,
+//	 jsonpUrl = document.getElementById('jsonpUrl'),
+//(jsonpUrl !== null)?  document.body.removeChild(jsonpUrl) :
+//function e(a,b,c,d){with(document)body.appendChild(createElement(d="script")).src=a+(c=d+(e.a=-~e.a));(a=window)[c]=function(d){a[c]=b(d)}}
+
+// TODO REMOVE SCRIPTS
+// TODO -> more functional autosuggest?
+e("https://www.wikipedia.org/w/api.php?format=json&action=query&generator=search&gsrnamespace=*&gsrsearch="+encodeURI(query)+"&gsrlimit=10&prop=pageimages|extracts&pilimit=max&&pithumbsize=200&exintro&explaintext&exsentences=1&exlimit=max&callback=",wikicb)
+
+//e("https://wikidata.org/w/api.php?action=opensearch&format=json&search="+encodeURI(query)+"&namespace=*&generator=search&gsrlimit=10&prop=pageimages|extracts&pilimit=max&exintro&explaintext&exsentences=1&exlimit=max&callback=",data=>
+////console.log(data[3].map(x=>x.replace))
+//data[3].map(x=>render(output)(jsonml2dom(['a', {style:'display:block; left:0;',href:x}])))
+
+
+):
+''})
+
+document.addEventListener('click', (event)=> { if(event.target !== output) { output.innerHTML = ""; } });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+<!--
+Specification:
+    data-accessors
+        OPTICS:
+            traversal
+                lens, prism
+                    adapter
+Prelude:
+Space:
+CONCEITS
+
+
+
+
+
+
+-->

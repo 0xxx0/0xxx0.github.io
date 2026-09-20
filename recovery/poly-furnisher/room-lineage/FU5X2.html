@@ -1,0 +1,1094 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>  </title>
+<style id=STYLE>
+/* =============== INITIAL =============== */
+:root /* --------------- CSS Variables --------------- */
+  {--SYSFONTS:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial, monospace;
+;--BGCa:BLACK ;--FGCa:WHITE ;--C_0:#000 ;--C_1:#333 ;--C_2:#666 ;--C_3:#AAA ;--C_4:#CCC ;--C_5:#FFF ;--Ca0:#330000 ;--Ca1:#660000 ;--Ca2:#880000 ;--Ca3:#AA0000 ;--Ca4:#CC0000 ;--Ca5:#FF0000 ;--Cb0:#000033 ;--Cb1:#000066 ;--Cb2:#000088 ;--Cb3:#0000AA ;--Cb4:#0000CC ;--Cb5:#0000FF ;--SCALE:var(--PHI)/*1.5*/ ;--MIN2nd:1.067 ;--MAJ2nd:1.125 ;--MIN3rd:1.2/*6/5*/ ;--MAJ3rd:1.25 ;--PER4th:1.333 ;--AUGM4th:1.414 ;--PER5th:1.5 ;--PHI: 1.618 /* CaSCHEME~> lum/5 */ ;--FONTSIZE:16px ;--NEG:-1 ;--THIRD:calc(1/3) ;--HALF:0.5 ;--SIZE0:1em ;--SIZE1:calc(var(--SIZE0)*var(--SCALE)) ;--SIZE2:calc(var(--SIZE1)*var(--SCALE)) ;--SIZE3:calc(var(--SIZE2)*var(--SCALE)) ;--SIZE4:calc(var(--SIZE3)*var(--SCALE)) ;--SIZE5:calc(var(--SIZE4)*var(--SCALE)) /*;--H1: ;--H2:;--H3:;--H4:;--H5:;--H6:;*/ ;--CW:50vw ;--CH:50vh ;--PERSP:32em ;--PERSPORIGIN: center ;--TRANSLUSCENT: rgba(128,128,128,.5) ;--TRANSLUSCENT2: rgba(0,0,0,.5) ;--TRANSLUSCENT3: rgba(255,255,255,.5) ;--REVEALS: inset 0 0 calc(.2*var(--CW)) .1em var(--TRANSLUSCENT) ;--OUTLINE: none;/*solid .3px *//*var(--Ca3)*/ ;--CONTRAST:0.91 ;--SVGW:100% ;--SVGH:100% ;--STROKE:.3 ; ;--MARQUEE: 5s linear infinite; 
+
+--DEBUG:0.5px solid var(--TRANSLUSCENT);
+}
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-kerning: auto; }
+/* --------------- ~~>'main'ish --------------- */
+body{font-family:var(--SYSFONTS);font-size:var(--FONTSIZE); background-color:var(--C_0); color:var(--C_2); margin-bottom:0; padding-top:0; overflow:hidden;} 
+/* --------------- Spacing --------------- */ /*"lobotomized owl"*/
+p {text-align: justify;} p+p{margin-top: 0; text-indent: 2em;}
+*+* {margin-top:0.5em;} .tight>*{margin-top:0.25em;} .margins-off>*{margin-top: 0;}
+.oo*>*{height:66%; width: 66%;}
+/* --------------- Room --------------- */
+.view{width:var(--CW);height:var(--CH);perspective:var(--PERSP);
+border:(--OUTLINE) var(--C_2);/*  background:var(--C_1);*/
+  opacity:var(--CONTRAST);
+margin-top:0;perspective-origin:var(--PERSPORIGIN); }
+.room{transform-style:preserve-3d;transition:transform 500ms;margin-top:0;}
+.room section{
+  box-shadow:var(--REVEALS);
+  position:absolute;width:var(--CW);height:var(--CH);}
+#_F_{transform:translateZ(calc(-0.5*var(--CW)));}
+#_R_{transform:rotateY(90deg)translateZ(calc(0.5*var(--CW)));}
+#_L_{transform:rotateY(-270deg)translateZ(calc(-0.5*var(--CW)));}
+#_U_{transform:rotateX(90deg)rotateZ(180deg)translateZ(calc(0.5*var(--CW)));
+  height:var(--CW);}
+#_D_{transform:rotateX(90deg)translateZ(calc(0.5*var(--CW)))
+translateZ(calc(-1*var(--CH)));
+height:var(--CW);
+}
+#_B_{transform:translateZ(calc(0.5*var(--CW)));}
+section *{height:100%;width:100%; display:inline-block;}
+/* --------------- General --------------- */
+svg {
+  width:100%;height:100%;stroke:var(--C_3); 
+
+  /*outline:1px solid var(--C_3); */
+/*display:inline-block;*/ }
+circle { fill:none;stroke-width:.2;}
+ellipse { fill:none;stroke-width:.2;}
+rect { fill:none;stroke-width:.2;}
+text {text-anchor:"middle"; dominant-baseline:"central"; font-size:.4em; fill:var(--C_3); stroke:none;}
+path {fill:none;stroke-width:.2; 
+        
+  /*vector-effect: non-scaling-stroke;*/
+}
+.timestr{fill:var(--C_3); stroke:none; font-size:.15em; font-family:monospace;
+  alignment-baseline:hanging;}
+/* --------------- Utility --------------- */
+.reset-all-styles {all: initial; }
+.X{position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%)}
+.hidden {display:none;}
+.tint{background-color:blue;opacity:0.1;}
+.reference {position: relative; }
+  .popout {position: absolute; visibility: hidden; left: 140%;top:-200%; width:100%; }
+  .reference:hover {overflow:visible;}
+  .reference:hover > .popout {visibility: visible;}
+/* --------------- Animations --------------- */
+#insight{  z-index: 2; }
+:focus{/*,0px 0 1em var(--Ca5) inset;*/ border:1px solid var(--C_5); box-shadow: 0 0 3em var(--C_5); outline:none; }
+input {outline:var(--OUTLINE) orchid; font-size: var(--SIZE0); background-color: transparent; border:none; color:var(--TRANLUSCENT2); width:3em; }
+/*input [type=checkbox] {}  */
+#INPUT{  height:2em; width: calc(0.5*var(--CW)); }
+#INPUTLABEL{width:calc(0.5*var(--CW)); position:absolute; /*bottom:0%;*/ outline:var(--OUTLINE) blue; height:2.5em; overflow:hidden; margin-top:0; }
+#INPUTLABEL * {margin-top:1px;display:inline-block;}
+#STATS{display:inline;position:absolute; margin-top:0;height:auto; width:99em; }
+#STATS:hover{overflow-y:visible;}
+#INPUTLABEL:hover{overflow:visible;}
+input:focus {height:var(--SIZE1); background-color: var(--TRANSLUSCENT2);color:var(--C_5);}
+#TESF{position:absolute;top:95%; z-index:4;}      
+/*  ______________  _______
+ /_  __/ ____/  |/  / __ \
+  / / / __/ / /|_/ / /_/ /
+ / / / /___/ /  / / ____/
+/_/ /_____/_/  /_/_/
+*/
+.icon {
+  height: 2em; width:2em; 
+  outline:1px solid gray;
+  /*background-color:var(--TRANSLUSCENT3);*/
+   display:inline-block;}
+.icon:hover {transform:scale3d(2.5,2.5,2.5); 
+  position:relative;
+  /*margin-top:15em;*/
+   /*display:block;*/
+}
+.a:active,
+.a:focus {
+  clip: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  position: static;
+  white-space: normal;
+  width: auto;
+}
+
+
+#ROOM{transform-origin:100px,0px;}
+
+                                             </style></head><body><div
+id=insight class="X" style='margin-top:0'                        >
+<!-- instrospective interfaces -->
+
+
+                                             <canvas 
+id=CV0 class='hidden'                        ></canvas>
+                                             <form 
+id=TESF class="X"                            ><input 
+id=INPUT type="text"                         ></input><div
+for=INPUT id=INPUTLABEL  class=""            ><div 
+id="STATS" class=""                          ></div></div></form>
+<!-- instrospective interfaces END -->       </div><section
+id=VIEW  class="X view"
+  data-desc='forgot y i put this here'       ><section
+id=ROOM class="margins-off room"             >
+<!-- TODO: Move this to _B_   -->
+                              <section
+id=_F_                        ></section><section
+id=_B_ class='hidden'         ></section><section
+id=_L_                        ></section><section
+id=_U_                        ></section><section
+id=_R_                        ></section><section
+id=_D_                        ></section></section></section></body><script>
+//    _____ __________  ________  ______
+//   / ___// ____/ __ \/  _/ __ \/_  __/
+//   \__ \/ /   / /_/ // // /_/ / / /
+//  ___/ / /___/ _, _// // ____/ / /
+// /____/\____/_/ |_/___/_/     /_/
+world=window,yes=true,no=false,duh=undefined
+let AudioContext = world.AudioContext||world.webkitAudioContext|| false;
+speechSynthesis.cancel()
+
+
+PRELUDE=
+[['ac',"new AudioContext"]
+,['utter',"new SpeechSynthesisUtterance"]
+,['cv',"CV0.getContext('2d')"]
+,['within',"o=>k=>o[k]"]
+,['wherewithin',"o=>k=>(a,b)=>o[k](a,b)"]
+,['protocall',"o=>m=>(...f)=>g=> o['prototype'][m]['call'](g,...f)"]
+,['properkeys',"x=>within(Object)('getOwnPropertyNames')(x)"]
+,['protokeys',"x=>properkeys(within(x)('prototype'))"]
+,['know_by',"(name,who_knows=this)=>thing=>who_knows[name]=thing"]
+,['release',"(where={})=>f=>xs=>xs.reduce((a,x)=>(know_by(x,a)(f(x)),a),where)"]
+,['funpack',"(pack,where=this)=> pack.map(fun=>know_by(fun[0],fun[2]||where)(eval(fun[1])))"]
+// ,['funpack',(pack,where=this)=> pack.map(fun=>(console.log(`FUNPACKING ${fun[0]}...`),know_by(fun[0],fun[2]||where)(eval(fun[1])) ,console.log('successful TODO( 20180620-143555+0800 ):refactor into generic feedback function, do timetaken option')  )   )]
+,['BASICOPERATORS',`({add:b=>a=>a+b,sub:b=>a=>a-b,mul:b=>a=>a*b,div:b=>a=>a/b,pow:b=>a=>a**b,cyc:b=>a=>a%b,eq:b=>a=>a===b,ne:b=>a=>a!==b,gt:b=>a=>a>b,lt:b=>a=>a<b,lte:b=>a=>a<=b,gte:b=>a=>a>=b,or:b=>a=>a||b,and:b=>a=>a&&b,xor:b=>a=>(a&&!b)||(!a&&b),not:a=>!a,fort:a=>!!a,decr:(a,b=1)=>a-=b,incr:(a,b=1)=>a+=b,dec1:a=>a--,inc1:a=>a++,AND:b=>a=>a&b,OR:b=>a=>a|b,XOR:b=>a=>a^b,NOT:a=>~a,SHIFTL:b=>a=>a<<b,SHIFTR:b=>a=>a>>b,SHIFTR0:b=>a=>a>>>b,ife:a=>b=>a?a:b,ift:p=>f=>p?f:{},ifte:p=>f=>g=>p?f:g})`]
+]/*within wherewithin protocall proprekeys protokeys know_by release funpack BASICOPERATORS*/.map(fun=>world[fun[0]]=eval(fun[1]))
+FREEDOOM= /*  */
+[['captive',"(X,F,g)=>({X,F,Ks:typeof g==='function'?g(X):g})"]
+,['RELEASE',"({X,F,Ks})=>release(where) (F(X)) (Ks)"]
+,['RELEASE_THE',"(captives,where={})=> captives.reduce( (_,{X,F,Ks})=>release(where) (F(X)) (Ks))"]
+//-------!!!  PUT THE KRAKEN IN HERE WHEN FINISHED  !!!----------
+];funpack(PRELUDE),funpack(FREEDOOM)
+KRAKEN=
+[[[Element,Node,Number,String,RegExp,Array],[protocall,protokeys]] 
+,[[document],[wherewithin, protokeys(Document).filter(s=>s.match(/(^get|create|element|query|url)/gi))]]//TODO: filterdox   
+,[[ac],  [wherewithin,  protokeys(/*BaseAudioContext*/AudioContext)] ]
+,[[utter], [wherewithin, protokeys(SpeechSynthesisUtterance)]]
+,[[speechSynthesis], [within, ['pause','resume','getVoices', 'cancel', 'speaking','pending','paused', 'onvoiceschanged'] ]]
+,[[cv],[wherewithin,properkeys(CanvasRenderingContext2D.prototype).filter(s=>!s.match(/(fill|filter)/gi))] ]
+,[[Object,Date,Math,BASICOPERATORS],[within,properkeys]]
+].reduce((a,c,i,o)=>a.concat(o[i][0].map(x=>[x,...o[i][1]])),[])
+.map(captives=>captive(...captives))
+/*-================================================----*/
+
+
+
+console.log(`
+    ____  ________    _________   _____ ______
+   / __ \/ ____/ /   / ____/   | / ___// ____/
+  / /_/ / __/ / /   / __/ / /| | \__ \/ __/
+ / _, _/ /___/ /___/ /___/ ___ |___/ / /___
+/_/ |_/_____/_____/_____/_/  |_/____/_____/
+  ________  ________
+ /_  __/ / / / ____/
+  / / / /_/ / __/
+ / / / __  / /___
+/_/ /_/ /_/_____/
+    __ __ ____  ___    __ __ _______   ________
+   / //_// __ \/   |  / //_// ____/ | / / / / /
+  / ,<  / /_/ / /| | / ,<  / __/ /  |/ / / / /
+ / /| |/ _, _/ ___ |/ /| |/ /___/ /|  /_/_/_/
+/_/ |_/_/ |_/_/  |_/_/ |_/_____/_/ |_(_|_|_)
+, perhaps... consider some less lazy alternatives `),
+/*-*/RELEASE_THE(KRAKEN,/*!!End the*/world),
+// console.log(aloud`the Kraken has been released: Core functions have been liberated from the tyranny of propriet[ar]y, civility, and vendorized namespaces. Names are addresses in space, that is all.`)/*-*/
+/*-================================================----*/
+//    __________  _   __________________
+//   / ____/ __ \/ | / / ____/  _/ ____/
+//  / /   / / / /  |/ / /_   / // / __
+// / /___/ /_/ / /|  / __/ _/ // /_/ /
+// \____/\____/_/ |_/_/   /___/\____/
+RC=
+{NS:{html:"http://www.w3.org/1999/xhtml",svg:"http://www.w3.org/2000/svg"}
+,SVGELS:"image,svg,circle,ellipse,marker,line,path,rect,use,symbol,text,tspan,textPath,polyline,polygon,g,defs"
+,HTMLELS:"a,b,i,br,head,body,canvas,button,section,div,input,script,style,form,label,code,date,pre,img,span,h1,h2,h3,h4,h5,h6,p"
+,TYPES:"array,string,object,regexp,number,function,text,htmlinputelement"
+,TZ:{DangerZone:+8,CE:2018,SGT:+8,UTC:0,timeMax:{d:365,h:24,m:60,s:60,ms:1000}}
+,RE:
+  {words: /\S+\b|\b\S+|\s/gu   ///[^a-zA-Z-]+/
+  ,words2:/\S+/gu
+  ,lines:/\r?\n/
+  ,sentences: /\S*[^\.!?]+\S*/gu
+  ,phrases:  /\S*[^,:;"\-]+\S*/gu  //  /\,|\"|\-|\;/
+  ,numbers:/[+-]?(\d*\.)?\d+/
+  ,chars:/./gu
+  ,cssvars:/(--\w+)/g
+    //--- FROM TEXTSTATS, SORT OUT WHEN FREE
+    ,HtmlTags: /<[^>]+>/g
+    ,delimiters: /[,:;()\/&+]|--/g
+    ,fullstops:/[\.!?]/g
+    ,fullstop_dup:/([\.])[\.]+/g  // "."
+    ,fullstop_space:/[ ]*([\.])/g //". "
+    ,WStrailing:/\s+$/
+    ,WSleading:/^\s+/ //""
+    ,WSdup: /\s+/g //" "
+    //,emailDots:/[\.]?(\w+)[\.]?(\w+)@(\w+)[\.](\w+)[\.]?/g //, "$1$2@$3$4"
+    ,newlines:/[ ]*(\n|\r\n|\r)[ ]*/g
+    //-------
+  }
+,H:
+  {svg:{viewBox:'-16 -16 32 32'}
+  ,circle:{cx:0,cy:0,r:0.1}
+  ,rect:{x:0,y:0,width:1,height:1}
+  ,text:{x:0,y:0}
+  ,a:{href:'#'}
+  ,d: (
+    {A: (a1,a0=0)=>(rx,ry=rx)=> (XY=RT_XY([rx,a1]),rotx=0,sweepflag=0,arcflag=lte(PI)(a1-a0)?0:1)=> affix('A ',' ',' ')(join(' ')([rx,ry,rotx,arcflag,sweepflag,XY]))
+    ,a: (a1,a0=0)=>(rx,ry=rx)=> (XY=RT_XY([rx,a1]),rotx=0,sweepflag=0,arcflag=lte(PI)(a1-a0)?0:1)=> affix('a ',' ',' ')(join(' ')([rx,ry,rotx,arcflag,sweepflag,XY]))
+    ,M: (XY=[0,0])=> affix('M ',' ','')(XY)
+    ,m: (XY=[0,0])=> affix('m ',' ','')(XY)
+    ,L: (XY=[0,0])=> affix('L ',' ','')(XY)
+    ,l: (XY=[0,0])=> affix('l ',' ','')(XY)
+    ,H: X=> affix('H ',' ','')(X)
+    ,h: X=> affix('h ',' ','')(X)
+    ,V: Y=> affix('V ',' ','')(X)
+    ,v: Y=> affix('v ',' ','')(X)
+    ,S: (XY2)=>(XY)=> affix('S ',' ','')(join(' ')([XY2,XY]))
+    ,Q: (XY1)=>(XY)=> affix('Q ',' ','')(join(' ')([XY1,XY]))
+    ,q: (XY1)=>(XY)=> affix('q ',' ','')(join(' ')([XY1,XY]))
+    ,C: (XY1)=>(XY2)=>(XY)=> affix('C ',' ','')(join(' ')([XY1,XY2,XY]))
+    ,c: (XY1)=>(XY2)=>(XY)=> affix('c ',' ','')(join(' ')([XY1,XY2,XY]))
+    ,T: (XY=[0,0])=> affix('T ',' ','')(XY)
+    ,Z: 'Z'})
+  ,textPath:{}
+  ,preconf:{
+    PRIMETXT:{style:`stroke-width:.015em;stroke:red;fill:rgba(255,0,0,0.3);font-size:1.5em;dominant-baseline:middle;text-anchor:middle;`, transform:'rotate(90 0,0)'}
+    }
+  ,LOGGER:({pre:{id:'logger', class:''}
+            ,div:{class:'marquee',style:'margin-top:0;outline:1px solid var(--C_3); overflow:hidden'}
+            ,code:{style:`color:white;background-color:grey;`}
+            ,span:x=>({class:`log-${type(x)}`,style:'background: black; color:red;'}) 
+          }) }
+,APIs:{wiki:[ "action=query", "format=json", "gsrlimit=15", "generator=search", "origin=*", "prop=pageimages|extracts", "pilimit=max", "pithumbsize=100", "exintro", "explaintext", "exsentences=1", "exlimit=max"]}
+}
+//     ____  ___   ________ __ ___   _________________
+//    / __ \/   | / ____/ //_//   | / ____/ ____/ ___/
+//   / /_/ / /| |/ /   / ,<  / /| |/ / __/ __/  \__ \
+//  / ____/ ___ / /___/ /| |/ ___ / /_/ / /___ ___/ /
+// /_/   /_/  |_\____/_/ |_/_/  |_\____/_____//____/
+LOGICS=
+[['SIZE',`({array:x=> x.length,string: x=> new Blob([x.replace(/./gu,'.')]).size,object: x=> x.size||x.length||Object.keys(x).length})`]
+,['ATTR',`({string: a=>el=> el.getAttribute(a)
+  ,object: a=>el=> (map(e=>(el.setAttribute(e[0],e[1]))) (entries(a)),el   )})`]
+,['JML',`({ifSVG:x=> includes(x)(RC.SVGELS.split(/\\W/)) ? RC.NS.svg : RC.NS.html ,array: x=>el=> appendChild(jml(x))(el) ,string: x=>el=> appendChild(createTextNode(x))(el) ,object: x=>el=> attr(el)(x)})`]
+,['_JML',`({'1': el=>node=> el.push(asJML(node)), '3': el=>node=>el.push(node.data), string: x=> asJML(document.createElement('span').innerHTML=x), recur: frag=> asJML(frag)})`]
+]
+UTILS=
+[['config',"o=>(...defaults)=> assign({},o,reverse()(...defaults),o)"]
+,['wolf',"(...paths)=> reduce ((left,right)=> (...as)=> left(right(...as))) (paths)"]
+,['flow',"(...paths)=> reduce ((left,right)=> (...as)=> right(left(...as))) (paths)"]
+,['carry',"(f,d=f.length,...as)=> d<=as.length?f(...as):carry.bind(null,f,d,...as)"]
+,['uncarry',"(f,d=1)=>(...as)=> as.slice(0,d).reduce((x,y)=>x(y),f)"]
+,['type',"(x)=>({}).toString.call(x).slice(8,-1).toLowerCase()"]
+,['judgeby',"gates=>open=>key=> within(within(LOGIC)(gates))(open(key))(key)"]
+// ,['catalyse',"(gates,structure=LOGIC)=>(open=type)=>(key1,key2=key1)=> within(within(structure)(gates))(open(key2))(key1)"]
+,['size',"judgeby('SIZE')(type)"]
+,['dedup', "xs=> [...new Set(xs)]"]
+,['affix',"(l,r=l,i=[])=>(...xs)=>  i.concat(l,xs,r)"] // STRINGS
+,['fillar',"n=>[...Array(n).keys()]"]
+]
+OPTICS=
+[['lens',    "get=>set=> ({get,set})"]
+,['focus',   "(k,lens)=> config(lens)({get:o=>within(o)(k),set:v=>o=>know_by(k,o)(v)})"]
+,['get',     "l=>o=> within(l)('get')(o)"]
+,['set',     "l=>v=>o=> within(l)('set')(v)(o)"]
+,['over',    "l=>f=>o=> set(l)(f(get(l)(o)))(o)"]
+,['overt',    "l=>f=>o=> (set(l)(f(get(l)(o)))(o),o)"]
+,['getpath', "xs=>o=> flow(...map(get)(map(focus)(xs)))(o)"]
+,['focii',   "(keys,ctx={})=>release(ctx)(focus)(keys)"]
+,['deepWithin',"o=>(...xs)=>getpath(xs)(o)"]
+]
+DOM=
+[['attr',       "el=>key=> (judgeby('ATTR')(type))(key)(el)"]
+,['jml',        "(ml,el=createElementNS(LOGIC.JML.ifSVG(ml[0]),ml[0]))=>(forEach(node=>LOGIC.JML[type(node)](node)(el)) (slice(1)(ml)), el)"]
+,['_jml',       "(()=> {asJML=(frag)=> {let el = [frag.nodeName], attrs = {};if (frag.attributes) {[...frag.attributes].forEach((attr)=> attrs[attr.name]=attr.value); el.push(attrs)};[...frag.childNodes].forEach((node)=>includes(node.nodeType)([1,3])?LOGIC._JML[node.nodeType](el)(node):x=>x) ;return el };parse=(frag)=> ist.string(frag)?LOGIC._JML['string'](frag):LOGIC._JML['recur'](frag);return parse })()"]
+,['H', "TAG=>(...ELS)=> [ TAG, config (ist.object(ELS[0]) ? shift()(ELS):{}) (ife(deepWithin(RC)('H',TAG)) ({})) , ...ELS ]"]
+  //~~~~-------========<<<<<<<{{{{{{ DOM manipulation }}}}}}
+,['dom', "(x)=>el=> appendChild(jml(x)) (el)"]
+,['freeChild',"element=> element.parentNode.removeChild(element)"]
+,['freeChildren',"parent=>map(x=>x(parent))(map(removeChild)(parent.children))"]
+//~~~~-------========<<<<<<<{{{{{{ CSS & MISC PRESENTATION }}}}}}
+,['getRootVar',"x=> getComputedStyle(document.documentElement).getPropertyValue('--'+x).trim()"]
+,['$$', `sel=> { var arr = void 0;
+  if (sel.charAt('0') === '#' && sel.indexOf(' ') < 0) { return document.getElementById(sel.replace('#', ''));} arr = [].slice.call(document.querySelectorAll(sel)); if (arr.length < 2) arr = arr[0]; return arr; }`]
+,['dims',"(arr)=>(c)=>arr.reduce((r,k,i)=>(i%c===0?r.push([k]):r[r.length-1].push(k))&&r,[])"]
+,['id_m16',"()=>map(parseFloat)(split(',')(join(',')(T(id_Sq(4)))))"]
+,['mXm16',"(M1,M2)=>reduce((a,c)=>concat(c)(a))((mXm(dims(M1)(4))(dims(M2)(4))))"]
+,['csscolmaj',"m=> T(dims(m)(4))"]
+,['domgen',"([...ms])=> T(reduce((a,c)=>mXm(a)(c)) (map(m=>csscolmaj(m))(ms)))"]
+,['m6to16',"o=> ifte (size(o)>6) (o) (reduce((a,c,i)=>(a[c]=o[i],a),id_m16())([0,1,4,5,12,13]))"]
+,['extract',"(s,delim=',')=> map(parseFloat)(split(delim)(match(/(([^)]+))/)(s)[1]))"]
+//d('m16to6')     (o=> map(i=>o[i])([0,1,4,5,12,13]))
+//d('mod2d')    (TFMs=>A6=>m2d(m16to6(extract(mod3dcss(TFMs.concat[(A6)])))))
+,['m3d',"n=> `matrix3d(${join(',')(n)})`"]
+,['m2d',"M3d=> `matrix(${join(',')(map(i=>extract(M3d)[i])([0,1,4,5,12,13]))})`"]
+,['mod3dcss',"([...values])=> m3d(domgen(values))"]
+//d('mod2dcss') (([...values]) =>m2d(domgen(values)))
+,['mod',"([...values],d=0)=> ifte (!d) (m3d(domgen(values))) (m2d(m3d(domgen(values))))"]
+,['mvmt',(el,d)=>(tfm)=> getComputedStyle(el).transform==='none' ? mod(tfm,d):mod((tfm).concat([m6to16(getComputedStyle(el).transform.match(/\(([^\)]+)\)/)[1].split(','))]),d)]
+,['mv',"(tfm)=>(el,d)=>el.style.transform= mvmt(el,d)(tfm)"]
+,["TFM3D",`({perspective:d=> [1,0,0,0,0,1,0,0,0,0,0,-1/d,0,0,0,1]
+    ,scale:(w=1,h=w,d=w)=> [w,0,0,0,0,h,0,0,0,0,d,0,0,0,0,1]
+    ,translate:(x=0,y=0,z=0)=> [ 1,0,0,0,0,1,0,0,0,0,1,0,x,y,z,1]
+    ,rotate:{ x: a=> [1,0,0,0,0,cos(a),-sin(a),0,0,sin(a),cos(a),0,0,0,0,1]
+            , y: a=> [cos(a),0,sin(a),0,0,1,0,0,-sin(a),0,cos(a),0,0,0,0,1]
+            , z: a=> [cos(a),-sin(a),0,0,sin(a),cos(a),0,0,0,0,1,0,0,0,0,1] }
+    ,transLotate:(axis,a)=>(x,y,z)=> [TFM3D.translate(-x,-y),TFM3D.rotate[axis](a),TFM3D.translate(x,y,z)]})`]
+,['rot',"(angle=PI/2,axis='z')=> deepWithin(TFM3D)('rotate',axis)(angle)"]
+,['tra',"(x=0,y=0,z=0)=> deepWithin(TFM3D)('translate')(x,y,z)"]
+,['sca',"(x=1,y=x,z=1)=> deepWithin(TFM3D)('scale')(x,y,z)"]
+]
+TENSOR=
+[['id_Sq',"n=>map((_,i,a)=> map((c2,i2)=> ifte(eq(i)(i2))(1)(0)) (a)) (fill(0)(Array(n)))"]
+,['mXm',"a=>b=> map(x=> map(y=>dotX(x)(y))(T(b)))(a)"]
+,['mulScalar',"s=>M=> map(map(x=>x*=s))(M)"] 
+,['dotX',"a=>b=> reduce(uncarry(add,2))(map((x,i)=> a[i]*b[i])(a))"]
+,['T', "a=> map((_,i)=>map(y=>y[i])(a))(a[0])"]
+,['generate',"([...ms])=> reduce((a,c)=>mXm(a)(c))(ms)"]
+]
+DATETIME=
+[['dhmsm',"(t,tz=RC.TZ.DangerZone,yr=RC.TZ.CE)=>map(floor)((t+=tz*3.6e6,[((t-Date.parse(yr))/8.64e7)+1,(t/3.6e6)%24,(t/6e4)%60,(t/1e3)%60,(t)%1e3]))"]
+,['timeOut',"(t=now(),n=3,maxes=values(RC.TZ.timeMax))=>map(precisely(n))(map((x,i)=>x/maxes[i])(dhmsm(t)))"]
+,['times',"(t,n,m)=> (T=>({d:T[0],h:T[1],m:T[2],s:T[3]})) (slice(0,-1)(timeOut(t,n,m)))"]
+,['dhmsms',"(t,tz=RC.TZ.DangerZone,yr=RC.TZ.CE)=> (T=>({d:T[0],h:T[1],m:T[2],s:T[3],ms:T[4]}))(map(floor)((t+=tz*3.6e6,[((t-Date.parse(yr))/8.64e7),(t/3.6e6)%24,(t/6e4)%60,(t/1e3)%60,(t)%1e3])))"]
+,['ts',"()=>join(` `) (map(numRod)(slice(0,4)(dhmsm(now()))))"]
+]
+FREGEX=
+[['wordSep',    `xs=> sandwich('\\b(START~>','<~END)\\b')(xs)`]
+,['rxFrom',     `(o,c='g',d='|',f=values)=> RegExp(join(d)(f(o)),c)`]
+,['rxReplace',  `((o,delim="|")=>s=> replace(rxFrom(o,'g',delim,keys), match=>o[match])(s))`]
+,['SPWC',
+  `[match(deepWithin(RC)('RE','sentences'))
+  ,match(deepWithin(RC)('RE','phrases'))
+  ,match(deepWithin(RC)('RE','words'))
+  ,values
+
+  ]`]
+,['punctuate',s=>rxReplace(zipSubs(x=>' '+x+' ') (values(',.!;:-')), '|\\+') (s)]
+]
+SYMBOLIC=
+[['digits', "n=> map(Number)([...`${n}`])"]
+,['hexNum', "(s,encb64,keys=`ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/`)=>(encb64?btoa(s):s).split('').map(c=>c==='='?12295:keys.indexOf(c)+19904).map(x=>String.fromCodePoint(x)).join('')"]
+,['numRod', "(num)=>digits(num).map((x,i)=> x+119647+(i%2&&x>0?9:0)).map((x,i)=>String.fromCodePoint(x===119647?(i%2&&x>0?9548:9550):x)).join('')"]
+,['rodNum', "([...rodstr])=>(rodstr).map(codePointAt()).map(sub(119647)).map(x=>x===18||x===9?9:cyc(9)(x)).map(clamp([0,Infinity]))"]
+,['findIdxs',"(arr, val)=> arr.reduce((idxs,el,i) => (el===val&&idxs.push(i),idxs),[])"]
+,['uniqIdxs', "(xs)=> reduce((a,q)=>(a[q]=findIdxs(xs, q),a),{}) (dedup(xs))"]
+,['Snums',"s=>s.replace (/([0-9]+)/g, v=>numRod(v))"]
+,['smunS', "replace(/(𝍠|𝍩|𝍡|𝍪|𝍢|𝍫|𝍣|𝍬|𝍤|𝍭|𝍥|𝍮|𝍦|𝍯|𝍧|𝍰|𝍨|𝍱|╎|╌)/g, rodNum)"]
+,['affix',"(l,r=l,i=[])=>(...xs)=>  i.concat(l,xs,r)"] // STRINGS
+]
+MISCUTIL=
+[['zipSubs',     "newx=>xs=>release({})(newx)(xs)"]
+,['precisely', "x=>(y,sigfig)=> Number(sigfig?toPrecision(x)(y):toFixed(x)(y))"]
+,['indicate',"(rate,r=10,indicator)=> (offs=convert()(rate),attr(indic) ((([cx,cy])=>({cx,cy,offs})) (RT_XY([r,offs]))))"] // TODO: ABSTRACT
+
+,['factorize',"(n,i,r)=>{for(r=n<0?(n=-n,[-1]):[],i=2;i<=n;i++)n%i||(r.push(i),n/=i--);r[0]=n*(r[0]||1);return r}"]
+,['metallicRatio',"(n=1)=>(n+sqrt(n**2+4))/2"]
+,['ra',"(k=1,ratio=1,scale=1/metallicRatio(ratio))=>n=>mul(k)(pow(n)(scale))"]
+/*------ Geometry ------*/
+,['vecadd',"(v1=[0,0],v2=[0,0])=> zipWith(v1,v2,uncarry(add,2))"]    
+,['arcPt',"t=>(r,[cx,cy]=[0,0],offs=-PI/2,newLims=[0,PI*2],oldLims=[0,1])=> map(precisely(3)) (RT_XY([r,convert(offs,oldLims,newLims)(t)],[cx,cy]))"]
+,['RT_XY', "([r,t],[cx,cy]=[0,0])=> map(precisely(3))([r*cos(t)+cx, r*sin(t)+cy])"]
+,['belong',"([a1,z1]=[0,PI*2])=>([a0,z0]=[0,1])=>(x,offs=0)=> (x-a0)/(z0-a0)*(z1-a1)+a1+offs"]
+,['convert',"(offs=-PI/2,oldLims=[0,1],newLims=[0,PI*2])=>x=>belong(newLims)(oldLims)(x,offs)"]
+,['zipWith',`(...array) => {
+  const fn = typeof array[array.length - 1] === 'function' ? array.pop() : undefined;
+  return Array.from({length: Math.max(...array.map(a => a.length))},
+    (_, i) => (fn ? fn(...array.map(a => a[i])) : array.map(a => a[i])) ) }`]
+// ,['deepFlatten',"xs=> [].concat(...xs.map(x=>(Array.isArray(x)?deepFlatten(x):x)))"]
+,['deepFlatten',"f=a=>a.map?[].concat(...a.map(f)):a"]
+,['flatten',"(xs,d=1)=> d!=1?xs.reduce((a,c)=> a.concat(Array.isArray(c)?flatten(c,d-1):c),[]):xs.reduce((a,c)=>a.concat(c),[])"]
+// ,['howdeep',"f=a=>a[0]?Math.max(...a.map(f))+1:0"]
+,['LIGHT',"()=>(document.documentElement.style.setProperty('--C_0','WHITE'),document.documentElement.style.setProperty('--C_5','BLACK'))"]
+,['DARK',"()=>(document.documentElement.style.setProperty('--C_0','BLACK'),document.documentElement.style.setProperty('--C_5','WHITE'))"]
+,['ADVISOR',"(x,target=INPUT)=> flip(set(focus(ist.htmlinputelement(target)?'value':'textContent')))(target)(x)"]
+,['flip',"f=>a=>b=>f(b)(a)"]
+,['clamp',"([a,z]=[],f=lte,g=gte)=>x=> ifte(f(a)(x))(a)(ifte(g(z)(x))(z)(x))"]
+,['PX_CM',"mul(0.026458)"]
+,['copy',`(el,target,attrs={})=>appendChild( attr (cloneNode(true)(el)) (config(attrs)({class:'crys',id:'',source:el.id})) ) (dom(h.g({class:'crys'}))(target))`]
+,['crys',`(el,attrs={},shape=RC.SCHEMAS.QUARTZ)=>(target=(el.parentElement.parentElement))=>(map((v,i)=> mv (map(tfm=>tfm(v))(shape.tfms))   ( copy(el, target,attrs ))) (shape.vs))`]
+]
+// copy=(el,target,attrs={})=>appendChild( attr (cloneNode(true)(el)) (config(attrs)({class:'crys',id:'',source:el.id})) ) (target)
+SCHEMAS=
+[['factors',"({spork:([s,[i],c])=>({s,i,c})})"]
+,['QUARTZ',`({tfms:
+          [v=>tra(-3*v[0],4*v[1])
+          ,v=>rot(-PI/6*v[0]*v[1])
+          ,v=>sca(-1*v[0],-1*v[1],1)]
+          ,vs:[[1,1],[-1,1],[1,-1],[-1,-1]]})`]
+]
+EVENTS=
+[['eventSink' , `()=> ({
+        sink: Object.create(null)
+        , emit(event, data) { (this.sink[event]||[]).forEach((handler)=> handler(data)) }
+        , on(event, handler) { if (!this.sink[event]) this.sink[event] = []; this.sink[event].push(handler) }
+        , off(event, handler) { const i = (this.sink[event]||[]).findIndex((h)=> h === handler); if (i > -1) this.sink[event].splice(i, 1) }
+        , clear(event) { this.sink[event]=[] }  })`]
+,['timers',`({active: {}
+    , make(f,t) {let newIntrvls=setInterval.apply(window,[f, t].concat([].slice.call(arguments,2))); this.active[newIntrvls] = true; return newIntrvls }
+    , clear(id) {return clearInterval(id)}
+    , clearAll() { forEach(clearInterval)(keys(this.active))}})`]
+,['Upon',`evt=>fn=>(el,opts={})=> {
+   delegatorFn = e => e.target.matches(opts.target) && fn.call(e.target, e);
+   el.addEventListener(evt, opts.target ? delegatorFn : fn, opts.options || false);
+   if (opts.target) return delegatorFn;
+ }`]
+,['off',"(el,evt,fn,opts=false)=> el.removeEventListener(evt,fn,opts)"]
+]
+INTERFACE=
+[['ringer',`(ns,r=ra(),offs=x=>-PI/2)=>map((x,i,o)=> RT_XY([r(i),convert(offs(x,i,o))(x)]))(ns)`]
+,['conc',`radius=>xs=>(join('\\n\\t')(map((x,i,o)=>_d.M([0,-radius(i)])+_d.A (xs[i]*PI*2) (radius(i)) (x,0,1))(ringer(xs,radius))))`]
+,['epic',"radius=>xs=>`M0,-${radius(0)}`+(join('\\n\\t')(map((x,i,o)=> _d.a(xs[i]*PI*2)(radius(i))(vecadd([0,radius(i)],x),0,(i+1)%2))(ringer(xs,radius)) ))"]
+,['str8',`radius=>xs=>(join('\\n\\t')(map((x,i,o)=> _d.l(vecadd([0,radius(i)],x)))(ringer(xs,radius))))`]
+]
+CONTROLLER=
+[['ctrls',`x=>(
+{L:()=>mv([tra(0,0,window.innerWidth/2), rot(PI*(0.051),'y'), tra(0,0,-window.innerWidth/2)]) (x)
+,R:()=>mv([tra(0,0,window.innerWidth/2), rot(-PI*(0.051),'y'), tra(0,0,-window.innerWidth/2)]) (x)
+,U:()=>mv([tra(0,0,window.innerWidth/2), rot(PI*(0.051),'x'), tra(0,0,-window.innerWidth/2)]) (x)
+,D:()=>mv([tra(0,0,window.innerWidth/2), rot(-PI*(0.051),'x'), tra(0,0,-window.innerWidth/2)]) (x)
+,TiltL:()=>mv([tra(0,0,window.innerWidth/2), rot(PI*(0.051),'z'), tra(0,0,-window.innerWidth/2)]) (x)
+,TiltR:()=>mv([tra(0,0,window.innerWidth/2), rot(-PI*(0.051),'z'), tra(0,0,-window.innerWidth/2)]) (x)
+,F:()=>mv([tra(0,0,50)]) (x)
+,B:()=>mv([tra(0,0,-50)]) (x)
+})`]
+,['movementKeys',`({'37':()=> E.emit('move','L') ,'39':()=> E.emit('move','R') ,'38':()=> E.emit('move','D') ,'40':()=> E.emit('move','U') ,'87':()=> E.emit('move','F') ,'82':()=> E.emit('move','B') ,'65':()=> E.emit('move','TiltL') ,'83':()=> E.emit('move','TiltR') })`]
+,['mocap',`k=>ctrls(ROOM)[k]()`]
+,['sindex',`(ks)=>(f=x=>x,s=[],way=[])=>
+    map((x,i,o)=>ist.array(ks[i])
+    ?f([[concat(size(o))(s)],[concat(i)(way)],sindex(x)(f,concat(size(o))(s),concat(i)(way))
+      ],x)
+    :f([[concat(size(o))(s)],[concat(i)(way)]],x)
+     )(ks)`]
+,['fax',`(fxs=[x=>x])=>(cond=x=>gt(1)(size(x)))=>(xs)=>
+  map((x,i)=>cond(fxs,xs)
+    ?(fax(slice(1)(fxs))(cond)(fxs[0](x)))
+    :fxs[0](x)
+    )(xs)`]
+,['infest',`ns=>reduce((a,c,i)=>ist.array(c)
+  ?map(x=>filter(Boolean)(concat(x[incr(i)])(a)))(c)
+  :c,[1]) (reverse()(fax([fillar])()(ns)))`]
+]
+
+
+SPEECH=
+[
+['say',"(text=' Hello!',lang='en-EN',voice,rate=1.25,volume=10,pitch=1,onboundary)=>(assign(utter,{text,lang,rate,volume,voice,pitch,}),speechSynthesis.speak(utter))"]
+]
+subSyllables = [ /cial/ , /tia/ , /cius/ , /cious/ , /giu/ , /ion/ , /iou/ , /sia$/ , /[^aeiuoyt]{2,}ed$/ , /.ely$/ , /[cg]h?e[rsd]?$/ , /rved?$/ , /[aeiouy][dt]es?$/ , /[aeiouy][^aeiouydt]e[rsd]?$/ , /^[dr]e[aeiou][^aeiou]+$/ , /[aeiouy]rse$/ ] 
+addSyllables = [ /ia/ , /riet/ , /dien/ , /iu/ , /io/ , /ii/ , /[aeiouym]bl$/ , /[aeiou]{3}/ , /^mc/ , /ism$/ , /([^aeiouy])\1l$/ , /[^l]lien/ , /^coa[dglx]./ , /[^gq]ua[^auieo]/ , /dnt$/ , /uity$/ , /ie(r|st)$/ ] 
+prefixSuffix = [ /^un/ , /^fore/ , /ly$/ , /less$/ , /ful$/ , /ers?$/ , /ings?$/ ]
+TEXTSTATS = [['letterCount',`t=> t.replace(/[^a-z]+/ig,"").length`]
+,['sc',`t=> t.replace(/[^\.!?]/g, '').length||1`]
+,['wc',`t=> t.split(/[^a-z0-9'@\.\-]+/i).length||1`]
+,['avgWPS',"(text)=> wc(text) / sc(text)"]
+,['avgSPW',"(text)=>  (text.split(/\s+/).reduce((syllables,word)=> syllables += sylC(word), 0)||1)/(wc(text)||1)"]
+,["sylC",`(word,problemWords={ "simile": 3, "forever": 3, "shoreline": 2 })=> {
+    let sylC = 0, prefixSuffixCount = 0, wordPartCount = 0;
+    word = word.toLowerCase().replace(/[^a-z]/g,"")
+    if (problemWords[word]) return problemWords[word]
+    prefixSuffix.forEach((regex)=>{ if (word.match(regex)) { word=word.replace(regex,""); prefixSuffixCount++; } });
+    wordPartCount = word.split(/[^aeiouy]+/ig).filter((wordPart)=> !!wordPart.replace(/\s+/ig,"").length).length
+    sylC = wordPartCount + prefixSuffixCount;
+    subSyllables.forEach((syllable)=> {if (word.match(syllable)) sylC--;})
+    addSyllables.forEach((syllable)=> {if (word.match(syllable)) sylC++;})
+    return sylC || 1; }`]
+,['gte3Syls',"(text, countProperNouns=0)=> text.split(/\s+/).filter(word=>(countProperNouns?/^[A-z]/:/^[a-z]/).test(word)).filter((word)=>sylC(word)>2).length"]
+,['gte3SylsPW',"(text, countProperNouns)=> (gte3Syls(text,countProperNouns) / wc(text))"]
+// COMMON ENGLISH WRITING SCORES
+,['readingEase_FK',"(text)=> Math.round((206.835 - (1.015 * avgWPS(text)) - (84.6 * avgSPW(text)))*10)/10"]
+,['gradeLevel_FK',"(text)=> Math.round(((0.39 * avgWPS(text)) + (11.8 * avgSPW(text)) - 15.59)*10)/10"]
+,['GFogIndex',"(text)=> Math.round(((avgWPS(text) + gte3SylsPW(text, false)) * 0.4)*10)/10"]
+,['CLIndex',"(text)=> Math.round(((5.89 * (letterCount(text) / wc(text))) - (0.3 * (sc(text) / wc(text))) - 15.8 ) *10)/10"]
+,['smogIndex',"(text)=> Math.round(1.043 * Math.sqrt((gte3Syls(text) * (30 / sc(text))) + 3.1291)*10)/10"]
+,['automatedReadabilityIndex',"t=> Math.round(((4.71 * (letterCount(t) / wc(t))) + (0.5 * (wc(t) / sc(t))) - 21.43)*10)/10"]
+// FREQUENCY ANALYSES, FUNCTION WORDS, CLOZE
+,['Freq',`(s,_=/\w+/g)=>{s.match(_).map(x=>_[x]=-~_[x]); return keys(_).sort((a,b)=>_[a]<_[b]).reduce((a,x)=>(a[x]=_[x],a),{})}`]
+,['countFreqOf',"(arr, val) => arr.reduce((a, v) => (v === val ? a + 1 : a + 0), 0)"]
+,['wordFreq',"(xs)=> [...new Set(xs)].reduce((a,q)=> (a[q]=countFreqOf(xs, q),a),{})"]
+,['findIdxs',"(arr, val)=> arr.reduce((idxs,el,i) => (el===val&&idxs.push(i),idxs),[])"]
+,['uniqIdxs',"(xs)=> [...new Set(xs)].reduce((a,q)=>(a[q]=findIdxs(xs, q),a),{})"]
+,['lowerAndStrip',`text => text.toLowerCase().replace(/\W/g, ' ').replace(/\s+/g, ' ').trim()`]
+,['splitWords',`(str, re=/[^a-zA-Z-]+/)=> str.split(re).filter(Boolean)`]
+,['tokenize',`(text)=> text
+      .replace(/'/g, '') //apostrophe
+      .replace(/[^A-Za-zА-Яа-яçÇğĞıİöÖşŞüÜ0-9_]/g, ' ')
+      .replace(/\s\s+/g, ' ')
+      .split(' ').map(s=> s.toLowerCase())`]
+,['naiveContentWords',"(src)=>(stops)=>splitWords(lowerAndStrip(src)).filter(x=>stops.indexOf(x)<0)"]
+,['clozePassage',"(txt)=>(lex)=>{let c=txt;return c.replace(new RegExp('\\b('+lex.join('|')+')\\b','gi'),'_')}"]
+,['termFreqMap',"(words)=> words.reduce((termFreq,w)=> {termFreq[w]=(termFreq[w]||0)+1;return termFreq},{})"]
+,['addKeysToDict',"(tf_d, dict)=> {Object.keys(tf_d).map((key)=>dict[key]=true);return dict}"]
+,['tfMapToVec',"(map, dict)=> Object.keys(dict).map((term)=>map[term]||0)"]
+,['vecDotProd',"(vecA)=>(vecB)=> vecA.reduce((a,x,i)=>a+=x*vecB[i],0)"]
+,['vecMag',"(vec)=> Math.sqrt(vec.reduce((a,x)=>a+=x*x))"]
+,['cosSimilarity',"(a)=>(b)=> vecDotProd(a)(b)/(vecMag(a)*vecMag(b))"]
+,['textCosSimilarity',`(a, b)=>{
+  let tfA = termFreqMap(a), tfB = termFreqMap(b), dict = {}
+  addKeysToDict(tfA, dict)
+  addKeysToDict(tfB, dict)
+  let tfvA = tfMapToVec(tfA, dict), tfvB = tfMapToVec(tfB, dict)
+  return cosSimilarity(tfvA, tfvB) }`]
+,['dictFrom',`(xs,splitter=xs=>match(RC.RE.words)(xs).filter(x=>x!==' '))=> {
+    let dict={},keys=[],words;
+    xs = Array.isArray(xs) ? xs : [xs];
+    xs.forEach((text)=> {
+      words = splitter(text);
+      words.forEach(w=>{w=w.toLowerCase();(!dict[w]&&w!=='')?(dict[w]=1,keys.push(w)):dict[w]+=1}) })
+    return {words:keys,dict:dict} }`]
+
+,['tf',"(w,text)=> dictFrom(text).dict[w.toLowerCase()]||0 / splitWords(text).length"]
+,['df',"(w, texts)=> texts.reduce((sum,text)=> sum+=splitWords(text).indexOf(w)>-1?1:0,0)"]
+,['occ',"(w, texts)=> texts.map((text,i)=>splitWords(text).indexOf(w)>-1?1:0)"]
+,['idf',"(w,texts)=> Math.log(texts.length / (1 + df(w, texts)))"]
+,['tfidf',"(w,text,texts)=> tf(w,text)*idf(w,texts)"]
+,['keywords',`(texts,n=5)=> texts.forEach((t,docNum)=> {
+  console.log('Most important words in document',docNum+1)
+  let scores = {};
+  splitWords(t).forEach((word)=> scores[word] = tfidf(word, t, texts))
+  scores = Object.keys(scores).map((word)=> ({word:word,score:scores[word]}))
+  scores.sort((a, b)=>a.score<b.score?1:-1)
+  console.log(scores.splice(0, n))})`]
+//STOPWORDS = fnwords.concat(missinginfnwords)
+,['isENWord0',"s=>!/[^aeiou]{3}|[jqxz]/.test(s)"]
+,['isENWord',"s =>!/[^aeiouyhs]{3}|[^aeiouy]{4}|q[^u]|^x|^[bdf][^aeioulry]|^[cgkprtwy][mfdsbktjgxpc]|^a[aoz]|^e[hf]|^i[ea]|^o[ecy]|^u[^ltnspgr]|[bdgktyz][cgmpw]$|[fhpvx][^aieoflnrsty]$|eh$|i[iyh]|[wkybp]z|[dghz]t|[fjzsv]y.|h[ns].|ae.|y.?[yifj]|[ejo]..[iuw]|[inv]..[gpuvz]|[eu].[jqwx]|[vyz][^t][fhmpqy]|i[^ae][fjqrv]|[ospen].?j|[ceg][iuy][ghkoux]|[bcpx]f|[hnuy]w|[ghnw]b|[txz]n|[jk]r|.[fjuyz]u|[hnt]ia|lsy|.p.o|.l.l|.tas|zal|f.p|eeb|wei|.sc.|.pl|yat|hov|hab|aug|v.re|aba|ohu|ned|s.dd|uc$|nux|oo$|dgo|lix|wua|v.o|vo$|ryo|wue|dk|oic|yol|.tr|yrb|oba|ruh|c.ls|idd|chn|doy|ekh|tk|lke|asl|cir|eez|asc|uil|iou|m..p|awt|irp|zaa|td|swk|ors|phe|aro|yps|q.e|ati|ibt|e.mo|we.y|p.de|ley|eq|tui|e..g|sps|akh|dny|swr|iul|.t.t|.tao|rcy|.p.y|idi|j.o|.kl|oms|ogi|jat|.lis|mye|uza|rsi|.ala|ibo|ipi|yaa|eun|ruy|wog|mm$|oex|koi|uyn|.hid|osc|ofe|w.op|auc|uzy|yme|aab|slm|oza|.fi|bys|z.e|nse|faf|l.h|f.va|nay|hag|opo|lal|seck|z.b|kt|agl|epo|roch|ix.|pys|oez|h.zi|nan|jor|c.ey|dui|ry.d|.sn|sek|w.no|iaz|ieb|irb|tz.|ilz|oib|cd|bye|ded|f.b|if$|mig|kue|ki.w|yew|dab|kh.|grs|no.t|cs.|.n.m|iea|y.na|vev|eag|el[uz]|eo[dkr]|e[hlsu]e|e[dho]l|eov|e[adp]y|r[grt]u|yn[klo]|.[^ilv].v|s[bdgqrz]|m[dfghrz]|[vpcwx]{2}|^[hjlmnvz][^aeiouy]|^[drw]l|l[hnr]/.test(s)"]
+]
+//     _____   ____________
+//    /  _/ | / /  _/_  __/
+//    / //  |/ // /  / /
+//  _/ // /|  // /  / /
+// /___/_/ |_/___/ /_/
+/*-------INITIALIZE: FUNPACK and RELEASE----*/
+// /*----*/console.log(aloud`INITIALIZING...`)/*----*/
+funpack( LOGICS, LOGIC={})
+funpack( SCHEMAS, RC.SCHEMAS={})
+funpack( SCHEMAS, RC.SCHEMAS={})
+map(PKG=>funpack(PKG))(
+  [UTILS
+  ,OPTICS
+  ,DOM
+  ,TENSOR
+  ,FREGEX
+  ,MISCUTIL
+  ,DATETIME
+  ,SYMBOLIC
+  ,EVENTS
+  ,INTERFACE
+  ,SPEECH
+  ,TEXTSTATS
+  ,CONTROLLER
+  ,
+  ])
+
+// DEBUG
+
+// $$('*').map((A,B)=>A.style.outline=`0.5px solid hsl(${B*B},99%,50%`)
+
+map(([into,using,captives])=>release(into)(using)(captives))(
+  [[h={},a=>H(a),(split(/\W/)( ''.concat(RC.HTMLELS,',',RC.SVGELS) ))]
+  ,[ist={},b=>a=>eq(b)(type(a)),(split(',')(RC.TYPES))]
+  ,[_d={},x=>getpath(['H','d',x]) (RC),values('AaCcHhLlMmVvZ')]
+  ])
+map(X=>dom(h.svg({id:'svg'+X /*, style:'margin-top:0;'*/ })) (within(world)(`_${X}_`))) ([...'FLURBD'])
+dom(h.svg({id:'svgI', style:'margin-top:0;outline:var(--DEBUG); overflow:visible;'}))(insight)
+
+
+
+dom(h.g({id:'faxout'}))(svgI)
+dom(h.g({id:'faxout_roots'}))(faxout)
+dom(h.g({id:'faxout_shoots'}))(faxout)
+
+
+dom(h.a ( {class:'reference'},h.span({class:'popout',style:`color:red;z-index:1`},'TESTING... TOGGLE MOVEMENT'), h.input({id:'motog',type:'checkbox',class:'icon '}))) (INPUTLABEL)
+
+
+readaloud_onclick=()=>E.emit('read aloud', ([INPUT.value,rate=1.25,volume=10,pitch=0.1]))
+dom(h.a ( {class:'reference',onclick:`readaloud_onclick()`},h.span({class:'popout',style:`color:red;z-index:1`},'TESTING... READ ALOUD'), h.input({id:'readaloud',type:'button',class:'icon '}))) (INPUTLABEL)
+
+
+
+
+dom(h.g({id:'clocks'},
+h.g({id:'meters'})
+,h.path ({id:'epicclock0',class:'epicclock',d:(epic(ra(3,))(timeOut()))})
+// ,h.path({id:'linclock',d:('M0,-5'+str8(ra(5)) (timeOut())), style:'stroke:blue; stroke-width:.2'  } )
+,h.path({id:'concclock0', class:'concclock',d:conc(ra(3))(slice(0,-2)(timeOut())) })
+,h.text(h.textPath({href:'#epicclock0',class:'timestr'},ts() ))
+))(svgU)
+mv([sca(2),tra(0,-4,0)])(clocks)
+dom(h.g({id:'XP'}))(svgI)
+dom(h.g({id:'RAINPUT'}))(XP)
+
+
+INPUT.value=
+`To see a world ... in a grain of sand -
+ And a heaven ... in a wild flower, 
+ Hold infinity ... in the palm of your hand, 
+ And eternity ... in an hour
+`
+aloud=(text,rate=1.25,volume=10,pitch=0.1)=>say(text,duh,speechSynthesis.getVoices()[0],rate,volume,pitch)
+
+
+
+
+
+
+/*--==== ----------------------- ====---*/
+/*----*/console.log(aloud`INITIALIZED`)/*----*/
+/*--==== ----------------------- ====---*/
+last=xs=>slice(-1)(xs)[0]
+head=xs=>xs[0]
+tail=xs=>slice(1)(xs)
+
+
+plength=pathEl=>pathEl.getTotalLength()
+position=pathEl=>prog=>pathEl.getPointAtLength(plength(pathEl)*prog)
+
+circ=(r=0.1,form={class:'testicle'})=>([cx,cy])=>h.circle(config(form)({r,cx,cy}))
+l=(o,form={})=>(...ps)=>h.polyline(config(form)({points:`${o} ${(ist.array(ps)?[ps]:[ps]).join(' ')}`
+  // ,style:`stroke-width:0.05; stroke:red;fill:var(--Ca5);opacity:0.2;`
+}))
+
+
+
+
+
+since=([s,i,n],c)=>({s:s[0],i:i[0],n,c:ist.array(c)?join('')(deepFlatten(c)):c,
+  e:map((x,i,o)=>div(s[0][i])(x) ) (i[0]) })
+leaves=(since
+  ,cond=x=>ist.array(x.n)
+  ,f=({s,i,n,c,e})=>push({i,c,e})
+  ,cat=[])=> (map((x,i,o)=>cond(x)?leaves(x.n,cond,f,cat):(f(x,i,o)(cat)))(since),cat)
+absolution=(leaves
+  ,radius=(a,b,c)=>ra(10)(b*1.3)  //+ra(5)(r-1)
+  ,theta=(a,b,c)=>convert(-PI/2,[0,1],[0,PI*2])(a)
+  ,offset=(x,i,o)=>
+        reduce(vecadd,[0,radius(0,0)]) (
+          slice(0,i)
+            (map((a,b,c)=>RT_XY([radius(a,b,c),theta(a,b,c)]))(o))
+          )
+        )=>
+    map(x=>map((a,b,c)=>(
+      { c:x.c
+      , r:radius(a,b,c)
+      , t:theta(a,b,c)
+      , i: slice(0,b+1)(x.i)
+      , XY:(RT_XY(
+          [radius(a,b,c)
+          ,theta(a,b,c)]
+          ,offset(a,b,c))
+      )}) )
+    (x.e))
+  (leaves)
+
+faddresses=(msg, factors=SPWC)=>flow
+  (fax(factors)()
+  ,flip(sindex)(since)
+  ,leaves
+  ,fallen=>absolution(fallen, (_,r)=>precisely(3)(ra(10)(r*1.4)), (a,b,c)=>precisely(3)
+    (convert(-PI/2 
+      +(b>1?convert(0)(c[b-1])
+        // +convert(0)(a)
+        :0),[0,1]
+      ,[0,PI*2])(a)))
+  )
+  ([msg])
+
+faxlines =fax=>paper=> 
+  dom(concat
+    (map(x=>l('0,0 ',{})(join()(map(a=>join(' ')(a.XY))(x))))(fax))
+    (h.g({class:'faxlines',style:'stroke:var(--TRANSLUSCENT);stroke-width:0.05;fill:none'}))
+    )(paper)
+
+dedupos=objects=> flow
+  (map(JSON.stringify)
+  ,dedup
+  ,map(JSON.parse)
+  )
+(objects)
+
+
+
+
+
+
+
+
+
+
+// dom(h.circle({cx:0,cy:0,r:1,style:'stroke:var(--Ca5)'}))(svgI)
+faxlines(faddresses (INPUT.value)) (faxout_roots)
+
+// dedupos(flatten(faddresses(INPUT.value)))
+
+
+
+sector = (a1,a0)=>(r1,r2=r1+1)=>
+(a1=convert()(clamp([1e-4,1])(a1)),a0=convert()(a0 )
+,_d.M(RT_XY([r1,a0]))
++_d.A(a1,a0)(r1)(undefined,undefined,0,lte(PI)(abs(a1-a0))?0:1)
++_d.L(RT_XY([r2,a1]))
++_d.A(a0,a1)(r2)(undefined,undefined,1,lte(PI)(abs(a0-a1))?0:1)
++_d.Z)
+emancipate=selector=>map(freeChild)($$(selector))
+
+sect=(r1=8,r2=r1+2,form={style:`stroke-width:0.05;stroke:blue;fill:var(--Cb5);opacity:0.2;`})=>([start,end])=>h.path(
+   config(form) ({ d:sector(start,end)(r1,r2), class:'testsect','data-bounds':`from ${start} to ${end} inner:${r1} outer:${r2}`, } ))
+
+cord = (r,c=[0,0],o=-PI/2,d=[0,PI*2])=>x=>arcPt(x)(r,c,o,d)
+co = (r,o)=>x=>arcPt(x)(r,o)
+appoint=(x,i,o)=>([o[i>0?i-1:0],x])
+
+numbed=(x,i,o)=>x
+dexing=(x,i,xs)=>i
+
+dis=(place=numbed)=>(xs, max=xs=>size(xs), idxs=dexing)=>
+  flow
+    (map((x,i,xs)=>div(max(xs)) (idxs(x,i,xs)) )
+    ,map((x,i,xs)=>place(x,i,xs))
+    )(xs)
+very=vs=>(SYM=circ(),target=XP)=>
+flow
+  (map(SYM)
+  ,map(flip(dom)(target))
+  )(vs)
+testtext=split(/\s+/gu)(punctuate(INPUT.value))
+tryxs=[1,3,4,5,44,55]
+// very(dis(appoint)(ns,n=>outof,numbed)) (sect(7,9))
+// very(dis(appoint)(testtext))(sect(10,10.5,{class:'testsect02'}))
+// very(dis(cord(16))(tryxs,outof=>60,numbed)) ()
+// very(dis(cord(8))(tryxs,outof=>24,numbed)) ()
+// very(dis(cord(14)) (testtext)) (circ(.01))
+
+very([[1/60,5/60],[44/60,55/60]])(sect(10,15 ,{style:`stroke:var(--C_5);stroke-width:.2;fill:none;opacity:.3;`}))
+
+
+dom((h.defs(
+  h.marker(
+    {id: 'TRYMARKER1'
+    ,viewBox:'-2 -2 4 4'
+    ,refX:0, refY:2
+    ,markerWidth:23,markerHeight:23
+    , orient:'auto'
+  }
+  // ,h.line({x1:0,x2:0,y1:-3,y2:3 ,style:`stroke-width:.2;stroke:var(--C_5);` })
+  ,circ(1,{style:`stroke-width:.5;stroke:var(--C_5);fill:var(--C_0);`})([0,0])  
+  )
+
+  ,h.marker(
+    {id: 'TRYANGLE'
+    ,viewBox:'-6 -6 12 12'
+    ,refX:15,refY:0
+    ,markerWidth:17,markerHeight:17
+    ,orient:'180'
+  },h.path({d:"M -5,-5 L0,5 L5,-5  z"
+      ,style:`stroke-width:2;stroke:var(--C_5);fill:var(--C_0);`
+    }))
+  )))(svgI)
+
+
+// ~Radially Expressed Information Generically Numbered
+REIGN =(xs,r=10)=> (dom(h.g({ }
+ , h.polyline(
+    {points: join(' ') (dis(cord(r,[0,0],0)) (xs))
+    ,style:`stroke:var(--C_3);stroke-width:.05;fill:none;opacity:.75;`
+    ,'marker-start':'url(#TRYMARKER1)'
+    ,'marker-end':'url(#TRYANGLE)'
+    })
+ ,...(map((x,i,o)=>h.text({ x:(i===size(o)-1?r/2:r),y:0,transform:`rotate(${360*(i+1)/size(o)} 0,0)`,style:`font-size:${i===size(o)-1?'calc(0.1*var(--SIZE1))':'calc(0.1*var(--SIZE0))'};fill:${i===size(o)-1?'var(--C_5)':'var(--C_1)'}`},h.tspan({id:'REIGN'+(i)},x))) (xs)
+  ) ))
+ )(RAINPUT)
+
+// regno=text=>(values(text)) 
+regno=text=>(match(RC.RE.words2)(punctuate(text))) // CHINESE DOESNT WORK
+// regno=text=>(dictFrom(text,xs=>match(RC.RE.phrases)(match(RC.RE.sentences)(xs))).words)
+// regno=text=>(dictFrom(text,xs=>match(RC.RE.sentences)(text)).words)
+REIGN(regno(INPUT.value))
+
+// $$("#REIGN-").style.fill='var(--C_5)'
+
+LASTREIGN=()=>(`REIGN${ist.array($$('[id*=REIGN]')) ? (size($$('[id*=REIGN]'))-1): '0' }`)
+
+
+inputB=(text)=>INPUT.value=join(' ')(tail(regno(INPUT.value)).concat(head((regno(INPUT.value)))))
+
+t2=(faxin=faddresses(INPUT.value))=>map(({t,r,i,c,XY})=>dom(h.g({class:'WORMSIGN reference',content:join('')(getpath(i)(fax(SPWC)()([INPUT.value])))}
+  // ,h.text({class:'',style:`font-size:${r/3};fill:red;`,x:XY[0],y:XY[1],transform:`rotate(${t*360-90} ${XY[0]},${XY[1]})`},size(i)>4?c:'')
+  ,circ(size(i)>4?.4:r/10,{i,class:'trycicle',style:`fill:${'none'};stroke-width:${r/50};stroke:${c==' '?'var(--TRANSLUSCENT) ':'var(--C_3)'}`})(XY)))(faxout_shoots))
+(dedupos(flatten(faxin)))
+
+t2()
+
+
+
+
+
+dom((sect(9,duh,{id:'hlarc',class:'selectionarc'}))([0,0]))(svgL) 
+
+
+getWordAt=(str,pos,left=str.slice(0,pos+1).search(/\S+$/),right=str.slice(pos).search(/\s/))=> right > 0 ? str.slice(left,right+pos) : str.slice(left)
+
+
+dom(h.circle({id:'indic',cy:'-10',cx:0,r:.5,style:'stroke:var(--Ca5);stroke-width:.5',offs:0 })
+//  ,h.text({id:'indicText',data:indic.offs},'TESTING')
+  ) (svgL)
+
+
+
+// map(x=>tail(x)+head(x],a))
+
+//     _______    _________   _____________
+//    / ____/ |  / / ____/ | / /_  __/ ___/
+//   / __/  | | / / __/ /  |/ / / /  \__ \
+//  / /___  | |/ / /___/ /|  / / /  ___/ /
+// /_____/  |___/_____/_/ |_/ /_/  /____/
+E=eventSink()
+timers.make(()=>attr($$('#clocks .epicclock'))({d:(epic(ra(3))(slice(0)(timeOut())))}),100)
+timers.make(()=>attr($$('#clocks .concclock'))({d:conc(ra(3))(slice(0,-1)(timeOut())) }),1000)
+timers.make(()=>$$('#clocks .timestr').innerHTML=ts(),1000)
+
+// INTERPRETER=(logics=)=>(x=>x[0]==="wiki:" ? (wiki(join('')(slice(1)(x))),  ADVISOR(slice(1)(x)) ): E.emit('interpret')) (INPUT.value.split(' '))
+
+
+
+Upon('input') (()=>motog.checked?E.on('move',mocap):E.off('move',mocap)  ) (motog)
+Upon('keydown')((e)=> within(movementKeys)(e.keyCode)? within(movementKeys)(e.keyCode)() : console.log(`${e.key} is not mapped`))(window)
+Upon('wheel') ((e)=> e.deltaY>0? mv([sca(1.1)])(e.target):mv([sca(1/1.1)]) (e.target) ) (document)
+
+Upon('keyup') ((e)=>E.emit('INPUT key',e)) (INPUT)
+
+
+E.on('INPUT key', (e)=> e.target.value?E.emit('INPUT change', {faxin:faddresses(INPUT.value) , src:e.target.value, key:e}):'' )
+
+
+E.on('INPUT change', dat=> dat.faxin?(freeChildren(faxout_roots), faxlines(dat.faxin) (faxout_roots)) :'' )
+E.on('INPUT change',(dat)=>INPUT.value.replace(/\s+/,'')?(freeChildren(RAINPUT),REIGN(regno(dat.src))):'')
+
+
+
+Upon('submit')(e=> (e.preventDefault()
+  ,INPUT.value? E.emit('interpret', INPUT.value):'' ) )
+    (TESF)
+
+
+E.on('interpret', ()=>(freeChildren(faxout_shoots),freeChildren(faxout_roots),t2()))
+
+/* ########>>>>~~~~~~~  XHR  ~~~~~~~<<<<######## */
+// TESTWIKI=()=>(x=>  x[0]==="wiki:" ? (wiki(join('')(slice(1)(x))),  ADVISOR(slice(1)(x)) ): E.emit('interpret')) (INPUT.value.split(' '))
+// Upon('submit')    (e=> (e.preventDefault(), TESTWIKI() )) (TESF)
+
+WIKIFACTORIZE=(xs)=> map(z=> ([entries(z), z.thumbnail? (z.thumbnail.source,entries(z)): entries(z)]))(map(x=>x[1])(xs))
+// filter(ist.string)
+E.on('xhrResult', (x)=>console.log(dom(draw(dis(WIKIFACTORIZE(xhrRes)
+)(ra(5))) )(svgD) ) )
+
+/* ########>>>>~~~~~~~  SELECTION  ~~~~~~~<<<<######## */
+// dom(['p',{id:'spv'}])// PREVIEW TARGET?!?
+// on("selectstart") ((e)=>console.log('Something was selected'+e.target.id), false) (document)
+Upon("selectionchange") ((e)=> 
+  (sel=getSelection()
+  ,selText=getSelection().toString()
+  // ,spv.textContent=selText
+  ,E.emit('selection', ({src:ist.text(sel.focusNode)?sel.focusNode.textContent:sel.focusNode.children[sel.focusOffset-1].value,sel:selText}))
+  )) (document)
+E.on('selection', dat=> dat.src.indexOf(dat.sel) > -1  ? (E.emit('hlsector', ([ (dat.src.indexOf(dat.sel)+0.01)/dat.src.length, (dat.src.indexOf(dat.sel)+dat.sel.length)/dat.src.length ]) ) )   :   'Source and selection do not match')
+
+
+/* ########>>>>~~~~~~~  SPEECHSYNTHESIS  ~~~~~~~<<<<######## */
+//TODO: SPEECHSYNTH SHOULD TAKE CONFIG SETTINGS AS DAT
+
+// E.on('interpret', (input)=> E.emit('read aloud', ([input,rate=1.25,volume=10,pitch=0.1])) )
+
+E.on('INPUT change', (input)=>input.key.key=='Escape'?speechSynthesis.cancel() : input.key.key=='Enter'&&speechSynthesis.speaking? (E.emit('speech resumed')):E.emit('INPUT key')) 
+  //E.emit('speech resumed'): E.emit('read aloud',(input)=> E.emit('read aloud', ([input,rate=1.25,volume=10,pitch=0.1]))))
+
+
+E.on('read aloud', (sayRC)=>speechSynthesis.speaking?(speechSynthesis.pause(),E.emit('speech paused')):(aloud(...(sayRC)),E.emit('speech speaking'))/*SWITCH TO DAT*/   )
+
+// E.on('speech speaking', ()=> /* SHOW STATUS IN ICON */)  
+
+E.on('speech paused',()=>(E.on('interpret',()=>speechSynthesis.resume()),E.emit('speech resumed')))
+
+E.on('speech resumed',()=>E.on('interpret',()=>speechSynthesis.pause()))
+/* TEXT FEEDBACK */
+Upon('end')       (e=> E.emit('readingend', e.elapsedTime)) (utter)
+Upon('error')     (e=> console.error(`Speech synthesis has a problem: ${e.error}`)) (utter)
+Upon('boundary')  (e=> E.emit('word', {idx:e.charIndex, src:utter.text, rate: e.charIndex/utter.text.length})) (utter) // TODO: only need to pass charIndex
+
+E.on('word', (dat)=>
+  (ADVISOR(getWordAt(dat.src, dat.idx))
+,ADVISOR(getWordAt(dat.src, dat.idx), $$('#'+LASTREIGN())  )
+// ,E.emit('INPUT change', {src: INPUT.value})
+  // ,indicate(dat.rate)   
+  ))
+E.on('readingend',(dat)=> indicate(0) )
+
+
+// E.on('INPUT change', (dat)=>INPUT.value?t2(dat.faxin):'')
+// LIGHT()
+//-------===================--------------===================-------
+//   _______________________2
+//  /_  __/ ____/ ___/_  __/
+//   / / / __/  \__ \ / /
+//  / / / /___ ___/ // /
+// /_/ /_____//____//_/
+//-------===================--------------===================-------
+// t3=FACTORIZE([':hello world!! TODO: mushroom, potato, salad...; testing out'])
+// map(x=>dom(h.polyline({points:join(' ')(x),'stroke-width':.1, fill:'none'}))(svgL))(t3)
+// vizfax = fax=> map(x=>dom(h.path({d:'M0,0 '+join(' ')(map(_d.L)(x)) , style:'stroke-width:.1;stroke:var(--TRANSLUSCENT)'}))(faxin)) (fax)
+// getpath(flow(split(','),join('n'),split(''))(attr($$('#faxout circle')[13])('i') )) (sindex(fax(SPWC)()([INPUT.value]))(since))
+
+
+
+dom(h.a({id:'icon1'},h.svg({id:'crysClocks', class:'a icon svgIcon reference'},h.text({class:'popout',transform:'translate(-30,-20)'},'TESTING... legibility of crys clock glyph'))))(INPUTLABEL)
+
+crys(clocks)(crysClocks)
+Upon('click')(()=>(freeChildren(crysClocks),crys(clocks)(crysClocks)))(icon1)
+
+dom(h.a(h.svg({id:'crysFaxin', class:'a icon svgIcon reference'},h.text({class:'popout',transform:'translate(-30,-20)'},'TESTING...FOR INPUT FACTORS'))))(INPUTLABEL)
+E.on('INPUT change', ()=> (map(freeChild)($$('#crysFaxin g')), crys($$('#faxout .faxlines'),{style:`stroke:white;stroke-width:.1;fill:none`})(crysFaxin)))
+crys($$('#faxout .faxlines'))(crysFaxin)
+
+
+TESTTEXT1=`A key is: a path, that opens locks. a lock is: a key that, closes gates. a gate is: a lock that, paths to: keys to: futures, blocks.`
+TESTTEXT2=`vacuums are the means to create concentration gradients. gradients are asymmetries from which energy is obtained.`
+// mv([sca(1)])(svgI)
+
+
+ready=(fn)=> {
+  if(document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
+    fn(); } else {document.addEventListener('DOMContentLoaded', fn); } }
+
+
+mv([tra(0,0,100)])(ROOM)
+// console.log(aloud``))
+/*
+ready(console.log(aloud`
+HELLO! DOCUMENT IS IN READY STATE...
+are YOU ready to go?
+
+NO ONE KNOWS: HOW DEEP THE RABBIT HOLE GOES...
+BUT IF YOU WOULD BE AN ANSWER...
+FOR WHICH NOTHING THAT ALREADY IS...
+WILL SUFFICE THE PRICE OF YOUR LIFE...
+WHICH YOU WOULD HAPPILY PAY TO FIND...
+THAT QUESTION THAT CALLED YOU INTO
+THIS BEAUTIFUL SHITHOLE OF A WORLD...
+YOU MIGHT AGREE THAT YOUR OWN QUESTIONS...
+THE DEEPEST ONES TO WHICH ANSWERS EXIST...
+MUST LIE... AND LIE DO THEY:
+FURTHEST FROM THE MENIAL...
+DEEPER THAN THE METAL,
+COME CODER, (*)
+CODE CLOSER, (**)
+CLOSER TO THE MENTAL...
+
+Where
+Chaos reigns... 
+The empty sky is your only witness...
+Ready to go!!!
+`
+// (* as all are authors of their lives and all authors code)
+// (** as all authors inhabit bodies and minds written in the indelible code of a cosmic language life forgets to speak when it is borne)
+))
+*/
+
+
+DOCREADYTEXT=`FURTHEST FROM THE MENIAL...
+DEEPER THAN THE METAL,
+COME CODER, (*)
+CODE CLOSER, (**)
+CLOSER TO THE MENTAL...
+Where
+Chaos reigns... 
+The empty sky is your only witness...
+
+Core functions are loaded.
+Document state is ready. 
+READY TO GO!!!
+BEST VIBES! HAVE FUN!! X+
+`
+
+MISSEDBRIEF= 'It is not opportunities nor materials that are missed... but the people we have met, the people we will meet, and the people - who we will never - in this life, meet again'
+TIMEBRIEF= 'It is not time we lose; but courage.'
+TIMETEXT=`
+--IN SIN-- 
+Lately, it occurred to you, 
+"Time", whatever it is, 
+Is clearly something you cannot run away from 
+Nor out of. 
+It is in time that 
+every breath we take, every peace we break, 
+every small and large mistake, 
+every love we stake 
+every promise that we fake  
+every dream we forget to make 
+every outstretched hand we forsake 
+every hard we beat... 
+becomes real and meaningful.
+
+It is in moments that they live, 
+and in time that they will leave. 
+
+"Time" is the only thing of value you really have, 
+It is your adversary and your friend, 
+It keeps by you in your deepest desolation, 
+and it keeps on keeping by. 
+Time is not something to lose,  
+rather something for those lives  
+stricken by pain, want of meaning...
+It is not something to lose but for  
+those lives to become lost in. 
+Tomorrow surely never surely never comes, 
+and before each passing slip 
+and sleep in passing befalls you, 
+
+You think perhaps: 
+It is not time that is lost 
+But the courage to remember what you have truly lost, 
+and the courage to find meaning in what you truly have. 
+
+Don't give up, 
+you have not yet earned the right: 
+as long as you breathe and your fire burns, 
+while your heart beats and your mind still turns, 
+then: "it's not over yet", 
+it's only just begun. 
+There is no time for if-onlies, 
+only time for change 
+And you must not change this world,  
+but yourself... and you can... 
+as long as you don't stop believing 
+in the only thing you can believe in: 
+the ones that you love - 
+the ones that you owe but never own -
+the ones that you failed but shall never forget -
+the ones that made you, you. 
+You can still change  
+-if and only if: 
+as you live in this state  
+as you live in SIN: 
+you never give up. 
+
+It is not time we lose, but courage. 
+
+Chaos reigns, and the empty sky is your only witness. 
+
+Love Sorry Thanks.
+X+
+`
+AOI1STANZA=`To see a world ... in a grain of sand -
+ And a heaven ... in a wild flower, 
+ Hold infinity ... in the palm of your hand, 
+ And eternity ... in an hour`
+
+// readaloud_onclick=()=>E.emit('read aloud', ([INPUT.value,rate=1.25,volume=10,pitch=0.1]))
+// dom(h.a ( {class:'reference',onclick:`readaloud_onclick()`},h.span({class:'popout',style:`color:red;z-index:1`},'TESTING... READ ALOUD'), h.input({id:'readaloud',type:'button',class:'icon '}))) (INPUTLABEL)
+
+ready(ADVISOR(DOCREADYTEXT),console.log(aloud(DOCREADYTEXT)))
+</script>
