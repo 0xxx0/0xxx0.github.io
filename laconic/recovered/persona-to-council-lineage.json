@@ -1,0 +1,139 @@
+{
+  "schema": "laconic-persona-council-lineage/v0.1",
+  "recovered": "2026-09-20",
+  "status": "DIRECT_CHAIN_PARTIAL_LATER_BRIDGE_CONFIRMED",
+  "invariant": "The Council did not originate as a named council. The recoverable mechanism first appears as deployable persona experiments, then as multiple differentiated inner voices, then as an explicit serialized Council canon.",
+  "stages": [
+    {
+      "stage": 1,
+      "label": "PERSONA_EXPERIMENT_AS_REAL_BEHAVIOR",
+      "date": "2024-12-29",
+      "evidence_class": "DIRECT_TURN",
+      "user_message_id": "bbb212fd-8de3-49eb-bd6f-09fcf1420ea9",
+      "user_exact": "The im trying out new personality settings thing is literally true and I've said it less cool sounding before I think. \n\nCan you generate for scenarios or situations you haven't yet done",
+      "mechanism": "persona variation is framed as an actual experiment in behavior, not merely fictional character writing"
+    },
+    {
+      "stage": 2,
+      "label": "THREE_DIRECTION_SELECTION",
+      "date": "2024-12-29",
+      "evidence_class": "DIRECT_PARENT_CHILD_CHAIN",
+      "assistant_message_id": "6213aeeb-66ad-4164-ba7c-5d971646a96e",
+      "assistant_next_steps": [
+        "Tackle more untouched scenarios",
+        "Expand on your personal experiments (trying out personality settings, testing personas)",
+        "Build more everyday classics for subtle situations"
+      ],
+      "user_message_id": "bbb21dde-e87e-4dcc-93ad-d0e2c6b34cef",
+      "user_exact": "Every one of those 3 especially 2",
+      "adoption": "all three directions selected; strongest emphasis on persona experimentation"
+    },
+    {
+      "stage": 3,
+      "label": "PERSONA_EXPERIMENT_BECOMES_EXPLICIT_CATEGORY",
+      "date": "2024-12-29",
+      "evidence_class": "DIRECT_TURN",
+      "assistant_message_id": "2032f02c-5f4b-4392-860e-53ba513854b1",
+      "exact_interpretation": "double down on the three categories, especially `testing personas` and experimenting with personality settings",
+      "categories": [
+        "Untouched Scenarios",
+        "Testing Personas and Experimenting with Personality Settings",
+        "Subtle One-Liners for Everyday Situations"
+      ]
+    },
+    {
+      "stage": 4,
+      "label": "ALL_THREE_RETAINED",
+      "date": "2024-12-29",
+      "evidence_class": "DIRECT_TURN",
+      "user_message_id": "bbb21bbf-993d-47fe-9432-ac4600fb60bf",
+      "user_exact": "All 3",
+      "adoption": "explicit continuation approval"
+    },
+    {
+      "stage": 5,
+      "label": "NAMED_ARCHETYPES",
+      "date": "2024-12-29",
+      "evidence_class": "DIRECT_TURN",
+      "assistant_message_id": "5891a9cc-8b1d-4fc0-8e70-ebdc3186dc91",
+      "framing": "persona experiments / new scenarios / polished one-liners",
+      "persona_archetypes": [
+        "Mysterious Persona",
+        "Chaotic Persona",
+        "Deliberately Blunt Persona"
+      ],
+      "note": "This is still mode-switching / voice-skin work, not yet a simultaneous inner council."
+    },
+    {
+      "stage": 6,
+      "label": "PERSONAS_PLUS_SCENARIOS_PRIORITIZED",
+      "date": "2024-12-29",
+      "evidence_class": "DIRECT_TURN",
+      "user_message_id": "bbb215a5-090d-4072-9038-73373c9e2c96",
+      "user_exact": "1 and 2",
+      "binds_to": [
+        "new personas",
+        "more untouched situations"
+      ],
+      "adoption": "persona branch remains explicitly selected over line-polish alone"
+    },
+    {
+      "stage": 7,
+      "label": "MULTI_VOICE_INTERNAL_SELVES_REQUEST",
+      "date": "later in Response Consolidation Strategy; exact turn date still open",
+      "evidence_class": "RECOVERED_EXACT_PROMPT_SNIPPET_SECONDARY_SOURCE",
+      "user_exact": "Summarise all the laconic iconic scripted responses categorise organise them. Maybe start by indexing all of the stuff generatednfirst ... rheres a wuitr a bit of overlap. I wanna consolidate the list filter out the low quality ones. maybe try to generate 5 or.6.distinct styles and voices for rrsspective personas internal selves. but consolidate the bangers and highest quality highest frequency come backs and or phrases to practice.",
+      "mechanism_change": "persona modes become a deliberately plural set of internal voices",
+      "open": "recover direct source message id/date and exact generated 5–6 voice outputs"
+    },
+    {
+      "stage": 8,
+      "label": "MULTI_SELF_DIALOGUE",
+      "date": "later Response Consolidation Strategy; exact initiating turns partly open",
+      "evidence_class": "THREAD_REPORT_SECONDARY_EVIDENCE",
+      "recovered_report_claims": [
+        "user asks for `5 selves chatter – realistic personas`",
+        "user asks for `Dynamics interactions ya full inner dialogue`",
+        "experiments include inner group-chat and ritual/council forms",
+        "work expands from simple one-liners into multi-self chatter and inner dialogues"
+      ],
+      "mechanism_change": "voices stop being mutually exclusive style presets and begin interacting with one another",
+      "open": "recover exact initiating user turns and first assistant multi-self scene"
+    },
+    {
+      "stage": 9,
+      "label": "COUNCIL_CANONIZATION",
+      "date": "2025-10-21",
+      "evidence_class": "DIRECT_LATER_SOURCE",
+      "user_intent": "consolidate previous episodes, including material before Episode 1 and other Council-of-Selves or similar work, with TOC/workplan/aesthetic integration",
+      "canonical_master_seed_claims": [
+        "Council of Selves / Inner Bureau unifies pre-Episode persona sketches, laconic one-liners, micro-plays, sacred invocations, Episodes I–V",
+        "inner archetypes speak, argue, joke, and transform",
+        "Voice Bank Integration remains an explicit working mode"
+      ],
+      "mechanism_change": "interactive plurality becomes a serialized named world with cast, episodes, visual grammar, and canon-management"
+    }
+  ],
+  "user_adoption_summary": {
+    "strongest_direct": [
+      "2024-12-29: persona experimentation selected especially",
+      "2024-12-29: `All 3` retains persona/scenario/line branches",
+      "2024-12-29: `1 and 2` continues personas + scenarios",
+      "later: user explicitly requests 5–6 distinct internal-persona voices",
+      "2025-10-21: user asks to consolidate previous Council episodes and related prior work"
+    ],
+    "do_not_infer": [
+      "Do not call the Dec 2024 named archetypes the Council yet.",
+      "Do not claim exact 5–6 voice identities until direct outputs are recovered.",
+      "Do not treat later master-seed summaries as proof that every listed episode/persona existed in Dec 2024."
+    ]
+  },
+  "compressed_lineage": "deployable one-liners → persona experiments → named persona archetypes → plural internal voices → interacting selves → Council of Selves canon",
+  "next_recovery_targets": [
+    "exact direct user turn for `5 selves chatter – realistic personas`",
+    "exact direct user turn for `Dynamics interactions ya full inner dialogue`",
+    "first assistant scene where multiple selves interact simultaneously",
+    "exact 5–6 voice output set",
+    "first occurrence of the literal name `Council of Selves` in the thread"
+  ]
+}
