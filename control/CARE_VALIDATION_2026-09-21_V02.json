@@ -31,10 +31,12 @@
     "continuity_course_export": true,
     "field_index_version": "0.2",
     "planning_exit": "SPECIFIED",
-    "fhir_interop": "CANDIDATE"
+    "fhir_interop": "CANDIDATE",
+    "public_placeholder_scrubbed": true,
+    "zero_measurement_review": true
   },
   "evidence": {
-    "care_html_git_blob": "0842b6bbd55c1a377fc5811b515d988471ccb5d1",
+    "care_html_git_blob": "157857e4d27f509baa73e79045145f1e42247282",
     "care_contract_git_blob": "5c2cfc5cdfa89228352aa721e90f59ffc7d0790f",
     "care_release_git_blob": "490eda355fc9ccacb43582f1a0f3c8bf1aa74347",
     "care_case_schema_git_blob": "ee8852696b836396aca54e1a1d67f8da01e72bed",
