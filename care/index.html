@@ -46,10 +46,30 @@ button:hover,button:focus{background:#141a1d;outline:none;border-color:#536168}.
 footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;padding-top:8px;border-top:1px solid var(--line);color:#66737a;font-size:8px}
 @media(max-width:760px){header{grid-template-columns:1fr}.local{text-align:left}.top{grid-template-columns:1fr}.subjectbar{grid-template-columns:1fr 90px}.subjectbar select{grid-column:1/-1}.observeGrid{grid-template-columns:1fr}.mapwrap{height:300px}.mapCard{order:2}.compose{order:1}.casegrid,.formgrid{grid-template-columns:1fr}.caseStrip{grid-template-columns:1fr 1fr}.event{grid-template-columns:70px 1fr}.event .trend{grid-column:2}.reviewMetrics{grid-template-columns:1fr 1fr}.reviewMetrics .rm:last-child{grid-column:1/-1}footer{display:block}}
 </style>
+<style>
+.courseBand{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:0 0 8px}
+.courseCell{background:#0b0f12;padding:9px;min-height:72px}
+.courseCell b{display:block;font-size:7px;letter-spacing:.1em;color:var(--muted)}
+.courseCell span{display:block;margin-top:5px;font:10px/1.4 system-ui,sans-serif;white-space:pre-wrap}
+.courseCell.gate span{color:var(--gold)}
+.metricBoard{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin:0 0 8px}
+.metricCard{background:#0b0f12;padding:9px;min-height:108px}
+.metricHead{display:flex;gap:8px;align-items:baseline}.metricHead b{font:750 11px system-ui,sans-serif}.metricHead span{margin-left:auto;color:var(--muted);font-size:8px}
+.metricLatest{font:800 22px/1 system-ui,sans-serif;margin-top:7px}.metricDelta{font-size:8px;color:var(--gold);margin-top:3px}
+.spark{width:100%;height:34px;margin-top:8px;display:block}.spark polyline{fill:none;stroke:var(--cool);stroke-width:2;vector-effect:non-scaling-stroke}.spark circle{fill:var(--cool)}
+.courseEmpty{border:1px solid var(--line);padding:9px;color:var(--muted);margin-bottom:8px}
+.pathHint{color:#8f9ba0;font-size:8px;margin-top:5px}
+@media print{
+ body{background:#fff;color:#111;padding:0}.top,.tabs,#view-observe,#view-follow,.toolbar,.review,footer,.modal{display:none!important}
+ #view-brief{display:block!important}.brief{border:0;background:#fff;color:#111;min-height:0;font-size:11pt;line-height:1.45}
+ header{border-bottom:2px solid #111}header h1{font-size:34pt}.sub,.local{color:#444}
+}
+@media(max-width:760px){.courseBand{grid-template-columns:1fr 1fr}.metricBoard{grid-template-columns:1fr}}
+</style>
 </head>
 <body><main>
 <header>
-<div><div class="ey">CARE / FIELD · CONTINUITY × BODYFIELD × HUMAN PORT</div><h1>WHAT CHANGED?</h1><div class="sub">Compact observation, longitudinal follow-up and clinician/vet handoff. Record what happened first; interpretation stays separate.</div></div>
+<div><div class="ey">CARE / FIELD · COURSE × CONTINUITY × BODYFIELD × HUMAN PORT</div><h1>WHAT CHANGED?</h1><div class="sub">Compact observation, longitudinal follow-up and clinician/vet handoff. Record what happened first; interpretation stays separate.</div></div>
 <div class="local">PUBLIC CODE · PRIVATE LOCAL STATE<br>CASE ≠ BRIEF ≠ SEND</div>
 </header>
 
@@ -98,8 +118,9 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
           <div class="field"><label>WORKFLOW STATUS</label><select id="eventStatus"><option value="">— not applicable —</option><option>PLANNED</option><option>SCHEDULED</option><option>PERFORMED</option><option>RESULTED</option><option>REVIEWED</option><option>ACTED</option></select></div>
           <div class="field"><label>WHEN / ONSET</label><input id="eventTime" type="datetime-local"></div>
           <div class="field"><label>EVIDENCE</label><select id="evidenceKind"><option>SELF_OBSERVED</option><option>CAREGIVER_OBSERVED</option><option>MEASURED</option><option>CLINICIAN_TOLD</option><option>REPORT</option><option>PHOTO_VIDEO</option><option>OTHER</option></select></div>
-          <div class="field"><label>MEASUREMENT</label><input id="measureValue" placeholder="e.g. 40"></div>
-          <div class="field"><label>UNIT / LABEL</label><input id="measureUnit" placeholder="mmHg / °C / breaths/min / …"></div>
+          <div class="field"><label>MEASUREMENT NAME</label><input id="measureLabel" placeholder="PSA / eye pressure / temperature / weight…"></div>
+          <div class="field"><label>VALUE</label><input id="measureValue" placeholder="e.g. 40"></div>
+          <div class="field"><label>UNIT</label><input id="measureUnit" placeholder="mmHg / ng/mL / °C / kg…"></div>
         </div>
         <div class="field" style="border:1px solid var(--line);border-top:0"><label>INTERPRETATION · OPTIONAL · NOT OBSERVATION</label><textarea id="interpretation" placeholder="What do you think it might mean? Kept separate from what was observed."></textarea></div>
         <div class="field" style="border:1px solid var(--line);border-top:0"><label>SOURCE / ATTACHMENT CUE</label><input id="sourceCue" placeholder="report name, photo filename, message, person…"></div>
@@ -115,6 +136,13 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
     <div class="caseCell"><b>TREATMENT</b><span id="followTreatment">—</span></div>
     <div class="caseCell"><b>ASK</b><span id="followAsk">—</span></div>
   </div>
+  <div class="courseBand">
+    <div class="courseCell"><b>CURRENT PHASE</b><span id="followPhase">—</span></div>
+    <div class="courseCell"><b>NEXT STEP</b><span id="followNext">—</span></div>
+    <div class="courseCell gate"><b>IF / WHEN · DECISION GATE</b><span id="followGate">—</span></div>
+    <div class="courseCell"><b>OWNER / WHEN</b><span id="followOwner">—</span></div>
+  </div>
+  <div id="metricBoard" class="metricBoard"></div>
   <div class="timeline" id="timeline"><div class="empty">No observations yet.</div></div>
 </section>
 
@@ -124,6 +152,7 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
     <button id="buildBrief" class="primary">BUILD BRIEF</button>
     <button id="copyBrief">COPY</button>
     <button id="humanPort">HUMAN PORT →</button>
+    <button id="printBrief">PRINT / PDF</button>
     <button id="stepBack">STEP BACK</button>
   </div>
   <div class="review" id="review" hidden>
@@ -152,6 +181,10 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
       <div class="box"><div class="label">WHAT DO I NEED?</div><textarea id="ask" placeholder="The actual question / decision / help needed."></textarea></div>
       <div class="box"><div class="label">UNKNOWNS / OPEN QUESTIONS</div><textarea id="unknowns" placeholder="One per line."></textarea></div>
       <div class="box"><div class="label">IDENTITY / HANDOFF</div><textarea id="identityNote" placeholder="Who is this definitely about? Any caregiver/handoff constraint?"></textarea></div>
+      <div class="box"><div class="label">CURRENT PHASE</div><textarea id="coursePhase" placeholder="Where are we in the care path now? e.g. monitoring after treatment / preparing for procedure."></textarea></div>
+      <div class="box"><div class="label">NEXT STEP</div><textarea id="courseNext" placeholder="The next action already planned or deliberately chosen."></textarea></div>
+      <div class="box"><div class="label">IF / WHEN · DECISION GATE</div><textarea id="courseGate" placeholder="Conditional path only if explicitly known: IF / WHEN ___, THEN consider / do ___."></textarea><input id="courseGateSource" style="margin-top:6px;border:1px solid var(--line)" placeholder="gate source: clinician/report/person/date"></div>
+      <div class="box"><div class="label">OWNER / WHEN</div><input id="courseOwner" style="border:1px solid var(--line)" placeholder="who carries the next step?"><input id="courseDue" style="margin-top:6px;border:1px solid var(--line)" placeholder="date / window / trigger"></div>
     </div>
     <div class="toolbar">
       <button id="importBtn">IMPORT JSON</button><input id="importFile" type="file" accept=".json,application/json" hidden>
@@ -163,7 +196,7 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
   </div>
 </div>
 
-<footer><span>OBSERVE → FOLLOW → BRIEF · raw observation before interpretation</span><span>local-first · no server submission</span></footer>
+<footer><span>OBSERVE → FOLLOW COURSE → BRIEF · raw observation before interpretation</span><span>local-first · no server submission</span></footer>
 
 <script>
 (()=>{'use strict';
@@ -172,7 +205,7 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const now=()=>new Date().toISOString();
 const uid=p=>p+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const blank=()=>({schema:'0xxx0/care-case/v0.1',id:uid('care'),created_at:now(),updated_at:now(),subject:{label:'',kind:'PERSON'},baseline:'',treatment:'',plan:'',plan_source:'',ask:'',unknowns:[],identity_note:'',events:[],imports:[]});
+const blank=()=>({schema:'0xxx0/care-case/v0.2',id:uid('care'),created_at:now(),updated_at:now(),subject:{label:'',kind:'PERSON'},baseline:'',treatment:'',plan:'',plan_source:'',ask:'',unknowns:[],identity_note:'',course:{phase:'',next:'',gate:'',gate_source:'',owner:'',due:''},events:[],imports:[]});
 let C=blank(),view='observe',mapView='FRONT',mapMode='TAP',selected=new Set(),trace=[],qualities=new Set(),trend='NEW',ghostRegions=new Set(),ghostTrace=[];
 
 const qualitySets={
@@ -192,11 +225,11 @@ function saveStore(o){localStorage.setItem(KEY,JSON.stringify(o))}
 function pullCase(){
  C.subject.label=$('#subject').value.trim();C.subject.kind=$('#subjectKind').value;
  C.baseline=$('#baseline').value.trim();C.treatment=$('#treatment').value.trim();C.plan=$('#plan').value.trim();C.plan_source=$('#planSource').value.trim();
- C.ask=$('#ask').value.trim();C.unknowns=$('#unknowns').value.split('\n').map(x=>x.trim()).filter(Boolean);C.identity_note=$('#identityNote').value.trim();C.updated_at=now();
+ C.ask=$('#ask').value.trim();C.unknowns=$('#unknowns').value.split('\n').map(x=>x.trim()).filter(Boolean);C.identity_note=$('#identityNote').value.trim();C.course=C.course||{};C.course.phase=$('#coursePhase').value.trim();C.course.next=$('#courseNext').value.trim();C.course.gate=$('#courseGate').value.trim();C.course.gate_source=$('#courseGateSource').value.trim();C.course.owner=$('#courseOwner').value.trim();C.course.due=$('#courseDue').value.trim();C.updated_at=now();
 }
 function pushCase(){
  $('#subject').value=C.subject?.label||'';$('#subjectKind').value=C.subject?.kind||'PERSON';$('#baseline').value=C.baseline||'';$('#treatment').value=C.treatment||'';
- $('#plan').value=C.plan||'';$('#planSource').value=C.plan_source||'';$('#ask').value=C.ask||'';$('#unknowns').value=(C.unknowns||[]).join('\n');$('#identityNote').value=C.identity_note||'';
+ $('#plan').value=C.plan||'';$('#planSource').value=C.plan_source||'';$('#ask').value=C.ask||'';$('#unknowns').value=(C.unknowns||[]).join('\n');$('#identityNote').value=C.identity_note||'';C.course=C.course||{phase:'',next:'',gate:'',gate_source:'',owner:'',due:''};$('#coursePhase').value=C.course.phase||'';$('#courseNext').value=C.course.next||'';$('#courseGate').value=C.course.gate||'';$('#courseGateSource').value=C.course.gate_source||'';$('#courseOwner').value=C.course.owner||'';$('#courseDue').value=C.course.due||'';
 }
 function renderCases(){
  const db=store(),sel=$('#caseList'),ids=Object.keys(db).sort((a,b)=>String(db[b].updated_at||'').localeCompare(String(db[a].updated_at||'')));
@@ -276,7 +309,7 @@ function renderQualityChips(){
 }
 function setView(v){view=v;$$('.tab').forEach(b=>b.classList.toggle('on',b.dataset.view===v));$$('.view').forEach(el=>el.hidden=el.id!=='view-'+v);if(v==='follow')renderFollow();if(v==='brief')buildBrief()}
 function eventTimeLocal(){const d=new Date(),z=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())+'T'+z(d.getHours())+':'+z(d.getMinutes())}
-function resetComposer(){selected.clear();trace=[];qualities.clear();trend='NEW';$('#note').value='';$('#measureValue').value='';$('#measureUnit').value='';$('#interpretation').value='';$('#sourceCue').value='';$('#eventStatus').value='';$('#eventType').value='OBSERVATION';$('#magnitude').value=4;$('#magOut').textContent='4';$('#eventTime').value=eventTimeLocal();renderMap()}
+function resetComposer(){selected.clear();trace=[];qualities.clear();trend='NEW';$('#note').value='';$('#measureLabel').value='';$('#measureValue').value='';$('#measureUnit').value='';$('#interpretation').value='';$('#sourceCue').value='';$('#eventStatus').value='';$('#eventType').value='OBSERVATION';$('#magnitude').value=4;$('#magOut').textContent='4';$('#eventTime').value=eventTimeLocal();renderMap()}
 function latestPrior(){
  return (C.events||[]).slice().sort((a,b)=>String(b.at).localeCompare(String(a.at)))[0]||null
 }
@@ -292,31 +325,46 @@ function addEvent(){
    id:uid('evt'),at:$('#eventTime').value?new Date($('#eventTime').value).toISOString():now(),
    type:$('#eventType').value,status:$('#eventStatus').value||null,
    raw_note:note,regions,trace:trace.map(p=>({...p})),qualities:[...qualities],magnitude:Number($('#magnitude').value),
-   trend,evidence_kind:$('#evidenceKind').value,measurement:measurement?{value:measurement,unit:$('#measureUnit').value.trim()}:null,
+   trend,evidence_kind:$('#evidenceKind').value,measurement:measurement?{label:$('#measureLabel').value.trim()||null,value:measurement,unit:$('#measureUnit').value.trim()}:null,
    interpretation:$('#interpretation').value.trim()||null,source_cue:$('#sourceCue').value.trim()||null,prior_same_region_id:prior?.id||null
  });
  C.updated_at=now();ghostRegions=new Set(regions);ghostTrace=trace.map(p=>({...p}));resetComposer();renderFollow();flash('RETURNED ✓');
 }
 function flash(t){const b=$('#returnObs'),old=b.textContent;b.textContent=t;setTimeout(()=>b.textContent=old,1100)}
+function metricLabel(e){return e.measurement?.label||e.measurement?.unit||e.raw_note||'measurement'}
+function sparklineSVG(xs){
+ const nums=xs.map(e=>Number(e.measurement?.value)).filter(Number.isFinite);if(!nums.length)return '';
+ const min=Math.min(...nums),max=Math.max(...nums),span=max-min||1,w=180,h=30,p=3;
+ const pts=nums.map((v,i)=>[(nums.length===1?w/2:p+i*(w-2*p)/(nums.length-1)),h-p-(v-min)*(h-2*p)/span]);
+ return '<svg class="spark" viewBox="0 0 '+w+' '+h+'" preserveAspectRatio="none"><polyline points="'+pts.map(q=>q[0].toFixed(1)+','+q[1].toFixed(1)).join(' ')+'"/>'+pts.map(q=>'<circle cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="2"/>').join('')+'</svg>'
+}
+function renderMeasurements(xs){
+ const numeric=xs.filter(e=>e.measurement&&Number.isFinite(Number(e.measurement.value)));
+ const groups={};numeric.slice().reverse().forEach(e=>{const k=metricLabel(e);(groups[k]||(groups[k]=[])).push(e)});
+ const keys=Object.keys(groups);
+ $('#metricBoard').innerHTML=keys.length?keys.map(k=>{const a=groups[k],last=a[a.length-1],prev=a[a.length-2],lv=Number(last.measurement.value),pv=prev?Number(prev.measurement.value):null,delta=prev&&Number.isFinite(pv)?lv-pv:null,unit=last.measurement.unit||'';return '<div class="metricCard"><div class="metricHead"><b>'+esc(k)+'</b><span>n='+a.length+'</span></div><div class="metricLatest">'+esc(last.measurement.value+(unit?' '+unit:''))+'</div><div class="metricDelta">'+(delta===null?'single recorded value':'Δ '+(delta>0?'+':'')+delta.toPrecision(3)+' from prior')+'</div>'+sparklineSVG(a)+'</div>'}).join(''):'<div class="courseEmpty" style="grid-column:1/-1">No numeric measurement course yet. Measurements remain optional.</div>'
+}
 function renderFollow(){
  pullCase();$('#followSubject').textContent=C.subject.label||'unnamed';$('#followBaseline').textContent=C.baseline||'—';$('#followTreatment').textContent=C.treatment||'—';$('#followAsk').textContent=C.ask||'—';
- const xs=(C.events||[]).slice().sort((a,b)=>String(b.at).localeCompare(String(a.at)));
+ C.course=C.course||{};$('#followPhase').textContent=C.course.phase||'—';$('#followNext').textContent=C.course.next||'—';$('#followGate').textContent=C.course.gate||'—';$('#followOwner').textContent=[C.course.owner,C.course.due].filter(Boolean).join(' · ')||'—';
+ const xs=(C.events||[]).slice().sort((a,b)=>String(b.at).localeCompare(String(a.at)));renderMeasurements(xs);
  $('#timeline').innerHTML=xs.map(e=>{
   const reg=(e.regions||[]).join(' · ')||(e.trace?.length?'painted trace':'no location');
-  const meas=e.measurement?(' · '+e.measurement.value+(e.measurement.unit?' '+e.measurement.unit:'')):'';
+  const meas=e.measurement?(' · '+(e.measurement.label?e.measurement.label+' ':'')+e.measurement.value+(e.measurement.unit?' '+e.measurement.unit:'')):'';
   return '<div class="event" data-id="'+esc(e.id)+'"><div class="eventtime">'+esc(new Date(e.at).toLocaleString([], {month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}))+'</div><div><b>'+esc(reg)+'</b><div class="txt">'+esc(e.raw_note||'(structured event)')+'</div><div class="meta">'+esc(e.type+(e.status?' · '+e.status:'')+' · '+e.evidence_kind+meas+(e.qualities?.length?' · '+e.qualities.join(', '):''))+'</div></div><div class="trend '+esc(e.trend)+'">'+esc(e.trend)+'</div></div>'
  }).join('')||'<div class="empty">No observations yet.</div>';
- $$('#timeline .event').forEach(el=>el.onclick=()=>{const e=C.events.find(x=>x.id===el.dataset.id);if(!e)return;selected=new Set(e.regions||[]);trace=(e.trace||[]).map(p=>({...p}));const p=e.prior_same_region_id&&C.events.find(x=>x.id===e.prior_same_region_id);ghostRegions=new Set(p?.regions||[]);ghostTrace=(p?.trace||[]).map(x=>({...x}));setView('observe');renderMap()});
+ $('#timeline .event').forEach(el=>el.onclick=()=>{const e=C.events.find(x=>x.id===el.dataset.id);if(!e)return;selected=new Set(e.regions||[]);trace=(e.trace||[]).map(p=>({...p}));const p=e.prior_same_region_id&&C.events.find(x=>x.id===e.prior_same_region_id);ghostRegions=new Set(p?.regions||[]);ghostTrace=(p?.trace||[]).map(x=>({...x}));setView('observe');renderMap()});
 }
 function brief(){
  pullCase();const xs=(C.events||[]).slice().sort((a,b)=>String(b.at).localeCompare(String(a.at))),latest=xs[0];
  const lines=['CARE BRIEF · '+(C.subject.label||'UNNAMED')+' · '+C.subject.kind,'UPDATED '+C.updated_at];
  if(C.ask)lines.push('','ASK',''+C.ask);
+ C.course=C.course||{};if(C.course.phase||C.course.next||C.course.gate){lines.push('','CARE PATH');if(C.course.phase)lines.push('CURRENT · '+C.course.phase);if(C.course.next)lines.push('NEXT · '+C.course.next);if(C.course.gate)lines.push('IF / WHEN · '+C.course.gate+(C.course.gate_source?'\nSOURCE · '+C.course.gate_source:''));if(C.course.owner||C.course.due)lines.push('OWNER / WHEN · '+[C.course.owner,C.course.due].filter(Boolean).join(' · '));}
  if(latest){const reg=(latest.regions||[]).join(' · ')||(latest.trace?.length?'painted trace':'no location');lines.push('','SITUATION',new Date(latest.at).toLocaleString()+' · '+latest.trend+' · '+reg,' '+(latest.raw_note||'(structured event)'));if(latest.measurement)lines.push(' '+latest.measurement.value+(latest.measurement.unit?' '+latest.measurement.unit:''));}
  if(C.baseline)lines.push('','RELEVANT BASELINE',C.baseline);
  if(C.treatment)lines.push('','CURRENT TREATMENT / ROUTINE',C.treatment);
  if(xs.length){lines.push('','RECENT COURSE');xs.slice(0,6).forEach(e=>{const r=(e.regions||[]).join('/')||(e.trace?.length?'trace':'—');lines.push('- '+new Date(e.at).toLocaleDateString()+' · '+e.trend+' · '+r+' · '+(e.raw_note||e.type)+(e.measurement?' · '+e.measurement.value+(e.measurement.unit?' '+e.measurement.unit:''):'')+(e.status?' · '+e.status:''))})}
- const objective=xs.filter(e=>e.measurement);if(objective.length){lines.push('','MEASUREMENTS');objective.slice(0,6).forEach(e=>lines.push('- '+new Date(e.at).toLocaleDateString()+' · '+e.measurement.value+(e.measurement.unit?' '+e.measurement.unit:'')+' · '+((e.regions||[]).join('/')||e.raw_note||e.type)))}
+ const objective=xs.filter(e=>e.measurement);if(objective.length){lines.push('','MEASUREMENTS');objective.slice(0,6).forEach(e=>lines.push('- '+new Date(e.at).toLocaleDateString()+' · '+(e.measurement.label?e.measurement.label+' · ':'')+e.measurement.value+(e.measurement.unit?' '+e.measurement.unit:'')+' · '+((e.regions||[]).join('/')||e.raw_note||e.type)))}
  if(C.unknowns?.length){lines.push('','UNKNOWNS / OPEN');C.unknowns.forEach(x=>lines.push('- '+x))}
  if(C.plan){lines.push('','PLAN ALREADY ON FILE',C.plan+(C.plan_source?'\nSOURCE '+C.plan_source:''))}
  if(C.identity_note)lines.push('','HANDOFF / IDENTITY',C.identity_note);
@@ -328,8 +376,8 @@ function review(){
  if(!C.subject.label)gaps.push('Subject identity/label is missing.');
  if(!C.baseline)gaps.push('No baseline/known context recorded; handoff may force the recipient to reconstruct it.');
  if(!C.ask)gaps.push('No explicit ASK: the recipient may not know what decision/help you want.');
- if(C.plan&&!C.plan_source)gaps.push('A plan is recorded without its source/date; preserve who actually gave the plan.');
- events.forEach((e,i)=>{if(e.measurement?.value&&!e.measurement.unit)gaps.push('Measurement '+(i+1)+' has a value but no unit/label.');if(['TREATMENT','APPOINTMENT','RESULT'].includes(e.type)&&!e.status)gaps.push(e.type+' event '+(i+1)+' has no workflow status.');if(e.interpretation&&!e.raw_note&&!e.measurement)gaps.push('Interpretation '+(i+1)+' has no separate observation/measurement beneath it.');});
+ if(C.plan&&!C.plan_source)gaps.push('A plan is recorded without its source/date; preserve who actually gave the plan.');C.course=C.course||{};if(C.course.gate&&!C.course.gate_source)gaps.push('A decision gate is recorded without its source/date; conditional escalation should remain attributable.');if(C.course.next&&!C.course.owner)gaps.push('A next step exists but no owner is named; handoff may fail even when the plan is correct.');
+ events.forEach((e,i)=>{if(e.measurement?.value&&!e.measurement.unit)gaps.push('Measurement '+(i+1)+' has a value but no unit.');if(e.measurement?.value&&!e.measurement.label&&!e.raw_note)gaps.push('Measurement '+(i+1)+' has a value but no measurement name/context.');if(['TREATMENT','APPOINTMENT','RESULT'].includes(e.type)&&!e.status)gaps.push(e.type+' event '+(i+1)+' has no workflow status.');if(e.interpretation&&!e.raw_note&&!e.measurement)gaps.push('Interpretation '+(i+1)+' has no separate observation/measurement beneath it.');});
  if(events.length===1)gaps.push('Only one event: useful snapshot, but no trajectory yet.');
  if(events.length>=2&&regions.size===0)gaps.push('Multiple events but no spatial/body region captured; valid if the case is non-spatial, otherwise location may be useful.');
  if(C.unknowns?.length)gaps.push(C.unknowns.length+' explicit unknown(s) remain. Rank the next question/test by information gain.');
@@ -341,7 +389,7 @@ function buildBrief(){const t=brief();$('#briefText').textContent=t;review();ret
 function renderAll(){pushCase();renderCases();renderMap();renderFollow()}
 function save(){pullCase();const db=store();db[C.id]=C;saveStore(db);renderCases();$('#saveCase').textContent='SAVED ✓';setTimeout(()=>$('#saveCase').textContent='SAVE LOCAL',1000)}
 function importAny(j,name){
- if(j.schema==='0xxx0/care-case/v0.1'){C=j;renderAll();return}
+ if(j.schema==='0xxx0/care-case/v0.1'||j.schema==='0xxx0/care-case/v0.2'){C=j;C.schema='0xxx0/care-case/v0.2';C.course=C.course||{phase:'',next:'',gate:'',gate_source:'',owner:'',due:''};renderAll();return}
  if(String(j.schema||'').includes('continuity-case')){
    const facts=(j.claims||[]).filter(x=>x.lane==='FACT').map(x=>'• '+x.text).join('\n');
    const unk=(j.claims||[]).filter(x=>x.lane==='UNKNOWN').map(x=>x.text);
@@ -370,7 +418,7 @@ function importAny(j,name){
 }
 function continuityExport(){
  pullCase();const sources=(C.events||[]).map(e=>({id:e.id,type:e.evidence_kind,ref:'CARE event '+e.id,time:e.at,text:[e.raw_note,(e.regions||[]).length?'WHERE '+e.regions.join(', '):'',e.measurement?'MEASURE '+e.measurement.value+' '+(e.measurement.unit||''):'',e.status?'STATUS '+e.status:''].filter(Boolean).join('\n')}));
- const claims=(C.events||[]).map(e=>({lane:'FACT',provenance:'SOURCE',confidence:'HIGH',text:e.raw_note||((e.type||'event')+' recorded'),source_id:e.id,next_evidence:null})).concat((C.unknowns||[]).map(x=>({lane:'UNKNOWN',provenance:'CURRENT_INFERENCE',confidence:'UNKNOWN',text:x,source_id:null,next_evidence:null})));
+ const course=C.course||{};const courseClaims=[course.phase&&{lane:'FACT',provenance:'USER_REPORTED',confidence:'HIGH',text:'CURRENT PHASE: '+course.phase,source_id:null,next_evidence:null},course.next&&{lane:'FACT',provenance:'USER_REPORTED',confidence:'HIGH',text:'NEXT STEP: '+course.next,source_id:null,next_evidence:null},course.gate&&{lane:'FACT',provenance:course.gate_source?'SOURCE':'USER_REPORTED',confidence:course.gate_source?'HIGH':'MEDIUM',text:'CONDITIONAL GATE: '+course.gate+(course.gate_source?' · SOURCE '+course.gate_source:''),source_id:null,next_evidence:null}].filter(Boolean);const claims=(C.events||[]).map(e=>({lane:'FACT',provenance:'SOURCE',confidence:'HIGH',text:e.raw_note||((e.type||'event')+' recorded'),source_id:e.id,next_evidence:null})).concat(courseClaims).concat((C.unknowns||[]).map(x=>({lane:'UNKNOWN',provenance:'CURRENT_INFERENCE',confidence:'UNKNOWN',text:x,source_id:null,next_evidence:null})));
  return {schema:'0xxx0/continuity-case/v0.1',id:'from-'+C.id,subject:C.subject.label,kind:C.subject.kind,domain:'HEALTH',as_of:C.updated_at,reflection:C.ask||'Care continuity handoff',anchors:[],sources,claims,imported_from:{schema:C.schema,id:C.id}};
 }
 function download(obj,name){const b=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),700)}
@@ -386,7 +434,7 @@ $('#tapMode').onclick=()=>{mapMode='TAP';$('#tapMode').classList.add('primary');
 $('#clearMap').onclick=()=>{selected.clear();trace=[];renderMap()};
 $$('#trendSeg button').forEach(b=>b.onclick=()=>{trend=b.dataset.v;$$('#trendSeg button').forEach(x=>x.classList.toggle('on',x===b))});
 $('#buildBrief').onclick=buildBrief;$('#stepBack').onclick=review;$('#copyBrief').onclick=async()=>{const t=buildBrief();try{await navigator.clipboard.writeText(t);$('#copyBrief').textContent='COPIED ✓';setTimeout(()=>$('#copyBrief').textContent='COPY',1000)}catch(_){window.prompt('Copy brief',t)}};
-$('#humanPort').onclick=()=>{const t=buildBrief();location.href='../contact/?mode=REPLY&draft='+encodeURIComponent(t.slice(0,1200))};
+$('#humanPort').onclick=()=>{const t=buildBrief();try{sessionStorage.setItem('human.port.handoff.v01',JSON.stringify({draft:String(t||'').slice(0,1200),mode:'REPLY',source:'care',created_at:now()}));location.assign('../contact/')}catch(_){location.assign('../contact/?mode=REPLY')}};$('#printBrief').onclick=()=>{buildBrief();window.print()};
 $('#importBtn').onclick=()=>$('#importFile').click();$('#importFile').onchange=e=>{const f=e.target.files?.[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{importAny(JSON.parse(rd.result),f.name)}catch(err){alert('Import failed: '+err.message)}};rd.readAsText(f)};
 $('#exportBtn').onclick=()=>{pullCase();download(C,(C.subject.label||'care-case').toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.care.json')};
 $('#exportContinuity').onclick=()=>download(continuityExport(),(C.subject.label||'care-case').toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.continuity.json');
