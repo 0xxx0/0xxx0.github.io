@@ -1545,9 +1545,9 @@
       "family": "HOUSE / SPATIAL STATE",
       "operation": "REPRESENT",
       "state": "EXPERIMENT",
-      "version": "0.5",
+      "version": "0.6",
       "receipt": "/house/spatial/release.json",
-      "role": "Runnable multi-projection spatial workbench: plan, RCP/surfaces/section/3D, field mappings, TRACE ink-path, JSON round-trip replay and temporal focus over one evidence-bounded substrate.",
+      "role": "Runnable multi-projection spatial workbench: addressed house substrate plus TRACE ink-path, JSON round-trip/replay, temporal focus, live micro-law stacks and local path sediment.",
       "transfer": [
         "plan/RCP/section/3D identity",
         "surface addressing",
@@ -1556,7 +1556,9 @@
         "uncertainty-preserving projection",
         "addressed/replayable traversal trace",
         "RETURN→REPLAY path round trip",
-        "temporal focus over addressed routes"
+        "temporal focus over addressed routes",
+        "tiny-law path constraints",
+        "local recurrence sediment"
       ],
       "contract": {
         "transforms": {
@@ -1577,7 +1579,7 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-20T21:20:00+08:00",
+        "updated_at": "2026-09-20T21:40:00+08:00",
         "work_modes": [
           "RECOVER",
           "INVESTIGATE",
