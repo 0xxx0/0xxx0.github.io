@@ -208,6 +208,12 @@
       "state": "FROZEN_EXACT_DONOR_FAMILY",
       "route": "/recovery/poly-furnisher/room-lineage/",
       "rule": "Three exact fossils; room is projection/testbed, not kernel. Duplicate families collapsed before promotion."
+    },
+    {
+      "name": "HOUSE FRONTIER / Open Hardware + Robotics + XR + Motion-Tool",
+      "state": "PARKED_REOPENABLE_DONOR",
+      "route": "/control/confluence/HOUSE_FRONTIER.md",
+      "rule": "Reopen only from a named HOUSE/AXIAL capability gap or bounded physical proof need. Import mechanisms, not a new project or shopping queue."
     }
   ],
   "recovery_targets": [
@@ -311,7 +317,8 @@
     "poly_furnisher_recovery": "/recovery/poly-furnisher/",
     "migration_home": "/migration/",
     "migration_ledger": "/control/migration/",
-    "poly_furnisher_room_lineage": "/recovery/poly-furnisher/room-lineage/"
+    "poly_furnisher_room_lineage": "/recovery/poly-furnisher/room-lineage/",
+    "house_frontier": "/control/confluence/HOUSE_FRONTIER.md"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
