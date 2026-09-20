@@ -34,7 +34,7 @@
       "state": "STABLE",
       "machine_state": "/contact/state.json",
       "showcase_card": false,
-      "role": "Conventional public reach-me surface and explicit outbound boundary. Canonical HUMAN PORT orientation now lives at /port/.",
+      "role": "Conventional explicit outbound/share boundary of HUMAN PORT. Builds locally, then requires human Share/Copy into a real channel; no inbox/backend.",
       "version": "0.3",
       "receipt": "/contact/release.json",
       "contract": "/contact/contract.json",
@@ -71,7 +71,7 @@
         "physical_fit": "Explicit external-action boundary: manual human share is the safe fallback; disclosed delegated automation may bind behind policy without claiming direct human authorship."
       },
       "index": {
-        "updated_at": "2026-09-21T00:15:00+08:00",
+        "updated_at": "2026-09-21T02:45:00+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
@@ -81,17 +81,18 @@
     },
     {
       "href": "/port/",
-      "title": "HUMAN PORT 1.2",
+      "title": "HUMAN PORT 1.3",
       "kind": "hub",
       "parent": "/",
       "family": "HUMAN PORT",
       "operation": "ROUTE",
       "state": "ACTIVE",
-      "version": "1.2-preview",
+      "version": "1.3-preview",
       "receipt": "/port/release.json",
       "showcase_card": false,
-      "role": "Canonical HUMAN PORT orientation surface: choose CONTACT, BURST/INTERPRET, IDEA ATLAS, SOCIAL RESIDUE or SCALE LENS without requiring FIELD vocabulary.",
+      "role": "Canonical HUMAN PORT local intake/router: preserve one source, choose an explicit bounded route, and arrive at Contact, BURST, Idea Atlas, Social Residue or Scale Lens preloaded without auto-upload, auto-classification or auto-send.",
       "transfer": [
+        "one source / many lawful routes",
         "small public aperture / large recoverable depth",
         "binding without automatic activation",
         "raw-source preservation",
@@ -101,7 +102,7 @@
       ],
       "contract": {
         "transforms": {
-          "verb": "route a human interaction into the smallest useful bounded surface while preserving source, context/authority separation and a return path",
+          "verb": "accept one local source and explicitly route it into the smallest useful bounded surface while preserving source identity, authority boundaries and a return path",
           "preserves": [
             "source wording",
             "context != authority",
@@ -126,16 +127,16 @@
         ],
         "inputs": [
           {
-            "medium": "HUMAN_ACTION",
-            "kind": "interaction need / message / idea / residue",
-            "interface": "five plain-language doors"
+            "medium": "DATA",
+            "kind": "message / messy note / idea / residue / text-data source",
+            "interface": "one local Port intake"
           }
         ],
         "outputs": [
           {
             "medium": "DATA",
-            "kind": "bounded handoff",
-            "interface": "owned HUMAN PORT surface"
+            "kind": "preloaded bounded handoff",
+            "interface": "same-origin session handoff"
           },
           {
             "medium": "HUMAN_ACTION",
@@ -286,7 +287,7 @@
         }
       ],
       "index": {
-        "updated_at": "2026-09-21T02:16:10+08:00",
+        "updated_at": "2026-09-21T02:45:00+08:00",
         "work_modes": [
           "RECOVER",
           "SPECIFY",
@@ -1346,9 +1347,11 @@
         "physical_fit": "Prepare addressed objects/specs for decision or fabrication; should not actuate directly."
       },
       "index": {
-        "updated_at": "2026-09-20",
+        "updated_at": "2026-09-21T02:45:00+08:00",
         "work_modes": [
-          "UNKNOWN"
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
         ]
       }
     },
@@ -3470,7 +3473,7 @@
       "showcase_card": false,
       "role": "Local-first conversation residue: remember offers, questions, promises, follow-ups and ideas without automatically turning them into obligations.",
       "index": {
-        "updated_at": "2026-09-21T02:16:10+08:00",
+        "updated_at": "2026-09-21T02:45:00+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
