@@ -23,6 +23,15 @@
     "javascript_syntax": "pass",
     "static_asset_resolution": "pass",
     "local_http_smoke": "all required assets HTTP 200",
-    "chromium_automation": "not available in build container due DBus stall; validate on deployed Pages surface"
-  }
+    "chromium_automation": "not available in build container due DBus stall; validate on deployed Pages surface",
+    "continuity_handoff_js_syntax": "pass",
+    "continuity_handoff_authority_boundary": "candidate-only / existing gate sovereign"
+  },
+  "amended": "2026-09-21",
+  "integration_delta": [
+    "accepts a same-origin CONTINUITY / CASE v0.2 handoff as ordinary review candidates",
+    "consumes field.intake.handoff.v01 once, then clears the transport key",
+    "does not bypass candidate analysis, explicit resolution, APPLY, receipt or rollback"
+  ],
+  "integration_contract": "/continuity/field-intake-adapter.json"
 }
