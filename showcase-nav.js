@@ -2,6 +2,7 @@
 const ROOT='/';
 const LAST_KEY='showcase:last';
 const TRAIL_KEY='showcase:trail:v1';
+const LENS_HANDOFF_KEY='scale-lens:handoff:v1';
 const norm=p=>{p=(p||location.pathname).replace(/\/index\.html$/,'/');return p||'/';};
 const fallbackParent=p=>{
   if(p.startsWith('/fold-bloom/')&&p!=='/fold-bloom/') return '/fold-bloom/';
@@ -10,6 +11,24 @@ const fallbackParent=p=>{
   return '/';
 };
 const go=u=>{location.href=u;};
+const lensUrl=(source='')=>{
+  const q=new URLSearchParams();
+  if(source)q.set('source',source);
+  q.set('return',location.pathname+location.search+location.hash);
+  return '/fold-bloom/lens/?'+q;
+};
+const openLens=()=>{
+  const payload={
+    schema:'scale-lens.handoff/v1',
+    at:new Date().toISOString(),
+    title:document.title||location.pathname,
+    sourceUrl:location.href,
+    returnAddress:location.pathname+location.search+location.hash,
+    text:(document.body?.innerText||document.documentElement?.innerText||'').slice(0,250000)
+  };
+  try{sessionStorage.setItem(LENS_HANDOFF_KEY,JSON.stringify(payload));}catch(_){}
+  go('/fold-bloom/lens/?handoff=1&return='+encodeURIComponent(payload.returnAddress));
+};
 const readTrail=()=>{try{const x=JSON.parse(sessionStorage.getItem(TRAIL_KEY)||'[]');return Array.isArray(x)?x:[]}catch(_){return []}};
 const writeTrail=x=>{try{sessionStorage.setItem(TRAIL_KEY,JSON.stringify(x.slice(-40)))}catch(_){}};
 const pushTrail=p=>{const t=readTrail(),n=norm(p);if(!t.length||norm(t.at(-1))!==n)t.push(n);writeTrail(t);return t};
@@ -39,15 +58,15 @@ async function start(){
   .tab{position:fixed;z-index:2147483647;left:max(7px,env(safe-area-inset-left));bottom:max(7px,env(safe-area-inset-bottom));width:34px;height:34px;border:1px solid #66727a;background:#090b0de8;color:#eef1ed;font:700 15px ui-monospace,monospace;cursor:pointer;box-shadow:0 2px 14px #0007}
   .panel{position:fixed;z-index:2147483647;left:max(7px,env(safe-area-inset-left));bottom:max(47px,calc(env(safe-area-inset-bottom) + 47px));width:min(330px,calc(100vw - 14px));border:1px solid #39454d;background:#090b0df5;color:#eef1ed;font:10px/1.45 ui-monospace,monospace;box-shadow:0 7px 28px #000a;display:none}
   .panel.on{display:block}.head{padding:10px 11px;border-bottom:1px solid #29343a}.ey{color:#7f8b92;font-size:8px;letter-spacing:.13em}.title{font-weight:800;margin-top:3px}.state{float:right;color:#9ed88c}.state.compat{color:#d9ad62}
-  .actions{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#29343a}.actions button,.family{border:0;background:#0f1317;color:#eef1ed;padding:10px 7px;font:800 9px ui-monospace,monospace;cursor:pointer;text-decoration:none;text-align:center}.actions button:hover,.actions button:focus,.family:hover{background:#172027;outline:none}
+  .actions{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#29343a}.actions button,.family{border:0;background:#0f1317;color:#eef1ed;padding:10px 7px;font:800 9px ui-monospace,monospace;cursor:pointer;text-decoration:none;text-align:center}.actions button:hover,.actions button:focus,.family:hover{background:#172027;outline:none}
   .foot{padding:8px 10px;color:#69757c;font-size:8px;border-top:1px solid #29343a}.family{display:block;border-top:1px solid #29343a;text-align:left;color:#9ba6ac}.meta{display:flex;border-top:1px solid #29343a}.meta a{flex:1;padding:7px 8px;color:#7f8b92;text-decoration:none;font-size:8px;text-align:center}.meta a+a{border-left:1px solid #29343a}.meta a:hover{color:#eef1ed}
   </style>
   <button class="tab" aria-label="Open showcase navigation" title="Showcase navigation">↖</button>
   <nav class="panel" aria-label="Showcase route">
     <div class="head"><span class="state ${String(route.state||'').toLowerCase()}">${route.state||route.kind.toUpperCase()}</span><div class="ey">${route.operation||route.family||'PUBLIC ROUTE'}</div><div class="title">${route.title}</div></div>
-    <div class="actions"><button data-a="back" title="Previous showcase route; does not undo artifact state">← BACK</button><button data-a="up" title="Declared hierarchy parent">↑ PARENT</button><button data-a="home">⌂ SHOWCASE</button></div>
+    <div class="actions"><button data-a="back" title="Previous showcase route; does not undo artifact state">← BACK</button><button data-a="up" title="Declared hierarchy parent">↑ PARENT</button><button data-a="home">⌂ SHOWCASE</button><button data-a="lens" title="Read this surface through Scale Lens">◎ LENS</button></div>
     ${route.family?'<a class="family" href="'+(route.family_href||(route.family==='FOLD // BLOOM'?'/fold-bloom/':route.family==='FOUNDRY'?'/foundry/':parent||ROOT))+'">'+route.family+' / FAMILY</a>':''}
-    <div class="meta"><a href="/showcase-manifest.json">MANIFEST</a>${route.receipt?'<a href="'+route.receipt+'">RECEIPT</a>':''}<a href="/control/INTERACTION_SEMANTICS.json">ACTION LAW</a><a href="/control/FIELD_INDEX_CONTRACT.json">FI LAW</a></div>
+    <div class="meta"><a href="/showcase-manifest.json">MANIFEST</a>${route.receipt?'<a href="'+route.receipt+'">RECEIPT</a>':''}<a href="${lensUrl('/control/INTERACTION_SEMANTICS.json')}">ACTION LENS</a><a href="${lensUrl('/control/FIELD_INDEX_CONTRACT.json')}">FI LENS</a></div>
     <div class="foot">BACK = prior showcase route, never UNDO · ALT+↑ parent · ALT+HOME showcase · ESC close</div>
   </nav>`;
   document.documentElement.appendChild(host);
@@ -57,6 +76,7 @@ async function start(){
   sh.querySelector('[data-a="back"]').onclick=back;
   sh.querySelector('[data-a="up"]').onclick=()=>go(parent);
   sh.querySelector('[data-a="home"]').onclick=()=>go(ROOT);
+  sh.querySelector('[data-a="lens"]').onclick=openLens;
   addEventListener('keydown',e=>{
     if(e.key==='Escape') close();
     if(e.altKey&&e.key==='ArrowUp'){e.preventDefault();go(parent);}
