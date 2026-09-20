@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0xxx0.github.io/contact/capsule.schema.json",
+  "title": "HUMAN PORT bearer capsule v1",
+  "description": "Client-carried presentation data encoded in the URL fragment. Bearer-visible, not secret, and not sent to GitHub as part of the HTTP request.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "v",
+    "lens"
+  ],
+  "properties": {
+    "v": {
+      "const": 1
+    },
+    "lens": {
+      "enum": [
+        "default",
+        "family",
+        "friend",
+        "work",
+        "agent"
+      ]
+    },
+    "title": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 64
+    },
+    "note": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 320
+    },
+    "links": {
+      "type": "array",
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "label",
+          "url"
+        ],
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 32
+          },
+          "url": {
+            "type": "string",
+            "maxLength": 240,
+            "description": "Allowed client protocols: https, tg, mailto, tel, sms."
+          }
+        }
+      }
+    }
+  }
+}
