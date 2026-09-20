@@ -30,6 +30,29 @@ const compileInline=(p)=>{
   const s=read(p),re=/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi;let m,n=0;
   while((m=re.exec(s))){if(!m[1].trim())continue;n++;try{new Function(m[1])}catch(e){fail.push('JS '+p+' #'+n+': '+e.message)}}
 };
+const staticLinkTarget=(page,raw)=>{
+  const v=String(raw||'').trim();
+  if(!v||v.startsWith('#')||/^(?:https?:|mailto:|tel:|sms:|tg:|data:|javascript:)/i.test(v))return null;
+  const clean=v.split('#')[0].split('?')[0];
+  if(!clean)return null;
+  let target=clean.startsWith('/')?clean.slice(1):path.posix.normalize(path.posix.join(path.posix.dirname(page),clean));
+  target=target.replace(/^\.\//,'');
+  if(!target||target==='.')target='index.html';
+  if(target.endsWith('/'))target+='index.html';
+  if(exists(target))return target;
+  if(exists(target+'.html'))return target+'.html';
+  if(exists(path.posix.join(target,'index.html')))return path.posix.join(target,'index.html');
+  return false;
+};
+const scanStaticLinks=(page)=>{
+  if(!page.endsWith('.html')||!exists(page))return;
+  const html=read(page).replace(/<script\b[\s\S]*?<\/script>/gi,'').replace(/<style\b[\s\S]*?<\/style>/gi,'');
+  const re=/\b(?:href|src)\s*=\s*["']([^"']+)["']/gi;let m;
+  while((m=re.exec(html))){
+    const target=staticLinkTarget(page,m[1]);
+    if(target===false)fail.push('broken static link '+page+' -> '+m[1]);
+  }
+};
 const manifest=parse('showcase-manifest.json');
 const runtimeKinds=new Set(['artifact','experiment','workbench','rendezvous','hub','system']);
 if(manifest){
@@ -46,6 +69,8 @@ if(manifest){
     // Exact recovery donors/fossils are evidence, not production runtimes.
     // Validate their route + receipt here; byte/hash fidelity belongs to recovery manifests.
     if(runtimeKinds.has(r.kind)) compileInline(rf);
+    const liveLinkKinds=new Set(['artifact','experiment','workbench','rendezvous','hub','system','control','documentation','evidence','validator','alias']);
+    if(liveLinkKinds.has(r.kind)&&r.state!=='FROZEN_DONOR'&&r.kind!=='recovery')scanStaticLinks(rf);
   }
   const axial=(manifest.routes||[]).find(r=>r.href==='/foundry/axial/');
   check(!!axial,'AXIAL route absent');
@@ -125,6 +150,7 @@ if(fail.length){console.error('PUBLIC SURFACE CHECK FAIL\n- '+fail.join('\n- '))
 console.log('PUBLIC SURFACE CHECK PASS');
 console.log('manifest routes:',manifest?.routes?.length||0);
 console.log('FIELD INDEX contract:',fi?.schema||'missing');
+console.log('static live/support links: checked');
 console.log('return receipts:',ret?.receipts_ok+'/'+ret?.count);
 console.log('AXIAL contract: present / non-card');
 console.log('migration artifacts:',migration?.artifacts?.length||0);
