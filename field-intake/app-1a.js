@@ -35,7 +35,7 @@ try {
     sessionStorage.removeItem(HANDOFF);
   }
 } catch {}
-let draft = incomingHandoff?.capture || localStorage.getItem(DRAFT) ?? sampleCapture;
+let draft = incomingHandoff?.capture || (localStorage.getItem(DRAFT) ?? sampleCapture);
 let prefs = { defaultKind: 'task', rightMode: 'trace', filter: 'all', density: 'full', ...loadJson(PREFS, {}) };
 let envelope = makeEnvelope(state, compileCapture(draft, prefs.defaultKind), { kind: incomingHandoff ? 'continuity-handoff' : 'capture', raw: draft, sourceCaseId: incomingHandoff?.source_case_id || null });
 let selectedCandidateId = envelope.candidates[0]?.candidateId || null;
