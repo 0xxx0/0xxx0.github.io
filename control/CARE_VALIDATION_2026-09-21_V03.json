@@ -1,0 +1,51 @@
+{
+  "schema": "0xxx0/care-validation/v0.3",
+  "at": "2026-09-21T01:35:00+08:00",
+  "artifact": "/care/",
+  "result": "PASS_STATIC_CONTRACT",
+  "delta": "local detailed BODY PLAN substrate + geometry-versioned spatial addresses + feline plan + FOLLOW replay repair",
+  "checks": {
+    "javascript_syntax": "PASS",
+    "case_schema": "0xxx0/care-case/v0.3",
+    "care_v01_v02_v03_import_compat": true,
+    "local_body_plan_registry": "/bodyplans/registry.js",
+    "body_plan_registry_schema": "0xxx0/body-plan-registry/v0.1",
+    "human_reference_m": {
+      "front_fragments": 89,
+      "back_fragments": 70
+    },
+    "human_reference_f": {
+      "front_fragments": 92,
+      "back_fragments": 66
+    },
+    "feline_reference": {
+      "left_regions": 18,
+      "right_regions": 18
+    },
+    "stable_address": "plan_id + geometry_version + view + region_id",
+    "trace_space": "svg-user-space + recorded view_box",
+    "remote_anatomy_runtime_dependency": false,
+    "placeholder_human_svg": false,
+    "placeholder_pet_svg": false,
+    "follow_event_binding": "querySelectorAll / restored recorded plan+view",
+    "full_upstream_mit_notices": true,
+    "automatic_diagnosis": false,
+    "network_submission_absent": true,
+    "human_port_private_carrier": true
+  },
+  "evidence": {
+    "care_html_git_blob": "3d521f053914cda90f65cf281ec55f232f921925",
+    "care_case_schema_git_blob": "e708c57db6c33f38cbc7b44e5620dda71a4ece19",
+    "care_contract_git_blob": "589862be359a8c4c20d5bb8777f512c7f2fba9a9",
+    "care_release_git_blob": "1ab48b0bc16a41476a7f6a07fc7b33f854dfd081",
+    "body_registry_js_git_blob": "03c8fdc6f8c6c5e157dc23e53857e234bb7df172",
+    "body_registry_json_git_blob": "1ceca38a86e83e84b5c0253c33025f4767afb4bf",
+    "body_registry_schema_git_blob": "40933e9989101008306cc2b1ee06e96e78fe9d2a"
+  },
+  "open_gaps": [
+    "manual deployed mobile tap/trace test on dense human fragments",
+    "feline plan is localization geometry, not veterinary anatomical atlas",
+    "BODY / FIELD open branch still needs reconciliation onto shared local registry",
+    "personal body registration remains separate future work"
+  ]
+}
