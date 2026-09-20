@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#07090b">
+<title>FOUNDRY / REAL CENTER</title>
+<style>
+:root{--bg:#07090b;--p:#0d1114;--p2:#0a0e11;--ink:#edf0eb;--muted:#8a959a;--line:#29343a;--hot:#ef6c3b;--cool:#68acd8;--gold:#d9ad62;--green:#9ed88c;--violet:#b596e8;--cyan:#71d4d6;--orange:#f29c5d}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}body{padding:max(14px,env(safe-area-inset-top)) 12px max(28px,env(safe-area-inset-bottom))}a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;border-radius:0;cursor:pointer}
+main{width:min(1220px,100%);margin:auto}
+header{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:end;padding:28px 0 16px;border-bottom:1px solid var(--line)}
+.ey{font-size:9px;letter-spacing:.18em;color:var(--hot)}h1{margin:7px 0 0;font:800 clamp(42px,9vw,92px)/.8 system-ui,-apple-system,sans-serif;letter-spacing:-.075em}.dek{font:12px/1.6 system-ui,-apple-system,sans-serif;color:#adb6b8}.dek b{color:var(--ink)}.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.tag{border:1px solid var(--line);padding:3px 6px;font-size:7px;letter-spacing:.1em;color:var(--muted)}
+.nav{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-bottom:1px solid var(--line);overflow:auto}.tabs,.links{display:flex}.nav button,.nav a{border:1px solid var(--line);border-right:0;background:var(--p2);min-height:34px;padding:7px 10px;font-size:8px;letter-spacing:.1em;white-space:nowrap}.nav button:last-child,.nav a:last-child{border-right:1px solid var(--line)}.nav button.on{border-color:var(--cool);color:#d6f2ff}
+.panel{padding-top:12px}.panel[hidden]{display:none}.bar{display:flex;justify-content:space-between;gap:12px;align-items:end;margin:18px 0 7px}.bar b{font-size:10px;letter-spacing:.14em}.bar span{font-size:8px;color:var(--muted)}
+.heroGrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}.heroCell{background:var(--p);padding:16px}.heroCell h2{font:800 clamp(22px,4vw,40px)/.98 system-ui,sans-serif;letter-spacing:-.045em;margin:4px 0 10px}.heroCell p{margin:0;color:#aab4b7;font:10px/1.65 system-ui,sans-serif}.target{margin-top:12px;padding-top:9px;border-top:1px solid var(--line);color:var(--green);font-size:9px}
+.loopWrap{background:var(--p2);border:1px solid var(--line);padding:10px;overflow:auto}.loopWrap svg{display:block;width:100%;min-width:720px;height:auto}.node{cursor:pointer}.node rect{fill:#0f1519;stroke:#344149}.node text{fill:#dce3e1;font:700 9px ui-monospace,monospace;letter-spacing:.08em}.node.hot rect{stroke:var(--hot)}.node.active rect{fill:#17232a;stroke:var(--cool);stroke-width:2}.edge{fill:none;stroke:#344149;stroke-width:1.2}.edgeReturn{fill:none;stroke:var(--hot);stroke-width:1.6;stroke-dasharray:5 4}.loopLabel{fill:#647178;font:8px ui-monospace,monospace}.centerTxt{fill:#f0f2ed;font:800 17px system-ui,sans-serif;letter-spacing:-.04em}.centerSub{fill:#819096;font:8px ui-monospace,monospace}
+.aperture{display:grid;grid-template-columns:.72fr 1.28fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px}.aperture>div{background:var(--p);padding:13px}.aperture .label{color:var(--cool);font-size:9px;letter-spacing:.1em}.aperture h3{margin:7px 0 8px;font:800 25px/.95 system-ui,sans-serif;letter-spacing:-.04em}.aperture p{margin:0;color:#a7b1b4;font:10px/1.55 system-ui,sans-serif}.chain{margin-top:10px;color:var(--green);font-size:8px;word-spacing:3px}.trip{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}.trip>div{background:var(--p2);padding:10px}.trip b{display:block;color:var(--muted);font-size:7px;letter-spacing:.12em}.trip p{margin:5px 0 0;color:#c1c9c8;font:9px/1.5 system-ui,sans-serif}.anchors{display:flex;gap:4px;flex-wrap:wrap;margin-top:10px}.anchors a{border:1px solid var(--line);padding:4px 6px;color:#b9c7cb;font-size:7px}.anchors a:hover{border-color:var(--cool);color:#e6f6ff}
+.convGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.conv{background:var(--p);padding:13px;cursor:pointer;min-height:160px}.conv:hover,.conv.on{background:#11191e}.conv.on{box-shadow:inset 3px 0 var(--cool)}.conv .id{font-size:7px;color:var(--muted);letter-spacing:.12em}.conv h3{margin:14px 0 7px;font:800 20px/.95 system-ui,sans-serif;letter-spacing:-.04em}.conv p{margin:0;color:#9eaaae;font:9.5px/1.55 system-ui,sans-serif}.conv .mini{margin-top:10px;font-size:7px;color:#66747a}
+.laws{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.law{background:var(--p);padding:12px;min-height:146px}.law .n{color:var(--hot);font-size:8px}.law b{display:block;margin-top:16px;font:800 14px/1.1 system-ui,sans-serif;letter-spacing:-.02em}.law p{color:var(--muted);font:9px/1.5 system-ui,sans-serif}
+.now{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}.front{background:var(--p);padding:12px}.front .state{font-size:7px;letter-spacing:.12em;color:var(--green)}.front.hold .state{color:var(--gold)}.front h3{margin:13px 0 6px;font:800 18px/1 system-ui,sans-serif;letter-spacing:-.03em}.front p{margin:0;color:#9eaaae;font:9px/1.5 system-ui,sans-serif}.front .center{margin-top:8px;color:#c6d0d0;font-size:8px}.heads{border:1px solid var(--line);margin-top:10px}.head{display:grid;grid-template-columns:155px 115px 1fr;gap:10px;padding:8px 10px;border-bottom:1px solid var(--line);background:var(--p2)}.head:last-child{border-bottom:0}.head b{font-size:9px}.head .s{color:var(--muted);font-size:8px}.head .r{color:#9eaaae;font:9px/1.45 system-ui,sans-serif}
+.model{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}.model>div{background:var(--p);padding:13px}.model h3{margin:0 0 8px;font:800 16px system-ui,sans-serif}.gate{counter-reset:g}.gate div{counter-increment:g;padding:8px 0;border-bottom:1px solid var(--line);color:#aab4b7;font:9px/1.5 system-ui,sans-serif}.gate div:before{content:counter(g,decimal-leading-zero);color:var(--cool);margin-right:9px}
+.code{padding:12px;border:1px solid var(--line);background:var(--p2);color:#c8d4d6;overflow:auto;font-size:9px}.corpus{border-left:2px solid var(--gold);padding:10px 12px;background:#11120f;color:#b8b29e;font:9px/1.55 system-ui,sans-serif;margin-top:10px}.corpus b{color:var(--gold)}
+footer{margin-top:18px;padding-top:9px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;color:#647178;font-size:8px}
+@media(max-width:760px){header,.heroGrid,.aperture,.model,.now{grid-template-columns:1fr}.convGrid,.laws{grid-template-columns:1fr}.trip{grid-template-columns:1fr}.head{grid-template-columns:1fr}.links{display:none}footer{display:block}footer span{display:block;margin-top:5px}}
+</style>
+</head>
+<body><main>
+<header>
+  <div><div class="ey">FOUNDRY / REAL CENTER · CANON CANDIDATE 0.1</div><h1>THOUGHT<br>→ CAPABILITY</h1></div>
+  <div class="dek"><b>Slow model, live control.</b><br>The definition of the endeavour stays stable enough to orient by; current heads and fronts are fetched separately so today's work cannot accidentally become ontology.<div class="meta"><span class="tag">117 ≠ CANON</span><span class="tag">CURRENT ≠ CONSTITUTION</span><span class="tag">RETURN REQUIRED</span></div></div>
+</header>
+
+<nav class="nav"><div class="tabs"><button class="on" data-view="center">CENTER</button><button data-view="convergences">CONVERGENCES</button><button data-view="laws">LAWS</button><button data-view="now">NOW</button><button data-view="model">MODEL</button></div><div class="links"><a href="../">FOUNDRY ←</a><a href="./CANON.md">ONE PAGE</a><a href="./model.json">JSON</a></div></nav>
+
+<section id="center" class="panel">
+  <div class="heroGrid">
+    <div class="heroCell"><div class="ey">CENTER</div><h2 id="oneLine">Loading…</h2></div>
+    <div class="heroCell"><div class="ey">END STATE</div><p id="endState">Loading…</p><div class="target"><b>TARGET:</b> <span id="targetVar"></span><br><span id="targetTest"></span></div></div>
+  </div>
+  <div class="bar"><b>INVARIANT LOOP</b><span>click a convergence below to highlight its path through the loop</span></div>
+  <div class="loopWrap"><svg viewBox="0 0 980 330" id="loopSvg" aria-label="Foundry invariant loop"></svg></div>
+  <div id="aperture" class="aperture"></div>
+  <div class="bar"><b>CURRENT CONVERGENCES</b><span>cross-media recurrent machinery · not project categories</span></div>
+  <div id="centerConvs" class="convGrid"></div>
+</section>
+
+<section id="convergences" class="panel" hidden>
+  <div class="bar"><b>CONVERGENCES</b><span>things become interesting at intersections, not inside taxonomic provinces</span></div>
+  <div id="allConvs" class="convGrid"></div>
+  <div class="corpus"><b>CORPUS POLICY</b> · The 117-project federation is a NON_CANONICAL CORPUS / DONOR SAMPLE. Inventory can grow without increasing control cardinality; membership grants neither execution priority nor canonical status.</div>
+</section>
+
+<section id="laws" class="panel" hidden>
+  <div class="bar"><b>SIGNATURE LAWS</b><span>the endeavour is more identifiable by these constraints than by its project names</span></div>
+  <div id="lawGrid" class="laws"></div>
+</section>
+
+<section id="now" class="panel" hidden>
+  <div class="bar"><b>LIVE CONTROL STATE</b><span id="liveStamp">fetched from /control/CURRENT.json</span></div>
+  <div id="frontGrid" class="now"></div>
+  <div class="bar"><b>CURRENT HEADS</b><span>heads can move without rewriting the slow model</span></div>
+  <div id="headList" class="heads"></div>
+</section>
+
+<section id="model" class="panel" hidden>
+  <div class="model">
+    <div><h3>Admission gate</h3><div id="gate" class="gate"></div></div>
+    <div><h3>Canonical unit</h3><div id="canonShape" class="code"></div><div class="corpus" id="canonNote"></div></div>
+  </div>
+  <div class="bar"><b>GENERALITY TEST</b><span>the model should survive boring domains and ordinary users without requiring our vocabulary</span></div>
+  <div class="heroGrid">
+    <div class="heroCell"><div class="ey">PASS</div><p>A household repair, software refactor, study session, message draft, fabrication job or scientific experiment can all be expressed without semantic violence as identity/state/transform/evidence/RETURN.</p></div>
+    <div class="heroCell"><div class="ey">FAIL</div><p>The system only works when things are called Sleeper, AXIAL, SINDERESIS, Field, Cassette or other local names; or the abstraction adds ceremony without changing a decision or consequence.</p></div>
+  </div>
+</section>
+
+<footer><span>FOUNDry / REAL CENTER 0.1 · orientation projection, not runtime authority</span><span>WORLD → … → RETURN</span></footer>
+</main>
+<script>
+(()=>{'use strict';
+const $=id=>document.getElementById(id);let M=null,C=null,selected=null;
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function view(v){document.querySelectorAll('.panel').forEach(x=>x.hidden=x.id!==v);document.querySelectorAll('[data-view]').forEach(x=>x.classList.toggle('on',x.dataset.view===v));history.replaceState(null,'','#'+v)}
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>view(b.dataset.view));
+const colors={hot:'#ef6c3b',cool:'#68acd8',gold:'#d9ad62',green:'#9ed88c',violet:'#b596e8',blue:'#7ba8ef',orange:'#f29c5d',cyan:'#71d4d6'};
+function renderLoop(activeStages=[]){
+ const stages=M.invariant_loop,pts=[[90,165],[185,75],[315,45],[455,70],[580,145],[705,75],[835,105],[875,220],[730,275]];
+ const svg=$('loopSvg');let h='<defs><marker id="arr" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#435159"/></marker><marker id="arrR" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#ef6c3b"/></marker></defs>';
+ for(let i=0;i<pts.length-1;i++){const a=pts[i],b=pts[i+1];h+='<path class="edge" marker-end="url(#arr)" d="M '+(a[0]+45)+' '+a[1]+' L '+(b[0]-45)+' '+b[1]+'"/>'}
+ h+='<path class="edgeReturn" marker-end="url(#arrR)" d="M 685 275 C 440 360 120 300 90 200"/>';
+ h+='<text x="490" y="157" text-anchor="middle" class="centerTxt">THOUGHT → CAPABILITY</text><text x="490" y="178" text-anchor="middle" class="centerSub">identity survives · consequence returns</text>';
+ stages.forEach((s,i)=>{const [x,y]=pts[i],on=activeStages.includes(s),hot=s==='RETURN';h+='<g class="node '+(on?'active ':'')+(hot?'hot':'')+'" data-stage="'+s+'"><rect x="'+(x-43)+'" y="'+(y-17)+'" width="86" height="34"/><text x="'+x+'" y="'+(y+3)+'" text-anchor="middle">'+s+'</text></g>'});
+ h+='<text x="145" y="315" class="loopLabel">source / reality</text><text x="710" y="315" class="loopLabel">evidence / path home</text>';svg.innerHTML=h;
+}
+function convCard(x){return '<article class="conv '+(selected===x.id?'on':'')+'" data-conv="'+esc(x.id)+'"><div class="id">'+esc(x.id.toUpperCase())+'</div><h3>'+esc(x.label)+'</h3><p>'+esc(x.claim)+'</p><div class="mini">'+esc(x.stages.join(' → '))+'</div></article>'}
+function selectConv(id){selected=id;const x=M.convergences.find(y=>y.id===id)||M.convergences[0];renderLoop(x.stages);$('aperture').innerHTML='<div><div class="label">WORKING APERTURE</div><h3>'+esc(x.label)+'</h3><p>'+esc(x.claim)+'</p><div class="chain">'+esc(x.stages.join(' → '))+'</div><div class="anchors">'+x.anchors.map(a=>'<a href="'+esc(a.href)+'">'+esc(a.label)+' →</a>').join('')+'</div></div><div class="trip"><div><b>ENTERS</b><p>'+esc(x.enters)+'</p></div><div><b>TRANSFORM</b><p>'+esc(x.transform)+'</p></div><div><b>CONSEQUENCE</b><p>'+esc(x.consequence)+'</p></div></div>';renderConvs()}
+function renderConvs(){$('centerConvs').innerHTML=M.convergences.slice(0,4).map(convCard).join('');$('allConvs').innerHTML=M.convergences.map(convCard).join('');document.querySelectorAll('[data-conv]').forEach(el=>el.onclick=()=>selectConv(el.dataset.conv))}
+function renderLaws(){$('lawGrid').innerHTML=M.signature_laws.map(x=>'<div class="law"><span class="n">'+esc(x.id)+'</span><b>'+esc(x.law)+'</b><p>'+esc(x.meaning)+'</p></div>').join('')}
+function renderNow(){
+ if(!C){$('frontGrid').innerHTML='<div class="front"><p>Live control unavailable.</p></div>';return}
+ $('liveStamp').textContent='updated '+esc(C.updated)+' · fetched from /control/CURRENT.json';
+ const fronts=[...(C.active_fronts||[]),...(C.held_fronts||[])];
+ $('frontGrid').innerHTML=fronts.map(f=>'<div class="front '+(f.state||'').includes('HOLD')?'hold':''+'"><div class="state">'+esc(f.state)+'</div><h3>'+esc(f.id)+'</h3><p>'+esc(f.objective||f.reason||'')+'</p><div class="center">'+esc(f.center||'')+'</div></div>').join('');
+ $('headList').innerHTML=(C.current_heads||[]).map(h=>'<a class="head" href="'+esc(h.route||'#')+'"><b>'+esc(h.head)+'</b><span class="s">'+esc(h.state)+'</span><span class="r">'+esc(h.retained_function)+'</span></a>').join('')
+}
+function render(){
+ $('oneLine').textContent=M.one_line;$('endState').textContent=M.end_state;$('targetVar').textContent=M.target_variable;$('targetTest').textContent=M.target_test;
+ renderLaws();$('gate').innerHTML=M.admission_gate.map(x=>'<div>'+esc(x)+'</div>').join('');$('canonShape').textContent=M.canonical_unit.shape;$('canonNote').innerHTML='<b>NOTE</b> · '+esc(M.canonical_unit.note);selected=M.convergences[0].id;selectConv(selected);renderNow();
+ const v=['center','convergences','laws','now','model'].includes(location.hash.slice(1))?location.hash.slice(1):'center';view(v)
+}
+Promise.all([
+ fetch('./model.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('model '+r.status);return r.json()}),
+ fetch('/control/CURRENT.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('current '+r.status);return r.json()}).catch(()=>null)
+]).then(([m,c])=>{M=m;C=c;render()}).catch(e=>{document.body.innerHTML='<pre style="color:#ef6c3b;padding:20px">FOUNDRY CENTER LOAD FAILURE\n'+esc(e.message)+'</pre>'});
+})();
+</script>
+<script src="/showcase-nav.js" defer></script>
+</body></html>
