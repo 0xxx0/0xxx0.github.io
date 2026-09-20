@@ -1,0 +1,53 @@
+{
+  "schema": "field-index-sitemap-audit/v0.1",
+  "at": "2026-09-21T02:39:00+08:00",
+  "repository_tree_sha": "7874762d98a1e4ed5b21b8a56ce83d894ebe3c21",
+  "manifest": "/showcase-manifest.json",
+  "counts": {
+    "manifest_routes": 81,
+    "directory_index_surfaces": 70,
+    "unregistered_directory_surfaces": 0,
+    "missing_parent_routes": 0,
+    "aliases": 7
+  },
+  "result": "PASS",
+  "laws": [
+    "Every repository directory index surface must have a manifest address.",
+    "Redirect/lens compatibility doors use kind=alias rather than masquerading as independent instruments.",
+    "Manifest parent must resolve to another manifest route.",
+    "Complete MAP coverage does not imply NOW, HEAD, priority, obligation or canon."
+  ],
+  "unregistered_directory_surfaces": [],
+  "missing_parent_routes": [],
+  "aliases": [
+    {
+      "href": "/contact/burst/",
+      "alias_of": "/contact/interpret/#mode=burst"
+    },
+    {
+      "href": "/contact/family/",
+      "alias_of": "/contact/capsule/#view=family"
+    },
+    {
+      "href": "/contact/friend/",
+      "alias_of": "/contact/capsule/#view=friend"
+    },
+    {
+      "href": "/contact/work/",
+      "alias_of": "/contact/capsule/#view=work"
+    },
+    {
+      "href": "/contact/agent/",
+      "alias_of": "/contact/capsule/#view=agent"
+    },
+    {
+      "href": "/contact/make/",
+      "alias_of": "/contact/capsule/#make=1"
+    },
+    {
+      "href": "/contact/next/",
+      "alias_of": "/port/"
+    }
+  ],
+  "note": "Standalone HTML fossils nested inside registered recovery families are covered by their family manifests and are not required to become FIELD INDEX route nodes."
+}
