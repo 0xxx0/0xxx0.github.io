@@ -170,16 +170,19 @@
   ],
   "trace_projection_hypotheses": [
     {
-      "status": "PROPOSED",
-      "mapping": "stroke centerline = traversed room/anchor path"
+      "status": "EXPERIMENT",
+      "mapping": "stroke centerline = traversed room/anchor path",
+      "note": "v0.1 currently uses addressed room path only; anchor/surface granularity remains future."
+    },
+    {
+      "status": "EXPERIMENT_PARTIAL",
+      "mapping": "stroke width = explicitly chosen quantity such as traversal count OR dwell time, never ambiguous mixture",
+      "note": "v0.1 implements segment traversal count only."
     },
     {
       "status": "PROPOSED",
-      "mapping": "stroke width = explicitly chosen quantity such as traversal count OR dwell time, never ambiguous mixture"
-    },
-    {
-      "status": "PROPOSED",
-      "mapping": "opacity/ink load = recency OR confidence, selected per projection"
+      "mapping": "opacity/ink load = recency OR confidence, selected per projection",
+      "note": "v0.1 intentionally uses fixed opacity."
     },
     {
       "status": "PROPOSED",
@@ -196,5 +199,5 @@
     "vertical/section measurements",
     "which cognitive/spatial projections improve real tasks versus merely delight"
   ],
-  "next_safe_delta": "Keep current HOUSE/SPATIAL head; add donors/projections only when they preserve stable IDs and expose a useful question."
+  "next_safe_delta": "Play TRACE manually; verify JSON RETURN and whether a path projection reveals useful spatial/cognitive structure before adding observed HA movement."
 }
