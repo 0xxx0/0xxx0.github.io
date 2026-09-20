@@ -12,7 +12,6 @@
     "REVERSIBLE HANDOFF BEFORE IRREVERSIBLE RELEASE"
   ],
   "provenance": {
-    "exact_repo_donor": "/kernel/INTERPHASE.schema.json",
     "reconstructed_conceptual_donors": [
       {
         "name": "XUAN / transition-state line",
@@ -30,6 +29,11 @@
           "principle / human agency / resources as unequal registers"
         ]
       }
+    ],
+    "exact_repo_donors": [
+      "/kernel/INTERPHASE.schema.json",
+      "/contact/state.json",
+      "/recovery/rsvp/manifest.json"
     ]
   },
   "dimensions": {
