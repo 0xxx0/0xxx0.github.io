@@ -1237,13 +1237,13 @@
     },
     {
       "href": "/foundry/axial/",
-      "title": "AXIAL / STATE APERTURE 0.5",
+      "title": "AXIAL / STATE APERTURE 0.5.1",
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "PROVE",
       "state": "PROOF_REQUIRED",
-      "version": "0.5",
+      "version": "0.5.1",
       "receipt": "/foundry/axial/release.json",
       "showcase_card": false,
       "transfer": [
@@ -1364,7 +1364,7 @@
         "physical_fit": "Digital correspondence model for a passive ring + twist/slide + aperture cylinder; physical readback/restore comparison remains required."
       },
       "index": {
-        "updated_at": "2026-09-21T00:59:00+08:00",
+        "updated_at": "2026-09-21T01:12:00+08:00",
         "work_modes": [
           "RECOVER",
           "SPECIFY",
