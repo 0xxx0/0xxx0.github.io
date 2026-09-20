@@ -1,0 +1,104 @@
+{
+  "schema": "capability-contract/v1",
+  "artifact": "SHOPPING FIELD",
+  "route": "/shopping/",
+  "version": "0.1",
+  "role": "procurement/resource-acquisition adapter under Forward Center Mass",
+  "kernel": "Shopping is an input-output transformation field: need enters, verified capability exits.",
+  "accepts": {
+    "kinds": [
+      "capability gap",
+      "listing",
+      "recommendation",
+      "owned-item claim",
+      "receipt/purchase record",
+      "legacy House OS shopping export",
+      "aesthetic/materialization idea"
+    ],
+    "optional": [
+      "source URL",
+      "observed_at",
+      "exact SKU",
+      "seller/channel",
+      "quantity",
+      "project refs",
+      "storage home",
+      "adoption criterion",
+      "cost components"
+    ]
+  },
+  "transforms": {
+    "verb": "normalize provenance, freshness, landed SGD, purchase gates and lifecycle state without status laundering",
+    "states": [
+      "NEED",
+      "QUERY",
+      "FOUND",
+      "VERIFY",
+      "WATCH",
+      "DECIDE",
+      "BOUGHT",
+      "RECEIVED",
+      "TESTED",
+      "ADOPTED",
+      "HOLD",
+      "SKIP",
+      "EXPIRED",
+      "RETURNED",
+      "REPAIR",
+      "ABANDONED",
+      "ARCHIVE"
+    ],
+    "preserves": [
+      "source state",
+      "legacy state",
+      "human money/action authority",
+      "FOUND/BOUGHT/RECEIVED/TESTED/ADOPTED distinction",
+      "unknowns",
+      "local/private inventory boundary"
+    ],
+    "reversibility": "full",
+    "side_effects": "browser-local only"
+  },
+  "emits": {
+    "kinds": [
+      "shopping-field JSON",
+      "agent research packet",
+      "landed-SGD comparison",
+      "purchase-gate state",
+      "project/BOM candidate",
+      "inventory/capability candidate",
+      "explicit non-action"
+    ],
+    "machine_readable": true,
+    "human_readable": true
+  },
+  "authority": {
+    "may": [
+      "search public listings after explicit research request",
+      "compare exact SKUs",
+      "calculate landed SGD",
+      "check compatibility/provenance/return policy",
+      "prepare shortlist/cart draft"
+    ],
+    "may_not": [
+      "purchase",
+      "message sellers",
+      "change accounts",
+      "enter payment credentials",
+      "claim ownership without evidence",
+      "promote recommendation to adoption without test evidence"
+    ]
+  },
+  "evidence": {
+    "checks": [
+      "legacy CONFIRMED migrates conservatively to VERIFY",
+      "freshness is timestamp-derived",
+      "landed cost exposes components",
+      "gate status visible",
+      "state changes are explicit/manual",
+      "import/export round-trip",
+      "no network submission"
+    ],
+    "return_path": "/shopping/"
+  }
+}
