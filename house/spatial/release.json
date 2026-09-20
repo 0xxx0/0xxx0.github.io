@@ -1,0 +1,26 @@
+{
+  "schema": "release-receipt/v1",
+  "artifact": "HOUSE / SPATIAL",
+  "route": "/house/spatial/",
+  "version": "0.2",
+  "released": "2026-09-20",
+  "state": "EXPERIMENT",
+  "changes": [
+    "Restored the actual interface lineage as a runnable projection workbench rather than only an index entry.",
+    "Recovered the Sep 9 exact donor topology, openings/structure cues and HA anchor mappings into a separate machine-readable model.",
+    "Restored the Sep 3 projection family: PLAN / SURFACE / SECTION / FIELD / ATLAS, and added RCP + 3D as projections of the same IDs.",
+    "Made floor, ceiling and wall surfaces first-class; vertical geometry remains explicitly unmeasured until calibrated.",
+    "Preserved the 93 m² / #17-103 donor versus later current-house 3-room record as an unresolved physical-instance conflict."
+  ],
+  "checks": {
+    "no_live_actuation": true,
+    "local_calibration_only": true,
+    "identity_conflict_visible": true,
+    "vertical_unknowns_visible": true
+  },
+  "sources": [
+    "/house/spatial/model.json",
+    "/house/spatial-state.json"
+  ],
+  "honesty": "This is a reconstructed current head from recovered interface/spec evidence. It is not claimed to be the exact lost Sep 3 file."
+}
