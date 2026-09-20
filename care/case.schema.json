@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0xxx0.github.io/care/case.schema.json",
+  "title": "CARE case v0.2",
+  "type": "object",
+  "required": [
+    "schema",
+    "id",
+    "created_at",
+    "updated_at",
+    "subject",
+    "events"
+  ],
+  "properties": {
+    "schema": {
+      "const": "0xxx0/care-case/v0.2"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "object",
+      "required": [
+        "label",
+        "kind"
+      ],
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "PERSON",
+            "ANIMAL"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "baseline": {
+      "type": "string"
+    },
+    "treatment": {
+      "type": "string"
+    },
+    "plan": {
+      "type": "string"
+    },
+    "plan_source": {
+      "type": "string"
+    },
+    "ask": {
+      "type": "string"
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "identity_note": {
+      "type": "string"
+    },
+    "course": {
+      "type": "object",
+      "properties": {
+        "phase": {
+          "type": "string"
+        },
+        "next": {
+          "type": "string"
+        },
+        "gate": {
+          "type": "string"
+        },
+        "gate_source": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string"
+        },
+        "due": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": true
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "at",
+          "type"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "at": {
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "OBSERVATION",
+              "MEASUREMENT",
+              "TREATMENT",
+              "APPOINTMENT",
+              "RESULT"
+            ]
+          },
+          "status": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "PLANNED",
+              "SCHEDULED",
+              "PERFORMED",
+              "RESULTED",
+              "REVIEWED",
+              "ACTED",
+              null
+            ]
+          },
+          "raw_note": {
+            "type": "string"
+          },
+          "regions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "trace": {
+            "type": "array"
+          },
+          "qualities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "magnitude": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "trend": {
+            "enum": [
+              "NEW",
+              "WORSE",
+              "SAME",
+              "BETTER"
+            ]
+          },
+          "evidence_kind": {
+            "type": "string"
+          },
+          "measurement": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "value"
+                ],
+                "properties": {
+                  "label": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "value": {
+                    "type": [
+                      "string",
+                      "number"
+                    ]
+                  },
+                  "unit": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": true
+              }
+            ]
+          },
+          "interpretation": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "source_cue": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "prior_same_region_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "bodyfield_geometry": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "bodyfield_dimensions": {
+            "type": [
+              "object",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    },
+    "imports": {
+      "type": "array"
+    }
+  },
+  "additionalProperties": true
+}
