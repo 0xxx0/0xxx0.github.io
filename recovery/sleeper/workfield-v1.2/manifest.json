@@ -1,0 +1,20 @@
+{
+  "schema": "0xxx0/recovery/sleeper-workfield/v0.1",
+  "status": "EXACT_FROZEN_DONOR",
+  "recovered_at": "2026-09-20",
+  "source": {
+    "name": "sleeper_workfield_v1.2_current_slice.html",
+    "size_bytes": 357885,
+    "sha256": "045c0501382f4d3a382d5507019f86187d48ae6ec108c65c61b339838f95ee9d"
+  },
+  "route": "/recovery/sleeper/workfield-v1.2/",
+  "exact_text_verified": true,
+  "classification": "SIBLING_DONOR_NOT_CURRENT_HEAD",
+  "relation": {
+    "current_head": "/sleeper/",
+    "painting_path": "BLOCKED_EXACT_SOURCE",
+    "rule": "Workfield recovery does not imply City Engine/Painting recovery and does not supersede ASCII SLEEPER 0.8."
+  },
+  "unique": "Task/workfield substrate with source-aware Q×OP units, Nine Gates, Center Mass, TRACE, ASCII FIELD, DataDisc, Ledger, RETURN, replay/export and tested browser workflow.",
+  "stop_rule": "Freeze exact source. Mechanism transfer only when current Sleeper/representation work names a missing function."
+}
