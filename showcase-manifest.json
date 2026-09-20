@@ -1479,7 +1479,14 @@
       "parent": "/",
       "state": "ACTIVE",
       "showcase_card": false,
-      "role": "Exact frozen donor families, blockers and recovery receipts; not a competing product surface."
+      "role": "Exact frozen donor families, blockers and recovery receipts; not a competing product surface.",
+      "index": {
+        "updated_at": "2026-09-20T19:00:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "IMPLEMENT"
+        ]
+      }
     },
     {
       "href": "/recovery/path-grid/",
