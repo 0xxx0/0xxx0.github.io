@@ -1,5 +1,5 @@
 {
-  "schema": "spatial-state-lineage/v0.1",
+  "schema": "spatial-state-lineage/v0.2",
   "updated": "2026-09-20",
   "canonical_id": "APP-041",
   "title": "Spatial State Engine / House OS",
@@ -64,13 +64,53 @@
     "Manual state changes remain valid when sensors or integrations are absent.",
     "Actions are intents until Home Assistant authorizes and executes them.",
     "Every meaningful change may return evidence / receipt to the FIELD return path.",
-    "Do not promote 3D, photogrammetry or world-model inference until 2D geometry and evidence are solid."
+    "3D/photogrammetry/world views may be used whenever they remain evidence-bounded projections of the same addressed substrate; inferred geometry must not masquerade as measured geometry."
   ],
-  "current_thin_slice": "2D room/object graph + manual state + explicit HA entity mapping; add sensors only where they remove real friction.",
+  "current_thin_slice": "Recover/calibrate the shared spatial substrate: verified XY plan + first-class floor/ceiling/wall surfaces + one useful section + explicit HA entity mapping. 3D may derive immediately from those same IDs.",
   "not_now": [
     "duplicate House OS architecture",
-    "3D-first rebuild",
     "sensor-rich inference before geometry is trustworthy",
     "public control endpoint"
-  ]
+  ],
+  "substrate": {
+    "law": "The canonical house model is volumetric/addressed: VOLUME -> SURFACES -> OPENINGS -> OBJECTS/ANCHORS -> OBSERVATIONS/ACTIONS -> EVIDENCE.",
+    "first_class_surfaces": [
+      "floor",
+      "ceiling / RCP",
+      "walls / elevations"
+    ],
+    "projections": [
+      "PLAN",
+      "RCP",
+      "SURFACE",
+      "ELEVATION",
+      "SECTION",
+      "3D",
+      "FIELD",
+      "ATLAS",
+      "HA_STATE"
+    ],
+    "rule": "2D and 3D are projections, not rival sources of truth. Any projection is allowed when identity, provenance and uncertainty survive it.",
+    "vertical_required": [
+      "floor datum",
+      "ceiling heights/zones",
+      "soffits/beams",
+      "window sill/head",
+      "door head",
+      "level changes"
+    ]
+  },
+  "operational_head": {
+    "route": "/house/spatial/",
+    "version": "0.2",
+    "status": "RECONSTRUCTED_CURRENT_HEAD",
+    "exactness": "Reconstructed from recovered Sep 3 interface/spec evidence plus the exact Sep 9 single-HTML donor; not claimed to be the exact lost Sep 3 file.",
+    "machine_model": "/house/spatial/model.json"
+  },
+  "open_identity_conflict": {
+    "status": "UNRESOLVED",
+    "earlier_donor": "93 m² / #17-103 / 4-room brochure-topology branch",
+    "later_current_house_record": "current 10A corner unit has also been recorded as 3-room",
+    "rule": "Preserve both records; verify physical instance and plan orientation before metric calibration."
+  }
 }
