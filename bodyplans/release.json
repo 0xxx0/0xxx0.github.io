@@ -1,0 +1,46 @@
+{
+  "schema": "release-receipt/v1",
+  "artifact": "BODY PLANS / REGISTRY",
+  "route": "/bodyplans/",
+  "version": "0.1",
+  "released": "2026-09-21",
+  "state": "EXPERIMENT",
+  "purpose": "shared local-first addressable body geometry for CARE and future BODY projections",
+  "changes": [
+    "copied pinned detailed human SVG path corpus into repository instead of fetching at runtime",
+    "preserved source commit/blob and full MIT notices for both upstream projects",
+    "added human reference M/F front/back plans with stable region IDs",
+    "added original feline left/right lateral reference plan",
+    "added standalone SVG exports plus JS/JSON registry and visual inspector",
+    "defined stable address law: plan_id + view + region_id; labels are presentation only"
+  ],
+  "checks": [
+    "registry JS parses locally",
+    "registry JSON parses",
+    "human fragment counts 89/70 and 92/66 match pinned upstream data",
+    "feline views each expose 18 regions",
+    "no remote image/SVG/CDN dependency",
+    "standalone SVGs contain only local vector geometry",
+    "full third-party MIT notices preserved"
+  ],
+  "truth_boundary": [
+    "reference plan is not personal anatomy",
+    "reference plan sex/species naming does not infer subject identity",
+    "region selection is localization only, not diagnosis",
+    "feline map is coarse project vector geometry, not veterinary anatomical authority"
+  ],
+  "sources": [
+    {
+      "repo": "eslamelfateh/react-native-body-parts-anatomy",
+      "commit": "0935ce05a0d0bdad371b16d295ae4526a38ecd44",
+      "blob": "7b84075be7ab35575baf3c2f8ad8fb731c664890",
+      "license": "MIT"
+    },
+    {
+      "repo": "HichamELBSI/react-native-body-highlighter",
+      "role": "upstream derivative geometry source",
+      "license": "MIT"
+    }
+  ],
+  "return": "/bodyplans/"
+}
