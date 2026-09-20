@@ -7,6 +7,7 @@
   "state": "EXPERIMENT",
   "relation": "specialized CONTINUITY projection; shared BODY PLAN registry donor; BODYFIELD high-resolution lineage; HUMAN PORT downstream handoff; COURSE preserves sourced care path",
   "changes": [
+    "body observations now store geometry_version, view_box and trace_space for future-safe replay",
     "replaced inline placeholder human/cat drawings with shared local body-plan registry",
     "copied pinned MIT human vector corpus into repo: detailed front/back human reference M/F plans",
     "added original technical feline reference plan with left/right lateral views",
@@ -45,7 +46,8 @@
     "CARE v0.1/v0.2/v0.3 import compatibility",
     "observation/interpretation separation",
     "no fetch/XHR/WebSocket/sendBeacon in CARE application logic",
-    "HUMAN PORT private session carrier retained"
+    "HUMAN PORT private session carrier retained",
+    "geometry version preserved with body-map event address"
   ],
   "open_gaps": [
     "manual mobile pointer/trace usability test on detailed human fragments",
