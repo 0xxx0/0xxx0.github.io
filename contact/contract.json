@@ -11,7 +11,10 @@
     "works_without_private_backend": true,
     "draft_surface": "/laconic/",
     "draft_surface_role": "local candidate selection and recovery only; HUMAN PORT remains the explicit share/copy boundary",
-    "drafting_law": "DRAFT != SEND; candidates remain local until explicit human share/copy."
+    "drafting_law": "DRAFT != SEND; candidates remain local until explicit human share/copy.",
+    "continuity_surface": "/continuity/",
+    "continuity_surface_role": "local source-preserving case canonicalization; may produce a reviewed handoff but never sends",
+    "continuity_law": "CASE != DRAFT != SEND"
   },
   "intents": [
     {
@@ -106,7 +109,8 @@
     "adapter_registry": "/private-adapter-registry.json",
     "state": "/contact/state.json",
     "laconic_drafting": "/laconic/",
-    "retrieval_canon": "/control/confluence/RETRIEVAL_CANON.md"
+    "retrieval_canon": "/control/confluence/RETRIEVAL_CANON.md",
+    "continuity_case": "/continuity/"
   },
   "reflection_rule": {
     "law": "REFLECT WHEN USEFUL; PRESERVE THE ORIGINAL.",
