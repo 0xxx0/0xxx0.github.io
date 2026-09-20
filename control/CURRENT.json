@@ -196,6 +196,12 @@
       "state": "FROZEN_EXACT_HISTORICAL_DONOR",
       "route": "/recovery/media/datadisc/datadisc.html",
       "rule": "Golden radial/multichannel projection fixture; compare mechanisms, do not modernize by default."
+    },
+    {
+      "name": "POLY / FURNISHER 2019–2021",
+      "state": "FROZEN_EXACT_CORE_EVIDENCE_FAMILY",
+      "route": "/recovery/poly-furnisher/",
+      "rule": "KRAKEN/proto-kernel/source notes are exact fossils; later survey is interpretive evidence. New work may mine mechanisms but must not overwrite the originals."
     }
   ],
   "recovery_targets": [
@@ -295,7 +301,8 @@
     "sleeper_recovery": "/recovery/sleeper/",
     "axial_recovery": "/recovery/axial/",
     "media_recovery": "/recovery/media/",
-    "naming_recovery": "/recovery/naming/"
+    "naming_recovery": "/recovery/naming/",
+    "poly_furnisher_recovery": "/recovery/poly-furnisher/"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
