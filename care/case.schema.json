@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://0xxx0.github.io/care/case.schema.json",
-  "title": "CARE case v0.2",
+  "title": "CARE case v0.3",
   "type": "object",
   "required": [
     "schema",
@@ -13,7 +13,7 @@
   ],
   "properties": {
     "schema": {
-      "const": "0xxx0/care-case/v0.2"
+      "const": "0xxx0/care-case/v0.3"
     },
     "id": {
       "type": "string",
@@ -227,6 +227,65 @@
               "object",
               "null"
             ]
+          },
+          "body_map": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "schema",
+                  "plan_id",
+                  "view",
+                  "region_ids",
+                  "region_labels"
+                ],
+                "properties": {
+                  "schema": {
+                    "const": "0xxx0/body-address/v0.1"
+                  },
+                  "plan_id": {
+                    "type": "string"
+                  },
+                  "view": {
+                    "type": "string"
+                  },
+                  "view_box": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "region_ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "region_labels": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "geometry_version": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "trace_space": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "additionalProperties": true
+              }
+            ]
           }
         },
         "additionalProperties": true
@@ -234,6 +293,10 @@
     },
     "imports": {
       "type": "array"
+    },
+    "body_plan": {
+      "type": "string",
+      "description": "Reference body-plan ID used for current capture surface; does not assert personal anatomy."
     }
   },
   "additionalProperties": true

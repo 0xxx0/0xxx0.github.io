@@ -1,5 +1,5 @@
 {
-  "schema": "care-field-contract/v0.2",
+  "schema": "care-field-contract/v0.3",
   "updated": "2026-09-21",
   "title": "CARE / FIELD",
   "role": "specialized projection of CONTINUITY for real-world human/animal care observation, longitudinal follow-up and clinician/vet handoff",
@@ -34,7 +34,9 @@
       "measurement name/value/unit",
       "evidence kind",
       "interpretation",
-      "source cue"
+      "source cue",
+      "reference body-plan/view",
+      "stable region IDs"
     ],
     "subject_kinds": [
       "PERSON",
@@ -61,12 +63,13 @@
       "0xxx0/continuity-case/v0.1",
       "BODYFIELD_EVENT_LEDGER_3",
       "0xxx0/care-case/v0.1",
-      "0xxx0/care-case/v0.2"
+      "0xxx0/care-case/v0.2",
+      "0xxx0/care-case/v0.3"
     ],
     "exports": [
-      "0xxx0/care-case/v0.2",
       "0xxx0/continuity-case/v0.1",
-      "plain-text clinician/vet brief"
+      "plain-text clinician/vet brief",
+      "0xxx0/care-case/v0.3"
     ],
     "human_port": "sessionStorage carrier human.port.handoff.v01; explicit user action only; no brief text in URL",
     "bodyfield_geometry_rule": "Preserve BODYFIELD fragment metadata and trace point arrays in their source coordinate frame; do not render them on CARE's compact silhouette without an explicit registration transform."
@@ -83,7 +86,8 @@
     "workflow event without status",
     "interpretation without underlying observation",
     "single-event case has no trajectory",
-    "explicit unknown count and latest-event freshness"
+    "explicit unknown count and latest-event freshness",
+    "body-plan coordinate frame preserved when spatial observations are present"
   ],
   "non_goals": [
     "diagnosis ranking",
@@ -113,6 +117,24 @@
     ]
   },
   "course_research": "/control/research/CARE_COURSE_2026-09-21.md",
-  "validation": "/control/CARE_VALIDATION_2026-09-21_V02.json",
-  "case_schema": "/care/case.schema.json"
+  "validation": "/control/CARE_VALIDATION_2026-09-21_V03.json",
+  "case_schema": "/care/case.schema.json",
+  "body_plan": {
+    "registry": "/bodyplans/registry.js",
+    "schema": "0xxx0/body-plan-registry/v0.1",
+    "address_schema": "0xxx0/body-address/v0.1",
+    "plans": [
+      "human-reference-m",
+      "human-reference-f",
+      "feline-reference"
+    ],
+    "law": [
+      "stable location identity = plan_id + view + region_id",
+      "display label is not identity",
+      "reference body plan is not registered personal anatomy",
+      "no remote anatomy asset fetch at runtime",
+      "trace coordinates remain in the active plan/view SVG coordinate frame",
+      "event body_map stores geometry_version + view_box + trace coordinate space for replay"
+    ]
+  }
 }

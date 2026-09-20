@@ -495,13 +495,13 @@
     },
     {
       "href": "/care/",
-      "title": "CARE / FIELD 0.2",
+      "title": "CARE / FIELD 0.3",
       "kind": "workbench",
       "parent": "/continuity/",
       "family": "CONFLUENCE / CONTINUITY",
       "operation": "CAPTURE",
       "state": "EXPERIMENT",
-      "version": "0.2",
+      "version": "0.3",
       "receipt": "/care/release.json",
       "transfer": [
         "human/animal care observation",
@@ -513,7 +513,10 @@
         "care-course / staged treatment path",
         "conditional decision gates with provenance",
         "measurement trajectory compression",
-        "privacy-safe clinician/vet consult handoff"
+        "privacy-safe clinician/vet consult handoff",
+        "local detailed body-plan registry",
+        "stable plan/view/region body addresses",
+        "feline care localization"
       ],
       "contract": {
         "accepts": {
@@ -539,11 +542,14 @@
             "current phase",
             "next step",
             "conditional gate + source",
-            "owner / when"
+            "owner / when",
+            "reference body plan",
+            "stable region ID",
+            "body-plan view"
           ]
         },
         "transforms": {
-          "verb": "capture what changed, preserve measurement/body evidence, keep the care course explicit (current → next → conditional gate → owner/when), then compress into a reviewed clinician/vet brief",
+          "verb": "capture what changed against a local reference body plan when location matters, preserve plan/view/region identity and care course, then compress into a reviewed clinician/vet brief",
           "preserves": [
             "raw wording",
             "body/region marks",
@@ -558,7 +564,11 @@
             "course phase",
             "next-step ownership",
             "conditional gate source",
-            "URL-private HUMAN PORT handoff"
+            "URL-private HUMAN PORT handoff",
+            "body-plan ID",
+            "body-plan view",
+            "stable body region IDs",
+            "body-plan source attribution"
           ],
           "reversibility": "full",
           "side_effects": "browser-local only after explicit SAVE"
@@ -580,7 +590,9 @@
         "evidence": {
           "receipt": "/care/release.json",
           "checks": [
-            "no network submission",
+            "no remote anatomy runtime dependency",
+            "reference body plan != personal anatomy",
+            "plan/view/region identity preserved",
             "observation/interpretation separation",
             "planned/performed status preservation",
             "conditional gate/source separation",
@@ -607,6 +619,11 @@
             "medium": "DATA",
             "kind": "CONTINUITY case / BODYFIELD ledger",
             "interface": "JSON import"
+          },
+          {
+            "medium": "DATA",
+            "kind": "local body-plan address",
+            "interface": "/bodyplans/ registry"
           }
         ],
         "outputs": [
@@ -666,12 +683,17 @@
             "class": "FHIR_INTEROP",
             "status": "CANDIDATE",
             "via": "Observation + CarePlan + QuestionnaireResponse mapping after schema hardening"
+          },
+          {
+            "class": "BODY_PLAN_SUBSTRATE",
+            "status": "AVAILABLE",
+            "via": "/bodyplans/ local registry + standalone SVG assets"
           }
         ],
         "physical_fit": "Observation/course/handoff tool for care episodes involving people or animals; no diagnostic, triage, threshold or treatment authority."
       },
       "index": {
-        "updated_at": "2026-09-21T00:55:00+08:00",
+        "updated_at": "2026-09-21T01:35:00+08:00",
         "work_modes": [
           "RECOVER",
           "INVESTIGATE",

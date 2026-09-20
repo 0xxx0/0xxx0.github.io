@@ -1,0 +1,132 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0xxx0.github.io/bodyplans/registry.schema.json",
+  "title": "BODY PLAN registry v0.1",
+  "type": "object",
+  "required": [
+    "schema",
+    "plans"
+  ],
+  "properties": {
+    "schema": {
+      "const": "0xxx0/body-plan-registry/v0.1"
+    },
+    "updated": {
+      "type": "string"
+    },
+    "privacy": {
+      "type": "string"
+    },
+    "plans": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "id",
+          "kind",
+          "label",
+          "geometryVersion",
+          "defaultView",
+          "views",
+          "provenance"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "PERSON",
+              "ANIMAL",
+              "ROBOT",
+              "GENERIC"
+            ]
+          },
+          "species": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "defaultView": {
+            "type": "string"
+          },
+          "views": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "object",
+              "required": [
+                "viewBox",
+                "outlineD",
+                "fragments"
+              ],
+              "properties": {
+                "viewBox": {
+                  "type": "string"
+                },
+                "outlineD": {
+                  "type": "string"
+                },
+                "transform": {
+                  "type": "string"
+                },
+                "fragments": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "required": [
+                      "id",
+                      "label",
+                      "group",
+                      "pathData"
+                    ],
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      },
+                      "group": {
+                        "type": "string"
+                      },
+                      "side": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "axis": {
+                        "type": [
+                          "string",
+                          "null"
+                        ]
+                      },
+                      "bbox": {
+                        "type": "object"
+                      },
+                      "pathData": {
+                        "type": "string"
+                      }
+                    },
+                    "additionalProperties": true
+                  }
+                }
+              },
+              "additionalProperties": true
+            }
+          },
+          "provenance": {
+            "type": "object"
+          },
+          "geometryVersion": {
+            "type": "string",
+            "description": "Immutable geometry identity for replay of selections/traces."
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}

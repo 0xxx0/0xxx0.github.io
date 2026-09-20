@@ -2,12 +2,21 @@
   "schema": "release-receipt/v1",
   "artifact": "CARE / FIELD",
   "route": "/care/",
-  "version": "0.2",
+  "version": "0.3",
   "released": "2026-09-21",
   "state": "EXPERIMENT",
-  "relation": "specialized CONTINUITY projection; BODYFIELD spatial capture donor; HUMAN PORT downstream handoff; COURSE adds sourced care-path continuity without diagnosis",
+  "relation": "specialized CONTINUITY projection; shared BODY PLAN registry donor; BODYFIELD high-resolution lineage; HUMAN PORT downstream handoff; COURSE preserves sourced care path",
   "changes": [
-    "added CARE COURSE spine: CURRENT PHASE -> NEXT STEP -> IF/WHEN DECISION GATE -> OWNER/WHEN",
+    "body observations now store geometry_version, view_box and trace_space for future-safe replay",
+    "replaced inline placeholder human/cat drawings with shared local body-plan registry",
+    "copied pinned MIT human vector corpus into repo: detailed front/back human reference M/F plans",
+    "added original technical feline reference plan with left/right lateral views",
+    "new CARE events preserve plan_id + view + stable region_ids in body_map while keeping readable labels",
+    "body-plan/view switching clears incompatible active trace/selection rather than silently reprojecting coordinates",
+    "historical FOLLOW click now restores the recorded plan/view when body_map exists",
+    "fixed historical timeline event binding from querySelector(...).forEach to querySelectorAll",
+    "removed runtime anatomy network dependency; registry and SVG assets are same-repo local files",
+    "preserved upstream MIT + derivative notices in /bodyplans/THIRD_PARTY_NOTICES.md",
     "added explicit source field for conditional gates so escalation logic remains attributable",
     "split measurement capture into name/value/unit while preserving v0.1 import compatibility",
     "added descriptive measurement trajectory cards + sparklines over numeric measurements",
@@ -29,24 +38,27 @@
     "added STEP BACK structural gap review"
   ],
   "checks": [
-    "no brief text placed in URL during HUMAN PORT handoff",
-    "sessionStorage carrier matches HUMAN PORT human.port.handoff.v01 contract",
-    "conditional gate is stored separately from observation and requires source review",
-    "measurement trajectories are descriptive only and do not synthesize thresholds",
-    "v0.1 CARE imports upgrade in-memory to v0.2 without discarding events",
-    "BODYFIELD geometry remains source-frame-preserved and unregistered",
-    "CONTINUITY export retains course phase/next/gate as explicit claims",
-    "no fetch/XHR/WebSocket/sendBeacon/form submission path",
-    "localStorage only after explicit SAVE LOCAL"
+    "no Wikimedia/CDN/raw-GitHub anatomy URL in CARE",
+    "inline humanSVG/petSVG placeholders absent",
+    "body-plan registry is local and source-attributed",
+    "stable address uses plan_id + view + region_id",
+    "reference plan != personal anatomy",
+    "CARE v0.1/v0.2/v0.3 import compatibility",
+    "observation/interpretation separation",
+    "no fetch/XHR/WebSocket/sendBeacon in CARE application logic",
+    "HUMAN PORT private session carrier retained",
+    "geometry version preserved with body-map event address"
   ],
   "open_gaps": [
+    "manual mobile pointer/trace usability test on detailed human fragments",
+    "feline reference map is coarse localization geometry, not veterinary anatomical atlas",
+    "BODY / FIELD route should adopt the same local registry after its current open branch is reconciled",
     "no private image/file attachment store yet; source cue only",
     "no clinician-authored adaptive question bank",
     "no validated triage/urgency engine by design",
     "no FHIR CarePlan/QuestionnaireResponse export yet",
-    "no automatic metric threshold interpretation by design",
-    "full 317-fragment BODYFIELD geometry remains in BODYFIELD; CARE uses compact tap/trace projection"
+    "no automatic metric threshold interpretation by design"
   ],
   "return": "/care/",
-  "validation": "/control/CARE_VALIDATION_2026-09-21_V02.json"
+  "validation": "/control/CARE_VALIDATION_2026-09-21_V03.json"
 }
