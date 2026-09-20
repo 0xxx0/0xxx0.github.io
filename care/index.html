@@ -308,7 +308,7 @@ function addEvent(){
  C.events.push({
    id:uid('evt'),at:$('#eventTime').value?new Date($('#eventTime').value).toISOString():now(),
    type:$('#eventType').value,status:$('#eventStatus').value||null,
-   raw_note:note,regions,trace:trace.map(p=>({...p})),body_map:{schema:'0xxx0/body-address/v0.1',plan_id:C.body_plan,view:mapView,view_box:v?.viewBox||null,region_ids:regionIds,region_labels:regions},qualities:[...qualities],magnitude:Number($('#magnitude').value),
+   raw_note:note,regions,trace:trace.map(p=>({...p})),body_map:{schema:'0xxx0/body-address/v0.1',plan_id:C.body_plan,geometry_version:currentPlan()?.geometryVersion||null,view:mapView,view_box:v?.viewBox||null,trace_space:'svg-user-space',region_ids:regionIds,region_labels:regions},qualities:[...qualities],magnitude:Number($('#magnitude').value),
    trend,evidence_kind:$('#evidenceKind').value,measurement:measurement?{label:$('#measureLabel').value.trim()||null,value:measurement,unit:$('#measureUnit').value.trim()}:null,
    interpretation:$('#interpretation').value.trim()||null,source_cue:$('#sourceCue').value.trim()||null,prior_same_region_id:prior?.id||null
  });
