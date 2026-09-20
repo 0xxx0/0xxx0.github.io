@@ -112,10 +112,10 @@
     },
     {
       "lineage": "house-spatial",
-      "head": "HOUSE / SPATIAL 0.4 + HOUSE / FIELD 0.4",
+      "head": "HOUSE / SPATIAL 0.5 + HOUSE / FIELD 0.4",
       "state": "ACTIVE_EXPERIMENT",
       "route": "/house/spatial/",
-      "retained_function": "One addressed physical substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS with explicit evidence/uncertainty; TRACE v0.1 is manual-local and replayable; Home Assistant/HOUSEBUS retains device truth and actuation authority."
+      "retained_function": "One addressed physical substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS. TRACE now supports manual authored routes, JSON RETURN→REPLAY and temporal-focus playback while Home Assistant/HOUSEBUS retains device truth and actuation authority."
     }
   ],
   "donors_and_holds": [
@@ -263,7 +263,8 @@
     "law_zoo_confluence": "/control/confluence/LAW_ZOO.md",
     "cross_system_expedition": "/control/confluence/CROSS_SYSTEM_EXPEDITION.md",
     "rsvp_recovery": "/control/confluence/RSVP_RECOVERY.md",
-    "house_trace_rules": "/house/spatial/trace-rules.json"
+    "house_trace_rules": "/house/spatial/trace-rules.json",
+    "house_trace_transplants": "/house/spatial/trace-transplants.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
