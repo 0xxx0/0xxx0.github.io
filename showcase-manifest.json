@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-19",
+  "updated": "2026-09-20",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -31,39 +31,47 @@
     },
     {
       "href": "/laconic/",
-      "title": "LACONIC / ICONIC RECOVERY 0.1",
+      "title": "LACONIC / ICONIC 0.2",
       "kind": "artifact",
       "parent": "/",
       "family": "COMMS",
       "operation": "DRAFT",
       "state": "EXPERIMENT",
-      "version": "0.1",
+      "version": "0.2",
       "receipt": "/laconic/release.json",
       "transfer": [
         "response drafting",
+        "multi-turn conversation trajectories",
+        "care-mode selection",
         "conversation recovery",
         "provenance-aware curation",
-        "multi-turn trajectory design"
+        "exact fragment/operator recovery"
       ],
       "contract": {
         "accepts": {
           "kinds": [
             "communication situation",
             "recovered response source",
-            "drafting constraint"
+            "drafting constraint",
+            "multi-turn exchange",
+            "observed interaction note"
           ],
           "requires": [],
           "optional": [
             "move",
-            "voice/lens",
+            "register",
+            "scene lane",
             "source provenance",
-            "source ref"
+            "source ref",
+            "tentative support mode"
           ]
         },
         "transforms": {
-          "verb": "address a situation, select a compact response candidate, curate it, and hand it to the explicit human share boundary",
+          "verb": "preserve what was observed, choose a bounded response move, then select either a compact line or an explicit multi-turn scene without inventing emotional certainty",
           "preserves": [
             "source provenance",
+            "observed/possible distinction",
+            "line/scene distinction",
             "human review boundary",
             "no-send default",
             "trajectory/return path"
@@ -74,9 +82,11 @@
         "emits": {
           "kinds": [
             "draft candidate",
+            "multi-turn scene state",
             "KEEP/DROP curation state",
             "recovery source pack",
-            "HUMAN PORT handoff"
+            "HUMAN PORT handoff",
+            "recovered exact fragment"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -85,7 +95,9 @@
           "receipt": "/laconic/release.json",
           "checks": [
             "EXACT/RECONSTRUCTED/NEW separation",
-            "local-only curation",
+            "scene branch integrity",
+            "private-source abstraction",
+            "local-only observed scratch",
             "no transport credentials",
             "human-triggered handoff"
           ],

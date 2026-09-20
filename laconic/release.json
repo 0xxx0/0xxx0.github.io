@@ -1,26 +1,48 @@
 {
   "schema": "release-receipt/v1",
-  "artifact": "LACONIC / ICONIC RECOVERY",
+  "artifact": "LACONIC / ICONIC",
   "route": "/laconic/",
-  "version": "0.1",
-  "released": "2026-09-19",
+  "version": "0.2",
+  "released": "2026-09-20",
   "state": "EXPERIMENT",
   "changes": [
-    "reified the recovered Laconic/Iconic response-bank concept as a local-first drafting and curation instrument",
-    "separated EXACT / RECONSTRUCTED / NEW provenance so recovery cannot silently become invention",
-    "added deterministic situation/move/voice filtering and browser-local KEEP/DROP curation",
-    "added trajectory links so winning lines can grow into multi-turn conversational paths",
-    "added clipboard/source-pack recovery staging for the still-missing exact v0.01 artifact",
-    "bound selected drafts to HUMAN PORT through an explicit human share/copy boundary",
-    "kept transport, policy and sending authority outside the public drafting surface"
+    "restored multi-turn SCENE as a first-class object beside single-turn LINE",
+    "recovered three exact 2024 branching banter scenes from the conversation archive",
+    "reconstructed the older compassionate support-tree mechanism as public-safe CARE modes without exposing sensitive source specifics",
+    "added PLAY / CARE / CELEBRATE / REPAIR lanes so humor is contextual rather than a global persona",
+    "added an OBSERVED scratch field whose contents remain local and are not interpreted automatically",
+    "added research-informed response principles covering responsiveness, support-mode choice, validation limits, emotional granularity and positive-event capitalization",
+    "separated exact memorable FRAGMENTS / operators from deployable reply candidates",
+    "preserved HUMAN PORT as the explicit external share/copy boundary"
+  ],
+  "recovered_evidence": [
+    {
+      "source": "conversation archive / Prison Age Meta-Game / 2024-12-27",
+      "retained": "2–4-turn predictable conversational setups with branching replies",
+      "public_scenes": [
+        "HOW ARE YOU?",
+        "WHAT DO YOU DO?",
+        "WHY DID YOU DO THAT?"
+      ]
+    },
+    {
+      "source": "conversation archive / private support-tree donor / 2024-12-27",
+      "retained": "offer serious / thinking / practical / playful / silence paths without forcing disclosure",
+      "public_handling": "mechanism only; sensitive historical specifics omitted"
+    },
+    {
+      "source": "LACONIC_MASTER_LEDGER.md",
+      "retained": "exact phrase/operator fragments remain distinct from reply candidates"
+    }
   ],
   "checks": [
-    "bank seed entries are marked NEW, never EXACT",
-    "source-pack export defaults to UNCLASSIFIED",
-    "no form submit or remote write endpoint exists",
-    "draft handoff uses HUMAN PORT and remains human-triggered",
-    "KEEP/DROP state is localStorage only",
-    "router DRAFT and policy draft gate remain the authority boundary"
+    "EXACT / RECONSTRUCTED / NEW remain visibly distinct",
+    "all public CARE wording created in v0.2 is marked NEW",
+    "scene-level private donor is RECONSTRUCTED rather than quoted",
+    "no diagnostic or sentiment classifier is present",
+    "OBSERVED scratch text has no submission path",
+    "no auto-send or transport credential exists",
+    "HUMAN PORT handoff remains human-triggered"
   ],
   "return": "/laconic/"
 }

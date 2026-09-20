@@ -1,0 +1,701 @@
+{
+  "schema": "laconic-iconic-scenes/v0.2",
+  "updated": "2026-09-20",
+  "purpose": "Multi-turn response trajectories recovered from the Laconic/Iconic lineage plus bounded new care/celebration scenes. Scene provenance and line provenance remain separate.",
+  "provenance_classes": {
+    "EXACT": "Scene wording recovered verbatim from an archived assistant response.",
+    "RECONSTRUCTED": "Scene mechanism recovered from prior work, but public-safe wording is newly reconstructed.",
+    "NEW": "Created in the v0.2 pass.",
+    "RESEARCH_INFORMED": "New scene whose response mechanics are informed by cited relationship/emotion research; not a clinical protocol."
+  },
+  "lanes": [
+    {
+      "id": "PLAY",
+      "law": "Invite reciprocal play without trapping the other person in a bit."
+    },
+    {
+      "id": "CARE",
+      "law": "Offer contact and choice before interpretation or advice."
+    },
+    {
+      "id": "CELEBRATE",
+      "law": "Meet good news with enthusiasm and elaboration, not a flat acknowledgement."
+    },
+    {
+      "id": "REPAIR",
+      "law": "Make re-entry easy; acknowledge residue without forcing a postmortem."
+    }
+  ],
+  "scenes": [
+    {
+      "id": "scene:how-are-you",
+      "title": "HOW ARE YOU?",
+      "lane": "PLAY",
+      "provenance": "EXACT",
+      "source": {
+        "title": "Prison Age Meta-Game",
+        "date": "2024-12-27",
+        "archive": "conversations-001.json"
+      },
+      "note": "Recovered 2–3-turn branching pattern. Preserved as donor, not silently promoted to current canon.",
+      "start": "hay:start",
+      "nodes": [
+        {
+          "id": "hay:start",
+          "speaker": "YOU",
+          "text": "Depends. Do you want the polite answer or the honest one?",
+          "provenance": "EXACT",
+          "variants": [
+            "That’s a dangerous question. Are you sure you’re ready for the truth?"
+          ],
+          "choices": [
+            {
+              "label": "THEY · POLITE",
+              "next": "hay:polite"
+            },
+            {
+              "label": "THEY · HONEST",
+              "next": "hay:honest"
+            }
+          ]
+        },
+        {
+          "id": "hay:polite",
+          "speaker": "YOU",
+          "text": "Oh, you know, thriving in chaos.",
+          "provenance": "EXACT",
+          "variants": [
+            "Breathing. That counts as winning, right?"
+          ],
+          "choices": [
+            {
+              "label": "THEY · EMPATHY",
+              "next": "hay:empathy"
+            },
+            {
+              "label": "THEY · HUMOR",
+              "next": "hay:humor"
+            },
+            {
+              "label": "THEY · INDIFFERENT",
+              "next": "hay:indifferent"
+            }
+          ]
+        },
+        {
+          "id": "hay:honest",
+          "speaker": "YOU",
+          "text": "Honestly? Somewhere between a meme and a meltdown.",
+          "provenance": "EXACT",
+          "variants": [
+            "Let’s just say caffeine is doing the heavy lifting today."
+          ],
+          "choices": [
+            {
+              "label": "THEY · EMPATHY",
+              "next": "hay:empathy"
+            },
+            {
+              "label": "THEY · HUMOR",
+              "next": "hay:humor"
+            },
+            {
+              "label": "THEY · INDIFFERENT",
+              "next": "hay:indifferent"
+            }
+          ]
+        },
+        {
+          "id": "hay:empathy",
+          "speaker": "YOU",
+          "text": "Misery loves company, but let’s turn it into comedy instead.",
+          "provenance": "EXACT",
+          "variants": [
+            "Glad to know I’m not the only one in this boat. Let’s paddle, shall we?"
+          ],
+          "choices": []
+        },
+        {
+          "id": "hay:humor",
+          "speaker": "YOU",
+          "text": "At this point, I’m basically 60% coffee, 40% hope.",
+          "provenance": "EXACT",
+          "variants": [
+            "Honestly, coffee deserves more credit for holding society together."
+          ],
+          "choices": []
+        },
+        {
+          "id": "hay:indifferent",
+          "speaker": "YOU",
+          "text": "True, but at least I’m learning how to surf the chaos.",
+          "provenance": "EXACT",
+          "variants": [
+            "Life’s just a sitcom, and today I’m the comic relief."
+          ],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": "scene:what-do-you-do",
+      "title": "WHAT DO YOU DO?",
+      "lane": "PLAY",
+      "provenance": "EXACT",
+      "source": {
+        "title": "Prison Age Meta-Game",
+        "date": "2024-12-27",
+        "archive": "conversations-001.json"
+      },
+      "note": "Recovered branch structure: opener creates three semantic frames, later reply follows the other person’s reaction.",
+      "start": "wdy:start",
+      "nodes": [
+        {
+          "id": "wdy:start",
+          "speaker": "YOU",
+          "text": "Depends—do you mean officially, unofficially, or existentially?",
+          "provenance": "EXACT",
+          "variants": [],
+          "choices": [
+            {
+              "label": "THEY · OFFICIALLY",
+              "next": "wdy:official"
+            },
+            {
+              "label": "THEY · UNOFFICIALLY",
+              "next": "wdy:unofficial"
+            },
+            {
+              "label": "THEY · EXISTENTIALLY",
+              "next": "wdy:existential"
+            }
+          ]
+        },
+        {
+          "id": "wdy:official",
+          "speaker": "YOU",
+          "text": "I’m a professional chaos organizer.",
+          "provenance": "EXACT",
+          "variants": [
+            "I solve problems people didn’t know they had."
+          ],
+          "choices": [
+            {
+              "label": "THEY · CURIOUS",
+              "next": "wdy:curious"
+            },
+            {
+              "label": "THEY · RELATE",
+              "next": "wdy:agree"
+            },
+            {
+              "label": "THEY · SKEPTICAL",
+              "next": "wdy:skeptical"
+            }
+          ]
+        },
+        {
+          "id": "wdy:unofficial",
+          "speaker": "YOU",
+          "text": "I make memes out of life’s disasters.",
+          "provenance": "EXACT",
+          "variants": [
+            "Mostly, I wander through hobbies and collect stories."
+          ],
+          "choices": [
+            {
+              "label": "THEY · CURIOUS",
+              "next": "wdy:curious"
+            },
+            {
+              "label": "THEY · RELATE",
+              "next": "wdy:agree"
+            },
+            {
+              "label": "THEY · SKEPTICAL",
+              "next": "wdy:skeptical"
+            }
+          ]
+        },
+        {
+          "id": "wdy:existential",
+          "speaker": "YOU",
+          "text": "I’m a wanderer, searching for meaning while avoiding email.",
+          "provenance": "EXACT",
+          "variants": [
+            "Mostly, I just try to matter to the people who matter."
+          ],
+          "choices": [
+            {
+              "label": "THEY · CURIOUS",
+              "next": "wdy:curious"
+            },
+            {
+              "label": "THEY · RELATE",
+              "next": "wdy:agree"
+            },
+            {
+              "label": "THEY · SKEPTICAL",
+              "next": "wdy:skeptical"
+            }
+          ]
+        },
+        {
+          "id": "wdy:curious",
+          "speaker": "YOU",
+          "text": "Cool, yes. Stressful? Definitely. But isn’t everything worth doing?",
+          "provenance": "EXACT",
+          "variants": [
+            "It’s like juggling fire. Fun, dangerous, and occasionally spectacular."
+          ],
+          "choices": []
+        },
+        {
+          "id": "wdy:agree",
+          "speaker": "YOU",
+          "text": "Glad I’m not the only one figuring it out as I go.",
+          "provenance": "EXACT",
+          "variants": [
+            "It’s a vibe, isn’t it? Life’s just improv with deadlines."
+          ],
+          "choices": []
+        },
+        {
+          "id": "wdy:skeptical",
+          "speaker": "YOU",
+          "text": "It’s vague because the world’s too big for one answer.",
+          "provenance": "EXACT",
+          "variants": [
+            "True, but the vague ones are usually the most fun."
+          ],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": "scene:why-did-you-do-that",
+      "title": "WHY DID YOU DO THAT?",
+      "lane": "PLAY",
+      "provenance": "EXACT",
+      "source": {
+        "title": "Prison Age Meta-Game",
+        "date": "2024-12-27",
+        "archive": "conversations-001.json"
+      },
+      "note": "Recovered branching humor. Useful as a donor for structure even where individual lines later feel too performed.",
+      "start": "why:start",
+      "nodes": [
+        {
+          "id": "why:start",
+          "speaker": "YOU",
+          "text": "Would you prefer the logical reason or the dramatic one?",
+          "provenance": "EXACT",
+          "variants": [
+            "Depends—are you asking as a friend or a detective?"
+          ],
+          "choices": [
+            {
+              "label": "THEY · LOGICAL",
+              "next": "why:logical"
+            },
+            {
+              "label": "THEY · DRAMATIC",
+              "next": "why:dramatic"
+            },
+            {
+              "label": "THEY · BOTH",
+              "next": "why:both"
+            }
+          ]
+        },
+        {
+          "id": "why:logical",
+          "speaker": "YOU",
+          "text": "I calculated the risks, and this seemed the least disastrous.",
+          "provenance": "EXACT",
+          "variants": [
+            "Because 2+2 equals 4, and this was 3.99."
+          ],
+          "choices": [
+            {
+              "label": "THEY · APPROVE",
+              "next": "why:approve"
+            },
+            {
+              "label": "THEY · CONFUSED",
+              "next": "why:confused"
+            },
+            {
+              "label": "THEY · TEASE",
+              "next": "why:tease"
+            }
+          ]
+        },
+        {
+          "id": "why:dramatic",
+          "speaker": "YOU",
+          "text": "Because chaos whispered my name, and I answered.",
+          "provenance": "EXACT",
+          "variants": [
+            "Every great story starts with a reckless choice."
+          ],
+          "choices": [
+            {
+              "label": "THEY · APPROVE",
+              "next": "why:approve"
+            },
+            {
+              "label": "THEY · CONFUSED",
+              "next": "why:confused"
+            },
+            {
+              "label": "THEY · TEASE",
+              "next": "why:tease"
+            }
+          ]
+        },
+        {
+          "id": "why:both",
+          "speaker": "YOU",
+          "text": "Logically, it made sense. Dramatically, it just felt right.",
+          "provenance": "EXACT",
+          "variants": [
+            "It was either this or something boring, and I don’t do boring."
+          ],
+          "choices": [
+            {
+              "label": "THEY · APPROVE",
+              "next": "why:approve"
+            },
+            {
+              "label": "THEY · CONFUSED",
+              "next": "why:confused"
+            },
+            {
+              "label": "THEY · TEASE",
+              "next": "why:tease"
+            }
+          ]
+        },
+        {
+          "id": "why:approve",
+          "speaker": "YOU",
+          "text": "See? Even chaos gets it right sometimes.",
+          "provenance": "EXACT",
+          "variants": [
+            "Glad you approve—makes it less reckless in hindsight."
+          ],
+          "choices": []
+        },
+        {
+          "id": "why:confused",
+          "speaker": "YOU",
+          "text": "Interesting? That’s just polite for genius.",
+          "provenance": "EXACT",
+          "variants": [
+            "Life’s more fun when the reasons don’t fully make sense."
+          ],
+          "choices": []
+        },
+        {
+          "id": "why:tease",
+          "speaker": "YOU",
+          "text": "Ridiculous is my love language.",
+          "provenance": "EXACT",
+          "variants": [
+            "The best ideas usually are."
+          ],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": "scene:care-modes",
+      "title": "CARE / CHOOSE THE KIND",
+      "lane": "CARE",
+      "provenance": "RECONSTRUCTED",
+      "source": {
+        "title": "Prison Age Meta-Game / private support-tree donor",
+        "date": "2024-12-27",
+        "archive": "conversations-001.json",
+        "public_safe": true
+      },
+      "note": "Mechanism recovered from a private-context support tree: leave multiple low-pressure routes open. Sensitive historical specifics are intentionally not reproduced. All public wording below is NEW.",
+      "start": "care:start",
+      "nodes": [
+        {
+          "id": "care:start",
+          "speaker": "YOU",
+          "text": "That sounds like a lot. Want company, thinking, practical help, or distraction?",
+          "provenance": "NEW",
+          "variants": [
+            "I’m here. Which mode helps: listen, think, do, or distract?"
+          ],
+          "choices": [
+            {
+              "label": "THEY · JUST LISTEN",
+              "next": "care:witness"
+            },
+            {
+              "label": "THEY · HELP ME THINK",
+              "next": "care:think"
+            },
+            {
+              "label": "THEY · PRACTICAL HELP",
+              "next": "care:help"
+            },
+            {
+              "label": "THEY · DISTRACT ME",
+              "next": "care:play"
+            },
+            {
+              "label": "THEY · NO REPLY",
+              "next": "care:silence"
+            }
+          ]
+        },
+        {
+          "id": "care:witness",
+          "speaker": "YOU",
+          "text": "I’m here. You don’t have to make it tidy for me.",
+          "provenance": "NEW",
+          "variants": [
+            "Go at your speed. I can just hold the thread."
+          ],
+          "choices": [
+            {
+              "label": "THEY · KEEP TALKING",
+              "next": "care:witness2"
+            },
+            {
+              "label": "THEY · STOP HERE",
+              "next": "care:silence"
+            }
+          ]
+        },
+        {
+          "id": "care:witness2",
+          "speaker": "YOU",
+          "text": "I hear you. I’m not going to rush you toward a conclusion.",
+          "provenance": "NEW",
+          "variants": [],
+          "choices": []
+        },
+        {
+          "id": "care:think",
+          "speaker": "YOU",
+          "text": "What part feels hardest to name clearly?",
+          "provenance": "NEW",
+          "variants": [
+            "What’s the knot, not the whole rope?"
+          ],
+          "choices": [
+            {
+              "label": "THEY · NAMES IT",
+              "next": "care:reflect"
+            },
+            {
+              "label": "THEY · NOT SURE",
+              "next": "care:unclear"
+            }
+          ]
+        },
+        {
+          "id": "care:reflect",
+          "speaker": "YOU",
+          "text": "So the live part is that—not everything around it. We can stay there.",
+          "provenance": "NEW",
+          "variants": [],
+          "choices": []
+        },
+        {
+          "id": "care:unclear",
+          "speaker": "YOU",
+          "text": "Then we don’t need a label yet. What happened is enough to start from.",
+          "provenance": "NEW",
+          "variants": [],
+          "choices": []
+        },
+        {
+          "id": "care:help",
+          "speaker": "YOU",
+          "text": "Give me one concrete thing I can take off the board.",
+          "provenance": "NEW",
+          "variants": [
+            "Pick one small burden. I can help carry that one."
+          ],
+          "choices": []
+        },
+        {
+          "id": "care:play",
+          "speaker": "YOU",
+          "text": "Serious mode off for five minutes?",
+          "provenance": "NEW",
+          "variants": [
+            "I can supply nonsense until further notice."
+          ],
+          "choices": [
+            {
+              "label": "THEY · YES",
+              "next": "care:play2"
+            },
+            {
+              "label": "THEY · MAYBE LATER",
+              "next": "care:silence"
+            }
+          ]
+        },
+        {
+          "id": "care:play2",
+          "speaker": "YOU",
+          "text": "Excellent. Reality has lost microphone privileges.",
+          "provenance": "NEW",
+          "variants": [
+            "Good. We’ll resume gravity when summoned."
+          ],
+          "choices": []
+        },
+        {
+          "id": "care:silence",
+          "speaker": "YOU",
+          "text": "No reply needed. Line stays open.",
+          "provenance": "NEW",
+          "variants": [
+            "You can leave this here. I’ll still be here later."
+          ],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": "scene:good-news",
+      "title": "GOOD NEWS / CAPITALIZE",
+      "lane": "CELEBRATE",
+      "provenance": "RESEARCH_INFORMED",
+      "source": {
+        "research_ref": "/laconic/research/response-principles.md"
+      },
+      "note": "New scene. Uses enthusiasm + elaboration as the default response to another person’s positive event; not a recovered historical script.",
+      "start": "good:start",
+      "nodes": [
+        {
+          "id": "good:start",
+          "speaker": "YOU",
+          "text": "Wait—tell me the good part properly.",
+          "provenance": "NEW",
+          "variants": [
+            "Hold on. I want the full victory lap."
+          ],
+          "choices": [
+            {
+              "label": "THEY · ELABORATES",
+              "next": "good:detail"
+            },
+            {
+              "label": "THEY · DOWNPLAYS IT",
+              "next": "good:downplay"
+            },
+            {
+              "label": "THEY · JUST HAPPY",
+              "next": "good:savor"
+            }
+          ]
+        },
+        {
+          "id": "good:detail",
+          "speaker": "YOU",
+          "text": "That’s excellent. What part are you happiest about?",
+          "provenance": "NEW",
+          "variants": [
+            "Okay, that’s real. Which bit feels best?"
+          ],
+          "choices": []
+        },
+        {
+          "id": "good:downplay",
+          "speaker": "YOU",
+          "text": "You’re allowed to enjoy it before optimizing it.",
+          "provenance": "NEW",
+          "variants": [
+            "No shrinking it yet. This one gets to be good."
+          ],
+          "choices": []
+        },
+        {
+          "id": "good:savor",
+          "speaker": "YOU",
+          "text": "Good. Keep it warm for a minute.",
+          "provenance": "NEW",
+          "variants": [
+            "Then we don’t need analysis. Just yes."
+          ],
+          "choices": []
+        }
+      ]
+    },
+    {
+      "id": "scene:repair-gap",
+      "title": "REPAIR / AFTER A GAP",
+      "lane": "REPAIR",
+      "provenance": "NEW",
+      "source": {
+        "research_ref": "/laconic/research/response-principles.md"
+      },
+      "note": "New scene built from the existing repair-line family: acknowledge the discontinuity, lower the re-entry cost, then give the other person control over depth.",
+      "start": "repair:start",
+      "nodes": [
+        {
+          "id": "repair:start",
+          "speaker": "YOU",
+          "text": "I dropped the thread. Picking it back up here.",
+          "provenance": "NEW",
+          "variants": [
+            "I went quiet, not away."
+          ],
+          "choices": [
+            {
+              "label": "THEY · CONTINUE",
+              "next": "repair:continue"
+            },
+            {
+              "label": "THEY · HURT / ANNOYED",
+              "next": "repair:residue"
+            },
+            {
+              "label": "THEY · KEEP IT LIGHT",
+              "next": "repair:light"
+            }
+          ]
+        },
+        {
+          "id": "repair:continue",
+          "speaker": "YOU",
+          "text": "Good. What’s still live?",
+          "provenance": "NEW",
+          "variants": [],
+          "choices": []
+        },
+        {
+          "id": "repair:residue",
+          "speaker": "YOU",
+          "text": "Fair. We can address the gap before the topic.",
+          "provenance": "NEW",
+          "variants": [
+            "I hear the residue. We don’t have to skip over it."
+          ],
+          "choices": []
+        },
+        {
+          "id": "repair:light",
+          "speaker": "YOU",
+          "text": "Excellent. Minimal archaeology, maximum continuation.",
+          "provenance": "NEW",
+          "variants": [
+            "Then we resume without a committee hearing."
+          ],
+          "choices": []
+        }
+      ]
+    }
+  ]
+}

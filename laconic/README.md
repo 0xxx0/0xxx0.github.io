@@ -1,54 +1,116 @@
-# LACONIC / ICONIC RECOVERY 0.1
+# LACONIC / ICONIC 0.2
 
 ## JOB
 
-Recover the response-bank lineage as a usable drafting instrument without fabricating history.
+A provenance-aware response instrument for recurring human exchanges.
 
-Loop:
+It now has three distinct object classes:
 
-`SITUATION → MOVE → VOICE/LENS → CANDIDATE → HUMAN REVIEW → HUMAN PORT → RETURN`
+1. **LINE** — compact single-turn candidate.
+2. **SCENE** — multi-turn trajectory with explicit branches.
+3. **FRAGMENT** — recovered exact phrase/operator that may be memorable without being a deployable reply.
 
-This route never sends. It prepares and curates drafts. HUMAN PORT owns the explicit share/copy boundary.
+The distinction is deliberate. A line should not become a scene by implication; an aphorism should not be scored as though it were a text-message answer.
+
+## CORE LOOP
+
+`OBSERVED → POSSIBLE → MOVE → LINE / SCENE → CURATE → HUMAN PORT → RETURN`
+
+- **OBSERVED**: what was actually said/done.
+- **POSSIBLE**: tentative need/interpretation, never treated as diagnosis.
+- **MOVE**: listen, ask, answer, help, play, celebrate, repair, etc.
+- **LINE / SCENE**: choose the required temporal depth.
+- **CURATE**: preserve winners and failures.
+- **HUMAN PORT**: explicit share/copy boundary.
+- **RETURN**: evidence and continuation.
+
+## RECOVERED MULTI-TURN LINEAGE
+
+v0.2 restores an older mechanism recovered from the conversation archive: common exchanges were represented as 2–4-turn branching setups rather than as a flat list of quips.
+
+Public exact donors currently include:
+- HOW ARE YOU?
+- WHAT DO YOU DO?
+- WHY DID YOU DO THAT?
+
+Each exact donor remains marked **EXACT** and is not silently promoted to current canon merely because it was recovered.
+
+A separate older support-tree mechanism is represented as **CARE / CHOOSE THE KIND**. The historical source included private/sensitive situational details, so only the abstract mechanism survived publicly. The scene is marked **RECONSTRUCTED** and every newly written public line inside it is marked **NEW**.
+
+## PLAY ↔ CARE
+
+Humor is not a universal persona.
+
+The scene layer separates:
+- **PLAY** — reciprocal wit / branching banter.
+- **CARE** — witness / think / practical help / distraction / silence.
+- **CELEBRATE** — enthusiasm + elaboration for good news.
+- **REPAIR** — low-friction re-entry after gaps or residue.
+
+This prevents "be funny" from overwriting context.
+
+## PSYCH / EMOTION RESEARCH BOUNDARY
+
+Research notes live at:
+
+`/laconic/research/response-principles.md`
+
+They are design donors, not a diagnostic system.
+
+The app must not:
+- diagnose from text;
+- pretend a sentiment score is ground truth;
+- infer motive or hidden state as fact;
+- use canned validation as an unconditional reflex.
+
+It may:
+- preserve observed language;
+- expose possible needs as tentative;
+- make support mode explicit;
+- ask one bounded question;
+- keep emotional labels precise and defeasible.
 
 ## PROVENANCE
 
-- **EXACT** — verbatim recovered source with a source reference.
-- **RECONSTRUCTED** — faithful reconstruction where exact wording is unavailable.
-- **NEW** — created after recovery; never represented as historical.
+- **EXACT** — wording recovered verbatim from an archived source.
+- **RECONSTRUCTED** — mechanism/source lineage recovered, but wording or public form reconstructed.
+- **NEW** — created after recovery.
+- **RESEARCH_INFORMED** — new mechanism informed by cited research, not historical canon.
 
-The starter `bank.json` intentionally contains only **NEW** seed lines because the exact historical v0.01 artifact has not yet been recovered into the repository.
+Origin, adoption, recovery, and current canon remain separate concepts.
 
-## RECOVERY / CLIPBOARD
+## FILES
 
-Use the RECOVER panel in `/laconic/`:
+- `bank.json` — v0.1 single-turn candidate bank.
+- `schema.json` — line-bank schema.
+- `scenes.json` — v0.2 multi-turn trajectories.
+- `scenes.schema.json` — scene schema.
+- `fragments.json` — selected exact fragments/operators from the recovered master ledger.
+- `research/response-principles.md` — bounded research donors.
+- `source-pack.schema.json` — recovery staging format.
+- `release.json` — current release receipt.
 
-1. paste source text;
-2. choose source class (defaults to UNCLASSIFIED);
-3. optionally add a source ref;
-4. export/copy a source pack;
-5. reconcile each item into `bank.json` only after provenance is known.
+## LOCAL STATE
 
-Do not silently overwrite NEW lines with recovered lines. Preserve both until dedup is explicit.
-
-## CURATION
-
-Browser-local KEEP / DROP judgments are stored under:
+KEEP / DROP judgments remain browser-local:
 
 `laconic.iconic.verdicts.v01`
 
-They are local evidence, not canonical repo state. Promote winners into the bank only with a source/decision receipt.
+The optional OBSERVED scratch field is not uploaded or classified.
 
-## BOUNDARIES
+## AUTHORITY
 
-- no network submission;
-- no hidden backend;
-- no auto-send;
-- no private correspondence in the public repository;
-- no claim that NEW seed lines are recovered historical material.
+This route never sends.
 
-## INTEROP
+`DRAFT ≠ SEND`
 
-- HUMAN PORT: `/contact/?draft=<encoded text>&mode=REPLY`
-- Router action: `DRAFT`
-- Policy gate: `draft`
-- Release receipt: `/laconic/release.json`
+HUMAN PORT owns the explicit external share/copy boundary.
+
+## NEXT BOUNDS
+
+The next credible evolution is not more generic generated lines. It is evidence-bearing curation:
+
+1. recover more exact scene trees / response sequences;
+2. mark user adoption/reuse separately from assistant generation;
+3. add small branch-level KEEP / DROP / WHY receipts;
+4. only then use the recovered grammar to generate a small new frontier.
