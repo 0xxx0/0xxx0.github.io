@@ -102,7 +102,7 @@ function renderNow(){
  if(!C){$('frontGrid').innerHTML='<div class="front"><p>Live control unavailable.</p></div>';return}
  $('liveStamp').textContent='updated '+esc(C.updated)+' · fetched from /control/CURRENT.json';
  const fronts=[...(C.active_fronts||[]),...(C.held_fronts||[])];
- $('frontGrid').innerHTML=fronts.map(f=>'<div class="front '+(f.state||'').includes('HOLD')?'hold':''+'"><div class="state">'+esc(f.state)+'</div><h3>'+esc(f.id)+'</h3><p>'+esc(f.objective||f.reason||'')+'</p><div class="center">'+esc(f.center||'')+'</div></div>').join('');
+ $('frontGrid').innerHTML=fronts.map(f=>'<div class="front '+(((f.state||'').includes('HOLD'))?'hold':'')+'"><div class="state">'+esc(f.state)+'</div><h3>'+esc(f.id)+'</h3><p>'+esc(f.objective||f.reason||'')+'</p><div class="center">'+esc(f.center||'')+'</div></div>').join('');
  $('headList').innerHTML=(C.current_heads||[]).map(h=>'<a class="head" href="'+esc(h.route||'#')+'"><b>'+esc(h.head)+'</b><span class="s">'+esc(h.state)+'</span><span class="r">'+esc(h.retained_function)+'</span></a>').join('')
 }
 function render(){
