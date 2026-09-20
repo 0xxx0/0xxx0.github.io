@@ -97,6 +97,19 @@
         "RSVP+TTS TMP-SPEECHSYNTH 2018"
       ],
       "action": "DataDisc 2019 exact bytes frozen and hash-verified; RSVP 2018 already exact frozen. Treat as historical fixtures for projection/attention mechanism comparison."
+    },
+    {
+      "cluster": "POLY / FURNISHER / KRAKEN",
+      "examples": [
+        "KRAKEN 2019 index.html",
+        "IMPT xducers/matrix/lenses 2020",
+        "NotesforDraftofSINDERESIS.md",
+        "FUN.js",
+        "mvp.js",
+        "PRELUDE-DRAFT-NOTES.md",
+        "prelude.js"
+      ],
+      "action": "Exact 2019–2021 core-evidence family frozen under /recovery/poly-furnisher/. Keep bytes, original intent notes and 2026 interpretive survey as distinct evidence classes; no in-place modernization."
     }
   ],
   "next": [
@@ -148,6 +161,12 @@
       "route": "/recovery/media/datadisc/datadisc.html",
       "classification": "EXACT_BYTE_VERIFIED_HISTORICAL_DONOR",
       "receipt": "/recovery/media/datadisc/manifest.json"
+    },
+    {
+      "family": "POLY / FURNISHER / KRAKEN",
+      "route": "/recovery/poly-furnisher/",
+      "classification": "EXACT_BYTE_VERIFIED_CORE_EVIDENCE_FAMILY",
+      "receipt": "/recovery/poly-furnisher/manifest.json"
     }
   ]
 }
