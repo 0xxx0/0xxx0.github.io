@@ -1,0 +1,80 @@
+{
+  "schema": "0xxx0/quarantine/v0.1",
+  "updated": "2026-09-20",
+  "purpose": "Preserve weak, generic, third-party, duplicate, or poorly evidenced material without letting it occupy the active/public surface.",
+  "laws": [
+    "QUARANTINE ≠ DELETE",
+    "NO BEAUTIFICATION DEBT",
+    "FILENAME OR VIBE IS NOT PROVENANCE",
+    "GENERIC EXAMPLE ≠ PROJECT LINEAGE",
+    "PROMOTION REQUIRES IDENTITY + PROVENANCE + MECHANISM + PAY-RENT + RETURN"
+  ],
+  "zones": {
+    "QUARANTINE": "Source may be retained; no public promotion until a named mechanism pays rent.",
+    "ATTIC": "Rejected/irrelevant candidate retained as negative knowledge to prevent repeated rediscovery.",
+    "HOLD": "Potentially relevant but provenance or identity is insufficient."
+  },
+  "entries": [
+    {
+      "id": "generic-site-shell-batch",
+      "zone": "QUARANTINE",
+      "source": "mixed recent generated/site shells",
+      "reason": "Hero/features/pricing/dashboard polish is not evidence of a distinct operation.",
+      "allowed_salvage": "One named reusable mechanism, content fragment, or interaction that passes the promotion gate.",
+      "forbidden": "Beautify, rename into a new project, or place on primary nav merely because it renders."
+    },
+    {
+      "id": "arduino-tone-midi-pages",
+      "zone": "ATTIC",
+      "candidates": [
+        "Tone.html",
+        "Tone2.html",
+        "Tone3.html",
+        "Midi.html"
+      ],
+      "reason": "Saved Arduino documentation/example pages; not project-specific audio organisms.",
+      "disposition": "Do not add to Field Index."
+    },
+    {
+      "id": "generic-webaudio-keyboard",
+      "zone": "HOLD",
+      "candidates": [
+        "0-sound.js"
+      ],
+      "reason": "Runnable WebAudio keyboard example but project-specific provenance is not established.",
+      "promotion_trigger": "Find surrounding source/context proving it was transformed into a distinct project organism or locate a more specific descendant."
+    },
+    {
+      "id": "sonoaerius",
+      "zone": "HOLD",
+      "candidates": [
+        "SonoAerius concept lineage"
+      ],
+      "reason": "Concept is real in archive but no exact executable artifact recovered; archive itself says require one distinct interaction not replaceable by a normal synth preset browser.",
+      "promotion_trigger": "Exact runnable/source artifact plus distinct interaction proof."
+    },
+    {
+      "id": "desktop-agent-search-noise",
+      "zone": "ATTIC",
+      "candidates": [
+        "generic Clippy/Bonzi/mascot search results",
+        "unrelated Kala/Kirtimukha visual material"
+      ],
+      "reason": "Search noise around the remembered desktop-character lineage. KALA proper source is now recovered separately.",
+      "disposition": "Do not use as evidence for KALA or wider pet chronology."
+    }
+  ],
+  "recovered_out_of_quarantine": [
+    {
+      "id": "kala-agent-interface-2018-2020",
+      "route": "/recovery/kala/",
+      "reason": "Exact proper-name source found and frozen; interface behavior is directly evidenced."
+    },
+    {
+      "id": "interphase-cylinder-lineage",
+      "route": "/recovery/poly-furnisher/interphase-lineage/",
+      "reason": "Exact representative variants and duplicate families established."
+    }
+  ],
+  "stop_rule": "When a bounded pass yields no exact artifact, duplicate collapse, lineage correction, donor packet, or rejection receipt, stop archaeology and return to current fronts."
+}
