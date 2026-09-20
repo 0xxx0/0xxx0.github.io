@@ -744,7 +744,20 @@
       "title": "FOUNDRY",
       "kind": "hub",
       "parent": "/",
-      "family": "FOUNDRY"
+      "family": "FOUNDRY",
+      "state": "ACTIVE",
+      "operation": "ORIENT",
+      "receipt": "/foundry/release.json",
+      "role": "Public instrument gateway separating ORIENT / OPERATE / PROVE / RECOVER while live priority remains in control/CURRENT.json.",
+      "showcase_card": false,
+      "index": {
+        "updated_at": "2026-09-20T22:57:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "RECOVER",
+          "VERIFY"
+        ]
+      }
     },
     {
       "href": "/foundry/verse-atlas/",
