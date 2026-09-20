@@ -1,0 +1,61 @@
+{
+  "schema": "0xxx0/recovery/poly-furnisher-room/v0.1",
+  "status": "EXACT_FROZEN_ROOM_LINEAGE",
+  "recovered_at": "2026-09-20",
+  "relation": "Sub-lineage of POLY / FURNISHER. The room is a projection/container and interaction testbed, not the kernel.",
+  "representatives": [
+    {
+      "name": "FU5X2.html",
+      "route": "/recovery/poly-furnisher/room-lineage/FU5X2.html",
+      "drive_id": "1VlhhIebLtlRIRAU0pqwiBQFohb0qPUOM",
+      "size_bytes": 53646,
+      "sha256": "fcddc2acdc9f88ad5df1c9c77156ec349c1b7ffa77cbf95a7d3fce4146a7102a",
+      "git_blob_sha": "8729e08e7848b2eb4a151625a7125692e4218cea",
+      "observed_mechanisms": [
+        "room/cube projection",
+        "KRAKEN capability exposure",
+        "lenses/optics",
+        "matrix transforms",
+        "AudioContext/speech",
+        "input/focus/state"
+      ],
+      "exact_duplicate_verified_with": "1GMdZTj_H_A0qUeqepSVgJ__sOVosT8ve"
+    },
+    {
+      "name": "EMPTY3-RF.html",
+      "route": "/recovery/poly-furnisher/room-lineage/EMPTY3-RF.html",
+      "drive_id": "14YJ1x-8cEqFo9EQf_BY394rEl3XIH6IZ",
+      "size_bytes": 47830,
+      "sha256": "80ab8a5dcb258331a3e2de2329f24eb4a0e471fdd4fc04e7a03fc169e1ed82ae",
+      "git_blob_sha": "6b4231c84396e02c6fc995151f93b2503571f2f2",
+      "observed_mechanisms": [
+        "rotator/cube geometry",
+        "speech recognition/synthesis",
+        "matrix utilities",
+        "lens/prism design notes",
+        "input/output experiments"
+      ],
+      "exact_duplicate_verified_with": "1hrn9J9ctahXgkcv7i4Tyao42Ukd8ihgx"
+    },
+    {
+      "name": "scratch.html",
+      "route": "/recovery/poly-furnisher/room-lineage/scratch.html",
+      "drive_id": "1orCj22G-x4oIjsxZ9_Zs86_xcwLNN_0P",
+      "size_bytes": 40747,
+      "sha256": "0443780572c5f53bb4770913d42d6dcb67f863ccb3441ea87bd876f05fc7c7ba",
+      "git_blob_sha": "e345e2d2dda623ec66b21bb59d16a2b29f44f6c0",
+      "observed_mechanisms": [
+        "room projection",
+        "lens/iso/traversal experiments",
+        "state/store/reducer notes",
+        "focus/address experiments"
+      ],
+      "exact_duplicate_verified_with": "1JK35wqivNaYDIoSsj4arMZPgsp8VVo6E"
+    }
+  ],
+  "duplicate_rule": "One representative is frozen per byte-identical family. At least one second Drive copy has been Git-blob verified exact for each representative. Same-size siblings are not assumed exact until hashed.",
+  "source_context": "A 2024 ancient-codebase recovery thread uploaded EMPTY3-RF.html, scratch.html, FU5X2.html and datadisc.html together. This establishes them as one recovery slice but not necessarily one version sequence.",
+  "disposition": "LIVE_DONOR_FAMILY",
+  "unique": "Historical spatial/interface laboratory showing ROOM as one projection over deeper state/optic/transform machinery; useful donor for representation/physical-room lineage, not a current product.",
+  "stop_rule": "Do not refactor these fossils in place. Mine named mechanisms or tests into descendants only after a current need is identified."
+}
