@@ -28,6 +28,14 @@ Recovery remains sealed. The active work moved through two additional gates:
 - **Ingest:** proved substrate; repeat on real local ingress when filesystem access exists.
 - **Reality / House / Print:** **NEXT NOW**.
 
+## I/O lens
+
+The root FIELD INDEX now has two lawful readings of the same surfaces: **CAPABILITY** and **I/O**. I/O exposes what enters, what exits, and which world-facing path is available/candidate/blocked. Private canon extends this to adapters, House G3, READFIELD, AXIAL physicalization, ENV0 and future observed tools/zones.
+
+Query grammar: **PRODUCES / CONSUMES / CONNECT / REIFY / VERIFY / BOTTLENECK / SALVAGE / MOVE / RETURN**.
+
+A physical RETURN is simply the minimum evidence that a real-world action happened; its next job is to seed the first observed physical row in FIELD INDEX.
+
 ## NEXT
 
 Produce **one actual physical/print RETURN**. Preferred bounded candidates already indexed:
