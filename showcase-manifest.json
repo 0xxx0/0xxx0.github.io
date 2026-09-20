@@ -2604,6 +2604,43 @@
           "INVESTIGATE"
         ]
       }
+    },
+    {
+      "href": "/migration/",
+      "title": "MIGRATION / SALVAGE YARD",
+      "kind": "control",
+      "parent": "/",
+      "state": "ACTIVE",
+      "showcase_card": false,
+      "role": "Human-facing recovery/salvage home: evidence classes, promotion gate, trophy case, expeditions, quarantine, attic and ingest queue.",
+      "index": {
+        "updated_at": "2026-09-20T22:55:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/poly-furnisher/room-lineage/",
+      "title": "FU ROOM / INTERPHASE ROOM LINEAGE",
+      "kind": "donor",
+      "parent": "/recovery/poly-furnisher/",
+      "family": "POLY / FURNISHER",
+      "operation": "PROJECT",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "Exact FU5X2 / EMPTY3-RF / scratch donor family; historical room/cube projection over optics, matrix, state, speech/audio and focus machinery.",
+      "receipt": "/recovery/poly-furnisher/room-lineage/manifest.json",
+      "index": {
+        "updated_at": "2026-09-20T22:55:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY",
+          "INVESTIGATE"
+        ]
+      }
     }
   ],
   "release_law": [
