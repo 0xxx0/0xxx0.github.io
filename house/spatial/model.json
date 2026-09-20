@@ -1,0 +1,759 @@
+{
+  "schema": "house-spatial-substrate/v0.2",
+  "updated": "2026-09-20",
+  "instance_status": "RECONSTRUCTED_FROM_RECOVERED_DONOR",
+  "identity_note": "Recovered Sep 9 brochure-topology donor associated with the earlier 93 m² / #17-103 research branch. Do not assert it is the currently occupied unit until unit/orientation is re-verified.",
+  "canonical_law": "One addressed physical substrate; many projections. No projection may imply certainty absent from evidence.",
+  "coordinate_space": {
+    "kind": "DONOR_PLAN_PIXELS",
+    "width": 1000,
+    "height": 640,
+    "metric_scale_mm_per_unit": null,
+    "z_scale": "UNBOUND"
+  },
+  "primitives": [
+    "VOLUME",
+    "SURFACE",
+    "OPENING",
+    "OBJECT",
+    "ANCHOR",
+    "OBSERVATION",
+    "ACTION",
+    "EVIDENCE"
+  ],
+  "projections": [
+    "PLAN",
+    "RCP",
+    "SURFACE",
+    "ELEVATION",
+    "SECTION",
+    "3D",
+    "FIELD",
+    "ATLAS",
+    "HA_STATE"
+  ],
+  "rooms": [
+    {
+      "id": "main_bedroom",
+      "label": "MAIN BEDROOM",
+      "mode": "rest",
+      "source": "brochure topology",
+      "points": [
+        [
+          55,
+          55
+        ],
+        [
+          245,
+          55
+        ],
+        [
+          245,
+          225
+        ],
+        [
+          205,
+          225
+        ],
+        [
+          205,
+          275
+        ],
+        [
+          55,
+          275
+        ]
+      ],
+      "note": "Upper-left main bedroom in the recovered brochure-topology donor.",
+      "vertical": {
+        "floor_z_mm": null,
+        "ceiling_z_mm": null,
+        "ceiling_shape": "UNKNOWN",
+        "evidence": "UNMEASURED"
+      },
+      "surface_ids": [
+        "main_bedroom:floor",
+        "main_bedroom:ceiling",
+        "main_bedroom:wall:01",
+        "main_bedroom:wall:02",
+        "main_bedroom:wall:03",
+        "main_bedroom:wall:04",
+        "main_bedroom:wall:05",
+        "main_bedroom:wall:06"
+      ]
+    },
+    {
+      "id": "bedroom_2",
+      "label": "BEDROOM",
+      "mode": "empty",
+      "source": "brochure topology",
+      "points": [
+        [
+          245,
+          55
+        ],
+        [
+          410,
+          55
+        ],
+        [
+          410,
+          220
+        ],
+        [
+          370,
+          220
+        ],
+        [
+          370,
+          265
+        ],
+        [
+          245,
+          265
+        ]
+      ],
+      "note": "Middle upper-band bedroom.",
+      "vertical": {
+        "floor_z_mm": null,
+        "ceiling_z_mm": null,
+        "ceiling_shape": "UNKNOWN",
+        "evidence": "UNMEASURED"
+      },
+      "surface_ids": [
+        "bedroom_2:floor",
+        "bedroom_2:ceiling",
+        "bedroom_2:wall:01",
+        "bedroom_2:wall:02",
+        "bedroom_2:wall:03",
+        "bedroom_2:wall:04",
+        "bedroom_2:wall:05",
+        "bedroom_2:wall:06"
+      ]
+    },
+    {
+      "id": "cat_room",
+      "label": "CAT ROOM / BEDROOM",
+      "mode": "hygiene_watch",
+      "source": "user allocation + brochure topology",
+      "points": [
+        [
+          410,
+          55
+        ],
+        [
+          580,
+          55
+        ],
+        [
+          580,
+          225
+        ],
+        [
+          550,
+          225
+        ],
+        [
+          550,
+          270
+        ],
+        [
+          410,
+          270
+        ]
+      ],
+      "note": "Third upper-band bedroom used as cat-room candidate in donor.",
+      "vertical": {
+        "floor_z_mm": null,
+        "ceiling_z_mm": null,
+        "ceiling_shape": "UNKNOWN",
+        "evidence": "UNMEASURED"
+      },
+      "surface_ids": [
+        "cat_room:floor",
+        "cat_room:ceiling",
+        "cat_room:wall:01",
+        "cat_room:wall:02",
+        "cat_room:wall:03",
+        "cat_room:wall:04",
+        "cat_room:wall:05",
+        "cat_room:wall:06"
+      ]
+    },
+    {
+      "id": "living_dining",
+      "label": "LIVING / DINING",
+      "mode": "active",
+      "source": "brochure topology",
+      "points": [
+        [
+          580,
+          115
+        ],
+        [
+          885,
+          115
+        ],
+        [
+          885,
+          405
+        ],
+        [
+          805,
+          405
+        ],
+        [
+          805,
+          470
+        ],
+        [
+          645,
+          470
+        ],
+        [
+          645,
+          365
+        ],
+        [
+          580,
+          365
+        ]
+      ],
+      "note": "Right-side living/dining.",
+      "vertical": {
+        "floor_z_mm": null,
+        "ceiling_z_mm": null,
+        "ceiling_shape": "UNKNOWN",
+        "evidence": "UNMEASURED"
+      },
+      "surface_ids": [
+        "living_dining:floor",
+        "living_dining:ceiling",
+        "living_dining:wall:01",
+        "living_dining:wall:02",
+        "living_dining:wall:03",
+        "living_dining:wall:04",
+        "living_dining:wall:05",
+        "living_dining:wall:06",
+        "living_dining:wall:07",
+        "living_dining:wall:08"
+      ]
+    },
+    {
+      "id": "corridor_core",
+      "label": "CORRIDOR / CORE",
+      "mode": "active",
+      "source": "inferred connector",
+      "points": [
+        [
+          210,
+          255
+        ],
+        [
+          580,
+          255
+        ],
+        [
+          580,
+          365
+        ],
+        [
+          500,
+          365
+        ],
+        [
+          500,
+          335
+        ],
+        [
+          210,
+          335
+        ]
+      ],
+      "note": "Connector band.",
+      "vertical": {
+        "floor_z_mm": null,
+        "ceiling_z_mm": null,
+        "ceiling_shape": "UNKNOWN",
+        "evidence": "UNMEASURED"
+      },
+      "surface_ids": [
+        "corridor_core:floor",
+        "corridor_core:ceiling",
+        "corridor_core:wall:01",
+        "corridor_core:wall:02",
+        "corridor_core:wall:03",
+        "corridor_core:wall:04",
+        "corridor_core:wall:05",
+        "corridor_core:wall:06"
+      ]
+    },
+    {
+      "id": "bath_common",
+      "label": "BATH / WC",
+      "mode": "empty",
+      "source": "brochure topology",
+      "points": [
+        [
+          250,
+          335
+        ],
+        [
+          370,
+          335
+        ],
+        [
+          370,
+          455
+        ],
+        [
+          250,
+          455
+        ]
+      ],
+      "note": "Wet zone.",
+      "vertical": {
+        "floor_z_mm": null,
+        "ceiling_z_mm": null,
+        "ceiling_shape": "UNKNOWN",
+        "evidence": "UNMEASURED"
+      },
+      "surface_ids": [
+        "bath_common:floor",
+        "bath_common:ceiling",
+        "bath_common:wall:01",
+        "bath_common:wall:02",
+        "bath_common:wall:03",
+        "bath_common:wall:04"
+      ]
+    },
+    {
+      "id": "bath_main",
+      "label": "BATH / WC",
+      "mode": "empty",
+      "source": "brochure topology",
+      "points": [
+        [
+          370,
+          335
+        ],
+        [
+          500,
+          335
+        ],
+        [
+          500,
+          455
+        ],
+        [
+          370,
+          455
+        ]
+      ],
+      "note": "Second wet zone.",
+      "vertical": {
+        "floor_z_mm": null,
+        "ceiling_z_mm": null,
+        "ceiling_shape": "UNKNOWN",
+        "evidence": "UNMEASURED"
+      },
+      "surface_ids": [
+        "bath_main:floor",
+        "bath_main:ceiling",
+        "bath_main:wall:01",
+        "bath_main:wall:02",
+        "bath_main:wall:03",
+        "bath_main:wall:04"
+      ]
+    },
+    {
+      "id": "aircon_ledge",
+      "label": "AIR-CON LEDGE",
+      "mode": "empty",
+      "source": "brochure topology",
+      "points": [
+        [
+          75,
+          275
+        ],
+        [
+          240,
+          275
+        ],
+        [
+          240,
+          335
+        ],
+        [
+          75,
+          335
+        ]
+      ],
+      "note": "External/service area.",
+      "vertical": {
+        "floor_z_mm": null,
+        "ceiling_z_mm": null,
+        "ceiling_shape": "UNKNOWN",
+        "evidence": "UNMEASURED"
+      },
+      "surface_ids": [
+        "aircon_ledge:floor",
+        "aircon_ledge:ceiling",
+        "aircon_ledge:wall:01",
+        "aircon_ledge:wall:02",
+        "aircon_ledge:wall:03",
+        "aircon_ledge:wall:04"
+      ]
+    },
+    {
+      "id": "service_yard",
+      "label": "SERVICE YARD",
+      "mode": "empty",
+      "source": "brochure topology",
+      "points": [
+        [
+          500,
+          390
+        ],
+        [
+          615,
+          390
+        ],
+        [
+          615,
+          540
+        ],
+        [
+          500,
+          540
+        ]
+      ],
+      "note": "Rain/laundry/humidity boundary.",
+      "vertical": {
+        "floor_z_mm": null,
+        "ceiling_z_mm": null,
+        "ceiling_shape": "UNKNOWN",
+        "evidence": "UNMEASURED"
+      },
+      "surface_ids": [
+        "service_yard:floor",
+        "service_yard:ceiling",
+        "service_yard:wall:01",
+        "service_yard:wall:02",
+        "service_yard:wall:03",
+        "service_yard:wall:04"
+      ]
+    },
+    {
+      "id": "kitchen",
+      "label": "KITCHEN",
+      "mode": "empty",
+      "source": "brochure topology",
+      "points": [
+        [
+          615,
+          390
+        ],
+        [
+          805,
+          390
+        ],
+        [
+          805,
+          540
+        ],
+        [
+          615,
+          540
+        ]
+      ],
+      "note": "Kitchen/inventory/ventilation zone.",
+      "vertical": {
+        "floor_z_mm": null,
+        "ceiling_z_mm": null,
+        "ceiling_shape": "UNKNOWN",
+        "evidence": "UNMEASURED"
+      },
+      "surface_ids": [
+        "kitchen:floor",
+        "kitchen:ceiling",
+        "kitchen:wall:01",
+        "kitchen:wall:02",
+        "kitchen:wall:03",
+        "kitchen:wall:04"
+      ]
+    },
+    {
+      "id": "household_shelter",
+      "label": "SHELTER",
+      "mode": "empty",
+      "source": "brochure topology",
+      "points": [
+        [
+          805,
+          420
+        ],
+        [
+          925,
+          420
+        ],
+        [
+          925,
+          560
+        ],
+        [
+          805,
+          560
+        ]
+      ],
+      "note": "Lower-right core.",
+      "vertical": {
+        "floor_z_mm": null,
+        "ceiling_z_mm": null,
+        "ceiling_shape": "UNKNOWN",
+        "evidence": "UNMEASURED"
+      },
+      "surface_ids": [
+        "household_shelter:floor",
+        "household_shelter:ceiling",
+        "household_shelter:wall:01",
+        "household_shelter:wall:02",
+        "household_shelter:wall:03",
+        "household_shelter:wall:04"
+      ]
+    }
+  ],
+  "structure": [
+    {
+      "kind": "rect",
+      "x": 392,
+      "y": 205,
+      "w": 36,
+      "h": 94,
+      "label": "hack-limit / column zone",
+      "evidence": "RECOVERED_DONOR"
+    },
+    {
+      "kind": "line",
+      "x1": 890,
+      "y1": 405,
+      "x2": 705,
+      "y2": 268,
+      "label": "direct-entry privacy sightline",
+      "evidence": "RECOVERED_DONOR"
+    }
+  ],
+  "windows": [
+    [
+      [
+        70,
+        50
+      ],
+      [
+        565,
+        50
+      ]
+    ],
+    [
+      [
+        650,
+        110
+      ],
+      [
+        850,
+        110
+      ]
+    ],
+    [
+      [
+        500,
+        430
+      ],
+      [
+        500,
+        520
+      ]
+    ],
+    [
+      [
+        52,
+        145
+      ],
+      [
+        52,
+        245
+      ]
+    ]
+  ],
+  "doors": [
+    {
+      "x": 870,
+      "y": 405,
+      "w": 64,
+      "a": 40
+    },
+    {
+      "x": 756,
+      "y": 390,
+      "w": 54,
+      "a": -45
+    },
+    {
+      "x": 540,
+      "y": 390,
+      "w": 54,
+      "a": 70
+    },
+    {
+      "x": 315,
+      "y": 265,
+      "w": 54,
+      "a": -62
+    },
+    {
+      "x": 455,
+      "y": 265,
+      "w": 54,
+      "a": -118
+    },
+    {
+      "x": 555,
+      "y": 270,
+      "w": 54,
+      "a": -65
+    }
+  ],
+  "anchors": [
+    {
+      "id": "litter_box_1",
+      "room": "cat_room",
+      "x": 465,
+      "y": 180,
+      "type": "hygiene",
+      "confidence": "provisional",
+      "entities": [
+        "sensor.cat_room_humidity",
+        "fan.cat_room"
+      ]
+    },
+    {
+      "id": "cat_air_sensor",
+      "room": "cat_room",
+      "x": 535,
+      "y": 125,
+      "type": "sensor",
+      "confidence": "provisional",
+      "entities": [
+        "sensor.cat_room_pm25",
+        "sensor.cat_room_voc"
+      ]
+    },
+    {
+      "id": "sofa_zone",
+      "room": "living_dining",
+      "x": 710,
+      "y": 250,
+      "type": "comfort",
+      "confidence": "placeholder",
+      "entities": [
+        "light.floor_lamp"
+      ]
+    },
+    {
+      "id": "entry_privacy_line",
+      "room": "living_dining",
+      "x": 855,
+      "y": 383,
+      "type": "boundary",
+      "confidence": "source-derived",
+      "entities": [
+        "sensor.door_main",
+        "cover.living_blinds"
+      ]
+    },
+    {
+      "id": "living_noise_boundary",
+      "room": "living_dining",
+      "x": 800,
+      "y": 128,
+      "type": "sensor",
+      "confidence": "source-derived",
+      "entities": [
+        "sensor.living_noise"
+      ]
+    },
+    {
+      "id": "kitchen_vent_path",
+      "room": "kitchen",
+      "x": 705,
+      "y": 475,
+      "type": "airflow",
+      "confidence": "topological",
+      "entities": [
+        "sensor.kitchen_voc",
+        "fan.kitchen"
+      ]
+    },
+    {
+      "id": "fridge_anchor",
+      "room": "kitchen",
+      "x": 765,
+      "y": 510,
+      "type": "inventory",
+      "confidence": "future stub",
+      "entities": [
+        "sensor.fridge_door",
+        "grocy.inventory"
+      ]
+    },
+    {
+      "id": "service_yard_edge",
+      "room": "service_yard",
+      "x": 535,
+      "y": 505,
+      "type": "boundary",
+      "confidence": "topological",
+      "entities": [
+        "binary_sensor.rain",
+        "sensor.service_yard_humidity"
+      ]
+    },
+    {
+      "id": "network_core",
+      "room": "household_shelter",
+      "x": 865,
+      "y": 500,
+      "type": "infrastructure",
+      "confidence": "candidate",
+      "entities": [
+        "sensor.ups",
+        "switch.router"
+      ]
+    }
+  ],
+  "vertical_substrate": {
+    "law": "Ceilings, floors and wall surfaces are first-class addressed surfaces. Section/RCP/elevation derive from the same room IDs as plan.",
+    "required_measurements": [
+      "one verified plan scale",
+      "floor datum",
+      "ceiling height per changed ceiling zone",
+      "soffit/beam drops",
+      "window sill/head heights",
+      "door head heights",
+      "wet-area level changes"
+    ],
+    "current_state": "SCHEMA_READY_GEOMETRY_VERTICAL_UNMEASURED"
+  },
+  "authority": {
+    "geometry": "Spatial State Engine",
+    "device_truth_and_actuation": "Home Assistant / HOUSEBUS",
+    "transport": "MQTT optional",
+    "public_projection": "HOUSE / FIELD"
+  },
+  "open_identity_conflict": {
+    "status": "UNRESOLVED",
+    "earlier_branch": "#17-103 / approx 93 m² / 4-room donor",
+    "current_house_record": "current-house lineage has also been described elsewhere as a 3-room 10A corner unit",
+    "rule": "Do not silently merge these physical instances. Re-verify unit/plan orientation before metric calibration."
+  }
+}
