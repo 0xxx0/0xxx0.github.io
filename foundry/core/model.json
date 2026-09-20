@@ -1,0 +1,321 @@
+{
+  "schema": "0xxx0/foundry-center/v0.1",
+  "updated": "2026-09-20",
+  "status": "CANON_CANDIDATE",
+  "title": "FOUNDRY / REAL CENTER",
+  "one_line": "Turn lived uncertainty into manipulable state, transform it deliberately across media, and get evidence back without losing identity, provenance, or the path home.",
+  "end_state": "An instrumented environment for turning thought into capability: distinctions become executable relations; relations acquire media; media produce consequence; consequence returns as evidence; evidence expands future controllability.",
+  "target_variable": "future controllability",
+  "target_test": "After this move, can more useful states be reached with better information and fewer brittle dependencies?",
+  "invariant_loop": [
+    "WORLD",
+    "SENSE",
+    "ADDRESS",
+    "STATE",
+    "TRANSFORM",
+    "PROJECT",
+    "ACT",
+    "MEASURE",
+    "RETURN"
+  ],
+  "signature_laws": [
+    {
+      "id": "L01",
+      "law": "WORLD REMAINS ANSWERABLE",
+      "meaning": "Abstraction must return to source, evidence, material or lived consequence."
+    },
+    {
+      "id": "L02",
+      "law": "ONE THING, MANY LAWFUL READINGS, FEW LAWFUL TRANSFORMATIONS",
+      "meaning": "Projection may vary radically; identity and allowed change remain explicit."
+    },
+    {
+      "id": "L03",
+      "law": "IDENTITY ≠ LOCATION ≠ PROJECTION ADDRESS",
+      "meaning": "A thing is not the file, screen, room coordinate or view that currently exposes it."
+    },
+    {
+      "id": "L04",
+      "law": "PRESERVE TRANSFORMATION, NOT WORDING",
+      "meaning": "Vocabulary may change when the operational relation survives and can still return."
+    },
+    {
+      "id": "L05",
+      "law": "ABSTRACTION TERMINATES IN CONSEQUENCE",
+      "meaning": "Eventually something must move, render, sound, print, fit, communicate, measure or change."
+    },
+    {
+      "id": "L06",
+      "law": "MANUAL BEFORE AUTOMATIC",
+      "meaning": "Establish a useful bounded primitive and fallback before machinery gains authority."
+    },
+    {
+      "id": "L07",
+      "law": "NO NEW CORE WITHOUT A MISSING FUNCTION",
+      "meaning": "Novel structure must buy capability, not merely rename an existing relation."
+    },
+    {
+      "id": "L08",
+      "law": "DEPTH ↑ WHILE VISIBLE SURFACE AREA STAYS SMALL",
+      "meaning": "Complexity belongs in the substrate; the active human control surface stays bounded."
+    },
+    {
+      "id": "L09",
+      "law": "RETURN IS PART OF THE OPERATION",
+      "meaning": "Output without an observed delta, receipt or path home is incomplete."
+    }
+  ],
+  "convergences": [
+    {
+      "id": "image-material",
+      "label": "IMAGE ↔ MATERIAL",
+      "color": "hot",
+      "claim": "Visual generation becomes a fabrication and spatial-thinking instrument rather than chat-only imagery.",
+      "enters": "generated image · photograph · diagram · mark · surface condition",
+      "transform": "extract invariant → vectorize/compose → scale/print/cut/paint/place",
+      "consequence": "physical surface, part, stencil, layout, spatial decision or reusable visual donor",
+      "stages": [
+        "SENSE",
+        "ADDRESS",
+        "PROJECT",
+        "ACT",
+        "MEASURE",
+        "RETURN"
+      ],
+      "anchors": [
+        {
+          "label": "HOUSE / SPATIAL",
+          "href": "/house/spatial/"
+        },
+        {
+          "label": "image-artifact harvest",
+          "href": "/control/CURRENT.json"
+        }
+      ]
+    },
+    {
+      "id": "symbol-operator",
+      "label": "SYMBOL ↔ OPERATOR",
+      "color": "cool",
+      "claim": "Glyphs, names and compact notation become executable distinctions instead of decorative semantics.",
+      "enters": "glyph · token · term · address · grammar · path",
+      "transform": "type → relate → compose → constrain → execute/project",
+      "consequence": "recoverable semantic operation with explicit invariants",
+      "stages": [
+        "ADDRESS",
+        "STATE",
+        "TRANSFORM",
+        "PROJECT",
+        "RETURN"
+      ],
+      "anchors": [
+        {
+          "label": "VERSE ATLAS",
+          "href": "/foundry/verse-atlas/"
+        },
+        {
+          "label": "SCALE LENS",
+          "href": "/fold-bloom/lens/"
+        },
+        {
+          "label": "PATH / GRID donors",
+          "href": "/recovery/path-grid/"
+        }
+      ]
+    },
+    {
+      "id": "state-machine",
+      "label": "STATE ↔ TRANSFORM ↔ MACHINE",
+      "color": "gold",
+      "claim": "Formal state and continuous transformation meet a transaction boundary that can drive software or physical machinery.",
+      "enters": "state token · coordinate · constraint · gesture · law",
+      "transform": "compose discrete meaning with continuous transform → gate consequence → emit trace",
+      "consequence": "machine-readable packet, applied change, proof trace and RETURN",
+      "stages": [
+        "STATE",
+        "TRANSFORM",
+        "ACT",
+        "MEASURE",
+        "RETURN"
+      ],
+      "anchors": [
+        {
+          "label": "AXIAL 0.4",
+          "href": "/foundry/axial/"
+        },
+        {
+          "label": "LAW ZOO",
+          "href": "/control/confluence/LAW_ZOO.md"
+        }
+      ]
+    },
+    {
+      "id": "world-sense-act",
+      "label": "WORLD ↔ SENSE ↔ ACT",
+      "color": "green",
+      "claim": "The house and workshop are reality gates where models must survive geometry, devices, materials, animals, people and measurement.",
+      "enters": "room · object · device · air/water · cat · tool · observed condition",
+      "transform": "sense/manual observe → address → model state → decide → actuate/rearrange/repair",
+      "consequence": "world state changes and remains inspectable",
+      "stages": [
+        "WORLD",
+        "SENSE",
+        "ADDRESS",
+        "STATE",
+        "ACT",
+        "MEASURE",
+        "RETURN"
+      ],
+      "anchors": [
+        {
+          "label": "HOUSE / FIELD",
+          "href": "/house/"
+        },
+        {
+          "label": "HOUSE / SPATIAL",
+          "href": "/house/spatial/"
+        }
+      ]
+    },
+    {
+      "id": "read-attention",
+      "label": "READ ↔ TIME ↔ ATTENTION ↔ BODY",
+      "color": "violet",
+      "claim": "Reading and planning become temporal/embodied projections over stable source identity rather than static page layouts.",
+      "enters": "text · task · path · sequence · pulse · attention state",
+      "transform": "address → segment → pace/project → perceive/act → compare",
+      "consequence": "faster or clearer traversal with source identity intact",
+      "stages": [
+        "SENSE",
+        "ADDRESS",
+        "STATE",
+        "PROJECT",
+        "ACT",
+        "MEASURE",
+        "RETURN"
+      ],
+      "anchors": [
+        {
+          "label": "RSVP exact donor",
+          "href": "/recovery/rsvp/"
+        },
+        {
+          "label": "ATLAS DAYLINE",
+          "href": "/atlas-dayline/"
+        },
+        {
+          "label": "SLEEPER",
+          "href": "/sleeper/"
+        }
+      ]
+    },
+    {
+      "id": "intent-other",
+      "label": "INTENT ↔ OTHER ↔ RETURN",
+      "color": "blue",
+      "claim": "Private intention crosses into human or agent action only through explicit drafting, policy, authority and review boundaries.",
+      "enters": "situation · intention · person/resource · promise · draft",
+      "transform": "address → bound authority → draft/route → human review → transport/action",
+      "consequence": "communication or delegated action with provenance and return path",
+      "stages": [
+        "WORLD",
+        "ADDRESS",
+        "STATE",
+        "TRANSFORM",
+        "ACT",
+        "RETURN"
+      ],
+      "anchors": [
+        {
+          "label": "LACONIC / ICONIC",
+          "href": "/laconic/"
+        },
+        {
+          "label": "HUMAN PORT / CONTACT",
+          "href": "/contact/"
+        },
+        {
+          "label": "ROUTER / POLICY",
+          "href": "/router-bench/"
+        }
+      ]
+    },
+    {
+      "id": "resource-tool",
+      "label": "RESOURCE ↔ TOOL ↔ WORLD",
+      "color": "orange",
+      "claim": "Shopping and salvage are capability acquisition: resources are admitted by the transformations they enable, not by ownership or novelty.",
+      "enters": "need · owned object · candidate purchase · donor mechanism · missing capability",
+      "transform": "query → compare → verify → acquire/salvage → receive → test → adopt",
+      "consequence": "a new physical/digital affordance attached to a real workflow",
+      "stages": [
+        "SENSE",
+        "ADDRESS",
+        "STATE",
+        "TRANSFORM",
+        "ACT",
+        "MEASURE",
+        "RETURN"
+      ],
+      "anchors": [
+        {
+          "label": "FIELD INDEX",
+          "href": "/"
+        },
+        {
+          "label": "HOUSE / FIELD",
+          "href": "/house/"
+        }
+      ]
+    },
+    {
+      "id": "recovery-reify",
+      "label": "RECOVERY ↔ LINEAGE ↔ REIFY",
+      "color": "cyan",
+      "claim": "Past experiments remain donor material until an exact mechanism fills a current missing function.",
+      "enters": "chat artifact · old app · branch · image · source pack · abandoned mechanism",
+      "transform": "recover exact → address lineage → diff mechanism → transfer only missing function",
+      "consequence": "current head gains capability without silent merge or archaeology-driven scope expansion",
+      "stages": [
+        "SENSE",
+        "ADDRESS",
+        "STATE",
+        "TRANSFORM",
+        "PROJECT",
+        "RETURN"
+      ],
+      "anchors": [
+        {
+          "label": "RECOVERY VAULT",
+          "href": "/recovery/"
+        },
+        {
+          "label": "MIGRATION FIELD",
+          "href": "/control/migration/"
+        },
+        {
+          "label": "FIELD INDEX",
+          "href": "/"
+        }
+      ]
+    }
+  ],
+  "admission_gate": [
+    "A real object, uncertainty or missing function can be named.",
+    "The proposed transformation produces an observable state change in a bounded horizon.",
+    "Identity/provenance can survive the transformation.",
+    "Failure leaves reusable information, artifact residue or a cheaper option.",
+    "The move adds less persistent dependency than the capability or uncertainty reduction it buys.",
+    "A RETURN receipt can state what changed and whether the result still serves the larger front."
+  ],
+  "corpus_policy": {
+    "federation_117": "NON_CANONICAL_CORPUS / DONOR SAMPLE",
+    "rule": "Inventory may grow without increasing control cardinality. Corpus membership never grants execution priority or canonical status.",
+    "current_heads_source": "/control/CURRENT.json",
+    "recovery_source": "/control/MIGRATION.json"
+  },
+  "canonical_unit": {
+    "shape": "{ identity, address, state_in, transform, projection?, act?, state_out, evidence, reversibility, provenance, return }",
+    "note": "Different media omit or specialize fields, but must not erase the path from source to consequence and back."
+  }
+}
