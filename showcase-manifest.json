@@ -463,14 +463,172 @@
             "class": "PRIVATE_SYNC",
             "status": "CANDIDATE",
             "via": "encrypted private cross-device case store"
+          },
+          {
+            "class": "CARE_PROJECTION",
+            "status": "AVAILABLE",
+            "via": "/care/"
           }
         ],
         "physical_fit": "Continuity layer for observations about people, animals, devices, rooms and projects; not a medical record authority, sensor authority, or autonomous actor."
       },
       "index": {
-        "updated_at": "2026-09-20T23:17:00+08:00",
+        "updated_at": "2026-09-21T00:28:00+08:00",
+        "work_modes": [
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "href": "/care/",
+      "title": "CARE / FIELD 0.1",
+      "kind": "workbench",
+      "parent": "/continuity/",
+      "family": "CONFLUENCE / CONTINUITY",
+      "operation": "CAPTURE",
+      "state": "EXPERIMENT",
+      "version": "0.1",
+      "receipt": "/care/release.json",
+      "transfer": [
+        "human/animal care observation",
+        "body-region capture",
+        "event-series follow-up",
+        "doctor/vet handoff",
+        "BODYFIELD conversion",
+        "CONTINUITY conversion"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "care observation",
+            "measurement",
+            "treatment event",
+            "appointment",
+            "result",
+            "CONTINUITY case",
+            "BODYFIELD ledger"
+          ],
+          "requires": [],
+          "optional": [
+            "body region",
+            "trace",
+            "trend",
+            "quality",
+            "magnitude",
+            "workflow status",
+            "source cue"
+          ]
+        },
+        "transforms": {
+          "verb": "capture what changed with minimal interaction, preserve spatial/time evidence, maintain trajectory, then compress into a reviewed clinician/vet brief",
+          "preserves": [
+            "raw wording",
+            "body/region marks",
+            "event time",
+            "event status",
+            "measurement units",
+            "interpretation separation",
+            "unknowns",
+            "plan source",
+            "explicit ASK"
+          ],
+          "reversibility": "full",
+          "side_effects": "browser-local only after explicit SAVE"
+        },
+        "emits": {
+          "kinds": [
+            "care event series",
+            "step-back gap review",
+            "clinician/vet brief",
+            "CARE JSON",
+            "CONTINUITY JSON",
+            "HUMAN PORT handoff"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/care/release.json",
+          "checks": [
+            "no network submission",
+            "observation/interpretation separation",
+            "planned/performed status preservation",
+            "explicit send boundary"
+          ],
+          "return_path": "/care/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_IN",
+          "WORLD_THROUGH",
+          "WORLD_OUT"
+        ],
+        "inputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "observation / tap / trace",
+            "interface": "compact care surface"
+          },
+          {
+            "medium": "DATA",
+            "kind": "CONTINUITY case / BODYFIELD ledger",
+            "interface": "JSON import"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "longitudinal care state",
+            "interface": "local/exported JSON"
+          },
+          {
+            "medium": "DATA",
+            "kind": "clinician/vet brief",
+            "interface": "copy / HUMAN PORT"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "step-back gap review",
+            "interface": "local review"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "CANONICALIZE",
+            "status": "AVAILABLE",
+            "via": "CONTINUITY JSON"
+          },
+          {
+            "class": "COMMUNICATION",
+            "status": "AVAILABLE",
+            "via": "HUMAN PORT"
+          },
+          {
+            "class": "SPATIAL_DETAIL",
+            "status": "AVAILABLE",
+            "via": "BODYFIELD ledger import/export lineage"
+          },
+          {
+            "class": "PRIVATE_FILES",
+            "status": "ADAPTER_REQUIRED",
+            "via": "private image/report attachment substrate"
+          },
+          {
+            "class": "ADAPTIVE_QUESTIONS",
+            "status": "CANDIDATE",
+            "via": "clinician/vet-authored question modules; no generic diagnosis engine"
+          }
+        ],
+        "physical_fit": "Observation/handoff tool for care episodes involving people or animals; no diagnostic or triage authority."
+      },
+      "index": {
+        "updated_at": "2026-09-21T00:28:00+08:00",
         "work_modes": [
           "RECOVER",
+          "RESEARCH",
           "SPECIFY",
           "IMPLEMENT",
           "VERIFY"
