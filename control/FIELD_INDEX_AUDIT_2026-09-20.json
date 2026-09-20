@@ -2,18 +2,18 @@
   "schema": "0xxx0/field-index-audit/v0.1",
   "date": "2026-09-20",
   "manifest_routes": {
-    "total": 47,
-    "ok": 47,
+    "total": 57,
+    "ok": 57,
     "missing": []
   },
   "internal_path_references": {
-    "total": 101,
-    "ok": 101,
+    "total": 115,
+    "ok": 115,
     "missing": []
   },
   "html_surface_coverage": {
-    "repo_html_files": 48,
-    "manifest_addressed": 47,
+    "repo_html_files": 55,
+    "manifest_addressed": 54,
     "underindexed": [
       "recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html"
     ]
@@ -32,7 +32,13 @@
     "RSVP showcase_card typo repaired.",
     "RECOVERING fallback labels now distinguish SOURCE / CONTEXT / LEDGER / OPEN.",
     "ENV-0 partial exact recovery route added with two editable SVG masters + README frozen and two PDF hashes recorded.",
-    "Field Index now addresses 47 of 48 HTML surfaces; the sole unindexed HTML is an intentionally raw RSVP payload owned by its recovery route."
+    "Field Index now addresses 47 of 48 HTML surfaces; the sole unindexed HTML is an intentionally raw RSVP payload owned by its recovery route.",
+    "Sleeper Workfield v1.2 exact donor frozen and routed; Painting/City blocker preserved.",
+    "AXIAL v0.3 harness + v0.2 print/build donor family frozen, verified and routed.",
+    "DataDisc 2019 recovered byte-for-byte from Drive and SHA-256 verified.",
+    "Naming/Game-of-Names gets a public-safe recovery-gap route without publishing private archives.",
+    "ENV-0 editable SVG masters individually addressed as frozen donors.",
+    "Recovery Vault now discovers nested /recovery/ donors and uses the Sep 20 population receipt."
   ],
   "stop_rule": "Do not add a route merely for completeness; address runnable/support surfaces and preserve raw payloads as assets when their parent recovery route already owns them."
 }
