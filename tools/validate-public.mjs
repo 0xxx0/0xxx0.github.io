@@ -19,13 +19,16 @@ const compileInline=(p)=>{
   while((m=re.exec(s))){if(!m[1].trim())continue;n++;try{new Function(m[1])}catch(e){fail.push('JS '+p+' #'+n+': '+e.message)}}
 };
 const manifest=parse('showcase-manifest.json');
+const runtimeKinds=new Set(['artifact','experiment','workbench','rendezvous']);
 if(manifest){
   check(manifest.schema==='showcase-manifest/v1','unexpected manifest schema');
   for(const r of manifest.routes||[]){
     const rf=routeFile(r.href);
     check(exists(rf),'missing route '+r.href+' -> '+rf);
     if(r.receipt)check(exists(r.receipt.replace(/^\//,'')),'missing receipt '+r.receipt);
-    compileInline(rf);
+    // Exact recovery donors/fossils are evidence, not production runtimes.
+    // Validate their route + receipt here; byte/hash fidelity belongs to recovery manifests.
+    if(runtimeKinds.has(r.kind)) compileInline(rf);
   }
   const axial=(manifest.routes||[]).find(r=>r.href==='/foundry/axial/');
   check(!!axial,'AXIAL route absent');
@@ -44,7 +47,7 @@ check(home.includes('href="./returns/"'),'root missing RETURN FIELD link');
 check(home.includes('data-sort="UPDATED"'),'root missing UPDATED sort');
 check(home.includes('FIELD_INDEX_CONTRACT.json'),'root missing FI contract link');
 if(manifest){
-  const tracked=new Set(['artifact','experiment','workbench','rendezvous']);
+  const tracked=runtimeKinds;
   for(const r of manifest.routes||[]){
     if(!tracked.has(r.kind)||!r.state)continue;
     check(!!r.index?.updated_at,'tracked route missing index.updated_at: '+r.href);
