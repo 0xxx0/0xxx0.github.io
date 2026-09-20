@@ -1,0 +1,39 @@
+{
+  "schema": "0xxx0/test-receipt/v0.1",
+  "id": "VERSE-ATLAS-ROUNDTRIP-2026-09-20-A",
+  "date": "2026-09-20",
+  "target": "/foundry/verse-atlas/",
+  "test_kind": "shipped state/serialization contract regression; deployed Pages route was inaccessible to the available browser channel",
+  "sequence": [
+    "Path L1C1 → L2C1 → L3C1 → L4C1; address @L1C1:S4; reading 道玄争山.",
+    "Set caesura 4·3 and parallel position 3 = ECHO.",
+    "Freeze RETURN.",
+    "Serialize the frozen object through the COPY/DOWNLOAD export contract.",
+    "Replace source/cut/path with a deliberately different valid state.",
+    "Replay serialized JSON through stateFromReceipt/applyReceipt semantics.",
+    "Compare restored semantic state."
+  ],
+  "result": "PASS_CORE_ROUNDTRIP",
+  "checks": {
+    "javascript_syntax": "PASS",
+    "frozen_export_byte_equal": "PASS",
+    "source_lines_restored": "PASS",
+    "caesura_restored": "PASS",
+    "path_cells_restored": "PASS",
+    "path_address": "@L1C1:S4",
+    "path_reading": "道玄争山",
+    "parallel_position_3": "ECHO",
+    "typed_edges": "3 × GEOMETRY:S",
+    "replay_view": "RETURN"
+  },
+  "defect_found_and_fixed": {
+    "defect": "FREEZE stored S.lastReceipt but COPY/DOWNLOAD regenerated a live receipt, so an edit after FREEZE could change the exported object.",
+    "fix": "COPY/DOWNLOAD now serialize exportReceipt(), which returns S.lastReceipt when present.",
+    "commits": [
+      "efd9df5ea8488f86d002ede7a6f95a5bfc7d80fb",
+      "4511045ca051e1904352ee259ec817aa4f5513f1"
+    ]
+  },
+  "boundary": "Semantic object round-trips; replay intentionally lands in RETURN and does not claim to restore every transient study/UI toggle.",
+  "next": "Closed unless a later rendered-browser smoke test exposes a UI-specific failure."
+}
