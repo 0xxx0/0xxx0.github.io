@@ -1,0 +1,41 @@
+{
+  "schema": "donor-transplant/v0.1",
+  "date": "2026-09-21",
+  "recipient": "/ FIELD INDEX",
+  "donor": {
+    "id": "datadisc-2019-dynamic-data-changes",
+    "source": "/recovery/media/datadisc/datadisc.html",
+    "evidence_class": "EXACT_BYTE_VERIFIED_FIXTURE",
+    "observed_mechanisms": [
+      "stable disc identity",
+      "many items arranged along a spiral",
+      "per-item status mutation",
+      "optional status-oriented re-reading",
+      "separate record of changes"
+    ]
+  },
+  "transfer": {
+    "unit": "stable addressed items + mutation state projected as a spiral change field",
+    "operation": "ADAPT",
+    "preserves": [
+      "stable item identity remains independent of screen coordinate",
+      "change history remains distinct from canonical structure",
+      "visual ordering is explicitly a projection"
+    ],
+    "changes": [
+      "DataDisc items become FIELD manifest routes",
+      "route.index.updated_at supplies mutation ordering",
+      "lifecycle/head/NOW state supplies visual emphasis",
+      "disc glyph becomes hard-edge route tile to match FIELD grammar"
+    ]
+  },
+  "recipient_gap": "RECENT was correct as a flat mutation list but weak as a perceptual field; FIELD needed a fast visual reading of where change is accumulating without making recent = important.",
+  "result": "PULSE lens: recent route touches are arranged on a mutation spiral; clicking preserves route identity and inspector/open path; canonical STRUCTURE and NOW remain authoritative for existence/attention.",
+  "non_claims": [
+    "PULSE is not priority.",
+    "Spiral proximity does not imply semantic similarity.",
+    "DataDisc is a donor, not an ancestor claim for FIELD INDEX.",
+    "No historical DataDisc status semantics are silently imported."
+  ],
+  "test": "Root JS compiles; PULSE uses existing manifest route IDs and index.updated_at only; public validator must pass."
+}
