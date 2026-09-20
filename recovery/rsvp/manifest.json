@@ -1,0 +1,42 @@
+{
+  "schema": "recovery-rsvp/v0.1",
+  "recovered": "2026-09-20",
+  "status": "FROZEN_EXACT_DONOR",
+  "family": "RSVP / temporal focus",
+  "canonical_repo_copy": "/recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html",
+  "original_name": "RSVP+TTS  TMP-SPEECHSYNTH( 20180502-091455+0800 ).html",
+  "size_bytes": 32183,
+  "sha256": "2f0167930b5c1a19e43ad8b626b702db017d576f48644237f05d849ce87d627d",
+  "sources": [
+    {
+      "drive_id": "1gigXHdVmRrvaZUVhUI4GPqYzenGK4Nq9",
+      "role": "historical registry / canonical candidate"
+    },
+    {
+      "drive_id": "19AZV9gIksZ_Whplne3DCbu_nL4BenWsp",
+      "role": "duplicate copy"
+    }
+  ],
+  "duplicate_verification": {
+    "method": "complete raw Drive payload comparison plus readable-text equality",
+    "result": "BYTE_IDENTICAL_RAW_PAYLOADS; readable content also identical at 32183 characters",
+    "verified_on": "2026-09-20"
+  },
+  "repo_ingest_verification": {
+    "method": "Drive text fetch from the byte-verified canonical candidate; GitHub readback must equal fetched content",
+    "status": "PENDING_READBACK"
+  },
+  "retain": [
+    "word segmentation",
+    "speech-boundary events",
+    "synchronized highlighting",
+    "temporal/sequential focus experiments",
+    "historical scheduling/audio experiments"
+  ],
+  "exclusions": [
+    "Do not modernize this donor in place.",
+    "Do not claim this is the later Galaxy Watch implementation.",
+    "Do not promote to current head before mechanism diff."
+  ],
+  "next": "Mechanism-diff against current Sleeper/Painting Path/JUE-JU/Verse RSVP behavior; then determine whether a modern phone/Wear OS reader is a missing function."
+}
