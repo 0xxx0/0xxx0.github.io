@@ -49,6 +49,8 @@ function render(){
 $('#save').onclick=()=>{const subject=$('#subject').value.trim(),source=$('#source').value.trim();if(!subject||!source)return;const xs=load();xs.push({id:'r_'+Date.now(),version:'0R1',type:$('#type').value,strength:$('#strength').value,subject,source,why:$('#why').value.trim(),status:'HELD',return:null,created_at:new Date().toISOString()});store(xs);['subject','source','why'].forEach(id=>$('#'+id).value='');render()};
 $('#list').onclick=e=>{const item=e.target.closest('[data-id]');if(!item)return;const xs=load(),x=xs.find(v=>v.id===item.dataset.id);if(!x)return;if(e.target.dataset.return){x.status='RETURNED';x.return={outcome:e.target.dataset.return,at:new Date().toISOString()};store(xs);render();return}if(e.target.dataset.atlas){try{sessionStorage.setItem('app.atlas.handoff.v01',JSON.stringify({name:x.subject,invariant:x.why||x.source,lineage:['HUMAN PORT','SOCIAL RESIDUE'],source:x.source,created_at:new Date().toISOString()}));location.assign('../../app-atlas/')}catch(_){location.assign('../../app-atlas/')}}};
 $('#export').onclick=()=>{const t=JSON.stringify({schema:'human-port-social-residue-export/v0.1',items:load()},null,2),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'application/json'}));a.download='human-port-social-residue.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
+function consumePortIntake(){try{const raw=sessionStorage.getItem('human.port.residue.handoff.v01');if(!raw)return;sessionStorage.removeItem('human.port.residue.handoff.v01');const h=JSON.parse(raw);if(h){$('#subject').value=h.subject||'';$('#source').value=h.source||'';}}catch(_){}}
+consumePortIntake();
 render();
 })();
 </script></main></body></html>
