@@ -3386,6 +3386,261 @@
           "OPERATE"
         ]
       }
+    },
+    {
+      "href": "/app-atlas/",
+      "title": "IDEA ATLAS",
+      "kind": "workbench",
+      "parent": "/port/",
+      "family": "HUMAN PORT / IDEAS",
+      "operation": "CAPTURE",
+      "state": "ACTIVE",
+      "version": "0.1",
+      "showcase_card": false,
+      "role": "Recovered App Atlas core seed plus local-first idea capture: preserve ancestry, distinguish capture from commitment, and hand reviewed idea residue forward without auto-building.",
+      "contract": {
+        "transforms": {
+          "verb": "capture an idea once, preserve invariant/lineage, then hold/build/merge/kill explicitly",
+          "preserves": [
+            "idea ancestry",
+            "source/invariant distinction",
+            "local-first non-commitment"
+          ],
+          "reversibility": "full local",
+          "side_effects": "browser localStorage only"
+        }
+      },
+      "index": {
+        "updated_at": "2026-09-21T02:36:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "IMPLEMENT",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/bodyplans/",
+      "title": "BODY PLANS / REGISTRY",
+      "kind": "system",
+      "parent": "/care/",
+      "family": "BODY / CARE",
+      "operation": "ADDRESS",
+      "state": "STABLE",
+      "version": "0.1",
+      "receipt": "/bodyplans/release.json",
+      "showcase_card": false,
+      "role": "Shared local-first reference geometry for CARE and future BODY projections. Stable address = plan + view + region ID; geometryVersion prevents silent drift.",
+      "index": {
+        "updated_at": "2026-09-21T01:35:00+08:00",
+        "work_modes": [
+          "RESEARCH",
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "href": "/contact/interpret/",
+      "title": "HUMAN PORT / INTERPRET",
+      "kind": "workbench",
+      "parent": "/port/",
+      "family": "HUMAN PORT",
+      "operation": "INTERPRET",
+      "state": "ACTIVE",
+      "showcase_card": false,
+      "role": "Raw-preserving interpretation surface for overloaded or ambiguous messages; separates source, asks, corrections, callbacks and possible meanings before drafting.",
+      "index": {
+        "updated_at": "2026-09-21T02:16:10+08:00",
+        "work_modes": [
+          "SPECIFY",
+          "IMPLEMENT",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/contact/residue/",
+      "title": "HUMAN PORT / SOCIAL RESIDUE",
+      "kind": "workbench",
+      "parent": "/port/",
+      "family": "HUMAN PORT",
+      "operation": "REMEMBER",
+      "state": "ACTIVE",
+      "showcase_card": false,
+      "role": "Local-first conversation residue: remember offers, questions, promises, follow-ups and ideas without automatically turning them into obligations.",
+      "index": {
+        "updated_at": "2026-09-21T02:16:10+08:00",
+        "work_modes": [
+          "SPECIFY",
+          "IMPLEMENT",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/contact/backstage/",
+      "title": "HUMAN PORT / BACKSTAGE",
+      "kind": "workbench",
+      "parent": "/port/",
+      "family": "HUMAN PORT",
+      "operation": "RECOVER",
+      "state": "ACTIVE",
+      "showcase_card": false,
+      "role": "Local-private making-history stream for corrections, jokes, failed branches and design shifts; can harvest bounded donor candidates without publishing raw chat.",
+      "index": {
+        "updated_at": "2026-09-21T02:16:10+08:00",
+        "work_modes": [
+          "RECOVER",
+          "IMPLEMENT",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/contact/capsule/",
+      "title": "HUMAN PORT / CAPSULE",
+      "kind": "workbench",
+      "parent": "/port/",
+      "family": "HUMAN PORT",
+      "operation": "RETURN",
+      "state": "ACTIVE",
+      "showcase_card": false,
+      "role": "Contextual share-link instrument with explicit intent, local compose state, public descriptor, and no-impersonation boundary.",
+      "index": {
+        "updated_at": "2026-09-21T02:16:10+08:00",
+        "work_modes": [
+          "SPECIFY",
+          "IMPLEMENT",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/contact/burst/",
+      "title": "BURST / INTERPRET",
+      "kind": "alias",
+      "parent": "/port/",
+      "family": "HUMAN PORT",
+      "state": "UTILITY",
+      "showcase_card": false,
+      "alias_of": "/contact/interpret/#mode=burst",
+      "role": "Thin entry alias into INTERPRET burst mode.",
+      "index": {
+        "updated_at": "2026-09-21T02:16:10+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/contact/family/",
+      "title": "HUMAN PORT / FAMILY",
+      "kind": "alias",
+      "parent": "/port/",
+      "family": "HUMAN PORT",
+      "state": "UTILITY",
+      "showcase_card": false,
+      "alias_of": "/contact/capsule/#view=family",
+      "role": "Lens alias into CAPSULE family view.",
+      "index": {
+        "updated_at": "2026-09-21T02:16:10+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/contact/friend/",
+      "title": "HUMAN PORT / FRIEND",
+      "kind": "alias",
+      "parent": "/port/",
+      "family": "HUMAN PORT",
+      "state": "UTILITY",
+      "showcase_card": false,
+      "alias_of": "/contact/capsule/#view=friend",
+      "role": "Lens alias into CAPSULE friend view.",
+      "index": {
+        "updated_at": "2026-09-21T02:16:10+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/contact/work/",
+      "title": "HUMAN PORT / WORK",
+      "kind": "alias",
+      "parent": "/port/",
+      "family": "HUMAN PORT",
+      "state": "UTILITY",
+      "showcase_card": false,
+      "alias_of": "/contact/capsule/#view=work",
+      "role": "Lens alias into CAPSULE work view.",
+      "index": {
+        "updated_at": "2026-09-21T02:16:10+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/contact/agent/",
+      "title": "HUMAN PORT / AGENT",
+      "kind": "alias",
+      "parent": "/port/",
+      "family": "HUMAN PORT",
+      "state": "UTILITY",
+      "showcase_card": false,
+      "alias_of": "/contact/capsule/#view=agent",
+      "role": "Lens alias into CAPSULE agent view.",
+      "index": {
+        "updated_at": "2026-09-21T02:16:10+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/contact/make/",
+      "title": "HUMAN PORT / MAKE",
+      "kind": "alias",
+      "parent": "/port/",
+      "family": "HUMAN PORT",
+      "state": "UTILITY",
+      "showcase_card": false,
+      "alias_of": "/contact/capsule/#make=1",
+      "role": "Builder alias into CAPSULE custom-link mode.",
+      "index": {
+        "updated_at": "2026-09-21T02:16:10+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/contact/next/",
+      "title": "HUMAN PORT / MOVED",
+      "kind": "alias",
+      "parent": "/port/",
+      "family": "HUMAN PORT",
+      "state": "UTILITY",
+      "showcase_card": false,
+      "alias_of": "/port/",
+      "role": "Legacy redirect back to canonical HUMAN PORT.",
+      "index": {
+        "updated_at": "2026-09-21T02:16:10+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "OPERATE"
+        ]
+      }
     }
   ],
   "release_law": [
@@ -3431,7 +3686,8 @@
     "policy_trace_regression": "Negative verifier vectors pin sequence, causal ordering, gate finality, privacy and tag-provenance failures so future implementations cannot silently weaken verification.",
     "donor_transplant": "CONFLUENCE donor law: recover a bounded transferable mechanism, preserve source/recipient identities and evidence class, distinguish graft/clone/seed/compost, and require recipient-side RETURN before adoption. TAG projections may discover donors but never establish lineage or authority.",
     "laconic": "v0.3 couples a deliberately small current LINE/SCENE instrument to a browseable exact-source VAULT. Historical assistant output remains source-donor material unless adoption/reuse evidence promotes it; persona/plurality/Council lineage is represented as multi-donor convergence with open seams.",
-    "field_index_root": "Root now renders CURRENT-owned NOW/HEADS separately from manifest-owned MAP/RECENT and contract-derived OPEN PORTS. MAP is generated from route.parent so new addressed surfaces do not require manual homepage insertion."
+    "field_index_root": "Root now renders CURRENT-owned NOW/HEADS separately from manifest-owned MAP/RECENT and contract-derived OPEN PORTS. MAP is generated from route.parent so new addressed surfaces do not require manual homepage insertion.",
+    "sitemap_manifest": "All repository directory index surfaces are now explicitly addressable in the manifest. Redirect/lens doors use kind=alias so completeness does not imply independent project status."
   },
   "capability_model": {
     "CAPTURE": {
