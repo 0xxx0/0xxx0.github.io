@@ -1,60 +1,18 @@
 {
   "schema": "field-index-route-health/v0.1",
-  "at": "2026-09-21T02:55:00+08:00",
+  "at": "2026-09-21",
   "manifest": "/showcase-manifest.json",
-  "result": "PASS_WITH_LEGACY_METADATA",
+  "result": "PASS",
   "counts": {
     "runtime_routes": 35,
-    "legacy_unknown_work_modes": 7,
+    "legacy_unknown_work_modes": 0,
     "missing_index_metadata": 0,
     "deprecated_states": 0
   },
-  "legacy_unknown_work_modes": [
-    {
-      "href": "/fold-bloom/two-dial/",
-      "title": "TWO DIAL",
-      "state": "STABLE",
-      "updated_at": "2026-09-20"
-    },
-    {
-      "href": "/fold-bloom/ecology/",
-      "title": "ECOLOGY 0.2",
-      "state": "STABLE",
-      "updated_at": "2026-09-20"
-    },
-    {
-      "href": "/fold-bloom/lens/",
-      "title": "SCALE LENS",
-      "state": "STABLE",
-      "updated_at": "2026-09-20"
-    },
-    {
-      "href": "/foundry/verse-atlas/",
-      "title": "VERSE ATLAS",
-      "state": "STABLE",
-      "updated_at": "2026-09-20"
-    },
-    {
-      "href": "/foundry/convergence/identity-lab.html",
-      "title": "IDENTITY LAB",
-      "state": "STABLE",
-      "updated_at": "2026-09-20"
-    },
-    {
-      "href": "/atlas-dayline/",
-      "title": "ATLAS DAYLINE",
-      "state": "STABLE",
-      "updated_at": "2026-09-20"
-    },
-    {
-      "href": "/forward-field-proof/",
-      "title": "FIELD / PROOF",
-      "state": "STABLE",
-      "updated_at": "2026-09-20"
-    }
-  ],
+  "legacy_unknown_work_modes": [],
   "missing_index_metadata": [],
   "deprecated_states": [],
   "law": "Do not invent historical work modes merely to make the index look clean. UNKNOWN is migration residue; replace it only on a real future mutation or exact historical reconstruction.",
-  "next": "When any listed route is next materially changed, replace UNKNOWN with the modes actually exercised by that delta. Historical reconstruction may backfill only from evidence."
+  "next": "No UNKNOWN work-mode residue remains. Future work-mode changes follow the ordinary mutation contract.",
+  "recovery_receipt": "/control/FIELD_INDEX_LEGACY_MODE_RECOVERY_2026-09-21.json"
 }
