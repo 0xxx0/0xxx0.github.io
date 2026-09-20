@@ -1751,10 +1751,10 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-20T23:58:00+08:00",
+        "updated_at": "2026-09-21T00:15:00+08:00",
         "work_modes": [
-          "VERIFY",
-          "OPERATE"
+          "RECOVER",
+          "SPECIFY"
         ]
       },
       "family_href": "/house/"
@@ -1783,11 +1783,12 @@
       "showcase_card": false,
       "role": "Readable cross-lineage handoff shelf; coordinates unequal lineages through explicit differences, ablations and recipient-side RETURN without vocabulary collapse.",
       "index": {
-        "updated_at": "2026-09-21T00:14:00+08:00",
+        "updated_at": "2026-09-21T00:15:00+08:00",
         "work_modes": [
           "RECOVER",
+          "VERIFY",
           "SPECIFY",
-          "VERIFY"
+          "IMPLEMENT"
         ]
       }
     },
