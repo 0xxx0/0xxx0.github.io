@@ -1,0 +1,40 @@
+AXIAL COMPOSITOR v0.2 — BUILD NOTES
+
+Purpose
+A reversible physical command compiler: five independent rotary rings align tokens under one fixed reference spine.
+
+Default geometry
+Core: 50 mm OD cardboard/PVC tube, about 130 mm long.
+Rings: nominal 52 mm diameter, 22 mm tall.
+Ring strip circumference: 163.4 mm plus 10 mm glue tab.
+Positions: 4 per ring, 90 degrees apart.
+Raw state space: 4^5 = 1,024 combinations.
+
+Assembly
+1. Print SVG at 100% (no fit-to-page). 160–250 gsm card is ideal.
+2. Cut five ring strips and the four small V notches on each TOP edge.
+3. Pre-curve each strip around the core, then glue the tab so the ring turns freely.
+4. Cut six narrow spacer collars and glue them to the core: one below, one between each ring, one above. Do not glue the rotating rings.
+5. Stack MODE → TARGET → RANGE → ACTION → COMMIT.
+6. Make a fixed reference spine from card or clear acetate. Mount it only at the top and bottom using standoffs so it floats 1–2 mm above the rings.
+7. Bend a paperclip tip or narrow card spring per ring so it lightly drops into a V-notch when a token is centered under the reference line.
+8. Align AIR / CAT / LOW / AUTO / ARM.
+
+Experiment A — 10-minute tactile test
+Do 20 random commands. Record set time, wrong-ring/overshoot errors, glance-read time, and whether COMMIT feels naturally last.
+
+Pass condition
+- median set time < 8 s after 5 practice commands,
+- <= 1 positioning error in the final 10 commands,
+- all five states readable in < 2 s,
+- detents hold when picked up.
+
+Exploit path
+Each token carries a 2-bit Gray code: 00, 01, 11, 10. Adjacent positions change one bit.
+Upgrade options:
+A) phone/webcam reads the aligned printed column;
+B) two reflective sensors per ring on the reference spine read the Gray blocks;
+C) replace paper detents later with ball/spring, flexure, or magnet detents.
+
+Strong extension
+Turn COMMIT into a transaction gate: ARM/RUN mechanically or electrically latches the upper four rings' current state before execution.
