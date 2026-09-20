@@ -1,0 +1,41 @@
+{
+  "schema": "0xxx0/ingest-rules/v0.1",
+  "updated": "2026-09-20",
+  "purpose": "Minimal deterministic semantic overlay learned from a bounded observed batch. These rules propose lineage only; they never move files.",
+  "rules": [
+    {
+      "id": "fixture-only",
+      "path_regex": "(^|/)_fixture/",
+      "tags": [
+        "fixture",
+        "validation-only"
+      ],
+      "lineage": "ingest-test-fixture",
+      "semantic_route": "hold/test-fixture"
+    },
+    {
+      "id": "axial-state-transform",
+      "path_regex": "(^|/)(axial_compositor_|state_transform_instrument_)",
+      "tags": [
+        "axial",
+        "state-transform",
+        "machine-representation"
+      ],
+      "lineage": "axial-state-transform",
+      "semantic_route": "lineage/axial-state-transform"
+    },
+    {
+      "id": "env0-physical",
+      "path_regex": "(^|/)ENV0_",
+      "tags": [
+        "env0",
+        "physical-interface",
+        "print-proof"
+      ],
+      "lineage": "env0-house-physical",
+      "semantic_route": "lineage/env0-house-physical"
+    }
+  ],
+  "conflict_rule": "If more than one lineage or semantic route matches, emit REVIEW_CONFLICT and do not choose.",
+  "promotion_rule": "A semantic route is a reviewable overlay, not a filesystem destination. Moving/renaming requires a later explicit promotion."
+}
