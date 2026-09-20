@@ -1802,7 +1802,9 @@
     "fold_weave": "Fold Weave 0.1 is an exact recovered sibling with persistent crease anchors / authored topology. It is linked from Fold/Bloom but is not promoted over Ecology pending direct playtest.",
     "confluence": "Cross-lineage handoff shelf under /control/confluence/: unequal projects may share explicit transfers while preserving differences and source return.",
     "docs_reader": "Read-only /docs/ surface makes key JSON/Markdown control documents directly readable without creating another current-head product.",
-    "foundry_real_center": "Foundry real-center workbench separates slow canon candidate from live control. The 117 federation is explicitly a non-canonical donor corpus; convergences are recurrent cross-media mechanisms, not project categories."
+    "foundry_real_center": "Foundry real-center workbench separates slow canon candidate from live control. The 117 federation is explicitly a non-canonical donor corpus; convergences are recurrent cross-media mechanisms, not project categories.",
+    "policy_trace_verification": "Trace verification now has structural/replay/sealed profiles with PASS/FAIL/INDETERMINATE. A reference verifier executes structural checks and deliberately returns INDETERMINATE when schema validation/private replay material is unavailable.",
+    "tag_policy_bridge": "TAG-style labels remain disposable projections/lenses over canonical state. person_tags/resource_tags/context_tags may select applicable policies with provenance, but tags never create grants, denies, locks or authority."
   },
   "capability_model": {
     "CAPTURE": {
@@ -1916,5 +1918,9 @@
       "RELEASE",
       "UNKNOWN"
     ]
-  }
+  },
+  "policy_trace_verification": "/policy-trace-verification.json",
+  "policy_trace_event_model": "/policy-trace-event-model.json",
+  "policy_trace_verification_report_schema": "/policy-trace-verification-report.schema.json",
+  "policy_trace_verifier": "/policy-trace-verifier.mjs"
 }
