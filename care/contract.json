@@ -67,7 +67,8 @@
       "0xxx0/continuity-case/v0.1",
       "plain-text clinician/vet brief"
     ],
-    "human_port": "explicit user action only"
+    "human_port": "explicit user action only",
+    "bodyfield_geometry_rule": "Preserve BODYFIELD fragment metadata and trace point arrays in their source coordinate frame; do not render them on CARE's compact silhouette without an explicit registration transform."
   },
   "step_back_checks": [
     "missing subject",
