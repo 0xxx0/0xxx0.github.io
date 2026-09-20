@@ -5,24 +5,25 @@
   "live": [
     {
       "id": "recover-repo",
-      "goal": "Exploit the exact recovered donor families, finish only source-grounded residual recovery, and keep the visible public surface small.",
-      "horizon": "current pass",
+      "goal": "Maintain exact recovered lineages, pursue only source-grounded blocked recovery, and stop solved families from reopening.",
+      "horizon": "maintenance / opportunistic",
       "next": [
-        "Mechanism-diff recovered Grid Path V4 family vs Verse Atlas/current Foundry.",
-        "Mechanism-diff Fold Weave 0.1 vs Two Dial / Ecology / Scale Lens.",
+        "Do not reopen Grid Path V4 or Fold Weave recovery unless a concrete missing function is identified.",
         "Resume Sleeper City/Painting only from exact source/assets or authorized checkpoint bytes.",
-        "Continue exact-only Laconic/Game-of-Names recovery without publishing private raw archives."
+        "Continue exact-only Laconic/Game-of-Names archaeology when an isolated source artifact appears.",
+        "Feed newly found artifacts through CENSUS/MIGRATION instead of creating new public heads."
       ],
       "receipt": "/control/RECOVERY_RUN_2026-09-19.json + mechanism-diff packet(s)"
     },
     {
       "id": "ingest-files-media",
       "goal": "Create one reversible local ingest layer for Downloads/Library/media that labels and deduplicates before moving anything.",
-      "horizon": "next bounded setup",
+      "horizon": "NEXT NOW",
       "next": [
-        "Start with inventory + hashes + metadata only.",
-        "Add semantic/tag layer without changing original paths.",
-        "Enable automatic moves only for deterministic high-confidence rules after review."
+        "Run the existing read-only scanner against one bounded ingress directory.",
+        "Capture inventory + hashes + exact duplicate groups; mutate nothing.",
+        "Review duplicate groups and define a minimal lineage/tag vocabulary from observed files.",
+        "Only after review, test one deterministic routing rule in dry-run form."
       ],
       "receipt": "dry-run report + duplicate groups + tag/index database + zero unreviewed destructive moves"
     },
@@ -59,9 +60,10 @@
   ],
   "turn_order": [
     "TURN A — DONE: exact path-grid family + Fold Weave recovered, verified and frozen.",
-    "TURN B — mechanism diff; transfer missing functions only; no donor-wide merge.",
-    "TURN C — install file/media ingest dry-run + dedup index.",
-    "TURN D — one physical reality RETURN; then DOCK review."
+    "TURN B — DONE: mechanism diff completed; Verse Atlas gained RETURN replay, Fold Weave remains a sibling.",
+    "TURN C — NEXT: run file/media ingest dry-run + dedup index on one bounded directory.",
+    "TURN D — use one ingest record as the canonical object for Representation 01.",
+    "TURN E — one physical/print RETURN; then DOCK review."
   ],
   "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json"
 }
