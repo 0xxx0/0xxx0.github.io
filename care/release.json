@@ -17,7 +17,8 @@
     "added BODYFIELD ledger and CONTINUITY case import paths",
     "added CARE and CONTINUITY JSON exports",
     "added concise clinician/vet brief and explicit HUMAN PORT handoff",
-    "added STEP BACK structural gap review"
+    "added STEP BACK structural gap review",
+    "BODYFIELD import now preserves original fragment/trace geometry in its source coordinate frame instead of falsely projecting it onto CARE's compact silhouette"
   ],
   "checks": [
     "no fetch/XHR/WebSocket/sendBeacon/form submission path",
@@ -26,7 +27,8 @@
     "interpretation stored separately from raw_note",
     "workflow events can preserve status rather than collapsing planned and performed",
     "BODYFIELD import does not fabricate interpretation",
-    "CONTINUITY import preserves unknowns and source-derived baseline as imported context"
+    "CONTINUITY import preserves unknowns and source-derived baseline as imported context",
+    "BODYFIELD [x,y] trace arrays are preserved losslessly with source view metadata; CARE does not claim coordinate registration"
   ],
   "open_gaps": [
     "full 317-fragment BODYFIELD geometry remains in BODYFIELD; CARE uses compact tap/trace projection",
