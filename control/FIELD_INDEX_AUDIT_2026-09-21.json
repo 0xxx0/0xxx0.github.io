@@ -1,0 +1,159 @@
+{
+  "schema": "0xxx0/field-index-audit/v0.2",
+  "date": "2026-09-21",
+  "manifest_routes": {
+    "total": 67,
+    "ok": 67,
+    "missing": []
+  },
+  "internal_manifest_path_references": {
+    "total": 133,
+    "ok": 133,
+    "missing": []
+  },
+  "duplicate_manifest_hrefs": [],
+  "duplicate_migration_artifact_ids": [],
+  "migration_now": {
+    "count": 3,
+    "limit": 3,
+    "ok": true
+  },
+  "migration_queue": {
+    "count": 7,
+    "items": [
+      "CENSUS: hash/source-grounded ingest of newly surfaced artifacts; collapse exact duplicates before semantic branching.",
+      "SLEEPER / PAINTING: exact-source only. Resume from HTML/JS/CSS/assets, authorized checkpoint bytes, saved page/site, or source archive; no prose reconstruction.",
+      "LACONIC: recover exact historical voice outputs/adoption evidence; preserve EXACT / RECONSTRUCTED / NEW firewall.",
+      "NAMING / GAME OF NAMES: visual batch B260728B recovered as one deliverable; runnable/source/glyph artifact remains the exact-source target.",
+      "ENV-0: byte-copy/hash-verify the two exact located PDFs, then hand one print/physical fixture to the appropriate active front.",
+      "DESKTOP PETS BEYOND KALA: anchor-only recovery from proper name/source/screenshot/code; no generic mascot search.",
+      "QUARANTINE: classify generic site shells only when source/provenance is known; extract a named mechanism or attic them."
+    ]
+  },
+  "migration_home_inline_js": {
+    "scripts_checked": 1,
+    "errors": []
+  },
+  "repo_html": {
+    "total": 87,
+    "manifest_addressed": 64,
+    "parent_owned_unmanifested": [
+      {
+        "path": "app-atlas/index.html",
+        "owner": "/port/",
+        "classification": "HUMAN_PORT_FAMILY_SURFACE"
+      },
+      {
+        "path": "bodyplans/index.html",
+        "owner": "/care/",
+        "classification": "CARE_SUPPORT_SURFACE"
+      },
+      {
+        "path": "contact/agent/index.html",
+        "owner": "/contact/ + /port/",
+        "classification": "HUMAN_PORT_CHILD"
+      },
+      {
+        "path": "contact/backstage/index.html",
+        "owner": "/contact/ + /port/",
+        "classification": "HUMAN_PORT_CHILD"
+      },
+      {
+        "path": "contact/burst/index.html",
+        "owner": "/contact/ + /port/",
+        "classification": "HUMAN_PORT_CHILD"
+      },
+      {
+        "path": "contact/capsule/index.html",
+        "owner": "/contact/ + /port/",
+        "classification": "HUMAN_PORT_CHILD"
+      },
+      {
+        "path": "contact/family/index.html",
+        "owner": "/contact/ + /port/",
+        "classification": "HUMAN_PORT_CHILD"
+      },
+      {
+        "path": "contact/friend/index.html",
+        "owner": "/contact/ + /port/",
+        "classification": "HUMAN_PORT_CHILD"
+      },
+      {
+        "path": "contact/interpret/index.html",
+        "owner": "/contact/ + /port/",
+        "classification": "HUMAN_PORT_CHILD"
+      },
+      {
+        "path": "contact/make/index.html",
+        "owner": "/contact/ + /port/",
+        "classification": "HUMAN_PORT_CHILD"
+      },
+      {
+        "path": "contact/next/index.html",
+        "owner": "/contact/ + /port/",
+        "classification": "HUMAN_PORT_CHILD"
+      },
+      {
+        "path": "contact/residue/index.html",
+        "owner": "/contact/ + /port/",
+        "classification": "HUMAN_PORT_CHILD"
+      },
+      {
+        "path": "contact/work/index.html",
+        "owner": "/contact/ + /port/",
+        "classification": "HUMAN_PORT_CHILD"
+      },
+      {
+        "path": "port/index.html",
+        "owner": "/port/",
+        "classification": "HUMAN_PORT_FAMILY_SURFACE"
+      },
+      {
+        "path": "recovery/kala/ancient-kala-test-2020.html",
+        "owner": "nearest /recovery/ family hub",
+        "classification": "RAW_RECOVERY_PAYLOAD"
+      },
+      {
+        "path": "recovery/kala/old-kala-0-room-2018.html",
+        "owner": "nearest /recovery/ family hub",
+        "classification": "RAW_RECOVERY_PAYLOAD"
+      },
+      {
+        "path": "recovery/poly-furnisher/interphase-lineage/interphase-2020.html",
+        "owner": "nearest /recovery/ family hub",
+        "classification": "RAW_RECOVERY_PAYLOAD"
+      },
+      {
+        "path": "recovery/poly-furnisher/interphase-lineage/proto1-terse-2020.html",
+        "owner": "nearest /recovery/ family hub",
+        "classification": "RAW_RECOVERY_PAYLOAD"
+      },
+      {
+        "path": "recovery/poly-furnisher/interphase-lineage/rotating-cylinder-2019.html",
+        "owner": "nearest /recovery/ family hub",
+        "classification": "RAW_RECOVERY_PAYLOAD"
+      },
+      {
+        "path": "recovery/poly-furnisher/room-lineage/EMPTY3-RF.html",
+        "owner": "nearest /recovery/ family hub",
+        "classification": "RAW_RECOVERY_PAYLOAD"
+      },
+      {
+        "path": "recovery/poly-furnisher/room-lineage/FU5X2.html",
+        "owner": "nearest /recovery/ family hub",
+        "classification": "RAW_RECOVERY_PAYLOAD"
+      },
+      {
+        "path": "recovery/poly-furnisher/room-lineage/scratch.html",
+        "owner": "nearest /recovery/ family hub",
+        "classification": "RAW_RECOVERY_PAYLOAD"
+      },
+      {
+        "path": "recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html",
+        "owner": "nearest /recovery/ family hub",
+        "classification": "RAW_RECOVERY_PAYLOAD"
+      }
+    ]
+  },
+  "interpretation": "Unmanifested HTML is not automatically missing. Parent-owned HUMAN PORT / CARE support surfaces and raw recovery payloads remain deliberately below the Field Index unless separately promoted."
+}
