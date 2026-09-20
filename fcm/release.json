@@ -35,5 +35,12 @@
     "/forward-field-proof/",
     "/atlas-dayline/",
     "/returns/"
-  ]
+  ],
+  "current_classification": {
+    "reviewed_at": "2026-09-20T23:58:00+08:00",
+    "state": "DONOR",
+    "basis": "CURRENT classifies Center Mass as donor material after useful control-surface direction was absorbed elsewhere; keep the runnable projection as a donor, not an active experiment.",
+    "receipt": "/control/EXPERIMENT_WRANGLE_2026-09-20.json",
+    "provenance_note": "Original release state is retained above as contemporaneous provenance; this field records the later lifecycle classification."
+  }
 }
