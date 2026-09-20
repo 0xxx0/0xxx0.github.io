@@ -1,0 +1,34 @@
+{
+  "schema": "release-receipt/v1",
+  "title": "Triangle Glyph Lab",
+  "version": "0.1",
+  "state": "EXPERIMENT",
+  "date": "2026-09-21",
+  "route": "/forward-field-proof/triangle/glyph/",
+  "parent": "/forward-field-proof/triangle/",
+  "showcase_card": false,
+  "claim": "Tests the triangle as an eight-locus relational glyph: three vertices, three edges, one interior, and one outside/context.",
+  "mechanisms": [
+    "vertex/entity payloads",
+    "edge/relation payloads",
+    "interior relation or unknown",
+    "outside/context frame",
+    "independent MARK and UNKNOWN states",
+    "compact/readable dual notation",
+    "shareable URL state and JSON export"
+  ],
+  "presets": [
+    "MESSAGE",
+    "RETURN",
+    "POWER",
+    "FIELD"
+  ],
+  "formal_boundary": "Inspired by relational triangle notation and distinction/marked-space ideas; not an implementation or extension of Laws of Form.",
+  "mutation": "LOCAL_ONLY",
+  "known_limits": [
+    "No claim that eight loci form a complete grammar.",
+    "Marks are interface annotations, not Spencer-Brown primary algebra operations.",
+    "Compact notation is experimental and not canonical.",
+    "POWER preset only solves simple real-valued one-unknown demonstrations."
+  ]
+}
