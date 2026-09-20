@@ -1,0 +1,47 @@
+{
+  "schema": "verse-lineage/v0.1",
+  "updated": "2026-09-21",
+  "user_facing_head": {
+    "name": "Chinese Poetry Copilot",
+    "route": "/poetry/",
+    "state": "RECONNECTION_SURFACE"
+  },
+  "engine": {
+    "name": "Verse Atlas",
+    "route": "/foundry/verse-atlas/",
+    "state": "STABLE"
+  },
+  "canonical_open_line": {
+    "text": "未始来时末已示",
+    "characters": 7,
+    "status": "OPEN"
+  },
+  "hinge": {
+    "text": "空",
+    "status": "OPTIONAL_EXPLORED_NOT_CANONICAL"
+  },
+  "donors": [
+    {
+      "name": "ANTHROPY Pathweaver",
+      "route": "/recovery/path-grid/anthropy-pathweaver/",
+      "role": "open composition + relation notes + path→glyph/score"
+    },
+    {
+      "name": "Grid Path Compiler V4",
+      "route": "/recovery/path-grid/grid-path-compiler-v4/",
+      "role": "general addressed-path/multicorpus machinery"
+    },
+    {
+      "name": "MEANTOME / Cell Foundry",
+      "route": "/recovery/path-grid/cell-foundry-r2/",
+      "role": "addressed cell-poetry donor"
+    }
+  ],
+  "distinctions": {
+    "JUE/JU game": "separate semantic-reordering mini-game lineage",
+    "Jueju": "Chinese regulated-verse/composition lineage",
+    "LATIN CONTROL": "geometry/control fixture; no literary claims",
+    "English Jue Ju": "NOT_IMPLEMENTED"
+  },
+  "law": "one path engine != one poetry theory"
+}
