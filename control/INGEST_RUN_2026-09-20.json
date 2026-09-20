@@ -1,0 +1,124 @@
+{
+  "schema": "0xxx0/ingest-run-receipt/v0.1",
+  "id": "INGEST-RUN-2026-09-20-A",
+  "date": "2026-09-20",
+  "scope": "Bounded ChatGPT Library staging ingress available to this execution environment. This is a real scanner/indexer proof, but not a scan of the user's Mac Downloads directory.",
+  "source_policy": "Original Library files were not changed. Raw bytes were copied only into ephemeral staging where authorized.",
+  "requested_library_items": 10,
+  "materialized_originals": [
+    {
+      "name": "state_transform_instrument_v0_3.html",
+      "size_bytes": 19898
+    },
+    {
+      "name": "state_transform_instrument_v0_3_README.txt",
+      "size_bytes": 2757
+    },
+    {
+      "name": "axial_compositor_v0_2_print_template.svg",
+      "size_bytes": 15948
+    },
+    {
+      "name": "axial_compositor_v0_2_build_notes.txt",
+      "size_bytes": 2014
+    },
+    {
+      "name": "ENV0_P0_BUILD_SHEET_A3.pdf",
+      "size_bytes": 10195
+    },
+    {
+      "name": "ENV0_P0_BUILD_SHEET_A3_preview.png",
+      "size_bytes": 504787
+    }
+  ],
+  "raw_byte_blocked": [
+    {
+      "name": "fold_bloom_fold_weave_01.html",
+      "reason": "Project-backed Library file had no authorized raw-byte materialization path in this session."
+    },
+    {
+      "name": "fold_bloom_fold_weave_01(1).html",
+      "reason": "Project-backed Library file had no authorized raw-byte materialization path in this session."
+    },
+    {
+      "name": "kala_aperture_01.html",
+      "reason": "Project-backed Library file had no authorized raw-byte materialization path in this session."
+    },
+    {
+      "name": "Forward Field Architecture Map.png",
+      "reason": "Project-backed Library file had no authorized raw-byte materialization path in this session."
+    }
+  ],
+  "validation_fixture": {
+    "name": "axial_compositor_v0_2_print_template_COPY.svg",
+    "origin": "staging-only copy of axial_compositor_v0_2_print_template.svg",
+    "purpose": "Exercise exact duplicate grouping without touching any Library original.",
+    "never_canonical": true
+  },
+  "scanner": {
+    "prior_version": "v0.1",
+    "failure_found": "GNU stat -f returns filesystem information instead of BSD/macOS formatted file metadata; because it exits successfully, the old fallback silently corrupted TSV rows and duplicate counts.",
+    "invalid_probe": {
+      "files_reported": 77,
+      "duplicate_groups_reported": 9,
+      "classification": "DISCARDED_INVALID_REPORT"
+    },
+    "fix_commit": "c48372026992c550b98f5620385b3a474c723da7",
+    "current_version": "0xxx0/ingest-run/v0.2",
+    "valid_run": {
+      "files_indexed": 7,
+      "byte_objects": 6,
+      "exact_duplicate_groups": 1,
+      "hash": "sha256",
+      "stat": "gnu",
+      "mutated_source": false
+    },
+    "guard_test": "PASS: output path inside scanned source tree exits 2 before creating output."
+  },
+  "semantic_index": {
+    "indexer": "/scripts/ingest-index.py",
+    "rules": "/control/INGEST_RULES.json",
+    "records": 7,
+    "byte_objects": 6,
+    "tagged_records": 7,
+    "route_proposals": 6,
+    "review_conflicts": 1,
+    "conflict": "The staging-only duplicate fixture matched both fixture-only and axial-state-transform rules, correctly producing REVIEW_CONFLICT instead of an automatic route.",
+    "mutated_source": false
+  },
+  "observed_lineages": [
+    {
+      "lineage": "axial-state-transform",
+      "real_records": 4,
+      "components": [
+        "state_transform_instrument_v0_3.html",
+        "state_transform_instrument_v0_3_README.txt",
+        "axial_compositor_v0_2_print_template.svg",
+        "axial_compositor_v0_2_build_notes.txt"
+      ]
+    },
+    {
+      "lineage": "env0-house-physical",
+      "real_records": 2,
+      "components": [
+        "ENV0_P0_BUILD_SHEET_A3.pdf",
+        "ENV0_P0_BUILD_SHEET_A3_preview.png"
+      ]
+    }
+  ],
+  "exact_duplicate_fixture": {
+    "sha256": "4fda827b558d59c6de8a2033221009bfe31c5d555392c5f61a18e6e5d982e821",
+    "bytes_each": 15948,
+    "count": 2,
+    "interpretation": "Byte identity proven; canonical semantic identity is not inferred from the duplicate count."
+  },
+  "selected_for_representation_01": "state_transform_instrument_v0_3.html + its README as two byte objects composing one semantic artifact lineage",
+  "laws_proved": [
+    "INDEX → HASH → TAG → REVIEW → ROUTE can run with zero source mutation.",
+    "Content hash identifies exact bytes, not project/artifact identity.",
+    "Same lineage may contain different byte objects.",
+    "Conflicting semantic rules stop at REVIEW_CONFLICT.",
+    "Scanner reports must live outside the scanned source tree."
+  ],
+  "next": "Use REPRESENTATION_01 as the first canonical ingest object. A real Mac Downloads/Desktop scan should reuse the same scripts when local filesystem access is available."
+}
