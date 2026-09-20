@@ -1,0 +1,17 @@
+{
+  "schema": "body-field-contract/v0.1",
+  "updated": "2026-09-20",
+  "title": "BODY / FIELD",
+  "purpose": "Public-safe embodied spatial-state projection: address body regions, compare unequal body frames, connect movement/time/environment context, and preserve evidence boundaries without exposing private health state.",
+  "kernel_role": "OBJECT -> ADDRESS -> PROJECT -> OBSERVE/TEST -> RETURN. Public route is projection/reference only.",
+  "authority_split": {
+    "public_body_field": "reference geometry, projection grammar, public-safe examples",
+    "private_body_records": "personal observations/metrics/history remain private until deliberately exported",
+    "external_sources": "anatomy/movement knowledge remains source-attributed and non-authoritative for personal diagnosis"
+  },
+  "body_env_boundary": "ENV-0 is a typed body<->world relation layer. It may relate contact, thermal, air, light, sound, load and motion context to body observations, but it does not make the environment the body ontology or convert correlation into cause.",
+  "current_proof": "Open Twin structure address -> self observation -> optional OpenCap movement interval -> append-only RETURN; personal self<->atlas registration remains an explicit unresolved obligation.",
+  "return_path": "/returns/",
+  "house_sibling": "/house/spatial/",
+  "machine_model": "/body/model.json"
+}
