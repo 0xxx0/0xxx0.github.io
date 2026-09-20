@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>PALIMPSEST // SELF-READING TYPE</title>
+<style>
+:root{--bg:#060709;--panel:#0d1115;--ink:#edf0ec;--muted:#81909a;--hair:#263139;--hot:#f3a34b;--cyan:#71d6e8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:13px/1.35 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+button,input,select,textarea{font:inherit;color:inherit;background:#10161b;border:1px solid var(--hair);border-radius:7px;padding:7px}
+button{cursor:pointer}.hot{border-color:#8f6237;background:#1b140e}.wrap{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(290px,.65fr);min-height:100vh}
+.stage{position:sticky;top:0;height:100vh;display:grid;place-items:center;background:#030405;overflow:hidden}.stage canvas{width:min(100%,1100px);height:100%;object-fit:contain;image-rendering:auto}
+.side{padding:12px;background:var(--panel);border-left:1px solid var(--hair);overflow:auto}.title{font-weight:900;letter-spacing:.13em;font-size:16px}.sub{color:var(--muted);margin:5px 0 12px}.k{font-size:10px;letter-spacing:.12em;color:var(--muted);margin:12px 0 4px}
+.row{display:flex;gap:6px;flex-wrap:wrap}.row>*{flex:1}.row button{flex:0 0 auto}.mono{color:var(--cyan);white-space:pre-wrap}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.metric{border:1px solid var(--hair);border-radius:8px;padding:8px}.metric b{display:block;font-size:16px}
+#dump{height:180px;width:100%;resize:vertical;white-space:pre;font-size:9px}.preset button{font-size:11px}.footer{margin-top:14px;color:var(--muted);font-size:11px}
+a{color:var(--cyan)}
+@media(max-width:800px){.wrap{grid-template-columns:1fr}.stage{position:relative;height:52vh}.side{border-left:0;border-top:1px solid var(--hair)}}
+</style></head>
+<body><main class="wrap">
+<section class="stage"><canvas id="c"></canvas></section>
+<aside class="side">
+<div class="title">PALIMPSEST // SELF-READING TYPE</div>
+<div class="sub">Render → sample → choose alphabet → rerender. The text does not merely display an encoding; it repeatedly rebuilds the surface that decides its next encoding.</div>
+
+<div class="k">SEED TEXT</div><textarea id="seed" rows="3" style="width:100%">A NAME IS AN ADDRESS IN SPACE</textarea>
+<div class="k">ALPHABET</div><input id="alphabet" style="width:100%" value=" .·:+*#%@易晖">
+<div class="preset row"><button data-a=" .:-=+*#%@">ASCII</button><button data-a=" ░▒▓█">BLOCK</button><button data-a=" .／＼─│┼╳">LINE</button><button data-a=" 〇一二三十口田目日易">HAN</button><button data-a=" ·◌○●◇◆△▲">SEAL</button></div>
+
+<div class="k">SURFACE</div>
+<div class="row"><label>cols <input id="cols" type="range" min="28" max="110" value="72"></label><label>warp <input id="warp" type="range" min="0" max="100" value="18"></label></div>
+<div class="row"><label>memory <input id="memory" type="range" min="0" max="100" value="28"></label><label>noise <input id="noise" type="range" min="0" max="100" value="7"></label></div>
+
+<div class="k">EVOLUTION</div>
+<div class="row"><button id="reset">RESET</button><button id="step">STEP</button><button id="run" class="hot">RUN</button><button id="mutate">MUTATE LAW</button></div>
+<div class="row" style="margin-top:6px"><button id="invert">INVERT</button><button id="rotate">ROTATE SAMPLE</button><button id="snapshot">PNG</button></div>
+
+<div class="k">CURRENT LAW</div><div id="law" class="mono"></div>
+<div class="k">READOUT</div><div class="metrics"><div class="metric">ITER<b id="iter">0</b></div><div class="metric">ENTROPY<b id="entropy">0</b></div><div class="metric">Δ SURFACE<b id="delta">0</b></div></div>
+
+<div class="k">ENCODING SURFACE / TEXT DUMP</div><textarea id="dump" readonly></textarea>
+<div class="footer">Touch/click the image to locally disturb sampling pressure. <a href="index.html">suite</a></div>
+</aside></main>
+<script>
+const C=document.querySelector('#c'),X=C.getContext('2d',{willReadFrequently:true}),O=document.createElement('canvas'),Q=O.getContext('2d',{willReadFrequently:true});
+let cols=72,rows=40,grid=[],prev=[],iteration=0,running=false,invert=false,rot=0,lawMut=0,impulses=[];
+const $=s=>document.querySelector(s),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+function fit(){let d=devicePixelRatio||1,w=Math.max(640,innerWidth*(innerWidth<800?1:.7)),h=Math.max(420,innerHeight);C.width=w*d;C.height=h*d;C.style.aspectRatio=w+'/'+h;X.setTransform(d,0,0,d,0,0);build(false)}
+addEventListener('resize',fit);
+function build(reset=true){
+ cols=+$(" #cols".trim()).value; let w=C.width/(devicePixelRatio||1),h=C.height/(devicePixelRatio||1);
+ rows=Math.max(18,Math.floor(cols*h/w*.56));O.width=cols*8;O.height=rows*12;
+ if(reset||grid.length!==cols*rows){let s=$('#seed').value||'PALIMPSEST';grid=Array.from({length:cols*rows},(_,i)=>s[i%s.length]);prev=grid.slice();iteration=0}
+ draw()
+}
+function charRamp(){let a=[...($('#alphabet').value||' .#')];return a.length<2?[' ',a[0]||'#']:a}
+function drawToOff(){
+ let a=charRamp(),cw=O.width/cols,ch=O.height/rows;Q.fillStyle=invert?'#fff':'#000';Q.fillRect(0,0,O.width,O.height);
+ Q.textAlign='center';Q.textBaseline='middle';Q.font=`${Math.max(7,ch*.92)}px ui-monospace,monospace`;
+ for(let y=0;y<rows;y++)for(let x=0;x<cols;x++){
+   let i=x+y*cols,cc=grid[i]||' ',code=cc.codePointAt(0)||0,ox=((code%7)-3)*.08*lawMut,oy=(((code>>3)%7)-3)*.08*lawMut;
+   Q.save();Q.translate((x+.5+ox)*cw,(y+.5+oy)*ch);Q.rotate(((code%5)-2)*.008*lawMut);Q.fillStyle=invert?'#000':'#fff';Q.fillText(cc,0,0);Q.restore();
+ }
+ let warp=+$('#warp').value/100;
+ if(warp>0){Q.save();Q.globalAlpha=.14+warp*.22;Q.translate(O.width/2,O.height/2);Q.rotate((rot?1:-1)*warp*.012);Q.scale(1+warp*.006,1-warp*.004);Q.translate(-O.width/2,-O.height/2);Q.drawImage(O,warp*8*Math.sin(iteration*.13),warp*5*Math.cos(iteration*.11));Q.restore()}
+}
+function localImpulse(x,y){impulses.push({x,y,t:1});if(impulses.length>16)impulses.shift()}
+function evolve(){
+ drawToOff();let img=Q.getImageData(0,0,O.width,O.height),a=charRamp(),cw=O.width/cols,ch=O.height/rows,mem=+$('#memory').value/100,noise=+$('#noise').value/100;
+ prev=grid.slice();let next=new Array(grid.length);
+ for(let gy=0;gy<rows;gy++)for(let gx=0;gx<cols;gx++){
+   let sx=(gx+.5)*cw,sy=(gy+.5)*ch;
+   if(rot){let nx=sy/O.height,ny=1-sx/O.width;sx=nx*O.width;sy=ny*O.height}
+   let radius=Math.max(1,Math.floor(Math.min(cw,ch)*.32)),sum=0,n=0;
+   for(let yy=-radius;yy<=radius;yy+=2)for(let xx=-radius;xx<=radius;xx+=2){
+     let px=clamp((sx+xx)|0,0,O.width-1),py=clamp((sy+yy)|0,0,O.height-1),p=(px+py*O.width)*4;
+     sum+=img.data[p];n++
+   }
+   let lum=sum/(n*255),old=a.indexOf(grid[gx+gy*cols]);if(old<0)old=(grid[gx+gy*cols].codePointAt(0)||0)%a.length;
+   let impulse=0;for(let im of impulses){let dx=gx/cols-im.x,dy=gy/rows-im.y,dd=dx*dx+dy*dy;impulse+=Math.exp(-dd*180)*im.t}
+   let v=(invert?lum:1-lum)*(a.length-1);v=v*(1-mem)+old*mem + (Math.random()-.5)*noise*a.length + impulse*(a.length*.8);
+   next[gx+gy*cols]=a[clamp(Math.round(v),0,a.length-1)]
+ }
+ grid=next;iteration++;impulses.forEach(i=>i.t*=.8);impulses=impulses.filter(i=>i.t>.04);draw()
+}
+function entropy(){
+ let m=new Map;for(let c of grid)m.set(c,(m.get(c)||0)+1);let e=0,n=grid.length;for(let v of m.values()){let p=v/n;e-=p*Math.log2(p)}return e
+}
+function draw(){
+ drawToOff();let w=C.width/(devicePixelRatio||1),h=C.height/(devicePixelRatio||1);X.setTransform(devicePixelRatio||1,0,0,devicePixelRatio||1,0,0);
+ X.fillStyle='#050608';X.fillRect(0,0,w,h);X.imageSmoothingEnabled=true;X.globalAlpha=.96;X.drawImage(O,0,0,w,h);
+ let changed=grid.length?grid.reduce((n,c,i)=>n+(c!==prev[i]),0)/grid.length:0;
+ $('#iter').textContent=iteration;$('#entropy').textContent=entropy().toFixed(2);$('#delta').textContent=(changed*100).toFixed(1)+'%';
+ $('#dump').value=Array.from({length:rows},(_,y)=>grid.slice(y*cols,(y+1)*cols).join('')).join('\n');
+ $('#law').textContent=`glyph' = A[ round((1−L(sample(render(glyph))))·|A| × memory + disturbance) ]\n${cols}×${rows} · alphabet ${charRamp().length} · sample-rot ${rot?'90°':'0°'} · law mutation ${lawMut}`;
+}
+function loop(){if(running)evolve();requestAnimationFrame(loop)}
+$('#run').onclick=()=>{running=!running;$('#run').textContent=running?'PAUSE':'RUN'};
+$('#step').onclick=evolve;$('#reset').onclick=()=>build(true);
+$('#mutate').onclick=()=>{lawMut=(lawMut+1)%5;draw()};$('#invert').onclick=()=>{invert=!invert;draw()};$('#rotate').onclick=()=>{rot^=1;draw()};
+$('#cols').oninput=()=>build(true);['warp','memory','noise','alphabet'].forEach(id=>$('#'+id).oninput=draw);
+document.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{$('#alphabet').value=b.dataset.a;build(true)});
+C.addEventListener('pointerdown',e=>{let r=C.getBoundingClientRect();localImpulse((e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height);evolve()});
+$('#snapshot').onclick=()=>{let a=document.createElement('a');a.download='palimpsest.png';a.href=C.toDataURL();a.click()};
+fit();requestAnimationFrame(loop);
+</script></body></html>
