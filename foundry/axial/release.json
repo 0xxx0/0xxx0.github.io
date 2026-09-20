@@ -34,5 +34,12 @@
     "Identity/RETURN kernel"
   ],
   "research_question": "Can the low-level detent + twist/slide + transaction trace reconstruct what changed without a separate manual narrative?",
-  "known_gap": "Digital mechanics are proxies. Physical travel, detent force, backlash, eyes-free acquisition, nonlinear mappings, and mechanical state persistence remain unvalidated."
+  "known_gap": "Digital mechanics are proxies. Physical travel, detent force, backlash, eyes-free acquisition, nonlinear mappings, and mechanical state persistence remain unvalidated.",
+  "current_classification": {
+    "reviewed_at": "2026-09-20T23:58:00+08:00",
+    "state": "PROOF_REQUIRED",
+    "basis": "Its own promotion gate still requires interpretable digital 10-trial evidence plus a physical nested-tube comparison receipt.",
+    "receipt": "/control/EXPERIMENT_WRANGLE_2026-09-20.json",
+    "provenance_note": "Original release state is retained above as contemporaneous provenance; this field records the later lifecycle classification."
+  }
 }
