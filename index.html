@@ -24,10 +24,11 @@ header{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end;
 .mapGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.branch{border:1px solid var(--line);background:var(--p)}.branch>summary{list-style:none;cursor:pointer;padding:10px;display:grid;grid-template-columns:1fr auto;gap:8px;align-items:start}.branch>summary::-webkit-details-marker{display:none}.branch[open]>summary{border-bottom:1px solid var(--line)}.routeName{font:750 14px/1.1 system-ui,sans-serif}.routeMeta{margin-top:4px;color:#708087;font-size:7px;letter-spacing:.06em}.routeRole{margin-top:6px;color:#98a4a8;font:8.5px/1.4 system-ui,sans-serif;max-width:68ch}.badges{display:flex;gap:3px;flex-wrap:wrap;justify-content:flex-end}.badge{border:1px solid #303a3f;padding:2px 4px;font-size:6px;letter-spacing:.07em;color:#88969c}.badge.ACTIVE,.badge.STABLE{color:var(--green)}.badge.PROOF_REQUIRED,.badge.RECOVER{color:#e1a06b}.badge.CANDIDATE,.badge.PARKED{color:var(--gold)}.badge.DONOR,.badge.FROZEN_DONOR{color:var(--cool)}.badge.REFERENCE,.badge.UTILITY{color:#8e9a9f}
 .kids{padding:4px 8px 8px}.kid{display:grid;grid-template-columns:1fr auto;gap:8px;border-bottom:1px solid #1d2529;padding:7px 2px}.kid:last-child{border-bottom:0}.kid:hover{background:#0d1316}.kid .routeName{font-size:11px}.kid .routeRole{font-size:8px}.depth2{margin-left:13px;border-left:1px solid #273238;padding-left:8px}
 .flat{border-top:1px solid var(--line)}.flatRow{display:grid;grid-template-columns:minmax(190px,1fr) 110px 110px 2fr auto;gap:10px;padding:9px 3px;border-bottom:1px solid #20282c}.flatRow:hover{background:#0b1012}.flatRow .name{font:750 13px/1.1 system-ui,sans-serif}.flatRow .meta{font-size:7px;color:var(--mut)}.flatRow .status{font-size:7px;letter-spacing:.08em}.flatRow .desc{font:8.5px/1.4 system-ui,sans-serif;color:#96a2a6}
+.feedShell{display:grid;grid-template-columns:180px minmax(0,1fr);gap:7px}.feedStats{border:1px solid var(--line);background:#090d0f;padding:11px;display:grid;grid-template-columns:1fr 1fr;gap:1px}.feedStat{padding:8px 4px;border-bottom:1px solid #20282c}.feedStat:nth-last-child(-n+2){border-bottom:0}.feedStat b{display:block;font:800 20px/.9 system-ui,sans-serif;letter-spacing:-.04em}.feedStat span{display:block;margin-top:5px;color:var(--mut);font-size:6.5px;letter-spacing:.08em}.feedRail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(190px,1fr);gap:1px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;border:1px solid var(--line);background:var(--line);scrollbar-width:thin}.feedItem{scroll-snap-align:start;background:var(--p);padding:10px;min-height:104px;display:flex;flex-direction:column}.feedItem:hover{background:#101619}.feedTop{display:flex;justify-content:space-between;gap:8px;color:var(--mut);font-size:6.5px}.feedItem strong{margin-top:13px;font:750 13px/1.08 system-ui,sans-serif;letter-spacing:-.02em}.feedPath{margin-top:4px;color:var(--cool);font-size:6.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.feedBottom{margin-top:auto;padding-top:10px;display:flex;gap:4px;flex-wrap:wrap}.feedMore{border:1px solid var(--line);background:#090d0f;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:7px;color:var(--mut)}.feedMore button{min-height:25px;font-size:7px}
 .ports{border-top:1px solid var(--line)}.portRow{display:grid;grid-template-columns:minmax(170px,.75fr) 130px 150px 2fr auto;gap:10px;padding:8px 3px;border-bottom:1px solid #20282c}.portRow:hover{background:#0b1012}.portRow .name{font:750 12px/1.1 system-ui,sans-serif}.portRow .kind{font-size:7px;color:var(--cool);letter-spacing:.08em}.portRow .status{font-size:7px;color:var(--gold);letter-spacing:.06em}.portRow .via{font:8.5px/1.4 system-ui,sans-serif;color:#96a2a6}
 .health{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.health a{background:#090d0f;padding:10px}.health b{display:block;font-size:8px}.health span{display:block;margin-top:3px;color:var(--mut);font-size:7px}
 .foot{display:flex;justify-content:space-between;gap:18px;margin-top:24px;padding-top:9px;border-top:1px solid var(--line);font-size:7px;color:#657278}
-@media(max-width:900px){header{grid-template-columns:1fr}.laws{grid-template-columns:1fr 1fr}.nowGrid,.mapGrid{grid-template-columns:1fr}.mapStage{grid-template-columns:1fr}.mapInspector{min-height:auto}.head{grid-template-columns:1fr auto}.head p{grid-column:1/-1}.flatRow,.portRow{grid-template-columns:1fr auto}.flatRow .meta,.flatRow .status,.flatRow .desc,.portRow .kind,.portRow .status,.portRow .via{grid-column:1}.flatRow .arrow,.portRow .arrow{grid-column:2;grid-row:1/-1}.sectionHead{grid-template-columns:1fr}.mapTools input{width:100%}.health{grid-template-columns:1fr 1fr}.foot{display:block}}
+@media(max-width:900px){header{grid-template-columns:1fr}.laws{grid-template-columns:1fr 1fr}.nowGrid,.mapGrid{grid-template-columns:1fr}.feedShell{grid-template-columns:1fr}.feedStats{grid-template-columns:repeat(4,1fr)}.feedStat{border-bottom:0;border-right:1px solid #20282c;padding:7px 5px}.feedStat:last-child{border-right:0}.feedStat b{font-size:16px}.feedRail{grid-auto-columns:72vw}.mapStage{grid-template-columns:1fr}.mapInspector{min-height:auto}.head{grid-template-columns:1fr auto}.head p{grid-column:1/-1}.flatRow,.portRow{grid-template-columns:1fr auto}.flatRow .meta,.flatRow .status,.flatRow .desc,.portRow .kind,.portRow .status,.portRow .via{grid-column:1}.flatRow .arrow,.portRow .arrow{grid-column:2;grid-row:1/-1}.sectionHead{grid-template-columns:1fr}.mapTools input{width:100%}.health{grid-template-columns:1fr 1fr}.foot{display:block}}
 </style>
 </head>
 <body><main>
@@ -42,6 +43,11 @@ header{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end;
 <section class="section">
   <div class="sectionHead"><div><b>NOW</b><span id="nowMeta">loading current attention…</span></div><span>≤3 execution fronts · from CURRENT</span></div>
   <div id="now" class="nowGrid"><div class="front"><p>Loading /control/CURRENT.json…</p></div></div><div id="moveGate" class="moveGate"><b>MOVE GATE</b><span>Loading execution contract…</span></div>
+</section>
+
+<section class="section" id="pulseFeed">
+  <div class="sectionHead"><div><b>PULSE / RECENT ACTIVITY</b><span id="feedMeta">loading durable touches…</span></div><span>running projection · activity ≠ priority</span></div>
+  <div class="feedShell"><div class="feedStats" id="feedStats"></div><div><div class="feedRail" id="feedRail"><div class="feedItem">Loading manifest touch history…</div></div><div class="feedMore"><span>Swipe on phone. This list follows durable FIELD touches; NOW still comes only from CURRENT.</span><button id="feedRecent">OPEN FULL RECENT →</button></div></div></div>
 </section>
 
 <section class="section">
@@ -101,6 +107,13 @@ function renderHeads(){
   headSet=new Set(hs.map(h=>h.route));
   $('headMeta').textContent=hs.length+' retained heads · source /control/CURRENT.json';
   $('heads').innerHTML=hs.map(h=>'<a class="head" href=".'+esc(h.route)+'"><strong>'+esc(h.head)+'</strong><span class="hs">'+esc(h.state)+'</span><p>'+esc(h.retained_function||'')+'</p><span class="arrow">OPEN →</span></a>').join('')||'<div class="head"><p>No current heads declared.</p></div>';
+}
+function renderFeed(){
+  const xs=routes.filter(r=>r.index?.updated_at).sort((a,b)=>String(b.index.updated_at).localeCompare(String(a.index.updated_at))).slice(0,10);
+  $('feedMeta').textContent=xs.length+' latest durable touches · auto-derived from manifest index.updated_at';
+  const live=routes.filter(r=>stateLive(r.state)||r.state==='STABLE').length;
+  $('feedStats').innerHTML=[['NOW',nowRouteSet.size],['HEADS',headSet.size],['LIVE',live],['ADDRESSED',routes.length]].map(([k,v])=>'<div class="feedStat"><b>'+esc(v)+'</b><span>'+esc(k)+'</span></div>').join('');
+  $('feedRail').innerHTML=xs.map(r=>'<a class="feedItem" href=".'+esc(r.href)+'"><div class="feedTop"><span>'+esc(r.index.updated_at)+'</span><span>'+esc((r.index.work_modes||['TOUCH'])[0])+'</span></div><strong>'+esc(r.title||r.href)+'</strong><div class="feedPath">'+esc(r.href)+'</div><div class="feedBottom">'+badge(r.state)+(headSet.has(r.href)?'<span class="badge ACTIVE">HEAD</span>':'')+(nowRouteSet.has(r.href)?'<span class="badge PROOF_REQUIRED">NOW</span>':'')+'</div></a>').join('')||'<div class="feedItem">No tracked durable touches.</div>';
 }
 function matchFilter(r){
   if(query&&!textOf(r).includes(query))return false;
@@ -261,12 +274,13 @@ Promise.all([
  fetch('./control/CURRENT.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('current '+r.status);return r.json()})
 ]).then(([m,c])=>{
  manifest=m;current=c;routes=(m.routes||[]).filter(r=>r.href!=='/');
- renderNow();renderHeads();renderMap();renderPorts();
+ renderNow();renderHeads();renderFeed();renderMap();renderPorts();
 }).catch(e=>{$('now').innerHTML='<div class="front"><p>Control load failed · '+esc(e.message)+'</p></div>';$('map').innerHTML='<div class="branch"><div style="padding:12px">Manifest unavailable.</div></div>'});
 $('mapTools').onclick=e=>{
  if(e.target.dataset.mode){mode=e.target.dataset.mode;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));renderMap();return}
  if(e.target.dataset.filter){filter=filter===e.target.dataset.filter?'ALL':e.target.dataset.filter;document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('on',b.dataset.filter===filter));renderMap()}
 };
+$('feedRecent').onclick=()=>{mode='RECENT';document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));renderMap();document.querySelector('.section:nth-of-type(4)').scrollIntoView({behavior:'smooth',block:'start'})};
 $('find').oninput=e=>{query=e.target.value.trim().toLowerCase();renderMap()};$('scaleOut').onclick=scaleOut;$('scaleRoot').onclick=scaleRoot;$('miLens').onclick=lensSelected;
 })();
 </script>
