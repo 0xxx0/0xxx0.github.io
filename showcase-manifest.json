@@ -327,6 +327,157 @@
       }
     },
     {
+      "href": "/continuity/",
+      "title": "CONTINUITY / CASE 0.1",
+      "kind": "workbench",
+      "parent": "/",
+      "family": "CONFLUENCE / CONTINUITY",
+      "operation": "CANONICALIZE",
+      "state": "EXPERIMENT",
+      "version": "0.1",
+      "receipt": "/continuity/release.json",
+      "transfer": [
+        "case reconstruction",
+        "person/animal care continuity",
+        "source-to-canon conversion",
+        "provenance split",
+        "anti-merge holds",
+        "gap review",
+        "human handoff compression"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "raw source fragment",
+            "observed update",
+            "report excerpt",
+            "chat archive fragment",
+            "case claim",
+            "uncertainty"
+          ],
+          "requires": [],
+          "optional": [
+            "subject label",
+            "subject kind",
+            "domain",
+            "event time",
+            "source ref",
+            "anchors",
+            "reflected question"
+          ]
+        },
+        "transforms": {
+          "verb": "preserve raw sources, separate provenance, hold unresolved identities apart, canonicalize claims, expose gaps, then build a reviewed handoff",
+          "preserves": [
+            "raw source",
+            "source refs",
+            "provenance class",
+            "conflicts",
+            "unknowns",
+            "anti-merge holds",
+            "superseded claims",
+            "return path"
+          ],
+          "reversibility": "full",
+          "side_effects": "browser-local only after explicit SAVE"
+        },
+        "emits": {
+          "kinds": [
+            "canonical case packet",
+            "gap map",
+            "step-back review",
+            "JSON export",
+            "HUMAN PORT handoff"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/continuity/release.json",
+          "checks": [
+            "raw-source preservation",
+            "inference contamination review",
+            "missing-return-path review",
+            "anti-merge visibility",
+            "explicit local-only privacy boundary"
+          ],
+          "return_path": "/continuity/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_IN",
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "raw fragment / observation / report",
+            "interface": "paste/manual capture"
+          },
+          {
+            "medium": "DATA",
+            "kind": "existing canonical packet",
+            "interface": "JSON import"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "evidence-graded canonical case packet",
+            "interface": "JSON export/local state"
+          },
+          {
+            "medium": "DATA",
+            "kind": "reviewed compact handoff",
+            "interface": "HUMAN PORT"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "gap/review state",
+            "interface": "STEP BACK"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "ROUTE",
+            "status": "AVAILABLE",
+            "via": "JSON export / reviewed handoff"
+          },
+          {
+            "class": "COMMUNICATION",
+            "status": "AVAILABLE",
+            "via": "HUMAN PORT"
+          },
+          {
+            "class": "CANONICAL_INGEST",
+            "status": "SPECIFIED",
+            "via": "FIELD INTAKE packet-import adapter"
+          },
+          {
+            "class": "RETRIEVAL",
+            "status": "ADAPTER_REQUIRED",
+            "via": "authorized archive/file/connector candidate-source adapter"
+          },
+          {
+            "class": "PRIVATE_SYNC",
+            "status": "CANDIDATE",
+            "via": "encrypted private cross-device case store"
+          }
+        ],
+        "physical_fit": "Continuity layer for observations about people, animals, devices, rooms and projects; not a medical record authority, sensor authority, or autonomous actor."
+      },
+      "index": {
+        "updated_at": "2026-09-20T23:17:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      }
+    },
+    {
       "href": "/fold-bloom/",
       "title": "FOLD // BLOOM",
       "kind": "hub",
