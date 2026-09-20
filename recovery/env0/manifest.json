@@ -6,8 +6,8 @@
   "exact_repo_sources": [
     {
       "path": "/recovery/env0/ENV0_Atlas_v0_1_README.txt",
-      "sha256": "c076fe304750170600ed353a1d7a2621428f87619d3f489787b1eb921c3937c0",
-      "size_bytes": 612
+      "sha256": "d9c0debfb664e91f6327273457ba106a0236b0aae6b5f78aab09a0ae64d47ccf",
+      "size_bytes": 611
     },
     {
       "path": "/recovery/env0/ENV0_symbols_A2_v0_1.svg",
@@ -35,5 +35,15 @@
     }
   ],
   "unique": "BODY → GARMENT → HARNESS → SUIT → FURNITURE → ROOM → HOUSE grammar with typed ports, reversible operations, print plates and a bounded physical build/test return.",
-  "rule": "Editable masters are frozen exactly. Do not claim the pack fully mirrored until the two PDFs are byte-copied and hash-verified."
+  "rule": "Editable masters are frozen exactly. Do not claim the pack fully mirrored until the two PDFs are byte-copied and hash-verified.",
+  "verification_notes": [
+    {
+      "at": "2026-09-21",
+      "object": "/recovery/env0/ENV0_Atlas_v0_1_README.txt",
+      "correction": "Manifest previously described the Library source with a trailing newline (612 B). Canonical repo file is 611 B with no trailing newline; manifest now records current repo bytes.",
+      "sha256": "d9c0debfb664e91f6327273457ba106a0236b0aae6b5f78aab09a0ae64d47ccf",
+      "size_bytes": 611,
+      "provenance": "Hermes local verification independently surfaced the mismatch; canonical GitHub content was rechecked before correction."
+    }
+  ]
 }
