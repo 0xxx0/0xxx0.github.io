@@ -4,26 +4,80 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#07090b">
-<title>FOUNDRY · Convergence</title>
+<meta name="robots" content="noindex,nofollow">
+<title>FOUNDRY · Instrument Gateway</title>
 <style>
-:root{--bg:#07090b;--panel:#0d1114;--ink:#edf0eb;--muted:#90999a;--line:#29343a;--hot:#ef6c3b;--cool:#68acd8;--gold:#d9ad62}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}body{display:grid;place-items:center;padding:18px}.card{width:min(860px,100%);border:1px solid var(--line);background:var(--panel);padding:20px}.tag{color:var(--hot);font-size:9px;letter-spacing:.15em}h1{font:800 clamp(28px,7vw,52px)/.95 system-ui,sans-serif;letter-spacing:-.05em;margin:9px 0}.sub{color:var(--muted);max-width:72ch}.links{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}a{display:block;padding:13px;border:1px solid var(--line);color:var(--ink);text-decoration:none}a.primary{border-color:var(--gold);color:#f5dfb8}a.cool{border-color:var(--cool);color:#cfefff}a small{display:block;color:var(--muted);margin-top:4px}.rule{margin-top:16px;padding-top:10px;border-top:1px solid var(--line);font-size:10px;color:var(--muted)}@media(max-width:620px){.links{grid-template-columns:1fr}}
+:root{--bg:#07090b;--p:#0c1013;--ink:#edf0eb;--muted:#879296;--line:#283239;--hot:#ef6c3b;--cool:#68acd8;--gold:#d9ad62;--green:#9ed88c}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}body{padding:max(14px,env(safe-area-inset-top)) 12px max(28px,env(safe-area-inset-bottom))}a{color:inherit;text-decoration:none}
+main{width:min(1180px,100%);margin:auto}header{display:grid;grid-template-columns:1.2fr .8fr;gap:24px;align-items:end;padding:34px 0 18px;border-bottom:1px solid var(--line)}
+.ey{font-size:8px;letter-spacing:.18em;color:var(--hot)}h1{margin:7px 0 0;font:850 clamp(46px,10vw,104px)/.78 system-ui,-apple-system,sans-serif;letter-spacing:-.08em}.dek{color:#aab4b7;font:12px/1.65 system-ui,sans-serif}.dek b{color:var(--ink)}
+.loop{margin-top:13px;color:var(--green);font-size:9px;word-spacing:4px}.law{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.tag{border:1px solid var(--line);padding:4px 6px;color:var(--muted);font-size:7px;letter-spacing:.1em}
+.live{display:grid;grid-template-columns:120px 1fr;border-bottom:1px solid var(--line);min-height:54px}.live>div{padding:10px 0}.liveLabel{color:var(--cool);font-size:8px;letter-spacing:.12em}.fronts{display:flex;gap:7px;flex-wrap:wrap}.front{border-left:1px solid var(--line);padding-left:8px}.front b{display:block;font-size:8px}.front span{color:var(--muted);font-size:7px}
+.stratum{display:grid;grid-template-columns:150px 1fr;border-bottom:1px solid var(--line)}.rail{padding:18px 12px 18px 0}.rail b{font:800 15px system-ui,sans-serif}.rail p{margin:6px 0 0;color:var(--muted);font-size:8px}.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border-left:1px solid var(--line);border-right:1px solid var(--line)}
+.card{display:block;background:var(--p);padding:15px;min-height:144px;position:relative}.card:hover{background:#11181c}.card.primary{box-shadow:inset 3px 0 var(--gold)}.card.cool{box-shadow:inset 3px 0 var(--cool)}.card.hot{box-shadow:inset 3px 0 var(--hot)}
+.card .k{color:var(--muted);font-size:7px;letter-spacing:.11em}.card h2{margin:18px 0 7px;font:800 20px/.95 system-ui,sans-serif;letter-spacing:-.035em}.card p{margin:0;color:#9fa9ac;font:9px/1.55 system-ui,sans-serif;max-width:56ch}.arrow{position:absolute;right:12px;top:11px;color:#647177}
+footer{display:flex;justify-content:space-between;gap:20px;padding:12px 0 0;color:#657178;font-size:8px}.status{color:var(--gold)}
+@media(max-width:720px){header{grid-template-columns:1fr}.stratum{grid-template-columns:1fr}.rail{padding-bottom:10px}.cards{border-left:0}.live{grid-template-columns:1fr}.cards{grid-template-columns:1fr}footer{display:block}footer span{display:block;margin-top:4px}}
 </style>
 </head>
-<body>
-<main class="card">
-  <div class="tag">FOUNDRY · CANONICAL GITHUB PAGES ENTRY</div>
-  <h1>One substrate.<br>Unequal projections.</h1>
-  <div class="sub">Static instruments live here first. GitHub Pages is the default release surface when a build needs only HTML/CSS/JS; server deployment is reserved for auth, databases, realtime, secrets, scheduled work or server-side AI.</div>
-  <div class="links">
-    <a class="primary" href="./core/"><b>REAL CENTER / CANON 0.1 →</b><small>slow model + live control · invariant loop · signature laws · 8 cross-media convergences · current heads stay separate</small></a>
-    <a class="primary" href="./verse-atlas/"><b>VERSE ATLAS →</b><small>Chinese verse · grid/path bridge · evidence firewall · study · parallelism · glyph · RSVP · RETURN</small></a>\n    <a href="../recovery/path-grid/"><b>RECOVERED PATH / GRID →</b><small>exact V4 donor family · LATIN · MEANTOME · Nine-Gate · Pathweaver · projection/federation companions</small></a>
-    <a class="cool" href="./convergence/identity-lab.html"><b>IDENTITY LAB →</b><small>CAP-IR · stable address + provenance + RETURN across projections</small></a>
-    <a class="cool" href="./axial/"><b>AXIAL / STATE × TRANSFORM →</b><small>detented grammar × continuous slide/twist × ARM/RUN transaction · event trace · 10-trial harness · RETURN</small></a>
-    <a href="./convergence/"><b>CONVERGENCE FIELD</b><small>Richer projection shell</small></a>
-    <a href="../forward-field-proof/"><b>PLAIN / FIELD PROOF</b><small>Ablation harness + canonical scorer</small></a>
-    <a href="../atlas-dayline/"><b>ATLAS DAYLINE</b><small>Local-first radial-linear planner</small></a>
+<body><main>
+<header>
+  <div><div class="ey">FOUNDRY · PUBLIC INSTRUMENT GATEWAY</div><h1>MAKE<br>RETURN.</h1></div>
+  <div class="dek"><b>One substrate. Unequal projections.</b><br>Foundry does not own every project. It exposes a small set of instruments for orientation, operation, proof and recovery while canonical priority remains in <code>/control/CURRENT.json</code>.<div class="loop">WORLD → SENSE → ADDRESS → STATE → TRANSFORM → PROJECT → ACT → MEASURE → RETURN</div><div class="law"><span class="tag">CURRENT ≠ CONSTITUTION</span><span class="tag">DONOR ≠ HEAD</span><span class="tag">RETURN REQUIRED</span></div></div>
+</header>
+
+<section class="live">
+  <div class="liveLabel">LIVE CONTROL</div>
+  <div id="fronts" class="fronts"><span class="status">loading /control/CURRENT.json…</span></div>
+</section>
+
+<section class="stratum">
+  <div class="rail"><b>01 / ORIENT</b><p>Slow model. Stable laws. Live state stays separate.</p></div>
+  <div class="cards">
+    <a class="card primary" href="./core/"><span class="arrow">↗</span><div class="k">REAL CENTER · CANON CANDIDATE</div><h2>THOUGHT → CAPABILITY</h2><p>Center, nine laws, invariant loop, eight recurrent convergences, admission gate, and live heads fetched without becoming ontology.</p></a>
+    <a class="card" href="./convergence/"><span class="arrow">↗</span><div class="k">CONVERGENCE FIELD</div><h2>UNEQUAL READINGS</h2><p>Richer projection shell for inspecting intersections without collapsing lineages into one taxonomy.</p></a>
   </div>
-  <div class="rule">POSSIBLE → OPERATE → CONSTRAIN → PROVE → RETURN → SURFACE · no custom CNAME is required for the native GitHub Pages domain.</div>
+</section>
+
+<section class="stratum">
+  <div class="rail"><b>02 / OPERATE</b><p>Runnable instruments that transform addressed state.</p></div>
+  <div class="cards">
+    <a class="card primary" href="./verse-atlas/"><span class="arrow">↗</span><div class="k">STABLE · REPRESENT</div><h2>VERSE ATLAS</h2><p>CELL identity, typed BY/EDGE, path programs, address compression, study/glyph/temporal readings, and replayable RETURN.</p></a>
+    <a class="card cool" href="./convergence/identity-lab.html"><span class="arrow">↗</span><div class="k">STABLE · PROVE</div><h2>IDENTITY LAB</h2><p>CAP-IR fixture: the same object survives TEXT / TABLE / DAYLINE / RUN / CASE / RETURN projections.</p></a>
+    <a class="card hot" href="./axial/"><span class="arrow">↗</span><div class="k">EXPERIMENT · STATE × TRANSFORM</div><h2>AXIAL 0.4</h2><p>Discrete semantic state × continuous slide/twist × explicit ARM/RUN transaction → event trace and receipt.</p></a>
+    <a class="card" href="../house/"><span class="arrow">↗</span><div class="k">REALITY GATE</div><h2>HOUSE / FIELD</h2><p>Where models encounter addressed geometry, objects, devices, materials and actual world-state consequences.</p></a>
+  </div>
+</section>
+
+<section class="stratum">
+  <div class="rail"><b>03 / PROVE</b><p>Compare, score, replay. Claims return with evidence.</p></div>
+  <div class="cards">
+    <a class="card cool" href="../forward-field-proof/"><span class="arrow">↗</span><div class="k">ABLATION / REPRESENTATION</div><h2>PLAIN ↔ FIELD</h2><p>Tests interruption recovery, constraint retention, opportunity noticing and representation cost against a plainer control.</p></a>
+    <a class="card" href="../atlas-dayline/"><span class="arrow">↗</span><div class="k">PLAN / TIME / RETURN</div><h2>ATLAS DAYLINE</h2><p>Local-first radial-linear planner that binds task identity to time without mutating canon.</p></a>
+  </div>
+</section>
+
+<section class="stratum">
+  <div class="rail"><b>04 / RECOVER</b><p>Exact donor first. Transfer only a named missing function.</p></div>
+  <div class="cards">
+    <a class="card hot" href="../migration/"><span class="arrow">↗</span><div class="k">HUMAN SALVAGE HOME</div><h2>MIGRATION / SALVAGE YARD</h2><p>Evidence classes, promotion gate, trophy case, quarantine, attic and ingest queue. Human-facing recovery lives here.</p></a>
+    <a class="card" href="../recovery/"><span class="arrow">↗</span><div class="k">EXACT RECOVERY VAULT</div><h2>DONORS / FOSSILS</h2><p>Frozen runnable/source artifacts remain distinct from current heads and are addressable by lineage and receipt.</p></a>
+    <a class="card" href="../recovery/path-grid/"><span class="arrow">↗</span><div class="k">FROZEN DONOR FAMILY</div><h2>PATH / GRID V4</h2><p>Exact Cabinet V4 family: compiler, LATIN/MEANTOME/Nine-Gate/Pathweaver/projection/federation companions.</p></a>
+    <a class="card" href="../control/confluence/"><span class="arrow">↗</span><div class="k">TRANSFER SHELF</div><h2>CONFLUENCE</h2><p>Cross-lineage grafts preserve source and recipient identity; shared mechanism does not imply merged ontology.</p></a>
+  </div>
+</section>
+
+<footer><span>THREAD/DISCUSSION ≠ DURABLE STATE · REPO MUTATION → INDEX TOUCH</span><span id="stamp">FOUNDRY gateway · 2026-09-20</span></footer>
 </main>
-<script src="/showcase-nav.js" defer></script></body>
-</html>
+<script>
+(async()=>{try{
+ const r=await fetch('/control/CURRENT.json',{cache:'no-store'}); if(!r.ok)throw new Error(r.status);
+ const c=await r.json(); const fs=(c.active_fronts||[]).slice(0,3);
+ document.getElementById('fronts').innerHTML=fs.map(f=>'<span class="front"><b>'+esc(f.id)+'</b><span>'+esc(f.state)+'</span></span>').join('')||'<span class="status">no active fronts</span>';
+ document.getElementById('stamp').textContent='CURRENT '+esc(c.updated)+' · FOUNDRY gateway';
+}catch(e){document.getElementById('fronts').innerHTML='<span class="status">live control unavailable · static routes remain valid</span>'}
+ function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+})();
+</script>
+<script src="/showcase-nav.js" defer></script>
+</body></html>
