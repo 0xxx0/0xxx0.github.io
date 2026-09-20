@@ -277,8 +277,8 @@
     }
   ],
   "next_single_action": {
-    "id": "field-index-first-contact-01",
-    "instruction": "Use the rebuilt FIELD INDEX as an unfamiliar visitor: locate HUMAN PORT, one retained current head, one donor/recovery branch, and one OPEN PORT without relying on memory. If the map fails, repair orientation only. If it succeeds, choose one non-House OPEN PORT with a concrete missing function and execute the smallest evidence-bearing graft."
+    "id": "human-port-real-circuit-01",
+    "instruction": "Keep HOUSE held. Use HUMAN PORT 1.2 on one real interaction when convenient: either BURST → LACONIC → CONTACT or SOCIAL RESIDUE[IDEA] → IDEA ATLAS. Record only whether the circuit reduced re-entry/interaction cost and what failed; do not add private transport or autonomous sending before that RETURN."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
@@ -365,7 +365,8 @@
     "bodyplans_validation": "/control/BODYPLANS_VALIDATION_2026-09-21.json",
     "migration_now": "/control/MIGRATION_NOW.json",
     "quarantine": "/control/QUARANTINE_2026-09-20.json",
-    "human_port_convergence": "/control/confluence/HUMAN_PORT_CONVERGENCE_2026-09-21.md"
+    "human_port_convergence": "/control/confluence/HUMAN_PORT_CONVERGENCE_2026-09-21.md",
+    "continuity_field_intake_adapter": "/continuity/field-intake-adapter.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
