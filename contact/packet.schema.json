@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0xxx0.github.io/contact/packet.schema.json",
+  "title": "0 / HUMAN PORT 0P2 Packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "event_id",
+    "intent",
+    "message",
+    "created_at",
+    "surface_url",
+    "return_url"
+  ],
+  "properties": {
+    "version": {
+      "const": "0P2"
+    },
+    "event_id": {
+      "type": "string",
+      "pattern": "^p_[A-Za-z0-9-]{16,80}$"
+    },
+    "reply_to": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[A-Za-z0-9._:-]{1,100}$"
+    },
+    "intent": {
+      "enum": [
+        "PING",
+        "REPLY",
+        "NEED",
+        "CHECK"
+      ]
+    },
+    "sender_label": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 48
+    },
+    "by": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "maxLength": 80,
+      "description": "Human-readable constraint only; not automatically parsed."
+    },
+    "message": {
+      "type": "string",
+      "maxLength": 1200
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "surface_url": {
+      "type": "string",
+      "format": "uri"
+    },
+    "return_url": {
+      "type": "string",
+      "format": "uri"
+    }
+  }
+}
