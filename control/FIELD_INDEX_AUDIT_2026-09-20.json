@@ -1,0 +1,36 @@
+{
+  "schema": "0xxx0/field-index-audit/v0.1",
+  "date": "2026-09-20",
+  "manifest_routes": {
+    "total": 46,
+    "ok": 46,
+    "missing": []
+  },
+  "internal_path_references": {
+    "total": 99,
+    "ok": 99,
+    "missing": []
+  },
+  "html_surface_coverage": {
+    "repo_html_files": 47,
+    "manifest_addressed": 46,
+    "underindexed": [
+      "recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html"
+    ]
+  },
+  "intentional_exclusions": [
+    {
+      "path": "recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html",
+      "reason": "raw recovered payload linked through /recovery/rsvp/; not a separate promoted/indexed instrument"
+    }
+  ],
+  "repaired_this_pass": [
+    "LAW ZOO fallback-to-migration fixed by exact import at /law-zoo/.",
+    "LAW ZOO five unequal child machines individually indexed.",
+    "Foundry Cabinet V4 and six recovered Path/Grid instruments individually indexed.",
+    "DOCK and MIGRATION support routes added to manifest.",
+    "RSVP showcase_card typo repaired.",
+    "RECOVERING fallback labels now distinguish SOURCE / CONTEXT / LEDGER / OPEN."
+  ],
+  "stop_rule": "Do not add a route merely for completeness; address runnable/support surfaces and preserve raw payloads as assets when their parent recovery route already owns them."
+}
