@@ -1,0 +1,91 @@
+{
+  "schema": "field-index-legacy-mode-recovery/v0.1",
+  "at": "2026-09-21",
+  "rule": "Backfill only from exact receipts; preserve historical touch date; do not infer unsupported activity.",
+  "count": 6,
+  "changes": [
+    {
+      "href": "/fold-bloom/two-dial/",
+      "before": [
+        "UNKNOWN"
+      ],
+      "after": [
+        "VERIFY",
+        "RELEASE"
+      ],
+      "evidence": "/fold-bloom/two-dial/release.json",
+      "basis": "Stable 0.9 release receipt records representative interaction and static validation.",
+      "updated_at_preserved": "2026-09-20"
+    },
+    {
+      "href": "/fold-bloom/ecology/",
+      "before": [
+        "UNKNOWN"
+      ],
+      "after": [
+        "RECOVER",
+        "IMPLEMENT",
+        "VERIFY",
+        "RELEASE"
+      ],
+      "evidence": "/fold-bloom/ecology/release.json",
+      "basis": "Exact source recovered after corrupt public transport; direct static HTML transport delta and validation recorded.",
+      "updated_at_preserved": "2026-09-20"
+    },
+    {
+      "href": "/foundry/verse-atlas/",
+      "before": [
+        "UNKNOWN"
+      ],
+      "after": [
+        "RECOVER",
+        "IMPLEMENT",
+        "VERIFY",
+        "RELEASE"
+      ],
+      "evidence": "/foundry/verse-atlas/release.json",
+      "basis": "Recovered Grid Path Compiler RETURN→REPLAY donor transferred; frozen-export regression fixed and selftest recorded.",
+      "updated_at_preserved": "2026-09-20"
+    },
+    {
+      "href": "/foundry/convergence/identity-lab.html",
+      "before": [
+        "UNKNOWN"
+      ],
+      "after": [
+        "VERIFY",
+        "RELEASE"
+      ],
+      "evidence": "/foundry/convergence/identity-lab.release.json",
+      "basis": "Stable CAP-IR fixture receipt records projection integrity boundary and validation.",
+      "updated_at_preserved": "2026-09-20"
+    },
+    {
+      "href": "/atlas-dayline/",
+      "before": [
+        "UNKNOWN"
+      ],
+      "after": [
+        "VERIFY",
+        "RELEASE"
+      ],
+      "evidence": "/atlas-dayline/release.json",
+      "basis": "Stable Branch I release receipt records representative plan→RETURN/replay interaction and validation.",
+      "updated_at_preserved": "2026-09-20"
+    },
+    {
+      "href": "/forward-field-proof/",
+      "before": [
+        "UNKNOWN"
+      ],
+      "after": [
+        "IMPLEMENT",
+        "VERIFY",
+        "RELEASE"
+      ],
+      "evidence": "/forward-field-proof/release.json",
+      "basis": "Stable proof harness receipt plus 2026-09-21 live presentation correction; mechanics preserved.",
+      "updated_at_preserved": "2026-09-20"
+    }
+  ]
+}
