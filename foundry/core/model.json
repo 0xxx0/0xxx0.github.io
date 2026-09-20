@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/foundry-center/v0.1",
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "status": "CANON_CANDIDATE",
   "title": "FOUNDRY / REAL CENTER",
   "one_line": "Turn lived uncertainty into manipulable state, transform it deliberately across media, and get evidence back without losing identity, provenance, or the path home.",
@@ -321,5 +321,103 @@
   "canonical_unit": {
     "shape": "{ identity, address, state_in, transform, projection?, act?, state_out, evidence, reversibility, provenance, return }",
     "note": "Different media omit or specialize fields, but must not erase the path from source to consequence and back."
+  },
+  "system_fit": {
+    "role": "Constitution / selection function for the collaboration: names what must survive across media and what qualifies as a lawful transfer. It does not schedule work, own runtime state, replace Field Index, or decide physical truth.",
+    "topology": [
+      {
+        "surface": "DOCK / ORIENTATION",
+        "route": "/dock/",
+        "question": "Where am I? At what scale? Why does this matter?",
+        "relation": "locates the operator"
+      },
+      {
+        "surface": "REAL CENTER",
+        "route": "/foundry/core/",
+        "question": "What kind of endeavour is this, and what must survive transformation?",
+        "relation": "constitutional invariants + convergence grammar"
+      },
+      {
+        "surface": "FIELD INDEX",
+        "route": "/",
+        "question": "What capabilities, ports, outputs and exit paths actually exist?",
+        "relation": "capability / I-O topology"
+      },
+      {
+        "surface": "CURRENT / CONTROL",
+        "route": "/control/",
+        "question": "What is active, held, recovering or next right now?",
+        "relation": "live control state"
+      },
+      {
+        "surface": "MIGRATION / RECOVERY",
+        "route": "/control/migration/",
+        "question": "What exact donors exist and what may be transferred?",
+        "relation": "source-preserving memory intake"
+      },
+      {
+        "surface": "FOUNDRY",
+        "route": "/foundry/",
+        "question": "How can a mechanism be transformed, represented or proved?",
+        "relation": "mechanism lab"
+      },
+      {
+        "surface": "HOUSE / REALITY",
+        "route": "/house/",
+        "question": "Does the abstraction survive geometry, devices, materials, people, animals and measurement?",
+        "relation": "reality gate"
+      },
+      {
+        "surface": "RETURN",
+        "route": "/returns/",
+        "question": "What changed, what evidence exists, and what remains reusable?",
+        "relation": "ground truth / evidence"
+      }
+    ],
+    "decisions": [
+      "Is a proposed new project actually a new function, or a projection/combination of existing capability?",
+      "May a mechanism transfer across domains without erasing identity, provenance or its failure conditions?",
+      "Which beautiful abstraction must terminate in a concrete consequence before more architecture is allowed?",
+      "When a current head changes, which invariants must remain true even though the implementation, vocabulary or surface changes?"
+    ]
+  },
+  "center_lab": {
+    "law": "CENTER IS A CRITERION, NOT A POINT.",
+    "real_center_meaning": "REAL CENTER names the constitutional center of the endeavour: the invariants and recurrent transformations that survive changing projects, media and current fronts. It is not a geometric centroid and not an attention scheduler.",
+    "triangle_rule": "Use a triangle only when the problem genuinely has three explicit quantities/vertices and the triangle's mathematics matches the operation—for example a three-way conserved allocation represented by barycentric weights. Do not compress the 9-stage invariant loop or 8 convergences into three vertices merely for visual elegance.",
+    "centers": [
+      {
+        "id": "G",
+        "name": "CENTROID",
+        "criterion": "mean / center of mass",
+        "operational_analogy": "balance or weighted average when that is actually the objective"
+      },
+      {
+        "id": "O",
+        "name": "CIRCUMCENTER",
+        "criterion": "equal distance to vertices",
+        "operational_analogy": "coverage of extreme points / minimax radius for a triangle"
+      },
+      {
+        "id": "I",
+        "name": "INCENTER",
+        "criterion": "equal distance to sides",
+        "operational_analogy": "clearance from constraints / margin, only when sides truly represent constraints"
+      },
+      {
+        "id": "H",
+        "name": "ORTHOCENTER",
+        "criterion": "intersection of altitudes",
+        "operational_analogy": "no default semantic mapping; preserve as geometry unless a real invariant matches"
+      },
+      {
+        "id": "N",
+        "name": "NINE-POINT CENTER",
+        "criterion": "midpoint of circumcenter and orthocenter; center of nine-point circle",
+        "operational_analogy": "derived lineage/reduction only if the construction itself matters"
+      }
+    ],
+    "euler_line": "For a non-equilateral triangle, centroid G, circumcenter O, orthocenter H and nine-point center N are collinear on the Euler line; the incenter I is generally not. This is useful as a warning: one object can have several legitimate centers, and not all center definitions even belong to the same relation.",
+    "transfer_rule": "Never assign meaning to a geometric center because the picture is suggestive. First name the invariant or optimization criterion; only then choose the geometry that implements it."
   }
 }
