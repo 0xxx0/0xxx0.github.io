@@ -10,7 +10,8 @@
     "SOURCE → ADDRESS → STATE → TRANSFORM → PROJECTION → PROVE → RETURN",
     "NO NEW CORE WITHOUT A MISSING FUNCTION",
     "DEPTH ↑ WHILE VISIBLE SURFACE AREA STAYS SMALL",
-    "COMPRESSION MUST RETAIN A RETURN PATH"
+    "COMPRESSION MUST RETAIN A RETURN PATH",
+    "BACK ≠ UNDO ≠ RETURN ≠ PARENT"
   ],
   "active_fronts": [
     {
@@ -25,7 +26,10 @@
         "/fold-bloom/lens/",
         "/foundry/verse-atlas/",
         "/sleeper/",
-        "/laconic/"
+        "/laconic/",
+        "/control/INTERACTION_SEMANTICS.json",
+        "/control/INSTRUMENT_CHARTERS.json",
+        "/control/IRL_RECOVERY.json"
       ]
     },
     {
@@ -166,6 +170,13 @@
       "status": "OPEN",
       "query": "generated images/paintings/interfaces → reusable UI/physical donors → GitHub artifact or source pack",
       "payoff": "Stop visual work from disappearing in chat-only history."
+    },
+    {
+      "id": "irl-run-json",
+      "status": "USER_REPORTED_EXISTENCE_EXACT_FILE_MISSING",
+      "query": "actual IRL run JSON / physical trial receipts / axial or related experiment export with measurements, elapsed time, errors, before/after or residue",
+      "payoff": "User reports several real-world runs exist in JSON. Harness/spec/sketch and unrelated software receipts are recovered, but the exact run file is not. Preserve the gap rather than invent measurements.",
+      "receipt": "/control/IRL_RECOVERY.json"
     }
   ],
   "next_single_action": {
@@ -200,5 +211,11 @@
   "last_mechanism_diff": "/control/MECHANISM_DIFF_2026-09-19.json",
   "last_validation": "/control/RECOVERY_VALIDATION_2026-09-19.json",
   "last_ingest_run": "/control/INGEST_RUN_2026-09-20.json",
-  "last_representation": "/control/REPRESENTATION_01.json"
+  "last_representation": "/control/REPRESENTATION_01.json",
+  "documentation": {
+    "interaction_semantics": "/control/INTERACTION_SEMANTICS.json",
+    "instrument_charters": "/control/INSTRUMENT_CHARTERS.json",
+    "interaction_history_research": "/control/research/INTERACTION_HISTORY.md",
+    "irl_recovery": "/control/IRL_RECOVERY.json"
+  }
 }
