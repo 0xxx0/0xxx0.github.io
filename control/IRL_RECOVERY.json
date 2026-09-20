@@ -1,0 +1,61 @@
+{
+  "schema": "0xxx0/irl-recovery/v0.1",
+  "updated": "2026-09-20",
+  "status": "USER_REPORTED_RUNS_EXACT_JSON_NOT_RECOVERED",
+  "user_report": "The user reports having run several real-world tests and recalls that the actual results exist in a JSON file.",
+  "rule": "Treat the existence of the runs as user-reported fact, but do not fabricate measurements, pass/fail results, or identify a nearby software receipt as the physical result.",
+  "searches_performed": [
+    "conversation/library semantic search for physical, IRL, trial, AXIAL, receipt, before/after JSON",
+    "library filename search for axial/state transform/trial/physical/receipt",
+    "recent recursive Library JSON filename scan",
+    "repository recursive tree scan for physical/trial/receipt/return/test/axial JSON"
+  ],
+  "recovered_related": [
+    {
+      "kind": "SPEC",
+      "ref": "state_transform_instrument_v0_3_README.txt",
+      "fact": "Defines a digital 10-trial harness and a separate physical nested-tube target; digital success requires semantic match, axial ±6 mm, twist ±15°, ARM then RUN."
+    },
+    {
+      "kind": "HARNESS",
+      "ref": "state_transform_instrument_v0_3.html",
+      "fact": "Exports JSON/CSV receipts containing command, transform, result, elapsed time, and trial deltas."
+    },
+    {
+      "kind": "PHYSICAL_SKETCH",
+      "ref": "Axial Compositor Paper Prototype Sketch.png",
+      "fact": "Paper prototype sketch exists; it is not a trial-result JSON."
+    },
+    {
+      "kind": "TEST_SHEET",
+      "ref": "HOUSE_OS_FIELD_SYSTEM_v1.1_A3.pdf",
+      "fact": "Contains blank physical evaluation fields for accuracy, latency, errors, rotation/reference and distance tests; no filled result was identified in the retrieved slice."
+    },
+    {
+      "kind": "SOFTWARE_RETURN",
+      "ref": "BUILD_RETURN.json",
+      "fact": "Center Mass software build RETURN; explicitly says real interruption→re-entry benefit was not yet measured. Not the reported IRL result."
+    },
+    {
+      "kind": "UNRELATED_EVIDENCE",
+      "ref": "EVIDENCE_RECEIPT.json",
+      "fact": "BODYFIELD/Open Twin software evidence receipt. Not the reported AXIAL/physical run."
+    }
+  ],
+  "expected_candidate_signature": {
+    "likely_if_from_state_transform_v0_3": [
+      "receipts[]",
+      "command.object",
+      "command.operator",
+      "command.frame",
+      "command.axial_mm",
+      "command.twist_deg",
+      "result",
+      "elapsed_ms",
+      "trial.axial_delta",
+      "trial.twist_delta"
+    ],
+    "caution": "The actual file may come from another experiment; this signature is a retrieval aid, not an identification claim."
+  },
+  "next_recovery_action": "When the exact JSON surfaces in Library/export/chat, import it as evidence and bind it to the relevant instrument charter PROOF field without rewriting the original file."
+}
