@@ -54,7 +54,7 @@ footer{display:flex;justify-content:space-between;gap:18px;color:#657178;font-si
   <div class="head"><h2>MAP</h2><p>Self-maintaining sitemap from manifest parent relations. Existence is not priority.</p><span class="count" id="mapCount">loading</span></div>
   <div class="maptools">
     <button class="on" data-mode="STRUCTURE">STRUCTURE</button>
-    <button data-mode="RECENT">RECENT</button>
+    <button data-mode="RECENT">RECENT</button><a href="./control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json" style="border:1px solid var(--line);padding:7px 9px;font-size:8px;letter-spacing:.08em">SITEMAP AUDIT</a>
     <input id="mapSearch" type="search" placeholder="/ find any surface">
   </div>
   <div id="mapBody" class="tree" style="margin-top:8px"><div class="treeRow"><div class="desc">Loading manifest…</div></div></div>
@@ -113,7 +113,7 @@ function renderStructure(){
    const kids=byParent.get(r.href)||[],visibleKids=kids.filter(k=>matches(k)||hasMatchingDesc(k.href,byParent));
    if(!matches(r)&&!visibleKids.length)return '';
    if(kids.length){
-     return '<details class="node" '+(depth<1||mapQuery?'open':'')+'><summary>'+routeRow(r,depth,true)+'</summary><div class="children">'+visibleKids.map(k=>node(k,depth+1)).join('')+'</div></details>';
+     return '<details class="node" '+(mapQuery?'open':'')+'><summary>'+routeRow(r,depth,true)+'</summary><div class="children">'+visibleKids.map(k=>node(k,depth+1)).join('')+'</div></details>';
    }
    return '<a class="leaf" href="'+esc(hrefFor(r.href))+'">'+routeRow(r,depth,false)+'</a>';
  }
