@@ -2304,6 +2304,235 @@
           "SPECIFY"
         ]
       }
+    },
+    {
+      "href": "/recovery/sleeper/",
+      "title": "SLEEPER / RECOVERY",
+      "kind": "recovery",
+      "parent": "/recovery/",
+      "family": "SLEEPER",
+      "state": "ACTIVE",
+      "showcase_card": false,
+      "role": "Lineage recovery shelf: exact Workfield v1.2 sibling donor plus explicit City Engine/Painting exact-source blockers.",
+      "index": {
+        "updated_at": "2026-09-20T22:20:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/sleeper/workfield-v1.2/",
+      "title": "SLEEPER WORKFIELD v1.2",
+      "kind": "donor",
+      "parent": "/recovery/sleeper/",
+      "family": "SLEEPER",
+      "operation": "WORK",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "Exact later Workfield/task instrument with source-aware Q×OP units, Nine Gates, Center Mass, TRACE, ASCII FIELD, DataDisc, Ledger, replay/export and RETURN.",
+      "receipt": "/recovery/sleeper/workfield-v1.2/manifest.json",
+      "contract": {
+        "transforms": {
+          "verb": "turn a bounded source/task field into inspectable units, operations, trace and return",
+          "preserves": [
+            "source lineage",
+            "unit identity",
+            "question/operator distinction",
+            "return path"
+          ],
+          "reversibility": "full",
+          "side_effects": "local browser state"
+        }
+      },
+      "index": {
+        "updated_at": "2026-09-20T22:20:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/axial/",
+      "title": "AXIAL / RECOVERY",
+      "kind": "recovery",
+      "parent": "/recovery/",
+      "family": "AXIAL",
+      "state": "ACTIVE",
+      "showcase_card": false,
+      "role": "Exact recovered AXIAL family: v0.3 transaction harness + v0.2 printable compositor/build packet; current /foundry/axial/ remains separate head.",
+      "receipt": "/recovery/axial/manifest.json",
+      "index": {
+        "updated_at": "2026-09-20T22:20:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY",
+          "SPECIFY"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/axial/state-transform-v0.3/",
+      "title": "STATE × TRANSFORM v0.3",
+      "kind": "donor",
+      "parent": "/recovery/axial/",
+      "family": "AXIAL",
+      "operation": "TRANSACT",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "Exact transaction harness: discrete semantic rings × continuous slide/twist × SAFE/TEST/ARM/RUN gate → changed-object projection + RETURN receipt.",
+      "receipt": "/recovery/axial/manifest.json",
+      "contract": {
+        "transforms": {
+          "verb": "latch semantic state and embodied transform through an explicit transaction gate",
+          "preserves": [
+            "semantic state",
+            "transform values",
+            "commit state",
+            "receipt"
+          ],
+          "reversibility": "full in digital harness",
+          "side_effects": "local browser state"
+        }
+      },
+      "index": {
+        "updated_at": "2026-09-20T22:20:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/axial/compositor-v0.2/print-template.svg",
+      "title": "AXIAL COMPOSITOR v0.2 / PRINT",
+      "kind": "donor",
+      "parent": "/recovery/axial/",
+      "family": "AXIAL",
+      "operation": "PRINT",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "Exact SVG physical-correspondence template; build notes remain adjacent source. Printable fixture, not proof of completed hardware.",
+      "receipt": "/recovery/axial/manifest.json",
+      "index": {
+        "updated_at": "2026-09-20T22:20:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "SPECIFY",
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/media/",
+      "title": "OLDER MEDIA / RECOVERY",
+      "kind": "recovery",
+      "parent": "/recovery/",
+      "family": "MEDIA / REPRESENTATION",
+      "state": "ACTIVE",
+      "showcase_card": false,
+      "role": "Historical temporal/radial instrument shelf: exact DataDisc 2019 + RSVP/TTS 2018 fixtures for mechanism comparison.",
+      "index": {
+        "updated_at": "2026-09-20T22:20:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/media/datadisc/datadisc.html",
+      "title": "DATADISC · 2019",
+      "kind": "donor",
+      "parent": "/recovery/media/",
+      "family": "MEDIA / REPRESENTATION",
+      "operation": "PROJECT",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "Exact byte-verified 150-item compound-glyph spiral and multichannel radial projection fixture.",
+      "receipt": "/recovery/media/datadisc/manifest.json",
+      "contract": {
+        "transforms": {
+          "verb": "project a large addressed set into a multichannel radial glyph field",
+          "preserves": [
+            "item identity",
+            "ordering",
+            "channel encodings"
+          ],
+          "reversibility": "view-only",
+          "side_effects": "none"
+        }
+      },
+      "index": {
+        "updated_at": "2026-09-20T22:20:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/naming/",
+      "title": "NAMING / GAME-OF-NAMES RECOVERY",
+      "kind": "recovery",
+      "parent": "/recovery/",
+      "family": "LANGUAGE / IDENTITY",
+      "operation": "RECOVER",
+      "state": "RECOVER",
+      "showcase_card": false,
+      "role": "Public-safe recovery status: exact lineage evidence exists, but no isolated public-safe runnable/source artifact has been located.",
+      "receipt": "/recovery/naming/status.json",
+      "index": {
+        "updated_at": "2026-09-20T22:20:00+08:00",
+        "work_modes": [
+          "RECOVER"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/env0/ENV0_plate14_A2_v0_1.svg",
+      "title": "ENV-0 / INTEGRATED FIELD MASTER",
+      "kind": "donor",
+      "parent": "/recovery/env0/",
+      "family": "PHYSICAL / PRINT",
+      "operation": "PROJECT",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "Exact editable A2 integrated-field SVG master for BODY→GARMENT→HARNESS→SUIT→FURNITURE→ROOM→HOUSE grammar.",
+      "receipt": "/recovery/env0/manifest.json",
+      "index": {
+        "updated_at": "2026-09-20T22:20:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "SPECIFY",
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/env0/ENV0_symbols_A2_v0_1.svg",
+      "title": "ENV-0 / SYMBOL + TYPE MASTER",
+      "kind": "donor",
+      "parent": "/recovery/env0/",
+      "family": "PHYSICAL / PRINT",
+      "operation": "ENCODE",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "Exact editable symbol/type grammar master: ports, boundaries, operations, confidence and print rules.",
+      "receipt": "/recovery/env0/manifest.json",
+      "index": {
+        "updated_at": "2026-09-20T22:20:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "SPECIFY",
+          "VERIFY"
+        ]
+      }
     }
   ],
   "release_law": [
