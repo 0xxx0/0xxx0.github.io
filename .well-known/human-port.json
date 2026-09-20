@@ -1,6 +1,6 @@
 {
   "schema": "human-port-descriptor/v0.1",
-  "version": "0.6-lab",
+  "version": "0.7-lab",
   "canonical": "https://0xxx0.github.io/contact/",
   "surfaces": {
     "plain": "/contact/",
@@ -97,7 +97,8 @@
     "backstage": "/contact/backstage.json",
     "context_frame": "/contact/context-frame.json",
     "line_object": "/contact/line-object.json",
-    "continuity": "/contact/continuity.json"
+    "continuity": "/contact/continuity.json",
+    "social_residue": "/contact/social-residue.json"
   },
   "interpretation": {
     "state": "LAB",
@@ -157,5 +158,18 @@
     "state": "LAB_CONTRACT_ONLY",
     "contract": "/contact/continuity.json",
     "law": "Silence/timer alone may trigger a check, never a declaration of danger/incapacity/death or irreversible legacy action."
+  },
+  "social_residue": {
+    "state": "LAB_CONTRACT_ONLY",
+    "contract": "/contact/social-residue.json",
+    "schema": "/contact/social-residue.schema.json",
+    "rule": "Conversation may create useful residue without creating a binding obligation.",
+    "promotion": "Automated interpretation may propose candidates; COMMIT/SCHEDULED require explicit source wording or human confirmation.",
+    "projections": {
+      "human_port": "person/thread-local residue",
+      "atlas": "idea/project lineage and durable value",
+      "dayline": "only temporal commitments that earned scheduling",
+      "forward_center_mass": "only a few NOW-active items"
+    }
   }
 }
