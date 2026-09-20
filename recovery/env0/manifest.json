@@ -1,0 +1,39 @@
+{
+  "schema": "0xxx0/recovery/env0/v0.1",
+  "status": "PARTIAL_EXACT_SOURCE_FROZEN",
+  "family": "ENV-0 / body-house interface",
+  "recovered_at": "2026-09-20",
+  "exact_repo_sources": [
+    {
+      "path": "/recovery/env0/ENV0_Atlas_v0_1_README.txt",
+      "sha256": "c076fe304750170600ed353a1d7a2621428f87619d3f489787b1eb921c3937c0",
+      "size_bytes": 612
+    },
+    {
+      "path": "/recovery/env0/ENV0_symbols_A2_v0_1.svg",
+      "sha256": "34b106654afdb0ceb3fd94c6b094539d400673fe6e5b49e76259a998fc1f3461",
+      "size_bytes": 24177
+    },
+    {
+      "path": "/recovery/env0/ENV0_plate14_A2_v0_1.svg",
+      "sha256": "a22096baa0dc5d76f7500098e41d2f5c2b8c057335f550c1664663e1b350804e",
+      "size_bytes": 39602
+    }
+  ],
+  "exact_library_only": [
+    {
+      "name": "ENV0_Atlas_v0_1_A2.pdf",
+      "sha256": "166412f75c8cf186c6ec69aa8cee2bf30322a17827c5b2b1e873f44b78f08945",
+      "size_bytes": 105169,
+      "reason": "binary exact source located; not byte-copied into GitHub in this pass"
+    },
+    {
+      "name": "ENV0_P0_BUILD_SHEET_A3.pdf",
+      "sha256": "c7212e805ad0c5e866909bbc1fbae89db246fc2c5ba16592f4688284bed8840e",
+      "size_bytes": 10195,
+      "reason": "binary exact source located; not byte-copied into GitHub in this pass"
+    }
+  ],
+  "unique": "BODY → GARMENT → HARNESS → SUIT → FURNITURE → ROOM → HOUSE grammar with typed ports, reversible operations, print plates and a bounded physical build/test return.",
+  "rule": "Editable masters are frozen exactly. Do not claim the pack fully mirrored until the two PDFs are byte-copied and hash-verified."
+}
