@@ -36,12 +36,13 @@ It is **not** a competing canonical runtime.
 
 Use it to recover lineage and intent, then reconcile against current evidence.
 
-Four standing rules:
+Five standing rules:
 
 1. **Chat history is source material, not present-state authority.** Current repo/live evidence wins when they disagree.
 2. **Recover lineage, not project titles.** Preserve transformations, donors, rejected branches and current heads rather than treating every named chat/artifact as sovereign.
 3. **Downstream agents receive bounded packets.** A useful handoff carries objective, current head, donor only if needed, delta, authority, acceptance test and RETURN.
 4. **Large archive / small active surface.** Recovery may grow indefinitely; cognitively live fronts stay bounded by `CURRENT` / `QUEUE`.
+5. **RETURN closes route authority.** After one bounded move, re-read returned state and explicitly replan. A suggested next route is evidence for attention, not permission for autoplay.
 
 When mining prior conversations, user messages deserve special attention because asks, corrections, constraints and unfinished transformations are often embedded inside digressions. Recover what the user was trying to make happen, then verify what actually happened.
 
@@ -59,6 +60,7 @@ When mining prior conversations, user messages deserve special attention because
 - [HOUSE frontier / open hardware + robotics + XR + motion-tool](./HOUSE_FRONTIER.md) — parked/reopenable donor packet; re-enter only from a named HOUSE/AXIAL capability gap
 - [HOUSE / MARKS](./HOUSE_MARKS.md) — reversible physical mark/interface donor: glyph, position, type, fold, light and machine-readable pointers over existing HOUSE/FIELD identity; no parallel registry or runtime authority
 - [POSSESSION → PARTICIPATION / plain-language ablation](./POSSESSION_PARTICIPATION.md) — tests whether the useful transformation survives removal of spiritual/poetic vocabulary; candidate transfer only, no core promotion
+- [REPLICA / REPLAN](./REPLICA_REPLAN.md) — reconstruction test + execution gate: preserve generalized substrate, execute one bounded move, RETURN, then explicitly replan
 
 ## Agent roles
 
