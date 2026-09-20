@@ -159,10 +159,10 @@
   "recovery_targets": [
     {
       "id": "laconic-iconic-exact",
-      "status": "PARTIAL_EXACT_SCENES_RECOVERED",
+      "status": "EXACT_2025_BANK_RECOVERED_VOICE_OUTPUTS_OPEN",
       "query": "exact historical Laconic Script Bank / response consolidation / 5–6 voice lineage / recurring situations / Pareto winners / conversational trajectories",
-      "payoff": "Exact 2024 multi-turn banter scenes and exact master-ledger fragments now feed /laconic/ 0.2; the original canonical Script Bank remains missing. Continue recovery without collapsing recovered donors into current canon.",
-      "receipt": "/laconic/release.json"
+      "payoff": "Exact 2024 branching scenes, exact master-ledger fragments, and the exact 2025-10-21 60-line Iconic/Laconic library + companion tag lexicon are now recovered. The explicit 5–6 voice consolidation request is evidenced, but its exact generated voice outputs and adoption/reuse evidence remain to recover before canon promotion.",
+      "receipt": "/control/RECOVERY_SURVEY_2026-09-20_B.json"
     },
     {
       "id": "sleeper-deep-lineage",
@@ -251,5 +251,6 @@
     ],
     "physical_admission_rule": "Add owned/physical entities only from observed state or explicit confirmation; do not infer possession from shopping/recovery history.",
     "first_physical_seed": "Use the next real House/workshop RETURN to add one object/zone with location, mobility, dependencies and physical ports."
-  }
+  },
+  "last_recovery_survey": "/control/RECOVERY_SURVEY_2026-09-20_B.json"
 }

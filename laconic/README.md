@@ -114,3 +114,13 @@ The next credible evolution is not more generic generated lines. It is evidence-
 2. mark user adoption/reuse separately from assistant generation;
 3. add small branch-level KEEP / DROP / WHY receipts;
 4. only then use the recovered grammar to generate a small new frontier.
+
+
+## Recovered source packs
+
+These files are recovery evidence, not automatically current canon:
+
+- `recovered/iconic-laconic-library-2025-10-21.json` — exact 60-line assistant-generated source block from the 2025-10-21 *Iconic laconic responses* archive.
+- `recovered/companion-lexicon-2025-10-21.json` — exact historical Ping / Flux / Fuse / Myth / Pulse / Void / Glitch / Echo tag proposal.
+
+Recovery law: **EXACT SOURCE ≠ USER-ADOPTED ≠ CURRENT CANON.** Bulk import into the live bank is intentionally blocked until adoption/reuse and the later 5–6-voice consolidation are recovered at source level.
