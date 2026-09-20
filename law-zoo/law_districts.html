@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>LAW DISTRICTS // ASCII TRAVERSAL</title>
+<style>
+:root{--bg:#050607;--ink:#dfe8e3;--muted:#778890;--hair:#263238;--hot:#f3a34b;--cyan:#6bd4e8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.25 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;overflow:hidden}
+#view{position:fixed;inset:0;width:100%;height:100%;display:block;background:#020303}
+.hud{position:fixed;left:10px;top:10px;right:10px;display:flex;justify-content:space-between;gap:8px;pointer-events:none}.box{background:#070a0bcc;border:1px solid var(--hair);border-radius:8px;padding:7px 9px;backdrop-filter:blur(5px)}
+#district{font-weight:900;letter-spacing:.12em}.law{color:var(--cyan);font-size:10px;margin-top:3px}.help{color:var(--muted);max-width:390px;text-align:right}
+.controls{position:fixed;bottom:12px;left:12px;display:grid;grid-template-columns:46px 46px 46px;gap:5px}.controls button,.actions button{height:42px;color:var(--ink);background:#0b1012cc;border:1px solid var(--hair);border-radius:8px;font:16px monospace}.controls .blank{visibility:hidden}.actions{position:fixed;right:12px;bottom:12px;display:flex;gap:5px}.actions button{font-size:11px;padding:0 10px}
+.minimap{position:fixed;right:12px;top:76px;border:1px solid var(--hair);background:#040606cc;border-radius:8px;padding:5px}.minimap canvas{width:150px;height:150px;display:block;image-rendering:pixelated}
+a{color:var(--cyan)}@media(max-width:700px){.help{display:none}.minimap canvas{width:105px;height:105px}.hud{right:126px}}
+</style></head><body>
+<canvas id="view"></canvas>
+<div class="hud"><div class="box"><div id="district">DISTRICT</div><div class="law" id="law"></div><div id="coords"></div></div><div class="box help">WASD / arrows move · Q/E turn · each quadrant has different wall-generation and motion law · your traversal also perturbs two districts</div></div>
+<div class="minimap"><canvas id="map" width="128" height="128"></canvas></div>
+<div class="controls"><span class="blank"></span><button data-k="w">▲</button><span class="blank"></span><button data-k="a">◀</button><button data-k="s">▼</button><button data-k="d">▶</button></div>
+<div class="actions"><button id="turnL">TURN ◀</button><button id="turnR">TURN ▶</button><button id="reset">RESET</button><button onclick="location.href='index.html'">SUITE</button></div>
+<script>
+const V=document.querySelector('#view'),G=V.getContext('2d'),M=document.querySelector('#map'),MG=M.getContext('2d');
+const $=s=>document.querySelector(s),keys={},TAU=Math.PI*2;
+let W=64,H=64,px=30.5,py=30.5,ang=.15,t=0,last=0;
+let scar=new Uint8Array(W*H),sx=48,sy=15,sd=0,ruleRows=new Uint8Array(W*H),ruleSeed=new Uint8Array(W),rule=110;
+ruleSeed[16]=1;for(let y=0;y<H;y++){for(let x=0;x<W;x++){let n=((ruleSeed[(x-1+W)%W]<<2)|(ruleSeed[x]<<1)|ruleSeed[(x+1)%W]);ruleRows[x+y*W]=ruleSeed[x];}let b=new Uint8Array(W);for(let x=0;x<W;x++){let n=((ruleSeed[(x-1+W)%W]<<2)|(ruleSeed[x]<<1)|ruleSeed[(x+1)%W]);b[x]=(rule>>n)&1}ruleSeed=b}
+const D=[
+{name:'MODULO MARKET',law:'wall = ((x+t)%7<2) xor ((y−t)%9<2)',shade:'#6fd7e9',physics:'movement quantizes slightly; streets flicker at integer phase'},
+{name:'TURNING SCAR',law:'read → turn ±90° → flip → step',shade:'#f3a34b',physics:'the district writes persistent collision scars'},
+{name:'RULE TAPE',law:'next = RULE110[3-cell neighborhood]',shade:'#9ddb76',physics:'cellular rows drift sideways through the district'},
+{name:'POLAR WELL',law:'wall = sin(8θ + 2/r − t) > threshold',shade:'#f08bb8',physics:'heading bends gently toward the local radial field'}
+];
+function resize(){V.width=innerWidth*devicePixelRatio;V.height=innerHeight*devicePixelRatio;V.style.width=innerWidth+'px';V.style.height=innerHeight+'px';G.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}
+addEventListener('resize',resize);resize();
+function district(x,y){return (x>=32?1:0)+(y>=32?2:0)}
+function crossOpen(x,y){return Math.abs(x-31.5)<1.5||Math.abs(y-31.5)<1.5}
+function wallAt(x,y,tm=t){
+ x=Math.floor(x);y=Math.floor(y);if(x<1||y<1||x>=W-1||y>=H-1)return 1;if(crossOpen(x,y))return 0;
+ let d=district(x,y),lx=x%32,ly=y%32;
+ if(d===0){let q=(tm*.7)|0;return ((((lx+q)%7)<2)^(((ly-q+99)%9)<2))?1:0}
+ if(d===1)return scar[x+y*W]||((lx===3||ly===28)&&(lx+ly)%5!==0);
+ if(d===2){let yy=(ly+((tm*.8)|0))%32;return ruleRows[((lx*2)%64)+yy*64]&&((lx+ly)%3!==0)}
+ let X=(lx-16)/16,Y=(ly-16)/16,r=Math.hypot(X,Y)+.05,a=Math.atan2(Y,X);return Math.sin(8*a+1.6/r-t*.8)>.63?1:0
+}
+function stepScar(){
+ for(let k=0;k<5;k++){let i=sx+sy*W,on=scar[i];sd=(sd+(on?-1:1)+4)%4;scar[i]^=1;sx=(sx+[1,0,-1,0][sd]+W)%W;sy=(sy+[0,1,0,-1][sd]+H)%H;if(sx<32)sx=32;if(sy>=32)sy=31}
+}
+function tryMove(dx,dy){
+ let d=district(px,py),nx=px+dx,ny=py+dy;
+ if(d===0){nx=Math.round(nx*20)/20;ny=Math.round(ny*20)/20}
+ if(d===3){let cx=48,cy=48,ax=px-cx,ay=py-cy,rr=Math.hypot(ax,ay)||1;ang+=(-ay/rr*dx+ax/rr*dy)*.013}
+ if(!wallAt(nx,py))px=nx;if(!wallAt(px,ny))py=ny;
+ if(d===1&&Math.random()<.14)scar[(px|0)+(py|0)*W]^=1
+}
+function update(dt){
+ stepScar();let speed=dt*3.1,turn=dt*1.9;
+ if(keys.q||keys.ArrowLeft)ang-=turn;if(keys.e||keys.ArrowRight)ang+=turn;
+ let f=(keys.w||keys.ArrowUp?1:0)-(keys.s||keys.ArrowDown?1:0),s=(keys.d?1:0)-(keys.a?1:0);
+ if(f||s){let dx=(Math.cos(ang)*f+Math.cos(ang+Math.PI/2)*s)*speed,dy=(Math.sin(ang)*f+Math.sin(ang+Math.PI/2)*s)*speed;tryMove(dx,dy)}
+}
+const chars='@%#*+=-:. ';
+function render(){
+ let w=innerWidth,h=innerHeight;G.fillStyle='#020303';G.fillRect(0,0,w,h);let cols=Math.min(128,Math.max(64,(w/8)|0)),rows=Math.min(58,Math.max(32,(h/15)|0)),cw=w/cols,ch=h/rows;
+ G.font=`${Math.max(8,ch*1.05)}px ui-monospace,monospace`;G.textAlign='center';G.textBaseline='middle';
+ for(let c=0;c<cols;c++){
+   let ra=ang+(c/cols-.5)*1.1,dist=0,hit=0;for(let s=0;s<90;s++){dist+=.07;let x=px+Math.cos(ra)*dist,y=py+Math.sin(ra)*dist;if(wallAt(x,y)){hit=district(x,y)+1;break}}
+   dist*=Math.cos(ra-ang);let wallH=Math.min(rows,rows/(dist*.17+.18));let top=(rows-wallH)/2,bot=top+wallH;
+   for(let r=0;r<rows;r++){let cc=' ';if(r>=top&&r<=bot){let idx=Math.min(chars.length-1,Math.floor(dist*.55));cc=chars[idx]}else if(r>bot){let depth=(r-bot)/(rows-bot+1);cc=depth>.72?'·':depth>.35?'.':' '}if(cc!==' '){G.fillStyle=hit?D[hit-1].shade:(r>bot?'#344047':'#dfe8e3');G.fillText(cc,(c+.5)*cw,(r+.5)*ch)}}
+ }
+ let d=district(px,py);$('#district').textContent=D[d].name;$('#law').textContent=D[d].law;$('#coords').textContent=`${px.toFixed(1)},${py.toFixed(1)} · θ ${ang.toFixed(2)} · ${D[d].physics}`;
+ renderMap()
+}
+function renderMap(){
+ MG.fillStyle='#030505';MG.fillRect(0,0,128,128);for(let y=0;y<64;y++)for(let x=0;x<64;x++){if(wallAt(x,y)){MG.fillStyle=D[district(x,y)].shade;MG.fillRect(x*2,y*2,2,2)}}
+ MG.fillStyle='#fff';MG.beginPath();MG.arc(px*2,py*2,3,0,TAU);MG.fill();MG.strokeStyle='#fff';MG.beginPath();MG.moveTo(px*2,py*2);MG.lineTo((px+Math.cos(ang)*4)*2,(py+Math.sin(ang)*4)*2);MG.stroke()
+}
+function loop(now){let dt=Math.min(.035,(now-last)/1000||0);last=now;t+=dt;update(dt);render();requestAnimationFrame(loop)}
+addEventListener('keydown',e=>{keys[e.key]=true;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.key))e.preventDefault()});addEventListener('keyup',e=>keys[e.key]=false);
+document.querySelectorAll('[data-k]').forEach(b=>{let k=b.dataset.k;b.onpointerdown=()=>keys[k]=true;b.onpointerup=b.onpointercancel=()=>keys[k]=false});
+$('#turnL').onpointerdown=()=>keys.q=true;$('#turnL').onpointerup=$('#turnL').onpointercancel=()=>keys.q=false;$('#turnR').onpointerdown=()=>keys.e=true;$('#turnR').onpointerup=$('#turnR').onpointercancel=()=>keys.e=false;
+$('#reset').onclick=()=>{px=30.5;py=30.5;ang=.15;scar.fill(0);sx=48;sy=15;sd=0};
+requestAnimationFrame(loop);
+</script></body></html>
