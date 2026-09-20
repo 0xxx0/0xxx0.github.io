@@ -16,14 +16,16 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T02:55:41+08:00",
+        "updated_at": "2026-09-21T03:01:45+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "RELEASE"
         ]
-      }
+      },
+      "role": "Visual orientation layer over CURRENT + manifest + exit contracts: explicit scale navigation, DataDisc-derived PULSE, bounded MOVE GATE, and route handoff into Scale Lens."
     },
     {
       "href": "/contact/",
@@ -1263,11 +1265,12 @@
       "state": "STABLE",
       "version": "RC11.2",
       "receipt": "/fold-bloom/lens/release.json",
-      "patch": "g2-interop-1+spatial-donor-1+mobile-importer-wrap-1",
+      "patch": "g2-interop-1+spatial-donor-1+mobile-importer-wrap-1+field-index-route-handoff-1",
       "transfer": [
         "data inspection",
         "provenance-preserving projection",
-        "compact handoff"
+        "compact handoff",
+        "FIELD route re-projection via local handoff"
       ],
       "contract": {
         "accepts": {
@@ -1350,7 +1353,7 @@
         "physical_fit": "Prepare addressed objects/specs for decision or fabrication; should not actuate directly."
       },
       "index": {
-        "updated_at": "2026-09-21T02:45:00+08:00",
+        "updated_at": "2026-09-21T03:01:45+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -3716,7 +3719,7 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-21T03:10:00+08:00",
+        "updated_at": "2026-09-21T03:01:17+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
@@ -3916,7 +3919,9 @@
     ],
     "pulse_donor": "/control/confluence/FIELD_INDEX_DATADISC_GRAFT_2026-09-21.json",
     "play": "/field-play.html",
-    "play_law": "Mission selection is participation, not authority: public-safe gap → one bounded move → evidence → RETURN → explicit review/replan."
+    "play_law": "Mission selection is participation, not authority: public-safe gap → one bounded move → evidence → RETURN → explicit review/replan.",
+    "scale_navigation": "VISUAL drill depth is explicit SCALE: ROOT=0, child family/local projections increase depth; SCALE − returns one parent without changing route identity.",
+    "scale_lens_handoff": "Selected MAP route can be handed locally into SCALE LENS through scale.lens.handoff.v01 as the same addressed object."
   },
   "policy_trace_verification": "/policy-trace-verification.json",
   "policy_trace_event_model": "/policy-trace-event-model.json",
