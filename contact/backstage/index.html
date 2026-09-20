@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#080a0c">
+<title>HUMAN PORT / BACKSTAGE</title>
+<style>
+:root{--bg:#080a0c;--p:#0c1013;--ink:#eef2ef;--mut:#829097;--line:#2b363b;--hot:#ed7245;--cool:#73bce8;--green:#9ed88c;--gold:#d7ae67}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}button,input,textarea,select{font:inherit;border-radius:0}button{cursor:pointer}body{padding:18px 14px 34px}main{width:min(900px,100%);margin:auto}header{padding:30px 0 18px;border-bottom:1px solid var(--line)}.ey{font-size:9px;letter-spacing:.18em;color:var(--hot)}h1{margin:10px 0 8px;font:850 clamp(46px,10vw,92px)/.84 system-ui,sans-serif;letter-spacing:-.07em}.lead{max-width:720px;color:#aab3b7;font:13px/1.6 system-ui,sans-serif}
+.form{margin-top:18px;border:1px solid var(--line);background:var(--p)}.row{display:grid;grid-template-columns:1fr 1fr}.field{border-bottom:1px solid var(--line)}.row .field:first-child{border-right:1px solid var(--line)}.field label{display:block;padding:8px 10px 0;color:var(--mut);font-size:8px;letter-spacing:.11em}.field input,.field textarea,.field select{width:100%;border:0;background:#0a0e10;color:var(--ink);padding:10px;outline:none}.field textarea{min-height:90px;resize:vertical;font:13px/1.5 system-ui,sans-serif}.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}.actions button{border:0;background:#0a0e10;color:var(--ink);padding:11px;font-size:8px;letter-spacing:.09em}.actions button:hover{background:#12191d}.warning{padding:9px 11px;color:#b8a777;font-size:8px;border-top:1px solid #574a30;background:#100e0a}
+.stream{margin-top:18px;border-left:1px solid var(--line);padding-left:18px}.empty{color:#66747a;padding:20px 0}.turn{position:relative;margin:0 0 14px;border:1px solid var(--line);background:#0b0f12}.turn:before{content:'';position:absolute;width:7px;height:7px;background:var(--cool);left:-22px;top:18px}.turn[data-type="JOKE"]:before,.turn[data-type="ACCIDENTAL_NAME"]:before{background:var(--gold)}.turn[data-type="CORRECTION"]:before{background:var(--hot)}.th{display:flex;justify-content:space-between;gap:10px;padding:8px 10px;border-bottom:1px solid var(--line);font-size:8px}.th b{letter-spacing:.11em}.th span{color:var(--mut)}.text{padding:12px;font:15px/1.5 system-ui,sans-serif;white-space:pre-wrap}.why{border-top:1px solid var(--line);padding:8px 10px;color:#8d999e;font-size:9px}.tags{display:flex;gap:4px;flex-wrap:wrap;padding:0 10px 10px}.tag{border:1px solid #354047;padding:2px 5px;font-size:7px;color:#95a1a6}.local{color:var(--green)}footer{margin-top:18px;padding-top:10px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#68747a;font-size:8px}footer a{color:#8fcdf2;text-decoration:none}
+@media(max-width:680px){.row{grid-template-columns:1fr}.row .field:first-child{border-right:0}.actions{grid-template-columns:1fr 1fr}footer{display:block}}
+</style></head><body><main>
+<header><div class="ey">HUMAN PORT / BACKSTAGE · 0B1</div><h1>HOW THE THING<br>ACTUALLY HAPPENED.</h1><div class="lead">A local-first marginalia stream for the strange sentence, accidental joke, correction or wrong turn that changed an artifact. Not minutes. Not telemetry. Not a raw chat dump.</div></header>
+
+<section class="form">
+<div class="row"><div class="field"><label for="artifact">ARTIFACT</label><input id="artifact" placeholder="HUMAN PORT / AXIAL / whatever"></div><div class="field"><label for="speaker">SPEAKER LABEL</label><input id="speaker" placeholder="YOU / ME / PERSON / AGENT"></div></div>
+<div class="row"><div class="field"><label for="type">TYPE</label><select id="type"><option>TURN</option><option>JOKE</option><option>ACCIDENTAL_NAME</option><option>CORRECTION</option><option>DISCOVERY</option><option>DESIGN_SHIFT</option><option>FAILED_BRANCH</option><option>RETURN</option></select></div><div class="field"><label for="sourceClass">SOURCE</label><select id="sourceClass"><option>PARAPHRASE</option><option>EXACT</option><option>RECONSTRUCTED</option></select></div></div>
+<div class="field"><label for="text">THE MOMENT</label><textarea id="text" placeholder="The weird/funny/useful bit. EXACT only if you actually have the exact source."></textarea></div>
+<div class="field"><label for="why">WHY IT MATTERED</label><textarea id="why" placeholder="What changed because of this?"></textarea></div>
+<div class="field"><label for="tags">TAGS · COMMA SEPARATED</label><input id="tags" placeholder="inside-joke, naming, correction, donor"></div>
+<div class="actions"><button id="save">PIN LOCALLY</button><button id="export">EXPORT 0B1</button><button id="importBtn">IMPORT 0B1</button><button id="clear">CLEAR LOCAL</button></div>
+<input id="importFile" type="file" accept="application/json" hidden>
+<div class="warning">LOCAL_PRIVATE by default. This surface has no publish button. Curate first; public provenance is a separate deliberate act.</div>
+</section>
+
+<section id="stream" class="stream"><div class="empty">Nothing pinned yet.</div></section>
+<footer><span><span class="local">LOCAL_PRIVATE</span> · CURATE, DON'T DUMP · EXACT QUOTE REQUIRES EXACT SOURCE</span><span><a href="../">HUMAN PORT →</a> · <a href="../interpret/">INTERPRET →</a></span></footer>
+<script>
+(()=>{'use strict';
+const $=s=>document.querySelector(s), key='human.port.backstage.v01';
+function load(){try{return JSON.parse(localStorage.getItem(key)||'[]')}catch(_){return []}}
+function store(x){localStorage.setItem(key,JSON.stringify(x))}
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function render(){
+ const xs=load();$('#stream').innerHTML=xs.length?xs.slice().reverse().map(x=>'<article class="turn" data-type="'+esc(x.type)+'"><div class="th"><b>'+esc(x.speaker_label)+' · '+esc(x.type)+'</b><span>'+esc(x.source_class)+' · '+esc(x.artifact_ref)+'</span></div><div class="text">'+esc(x.text)+'</div><div class="why">WHY · '+esc(x.why_it_matters)+'</div><div class="tags">'+x.tags.map(t=>'<span class="tag">'+esc(t)+'</span>').join('')+'</div></article>').join(''):'<div class="empty">Nothing pinned yet.</div>';
+}
+function entry(){
+ return {id:'b_'+(crypto.randomUUID?crypto.randomUUID():Date.now()),artifact_ref:$('#artifact').value.trim()||'UNADDRESSED',type:$('#type').value,speaker_label:$('#speaker').value.trim()||'UNKNOWN',text:$('#text').value.trim(),source_class:$('#sourceClass').value,source_ref:null,why_it_matters:$('#why').value.trim(),tags:$('#tags').value.split(',').map(x=>x.trim()).filter(Boolean),visibility:'LOCAL_PRIVATE'};
+}
+$('#save').onclick=()=>{const e=entry();if(!e.text)return;const xs=load();xs.push(e);store(xs);$('#text').value='';$('#why').value='';$('#tags').value='';render()};
+$('#export').onclick=()=>{const pack={version:'0B1',artifact_ref:$('#artifact').value.trim()||'MIXED',entries:load()},t=JSON.stringify(pack,null,2),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'application/json'}));a.download='human-port-backstage-0B1.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
+$('#importBtn').onclick=()=>$('#importFile').click();$('#importFile').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{const x=JSON.parse(await f.text());if(x.version!=='0B1'||!Array.isArray(x.entries))throw Error('not 0B1');store(x.entries.map(v=>({...v,visibility:'LOCAL_PRIVATE'})));render()}catch(err){alert('Import failed: '+err.message)}};
+$('#clear').onclick=()=>{if(confirm('Clear local BACKSTAGE entries in this browser?')){localStorage.removeItem(key);render()}};
+render();
+})();
+</script></main></body></html>
