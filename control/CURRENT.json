@@ -11,7 +11,8 @@
     "NO NEW CORE WITHOUT A MISSING FUNCTION",
     "DEPTH ↑ WHILE VISIBLE SURFACE AREA STAYS SMALL",
     "COMPRESSION MUST RETAIN A RETURN PATH",
-    "BACK ≠ UNDO ≠ RETURN ≠ PARENT"
+    "BACK ≠ UNDO ≠ RETURN ≠ PARENT",
+    "DISCUSSION ≠ INDEX TOUCH; MUTATION → INDEX TOUCH"
   ],
   "active_fronts": [
     {
@@ -47,11 +48,15 @@
     {
       "id": "reality-house",
       "state": "ACTIVE_NOW",
-      "center": "one bounded physical/home zone or owned endpoint",
-      "objective": "Produce one before→change→after RETURN in the physical environment so the abstraction stack remains anchored to lived reality.",
+      "center": "/house/spatial/ + Home Assistant/HOUSEBUS + one bounded physical/home RETURN",
+      "objective": "Converge the actual dwelling through one addressed spatial substrate: recover/verify geometry and surfaces, coordinate state with Home Assistant authority, and keep changes reality-gated through receipts.",
       "evidence": [
         "/control/QUEUE.json",
-        "/fcm-fronts.json"
+        "/fcm-fronts.json",
+        "/house/",
+        "/house/spatial/",
+        "/house/confluence.json",
+        "/house/spatial-state.json"
       ]
     }
   ],
@@ -104,6 +109,13 @@
       "state": "ACTIVE",
       "route": "/laconic/",
       "retained_function": "Observed/possible/move discipline + provenance-aware LINE/SCENE recovery + PLAY/CARE/CELEBRATE/REPAIR trajectories → explicit human drafting boundary → transport-neutral policy/RETURN substrate."
+    },
+    {
+      "lineage": "house-spatial",
+      "head": "HOUSE / SPATIAL 0.3 + HOUSE / FIELD 0.4",
+      "state": "ACTIVE_EXPERIMENT",
+      "route": "/house/spatial/",
+      "retained_function": "One addressed physical substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/ATLAS with explicit evidence/uncertainty; Home Assistant/HOUSEBUS retains device truth and actuation authority."
     }
   ],
   "donors_and_holds": [
@@ -151,9 +163,9 @@
     },
     {
       "name": "HOUSE / FIELD (house-field-v01 @ 89ac69c)",
-      "state": "SUPERSEDED_DONOR",
+      "state": "SUPERSEDED_DONOR_ABSORBED",
       "route": "branch: house-field-v01",
-      "rule": "preserved, not deleted, not merged (ahead 1 / behind 23). Retained mechanisms: private->public whitelist projection; sanitization boundary; physical-resource/capability projection; evidence/RETURN integration; honest live-vs-snapshot state semantics. No retained function is missing versus FIELD INDEX - all five are already carried by CURRENT field_index plus the /contact/ 0.2 live_status semantics. Do not revive /house/ as a public head; mine mechanisms only if a concrete missing function survives comparison."
+      "rule": "Preserve branch as provenance donor. Its whitelist/sanitization/runtime-snapshot mechanisms are absorbed into current /house/ 0.4; do not merge the stale branch wholesale. Current HOUSE/SPATIAL head is /house/spatial/."
     }
   ],
   "recovery_targets": [
@@ -193,8 +205,8 @@
     }
   ],
   "next_single_action": {
-    "id": "physical-return-field-seed-01",
-    "instruction": "Use one ordinary bounded physical/home/workshop action or endpoint. Record OBSERVED → ACTION → RESULT with the smallest useful evidence. Then add that observed object/zone to FIELD INDEX with ports/location/mobility and ask one CONNECT or MOVE question. Do not manufacture a special experiment."
+    "id": "house-instance-verify-01",
+    "instruction": "When convenient, identify/verify the current physical house instance and orientation against the real door/kitchen/window/corner condition. Do not force section/ceiling measurement now. Preserve the earlier 93 m²/#17-103 donor as a separate recovered instance until verified."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
@@ -229,7 +241,10 @@
     "interaction_semantics": "/control/INTERACTION_SEMANTICS.json",
     "instrument_charters": "/control/INSTRUMENT_CHARTERS.json",
     "interaction_history_research": "/control/research/INTERACTION_HISTORY.md",
-    "irl_recovery": "/control/IRL_RECOVERY.json"
+    "irl_recovery": "/control/IRL_RECOVERY.json",
+    "field_index_contract": "/control/FIELD_INDEX_CONTRACT.json",
+    "house_confluence": "/house/confluence.json",
+    "house_spatial_lineage": "/house/spatial-state.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
@@ -250,7 +265,22 @@
       "RETURN"
     ],
     "physical_admission_rule": "Add owned/physical entities only from observed state or explicit confirmation; do not infer possession from shopping/recovery history.",
-    "first_physical_seed": "Use the next real House/workshop RETURN to add one object/zone with location, mobility, dependencies and physical ports."
+    "first_physical_seed": "Use the next real House/workshop RETURN to add one object/zone with location, mobility, dependencies and physical ports.",
+    "contract": "/control/FIELD_INDEX_CONTRACT.json",
+    "default_order": "UPDATED_DESC",
+    "activity_modes": [
+      "RECOVER",
+      "INVESTIGATE",
+      "RESEARCH",
+      "SPECULATE",
+      "SPECIFY",
+      "IMPLEMENT",
+      "VERIFY",
+      "OPERATE",
+      "RELEASE",
+      "UNKNOWN"
+    ],
+    "touch_rule": "A tracked public route changes order only when a durable repo mutation updates route.index.updated_at; discussion alone never bumps it."
   },
   "last_recovery_survey": "/control/RECOVERY_SURVEY_2026-09-20_B.json"
 }
