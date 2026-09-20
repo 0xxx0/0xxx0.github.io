@@ -36,7 +36,7 @@
         "ENV0_symbols_A2_v0_1.svg",
         "ENV0_P0_BUILD_SHEET_A3.pdf"
       ],
-      "action": "treat as physical/reality lineage, not gallery-card proliferation"
+      "action": "Editable README + two SVG masters frozen exactly at /recovery/env0/; two exact PDFs located in Library pending byte-copy/hash verification. Use as PRINT/Reality donor, not gallery-card proliferation."
     },
     {
       "cluster": "House OS visual boards",
@@ -113,6 +113,12 @@
       "route": "/recovery/rsvp/",
       "classification": "EXACT_FROZEN_DONOR",
       "receipt": "/recovery/rsvp/manifest.json"
+    },
+    {
+      "family": "ENV0 / House physical interface",
+      "route": "/recovery/env0/",
+      "classification": "PARTIAL_EXACT_SOURCE_FROZEN",
+      "receipt": "/recovery/env0/manifest.json"
     }
   ]
 }
