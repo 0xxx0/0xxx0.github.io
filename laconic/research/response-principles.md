@@ -58,7 +58,7 @@ Research on capitalization distinguishes active-constructive responses from mere
 rather than immediately minimizing, warning, fixing, or changing topic.
 
 Source:
-- Kashdan TB et al. *Failure to capitalize on sharing good news with romantic partners.* Journal of Anxiety Disorders. 2013. https://pmc.ncbi.nlm.nih.gov/articles/PMC3776926/
+- Kashdan TB et al. *Failure to capitalize on sharing good news with romantic partners.* Behaviour Research and Therapy. 2013;51(10):656–668. DOI: 10.1016/j.brat.2013.04.006. https://pmc.ncbi.nlm.nih.gov/articles/PMC3776926/
 
 ## R6 / HUMOR IS A BRANCH, NOT A DEFAULT PERSONA
 
