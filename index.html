@@ -116,7 +116,7 @@ function renderChildren(parent,cm,depth){
 function renderStructure(){
   const cm=childrenMap();
   const roots=(cm.get('/')||[]).filter(r=>r.href!=='/'&&subtreeHas(r,cm));
-  $('mapMeta').textContent=routes.length+' addressed routes · hierarchy from manifest parent relations';
+  $('mapMeta').textContent=routes.length+' mapped addresses · manifest routes + declared parent-owned surfaces';
   $('map').className='mapGrid';
   $('map').innerHTML=roots.map(r=>{
     const kids=(cm.get(r.href)||[]).filter(c=>subtreeHas(c,cm));
@@ -144,6 +144,8 @@ Promise.all([
  fetch('./control/CURRENT.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('current '+r.status);return r.json()})
 ]).then(([m,c])=>{
  manifest=m;current=c;routes=(m.routes||[]).filter(r=>r.href!=='/');
+ const owned=routes.flatMap(r=>(r.owned_surfaces||[]).map(o=>({title:o.title||o.label||o.href,href:o.href,parent:r.href,kind:o.kind||'owned',state:o.state||'UTILITY',operation:o.operation||'OPEN',role:o.role||'Parent-owned surface; mapped here without promotion to independent manifest route.',family:r.family,_owned:true})));
+ const known=new Set(routes.map(r=>r.href));routes=routes.concat(owned.filter(r=>!known.has(r.href)));
  renderNow();renderHeads();renderMap();renderPorts();
 }).catch(e=>{ $('now').innerHTML='<div class="front"><p>Control load failed · '+esc(e.message)+'</p></div>'; $('map').innerHTML='<div class="branch"><div style="padding:12px">Manifest unavailable.</div></div>'});
 $('mapTools').onclick=e=>{const m=e.target.dataset.mode;if(!m)return;mode=m;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));renderMap()};
