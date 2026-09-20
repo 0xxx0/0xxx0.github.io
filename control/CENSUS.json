@@ -110,6 +110,15 @@
         "prelude.js"
       ],
       "action": "Exact 2019–2021 core-evidence family frozen under /recovery/poly-furnisher/. Keep bytes, original intent notes and 2026 interpretive survey as distinct evidence classes; no in-place modernization."
+    },
+    {
+      "cluster": "INTERPHASE / cylinder spatial lineage",
+      "examples": [
+        "rotating-cylinder-2019.html",
+        "proto1-terse-2020.html",
+        "interphase-2020.html"
+      ],
+      "action": "Three exact representatives frozen under /recovery/poly-furnisher/interphase-lineage/. Duplicate old copies collapsed; bulk backup family not imported. Keep later 2026 Interphase Bridge/Ω descendants evidence-distinct."
     }
   ],
   "next": [
@@ -167,6 +176,12 @@
       "route": "/recovery/poly-furnisher/",
       "classification": "EXACT_BYTE_VERIFIED_CORE_EVIDENCE_FAMILY",
       "receipt": "/recovery/poly-furnisher/manifest.json"
+    },
+    {
+      "family": "INTERPHASE / cylinder lineage",
+      "route": "/recovery/poly-furnisher/interphase-lineage/",
+      "classification": "EXACT_FROZEN_VARIANT_FAMILY",
+      "receipt": "/recovery/poly-furnisher/interphase-lineage/manifest.json"
     }
   ]
 }
