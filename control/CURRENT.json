@@ -211,6 +211,12 @@
       "state": "PARKED_REOPENABLE_DONOR",
       "route": "/control/confluence/HOUSE_FRONTIER.md",
       "rule": "Reopen only from a named HOUSE/AXIAL capability gap or bounded physical proof need. Import mechanisms, not a new project or shopping queue."
+    },
+    {
+      "name": "INTERPHASE / CYLINDER 2019–2020",
+      "state": "FROZEN_EXACT_VARIANT_FAMILY",
+      "route": "/recovery/poly-furnisher/interphase-lineage/",
+      "rule": "Three exact representatives; duplicate backups collapsed. Later Interphase descendants remain separate. Do not treat this as Painting/City recovery."
     }
   ],
   "recovery_targets": [
@@ -317,7 +323,8 @@
     "poly_furnisher_room_lineage": "/recovery/poly-furnisher/room-lineage/",
     "house_frontier": "/control/confluence/HOUSE_FRONTIER.md",
     "retrieval_canon": "/control/confluence/RETRIEVAL_CANON.md",
-    "retrieval_canon_machine": "/control/confluence/RETRIEVAL_CANON.json"
+    "retrieval_canon_machine": "/control/confluence/RETRIEVAL_CANON.json",
+    "interphase_lineage": "/recovery/poly-furnisher/interphase-lineage/"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
