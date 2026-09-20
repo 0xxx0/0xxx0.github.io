@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "/policy-trace-verification-report.schema.json",
+  "title": "Policy Trace Verification Report",
+  "type": "object",
+  "required": [
+    "schema",
+    "trace_id",
+    "profile",
+    "status",
+    "verified_at",
+    "checks",
+    "summary"
+  ],
+  "properties": {
+    "schema": {
+      "const": "policy-trace-verification-report/v0.1"
+    },
+    "trace_id": {
+      "type": "string"
+    },
+    "profile": {
+      "type": "string",
+      "enum": [
+        "structural",
+        "replay",
+        "sealed"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PASS",
+        "FAIL",
+        "INDETERMINATE"
+      ]
+    },
+    "verified_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "verifier": {
+      "type": "object",
+      "properties": {
+        "implementation": {
+          "type": "string"
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "implementation"
+      ],
+      "additionalProperties": false
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "severity"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "PASS",
+              "FAIL",
+              "INDETERMINATE",
+              "SKIP"
+            ]
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "ERROR",
+              "WARN"
+            ]
+          },
+          "evidence_event_ids": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string"
+            }
+          },
+          "details": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "expected": {},
+          "observed": {}
+        },
+        "additionalProperties": false
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": [
+        "pass",
+        "fail",
+        "indeterminate",
+        "skip"
+      ],
+      "properties": {
+        "pass": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "fail": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "indeterminate": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "skip": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
