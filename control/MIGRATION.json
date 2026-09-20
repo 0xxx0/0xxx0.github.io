@@ -121,7 +121,7 @@
       "source_type": "external-live",
       "source_url": "https://sleeper-one-return.metaname.chatgpt.site/",
       "unique": "Phrase + verse cell + figure compile into reproducible ASCII city; eight proofs + ninth RETURN; distinct source-material compiler and figure physics.",
-      "action": "KEEP IMPORT OPEN, but do not reconstruct from prose. Resume from exact source/assets or authorized checkpoint bytes.",
+      "action": "KEEP IMPORT OPEN, but do not reconstruct from prose. Resume from exact source/assets or authorized checkpoint bytes. Workfield v1.2 recovery is adjacent evidence only and does not resolve this exact-source import.",
       "retrieval_state": "BLOCKED_EXACT_SOURCE_2026-09-19",
       "blocker": "Recorded external URL is currently inaccessible through available retrieval; exact source/assets not imported.",
       "checkpoint": "Library sleeper_pov_v0.7_private_checkpoint.zip exists (213577 bytes) but raw-byte access is not authorized in this session."
@@ -134,7 +134,7 @@
       "source_type": "external-live",
       "source_url": "https://sleeper-one-return.metaname.chatgpt.site/painting",
       "unique": "Painting itself as navigable interface: select detail → read/speak/route/finding, with zoom/outline/route interactions.",
-      "action": "KEEP IMPORT OPEN. Painting-first interaction must be recovered exactly; no cards/forms reconstruction.",
+      "action": "KEEP IMPORT OPEN. Painting-first interaction must be recovered exactly; no cards/forms reconstruction. Workfield v1.2 recovery is adjacent evidence only and does not resolve this exact-source import.",
       "retrieval_state": "BLOCKED_EXACT_SOURCE_2026-09-19",
       "blocker": "Recorded external /painting URL is currently inaccessible through available retrieval; exact source/assets not imported."
     },
@@ -239,9 +239,10 @@
       "status": "RECOVER",
       "source_type": "archive/library",
       "unique": "Long-running naming work treats names as symbolic compression / identity-transform machinery, with metaphor, sound, multilingual structure, symmetry and digital identity constraints.",
-      "action": "HOLD. Exact archive lineage confirmed; isolate a runnable/glyph artifact before repoing it. Otherwise extract only provenance-backed transferable operations.",
-      "evidence_state": "ARCHIVE_EVIDENCE_NO_ISOLATED_RUNNABLE",
-      "privacy": "Do not publish raw personal naming archive."
+      "action": "Recovery status route now exists. Do not publish private raw archive or synthesize a replacement; resume only when an isolated exact source/runnable/glyph artifact is located.",
+      "evidence_state": "EXACT_ARCHIVE_LINEAGE_ISOLATED_PUBLIC_SAFE_ARTIFACT_MISSING",
+      "privacy": "Do not publish raw personal naming archive.",
+      "route": "/recovery/naming/"
     },
     {
       "id": "one-return-seam-engine-v0-2",
@@ -354,6 +355,52 @@
       "unique": "Typed BODY→GARMENT→HARNESS→SUIT→FURNITURE→ROOM→HOUSE grammar with editable print plates, reversible operation language and bounded physical build/test return.",
       "evidence_state": "SVG_MASTERS_AND_README_EXACT_REPO_PDFS_EXACT_LIBRARY_ONLY",
       "action": "Keep frozen as print/physical donor. Complete only by byte-copying and hash-verifying the two located PDFs; then mechanism-test against PRINT-01 / Reality RETURN rather than redesigning."
+    },
+    {
+      "id": "sleeper-workfield-v1-2",
+      "name": "SLEEPER WORKFIELD v1.2",
+      "family": "sleeper-one-return",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/sleeper/workfield-v1.2/",
+      "source_type": "library-recovered-exact",
+      "size_bytes": 357885,
+      "sha256": "045c0501382f4d3a382d5507019f86187d48ae6ec108c65c61b339838f95ee9d",
+      "unique": "Later source-aware workfield/task instrument with Q×OP units, Nine Gates, Center Mass, TRACE, ASCII FIELD, DataDisc, Ledger, replay/export and RETURN.",
+      "action": "FROZEN exact sibling donor. Does not supersede /sleeper/ and does not resolve City Engine/Painting/Path exact-source gap."
+    },
+    {
+      "id": "axial-state-transform-v0-3",
+      "name": "STATE × TRANSFORM INSTRUMENT v0.3",
+      "family": "axial",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/axial/state-transform-v0.3/",
+      "source_type": "library-recovered-exact",
+      "size_bytes": 19898,
+      "sha256": "32a965e4c010d35fa85cdf0190f831fb82bda2395524b06385a2a3260638a677",
+      "unique": "Semantic rings × embodied slide/twist × SAFE/TEST/ARM/RUN transaction gate × changed-object projection × RETURN receipt.",
+      "action": "FROZEN exact donor. Compare against /foundry/axial/; transfer only missing transaction/bridge capability."
+    },
+    {
+      "id": "axial-compositor-v0-2-print",
+      "name": "AXIAL COMPOSITOR v0.2 / PRINT + BUILD",
+      "family": "axial",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/axial/compositor-v0.2/print-template.svg",
+      "source_type": "library-recovered-exact",
+      "unique": "Exact vector print template plus build notes for physical correspondence / bounded return.",
+      "action": "FROZEN exact physical-return donor. Use as print/build fixture; do not confuse with evidence that the physical prototype was completed."
+    },
+    {
+      "id": "datadisc-2019",
+      "name": "DataDisc / 2019 historical fixture",
+      "family": "media-representation",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/media/datadisc/datadisc.html",
+      "source_type": "drive-recovered-exact-byte-verified",
+      "size_bytes": 20693,
+      "sha256": "01f1e5c707151c0691b9cb563009d4c54148e73eadc5e20a299b45df0c4d0674",
+      "unique": "150-item compound-glyph spiral and multichannel radial projection fixture.",
+      "action": "FROZEN exact historical donor. Mechanism-compare against Scale Lens/Dayline/DataDisc descendants; no nostalgia rebuild."
     }
   ],
   "ingest_queue": [
@@ -362,8 +409,10 @@
     "LACONIC: isolate exact historical bank lines with source refs; preserve EXACT / RECONSTRUCTED / NEW firewall.",
     "GAME OF NAMES: locate isolated exact runnable/glyph artifact before public recovery; keep personal archive private.",
     "QUARANTINE: generic site shells stay out of primary surface unless a unique mechanism earns transfer.",
-    "RSVP: mechanism-diff frozen 2018 temporal-focus donor against current reading/learning surfaces before new Wear OS implementation.",
-    "ENV-0: byte-copy/hash-verify the two exact located PDFs; then use one plate/build-sheet as a bounded PRINT→PHYSICAL→RETURN fixture."
+    "ENV-0: byte-copy/hash-verify the two exact located PDFs; then use one plate/build-sheet as a bounded PRINT→PHYSICAL→RETURN fixture.",
+    "SLEEPER/PAINTING: Workfield v1.2 is frozen exactly; continue City/Painting only from exact source/assets.",
+    "NAMING: public-safe recovery status exists; locate one isolated exact runnable/source/glyph artifact before promotion.",
+    "MEDIA: DataDisc 2019 and RSVP 2018 are exact fixtures; mechanism-diff only when a current projection/reader needs a named capability."
   ],
   "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
   "last_mechanism_diff": "/control/MECHANISM_DIFF_2026-09-19.json"
