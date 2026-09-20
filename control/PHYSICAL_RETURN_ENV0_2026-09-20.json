@@ -7,46 +7,36 @@
   "bounds": [
     "NON-PPE",
     "NON-SUSPENSION",
-    "5 V ONLY",
-    "REVERSIBLE"
+    "REVERSIBLE",
+    "GEOMETRY_GAUGE_ONLY"
   ],
-  "scope": "One non-load-bearing card/paper geometry gauge derived from the sheet. No wearable load test, electronics, blower, sensors or full five-plate build.",
+  "scope": "One printed reference sheet plus one non-load-bearing card/paper ENV-D1 geometry gauge. No wearable test, powered system, sensors or full build.",
   "before": {
-    "observed": "The A3 build sheet specifies ENV-D1 dimensions and rail geometry; no physical ENV-D1 gauge is evidenced by this receipt.",
-    "question": "Are the 160 × 110 mm plate, R10 corners, y=30/y=80 rail centerlines and 4 × 30 mm slot geometry sufficiently clear and coherent to fabricate without hidden interpretation?"
+    "state": "The sheet specifies ENV-D1 geometry; no physical plate/gauge is evidenced by this receipt.",
+    "question": "Are the plate, rail centerlines, corner and slot dimensions coherent enough to fabricate without hidden interpretation?"
   },
   "use": [
-    "Print one A3 landscape copy for reference. Treat the written dimensions as authority; do not assume the drawing itself is a 1:1 cutting template.",
-    "From scrap card/foamboard/paper, make one non-load-bearing 160 × 110 mm rectangle and mark R10 corners.",
-    "Mark horizontal rail centerlines at y=30 mm and y=80 mm; verify their 50 mm separation.",
-    "Mark the declared 4 × 30 mm rail slots from the sheet geometry without cutting structural material.",
-    "Lay two 25 mm-wide paper/webbing strips along the rail lines and check clearance/legibility.",
-    "Optionally place a paper/card 160 × 110 × 55 mm cassette-envelope mockup against the gauge. Do not wear it or load it."
+    "Print one A3 landscape copy as a reference sheet; written dimensions remain authoritative.",
+    "Make one scrap-card/paper 160 × 110 mm gauge and mark R10 corners.",
+    "Mark rail centerlines at y=30 mm and y=80 mm and verify 50 mm separation.",
+    "Mark the declared rail-slot geometry and lay two 25 mm-wide paper/webbing strips on the rail lines.",
+    "Do not wear, load, or treat the gauge as structural."
   ],
-  "after": {
-    "required_state": "One labelled ENV-D1 geometry gauge with measured dimensions plus a PASS / AMBIGUOUS / FAIL decision on whether the sheet is sufficient to fabricate the first real plate.",
-    "no_completion_claim_until": "Photo/measurement evidence is supplied."
-  },
+  "after": "One labelled geometry gauge plus PASS / AMBIGUOUS / FAIL on whether the drawing is sufficient for the first real plate.",
   "evidence": [
     "Photo of gauge beside the A3 sheet.",
-    "Ruler/caliper photo showing 160 × 110 mm outer size.",
-    "Photo/measurement showing 50 mm between y=30 and y=80 rail centerlines.",
-    "Close-up of one 4 × 30 mm slot marking and R10 corner marking.",
-    "Short note listing any dimension that required guessing."
-  ],
-  "pass_gate": [
-    "Outer envelope can be laid out without interpretation beyond normal measurement tolerance.",
-    "Two rail centerlines measure 50 mm apart.",
-    "Slot and corner annotations can be reproduced without conflicting dimensions.",
-    "No safety/load inference is made from the card gauge."
+    "Ruler/caliper evidence of 160 × 110 mm outer dimensions.",
+    "Evidence of 50 mm separation between rail centerlines.",
+    "Close-up of one slot marking and one R10 corner marking.",
+    "One note listing any dimension that required guessing."
   ],
   "residue": [
-    "HDPE/PP material behavior untested.",
-    "Five-plate system unbuilt.",
-    "Harness comfort and pressure untested.",
-    "Cassette mass/retention and dock transfer untested.",
-    "Blower/electrical/sensor behavior untested.",
-    "EXP-001 3 × 12 minute protocol unrun."
+    "Material behavior untested",
+    "Full plate set unbuilt",
+    "Harness/comfort untested",
+    "Dock transfer untested",
+    "Air/electrical/sensor systems untested",
+    "EXP-001 unrun"
   ],
-  "next": "If geometry PASS, fabricate one real ENV-D1 plate and add only the two 25 mm rails for a bench-only cassette docking proof. If AMBIGUOUS/FAIL, revise or annotate the single ambiguous geometry before cutting real material."
+  "next": "PASS → fabricate one real ENV-D1 plate and two rails for a bench-only dock geometry proof. AMBIGUOUS/FAIL → revise or annotate only the unclear geometry before cutting real material."
 }
