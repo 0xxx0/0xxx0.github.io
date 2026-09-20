@@ -16,7 +16,7 @@ header{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end;
 .intro{color:#a9b3b6;font:12px/1.58 system-ui,sans-serif;max-width:580px}.intro b{color:var(--ink)}nav{display:flex;gap:5px;flex-wrap:wrap;margin-top:13px}nav a{border:1px solid var(--line);padding:6px 8px;font-size:8px;letter-spacing:.08em}
 .laws{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px}.law{background:#090d0f;padding:8px}.law b{display:block;color:var(--cool);font-size:8px}.law span{display:block;margin-top:3px;color:var(--mut);font-size:7px}
 .section{margin-top:26px}.sectionHead{display:grid;grid-template-columns:1fr auto;align-items:end;gap:12px;border-bottom:1px solid var(--line);padding-bottom:7px;margin-bottom:8px}.sectionHead b{font-size:10px;letter-spacing:.16em}.sectionHead span{font-size:8px;color:var(--mut)}
-.nowGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.front{background:var(--p);padding:13px;min-height:150px;display:flex;flex-direction:column}.front:hover{background:#101619}.front .num{font-size:8px;color:var(--hot)}.front h2{margin:18px 0 7px;font:800 20px/1 system-ui,sans-serif;letter-spacing:-.04em}.front p{margin:0;color:#a5afb2;font:9px/1.55 system-ui,sans-serif}.front .state{margin-top:auto;padding-top:14px;color:var(--green);font-size:7px;letter-spacing:.1em}
+.nowGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.moveGate{margin-top:7px;border:1px solid var(--line);background:#090d0f;padding:8px 10px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}.moveGate b{color:var(--hot);font-size:7px;letter-spacing:.12em}.moveGate span{color:#9ca8ac;font:9px/1.45 system-ui,sans-serif}.front{background:var(--p);padding:13px;min-height:150px;display:flex;flex-direction:column}.front:hover{background:#101619}.front .num{font-size:8px;color:var(--hot)}.front h2{margin:18px 0 7px;font:800 20px/1 system-ui,sans-serif;letter-spacing:-.04em}.front p{margin:0;color:#a5afb2;font:9px/1.55 system-ui,sans-serif}.front .state{margin-top:auto;padding-top:14px;color:var(--green);font-size:7px;letter-spacing:.1em}
 .heads{border-top:1px solid var(--line)}.head{display:grid;grid-template-columns:minmax(180px,.8fr) 120px 2fr auto;gap:12px;padding:9px 3px;border-bottom:1px solid #20282c;align-items:start}.head:hover{background:#0b1012}.head strong{font:750 14px/1.1 system-ui,sans-serif}.head .hs{font-size:7px;letter-spacing:.09em;color:var(--green)}.head p{margin:0;color:#96a2a6;font:9px/1.45 system-ui,sans-serif}.arrow{color:#7a878d}
 .mapTools{display:flex;gap:4px;flex-wrap:wrap}.mapTools input{min-height:30px;padding:6px 8px;width:210px}
 .mapStage{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:7px}.mapCanvas{border:1px solid var(--line);background:var(--p);min-height:590px;overflow:hidden;position:relative}.mapCanvas svg{display:block;width:100%;height:590px}.mapInspector{border:1px solid var(--line);background:var(--p);padding:12px;min-height:590px}.miEy{color:var(--hot);font-size:7px;letter-spacing:.13em}.miName{margin:12px 0 5px;font:800 22px/.95 system-ui,sans-serif;letter-spacing:-.045em}.miPath{color:var(--cool);font-size:8px;word-break:break-all}.miRole{margin-top:14px;color:#a2adb0;font:10px/1.55 system-ui,sans-serif}.miMeta{display:grid;grid-template-columns:80px 1fr;border-top:1px solid var(--line);margin-top:14px}.miMeta span{padding:6px 0;border-bottom:1px solid #20282c}.miMeta span:nth-child(odd){color:var(--mut)}.miOpen{display:block;border:1px solid var(--line);padding:9px;margin-top:13px;text-align:center;color:var(--ink)}.miOpen:hover{border-color:var(--cool)}.crumbs{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:9px}.crumbs button{min-height:25px;padding:4px 6px;font-size:7px}
@@ -41,7 +41,7 @@ header{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end;
 
 <section class="section">
   <div class="sectionHead"><div><b>NOW</b><span id="nowMeta">loading current attention…</span></div><span>≤3 execution fronts · from CURRENT</span></div>
-  <div id="now" class="nowGrid"><div class="front"><p>Loading /control/CURRENT.json…</p></div></div>
+  <div id="now" class="nowGrid"><div class="front"><p>Loading /control/CURRENT.json…</p></div></div><div id="moveGate" class="moveGate"><b>MOVE GATE</b><span>Loading execution contract…</span></div>
 </section>
 
 <section class="section">
@@ -68,7 +68,7 @@ header{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end;
   <div class="health"><a href="./control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json"><b>SITEMAP AUDIT</b><span>directory surfaces ↔ manifest addresses</span></a><a href="./control/FIELD_INDEX_ROUTE_HEALTH_2026-09-21.json"><b>ROUTE HEALTH</b><span>legacy metadata / deprecated seams</span></a><a href="./control/FIELD_INDEX_LINK_AUDIT_2026-09-21.json"><b>LINK AUDIT</b><span>live/support local href/src integrity</span></a><a href="./returns/"><b>RETURN LEDGER</b><span>release receipts / closure</span></a><a href="./showcase-selftest/"><b>SELFTEST</b><span>public-surface validator</span></a></div>
 </section>
 
-<div class="foot"><span>OBJECT → ADDRESS → STATE → TRANSFORM → PROJECTION → EVIDENCE → RETURN</span><span>FIELD INDEX is orientation; CURRENT is attention; CONFLUENCE moves bounded mechanisms between unequal lineages.</span></div>
+<div class="foot"><span>OBJECT → ADDRESS → STATE → TRANSFORM → PROJECTION → EVIDENCE → RETURN → REPLAN</span><span>FIELD INDEX is orientation; CURRENT is attention; CONFLUENCE moves bounded mechanisms between unequal lineages.</span></div>
 </main>
 
 <script>
@@ -93,6 +93,7 @@ function renderNow(){
   const fs=(current?.active_fronts||[]).slice(0,3);
   nowRouteSet=new Set(fs.map(hrefForFront));
   $('nowMeta').textContent=fs.length+' active fronts · attention source /control/CURRENT.json';
+  const gate=current?.execution_contract;$('moveGate').querySelector('span').textContent=gate?.loop?gate.loop+' · '+gate.gate:'SELECT → EXECUTE ONE BOUNDED MOVE → RETURN → REPLAN';
   $('now').innerHTML=fs.map((f,i)=>'<a class="front" href=".'+esc(hrefForFront(f))+'"><div class="num">0'+(i+1)+' / '+esc(f.id)+'</div><h2>'+esc(String(f.id).replace(/-/g,' ').toUpperCase())+'</h2><p>'+esc(f.objective||f.center||'')+'</p><div class="state">'+esc(f.state||'ACTIVE')+' · OPEN →</div></a>').join('')||'<div class="front"><p>No active fronts declared.</p></div>';
 }
 function renderHeads(){

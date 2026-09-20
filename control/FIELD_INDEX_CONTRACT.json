@@ -11,7 +11,9 @@
     "ACTIVITY MODE ≠ OPERATION. Operation names what the artifact does; work_modes name what kind of work produced the current delta.",
     "SPECULATION IS LEGIBLE, NOT PROMOTED. SPECULATE/SPECIFY may be indexed without implying implementation or evidence.",
     "RECEIPT WHEN CLAIM CHANGES. If implementation/test/release status changes, update or create the relevant receipt and RETURN entry.",
-    "ADDRESS EVERY SURFACE; PROMOTE ALMOST NONE. Every directory index surface gets a manifest address or explicit alias disposition; sitemap inclusion never implies NOW, HEAD, priority or canon."
+    "ADDRESS EVERY SURFACE; PROMOTE ALMOST NONE. Every directory index surface gets a manifest address or explicit alias disposition; sitemap inclusion never implies NOW, HEAD, priority or canon.",
+    "RETURN ≠ NEXT. RETURN closes and exposes evidence; every subsequent move is a fresh replan, not inherited route authority.",
+    "RECONSTRUCTION > NARRATION. Promote cross-lineage mechanisms only after a fresh process can reproduce the claimed behavior from durable state or an equivalent bounded test."
   ],
   "root_order": {
     "default": "STRUCTURE",
@@ -56,7 +58,8 @@
     "root_map_audit": "/control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json",
     "root_visual": "VISUAL is the default human sitemap projection: navigable parent/child field graph over manifest identity. STRUCTURE remains the exhaustive textual reading.",
     "root_pulse": "PULSE is a secondary DataDisc-derived mutation spiral over route.index.updated_at. It must never imply priority, semantic proximity or ancestry.",
-    "root_link_audit": "/control/FIELD_INDEX_LINK_AUDIT_2026-09-21.json"
+    "root_link_audit": "/control/FIELD_INDEX_LINK_AUDIT_2026-09-21.json",
+    "root_move_gate": "Render CURRENT.execution_contract as a compact MOVE GATE adjacent to NOW: one bounded move → evidence-bearing RETURN → explicit replan. It is a control law, not another project/front."
   },
   "query_semantics": {
     "BOTTLENECK": {
@@ -71,6 +74,12 @@
         "physical_fit"
       ],
       "non_claim": "Unresolved exit status exposes interface/proof debt; it is not an automatic priority ranking or evidence that an adapter works."
+    },
+    "RETURN": {
+      "status": "EXECUTION_GATE",
+      "source": "/control/CURRENT.json#execution_contract",
+      "rule": "RETURN closes the authority of the just-executed move. Any subsequent move is selected again from returned state.",
+      "non_claim": "A RETURN may suggest next routes but does not authorize or autoplay them."
     }
   },
   "route_state_contract": {
