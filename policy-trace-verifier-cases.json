@@ -1,0 +1,95 @@
+{
+  "schema": "policy-trace-verifier-cases/v0.1",
+  "source_trace": "/policy-resolution-trace.example.json",
+  "verifier": "/policy-trace-verifier.mjs",
+  "cases": [
+    {
+      "id": "valid-structural",
+      "mutation": null,
+      "profile": "structural",
+      "expect": {
+        "status": "INDETERMINATE",
+        "reason": "reference verifier has no JSON-Schema validator; all executable structural checks pass",
+        "must_not_fail": true
+      }
+    },
+    {
+      "id": "seq-gap",
+      "mutation": {
+        "op": "replace",
+        "path": "/events/2/seq",
+        "value": 99
+      },
+      "profile": "structural",
+      "expect": {
+        "status": "FAIL",
+        "fail_checks": [
+          "seq.contiguous"
+        ]
+      }
+    },
+    {
+      "id": "forward-cause",
+      "mutation": {
+        "op": "replace",
+        "path": "/events/1/cause_event_ids",
+        "value": [
+          "trace-event:005-policy-resource"
+        ]
+      },
+      "profile": "structural",
+      "expect": {
+        "status": "FAIL",
+        "fail_checks": [
+          "causes.backward"
+        ]
+      }
+    },
+    {
+      "id": "missing-act-final",
+      "mutation": {
+        "op": "remove_event_where",
+        "where": {
+          "type": "gate_final",
+          "gate": "act"
+        }
+      },
+      "profile": "structural",
+      "expect": {
+        "status": "FAIL",
+        "fail_checks": [
+          "finality.seven-gates"
+        ]
+      }
+    },
+    {
+      "id": "raw-payload-flag",
+      "mutation": {
+        "op": "replace",
+        "path": "/privacy/raw_payload_embedded",
+        "value": true
+      },
+      "profile": "structural",
+      "expect": {
+        "status": "FAIL",
+        "fail_checks": [
+          "privacy.no-raw-payload"
+        ]
+      }
+    },
+    {
+      "id": "tag-no-provenance-no-digest",
+      "mutation": {
+        "op": "synthetic_tag_clause_without_provenance_and_remove_selector_digest"
+      },
+      "profile": "structural",
+      "expect": {
+        "status": "FAIL",
+        "fail_checks": [
+          "selectors.tag-provenance"
+        ]
+      }
+    }
+  ],
+  "law": "A verifier change is regressive if any negative case stops failing or the valid structural fixture produces an executable FAIL."
+}
