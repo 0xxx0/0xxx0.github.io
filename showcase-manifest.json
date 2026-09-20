@@ -12,7 +12,7 @@
   "routes": [
     {
       "href": "/",
-      "title": "SHOWCASE",
+      "title": "FIELD INDEX",
       "kind": "root",
       "parent": null,
       "index": {
@@ -1630,7 +1630,6 @@
       "family": "READING / TEMPORAL FOCUS",
       "operation": "REPRESENT",
       "state": "FROZEN_DONOR",
-      "showase_card": false,
       "role": "Exact recovered 2018 temporal-focus fixture: word segmentation, speech-boundary synchronization and highlighting; later Watch reader work remains separate.",
       "receipt": "/recovery/rsvp/manifest.json",
       "index": {
@@ -1640,7 +1639,8 @@
           "VERIFY",
           "IMPLEMENT"
         ]
-      }
+      },
+      "showcase_card": false
     },
     {
       "href": "/foundry/core/",
@@ -1769,6 +1769,362 @@
           "INVESTIGATE",
           "SPECIFY",
           "VERIFY"
+        ]
+      }
+    },
+    {
+      "href": "/law-zoo/",
+      "title": "LAW ZOO / FIVE MACHINES",
+      "kind": "hub",
+      "parent": "/",
+      "family": "LAW ZOO",
+      "state": "EXPERIMENT",
+      "showcase_card": false,
+      "role": "Exact recovered family launcher for five intentionally unequal tiny-law machines; shared principle, no forced shared runtime.",
+      "receipt": "/law-zoo/artifact_manifest.json",
+      "index": {
+        "updated_at": "2026-09-20T21:50:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "href": "/law-zoo/law_zoo_field_guide.html",
+      "title": "LAW ZOO / FIELD GUIDE",
+      "kind": "experiment",
+      "parent": "/law-zoo/",
+      "family": "LAW ZOO",
+      "operation": "MUTATE",
+      "state": "EXPERIMENT",
+      "role": "Live specimen catalog: inspect tiny laws, mutate operators, compare lineages and breed selected specimens.",
+      "transfer": [
+        "tiny-law specimen library",
+        "mutation",
+        "lineage",
+        "breeding"
+      ],
+      "contract": {
+        "transforms": {
+          "verb": "mutate a compact computational law and inspect the disproportionate phenotype",
+          "preserves": [
+            "specimen identity",
+            "law text",
+            "mutation lineage"
+          ],
+          "reversibility": "full",
+          "side_effects": "local browser state"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "law mutation",
+            "interface": "controls"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "phenotype",
+            "interface": "canvas"
+          },
+          {
+            "medium": "DATA",
+            "kind": "lineage",
+            "interface": "local state"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "TRANSFER",
+            "status": "AVAILABLE",
+            "via": "operator/law extraction"
+          }
+        ],
+        "physical_fit": "Method donor for stencils, path laws and spatial rules; not physical proof."
+      },
+      "index": {
+        "updated_at": "2026-09-20T21:50:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "INVESTIGATE",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/law-zoo/palimpsest.html",
+      "title": "PALIMPSEST",
+      "kind": "experiment",
+      "parent": "/law-zoo/",
+      "family": "LAW ZOO",
+      "operation": "RERENDER",
+      "state": "EXPERIMENT",
+      "role": "Self-reading typography loop: render → sample → alphabet → rerender; representation becomes part of the dynamics.",
+      "transfer": [
+        "self-sampling type",
+        "iterated representation",
+        "glyph dynamics"
+      ],
+      "contract": {
+        "transforms": {
+          "verb": "rerender typography through its own sampled image",
+          "preserves": [
+            "source seed",
+            "alphabet",
+            "iteration state"
+          ],
+          "reversibility": "resettable",
+          "side_effects": "local browser state / optional PNG export"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "text/alphabet",
+            "interface": "controls"
+          },
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "disturbance",
+            "interface": "pointer"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "self-sampled glyph field",
+            "interface": "canvas"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "GLYPH",
+            "status": "AVAILABLE",
+            "via": "snapshot / operator extraction"
+          }
+        ],
+        "physical_fit": "Candidate donor for print/glyph/stencil loops after separate proof."
+      },
+      "index": {
+        "updated_at": "2026-09-20T21:50:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "INVESTIGATE",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/law-zoo/law_districts.html",
+      "title": "LAW DISTRICTS",
+      "kind": "experiment",
+      "parent": "/law-zoo/",
+      "family": "LAW ZOO",
+      "operation": "TRAVERSE",
+      "state": "EXPERIMENT",
+      "role": "Traversable ASCII world where crossing a district boundary changes the local update and movement law.",
+      "transfer": [
+        "local law fields",
+        "traversal",
+        "history-sensitive world rules"
+      ],
+      "contract": {
+        "transforms": {
+          "verb": "traverse a world whose local physics changes by addressed district",
+          "preserves": [
+            "position",
+            "heading",
+            "district identity",
+            "local law"
+          ],
+          "reversibility": "resettable",
+          "side_effects": "local browser state"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "movement",
+            "interface": "keyboard/touch"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "ASCII spatial field",
+            "interface": "canvas"
+          },
+          {
+            "medium": "DATA",
+            "kind": "local law state",
+            "interface": "HUD"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "SPACE",
+            "status": "AVAILABLE",
+            "via": "local-law/path transplant"
+          }
+        ],
+        "physical_fit": "Mechanism donor for addressed spatial/TRACE rules; not room geometry evidence."
+      },
+      "index": {
+        "updated_at": "2026-09-20T21:50:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "INVESTIGATE",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/law-zoo/one_law_two_senses.html",
+      "title": "ONE LAW / TWO SENSES",
+      "kind": "experiment",
+      "parent": "/law-zoo/",
+      "family": "LAW ZOO",
+      "operation": "MODULATE",
+      "state": "EXPERIMENT",
+      "role": "One recurrence state drives visual and audio output simultaneously; neither modality is merely an illustration of the other.",
+      "transfer": [
+        "shared recurrence",
+        "cross-modal control",
+        "audiovisual instrument"
+      ],
+      "contract": {
+        "transforms": {
+          "verb": "modulate one recurrence and hear/see two unequal projections of the same state",
+          "preserves": [
+            "recurrence state",
+            "coefficients",
+            "phase"
+          ],
+          "reversibility": "resettable",
+          "side_effects": "local audio/visual output"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_OUT"
+        ],
+        "inputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "coefficient control",
+            "interface": "sliders/pointer"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "LIGHT",
+            "kind": "visual recurrence",
+            "interface": "canvas"
+          },
+          {
+            "medium": "SOUND",
+            "kind": "audio recurrence",
+            "interface": "WebAudio"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "INSTRUMENT",
+            "status": "AVAILABLE",
+            "via": "shared-state control law"
+          }
+        ],
+        "physical_fit": "Potential control-source donor for light/sound instruments; no hardware authority."
+      },
+      "index": {
+        "updated_at": "2026-09-20T21:50:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "INVESTIGATE",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/law-zoo/error_garden.html",
+      "title": "ERROR GARDEN",
+      "kind": "experiment",
+      "parent": "/law-zoo/",
+      "family": "LAW ZOO",
+      "operation": "BREED",
+      "state": "EXPERIMENT",
+      "role": "Restricted numeric machine where precision loss, wrap, aliasing and unstable recurrence are inherited as phenotype.",
+      "transfer": [
+        "error-as-material",
+        "fault genome",
+        "selection/breeding"
+      ],
+      "contract": {
+        "transforms": {
+          "verb": "breed numerical faults instead of correcting them",
+          "preserves": [
+            "genome",
+            "parentage",
+            "phenotype state"
+          ],
+          "reversibility": "full within local population",
+          "side_effects": "local browser state / optional genome export"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "selection/mutation",
+            "interface": "controls"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "fault phenotype",
+            "interface": "canvas"
+          },
+          {
+            "medium": "DATA",
+            "kind": "genome/lineage",
+            "interface": "export"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "SALVAGE",
+            "status": "AVAILABLE",
+            "via": "productive failure/operator extraction"
+          }
+        ],
+        "physical_fit": "Conceptual donor for tolerance/error exploration; never substitutes for safety or structural verification."
+      },
+      "index": {
+        "updated_at": "2026-09-20T21:50:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "INVESTIGATE",
+          "OPERATE"
         ]
       }
     }
