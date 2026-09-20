@@ -1,0 +1,37 @@
+{
+  "schema": "continuity-field-intake-adapter/v0.1",
+  "date": "2026-09-21",
+  "source": {
+    "route": "/continuity/",
+    "schema": "0xxx0/continuity-case/v0.1"
+  },
+  "recipient": {
+    "route": "/field-intake/",
+    "protocol": "poly.ingress/v0.4"
+  },
+  "handoff": {
+    "schema": "0xxx0/continuity-to-field-intake/v0.1",
+    "transport": "same-origin sessionStorage",
+    "key": "field.intake.handoff.v01"
+  },
+  "transform": {
+    "includes": [
+      "reviewed CONTINUITY claims",
+      "lane",
+      "provenance",
+      "confidence label",
+      "case/source refs",
+      "next-evidence note"
+    ],
+    "excludes": [
+      "automatic canonical mutation",
+      "raw source copying",
+      "private sync",
+      "network transport"
+    ],
+    "encoding": "Field Intake capture grammar using [claim], stable id:, @domain, #continuity/#lane and ref: tokens."
+  },
+  "authority_law": "HANDOFF != INGEST. The adapter only loads review candidates; canonical Field Intake state changes only through its visible KEEP/REPLACE/REJECT resolution gate and receipt.",
+  "source_law": "Original raw sources remain in CONTINUITY/exported case JSON. The handoff carries derived reviewed claims plus return refs, not a duplicate raw archive.",
+  "reversibility": "full until Field Intake APPLY; applied changes remain receipt-backed and rollback-capable under Field Intake."
+}
