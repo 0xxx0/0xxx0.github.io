@@ -58,6 +58,34 @@
         "evidence": "manual replay; release receipt"
       },
       "outcome": "candidate"
+    },
+    {
+      "donor_id": "law-zoo-tiny-law",
+      "source": {
+        "address": "/control/confluence/LAW_ZOO.md",
+        "evidence_class": "recovered/thread-sealed"
+      },
+      "transfer": {
+        "unit": "tiny law → disproportionate phenotype",
+        "preserves": [
+          "small explicit rule",
+          "visible behavioral consequence",
+          "unequal recipient identity"
+        ],
+        "may_change": [
+          "cellular/local update law becomes ordered-path constraint",
+          "phenotype becomes path acceptance/shape"
+        ]
+      },
+      "recipient": {
+        "address": "/house/spatial/#TRACE"
+      },
+      "operation": "adapt",
+      "test": {
+        "claim": "The same authored route yields visibly different PASS/FAIL/PENDING behavior under small law stacks without changing HOUSE geometry or route identity.",
+        "evidence": "12/12 evaluator cases passed; live browser interaction remains useful."
+      },
+      "outcome": "candidate"
     }
   ],
   "law": "The route remains canonical data. Replay is a projection over it; timing does not rewrite spatial identity."
