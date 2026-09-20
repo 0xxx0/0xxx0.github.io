@@ -178,6 +178,24 @@
       "state": "PARTIAL_EXACT_DONOR",
       "route": "/recovery/env0/",
       "rule": "Editable SVG masters + README frozen exactly; PDF atlas/build sheet exact bytes located but repo byte-copy pending. Use as print/physical RETURN donor, not as a new app."
+    },
+    {
+      "name": "SLEEPER WORKFIELD v1.2",
+      "state": "FROZEN_EXACT_DONOR",
+      "route": "/recovery/sleeper/workfield-v1.2/",
+      "rule": "Sibling donor only; current /sleeper/ stays head; Painting/City exact-source gap remains."
+    },
+    {
+      "name": "AXIAL v0.3 + Compositor v0.2",
+      "state": "FROZEN_EXACT_DONOR_FAMILY",
+      "route": "/recovery/axial/",
+      "rule": "Keep harness/print packet version-distinct; transfer only named missing capability or use as physical-return fixture."
+    },
+    {
+      "name": "DataDisc 2019",
+      "state": "FROZEN_EXACT_HISTORICAL_DONOR",
+      "route": "/recovery/media/datadisc/datadisc.html",
+      "rule": "Golden radial/multichannel projection fixture; compare mechanisms, do not modernize by default."
     }
   ],
   "recovery_targets": [
@@ -190,9 +208,9 @@
     },
     {
       "id": "sleeper-deep-lineage",
-      "status": "BLOCKED_EXACT_IMPORT",
+      "status": "PARTIAL_EXACT_RECOVERY_WORKFIELD_FROZEN_CITY_PAINTING_BLOCKED",
       "query": "Hostage/Floating/Kite/Spiral → ONE RETURN/Nine Gate → Semantic City → Workfield → Sleeper POV → WAKE/Atlas → minigame cascade",
-      "payoff": "External City/Painting sources are unresolved; private v0.7 checkpoint is located but raw-byte access is blocked. No reconstruction allowed.",
+      "payoff": "Exact Sleeper Workfield v1.2 is now frozen at /recovery/sleeper/workfield-v1.2/ as a sibling donor. External City Engine/Painting sources remain unresolved; do not infer them from Workfield or current /sleeper/.",
       "receipt": "/control/RECOVERY_RUN_2026-09-19.json"
     },
     {
@@ -273,7 +291,11 @@
     "house_trace_transplants": "/house/spatial/trace-transplants.json",
     "house_trace_path_laws": "/house/spatial/trace-path-laws.json",
     "field_index_audit": "/control/FIELD_INDEX_AUDIT_2026-09-20.json",
-    "env0_recovery": "/recovery/env0/"
+    "env0_recovery": "/recovery/env0/",
+    "sleeper_recovery": "/recovery/sleeper/",
+    "axial_recovery": "/recovery/axial/",
+    "media_recovery": "/recovery/media/",
+    "naming_recovery": "/recovery/naming/"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
