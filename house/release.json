@@ -1,0 +1,29 @@
+{
+  "schema": "release-receipt/v1",
+  "artifact": "HOUSE / FIELD",
+  "route": "/house/",
+  "version": "0.2",
+  "released": "2026-09-20",
+  "state": "STABLE",
+  "changes": [
+    "Transplanted the bounded HOUSE / FIELD public projection from house-field-v01 onto current master without merging the stale branch wholesale.",
+    "Added APP-041 Spatial State Engine lineage: Bendemeer Spatial Ledger v0.1 -> Spatial Engine v0.3, with the Sep 9 single-file app retained as an operational donor.",
+    "Made the authority split explicit: Spatial State owns address/geometry/evidence; Home Assistant / HOUSEBUS owns device truth and actuation; MQTT is transport only.",
+    "Kept the public page projection-only and timestamped; no public control endpoint was introduced.",
+    "Registered HOUSE / FIELD in FIELD INDEX, federation atlas and RETURN ledger."
+  ],
+  "checks": {
+    "boundary": "public projection remains non-authoritative and non-actuating",
+    "route": "/house/",
+    "lineage": "/house/spatial-state.json",
+    "source_snapshot": "/house/state.json"
+  },
+  "sources": [
+    "/showcase-manifest.json",
+    "/federation-atlas.json",
+    "/house/state.json",
+    "/house/contract.json",
+    "/house/spatial-state.json"
+  ],
+  "honesty": "The device snapshot is timestamped source material from the HOUSE branch; this Sep 20 convergence pass did not claim to refresh live Home Assistant state."
+}
