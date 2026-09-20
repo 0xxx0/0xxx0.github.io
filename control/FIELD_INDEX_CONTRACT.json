@@ -53,7 +53,10 @@
     "root_frontier": "Derive OPEN PORTS live from route.field.exit_paths; never maintain a duplicate hand-written backlog of the same exits.",
     "corner_nav": "Shared showcase route adapter remains the canonical BACK/PARENT/SHOWCASE control on tracked non-root routes.",
     "style": "Presentation/theme controls are a separate cross-site concern and must not alter semantic ordering/state.",
-    "root_map_audit": "/control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json"
+    "root_map_audit": "/control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json",
+    "root_visual": "VISUAL is the default human sitemap projection: navigable parent/child field graph over manifest identity. STRUCTURE remains the exhaustive textual reading.",
+    "root_pulse": "PULSE is a secondary DataDisc-derived mutation spiral over route.index.updated_at. It must never imply priority, semantic proximity or ancestry.",
+    "root_link_audit": "/control/FIELD_INDEX_LINK_AUDIT_2026-09-21.json"
   },
   "query_semantics": {
     "BOTTLENECK": {
