@@ -181,7 +181,7 @@
       }
     ]
   },
-  "interpretation": "FIELD INDEX is now a map rather than an activity feed: CURRENT owns attention; manifest + parent-owned surfaces own addressability; OPEN PORTS expose declared interface debt; RECENT remains secondary mutation evidence.",
+  "interpretation": "FIELD INDEX is a map rather than an activity feed: CURRENT owns attention; manifest + parent-owned surfaces own addressability; OPEN PORTS expose declared interface debt; RECENT is secondary mutation evidence. The first post-makeover selection closed CONTINUITY → FIELD INTAKE without bypassing recipient authority.",
   "lifecycle": {
     "deprecated_states": [
       "EXPERIMENT"
@@ -213,7 +213,7 @@
       "count": 41,
       "receipts_ok": 41
     },
-    "open_ports": 22,
+    "open_ports": 21,
     "source_validation": [
       "all manifest route files exist",
       "all declared receipt paths exist",
@@ -221,7 +221,16 @@
       "root inline JavaScript parses",
       "CURRENT comms head points to /port/",
       "FCM current version is 0.2",
-      "no unexpected unmapped HTML"
-    ]
+      "no unexpected unmapped HTML",
+      "CONTINUITY canonical-ingest port closed through review-only adapter"
+    ],
+    "proof_of_selection": {
+      "status": "PASS",
+      "selected_from": "/continuity/ CANONICAL_INGEST / SPECIFIED",
+      "result": "AVAILABLE",
+      "recipient": "/field-intake/",
+      "adapter": "/continuity/field-intake-adapter.json",
+      "law": "HANDOFF != INGEST; recipient review gate remains authoritative."
+    }
   }
 }
