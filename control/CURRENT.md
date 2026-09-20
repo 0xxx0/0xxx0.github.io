@@ -1,47 +1,42 @@
-# CURRENT — 2026-09-19
+# CURRENT — 2026-09-20
 
-**Mode:** seal → recover → execute.
+**Mode:** execute → prove → return.
 
-The archive is large; the active surface is small again.
+## Delta since recovery
 
-## Current heads
+Recovery remains sealed. The active work moved through two additional gates:
 
-| Lineage | Head | State |
-|---|---|---|
-| Scale / projection | SCALE LENS RC11.2 | STABLE |
-| Path / poetry | VERSE ATLAS | STABLE · receipt replay added |
-| Sleeper / ONE RETURN | ASCII SLEEPER 0.8 | EXPERIMENT |
-| Fold/Bloom | Two Dial 0.9 + Ecology 0.2 | STABLE / frozen branches |
-| State×Transform | AXIAL 0.4 | EXPERIMENT |
-| Comms | Laconic 0.1 + HUMAN PORT 0.2 + Router/Policy | ACTIVE |
+1. **INGEST V0.1 — DONE**
+   - Existing read-only scanner was exercised on a bounded Library staging batch.
+   - A Linux portability defect in v0.1 was found before source mutation: GNU `stat -f` silently emitted filesystem information.
+   - Scanner hardened to v0.2: explicit BSD/GNU stat paths, no `eval`, deterministic rows, and a hard refusal to write reports inside the scanned source tree.
+   - Valid proof: **7 files / 6 byte objects / 1 exact duplicate fixture group / 0 source mutations**.
+   - Semantic overlay: **7 tagged records / 6 route proposals / 1 intentional REVIEW_CONFLICT**.
 
-## Recovered exactly this pass
+   Receipt: [INGEST_RUN_2026-09-20.json](./INGEST_RUN_2026-09-20.json)
 
-- **Foundry Cabinet V4 / Path-Grid family** → [recovery/path-grid/](../recovery/path-grid/)  
-  Exact Cabinet + Grid Path Compiler V4 + Projection Harness + Foundry Federation + Market/Solver + Cell Foundry R2 + Anthropy Pathweaver.
-- **Fold/Bloom Fold Weave 0.1** → [recovery/fold-bloom/fold-weave-0.1/](../recovery/fold-bloom/fold-weave-0.1/)  
-  Two Library copies proven identical; one canonical frozen donor.
+2. **REPRESENTATION 01 — DONE**
+   - `state_transform_instrument_v0_3.html` and its README remain two exact byte objects but now compose one semantic artifact identity: `artifact:state-transform-instrument:v0.3`.
+   - Print template/build notes are same-lineage siblings, not duplicates.
+   - Current [/foundry/axial/](../foundry/axial/) remains a later unequal head, not falsely equated to the donor bytes.
 
-Receipt: [RECOVERY_RUN_2026-09-19.json](./RECOVERY_RUN_2026-09-19.json)
+   Object: [REPRESENTATION_01.json](./REPRESENTATION_01.json)
 
-## Refinement shipped
+## Active fronts
 
-- **Verse Atlas:** RETURN is now round-trippable: FREEZE / DOWNLOAD → **REPLAY JSON**. This is the only Path-Grid donor mechanism transferred into the head.
-- **Fold/Bloom:** persistent-crease **Fold Weave** stays a playable sibling. Ecology’s fixed mirror-fold is not silently replaced.
-
-Mechanism diff: [MECHANISM_DIFF_2026-09-19.json](./MECHANISM_DIFF_2026-09-19.json)
-
-## Exactness boundaries still open
-
-- **Sleeper City Engine + Painting/Path:** recorded external sources are currently unreachable. A private v0.7 checkpoint ZIP is located, but raw bytes are not authorized in this session. Do not reconstruct.
-- **Historical Laconic Script Bank:** related exact response-bank evidence survives; the original canonical list remains explicitly missing. Do not relabel reconstruction as recovery.
-- **Game of Names:** archive lineage is strong; no isolated runnable/glyph artifact recovered yet. Keep private naming history out of the public repo.
+- **Repo/recovery:** maintenance only; solved families stay closed.
+- **Ingest:** proved substrate; repeat on real local ingress when filesystem access exists.
+- **Reality / House / Print:** **NEXT NOW**.
 
 ## NEXT
 
-1. Keep donor mechanisms frozen unless a concrete missing-function test passes.
-2. Resume Sleeper only from exact source/assets or authorized checkpoint bytes.
-3. Continue exact-only Laconic/Game-of-Names archaeology.
-4. Then advance the file/media ingest substrate and one physical RETURN.
+Produce **one actual physical/print RETURN**. Preferred bounded candidates already indexed:
 
-Machine state: [CURRENT.json](./CURRENT.json) · Queue: [QUEUE.json](./QUEUE.json) · Recovery vault: [../recovery/](../recovery/)
+- AXIAL print template + build notes; or
+- ENV0 P0 A3 build sheet.
+
+Required receipt: **before → instantiate/use → after → evidence → residue → next**.
+
+A render, plan, or another interface does not count as the physical receipt.
+
+Machine state: [CURRENT.json](./CURRENT.json) · Queue: [QUEUE.json](./QUEUE.json)
