@@ -1,0 +1,83 @@
+{
+  "schema": "0xxx0/mechanism-diff/v0.1",
+  "id": "RSVP-MECHANISM-DIFF-2026-09-21-A",
+  "date": "2026-09-21",
+  "bounded_move": "Mechanism-diff frozen 2018 RSVP+TTS donor against current exact temporal-focus descendants; no second implementation move authorized by this receipt.",
+  "sources": [
+    {
+      "artifact": "2018 RSVP+TTS TMP-SPEECHSYNTH",
+      "evidence": "/recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html",
+      "class": "EXACT_FROZEN_DONOR"
+    },
+    {
+      "artifact": "Painting / Path — SLEEPER",
+      "evidence": "File Library exact artifact painting-path.html, created 2026-09-16",
+      "class": "EXACT_LIBRARY_ARTIFACT_NOT_YET_REPO_FROZEN"
+    },
+    {
+      "artifact": "Verse Atlas",
+      "evidence": "/foundry/verse-atlas/app.js",
+      "class": "CURRENT_STABLE_HEAD"
+    },
+    {
+      "artifact": "ASCII Sleeper 0.8",
+      "evidence": "/sleeper/app.js",
+      "class": "CURRENT_ACTIVE_HEAD"
+    }
+  ],
+  "comparison": {
+    "donor_2018": {
+      "segmentation": "Whitespace word split; charIndex lookup reconstructs active word.",
+      "visual_clock": "SpeechSynthesisUtterance.onboundary(event.charIndex) advances highlighted word inside one continuous utterance.",
+      "audio": "One continuous utterance; selectable voice/rate/pitch; explicit pause/resume/cancel experiments.",
+      "return_identity": "Weak by current standards; no modern stable-unit RETURN contract."
+    },
+    "painting_path_2026": {
+      "segmentation": "Intl.Segmenter with word/sentence/grapheme or manual | boundaries; stable unit IDs.",
+      "visual_clock": "Timer PULSE uses punctuation-weighted dwell; spoken mode calls showUnit(i) on each per-unit utterance onstart and advances on onend.",
+      "audio": "Local-device matching voice only; one utterance per unit; 8-second start watchdog and graceful manual fallback.",
+      "return_identity": "Source/region/route/returns share stable IDs; full local field export/import."
+    },
+    "verse_atlas_current": {
+      "segmentation": "Stable character addresses and authored path order.",
+      "visual_clock": "Fixed-ms setInterval over path or source sequence.",
+      "audio": "None.",
+      "return_identity": "Strong replayable RETURN preserving source/path/edges/annotations."
+    },
+    "sleeper_08_current": {
+      "segmentation": "Not an RSVP reader.",
+      "visual_clock": "No serial text/audio clock; current focus is spatial POV/PLAIN evidence gates.",
+      "audio": "None.",
+      "return_identity": "Strong witness/seal RETURN for its own spatial/evidence domain."
+    }
+  },
+  "unique_recovered_mechanism": {
+    "id": "CONTINUOUS_SPEECH_BOUNDARY_CLOCK",
+    "definition": "Speak one continuous passage and derive visual focus from speech boundary charIndex events rather than from a fixed timer or one-utterance-per-unit lifecycle.",
+    "status": "MISSING_AS_EXACT_CURRENT_MECHANISM",
+    "potential_value": [
+      "Preserves continuous speech prosody while visual focus follows actual spoken timing.",
+      "Avoids assuming fixed dwell equals spoken duration.",
+      "Could compare auditory and visual temporal alignment directly."
+    ],
+    "risks": [
+      "Speech boundary-event support and granularity vary by browser/voice.",
+      "2018 whitespace segmentation is weaker than current Intl.Segmenter/manual segmentation.",
+      "Direct transplant would regress provenance/RETURN and local-voice fallback behavior."
+    ]
+  },
+  "decision": {
+    "transfer_now": "NO",
+    "target": "NONE",
+    "reason": "Verse Atlas and Sleeper have different causal jobs; Painting Path already has a stronger modern reader kernel. The unique boundary clock is worth preserving as an optional experimental clock, not replacing current behavior.",
+    "future_test": "A/B the same passage in Painting Path or a dedicated reader: TIMER_PULSE vs UNIT_UTTERANCE vs CONTINUOUS_BOUNDARY. Measure start failures, unit alignment errors, completion continuity, manual correction count and subjective continuity.",
+    "watch_reader": "NOT_JUSTIFIED_BY_RECOVERY_ALONE. Wear OS may still be a valid surface constraint, but no new reader kernel is required until the boundary-clock experiment or watch interaction constraints expose a missing function."
+  },
+  "lineage_boundary": {
+    "painting_path": "Exact Library artifact discovered during this diff; it is not yet frozen in /recovery/ and should enter CENSUS/MIGRATION before any redesign.",
+    "jue_ju": "No distinct current runnable JUE/JU temporal artifact was found in the repo tree; Verse Atlas is the exact current verse/RSVP head used for comparison.",
+    "sleeper": "Do not describe current Sleeper 0.8 as an RSVP implementation."
+  },
+  "result": "DIFF_COMPLETE_NO_TRANSFER",
+  "return": "Recovered unique mechanism preserved; current heads unchanged; next recovery planning should decide whether to freeze exact Painting Path or complete another byte-copy gap."
+}
