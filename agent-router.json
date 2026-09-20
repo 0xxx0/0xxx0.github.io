@@ -415,6 +415,25 @@
     "ordering": "seq is authoritative; cause_event_ids point backward only",
     "finality": "exactly one gate_final event per read/remember/acknowledge/answer/draft/act/escalate and exactly one resolution_final",
     "replay": "policy-set digests + selector-facts digest + ordered operations permit deterministic replay when referenced private values are available",
-    "tamper_evidence": "optional RFC8785-JCS + SHA-256 event hash chain"
-  }
+    "tamper_evidence": "optional RFC8785-JCS + SHA-256 event hash chain",
+    "verification": {
+      "profiles": [
+        "structural",
+        "replay",
+        "sealed"
+      ],
+      "statuses": [
+        "PASS",
+        "FAIL",
+        "INDETERMINATE"
+      ],
+      "rule": "Never report PASS when required private replay material or schema validation is unavailable; use INDETERMINATE.",
+      "reference_verifier": "/policy-trace-verifier.mjs"
+    },
+    "tag_bridge": "/policy-selector-model.json#tag_projection_bridge"
+  },
+  "policy_trace_verification": "/policy-trace-verification.json",
+  "policy_trace_event_model": "/policy-trace-event-model.json",
+  "policy_trace_verification_report_schema": "/policy-trace-verification-report.schema.json",
+  "policy_trace_verifier": "/policy-trace-verifier.mjs"
 }
