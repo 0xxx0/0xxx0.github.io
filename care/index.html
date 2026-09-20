@@ -26,7 +26,9 @@ button:hover,button:focus{background:#141a1d;outline:none;border-color:#536168}.
 .observeGrid{display:grid;grid-template-columns:minmax(270px,.78fr) minmax(300px,1.22fr);gap:1px;background:var(--line)}
 .mapCard,.compose{background:var(--p2);padding:10px;min-width:0}.maptop{display:flex;gap:5px;align-items:center;margin-bottom:6px}.spacer{flex:1}
 .mapwrap{height:400px;border:1px solid var(--line);background:#0a0d0f;position:relative;overflow:hidden;touch-action:none}.bodymap{width:100%;height:100%;display:block;touch-action:none}
-.zone{fill:#20272c;stroke:#58636a;stroke-width:1.2;cursor:pointer;vector-effect:non-scaling-stroke}.zone:hover{fill:#303b42}.zone.sel{fill:var(--hot);stroke:#ffd0ae}.zone.ghost{fill:var(--cool);stroke:var(--cool);opacity:.28}.zone.sel.ghost{fill:var(--hot);opacity:1}
+.mapOutline{fill:#11181c;stroke:#66747b;stroke-width:1.15;vector-effect:non-scaling-stroke;pointer-events:none}
+.zone{fill:#1b2429;stroke:#536269;stroke-width:.72;cursor:pointer;vector-effect:non-scaling-stroke;transition:fill .08s,opacity .08s}.zone:hover{fill:#2b3940}.zone.sel{fill:var(--hot);stroke:#ffd0ae}.zone.ghost{fill:var(--cool);stroke:var(--cool);opacity:.28}.zone.sel.ghost{fill:var(--hot);opacity:1}
+.planSelect{width:auto;max-width:132px;min-height:34px;border:1px solid var(--line);background:#0b0f12;padding:6px 7px;font-size:8px;letter-spacing:.04em}.planmeta{margin-top:5px;color:#69777e;font-size:7px;letter-spacing:.05em}
 .trace{fill:none;stroke:var(--hot);stroke-width:7;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;pointer-events:none}.trace.ghost{stroke:var(--cool);opacity:.35;stroke-width:10}
 .mapcaption{margin-top:6px;color:var(--muted);font:9px/1.4 system-ui,sans-serif}
 .raw{min-height:96px;margin-top:7px;border:1px solid var(--line);background:#0b0f12}.seg{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}.seg button{min-height:30px;padding:6px 8px}.seg button.on{border-color:#7e6545;color:#fff;background:#201a13}.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.chip{border-radius:999px;min-height:28px;padding:5px 8px;color:var(--muted)}.chip.on{color:#fff;border-color:#7b5234;background:#251b14}
@@ -91,9 +93,9 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
 <section class="view" id="view-observe">
   <div class="panel observeGrid">
     <div class="mapCard">
-      <div class="maptop"><span class="label">WHERE · OPTIONAL</span><div class="spacer"></div><button id="frontBack">FRONT</button><button id="tapMode" class="primary">TAP</button><button id="traceMode">TRACE</button><button id="clearMap">CLEAR</button></div>
+      <div class="maptop"><span class="label">WHERE · OPTIONAL</span><div class="spacer"></div><select id="bodyPlanSelect" class="planSelect" aria-label="Reference body plan"></select><button id="frontBack">FRONT</button><button id="tapMode" class="primary">TAP</button><button id="traceMode">TRACE</button><button id="clearMap">CLEAR</button></div>
       <div class="mapwrap"><svg id="map" class="bodymap" viewBox="0 0 420 620" aria-label="body or animal map"></svg></div>
-      <div class="mapcaption">Tap a region or trace the felt/visible extent. Choosing no location is valid for medication, lab, behavior or whole-case changes.</div>
+      <div class="mapcaption">Tap a region or trace the felt/visible extent. Choosing no location is valid for medication, lab, behavior or whole-case changes.</div><div class="planmeta" id="mapPlanMeta">local body-plan registry</div>
     </div>
     <div class="compose">
       <div class="label">ACTIVE OBSERVATION</div>
@@ -196,8 +198,9 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
   </div>
 </div>
 
-<footer><span>OBSERVE → FOLLOW COURSE → BRIEF · raw observation before interpretation</span><span>local-first · no server submission</span></footer>
+<footer><span>OBSERVE → FOLLOW COURSE → BRIEF · raw observation before interpretation</span><span>local-first · local body plans · no server submission</span></footer>
 
+<script src="../bodyplans/registry.js"></script>
 <script>
 (()=>{'use strict';
 const KEY='0xxx0.care.field.v01';
@@ -205,8 +208,8 @@ const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const now=()=>new Date().toISOString();
 const uid=p=>p+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const blank=()=>({schema:'0xxx0/care-case/v0.2',id:uid('care'),created_at:now(),updated_at:now(),subject:{label:'',kind:'PERSON'},baseline:'',treatment:'',plan:'',plan_source:'',ask:'',unknowns:[],identity_note:'',course:{phase:'',next:'',gate:'',gate_source:'',owner:'',due:''},events:[],imports:[]});
-let C=blank(),view='observe',mapView='FRONT',mapMode='TAP',selected=new Set(),trace=[],qualities=new Set(),trend='NEW',ghostRegions=new Set(),ghostTrace=[];
+const blank=()=>({schema:'0xxx0/care-case/v0.3',id:uid('care'),created_at:now(),updated_at:now(),subject:{label:'',kind:'PERSON'},body_plan:'human-reference-m',baseline:'',treatment:'',plan:'',plan_source:'',ask:'',unknowns:[],identity_note:'',course:{phase:'',next:'',gate:'',gate_source:'',owner:'',due:''},events:[],imports:[]});
+let C=blank(),view='observe',mapView='front',mapMode='TAP',selected=new Set(),trace=[],qualities=new Set(),trend='NEW',ghostRegions=new Set(),ghostTrace=[];
 
 const qualitySets={
  generic:['pain','swelling','redness','discharge','weak','numb / tingle','function','appetite','behavior','breathing','urine / stool'],
@@ -223,12 +226,12 @@ const qualitySets={
 function store(){try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch(_){return{}}}
 function saveStore(o){localStorage.setItem(KEY,JSON.stringify(o))}
 function pullCase(){
- C.subject.label=$('#subject').value.trim();C.subject.kind=$('#subjectKind').value;
+ C.subject.label=$('#subject').value.trim();C.subject.kind=$('#subjectKind').value;C.body_plan=$('#bodyPlanSelect').value||C.body_plan||defaultPlanForKind(C.subject.kind);C.schema='0xxx0/care-case/v0.3';
  C.baseline=$('#baseline').value.trim();C.treatment=$('#treatment').value.trim();C.plan=$('#plan').value.trim();C.plan_source=$('#planSource').value.trim();
  C.ask=$('#ask').value.trim();C.unknowns=$('#unknowns').value.split('\n').map(x=>x.trim()).filter(Boolean);C.identity_note=$('#identityNote').value.trim();C.course=C.course||{};C.course.phase=$('#coursePhase').value.trim();C.course.next=$('#courseNext').value.trim();C.course.gate=$('#courseGate').value.trim();C.course.gate_source=$('#courseGateSource').value.trim();C.course.owner=$('#courseOwner').value.trim();C.course.due=$('#courseDue').value.trim();C.updated_at=now();
 }
 function pushCase(){
- $('#subject').value=C.subject?.label||'';$('#subjectKind').value=C.subject?.kind||'PERSON';$('#baseline').value=C.baseline||'';$('#treatment').value=C.treatment||'';
+ $('#subject').value=C.subject?.label||'';$('#subjectKind').value=C.subject?.kind||'PERSON';C.body_plan=C.body_plan||defaultPlanForKind(C.subject?.kind||'PERSON');syncPlanSelect();$('#baseline').value=C.baseline||'';$('#treatment').value=C.treatment||'';
  $('#plan').value=C.plan||'';$('#planSource').value=C.plan_source||'';$('#ask').value=C.ask||'';$('#unknowns').value=(C.unknowns||[]).join('\n');$('#identityNote').value=C.identity_note||'';C.course=C.course||{phase:'',next:'',gate:'',gate_source:'',owner:'',due:''};$('#coursePhase').value=C.course.phase||'';$('#courseNext').value=C.course.next||'';$('#courseGate').value=C.course.gate||'';$('#courseGateSource').value=C.course.gate_source||'';$('#courseOwner').value=C.course.owner||'';$('#courseDue').value=C.course.due||'';
 }
 function renderCases(){
@@ -236,47 +239,27 @@ function renderCases(){
  sel.innerHTML='<option value="">NEW / UNSAVED</option>'+ids.map(k=>'<option value="'+esc(k)+'">'+esc((db[k].subject?.label||'untitled')+' · '+(db[k].subject?.kind||'CASE'))+'</option>').join('');
  if(db[C.id])sel.value=C.id;
 }
-function humanSVG(){
- const back=mapView==='BACK';
- const z=(tag,shape)=>shape.replace('<','<g data-region="'+tag+'" class="zoneWrap">').replace(/\/>$/,'></g>').replace(/<g[^>]*><(circle|rect|path|ellipse|polygon)/,'<$1 data-region="'+tag+'" class="zone"');
- let s='';
- s+='<circle class="zone" data-region="head" cx="210" cy="70" r="46"/>';
- if(!back){s+='<circle class="zone" data-region="left eye" cx="194" cy="61" r="8"/><circle class="zone" data-region="right eye" cx="226" cy="61" r="8"/>'}
- s+='<rect class="zone" data-region="'+(back?'neck / upper back':'neck')+'" x="191" y="112" width="38" height="35" rx="12"/>';
- s+='<path class="zone" data-region="'+(back?'upper back':'chest')+'" d="M153 145 Q210 124 267 145 L276 250 Q210 270 144 250 Z"/>';
- s+='<path class="zone" data-region="'+(back?'lower back':'abdomen')+'" d="M144 250 Q210 270 276 250 L266 340 Q210 360 154 340 Z"/>';
- s+='<path class="zone" data-region="left arm" d="M150 150 L117 166 L88 310 L118 319 L158 210 Z"/>';
- s+='<path class="zone" data-region="right arm" d="M270 150 L303 166 L332 310 L302 319 L262 210 Z"/>';
- s+='<ellipse class="zone" data-region="left hand" cx="101" cy="333" rx="18" ry="28"/><ellipse class="zone" data-region="right hand" cx="319" cy="333" rx="18" ry="28"/>';
- s+='<path class="zone" data-region="'+(back?'sacrum / pelvis':'pelvis')+'" d="M154 340 Q210 365 266 340 L258 395 Q210 412 162 395 Z"/>';
- s+='<path class="zone" data-region="left thigh" d="M166 394 L207 404 L197 500 L157 500 Z"/><path class="zone" data-region="right thigh" d="M213 404 L254 394 L263 500 L223 500 Z"/>';
- s+='<circle class="zone" data-region="left knee" cx="177" cy="512" r="20"/><circle class="zone" data-region="right knee" cx="243" cy="512" r="20"/>';
- s+='<path class="zone" data-region="left lower leg" d="M157 528 L195 528 L187 590 L155 590 Z"/><path class="zone" data-region="right lower leg" d="M225 528 L263 528 L265 590 L233 590 Z"/>';
- s+='<ellipse class="zone" data-region="left foot" cx="168" cy="602" rx="28" ry="11"/><ellipse class="zone" data-region="right foot" cx="252" cy="602" rx="28" ry="11"/>';
- return s;
-}
-function petSVG(){
- return '<ellipse class="zone" data-region="abdomen" cx="230" cy="295" rx="118" ry="78"/>'+
- '<ellipse class="zone" data-region="chest" cx="142" cy="276" rx="58" ry="69"/>'+
- '<path class="zone" data-region="back" d="M120 230 Q215 176 340 235 L327 260 Q220 225 126 255 Z"/>'+
- '<circle class="zone" data-region="head" cx="84" cy="218" r="58"/>'+
- '<polygon class="zone" data-region="ear" points="50,171 64,115 88,168"/>'+
- '<circle class="zone" data-region="eye" cx="69" cy="208" r="10"/>'+
- '<ellipse class="zone" data-region="mouth" cx="48" cy="241" rx="22" ry="14"/>'+
- '<rect class="zone" data-region="foreleg" x="118" y="335" width="30" height="158" rx="14"/>'+
- '<rect class="zone" data-region="hindleg" x="302" y="335" width="34" height="158" rx="15"/>'+
- '<ellipse class="zone" data-region="fore paw" cx="131" cy="502" rx="28" ry="12"/>'+
- '<ellipse class="zone" data-region="hind paw" cx="320" cy="502" rx="30" ry="12"/>'+
- '<path class="zone" data-region="tail" d="M340 250 Q404 214 391 148 Q382 128 373 155 Q380 214 329 223 Z"/>'+
- '<path class="zone" data-region="skin / coat" d="M158 268 Q235 232 303 267 Q255 322 175 323 Z"/>';
-}
+function registry(){return window.BODY_PLAN_REGISTRY?.plans||{}}
+function defaultPlanForKind(kind){return kind==='ANIMAL'?'feline-reference':'human-reference-m'}
+function planIdsForKind(kind){return Object.values(registry()).filter(p=>p.kind===kind).map(p=>p.id)}
+function currentPlan(){const kind=C.subject?.kind||$('#subjectKind').value||'PERSON',ids=planIdsForKind(kind);if(!ids.length)return null;if(!ids.includes(C.body_plan))C.body_plan=ids[0];return registry()[C.body_plan]||null}
+function syncPlanSelect(){const sel=$('#bodyPlanSelect');if(!sel)return;const kind=C.subject?.kind||$('#subjectKind').value||'PERSON',ids=planIdsForKind(kind);if(!ids.includes(C.body_plan))C.body_plan=ids[0]||defaultPlanForKind(kind);sel.innerHTML=ids.map(id=>'<option value="'+esc(id)+'">'+esc(registry()[id].label)+'</option>').join('');if(C.body_plan)sel.value=C.body_plan}
+function currentPlanView(){const p=currentPlan();if(!p)return null;if(!p.views[mapView])mapView=p.defaultView;return p.views[mapView]||null}
+function regionMap(){const v=currentPlanView(),m=new Map();(v?.fragments||[]).forEach(f=>m.set(f.id,f));return m}
+function regionLabel(id){return regionMap().get(id)?.label||id}
+function selectedLabels(){return [...selected].map(regionLabel)}
+function planMarkup(){const p=currentPlan(),v=currentPlanView();if(!p||!v)return '';const tf=v.transform?' transform="'+esc(v.transform)+'"':'';return '<g'+tf+'><path class="mapOutline" d="'+esc(v.outlineD)+'"/>'+v.fragments.map(f=>'<path class="zone" data-region="'+esc(f.id)+'" data-label="'+esc(f.label)+'" data-group="'+esc(f.group||'')+'" d="'+esc(f.pathData)+'"/>').join('')+'</g>'}
 function ptsPath(points){return points.length?'M '+points.map(p=>p.x.toFixed(1)+' '+p.y.toFixed(1)).join(' L '):''}
 function renderMap(){
- const svg=$('#map'),kind=C.subject?.kind||$('#subjectKind').value||'PERSON';
- svg.innerHTML=(kind==='ANIMAL'?petSVG():humanSVG())+'<path id="ghostTrace" class="trace ghost" d="'+esc(ptsPath(ghostTrace))+'"/><path id="liveTrace" class="trace" d="'+esc(ptsPath(trace))+'"/>';
- $$('#map .zone').forEach(el=>{const r=el.dataset.region;el.classList.toggle('sel',selected.has(r));el.classList.toggle('ghost',ghostRegions.has(r));});
- $('#frontBack').style.display=kind==='ANIMAL'?'none':'';
- $('#whereText').textContent=[...selected].join(' · ')||(trace.length?'painted trace':'no location selected');
+ syncPlanSelect();const svg=$('#map'),p=currentPlan(),v=currentPlanView();
+ if(!p||!v){svg.innerHTML='';$('#whereText').textContent='body-plan registry unavailable';$('#mapPlanMeta').textContent='registry unavailable';return}
+ svg.setAttribute('viewBox',v.viewBox);
+ svg.innerHTML=planMarkup()+'<path id="ghostTrace" class="trace ghost" d="'+esc(ptsPath(ghostTrace))+'"/><path id="liveTrace" class="trace" d="'+esc(ptsPath(trace))+'"/>';
+ $('#map .zone').forEach(el=>{const r=el.dataset.region;el.classList.toggle('sel',selected.has(r));el.classList.toggle('ghost',ghostRegions.has(r));});
+ const views=Object.keys(p.views),i=views.indexOf(mapView),next=views[(i+1)%views.length]||mapView;
+ $('#frontBack').style.display=views.length>1?'':'none';$('#frontBack').textContent=mapView.toUpperCase()+' ↔ '+next.toUpperCase();
+ $('#whereText').textContent=selectedLabels().join(' · ')||(trace.length?'painted trace':'no location selected');
+ const pv=p.provenance||{};$('#mapPlanMeta').textContent=p.label+' · '+mapView.toUpperCase()+' · LOCAL · '+(pv.repo?pv.repo+'@'+String(pv.commit||'').slice(0,8):(pv.source||'project vector'));
  renderQualityChips();
 }
 function setFromPointer(e){
@@ -291,7 +274,7 @@ $('#map').addEventListener('pointermove',e=>{if(!drawing||mapMode!=='TRACE')retu
 $('#map').addEventListener('pointerup',()=>drawing=false);$('#map').addEventListener('pointercancel',()=>drawing=false);
 
 function qualityKey(){
- const rs=[...selected].join(' ').toLowerCase(),animal=(C.subject?.kind||$('#subjectKind').value)==='ANIMAL';
+ const rs=selectedLabels().join(' ').toLowerCase(),animal=currentPlan()?.kind==='ANIMAL';
  if(rs.includes('eye'))return animal?'peteye':'eye';
  if(animal&&/(skin|coat|ear|mouth)/.test(rs))return 'petskin';
  if(animal&&/(leg|paw|back)/.test(rs))return 'petlimb';
@@ -313,18 +296,19 @@ function resetComposer(){selected.clear();trace=[];qualities.clear();trend='NEW'
 function latestPrior(){
  return (C.events||[]).slice().sort((a,b)=>String(b.at).localeCompare(String(a.at)))[0]||null
 }
-function priorSameRegion(regions){
- if(!regions.length)return latestPrior();
- return (C.events||[]).slice().reverse().find(e=>(e.regions||[]).some(r=>regions.includes(r)))||null
+function eventRegionKeys(e){return e.body_map?.region_ids?.length?e.body_map.region_ids:(e.regions||[])}
+function priorSameRegion(regionKeys){
+ if(!regionKeys.length)return latestPrior();
+ return (C.events||[]).slice().reverse().find(e=>eventRegionKeys(e).some(r=>regionKeys.includes(r)))||null
 }
 function addEvent(){
  pullCase();const note=$('#note').value.trim(),measurement=$('#measureValue').value.trim();
  if(!note&&!measurement&&!selected.size&&!trace.length)return;
- const regions=[...selected],prior=priorSameRegion(regions);
+ const regionIds=[...selected],regions=selectedLabels(),v=currentPlanView(),prior=priorSameRegion(regionIds);
  C.events.push({
    id:uid('evt'),at:$('#eventTime').value?new Date($('#eventTime').value).toISOString():now(),
    type:$('#eventType').value,status:$('#eventStatus').value||null,
-   raw_note:note,regions,trace:trace.map(p=>({...p})),qualities:[...qualities],magnitude:Number($('#magnitude').value),
+   raw_note:note,regions,trace:trace.map(p=>({...p})),body_map:{schema:'0xxx0/body-address/v0.1',plan_id:C.body_plan,view:mapView,view_box:v?.viewBox||null,region_ids:regionIds,region_labels:regions},qualities:[...qualities],magnitude:Number($('#magnitude').value),
    trend,evidence_kind:$('#evidenceKind').value,measurement:measurement?{label:$('#measureLabel').value.trim()||null,value:measurement,unit:$('#measureUnit').value.trim()}:null,
    interpretation:$('#interpretation').value.trim()||null,source_cue:$('#sourceCue').value.trim()||null,prior_same_region_id:prior?.id||null
  });
@@ -353,7 +337,7 @@ function renderFollow(){
   const meas=e.measurement?(' · '+(e.measurement.label?e.measurement.label+' ':'')+e.measurement.value+(e.measurement.unit?' '+e.measurement.unit:'')):'';
   return '<div class="event" data-id="'+esc(e.id)+'"><div class="eventtime">'+esc(new Date(e.at).toLocaleString([], {month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}))+'</div><div><b>'+esc(reg)+'</b><div class="txt">'+esc(e.raw_note||'(structured event)')+'</div><div class="meta">'+esc(e.type+(e.status?' · '+e.status:'')+' · '+e.evidence_kind+meas+(e.qualities?.length?' · '+e.qualities.join(', '):''))+'</div></div><div class="trend '+esc(e.trend)+'">'+esc(e.trend)+'</div></div>'
  }).join('')||'<div class="empty">No observations yet.</div>';
- $('#timeline .event').forEach(el=>el.onclick=()=>{const e=C.events.find(x=>x.id===el.dataset.id);if(!e)return;selected=new Set(e.regions||[]);trace=(e.trace||[]).map(p=>({...p}));const p=e.prior_same_region_id&&C.events.find(x=>x.id===e.prior_same_region_id);ghostRegions=new Set(p?.regions||[]);ghostTrace=(p?.trace||[]).map(x=>({...x}));setView('observe');renderMap()});
+ $('#timeline .event').forEach(el=>el.onclick=()=>{const e=C.events.find(x=>x.id===el.dataset.id);if(!e)return;if(e.body_map?.plan_id){C.body_plan=e.body_map.plan_id;mapView=e.body_map.view||registry()[C.body_plan]?.defaultView||mapView;selected=new Set(e.body_map.region_ids||[])}else{selected=new Set()}trace=(e.trace||[]).map(p=>({...p}));const p=e.prior_same_region_id&&C.events.find(x=>x.id===e.prior_same_region_id);ghostRegions=new Set(p?.body_map?.region_ids||[]);ghostTrace=(p?.trace||[]).map(x=>({...x}));setView('observe');renderMap()});
 }
 function brief(){
  pullCase();const xs=(C.events||[]).slice().sort((a,b)=>String(b.at).localeCompare(String(a.at))),latest=xs[0];
@@ -389,7 +373,7 @@ function buildBrief(){const t=brief();$('#briefText').textContent=t;review();ret
 function renderAll(){pushCase();renderCases();renderMap();renderFollow()}
 function save(){pullCase();const db=store();db[C.id]=C;saveStore(db);renderCases();$('#saveCase').textContent='SAVED ✓';setTimeout(()=>$('#saveCase').textContent='SAVE LOCAL',1000)}
 function importAny(j,name){
- if(j.schema==='0xxx0/care-case/v0.1'||j.schema==='0xxx0/care-case/v0.2'){C=j;C.schema='0xxx0/care-case/v0.2';C.course=C.course||{phase:'',next:'',gate:'',gate_source:'',owner:'',due:''};renderAll();return}
+ if(['0xxx0/care-case/v0.1','0xxx0/care-case/v0.2','0xxx0/care-case/v0.3'].includes(j.schema)){C=j;C.schema='0xxx0/care-case/v0.3';C.course=C.course||{phase:'',next:'',gate:'',gate_source:'',owner:'',due:''};C.body_plan=C.body_plan||defaultPlanForKind(C.subject?.kind||'PERSON');renderAll();return}
  if(String(j.schema||'').includes('continuity-case')){
    const facts=(j.claims||[]).filter(x=>x.lane==='FACT').map(x=>'• '+x.text).join('\n');
    const unk=(j.claims||[]).filter(x=>x.lane==='UNKNOWN').map(x=>x.text);
@@ -417,7 +401,7 @@ function importAny(j,name){
  throw new Error('Unsupported JSON schema');
 }
 function continuityExport(){
- pullCase();const sources=(C.events||[]).map(e=>({id:e.id,type:e.evidence_kind,ref:'CARE event '+e.id,time:e.at,text:[e.raw_note,(e.regions||[]).length?'WHERE '+e.regions.join(', '):'',e.measurement?'MEASURE '+e.measurement.value+' '+(e.measurement.unit||''):'',e.status?'STATUS '+e.status:''].filter(Boolean).join('\n')}));
+ pullCase();const sources=(C.events||[]).map(e=>({id:e.id,type:e.evidence_kind,ref:'CARE event '+e.id,time:e.at,text:[e.raw_note,(e.regions||[]).length?'WHERE '+e.regions.join(', '):'',e.body_map?'BODY_PLAN '+e.body_map.plan_id+' / '+e.body_map.view:'',e.measurement?'MEASURE '+e.measurement.value+' '+(e.measurement.unit||''):'',e.status?'STATUS '+e.status:''].filter(Boolean).join('\n')}));
  const course=C.course||{};const courseClaims=[course.phase&&{lane:'FACT',provenance:'USER_REPORTED',confidence:'HIGH',text:'CURRENT PHASE: '+course.phase,source_id:null,next_evidence:null},course.next&&{lane:'FACT',provenance:'USER_REPORTED',confidence:'HIGH',text:'NEXT STEP: '+course.next,source_id:null,next_evidence:null},course.gate&&{lane:'FACT',provenance:course.gate_source?'SOURCE':'USER_REPORTED',confidence:course.gate_source?'HIGH':'MEDIUM',text:'CONDITIONAL GATE: '+course.gate+(course.gate_source?' · SOURCE '+course.gate_source:''),source_id:null,next_evidence:null}].filter(Boolean);const claims=(C.events||[]).map(e=>({lane:'FACT',provenance:'SOURCE',confidence:'HIGH',text:e.raw_note||((e.type||'event')+' recorded'),source_id:e.id,next_evidence:null})).concat(courseClaims).concat((C.unknowns||[]).map(x=>({lane:'UNKNOWN',provenance:'CURRENT_INFERENCE',confidence:'UNKNOWN',text:x,source_id:null,next_evidence:null})));
  return {schema:'0xxx0/continuity-case/v0.1',id:'from-'+C.id,subject:C.subject.label,kind:C.subject.kind,domain:'HEALTH',as_of:C.updated_at,reflection:C.ask||'Care continuity handoff',anchors:[],sources,claims,imported_from:{schema:C.schema,id:C.id}};
 }
@@ -426,10 +410,10 @@ $$('.tab').forEach(b=>b.onclick=()=>setView(b.dataset.view));
 $('#newCase').onclick=()=>{C=blank();selected.clear();trace=[];ghostRegions.clear();ghostTrace=[];renderAll();resetComposer();$('#caseList').value='';$('#caseModal').classList.add('open')};
 $('#caseList').onchange=e=>{const db=store();if(e.target.value&&db[e.target.value]){C=db[e.target.value];selected.clear();trace=[];ghostRegions.clear();ghostTrace=[];renderAll();resetComposer()}};
 $('#caseBtn').onclick=()=>$('#caseModal').classList.add('open');$('#closeCase').onclick=()=>{pullCase();$('#caseModal').classList.remove('open');renderMap();renderFollow()};
-$('#subjectKind').onchange=()=>{pullCase();selected.clear();trace=[];renderMap()};
+$('#subjectKind').onchange=()=>{C.subject.kind=$('#subjectKind').value;C.body_plan=defaultPlanForKind(C.subject.kind);mapView=registry()[C.body_plan]?.defaultView||'front';selected.clear();trace=[];ghostRegions.clear();ghostTrace=[];syncPlanSelect();renderMap()};$('#bodyPlanSelect').onchange=()=>{C.body_plan=$('#bodyPlanSelect').value;mapView=registry()[C.body_plan]?.defaultView||'front';selected.clear();trace=[];ghostRegions.clear();ghostTrace=[];renderMap()};
 $('#saveCase').onclick=save;$('#returnObs').onclick=addEvent;$('#moreBtn').onclick=()=>$('#details').classList.toggle('open');
 $('#magnitude').oninput=e=>$('#magOut').textContent=e.target.value;
-$('#frontBack').onclick=()=>{mapView=mapView==='FRONT'?'BACK':'FRONT';$('#frontBack').textContent=mapView;renderMap()};
+$('#frontBack').onclick=()=>{const p=currentPlan();if(!p)return;const views=Object.keys(p.views),i=views.indexOf(mapView);mapView=views[(i+1)%views.length]||p.defaultView;selected.clear();trace=[];renderMap()};
 $('#tapMode').onclick=()=>{mapMode='TAP';$('#tapMode').classList.add('primary');$('#traceMode').classList.remove('primary')};$('#traceMode').onclick=()=>{mapMode='TRACE';$('#traceMode').classList.add('primary');$('#tapMode').classList.remove('primary')};
 $('#clearMap').onclick=()=>{selected.clear();trace=[];renderMap()};
 $$('#trendSeg button').forEach(b=>b.onclick=()=>{trend=b.dataset.v;$$('#trendSeg button').forEach(x=>x.classList.toggle('on',x===b))});
