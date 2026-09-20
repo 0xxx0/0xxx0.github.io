@@ -1,0 +1,138 @@
+{
+  "schema": "0xxx0/representation-object/v0.1",
+  "id": "REPRESENTATION-01",
+  "updated": "2026-09-20",
+  "semantic_identity": "artifact:state-transform-instrument:v0.3",
+  "lineage": "axial-state-transform",
+  "source_receipt": "/control/INGEST_RUN_2026-09-20.json",
+  "claim": "One semantic artifact can be assembled from multiple exact byte objects without collapsing their byte identities, and can later project into runtime, print, hardware and evidence views through explicit relations.",
+  "exact_components": [
+    {
+      "role": "instrument",
+      "name": "state_transform_instrument_v0_3.html",
+      "sha256": "32a965e4c010d35fa85cdf0190f831fb82bda2395524b06385a2a3260638a677",
+      "size_bytes": 19898,
+      "mime": "text/html",
+      "relation": "PRIMARY_RUNNABLE_SOURCE"
+    },
+    {
+      "role": "documentation",
+      "name": "state_transform_instrument_v0_3_README.txt",
+      "sha256": "cd12337fe3a372578961d4acef48e8d4fb8fd5bf05668bedc9c50341823f2a12",
+      "size_bytes": 2757,
+      "mime": "text/plain",
+      "relation": "DOCUMENTS_PRIMARY_SOURCE"
+    }
+  ],
+  "related_same_lineage": [
+    {
+      "name": "axial_compositor_v0_2_print_template.svg",
+      "sha256": "4fda827b558d59c6de8a2033221009bfe31c5d555392c5f61a18e6e5d982e821",
+      "relation": "PHYSICAL_PRINT_DONOR_NOT_SAME_ARTIFACT"
+    },
+    {
+      "name": "axial_compositor_v0_2_build_notes.txt",
+      "sha256": "7d4036c0751665a52f6815baee726525d1f7d294ce8450b015077b1d1525e7a7",
+      "relation": "PHYSICAL_BUILD_DONOR_NOT_SAME_ARTIFACT"
+    },
+    {
+      "route": "/foundry/axial/",
+      "relation": "LATER_CURRENT_HEAD_NOT_BYTE_EQUIVALENT"
+    }
+  ],
+  "semantic_contract": {
+    "discrete_state": [
+      "OBJECT",
+      "OPERATOR",
+      "FRAME",
+      "COMMIT"
+    ],
+    "continuous_transform": [
+      "axial_mm",
+      "twist_deg"
+    ],
+    "transaction": [
+      "SAFE",
+      "TEST",
+      "ARM",
+      "RUN"
+    ],
+    "return": "Successful RUN emits command, transform values, applied projection, elapsed time and trial result.",
+    "bridge": "AXIAL_PACKET can drive the same core experiment through page API, postMessage or BroadcastChannel without changing semantic grammar."
+  },
+  "projections": [
+    {
+      "id": "exact-source",
+      "preserves": [
+        "byte identity",
+        "runnable behavior",
+        "source provenance"
+      ],
+      "editable": false
+    },
+    {
+      "id": "documentation",
+      "preserves": [
+        "declared grammar",
+        "falsification targets",
+        "bridge contract"
+      ],
+      "editable": false
+    },
+    {
+      "id": "semantic-ingest-overlay",
+      "preserves": [
+        "byte hashes",
+        "source names",
+        "lineage",
+        "tags",
+        "review state"
+      ],
+      "editable": "overlay-only"
+    },
+    {
+      "id": "current-axial-head",
+      "route": "/foundry/axial/",
+      "preserves": [
+        "state×transform×transaction thesis"
+      ],
+      "equivalence": "RELATED_LINEAGE_ONLY"
+    },
+    {
+      "id": "physical-print",
+      "source": "axial_compositor_v0_2_print_template.svg",
+      "preserves": [
+        "reference geometry",
+        "manual fallback"
+      ],
+      "state": "NEXT_REALITY_GATE"
+    }
+  ],
+  "allowed_operations": [
+    "inspect",
+    "hash-verify",
+    "tag",
+    "relate",
+    "compare-to-current-head",
+    "propose-semantic-route"
+  ],
+  "forbidden_without_new_receipt": [
+    "delete source",
+    "move source",
+    "rename source",
+    "collapse distinct byte objects",
+    "claim current head is byte-equivalent"
+  ],
+  "round_trip": {
+    "from": "Library source names → staged bytes → inventory hashes → semantic lineage object",
+    "return": "Exact component names + hashes remain sufficient to return to byte-level identity; semantic relations can be dropped without changing source bytes.",
+    "result": "PASS"
+  },
+  "return_receipt": {
+    "before": "Runnable HTML, README, print template and build notes existed as separate files with no common ingest object.",
+    "after": "The HTML and README are one explicit semantic artifact composed of two exact byte objects; print/build materials remain related siblings; current AXIAL head remains a later unequal projection.",
+    "delta": "Identity is now queryable without forcing file movement or false deduplication.",
+    "residue": "Raw-byte inaccessible Project-backed Library files remain outside this object.",
+    "next": "Produce one actual physical/print RETURN from the related print-proof branch before promoting any filesystem mutation."
+  }
+}
