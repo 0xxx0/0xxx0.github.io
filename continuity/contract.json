@@ -1,0 +1,100 @@
+{
+  "schema": "continuity-case-contract/v0.1",
+  "updated": "2026-09-20",
+  "title": "CONTINUITY / CASE",
+  "purpose": "Convert messy continuing human-world context into source-preserving evidence-graded canonical packets before research, planning, communication or action.",
+  "privacy": {
+    "public_code": true,
+    "server_submission": false,
+    "repo_write_from_surface": false,
+    "local_storage": "explicit SAVE LOCAL only",
+    "export": "user-triggered local JSON",
+    "rule": "Private case data must not be committed to this public repository."
+  },
+  "accepts": {
+    "subject_kinds": [
+      "PERSON",
+      "ANIMAL",
+      "HOUSE",
+      "DEVICE",
+      "PROJECT",
+      "ORGANIZATION",
+      "OTHER"
+    ],
+    "domains": [
+      "HEALTH",
+      "CARE",
+      "COMMS",
+      "HOUSE",
+      "PROJECT",
+      "LOGISTICS",
+      "RESEARCH",
+      "OTHER"
+    ],
+    "source_types": [
+      "USER_MESSAGE",
+      "DOCUMENT",
+      "REPORT",
+      "OBSERVATION",
+      "CHAT_ARCHIVE",
+      "PHOTO",
+      "SENSOR",
+      "OTHER"
+    ]
+  },
+  "method": "SOURCE -> SCHEMA -> ANCHOR -> RETRIEVE -> PROVENANCE_SPLIT -> ANTI_MERGE -> CANON -> GAP -> DERIVE -> RETURN",
+  "provenance": [
+    "SOURCE",
+    "REPORTED",
+    "ASSISTANT_SUMMARY",
+    "ASSISTANT_INFERENCE",
+    "CURRENT_INFERENCE"
+  ],
+  "lanes": [
+    "FACT",
+    "CONFLICT",
+    "UNKNOWN",
+    "HOLD",
+    "SUPERSEDED"
+  ],
+  "invariants": [
+    "raw source remains recoverable",
+    "UNKNOWN is not absence",
+    "assistant inference cannot silently become fact",
+    "similarity does not authorize identity merge",
+    "supersession preserves the old claim and relation",
+    "human handoff uses reviewed compact state while source remains in case packet"
+  ],
+  "review_checks": [
+    "fact without source return path",
+    "inference promoted into fact lane",
+    "SOURCE/REPORTED claim without stored source",
+    "UNKNOWN without next-evidence route",
+    "suspiciously coherent case with no conflict/unknown after several claims"
+  ],
+  "integrations": {
+    "protocol": "/control/confluence/RETRIEVAL_CANON.md",
+    "field_intake": {
+      "route": "/field-intake/",
+      "state": "SPECIFIED",
+      "gap": "direct packet import adapter not implemented"
+    },
+    "human_port": {
+      "route": "/contact/",
+      "state": "AVAILABLE",
+      "mode": "reviewed handoff is passed only after explicit human action"
+    },
+    "field_index": {
+      "route": "/",
+      "state": "AVAILABLE"
+    },
+    "return": {
+      "mechanism": "local/exported JSON + review receipt",
+      "state": "AVAILABLE"
+    },
+    "private_sync": {
+      "state": "CANDIDATE",
+      "gap": "no encrypted cross-device private case store yet"
+    }
+  }
+}
