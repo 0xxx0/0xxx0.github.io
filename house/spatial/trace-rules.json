@@ -1,0 +1,125 @@
+{
+  "schema": "house-trace-rules/v0.1",
+  "updated": "2026-09-20",
+  "title": "TRACE / INK PATH",
+  "status": "EXPERIMENT",
+  "purpose": "Project addressed traversal over the HOUSE spatial substrate without turning visual style into unlabelled semantics.",
+  "substrate": "/house/spatial/model.json",
+  "lineage_donors": [
+    {
+      "name": "BY // GRID PATH COMPILER",
+      "status": "RECOVERED_DONOR",
+      "contributes": [
+        "addressed path",
+        "ordered node sequence",
+        "explicit route construction",
+        "replayable RETURN"
+      ]
+    },
+    {
+      "name": "Semantic Painting / movement-path lineage",
+      "status": "PROJECTION_DONOR",
+      "contributes": [
+        "path as perceptual surface",
+        "movement trace",
+        "time/lookahead"
+      ]
+    },
+    {
+      "name": "SINDER / Furnisher",
+      "status": "PROJECTION_DONOR",
+      "contributes": [
+        "Point → Path → Plane → Power",
+        "ink-brush economy/movement"
+      ]
+    },
+    {
+      "name": "Knight-path project",
+      "status": "USER_RECALLED_UNRECOVERED",
+      "contributes": [
+        "possible discrete traversal mechanic"
+      ],
+      "rule": "Do not canonize exact mechanics until recovered."
+    }
+  ],
+  "trace_record": {
+    "schema": "house-trace/v0.1",
+    "required": [
+      "source",
+      "nodes",
+      "encoding"
+    ],
+    "node": {
+      "required": [
+        "seq",
+        "address"
+      ],
+      "optional": [
+        "entered_at",
+        "left_at",
+        "confidence",
+        "evidence_ref"
+      ]
+    },
+    "source_classes": [
+      "MANUAL_LOCAL",
+      "OBSERVED",
+      "REPLAYED",
+      "PROPOSED"
+    ],
+    "truth_law": "MANUAL_LOCAL is user-authored path state only; it is not evidence that a person/animal/device physically traversed the route."
+  },
+  "visual_channels": {
+    "centerline": "ordered addressed path",
+    "width": {
+      "allowed": [
+        "SEGMENT_TRAVERSAL_COUNT",
+        "DWELL_TIME",
+        "FLOW_MAGNITUDE"
+      ],
+      "rule": "Exactly one declared quantity per projection. v0.1 implements SEGMENT_TRAVERSAL_COUNT only."
+    },
+    "opacity": {
+      "allowed": [
+        "FIXED",
+        "RECENCY",
+        "CONFIDENCE"
+      ],
+      "rule": "Do not mix recency and confidence in one unlabeled channel. v0.1 uses FIXED."
+    },
+    "z": {
+      "allowed": [
+        "PHYSICAL_ELEVATION",
+        "TIME"
+      ],
+      "rule": "Physical Z and temporal Z are separate projections; never silently combine them."
+    },
+    "gap_or_dry_brush": {
+      "allowed": [
+        "UNKNOWN",
+        "UNOBSERVED",
+        "BLOCKED",
+        "MISSING_LINK"
+      ],
+      "rule": "A gap represents absence/uncertainty only when explicitly declared."
+    }
+  },
+  "v0_1": {
+    "source": "MANUAL_LOCAL",
+    "address_type": "room id",
+    "interaction": "In TRACE view, selecting a room appends its stable room address to the local path.",
+    "width": "SEGMENT_TRAVERSAL_COUNT",
+    "opacity": "FIXED",
+    "persistence": "browser localStorage",
+    "return": "export house-trace/v0.1 JSON",
+    "actuation": false
+  },
+  "future_not_promoted": [
+    "anchor/surface-level traces",
+    "Home Assistant observed movement ingestion",
+    "cat/person identity traces",
+    "dwell-time brush width",
+    "temporal-Z trace sculpture",
+    "knight-move generator after exact lineage recovery"
+  ]
+}
