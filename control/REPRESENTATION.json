@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/representation-kernel/v0.1",
-  "updated": "2026-09-19",
+  "updated": "2026-09-20",
   "source": "/recovery/seam-engine/ONE_RETURN_SEAM_ENGINE_v0.2.md",
   "claim": "One canonical event/state object may have many unequal lawful projections. A projection earns survival only when it changes a decision, exposes a constraint, improves manipulation/recovery, or verifies a return.",
   "not_claimed": [
@@ -185,7 +185,7 @@
     },
     {
       "id": "media-library",
-      "current": "ADAPTER_CANDIDATE",
+      "current": "PROVED_INGEST_01",
       "preserves": [
         "content hash",
         "source path",
@@ -202,7 +202,8 @@
       ],
       "hides": [
         "project meaning unless linked by semantic lineage"
-      ]
+      ],
+      "evidence": "/control/INGEST_RUN_2026-09-20.json"
     }
   ],
   "projection_acceptance": [
@@ -213,5 +214,6 @@
     "Can edits round-trip without ad-hoc synchronization?",
     "What is the fallback when the projection is unavailable?",
     "What receipt proves it helped?"
-  ]
+  ],
+  "first_concrete_object": "/control/REPRESENTATION_01.json"
 }
