@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -1781,12 +1781,12 @@
       "parent": "/control/",
       "state": "ACTIVE",
       "showcase_card": false,
-      "role": "Readable cross-lineage handoff shelf; coordinates unequal lineages without vocabulary collapse.",
+      "role": "Readable cross-lineage handoff shelf; coordinates unequal lineages through explicit differences, ablations and recipient-side RETURN without vocabulary collapse.",
       "index": {
-        "updated_at": "2026-09-20T19:50:00+08:00",
+        "updated_at": "2026-09-21T00:10:00+08:00",
         "work_modes": [
-          "RECOVER",
           "SPECIFY",
+          "VERIFY",
           "IMPLEMENT"
         ]
       }
