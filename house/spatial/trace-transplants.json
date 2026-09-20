@@ -1,0 +1,64 @@
+{
+  "schema": "donor-transplant/v0.1",
+  "updated": "2026-09-20",
+  "recipient": "/house/spatial/#TRACE",
+  "transplants": [
+    {
+      "donor_id": "foundry-verse-atlas-return-replay",
+      "source": {
+        "address": "/foundry/verse-atlas/",
+        "evidence_class": "recovered/current-head"
+      },
+      "transfer": {
+        "unit": "RETURN → validate → REPLAY round trip",
+        "preserves": [
+          "ordered addressed path",
+          "source schema check",
+          "explicit reset/replay boundary"
+        ],
+        "may_change": [
+          "cell addresses become HOUSE room addresses",
+          "replay renderer"
+        ]
+      },
+      "recipient": {
+        "address": "/house/spatial/#TRACE"
+      },
+      "operation": "graft",
+      "test": {
+        "claim": "A TRACE JSON export can be re-imported after local trace state changes and reconstruct the same ordered address sequence.",
+        "evidence": "manual browser round-trip; release receipt"
+      },
+      "outcome": "candidate"
+    },
+    {
+      "donor_id": "rsvp-2018-temporal-focus-step",
+      "source": {
+        "address": "/recovery/rsvp/",
+        "evidence_class": "exact recovered"
+      },
+      "transfer": {
+        "unit": "ordered sequence receives one moving temporal focus cursor",
+        "preserves": [
+          "source sequence identity",
+          "ordered stepping",
+          "pause/stop boundary"
+        ],
+        "may_change": [
+          "words become spatial addresses",
+          "speech synchronization omitted"
+        ]
+      },
+      "recipient": {
+        "address": "/house/spatial/#TRACE"
+      },
+      "operation": "adapt",
+      "test": {
+        "claim": "A stored TRACE route can be replayed as time-indexed spatial focus without changing canonical route data.",
+        "evidence": "manual replay; release receipt"
+      },
+      "outcome": "candidate"
+    }
+  ],
+  "law": "The route remains canonical data. Replay is a projection over it; timing does not rewrite spatial identity."
+}
