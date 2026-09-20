@@ -2,8 +2,8 @@
   "schema": "0xxx0/return-index/v0.1",
   "generated": "2026-09-20",
   "source": "/showcase-manifest.json",
-  "count": 15,
-  "receipts_ok": 15,
+  "count": 16,
+  "receipts_ok": 16,
   "law": "A release without a return path is not closed.",
   "items": [
     {
@@ -167,6 +167,17 @@
       "version": "0.2",
       "operation": "PROJECT",
       "receipt": "/house/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": "2026-09-20"
+    },
+    {
+      "href": "/house/spatial/",
+      "title": "HOUSE / SPATIAL",
+      "state": "EXPERIMENT",
+      "version": "0.2",
+      "operation": "REPRESENT",
+      "receipt": "/house/spatial/release.json",
       "receipt_ok": true,
       "receipt_schema": "release-receipt/v1",
       "release_updated": "2026-09-20"
