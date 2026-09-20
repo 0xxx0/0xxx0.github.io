@@ -70,6 +70,14 @@
         }
       ],
       "boundary": "PDF atlas/build sheet remain exact Library bytes pending byte-copy/hash verification in repo."
+    },
+    {
+      "id": "poly-furnisher-core-evidence",
+      "family": "poly-furnisher",
+      "status": "EXACT_BYTE_VERIFIED_CORE_EVIDENCE_FAMILY",
+      "route": "/recovery/poly-furnisher/",
+      "verification": "KRAKEN 2019, 2020 proto-kernel, SINDERESIS/PRELUDE intent notes, FUN.js, mvp.js and prelude.js fetched from Drive; sizes/SHA-256 match the earlier fixtures manifest exactly.",
+      "boundary": "2026 poly-furnisher survey spec is interpretive evidence and is not substituted for original 2019–2021 bytes."
     }
   ],
   "unresolved": [
@@ -98,5 +106,20 @@
     "Resume Painting/City only from exact source/assets or authorized checkpoint bytes.",
     "Resume Game-of-Names only from an isolated exact artifact; keep public-safe gap visible.",
     "Treat DataDisc + RSVP as historical fixtures for projection/attention comparison, not rebuild mandates."
+  ],
+  "rejected_candidates": [
+    {
+      "group": "older-audio-first-pass",
+      "candidates": [
+        "Tone.html",
+        "Tone2.html",
+        "Tone3.html",
+        "Midi.html"
+      ],
+      "disposition": "REJECT_FROM_FIELD_INDEX",
+      "reason": "Saved Arduino documentation/example pages rather than project-lineage instruments.",
+      "held_candidate": "0-sound.js",
+      "held_reason": "Runnable WebAudio keyboard example, but project-specific provenance is not established."
+    }
   ]
 }
