@@ -1568,6 +1568,24 @@
         ]
       },
       "family_href": "/house/"
+    },
+    {
+      "href": "/docs/",
+      "title": "DOCS / READ",
+      "kind": "documentation",
+      "parent": "/",
+      "state": "UTILITY",
+      "showcase_card": false,
+      "role": "Human-readable browser for CURRENT, FI law, migration/census, confluence and other control documents; read-only support surface."
+    },
+    {
+      "href": "/control/confluence/",
+      "title": "CONFLUENCE",
+      "kind": "documentation",
+      "parent": "/control/",
+      "state": "ACTIVE",
+      "showcase_card": false,
+      "role": "Readable cross-lineage handoff shelf; coordinates unequal lineages without vocabulary collapse."
     }
   ],
   "release_law": [
@@ -1604,7 +1622,9 @@
     "reachability": "All public directory index surfaces are reachable from the showcase graph; nested experiments stay reachable through their parent rather than receiving new cards.",
     "recovery_vault": "Exact recovered donors are now visible through /recovery/ without becoming showcase cards or current heads. Source fidelity and blockers live in control/RECOVERY_RUN_2026-09-19.json.",
     "verse_atlas_replay": "Recovered Grid Path Compiler RETURN→REPLAY closed a concrete head gap: Verse Atlas now validates and replays its own FOUNDRY/VERSE-ATLAS-1 JSON receipt. General donor workbench features remain frozen.",
-    "fold_weave": "Fold Weave 0.1 is an exact recovered sibling with persistent crease anchors / authored topology. It is linked from Fold/Bloom but is not promoted over Ecology pending direct playtest."
+    "fold_weave": "Fold Weave 0.1 is an exact recovered sibling with persistent crease anchors / authored topology. It is linked from Fold/Bloom but is not promoted over Ecology pending direct playtest.",
+    "confluence": "Cross-lineage handoff shelf under /control/confluence/: unequal projects may share explicit transfers while preserving differences and source return.",
+    "docs_reader": "Read-only /docs/ surface makes key JSON/Markdown control documents directly readable without creating another current-head product."
   },
   "capability_model": {
     "CAPTURE": {
