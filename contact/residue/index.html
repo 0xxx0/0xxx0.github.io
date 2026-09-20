@@ -4,28 +4,51 @@
 <meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#080a0c">
 <title>HUMAN PORT / SOCIAL RESIDUE</title>
 <style>
-:root{--bg:#080a0c;--panel:#0b0f12;--ink:#eef2ef;--mut:#879399;--line:#2b363b;--green:#9ed88c;--cool:#73bce8;--gold:#d7ae67}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}a{color:inherit;text-decoration:none}body{padding:18px 14px 34px}main{width:min(820px,100%);margin:auto}header{padding:32px 0 18px;border-bottom:1px solid var(--line)}.ey{font-size:9px;letter-spacing:.18em;color:var(--gold)}h1{margin:10px 0 8px;font:900 clamp(42px,9vw,80px)/.84 system-ui,sans-serif;letter-spacing:-.065em}.lead{max-width:680px;color:#b3bdc0;font:14px/1.55 system-ui,sans-serif}.rule{margin:16px 0;border:1px solid var(--line);padding:11px 12px;color:#95a1a6;font:10px/1.5 system-ui,sans-serif}.rule b{color:var(--green)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}.card{background:var(--panel);padding:15px;min-height:115px}.card b{display:block;font-size:9px;letter-spacing:.12em}.card p{margin:7px 0 0;color:#879399;font:10px/1.5 system-ui,sans-serif}.levels{margin-top:16px;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.levels div{background:#090d10;padding:10px;text-align:center}.levels b{display:block;font-size:8px;color:var(--cool)}.levels span{display:block;margin-top:5px;color:#748086;font-size:8px}
+:root{--bg:#080a0c;--panel:#0b0f12;--ink:#eef2ef;--mut:#879399;--line:#2b363b;--green:#9ed88c;--cool:#73bce8;--gold:#d7ae67;--hot:#ed7245}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}button,input,textarea,select{font:inherit;border-radius:0}button{cursor:pointer}a{color:inherit;text-decoration:none}body{padding:18px 14px 34px}main{width:min(900px,100%);margin:auto}
+header{padding:32px 0 18px;border-bottom:1px solid var(--line)}.ey{font-size:9px;letter-spacing:.18em;color:var(--gold)}h1{margin:10px 0 8px;font:900 clamp(42px,9vw,80px)/.84 system-ui,sans-serif;letter-spacing:-.065em}.lead{max-width:700px;color:#b3bdc0;font:14px/1.55 system-ui,sans-serif}
+.rule{margin:16px 0;border:1px solid var(--line);padding:11px 12px;color:#95a1a6;font:10px/1.5 system-ui,sans-serif}.rule b{color:var(--green)}
+.form{border:1px solid var(--line);background:var(--panel)}.row{display:grid;grid-template-columns:1fr 1fr}.field{border-bottom:1px solid var(--line)}.row .field:first-child{border-right:1px solid var(--line)}.field label{display:block;padding:8px 10px 0;color:var(--mut);font-size:8px;letter-spacing:.1em}.field input,.field textarea,.field select{width:100%;border:0;background:#090d10;color:var(--ink);padding:10px;outline:none}.field textarea{min-height:82px;resize:vertical}.actions{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}.actions button{border:0;background:#0a0e10;color:var(--ink);padding:11px;font-size:8px;letter-spacing:.09em}.actions button:hover{background:#11181c}
+.list{margin-top:16px;border:1px solid var(--line)}.empty{padding:18px;color:#6f7c82}.item{border-bottom:1px solid var(--line);background:#0a0e10;padding:12px}.item:last-child{border-bottom:0}.top{display:flex;justify-content:space-between;gap:10px}.subject{font:700 15px/1.3 system-ui,sans-serif}.meta{color:#79868c;font-size:8px}.body{margin-top:7px;color:#aab4b8;font:10px/1.5 system-ui,sans-serif}.returns{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);margin-top:10px}.returns button{border:0;background:#0b1012;color:#aab4b8;padding:6px 8px;font-size:7px}.returns button:hover{background:#141b1f;color:#fff}.returns button.idea{color:var(--gold)}
+.levels{margin-top:16px;display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.levels div{background:#090d10;padding:9px;text-align:center}.levels b{display:block;font-size:8px;color:var(--cool)}.levels span{display:block;margin-top:4px;color:#748086;font-size:8px}
 footer{margin-top:18px;padding-top:10px;border-top:1px solid var(--line);display:flex;justify-content:space-between;color:#68747a;font-size:8px}footer a{color:#8fcdf2}
-@media(max-width:650px){.grid{grid-template-columns:1fr}.levels{grid-template-columns:1fr}.levels div{text-align:left;display:grid;grid-template-columns:90px 1fr;gap:10px}footer{display:block}}
+@media(max-width:650px){.row{grid-template-columns:1fr}.row .field:first-child{border-right:0}.levels{grid-template-columns:1fr}.levels div{text-align:left;display:grid;grid-template-columns:90px 1fr;gap:10px}footer{display:block}}
 </style></head><body><main>
-<header><div class="ey">HUMAN PORT / SOCIAL RESIDUE</div><h1>REMEMBER IT<br>WITHOUT OWING IT.</h1><div class="lead">Some conversations leave things worth returning to: an offer, a promise, a follow-up, a question, an idea. Keeping that residue does not automatically turn it into a task.</div></header>
-
+<header><div class="ey">HUMAN PORT / SOCIAL RESIDUE · 0R1</div><h1>REMEMBER IT<br>WITHOUT OWING IT.</h1><div class="lead">Capture the useful thing a conversation left behind—an offer, follow-up, promise, question, or idea—without automatically turning it into scheduled work.</div></header>
 <div class="rule"><b>THE RULE</b> · Conversation may create useful residue without creating an obligation.</div>
 
-<section class="grid">
-  <div class="card"><b>OFFER</b><p>“I can help with that.” Keep the offer without scheduling work automatically.</p></div>
-  <div class="card"><b>FOLLOW-UP</b><p>“I said I’d look at those paintings.” Remember it, then later do, defer, release or supersede it.</p></div>
-  <div class="card"><b>IDEA</b><p>Something useful appeared in the conversation. Send the durable idea to Idea Atlas.</p></div>
-  <div class="card"><b>QUESTION</b><p>An unresolved question may be more valuable than a task. Keep it open without forcing action.</p></div>
+<section class="form">
+<div class="row">
+  <div class="field"><label for="type">WHAT KIND OF THING?</label><select id="type"><option>OFFER</option><option>FOLLOW_UP</option><option>IDEA</option><option>QUESTION</option><option>REQUEST</option><option>INTENT</option><option>PROMISE_CANDIDATE</option><option>ARTIFACT</option><option>DECISION_SEED</option></select></div>
+  <div class="field"><label for="strength">HOW STRONG IS IT?</label><select id="strength"><option>MENTION</option><option>MAYBE</option><option>INTEND</option><option>COMMIT</option><option>SCHEDULED</option></select></div>
+</div>
+<div class="field"><label for="subject">SHORT LABEL</label><input id="subject" placeholder="review paintings / cousin app idea / ask doctor about…"></div>
+<div class="field"><label for="source">WHAT WAS ACTUALLY SAID / WHAT HAPPENED?</label><textarea id="source" placeholder="Keep enough source to remember why this exists."></textarea></div>
+<div class="field"><label for="why">WHY MIGHT THIS MATTER? · OPTIONAL</label><textarea id="why" placeholder="value, context, relationship, question, possible next move"></textarea></div>
+<div class="actions"><button id="save">REMEMBER LOCALLY</button><button id="export">EXPORT JSON</button></div>
 </section>
 
 <div class="levels">
   <div><b>MENTION</b><span>came up</span></div><div><b>MAYBE</b><span>possible</span></div><div><b>INTEND</b><span>likely move</span></div><div><b>COMMIT</b><span>explicit promise</span></div><div><b>SCHEDULED</b><span>time actually set</span></div>
 </div>
 
+<section id="list" class="list"><div class="empty">Nothing remembered in this browser yet.</div></section>
 <div class="rule"><b>RETURN CAN BE:</b> done · value taken · released · deferred · handoff · superseded · unknown.</div>
 
 <footer><span>REMEMBER BROADLY · OBLIGATE NARROWLY</span><span><a href="../../port/">← HUMAN PORT</a> · <a href="../social-residue.json">CONTRACT →</a> · <a href="../../app-atlas/">IDEA ATLAS →</a></span></footer>
-</main></body></html>
+<script>
+(()=>{'use strict';
+const $=s=>document.querySelector(s),KEY='human.port.social.residue.v01';
+const load=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'[]')}catch(_){return[]}};
+const store=x=>localStorage.setItem(KEY,JSON.stringify(x));
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+function render(){
+ const xs=load();
+ $('#list').innerHTML=xs.length?xs.slice().reverse().map(x=>'<article class="item" data-id="'+esc(x.id)+'"><div class="top"><div><div class="subject">'+esc(x.subject)+'</div><div class="meta">'+esc(x.type)+' · '+esc(x.strength)+' · '+esc(x.status)+'</div></div><div class="meta">'+new Date(x.created_at).toLocaleDateString()+'</div></div><div class="body">'+esc(x.source)+'</div>'+(x.why?'<div class="body">WHY · '+esc(x.why)+'</div>':'')+'<div class="returns"><button data-return="DONE">DONE</button><button data-return="VALUE_TAKEN">VALUE TAKEN</button><button data-return="DEFERRED">DEFER</button><button data-return="RELEASED">RELEASE</button><button data-return="SUPERSEDED">SUPERSEDE</button>'+(x.type==='IDEA'?'<button class="idea" data-atlas="1">SEND TO IDEA ATLAS →</button>':'')+'</div></article>').join(''):'<div class="empty">Nothing remembered in this browser yet.</div>';
+}
+$('#save').onclick=()=>{const subject=$('#subject').value.trim(),source=$('#source').value.trim();if(!subject||!source)return;const xs=load();xs.push({id:'r_'+Date.now(),version:'0R1',type:$('#type').value,strength:$('#strength').value,subject,source,why:$('#why').value.trim(),status:'HELD',return:null,created_at:new Date().toISOString()});store(xs);['subject','source','why'].forEach(id=>$('#'+id).value='');render()};
+$('#list').onclick=e=>{const item=e.target.closest('[data-id]');if(!item)return;const xs=load(),x=xs.find(v=>v.id===item.dataset.id);if(!x)return;if(e.target.dataset.return){x.status='RETURNED';x.return={outcome:e.target.dataset.return,at:new Date().toISOString()};store(xs);render();return}if(e.target.dataset.atlas){try{sessionStorage.setItem('app.atlas.handoff.v01',JSON.stringify({name:x.subject,invariant:x.why||x.source,lineage:['HUMAN PORT','SOCIAL RESIDUE'],source:x.source,created_at:new Date().toISOString()}));location.assign('../../app-atlas/')}catch(_){location.assign('../../app-atlas/')}}};
+$('#export').onclick=()=>{const t=JSON.stringify({schema:'human-port-social-residue-export/v0.1',items:load()},null,2),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'application/json'}));a.download='human-port-social-residue.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
+render();
+})();
+</script></main></body></html>
