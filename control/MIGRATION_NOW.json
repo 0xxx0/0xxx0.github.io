@@ -91,5 +91,28 @@
       "tracked runtime routes carry updated_at + work_modes"
     ],
     "hermes_queue": "/control/HERMES_QUEUE.json"
+  },
+  "family_labels": {
+    "path-grid-language": "PATH / GRID",
+    "poly-furnisher": "POLY / FURNISHER",
+    "fold-bloom": "FOLD // BLOOM",
+    "physical-print-reification": "PHYSICAL / PRINT",
+    "sleeper": "SLEEPER",
+    "sleeper-one-return": "SLEEPER / ONE RETURN",
+    "comms": "COMMS",
+    "axial": "AXIAL",
+    "machine-representation": "AXIAL / MACHINE",
+    "agent-interface-history": "AGENT / INTERFACE",
+    "representation": "REPRESENTATION",
+    "representation-kernel": "REPRESENTATION KERNEL",
+    "painting-interface": "PAINTING / INTERFACE",
+    "planning": "PLANNING",
+    "ingress": "INGRESS",
+    "proof": "PROOF",
+    "language-glyph-identity": "LANGUAGE / IDENTITY",
+    "tiny-law-executable-material": "LAW ZOO / TINY LAW",
+    "reading-attention-temporal": "READING / TEMPORAL",
+    "media-representation": "MEDIA / REPRESENTATION",
+    "quarantine": "QUARANTINE"
   }
 }
