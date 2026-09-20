@@ -483,8 +483,9 @@
       "family": "agent-interface-history",
       "status": "RECOVER",
       "source_type": "user-pinned-exact-source-unknown",
-      "unique": "User remembers a pre-current-AI desktop-character/agent lineage ('Kala guy' / desktop pets after Clippy era). Exact names, code and chronology are unresolved.",
-      "action": "RECOVER exact names/source/screenshots/code before interpretation. Do not conflate 'Kala' with the unrelated Kala/Kirtimukha visual thread or import generic mascot software as evidence."
+      "unique": "KALA branch is now exact-source recovered; user also remembers additional desktop pets/characters whose names/source remain unresolved.",
+      "action": "KALA is frozen at /recovery/kala/. Continue only for other remembered pets/characters by proper name/source; reject generic mascot software and unrelated Kala/Kirtimukha material.",
+      "evidence_state": "KALA_EXACT_RECOVERED_WIDER_PET_LINEAGE_OPEN"
     },
     {
       "id": "interphase-cylinder-lineage",
@@ -495,6 +496,16 @@
       "source_type": "drive-recovered-exact-variant-family",
       "unique": "Three frozen representatives separate the rotating-cylinder input branch, terse proto branch, and integrated room/optics/store/transducer/matrix Interphase branch; duplicate copies are collapsed by exact hash/blob equality.",
       "action": "KEEP AS ONE DONOR FAMILY. Bulk backups remain unimported. Current Ω/Interphase descendants stay separate; Painting/City remains unresolved."
+    },
+    {
+      "id": "kala-agent-interface-2018-2020",
+      "name": "KALA / DESKTOP CHARACTER + ROOM 2018–2020",
+      "family": "agent-interface-history",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/kala/",
+      "source_type": "drive-recovered-exact-family",
+      "unique": "Exact 2018 and 2020 browser fossils: visible ASCII KALA character, communication field, controls, CSS3D room/cursor transform, with later delayed seek bodies.",
+      "action": "KEEP EXACT. Treat as historical interface/character evidence, not proof of a modern autonomous agent backend."
     }
   ],
   "ingest_queue": [
