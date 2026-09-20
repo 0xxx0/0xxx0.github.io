@@ -22,8 +22,10 @@ header{display:grid;grid-template-columns:1.25fr .75fr;gap:28px;align-items:end;
 .now{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}.front{background:var(--p);padding:12px}.front .state{font-size:7px;letter-spacing:.12em;color:var(--green)}.front.hold .state{color:var(--gold)}.front h3{margin:13px 0 6px;font:800 18px/1 system-ui,sans-serif;letter-spacing:-.03em}.front p{margin:0;color:#9eaaae;font:9px/1.5 system-ui,sans-serif}.front .center{margin-top:8px;color:#c6d0d0;font-size:8px}.heads{border:1px solid var(--line);margin-top:10px}.head{display:grid;grid-template-columns:155px 115px 1fr;gap:10px;padding:8px 10px;border-bottom:1px solid var(--line);background:var(--p2)}.head:last-child{border-bottom:0}.head b{font-size:9px}.head .s{color:var(--muted);font-size:8px}.head .r{color:#9eaaae;font:9px/1.45 system-ui,sans-serif}
 .model{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}.model>div{background:var(--p);padding:13px}.model h3{margin:0 0 8px;font:800 16px system-ui,sans-serif}.gate{counter-reset:g}.gate div{counter-increment:g;padding:8px 0;border-bottom:1px solid var(--line);color:#aab4b7;font:9px/1.5 system-ui,sans-serif}.gate div:before{content:counter(g,decimal-leading-zero);color:var(--cool);margin-right:9px}
 .code{padding:12px;border:1px solid var(--line);background:var(--p2);color:#c8d4d6;overflow:auto;font-size:9px}.corpus{border-left:2px solid var(--gold);padding:10px 12px;background:#11120f;color:#b8b29e;font:9px/1.55 system-ui,sans-serif;margin-top:10px}.corpus b{color:var(--gold)}
+.fitGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.fit{background:var(--p);padding:11px;min-height:116px}.fit b{display:block;font:800 13px/1.05 system-ui,sans-serif;letter-spacing:-.02em}.fit .q{margin-top:8px;color:#b7c0c1;font:9px/1.45 system-ui,sans-serif}.fit .rel{margin-top:7px;color:var(--muted);font-size:7px}.fit:hover{background:#12191e}
+.centerLab{display:grid;grid-template-columns:1.15fr .85fr;gap:1px;background:var(--line);border:1px solid var(--line)}.geo{background:var(--p2);padding:10px}.geo svg{display:block;width:100%;height:auto;touch-action:none;user-select:none}.geo .tri{fill:rgba(104,172,216,.05);stroke:#56666e;stroke-width:1.2}.geo .euler{stroke:var(--hot);stroke-width:1.4;stroke-dasharray:5 4}.geo .vertex circle{fill:#11181c;stroke:#d7dedc;stroke-width:1.4;cursor:grab}.geo .vertex:active circle{cursor:grabbing}.geo .vertex text,.geo .centerpt text{font:700 9px ui-monospace,monospace;fill:#dce3e1}.geo .centerpt circle{fill:#0b0f12;stroke-width:1.7}.geo .hint{fill:#66757b;font:8px ui-monospace,monospace}.centerSide{background:var(--p);padding:13px}.centerSide h3{margin:0 0 8px;font:800 24px/.95 system-ui,sans-serif;letter-spacing:-.04em}.centerSide p{margin:0;color:#aab4b7;font:9.5px/1.55 system-ui,sans-serif}.criterionList{margin-top:12px;border-top:1px solid var(--line)}.criterion{display:grid;grid-template-columns:32px 1fr;gap:8px;padding:8px 0;border-bottom:1px solid var(--line)}.criterion b{font-size:12px;color:var(--cool)}.criterion strong{display:block;font-size:8px}.criterion span{display:block;margin-top:2px;color:var(--muted);font:8px/1.4 system-ui,sans-serif}.labRule{margin-top:10px;border-left:2px solid var(--hot);padding:9px 10px;background:#12100e;color:#b9aa9e;font:9px/1.55 system-ui,sans-serif}.labRule b{color:var(--hot)}.geometa{margin-top:7px;color:#78868c;font-size:8px}
 footer{margin-top:18px;padding-top:9px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;color:#647178;font-size:8px}
-@media(max-width:760px){header,.heroGrid,.aperture,.model,.now{grid-template-columns:1fr}.convGrid,.laws{grid-template-columns:1fr}.trip{grid-template-columns:1fr}.head{grid-template-columns:1fr}.links{display:none}footer{display:block}footer span{display:block;margin-top:5px}}
+@media(max-width:760px){header,.heroGrid,.aperture,.model,.now,.centerLab{grid-template-columns:1fr}.fitGrid{grid-template-columns:1fr 1fr}.convGrid,.laws{grid-template-columns:1fr}.trip{grid-template-columns:1fr}.head{grid-template-columns:1fr}.links{display:none}footer{display:block}footer span{display:block;margin-top:5px}}
 </style>
 </head>
 <body><main>
@@ -32,7 +34,7 @@ footer{margin-top:18px;padding-top:9px;border-top:1px solid var(--line);display:
   <div class="dek"><b>Slow model, live control.</b><br>The definition of the endeavour stays stable enough to orient by; current heads and fronts are fetched separately so today's work cannot accidentally become ontology.<div class="meta"><span class="tag">117 ≠ CANON</span><span class="tag">CURRENT ≠ CONSTITUTION</span><span class="tag">RETURN REQUIRED</span></div></div>
 </header>
 
-<nav class="nav"><div class="tabs"><button class="on" data-view="center">CENTER</button><button data-view="convergences">CONVERGENCES</button><button data-view="laws">LAWS</button><button data-view="now">NOW</button><button data-view="model">MODEL</button></div><div class="links"><a href="../">FOUNDRY ←</a><a href="./CANON.md">ONE PAGE</a><a href="./model.json">JSON</a></div></nav>
+<nav class="nav"><div class="tabs"><button class="on" data-view="center">CENTER</button><button data-view="convergences">CONVERGENCES</button><button data-view="laws">LAWS</button><button data-view="lab">CENTER LAB</button><button data-view="now">NOW</button><button data-view="model">MODEL</button></div><div class="links"><a href="../">FOUNDRY ←</a><a href="./CANON.md">ONE PAGE</a><a href="./model.json">JSON</a></div></nav>
 
 <section id="center" class="panel">
   <div class="heroGrid">
@@ -55,6 +57,23 @@ footer{margin-top:18px;padding-top:9px;border-top:1px solid var(--line);display:
 <section id="laws" class="panel" hidden>
   <div class="bar"><b>SIGNATURE LAWS</b><span>the endeavour is more identifiable by these constraints than by its project names</span></div>
   <div id="lawGrid" class="laws"></div>
+</section>
+
+<section id="lab" class="panel" hidden>
+  <div class="bar"><b>WHERE REAL CENTER FITS</b><span>constitutional layer ≠ scheduler ≠ inventory ≠ runtime authority</span></div>
+  <div id="systemFit" class="fitGrid"></div>
+  <div class="bar"><b>CENTER LAB</b><span>drag A / B / C · same triangle, several legitimate centers</span></div>
+  <div class="centerLab">
+    <div class="geo"><svg id="centerGeom" viewBox="0 0 520 360" aria-label="Draggable triangle center lab"></svg><div class="geometa" id="geoMeta">Drag a vertex. G/O/H/N remain Euler-related; I follows a different criterion.</div></div>
+    <div class="centerSide">
+      <div class="ey">CENTER ≠ TRUTH</div>
+      <h3>Center with respect to what?</h3>
+      <p id="centerMeaning">Loading center criteria…</p>
+      <div id="criterionList" class="criterionList"></div>
+      <div class="labRule"><b>TRIANGLE RULE</b> · <span id="triangleRule"></span></div>
+    </div>
+  </div>
+  <div class="corpus"><b>IMPORTANT</b> · This borrows a geometric mechanism, not Triangle Bench’s queue role. Triangle Bench remains PARKED. The nine-stage invariant loop and eight convergences are not being forced into three vertices.</div>
 </section>
 
 <section id="now" class="panel" hidden>
@@ -98,6 +117,40 @@ function convCard(x){return '<article class="conv '+(selected===x.id?'on':'')+'"
 function selectConv(id){selected=id;const x=M.convergences.find(y=>y.id===id)||M.convergences[0];renderLoop(x.stages);$('aperture').innerHTML='<div><div class="label">WORKING APERTURE</div><h3>'+esc(x.label)+'</h3><p>'+esc(x.claim)+'</p><div class="chain">'+esc(x.stages.join(' → '))+'</div><div class="anchors">'+x.anchors.map(a=>'<a href="'+esc(a.href)+'">'+esc(a.label)+' →</a>').join('')+'</div></div><div class="trip"><div><b>ENTERS</b><p>'+esc(x.enters)+'</p></div><div><b>TRANSFORM</b><p>'+esc(x.transform)+'</p></div><div><b>CONSEQUENCE</b><p>'+esc(x.consequence)+'</p></div></div>';renderConvs()}
 function renderConvs(){$('centerConvs').innerHTML=M.convergences.slice(0,4).map(convCard).join('');$('allConvs').innerHTML=M.convergences.map(convCard).join('');document.querySelectorAll('[data-conv]').forEach(el=>el.onclick=()=>selectConv(el.dataset.conv))}
 function renderLaws(){$('lawGrid').innerHTML=M.signature_laws.map(x=>'<div class="law"><span class="n">'+esc(x.id)+'</span><b>'+esc(x.law)+'</b><p>'+esc(x.meaning)+'</p></div>').join('')}
+let tri=[{x:115,y:285},{x:260,y:55},{x:430,y:285}],dragV=null;
+const d2=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
+function area2(a,b,c){return Math.abs((b.x-a.x)*(c.y-a.y)-(b.y-a.y)*(c.x-a.x))}
+function circum(a,b,c){const d=2*(a.x*(b.y-c.y)+b.x*(c.y-a.y)+c.x*(a.y-b.y));if(Math.abs(d)<1e-6)return null;const aa=a.x*a.x+a.y*a.y,bb=b.x*b.x+b.y*b.y,cc=c.x*c.x+c.y*c.y;return{x:(aa*(b.y-c.y)+bb*(c.y-a.y)+cc*(a.y-b.y))/d,y:(aa*(c.x-b.x)+bb*(a.x-c.x)+cc*(b.x-a.x))/d}}
+function renderCenterLab(){
+ if(!M.center_lab)return;
+ $('centerMeaning').textContent=M.center_lab.real_center_meaning;
+ $('triangleRule').textContent=M.center_lab.triangle_rule;
+ $('criterionList').innerHTML=M.center_lab.centers.map(x=>'<div class="criterion"><b>'+esc(x.id)+'</b><div><strong>'+esc(x.name)+' · '+esc(x.criterion)+'</strong><span>'+esc(x.operational_analogy)+'</span></div></div>').join('');
+ $('systemFit').innerHTML=(M.system_fit?.topology||[]).map(x=>'<a class="fit" href="'+esc(x.route)+'"><b>'+esc(x.surface)+'</b><div class="q">'+esc(x.question)+'</div><div class="rel">'+esc(x.relation)+'</div></a>').join('');
+ renderTriangle();
+}
+function renderTriangle(){
+ const [A,B,Cc]=tri,G={x:(tri[0].x+tri[1].x+tri[2].x)/3,y:(tri[0].y+tri[1].y+tri[2].y)/3},O=circum(...tri);
+ const H=O?{x:tri[0].x+tri[1].x+tri[2].x-2*O.x,y:tri[0].y+tri[1].y+tri[2].y-2*O.y}:null;
+ const N=O&&H?{x:(O.x+H.x)/2,y:(O.y+H.y)/2}:null;
+ const a=d2(tri[1],tri[2]),b=d2(tri[0],tri[2]),cc=d2(tri[0],tri[1]),sum=a+b+cc;
+ const I={x:(a*tri[0].x+b*tri[1].x+cc*tri[2].x)/sum,y:(a*tri[0].y+b*tri[1].y+cc*tri[2].y)/sum};
+ let h='<rect x="0" y="0" width="520" height="360" fill="#0a0e11"/><path class="tri" d="M '+A.x+' '+A.y+' L '+B.x+' '+B.y+' L '+Cc.x+' '+Cc.y+' Z"/>';
+ let collapsed=false;
+ if(O&&H){
+   const vx=H.x-O.x,vy=H.y-O.y,L=Math.hypot(vx,vy);collapsed=L<1.5;
+   if(!collapsed){const ux=vx/L,uy=vy/L;h+='<line class="euler" x1="'+(O.x-ux*700)+'" y1="'+(O.y-uy*700)+'" x2="'+(O.x+ux*700)+'" y2="'+(O.y+uy*700)+'"/>'}
+ }
+ const cs=[['G',G,'#68acd8'],['O',O,'#d9ad62'],['H',H,'#ef6c3b'],['N',N,'#9ed88c'],['I',I,'#b596e8']];
+ cs.forEach(([id,p,col])=>{if(!p||!Number.isFinite(p.x)||!Number.isFinite(p.y))return;h+='<g class="centerpt"><circle cx="'+p.x+'" cy="'+p.y+'" r="5.5" stroke="'+col+'"/><text x="'+(p.x+8)+'" y="'+(p.y-7)+'">'+id+'</text></g>'});
+ [['A',A],['B',B],['C',Cc]].forEach(([id,p],i)=>{h+='<g class="vertex" data-v="'+i+'"><circle cx="'+p.x+'" cy="'+p.y+'" r="9"/><text x="'+(p.x+12)+'" y="'+(p.y+4)+'">'+id+'</text></g>'});
+ h+='<text x="14" y="20" class="hint">G centroid · O circumcenter · H orthocenter · N nine-point · I incenter</text><text x="14" y="342" class="hint">'+(collapsed?'Euler line collapses here: O ≈ G ≈ H under near-symmetry.':'Euler line shown dashed through O/G/H/N. I generally sits elsewhere.')+'</text>';
+ const svg=$('centerGeom');svg.innerHTML=h;
+ svg.querySelectorAll('[data-v]').forEach(el=>el.onpointerdown=e=>{dragV=+el.dataset.v;el.setPointerCapture?.(e.pointerId);e.preventDefault()});
+}
+function svgPoint(e){const svg=$('centerGeom'),pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;return pt.matrixTransform(svg.getScreenCTM().inverse())}
+$('centerGeom').addEventListener('pointermove',e=>{if(dragV==null)return;const p=svgPoint(e),n={x:Math.max(22,Math.min(498,p.x)),y:Math.max(32,Math.min(326,p.y))},test=tri.map(x=>({...x}));test[dragV]=n;if(area2(...test)>2400){tri=test;renderTriangle()}});
+$('centerGeom').addEventListener('pointerup',()=>dragV=null);$('centerGeom').addEventListener('pointercancel',()=>dragV=null);
 function renderNow(){
  if(!C){$('frontGrid').innerHTML='<div class="front"><p>Live control unavailable.</p></div>';return}
  $('liveStamp').textContent='updated '+esc(C.updated)+' · fetched from /control/CURRENT.json';
@@ -107,8 +160,8 @@ function renderNow(){
 }
 function render(){
  $('oneLine').textContent=M.one_line;$('endState').textContent=M.end_state;$('targetVar').textContent=M.target_variable;$('targetTest').textContent=M.target_test;
- renderLaws();$('gate').innerHTML=M.admission_gate.map(x=>'<div>'+esc(x)+'</div>').join('');$('canonShape').textContent=M.canonical_unit.shape;$('canonNote').innerHTML='<b>NOTE</b> · '+esc(M.canonical_unit.note);selected=M.convergences[0].id;selectConv(selected);renderNow();
- const v=['center','convergences','laws','now','model'].includes(location.hash.slice(1))?location.hash.slice(1):'center';view(v)
+ renderLaws();renderCenterLab();$('gate').innerHTML=M.admission_gate.map(x=>'<div>'+esc(x)+'</div>').join('');$('canonShape').textContent=M.canonical_unit.shape;$('canonNote').innerHTML='<b>NOTE</b> · '+esc(M.canonical_unit.note);selected=M.convergences[0].id;selectConv(selected);renderNow();
+ const v=['center','convergences','laws','lab','now','model'].includes(location.hash.slice(1))?location.hash.slice(1):'center';view(v)
 }
 Promise.all([
  fetch('./model.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('model '+r.status);return r.json()}),
