@@ -1,0 +1,293 @@
+{
+  "schema": "policy-trace-verification/v0.1",
+  "trace_schema": "/policy-resolution-trace.schema.json",
+  "statuses": [
+    "PASS",
+    "FAIL",
+    "INDETERMINATE"
+  ],
+  "severity": [
+    "ERROR",
+    "WARN"
+  ],
+  "profiles": {
+    "structural": {
+      "description": "Verify the trace as a self-consistent artifact without dereferencing private policy/fact sources.",
+      "required_checks": [
+        "schema.valid",
+        "seq.contiguous",
+        "event.ids.unique",
+        "causes.backward",
+        "references.internal",
+        "finality.seven-gates",
+        "finality.one-resolution",
+        "privacy.no-raw-payload",
+        "privacy.no-secrets"
+      ]
+    },
+    "replay": {
+      "description": "Structural verification plus deterministic replay against the referenced policy set and selector facts.",
+      "extends": "structural",
+      "required_checks": [
+        "policy-set.digest",
+        "policy-revisions.digest",
+        "selector-facts.digest",
+        "selectors.replay",
+        "inheritance.replay",
+        "operations.complete",
+        "operations.replay",
+        "grants.authorized",
+        "denies.complete",
+        "locks.complete",
+        "stages.replay",
+        "gates.replay",
+        "result.digest"
+      ]
+    },
+    "sealed": {
+      "description": "Replay verification plus tamper-evident event-chain verification.",
+      "extends": "replay",
+      "required_checks": [
+        "hash.canonicalization",
+        "hash.chain",
+        "hash.head"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "id": "schema.valid",
+      "severity": "ERROR",
+      "scope": "trace",
+      "assert": "document validates against /policy-resolution-trace.schema.json",
+      "fail_code": "TRACE_SCHEMA_INVALID"
+    },
+    {
+      "id": "seq.contiguous",
+      "severity": "ERROR",
+      "scope": "events",
+      "assert": "events[i].seq == i for every event",
+      "fail_code": "TRACE_SEQ_GAP"
+    },
+    {
+      "id": "event.ids.unique",
+      "severity": "ERROR",
+      "scope": "events",
+      "assert": "every event_id is unique",
+      "fail_code": "TRACE_EVENT_ID_DUPLICATE"
+    },
+    {
+      "id": "causes.backward",
+      "severity": "ERROR",
+      "scope": "events",
+      "assert": "every cause_event_id exists and references an event with lower seq",
+      "fail_code": "TRACE_CAUSAL_FORWARD_REF"
+    },
+    {
+      "id": "references.internal",
+      "severity": "ERROR",
+      "scope": "events+gate_results+result",
+      "assert": "all internal event references resolve exactly once",
+      "fail_code": "TRACE_EVENT_REF_MISSING"
+    },
+    {
+      "id": "policy-set.digest",
+      "severity": "ERROR",
+      "scope": "policy_set",
+      "requires_external": [
+        "policy-set bytes"
+      ],
+      "assert": "RFC8785-JCS SHA-256 of resolved policy-set input equals policy_set.digest",
+      "fail_code": "TRACE_POLICY_SET_DIGEST_MISMATCH",
+      "missing_external": "INDETERMINATE"
+    },
+    {
+      "id": "policy-revisions.digest",
+      "severity": "ERROR",
+      "scope": "policy_set.revisions",
+      "requires_external": [
+        "policy revision bytes"
+      ],
+      "assert": "each referenced policy revision hashes to its declared digest",
+      "fail_code": "TRACE_POLICY_REVISION_DIGEST_MISMATCH",
+      "missing_external": "INDETERMINATE"
+    },
+    {
+      "id": "selector-facts.digest",
+      "severity": "ERROR",
+      "scope": "input_envelope",
+      "requires_external": [
+        "canonical selector facts"
+      ],
+      "assert": "canonical selector facts hash to selector_facts_digest",
+      "fail_code": "TRACE_SELECTOR_FACTS_DIGEST_MISMATCH",
+      "missing_external": "INDETERMINATE"
+    },
+    {
+      "id": "selectors.replay",
+      "severity": "ERROR",
+      "scope": "selector_evaluated",
+      "requires_external": [
+        "selector definitions",
+        "canonical selector facts"
+      ],
+      "assert": "re-evaluating each selector reproduces clause outcomes, matched flag, fallback eligibility/suppression, specificity class and ordering",
+      "fail_code": "TRACE_SELECTOR_REPLAY_MISMATCH",
+      "missing_external": "INDETERMINATE"
+    },
+    {
+      "id": "selectors.tag-provenance",
+      "severity": "ERROR",
+      "scope": "tag selector clauses",
+      "assert": "every matched tag clause in a replayable trace has fact provenance or is covered by the selector-facts digest; tag provenance never supplies grant authority",
+      "fail_code": "TRACE_TAG_PROVENANCE_MISSING"
+    },
+    {
+      "id": "inheritance.replay",
+      "severity": "ERROR",
+      "scope": "inheritance_step",
+      "requires_external": [
+        "policy extends graph"
+      ],
+      "assert": "topological expansion reproduces every inheritance_step; cycles yield rejected_policy_set",
+      "fail_code": "TRACE_INHERITANCE_REPLAY_MISMATCH",
+      "missing_external": "INDETERMINATE"
+    },
+    {
+      "id": "operations.complete",
+      "severity": "ERROR",
+      "scope": "matched policies",
+      "requires_external": [
+        "matched policy operation lists"
+      ],
+      "assert": "every operation from every matched/effective inherited policy emits exactly one operation_evaluated event",
+      "fail_code": "TRACE_OPERATION_MISSING",
+      "missing_external": "INDETERMINATE"
+    },
+    {
+      "id": "operations.replay",
+      "severity": "ERROR",
+      "scope": "operation_evaluated",
+      "assert": "given before + operand + policy algebra, recomputation yields recorded outcome and after",
+      "fail_code": "TRACE_OPERATION_REPLAY_MISMATCH"
+    },
+    {
+      "id": "grants.authorized",
+      "severity": "ERROR",
+      "scope": "grant_evaluated",
+      "assert": "every grant_decision has exactly one grant_evaluated; accepted grants require authority_source=user_explicit, authorization_ref, unexpired authority, valid scope, and no blocking lock/explicit deny",
+      "fail_code": "TRACE_GRANT_AUTHORITY_INVALID"
+    },
+    {
+      "id": "denies.complete",
+      "severity": "ERROR",
+      "scope": "deny_applied",
+      "assert": "every explicit/default/conflict/reapplied/condition/expired/missing deny that affects state has one deny_applied event",
+      "fail_code": "TRACE_DENY_MISSING"
+    },
+    {
+      "id": "locks.complete",
+      "severity": "ERROR",
+      "scope": "lock_applied",
+      "assert": "every lock acquisition, inheritance, reapply, or blocked write that affects state has a lock_applied event",
+      "fail_code": "TRACE_LOCK_MISSING"
+    },
+    {
+      "id": "stages.replay",
+      "severity": "ERROR",
+      "scope": "stage_resolved",
+      "assert": "replaying operations through each stage reproduces gate_decisions and state_digest",
+      "fail_code": "TRACE_STAGE_REPLAY_MISMATCH"
+    },
+    {
+      "id": "finality.seven-gates",
+      "severity": "ERROR",
+      "scope": "gate_final",
+      "assert": "exactly one gate_final exists for read, remember, acknowledge, answer, draft, act, escalate",
+      "fail_code": "TRACE_GATE_FINALITY_INVALID"
+    },
+    {
+      "id": "gates.replay",
+      "severity": "ERROR",
+      "scope": "gate_final+gate_results",
+      "assert": "each gate_final decision/scope/provenance agrees with replayed final effective policy and gate_results",
+      "fail_code": "TRACE_GATE_REPLAY_MISMATCH"
+    },
+    {
+      "id": "finality.one-resolution",
+      "severity": "ERROR",
+      "scope": "resolution_final",
+      "assert": "exactly one resolution_final exists and result.final_event_id references it",
+      "fail_code": "TRACE_RESOLUTION_FINALITY_INVALID"
+    },
+    {
+      "id": "result.digest",
+      "severity": "ERROR",
+      "scope": "result",
+      "assert": "canonical final effective policy hashes to result.effective_policy_digest and resolution_final.effective_policy_digest",
+      "fail_code": "TRACE_RESULT_DIGEST_MISMATCH"
+    },
+    {
+      "id": "privacy.no-raw-payload",
+      "severity": "ERROR",
+      "scope": "document",
+      "assert": "privacy.raw_payload_embedded == false and no event payload embeds source message/body content",
+      "fail_code": "TRACE_RAW_PAYLOAD_PRESENT"
+    },
+    {
+      "id": "privacy.no-secrets",
+      "severity": "ERROR",
+      "scope": "document",
+      "assert": "privacy.secret_values_embedded == false; sensitive values use ref/digest/redacted trace_value forms",
+      "fail_code": "TRACE_SECRET_PRESENT"
+    },
+    {
+      "id": "hash.canonicalization",
+      "severity": "ERROR",
+      "scope": "hash_chain",
+      "when": "hash_chain.enabled == true",
+      "assert": "canonicalization == RFC8785-JCS and algorithm == SHA-256",
+      "fail_code": "TRACE_HASH_PROFILE_INVALID"
+    },
+    {
+      "id": "hash.chain",
+      "severity": "ERROR",
+      "scope": "events",
+      "when": "hash_chain.enabled == true",
+      "assert": "event_hash equals SHA-256(JCS(event excluding event_hash)) and prev_event_hash equals preceding event_hash; first prev_event_hash is null",
+      "fail_code": "TRACE_HASH_CHAIN_INVALID"
+    },
+    {
+      "id": "hash.head",
+      "severity": "ERROR",
+      "scope": "hash_chain",
+      "when": "hash_chain.enabled == true",
+      "assert": "hash_chain.chain_head equals final event_hash and resolution_final.chain_head",
+      "fail_code": "TRACE_CHAIN_HEAD_MISMATCH"
+    }
+  ],
+  "result_algorithm": {
+    "FAIL": "any applicable ERROR check fails",
+    "INDETERMINATE": "no ERROR check fails, but one or more required checks cannot execute because required external private material is unavailable",
+    "PASS": "all required checks for requested profile execute and pass",
+    "WARN": "warnings never upgrade FAIL/INDETERMINATE to PASS"
+  },
+  "report_shape": {
+    "schema": "policy-trace-verification-report/v0.1",
+    "required": [
+      "trace_id",
+      "profile",
+      "status",
+      "checks"
+    ],
+    "check_fields": [
+      "id",
+      "status",
+      "severity",
+      "evidence_event_ids",
+      "details",
+      "expected",
+      "observed"
+    ]
+  }
+}
