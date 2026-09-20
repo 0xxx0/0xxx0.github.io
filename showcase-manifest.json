@@ -83,7 +83,7 @@
       "parent": "/",
       "family": "COMMS",
       "operation": "DRAFT",
-      "state": "EXPERIMENT",
+      "state": "ACTIVE",
       "version": "0.2",
       "receipt": "/laconic/release.json",
       "transfer": [
@@ -200,9 +200,10 @@
         "physical_fit": "Coordination/handoff for physical work; not a manipulation tool."
       },
       "index": {
-        "updated_at": "2026-09-20",
+        "updated_at": "2026-09-20T23:58:00+08:00",
         "work_modes": [
-          "UNKNOWN"
+          "VERIFY",
+          "OPERATE"
         ]
       }
     },
@@ -540,7 +541,7 @@
       "parent": "/",
       "family": "SLEEPER",
       "operation": "PLAY",
-      "state": "EXPERIMENT",
+      "state": "ACTIVE",
       "version": "0.8",
       "receipt": "/sleeper/release.json",
       "transfer": [
@@ -632,9 +633,10 @@
         "physical_fit": "Can gate workshop/home procedures when obligations are explicit."
       },
       "index": {
-        "updated_at": "2026-09-20",
+        "updated_at": "2026-09-20T23:58:00+08:00",
         "work_modes": [
-          "UNKNOWN"
+          "VERIFY",
+          "OPERATE"
         ]
       }
     },
@@ -884,7 +886,7 @@
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "PROVE",
-      "state": "EXPERIMENT",
+      "state": "PROOF_REQUIRED",
       "version": "0.4",
       "receipt": "/foundry/axial/release.json",
       "showcase_card": false,
@@ -997,9 +999,10 @@
         "physical_fit": "Digital bench for a physical semantic controller; physical comparison remains the real simulation-gap test."
       },
       "index": {
-        "updated_at": "2026-09-20",
+        "updated_at": "2026-09-20T23:58:00+08:00",
         "work_modes": [
-          "UNKNOWN"
+          "VERIFY",
+          "OPERATE"
         ]
       }
     },
@@ -1317,7 +1320,7 @@
       "kind": "experiment",
       "parent": "/forward-field-proof/",
       "operation": "PROVE",
-      "state": "EXPERIMENT",
+      "state": "PARKED",
       "version": "0.1",
       "receipt": "/forward-field-proof/triangle/release.json",
       "showcase_card": false,
@@ -1354,9 +1357,10 @@
         "physical_fit": "Attention-allocation experiment; not a physical actuator."
       },
       "index": {
-        "updated_at": "2026-09-20",
+        "updated_at": "2026-09-20T23:58:00+08:00",
         "work_modes": [
-          "UNKNOWN"
+          "VERIFY",
+          "OPERATE"
         ]
       }
     },
@@ -1366,7 +1370,7 @@
       "kind": "workbench",
       "parent": "/",
       "family": "ROUTER",
-      "state": "EXPERIMENT",
+      "state": "REFERENCE",
       "version": "0.1",
       "receipt": "/router-bench/release.json",
       "showcase_card": false,
@@ -1403,20 +1407,21 @@
         "physical_fit": "Can route toward physical adapters semantically; public bench itself never actuates."
       },
       "index": {
-        "updated_at": "2026-09-20",
+        "updated_at": "2026-09-20T23:58:00+08:00",
         "work_modes": [
-          "UNKNOWN"
+          "VERIFY",
+          "OPERATE"
         ]
       }
     },
     {
       "href": "/fcm/",
-      "title": "FORWARD CENTER MASS 0.1",
+      "title": "FORWARD CENTER MASS 0.2",
       "kind": "workbench",
       "parent": "/",
       "family": "FEDERATION",
       "operation": "ROUTE",
-      "state": "EXPERIMENT",
+      "state": "DONOR",
       "version": "0.1",
       "receipt": "/fcm/release.json",
       "inputs": [
@@ -1454,9 +1459,10 @@
         "physical_fit": "Attention projection; useful for selecting physical work, not doing it."
       },
       "index": {
-        "updated_at": "2026-09-20",
+        "updated_at": "2026-09-20T23:58:00+08:00",
         "work_modes": [
-          "UNKNOWN"
+          "VERIFY",
+          "OPERATE"
         ]
       }
     },
@@ -1559,7 +1565,7 @@
       "parent": "/house/",
       "family": "HOUSE / SPATIAL STATE",
       "operation": "REPRESENT",
-      "state": "EXPERIMENT",
+      "state": "ACTIVE",
       "version": "0.6",
       "receipt": "/house/spatial/release.json",
       "role": "Runnable multi-projection spatial workbench: addressed house substrate plus TRACE ink-path, JSON round-trip/replay, temporal focus, live micro-law stacks and local path sediment.",
@@ -1594,13 +1600,10 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-20T21:40:00+08:00",
+        "updated_at": "2026-09-20T23:58:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "INVESTIGATE",
-          "SPECIFY",
-          "IMPLEMENT",
-          "VERIFY"
+          "VERIFY",
+          "OPERATE"
         ]
       },
       "family_href": "/house/"
@@ -1664,7 +1667,7 @@
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "ORIENT",
-      "state": "EXPERIMENT",
+      "state": "CANDIDATE",
       "version": "0.1",
       "receipt": "/foundry/core/release.json",
       "showcase_card": false,
@@ -1778,12 +1781,10 @@
         "physical_fit": "Orientation layer only; physical truth remains reality-gated through House/workshop evidence and RETURN."
       },
       "index": {
-        "updated_at": "2026-09-20T19:12:00+08:00",
+        "updated_at": "2026-09-20T23:58:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "INVESTIGATE",
-          "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "OPERATE"
         ]
       }
     },
@@ -1793,16 +1794,15 @@
       "kind": "hub",
       "parent": "/",
       "family": "LAW ZOO",
-      "state": "EXPERIMENT",
+      "state": "FROZEN_DONOR",
       "showcase_card": false,
       "role": "Exact recovered family launcher for five intentionally unequal tiny-law machines; shared principle, no forced shared runtime.",
       "receipt": "/law-zoo/artifact_manifest.json",
       "index": {
-        "updated_at": "2026-09-20T21:50:00+08:00",
+        "updated_at": "2026-09-20T23:58:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "IMPLEMENT",
-          "VERIFY"
+          "VERIFY",
+          "OPERATE"
         ]
       }
     },
@@ -1813,7 +1813,7 @@
       "parent": "/law-zoo/",
       "family": "LAW ZOO",
       "operation": "MUTATE",
-      "state": "EXPERIMENT",
+      "state": "FROZEN_DONOR",
       "role": "Live specimen catalog: inspect tiny laws, mutate operators, compare lineages and breed selected specimens.",
       "transfer": [
         "tiny-law specimen library",
@@ -1866,10 +1866,9 @@
         "physical_fit": "Method donor for stencils, path laws and spatial rules; not physical proof."
       },
       "index": {
-        "updated_at": "2026-09-20T21:50:00+08:00",
+        "updated_at": "2026-09-20T23:58:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "INVESTIGATE",
+          "VERIFY",
           "OPERATE"
         ]
       }
@@ -1881,7 +1880,7 @@
       "parent": "/law-zoo/",
       "family": "LAW ZOO",
       "operation": "RERENDER",
-      "state": "EXPERIMENT",
+      "state": "FROZEN_DONOR",
       "role": "Self-reading typography loop: render → sample → alphabet → rerender; representation becomes part of the dynamics.",
       "transfer": [
         "self-sampling type",
@@ -1933,10 +1932,9 @@
         "physical_fit": "Candidate donor for print/glyph/stencil loops after separate proof."
       },
       "index": {
-        "updated_at": "2026-09-20T21:50:00+08:00",
+        "updated_at": "2026-09-20T23:58:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "INVESTIGATE",
+          "VERIFY",
           "OPERATE"
         ]
       }
@@ -1948,7 +1946,7 @@
       "parent": "/law-zoo/",
       "family": "LAW ZOO",
       "operation": "TRAVERSE",
-      "state": "EXPERIMENT",
+      "state": "FROZEN_DONOR",
       "role": "Traversable ASCII world where crossing a district boundary changes the local update and movement law.",
       "transfer": [
         "local law fields",
@@ -2001,10 +1999,9 @@
         "physical_fit": "Mechanism donor for addressed spatial/TRACE rules; not room geometry evidence."
       },
       "index": {
-        "updated_at": "2026-09-20T21:50:00+08:00",
+        "updated_at": "2026-09-20T23:58:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "INVESTIGATE",
+          "VERIFY",
           "OPERATE"
         ]
       }
@@ -2016,7 +2013,7 @@
       "parent": "/law-zoo/",
       "family": "LAW ZOO",
       "operation": "MODULATE",
-      "state": "EXPERIMENT",
+      "state": "FROZEN_DONOR",
       "role": "One recurrence state drives visual and audio output simultaneously; neither modality is merely an illustration of the other.",
       "transfer": [
         "shared recurrence",
@@ -2068,10 +2065,9 @@
         "physical_fit": "Potential control-source donor for light/sound instruments; no hardware authority."
       },
       "index": {
-        "updated_at": "2026-09-20T21:50:00+08:00",
+        "updated_at": "2026-09-20T23:58:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "INVESTIGATE",
+          "VERIFY",
           "OPERATE"
         ]
       }
@@ -2083,7 +2079,7 @@
       "parent": "/law-zoo/",
       "family": "LAW ZOO",
       "operation": "BREED",
-      "state": "EXPERIMENT",
+      "state": "FROZEN_DONOR",
       "role": "Restricted numeric machine where precision loss, wrap, aliasing and unstable recurrence are inherited as phenotype.",
       "transfer": [
         "error-as-material",
@@ -2135,10 +2131,9 @@
         "physical_fit": "Conceptual donor for tolerance/error exploration; never substitutes for safety or structural verification."
       },
       "index": {
-        "updated_at": "2026-09-20T21:50:00+08:00",
+        "updated_at": "2026-09-20T23:58:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "INVESTIGATE",
+          "VERIFY",
           "OPERATE"
         ]
       }
