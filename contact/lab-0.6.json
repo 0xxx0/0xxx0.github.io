@@ -1,0 +1,62 @@
+{
+  "schema": "human-port-lab-receipt/v0.1",
+  "id": "HUMAN-PORT-0.6-CONTEXT-CONTINUITY",
+  "date": "2026-09-20",
+  "base": "human-port-interpret-backstage-v05",
+  "state": "LAB_CONTRACT_ONLY",
+  "problem": "HUMAN PORT needed to account for decorum, language, temporal phase, communication capacity, rehearsal/study, and continuity under reduced capacity without creating a giant public dashboard or leaking private health/lifestyle state.",
+  "changes": [
+    "added context frame over relation/audience/language/culture-pack/register/phase/time/capacity/private-context/continuity dimensions",
+    "mapped context frames onto exact INTERPHASE projection semantics: reads/preserves/hides/permits",
+    "added one LINE OBJECT with sendable/courteous/formal/elegant/gloss/pronunciation/rehearsal/RSVP/backtranslation projections",
+    "bound temporal-focus rehearsal projection to exact recovered 2018 RSVP donor",
+    "added CONTINUITY GATE replacing naive dead-man-switch logic with evidence-gated escalation",
+    "grounded continuity rules in existing HUMAN PORT public state: silence/staleness are not evidence of danger",
+    "kept routine/training/lifestyle experiment detail private while allowing a coarse derived communication-capacity projection",
+    "exposed contracts only through machine descriptor; no new front-facing page"
+  ],
+  "provenance": [
+    {
+      "source": "/kernel/INTERPHASE.schema.json",
+      "class": "EXACT_REPO_DONOR"
+    },
+    {
+      "source": "/contact/state.json",
+      "class": "EXACT_REPO_DONOR"
+    },
+    {
+      "source": "/recovery/rsvp/manifest.json",
+      "class": "EXACT_REPO_DONOR"
+    },
+    {
+      "source": "XUAN / transition-state conversation lineage",
+      "class": "RECONSTRUCTED_CONCEPTUAL_DONOR"
+    },
+    {
+      "source": "I Ching / Taixuan operational framing conversation lineage",
+      "class": "RECONSTRUCTED_CONCEPTUAL_DONOR"
+    }
+  ],
+  "boundaries": [
+    "communication capacity is not a diagnosis",
+    "private causes and experiment details are hidden by default",
+    "culture-specific decorum must come from explicit packs/human review, not stereotypes",
+    "context never creates action authority",
+    "timer/silence alone may trigger a check but never irreversible legacy action",
+    "confirmed incapacity/death states require explicit authoritative/human evidence",
+    "no new public surface until a missing function is demonstrated"
+  ],
+  "validation": [
+    "context-frame JSON PASS",
+    "context-frame schema JSON PASS",
+    "line-object JSON PASS",
+    "continuity JSON PASS",
+    "machine descriptor JSON PASS"
+  ],
+  "next_reality_gates": [
+    "use one real line in two registers/languages and verify consequential meaning survives backtranslation",
+    "use one real BURST message with a coarse communication-capacity state and verify it changes only timing/expression, not inferred intent",
+    "model one missed-checkin scenario and verify the gate stops at HUMAN_CHECK without independent evidence",
+    "only build UI for a context dimension after repeated real use proves it belongs on the visible surface"
+  ]
+}
