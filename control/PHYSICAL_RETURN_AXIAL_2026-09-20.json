@@ -1,0 +1,45 @@
+{
+  "schema": "0xxx0/physical-return-packet/v0.1",
+  "id": "PHYSICAL-RETURN-AXIAL-2026-09-20-A",
+  "date": "2026-09-20",
+  "source": "axial_compositor_v0_2_print_template.svg + axial_compositor_v0_2_build_notes.txt",
+  "status": "READY_NOT_PHYSICALLY_EXECUTED",
+  "scope": "One diagnostic 1:1 print + one MODE ring only. No five-ring stack, sensing, load-bearing use or electronics.",
+  "before": {
+    "observed": "Exact print template and build notes exist; no physical ring geometry/detent has been validated in this receipt.",
+    "question": "Does the printed strip produce a freely rotating, legible 4-position ring with a usable simple detent around the intended ~50 mm core?"
+  },
+  "use": [
+    "Print exactly one template sheet at 100% / Actual Size / no fit-to-page.",
+    "Measure the MODE strip before cutting: active circumference 163.4 mm plus 10 mm glue tab; ring height 22 mm.",
+    "Cut only the MODE strip and its four top V-notches.",
+    "Pre-curve and glue around a ~50 mm OD sacrificial tube/core; ring must rotate freely.",
+    "Add one temporary fixed reference spine 1–2 mm above the ring.",
+    "Add one light paperclip-tip or card-spring detent.",
+    "Cycle AIR → LIGHT → CLEAN → FEED → AIR four times; pick up the specimen once and check whether detent holds."
+  ],
+  "after": {
+    "required_state": "One physical MODE-ring specimen and a PASS/FAIL decision for print scale, circumference, rotation clearance, centering/readability and detent hold.",
+    "no_completion_claim_until": "Photo/measurement evidence is supplied."
+  },
+  "evidence": [
+    "Photo of uncut printed MODE strip with ruler showing active 163.4 mm region + 10 mm tab and 22 mm height.",
+    "Photo of assembled ring centered on AIR under the reference spine.",
+    "Four-position mini-log: token, centers cleanly Y/N, rotates freely Y/N, detent holds Y/N.",
+    "One pickup/handling observation.",
+    "Record actual core OD."
+  ],
+  "pass_gate": [
+    "Printed dimensions are within practical cutting tolerance of the declared template.",
+    "All four positions are individually readable and center under the same reference.",
+    "Ring rotates without binding.",
+    "Detent holds position during ordinary pickup but can be intentionally advanced."
+  ],
+  "residue": [
+    "Remaining four rings unbuilt.",
+    "20-command speed/error Experiment A unrun.",
+    "Gray-code sensing untested.",
+    "COMMIT/ARM/RUN transaction gate untested physically."
+  ],
+  "next": "If PASS, build the remaining four rings and run the documented 20-command Experiment A. If FAIL, change exactly one defect class—print scale, circumference/core fit, notch/detent geometry, or reference-spine clearance—and rerun one ring."
+}
