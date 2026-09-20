@@ -288,10 +288,10 @@ const loadJson=async(url,fallback=null)=>{try{const r=await fetch(url,{cache:'no
  [scenesData,fragmentsData,historicData,lexiconData,lineageData,earlyDonors]=await Promise.all([
   loadJson('./scenes.json',{lanes:[],scenes:[]}),
   loadJson('./fragments.json',{items:[]}),
-  loadJson('./recovered/iconic-laconic-library-2025-10-21.json',{}),
-  loadJson('./recovered/companion-lexicon-2025-10-21.json',{}),
-  loadJson('./recovered/persona-to-council-lineage.json',{}),
-  loadJson('./recovered/early-plurality-donors-2024.json',{})
+  loadJson('./recovered/iconic-laconic-library-2025-10-21.json',{categories:[]}),
+  loadJson('./recovered/companion-lexicon-2025-10-21.json',{tags:[]}),
+  loadJson('./recovered/persona-to-council-lineage.json',{parallel_antecedents:[],stages:[]}),
+  loadJson('./recovered/early-plurality-donors-2024.json',{unresolved:[]})
  ]);
  makeLineButtons();consumeBurstHandoff();renderLines();renderLaneChips();renderSceneList();renderVault();
 })();
