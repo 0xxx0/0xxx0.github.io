@@ -1,14 +1,15 @@
-# LACONIC / ICONIC 0.2
+# LACONIC / ICONIC 0.3
 
 ## JOB
 
 A provenance-aware response instrument for recurring human exchanges.
 
-It now has three distinct object classes:
+It now has four distinct object classes:
 
-1. **LINE** — compact single-turn candidate.
+1. **LINE** — compact single-turn candidate in the bounded current drafting layer.
 2. **SCENE** — multi-turn trajectory with explicit branches.
 3. **FRAGMENT** — recovered exact phrase/operator that may be memorable without being a deployable reply.
+4. **VAULT SOURCE** — exact historical corpus/tag/lineage evidence visible for browsing and copying without automatic promotion.
 
 The distinction is deliberate. A line should not become a scene by implication; an aphorism should not be scored as though it were a text-message answer.
 
@@ -124,3 +125,37 @@ These files are recovery evidence, not automatically current canon:
 - `recovered/companion-lexicon-2025-10-21.json` — exact historical Ping / Flux / Fuse / Myth / Pulse / Void / Glitch / Echo tag proposal.
 
 Recovery law: **EXACT SOURCE ≠ USER-ADOPTED ≠ CURRENT CANON.** Bulk import into the live bank is intentionally blocked until adoption/reuse and the later 5–6-voice consolidation are recovered at source level.
+
+
+## v0.3 — VAULT / LINEAGE RENOVATION
+
+The visible surface now separates a small active response instrument from a larger recovered archive.
+
+`VAULT` has four readings:
+
+- **STARS** — selected exact fragments/operators, including user-authored material.
+- **2025 BANK** — the exact 60-line assistant-generated Iconic/Laconic source block, grouped by its original six categories.
+- **TAGS** — the exact Ping / Flux / Fuse / Myth / Pulse / Void / Glitch / Echo companion lexicon.
+- **LINEAGE** — evidence-graded antecedents, convergence stages, and still-open seams around persona / plurality / Council work.
+
+This is intentionally not a bulk canonization step. The historical bank can be funny, rich, or useful while remaining `SOURCE_DONOR_ONLY`.
+
+### Multi-donor Council correction
+
+The recovered evidence no longer supports a simple linear claim that the Council began with the 2024-12-29 persona experiment.
+
+Three antecedents are currently preserved separately:
+
+1. **2024-12-13 — interacting symbolic figures**: Sleeper / W8 / Conch / Keris / Specter dialogue provides exact early multi-character interaction evidence.
+2. **2024-12-28 — comic council image**: the exact user line “The council sends you this invisible recovery hamper and a voucher for one cosmic hug” shows `the council` already operating as a humorous social institution inside Laconic/Iconic response play.
+3. **2024-12-29 — persona switching**: the user explicitly says trying new personality settings is literally true, then repeatedly selects persona experiments and scenarios.
+
+These may later converge, but they are not silently collapsed into one origin.
+
+Still open at source level:
+
+- the direct generated **5–6 internal voice output set**;
+- the direct **“5 selves chatter – realistic personas”** turn and first resulting scene;
+- the earliest direct use of the exact proper name **“Council of Selves.”**
+
+Recovery rule: **generic council image ≠ proper-name project; interacting characters ≠ internal selves; persona mode ≠ simultaneous plurality; later canon ≠ proof of earlier identity.**
