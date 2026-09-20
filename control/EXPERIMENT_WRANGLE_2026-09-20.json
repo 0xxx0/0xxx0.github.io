@@ -1,0 +1,127 @@
+{
+  "schema": "0xxx0/experiment-wrangle/v0.1",
+  "date": "2026-09-20",
+  "reviewed_at": "2026-09-20T23:58:00+08:00",
+  "scope": "Canonical FIELD INDEX route-state census: every showcase-manifest route whose state was EXPERIMENT, plus directly coupled CURRENT/root-filter/release metadata.",
+  "principle": "EXPERIMENT describes form/hypothesis, not lifecycle. route.kind may remain experiment; route.state now says what can lawfully happen next.",
+  "transitions": [
+    {
+      "route": "/laconic/",
+      "from": "EXPERIMENT",
+      "to": "ACTIVE",
+      "reason": "Current communications head; runnable bounded drafting/scene surface with explicit HUMAN PORT boundary."
+    },
+    {
+      "route": "/sleeper/",
+      "from": "EXPERIMENT",
+      "to": "ACTIVE",
+      "reason": "Runnable current head with deployed self-tests and same-state POV/PLAIN verification."
+    },
+    {
+      "route": "/foundry/axial/",
+      "from": "EXPERIMENT",
+      "to": "PROOF_REQUIRED",
+      "reason": "Own promotion gate requires digital 10-trial evidence plus one physical nested-tube comparison receipt."
+    },
+    {
+      "route": "/forward-field-proof/triangle/",
+      "from": "EXPERIMENT",
+      "to": "PARKED",
+      "reason": "CURRENT parks it until AXIAL/proof needs comparison evidence; human calibration remains absent."
+    },
+    {
+      "route": "/router-bench/",
+      "from": "EXPERIMENT",
+      "to": "REFERENCE",
+      "reason": "Deterministic playable reference router; live/private adapter fit remains declarative."
+    },
+    {
+      "route": "/fcm/",
+      "from": "EXPERIMENT",
+      "to": "DONOR",
+      "reason": "Useful attention-control direction is retained as donor material rather than an independent active front."
+    },
+    {
+      "route": "/house/spatial/",
+      "from": "EXPERIMENT",
+      "to": "ACTIVE",
+      "reason": "Current HOUSE/SPATIAL head and active reality-house surface; public workbench remains local-only/no-actuation."
+    },
+    {
+      "route": "/foundry/core/",
+      "from": "EXPERIMENT",
+      "to": "CANDIDATE",
+      "reason": "CANON_CANDIDATE is intentionally revisable orientation, not canonical declaration."
+    },
+    {
+      "route": "/law-zoo/",
+      "from": "EXPERIMENT",
+      "to": "FROZEN_DONOR",
+      "reason": "Exact recovered executable donor family; preserve unequal machines and source identity."
+    },
+    {
+      "route": "/law-zoo/law_zoo_field_guide.html",
+      "from": "EXPERIMENT",
+      "to": "FROZEN_DONOR",
+      "reason": "Exact recovered executable donor."
+    },
+    {
+      "route": "/law-zoo/palimpsest.html",
+      "from": "EXPERIMENT",
+      "to": "FROZEN_DONOR",
+      "reason": "Exact recovered executable donor."
+    },
+    {
+      "route": "/law-zoo/law_districts.html",
+      "from": "EXPERIMENT",
+      "to": "FROZEN_DONOR",
+      "reason": "Exact recovered executable donor."
+    },
+    {
+      "route": "/law-zoo/one_law_two_senses.html",
+      "from": "EXPERIMENT",
+      "to": "FROZEN_DONOR",
+      "reason": "Exact recovered executable donor."
+    },
+    {
+      "route": "/law-zoo/error_garden.html",
+      "from": "EXPERIMENT",
+      "to": "FROZEN_DONOR",
+      "reason": "Exact recovered executable donor."
+    }
+  ],
+  "minor_repairs": [
+    "FORWARD CENTER MASS manifest title corrected from 0.1 to 0.2 to match its release receipt.",
+    "Root FIELD INDEX filters changed from ALL/STABLE/EXPERIMENT to lifecycle views ALL/ACTIVE/STABLE/PROOF/PARKED/DONOR.",
+    "Historical release receipts keep original release state and append current_classification."
+  ],
+  "unresolved": [
+    {
+      "route": "/foundry/axial/",
+      "next": "Run the declared 10-trial digital gate and one physical nested-tube comparison; attach interpretable receipts before promotion."
+    },
+    {
+      "route": "/forward-field-proof/triangle/",
+      "next": "None until a named comparison need reopens it; then collect the six human calibration trials + one real decision."
+    },
+    {
+      "route": "/router-bench/",
+      "next": "Only test a real adapter round-trip if the reference bench is asked to claim live routing."
+    },
+    {
+      "route": "/foundry/core/",
+      "next": "Promote only if the slow canonical draft survives comparison without erasing distinct mechanisms."
+    },
+    {
+      "route": "/law-zoo/",
+      "next": "No generic advancement. Transfer only a named missing mechanism into a current head and preserve donor identity."
+    }
+  ],
+  "untouched_on_purpose": [
+    "kind=experiment remains on actual experimental artifacts; that is now orthogonal to lifecycle.",
+    "Known limits, hypotheses and unresolved exit paths remain intact.",
+    "No executable artifact behavior, physical claim or exact recovered source bytes were altered."
+  ],
+  "stop_condition": "showcase-manifest contains zero route.state=EXPERIMENT; future uncertainty is represented by kind, known_limits, exit status, or a specific lifecycle state.",
+  "return": "/"
+}
