@@ -2,27 +2,29 @@
   "schema": "release-receipt/v1",
   "artifact": "HUMAN PORT",
   "route": "/port/",
-  "version": "1.1-preview",
+  "version": "1.3-preview",
   "date": "2026-09-21",
-  "state": "PREVIEW_CANDIDATE",
-  "decision": "Canonical HUMAN PORT surface moves to /port/. /contact/ remains the conventional contact surface and compatibility route.",
+  "state": "INTEGRATION_CANDIDATE",
+  "decision": "/port/ is the canonical HUMAN PORT intake/router; /contact/ is one explicit outbound boundary, not the whole Port.",
   "recovered_user_functions": [
     "ADDRESS",
+    "INTAKE",
     "INTERPRET",
     "RELATE",
     "HARVEST",
+    "PROJECT",
     "RETURN"
   ],
   "visible_routes": [
     "/contact/",
-    "/contact/make/",
     "/contact/burst/",
     "/app-atlas/",
-    "/contact/backstage/",
-    "/continuity/",
+    "/contact/residue/",
     "/fold-bloom/lens/",
-    "/atlas-dayline/",
-    "/laconic/"
+    "/laconic/",
+    "/contact/make/",
+    "/continuity/",
+    "/contact/backstage/"
   ],
   "laws": [
     "CONTACT != ACTIVATION",
@@ -32,19 +34,20 @@
   ],
   "promotion_rule": "Keep /contact/ simple. Promote deeper mechanisms onto /port/ only when they reduce real interaction/re-entry cost.",
   "next_tests": [
-    "open /port/ as an unfamiliar visitor",
-    "open /port/ as owner and locate BURST/Idea Atlas in under 10 seconds",
-    "make one capsule",
-    "capture one real idea",
-    "return one social residue item without making it a task"
+    "Port sample → BURST arrives as exact RAW",
+    "Port source → Contact arrives as local draft and still requires Share/Copy",
+    "Port idea → Idea Atlas arrives prefilled but unsaved",
+    "Port follow-up → Social Residue arrives prefilled but uncommitted",
+    "Port text → Scale Lens parses the same source without a second paste",
+    "mobile-width route grid remains usable"
   ],
   "delta": [
-    "replace system-first hero with plain-language first-time orientation",
-    "promote five primary doors: CONTACT, BURST, IDEA ATLAS, SOCIAL RESIDUE, SCALE LENS STUDIO",
-    "put user action phrase before internal system name",
-    "move capsules/backstage/continuity/laconic to secondary doors",
-    "move architecture into optional disclosure",
-    "add human-readable Social Residue surface instead of linking first-time visitors to JSON"
+    "replace menu-only home with one local source intake",
+    "route the same source explicitly to Contact, BURST, Idea Atlas, Social Residue or Scale Lens",
+    "add local session handoffs so target tools arrive preloaded",
+    "clarify Contact as HUMAN PORT outbound/share boundary rather than HUMAN PORT itself",
+    "retain specialized Laconic, Capsule, Continuity and Backstage tools below the primary router",
+    "preserve no-upload / no-auto-send / no-auto-classification boundary"
   ],
-  "first_time_test": "A visitor should be able to choose the right door within 10 seconds without knowing FIELD terminology."
+  "first_time_test": "Paste one source once and reach the intended tool preloaded within one explicit route choice."
 }
