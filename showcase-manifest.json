@@ -1225,21 +1225,21 @@
     },
     {
       "href": "/foundry/axial/",
-      "title": "AXIAL / STATE × TRANSFORM 0.4",
+      "title": "AXIAL / STATE APERTURE 0.5",
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "PROVE",
       "state": "PROOF_REQUIRED",
-      "version": "0.4",
+      "version": "0.5",
       "receipt": "/foundry/axial/release.json",
       "showcase_card": false,
       "transfer": [
-        "tangible semantic control",
-        "continuous embodied transforms",
+        "tangible semantic address",
+        "continuous embodied transform",
+        "literal bounded aperture",
         "transaction/commit semantics",
-        "provenance-first interaction",
-        "machine-readable physical bridge"
+        "provenance-preserving machine bridge"
       ],
       "event_schema": "/foundry/axial/event.schema.json",
       "contract": {
@@ -1256,7 +1256,7 @@
           ]
         },
         "transforms": {
-          "verb": "compose discrete meaning with continuous embodied transform, then latch consequence through ARM/RUN",
+          "verb": "address discrete meaning, transform through θ/z, reveal a bounded projection, then latch consequence through ARM/RUN",
           "preserves": [
             "semantic address",
             "latched snapshot",
@@ -1268,9 +1268,9 @@
         },
         "emits": {
           "kinds": [
-            "live state packet",
+            "live state/aperture packet",
             "interaction event",
-            "applied projection",
+            "bounded/applied projection",
             "RETURN receipt"
           ],
           "machine_readable": true,
@@ -1279,14 +1279,23 @@
         "evidence": {
           "receipt": "/foundry/axial/release.json",
           "checks": [
-            "10-trial harness",
+            "operator-specific mapping check",
+            "frame law changes projection",
+            "APERTURE changes window not object scale",
             "before/gesture/after trace",
             "ARM snapshot",
             "RUN receipt",
-            "physical comparison still required"
+            "comparative + physical proof still required"
           ],
           "return_path": "/foundry/axial/"
-        }
+        },
+        "preserves": [
+          "semantic address",
+          "canonical source identity",
+          "latched snapshot",
+          "event ancestry",
+          "return path"
+        ]
       },
       "field": {
         "roles": [
@@ -1297,13 +1306,13 @@
         "inputs": [
           {
             "medium": "HUMAN_ACTION",
-            "kind": "detented semantic state",
-            "interface": "ring/detent"
+            "kind": "detented semantic address",
+            "interface": "OBJECT/OPERATOR/FRAME rings"
           },
           {
             "medium": "MOTION",
-            "kind": "axial/twist transform",
-            "interface": "drag/physical proxy"
+            "kind": "θ/z transform",
+            "interface": "twist/axial sleeve"
           },
           {
             "medium": "HUMAN_ACTION",
@@ -1314,13 +1323,13 @@
         "outputs": [
           {
             "medium": "DATA",
-            "kind": "live state packet",
+            "kind": "live state/aperture packet",
             "interface": "AXIAL_PACKET"
           },
           {
-            "medium": "EVIDENCE",
-            "kind": "interaction event",
-            "interface": "event ledger"
+            "medium": "REPRESENTATION",
+            "kind": "bounded projection",
+            "interface": "WORLD/LOCAL/LENS/SOURCE"
           },
           {
             "medium": "EVIDENCE",
@@ -1340,13 +1349,15 @@
             "via": "AXIAL_PACKET adapter"
           }
         ],
-        "physical_fit": "Digital bench for a physical semantic controller; physical comparison remains the real simulation-gap test."
+        "physical_fit": "Digital correspondence model for a passive ring + twist/slide + aperture cylinder; physical readback/restore comparison remains required."
       },
       "index": {
-        "updated_at": "2026-09-20T23:58:00+08:00",
+        "updated_at": "2026-09-21T00:59:00+08:00",
         "work_modes": [
-          "VERIFY",
-          "OPERATE"
+          "RECOVER",
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY"
         ]
       }
     },
