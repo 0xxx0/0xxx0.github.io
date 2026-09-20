@@ -172,6 +172,12 @@
       "state": "FROZEN_EXECUTABLE_DONOR_FAMILY",
       "route": "/law-zoo/",
       "rule": "Exact five-machine suite imported. Keep children unequal; transplant specific tiny-law mechanisms only when a current head has a named missing function. Confluence context remains /control/confluence/LAW_ZOO.md."
+    },
+    {
+      "name": "ENV-0 / BODY ↔ HOUSE",
+      "state": "PARTIAL_EXACT_DONOR",
+      "route": "/recovery/env0/",
+      "rule": "Editable SVG masters + README frozen exactly; PDF atlas/build sheet exact bytes located but repo byte-copy pending. Use as print/physical RETURN donor, not as a new app."
     }
   ],
   "recovery_targets": [
@@ -191,9 +197,9 @@
     },
     {
       "id": "path-grid-deep-lineage",
-      "status": "RECOVERED_EXACT_DONOR_FAMILY",
+      "status": "RECOVERED_EXACT_DONOR_FAMILY_DIFF_COMPLETE",
       "query": "Grid Path Compiler v4 → LATIN CONTROL / English geometry control → MEANTOME 16×16 → Anthropy Pathweaver → Foundry → Verse Atlas",
-      "payoff": "Exact Cabinet V4 + six embedded instruments now live under /recovery/path-grid/. Current Verse Atlas remains head; next action is mechanism diff.",
+      "payoff": "Exact Cabinet V4 + six embedded instruments live under /recovery/path-grid/. Mechanism diff is complete: Verse Atlas gained RETURN replay/import only; the wider donor family remains frozen.",
       "receipt": "/control/RECOVERY_RUN_2026-09-19.json"
     },
     {
@@ -265,7 +271,9 @@
     "rsvp_recovery": "/control/confluence/RSVP_RECOVERY.md",
     "house_trace_rules": "/house/spatial/trace-rules.json",
     "house_trace_transplants": "/house/spatial/trace-transplants.json",
-    "house_trace_path_laws": "/house/spatial/trace-path-laws.json"
+    "house_trace_path_laws": "/house/spatial/trace-path-laws.json",
+    "field_index_audit": "/control/FIELD_INDEX_AUDIT_2026-09-20.json",
+    "env0_recovery": "/recovery/env0/"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
