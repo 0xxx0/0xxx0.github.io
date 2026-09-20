@@ -1,0 +1,73 @@
+{
+  "schema": "0xxx0/recovery/interphase-lineage/v0.1",
+  "status": "EXACT_FROZEN_VARIANT_FAMILY",
+  "recovered_at": "2026-09-20",
+  "relation": "Sub-lineage of POLY/FURNISHER. Historical spatial/interface variants; not current Interphase and not a replacement for Painting/City.",
+  "representatives": [
+    {
+      "name": "interphase.html / integrated INTERPHASE-PROTO-1",
+      "route": "/recovery/poly-furnisher/interphase-lineage/interphase-2020.html",
+      "drive_id": "1hUjko-5Dv2vx2WEu8x14jHFJM4ZgzbmK",
+      "created": "2020-11-21T11:23:37Z",
+      "size_bytes": 25174,
+      "sha256": "57b21a0341ff0c447f0c53360970cebff682f16bf5758e98c773d50722ba1f35",
+      "exact_duplicate_verified_with": "16baJTLwhA4VhEwpRPUseE21tpFvQMJqX",
+      "duplicate_note": "second copy has identical Git blob SHA",
+      "observed": [
+        "CSS3D room",
+        "flow/wolf",
+        "Lens/Iso/Traversal",
+        "Store",
+        "reducers/transducers",
+        "matrix/geometry",
+        "text/glyph placeholders"
+      ]
+    },
+    {
+      "name": "rotating cylinder inputs / 2019",
+      "route": "/recovery/poly-furnisher/interphase-lineage/rotating-cylinder-2019.html",
+      "drive_id": "1hTNf3yKwOslHm-SUSnFI0MWBNO_HY-yx",
+      "created": "2019-11-01T20:16:40Z",
+      "size_bytes": 28647,
+      "sha256": "19f95f22fb78d04846a0f86c068edbda728d2df7c6d61e650c104bcd0610a03f",
+      "exact_duplicate_verified_with": "1gIpgpTNCcK7NCjD1UUlulOJSHnW5-LSg",
+      "observed": [
+        "rotating cylindrical control geometry",
+        "input controls",
+        "room/cube bridge",
+        "state/transform experiments"
+      ]
+    },
+    {
+      "name": "INTERPHASE PROTO 1 / terse branch",
+      "route": "/recovery/poly-furnisher/interphase-lineage/proto1-terse-2020.html",
+      "drive_id": "1csblQTAt4xq2lNeiPkWfvwMz7lS2dH3N",
+      "created": "2020-11-20T04:35:28Z",
+      "size_bytes": 14094,
+      "sha256": "48899b853cc99495136ce0d52d8f8c5923fee141d4ec002fdc8048f49c22554a",
+      "relation": "distinct smaller variant; do not collapse into integrated 25,174-byte branch",
+      "observed": [
+        "room shell",
+        "geometry",
+        "small kernel",
+        "terse composition"
+      ]
+    }
+  ],
+  "later_descendants": [
+    {
+      "name": "interphase_bridge_v0_2.html",
+      "location": "ChatGPT File Library",
+      "relation": "2026 interpretive descendant/reconstruction, not evidence of 2019–2020 exact behavior",
+      "rule": "Keep evidence class distinct from historical bytes."
+    },
+    {
+      "name": "Ω Interphase 0.3",
+      "location": "current/recent project lineage",
+      "relation": "later Forward Center Mass projection instrument; not a retroactive canonicalization of old prototypes"
+    }
+  ],
+  "unique": "Historical evidence that ROOM/cylinder/spatial UI was repeatedly a projection/control surface over deeper optics/state/transform machinery.",
+  "disposition": "LIVE_DONOR_FAMILY",
+  "stop_rule": "Freeze exact representatives and duplicate facts. Do not bulk-import every backup. Transfer a mechanism only when a current surface names a missing function."
+}
