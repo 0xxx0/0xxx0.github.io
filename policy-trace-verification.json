@@ -1,5 +1,5 @@
 {
-  "schema": "policy-trace-verification/v0.1",
+  "schema": "policy-trace-verification/v0.2",
   "trace_schema": "/policy-resolution-trace.schema.json",
   "statuses": [
     "PASS",
@@ -19,11 +19,20 @@
         "event.ids.unique",
         "causes.backward",
         "references.internal",
+        "selectors.tag-provenance",
         "finality.seven-gates",
         "finality.one-resolution",
         "privacy.no-raw-payload",
         "privacy.no-secrets"
-      ]
+      ],
+      "prerequisites": [
+        "trace document is available",
+        "policy-resolution-trace schema identifier is known",
+        "no private policy bytes or selector source facts are required"
+      ],
+      "pass_condition": "Every required structural check executes and passes.",
+      "fail_condition": "Any required structural check executes and fails.",
+      "indeterminate_condition": "No required structural check fails, but schema validation or another required verifier capability is unavailable."
     },
     "replay": {
       "description": "Structural verification plus deterministic replay against the referenced policy set and selector facts.",
@@ -42,7 +51,17 @@
         "stages.replay",
         "gates.replay",
         "result.digest"
-      ]
+      ],
+      "prerequisites": [
+        "structural profile == PASS",
+        "exact policy-set bytes matching policy_set.digest are available",
+        "all referenced policy revision bytes are available",
+        "canonical selector facts and selector definitions are available",
+        "policy inheritance graph and policy algebra/resolver semantics are available"
+      ],
+      "pass_condition": "Structural PASS plus every replay check executes and reproduces the recorded selector, merge, operation, stage, gate and result state exactly.",
+      "fail_condition": "Structural FAIL, any digest mismatch, selector/inheritance/operation mismatch, unauthorized grant, missing deny/lock/operation evidence, stage/gate divergence, or final effective-policy digest mismatch.",
+      "indeterminate_condition": "Structural is not FAIL, but replay cannot complete because one or more required private inputs, policy revisions, selector facts, resolver semantics, or replay capabilities are unavailable."
     },
     "sealed": {
       "description": "Replay verification plus tamper-evident event-chain verification.",
@@ -51,7 +70,19 @@
         "hash.canonicalization",
         "hash.chain",
         "hash.head"
-      ]
+      ],
+      "prerequisites": [
+        "replay profile == PASS",
+        "trace.hash_chain exists",
+        "trace.hash_chain.enabled == true",
+        "canonicalization == RFC8785-JCS",
+        "algorithm == SHA-256",
+        "every event has event_hash and correct prev_event_hash linkage",
+        "terminal chain head is present"
+      ],
+      "pass_condition": "Replay PASS plus the complete RFC8785-JCS/SHA-256 chain recomputes exactly and both declared chain heads match the final event hash.",
+      "fail_condition": "Replay FAIL; hash_chain is absent/disabled; required hash fields are missing; unsupported/incorrect declared hash profile; any event hash/link mismatch; or terminal chain-head mismatch.",
+      "indeterminate_condition": "Replay is not FAIL and the trace declares a complete enabled seal, but the verifier cannot execute required canonicalization/cryptographic checks or referenced sealed bytes are unavailable."
     }
   },
   "rules": [
@@ -140,7 +171,9 @@
       "severity": "ERROR",
       "scope": "tag selector clauses",
       "assert": "every matched tag clause in a replayable trace has fact provenance or is covered by the selector-facts digest; tag provenance never supplies grant authority",
-      "fail_code": "TRACE_TAG_PROVENANCE_MISSING"
+      "fail_code": "TRACE_TAG_PROVENANCE_MISSING",
+      "profile_min": "structural",
+      "indeterminate_when": "A matched tag clause is digest-covered but the private canonical tag source required to verify provenance is unavailable; structural presence check may still PASS while replay becomes INDETERMINATE."
     },
     {
       "id": "inheritance.replay",
@@ -169,35 +202,40 @@
       "severity": "ERROR",
       "scope": "operation_evaluated",
       "assert": "given before + operand + policy algebra, recomputation yields recorded outcome and after",
-      "fail_code": "TRACE_OPERATION_REPLAY_MISMATCH"
+      "fail_code": "TRACE_OPERATION_REPLAY_MISMATCH",
+      "profile_min": "replay"
     },
     {
       "id": "grants.authorized",
       "severity": "ERROR",
       "scope": "grant_evaluated",
       "assert": "every grant_decision has exactly one grant_evaluated; accepted grants require authority_source=user_explicit, authorization_ref, unexpired authority, valid scope, and no blocking lock/explicit deny",
-      "fail_code": "TRACE_GRANT_AUTHORITY_INVALID"
+      "fail_code": "TRACE_GRANT_AUTHORITY_INVALID",
+      "profile_min": "replay"
     },
     {
       "id": "denies.complete",
       "severity": "ERROR",
       "scope": "deny_applied",
       "assert": "every explicit/default/conflict/reapplied/condition/expired/missing deny that affects state has one deny_applied event",
-      "fail_code": "TRACE_DENY_MISSING"
+      "fail_code": "TRACE_DENY_MISSING",
+      "profile_min": "replay"
     },
     {
       "id": "locks.complete",
       "severity": "ERROR",
       "scope": "lock_applied",
       "assert": "every lock acquisition, inheritance, reapply, or blocked write that affects state has a lock_applied event",
-      "fail_code": "TRACE_LOCK_MISSING"
+      "fail_code": "TRACE_LOCK_MISSING",
+      "profile_min": "replay"
     },
     {
       "id": "stages.replay",
       "severity": "ERROR",
       "scope": "stage_resolved",
       "assert": "replaying operations through each stage reproduces gate_decisions and state_digest",
-      "fail_code": "TRACE_STAGE_REPLAY_MISMATCH"
+      "fail_code": "TRACE_STAGE_REPLAY_MISMATCH",
+      "profile_min": "replay"
     },
     {
       "id": "finality.seven-gates",
@@ -211,7 +249,8 @@
       "severity": "ERROR",
       "scope": "gate_final+gate_results",
       "assert": "each gate_final decision/scope/provenance agrees with replayed final effective policy and gate_results",
-      "fail_code": "TRACE_GATE_REPLAY_MISMATCH"
+      "fail_code": "TRACE_GATE_REPLAY_MISMATCH",
+      "profile_min": "replay"
     },
     {
       "id": "finality.one-resolution",
@@ -225,7 +264,8 @@
       "severity": "ERROR",
       "scope": "result",
       "assert": "canonical final effective policy hashes to result.effective_policy_digest and resolution_final.effective_policy_digest",
-      "fail_code": "TRACE_RESULT_DIGEST_MISMATCH"
+      "fail_code": "TRACE_RESULT_DIGEST_MISMATCH",
+      "profile_min": "replay"
     },
     {
       "id": "privacy.no-raw-payload",
@@ -242,12 +282,23 @@
       "fail_code": "TRACE_SECRET_PRESENT"
     },
     {
+      "id": "hash.enabled",
+      "severity": "ERROR",
+      "scope": "hash_chain",
+      "profile_min": "sealed",
+      "assert": "hash_chain exists and hash_chain.enabled == true",
+      "fail_code": "TRACE_NOT_SEALED",
+      "absent_or_false": "FAIL",
+      "verifier_incapable": "INDETERMINATE"
+    },
+    {
       "id": "hash.canonicalization",
       "severity": "ERROR",
       "scope": "hash_chain",
       "when": "hash_chain.enabled == true",
       "assert": "canonicalization == RFC8785-JCS and algorithm == SHA-256",
-      "fail_code": "TRACE_HASH_PROFILE_INVALID"
+      "fail_code": "TRACE_HASH_PROFILE_INVALID",
+      "profile_min": "sealed"
     },
     {
       "id": "hash.chain",
@@ -255,7 +306,8 @@
       "scope": "events",
       "when": "hash_chain.enabled == true",
       "assert": "event_hash equals SHA-256(JCS(event excluding event_hash)) and prev_event_hash equals preceding event_hash; first prev_event_hash is null",
-      "fail_code": "TRACE_HASH_CHAIN_INVALID"
+      "fail_code": "TRACE_HASH_CHAIN_INVALID",
+      "profile_min": "sealed"
     },
     {
       "id": "hash.head",
@@ -263,14 +315,30 @@
       "scope": "hash_chain",
       "when": "hash_chain.enabled == true",
       "assert": "hash_chain.chain_head equals final event_hash and resolution_final.chain_head",
-      "fail_code": "TRACE_CHAIN_HEAD_MISMATCH"
+      "fail_code": "TRACE_CHAIN_HEAD_MISMATCH",
+      "profile_min": "sealed"
     }
   ],
   "result_algorithm": {
-    "FAIL": "any applicable ERROR check fails",
-    "INDETERMINATE": "no ERROR check fails, but one or more required checks cannot execute because required external private material is unavailable",
-    "PASS": "all required checks for requested profile execute and pass",
-    "WARN": "warnings never upgrade FAIL/INDETERMINATE to PASS"
+    "requested_profile_order": [
+      "structural",
+      "replay",
+      "sealed"
+    ],
+    "parent_requirement": {
+      "replay": "structural must be PASS",
+      "sealed": "replay must be PASS"
+    },
+    "aggregation": [
+      "Evaluate only checks required by the requested profile plus all inherited lower-profile checks.",
+      "If any required ERROR check is FAIL => profile FAIL.",
+      "Else if any required ERROR check is INDETERMINATE => profile INDETERMINATE.",
+      "Else => profile PASS.",
+      "WARN checks never change profile status."
+    ],
+    "FAIL": "A required contract violation is proven.",
+    "INDETERMINATE": "No violation is proven, but required verification evidence/capability is missing.",
+    "PASS": "All required evidence was available and every required assertion passed."
   },
   "report_shape": {
     "schema": "policy-trace-verification-report/v0.1",
@@ -289,5 +357,68 @@
       "expected",
       "observed"
     ]
-  }
+  },
+  "principles": {
+    "evidence_law": "PASS means every required check for the requested profile actually executed and passed.",
+    "failure_law": "FAIL means available evidence proves the trace/profile contract was violated.",
+    "indeterminate_law": "INDETERMINATE means no required check failed, but one or more required checks could not be executed because required evidence or verifier capability was unavailable.",
+    "inheritance_law": "replay requires structural PASS; sealed requires replay PASS.",
+    "precedence": "FAIL > INDETERMINATE > PASS",
+    "no_optimistic_upgrade": "A higher profile never upgrades a lower-profile FAIL or INDETERMINATE."
+  },
+  "status_semantics": {
+    "check": {
+      "PASS": "The check executed against all evidence required by that check and the assertion held.",
+      "FAIL": "The check executed far enough to prove its assertion false, or a profile-required artifact/field is explicitly absent where absence violates the profile.",
+      "INDETERMINATE": "The assertion cannot be decided because evidence or verifier capability required by the check is unavailable.",
+      "SKIP": "The check is not applicable to the requested profile or its documented 'when' predicate is false."
+    },
+    "profile": {
+      "PASS": "Every required check is PASS.",
+      "FAIL": "At least one required ERROR check is FAIL.",
+      "INDETERMINATE": "No required ERROR check is FAIL and at least one required ERROR check is INDETERMINATE."
+    }
+  },
+  "failure_vs_indeterminate_examples": [
+    {
+      "case": "trace JSON violates schema",
+      "status": "FAIL",
+      "why": "Evidence is present and proves invalid structure."
+    },
+    {
+      "case": "no JSON-Schema validator available",
+      "status": "INDETERMINATE",
+      "why": "Verifier capability is missing; validity is unknown."
+    },
+    {
+      "case": "recorded policy digest differs from supplied policy bytes",
+      "status": "FAIL",
+      "why": "Replay evidence proves mismatch."
+    },
+    {
+      "case": "policy bytes are private and not supplied",
+      "status": "INDETERMINATE",
+      "why": "Replay cannot be decided."
+    },
+    {
+      "case": "grant marked accepted but authority_source != user_explicit",
+      "status": "FAIL",
+      "why": "Recorded evidence proves unauthorized widening."
+    },
+    {
+      "case": "sealed profile requested but hash_chain.enabled == false",
+      "status": "FAIL",
+      "why": "The trace is explicitly unsealed."
+    },
+    {
+      "case": "seal is present but verifier lacks RFC8785-JCS implementation",
+      "status": "INDETERMINATE",
+      "why": "Seal validity cannot be computed."
+    },
+    {
+      "case": "hash link recomputes to a different digest",
+      "status": "FAIL",
+      "why": "Tamper/inconsistency is demonstrated."
+    }
+  ]
 }
