@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T02:52:00+08:00",
+        "updated_at": "2026-09-21T02:58:00+08:00",
         "work_modes": [
           "INVESTIGATE",
           "SPECIFY",
@@ -3819,7 +3819,8 @@
       "recover": "known gap requiring source/evidence",
       "active": "runnable/current surface; priority still owned by NOW",
       "stable": "settled usable surface"
-    }
+    },
+    "route_health": "/control/FIELD_INDEX_ROUTE_HEALTH_2026-09-21.json"
   },
   "policy_trace_verification": "/policy-trace-verification.json",
   "policy_trace_event_model": "/policy-trace-event-model.json",
