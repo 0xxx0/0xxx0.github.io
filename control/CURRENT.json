@@ -8,6 +8,7 @@
     "ONE THING, MANY LAWFUL READINGS, FEW LAWFUL TRANSFORMATIONS",
     "IDENTITY ≠ LOCATION ≠ PROJECTION ADDRESS",
     "SOURCE → ADDRESS → STATE → TRANSFORM → PROJECTION → PROVE → RETURN",
+    "EXECUTE ONE BOUNDED MOVE → RETURN → REPLAN; NO SECOND MOVE INHERITS AUTHORITY",
     "NO NEW CORE WITHOUT A MISSING FUNCTION",
     "DEPTH ↑ WHILE VISIBLE SURFACE AREA STAYS SMALL",
     "COMPRESSION MUST RETAIN A RETURN PATH",
@@ -287,7 +288,7 @@
     "hermes": "read-only recovery/research/ambient operator until explicit write authority",
     "chatgpt": "cross-thread retrieval, synthesis, steering, context packets",
     "repository": "durable executable/public state",
-    "returns": "evidence / ground truth"
+    "returns": "evidence / ground truth; closes a bounded move before replan"
   },
   "held_fronts": [
     {
@@ -371,7 +372,8 @@
     "continuity_field_intake_adapter": "/continuity/field-intake-adapter.json",
     "policy_index": "/control/POLICY_INDEX.json",
     "field_index_sitemap_audit": "/control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json",
-    "field_index_route_health": "/control/FIELD_INDEX_ROUTE_HEALTH_2026-09-21.json"
+    "field_index_route_health": "/control/FIELD_INDEX_ROUTE_HEALTH_2026-09-21.json",
+    "replica_replan": "/control/confluence/REPLICA_REPLAN.md"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
@@ -421,5 +423,11 @@
   "last_recovery_population": "/control/RECOVERY_POPULATION_2026-09-20.json",
   "last_field_index_audit": "/control/FIELD_INDEX_AUDIT_2026-09-21.json",
   "last_migration_push": "/control/MIGRATION_PASS_2026-09-21.json",
-  "last_quarantine_receipt": "/control/QUARANTINE_2026-09-20.json"
+  "last_quarantine_receipt": "/control/QUARANTINE_2026-09-20.json",
+  "execution_contract": {
+    "loop": "SELECT → EXECUTE ONE BOUNDED MOVE → MEASURE → RETURN → REPLAN",
+    "gate": "A second move requires a fresh decision from returned state; route continuity is never automatic authority.",
+    "reconstruction_test": "When promoting a reusable mechanism, prefer demonstrated reconstruction from durable state over persuasive narration.",
+    "source_of_next": "CURRENT.next_single_action, QUEUE, or an explicit human/worker selection after RETURN."
+  }
 }
