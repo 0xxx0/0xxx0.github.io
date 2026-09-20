@@ -1,0 +1,41 @@
+{
+  "schema": "human-port-lab-receipt/v0.1",
+  "id": "HUMAN-PORT-0.5-INTERPRET-BACKSTAGE",
+  "date": "2026-09-20",
+  "base": "human-port-capsules-v04",
+  "state": "LAB_READY_FOR_BROWSER_TEST",
+  "problem": "HUMAN PORT needed to support ambiguous/high-entropy human expression, including the owner's recursive burst speech, while preserving the strange/funny provenance of artifact-making without normalizing source or publishing raw private chats.",
+  "changes": [
+    "added HUMAN PORT interpretation contract and 0I1 schema",
+    "added PLAIN / BURST / DIALOGUE interpretation modes",
+    "added RAW → TRACE → OBSERVED → POSSIBLE → UNRESOLVED → MOVE_SET → EXPRESSION → RETURN layering",
+    "added local BURST trace workbench with structural tags for asks/corrections/callbacks/jokes/deferrals/state",
+    "added BACKSTAGE 0B1 contract and local-first scrolling marginalia surface",
+    "added local pin/export/import for curated making-history entries",
+    "added explicit EXACT / PARAPHRASE / RECONSTRUCTED source classes",
+    "added machine discovery of interpretation/backstage surfaces in /.well-known/human-port.json"
+  ],
+  "boundaries": [
+    "local trace heuristics are structural hints, not semantic truth",
+    "RAW source is preserved in the 0I1 packet",
+    "interpretation cannot grant action/send authority",
+    "BACKSTAGE defaults LOCAL_PRIVATE",
+    "BACKSTAGE contains no publication action and no network submission path",
+    "raw chat logs are not automatically harvested or published",
+    "other people's private words require authority before any public curation"
+  ],
+  "validation": [
+    "interpret inline JavaScript syntax PASS",
+    "backstage inline JavaScript syntax PASS",
+    "interpretation/backstage contracts and schemas JSON PASS",
+    "machine descriptor JSON PASS",
+    "BACKSTAGE uses browser localStorage and has no fetch/network submission path",
+    "0I1 preserves RAW source"
+  ],
+  "next_reality_gates": [
+    "paste one real high-entropy owner message into /contact/burst/ and compare TRACE against human reading",
+    "manually fill OBSERVED/POSSIBLE/UNRESOLVED/MOVE_SET and test whether the packet reduces re-entry cost",
+    "pin 3-5 genuinely useful/funny making moments in BACKSTAGE and see whether the stream explains an artifact better than a changelog",
+    "only then consider agent-assisted interpretation or public curated provenance"
+  ]
+}
