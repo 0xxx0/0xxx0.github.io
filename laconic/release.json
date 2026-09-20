@@ -44,5 +44,8 @@
     "no auto-send or transport credential exists",
     "HUMAN PORT handoff remains human-triggered"
   ],
-  "return": "/laconic/"
+  "return": "/laconic/",
+  "verification": [
+    "shared /showcase-nav.js showcase RETURN adapter present"
+  ]
 }
