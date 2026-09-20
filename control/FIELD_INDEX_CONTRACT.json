@@ -1,0 +1,50 @@
+{
+  "schema": "field-index-contract/v0.1",
+  "updated": "2026-09-20",
+  "purpose": "Make FIELD INDEX ordering and activity semantics explicit so repo-writing threads/agents update the same public working index without inflating discussion into progress.",
+  "laws": [
+    "DISCUSSION ≠ INDEX TOUCH. A chat/thread mention does not change FIELD INDEX ordering by itself.",
+    "MUTATION → INDEX TOUCH. Any committed change to a tracked public surface updates that route's index.updated_at in the same bounded repo change.",
+    "ACTIVITY MODE ≠ OPERATION. Operation names what the artifact does; work_modes name what kind of work produced the current delta.",
+    "UPDATED ORDER ≠ PRIORITY. Root RUNNING defaults to most recently touched tracked surface; FCM/CURRENT own attention priority.",
+    "SPECULATION IS LEGIBLE, NOT PROMOTED. SPECULATE/SPECIFY may be indexed without implying implementation or evidence.",
+    "RECEIPT WHEN CLAIM CHANGES. If implementation/test/release status changes, update or create the relevant receipt and RETURN entry."
+  ],
+  "root_order": {
+    "default": "UPDATED_DESC",
+    "key": "route.index.updated_at",
+    "tie_break": "manifest order",
+    "alternative": "MANIFEST_ORDER",
+    "meaning": "Declared tracked-surface touch time, not filesystem mtime, not browser visit time, and not mere conversation time."
+  },
+  "activity_modes": {
+    "RECOVER": "Retrieve exact prior artifacts/lineage before synthesis.",
+    "INVESTIGATE": "Resolve a bounded uncertainty, identity, mechanism or failure through targeted evidence.",
+    "RESEARCH": "Gather/synthesize external or corpus evidence; output may be a research note/paper without implementation.",
+    "SPECULATE": "Generate explicitly hypothetical/theoretical possibilities; no implementation/evidence claim.",
+    "SPECIFY": "Turn an idea/finding into a bounded model, contract, schema or testable design.",
+    "IMPLEMENT": "Create or materially change executable/physical artifact state.",
+    "VERIFY": "Test, measure, audit or compare a claimed behavior/state.",
+    "OPERATE": "Run, coordinate or maintain a live/current system without necessarily changing its design.",
+    "RELEASE": "Surface/publish/promote a verified artifact or stable public projection.",
+    "UNKNOWN": "Legacy/unclassified activity; valid only during migration."
+  },
+  "mutation_contract": {
+    "required_same_change": [
+      "update showcase-manifest route.index.updated_at",
+      "set route.index.work_modes to the modes actually exercised by the delta",
+      "preserve route.operation independently",
+      "update receipt/RETURN only when the claimed artifact/test/release state changed"
+    ],
+    "do_not_touch_when": [
+      "only discussing/brainstorming",
+      "reading/reviewing with no durable delta",
+      "recovering context but not yet committing recovered state"
+    ]
+  },
+  "ui_contract": {
+    "root_running": "show updated order by default; allow manifest-order fallback; display last work_modes and touch date",
+    "corner_nav": "shared showcase route adapter remains the canonical BACK/PARENT/SHOWCASE control on tracked non-root routes",
+    "style": "presentation/theme controls are a separate cross-site concern and must not alter semantic ordering/state"
+  }
+}
