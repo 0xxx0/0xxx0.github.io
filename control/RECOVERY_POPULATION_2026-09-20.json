@@ -1,0 +1,102 @@
+{
+  "schema": "0xxx0/recovery-population/v0.1",
+  "id": "RECOVERY-POPULATION-2026-09-20-C",
+  "date": "2026-09-20",
+  "rule": "exact source/bytes first; classify without redesign; public-safe gap instead of fake recovery",
+  "recovered": [
+    {
+      "id": "sleeper-workfield-v1-2",
+      "family": "sleeper-one-return",
+      "status": "EXACT_FROZEN_DONOR",
+      "route": "/recovery/sleeper/workfield-v1.2/",
+      "source": "sleeper_workfield_v1.2_current_slice.html",
+      "size_bytes": 357885,
+      "sha256": "045c0501382f4d3a382d5507019f86187d48ae6ec108c65c61b339838f95ee9d",
+      "verification": "GitHub content equals Library source exactly.",
+      "boundary": "Does not supersede /sleeper/ and does not resolve City Engine/Painting."
+    },
+    {
+      "id": "axial-state-transform-v0-3",
+      "family": "axial",
+      "status": "EXACT_FROZEN_DONOR",
+      "route": "/recovery/axial/state-transform-v0.3/",
+      "source": "state_transform_instrument_v0_3.html",
+      "size_bytes": 19898,
+      "sha256": "32a965e4c010d35fa85cdf0190f831fb82bda2395524b06385a2a3260638a677",
+      "verification": "GitHub content equals Library source exactly."
+    },
+    {
+      "id": "axial-compositor-v0-2",
+      "family": "axial",
+      "status": "EXACT_FROZEN_DONOR",
+      "route": "/recovery/axial/compositor-v0.2/print-template.svg",
+      "sources": [
+        {
+          "name": "axial_compositor_v0_2_print_template.svg",
+          "size_bytes": 15948,
+          "sha256": "4fda827b558d59c6de8a2033221009bfe31c5d555392c5f61a18e6e5d982e821"
+        },
+        {
+          "name": "axial_compositor_v0_2_build_notes.txt",
+          "size_bytes": 2014,
+          "sha256": "7d4036c0751665a52f6815baee726525d1f7d294ce8450b015077b1d1525e7a7"
+        }
+      ],
+      "verification": "GitHub text/vector content equals Library sources exactly."
+    },
+    {
+      "id": "datadisc-2019",
+      "family": "media-representation",
+      "status": "EXACT_BYTE_VERIFIED_HISTORICAL_DONOR",
+      "route": "/recovery/media/datadisc/datadisc.html",
+      "source": "Google Drive datadisc.html",
+      "size_bytes": 20693,
+      "sha256": "01f1e5c707151c0691b9cb563009d4c54148e73eadc5e20a299b45df0c4d0674",
+      "verification": "Raw Drive download SHA-256 matches archaeological fixture; exact bytes committed via Git blob."
+    },
+    {
+      "id": "env0-editable-masters",
+      "family": "physical-print-reification",
+      "status": "EXACT_FROZEN_DONORS",
+      "route": "/recovery/env0/",
+      "sources": [
+        {
+          "route": "/recovery/env0/ENV0_plate14_A2_v0_1.svg",
+          "sha256": "a22096baa0dc5d76f7500098e41d2f5c2b8c057335f550c1664663e1b350804e"
+        },
+        {
+          "route": "/recovery/env0/ENV0_symbols_A2_v0_1.svg",
+          "sha256": "34b106654afdb0ceb3fd94c6b094539d400673fe6e5b49e76259a998fc1f3461"
+        }
+      ],
+      "boundary": "PDF atlas/build sheet remain exact Library bytes pending byte-copy/hash verification in repo."
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "sleeper-city-painting",
+      "status": "BLOCKED_EXACT_SOURCE",
+      "evidence": "Workfield v1.2 is exact and frozen, but City Engine/Painting source remains unavailable. sleeper_pov_v0.7_private_checkpoint.zip is visible but raw-byte materialization is not authorized.",
+      "route": "/recovery/sleeper/"
+    },
+    {
+      "id": "naming-game-of-names",
+      "status": "EXACT_LINEAGE_ISOLATED_ARTIFACT_MISSING",
+      "evidence": "Exact archive lineage exists, but no isolated public-safe runnable/source/glyph artifact is located. Private raw archive is intentionally not published.",
+      "route": "/recovery/naming/"
+    },
+    {
+      "id": "env0-pdf-mirror",
+      "status": "EXACT_LIBRARY_BYTES_REPO_COPY_PENDING",
+      "evidence": "ENV0_Atlas_v0_1_A2.pdf and ENV0_P0_BUILD_SHEET_A3.pdf are located and hashed; editable masters are already frozen.",
+      "route": "/recovery/env0/"
+    }
+  ],
+  "next": [
+    "Mechanism-diff Sleeper Workfield only when current Sleeper/representation work names a missing function.",
+    "Use AXIAL print packet or ENV-0 as a bounded physical PRINT→USE→EVIDENCE→RETURN fixture.",
+    "Resume Painting/City only from exact source/assets or authorized checkpoint bytes.",
+    "Resume Game-of-Names only from an isolated exact artifact; keep public-safe gap visible.",
+    "Treat DataDisc + RSVP as historical fixtures for projection/attention comparison, not rebuild mandates."
+  ]
+}
