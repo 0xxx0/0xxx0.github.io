@@ -2127,6 +2127,163 @@
           "OPERATE"
         ]
       }
+    },
+    {
+      "href": "/dock/",
+      "title": "DOCK / ORIENTATION",
+      "kind": "control",
+      "parent": "/",
+      "state": "ACTIVE",
+      "showcase_card": false,
+      "role": "Scale/orientation reset: purpose, live fronts, drift signals and bounded next move.",
+      "index": {
+        "updated_at": "2026-09-20T21:55:00+08:00",
+        "work_modes": [
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/control/migration/",
+      "title": "MIGRATION FIELD",
+      "kind": "control",
+      "parent": "/control/",
+      "state": "ACTIVE",
+      "showcase_card": false,
+      "role": "Recovery/import/dedup/quarantine ledger; copy first, classify second, merge third.",
+      "index": {
+        "updated_at": "2026-09-20T21:55:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/foundry-cabinet-v4/",
+      "title": "FOUNDRY CABINET V4",
+      "kind": "donor",
+      "parent": "/recovery/",
+      "family": "PATH / GRID",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "Exact self-contained provenance cabinet carrying six unequal recovered instruments.",
+      "receipt": "/recovery/foundry-cabinet-v4/manifest.json",
+      "index": {
+        "updated_at": "2026-09-20T21:55:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/path-grid/grid-path-compiler-v4/",
+      "title": "GRID PATH COMPILER V4",
+      "kind": "donor",
+      "parent": "/recovery/path-grid/",
+      "family": "PATH / GRID",
+      "operation": "COMPILE",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "Broader multilingual/general grid-path workbench: LATIN CONTROL, MEANTOME, Nine-Gate, EN/ZH/MS/TA and GRID/TEXT/GLYPH/RSVP projections.",
+      "index": {
+        "updated_at": "2026-09-20T21:55:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/path-grid/anthropy-pathweaver/",
+      "title": "ANTHROPY PATHWEAVER",
+      "kind": "donor",
+      "parent": "/recovery/path-grid/",
+      "family": "PATH / GRID",
+      "operation": "WEAVE",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "English/Latin path-weave donor preserving source→path→projection→RETURN mechanics.",
+      "index": {
+        "updated_at": "2026-09-20T21:55:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/path-grid/projection-harness/",
+      "title": "PROJECTION HARNESS",
+      "kind": "donor",
+      "parent": "/recovery/path-grid/",
+      "family": "PATH / GRID",
+      "operation": "PROJECT",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "RECT/RADIAL/FAN/ROOM unequal projections over stable addressed construction.",
+      "index": {
+        "updated_at": "2026-09-20T21:55:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/path-grid/foundry-federation/",
+      "title": "FOUNDRY FEDERATION",
+      "kind": "donor",
+      "parent": "/recovery/path-grid/",
+      "family": "PATH / GRID",
+      "operation": "FEDERATE",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "Unequal native engines coordinated under one federation/workbench contract.",
+      "index": {
+        "updated_at": "2026-09-20T21:55:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/path-grid/market-solver/",
+      "title": "MARKET + SOLVER",
+      "kind": "donor",
+      "parent": "/recovery/path-grid/",
+      "family": "PATH / GRID",
+      "operation": "SOLVE",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "Constrained lexicon/bag and least-change route construction donor.",
+      "index": {
+        "updated_at": "2026-09-20T21:55:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/path-grid/cell-foundry-r2/",
+      "title": "CELL FOUNDRY R2",
+      "kind": "donor",
+      "parent": "/recovery/path-grid/",
+      "family": "PATH / GRID",
+      "operation": "ROUTE",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "Cell-poetry topology, route/search, verification and evidence donor.",
+      "index": {
+        "updated_at": "2026-09-20T21:55:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      }
     }
   ],
   "release_law": [
