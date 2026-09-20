@@ -20,7 +20,7 @@ header p{max-width:700px;margin:12px 0 0;color:#aab3b6;font:12px/1.6 system-ui,-
 .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:18px 0 10px}.tabs button{border:0;background:#0a0d0f;color:#8f9ba0;padding:11px;font-size:8px;letter-spacing:.13em}.tabs button.on{background:#12191d;color:#fff;box-shadow:inset 0 -2px 0 var(--cool)}
 .view{display:none}.view.on{display:block}
 .grid{display:grid;grid-template-columns:340px 1fr;gap:12px}.panel{border:1px solid var(--line);background:var(--panel)}.ph{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line)}.ph b{font-size:9px;letter-spacing:.15em}.ph span{font-size:8px;color:var(--muted)}
-.field{border-bottom:1px solid var(--line)}.field label{display:block;padding:8px 10px 0;color:#7f8b91;font-size:8px;letter-spacing:.12em}.field textarea,.field input,.field select{width:100%;border:0;background:#0a0d0f;color:var(--ink);padding:10px;outline:none}.field textarea{min-height:94px;resize:vertical;font:12px/1.5 system-ui,sans-serif}
+.field{border-bottom:1px solid var(--line)}.field label{display:block;padding:8px 10px 0;color:#7f8b91;font-size:8px;letter-spacing:.12em}.field textarea,.field input,.field select{width:100%;border:0;background:#0a0d0f;color:var(--ink);padding:10px;outline:none}.field textarea{min-height:94px;resize:vertical;font:12px/1.5 system-ui,sans-serif}.quickscenes{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);padding:1px}.quickscenes button{border:0;background:#0a0d0f;color:#aeb8bc;padding:8px 9px;font-size:8px;letter-spacing:.08em}.quickscenes button:hover,.quickscenes button.on{background:#131b20;color:#fff;box-shadow:inset 0 -2px 0 var(--hot)}.handoffnote{display:none;border-bottom:1px solid var(--line);padding:8px 10px;color:var(--gold);font-size:8px}.handoffnote.on{display:block}
 .chips{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);padding:1px}.chips button{border:0;background:#0a0d0f;color:#aeb8bc;padding:8px 9px;font-size:8px;letter-spacing:.09em}.chips button.on{background:#131b20;color:#fff;box-shadow:inset 0 -2px 0 var(--cool)}.voice button.on{box-shadow:inset 0 -2px 0 var(--gold)}
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-top:1px solid var(--line)}.actions button,.actionlink{border:0;background:#0a0d0f;color:var(--ink);padding:10px;min-height:42px;font-size:8px;letter-spacing:.1em;text-decoration:none;text-align:center}.actions button:hover,.actionlink:hover{background:#12181c}
 .note{padding:9px 11px;color:#748087;font-size:8px}.results{display:grid;gap:1px;background:var(--line)}.card{background:#0a0d0f;padding:12px;display:grid;grid-template-columns:1fr auto;gap:12px}.card:hover{background:#0e1417}.meta{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:7px}.tag{border:1px solid #354047;padding:2px 5px;font-size:7px;letter-spacing:.08em;color:#93a0a5}.tag.NEW{color:#e3a06b}.tag.EXACT{color:var(--green)}.tag.RECONSTRUCTED{color:var(--gold)}.tag.RESEARCH_INFORMED{color:var(--violet)}
@@ -36,7 +36,7 @@ footer{display:flex;justify-content:space-between;gap:12px;margin-top:18px;paddi
 </head>
 <body><main>
 <header>
-<div><div class="ey">LINE / SCENE / VAULT / RETURN · 0.3</div><h1>LACONIC<br>/ ICONIC</h1><p>A response instrument with an attached source vault. The active layer stays small and bounded; the archive keeps the strange, funny, exact historical material visible without pretending recovered assistant output is automatically adopted canon.</p></div>
+<div><div class="ey">HUMAN PORT / RESPONSE INSTRUMENT · 0.4</div><h1>SAY LESS.<br>MEAN IT.</h1><p>Start with what happened. Choose what the reply needs to do. Choose how it should sound. Pick a line, edit if needed, then send it through HUMAN PORT. The archive and recovered scenes stay available without getting in the way.</p></div>
 <div class="law">
 <div><b>PROVENANCE</b><span>EXACT ≠ RECONSTRUCTED ≠ NEW. Recovered does not automatically mean canonical.</span></div>
 <div><b>PSYCH BOUNDARY</b><span>Record what happened. Keep possible needs tentative. Choose a move. Do not diagnose.</span></div>
@@ -47,26 +47,26 @@ footer{display:flex;justify-content:space-between;gap:12px;margin-top:18px;paddi
 <div class="flow"><span>OBSERVED</span><span>POSSIBLE</span><span>MOVE</span><span>LINE / SCENE</span><span>CURATE</span><span>HUMAN PORT</span><span>RETURN</span></div>
 
 <nav class="tabs">
-<button class="on" data-tab="lines">LINES</button>
-<button data-tab="scenes">SCENES</button>
-<button data-tab="fragments">VAULT</button>
+<button class="on" data-tab="lines">WRITE</button>
+<button data-tab="scenes">TRAJECTORIES</button>
+<button data-tab="fragments">ARCHIVE</button>
 <button data-tab="recover">RECOVER</button>
 </nav>
 
 <section id="view-lines" class="view on">
 <div class="grid">
 <section class="panel">
-<div class="ph"><b>ADDRESS THE EXCHANGE</b><span id="count">BANK</span></div>
-<div class="field"><label for="q">SITUATION / KEYWORDS</label><textarea id="q" placeholder="delayed reply / warm not gushy / ask one thing / playful"></textarea></div>
-<div class="ph"><b>MOVE</b><span>router-compatible</span></div>
+<div class="ph"><b>WHAT HAPPENED?</b><span id="count">BANK</span></div>
+<div class="field"><label for="q">PASTE OR DESCRIBE THE EXCHANGE</label><textarea id="q" placeholder="What did they say? What are you replying to?"></textarea></div><div id="handoffNote" class="handoffnote">FROM BURST · interpretation context loaded locally</div><div class="ph"><b>COMMON MOVES</b><span>one click narrows the bank</span></div><div id="quickScenarios" class="quickscenes"></div>
+<div class="ph"><b>WHAT SHOULD THE REPLY DO?</b><span>meaning before style</span></div>
 <div id="moves" class="chips"></div>
-<div class="ph"><b>REGISTER</b><span>constraint, not persona</span></div>
+<div class="ph"><b>HOW SHOULD IT SOUND?</b><span>style after move</span></div>
 <div id="voices" class="chips voice"></div>
 <div class="actions"><button id="clear">CLEAR FILTERS</button><button id="drops">SHOW DROPPED · OFF</button></div>
 <div class="note">KEEP / DROP is browser-local evidence. It does not mutate the repository.</div>
 </section>
 <section class="panel">
-<div class="ph"><b>CANDIDATES</b><span>single-turn / local</span></div>
+<div class="ph"><b>PICK A LINE</b><span>local candidates · edit after copying</span></div>
 <div id="results" class="results"><div class="card"><div>Loading bank…</div></div></div>
 <div id="selected" class="selected" hidden></div>
 </section>
@@ -108,7 +108,7 @@ footer{display:flex;justify-content:space-between;gap:12px;margin-top:18px;paddi
 </section>
 </section>
 
-<footer><span>PLAY ↔ CARE · LINE ↔ SCENE · OBSERVED ↔ POSSIBLE ↔ MOVE</span><span><a href="./research/response-principles.md">RESEARCH DONORS →</a> · <a href="../contact/">HUMAN PORT →</a> · <a href="./README.md">CONTRACT →</a></span></footer>
+<footer><span>PLAY ↔ CARE · LINE ↔ SCENE · OBSERVED ↔ POSSIBLE ↔ MOVE</span><span><a href="./research/response-principles.md">RESEARCH DONORS →</a> · <a href="../port/">HUMAN PORT →</a> · <a href="./README.md">CONTRACT →</a></span></footer>
 
 <script>
 (()=>{'use strict';
@@ -136,7 +136,8 @@ function lineScore(x,q){
  if(move&&x.move!==move)n-=20; else if(move)n+=6;
  if(voice&&x.voice!==voice)n-=20; else if(voice)n+=5;
  const hay=[x.scenario,x.move,x.voice,(x.tags||[]).join(' '),x.text].join(' ').toLowerCase();
- tokens(q).forEach(t=>{if(hay.includes(t))n+=3});
+ const qt=tokens(q);let hits=0;qt.forEach(t=>{if(hay.includes(t)){n+=3;hits++}});
+ if(qt.length&&hits===0)return -999;
  return n;
 }
 function renderLines(){
@@ -153,14 +154,15 @@ function chooseLine(id){
  const x=bank.lines.find(z=>z.id===id);if(!x)return;selectedId=id;
  const next=(x.next||[]).map(id=>bank.lines.find(z=>z.id===id)).filter(Boolean);
  $('#selected').hidden=false;
- $('#selected').innerHTML='<div class="path">'+esc(x.id)+' · '+esc(x.provenance)+' · '+esc(x.scenario)+' → '+esc(x.move)+' → '+esc(x.voice)+'</div><div class="big">'+esc(x.text)+'</div><div class="path">NEXT · '+(next.length?next.map(n=>esc(n.text)).join(' / '):'terminal or unscripted')+'</div><div class="buttons"><button id="copyLine">COPY LINE</button><button id="openPortLine">OPEN IN HUMAN PORT →</button></div>';
+ $('#selected').innerHTML='<div class="path">'+esc(x.id)+' · '+esc(x.provenance)+' · '+esc(x.scenario)+' → '+esc(x.move)+' → '+esc(x.voice)+'</div><div class="big">'+esc(x.text)+'</div><div class="path">NEXT · '+(next.length?next.map(n=>esc(n.text)).join(' / '):'terminal or unscripted')+'</div><div class="buttons"><button id="copyLine">COPY</button><button id="openPortLine">SEND TO CONTACT →</button></div>';
  $('#copyLine').onclick=()=>copyText(x.text,$('#copyLine'));
  $('#openPortLine').onclick=()=>openHumanPortDraft(x.text);
 }
 function makeLineButtons(){
- const moves=['','ACK','ANSWER','ASK_ONE','DRAFT'];
- $('#moves').innerHTML=moves.map(x=>'<button data-m="'+x+'" class="'+(move===x?'on':'')+'">'+(x||'ANY')+'</button>').join('');
- $('#voices').innerHTML='<button data-vc="" class="'+(!voice?'on':'')+'">ANY</button>'+bank.voices.map(x=>'<button data-vc="'+esc(x.id)+'" class="'+(voice===x.id?'on':'')+'" title="'+esc(x.law)+'">'+esc(x.id)+'</button>').join('');
+ const moves=['','ACK','ANSWER','ASK_ONE','DRAFT'],labels={ACK:'ACKNOWLEDGE',ANSWER:'ANSWER',ASK_ONE:'ASK ONE THING',DRAFT:'OTHER MOVE'};
+ $('#moves').innerHTML=moves.map(x=>'<button data-m="'+x+'" class="'+(move===x?'on':'')+'">'+(x?labels[x]:'ANY MOVE')+'</button>').join('');
+ $('#voices').innerHTML='<button data-vc="" class="'+(!voice?'on':'')+'">ANY SOUND</button>'+bank.voices.map(x=>'<button data-vc="'+esc(x.id)+'" class="'+(voice===x.id?'on':'')+'" title="'+esc(x.law)+'">'+esc(x.id)+'</button>').join('');
+ $('#quickScenarios').innerHTML=bank.scenarios.map(x=>'<button data-scenario="'+esc(x.id)+'">'+esc(x.label)+'</button>').join('');
 }
 $('#results').addEventListener('click',e=>{
  const card=e.target.closest('[data-id]');if(!card)return;
@@ -170,6 +172,19 @@ $('#results').addEventListener('click',e=>{
 });
 $('#moves').onclick=e=>{if(e.target.dataset.m===undefined)return;move=e.target.dataset.m;makeLineButtons();renderLines()};
 $('#voices').onclick=e=>{if(e.target.dataset.vc===undefined)return;voice=e.target.dataset.vc;makeLineButtons();renderLines()};
+$('#quickScenarios').onclick=e=>{const id=e.target.dataset.scenario;if(!id)return;const sc=bank.scenarios.find(x=>x.id===id);if(!sc)return;$('#q').value=id;move=sc.default_move||'';voice='';makeLineButtons();[...$('#quickScenarios').querySelectorAll('button')].forEach(b=>b.classList.toggle('on',b.dataset.scenario===id));renderLines()};
+function consumeBurstHandoff(){
+ try{
+  const raw=sessionStorage.getItem('laconic.handoff.v01');if(!raw)return;
+  sessionStorage.removeItem('laconic.handoff.v01');
+  const h=JSON.parse(raw);const parts=[];
+  if(h.observed?.length)parts.push('observed: '+h.observed.join(' / '));
+  if(h.possible?.length)parts.push('possible: '+h.possible.join(' / '));
+  if(h.moves?.length)parts.push('move: '+h.moves.join(' / '));
+  if(!parts.length&&h.raw)parts.push(String(h.raw).slice(0,900));
+  $('#q').value=parts.join('\n');$('#handoffNote').classList.add('on');
+ }catch(_){}
+}
 $('#q').oninput=renderLines;
 $('#clear').onclick=()=>{move='';voice='';$('#q').value='';makeLineButtons();renderLines()};
 $('#drops').onclick=()=>{showDropped=!showDropped;$('#drops').textContent='SHOW DROPPED · '+(showDropped?'ON':'OFF');renderLines()};
@@ -207,7 +222,7 @@ function renderRunner(){
  $('#runner').innerHTML='<div class="runnerhead"><b>'+esc(scene.title)+'</b><span>'+esc(scene.lane)+' · '+esc(scene.provenance)+'</span></div><div class="runnerbody"><div class="scene-note">'+esc(scene.note)+'</div><div class="meta" style="margin-top:12px"><span class="tag '+esc(node.provenance)+'">'+esc(node.provenance)+'</span><span class="tag">'+esc(node.id)+'</span></div><div class="utter">'+esc(draft)+'</div>'+
  (vars.length>1?'<div class="variantbar">'+vars.map((t,i)=>'<button data-variant="'+i+'" class="'+(activeVariant===i?'on':'')+'">VAR '+(i+1)+' · '+esc(t)+'</button>').join('')+'</div>':'')+
  '<div class="choicebar">'+(node.choices.length?node.choices.map(c=>'<button data-next="'+esc(c.next)+'">'+esc(c.label)+' →</button>').join(''):'<button data-reset="1">END / RESET SCENE</button>')+'</div>'+
- '<div class="actions" style="margin-top:12px"><button id="copyScene">COPY CURRENT</button><button id="openPortScene">OPEN IN HUMAN PORT →</button></div>'+
+ '<div class="actions" style="margin-top:12px"><button id="copyScene">COPY CURRENT</button><button id="openPortScene">SEND TO CONTACT →</button></div>'+
  '<div class="trail">TRAIL · '+esc(trail.length?trail.join(' → '):node.id)+'</div></div>';
  $('#copyScene').onclick=()=>copyText(draft,$('#copyScene'));
  $('#openPortScene').onclick=()=>openHumanPortDraft(draft);
@@ -266,18 +281,20 @@ function sourcePack(){
 $('#copyPack').onclick=()=>copyText(JSON.stringify(sourcePack(),null,2),$('#copyPack'));
 $('#downloadPack').onclick=()=>{const t=JSON.stringify(sourcePack(),null,2),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:'application/json'}));a.download='laconic-iconic-source-pack.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
 
-Promise.all([
- fetch('./bank.json',{cache:'no-store'}).then(r=>r.json()),
- fetch('./scenes.json',{cache:'no-store'}).then(r=>r.json()),
- fetch('./fragments.json',{cache:'no-store'}).then(r=>r.json()),
- fetch('./recovered/iconic-laconic-library-2025-10-21.json',{cache:'no-store'}).then(r=>r.json()),
- fetch('./recovered/companion-lexicon-2025-10-21.json',{cache:'no-store'}).then(r=>r.json()),
- fetch('./recovered/persona-to-council-lineage.json',{cache:'no-store'}).then(r=>r.json()),
- fetch('./recovered/early-plurality-donors-2024.json',{cache:'no-store'}).then(r=>r.json())
-]).then(([b,s,f,hist,lex,lineage,early])=>{
- bank=b;scenesData=s;fragmentsData=f;historicData=hist;lexiconData=lex;lineageData=lineage;earlyDonors=early;
- makeLineButtons();renderLines();renderLaneChips();renderSceneList();renderVault();
-}).catch(e=>{$('#results').textContent='data unavailable: '+e.message;$('#runner').textContent='data unavailable: '+e.message;$('#vault').textContent='data unavailable: '+e.message});
+const loadJson=async(url,fallback=null)=>{try{const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw new Error(r.status);return await r.json()}catch(_){return fallback}};
+(async()=>{
+ bank=await loadJson('./bank.json');
+ if(!bank){$('#results').textContent='Core line bank unavailable.';return}
+ [scenesData,fragmentsData,historicData,lexiconData,lineageData,earlyDonors]=await Promise.all([
+  loadJson('./scenes.json',{lanes:[],scenes:[]}),
+  loadJson('./fragments.json',{items:[]}),
+  loadJson('./recovered/iconic-laconic-library-2025-10-21.json',{}),
+  loadJson('./recovered/companion-lexicon-2025-10-21.json',{}),
+  loadJson('./recovered/persona-to-council-lineage.json',{}),
+  loadJson('./recovered/early-plurality-donors-2024.json',{})
+ ]);
+ makeLineButtons();consumeBurstHandoff();renderLines();renderLaneChips();renderSceneList();renderVault();
+})();
 })();
 </script>
 </main><script src="/showcase-nav.js" defer></script></body></html>
