@@ -1,0 +1,101 @@
+{
+  "schema": "0xxx0/retrieval-canon/v0.1",
+  "updated": "2026-09-20",
+  "status": "ACTIVE_PRIMITIVE",
+  "purpose": "Recover prior reality into current usable state without silent merge, inference promotion, or loss of return path.",
+  "law": [
+    "SOURCE",
+    "SCHEMA",
+    "ANCHOR",
+    "RETRIEVE",
+    "PROVENANCE_SPLIT",
+    "ANTI_MERGE",
+    "CANON",
+    "GAP",
+    "DERIVE",
+    "RETURN"
+  ],
+  "provenance_classes": {
+    "SOURCE": "exact user/document/tool/source statement",
+    "REPORTED": "traceable paraphrase",
+    "ASSISTANT_SUMMARY": "prior model compression; never outranks source",
+    "ASSISTANT_INFERENCE": "prior model deduction/speculation; hypothesis only",
+    "CURRENT_INFERENCE": "present deduction; hypothesis only",
+    "CONFLICT": "incompatible claims coexist",
+    "UNKNOWN": "expected field not recovered; not evidence of absence"
+  },
+  "anti_merge": {
+    "law": "Similarity is not identity. Temporal adjacency is not causality. Repetition is not confirmation.",
+    "valid_join_keys": [
+      "exact entity/id",
+      "same source chain",
+      "same event with compatible time+attributes",
+      "explicit correction/equivalence",
+      "documented equivalence rule"
+    ],
+    "unresolved_action": "KEEP_DISTINCT",
+    "supersession": "OLD_CLAIM -> SUPERSEDED_BY -> NEW_CLAIM"
+  },
+  "reflection_rule": {
+    "law": "REFLECT WHEN USEFUL; PRESERVE THE ORIGINAL.",
+    "use_when": [
+      "material ambiguity",
+      "consequential action",
+      "handoff/interview",
+      "multi-part re-entry"
+    ],
+    "avoid_when": [
+      "trivial question",
+      "restatement adds no information"
+    ],
+    "preserves": [
+      "source wording",
+      "assumptions",
+      "cheap correction path"
+    ]
+  },
+  "field_index_map": {
+    "INPUT": "raw fragments/files/messages/observations",
+    "PORT": "retrieval surface/connector/file/thread",
+    "ADDRESS": "schema slot + entity anchor + source ref",
+    "STATE": "evidence-graded recovered assertions",
+    "TRANSFORM": [
+      "retrieve",
+      "compare",
+      "split",
+      "anti-merge",
+      "canonicalize"
+    ],
+    "OUTPUT": "canonical packet + gaps + derived candidates",
+    "EVIDENCE": "source links/hashes/citations/receipts",
+    "RETURN": "path to source, conflicting branch, superseded state"
+  },
+  "operational_homes": {
+    "confluence": "method owner",
+    "field_intake": "ingest recovered packets; KEEP BOTH / REPLACE / REJECT",
+    "migration_recovery": "exact-source archaeology",
+    "current": "cold-start pointer",
+    "returns": "evidence when canonical state changes",
+    "human_port": "reflection/confirmation discipline only; no private canon"
+  },
+  "handshake": [
+    "REFLECT",
+    "SCHEMA",
+    "ANCHOR",
+    "RECOVER",
+    "SPLIT",
+    "ANTI_MERGE",
+    "VERIFY",
+    "CANON",
+    "GAP",
+    "DERIVE",
+    "RETURN"
+  ],
+  "stop_when": [
+    "high-value slots grounded, conflicted, or UNKNOWN",
+    "promoted facts have return paths",
+    "unresolved merges held rather than guessed",
+    "adversarial omission pass completed",
+    "next bounded action has higher expected value than more retrieval"
+  ]
+}
