@@ -57,6 +57,21 @@ if(manifest){
   for(const r of manifest.routes||[])if(deprecated.has(r.state))fail.push('deprecated route.state '+r.state+': '+r.href);
   const fcm=(manifest.routes||[]).find(r=>r.href==='/fcm/');
   if(fcm)check(fcm.version==='0.2','FCM current version drifted from 0.2');
+  const manifestHrefSet=new Set(hrefs);
+  for(const r of manifest.routes||[])if(r.parent)check(manifestHrefSet.has(r.parent),'manifest parent missing '+r.href+' -> '+r.parent);
+  for(const r of manifest.routes||[])if(r.kind==='alias'){
+    const target=String(r.alias_of||'').split('#')[0].split('?')[0];
+    check(!!target,'alias missing alias_of: '+r.href);
+    if(target)check(manifestHrefSet.has(target),'alias target absent from manifest '+r.href+' -> '+target);
+  }
+  const walkDirs=(dir='')=>fs.readdirSync(path.join(root,dir),{withFileTypes:true}).flatMap(ent=>{
+    if(ent.name==='.git'||ent.name==='node_modules')return [];
+    const rel=path.posix.join(dir,ent.name);
+    if(ent.isDirectory())return walkDirs(rel);
+    if(ent.isFile()&&ent.name==='index.html'&&dir)return ['/'+dir.replace(/\\/g,'/')+'/'];
+    return [];
+  });
+  for(const href of walkDirs())check(manifestHrefSet.has(href),'directory index surface missing manifest address: '+href);
 }
 const ret=parse('return-index.json');
 if(ret){
