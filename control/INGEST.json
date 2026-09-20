@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/local-ingest/v0.1",
-  "updated": "2026-09-19",
+  "updated": "2026-09-20",
   "purpose": "Continuously recover files/media/artifacts without letting automatic organization destroy provenance.",
   "law": "INDEX → HASH → TAG → REVIEW → ROUTE. Automatic move/delete is last, never first.",
   "stages": [
@@ -96,5 +96,18 @@
     "mass renaming",
     "moving originals into a new universal taxonomy"
   ],
-  "promotion_gate": "A routing rule becomes automatic only after at least one review pass shows no lineage/provenance damage and its inverse/recovery path is known."
+  "promotion_gate": "A routing rule becomes automatic only after at least one review pass shows no lineage/provenance damage and its inverse/recovery path is known.",
+  "state": "PROVED_STAGING_V0.1",
+  "scanner": "/scripts/ingest-scan.sh",
+  "indexer": "/scripts/ingest-index.py",
+  "rules": "/control/INGEST_RULES.json",
+  "first_receipt": "/control/INGEST_RUN_2026-09-20.json",
+  "first_representation": "/control/REPRESENTATION_01.json",
+  "observed_lessons": [
+    "OS-specific stat semantics must be explicit; successful exit status is not semantic compatibility.",
+    "Report output must be outside the scanned source tree.",
+    "Byte identity and semantic lineage are separate layers.",
+    "Conflicting deterministic rules stop at REVIEW_CONFLICT.",
+    "Project-backed Library objects may be discoverable without an authorized raw-byte path; record the boundary instead of inventing a scan."
+  ]
 }
