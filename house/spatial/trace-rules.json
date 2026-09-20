@@ -1,5 +1,5 @@
 {
-  "schema": "house-trace-rules/v0.1",
+  "schema": "house-trace-rules/v0.2",
   "updated": "2026-09-20",
   "title": "TRACE / INK PATH",
   "status": "EXPERIMENT",
@@ -133,5 +133,16 @@
       ],
       "rule": "Public HOUSE/SPATIAL consumes typed public-safe outputs; it does not query or actuate the private HA runtime directly."
     }
+  },
+  "v0_2": {
+    "round_trip": "EXPORT house-trace/v0.1 → IMPORT → validate contiguous seq + known addresses → reconstruct same ordered route",
+    "replay": "Temporal focus cursor steps over canonical route without mutating route data.",
+    "step_ms": {
+      "min": 100,
+      "max": 5000,
+      "default": 550
+    },
+    "donor_transplants": "/house/spatial/trace-transplants.json",
+    "source_truth": "Imported traces become REPLAYED projection state; import does not claim physical observation."
   }
 }
