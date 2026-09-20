@@ -401,6 +401,28 @@
       "sha256": "01f1e5c707151c0691b9cb563009d4c54148e73eadc5e20a299b45df0c4d0674",
       "unique": "150-item compound-glyph spiral and multichannel radial projection fixture.",
       "action": "FROZEN exact historical donor. Mechanism-compare against Scale Lens/Dayline/DataDisc descendants; no nostalgia rebuild."
+    },
+    {
+      "id": "env0-integrated-field-master",
+      "name": "ENV-0 / Integrated Field SVG Master",
+      "family": "physical-print-reification",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/env0/ENV0_plate14_A2_v0_1.svg",
+      "source_type": "library-recovered-exact",
+      "sha256": "a22096baa0dc5d76f7500098e41d2f5c2b8c057335f550c1664663e1b350804e",
+      "unique": "Editable integrated-field A2 master carrying BODY→GARMENT→HARNESS→SUIT→FURNITURE→ROOM→HOUSE grammar.",
+      "action": "FROZEN exact donor. Use for print/physical round-trip; do not infer validated physical claims from the diagram."
+    },
+    {
+      "id": "env0-symbol-type-master",
+      "name": "ENV-0 / Symbol + Type SVG Master",
+      "family": "physical-print-reification",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/env0/ENV0_symbols_A2_v0_1.svg",
+      "source_type": "library-recovered-exact",
+      "sha256": "34b106654afdb0ceb3fd94c6b094539d400673fe6e5b49e76259a998fc1f3461",
+      "unique": "Editable symbol/type grammar for ports, boundaries, operations, confidence and print rules.",
+      "action": "FROZEN exact donor. Use as grammar/print fixture; preserve uncertainty and confidence semantics."
     }
   ],
   "ingest_queue": [
