@@ -1,0 +1,582 @@
+<!doctype html>
+<html><head id=HEAD><meta 
+charset='utf-8'    
+name="viewport"             
+content="user-scalable=no,user-scalable=0"/><title>
+    TITLE                       </title>
+<style id='root'>
+  :root{--SYSFONTS:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial, monospace;
+  --K0:#000;--K1:#444;--K2:#888;--K3:#CCC;--K4:#FFF;
+  --R1:#440000;--R2:#880000;--R3:#CC0000;--R4:#FF0000;
+  --B1:#000044;--B2:#000088;--B3:#0000CC;--B4:#0000FF;
+
+  --SHADE:rgba(128,128,128,.3);
+  --SCALE:1.618;--TRANSITION:transform 300ms;
+  --FONTSIZE:16px; --EM:1em; --VW:100vw ;--VH:100vh ;--PERSP:32em; --PERSPORIGIN:center ; --SVGW:100% ;--SVGH:100% ;--STROKE:.3 ; 
+--XXS: calc(var(--EM)*0.01*var(--SCALE)); --XS:calc(var(--EM)*0.1*var(--SCALE));
+--SIZE1:calc(var(--EM)*var(--SCALE))
+;--SIZE0:calc(var(--EM)*var(--SCALE)*0.5)
+/*--SIZE1:calc(var(--EM)*var(--SCALE));*/
+/*;--MARQUEE: 5s linear infinite*/
+;--DEBUG:0.5px solid var(--SHADE);--PERCENT:1%; 
+/* ------.-----–---.---- ---–.---------.-–------- ----–----.-------–-.---- ----.–--------.--- [] */
+;--REVEALS: inset 0 0 calc(0.25*var(--SCALE)*var(--VW)) 1em var(--SHADE)
+;--OL0:none;--OL1:solid 2px;
+}
+</style>
+<style id=core>
+  *,*:before,*:after{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box;text-rendering: optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-kerning:auto;}
+  p{text-align:justify;}
+  p+p{margin-top:0;text-indent:2em;}
+  *+*{margin:0}/*.tight>*{margin-top:var(--XS)}.margins-off>*{margin-top:0;}*/
+  details *{margin-left:1em;}
+  body{font-family:var(--SYSFONTS);:var(--FONTSIZE);background-color:var(--K0);color:var(--K2); padding-top:-3;
+    /*overflow:hidden;*/
+    height:100vh;}
+  section *{height:auto;width:auto;}
+
+/*:focus{border:1px solid var(--K0); box-shadow: 0 0 3em var(--K0); outline:var(--OL1); opacity:1;}*/
+input {outline:var(--OL1) var(--R4); font-size: var(--SIZE0); position:absolute; bottom:0; background-color: var(--SHADE); color:var(--K0); width:100%;}
+/*input:focus {height:var(--SIZE1); background-color: var(--SHADE);color:var(--K0);}*/
+</style>
+<style id=cube>
+  .view
+    {--W:100vw
+    ;--H:100vh
+    ;--PERSP:32em
+    ;position:absolute
+    ;transform-origin:calc(-0.5*var(--W)) calc(-0.5*var(--H)) 0
+    /*;overflow:hidden*/
+    ;perspective:var(--PERSP)
+    ;transition:var(--TRANSITION)
+    ;left:0;top:0}
+.room
+    {--rx:0;--ry:0;--rz:0;
+    ;height:var(--H)
+    ;width:var(--W)
+    /*;margin:0*/
+    ;transform-style:preserve-3d
+    ;transform:translateZ(calc(-0.5*var(--W)))
+    ;transition:var(--TRANSITION);}
+.room.face
+    {position:absolute
+    ;outline:var(--OL0)
+    ;box-shadow: var(--REVEALS)
+    /*;height:100%;width:100%*/
+/*---- TRIANGLE PATTERN ----*/
+;
+background:
+linear-gradient(115deg, transparent 70%, rgba(125,125,125,.2) 75%) 0 0,
+linear-gradient(245deg, transparent 70%, rgba(125,125,125,.2) 75%) 0 0,
+linear-gradient(115deg, transparent 70%, rgba(125,125,125,.2) 75%) 7px 15px,
+linear-gradient(245deg, transparent 70%, rgba(125,125,125,.2) 75%) 7px 15px,
+#EEE;
+background-size: 1em 2em;
+/*------ !TODO:move into var or sth! --------*/
+  }
+.room.f{transform:translateZ(calc(-0.5*var(--W)))}
+.room.o{background:none;transform:translateZ(calc(0.5*var(--W)))}
+.room.l{transform:rotateY(90deg)translateZ(calc(-0.5*var(--W)))}
+.room.r{transform:rotateY(-90deg)translateZ(calc(-0.5*var(--W)))}
+.room.w{transform:rotateX(90deg)translateZ(calc(0.5*var(--W)))scaleY(-1);height:var(--W);}
+.room.e{transform:rotateX(90deg)translateZ(calc(0.5*var(--W)))translateZ(calc(-1*var(--H)));height:var(--W);}
+</style>
+<style id=interface>
+
+svg {
+    width:100%;
+    height:100%;
+    stroke:var(--K0);
+     overflow:hidden;
+    outline:1px solid var(--K0); 
+    display:inline-block; 
+     position:absolute; 
+     pointer-events: none;}
+svg *{pointer-events: all;}
+svg *{transition:transform 300ms;}
+
+ circle {fill:none; stroke-width:.2; }
+ ellipse {fill:none; stroke-width:.2; }
+ rect {fill:none; stroke-width:.2; }
+ text {text-anchor:middle;
+     dominant-baseline:central;
+     font-size:.2em;
+     fill:var(--K3);
+     stroke:none; }
+ path {fill:none; stroke-width:.1; 
+    /*vector-effect: non-scaling-stroke; */ }
+ polyline{fill:none; stroke-width:.1;}
+ foreignObject {height:auto; width:100%; }
+ foreignObject>*{
+    display:inline-block;
+    float:left;
+    font-size:calc(5*var(--PERCENT));
+    width:calc(35*var(--PERCENT));
+    color:var(--K3); }
+ </style> <style id=interface> 
+ :focus{outline:none; }
+ input {
+    font-size: var(--SIZE0);
+     background-color: transparent;
+     outline:var(--OL0);
+     opacity:.5;
+     position:absolute;
+     width:100%; }
+ input:focus {
+    font-size:var(--SIZE1);
+    outline:var(--OL1) var(--K0);
+    background-color: var(--SHADE);
+    color:var(--K0);
+}
+
+</style>
+<style id=utility>
+.reset-all-styles{all:initial;}
+.X{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)}
+.hidden{display:none;}
+.invisible{visibility:hidden;}
+.ref{position: relative; }.refcard{position:relative;visibility:hidden;left:100%;top:10%;width:100%;}.ref:hover{overflow:visible;}.ref:hover>.refcard{visibility: visible;}
+.nopoint{pointer-events:none !important;}.nopoint>*{pointer-events:auto !important;;}
+/*.pointed{pointer-events:auto;}*/
+.hlbg{background:var(--Cc5);}
+.untransform{transform:none !important;}
+.sunroof{background:linear-gradient(to bottom, #000066 10%,#1e528e 20%, #880000 50%, #e9ce5d 100%);}                                  </style></head><body
+id=BODY                                           >
+</section><div 
+id=VIEW0 class=view                               ><div 
+id=ROOM0 class=room                               ><div 
+class='room face f'                               ></div><div
+class='room face l'                               ></div><div
+class='room face o'                               ></div><div
+class='room face w'                               ></div><div
+class='room face e'                               ></div><div
+class='room face r'                               ></div></div></div><input>
+<script id="#">
+world=window,yes=true,no=false,duh=undefined
+let AudioContext = world.AudioContext||world.webkitAudioContext||false
+SENSES=
+[['ac',"new AudioContext"]
+,['utter',"new SpeechSynthesisUtterance"]
+,['cv',"document.body.appendChild(document.createElement('canvas')).getContext('2d')"]]
+PRELUDE=
+[['within',"o=>k=>o[k]"]
+,['wherewithin',"o=>k=>(a,b)=>o[k](a,b)"]
+,['protocall',"o=>m=>(...f)=>g=> o['prototype'][m]['call'](g,...f)"]
+,['properkeys',"x=>within(Object)('getOwnPropertyNames')(x)"]
+,['protokeys',"x=>properkeys(within(x)('prototype'))"]
+,['knowby',"(name,who_knows=this)=>thing=>who_knows[name]=thing"]
+,['release',"(where={})=>f=>xs=>xs.reduce((a,x)=>(knowby(x,a)(f(x)),a),where)"]
+,['funpack',"(pack)=> pack.map(fun=>knowby(fun[0],fun[2]?world[fun[2]]:this)(eval(fun[1])))"]
+,['BASICOPERATORS',`({add:b=>a=>a+b,sub:b=>a=>a-b,mul:b=>a=>a*b,div:b=>a=>a/b,pow:b=>a=>a**b,cyc:b=>a=>a%b,eq:b=>a=>a===b,ne:b=>a=>a!==b,gt:b=>a=>a>b,lt:b=>a=>a<b,lte:b=>a=>a<=b,gte:b=>a=>a>=b,or:b=>a=>a||b,and:b=>a=>a&&b,xor:b=>a=>(a&&!b)||(!a&&b),not:a=>!a,fort:a=>!!a,decr:(a,b=1)=>a-=b,incr:(a,b=1)=>a+=b,dec1:a=>a--,inc1:a=>a++,AND:b=>a=>a&b,OR:b=>a=>a|b,XOR:b=>a=>a^b,NOT:a=>~a,SHIFTL:b=>a=>a<<b,SHIFTR:b=>a=>a>>b,SHIFTR0:b=>a=>a>>>b,ife:a=>b=>a?a:b,ift:p=>f=>p?f:{},ifte:p=>f=>g=>p?f:g})`]
+]/*within wherewithin protocall proprekeys protokeys know_by release funpack BASICOPERATORS*/.map(fun=>world[fun[0]]=eval(fun[1]))
+FREEDOOM= /*  */
+[['captive',"(X,F,g)=>({X,F,Ks:typeof g==='function'?g(X):g})"]
+,['RELEASE_THE',"(captives,where={})=> captives.reduce( (_,{X,F,Ks})=>release(where) (F(X)) (Ks))"]
+];[SENSES,PRELUDE,FREEDOOM].map(funs=>funpack(funs))
+KRAKEN=
+[[[Element,Node,Number,String,RegExp,Array],[protocall,protokeys]] 
+,[[document],[wherewithin, protokeys(Document).filter(s=>s.match(/(^get|create|element|query|url)/gi))]]//TODO: filterdox   
+,[[ac],  [wherewithin,  protokeys(/*BaseAudioContext*/AudioContext)] ]
+,[[utter], [wherewithin, protokeys(SpeechSynthesisUtterance)]]
+,[[speechSynthesis], [within, ['pause','resume','cancel', 'speaking','pending','paused', 'onvoiceschanged']]]
+,[[cv],[wherewithin,properkeys(CanvasRenderingContext2D.prototype).filter(s=>!s.match(/(fill|filter)/gi))] ]
+,[[Object,Date,Math,BASICOPERATORS],[within,properkeys]]
+].reduce((a,c,i,o)=>a.concat(o[i][0].map(x=>[x,...o[i][1]])),[])
+.map(captives=>captive(...captives))
+RELEASE_THE(KRAKEN,/*!!End the*/world)
+//========================================================================
+head = ([xs])=>xs
+tail = ([,...xs])=>xs
+fst = x=> x[0]
+snd = x=> x[1]
+last = xs=>slice(-1)(xs)
+butLast = xs=>slice(0,-1)(xs)
+flip=f=>a=>b=>f(b)(a)
+//======================================================================= 
+flow = (...fs)=> reduce((L,R)=>(...xs) =>R(L(...xs)))(fs)
+wolf = (...fs)=> reduce((L,R)=>(...xs) =>L(R(...xs)))(fs)
+//========================================================================
+LENS = get=>set=>({get,set})
+fov= k=>LENS(o=>within(o)(k))(v=>o=>knowby(k,o)(v))
+get = l=>o=> within(l)('get')(o)
+set = l=>v=>o=> (within(l)('set')(v)(o),o)
+over = l=>f=>o=> (set(l)(f(get(l)(o)))(o),o)
+// put = (v,l=fov)=>o=>set(l(size(o))))(v)(o) ~> sth like push | append
+sentry=(xo,l)=>o=>(map(x=>set(l(fst(x)))(snd(x))(o)) (entries(xo)),o)
+gentry=(xs,l)=>o=>(reduce((a,x)=>(a[x]=get(l(x))(o),a) ,{})(xs))
+getpath = (xs,l=fov)=>o=> flow(...map(get)(map(l)(xs)))(o)
+setpath = (xs,l=fov)=>v=>o=> (set(l(last(xs)))(v)(xs.length>1?getpath(butLast(xs))(o):o),o)
+oway = (xs,l)=>f=>o=> (set(l(last(xs)))(f(getpath(xs)(o)))(xs.length>1?getpath(butLast(xs))(o):o),o)
+focii = (ks,l,ctx={})=>release(ctx)(l)(ks)
+//========================================================================
+store = (s={},is=[])=> (
+  {state: ()=> s
+  ,change: d=>o=>n=> (s=d(s,n), is.map(i=>i(s,n,o)),s) // n??
+  ,listen: cb=> is.push(cb)// 
+  ,listeners:is })
+watch = store=>f=>store.listen(f)
+//========================================================================
+update= store=>props=> store.change((state,o)=>setpath(props,fov)(o)(state))(props)
+// upd2 = store=>props=> store.change((state,o)=>set(fov(props))(o)(state))(props) // conf lens
+// fos=k=>LENS(o=>within(o.state())(k))(v=>o=>o.change((s,v)=>set(fov(k))(v)(s))(k))
+RC$ = store({LOGIC:{},TYPES:{},VARS:{}})
+conf = (...xs)=>v=> update(RC$)(xs)(v)
+watch(RC$)((s,i,n)=>console.log('RC$ state changed ([time,path,new value,new state]):', [Date.now(),n,i,s])) 
+ref=(...xs)=>getpath(xs,fov)(RC$.state())
+dep=(s,t)=>x=>get(fov(s))(RC$.state().LOGIC)[t(x)](x)
+RC=RC$.state()
+//========================================================================
+type = x=>({}).toString.call(x).slice(8,-1).toLowerCase()
+conf('TYPES','primitives')('array,string,object,regexp,number,function,text')
+conf('LOGIC','size')
+   ({array: x=> x.length
+   ,string: x=> new Blob([x.replace(/./gu,'.')]).size
+   ,object: x=> x.size||x.length||Object.keys(x).length
+   ,htmldivelement: x=>x.childElementCount})
+ist=release({})(b=>a=>b===type(a))(split(',')(ref('TYPES','primitives')))
+size=dep('size',type)
+//========================================================================
+TRANSDUCERS=
+[['transduce',"ings=>s=>i=>ns=>reduce(ings(s),i)(ns)"]
+,['mapping',"g=>f=>(x,ns)=>f(x,g(ns))"]
+,['minding',"g=>r=>(x,ns,i=0)=>r(x,g(ns,i))"]
+,['filtering', "q=>r=>(p,ps)=>q(ps,p)?r(p,ps):p"]
+,['finding',"q=>r=>(p,ps)=>q(ps,p)?r(p,ps):p"]
+,['dropping',"d=>r=>(p,q)=>--d>=0?p:r(p,q)"]
+,['taking',"d=>r=>(p,q)=>--d>=0?r(p,q):p"]
+,['shovel',"(hole,thing)=>(push(thing)(hole),hole)"]
+,['gating', "e=>(...k)=>filtering(e(...k))"]
+,['dropgate',"skips=> x=> ifte( gte(0)( decr(skips) ) )(false)(true)"]
+,['twogate',"(open,close,opened=false)=>x=>open(x)?opened=true:close(x)?opened=false:opened"]]
+funpack(TRANSDUCERS)
+//===============================================================
+I = x => x;
+K = x => y => x;
+A = f => x => f(x);
+T = x => f => f(x);
+W = f => x => f(x)(x);
+C = f => y => x => f(x)(y);
+B = f => g => x => f(g(x));
+S = f => g => x => f(x)(g(x));
+P = f => g => x => y => f(g(x))(g(y));
+
+Z_ = a=>(b=>b(b))(b=>a(c=>b(b)(c)))
+Y_ = a=>(b=>a((...c)=>b(b)(...c)))(b=>a((...c)=>b(b)(...c)))
+
+reap = Y_(r=>n=>f=>x=>!n?x:r(n-1)(f)(f(x)))
+arr = (n,v=0)=> Array(n).fill(v)
+
+range=(x,y)=>[...Array(y-x)].map(a=>x++)
+
+primes=(n,i,r)=>{for(r=n<0?(n=-n,[-1]):[],i=2;i<=n;i++)n%i||(r.push(i),n/=i--);r[0]=n*(r[0]||1);return r}
+nestNums=(ns,u=1)=>reduce((a,c)=>arr(c,a),u)(reverse()(ns))
+nestReap=(fns,f=map)=>map((x,i)=>reap(i)(f)(a=>x(a)||""))(fns)
+// fillar=(n,i=0)=>slice(i,n)([...Array(n).keys()])
+// range = Z_(g=>i=>n=>(i===n)?n:[i].concat(g(from+1)(to)))
+//===============================================================
+RE=
+  {terms: /\w+|\s+|[\W\S]+/gu
+  ,words:/\w+|[\W\S]/gu 
+  ,words1: /\b\S+|\S+\b|\s+/gu
+  ,delim: /[\W\S]/gu
+  ,words2:/\S+/gu
+  ,lines:/\r?\n/gu
+  ,sentences: /[^\.!?]+\S*/gu
+  ,phrases:  /\S*[^,:;"\-]+\S*/gu
+  ,numbers:/[+-]?(\d*\.)?\d+/
+  ,chars:/./gu
+  ,cssvars:/(--\w+)/g
+  ,HtmlTags: /<[^>]+>/g
+  ,delimiters: /[,:;()\/&+]|--/g
+  ,fullstops:/[\.!?]/g
+  ,fullstop_dup:/([\.])[\.]+/g
+  ,fullstop_space:/[ ]*([\.])/g
+  ,WStrailing:/\s+$/g
+  ,WSleading:/^\s+/g
+  ,WSdup: /\s+/g
+  ,emailDots:/[\.]?(\w+)[\.]?(\w+)@(\w+)[\.](\w+)[\.]?/g
+  ,newlines:/[ ]*(\n|\r\n|\r)[ ]*/g
+  ,matrix3d:/^\w*\(|\)/g
+  }//===============================================================
+factorize=fax=>x=>transduce(mapping(flow(...fax)))(shovel)([])([x])
+TEXTFACTORS = [split(RE.lines), match(RE.sentences), match(RE.phrases), match(RE.terms), match(RE.words), values]
+
+//factorize(nestReap(TEXTFACTORS,f=>map((x,i,o)=>[f(x),x,[i,size(o)]])))(TESTTEXT)
+//===============================================================
+fml=k=>({get:o=>o.getAttribute(k),set:v=>o=>o.setAttribute(k,v)})
+fcs=k=>({get:o=>getComputedStyle(o).getPropertyValue(k),set:v=>o=>o.style.setProperty(k,v)})
+conf('TYPES','html')('a,b,i,br,head,body,canvas,button,section,div,input,script,style,form,label,code,date,pre,img,span,h1,h2,h3,h4,h5,h6,p,iframe,textarea,summary,details,li,ul,ol,template,anchor,unknown')
+conf('TYPES','svg')('foreignObject,image,svg,circle,ellipse,marker,line,path,rect,use,symbol,text,tspan,textPath,polyline,polygon,g,defs,pattern,linearGradient,title,desc')
+conf('LOGIC','tat')(
+  {string:k=>(o,l)=> get(l(k))(o)
+  ,array:xs=>(o,l)=> gentry(xs,l)(o)
+  ,object:xo=>(o,l)=> sentry(xo,l)(o)})
+conf('LOGIC','tml')(
+  {NS:x=> createElementNS(ifte
+    (includes(x)(RC.TYPES.svg.split(',')))
+      ("http://www.w3.org/2000/svg")
+      ("http://www.w3.org/1999/xhtml"),x)
+  ,array:  x=>o=> appendChild(tml(x))(o)
+  ,string: x=>o=> appendChild(createTextNode(x))(o) 
+  ,object: x=>o=> tat(x,fml)(o)})
+tat=(k,l)=>o=>dep('tat',type)(k)(o,l)
+tml=(ns,o=dep('tml',_=>'NS')(head(ns)))=>
+  (forEach(n=>dep('tml',type)(n)(o))(tail(ns))
+  ,o)
+conf('LOGIC','lmt')(
+  { 1: el=>node=> el.push(asJML(node))
+  , 3: el=>node=>el.push(node.data)
+  , string: x=> asJML(document.createElement('span').innerHTML=x)
+  , recur: frag=> asJML(frag)})
+lmt=(()=> {asJML=(frag)=> {let el = [frag.nodeName.toLowerCase()], attrs = {};if (frag.attributes) {[...frag.attributes].forEach((attr)=> attrs[attr.name]=attr.value); el.push(attrs)};[...frag.childNodes].forEach((node)=>includes(node.nodeType)([1,3])?RC.LOGIC.lmt[node.nodeType](el)(node):x=>x) ;return el };parse=(frag)=> ist.string(frag)?RC.LOGIC.lmt['string'](frag):RC.LOGIC.lmt['recur'](frag);return parse })()
+//===============================================================
+conf('VARS')({Maths:{precision:6}})
+precisely=(x,sigfig)=>y=> Number(sigfig?toPrecision(x)(y?+y:0):toFixed(x)(y?+y:0))
+est=precisely(RC.VARS.Maths.precision)
+RT_XY=([r,t],[cx,cy]=[0,0])=> map(est)([r*cos(t)+cx, r*sin(t)+cy])
+XY_RT=([x,y],[cx,cy]=[0,0])=> (i=x-cx,j=y-cy, map(est)([sqrt(i*i + j*j),atan2(j, i)]))
+
+conf('LOGIC','vect')({c:([x,y])=>({x,y,type:'cartesian'}),p:([r,t])=>({r,t,type:'polar'})})
+V=ref('LOGIC','vect')
+// -> spiral factor increases (some exp at liminal pt?) automatically as set size 
+//===============================================================
+deepFlatten=f=a=>a.map?[].concat(...a.map(f)):a
+
+sindex=(ks)=>(f=x=>x,s=[],way=[])=>
+  map((x,i,o)=>ist.array(x)?f([[concat(size(o))(s)],[concat(i)(way)],sindex(x)(f,concat(size(o))(s),concat(i)(way))],x) : f([[concat(size(o))(s)],[concat(i)(way)]],x))(ks)
+
+since=(tags,classes=[],content=true)=>([s,i,n],c)=>(
+  [tags?tags[size(i[0])-1]:"DEPTH"+(size(i[0])-1)
+  , {'data-sizes':s[0]
+    ,'data-index':i[0]
+    ,'data-childCount':n?size(n):0
+    ,'data-content':content?(ist.array(c)?join('')(deepFlatten(c)):c):''
+    ,'data-ratio':map((x,i,o)=>x/(s[0][i]))(i[0])
+    ,'class':classes[size(i[0])-1]}
+  ].concat((n?n:c+'')))
+
+
+
+
+
+
+conf('H')(({a:{href:'#'},svg:{viewBox:'-16 -16 32 32'},pattern:{viewBox:'0 0 32 32',width:'5%',height:'5%',patternUnits:'userSpaceOnUse'},circle:{cx:0,cy:0,r:0.1},rect:{x:0,y:0,width:1,height:1},symbol:{viewBox:'-4 -4 8 8'},marker:{viewBox:'0 0 32 32',refX:0, refY:0,markerWidth:10,markerHeight:10,orient:'auto'},preconf:{SECTOGRAPH:{style:"stroke:var(--Cb5);stroke-width:.1;fill:var(--T2);opacity:1;"}}}))
+H=t=>(...xs)=>[t, assign({},ref('H',t)||{},ist.object(head(xs))?shift()(xs):{}),...xs]
+  h=release(h={})(a=>H(a))((split(',')(RC.TYPES.html+RC.TYPES.svg)))
+
+domo=x=>el=> appendChild(tml(x)) (el)
+omod=x=>(appendChild(x)(sleepdom),lmt(x))
+/*===============================================================
+//===============================================================*/
+// uc=(f,d=1)=>(...as)=> as.slice(0,d).reduce((x,y)=>x(y),f)
+  TENSOR=
+[['idmatrix',"n=>map((_,i,a)=> map((_,j)=> ifte(eq(i)(j))(1)(0))(a))(fill(0)(Array(n)))"]
+,['mXm',"a=>b=> map(x=> map(y=>dotX(x)(y))(T(b)))(a)"]
+,['mXms',"([...ms])=> reduce((a,c)=>mXm(a)(c))(ms)"]
+,['mulScalar',"s=>M=> map(map(x=>x*=s))(M)"] 
+// ,['vecadd',"(v1=[0,0],v2=[0,0])=> zipWith(v1,v2,uncarry(add,2))"]
+// ,['addvert',"twith((a,b)=>a+b,0)"]
+,['dotX',"a=>b=> reduce((a,c)=>a+c)(map((x,i)=> a[i]*b[i])(a))"]
+,['T', "a=> map((_,i)=>map(y=>y[i])(a))(a[0])"]
+,['reCol',"a=>n=>a.reduce((r,k,i)=>(i%n===0?r.push([k]):r[r.length-1].push(k))&&r,[])"]]
+  DOMIMATRIX=
+[['domgen',"([...ms])=> T(reduce((a,c)=>mXm(a)(c)) (map(m=>T(reCol(m)(4)))(ms)))"]
+,['m6to16',"o=> ifte (size(o)>6) (o) (reduce((a,c,i)=>(a[c]=o[i],a),reduce((a,c)=>concat(a)(c))(idmatrix(4)))([0,1,4,5,12,13]))"]
+,['extract',`flow(s=>s.split(RE.matrix3d)[1],split(','),map(est))`]
+,['m3d',"n=>`matrix3d(${join(',')(n)})`"]
+,['mod',"([...values])=>m3d(domgen(values))"]
+,['mvmt',"(el,d)=>(tfm)=> tat('transform',fcs)(el)==='none'? mod(tfm,d):mod((tfm).concat([m6to16(extract(tat('transform',fcs)(el)))]),d)"]
+,['mv',"(...tfm)=>(el,d)=>el.style.transform= mvmt(el,d)(tfm)"]
+,['rot',"(angle=PI/2,axis='z')=> getpath(['rotate',axis])(TFM3D)(angle)"]
+,['tra',"(x=0,y=0,z=0)=> getpath(['translate'])(TFM3D)(x,y,z)"]
+,['sca',"(x=1,y=x,z=1)=> getpath(['scale'])(TFM3D)(x,y,z)"]
+,['around',"(an,ax)=>(x,y,z)=>[tra(x,y,z),rot(an,ax),tra(-x,-y,-z)]"]
+// --------------------------------------------------------------------------------
+,["TFM3D",`({perspective:d=> [1,0,0,0,0,1,0,0,0,0,0,-1/d,0,0,0,1]
+    ,scale:(w=1,h=w,d=w)=> [w,0,0,0,0,h,0,0,0,0,d,0,0,0,0,1]
+    ,translate:(x=0,y=0,z=0)=> [ 1,0,0,0,0,1,0,0,0,0,1,0,x,y,z,1]
+    ,rotate:{ x: a=> [1,0,0,0,0,cos(a),-sin(a),0,0,sin(a),cos(a),0,0,0,0,1]
+            , y: a=> [cos(a),0,sin(a),0,0,1,0,0,-sin(a),0,cos(a),0,0,0,0,1]
+            , z: a=> [cos(a),-sin(a),0,0,sin(a),cos(a),0,0,0,0,1,0,0,0,0,1] }})`]]
+funpack(TENSOR)
+funpack(DOMIMATRIX)
+
+
+
+
+
+
+
+
+
+
+conf('FAX')({"faxpaths":'',"radii":'',"epicfun":'',legendfun:''})
+
+
+
+funpack([['bbox',"(el)=> el.getBoundingClientRect()"]
+,['plength',"pathEl=>pathEl.getTotalLength()"]
+,['setDash',"way=>map(dash=>set(fcs(dash))(plength(way))(way))(['stroke-dashoffset','stroke-dasharray'])"]
+,['wherefore',"pathEl=>prog=>pathEl.getPointAtLength(plength(pathEl)*prog)"]
+,['wayfar',"way=>prog=>(/*for safari*/bbox(way),setDash(way),set(fcs('stroke-dashoffset'))(plength(way)*(1-prog))(way))"]
+,['wayset',"(el,attrs={},SYM=h.circle)=>domo(SYM( config(attrs)({ id:nom('waypoint') }))) (el)"]
+,['wayptr',"el=>({x,y},r=1)=> tat(el)({cx:x,cy:y,r,style:'stroke:var(--R4)'})"]
+,['wayin','(target,waypt=(qsa(`#${target.id} + *[id^="waypoint"]`)||wayset(target)))=>rate=>(wayfar(target)(rate),wayptr(waypt)(wherefore(target)(rate)))']])
+
+
+
+
+
+clamp=([a,z]=[],f=lte,g=gte)=>x=> ifte(f(a)(x))(a)(ifte(g(z)(x))(z)(x))
+belong=([a1,z1]=[0,PI*2])=>([a0,z0]=[0,1])=>(x,offs=0)=> (x-a0)/(z0-a0)*(z1-a1)+a1+offs
+convert=(offs=-PI/2,oldLims=[0,1],newLims=[0,PI*2])=>x=>belong(newLims)(oldLims)(x,offs)
+affix=(l,r=l,i=[])=>(...xs)=> i.concat(l,xs,r)
+
+conf('H','d')(reduce((a,c)=>(values(head(c)).map(x=>a[x]=c[1](x)),a),{})
+([['Aa',c=>(a1,a0=0)=>(rx,ry=rx)=> (XY=RT_XY([rx,a1]),rotx=0,sweepflag=0,arcflag=lte(PI)(a1-a0)?0:1)=> affix(c+' ',' ',' ')(join(' ')([rx,ry,rotx,arcflag,sweepflag,XY]))]
+,['MmLlT',c=>(XY=[0,0])=> affix(c+' ',' ','')(XY)]
+,['HhVv',c=>X=> affix(c+' ',' ','')(X)]
+,['SQq',c=>(XY2)=>(XY)=> affix(c+' ',' ','')(join(' ')([XY2,XY]))]
+,['Cc',c=>(XY1)=>(XY2)=>(XY)=> affix(c+' ',' ','')(join(' ')([XY1,XY2,XY]))]
+,['Z',c=>affix(c+'','','')()]]))
+release(_d={})(x=>getpath(['H','d',x])(RC))(values('AaCcHhLlMmVvZ'))
+
+sector=(a1,a0)=>(r1,r2=r1+1)=> (a1=convert()(clamp([1e-4,1])(a1)),a0=convert()(a0) ,_d.M(RT_XY([r1,a0])) +_d.A(a1,a0)(r1)(duh,duh,0,lte(PI)(abs(a1-a0))?0:1) +_d.L(RT_XY([r2,a1])) +_d.A(a0,a1)(r2)(duh,duh,1,lte(PI)(abs(a0-a1))?0:1) +_d.Z )
+opensect=(a,a0)=>(r1,r2=r1+1)=> (a1=convert()(clamp([0,1])(a)),a0=convert()(clamp([0,1])(a0)) ,_d.M(RT_XY([r1,max(a1,a0)])) +_d.A(...(sort((a,b)=>lt(a)(b))(lt(a1)(a0)?[a0,a1]:[a1,a0])))(r1)(duh,duh,0,lt(PI)(abs(a1-a0))?0:1) +_d.M(RT_XY([r1,a0])) +_d.L(RT_XY([r2,a0])))
+sect=(r1=8,r2=r1+2,form=RC.H.sect)=>([start,end],cls='sector')=>h.path(assign ({ d:sector(start,end)(r1,r2), class:cls,'data-bounds':`from ${start} to ${end} inner:${r1} outer:${r2}`},form))
+arctrail=(r1=i=>4+i,r2=i=>r1(i+1))=>xs=>'M0,'+r1(0)+join(' ')(slice(0,-1)( map((s,i,n)=>opensect(...(slice(i,i+2,i)(n)))(r1(i),r2(i)))(xs)))
+
+
+
+
+testf2=f=>xs=>xs
+  .map((x,i,o)=>o
+    .slice(0,i+1)
+    .reduce(f))
+
+
+// f = (sum,0)
+f = ((a,c,i,o)=>  sum(a,c) / size(o[i-1]) )
+
+
+
+testf=f=>o=>transduce(wolf
+  ( minding((x,i)=>(slice(0,i+1)(o)))
+  , mapping(reduce(f))))
+  (shovel)([])(o)
+
+
+
+// conf('FAX')({"faxpaths":'',"radii":'',"epicfun":'',"legendfun":''})
+
+// diagram=($tore,way=world['faxline'+$tore.state().face])=>(diagramstyle=$tore.state().faxconf.diagtype,r=eval(RC.FAX.radii[diagramstyle]))=>(stockpath($tore)(['faxconf','diagramstyle'])(eval(RC.FAX.faxpaths[diagramstyle])),stockpath($tore)(['faxconf','radius'])(r),reshape($tore,way))
+
+// funpack([['diagram',"($tore,way=world['faxline'+$tore.state().face])=>(diagramstyle=$tore.state().faxconf.diagtype,r=eval(RC.FAX.radii[diagramstyle]))=>(stockpath($tore)(['faxconf','diagramstyle'])(eval(RC.FAX.faxpaths[diagramstyle])),stockpath($tore)(['faxconf','radius'])(r),reshape($tore,way))"]
+// ,['datdiag',"dat=>$tore=>(stockpath($tore)(['faxconf','faxdat'])(dat),diagram($tore)())"]
+// ,['epicpath',`es=>(conf,r,way)=>
+//   tat(faxline(epic (r)(
+//       (s,i,n)=>addvert(n[1],...slice(1,i+1)(n)) 
+//       ) ([es]) , conf )
+//     (way))({route:es})`]
+// ,['showpath',`($tore,way)=>
+//   ($=$tore.state().faxconf
+//   ,epicpath
+//     (exacto
+//       ($.fovea)
+//       ($.faxdat)[1]['e'])
+//     ($.diagramstyle,$.radius,way))`]
+// ,['reshape',`($tore,way)=>
+//   ($=$tore.state().faxconf
+//   ,faxline
+//     (epic
+//       ($.radius)
+//       ($.epicfun)
+//       ($.legendfun($.faxdat))
+//       ,$.diagramstyle)
+//     (way))`]
+// ,['foveate',"($tore,way=world['pathline'+$tore.state().face])=>is=>(stockpath($tore)(['faxconf','fovea'])(is),showpath($tore,way))"]
+// ,['lastfactor',"dat=>ist.string(last(dat[0])[0])?dat[0][1]['i']:lastfactor(last(dat[0]))"]
+// ,['confui',"$tore=>z=>map(x=>map(y=>({marks:markit,style:scs})[z](y[0])(y[1])(within(world)(x[0]+$tore.state().face)))(entries(x[1])))(entries($tore.state().faxconf[z]))"]
+// ,['confax',"(k,s='style')=>v=>($tore,way='faxline')=>(stockpath($tore)(['faxconf',s,way,k])(v),confui($tore)(s))"]
+// ,['FAX', `(
+//   {faxpaths:
+//     {organic:"(s,i,n)=>(i===0?' M'+addvert([0,0]):' q '+n[i?i-1:0]+' '+s)"
+//     ,trees:"(s,i,n)=>(i===0?' M0,0':' l '+s)"
+//     ,jellyfish:"(s,i,n)=>(i===0?' M0,0':' q '+s+'  '+n[i?i-1:0])"
+//     ,flake:"(s,i,n)=>(i===0?' M0,0':' L '+s)"}
+//   ,radii:
+//     {organic:"i=>ra(1,.1)(i)"
+//     ,trees:"i=>ra(1,.1)(i)"
+//     ,jellyfish:"i=>ra(1,.1)(i)"
+//     ,flake:"i=>ra(5,1.1)(i)"}
+//   ,epicfun:
+//     {compound:"(s,i,n)=>addvert(n[1],...slice(1,i+1)(n))"}
+//   ,legendfun:
+//     {depth:"d=>src=>legend(x=>size(x.i)===d)(src)"
+//     ,leaves:"z=>src=>legend(x=>(x.n)===z)(src)"} })`,RC]
+// ,['faxconf',`()=>
+//   ( {fovea:[0],faxsplits:TEXTFACTORS,faxsrc:'',faxtree:[],faxdat:[],
+//     faxschema:{tags:['div','div','span','span','span'], classes:['article','sentence','phrase','word','char'],content:true}
+//     , radius: eval(RC.FAX.radii.organic)
+//     , diagramstyle: eval(RC.FAX.faxpaths.organic)
+//     , epicfun: eval(RC.FAX.epicfun.compound)
+//     , legendfun: eval(RC.FAX.legendfun.leaves)(0)
+//     , marks:{faxline:{start:'',mid:'trycicle',end:''}
+//         ,pathline:{start:'tryangle',mid:'tryl',end:'tryangle'} }
+//     , style: {faxline:{stroke:'var(--C_5)','stroke-width':'.01',fill:''}
+//          ,pathline:{stroke:'var(--C_5)','stroke-width':'.15',fill:'var(--Cc3)'}}})`]
+// ,['turn',"(x,s)=>(i,n=1)=> mv([rot(n*PI*2/i,s)])(x)"]
+// ,['nrut',"(x,s)=>(i,n=1)=> mv([rot(-n*PI*2/i,s)])(x)"]
+
+// ,['wheelzoom',"(f=mv([sca(1.1)]))=>(g=mv([sca(1/1.1)]))=>e=> e.deltaY>0? f(e.target) : g(e.target)"]
+// ,['',"map(face=>world[`$${face}`]=store({face,faxconf:faxconf()}))([...'flower'])"]
+// ,['ring_svg',"(id,f=(xs,i,o)=>xs[i])=>r=>xs=>h.g({id,class:'ring'},...map(([x,y],i,o)=>h.foreignObject({x,y, transform:`rotate(${360*(i)/size(o)} ${x},${y})`}, f(xs,i,o) ))(pointificate(r)(xs)))"]
+// ,['ring',"(id=nom('ring'),[left,top]=[0,0],container=(xs,i,o)=>h.div({}))=>r=>xs=>h.div({id,class:'ring',style:`position:absolute;left:${left};top:${top}`},...map(([x,y],i,o)=>set(fov(2))(xs[i])(set(fov(1))(config(container[1])({style:`position:absolute;transform:rotateZ(${360*(i)/size(o)}deg)translateX(${r}em)`})) (container(xs,i,o))) ) (pointificate(r)(xs)))"]
+// ,['updatering',"(face,radplus=0)=>(src=slice(2)(world['$'+face].state().faxconf.faxdat[0]))=>replaceChild(tml(ring_svg('ring'+face)(radface(world['$'+face])+radplus)(src)),qsa('#ring'+face)) (faxoutl)"]
+// ,['fullmodsrc',"face=>(dat,cat,splits)=>(stateface.faxsrc(face)(dat,cat),stateface.faxtree(face,splits),stateface.faxdat(face),diagram(within(world)('$'+face))())"] ])
+
+
+
+
+
+
+
+
+
+/* ?????
+
+
+ 
+`background:
+linear-gradient(115deg, transparent 70%, rgba(25,25,25,.2) 75%) 0 0,
+linear-gradient(245deg, transparent 70%, rgba(25,25,25,.2) 75%) 0 0,
+linear-gradient(115deg, transparent 70%, rgba(25,25,25,.2) 75%) 7px 15px,
+linear-gradient(245deg, transparent 70%, rgba(25,25,25,.2) 75%) 7px 15px,
+#000;
+background-size: 1em 2em;
+`
+a=x=>`linear-gradient(${ x }deg, transparent 70%, rgba(25,25,25,.2) 75%) 0 0`
+
+
+
+
+getOwnPropertyNames
+
+filtering(endsWith('Element'))
+mapping(slice(0,-8))
+mapping(x=>x.startsWith('HTML'))
+
+
+transduce(flow
+  (filtering
+    (endsWith('Element'))
+  ,mapping(...match(/\w+[!Element]/gu))))
+(shovel)([])(getOwnPropertyNames(window))
+
+
+
+
+
+</script>
+</body>
+</html>

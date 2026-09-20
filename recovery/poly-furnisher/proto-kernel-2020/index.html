@@ -1,0 +1,815 @@
+<!doctype html>                                             <head id=
+HEAD                                                        ><meta 
+charset='utf-8'
+name="viewport"
+content="user-scalable=no,user-scalable=0"                  
+                                                            />
+<!-- ################################################### --><title>
+                -=* INTERPHASE-PROTO-0 *=-                  </title>    
+<!-- ################################################### -->
+                                            <!-- <link href=
+"./styles/_________.css"                    rel="stylesheet"> -->
+
+<!--%%%%%%%%%%%%%%%%%~[STYLES]~%%%%%%%%%%%%%%%%%--><style>
+
+:root
+/* @@@@@@@@@@@@@@~[DEFAULTS]~@@@@@@@@@@@@@@ */
+{--SYSFONTS:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', Helvetica, Arial, monospace
+;
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+/* 3333333333333>~[MEASUREMENTS]~<3333333333333 */
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+ --SCALE:var(--PHI)/*1.5*/
+;--PHI:1.618/* CaSCHEME~>lum/5*/
+;--PI:calc(22/7)
+;--NEG:-1
+;--NIL:0
+;--THIRD:calc(1/3)
+;--HALF:0.5
+;--FOURFIFTHS:0.8
+;--DECI:0.1
+;--CENTI:0.01
+;--DEKA:10
+;--HECTO:100
+;--PERCENT:1%
+
+;--SZ0:0.01em
+;--SZ1:calc(var(--DECI)*var(--SCALE))em;
+
+;--FONTSIZE:16px;--EM:1em
+;--VW:100vw;--VH:100vh
+;--H:var(--VH);--W:var(--VW);--D:calc(var(--HALF)*var(--VH))
+
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+/* @@@@@@@@@@@@@@~[VISIBILITY]~@@@@@@@@@@@@@@ */
+/* @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ */
+;--PERSP:32em
+;--PERSPORIGIN:center
+;--XFORMORIGIN:center
+;--OPACITY:1
+;--OUTLINE: none;/*solid .3px *//*var(--Ca3)*/ ;
+;--REVEALS: inset 0 0 calc(.2*var(--VW)) 1em var(--Cc2)
+
+
+; --DEBUG:0.5px solid var(--TRANSLUSCENT); 
+/* --------------------------------------------------------[ ANIMATIONS ] */  
+/*;--MARQUEE: 5s linear infinite*/
+
+
+svg {
+    --SVGW:100%;--SVGH:100%;--SVGSTROKE:.3;
+    width:100%;height:100%;stroke:var(--C_3); overflow:visible; 
+/*outline:1px solid var(--C_3); */
+/*display:inline-block;*/ 
+position:absolute;
+}
+svg *{transition:transform 300ms;}
+circle { fill:none;stroke-width:.2;}
+ellipse { fill:none;stroke-width:.2;}
+rect { fill:none;stroke-width:.2;}
+text {text-anchor:"middle"; dominant-baseline:"central"; font-size:.2em; fill:var(--C_3); stroke:none;}
+path {fill:none;stroke-width:.2; stroke:var(--C_3);
+/*vector-effect: non-scaling-stroke;*/
+}
+polyline{fill:none;stroke-width:.1; stroke:var(--C_3);}
+foreignObject {height:auto;width:100%;}
+foreignObject>*{display:inline-block;float:left;font-size:calc(5*var(--PERCENT));width:calc(35*var(--PERCENT));color:var(--C_3);}
+                 
+
+/* 
+Settings
+    Reset
+    Root
+    Base
+    Colorscheme
+    ...
+    ...
+    SVG
+
+NEED~
+    ACTIVEWINDOW
+    POPUP
+
+Patterns
+    Shapes
+        2D
+            Triangle
+        3D
+            Cuboid
+
+Interaction
+    Mouse
+        move drag touch click
+    Keyboard
+    // Mic
+    // Webcam
+
+Utility
+    Mobile */
+
+<style id=
+ROOT											>
+
+/*********************************************************\
+// CONVENTIONS: utilityClass,  $_,
+|*
+\*********************************************************/
+
+
+/*............................................*/</style>
+<!--.........................................--><style id=
+______											>
+/*********************************************************\
+|*                                                       MOBILITY
+
+/*;--Aunit:'rad'*/
+        /*
+        ;--tx:0 ;--ty:0 ;--tz:0
+        ;--rx:0 ;--ry:1 ;--rz:0
+        ;--sx:1 ;--sy:1 ;--sz:1 ;--a:30; ;--Lunit:'px'
+         transform: rotate3d(var(--rx),var(--ry),var(--rz),var(--a) deg) translateX(var(--tx)var(--Lunit))translateY(var(--ty)var(--Lunit))translateZ(var(--tz)var(--Lunit)) ; * /
+\*********************************************************/
+*>.mob
+    {--rx:0deg; --ry:0deg;  --rz:0deg
+    ;--tz:0px;  --tx:0px;   --ty:0px
+    ;--sx:1;    --sy:1;     --sz:1
+    ;--to:0px 0px 0px
+    ;--overflow
+    ;--persp
+    /* perspective(??) position? */
+    ;
+    /* } .mob>*			{ */
+     position: relative
+    ;width: var(--W)
+    ;height:var(--H)
+    ;padding:0
+    ;border: 1px solid
+    ;overflow: var(--overflow)
+    ;perspective: var(--perspective)
+    ;transform:
+       rotateX(var(--rx))    rotateY(var(--ry))    rotateZ(var(--rz))
+    translateZ(var(--tz)) translateX(var(--tx)) translateY(var(--ty))
+        scaleX(var(--sx))     scaleY(var(--sy))     scaleZ(var(--sz))
+        ;transform-origin:var(--to)
+    ;
+    }
+
+/*............................................*/</style>
+<!--.........................................--><style id=
+______											>
+
+
+/*%%%%%%%%%%%%%%%%/STYLES%%%%%%%%%%%%%%%%%%%%%*/</style></head>
+<!--|||||||||||||||||HTML:|||||||||||||||||| --><body id=
+BODY                                            ><div id=
+VIEWPORT						                ><!-- --><div id=
+ROOM class=cuboid	 			                ><div id=
+ R class=r						                ></div><div id=
+ E class=u 	    				                ></div><div id=
+ W class=d  					                ></div><div id=
+ O class=b 			    		                ></div><div id=	
+ L class=l 		    			                ></div><div id=    			
+ F class=f	 					                ></div></div>
+                                                <!----><div id=
+CAMERA 							                ><div id=
+    SCENE 						                ></div></div>
+                                                <!--/VIEWPORT--></div>
+
+<!-- 
+
+Env
+    Room
+        Shelf
+            "Scrolls"
+Interface
+    Menu
+    Navigation
+    Dataviz
+        Model
+        Info|Hints|Tooltips
+Glyph
+
+ -->
+<!--|||||||||||||||||/HTML|||||||||||||||||| --></body>
+
+<!-- ================================================ 60--><script id=
+DEFINITIONS >
+/*********************************************************\
+|*
+\*********************************************************/
+
+//||||||||||||||||||| P R E L U D E |||||||||||||||||||||||\\
+flow = (...gs)=> gs.reduce((l,r)=>(...xs)=>r(l(...xs)))
+wolf = (...gs)=> gs.reduce((r,l)=>(...xs)=>r(l(...xs)))
+type=(x)=>({}).toString.call(x).slice(8,-1).toLowerCase()
+ist=['map',]
+
+size_logic=({array:x=> x.length ,string: x=> new Blob([x.replace(/./gu,'.')]).size ,object: x=> x.size||x.length||Object.keys(x).length }), size=x=>size_logic[type(x)](x)
+
+cu=(f,d=f.length,...as)=>d<=as.length?f(...as):carry.bind(null,f,d,...as)
+    ,  uncarry=(f,d=1)=>(...as)=>as.slice(0,d).reduce((x,y)=>x(y),f)
+    ,  flatd =a=>a.map?[].concat(...a.map(flatd)):a
+    
+    release=(into={})=>f=>xs=>xs.reduce((a,c)=>(a[c]=(f(c)),a),into)
+
+    // TODO: Math
+    // TODO: Make algebra  &  cata ~> HORS(?)
+    // TODO: Lambda
+    // TODO: Combinators
+//||||||||||||||||||| X D U C E |||||||||||||||||||||||||||\\
+reduce = (f,i,xs) => {
+    for (let x of xs){
+        let next = f(i,x);
+        i = next && next[reduce.reduced]||next;
+        if (next[reduce.reduced]){break;}}
+    return i;};
+    Object.defineProperty(reduce, 'd', { value: Symbol('halt - reduced') })
+transduce = (t,r=(a,b)=>(a.push(b),a),i=[])=>(ks,c=reduce)=> c(t(r),i,ks)
+
+
+//    @@transducer/init, @@transducer/step, and @@transducer/result
+
+
+
+
+
+mapping=f=>r=>(a,y,s)=>r(a,f(y,s,a))
+            filtering = p=>r=>(a,y,s)=> p(y,s,a)?r(a,y):a
+            dropping=s=>r=>(a,y,_s=s)=> (--s>=0?a:r(a,y,_s))
+            taking=s=>r=>(a,y,_s=s)=> (--s>=0?r(a,y,_s):a)
+            lazytaking=s=>r=>(a,y,_s=s)=> (--s>=0?r(a,y,_s):{[reduced]:a})
+
+
+twoGate=(o,c,_s=false)=> x=>   (o(x)&&(_s++,_s),c(x)&&(_s=0),_s)
+
+
+                gating = (o,c,isOpen=false) => filtering(twoGate(o,c,isOpen))
+
+    stringsBetween2sAnd8s = wolf(
+        gating(x => x<3, x => x>7),//items less than 3 open the gate, items over 7 close it
+        filtering(x => typeof x==='string')//of those that pass, only items that are strings
+    );
+
+    transduce (stringsBetween2sAnd8s) (['zoop',1,5,6,'bloop',7,8,9,4,'bop',7,8,9,2,'barp'])
+    //->["bloop", "barp"]
+
+
+
+    /* 
+                TODO: CANT GET THIS TO WORK -- keep getting ones in my result?!?!?
+                    https://medium.com/@dtipson/javascript-transducers-2-stateful-gateful-1faa1b01ae50
+
+                    noiseFilter = (testFn, chances, isOpen=false,c=chances) =>  x =>
+                (  (testFn(x)?(chances=c,isOpen=true):chances==0?isOpen=false:(chances--,isOpen)   ))
+                // {if(testFn(x)){isOpen=true}
+                //     else{chances--}
+                //     if(!chances){isOpen = false;}
+                //     return isOpen;
+                //   }
+
+                noiseFiltering = (testFn, failchances) => filtering(noiseFilter(testFn, failchances));
+
+
+
+                motionFilter = noiseFiltering(motionValue => motionValue > 2, 5);
+                transduce(motionFilter)( [1,3,4,2,7,8,9,10,2,2,1,1,0,0,0,0,0,7,3,4,2,2,1,6]);
+                //->[3, 4, 2, 7, 8, 9, 10, 2, 2, 7, 3, 4, 2, 2, 6] 
+
+
+
+
+                    noiseFilter = (testFn, chances, isOpen=false,c=chances) =>  x =>
+                testFn(x)?(chances=c,isOpen=true):chances<2?isOpen=false:(chances--,isOpen )
+                // {if(testFn(x)){isOpen=true}
+                //     else{chances--}
+                //     if(!chances){isOpen = false;}
+                //     return isOpen;
+                //   }
+
+                noiseFiltering = (testFn, failchances) => filtering(noiseFilter(testFn, failchances));
+
+
+
+                motionFilter = noiseFiltering(motionValue => motionValue > 2, 5);
+                transduce(motionFilter)( [1,3,4,2,7,8,9,10,2,2,1,1,0,0,0,0,0,7,3,4,2,2,1,6]);
+                //->[3, 4, 2, 7, 8, 9, 10, 2, 2, 7, 3, 4, 2, 2, 6]
+*/
+
+
+
+
+
+
+
+
+
+
+
+
+//||||||||||||||||||| O P T I C S ||||||||||||||||||||||||||\\
+Lens=(get,set)=>(
+    {type:'L',get,set
+    ,mod:f=>set((type(f)==='function'?f:(()=>f))(get(o))) })
+Iso=(to,from)=>(
+    {type:'I',get:to,reget:from,mod:f=>a=>to(f(from(a))),inv:()=>Iso(from)(to)})
+Optional = (get,set,option)=>({type:'O',get:a=>option(get),set,mod:a=>s=>set(this.option(a))||s })
+    // MaybeIn=(a,s)=>(Just=x=>x,Nothing)=>a in s ? Just(a,s) : Nothing
+
+        // 
+        // don't put optionality in aggregate contexts
+        // because ~> when option
+            // instead ~> selection in context
+            // schema: ~> select ~> lens accessing|"needing"|deep-requirements, or
+            // attrs =/= selections
+
+Prism = (option,Iso)
+    // Either _left, _right
+Traversal = ()
+    // combinators
+    // atKey component filter fold foldMap getAll index key left modify prop props right set some traverse
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+focus= (l,def=defaultLens||fov)=>l['get']?l:def(l)
+/* cu, focus */ get = cu((l,o)=> focus(l).get(o))
+/* cu, focus */ mod = cu((l,v,o)=> focus(l).mod(typeof v==='function'?v:(()=>v))(o))
+
+/* # Composition  ---------------------------------  */
+
+compound=(l2,l1)=>Lens(o=>get(l1,get(l2,o)),f=>o=>mod(l2,mod(l1,f,get(l2,o)),o))
+/* cu, focus, get, mod, Lens, compound */scope=(...ls)=>ls.reduce(compound)
+    
+        /* # Convenience  ---------------------------------  */
+         focii = (ks,l=fov,i={})=>ks.reduce((a,k)=>(a[k]=(l(k)),a),i)
+         gentry = (ks,l=fov)=>z=>ks.reduce((a,k)=>(a[k]=get(l(k))(z),a),{})
+         sentry = (o,l=fov)=>z=>Object.entries(o).reduce((a,x)=>a=mod(l(x[0]))(x[1])(a),z)
+         config = (x,l=fov)=> (
+            {"object":sentry(x,l)
+            ,"array":gentry(x,l)
+            ,"string":get(l(x))
+            ,"number":get(l(x))})[type(x)]
+            // - - - - - - 
+
+
+// elStyle = (k,lens)=>({get:o=>getComputedStyle(o).getPropertyValue(k),set:v=>o=>o.style.setProperty(k,v)})
+
+// - - - - - - - - - - - - - - - - - - - - - - - -
+Scope = (l2,l1)
+/*********************************************************\
+|*||||||||||||||||||| S T A T E |||||||||||||||||||||||||||
+\*********************************************************/
+Store =(s={},is=[]) =>(
+    {state: ()=>s
+    ,listen: i=>is.push(i)
+    ,listeners: is
+    ,action: u=>n=>
+        (s=u(s,n)
+        ,is.map(i=>i(n,s)),s)
+    })
+/*********************************************************\
+|*||||||||||||||||||| M A C H I N E |||||||||||||||||||||||
+\*********************************************************/
+// FSM
+// HMM
+// ...
+/*********************************************************\
+|*||||||||||||||||||| E V E N T S |||||||||||||||||||||||||
+\*********************************************************/
+eve=(Ls={})=>(
+    {em:(e,dat)=>(Ls[e]||[]).forEach((cb)=>cb(dat))
+    ,on:(e,cb)=> !Ls[e]?Ls[e]=[cb]:Ls[e].push(cb)
+    })
+
+/* ----------------------------------------------------- */</script>
+
+
+
+<!-- ================================================ 60--><script id=
+                                                            SETUP >
+/*********************************************************\
+|* JS TEMPLATE DOM ML | JSON XML
+|*   ~> ['tag' {attrs}, ( ['tag'...] | 'textContent') ]
+\*********************************************************/
+tml_ALG=(
+      {getNS: ({ns})=>"http://www.w3.org/"+{html:"1999/xhtml",svg:"2000/svg",mathml:"1998/Math/MathML"}[ns||'html']
+    // TODO:    , list of svg elements for auto NSURI fn
+      ,array: x=>el=> el.appendChild  (tml(x))
+      ,string: x=>el=> el.appendChild (document.createTextNode(x))
+      ,object: x=>el=> Object.entries(x).map(([k,v])=>el.setAttribute(k,v),el)
+      })
+    // TODO: Cata ( algebra... )
+tml=((ml,e=document.createElementNS(tml_ALG.getNS(ml[1]),ml[0]))=>
+      (ml.slice(1).forEach(n=>tml_ALG[type(n)](n)(e)),e))
+    /* ----------------------------------------------------- */
+    /* ----------------------------------------------------- */
+    /* Templating XML -> JSONML */
+    const lmt_logic=(
+            {'hasAttributes':f=>el=>attrs=>([...f.attributes].forEach((attr)=> attrs[attr.name]=attr.value),el.push(attrs))
+            ,'1': el=>node=> el.push(asJML(node))
+            ,'3': el=>node=>el.push(node.data)
+            ,string: x=> asJML(document.createElement('span').innerHTML=x)
+            ,recur: f=> asJML(f)
+            })
+        , lmt=(asJML=(f,el=[f.nodeName],attrs={})=>
+            ((f.attributes)?lmt_logic['hasAttributes'](f)(el)(attrs):'Nothing'
+            ,[...f.childNodes].forEach((node)=>([1,3]).includes(node.nodeType)?lmt_logic[node.nodeType](el)(node):x=>x,el),el)
+            ,parse=f=>(lmt_logic[typeof(f)]||lmt_logic['recur'])(f),parse)
+    /* ----------------------------------------------------- */
+    /* ----------------------------------------------------- */
+
+
+
+
+
+
+/* ----------------------------------------------------- */</script>
+<!-- ================================================ 60--><script id=
+INITIALISE >
+
+const debounce = (fn, ms = 0) => {let timeoutId; return function(...args) {clearTimeout(timeoutId); timeoutId=setTimeout(()=> fn.apply(this, args), ms) }}
+, defer = (fn, ...args) => setTimeout(fn, 1, ...args)                                                          
+
+EventHandlers={}
+dumpDOMevents=pool=>
+
+Object.getOwnPropertyNames(window)
+	.filter(x=>x.match(/^on/))
+	.map(x=>document.addEventListener(x.slice(2),d=>eve(pool)
+		.em(x,d)))
+
+
+['div',{class:'cuboid'}
+,['div',{class:'f'}]
+,['div',{class:'l'}]
+,['div',{class:'o'}]
+,['div',{class:'r'}]
+,['div',{class:'w'}]
+,['div',{class:'e'}]
+]
+
+/* ----------------------------------------------------- */</script>
+<!-- ================================================ 60--><script id=
+SCRATCH >
+
+funsm = ({s,i})=>ns=>(map(n=>i=s[i][n])(ns),i)
+
+OMMgetP=(sc,ps)=> sc.slice(0,sc.length-1).reduce((p,s,i)=>p*=ps[s][sc[i+1]],1)
+OMMtrans=(s,ps)=> 1/(1-ps[s][s])            //expectedDurationOfState
+HMM=()=>({initial:[],transitions:[],emissions:[],i:0})  //cSV:[]??
+    hmmeg=     //Healhy, Fever   //Normal, Cold, Dizzy
+        {initial:[0.6, 0.4]
+        ,transitions:[[0.7,0.3],[0.4,0.6]]
+        ,emissions:[[0.5,0.4,0.1],[0.1,0.3,0.6]]
+        ,i:0}
+    alpha = []
+
+
+
+
+
+
+
+            /*
+            forward=hmm=>(O=[],A=[],p=0)=>{
+                reduce((a,c,i)=> A[0][i] = hmm.iSV[i] * hmm.eSM[i][O[0]]) (A[i]=[]) (hmm.tSM)
+                reduce(A[i]=[]; ) (  ) (tail(O))
+            }
+            'for every possible state transition'
+            'for every observation after the first'
+
+            ...
+            transitions: {
+            'idle': {
+                'fetch data': function * () {
+                yield 'fetching'; // sets the state to { name: 'fetching' }
+                yield { name: 'fetching' }; // same as above
+
+                // wait for getTheData and checkForErrors actions
+                // to be dispatched
+                const [ data, isError ] = yield wait('get the data', 'check for errors');
+
+                // wait for the promise returned by fireHTTPRequest
+                // to be resolved
+                const result = yield call(fireHTTPRequest, '/api/data/users');
+
+                return { name: 'finish', users: result };
+                }
+            }
+            }            
+            */
+            forward=hmm=>(O=[],A=[])=> {
+                let p = 0
+            map(i=>(A[i]=[],A[0][i]=hmm.initial[i]*hmm.emissions[i][O[0]]))(fillar(hmm.transitions.length))
+            for (let i=1;i<O.length;i++)
+                {A[i]=[];                       // for every observation after the first
+                for (var j = 0; j<hmm.transitions.length; j++) {
+                    let result = 0;
+                    for (let l = 0; l <hmm.transitions.length; l++) // for every possible state transition
+                        {result += A[i-1][l] * hmm.transitions[l][j] * hmm.emissions[j][O[i]]; }
+                A[i][j] = result; } }
+            for (let i = 0; i <hmm.transitions.length; i++)  // for every possible state transition
+                {p += A[O.length-1][i]}
+            return p }   
+
+
+
+  // forward(hmmeg)([0,1,2],alpha)
+
+
+
+
+/*=======================================================*\
+|*------------------- R E D U C E R S ---------------------
+\*=======================================================*/
+
+/*=======================================================*\
+|*------------------- X D U C E R S -----------------------
+\*=======================================================*/
+
+
+            /* # Reducers  ---------------------------------  */
+            /* (a,c)=>f(a,c) */
+            push=(a,b)=>(a.push(b),a)
+            cat=(a,b)=>a.concat([b])
+            /* # Xforms  ---------------------------------  */    
+            mapping=f=>r=>(a,y,s)=>r(a,f(y,s,a))
+            filtering = p=>r=>(a,y,s)=> p(y,s,a)?r(a,y):a
+            dropping=s=>r=>(a,y,_s=s)=> (--s>=0?a:r(a,y,_s))
+            taking=s=>r=>(a,y,_s=s)=> (--s>=0?r(a,y,_s):a)
+            lazytaking=s=>r=>(a,y,_s=s)=> (--s>=0?r(a,y,_s):{[reduce.d]:a})
+            /* # Transducers  ---------------------------------  */
+            // ...
+            // ...
+
+Lens{
+    Style:(k,lens)=>({get:o=>getComputedStyle(o).getPropertyValue(k),set:v=>o=>o.style.setProperty(k,v)})
+}
+
+/*********************************************************\
+|*------------------- L E N S E S -------------------------
+\*********************************************************/
+[['folk',"(k,lens)=>({get:o=>getComputedStyle(o).getPropertyValue(k),set:v=>o=>o.style.setProperty(k,v)})"]
+,['gcs',"k=>o=>get(folk(k))(o)"]
+,['scs',"k=>v=>o=>set(folk(k))(v)(o)"]
+,['getdat',"k=>el=>getpath(['dataset',k])(el)"]
+,['setdat',"k=>v=>el=>setpath(['dataset',k])(v)(el)"]
+,['advise',"target=>dat=> flip(set(fov(ist.htmlinputelement(target)?'value':'textContent')))(target)(dat)"]
+,['DARK',"()=>sentry({'--C_0':'black','--C_5':'white'},folk)(document.documentElement)"]
+,['LIGHT',"()=>sentry({'--C_5':'black','--C_0':'white'},folk)(document.documentElement)"]
+]
+
+/*********************************************************\
+|*||||||||||||||||||| M A T R I X |||||||||||||||||||||||||
+\*********************************************************/
+/* MOVE BASIC ~> Vectors? like dot? */
+const idm   = n=>   Array(n).fill(0).map((_,i,a)=> a.map((_,j)=> i===j?1:0))
+    , TT   = a=>     a[0].map((_,i)=>a.map(y=>y[i]))
+    , dot = a=>b=>   (a.map((x,i)=> a[i]*b[i])).reduce((a,b)=>a+b)
+    , mXv = n=>m=>   m.map(x=>x.map(y=>y*=n))
+    , vUv = v=>w=> v.map((x,i)=> x+(w[i]||0))
+    // ,mXm = m=>t=>   m.map(x=> TT(t).map(y=> dot(x)(y)))
+    
+    , mXm=m1=>(m2,s=(a,b)=>a+b,p=(a,b)=>a*b,o=0)=> m1.map(c=>m2[0].map ((_,i)=> m2.reduce((r,d,j)=>s(r,p(d[i],c[j]),r),o)))
+    , row = r=>a=> a.reduce((c,k,i)=> (i%r===0?c.push([k]):c[c.length-1].push(k))&&c,[])
+
+    , Maj =(M,form='col')=>({col:xpo,row:x=>x})[form]  (M).reduce((a,c)=>(a.concat(c)),[])
+    , det = m=> m.length<3 ?( {1:m[0][0] ,2:m[0][0]*m[1][1]-m[0][1]*m[1][0]})[m.length] :m[0].reduce((r,e,i)=> r+(-1)**(i+2)*e*det(m.slice(1).map(c => c.filter((_,j) => i != j))),0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*      DOX
+
+
+
+
+============================================================
+||||||| N O T E S ||||||||||||||||||||||||||||||||||||||||||
+============================================================
+
+					  CORE FEATURES    ||     PURPOSE
+----------------------------------------------------------------------
+Load local files (text, multimedia...) || Analysis, reading, supplement
+CORS, webapis, iframe previews		   || Xref, sourcing, browsing, ...
+Defining reps and swapping 
+Scheduling
+GEOM-lin<->rad
+----------------------------------------------------------------------
+E L F R W O
+	|
+INTERFACES
+----------------------------------------------------------------------
+
+----------------------------------------------------------------------
+UI
+    VISUAL CHANNEL HIERARCHIES
+        ----Quantitative (continuous,metric)
+        Pos
+        Len
+        Ang
+        Area
+        c.value, c.sat
+        Vol, Color Hue, Shape
+        ------------Ordinal
+        Pos
+        c.value, c.sat
+        Len, Ang, Area
+        Vol, Shape, c.hue
+        -------Categorical(nominal)
+        Pos
+        c.hue
+        c.val, c.sat, Shape
+        Len, Ang, Area, Vol
+
+ALifeVis2020: Tutorial about visualization, presented at ALife 2020 conference
+https://www.youtube.com/watch?v=_UZls2l96Z8
+
+USE CASE
+
+In the context of ____ Goal#XX:SUCCESSFUL IMPLEMENTATION OF NOVEL X
+    To avoid ____
+    and exploit ____
+    ~Require
+    (resource~knowledge,skill,ability)
+    | ACTION: survey/meta-analysis
+
+
+    extract list from 
+        https://en.wikipedia.org/wiki/Category:Knowledge_representation
+        process articles
+            eliminate low-relevance
+            summarise 
+                highlight key POI's|relevant names & media
+                ...
+            shortlist into knowitall/task/curriculum-generator
+
+
+
+============================================================
+||||||| C O R E ||||||||||||||||||||||||||||||||||||||||||||
+============================================================
+
+
+██████╗ ██████╗ ███████╗██╗     ██╗   ██╗██████╗ ███████╗
+██╔══██╗██╔══██╗██╔════╝██║     ██║   ██║██╔══██╗██╔════╝
+██████╔╝██████╔╝█████╗  ██║     ██║   ██║██║  ██║█████╗  
+██╔═══╝ ██╔══██╗██╔══╝  ██║     ██║   ██║██║  ██║██╔══╝  
+██║     ██║  ██║███████╗███████╗╚██████╔╝██████╔╝███████╗
+╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝ ╚═════╝ ╚══════╝
+                                                         
+
+
+
+
+██╗  ██╗██████╗ ██╗   ██╗ ██████╗███████╗
+╚██╗██╔╝██╔══██╗██║   ██║██╔════╝██╔════╝
+ ╚███╔╝ ██║  ██║██║   ██║██║     █████╗  
+ ██╔██╗ ██║  ██║██║   ██║██║     ██╔══╝  
+██╔╝ ██╗██████╔╝╚██████╔╝╚██████╗███████╗
+╚═╝  ╚═╝╚═════╝  ╚═════╝  ╚═════╝╚══════╝
+                                         
+    |* Set protocol for "reducer" ~> implicaions for transducers...
+    // TODO: ESTABLISH PROTOCOL !!! 
+    // TODO: Adjust reduce to accommodate xducer/xform object 
+    // TODO: constructor //r=> ({init, step:(a,c)=>r(a,c), result, type:"transducer"})
+
+
+ ██████╗ ██████╗ ████████╗██╗ ██████╗███████╗
+██╔═══██╗██╔══██╗╚══██╔══╝██║██╔════╝██╔════╝
+██║   ██║██████╔╝   ██║   ██║██║     ███████╗
+██║   ██║██╔═══╝    ██║   ██║██║     ╚════██║
+╚██████╔╝██║        ██║   ██║╚██████╗███████║
+ ╚═════╝ ╚═╝        ╚═╝   ╚═╝ ╚═════╝╚══════╝
+                                             
+
+    COMPOSITION          ||   HIERARCHY
+    -----------          ||   ---------
+    / F G S T O P L I    ||    F   S
+    F F F F F F F F F    ||    |\ /      (F)OLD
+    G F G - F F F G G    ||    | T       (S)ETTER
+    S - - S S S S S S    ||    G |       (G)ETTER
+    T F F S T T T T T    ||    | O       (T)RAVERSAL
+    O F F S T O O O O    ||    |/ \      (O)PTIONAL
+    P F F S T O P O P    ||    L   P     (P)RISM
+    L F G S T O O L L    ||     \ /      (L)ENS
+    I F G S T O P L I    ||      I       (I)SO
+
+http://julien-truffaut.github.io/Monocle/optics.html
+// TODO: source ~> ekmett hierarchy ??
+
+https://gcanti.github.io/monocle-ts/modules/
+    Laws:
+        Lens  //GetPut, PutGet and PutPut laws
+            get(set(a)(s)) = a
+            set(get(s))(s) = s
+            set(a)(set(a)(s)) = set(a)(s)
+        Optional 
+            getOption(s).fold(() => s, a => set(a)(s)) = s
+            getOption(set(a)(s)) = getOption(s).map(_ => a)
+            set(a)(set(a)(s)) = set(a)(s)
+        Iso
+            reverseGet(get(s)) = s
+            get(reversetGet(a)) = a
+        Prism
+            getOption(s).fold(s, reverseGet) = s
+            getOption(reverseGet(a)) = Some(a)
+FUTURE:
+    study
+        https://github.com/jameshales/spectroscopy
+
+
+███████╗████████╗ █████╗ ████████╗███████╗
+██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝██╔════╝
+███████╗   ██║   ███████║   ██║   █████╗  
+╚════██║   ██║   ██╔══██║   ██║   ██╔══╝  
+███████║   ██║   ██║  ██║   ██║   ███████╗
+╚══════╝   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝                    
+|* State mgmt | ~redux
+
+
+
+███╗   ███╗ █████╗  ██████╗██╗  ██╗██╗███╗   ██╗███████╗
+████╗ ████║██╔══██╗██╔════╝██║  ██║██║████╗  ██║██╔════╝
+██╔████╔██║███████║██║     ███████║██║██╔██╗ ██║█████╗  
+██║╚██╔╝██║██╔══██║██║     ██╔══██║██║██║╚██╗██║██╔══╝  
+██║ ╚═╝ ██║██║  ██║╚██████╗██║  ██║██║██║ ╚████║███████╗
+╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝╚══════╝             
+|* FSM
+
+
+███████╗██╗   ██╗███████╗███╗   ██╗████████╗
+██╔════╝██║   ██║██╔════╝████╗  ██║╚══██╔══╝
+█████╗  ██║   ██║█████╗  ██╔██╗ ██║   ██║   
+██╔══╝  ╚██╗ ██╔╝██╔══╝  ██║╚██╗██║   ██║   
+███████╗ ╚████╔╝ ███████╗██║ ╚████║   ██║   
+╚══════╝  ╚═══╝  ╚══════╝╚═╝  ╚═══╝   ╚═╝   
+|* Event emitter
+
+
+
+
+
+
+
+
+
+
+
+============================================================
+||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+============================================================
+
+
+
+
+
+                ██████╗ ██╗   ██╗ ██████╗███████╗██████╗ ███████╗
+                ██╔══██╗██║   ██║██╔════╝██╔════╝██╔══██╗██╔════╝
+                ██║  ██║██║   ██║██║     █████╗  ██████╔╝███████╗
+                ██║  ██║██║   ██║██║     ██╔══╝  ██╔══██╗╚════██║
+        ███████╗██████╔╝╚██████╔╝╚██████╗███████╗██║  ██║███████║
+        ╚══════╝╚═════╝  ╚═════╝  ╚═════╝╚══════╝╚═╝  ╚═╝╚══════╝
+        0ducers
+            |*  		!!! TODO: ESTABLISH XFORM CONSTRUCTOR ~> 
+            r=> ({init, step:(a,c)=>r(a,c), result, type:"transducer"})
+        
+
+
+████████╗███████╗███╗   ███╗██████╗ ██╗     
+╚══██╔══╝██╔════╝████╗ ████║██╔══██╗██║     
+   ██║   █████╗  ██╔████╔██║██████╔╝██║     
+   ██║   ██╔══╝  ██║╚██╔╝██║██╔═══╝ ██║     
+   ██║   ███████╗██║ ╚═╝ ██║██║     ███████╗
+   ╚═╝   ╚══════╝╚═╝     ╚═╝╚═╝     ╚══════╝
+
+
+
+
+
+
+███╗   ███╗ █████╗ ████████╗██████╗ ██╗██╗  ██╗
+████╗ ████║██╔══██╗╚══██╔══╝██╔══██╗██║╚██╗██╔╝
+██╔████╔██║███████║   ██║   ██████╔╝██║ ╚███╔╝ 
+██║╚██╔╝██║██╔══██║   ██║   ██╔══██╗██║ ██╔██╗ 
+██║ ╚═╝ ██║██║  ██║   ██║   ██║  ██║██║██╔╝ ██╗
+╚═╝     ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝
+
+/* wrong 
+one 
+REPLACE WITH RECENT VERSION
+* /
+
+
+|* !!! TODO: FANGCHENG|GAUSSIAN_ELIMINATION->det,inverse fn,eigen... !!!
+|* webassembly? webworkers? ML?
+/* ----------------------------------------------------- */</script>
+
+
