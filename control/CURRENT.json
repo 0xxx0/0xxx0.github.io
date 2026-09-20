@@ -253,9 +253,9 @@
     },
     {
       "id": "sleeper-deep-lineage",
-      "status": "PARTIAL_EXACT_RECOVERY_WORKFIELD_FROZEN_CITY_PAINTING_BLOCKED",
+      "status": "PARTIAL_EXACT_RECOVERY_WORKFIELD_FROZEN_PAINTING_PATH_SURFACED_CITY_BLOCKED",
       "query": "Hostage/Floating/Kite/Spiral → ONE RETURN/Nine Gate → Semantic City → Workfield → Sleeper POV → WAKE/Atlas → minigame cascade",
-      "payoff": "Exact Sleeper Workfield v1.2 is now frozen at /recovery/sleeper/workfield-v1.2/ as a sibling donor. External City Engine/Painting sources remain unresolved; do not infer them from Workfield or current /sleeper/.",
+      "payoff": "Exact Sleeper Workfield v1.2 remains frozen. Exact Library artifact painting-path.html surfaced during RSVP diff and should be frozen next through CENSUS/MIGRATION. City Engine remains unresolved; do not infer it from Workfield, Painting Path or current /sleeper/.",
       "receipt": "/control/RECOVERY_RUN_2026-09-19.json"
     },
     {
@@ -280,10 +280,10 @@
     },
     {
       "id": "rsvp-temporal-focus-watch-lineage",
-      "status": "EXACT_2018_IMPORTED_FROZEN_DONOR",
+      "status": "EXACT_2018_IMPORTED_DIFF_COMPLETE",
       "query": "RSVP+TTS TMP-SPEECHSYNTH 20180502 + Reedy + Galaxy Watch 6/Wear OS + JUE/JU/Sleeper/Painting Path temporal-focus lineage",
-      "payoff": "The historical 2018 temporal-focus fixture is exact-source grounded and now frozen at /recovery/rsvp/: duplicate raw Drive payloads were byte-identical and GitHub readback equals the recovered source text. Next is mechanism diff before any modern Watch/phone reader build.",
-      "receipt": "/recovery/rsvp/manifest.json"
+      "payoff": "2018 RSVP+TTS is exact and frozen. Mechanism diff against current Verse, Sleeper and exact Library Painting Path is complete. Unique recovered mechanism is a continuous speech-boundary clock; no transfer was authorized because Painting Path already has the stronger modern reader kernel and Verse/Sleeper have different causal jobs.",
+      "receipt": "/control/RSVP_MECHANISM_DIFF_2026-09-21.json"
     }
   ],
   "next_single_action": {
@@ -321,7 +321,7 @@
   "execution_queue": "/control/QUEUE.json",
   "dock": "/dock/",
   "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
-  "last_mechanism_diff": "/control/MECHANISM_DIFF_2026-09-19.json",
+  "last_mechanism_diff": "/control/RSVP_MECHANISM_DIFF_2026-09-21.json",
   "last_validation": "/control/RECOVERY_VALIDATION_2026-09-19.json",
   "last_ingest_run": "/control/INGEST_RUN_2026-09-20.json",
   "last_representation": "/control/REPRESENTATION_01.json",
@@ -387,7 +387,8 @@
     "field_play": "/field-play.html",
     "field_play_release": "/field-play.release.json",
     "shopping_field": "/control/confluence/SHOPPING_FIELD.md",
-    "shopping_contract": "/shopping/contract.json"
+    "shopping_contract": "/shopping/contract.json",
+    "rsvp_mechanism_diff": "/control/RSVP_MECHANISM_DIFF_2026-09-21.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
