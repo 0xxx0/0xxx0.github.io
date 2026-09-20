@@ -2845,6 +2845,79 @@
           "INVESTIGATE"
         ]
       }
+    },
+    {
+      "href": "/foundry/methods/",
+      "title": "SHAPE / LAW ATLAS 0.1",
+      "kind": "workbench",
+      "parent": "/foundry/",
+      "family": "FOUNDRY / METHODS",
+      "operation": "INVESTIGATE",
+      "state": "EXPERIMENT",
+      "version": "0.1",
+      "receipt": "/foundry/methods/release.json",
+      "showcase_card": false,
+      "role": "Invariant-first research surface for testing mathematical, design-process, security and privacy methods before transfer into current heads.",
+      "transfer": [
+        "simplex vs independent objectives",
+        "criterion-defined centers",
+        "planarity/coloring",
+        "spatial duality",
+        "Pareto pruning",
+        "diverge/converge process",
+        "security/privacy threat/risk methods"
+      ],
+      "field": {
+        "roles": [
+          "WORLD_IN",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "KNOWLEDGE",
+            "kind": "external method/framework",
+            "interface": "attributed source"
+          },
+          {
+            "medium": "DATA",
+            "kind": "current head capability gap",
+            "interface": "bounded test"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "transfer hypothesis",
+            "interface": "methods.json"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "bounded-test result",
+            "interface": "RETURN / issue #7"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "DONOR",
+            "status": "AVAILABLE",
+            "via": "working doc"
+          },
+          {
+            "class": "VERIFY",
+            "status": "REQUIRED",
+            "via": "bounded transfer test"
+          }
+        ],
+        "physical_fit": "May inform House routing/spatial/procurement tests; no method receives authority without a real RETURN."
+      },
+      "index": {
+        "updated_at": "2026-09-21T00:30:00+08:00",
+        "work_modes": [
+          "RESEARCH",
+          "INVESTIGATE",
+          "VERIFY"
+        ]
+      }
     }
   ],
   "release_law": [
