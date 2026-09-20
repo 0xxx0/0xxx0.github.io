@@ -34,6 +34,7 @@ A thread can think for hours without changing shared durable state. If it commit
 - [RSVP temporal-focus recovery](./RSVP_RECOVERY.md)
 - [DONOR / TRANSPLANT](./DONOR_TRANSPLANT.md) — bounded mechanism transfer, graft/clone/seed distinctions, lineage-safe handoff
 - [HOUSE confluence model](../../house/confluence.json)
+- [HOUSE frontier / open hardware + robotics + XR + motion-tool](./HOUSE_FRONTIER.md) — parked/reopenable donor packet; re-enter only from a named HOUSE/AXIAL capability gap
 
 ## Agent roles
 
