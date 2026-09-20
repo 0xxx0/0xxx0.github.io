@@ -1,0 +1,216 @@
+{
+  "schema": "0xxx0/instrument-charters/v0.1",
+  "updated": "2026-09-20",
+  "purpose": "A compact maturity contract for instruments that have become important enough to survive beyond one experiment.",
+  "maturity_gate": {
+    "required_when": "STABLE, or an EXPERIMENT has a retained unique mechanism/public route and is being used as a donor for other work.",
+    "not_required_for": "one-off sketches, raw recovery copies, quarantined generic descendants, or fixtures whose only job is falsification.",
+    "rule": "The charter explains why an instrument deserves continued complexity; it is not marketing copy."
+  },
+  "charter_fields": {
+    "PASSION": "The human tension, delight, care, or curiosity that makes this worth carrying.",
+    "PURPOSE": "The bounded transformation/job the instrument exists to perform.",
+    "POWER": "The unique capability it adds beyond plain text/list/manual handling.",
+    "PROOF": "What falsifiable evidence shows the power is real rather than aesthetic.",
+    "PROMISE": "The invariant or refusal the instrument must preserve.",
+    "PRICE": "The cognitive, technical, physical, or maintenance cost that must keep paying rent.",
+    "RETURN": "The durable thing that leaves the instrument and permits continuation."
+  },
+  "documentation_law": "PASSION may be poetic; PURPOSE and PROOF may not be vague.",
+  "seal_projection": "A seal/glyph may later compress a stable charter, but the mark must remain traceable back to this machine-readable contract rather than becoming decoration.",
+  "shared_motifs": [
+    {
+      "id": "motif:identity-through-projection",
+      "invariant": "One thing may have many unequal views without silently changing identity.",
+      "witnesses": [
+        "/fold-bloom/lens/",
+        "/foundry/convergence/identity-lab.html",
+        "/foundry/verse-atlas/"
+      ]
+    },
+    {
+      "id": "motif:typed-path",
+      "invariant": "A path is an ordered program whose transitions must say BY what relation they are legal.",
+      "witnesses": [
+        "/recovery/path-grid/grid-path-compiler-v4/",
+        "/foundry/verse-atlas/",
+        "/sleeper/"
+      ]
+    },
+    {
+      "id": "motif:one-return",
+      "invariant": "A consequential cycle ends with evidence, residue, and a re-entry path rather than indefinite elaboration.",
+      "witnesses": [
+        "/sleeper/",
+        "/foundry/axial/",
+        "/laconic/"
+      ]
+    },
+    {
+      "id": "motif:relation-field",
+      "invariant": "Meaningful state can live in the relation/delta between two positions rather than inside either endpoint alone.",
+      "witnesses": [
+        "/fold-bloom/two-dial/",
+        "/laconic/"
+      ]
+    },
+    {
+      "id": "motif:human-boundary",
+      "invariant": "Drafting, simulation, or recommendation remains distinct from permission to execute/send/act.",
+      "witnesses": [
+        "/laconic/",
+        "/contact/",
+        "/foundry/axial/"
+      ]
+    }
+  ],
+  "instruments": [
+    {
+      "id": "laconic-iconic",
+      "route": "/laconic/",
+      "maturity": "ACTIVE_EXPERIMENT",
+      "PASSION": "Preserve contact, character, wit, and care when communication must become small.",
+      "PURPOSE": "Turn an observed exchange into a bounded response move or trajectory while keeping provenance and human agency explicit.",
+      "POWER": "Treat LINE, SCENE, CARE, PLAY, CELEBRATE, REPAIR, and FRAGMENT as projections/paths rather than one flattened response bank.",
+      "PROOF": [
+        "exact recovered scenes remain distinguishable from new work",
+        "branch integrity holds",
+        "real-use receipts show a chosen path helped more than unconstrained drafting or did not"
+      ],
+      "PROMISE": "No hidden diagnosis, no sentiment-as-truth, no automatic sending, no recovered/new provenance collapse.",
+      "PRICE": "More structure than ordinary drafting; only recurring or consequential exchanges deserve it.",
+      "RETURN": "chosen draft or trajectory + provenance + branch state + unresolved next move",
+      "motifs": [
+        "motif:typed-path",
+        "motif:one-return",
+        "motif:relation-field",
+        "motif:human-boundary"
+      ]
+    },
+    {
+      "id": "scale-lens",
+      "route": "/fold-bloom/lens/",
+      "maturity": "STABLE",
+      "PASSION": "See the same thing at radically different scales without losing where it came from.",
+      "PURPOSE": "Project an addressed object across domain, scope, range, and spatial views while retaining canonical identity and upstream return.",
+      "POWER": "Separates canonical identity from local/projection/range addresses and lets unequal views share one object.",
+      "PROOF": [
+        "identity survives projection",
+        "upstream evidence/receipts survive import",
+        "projection renderer cannot mutate canonical graph state"
+      ],
+      "PROMISE": "A view may hide or rearrange; it may not silently own or rewrite the source object.",
+      "PRICE": "Address/provenance machinery is cognitively heavier than a one-off visualization.",
+      "RETURN": "canonical identity + projection address + receipt lineage + upstream return address",
+      "motifs": [
+        "motif:identity-through-projection",
+        "motif:one-return"
+      ]
+    },
+    {
+      "id": "verse-atlas",
+      "route": "/foundry/verse-atlas/",
+      "maturity": "STABLE",
+      "PASSION": "Let language be traversed, recomposed, heard, and remembered without erasing the source beneath the path.",
+      "PURPOSE": "Address source cells, compose typed traversals, and replay those readings exactly.",
+      "POWER": "CELL identity + BY edge + PATH program + ADDRESS compression can support several views without claiming geometry is semantics.",
+      "PROOF": [
+        "path receipts round-trip",
+        "source tokens survive projections",
+        "typed non-geometric jumps remain explicit"
+      ],
+      "PROMISE": "Reachable or attractive geometry never automatically becomes authored meaning, prosody, or truth.",
+      "PRICE": "Corpus adapters and typed edges add ceremony to what could otherwise be a quick visual toy.",
+      "RETURN": "replayable typed path receipt",
+      "motifs": [
+        "motif:identity-through-projection",
+        "motif:typed-path",
+        "motif:one-return"
+      ]
+    },
+    {
+      "id": "ascii-sleeper",
+      "route": "/sleeper/",
+      "maturity": "PUBLIC_EXPERIMENT",
+      "PASSION": "Make uncertainty and obligation traversable without pretending motion through a representation proves anything about reality.",
+      "PURPOSE": "Separate recall, observation, decision, and action gates; couple local laws; permit RETURN only after required evidence contracts are resolved.",
+      "POWER": "POV and PLAIN share one canonical gate state while geometry makes constraint interactions experientially legible.",
+      "PROOF": [
+        "same gate state across POV/PLAIN",
+        "deterministic seal/field hash",
+        "gate evidence classes remain distinct",
+        "real task comparison against plain handling"
+      ],
+      "PROMISE": "Geometry is downstream of recorded state and never proof of external truth.",
+      "PRICE": "Traversal friction; the maze must earn itself by improving orientation or comprehension.",
+      "RETURN": "source/evidence/law/route fingerprint + unresolved residue",
+      "motifs": [
+        "motif:typed-path",
+        "motif:one-return",
+        "motif:identity-through-projection"
+      ]
+    },
+    {
+      "id": "two-dial",
+      "route": "/fold-bloom/two-dial/",
+      "maturity": "STABLE_FROZEN",
+      "PASSION": "Feel a relation changing, rather than manipulate isolated parameters and read a dashboard afterward.",
+      "PURPOSE": "Couple two cyclic states and expose the relation among them as BLOOM / FOLD / SPLIT / RETURN.",
+      "POWER": "Makes the delta/relation itself first-class and embodied.",
+      "PROOF": [
+        "relation mapping is deterministic",
+        "exported state reproduces the same relation",
+        "users can distinguish the relation without decorative explanation"
+      ],
+      "PROMISE": "The relation is a formal mapping in the instrument, not a claim that those verbs are universal meanings.",
+      "PRICE": "Learned cyclic mapping and audiovisual richness can exceed the explanatory value.",
+      "RETURN": "exported coupled state and relation",
+      "motifs": [
+        "motif:relation-field",
+        "motif:one-return"
+      ]
+    },
+    {
+      "id": "axial-state-transform",
+      "route": "/foundry/axial/",
+      "maturity": "EXPERIMENT",
+      "PASSION": "Let computational meaning become graspable as a thing the hand can set, feel, commit, and read back.",
+      "PURPOSE": "Compose discrete semantic state with continuous axial/twist transform and an explicit transaction gate.",
+      "POWER": "Separates semantic token, embodied transform, and commit authority while emitting machine-readable before/after receipts.",
+      "PROOF": [
+        "digital 10-trial harness",
+        "physical nested-tube comparison",
+        "state readable without software",
+        "error/latency and backlash/detent evidence"
+      ],
+      "PROMISE": "Physical gesture may carry meaning only if it reduces translation cost and remains read-backable; cylinders are not evidence.",
+      "PRICE": "Mechanical complexity, calibration, tactile ambiguity, and hardware maintenance.",
+      "RETURN": "AXIAL_PACKET + before/gesture/after event ancestry + receipt",
+      "motifs": [
+        "motif:one-return",
+        "motif:human-boundary",
+        "motif:identity-through-projection"
+      ]
+    },
+    {
+      "id": "anthropy-pathweaver",
+      "route": "/recovery/path-grid/anthropy-pathweaver/",
+      "maturity": "RECOVERED_DONOR",
+      "PASSION": "Let a source become a path, a soundable shape, and a fabricable construction while keeping the route back to the source.",
+      "PURPOSE": "Weave source cells into traversals, inspect/sonify their shape, and forge selected paths through symmetry/fabrication projections.",
+      "POWER": "Moves one path across reading, HEAR SHAPE, symmetry, and fabrication preview without requiring those projections to become source truth.",
+      "PROOF": [
+        "export/import preserves session/path",
+        "fabrication projection retains source/path identity",
+        "shape/audio projection can be removed without corrupting source"
+      ],
+      "PROMISE": "Construction and symmetry are derived projections; they do not confer authorship or semantic truth.",
+      "PRICE": "A rich donor surface with many capabilities; only missing mechanisms should migrate into current heads.",
+      "RETURN": "exported session/path/construction state",
+      "motifs": [
+        "motif:identity-through-projection",
+        "motif:typed-path"
+      ]
+    }
+  ]
+}
