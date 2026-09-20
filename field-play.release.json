@@ -1,0 +1,25 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "FIELD / PLAY",
+  "version": "0.1",
+  "route": "/field-play.html",
+  "state": "ACTIVE",
+  "operation": "VERIFY",
+  "released": "2026-09-21",
+  "purpose": "Turn public-safe unresolved FIELD gaps into bounded contributor missions with evidence-bearing RETURN receipts.",
+  "laws": [
+    "MISSION != AUTHORITY",
+    "ONE BOUNDED MOVE",
+    "EVIDENCE BEFORE CLAIM",
+    "RETURN != NEXT",
+    "PRIVATE/MEDICAL/MESSAGING ADAPTERS EXCLUDED FROM PUBLIC DECK"
+  ],
+  "representative_interaction": "ROLL MISSION → OPEN TARGET → perform one bounded move → PASS/PARTIAL/FAIL → COPY RETURN JSON",
+  "validation": {
+    "inline_javascript_syntax": "pending public validator",
+    "manifest_derived_deck": true,
+    "local_storage_only": "return count only",
+    "network_write": "NONE"
+  },
+  "known_gap": "No submission transport or shared scoreboard by design; contributor returns are copied explicitly and reviewed before repo mutation."
+}
