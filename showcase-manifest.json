@@ -451,7 +451,8 @@
       "transfer": [
         "inbox/case intake",
         "sensor/log ingress",
-        "provenance + rollback"
+        "provenance + rollback",
+        "CONTINUITY reviewed-claim candidate ingress"
       ],
       "contract": {
         "accepts": {
@@ -552,21 +553,23 @@
         "physical_fit": "Primary reality-ingress surface once observations/sensors have an adapter."
       },
       "index": {
-        "updated_at": "2026-09-20",
+        "updated_at": "2026-09-21T02:27:56+08:00",
         "work_modes": [
-          "UNKNOWN"
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
         ]
       }
     },
     {
       "href": "/continuity/",
-      "title": "CONTINUITY / CASE 0.1",
+      "title": "CONTINUITY / CASE 0.2",
       "kind": "workbench",
       "parent": "/",
       "family": "CONFLUENCE / CONTINUITY",
       "operation": "CANONICALIZE",
       "state": "ACTIVE",
-      "version": "0.1",
+      "version": "0.2",
       "receipt": "/continuity/release.json",
       "transfer": [
         "case reconstruction",
@@ -575,7 +578,8 @@
         "provenance split",
         "anti-merge holds",
         "gap review",
-        "human handoff compression"
+        "human handoff compression",
+        "FIELD INTAKE review-candidate handoff"
       ],
       "contract": {
         "accepts": {
@@ -683,8 +687,8 @@
           },
           {
             "class": "CANONICAL_INGEST",
-            "status": "SPECIFIED",
-            "via": "FIELD INTAKE packet-import adapter"
+            "status": "AVAILABLE",
+            "via": "/continuity/field-intake-adapter.json → same-origin handoff → FIELD INTAKE review gate"
           },
           {
             "class": "RETRIEVAL",
@@ -705,8 +709,10 @@
         "physical_fit": "Continuity layer for observations about people, animals, devices, rooms and projects; not a medical record authority, sensor authority, or autonomous actor."
       },
       "index": {
-        "updated_at": "2026-09-21T02:21:00+08:00",
+        "updated_at": "2026-09-21T02:28:26+08:00",
         "work_modes": [
+          "SPECIFY",
+          "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
