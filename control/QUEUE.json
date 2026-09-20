@@ -28,15 +28,15 @@
     },
     {
       "id": "reality-house",
-      "goal": "Make one visible physical/home state simpler and measurable so the abstract system remains reality-gated.",
+      "goal": "Make one visible physical/home/workshop state simpler and measurable, then admit that observed object/zone into FIELD INDEX so future work is driven by ports rather than project names.",
       "horizon": "NEXT NOW",
       "next": [
-        "Pick one bounded physical zone or owned endpoint.",
-        "Record before-state.",
-        "Perform one reversible cleanup/routing/automation change.",
-        "Record after-state and what became easier."
+        "Use one ordinary bounded physical zone, tool, material interaction or owned endpoint.",
+        "Record OBSERVED → ACTION → RESULT with the smallest useful evidence.",
+        "Add the observed thing to FIELD INDEX with location, mobility, dependencies, input/output ports and evidence.",
+        "Ask one CONNECT or MOVE question; use the missing port as the next-work selector."
       ],
-      "receipt": "before/after + measured or plainly observable delta"
+      "receipt": "physical RETURN + first observed FIELD INDEX row + one CONNECT/MOVE result"
     }
   ],
   "held": [
@@ -62,7 +62,7 @@
     "TURN B — DONE: mechanism diff completed; Verse Atlas gained RETURN replay, Fold Weave remains a sibling.",
     "TURN C — DONE: ingest scanner hardened and bounded read-only dry-run produced exact hashes/duplicates + semantic overlay.",
     "TURN D — DONE: REPRESENTATION 01 binds state-transform HTML + README as one semantic artifact without collapsing byte identity.",
-    "TURN E — NEXT: one actual physical/print RETURN; then DOCK review."
+    "TURN E — NEXT: one actual physical/print RETURN → first observed FIELD INDEX row → one CONNECT/MOVE query; then DOCK review."
   ],
   "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
   "last_ingest_run": "/control/INGEST_RUN_2026-09-20.json",
