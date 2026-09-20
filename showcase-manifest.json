@@ -27,7 +27,39 @@
       "role": "Stable human ingress/RETURN surface: usable now through local compose + native share; future private messaging/autoresponder transports bind behind the same public promise contract.",
       "version": "0.2",
       "receipt": "/contact/release.json",
-      "contract": "/contact/contract.json"
+      "contract": "/contact/contract.json",
+      "field": {
+        "roles": [
+          "WORLD_OUT"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "draft/handoff",
+            "interface": "human compose/share"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "human-triggered external action",
+            "interface": "native share/manual action"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "acknowledgment",
+            "interface": "manual"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "COMMUNICATION",
+            "status": "AVAILABLE",
+            "via": "human review/share"
+          }
+        ],
+        "physical_fit": "Safe final human boundary; useful whenever automation is unnecessary."
+      }
     },
     {
       "href": "/laconic/",
@@ -103,6 +135,54 @@
           ],
           "return_path": "/laconic/"
         }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "WORLD_OUT"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "communication situation",
+            "interface": "text"
+          },
+          {
+            "medium": "DATA",
+            "kind": "observed interaction note",
+            "interface": "text"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "draft candidate",
+            "interface": "HUMAN PORT"
+          },
+          {
+            "medium": "DATA",
+            "kind": "scene state",
+            "interface": "HUMAN PORT"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "curation state",
+            "interface": "local"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "COMMUNICATION",
+            "status": "AVAILABLE",
+            "via": "HUMAN PORT"
+          },
+          {
+            "class": "DONOR",
+            "status": "AVAILABLE",
+            "via": "response-move grammar"
+          }
+        ],
+        "physical_fit": "Coordination/handoff for physical work; not a manipulation tool."
       }
     },
     {
@@ -163,6 +243,54 @@
           ],
           "return_path": "/field-intake/"
         }
+      },
+      "field": {
+        "roles": [
+          "WORLD_IN",
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "freeform note",
+            "interface": "keyboard/paste"
+          },
+          {
+            "medium": "SIGNAL",
+            "kind": "sensor/log event",
+            "interface": "adapter envelope"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "committed object/event",
+            "interface": "canonical state"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "receipt",
+            "interface": "RETURN"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "WORLD_IN",
+            "status": "AVAILABLE",
+            "via": "human capture"
+          },
+          {
+            "class": "WORLD_IN",
+            "status": "ADAPTER_REQUIRED",
+            "via": "sensor binding"
+          },
+          {
+            "class": "ROUTE",
+            "status": "AVAILABLE",
+            "via": "canonical object/event"
+          }
+        ],
+        "physical_fit": "Primary reality-ingress surface once observations/sensors have an adapter."
       }
     },
     {
@@ -223,6 +351,44 @@
           ],
           "return_path": "/fold-bloom/two-dial/"
         }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "DONOR"
+        ],
+        "inputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "bounded cyclic control",
+            "interface": "pointer/touch/dial"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "bounded parameter state",
+            "interface": "local state"
+          },
+          {
+            "medium": "SIGNAL",
+            "kind": "visible/audible feedback",
+            "interface": "display/audio"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "PHYSICAL_CONTROL",
+            "status": "CANDIDATE",
+            "via": "encoder/detent adapter"
+          },
+          {
+            "class": "DONOR",
+            "status": "AVAILABLE",
+            "via": "cyclic control grammar"
+          }
+        ],
+        "physical_fit": "Control primitive; candidate for tangible dial/encoder interfaces."
       }
     },
     {
@@ -278,6 +444,49 @@
           ],
           "return_path": "/fold-bloom/ecology/"
         }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "DONOR"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "mode/agent state",
+            "interface": "local state"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "LIGHT",
+            "kind": "visual feedback",
+            "interface": "display"
+          },
+          {
+            "medium": "SOUND",
+            "kind": "audio feedback",
+            "interface": "speaker"
+          },
+          {
+            "medium": "DATA",
+            "kind": "lineage/mode change",
+            "interface": "state"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "PHYSICAL_FEEDBACK",
+            "status": "CANDIDATE",
+            "via": "sensor→bounded actuator loop"
+          },
+          {
+            "class": "DONOR",
+            "status": "AVAILABLE",
+            "via": "adaptive feedback grammar"
+          }
+        ],
+        "physical_fit": "Useful as a feedback/control-loop donor, not yet a House controller."
       }
     },
     {
@@ -335,6 +544,48 @@
           ],
           "return_path": "/sleeper/"
         }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "constraint set",
+            "interface": "typed state"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "evidence contract",
+            "interface": "typed state"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "plain obligation view",
+            "interface": "display/state"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "return seal",
+            "interface": "RETURN"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "HUMAN_ACTION",
+            "status": "CANDIDATE",
+            "via": "obligation→real task"
+          },
+          {
+            "class": "DONOR",
+            "status": "AVAILABLE",
+            "via": "constraint gating"
+          }
+        ],
+        "physical_fit": "Can gate workshop/home procedures when obligations are explicit."
       }
     },
     {
@@ -395,6 +646,43 @@
           ],
           "return_path": "/fold-bloom/lens/"
         }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "addressed source object",
+            "interface": "stable identity"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "projected view",
+            "interface": "display/export"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "return address",
+            "interface": "RETURN"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "DECISION_SUPPORT",
+            "status": "AVAILABLE",
+            "via": "human review"
+          },
+          {
+            "class": "FABRICATION",
+            "status": "CANDIDATE",
+            "via": "geometry/toolpath adapter"
+          }
+        ],
+        "physical_fit": "Prepare addressed objects/specs for decision or fabrication; should not actuate directly."
       }
     },
     {
@@ -463,6 +751,48 @@
           ],
           "return_path": "/foundry/verse-atlas/"
         }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "addressed text",
+            "interface": "stable source"
+          },
+          {
+            "medium": "DATA",
+            "kind": "path/traversal request",
+            "interface": "path grammar"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "typed path",
+            "interface": "export/replay"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "replayable return",
+            "interface": "JSON"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "WORK_INSTRUCTION",
+            "status": "CANDIDATE",
+            "via": "procedure/path adapter"
+          },
+          {
+            "class": "DONOR",
+            "status": "AVAILABLE",
+            "via": "stable traversal grammar"
+          }
+        ],
+        "physical_fit": "Promising for assembly/procedure routes once addresses point to real objects/steps."
       }
     },
     {
@@ -536,6 +866,60 @@
           ],
           "return_path": "/foundry/axial/"
         }
+      },
+      "field": {
+        "roles": [
+          "WORLD_IN",
+          "WORLD_THROUGH",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "detented semantic state",
+            "interface": "ring/detent"
+          },
+          {
+            "medium": "MOTION",
+            "kind": "axial/twist transform",
+            "interface": "drag/physical proxy"
+          },
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "transaction gate",
+            "interface": "SAFE/TEST/ARM/RUN"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "live state packet",
+            "interface": "AXIAL_PACKET"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "interaction event",
+            "interface": "event ledger"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "RETURN receipt",
+            "interface": "JSON"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "PHYSICAL_CONTROL",
+            "status": "SPECIFIED",
+            "via": "nested-tube/detent build"
+          },
+          {
+            "class": "MACHINE_BRIDGE",
+            "status": "CANDIDATE",
+            "via": "AXIAL_PACKET adapter"
+          }
+        ],
+        "physical_fit": "Digital bench for a physical semantic controller; physical comparison remains the real simulation-gap test."
       }
     },
     {
@@ -594,6 +978,44 @@
           ],
           "return_path": "/foundry/convergence/identity-lab.html"
         }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "identified object",
+            "interface": "object id"
+          },
+          {
+            "medium": "DATA",
+            "kind": "proposed transform",
+            "interface": "transform contract"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "transformed representation",
+            "interface": "state"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "identity/provenance trace",
+            "interface": "RETURN"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "VERIFY",
+            "status": "AVAILABLE",
+            "via": "transform contract"
+          }
+        ],
+        "physical_fit": "Prove digital↔physical mapping invariants before trusting an adapter."
       }
     },
     {
@@ -652,6 +1074,49 @@
           ],
           "return_path": "/atlas-dayline/"
         }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "WORLD_OUT"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "task/commitment",
+            "interface": "stable id"
+          },
+          {
+            "medium": "TIME",
+            "kind": "time address",
+            "interface": "clock/calendar"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "time-addressed commitment",
+            "interface": "human/task/calendar"
+          },
+          {
+            "medium": "DATA",
+            "kind": "replayable state",
+            "interface": "export"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "HUMAN_ACTION",
+            "status": "AVAILABLE",
+            "via": "human execution"
+          },
+          {
+            "class": "AUTOMATION",
+            "status": "ADAPTER_REQUIRED",
+            "via": "calendar/task binding"
+          }
+        ],
+        "physical_fit": "Direct bridge from digital intent to scheduled human physical work."
       }
     },
     {
@@ -708,6 +1173,43 @@
           ],
           "return_path": "/forward-field-proof/"
         }
+      },
+      "field": {
+        "roles": [
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "candidate interface/transform",
+            "interface": "test fixture"
+          },
+          {
+            "medium": "DATA",
+            "kind": "plain control",
+            "interface": "baseline"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "keep/demote decision",
+            "interface": "control plane"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "proof receipt",
+            "interface": "RETURN"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "VERIFY",
+            "status": "AVAILABLE",
+            "via": "comparison receipt"
+          }
+        ],
+        "physical_fit": "Use to kill clever physical interfaces that do not outperform plain control."
       }
     },
     {
@@ -719,7 +1221,39 @@
       "state": "EXPERIMENT",
       "version": "0.1",
       "receipt": "/forward-field-proof/triangle/release.json",
-      "showcase_card": false
+      "showcase_card": false,
+      "field": {
+        "roles": [
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "allocation gesture",
+            "interface": "triangle/plain controls"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "allocation state",
+            "interface": "decision fixture"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "calibration receipt",
+            "interface": "JSON"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "VERIFY",
+            "status": "HUMAN_EVIDENCE_REQUIRED",
+            "via": "six trials + one real decision"
+          }
+        ],
+        "physical_fit": "Attention-allocation experiment; not a physical actuator."
+      }
     },
     {
       "href": "/router-bench/",
@@ -730,7 +1264,39 @@
       "state": "EXPERIMENT",
       "version": "0.1",
       "receipt": "/router-bench/release.json",
-      "showcase_card": false
+      "showcase_card": false,
+      "field": {
+        "roles": [
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "capability request",
+            "interface": "route contract"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "candidate route",
+            "interface": "simulation"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "routing trace",
+            "interface": "local"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "ROUTE",
+            "status": "REFERENCE",
+            "via": "private runtime adapter"
+          }
+        ],
+        "physical_fit": "Can route toward physical adapters semantically; public bench itself never actuates."
+      }
     },
     {
       "href": "/fcm/",
@@ -748,7 +1314,34 @@
         "/fcm-map.json",
         "/fcm-fronts.json"
       ],
-      "showcase_card": false
+      "showcase_card": false,
+      "field": {
+        "roles": [
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "candidate fronts/work items",
+            "interface": "control state"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "NOW/NEXT/HOLD/DROP projection",
+            "interface": "attention state"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "HUMAN_ACTION",
+            "status": "AVAILABLE",
+            "via": "choose bounded next work"
+          }
+        ],
+        "physical_fit": "Attention projection; useful for selecting physical work, not doing it."
+      }
     },
     {
       "href": "/control/",
@@ -903,5 +1496,43 @@
   "policy_selector_model": "/policy-selector-model.json",
   "policy_resolution_trace_schema": "/policy-resolution-trace.schema.json",
   "policy_resolution_trace_example": "/policy-resolution-trace.example.json",
-  "policy_trace_tests": "/policy-trace-cases.json"
+  "policy_trace_tests": "/policy-trace-cases.json",
+  "field_index": {
+    "schema": "0xxx0/public-field-projection/v0.1",
+    "law": "INPUT → PORT → ADDRESS/STATE → TRANSFORM → OUTPUT → EVIDENCE → RETURN",
+    "purpose": "Safe public projection of how current surfaces connect. Private device topology, credentials, owned-asset inventory and physical addresses stay outside this manifest.",
+    "media": [
+      "DATA",
+      "SIGNAL",
+      "COMMAND",
+      "EVIDENCE",
+      "HUMAN_ACTION",
+      "HUMAN_ATTENTION",
+      "FORCE",
+      "MOTION",
+      "ENERGY",
+      "MATERIAL",
+      "AIR_FLUID",
+      "HEAT",
+      "LIGHT",
+      "SOUND",
+      "SPACE",
+      "TIME"
+    ],
+    "query_families": [
+      "PRODUCES",
+      "CONSUMES",
+      "CONNECT",
+      "PATH",
+      "WORLD_IN",
+      "WORLD_OUT",
+      "REIFY",
+      "VERIFY",
+      "SUBSTITUTE",
+      "BOTTLENECK",
+      "SALVAGE",
+      "MOVE",
+      "RETURN"
+    ]
+  }
 }
