@@ -1,6 +1,6 @@
 {
   "schema": "human-port-descriptor/v0.1",
-  "version": "0.5-lab",
+  "version": "0.6-lab",
   "canonical": "https://0xxx0.github.io/contact/",
   "surfaces": {
     "plain": "/contact/",
@@ -94,7 +94,10 @@
     "public_state": "/contact/state.json",
     "laconic": "/laconic/",
     "interpretation": "/contact/interpretation.json",
-    "backstage": "/contact/backstage.json"
+    "backstage": "/contact/backstage.json",
+    "context_frame": "/contact/context-frame.json",
+    "line_object": "/contact/line-object.json",
+    "continuity": "/contact/continuity.json"
   },
   "interpretation": {
     "state": "LAB",
@@ -115,5 +118,44 @@
     "surface": "/contact/backstage/",
     "law": "Curated making-history, never automatic raw-chat publication.",
     "public_promotion": "Only explicitly curated PUBLIC_CURATED entries may become public artifact history."
+  },
+  "context_frame": {
+    "state": "LAB_CONTRACT_ONLY",
+    "contract": "/contact/context-frame.json",
+    "schema": "/contact/context-frame.schema.json",
+    "rule": "Context may change projection, timing and capacity handling; it never creates authority.",
+    "dimensions": [
+      "relation",
+      "audience",
+      "language",
+      "culture_pack_ref",
+      "register",
+      "phase",
+      "temporal_horizon",
+      "communication_capacity",
+      "private_context_refs",
+      "continuity_state"
+    ]
+  },
+  "line_object": {
+    "state": "LAB_CONTRACT_ONLY",
+    "contract": "/contact/line-object.json",
+    "projections": [
+      "sendable",
+      "courteous",
+      "formal",
+      "elegant",
+      "literal_gloss",
+      "pronunciation",
+      "rehearsal",
+      "rsvp",
+      "backtranslation"
+    ],
+    "donor": "/recovery/rsvp/manifest.json"
+  },
+  "continuity": {
+    "state": "LAB_CONTRACT_ONLY",
+    "contract": "/contact/continuity.json",
+    "law": "Silence/timer alone may trigger a check, never a declaration of danger/incapacity/death or irreversible legacy action."
   }
 }
