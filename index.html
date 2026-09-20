@@ -19,7 +19,7 @@ nav a{text-decoration:none}.bar{display:grid;grid-template-columns:1fr auto;gap:
 .bar b{letter-spacing:.16em;font-size:10px}.bar span{font-size:9px;color:var(--muted)}
 .rows{border-top:1px solid var(--line)}.row{display:grid;grid-template-columns:minmax(190px,1.1fr) 95px 90px 2fr auto;gap:12px;align-items:start;border-bottom:1px solid #242b2f;padding:12px 4px;color:var(--ink);text-decoration:none}
 .row:hover{background:#0d1113}.name{font:750 16px/1.1 system-ui,-apple-system,sans-serif;letter-spacing:-.025em}.family{margin-top:4px;font-size:8px;color:#6f7c82}
-.op,.state{font-size:8px;letter-spacing:.1em}.op{color:var(--cool)}.state{color:var(--green)}.state.EXPERIMENT,.state.RECOVER,.state.IMPORT{color:#e7a065}.state.QUARANTINE{color:#c98a99}
+.op,.state{font-size:8px;letter-spacing:.1em}.op{color:var(--cool)}.mode{display:block;margin-top:3px;color:#b8a476;font-size:7px;letter-spacing:.08em}.touch{color:#69757b;font-size:7px;margin-top:3px}.state{color:var(--green)}.state.EXPERIMENT,.state.RECOVER,.state.IMPORT{color:#e7a065}.state.QUARANTINE{color:#c98a99}
 .job{color:#9ea8ac;font:10px/1.45 system-ui,-apple-system,sans-serif}.go{font-size:10px;white-space:nowrap;color:#b9c2c6}
 .rec .row{grid-template-columns:minmax(190px,1.1fr) 110px 2fr auto}.external{color:#8ccdf2}
 .tools{display:flex;gap:5px;flex-wrap:wrap}.tools input{width:170px}.tools button{cursor:pointer}.tools button.on{border-color:#819198}
@@ -32,11 +32,11 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:22px;paddi
 <header>
   <div><div class="ey">FI / φ · RUN / RECOVER / RETURN</div><h1>FIELD<br>INDEX</h1></div>
   <div><p>Not a portfolio. A working index of executable surfaces, current heads, and recovered donors. Nothing here needs a company story.</p>
-  <nav><a href="./dock/">DOCK</a><a href="./control/">CURRENT</a><a href="./control/migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./showcase-manifest.json">MANIFEST</a></nav></div>
+  <nav><a href="./dock/">DOCK</a><a href="./control/">CURRENT</a><a href="./control/migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./showcase-manifest.json">MANIFEST</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav></div>
 </header>
 
 <section>
-  <div class="bar"><div><b>RUNNING</b><span id="runCount"></span></div><div class="tools"><button class="on" data-filter="ALL">ALL</button><button data-filter="STABLE">STABLE</button><button data-filter="EXPERIMENT">EXPERIMENT</button><button class="on" data-view="CAPABILITY">CAPABILITY</button><button data-view="IO">I/O</button><input id="focus" type="search" placeholder="/ find"></div></div>
+  <div class="bar"><div><b>RUNNING</b><span id="runCount"></span></div><div class="tools"><button class="on" data-filter="ALL">ALL</button><button data-filter="STABLE">STABLE</button><button data-filter="EXPERIMENT">EXPERIMENT</button><button class="on" data-view="CAPABILITY">CAPABILITY</button><button data-view="IO">I/O</button><button class="on" data-sort="UPDATED">UPDATED ↓</button><button data-sort="MANIFEST">MANIFEST</button><input id="focus" type="search" placeholder="/ find"></div></div>
   <div id="running" class="rows"><div class="row"><div class="job">Loading manifest…</div></div></div>
 </section>
 
@@ -69,7 +69,7 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:22px;paddi
 
 <script>
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-let routes=[],filter='ALL',q='',view='CAPABILITY';
+let routes=[],filter='ALL',q='',view='CAPABILITY',sort='UPDATED';
 const portText=ps=>(ps||[]).slice(0,3).map(p=>p.medium+':'+p.kind).join(' · ');
 function jobText(x){
   if(view==='IO'){
@@ -79,12 +79,13 @@ function jobText(x){
   return x.contract?.transforms?.verb || x.role || (x.transfer||[]).join(' · ') || x.field?.physical_fit || '';
 }
 function renderRoutes(){
-  const visible=routes.filter(x=>(filter==='ALL'||x.state===filter)&&(!q||[x.title,x.operation,x.family,x.job,x.href,JSON.stringify(x.field||{})].join(' ').toLowerCase().includes(q)));
-  document.getElementById('runCount').textContent=visible.length+' visible';
-  document.getElementById('running').innerHTML=visible.map(x=>`<a class="row" href=".${esc(x.href)}"><div><div class="name">${esc(x.title)}</div><div class="family">${esc((x.field?.roles||[]).join(' / ')||x.family||x.kind)}</div></div><div class="op">${esc(x.operation||x.kind)}</div><div class="state ${esc(x.state)}">${esc(x.state)}</div><div class="job">${esc(jobText(x))}</div><div class="go">OPEN →</div></a>`).join('')||'<div class="row"><div class="job">No match.</div></div>';
+  let visible=routes.filter(x=>(filter==='ALL'||x.state===filter)&&(!q||[x.title,x.operation,x.family,x.job,x.href,JSON.stringify(x.field||{}),JSON.stringify(x.index||{})].join(' ').toLowerCase().includes(q)));
+  if(sort==='UPDATED') visible=[...visible].sort((a,b)=>String(b.index?.updated_at||'').localeCompare(String(a.index?.updated_at||''))||(a._manifestIndex-b._manifestIndex));
+  document.getElementById('runCount').textContent=visible.length+' visible · '+(sort==='UPDATED'?'updated ↓':'manifest order');
+  document.getElementById('running').innerHTML=visible.map(x=>`<a class="row" href=".${esc(x.href)}"><div><div class="name">${esc(x.title)}</div><div class="family">${esc((x.field?.roles||[]).join(' / ')||x.family||x.kind)}</div><div class="touch">TOUCH ${esc(x.index?.updated_at||'UNTRACKED')}</div></div><div class="op">${esc(x.operation||x.kind)}<span class="mode">${esc((x.index?.work_modes||['UNKNOWN']).join(' · '))}</span></div><div class="state ${esc(x.state)}">${esc(x.state)}</div><div class="job">${esc(jobText(x))}</div><div class="go">OPEN →</div></a>`).join('')||'<div class="row"><div class="job">No match.</div></div>';
 }
 fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
- routes=d.routes.filter(x=>['artifact','experiment','workbench','rendezvous'].includes(x.kind)&&x.state).map(x=>({
+ routes=d.routes.map((x,i)=>({...x,_manifestIndex:i})).filter(x=>['artifact','experiment','workbench','rendezvous'].includes(x.kind)&&x.state).map(x=>({
    ...x,
    job:x.contract?.transforms?.verb || x.role || (x.transfer||[]).join(' · ') || x.field?.physical_fit || ''
  }));
@@ -92,7 +93,8 @@ fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
 }).catch(e=>document.getElementById('running').textContent='manifest unavailable: '+e.message);
 document.querySelector('.tools').addEventListener('click',e=>{
  if(e.target.dataset.filter){filter=e.target.dataset.filter;document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('on',b.dataset.filter===filter));renderRoutes();return}
- if(e.target.dataset.view){view=e.target.dataset.view;document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('on',b.dataset.view===view));renderRoutes()}
+ if(e.target.dataset.view){view=e.target.dataset.view;document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('on',b.dataset.view===view));renderRoutes();return}
+ if(e.target.dataset.sort){sort=e.target.dataset.sort;document.querySelectorAll('[data-sort]').forEach(b=>b.classList.toggle('on',b.dataset.sort===sort));renderRoutes()}
 });
 document.getElementById('focus').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();renderRoutes()});
 
