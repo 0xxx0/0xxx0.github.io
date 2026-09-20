@@ -171,7 +171,7 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
   <div class="modalcard">
     <div class="modalhead"><b>CASE CONTEXT</b><div class="spacer"></div><button id="closeCase">×</button></div>
     <div class="formgrid" style="margin-top:9px">
-      <div class="field"><label>SUBJECT</label><input id="subject" placeholder="Me / Dad / Kiwi / Maki…"></div>
+      <div class="field"><label>SUBJECT</label><input id="subject" placeholder="Me / family member / patient / pet…"></div>
       <div class="field"><label>KIND</label><select id="subjectKind"><option>PERSON</option><option>ANIMAL</option></select></div>
     </div>
     <div class="casegrid">
@@ -377,7 +377,7 @@ function review(){
  if(!C.baseline)gaps.push('No baseline/known context recorded; handoff may force the recipient to reconstruct it.');
  if(!C.ask)gaps.push('No explicit ASK: the recipient may not know what decision/help you want.');
  if(C.plan&&!C.plan_source)gaps.push('A plan is recorded without its source/date; preserve who actually gave the plan.');C.course=C.course||{};if(C.course.gate&&!C.course.gate_source)gaps.push('A decision gate is recorded without its source/date; conditional escalation should remain attributable.');if(C.course.next&&!C.course.owner)gaps.push('A next step exists but no owner is named; handoff may fail even when the plan is correct.');
- events.forEach((e,i)=>{if(e.measurement?.value&&!e.measurement.unit)gaps.push('Measurement '+(i+1)+' has a value but no unit.');if(e.measurement?.value&&!e.measurement.label&&!e.raw_note)gaps.push('Measurement '+(i+1)+' has a value but no measurement name/context.');if(['TREATMENT','APPOINTMENT','RESULT'].includes(e.type)&&!e.status)gaps.push(e.type+' event '+(i+1)+' has no workflow status.');if(e.interpretation&&!e.raw_note&&!e.measurement)gaps.push('Interpretation '+(i+1)+' has no separate observation/measurement beneath it.');});
+ events.forEach((e,i)=>{if(e.measurement&&e.measurement.value!==''&&e.measurement.value!=null&&!e.measurement.unit)gaps.push('Measurement '+(i+1)+' has a value but no unit.');if(e.measurement&&e.measurement.value!==''&&e.measurement.value!=null&&!e.measurement.label&&!e.raw_note)gaps.push('Measurement '+(i+1)+' has a value but no measurement name/context.');if(['TREATMENT','APPOINTMENT','RESULT'].includes(e.type)&&!e.status)gaps.push(e.type+' event '+(i+1)+' has no workflow status.');if(e.interpretation&&!e.raw_note&&!e.measurement)gaps.push('Interpretation '+(i+1)+' has no separate observation/measurement beneath it.');});
  if(events.length===1)gaps.push('Only one event: useful snapshot, but no trajectory yet.');
  if(events.length>=2&&regions.size===0)gaps.push('Multiple events but no spatial/body region captured; valid if the case is non-spatial, otherwise location may be useful.');
  if(C.unknowns?.length)gaps.push(C.unknowns.length+' explicit unknown(s) remain. Rank the next question/test by information gain.');
