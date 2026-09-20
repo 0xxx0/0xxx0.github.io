@@ -1,6 +1,6 @@
 {
   "schema": "human-port-descriptor/v0.1",
-  "version": "1.1-preview",
+  "version": "1.2-preview",
   "canonical": "https://0xxx0.github.io/port/",
   "surfaces": {
     "plain": "/contact/",
@@ -211,5 +211,33 @@
       }
     ],
     "rule": "Plain-language action first; internal system name second."
-  }
+  },
+  "handoffs": {
+    "burst_to_laconic": {
+      "state": "LIVE_LOCAL",
+      "carrier": "sessionStorage",
+      "rule": "Interpretation context may seed drafting; source remains distinct from expression."
+    },
+    "laconic_to_contact": {
+      "state": "LIVE_LOCAL",
+      "carrier": "sessionStorage",
+      "rule": "Selected draft enters Contact; DRAFT != SEND."
+    },
+    "continuity_to_contact": {
+      "state": "LIVE_LOCAL",
+      "carrier": "sessionStorage",
+      "rule": "Compact handoff may seed Contact without placing case text in URL."
+    },
+    "residue_to_idea_atlas": {
+      "state": "LIVE_LOCAL",
+      "carrier": "sessionStorage",
+      "rule": "Only explicit IDEA residue is offered to Idea Atlas; transfer does not create build commitment."
+    },
+    "backstage_to_donor": {
+      "state": "LIVE_LOCAL_COPY",
+      "carrier": "clipboard",
+      "rule": "Harvest bounded mechanism/provenance metadata; raw private text excluded by default."
+    }
+  },
+  "suite_law": "Tools should form reversible handoffs, not isolated mini-apps. Each transfer preserves source identity and does not silently upgrade authority or commitment."
 }
