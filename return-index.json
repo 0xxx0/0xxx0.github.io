@@ -2,17 +2,39 @@
   "schema": "0xxx0/return-index/v0.1",
   "generated": "2026-09-21",
   "source": "/showcase-manifest.json",
-  "count": 18,
-  "receipts_ok": 18,
+  "count": 41,
+  "receipts_ok": 41,
   "law": "A release without a return path is not closed.",
   "items": [
     {
       "href": "/contact/",
-      "title": "0 / HUMAN PORT",
+      "title": "CONTACT 0.3",
       "state": "STABLE",
-      "version": "0.2",
+      "version": "0.3",
       "operation": "RETURN",
       "receipt": "/contact/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/port/",
+      "title": "HUMAN PORT 1.2",
+      "state": "ACTIVE",
+      "version": "1.2-preview",
+      "operation": "ROUTE",
+      "receipt": "/port/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/laconic/",
+      "title": "LACONIC / ICONIC 0.3",
+      "state": "ACTIVE",
+      "version": "0.3",
+      "operation": "DRAFT",
+      "receipt": "/laconic/release.json",
       "receipt_ok": true,
       "receipt_schema": "release-receipt/v1",
       "release_updated": null
@@ -31,7 +53,7 @@
     {
       "href": "/continuity/",
       "title": "CONTINUITY / CASE 0.1",
-      "state": "EXPERIMENT",
+      "state": "ACTIVE",
       "version": "0.1",
       "operation": "CANONICALIZE",
       "receipt": "/continuity/release.json",
@@ -42,7 +64,7 @@
     {
       "href": "/care/",
       "title": "CARE / FIELD 0.3",
-      "state": "EXPERIMENT",
+      "state": "ACTIVE",
       "version": "0.3",
       "operation": "CAPTURE",
       "receipt": "/care/release.json",
@@ -75,7 +97,7 @@
     {
       "href": "/sleeper/",
       "title": "ASCII SLEEPER 0.8",
-      "state": "EXPERIMENT",
+      "state": "ACTIVE",
       "version": "0.8",
       "operation": "PLAY",
       "receipt": "/sleeper/release.json",
@@ -95,6 +117,17 @@
       "release_updated": null
     },
     {
+      "href": "/foundry/",
+      "title": "FOUNDRY",
+      "state": "ACTIVE",
+      "version": "—",
+      "operation": "ORIENT",
+      "receipt": "/foundry/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
       "href": "/foundry/verse-atlas/",
       "title": "VERSE ATLAS",
       "state": "STABLE",
@@ -107,9 +140,9 @@
     },
     {
       "href": "/foundry/axial/",
-      "title": "AXIAL / STATE APERTURE 0.5",
-      "state": "EXPERIMENT",
-      "version": "0.5",
+      "title": "AXIAL / STATE APERTURE 0.5.1",
+      "state": "PROOF_REQUIRED",
+      "version": "0.5.1",
       "operation": "PROVE",
       "receipt": "/foundry/axial/release.json",
       "receipt_ok": true,
@@ -152,7 +185,7 @@
     {
       "href": "/forward-field-proof/triangle/",
       "title": "TRIANGLE BENCH 0.1",
-      "state": "EXPERIMENT",
+      "state": "PARKED",
       "version": "0.1",
       "operation": "PROVE",
       "receipt": "/forward-field-proof/triangle/release.json",
@@ -163,7 +196,7 @@
     {
       "href": "/router-bench/",
       "title": "ROUTER BENCH 0.1",
-      "state": "EXPERIMENT",
+      "state": "REFERENCE",
       "version": "0.1",
       "operation": "RETURN",
       "receipt": "/router-bench/release.json",
@@ -173,8 +206,8 @@
     },
     {
       "href": "/fcm/",
-      "title": "FORWARD CENTER MASS 0.1",
-      "state": "EXPERIMENT",
+      "title": "FORWARD CENTER MASS 0.2",
+      "state": "DONOR",
       "version": "0.1",
       "operation": "ROUTE",
       "receipt": "/fcm/release.json",
@@ -196,13 +229,234 @@
     {
       "href": "/house/spatial/",
       "title": "HOUSE / SPATIAL",
-      "state": "EXPERIMENT",
+      "state": "ACTIVE",
       "version": "0.6",
       "operation": "REPRESENT",
       "receipt": "/house/spatial/release.json",
       "receipt_ok": true,
       "receipt_schema": "release-receipt/v1",
       "release_updated": "2026-09-20"
+    },
+    {
+      "href": "/recovery/rsvp/",
+      "title": "RSVP / TEMPORAL FOCUS 2018",
+      "state": "FROZEN_DONOR",
+      "version": "—",
+      "operation": "REPRESENT",
+      "receipt": "/recovery/rsvp/manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/foundry/core/",
+      "title": "FOUNDRY / REAL CENTER 0.1",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "operation": "ORIENT",
+      "receipt": "/foundry/core/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/law-zoo/",
+      "title": "LAW ZOO / FIVE MACHINES",
+      "state": "FROZEN_DONOR",
+      "version": "—",
+      "operation": "—",
+      "receipt": "/law-zoo/artifact_manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/recovery/foundry-cabinet-v4/",
+      "title": "FOUNDRY CABINET V4",
+      "state": "FROZEN_DONOR",
+      "version": "—",
+      "operation": "—",
+      "receipt": "/recovery/foundry-cabinet-v4/manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/recovery/env0/",
+      "title": "ENV-0 / BODY ↔ HOUSE",
+      "state": "RECOVER",
+      "version": "—",
+      "operation": "REIFY",
+      "receipt": "/recovery/env0/manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/recovery/sleeper/workfield-v1.2/",
+      "title": "SLEEPER WORKFIELD v1.2",
+      "state": "FROZEN_DONOR",
+      "version": "—",
+      "operation": "WORK",
+      "receipt": "/recovery/sleeper/workfield-v1.2/manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/recovery/axial/",
+      "title": "AXIAL / RECOVERY",
+      "state": "ACTIVE",
+      "version": "—",
+      "operation": "—",
+      "receipt": "/recovery/axial/manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/recovery/axial/state-transform-v0.3/",
+      "title": "STATE × TRANSFORM v0.3",
+      "state": "FROZEN_DONOR",
+      "version": "—",
+      "operation": "TRANSACT",
+      "receipt": "/recovery/axial/manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/recovery/axial/compositor-v0.2/print-template.svg",
+      "title": "AXIAL COMPOSITOR v0.2 / PRINT",
+      "state": "FROZEN_DONOR",
+      "version": "—",
+      "operation": "PRINT",
+      "receipt": "/recovery/axial/manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/recovery/media/datadisc/datadisc.html",
+      "title": "DATADISC · 2019",
+      "state": "FROZEN_DONOR",
+      "version": "—",
+      "operation": "PROJECT",
+      "receipt": "/recovery/media/datadisc/manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/recovery/naming/",
+      "title": "NAMING / GAME-OF-NAMES RECOVERY",
+      "state": "RECOVER",
+      "version": "—",
+      "operation": "RECOVER",
+      "receipt": "/recovery/naming/status.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/recovery/env0/ENV0_plate14_A2_v0_1.svg",
+      "title": "ENV-0 / INTEGRATED FIELD MASTER",
+      "state": "FROZEN_DONOR",
+      "version": "—",
+      "operation": "PROJECT",
+      "receipt": "/recovery/env0/manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/recovery/env0/ENV0_symbols_A2_v0_1.svg",
+      "title": "ENV-0 / SYMBOL + TYPE MASTER",
+      "state": "FROZEN_DONOR",
+      "version": "—",
+      "operation": "ENCODE",
+      "receipt": "/recovery/env0/manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/recovery/poly-furnisher/",
+      "title": "POLY / FURNISHER RECOVERY",
+      "state": "ACTIVE",
+      "version": "—",
+      "operation": "—",
+      "receipt": "/recovery/poly-furnisher/manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/recovery/poly-furnisher/kraken-2019/",
+      "title": "KRAKEN · 2019",
+      "state": "FROZEN_DONOR",
+      "version": "—",
+      "operation": "HOST",
+      "receipt": "/recovery/poly-furnisher/manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/recovery/poly-furnisher/proto-kernel-2020/",
+      "title": "POLY PROTO-KERNEL · 2020",
+      "state": "FROZEN_DONOR",
+      "version": "—",
+      "operation": "TRANSFORM",
+      "receipt": "/recovery/poly-furnisher/manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/recovery/poly-furnisher/room-lineage/",
+      "title": "FU ROOM / INTERPHASE ROOM LINEAGE",
+      "state": "FROZEN_DONOR",
+      "version": "—",
+      "operation": "PROJECT",
+      "receipt": "/recovery/poly-furnisher/room-lineage/manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/recovery/poly-furnisher/interphase-lineage/",
+      "title": "INTERPHASE / CYLINDER LINEAGE",
+      "state": "FROZEN_DONOR",
+      "version": "—",
+      "operation": "PROJECT",
+      "receipt": "/recovery/poly-furnisher/interphase-lineage/manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/recovery/kala/",
+      "title": "KALA / DESKTOP CHARACTER 2018–2020",
+      "state": "FROZEN_DONOR",
+      "version": "—",
+      "operation": "INHABIT",
+      "receipt": "/recovery/kala/manifest.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
+    },
+    {
+      "href": "/foundry/methods/",
+      "title": "SHAPE / LAW ATLAS 0.1",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "operation": "INVESTIGATE",
+      "receipt": "/foundry/methods/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": null
     }
-  ]
+  ],
+  "note": "Lifecycle state/version/title are synchronized from current manifest classification; release receipts retain historical contemporaneous state."
 }
