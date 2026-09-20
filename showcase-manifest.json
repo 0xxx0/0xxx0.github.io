@@ -78,13 +78,13 @@
     },
     {
       "href": "/laconic/",
-      "title": "LACONIC / ICONIC 0.2",
+      "title": "LACONIC / ICONIC 0.3",
       "kind": "artifact",
       "parent": "/",
       "family": "COMMS",
       "operation": "DRAFT",
       "state": "ACTIVE",
-      "version": "0.2",
+      "version": "0.3",
       "receipt": "/laconic/release.json",
       "transfer": [
         "response drafting",
@@ -92,7 +92,9 @@
         "care-mode selection",
         "conversation recovery",
         "provenance-aware curation",
-        "exact fragment/operator recovery"
+        "exact fragment/operator recovery",
+        "exact-source vault browsing",
+        "persona/plurality/Council lineage recovery"
       ],
       "contract": {
         "accepts": {
@@ -101,7 +103,8 @@
             "recovered response source",
             "drafting constraint",
             "multi-turn exchange",
-            "observed interaction note"
+            "observed interaction note",
+            "historical source query"
           ],
           "requires": [],
           "optional": [
@@ -114,14 +117,16 @@
           ]
         },
         "transforms": {
-          "verb": "preserve what was observed, choose a bounded response move, then select either a compact line or an explicit multi-turn scene without inventing emotional certainty",
+          "verb": "preserve what was observed, choose a bounded response move, use LINE/SCENE for current drafting, and use VAULT for exact historical source/lineage without silently promoting it",
           "preserves": [
             "source provenance",
             "observed/possible distinction",
             "line/scene distinction",
             "human review boundary",
             "no-send default",
-            "trajectory/return path"
+            "trajectory/return path",
+            "historical source/adoption distinction",
+            "multi-donor lineage uncertainty"
           ],
           "reversibility": "full",
           "side_effects": "local"
@@ -133,7 +138,9 @@
             "KEEP/DROP curation state",
             "recovery source pack",
             "HUMAN PORT handoff",
-            "recovered exact fragment"
+            "recovered exact fragment",
+            "browseable exact-source vault",
+            "lineage/open-gap projection"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -146,7 +153,9 @@
             "private-source abstraction",
             "local-only observed scratch",
             "no transport credentials",
-            "human-triggered handoff"
+            "human-triggered handoff",
+            "VAULT/current-layer separation",
+            "generic council/proper-name distinction"
           ],
           "return_path": "/laconic/"
         }
@@ -200,8 +209,11 @@
         "physical_fit": "Coordination/handoff for physical work; not a manipulation tool."
       },
       "index": {
-        "updated_at": "2026-09-20T23:58:00+08:00",
+        "updated_at": "2026-09-21T01:06:00+08:00",
         "work_modes": [
+          "RECOVER",
+          "INVESTIGATE",
+          "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
@@ -3165,7 +3177,8 @@
     "policy_trace_verification": "v0.2: STRUCTURAL checks self-consistency/privacy; REPLAY requires structural PASS plus exact private policy/selector material and deterministic reproduction; SEALED requires replay PASS plus enabled RFC8785-JCS/SHA-256 chain. Explicit unsealed trace => sealed FAIL; unavailable verifier/evidence => INDETERMINATE.",
     "tag_policy_bridge": "TAG-style labels remain disposable projections/lenses over canonical state. person_tags/resource_tags/context_tags may select applicable policies with provenance, but tags never create grants, denies, locks or authority.",
     "policy_trace_regression": "Negative verifier vectors pin sequence, causal ordering, gate finality, privacy and tag-provenance failures so future implementations cannot silently weaken verification.",
-    "donor_transplant": "CONFLUENCE donor law: recover a bounded transferable mechanism, preserve source/recipient identities and evidence class, distinguish graft/clone/seed/compost, and require recipient-side RETURN before adoption. TAG projections may discover donors but never establish lineage or authority."
+    "donor_transplant": "CONFLUENCE donor law: recover a bounded transferable mechanism, preserve source/recipient identities and evidence class, distinguish graft/clone/seed/compost, and require recipient-side RETURN before adoption. TAG projections may discover donors but never establish lineage or authority.",
+    "laconic": "v0.3 couples a deliberately small current LINE/SCENE instrument to a browseable exact-source VAULT. Historical assistant output remains source-donor material unless adoption/reuse evidence promotes it; persona/plurality/Council lineage is represented as multi-donor convergence with open seams."
   },
   "capability_model": {
     "CAPTURE": {

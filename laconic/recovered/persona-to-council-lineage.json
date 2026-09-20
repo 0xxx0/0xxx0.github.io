@@ -1,8 +1,8 @@
 {
-  "schema": "laconic-persona-council-lineage/v0.1",
-  "recovered": "2026-09-20",
-  "status": "DIRECT_CHAIN_PARTIAL_LATER_BRIDGE_CONFIRMED",
-  "invariant": "The Council did not originate as a named council. The recoverable mechanism first appears as deployable persona experiments, then as multiple differentiated inner voices, then as an explicit serialized Council canon.",
+  "schema": "laconic-persona-council-lineage/v0.2",
+  "recovered": "2026-09-21",
+  "status": "MULTI_DONOR_CONVERGENCE_PARTIAL_DIRECT_CHAIN",
+  "invariant": "The later Council of Selves has multiple recoverable antecedents: early interacting symbolic figures, an explicit comic `the council` image in Laconic/Iconic social response work, and user-adopted persona-switching as a real behavioral experiment. These donors later converge into plural internal voices and serialized Council canon; no single antecedent is declared the sole origin.",
   "stages": [
     {
       "stage": 1,
@@ -102,7 +102,7 @@
     },
     {
       "stage": 9,
-      "label": "COUNCIL_CANONIZATION",
+      "label": "COUNCIL_CANONIZATION_RECOVERED_LATER",
       "date": "2025-10-21",
       "evidence_class": "DIRECT_LATER_SOURCE",
       "user_intent": "consolidate previous episodes, including material before Episode 1 and other Council-of-Selves or similar work, with TOC/workplan/aesthetic integration",
@@ -128,12 +128,38 @@
       "Do not treat later master-seed summaries as proof that every listed episode/persona existed in Dec 2024."
     ]
   },
-  "compressed_lineage": "deployable one-liners → persona experiments → named persona archetypes → plural internal voices → interacting selves → Council of Selves canon",
+  "compressed_lineage": "parallel donors [interacting symbolic figures | comic council image | user-adopted persona switching] → explicit request for 5–6 internal voices → interacting selves → Council of Selves canon",
   "next_recovery_targets": [
+    "direct generated 5–6 internal-voice output set",
     "exact direct user turn for `5 selves chatter – realistic personas`",
     "exact direct user turn for `Dynamics interactions ya full inner dialogue`",
-    "first assistant scene where multiple selves interact simultaneously",
-    "exact 5–6 voice output set",
-    "first occurrence of the literal name `Council of Selves` in the thread"
+    "first assistant scene where the requested internal selves interact simultaneously",
+    "earliest direct occurrence of the exact proper name `Council of Selves`"
+  ],
+  "parallel_antecedents": [
+    {
+      "date": "2024-12-13",
+      "id": "EARLY_MULTI_CHARACTER_INTERACTION_DONOR",
+      "evidence_class": "DIRECT_ARCHIVE_ASSISTANT_SOURCE",
+      "source_ref": "./early-plurality-donors-2024.json#donor:group-dynamics-2024-12-13",
+      "mechanism": "named figures interact, contradict and joke with one another",
+      "caution": "Sleeper/Conch/Keris/W8 family remains its own lineage unless a later bridge is directly recovered."
+    },
+    {
+      "date": "2024-12-28",
+      "id": "EARLY_COUNCIL_IMAGE_DONOR",
+      "evidence_class": "DIRECT_ARCHIVE_USER_SOURCE",
+      "source_ref": "./early-plurality-donors-2024.json#donor:council-care-joke-2024-12-28",
+      "exact": "I am sorry to hear that. The council sends you this invisible recovery hamper and a voucher for one cosmic hug.",
+      "mechanism": "`the council` already functions as an absurd social institution in Laconic/Iconic response play",
+      "caution": "generic/lowercase council image ≠ proof of the later proper-name Council of Selves project"
+    },
+    {
+      "date": "2024-12-29",
+      "id": "PERSONA_SWITCHING_DIRECT_MECHANISM",
+      "evidence_class": "DIRECT_USER_ADOPTION_CHAIN",
+      "source_ref": "./selection-chain-2024-12-29.json",
+      "mechanism": "user says personality-setting experiments are literally true, then explicitly prioritizes persona testing + scenarios"
+    }
   ]
 }
