@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/execution-queue/v0.1",
-  "updated": "2026-09-19",
+  "updated": "2026-09-20",
   "max_live": 3,
   "live": [
     {
@@ -18,19 +18,18 @@
     {
       "id": "ingest-files-media",
       "goal": "Create one reversible local ingest layer for Downloads/Library/media that labels and deduplicates before moving anything.",
-      "horizon": "NEXT NOW",
+      "horizon": "PROVED V0.1 / maintenance",
       "next": [
-        "Run the existing read-only scanner against one bounded ingress directory.",
-        "Capture inventory + hashes + exact duplicate groups; mutate nothing.",
-        "Review duplicate groups and define a minimal lineage/tag vocabulary from observed files.",
-        "Only after review, test one deterministic routing rule in dry-run form."
+        "Repeat the same scanner/indexer against a real bounded local ingress directory when filesystem access is available.",
+        "Review REVIEW_CONFLICT records; never resolve them by rule order alone.",
+        "Promote a filesystem move/rename rule only after a real dry-run demonstrates inverse/recovery behavior."
       ],
-      "receipt": "dry-run report + duplicate groups + tag/index database + zero unreviewed destructive moves"
+      "receipt": "/control/INGEST_RUN_2026-09-20.json + /control/REPRESENTATION_01.json"
     },
     {
       "id": "reality-house",
       "goal": "Make one visible physical/home state simpler and measurable so the abstract system remains reality-gated.",
-      "horizon": "after one repo/ingest receipt",
+      "horizon": "NEXT NOW",
       "next": [
         "Pick one bounded physical zone or owned endpoint.",
         "Record before-state.",
@@ -61,9 +60,11 @@
   "turn_order": [
     "TURN A — DONE: exact path-grid family + Fold Weave recovered, verified and frozen.",
     "TURN B — DONE: mechanism diff completed; Verse Atlas gained RETURN replay, Fold Weave remains a sibling.",
-    "TURN C — NEXT: run file/media ingest dry-run + dedup index on one bounded directory.",
-    "TURN D — use one ingest record as the canonical object for Representation 01.",
-    "TURN E — one physical/print RETURN; then DOCK review."
+    "TURN C — DONE: ingest scanner hardened and bounded read-only dry-run produced exact hashes/duplicates + semantic overlay.",
+    "TURN D — DONE: REPRESENTATION 01 binds state-transform HTML + README as one semantic artifact without collapsing byte identity.",
+    "TURN E — NEXT: one actual physical/print RETURN; then DOCK review."
   ],
-  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json"
+  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
+  "last_ingest_run": "/control/INGEST_RUN_2026-09-20.json",
+  "last_representation": "/control/REPRESENTATION_01.json"
 }
