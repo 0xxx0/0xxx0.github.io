@@ -223,7 +223,8 @@
       "status": "QUARANTINE",
       "source_type": "mixed",
       "unique": "Unknown until inventoried; visual polish, dashboards, hero sections, pricing/company/feature patterns are not evidence of a unique mechanism.",
-      "action": "COPY SOURCE IF NEEDED, REMOVE FROM PRIMARY NAV, compare only for reusable mechanism/content. Do not spend time beautifying."
+      "action": "PRESERVE WITHOUT PROMOTION. Do not beautify. Extract only a named mechanism/content fragment that clears the promotion gate; otherwise ATTIC the candidate after source/provenance receipt.",
+      "evidence_state": "QUARANTINE_POLICY_DEFINED_IN_CONTROL_QUARANTINE_2026-09-20"
     },
     {
       "id": "fold-bloom-fold-weave-01",
@@ -484,6 +485,16 @@
       "source_type": "user-pinned-exact-source-unknown",
       "unique": "User remembers a pre-current-AI desktop-character/agent lineage ('Kala guy' / desktop pets after Clippy era). Exact names, code and chronology are unresolved.",
       "action": "RECOVER exact names/source/screenshots/code before interpretation. Do not conflate 'Kala' with the unrelated Kala/Kirtimukha visual thread or import generic mascot software as evidence."
+    },
+    {
+      "id": "interphase-cylinder-lineage",
+      "name": "INTERPHASE / CYLINDER LINEAGE 2019–2020",
+      "family": "poly-furnisher",
+      "status": "LIVE_DONOR",
+      "route": "/recovery/poly-furnisher/interphase-lineage/",
+      "source_type": "drive-recovered-exact-variant-family",
+      "unique": "Three frozen representatives separate the rotating-cylinder input branch, terse proto branch, and integrated room/optics/store/transducer/matrix Interphase branch; duplicate copies are collapsed by exact hash/blob equality.",
+      "action": "KEEP AS ONE DONOR FAMILY. Bulk backups remain unimported. Current Ω/Interphase descendants stay separate; Painting/City remains unresolved."
     }
   ],
   "ingest_queue": [
@@ -495,9 +506,9 @@
     "ENV-0: byte-copy/hash-verify the two exact located PDFs; then use one plate/build-sheet as a bounded PRINT→PHYSICAL→RETURN fixture.",
     "SLEEPER/PAINTING: Workfield v1.2 is frozen exactly; continue City/Painting only from exact source/assets.",
     "NAMING: public-safe recovery status exists; locate one isolated exact runnable/source/glyph artifact before promotion.",
-    "MEDIA: DataDisc 2019 and RSVP 2018 are exact fixtures; mechanism-diff only when a current projection/reader needs a named capability.",
     "ROOM/FU: DONE exact representatives frozen + duplicate families verified; only mine mechanisms when a current surface needs one.",
-    "DESKTOP AGENT/PET: recover exact name/source/chronology for the pre-current-AI desktop-character lineage; reject generic Clippy/Bonzi search noise."
+    "DESKTOP AGENT/PET: recover exact name/source/chronology for the pre-current-AI desktop-character lineage; reject generic Clippy/Bonzi search noise.",
+    "MEDIA: exact RSVP/DataDisc already frozen; older audio search found no additional project-specific executable organism. Do not promote generic Tone/MIDI/WebAudio examples."
   ],
   "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
   "last_mechanism_diff": "/control/MECHANISM_DIFF_2026-09-19.json",
