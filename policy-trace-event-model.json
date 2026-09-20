@@ -1,0 +1,190 @@
+{
+  "schema": "policy-trace-event-model/v0.1",
+  "trace_schema": "/policy-resolution-trace.schema.json",
+  "common": {
+    "required": [
+      "seq",
+      "event_id",
+      "type",
+      "stage",
+      "cause_event_ids"
+    ],
+    "causal_rule": "cause_event_ids may only reference lower seq events",
+    "identity_rule": "event_id is stable within a trace and never reused",
+    "payload_rule": "events carry policy-resolution facts only; never raw message/body payload",
+    "sensitive_value_rule": "use trace_value ref/digest/redacted forms for private or sensitive values"
+  },
+  "tag_boundary": {
+    "role": "Tags are descriptive/routing projections over canonical state.",
+    "may_affect": [
+      "selector_evaluated matched result",
+      "policy applicability"
+    ],
+    "may_not_supply": [
+      "authority_source",
+      "authorization_ref",
+      "grant_ref",
+      "lock authority"
+    ],
+    "replay_rule": "A matched tag clause should record provenance to the canonical/tag projection source or be bound by selector_facts_digest."
+  },
+  "events": {
+    "selector_evaluated": {
+      "purpose": "Prove why one selector did or did not match.",
+      "required": [
+        "selector_id",
+        "layer",
+        "policy_id",
+        "policy_revision",
+        "matched",
+        "selector_kind",
+        "specificity_class",
+        "specificity_rank",
+        "matched_positive_clauses",
+        "fallback_eligible",
+        "fallback_suppressed",
+        "clauses"
+      ],
+      "causes": [],
+      "replay_effect": "Determines policy applicability only; never authority.",
+      "privacy": "Observed selector facts may be inline only when safe; otherwise digest/ref/redact."
+    },
+    "policy_matched": {
+      "purpose": "Declare that a policy revision entered the merge set.",
+      "required": [
+        "policy_id",
+        "policy_revision",
+        "layer",
+        "mode",
+        "selector_event_ids",
+        "authority_source"
+      ],
+      "causes": [
+        "matched selector_evaluated"
+      ],
+      "replay_effect": "Adds policy revision to current layer/branch merge set."
+    },
+    "inheritance_step": {
+      "purpose": "Expose one edge of extends expansion or a cycle rejection.",
+      "required": [
+        "child_policy_id",
+        "parent_policy_id",
+        "depth",
+        "action"
+      ],
+      "causes": [
+        "policy_matched or earlier inheritance_step"
+      ],
+      "replay_effect": "Controls which inherited policy operations become visible."
+    },
+    "operation_evaluated": {
+      "purpose": "Record every policy operation, including rejected/no-op operations.",
+      "required": [
+        "policy_id",
+        "policy_revision",
+        "operation_index",
+        "policy_mode",
+        "op",
+        "path",
+        "before",
+        "after",
+        "outcome"
+      ],
+      "causes": [
+        "policy_matched/inheritance_step/stage state"
+      ],
+      "replay_effect": "Primary state-transition event.",
+      "completeness": "Exactly one per operation in every matched/effective inherited policy."
+    },
+    "grant_evaluated": {
+      "purpose": "Prove whether an attempted authority widening was accepted.",
+      "required": [
+        "policy_id",
+        "policy_revision",
+        "operation_event_id",
+        "grant_ref",
+        "authority_source",
+        "path",
+        "requested",
+        "accepted",
+        "before",
+        "after"
+      ],
+      "causes": [
+        "grant_decision operation_evaluated"
+      ],
+      "replay_effect": "May widen only when explicit grant rules pass.",
+      "forbidden_source": "Tags/selectors alone can never authorize a grant."
+    },
+    "deny_applied": {
+      "purpose": "Name the deny that dominated or defaulted a value.",
+      "required": [
+        "source_event_id",
+        "path",
+        "deny_kind",
+        "value",
+        "dominates_event_ids"
+      ],
+      "causes": [
+        "operation/default/conflict event"
+      ],
+      "replay_effect": "Pins restrictive authority and dominance."
+    },
+    "lock_applied": {
+      "purpose": "Name lock acquisition/inheritance/reapplication/blocking.",
+      "required": [
+        "source_event_id",
+        "path",
+        "action",
+        "blocked_event_ids"
+      ],
+      "causes": [
+        "lock operation or earlier lock"
+      ],
+      "replay_effect": "Prevents later writes/grants on path or descendants."
+    },
+    "stage_resolved": {
+      "purpose": "Checkpoint effective seven-gate state after one merge stage.",
+      "required": [
+        "resolved_stage",
+        "matched_policy_ids",
+        "gate_decisions",
+        "state_digest"
+      ],
+      "causes": [
+        "all effective operations in stage"
+      ],
+      "replay_effect": "Checkpoint only; must be derivable from prior events."
+    },
+    "gate_final": {
+      "purpose": "Final proof for one of the seven gates.",
+      "required": [
+        "gate",
+        "decision",
+        "effective_scope",
+        "source_policy_ids",
+        "winning_event_ids",
+        "grant_event_ids",
+        "deny_event_ids",
+        "lock_event_ids",
+        "reason_codes"
+      ],
+      "causes": [
+        "final stage + winning grant/deny/lock events"
+      ],
+      "replay_effect": "Canonical per-gate result."
+    },
+    "resolution_final": {
+      "purpose": "Terminate the trace.",
+      "required": [
+        "status",
+        "effective_policy_digest",
+        "final_gate_event_ids"
+      ],
+      "causes": [
+        "all seven gate_final events"
+      ],
+      "replay_effect": "Canonical terminal result; exactly one per trace."
+    }
+  }
+}
