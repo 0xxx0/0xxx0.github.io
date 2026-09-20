@@ -14,7 +14,14 @@
       "href": "/",
       "title": "SHOWCASE",
       "kind": "root",
-      "parent": null
+      "parent": null,
+      "index": {
+        "updated_at": "2026-09-20T19:00:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "OPERATE"
+        ]
+      }
     },
     {
       "href": "/contact/",
@@ -1576,7 +1583,13 @@
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": false,
-      "role": "Human-readable browser for CURRENT, FI law, migration/census, confluence and other control documents; read-only support surface."
+      "role": "Human-readable browser for CURRENT, FI law, migration/census, confluence and other control documents; read-only support surface.",
+      "index": {
+        "updated_at": "2026-09-20T19:00:00+08:00",
+        "work_modes": [
+          "IMPLEMENT"
+        ]
+      }
     },
     {
       "href": "/control/confluence/",
@@ -1585,7 +1598,14 @@
       "parent": "/control/",
       "state": "ACTIVE",
       "showcase_card": false,
-      "role": "Readable cross-lineage handoff shelf; coordinates unequal lineages without vocabulary collapse."
+      "role": "Readable cross-lineage handoff shelf; coordinates unequal lineages without vocabulary collapse.",
+      "index": {
+        "updated_at": "2026-09-20T19:00:00+08:00",
+        "work_modes": [
+          "SPECIFY",
+          "IMPLEMENT"
+        ]
+      }
     }
   ],
   "release_law": [
