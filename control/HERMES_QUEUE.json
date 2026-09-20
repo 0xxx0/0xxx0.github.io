@@ -6,6 +6,7 @@
     "/dock/",
     "/control/ORIENTATION.json",
     "/control/CURRENT.json",
+    "/control/POLICY_INDEX.json",
     "/control/QUEUE.json",
     "/migration/",
     "/control/MIGRATION_NOW.json",
@@ -189,5 +190,10 @@
       "task": "Keep the human Migration surface at ≤3 NOW items, family-shelved donors, one open-gap list and explicit quarantine/attic dispositions.",
       "receipt": "small-surface + validation receipt"
     }
-  ]
+  ],
+  "policy_resolution": {
+    "index": "/control/POLICY_INDEX.json",
+    "rule": "Resolve the smallest applicable canonical policy set before persistent/automated action. Cite policy paths in RETURN; do not copy policy prose into local task doctrine.",
+    "on_conflict": "Stop consequential action, report exact conflicting paths/scopes, and return for coordination. Do not silently choose."
+  }
 }
