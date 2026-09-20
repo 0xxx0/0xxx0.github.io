@@ -78,6 +78,14 @@
       "route": "/recovery/poly-furnisher/",
       "verification": "KRAKEN 2019, 2020 proto-kernel, SINDERESIS/PRELUDE intent notes, FUN.js, mvp.js and prelude.js fetched from Drive; sizes/SHA-256 match the earlier fixtures manifest exactly.",
       "boundary": "2026 poly-furnisher survey spec is interpretive evidence and is not substituted for original 2019–2021 bytes."
+    },
+    {
+      "id": "poly-furnisher-room-lineage",
+      "family": "poly-furnisher",
+      "status": "EXACT_FROZEN_ROOM_LINEAGE",
+      "route": "/recovery/poly-furnisher/room-lineage/",
+      "verification": "FU5X2.html (53,646 B), EMPTY3-RF.html (47,830 B) and scratch.html (40,747 B) frozen from Drive. SHA-256 recorded. A second Drive copy for each produced the identical Git blob SHA, proving byte-exact duplicate families.",
+      "boundary": "Treat the 2024 upload set as one recovery slice, not an assumed linear version chain. Room is a projection/testbed, not kernel."
     }
   ],
   "unresolved": [
@@ -98,6 +106,12 @@
       "status": "EXACT_LIBRARY_BYTES_REPO_COPY_PENDING",
       "evidence": "ENV0_Atlas_v0_1_A2.pdf and ENV0_P0_BUILD_SHEET_A3.pdf are located and hashed; editable masters are already frozen.",
       "route": "/recovery/env0/"
+    },
+    {
+      "id": "ancient-desktop-agent-pet-lineage",
+      "status": "USER_PIN_EXACT_SOURCE_UNKNOWN",
+      "evidence": "User recalls a pre-current-AI desktop-character/agent lineage, described as a 'Kala guy' and desktop pets in the post-Clippy/pre-current-corporate-AI era. Drive/File-Library searches so far return generic noise or unrelated Kala/Kirtimukha material.",
+      "route": "/migration/"
     }
   ],
   "next": [
