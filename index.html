@@ -36,7 +36,7 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:22px;paddi
 </header>
 
 <section>
-  <div class="bar"><div><b>RUNNING</b><span id="runCount"></span></div><div class="tools"><button class="on" data-filter="ALL">ALL</button><button data-filter="STABLE">STABLE</button><button data-filter="EXPERIMENT">EXPERIMENT</button><input id="focus" type="search" placeholder="/ find"></div></div>
+  <div class="bar"><div><b>RUNNING</b><span id="runCount"></span></div><div class="tools"><button class="on" data-filter="ALL">ALL</button><button data-filter="STABLE">STABLE</button><button data-filter="EXPERIMENT">EXPERIMENT</button><button class="on" data-view="CAPABILITY">CAPABILITY</button><button data-view="IO">I/O</button><input id="focus" type="search" placeholder="/ find"></div></div>
   <div id="running" class="rows"><div class="row"><div class="job">Loading manifest…</div></div></div>
 </section>
 
@@ -64,24 +64,35 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:22px;paddi
 
 <noscript><p><a href="./field-intake/">FIELD INTAKE</a> · <a href="./fold-bloom/two-dial/">TWO DIAL</a> · <a href="./fold-bloom/ecology/">ECOLOGY</a> · <a href="./sleeper/">SLEEPER</a> · <a href="./fold-bloom/lens/">SCALE LENS</a> · <a href="./foundry/verse-atlas/">VERSE ATLAS</a> · <a href="./atlas-dayline/">ATLAS DAYLINE</a> · <a href="./foundry/convergence/identity-lab.html">IDENTITY LAB</a> · <a href="./forward-field-proof/">FIELD / PROOF</a></p></noscript>
 
-<footer><span>NO FEATURE GRID · NO SALES LANGUAGE · NO FAKE UNIFICATION</span><span>git history keeps the old root · routes remain intact</span></footer>
+<footer><span>CAPABILITY / I·O ARE TWO READINGS OF THE SAME FIELD · NO FAKE UNIFICATION</span><span>git history keeps the old root · routes remain intact</span></footer>
 
 <script>
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-let routes=[],filter='ALL',q='';
+let routes=[],filter='ALL',q='',view='CAPABILITY';
+const portText=ps=>(ps||[]).slice(0,3).map(p=>p.medium+':'+p.kind).join(' · ');
+function jobText(x){
+  if(view==='IO'){
+    const fi=x.field||{},ins=portText(fi.inputs)||'—',outs=portText(fi.outputs)||'—',ex=(fi.exit_paths||[]).slice(0,2).map(e=>e.class+'/'+e.status).join(' · ')||'—';
+    return 'IN '+ins+' → OUT '+outs+' · EXIT '+ex;
+  }
+  return x.contract?.transforms?.verb || x.role || (x.transfer||[]).join(' · ') || x.field?.physical_fit || '';
+}
 function renderRoutes(){
-  const visible=routes.filter(x=>(filter==='ALL'||x.state===filter)&&(!q||[x.title,x.operation,x.family,x.job,x.href].join(' ').toLowerCase().includes(q)));
+  const visible=routes.filter(x=>(filter==='ALL'||x.state===filter)&&(!q||[x.title,x.operation,x.family,x.job,x.href,JSON.stringify(x.field||{})].join(' ').toLowerCase().includes(q)));
   document.getElementById('runCount').textContent=visible.length+' visible';
-  document.getElementById('running').innerHTML=visible.map(x=>`<a class="row" href=".${esc(x.href)}"><div><div class="name">${esc(x.title)}</div><div class="family">${esc(x.family||x.kind)}</div></div><div class="op">${esc(x.operation||x.kind)}</div><div class="state ${esc(x.state)}">${esc(x.state)}</div><div class="job">${esc(x.job)}</div><div class="go">OPEN →</div></a>`).join('')||'<div class="row"><div class="job">No match.</div></div>';
+  document.getElementById('running').innerHTML=visible.map(x=>`<a class="row" href=".${esc(x.href)}"><div><div class="name">${esc(x.title)}</div><div class="family">${esc((x.field?.roles||[]).join(' / ')||x.family||x.kind)}</div></div><div class="op">${esc(x.operation||x.kind)}</div><div class="state ${esc(x.state)}">${esc(x.state)}</div><div class="job">${esc(jobText(x))}</div><div class="go">OPEN →</div></a>`).join('')||'<div class="row"><div class="job">No match.</div></div>';
 }
 fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
- routes=d.routes.filter(x=>x.kind==='artifact' || (x.kind==='experiment'&&x.showcase_card!==false)).map(x=>({
+ routes=d.routes.filter(x=>['artifact','experiment','workbench','rendezvous'].includes(x.kind)&&x.state).map(x=>({
    ...x,
-   job:x.contract?.transforms?.verb || x.role || (x.transfer||[]).join(' · ') || ''
+   job:x.contract?.transforms?.verb || x.role || (x.transfer||[]).join(' · ') || x.field?.physical_fit || ''
  }));
  renderRoutes();
 }).catch(e=>document.getElementById('running').textContent='manifest unavailable: '+e.message);
-document.querySelector('.tools').addEventListener('click',e=>{if(!e.target.dataset.filter)return;filter=e.target.dataset.filter;document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('on',b.dataset.filter===filter));renderRoutes()});
+document.querySelector('.tools').addEventListener('click',e=>{
+ if(e.target.dataset.filter){filter=e.target.dataset.filter;document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('on',b.dataset.filter===filter));renderRoutes();return}
+ if(e.target.dataset.view){view=e.target.dataset.view;document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('on',b.dataset.view===view));renderRoutes()}
+});
 document.getElementById('focus').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();renderRoutes()});
 
 fetch('./control/RECOVERY_RUN_2026-09-19.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
