@@ -1,6 +1,6 @@
 # RSVP / TEMPORAL-FOCUS RECOVERY
 
-Status: **EXACT SOURCE RECOVERED IN SESSION / REPO IMPORT PENDING**
+Status: **EXACT DONOR FROZEN / MECHANISM DIFF COMPLETE**
 
 ## Distinguish two lineages
 
@@ -58,13 +58,23 @@ The older POLY/FURNISHER archaeology already treated RSVP as a temporal/sequenti
 
 That makes the old file valuable as an exact **temporal-focus donor**, even if the eventual modern reader is a fresh Wear OS / phone implementation.
 
+## Mechanism-diff result — 2026-09-21
+
+The exact 2018 donor is frozen at `/recovery/rsvp/` and the bounded mechanism diff is sealed at:
+
+`/control/RSVP_MECHANISM_DIFF_2026-09-21.json`
+
+The unique recovered mechanism is **CONTINUOUS_SPEECH_BOUNDARY_CLOCK**: one continuous speech utterance drives visual focus from boundary `charIndex` events.
+
+Current comparison:
+- **Painting Path** has the stronger general reader kernel: `Intl.Segmenter` / manual units, timer PULSE, per-unit local TTS with `onstart/onend`, watchdog fallback, stable source/region/route/RETURN identity.
+- **Verse Atlas** has stable character/path RSVP with a fixed-ms visual clock and no audio.
+- **Sleeper 0.8** is not currently an RSVP implementation; its causal job is spatial/evidence traversal.
+
+Decision: **no transfer now**. Preserve the continuous boundary clock as an optional experimental clock for a future reader/Painting Path A/B test; do not graft it into Verse or Sleeper merely because the lineage overlaps.
+
+During the diff, an exact File Library artifact `painting-path.html` surfaced. It is not yet frozen in the repo recovery vault. That is now the next exact recovery move; City Engine remains separately blocked.
+
 ## Next bounded action
 
-Import one exact 2018 HTML copy into the recovery vault with:
-- source IDs
-- SHA-256
-- duplicate proof
-- unchanged bytes
-- explicit donor status
-
-Then compare its actual mechanisms against current RSVP implementations before writing new reader code.
+Freeze exact `painting-path.html` through CENSUS/MIGRATION with byte identity and a recovery manifest, without redesign. After that RETURN, replan again.
