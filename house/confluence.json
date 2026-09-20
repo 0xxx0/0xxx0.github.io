@@ -1,0 +1,200 @@
+{
+  "schema": "house-confluence-model/v0.1",
+  "updated": "2026-09-20",
+  "title": "HOUSE CONFLUENCE MODEL",
+  "status": "DRAFT / ACTIVE",
+  "law": "Confluence coordinates unequal lineages through shared addresses, transforms and receipts; it does not require vocabulary collapse.",
+  "layers": [
+    {
+      "id": "HOUSE_0",
+      "name": "physical instance",
+      "owns": [
+        "actual dwelling",
+        "measured geometry",
+        "materials",
+        "constraints"
+      ],
+      "authority": "reality/evidence"
+    },
+    {
+      "id": "HOUSE_1",
+      "name": "spatial substrate",
+      "owns": [
+        "volumes",
+        "floor/ceiling/wall surfaces",
+        "openings",
+        "routes",
+        "anchors"
+      ],
+      "authority": "Spatial State Engine"
+    },
+    {
+      "id": "HOUSE_2",
+      "name": "state/event layer",
+      "owns": [
+        "observations",
+        "room/object state",
+        "transitions",
+        "manual state",
+        "uncertainty"
+      ],
+      "authority": "event/evidence contract"
+    },
+    {
+      "id": "HOUSE_3",
+      "name": "runtime/control",
+      "owns": [
+        "device/entity truth",
+        "permissions",
+        "actuation",
+        "automation"
+      ],
+      "authority": "Home Assistant / HOUSEBUS"
+    },
+    {
+      "id": "HOUSE_4",
+      "name": "projections",
+      "owns": [
+        "PLAN",
+        "RCP",
+        "ELEVATION",
+        "SECTION",
+        "3D",
+        "FIELD",
+        "ATLAS",
+        "TRACE",
+        "HA_STATE"
+      ],
+      "authority": "projection contracts"
+    }
+  ],
+  "confluence_ports": [
+    {
+      "from": "HOUSE_0",
+      "to": "HOUSE_1",
+      "through": "measure/capture/trace",
+      "preserves": [
+        "address",
+        "evidence",
+        "uncertainty"
+      ]
+    },
+    {
+      "from": "HOUSE_1",
+      "to": "HOUSE_2",
+      "through": "stable IDs + event/state",
+      "preserves": [
+        "identity",
+        "topology"
+      ]
+    },
+    {
+      "from": "HOUSE_2",
+      "to": "HOUSE_3",
+      "through": "explicit entity adapter",
+      "preserves": [
+        "authority",
+        "manual fallback"
+      ]
+    },
+    {
+      "from": "HOUSE_1/HOUSE_2",
+      "to": "HOUSE_4",
+      "through": "projection",
+      "preserves": [
+        "identity",
+        "provenance",
+        "return path"
+      ]
+    }
+  ],
+  "donors": [
+    {
+      "name": "POLY / FURNISHER",
+      "disposition": "DONOR",
+      "contributes": [
+        "signed-axis ROOM -X +X -Y +Y -Z +Z",
+        "orientation R separate from semantics",
+        "stable identity across projections",
+        "deterministic docking"
+      ],
+      "exclusion": "Do not force cube/port grammar onto arbitrary house geometry where it adds no decision value."
+    },
+    {
+      "name": "ONE RETURN / SEAM ENGINE",
+      "disposition": "DONOR",
+      "contributes": [
+        "typed event/state substrate",
+        "projection honesty",
+        "round-trip discipline",
+        "seams/unknown/stale states",
+        "House Zone manual fallback",
+        "RETURN artifact"
+      ],
+      "exclusion": "HOUSE is a domain pack/adaptor, not evidence that all domains are rooms."
+    },
+    {
+      "name": "SINDER / FURNISHER",
+      "disposition": "DONOR",
+      "contributes": [
+        "space as functional presence",
+        "Point → Path → Plane → Power",
+        "reconfigurable physical-space lineage",
+        "ink-brush movement/economy as computational design analogy"
+      ],
+      "exclusion": "Mechanical/folding infrastructure remains separate from current apartment geometry unless physically instantiated."
+    },
+    {
+      "name": "MANDALA / COMPASS / FLOWER lineages",
+      "disposition": "LENS_LIBRARY_DONOR",
+      "contributes": [
+        "radial/topological projection",
+        "orientation",
+        "center/periphery",
+        "cycles",
+        "cognitive navigation"
+      ],
+      "exclusion": "Mandala geometry is a lens, not canonical house topology."
+    },
+    {
+      "name": "SEMANTIC PAINTING / movement-path lineage",
+      "disposition": "PROJECTION_DONOR",
+      "contributes": [
+        "displacement paths",
+        "ghost architecture",
+        "time/lookahead",
+        "path as perceptual/cognitive surface"
+      ],
+      "exclusion": "Visual stroke properties must name their encoded variable; no aesthetic mark may masquerade as measurement."
+    }
+  ],
+  "trace_projection_hypotheses": [
+    {
+      "status": "PROPOSED",
+      "mapping": "stroke centerline = traversed room/anchor path"
+    },
+    {
+      "status": "PROPOSED",
+      "mapping": "stroke width = explicitly chosen quantity such as traversal count OR dwell time, never ambiguous mixture"
+    },
+    {
+      "status": "PROPOSED",
+      "mapping": "opacity/ink load = recency OR confidence, selected per projection"
+    },
+    {
+      "status": "PROPOSED",
+      "mapping": "z = physical elevation in spatial views; time in temporal views; never silently both"
+    },
+    {
+      "status": "PROPOSED",
+      "mapping": "dry-brush/gap = unknown, missing, blocked or unobserved seam"
+    }
+  ],
+  "unresolved": [
+    "current physical-instance identity/orientation versus earlier brochure donor",
+    "metric XY calibration",
+    "vertical/section measurements",
+    "which cognitive/spatial projections improve real tasks versus merely delight"
+  ],
+  "next_safe_delta": "Keep current HOUSE/SPATIAL head; add donors/projections only when they preserve stable IDs and expose a useful question."
+}
