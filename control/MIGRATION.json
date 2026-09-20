@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/migration-ledger/v0.1",
-  "updated": "2026-09-19",
+  "updated": "2026-09-20",
   "purpose": "Batch recovery + dedup ledger for the last ~2 weeks. Copy/recover first; classify second; merge only after mechanisms and lineage are visible.",
   "laws": [
     "NO DELETION DURING INGEST",
@@ -312,6 +312,35 @@
       "unique": "Original canonical deployable response-bank lineage distinct from the current reconstructed/new /laconic/ seed set.",
       "evidence_state": "RELATED_EXACT_HITS_FOUND_CANONICAL_LIST_STILL_MISSING",
       "action": "RECOVER exact source text + provenance only. Do not synthesize a replacement and label it recovered; do not publish private raw conversations."
+    },
+    {
+      "id": "law-zoo-five-machines",
+      "name": "LAW ZOO / FIVE MACHINES",
+      "family": "tiny-law-executable-material",
+      "status": "IMPORT",
+      "source_type": "chatgpt-local-exact-pack",
+      "unique": "Five intentionally unequal tiny-law instruments: specimen/mutation field guide, self-reading typography, local-law traversable world, shared-recurrence audiovisual instrument, and numerical-error breeding garden.",
+      "action": "IMPORT exact suite as one family with unequal children. Do not redesign during ingest or collapse the five instruments onto one runtime. Confluence packet: /control/confluence/LAW_ZOO.md.",
+      "planned_route": "/law-zoo/",
+      "confluence": "/control/confluence/LAW_ZOO.md"
+    },
+    {
+      "id": "rsvp-temporal-focus-2018",
+      "name": "RSVP+TTS temporal-focus fixture (2018)",
+      "family": "reading-attention-temporal",
+      "status": "IMPORT",
+      "source_type": "drive-recovered-exact",
+      "source_url": "https://drive.google.com/file/d/1gigXHdVmRrvaZUVhUI4GPqYzenGK4Nq9/view",
+      "unique": "Historical runnable temporal-focus experiment with word segmentation, speech-boundary events, synchronized highlighting and scheduling/audio experiments; distinct from the later Galaxy Watch starter sketch.",
+      "action": "IMPORT one unchanged copy into recovery vault with source IDs/hash/duplicate proof; then mechanism-diff against current RSVP/Sleeper/Painting Path/JUE-JU before modern reader or Watch revival.",
+      "retrieval_state": "EXACT_RAW_PAIR_RECOVERED_BYTE_IDENTICAL_2026-09-20",
+      "source_ids": [
+        "1gigXHdVmRrvaZUVhUI4GPqYzenGK4Nq9",
+        "19AZV9gIksZ_Whplne3DCbu_nL4BenWsp"
+      ],
+      "size_bytes": 32183,
+      "sha256": "2f0167930b5c1a19e43ad8b626b702db017d576f48644237f05d849ce87d627d",
+      "confluence": "/control/confluence/RSVP_RECOVERY.md"
     }
   ],
   "ingest_queue": [
@@ -320,7 +349,9 @@
     "SLEEPER: acquire exact City Engine + Painting/Path source/assets or authorized checkpoint bytes; no reconstruction from descriptions.",
     "LACONIC: isolate exact historical bank lines with source refs; preserve EXACT / RECONSTRUCTED / NEW firewall.",
     "GAME OF NAMES: locate isolated exact runnable/glyph artifact before public recovery; keep personal archive private.",
-    "QUARANTINE: generic site shells stay out of primary surface unless a unique mechanism earns transfer."
+    "QUARANTINE: generic site shells stay out of primary surface unless a unique mechanism earns transfer.",
+    "LAW ZOO: import exact five-machine suite as one family; preserve unequal children and anti-convergence boundaries.",
+    "RSVP: import one exact 2018 temporal-focus fixture, record duplicate proof, then mechanism-diff before any new Wear OS reader."
   ],
   "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
   "last_mechanism_diff": "/control/MECHANISM_DIFF_2026-09-19.json"
