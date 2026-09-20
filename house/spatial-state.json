@@ -1,0 +1,76 @@
+{
+  "schema": "spatial-state-lineage/v0.1",
+  "updated": "2026-09-20",
+  "canonical_id": "APP-041",
+  "title": "Spatial State Engine / House OS",
+  "status": "ACTIVE / COORDINATED",
+  "invariant": "Attach state and action to place, object and transition while preserving manual fallback, provenance and returned evidence.",
+  "preferred_lineage": [
+    {
+      "date": "2026-09-03",
+      "name": "BLIGHT / HOUSE — Bendemeer Spatial Ledger v0.1",
+      "role": "evidence + surface ledger",
+      "preserves": [
+        "room graph",
+        "floor/ceiling/RCP",
+        "wall elevations",
+        "photo coverage",
+        "measurements/confidence",
+        "evidence/state/action registers"
+      ]
+    },
+    {
+      "date": "2026-09-03",
+      "name": "BLIGHT / HOUSE — Spatial Engine v0.3",
+      "role": "preferred spatial design head",
+      "preserves": [
+        "authoritative plan raster",
+        "aligned room + wall graph",
+        "PLAN",
+        "SURFACE",
+        "SECTION",
+        "FIELD",
+        "ATLAS",
+        "epochs",
+        "LOG/STATE/VERIFY/ROLLBACK/RESTORE",
+        "JSON export"
+      ]
+    }
+  ],
+  "operational_donor": {
+    "date": "2026-09-09",
+    "name": "home_os_spatial_state_single.html",
+    "role": "portable interaction donor, not a new authority",
+    "preserves": [
+      "inline SVG floorplan",
+      "room/anchor selection",
+      "orientation mirror toggle",
+      "mock event/MQTT log",
+      "quests/demos",
+      "micro-ADRs",
+      "no-install single-file operation"
+    ],
+    "law": "Truth before beauty: no visual layer may imply geometric certainty the system does not possess."
+  },
+  "authority_split": {
+    "spatial_engine": "geometry, addresses, surfaces, evidence, uncertainty, spatial state projection",
+    "home_assistant_housebus": "device/entity truth, permissions and actuation",
+    "mqtt": "optional event transport; never canonical authority",
+    "house_field": "public-safe static projection; never a control endpoint"
+  },
+  "bridge_contract": [
+    "Stable room / surface / object / transition IDs map to Home Assistant entities through an explicit adapter.",
+    "Observation and inference remain separate classes.",
+    "Manual state changes remain valid when sensors or integrations are absent.",
+    "Actions are intents until Home Assistant authorizes and executes them.",
+    "Every meaningful change may return evidence / receipt to the FIELD return path.",
+    "Do not promote 3D, photogrammetry or world-model inference until 2D geometry and evidence are solid."
+  ],
+  "current_thin_slice": "2D room/object graph + manual state + explicit HA entity mapping; add sensors only where they remove real friction.",
+  "not_now": [
+    "duplicate House OS architecture",
+    "3D-first rebuild",
+    "sensor-rich inference before geometry is trustworthy",
+    "public control endpoint"
+  ]
+}
