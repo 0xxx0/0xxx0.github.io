@@ -1,0 +1,259 @@
+<!DOCTYPE HTML>
+<style>
+:root {--BGDEFAULT: BLACK;--BGLIGHT: WHITE;--FONTSIZE: 6em; }
+* { box-sizing: border-box; margin:0;  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;  } 
+body { overflow: hidden; background-color: var(--BGDEFAULT);  }
+code, pre {display: inline-block;outline: dotted 1px; cursor: default}
+/*----------------------------- Room Env Setup  ------------------------------------*/
+#scene{  width: 100vw; height: 100vh; perspective: var(--p, 35em); 
+    }
+
+.room { position: absolute; width: 100vw; height: 100vh; top: 50%; left: 50%; transform-style: preserve-3d; 
+    margin: -50vh 0 0 -50vw; 
+    
+    --rx: 0; --ry: 0; --rz: 0; --a:0deg;  --tx: 0em; --ty: 0em; --tz: 0em; transform: rotate3d(var(--rx), var(--ry), var(--rz), var(--a)) translate3d(var(--tx),var(--ty),var(--tz)) var(--p, ); }
+
+.FLURBD { opacity: var(--o, .5); backface-visibility: var(--bfv, visible); transform-origin: var(--to, 50% 0%); --rx: 0; --ry: 1; --rz: 0; --a:0deg; --tx: 0em; --ty: 0em; --tz: 0em;
+    position: absolute; width: 100vw; height:100vh; border: 1px solid BLACK;
+    display: flex; justify-content: center; align-items: center; font-size: var(--FONTSIZE); background-color: GREY;
+    transform: rotate3d(var(--rx), var(--ry), var(--rz), var(--a)) translate3d(var(--tx),var(--ty),var(--tz));
+    }
+#U,#D { height: 100vw; --rx: 1; --ry: 0; --a: -90deg; --ty: -50vw; } #D { top: 100%; } #U { } 
+#B { --tz: -50vw; font-size: 1em; word-break: break-all;  display:inline; overflow:scroll; } #F { --tz: 50vw; } 
+#R { right: 0; --to: 100% 50%; --a: -90deg; --tx: 50vw; } #L { left:  0; --to: 0% 50%; --a:  90deg; --tx: -50vw;}
+/*----------------------------- Perspective Controls  ------------------------------------*/
+.pulse{color: #FFF; animation: blur 1s ease-out infinite; text-shadow: 0px 0px 5px #fff, 0px 0px 7px #fff;}
+@keyframes blur { from { text-shadow: 0px 0px 10px #fff,  0px 0px 25px #fff,0px 0px 50px #fff,  0px 0px 150px #000, 0px 10px 100px #999, 0px -10px 100px #666, 0px -10px 100px #999;} }
+/*----------------------------- Script & Data Loader   ------------------------------------*/
+li{list-style:none;}
+#ext{ display: inline;margin: 0; padding:0; }
+.chext{ position: relative; }
+.chext + label {color: #555; background: #333; width: 100%; height: 1em; display: inline; border: .05em solid; font-size: .5em; }
+.chext:hover + label{ background: RED; color: WHITE; }
+.chext:checked + label{ background: WHITE; color: BLACK; }
+select, textarea, input[type]{ border: 1px solid ; /*-webkit-appearance: none; appearance: none; */ }
+select[disabled], textarea[disabled], input[type][disabled] { opacity: .35; cursor: default;}
+/*----------------------------- Kala, controls  ------------------------------------*/
+.controls { display: grid; border: .00em solid WHITE       ;}
+.vert {transform: rotateZ(90deg); }
+.controls input[type="range"] {height: 8vh;width:100%; }
+
+#kala{position:absolute; top: 25vh; left: 50vw; background-color: BLACK; color: WHITE; height:auto; display: inline-block; width: auto; text-align: center; font-size: 2em; border: .04em solid GREY; opacity: 0.5;
+    transform-origin:center;
+    --rx:0deg; --ry:0deg;  --rz:0deg; 
+    transform: rotateX(var(--rx)) rotateY(var(--ry)) rotateZ(var(--rz));
+    }
+
+#comm{background-color:RED; height: 100%; display: inline; transform:rotateZ(-90deg); z-index: -1 ; width: 3em;}
+    #textin{background-color: RED; height: 2em; width:100%; display: block; }
+    #textin:focus{background-color:white; height: 2em}
+    #res { width:100%; word-break: break-all; }
+#env{
+    }
+    
+    
+    
+.seek {
+  width: 20px;
+  height: 20px;
+  background-color: #323296;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+}
+.seek:nth-child(n) { transition: all 250ms linear; background-color: #19197d; }
+.seek:nth-child(2) { transition: all 500ms linear; background-color: #323296; }
+.seek:nth-child(3) { transition: all 750ms linear; background-color: #4b4baf; }
+.seek:nth-child(4) { transition: all 1000ms linear; background-color: #6464c8; }
+.seek:nth-child(5) { transition: all 1250ms linear; background-color: #7d7de1; }
+.seek:nth-child(6) { transition: all 1500ms linear; background-color: #9696fa; }
+    
+</style>
+                                                    <body><div 
+id='env'                                            >A<div 
+id='scene'                                          ><div 
+class='room' id='room'                                        ><div 
+class='FLURBD' id=F>F                               </div><div 
+class='FLURBD' id=L>L                               </div><div 
+class='FLURBD' id=U>U                               </div><div 
+class='FLURBD' id=R>R                               </div><div 
+class='FLURBD' id=B>B                               </div><div 
+class='FLURBD' id=D>                                <canvas
+id=canvas1                                          ></canvas></div></div>
+                                                    
+                                                    <div
+class="" id="kala"                                  >
+^____^                                              <br>
+ ⊙ ﹏ ⊙                                             <br><div 
+class="controls vert"                               ><input
+type="range" id="kalatX"                            /><div
+id=comm                                             ><input
+type="text" id="textin"                             /><div
+id=res                                              >
+ ䷑䷔                                                </div></div><input
+type="range" id="kalatY"                            /></div>
+                                                         ಠ益ಠ
+<ul id="ext">
+<li>
+<input type="checkbox" id="dragcam" class="chext" />
+<label for="dragcam">Drag View Mode</label>
+</li>
+</ul>
+
+                                                        </div>    
+                                                    </div></div>
+
+<div class='seek'></div>
+<div class='seek'></div>
+<div class='seek'></div>
+<div class='seek'></div>
+<div class='seek'></div>
+<div class='seek'></div>
+var div = document.getElementsByClassName('seek');
+
+window.onmousemove = function(e){
+  e = e || window.event;
+  for (var i = 0; i < div.length; i++) {
+    div[i].style.left = (e.pageX - 10)+'px';
+    div[i].style.top = (e.pageY - 10)+'px';
+  }  
+}
+
+
+</body>
+
+<script>
+
+var div = document.getElementsByClassName('seek');
+window.onmousemove = function(e){
+  e = e || window.event;
+  for (var i = 0; i < div.length; i++) {
+    div[i].style.left = (e.pageX - 10)+'px';
+    div[i].style.top = (e.pageY - 10)+'px'; } }
+    
+    
+    
+pointing = (evt) => {
+//getE = (ev) => { return ev.touches ? ev.touches[0] : ev }
+  var pageX = evt.pageX;
+  var pageY = evt.pageY;
+  if (pageX === undefined) {
+    pageX = evt.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+    pageY = evt.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+  }
+  const rect = evt.target.getBoundingClientRect()
+      , offsetX = evt.clientX - rect.left
+      , offsetY = evt.clientY - rect.top
+  return {
+     client: { x: evt.clientX, y: evt.clientY } // relative to the viewport
+  ,  screen: { x: evt.screenX, y: evt.screenY } // relative to the physical screen
+  ,  offset: { x: offsetX,     y: offsetY }     // relative to the event target
+  ,  page:   { x: pageX,       y: pageY }        // relative to the html document
+  }
+}
+
+
+
+
+
+M = (()=>{
+const isNumeric = (n) => !isNaN(parseFloat(n)) && isFinite(n)
+, test1 = n => isNumeric(n)
+, err = (msg) => new Error(msg)
+, mErrMsgs =
+[    'Unaccepted value. Degree must be a number'
+,    'Unaccepted value. Axis must be \'x\', \'y\' or \'z\''
+//,    'Unaccepted value. Degree must be a number'
+,    'Unaccepted value. Must be an array' ]
+const m16Xv4 = (m, v) =>   //Multiply the point against each part of the N column, then add together
+      [(v[0]*m[0])+(v[1]*m[4])+(v[2]*m[8])+(v[3]*m[12])
+      ,(v[0]*m[1])+(v[1]*m[5])+(v[2]*m[9])+(v[3]*m[13])
+      ,(v[0]*m[2])+(v[1]*m[6])+(v[2]*m[10])+(v[3]*m[14])
+      ,(v[0]*m[3])+(v[1]*m[7])+(v[2]*m[11])+(v[3]*m[15])]
+    , m16Xm16 = (m1, m2) => 
+        m16Xv4(m1,[0,1,2,3].map(i=>m2[i])).concat(
+        m16Xv4(m1,[4,5,6,7].map(i=>m2[i]))
+      , m16Xv4(m1,[8,9,10,11].map(i=>m2[i]))
+      , m16Xv4(m1,[12,13,14,15].map(i=>m2[i])) )
+    , genM16 = (ms) => ms.reduce((a,c) => m16Xm16(a,c))
+    , m3d = n => `matrix3d(${n.join(',')})`
+    , m2d = n => `matrix(${n.join(',')})`
+    , mod3dcss = ([...values]) => m3d(genM16(values))
+    ; return{isNumeric, test1, err, mErrMsgs, m16Xv4, m16Xm16, genM16, m3d, m2d, mod3dcss} })()
+
+//mt: rad360,sin,cos,tan,trans,scale,skew,skewX,skewY,rotate_around,scale_WHD,translate_XYZ,rotate$XYZ
+mt = (()=>{
+const rad360 = a=>a > 6.283 ? a * (180 / Math.PI) : a  // a in radians if more than about 360deg
+    , sin = a => Math.sin(rad360(a))
+    , cos = a => Math.cos(rad360(a))
+    , tan = a => Math.tan(rad360(a)) // SHORTEN: [sin,cos,tan]
+    //m6
+    , trans = (x,y=0) => [1,0,0,1,x,y]
+    , scale = (x,y=0)=> [x,0,0,y,0,0]
+    , skew = (ax,ay=0)=> [1,tan(ay),tan(ax),1,0,0] //css only
+    , skewX = (a)=> [1,tan(a),0,0,1,0]            // svg
+    , skewY = (a)=> [1,0,0,tan(a),1,0]            // svg
+    , rotate = (a)=> [cos(a),sin(a),-sin(a),cos(a),0,0]
+    , rotate_around = (a)=>(x,y)=> [trans(-x,-y),rotate(a),trans(x,y)] //RTL
+    //m16    
+    , scale_WHD = (w=1)=>(h=1)=>(d=1)=> [w,0,0,0,0,h,0,0,0,0,d,0,0,0,0,1]
+    , translate_XYZ = (x=0)=>(y=0)=>(z=0)=> [1,0,0,0,0,1,0,0,0,0,1,0,x,y,z,1] 
+    , rotate$XYZ = (a)=> 
+        ({ x: [1,0,0,0,0,cos(a),-sin(a),0,0,sin(a),cos(a),0,0,0,0,1]
+         , y: [cos(a),0,sin(a),0,0,1,0,0,-sin(a),0,cos(a),0,0,0,0,1]
+         , z: [cos(a),-sin(a),0,0,sin(a),cos(a),0,0,0,0,1,0,0,0,0,1] })
+; return{ 
+    rad360,sin,cos,tan,trans,scale,skew,skewX,skewY,rotate_around,scale_WHD,translate_XYZ,rotate$XYZ
+} })()
+
+//CSV_in_PARENS = match(/\(([^\)]+)\)/)[1].split(',') 
+// TODO ~> match csv remove split, convert to REGEX object
+    
+    
+move = el => xs => getComputedStyle(el).transform === 'none' ? M.mod3dcss(xs) 
+: M.mod3dcss(xs.concat(getComputedStyle(el)
+                       .match(/\(([^\)]+)\)/)[1].split(',') 
+//                       .match(CSV_in_PARENS)
+                      ))
+//    has transform : matrix3d    
+def = (ctx) => ($this) => ($that) => set(ctx)($this)($that)
+
+
+// if (change view) for [active control input events~>(on,off)]  
+
+zip = (arr, ...arrs) => { return arr.map((val, i) => arrs.reduce((a, arr) => [...a, arr[i]], [val])); }
+map01 = fn => xys => xys.map(xy => fn(xy[0], xy[1]))
+    
+faceCursor = (evt) => {
+let o = 0.5
+  , i = 90 //deg
+  , w = window
+  , p = pointing(evt).client
+  , d = ({x: p.x/w.innerWidth-o, y: p.y/w.innerHeight-o})
+pattern = zip(['y','x','z'],[ d.y*i, -d.x*i, d.x*d.y*i])
+return M.mod3dcss(map01(rotate)(pattern))
+}
+
+//el.on(`mousemove`, move(el)(faceCursor))
+
+const  setCSSVar = ctx => prop => val =>ctx.style.setProperty(prop, val)
+    ,  Make_F_invisible = setCSSVar(F)('display')('none')
+const _R = document.querySelector('.room')
+    , modR = setCSSVar(_R)
+    , getE = (ev) => { return ev.touches ? ev.touches[0] : ev }
+
+delt1=dim=>a=>b=>ratio(a[dim],b[dim])
+delt2=dim=>a=>b=>a[dim]-b[dim]
+
+
+sens=3, drag = false, x0 = null, y0 = null
+
+var scene = document.getElementById("scene"); 
+var kala = document.getElementById("kala");
+
+scene.addEventListener("mousemove", faceCursor);
+
+    
+    
+</script>
