@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ERROR GARDEN // NUMERIC SPECIES</title>
+<style>
+:root{--bg:#060709;--panel:#0c1115;--ink:#e7ece9;--muted:#7c8b94;--hair:#263139;--hot:#f3a34b;--cyan:#70d5e8;--pink:#f08bb8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.35 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+header{position:sticky;top:0;z-index:10;background:#07090dec;border-bottom:1px solid var(--hair);padding:10px;backdrop-filter:blur(7px)}.title{font-weight:900;letter-spacing:.13em;font-size:15px}.sub{color:var(--muted);max-width:900px;margin-top:4px}.tools{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+button{font:inherit;color:inherit;background:#10161c;border:1px solid var(--hair);border-radius:7px;padding:7px 9px;cursor:pointer}.hot{border-color:#8d6137;background:#1b140e}
+#grid{padding:9px;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:8px}.card{border:1px solid var(--hair);background:var(--panel);border-radius:9px;overflow:hidden;position:relative}.card canvas{width:100%;height:165px;display:block;background:#020304;image-rendering:pixelated}.meta{padding:8px}.name{font-weight:800;letter-spacing:.06em}.genome{color:var(--cyan);font-size:10px;margin-top:4px}.badges{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}.b{color:var(--muted);border:1px solid #202b33;border-radius:999px;padding:2px 5px;font-size:9px}.pick{position:absolute;right:7px;top:7px;background:#080a0ddd}.selected{outline:1px solid var(--hot)}
+#inspect{display:none;position:fixed;inset:0;background:#050608f3;z-index:30;padding:12px;overflow:auto}.iw{max-width:1100px;margin:auto}.top{display:flex;justify-content:space-between}.stage{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.6fr);gap:10px;margin-top:8px}.big{border:1px solid var(--hair);border-radius:9px;overflow:hidden}.big canvas{width:100%;height:520px;display:block;image-rendering:pixelated;background:#020304}.side{border:1px solid var(--hair);border-radius:9px;padding:10px;background:var(--panel)}.k{color:var(--muted);font-size:10px;letter-spacing:.12em;margin-top:11px}.v{margin-top:3px}.law{color:var(--cyan);white-space:pre-wrap}.row{display:flex;gap:5px;flex-wrap:wrap;margin-top:7px}a{color:var(--cyan)}
+@media(max-width:760px){.stage{grid-template-columns:1fr}.big canvas{height:360px}}
+</style></head><body>
+<header><div class="title">ERROR GARDEN // RESTRICTED NUMERIC SPECIES</div><div class="sub">The machine is intentionally wrong. Precision loss, integer wrap, singularities, aliasing and framebuffer persistence are heritable traits. “Fixing” them usually kills the organism.</div>
+<div class="tools"><button id="spawn">SPAWN</button><button id="mutate" class="hot">MUTATE PICKED</button><button id="breed">BREED TWO</button><button id="sterile">STERILIZE PICKED</button><button id="reset">RESET POPULATION</button><button onclick="location.href='index.html'">SUITE</button></div></header>
+<main id="grid"></main>
+<div id="inspect"><div class="iw"><div class="top"><div><div class="title" id="iname"></div><div class="sub" id="iorigin"></div></div><button id="close">×</button></div><div class="stage"><div class="big"><canvas id="big"></canvas></div><aside class="side">
+<div class="k">FAULT LAW</div><div class="v law" id="ilaw"></div><div class="k">GENOME</div><div class="v" id="igen"></div><div class="k">WHY IT LIVES</div><div class="v" id="iwhy"></div>
+<div class="k">LOCAL OPERATIONS</div><div class="row"><button data-mut="bits">precision</button><button data-mut="wrap">wrap</button><button data-mut="sing">singularity</button><button data-mut="alias">alias</button><button data-mut="memory">memory</button><button data-mut="op">operator</button></div>
+<div class="k">EXPORT</div><div class="row"><button id="copy">COPY GENOME</button><button id="png">PNG</button></div></aside></div></div></div>
+<script>
+const $=s=>document.querySelector(s),grid=$('#grid'),TAU=Math.PI*2;let pop=[],picked=[],inspect=null,t0=performance.now();
+const modes=['F32','I8','U8','NIBBLE','DEC2'],ops=['tan','recip','xor','fold','mix'];
+function rnd(a=1){return Math.random()*a}function choice(a){return a[rnd(a.length)|0]}function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function specimen(i=0){return{id:crypto.randomUUID?.()||Math.random().toString(36).slice(2),name:'FAULT '+String(i+1).padStart(2,'0'),g:{mode:choice(modes),bits:choice([2,3,4,5,6,8,12,23]),wrap:choice([4,8,16,32,64,128,256]),eps:choice([.001,.005,.01,.03,.08,.2]),alias:choice([1,2,3,4,6,8]),memory:choice([0,.2,.45,.7,.88,.96]),op:choice(ops),gain:rnd(3)+.4,drift:rnd(.08)+.002},why:''}}
+function q(v,g){
+ if(!Number.isFinite(v))v=Math.sign(v||1)*g.wrap;
+ if(g.mode==='F32')v=new Float32Array([v])[0];
+ else if(g.mode==='I8')v=new Int8Array([v*g.gain])[0]/32;
+ else if(g.mode==='U8')v=new Uint8Array([(v*g.gain*32)|0])[0]/64-2;
+ else if(g.mode==='NIBBLE')v=((v*8)|0)&15,v=(v-8)/3;
+ else v=Math.round(v*100)/100;
+ let levels=1<<Math.min(12,g.bits);v=Math.round(v*levels)/levels;return v
+}
+function fault(x,y,p,g,t){
+ let v;
+ if(g.op==='tan')v=Math.tan(q(x*g.gain+t*g.drift,g))+Math.sin(y*3);
+ else if(g.op==='recip')v=1/(Math.abs(q(x+y,g))+g.eps)+Math.sin(y*g.gain*4+t);
+ else if(g.op==='xor'){let a=(x*64)|0,b=(y*64)|0;v=(((a^b^((t*20)|0))%g.wrap)/g.wrap)*2-1}
+ else if(g.op==='fold')v=Math.sin(Math.abs(q(x*g.gain,g))*g.wrap+Math.abs(q(y*g.gain,g))*g.wrap+t);
+ else v=Math.sin(q(x*g.gain+p,g)*3+t)+Math.tan(q(y-p,g)*.4)/(1+g.eps*20);
+ return q(v,g)
+}
+function render(s,c,w,h,t){
+ let ctx=c.getContext('2d'),g=s.g,small=Math.max(2,g.alias*2),W=Math.ceil(w/small),H=Math.ceil(h/small);
+ if(!s.buf||s.bw!==W||s.bh!==H){s.bw=W;s.bh=H;s.buf=new Float32Array(W*H);for(let i=0;i<s.buf.length;i++)s.buf[i]=rnd(2)-1}
+ let next=new Float32Array(s.buf.length);let im=ctx.createImageData(W,H);
+ for(let y=0;y<H;y++)for(let x=0;x<W;x++){let i=x+y*W,xx=(x/W-.5)*2,yy=(y/H-.5)*2,p=s.buf[i],v=fault(xx,yy,p,g,t);v=q(v*(1-g.memory)+p*g.memory,g);next[i]=v;let n=((Math.sin(v*2.7+t*.1)+1)*127)|0,r=(n+(g.op==='xor'?80:10))&255,b=(255-n+(g.mode==='I8'?70:0))&255,gg=((n*3)&255);let k=i*4;im.data[k]=r;im.data[k+1]=gg;im.data[k+2]=b;im.data[k+3]=255}
+ s.buf=next;let tmp=document.createElement('canvas');tmp.width=W;tmp.height=H;tmp.getContext('2d').putImageData(im,0,0);ctx.imageSmoothingEnabled=false;
+ ctx.globalAlpha=.2+.8*(1-g.memory);ctx.drawImage(tmp,0,0,w,h);ctx.globalAlpha=1
+}
+function genome(g){return `${g.mode} · ${g.bits}b · wrap${g.wrap} · ε${g.eps} · alias${g.alias} · mem${g.memory.toFixed(2)} · ${g.op}`}
+function law(g){return `v ← ${g.op}(x,y,previous)\nv ← cast_${g.mode}(v)\nv ← quantize(v, ${g.bits} bits)\nv ← wrap(v, ${g.wrap})\nstate ← mix(previous,v, memory=${g.memory.toFixed(2)})\nsample every ${g.alias} px`}
+function why(g){let a=[];if(g.bits<=4)a.push('coarse quantization creates stable terraces');if(g.wrap<=16)a.push('small modular wrap produces abrupt phase boundaries');if(g.eps<.01)a.push('near-singularity spikes become structure');if(g.alias>=4)a.push('undersampling invents false frequencies');if(g.memory>.7)a.push('old numerical mistakes persist as material');if(g.mode!=='F32')a.push(`${g.mode} casting changes arithmetic topology`);return a.join('; ')||'its faults are mild; mutate harder'}
+function renderCards(){grid.innerHTML='';pop.forEach(s=>{let card=document.createElement('div');card.className='card'+(picked.includes(s)?' selected':'');let c=document.createElement('canvas');c.width=360;c.height=210;let meta=document.createElement('div');meta.className='meta';meta.innerHTML=`<div class="name">${s.name}</div><div class="genome">${genome(s.g)}</div><div class="badges"><span class="b">${s.g.op}</span><span class="b">${s.g.mode}</span><span class="b">${s.g.bits} bit</span></div>`;let b=document.createElement('button');b.className='pick';b.textContent=picked.includes(s)?'✓ PICK':'PICK';b.onclick=e=>{e.stopPropagation();togglePick(s)};card.append(c,meta,b);card.onclick=()=>open(s);grid.append(card);s.canvas=c})}
+function togglePick(s){let i=picked.indexOf(s);i>=0?picked.splice(i,1):picked.length<2&&picked.push(s);renderCards()}
+function mutate(s,key=choice(['bits','wrap','sing','alias','memory','op'])){let g=s.g;if(key==='bits')g.bits=choice([2,3,4,5,6,8,12,23]);if(key==='wrap')g.wrap=choice([4,8,16,32,64,128,256]);if(key==='sing')g.eps=choice([.001,.003,.01,.03,.08,.2]);if(key==='alias')g.alias=choice([1,2,3,4,6,8]);if(key==='memory')g.memory=choice([0,.2,.45,.7,.88,.96]);if(key==='op')g.op=choice(ops);s.buf=null}
+function breed(a,b){let c=specimen(pop.length),g=c.g;for(let k in g)g[k]=Math.random()<.5?a.g[k]:b.g[k];if(Math.random()<.7)mutate(c);c.name=`HYBRID ${pop.length+1}`;return c}
+function sterile(s){Object.assign(s.g,{mode:'F32',bits:23,wrap:256,eps:.2,alias:1,memory:0,op:'mix',gain:1,drift:.01});s.buf=null}
+function open(s){inspect=s;$('#inspect').style.display='block';$('#iname').textContent=s.name;$('#iorigin').textContent='a heritable numerical mistake';$('#ilaw').textContent=law(s.g);$('#igen').textContent=genome(s.g);$('#iwhy').textContent=why(s.g)}
+$('#close').onclick=()=>{$('#inspect').style.display='none';inspect=null};document.querySelectorAll('[data-mut]').forEach(b=>b.onclick=()=>{if(inspect){mutate(inspect,b.dataset.mut);open(inspect)}});
+$('#spawn').onclick=()=>{pop.push(specimen(pop.length));renderCards()};$('#mutate').onclick=()=>{picked.forEach(s=>mutate(s));renderCards()};$('#breed').onclick=()=>{if(picked.length===2){pop.push(breed(picked[0],picked[1]));picked=[];renderCards()}};
+$('#sterile').onclick=()=>{picked.forEach(sterile);renderCards()};$('#reset').onclick=()=>{pop=Array.from({length:12},(_,i)=>specimen(i));picked=[];renderCards()};
+$('#copy').onclick=async()=>{if(inspect)await navigator.clipboard?.writeText(JSON.stringify(inspect.g,null,2))};$('#png').onclick=()=>{if(!inspect)return;let a=document.createElement('a');a.download='error-garden.png';a.href=$('#big').toDataURL();a.click()};
+function frame(now){let t=(now-t0)/1000;pop.forEach(s=>s.canvas&&render(s,s.canvas,s.canvas.width,s.canvas.height,t));if(inspect){let c=$('#big');let r=c.getBoundingClientRect(),w=Math.max(500,r.width*devicePixelRatio|0),h=Math.max(360,r.height*devicePixelRatio|0);if(c.width!==w||c.height!==h){c.width=w;c.height=h;inspect.buf=null}render(inspect,c,c.width,c.height,t)}requestAnimationFrame(frame)}
+pop=Array.from({length:12},(_,i)=>specimen(i));renderCards();requestAnimationFrame(frame);
+</script></body></html>
