@@ -1,0 +1,190 @@
+{
+  "schema": "human-port-social-residue/v0.1",
+  "purpose": "Recover useful social residue from conversations without converting every utterance into a binding task.",
+  "lineage": [
+    {
+      "source": "App Atlas / APP-022 Kagemusha / Promise Keeper",
+      "class": "EXACT_RECOVERED_DONOR",
+      "invariant": "Protect attention by turning communication obligations into explicit queues, drafts, promises, follow-ups, and closure.",
+      "retained": "Read-only extraction first; no autonomous sending."
+    },
+    {
+      "source": "App Foundry / APP-000",
+      "class": "EXACT_RECOVERED_DONOR",
+      "invariant": "Capture an idea once; preserve ancestry while it branches, merges, is tested, built, or killed."
+    },
+    {
+      "source": "Living Atlas / APP-002",
+      "class": "EXACT_RECOVERED_DONOR",
+      "invariant": "Show projects, evidence, decisions, artifacts, branches, gaps, and next safe moves from shared records."
+    }
+  ],
+  "laws": [
+    "CONVERSATION MAY CREATE RESIDUE WITHOUT CREATING AN OBLIGATION",
+    "SOURCE WORDING STAYS RECOVERABLE",
+    "INFERRED CANDIDATE != EXPLICIT COMMITMENT",
+    "OFFERS OF HELP ARE NOT AUTO-SCHEDULED WORK",
+    "PROMISE STRENGTH MUST NOT BE UPGRADED BY TONE OR FAMILIARITY",
+    "RETURN MAY CLOSE, RELEASE, DEFER, HAND OFF, SUPERSEDE OR COMPLETE",
+    "UNFOLLOWED IDEAS MAY STILL YIELD VALUE",
+    "PRIVATE PERSON/RELATION REFERENCES STAY PRIVATE",
+    "NO AUTONOMOUS SENDING"
+  ],
+  "residue_types": [
+    "OFFER",
+    "REQUEST",
+    "INTENT",
+    "PROMISE_CANDIDATE",
+    "FOLLOW_UP",
+    "IDEA",
+    "QUESTION",
+    "ARTIFACT",
+    "DECISION_SEED",
+    "RELATION_NOTE"
+  ],
+  "strength": [
+    {
+      "id": "MENTION",
+      "meaning": "Something came up; no commitment implied."
+    },
+    {
+      "id": "MAYBE",
+      "meaning": "Possible future move; no obligation."
+    },
+    {
+      "id": "INTEND",
+      "meaning": "User expressed intent, but timing/conditions may remain open."
+    },
+    {
+      "id": "COMMIT",
+      "meaning": "Explicit commitment supported by source wording or later confirmation."
+    },
+    {
+      "id": "SCHEDULED",
+      "meaning": "Explicit commitment plus a concrete time or external scheduling action."
+    }
+  ],
+  "admission": {
+    "default": "CANDIDATE_ONLY",
+    "rule": "Automated interpretation may propose a residue record, but only explicit source wording or human confirmation may promote strength to COMMIT or SCHEDULED.",
+    "high_entropy_rule": "BURST/interrupted speech may contain multiple residue candidates; recover separately and preserve uncertainty.",
+    "value_first_rule": "Before creating a task, ask what durable value can be preserved now: idea, artifact, decision context, donor mechanism, useful question, contact context, or next safe move."
+  },
+  "record": {
+    "fields": [
+      "id",
+      "source_ref",
+      "source_excerpt_or_hash",
+      "type",
+      "strength",
+      "private_person_ref_optional",
+      "relation_ref_optional",
+      "subject",
+      "why_it_matters",
+      "next_safe_move_optional",
+      "time_horizon_optional",
+      "dependencies",
+      "status",
+      "return"
+    ],
+    "status": [
+      "CANDIDATE",
+      "HELD",
+      "ACTIVE",
+      "WAITING",
+      "RETURNED",
+      "RELEASED",
+      "SUPERSEDED",
+      "EXPIRED"
+    ]
+  },
+  "return_semantics": {
+    "purpose": "Close the loop without moralizing unfinished work.",
+    "outcomes": [
+      {
+        "id": "DONE",
+        "meaning": "The promised/useful move happened."
+      },
+      {
+        "id": "VALUE_TAKEN",
+        "meaning": "Useful value was preserved even though the original follow-through did not occur."
+      },
+      {
+        "id": "RELEASED",
+        "meaning": "No longer worth pursuing; closed deliberately."
+      },
+      {
+        "id": "DEFERRED",
+        "meaning": "Still relevant, but not active now."
+      },
+      {
+        "id": "HANDOFF",
+        "meaning": "Responsibility/value moved elsewhere with context."
+      },
+      {
+        "id": "SUPERSEDED",
+        "meaning": "A better/newer path replaced this residue."
+      },
+      {
+        "id": "UNKNOWN",
+        "meaning": "Outcome is genuinely unresolved."
+      }
+    ]
+  },
+  "projections": {
+    "human_port": {
+      "role": "Capture and show only conversation-relevant residue around the current person/thread.",
+      "avoid": "Do not become a global task dashboard."
+    },
+    "atlas": {
+      "role": "Preserve idea lineage, project relevance, evidence, branches and reusable value."
+    },
+    "dayline": {
+      "role": "Project only items that have earned temporal attention."
+    },
+    "forward_center_mass": {
+      "role": "Promote at most a few residue items into active execution when they affect NOW."
+    },
+    "backstage": {
+      "role": "Preserve selected funny/strange making-history when it explains how value emerged."
+    }
+  },
+  "examples": [
+    {
+      "input": "I can help my cousin think through an app idea.",
+      "residue": [
+        {
+          "type": "OFFER",
+          "strength": "INTEND",
+          "subject": "Help with cousin's app idea",
+          "status": "CANDIDATE"
+        },
+        {
+          "type": "IDEA",
+          "strength": "MENTION",
+          "subject": "App concept itself",
+          "status": "CANDIDATE",
+          "projection": "Atlas/App Foundry"
+        }
+      ],
+      "anti_pattern": "Do not create 'BUILD COUSIN APP' as a task merely from this sentence."
+    },
+    {
+      "input": "I said I'd look at those paintings and send thoughts.",
+      "residue": [
+        {
+          "type": "FOLLOW_UP",
+          "strength": "COMMIT",
+          "subject": "Review paintings and return thoughts",
+          "status": "HELD"
+        }
+      ],
+      "return_options": [
+        "DONE",
+        "VALUE_TAKEN",
+        "RELEASED",
+        "DEFERRED"
+      ]
+    }
+  ]
+}
