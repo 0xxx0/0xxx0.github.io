@@ -343,6 +343,17 @@
       "sha256": "2f0167930b5c1a19e43ad8b626b702db017d576f48644237f05d849ce87d627d",
       "confluence": "/control/confluence/RSVP_RECOVERY.md",
       "route": "/recovery/rsvp/"
+    },
+    {
+      "id": "env0-interface-atlas",
+      "name": "ENV-0 / BODY ↔ HOUSE INTERFACE ATLAS",
+      "family": "physical-print-reification",
+      "status": "RECOVER",
+      "route": "/recovery/env0/",
+      "source_type": "library-partial-exact-repo-frozen",
+      "unique": "Typed BODY→GARMENT→HARNESS→SUIT→FURNITURE→ROOM→HOUSE grammar with editable print plates, reversible operation language and bounded physical build/test return.",
+      "evidence_state": "SVG_MASTERS_AND_README_EXACT_REPO_PDFS_EXACT_LIBRARY_ONLY",
+      "action": "Keep frozen as print/physical donor. Complete only by byte-copying and hash-verifying the two located PDFs; then mechanism-test against PRINT-01 / Reality RETURN rather than redesigning."
     }
   ],
   "ingest_queue": [
@@ -352,7 +363,8 @@
     "LACONIC: isolate exact historical bank lines with source refs; preserve EXACT / RECONSTRUCTED / NEW firewall.",
     "GAME OF NAMES: locate isolated exact runnable/glyph artifact before public recovery; keep personal archive private.",
     "QUARANTINE: generic site shells stay out of primary surface unless a unique mechanism earns transfer.",
-    "RSVP: mechanism-diff frozen 2018 temporal-focus donor against current reading/learning surfaces before new Wear OS implementation."
+    "RSVP: mechanism-diff frozen 2018 temporal-focus donor against current reading/learning surfaces before new Wear OS implementation.",
+    "ENV-0: byte-copy/hash-verify the two exact located PDFs; then use one plate/build-sheet as a bounded PRINT→PHYSICAL→RETURN fixture."
   ],
   "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
   "last_mechanism_diff": "/control/MECHANISM_DIFF_2026-09-19.json"
