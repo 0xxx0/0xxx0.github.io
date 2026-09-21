@@ -20,13 +20,17 @@
       ]
     },
     {
-      "source": "2019 FU / room / ring code family",
+      "source": "Historical FU / room / scalable-polar UI family (partial exact foveate fragments + exact room/ring fossils)",
       "retained": [
         "radial geometry",
         "CSS 3D / rotating projections",
         "lens-style state transformation",
-        "speech/audio boundary experiments"
-      ]
+        "speech/audio boundary experiments",
+        "explicit faxconf.fovea path state",
+        "foveate() as state update followed by path projection",
+        "article/sentence/phrase/word/char hierarchy feeding radial focus geometry"
+      ],
+      "receipt": "/control/FU_FOVEATE_RECOVERY_2026-09-21.json"
     },
     {
       "source": "RSVP+TTS TMP-SPEECHSYNTH 2018",
@@ -121,7 +125,9 @@
     "shared_core": "/foundry/axial/focus-core.js",
     "rule": "Support and position math live once; FIELD AXIAL/LATEST and full AXIAL may render differently but must not fork the law.",
     "component_path": "Prefer a small dependency-free Web Component only when a third consumer needs the same interaction surface; keep source adapters outside the component.",
-    "dat_gui_path": "No dat.GUI/lil-gui/tweakpane dependency is currently present in the repo. If added later, use it only as a developer/debug inspector for state and mappings, never as the primary human interface."
+    "dat_gui_path": "No dat.GUI/lil-gui/tweakpane dependency is currently present in the repo. If added later, use it only as a developer/debug inspector for state and mappings, never as the primary human interface.",
+    "aperture_utility": "/field-aperture.js",
+    "aperture_rule": "When the task is inspect one text/JSON/source across scale/position/time, delegate to APERTURE rather than adding reader controls to AXIAL."
   },
   "breakthrough_method": {
     "hypothesis": "The strongest recent leaps were not caused by images alone. They occurred when a concrete visual/artifact reference acted as a retrieval anchor, exact donor behavior was recovered, a present-use failure was observed, and only one mechanism was transferred into a working surface.",
@@ -136,5 +142,13 @@
       "RETURN"
     ],
     "anti_pattern": "Moodboard → metaphor → new interface with no recovered mechanism or task comparison."
+  },
+  "interface_ecology": {
+    "AXIAL": "constraint/address compositor: unequal vocabularies + lawful support + fixed gate + explicit control position",
+    "APERTURE": "generic local inspector: semantic scale × position × time/voice over one source",
+    "SCALE_LENS": "deep stable-address projection workbench",
+    "FIELD_INDEX": "re-entry/index surface that embeds AXIAL/LATEST and summons APERTURE",
+    "rule": "Share focus/identity/RETURN laws; do not collapse the instruments or duplicate their state authorities.",
+    "sync": "/control/confluence/FOCUS_INTERFACE_SYNC_2026-09-21.json"
   }
 }
