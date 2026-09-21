@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "surface": "APERTURE / INSPECTOR",
-  "version": "0.4",
+  "version": "0.5",
   "route": "/foundry/aperture/",
   "state": "UTILITY",
   "operation": "INSPECT",
@@ -22,6 +22,14 @@
     {
       "source": "/recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html",
       "unit": "SpeechSynthesis boundary charIndex → word focus"
+    },
+    {
+      "source": "/recovery/sleeper/site-source-2026-09-18/experiments/painting/engine.mjs",
+      "unit": "Intl.Segmenter language-aware word/sentence/grapheme units + stable source offsets"
+    },
+    {
+      "source": "/recovery/sleeper/site-source-2026-09-18/experiments/painting/view.js",
+      "unit": "speech cancellation token prevents stale callbacks"
     }
   ],
   "controls": [
@@ -37,7 +45,13 @@
     "material-target host projection",
     "aperture-material event + CSS material variables",
     "dock(source,opt) reusable in-place host API",
-    "session handoff → standalone Aperture workbench"
+    "session handoff → standalone Aperture workbench",
+    "addressable restore: scale / address / index / WPM",
+    "DOCS COPY VIEW exact reading address",
+    "finite RSVP by default; explicit loop attribute opts into cyclic time",
+    "language-aware WORD segmentation with locale",
+    "GRAPHEME scale for continuous scripts / emoji-safe focus",
+    "speech generation token blocks stale cancelled callbacks"
   ],
   "non_claims": [
     "Ring gap is not semantic importance.",
@@ -57,15 +71,18 @@
       "/foundry/aperture/ standalone"
     ],
     "magnitude_ladder": "log10(bytes), visible ring gap spans 10^0..10^12",
-    "rsvp_default": "if current scale has <2 units, temporal play selects WORD for text or first traversable JSON level",
+    "rsvp_default": "if current scale has <2 units, temporal play selects language-aware WORD for text, then GRAPHEME fallback, or first traversable JSON level",
     "javascript_static_parse": "PASS",
     "rsvp_range": "60–3000 WPM experimental control range; no comprehension claim",
     "focus_schema": "field-aperture-focus/v0.2",
-    "material_projection": "position + scale + source magnitude → host CSS vars / event; presentation only"
+    "material_projection": "position + scale + source magnitude → host CSS vars / event; presentation only",
+    "addressed_resume": "DOCS src + ap_scale + ap_index + ap_addr + ap_wpm round-trip in browser smoke",
+    "high_speed": "3000-WPM browser witness: finite endpoint + throttled DOCS address checkpoints",
+    "multilingual": "browser witness mirrors recovered Painting Path seven-language segmentation: zh/en/ms/ta/ja/ar/th + grapheme cluster"
   },
   "updated": "2026-09-21",
-  "known_gap": "The universal inspection capability is operational. Material mapping and high-speed RSVP are presentation/temporal candidates: usefulness at speed, chunking/ORP needs, punctuation dwell and whole-space visual load remain ordinary-use questions.",
-  "capability": "Summon one local inspector against arbitrary text/JSON/object context; preserve identity while scale, position, temporal focus and optional host material state move together.",
+  "known_gap": "The universal inspection capability is operational and continuity/temporal/language failures found in ordinary use are hardened. Remaining candidates are human-use questions: ORP/chunking, preferred temporal density, comparative comprehension and whole-space material load.",
+  "capability": "Summon one local inspector against arbitrary text/JSON/object context; preserve identity while scale, address, multilingual unit, position, temporal focus and optional host material state move together, with replayable/addressable host return.",
   "host_resolution": [
     "selected text",
     "active INPUT/TEXTAREA value",
@@ -78,7 +95,7 @@
     "mapping": "outer=position; inner=scale; gap=log10(bytes); center=foveated focus; time/voice drive position",
     "claim": "Useful visualization candidate only; not required for capability status."
   },
-  "receipt": "/returns/APERTURE_MATERIAL_RSVP_2026-09-21.json",
+  "receipt": "/returns/APERTURE_USABILITY_CUT_2026-09-21.json",
   "charter": "/control/INSTRUMENT_CHARTERS.json#field-aperture",
   "return_contract": {
     "snapshot_schema": "field-aperture-focus/v0.2",
