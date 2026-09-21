@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -124,17 +124,30 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM instrument family · LIVE 0.1 performance / TWO DIAL 0.10 composition / ECOLOGY 0.2 game",
+      "head": "FOLD//BLOOM instrument family · TWO DIAL 0.10 composition / ECOLOGY 0.2 game / LIVE 0.1 performance + LISTEN 0.1 experimental external-audio projection",
       "state": "ACTIVE_CANDIDATE_FAMILY",
       "route": "/fold-bloom/",
-      "retained_function": "Current family keeps unequal heads explicit. LIVE is the narrow one-hand ratchet/charge/release performance proof with bounded demo. TWO DIAL 0.10 is the deep generative composition line: preserved MATTER×HARMONY relation algebra plus 7 WORLDs, 6 VOICE engines, 5 GROOVEs and SCALE-of-consequence over PULSE/VOICE/MOTIF/FORM. ECOLOGY remains persistence/lineage/game. Scale Lens is related historically but is now an extracted representation lineage rather than a Fold/Bloom playable branch.",
+      "retained_function": "Current family keeps unequal heads explicit. LIVE is the narrow one-hand ratchet/charge/release performance proof with bounded demo. TWO DIAL 0.10 is the deep generative composition line: preserved MATTER×HARMONY relation algebra plus 7 WORLDs, 6 VOICE engines, 5 GROOVEs and SCALE-of-consequence over PULSE/VOICE/MOTIF/FORM. ECOLOGY remains persistence/lineage/game. Scale Lens is related historically but is now an extracted representation lineage rather than a Fold/Bloom playable branch. LISTEN 0.1 is now an EXPERIMENTAL_CANDIDATE, not a promoted family head: local audio → bounded AUDIO MAP → TIME RING × BEAT/PHRASE/SECTION/TRACK scale rail → reactive fractal field → RETURN. It also extracts /lib/polar-control.js as a candidate donor for AXIAL/APERTURE ring ergonomics.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
         "/fold-bloom/two-dial/release.json",
         "/fold-bloom/ecology/release.json",
         "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
-        "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json"
+        "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
+        "/fold-bloom/listen/release.json",
+        "/fold-bloom/listen/README.md",
+        "/lib/polar-control.js"
+      ],
+      "experimental": [
+        {
+          "id": "fold-bloom-listen-01",
+          "route": "/fold-bloom/listen/",
+          "state": "CANDIDATE_EXPERIMENT",
+          "branch": "fold-bloom-listen-01",
+          "thesis": "A supplied song can become an addressed playable field without uploading it: decode locally, extract a bounded audio map, then let ring/time and vertical scope operate on the same analysis clock.",
+          "promotion_gate": "real-song trials across materially different tracks + browser/mobile smoke + analysis plausibility + no regression of existing family heads"
+        }
       ]
     },
     {
@@ -164,6 +177,13 @@
       "state": "ACTIVE_ADAPTER",
       "route": "/shopping/",
       "retained_function": "Capability gap/listing/receipt → freshness + landed SGD + explicit purchase gate + lifecycle → bounded research packet / BOM / inventory candidate / explicit non-action. Personal state remains local/private; money and seller contact remain human actions."
+    },
+    {
+      "lineage": "triangle",
+      "head": "TRIANGLE 1.0 · GLYPH / FORM / POWER / BENCH",
+      "state": "ACTIVE",
+      "route": "/forward-field-proof/triangle/",
+      "retained_function": "One small geometry with distinct lawful projections: eight-locus relational compression, executable one-mark CALL/CROSS FORM rewriting, missing-corner power/log/root notation, and direct simplex manipulation; all share address/state/RETURN without claiming formal equivalence."
     }
   ],
   "donors_and_holds": [
@@ -180,7 +200,7 @@
     {
       "name": "Center Mass 0.3",
       "state": "DONOR",
-      "rule": "PLAIN/FCM absorbed the useful control-surface direction"
+      "rule": "Useful control direction already absorbed elsewhere; retained under Triangle lineage as a donor, not a competing active selector."
     },
     {
       "name": "Surface Bank",
@@ -193,9 +213,10 @@
       "rule": "CASE/evidence mechanics may transfer; not an active front"
     },
     {
-      "name": "Triangle Bench",
-      "state": "PARKED",
-      "rule": "resume only if AXIAL/proof work requires comparison evidence"
+      "name": "Triangle Bench 0.1",
+      "state": "PARKED_EXACT_DONOR",
+      "rule": "Exact pre-unification calibration fixture preserved; resume only for a named comparison/proof need.",
+      "route": "/forward-field-proof/triangle/bench/"
     },
     {
       "name": "Foundry Cabinet V4 / exact path-grid family",
@@ -490,7 +511,9 @@
     "house_field": "/house/",
     "body_house_convergence": "/control/BODY_HOUSE_CONVERGENCE_2026-09-21.json",
     "fold_bloom_sound_depth": "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
-    "fold_bloom_sound_depth_return": "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json"
+    "fold_bloom_sound_depth_return": "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
+    "triangle": "/forward-field-proof/triangle/",
+    "triangle_return": "/returns/TRIANGLE_UNIFIED_2026-09-22.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",

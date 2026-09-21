@@ -407,7 +407,7 @@ const CASES=[
     name:'READFIELD over APERTURE',
     route:'/foundry/readfield/',
     options:{width:430,height:900,budget:7000},
-    check:dom=>/READFIELD/i.test(dom)&&dom.includes('RF/02')&&dom.includes('id=\"ap\"')&&dom.includes('id=\"lineMap\"')&&dom.includes('id=\"discMap\"')&&dom.includes('HOLD CONTEXT')&&dom.includes('field-aperture.js')&&!dom.includes('load failure')
+    check:dom=>/READFIELD/i.test(dom)&&dom.includes('RF/02')&&dom.includes('id="ap"')&&dom.includes('id="lineMap"')&&dom.includes('id="discMap"')&&dom.includes('HOLD CONTEXT')&&dom.includes('field-aperture.js')&&!dom.includes('load failure')
   },
   {
     name:'DOCS APERTURE',
@@ -504,6 +504,12 @@ const CASES=[
     route:'/fold-bloom/two-dial/',
     options:{width:1180,height:900,budget:9000},
     check:dom=>/HOLD FAST \/ LET FLY/i.test(dom)&&/SCALE OF CONSEQUENCE/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')
+  },
+  {
+    name:'FOLD BLOOM LISTEN 0.1',
+    route:'/fold-bloom/listen/',
+    options:{width:1180,height:900,budget:9000},
+    check:dom=>/LISTEN 0\.1/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')
   },
   {
     name:'SCALE LENS',
