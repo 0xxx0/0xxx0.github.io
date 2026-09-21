@@ -173,4 +173,5 @@ fieldPulse.subscribe(msg=>{
 document.addEventListener('visibilitychange',()=>{if(document.hidden){stopDemo(false);audio.stop()}else if(audio.ctx)audio.start()});
 function loop(t){renderer.draw(state,t);raf=requestAnimationFrame(loop)}raf=requestAnimationFrame(loop);
 update();
-window.FoldBloomLive={version:VERSION,state:()=>({...snapshot(state),linkedTrack}),release:doRelease,step};
+document.documentElement.dataset.foldBloomLive='ready';
+window.FoldBloomLive={version:VERSION,state:()=>({...snapshot(state),linkedTrack}),release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow()};
