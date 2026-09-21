@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#080a0c"><title>AXIAL / FOCUS STACK 0.7</title>
+<meta name="theme-color" content="#080a0c"><title>AXIAL / FOCUS STACK 0.7.1</title>
 <style>
 :root{--bg:#080a0c;--panel:#0d1114;--panel2:#0a0d0f;--ink:#f0f2ee;--mut:#818d92;--line:#2b3539;--hot:#ef7043;--cool:#69b7e6;--gold:#d9b36c;--green:#9bd78c}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -84,11 +84,12 @@ footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid 
  </div>
  <div class="boundary" id="boundary"><b>HOUSE IS READ-ONLY HERE.</b> This aperture can address the public model; real actuation stays behind HOUSEBUS.</div>
  <div class="label" style="margin-top:9px">RECENT RETURNS</div><div class="receipts" id="receipts"><div class="empty">No returns yet.</div></div>
- <div class="actions" style="grid-template-columns:1fr 1fr"><a href="./lab-0.5.1.html">TRACE LAB 0.5.1 →</a><a href="./aperture.contract.json">CONTRACT →</a></div>
+ <div class="actions" style="grid-template-columns:repeat(3,1fr)"><a href="./lab-0.5.1.html">TRACE LAB →</a><a href="./aperture.contract.json">CONTRACT →</a><a href="./research.json">RESEARCH →</a></div>
 </section>
 </div>
 <span hidden>HOUSE: SOFA LIGHT</span><footer><span><a href="../../">← FIELD</a> · <a href="../">FOUNDRY</a> · <a href="../../fold-bloom/lens/">SCALE LENS</a></span><span>RING STACK → FOCUS → APERTURE → OPEN / RETURN</span></footer>
 </main>
+<script src="./focus-core.js"></script>
 <script>
 (function(){'use strict';
 var TAU=Math.PI*2,$=function(s){return document.querySelector(s)},cv=$('#wheel'),ctx=cv.getContext('2d'),stage=$('#stage'),INIT=new URLSearchParams(location.search),initialApplied=false;
@@ -110,7 +111,10 @@ function recVal(rec,key){var v=rec[key];return Array.isArray(v)?v:[v==null?'NONE
 function matchesRing(rec,r,v){v=v==null?selected(r):v;if(v==='ANY')return true;return recVal(rec,r.key).indexOf(v)>=0}
 function textMatch(rec){var q=S.search.trim().toLowerCase();return !q||(rec.title+' '+rec.id+' '+rec.href+' '+rec.desc).toLowerCase().includes(q)}
 function recordMatches(rec,overrideRi,overrideValue){if(!textMatch(rec))return false;return S.rings.every(function(r,ri){return matchesRing(rec,r,ri===overrideRi?overrideValue:null)})}
-function computeSupport(){S.rings.forEach(function(r,ri){r.support=r.values.map(function(v){var n=0;S.records.forEach(function(rec){if(recordMatches(rec,ri,v))n++});return n})})}
+function computeSupport(){
+ var keys=S.rings.map(function(r){return r.key}),selectedMap=Object.fromEntries(S.rings.map(function(r){return[r.key,selected(r)]}));
+ S.rings.forEach(function(r){r.support=AxialFocusCore.supports(S.records,keys,selectedMap,r.key,r.values,function(rec,key,v){if(v==='ANY')return true;return recVal(rec,key).indexOf(v)>=0},textMatch)})
+}
 function address(){return S.source.toLowerCase()+'://'+S.rings.map(function(r){return r.key+'='+encodeURIComponent(selected(r))}).join('/')}
 function focusAddress(){return address()+(S.focus?'#'+encodeURIComponent(S.focus.id):'')}
 function syncURL(){
@@ -202,25 +206,30 @@ function drawWheel(){
     ctx.save();ctx.rotate(a);ctx.translate(0,-rm);ctx.rotate(Math.PI/2);ctx.fillStyle=on?'#fff':live?'rgba(183,207,219,'+(.45+.45*strength).toFixed(2)+')':'rgba(92,101,105,.20)';ctx.font=(on?'700 ':'400 ')+(r.values.length>20?'6.5':'8')+'px ui-monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(short(r.values[i],r.values.length>20?7:10)+(live?' ·'+sup:''),0,0);ctx.restore()
    }
   }
-  ctx.strokeStyle=ri===S.activeRing?'rgba(105,183,230,.55)':'rgba(80,96,103,.32)';ctx.lineWidth=ri===S.activeRing?2:1;ctx.beginPath();ctx.arc(0,0,ro,0,TAU);ctx.stroke()
+  ctx.strokeStyle=ri===S.activeRing?'rgba(105,183,230,.62)':'rgba(80,96,103,.32)';ctx.lineWidth=ri===S.activeRing?2:1;ctx.beginPath();ctx.arc(0,0,ro,0,TAU);ctx.stroke();
+  /* moving index witness + fixed 12-o'clock gate: current ring orientation is always explicit */
+  var wa=AxialFocusCore.angle(r.index,r.values.length,r.rot),w0=ro-bw*.82,w1=ro-bw*.18;
+  ctx.strokeStyle=ri===S.activeRing?'#69b7e6':'rgba(239,112,67,.72)';ctx.lineWidth=ri===S.activeRing?3:1.5;ctx.beginPath();ctx.moveTo(Math.cos(wa)*w0,Math.sin(wa)*w0);ctx.lineTo(Math.cos(wa)*w1,Math.sin(wa)*w1);ctx.stroke();
+  ctx.fillStyle=ri===S.activeRing?'#69b7e6':'#ef7043';ctx.beginPath();ctx.arc(Math.cos(wa)*rm,Math.sin(wa)*rm,ri===S.activeRing?3.4:2.2,0,TAU);ctx.fill()
  }
  ctx.strokeStyle='#ef7043';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(0,-D.outer-5);ctx.lineTo(0,-D.inner+4);ctx.stroke();
+ ctx.fillStyle='#ef7043';ctx.beginPath();ctx.moveTo(-5,-D.outer-7);ctx.lineTo(5,-D.outer-7);ctx.lineTo(0,-D.outer+2);ctx.closePath();ctx.fill();
  ctx.restore()
 }
 function renderStrip(){
  var el=$('#strip');if(S.projection!=='STRIP'){el.style.display='none';return}el.style.display='block';
- el.innerHTML=S.rings.map(function(r,ri){return'<div class="stripRow"><div class="stripName"><b>'+esc(r.label)+'</b>'+r.values.length+' POS</div><div class="stripViewport" data-ri="'+ri+'"><div class="stripTrack">'+r.values.map(function(v,i){var sup=(r.support&&r.support[i])||0;return'<button class="stripToken '+(i===r.index?'on ':'')+(sup?'live':'dead')+'" data-ri="'+ri+'" data-i="'+i+'">'+esc(v)+'<small>'+sup+' live</small></button>'}).join('')+'</div></div></div>'}).join('');
+ el.innerHTML=S.rings.map(function(r,ri){var pos=AxialFocusCore.position(r.values,r.index);return'<div class="stripRow"><div class="stripName"><b>'+esc(r.label)+'</b>'+pos.label+' · '+r.values.length+' POS</div><div class="stripViewport" data-ri="'+ri+'"><div class="stripTrack">'+r.values.map(function(v,i){var sup=(r.support&&r.support[i])||0;return'<button class="stripToken '+(i===r.index?'on ':'')+(sup?'live':'dead')+'" data-ri="'+ri+'" data-i="'+i+'">'+esc(v)+'<small>'+sup+' live</small></button>'}).join('')+'</div></div></div>'}).join('');
  el.querySelectorAll('.stripToken').forEach(function(b){b.onclick=function(){S.activeRing=+b.dataset.ri;setIndex(S.rings[S.activeRing],+b.dataset.i,true)}});
  requestAnimationFrame(function(){el.querySelectorAll('.stripToken.on').forEach(function(b){b.scrollIntoView({block:'nearest',inline:'center'})})})
 }
 function render(){
  $('#srcField').classList.toggle('on',S.source==='FIELD');$('#srcHouse').classList.toggle('on',S.source==='HOUSE');$('#viewRing').classList.toggle('on',S.projection==='RING');$('#viewStrip').classList.toggle('on',S.projection==='STRIP');
  cv.style.display=S.projection==='RING'?'block':'none';document.querySelector('.spine').style.display=S.projection==='RING'?'block':'none';$('#stageLabel').textContent=S.source+(S.source==='FIELD'?' INDEX':' / SPATIAL')+' · '+(S.projection==='RING'?'DRAG RING · RELEASE TO SNAP · GATE READS ALIGNMENT':'SAME ADDRESS UNWRAPPED · TAP TOKEN TO ALIGN');
- $('#legend').innerHTML=S.rings.map(function(r,i){var sup=(r.support&&r.support[r.index])||0;return'<div style="border-left-color:'+(i===S.activeRing?'#69b7e6':'#3d494e')+'"><b>'+esc(r.label)+'</b> '+esc(selected(r))+' <i>/ '+r.values.length+' · '+sup+' live</i></div>'}).join('');
+ $('#legend').innerHTML=S.rings.map(function(r,i){var sup=(r.support&&r.support[r.index])||0,pos=AxialFocusCore.position(r.values,r.index);return'<div style="border-left-color:'+(i===S.activeRing?'#69b7e6':'#3d494e')+'"><b>'+esc(r.label)+'</b> '+esc(selected(r))+' <i>'+pos.label+' · '+sup+' live</i></div>'}).join('');
  $('#tuple').innerHTML=S.rings.map(function(r){return'<span class="chip"><b>'+esc(r.label)+'</b> '+esc(selected(r))+'</span>'}).join('');
  $('#count').textContent=S.loaded?S.matches.length:'—';$('#countSub').textContent=S.source==='FIELD'?'FIELD routes satisfying the aligned tuple':'HOUSE anchors satisfying the aligned tuple';
  $('#sourceStatus').textContent=S.source==='FIELD'?'LIVE STATIC INDEX · OPENABLE':'PUBLIC MODEL · NO ACTUATION';
- if(S.drag){var ar=S.rings[S.activeRing],sv=selected(ar),ss=(ar.support&&ar.support[ar.index])||0;$('#matchN').textContent=short(sv,12);$('#matchN').nextElementSibling.textContent=ar.label;$('#centerFocus').textContent=ss+' compatible '+(ss===1?'identity':'identities')}else{$('#matchN').textContent=S.loaded?S.matches.length:'—';$('#matchN').nextElementSibling.textContent='MATCHES IN APERTURE';$('#centerFocus').textContent=S.focus?short(S.focus.title,28):(S.loaded?'NO MATCH':'loading…')};
+ if(S.drag){var ar=S.rings[S.activeRing],sv=selected(ar),ss=(ar.support&&ar.support[ar.index])||0,ap=AxialFocusCore.position(ar.values,ar.index);$('#matchN').textContent=short(sv,12);$('#matchN').nextElementSibling.textContent=ar.label+' · '+ap.label;$('#centerFocus').textContent=ss+' compatible '+(ss===1?'identity':'identities')}else{$('#matchN').textContent=S.loaded?S.matches.length:'—';$('#matchN').nextElementSibling.textContent='MATCHES IN APERTURE';$('#centerFocus').textContent=S.focus?short(S.focus.title,28):(S.loaded?'NO MATCH':'loading…')};
  var res=$('#results');if(!S.loaded)res.innerHTML='<div class="empty">Loading…</div>';else if(!S.matches.length)res.innerHTML='<div class="empty">DEAD ALIGNMENT · dim positions cannot satisfy the other rings. Turn toward a bright position, ANY, or BACK.</div>';else res.innerHTML=S.matches.slice(0,40).map(function(r){return'<div class="result '+(S.focus&&S.focus.id===r.id?'on':'')+'" data-id="'+esc(r.id)+'"><div><b>'+esc(r.title)+'</b><small>'+esc(r.desc||r.href)+'</small></div><i>FOCUS →</i></div>'}).join('');
  res.querySelectorAll('.result').forEach(function(el){el.onclick=function(){var rec=S.matches.find(function(x){return x.id===el.dataset.id});focusRecord(rec,true)}});
  var f=$('#focusCard');if(S.focus)f.innerHTML='<div class="k">'+esc(S.source+' / FOCUS')+'</div><h2>'+esc(S.focus.title)+'</h2><p>'+esc(S.focus.desc||'Addressed identity in current source.')+'</p><div class="addr">'+esc(focusAddress())+'</div>';else f.innerHTML='<div class="k">FOCUS</div><h2>—</h2><p>No identity is inside the current aperture.</p>';
