@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T15:20:00+08:00",
+        "updated_at": "2026-09-21T15:54:02+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -31,7 +31,8 @@
       "transfer": [
         "AXIAL 0.6.1 unequal-vocabulary focus compositor",
         "selection != navigation",
-        "shared focus across chronology / axial / map"
+        "shared focus across chronology / axial / map",
+        "Aperture dock: inspect focused route without leaving FIELD"
       ]
     },
     {
@@ -106,7 +107,8 @@
         "raw-source preservation",
         "residue without obligation",
         "idea ancestry without build commitment",
-        "explicit outbound authority boundary"
+        "explicit outbound authority boundary",
+        "Aperture dock: inspect intake source in place"
       ],
       "contract": {
         "transforms": {
@@ -295,10 +297,8 @@
         }
       ],
       "index": {
-        "updated_at": "2026-09-21T02:45:00+08:00",
+        "updated_at": "2026-09-21T15:54:02+08:00",
         "work_modes": [
-          "RECOVER",
-          "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
@@ -4138,6 +4138,151 @@
       "return_export": {
         "kind": "browser-generated",
         "filename": "poem-map-return.json"
+      }
+    },
+    {
+      "href": "/foundry/aperture/",
+      "title": "APERTURE 0.1",
+      "kind": "experiment",
+      "parent": "/foundry/",
+      "family": "FOUNDRY",
+      "operation": "INSPECT",
+      "state": "PROOF_REQUIRED",
+      "version": "0.1",
+      "receipt": "/foundry/aperture/release.json",
+      "showase_card": false,
+      "role": "Reusable two-ring scale×position inspector for text/JSON: outer dial chooses focus position, inner dial chooses scale, ring gap encodes logarithmic source magnitude, and RSVP/TTS drive the same stable focus.",
+      "transfer": [
+        "Two Dial: two cyclic controls → one consequence",
+        "AXIAL: fixed focus + unequal cyclic vocabularies",
+        "Scale Lens: stable address across zoom",
+        "RSVP 2018: speech boundary charIndex → temporal word focus"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "text",
+            "JSON/object",
+            "local file",
+            "session handoff",
+            "host-selected route metadata"
+          ],
+          "requires": [
+            "one source object or string"
+          ],
+          "optional": [
+            "label",
+            "starting scale"
+          ]
+        },
+        "transforms": {
+          "verb": "project one source through scale × position × time while preserving exact local focus identity",
+          "preserves": [
+            "source content",
+            "focus address",
+            "scale identity",
+            "local-only authority"
+          ],
+          "reversibility": "full navigation",
+          "side_effects": "browser-local speech synthesis / timer only"
+        },
+        "emits": {
+          "kinds": [
+            "field-aperture-focus/v0.1",
+            "local focus event",
+            "optional speech output"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/foundry/aperture/release.json",
+          "checks": [
+            "text scale ladder",
+            "JSON depth ladder",
+            "logarithmic magnitude gap",
+            "RSVP stepping",
+            "SpeechSynthesis word-boundary sync",
+            "dock reuse in FIELD/HUMAN PORT"
+          ],
+          "return_path": "/foundry/aperture/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "REPRESENT",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "text / JSON / addressed route metadata",
+            "interface": "field-aperture.js load/dock/handoff"
+          },
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "scale / position / time traversal",
+            "interface": "two rings + compact controls"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "foveated focus",
+            "interface": "center aperture"
+          },
+          {
+            "medium": "DATA",
+            "kind": "stable local address + scale + index",
+            "interface": "field-aperture-focus/v0.1"
+          },
+          {
+            "medium": "AUDIO",
+            "kind": "speech / temporal focus",
+            "interface": "Web Speech synthesis"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "SCALE_LENS",
+            "status": "AVAILABLE",
+            "via": "same source / separate projection"
+          },
+          {
+            "class": "TWO_DIAL",
+            "status": "REFERENCE",
+            "via": "donor interaction lineage"
+          },
+          {
+            "class": "RSVP",
+            "status": "AVAILABLE",
+            "via": "time-driven position / speech-boundary sync"
+          }
+        ],
+        "physical_fit": "Potential compact ring/annulus control grammar; no physical embodiment claim in 0.1."
+      },
+      "index": {
+        "updated_at": "2026-09-21T15:54:02+08:00",
+        "work_modes": [
+          "RECOVER",
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/foundry/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can one tiny scale×position aperture replace large inspector/control panels for heterogeneous text/JSON while keeping exact focus, temporal reading and source magnitude legible?",
+        "baseline": "textarea/tree inspector + separate reader/TTS controls",
+        "mutation": "two-ring foveated inspector with log source-magnitude gap and shared RSVP/TTS focus",
+        "evidence_gate": "Use on at least three hosts and compare reorientation / focus recovery against plain source view.",
+        "next_if_pass": "TRANSFER field-aperture.js as a small shared instrument available to FIELD/HUMAN PORT/LENS and other surfaces.",
+        "next_if_fail": "PARK ring encoding; keep source analyzer and temporal-focus donor mechanics."
       }
     }
   ],
