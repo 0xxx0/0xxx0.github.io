@@ -4,7 +4,7 @@
   "route": "/body/fit/",
   "version": "0.3",
   "released": "2026-09-22",
-  "state": "EXPERIMENT",
+  "state": "CANDIDATE",
   "changes": [
     "0.2 donor retained: transformed FIT into an explicit LOADOUT surface with capability rail, known mass, power/service metadata, module cards, purpose-specific prep kits and revision-aware prep checks",
     "added optional loose prep items to saved loadout kits",
