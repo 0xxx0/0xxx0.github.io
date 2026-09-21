@@ -4,9 +4,21 @@
   "max_live": 3,
   "live": [
     {
+      "id": "conversion",
+      "front_id": "conversion",
+      "goal": "Turn existing capability into usable/shareable/embodied consequence; do not reward coordination churn.",
+      "horizon": "ACTIVE_NOW",
+      "next": [
+        "Prefer changes another human can experience without reading control files.",
+        "Prefer real device/room/body/print consequences over another internal proof when both are possible.",
+        "After one material conversion, RETURN and replan; no automatic sequel."
+      ],
+      "receipt": "/control/confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md"
+    },
+    {
       "id": "recover-repo",
       "goal": "Maintain exact recovered lineages, pursue only source-grounded blocked recovery, and stop solved families from reopening.",
-      "horizon": "maintenance / opportunistic",
+      "horizon": "MAINTENANCE / REOPEN ONLY ON LIVE BLOCKER",
       "next": [
         "App Atlas JSON + runnable HTML are now durable under /recovery/toolbelt/ with repo SHA-256 and semantic cross-checks; original File Library text byte equality remains unproven. The exact `The sleeper engine: a transformative journey.png` raw binary is the remaining Toolbelt gate: materialize without re-encoding, hash, then seal.",
         "City v0.2 source and later Painting runtime are recovered. Earlier Library painting-path.html remains a distinct variant; reopen only for a named version comparison, not presumed loss.",
@@ -21,7 +33,7 @@
     {
       "id": "ingest-files-media",
       "goal": "Create one reversible local ingest layer for Downloads/Library/media that labels and deduplicates before moving anything.",
-      "horizon": "LOCAL DRY-RUN VERIFIED / ONE-FAMILY REVIEW BLOCKED IN CURRENT EXECUTOR",
+      "horizon": "MAINTENANCE / LOCAL EXECUTION WHEN SOURCE REPORTS ACCESSIBLE",
       "next": [
         "Local Documents dry-run completed: 559 files, 557 byte objects, two duplicate groups. Next review one exact app/design family using original-name/hash provenance; no automatic moves.",
         "Review REVIEW_CONFLICT records; never resolve them by rule order alone.",
@@ -33,8 +45,8 @@
     {
       "id": "human-port-use",
       "front_id": "human-port-use",
-      "goal": "Observe ordinary HUMAN PORT use across three unequal object classes; no dedicated QA ritual, transport, or autonomous sending.",
-      "horizon": "ACTIVE_NOW / ORDINARY USE ONLY",
+      "goal": "Preserve ordinary-use evidence if it naturally occurs; do not manufacture a HUMAN PORT test campaign.",
+      "horizon": "WAITING_ON_ORDINARY_USE / NOT ACTIVE",
       "next": [
         "Use FIELD and HUMAN PORT normally. Across natural opportunities, cover one generated image, one authored text/JSON file and one opaque authored file.",
         "PR #111 is a closed observation-harness donor, not a failed product patch. Do not recreate dedicated specimen smoke under virtual-time CI.",
@@ -88,26 +100,25 @@
   "next_three_transformations": [
     {
       "order": 1,
-      "id": "recover-toolbelt",
-      "move": "Recover exact historical tool sources into durable repo provenance; no cleanup or feature invention during recovery.",
-      "pass": "Complete only when the exact transformative-journey PNG original bytes are materialized and SHA-256 recorded; text repo hashes alone do not certify original byte identity.",
-      "status": "PARTIAL_MATERIALIZATION: 2 TEXT ARTIFACTS REPO-HASHED / PNG RAW BINARY BLOCKED",
-      "evidence": "/recovery/toolbelt/RECOVERY.json"
+      "id": "outside-human-release",
+      "move": "Take one already-working creative/tool head to context-free use by another human. No new architecture. Default candidates are existing public Fold/Bloom, Sleeper, Verse/READFIELD, or ROOM surfaces.",
+      "pass": "Stable public route + first-use path that does not require project lore + one external-use RETURN identifying friction/value.",
+      "status": "MACHINE_PREP_EXECUTABLE / EXTERNAL_RETURN_LATER"
     },
     {
       "order": 2,
-      "id": "derive-tool-lineage-reading",
-      "move": "Derive one read-only operator → donors → current carriers → RETURN/gaps reading from existing FIELD/CONFLUENCE records.",
-      "gate": "Only after the relevant tool sources are recovered exactly enough to prevent retrospective rewriting.",
-      "pass": "A cross-time mechanism question can be answered without project-by-project archaeology; plain search/list remains the control.",
-      "status": "DONE_READ_ONLY_V01",
-      "evidence": "/control/confluence/TOOL_LINEAGE_READING_2026-09-22.json"
+      "id": "world-return",
+      "move": "Use one existing world-facing adapter rather than designing another: BODY BRIDGE device round-trip, HOUSE/Spatial reversible change, or print/physical projection.",
+      "pass": "Before → action → after → observed consequence → next decision. A render/spec/CI receipt alone does not pass.",
+      "status": "WAITING_FOR_REAL_WORLD_CONTACT_WHEN_CHOSEN",
+      "evidence": "/control/WAITING.json"
     },
     {
       "order": 3,
-      "id": "ordinary-use-selects-build",
-      "move": "Use FIELD / Port / Lens / House normally; translate repeated real friction or unusually useful moments into bounded mechanism-transfer tests.",
-      "pass": "The next implementation is selected by observed repeated use evidence, not dormant-project attractiveness."
+      "id": "recovery-only-when-unlocking",
+      "move": "Continue exact recovery only for gaps that materially unlock a current conversion: polished ONE RETURN v2 identity/source, Toolbelt target PNG bytes, ENV-0 exact PDFs, or equivalent named blockers.",
+      "pass": "Exact source/bytes or explicit blocked boundary; recovered material must either unlock a current head or remain parked.",
+      "status": "BOUNDED_MAINTENANCE"
     }
   ]
 }
