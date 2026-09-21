@@ -78,7 +78,13 @@ function rebuildEnvelope(preserve = true) {
       dayStart: String(state.meta.dayStart || '11:00'),
       dayEnd: String(state.meta.dayEnd || '23:00'),
     }),
-    { kind: 'capture', raw: draft }
+    {
+      kind: incomingHandoff ? handoffKind : 'capture',
+      raw: draft,
+      sourceCaseId: incomingHandoff?.source_case_id || null,
+      sourceObjectId: incomingHandoff?.source_object_id || null,
+      sourceObject: incomingHandoff?.source_object || null
+    }
   );
   for (const candidate of envelope.candidates) {
     if (prior.has(candidate.record.id)) candidate.resolution = prior.get(candidate.record.id);
