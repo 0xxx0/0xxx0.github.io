@@ -181,6 +181,7 @@ function renderVisual(){
   showInspector(selectedRoute==='/'?visualRoot:selectedRoute);
   renderCrumbs();
   $('scaleRead').textContent='SCALE '+ancestors(visualRoot).length+' / '+(visualRoot==='/'?'FIELD':String(center?.title||visualRoot).toUpperCase());
+  if(window.FieldLensAPI)fieldLensEmit();
 }
 function selectVisual(href){
   const cm=childrenMap(),hasKids=(cm.get(href)||[]).length>0;
@@ -206,6 +207,53 @@ function showInspector(href){
 function scaleOut(){if(visualRoot==='/')return;const r=routeMap().get(visualRoot);visualRoot=r?.parent||'/';selectedRoute=visualRoot;renderVisual()}
 function scaleRoot(){visualRoot='/';selectedRoute='/';renderVisual()}
 function lensSelected(){const r=selectedRoute==='/'?{title:'FIELD INDEX',href:'/',kind:'root',state:'CORE',role:'Orientation layer over CURRENT + manifest + exit contracts.'}:routeMap().get(selectedRoute);if(!r)return;const route={schema:'field-route/v0.1',id:r.id||r.href,href:r.href,title:r.title,kind:r.kind,state:r.state,operation:r.operation,role:role(r),index:r.index,parent:r.parent,family:r.family},text=JSON.stringify(route,null,2),legacy={text,label:'FIELD · '+(r.title||r.href),created_at:new Date().toISOString(),source:'field-index-map'};try{if(window.LensState){const s=LensState.fromFieldRoute(route,{returnAddress:location.pathname+location.search+location.hash});LensState.storeHandoff(s,{title:legacy.label,sourceUrl:r.href,text})}sessionStorage.setItem('scale.lens.handoff.v01',JSON.stringify(legacy));location.assign('./fold-bloom/lens/')}catch(_){try{sessionStorage.setItem('scale.lens.handoff.v01',JSON.stringify(legacy))}catch(__){}location.assign('./fold-bloom/lens/')}}
+function fieldLensRoute(){
+  if(selectedRoute==='/'||!routeMap().get(selectedRoute))return {id:'/',title:'FIELD INDEX',href:'/',kind:'root',state:'CORE',operation:'ORIENT',parent:'/',family:'FIELD',role:'Orientation layer over CURRENT + manifest + exit contracts.'};
+  return routeMap().get(selectedRoute);
+}
+function fieldLensUiState(){return {mode,filter,query,visualRoot,selectedRoute}}
+function fieldLensSnapshot(){
+  if(!window.LensState)return null;
+  const r=fieldLensRoute(),route={schema:'field-route/v0.1',id:r.id||r.href,href:r.href,title:r.title,kind:r.kind,state:r.state,operation:r.operation,role:role(r),index:r.index,parent:r.parent,family:r.family};
+  let s=LensState.fromFieldRoute(route,{returnAddress:location.pathname+location.search+location.hash});
+  s.aperture={level:ancestors(visualRoot).length,range:visualRoot,shape:'field-map'};
+  s.projection=mode;
+  s.meta={...s.meta,visualRoot,filter,query};
+  if(filter!=='ALL')s=LensState.compose(s,{lensId:'field-filter',lensVersion:'1',kind:LensState.VIEW,params:{filter},inputContract:'field-route/v0.1',outputContract:'projection/field-filter',preserves:['objectId','focusId'],hides:[],derives:['visible-route-set'],authority:'PREVIEW'});
+  return LensState.normalize(s);
+}
+function fieldLensEmit(){const s=fieldLensSnapshot();if(s)dispatchEvent(new CustomEvent('field-lens:state',{detail:s}))}
+function fieldLensProject(next){
+  if(!['VISUAL','PULSE','STRUCTURE','RECENT'].includes(next))return;
+  mode=next;
+  document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
+  renderMap();
+}
+function fieldLensRise(){
+  if(visualRoot==='/')return fieldLensEmit();
+  const r=routeMap().get(visualRoot);visualRoot=r?.parent||'/';selectedRoute=visualRoot;renderMap();
+}
+function fieldLensDive(){
+  const target=selectedRoute==='/'?visualRoot:selectedRoute,cm=childrenMap();
+  if(target!=='/'&&(cm.get(target)||[]).length){visualRoot=target;selectedRoute=target;renderMap()}else fieldLensEmit();
+}
+function fieldLensPeer(delta){
+  const xs=(childrenMap().get(visualRoot)||[]).filter(matchFilter);
+  if(!xs.length)return fieldLensEmit();
+  let i=xs.findIndex(r=>r.href===selectedRoute);
+  if(i<0)i=delta>0?-1:0;
+  i=(i+delta+xs.length)%xs.length;selectedRoute=xs[i].href;renderMap();
+}
+function fieldLensRestore(st){
+  if(!st)return;
+  mode=st.mode||'VISUAL';filter=st.filter||'ALL';query=st.query||'';visualRoot=st.visualRoot||'/';selectedRoute=st.selectedRoute||visualRoot;
+  $('find').value=query;
+  document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
+  document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('on',b.dataset.filter===filter));
+  renderMap();
+}
+window.FieldLensAPI=Object.freeze({snapshot:fieldLensSnapshot,uiState:fieldLensUiState,restore:fieldLensRestore,rise:fieldLensRise,dive:fieldLensDive,peer:fieldLensPeer,project:fieldLensProject,openStudio:lensSelected});
+
 function subtreeHas(r,cm){
   if(matchFilter(r))return true;
   return (cm.get(r.href)||[]).some(c=>subtreeHas(c,cm));
@@ -261,7 +309,7 @@ function renderRecent(){
   $('map').className='flat';
   $('map').innerHTML=xs.map(r=>'<a class="flatRow" href=".'+esc(r.href)+'"><div><div class="name">'+esc(r.title)+'</div><div class="meta">'+esc(r.href)+'</div></div><div class="meta">'+esc(r.index.updated_at)+'</div><div class="status">'+esc((r.index.work_modes||['UNKNOWN']).join(' · '))+'</div><div class="desc">'+esc(role(r))+'</div><div class="arrow">OPEN →</div></a>').join('')||'<div class="flatRow"><div class="desc">No recent routes match.</div></div>';
 }
-function renderMap(){if(mode==='VISUAL')renderVisual();else if(mode==='PULSE')renderPulse();else if(mode==='RECENT')renderRecent();else renderStructure()}
+function renderMap(){if(mode==='VISUAL')renderVisual();else if(mode==='PULSE')renderPulse();else if(mode==='RECENT')renderRecent();else renderStructure();if(mode!=='VISUAL'&&window.FieldLensAPI)fieldLensEmit()}
 function renderPorts(){
  const rank={HUMAN_EVIDENCE_REQUIRED:0,ADAPTER_REQUIRED:1,REQUIRED:2,SPECIFIED:3,CANDIDATE:4,REFERENCE:5};
  let xs=routes.flatMap(r=>(r.field?.exit_paths||[]).filter(e=>e.status!=='AVAILABLE').map(e=>({r,e})));
@@ -284,4 +332,5 @@ $('feedRecent').onclick=()=>{mode='RECENT';document.querySelectorAll('[data-mode
 $('find').oninput=e=>{query=e.target.value.trim().toLowerCase();renderMap()};$('scaleOut').onclick=scaleOut;$('scaleRoot').onclick=scaleRoot;$('miLens').onclick=lensSelected;
 })();
 </script>
+<script src="./lens-focus-ring.js"></script>
 </body></html>
