@@ -697,10 +697,10 @@ const CASES=[
     check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/EXTRACTED DESCENDANT · SCALE LENS/i.test(dom)&&/TWO DIAL 0\.10/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)
   },
   {
-    name:'FOLD BLOOM LIVE 0.3 section arc',
+    name:'FOLD BLOOM LIVE 0.4 TRACKFIELD',
     route:'/fold-bloom/live/',
     options:{width:430,height:900,budget:9000},
-    check:dom=>/LIVE 0\.3/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('id="demoBtn"')&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="timing"')&&dom.includes('id="trackFile"')&&dom.includes('id="trackLoad"')&&dom.includes('id="trackToggle"')&&/SECTION ARC|section arcs/i.test(dom)&&/WATCH DEMO/i.test(dom)
+    check:dom=>/LIVE 0\.4/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('id="demoBtn"')&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="timing"')&&dom.includes('id="trackFile"')&&dom.includes('id="trackLoad"')&&dom.includes('id="trackToggle"')&&/TRACKFIELD/.test(dom)&&/LOAD MP3 · RIDE/.test(dom)&&/SEE IT\./.test(dom)
   },
   {
     name:'TWO DIAL sound field 0.10',
