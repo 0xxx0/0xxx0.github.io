@@ -2,6 +2,8 @@ import {verifyTrace} from './policy-trace-verifier.mjs';
 
 const GATES=['read','remember','acknowledge','answer','draft','act','escalate'];
 const $=id=>document.getElementById(id);
+let axialHandoff=null;
+try{const q=JSON.parse(sessionStorage.getItem('field.trace.handoff.v01')||'null');sessionStorage.removeItem('field.trace.handoff.v01');if(q&&Date.now()-Date.parse(q.at||0)<300000)axialHandoff=q}catch(_){}
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 
 function canonical(v){
@@ -37,14 +39,18 @@ function gateReason(g,d){
 function focusResource(){
   try{
     const r=window.FieldLensHost?.focus?.();
-    return r?.href?{ref:'route:'+r.href,href:r.href,title:r.title||r.href}:null;
+    if(!r?.href)return null;
+    if(axialHandoff&&axialHandoff.focus_href===r.href){
+      return {ref:axialHandoff.resource_ref||('route:'+r.href),href:r.href,title:axialHandoff.title||r.title||r.href,via:'AXIAL',axial_address:axialHandoff.address||null};
+    }
+    return {ref:'route:'+r.href,href:r.href,title:r.title||r.href,via:'FIELD'};
   }catch(_){return null}
 }
 async function buildTrace({text,source,channel,permission,stakes,effects}){
   const focus=focusResource();
   const created=new Date().toISOString();
   const eventRef='event:fi:'+((await sha(text+'|'+source+'|'+channel)).slice(-16));
-  const selectorFacts={source,channel,resource_ref:focus?.ref||null,stakes,requested_side_effect:effects};
+  const selectorFacts={source,channel,resource_ref:focus?.ref||null,resource_via:focus?.via||'FIELD',axial_address:focus?.axial_address||null,stakes,requested_side_effect:effects};
   const selectorFactsDigest=await sha(selectorFacts);
   const decisions=decisionSet(permission,stakes);
   const policy={
@@ -172,6 +178,23 @@ function exportTrace(){
   const blob=new Blob([JSON.stringify(stripFi(currentTrace),null,2)+'\n'],{type:'application/json'}),a=document.createElement('a');
   a.href=URL.createObjectURL(blob);a.download=currentTrace.trace_id.replace(/[:/]/g,'-')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),800);
 }
+const DEMOS={
+  COMMS:{text:'A known human asks: “Can you confirm Thursday and tell me what you need from me?” Prepare a useful reply, but do not send it.',source:'message',channel:'messaging',permission:'draft',stakes:'ordinary',effects:'none',why:'COMMS · read/answer/draft are separable from send/ACT.'},
+  HOUSE:{text:'Humidity crossed the configured threshold. Consider turning on the focused house resource only if explicit ACT authority permits it.',source:'sensor',channel:'housebus',permission:'act',stakes:'ordinary',effects:'external',why:'HOUSE · the same trace exposes where physical consequence requires explicit ACT authority.'},
+  CHANGE:{text:'Inspect the focused FIELD object and prepare one reversible improvement proposal. Do not publish or mutate canonical state.',source:'human',channel:'field',permission:'draft',stakes:'meaningful',effects:'local',why:'CHANGE · repository work uses the same gates without pretending a draft is permission to mutate.'}
+};
+function demoKind(){
+  const h=focusResource()?.href||'';
+  if(/^\/(?:port|contact|laconic)\//.test(h))return'COMMS';
+  if(/^\/house\//.test(h))return'HOUSE';
+  return'CHANGE';
+}
+async function applyDemo(kind){
+  const d=DEMOS[kind||demoKind()]||DEMOS.CHANGE;
+  $('traceText').value=d.text;$('traceSource').value=d.source;$('traceChannel').value=d.channel;$('tracePermission').value=d.permission;$('traceStakes').value=d.stakes;$('traceEffects').value=d.effects;
+  $('traceWhy').textContent=d.why;
+  await run();
+}
 async function run(){
   $('traceRun').disabled=true;$('traceRun').textContent='RUNNING…';
   try{
@@ -195,7 +218,8 @@ function mount(){
     </div>
     <div class="traceFields" style="grid-template-columns:1fr"><label><div class="ey">SIDE EFFECT</div><select id="traceEffects"><option selected>none</option><option>local</option><option>external</option></select></label></div>
     <div class="traceFocus" id="traceFocus">focus → —</div>
-    <div class="traceButtons"><button class="run" id="traceRun">RUN TRACE</button><button id="traceCommit">COMMIT TRACE</button><button id="traceExport">EXPORT</button><a href="./router-bench/">ROUTER BENCH</a><span class="traceFocus" id="traceLedger">0 local traces</span></div>
+    <div class="traceButtons"><button class="run" id="traceRun">RUN TRACE</button><button id="traceDemo">DEMO · AUTO</button><button id="traceDemoComms">COMMS</button><button id="traceDemoHouse">HOUSE</button><button id="traceDemoChange">CHANGE</button><button id="traceCommit">COMMIT TRACE</button><button id="traceExport">EXPORT</button><a href="./router-bench/">ROUTER BENCH</a><span class="traceFocus" id="traceLedger">0 local traces</span></div>
+    <div class="traceFocus" id="traceWhy">same law · unequal domains · focus remains identity, not authority</div>
   </div><div class="traceOut"><div class="traceSummary"><div id="traceGlyph"></div><div id="traceProfiles" class="traceProfiles"></div></div><div id="traceGates" class="traceGates"></div><div id="traceEvents" class="traceEvents"></div></div>`;
   const syncFocus=()=>{
     const f=focusResource(),href=f?.href||null;
@@ -211,10 +235,11 @@ function mount(){
       $('traceMeta').style.color='';
     }
   };
-  $('traceRun').onclick=run;$('traceCommit').onclick=commit;$('traceExport').onclick=exportTrace;
+  $('traceRun').onclick=run;$('traceDemo').onclick=()=>applyDemo();$('traceDemoComms').onclick=()=>applyDemo('COMMS');$('traceDemoHouse').onclick=()=>applyDemo('HOUSE');$('traceDemoChange').onclick=()=>applyDemo('CHANGE');$('traceCommit').onclick=commit;$('traceExport').onclick=exportTrace;
   $('traceFold').addEventListener('toggle',()=>{if($('traceFold').open){syncFocus();if(!currentTrace)run()}});
   window.addEventListener('field-index:state',syncFocus);
   window.addEventListener('field-trace:open',()=>{syncFocus();if(!currentTrace||currentTraceFocusHref!==(focusResource()?.href||null))run()});
   ledgerState();syncFocus();
+  if($('traceFold').open&&!currentTrace)applyDemo();
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',mount); else mount();
