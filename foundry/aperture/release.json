@@ -1,11 +1,11 @@
 {
   "schema": "showcase-release/v1",
-  "surface": "APERTURE / INSPECTOR",
-  "version": "0.6",
-  "route": "/foundry/aperture/",
+  "surface": "READFIELD / APERTURE KERNEL",
+  "version": "0.7",
+  "route": "/docs/",
   "state": "UTILITY",
-  "operation": "INSPECT",
-  "released": "2026-09-21",
+  "operation": "READ",
+  "released": "2026-09-22",
   "donors": [
     {
       "source": "/fold-bloom/two-dial/",
@@ -33,23 +33,17 @@
     }
   ],
   "controls": [
-    "outer ring / canonical whole-source position",
-    "inner ring / scale around the same source position",
-    "structure ticks / text sections or JSON branches",
+    "linear whole-source position strip + section/branch marks",
     "fixed recognition point / ORP",
     "prev/next explicit source movement",
     "scale −/+ without moving source position",
-    "RSVP 60–3000 WPM with word-count-normalized chunk dwell",
-    "keyboard: SPACE play/pause · ↑↓ speed · ←→ step",
-    "VOICE from current focus; speech boundary charIndex drives the same source cursor without forcing WORD scale",
-    "material-target host projection",
-    "field-aperture-focus/v0.2 rich snapshot: char_index / span / source_progress / section / structure / xrefs / cursor",
-    "dock(source,opt) reusable in-place host API",
-    "addressable restore: scale / address / index / char position / WPM",
-    "DOCS highlighted source window + synchronized XREF",
-    "session-local long-text paste",
-    "finite RSVP by default; explicit loop attribute opts into cyclic time",
-    "language-aware segmentation + grapheme scale"
+    "direct 60–3000 WPM speed rail + keyboard ↑↓",
+    "RSVP SPACE play/pause with finite end",
+    "VOICE from current focus; boundary charIndex drives the same source cursor",
+    "highlighted context projection throttled below temporal cursor rate",
+    "near-focus XREF",
+    "COPY VIEW / RAW / RETURN",
+    "optional host ring geometry through field-aperture.js when explicitly requested"
   ],
   "non_claims": [
     "Ring gap is not semantic importance.",
@@ -83,30 +77,32 @@
     "scale_law": "WORD→SENTENCE→PARAGRAPH→SECTION preserves one canonical source char position",
     "docs_highlight": "PASS",
     "xref": "citation/source + media PASS",
-    "session_paste": "PASS"
+    "session_paste": "PASS",
+    "reader_first": "pending PR browser proof: reader attribute hides dial while source strip and focus remain live",
+    "performance": "pending PR browser proof: 3000-WPM focus events must outpace throttled context DOM reconstruction",
+    "route_handoff": "pending PR browser proof: generic route READ → READFIELD with exact RETURN"
   },
-  "updated": "2026-09-21",
-  "known_gap": "Reader focus kernel is browser-proved. Human comprehension/preferences at extreme WPM remain unclaimed; speech boundary fidelity varies by browser/voice; deeper zoom-into-scale UI is intentionally held.",
-  "capability": "Summon one local reader/inspector against arbitrary text/JSON/object context; keep one canonical source position while scale, ORP focus, source highlight, ring/strip witness, RSVP time and speech-boundary time move together; preserve RAW/source identity and host-owned RETURN.",
+  "updated": "2026-09-22",
+  "known_gap": "Human comprehension/preference at extreme WPM remains unclaimed. ORP/chunking choices should now be driven by actual reading use, not by adding more geometry.",
+  "capability": "Read one local source through one canonical position while scale, ORP focus, linear source strip, RSVP time, speech-boundary time, highlighted context and XREF change around it. Geometry remains an optional host projection rather than the public reading surface.",
   "host_resolution": [
-    "selected text",
-    "active INPUT/TEXTAREA value",
-    "current FIELD route object",
-    "explicit dock(source,opt)",
-    "standalone paste/file/session handoff"
+    "same-origin text-like repository address",
+    "session-local paste",
+    "route-wide READ handoff",
+    "explicit field-aperture host API"
   ],
   "experimental_projection": {
-    "state": "RETAINED_UTILITY",
-    "mapping": "outer=canonical whole-source position; inner=scale; structure ticks=sections/branches; center=fixed recognition point; time/voice drive one source cursor",
-    "claim": "Operational position/scale witness; no semantic-importance or comprehension claim."
+    "state": "OPTIONAL_DONOR_PROJECTION",
+    "mapping": "ring geometry retained inside field-aperture.js for hosts that earn it; READFIELD default is linear",
+    "claim": "Position witness only; never semantic importance and no longer a prerequisite for use."
   },
-  "receipt": "/returns/APERTURE_USABILITY_CUT_2026-09-21.json",
+  "receipt": "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
   "charter": "/control/INSTRUMENT_CHARTERS.json#field-aperture",
   "return_contract": {
     "snapshot_schema": "field-aperture-focus/v0.2",
-    "local_handoff": "field.aperture.handoff.v01",
+    "local_handoff": "readfield.handoff/v1",
     "durability": "HOST_OWNED",
-    "law": "APERTURE emits inspectable focus state; it does not silently promote that state into canonical history, semantic truth or action authority."
+    "law": "READFIELD/APERTURE emits addressed focus state; source bytes and canonical truth remain outside the projection."
   },
   "boundary": {
     "constraint_surface": "OUTSIDE — exact survivor/support law over record sets",
@@ -116,5 +112,12 @@
     "state_aperture": "OUTSIDE — TEST/ARM/RUN consequence semantics",
     "material_projection": "INSIDE presentation only"
   },
-  "reader_receipt": "/control/RSVP_READER_FOCUS_KERNEL_2026-09-21.json"
+  "reader_receipt": "/control/READFIELD_CONVERGENCE_2026-09-22.json",
+  "legacy_route": "/foundry/aperture/",
+  "host_integrations": [
+    "/ FIELD route READ",
+    "/port/ HUMAN PORT intake",
+    "/docs/ canonical READFIELD",
+    "/foundry/aperture/ compatibility redirect"
+  ]
 }

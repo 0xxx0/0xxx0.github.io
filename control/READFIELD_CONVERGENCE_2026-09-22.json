@@ -1,0 +1,62 @@
+{
+  "schema": "0xxx0/readfield-convergence/v0.1",
+  "at": "2026-09-22T00:22:00+08:00",
+  "status": "IMPLEMENTED_PENDING_BROWSER_PROOF",
+  "object": "READFIELD / RSVP",
+  "problem": {
+    "observed_use": [
+      "reader path still advertised APERTURE/AXIAL donor geometry instead of reading",
+      "standalone /foundry/aperture/ duplicated /docs/ and still presented the stale 0.4 ring bench",
+      "repo route adapter exposed two visually identical ◎ actions (inspect vs Lens)",
+      "FIELD exposed a separate ◎ AXIAL action although standalone AXIAL geometry is not currently earning its complexity",
+      "DOCS rebuilt highlighted context and scrolled it on every temporal focus event, including high-WPM RSVP"
+    ],
+    "recovered_feedback": [
+      "RSVP should be directly usable at high speed rather than hidden behind repeated mode clicks",
+      "position indication matters, but ring geometry is not itself the goal",
+      "HUMAN PORT-style immediate ingress is preferred",
+      "READFIELD is the desired convergence surface"
+    ]
+  },
+  "decision": {
+    "canonical_public_surface": "/docs/",
+    "public_name": "READFIELD / RSVP 0.7",
+    "reusable_kernel": "/field-aperture.js",
+    "compatibility_alias": "/foundry/aperture/ → /docs/",
+    "parked_surface": "/foundry/axial/",
+    "field_label": "FIELD / FOCUS",
+    "law": "one source + one canonical position; scale/time/voice/context are projections around it"
+  },
+  "applied_theory": [
+    "RECOVER BEFORE INVENTING: keep exact RSVP, Painting Path and FU donor mechanisms; do not recreate them",
+    "OBJECT→ADDRESS→PROJECTION→OPERATION→RETURN: source identity and source position survive every reading projection",
+    "projection is optional: geometry may witness position but cannot become a prerequisite for reading",
+    "cyclic geometry is not cyclic time: finite RSVP stays finite unless loop is explicit",
+    "context aperture is subordinate to focus: high-rate temporal focus may update faster than prose context",
+    "host owns durability: route/page handoff is session-local and carries exact RETURN"
+  ],
+  "implementation": [
+    "field-aperture reader attribute hides dial geometry and keeps ORP + linear source strip + scale + time controls",
+    "reader mode adds one continuous 60–3000 WPM rail instead of requiring repeated speed taps",
+    "structure/branch marker DOM is cached and no longer rebuilt on every RSVP tick",
+    "READFIELD context rendering is throttled during RSVP/VOICE and no longer uses scrollIntoView on every focus",
+    "shared route adapter READ action sends selected text/input/page text directly to READFIELD with RETURN",
+    "standalone APERTURE route preserves old session handoff then redirects to READFIELD",
+    "standalone AXIAL becomes parked reference; source-neutral constraint law remains in /lib/constraint-surface.js",
+    "FIELD root presents FIELD / FOCUS and removes the standalone ◎ AXIAL action"
+  ],
+  "boundaries": [
+    "Scale Lens remains a separate identity/provenance instrument",
+    "Constraint Surface remains the exact set-support kernel",
+    "recovery/axial and recovery/rsvp remain frozen provenance",
+    "no comprehension claim for ORP or high WPM",
+    "no deletion of donor implementations"
+  ],
+  "proof_required": [
+    "reader mode computed dial display = none",
+    "3000-WPM focus events materially outnumber highlighted-context reconstructions",
+    "route-wide READ handoff lands in READFIELD and preserves RETURN",
+    "existing address resume, multilingual segmentation, finite RSVP, Lens/RETURN and recovery tests remain green"
+  ],
+  "return": "A user should encounter one reading instrument, not APERTURE + AXIAL + DOCS as competing products. APERTURE becomes the kernel name; READFIELD becomes the lived surface."
+}
