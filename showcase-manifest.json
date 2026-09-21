@@ -5509,15 +5509,15 @@
     },
     {
       "href": "/fold-bloom/listen/",
-      "title": "FOLD // BLOOM LISTEN 0.2",
+      "title": "FOLD // BLOOM LISTEN 0.2.1",
       "kind": "experiment",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "LISTEN",
       "state": "CANDIDATE",
-      "role": "Source-addressed audio projection candidate. Local file remains canonical; optional Suno/direct http(s) addresses resolve best-effort into the same bounded decode → AUDIO MAP → TIME RING × SCALE RAIL → reactive field → RETURN path. Suno metadata may contribute title/tags/plain lyrics, but lyric timing is not yet claimed.",
+      "role": "Source-addressed audio projection candidate. 0.2.1 hardens intake: native file-picker activation is independent of JS; renderer/Worker failures degrade visuals/analysis rather than disabling CHOOSE AUDIO. Local file remains canonical; Suno/direct addresses remain best-effort.",
       "index": {
-        "updated_at": "2026-09-22T00:40:00+08:00",
+        "updated_at": "2026-09-22T01:08:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -5531,7 +5531,8 @@
           "LISTEN 0.2 browser surface",
           "source-address parser browser proof",
           "real Suno fetch pending",
-          "real-song trials pending"
+          "real-song trials pending",
+          "native file-picker activation + app boot browser proof"
         ],
         "return_path": "/fold-bloom/listen/"
       },
@@ -5547,7 +5548,7 @@
         "next_if_pass": "Transfer the surviving audio-map, time-ring, and scale-rail mechanisms into the Fold/Bloom family shell and keep LISTEN as a projection rather than a separate roadmap.",
         "next_if_fail": "Park or donate weak analysis/visualization parts; preserve the polar/scale interaction and source-hash audio map if independently useful."
       },
-      "version": "0.2"
+      "version": "0.2.1"
     }
   ],
   "release_law": [
