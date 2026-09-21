@@ -34,6 +34,7 @@ const CASES=[
  {title:'FIELD / PROOF',route:'/forward-field-proof/',marker:'#field',smoke:async d=>{const b=d.querySelector('button[data-view="plain"]');if(!b)return false;b.click();await wait(60);return d.querySelector('#plain')?.hidden===false}},
  {title:'READFIELD / RSVP 0.7',route:'/docs/',marker:'#docAperture',adapter:false,smoke:async d=>!!d.querySelector('#sourcePath')&&!!d.querySelector('#reading')},
  {title:'AXIAL / FOCUS STACK 0.7.3',route:'/foundry/axial/',marker:'#wheel',adapter:false,smoke:async d=>!!d.querySelector('#overview')&&!!d.querySelector('#inspect')},
+ {title:'INTERPHASE / ROOM 0.1',route:'/foundry/room/?route=%2Ffoundry%2Faxial%2F&face=U',marker:'#stage',adapter:false,smoke:async d=>!!d.querySelector('.face[data-face="U"]')&&!!d.querySelector('#returnBtn')&&/INTENTION/.test(d.body.textContent||'')},
  {title:'HUMAN PORT 1.5.2',route:'/port/',marker:'#payload',adapter:false,smoke:async d=>!!d.querySelector('#fileInput')&&!!d.querySelector('#openGate')}
 ],WIDTHS=[{name:'MOBILE',px:390},{name:'DESKTOP',px:1100}],wait=ms=>new Promise(r=>setTimeout(r,ms));
 const TOTAL=CASES.length*WIDTHS.length;
