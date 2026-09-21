@@ -139,9 +139,17 @@ addEventListener('keydown',e=>{
 function transportPayload(){
   if(!map)return null;
   const time=audio.currentTime||0,f=frameAt(map,time)||{e:.18,c:.4,f:.05},range=scopeWindow(map,time,scope());
+  const beatIndex=beatIndexAt(map,time),beats=map.beats||[],beatPeriod=60/(map.bpm||90);
+  const beatTime=beatIndex>=0?Number(beats[beatIndex]||0):0;
+  const nextBeat=beatIndex>=0?Number(beats[beatIndex+1]??(beatTime+beatPeriod)):(time+beatPeriod);
+  const beatSpan=Math.max(.001,nextBeat-beatTime),beatPhase=Math.max(0,Math.min(1,(time-beatTime)/beatSpan));
+  const beatDistance=Math.max(0,Math.min(Math.abs(time-beatTime),Math.abs(nextBeat-time)));
+  const sectionIndex=sectionIndexAt(map,time),sections=map.sections||[],sectionStart=sectionIndex>=0?Number(sections[sectionIndex]?.t||0):0;
+  const sectionEnd=sectionIndex>=0?Number(sections[sectionIndex+1]?.t??map.duration):map.duration;
+  const sectionProgress=sectionEnd>sectionStart?Math.max(0,Math.min(1,(time-sectionStart)/(sectionEnd-sectionStart))):0;
   return {
     playing:!audio.paused,time,duration:map.duration||0,bpm:map.bpm||0,tempoConfidence:map.tempoConfidence||0,
-    beatIndex:beatIndexAt(map,time),sectionIndex:sectionIndexAt(map,time),scope:scope(),scopeStart:range[0],scopeEnd:range[1],
+    beatIndex,beatTime,beatPhase,beatDistance,sectionIndex,sectionProgress,scope:scope(),scopeStart:range[0],scopeEnd:range[1],
     energy:+(f.e||0).toFixed(4),flux:+(f.f||0).toFixed(4),brightness:+(f.c||0).toFixed(4),
     stage:map.stage||'UNKNOWN',sourceHash:fileMeta?.hash||null,sourceKind:fileMeta?.sourceKind||null,sourceAddress:fileMeta?.sourceAddress||null
   };
