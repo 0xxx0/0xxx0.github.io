@@ -1,6 +1,6 @@
 {
   "schema": "human-port-route-contracts/v0.1",
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "fit_states": {
     "DIRECT": "Target consumes this projection directly.",
     "ADAPTER": "A bounded adapter can preserve identity/context while translating into the target's accepted input.",
@@ -146,6 +146,37 @@
       },
       "side_effect": "local projection",
       "authority": "VIEW_ONLY"
+    },
+    {
+      "id": "care",
+      "label": "ADD TO CARE",
+      "system": "CARE / FIELD",
+      "href": "/care/",
+      "accepts": {
+        "TEXT": "ADAPTER",
+        "JSON": "ADAPTER",
+        "IMAGE": "ADAPTER",
+        "FILE": "ADAPTER"
+      },
+      "focus": {
+        "TEXT": [
+          "WHOLE",
+          "FRAGMENT"
+        ],
+        "JSON": [
+          "WHOLE",
+          "NODE"
+        ],
+        "IMAGE": [
+          "WHOLE",
+          "REGION_REF"
+        ],
+        "FILE": [
+          "WHOLE_REF"
+        ]
+      },
+      "side_effect": "local evidence offer only; CARE requires explicit attach to current case; Port bytes remain in Port storage",
+      "authority": "LOCAL_CANDIDATE_ONLY"
     },
     {
       "id": "intake",
