@@ -1,38 +1,26 @@
 {
   "schema": "field-repo-issues/v0.1",
-  "generated_at": "2026-09-21T17:38:00+08:00",
+  "generated_at": "2026-09-21T19:53:14+08:00",
   "source": "GitHub open issues for 0xxx0/0xxx0.github.io",
   "dynamic_source": "https://api.github.com/repos/0xxx0/0xxx0.github.io/issues?state=open&per_page=100",
-  "count": 8,
-  "play_safe_count": 4,
+  "count": 7,
+  "play_safe_count": 3,
   "law": "FI may show all public repo issues. FIELD PLAY only selects play_safe=true issues; local/private/sensitive holds remain visible as repo truth but are not contributor missions.",
   "issues": [
     {
       "number": 35,
-      "title": "Converge FOLD//BLOOM Weave + make Scale Lens an aperture, without capability loss",
-      "updated_at": "2026-09-21T11:34:00Z",
+      "title": "HUMAN GATE · Fold Weave MIRROR ↔ CREASE only",
+      "updated_at": "2026-09-21T11:53:14Z",
       "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/35",
       "labels": [],
-      "body": "## Objective\n\nAdvance two coupled-but-distinct fronts without deleting recovered capability.\n\n### A — FOLD//BLOOM convergence\n- Preserve exact recovered donor: `/recovery/fold-bloom/fold-weave-0.1/`.\n- Surface Fold Weave 0.1 prominently enough to actually play/test it.\n- Treat authored persistent CREASE topology as the selected experimental transfer into the living FOLD//BLOOM line.\n- Preserve Ecology 0.2 as an ancestor/comparison specimen; do not silently replace or delete it.\n- Recover/retain valuable later FOLD//BLOOM mechanics (Garden, ecology/temperament, lineage, breeding/grafting, memory, archaeology, Law/Style labs, RETURN) while dropping only demonstrated duplication/superfluous presentation.\n- Do not merge Two Dial / Instrument back into the ecology line merely for taxonomy.\n\n### B — Scale Lens aperture + UX\n- Preserve RC11.2 deep capability. No feature culling.\n- Make the interface visibly easier to parse on desktop and mobile.\n- Hard-edge/square control language: square buttons, reduced decorative rounding, clearer hierarchy and spacing.\n- Promote stable address / source / projection / RETURN as the primary reading path.\n- Extend the existing global `showcase-nav.js` adapter with a LENS action.\n- Allow a current same-origin page or contract JSON to open in Scale Lens with a return address.\n- Field Intake → Lens → inspect → RETURN should work.\n- Contract JSON → Lens human-readable hierarchy → RAW remains available.\n- Keep deep Studio as the laboratory; add simpler access in front rather than deleting advanced panels.\n\n## Recovered evidence / constraints\n- `restore-fold-weave-exact` exists; exact Fold Weave source was corrected/restored on 2026-09-20 after an earlier 317-line truncation.\n- `control/FOLD_WEAVE_PROMOTION_2026-09-20.json` selects `AUTHORED_CREASE_TOPOLOGY_KERNEL` as `EXPERIMENTAL_SELECTABLE_MODE`, not wholesale donor replacement.\n- Scale Lens already recognizes `poly.ingress/v0.4`, preserves Field Intake canonical IDs/provenance, and can return upstream.\n- Existing global route adapter is already the correct substrate for a small Lens aperture.\n\n## Do not touch\n- Exact recovered donor bytes except for a separate clearly-derived branch.\n- Ecology 0.2 frozen specimen.\n- RC11.2 parser/address/provenance/receipt/deep projection machinery.\n- RETURN semantics.\n\n## Acceptance\n1. Fold Weave is reachable from a meaningful FOLD//BLOOM surface and clearly labelled recovered/current candidate.\n2. Ecology 0.2 remains reachable and identified as retained ancestor/comparison.\n3. Scale Lens is visibly hard-edged/square and more legible without capability removal.\n4. Every showcase surface can invoke LENS through the existing route adapter.\n5. Same-origin JSON contract can load directly in Lens.\n6. Lens can return to the invoking route.\n7. Existing raw JSON paths remain available.\n8. Relevant FIELD INDEX timestamps/work modes are updated per `/control/FIELD_INDEX_CONTRACT.json`.\n9. Return with tested URLs/screenshots or explicit failure receipts.\n\n## Worker split\n**Hermes:** recover lineage, compare lost mechanics, identify omissions/regressions, produce bounded packets/QA. Read-only unless authority is explicitly expanded.\n\n**Codex:** bounded repo mutation + tests + receipts.\n\n**Human:** comparative play only where behavior cannot be decided from code/evidence (MIRROR vs CREASE default).",
+      "body": "Core implementation is complete on master. Do not reopen the Fold/Lens architecture from this issue.\n\nAlready done:\n- Fold Weave 0.1 exact donor is surfaced and preserved.\n- Ecology 0.2 and Two Dial remain distinct reachable branches.\n- Scale Lens RC11.2 remains the deep stable workbench.\n- FIELD → LensState v0.2 composition exists.\n- lawful/dead next-lens support is explicit.\n- Focus Ring / LENS are discoverable from FIELD.\n- mobile RETURN/browser proof is on master.\n- Scale Lens actualize-1 puts OBJECT/APERTURE/VIEW/STACK/RETURN before deep LAB machinery.\n- **Lens task-advantage gate is resolved:** direct PLAIN ↔ FOVEATED use showed no clear/notable gain; PLAIN remains default and FOVEATE is parked.\n\nOnly one human question remains:\n\n### Fold Weave comparative play\n- play MIRROR and CREASE directly;\n- decide only from felt/useful difference whether CREASE deserves a default/promotion;\n- either outcome is valid.\n\nDo not:\n- merge Two Dial into Ecology;\n- rebuild Scale Lens;\n- invent another Focus Ring/Lens state;\n- reopen FOVEATE merely to seek significance;\n- promote CREASE from code elegance alone.\n\nClose after the MIRROR ↔ CREASE human receipt, even if the result is “MIRROR is better / no meaningful difference.”\n\nLens evidence:\n- `/control/LENS_FOVEATE_PROOF_2026-09-21.json`\n- `/control/LENS_G1_PROOF_SEAL_2026-09-21.json`\n- PR #75",
       "play_safe": true,
-      "disposition": "STUDIO_ACTUALIZATION_IN_VALIDATION_FOVEATE_PARKED",
+      "disposition": "FOLD_WEAVE_HUMAN_GATE_ONLY_LENS_RESOLVED",
       "evidence": [
         "/control/LENS_G1_PROOF_SEAL_2026-09-21.json",
-        "/control/FIELD_ACTIVATION_LAW.json",
-        "GitHub Actions run 35594006860",
         "/control/LENS_FOVEATE_PROOF_2026-09-21.json",
-        "/control/LENS_EVOLUTION_G1_2026-09-21.json"
+        "PR #75 / Scale Lens actualize-1"
       ]
-    },
-    {
-      "number": 10,
-      "title": "Representation 01 · One object across five projections",
-      "updated_at": "2026-09-21T08:45:00Z",
-      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/10",
-      "labels": [],
-      "body": "## Goal\nUse the recovered ONE RETURN / SEAM ENGINE v0.2 as the substrate for one concrete cross-projection fixture.\n\n## Candidate projections\n- Scale Lens\n- Fold/Bloom\n- Atlas Dayline / Aperture\n- Painting / Path\n- plain list baseline\n\n## Required contract\nFor one shared object, state:\n- PRESERVES\n- HIDES\n- PERMITS\n- ROUND_TRIP\n- PLAIN_BASELINE\n- TEST\n- RETURN\n\n## Done when\nOne object can be selected/inspected across all surviving projections with stable identity, and at least one projection proves a task advantage rather than ornamental difference.\n\n## Do not\nDo not merge the interfaces into one mega-screen.",
-      "play_safe": true,
-      "disposition": "ACTIVE_PROOF_FIXTURE"
     },
     {
       "number": 11,
