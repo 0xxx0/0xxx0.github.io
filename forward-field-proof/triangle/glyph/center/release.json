@@ -1,79 +1,67 @@
 {
   "schema": "release-receipt/v1",
   "title": "Triangle Center / Focus Field",
-  "version": "0.2",
-  "state": "EXPERIMENT",
+  "version": "0.3",
+  "state": "PROOF_REQUIRED",
   "date": "2026-09-21",
   "route": "/forward-field-proof/triangle/glyph/center/",
   "parent": "/forward-field-proof/triangle/glyph/",
   "showcase_card": false,
-  "claim": "Tests whether many fronts become easier to steer when continuous triangle preference is composed with AXIAL-style discrete constraint strips, exact focus identity, explicit navigation, and a weighted pinned center of mass.",
-  "donor": {
-    "route": "/foundry/axial/",
-    "transfer": "unequal vocabularies × visible support × one focus aperture × explicit OPEN/BACK/RETURN"
-  },
-  "geometry": {
-    "position": "triangle profile in active lens",
-    "mass": "0.25 + 0.75 × current experimental FCM score",
-    "constraints": [
-      "province",
-      "priority",
-      "state",
-      "operator"
+  "claim": "Tests whether a continuous three-axis intent lens plus discrete lawful constraints improves selection among concrete CURRENT/QUEUE next moves without replacing CURRENT as authority.",
+  "primary_source": {
+    "mode": "CURRENT",
+    "inputs": [
+      "/control/CURRENT.json",
+      "/control/QUEUE.json"
     ],
-    "focus": "one exact federation object",
-    "pins": "maximum 3; weighted centroid by mass"
+    "projection": "exact next-action instructions; large archive excluded by default",
+    "fallback": "./current.json"
   },
-  "lenses": {
-    "INTENT": [
-      "EXPLOIT",
-      "EXPLORE",
-      "PROVE"
-    ],
-    "SYSTEM": [
-      "MAKE",
-      "KNOW",
-      "SHARE"
-    ]
-  },
-  "source_strategy": {
-    "primary": [
+  "secondary_source": {
+    "mode": "FEDERATION",
+    "inputs": [
       "/federation-atlas.json",
       "/fcm-map.json",
       "/showcase-manifest.json"
     ],
-    "fallback": "./data.json",
-    "failure_policy": "never fabricate identities or auto-correct a zero-support tuple"
+    "role": "exploration/memory only",
+    "fallback": "./data.json"
   },
-  "controls": [
-    "drag desired triangle point",
-    "unequal filter strips with support counts",
-    "visible zero-support selections",
-    "search inside current aperture",
-    "click point/result to focus exact identity",
-    "OPEN only when title maps exactly to a public route",
-    "PIN / UNPIN up to three",
-    "weighted pinned center mass + desire/mass gap",
-    "BACK session history",
-    "RETURN local focus receipt",
-    "deep-linkable lens/filter/weights/focus/pins/search state"
+  "geometry": {
+    "position": "INTENT or SYSTEM profile; deterministic heuristic only",
+    "mass": "CURRENT authority/readiness weight or federation experimental FCM mass",
+    "constraints": "CURRENT: front/origin/status/operation; FEDERATION: province/priority/state/operator",
+    "focus": "one exact item",
+    "pins": "maximum three local candidate moves; no queue mutation"
+  },
+  "applied_integrations": [
+    "CURRENT is default source; FEDERATION is secondary",
+    "CURRENT next-action adapter preserves exact CURRENT/QUEUE text",
+    "CURRENT-vs-QUEUE next-direction contradiction is displayed rather than auto-resolved",
+    "FieldSignals candidate/accepted/overridden events are emitted during ordinary CURRENT use",
+    "focused CURRENT action can preload HUMAN PORT through same-origin sessionStorage",
+    "OPEN remains explicit and uses a bounded route adapter",
+    "BACK, RETURN and PIN remain distinct",
+    "same-instrument CENTER vs PLAIN CURRENT/QUEUE reading comparator",
+    "PLAIN preserves exact source order while sharing the same constraints, focus, OPEN/PIN/PORT/RETURN actions",
+    "passive FieldSignals evidence records which reading proposed the selected move"
   ],
-  "mutation": "LOCAL_ONLY",
-  "verification": [
-    "117 fallback objects / 117 unique IDs",
-    "inline JavaScript syntax check passed",
-    "old ../../../federation-atlas.json path removed",
-    "absolute root paths + local snapshot fallback present"
-  ],
+  "authority_boundary": "CENTER proposes/focuses only. It does not mutate CURRENT, QUEUE, repository state, external communication, House actuation or purchases.",
+  "evolution_gate": "Use CENTER during ordinary work, occasionally toggle the same source to PLAIN, and require passive candidate/override evidence plus at least one real RETURN where geometry changed or clarified a choice. If no such delta appears, demote the selector.",
   "known_limits": [
-    "Intent/system profiles remain heuristic projections from registry metadata and operator mappings.",
-    "FCM mass is an experimental leverage signal, not objective importance.",
-    "Exact public OPEN matching is deliberately conservative and may leave many registry objects without a route.",
-    "No comparative usability win is claimed yet."
+    "The simplex profiles are deterministic heuristics, not ground truth.",
+    "CURRENT action adapter must be refreshed when CURRENT/QUEUE semantics materially change; live root loading is preferred.",
+    "Mass is orientation, not importance.",
+    "HUMAN PORT preload creates no send authority.",
+    "No comparative usability win has been demonstrated."
   ],
-  "current_classification": {
-    "reviewed_at": "2026-09-21T16:04:00+08:00",
-    "state": "CANDIDATE",
-    "basis": "Runnable optional selection lens with explicit TEST-stage evidence gate. Lack of comparative proof limits promotion of the selection claim, not ordinary access to the candidate surface."
-  }
+  "verification": [
+    "inline JavaScript syntax passed after CURRENT integration",
+    "14 concrete CURRENT/QUEUE next actions recovered at implementation time",
+    "CURRENT and FEDERATION source toggle present",
+    "FieldSignals integration present",
+    "HUMAN PORT handoff producer and consumer both present",
+    "root/fallback source paths remain hardened",
+    "CENTER/PLAIN comparator syntax and source-order path verified"
+  ]
 }

@@ -2,10 +2,10 @@
   "schema": "release-receipt/v1",
   "artifact": "HUMAN PORT",
   "route": "/port/",
-  "version": "1.3-preview",
+  "version": "1.4-preview",
   "date": "2026-09-21",
-  "state": "INTEGRATION_CANDIDATE",
-  "decision": "/port/ is the canonical HUMAN PORT intake/router; /contact/ is one explicit outbound boundary, not the whole Port.",
+  "state": "ACTIVE_EXPERIMENT",
+  "decision": "/port/ remains the canonical HUMAN PORT intake/router; 1.4 adds an AXIAL/Scale-Lens-derived focus aperture so one source can be routed whole or at an addressed focus through an explicit SELECT → OPEN gate.",
   "recovered_user_functions": [
     "ADDRESS",
     "INTAKE",
@@ -27,27 +27,40 @@
     "/contact/backstage/"
   ],
   "laws": [
-    "CONTACT != ACTIVATION",
     "SOURCE STAYS SOURCE",
-    "CONTEXT != AUTHORITY",
-    "RETURN WHAT HAPPENED"
+    "FOCUS != SOURCE REPLACEMENT",
+    "SUPPORT != CONFIDENCE != AUTHORITY",
+    "SELECT != OPEN != EXTERNAL SEND",
+    "ZERO SUPPORT DOES NOT FORBID MANUAL ROUTING",
+    "ROUTE RECEIPT != WORLD RETURN"
   ],
   "promotion_rule": "Keep /contact/ simple. Promote deeper mechanisms onto /port/ only when they reduce real interaction/re-entry cost.",
   "next_tests": [
-    "Port sample → BURST arrives as exact RAW",
-    "Port source → Contact arrives as local draft and still requires Share/Copy",
-    "Port idea → Idea Atlas arrives prefilled but unsaved",
-    "Port follow-up → Social Residue arrives prefilled but uncommitted",
-    "Port text → Scale Lens parses the same source without a second paste",
-    "mobile-width route grid remains usable"
+    "ordinary use: route whole vs focused fragments and observe whether focus reduces repasting",
+    "ordinary use: override LIKELY when cue support is wrong",
+    "re-enter Port from a downstream tool and confirm source/focus restoration is useful rather than sticky",
+    "observe whether SELECT → OPEN adds useful deliberation or needless friction",
+    "do not expand cue grammar or add transport until ordinary evidence accumulates"
   ],
   "delta": [
-    "replace menu-only home with one local source intake",
-    "route the same source explicitly to Contact, BURST, Idea Atlas, Social Residue or Scale Lens",
-    "add local session handoffs so target tools arrive preloaded",
-    "clarify Contact as HUMAN PORT outbound/share boundary rather than HUMAN PORT itself",
-    "retain specialized Laconic, Capsule, Continuity and Backstage tools below the primary router",
-    "preserve no-upload / no-auto-send / no-auto-classification boundary"
+    "embed shared Field Aperture inline rather than opening it only as a floating inspector",
+    "route WHOLE SOURCE or CURRENT FOCUS",
+    "support TEXT document/paragraph/sentence/word and JSON root/level/leaf focus",
+    "show exact route cue counts against the current route scope",
+    "separate route SELECT from explicit OPEN",
+    "persist same-session source/focus/scope/selected route for re-entry",
+    "store content-free local route receipts",
+    "record completed OPEN choice for passive preference evidence; do not log payload text",
+    "preserve Contact as a second explicit boundary before external Share/Copy"
   ],
-  "first_time_test": "Paste one source once and reach the intended tool preloaded within one explicit route choice."
+  "first_time_test": "Paste one source once and reach the intended tool preloaded within one explicit route choice.",
+  "donors": [
+    "/foundry/axial/",
+    "/field-aperture.js",
+    "/fold-bloom/lens/",
+    "/control/RSVP_MECHANISM_DIFF_2026-09-21.json",
+    "/control/INTERACTION_SEMANTICS.json",
+    "/control/PREFERENCE_SIGNALS.json"
+  ],
+  "receipt": "/returns/HUMAN_PORT_FOCUS_APERTURE_2026-09-21.json"
 }

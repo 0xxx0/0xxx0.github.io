@@ -1,0 +1,35 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "HUMAN-PORT-FOCUS-APERTURE-2026-09-21",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "before": {
+    "port": "One source intake + likely route + explicit downstream handoffs.",
+    "focus": "Optional floating Field Aperture inspector; routing always used whole source.",
+    "route_behavior": "Clicking a route immediately navigated.",
+    "hydration": "Source intake restored only through explicit preloads; no exact focus re-entry."
+  },
+  "delta": [
+    "Embedded Field Aperture inline as Port's focus body.",
+    "Added WHOLE SOURCE / CURRENT FOCUS route scope.",
+    "Added exact lexical cue counts per route; support follows current focus.",
+    "Kept zero-support routes visible and selectable.",
+    "Separated route SELECT from explicit OPEN.",
+    "Stored metadata-only route receipts; no payload text.",
+    "Restored source + aperture focus + scope + selected route on same-session re-entry.",
+    "Moved completed route preference evidence to OPEN rather than mere route hover/select."
+  ],
+  "evidence": [
+    "Port inline JavaScript parses.",
+    "Field Aperture component is mounted from existing shared component rather than forked.",
+    "Route receipt object contains no source text field.",
+    "Support is deterministic cue count, not model confidence.",
+    "OPEN remains local handoff/navigation; Contact still requires separate Share/Copy for external action."
+  ],
+  "residue": [
+    "No comparative usability evidence yet.",
+    "Cue grammar remains intentionally simple and can be wrong; override is first-class evidence.",
+    "Downstream tools do not yet emit a true world RETURN back into Port.",
+    "Focus routing of very small units may be inappropriate for some targets; user can switch WHOLE/FOCUS instantly."
+  ],
+  "next": "Use normally. Do not perform a dedicated QA ritual. Let choice/override/backtrack and ordinary re-entry reveal whether focus-routing earns retention."
+}

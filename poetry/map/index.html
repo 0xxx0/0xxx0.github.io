@@ -19,9 +19,20 @@ textarea{width:100%;resize:vertical;padding:8px;line-height:1.5}.page{white-spac
 @media(max-width:980px){
  .shell{display:block}.side{position:fixed;z-index:45;left:8px;right:8px;bottom:38px;top:auto;max-height:65vh;border:1px solid var(--line2);transform:translateY(calc(100% + 60px));transition:.18s;box-shadow:0 18px 60px #000b}.side.open{transform:translateY(0)}.left,.right{border:1px solid var(--line2)}.stage{height:100%}.sheetShade{display:block;position:fixed;inset:48px 0 25px;z-index:40;background:#0009;opacity:0;pointer-events:none}.sheetShade.show{opacity:1;pointer-events:auto}.top .desktop{display:none}.modeDock{top:auto;bottom:9px}.bottomBar{bottom:54px}.stageNote{top:8px;max-width:72%}
 }
+
+details.advanced{border:1px solid var(--line);padding:0 8px 8px;margin-top:10px;background:#0a0f11}
+details.advanced>summary{cursor:pointer;list-style:none;padding:9px 0;color:var(--muted);font-size:9px;letter-spacing:.15em;text-transform:uppercase}
+details.advanced>summary::-webkit-details-marker{display:none}
+details.advanced>summary:after{content:" +";float:right;color:var(--cyan)}
+details.advanced[open]>summary:after{content:" −"}
+.guideShade{position:fixed;inset:0;z-index:100;background:#020304df;display:none;place-items:center;padding:14px}
+.guideShade.show{display:grid}.guideCard{width:min(680px,100%);max-height:90vh;overflow:auto;border:1px solid var(--line2);background:#0a0f12;padding:16px}
+.guideCard h2{font:800 clamp(24px,5vw,42px)/.95 system-ui,sans-serif;letter-spacing:-.035em;margin:7px 0 14px}
+.guideSteps{display:grid;gap:6px}.guideStep{display:grid;grid-template-columns:28px 1fr;gap:8px;border-top:1px solid var(--line);padding:8px 0}.guideStep b{color:var(--cyan)}
+.guideActions{display:flex;gap:6px;margin-top:14px}.guideActions>*{flex:1}
 </style></head>
 <body><div class="app">
-<header class="top"><div class="brand">VERSE <em>// POEM MAP 0.2</em></div><div class="spacer"></div><button id="leftBtn">SOURCE</button><button id="rightBtn">DETAIL</button><a class="desktop" href="../">VERSE</a><a class="desktop" href="../../foundry/">FOUNDRY</a></header>
+<header class="top"><div class="brand">VERSE <em>// POEM MAP 0.2</em></div><div class="spacer"></div><button id="guideBtn" class="hot">START</button><button id="leftBtn">SOURCE</button><button id="rightBtn">DETAIL</button><a class="desktop" href="../">VERSE</a><a class="desktop" href="../../foundry/">FOUNDRY</a></header>
 <div class="shell"><div id="shade" class="sheetShade"></div>
 <aside id="left" class="side left">
  <div class="k">Source</div>
@@ -31,21 +42,22 @@ textarea{width:100%;resize:vertical;padding:8px;line-height:1.5}.page{white-spac
  <div class="k">Form adapter</div>
  <div class="formHead"><select id="form"><option value="free">FREE</option><option value="haiku">HAIKU · 5/7/5</option><option value="couplet">COUPLET · AA</option><option value="quatrain">QUATRAIN · ABAB</option><option value="sonnet">SONNET · 14×~10 · ABAB CDCD EFEF GG</option><option value="villanelle">VILLANELLE · 19 · refrains</option><option value="jueju7">JUEJU · 4×7 CHAR</option><option value="jueju5">JUEJU · 4×5 CHAR</option></select></div>
  <div id="constraints" class="card"></div>
- <div class="k">Map law</div>
- <label>ORDER <span id="wo">0.70</span><input id="orderW" type="range" min="0" max="1" step=".05" value=".7" style="width:100%"></label>
+ <details class="advanced" id="mapLawDetails"><summary>MAP LAW / APERTURE · ADVANCED</summary>
+<label>ORDER <span id="wo">0.70</span><input id="orderW" type="range" min="0" max="1" step=".05" value=".7" style="width:100%"></label>
  <label>SOUND <span id="ws">0.65</span><input id="soundW" type="range" min="0" max="1" step=".05" value=".65" style="width:100%"></label>
  <label>REPEAT <span id="wr">0.90</span><input id="repeatW" type="range" min="0" max="1" step=".05" value=".9" style="width:100%"></label>
  <label>AUTHOR <span id="wa">1.00</span><input id="authorW" type="range" min="0" max="1" step=".05" value="1" style="width:100%"></label>
  <label>APERTURE <span id="wap">0.70</span><input id="aperture" type="range" min="0.05" max="1" step=".05" value=".7" style="width:100%"></label>
  <div class="sub" style="margin-top:5px">APERTURE is visual-load control: selected relations + AUTHOR paths survive first; peripheral relation families progressively return as it opens. The map is a projection of explicit edge laws. SOUND is an approximate Latin-script heuristic in this build; Han/other scripts fall back to source/repeat/author relations unless an adapter supplies phonology.</div>
+ </details>
  <div class="k">Session</div>
- <div class="row"><button id="exportBtn">EXPORT</button><button id="resetLayout">RESET MAP</button></div>
+ <div class="row"><button id="exportBtn">EXPORT</button><button id="importBtn">IMPORT</button><button id="resetLayout">RESET MAP</button></div><input type="file" id="importFile" accept=".json" hidden>
 </aside>
 
 <main class="stage">
  <canvas id="map"></canvas>
  <div class="stageNote" id="note">Paste anything. PAGE keeps the poem legible; MAP exposes relation paths; SETS shows the neighborhoods that generated them.</div>
- <nav class="modeDock"><button class="on" data-mode="MAP">MAP</button><button data-mode="PAGE">PAGE</button><button data-mode="SETS">SETS</button></nav>
+ <nav class="modeDock"><button class="on" data-mode="PAGE">PAGE</button><button data-mode="MAP">MAP</button><button data-mode="SETS">SETS</button></nav>
  <div class="bottomBar" id="bottom"><span class="chip">SELECT A WORD</span></div>
 </main>
 
@@ -71,6 +83,20 @@ textarea{width:100%;resize:vertical;padding:8px;line-height:1.5}.page{white-spac
 <footer class="status"><b id="status">READY</b><span id="statusText">Source is sovereign; map is a projection.</span><span class="grow"></span><span>PAGE ≠ MAP ≠ SETS · SELECT → POSSIBILITY → CHOOSE → RETURN</span></footer>
 </div>
 
+
+<div class="guideShade" id="guideShade"><div class="guideCard">
+ <div class="tiny" style="color:var(--hot)">30 SECOND PLAY PATH</div>
+ <h2>Make one choice.<br>Then open the map.</h2>
+ <div class="guideSteps">
+  <div class="guideStep"><b>1</b><div><strong>SOURCE</strong><div class="sub">Paste anything — a word, fragment, finished poem — or load the tiny demo.</div></div></div>
+  <div class="guideStep"><b>2</b><div><strong>PAGE</strong><div class="sub">Read the poem normally. Tap one word or character; that selection becomes the focus aperture.</div></div></div>
+  <div class="guideStep"><b>3</b><div><strong>POSSIBILITY</strong><div class="sub">Choose CONTINUE / ECHO / TURN / RHYME / SURPRISE, or bank your own candidate. Online lookup happens only after you ask.</div></div></div>
+  <div class="guideStep"><b>4</b><div><strong>TRY → ADOPT</strong><div class="sub">TRY previews without editing. ADOPT commits and records ancestry. LOCK protects words you refuse to change.</div></div></div>
+  <div class="guideStep"><b>5</b><div><strong>MAP / SETS / PATH</strong><div class="sub">Only then open relation space: trace patterns, author a path, or inspect neighborhoods. These are projections of the same poem.</div></div></div>
+  <div class="guideStep"><b>6</b><div><strong>RETURN</strong><div class="sub">Export the source, choices, locks, paths and revision evidence — not just a screenshot.</div></div></div>
+ </div>
+ <div class="guideActions"><button id="guideDemo" class="hot">PLAY TINY DEMO</button><button id="guideClose">USE MY TEXT</button></div>
+</div></div>
 <script>
 (()=>{'use strict';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],TAU=Math.PI*2,C=$('#map'),X=C.getContext('2d');
@@ -86,7 +112,7 @@ const FORMS={
  jueju7:{name:'JUEJU 7',lines:4,chars:7,note:'historical 平仄/rime OPEN'},
  jueju5:{name:'JUEJU 5',lines:4,chars:5,note:'historical 平仄/rime OPEN'}
 };
-const S={source:'',nodes:[],edges:[],selected:null,mode:'MAP',locks:new Set(),authorPath:[],authorEdges:[],linkPending:null,bank:[],preview:null,revisions:[],captures:[],weights:{order:.7,sound:.65,repeat:.9,author:1},aperture:.7,form:'free',layoutSeed:1,drag:null};
+const S={source:'',nodes:[],edges:[],selected:null,mode:'PAGE',locks:new Set(),authorPath:[],authorEdges:[],linkPending:null,bank:[],preview:null,revisions:[],captures:[],weights:{order:.7,sound:.65,repeat:.9,author:1},aperture:.7,form:'free',layoutSeed:1,drag:null};
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 function isHan(ch){return /[\u3400-\u9fff\uf900-\ufaff]/u.test(ch)}
 function tokenizeLine(line,li){let out=[],re=/[\u3400-\u9fff\uf900-\ufaff]|[\p{L}\p{N}'’-]+|[^\s]/gu,m,ti=0;while((m=re.exec(line))){let raw=m[0];if(/^\s+$/.test(raw))continue;out.push({id:'L'+(li+1)+'T'+(++ti),line:li,index:ti-1,text:raw,norm:raw.toLocaleLowerCase(),start:m.index,x:0,y:0,vx:0,vy:0})}return out}
@@ -125,7 +151,7 @@ C.addEventListener('pointerup',()=>S.drag=null);C.addEventListener('pointercance
 function node(id){return S.nodes.find(n=>n.id===id)}
 function displayText(n){return S.preview&&S.preview.target===n.id?S.preview.word:n.text}
 function select(id){S.selected=id;if(S.linkPending&&S.linkPending!==id){if(!S.authorEdges.some(e=>(e.a===S.linkPending&&e.b===id)||(e.a===id&&e.b===S.linkPending)))S.authorEdges.push({a:S.linkPending,b:id,type:'AUTHOR',why:'author link'});S.linkPending=null;parse();return}renderPanels();save()}
-function setMode(m){S.mode=m;$$('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===m));$('#note').textContent=m==='MAP'?'Words move under explicit ORDER / SOUND / REPEAT / AUTHOR laws. Dragging changes only this projection.':m==='PAGE'?'The source remains readable and selectable. Locks and authored paths are overlays, not edits.':'Relationship sets are another entrance into the same stable token identities.';renderPanels()}
+function setMode(m){S.mode=m;save();$('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===m));$('#note').textContent=m==='MAP'?'Words move under explicit ORDER / SOUND / REPEAT / AUTHOR laws. Dragging changes only this projection.':m==='PAGE'?'The source remains readable and selectable. Locks and authored paths are overlays, not edits.':'Relationship sets are another entrance into the same stable token identities.';renderPanels()}
 $$('[data-mode]').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
 function syllables(w){w=(w.toLowerCase().match(/[a-z]+/g)||[]).join('');if(!w)return 0;if(w.length<=3)return 1;w=w.replace(/(?:[^laeiouy]es|ed|[^laeiouy]e)$/,'').replace(/^y/,'');return Math.max(1,(w.match(/[aeiouy]{1,2}/g)||[]).length)}
 function lineSyll(line){return (line.match(/[A-Za-z'’-]+/g)||[]).reduce((n,w)=>n+syllables(w),0)}
@@ -211,14 +237,47 @@ $('#clearPath').onclick=()=>{S.authorPath=[];S.authorEdges=[];parse()};$('#captu
 $('#form').onchange=e=>{S.form=e.target.value;save();renderConstraints()};for(let [id,key,out] of [['orderW','order','wo'],['soundW','sound','ws'],['repeatW','repeat','wr'],['authorW','author','wa']])$('#'+id).oninput=e=>{S.weights[key]=+e.target.value;$('#'+out).textContent=(+e.target.value).toFixed(2);save()};
 $('#aperture').oninput=e=>{S.aperture=+e.target.value;$('#wap').textContent=S.aperture.toFixed(2);save()};
 $('#mapIt').onclick=parse;$('#clear').onclick=()=>{$('#source').value='';Object.assign(S,{source:'',nodes:[],edges:[],selected:null,authorPath:[],authorEdges:[],bank:[],preview:null,revisions:[],captures:[],locks:new Set()});render();save()};$('#loadDemo').onclick=()=>{$('#source').value=DEMO;parse()};$('#loadJueju').onclick=()=>{$('#source').value=JUEJU;S.form='jueju7';$('#form').value=S.form;parse()};
-$('#resetLayout').onclick=()=>{S.layoutSeed++;initPositions();save()};$('#exportBtn').onclick=()=>{let r=receipt(),a=document.createElement('a');a.download='poem-map-return.json';a.href=URL.createObjectURL(new Blob([JSON.stringify(r,null,2)],{type:'application/json'}));a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);status('RETURN EXPORTED')};
-function receipt(){return{format:'VERSE/POEM-MAP-0.2',source:S.source,nodes:S.nodes.map(({id,line,index,text,norm})=>({id,line,index,text,norm})),form:S.form,weights:S.weights,aperture:S.aperture,locks:[...S.locks],author_path:S.authorPath,author_edges:S.authorEdges,bank:S.bank,preview:S.preview,revisions:S.revisions,captures:S.captures,claims:{sound:'APPROX_LATIN_HEURISTIC',semantic:'NO_AUTOMATIC_SEMANTIC_EMBEDDING',jueju_historical_prosody:'OPEN'},created:new Date().toISOString()}}
-function save(){try{localStorage.setItem('verse-poem-map-02',JSON.stringify({source:S.source,form:S.form,weights:S.weights,aperture:S.aperture,locks:[...S.locks],authorPath:S.authorPath,authorEdges:S.authorEdges,bank:S.bank,preview:S.preview,revisions:S.revisions,captures:S.captures,layoutSeed:S.layoutSeed}))}catch(e){}}
-function load(){try{let q=JSON.parse(localStorage.getItem('verse-poem-map-02')||localStorage.getItem('verse-poem-map-01')||'null');if(!q)return;Object.assign(S,{source:q.source||'',form:q.form||'free',weights:{...S.weights,...q.weights},aperture:q.aperture??.7,locks:new Set(q.locks||[]),authorPath:q.authorPath||[],authorEdges:q.authorEdges||[],bank:q.bank||[],preview:null,revisions:q.revisions||[],captures:q.captures||[],layoutSeed:q.layoutSeed||1});$('#source').value=S.source;$('#form').value=S.form;for(let [id,key,out] of [['orderW','order','wo'],['soundW','sound','ws'],['repeatW','repeat','wr'],['authorW','author','wa']]){$('#'+id).value=S.weights[key];$('#'+out).textContent=S.weights[key].toFixed(2)}$('#aperture').value=S.aperture;$('#wap').textContent=S.aperture.toFixed(2)}catch(e){}}
+$('#resetLayout').onclick=()=>{S.layoutSeed++;initPositions();save()};$('#exportBtn').onclick=()=>{let r=receipt(),a=document.createElement('a');a.download='poem-map-return.json';a.href=URL.createObjectURL(new Blob([JSON.stringify(r,null,2)],{type:'application/json'}));a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);status('RETURN EXPORTED')};$('#importBtn').onclick=()=>$('#importFile').click();$('#importFile').onchange=async e=>{let file=e.target.files?.[0];e.target.value='';if(!file)return;try{applyReceipt(JSON.parse(await file.text()));status('RETURN REPLAYED')}catch(err){status('IMPORT FAILED · INVALID POEM MAP RETURN')}};
+function receipt(){return{format:'VERSE/POEM-MAP-0.2',source:S.source,mode:S.mode,nodes:S.nodes.map(({id,line,index,text,norm})=>({id,line,index,text,norm})),form:S.form,weights:S.weights,aperture:S.aperture,locks:[...S.locks],author_path:S.authorPath,author_edges:S.authorEdges,bank:S.bank,preview:S.preview,revisions:S.revisions,captures:S.captures,claims:{sound:'APPROX_LATIN_HEURISTIC',semantic:'NO_AUTOMATIC_SEMANTIC_EMBEDDING',jueju_historical_prosody:'OPEN'},created:new Date().toISOString()}}function applyReceipt(r){
+ if(!r||r.format!=='VERSE/POEM-MAP-0.2'||typeof r.source!=='string')throw new Error('RETURN FORMAT');
+ S.source=r.source;S.form=FORMS[r.form]?r.form:'free';S.mode=['PAGE','MAP','SETS'].includes(r.mode)?r.mode:'PAGE';
+ S.weights={...S.weights,...(r.weights||{})};S.aperture=Number.isFinite(+r.aperture)?Math.max(.05,Math.min(1,+r.aperture)):S.aperture;
+ S.locks=new Set(Array.isArray(r.locks)?r.locks:[]);S.authorPath=Array.isArray(r.author_path)?r.author_path.slice():[];
+ S.authorEdges=Array.isArray(r.author_edges)?r.author_edges.map(x=>({...x})):[];
+ S.bank=Array.isArray(r.bank)?r.bank.map(x=>({...x})):[];S.preview=null;
+ S.revisions=Array.isArray(r.revisions)?r.revisions.map(x=>({...x})):[];
+ S.captures=Array.isArray(r.captures)?r.captures.map(x=>({...x})):[];
+ S.selected=null;$('#source').value=S.source;$('#form').value=S.form;
+ for(let [id,key,out] of [['orderW','order','wo'],['soundW','sound','ws'],['repeatW','repeat','wr'],['authorW','author','wa']]){
+   $('#'+id).value=S.weights[key];$('#'+out).textContent=(+S.weights[key]).toFixed(2)
+ }
+ $('#aperture').value=S.aperture;$('#wap').textContent=S.aperture.toFixed(2);
+ parse();setMode(S.mode);save();return true
+}
+function save(){try{localStorage.setItem('verse-poem-map-02',JSON.stringify({source:S.source,mode:S.mode,form:S.form,weights:S.weights,aperture:S.aperture,locks:[...S.locks],authorPath:S.authorPath,authorEdges:S.authorEdges,bank:S.bank,preview:S.preview,revisions:S.revisions,captures:S.captures,layoutSeed:S.layoutSeed}))}catch(e){}}
+function load(){try{let q=JSON.parse(localStorage.getItem('verse-poem-map-02')||localStorage.getItem('verse-poem-map-01')||'null');if(!q)return;Object.assign(S,{source:q.source||'',mode:q.mode||'PAGE',form:q.form||'free',weights:{...S.weights,...q.weights},aperture:q.aperture??.7,locks:new Set(q.locks||[]),authorPath:q.authorPath||[],authorEdges:q.authorEdges||[],bank:q.bank||[],preview:null,revisions:q.revisions||[],captures:q.captures||[],layoutSeed:q.layoutSeed||1});$('#source').value=S.source;$('#form').value=S.form;for(let [id,key,out] of [['orderW','order','wo'],['soundW','sound','ws'],['repeatW','repeat','wr'],['authorW','author','wa']]){$('#'+id).value=S.weights[key];$('#'+out).textContent=S.weights[key].toFixed(2)}$('#aperture').value=S.aperture;$('#wap').textContent=S.aperture.toFixed(2)}catch(e){}}
 function status(t){$('#statusText').textContent=t;$('#status').textContent='LIVE'}
 function render(){renderPanels();resize()}
 function sheet(which){let el=$(which),other=which==='#left'?$('#right'):$('#left'),open=!el.classList.contains('open');other.classList.remove('open');el.classList.toggle('open',open);$('#shade').classList.toggle('show',open)}$('#leftBtn').onclick=()=>sheet('#left');$('#rightBtn').onclick=()=>sheet('#right');$('#shade').onclick=()=>{$$('.side').forEach(x=>x.classList.remove('open'));$('#shade').classList.remove('show')};
-load();if(S.source)parse();else render();requestAnimationFrame(draw);
-window.__POEM_MAP__={S,receipt,parse,setMode,previewCandidate,adoptCandidate,undoRevision};
+function selftest(){
+ const t=[],a=(name,pass,detail='')=>t.push({name,pass:!!pass,detail});
+ const toks=tokenizeLine('rain rain',0);
+ a('stable token addresses',toks.length===2&&toks[0].id==='L1T1'&&toks[1].id==='L1T2',toks.map(x=>x.id).join(' · '));
+ a('Jueju donor remains four-line open source',JUEJU.split('\n').length===4&&Array.from(JUEJU.split('\n')[0]).length===7,'4 lines / 7-char opener');
+ a('form adapters remain plural',['free','haiku','couplet','quatrain','sonnet','villanelle','jueju7','jueju5'].every(k=>!!FORMS[k]),Object.keys(FORMS).join(' · '));
+ a('writer-intent dock remains plural',['continue','replace','echo','contrast','turn','rhyme','surprise'].every(k=>!!INTENTS[k]),Object.keys(INTENTS).join(' · '));
+ a('RETURN contract intact',receipt().format==='VERSE/POEM-MAP-0.2',receipt().format);a('RETURN replay function exposed',typeof applyReceipt==='function','applyReceipt');
+ a('historical Jueju prosody still OPEN',receipt().claims.jueju_historical_prosody==='OPEN',receipt().claims.jueju_historical_prosody);
+ a('map sound remains explicitly approximate',receipt().claims.sound==='APPROX_LATIN_HEURISTIC',receipt().claims.sound);
+ return t
+}
+function closeGuide(){localStorage.setItem('verse-poem-map-guide-seen','1');$('#guideShade').classList.remove('show')}
+$('#guideBtn').onclick=()=>$('#guideShade').classList.add('show');
+$('#guideClose').onclick=closeGuide;
+$('#guideShade').onclick=e=>{if(e.target.id==='guideShade')closeGuide()};
+$('#guideDemo').onclick=()=>{$('#source').value=DEMO;parse();setMode('PAGE');closeGuide();status('DEMO READY · TAP A WORD → CHOOSE AN INTENT')};
+load();if(S.source)parse();else render();setMode(S.mode||'PAGE');requestAnimationFrame(draw);
+if(!localStorage.getItem('verse-poem-map-guide-seen'))$('#guideShade').classList.add('show');
+window.__POEM_MAP__={S,receipt,applyReceipt,parse,setMode,previewCandidate,adoptCandidate,undoRevision,selftest};
 })();
 </script></body></html>
