@@ -51,7 +51,7 @@
       "id": "human-port-use",
       "state": "ACTIVE_NOW",
       "center": "/port/ PORT_OBJECT → focus → FIT/CUES/HISTORY → SELECT → OPEN → downstream route or FIELD INTAKE → RETURN",
-      "objective": "Observe HUMAN PORT 1.5 in ordinary use across three unequal real objects—generated image, authored text/JSON, opaque authored file—without a dedicated QA ritual. Retain only evidence that identity/provenance survives routing and FIELD INTAKE admission remains candidate-only.",
+      "objective": "Observe HUMAN PORT 1.5 in ordinary use across three unequal real objects—generated image, authored text/JSON, opaque authored file. The closed PR #111 harness is non-authoritative; refine only from actual use evidence or a separately reproduced product failure.",
       "evidence": [
         "/port/",
         "/port/object.schema.json",
@@ -63,7 +63,8 @@
         "/returns/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json",
         "/control/confluence/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json",
         "/control/confluence/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
-        "/returns/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json"
+        "/returns/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
+        "/returns/HARD_ADVANCE_2026-09-22.json"
       ]
     }
   ],
@@ -366,7 +367,7 @@
   ],
   "next_single_action": {
     "id": "human-port-object-specimens-01",
-    "instruction": "Use HUMAN PORT 1.5 on three unequal real objects when convenient: one generated image, one authored text/JSON file and one opaque authored file. Do not add another medium yet. Preserve the first concrete failure/override/RETURN from each specimen and decide RETAIN/REVISE from evidence."
+    "instruction": "Continue ordinary HUMAN PORT use until three unequal real object classes have naturally occurred: generated image, authored text/JSON, opaque authored file. Do not recreate PR #111 as a QA ritual. Preserve the first real failure/override/RETURN from each class; revise only from that evidence."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
@@ -647,20 +648,21 @@
       "rule": "closed branches retain provenance; master remains authority"
     },
     "last_live_census": {
-      "branches": 111,
-      "open_prs": 1,
+      "branches": 114,
+      "open_prs": 0,
+      "merged_pr_lineage": 76,
+      "closed_unmerged_pr_lineage": 23,
       "no_pr_pointers": 14,
       "unclassified_no_pr": 0,
-      "execution_branch_excluded": "confluence-hard-advance-20260922",
-      "active_review": [
-        {
-          "branch": "field/waiting-body-calibration-20260922",
-          "sha": "1fbc9b425d1e37dade2b47e4f466184a6861ab66",
-          "prs": [
-            108
-          ]
-        }
-      ]
+      "census_master": "5912190d99ae7573edecef9932c57ff824ec197b",
+      "execution_branch_excluded": "confluence-hard-seal-20260922",
+      "active_review": []
+    },
+    "human_port_specimen_harness": {
+      "pr": 111,
+      "state": "CLOSED_UNMERGED_DONOR",
+      "finding": "No product defect established. The browser-smoke virtual-time model is unsuitable as authority for real local File→IndexedDB ordinary-use evidence.",
+      "rule": "Do not reopen as QA work. Continue CURRENT.next_single_action only through ordinary use or a separately reproduced product failure."
     }
   },
   "deep_tool_lineage": {
