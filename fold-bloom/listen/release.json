@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM LISTEN",
-  "version": "0.2",
+  "version": "0.2.1",
   "state": "CANDIDATE",
   "operation": "LISTEN",
   "route": "/fold-bloom/listen/",
@@ -27,7 +27,10 @@
     "direct http(s) audio address adapter",
     "96 MB remote-byte guard before decode",
     "Suno metadata may carry title/artist/tags/plain lyrics into AUDIO MAP source provenance; lyrics remain explicitly unaligned",
-    "remote failure collapses cleanly back to local file intake instead of changing the instrument state"
+    "remote failure collapses cleanly back to local file intake instead of changing the instrument state",
+    "native label→file-input activation: CHOOSE AUDIO no longer depends on LISTEN JavaScript",
+    "renderer and analysis Worker boot are lazy/failure-isolated so visual failure cannot disable intake",
+    "runtime exposes boot sentinel and renderer fallback state for browser proof"
   ],
   "constraints": [
     "no upload/network required for user audio",
@@ -46,7 +49,9 @@
     "workflow_note": "Overall run failed only in unrelated existing Lens timing probes; LISTEN-specific cases all passed",
     "remote_suno_fetch": "REQUIRED_REAL_BROWSER: external endpoint/CORS behavior intentionally not claimed",
     "real_audio_analysis": "REQUIRED_NEXT: first real-song play",
-    "merge_sha": "716867fab903b513627e45adfb7ca586617f39f6"
+    "merge_sha": "716867fab903b513627e45adfb7ca586617f39f6",
+    "intake_activation": "PENDING_CI: app boot + native label targets non-hidden file input + activation event",
+    "regression_reason": "User observed CHOOSE AUDIO was inert on deployed 0.2; static DOM smoke had not tested app boot or activation."
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · visible on FIELD INDEX · host=/fold-bloom/ · evolution stage=TEST"
 }
