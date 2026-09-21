@@ -29,7 +29,7 @@
   "laws": [
     "SOURCE STAYS SOURCE",
     "FOCUS != SOURCE REPLACEMENT",
-    "SUPPORT != CONFIDENCE != AUTHORITY",
+    "HEURISTIC CUE SUPPORT != EXACT SET SUPPORT != CONFIDENCE != AUTHORITY",
     "SELECT != OPEN != EXTERNAL SEND",
     "ZERO SUPPORT DOES NOT FORBID MANUAL ROUTING",
     "ROUTE RECEIPT != WORLD RETURN"
@@ -46,7 +46,7 @@
     "embed shared Field Aperture inline rather than opening it only as a floating inspector",
     "route WHOLE SOURCE or CURRENT FOCUS",
     "support TEXT document/paragraph/sentence/word and JSON root/level/leaf focus",
-    "show exact route cue counts against the current route scope",
+    "show reproducible heuristic route-cue hit counts against the current route scope; these are not Constraint Surface survivor counts",
     "separate route SELECT from explicit OPEN",
     "persist same-session source/focus/scope/selected route for re-entry",
     "store content-free local route receipts",
@@ -62,5 +62,10 @@
     "/control/INTERACTION_SEMANTICS.json",
     "/control/PREFERENCE_SIGNALS.json"
   ],
-  "receipt": "/returns/HUMAN_PORT_FOCUS_APERTURE_2026-09-21.json"
+  "receipt": "/returns/HUMAN_PORT_FOCUS_APERTURE_2026-09-21.json",
+  "support_semantics": {
+    "kind": "HEURISTIC_CUE_EVIDENCE",
+    "contract": "/control/SUPPORT_SEMANTICS.json",
+    "non_claim": "Route cue counts suggest attention; they do not prove route compatibility, confidence, importance or permission."
+  }
 }
