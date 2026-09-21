@@ -87,7 +87,7 @@ class FieldAperture extends HTMLElement{
   q('centerWord').textContent=center.length>15?center.slice(0,14)+'…':center||'—';q('centerMeta').textContent=s.label+' · '+(this.pos+1)+'/'+n;
   q('ey').textContent=this.A.kind+' · '+s.label;q('size').textContent=mag.human+' · '+mag.band;q('focus').textContent=focus||'(empty)';q('addr').textContent=c?.path||s.id+'://'+this.pos;q('meter').style.width=(frac*100)+'%';q('rate').textContent=this.wpm+' WPM';q('rsvp').textContent=this.timer?'Ⅱ RSVP':'▶ RSVP';
  }
- toggleRSVP(){if(this.timer){clearInterval(this.timer);this.timer=null;this.render();return}const s=this.currentScale();if(!s||s.units.length<2)return;this.timer=setInterval(()=>this.step(1),Math.max(45,60000/this.wpm));this.render()}
+ toggleRSVP(){if(this.timer){clearInterval(this.timer);this.timer=null;this.render();return}let s=this.currentScale();if(!s)return;if(s.units.length<2){const preferred=this.A.kind==='TEXT'?this.A.scales.findIndex(x=>x.id==='WORD'):this.A.scales.findIndex(x=>x.units.length>1);if(preferred>=0){this.scale=preferred;this.pos=0;s=this.currentScale()}}if(!s||s.units.length<2)return;this.timer=setInterval(()=>this.step(1),Math.max(45,60000/this.wpm));this.render()}
  stop(){if(this.timer){clearInterval(this.timer);this.timer=null}if('speechSynthesis'in window)window.speechSynthesis.cancel();this.speaking=false;this.render()}
  speak(){
    if(!this.A||!('speechSynthesis'in window)||!('SpeechSynthesisUtterance'in window))return;
