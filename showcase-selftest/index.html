@@ -13,9 +13,9 @@
 <body><main>
 <div class="ey">PUBLIC QA · SAME-ORIGIN · NO SHOWCASE CARD</div>
 <h1>SHOWCASE SELF-TEST</h1>
-<p class="sub">Loads each deployed card twice: 390px and 1100px. Checks rendered DOM, viewport, horizontal overflow, shared RETURN adapter, and a harmless view-switch where a stable selector is known. This is deployment evidence, not a substitute for human play.</p>
-<div class="bar"><button class="primary" id="run">RUN 18 PASSES</button><button id="export">EXPORT RECEIPT</button><a href="/" style="color:#9fb0b8;padding:8px">← SHOWCASE</a></div>
-<section class="summary"><div><span>ROUTES</span><strong id="routes">9</strong></div><div><span>PASSES</span><strong id="passes">0</strong></div><div><span>FAILS</span><strong id="fails">0</strong></div><div><span>STATE</span><strong id="overall">PENDING</strong></div></section>
+<p class="sub">Loads each selected public surface twice: 390px and 1100px. Checks rendered DOM, viewport, horizontal overflow, shared RETURN adapter, and a harmless view-switch where a stable selector is known. This is deployment evidence, not a substitute for human play.</p>
+<div class="bar"><button class="primary" id="run">RUN SELF-TEST</button><button id="export">EXPORT RECEIPT</button><a href="/" style="color:#9fb0b8;padding:8px">← SHOWCASE</a></div>
+<section class="summary"><div><span>ROUTES</span><strong id="routes">0</strong></div><div><span>PASSES</span><strong id="passes">0</strong></div><div><span>FAILS</span><strong id="fails">0</strong></div><div><span>STATE</span><strong id="overall">PENDING</strong></div></section>
 <section id="rows" class="rows"></section>
 <div id="frames" class="frames"></div>
 <p class="micro">Tests run in sandboxed same-origin iframes. They do not submit forms, export app data, or invoke destructive controls.</p>
@@ -31,14 +31,19 @@ const CASES=[
  {title:'VERSE ATLAS',route:'/foundry/verse-atlas/',marker:'#tabs',smoke:async d=>{const b=d.querySelector('button[data-view="grid"]');if(!b)return false;b.click();await wait(60);return d.querySelector('#grid')?.classList.contains('on')===true}},
  {title:'ATLAS DAYLINE',route:'/atlas-dayline/',marker:'#mobileNav',smoke:async d=>{const b=d.querySelector('#plainProjectionBtn');if(!b)return false;b.click();await wait(80);const v=d.querySelector('#plainView');return !!v&&getComputedStyle(v).display!=='none'}},
  {title:'IDENTITY LAB',route:'/foundry/convergence/identity-lab.html',marker:'#projectionBody',smoke:async d=>{const b=d.querySelector('button[data-projection="table"]');if(!b)return false;b.click();await wait(80);return (d.querySelector('#projectionBody')?.textContent||'').trim().length>0}},
- {title:'FIELD / PROOF',route:'/forward-field-proof/',marker:'#field',smoke:async d=>{const b=d.querySelector('button[data-view="plain"]');if(!b)return false;b.click();await wait(60);return d.querySelector('#plain')?.hidden===false}}
+ {title:'FIELD / PROOF',route:'/forward-field-proof/',marker:'#field',smoke:async d=>{const b=d.querySelector('button[data-view="plain"]');if(!b)return false;b.click();await wait(60);return d.querySelector('#plain')?.hidden===false}},
+ {title:'AXIAL 0.7.1',route:'/foundry/axial/',marker:'#wheel'},
+ {title:'APERTURE 0.3',route:'/foundry/aperture/',marker:'field-aperture'},
+ {title:'HUMAN PORT 1.4',route:'/port/',marker:'#inspectBtn'},
+ {title:'DOCS / READ',route:'/docs/',marker:'#text'}
 ],WIDTHS=[{name:'MOBILE',px:390},{name:'DESKTOP',px:1100}],wait=ms=>new Promise(r=>setTimeout(r,ms));
+const TOTAL=CASES.length*WIDTHS.length;
 let receipt={schema:'showcase-live-selftest/v1',started_at:null,finished_at:null,results:[]},running=false;
-const $=id=>document.getElementById(id);
+const $=id=>document.getElementById(id);$('routes').textContent=CASES.length;$('run').textContent='RUN '+TOTAL+' PASSES';
 function draw(){
  const by=Object.fromEntries(CASES.map(c=>[c.route,receipt.results.filter(r=>r.route===c.route)]));
  $('rows').innerHTML=CASES.map((c,i)=>{const rs=by[c.route]||[],done=rs.length===2,state=!done?'PENDING':rs.every(x=>x.pass)?'PASS':'FAIL',checks=rs.length?rs.map(x=>x.viewport+': '+(x.pass?'PASS':'FAIL')+(x.failures.length?' ['+x.failures.join(', ')+']':'')).join(' · '):'not run';return '<div class="row"><div>'+(i+1).toString().padStart(2,'0')+'</div><div><b>'+c.title+'</b><div class="micro">'+c.route+'</div></div><div class="state '+state+'">'+state+'</div><div class="checks">'+checks+'</div></div>'}).join('');
- const p=receipt.results.filter(x=>x.pass).length,f=receipt.results.filter(x=>!x.pass).length;$('passes').textContent=p;$('fails').textContent=f;$('overall').textContent=running?'RUNNING':receipt.results.length===18?(f?'FAIL':'PASS'):'PENDING';$('overall').className=f?'FAIL':receipt.results.length===18?'PASS':'';
+ const p=receipt.results.filter(x=>x.pass).length,f=receipt.results.filter(x=>!x.pass).length;$('passes').textContent=p;$('fails').textContent=f;$('overall').textContent=running?'RUNNING':receipt.results.length===TOTAL?(f?'FAIL':'PASS'):'PENDING';$('overall').className=f?'FAIL':receipt.results.length===TOTAL?'PASS':'';
 }
 async function one(c,v){
  const frame=document.createElement('iframe');frame.sandbox='allow-scripts allow-same-origin';frame.style.width=v.px+'px';frame.style.height='760px';frame.src=c.route+'?showcase-selftest='+Date.now();$('frames').appendChild(frame);
