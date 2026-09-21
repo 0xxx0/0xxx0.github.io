@@ -151,7 +151,7 @@ function fieldActivationProbeHtml(){
     const W=()=>f.contentWindow,D=()=>W().document;
     await waitFor(()=>W().FieldLensHost?.focus?.()?.href);
     W().FieldLensHost.project('STRUCTURE');
-    const row=await waitFor(()=>D().querySelector('.mapRow[data-href]')),href=row.dataset.href;rec.href=href;
+    const href='/fold-bloom/',row=await waitFor(()=>D().querySelector('.mapRow[data-href="'+href+'"]'));rec.href=href;
     row.click();await waitFor(()=>W().FieldLensHost?.focus?.()?.href===href&&W().location.pathname==='/');
     rec.focused=W().FieldLensHost.focus().href;rec.focusUrl=W().location.search;rec.target=W().FieldLensHost.focus()?.alias_of||href;
     const same=await waitFor(()=>D().querySelector('.mapRow[data-href="'+href+'"]'));same.click();
