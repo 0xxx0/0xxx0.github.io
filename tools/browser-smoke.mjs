@@ -133,7 +133,7 @@ const CASES=[
   {
     name:'POEM MAP',
     route:'/poetry/map/',
-    check:dom=>/POEM MAP 0\.2/i.test(dom)&&dom.includes('id="guideBtn"')&&dom.includes('id="importBtn"')&&dom.includes('data-mode="PAGE"')&&!dom.includes('load failure')
+    check:dom=>/POEM MAP 0\.2/i.test(dom)&&dom.includes('id="guideBtn"')&&dom.includes('id="importBtn"')&&dom.includes('id="corpusBtn"')&&dom.includes('data-mode="PAGE"')&&!dom.includes('load failure')
   },
   {
     name:'VERSE ATLAS',
@@ -147,6 +147,27 @@ const CASES=[
     name:'FOUNDRY',
     route:'/foundry/',
     check:dom=>/FOUNDRY/i.test(dom)&&/VERSE|AXIAL/i.test(dom)&&!dom.includes('load failure')
+  },
+  {
+    name:'FOUNDRY CORE',
+    route:'/foundry/core/',
+    check:dom=>/Turn lived uncertainty into manipulable state/i.test(dom)&&!dom.includes('CENTER LOAD FAILURE')
+  },
+  {
+    name:'MIGRATION',
+    route:'/migration/',
+    check:dom=>{
+      const trophy=textAtId(dom,'trophyCount');
+      return /exact|frozen|donor/i.test(trophy)&&!/Loading active migration surface/i.test(dom);
+    }
+  },
+  {
+    name:'CONFLUENCE',
+    route:'/control/confluence/',
+    check:dom=>{
+      const tx=textAtId(dom,'transfers');
+      return /CONFLUENCE/i.test(dom)&&/TRANSFER REGISTRY/i.test(dom)&&/IMPLEMENTED|PROOF_REQUIRED|PROPOSED/.test(tx)&&!/loading|unavailable/i.test(tx);
+    }
   },
   {
     name:'SLEEPER RECOVERY',
@@ -166,9 +187,10 @@ try{
     const ok=r.code===0&&!fatal&&c.check(r.out);
     console.log((ok?'PASS':'FAIL'),c.name,c.route);
     if(!ok){
-      const source=textAtId(r.out,'sourceState'),oneLine=textAtId(r.out,'oneLine'),transfers=textAtId(r.out,'transfers');
-      fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(oneLine?' oneLine='+JSON.stringify(oneLine):'')+(transfers?' transfers='+JSON.stringify(transfers):'')+(fatal?' browser-fatal':''));
-      if(process.env.SMOKE_DEBUG==='1')console.error(r.err.slice(-2500));
+      const source=textAtId(r.out,'sourceState');
+      const body=r.out.replace(/<script[\s\S]*?<\/script>/gi,' ').replace(/<style[\s\S]*?<\/style>/gi,' ').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().slice(0,700);
+      fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(fatal?' browser-fatal':'')+(body?' body='+JSON.stringify(body):''));
+      if(r.err.trim())console.error('SMOKE STDERR',c.name,r.err.slice(-1800));
     }
   }
 }finally{
