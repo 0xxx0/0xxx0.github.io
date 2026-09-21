@@ -42,5 +42,6 @@
     "/body/contract.json",
     "/body/release.json"
   ],
-  "honesty": "The device snapshot is timestamped source material from the HOUSE branch; this Sep 20 convergence pass did not claim to refresh live Home Assistant state."
+  "honesty": "The device snapshot is timestamped source material from the HOUSE branch; this Sep 20 convergence pass did not claim to refresh live Home Assistant state.",
+  "validation": "/control/BODY_HOUSE_CONVERGENCE_2026-09-21.json"
 }
