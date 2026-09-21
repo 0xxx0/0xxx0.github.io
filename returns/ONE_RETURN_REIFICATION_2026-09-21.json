@@ -1,0 +1,75 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "ONE-RETURN-REIFICATION-2026-09-21",
+  "at": "2026-09-21T20:18:00+08:00",
+  "object": "ONE RETURN / NINE GATE playable maze lineage",
+  "trigger": "Recover the latest useful ONE RETURN maze game as an import/live lane rather than continue byte-perfect archaeology.",
+  "observed": {
+    "latest_recovered_maze_game": "one_return_nine_gate_rebuilt_v0.1.html (File Library, 2026-09-13)",
+    "recovered_status": "reconstruction from attested historical mechanics; lost standalone executable not claimed recovered",
+    "retained_mechanics": [
+      "deterministic corpus-seeded ASCII labyrinth",
+      "semantic letters in walls",
+      "nine ordered gates",
+      "CITY / DISC / TRACE same-run projections",
+      "radial DataDisc",
+      "RSVP encounter rail",
+      "semantic success deforms topology",
+      "previous RETURN route ghost",
+      "append trace + return ledger",
+      "local persistence + JSON import/export"
+    ],
+    "exact_adjacent_donor": "/recovery/path-grid/grid-path-compiler-v4/ emits BY/GRID-PATH-2 receipts"
+  },
+  "enacted": [
+    {
+      "move": "Restore live playable lane",
+      "route": "/sleeper/one-return/",
+      "pr": 80,
+      "merge_sha": "5bd76a634e78f6cb168146d8d76a5605aa6edac7",
+      "boundary": "Current /sleeper/ POV 0.8 remains head; Workfield v1.2 remains practical task substrate."
+    },
+    {
+      "move": "Add bounded Grid Path RETURN import seam",
+      "donor": "/recovery/path-grid/grid-path-compiler-v4/",
+      "recipient": "/sleeper/one-return/",
+      "pr": 81,
+      "merge_sha": "e40cc29cfec5cf19c747239d8e8cfc3abb46e92c",
+      "preserves": [
+        "source fingerprint",
+        "path id",
+        "compressed address",
+        "reading",
+        "source pack"
+      ],
+      "explicitly_loses": [
+        "rectangular Grid Path geometry",
+        "typed BY edges as maze edges",
+        "Grid route cost"
+      ],
+      "consequence": "Receipt becomes source/seed for a new deterministic maze; ONE RETURN RETURN carries upstream identity."
+    }
+  ],
+  "verification": {
+    "live_lane_pr_run": 35597939499,
+    "live_lane_pr_result": "PASS",
+    "live_lane_master_run": 35598080988,
+    "live_lane_master_result": "PASS",
+    "receipt_seam_pr_run": 35598453910,
+    "receipt_seam_pr_result": "PASS",
+    "receipt_seam_master_run": 35598569739,
+    "receipt_seam_master_attempt": 2,
+    "receipt_seam_master_result": "PASS",
+    "pages_run": 35598569054,
+    "pages_result": "PASS",
+    "note": "Master attempt 1 timed out launching Chrome on root `/` before ONE RETURN tests; failed jobs rerun passed without code change."
+  },
+  "distinction": {
+    "sleeper_pov": "Current constraint/evidence head.",
+    "one_return": "Playable maze organism where semantic state changes traversable topology.",
+    "workfield": "Practical source/task instrument; maze traversal intentionally demoted there.",
+    "grid_path": "Addressed path/compiler instrument with typed BY edges and replayable receipt.",
+    "confluence": "Coordinates transfers between these unequal organisms; owns none of them."
+  },
+  "next": "Use/play the restored lane. Only transfer another mechanic when ordinary use names a missing function. Human Fold/physical gates remain human work; no new repo architecture front is opened."
+}
