@@ -57,7 +57,7 @@ function analyze(source,label='Untitled',locale='en'){
  return{kind,label,locale,raw,data:raw,bytes,chars,words:words.length,sentences:sentences.length,graphemes:graphemes.length,paragraphs:paras.length,scales};
 }
 class FieldAperture extends HTMLElement{
- constructor(){super();this.attachShadow({mode:'open'});this.A=null;this.scale=0;this.pos=0;this.timer=null;this.rsvp=false;this.wpm=300;this.speaking=false;this.bound=this.onPointer.bind(this);this.boundKey=this.onKey.bind(this);this.ratePresets=[120,200,300,450,650,900,1200,1600,2200,3000]}
+ constructor(){super();this.attachShadow({mode:'open'});this.A=null;this.scale=0;this.pos=0;this.timer=null;this.rsvp=false;this.wpm=300;this.speaking=false;this.voiceToken=0;this.bound=this.onPointer.bind(this);this.boundKey=this.onKey.bind(this);this.ratePresets=[120,200,300,450,650,900,1200,1600,2200,3000]}
  connectedCallback(){this.renderShell();this.tabIndex=this.tabIndex<0?0:this.tabIndex;this.addEventListener('keydown',this.boundKey);if(this.hasAttribute('source'))this.load(this.getAttribute('source'),{label:this.getAttribute('label')||'Source'})}
  disconnectedCallback(){this.stop();this.removeEventListener('keydown',this.boundKey)}
  scaleIndex(value){
@@ -128,15 +128,20 @@ class FieldAperture extends HTMLElement{
  dwell(){const c=this.current(),txt=typeof c?.value==='string'?c.value:String(c?.key||''),base=60000/this.wpm;let f=1;if(/[.!?][”"'’)]*$/.test(txt))f=1.8;else if(/[,;:][”"'’)]*$/.test(txt))f=1.35;if(txt.length>10)f*=Math.min(1.5,1+(txt.length-10)*.018);return Math.max(20,base*f)}
  scheduleRSVP(){if(!this.A||!this.rsvp)return;this.timer=setTimeout(()=>{this.timer=null;const s=this.currentScale();if(!s){this.rsvp=false;return}if(!this.hasAttribute('loop')&&this.pos>=s.units.length-1){this.rsvp=false;this.render();this.emit();return}this.step(1);if(this.A&&this.rsvp)this.scheduleRSVP()},this.dwell());this.render()}
  toggleRSVP(){if(this.rsvp){this.rsvp=false;if(this.timer){clearTimeout(this.timer);this.timer=null}this.render();this.emit();return}let s=this.currentScale();if(!s)return;if(s.units.length<2){let preferred=this.A.kind==='TEXT'?this.A.scales.findIndex(x=>x.id==='WORD'&&x.units.length>1):this.A.scales.findIndex(x=>x.units.length>1);if(preferred<0&&this.A.kind==='TEXT')preferred=this.A.scales.findIndex(x=>x.id==='GRAPHEME'&&x.units.length>1);if(preferred>=0){this.scale=preferred;this.pos=0;s=this.currentScale()}}if(!s||s.units.length<2)return;if(!this.hasAttribute('loop')&&this.pos>=s.units.length-1){this.pos=0;this.render();this.emit()}this.rsvp=true;this.render();this.emit();this.scheduleRSVP()}
- stop(){const changed=this.rsvp||!!this.timer||this.speaking;this.rsvp=false;if(this.timer){clearTimeout(this.timer);this.timer=null}if('speechSynthesis'in window)window.speechSynthesis.cancel();this.speaking=false;this.render();if(changed&&this.A)this.emit()}
+ stop(){const changed=this.rsvp||!!this.timer||this.speaking;this.rsvp=false;this.voiceToken++;if(this.timer){clearTimeout(this.timer);this.timer=null}if('speechSynthesis'in window)window.speechSynthesis.cancel();this.speaking=false;this.render();if(changed&&this.A)this.emit()}
  speak(){
    if(!this.A||!('speechSynthesis'in window)||!('SpeechSynthesisUtterance'in window))return;
-   window.speechSynthesis.cancel();
+   const run=++this.voiceToken;window.speechSynthesis.cancel();
    if(this.A.kind==='TEXT'){
      const wi=this.A.scales.findIndex(x=>x.id==='WORD');if(wi>=0){this.scale=wi;this.pos=0}
-     const u=new SpeechSynthesisUtterance(this.A.raw);u.rate=1.7;u.onboundary=e=>{if(e.name&&e.name!=='word')return;const s=this.currentScale();if(s?.id!=='WORD')return;const i=s.units.findIndex(x=>x.start<=e.charIndex&&e.charIndex<x.end);if(i>=0){this.pos=i;this.render();this.emit()}};u.onend=()=>{this.speaking=false;this.render()};this.speaking=true;window.speechSynthesis.speak(u);this.render();return;
+     const u=new SpeechSynthesisUtterance(this.A.raw);u.rate=1.7;
+     u.onboundary=e=>{if(run!==this.voiceToken)return;if(e.name&&e.name!=='word')return;const s=this.currentScale();if(s?.id!=='WORD')return;const i=s.units.findIndex(x=>x.start<=e.charIndex&&e.charIndex<x.end);if(i>=0){this.pos=i;this.render();this.emit()}};
+     u.onend=()=>{if(run!==this.voiceToken)return;this.speaking=false;this.render();this.emit()};
+     u.onerror=()=>{if(run!==this.voiceToken)return;this.speaking=false;this.render();this.emit()};
+     this.speaking=true;window.speechSynthesis.speak(u);this.render();return;
    }
-   const c=this.current(),txt=(c?.key?c.key+' ':'')+(typeof c?.value==='string'?c.value:preview(c?.value,320));const u=new SpeechSynthesisUtterance(txt);u.rate=1.5;window.speechSynthesis.speak(u);
+   const c=this.current(),txt=(c?.key?c.key+' ':'')+(typeof c?.value==='string'?c.value:preview(c?.value,320)),u=new SpeechSynthesisUtterance(txt);u.rate=1.5;
+   u.onend=()=>{if(run!==this.voiceToken)return;this.speaking=false;this.render();this.emit()};u.onerror=u.onend;this.speaking=true;window.speechSynthesis.speak(u);this.render();
  }
 }
 customElements.define('field-aperture',FieldAperture);
