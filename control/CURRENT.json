@@ -41,7 +41,10 @@
         "/control/MIGRATION.json",
         "/control/MEDIA_REFINERY.json",
         "/scripts/media-refinery-run.py",
-        "/control/INGEST_FAMILY_REVIEW_2026-09-22.json"
+        "/control/INGEST_FAMILY_REVIEW_2026-09-22.json",
+        "/control/HERMES_MEDIA_CURATOR.json",
+        "/scripts/media-curator-cycle.py",
+        "/skills/media-curator/SKILL.md"
       ]
     }
   ],
@@ -678,5 +681,6 @@
     "reason": "Generativity/proof bookkeeping had begun to exceed conversion; maintenance and ordinary-use waits were occupying NOW.",
     "synthesis": "/control/confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md",
     "sleeper_authority": "Exact v2-era ONE RETURN City Engine source restored as Sleeper authority; ASCII POV 0.8 preserved as superseded derivative."
-  }
+  },
+  "last_media_curator": "/control/HERMES_MEDIA_CURATOR.json"
 }

@@ -183,5 +183,13 @@
     "render_boundary": "generation=false; recipes remain backend UNBOUND until TRANSLATE",
     "heavy_output_boundary": "contact sheets, maps and bulk media stay local/external by default"
   },
-  "current_automation": "/returns/MEDIA_REFINERY_AUTOMATION_2026-09-22.json"
+  "current_automation": "/returns/MEDIA_REFINERY_AUTOMATION_2026-09-22.json",
+  "semantic_supervisor": {
+    "contract": "/control/HERMES_MEDIA_CURATOR.json",
+    "cycle": "/scripts/media-curator-cycle.py",
+    "hermes_skill": "/skills/media-curator/SKILL.md",
+    "bootstrap": "/scripts/hermes-media-bootstrap.sh",
+    "bulk_default": "qwen3-vl:8b via local Ollama",
+    "authority": "semantic overlay + validation only; no source mutation or rendering"
+  }
 }
