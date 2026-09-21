@@ -1,0 +1,232 @@
+{
+  "schema": "0xxx0/lens-system-contract/v0.1",
+  "date": "2026-09-21",
+  "status": "EVOLUTION_G1_TEST_CODE_PASS_BROWSER_PROOF_PENDING",
+  "purpose": "Make recovered lens/optics capabilities legible and composable across FIELD surfaces without replacing Scale Lens Studio or creating another sovereign application.",
+  "current_head": {
+    "surface": "/fold-bloom/lens/",
+    "version": "Scale Lens Studio RC11.2",
+    "role": "deep inspection / addressed projection workbench",
+    "constraint": "preserve parser, stable identity/address, provenance, receipts, projections and RETURN",
+    "portable_layer": {
+      "schema": "0xxx0/lens-state/v0.2",
+      "host": "FIELD AXIAL/LATEST canonical focus",
+      "role": "typed projection/composition law with explicit lawful/dead next-lens support",
+      "deep_lab": "Scale Lens Studio RC11.2 remains stable and authoritative for deep inspection"
+    }
+  },
+  "lineage": {
+    "exact_or_directly_recovered": [
+      "functional optics: Lens / Iso / fov / get / set / mod(over)",
+      "lens laws: GetPut / PutGet / PutPut",
+      "Scale Lens RC9→RC11.2: stable focus, semantic scale ladders, projection, provenance, RETURN",
+      "AXIAL aperture contract: APERTURE changes visible scope, never canonical identity",
+      "Sleeper Workfield v1: ACTIVE APERTURE with FOCUS/FIELD/DISC/LEDGER; W8·ANCHOR preserves identity; SPIRAL·REFRAME changes view while identity remains selected; ORIGIN RETURN",
+      "2018 RSVP+TTS TMP-SPEECHSYNTH fixture: SpeechSynthesisUtterance + word segmentation + boundary-driven active-word highlighting; exact archived fixture recovered as a temporal focus/cursor donor",
+      "historical FU / room specimens (FU5X2.html, scratch.html, EMPTY3-RF.html): dependency-light browser room/rotator work, SVG circle/line/ring geometry, SpeechSynthesis/WebAudio surfaces, lenses/state/transforms; FU5X2 also contains a red PRIMETXT SVG text configuration"
+    ],
+    "reconstructed_or_partial": [
+      "KALA / DOCK→APERTURE→FOCUS→OPERATE→MARK→RETURN shell",
+      "FOCUS RING remains a reconstruction, but it is now grounded in multiple exact historical donors: RSVP temporal cursor/highlighting, FU room/radial/browser mechanisms, Workfield aperture semantics and KALA aperture semantics; the exact old red-dot-around-ring reader artifact is still unrecovered."
+    ],
+    "unknown": [
+      "SeeThings: File Library retrieval surfaced recurring 'seethings / hidden focus' visual-study prompts/images, but no executable mechanism or formal contract in searched material; keep as retrieval anchor.",
+      "Exact historical red-dot-around-ring RSVP/foveated reader implementation and the remembered Alice text specimen remain unrecovered; do not substitute the current HUD for them."
+    ]
+  },
+  "law_families": {
+    "DATA_LENS": {
+      "meaning": "getter/setter optic focused into canonical data",
+      "laws": [
+        "GetPut: putting back what was read leaves the source observationally unchanged",
+        "PutGet: reading after a put returns the value that was put",
+        "PutPut: consecutive puts collapse to the last put"
+      ],
+      "note": "These laws apply to data optics; do not pretend every visual projection has getter/setter semantics."
+    },
+    "VIEW_LENS": {
+      "meaning": "pure/preview projection over an addressed object or range",
+      "laws": [
+        "IDENTITY: projection never invents or silently changes canonical identity",
+        "PURITY: same source + params + lens version gives the same derived view",
+        "BOUNDEDNESS: aperture declares the range it reveals/suppresses",
+        "PROVENANCE: derived marks retain source/range + transform chain",
+        "NO_SILENT_MUTATION: moving, resizing, zooming, filtering or stacking view lenses does not COMMIT",
+        "RETURNABILITY: every entered lens state has an explicit re-entry/return address",
+        "PLAIN_BASELINE: any promoted projection keeps a plain readable baseline reachable"
+      ]
+    },
+    "ACTION_TOOLGLASS": {
+      "meaning": "click/tap-through operator that may change canonical state",
+      "laws": [
+        "PREVIEW != COMMIT",
+        "authority is explicit and visible before consequence",
+        "COMMIT emits an append-only event/receipt",
+        "rollback is compensating RETURN, never history erasure"
+      ]
+    }
+  },
+  "composition": {
+    "rule": "composition is ordered, typed and inspectable; L2∘L1 is not assumed equivalent to L1∘L2",
+    "stack_item": [
+      "lens_id",
+      "lens_version",
+      "kind",
+      "params",
+      "input_contract",
+      "output_contract",
+      "preserves",
+      "hides",
+      "derives",
+      "authority"
+    ],
+    "compound_lens": "a named, saveable stack plus order and parameters; loading it is preview until an action lens explicitly commits",
+    "receipt": "save source identity/address, aperture, ordered stack, params, result projection and return address",
+    "support_law": {
+      "current_contract": "derived from source adapter plus ordered stack outputs",
+      "candidate": "input_contract must match current contract; output_contract becomes the next contract",
+      "support_1": "candidate is lawfully composable",
+      "support_0": "candidate remains visible with explicit incompatibility reason",
+      "no_nearest_guess": "unsupported lenses are never silently coerced or auto-skipped",
+      "boundary": "surface-specific lens stacks cross into another surface as provenance unless the target surface independently supports them"
+    }
+  },
+  "canonical_state": {
+    "object_id": "stable canonical identity",
+    "address": "current local address; mutable",
+    "focus_id": "selected identity within the current projection",
+    "aperture": {
+      "level": "semantic scale / scope",
+      "range": "bounded context range",
+      "shape": "surface-specific; geometry is projection, not ontology"
+    },
+    "projection": "SOURCE | STRUCTURE | RELATION | TIME | STATE | PROVENANCE | surface-specific extension",
+    "lens_stack": "ordered VIEW_LENS and optional ACTION_TOOLGLASS descriptors",
+    "operator": "SELECT | ALIGN | COMPOSE | PROPAGATE | COMMIT | RETURN",
+    "return_address": "exact invoking/re-entry route",
+    "source_refs": "source/provenance identifiers"
+  },
+  "focus_ring_v0": {
+    "status": "IMPLEMENTED_RECONSTRUCTED_FROM_RECOVERED_TEMPORAL_AND_APERTURE_DONORS; exact older red-dot ring still to recover",
+    "role": "small common temporal/spatial focus controller in front of Scale Studio: current focus, aperture, projection, ordered view stack and RETURN; not a replacement for Studio",
+    "default_surface": "collapsed ◎ LENS aperture from global route adapter",
+    "visible_model": {
+      "center": "current focus identity + current projection",
+      "in_out": "APERTURE finer/coarser while preserving focus identity",
+      "left_right": "previous/next lawful peer at the current level",
+      "rim": "projection chooser; labels always visible when open",
+      "stack": "COMPOSE opens a compact ordered lens-stack sheet",
+      "return": "persistent RETURN control to exact invoking route"
+    },
+    "interaction_constraints": [
+      "phone: one-thumb operable; no essential hover",
+      "desktop: may become movable Toolglass but shares the same LensState",
+      "do not overload gaze as primary input",
+      "all gesture-only actions also have visible controls/keyboard paths",
+      "browser/accessibility focus indicator remains distinct from conceptual FOCUS RING state"
+    ],
+    "historical_donor_mapping": {
+      "RSVP_2018": "TIME / cursor: speech-boundary-aligned active unit and sequential focus",
+      "FU_ROOM_RADIAL": "PROJECTION / browser substrate: room faces, rotators, SVG ring/path geometry, low-dependency Web APIs",
+      "WORKFIELD_KALA": "APERTURE / identity / RETURN: active scope and reversible entry state",
+      "PRIME_ROD_ADJACENT": "adjacent visual-language exploration only; retain as retrieval anchor, do not make it a Lens primitive without stronger evidence"
+    }
+  },
+  "foveation_v0": {
+    "meaning": "allocate representation detail by semantic/structural distance from focus, not merely geometric magnification",
+    "bands": {
+      "FOVEA": "exact focused object/range; source recoverable",
+      "PARA": "parents, siblings, accepted relations and immediate context",
+      "PERIPHERY": "coarse headings/counts/topology/route cues sufficient for orientation"
+    },
+    "rules": [
+      "semantic zoom changes representation at declared thresholds; it does not merely enlarge text",
+      "context has a legibility floor; below it switch to overview/detail or progressive disclosure instead of decorative compression",
+      "fisheye distortion is optional and task-proven, never the default",
+      "focus movement preserves identity and orientation cues"
+    ]
+  },
+  "promotion_targets": [
+    {
+      "id": "LENS-01",
+      "name": "Shared LensState + composition contract",
+      "delta": "one schema/adapter usable by Scale Lens, FIELD, Human Port and AXIAL without merging their UIs",
+      "proof": "same object + same ordered view stack serializes/restores identically on at least two surfaces",
+      "state": "IMPLEMENTED_CI_PASS_18_OF_18_BROWSER_ROUNDTRIP_PENDING",
+      "proof_receipt": "/control/LENS_STATE_SELFTEST_2026-09-21.json"
+    },
+    {
+      "id": "LENS-02",
+      "name": "FOCUS RING aperture HUD",
+      "delta": "FIELD AXIAL/LATEST selected route opens one Focus Ring over the same identity; aperture/projection/typed STACK/RETURN remain projections over that canonical focus.",
+      "proof": "mobile and desktop: find current identity, change scope, switch projection, RETURN in <=2 interactions per operation; no horizontal overflow",
+      "status": "IMPLEMENTED_PENDING_BROWSER_PROOF",
+      "implementation": {
+        "route_adapter": "/showcase-nav.js",
+        "shared_state": "/lens-state.js",
+        "studio_surface": "/fold-bloom/lens/",
+        "studio_api": "/fold-bloom/lens/studio-v12.js",
+        "behavior": [
+          "collapsed global ◎ opens current object/aperture/projection/stack/RETURN",
+          "Scale Studio exposes live aperture + projection operations to the ring",
+          "generic routes preserve current identity and can enter full Studio with a reversible handoff payload",
+          "controls remain square, visible, non-hover-essential and mobile-width bounded"
+        ]
+      },
+      "remaining_proof": [
+        "phone: no horizontal overflow",
+        "desktop: same state/readout",
+        "scope change <=2 interactions",
+        "projection change <=2 interactions",
+        "RETURN restores invoking route",
+        "shared object identity survives generic-route → Studio handoff in actual browser runtime"
+      ],
+      "state": "EVOLUTION_G1_CODE_PASS_BROWSER_SMOKE_PENDING"
+    },
+    {
+      "id": "LENS-03",
+      "name": "Foveated FIELD proof",
+      "delta": "one existing FIELD/graph surface renders FOVEA/PARA/PERIPHERY while preserving stable identity",
+      "proof": "paired plain baseline test for locate/context/return; promote only if it reduces steps/errors or improves context without harming orientation",
+      "state": "IMPLEMENTED_EXPERIMENTAL_TASK_BENCHMARK_PENDING"
+    }
+  ],
+  "gaps": [
+    "LensState v0.2 exists and passes CI on the draft convergence branch but is not yet promoted to master.",
+    "live phone/desktop interaction proof is still required for AXIAL focus → Lens stack → Studio → RETURN.",
+    "compound stacks are typed and inspectable, but named persisted compound-lens presets are not yet promoted.",
+    "exact old red-dot RSVP/radial Focus Ring implementation is still unrecovered; historical temporal/radial/aperture donors are now recovered separately",
+    "no cross-surface task benchmark has yet earned promotion of fisheye/foveation over plain baseline",
+    "RC11.3 portrait/toolglass branch remains separate/unfinished",
+    "SeeThings remains an unresolved retrieval anchor rather than a mechanism"
+  ],
+  "non_goals": [
+    "do not build a mega-screen",
+    "do not make geometry itself canonical state",
+    "do not let projection own FIELD state",
+    "do not silently conflate view filters with mutating optics/actions",
+    "do not delete deep Scale Studio capability"
+  ],
+  "return": {
+    "next": "Run the bounded browser proof for evolution generation 1. If identity/RETURN and mobile layout pass, SELECT TRANSFER; otherwise PARK/REPEAT with one mutation.",
+    "current_grammar": "AXIAL selects → INSPECT reads → LENS reframes/composes → OPEN navigates → RETURN restores.",
+    "test_anchor": "Issue #10 remains the cross-projection/foveation comparator; Issue #35 remains the Scale Lens convergence front.",
+    "code_contract_receipt": "/control/LENS_EVOLUTION_G1_2026-09-21.json"
+  },
+  "execution": {
+    "branch": "lens-convergence-contract-20260921",
+    "pr": 50,
+    "artifacts": [
+      "/lens-state.js",
+      "/lens-focus-ring.js",
+      "/control/LENS_STATE_SELFTEST_2026-09-21.json",
+      "/control/LENS_STATE_BRIDGE_2026-09-21.json",
+      "/control/LENS_FOCUS_RING_2026-09-21.json",
+      "/control/LENS_FOVEATE_PROOF_2026-09-21.json",
+      "/field-lens.js",
+      "/control/LENS_EVOLUTION_G1_2026-09-21.json"
+    ],
+    "current_return": "Lens evolution G1 code/contract sub-gate passed: 18/18 LensState CI plus repo-wide public-surface PASS at head 0fef011c. Interaction proof remains the sole promotion blocker for G1."
+  },
+  "updated": "2026-09-21"
+}

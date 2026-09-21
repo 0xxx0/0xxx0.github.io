@@ -1,0 +1,64 @@
+{
+  "schema": "0xxx0/lens-focus-ring-receipt/v0.1",
+  "at": "2026-09-21T14:23:00+08:00",
+  "branch": "lens-convergence-contract-20260921",
+  "pr": 50,
+  "target": "LENS-02",
+  "state": "EXPERIMENTAL_IMPLEMENTED_PROOF_REQUIRED",
+  "surface": "FIELD INDEX",
+  "recovered_donors": [
+    "Workfield active aperture: FOCUS / DISC / ROUTES / LEDGER / RETURN",
+    "W8·ANCHOR: preserve identity in aperture",
+    "SPIRAL·REFRAME: change projection while preserving identity",
+    "KALA: DOCK → APERTURE → FOCUS → OPERATE → MARK → RETURN",
+    "2018 RSVP+TTS TMP-SPEECHSYNTH: exact temporal focus donor using SpeechSynthesisUtterance boundaries to synchronize the active word/highlight",
+    "Historical FU5X2 / scratch / EMPTY3-RF browser specimens: room/rotator projection, SVG circle/line/ring geometry, speech/audio Web APIs and terse dependency-light browser substrate"
+  ],
+  "mapping": {
+    "center": "selected FIELD route identity",
+    "rise_dive": "visualRoot hierarchy aperture",
+    "peer": "siblings under current aperture",
+    "rim": [
+      "VISUAL",
+      "PULSE",
+      "STRUCTURE",
+      "RECENT"
+    ],
+    "stack": "current FIELD filter represented as VIEW_LENS descriptor",
+    "return": "restore mode/filter/query/visualRoot/selectedRoute captured when ring opens",
+    "studio": "v2 LensState handoff to Scale Lens Studio",
+    "pulse": "PULSE is the current temporal projection seam; recover RSVP cursor/boundary behavior here before inventing a new reader substrate."
+  },
+  "static_checks": {
+    "focus_ring_js_syntax": "PASS",
+    "field_inline_js_syntax": "PASS",
+    "lens_state_js_syntax": "PASS",
+    "script_order": "PASS",
+    "lens_state_before_field_runtime": true,
+    "field_api_before_focus_ring": true,
+    "literal_script_boundary_artifact": false
+  },
+  "invariants": [
+    "Focus identity and aperture are separate state.",
+    "Projection changes do not mutate canonical route identity.",
+    "Filter composition is VIEW_LENS/PREVIEW only.",
+    "RETURN restores FIELD UI entry state rather than replaying browser history.",
+    "OPEN STUDIO transfers through LensState v2 while legacy FIELD handoff remains during migration."
+  ],
+  "not_claimed": [
+    "The exact remembered red-dot-around-ring RSVP/foveated reader and Alice text specimen are not yet recovered; current Focus Ring geometry is not claimed as that historical artifact.",
+    "No live browser/mobile smoke has yet been run on this branch.",
+    "No task advantage over FIELD's plain controls has yet been measured.",
+    "LENS-02 is not promoted beyond experimental until interaction proof."
+  ],
+  "next_proof": [
+    "390px and desktop browser smoke: open/close, RISE, DIVE, PEER, projection rim, STACK, RETURN, OPEN STUDIO.",
+    "Verify selected route identity survives all four projections.",
+    "Compare operations through Focus Ring vs existing FIELD controls for interaction count and orientation errors."
+  ],
+  "recovery_next": [
+    "Search restored backups for RSVP/radial reader variants around the 2018 RSVP fixture and FU room/ring files.",
+    "Prefer exact source over reconstruction; preserve any Alice text, red cursor, timing/scrub, speech-boundary and ring geometry behavior byte-for-byte as a fixture.",
+    "Map recovered reader behavior into Lens TIME/PULSE only after source-level comparison."
+  ]
+}

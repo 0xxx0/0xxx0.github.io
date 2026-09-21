@@ -1,0 +1,74 @@
+{
+  "schema": "0xxx0/lens-evolution-return/v0.1",
+  "at": "2026-09-21T15:49:00+08:00",
+  "route": "/fold-bloom/lens/",
+  "generation": 1,
+  "stage": "TEST",
+  "host": "/",
+  "baseline": {
+    "field": "AXIAL/LATEST owns exact route focus and lawful support over route/state/operation/work-mode strips.",
+    "lens": "RC11.2 preserves stable identity/provenance/RETURN but ordinary entry is a one-way handoff and stack composition is not typed or visibly supported.",
+    "control": "No separate Lens selection authority."
+  },
+  "mutation": {
+    "name": "LAWFUL STACK SUPPORT",
+    "files": [
+      "/lens-state.js",
+      "/field-lens.js",
+      "/lens-focus-ring.js",
+      "/index.html",
+      "/showcase-manifest.json"
+    ],
+    "behavior": [
+      "LensState v0.2 assigns a source contract to FIELD and Scale snapshots.",
+      "Candidate lens support is evaluated against the current ordered output contract.",
+      "support=0 remains visible with an explicit reason; unsupported compose throws instead of coercing.",
+      "FIELD Lens adapter consumes the same AXIAL/LATEST focus object used by chronology/map.",
+      "Focus Ring projection list comes from the host rather than a hard-coded special case.",
+      "FOVEATE is a catalogued VIEW_LENS rather than a dedicated one-off button.",
+      "Scale-only spatial candidate is visible as dead from FIELD because its input contract does not match.",
+      "RC11.2 Studio remains the deep inspection lab and receives v2 LensState handoff."
+    ]
+  },
+  "invariants": [
+    "AXIAL selection remains canonical FIELD focus.",
+    "VIEW_LENS has PREVIEW authority only.",
+    "Dead composition is inspectable, never silently skipped.",
+    "Aperture changes context rather than canonical identity.",
+    "PEER is the only Focus Ring navigation operation intentionally allowed to change route focus.",
+    "RETURN restores the captured FIELD UI state; BACK remains browser/showcase history."
+  ],
+  "evidence_now": {
+    "static_parse": [
+      "lens-state.js PASS after clean v0.2 reconstruction",
+      "field-lens.js PASS",
+      "lens-focus-ring.js PASS",
+      "FIELD index inline JavaScript PASS"
+    ],
+    "structural": [
+      "FIELD root loads LensState before its inline host and field-lens/focus-ring after host creation.",
+      "FieldLensHost exposes the existing focus closure rather than maintaining a duplicate selectedRoute.",
+      "Scale Lens route carries field-evolution/v0.1 generation 1 TEST metadata."
+    ],
+    "ci": {
+      "run_id": 35575962447,
+      "head": "0fef011ccdfa693ff7180b54cfd09035c28bdec6",
+      "lens_state": "18/18 PASS",
+      "public_surface": "PASS"
+    },
+    "boundary": [
+      "FIELD-specific lens stacks remain upstream provenance when entering Scale Studio; they are not silently activated under the Scale contract.",
+      "LensState v0.2 rejects incompatible ordered compositions."
+    ]
+  },
+  "evidence_required": [
+    "390px browser smoke: AXIAL focus → ◎ LENS → STACK live/dead candidates → FOVEATE → Studio → RETURN.",
+    "desktop repeats same identity/RETURN path.",
+    "No horizontal overflow or hidden essential control.",
+    "No unexpected focus change under RISE/DIVE/projection changes.",
+    "Plain vs foveated task receipt before promoting LENS-03."
+  ],
+  "disposition_if_pass": "TRANSFER typed support planner + Focus Ring composition grammar to ordinary FIELD/generic surfaces; keep Scale Studio as deep lab.",
+  "disposition_if_fail": "PARK Focus Ring UI; keep LensState typed support law as DONOR; ordinary Scale Lens remains RC11.2 legacy entry.",
+  "return": "CODE/CONTRACT TEST PASSED. Generation remains TEST until the live phone/desktop interaction path and foveation comparison produce receipts; only then choose TRANSFER / REPEAT / PARK."
+}

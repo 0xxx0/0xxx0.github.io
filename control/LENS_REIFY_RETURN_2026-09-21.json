@@ -1,0 +1,57 @@
+{
+  "schema": "0xxx0/lens-reify-return/v0.1",
+  "at": "2026-09-21T14:06:00+08:00",
+  "status": "IMPLEMENTED_STATIC_PASS_BROWSER_PROOF_PENDING",
+  "source_command": "Reify",
+  "recovered_mission": "REIFY · research → code → physical state",
+  "before": {
+    "pr": 50,
+    "state": "Lens laws, canonical LensState and selftest existed; ordinary Focus Ring interface was still proposed only.",
+    "changed_files": 4
+  },
+  "delta": {
+    "files": [
+      "/showcase-nav.js",
+      "/fold-bloom/lens/index.html",
+      "/fold-bloom/lens/studio-v12.js",
+      "/control/LENS_SYSTEM_CONTRACT_2026-09-21.json"
+    ],
+    "behavior": [
+      "global route adapter tab becomes ◎ Focus Ring",
+      "ring exposes OBJECT / APERTURE / VIEW / STACK / RETURN",
+      "Scale Studio API now accepts aperture and projection operations",
+      "Scale Studio loads shared /lens-state.js",
+      "generic route can hand off current surface text + LensState toward Studio"
+    ]
+  },
+  "proof_now": [
+    "all modified JavaScript parsed successfully before repository writes",
+    "existing LensState selftest remains 11/11 PASS from earlier branch receipt",
+    "writes are confined to lens-convergence-contract-20260921 draft PR branch"
+  ],
+  "proof_required": [
+    "actual phone-browser interaction",
+    "actual desktop-browser interaction",
+    "generic-route → Studio identity/handoff round trip",
+    "RETURN to exact invoking route",
+    "no horizontal overflow at phone width"
+  ],
+  "hold": [
+    "Do not promote LENS-02 on implementation alone.",
+    "Do not merge Studio and FIELD into one UI.",
+    "Do not treat visual projection as DATA_LENS getter/setter law."
+  ],
+  "next": "Browser-smoke generic route aperture + FIELD Focus Ring + Studio handoff/RETURN; do not promote LENS-02 before receipts.",
+  "repair": {
+    "observed": "Concurrent showcase-nav Focus Ring logic referenced data-l controls that were absent from its shadow DOM and would throw during startup.",
+    "action": "Preserved the donor intent; added OBJECT/APERTURE/VIEW/STACK readouts and OUT/IN/VIEW/STACK/RETURN/STUDIO controls, plus null-safe rendering.",
+    "commit": "214d1d82e751b1dc9d5323482d4c320f9b2a4875",
+    "validation": "showcase-nav.js syntax PASS; all referenced data-l controls present."
+  },
+  "convergence": {
+    "field": "/lens-focus-ring.js is the richer FIELD-bound active-aperture proof.",
+    "generic": "/showcase-nav.js is the compact route-level Lens aperture on ordinary showcase surfaces.",
+    "studio": "ScaleLensSpatialAPI exposes live aperture/project/projections/return/lensState inside Scale Studio.",
+    "rule": "One LensState grammar; unequal UI projections remain unequal."
+  }
+}

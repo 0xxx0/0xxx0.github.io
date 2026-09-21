@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/transductions/v0.1",
-  "updated": "2026-09-21",
+  "updated": "2026-09-21T16:40:00+08:00",
   "status": "EXPERIMENTAL_BRANCH",
   "purpose": "One registry for composable bounded transformations across UI, agents, HOUSE/HAOS and physical return. Preserve mechanisms; do not create parallel pipelines.",
   "lineage": {
@@ -35,7 +35,9 @@
       "COMPOSITION preserves each member's authority ceiling.",
       "NO RECURSION WITHOUT DELTA OR NEW EVIDENCE.",
       "A failed/ambiguous transform returns residue instead of silently selecting another goal.",
-      "Consequential external action requires explicit or pre-delegated bounded authority."
+      "Consequential external action requires explicit or pre-delegated bounded authority.",
+      "SUPPORT=0 remains inspectable; support is possibility evidence, never authority.",
+      "Typed composition rejects an incompatible next transform instead of silently coercing to a nearest state."
     ]
   },
   "transductions": [
@@ -134,6 +136,18 @@
       "evidence": "cue counts + candidate accept/override + content-free route receipt",
       "authority": "SUGGESTION_ONLY",
       "reversibility": "manual route override before OPEN"
+    },
+    {
+      "id": "xd.lens.compose",
+      "state": "ACTIVE_EXPERIMENT",
+      "source": "addressed object + current projection contract + ordered LensState stack",
+      "focus": "one candidate VIEW_LENS or ACTION_TOOLGLASS descriptor",
+      "transform": "evaluate inputContract against current ordered output contract; expose support=1 or support=0 + reason; compose only when supported",
+      "commit": "VIEW_LENS: none / preview only; ACTION_TOOLGLASS: only with explicit COMMIT authority and receipt",
+      "observable": "ordered projection stack + current contract + lawful/dead next candidates",
+      "evidence": "LensState serialization + support result + sourceRefs + returnAddress; CI law receipt",
+      "authority": "VIEW_ONLY unless an explicit ACTION_TOOLGLASS declares bounded COMMIT authority",
+      "reversibility": "uncompose/RETURN for view state; consequential rollback is compensating RETURN, never history erasure"
     }
   ],
   "compositions": [
@@ -183,6 +197,18 @@
         "RE_ENTER"
       ],
       "note": "AXIAL support/focus + Scale Lens identity/projection + RSVP foveation + HUMAN PORT authority boundary. SELECT/OPEN are distinct; external send remains separate."
+    },
+    {
+      "id": "field-focus-lens-return",
+      "state": "ACTIVE_SLICE",
+      "chain": [
+        "AXIAL exact focus",
+        "xd.focus.address",
+        "xd.lens.compose",
+        "INSPECT or OPEN STUDIO",
+        "RETURN"
+      ],
+      "note": "One FIELD route identity survives AXIAL selection, aperture/projection changes and Studio handoff. AXIAL source-support and Lens type-support remain distinct calculations under the shared law that dead states stay visible and support never grants authority."
     }
   ]
 }
