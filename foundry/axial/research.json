@@ -42,6 +42,23 @@
         "fixed reading relation",
         "aperture distinct from cyclic order"
       ]
+    },
+    {
+      "source": "Painting / Path — SLEEPER",
+      "retained": [
+        "persistent overview/minimap",
+        "visible viewport/focus relation",
+        "same stable region IDs across field/list/reading projections",
+        "click overview to reorient"
+      ]
+    },
+    {
+      "source": "SLEEPER // ONE RETURN / Nine Gate",
+      "retained": [
+        "ghostTrail/event residue",
+        "RETURN ledger",
+        "exported witness carries unresolved residue and next routes rather than completion theater"
+      ]
     }
   ],
   "external_evidence": [
@@ -104,7 +121,11 @@
     "SNAP / DETENT IS FEEDBACK, NOT DECORATION.",
     "DEAD STATES MAY REMAIN INSPECTABLE; THE SYSTEM MUST NOT SILENTLY MOVE THE USER.",
     "PLAIN LIST / SEARCH REMAINS THE CONTROL CONDITION.",
-    "BROWSER SUCCESS IS NOT PHYSICAL-HARDWARE EVIDENCE."
+    "BROWSER SUCCESS IS NOT PHYSICAL-HARDWARE EVIDENCE.",
+    "DEEP FOCUS MUST RETAIN AN OVERVIEW POSITION WITNESS.",
+    "OVERVIEW AND DETAIL MUST ADDRESS THE SAME STATE, NOT DUPLICATE STATE.",
+    "ENGINEERING TRACE MUST BE AVAILABLE WITHOUT TAXING THE PRIMARY SURFACE.",
+    "LOCAL STUDY MAY PROPOSE ADAPTATION; IT MAY NOT SILENTLY SELF-MODIFY THE INTERFACE."
   ],
   "measures_for_observed_use": [
     "time to reacquire current ring/value after interruption",
@@ -136,5 +157,18 @@
       "RETURN"
     ],
     "anti_pattern": "Moodboard → metaphor → new interface with no recovered mechanism or task comparison."
+  },
+  "live_study": {
+    "version": "0.7.2",
+    "storage": "localStorage axial-study-v01; never uploaded automatically",
+    "witness_export": "axial-witness.json",
+    "observed": [
+      "ring/notch or drag events by dimension",
+      "dead-alignment events",
+      "projection/source changes",
+      "FOCUS / BACK / OPEN / RETURN residue"
+    ],
+    "adaptation_policy": "The inspector may surface a candidate such as one ring dominating use or repeated dead alignments. It never automatically reorders, remaps or changes authority. Any adaptation must be an explicit new transfer with receipt.",
+    "method": "/control/confluence/MECHANISM_TRANSFER_LOOP_2026-09-21.json"
   }
 }

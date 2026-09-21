@@ -1530,13 +1530,13 @@
     },
     {
       "href": "/foundry/axial/",
-      "title": "AXIAL / FOCUS STACK 0.7.1",
+      "title": "AXIAL / FOCUS STACK 0.7.2",
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "ORIENT",
       "state": "ACTIVE",
-      "version": "0.7.1",
+      "version": "0.7.2",
       "receipt": "/foundry/axial/release.json",
       "showcase_card": false,
       "transfer": [
@@ -1553,7 +1553,10 @@
         "deep focus URL / reloadable address",
         "POLY cyclic correspondence: one aligned reading across independent wheels",
         "human-factors position indication / 12-o'clock check reading",
-        "shared focus-core law across FIELD + full AXIAL"
+        "shared focus-core law across FIELD + full AXIAL",
+        "Painting / Path overview→local orientation",
+        "ONE RETURN ghostTrail / witness residue",
+        "explicit transfer-study loop: donor→friction→evidence→use→verdict"
       ],
       "contract": {
         "accepts": {
@@ -1587,7 +1590,9 @@
             "AXIAL focus address",
             "local RETURN receipt",
             "per-position support counts",
-            "reloadable AXIAL focus URL"
+            "reloadable AXIAL focus URL",
+            "local engineering witness",
+            "interaction ghost trail"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -1602,7 +1607,10 @@
             "BACK distinct from RETURN",
             "comparative proof still required",
             "dead positions are derived from exact source support, not heuristic dimming",
-            "deep focus reload reconstructs the addressed identity"
+            "deep focus reload reconstructs the addressed identity",
+            "overview selection round-trips into canonical ring state",
+            "witness export includes state + residue + local study counts",
+            "no silent adaptive remapping"
           ],
           "return_path": "/foundry/axial/"
         }
@@ -1672,12 +1680,13 @@
         "physical_fit": "Physical cylinder is now an optional later projection of a useful variable-cardinality ring stack, not the reason the software exists."
       },
       "index": {
-        "updated_at": "2026-09-21T16:12:00+08:00",
+        "updated_at": "2026-09-21T16:30:00+08:00",
         "work_modes": [
           "ORIENT",
           "REPRESENT",
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "MEASURE"
         ]
       },
       "evolution": {
@@ -1692,7 +1701,7 @@
         "next_if_pass": "TRANSFER the surviving transaction/aperture mechanism into the Foundry physical-control substrate; retain AXIAL as evidence fixture rather than spawning a new core.",
         "next_if_fail": "PARK the physical-control claim; preserve packet/ledger mechanisms as DONOR evidence."
       },
-      "role": "Variable-cardinality focus surface over real FIELD/HOUSE sources: a fixed 12-o'clock gate reads the current tuple, each ring carries an explicit moving position witness and ordinal, and every candidate shows whether it remains supported by the source.",
+      "role": "Variable-cardinality focus surface over real FIELD/HOUSE sources: fixed gate + moving dial witness + lawful support + persistent whole-stack overview let local focus remain oriented; an opt-in local engineering witness preserves interaction residue without silently adapting the interface.",
       "legacy_lab": {
         "href": "/foundry/axial/lab-0.5.1.html",
         "role": "Preserved STATE APERTURE transaction/projection lab with AXIAL_PACKET, event trace and ARM/RUN semantics.",
