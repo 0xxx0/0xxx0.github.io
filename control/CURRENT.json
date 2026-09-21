@@ -646,10 +646,19 @@
     },
     "last_live_census": {
       "branches": 111,
-      "open_prs": 0,
-      "no_pr_pointers": 15,
+      "open_prs": 1,
+      "no_pr_pointers": 14,
       "unclassified_no_pr": 0,
-      "execution_branch_excluded": "confluence-hard-advance-20260922"
+      "execution_branch_excluded": "confluence-hard-advance-20260922",
+      "active_review": [
+        {
+          "branch": "field/waiting-body-calibration-20260922",
+          "sha": "1fbc9b425d1e37dade2b47e4f466184a6861ab66",
+          "prs": [
+            108
+          ]
+        }
+      ]
     }
   },
   "deep_tool_lineage": {
