@@ -110,7 +110,7 @@
     "no_claim": "The cylinder is optional. AXIAL survives if the focus-stack grammar is useful and the cylindrical embodiment is not."
   },
   "software_head": {
-    "name": "AXIAL / FOCUS STACK 0.7.1",
+    "name": "AXIAL / FOCUS STACK 0.7.2",
     "primary_source": "/showcase-manifest.json",
     "secondary_source": "/house/spatial/model.json",
     "projections": [
@@ -123,7 +123,10 @@
     "authority": "navigation/readback only; no public HOUSE actuation",
     "position_feedback": "Fixed 12-o'clock focus gate + moving per-ring position witness + ordinal i/n readout. Gate, ring orientation and semantic value are deliberately separate signals.",
     "shared_core": "/foundry/axial/focus-core.js",
-    "research": "/foundry/axial/research.json"
+    "research": "/foundry/axial/research.json",
+    "overview": "Persistent mini projection of every ring, selected index, support field and active ring. It remains visible in RING and STRIP and writes directly to the same canonical ring state.",
+    "engineering_witness": "Opt-in raw state + ghost trail + local use counters + exportable witness. It is diagnostic residue, not a second control surface.",
+    "adaptation": "/control/confluence/MECHANISM_TRANSFER_LOOP_2026-09-21.json"
   },
   "ring_law": [
     "Rings are independent cyclic vocabularies; equal cardinality is never assumed.",
@@ -136,7 +139,10 @@
     "Identity→rings and rings→identity must round-trip when the source remains unchanged.",
     "BACK navigates session state; RETURN records a durable focus receipt; neither is silently treated as the other.",
     "Current ring position must be visually legible without inferring it from the source result.",
-    "Fixed focus gate and moving position witness are distinct signals: one says where the aperture reads; the other says where the control currently is."
+    "Fixed focus gate and moving position witness are distinct signals: one says where the aperture reads; the other says where the control currently is.",
+    "Deep focus must retain a compact overview of the whole ring stack.",
+    "Overview interaction writes the same canonical indices as the main projection; it must not maintain shadow selection state.",
+    "Debugging/measurement surfaces may observe state but may not silently alter user-facing mappings."
   ],
   "source_adapters": {
     "FIELD": "Full Focus Stack: FAMILY × KIND × OPERATION × STATE × ROLE over /showcase-manifest.json. Root FIELD embeds a reduced chronology lens: ROUTE × STATE × OPERATION × WORK MODE over durable recent touches.",
