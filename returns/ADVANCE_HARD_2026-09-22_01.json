@@ -15,12 +15,21 @@
   "after": {
     "branch_frontier": {
       "branches": 111,
-      "open_prs": 0,
+      "open_prs": 1,
       "merged": 73,
       "closed_unmerged": 22,
-      "no_pr": 15,
+      "no_pr": 14,
       "unclassified_no_pr": 0,
-      "execution_branch_excluded": "confluence-hard-advance-20260922"
+      "execution_branch_excluded": "confluence-hard-advance-20260922",
+      "active_review": [
+        {
+          "branch": "field/waiting-body-calibration-20260922",
+          "sha": "1fbc9b425d1e37dade2b47e4f466184a6861ab66",
+          "prs": [
+            108
+          ]
+        }
+      ]
     },
     "tool_lineage": "/control/confluence/TOOL_LINEAGE_READING_2026-09-22.json",
     "ingest": "BLOCKED without semantic guesswork",
@@ -32,5 +41,5 @@
     "No ingest family was classified without private hash/provenance access.",
     "No branch deletion is implied by perimeter convergence."
   ],
-  "return": "Archive widened, active authority stayed small: zero open PRs, zero unclassified no-PR pointers, one Toolbelt reading, one explicit ingest blocker."
+  "return": "Archive widened, active authority stayed small: no unclassified branch pointers; concurrent open PRs remain explicit bounded proposals, one Toolbelt reading exists, and ingest has an evidence-bearing blocker."
 }
