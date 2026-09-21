@@ -35,19 +35,59 @@ function resolveFile(urlPath){
   if(fs.existsSync(p+'.html'))return p+'.html';
   return null;
 }
+function lensProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:390px;height:844px;border:0;display:block" src="/?lens_proof=1&focus=%2Ffold-bloom%2Flens%2F"></iframe><pre id="probeResult">PENDING</pre><script>
+  const result=document.getElementById('probeResult'),f=document.getElementById('f');
+  const done=(ok,data)=>{result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  f.onload=()=>setTimeout(()=>{
+    try{
+      const w=f.contentWindow,d=w.document;
+      const compact=x=>({focusHref:x?.focusHref||null,axisState:x?.axisState||null,projection:x?.projection||null,mapMode:x?.mapMode||null,mapRoot:x?.mapRoot||null,mapSelected:x?.mapSelected||null,mapQuery:x?.mapQuery||'',mapOpen:!!x?.mapOpen});
+      const before=compact(w.FieldLensHost?.uiState?.());
+      const apLens=d.getElementById('apLens'),apProof=d.getElementById('apProof');
+      const proof=d.getElementById('lens-proof-bench'),proofOpen=!!proof?.classList.contains('on');
+      if(!apLens||!apProof||!w.LensFocusRing||!w.FieldLensHost)return done(false,{stage:'boot',apLens:!!apLens,apProof:!!apProof,proofOpen,ring:!!w.LensFocusRing,host:!!w.FieldLensHost});
+      apLens.click();
+      setTimeout(()=>{
+        const ring=d.getElementById('lens-focus-ring'),sh=ring?.shadowRoot,panel=sh?.querySelector('.panel');
+        const visual=sh?.querySelector('[data-mode="VISUAL"]');
+        if(!ring||!sh||!panel?.classList.contains('on')||!visual)return done(false,{stage:'ring',ring:!!ring,panelOpen:!!panel?.classList.contains('on'),visual:!!visual});
+        visual.click();
+        setTimeout(()=>{
+          const during=compact(w.FieldLensHost?.uiState?.());
+          sh.querySelector('.return')?.click();
+          setTimeout(()=>{
+            const after=compact(w.FieldLensHost?.uiState?.());
+            const same=JSON.stringify(before)===JSON.stringify(after);
+            const overflow=Math.max(d.documentElement.scrollWidth,d.body?.scrollWidth||0)-d.documentElement.clientWidth;
+            apProof.click();
+            const proofAfter=!!d.getElementById('lens-proof-bench')?.classList.contains('on');
+            done(same&&proofOpen&&proofAfter&&overflow<=1&&during.projection==='VISUAL',{before,during,after,same,proofOpen,proofAfter,overflow,clientWidth:d.documentElement.clientWidth});
+          },180);
+        },180);
+      },180);
+    }catch(e){done(false,{stage:'exception',error:String(e?.stack||e)})}
+  },900);
+  <\/script></body></html>`;
+}
 const server=http.createServer((req,res)=>{
+  if(String(req.url||'').startsWith('/__smoke/lens-proof')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(lensProbeHtml());return;
+  }
   const file=resolveFile(req.url);
   if(!file){res.writeHead(404,{'content-type':'text/plain'});res.end('not found');return}
   res.writeHead(200,{'content-type':contentType(file),'cache-control':'no-store'});
   fs.createReadStream(file).pipe(res);
 });
 
-function runChrome(bin,route){
+function runChrome(bin,route,options={}){
   return new Promise((resolve,reject)=>{
     const url='http://'+HOST+':'+PORT+route;
     const args=[
       '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
-      '--hide-scrollbars','--virtual-time-budget=6500','--dump-dom',url
+      '--hide-scrollbars','--window-size='+(options.width||1280)+','+(options.height||900),
+      '--virtual-time-budget='+(options.budget||6500),'--dump-dom',url
     ];
     const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});
     let out='',err='';
@@ -119,6 +159,22 @@ const CASES=[
     }
   },
   {
+    name:'LENS PROOF alias',
+    route:'/lens-proof/',
+    check:dom=>/FIELD INDEX/i.test(dom)&&dom.includes('id="lens-proof-bench"')&&dom.includes('class="on"')
+  },
+  {
+    name:'LENS PROOF mobile RETURN',
+    route:'/__smoke/lens-proof',
+    options:{width:430,height:900,budget:9000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"same":true/.test(dom)&&/"proofAfter":true/.test(dom)&&/"overflow":0/.test(dom)
+  },
+  {
+    name:'FOLD BLOOM convergence',
+    route:'/fold-bloom/',
+    check:dom=>/FOLD \/\/ BLOOM/i.test(dom)&&/Fold Weave 0\.1/i.test(dom)&&/Ecology 0\.2/i.test(dom)&&/Two Dial 0\.9/i.test(dom)
+  },
+  {
     name:'SCALE LENS',
     route:'/fold-bloom/lens/',
     check:dom=>/SCALE LENS/i.test(dom)&&!dom.includes('load failure')
@@ -185,7 +241,7 @@ try{
   const bin=browserBin();
   console.log('BROWSER SMOKE:',bin);
   for(const c of CASES){
-    const r=await runChrome(bin,c.route);
+    const r=await runChrome(bin,c.route,c.options||{});
     const fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);
     const ok=r.code===0&&!fatal&&c.check(r.out);
     console.log((ok?'PASS':'FAIL'),c.name,c.route);
