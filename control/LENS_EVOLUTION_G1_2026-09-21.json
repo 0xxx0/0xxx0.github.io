@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/lens-evolution-return/v0.1",
-  "at": "2026-09-21T15:49:00+08:00",
+  "at": "2026-09-21T18:46:00+08:00",
   "route": "/fold-bloom/lens/",
   "generation": 1,
   "stage": "TEST",
@@ -59,16 +59,27 @@
     "boundary": [
       "FIELD-specific lens stacks remain upstream provenance when entering Scale Studio; they are not silently activated under the Scale contract.",
       "LensState v0.2 rejects incompatible ordered compositions."
-    ]
+    ],
+    "browser_smoke": {
+      "run_id": 35590504889,
+      "status": "PASS",
+      "viewport": "390px FI same-origin probe",
+      "proves": [
+        "Lens ring opens from FI",
+        "VISUAL changes projection",
+        "RETURN restores exact entry UI state",
+        "PROOF opens",
+        "no horizontal overflow",
+        "Fold/Bloom donor branches remain reachable"
+      ]
+    }
   },
   "evidence_required": [
-    "390px browser smoke: AXIAL focus → ◎ LENS → STACK live/dead candidates → FOVEATE → Studio → RETURN.",
-    "desktop repeats same identity/RETURN path.",
-    "No horizontal overflow or hidden essential control.",
-    "No unexpected focus change under RISE/DIVE/projection changes.",
-    "Plain vs foveated task receipt before promoting LENS-03."
+    "One browser interaction covering RISE / DIVE / PEER / supported STACK candidate → Studio handoff → RETURN.",
+    "Paired PLAIN vs FOVEATED T1/T2/T3 human receipts before promoting LENS-03.",
+    "No claim of task advantage unless the declared promotion gate is actually met."
   ],
   "disposition_if_pass": "TRANSFER typed support planner + Focus Ring composition grammar to ordinary FIELD/generic surfaces; keep Scale Studio as deep lab.",
   "disposition_if_fail": "PARK Focus Ring UI; keep LensState typed support law as DONOR; ordinary Scale Lens remains RC11.2 legacy entry.",
-  "return": "CODE/CONTRACT TEST PASSED. Generation remains TEST until the live phone/desktop interaction path and foveation comparison produce receipts; only then choose TRANSFER / REPEAT / PARK."
+  "return": "CODE/CONTRACT + MOBILE FI RETURN SMOKE PASSED. Generation stays TEST only for deeper stack/Studio interaction and the human PLAIN↔FOVEATED comparator; do not reopen Lens architecture absent a concrete failure."
 }
