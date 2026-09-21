@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
   "version": "LIVE 0.2",
-  "status": "ACTIVE_CANDIDATE_PENDING_BRANCH_VERIFY",
+  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFIED",
   "date": "2026-09-22",
   "donors": [
     {
@@ -35,7 +35,11 @@
     "LISTEN transport adds beat time/phase/distance and section progress",
     "linked custom-song beat timing can award PERFECT/GOOD FLOW multipliers while never blocking release or selecting topology",
     "LIVE extrapolates beat phase locally between 120ms pulse packets so timing judgment is not quantized by transport cadence",
-    "beat pulse becomes a visible annular timing witness"
+    "beat pulse becomes a visible annular timing witness",
+    "same-page LOCAL_FILE custom-song host reuses LISTEN preview/deep analysis modules so phone gameplay does not depend on a background tab",
+    "custom song playback, PREVIEW analysis, DEEP worker refinement and beat/section transport remain inside LIVE; LISTEN remains the deeper Suno/URL/map lab",
+    "same-page song transport overrides optional cross-tab FIELD PULSE while active; both obey borrowed clock != borrowed authorship",
+    "CI now runs both LIVE gameplay engine tests and synthetic custom-song transport tests"
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -45,11 +49,11 @@
     "CALL/forecast gameplay must remain legible and complete with audio muted and with LISTEN absent"
   ],
   "verification": {
-    "engine_tests": "BRANCH_PENDING_CI: expanded from 5 to 8 tests covering forecast/call feasibility and timing-score separation",
+    "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "branch CI, then direct phone play: choose different forecast outcomes; compare muted vs sound; test LISTEN-linked PERFECT/GOOD timing fairness",
-    "repo_browser_smoke": "PASS: public-surface-check run 35603017221 rerun",
+    "required_next": "direct phone play: load one real song inside LIVE; choose different forecast outcomes; compare muted vs synth vs custom-song play; judge CALL clarity and PERFECT/GOOD timing fairness",
+    "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "74b449d089963a71c29c1535ef457b154ba427a7",
     "demo_browser_smoke": "PASS: CI run 35607729608 exposed LIVE demoBtn / WATCH DEMO",
@@ -57,9 +61,10 @@
     "field_pulse": "/control/FIELD_PULSE_CONTRACT.json",
     "field_pulse_repo": "PASS REPO REGRESSION: public-surface-check run 35640203852; real LISTEN→LIVE cross-tab phone witness required",
     "field_pulse_merge_sha": "70d63be41dfc5d04b04063d2f90524dca0bb6526",
-    "gameplay_branch": "fold-bloom-gameplay-020"
+    "gameplay_branch": "fold-bloom-gameplay-020",
+    "gameplay_ci_run": 35656338927
   },
   "execution_contract": "./EXECUTION.md",
-  "return": "/returns/FOLD_BLOOM_LIVE_2026-09-21.json",
+  "return": "/returns/FOLD_BLOOM_GAMEPLAY_2026-09-22.json",
   "updated": "2026-09-22"
 }
