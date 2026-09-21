@@ -105,8 +105,9 @@ function inferRoute(text){
  const pref=window.FieldSignals?.preference('human-port-route',ROUTES);
  return pref?{value:pref.value,source:'local-history'}:{value:'burst',source:'fallback'};
 }
+function routeText(){return scope==='focus'&&focus&&String(focus.focus||'').trim()?String(focus.focus):payload.value}
 function updateSupport(){
- const c=cues(payload.value).out;
+ const c=cues(routeText()).out;
  ROUTES.forEach(k=>{const el=document.querySelector('[data-support="'+k+'"]');if(el)el.textContent=c[k]+' '+(c[k]===1?'CUE':'CUES')});
  return c;
 }
@@ -119,7 +120,7 @@ function renderRoutes(){
  $('#openGate').textContent=selectedRoute?'OPEN '+routeLabel(selectedRoute)+' →':'OPEN →';
 }
 function updateLikely(){
- const c=updateSupport(),next=inferRoute(payload.value);
+ const c=updateSupport(),next=inferRoute(routeText());
  likely=next.value;likelySource=next.source;
  if(!selectedRoute&&payload.value.trim())selectedRoute=likely;
  renderRoutes();
@@ -133,7 +134,7 @@ function hydrateAperture(){
  $('#focusDeck').classList.add('on');
  if(!aperture){
    aperture=window.FieldAperture?.mount($('#apertureMount'),x.text,{label:x.label});
-   aperture?.addEventListener('aperture-focus',e=>{focus=e.detail;renderFocus();persist()});
+   aperture?.addEventListener('aperture-focus',e=>{focus=e.detail;renderFocus();if(scope==='focus'){const c=updateSupport(),next=inferRoute(routeText());likely=next.value;likelySource=next.source;renderRoutes();note('FOCUS '+focus.scale_label+' '+(focus.index+1)+'/'+focus.count+' · LIKELY '+routeLabel(likely)+' · '+(c[likely]||0)+' cue'+((c[likely]||0)===1?'':'s'))}persist()});
  }else aperture.load(x.text,{label:x.label});
  focus=aperture?.snapshot?.()||focus;renderFocus();
 }
@@ -195,8 +196,8 @@ function go(kind){
 }
 document.querySelectorAll('[data-port-route]').forEach(b=>b.onclick=()=>{selectedRoute=b.dataset.portRoute;renderRoutes();note('SELECTED '+routeLabel(selectedRoute)+' · OPEN is separate');persist()});
 $('#openGate').onclick=()=>{if(selectedRoute)go(selectedRoute)};
-$('#scopeWhole').onclick=()=>{scope='whole';renderFocus();persist();note('ROUTING WHOLE SOURCE')};
-$('#scopeFocus').onclick=()=>{if(!focus)return;scope='focus';renderFocus();persist();note('ROUTING CURRENT FOCUS · original source remains in Port session')};
+$('#scopeWhole').onclick=()=>{scope='whole';renderFocus();updateLikely();note('ROUTING WHOLE SOURCE')};
+$('#scopeFocus').onclick=()=>{if(!focus)return;scope='focus';renderFocus();updateLikely();note('ROUTING CURRENT FOCUS · support recomputed · original source remains in Port session')};
 document.querySelectorAll('[data-sample]').forEach(b=>b.onclick=()=>{
  const samples={
   messy:"ok wait no — I meant send the draft to her, but not tonight. also remind me what we decided about the paintings? and haha the weird donor-organ joke probably actually contains a mechanism somehow",
