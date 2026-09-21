@@ -13,13 +13,15 @@
     "Record BODY / CALIBRATION APERTURE as a host-bound research/transfer packet rather than a new app.",
     "Extend FIELD law so WAITING is neither queue nor priority and cannot contain private payloads.",
     "Extend evolution selection pressure with case -> mechanism -> unequal-case transfer -> generalize.",
-    "Specify /body/campaign.schema.json with explicit question, decision, streams, evidence gate, burden budget, JITAI-style decision points, safety class, RETURN and FADE condition."
+    "Specify /body/campaign.schema.json with explicit question, decision, streams, evidence gate, burden budget, JITAI-style decision points, safety class, RETURN and FADE condition.",
+    "Add conversation-to-durable-state routing: executable now -> EXECUTE/RETURN; human/world dependency -> WAITING; speculation -> Idea/Residue/HOLD; evidence -> Intake/Continuity; sensitive content stays private."
   ],
   "after": [
     "Human dependencies become re-enterable from the root without contaminating CURRENT/QUEUE.",
     "The health/wearable direction has a durable public-safe source packet tied to existing hosts.",
     "Future generalization is gated on transfer evidence rather than enthusiasm.",
-    "Campaigns now have a candidate machine-readable carrier whose success can include reducing measurement."
+    "Campaigns now have a candidate machine-readable carrier whose success can include reducing measurement.",
+    "Repeated mentions can converge on one durable dependency instead of duplicating TODOs or vanishing into chat residue."
   ],
   "evidence": [
     "/control/WAITING.json",
