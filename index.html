@@ -39,33 +39,28 @@ html[data-density="MARK"] .feedPath,html[data-density="MARK"] .feedBottom{displa
 </head>
 <body><main>
 <header>
-  <div><div class="ey">FI / φ · ORIENT / FIND / CONNECT / RETURN</div><h1>FIELD<br>INDEX</h1></div>
-  <div class="intro"><span class="introText"><b>FIELD is the address view.</b> Start with what changed: LATEST returns to durable repo reality; ISSUES exposes declared loops; MAP shows structure and ports. NOW remains deliberate attention. FIELD locates and connects—it does not decide canon, recovery truth, or transfer adoption.</span>
-    <nav><a class="play" href="./field-play.html">PLAY FIELD</a><a href="./port/">HUMAN PORT</a><a href="./dock/">DOCK</a><a href="./control/">CURRENT</a><a href="./foundry/">FOUNDRY</a><a href="./migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./control/confluence/">CONFLUENCE</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav>
-    <div class="laws"><div class="law"><b>ATTENTION ≠ RECENCY</b><span>CURRENT owns NOW.</span></div><div class="law"><b>MAP ≠ BACKLOG</b><span>Existence is not obligation.</span></div><div class="law"><b>DONOR ≠ HEAD</b><span>Transfer without resurrection.</span></div><div class="law"><b>ADDRESS ≠ PROMOTE</b><span>Everything findable; almost nothing sovereign.</span></div><div class="law"><b>RETURN ≠ NEXT</b><span>Replan after every bounded move.</span></div></div>
-  </div>
+  <div><div class="ey">FI / φ</div><h1>FIELD INDEX</h1></div>
+  <nav><a class="play" href="./field-play.html">PLAY</a><a href="./control/">CURRENT</a><a href="./foundry/">FOUNDRY</a><a href="./migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./control/confluence/">CONFLUENCE</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav>
 </header>
 
-<section class="fieldStrip" id="fieldStrip">
-  <div class="stripLead"><b>NOW</b><span id="nowMeta">loading…</span></div>
-  <div class="stripMarks" id="nowMarks"></div><div class="stripSep"></div>
-  <div class="stripHeads" id="headMarks"></div>
-  <button class="statusMore" id="statusMore" type="button" aria-expanded="false">DETAIL</button>
-</section>
-<section class="statusDetail" id="statusDetail" hidden>
-  <div class="statusRows" id="nowDetailRows"></div>
-  <div id="moveGate" class="moveGate"><b>MOVE GATE</b><span>Loading execution contract…</span></div>
+<section class="fieldGlyphShell" id="fieldStrip">
+  <div class="fieldGlyphs" id="fieldGlyphs" aria-label="Current FIELD objects"></div>
+  <aside class="fieldPeek" id="fieldPeek">
+    <div class="peekGlyph" id="peekGlyph"></div>
+    <div class="peekBody"><div class="peekMeta" id="peekMeta">FIELD</div><strong id="peekTitle">select a mark</strong><p id="peekText">Current attention and retained lineages collapse here. Select a mark to inspect it; OPEN is a separate action.</p></div>
+    <a class="peekOpen" id="peekOpen" href="./">OPEN →</a>
+  </aside>
 </section>
 
 <section class="section" id="pulseFeed">
   <div class="sectionHead"><div><b>LATEST / REPO TOUCHES</b><span id="feedMeta">loading durable touches…</span></div><span>newest first · click top and keep moving</span></div>
-  <div class="feedShell"><div><div class="feedStats" id="feedStats"></div><div class="feedRail" id="feedRail"><div class="feedItem">Loading manifest touch history…</div></div><div class="feedMore"><span>Chronological mutation list. Duplication with NOW/HEADS is intentional here.</span><button id="feedRecent">OPEN FULL RECENT →</button></div></div><aside class="glyphRail" id="glyphRail" aria-label="Compressed latest route rail"></aside></div>
+  <div class="feedStats" id="feedStats"></div><div class="feedRail" id="feedRail"><div class="feedItem">Loading manifest touch history…</div></div><div class="feedMore"><span>Chronological mutation list.</span><button id="feedRecent">OPEN FULL RECENT →</button></div>
 </section>
 
-<section class="section" id="issueSection">
-  <div class="sectionHead"><div><b>ISSUES / REPO OPEN LOOPS</b><span id="issueMeta">loading GitHub issues…</span></div><span>repo truth · not automatic priority</span></div>
-  <div class="issues" id="issueList"><div class="issueRow"><div class="issueTitle">Loading open issues…</div></div></div>
-</section>
+<details class="foldSection" id="issueSection">
+  <summary><b>ISSUES / REPO OPEN LOOPS</b><span id="issueMeta">loading…</span></summary>
+  <div class="foldBody issues" id="issueList"><div class="issueRow"><div class="issueTitle">Loading open issues…</div></div></div>
+</details>
 
 <details class="lineageHold" id="lineageReading">
   <summary><b>HEADS / LINEAGE READING</b><span>advanced · retained current lineages, not required for ordinary navigation</span></summary>
@@ -73,26 +68,27 @@ html[data-density="MARK"] .feedPath,html[data-density="MARK"] .feedBottom{displa
   <div id="heads" class="heads"><div class="head"><p>Loading current heads…</p></div></div>
 </details>
 
-<section class="section" id="mapSection">
-  <div class="sectionHead"><div><b>MAP</b><span id="mapMeta">durable address graph</span></div><div class="mapTools" id="mapTools"><button class="on" data-mode="VISUAL">VISUAL</button><button data-mode="PULSE">PULSE</button><button data-mode="STRUCTURE">STRUCTURE</button><button data-mode="EVOLVE">EVOLVE</button><button data-filter="ACTIVE">LIVE</button><button data-filter="HEADS">HEADS</button><button data-filter="DONORS">DONORS</button><button data-filter="SUPPORT">SUPPORT</button><button data-mode="RECENT">RECENT</button><input id="find" type="search" placeholder="/ find route / mechanism"></div></div>
+<details class="foldSection" id="mapSection">
+  <summary><b>MAP / PROJECTIONS</b><span id="mapMeta">durable address graph</span></summary>
+  <div class="foldBody"><div class="mapTools" id="mapTools"><button class="on" data-mode="VISUAL">VISUAL</button><button data-mode="PULSE">PULSE</button><button data-mode="STRUCTURE">STRUCTURE</button><button data-mode="EVOLVE">EVOLVE</button><button data-filter="ACTIVE">LIVE</button><button data-filter="HEADS">HEADS</button><button data-filter="DONORS">DONORS</button><button data-filter="SUPPORT">SUPPORT</button><button data-mode="RECENT">RECENT</button><input id="find" type="search" placeholder="/ find route / mechanism"></div></div>
   <div id="visualWrap" class="mapStage">
     <div class="mapCanvas"><svg id="fieldMap" viewBox="0 0 1200 680" role="img" aria-label="FIELD INDEX visual sitemap"></svg><div class="mapLegend"><b class="h">NOW</b><b class="d">HEAD</b><b class="g">ACTIVE/STABLE</b><b class="c">DONOR</b><b>UTILITY/ALIAS</b></div></div>
     <aside class="mapInspector"><div class="scaleCtl"><button id="scaleOut">SCALE −</button><button id="scaleRoot">ROOT</button><span id="scaleRead">SCALE 0 / FIELD</span></div><div id="crumbs" class="crumbs"></div><div class="miEy" id="miEy">FIELD MAP</div><div class="miName" id="miName">FIELD INDEX</div><div class="miPath" id="miPath">/</div><div class="miRole" id="miRole">Select a node. Nodes with children open a local sub-map; leaves open from the inspector.</div><div class="miMeta" id="miMeta"></div><a class="miOpen" id="miOpen" href="./">OPEN FIELD INDEX →</a><button class="miLens" id="miLens">OPEN SELECTED IN SCALE LENS →</button></aside>
   </div>
-  <div id="map" class="mapGrid" hidden></div>
-</section>
+  <div id="map" class="mapGrid" hidden></div></div>
+</details>
 
-<section class="section">
-  <div class="sectionHead"><div><b>OPEN PORTS</b><span id="portMeta">derived from declared exit paths</span></div><span>interface debt · not automatic priority</span></div>
-  <div id="ports" class="ports"><div class="portRow"><div class="via">Loading unresolved interfaces…</div></div></div>
-</section>
+<details class="foldSection">
+  <summary><b>OPEN PORTS</b><span id="portMeta">loading…</span></summary>
+  <div id="ports" class="foldBody ports"><div class="portRow"><div class="via">Loading unresolved interfaces…</div></div></div>
+</details>
 
-<section class="section">
-  <div class="sectionHead"><div><b>HEALTH</b><span>proof that the map itself is not lying</span></div><span>support surfaces · not project fronts</span></div>
-  <div class="health"><a href="./control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json"><b>SITEMAP AUDIT</b><span>directory surfaces ↔ manifest addresses</span></a><a href="./control/FIELD_INDEX_ROUTE_HEALTH_2026-09-21.json"><b>ROUTE HEALTH</b><span>legacy metadata / deprecated seams</span></a><a href="./control/FIELD_INDEX_LINK_AUDIT_2026-09-21.json"><b>LINK AUDIT</b><span>live/support local href/src integrity</span></a><a href="./returns/"><b>RETURN LEDGER</b><span>release receipts / closure</span></a><a href="./showcase-selftest/"><b>SELFTEST</b><span>public-surface validator</span></a></div>
-</section>
+<details class="foldSection">
+  <summary><b>HEALTH / SUPPORT</b><span>audits · return · selftest</span></summary>
+  <div class="foldBody health"><a href="./control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json"><b>SITEMAP AUDIT</b><span>directory surfaces ↔ manifest addresses</span></a><a href="./control/FIELD_INDEX_ROUTE_HEALTH_2026-09-21.json"><b>ROUTE HEALTH</b><span>legacy metadata / deprecated seams</span></a><a href="./control/FIELD_INDEX_LINK_AUDIT_2026-09-21.json"><b>LINK AUDIT</b><span>live/support local href/src integrity</span></a><a href="./returns/"><b>RETURN LEDGER</b><span>release receipts / closure</span></a><a href="./showcase-selftest/"><b>SELFTEST</b><span>public-surface validator</span></a></div>
+</details>
 
-<div class="foot"><span>OBJECT → ADDRESS → STATE → MUTATE → EVIDENCE → SELECT → TRANSFER → RETURN → REPLAN</span><span>FIELD INDEX is orientation; CURRENT is attention; CONFLUENCE moves bounded mechanisms between unequal lineages.</span></div>
+<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>repo reality → projection → open</span></div>
 </main>
 
 <script src="./field-presentation.js"></script>
