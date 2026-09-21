@@ -14,7 +14,7 @@ function attach(api,options={}){
   if(anchor?.insertAdjacentElement)anchor.insertAdjacentElement('afterend',host);else document.documentElement.appendChild(host);
   const panel=sh.querySelector('.panel'),trigger=sh.querySelector('.trigger'),focus=sh.querySelector('.focus'),rim=sh.querySelector('.rim'),stack=sh.querySelector('.stack'),stackBtn=sh.querySelector('.stackBtn');
   if(options.showTrigger===false||inline)trigger.hidden=true;
-  let origin=null,startedAt=null,trace=[],invoker=null;
+  let origin=null,originObjectId=null,startedAt=null,trace=[],invoker=null;
   function snap(){try{return api.snapshot?.()||null}catch(_){return null}}
   function mark(action){const s=snap(),entry={at:new Date().toISOString(),action,focusId:s?.focusId||null,objectId:s?.objectId||null,aperture:s?.aperture||null,projection:s?.projection||null,foveate:!!s?.meta?.foveate,stack:(s?.lensStack||[]).map(x=>x.lensId)};trace.push(entry);window.dispatchEvent(new CustomEvent('lens-proof:action',{detail:entry}))}
   function writeReceipt(exit){const endedAt=new Date().toISOString(),receipt={schema:'0xxx0/lens-focus-ring-interaction/v0.2',startedAt,endedAt,durationMs:startedAt?Math.max(0,Date.parse(endedAt)-Date.parse(startedAt)):null,exit,origin,end:api.uiState?.()||null,actions:trace.slice(),actionCount:Math.max(0,trace.length-1),policy:'HOST_SELECT__LENS_REFRACT'};try{sessionStorage.setItem(RECEIPT_KEY,JSON.stringify(receipt))}catch(_){}return receipt}
@@ -45,17 +45,17 @@ function attach(api,options={}){
     rim.style.gridTemplateColumns='repeat('+Math.max(1,Math.min(6,modes.length))+',1fr)';
     rim.querySelectorAll('button').forEach(b=>b.onclick=()=>{api.project?.(b.dataset.mode);mark('VIEW_'+b.dataset.mode);render()});
   }
-  function open(){if(!origin){origin=api.uiState?.()||null;startedAt=new Date().toISOString();trace=[];invoker=sh.activeElement||document.activeElement||null;mark('OPEN')}panel.classList.add('on');panel.setAttribute('aria-hidden','false');trigger.setAttribute('aria-expanded','true');render()}
+  function open(){if(!origin){origin=api.uiState?.()||null;originObjectId=snap()?.objectId||null;startedAt=new Date().toISOString();trace=[];invoker=sh.activeElement||document.activeElement||null;mark('OPEN')}panel.classList.add('on');panel.setAttribute('aria-hidden','false');trigger.setAttribute('aria-expanded','true');render()}
   function close(){panel.classList.remove('on');panel.setAttribute('aria-hidden','true');stack.classList.remove('on');stackBtn.setAttribute('aria-expanded','false');trigger.setAttribute('aria-expanded','false');if(invoker&&typeof invoker.focus==='function')try{invoker.focus()}catch(_){}}
   trigger.onclick=()=>panel.classList.contains('on')?close():open();
   sh.querySelector('.close').onclick=close;
   sh.querySelector('.rise').onclick=()=>{api.rise?.();mark('APERTURE_OUT');render()};
   sh.querySelector('.dive').onclick=()=>{api.dive?.();mark('APERTURE_IN');render()};
   stackBtn.onclick=()=>{const on=stack.classList.toggle('on');stackBtn.setAttribute('aria-expanded',String(on))};
-  sh.querySelector('.return').onclick=()=>{if(origin)api.restore?.(origin);mark('RETURN');writeReceipt('RETURN');origin=null;startedAt=null;render();close()};
+  sh.querySelector('.return').onclick=()=>{if(origin)api.restore?.(origin);mark('RETURN');writeReceipt('RETURN');origin=null;originObjectId=null;startedAt=null;render();close()};
   sh.querySelector('.copy').onclick=copyState;
   sh.querySelector('.studio').onclick=()=>{mark('OPEN_STUDIO');writeReceipt('OPEN_STUDIO');api.openStudio?.()};
-  addEventListener('field-lens:state',()=>{if(panel.classList.contains('on'))render()});
+  addEventListener('field-lens:state',e=>{const s=e.detail||snap();if(origin&&originObjectId&&s?.objectId&&s.objectId!==originObjectId){origin=api.uiState?.()||null;originObjectId=s.objectId;startedAt=new Date().toISOString();trace=[];mark('HOST_REBASE')}if(panel.classList.contains('on'))render()});
   addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains('on'))close()});
   return Object.freeze({render,open,close,isOpen:()=>panel.classList.contains('on'),lastReceipt:()=>{try{return JSON.parse(sessionStorage.getItem(RECEIPT_KEY)||'null')}catch(_){return null}}});
 }
