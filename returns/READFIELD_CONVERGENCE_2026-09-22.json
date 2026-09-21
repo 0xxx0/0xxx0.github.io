@@ -26,12 +26,28 @@
     "authority": "READ / PRESENTATION / INSPECTION ONLY"
   },
   "proof": {
-    "state": "PENDING_FINAL_BROWSER_GATE"
+    "state": "VERIFIED",
+    "workflow": "public-surface-check",
+    "run_id": 35639977109,
+    "proof_head": "b2b6dcac43752b7b03b4b39516f1caaa45e252fe",
+    "merged_master": "a0b8abf6ff57f73ed61ba4c5deb829ec11053952",
+    "result": "PASS"
   },
   "non_claims": [
     "No speed-reading comprehension claim.",
     "Ring geometry is retained as optional donor/projection, not declared useless.",
     "No historical APERTURE or AXIAL evidence was rewritten."
   ],
-  "return": "One public reading surface carries source→focus→time/voice/context→RETURN while orientation, refraction and policy evidence stay separate."
+  "return": "One public reading surface carries source→focus→time/voice/context→RETURN while orientation, refraction and policy evidence stay separate.",
+  "lineage": {
+    "canonical_ship_pr": 104,
+    "proof_hardening_pr": 105,
+    "superseded_closed_prs": [
+      93,
+      96,
+      98,
+      100,
+      101
+    ]
+  }
 }
