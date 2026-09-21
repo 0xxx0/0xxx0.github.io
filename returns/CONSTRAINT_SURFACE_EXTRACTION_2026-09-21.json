@@ -1,0 +1,42 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "CONSTRAINT-SURFACE-EXTRACTION-2026-09-21",
+  "date": "2026-09-21",
+  "object": "AXIAL 0.7.x lawful-support mechanism → reusable Constraint Surface kernel",
+  "before": {
+    "axial": "support math partially centralized under /foundry/axial/focus-core.js",
+    "field": "FIELD root depended on AXIAL-owned focus-core.js for support and ordinal helpers",
+    "risk": "source-neutral constraint law and AXIAL presentation geometry were coupled by ownership/path"
+  },
+  "operation": [
+    "Extract /lib/constraint-surface.js with survivors, candidate support, LIVE/LOCK/DEAD, explain and evaluate.",
+    "Keep /foundry/axial/focus-core.js as AXIAL compatibility/presentation helper.",
+    "Move FIELD support computation to the neutral kernel and remove FIELD dependency on AXIAL focus-core.",
+    "Add /control/constraint-surface-selftest.js using synthetic + actual FIELD/AXIAL/HOUSE adapters.",
+    "Wire parity into public-surface-check CI.",
+    "Add validator laws requiring both consumers to retain the neutral seam."
+  ],
+  "after": {
+    "shared_kernel": "/lib/constraint-surface.js",
+    "consumers": [
+      "/",
+      "/foundry/axial/"
+    ],
+    "axial_helper": "/foundry/axial/focus-core.js",
+    "state_aperture": "UNCHANGED / outside kernel",
+    "new_app": "NONE",
+    "new_ui_component": "NONE"
+  },
+  "verification": {
+    "static_seam": "WIRED",
+    "parity_test": "CI_WIRED",
+    "comparative_usability": "NOT_CLAIMED",
+    "physical_claim": "NOT_CLAIMED"
+  },
+  "residue": [
+    "Do not add ranking/recommendation to Constraint Surface.",
+    "Do not move TEST/ARM/RUN or continuous transform into the kernel.",
+    "A third consumer may reuse the kernel only through a domain adapter; do not invent a third consumer solely to prove reuse."
+  ],
+  "next": "Ordinary use. If a real third domain needs lawful-neighborhood support, adapt its dimensions without changing the kernel; otherwise stop."
+}
