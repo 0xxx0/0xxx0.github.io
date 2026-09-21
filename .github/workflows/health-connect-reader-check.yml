@@ -1,0 +1,43 @@
+name: health-connect-reader-check
+
+on:
+  pull_request:
+    paths:
+      - 'bridge/health-connect-reader/**'
+      - 'body/fit/health-connect.adapter.json'
+      - '.github/workflows/health-connect-reader-check.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - name: Install Android SDK 36
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platforms;android-36" "build-tools;36.0.0" "platform-tools"
+      - uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: '9.6.0'
+          cache-provider: basic
+      - name: Assemble reader
+        run: gradle -p bridge/health-connect-reader :app:assembleDebug --stacktrace
+      - name: Assert least-privilege manifest source
+        run: |
+          grep -q 'android.permission.health.READ_SLEEP' bridge/health-connect-reader/app/src/main/AndroidManifest.xml
+          grep -q 'android.permission.health.READ_HEART_RATE' bridge/health-connect-reader/app/src/main/AndroidManifest.xml
+          ! grep -q 'android.permission.INTERNET' bridge/health-connect-reader/app/src/main/AndroidManifest.xml
+          ! grep -q 'WRITE_' bridge/health-connect-reader/app/src/main/AndroidManifest.xml
+          ! grep -q 'READ_HEALTH_DATA_IN_BACKGROUND' bridge/health-connect-reader/app/src/main/AndroidManifest.xml
+      - name: Assert APK exists
+        run: test -s bridge/health-connect-reader/app/build/outputs/apk/debug/app-debug.apk
