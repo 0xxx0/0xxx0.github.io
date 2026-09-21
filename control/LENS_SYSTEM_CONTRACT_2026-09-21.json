@@ -133,7 +133,28 @@
       "id": "LENS-02",
       "name": "FOCUS RING aperture HUD",
       "delta": "global ◎ LENS opens focus/scope/projection/stack/RETURN without entering full Studio",
-      "proof": "mobile and desktop: find current identity, change scope, switch projection, RETURN in <=2 interactions per operation; no horizontal overflow"
+      "proof": "mobile and desktop: find current identity, change scope, switch projection, RETURN in <=2 interactions per operation; no horizontal overflow",
+      "status": "IMPLEMENTED_PENDING_BROWSER_PROOF",
+      "implementation": {
+        "route_adapter": "/showcase-nav.js",
+        "shared_state": "/lens-state.js",
+        "studio_surface": "/fold-bloom/lens/",
+        "studio_api": "/fold-bloom/lens/studio-v12.js",
+        "behavior": [
+          "collapsed global ◎ opens current object/aperture/projection/stack/RETURN",
+          "Scale Studio exposes live aperture + projection operations to the ring",
+          "generic routes preserve current identity and can enter full Studio with a reversible handoff payload",
+          "controls remain square, visible, non-hover-essential and mobile-width bounded"
+        ]
+      },
+      "remaining_proof": [
+        "phone: no horizontal overflow",
+        "desktop: same state/readout",
+        "scope change <=2 interactions",
+        "projection change <=2 interactions",
+        "RETURN restores invoking route",
+        "shared object identity survives generic-route → Studio handoff in actual browser runtime"
+      ]
     },
     {
       "id": "LENS-03",
