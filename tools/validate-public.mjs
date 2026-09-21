@@ -141,6 +141,20 @@ if(ret){
   check(ret.receipts_ok===ret.items.filter(x=>x.receipt_ok).length,'return-index receipt count mismatch');
   for(const x of ret.items){check(exists(routeFile(x.href)),'return route missing '+x.href);check(exists(x.receipt.replace(/^\//,'')),'return receipt missing '+x.receipt)}
 }
+const ingest21=parse('control/INGEST_RUN_2026-09-21.json');
+const hermesGoals=parse('control/HERMES_LONG_GOALS.json');
+const hermesQueue=parse('control/HERMES_QUEUE.json');
+if(ingest21&&ingest21.files_indexed===559){
+  const backupGoal=hermesGoals?.goals?.find(x=>x.id==='BACKUP-INTAKE-WARDEN');
+  check(!!backupGoal,'verified Sep-21 ingest missing BACKUP-INTAKE-WARDEN');
+  check(String(backupGoal?.mode||'').includes('PROVED'),'verified Sep-21 ingest worker state regressed to unproved/dormant');
+  check(backupGoal?.current_successor==='/control/packets/INGEST_ONE_FAMILY_2026-09-21.json','verified Sep-21 ingest missing worker successor');
+  check(exists('control/packets/INGEST_ONE_FAMILY_2026-09-21.json'),'one-family execution packet missing');
+  const ingestTask=hermesQueue?.ready_tasks?.find(x=>x.id==='INGEST-01');
+  check(!!ingestTask,'Hermes queue missing INGEST-01 successor task');
+  const broad=hermesQueue?.ready_tasks?.find(x=>x.id==='REC-01');
+  check(!broad||/ANCHOR-ONLY/i.test(broad.task||''),'REC-01 regressed to ambient broad census');
+}
 const migration=parse('control/MIGRATION.json');
 if(migration){
   const ids=(migration.artifacts||[]).map(x=>x.id);

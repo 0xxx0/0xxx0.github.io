@@ -1,0 +1,105 @@
+{
+  "schema": "0xxx0/execution-packet/v0.1",
+  "id": "INGEST-ONE-FAMILY-2026-09-21",
+  "created_at": "2026-09-21T17:43:00+08:00",
+  "target": "local Mac / bounded Codex or Hermes read-analysis cycle",
+  "authority": {
+    "codex": "READ private ingest reports and candidate local files; prepare one bounded review packet. Canonical/public writes only if separately allowlisted by the task result.",
+    "hermes": "READ / HASH / ANALYZE / PREPARE_PACKET only; no canonical writes by default."
+  },
+  "sources": [
+    {
+      "path": "/control/INGEST_RUN_2026-09-21.json",
+      "role": "public proof receipt"
+    },
+    {
+      "name": "inventory.tsv",
+      "sha256": "8ac55341954458bdfe2712ac92750a40bbd8dae5d70ffcdcaad644bae75014c0",
+      "visibility": "PRIVATE_LOCAL"
+    },
+    {
+      "name": "duplicates.tsv",
+      "sha256": "dbc8adbf79acb0389ab4b05fde4575845193a096927a89413def895421fa6385",
+      "visibility": "PRIVATE_LOCAL"
+    },
+    {
+      "name": "index.jsonl",
+      "sha256": "c267cd3afd35fc79614bd332b6ed6e619598bee11999b4e4fae8768bffc184e7",
+      "visibility": "PRIVATE_LOCAL"
+    },
+    {
+      "name": "route-plan.tsv",
+      "sha256": "34732fdd4cb346d03d038f987192e8364cef87a1adb2e28926e713d65a572002",
+      "visibility": "PRIVATE_LOCAL"
+    },
+    {
+      "name": "index-run.json",
+      "sha256": "46b0bfd07555843232f08a3d410901885498bdfdf2dde29a9a6dc3f10c28aec9",
+      "visibility": "PRIVATE_LOCAL"
+    },
+    {
+      "role": "original-name/source provenance manifest",
+      "visibility": "PRIVATE_LOCAL",
+      "requirement": "Locate by known local backup tooling/provenance; do not infer original names from ordinal export filenames."
+    }
+  ],
+  "preflight": [
+    "git fetch --prune origin if operating inside a repo; report branch/dirty/HEAD/origin divergence before any write.",
+    "Locate each private report and verify its SHA-256 before analysis. If any required report is missing or hash-mismatched, RETURN BLOCKED and stop.",
+    "Confirm the source tree remains read-only for this task; output must live outside the scanned source tree.",
+    "Resolve /control/POLICY_INDEX.json plus /control/HERMES_LONG_GOALS.json when Hermes is used."
+  ],
+  "objective": "Review exactly ONE candidate family containing at least one runnable/source artifact and one authored design/specification document, using content-hash + original-name/source provenance. Determine their relationship without moving, deleting, renaming, publishing or semantically merging source files.",
+  "selection_law": [
+    "Prefer a family with exact provenance linkage and a plausible current/recovered lineage recipient.",
+    "Title similarity alone is insufficient.",
+    "Do not choose a family merely because it is visually interesting.",
+    "Do not reopen City/Painting, Path/Grid or other already-resolved families unless the private evidence reveals a concrete contradiction."
+  ],
+  "relation_classes": [
+    "SAME_SEMANTIC_ARTIFACT_DIFFERENT_BYTE_OBJECTS",
+    "VERSION_FAMILY",
+    "SOURCE_PLUS_AUTHORED_SPEC",
+    "PHYSICAL_OR_PRINT_DONOR",
+    "RELATED_LINEAGE_ONLY",
+    "EXACT_DUPLICATE",
+    "UNRELATED",
+    "UNRESOLVED"
+  ],
+  "procedure": [
+    "Join candidate records to the original provenance manifest by content hash.",
+    "Inspect only enough candidate content to identify executable/source role and authored design/spec role.",
+    "Record exact hashes, original names, dates/source anchors where available, and duplicate state.",
+    "Classify the relationship using one relation_class; preserve contradictions.",
+    "Compare against CURRENT/MIGRATION/CENSUS only to identify an existing recipient or donor shelf; do not create a new project name.",
+    "Prepare one candidate packet. Do not perform filesystem mutation or public publication."
+  ],
+  "output": {
+    "required": [
+      "RESULT: GAIN | NO_GAIN | BLOCKED",
+      "FAMILY_LOCAL_ID",
+      "EXACT_MEMBERS: local labels + hashes only",
+      "PROVENANCE",
+      "RELATION_CLASS",
+      "UNIQUE_MECHANISM_OR_FUNCTION",
+      "CURRENT_RECIPIENT_OR_DONOR_SHELF",
+      "CONFLICTS",
+      "CANDIDATE_DELTA",
+      "PRIVACY_BOUNDARY",
+      "ONE_NEXT"
+    ],
+    "privacy": "Do not paste private document contents, raw paths, chat metadata or personal filenames into public repo output. A private/local packet may retain local paths if needed."
+  },
+  "gates": {
+    "machine": "All cited hashes resolve to the verified local ingest/provenance sources; no source mutation; no duplicate identity inferred beyond bytes.",
+    "semantic": "The relationship claim is supported by exact provenance/content inspection, not filename/title similarity.",
+    "promotion": "Any repo copy/publication is a separate bounded action with explicit allowlist and RETURN."
+  },
+  "stop": [
+    "After one family packet.",
+    "On missing/hash-mismatched private reports.",
+    "On ambiguous provenance that cannot distinguish version/association/duplicate.",
+    "Before any move/delete/rename/publication."
+  ],
+  "expected_return": "One evidence-bearing semantic family packet or an explicit BLOCKED/NO_GAIN receipt."
+}
