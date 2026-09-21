@@ -63,7 +63,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <body><main>
 <header>
   <div><div class="ey">FI / φ</div><h1>FIELD INDEX</h1></div>
-  <nav><a class="play" href="./field-play.html">PLAY</a><a href="./lens-proof/">COMPARE</a><a href="./control/">CURRENT</a><a href="./control/confluence/">CONFLUENCE</a><a href="./foundry/axial/">AXIAL</a><a href="./foundry/">FOUNDRY</a><a href="./migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav>
+  <nav><a class="play" href="./field-play.html">PLAY</a><a href="#traceFold" onclick="document.getElementById('traceFold').open=true">TRACE</a><a href="./lens-proof/">COMPARE</a><a href="./control/">CURRENT</a><a href="./control/confluence/">CONFLUENCE</a><a href="./foundry/axial/">AXIAL</a><a href="./foundry/">FOUNDRY</a><a href="./migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav>
 </header>
 <div class="reentry" aria-label="FIELD re-entry states"><a href="./control/"><span>NOW</span><b>CURRENT / QUEUE</b></a><a class="recover" href="./control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json"><span>RECOVER</span><b>POLISHED ONE RETURN v2</b></a><a class="transfer" href="./control/confluence/"><span>TRANSFER</span><b>CONFLUENCE</b></a></div>
 
@@ -108,6 +108,11 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <details class="fold" id="portsFold">
   <summary><b>OPEN PORTS</b><span id="portMeta">loading…</span></summary>
   <div class="foldBody" id="ports"></div>
+</details>
+
+<details class="fold" id="traceFold">
+  <summary><b>TRACE / VERIFY</b><span id="traceMeta">local reference policy · focus-bound · raw input not retained</span></summary>
+  <div class="foldBody" id="tracePanel"></div>
 </details>
 
 <details class="fold">
@@ -327,4 +332,5 @@ window.FieldLensHost=Object.freeze({focus:()=>focus,uiState:fieldUiState,restore
 <script src="./field-lens.js"></script>
 <script src="./lens-focus-ring.js"></script>
 <script src="./lens-proof.js"></script>
+<script type="module" src="./field-policy-trace.mjs"></script>
 </main></body></html>
