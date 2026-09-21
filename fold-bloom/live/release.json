@@ -64,7 +64,8 @@
     "gameplay_branch": "fold-bloom-gameplay-020",
     "gameplay_ci_run": 35656338927,
     "gameplay_pr": 119,
-    "runtime_full_pass": "public-surface-check run 35656338927"
+    "runtime_full_pass": "public-surface-check run 35656338927",
+    "final_pr_ci": "PASS: public-surface-check run 35656619303 after coordination/receipt updates"
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_GAMEPLAY_2026-09-22.json",
