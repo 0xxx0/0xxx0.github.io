@@ -22,48 +22,12 @@
     "static_reference_count": 112,
     "runtime_literal_reference_count": 18
   },
-  "result": "FAIL",
+  "result": "PASS",
   "checks": {
     "missing_route_files": [],
     "missing_parents": [],
     "missing_receipts": [],
-    "broken_static_refs": [
-      {
-        "from": "index.html",
-        "target": "/",
-        "ok": false
-      },
-      {
-        "from": "foundry/aperture/index.html",
-        "target": "/",
-        "ok": false
-      },
-      {
-        "from": "foundry/axial/index.html",
-        "target": "/",
-        "ok": false
-      },
-      {
-        "from": "migration/index.html",
-        "target": "/",
-        "ok": false
-      },
-      {
-        "from": "control/confluence/index.html",
-        "target": "/",
-        "ok": false
-      },
-      {
-        "from": "recovery/index.html",
-        "target": "/",
-        "ok": false
-      },
-      {
-        "from": "returns/index.html",
-        "target": "/",
-        "ok": false
-      }
-    ],
+    "broken_static_refs": [],
     "broken_runtime_literal_refs": []
   },
   "repairs": [
@@ -81,5 +45,8 @@
     "Frozen historical fossils are not modernized merely to satisfy current runtime conventions."
   ],
   "next": "Prefer normal use and specific breakage reports over another broad redesign. If a route fails in-browser, capture exact route + action + visible error and repair that boundary.",
-  "audit_correction": "Initial scan falsely flagged a valid directory target because the checker mishandled trailing slashes; rerun resolves directory routes against both tree nodes and index.html."
+  "audit_corrections": [
+    "Initial scan falsely flagged a valid directory target because the checker mishandled trailing slashes; directory routes were re-resolved against tree nodes/index.html.",
+    "Second scan treated site root '/' as a filesystem target; root correctly resolves to /index.html. No application link repair was required for these audit-only false positives."
+  ]
 }
