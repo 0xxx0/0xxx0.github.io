@@ -6,6 +6,7 @@
   "released": "2026-09-22",
   "state": "CANDIDATE",
   "changes": [
+    "minimal BODY BRIDGE Android source now compiles in CI and emits only a bounded raw Health Connect export; CI retains the debug APK transiently instead of committing binaries",
     "accepts 0xxx0/health-connect-export/v0.1 through a pure local transform into the existing BODY sensor-bundle schema; source app/device/recording metadata and ignored record counts remain explicit",
     "hardened 0.3 tab/view switching after catching a runtime selector regression that static syntax alone did not expose",
     "0.2 donor retained: transformed FIT into an explicit LOADOUT surface with capability rail, known mass, power/service metadata, module cards, purpose-specific prep kits and revision-aware prep checks",
@@ -44,14 +45,15 @@
     "NEXT CUT is freeform reflective residue, not an automatic prescription",
     "older 0.1/0.2 local state imports remain valid by defaulting returns[] and active_session",
     "tab switching uses explicit multi-node selectors; loadout can move LOADOUT ↔ SENSE ↔ FUSE ↔ PATINA ↔ PLAIN without the prior single-selector .forEach failure",
-    "Health Connect fixture transforms into four expected observations while preserving Samsung/watch provenance and ignoring unsupported record types explicitly"
+    "Health Connect fixture transforms into four expected observations while preserving Samsung/watch provenance and ignoring unsupported record types explicitly",
+    "BODY BRIDGE :app:assembleDebug passes against AGP 9.4.0, Gradle 9.6, JDK 17 and androidx.health.connect 1.1.0"
   ],
   "open_gaps": [
     "CARE does not yet project explicit performed care actions into the same PATINA grammar; test BODY / FIT semantics before sharing that projection",
     "ordinary-use proof: run the same saved kit twice and verify first RETURN/NEXT CUT makes second prep materially better",
     "private HOUSEBUS/HA sensor adapter not yet wired",
     "Open Twin high-resolution projection remains a recovered donor cassette, not runtime-linked here",
-    "Health Connect transform/import path is wired; real Android permission/read/export proof remains required before calling the adapter operational"
+    "automated transform + Android compile are proved; one real phone permission/read/export/import round trip remains before operational promotion"
   ],
   "research": "/control/research/BODY_FIT_RETURN_PATINA_2026-09-22.md",
   "return": "/body/fit/",
@@ -59,5 +61,11 @@
   "sensor_schema": "/body/fit/sensor-observation.schema.json",
   "return_receipt": "/returns/BODY_FIT_RETURN_PATINA_2026-09-22.json",
   "health_connect_transform": "/body/fit/health-connect-transform.js",
-  "health_connect_adapter": "/body/fit/health-connect.adapter.json"
+  "health_connect_adapter": "/body/fit/health-connect.adapter.json",
+  "automated_health_connect_proof": {
+    "state": "PASS",
+    "transform_test": "body/fit/health-connect-selftest.cjs",
+    "android_ci": ".github/workflows/body-bridge-android.yml",
+    "real_device": "REQUIRED"
+  }
 }
