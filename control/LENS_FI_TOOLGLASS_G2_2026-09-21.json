@@ -1,0 +1,63 @@
+{
+  "schema": "0xxx0/lens-fi-toolglass-g2/v0.1",
+  "at": "2026-09-21T21:12:00+08:00",
+  "generation": 2,
+  "status": "IMPLEMENTED_PENDING_CI",
+  "problem": "FIELD Lens had become a detached second navigation cockpit: PEER changed selected route inside a control presented as refraction, duplicating AXIAL and weakening the VIEW_LENS identity law.",
+  "crystallized_law": "HOST SELECTS. LENS REFRACTS.",
+  "grammar": "OBJECT@ADDRESS → APERTURE → VIEW → STACK → DEEP LAB? → RETURN",
+  "mutation": [
+    "FIELD Lens now unfolds inline immediately after the current #aperture.",
+    "PEER controls are removed from the Focus Ring; route selection remains owned by FIELD/AXIAL.",
+    "identity lock is explicit while APERTURE OUT/IN and VIEW changes operate.",
+    "active catalog lenses can be removed in place; inherited constraints are labelled INHERITED.",
+    "COPY STATE exports exact LensState.",
+    "parked FOVEATE remains optional and is not restored to primary status.",
+    "generic routes retain compact floating Toolglass behavior."
+  ],
+  "research_basis": [
+    {
+      "anchor": "Toolglass and Magic Lenses",
+      "finding": "spatially explicit tools/filters can be composed while keeping the application object beneath them visible",
+      "url": "https://doi.org/10.1145/166117.166126"
+    },
+    {
+      "anchor": "Focus+context empirical comparison",
+      "finding": "focus+context is task-dependent; pan/zoom can be faster for locating/searching, so foveation should not be assumed superior",
+      "url": "https://arxiv.org/abs/2203.05109"
+    },
+    {
+      "anchor": "Semantic Zoom and Mini-Maps for Software Cities",
+      "finding": "semantic zoom can help large navigable spaces when representation changes with scale and orientation support is retained",
+      "url": "https://arxiv.org/abs/2510.00003"
+    },
+    {
+      "anchor": "2026 multi-scale semantic zoom",
+      "finding": "recent work continues to use discrete representation changes across scales rather than pure magnification",
+      "url": "https://arxiv.org/abs/2604.08823"
+    }
+  ],
+  "invariants": [
+    "VIEW_LENS never silently changes canonical object identity.",
+    "SELECT is an explicit host operation, not disguised as aperture/view movement.",
+    "RETURN restores invoking FIELD UI state.",
+    "Dead/unsupported candidate lenses remain inspectable.",
+    "FOVEATE is optional until a concrete task demonstrates gain."
+  ],
+  "files": [
+    "/lens-focus-ring.js",
+    "/field-lens.js",
+    "/index.html",
+    "/control/LENS_SYSTEM_CONTRACT_2026-09-21.json"
+  ],
+  "proof_required": [
+    "static JavaScript parse",
+    "390px FI: open inline Lens; no horizontal overflow; focus identity unchanged through APERTURE and VIEW changes",
+    "desktop repeat",
+    "STACK apply/remove round trip",
+    "COPY STATE emits valid LensState",
+    "DEEP LAB → exact FIELD RETURN",
+    "repo public-surface validation"
+  ],
+  "stop_condition": "If G2 passes, do not broaden Lens. Next work only when repeated use exposes a concrete missing operation (likely named compound preset or a task-specific semantic zoom lens)."
+}
