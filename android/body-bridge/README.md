@@ -38,6 +38,8 @@ APK after a successful debug build:
 
 `app/build/outputs/apk/debug/app-debug.apk`
 
+PR CI also retains that APK for 7 days as the `body-bridge-debug` workflow artifact, avoiding binary APKs in repository history.
+
 ## Phone proof
 
 1. In Samsung Health, enable its Health Connect synchronization.
