@@ -5384,15 +5384,15 @@
     },
     {
       "href": "/body/fit/",
-      "title": "BODY / FIT 0.1",
+      "title": "BODY / FIT 0.3",
       "kind": "workbench",
       "parent": "/body/",
       "family": "BODY / FIELD",
       "operation": "ADDRESS",
-      "state": "CANDIDATE",
-      "version": "0.1",
+      "state": "EXPERIMENT",
+      "version": "0.3",
       "receipt": "/body/fit/release.json",
-      "role": "Fitted-body and sensor-coverage projection over the shared BODY PLAN: manage body-addressed wearables/sensors/supports/prostheses/implants/accessories, preserve replacement lineage, retain source-distinct observations, and time-align streams without default averaging or causal claims.",
+      "role": "Fitted-body, purpose-loadout and sensor-coverage projection over the shared BODY PLAN: manage addressed modules, prep saved kits, align source-distinct observations, then close real use with RETURN/PATINA and one NEXT CUT without streak scoring.",
       "transfer": [
         "Syndicate Wars Cryovat body-fitting donor",
         "Deus Ex body-slot compatibility/revision donor",
@@ -5401,7 +5401,11 @@
         "Open mHealth acquisition provenance/effective-time distinction",
         "shared BODY PLAN addresses",
         "BODY↔HOUSE context boundary",
-        "HUMAN PORT JSON/text ingestion"
+        "HUMAN PORT JSON/text ingestion",
+        "Death Stranding preparation→action→return donor",
+        "Fold/Bloom ratchet/garden/RETURN donor",
+        "non-punitive completion patina",
+        "explicit BODY valence/state reference on return"
       ],
       "field": {
         "roles": [
@@ -5435,6 +5439,11 @@
             "medium": "EVIDENCE",
             "kind": "source-distinct fusion projection",
             "interface": "FUSE lens"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "loadout RETURN + NEXT CUT",
+            "interface": "local PATINA / exported JSON"
           }
         ],
         "exit_paths": [
@@ -5462,12 +5471,17 @@
             "class": "CARE",
             "status": "AVAILABLE",
             "via": "/care/ remains episode/course/handoff authority"
+          },
+          {
+            "class": "CARE_COMPLETION_PROJECTION",
+            "status": "CANDIDATE",
+            "via": "future shared patina grammar only after BODY/FIT ordinary-use proof; CARE action complete != condition improved"
           }
         ],
         "physical_fit": "Body-associated fitting and sensor-stream registry/projection; no diagnosis, automatic thresholding, causal inference or actuation authority."
       },
       "index": {
-        "updated_at": "2026-09-22T01:03:12+08:00",
+        "updated_at": "2026-09-22T01:37:00+08:00",
         "work_modes": [
           "RECOVER",
           "RESEARCH",
@@ -5484,6 +5498,22 @@
           "summary": "Shared-body-plan FIT/SENSE/FUSE/HISTORY workbench with revision lineage and source-distinct sensor observations.",
           "receipt": "/body/fit/release.json",
           "provenance": "initial workbench commit; Port adapter hardened immediately after"
+        },
+        {
+          "version": "0.2",
+          "date": "2026-09-22",
+          "commit": "fc0cec6cba88998a7a5985d96b271bb36f47af7b",
+          "summary": "LOADOUT craft pass: capability rail, module cards, mass/power metadata, purpose kits and revision-aware prep checks.",
+          "receipt": "/body/fit/release.json",
+          "provenance": "exact implementation commit; release receipt sealed at 0.3"
+        },
+        {
+          "version": "0.3",
+          "date": "2026-09-22",
+          "commit": "c2b8c84f7ce59744ada9b29754072dfacc7b001c",
+          "summary": "PREP → SET OUT → RETURN → PATINA loop with loose items, explicit BODY-state attach, non-streak return marks and NEXT CUT.",
+          "receipt": "/returns/BODY_FIT_RETURN_PATINA_2026-09-22.json",
+          "provenance": "exact implementation commit plus v0.3 validation/receipt"
         }
       ]
     },
