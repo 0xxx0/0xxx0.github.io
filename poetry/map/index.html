@@ -51,7 +51,7 @@ details.advanced[open]>summary:after{content:" −"}
  <div class="sub" style="margin-top:5px">APERTURE is visual-load control: selected relations + AUTHOR paths survive first; peripheral relation families progressively return as it opens. The map is a projection of explicit edge laws. SOUND is an approximate Latin-script heuristic in this build; Han/other scripts fall back to source/repeat/author relations unless an adapter supplies phonology.</div>
  </details>
  <div class="k">Session</div>
- <div class="row"><button id="exportBtn">EXPORT</button><button id="resetLayout">RESET MAP</button></div>
+ <div class="row"><button id="exportBtn">EXPORT</button><button id="importBtn">IMPORT</button><button id="resetLayout">RESET MAP</button></div><input type="file" id="importFile" accept=".json" hidden>
 </aside>
 
 <main class="stage">
@@ -237,8 +237,23 @@ $('#clearPath').onclick=()=>{S.authorPath=[];S.authorEdges=[];parse()};$('#captu
 $('#form').onchange=e=>{S.form=e.target.value;save();renderConstraints()};for(let [id,key,out] of [['orderW','order','wo'],['soundW','sound','ws'],['repeatW','repeat','wr'],['authorW','author','wa']])$('#'+id).oninput=e=>{S.weights[key]=+e.target.value;$('#'+out).textContent=(+e.target.value).toFixed(2);save()};
 $('#aperture').oninput=e=>{S.aperture=+e.target.value;$('#wap').textContent=S.aperture.toFixed(2);save()};
 $('#mapIt').onclick=parse;$('#clear').onclick=()=>{$('#source').value='';Object.assign(S,{source:'',nodes:[],edges:[],selected:null,authorPath:[],authorEdges:[],bank:[],preview:null,revisions:[],captures:[],locks:new Set()});render();save()};$('#loadDemo').onclick=()=>{$('#source').value=DEMO;parse()};$('#loadJueju').onclick=()=>{$('#source').value=JUEJU;S.form='jueju7';$('#form').value=S.form;parse()};
-$('#resetLayout').onclick=()=>{S.layoutSeed++;initPositions();save()};$('#exportBtn').onclick=()=>{let r=receipt(),a=document.createElement('a');a.download='poem-map-return.json';a.href=URL.createObjectURL(new Blob([JSON.stringify(r,null,2)],{type:'application/json'}));a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);status('RETURN EXPORTED')};
-function receipt(){return{format:'VERSE/POEM-MAP-0.2',source:S.source,nodes:S.nodes.map(({id,line,index,text,norm})=>({id,line,index,text,norm})),form:S.form,weights:S.weights,aperture:S.aperture,locks:[...S.locks],author_path:S.authorPath,author_edges:S.authorEdges,bank:S.bank,preview:S.preview,revisions:S.revisions,captures:S.captures,claims:{sound:'APPROX_LATIN_HEURISTIC',semantic:'NO_AUTOMATIC_SEMANTIC_EMBEDDING',jueju_historical_prosody:'OPEN'},created:new Date().toISOString()}}
+$('#resetLayout').onclick=()=>{S.layoutSeed++;initPositions();save()};$('#exportBtn').onclick=()=>{let r=receipt(),a=document.createElement('a');a.download='poem-map-return.json';a.href=URL.createObjectURL(new Blob([JSON.stringify(r,null,2)],{type:'application/json'}));a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);status('RETURN EXPORTED')};$('#importBtn').onclick=()=>$('#importFile').click();$('#importFile').onchange=async e=>{let file=e.target.files?.[0];e.target.value='';if(!file)return;try{applyReceipt(JSON.parse(await file.text()));status('RETURN REPLAYED')}catch(err){status('IMPORT FAILED · INVALID POEM MAP RETURN')}};
+function receipt(){return{format:'VERSE/POEM-MAP-0.2',source:S.source,mode:S.mode,nodes:S.nodes.map(({id,line,index,text,norm})=>({id,line,index,text,norm})),form:S.form,weights:S.weights,aperture:S.aperture,locks:[...S.locks],author_path:S.authorPath,author_edges:S.authorEdges,bank:S.bank,preview:S.preview,revisions:S.revisions,captures:S.captures,claims:{sound:'APPROX_LATIN_HEURISTIC',semantic:'NO_AUTOMATIC_SEMANTIC_EMBEDDING',jueju_historical_prosody:'OPEN'},created:new Date().toISOString()}}function applyReceipt(r){
+ if(!r||r.format!=='VERSE/POEM-MAP-0.2'||typeof r.source!=='string')throw new Error('RETURN FORMAT');
+ S.source=r.source;S.form=FORMS[r.form]?r.form:'free';S.mode=['PAGE','MAP','SETS'].includes(r.mode)?r.mode:'PAGE';
+ S.weights={...S.weights,...(r.weights||{})};S.aperture=Number.isFinite(+r.aperture)?Math.max(.05,Math.min(1,+r.aperture)):S.aperture;
+ S.locks=new Set(Array.isArray(r.locks)?r.locks:[]);S.authorPath=Array.isArray(r.author_path)?r.author_path.slice():[];
+ S.authorEdges=Array.isArray(r.author_edges)?r.author_edges.map(x=>({...x})):[];
+ S.bank=Array.isArray(r.bank)?r.bank.map(x=>({...x})):[];S.preview=null;
+ S.revisions=Array.isArray(r.revisions)?r.revisions.map(x=>({...x})):[];
+ S.captures=Array.isArray(r.captures)?r.captures.map(x=>({...x})):[];
+ S.selected=null;$('#source').value=S.source;$('#form').value=S.form;
+ for(let [id,key,out] of [['orderW','order','wo'],['soundW','sound','ws'],['repeatW','repeat','wr'],['authorW','author','wa']]){
+   $('#'+id).value=S.weights[key];$('#'+out).textContent=(+S.weights[key]).toFixed(2)
+ }
+ $('#aperture').value=S.aperture;$('#wap').textContent=S.aperture.toFixed(2);
+ parse();setMode(S.mode);save();return true
+}
 function save(){try{localStorage.setItem('verse-poem-map-02',JSON.stringify({source:S.source,mode:S.mode,form:S.form,weights:S.weights,aperture:S.aperture,locks:[...S.locks],authorPath:S.authorPath,authorEdges:S.authorEdges,bank:S.bank,preview:S.preview,revisions:S.revisions,captures:S.captures,layoutSeed:S.layoutSeed}))}catch(e){}}
 function load(){try{let q=JSON.parse(localStorage.getItem('verse-poem-map-02')||localStorage.getItem('verse-poem-map-01')||'null');if(!q)return;Object.assign(S,{source:q.source||'',mode:q.mode||'PAGE',form:q.form||'free',weights:{...S.weights,...q.weights},aperture:q.aperture??.7,locks:new Set(q.locks||[]),authorPath:q.authorPath||[],authorEdges:q.authorEdges||[],bank:q.bank||[],preview:null,revisions:q.revisions||[],captures:q.captures||[],layoutSeed:q.layoutSeed||1});$('#source').value=S.source;$('#form').value=S.form;for(let [id,key,out] of [['orderW','order','wo'],['soundW','sound','ws'],['repeatW','repeat','wr'],['authorW','author','wa']]){$('#'+id).value=S.weights[key];$('#'+out).textContent=S.weights[key].toFixed(2)}$('#aperture').value=S.aperture;$('#wap').textContent=S.aperture.toFixed(2)}catch(e){}}
 function status(t){$('#statusText').textContent=t;$('#status').textContent='LIVE'}
@@ -251,7 +266,7 @@ function selftest(){
  a('Jueju donor remains four-line open source',JUEJU.split('\n').length===4&&Array.from(JUEJU.split('\n')[0]).length===7,'4 lines / 7-char opener');
  a('form adapters remain plural',['free','haiku','couplet','quatrain','sonnet','villanelle','jueju7','jueju5'].every(k=>!!FORMS[k]),Object.keys(FORMS).join(' · '));
  a('writer-intent dock remains plural',['continue','replace','echo','contrast','turn','rhyme','surprise'].every(k=>!!INTENTS[k]),Object.keys(INTENTS).join(' · '));
- a('RETURN contract intact',receipt().format==='VERSE/POEM-MAP-0.2',receipt().format);
+ a('RETURN contract intact',receipt().format==='VERSE/POEM-MAP-0.2',receipt().format);a('RETURN replay function exposed',typeof applyReceipt==='function','applyReceipt');
  a('historical Jueju prosody still OPEN',receipt().claims.jueju_historical_prosody==='OPEN',receipt().claims.jueju_historical_prosody);
  a('map sound remains explicitly approximate',receipt().claims.sound==='APPROX_LATIN_HEURISTIC',receipt().claims.sound);
  return t
@@ -263,6 +278,6 @@ $('#guideShade').onclick=e=>{if(e.target.id==='guideShade')closeGuide()};
 $('#guideDemo').onclick=()=>{$('#source').value=DEMO;parse();setMode('PAGE');closeGuide();status('DEMO READY · TAP A WORD → CHOOSE AN INTENT')};
 load();if(S.source)parse();else render();setMode(S.mode||'PAGE');requestAnimationFrame(draw);
 if(!localStorage.getItem('verse-poem-map-guide-seen'))$('#guideShade').classList.add('show');
-window.__POEM_MAP__={S,receipt,parse,setMode,previewCandidate,adoptCandidate,undoRevision,selftest};
+window.__POEM_MAP__={S,receipt,applyReceipt,parse,setMode,previewCandidate,adoptCandidate,undoRevision,selftest};
 })();
 </script></body></html>
