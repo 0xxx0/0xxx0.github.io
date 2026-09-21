@@ -48,3 +48,27 @@ Only after use:
 - route witness as a compact RETURN signature.
 
 No transfer is implied merely by reactivation.
+
+
+## Implemented receipt seam
+
+Grid Path V4 emits a `BY/GRID-PATH-2` RETURN containing:
+- source fingerprint / pack / matrix;
+- stable path id;
+- addressed cells + typed edges;
+- compressed path address;
+- flat + stranded reading.
+
+ONE RETURN now accepts that receipt directly.
+
+The transfer is deliberately lossy and named:
+```
+BY/GRID-PATH-2
+  preserve: source fingerprint + path id + address + reading
+  hide: rectangular geometry + typed BY edges as maze geometry
+→ source units / deterministic seed
+→ new ONE RETURN maze projection
+→ RETURN with upstream provenance
+```
+
+This makes the maze a lawful new projection of the compiler receipt, not a replay of compiler geometry.
