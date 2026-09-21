@@ -25,17 +25,17 @@ header{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end;
 .kids{padding:4px 8px 8px}.kid{display:grid;grid-template-columns:1fr auto;gap:8px;border-bottom:1px solid #1d2529;padding:7px 2px}.kid:last-child{border-bottom:0}.kid:hover{background:#0d1316}.kid .routeName{font-size:11px}.kid .routeRole{font-size:8px}.depth2{margin-left:13px;border-left:1px solid #273238;padding-left:8px}
 .flat{border-top:1px solid var(--line)}.flatRow{display:grid;grid-template-columns:minmax(190px,1fr) 110px 110px 2fr auto;gap:10px;padding:9px 3px;border-bottom:1px solid #20282c}.flatRow:hover{background:#0b1012}.flatRow .name{font:750 13px/1.1 system-ui,sans-serif}.flatRow .meta{font-size:7px;color:var(--mut)}.flatRow .status{font-size:7px;letter-spacing:.08em}.flatRow .desc{font:8.5px/1.4 system-ui,sans-serif;color:#96a2a6}
 .evoGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}.evoCard{background:var(--p);padding:12px;min-height:250px;display:flex;flex-direction:column}.evoCard:hover{background:#0d1316}.evoTop{display:flex;justify-content:space-between;gap:8px;align-items:start}.evoStage{font-size:7px;letter-spacing:.11em;color:var(--hot)}.evoGen{font-size:7px;color:var(--mut)}.evoCard h3{margin:14px 0 3px;font:800 17px/1 system-ui,sans-serif;letter-spacing:-.035em}.evoHost{color:var(--cool);font-size:7px}.evoQ{margin:13px 0 0;font:10px/1.48 system-ui,sans-serif;color:#c6ced0}.evoPair{display:grid;grid-template-columns:72px 1fr;gap:7px;border-top:1px solid #20282c;padding-top:7px;margin-top:7px}.evoPair b{font-size:6.5px;color:var(--mut);letter-spacing:.08em}.evoPair span{font:8.5px/1.42 system-ui,sans-serif;color:#96a2a6}.evoActions{display:flex;gap:5px;margin-top:auto;padding-top:12px}.evoActions a{border:1px solid var(--line);padding:6px 8px;font-size:7px}.evoActions a:first-child{border-color:var(--hot)}
-.feedShell{display:grid;grid-template-columns:180px minmax(0,1fr);gap:7px}.feedStats{border:1px solid var(--line);background:#090d0f;padding:11px;display:grid;grid-template-columns:1fr 1fr;gap:1px}.feedStat{padding:8px 4px;border-bottom:1px solid #20282c}.feedStat:nth-last-child(-n+2){border-bottom:0}.feedStat b{display:block;font:800 20px/.9 system-ui,sans-serif;letter-spacing:-.04em}.feedStat span{display:block;margin-top:5px;color:var(--mut);font-size:6.5px;letter-spacing:.08em}.feedRail{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(190px,1fr);gap:1px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-snap-type:x proximity;border:1px solid var(--line);background:var(--line);scrollbar-width:thin}.feedItem{scroll-snap-align:start;background:var(--p);padding:10px;min-height:104px;display:flex;flex-direction:column}.feedItem:hover{background:#101619}.feedTop{display:flex;justify-content:space-between;gap:8px;color:var(--mut);font-size:6.5px}.feedItem strong{margin-top:13px;font:750 13px/1.08 system-ui,sans-serif;letter-spacing:-.02em}.feedPath{margin-top:4px;color:var(--cool);font-size:6.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.feedBottom{margin-top:auto;padding-top:10px;display:flex;gap:4px;flex-wrap:wrap}.feedMore{border:1px solid var(--line);background:#090d0f;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:7px;color:var(--mut)}.feedMore button{min-height:25px;font-size:7px}.feedMobileNote{display:none}
+.feedShell{display:grid;grid-template-columns:minmax(0,1fr) 44px;gap:7px;align-items:start}.feedStats{border:1px solid var(--line);background:#090d0f;padding:6px 9px;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;margin-bottom:6px}.feedStat{padding:5px 7px;border-right:1px solid #20282c}.feedStat:last-child{border-right:0}.feedStat b{display:block;font:800 15px/.9 system-ui,sans-serif;letter-spacing:-.04em}.feedStat span{display:block;margin-top:4px;color:var(--mut);font-size:6px;letter-spacing:.08em}.feedRail{border-top:1px solid var(--line)}.feedItem{display:grid;grid-template-columns:34px minmax(0,1fr) 105px 72px auto;gap:10px;align-items:center;padding:8px 4px;border-bottom:1px solid #20282c;background:transparent}.feedItem:hover,.feedItem.flash{background:#0d1316}.feedGlyph{display:grid;place-items:center}.fieldGlyph{display:block}.feedMain strong{display:block;font:750 13px/1.08 system-ui,sans-serif;letter-spacing:-.02em}.feedPath{margin-top:3px;color:var(--cool);font-size:6.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.feedTouch{color:var(--mut);font-size:6.5px;white-space:nowrap}.feedMode{font-size:6.5px;color:#9ba7aa}.feedBottom{display:flex;gap:4px;flex-wrap:wrap}.feedArrow{color:#708087;font-size:7px;white-space:nowrap}.glyphRail{position:sticky;top:8px;max-height:calc(100vh - 16px);overflow:auto;border:1px solid var(--line);background:#090d0f;padding:4px;display:flex;flex-direction:column;gap:2px;scrollbar-width:none}.glyphRail button{min-height:32px;height:32px;padding:2px;border:1px solid transparent;background:#090d0f;display:grid;place-items:center}.glyphRail button:hover,.glyphRail button.on{border-color:#68777e;background:#10171a}.feedMore{border:1px solid var(--line);background:#090d0f;padding:8px 10px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:7px;color:var(--mut)}.feedMore button{min-height:25px;font-size:7px}.issues{border-top:1px solid var(--line)}.issueRow{display:grid;grid-template-columns:48px minmax(0,1fr) 120px 78px;gap:10px;align-items:center;border-bottom:1px solid #20282c;padding:9px 4px}.issueRow:hover{background:#0b1012}.issueNo{color:var(--hot);font:800 12px system-ui,sans-serif}.issueTitle{font:750 12px/1.15 system-ui,sans-serif}.issueMeta{margin-top:3px;color:var(--mut);font-size:6.5px}.issueDisp{font-size:6.5px;color:var(--gold)}.issuePlay{border:1px solid var(--line);padding:5px 7px;text-align:center;font-size:7px}.issuePlay.hot{border-color:var(--hot);color:#ffd1bf}.lineageHold{margin-top:24px;border-top:1px solid var(--line)}.lineageHold>summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:12px;padding:9px 2px;color:var(--mut)}.lineageHold>summary::-webkit-details-marker{display:none}.lineageHold>summary b{color:var(--ink);font-size:9px;letter-spacing:.14em}.lineageHold[open]>summary{border-bottom:1px solid var(--line);margin-bottom:7px}
 .ports{border-top:1px solid var(--line)}.portRow{display:grid;grid-template-columns:minmax(170px,.75fr) 130px 150px 2fr auto;gap:10px;padding:8px 3px;border-bottom:1px solid #20282c}.portRow:hover{background:#0b1012}.portRow .name{font:750 12px/1.1 system-ui,sans-serif}.portRow .kind{font-size:7px;color:var(--cool);letter-spacing:.08em}.portRow .status{font-size:7px;color:var(--gold);letter-spacing:.06em}.portRow .via{font:8.5px/1.4 system-ui,sans-serif;color:#96a2a6}
 .health{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.health a{background:#090d0f;padding:10px}.health b{display:block;font-size:8px}.health span{display:block;margin-top:3px;color:var(--mut);font-size:7px}
 .foot{display:flex;justify-content:space-between;gap:18px;margin-top:24px;padding-top:9px;border-top:1px solid var(--line);font-size:7px;color:#657278}
-@media(max-width:900px){header{grid-template-columns:1fr}.laws{grid-template-columns:1fr 1fr}.nowGrid,.mapGrid{grid-template-columns:1fr}.feedShell{display:block}.feedStats{display:none}.feedRail{display:block;overflow:visible;border-left:0;border-right:0;background:transparent;scroll-snap-type:none}.feedItem{display:block;min-height:0;padding:10px 3px;border-bottom:1px solid #20282c;background:transparent;scroll-snap-align:none}.feedItem:nth-child(n+7){display:none}.feedItem strong{display:block;margin-top:5px;font-size:13px}.feedPath{margin-top:2px}.feedBottom{padding-top:5px}.feedTop{font-size:6.5px}.feedMore{padding:8px 3px;border-left:0;border-right:0;background:transparent}.feedMore>span{display:none}.feedMore button{width:100%;text-align:left;padding-left:3px}.feedMobileNote{display:block;color:var(--mut);font-size:7px;margin-top:5px}.mapStage{grid-template-columns:1fr}.mapInspector{min-height:auto}.head{grid-template-columns:1fr auto}.head p{grid-column:1/-1}.flatRow,.portRow{grid-template-columns:1fr auto}.flatRow .meta,.flatRow .status,.flatRow .desc,.portRow .kind,.portRow .status,.portRow .via{grid-column:1}.flatRow .arrow,.portRow .arrow{grid-column:2;grid-row:1/-1}.sectionHead{grid-template-columns:1fr}.mapTools input{width:100%}.health{grid-template-columns:1fr 1fr}.foot{display:block}}
+@media(max-width:900px){header{grid-template-columns:1fr}.laws{grid-template-columns:1fr 1fr}.nowGrid,.mapGrid{grid-template-columns:1fr}.feedShell{grid-template-columns:minmax(0,1fr) 36px;gap:4px}.feedStats{grid-template-columns:1fr 1fr}.feedStat:nth-child(2){border-right:0}.feedItem{grid-template-columns:30px minmax(0,1fr) auto;padding:8px 1px;gap:7px}.feedTouch,.feedMode{display:none}.feedBottom{justify-self:end}.feedArrow{display:none}.glyphRail{top:6px;padding:2px}.glyphRail button{min-height:29px;height:29px}.issueRow{grid-template-columns:42px minmax(0,1fr) auto}.issueDisp{display:none}.issuePlay{grid-column:3}.mapStage{grid-template-columns:1fr}.mapInspector{min-height:auto}.head{grid-template-columns:1fr auto}.head p{grid-column:1/-1}.flatRow,.portRow{grid-template-columns:1fr auto}.flatRow .meta,.flatRow .status,.flatRow .desc,.portRow .kind,.portRow .status,.portRow .via{grid-column:1}.flatRow .arrow,.portRow .arrow{grid-column:2;grid-row:1/-1}.sectionHead{grid-template-columns:1fr}.mapTools input{width:100%}.health{grid-template-columns:1fr 1fr}.foot{display:block}}
 </style>
 </head>
 <body><main>
 <header>
   <div><div class="ey">FI / φ · ORIENT / FIND / CONNECT / RETURN</div><h1>FIELD<br>INDEX</h1></div>
-  <div class="intro"><b>A map, not a feed.</b> NOW says where attention is. HEADS says what currently survives. MAP says what exists. OPEN PORTS says what still cannot connect. Recent activity is evidence; it does not decide importance.
+  <div class="intro"><b>Start with what changed.</b> LATEST is the fast re-entry path back into repository reality. ISSUES shows declared open loops. MAP is the structural projection when you need to zoom out. NOW still names deliberate attention; none of these readings silently outranks the others.
     <nav><a class="play" href="./field-play.html">PLAY FIELD</a><a href="./port/">HUMAN PORT</a><a href="./dock/">DOCK</a><a href="./control/">CURRENT</a><a href="./foundry/">FOUNDRY</a><a href="./migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./control/confluence/">CONFLUENCE</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav>
     <div class="laws"><div class="law"><b>ATTENTION ≠ RECENCY</b><span>CURRENT owns NOW.</span></div><div class="law"><b>MAP ≠ BACKLOG</b><span>Existence is not obligation.</span></div><div class="law"><b>DONOR ≠ HEAD</b><span>Transfer without resurrection.</span></div><div class="law"><b>ADDRESS ≠ PROMOTE</b><span>Everything findable; almost nothing sovereign.</span></div><div class="law"><b>RETURN ≠ NEXT</b><span>Replan after every bounded move.</span></div></div>
   </div>
@@ -47,16 +47,22 @@ header{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end;
 </section>
 
 <section class="section" id="pulseFeed">
-  <div class="sectionHead"><div><b>PULSE / RECENT ACTIVITY</b><span id="feedMeta">loading durable touches…</span></div><span>running projection · activity ≠ priority</span></div>
-  <div class="feedShell"><div class="feedStats" id="feedStats"></div><div><div class="feedRail" id="feedRail"><div class="feedItem">Loading manifest touch history…</div></div><div class="feedMobileNote">LATEST SIX DURABLE TOUCHES · CURRENT STILL OWNS ATTENTION</div><div class="feedMore"><span>Recent durable touches. This is mutation evidence, not a priority queue.</span><button id="feedRecent">OPEN FULL RECENT →</button></div></div></div>
+  <div class="sectionHead"><div><b>LATEST / REPO TOUCHES</b><span id="feedMeta">loading durable touches…</span></div><span>newest first · click top and keep moving</span></div>
+  <div class="feedShell"><div><div class="feedStats" id="feedStats"></div><div class="feedRail" id="feedRail"><div class="feedItem">Loading manifest touch history…</div></div><div class="feedMore"><span>Chronological mutation list. Duplication with NOW/HEADS is intentional here.</span><button id="feedRecent">OPEN FULL RECENT →</button></div></div><aside class="glyphRail" id="glyphRail" aria-label="Compressed latest route rail"></aside></div>
 </section>
 
-<section class="section">
+<section class="section" id="issueSection">
+  <div class="sectionHead"><div><b>ISSUES / REPO OPEN LOOPS</b><span id="issueMeta">loading GitHub issues…</span></div><span>repo truth · not automatic priority</span></div>
+  <div class="issues" id="issueList"><div class="issueRow"><div class="issueTitle">Loading open issues…</div></div></div>
+</section>
+
+<details class="lineageHold">
+  <summary><b>HEADS / LINEAGE READING</b><span>advanced · retained current lineages, not required for ordinary navigation</span></summary>
   <div class="sectionHead"><div><b>HEADS</b><span id="headMeta">retained current lineages</span></div><span>current ≠ active ≠ stable</span></div>
   <div id="heads" class="heads"><div class="head"><p>Loading current heads…</p></div></div>
-</section>
+</details>
 
-<section class="section">
+<section class="section" id="mapSection">
   <div class="sectionHead"><div><b>MAP</b><span id="mapMeta">durable address graph</span></div><div class="mapTools" id="mapTools"><button class="on" data-mode="VISUAL">VISUAL</button><button data-mode="PULSE">PULSE</button><button data-mode="STRUCTURE">STRUCTURE</button><button data-mode="EVOLVE">EVOLVE</button><button data-filter="ACTIVE">LIVE</button><button data-filter="HEADS">HEADS</button><button data-filter="DONORS">DONORS</button><button data-filter="SUPPORT">SUPPORT</button><button data-mode="RECENT">RECENT</button><input id="find" type="search" placeholder="/ find route / mechanism"></div></div>
   <div id="visualWrap" class="mapStage">
     <div class="mapCanvas"><svg id="fieldMap" viewBox="0 0 1200 680" role="img" aria-label="FIELD INDEX visual sitemap"></svg><div class="mapLegend"><b class="h">NOW</b><b class="d">HEAD</b><b class="g">ACTIVE/STABLE</b><b class="c">DONOR</b><b>UTILITY/ALIAS</b></div></div>
@@ -78,12 +84,13 @@ header{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end;
 <div class="foot"><span>OBJECT → ADDRESS → STATE → MUTATE → EVIDENCE → SELECT → TRANSFER → RETURN → REPLAN</span><span>FIELD INDEX is orientation; CURRENT is attention; CONFLUENCE moves bounded mechanisms between unequal lineages.</span></div>
 </main>
 
+<script src="./field-glyph.js"></script>
 <script src="./field-signals.js"></script>
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const NS='http://www.w3.org/2000/svg';
-let manifest=null,current=null,routes=[],
+let manifest=null,current=null,routes=[],issueSnapshot=[],
     mode=(window.FieldSignals?.preference('field-map-mode',['VISUAL','PULSE','STRUCTURE','EVOLVE','RECENT'])?.value)||'VISUAL',
     filter='ALL',query='',headSet=new Set,nowRouteSet=new Set,visualRoot='/',selectedRoute='/';
 const routeMap=()=>new Map(routes.map(r=>[r.href,r]));
@@ -113,14 +120,30 @@ function renderHeads(){
   $('headMeta').textContent=hs.length+' retained heads · '+folded.length+' folded into NOW · identity shown once per fixed reading';
   $('heads').innerHTML=visible.map(h=>{const r=routeMap().get(h.route),touch=r?.index?.updated_at?' · '+r.index.updated_at:'';return '<a class="head" href=".'+esc(h.route)+'"><strong>'+esc(h.head)+'</strong><span class="hs">'+esc(h.state)+esc(touch)+'</span><p>'+esc(h.retained_function||'')+'</p><span class="arrow">OPEN →</span></a>'}).join('')||(folded.length?'<div class="head"><p>All retained heads are already represented in NOW.</p></div>':'<div class="head"><p>No current heads declared.</p></div>');
 }
+function feedId(h){return 'touch-'+String(h).replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'')}
 function renderFeed(){
-  const all=routes.filter(r=>r.index?.updated_at).sort((a,b)=>String(b.index.updated_at).localeCompare(String(a.index.updated_at)));
-  const folded=all.filter(r=>nowRouteSet.has(r.href)||headSet.has(r.href));
-  const xs=all.filter(r=>!nowRouteSet.has(r.href)&&!headSet.has(r.href)).slice(0,10);
-  $('feedMeta').textContent=xs.length+' recent touches shown · '+folded.length+' current identities folded above · OPEN FULL RECENT shows all';
+  const xs=routes.filter(r=>r.index?.updated_at).sort((a,b)=>String(b.index.updated_at).localeCompare(String(a.index.updated_at))).slice(0,18);
+  $('feedMeta').textContent=xs.length+' newest durable touches · no identity folding · manifest index.updated_at';
   const live=routes.filter(r=>stateLive(r.state)||r.state==='STABLE').length;
-  $('feedStats').innerHTML=[['NOW',nowRouteSet.size],['HEADS',headSet.size],['LIVE',live],['ADDRESSED',routes.length]].map(([k,v])=>'<div class="feedStat"><b>'+esc(v)+'</b><span>'+esc(k)+'</span></div>').join('');
-  $('feedRail').innerHTML=xs.map(r=>'<a class="feedItem" href=".'+esc(r.href)+'"><div class="feedTop"><span>'+esc(r.index.updated_at)+'</span><span>'+esc((r.index.work_modes||['TOUCH'])[0])+'</span></div><strong>'+esc(r.title||r.href)+'</strong><div class="feedPath">'+esc(r.href)+'</div><div class="feedBottom">'+badge(r.state)+'</div></a>').join('')||'<div class="feedItem">All latest durable touches are already represented in NOW/HEADS. Open full RECENT for the mutation reading.</div>';
+  $('feedStats').innerHTML=[['NOW',nowRouteSet.size],['OPEN ISSUES',issueSnapshot.length||'—'],['LIVE',live],['ADDRESSED',routes.length]].map(([k,v])=>'<div class="feedStat"><b>'+esc(v)+'</b><span>'+esc(k)+'</span></div>').join('');
+  $('feedRail').innerHTML=xs.map(r=>'<a class="feedItem" id="'+feedId(r.href)+'" href=".'+esc(r.href)+'"><div class="feedGlyph">'+(window.FieldGlyph?.svg(r,{size:27,now:nowRouteSet.has(r.href),head:headSet.has(r.href)})||'')+'</div><div class="feedMain"><strong>'+esc(r.title||r.href)+'</strong><div class="feedPath">'+esc(r.href)+'</div></div><div class="feedTouch">'+esc(r.index.updated_at)+'</div><div class="feedMode">'+esc((r.index.work_modes||['TOUCH']).join(' · '))+'</div><div class="feedBottom">'+badge(r.state)+'</div><div class="feedArrow">OPEN →</div></a>').join('')||'<div class="feedItem">No durable touches indexed.</div>';
+  $('glyphRail').innerHTML=xs.map(r=>'<button data-feed="'+esc(r.href)+'" title="'+esc((r.title||r.href)+' · '+r.index.updated_at)+'">'+(window.FieldGlyph?.svg(r,{size:25,now:nowRouteSet.has(r.href),head:headSet.has(r.href)})||'')+'</button>').join('');
+  $('glyphRail').querySelectorAll('button').forEach(b=>b.onclick=()=>{const row=document.getElementById(feedId(b.dataset.feed));if(!row)return;$('glyphRail').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));row.classList.add('flash');row.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>row.classList.remove('flash'),1200)});
+}
+function renderIssues(xs){
+  issueSnapshot=xs||[];const sorted=issueSnapshot.slice().sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||'')));
+  $('issueMeta').textContent=sorted.length+' open GitHub issues · newest activity first · '+sorted.filter(x=>x.play_safe).length+' public-play candidates';
+  $('issueList').innerHTML=sorted.map(x=>'<div class="issueRow"><div class="issueNo">#'+esc(x.number)+'</div><a href="'+esc(x.html_url)+'" target="_blank" rel="noopener"><div class="issueTitle">'+esc(x.title)+'</div><div class="issueMeta">'+esc(x.updated_at||'')+'</div></a><div class="issueDisp">'+esc(x.disposition||'PUBLIC_REPO')+'</div>'+(x.play_safe?'<a class="issuePlay hot" href="./field-play.html#issue='+esc(x.number)+'">PLAY →</a>':'<span class="issuePlay">HOLD</span>')+'</div>').join('')||'<div class="issueRow"><div class="issueTitle">No open issues.</div></div>';
+  renderFeed();
+}
+async function loadIssues(){
+  let snap={issues:[]};
+  try{snap=await fetch('./control/FIELD_ISSUES.json',{cache:'no-store'}).then(r=>r.json());renderIssues(snap.issues||[])}catch(_){}
+  try{
+    const live=await fetch('https://api.github.com/repos/0xxx0/0xxx0.github.io/issues?state=open&per_page=100',{headers:{Accept:'application/vnd.github+json'}}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()});
+    const policy=new Map((snap.issues||[]).map(x=>[x.number,x]));
+    renderIssues(live.filter(x=>!x.pull_request).map(x=>{const p=policy.get(x.number)||{};return{number:x.number,title:x.title,updated_at:x.updated_at,html_url:x.html_url,play_safe:!!p.play_safe,disposition:p.disposition||'PUBLIC_REPO'}}));
+  }catch(_){}
 }
 function matchFilter(r){
   if(query&&!textOf(r).includes(query))return false;
@@ -289,7 +312,7 @@ Promise.all([
  fetch('./control/CURRENT.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('current '+r.status);return r.json()})
 ]).then(([m,c])=>{
  manifest=m;current=c;routes=(m.routes||[]).filter(r=>r.href!=='/');
- renderNow();renderHeads();renderFeed();
+ renderNow();renderHeads();renderFeed();loadIssues();
  document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
  if(mode!=='VISUAL')window.FieldSignals?.emit('default-applied',{group:'field-map-mode',value:mode});
  renderMap();renderPorts();
@@ -298,7 +321,7 @@ $('mapTools').onclick=e=>{
  if(e.target.dataset.mode){mode=e.target.dataset.mode;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));renderMap();return}
  if(e.target.dataset.filter){filter=filter===e.target.dataset.filter?'ALL':e.target.dataset.filter;document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('on',b.dataset.filter===filter));renderMap()}
 };
-$('feedRecent').onclick=()=>{mode='RECENT';document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));renderMap();document.querySelector('.section:nth-of-type(4)').scrollIntoView({behavior:'smooth',block:'start'})};
+$('feedRecent').onclick=()=>{mode='RECENT';document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));renderMap();document.getElementById('mapSection').scrollIntoView({behavior:'smooth',block:'start'})};
 $('find').oninput=e=>{query=e.target.value.trim().toLowerCase();renderMap()};$('scaleOut').onclick=scaleOut;$('scaleRoot').onclick=scaleRoot;$('miLens').onclick=lensSelected;
 })();
 </script>
