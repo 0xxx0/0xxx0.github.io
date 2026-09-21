@@ -10,18 +10,18 @@ body{padding:max(12px,env(safe-area-inset-top)) 12px max(28px,env(safe-area-inse
 button,input{font:inherit;border-radius:0;color:inherit;background:var(--panel2);border:1px solid var(--line)}
 button{cursor:pointer;min-height:34px;padding:7px 10px}button.on{background:var(--ink);color:var(--bg)}button.hot{border-color:var(--hot);color:#ffc2ab}
 a{color:var(--cool)}main{width:min(1320px,100%);margin:auto}
-header{display:grid;grid-template-columns:1.25fr .75fr;gap:26px;align-items:end;padding:20px 0 14px;border-bottom:1px solid var(--line)}
-.ey{font-size:9px;letter-spacing:.2em;color:var(--hot)}h1{margin:7px 0 0;font:900 clamp(42px,7.5vw,88px)/.79 system-ui,sans-serif;letter-spacing:-.07em}
-.intro{font:12px/1.58 system-ui,sans-serif;color:#a7b0b4}.intro b{color:var(--ink)}.law{margin-top:8px;color:#69767c;font-size:8px;letter-spacing:.08em}
+header{display:flex;justify-content:space-between;gap:18px;align-items:end;padding:8px 0 9px;border-bottom:1px solid var(--line)}
+.ey{font-size:9px;letter-spacing:.2em;color:var(--hot)}h1{margin:4px 0 0;font:900 clamp(28px,4.5vw,54px)/.82 system-ui,sans-serif;letter-spacing:-.07em}
+.intro{max-width:500px;font:10px/1.45 system-ui,sans-serif;color:#8d989d}.intro b{color:var(--ink)}.law{margin-top:8px;color:#69767c;font-size:8px;letter-spacing:.08em}
 .controls{display:flex;gap:5px;flex-wrap:wrap;margin:10px 0}.controls .spacer{flex:1}.controls b{align-self:center;font-size:8px;letter-spacing:.13em;color:var(--mut);margin-right:3px}
-.primer{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:10px}.primer>div{background:var(--panel2);padding:9px 10px}.primer b{display:block;font-size:8px;letter-spacing:.13em}.primer span{display:block;color:var(--mut);font:9px/1.4 system-ui,sans-serif;margin-top:4px}
+.primer{display:none}.grid{box-shadow:0 24px 100px rgba(0,0,0,.28)}
 .grid{display:grid;grid-template-columns:minmax(420px,1.12fr) minmax(340px,.88fr);gap:1px;background:var(--line);border:1px solid var(--line)}
 .pane{background:var(--panel);padding:11px;min-width:0}.label{font-size:8px;letter-spacing:.14em;color:var(--mut);margin-bottom:6px}
-.stage{position:relative;height:min(68vh,650px);min-height:470px;border:1px solid var(--line);background:#070a0c;overflow:hidden}
+.stage{position:relative;height:min(76vh,760px);min-height:520px;border:1px solid var(--line);background:radial-gradient(circle at 50% 50%,#0c1216 0,#070a0c 44%,#050708 100%);overflow:hidden}
 #wheel{display:block;width:100%;height:100%;touch-action:none;cursor:grab}#wheel.drag{cursor:grabbing}
-.centerRead{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:154px;height:154px;border:1px solid #3a474c;border-radius:50%;background:rgba(7,10,12,.94);display:grid;place-items:center;text-align:center;pointer-events:none;padding:15px}
+.centerRead{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:154px;height:154px;border:1px solid rgba(105,183,230,.35);border-radius:50%;background:radial-gradient(circle,rgba(13,21,26,.98),rgba(7,10,12,.93));display:grid;place-items:center;text-align:center;pointer-events:none;padding:15px;box-shadow:0 0 0 9px rgba(105,183,230,.018),0 0 52px rgba(105,183,230,.09)}
 .centerRead b{display:block;font:900 25px/.9 system-ui,sans-serif;letter-spacing:-.06em}.centerRead span{display:block;color:var(--mut);font-size:8px;margin-top:7px}.centerRead em{display:block;color:var(--cool);font-style:normal;font-size:8px;margin-top:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.spine{position:absolute;left:50%;top:0;height:calc(50% - 77px);border-left:2px solid var(--hot);pointer-events:none}.spine:before{content:"FOCUS";position:absolute;top:7px;left:5px;color:var(--hot);font-size:7px;letter-spacing:.14em}
+.spine{position:absolute;left:50%;top:0;height:calc(50% - 77px);border-left:2px solid var(--hot);pointer-events:none;filter:drop-shadow(0 0 7px rgba(239,112,67,.42))}.spine:before{content:"FOCUS";position:absolute;top:7px;left:5px;color:var(--hot);font-size:7px;letter-spacing:.14em}
 .ringLegend{position:absolute;left:8px;bottom:8px;display:grid;gap:3px;pointer-events:none;max-width:48%}.ringLegend div{background:rgba(7,10,12,.82);border-left:2px solid #3d494e;padding:3px 6px;font-size:7px;color:#96a2a7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ringLegend b{color:#fff}.ringLegend i{font-style:normal;color:#5f6b70}
 .help{position:absolute;right:8px;bottom:8px;color:#647176;font-size:7px;text-align:right;line-height:1.5;pointer-events:none}
 #strip{display:none;height:100%;overflow:auto;padding:34px 14px 20px;position:relative}#strip:after{content:"";position:absolute;top:0;bottom:0;left:50%;border-left:2px solid var(--hot);pointer-events:none}
@@ -29,22 +29,22 @@ header{display:grid;grid-template-columns:1.25fr .75fr;gap:26px;align-items:end;
 .aperture{border:1px solid var(--line);background:#080b0d;padding:10px}.tuple{display:flex;gap:5px;flex-wrap:wrap}.chip{border:1px solid #354146;padding:5px 7px;font-size:8px}.chip b{color:var(--hot);font-weight:700}.summary{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;margin-top:10px}.summary strong{font:900 38px/.85 system-ui,sans-serif;letter-spacing:-.06em}.summary span{display:block;color:var(--mut);font-size:8px;margin-top:5px}.status{color:var(--gold);font-size:8px;text-align:right}
 .search{display:grid;grid-template-columns:1fr auto;margin-top:9px}.search input{min-width:0;padding:8px 9px;border-right:0}.search button{min-width:58px}
 .results{border:1px solid var(--line);margin-top:8px;max-height:290px;overflow:auto}.result{display:grid;grid-template-columns:1fr auto;gap:8px;padding:9px;border-bottom:1px solid var(--line);cursor:pointer;background:#0a0e11}.result:last-child{border-bottom:0}.result:hover,.result.on{background:#131a1e}.result b{font:800 12px/1.15 system-ui,sans-serif}.result small{display:block;color:var(--mut);font-size:7px;margin-top:5px}.result i{font-style:normal;color:var(--cool);font-size:9px}
-.focusCard{border:1px solid var(--line);margin-top:8px;padding:10px;background:#0a0e11;min-height:105px}.focusCard .k{font-size:7px;letter-spacing:.13em;color:var(--mut)}.focusCard h2{font:900 22px/.95 system-ui,sans-serif;letter-spacing:-.045em;margin:7px 0}.focusCard p{margin:0;color:#95a0a5;font:9px/1.5 system-ui,sans-serif}.addr{margin-top:7px;color:var(--cool);font-size:8px;word-break:break-all}
+.focusCard{border:1px solid var(--line);margin-top:8px;padding:12px;background:linear-gradient(135deg,#0a0e11,#0d1418);min-height:105px;box-shadow:inset 0 0 40px rgba(105,183,230,.025)}.focusCard .k{font-size:7px;letter-spacing:.13em;color:var(--mut)}.focusCard h2{font:900 22px/.95 system-ui,sans-serif;letter-spacing:-.045em;margin:7px 0}.focusCard p{margin:0;color:#95a0a5;font:9px/1.5 system-ui,sans-serif}.addr{margin-top:7px;color:var(--cool);font-size:8px;word-break:break-all}
 .actions{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:8px}.actions button,.actions a{min-height:38px;display:grid;place-items:center;text-decoration:none;border:1px solid var(--line);background:var(--panel2);color:var(--ink);font-size:8px;text-align:center;padding:5px}.actions .primary{border-color:var(--cool);color:var(--cool)}.actions .return{border-color:var(--gold);color:var(--gold)}
 .receipts{margin-top:8px;border:1px solid var(--line);max-height:130px;overflow:auto}.receipt{padding:6px 8px;border-bottom:1px solid var(--line);font-size:7px;color:#7e8b90}.receipt:last-child{border-bottom:0}.receipt b{color:#cbd2d4}.empty{padding:14px;color:#657176;font-size:8px}
 .boundary{margin-top:8px;border-left:2px solid var(--gold);padding:7px 9px;background:#111319;color:#9c9482;font:9px/1.45 system-ui,sans-serif}
 footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:8px;margin-top:10px;color:#667278;font-size:8px}
-@media(max-width:850px){header,.grid{grid-template-columns:1fr}.primer{grid-template-columns:1fr 1fr}.stage{height:58vh;min-height:430px}.actions{grid-template-columns:1fr 1fr}.intro{margin-top:12px}}
-@media(max-width:520px){body{padding-left:8px;padding-right:8px}.primer{grid-template-columns:1fr}.stage{height:54vh;min-height:390px}.centerRead{width:126px;height:126px}.centerRead b{font-size:21px}.spine{height:calc(50% - 63px)}.ringLegend{max-width:58%}.stripRow{grid-template-columns:70px 1fr}.stripToken{width:88px}}
+@media(max-width:850px){header{display:block}.grid{grid-template-columns:1fr}.intro{margin-top:7px;max-width:none}.stage{height:62vh;min-height:440px}.actions{grid-template-columns:1fr 1fr}.intro{margin-top:12px}}
+@media(max-width:520px){body{padding-left:8px;padding-right:8px}.ey{font-size:7px}h1{font-size:34px}.intro{font-size:9px}.controls b{display:none}.stage{height:58vh;min-height:410px}.centerRead{width:126px;height:126px}.centerRead b{font-size:21px}.spine{height:calc(50% - 63px)}.ringLegend{max-width:58%}.stripRow{grid-template-columns:70px 1fr}.stripToken{width:88px}}
 </style></head>
 <body><main>
-<header><div><div class="ey">FOUNDRY / AXIAL 0.6 · USE BEFORE BODY</div><h1>FOCUS<br>STACK</h1></div>
-<div class="intro"><b>Many cyclic indices. Unequal cardinalities. One focus spine.</b><br><br>Turn any ring. The fixed aperture reads one value from every ring at once and shows the real FIELD artifact or HOUSE anchor that combination addresses. RING and STRIP are two projections of the same state.</div></header>
+<header><div><div class="ey">AXIAL · ONE FOCUS / MANY SCALES</div><h1>TURN.<br>FOCUS.</h1></div>
+<div class="intro"><b>Turn a ring. Watch the field resolve.</b><br>Each ring is its own scale. The bright gate reads their alignment as one address. Tap a result to see the rings explain it back.</div></header>
 
 <div class="controls">
   <b>SOURCE</b><button id="srcField" class="on">FIELD INDEX</button><button id="srcHouse">HOUSE</button>
   <b style="margin-left:8px">PROJECTION</b><button id="viewRing" class="on">RING</button><button id="viewStrip">STRIP</button>
-  <span class="spacer"></span><button id="self">FOCUS AXIAL</button><button id="houseSpec">HOUSE: SOFA LIGHT</button><button id="reset">RESET RINGS</button>
+  <span class="spacer"></span><button id="findMe">◎ FIND AXIAL</button><button id="reset">ALL / CLEAR</button>
 </div>
 
 <section class="primer">
@@ -56,7 +56,7 @@ footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid 
 
 <div class="grid">
 <section class="pane">
- <div class="label" id="stageLabel">FIELD INDEX · drag any annulus · release to snap · click a segment to jump</div>
+ <div class="label" id="stageLabel">DRAG ANY RING · RELEASE TO SNAP · BRIGHT GATE = CURRENT READING</div>
  <div class="stage" id="stage">
    <canvas id="wheel"></canvas>
    <div id="strip"></div>
@@ -77,17 +77,17 @@ footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid 
  <div class="results" id="results"><div class="empty">Loading…</div></div>
  <div class="focusCard" id="focusCard"><div class="k">FOCUS</div><h2>—</h2><p>Rotate a ring or choose a result.</p></div>
  <div class="actions">
-   <button class="primary" id="open">OPEN FOCUS</button>
-   <button id="copy">COPY ADDRESS</button>
+   <button class="primary" id="open">OPEN</button>
+   <button id="copy">COPY</button>
    <button id="back">BACK</button>
    <button class="return" id="ret">RETURN</button>
  </div>
- <div class="boundary" id="boundary"><b>NO FAKE AUTHORITY.</b> This surface navigates and records addressed state. FIELD opens real routes. HOUSE reads the public-safe spatial model only; Home Assistant / HOUSEBUS remains the private actuation authority.</div>
+ <div class="boundary" id="boundary"><b>HOUSE IS READ-ONLY HERE.</b> This aperture can address the public model; real actuation stays behind HOUSEBUS.</div>
  <div class="label" style="margin-top:9px">RECENT RETURNS</div><div class="receipts" id="receipts"><div class="empty">No returns yet.</div></div>
  <div class="actions" style="grid-template-columns:1fr 1fr"><a href="./lab-0.5.1.html">TRACE LAB 0.5.1 →</a><a href="./aperture.contract.json">CONTRACT →</a></div>
 </section>
 </div>
-<footer><span><a href="../../">← FIELD</a> · <a href="../">FOUNDRY</a> · <a href="../../fold-bloom/lens/">SCALE LENS</a></span><span>RING STACK → FOCUS → APERTURE → OPEN / RETURN</span></footer>
+<span hidden>HOUSE: SOFA LIGHT</span><footer><span><a href="../../">← FIELD</a> · <a href="../">FOUNDRY</a> · <a href="../../fold-bloom/lens/">SCALE LENS</a></span><span>RING STACK → FOCUS → APERTURE → OPEN / RETURN</span></footer>
 </main>
 <script>
 (function(){'use strict';
@@ -194,7 +194,7 @@ function renderStrip(){
 }
 function render(){
  $('#srcField').classList.toggle('on',S.source==='FIELD');$('#srcHouse').classList.toggle('on',S.source==='HOUSE');$('#viewRing').classList.toggle('on',S.projection==='RING');$('#viewStrip').classList.toggle('on',S.projection==='STRIP');
- cv.style.display=S.projection==='RING'?'block':'none';document.querySelector('.spine').style.display=S.projection==='RING'?'block':'none';$('#stageLabel').textContent=S.source+(S.source==='FIELD'?' INDEX':' / SPATIAL')+' · '+(S.projection==='RING'?'drag any annulus · release to snap · click a segment to jump':'same state unwrapped · click a token to align');
+ cv.style.display=S.projection==='RING'?'block':'none';document.querySelector('.spine').style.display=S.projection==='RING'?'block':'none';$('#stageLabel').textContent=S.source+(S.source==='FIELD'?' INDEX':' / SPATIAL')+' · '+(S.projection==='RING'?'DRAG RING · RELEASE TO SNAP · GATE READS ALIGNMENT':'SAME ADDRESS UNWRAPPED · TAP TOKEN TO ALIGN');
  $('#legend').innerHTML=S.rings.map(function(r,i){return'<div style="border-left-color:'+(i===S.activeRing?'#69b7e6':'#3d494e')+'"><b>'+esc(r.label)+'</b> '+esc(selected(r))+' <i>/ '+r.values.length+'</i></div>'}).join('');
  $('#tuple').innerHTML=S.rings.map(function(r){return'<span class="chip"><b>'+esc(r.label)+'</b> '+esc(selected(r))+'</span>'}).join('');
  $('#count').textContent=S.loaded?S.matches.length:'—';$('#matchN').textContent=S.loaded?S.matches.length:'—';$('#countSub').textContent=S.source==='FIELD'?'FIELD routes satisfying the aligned tuple':'HOUSE anchors satisfying the aligned tuple';
@@ -216,8 +216,7 @@ cv.addEventListener('wheel',function(e){e.preventDefault();var D=dims(),p=pointe
 addEventListener('keydown',function(e){if(!S.rings.length||/INPUT|TEXTAREA/.test(document.activeElement.tagName))return;if(e.key==='ArrowUp'||e.key==='ArrowDown'){e.preventDefault();S.activeRing=mod(S.activeRing+(e.key==='ArrowDown'?1:-1),S.rings.length);render()}if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();setIndex(S.rings[S.activeRing],S.rings[S.activeRing].index+(e.key==='ArrowRight'?1:-1),true)}})
 $('#srcField').onclick=function(){loadSource('FIELD')};$('#srcHouse').onclick=function(){loadSource('HOUSE')};
 $('#viewRing').onclick=function(){S.projection='RING';render()};$('#viewStrip').onclick=function(){S.projection='STRIP';render()};
-$('#self').onclick=function(){if(S.source!=='FIELD')loadSource('FIELD','self');else applyPreset({family:'FOUNDRY',kind:'EXPERIMENT',operation:'PROVE',state:'PROOF_REQUIRED',role:'VERIFY'},true)};
-$('#houseSpec').onclick=function(){if(S.source!=='HOUSE')loadSource('HOUSE','sofa');else applyPreset({room:'LIVING_DINING',type:'COMFORT',confidence:'PLACEHOLDER',entity:'light.floor_lamp'},true)};
+$('#findMe').onclick=function(){if(S.source==='FIELD')applyPreset({family:'FOUNDRY',kind:'EXPERIMENT',operation:'PROVE',state:'PROOF_REQUIRED',role:'VERIFY'},true);else applyPreset({room:'LIVING_DINING',type:'COMFORT',confidence:'PLACEHOLDER',entity:'light.floor_lamp'},true)};
 $('#reset').onclick=function(){var before=snapState();S.rings.forEach(function(r){r.index=0;r.rot=0});S.search='';$('#search').value='';pushHistory(before);recompute()};
 $('#search').oninput=function(e){S.search=e.target.value;recompute()};$('#clearSearch').onclick=function(){S.search='';$('#search').value='';recompute()};
 $('#back').onclick=function(){var s=S.history.pop();if(!s)return;if(s.source!==S.source){loadSource(s.source).then?0:0;return}S.projection=s.projection||S.projection;S.rings.forEach(function(r){var q=s.rings.find(function(x){return x.key===r.key});if(q){r.index=mod(q.index,r.values.length);r.rot=-r.index*TAU/r.values.length}});S.search=s.search||'';$('#search').value=S.search;recompute()};
