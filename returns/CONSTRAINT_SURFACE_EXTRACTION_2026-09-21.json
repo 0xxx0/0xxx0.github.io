@@ -29,7 +29,28 @@
   },
   "verification": {
     "static_seam": "WIRED",
-    "parity_test": "CI_WIRED",
+    "parity_test": "PASSED_DIRECT_REAL_SOURCE",
+    "parity_evidence": {
+      "field": {
+        "candidate_checks": 73,
+        "survivors": 2,
+        "status": "LIVE"
+      },
+      "axial_field": {
+        "candidate_checks": 106,
+        "survivors": 1,
+        "status": "LOCK"
+      },
+      "house": {
+        "candidate_checks": 38,
+        "survivors": 1,
+        "status": "LOCK"
+      },
+      "axial_compatibility_adapter": "MATCHED_NEUTRAL_KERNEL",
+      "core_version": "0.1",
+      "axial_adapter_version": "0.2"
+    },
+    "ci_gate": "WIRED / .github/workflows/public-surface-check.yml",
     "comparative_usability": "NOT_CLAIMED",
     "physical_claim": "NOT_CLAIMED"
   },
@@ -38,5 +59,5 @@
     "Do not move TEST/ARM/RUN or continuous transform into the kernel.",
     "A third consumer may reuse the kernel only through a domain adapter; do not invent a third consumer solely to prove reuse."
   ],
-  "next": "Ordinary use. If a real third domain needs lawful-neighborhood support, adapt its dimensions without changing the kernel; otherwise stop."
+  "next": "Stop changing the kernel. Use FIELD/AXIAL normally. Reopen only for a real third exact-set consumer, a parity failure, or evidence that the current API is insufficient."
 }
