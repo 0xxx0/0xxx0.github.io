@@ -1,10 +1,10 @@
 {
   "schema": "0xxx0/lens-foveate-proof/v0.1",
-  "at": "2026-09-21T16:52:00+08:00",
+  "at": "2026-09-21T19:34:00+08:00",
   "branch": "lens-proof-bench-20260921",
   "pr": "post-merge proof bench",
   "target": "LENS-03",
-  "state": "PROOF_BENCH_IMPLEMENTED_HUMAN_RUNS_REQUIRED",
+  "state": "PARKED_NO_CLEAR_GAIN",
   "surface": "FIELD INDEX / local proof mode",
   "ablation": {
     "plain": "FOVEATE OFF",
@@ -115,9 +115,22 @@
     "proof_bench_local_only": true
   },
   "unverified": [
-    "390px mobile layout",
-    "human paired task benchmark",
-    "whether FOVEATED earns promotion over PLAIN"
+    "formal paired three-pass metrics; not required to withhold promotion",
+    "exact historical red-dot RSVP/foveated reader remains unrecovered"
   ],
-  "return": "Open FI and use Focus Ring → PROOF, or `/?lens_proof=1`. Generate paired local receipts. Do not promote LENS-03 until human evidence passes the declared gate."
+  "return": "LENS-03 did not earn promotion in the initial human trial. Keep PLAIN as baseline/default; retain field-foveate as a parked optional donor and comparator only. Reopen only for a concrete task failure, not to seek significance.",
+  "human_result": {
+    "status": "OBSERVED_NO_NOTABLE_ADVANTAGE",
+    "evidence_kind": "qualitative direct trial",
+    "observation": "User tried PLAIN and FOVEATED and reported nothing notable, obvious, or self-evidently better.",
+    "formal_three_pass_metrics": "NOT_RUN",
+    "decision": "WITHHOLD_PROMOTION",
+    "rationale": "The treatment did not clear the first and most important usefulness threshold: a perceptible task or orientation advantage. Do not amplify the effect merely to manufacture a win."
+  },
+  "promotion_decision": {
+    "state": "DO_NOT_PROMOTE",
+    "default": "PLAIN",
+    "foveate_status": "OPTIONAL_PARKED_DONOR",
+    "revisit_only_if": "a concrete context-heavy task exposes a plain-baseline deficiency that the foveation mechanism plausibly addresses"
+  }
 }
