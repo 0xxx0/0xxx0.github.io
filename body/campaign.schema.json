@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0xxx0.github.io/body/campaign.schema.json",
+  "title": "BODY / FIELD calibration campaign candidate v0.1",
+  "description": "Bounded observation/self-experiment record. Candidate schema only; it grants no diagnostic, treatment, medication or autonomous action authority.",
+  "type": "object",
+  "required": ["schema","id","question","state","aperture","selected_streams","evidence_gate","fade_condition","safety_class"],
+  "properties": {
+    "schema": {"const": "0xxx0/body-campaign/v0.1"},
+    "id": {"type": "string", "minLength": 1},
+    "question": {"type": "string", "minLength": 1},
+    "decision": {
+      "type": ["string","null"],
+      "description": "What choice could plausibly change if the campaign learns enough."
+    },
+    "state": {
+      "enum": ["DRAFT","CALIBRATING","TESTING","RETURNED","FADED","ABORTED"]
+    },
+    "aperture": {
+      "enum": ["CLOSED","GLANCE","CAMPAIGN","LIVE"]
+    },
+    "opened_at": {"type": ["string","null"]},
+    "closed_at": {"type": ["string","null"]},
+    "selected_streams": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["property","role"],
+        "properties": {
+          "property": {"type": "string","minLength":1},
+          "role": {"enum":["TARGET","CONTEXT","CHECK","SAFETY"]},
+          "source_ids": {"type":"array","items":{"type":"string"}},
+          "source_classes": {"type":"array","items":{"type":"string"}},
+          "derivedness_max": {
+            "enum": ["D0","D1","D2","D3","D4"],
+            "description": "Highest derivation class admitted for this stream; omission means no declared cap."
+          },
+          "why_needed": {"type":["string","null"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "decision_points": {
+      "type": "array",
+      "description": "Optional JITAI-style moments when an observation or low-risk option could matter.",
+      "items": {
+        "type":"object",
+        "properties": {
+          "when": {"type":["string","null"]},
+          "availability_rule": {"type":["string","null"]},
+          "tailoring_variables": {"type":"array","items":{"type":"string"}},
+          "options": {"type":"array","items":{"type":"string"}},
+          "proximal_outcome": {"type":["string","null"]}
+        },
+        "additionalProperties": true
+      }
+    },
+    "test": {
+      "type": ["object","null"],
+      "description": "Optional bounded low-risk self-experiment. Prescription changes and autonomous medication actions are outside this schema's authority."
+    },
+    "evidence_gate": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {"type":"string","minLength":1},
+        "minimum_returns": {"type":["integer","null"],"minimum":1},
+        "minimum_days": {"type":["integer","null"],"minimum":1},
+        "comparison": {"type":["string","null"]}
+      },
+      "additionalProperties": true
+    },
+    "fade_condition": {
+      "type": "object",
+      "required": ["description"],
+      "properties": {
+        "description": {"type":"string","minLength":1},
+        "next_aperture": {"enum":["CLOSED","GLANCE","CAMPAIGN","LIVE"]}
+      },
+      "additionalProperties": true
+    },
+    "burden_budget": {
+      "type": "object",
+      "properties": {
+        "max_active_prompts_per_day": {"type":["integer","null"],"minimum":0},
+        "max_manual_seconds_per_return": {"type":["number","null"],"minimum":0},
+        "notes": {"type":["string","null"]}
+      },
+      "additionalProperties": true
+    },
+    "safety_class": {
+      "enum": ["OBSERVATION_ONLY","LOW_RISK_SELF_EXPERIMENT","CARE_REFERENCED"]
+    },
+    "return": {
+      "type": ["object","null"],
+      "properties": {
+        "disposition": {"enum":["KEEP","DROP","UNKNOWN","ABORT"]},
+        "observed_delta": {"type":["string","null"]},
+        "unexpected": {"type":["string","null"]},
+        "next": {"type":["string","null"]}
+      },
+      "additionalProperties": true
+    },
+    "provenance": {"type":"object"}
+  },
+  "additionalProperties": true
+}
