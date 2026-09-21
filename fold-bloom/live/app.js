@@ -18,8 +18,15 @@ function load(){try{return restore(JSON.parse(localStorage.getItem(STORE)||'null
 function haptic(ms=5){try{navigator.vibrate?.(ms)}catch(_){}}
 function toast(text){const el=$('#toast');el.textContent=text;el.classList.remove('on');void el.offsetWidth;el.classList.add('on')}
 function timingNow(){
-  if(!linkedTrack?.playing || !Number.isFinite(Number(linkedTrack.beatDistance)))return {timing:'FREE',timingMultiplier:1,label:'FREE'};
-  const d=Math.max(0,Number(linkedTrack.beatDistance));
+  if(!linkedTrack?.playing)return {timing:'FREE',timingMultiplier:1,label:'FREE'};
+  const bpm=Number(linkedTrack.bpm)||0,period=bpm>0?60/bpm:0;
+  let d=Number(linkedTrack.beatDistance);
+  if(period>0&&Number.isFinite(Number(linkedTrack.beatPhase))&&Number.isFinite(Number(linkedTrack._receivedAt))){
+    const dt=Math.max(0,(performance.now()-linkedTrack._receivedAt)/1000),phase=((Number(linkedTrack.beatPhase)+dt/period)%1+1)%1;
+    d=Math.min(phase,1-phase)*period;
+  }
+  if(!Number.isFinite(d))return {timing:'FREE',timingMultiplier:1,label:'FREE'};
+  d=Math.max(0,d);
   if(d<=.09)return {timing:'PERFECT',timingMultiplier:1.4,label:'PERFECT'};
   if(d<=.20)return {timing:'GOOD',timingMultiplier:1.18,label:'GOOD'};
   return {timing:'OPEN',timingMultiplier:1,label:'OPEN'};
@@ -157,7 +164,7 @@ addEventListener('keydown',e=>{
 
 fieldPulse.subscribe(msg=>{
   if(msg.source!=='FOLD_BLOOM_LISTEN'||msg.kind!=='transport')return;
-  linkedTrack=msg.data||null;
+  linkedTrack=msg.data?{...msg.data,_receivedAt:performance.now()}:null;
   const beat=Number(linkedTrack?.beatIndex);
   if(Number.isFinite(beat)&&beat>=0&&beat!==lastLinkedBeat){lastLinkedBeat=beat;renderer.beatPulse(beat,Number(linkedTrack.energy)||0)}
   update();
