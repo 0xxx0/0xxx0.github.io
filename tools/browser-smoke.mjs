@@ -469,7 +469,7 @@ function humanPortSpecimenProbeJs(){
   const waitFor=async(fn,limit=14000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw Error('waitFor timeout: '+label)};
   const W=()=>f.contentWindow,D=()=>W().document,SESSION='human.port.object.session.v01';
   const hex=buf=>[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
-  async function portReady(){return waitFor(()=>W().location.pathname==='/port/'&&D().getElementById('fileInput')&&W().PortObjectStore,14000,'port ready')}
+  async function portReady(){return waitFor(()=>{const i=D().getElementById('fileInput');return W().location.pathname==='/port/'&&i&&typeof i.onchange==='function'&&W().PortObjectStore?true:null},14000,'port ready')}
   function session(){try{return JSON.parse(W().sessionStorage.getItem(SESSION)||'null')}catch(_){return null}}
   async function loadRepoFile(src,name,type){
     const rr=await fetch(src,{cache:'no-store'});if(!rr.ok)throw Error('fixture '+rr.status+' '+src);const ab=await rr.arrayBuffer();
