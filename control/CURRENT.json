@@ -49,7 +49,7 @@
       "id": "human-port-use",
       "state": "ACTIVE_NOW",
       "center": "/port/ PORT_OBJECT → focus → FIT/CUES/HISTORY → SELECT → OPEN → downstream route or FIELD INTAKE → RETURN",
-      "objective": "Prove HUMAN PORT 1.5 with three unequal real objects: one generated image, one authored text/JSON file, one opaque authored file. Confirm identity/provenance survives routing and FIELD INTAKE admission remains candidate-only.",
+      "objective": "Observe HUMAN PORT 1.5 in ordinary use across three unequal real objects—generated image, authored text/JSON, opaque authored file—without a dedicated QA ritual. Retain only evidence that identity/provenance survives routing and FIELD INTAKE admission remains candidate-only.",
       "evidence": [
         "/port/",
         "/port/object.schema.json",
@@ -66,10 +66,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX / AXIAL LATEST 0.5",
+      "head": "FIELD INDEX 0.6 / AXIAL LATEST",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry with AXIAL / LATEST 0.5 exact support + survivor set + deep-link focus; the same canonical focus now feeds distinct INSPECT and typed LENS composition paths without replacing plain LATEST chronology; safe local route browsing now focuses on first click and opens on a repeated click while explicit OPEN/INSPECT/LENS/PROOF remain available."
+      "retained_function": "Fast repo re-entry around one manifest route identity. The focus/action dock precedes projection machinery; AXIAL/LATEST/HEADS/MAP/OPEN PORTS are readings of the same object; first local activation focuses and repeated activation opens, while INSPECT/AXIAL/LENS/PROOF remain explicit and RETURN/re-entry preserves exact focus."
     },
     {
       "lineage": "scale-lens",
