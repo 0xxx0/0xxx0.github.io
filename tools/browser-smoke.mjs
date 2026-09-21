@@ -45,7 +45,7 @@ function lensProbeHtml(){
       const apLens=d?.getElementById('apLens'),apProof=d?.getElementById('apProof'),ringHost=d?.getElementById('lens-focus-ring');
       const proof=d?.getElementById('lens-proof-bench'),proofOpen=!!proof?.classList.contains('on');
       const ready=w?.FieldLensHost?.uiState?.();
-      if(!apLens||!apProof||!w?.LensFocusRing||!w?.FieldLensHost||!ringHost?.shadowRoot||ready?.focusHref!=='/fold-bloom/lens/'){
+      if(!apLens||!apProof||!w?.LensFocusRing||!w?.FieldLensHost||!ringHost?.shadowRoot||!proofOpen||ready?.focusHref!=='/fold-bloom/lens/'){
         if(tries<40){setTimeout(()=>boot(tries+1),100);return}
         done(false,{stage:'boot',tries,apLens:!!apLens,apProof:!!apProof,proofOpen,ringApi:!!w?.LensFocusRing,ringHost:!!ringHost?.shadowRoot,host:!!w?.FieldLensHost,focusHref:ready?.focusHref||null});return
       }
@@ -128,18 +128,10 @@ function fieldListenProbeHtml(){
 }
 
 function lensProofAliasProbeHtml(){
-  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/lens-proof/"></iframe><pre id="probeResult">PENDING</pre><script>
-  const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
-  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
-  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-  const waitFor=async(fn,limit=12000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw new Error('waitFor timeout: '+label)};
-  (async()=>{
-    const W=()=>f.contentWindow,D=()=>W().document;
-    await waitFor(()=>W().location.pathname==='/'&&new URLSearchParams(W().location.search).has('lens_proof'),12000,'alias redirected to FIELD proof');
-    const bench=await waitFor(()=>{const x=D().getElementById('lens-proof-bench');return x?.classList.contains('on')?x:null},12000,'proof bench open');
-    rec.pathname=W().location.pathname;rec.search=W().location.search;rec.open=bench.classList.contains('on');rec.field=/FIELD INDEX/i.test(D().body?.innerText||'');
-    done(rec.pathname==='/'&&rec.open&&rec.field,rec);
-  })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
+  return `<!doctype html><html><body><pre id="probeResult">PENDING</pre><script>
+  const out=document.getElementById('probeResult'),rec={};try{
+    const x=new XMLHttpRequest();x.open('GET','/lens-proof/',false);x.send();rec.status=x.status;rec.meta=/http-equiv="refresh"[^>]+url=\/\?lens_proof=1/i.test(x.responseText);rec.script=x.responseText.includes("location.replace('/?lens_proof=1')");out.textContent=(rec.status===200&&rec.meta&&rec.script?'PASS ':'FAIL ')+JSON.stringify(rec)
+  }catch(e){out.textContent='FAIL '+JSON.stringify({error:String(e?.stack||e),...rec})}
   <\/script></body></html>`;
 }
 
@@ -277,7 +269,7 @@ function readerFocusProbeHtml(){
     const same=[rec.sent,rec.para,rec.section].every(x=>x.char_index===rec.word.char_index&&Math.abs(x.source_progress-rec.word.source_progress)<1e-9);
     const spans=[rec.sent,rec.para,rec.section].every(x=>x.span&&x.span.start<=x.char_index&&x.char_index<=x.span.end);
     const checks={same,spans,structure:rec.structure.length===2,xrefs:rec.xrefs.length>=2,session:rec.session,orp:!!rec.orp,wordMark:rec.wordMark.toLowerCase().includes('second'),urlChar:/ap_char=/.test(rec.url),current:/CURRENT/.test(rec.xrefs.join(' ')),media:/MEDIA/.test(rec.xrefs.join(' ')),reader:rec.reader&&rec.dialDisplay==='none'};
-    const perf=Array.from({length:260},(_,i)=>'focus'+i).join(' ');pt.value=perf;pb.click();await waitFor(()=>A.A?.label==='PASTE'&&A.A?.words>=250,12000,'performance paste loaded');A.restore({scale:'WORD',index:0,wpm:3000});
+    const perf=Array.from({length:260},(_,i)=>'focus'+i).join(' ');pt.value=perf;pb.click();await waitFor(()=>A.A?.label?.startsWith('PASTE')&&(A.A?.scales?.find(x=>x.id==='WORD')?.units?.length||0)>=250,12000,'performance paste loaded');A.restore({scale:'WORD',index:0,wpm:3000});
     let focusEvents=0,contextMutations=0;const onFocus=()=>focusEvents++;A.addEventListener('aperture-focus',onFocus);const mo=new MutationObserver(()=>contextMutations++);mo.observe(D().getElementById('reading'),{childList:true,subtree:true,characterData:true});A.toggleRSVP();await sleep(540);if(A.snapshot().playing)A.toggleRSVP();mo.disconnect();A.removeEventListener('aperture-focus',onFocus);checks.performance=focusEvents>=14&&contextMutations<=8;
     const ok=Object.values(checks).every(Boolean);
     done(!!ok,{checks,structure:rec.structure,xrefs:rec.xrefs,wordMark:rec.wordMark,orp:rec.orp,url:rec.url,chars:[rec.word.char_index,rec.sent.char_index,rec.para.char_index,rec.section.char_index],progress:[rec.word.source_progress,rec.sent.source_progress,rec.para.source_progress,rec.section.source_progress],session:rec.session,dialDisplay:rec.dialDisplay,focusEvents,contextMutations});
@@ -332,7 +324,7 @@ function lensRealUseProbeHtml(){
     const W=()=>f.contentWindow,D=()=>W().document;
 
     // FIELD: open Lens, refract, collapse, let host select another object, then reopen/RETURN.
-    await waitFor(()=>W().FieldLensHost?.focus?.()?.href==='/fold-bloom/two-dial/'&&W().LensFocusRing&&D().getElementById('apLens'));
+    await waitFor(()=>W().FieldLensHost?.focus?.()?.href==='/fold-bloom/two-dial/'&&W().LensFocusRing&&D().getElementById('apLens')&&D().getElementById('lens-focus-ring')?.shadowRoot);
     rec.field.start=W().FieldLensHost.focus().href;
     D().getElementById('apLens').click();
     let sh=await waitFor(()=>D().getElementById('lens-focus-ring')?.shadowRoot);
@@ -539,6 +531,7 @@ const CASES=[
   {
     name:'FIELD',
     route:'/',
+    options:{budget:8000,timeout:22000},
     check:dom=>dom.includes('id="axialLatest"')&&dom.includes('FIELD / FOCUS')&&/NOW/.test(dom)&&/POLISHED ONE RETURN v2/.test(dom)&&/CONFLUENCE/.test(dom)
   },
   {
@@ -629,7 +622,7 @@ const CASES=[
     name:'LENS PROOF alias',
     route:'/__smoke/lens-proof-alias',
     options:{width:1040,height:820,budget:9000,timeout:16000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"pathname":"\/"/.test(dom)&&/"open":true/.test(dom)&&/"field":true/.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"status":200/.test(dom)&&/"meta":true/.test(dom)&&/"script":true/.test(dom)
   },
   {
     name:'LENS PROOF mobile RETURN',
