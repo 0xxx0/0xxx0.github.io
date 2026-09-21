@@ -19,17 +19,20 @@
   ],
   "after": {
     "branch_counts": {
-      "total": 114,
+      "total": 115,
       "canonical": 1,
       "open_pr": 0,
-      "merged_pr_lineage": 76,
+      "merged_pr_lineage": 77,
       "closed_unmerged_pr_lineage": 23,
       "no_pr_pointer": 14
     },
     "open_prs": 0,
     "no_pr_unclassified": 0,
     "human_port_specimen_pr": "CLOSED_UNMERGED_OBSERVATION_HARNESS_DONOR",
-    "next_authority": "ordinary HUMAN PORT use; no dedicated specimen QA ritual"
+    "next_authority": "ordinary HUMAN PORT use; no dedicated specimen QA ritual",
+    "seal_pr": 112,
+    "seal_merge": "cb5843f64a66dcc7c7180037cbf40b2991c5311b",
+    "final_state": "ZERO_OPEN_PRS / NO_UNCLASSIFIED_NO-PR POINTERS / HUMAN PORT ORDINARY-USE GATE RESTORED"
   },
   "preservation": {
     "deleted_branches": 0,
