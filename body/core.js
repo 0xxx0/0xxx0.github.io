@@ -1,7 +1,7 @@
 (function(g){'use strict';
 function clamp(n,a,b){return Math.max(a,Math.min(b,n))}
 function mean(xs){return xs.length?xs.reduce(function(a,b){return a+b},0)/xs.length:null}
-function targetValue(e,t){if(!e||!e.state)return NaN;if(t==='valence'||t==='activation')return Number(e.state[t]);return Number(e.state[t])}
+function targetValue(e,t){if(!e||!e.state)return NaN;var v=e.state[t];if(v===null||v===undefined||v==='')return NaN;var n=Number(v);return Number.isFinite(n)?n:NaN}
 function factorKeys(e){var c=e&&e.context||{},a=[].concat(c.factors||[]);(c.environment||[]).forEach(function(x){a.push('env:'+x)});if(c.posture)a.push('posture:'+c.posture);if(c.place)a.push('place:'+c.place);return Array.from(new Set(a))}
 function coverage(n){return n>=12?'HIGH':n>=6?'MED':'LOW'}
 function contrasts(events,target,minEach){
