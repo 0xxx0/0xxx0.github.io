@@ -67,7 +67,7 @@ function renderDock(){
   $('#dockSource').textContent='SOURCE '+(graph.source?.name||graph.source?.id||'—');
   $('#dockFocus').textContent='FOCUS '+(a?.label||a?.id||'—');
   $('#dockReturnPath').textContent='RETURN '+returnTarget();
-  const ret=$('#dockReturn');if(ret){ret.textContent=inboundLensState?'↩ RETURN':'↩ FIELD';ret.title=returnTarget()}
+  const returnLabel=inboundLensState?'↩ RETURN':'↩ FIELD',returnHref=returnTarget();const ret=$('#dockReturn');if(ret){ret.textContent=returnLabel;ret.title=returnHref}const topRet=$('#fieldBtn');if(topRet){topRet.textContent=returnLabel;topRet.title=returnHref}
 }
 function notifySpatial(){if(typeof window!=='undefined'&&window.ScaleLensSpatialAPI)window.dispatchEvent(new CustomEvent('scale-lens:state',{detail:spatialSnapshot()}))}
 function notifyLensState(){const s=sharedLensStateSnapshot();if(s)window.dispatchEvent(new CustomEvent('lens-state:state',{detail:s}))}

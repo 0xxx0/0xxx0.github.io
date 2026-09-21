@@ -1,0 +1,112 @@
+{
+  "schema": "0xxx0/lens-real-use-return/v0.1",
+  "at": "2026-09-22T00:22:38+08:00",
+  "status": "PROVED_READY_TO_SHIP",
+  "command": "Design and execute a focused real-use pass for ◎ LENS across FIELD, generic Lens, and Scale Studio, then turn observed friction into the smallest justified follow-up changes.",
+  "law": "HOST SELECTS. LENS REFRACTS.",
+  "carrier": {
+    "pr": 94,
+    "branch": "lens-real-use-pass-20260922"
+  },
+  "method": {
+    "surface_sequence": [
+      "FIELD focused on /fold-bloom/two-dial/: open Lens → switch STRUCTURE → collapse → host selects /fold-bloom/live/ → reopen → RETURN",
+      "generic /fold-bloom/: open Lens → inspect actionable controls → DEEP LAB",
+      "Scale Studio handoff: TEXT → ATLAS projection while preserving caller identity → API RETURN",
+      "Scale Studio direct visit: inspect LAB/RETURN presentation and portable overlay duplication"
+    ],
+    "viewport": "browser smoke iframe; generic probe also retains 390px mobile regression",
+    "workflow_run": 35625118325,
+    "browser_cases": 36
+  },
+  "observed_before": {
+    "field": {
+      "start": "/fold-bloom/two-dial/",
+      "host_selected": "/fold-bloom/live/",
+      "after_return": "/fold-bloom/two-dial/",
+      "friction": "RETURN restored an origin belonging to the previous object after host selection changed while Lens was collapsed.",
+      "classification": "AUTHORITY_BUG"
+    },
+    "generic": {
+      "disabled_transforms_visible": 3,
+      "hidden_transforms": 0,
+      "visible_actions": [
+        "↑ OUT (disabled)",
+        "↓ IN (disabled)",
+        "↔ VIEW (disabled)",
+        "COPY STATE",
+        "↩ RETURN",
+        "STUDIO →"
+      ],
+      "friction": "Half of the ordinary-route action grid advertised transformations the host could not perform.",
+      "classification": "DEAD_AFFORDANCE"
+    },
+    "studio": {
+      "handoff_identity_stable": true,
+      "exact_return": true,
+      "duplicate_portable_lens": true,
+      "direct_duplicate_portable_lens": true,
+      "direct_exit_labels": [
+        "↩ RETURN",
+        "↩ FIELD"
+      ],
+      "friction": "Deep Lab duplicated its own Lens controller through the portable route Toolglass and named one direct exit two ways.",
+      "classification": "DUPLICATE_SURFACE + LABEL_DRIFT"
+    }
+  },
+  "delta": [
+    "Focus Ring records the canonical object at entry and rebases its RETURN origin whenever the host selects a different object; Lens can no longer use RETURN to override newer host selection.",
+    "Generic route Toolglass hides OUT/IN/VIEW when no live Scale API can perform them; ordinary routes show only COPY STATE / RETURN / STUDIO.",
+    "showcase-nav suppresses the portable Lens trigger when Scale Studio already owns #lensDock and a live Scale API.",
+    "Scale Studio header and dock use the same exit label/target."
+  ],
+  "observed_after": {
+    "field": {
+      "host_selected": "/fold-bloom/live/",
+      "after_return": "/fold-bloom/live/",
+      "stale_origin": false
+    },
+    "generic": {
+      "disabled_transforms_visible": 0,
+      "hidden_transforms": 3,
+      "visible_actions": [
+        "COPY STATE",
+        "↩ RETURN",
+        "STUDIO →"
+      ],
+      "return_exact": true
+    },
+    "studio": {
+      "handoff_lab_open": false,
+      "projection_change": "TEXT → ATLAS",
+      "identity_stable": true,
+      "duplicate_portable_lens": false,
+      "direct_lab_open": true,
+      "direct_exit_labels": [
+        "↩ FIELD",
+        "↩ FIELD"
+      ],
+      "direct_duplicate_portable_lens": false
+    }
+  },
+  "proof": {
+    "workflow_run": 35625118325,
+    "result": "SUCCESS",
+    "browser": "36/36 PASS",
+    "lens_state": "24/24 PASS",
+    "public_surface": "PASS",
+    "docs_rsvp_focus_kernel": "PASS on final proof run",
+    "recovery": "PASS",
+    "frozen_tests": "38 pass / 0 fail",
+    "observation_log": "LENS REAL USE PASS"
+  },
+  "not_changed": [
+    "LensState schema",
+    "FIELD/AXIAL selection ownership",
+    "FOVEATE promotion status",
+    "Scale Studio parser/provenance model",
+    "generic route → Studio identity/RETURN semantics",
+    "Lens composition or preset model"
+  ],
+  "stop_condition": "Ship this real-use correction. Do not add Lens features until another repeated ordinary-use deficit is observed."
+}

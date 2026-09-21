@@ -75,17 +75,18 @@
     },
     {
       "lineage": "scale-lens",
-      "head": "SCALE LENS RC11.2 + LensState 0.2 + G2 hardening-1",
-      "state": "STABLE + PROVED_MECHANICS + G2_HARDENED + FOVEATION_PARKED",
+      "head": "SCALE LENS RC11.2 + LensState 0.2 + G2 real-use-1",
+      "state": "STABLE + REAL_USE_PROVED + G2_HARDENED + FOVEATION_PARKED",
       "route": "/fold-bloom/lens/",
-      "retained_function": "Portable ◎ Lens owns refraction only: host-selected object → aperture → view/stack → DEEP LAB? → RETURN. G2 hardening makes APPLY/REMOVE deterministic, rejects malformed typed state, removes latent peer-selection authority, unifies exact caller RETURN, consumes handoffs once, and makes generic route RETURN non-navigational. PLAIN remains default; FOVEATE stays parked.",
+      "retained_function": "Portable ◎ Lens remains refraction-only over host selection: object → aperture → view/stack → DEEP LAB? → RETURN. Real-use pass 1 closes an authority leak by rebasing RETURN when the host selects a new object, removes unavailable generic transforms, suppresses duplicate Lens controls inside Scale Studio, and unifies direct Studio exit labeling. Identity and exact caller RETURN remain proved; PLAIN remains default and FOVEATE stays parked.",
       "evidence": [
         "/control/LENS_G1_PROOF_SEAL_2026-09-21.json",
         "/control/FIELD_ACTIVATION_LAW.json",
         "/control/LENS_EVOLUTION_G1_2026-09-21.json",
         "/control/LENS_FOVEATE_PROOF_2026-09-21.json",
         "/control/LENS_FI_TOOLGLASS_G2_2026-09-21.json",
-        "/control/LENS_G2_HARDENING_RETURN_2026-09-21.json"
+        "/control/LENS_G2_HARDENING_RETURN_2026-09-21.json",
+        "/control/LENS_REAL_USE_RETURN_2026-09-22.json"
       ]
     },
     {
