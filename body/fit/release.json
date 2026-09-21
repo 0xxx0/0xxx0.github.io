@@ -6,6 +6,7 @@
   "released": "2026-09-22",
   "state": "CANDIDATE",
   "changes": [
+    "HUMAN PORT now offers TEXT/JSON objects to BODY / FIT through an explicit session adapter; BODY / FIT still requires explicit import",
     "created body-plan-centered FIT / SENSE / FUSE / HISTORY / PLAIN workbench",
     "shared same-repo BODY PLAN registry rather than introducing new anatomy geometry",
     "added body-addressed fitting lifecycle and explicit revision lineage with replaces/superseded_by",
@@ -23,10 +24,10 @@
     "source class retained",
     "unknown/stale availability explicit",
     "fusion preserves source rows and performs no default averaging",
-    "HOUSE context remains non-causal"
+    "HOUSE context remains non-causal",
+    "Port handoff does not auto-create a fitting or observation; unsupported JSON is rejected visibly"
   ],
   "open_gaps": [
-    "HUMAN PORT BODY/FIT route not yet wired",
     "private HOUSEBUS/HA sensor adapter not yet wired",
     "Health Connect/Samsung Health adapter remains deferred",
     "Open Twin high-resolution projection remains a recovered donor cassette, not runtime-linked here",
