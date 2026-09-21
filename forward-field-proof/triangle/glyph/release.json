@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "title": "Triangle Glyph Lab",
   "version": "0.1",
-  "state": "EXPERIMENT",
+  "state": "DONOR",
   "date": "2026-09-21",
   "route": "/forward-field-proof/triangle/glyph/",
   "parent": "/forward-field-proof/triangle/",
@@ -30,5 +30,11 @@
     "Marks are interface annotations, not Spencer-Brown primary algebra operations.",
     "Compact notation is experimental and not canonical.",
     "POWER preset only solves simple real-valued one-unknown demonstrations."
-  ]
+  ],
+  "disposition": {
+    "at": "2026-09-22T00:04:00+08:00",
+    "result": "TRANSFERRED",
+    "recipient": "/forward-field-proof/triangle/",
+    "note": "8-locus grammar and compact/share mechanics transferred into unified Triangle 1.0; standalone lab retained for regression/provenance."
+  }
 }
