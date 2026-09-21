@@ -175,7 +175,7 @@
       "head": "HOUSE / SPATIAL 0.6 + HOUSE / FIELD 0.5",
       "state": "ACTIVE",
       "route": "/house/spatial/",
-      "retained_function": "One addressed physical substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS. HA/HOUSEBUS retains device truth and actuation. BODY/FIELD may attach public/local context; BODY / FIT defines the next typed sensor-observation adapter without importing HOUSE authority."
+      "retained_function": "One addressed physical substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS. HA/HOUSEBUS retains device truth and actuation. BODY/FIELD may attach context; BODY / FIT 0.3 projects fitted modules, structured sensor data, purpose loadouts and non-punitive RETURN/PATINA without importing HOUSE authority."
     },
     {
       "lineage": "shopping-field",
@@ -526,7 +526,9 @@
     "fold_bloom_listen_source_return": "/returns/FOLD_BLOOM_LISTEN_SOURCE_2026-09-22.json",
     "body_fit": "/body/fit/",
     "body_fit_research": "/control/research/BODY_FIT_SENSOR_FUSION_2026-09-22.md",
-    "body_fit_validation": "/control/BODY_FIT_VALIDATION_2026-09-22.json"
+    "body_fit_validation": "/control/BODY_FIT_VALIDATION_2026-09-22_V03.json",
+    "body_fit_return_patina": "/control/research/BODY_FIT_RETURN_PATINA_2026-09-22.md",
+    "body_fit_return": "/returns/BODY_FIT_RETURN_PATINA_2026-09-22.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
