@@ -20,7 +20,8 @@
     "TRACE records authority resolution; trace never creates authority.",
     "FAIL proves violation; INDETERMINATE means evidence/capability missing.",
     "Raw event text is not retained by the FI reference trace.",
-    "This is substrate beneath existing fronts, not a fourth FCM front."
+    "This is substrate beneath existing fronts, not a fourth FCM front.",
+    "STALE TRACE ≠ CURRENT PROOF: focus changes invalidate the displayed binding until rerun."
   ],
   "implementation": {
     "ui": "/index.html#traceFold",
@@ -38,7 +39,7 @@
     "committed/exported trace excludes raw typed event text",
     "external Pages fetch unavailable from verifier environment"
   ],
-  "current_use": "Focus a route in FIELD INDEX -> open TRACE / VERIFY -> RUN TRACE -> inspect seven gates + event stream + structural/replay/sealed statuses -> optionally COMMIT TRACE locally or EXPORT.",
+  "current_use": "Focus a route in FIELD INDEX -> invoke TRACE from Aperture or top nav -> TRACE / VERIFY opens immediately below AXIAL -> RUN TRACE -> inspect seven gates + causal events + verifier states -> focus changes visibly stale the trace -> rerun before COMMIT; EXPORT may preserve old trace as historical evidence.",
   "trigger_for_next_real_step": "When a private person/resource registry and policy bytes exist, replace the generated FI reference policy with a private adapter and supply replay material to the verifier. Until then, do not fake REPLAY PASS.",
   "non_goals": [
     "not a live person policy registry",
