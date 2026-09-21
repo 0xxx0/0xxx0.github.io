@@ -3,10 +3,10 @@
   "generated_at": "2026-09-22T03:44:00+08:00",
   "purpose": "Live hard-pass branch authority seal after READFIELD convergence and HUMAN PORT observation-harness closure. Preserve provenance; eliminate phantom active work.",
   "counts": {
-    "total": 114,
+    "total": 115,
     "canonical": 1,
     "open_pr": 0,
-    "merged_pr_lineage": 76,
+    "merged_pr_lineage": 77,
     "closed_unmerged_pr_lineage": 23,
     "no_pr_pointer": 14
   },
@@ -831,16 +831,23 @@
     "open_prs": 0,
     "no_pr_unclassified": 0,
     "result": "ZERO_OPEN_PRS_NO_HIDDEN_UNCLASSIFIED_BRANCH",
-    "note": "All live no-PR pointers are already classified. Closed branches remain provenance/donors; no deletion implied."
+    "note": "Post-merge recount includes the hard-seal transport branch as merged PR #112. All no-PR pointers remain classified; no branch deletion implied."
   },
-  "execution_branch_excluded": {
-    "branch": "confluence-hard-seal-20260922",
-    "reason": "Authoring transport for this seal; excluded from census and must become merged PR lineage or closed donor."
-  },
+  "execution_branch_excluded": null,
   "hard_pass": {
     "master_at_census": "5912190d99ae7573edecef9932c57ff824ec197b",
     "human_port_specimen_pr": 111,
     "specimen_disposition": "CLOSED_UNMERGED_OBSERVATION_HARNESS_DONOR",
-    "rationale": "The temporary browser harness repeatedly exercised CI virtual-time/IndexedDB behavior rather than ordinary HUMAN PORT use. It was not promoted into product authority."
+    "rationale": "The temporary browser harness repeatedly exercised CI virtual-time/IndexedDB behavior rather than ordinary HUMAN PORT use. It was not promoted into product authority.",
+    "seal_pr": 112,
+    "seal_merge": "cb5843f64a66dcc7c7180037cbf40b2991c5311b",
+    "post_merge_recount": {
+      "total": 115,
+      "canonical": 1,
+      "open_pr": 0,
+      "merged_pr_lineage": 77,
+      "closed_unmerged_pr_lineage": 23,
+      "no_pr_pointer": 14
+    }
   }
 }
