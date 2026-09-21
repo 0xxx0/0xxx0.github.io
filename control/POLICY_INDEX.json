@@ -170,6 +170,42 @@
         "human-port-contract",
         "agent-router"
       ]
+    },
+    {
+      "id": "interaction-semantics",
+      "path": "/control/INTERACTION_SEMANTICS.json",
+      "scope": "shared meanings of BACK / PARENT / UNDO / RETURN / REPLAY / RESTORE / RESET / RE_ENTER / ESC",
+      "authority": "INTERACTION_CONTRACT",
+      "status": "ACTIVE",
+      "depends_on": [
+        "orientation"
+      ],
+      "consumers": [
+        "FIELD",
+        "AXIAL",
+        "HUMAN PORT",
+        "artifact route adapters"
+      ]
+    },
+    {
+      "id": "instrument-charters",
+      "path": "/control/INSTRUMENT_CHARTERS.json",
+      "scope": "instrument purpose/power/proof/promise/price/return boundaries and shared motifs",
+      "authority": "INSTRUMENT_CONTRACT_INDEX",
+      "status": "ACTIVE",
+      "depends_on": [
+        "orientation",
+        "interaction-semantics"
+      ],
+      "consumers": [
+        "Scale Lens",
+        "Verse Atlas",
+        "Sleeper",
+        "Two Dial",
+        "AXIAL",
+        "Laconic",
+        "recovered donors"
+      ]
     }
   ],
   "task_rule": "Before a persistent agent/automation acts, it should resolve the smallest applicable policy set from this index, cite those paths in its receipt, and avoid copying their prose into task-local doctrine.",
