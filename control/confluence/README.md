@@ -21,11 +21,13 @@ Durable shared coordination lives in:
 - `/returns/` — evidence / receipts
 - this confluence shelf — bounded cross-lineage handoffs that should remain readable
 
-The existing FI law remains authoritative:
+The existing FIELD INDEX (FI) law remains authoritative:
 
 > DISCUSSION ≠ INDEX TOUCH; MUTATION → INDEX TOUCH.
 
-A thread can think for hours without changing shared durable state. If it commits a tracked surface, it must perform the corresponding FI touch.
+Here **FI means FIELD INDEX**, not FIELD INTAKE. FIELD INTAKE remains the separate sovereign admission membrane for typed canonical records; ordinary repo/chat mutations must not bypass its review/APPLY boundary.
+
+A thread can think for hours without changing shared durable state. If it commits a tracked public surface, it must perform the corresponding FIELD INDEX touch. If the mutation changes a current head, transfers a mechanism across lineages, or would materially reduce future re-entry cost, also leave a bounded Confluence packet and/or RETURN. Do **not** log every conversational turn: capture durable deltas, evidence, corrections and open gates.
 
 
 ## Collaboration corpus
@@ -47,6 +49,8 @@ Five standing rules:
 When mining prior conversations, user messages deserve special attention because asks, corrections, constraints and unfinished transformations are often embedded inside digressions. Recover what the user was trying to make happen, then verify what actually happened.
 
 ## Current confluence packets
+
+- [FOLD//BLOOM LIVE 0.1](./FOLD_BLOOM_LIVE_2026-09-21.json) — Fold Weave × Two Dial mechanism transfer into the current performance head; donor boundaries, tests, ship state and embodied promotion gate
 
 - [FIELD RE-ENTRY](./FIELD_REENTRY_2026-09-21.md) — current-state/issue disentangling, verified closures versus evidence holds, and one-friction/one-test re-entry
 - [BACKUP → MEDIA / FIELD](./BACKUP_MEDIA_RETURN_2026-09-21.md) — recovered City/Painting source, tested intent, media scope and bounded recipient-side comparisons; not a new head

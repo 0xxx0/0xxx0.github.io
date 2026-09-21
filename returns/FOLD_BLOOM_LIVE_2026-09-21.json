@@ -1,0 +1,27 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FOLD_BLOOM_LIVE_2026-09-21",
+  "date": "2026-09-21",
+  "status": "SHIP_CANDIDATE_PENDING_CI_MERGE",
+  "operation": "CONVERGE / INDEX / SHIP",
+  "changed": [
+    "/fold-bloom/live/",
+    "/fold-bloom/",
+    "/showcase-manifest.json",
+    "/control/CURRENT.json",
+    "/control/confluence/FOLD_BLOOM_LIVE_2026-09-21.json",
+    "/control/confluence/transfers.json"
+  ],
+  "preserved": [
+    "/recovery/fold-bloom/fold-weave-0.1/",
+    "/fold-bloom/two-dial/",
+    "/fold-bloom/ecology/"
+  ],
+  "verification": [
+    "engine tests 5/5 PASS",
+    "module parse PASS",
+    "public-surface CI rerun required after FIELD INDEX route admission"
+  ],
+  "next_evidence": "direct desktop + touch playtest; tune one operator only from observed failure",
+  "pr": "https://github.com/0xxx0/0xxx0.github.io/pull/85"
+}

@@ -1,0 +1,61 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_LIVE_2026-09-21",
+  "date": "2026-09-21",
+  "object": "FOLD//BLOOM collaboration lineage",
+  "observed": {
+    "current_candidate": "/fold-bloom/live/",
+    "exact_fold_weave_donor": "/recovery/fold-bloom/fold-weave-0.1/",
+    "two_dial_donor": "/fold-bloom/two-dial/",
+    "ecology_branch": "/fold-bloom/ecology/",
+    "pr": "https://github.com/0xxx0/0xxx0.github.io/pull/85",
+    "engine_tests": "5/5 PASS",
+    "prior_ci_failure": "public-surface-check rejected unindexed /fold-bloom/live/ directory; repaired by FIELD INDEX admission in this convergence pass"
+  },
+  "transfer": {
+    "from": [
+      "Fold Weave 0.1",
+      "Two Dial 0.9"
+    ],
+    "unit": [
+      "12-cell authored crease/cascade topology",
+      "phrase/pulse/form music grammar",
+      "continuous gesture sonification",
+      "bounded RETURN"
+    ],
+    "changed_object": "LIVE 0.1 performance head",
+    "new": [
+      "ratchet stores bounded tension",
+      "release is explicit in RATCHET",
+      "topology verb is distinct from RETURN cadence",
+      "crease span/cascade/charge change audio",
+      "charged RETURN opens sparse temporal aperture"
+    ]
+  },
+  "preserved": [
+    "Fold Weave exact donor bytes",
+    "Two Dial independent branch identity",
+    "Ecology independent cultivation/game identity",
+    "mute-first causal legibility",
+    "bounded local state and explicit RETURN"
+  ],
+  "field_index": {
+    "mutation_rule": "DISCUSSION ≠ INDEX TOUCH; MUTATION → INDEX TOUCH",
+    "route": "/fold-bloom/live/",
+    "family_touch": "/fold-bloom/",
+    "current_head_update": "/control/CURRENT.json#current_heads[lineage=fold-bloom]"
+  },
+  "authority": {
+    "confluence": "durable cross-thread coordination and re-entry",
+    "field_index": "public route/address projection and mutation chronology",
+    "field_intake": "separate sovereign typed-record admission membrane; not an automatic log sink"
+  },
+  "promotion_gate": [
+    "RATCHET understood as stored tension within 60 s",
+    "BLOOM vs crease/cascade audibly distinct without HUD within 120 s",
+    "FOLD → RETURN preserves topology identity and exposes temporal aperture",
+    "muted play exposes target/alignment/crease/cascade/charge",
+    "10-minute desktop/touch run has no scheduler burst, stuck drone, scroll conflict or material frame drop"
+  ],
+  "stop": "Ship as current ACTIVE_CANDIDATE and stop feature expansion until embodied play returns evidence."
+}
