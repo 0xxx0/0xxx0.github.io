@@ -1,10 +1,10 @@
 {
-  "schema": "body-fit-contract/v0.1",
+  "schema": "body-fit-contract/v0.3",
   "updated": "2026-09-22",
   "title": "BODY / FIT",
   "parent": "/body/",
-  "purpose": "Manage body-addressed fittings and source-distinct sensor observations over the shared BODY PLAN substrate without turning BODY into a diagnosis dashboard or HOUSE into body authority.",
-  "kernel": "BODY_ADDRESS -> FIT -> SENSE -> ALIGN -> PROJECT -> RETURN",
+  "purpose": "Manage body-addressed fittings, purpose loadouts, source-distinct sensor observations and non-punitive RETURN/PATINA history over the shared BODY PLAN substrate without turning embodied/care state into a score.",
+  "kernel": "BODY_ADDRESS -> FIT -> PREP -> SET_OUT -> SENSE -> RETURN -> PATINA -> NEXT_CUT",
   "authority_split": {
     "body_fit": "fitting identity/revision, body attachment address, local sensor-observation ledger and fusion projection",
     "body": "low-burden embodied self-observation and TEST/PULSE",
@@ -76,6 +76,41 @@
     "0xxx0/body-sensor-bundle/v0.1",
     "HUMAN PORT session object adapter"
   ],
-  "research": "/control/research/BODY_FIT_SENSOR_FUSION_2026-09-22.md",
-  "validation": "/control/BODY_FIT_VALIDATION_2026-09-22.json"
+  "research": "/control/research/BODY_FIT_RETURN_PATINA_2026-09-22.md",
+  "validation": "/control/BODY_FIT_VALIDATION_2026-09-22_V03.json",
+  "loadout": {
+    "kit": "snapshot current FITTED/ACTIVE fitting heads + purpose + optional loose prep items",
+    "prep": "resolve saved fitting revisions against current heads; READY/UPDATED/PAUSED/MISSING remain visible; loose items are manually checked",
+    "session": "SET OUT snapshots the exact kit + prep state; incomplete prep is allowed and remains evidence",
+    "return": "RETURN + MARK stores what happened, one optional NEXT CUT, optional explicit latest BODY reference, and attached HOUSE context reference if present",
+    "laws": [
+      "PREP != ACTION",
+      "SET_OUT != COMPLETION",
+      "KIT SNAPSHOT != CURRENT FITTING STATE",
+      "MISSING ITEM != MORAL FAILURE"
+    ]
+  },
+  "patina": {
+    "source": "BODY / FIT loadout RETURN receipts",
+    "projection": "deterministic virtual glyph per returned session; kit/config identity shapes the mark; checked loose items/body-ref/next-cut are visible features",
+    "accumulation": "monotonic history; gaps create no mark and no penalty",
+    "laws": [
+      "MARK = RETURN RECEIPT, NOT REWARD",
+      "GAP != FAILURE",
+      "NO STREAK",
+      "NO DECAY",
+      "MORE MARKS != HEALTHIER",
+      "RETURN NOTE != DIAGNOSIS"
+    ]
+  },
+  "emotional_bridge": {
+    "body_latest": "0xxx0.body.field.latest.v01",
+    "admission": "explicit ATTACH LATEST BODY during an active loadout run only",
+    "purpose": "reuse BODY's valence/activation/self-report lane without duplicating a second emotional scoring system",
+    "law": "BODY REF != LOADOUT SUCCESS"
+  },
+  "care_boundary": {
+    "law": "CARE ACTION COMPLETED != CONDITION IMPROVED",
+    "note": "Loadout completion semantics may be useful for caregivers/pet care, but BODY / FIT does not mutate CARE cases or infer clinical improvement."
+  }
 }
