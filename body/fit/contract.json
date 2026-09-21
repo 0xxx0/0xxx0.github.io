@@ -1,0 +1,79 @@
+{
+  "schema": "body-fit-contract/v0.1",
+  "updated": "2026-09-22",
+  "title": "BODY / FIT",
+  "parent": "/body/",
+  "purpose": "Manage body-addressed fittings and source-distinct sensor observations over the shared BODY PLAN substrate without turning BODY into a diagnosis dashboard or HOUSE into body authority.",
+  "kernel": "BODY_ADDRESS -> FIT -> SENSE -> ALIGN -> PROJECT -> RETURN",
+  "authority_split": {
+    "body_fit": "fitting identity/revision, body attachment address, local sensor-observation ledger and fusion projection",
+    "body": "low-burden embodied self-observation and TEST/PULSE",
+    "care": "episode/course/clinician-vet handoff",
+    "house": "environment/device runtime truth and actuation",
+    "human_port": "addressed source-object passage",
+    "open_twin": "higher-resolution anatomical donor projection; personal registration remains an evidence obligation"
+  },
+  "fitting": {
+    "classes": [
+      "WEARABLE",
+      "SENSOR",
+      "SUPPORT",
+      "PROSTHESIS",
+      "IMPLANT",
+      "ACCESSORY",
+      "OTHER"
+    ],
+    "lifecycle": [
+      "CANDIDATE",
+      "PLANNED",
+      "FITTED",
+      "ACTIVE",
+      "PAUSED",
+      "RETIRED"
+    ],
+    "law": "revision creates a new fitting record with replaces/superseded_by; previous records are not overwritten"
+  },
+  "observation": {
+    "schema": "0xxx0/body-sensor-observation/v0.1",
+    "fields": [
+      "source_id",
+      "source_class",
+      "observed_property",
+      "result",
+      "phenomenon_time",
+      "recorded_at",
+      "acquisition_method",
+      "availability",
+      "feature_of_interest",
+      "provenance"
+    ],
+    "source_classes": [
+      "WEARABLE",
+      "HOUSE",
+      "PHONE",
+      "CLINICAL_DEVICE",
+      "SELF_REPORTED",
+      "IMPORT",
+      "OTHER"
+    ]
+  },
+  "fusion": {
+    "method": "time-align observations by observed_property within a user-selected window; preserve one row per source",
+    "laws": [
+      "FUSION != AVERAGE",
+      "DISAGREEMENT SURVIVES",
+      "STALE != CURRENT",
+      "UNKNOWN != ZERO",
+      "HOUSE CONTEXT != BODY CAUSE",
+      "SOURCE EVENT != DERIVED PROJECTION"
+    ]
+  },
+  "storage": "browser localStorage 0xxx0.body.fit.v01",
+  "imports": [
+    "0xxx0/body-fit-state/v0.1",
+    "0xxx0/body-sensor-observation/v0.1",
+    "0xxx0/body-sensor-bundle/v0.1",
+    "HUMAN PORT session object adapter"
+  ],
+  "research": "/control/research/BODY_FIT_SENSOR_FUSION_2026-09-22.md"
+}
