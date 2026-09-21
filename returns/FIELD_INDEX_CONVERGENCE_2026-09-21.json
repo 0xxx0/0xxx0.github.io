@@ -1,0 +1,38 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "FIELD-INDEX-CONVERGENCE-2026-09-21",
+  "at": "2026-09-21T19:10:00+08:00",
+  "object": "FIELD INDEX re-entry and route activation grammar",
+  "before": {
+    "dock": "Focused route actions were below four AXIAL selector strips, increasing scroll/re-entry cost especially on narrow screens.",
+    "activation": "LATEST and AXIAL survivors supported focus→repeat-click OPEN, while HEADS, MAP and OPEN PORTS only focused.",
+    "wording": "The root action still said APERTURE even after APERTURE had converged into the INSPECT utility role.",
+    "proof": "Mobile Lens RETURN was guarded, but the deeper FIELD Lens stack → Scale Studio → exact FIELD RETURN path was only present on a diverged proof branch."
+  },
+  "operation": [
+    "Move the focused object/action dock above selector machinery.",
+    "Rename root action verbs to INSPECT / AXIAL / LENS so UI language matches current instrument charters.",
+    "Expose the active FIELD reading in the focus dock.",
+    "Apply one local activation law across AXIAL, LATEST, HEADS, MAP and OPEN PORTS.",
+    "Preserve explicit downstream authority boundaries for consequential/outbound actions.",
+    "Add browser proof for focus → OPEN → browser RETURN re-entry.",
+    "Port the deep Lens stack → Scale Studio → RETURN identity/provenance proof onto current master-derived code."
+  ],
+  "after": {
+    "loop": "OBJECT/FOCUS → PROJECT/READ → explicit operation → local OPEN when repeated → RETURN/re-entry",
+    "activation_law": "/control/FIELD_ACTIVATION_LAW.json",
+    "writes": "repository UI + test/contract only",
+    "source_authority": "showcase-manifest route identity remains canonical"
+  },
+  "verification": {
+    "status": "CURRENT_PR_CI_REQUESTED_AFTER_REBASE",
+    "prior_merge_ref_run": 978,
+    "prior_merge_ref_result": "PASS",
+    "browser_cases": ["FIELD activation + re-entry", "LENS STACK STUDIO RETURN", "existing LENS PROOF mobile RETURN"]
+  },
+  "non_claims": [
+    "No claim that AXIAL or Lens beats plain chronology for a human task.",
+    "No new canonical state store.",
+    "No new app or dashboard surface."
+  ]
+}
