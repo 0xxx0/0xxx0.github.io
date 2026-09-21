@@ -1,10 +1,10 @@
 {
   "schema": "0xxx0/lens-focus-ring-receipt/v0.1",
-  "at": "2026-09-21T19:26:20+08:00",
+  "at": "2026-09-21T19:34:00+08:00",
   "branch": "lens-convergence-contract-20260921",
   "pr": 50,
   "target": "LENS-02",
-  "state": "AUTOMATED_INTERACTION_PROOF_PASS_HUMAN_COMPARATOR_OPEN",
+  "state": "PROVED_PRIMARY_APERTURE_FOVEATE_PARKED",
   "surface": "FIELD INDEX",
   "recovered_donors": [
     "Workfield active aperture: FOCUS / DISC / ROUTES / LEDGER / RETURN",
@@ -46,14 +46,11 @@
     "OPEN STUDIO transfers through LensState v2 while legacy FIELD handoff remains during migration."
   ],
   "not_claimed": [
-    "The exact remembered red-dot-around-ring RSVP/foveated reader and Alice text specimen are not yet recovered; current Focus Ring geometry is not claimed as that historical artifact.",
-    "No task advantage over FIELD's plain controls has yet been measured.",
-    "LENS-03 foveation remains experimental pending paired human PLAIN↔FOVEATED receipts."
+    "The exact remembered red-dot-around-ring RSVP/foveated reader and Alice text specimen remain unrecovered; current Focus Ring geometry is not claimed as that historical artifact.",
+    "No human task advantage was observed for the current FIELD foveation treatment; it is not promoted."
   ],
   "next_proof": [
-    "Run the existing PLAIN ↔ FOVEATED T1/T2/T3 proof bench as paired human tasks.",
-    "Promote FOVEATE only if the declared action/duration/error/orientation gate passes; otherwise keep it optional/experimental.",
-    "Do not reopen LensState / Focus Ring / Studio architecture absent a concrete regression."
+    "None for the proved Focus Ring mechanics. Reopen only on a concrete regression or a new task-specific lens candidate with a clear missing function."
   ],
   "recovery_next": [
     "Search restored backups for RSVP/radial reader variants around the 2018 RSVP fixture and FU room/ring files.",
@@ -95,5 +92,14 @@
       "Studio ↩ INTAKE returns to the invoking FIELD focus.",
       "390px proof path has no horizontal overflow."
     ]
+  },
+  "product_decision": {
+    "primary_actions": [
+      "RETURN",
+      "DEEP LAB"
+    ],
+    "comparator": "demoted from primary ring",
+    "foveate": "PARKED_NO_CLEAR_GAIN",
+    "plain_baseline": "DEFAULT"
   }
 }
