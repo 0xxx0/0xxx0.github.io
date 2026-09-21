@@ -1,0 +1,50 @@
+{
+  "schema": "0xxx0/care-validation/v0.5",
+  "at": "2026-09-22T00:27:00+08:00",
+  "result": "PASS",
+  "checks": {
+    "care_js_syntax": "PASS",
+    "port_js_syntax": "PASS",
+    "care_no_network_submission": true,
+    "care_to_port_snapshot": true,
+    "port_to_care_route": true,
+    "port_to_care_all_media": [
+      "TEXT",
+      "JSON",
+      "IMAGE",
+      "FILE"
+    ],
+    "port_to_care_explicit_attach": true,
+    "evidence_source_return": true,
+    "direct_consult_need": true,
+    "care_evidence_schema": true,
+    "object_envelope_required_fields": true,
+    "object_envelope_enums": true,
+    "care_contract_port_bridge": true,
+    "field_private_files_closed": true,
+    "field_object_aperture": true,
+    "port_care_exit": true,
+    "return_versions": {
+      "care": "0.5",
+      "port": "1.5.1-preview"
+    }
+  },
+  "evidence": {
+    "care/index.html": "be71795dd0c219b7b15c78515974e9eca41b965e",
+    "care/contract.json": "aeb9b2f1849cc8f560d6f81ea54de82c8998005a",
+    "care/case.schema.json": "25db758348ad3e17af07b195f401d05f9147359e",
+    "care/release.json": "d1efc839a9e4ca9071336348607627da73af33f6",
+    "port/index.html": "f0747c80071e3e41b2220a77c644a62308fdde2c",
+    "port/routes.json": "9a579f25fe6d9f28b42f2f228d71dde19dd7f546",
+    "port/object.schema.json": "377c73153dd8815152f985b7e03b48378669068e",
+    "port/release.json": "efadc98a0aa14c92e108157821c9ad6ebaa569e8",
+    "showcase-manifest.json": "c78938dc501d3aebef446016ff5e5d4509717241",
+    "return-index.json": "7e9326e39c77c1c15dffe39519259fc663468ef6"
+  },
+  "open_questions": [
+    "real ordinary-use trial: one eye/photo or report object through Port -> CARE -> OPEN SOURCE",
+    "session-only TEXT/JSON reference durability beyond the active browser session",
+    "multi-object bundle/share semantics without collapsing separately addressed evidence objects",
+    "whether CARE case snapshots are more useful in Port as whole JSON or focused BRIEF/ASK nodes during actual consult prep"
+  ]
+}
