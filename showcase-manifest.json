@@ -4065,7 +4065,7 @@
       "parent": "/forward-field-proof/triangle/glyph/",
       "family": "FIELD / PROOF",
       "operation": "ROUTE",
-      "state": "EXPERIMENT",
+      "state": "PROOF_REQUIRED",
       "version": "0.2",
       "receipt": "/forward-field-proof/triangle/glyph/center/release.json",
       "showcase_card": false,
@@ -4082,7 +4082,7 @@
         "next_if_fail": "PARK the center-mass selector and retain the geometry as a donor/comparator."
       },
       "index": {
-        "updated_at": "2026-09-21T14:21:00+08:00",
+        "updated_at": "2026-09-21T16:02:00+08:00",
         "work_modes": [
           "SPECIFY",
           "VERIFY"
@@ -4298,7 +4298,7 @@
       "parent": "/poetry/",
       "family": "PATH / POETRY",
       "operation": "PROJECT",
-      "state": "EXPERIMENTAL_LIVE",
+      "state": "CANDIDATE",
       "version": "0.1",
       "receipt": "/poetry/map/release.json",
       "showcase_card": false,
@@ -4312,7 +4312,7 @@
         "Axial state×transform×aperture discipline"
       ],
       "index": {
-        "updated_at": "2026-09-21T15:50:00+08:00",
+        "updated_at": "2026-09-21T16:02:00+08:00",
         "work_modes": [
           "RECOVER",
           "RESEARCH",
