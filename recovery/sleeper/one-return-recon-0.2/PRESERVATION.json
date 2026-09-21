@@ -1,0 +1,37 @@
+{
+  "schema": "recovery-preservation/v0.1",
+  "id": "ONE_RETURN_RECON_0_2_PRESERVATION_2026-09-22",
+  "preserved_at": "2026-09-22T04:39:00+08:00",
+  "classification": "FROZEN_EXACT_DONOR_COPY",
+  "source_route": "/sleeper/one-return/",
+  "frozen_route": "/recovery/sleeper/one-return-recon-0.2/",
+  "identity": {
+    "name": "ASCII ONE RETURN / NINE GATE · RECONSTRUCTION",
+    "state": "DONOR",
+    "not_target": "SLEEPER // ONE RETURN polished Work-mode v2"
+  },
+  "source_files": [
+    {
+      "src": "sleeper/one-return/index.html",
+      "dst": "recovery/sleeper/one-return-recon-0.2/index.html",
+      "source_blob": "57fbd935c17a17800b78a1f2af4c52b4b37c52af"
+    },
+    {
+      "src": "sleeper/one-return/release.json",
+      "dst": "recovery/sleeper/one-return-recon-0.2/release.json",
+      "source_blob": "32039cac4061a41420017236e652a998db5333a4"
+    }
+  ],
+  "proof": "Git blob/content SHA equality is retained per copied source file; frozen copy must not be modernized in place.",
+  "laws": [
+    "PRESERVE BEFORE MODIFYING.",
+    "FROZEN COPY != CURRENT HEAD.",
+    "ASCII RECONSTRUCTION != POLISHED ONE RETURN V2.",
+    "Future experiments fork from this copy or the live donor; they do not overwrite the frozen bytes."
+  ],
+  "related": [
+    "/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json",
+    "/sleeper/one-return/release.json",
+    "/returns/ONE_RETURN_REIFICATION_2026-09-21.json"
+  ]
+}
