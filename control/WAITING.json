@@ -17,14 +17,15 @@
       "id": "body-health-connect-permission",
       "route": "/body/fit/",
       "state": "WAITING_ON_HUMAN",
-      "human_move": "Install/run BODY BRIDGE, grant only Sleep + Heart Rate read access, export one local raw packet, then import it into BODY / FIT.",
-      "why": "The repo can prove the transform and compile the native reader, but cannot grant phone-side Health Connect permissions or produce real personal source records.",
-      "unlocks": "Close the adapter proof with one real bounded source→export→transform→BODY/FIT round trip; only then consider an automatic local relay or more record types.",
+      "human_move": "Install the CI-built BODY BRIDGE debug APK, grant only Sleep + Heart Rate read access, run the bounded 48h proof, export one local JSON packet, then import it into BODY / FIT.",
+      "why": "Transform, browser integration and Android compilation are proved. Only the phone can prove Health Connect permission, Samsung/source population and a real source→export→import round trip.",
+      "unlocks": "Promote the Health Connect adapter from compiled candidate to operational proof, or return the exact failure without broadening sensor permissions.",
       "privacy": "No raw personal health data is committed to the public repo.",
       "adapter": "/body/fit/health-connect.adapter.json",
       "native_source": "/android/body-bridge/",
       "transform": "/body/fit/health-connect-transform.js",
-      "proof_state": "AUTOMATED_TRANSFORM_GREEN / NATIVE_COMPILE_PENDING / REAL_DEVICE_REQUIRED"
+      "proof_state": "AUTOMATED_GREEN / REAL_DEVICE_REQUIRED",
+      "apk": "GitHub Actions artifact: body-bridge-debug (7-day retention; no APK committed to repo)"
     },
     {
       "id": "body-calibration-first-campaign",
