@@ -141,5 +141,28 @@
   "source_adapters": {
     "FIELD": "Full Focus Stack: FAMILY × KIND × OPERATION × STATE × ROLE over /showcase-manifest.json. Root FIELD embeds a reduced chronology lens: ROUTE × STATE × OPERATION × WORK MODE over durable recent touches.",
     "HOUSE": "ROOM × TYPE × CONFIDENCE × ENTITY over /house/spatial/model.json; public model only"
+  },
+  "interface_relations": {
+    "APERTURE_UTILITY": {
+      "route": "/foundry/aperture/",
+      "relation": "sibling projection, not submode",
+      "boundary": "AXIAL composes multiple source dimensions; APERTURE traverses one source across semantic scale/position/time/voice.",
+      "shared": [
+        "explicit focus",
+        "separate position and scale",
+        "reversible navigation",
+        "RETURN"
+      ]
+    },
+    "SCALE_LENS": {
+      "route": "/fold-bloom/lens/",
+      "relation": "downstream/deep projection workbench",
+      "boundary": "Lens preserves identity across rich projections; AXIAL remains the source-constraint/address compositor."
+    },
+    "FU_FOVEATE": {
+      "receipt": "/control/FU_FOVEATE_RECOVERY_2026-09-21.json",
+      "relation": "historical donor evidence",
+      "boundary": "Partial exact fragments prove executable fovea path state; they do not establish the modern AXIAL ring UI as the historical reader."
+    }
   }
 }
