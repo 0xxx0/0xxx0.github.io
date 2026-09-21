@@ -60,6 +60,8 @@ textarea{width:100%;resize:vertical;padding:8px;line-height:1.5}.page{white-spac
   <div class="row"><input id="manualCand" placeholder="bank a word…" style="min-width:0;padding:6px"><button id="addCand">BANK</button></div>
  </div>
  <div class="k">Candidate bank</div><div id="bank" class="card"><span class="sub">Nothing banked yet.</span></div>
+ <div class="row"><button id="cancelPreview">CANCEL PREVIEW</button><button id="undoRevision">UNDO ADOPT</button></div>
+ <div class="k">Revision ancestry</div><div id="revisions" class="card"><span class="sub">No committed replacements.</span></div>
  <div class="k">Author path</div><div id="pathList" class="card"><span class="sub">Select words and + PATH to author a traversal.</span></div>
  <div class="row"><button id="clearPath">CLEAR PATH</button><button id="capturePath">CAPTURE</button></div>
  <div class="k">Map / poem metrics</div><div class="metricGrid"><div class="metric">TOKENS<b id="mTokens">0</b></div><div class="metric">LINES<b id="mLines">0</b></div><div class="metric">EDGES<b id="mEdges">0</b></div><div class="metric">LOCKS<b id="mLocks">0</b></div></div>
@@ -84,12 +86,12 @@ const FORMS={
  jueju7:{name:'JUEJU 7',lines:4,chars:7,note:'historical 平仄/rime OPEN'},
  jueju5:{name:'JUEJU 5',lines:4,chars:5,note:'historical 平仄/rime OPEN'}
 };
-const S={source:'',nodes:[],edges:[],selected:null,mode:'MAP',locks:new Set(),authorPath:[],authorEdges:[],linkPending:null,bank:[],captures:[],weights:{order:.7,sound:.65,repeat:.9,author:1},aperture:.7,form:'free',layoutSeed:1,drag:null};
+const S={source:'',nodes:[],edges:[],selected:null,mode:'MAP',locks:new Set(),authorPath:[],authorEdges:[],linkPending:null,bank:[],preview:null,revisions:[],captures:[],weights:{order:.7,sound:.65,repeat:.9,author:1},aperture:.7,form:'free',layoutSeed:1,drag:null};
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 function isHan(ch){return /[\u3400-\u9fff\uf900-\ufaff]/u.test(ch)}
 function tokenizeLine(line,li){let out=[],re=/[\u3400-\u9fff\uf900-\ufaff]|[\p{L}\p{N}'’-]+|[^\s]/gu,m,ti=0;while((m=re.exec(line))){let raw=m[0];if(/^\s+$/.test(raw))continue;out.push({id:'L'+(li+1)+'T'+(++ti),line:li,index:ti-1,text:raw,norm:raw.toLocaleLowerCase(),start:m.index,x:0,y:0,vx:0,vy:0})}return out}
 function parse(){let lines=$('#source').value.replace(/\r/g,'').split('\n');S.source=$('#source').value;S.nodes=lines.flatMap((l,i)=>tokenizeLine(l,i));S.edges=[];let byLine=new Map();for(let n of S.nodes){if(!byLine.has(n.line))byLine.set(n.line,[]);byLine.get(n.line).push(n)}for(let arr of byLine.values())for(let i=0;i<arr.length-1;i++)S.edges.push({a:arr[i].id,b:arr[i+1].id,type:'ORDER',why:'source adjacency'});let groups=new Map();for(let n of S.nodes){if(!/[\p{L}\p{N}\u3400-\u9fff]/u.test(n.text))continue;if(!groups.has(n.norm))groups.set(n.norm,[]);groups.get(n.norm).push(n)}for(let arr of groups.values())if(arr.length>1)for(let i=0;i<arr.length;i++)for(let j=i+1;j<arr.length;j++)S.edges.push({a:arr[i].id,b:arr[j].id,type:'REPEAT',why:'exact repetition'});for(let i=0;i<S.nodes.length;i++)for(let j=i+1;j<S.nodes.length;j++){let a=S.nodes[i],b=S.nodes[j];if(a.norm===b.norm||isHan(a.text)||isHan(b.text))continue;let sim=soundSim(a.norm,b.norm);if(sim>=2)S.edges.push({a:a.id,b:b.id,type:'SOUND',why:sim===3?'ending + onset echo':sim===2?'sound-shape echo':'approx sound'} )}
-S.authorEdges=S.authorEdges.filter(e=>S.nodes.some(n=>n.id===e.a)&&S.nodes.some(n=>n.id===e.b));S.edges.push(...S.authorEdges);S.locks=new Set([...S.locks].filter(id=>S.nodes.some(n=>n.id===id)));S.authorPath=S.authorPath.filter(id=>S.nodes.some(n=>n.id===id));if(!S.nodes.some(n=>n.id===S.selected))S.selected=null;initPositions();render();save()}
+S.authorEdges=S.authorEdges.filter(e=>S.nodes.some(n=>n.id===e.a)&&S.nodes.some(n=>n.id===e.b));S.edges.push(...S.authorEdges);S.locks=new Set([...S.locks].filter(id=>S.nodes.some(n=>n.id===id)));S.authorPath=S.authorPath.filter(id=>S.nodes.some(n=>n.id===id));if(!S.nodes.some(n=>n.id===S.selected))S.selected=null;if(S.preview&&!S.nodes.some(n=>n.id===S.preview.target))S.preview=null;initPositions();render();save()}
 function soundKey(w){let x=w.toLowerCase().replace(/[^a-z']/g,'');return{x,on:x.slice(0,1),tail:x.slice(-2),tail3:x.slice(-3),v:(x.match(/[aeiouy]+/g)||[]).join('-')}}
 function soundSim(a,b){let A=soundKey(a),B=soundKey(b),s=0;if(A.x.length<2||B.x.length<2)return 0;if(A.tail3===B.tail3)s+=2;else if(A.tail===B.tail)s++;if(A.on===B.on)s++;if(A.v&&A.v===B.v)s++;return Math.min(3,s)}
 function hash(s){let h=2166136261;for(let c of s)h=Math.imul(h^c.charCodeAt(0),16777619);return h>>>0}
@@ -121,6 +123,7 @@ C.addEventListener('pointerdown',e=>{let id=hit(e);if(!id)return;if(S.mode==='MA
 C.addEventListener('pointermove',e=>{if(!S.drag||S.mode!=='MAP')return;let r=C.getBoundingClientRect(),n=node(S.drag.id);if(n){n.x=e.clientX-r.left;n.y=e.clientY-r.top;n.vx=n.vy=0}});
 C.addEventListener('pointerup',()=>S.drag=null);C.addEventListener('pointercancel',()=>S.drag=null);
 function node(id){return S.nodes.find(n=>n.id===id)}
+function displayText(n){return S.preview&&S.preview.target===n.id?S.preview.word:n.text}
 function select(id){S.selected=id;if(S.linkPending&&S.linkPending!==id){if(!S.authorEdges.some(e=>(e.a===S.linkPending&&e.b===id)||(e.a===id&&e.b===S.linkPending)))S.authorEdges.push({a:S.linkPending,b:id,type:'AUTHOR',why:'author link'});S.linkPending=null;parse();return}renderPanels();save()}
 function setMode(m){S.mode=m;$$('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===m));$('#note').textContent=m==='MAP'?'Words move under explicit ORDER / SOUND / REPEAT / AUTHOR laws. Dragging changes only this projection.':m==='PAGE'?'The source remains readable and selectable. Locks and authored paths are overlays, not edits.':'Relationship sets are another entrance into the same stable token identities.';renderPanels()}
 $$('[data-mode]').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
