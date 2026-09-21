@@ -24,7 +24,7 @@
         ]
       },
       "role": "Fast repo re-entry around one focused manifest route, with NOW / RECOVER / TRANSFER separated from projection machinery; TRACE / VERIFY now binds a local policy-resolution proof to the same focused route without turning tags, focus, or reference policies into authority.",
-      "receipt": "/returns/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
+      "receipt": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "machine_view": "FIELD",
       "version": "0.6.2",
       "transfer": [
@@ -62,7 +62,9 @@
       "policy_trace_runtime": "/field-policy-trace.mjs",
       "policy_trace_spec": "/policy-resolution-trace.schema.json",
       "policy_trace_verifier": "/policy-trace-verifier.mjs",
-      "policy_trace_verification": "/policy-trace-verification.json"
+      "policy_trace_verification": "/policy-trace-verification.json",
+      "axial_support_return": "/returns/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
+      "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json"
     },
     {
       "href": "/contact/",
