@@ -1377,7 +1377,10 @@
           "receipt": "/fold-bloom/lens/release.json",
           "checks": [
             "identity preserved across projections",
-            "RETURN preserved"
+            "RETURN preserved",
+            "FIELD activation + re-entry preserves route identity",
+            "supported FIELD stack reaches Scale Studio as upstream provenance",
+            "Studio ↩ INTAKE returns to invoking FIELD focus"
           ],
           "return_path": "/fold-bloom/lens/"
         }
@@ -1420,7 +1423,7 @@
         "physical_fit": "Prepare addressed objects/specs for decision or fabrication; should not actuate directly."
       },
       "index": {
-        "updated_at": "2026-09-21T18:46:00+08:00",
+        "updated_at": "2026-09-21T19:26:20+08:00",
         "work_modes": [
           "VERIFY"
         ]
@@ -1430,15 +1433,16 @@
         "schema": "field-evolution/v0.1",
         "host": "/",
         "generation": 1,
-        "stage": "TEST",
+        "stage": "MECHANICS_PROVED_HUMAN_COMPARATOR_OPEN",
         "question": "Can typed LensState + lawful stack support turn FIELD's AXIAL-selected route into a reusable composition instrument without creating a second selection model or losing identity/RETURN?",
         "baseline": "FIELD AXIAL/LATEST exact focus + legacy one-way SCALE LENS handoff; Scale Studio operators exist, but the ordinary surface does not show typed composition support or dead next-lens states.",
         "mutation": "LensState v0.2 contract support + root Focus Ring bound directly to AXIAL/LATEST focus. Candidate lenses expose support=1 or support=0 with reason; unsupported composition is rejected rather than silently coerced.",
-        "evidence_gate": "Mobile FI Lens open→VISUAL→RETURN + PROOF + zero-overflow smoke now passes. Remaining selection gate: one deeper STACK→Studio round trip plus paired human PLAIN↔FOVEATED T1/T2/T3 receipts; no task-advantage claim without that evidence.",
-        "next_if_pass": "TRANSFER LensState/support planner into FIELD root and generic route adapter as the shared composition law; retain RC11.2 Studio as the deep lab and retire special-case lens controls.",
-        "next_if_fail": "PARK the Focus Ring/compositor UI; keep typed LensState and support/dead-state law as DONOR infrastructure, restore the stable legacy Studio handoff as the ordinary path."
+        "evidence_gate": "Automated browser proof now passes exact mobile RETURN, FIELD activation/re-entry, DIVE/RISE/PEER, supported STACK → Scale Studio identity/upstream-provenance handoff, and Studio ↩ INTAKE. Remaining gate is only paired human PLAIN↔FOVEATED T1/T2/T3 evidence before promoting LENS-03 or making FOVEATE default.",
+        "next_if_pass": "If paired human receipts meet the declared gate, promote FOVEATE as a retained projection/default where useful; keep LensState, Focus Ring activation law and RC11.2 Studio unchanged.",
+        "next_if_fail": "Keep the proved Lens mechanics; leave FOVEATE optional/experimental. Do not park the whole Focus Ring or reopen identity/RETURN architecture."
       },
-      "evolution_receipt": "/control/LENS_EVOLUTION_G1_2026-09-21.json"
+      "evolution_receipt": "/control/LENS_EVOLUTION_G1_2026-09-21.json",
+      "proof_receipt": "/control/LENS_G1_PROOF_SEAL_2026-09-21.json"
     },
     {
       "href": "/foundry/",

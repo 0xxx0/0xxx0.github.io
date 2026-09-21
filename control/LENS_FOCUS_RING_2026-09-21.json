@@ -1,10 +1,10 @@
 {
   "schema": "0xxx0/lens-focus-ring-receipt/v0.1",
-  "at": "2026-09-21T18:46:00+08:00",
+  "at": "2026-09-21T19:26:20+08:00",
   "branch": "lens-convergence-contract-20260921",
   "pr": 50,
   "target": "LENS-02",
-  "state": "MOBILE_RETURN_SMOKE_PASS_DEEP_INTERACTION_PENDING",
+  "state": "AUTOMATED_INTERACTION_PROOF_PASS_HUMAN_COMPARATOR_OPEN",
   "surface": "FIELD INDEX",
   "recovered_donors": [
     "Workfield active aperture: FOCUS / DISC / ROUTES / LEDGER / RETURN",
@@ -47,14 +47,13 @@
   ],
   "not_claimed": [
     "The exact remembered red-dot-around-ring RSVP/foveated reader and Alice text specimen are not yet recovered; current Focus Ring geometry is not claimed as that historical artifact.",
-    "RISE / DIVE / PEER / typed STACK → Studio → RETURN have not yet been exercised together in one browser interaction receipt.",
     "No task advantage over FIELD's plain controls has yet been measured.",
-    "LENS-03 foveation remains experimental pending paired human receipts."
+    "LENS-03 foveation remains experimental pending paired human PLAIN↔FOVEATED receipts."
   ],
   "next_proof": [
-    "Exercise RISE, DIVE, PEER and a supported STACK candidate, then Studio handoff and RETURN in one interaction path.",
-    "Run the existing PLAIN ↔ FOVEATED T1/T2/T3 proof bench and compare task evidence.",
-    "Promote only the mechanism that beats or materially differs from the plain baseline."
+    "Run the existing PLAIN ↔ FOVEATED T1/T2/T3 proof bench as paired human tasks.",
+    "Promote FOVEATE only if the declared action/duration/error/orientation gate passes; otherwise keep it optional/experimental.",
+    "Do not reopen LensState / Focus Ring / Studio architecture absent a concrete regression."
   ],
   "recovery_next": [
     "Search restored backups for RSVP/radial reader variants around the 2018 RSVP fixture and FU room/ring files.",
@@ -74,6 +73,27 @@
       "RETURN restores exact pre-ring FIELD UI state",
       "FI PROOF control opens the local proof bench",
       "horizontal overflow delta = 0"
+    ]
+  },
+  "deep_browser_smoke": {
+    "run_id": 35594006860,
+    "head": "5e85dcd0aeffd8631343cbaa01d355209b06a964",
+    "status": "PASS",
+    "cases": [
+      "LENS PROOF mobile RETURN",
+      "FIELD activation + re-entry",
+      "LENS STACK STUDIO RETURN"
+    ],
+    "proves": [
+      "Focus Ring opens on the addressed FIELD route after FIELD focus is ready.",
+      "VISUAL projection and RETURN preserve the exact invoking FIELD UI state.",
+      "DIVE and RISE change aperture without changing canonical route identity.",
+      "PEER changes route identity explicitly and can return to the original peer.",
+      "Supported field-foveate VIEW_LENS composes in FIELD.",
+      "Scale Studio preserves the canonical FIELD object identity.",
+      "FIELD-only stack arrives in Scale Studio as upstream provenance rather than silently activating under the Scale contract.",
+      "Studio ↩ INTAKE returns to the invoking FIELD focus.",
+      "390px proof path has no horizontal overflow."
     ]
   }
 }

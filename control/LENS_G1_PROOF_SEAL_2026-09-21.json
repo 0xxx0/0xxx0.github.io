@@ -1,0 +1,53 @@
+{
+  "schema": "0xxx0/lens-g1-proof-seal/v0.1",
+  "at": "2026-09-21T19:26:20+08:00",
+  "object": "/fold-bloom/lens/ + FIELD Focus Ring / LensState v0.2",
+  "proof_run": {
+    "id": 35594006860,
+    "head": "5e85dcd0aeffd8631343cbaa01d355209b06a964",
+    "workflow": "public-surface-check",
+    "conclusion": "success",
+    "browser_cases": 24
+  },
+  "passed": [
+    "LENS PROOF mobile RETURN",
+    "FIELD activation + re-entry",
+    "LENS STACK STUDIO RETURN",
+    "LensState laws and round trip",
+    "shared Constraint Surface parity",
+    "static public surface contracts",
+    "recovered source/media checks",
+    "frozen City/Painting tests"
+  ],
+  "proves": [
+    "one addressed FIELD route identity survives projection/aperture changes",
+    "programmatic AXIAL recenter does not rewrite the captured RETURN tuple",
+    "supported FIELD VIEW_LENS stack composes without silent coercion",
+    "Studio receives FIELD-only stack as upstream provenance",
+    "canonical identity is preserved FIELD → Studio → FIELD",
+    "RETURN is a distinct explicit re-entry operation"
+  ],
+  "does_not_prove": [
+    "FOVEATED is faster, clearer or preferable to PLAIN for a human task",
+    "the reconstructed Focus Ring is the exact unrecovered historical RSVP ring artifact"
+  ],
+  "remaining_gate": {
+    "id": "LENS-03-HUMAN-COMPARATOR",
+    "protocol": "/control/LENS_FOVEATE_PROOF_2026-09-21.json",
+    "tasks": [
+      "T1_LOCATE",
+      "T2_CONTEXT",
+      "T3_REFRACT_RETURN"
+    ],
+    "rule": "Promote FOVEATE only if paired human receipts meet the declared continuity/error/action-or-duration gate."
+  },
+  "law_refs": [
+    "/control/FIELD_ACTIVATION_LAW.json",
+    "/control/LENS_SYSTEM_CONTRACT_2026-09-21.json",
+    "/control/LENS_FOCUS_RING_2026-09-21.json",
+    "/control/LENS_EVOLUTION_G1_2026-09-21.json",
+    "/control/LENS_FOVEATE_PROOF_2026-09-21.json"
+  ],
+  "disposition": "AUTOMATED_ENGINEERING_PROOF_COMPLETE_HUMAN_COMPARATOR_OPEN",
+  "return": "Do not add Lens architecture. Next lawful Lens move is comparative play or a concrete regression repair."
+}
