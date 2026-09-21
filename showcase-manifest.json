@@ -16,16 +16,16 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T03:01:45+08:00",
+        "updated_at": "2026-09-21T14:21:00+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
-          "OPERATE",
-          "RELEASE"
+          "OPERATE"
         ]
       },
-      "role": "Visual orientation layer over CURRENT + manifest + exit contracts: explicit scale navigation, DataDisc-derived PULSE, bounded MOVE GATE, and route handoff into Scale Lens."
+      "role": "Visual orientation layer over CURRENT + manifest + exit contracts: identity-folded NOW/HEADS/PULSE, explicit EVOLVE selection pressure, address-depth SCALE, named MAP/RECENT reprojections, bounded MOVE GATE, and route handoff into Scale Lens.",
+      "receipt": "/returns/FIELD_EVOLUTION_2026-09-21.json"
     },
     {
       "href": "/contact/",
@@ -4219,7 +4219,7 @@
   "policy_trace_tests": "/policy-trace-cases.json",
   "field_index": {
     "schema": "0xxx0/public-field-projection/v0.1",
-    "law": "INPUT → PORT → ADDRESS/STATE → TRANSFORM → OUTPUT → EVIDENCE → RETURN → REPLAN",
+    "law": "INPUT → PORT → ADDRESS/STATE → MUTATE → EVIDENCE → SELECT → TRANSFER → RETURN → REPLAN",
     "purpose": "Safe public projection of how current surfaces connect. Private device topology, credentials, owned-asset inventory and physical addresses stay outside this manifest.",
     "media": [
       "DATA",
@@ -4274,7 +4274,8 @@
       "HEADS": "/control/CURRENT.json#current_heads",
       "MAP": "/showcase-manifest.json#routes parent graph",
       "OPEN_PORTS": "route.field.exit_paths where status != AVAILABLE",
-      "RECENT": "route.index.updated_at"
+      "RECENT": "route.index.updated_at",
+      "EVOLVE": "route.evolution bounded variation → evidence → selection → transfer/park/compost"
     },
     "sitemap_audit": "/control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json",
     "map_dispositions": {
@@ -4291,13 +4292,16 @@
       "VISUAL",
       "PULSE",
       "STRUCTURE",
+      "EVOLVE",
       "RECENT"
     ],
     "pulse_donor": "/control/confluence/FIELD_INDEX_DATADISC_GRAFT_2026-09-21.json",
     "play": "/field-play.html",
     "play_law": "Mission selection is participation, not authority: public-safe gap → one bounded move → evidence → RETURN → explicit review/replan.",
     "scale_navigation": "VISUAL drill depth is explicit SCALE: ROOT=0, child family/local projections increase depth; SCALE − returns one parent without changing route identity.",
-    "scale_lens_handoff": "Selected MAP route can be handed locally into SCALE LENS through scale.lens.handoff.v01 as the same addressed object."
+    "scale_lens_handoff": "Selected MAP route can be handed locally into SCALE LENS through scale.lens.handoff.v01 as the same addressed object.",
+    "evolution_contract": "/control/FIELD_INDEX_CONTRACT.json#evolution_contract",
+    "identity_fold": "Fixed root readings fold repeated route identities NOW → HEADS → PULSE; explicit MAP/RECENT/EVOLVE are named reprojections."
   },
   "policy_trace_verification": "/policy-trace-verification.json",
   "policy_trace_event_model": "/policy-trace-event-model.json",
