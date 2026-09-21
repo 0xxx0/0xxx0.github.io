@@ -91,7 +91,7 @@ window.ScaleLensSpatialAPI=Object.freeze({
   aperture:delta=>{const n=clamp(scope+Number(delta||0),0,8);if(n!==scope)setScope(n,'focus ring aperture');return spatialSnapshot()},
   project:d=>{if(DOMAINS[d])setDomain(d);return spatialSnapshot()},
   projections:()=>Object.keys(DOMAINS),
-  return:()=>{const a=address();if(a.returnAddress)location.href=a.returnAddress;else history.back()},
+  return:()=>returnToCaller(),
   lensState:()=>sharedLensStateSnapshot()
 });
 window.ScaleLensStateAPI=Object.freeze({snapshot:sharedLensStateSnapshot});
