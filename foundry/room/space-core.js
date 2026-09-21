@@ -160,11 +160,12 @@
       if(selected.some(other=>other!==id&&descendants(m,other).includes(id)))
         return {ok:false,reason:'SELECTION_CONTAINS_ANCESTOR_AND_DESCENDANT',model:m};
     }
-    const id=opts.id||uid('block'),xs=selected.map(x=>byId(m,x).x),ys=selected.map(x=>byId(m,x).y);
-    const ports=boundaryPorts(m,selected);
+    const id=opts.id||uid('block'),chosen=selected.map(x=>byId(m,x)),xs=chosen.map(x=>x.x),ys=chosen.map(x=>x.y);
+    const minX=Math.min(...xs),minY=Math.min(...ys),maxX=Math.max(...chosen.map(n=>n.x+(n.w||170))),maxY=Math.max(...chosen.map(n=>n.y+(n.h||96)));
+    const pad=Number(opts.pad??24),ports=boundaryPorts(m,selected);
     const composite={
-      id,label:opts.label||'COMPOSITE',kind:'composite',parent:parents[0],x:opts.x??Math.min(...xs),
-      y:opts.y??Math.min(...ys),w:opts.w||210,h:opts.h||128,ports,collapsed:opts.collapsed!==false,
+      id,label:opts.label||'COMPOSITE',kind:'composite',parent:parents[0],x:opts.x??(minX-pad),
+      y:opts.y??(minY-pad),w:opts.w||Math.max(210,maxX-minX+pad*2),h:opts.h||Math.max(128,maxY-minY+pad*2),ports,collapsed:opts.collapsed!==false,
       operator:{kind:'COMPOSITE'},created_at:new Date().toISOString()
     };
     m.nodes.push(composite);
