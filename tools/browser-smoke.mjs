@@ -92,10 +92,74 @@ function poemMapProbeHtml(){
   setTimeout(()=>probe(),150);
   <\/script></body></html>`;
 }
+
+function fieldActivationProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const result=document.getElementById('probeResult'),f=document.getElementById('f'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    await waitFor(()=>W().FieldLensHost?.focus?.()?.href);
+    W().FieldLensHost.project('STRUCTURE');
+    const row=await waitFor(()=>D().querySelector('.mapRow[data-href]')),href=row.dataset.href;rec.href=href;
+    row.click();await waitFor(()=>W().FieldLensHost?.focus?.()?.href===href&&W().location.pathname==='/');
+    rec.focused=W().FieldLensHost.focus().href;rec.focusUrl=W().location.search;
+    const same=await waitFor(()=>D().querySelector('.mapRow[data-href="'+href+'"]'));same.click();
+    await waitFor(()=>W().location.pathname===href);rec.opened=W().location.pathname;
+    W().history.back();
+    await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===href);
+    rec.returned=W().FieldLensHost.focus().href;rec.returnUrl=W().location.search;
+    done(rec.focused===href&&rec.opened===href&&rec.returned===href&&/focus=/.test(rec.returnUrl),rec);
+  })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
+  <\/script></body></html>`;
+}
+function studioProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:1180px;height:820px;border:0;display:block" src="/?focus=%2Ffold-bloom%2Flens%2F"></iframe><pre id="probeResult">PENDING</pre><script>
+  const result=document.getElementById('probeResult'),f=document.getElementById('f'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
+  const compact=x=>({focusHref:x?.focusHref||null,projection:x?.projection||null,mapRoot:x?.mapRoot||null,mapOpen:!!x?.mapOpen});
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    await waitFor(()=>D().getElementById('apLens')&&W().FieldLensHost&&W().FieldLensAPI&&W().LensFocusRing&&W().FieldLensHost.focus?.()?.href==='/fold-bloom/lens/');
+    rec.startHref=W().FieldLensHost.focus()?.href||null;rec.start=compact(W().FieldLensHost.uiState());
+    D().getElementById('apLens').click();
+    const sh=await waitFor(()=>D().getElementById('lens-focus-ring')?.shadowRoot);await waitFor(()=>sh.querySelector('.panel')?.classList.contains('on'));
+    sh.querySelector('.dive')?.click();await waitFor(()=>W().FieldLensHost.uiState()?.mapRoot==='/fold-bloom/');rec.dive=compact(W().FieldLensHost.uiState());
+    sh.querySelector('.rise')?.click();await waitFor(()=>W().FieldLensHost.uiState()?.mapRoot==='/');rec.rise=compact(W().FieldLensHost.uiState());
+    sh.querySelector('.next')?.click();await waitFor(()=>W().FieldLensHost.focus()?.href&&W().FieldLensHost.focus()?.href!==rec.startHref);rec.peerHref=W().FieldLensHost.focus().href;
+    sh.querySelector('.prev')?.click();await waitFor(()=>W().FieldLensHost.focus()?.href===rec.startHref);rec.peerBack=W().FieldLensHost.focus().href;
+    sh.querySelector('.stackBtn')?.click();const apply=await waitFor(()=>sh.querySelector('[data-lens="field-foveate"]'));apply.click();
+    const fieldState=await waitFor(()=>{const x=W().FieldLensAPI.snapshot?.();return x?.lensStack?.some(y=>y.lensId==='field-foveate')?x:null});
+    rec.fieldObject=fieldState.objectId;rec.fieldStack=fieldState.lensStack.map(x=>x.lensId);
+    const studio=sh.querySelector('.studio');if(!studio)throw new Error('studio button missing');studio.click();
+    const studioState=await waitFor(()=>W().location.pathname==='/fold-bloom/lens/'&&W().ScaleLensStateAPI?.snapshot?.());
+    rec.studioObject=studioState.objectId;rec.upstreamStack=(studioState.meta?.upstreamLensStack||[]).map(x=>x.lensId);
+    const ret=await waitFor(()=>{const x=D().getElementById('returnUpstream');return x&&!x.hidden?x:null});rec.returnHref=ret.dataset.href||null;
+    if(rec.studioObject!==rec.startHref||!rec.upstreamStack.includes('field-foveate'))throw new Error('studio identity/provenance mismatch');
+    ret.click();await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===rec.startHref);
+    rec.endHref=W().FieldLensHost.focus().href;rec.end=compact(W().FieldLensHost.uiState());
+    const ok=rec.dive.focusHref===rec.startHref&&rec.dive.mapRoot==='/fold-bloom/'&&rec.rise.focusHref===rec.startHref&&rec.rise.mapRoot==='/'&&rec.peerHref!==rec.startHref&&rec.peerBack===rec.startHref&&rec.fieldObject===rec.startHref&&rec.fieldStack.includes('field-foveate')&&rec.studioObject===rec.startHref&&rec.upstreamStack.includes('field-foveate')&&rec.endHref===rec.startHref;
+    done(!!ok,rec);
+  })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
+  <\/script></body></html>`;
+}
+
 const server=http.createServer((req,res)=>{
   if(String(req.url||'').startsWith('/__smoke/lens-proof')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(lensProbeHtml());return;
+  }
+  if(String(req.url||'').startsWith('/__smoke/field-activation')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(fieldActivationProbeHtml());return;
+  }
+  if(String(req.url||'').startsWith('/__smoke/lens-studio')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(studioProbeHtml());return;
   }
   if(String(req.url||'').startsWith('/__smoke/poem-map')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
@@ -117,7 +181,7 @@ function runChrome(bin,route,options={}){
     ];
     const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});
     let out='',err='';
-    const timer=setTimeout(()=>{p.kill('SIGKILL');reject(new Error('timeout '+route))},15000);
+    const timer=setTimeout(()=>{p.kill('SIGKILL');reject(new Error('timeout '+route))},options.timeout||15000);
     p.stdout.on('data',d=>out+=d);
     p.stderr.on('data',d=>err+=d);
     p.on('error',e=>{clearTimeout(timer);reject(e)});
@@ -199,6 +263,18 @@ const CASES=[
     route:'/__smoke/lens-proof',
     options:{width:430,height:900,budget:9000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"same":true/.test(dom)&&/"proofAfter":true/.test(dom)&&/"overflow":0/.test(dom)
+  },
+  {
+    name:'FIELD activation + re-entry',
+    route:'/__smoke/field-activation',
+    options:{width:1040,height:820,budget:18000,timeout:24000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"focused":"\//.test(dom)&&/"opened":"\//.test(dom)&&/"returned":"\//.test(dom)
+  },
+  {
+    name:'LENS STACK STUDIO RETURN',
+    route:'/__smoke/lens-studio',
+    options:{width:1280,height:900,budget:22000,timeout:28000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"field-foveate"/.test(dom)&&/"studioObject":"\/fold-bloom\/lens\/"/.test(dom)&&/"endHref":"\/fold-bloom\/lens\/"/.test(dom)
   },
   {
     name:'FOLD BLOOM convergence',
