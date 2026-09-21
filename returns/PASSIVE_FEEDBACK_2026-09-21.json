@@ -2,7 +2,7 @@
   "schema": "0xxx0/return/v0.1",
   "id": "PASSIVE-FEEDBACK-2026-09-21",
   "branch": "field/passive-feedback-loop-20260921",
-  "state": "BOUNDED_EXPERIMENT_READY",
+  "state": "MERGED_BASELINE",
   "before": {
     "field": "Projection modes were manually selected; no local preference feedback loop.",
     "port": "Five conceptual routes were presented equally and required an explicit meta-choice.",
@@ -20,7 +20,7 @@
     "index.html inline script parses successfully.",
     "port/index.html inline script parses successfully.",
     "Preference harness: PULSE chosen 2/3 -> candidate PULSE share 0.6667; after 3/4 -> share 0.75.",
-    "All changes isolated on branch; master untouched."
+    "Merged to master through PR #51 as squash commit f056a9019b3eeaa9f2a461b95d1b9a165e3e8b04."
   ],
   "authority": {
     "preference": "VIEW/ROUTING SUGGESTION ONLY",
@@ -34,6 +34,8 @@
     "No HAOS adapter wired yet; only composition placeholder.",
     "No autonomous recursive executor wired by this change."
   ],
-  "revert": "Delete branch or revert its commits; master is unchanged until merge.",
-  "next": "Compare branch to master, then merge only if diff remains bounded and structurally consistent."
+  "revert": "Revert squash commit f056a9019b3eeaa9f2a461b95d1b9a165e3e8b04 to return master to the prior baseline; original experiment branch remains an audit reference.",
+  "next": "Use normally. Let passive evidence accumulate; refine only when ordinary use produces repeated signal or a concrete failure.",
+  "merged_at": "2026-09-21",
+  "merge_commit": "f056a9019b3eeaa9f2a461b95d1b9a165e3e8b04"
 }
