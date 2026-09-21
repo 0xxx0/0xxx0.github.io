@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "title": "AXIAL / FOCUS STACK",
-  "version": "0.7",
+  "version": "0.7.1",
   "state": "ACTIVE",
   "updated": "2026-09-21",
   "route": "/foundry/axial/",
@@ -16,7 +16,10 @@
     "dead-alignment visibility without auto-correction",
     "tap result → rings explain identity",
     "shareable deep focus URL",
-    "OPEN / COPY / BACK / RETURN"
+    "OPEN / COPY / BACK / RETURN",
+    "moving per-ring position witness + fixed 12-o'clock gate",
+    "ordinal position readout",
+    "shared focus-core support/position math"
   ],
   "evidence": [
     "FIELD adapter reads the actual showcase manifest",
@@ -30,7 +33,11 @@
     "FIELD INDEX embedded AXIAL / LATEST can EXPAND the selected route into the full Focus Stack",
     "BACK and RETURN remain distinct",
     "AXIAL 0.5.1 transaction/projection lab remains preserved at /foundry/axial/lab-0.5.1.html",
-    "/foundry/axial/aperture.contract.json"
+    "/foundry/axial/aperture.contract.json",
+    "observed-use correction: current dial position was reported as insufficiently legible",
+    "moving position witness is distinct from fixed focus gate",
+    "FIELD AXIAL/LATEST and full AXIAL share /foundry/axial/focus-core.js for support/position law",
+    "/foundry/axial/research.json grounds current interaction rules in recovered donors + external human-factors evidence"
   ],
   "promotion_gate": "The AXIAL instrument is ACTIVE for ordinary orientation/re-entry. Its comparative usability and physical-embodiment claims remain unresolved under the existing evolution.evidence_gate; failure of those claims does not invalidate the working orientation utility.",
   "lineage_exact": [
@@ -49,9 +56,9 @@
   "research_question": "Does visible support for every possible ring move let a person traverse unequal vocabularies with fewer dead ends and lower reorientation cost while preserving exact source identity?",
   "known_gap": "Support counts are exact over the loaded public source, but there is still no comparative usability result. HOUSE remains a public-safe static model, not live actuation. Physical embodiment remains unvalidated and optional.",
   "current_classification": {
-    "reviewed_at": "2026-09-21T16:04:00+08:00",
-    "state": "ACTIVE",
-    "basis": "0.7 is already a functioning source-backed orientation instrument used by FIELD INDEX. Outstanding comparative/physical questions belong to the embedded experiment, not the route lifecycle.",
+    "reviewed_at": "2026-09-21T16:12:00+08:00",
+    "state": "PROOF_REQUIRED",
+    "basis": "0.7.1 is an observed-use/human-factors correction: explicit dial position, active-ring witness, centralized focus math, and a bounded research note; no proof-state promotion.",
     "receipt": "/foundry/axial/release.json"
   }
 }
