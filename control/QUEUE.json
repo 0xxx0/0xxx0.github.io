@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/execution-queue/v0.1",
   "updated": "2026-09-22",
-  "max_live": 3,
+  "max_live": 2,
   "live": [
     {
       "id": "conversion",
@@ -16,43 +16,16 @@
       "receipt": "/control/confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md"
     },
     {
-      "id": "recover-repo",
-      "goal": "Maintain exact recovered lineages, pursue only source-grounded blocked recovery, and stop solved families from reopening.",
-      "horizon": "MAINTENANCE / REOPEN ONLY ON LIVE BLOCKER",
+      "id": "recovery-ingest",
+      "front_id": "recovery-ingest",
+      "goal": "Maintain recoverability and reversible ingest without occupying NOW unless exact source work unlocks an active conversion.",
+      "horizon": "ACTIVE_MAINTENANCE",
       "next": [
-        "App Atlas JSON + runnable HTML are now durable under /recovery/toolbelt/ with repo SHA-256 and semantic cross-checks; original File Library text byte equality remains unproven. The exact `The sleeper engine: a transformative journey.png` raw binary is the remaining Toolbelt gate: materialize without re-encoding, hash, then seal.",
-        "City v0.2 source and later Painting runtime are recovered. Earlier Library painting-path.html remains a distinct variant; reopen only for a named version comparison, not presumed loss.",
-        "Do not reopen Grid Path V4 or Fold Weave recovery unless a concrete missing function is identified.",
-        "Laconic exact-source pass (2026-09-22) reverified the 5–6 internal-voice request but did not recover its direct message node/output set or first `5 selves chatter` turn. Reopen only on direct source output/adoption evidence; do not substitute later Council casts or unrelated multi-persona scenes.",
-        "Complete ENV-0 PDF byte-copy/hash verification when exact PDF bytes are materializable to the repo writer.",
-        "Continue Game-of-Names only from isolated runnable/source artifacts; visual/name doctrine evidence alone does not establish a game."
+        "Toolbelt text sources are durable; exact transformative-journey PNG raw bytes remain blocked and parked until a byte-capable handoff exists.",
+        "Run local one-family ingest only where verified private reports/provenance are accessible; never infer family identity from filenames alone.",
+        "Use MEDIA REFINERY automation on bounded real source batches when it directly feeds a selected finished work or active recovery."
       ],
-      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
-      "front_id": "repo-convergence"
-    },
-    {
-      "id": "ingest-files-media",
-      "goal": "Create one reversible local ingest layer for Downloads/Library/media that labels and deduplicates before moving anything.",
-      "horizon": "MAINTENANCE / LOCAL EXECUTION WHEN SOURCE REPORTS ACCESSIBLE",
-      "next": [
-        "Local Documents dry-run completed: 559 files, 557 byte objects, two duplicate groups. Next review one exact app/design family using original-name/hash provenance; no automatic moves.",
-        "Review REVIEW_CONFLICT records; never resolve them by rule order alone.",
-        "Promote a filesystem move/rename rule only after a real dry-run demonstrates inverse/recovery behavior."
-      ],
-      "receipt": "/control/INGEST_FAMILY_REVIEW_2026-09-22.json",
-      "front_id": "ingest-files-media"
-    },
-    {
-      "id": "human-port-use",
-      "front_id": "human-port-use",
-      "goal": "Preserve ordinary-use evidence if it naturally occurs; do not manufacture a HUMAN PORT test campaign.",
-      "horizon": "WAITING_ON_ORDINARY_USE / NOT ACTIVE",
-      "next": [
-        "Use FIELD and HUMAN PORT normally. Across natural opportunities, cover one generated image, one authored text/JSON file and one opaque authored file.",
-        "PR #111 is a closed observation-harness donor, not a failed product patch. Do not recreate dedicated specimen smoke under virtual-time CI.",
-        "Promote a HUMAN PORT change only from a concrete ordinary-use failure/override/RETURN or an independently reproduced product defect."
-      ],
-      "receipt": "/returns/HARD_ADVANCE_2026-09-22.json"
+      "receipt": "/control/confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md"
     }
   ],
   "held": [
