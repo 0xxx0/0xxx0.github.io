@@ -2,10 +2,11 @@ import {ListenRenderer} from './render.js';
 import {SCOPES,frameAt,beatIndexAt,sectionIndexAt} from './audio-map.js';
 import {pointAngle01} from './polar-control.js';
 import {parseSunoId,classifySourceAddress,resolveSourceAddress,fetchRemoteAudio} from './source-adapters.js';
+import {buildPreviewMap} from './preview-map.js';
 
 const $=s=>document.querySelector(s);
 const gl=$('#field'),overlay=$('#overlay'),audio=$('#audio'),drop=$('#drop');
-let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,raf=0;
+let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0;
 
 function toast(t){const e=$('#toast');if(!e)return;e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on')}
 function status(t){const e=$('#status');if(e)e.textContent=t}
@@ -39,10 +40,10 @@ function ensureRenderer(){
   return renderer;
 }
 function onWorkerMessage(e){
-  if(e.data.type==='progress'){status(`ANALYZING ${Math.round(e.data.progress*100)}%`);return}
-  if(e.data.type==='error'){status('ANALYSIS ERROR');drop.classList.remove('busy');toast('ANALYSIS ERROR');return}
+  if(e.data.type==='progress'){status(`REFINING ${Math.round(e.data.progress*100)}%`);return}
+  if(e.data.type==='error'){status(map?.stage==='PREVIEW'?'PREVIEW READY · ANALYZER ERROR':'ANALYSIS ERROR');drop.classList.remove('busy');toast(map?'PREVIEW KEPT':'ANALYSIS ERROR');return}
   if(e.data.type==='result'){
-    map=e.data.map;map.source=fileMeta;status('READY');drop.classList.remove('busy');drop.classList.add('loaded');
+    map=e.data.map;map.source=fileMeta;map.stage='DEEP';deepBuilds++;status('READY · DEEP MAP');drop.classList.remove('busy');drop.classList.add('loaded');
     $('#bpm').textContent=`${map.bpm.toFixed(1)} BPM`;$('#confidence').textContent=`${Math.round(map.tempoConfidence*100)}% TEMPO CONF`;
     $('#beats').textContent=`${map.beats.length} BEATS`;$('#sections').textContent=`${Math.max(0,map.sections.length-1)} SECTIONS`;
     $('#transport').disabled=false;$('#export').disabled=false;toast('MAP READY');
@@ -53,14 +54,14 @@ function ensureWorker(){
   try{
     worker=new Worker('./analysis-worker.js',{type:'module'});
     worker.onmessage=onWorkerMessage;
-    worker.onerror=error=>{console.warn('LISTEN worker error',error);status('ANALYZER ERROR · RELOAD OR TRY ANOTHER FILE');drop.classList.remove('busy')};
+    worker.onerror=error=>{console.warn('LISTEN worker error',error);status(map?.stage==='PREVIEW'?'PREVIEW READY · ANALYZER ERROR':'ANALYZER ERROR · RELOAD OR TRY ANOTHER FILE');drop.classList.remove('busy')};
     return worker;
   }catch(error){
     console.warn('LISTEN worker boot failed',error);status('ANALYZER UNAVAILABLE · FILE PICKER STILL WORKS');drop.classList.remove('busy');throw error;
   }
 }
 async function hashBuffer(buf){const h=await crypto.subtle.digest('SHA-256',buf);return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('')}
-function mixdown(buffer,targetRate=22050){
+function mixdown(buffer,targetRate=12000){
   const ratio=buffer.sampleRate/Math.min(buffer.sampleRate,targetRate),len=Math.max(1,Math.floor(buffer.length/ratio)),out=new Float32Array(len);
   const channels=Array.from({length:buffer.numberOfChannels},(_,i)=>buffer.getChannelData(i));
   for(let i=0;i<len;i++){const pos=i*ratio,j=Math.floor(pos),a=pos-j;let v=0;for(const c of channels){const x=c[j]||0,y=c[Math.min(c.length-1,j+1)]||x;v+=x+(y-x)*a}out[i]=v/channels.length}
@@ -81,7 +82,16 @@ async function analyzeBytes(bytes,playbackBlob,meta){
     $('#track').textContent=fileMeta.name;
     const lyricNote=fileMeta.lyrics?' · LYRICS FOUND / UNALIGNED':'',tagNote=fileMeta.tags?` · ${String(fileMeta.tags).slice(0,42)}`:'';
     $('#meta').textContent=`${fmt(decoded.duration)} · ${(fileMeta.size/1048576).toFixed(1)} MB · ${sourceLabel(fileMeta)}${lyricNote}${tagNote}`;
-    status('ANALYZING');
+
+    map=buildPreviewMap(pcm,sampleRate,decoded.duration);map.source=fileMeta;previewBuilds++;
+    drop.classList.remove('busy');drop.classList.add('loaded');
+    $('#bpm').textContent='… BPM';$('#confidence').textContent='PREVIEW';
+    $('#beats').textContent='… BEATS';$('#sections').textContent='1 SPAN';
+    $('#transport').disabled=false;$('#export').disabled=false;
+    status(decoded.duration>1200?'LONGFORM PREVIEW · DEEP MAP DEFERRED':'PREVIEW READY · REFINING');
+    toast('PREVIEW READY');
+
+    if(decoded.duration>1200)return;
     ensureWorker().postMessage({type:'analyze',pcm:pcm.buffer,sampleRate,duration:decoded.duration},[pcm.buffer]);
   }finally{await ctx.close().catch(()=>{})}
 }
@@ -125,13 +135,13 @@ addEventListener('keydown',e=>{
 });
 function loop(){
   const time=audio.currentTime||0,f=frameAt(map,time)||{e:.18,c:.4,f:.05,l:.3,m:.4,h:.3},bi=beatIndexAt(map,time),si=sectionIndexAt(map,time),r=ensureRenderer();
-  if(map&&bi>=0)r.markBeat(bi);r.draw(map,f,time,scopeIndex,!audio.paused);
-  $('#time').textContent=`${fmt(time)} / ${fmt(map?.duration||0)}`;$('#energy').textContent=`E ${Math.round((f.e||0)*100)}`;$('#flux').textContent=`Δ ${Math.round((f.f||0)*100)}`;$('#bright').textContent=`C ${Math.round((f.c||0)*100)}`;$('#where').textContent=map?`BEAT ${Math.max(0,bi)+1} · SECTION ${Math.max(0,si)+1}`:'DROP A TRACK';
+  if(map&&bi>=0)r.markBeat(bi);r.draw(map,f,time,scopeIndex,!audio.paused);if(map)renderedMapFrames++;
+  $('#time').textContent=`${fmt(time)} / ${fmt(map?.duration||0)}`;$('#energy').textContent=`E ${Math.round((f.e||0)*100)}`;$('#flux').textContent=`Δ ${Math.round((f.f||0)*100)}`;$('#bright').textContent=`C ${Math.round((f.c||0)*100)}`;$('#where').textContent=map?.stage==='PREVIEW'?`PREVIEW · ${scope()}`:map?`BEAT ${Math.max(0,bi)+1} · SECTION ${Math.max(0,si)+1}`:'DROP A TRACK';
   raf=requestAnimationFrame(loop);
 }
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else{cancelAnimationFrame(raf);loop()}});
 window.addEventListener('error',e=>{console.warn('LISTEN runtime error',e.error||e.message);if(!map)status('APP DEGRADED · FILE PICKER STILL AVAILABLE')});
 setScope(1,false);
 document.documentElement.dataset.listenBoot='ready';
-window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,renderer:renderer?.fallback?'fallback':'webgl'}),parseSunoId,classifySourceAddress,resolveSourceAddress};
+window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,stage:map?.stage||'EMPTY',previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl'}),parseSunoId,classifySourceAddress,resolveSourceAddress};
 requestAnimationFrame(loop);

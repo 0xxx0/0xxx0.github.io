@@ -29,7 +29,7 @@ function mean(a,start=0,end=a.length){
   let s=0,n=0;for(let i=start;i<end;i++){s+=a[i];n++}return n?s/n:0;
 }
 export function analyzePCM(pcm,sr,duration=pcm.length/sr,progress=()=>{}){
-  const N=2048,H=1024,bins=N>>1,frameCount=Math.max(1,Math.floor((pcm.length-N)/H)+1);
+  const N=1024,H=2048,bins=N>>1,frameCount=Math.max(1,Math.floor((pcm.length-N)/H)+1);
   const re=new Float32Array(N),im=new Float32Array(N),prev=new Float32Array(bins);
   const win=new Float32Array(N);for(let i=0;i<N;i++)win[i]=.5-.5*Math.cos(TAU*i/(N-1));
   const energy=new Float32Array(frameCount),centroid=new Float32Array(frameCount),flux=new Float32Array(frameCount),low=new Float32Array(frameCount),mid=new Float32Array(frameCount),high=new Float32Array(frameCount);
@@ -87,5 +87,5 @@ export function analyzePCM(pcm,sr,duration=pcm.length/sr,progress=()=>{}){
   }
   sections.push({t:duration,score:0});
   progress(1);
-  return {version:'fold-bloom-audio-map/v0.1',duration,sampleRate:sr,hop:H,window:N,bpm:+bpm.toFixed(2),tempoConfidence:+confidence.toFixed(3),frames,beats,sections};
+  return {version:'fold-bloom-audio-map/v0.2',stage:'DEEP',preview:false,analysisProfile:'song-fast',duration,sampleRate:sr,hop:H,window:N,bpm:+bpm.toFixed(2),tempoConfidence:+confidence.toFixed(3),frames,beats,sections};
 }

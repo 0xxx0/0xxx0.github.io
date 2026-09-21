@@ -33,6 +33,10 @@ jobs:
         run: node tools/validate-public.mjs
       - name: Validate Triangle FORM rewrite core
         run: node tools/triangle-form-selftest.mjs
+      - name: Test LISTEN audio end-to-end
+        env:
+          SMOKE_ONLY: FOLD BLOOM LISTEN audio end-to-end
+        run: node tools/browser-smoke.mjs
       - name: Run critical browser smoke
         run: node tools/browser-smoke.mjs
       - name: Validate recovered source identities and media catalogue
