@@ -148,15 +148,17 @@ function style(){
 .traceGates{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);margin-top:6px}.traceGate{background:#0b1012;padding:5px}.traceGate b{font-size:6px;display:block}.traceGate span{font-size:7px}.traceEvents{margin-top:6px;border-top:1px solid var(--line);max-height:220px;overflow:auto}.traceEvent{display:grid;grid-template-columns:28px 132px 72px minmax(0,1fr);gap:5px;padding:4px 2px;border-bottom:1px solid #1d2529;font-size:6px}.traceEvent .typ{color:var(--cool)}.traceEvent .stage{color:var(--mut)}.traceEvent .gate{color:var(--gold)}
 @media(max-width:760px){#tracePanel{grid-template-columns:1fr}.traceFields{grid-template-columns:1fr 1fr}.traceSummary{grid-template-columns:92px 1fr}.traceGates{grid-template-columns:repeat(4,1fr)}.traceEvent{grid-template-columns:25px 112px 58px minmax(0,1fr)}}`;document.head.appendChild(el);
 }
-let currentTrace=null;
+let currentTrace=null,currentTraceFocusHref=null;
 function render(trace){
   currentTrace=trace;
+  currentTraceFocusHref=trace._fi?.focus?.href||null;
   const reports={structural:profile(trace,'structural'),replay:profile(trace,'replay'),sealed:profile(trace,'sealed')};
   $('traceMeta').textContent=(trace._fi?.focus?.title||'FIELD')+' · '+trace.events.length+' events · raw input not retained';
   $('traceGlyph').innerHTML=renderGlyph(trace);
   $('traceProfiles').innerHTML=Object.entries(reports).map(([k,r])=>'<div class="traceProfile '+r.status.toLowerCase()+'"><b>'+esc(k.toUpperCase())+' · '+esc(r.status)+'</b><span>'+r.summary.pass+' pass · '+r.summary.fail+' fail · '+r.summary.indeterminate+' ind</span></div>').join('');
   $('traceGates').innerHTML=GATES.map(g=>'<div class="traceGate"><b>'+g.toUpperCase()+'</b><span>'+esc(trace.gate_results[g].decision)+'</span></div>').join('');
   $('traceEvents').innerHTML=trace.events.map(e=>'<div class="traceEvent"><span>'+String(e.seq).padStart(2,'0')+'</span><span class="typ">'+esc(e.type)+'</span><span class="stage">'+esc(e.stage)+'</span><span class="gate">'+esc(e.gate||e.policy_id||'—')+'</span></div>').join('');
+  $('traceCommit').disabled=false;$('traceExport').disabled=false;
 }
 function ledger(){try{return JSON.parse(localStorage.getItem('field.policy.trace.ledger.v01')||'[]')}catch(_){return []}}
 function ledgerState(){const n=ledger().length;$('traceLedger').textContent=n+' local trace'+(n===1?'':'s')}
@@ -195,9 +197,24 @@ function mount(){
     <div class="traceFocus" id="traceFocus">focus → —</div>
     <div class="traceButtons"><button class="run" id="traceRun">RUN TRACE</button><button id="traceCommit">COMMIT TRACE</button><button id="traceExport">EXPORT</button><a href="./router-bench/">ROUTER BENCH</a><span class="traceFocus" id="traceLedger">0 local traces</span></div>
   </div><div class="traceOut"><div class="traceSummary"><div id="traceGlyph"></div><div id="traceProfiles" class="traceProfiles"></div></div><div id="traceGates" class="traceGates"></div><div id="traceEvents" class="traceEvents"></div></div>`;
-  const syncFocus=()=>{const f=focusResource();$('traceFocus').textContent='focus → '+(f?(f.title+' · '+f.href):'none')};
+  const syncFocus=()=>{
+    const f=focusResource(),href=f?.href||null;
+    $('traceFocus').textContent='focus → '+(f?(f.title+' · '+f.href):'none');
+    const stale=!!currentTrace&&currentTraceFocusHref!==href;
+    $('traceCommit').disabled=stale||!currentTrace;
+    $('traceExport').disabled=!currentTrace;
+    if(stale){
+      $('traceMeta').textContent='STALE BINDING · trace '+(currentTraceFocusHref||'FIELD')+' ≠ current '+(href||'FIELD')+' · RUN TRACE';
+      $('traceMeta').style.color='var(--gold)';
+    }else if(currentTrace){
+      $('traceMeta').textContent=(currentTrace._fi?.focus?.title||'FIELD')+' · '+currentTrace.events.length+' events · bound to current focus';
+      $('traceMeta').style.color='';
+    }
+  };
   $('traceRun').onclick=run;$('traceCommit').onclick=commit;$('traceExport').onclick=exportTrace;
   $('traceFold').addEventListener('toggle',()=>{if($('traceFold').open){syncFocus();if(!currentTrace)run()}});
-  window.addEventListener('field-index:state',syncFocus);ledgerState();syncFocus();
+  window.addEventListener('field-index:state',syncFocus);
+  window.addEventListener('field-trace:open',()=>{syncFocus();if(!currentTrace||currentTraceFocusHref!==(focusResource()?.href||null))run()});
+  ledgerState();syncFocus();
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',mount); else mount();
