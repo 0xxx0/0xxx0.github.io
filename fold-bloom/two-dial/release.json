@@ -3,7 +3,7 @@
   "surface": "TWO DIAL",
   "version": "0.10",
   "route": "/fold-bloom/two-dial/",
-  "state": "ACTIVE_CANDIDATE",
+  "state": "ACTIVE_CANDIDATE_SHIPPED",
   "operation": "PLAY",
   "released": "2026-09-21",
   "thesis": "HOLD FAST / LET FLY: preserve the small MATTER × HARMONY relation algebra; widen the music field by separating WORLD × VOICE × GROOVE × SCALE OF CONSEQUENCE.",
@@ -31,13 +31,16 @@
   ],
   "representative_interaction": "ENTER FIELD → SOUND choose WORLD/VOICE/GROOVE → PLAY choose SCALE → choose PULSE/VOICE/MOTIF/FORM → manipulate MATTER/HARMONY → compare consequences → EXPORT RETURN",
   "validation": {
-    "javascript_syntax": "PENDING_CI",
-    "browser_controls": "PENDING_CI: generated TRANCE / FM / POLY controls must materialize",
-    "static_surface_contracts": "PENDING_CI",
+    "javascript_syntax": "PASS_BY_BROWSER_RUNTIME: all Two Dial scripts executed without browser-fatal syntax/reference errors",
+    "browser_controls": "PASS: CI run 35607729608 materialized TRANCE / FM / POLY generated controls",
+    "static_surface_contracts": "PASS: CI run 35607729608",
     "direct_audio_play": "REQUIRED_NEXT: human A/B on desktop/headphones",
-    "performance_gate": "10-minute play must not reveal audio crackle, runaway scheduler, excessive BELL polyphony or control/menu friction"
+    "performance_gate": "10-minute play must not reveal audio crackle, runaway scheduler, excessive BELL polyphony or control/menu friction",
+    "repo_browser_smoke": "PASS_ON_RERUN: CI run 35607729608",
+    "merge_sha": "4d33e820ec0e7c98c3b5abfb46cbcd3f33467b21"
   },
   "known_gap": "Instrument-quality judgment requires direct listening. Do not add more voice/groove families until A/B play identifies a concrete missing behavior.",
   "confluence": "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
-  "return": "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json"
+  "return": "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
+  "updated": "2026-09-21"
 }
