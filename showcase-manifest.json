@@ -16,11 +16,12 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-22T00:42:00+08:00",
+        "updated_at": "2026-09-22T02:41:00+08:00",
         "work_modes": [
+          "RESEARCH",
+          "SPECIFY",
           "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
+          "VERIFY"
         ]
       },
       "role": "Fast repo re-entry around one focused manifest route, with NOW / RECOVER / TRANSFER separated from projection machinery; TRACE / VERIFY now binds a local policy-resolution proof to the same focused route without turning tags, focus, or reference policies into authority.",
