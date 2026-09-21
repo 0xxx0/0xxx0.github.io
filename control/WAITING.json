@@ -1,0 +1,49 @@
+{
+  "schema": "0xxx0/waiting/v0.1",
+  "updated": "2026-09-22T02:41:00+08:00",
+  "purpose": "Compact public-safe projection of work whose next lawful move depends on human observation, choice, permission, private input, or physical action. This is not the machine execution queue.",
+  "laws": [
+    "WAITING != QUEUE.",
+    "WAITING != PRIORITY.",
+    "An item belongs here only when the next meaningful move cannot be lawfully completed from current machine/public evidence alone.",
+    "Each item names one smallest human move and the machine move it unlocks.",
+    "Sensitive/private content is never stored here; keep only a public-safe dependency description.",
+    "Ordinary use may satisfy a waiting item; no dedicated QA ritual is required unless the evidence gate specifically needs one.",
+    "When evidence arrives, close or transform the item rather than letting it become permanent backlog."
+  ],
+  "items": [
+    {
+      "id": "body-health-connect-permission",
+      "route": "/body/fit/",
+      "state": "WAITING_ON_HUMAN",
+      "human_move": "When ready, authorize/test Health Connect on the Android phone and expose one tiny proof stream: sleep + heart rate.",
+      "why": "The public repo cannot prove device permissions, source availability, or phone-side data.",
+      "unlocks": "Map Health Connect records into the existing 0xxx0/body-sensor-observation/v0.1 envelope without creating a new health store.",
+      "privacy": "No raw personal health data is committed to the public repo."
+    },
+    {
+      "id": "body-calibration-first-campaign",
+      "route": "/body/",
+      "state": "WAITING_ON_ORDINARY_USE",
+      "human_move": "Use BODY NOW/RETURN naturally while a bounded sleep/training question accumulates enough real observations.",
+      "why": "Calibration and intervention effects require actual within-person returns; synthetic data would only test plumbing.",
+      "unlocks": "Run one bounded comparison, decide KEEP / DROP / UNKNOWN, then FADE monitoring when additional observation has low value."
+    },
+    {
+      "id": "body-fit-return-proof",
+      "route": "/body/fit/",
+      "state": "WAITING_ON_ORDINARY_USE",
+      "human_move": "Run the same saved BODY / FIT kit twice and leave RETURN + NEXT CUT after each run.",
+      "why": "BODY / FIT 0.3 already names this as its ordinary-use proof gate.",
+      "unlocks": "Judge whether PATINA / NEXT CUT materially improves the second preparation; transfer, revise, or remove accordingly."
+    },
+    {
+      "id": "exposure-private-list",
+      "route": "/care/",
+      "state": "WAITING_ON_PRIVATE_INPUT",
+      "human_move": "Only when useful, provide the actual medication / supplement / caffeine list inside a private session.",
+      "why": "A personalized interaction/timing review cannot be safely reconstructed from guesses, and the public repo should not contain the list.",
+      "unlocks": "Normalize identities and run source-backed interaction / duplicate-ingredient / timing review while preserving prescription authority outside the inference engine."
+    }
+  ]
+}
