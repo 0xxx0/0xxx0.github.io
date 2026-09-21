@@ -1,34 +1,47 @@
-# ONE RETURN AUTHORITY CORRECTION — 2026-09-21
+# ONE RETURN AUTHORITY — repaired 2026-09-22
 
-The prior note promoted the wrong artifact.
+## Canonical Sleeper head
 
-## Actual target
+**SLEEPER // ONE RETURN v2 / City Engine v0.2 source lineage** is the repository authority.
 
-**SLEEPER // ONE RETURN v2** — polished Work-mode build, historically deployed at `sleeper-one-return.metaname.chatgpt.site/one-return`.
+Exact recovered source:
+- `/recovery/sleeper/site-source-2026-09-18/`
+- Sites Git bundle commit `50f886c829dcee98b043c55ef9de0c631fd31987`
+- causal core history commit `a9c00285df143f3c2054b2167e86ee2f6db2ae1f` (2026-09-10)
 
-Recovered discriminators:
+Recovered contract:
 
-`PHRASE + CELL + FIGURE → deterministic world`
+`PHRASE + VERSE CELL + FIGURE → deterministic CITY → eight enacted Gate proofs → RETURN TO ORIGIN → RETURN ARTIFACT V2`
 
-- PHRASE changes topology/passages/Gate coordinates/wall alphabet/world key.
-- CELL changes carried tokens, Gate order, governing law and provenance.
-- FIGURE changes movement/protocol physics / operator bias.
-- Gates are enacted proofs, not merely quiz checkpoints.
-- City/Disc are projections of the same run.
-- Witness JSON + reproducible world links preserve/reload the world.
+### Exact source discriminators
 
-The 2026-09-10 build passed 12 engine tests, phrase/cell/figure compilation, 360 generated-world audits, production build and three rendered-route tests.
+Figures:
+- **URCHIN ✣** — quick movement / faster Keris recovery
+- **SLOTHCAKE ◒** — longer Conch / faster stillness resolution
+- **KITE ◇** — light travel / wider distance band
 
-## Figure boundary
+Operators:
+- **CONCH**
+- **KERIS**
+- **W8**
+- **SPIRAL**
 
-Four figure/Transfer configurations existed. Recovered conversation identifies the operator/configuration set as **Conch / Keris / W8 / Spiral** and states `Q / 1` starts **Conch**, which reveals the first signals. The current accessible evidence does **not** preserve all picker labels, key mappings or per-figure physics well enough to reconstruct them safely.
+World address serialization is recovered as `source`, `cell`, `figure`, `world`.
 
-## URL boundary
+The recovered source/test subset passes 38/38 tests. Prior 2026-09-10 evidence records 12 engine tests, 360 generated-city audits, a production Work build and three rendered-route tests.
 
-`metaname` is part of the historical host name. The game also had reproducible world/deep links. Exact query parameter names/serialization are currently missing; do not invent them.
+## Corrected repository roles
 
-## ASCII reconstruction
+- `/sleeper/` — canonical authority/entry surface for ONE RETURN v2.
+- `/sleeper/ascii-pov-0.8/` — preserved **superseded derivative**; formerly misclassified as current head.
+- `/sleeper/one-return/` — later playable ASCII/Nine-Gate **reconstruction donor**.
+- `/recovery/sleeper/one-return-recon-0.2/` — frozen exact copy of that reconstruction donor.
+- Workfield / Painting / Path / Grid Path remain unequal related organisms.
 
-`/sleeper/one-return/` is the later ASCII/Nine-Gate reconstruction. It preserves some useful mechanics but lacks the defining v2 three-input compiler and figure physics. Its disposition is **DONOR**, not ONE RETURN head.
+## Deployment boundary
 
-Canonical recovery target: `/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json`.
+Historical Work route: `https://sleeper-one-return.metaname.chatgpt.site/one-return`.
+
+This repair does **not** claim that route is currently reachable or that the selective recovered source shelf is a complete deploy package. Repository identity is resolved; current deployment reachability remains open.
+
+Receipt: `/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json`.
