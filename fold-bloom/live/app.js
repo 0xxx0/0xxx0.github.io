@@ -1,4 +1,4 @@
-import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, TYPE_NAMES, N } from './engine.js';
+import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, forecastRelease, forecastMatchesCall, callLabel, TYPE_NAMES, N } from './engine.js';
 import { FoldBloomAudio } from './audio.js';
 import { Renderer } from './render.js';
 import { createFieldPulse } from '../../lib/field-pulse.js';
@@ -17,25 +17,44 @@ function save(){try{localStorage.setItem(STORE,JSON.stringify(snapshot(state)))}
 function load(){try{return restore(JSON.parse(localStorage.getItem(STORE)||'null'))}catch(_){return null}}
 function haptic(ms=5){try{navigator.vibrate?.(ms)}catch(_){}}
 function toast(text){const el=$('#toast');el.textContent=text;el.classList.remove('on');void el.offsetWidth;el.classList.add('on')}
+function timingNow(){
+  if(!linkedTrack?.playing || !Number.isFinite(Number(linkedTrack.beatDistance)))return {timing:'FREE',timingMultiplier:1,label:'FREE'};
+  const d=Math.max(0,Number(linkedTrack.beatDistance));
+  if(d<=.09)return {timing:'PERFECT',timingMultiplier:1.4,label:'PERFECT'};
+  if(d<=.20)return {timing:'GOOD',timingMultiplier:1.18,label:'GOOD'};
+  return {timing:'OPEN',timingMultiplier:1,label:'OPEN'};
+}
+function currentForecast(){return forecastRelease(state)}
+function callHit(f=currentForecast()){return forecastMatchesCall(state.call,f)}
+function releaseLabel(){
+  const f=currentForecast();
+  if(!f)return `SEEK ${TYPE_NAMES[state.targetType]}`;
+  const op=`${f.verb}${f.chain>1?' ×'+f.chain:''}`;
+  return callHit(f)?`${op} · HIT CALL`:`${op} · RELEASE`;
+}
 
 function statusText(){
-  const idx=gateCellIndex(state),c=state.cells[idx],track=linkedTrack?.playing?` · TRACK B${Math.max(0,linkedTrack.beatIndex)+1} E${Math.round((linkedTrack.energy||0)*100)}`:'';
-  return `GATE ${String(idx).padStart(2,'0')} · ${TYPE_NAMES[c.type]} · ${state.creases.length} CREASE${state.creases.length===1?'':'S'} · ${state.blooms} BLOOMS${track}`;
+  const idx=gateCellIndex(state),c=state.cells[idx],f=currentForecast(),track=linkedTrack?.playing?` · TRACK B${Math.max(0,linkedTrack.beatIndex)+1} ${timingNow().label}`:'';
+  const forecast=f?` · HERE ${f.verb}${f.chain>1?'×'+f.chain:''}${callHit(f)?' ✓':''}`:'';
+  return `GATE ${String(idx).padStart(2,'0')} · ${TYPE_NAMES[c.type]} · CALL ${callLabel(state.call)} · ${state.creases.length} CREASE${state.creases.length===1?'':'S'}${forecast}${track}`;
 }
 function update(){
   $('#flow').textContent=state.flow.toLocaleString();
   $('#chain').textContent=state.bestChain>1?state.bestChain+'×':'—';
   $('#target').textContent=TYPE_NAMES[state.targetType];
+  $('#call').textContent=callLabel(state.call);
+  $('#streak').textContent=state.callStreak>1?state.callStreak+'×':'—';
+  $('#timing').textContent=linkedTrack?.playing?timingNow().label:'—';
   $('#mode').textContent=state.mode;
   $('#scene').textContent=state.scene;
   $('#modeBtn').textContent=state.mode;
   $('#sceneBtn').textContent=state.scene;
   $('#releaseBtn').disabled=!canRelease(state);
-  $('#releaseBtn').textContent=canRelease(state)?(state.mode==='RATCHET'?'RELEASE':'BLOOM'):'SEEK MATCH';
+  $('#releaseBtn').textContent=canRelease(state)?releaseLabel():`SEEK ${TYPE_NAMES[state.targetType]}`;
   $('#chargeBar').style.width=`${Math.min(100,state.charge/1.75*100)}%`;
   $('#status').textContent=statusText();
   $('#soundBtn').textContent=audio.soundOn?'♪':'×';
-  $('#build').textContent=`${VERSION} · deterministic topology · bounded 8-note motif · ${state.history.length} recent events`;
+  $('#build').textContent=`${VERSION} · visible forecasts + achievable calls · bounded 8-note motif · ${state.history.length} recent events`;
   renderer.setDrag(dragAngle);
   save();
 }
@@ -57,10 +76,11 @@ function step(dir,count=1){
 async function doRelease(){
   if(!canRelease(state)) return;
   await ensureAudio();
-  const out=release(state); if(!out.event)return;
-  state=out.state; audio.release(out.event); renderer.pulse(out.event); haptic(Math.min(24,7+out.event.chain*3));
-  fieldPulse.publish('operation',{operation:out.event.verb,cadence:out.event.cadence,operations:out.event.operations,slot:out.event.slot,type:out.event.typeName,chain:out.event.chain,charge:out.event.charge,power:out.event.power,scene:out.event.scene,trackTime:linkedTrack?.time??null,trackBeat:linkedTrack?.beatIndex??null});
-  toast(`${out.event.verb}${out.event.chain>1?' ×'+out.event.chain:''}${out.event.cadence?' → '+out.event.cadence:''}`); dragAngle=0; update();
+  const out=release(state,timingNow()); if(!out.event)return;
+  state=out.state; audio.release(out.event); renderer.pulse(out.event); haptic(Math.min(28,7+out.event.chain*3+(out.event.callMet?3:0)));
+  fieldPulse.publish('operation',{operation:out.event.verb,cadence:out.event.cadence,operations:out.event.operations,slot:out.event.slot,type:out.event.typeName,chain:out.event.chain,charge:out.event.charge,power:out.event.power,scene:out.event.scene,call:out.event.call,callMet:out.event.callMet,timing:out.event.timing,flowGain:out.event.flowGain,trackTime:linkedTrack?.time??null,trackBeat:linkedTrack?.beatIndex??null});
+  const timing=out.event.timing&&out.event.timing!=='FREE'?' · '+out.event.timing:'';
+  toast(`${out.event.callMet?'CALL ✓':'OPEN'} · ${out.event.verb}${out.event.chain>1?' ×'+out.event.chain:''}${timing}`); dragAngle=0; update();
 }
 
 function toggleMode(){state=setMode(state,state.mode==='RATCHET'?'FLOW':'RATCHET');toast(state.mode);update()}
@@ -72,7 +92,8 @@ function stopDemo(takeover=false){
 }
 async function demoTick(){
   if(!demo.on)return;
-  if(canRelease(state)){
+  const forecast=currentForecast();
+  if(canRelease(state) && callHit(forecast)){
     await doRelease();demo.releases++;
     if(demo.releases%3===0)cycleScene();
     if(demo.releases>=12){stopDemo(false);toast('DEMO RETURN · YOUR TURN');return}
@@ -138,8 +159,8 @@ fieldPulse.subscribe(msg=>{
   if(msg.source!=='FOLD_BLOOM_LISTEN'||msg.kind!=='transport')return;
   linkedTrack=msg.data||null;
   const beat=Number(linkedTrack?.beatIndex);
-  if(Number.isFinite(beat)&&beat>=0&&beat!==lastLinkedBeat){lastLinkedBeat=beat;renderer.beatPulse(beat)}
-  $('#status').textContent=statusText();
+  if(Number.isFinite(beat)&&beat>=0&&beat!==lastLinkedBeat){lastLinkedBeat=beat;renderer.beatPulse(beat,Number(linkedTrack.energy)||0)}
+  update();
 });
 
 document.addEventListener('visibilitychange',()=>{if(document.hidden){stopDemo(false);audio.stop()}else if(audio.ctx)audio.start()});
