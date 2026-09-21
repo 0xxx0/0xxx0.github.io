@@ -109,14 +109,15 @@
     ],
     "generation_proof_preserved": "/poetry/lab/poem-map/",
     "dom_selector_integrity": "PASS_NO_MISSING_IDS",
-    "current_source_sha": "32907566f4df7e191ed2dd4f8dc747047515e718",
+    "current_source_sha": "3b309115886ef903ba0b6eb41ab29245f769bb26",
     "page_default_and_persisted": "PASS_STATIC",
     "guide_markers": "PASS_STATIC",
     "return_import_replay_contract": "PASS_STATIC",
     "selftest_exposed": "YES_RUNTIME_EXECUTION_PENDING",
     "rendered_browser_smoke": "PENDING_ENVIRONMENT",
     "checked_on": "2026-09-21",
-    "local_corpus_static_contract": "PASS"
+    "local_corpus_static_contract": "PASS",
+    "return_replay_clears_session_corpus": "PASS_STATIC"
   },
   "updated": "2026-09-21",
   "next_bounded_test": {
