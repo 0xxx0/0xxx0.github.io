@@ -73,7 +73,7 @@
     "direct_embodied_play": "REQUIRED_NEXT",
     "pre_merge_runtime_ci_run": 35656338927,
     "final_coordination_ci_run": 35656619303,
-    "final_coordination_ci_note": "Run was still completing after merge; runtime/gameplay code was unchanged from the prior full PASS. Direct embodied phone play remains authoritative."
+    "final_coordination_ci_result": "PASS"
   },
   "changed": [
     "/fold-bloom/live/engine.js",
