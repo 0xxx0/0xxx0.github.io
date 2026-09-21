@@ -457,7 +457,7 @@ function oneReturnGridReceiptProbeHtml(){
 
 
 function humanPortSpecimenProbeHtml(){
-  return \`<!doctype html><html><body style="margin:0"><iframe id="f" style="width:1100px;height:820px;border:0;display:block" src="/port/"></iframe><pre id="probeResult">PENDING</pre><script>
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:1100px;height:820px;border:0;display:block" src="/port/"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
   const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -511,7 +511,7 @@ function humanPortSpecimenProbeHtml(){
     rec.observation={provenancePreserved:[rec.image.provenanceOrigin,rec.json.provenanceOrigin,rec.file.provenanceOrigin].every(Boolean),jsonFocusPreserved:rec.json.focusPreserved};
     done(true,rec);
   })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
-  <\\/script></body></html>\`;
+  <\\/script></body></html>`;
 }
 
 const server=http.createServer((req,res)=>{
