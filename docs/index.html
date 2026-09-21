@@ -38,8 +38,8 @@ function writeAperture(snap){
  snap.address?q.set('ap_addr',snap.address):q.delete('ap_addr');if(Number.isFinite(+snap.char_index))q.set('ap_char',String(Math.round(+snap.char_index)));else q.delete('ap_char');q.set('ap_wpm',String(Number.isFinite(+snap.wpm)?snap.wpm:300));history.replaceState(null,'','?'+q.toString()+location.hash)
 }
 function syncAperture(snap){
- if(!snap)return;apSyncPending=snap;
- if(!snap.playing){if(apSyncTimer){clearTimeout(apSyncTimer);apSyncTimer=null}const x=apSyncPending;apSyncPending=null;writeAperture(x);return}
+ if(!snap)return;renderReading(snap);apSyncPending=snap;
+ if(!snap.playing&&!snap.speaking){if(apSyncTimer){clearTimeout(apSyncTimer);apSyncTimer=null}const x=apSyncPending;apSyncPending=null;writeAperture(x);return}
  if(apSyncTimer)return;apSyncTimer=setTimeout(()=>{apSyncTimer=null;const x=apSyncPending;apSyncPending=null;if(x)writeAperture(x)},250)
 }
 function sameOrigin(value){
@@ -53,10 +53,66 @@ function returnUrl(value){
 }
 function sourceLabel(u){const p=u.pathname.split('/').filter(Boolean);return decodeURIComponent(p.at(-1)||u.pathname||'DOCUMENT')}
 function syncAddress(u,label){
- const q=new URLSearchParams(location.search),src=u.pathname+u.search;q.set('src',src);
+ const q=new URLSearchParams(location.search),src=u.pathname+u.search;q.set('src',src);q.delete('paste');
  const ret=returnUrl(q.get('return'));if(!ret)q.delete('return');
  history.replaceState(null,'','?'+q.toString()+'#'+slug(label));P.value=src;
 }
+
+function validSnapSpan(snap){
+ const span=snap?.span;if(!span||!Number.isFinite(+span.start)||!Number.isFinite(+span.end))return null;
+ let a=clampNumber(+span.start,0,Math.max(0,activeRaw.length)),b=clampNumber(+span.end,a,Math.max(a,activeRaw.length));
+ if(b-a>800){a=clampNumber(Number(snap.char_index)||a,0,Math.max(0,activeRaw.length-1));b=Math.min(activeRaw.length,a+1)}
+ return{start:a,end:b}
+}
+function clampNumber(x,a,b){return Math.max(a,Math.min(b,x))}
+function renderReading(snap){
+ if(!snap)return;
+ const bits=[];const strong=document.createElement('b');strong.textContent='FOCUS '+(snap.scale_label||snap.scale||'—');bits.push(strong);
+ const sec=document.createElement('span');sec.textContent=snap.section?.label||'WHOLE SOURCE';bits.push(sec);
+ const pos=document.createElement('span');pos.textContent=Math.round((Number(snap.source_progress)||0)*100)+'% · '+(snap.address||'—');bits.push(pos);M.replaceChildren(...bits);
+ V.replaceChildren();
+ if(snap.kind==='TEXT'&&activeRaw){
+   const span=validSnapSpan(snap)||{start:clampNumber(Number(snap.char_index)||0,0,Math.max(0,activeRaw.length-1)),end:clampNumber((Number(snap.char_index)||0)+1,1,activeRaw.length)};
+   const from=Math.max(0,span.start-900),to=Math.min(activeRaw.length,Math.max(span.end+900,from+1800));
+   const pre=document.createElement('span'),mark=document.createElement('mark'),post=document.createElement('span');
+   pre.textContent=(from?'… ':'')+activeRaw.slice(from,span.start);mark.textContent=activeRaw.slice(span.start,Math.max(span.start+1,span.end))||'·';post.textContent=activeRaw.slice(Math.max(span.start+1,span.end),to)+(to<activeRaw.length?' …':'');
+   V.append(pre,mark,post);mark.scrollIntoView?.({block:'center',inline:'nearest'});
+ }else{
+   const pre=document.createElement('pre');pre.style.margin='0';pre.style.whiteSpace='pre-wrap';pre.textContent=snap.focus||'(empty)';V.append(pre)
+ }
+ renderXrefs(snap)
+}
+function docsReaderHref(u){
+ const ret=returnUrl(new URLSearchParams(location.search).get('return'));const q=new URLSearchParams();q.set('src',u.pathname+u.search);if(ret)q.set('return',ret);return '/docs/?'+q.toString()
+}
+function renderXrefs(snap){
+ X.replaceChildren();
+ if(activeUrl){const a=document.createElement('a');a.className='source';a.href=activeUrl.pathname+activeUrl.search;a.target='_blank';a.rel='noopener';a.textContent='SOURCE · '+sourceLabel(activeUrl);X.append(a)}
+ else{const s=document.createElement('span');s.className='hint';s.textContent='PASTE · SESSION SOURCE';X.append(s)}
+ for(const ref of snap?.xrefs||[]){
+   try{
+     const base=activeUrl||location.href,u=new URL(String(ref.href||''),base),a=document.createElement('a'),media=/\.(?:png|jpe?g|gif|webp|svg|mp3|wav|m4a|mp4|webm|pdf)$/i.test(u.pathname);
+     a.textContent=(media?'MEDIA · ':ref.kind==='MARKDOWN'?'REF · ':'XREF · ')+(ref.label||sourceLabel(u));
+     if(media)a.className='media';
+     if(u.origin===location.origin&&TEXT_EXT.test(u.pathname)){a.href=docsReaderHref(u)}
+     else{a.href=u.href;a.target='_blank';a.rel='noopener'}
+     X.append(a)
+   }catch(_){}
+ }
+}
+function apertureOptions(label,value){
+ const opt={label};if(typeof value==='string')opt.scale='PHRASE';
+ if(firstLoad){for(const [k,v] of Object.entries(initialAperture))if(v!==undefined)opt[k]=v}
+ return opt
+}
+function openPaste(text=PT.value){
+ const s=String(text||'').trim();if(!s)return;
+ activeRaw=s;activeUrl=null;activeLabel='PASTE';H.textContent='PASTE / SESSION';R.hidden=true;T.textContent=s;P.value='';document.querySelectorAll('.doc').forEach(b=>b.classList.remove('on'));
+ try{sessionStorage.setItem('docs.reader.paste.v1',s)}catch(_){}
+ const q=new URLSearchParams(location.search);q.delete('src');q.set('paste','1');history.replaceState(null,'','?'+q.toString()+'#paste');
+ const opt=apertureOptions('PASTE',s);firstLoad=false;A.load(s,opt)
+}
+
 docs.forEach(([n,u,d])=>{const b=document.createElement('button');b.className='doc';b.dataset.slug=slug(n);b.innerHTML='<b>'+n+'</b><span>'+d+'</span>';b.onclick=()=>openSource(n,u);L.append(b)});
 async function openSource(n,value){
  const u=sourceUrl(value);if(!u){T.textContent='Unavailable: source must be a same-origin text-like repo file.';return}
@@ -64,15 +120,16 @@ async function openSource(n,value){
  try{
    const r=await fetch(u.pathname+u.search,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);
    const s=await r.text();let value=s,out=s;if(/\.json$/i.test(u.pathname)){try{value=JSON.parse(s);out=JSON.stringify(value,null,2)}catch(_){}}
-   T.textContent=out;const opt=firstLoad?{label:n,...initialAperture}:{label:n};firstLoad=false;A.load(value,opt);syncAddress(u,n);
+   activeRaw=out;activeUrl=u;activeLabel=n;T.textContent=out;const opt=apertureOptions(n,value);firstLoad=false;A.load(value,opt);syncAddress(u,n);
  }catch(e){T.textContent='Unavailable: '+e.message}
 }
 function openTyped(){const u=sourceUrl(P.value);if(!u){T.textContent='Unavailable: use a same-origin text-like path such as /control/CURRENT.json';return}openSource(sourceLabel(u),u.pathname+u.search)}
 A.addEventListener('aperture-focus',e=>syncAperture(e.detail));
-O.onclick=openTyped;P.addEventListener('keydown',e=>{if(e.key==='Enter')openTyped()});
+O.onclick=openTyped;P.addEventListener('keydown',e=>{if(e.key==='Enter')openTyped()});PB.onclick=()=>openPaste();PT.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='Enter')openPaste()});
 C.onclick=async()=>{const old=C.textContent;try{await navigator.clipboard.writeText(location.href);C.textContent='COPIED'}catch(_){prompt('Copy addressed DOCS view:',location.href)}setTimeout(()=>C.textContent=old,700)};
 const Q=new URLSearchParams(location.search),ret=returnUrl(Q.get('return'));if(ret){B.hidden=false;B.href=ret}
-const direct=sourceUrl(Q.get('src'));
+const direct=sourceUrl(Q.get('src')),paste=Q.has('paste')?(()=>{try{return sessionStorage.getItem('docs.reader.paste.v1')||''}catch(_){return''}})():'';
 if(direct)openSource(sourceLabel(direct),direct.pathname+direct.search);
+else if(paste){PT.value=paste;openPaste(paste)}
 else{const wanted=location.hash.slice(1),entry=docs.find(x=>slug(x[0])===wanted)||docs[0];if(entry)openSource(entry[0],entry[1])}
 </script></body></html>
