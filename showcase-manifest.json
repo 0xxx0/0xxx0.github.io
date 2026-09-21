@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T18:37:00+08:00",
+        "updated_at": "2026-09-21T18:46:00+08:00",
         "work_modes": [
           "VERIFY"
         ]
@@ -2095,7 +2095,7 @@
         "physical_fit": "Attention-allocation experiment; not a physical actuator."
       },
       "index": {
-        "updated_at": "2026-09-21T14:21:00+08:00",
+        "updated_at": "2026-09-21T18:51:00+08:00",
         "work_modes": [
           "SPECIFY",
           "VERIFY"
@@ -2556,10 +2556,7 @@
         "updated_at": "2026-09-21T18:37:00+08:00",
         "work_modes": [
           "IMPLEMENT",
-          "VERIFY",
-          "OPERATE",
-          "ORIENT",
-          "INSPECT"
+          "VERIFY"
         ]
       },
       "transfer": [
@@ -2571,8 +2568,8 @@
         "global route-adapter document links → DOCS",
         "canonical RAW source preserved"
       ],
-      "receipt": "/returns/DOCS_ADDRESSABLE_APERTURE_2026-09-21.json",
-      "operation": "READ"
+      "operation": "INSPECT",
+      "receipt": "/returns/DOCS_ADDRESSABLE_APERTURE_2026-09-21.json"
     },
     {
       "href": "/control/confluence/",
@@ -3421,7 +3418,7 @@
       "showcase_card": false,
       "role": "Historical temporal/radial instrument shelf: exact DataDisc 2019 + RSVP/TTS 2018 fixtures for mechanism comparison.",
       "index": {
-        "updated_at": "2026-09-21T17:45:00+08:00",
+        "updated_at": "2026-09-21T18:51:00+08:00",
         "work_modes": [
           "SPECIFY",
           "VERIFY"
@@ -4103,7 +4100,7 @@
         "next_if_fail": "PARK compact notation; preserve the glyph lab as a bounded representation donor."
       },
       "index": {
-        "updated_at": "2026-09-21T14:21:00+08:00",
+        "updated_at": "2026-09-21T18:51:00+08:00",
         "work_modes": [
           "SPECIFY",
           "VERIFY"
@@ -4198,7 +4195,7 @@
         "next_if_fail": "Keep donor/negative evidence; no beautification or active-front debt."
       },
       "index": {
-        "updated_at": "2026-09-21T17:39:00+08:00",
+        "updated_at": "2026-09-21T18:51:00+08:00",
         "work_modes": [
           "REFERENCE",
           "VERIFY"
@@ -4485,26 +4482,30 @@
     },
     {
       "href": "/poetry/map/",
-      "title": "POEM MAP 0.2",
+      "title": "POEM MAP 0.2.1",
       "kind": "workbench",
       "parent": "/poetry/",
       "family": "PATH / POETRY",
       "operation": "PROJECT",
       "state": "CANDIDATE",
-      "version": "0.2",
+      "version": "0.2.1",
       "receipt": "/poetry/map/release.json",
       "showcase_card": false,
-      "role": "Current Verse authoring experiment: PAGE-first readable source; linked MAP/SETS; ORDER/SOUND/REPEAT/AUTHOR laws + aperture; manual, session-local corpus, and opt-in English candidate sources; locks; preview→ADOPT; revision ancestry; author paths; replayable RETURN.",
+      "role": "Current Verse/FIELD-text authoring candidate: readable PAGE first; selected-token golden-angle focus wheel; FIELD NOW preload from live collaboration state; manual/local/opt-in English option sources; MAP/SETS/path/form/aperture depth only on demand; replayable RETURN.",
       "transfer": [
         "Poemage linked poem/set/path entrances",
         "Foundry typed path laws",
         "Market+Solver bag/constraint behavior",
         "Pathweaver author path/capture",
         "COPE/Co-PoeTryMe constrained option generation",
-        "Axial state×transform×aperture discipline"
+        "Axial state×transform×aperture discipline",
+        "Poem Map 0.1 one-question legibility",
+        "DataDisc radial focus without identity loss",
+        "Aperture scale/focus/time utility",
+        "Dayline plain-first / radial-optional disclosure"
       ],
       "index": {
-        "updated_at": "2026-09-21T17:41:00+08:00",
+        "updated_at": "2026-09-21T18:44:00+08:00",
         "work_modes": [
           "RECOVER",
           "RESEARCH",
@@ -4642,7 +4643,7 @@
       "operation": "RECOVER / RETRIEVE",
       "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
       "index": {
-        "updated_at": "2026-09-21T09:09:24.851148+00:00",
+        "updated_at": "2026-09-21T18:51:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -4796,7 +4797,8 @@
     "poem_map_state_normalization": "Poem Map 0.2 release receipt retains historical status EXPERIMENTAL_LIVE, but current FIELD lifecycle state is CANDIDATE per its current_classification and FIELD lifecycle law.",
     "triangle_center_current": "CENTER 0.3 defaults to exact CURRENT/QUEUE next moves, records passive local choice evidence, and may preload HUMAN PORT. Root FIELD promotion is evidence-gated.",
     "runtime_repair_return": "/returns/FOUNDRY_RUNTIME_REPAIR_2026-09-21.json",
-    "center_disposition": "Center Mass 0.3 is DONOR per CURRENT; PLAIN/FCM absorbed useful control mechanics. Reopen only on a named missing function."
+    "center_disposition": "Center Mass 0.3 is DONOR per CURRENT; PLAIN/FCM absorbed useful control mechanics. Reopen only on a named missing function.",
+    "archive_surface_return": "/returns/ARCHIVE_SURFACE_RECONCILIATION_2026-09-21.json"
   },
   "capability_model": {
     "CAPTURE": {
