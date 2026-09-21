@@ -259,7 +259,10 @@ const CASES=[
   {
     name:'POEM MAP',
     route:'/poetry/map/',
-    check:dom=>/POEM MAP 0\.2/i.test(dom)&&dom.includes('id="guideBtn"')&&dom.includes('id="importBtn"')&&dom.includes('id="corpusBtn"')&&dom.includes('data-mode="PAGE"')&&!dom.includes('load failure')
+    check:dom=>{
+      const st=textAtId(dom,'statusText');
+      return /POEM MAP 0\.2\.1/i.test(dom)&&dom.includes('id="fieldNowBtn"')&&dom.includes('id="focusWheel"')&&dom.includes('id="pmAperture"')&&dom.includes('id="importBtn"')&&dom.includes('id="corpusBtn"')&&dom.includes('data-mode="PAGE"')&&/FIELD NOW LOADED/.test(st)&&!dom.includes('load failure');
+    }
   },
   {
     name:'VERSE ATLAS',
