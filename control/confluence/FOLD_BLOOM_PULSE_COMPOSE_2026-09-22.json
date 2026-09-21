@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/confluence-packet/v0.1",
   "id": "FOLD_BLOOM_PULSE_COMPOSE_2026-09-22",
-  "status": "IMPLEMENTED_CANDIDATE",
+  "status": "SHIPPED_VERIFIED",
   "date": "2026-09-22",
   "object": "FOLD//BLOOM family / shared FIELD PULSE composition",
   "observed": [
@@ -33,11 +33,13 @@
     "do not extend to another consumer before real phone/headphone evidence"
   ],
   "verification": {
-    "repo_static": "PENDING_BRANCH_CI",
-    "browser_module_boot": "PENDING_BRANCH_CI",
+    "repo_static": "PASS: public-surface-check run 35644367601",
+    "browser_module_boot": "PASS: critical browser smoke run 35644367601",
     "real_phone": "REQUIRED_NEXT: LISTEN + TWO DIAL same-origin cross-tab play with real audio"
   },
   "next_if_pass": "Design one beat/event tape export from AUDIO MAP + authored FIELD operations for Audiosurf/Beat Saber/tooling experiments; do not couple another live app first.",
   "next_if_fail": "Keep FIELD PULSE for READFIELD/LIVE; remove or revise Two Dial clock borrowing without disturbing its 0.10 composition grammar.",
-  "stop_condition": "No additional live music bridge until the phone trial establishes that the linked clock is perceptible, stable and musically useful."
+  "stop_condition": "Shipped. No additional live music bridge until the phone trial establishes that linked clock behavior is perceptible, stable and useful.",
+  "merge_sha": "71c08a81faa49b815b0048bb69721462edf9db3e",
+  "pull_request": "https://github.com/0xxx0/0xxx0.github.io/pull/110"
 }
