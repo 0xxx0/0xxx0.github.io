@@ -54,7 +54,7 @@
     </div>
     <div class="overlay" id="intro">
       <div class="card">
-        <div class="ey">TWO DIAL · COMPOSITION FIELD</div>
+        <div class="ey">TWO DIAL · HOLD FAST / LET FLY · SOUND FIELD 0.10</div>
         <div class="title">TOUCH.<br />RELATE.<br />RETURN.</div>
         <div class="copy">
           Two cyclic controls create one consequence. The music is not a
@@ -90,7 +90,7 @@
         <button class="primary" id="backBtn">BACK</button>
       </div>
     </div>
-    <div class="drawer" id="drawer">
+    <div class="drawer" id="drawer" data-pane="PLAY">
       <div class="sheet">
         <div class="sheethead">
           <div>
@@ -99,21 +99,21 @@
           </div>
           <button class="close" id="closeMenu">×</button>
         </div>
-        <div class="section">
+        <div class="menuTabs" id="menuTabs"><button data-pane="PLAY">PLAY</button><button data-pane="SOUND">SOUND</button><button data-pane="STATE">STATE</button></div>
+        <div class="section" data-pane-section="PLAY">
           <div class="k">MODE</div>
-          <div class="segment" id="modeChoices">
-            <button class="choice" data-mode="PLAY">PLAY</button
-            ><button class="choice" data-mode="OPEN">OPEN</button
-            ><button class="choice" data-mode="DUET">DUET</button>
-          </div>
+          <div class="segment modes" id="modeChoices"><button class="choice" data-mode="PLAY">PLAY</button><button class="choice" data-mode="OPEN">OPEN</button><button class="choice" data-mode="SCALE">SCALE</button><button class="choice" data-mode="DUET">DUET</button></div>
           <div class="desc" id="modeDesc"></div>
         </div>
-        <div class="section">
+        <div class="section" data-pane-section="PLAY" id="scopeSection" hidden><div class="k">SCALE OF CONSEQUENCE</div><div class="segment scopes" id="scopeChoices"></div><div class="desc" id="scopeDesc"></div></div>
+        <div class="section" data-pane-section="SOUND">
           <div class="k">SOUND WORLD</div>
           <div class="segment worlds" id="worldChoices"></div>
           <div class="desc" id="worldDesc"></div>
         </div>
-        <div class="section">
+        <div class="section" data-pane-section="SOUND"><div class="k">VOICE / INSTRUMENT</div><div class="segment voices" id="voiceChoices"></div><div class="desc" id="voiceDesc"></div></div>
+        <div class="section" data-pane-section="SOUND"><div class="k">GROOVE</div><div class="segment grooves" id="grooveChoices"></div><div class="desc" id="grooveDesc"></div></div>
+        <div class="section" data-pane-section="PLAY">
           <div class="k">SURFACE</div>
           <div class="segment" id="surfaceChoices">
             <button class="choice" data-surface="INK">INK</button
@@ -125,7 +125,7 @@
             recurrence and motion, QUIET strips ornament for instrument play.
           </div>
         </div>
-        <div class="section">
+        <div class="section" data-pane-section="SOUND">
           <div class="k">MIX / FEEL</div>
           <label class="range"
             ><span>VOLUME</span
@@ -157,7 +157,7 @@
             ><button class="secondary" id="quietBtn">VISUAL FULL</button>
           </div>
         </div>
-        <div class="section">
+        <div class="section" data-pane-section="PLAY">
           <div class="k">MUSIC MAP</div>
           <div class="tiny" style="font-size: 10px; line-height: 1.65">
             <b style="color: #eaf7ff">PULSE</b> = when: stable beat plus
@@ -170,21 +170,19 @@
               style="color: #eaf7ff"
               >MEMORY</b
             >
-            = repeated relations become motifs; RETURN can recall them.
+            = repeated relations become motifs; RETURN can recall them.<br><b style="color:#eaf7ff">SCALE</b> = where the verb lands: PULSE / VOICE / MOTIF / FORM.
           </div>
         </div>
-        <div class="section">
+        <div class="section" data-pane-section="PLAY">
           <div class="k">AUTO DEMO / A-B</div>
           <div class="row">
             <button class="secondary" id="demoBtn">START DEMO</button>
           </div>
           <div class="tiny" style="margin-top: 8px">
-            Runs the actual score automatically. Switch SOUND WORLD while it
-            plays to compare musical behavior. Touch either dial to take
-            control.
+            Runs the actual score automatically. Switch WORLD / VOICE / GROOVE while it plays for a real A/B. Touch either dial to take control.
           </div>
         </div>
-        <div class="section">
+        <div class="section" data-pane-section="STATE">
           <div class="k">SHARE / RETURN</div>
           <div class="row">
             <button class="secondary" id="shareBtn">SHARE</button
@@ -203,7 +201,7 @@
             phrase memory.
           </div>
         </div>
-        <div class="section">
+        <div class="section" data-pane-section="STATE">
           <div class="k">SAVED CASSETTES</div>
           <div class="row">
             <button class="secondary" id="saveBtn">SAVE CURRENT</button
@@ -211,7 +209,7 @@
           </div>
           <div class="saved" id="savedList" style="margin-top: 8px"></div>
         </div>
-        <div class="section">
+        <div class="section" data-pane-section="STATE">
           <div class="k">SESSION</div>
           <div class="row">
             <button class="secondary" id="newBtn">NEW FIELD</button>
@@ -220,6 +218,7 @@
         </div>
       </div>
     </div>
+    <script src="./music-data.js"></script>
     <script src="./core1.js"></script>
     <script src="./core2.js"></script>
     <script src="./audio1.js"></script>

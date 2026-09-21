@@ -999,14 +999,15 @@
       "operation": "ORIENT",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-21T20:50:00+08:00",
+        "updated_at": "2026-09-21T21:23:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
+          "OPERATE",
           "RELEASE"
         ]
       },
-      "role": "FOLD//BLOOM family entry. LIVE 0.1 is the current performance candidate; exact/recovered and stable sibling branches remain separately addressable."
+      "role": "Current Fold/Bloom family head. Three unequal playable heads share a transformation grammar without being collapsed: LIVE = one-hand tension/release performance; TWO DIAL = deep generative composition; ECOLOGY = persistent game/lineage. Scale Lens is an extracted representation descendant, not a fourth game branch."
     },
     {
       "href": "/fold-bloom/live/",
@@ -1018,7 +1019,7 @@
       "state": "ACTIVE",
       "version": "0.1",
       "receipt": "/returns/FOLD_BLOOM_LIVE_2026-09-21.json",
-      "role": "Current performance candidate: turn → charge → deliberate release → authored topology → changed future music. Preserves Fold Weave donor identity and keeps Ecology/Two Dial distinct.",
+      "role": "One-hand performance head: turn → bounded charge → deliberate aligned release → authored topology → changed future music. WATCH DEMO makes the thesis observable without prior instruction.",
       "transfer": [
         "Fold Weave: 12-cell ring / authored crease topology / cascade / mute-first causal score",
         "Two Dial: phrase-pulse-form music grammar / continuous motion sonification / bounded local RETURN",
@@ -1069,8 +1070,7 @@
       },
       "field": {
         "roles": [
-          "WORLD_THROUGH",
-          "CURRENT_HEAD"
+          "WORLD_THROUGH"
         ],
         "inputs": [
           {
@@ -1111,29 +1111,30 @@
         "physical_fit": "Performance/control grammar suitable for later encoder/touch/physical-control adapters; no hardware authority implied."
       },
       "index": {
-        "updated_at": "2026-09-21T20:50:00+08:00",
+        "updated_at": "2026-09-21T21:23:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
-          "OPERATE",
-          "RELEASE"
+          "OPERATE"
         ]
       }
     },
     {
       "href": "/fold-bloom/two-dial/",
-      "title": "TWO DIAL",
+      "title": "TWO DIAL 0.10",
       "kind": "artifact",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "PLAY",
-      "state": "STABLE",
-      "version": "0.9",
+      "state": "ACTIVE",
+      "version": "0.10",
       "receipt": "/fold-bloom/two-dial/release.json",
       "transfer": [
-        "parameter steering",
-        "constrained control",
-        "expressive mapping"
+        "preserved two-dial relation algebra",
+        "7 sound worlds / 6 voice engines / 5 groove skeletons",
+        "SCALE-of-consequence: PULSE / VOICE / MOTIF / FORM",
+        "motif/form memory + bounded phrase RETURN",
+        "dependency-free WebAudio synthesis and local cassettes"
       ],
       "contract": {
         "accepts": {
@@ -1147,10 +1148,12 @@
           ]
         },
         "transforms": {
-          "verb": "map compact cyclic control into composition state",
+          "verb": "map two cyclic controls into BLOOM/FOLD/SPLIT/RETURN, then apply the relation globally or to a selected musical scale of consequence",
           "preserves": [
+            "two-dial relation algebra",
             "current control state",
-            "motif/form continuity"
+            "motif/form continuity",
+            "cassette/RETURN identity"
           ],
           "reversibility": "full",
           "side_effects": "local"
@@ -1158,16 +1161,19 @@
         "emits": {
           "kinds": [
             "updated composition state",
-            "motif/form state"
+            "audio score",
+            "motif/form state",
+            "bounded RETURN packet"
           ],
-          "machine_readable": false,
+          "machine_readable": true,
           "human_readable": true
         },
         "evidence": {
           "receipt": "/fold-bloom/two-dial/release.json",
           "checks": [
-            "bounded controls",
-            "visible state response"
+            "generated sound-bank controls materialize in browser",
+            "relation algebra preserved",
+            "direct A/B listening remains instrument-quality gate"
           ],
           "return_path": "/fold-bloom/two-dial/"
         }
@@ -1187,13 +1193,18 @@
         "outputs": [
           {
             "medium": "DATA",
-            "kind": "bounded parameter state",
-            "interface": "local state"
+            "kind": "bounded composition / motif / form state",
+            "interface": "local state + JSON RETURN"
           },
           {
-            "medium": "SIGNAL",
-            "kind": "visible/audible feedback",
-            "interface": "display/audio"
+            "medium": "SOUND",
+            "kind": "generative composition",
+            "interface": "WebAudio"
+          },
+          {
+            "medium": "LIGHT",
+            "kind": "dial/relation/memory score",
+            "interface": "canvas/display"
           }
         ],
         "exit_paths": [
@@ -1211,12 +1222,15 @@
         "physical_fit": "Control primitive; candidate for tangible dial/encoder interfaces."
       },
       "index": {
-        "updated_at": "2026-09-20",
+        "updated_at": "2026-09-21T21:23:00+08:00",
         "work_modes": [
+          "IMPLEMENT",
           "VERIFY",
+          "OPERATE",
           "RELEASE"
         ]
-      }
+      },
+      "role": "Deep composition head. MATTER × HARMONY preserves the compact BLOOM/FOLD/SPLIT/RETURN relation while WORLD × VOICE × GROOVE widens timbre/rhythm and SCALE mode aims consequences at PULSE, VOICE, MOTIF or FORM."
     },
     {
       "href": "/fold-bloom/ecology/",
@@ -1438,7 +1452,7 @@
       "title": "SCALE LENS",
       "kind": "artifact",
       "parent": "/fold-bloom/",
-      "family": "FOLD // BLOOM",
+      "family": "LENS / REPRESENTATION",
       "operation": "REPRESENT",
       "state": "STABLE",
       "version": "RC11.2 + actualize-1",
@@ -1543,14 +1557,13 @@
         "physical_fit": "Prepare addressed objects/specs for decision or fabrication; should not actuate directly."
       },
       "index": {
-        "updated_at": "2026-09-21T19:34:00+08:00",
+        "updated_at": "2026-09-21T21:23:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "Stable deep addressed-projection lab behind the portable LensState/Focus Ring grammar. actualize-1 presents OBJECT / APERTURE / VIEW / STACK / RETURN first, keeps advanced RC11.2 machinery behind LAB on handoff, and preserves all parser/provenance/projection/receipt capability.",
+      "role": "Extracted representation descendant. It is no longer presented as a peer playable branch, but its proved FIELD parent edge remains /fold-bloom/ because Lens G2 uses that ancestry for dive/rise/RETURN. Operational identity is the distinct scale-lens lineage.",
       "evolution": {
         "schema": "field-evolution/v0.1",
         "host": "/",

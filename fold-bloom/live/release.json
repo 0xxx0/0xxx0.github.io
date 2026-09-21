@@ -24,11 +24,12 @@
     "structural verb and performance cadence are separate, allowing FOLD/SPLIT -> RETURN without identity loss",
     "charged RETURN opens a one-beat sparse aperture before motif density resumes",
     "scheduler stale-clock guard prevents catch-up bursts after suspension",
-    "restored motif/rotation/scene hydrate the audio engine on reload"
+    "restored motif/rotation/scene hydrate the audio engine on reload",
+    "bounded WATCH DEMO performs up to twelve RATCHET releases, cycles fields every three releases and hands control back on touch"
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
-    "this is a performance/instrument head, not a replacement for Ecology cultivation or Two Dial two-hand composition",
+    "LIVE is the one-hand performance head; it is not the sovereign Fold/Bloom family head or the deep composition workbench",
     "promote only after desktop + touch playtest demonstrates clearer agency and stronger sound than the donor"
   ],
   "verification": {
@@ -38,8 +39,10 @@
     "required_next": "direct desktop + touch playtest for instrument-quality promotion",
     "repo_browser_smoke": "PASS: public-surface-check run 35603017221 rerun",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
-    "merge_sha": "74b449d089963a71c29c1535ef457b154ba427a7"
+    "merge_sha": "74b449d089963a71c29c1535ef457b154ba427a7",
+    "demo_browser_smoke": "PENDING_CI: intro must expose demoBtn / WATCH DEMO"
   },
   "execution_contract": "./EXECUTION.md",
-  "return": "/returns/FOLD_BLOOM_LIVE_2026-09-21.json"
+  "return": "/returns/FOLD_BLOOM_LIVE_2026-09-21.json",
+  "updated": "2026-09-21"
 }

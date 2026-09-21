@@ -6,6 +6,9 @@ function minimalSnapshot() {
     prefs: {
       mode: demo.on ? demo.prevMode : prefs.mode,
       world: prefs.world,
+      voice: prefs.voice,
+      groove: prefs.groove,
+      scope: prefs.scope,
       surface: prefs.surface,
       volume: prefs.volume,
       memory: prefs.memory,
@@ -165,6 +168,9 @@ function exportPacket() {
     state: minimalSnapshot(),
     summary: {
       world: prefs.world,
+      voice: prefs.voice,
+      groove: prefs.groove,
+      scope: prefs.scope,
       mode: prefs.mode,
       form: form.state,
       phrases: phraseCount,
@@ -190,7 +196,7 @@ function savedAll() {
 function saveCassette() {
   let arr = savedAll(),
     snap = minimalSnapshot(),
-    name = `${prefs.world} · ${prefs.mode} · ${String(arr.length + 1).padStart(2, '0')}`;
+    name = `${prefs.world}/${prefs.voice}/${prefs.groove} · ${prefs.mode} · ${String(arr.length + 1).padStart(2, '0')}`;
   arr.unshift({ id: crypto.randomUUID?.() || String(Date.now()), name, snap });
   arr = arr.slice(0, 12);
   localStorage.setItem(SAVE_STORE, JSON.stringify(arr));
@@ -282,10 +288,17 @@ function syncUI() {
     b.classList.toggle('active', b.dataset.surface === prefs.surface)
   );
   $('#modeDesc').textContent = MODE_DESC[prefs.mode];
+  $('#scopeSection').hidden = prefs.mode !== 'SCALE';
   $$('.choice[data-world]').forEach(b =>
     b.classList.toggle('active', b.dataset.world === prefs.world)
   );
   $('#worldDesc').textContent = world().desc;
+  $$('.choice[data-voice]').forEach(b => b.classList.toggle('active', b.dataset.voice === prefs.voice));
+  $('#voiceDesc').textContent = voice().desc;
+  $$('.choice[data-groove]').forEach(b => b.classList.toggle('active', b.dataset.groove === prefs.groove));
+  $('#grooveDesc').textContent = groove().desc;
+  $$('.choice[data-scope]').forEach(b => b.classList.toggle('active', b.dataset.scope === prefs.scope));
+  $('#scopeDesc').textContent = scopeDef().desc;
   [
     ['vol', 'volume'],
     ['memory', 'memory'],
@@ -301,18 +314,18 @@ function syncUI() {
 }
 function setMode(m) {
   prefs.mode = m;
+  document.body.classList.toggle('duet',m==='DUET');
   emit('mode', { mode: m });
   syncUI();
   saveLocal();
 }
 function setWorld(w) {
-  prefs.world = w;
-  applyWorldAudio();
-  emit('world', { world: w });
-  syncUI();
-  saveLocal();
-  toast(w);
+  prefs.world = w; applyWorldAudio(); emit('world', { world: w }); syncUI(); saveLocal(); toast(w);
 }
+function setVoice(v) { prefs.voice=v; applyWorldAudio(); emit('voice',{voice:v}); syncUI(); saveLocal(); toast(v); }
+function setGroove(v) { prefs.groove=v; emit('groove',{groove:v}); syncUI(); saveLocal(); toast(v); }
+function setScope(v) { prefs.scope=v; emit('scope',{scope:v}); syncUI(); saveLocal(); toast(v); }
+function setMenuPane(v){ $('#drawer').dataset.pane=v; $$('#menuTabs [data-pane]').forEach(b=>b.classList.toggle('active',b.dataset.pane===v)); }
 function openDrawer() {
   $('#drawer').classList.add('open');
   renderSaves();
@@ -321,13 +334,12 @@ function closeDrawer() {
   $('#drawer').classList.remove('open');
 }
 Object.keys(WORLDS).forEach(k => {
-  let b = document.createElement('button');
-  b.className = 'choice';
-  b.dataset.world = k;
-  b.textContent = k;
-  b.onclick = () => setWorld(k);
-  $('#worldChoices').appendChild(b);
+  let b=document.createElement('button'); b.className='choice'; b.dataset.world=k; b.textContent=k; b.onclick=()=>setWorld(k); $('#worldChoices').appendChild(b);
 });
+Object.keys(VOICES).forEach(k=>{let b=document.createElement('button');b.className='choice';b.dataset.voice=k;b.textContent=k;b.onclick=()=>setVoice(k);$('#voiceChoices').appendChild(b)});
+Object.keys(GROOVES).forEach(k=>{let b=document.createElement('button');b.className='choice';b.dataset.groove=k;b.textContent=k;b.onclick=()=>setGroove(k);$('#grooveChoices').appendChild(b)});
+Object.keys(SCOPES).forEach(k=>{let b=document.createElement('button');b.className='choice';b.dataset.scope=k;b.textContent=k;b.onclick=()=>setScope(k);$('#scopeChoices').appendChild(b)});
+$$('#menuTabs [data-pane]').forEach(b=>b.onclick=()=>setMenuPane(b.dataset.pane));
 $$('.choice[data-mode]').forEach(
   b => (b.onclick = () => setMode(b.dataset.mode))
 );
@@ -406,7 +418,7 @@ $('#playBtn').onclick = async () => {
   hud();
 };
 $('#buildInfo').textContent =
-  `BUILD ${APP_VERSION} · schema ${SCHEMA} · offline-ready · four-step score · consequence preview · phrase return`;
+  `BUILD ${APP_VERSION} · WORLD × VOICE × GROOVE · SCALE mode · bounded phrase return`;
 let fromHash = false;
 if (location.hash.startsWith('#s=')) {
   try {
@@ -415,6 +427,7 @@ if (location.hash.startsWith('#s=')) {
 }
 if (!fromHash) loadLocal();
 if (!phrasePlan?.length) beginPhrase(['BLOOM', 'FOLD', 'SPLIT', 'RETURN']);
+setMenuPane('PLAY');
 syncUI();
 renderSaves();
 hud();
@@ -423,6 +436,9 @@ window.FoldBloom = {
   state: () => minimalSnapshot(),
   setMode,
   setWorld,
+  setVoice,
+  setGroove,
+  setScope,
 };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol))
   window.addEventListener('load', () =>

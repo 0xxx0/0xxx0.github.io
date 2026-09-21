@@ -1,19 +1,43 @@
 {
   "schema": "showcase-release/v1",
   "surface": "TWO DIAL",
-  "version": "0.9",
+  "version": "0.10",
   "route": "/fold-bloom/two-dial/",
-  "state": "STABLE",
+  "state": "ACTIVE_CANDIDATE",
   "operation": "PLAY",
-  "released": "2026-09-18",
-  "representative_interaction": "ENTER FIELD → manipulate MATTER/HARMONY dial field → observe BLOOM/FOLD/SPLIT/RETURN relation → EXPORT JSON",
+  "released": "2026-09-21",
+  "thesis": "HOLD FAST / LET FLY: preserve the small MATTER × HARMONY relation algebra; widen the music field by separating WORLD × VOICE × GROOVE × SCALE OF CONSEQUENCE.",
+  "preserved": [
+    "six-position two-dial relation algebra",
+    "SAME→BLOOM · NEAR→FOLD · FAR→RETURN · OPPOSITE→SPLIT",
+    "PLAY / OPEN / DUET behavior outside SCALE mode",
+    "motif/form memory, phrase RETURN, cassettes and local-only state"
+  ],
+  "delta": [
+    "sound worlds expand from 5 to 7 with TRANCE and DRIFT",
+    "six selectable voice engines: AIR / WOOD / FM / BELL / BOW / DIRTY",
+    "five separable groove skeletons: GROUND / DRIVE / SWING / BROKEN / POLY",
+    "SCALE mode recovers scope as a performance operation: PULSE / VOICE / MOTIF / FORM",
+    "SCALE routes BLOOM/FOLD/SPLIT/RETURN to one musical timescale instead of mutating every layer",
+    "noise source is preallocated once instead of rebuilding buffers per hat/air event",
+    "drawer collapses into hard-edge PLAY / SOUND / STATE panes",
+    "cassette/RETURN state now preserves world, voice, groove and scale scope"
+  ],
+  "research_transfer": [
+    "Euclidean/rotated pulse transformations and polymetric crossing",
+    "separation of pattern structure from sound source",
+    "voice/voicing as independent musical dimensions",
+    "continuous modulation and composable effect thinking without importing a DAW UI"
+  ],
+  "representative_interaction": "ENTER FIELD → SOUND choose WORLD/VOICE/GROOVE → PLAY choose SCALE → choose PULSE/VOICE/MOTIF/FORM → manipulate MATTER/HARMONY → compare consequences → EXPORT RETURN",
   "validation": {
-    "viewport_meta": "PASS",
-    "touch_first_full_viewport": "PASS",
-    "javascript_syntax": "5/5 PASS",
-    "required_controls": "playBtn/game/modeChoices/exportBtn present",
-    "showcase_return_adapter": "PASS",
-    "source_route": "PASS"
+    "javascript_syntax": "PENDING_CI",
+    "browser_controls": "PENDING_CI: generated TRANCE / FM / POLY controls must materialize",
+    "static_surface_contracts": "PENDING_CI",
+    "direct_audio_play": "REQUIRED_NEXT: human A/B on desktop/headphones",
+    "performance_gate": "10-minute play must not reveal audio crackle, runaway scheduler, excessive BELL polyphony or control/menu friction"
   },
-  "known_gap": "Live rendered mobile/desktop representative interaction remains externally unverified from this execution environment."
+  "known_gap": "Instrument-quality judgment requires direct listening. Do not add more voice/groove families until A/B play identifies a concrete missing behavior.",
+  "confluence": "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
+  "return": "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json"
 }

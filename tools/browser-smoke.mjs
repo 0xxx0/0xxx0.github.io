@@ -442,7 +442,18 @@ const CASES=[
   {
     name:'FOLD BLOOM convergence',
     route:'/fold-bloom/',
-    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)&&/href="\.\/two-dial\/"/i.test(dom)
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/EXTRACTED DESCENDANT · SCALE LENS/i.test(dom)&&/TWO DIAL 0\.10/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)
+  },
+  {
+    name:'FOLD BLOOM LIVE demo',
+    route:'/fold-bloom/live/',
+    check:dom=>/LIVE 0\.1/i.test(dom)&&dom.includes('id="demoBtn"')&&/WATCH DEMO/i.test(dom)
+  },
+  {
+    name:'TWO DIAL sound field 0.10',
+    route:'/fold-bloom/two-dial/',
+    options:{width:1180,height:900,budget:9000},
+    check:dom=>/HOLD FAST \/ LET FLY/i.test(dom)&&/SCALE OF CONSEQUENCE/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')
   },
   {
     name:'SCALE LENS',

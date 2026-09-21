@@ -122,16 +122,17 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM LIVE 0.1 + retained Fold Weave / Two Dial / Ecology branches",
-      "state": "ACTIVE_CANDIDATE",
-      "route": "/fold-bloom/live/",
-      "retained_function": "Current performance head tests turn → bounded ratchet charge → deliberate aligned release → authored crease/cascade topology → changed future music. Fold Weave 0.1 remains exact/frozen; Two Dial remains the separate two-hand composition donor; Ecology remains the cultivation/game branch. Promotion is gated by direct desktop + touch play, not code completion.",
+      "head": "FOLD//BLOOM instrument family · LIVE 0.1 performance / TWO DIAL 0.10 composition / ECOLOGY 0.2 game",
+      "state": "ACTIVE_CANDIDATE_FAMILY",
+      "route": "/fold-bloom/",
+      "retained_function": "Current family keeps unequal heads explicit. LIVE is the narrow one-hand ratchet/charge/release performance proof with bounded demo. TWO DIAL 0.10 is the deep generative composition line: preserved MATTER×HARMONY relation algebra plus 7 WORLDs, 6 VOICE engines, 5 GROOVEs and SCALE-of-consequence over PULSE/VOICE/MOTIF/FORM. ECOLOGY remains persistence/lineage/game. Scale Lens is related historically but is now an extracted representation lineage rather than a Fold/Bloom playable branch.",
       "evidence": [
+        "/fold-bloom/",
         "/fold-bloom/live/release.json",
-        "/fold-bloom/live/EXECUTION.md",
-        "/control/confluence/FOLD_BLOOM_LIVE_2026-09-21.json",
-        "/returns/FOLD_BLOOM_LIVE_2026-09-21.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/85"
+        "/fold-bloom/two-dial/release.json",
+        "/fold-bloom/ecology/release.json",
+        "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
+        "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json"
       ]
     },
     {
@@ -485,7 +486,9 @@
     "body_validation": "/control/BODY_FIELD_VALIDATION_2026-09-21.json",
     "bodyplans": "/bodyplans/",
     "house_field": "/house/",
-    "body_house_convergence": "/control/BODY_HOUSE_CONVERGENCE_2026-09-21.json"
+    "body_house_convergence": "/control/BODY_HOUSE_CONVERGENCE_2026-09-21.json",
+    "fold_bloom_sound_depth": "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
+    "fold_bloom_sound_depth_return": "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",

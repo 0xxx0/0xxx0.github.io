@@ -6,6 +6,7 @@ const $=s=>document.querySelector(s), STORE='fb-live-0.1';
 const cv=$('#field'), renderer=new Renderer(cv);
 let state=load() || createState();
 let dragging=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
+let demo={on:false,timer:0,releases:0};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
 audio.hydrate(state);
 
@@ -58,9 +59,29 @@ async function doRelease(){
 function toggleMode(){state=setMode(state,state.mode==='RATCHET'?'FLOW':'RATCHET');toast(state.mode);update()}
 function cycleScene(){const names=audio.sceneNames(),i=names.indexOf(state.scene),name=names[(i+1)%names.length];state=setScene(state,name);audio.setScene(name);toast(name);update()}
 
+function stopDemo(takeover=false){
+  if(!demo.on)return;demo.on=false;clearTimeout(demo.timer);demo.timer=0;
+  if(takeover)toast('YOUR TURN');
+}
+async function demoTick(){
+  if(!demo.on)return;
+  if(canRelease(state)){
+    await doRelease();demo.releases++;
+    if(demo.releases%3===0)cycleScene();
+    if(demo.releases>=12){stopDemo(false);toast('DEMO RETURN · YOUR TURN');return}
+    demo.timer=setTimeout(demoTick,620);
+  }else{
+    step(1);demo.timer=setTimeout(demoTick,270);
+  }
+}
+async function startDemo(){
+  if(demo.on)return;await ensureAudio();state=setMode(state,'RATCHET');demo={on:true,timer:0,releases:0};
+  $('#intro').classList.remove('on');toast('WATCH · CHARGE → RELEASE');update();demoTick();
+}
+
 function pointDown(e){
   if($('#intro').classList.contains('on')||$('#settings').classList.contains('on'))return;
-  dragging=true;startX=lastX=e.clientX;stepAccum=0;lastT=performance.now();cv.setPointerCapture?.(e.pointerId);ensureAudio();
+  stopDemo(true);dragging=true;startX=lastX=e.clientX;stepAccum=0;lastT=performance.now();cv.setPointerCapture?.(e.pointerId);ensureAudio();
 }
 function pointMove(e){
   if(!dragging)return;e.preventDefault();const now=performance.now(),dx=e.clientX-lastX,total=e.clientX-startX,threshold=Math.max(20,innerWidth*.045),dir=Math.sign(dx)||1;
@@ -82,7 +103,7 @@ function pointUp(e){
 }
 cv.addEventListener('pointerdown',pointDown);cv.addEventListener('pointermove',pointMove);cv.addEventListener('pointerup',pointUp);cv.addEventListener('pointercancel',pointUp);
 
-$('#releaseBtn').onclick=doRelease;$('#modeBtn').onclick=toggleMode;$('#sceneBtn').onclick=cycleScene;
+$('#releaseBtn').onclick=()=>{stopDemo(true);doRelease()};$('#modeBtn').onclick=()=>{stopDemo(true);toggleMode()};$('#sceneBtn').onclick=()=>{stopDemo(true);cycleScene()};
 $('#soundBtn').onclick=async()=>{if(!audio.ctx)await ensureAudio();else audio.setSound(!audio.soundOn);update()};
 $('#menuBtn').onclick=()=>$('#settings').classList.toggle('on');$('#closeSettings').onclick=()=>$('#settings').classList.remove('on');
 $('#vol').value=Math.round(audio.volume*100);$('#vol').oninput=e=>audio.setVolume(+e.target.value/100);
@@ -91,11 +112,12 @@ $('#exportBtn').onclick=()=>{
   const blob=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`fold-bloom-live-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('RETURN EXPORTED')
 };
 $('#resetBtn').onclick=()=>{const now=Date.now(),b=$('#resetBtn');if(!b.dataset.arm||now>+b.dataset.arm){b.dataset.arm=now+3500;b.textContent='CONFIRM RESET';toast('PRESS AGAIN');return}delete b.dataset.arm;b.textContent='NEW FIELD';state=createState();audio.hydrate(state);dragAngle=0;update();toast('NEW FIELD')};
-$('#playBtn').onclick=async()=>{await ensureAudio();$('#intro').classList.remove('on');update()};
-$('#mutePlay').onclick=()=>{$('#intro').classList.remove('on');audio.setSound(false);update()};
+$('#playBtn').onclick=async()=>{stopDemo(false);await ensureAudio();$('#intro').classList.remove('on');update()};
+$('#mutePlay').onclick=()=>{stopDemo(false);$('#intro').classList.remove('on');audio.setSound(false);update()};
+$('#demoBtn').onclick=startDemo;
 
 addEventListener('keydown',e=>{
-  if(e.repeat)return;
+  if(e.repeat)return;stopDemo(true);
   if(e.key==='ArrowLeft'){e.preventDefault();step(-1)}
   else if(e.key==='ArrowRight'){e.preventDefault();step(1)}
   else if(e.code==='Space'||e.key==='Enter'){e.preventDefault();doRelease()}
@@ -105,7 +127,7 @@ addEventListener('keydown',e=>{
   else if(e.key==='Escape')$('#settings').classList.toggle('on');
 });
 
-document.addEventListener('visibilitychange',()=>{if(document.hidden)audio.stop();else if(audio.ctx)audio.start()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){stopDemo(false);audio.stop()}else if(audio.ctx)audio.start()});
 function loop(t){renderer.draw(state,t);raf=requestAnimationFrame(loop)}raf=requestAnimationFrame(loop);
 update();
 window.FoldBloomLive={version:VERSION,state:()=>snapshot(state),release:doRelease,step};

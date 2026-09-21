@@ -1,6 +1,6 @@
 'use strict';
-const APP_VERSION = '0.9.0-return-score',
-  SCHEMA = 2,
+const APP_VERSION = '0.10.0-hold-fast-let-fly',
+  SCHEMA = 3,
   STORE = 'fold-bloom-product-v04',
   SAVE_STORE = 'fold-bloom-cassettes-v1';
 const $ = s => document.querySelector(s),
@@ -82,10 +82,19 @@ const WORLDS = {
     lead: 'sine',
   },
 };
+Object.assign(WORLDS, window.FoldBloomMusicData?.worlds || {});
+const MUSIC_DATA = window.FoldBloomMusicData || {};
+const VOICES = MUSIC_DATA.voices || { AIR:{name:'AIR',desc:'Fallback voice',synth:'air',brightness:1,motion:1,live:'sine'} };
+const GROOVES = MUSIC_DATA.grooves || { GROUND:{name:'GROUND',desc:'Fallback groove',kick:[0,8],snare:[4,12],hats:7,rot:0,swing:0} };
+const SCOPES = MUSIC_DATA.scopes || { PULSE:{name:'PULSE',desc:'Rhythm scale'}, VOICE:{name:'VOICE',desc:'Voice scale'}, MOTIF:{name:'MOTIF',desc:'Motif scale'}, FORM:{name:'FORM',desc:'Form scale'} };
+function voice(){ return VOICES[prefs?.voice] || VOICES.AIR; }
+function groove(){ return GROOVES[prefs?.groove] || GROOVES.GROUND; }
+function scopeDef(){ return SCOPES[prefs?.scope] || SCOPES.PULSE; }
 const MODE_DESC = {
   PLAY: 'One-player game/instrument. The field asks for a transformation, not an answer-position. Fulfil it anywhere; absolute position changes the harmony and future sediment.',
   OPEN: 'No target authority. The two dials define the verb directly: an instrument for improvisation and discovery.',
   DUET: 'Same algebra, split socially. Best in landscape: one person owns MATTER, the other HARMONY; together you manufacture the requested transformation.',
+  SCALE: 'Recovered scale-of-consequence mode. The same BLOOM/FOLD/SPLIT/RETURN relation is aimed deliberately at PULSE, VOICE, MOTIF or FORM instead of changing every musical layer at once.',
 };
 let W = 0,
   H = 0,
@@ -100,7 +109,8 @@ let W = 0,
   feedback = null,
   reverb = null,
   wet = null,
-  saturator = null;
+  saturator = null,
+  noiseBuffer = null;
 let L = 0,
   R = 0,
   rawL = 0,
@@ -161,6 +171,9 @@ let pat = {
 let prefs = {
   mode: 'PLAY',
   world: 'DEEP',
+  voice: 'AIR',
+  groove: 'GROUND',
+  scope: 'PULSE',
   surface: 'INK',
   volume: 0.84,
   memory: 0.62,
