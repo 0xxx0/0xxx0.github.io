@@ -96,9 +96,9 @@ window.FieldLensAPI=Object.freeze({
   project:m=>{H()?.project?.(m);sync()},
   openStudio
 });
-window.FieldLensOptions={showTrigger:false};
+window.FieldLensOptions={showTrigger:false,placement:'inline',anchor:'#aperture'};
 window.addEventListener('field-index:state',sync);
 window.addEventListener('field-density',()=>requestAnimationFrame(sync));
-const b=document.getElementById('apLens');if(b){b.textContent='◎ LENS';b.onclick=()=>window.LensFocusRing?.open?.()}
+const b=document.getElementById('apLens');if(b){b.textContent='◎ LENS';b.title='Refract the current FIELD focus without changing selection';b.onclick=()=>window.LensFocusRing?.open?.()}
 requestAnimationFrame(sync);
 })();
