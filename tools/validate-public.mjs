@@ -226,6 +226,7 @@ const axialPath='foundry/axial/index.html';
 const axialLabPath='foundry/axial/lab-0.5.1.html';
 const roomPath='foundry/room/index.html';
 const roomCorePath='foundry/room/room-core.js';
+const spaceCorePath='foundry/room/space-core.js';
 const roomRelease=parse('foundry/room/release.json');
 if(exists(axialPath)){
   const a=read(axialPath),axialRoute=(manifest?.routes||[]).find(r=>r.href==='/foundry/axial/'),v=axialRelease?.version||axialRoute?.version;
@@ -243,16 +244,22 @@ if(exists(axialLabPath)){
 
 if(exists(roomCorePath)){
   try{new Function(read(roomCorePath))}catch(e){fail.push('JS '+roomCorePath+': '+e.message)}
-}else fail.push('INTERPHASE ROOM core missing');
+}else fail.push('INTERPHASE ROOM 0.1 fossil core missing');
+if(exists(spaceCorePath)){
+  try{new Function(read(spaceCorePath))}catch(e){fail.push('JS '+spaceCorePath+': '+e.message)}
+}else fail.push('SPACE SCALE core missing');
 if(exists(roomPath)){
   const room=read(roomPath),route=(manifest?.routes||[]).find(r=>r.href==='/foundry/room/');
-  for(const token of ['INTERPHASE / ROOM 0.1','data-face="F"','data-face="U"','id="returnBtn"','PLAIN','room-core.js'])check(room.includes(token),'INTERPHASE ROOM surface missing token: '+token);
-  check(route?.state==='CANDIDATE','INTERPHASE ROOM must remain CANDIDATE until comparative use evidence');
-  check(route?.kind==='experiment','INTERPHASE ROOM route kind drifted');
-  check(route?.evolution?.host==='/foundry/','INTERPHASE ROOM evolution host drifted');
-  check(roomRelease?.version==='0.1','INTERPHASE ROOM release version drifted');
-  check(roomRelease?.route==='/foundry/room/','INTERPHASE ROOM release route drifted');
-  check(/projection, never canonical object truth/i.test((roomRelease?.boundary||[]).join(' ')),'INTERPHASE ROOM lost projection authority boundary');
+  for(const token of ['INTERPHASE / SPACE SCALE 0.2','BLOCK ⇄ ROOM','id="canvas"','id="foldBtn"','id="forkBtn"','id="returnBtn"','PLAIN','space-core.js'])check(room.includes(token),'SPACE SCALE surface missing token: '+token);
+  check(exists('foundry/room/room-0.1.html'),'INTERPHASE ROOM 0.1 probe fossil missing');
+  check(exists('foundry/room/release-0.1.json'),'INTERPHASE ROOM 0.1 release fossil missing');
+  check(route?.state==='CANDIDATE','SPACE SCALE must remain CANDIDATE until real composition evidence');
+  check(route?.kind==='experiment','SPACE SCALE route kind drifted');
+  check(route?.operation==='COMPOSE','SPACE SCALE operation drifted');
+  check(route?.evolution?.host==='/foundry/','SPACE SCALE evolution host drifted');
+  check(roomRelease?.version==='0.2','SPACE SCALE release version drifted');
+  check(roomRelease?.route==='/foundry/room/','SPACE SCALE release route drifted');
+  check(/recipe.*physical|physical.*recipe/i.test((roomRelease?.boundaries||[]).join(' ')),'SPACE SCALE lost digital-recipe / physical-reality boundary');
   compileInline(roomPath);
 }
 

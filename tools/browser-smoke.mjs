@@ -571,10 +571,10 @@ const CASES=[
     check:dom=>dom.includes('FOCUS STACK')&&dom.includes('RETURN')
   },
   {
-    name:'INTERPHASE ROOM',
-    route:'/foundry/room/?route=%2Ffoundry%2Faxial%2F&face=U',
-    options:{width:1100,height:820,budget:1800,timeout:18000},
-    check:dom=>dom.includes('INTERPHASE / ROOM 0.1')&&dom.includes('id="stage"')&&dom.includes('INTENTION')&&dom.includes('AXIAL / FOCUS STACK 0.7.3')&&dom.includes('data-face="U"')
+    name:'INTERPHASE SPACE SCALE',
+    route:'/foundry/room/',
+    options:{width:1100,height:820,budget:2200,timeout:18000},
+    check:dom=>dom.includes('INTERPHASE / SPACE SCALE 0.2')&&dom.includes('id="canvas"')&&dom.includes('BLOCK ⇄ ROOM')&&dom.includes('id="foldBtn"')&&dom.includes('id="forkBtn"')&&dom.includes('space-core.js')
   },
   {
     name:'AXIAL continuity + RETURN replay',
