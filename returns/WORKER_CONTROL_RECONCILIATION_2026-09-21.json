@@ -1,0 +1,65 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "WORKER-CONTROL-RECONCILIATION-2026-09-21",
+  "date": "2026-09-21",
+  "object": "Codex/Hermes backup-ingest execution state after PR #61",
+  "before": {
+    "backup_warden": "documented as dormant/unproved pending ingress path",
+    "recovery_queue": "REC-01 still broad enough to invite ambient census",
+    "one_family_review": "state-survey NEXT but no exact worker packet",
+    "codex_private_handoff": "none for the verified Sep-21 ingest follow-up"
+  },
+  "observed": {
+    "backup_recovery_merge": "PR #61 / 9e9edf23828376c76672b58c5655c3e022556ca2",
+    "local_ingest": "559 files / 557 byte objects / 2 duplicate groups / 559 of 559 hash match / source mutation false",
+    "state_survey": "/control/STATE_SURVEY_2026-09-21_1731.json",
+    "parallel_runtime_smoke": "tools/browser-smoke.mjs and CI gating landed independently during this pass"
+  },
+  "operation": [
+    "Derived AFK action surface from current evidence/authority constraints; human-only tests remained blocked instead of approximated.",
+    "Created one bounded local execution packet for a single app + authored design/spec family review.",
+    "Reconciled BACKUP-INTAKE-WARDEN from unproved/dormant to proved-on-Sep-21 with new-ingress-only re-arm.",
+    "Added INGEST-01 and narrowed REC-01 to concrete-anchor-only recovery.",
+    "Opened private Codex issue #8 with exact stop/privacy/hash preflight.",
+    "Added static drift guards so verified ingest cannot silently regress to an unproved worker state.",
+    "Kept CURRENT active fronts and next_single_action unchanged."
+  ],
+  "after": {
+    "afk_surface": "/control/AFK_ACTION_SURFACE_2026-09-21.json",
+    "worker_packet": "/control/packets/INGEST_ONE_FAMILY_2026-09-21.json",
+    "hermes_goal": "BACKUP-INTAKE-WARDEN / PROVED bounded Sep-21 ingest",
+    "hermes_task": "INGEST-01",
+    "codex_handoff": "private repo issue #8",
+    "broad_rescan": "NOT_AUTHORIZED",
+    "local_family_review": "DELEGATED_NOT_EXECUTED"
+  },
+  "verification": {
+    "connector_master_invariants": "PASS",
+    "checks": {
+      "ingest_verified": true,
+      "backup_goal_proved": true,
+      "successor_exact": true,
+      "packet_exact": true,
+      "queue_has_ingest": true,
+      "broad_recovery_anchor_only": true,
+      "current_points": true,
+      "afk_single_survivor": true,
+      "validator_guard": true,
+      "control_index_touched": true
+    },
+    "json_parse": "PASS for changed control/packet/manifest documents",
+    "independent_fresh_clone": "NOT_RUN — execution container has no outbound GitHub DNS/network",
+    "github_actions_result": "NOT_ASSERTED in this receipt"
+  },
+  "limits": [
+    "This session cannot access the private local Sep-21 inventory/index/provenance reports, so it did not choose or inspect the family.",
+    "The Codex issue is a bounded execution handoff; creation does not prove local execution occurred.",
+    "Human ordinary-use and paired Painting representation evidence remain intentionally unperformed while user is AFK."
+  ],
+  "residue": [
+    "When issue #8 returns, ingest exactly one result into CURRENT/CENSUS/MIGRATION only if evidence warrants it.",
+    "If issue #8 is BLOCKED because report paths are unavailable, supply only the exact local report location; do not rescan the whole machine.",
+    "Do not let one-family review become filesystem reorganization."
+  ],
+  "next": "Wait for real local issue #8 return or human ordinary-use evidence; do not expand architecture in the meantime."
+}
