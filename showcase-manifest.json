@@ -99,37 +99,35 @@
     },
     {
       "href": "/port/",
-      "title": "HUMAN PORT 1.4",
+      "title": "HUMAN PORT 1.5",
       "kind": "hub",
       "parent": "/",
       "family": "HUMAN PORT",
       "operation": "ROUTE",
       "state": "ACTIVE",
-      "version": "1.4-preview",
+      "version": "1.5-preview",
       "receipt": "/port/release.json",
       "showcase_card": false,
-      "role": "Canonical HUMAN PORT intake/router with addressed focus: preserve one source, optionally focus a lawful projection, inspect route support, SELECT, then explicitly OPEN a bounded local handoff.",
+      "role": "Canonical addressed object aperture: accept text/JSON/image/local files as one Port object, preserve byte/provenance identity, focus lawful projections, expose FIT/CUES/HISTORY separately, then SELECT + OPEN a bounded route. FIELD INTAKE remains the separate reviewed admission gate.",
       "transfer": [
-        "AXIAL 0.7.1 visible-support presentation law + fixed focus + explicit position witness + OPEN; Port support semantics remain heuristic cue evidence",
-        "Scale Lens canonical identity across unequal projections",
-        "RSVP/foveated source focus",
-        "passive metadata-only route evidence",
-        "one source / many lawful routes",
-        "explicit outbound authority boundary"
+        "PORT_OBJECT envelope across text/json/image/file",
+        "AXIAL focus / explicit OPEN",
+        "Scale Lens identity across unequal projections",
+        "INGEST SHA-256/provenance discipline",
+        "FIT != CUES != HISTORY != AUTHORITY",
+        "object-aware RETURN / re-entry"
       ],
       "contract": {
         "transforms": {
-          "verb": "accept one local source; preserve identity; focus whole or addressed projection; expose support; require human SELECT + OPEN; route into bounded downstream tool",
+          "verb": "envelope one local object; hash/stash bytes when applicable; focus a lawful projection; derive structural FIT plus heuristic CUES/history; require SELECT + OPEN; route without silently admitting/publishing/moving source",
           "preserves": [
-            "canonical source wording",
-            "focus address",
-            "context != authority",
-            "support != confidence",
-            "select != open",
-            "draft != send",
-            "residue != obligation",
-            "idea != build commitment",
-            "re-entry path"
+            "object identity",
+            "byte hash where available",
+            "source provenance",
+            "projection/focus address",
+            "fit/cues/history separation",
+            "authority independence",
+            "re-entry/return path"
           ],
           "reversibility": "full",
           "side_effects": "local/browser or explicit human share only",
@@ -149,20 +147,30 @@
         "inputs": [
           {
             "medium": "DATA",
-            "kind": "one source object + optional addressed focus",
-            "interface": "Port intake + Field Aperture"
+            "kind": "text / JSON object",
+            "interface": "paste/write"
+          },
+          {
+            "medium": "MEDIA",
+            "kind": "image / local file object",
+            "interface": "browser file/drop + local IndexedDB"
           }
         ],
         "outputs": [
           {
             "medium": "DATA",
-            "kind": "bounded whole/focus handoff",
-            "interface": "explicit OPEN + same-origin session handoff"
+            "kind": "bounded whole/focus object handoff",
+            "interface": "explicit OPEN + session adapter"
           },
           {
             "medium": "EVIDENCE",
             "kind": "content-free route receipt",
             "interface": "local metadata"
+          },
+          {
+            "medium": "DATA",
+            "kind": "review candidate",
+            "interface": "FIELD INTAKE adapter"
           }
         ],
         "exit_paths": [
@@ -205,6 +213,11 @@
             "class": "DELEGATED_SEND",
             "status": "CANDIDATE",
             "via": "explicit disclosed policy-bound agent transport"
+          },
+          {
+            "class": "CANONICAL_INGEST",
+            "status": "AVAILABLE",
+            "via": "/field-intake/ candidate-only adapter; resolution + APPLY sovereign"
           }
         ],
         "physical_fit": "Human/world boundary and routing surface; does not itself authorize sending, actuation, inference or private-context publication."
@@ -308,9 +321,9 @@
         }
       ],
       "index": {
-        "updated_at": "2026-09-21T17:18:00+08:00",
+        "updated_at": "2026-09-21T18:45:00+08:00",
         "work_modes": [
-          "SPECIFY",
+          "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
@@ -461,18 +474,20 @@
     },
     {
       "href": "/field-intake/",
-      "title": "FIELD INTAKE 0.4",
+      "title": "FIELD INTAKE 0.5",
       "kind": "artifact",
       "parent": "/",
       "operation": "CAPTURE",
       "state": "STABLE",
-      "version": "0.4",
+      "version": "0.5",
       "receipt": "/field-intake/release.json",
       "transfer": [
         "inbox/case intake",
         "sensor/log ingress",
         "provenance + rollback",
-        "CONTINUITY reviewed-claim candidate ingress"
+        "CONTINUITY reviewed-claim candidate ingress",
+        "HUMAN PORT object-reference candidate ingress",
+        "object-aware RETURN to Port"
       ],
       "contract": {
         "accepts": {
@@ -480,7 +495,8 @@
             "freeform note",
             "message",
             "form payload",
-            "sensor/log event"
+            "sensor/log event",
+            "HUMAN PORT object candidate"
           ],
           "requires": [],
           "optional": [
@@ -494,7 +510,8 @@
           "preserves": [
             "raw source",
             "provenance",
-            "before state"
+            "before state",
+            "source object id/hash/media/focus provenance"
           ],
           "reversibility": "full",
           "side_effects": "local"
@@ -534,6 +551,11 @@
             "medium": "SIGNAL",
             "kind": "sensor/log event",
             "interface": "adapter envelope"
+          },
+          {
+            "medium": "DATA",
+            "kind": "HUMAN PORT object candidate",
+            "interface": "field.intake.handoff.v01"
           }
         ],
         "outputs": [
@@ -551,6 +573,11 @@
             "medium": "EVIDENCE",
             "kind": "physical observation event",
             "interface": "house event envelope"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "object-aware RETURN",
+            "interface": "human.port.object.return.v01"
           }
         ],
         "exit_paths": [
@@ -573,13 +600,14 @@
         "physical_fit": "Primary reality-ingress surface once observations/sensors have an adapter."
       },
       "index": {
-        "updated_at": "2026-09-21T02:27:56+08:00",
+        "updated_at": "2026-09-21T18:45:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "role": "Reviewed canonical admission membrane: accepts compressed capture, CONTINUITY cases, and HUMAN PORT object-reference candidates; mutation still requires explicit resolution + APPLY and leaves reversible receipts."
     },
     {
       "href": "/continuity/",
@@ -4505,7 +4533,7 @@
         "Dayline plain-first / radial-optional disclosure"
       ],
       "index": {
-        "updated_at": "2026-09-21T19:15:00+08:00",
+        "updated_at": "2026-09-21T19:12:00+08:00",
         "work_modes": [
           "RECOVER",
           "RESEARCH",
@@ -4799,7 +4827,7 @@
     "runtime_repair_return": "/returns/FOUNDRY_RUNTIME_REPAIR_2026-09-21.json",
     "center_disposition": "Center Mass 0.3 is DONOR per CURRENT; PLAIN/FCM absorbed useful control mechanics. Reopen only on a named missing function.",
     "archive_surface_return": "/returns/ARCHIVE_SURFACE_RECONCILIATION_2026-09-21.json",
-    "poem_map_boot_repair": "Plural selector bindings repaired and guarded after calm-face boot regression.",
+    "poem_map_boot_repair": "f63bbfbc02b4a5f0bd74b9b31fb5e447255f62b2",
     "local_smoke_snapshot": "FIELD local/CI reads checked-in issue snapshot; public Pages keeps bounded live refresh.",
     "docs_addressable_return": "/returns/DOCS_ADDRESSABLE_APERTURE_2026-09-21.json",
     "poem_map_boot_guard": "Runtime probe + static guard require plural selector helper for multi-element bindings."

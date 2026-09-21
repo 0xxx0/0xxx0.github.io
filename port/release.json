@@ -2,10 +2,10 @@
   "schema": "release-receipt/v1",
   "artifact": "HUMAN PORT",
   "route": "/port/",
-  "version": "1.4-preview",
+  "version": "1.5-preview",
   "date": "2026-09-21",
   "state": "ACTIVE_EXPERIMENT",
-  "decision": "/port/ remains the canonical HUMAN PORT intake/router; 1.4 adds an AXIAL/Scale-Lens-derived focus aperture so one source can be routed whole or at an addressed focus through an explicit SELECT → OPEN gate.",
+  "decision": "HUMAN PORT becomes an addressed object aperture: text/JSON/image/generic local files share one object envelope; Port handles temporary passage/focus/routing while FIELD INTAKE remains the separate reviewed admission gate.",
   "recovered_user_functions": [
     "ADDRESS",
     "INTAKE",
@@ -27,11 +27,12 @@
     "/contact/backstage/"
   ],
   "laws": [
-    "SOURCE STAYS SOURCE",
+    "OBJECT IDENTITY != BYTE HASH != PROJECTION ADDRESS",
+    "PORT PASSAGE != FIELD ADMISSION",
+    "FIT != CUES != HISTORY != AUTHORITY",
     "FOCUS != SOURCE REPLACEMENT",
-    "HEURISTIC CUE SUPPORT != EXACT SET SUPPORT != CONFIDENCE != AUTHORITY",
-    "SELECT != OPEN != EXTERNAL SEND",
-    "ZERO SUPPORT DOES NOT FORBID MANUAL ROUTING",
+    "SELECT != OPEN != APPLY != EXTERNAL SEND",
+    "LOCAL STASH != CANONICAL REPOSITORY",
     "ROUTE RECEIPT != WORLD RETURN"
   ],
   "promotion_rule": "Keep /contact/ simple. Promote deeper mechanisms onto /port/ only when they reduce real interaction/re-entry cost.",
@@ -43,15 +44,16 @@
     "do not expand cue grammar or add transport until ordinary evidence accumulates"
   ],
   "delta": [
-    "embed shared Field Aperture inline rather than opening it only as a floating inspector",
-    "route WHOLE SOURCE or CURRENT FOCUS",
-    "support TEXT document/paragraph/sentence/word and JSON root/level/leaf focus",
-    "show reproducible heuristic route-cue hit counts against the current route scope; these are not Constraint Surface survivor counts",
-    "separate route SELECT from explicit OPEN",
-    "persist same-session source/focus/scope/selected route for re-entry",
-    "store content-free local route receipts",
-    "record completed OPEN choice for passive preference evidence; do not log payload text",
-    "preserve Contact as a second explicit boundary before external Share/Copy"
+    "add human-port-object/v0.1 object envelope",
+    "add SHA-256 + browser-local IndexedDB stash for local files",
+    "add TEXT/JSON apertures from shared Field Aperture",
+    "add IMAGE whole/normalized-region focus via canvas aperture",
+    "retain generic files as addressable objects even without a semantic viewer",
+    "derive structural FIT from /port/routes.json contracts",
+    "keep heuristic CUES and local HISTORY as separate readings",
+    "add FIELD INTAKE as sixth route with candidate-only handoff",
+    "add object-aware FIELD INTAKE RETURN to the same Port object id",
+    "add explicit purge for local object bytes"
   ],
   "first_time_test": "Paste one source once and reach the intended tool preloaded within one explicit route choice.",
   "donors": [
@@ -67,5 +69,26 @@
     "kind": "HEURISTIC_CUE_EVIDENCE",
     "contract": "/control/SUPPORT_SEMANTICS.json",
     "non_claim": "Route cue counts suggest attention; they do not prove route compatibility, confidence, importance or permission."
-  }
+  },
+  "contracts": [
+    "/port/object.schema.json",
+    "/port/routes.json"
+  ],
+  "adapters": {
+    "TEXT": "Field Aperture",
+    "JSON": "Field Aperture",
+    "IMAGE": "PortObjectAperture normalized region",
+    "FILE": "metadata/hash reference only"
+  },
+  "persistence": {
+    "text": "session envelope",
+    "files": "IndexedDB human-port-object-store-v01",
+    "route_receipts": "local metadata only"
+  },
+  "reality_gate": [
+    "drop one real generated image → hash → region focus → FIELD INTAKE candidate → APPLY or reject → RETURN",
+    "drop one authored JSON/text file and prove disk-loaded text routes identically to pasted text",
+    "drop one opaque authored file and prove identity/provenance survives despite no semantic viewer"
+  ],
+  "next": "Do not add audio/video/PDF or AI auto-routing until the three unequal object specimens survive ordinary use."
 }

@@ -1,6 +1,6 @@
 {
   "schema": "human-port-descriptor/v0.1",
-  "version": "1.4-preview",
+  "version": "1.5-preview",
   "canonical": "https://0xxx0.github.io/port/",
   "surfaces": {
     "plain": "/contact/",
@@ -107,7 +107,10 @@
     "axial_focus_stack": "/foundry/axial/",
     "aperture_component": "/field-aperture.js",
     "axial_graft": "/control/confluence/HUMAN_PORT_AXIAL_GRAFT_2026-09-21.json",
-    "focus_return": "/returns/HUMAN_PORT_FOCUS_APERTURE_2026-09-21.json"
+    "focus_return": "/returns/HUMAN_PORT_FOCUS_APERTURE_2026-09-21.json",
+    "object_schema": "/port/object.schema.json",
+    "route_contracts": "/port/routes.json",
+    "object_return": "/returns/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json"
   },
   "interpretation": {
     "state": "LAB",
@@ -293,7 +296,41 @@
       "state": "LIVE_LOCAL",
       "carrier": "sessionStorage",
       "rule": "Downstream handoffs may carry WHOLE or CURRENT FOCUS plus focus address metadata; canonical source remains recoverable in Port session."
+    },
+    "port_object_to_field_intake": {
+      "state": "LIVE_LOCAL",
+      "carrier": "sessionStorage field.intake.handoff.v01",
+      "schema": "0xxx0/port-object-to-field-intake/v0.1",
+      "return_schema": "human-port-object-return/v0.1",
+      "rule": "Port supplies object identity/provenance as candidate evidence; FIELD INTAKE retains independent review/APPLY authority."
     }
   },
-  "suite_law": "Tools should form reversible handoffs, not isolated mini-apps. Each transfer preserves source identity and does not silently upgrade authority or commitment."
+  "suite_law": "Tools should form reversible handoffs, not isolated mini-apps. Each transfer preserves source identity and does not silently upgrade authority or commitment.",
+  "object_aperture": {
+    "state": "ACTIVE_EXPERIMENT",
+    "schema": "/port/object.schema.json",
+    "route_contracts": "/port/routes.json",
+    "media_classes": [
+      "TEXT",
+      "JSON",
+      "IMAGE",
+      "FILE"
+    ],
+    "local_store": "IndexedDB human-port-object-store-v01",
+    "identity_law": "Exact byte hash may identify bytes; semantic object identity and projection address remain separate.",
+    "focus": {
+      "TEXT": "DOCUMENT/PARAGRAPH/SENTENCE/WORD",
+      "JSON": "ROOT/LEVEL/LEAF",
+      "IMAGE": "WHOLE/normalized REGION",
+      "FILE": "WHOLE_REF only"
+    },
+    "readings": {
+      "FIT": "structural route adapter from declared contract",
+      "CUES": "heuristic content/label relevance",
+      "HISTORY": "local completed OPEN count",
+      "AUTHORITY": "independent policy/action ceiling; never derived from FIT/CUES/HISTORY"
+    },
+    "admission": "FIELD INTAKE route creates review candidates only; canonical mutation remains behind explicit resolution + APPLY.",
+    "retention": "Files are browser-local until explicit PURGE; Port does not upload or move filesystem originals."
+  }
 }

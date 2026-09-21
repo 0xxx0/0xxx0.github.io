@@ -6,7 +6,7 @@ function renderHeader() {
   const total = Object.values(counts).reduce((sum, value) => sum + value, 0);
   mast.innerHTML = `
     <div>
-      <div class="kicker">POLY / INGRESS MEMBRANE 0.4</div>
+      <div class="kicker">POLY / INGRESS MEMBRANE 0.5</div>
       <h1>FIELD INTAKE</h1>
       <p>Capture can be compressed and provisional. Canonical state changes only through a visible resolution and leaves a reversible receipt.</p>
     </div>
@@ -16,7 +16,8 @@ function renderHeader() {
     <span><b>${state.ingressReceipts.length}</b> receipts</span>
     <span><b>${envelope.candidates.length}</b> candidates</span>
     <span><b>${draft.split('\n').filter(line => line.trim()).length}</b> inbox lines</span>
-    ${notice ? `<span class="notice ${noticeTone}">${esc(notice)}</span>` : '<span class="notice">nothing mutates before APPLY PATCH</span>'}`;
+    ${notice ? `<span class="notice ${noticeTone}">${esc(notice)}</span>` : '<span class="notice">nothing mutates before APPLY PATCH</span>'}
+    ${incomingHandoff?.schema === '0xxx0/port-object-to-field-intake/v0.1' ? '<a class="notice" href="../port/">RETURN TO HUMAN PORT →</a>' : ''}`;
 }
 
 function renderKinds() {

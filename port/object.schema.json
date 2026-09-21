@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0xxx0.github.io/port/object.schema.json",
+  "title": "HUMAN PORT Object Envelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "object_id",
+    "source_class",
+    "media_class",
+    "label",
+    "created_at",
+    "retention",
+    "provenance"
+  ],
+  "properties": {
+    "schema": {
+      "const": "human-port-object/v0.1"
+    },
+    "object_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_class": {
+      "enum": [
+        "TEXT_ENTRY",
+        "LOCAL_FILE",
+        "FIELD_REF",
+        "EVENT_REF",
+        "URL_REF"
+      ]
+    },
+    "media_class": {
+      "enum": [
+        "TEXT",
+        "JSON",
+        "IMAGE",
+        "FILE"
+      ]
+    },
+    "label": {
+      "type": "string"
+    },
+    "mime": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "size_bytes": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "sha256": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "retention": {
+      "enum": [
+        "SESSION",
+        "LOCAL_STASH",
+        "REFERENCE_ONLY"
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "origin"
+      ],
+      "properties": {
+        "origin": {
+          "type": "string"
+        },
+        "source_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "payload_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "text_payload": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "focus": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": true
+    }
+  }
+}

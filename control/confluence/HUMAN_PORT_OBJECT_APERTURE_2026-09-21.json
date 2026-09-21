@@ -1,0 +1,50 @@
+{
+  "schema": "0xxx0/convergence-packet/v0.1",
+  "id": "HUMAN-PORT-OBJECT-APERTURE-PLAN-REALIZED",
+  "date": "2026-09-21",
+  "current_head": "HUMAN PORT 1.5 / OBJECT APERTURE",
+  "thesis": "Port handles temporary addressed passage; FIELD INTAKE handles reviewed durable admission; INGEST handles byte/provenance indexing. These are adjacent boundaries, not one mega-app.",
+  "donors": [
+    {
+      "source": "AXIAL 0.7.x",
+      "retained": "fixed focus / position witness / explicit OPEN / distinct operation semantics"
+    },
+    {
+      "source": "Scale Lens / REPRESENTATION kernel",
+      "retained": "canonical identity survives unequal projections; byte identity != semantic identity"
+    },
+    {
+      "source": "FIELD APERTURE",
+      "retained": "TEXT/JSON scale-addressed focus"
+    },
+    {
+      "source": "INGEST",
+      "retained": "SHA-256 exact bytes + non-destructive provenance discipline"
+    },
+    {
+      "source": "FIELD INTAKE 0.4",
+      "retained": "candidate → explicit resolution → APPLY → receipt → rollback/replay"
+    },
+    {
+      "source": "HUMAN PORT 1.4",
+      "retained": "one source / focus / SELECT / OPEN / re-entry"
+    }
+  ],
+  "delta": [
+    "first-class browser-local PORT_OBJECT",
+    "image-region addressing",
+    "generic opaque file identity without fake semantic viewer",
+    "FIT/CUES/HISTORY split",
+    "candidate-only FIELD INTAKE adapter",
+    "object-aware RETURN"
+  ],
+  "exclusions": [
+    "no automatic file movement",
+    "no automatic publication",
+    "no AI autorouting",
+    "no OCR requirement",
+    "no universal file ontology",
+    "no claim that FIELD INTAKE stores original file bytes"
+  ],
+  "next_transform": "Prove three unequal objects in ordinary use before adding media classes."
+}

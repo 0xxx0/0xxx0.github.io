@@ -48,16 +48,18 @@
     {
       "id": "human-port-use",
       "state": "ACTIVE_NOW",
-      "center": "/port/ source → focus aperture → support → SELECT → OPEN → downstream tool → re-enter",
-      "objective": "Use HUMAN PORT 1.4 normally and observe whether addressed focus + visible support reduce repasting/re-entry without adding route friction. Preserve explicit authority boundaries; do not add transport or autonomous sending from this experiment.",
+      "center": "/port/ PORT_OBJECT → focus → FIT/CUES/HISTORY → SELECT → OPEN → downstream route or FIELD INTAKE → RETURN",
+      "objective": "Prove HUMAN PORT 1.5 with three unequal real objects: one generated image, one authored text/JSON file, one opaque authored file. Confirm identity/provenance survives routing and FIELD INTAKE admission remains candidate-only.",
       "evidence": [
         "/port/",
-        "/port/release.json",
-        "/returns/HUMAN_PORT_FOCUS_APERTURE_2026-09-21.json",
-        "/control/confluence/HUMAN_PORT_AXIAL_GRAFT_2026-09-21.json",
-        "/foundry/axial/",
-        "/field-aperture.js",
-        "/control/PREFERENCE_SIGNALS.json"
+        "/port/object.schema.json",
+        "/port/routes.json",
+        "/port/object-store.js",
+        "/port/object-aperture.js",
+        "/field-intake/",
+        "/field-intake/release.json",
+        "/returns/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json",
+        "/control/confluence/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json"
       ]
     }
   ],
@@ -106,10 +108,10 @@
     },
     {
       "lineage": "comms",
-      "head": "HUMAN PORT 1.4 focus aperture + CONTACT 0.3 + LACONIC / ICONIC 0.3 + Router / Policy",
+      "head": "HUMAN PORT 1.5 OBJECT APERTURE + FIELD INTAKE 0.5 admission bridge + CONTACT/LACONIC/Router",
       "state": "ACTIVE",
       "route": "/port/",
-      "retained_function": "One source enters Port, survives whole/focused projections, exposes visible route cue counts, then moves only after SELECT → OPEN. AXIAL 0.7.1 supplies focus/support/open presentation law (Port support remains heuristic cue evidence) and explicit position witnesses; Scale Lens preserves identity across projections; Contact remains the separate external Share/Copy boundary."
+      "retained_function": "One addressed object may enter as text/JSON/image/file, retain byte/provenance identity, expose whole/focused projections and route FIT separately from CUES/HISTORY, then cross a bounded adapter. Durable admission remains behind FIELD INTAKE review/APPLY; Port never silently canonizes or uploads the source."
     },
     {
       "lineage": "house-spatial",
@@ -286,8 +288,8 @@
     }
   ],
   "next_single_action": {
-    "id": "passive-human-port-focus-observe-01",
-    "instruction": "Use FIELD and HUMAN PORT normally. If Port is useful, use WHOLE/FOCUS and OPEN naturally; do not perform a dedicated QA ritual. Let content-free choice/override/backtrack evidence accumulate and refine only after ordinary use reveals a concrete failure or repeated pattern."
+    "id": "human-port-object-specimens-01",
+    "instruction": "Use HUMAN PORT 1.5 on three unequal real objects when convenient: one generated image, one authored text/JSON file and one opaque authored file. Do not add another medium yet. Preserve the first concrete failure/override/RETURN from each specimen and decide RETAIN/REVISE from evidence."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
@@ -434,7 +436,9 @@
     "ingest_solved_problem_raid": "/control/research/INGEST_SOLVED_PROBLEM_RAID_2026-09-21.md",
     "open_instrument_quarry": "/control/confluence/OPEN_INSTRUMENT_QUARRY_2026-09-21.md",
     "docs_reader_addressable": "/docs/?src=/path/to/same-origin-file.json&return=/caller",
-    "docs_reader_return": "/returns/DOCS_ADDRESSABLE_APERTURE_2026-09-21.json"
+    "docs_reader_return": "/returns/DOCS_ADDRESSABLE_APERTURE_2026-09-21.json",
+    "human_port_object_aperture": "/control/confluence/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json",
+    "human_port_object_return": "/returns/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
