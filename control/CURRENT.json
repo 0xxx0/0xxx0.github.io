@@ -74,7 +74,7 @@
       "head": "SCALE LENS RC11.2 + LensState 0.2 G1",
       "state": "STABLE + EXPERIMENTAL_TRANSFER",
       "route": "/fold-bloom/lens/",
-      "retained_function": "RC11.2 remains the stable deep identity/provenance/RETURN workbench. LensState 0.2 supplies portable typed composition + visible lawful/dead typed transition support; FI now includes a local PLAIN↔FOVEATED proof bench, but foveation remains experimental until paired human receipts pass the gate."
+      "retained_function": "RC11.2 remains the stable deep identity/provenance/RETURN workbench. LensState 0.2 supplies typed composition + visible lawful/dead support; LENS PROOF is now directly discoverable from FI nav, focus actions, LATEST and MAP while still reusing FI state. Foveation remains experimental until paired receipts pass the gate."
     },
     {
       "lineage": "path-poetry",
@@ -422,9 +422,10 @@
     "lens_system": "/control/LENS_SYSTEM_CONTRACT_2026-09-21.json",
     "lens_evolution_g1": "/control/LENS_EVOLUTION_G1_2026-09-21.json",
     "lens_ci": "/control/LENS_CI_STATUS_2026-09-21.json",
-    "lens_proof_bench": "/?lens_proof=1",
+    "lens_proof_bench": "/lens-proof/",
     "lens_foveate_proof": "/control/LENS_FOVEATE_PROOF_2026-09-21.json",
-    "representation_painting_fixture": "/control/REPRESENTATION_PAINTING_2026-09-21.json"
+    "representation_painting_fixture": "/control/REPRESENTATION_PAINTING_2026-09-21.json",
+    "lens_proof_runtime": "/lens-proof.js"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
@@ -479,7 +480,8 @@
     "support_field": "AXIAL 0.7 exact support counts + survivor set; support ≠ importance.",
     "passive_trial": "field-axial-trial/v0.1 local-only; ordinary use before interpretation.",
     "ambient_inspector": "◎ resolves selected text → active field value → current route object, then docks /field-aperture.js locally. Utility, not head.",
-    "lens_support": "LensState v0.2 typed ordered contract support; support=0 stays visible; support ≠ authority. Foveation remains TEST until paired task evidence."
+    "lens_support": "LensState v0.2 typed ordered contract support; support=0 stays visible; support ≠ authority. Foveation remains TEST until paired task evidence.",
+    "proof_surface": "/lens-proof/ is a discoverable alias into the same FI local Lens proof state; it owns no separate canonical object/runtime."
   },
   "last_recovery_survey": "/control/RECOVERY_SURVEY_2026-09-20_B.json",
   "last_recovery_population": "/control/RECOVERY_POPULATION_2026-09-20.json",

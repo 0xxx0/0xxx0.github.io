@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T17:04:00+08:00",
+        "updated_at": "2026-09-21T17:38:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -41,7 +41,8 @@
         "LensState v0.2 typed composition over the same AXIAL/LATEST focus",
         "visible lawful/dead next-lens support",
         "NAV / INSPECT / LENS remain distinct operations",
-        "local PLAIN↔FOVEATED Lens proof bench with explicit receipt copy"
+        "local PLAIN↔FOVEATED Lens proof bench with explicit receipt copy",
+        "visible Lens proof entry in nav, aperture actions, LATEST and MAP"
       ]
     },
     {
@@ -4607,6 +4608,71 @@
             "via": "/recovery/sleeper/",
             "class": "RETURN"
           }
+        ]
+      }
+    },
+    {
+      "href": "/lens-proof/",
+      "title": "LENS PROOF",
+      "kind": "alias",
+      "parent": "/",
+      "family": "FIELD / LENS",
+      "operation": "PROVE",
+      "state": "UTILITY",
+      "version": "0.1",
+      "receipt": "/control/LENS_FOVEATE_PROOF_2026-09-21.json",
+      "role": "Discoverable utility alias into FIELD INDEX's local PLAIN↔FOVEATED Lens proof bench. Owns no separate canonical state.",
+      "transfer": [
+        "REP-01 paired projection proof",
+        "LENS-03 PLAIN↔FOVEATED task evidence",
+        "local explicit receipt copy"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "current FIELD focus"
+          ],
+          "requires": [],
+          "optional": [
+            "task",
+            "condition"
+          ]
+        },
+        "transforms": {
+          "verb": "enter the existing FI Lens proof mode",
+          "preserves": [
+            "FIELD focus identity",
+            "plain baseline",
+            "local-only evidence boundary",
+            "RETURN semantics"
+          ],
+          "reversibility": "full",
+          "side_effects": "browser-local evidence only"
+        },
+        "emits": {
+          "kinds": [
+            "local proof run",
+            "explicitly copied proof packet"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/control/LENS_FOVEATE_PROOF_2026-09-21.json",
+          "checks": [
+            "PLAIN baseline reachable",
+            "FOVEATED remains VIEW_LENS/PREVIEW",
+            "no automatic upload",
+            "identity continuity recorded"
+          ],
+          "return_path": "/"
+        }
+      },
+      "index": {
+        "updated_at": "2026-09-21T17:38:00+08:00",
+        "work_modes": [
+          "VERIFY",
+          "OPERATE"
         ]
       }
     }

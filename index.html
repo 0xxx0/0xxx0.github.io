@@ -14,7 +14,7 @@ a{color:inherit;text-decoration:none}button,input{font:inherit;color:inherit;bac
 main{width:min(1240px,100%);margin:auto}
 header{display:flex;align-items:end;justify-content:space-between;gap:16px;padding:10px 0 8px;border-bottom:1px solid var(--line)}
 .ey{font-size:7px;letter-spacing:.18em;color:var(--hot)}h1{margin:2px 0 0;font:900 clamp(30px,5vw,54px)/.9 system-ui,sans-serif;letter-spacing:-.065em}
-nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;border:1px solid var(--line);padding:5px 7px;font-size:7px;letter-spacing:.07em}nav a.play{border-color:var(--hot);color:#ffd0bd}
+nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;border:1px solid var(--line);padding:5px 7px;font-size:7px;letter-spacing:.07em}nav a.play{border-color:var(--hot);color:#ffd0bd}nav a.proof{border-color:var(--green);color:var(--green)}
 .section{margin-top:18px}.sectionHead{display:flex;justify-content:space-between;gap:12px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:5px;margin-bottom:6px}.sectionHead b{font-size:9px;letter-spacing:.14em}.sectionHead span{color:var(--mut);font-size:7px}
 
 /* AXIAL / LATEST */
@@ -31,7 +31,7 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 .survivors{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:7px;align-items:center;border-top:1px solid var(--line);padding:5px 7px;background:#090d0f}.survivors.lock{box-shadow:inset 2px 0 0 var(--green)}.survivors.dead{box-shadow:inset 2px 0 0 var(--bad)}.survLabel{font-size:6.5px;letter-spacing:.1em;color:var(--mut);white-space:nowrap}.survMarks{display:flex;gap:1px;flex-wrap:wrap;max-height:54px;overflow:hidden}.survMark{width:27px;height:27px;min-height:0;padding:1px;display:grid;place-items:center;border:1px solid transparent;background:#090d0f}.survMark:hover,.survMark.on{border-color:#66757b;background:#11181c}.survState{font-size:7px;color:var(--cool);white-space:nowrap}.survivors.lock .survState{color:var(--green)}.survivors.dead .survState{color:var(--bad)}.trail{color:#59676d;font-size:6px;margin-left:4px}
 .aperture{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:9px;align-items:center;border-top:1px solid var(--line);padding:8px;background:#080b0d}
 .apGlyph{display:grid;place-items:center}.apMeta{color:var(--hot);font-size:6.5px;letter-spacing:.09em}.apBody strong{display:block;font:800 16px/1.05 system-ui,sans-serif;letter-spacing:-.03em}.apBody p{margin:4px 0 0;color:#95a1a5;font:8px/1.4 system-ui,sans-serif;max-width:86ch}.apPath{color:var(--cool);font-size:6.5px;margin-top:3px}
-.apActions{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.apActions a,.apActions button{padding:6px 8px;font-size:7px;white-space:nowrap}.apActions .open{border-color:var(--cool);color:var(--cool)}.noMatch{color:var(--bad)!important}
+.apActions{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.apActions a,.apActions button{padding:6px 8px;font-size:7px;white-space:nowrap}.apActions .open{border-color:var(--cool);color:var(--cool)}.apActions .proof{border-color:var(--green);color:var(--green)}.noMatch{color:var(--bad)!important}
 
 /* LATEST */
 .feedStats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);background:var(--line);gap:1px;margin-bottom:5px}.feedStat{background:#090d0f;padding:5px 7px}.feedStat b{font:800 14px/.9 system-ui,sans-serif}.feedStat span{display:block;color:var(--mut);font-size:6px;margin-top:3px}
@@ -63,7 +63,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <body><main>
 <header>
   <div><div class="ey">FI / φ</div><h1>FIELD INDEX</h1></div>
-  <nav><a class="play" href="./field-play.html">PLAY</a><a href="./control/">CURRENT</a><a href="./foundry/axial/">AXIAL</a><a href="./foundry/">FOUNDRY</a><a href="./migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav>
+  <nav><a class="play" href="./field-play.html">PLAY</a><a class="proof" href="./lens-proof/">PROOF</a><a href="./control/">CURRENT</a><a href="./foundry/axial/">AXIAL</a><a href="./foundry/">FOUNDRY</a><a href="./migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav>
 </header>
 
 <section class="axial" id="axialLatest">
@@ -73,7 +73,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   <div class="aperture" id="aperture">
     <div class="apGlyph" id="apGlyph"></div>
     <div class="apBody"><div class="apMeta" id="apMeta">FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><p id="apRole">One fixed gate resolves the aligned vocabularies to an exact repository route.</p></div>
-    <div class="apActions"><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apInspect">APERTURE</button><button class="secondary" id="apAxial">◎ EXPAND</button><button class="secondary" id="apLens">SCALE LENS</button><button class="secondary" id="apCopy">COPY</button></div>
+    <div class="apActions"><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apInspect">APERTURE</button><button class="secondary" id="apAxial">◎ EXPAND</button><button class="secondary" id="apLens">⊗ LENS</button><button class="proof" id="apProof">PROOF</button><button class="secondary" id="apCopy">COPY</button></div>
   </div>
 </section>
 
@@ -223,8 +223,8 @@ function focusRoute(r,align,source='OTHER'){
 }
 function resetAxial(){axisState.state='ANY';axisState.operation='ANY';axisState.mode='ANY';focus=latest[0]||null;supportTrail=[latest.length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();renderTrial();syncAxialURL();notifyFieldIndex()}
 function renderAperture(){
- if(!focus){$('apGlyph').innerHTML='';['apInspect','apAxial','apLens','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');return}
- ['apInspect','apAxial','apLens','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';$('apGlyph').innerHTML=routeGlyph(focus,34);$('apMeta').textContent=[focus.state||'—',opOf(focus),modesOf(focus).join(' · ')].join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(focus.index?.updated_at||'UNTRACKED');$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed repository surface.';$('apOpen').href='.'+focus.href;
+ if(!focus){$('apGlyph').innerHTML='';['apInspect','apAxial','apLens','apProof','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');return}
+ ['apInspect','apAxial','apLens','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';$('apGlyph').innerHTML=routeGlyph(focus,34);$('apMeta').textContent=[focus.state||'—',opOf(focus),modesOf(focus).join(' · ')].join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(focus.index?.updated_at||'UNTRACKED');$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed repository surface.';$('apOpen').href='.'+focus.href;
 }
 function renderFeed(){
  const xs=latest.slice(0,latestLimit),live=routes.filter(r=>['ACTIVE','STABLE','PROOF_REQUIRED','CANDIDATE'].includes(r.state)).length;
@@ -284,6 +284,7 @@ function openLens(){
  if(!focus)return;const packet={text:JSON.stringify({schema:'field-route/v0.1',href:focus.href,title:focus.title,kind:focus.kind,state:focus.state,operation:focus.operation,role:focus.role,index:focus.index,parent:focus.parent,family:focus.family},null,2),label:'FIELD · '+(focus.title||focus.href),created_at:new Date().toISOString(),source:'field-index-axial-latest'};try{sessionStorage.setItem('scale.lens.handoff.v01',JSON.stringify(packet))}catch(_){}location.assign('./fold-bloom/lens/')
 }
 function inspectFocus(){if(!focus||!window.FieldAperture)return;window.FieldAperture.dock(focus,{label:focus.title||focus.href,from:'field-index-axial-latest'})}
+function openProof(){if(!focus)return;if(window.LensProof?.open){window.LensProof.open();return}const q=new URLSearchParams({lens_proof:'1',focus:focus.href});location.assign('./?'+q.toString())}
 async function copyTrial(){const data=JSON.stringify(trialReceipt(),null,2);try{await navigator.clipboard.writeText(data);const e=$('axTrial'),old=e.textContent;e.textContent='TRIAL COPIED';setTimeout(()=>renderTrial(),900)}catch(_){prompt('Copy local AXIAL trial:',data)}}
 async function copyAddress(){if(!focus)return;syncAxialURL();const txt=focus.href+'\n'+(focus.title||'')+'\n'+location.href;try{await navigator.clipboard.writeText(txt);const b=$('apCopy'),old=b.textContent;b.textContent='COPIED';setTimeout(()=>b.textContent=old,700)}catch(_){prompt('Copy address:',txt)}}
 
@@ -296,7 +297,7 @@ Promise.all([
  $('axialMeta').textContent=latest.length+' mutations · support is exact over current filters';
  renderHeads();renderPorts();applyInitialAxial();loadIssues();renderMap();
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});
-$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apAxial').onclick=openAxial;$('apLens').onclick=openLens;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===18?40:18;$('moreLatest').textContent=latestLimit===18?'SHOW 40':'SHOW 18';renderFeed()};
+$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apAxial').onclick=openAxial;$('apLens').onclick=openLens;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===18?40:18;$('moreLatest').textContent=latestLimit===18?'SHOW 40':'SHOW 18';renderFeed()};
 $('mapTools').onclick=e=>{if(e.target.dataset.mode){mapMode=e.target.dataset.mode;renderMap();notifyFieldIndex()}};$('mapSearch').oninput=e=>{mapQuery=e.target.value.trim().toLowerCase();renderMap()};
 $('mapUp').onclick=mapUp;$('mapRootBtn').onclick=()=>{mapRoot='/';renderMap();notifyFieldIndex()};$('mapDrill').onclick=drillSelected;
 $('mapFold').addEventListener('toggle',()=>{if($('mapFold').open)renderMap();notifyFieldIndex()});
