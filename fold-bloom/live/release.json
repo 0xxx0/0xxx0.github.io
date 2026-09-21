@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
-  "version": "LIVE 0.2",
-  "status": "ACTIVE_CANDIDATE_MERGED",
+  "version": "LIVE 0.3",
+  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
   "date": "2026-09-22",
   "donors": [
     {
@@ -39,20 +39,29 @@
     "same-page LOCAL_FILE custom-song host reuses LISTEN preview/deep analysis modules so phone gameplay does not depend on a background tab",
     "custom song playback, PREVIEW analysis, DEEP worker refinement and beat/section transport remain inside LIVE; LISTEN remains the deeper Suno/URL/map lab",
     "same-page song transport overrides optional cross-tab FIELD PULSE while active; both obey borrowed clock != borrowed authorship",
-    "CI now runs both LIVE gameplay engine tests and synthetic custom-song transport tests"
+    "CI now runs both LIVE gameplay engine tests and synthetic custom-song transport tests",
+    "SECTION ARC: detected song sections become optional bounded rounds without changing topology authority",
+    "arc readiness requires two successful CALLs using at least two distinct topology verbs",
+    "final 28% of a detected section opens a RETURN aperture; direct RETURN or charged cadence RETURN can seal a ready arc",
+    "section seal grants bounded FLOW bonus and is recorded in the release history/RETURN packet",
+    "bad or missed section boundaries never invalidate moves or apply penalties",
+    "renderer adds a low-clutter outer section-progress ring and late-section close witness",
+    "LISTEN/LIVE transport exposes section count/start/end/progress for same-page and FIELD PULSE paths",
+    "LISTEN now records browser/CORS remote failures explicitly; Suno blocked state tells the player to use the proven MP3 path"
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
     "LIVE is the one-hand performance head; it is not the sovereign Fold/Bloom family head or the deep composition workbench",
     "promote only after desktop + touch playtest demonstrates clearer agency and stronger sound than the donor",
     "external track pulse never auto-releases or mutates LIVE topology",
-    "CALL/forecast gameplay must remain legible and complete with audio muted and with LISTEN absent"
+    "CALL/forecast gameplay must remain legible and complete with audio muted and with LISTEN absent",
+    "section analysis is approximate temporal evidence, not semantic truth and not a source of mandatory moves"
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "direct phone play: load one real song inside LIVE; choose different forecast outcomes; compare muted vs synth vs custom-song play; judge CALL clarity and PERFECT/GOOD timing fairness",
+    "required_next": "PR CI + phone MP3 play: confirm multiple detected sections, ARC progress, two-verb readiness, late RETURN seal, no punishment when boundary estimate feels wrong",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
@@ -65,9 +74,18 @@
     "gameplay_ci_run": 35656338927,
     "gameplay_pr": 119,
     "runtime_full_pass": "public-surface-check run 35656338927",
-    "final_pr_ci": "PASS: public-surface-check run 35656619303 after coordination/receipt updates"
+    "final_pr_ci": "PASS: public-surface-check run 35656619303 after coordination/receipt updates",
+    "section_arc_branch": "fold-bloom-section-arc-030"
   },
   "execution_contract": "./EXECUTION.md",
-  "return": "/returns/FOLD_BLOOM_GAMEPLAY_2026-09-22.json",
-  "updated": "2026-09-22"
+  "return": "/returns/FOLD_BLOOM_SECTION_ARC_2026-09-22.json",
+  "updated": "2026-09-22",
+  "observed_user_return": {
+    "date": "2026-09-22",
+    "confidence": "DIRECT_USER_REPORT",
+    "mp3_local": "WORKS",
+    "section_differences": "PARTIALLY_WORKING / USEFUL ENOUGH TO ADVANCE",
+    "suno_link": "BLOCKED",
+    "interpretation": "Promote local MP3 + section structure; demote Suno link resolution from gameplay gate to best-effort source adapter."
+  }
 }
