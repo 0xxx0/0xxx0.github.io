@@ -4047,10 +4047,14 @@
         "explicit donor lineage"
       ],
       "index": {
-        "updated_at": "2026-09-21T14:21:00+08:00",
+        "updated_at": "2026-09-21T15:50:00+08:00",
         "work_modes": [
+          "RECOVER",
+          "RESEARCH",
           "SPECIFY",
-          "VERIFY"
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
         ]
       }
     },
@@ -4286,6 +4290,38 @@
         "next_if_fail": "PARK ring encoding; keep source analyzer and temporal-focus donor mechanics."
       },
       "showcase_card": false
+    },
+    {
+      "href": "/poetry/map/",
+      "title": "POEM MAP 0.1",
+      "kind": "workbench",
+      "parent": "/poetry/",
+      "family": "PATH / POETRY",
+      "operation": "PROJECT",
+      "state": "EXPERIMENTAL_LIVE",
+      "version": "0.1",
+      "receipt": "/poetry/map/release.json",
+      "showcase_card": false,
+      "role": "Linked PAGE/MAP/SETS authoring projection over one stable poem state: typed ORDER/SOUND/REPEAT/AUTHOR laws, continuous weights, aperture, locks, author paths, candidate bank, form adapters and RETURN.",
+      "transfer": [
+        "Poemage linked poem/set/path entrances",
+        "Foundry typed path laws",
+        "Market+Solver bag/constraint behavior",
+        "Pathweaver author path/capture",
+        "COPE/Co-PoeTryMe constrained option generation",
+        "Axial state×transform×aperture discipline"
+      ],
+      "index": {
+        "updated_at": "2026-09-21T15:50:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "RESEARCH",
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      }
     }
   ],
   "release_law": [
