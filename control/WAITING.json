@@ -45,5 +45,31 @@
       "why": "A personalized interaction/timing review cannot be safely reconstructed from guesses, and the public repo should not contain the list.",
       "unlocks": "Normalize identities and run source-backed interaction / duplicate-ingredient / timing review while preserving prescription authority outside the inference engine."
     }
-  ]
+  ],
+  "capture_protocol": {
+    "law": "MENTION != OBLIGATION; EXPLICIT UNRESOLVED ASK != DISPOSABLE RESIDUE.",
+    "routes": [
+      {
+        "condition": "The next bounded move is executable now with current authority/evidence.",
+        "destination": "EXECUTE -> RETURN; use CURRENT/QUEUE only when it is actually selected live work."
+      },
+      {
+        "condition": "The next meaningful move requires human observation, choice, permission, private input, physical action, or ordinary-use evidence.",
+        "destination": "WAITING"
+      },
+      {
+        "condition": "The material is a possibility, curiosity, donor, or speculative branch with no present commitment.",
+        "destination": "IDEA ATLAS / SOCIAL RESIDUE / HOLD; not WAITING."
+      },
+      {
+        "condition": "The material is evidence or a claim that may enter durable state.",
+        "destination": "FIELD INTAKE / CONTINUITY review gate before canon."
+      },
+      {
+        "condition": "The material contains sensitive/private state.",
+        "destination": "Keep private/local; if a public dependency pointer is useful, store only the minimum public-safe description."
+      }
+    ],
+    "closure": "A WAITING item must close, transform, or explicitly remain blocked when its named dependency changes; repeated mention alone does not duplicate it."
+  }
 }
