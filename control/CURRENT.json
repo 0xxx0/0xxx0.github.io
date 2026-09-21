@@ -94,7 +94,7 @@
     {
       "lineage": "rsvp-reader",
       "head": "READFIELD / RSVP 0.7 + APERTURE focus kernel",
-      "state": "UTILITY / READER_FIRST / BROWSER_PROOF_REQUIRED",
+      "state": "UTILITY / READER_FIRST / VERIFIED_SHIPPED",
       "route": "/docs/",
       "retained_function": "Canonical one-source reader. One source position persists while DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE, highlighted context and XREF change around it. Ordinary use is linear/reader-first; ring geometry is optional. Repo pages can hand selection/input/page text directly into READFIELD with exact RETURN. Optional FIELD PULSE tempo adapter maps LISTEN BPM to explicit ×2/×4/×8 WPM and publishes bounded reader focus; OFF remains default.",
       "evidence": [
@@ -104,7 +104,9 @@
         "/foundry/aperture/release.json",
         "https://github.com/0xxx0/0xxx0.github.io/pull/84",
         "/control/FIELD_PULSE_CONTRACT.json",
-        "/returns/FIELD_PULSE_2026-09-22.json"
+        "/returns/FIELD_PULSE_2026-09-22.json",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/104",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/105"
       ]
     },
     {
@@ -624,7 +626,22 @@
       "/recovery/showcase-map-v0/RECOVERY.json"
     ],
     "authority": "MASTER + CURRENT/QUEUE define executable/current coordination state; open PRs are bounded proposals; all other branch pointers are provenance/donor state until explicitly reconstructed.",
-    "rule": "A branch name never reactivates work. Recover exact donor material or reconstruct one bounded delta on current master."
+    "rule": "A branch name never reactivates work. Recover exact donor material or reconstruct one bounded delta on current master.",
+    "readfield_pr_convergence": {
+      "state": "SEALED",
+      "canonical": [
+        104,
+        105
+      ],
+      "superseded_closed": [
+        93,
+        96,
+        98,
+        100,
+        101
+      ],
+      "rule": "closed branches retain provenance; master remains authority"
+    }
   },
   "deep_tool_lineage": {
     "status": "RECOVERED + RECONSTRUCTED; exact App Atlas + Sleeper operator source identities located in File Library; byte materialization to repo still open",
