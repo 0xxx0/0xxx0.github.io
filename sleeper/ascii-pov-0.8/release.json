@@ -1,0 +1,60 @@
+{
+  "schema": "release-receipt/v1",
+  "name": "ASCII Sleeper",
+  "version": "0.8",
+  "state": "PUBLIC-EXPERIMENT",
+  "released": "2026-09-18",
+  "route": "/sleeper/",
+  "lineage": [
+    "Sleeper Workfield v1.2",
+    "Semantic City v0.4",
+    "ONE RETURN / Nine Gate",
+    "LAW DISTRICTS",
+    "Sleeper POV 0.7"
+  ],
+  "delta": [
+    "same canonical gate state in POV and PLAIN",
+    "four evidence contracts: RECALL OBSERVE DECIDE ACT",
+    "cross-district coupled law vector",
+    "RETURN seal encodes source/evidence/law/route fingerprints",
+    "FIELD HOUSE CIRCUIT cartridges"
+  ],
+  "epistemic_boundary": "Geometry is downstream of recorded state and never proof of external truth.",
+  "verification": [
+    "JS syntax checked in local 0.8 candidate",
+    "built-in self-test covers stable ids, open gate roads, four local-law deltas, cross-district coupling, POV/PLAIN state sharing, deterministic seal and field hash",
+    "GitHub Pages build completed successfully at showcase/manifest head",
+    "committed public bytes re-read after deploy; 0.8, coupled law and seal runtime present",
+    "shared /showcase-nav.js return adapter present"
+  ],
+  "current_classification": {
+    "reviewed_at": "2026-09-20T23:58:00+08:00",
+    "state": "ACTIVE",
+    "basis": "Runnable current head with deployed self-tests and same-state POV/PLAIN verification; unresolved HUMAN_ACTION remains an exit condition, not lifecycle identity.",
+    "receipt": "/control/EXPERIMENT_WRANGLE_2026-09-20.json",
+    "provenance_note": "Original release state remains contemporaneous provenance; this field records the later lifecycle classification."
+  },
+  "related_lanes": [
+    {
+      "route": "/sleeper/one-return/",
+      "name": "ONE RETURN / NINE GATE",
+      "state": "PLAYABLE_LINEAGE_LANE",
+      "relation": "playable maze ancestor restored without replacing ASCII Sleeper POV 0.8"
+    }
+  ],
+  "provenance_note": "The current head, ASCII ONE RETURN reconstruction donor, v2-era exact source snapshot, and remembered polished deployment remain unequal objects. Shared lineage does not imply identity or merge.",
+  "amended": "2026-09-22",
+  "project_surface": "/sleeper/project/",
+  "preservation": {
+    "one_return_ascii_recon": {
+      "state": "FROZEN_EXACT_DONOR_COPY",
+      "live_route": "/sleeper/one-return/",
+      "frozen_route": "/recovery/sleeper/one-return-recon-0.2/",
+      "preservation": "/recovery/sleeper/one-return-recon-0.2/PRESERVATION.json",
+      "source_index_blob": "57fbd935c17a17800b78a1f2af4c52b4b37c52af",
+      "frozen_index_blob": "57fbd935c17a17800b78a1f2af4c52b4b37c52af",
+      "source_release_blob": "32039cac4061a41420017236e652a998db5333a4",
+      "frozen_release_blob": "32039cac4061a41420017236e652a998db5333a4"
+    }
+  }
+}

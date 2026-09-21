@@ -50,7 +50,7 @@
         "Focus Ring primary path reduced to RETURN + DEEP LAB; proof machinery no longer competes with ordinary use",
         "NOW / RECOVER / TRANSFER re-entry states remain distinct",
         "CONFLUENCE promoted to root navigation rather than buried under Foundry",
-        "polished ONE RETURN v2 exposed as recovery target while ASCII reconstruction remains donor",
+        "POLISHED ONE RETURN v2 exact source lineage restored as canonical Sleeper authority; ASCII POV 0.8 and ASCII reconstruction retained as unequal derivative/donor",
         "focus-bound local policy-resolution trace over the same FIELD route identity",
         "seven-gate READ/REMEMBER/ACK/ANSWER/DRAFT/ACT/ESCALATE visualization",
         "inline STRUCTURAL/REPLAY/SEALED verifier statuses with FAIL != INDETERMINATE",
@@ -1513,109 +1513,114 @@
     },
     {
       "href": "/sleeper/",
-      "title": "ASCII SLEEPER 0.8",
+      "title": "SLEEPER // ONE RETURN v2",
       "kind": "artifact",
       "parent": "/",
       "family": "SLEEPER",
-      "operation": "PLAY",
+      "operation": "RECOVER",
       "state": "ACTIVE",
-      "version": "0.8",
-      "receipt": "/sleeper/release.json",
+      "version": "v2-era / City Engine v0.2",
+      "receipt": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
       "transfer": [
-        "constraint visualization",
-        "obligation gating",
-        "alternate views of one state",
-        "ONE RETURN playable ancestor lane restored without replacing current Sleeper head",
-        "project surface separates current head, playable donor, exact source snapshot and unresolved deployment identity"
+        "phrase + verse cell + figure → deterministic city",
+        "URCHIN / SLOTHCAKE / KITE figure-specific physics",
+        "CONCH / KERIS / W8 / SPIRAL enacted operators",
+        "eight evidence protocols + return to origin",
+        "Return Artifact v2 + reproducible world identity",
+        "ASCII POV 0.8 preserved as superseded derivative rather than current authority"
       ],
       "contract": {
         "accepts": {
           "kinds": [
-            "constraint set",
-            "evidence contract state",
-            "navigation/control input"
+            "phrase",
+            "verse cell",
+            "figure"
           ],
           "requires": [
-            "explicit constraints"
+            "source phrase",
+            "selected verse cell",
+            "selected figure"
           ],
           "optional": [
-            "resolved gate state"
+            "v2 Witness / world query"
           ]
         },
         "transforms": {
-          "verb": "project constraints into coupled traversable field",
+          "verb": "compile source/cell/figure into a deterministic city and enact proof-bearing Gates",
           "preserves": [
-            "canonical obligation state",
-            "plain-view equivalence"
+            "source",
+            "verse provenance",
+            "figure identity",
+            "world key",
+            "proof ledger"
           ],
-          "reversibility": "full",
-          "side_effects": "local"
+          "reversibility": "world inputs reconstruct initial city",
+          "side_effects": "historical runtime was local/browser"
         },
         "emits": {
           "kinds": [
-            "constraint field state",
-            "plain obligation view",
-            "return seal"
+            "deterministic city",
+            "Gate proofs",
+            "Return Artifact v2",
+            "reproducible world address"
           ],
-          "machine_readable": false,
+          "machine_readable": true,
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/sleeper/release.json",
+          "receipt": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
           "checks": [
-            "same-state POV/plain projection",
-            "gate resolution trace"
+            "exact recovered source",
+            "38/38 recovered subset tests",
+            "prior 2026-09-10 build/render/360-city evidence"
           ],
           "return_path": "/sleeper/"
         }
       },
       "field": {
         "roles": [
-          "WORLD_THROUGH"
+          "SOURCE",
+          "WORLD_THROUGH",
+          "VERIFY"
         ],
         "inputs": [
           {
             "medium": "DATA",
-            "kind": "constraint set",
-            "interface": "typed state"
-          },
-          {
-            "medium": "EVIDENCE",
-            "kind": "evidence contract",
-            "interface": "typed state"
+            "kind": "phrase + verse cell + figure",
+            "interface": "world compiler"
           }
         ],
         "outputs": [
           {
             "medium": "DATA",
-            "kind": "plain obligation view",
-            "interface": "display/state"
+            "kind": "Return Artifact v2",
+            "interface": "Witness JSON"
           },
           {
             "medium": "EVIDENCE",
-            "kind": "return seal",
-            "interface": "RETURN"
+            "kind": "Gate proof ledger",
+            "interface": "Return"
           }
         ],
         "exit_paths": [
           {
-            "class": "HUMAN_ACTION",
-            "status": "CANDIDATE",
-            "via": "obligation→real task"
+            "class": "HISTORICAL_RUNTIME",
+            "status": "UNVERIFIED_REACHABILITY",
+            "via": "recorded Work route"
           },
           {
-            "class": "DONOR",
+            "class": "SOURCE",
             "status": "AVAILABLE",
-            "via": "constraint gating"
+            "via": "/recovery/sleeper/site-source-2026-09-18/"
           }
         ],
-        "physical_fit": "Can gate workshop/home procedures when obligations are explicit."
+        "physical_fit": "Operator transfer is conceptual until separately enacted and evidenced."
       },
       "index": {
-        "updated_at": "2026-09-22T04:39:00+08:00",
+        "updated_at": "2026-09-22T05:41:00+08:00",
         "work_modes": [
+          "RECOVER",
           "VERIFY",
-          "OPERATE",
           "PLAY"
         ]
       },
@@ -3162,7 +3167,7 @@
       "parent": "/control/",
       "state": "ACTIVE",
       "showcase_card": false,
-      "role": "Cross-lineage coordination surface that explicitly distinguishes NOW/current authority, RECOVER targets, DONORS, and bounded TRANSFERS. Packages mechanisms without absorbing source organisms; currently exposes polished Work-mode ONE RETURN v2 as a recovery target and its ASCII/Grid Path neighbors as donors, not substitutes.",
+      "role": "Cross-lineage coordination surface distinguishing authority, donors and transfers. ONE RETURN v2 exact recovered source is canonical Sleeper authority; ASCII POV 0.8 and ASCII/Grid Path neighbors remain unequal derivative/donors.",
       "index": {
         "updated_at": "2026-09-22T00:29:00+08:00",
         "work_modes": [
@@ -3877,15 +3882,15 @@
       "family": "SLEEPER",
       "state": "ACTIVE",
       "showcase_card": false,
-      "role": "Sleeper lineage recovery shelf: Workfield v1.2 remains a frozen sibling donor; exact City Engine v0.2 source, later Painting runtime, and 13 reviewed project illustrations were recovered on 2026-09-21. Current /sleeper/ head remains unchanged.",
+      "role": "Sleeper recovery shelf with canonical ONE RETURN v2-era exact source, preserved ASCII POV 0.8 derivative, playable ASCII reconstruction donor, Workfield, Painting / Path and media. Unequal objects are no longer flattened under ASCII 0.8 authority.",
       "index": {
-        "updated_at": "2026-09-21T17:45:00+08:00",
+        "updated_at": "2026-09-22T05:41:00+08:00",
         "work_modes": [
-          "SPECIFY",
+          "RECOVER",
           "VERIFY"
         ]
       },
-      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
+      "receipt": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
       "operation": "RECOVER"
     },
     {
@@ -5097,12 +5102,12 @@
       "href": "/recovery/sleeper/site-source-2026-09-18/",
       "title": "SLEEPER / EXACT SOURCE SHELF",
       "parent": "/recovery/sleeper/",
-      "kind": "donor",
-      "state": "FROZEN_DONOR",
+      "kind": "source",
+      "state": "STABLE",
       "version": "2026-09-18",
-      "role": "Frozen selected source with per-file SHA-256; no private backup or provider configuration.",
+      "role": "Canonical exact recovered source shelf for SLEEPER // ONE RETURN v2-era City Engine; selected source is frozen and SHA-256 inventoried. Full historical deployment package is not claimed.",
       "operation": "RECOVER / RETRIEVE",
-      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
+      "receipt": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
       "index": {
         "updated_at": "2026-09-21T09:09:24.851148+00:00",
         "work_modes": [
@@ -5136,10 +5141,10 @@
       "href": "/recovery/sleeper/city-engine-v0.2/",
       "title": "CITY ENGINE v0.2 / SOURCE",
       "parent": "/recovery/sleeper/",
-      "kind": "donor",
-      "state": "FROZEN_DONOR",
+      "kind": "source",
+      "state": "REFERENCE",
       "version": "2026-09-18",
-      "role": "Exact City source; deterministic engine tested; runtime not deployed here.",
+      "role": "Exact City Engine v0.2 source view within the canonical ONE RETURN v2 lineage; deterministic engine tested, historical runtime not redeployed here.",
       "operation": "RECOVER / RETRIEVE",
       "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
       "index": {
@@ -5800,23 +5805,23 @@
     },
     {
       "href": "/sleeper/project/",
-      "title": "SLEEPER / PROJECT 0.1",
+      "title": "SLEEPER / PROJECT",
       "kind": "hub",
       "parent": "/sleeper/",
       "family": "SLEEPER",
       "operation": "RECOVER",
       "state": "ACTIVE",
       "version": "0.1",
-      "receipt": "/returns/SLEEPER_PROJECT_SHIPPED_2026-09-22.json",
-      "role": "Public lineage/status map separating current ASCII Sleeper, playable ONE RETURN reconstruction, frozen exact donor copy, exact v2-era source shelf and unresolved polished-deployment identity.",
+      "receipt": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
+      "role": "Authority/status map: ONE RETURN v2-era City Engine exact source is canonical; ASCII POV 0.8 is a preserved superseded derivative; ASCII ONE RETURN reconstruction is a playable donor; historical runtime reachability remains unverified.",
       "transfer": [
-        "current head != donor != recovery target",
+        "canonical head != derivative != donor",
         "playable != original",
-        "exact source != deployment proof",
-        "frozen byte preservation"
+        "exact source != current deployment proof",
+        "preserve superseded bytes before repointing authority"
       ],
       "index": {
-        "updated_at": "2026-09-22T05:33:01+08:00",
+        "updated_at": "2026-09-22T05:41:00+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
@@ -5848,6 +5853,49 @@
         ]
       },
       "classification": "FROZEN_EXACT_DONOR"
+    },
+    {
+      "href": "/sleeper/ascii-pov-0.8/",
+      "title": "ASCII SLEEPER POV 0.8 · PRESERVED",
+      "kind": "derivative",
+      "parent": "/sleeper/",
+      "family": "SLEEPER",
+      "operation": "PLAY",
+      "state": "PARKED",
+      "version": "0.8",
+      "showcase_card": false,
+      "receipt": "/sleeper/ascii-pov-0.8/release.json",
+      "role": "Byte-preserved former top-level POV/PLAIN four-contract constraint field. Kept runnable as a derivative; no longer canonical Sleeper authority.",
+      "index": {
+        "updated_at": "2026-09-22T05:41:00+08:00",
+        "work_modes": [
+          "VERIFY",
+          "PLAY"
+        ]
+      },
+      "classification": "SUPERSEDED_DERIVATIVE_PRESERVED"
+    },
+    {
+      "href": "/sleeper/ascii-pov-0.8/one-return/",
+      "title": "ASCII POV 0.8 → ONE RETURN donor",
+      "kind": "alias",
+      "parent": "/sleeper/ascii-pov-0.8/",
+      "state": "UTILITY",
+      "showcase_card": false,
+      "alias_of": "/sleeper/one-return/",
+      "role": "Compatibility redirect retained so the byte-preserved 0.8 index keeps its original relative navigation.",
+      "operation": "REDIRECT"
+    },
+    {
+      "href": "/sleeper/ascii-pov-0.8/project/",
+      "title": "ASCII POV 0.8 → SLEEPER project",
+      "kind": "alias",
+      "parent": "/sleeper/ascii-pov-0.8/",
+      "state": "UTILITY",
+      "showcase_card": false,
+      "alias_of": "/sleeper/project/",
+      "role": "Compatibility redirect retained so the byte-preserved 0.8 index keeps its original relative navigation.",
+      "operation": "REDIRECT"
     }
   ],
   "release_law": [
