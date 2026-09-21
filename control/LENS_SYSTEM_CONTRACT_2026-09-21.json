@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/lens-system-contract/v0.1",
   "date": "2026-09-21",
-  "status": "PROPOSED_BOUNDED_CONVERGENCE",
+  "status": "IMPLEMENTED_EXPERIMENTAL_CONVERGENCE",
   "purpose": "Make recovered lens/optics capabilities legible and composable across FIELD surfaces without replacing Scale Lens Studio or creating another sovereign application.",
   "current_head": {
     "surface": "/fold-bloom/lens/",
@@ -14,14 +14,16 @@
       "functional optics: Lens / Iso / fov / get / set / mod(over)",
       "lens laws: GetPut / PutGet / PutPut",
       "Scale Lens RC9→RC11.2: stable focus, semantic scale ladders, projection, provenance, RETURN",
-      "AXIAL aperture contract: APERTURE changes visible scope, never canonical identity"
+      "AXIAL aperture contract: APERTURE changes visible scope, never canonical identity",
+      "Sleeper Workfield v1: ACTIVE APERTURE with FOCUS/FIELD/DISC/LEDGER; W8·ANCHOR preserves identity; SPIRAL·REFRAME changes view while identity remains selected; ORIGIN RETURN"
     ],
     "reconstructed_or_partial": [
       "KALA / DOCK→APERTURE→FOCUS→OPERATE→MARK→RETURN shell",
-      "older FOCUS RING / foveation interaction lineage; exact artifact still needs recovery"
+      "FOCUS RING geometry/name remains reconstructed; current implementation is derived from exact Workfield aperture semantics + KALA aperture semantics, not claimed as an exact historical ring artifact"
     ],
     "unknown": [
-      "SeeThings implementation: name/hidden-focus association recovered, concrete mechanism not yet recovered"
+      "SeeThings: File Library retrieval surfaced recurring 'seethings / hidden focus' visual-study prompts/images, but no executable mechanism or formal contract in searched material; keep as retrieval anchor.",
+      "Any exact older artifact explicitly named FOCUS RING remains unrecovered."
     ]
   },
   "law_families": {
@@ -127,7 +129,8 @@
       "id": "LENS-01",
       "name": "Shared LensState + composition contract",
       "delta": "one schema/adapter usable by Scale Lens, FIELD, Human Port and AXIAL without merging their UIs",
-      "proof": "same object + same ordered view stack serializes/restores identically on at least two surfaces"
+      "proof": "same object + same ordered view stack serializes/restores identically on at least two surfaces",
+      "state": "IMPLEMENTED_STATIC_PASS_LIVE_BROWSER_BRIDGE_PENDING"
     },
     {
       "id": "LENS-02",
@@ -154,13 +157,15 @@
         "projection change <=2 interactions",
         "RETURN restores invoking route",
         "shared object identity survives generic-route → Studio handoff in actual browser runtime"
-      ]
+      ],
+      "state": "IMPLEMENTED_EXPERIMENTAL_BROWSER_SMOKE_PENDING"
     },
     {
       "id": "LENS-03",
       "name": "Foveated FIELD proof",
       "delta": "one existing FIELD/graph surface renders FOVEA/PARA/PERIPHERY while preserving stable identity",
-      "proof": "paired plain baseline test for locate/context/return; promote only if it reduces steps/errors or improves context without harming orientation"
+      "proof": "paired plain baseline test for locate/context/return; promote only if it reduces steps/errors or improves context without harming orientation",
+      "state": "IMPLEMENTED_EXPERIMENTAL_TASK_BENCHMARK_PENDING"
     }
   ],
   "gaps": [
@@ -181,5 +186,19 @@
   "return": {
     "next": "Implement LENS-01 adapter + serializer first; then make LENS-02 read/write that state without touching RC11.2 internals.",
     "test_anchor": "Issue #10 REP-01 can serve as the cross-projection fixture; Issue #35 remains the Scale Lens aperture/UX convergence front."
-  }
+  },
+  "execution": {
+    "branch": "lens-convergence-contract-20260921",
+    "pr": 50,
+    "artifacts": [
+      "/lens-state.js",
+      "/lens-focus-ring.js",
+      "/control/LENS_STATE_SELFTEST_2026-09-21.json",
+      "/control/LENS_STATE_BRIDGE_2026-09-21.json",
+      "/control/LENS_FOCUS_RING_2026-09-21.json",
+      "/control/LENS_FOVEATE_PROOF_2026-09-21.json"
+    ],
+    "current_return": "All three targets now have bounded implementation/proof surfaces. Merge/promotion remains blocked on live browser smoke and the foveation task benchmark."
+  },
+  "updated": "2026-09-21"
 }
