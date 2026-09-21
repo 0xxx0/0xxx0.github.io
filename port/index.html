@@ -46,7 +46,7 @@ footer{margin-top:20px;padding-top:10px;border-top:1px solid var(--line);display
 
 <div id="objectBar" class="objectbar">
   <div class="objmeta"><b id="objectTitle">OBJECT</b><span id="objectMeta">—</span></div>
-  <div class="objacts"><button id="clearObject">CLEAR VIEW</button><button id="purgeObject" class="danger">PURGE BYTES</button></div>
+  <div class="objacts"><button id="inspectBtn">FLOAT APERTURE</button><button id="clearObject">CLEAR VIEW</button><button id="purgeObject" class="danger">PURGE BYTES</button></div>
 </div>
 
 <section id="work" class="work">
@@ -137,7 +137,7 @@ function objectMeta(){
  $('#objectBar').classList.add('on');$('#work').classList.add('on');
  $('#objectTitle').textContent=obj.label||obj.object_id;
  $('#objectMeta').textContent=[obj.media_class,obj.mime||'—',fmtBytes(obj.size_bytes),obj.sha256?'SHA256 '+obj.sha256.slice(0,20)+'…':'no hash',obj.retention,obj.object_id].join(' · ');
- $('#purgeObject').hidden=obj.retention!=='LOCAL_STASH';
+ $('#purgeObject').hidden=obj.retention!=='LOCAL_STASH';$('#inspectBtn').hidden=!(obj.media_class==='TEXT'||obj.media_class==='JSON');
 }
 function focusSummary(){
  const use=scope==='focus'&&focus;
@@ -216,6 +216,7 @@ async function openRoute(){
   }
  }catch(e){note('HANDOFF FAILED · '+e.message,true)}
 }
+$('#inspectBtn').onclick=async()=>{if(!obj||!(obj.media_class==='TEXT'||obj.media_class==='JSON'))return;const text=await PortObjectStore.textFor(obj);FieldAperture?.dock(text,{label:obj.label,from:'human-port-object'});};
 $('#loadText').onclick=loadText;
 $('#sampleJson').onclick=()=>{$('#label').value='sample object';$('#payload').value=JSON.stringify({object:'painting-study',state:'candidate',views:['image','timeline','game'],return:{status:'open'}},null,2)};
 $('#sampleText').onclick=()=>{$('#label').value='messy note';$('#payload').value='I said I would look at the paintings, and there is probably an app idea in this, but I am not sure the follow-up itself is still the right move.'};
