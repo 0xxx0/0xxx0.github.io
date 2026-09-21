@@ -800,7 +800,8 @@
         "privacy-safe clinician/vet consult handoff",
         "local detailed body-plan registry",
         "stable plan/view/region body addresses",
-        "feline care localization"
+        "feline care localization",
+        "shared BODY plan substrate (non-owned)"
       ],
       "contract": {
         "accepts": {
@@ -983,16 +984,7 @@
           "OPERATE"
         ]
       },
-      "owned_surfaces": [
-        {
-          "href": "/bodyplans/",
-          "title": "BODY PLANS / REGISTRY",
-          "kind": "support",
-          "state": "UTILITY",
-          "operation": "ADDRESS",
-          "role": "Shared local-first reference body-plan substrate used by CARE; reference geometry is not personal anatomy."
-        }
-      ]
+      "owned_surfaces": []
     },
     {
       "href": "/fold-bloom/",
@@ -2640,22 +2632,24 @@
       "state": "STABLE",
       "machine_state": "/house/state.json",
       "showcase_card": false,
-      "role": "Addressed spatial/state projection coordinated with Home Assistant / HOUSEBUS. Spatial Engine owns address/geometry/evidence; private HA runtime owns device truth and actuation.",
-      "version": "0.4",
+      "role": "Addressed spatial/state projection coordinated with Home Assistant / HOUSEBUS. Spatial Engine owns address/geometry/evidence; private HA runtime owns device truth/actuation; BODY bridge carries browser-local context only.",
+      "version": "0.5",
       "receipt": "/house/release.json",
       "contract": "/house/contract.json",
       "transfer": [
         "spatial addressing",
         "manual-to-sensor state",
         "HA entity mapping",
-        "evidence return"
+        "evidence return",
+        "BODY↔HOUSE local context envelope"
       ],
       "family_href": "/house/",
       "index": {
-        "updated_at": "2026-09-20T18:38:39+08:00",
+        "updated_at": "2026-09-21T21:18:00+08:00",
         "work_modes": [
           "IMPLEMENT",
-          "OPERATE"
+          "OPERATE",
+          "VERIFY"
         ]
       }
     },
@@ -4008,16 +4002,16 @@
       "href": "/bodyplans/",
       "title": "BODY PLANS / REGISTRY",
       "kind": "system",
-      "parent": "/care/",
-      "family": "BODY / CARE",
+      "parent": "/body/",
+      "family": "BODY / FIELD",
       "operation": "ADDRESS",
       "state": "STABLE",
       "version": "0.1",
       "receipt": "/bodyplans/release.json",
       "showcase_card": false,
-      "role": "Shared local-first reference geometry for CARE and future BODY projections. Stable address = plan + view + region ID; geometryVersion prevents silent drift.",
+      "role": "Shared local-first reference geometry for BODY and CARE. Stable address = plan + view + region ID; geometryVersion prevents silent drift.",
       "index": {
-        "updated_at": "2026-09-21T01:35:00+08:00",
+        "updated_at": "2026-09-21T21:18:00+08:00",
         "work_modes": [
           "RESEARCH",
           "IMPLEMENT",
@@ -5004,6 +4998,173 @@
         ]
       },
       "classification": "REBUILT_ASCII_DONOR_NOT_POLISHED_ONE_RETURN_V2"
+    },
+    {
+      "href": "/body/",
+      "title": "BODY / FIELD 0.2",
+      "kind": "system",
+      "parent": "/",
+      "family": "BODY / FIELD",
+      "operation": "OBSERVE",
+      "state": "ACTIVE",
+      "version": "0.2",
+      "receipt": "/body/release.json",
+      "role": "Private-local embodied state instrument: fast NOW capture, cyclic PULSE replay, bounded self-TEST and typed BODY↔HOUSE context bridge over shared local body plans.",
+      "transfer": [
+        "embodied state check-in",
+        "valence / activation",
+        "itch pain tension energy focus",
+        "body-plan localization",
+        "context factors",
+        "cyclic time replay",
+        "descriptive factor contrasts",
+        "single-factor before/after tests",
+        "BODY↔HOUSE local context envelope"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "self observation",
+            "body state",
+            "reference body address",
+            "context factor",
+            "HOUSE context envelope"
+          ],
+          "requires": [],
+          "optional": [
+            "mood word",
+            "body region",
+            "environment tag",
+            "place",
+            "posture",
+            "note"
+          ]
+        },
+        "transforms": {
+          "verb": "capture current embodied state with minimal burden, project the same event ledger through time/contrast/test views, and return observations without diagnostic or causal overclaim",
+          "preserves": [
+            "event time",
+            "raw word",
+            "numeric state",
+            "body-plan identity",
+            "context source",
+            "HOUSE projection reference"
+          ],
+          "reversibility": "full",
+          "side_effects": "browser-local only"
+        },
+        "emits": {
+          "kinds": [
+            "body.state event ledger",
+            "cyclic PULSE projection",
+            "descriptive factor contrasts",
+            "before/after TEST receipt",
+            "BODY→HOUSE local envelope",
+            "JSON export"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/body/release.json",
+          "checks": [
+            "observation != diagnosis",
+            "contrast != cause",
+            "reference body plan != personal anatomy",
+            "HOUSE context != BODY truth",
+            "no remote anatomy runtime dependency"
+          ],
+          "return_path": "/body/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_IN",
+          "WORLD_THROUGH",
+          "WORLD_OUT"
+        ],
+        "inputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "self-report / tap / body selection",
+            "interface": "NOW"
+          },
+          {
+            "medium": "DATA",
+            "kind": "shared body-plan geometry",
+            "interface": "/bodyplans/"
+          },
+          {
+            "medium": "DATA",
+            "kind": "HOUSE public-projection context envelope",
+            "interface": "same-origin localStorage"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "private local embodied-state ledger",
+            "interface": "localStorage / JSON export"
+          },
+          {
+            "medium": "DATA",
+            "kind": "latest BODY context envelope",
+            "interface": "same-origin localStorage"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "descriptive before/after test return",
+            "interface": "TEST"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "CARE",
+            "status": "AVAILABLE",
+            "via": "/care/ for episode/handoff work"
+          },
+          {
+            "class": "HOUSE_CONTEXT",
+            "status": "AVAILABLE",
+            "via": "same-origin BODY↔HOUSE local bridge"
+          },
+          {
+            "class": "TIME",
+            "status": "AVAILABLE",
+            "via": "PULSE cyclic projection; Dayline adapter later"
+          },
+          {
+            "class": "PASSIVE_SENSORS",
+            "status": "ADAPTER_REQUIRED",
+            "via": "watch/phone/Open mHealth/RADAR-style source lane"
+          },
+          {
+            "class": "ANATOMY",
+            "status": "REFERENCE",
+            "via": "/bodyplans/ now; Open Twin remains deeper donor"
+          }
+        ],
+        "physical_fit": "Low-burden real-world self-observation and bounded self-management experiments; not diagnosis, triage, or treatment authority."
+      },
+      "index": {
+        "updated_at": "2026-09-21T21:18:00+08:00",
+        "work_modes": [
+          "RESEARCH",
+          "IMPLEMENT",
+          "OPERATE",
+          "VERIFY"
+        ]
+      },
+      "owned_surfaces": [
+        {
+          "href": "/bodyplans/",
+          "title": "BODY PLANS / REGISTRY",
+          "kind": "support",
+          "state": "STABLE",
+          "operation": "ADDRESS",
+          "role": "Shared local-first reference body-plan substrate used by BODY and CARE."
+        }
+      ]
     }
   ],
   "release_law": [
