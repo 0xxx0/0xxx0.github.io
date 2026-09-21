@@ -44,5 +44,41 @@
     "Campaign schema is candidate-only; no campaign UI or autonomous intervention engine was promoted.",
     "Health Connect Android reader/runtime is still unimplemented; adapter contract and proof boundary are specified."
   ],
-  "next": "Wait for one lawful human/world signal while machine-side research/specification may continue without pretending the dependency is resolved."
+  "next": "Wait for one lawful human/world signal while machine-side research/specification may continue without pretending the dependency is resolved.",
+  "post_merge_verification": {
+    "at": "2026-09-22T04:41:00+08:00",
+    "state": "VERIFIED_POST_MERGE",
+    "pull_request": 108,
+    "pr_head": "ab3c6a3434db939c601e4623a03a54e5663135ab",
+    "merge_commit": "35d2e5a309a0e7daf3fe14101a9ee5adb6b72f7f",
+    "pr_head_ci": {
+      "run_id": 35643777447,
+      "result": "PASS"
+    },
+    "merge_ci_anomaly": {
+      "run_id": 35643911071,
+      "result": "FAIL",
+      "failing_step": "FOLD BLOOM LISTEN preview render",
+      "failure": "browser-smoke timeout on /__smoke/listen-preview",
+      "attribution": "UNRELATED_TO_PR108_DELTA",
+      "basis": "PR #108 changed nine files and none are under /fold-bloom/listen/ or the LISTEN preview-render harness. All earlier validation steps, including static public-surface validation, passed before the unrelated timeout."
+    },
+    "current_master_proof": {
+      "head": "96c065f856d5893dc343babd45ea10c449a9f4f9",
+      "public_surface_run": 35656769684,
+      "public_surface_result": "PASS",
+      "pages_run": 35656770557,
+      "pages_result": "PASS"
+    },
+    "integrity_checks": {
+      "waiting_json": "Present on master; only master commit touching it is PR #108 merge.",
+      "campaign_schema": "Present on master; only master commit touching it is PR #108 merge.",
+      "health_connect_adapter": "Present on master; only master commit touching it is PR #108 merge. Later Health Connect runtime work remains a separate proposal.",
+      "root_surface": "Current /index.html still fetches /control/WAITING.json, renders WAITING / YOU as collapsed <details>, and exposes human_move/unlocks rows.",
+      "body_routes": "/body/ remains ACTIVE and /body/fit/ remains CANDIDATE with HEALTH_PLATFORM explicitly CANDIDATE/adapter-gated."
+    },
+    "disposition": "RETAIN",
+    "repair_required": false,
+    "conclusion": "PR #108 is cleanly integrated in current master. The one merge-commit CI failure was an unrelated LISTEN browser-smoke timeout and is superseded by repeated later full-suite PASS runs. No #108 rollback, replay, or corrective patch is warranted."
+  }
 }
