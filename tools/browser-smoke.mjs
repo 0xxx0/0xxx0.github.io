@@ -191,7 +191,30 @@ function docsApertureProbeHtml(){
   <\/script></body></html>`;
 }
 
+function apertureMultilingualProbeHtml(){
+  return `<!doctype html><html><body><pre id="probeResult">PENDING</pre><script src="/field-aperture.js"></script><script>
+  const result=document.getElementById('probeResult'),rec={};
+  const done=(ok,data)=>{result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  try{
+   const cases=[['zh','庭院里的孔雀。'],['en','The window is open.'],['ms','Lihat tangga itu.'],['ta','தமிழ் மொழி'],['ja','窓の向こうを見る。'],['ar','انظر إلى النافذة'],['th','มองไปที่หน้าต่าง']];
+   rec.languages={};let ok=true;
+   for(const [lang,text] of cases){
+    const a=document.createElement('field-aperture');document.body.appendChild(a);a.load(text,{locale:lang});
+    const word=a.A.scales.find(x=>x.id==='WORD'),gr=a.A.scales.find(x=>x.id==='GRAPHEME');
+    const offsets=!!word&&word.units.length>0&&word.units.every(u=>text.slice(u.start,u.end).replace(/\s/g,'')===String(u.text).replace(/\s/g,''));
+    const plural=word?.units.length>1;rec.languages[lang]={word:word?.units.length||0,grapheme:gr?.units.length||0,offsets,plural};ok=ok&&offsets&&plural;
+   }
+   const g=document.createElement('field-aperture');document.body.appendChild(g);g.load('A👩‍🔬é',{locale:'en',scale:'GRAPHEME'});rec.emoji=g.snapshot();
+   ok=ok&&rec.emoji.scale==='GRAPHEME'&&rec.emoji.count===3;done(ok,rec);
+  }catch(e){done(false,{error:String(e?.stack||e),...rec})}
+  <\/script></body></html>`;
+}
+
 const server=http.createServer((req,res)=>{
+  if(String(req.url||'').startsWith('/__smoke/aperture-multilingual')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(apertureMultilingualProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/axial-continuity')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(axialContinuityProbeHtml());return;
@@ -275,6 +298,12 @@ const CASES=[
     name:'APERTURE',
     route:'/foundry/aperture/',
     check:dom=>/APERTURE/i.test(dom)&&dom.includes('field-aperture')&&dom.includes('60–3000 WPM')
+  },
+  {
+    name:'APERTURE multilingual segmentation',
+    route:'/__smoke/aperture-multilingual',
+    options:{width:900,height:700,budget:9000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"zh"/.test(dom)&&/"ta"/.test(dom)&&/"ja"/.test(dom)&&/"ar"/.test(dom)&&/"th"/.test(dom)&&/"count":3/.test(dom)
   },
   {
     name:'DOCS APERTURE',
