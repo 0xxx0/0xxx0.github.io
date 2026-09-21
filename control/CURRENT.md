@@ -1,50 +1,58 @@
-# CURRENT — 2026-09-20
+# CURRENT — 2026-09-22
 
-**Mode:** execute → prove → return.
+**Mode:** CONVERT → CONTACT → RETURN.
 
-## Delta since recovery
+The project has enough internal machinery. The immediate problem is no longer lack of frameworks; it is **conversion**.
 
-Recovery remains sealed. The active work moved through two additional gates:
+## NOW
 
-1. **INGEST V0.1 — DONE**
-   - Existing read-only scanner was exercised on a bounded Library staging batch.
-   - A Linux portability defect in v0.1 was found before source mutation: GNU `stat -f` silently emitted filesystem information.
-   - Scanner hardened to v0.2: explicit BSD/GNU stat paths, no `eval`, deterministic rows, and a hard refusal to write reports inside the scanned source tree.
-   - Valid proof: **7 files / 6 byte objects / 1 exact duplicate fixture group / 0 source mutations**.
-   - Semantic overlay: **7 tagged records / 6 route proposals / 1 intentional REVIEW_CONFLICT**.
+### 1. CONVERSION — ACTIVE
 
-   Receipt: [INGEST_RUN_2026-09-20.json](./INGEST_RUN_2026-09-20.json)
+Use an existing verified head and produce a consequence outside the control plane.
 
-2. **REPRESENTATION 01 — DONE**
-   - `state_transform_instrument_v0_3.html` and its README remain two exact byte objects but now compose one semantic artifact identity: `artifact:state-transform-instrument:v0.3`.
-   - Print template/build notes are same-lineage siblings, not duplicates.
-   - Current [/foundry/axial/](../foundry/axial/) remains a later unequal head, not falsely equated to the donor bytes.
+Preference order:
 
-   Object: [REPRESENTATION_01.json](./REPRESENTATION_01.json)
+1. another human can use/experience it;
+2. it meets physical/device/world reality;
+3. exact recovery unlocks one of the above.
 
-## Active fronts
+A CI pass, receipt, seal or branch census is supporting evidence, not the outcome.
 
-- **Repo/recovery:** maintenance only; solved families stay closed.
-- **Ingest:** proved substrate; repeat on real local ingress when filesystem access exists.
-- **Reality / House / Print:** **NEXT NOW**.
+### 2. RECOVERY / INGEST — MAINTENANCE
 
-## I/O lens
+Keep source identity, media, provenance and local ingest recoverable. Reopen archaeology only when it removes a live blocker, prevents false lineage or feeds an active conversion.
 
-The root FIELD INDEX now has two lawful readings of the same surfaces: **CAPABILITY** and **I/O**. I/O exposes what enters, what exits, and which world-facing path is available/candidate/blocked. Private canon extends this to adapters, House G3, READFIELD, AXIAL physicalization, ENV0 and future observed tools/zones.
+Blocked local operations do not occupy NOW.
 
-Query grammar: **PRODUCES / CONSUMES / CONNECT / REIFY / VERIFY / BOTTLENECK / SALVAGE / MOVE / RETURN**.
+## WAITING
 
-A physical RETURN is simply the minimum evidence that a real-world action happened; its next job is to seed the first observed physical row in FIELD INDEX.
+Human/world dependencies live in [WAITING.json](./WAITING.json), including BODY device proof and ordinary HUMAN PORT use.
 
-## NEXT
+**WAITING ≠ QUEUE ≠ PRIORITY.**
 
-Produce **one actual physical/print RETURN**. Preferred bounded candidates already indexed:
+## CURRENT CAPABILITY
 
-- AXIAL print template + build notes; or
-- ENV0 P0 A3 build sheet.
+Stable/current organs remain available without becoming simultaneous projects:
 
-Required receipt: **before → instantiate/use → after → evidence → residue → next**.
+- FIELD INDEX — address / re-entry / focus
+- READFIELD — reader / granularity / RSVP
+- AXIAL + Lens — oriented projection / transform
+- HUMAN PORT — typed intake / routing / return
+- HOUSE / BODY / CARE — reality-facing domains
+- Fold/Bloom / Verse / Sleeper / ROOM — creative and transfer instruments
+- MEDIA REFINERY / Recovery — source and visual-memory conversion
+- Sovereign/agent infrastructure — bounded execution substrate
 
-A render, plan, or another interface does not count as the physical receipt.
+## CONTROL CORRECTION
+
+Three laws now apply:
+
+- progress requires capability, conversion, exact recovery that unlocks capability, or real-world/other-human consequence;
+- WAITING_ON_HUMAN is not an active front;
+- no receipt-only/seal-only PR unless it resolves a live ambiguity, failing gate or authority conflict.
+
+## SYNTHESIS
+
+Read [CONFLUENCE / FIELD — Conversion Report](./confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md) for the detailed account of what this collaboration has been trying to become, why it drifted into meta-work, and the highest-leverage next options.
 
 Machine state: [CURRENT.json](./CURRENT.json) · Queue: [QUEUE.json](./QUEUE.json)
