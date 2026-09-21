@@ -22,7 +22,7 @@ audio.hydrate(state);
 
 function save(){if(demo.preview)return;try{localStorage.setItem(STORE,JSON.stringify(snapshot(state)))}catch(_){}}
 function load(){try{return restore(JSON.parse(localStorage.getItem(STORE)||'null'))}catch(_){return null}}
-function haptic(ms=5){try{navigator.vibrate?.(ms)}catch(_){}}
+function haptic(ms=5){if(demo.preview)return;try{navigator.vibrate?.(ms)}catch(_){}}
 function toast(text){const el=$('#toast');el.textContent=text;el.classList.remove('on');void el.offsetWidth;el.classList.add('on')}
 function timingNow(){
   if(!linkedTrack?.playing)return {timing:'FREE',timingMultiplier:1,label:'FREE'};
