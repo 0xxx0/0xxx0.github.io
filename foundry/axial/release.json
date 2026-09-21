@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "title": "AXIAL / FOCUS STACK",
-  "version": "0.6",
+  "version": "0.6.1",
   "state": "PROOF_REQUIRED",
   "updated": "2026-09-21",
   "route": "/foundry/axial/",
@@ -9,13 +9,13 @@
   "operation": "PROVE",
   "hypothesis": "A stack of unequal cyclic indices aligned to one fixed focus can make multi-dimensional state faster to orient and traverse while preserving source identity across ring and strip projections.",
   "controls": [
-    "SOURCE: FIELD/HOUSE",
-    "variable-cardinality rings",
-    "fixed focus spine",
+    "FIELD/HOUSE source",
+    "drag/swipe ring + release-to-snap",
+    "fixed bright focus gate",
     "RING/STRIP projection",
-    "result focus/open",
-    "BACK session navigation",
-    "RETURN focus receipt"
+    "tap result → rings explain identity",
+    "OPEN / COPY / BACK / RETURN",
+    "source-aware ◎ FIND AXIAL"
   ],
   "evidence": [
     "FIELD adapter reads the actual showcase manifest",
@@ -26,7 +26,8 @@
     "focus result can align rings back to an exact source identity",
     "BACK and RETURN are distinct",
     "AXIAL 0.5.1 transaction/projection lab preserved at /foundry/axial/lab-0.5.1.html",
-    "/foundry/axial/aperture.contract.json"
+    "/foundry/axial/aperture.contract.json",
+    "0.6.1 removes the explanatory primer from the active surface and transfers the recovered Fold//Bloom bright-gate / drag-release-snap visual grammar into the primary interaction."
   ],
   "promotion_gate": "Remain PROOF_REQUIRED. First collect ordinary use evidence from FIELD/HOUSE navigation; only then compare against a plain faceted/search surface. Physical cylinder work is deferred until a useful software ring composition earns embodiment.",
   "lineage_exact": [
@@ -45,9 +46,9 @@
   "research_question": "Can one focus spine across unequal cyclic vocabularies reduce reorientation cost while preserving exact source identity and a return path?",
   "known_gap": "No comparative usability evidence yet. HOUSE is a public-safe static model, not live state or actuation. The physical cylinder remains unvalidated and is no longer a prerequisite for software utility.",
   "current_classification": {
-    "reviewed_at": "2026-09-21T14:19:00+08:00",
+    "reviewed_at": "2026-09-21T15:03:00+08:00",
     "state": "PROOF_REQUIRED",
-    "basis": "0.6 responds to a concrete legibility/use gap by turning AXIAL into a real FIELD/HOUSE focus browser while preserving the 0.5.1 transaction lab and deferring physical embodiment.",
+    "basis": "0.6.1 is a bounded interface convergence pass: less explanation, larger instrument, one obvious gesture, source-aware focus, same 0.6 data law.",
     "receipt": "/foundry/axial/release.json"
   }
 }

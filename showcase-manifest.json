@@ -1503,13 +1503,13 @@
     },
     {
       "href": "/foundry/axial/",
-      "title": "AXIAL / FOCUS STACK 0.6",
+      "title": "AXIAL / FOCUS STACK 0.6.1",
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "PROVE",
       "state": "PROOF_REQUIRED",
-      "version": "0.6",
+      "version": "0.6.1",
       "receipt": "/foundry/axial/release.json",
       "showcase_card": false,
       "transfer": [
@@ -1518,7 +1518,10 @@
         "Scale Lens identity-through-projection",
         "manifest-backed FIELD addressing",
         "HOUSE spatial address projection",
-        "BACK ≠ RETURN"
+        "BACK ≠ RETURN",
+        "Fold//Bloom bright-gate + drag/release-snap interaction",
+        "Scale Lens stable identity across unequal projections",
+        "foveated focus: one selected reading, surrounding context retained"
       ],
       "contract": {
         "accepts": {
@@ -1621,7 +1624,7 @@
         "physical_fit": "Physical cylinder is now an optional later projection of a useful variable-cardinality ring stack, not the reason the software exists."
       },
       "index": {
-        "updated_at": "2026-09-21T14:19:00+08:00",
+        "updated_at": "2026-09-21T15:03:00+08:00",
         "work_modes": [
           "RECOVER",
           "ORIENT",
@@ -1641,7 +1644,7 @@
         "next_if_pass": "TRANSFER the surviving transaction/aperture mechanism into the Foundry physical-control substrate; retain AXIAL as evidence fixture rather than spawning a new core.",
         "next_if_fail": "PARK the physical-control claim; preserve packet/ledger mechanisms as DONOR evidence."
       },
-      "role": "Variable-cardinality radial focus/index over real FIELD and HOUSE sources: align independent cyclic vocabularies to one spine, reveal matching identities through an aperture, preserve identity across RING/STRIP projections, then OPEN or RETURN.",
+      "role": "Turn one of several unequal cyclic vocabularies under a fixed bright gate; the alignment resolves real FIELD/HOUSE identities, and selecting an identity aligns the rings back to explain its address.",
       "legacy_lab": {
         "href": "/foundry/axial/lab-0.5.1.html",
         "role": "Preserved STATE APERTURE transaction/projection lab with AXIAL_PACKET, event trace and ARM/RUN semantics.",
