@@ -131,6 +131,8 @@ if(exists('showcase-nav.js')){
 }
 const charters=parse('control/INSTRUMENT_CHARTERS.json');
 const apertureRelease=parse('foundry/aperture/release.json');
+const axialRelease=parse('foundry/axial/release.json');
+const axialContract=parse('foundry/axial/aperture.contract.json');
 if(apertureRelease){
   const charter=charters?.instruments?.find(x=>x.id==='field-aperture');
   check(!!charter,'APERTURE instrument charter missing');
@@ -139,6 +141,8 @@ if(apertureRelease){
   check(/presentation-only|presentation only/i.test(charter?.PROMISE||''),'APERTURE charter must preserve presentation-only authority boundary');
   check(/does not absorb AXIAL exact-set support/i.test(charter?.PROMISE||''),'APERTURE charter lost Constraint Surface boundary');
   check(/TEST\/ARM\/RUN/i.test(charter?.PROMISE||''),'APERTURE charter lost STATE APERTURE boundary');
+  check((apertureRelease.donors||[]).some(x=>x.source==='/recovery/focus-interface-sync-20260921/FU_FOVEATE_RECOVERY_2026-09-21.json'),'READFIELD/APERTURE release missing recovered FU foveate donor');
+  check(!/pending PR browser proof/i.test(JSON.stringify(apertureRelease.verification||{})),'READFIELD/APERTURE verification still carries stale pending-PR proof state');
 }
 if(exists('foundry/aperture/index.html')){
   const ap=read('foundry/aperture/index.html');
@@ -221,9 +225,11 @@ check(!home.includes('foundry/axial/focus-core.js'),'FIELD root must not depend 
 const axialPath='foundry/axial/index.html';
 const axialLabPath='foundry/axial/lab-0.5.1.html';
 if(exists(axialPath)){
-  const a=read(axialPath);
+  const a=read(axialPath),axialRoute=(manifest?.routes||[]).find(r=>r.href==='/foundry/axial/'),v=axialRelease?.version||axialRoute?.version;
   check(a.includes('../../lib/constraint-surface.js'),'AXIAL missing shared Constraint Surface kernel');
-  for(const token of ['FOCUS STACK','FIELD INDEX','HOUSE: SOFA LIGHT','RING','STRIP','RETURN'])check(a.includes(token),'AXIAL 0.6 focus-stack token missing: '+token);
+  for(const token of ['FOCUS STACK','FIELD INDEX','HOUSE: SOFA LIGHT','RING','STRIP','RETURN'])check(a.includes(token),'AXIAL focus-stack token missing: '+token);
+  if(v){check(a.includes('FOCUS STACK '+v),'AXIAL HTML/version drift: expected '+v);check(axialRoute?.version===v,'AXIAL manifest/release version drift');check(axialContract?.software_head?.name?.includes(v),'AXIAL contract/release version drift');}
+  check((axialRelease?.evidence||[]).some(x=>String(x).includes('/recovery/focus-interface-sync-20260921/FU_FOVEATE_RECOVERY_2026-09-21.json')),'AXIAL release missing recovered FU foveate evidence');
   compileInline(axialPath);
 }
 if(exists(axialLabPath)){
@@ -231,6 +237,13 @@ if(exists(axialLabPath)){
   for(const token of ['START 10','AXIAL_PACKET','ARM','RUN','RETURN'])check(a.includes(token),'AXIAL legacy lab token missing: '+token);
   compileInline(axialLabPath);
 }
+
+if(exists('showcase-selftest/index.html')){
+  const st=read('showcase-selftest/index.html');
+  for(const token of ["/docs/","/foundry/axial/","/port/","const TOTAL=CASES.length*WIDTHS.length","c.adapter!==false"])check(st.includes(token),'showcase self-test missing current-surface coverage: '+token);
+  compileInline('showcase-selftest/index.html');
+}
+
 for(const p of ['returns/index.html','foundry/index.html','fcm/index.html','router-bench/index.html'])compileInline(p);
 if(exists('poetry/map/index.html')){
   const p=read('poetry/map/index.html');
@@ -256,6 +269,8 @@ if(currentCoord&&queueCoord){
   check(queued.length===active.size&&queued.every(id=>active.has(id)),'QUEUE live fronts drift from CURRENT authority');
   const held=new Set((currentCoord.held_fronts||[]).map(x=>x.id));
   check(queued.every(id=>!held.has(id)),'QUEUE schedules a CURRENT-held front');
+  const axialHead=currentCoord.current_heads?.find(x=>x.lineage==='axial'),axialHold=currentCoord.held_fronts?.find(x=>x.id==='machine-representation');
+  if(axialRelease?.version){check(axialHead?.head?.includes(axialRelease.version),'CURRENT axial head/version drift');check(axialHold?.center?.includes(axialRelease.version),'CURRENT axial hold/version drift');}
   const city=currentCoord.recovery_targets?.find(x=>x.id==='sleeper-deep-lineage');
   if(city?.status==='EXACT_CITY_SOURCE_AND_PAINTING_RUNTIME_RECOVERED'){
     check(!migrationNow?.open_gaps?.some(x=>x.id==='painting-city'),'resolved City/Painting source gap reopened in MIGRATION_NOW');

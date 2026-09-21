@@ -1,0 +1,39 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "TOOLBELT-MATERIALIZATION-2026-09-22",
+  "date": "2026-09-22",
+  "object": "Toolbelt exact-source materialization",
+  "before": "Three exact File Library identities located; no source bytes durable in repo.",
+  "operation": [
+    "Re-located exact standalone app_atlas_v1.json and full app_foundry_atlas_v1.html in File Library.",
+    "Materialized their complete decoded source content under /recovery/toolbelt/ without modernization.",
+    "Computed SHA-256 over the durable repo UTF-8 bytes and verified HTML embedded DATA equals standalone JSON.",
+    "Searched both connected Drives and Gmail for byte-addressable exact copies; none found.",
+    "Recovered a distinct four-seconds-earlier Sleeper sibling image identity but did not collapse it into the target.",
+    "Stopped before fabricating or re-encoding the binary target PNG."
+  ],
+  "proof": {
+    "app_atlas": {
+      "records": 45,
+      "repo_utf8_bytes": 24648,
+      "repo_sha256": "746ef176d11433703a3cc7031de7475cefdb2cc9106bbe674777110d7a592612"
+    },
+    "app_foundry": {
+      "repo_utf8_bytes": 25697,
+      "repo_sha256": "0adbf801488c8042bb101ecef767f4c76b97fca7918e5269aa8fedb251321299",
+      "embedded_data_equals_json": true
+    },
+    "sleeper_png": {
+      "state": "RAW_BINARY_BLOCKED",
+      "file_library_id": "file_000000006c8c71faa92311288535624e"
+    }
+  },
+  "distinction": {
+    "observed": "Exact File Library source identities/content.",
+    "reconstructed": "HTML materialization was reconstituted from complete decoded File Library content and its exact embedded App Atlas data.",
+    "verified": "Repo materialized byte hashes + semantic JSON↔HTML identity.",
+    "unknown": "Whether the repo UTF-8 text bytes are byte-for-byte identical to original File Library storage bytes; raw original hashes are unavailable.",
+    "blocked": "Original target PNG byte stream."
+  },
+  "return": "Toolbelt recovery is now a one-file binary handoff problem, not a three-file identity/content archaeology problem."
+}

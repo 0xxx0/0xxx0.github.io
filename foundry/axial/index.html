@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#080a0c"><title>AXIAL / FOCUS STACK 0.7.2</title>
+<meta name="theme-color" content="#080a0c"><title>AXIAL / FOCUS STACK 0.7.3</title>
 <style>
 :root{--bg:#080a0c;--panel:#0d1114;--panel2:#0a0d0f;--ink:#f0f2ee;--mut:#818d92;--line:#2b3539;--hot:#ef7043;--cool:#69b7e6;--gold:#d9b36c;--green:#9bd78c}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -230,7 +230,7 @@ async function restoreReturn(r,remember){
  if(before)pushHistory(before);recompute();trace('REPLAY_RETURN',{focus:r.focus_id||null,source:r.source||null});return true
 }
 function createReturn(){
- syncURL();const r={schema:'axial.focus-return/0.7.2',at:new Date().toISOString(),source:S.source,address:focusAddress(),url:location.href,query:Object.fromEntries(S.rings.map(function(x){return[x.key,selected(x)]})),support:Object.fromEntries(S.rings.map(function(x){return[x.key,(x.support&&x.support[x.index])||0]})),focus_id:S.focus&&S.focus.id||null,focus_title:S.focus&&S.focus.title||null,projection:S.projection,search:S.search,ghost_tail:study.events.slice(-12)};
+ syncURL();const r={schema:'axial.focus-return/0.7.3',at:new Date().toISOString(),source:S.source,address:focusAddress(),url:location.href,query:Object.fromEntries(S.rings.map(function(x){return[x.key,selected(x)]})),support:Object.fromEntries(S.rings.map(function(x){return[x.key,(x.support&&x.support[x.index])||0]})),focus_id:S.focus&&S.focus.id||null,focus_title:S.focus&&S.focus.title||null,projection:S.projection,search:S.search,ghost_tail:study.events.slice(-12)};
  S.returns.unshift(r);S.returns=S.returns.slice(0,60);localStorage.setItem('axial-focus-returns-v06',JSON.stringify(S.returns));trace('RETURN',{focus:S.focus&&S.focus.id||null});render();return r
 }
 function dims(){

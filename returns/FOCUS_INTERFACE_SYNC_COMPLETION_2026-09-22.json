@@ -1,0 +1,51 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "FOCUS-INTERFACE-SYNC-COMPLETION-2026-09-22",
+  "date": "2026-09-22",
+  "object": "AXIAL 0.7.3 × READFIELD 0.7 × recovered FU/RSVP focus lineage",
+  "trigger": "Complete the earlier focus-interface convergence after reconciling against the rapidly advanced master branch; repair drift without reviving stale implementation branches.",
+  "recovered_authority": {
+    "current_master": "7d6746a3038b20de871e258fbf069467c9e4e19a",
+    "stale_branch_records": "/recovery/focus-interface-sync-20260921/RECOVERY.json",
+    "rule": "Recovered records are donor/evidence; current FIELD/AXIAL/READFIELD/Lens/Port heads remain authoritative."
+  },
+  "before": [
+    "AXIAL manifest/release/current head said 0.7.3 while runtime title, focus-return schema, contract software_head and CURRENT held-front still carried 0.7.2.",
+    "AXIAL research named the FU family but did not point to the recovered partial-exact faxconf.fovea/foveate source evidence.",
+    "READFIELD/APERTURE release still labeled three browser-proved reader seams as pending PR proof.",
+    "SHOWCASE SELF-TEST omitted current READFIELD, AXIAL and HUMAN PORT surfaces."
+  ],
+  "operation": [
+    "Re-read CURRENT, manifest, READFIELD convergence, Lens contract, recovered focus-interface packet and live AXIAL/APERTURE artifacts before mutating.",
+    "Repaired AXIAL 0.7.3 version consistency across runtime, focus RETURN schema, aperture contract and CURRENT held-front.",
+    "Bound partial-exact FU fovea/path/radial evidence into AXIAL research/release without claiming the unresolved historical red-dot/Alice reader.",
+    "Declared current interface ecology: AXIAL = categorical constraint/orientation; READFIELD = one-source reading; Scale Lens = deep typed projection/provenance; FIELD = re-entry/orchestration.",
+    "Added FU recovery provenance to READFIELD/APERTURE release and replaced stale pending-proof labels with the already merged browser proof state.",
+    "Extended SHOWCASE SELF-TEST to READFIELD, AXIAL and HUMAN PORT at mobile + desktop widths; specialized surfaces may explicitly opt out of shared-route-adapter presence.",
+    "Hardened tools/validate-public.mjs against AXIAL version drift, lost FU lineage, stale READFIELD proof state and loss of current-surface self-test coverage."
+  ],
+  "proof": {
+    "pr": 114,
+    "pr_head": "b5c7949fad8b790d2c80485a9852abd85b017ce9",
+    "workflow": "public-surface-check",
+    "workflow_run": 35653000644,
+    "result": "PASS",
+    "merge_method": "squash",
+    "merged_master": "2e00c8a97604eed2df2e7ecdbd5ffe6cec1b9ff9"
+  },
+  "preserved": [
+    "No new focus state authority.",
+    "No new reader kernel or AXIAL public feature surface.",
+    "READFIELD remains canonical reading surface; /foundry/aperture/ remains compatibility alias.",
+    "Scale Lens remains the deep typed projection/provenance workbench.",
+    "AXIAL remains held for ordinary-use evidence rather than feature expansion.",
+    "Historical FU full-source/red-dot/Alice reader identity remains explicitly unresolved."
+  ],
+  "trophies": [
+    "Stale branch archaeology was recovered into durable evidence without merging stale code.",
+    "FU foveation moved from vague historical resemblance to partial-exact mechanism evidence.",
+    "AXIAL 0.7.3 now has one consistent version identity across current runtime/contract/control surfaces.",
+    "Current primary surfaces are guarded by both static validation and expanded public self-test coverage."
+  ],
+  "return": "Convergence complete for this pass. Resume only from ordinary-use failure/evidence, exact historical FU reader recovery, or a separately named capability gap."
+}
