@@ -50,6 +50,14 @@
       "human_move": "Only when useful, provide the actual medication / supplement / caffeine list inside a private session.",
       "why": "A personalized interaction/timing review cannot be safely reconstructed from guesses, and the public repo should not contain the list.",
       "unlocks": "Normalize identities and run source-backed interaction / duplicate-ingredient / timing review while preserving prescription authority outside the inference engine."
+    },
+    {
+      "id": "human-port-ordinary-use",
+      "route": "/port/",
+      "state": "WAITING_ON_ORDINARY_USE",
+      "human_move": "When a real image, authored text/JSON, or opaque file naturally needs routing, use HUMAN PORT normally; do not create a specimen just to test it.",
+      "why": "Further PORT refinement requires actual use friction/override/RETURN, not another synthetic harness.",
+      "unlocks": "Revise HUMAN PORT only if ordinary use reveals a concrete transport, focus, provenance, or RETURN failure."
     }
   ],
   "capture_protocol": {
