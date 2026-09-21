@@ -250,7 +250,7 @@ if(exists(spaceCorePath)){
 }else fail.push('SPACE SCALE 0.2 fossil core missing');
 if(exists(roomPath)){
   const room=read(roomPath),route=(manifest?.routes||[]).find(r=>r.href==='/foundry/room/');
-  for(const token of ['ROOM 0.4','MATERIAL DOM','id="program"','data-schema="0xxx0/material-dom/v0.4"','id="compiler"','rel="next"','id="foldBtn"','id="roomSelftest"','MODEL FIT','DOM = program structure'])check(room.includes(token),'ROOM MATERIAL DOM surface missing token: '+token);
+  for(const token of ['ROOM 0.4','MATERIAL DOM','id="program"','data-schema="0xxx0/material-dom/v0.4"','id="compiler"','rel="next"','id="foldBtn"','id="roomSelftest"','MODEL BINDING','DOM = program structure'])check(room.includes(token),'ROOM MATERIAL DOM surface missing token: '+token);
   check(!room.includes('space-core.js'),'ROOM 0.4 current surface must not depend on SPACE SCALE graph core');
   check(exists('foundry/room/html-substrate-0.3.html'),'ROOM HTML SUBSTRATE 0.3 donor missing');
   check(exists('foundry/room/release-0.3.json'),'ROOM HTML SUBSTRATE 0.3 release donor missing');
