@@ -17,7 +17,7 @@ Donors remain addressable and independent:
 4. **Mute parity.** A player must still read target, alignment, authored folds, cascade and charge with audio off.
 5. **Bound the engine.** Graph, history, motif, particles/visual pulses and scheduler catch-up stay bounded.
 6. **Preserve donors.** Transfer mechanisms by explicit provenance; never silently mutate exact recovery artifacts.
-7. **Forecast before commitment.** If several matching placements have different consequences, expose those differences before release; hidden topology is not gameplay.\n8. **Borrowed clock ≠ borrowed authorship.** LISTEN may lend beat/section context and timing reward, but it never auto-releases or chooses BLOOM/FOLD/SPLIT/RETURN.\n9. **One musical delta per evaluation.** Tune gesture→consequence before adding modes, organisms or menus.
+7. **Forecast before commitment.** If several matching placements have different consequences, expose those differences before release; hidden topology is not gameplay.\n8. **Borrowed clock ≠ borrowed authorship.** Same-page local audio is the phone authority path; LISTEN/FIELD PULSE may lend beat/section context and timing reward, but audio never auto-releases or chooses BLOOM/FOLD/SPLIT/RETURN.\n9. **One musical delta per evaluation.** Tune gesture→consequence before adding modes, organisms or menus.
 
 ## Iteration loop
 `OBSERVE → NAME FAILURE → CHANGE ONE OPERATOR → STATIC TEST → BROWSER/TOUCH PLAY → A/B DONOR → RECEIPT → KEEP/REVERT`
@@ -36,7 +36,7 @@ Do not call LIVE canonical until direct desktop + touch play establishes all of 
 2. Within 120 s, a blind-ish listener can hear a difference between ordinary BLOOM and a crease/cascade event without reading the HUD.
 3. A charged structural event retains its topology identity (e.g. `FOLD → RETURN`) and the RETURN aperture is perceptible.
 4. Muted play still exposes target, alignment, creases, cascade path and charge.
-5. With LISTEN linked, beat flashes and PERFECT/GOOD timing feel causally fair while topology remains fully playable with LISTEN absent.\n6. No runaway scheduler catch-up, stuck drone, touch-scroll conflict or material frame drop during a 10-minute run.
+5. With a same-page custom song or optional LISTEN link, beat flashes and PERFECT/GOOD timing feel causally fair while topology remains fully playable with no song loaded.\n6. No runaway scheduler catch-up, stuck drone, touch-scroll conflict or material frame drop during a 10-minute run.
 
 ## Next useful transforms — only after play
 - Tune CALL selection, forecast legibility, charge curve and return aperture from observed choices/timing, not taste in isolation.\n- If external-song timing survives play, consider a bounded beat/event-tape exporter before any deeper Audiosurf/Beat Saber bridge.
