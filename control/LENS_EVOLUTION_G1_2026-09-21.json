@@ -1,9 +1,9 @@
 {
   "schema": "0xxx0/lens-evolution-return/v0.1",
-  "at": "2026-09-21T18:46:00+08:00",
+  "at": "2026-09-21T19:26:20+08:00",
   "route": "/fold-bloom/lens/",
   "generation": 1,
-  "stage": "TEST",
+  "stage": "AUTOMATED_PROOF_PASS_HUMAN_COMPARATOR_OPEN",
   "host": "/",
   "baseline": {
     "field": "AXIAL/LATEST owns exact route focus and lawful support over route/state/operation/work-mode strips.",
@@ -51,10 +51,14 @@
       "Scale Lens route carries field-evolution/v0.1 generation 1 TEST metadata."
     ],
     "ci": {
-      "run_id": 35575962447,
-      "head": "0fef011ccdfa693ff7180b54cfd09035c28bdec6",
-      "lens_state": "18/18 PASS",
-      "public_surface": "PASS"
+      "run_id": 35594006860,
+      "head": "5e85dcd0aeffd8631343cbaa01d355209b06a964",
+      "status": "PASS",
+      "lens_state": "PASS",
+      "static_surface": "PASS",
+      "browser_smoke": "24/24 PASS",
+      "recovery_checks": "PASS",
+      "frozen_engine_tests": "PASS"
     },
     "boundary": [
       "FIELD-specific lens stacks remain upstream provenance when entering Scale Studio; they are not silently activated under the Scale contract.",
@@ -72,14 +76,30 @@
         "no horizontal overflow",
         "Fold/Bloom donor branches remain reachable"
       ]
+    },
+    "deep_browser_smoke": {
+      "status": "PASS",
+      "cases": [
+        "LENS PROOF mobile RETURN",
+        "FIELD activation + re-entry",
+        "LENS STACK STUDIO RETURN"
+      ],
+      "verifies": [
+        "exact FIELD state RETURN",
+        "aperture DIVE/RISE identity preservation",
+        "explicit PEER identity movement + reversal",
+        "supported field-foveate composition",
+        "Studio canonical identity preservation",
+        "FIELD stack retained as upstream provenance",
+        "Studio ↩ INTAKE re-entry"
+      ]
     }
   },
   "evidence_required": [
-    "One browser interaction covering RISE / DIVE / PEER / supported STACK candidate → Studio handoff → RETURN.",
-    "Paired PLAIN vs FOVEATED T1/T2/T3 human receipts before promoting LENS-03.",
+    "Paired PLAIN vs FOVEATED T1/T2/T3 human receipts before promoting LENS-03 or making FOVEATE a default projection.",
     "No claim of task advantage unless the declared promotion gate is actually met."
   ],
-  "disposition_if_pass": "TRANSFER typed support planner + Focus Ring composition grammar to ordinary FIELD/generic surfaces; keep Scale Studio as deep lab.",
-  "disposition_if_fail": "PARK Focus Ring UI; keep LensState typed support law as DONOR; ordinary Scale Lens remains RC11.2 legacy entry.",
-  "return": "CODE/CONTRACT + MOBILE FI RETURN SMOKE PASSED. Generation stays TEST only for deeper stack/Studio interaction and the human PLAIN↔FOVEATED comparator; do not reopen Lens architecture absent a concrete failure."
+  "disposition_if_pass": "Keep LensState v0.2 support law, Focus Ring aperture grammar, FIELD activation seam and RC11.2 Studio handoff/RETURN as retained mechanics. Human evidence now governs only FOVEATE promotion/default status.",
+  "disposition_if_fail": "If the human comparator fails, keep the proved Lens mechanics and leave FOVEATE optional/experimental; do not park the whole Focus Ring or reopen identity/RETURN architecture.",
+  "return": "AUTOMATED LENS MECHANICS PROOF PASSED on current FIELD/Studio runtime. Engineering gate is closed; the only remaining LENS-03 gate is paired human PLAIN↔FOVEATED task evidence."
 }
