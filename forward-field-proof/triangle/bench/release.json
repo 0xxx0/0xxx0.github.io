@@ -1,0 +1,48 @@
+{
+  "schema": "release-receipt/v1",
+  "title": "Triangle Bench · Frozen 0.1",
+  "version": "0.1",
+  "state": "PARKED",
+  "date": "2026-09-18",
+  "route": "/forward-field-proof/triangle/bench/",
+  "parent": "/forward-field-proof/triangle/",
+  "showcase_card": false,
+  "private_source": "0xxx0/0:projects/triangle-bench/",
+  "issue": "https://github.com/0xxx0/0/issues/4",
+  "claim": "Tests whether direct simplex manipulation improves a bounded three-way attention allocation over a plain two-control representation.",
+  "vertices": [
+    "EXPLOIT",
+    "EXPLORE",
+    "PROVE"
+  ],
+  "calibration_trials": 6,
+  "static_coverage": {
+    "sample_steps": 40,
+    "showcase_trace": 0.244,
+    "house_manual_run": 0.319,
+    "forward_field_trials": 0.437
+  },
+  "survival_gate": {
+    "min_region_share": 0.05,
+    "max_triangle_error_delta": 0.05,
+    "max_triangle_time_ratio": 1.25
+  },
+  "mutation": "NONE",
+  "known_limits": [
+    "Candidate profiles are declared priors, not measured ground truth.",
+    "Human calibration evidence not yet collected.",
+    "No active-queue mutation occurs in-browser."
+  ],
+  "current_classification": {
+    "reviewed_at": "2026-09-20T23:58:00+08:00",
+    "state": "PARKED",
+    "basis": "CURRENT explicitly parks Triangle Bench pending a named AXIAL/proof comparison need; human calibration evidence is still absent.",
+    "receipt": "/control/EXPERIMENT_WRANGLE_2026-09-20.json",
+    "provenance_note": "Original release state remains contemporaneous provenance; this field records the later lifecycle classification."
+  },
+  "preserved_from": {
+    "path": "/forward-field-proof/triangle/",
+    "sha": "529483be4e2b31d0c5634306f2a21d94fc51ad03"
+  },
+  "note": "Exact pre-unification Triangle Bench preserved before /triangle/ became the unified instrument."
+}
