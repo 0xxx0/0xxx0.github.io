@@ -31,6 +31,8 @@ jobs:
         run: node control/human-port-object-selftest.js
       - name: Validate static surface contracts
         run: node tools/validate-public.mjs
+      - name: Validate Triangle FORM rewrite core
+        run: node tools/triangle-form-selftest.mjs
       - name: Run critical browser smoke
         run: node tools/browser-smoke.mjs
       - name: Validate recovered source identities and media catalogue

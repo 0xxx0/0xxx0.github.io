@@ -1,43 +1,62 @@
 {
   "schema": "release-receipt/v1",
-  "title": "Triangle Bench",
-  "version": "0.1",
-  "state": "EXPERIMENT",
-  "date": "2026-09-18",
+  "title": "TRIANGLE",
+  "version": "1.0",
+  "state": "ACTIVE",
+  "date": "2026-09-22",
   "route": "/forward-field-proof/triangle/",
   "parent": "/forward-field-proof/",
   "showcase_card": false,
-  "private_source": "0xxx0/0:projects/triangle-bench/",
-  "issue": "https://github.com/0xxx0/0/issues/4",
-  "claim": "Tests whether direct simplex manipulation improves a bounded three-way attention allocation over a plain two-control representation.",
-  "vertices": [
-    "EXPLOIT",
-    "EXPLORE",
-    "PROVE"
-  ],
-  "calibration_trials": 6,
-  "static_coverage": {
-    "sample_steps": 40,
-    "showcase_trace": 0.244,
-    "house_manual_run": 0.319,
-    "forward_field_trials": 0.437
+  "claim": "A single geometric instrument can host multiple lawful operations without collapsing their semantics: relational addressing, executable distinction rewriting, inverse-query ternary notation, and direct simplex manipulation.",
+  "active_modes": {
+    "GLYPH": "8 addressable loci = 3 vertices + 3 edges + interior + outside/context; independent BLANK / UNKNOWN / INDICATE states; MESSAGE / RETURN / FIELD presets.",
+    "FORM": "one primitive mark attached to any triangle locus; explicit nesting and juxtaposition; deterministic deepest-first CALL/CROSS normalization; trace + marked/unmarked result.",
+    "POWER": "BASE / EXPONENT / RESULT occupy stable corners; one unknown corner selects exponentiation, logarithm or root.",
+    "BENCH": "quick EXPLOIT / EXPLORE / PROVE simplex manipulation; original human-calibration experiment remains frozen separately."
   },
-  "survival_gate": {
-    "min_region_share": 0.05,
-    "max_triangle_error_delta": 0.05,
-    "max_triangle_time_ratio": 1.25
-  },
-  "mutation": "NONE",
-  "known_limits": [
-    "Candidate profiles are declared priors, not measured ground truth.",
-    "Human calibration evidence not yet collected.",
-    "No active-queue mutation occurs in-browser."
+  "shared_laws": [
+    "POSITION MAY CARRY SEMANTIC/OPERATIONAL INFORMATION",
+    "ADDRESS IS PRESERVED ACROSS PROJECTIONS",
+    "GLYPH ≠ FORM ≠ POWER ≠ BENCH",
+    "UNKNOWN ≠ BLANK ≠ UNMARKED",
+    "RETURN IS EXPLICIT"
   ],
-  "current_classification": {
-    "reviewed_at": "2026-09-20T23:58:00+08:00",
-    "state": "PARKED",
-    "basis": "CURRENT explicitly parks Triangle Bench pending a named AXIAL/proof comparison need; human calibration evidence is still absent.",
-    "receipt": "/control/EXPERIMENT_WRANGLE_2026-09-20.json",
-    "provenance_note": "Original release state remains contemporaneous provenance; this field records the later lifecycle classification."
-  }
+  "formal_boundary": {
+    "FORM": "Executable minimal primary-arithmetic subset inspired by Laws of Form. Triangle geometry is only the attachment/address container; triangle edges/rotation are not Spencer-Brown rules.",
+    "CALL": "two adjacent empty marks in one region reduce to one",
+    "CROSS": "a mark containing exactly one empty mark reduces to unmarked space",
+    "rotation": "C3 relational permutation in GLYPH/POWER only; not a FORM rewrite"
+  },
+  "durable_components": [
+    "/forward-field-proof/triangle/index.html",
+    "/forward-field-proof/triangle/triangle.js",
+    "/forward-field-proof/triangle/triangle-form-core.js",
+    "/forward-field-proof/triangle/bench/",
+    "/forward-field-proof/triangle/glyph/",
+    "/forward-field-proof/triangle/glyph/center/"
+  ],
+  "return_schema": "triangle-return/v1",
+  "preservation": {
+    "bench": {
+      "route": "/forward-field-proof/triangle/bench/",
+      "state": "PARKED",
+      "note": "Pre-unification Bench content preserved under /triangle/bench/ with one relative Glyph-Lab link adjusted for relocation."
+    },
+    "glyph": {
+      "route": "/forward-field-proof/triangle/glyph/",
+      "state": "DONOR"
+    },
+    "center": {
+      "route": "/forward-field-proof/triangle/glyph/center/",
+      "state": "DONOR"
+    }
+  },
+  "verification": [
+    "triangle.js independent syntax check passed before commit",
+    "FORM core extracted as single browser/CI implementation",
+    "FORM fixtures cover blank, single mark, CALL, CROSS, CALL→CROSS, triple nesting and normalization idempotence",
+    "critical browser smoke includes unified Triangle root"
+  ],
+  "authority_boundary": "Local representation/reasoning only. No queue mutation, external send, file move, purchase or physical actuation.",
+  "next": "Use it as an instrument. Further feature work requires a concrete compression/reasoning failure or a donor mechanism that changes operation, not ornament."
 }

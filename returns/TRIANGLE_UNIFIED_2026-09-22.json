@@ -1,0 +1,53 @@
+{
+  "schema": "return/v0.1",
+  "id": "TRIANGLE_UNIFIED_2026-09-22",
+  "date": "2026-09-22",
+  "object": "/forward-field-proof/triangle/",
+  "before": {
+    "state": "Triangle capabilities split across Bench, Glyph Lab, conceptual FORM design, Power notation discussion, and CENTER donor.",
+    "problem": "No single stable address exposed the shared geometry while keeping the different laws distinct."
+  },
+  "intervention": [
+    "preserved the original Triangle Bench at /forward-field-proof/triangle/bench/ with one relative-link relocation fix",
+    "replaced /forward-field-proof/triangle/ with a unified four-mode instrument",
+    "implemented GLYPH 8-locus grammar with MESSAGE / RETURN / FIELD presets",
+    "implemented FORM as an executable one-mark tree calculus with CALL / CROSS STEP and NORMALIZE",
+    "extracted FORM rewriting into triangle-form-core.js shared by UI and CI",
+    "implemented POWER missing-corner exponentiation/logarithm/root queries",
+    "kept BENCH as direct simplex manipulation while linking the frozen calibration fixture",
+    "unified COPY / deep link / EXPORT / triangle-return/v1 receipts",
+    "retained standalone Glyph Lab and CENTER as donors"
+  ],
+  "verified_static": {
+    "triangle_kernel_syntax": "PASS",
+    "form_core_single_source": true,
+    "form_selftest_cases": 6,
+    "browser_smoke_registered": true,
+    "old_bench_preserved": "CONTENT_PRESERVED_WITH_RELOCATION_LINK_FIX"
+  },
+  "commits": [
+    "983a377eaa5632b8fb1315adb4fe6b0490d8af1d",
+    "9a608ea0af366f91223c0efa576e24fa33f0ac97",
+    "2565387c91bc7925c568f527f01ee85b823a3bba",
+    "8ecf73af24c5a07d5f73e182002228fb8bb146d5",
+    "73885f766c2a8e2e8f37a36cf19f717ba63d01c0",
+    "447b91bb16d8d8a92f68c05edba587ab096ea0be",
+    "8233fdd1a0c3cf42571939785c23749e3b1ec488",
+    "a778e5bb343be01b265fdd478b15ce5bd25da696",
+    "8cef503e81b13863355d9328a7b3d3f7353ec1bd",
+    "5ed28c849a59873ee4c02ab27b2973e4c615b588",
+    "faa893ac41cc79770e53563b7ff015a41bc3c855",
+    "09dfb8489dc2cd8c970e5798da0ced8fb45d87ae",
+    "fb3187d0dc9790039dc507304d5d8b0c131493a2"
+  ],
+  "residue": {
+    "active": "TRIANGLE 1.0",
+    "parked": "Triangle Bench 0.1",
+    "donors": [
+      "Triangle Glyph Lab 0.1",
+      "Triangle Center / Focus Field 0.3"
+    ],
+    "invariant": "shared geometry does not imply shared semantics"
+  },
+  "next": "Use GLYPH/FORM/POWER on real material. Extend only when an actual compression, rewrite, or relational reasoning failure names a missing operation."
+}

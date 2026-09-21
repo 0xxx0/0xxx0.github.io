@@ -407,7 +407,7 @@ const CASES=[
     name:'READFIELD over APERTURE',
     route:'/foundry/readfield/',
     options:{width:430,height:900,budget:7000},
-    check:dom=>/READFIELD/i.test(dom)&&/RF\/02/i.test(dom)&&dom.includes('id="ap"')&&dom.includes('id="lineMap"')&&dom.includes('id="discMap"')&&dom.includes('HOLD CONTEXT')&&dom.includes('field-aperture.js')&&!dom.includes('load failure')
+    check:dom=>/READFIELD/i.test(dom)&&/RF\\/02/i.test(dom)&&dom.includes('id=\"ap\"')&&dom.includes('id=\"lineMap\"')&&dom.includes('id=\"discMap\"')&&dom.includes('HOLD CONTEXT')&&dom.includes('field-aperture.js')&&!dom.includes('load failure')
   },
   {
     name:'DOCS APERTURE',
@@ -430,6 +430,11 @@ const CASES=[
     route:'/__smoke/reader-focus',
     options:{width:1040,height:820,budget:14000,timeout:20000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"same":true/.test(dom)&&/"spans":true/.test(dom)&&/"structure":\["Alpha","Beta"\]/.test(dom)&&/"session":true/.test(dom)
+  },
+  {
+    name:'TRIANGLE unified',
+    route:'/forward-field-proof/triangle/',
+    check:dom=>dom.includes('TRIANGLE · UNIFIED INSTRUMENT 1.0')&&dom.includes('data-mode="GLYPH"')&&dom.includes('data-mode="FORM"')&&dom.includes('data-mode="POWER"')&&dom.includes('data-mode="BENCH"')&&dom.includes('id="formRoot"')&&dom.includes('id="powerSolve"')
   },
   {
     name:'CENTER current',
