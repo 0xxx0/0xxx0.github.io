@@ -179,7 +179,7 @@ function docsApertureProbeHtml(){
   const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
   (async()=>{
     const W=()=>f.contentWindow,D=()=>W().document;
-    const A=await waitFor(()=>D().getElementById('docAperture')?.snapshot?.()&&D().getElementById('docAperture'));
+    const A=await waitFor(()=>{const a=D().getElementById('docAperture');return a?.A?.label?a:null});
     rec.start=await waitFor(()=>{const x=A.snapshot();return x.scale==='LEAF'&&x.index===1&&x.wpm===650?x:null});
     A.step(1);rec.next=await waitFor(()=>{const x=A.snapshot(),q=new URLSearchParams(W().location.search);return x.index===2&&q.get('ap_scale')===x.scale&&q.get('ap_index')===String(x.index)&&q.get('ap_addr')===x.address&&q.get('ap_wpm')==='650'?x:null});
     rec.url=W().location.search;A.restore(rec.start);rec.restored=await waitFor(()=>{const x=A.snapshot();return x.scale===rec.start.scale&&x.index===rec.start.index&&x.address===rec.start.address&&x.wpm===rec.start.wpm?x:null});
