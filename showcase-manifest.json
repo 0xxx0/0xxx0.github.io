@@ -4561,27 +4561,25 @@
     },
     {
       "href": "/foundry/aperture/",
-      "title": "APERTURE / INSPECTOR 0.4",
+      "title": "APERTURE / INSPECTOR 0.6",
       "kind": "utility",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "INSPECT",
       "state": "UTILITY",
-      "version": "0.4",
-      "receipt": "/returns/APERTURE_MATERIAL_RSVP_2026-09-21.json",
-      "role": "Ambient local inspection capability for arbitrary text/JSON/object context: source identity stays fixed while scale, position, time and optional material host state move together.",
+      "version": "0.6",
+      "receipt": "/returns/APERTURE_USABILITY_CUT_2026-09-21.json",
+      "role": "Shared local focus kernel for text/JSON: one canonical source position survives scale, ORP, RSVP, VOICE, structure and host re-projection. APERTURE owns inspection state; richer hosts such as READFIELD remain projections over it.",
       "transfer": [
-        "Two Dial: two cyclic controls → one consequence",
-        "AXIAL: fixed focus + unequal cyclic vocabularies",
-        "Scale Lens: stable address across zoom",
-        "RSVP 2018: speech boundary charIndex → temporal word focus",
-        "portable dock(source,opt) host API",
-        "session handoff / same inspector / different host",
-        "ambient selection-aware summon via /showcase-nav.js",
-        "material host projection: position/scale/magnitude → CSS variables",
-        "high-speed RSVP control 60–3000 WPM",
-        "DOCS automatic aperture reuse",
-        "single-source inspection across scale/position/time/voice; host owns durable RETURN"
+        "canonical source cursor across unequal scales",
+        "DOC / SECTION / PARA / SENT / PHRASE / WORD / GRAPHEME",
+        "ORP fixed-recognition focus",
+        "finite RSVP 60–3000 WPM",
+        "language-aware segmentation + source offsets",
+        "VOICE bound to the same cursor",
+        "structure ticks + linear source witness",
+        "addressable restore + host-owned RETURN",
+        "portable mount / dock / handoff API"
       ],
       "contract": {
         "accepts": {
@@ -4699,7 +4697,7 @@
         "physical_fit": "Potential compact ring/annulus control grammar; no physical embodiment claim in 0.1."
       },
       "index": {
-        "updated_at": "2026-09-21T18:45:00+08:00",
+        "updated_at": "2026-09-21T23:55:00+08:00",
         "work_modes": [
           "INSPECT",
           "VERIFY",
@@ -4712,6 +4710,128 @@
         "question": "Do scale×position rings plus logarithmic source-size gap improve orientation enough to survive as the default compact projection?",
         "variable": "presentation only",
         "fallback": "plain compact focus/address controls; utility remains useful without the ring mapping."
+      }
+    },
+    {
+      "href": "/foundry/readfield/",
+      "title": "READFIELD RF/02",
+      "kind": "experiment",
+      "parent": "/foundry/",
+      "family": "FOUNDRY / READER",
+      "operation": "REPRESENT",
+      "state": "EXPERIMENT",
+      "version": "RF/02",
+      "receipt": "/returns/READFIELD_APERTURE_CONVERGENCE_2026-09-21.json",
+      "showcase_card": true,
+      "role": "Reader/workbench host over APERTURE 0.6: temporal FLOW, hold-context repair, stable marks, structural SHEET/TEXT and a controlled LINE↔DISC minimap experiment all share one canonical source cursor.",
+      "transfer": [
+        "temporal foveation with context recovery",
+        "same-source semantic zoom",
+        "parallel contact-sheet scan",
+        "source-stable marks",
+        "LINE↔DISC information-matched ablation",
+        "local experiment/RETURN receipts"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "addressed text",
+            "pasted prose/document"
+          ],
+          "requires": [
+            "one source"
+          ],
+          "optional": [
+            "locale",
+            "starting focus",
+            "WPM"
+          ]
+        },
+        "transforms": {
+          "verb": "re-project one source across temporal, spatial and plain reading surfaces while preserving the APERTURE cursor",
+          "preserves": [
+            "source content",
+            "canonical source position",
+            "kernel address",
+            "marks",
+            "return path"
+          ],
+          "reversibility": "full",
+          "side_effects": "browser-local"
+        },
+        "emits": {
+          "kinds": [
+            "focused reading",
+            "context aperture",
+            "line/disc minimap",
+            "contact sheet",
+            "return receipt",
+            "E1 experiment receipt"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/returns/READFIELD_APERTURE_CONVERGENCE_2026-09-21.json",
+          "checks": [
+            "shared APERTURE kernel rather than duplicate tokenizer/timer",
+            "LINE and DISC consume the same normalized source coordinate",
+            "RETURN does not contain source payload"
+          ],
+          "return_path": "/foundry/readfield/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "REPRESENT",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "addressed text",
+            "interface": "APERTURE 0.6 source/cursor"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "temporal/spatial/plain reader projections",
+            "interface": "FLOW / MAP / SHEET / TEXT"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "local map-ablation/RETURN receipt",
+            "interface": "COPY RECEIPT"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "APERTURE_KERNEL",
+            "status": "AVAILABLE",
+            "via": "/foundry/aperture/"
+          },
+          {
+            "class": "PLAIN_SOURCE",
+            "status": "AVAILABLE",
+            "via": "TEXT"
+          },
+          {
+            "class": "MAP_PROOF",
+            "status": "EXPERIMENT",
+            "via": "LINE↔DISC"
+          }
+        ],
+        "physical_fit": "Candidate phone/watch/HUD reading surface; current public build is browser-local and makes no wearable deployment claim."
+      },
+      "index": {
+        "updated_at": "2026-09-21T23:55:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "VERIFY",
+          "RESEARCH"
+        ]
       }
     },
     {
