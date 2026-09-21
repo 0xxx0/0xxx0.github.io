@@ -44,12 +44,13 @@ function lensProbeHtml(){
       const w=f.contentWindow,d=w?.document;
       const apLens=d?.getElementById('apLens'),apProof=d?.getElementById('apProof');
       const proof=d?.getElementById('lens-proof-bench'),proofOpen=!!proof?.classList.contains('on');
-      if(!apLens||!apProof||!w?.LensFocusRing||!w?.FieldLensHost){
+      const ready=w?.FieldLensHost?.uiState?.();
+      if(!apLens||!apProof||!w?.LensFocusRing||!w?.FieldLensHost||ready?.focusHref!=='/fold-bloom/lens/'){
         if(tries<40){setTimeout(()=>boot(tries+1),100);return}
-        done(false,{stage:'boot',tries,apLens:!!apLens,apProof:!!apProof,proofOpen,ring:!!w?.LensFocusRing,host:!!w?.FieldLensHost});return
+        done(false,{stage:'boot',tries,apLens:!!apLens,apProof:!!apProof,proofOpen,ring:!!w?.LensFocusRing,host:!!w?.FieldLensHost,focusHref:ready?.focusHref||null});return
       }
       const compact=x=>({focusHref:x?.focusHref||null,axisState:x?.axisState||null,projection:x?.projection||null,mapMode:x?.mapMode||null,mapRoot:x?.mapRoot||null,mapSelected:x?.mapSelected||null,mapQuery:x?.mapQuery||'',mapOpen:!!x?.mapOpen});
-      const before=compact(w.FieldLensHost.uiState?.());
+      const before=compact(ready);
       apLens.click();
       setTimeout(()=>{
         const ring=d.getElementById('lens-focus-ring'),sh=ring?.shadowRoot,panel=sh?.querySelector('.panel');
