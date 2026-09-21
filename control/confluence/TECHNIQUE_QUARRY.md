@@ -133,3 +133,20 @@ Research packet: [GAME-SCALE STATE DONORS](../research/GAME_SIMULATION_STATE_DON
 **Current test:** /body/fit/
 
 **Critical transfer law:** FITTING != BODY; SENSOR != TRUTH; CAPABILITY != DIAGNOSIS; revision supersedes without erasing prior fitted state.
+
+
+## Seed 08 — Return-patina / ritual completion
+
+**Status:** TESTING / BODY / FIT 0.3
+
+Research packet: [BODY / FIT RETURN / PATINA](../research/BODY_FIT_RETURN_PATINA_2026-09-22.md)
+
+**Mechanism candidate:** replace generic streak/XP completion with durable symbolic RETURN marks. Each enacted loop may leave one virtual seal/crease/petal plus one NEXT CUT; silence leaves no debt and no decay.
+
+**Donors:** Fold/Bloom ratchet + garden + RETURN; Death Stranding preparation/loadout consequence; Finch action→adventure emotional consequence; Voidpet journaling→garden embodiment; anti-pressure lessons from pause/rest-aware streak systems.
+
+**Possible transfer:** loadout refinement, training practice, caregiver routines, pet care, maintenance, maker work and other repeated real-world loops.
+
+**Critical laws:** MARK != REWARD; GAP != FAILURE; MORE MARKS != BETTER PERSON; CARE ACTION COMPLETE != CONDITION IMPROVED.
+
+**Cheapest test:** same kit twice. First RETURN must make the second PREP more informed through one NEXT CUT. If it does not, PATINA is decorative and should remain optional.
