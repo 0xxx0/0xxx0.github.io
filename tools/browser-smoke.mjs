@@ -252,6 +252,79 @@ function apertureMultilingualProbeHtml(){
   <\/script></body></html>`;
 }
 
+function lensRealUseProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:1180px;height:820px;border:0;display:block" src="/?focus=%2Ffold-bloom%2Ftwo-dial%2F"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={field:{},generic:{},studio:{}},done=(ok,data)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data);
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw Error('waitFor timeout')};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+
+    // FIELD: open Lens, refract, collapse, let host select another object, then reopen/RETURN.
+    await waitFor(()=>W().FieldLensHost?.focus?.()?.href==='/fold-bloom/two-dial/'&&W().LensFocusRing&&D().getElementById('apLens'));
+    rec.field.start=W().FieldLensHost.focus().href;
+    D().getElementById('apLens').click();
+    let sh=await waitFor(()=>D().getElementById('lens-focus-ring')?.shadowRoot);
+    await waitFor(()=>sh.querySelector('.panel.on'));
+    const structure=await waitFor(()=>sh.querySelector('[data-mode="STRUCTURE"]'));structure.click();
+    await waitFor(()=>W().FieldLensHost.uiState()?.projection==='STRUCTURE');
+    rec.field.refracted=W().FieldLensHost.uiState().projection;
+    sh.querySelector('.close').click();
+    await waitFor(()=>!sh.querySelector('.panel.on'));
+    W().FieldLensHost.dive();
+    const target=await waitFor(()=>D().querySelector('.mapRow[data-href="/fold-bloom/live/"]'));target.click();
+    await waitFor(()=>W().FieldLensHost.focus?.()?.href==='/fold-bloom/live/');
+    rec.field.hostSelected=W().FieldLensHost.focus().href;
+    D().getElementById('apLens').click();await waitFor(()=>sh.querySelector('.panel.on'));
+    sh.querySelector('.return').click();
+    await waitFor(()=>!sh.querySelector('.panel.on'));
+    rec.field.afterReturn=W().FieldLensHost.focus().href;
+    rec.field.staleOrigin=rec.field.afterReturn!==rec.field.hostSelected;
+
+    // Generic route: inspect what is actually actionable, then enter Studio and return.
+    W().location.href='/fold-bloom/';
+    await waitFor(()=>W().location.pathname==='/fold-bloom/'&&D().getElementById('showcase-route-adapter'));
+    let nav=await waitFor(()=>D().getElementById('showcase-route-adapter')?.shadowRoot),lensTab=await waitFor(()=>nav.querySelector('.tab.lens'));
+    lensTab.click();await waitFor(()=>nav.querySelector('.panel.on.lens'));
+    const transforms=['out','in','projection'].map(k=>nav.querySelector('[data-l="'+k+'"]'));
+    rec.generic.disabledTransforms=transforms.filter(x=>x?.disabled&&!x.hidden).length;
+    rec.generic.hiddenTransforms=transforms.filter(x=>x?.hidden).length;
+    rec.generic.visibleActions=[...nav.querySelectorAll('.lensops button')].filter(x=>!x.hidden).map(x=>({label:x.textContent.trim(),disabled:x.disabled}));
+    rec.generic.object=nav.querySelector('[data-l="object"]')?.textContent||null;
+    rec.generic.returnBefore=W().location.pathname;
+    nav.querySelector('[data-l="studio"]').click();
+    await waitFor(()=>W().location.pathname==='/fold-bloom/lens/'&&W().ScaleLensStateAPI?.snapshot?.());
+    rec.generic.studioObject=W().ScaleLensStateAPI.snapshot().objectId;
+    rec.generic.returnTarget=D().getElementById('dockReturnPath')?.textContent||null;
+
+    // Handoff Studio: use one real projection change; identity must remain the caller.
+    rec.studio.handoffLabOpen=D().body.classList.contains('lab-open');
+    const studioObject=W().ScaleLensStateAPI.snapshot().objectId;
+    const buttons=[...D().querySelectorAll('#domains button')],alternate=buttons.find(b=>!b.classList.contains('on'));
+    if(alternate){rec.studio.domainBefore=W().ScaleLensSpatialAPI.snapshot().domain;alternate.click();await waitFor(()=>W().ScaleLensSpatialAPI.snapshot().domain!==rec.studio.domainBefore);rec.studio.domainAfter=W().ScaleLensSpatialAPI.snapshot().domain}
+    rec.studio.identityStable=W().ScaleLensStateAPI.snapshot().objectId===studioObject;
+    const adapter=D().getElementById('showcase-route-adapter'),ash=adapter?.shadowRoot;
+    const studioLensTab=ash?.querySelector('.tab.lens');
+    rec.studio.duplicatePortableLens=!!studioLensTab&&!studioLensTab.hidden;
+    W().ScaleLensSpatialAPI.return();
+    await waitFor(()=>W().location.pathname==='/fold-bloom/');
+    rec.generic.returnAfter=W().location.pathname;
+    rec.generic.returnExact=rec.generic.returnAfter===rec.generic.returnBefore;
+
+    // Direct Studio: record default LAB/RETURN presentation and duplicate Lens surface.
+    W().location.href='/fold-bloom/lens/';
+    await waitFor(()=>W().location.pathname==='/fold-bloom/lens/'&&W().ScaleLensStateAPI?.snapshot?.()&&D().getElementById('dockReturn'));
+    rec.studio.directLabOpen=D().body.classList.contains('lab-open');
+    rec.studio.headerReturn=D().getElementById('fieldBtn')?.textContent.trim()||null;
+    rec.studio.dockReturn=D().getElementById('dockReturn')?.textContent.trim()||null;
+    const directAdapter=await waitFor(()=>D().getElementById('showcase-route-adapter')),directTab=directAdapter.shadowRoot?.querySelector('.tab.lens');
+    rec.studio.directDuplicatePortableLens=!!directTab&&!directTab.hidden;
+
+    done(true,rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
+  <\/script></body></html>`;
+}
+
 function genericLensReturnProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:390px;height:844px;border:0;display:block" src="/fold-bloom/"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};
@@ -297,6 +370,10 @@ function oneReturnGridReceiptProbeHtml(){
 }
 
 const server=http.createServer((req,res)=>{
+  if(String(req.url||'').startsWith('/__smoke/lens-real-use')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(lensRealUseProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/generic-lens-return')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(genericLensReturnProbeHtml());return;
@@ -476,6 +553,12 @@ const CASES=[
     route:'/__smoke/lens-studio',
     options:{width:1280,height:900,budget:22000,timeout:28000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"field-foveate"/.test(dom)&&/"studioObject":"\/fold-bloom\/lens\/"/.test(dom)&&/"endHref":"\/fold-bloom\/lens\/"/.test(dom)
+  },
+  {
+    name:'LENS focused real-use observation',
+    route:'/__smoke/lens-real-use',
+    options:{width:1280,height:900,budget:24000,timeout:32000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"hostSelected":"\/fold-bloom\/live\/"/.test(dom)&&/"returnExact":true/.test(dom)&&/"identityStable":true/.test(dom)
   },
   {
     name:'GENERIC LENS RETURN ≠ BACK',
