@@ -2,7 +2,7 @@
   "schema": "0xxx0/lens-fi-toolglass-g2/v0.1",
   "at": "2026-09-21T21:12:00+08:00",
   "generation": 2,
-  "status": "IMPLEMENTED_PENDING_CI",
+  "status": "LENS_PATH_PROVED__REPO_SUITE_BLOCKED_BY_UNRELATED_DOCS_FLAKE",
   "problem": "FIELD Lens had become a detached second navigation cockpit: PEER changed selected route inside a control presented as refraction, duplicating AXIAL and weakening the VIEW_LENS identity law.",
   "crystallized_law": "HOST SELECTS. LENS REFRACTS.",
   "grammar": "OBJECT@ADDRESS → APERTURE → VIEW → STACK → DEEP LAB? → RETURN",
@@ -51,13 +51,45 @@
     "/control/LENS_SYSTEM_CONTRACT_2026-09-21.json"
   ],
   "proof_required": [
-    "static JavaScript parse",
-    "390px FI: open inline Lens; no horizontal overflow; focus identity unchanged through APERTURE and VIEW changes",
-    "desktop repeat",
-    "STACK apply/remove round trip",
-    "COPY STATE emits valid LensState",
-    "DEEP LAB → exact FIELD RETURN",
-    "repo public-surface validation"
+    "SATISFIED: LensState laws 18/18",
+    "SATISFIED: static/public contracts",
+    "SATISFIED twice: mobile Lens RETURN and no overflow path",
+    "SATISFIED twice: inline identity lock through APERTURE changes",
+    "SATISFIED twice: STACK apply/remove/reapply → Studio handoff → exact FIELD RETURN",
+    "SATISFIED: Scale Lens route smoke",
+    "NOT ATTRIBUTED TO LENS: aggregate workflow remains red because DOCS RSVP focus-kernel smoke times out intermittently/repeatedly on this PR"
   ],
-  "stop_condition": "If G2 passes, do not broaden Lens. Next work only when repeated use exposes a concrete missing operation (likely named compound preset or a task-specific semantic zoom lens)."
+  "stop_condition": "PROMOTE G2. Do not broaden Lens. Track DOCS RSVP smoke separately; next Lens work only on concrete repeated-use deficit such as named compound presets or a task-specific semantic zoom lens.",
+  "proof": {
+    "head_sha": "a6e4470abe7e56ca4246bc0b846283138b4b873b",
+    "workflow_run_id": 35606632845,
+    "attempts": [
+      {
+        "result": "repository job failed at unrelated DOCS RSVP focus kernel timeout",
+        "lens_state_laws": "18/18 PASS",
+        "static_surface_contracts": "PASS",
+        "lens_browser_cases": [
+          "PASS LENS PROOF alias",
+          "PASS LENS PROOF mobile RETURN",
+          "PASS FIELD activation + re-entry",
+          "PASS LENS STACK STUDIO RETURN",
+          "PASS SCALE LENS"
+        ]
+      },
+      {
+        "result": "same unrelated DOCS RSVP focus kernel timeout reproduced",
+        "lens_state_laws": "18/18 PASS",
+        "static_surface_contracts": "PASS",
+        "lens_browser_cases": [
+          "PASS LENS PROOF alias",
+          "PASS LENS PROOF mobile RETURN",
+          "PASS FIELD activation + re-entry",
+          "PASS LENS STACK STUDIO RETURN",
+          "PASS SCALE LENS"
+        ]
+      }
+    ],
+    "baseline_context": "master push run 35604443185 at base SHA 83d792ac1b56e41ca4e7126dfc909845f5d622f9 completed SUCCESS; branch does not modify DOCS reader runtime.",
+    "disposition": "Treat Lens G2 as bounded PASS. Do not edit DOCS from this branch merely to manufacture a green aggregate check."
+  }
 }
