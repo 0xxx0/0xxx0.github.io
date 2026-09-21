@@ -1160,7 +1160,7 @@
       "operation": "ORIENT",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-22T00:00:00+08:00",
+        "updated_at": "2026-09-22T02:58:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1168,7 +1168,7 @@
           "RELEASE"
         ]
       },
-      "role": "Current Fold/Bloom family head. TWO DIAL composes relations; ECOLOGY grows lineage; LIVE tests deliberate tension/release. LISTEN 0.1 is an explicitly experimental fourth projection: external audio becomes an addressed time-ring/scale-rail/fractal field. Scale Lens remains an extracted representation descendant, not a playable peer."
+      "role": "Current Fold/Bloom family head. TWO DIAL composes relations and may explicitly borrow LISTEN's FIELD PULSE clock without yielding authorship; ECOLOGY grows lineage; LIVE tests deliberate tension/release; LISTEN maps external audio into addressed time/feature context. Scale Lens remains an extracted representation descendant, not a playable peer."
     },
     {
       "href": "/fold-bloom/live/",
@@ -1284,20 +1284,21 @@
     },
     {
       "href": "/fold-bloom/two-dial/",
-      "title": "TWO DIAL 0.10",
+      "title": "TWO DIAL 0.10.1",
       "kind": "artifact",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "PLAY",
       "state": "ACTIVE",
-      "version": "0.10",
+      "version": "0.10.1",
       "receipt": "/fold-bloom/two-dial/release.json",
       "transfer": [
         "preserved two-dial relation algebra",
         "7 sound worlds / 6 voice engines / 5 groove skeletons",
         "SCALE-of-consequence: PULSE / VOICE / MOTIF / FORM",
         "motif/form memory + bounded phrase RETURN",
-        "dependency-free WebAudio synthesis and local cassettes"
+        "dependency-free WebAudio synthesis and local cassettes",
+        "FIELD PULSE optional external clock + operation return; borrowed timing != borrowed authorship"
       ],
       "contract": {
         "accepts": {
@@ -1307,7 +1308,8 @@
           ],
           "requires": [],
           "optional": [
-            "saved motif/form state"
+            "saved motif/form state",
+            "same-origin FIELD PULSE transport context"
           ]
         },
         "transforms": {
@@ -1326,7 +1328,8 @@
             "updated composition state",
             "audio score",
             "motif/form state",
-            "bounded RETURN packet"
+            "bounded RETURN packet",
+            "ephemeral FIELD PULSE operation event"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -1336,7 +1339,9 @@
           "checks": [
             "generated sound-bank controls materialize in browser",
             "relation algebra preserved",
-            "direct A/B listening remains instrument-quality gate"
+            "direct A/B listening remains instrument-quality gate",
+            "pulse-link module browser boot",
+            "real phone LISTEN↔TWO DIAL cross-tab play remains required"
           ],
           "return_path": "/fold-bloom/two-dial/"
         }
@@ -1351,6 +1356,11 @@
             "medium": "HUMAN_ACTION",
             "kind": "bounded cyclic control",
             "interface": "pointer/touch/dial"
+          },
+          {
+            "medium": "DATA",
+            "kind": "ephemeral tempo/energy/section context",
+            "interface": "FIELD PULSE v0.1 / opt-in PULSE LINK"
           }
         ],
         "outputs": [
@@ -1385,7 +1395,7 @@
         "physical_fit": "Control primitive; candidate for tangible dial/encoder interfaces."
       },
       "index": {
-        "updated_at": "2026-09-21T21:23:00+08:00",
+        "updated_at": "2026-09-22T02:58:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1393,7 +1403,7 @@
           "RELEASE"
         ]
       },
-      "role": "Deep composition head. MATTER × HARMONY preserves the compact BLOOM/FOLD/SPLIT/RETURN relation while WORLD × VOICE × GROOVE widens timbre/rhythm and SCALE mode aims consequences at PULSE, VOICE, MOTIF or FORM."
+      "role": "Deep composition head. MATTER × HARMONY preserves the compact BLOOM/FOLD/SPLIT/RETURN relation while WORLD × VOICE × GROOVE widens timbre/rhythm and SCALE aims consequences at PULSE, VOICE, MOTIF or FORM. Optional PULSE LINK borrows LISTEN tempo/energy/section context only; Two Dial remains the musical/transformation authority."
     },
     {
       "href": "/fold-bloom/ecology/",

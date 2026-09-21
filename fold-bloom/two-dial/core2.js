@@ -602,10 +602,13 @@ function hud() {
   $('#chain').textContent = motifN;
   $('#verb').textContent =
     prefs.mode === 'OPEN' ? rel() : `MAKE ${requestVerb}`;
+  const pulseWitness = pulseIsLive()
+    ? ` · PULSE ${Math.round(pulseTempo())}`
+    : prefs.pulseLink ? ' · PULSE WAIT' : '';
   $('#future').textContent =
     (live.mode === 'STILL' ? 'FIELD' : live.mode) +
     (splitCharge ? ' · CHARGED' : '') +
-    ` · ${form.state} · ${prefs.world} · ${prefs.voice}${prefs.mode === 'SCALE' ? ' · '+prefs.scope : ''}`;
+    ` · ${form.state} · ${prefs.world} · ${prefs.voice}${prefs.mode === 'SCALE' ? ' · '+prefs.scope : ''}${pulseWitness}`;
   $('#leftHud').firstChild.textContent =
     prefs.mode === 'OPEN' ? 'MOVES ' : 'PHRASES ';
   $('#rightHud').firstChild.textContent = 'MOTIF ';

@@ -1,0 +1,28 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "kind": "FOLD_BLOOM_PULSE_COMPOSE_RETURN",
+  "status": "IMPLEMENTED_CANDIDATE",
+  "date": "2026-09-22",
+  "route": "/fold-bloom/two-dial/",
+  "version": "0.10.1",
+  "base_sha": "35d2e5a309a0e7daf3fe14101a9ee5adb6b72f7f",
+  "branch": "fold-bloom-pulse-compose-01",
+  "changed": [
+    "/fold-bloom/two-dial/pulse-link.js",
+    "/fold-bloom/two-dial/core1.js",
+    "/fold-bloom/two-dial/audio1.js",
+    "/fold-bloom/two-dial/core2.js",
+    "/fold-bloom/two-dial/app-runtime.js",
+    "/fold-bloom/two-dial/index.html",
+    "/fold-bloom/two-dial/release.json",
+    "/control/FIELD_PULSE_CONTRACT.json",
+    "/showcase-manifest.json",
+    "/tools/browser-smoke.mjs"
+  ],
+  "invariant": "LISTEN may supply timing context only after explicit PULSE LINK; Two Dial remains the author of its musical and transformation grammar.",
+  "tests": {
+    "browser_smoke": "PENDING",
+    "field_index": "PENDING",
+    "phone_cross_tab": "REQUIRED_NEXT"
+  }
+}

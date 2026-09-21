@@ -15,6 +15,7 @@ function minimalSnapshot() {
       motion: prefs.motion,
       haptic: prefs.haptic,
       quiet: prefs.quiet,
+      pulseLink: prefs.pulseLink,
     },
     L,
     R,
@@ -439,6 +440,14 @@ window.FoldBloom = {
   setVoice,
   setGroove,
   setScope,
+  setPulseLink,
+  updatePulseContext,
+  pulseState: () => ({ ...pulseLink, active: pulseIsLive(), tempo: pulseTempo() }),
+  subscribeEvents: fn => {
+    if (typeof fn !== 'function') return () => {};
+    fieldEventListeners.add(fn);
+    return () => fieldEventListeners.delete(fn);
+  },
 };
 if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol))
   window.addEventListener('load', () =>

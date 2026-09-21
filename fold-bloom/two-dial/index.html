@@ -113,6 +113,15 @@
         </div>
         <div class="section" data-pane-section="SOUND"><div class="k">VOICE / INSTRUMENT</div><div class="segment voices" id="voiceChoices"></div><div class="desc" id="voiceDesc"></div></div>
         <div class="section" data-pane-section="SOUND"><div class="k">GROOVE</div><div class="segment grooves" id="grooveChoices"></div><div class="desc" id="grooveDesc"></div></div>
+        <div class="section" data-pane-section="SOUND">
+          <div class="k">FIELD PULSE</div>
+          <div class="row">
+            <button class="secondary" id="pulseLinkBtn" aria-pressed="false">PULSE LINK OFF</button>
+            <button class="secondary" id="pulseListenBtn">OPEN LISTEN</button>
+          </div>
+          <div class="tiny" id="pulseLinkStatus" style="margin-top:8px">OFF · Two Dial keeps its own clock.</div>
+          <div class="desc">Optional same-origin link: LISTEN supplies tempo plus a visible energy/section witness. MATTER × HARMONY still authors notes, verbs, motifs and form.</div>
+        </div>
         <div class="section" data-pane-section="PLAY">
           <div class="k">SURFACE</div>
           <div class="segment" id="surfaceChoices">
@@ -224,5 +233,6 @@
     <script src="./audio1.js"></script>
     <script src="./audio2.js"></script>
     <script src="./app-runtime.js"></script>
+    <script type="module" src="./pulse-link.js"></script>
   <script src="/showcase-nav.js" defer></script></body>
 </html>

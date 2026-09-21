@@ -699,7 +699,7 @@ const CASES=[
     name:'TWO DIAL sound field 0.10',
     route:'/fold-bloom/two-dial/',
     options:{width:1180,height:900,budget:9000},
-    check:dom=>/HOLD FAST \/ LET FLY/i.test(dom)&&/SCALE OF CONSEQUENCE/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')
+    check:dom=>/HOLD FAST \/ LET FLY/i.test(dom)&&/SCALE OF CONSEQUENCE/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')&&dom.includes('id="pulseLinkBtn"')&&dom.includes('data-fold-bloom-pulse="ready"')
   },
   {
     name:'FOLD BLOOM LISTEN 0.2.2',
