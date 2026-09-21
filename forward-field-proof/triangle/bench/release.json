@@ -44,5 +44,9 @@
     "path": "/forward-field-proof/triangle/",
     "sha": "529483be4e2b31d0c5634306f2a21d94fc51ad03"
   },
-  "note": "Exact pre-unification Triangle Bench preserved before /triangle/ became the unified instrument."
+  "note": "Pre-unification Triangle Bench preserved at a new route; content is retained with the single relative Glyph-Lab link adjusted for relocation.",
+  "preservation": {
+    "source_sha": "529483be4e2b31d0c5634306f2a21d94fc51ad03",
+    "relocation_edit": "./glyph/ → ../glyph/"
+  }
 }
