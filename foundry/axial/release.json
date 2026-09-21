@@ -37,7 +37,9 @@
     "observed-use correction: current dial position was reported as insufficiently legible",
     "moving position witness is distinct from fixed focus gate",
     "FIELD AXIAL/LATEST and full AXIAL share /foundry/axial/focus-core.js for support/position law",
-    "/foundry/axial/research.json grounds current interaction rules in recovered donors + external human-factors evidence"
+    "/foundry/axial/research.json grounds current interaction rules in recovered donors + external human-factors evidence",
+    "/control/FU_FOVEATE_RECOVERY_2026-09-21.json recovers explicit historical fovea-path state and radial re-projection fragments",
+    "/control/confluence/FOCUS_INTERFACE_SYNC_2026-09-21.json keeps AXIAL/APERTURE/Scale Lens roles distinct"
   ],
   "promotion_gate": "The AXIAL instrument is ACTIVE for ordinary orientation/re-entry. Its comparative usability and physical-embodiment claims remain unresolved under the existing evolution.evidence_gate; failure of those claims does not invalidate the working orientation utility.",
   "lineage_exact": [
@@ -60,5 +62,9 @@
     "state": "PROOF_REQUIRED",
     "basis": "0.7.1 is an observed-use/human-factors correction: explicit dial position, active-ring witness, centralized focus math, and a bounded research note; no proof-state promotion.",
     "receipt": "/foundry/axial/release.json"
-  }
+  },
+  "lineage_partial_exact": [
+    "Historical FU scalable/polar UI: exact fovea/foveate/radial source fragments; complete original reader artifact unresolved"
+  ],
+  "interface_boundary": "AXIAL owns multi-dimensional constraint/address composition. One-source text/JSON scale/position/time inspection belongs to the shared APERTURE utility; deep projection belongs to Scale Lens."
 }
