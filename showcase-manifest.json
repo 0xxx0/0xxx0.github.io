@@ -125,7 +125,7 @@
       "family": "HUMAN PORT",
       "operation": "ROUTE",
       "state": "ACTIVE",
-      "version": "1.5-preview",
+      "version": "1.5.1-preview",
       "receipt": "/port/release.json",
       "showcase_card": false,
       "role": "Canonical addressed object aperture: accept text/JSON/image/local files as one Port object, preserve byte/provenance identity, focus lawful projections, expose FIT/CUES/HISTORY separately, then SELECT + OPEN a bounded route. FIELD INTAKE remains the separate reviewed admission gate.",
@@ -135,7 +135,8 @@
         "Scale Lens identity across unequal projections",
         "INGEST SHA-256/provenance discipline",
         "FIT != CUES != HISTORY != AUTHORITY",
-        "object-aware RETURN / re-entry"
+        "object-aware RETURN / re-entry",
+        "CARE evidence-reference route without byte duplication"
       ],
       "contract": {
         "transforms": {
@@ -233,6 +234,11 @@
             "class": "DELEGATED_SEND",
             "status": "CANDIDATE",
             "via": "explicit disclosed policy-bound agent transport"
+          },
+          {
+            "class": "CARE",
+            "status": "AVAILABLE",
+            "via": "/care/ evidence offer; explicit CARE attach required"
           },
           {
             "class": "CANONICAL_INGEST",
@@ -341,11 +347,12 @@
         }
       ],
       "index": {
-        "updated_at": "2026-09-21T18:45:00+08:00",
+        "updated_at": "2026-09-22T00:27:00+08:00",
         "work_modes": [
+          "RECOVER",
+          "SPECIFY",
           "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
+          "VERIFY"
         ]
       }
     },
@@ -794,7 +801,7 @@
       "family": "CONFLUENCE / CONTINUITY",
       "operation": "CAPTURE",
       "state": "ACTIVE",
-      "version": "0.4",
+      "version": "0.5",
       "receipt": "/care/release.json",
       "transfer": [
         "human/animal care observation",
@@ -811,7 +818,10 @@
         "stable plan/view/region body addresses",
         "feline care localization",
         "shared BODY plan substrate (non-owned)",
-        "explicit BODY / FIELD local handoff"
+        "explicit BODY / FIELD local handoff",
+        "addressed CARE snapshot → HUMAN PORT object aperture",
+        "HUMAN PORT image/file/text/json evidence → explicit CARE reference attach",
+        "CONTACT NEED consult handoff when ASK exists"
       ],
       "contract": {
         "accepts": {
@@ -922,6 +932,11 @@
             "medium": "DATA",
             "kind": "local body-plan address",
             "interface": "/bodyplans/ registry"
+          },
+          {
+            "medium": "DATA",
+            "kind": "HUMAN PORT object evidence offer",
+            "interface": "explicit ATTACH reference"
           }
         ],
         "outputs": [
@@ -944,6 +959,11 @@
             "medium": "DATA",
             "kind": "care course / decision gate state",
             "interface": "local/exported JSON"
+          },
+          {
+            "medium": "DATA",
+            "kind": "hashed CARE case snapshot",
+            "interface": "HUMAN PORT object aperture"
           }
         ],
         "exit_paths": [
@@ -964,8 +984,8 @@
           },
           {
             "class": "PRIVATE_FILES",
-            "status": "ADAPTER_REQUIRED",
-            "via": "private image/report attachment substrate"
+            "status": "AVAILABLE",
+            "via": "HUMAN PORT local object stash → explicit CARE evidence ref; bytes remain Port-owned"
           },
           {
             "class": "ADAPTIVE_QUESTIONS",
@@ -986,18 +1006,26 @@
             "class": "BODY_PLAN_SUBSTRATE",
             "status": "AVAILABLE",
             "via": "/bodyplans/ local registry + standalone SVG assets"
+          },
+          {
+            "class": "OBJECT_APERTURE",
+            "status": "AVAILABLE",
+            "via": "/port/ exact hashed CARE snapshot"
           }
         ],
         "physical_fit": "Observation/course/handoff tool for care episodes involving people or animals; no diagnostic, triage, threshold or treatment authority."
       },
       "index": {
-        "updated_at": "2026-09-21T21:18:00+08:00",
+        "updated_at": "2026-09-22T00:27:00+08:00",
         "work_modes": [
-          "VERIFY",
-          "OPERATE"
+          "RECOVER",
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY"
         ]
       },
-      "owned_surfaces": []
+      "owned_surfaces": [],
+      "role": "Compact care-state projection over CONTINUITY/BODY with explicit Port object passage: observe/follow course/brief, preserve sourced care trajectory and spatial evidence, attach addressed Port evidence refs without duplicating bytes, then route either a brief to CONTACT or an exact case snapshot through HUMAN PORT."
     },
     {
       "href": "/fold-bloom/",
