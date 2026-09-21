@@ -45,3 +45,15 @@ jobs:
           ! grep -q 'READ_HEALTH_DATA_IN_BACKGROUND' bridge/health-connect-reader/app/src/main/AndroidManifest.xml
       - name: Assert APK exists
         run: test -s bridge/health-connect-reader/app/build/outputs/apk/debug/app-debug.apk
+      - name: Hash debug APK
+        run: |
+          cd bridge/health-connect-reader/app/build/outputs/apk/debug
+          sha256sum app-debug.apk | tee body-bridge-debug.sha256
+      - name: Upload debug proof artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: BODY-Bridge-debug
+          path: |
+            bridge/health-connect-reader/app/build/outputs/apk/debug/app-debug.apk
+            bridge/health-connect-reader/app/build/outputs/apk/debug/body-bridge-debug.sha256
+          retention-days: 7
