@@ -1,6 +1,6 @@
 # ONE RETURN v2 / WORK HANDOFF
 
-**Target:** polished **SLEEPER // ONE RETURN** Work-mode build  
+**Canonical source lineage:** **SLEEPER // ONE RETURN v2 / City Engine v0.2**  
 **Historical host:** `https://sleeper-one-return.metaname.chatgpt.site/one-return`  
 **Historical workspace evidence:** `/workspace/sites/sleeper-one-return/`  
 **Design contract evidence:** `/workspace/sites/sleeper-one-return/docs/ONE_RETURN_V2.md`
@@ -13,7 +13,7 @@ The recovered Git history contains the 2026-09-10 causal-engine commit `a9c00285
 
 The public snapshot distinguishes **three figures** (`urchin`, `slothcake`, `kite`) from **four operators** (`conch`, `keris`, `w8`, `spiral`). Its world URL serializes `source`, `cell`, `figure`, `world`; its v2 witness restores verified inputs, not a completed play trace. Do not overwrite the recalled four-configuration evidence or silently relabel operators as figures.
 
-The remaining gate is **which version/UI the user meant, then runtime verification**—not a claim that no City source exists. If this snapshot differs from the intended version, request only the discriminating selector screenshot, two Witness exports, or exact version/source difference. No new public head or runtime is authorised by this pointer repair.
+The repository identity gate is now resolved: the user explicitly rejected ASCII Sleeper 0.8 and re-identified the intended work as the multi-character maze, matching the recovered URCHIN / SLOTHCAKE / KITE City Engine source. The remaining gate is **deployment reachability / completeness**, not which artifact owns Sleeper authority. If later evidence reveals a distinct v2 deployment variant, preserve it as a version rather than demoting the recovered source lineage.
 
 Best handoff, in descending order:
 
@@ -68,7 +68,7 @@ When additional target evidence or a more complete project arrives:
 1. preserve it first under a frozen recovery/source shelf;
 2. run it without rewriting;
 3. identify exact figure picker + URL serializer + witness schema;
-4. register the polished app as the ONE RETURN head only after runtime verification;
+4. verify whether the additional package is the same canonical v2 lineage or a distinct historical version; do not make repository authority depend on present-day host reachability;
 5. keep `/sleeper/one-return/` ASCII reconstruction as a related donor unless the recovered v2 itself proves a direct migration path.
 
 ## CONFLUENCE boundary
