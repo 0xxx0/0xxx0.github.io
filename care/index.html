@@ -72,7 +72,7 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
 <body><main>
 <header>
 <div><div class="ey">CARE / FIELD · COURSE × CONTINUITY × BODYFIELD × HUMAN PORT</div><h1>WHAT CHANGED?</h1><div class="sub">Compact observation, longitudinal follow-up and clinician/vet handoff. Record what happened first; interpretation stays separate.</div></div>
-<div class="local">PUBLIC CODE · PRIVATE LOCAL STATE<br>CASE ≠ BRIEF ≠ SEND</div>
+<div class="local">PUBLIC CODE · PRIVATE LOCAL STATE<br>CASE ≠ BRIEF ≠ PORT ≠ SEND</div>
 </header>
 
 <div class="top">
@@ -92,6 +92,10 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
 <div id="bodyCareOffer" class="panel" style="display:none;margin:0 0 8px;padding:9px;border-color:#6f5c3f">
  <div class="label">BODY / FIELD HANDOFF · browser-local</div>
  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px"><b id="bodyCareSummary" style="font:750 12px system-ui,sans-serif">BODY return waiting</b><div class="spacer"></div><button id="importBodyCare" class="primary">IMPORT INTO CURRENT CASE</button><button id="dismissBodyCare">DISMISS</button></div>
+</div>
+<div id="portCareOffer" class="panel" style="display:none;margin:0 0 8px;padding:9px;border-color:#456779">
+ <div class="label">HUMAN PORT EVIDENCE · browser-local reference</div>
+ <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px"><b id="portCareSummary" style="font:750 12px system-ui,sans-serif">Port object waiting</b><div class="spacer"></div><button id="attachPortCare" class="primary">ATTACH TO CURRENT CASE</button><button id="dismissPortCare">DISMISS</button></div>
 </div>
 
 <section class="view" id="view-observe">
@@ -148,6 +152,7 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
     <div class="courseCell gate"><b>IF / WHEN · DECISION GATE</b><span id="followGate">—</span></div>
     <div class="courseCell"><b>OWNER / WHEN</b><span id="followOwner">—</span></div>
   </div>
+  <div class="courseEmpty" id="followEvidence">EVIDENCE · none attached</div>
   <div id="metricBoard" class="metricBoard"></div>
   <div class="timeline" id="timeline"><div class="empty">No observations yet.</div></div>
 </section>
@@ -156,8 +161,9 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
   <div class="brief" id="briefText">Add observations or case context, then build a brief.</div>
   <div class="toolbar">
     <button id="buildBrief" class="primary">BUILD BRIEF</button>
+    <button id="portCase">PORT CASE →</button>
+    <button id="humanPort">CONTACT BRIEF →</button>
     <button id="copyBrief">COPY</button>
-    <button id="humanPort">HUMAN PORT →</button>
     <button id="printBrief">PRINT / PDF</button>
     <button id="stepBack">STEP BACK</button>
   </div>
@@ -207,12 +213,12 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
 <script src="../bodyplans/registry.js"></script>
 <script>
 (()=>{'use strict';
-const KEY='0xxx0.care.field.v01',BODYCARE='0xxx0.body.care.handoff.v01';
+const KEY='0xxx0.care.field.v01',BODYCARE='0xxx0.body.care.handoff.v01',PORTCARE='care.port.evidence.v01',PORTSESSION='human.port.object.session.v01';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const now=()=>new Date().toISOString();
 const uid=p=>p+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const blank=()=>({schema:'0xxx0/care-case/v0.3',id:uid('care'),created_at:now(),updated_at:now(),subject:{label:'',kind:'PERSON'},body_plan:'human-reference-m',baseline:'',treatment:'',plan:'',plan_source:'',ask:'',unknowns:[],identity_note:'',course:{phase:'',next:'',gate:'',gate_source:'',owner:'',due:''},events:[],imports:[]});
+const blank=()=>({schema:'0xxx0/care-case/v0.3',id:uid('care'),created_at:now(),updated_at:now(),subject:{label:'',kind:'PERSON'},body_plan:'human-reference-m',baseline:'',treatment:'',plan:'',plan_source:'',ask:'',unknowns:[],identity_note:'',course:{phase:'',next:'',gate:'',gate_source:'',owner:'',due:''},events:[],evidence_refs:[],imports:[]});
 let C=blank(),view='observe',mapView='front',mapMode='TAP',selected=new Set(),trace=[],qualities=new Set(),trend='NEW',ghostRegions=new Set(),ghostTrace=[];
 
 const qualitySets={
@@ -232,7 +238,7 @@ function saveStore(o){localStorage.setItem(KEY,JSON.stringify(o))}
 function pullCase(){
  C.subject.label=$('#subject').value.trim();C.subject.kind=$('#subjectKind').value;C.body_plan=$('#bodyPlanSelect').value||C.body_plan||defaultPlanForKind(C.subject.kind);C.schema='0xxx0/care-case/v0.3';
  C.baseline=$('#baseline').value.trim();C.treatment=$('#treatment').value.trim();C.plan=$('#plan').value.trim();C.plan_source=$('#planSource').value.trim();
- C.ask=$('#ask').value.trim();C.unknowns=$('#unknowns').value.split('\n').map(x=>x.trim()).filter(Boolean);C.identity_note=$('#identityNote').value.trim();C.course=C.course||{};C.course.phase=$('#coursePhase').value.trim();C.course.next=$('#courseNext').value.trim();C.course.gate=$('#courseGate').value.trim();C.course.gate_source=$('#courseGateSource').value.trim();C.course.owner=$('#courseOwner').value.trim();C.course.due=$('#courseDue').value.trim();C.updated_at=now();
+ C.ask=$('#ask').value.trim();C.unknowns=$('#unknowns').value.split('\n').map(x=>x.trim()).filter(Boolean);C.identity_note=$('#identityNote').value.trim();C.evidence_refs=C.evidence_refs||[];C.course=C.course||{};C.course.phase=$('#coursePhase').value.trim();C.course.next=$('#courseNext').value.trim();C.course.gate=$('#courseGate').value.trim();C.course.gate_source=$('#courseGateSource').value.trim();C.course.owner=$('#courseOwner').value.trim();C.course.due=$('#courseDue').value.trim();C.updated_at=now();
 }
 function pushCase(){
  $('#subject').value=C.subject?.label||'';$('#subjectKind').value=C.subject?.kind||'PERSON';C.body_plan=C.body_plan||defaultPlanForKind(C.subject?.kind||'PERSON');syncPlanSelect();$('#baseline').value=C.baseline||'';$('#treatment').value=C.treatment||'';
@@ -335,6 +341,7 @@ function renderMeasurements(xs){
 function renderFollow(){
  pullCase();$('#followSubject').textContent=C.subject.label||'unnamed';$('#followBaseline').textContent=C.baseline||'—';$('#followTreatment').textContent=C.treatment||'—';$('#followAsk').textContent=C.ask||'—';
  C.course=C.course||{};$('#followPhase').textContent=C.course.phase||'—';$('#followNext').textContent=C.course.next||'—';$('#followGate').textContent=C.course.gate||'—';$('#followOwner').textContent=[C.course.owner,C.course.due].filter(Boolean).join(' · ')||'—';
+ C.evidence_refs=C.evidence_refs||[];$('#followEvidence').textContent=C.evidence_refs.length?'EVIDENCE · '+C.evidence_refs.map(r=>r.label+' · '+r.media_class+(r.focus?.address?' · '+r.focus.address:'')).join('  /  '):'EVIDENCE · none attached';
  const xs=(C.events||[]).slice().sort((a,b)=>String(b.at).localeCompare(String(a.at)));renderMeasurements(xs);
  $('#timeline').innerHTML=xs.map(e=>{
   const reg=(e.regions||[]).join(' · ')||(e.trace?.length?'painted trace':'no location');
@@ -356,6 +363,7 @@ function brief(){
  if(C.unknowns?.length){lines.push('','UNKNOWNS / OPEN');C.unknowns.forEach(x=>lines.push('- '+x))}
  if(C.plan){lines.push('','PLAN ALREADY ON FILE',C.plan+(C.plan_source?'\nSOURCE '+C.plan_source:''))}
  if(C.identity_note)lines.push('','HANDOFF / IDENTITY',C.identity_note);
+ if(C.evidence_refs?.length){lines.push('','EVIDENCE REFERENCES');C.evidence_refs.forEach(r=>lines.push('- '+r.label+' · '+r.media_class+(r.sha256?' · sha256 '+r.sha256.slice(0,16)+'…':'')+(r.focus?.address?' · focus '+r.focus.address:'')+(r.availability?' · '+r.availability:'')));}
  lines.push('','PROVENANCE','Observations above are user/caregiver-entered unless their evidence label/source says otherwise. Interpretations remain separate in the case JSON.');
  return lines.join('\n')
 }
@@ -369,6 +377,8 @@ function review(){
  if(events.length===1)gaps.push('Only one event: useful snapshot, but no trajectory yet.');
  if(events.length>=2&&regions.size===0)gaps.push('Multiple events but no spatial/body region captured; valid if the case is non-spatial, otherwise location may be useful.');
  if(C.unknowns?.length)gaps.push(C.unknowns.length+' explicit unknown(s) remain. Rank the next question/test by information gain.');
+ C.evidence_refs=C.evidence_refs||[];const sessionRefs=C.evidence_refs.filter(r=>r.availability==='SESSION_OR_REFERENCE_ONLY').length;if(sessionRefs)gaps.push(sessionRefs+' evidence reference(s) are session/reference-only; preserve or separately share the original source if it matters.');
+ if(events.length===0&&C.baseline)gaps.push('Baseline exists but no current event is recorded; no entry is not evidence of normal state.');
  const last=events.slice().sort((a,b)=>String(b.at).localeCompare(String(a.at)))[0];if(last)gaps.push('Latest recorded event: '+new Date(last.at).toLocaleString()+'. Freshness is visible; it is not interpreted as reassurance or danger.');
  $('#rEvents').textContent=events.length;$('#rRegions').textContent=regions.size;$('#rUnknowns').textContent=C.unknowns?.length||0;$('#rInterp').textContent=interps;$('#rGaps').textContent=gaps.length;
  $('#reviewList').innerHTML=(gaps.length?gaps:['No structural gaps detected by this local ruleset.']).map(x=>'<li>'+esc(x)+'</li>').join('');$('#review').hidden=false;return gaps;
@@ -384,10 +394,21 @@ function importBodyCare(){
  C.events.push({id:uid('evt'),at:e.observed_at||now(),type:'OBSERVATION',status:null,raw_note:e.note||e.state?.label||'BODY / FIELD check-in',regions,trace:[],body_map:e.body_address?{schema:'0xxx0/body-address/v0.1',plan_id:e.body_address.plan_id,geometry_version:e.body_address.geometry_version||null,view:e.body_address.view||null,view_box:null,trace_space:null,region_ids:e.body_address.region_ids||[],region_labels:regions}:null,qualities:[e.state?.label].filter(Boolean),magnitude:null,trend:'NEW',evidence_kind:'SELF_OBSERVED',measurement:null,interpretation:null,source_cue:'BODY / FIELD '+(e.id||''),prior_same_region_id:prior?.id||null,body_state:e.state||null,body_context:e.context||null});
  C.updated_at=now();localStorage.removeItem(BODYCARE);renderAll();renderBodyCareOffer();flash('BODY IMPORTED ✓')
 }
-function renderAll(){pushCase();renderCases();renderMap();renderFollow();renderBodyCareOffer()}
+function portCarePacket(){try{return JSON.parse(sessionStorage.getItem(PORTCARE)||'null')}catch(_){return null}}
+function renderPortCareOffer(){
+ const p=portCarePacket(),el=$('#portCareOffer');if(!p||p.schema!=='0xxx0/port-object-to-care/v0.1'||!p.source_object){el.style.display='none';return}
+ const s=p.source_object;$('#portCareSummary').textContent=[s.label||s.object_id,s.media_class,s.sha256?'sha256 '+s.sha256.slice(0,12)+'…':null,p.scope==='focus'&&p.focus?.address?'focus '+p.focus.address:null].filter(Boolean).join(' · ');el.style.display='block'
+}
+function importPortCareEvidence(){
+ const p=portCarePacket();if(!p?.source_object)return;C.evidence_refs=C.evidence_refs||[];const s=p.source_object,key=[s.object_id,p.scope,p.focus?.address||'whole'].join('|');
+ if(C.evidence_refs.some(r=>r._dedupe===key)){sessionStorage.removeItem(PORTCARE);renderPortCareOffer();flash('EVIDENCE ALREADY ATTACHED');return}
+ C.evidence_refs.push({schema:'0xxx0/care-evidence-ref/v0.1',id:uid('evidence'),attached_at:now(),port_object_id:s.object_id,label:s.label||s.object_id,media_class:s.media_class,mime:s.mime||null,size_bytes:s.size_bytes??null,sha256:s.sha256||null,retention:s.retention||'REFERENCE_ONLY',provenance:s.provenance||{},scope:p.scope||'whole',focus:p.focus||null,projection_excerpt:p.projection_excerpt||null,port_payload_ref:s.payload_ref||null,availability:s.retention==='LOCAL_STASH'?'PORT_LOCAL_STASH':'SESSION_OR_REFERENCE_ONLY',_dedupe:key});
+ C.updated_at=now();sessionStorage.removeItem(PORTCARE);renderAll();flash('EVIDENCE ATTACHED ✓')
+}
+function renderAll(){pushCase();renderCases();renderMap();renderFollow();renderBodyCareOffer();renderPortCareOffer()}
 function save(){pullCase();const db=store();db[C.id]=C;saveStore(db);renderCases();$('#saveCase').textContent='SAVED ✓';setTimeout(()=>$('#saveCase').textContent='SAVE LOCAL',1000)}
 function importAny(j,name){
- if(['0xxx0/care-case/v0.1','0xxx0/care-case/v0.2','0xxx0/care-case/v0.3'].includes(j.schema)){C=j;C.schema='0xxx0/care-case/v0.3';C.course=C.course||{phase:'',next:'',gate:'',gate_source:'',owner:'',due:''};C.body_plan=C.body_plan||defaultPlanForKind(C.subject?.kind||'PERSON');renderAll();return}
+ if(['0xxx0/care-case/v0.1','0xxx0/care-case/v0.2','0xxx0/care-case/v0.3'].includes(j.schema)){C=j;C.schema='0xxx0/care-case/v0.3';C.course=C.course||{phase:'',next:'',gate:'',gate_source:'',owner:'',due:''};C.evidence_refs=C.evidence_refs||[];C.body_plan=C.body_plan||defaultPlanForKind(C.subject?.kind||'PERSON');renderAll();return}
  if(String(j.schema||'').includes('continuity-case')){
    const facts=(j.claims||[]).filter(x=>x.lane==='FACT').map(x=>'• '+x.text).join('\n');
    const unk=(j.claims||[]).filter(x=>x.lane==='UNKNOWN').map(x=>x.text);
@@ -419,6 +440,13 @@ function continuityExport(){
  const course=C.course||{};const courseClaims=[course.phase&&{lane:'FACT',provenance:'USER_REPORTED',confidence:'HIGH',text:'CURRENT PHASE: '+course.phase,source_id:null,next_evidence:null},course.next&&{lane:'FACT',provenance:'USER_REPORTED',confidence:'HIGH',text:'NEXT STEP: '+course.next,source_id:null,next_evidence:null},course.gate&&{lane:'FACT',provenance:course.gate_source?'SOURCE':'USER_REPORTED',confidence:course.gate_source?'HIGH':'MEDIUM',text:'CONDITIONAL GATE: '+course.gate+(course.gate_source?' · SOURCE '+course.gate_source:''),source_id:null,next_evidence:null}].filter(Boolean);const claims=(C.events||[]).map(e=>({lane:'FACT',provenance:'SOURCE',confidence:'HIGH',text:e.raw_note||((e.type||'event')+' recorded'),source_id:e.id,next_evidence:null})).concat(courseClaims).concat((C.unknowns||[]).map(x=>({lane:'UNKNOWN',provenance:'CURRENT_INFERENCE',confidence:'UNKNOWN',text:x,source_id:null,next_evidence:null})));
  return {schema:'0xxx0/continuity-case/v0.1',id:'from-'+C.id,subject:C.subject.label,kind:C.subject.kind,domain:'HEALTH',as_of:C.updated_at,reflection:C.ask||'Care continuity handoff',anchors:[],sources,claims,imported_from:{schema:C.schema,id:C.id}};
 }
+async function sha256Text(text){const bytes=new TextEncoder().encode(String(text)),dig=await crypto.subtle.digest('SHA-256',bytes);return [...new Uint8Array(dig)].map(b=>b.toString(16).padStart(2,'0')).join('')}
+async function openPortCase(){
+ pullCase();const gapReview=review(),snapshot={schema:'0xxx0/care-port-snapshot/v0.1',brief:brief(),case_id:C.id,case_schema:C.schema,case_updated_at:C.updated_at,subject:C.subject,ask:C.ask||null,review_gaps:gapReview,case:C};
+ const raw=JSON.stringify(snapshot,null,2),hash=await sha256Text(raw),bytes=new TextEncoder().encode(raw);
+ const obj={schema:'human-port-object/v0.1',object_id:'portobj:care:'+C.id+':'+hash.slice(0,16),source_class:'EVENT_REF',media_class:'JSON',label:'CARE · '+(C.subject.label||'unnamed case'),mime:'application/json',size_bytes:bytes.byteLength,sha256:hash,created_at:now(),retention:'SESSION',provenance:{origin:'care-field',source_ref:C.id,case_schema:C.schema,case_updated_at:C.updated_at},payload_ref:null,text_payload:raw,focus:null};
+ sessionStorage.setItem(PORTSESSION,JSON.stringify({obj,focus:null,scope:'whole',selected:null,at:now()}));location.assign('../port/')
+}
 function download(obj,name){const b=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),700)}
 $$('.tab').forEach(b=>b.onclick=()=>setView(b.dataset.view));
 $('#newCase').onclick=()=>{C=blank();selected.clear();trace=[];ghostRegions.clear();ghostTrace=[];renderAll();resetComposer();$('#caseList').value='';$('#caseModal').classList.add('open')};
@@ -432,12 +460,12 @@ $('#tapMode').onclick=()=>{mapMode='TAP';$('#tapMode').classList.add('primary');
 $('#clearMap').onclick=()=>{selected.clear();trace=[];renderMap()};
 $$('#trendSeg button').forEach(b=>b.onclick=()=>{trend=b.dataset.v;$$('#trendSeg button').forEach(x=>x.classList.toggle('on',x===b))});
 $('#buildBrief').onclick=buildBrief;$('#stepBack').onclick=review;$('#copyBrief').onclick=async()=>{const t=buildBrief();try{await navigator.clipboard.writeText(t);$('#copyBrief').textContent='COPIED ✓';setTimeout(()=>$('#copyBrief').textContent='COPY',1000)}catch(_){window.prompt('Copy brief',t)}};
-$('#humanPort').onclick=()=>{const t=buildBrief();try{sessionStorage.setItem('human.port.handoff.v01',JSON.stringify({draft:String(t||'').slice(0,1200),mode:'REPLY',source:'care',created_at:now()}));location.assign('../contact/')}catch(_){location.assign('../contact/?mode=REPLY')}};$('#printBrief').onclick=()=>{buildBrief();window.print()};
+$('#portCase').onclick=()=>openPortCase().catch(e=>alert('Port handoff failed: '+e.message));$('#humanPort').onclick=()=>{const t=buildBrief(),mode=C.ask?'NEED':'REPLY';try{sessionStorage.setItem('human.port.handoff.v01',JSON.stringify({draft:String(t||'').slice(0,1200),mode,source:'care',created_at:now(),care_case_id:C.id}));location.assign('../contact/')}catch(_){location.assign('../contact/?mode='+mode)}};$('#printBrief').onclick=()=>{buildBrief();window.print()};
 $('#importBtn').onclick=()=>$('#importFile').click();$('#importFile').onchange=e=>{const f=e.target.files?.[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{importAny(JSON.parse(rd.result),f.name)}catch(err){alert('Import failed: '+err.message)}};rd.readAsText(f)};
 $('#exportBtn').onclick=()=>{pullCase();download(C,(C.subject.label||'care-case').toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.care.json')};
 $('#exportContinuity').onclick=()=>download(continuityExport(),(C.subject.label||'care-case').toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.continuity.json');
 $('#caseModal').onclick=e=>{if(e.target.id==='caseModal'){$('#caseModal').classList.remove('open');pullCase();renderMap();renderFollow()}};
-$('#importBodyCare').onclick=importBodyCare;$('#dismissBodyCare').onclick=()=>{localStorage.removeItem(BODYCARE);renderBodyCareOffer()};$('#eventTime').value=eventTimeLocal();renderAll();renderQualityChips();
+$('#importBodyCare').onclick=importBodyCare;$('#dismissBodyCare').onclick=()=>{localStorage.removeItem(BODYCARE);renderBodyCareOffer()};$('#attachPortCare').onclick=importPortCareEvidence;$('#dismissPortCare').onclick=()=>{sessionStorage.removeItem(PORTCARE);renderPortCareOffer()};$('#eventTime').value=eventTimeLocal();renderAll();renderQualityChips();
 })();
 </script>
 <script src="/showcase-nav.js"></script>
