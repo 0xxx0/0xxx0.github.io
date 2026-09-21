@@ -166,7 +166,7 @@ function axialContinuityProbeHtml(){
     stage('HOUSE_2');D().getElementById('srcHouse').click();await waitFor(()=>api.snapshot()?.source==='HOUSE'&&!D().getElementById('back').disabled);
     stage('REPLAY');await api.restoreReturn(0);await waitFor(()=>api.snapshot()?.source==='FIELD'&&api.snapshot()?.focus===rec.before.focus);rec.afterReplay=api.snapshot();
     rec.backSame=JSON.stringify(rec.before)===JSON.stringify(rec.afterBack);rec.replaySame=JSON.stringify(rec.before)===JSON.stringify(rec.afterReplay);
-    done(rec.backSame&&rec.replaySame&&rec.restoreButton&&/^field:\/\//.test(rec.returnAddress||''),rec);
+    done(rec.backSame&&rec.replaySame&&rec.restoreButton&&String(rec.returnAddress||'').startsWith('field://'),rec);
   })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),...rec}));
   <\/script></body></html>`;
 }
