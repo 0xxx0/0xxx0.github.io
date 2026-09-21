@@ -183,7 +183,7 @@ if(migrationNow){
 const home=read('index.html');
 const fi=fiContract;
 check(!!fi,'FIELD INDEX contract missing/unreadable');
-if(fi){check(fi.schema==='field-index-contract/v0.2','FIELD INDEX contract must be v0.2');check(fi.root_readings?.NOW&&fi.root_readings?.MAP&&fi.root_readings?.OPEN_PORTS&&fi.root_readings?.EVOLVE,'FIELD INDEX readings incomplete');check(fi.evolution_contract?.schema==='field-evolution/v0.1','FIELD evolution contract missing');}
+if(fi){check(fi.schema==='field-index-contract/v0.3','FIELD INDEX contract must be v0.3');check(fi.root_readings?.NOW&&fi.root_readings?.MAP&&fi.root_readings?.OPEN_PORTS&&fi.root_readings?.EVOLVE,'FIELD INDEX readings incomplete');check(fi.evolution_contract?.schema==='field-evolution/v0.1','FIELD evolution contract missing');}
 check(home.includes('href="./returns/"'),'root missing RETURN FIELD link');
 check(home.includes('data-mode="STRUCTURE"'),'root missing STRUCTURE map mode');
 check(home.includes('data-mode="RECENT"'),'root missing RECENT lens');
