@@ -29,6 +29,14 @@ async function start(){
       return '/docs/?src='+encodeURIComponent(src)+'&return='+encodeURIComponent(ret);
     }catch(_){return value}
   };
+  const routeState=String(route.state||'').toUpperCase();
+  const statusMembrane=route.kind==='alias'?'ALIAS · MOVED':
+    route.kind==='donor'||routeState==='DONOR'?'DONOR · PRESERVED':
+    routeState==='FROZEN_DONOR'?'FROZEN DONOR':
+    routeState==='PARKED'?'PARKED · NOT CURRENT':
+    routeState==='REFERENCE'?'REFERENCE · NOT CURRENT':
+    routeState==='RETIRED'?'RETIRED · NOT CURRENT':
+    routeState==='SUPERSEDED'?'SUPERSEDED · NOT CURRENT':'';
   pushTrail(p);
   if(route.kind==='artifact'){
     try{localStorage.setItem(LAST_KEY,JSON.stringify({href:route.href,title:route.title,operation:route.operation||'',state:route.state||'',at:Date.now()}));}catch(_){}
@@ -46,11 +54,13 @@ async function start(){
   sh.innerHTML=`<style>
   :host{all:initial}
   .tab{position:fixed;z-index:2147483647;bottom:max(7px,env(safe-area-inset-bottom));width:34px;height:34px;border:1px solid #66727a;background:#090b0de8;color:#eef1ed;font:700 15px ui-monospace,monospace;cursor:pointer;box-shadow:0 2px 14px #0007}.tab.nav{left:max(7px,env(safe-area-inset-left))}.tab.inspect{left:max(45px,calc(env(safe-area-inset-left) + 45px));color:#72bce7}.tab.lens{left:max(83px,calc(env(safe-area-inset-left) + 83px));color:#d5ad68}
+  .statusMembrane{position:fixed;z-index:2147483646;top:max(7px,env(safe-area-inset-top));right:max(7px,env(safe-area-inset-right));border:1px solid #d9ad62;background:#090b0df2;color:#d9ad62;padding:6px 8px;font:800 8px/1 ui-monospace,monospace;letter-spacing:.12em;cursor:pointer;border-radius:0;box-shadow:0 2px 14px #0007;text-transform:uppercase}.statusMembrane:hover,.statusMembrane:focus{color:#fff;border-color:#fff;outline:none}
   .panel{position:fixed;z-index:2147483647;left:max(7px,env(safe-area-inset-left));bottom:max(47px,calc(env(safe-area-inset-bottom) + 47px));width:min(330px,calc(100vw - 14px));border:1px solid #39454d;background:#090b0df5;color:#eef1ed;font:10px/1.45 ui-monospace,monospace;box-shadow:0 7px 28px #000a;display:none}
   .panel.on{display:block}.head{padding:10px 11px;border-bottom:1px solid #29343a}.ey{color:#7f8b92;font-size:8px;letter-spacing:.13em}.title{font-weight:800;margin-top:3px}.state{float:right;color:#9ed88c}.state.compat{color:#d9ad62}
   .actions{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#29343a}.actions button,.family{border:0;background:#0f1317;color:#eef1ed;padding:10px 7px;font:800 9px ui-monospace,monospace;cursor:pointer;text-decoration:none;text-align:center}.actions button:hover,.actions button:focus,.family:hover{background:#172027;outline:none}
   .foot{padding:8px 10px;color:#69757c;font-size:8px;border-top:1px solid #29343a}.family{display:block;border-top:1px solid #29343a;text-align:left;color:#9ba6ac}.meta{display:flex;border-top:1px solid #29343a}.meta a{flex:1;padding:7px 8px;color:#7f8b92;text-decoration:none;font-size:8px;text-align:center}.meta a+a{border-left:1px solid #29343a}.meta a:hover{color:#eef1ed}.lensBlock{display:none}.panel.lens .navOnly{display:none}.panel.lens .lensBlock{display:block}.lenshead{display:flex;justify-content:space-between;gap:8px;padding:10px 11px;border-bottom:1px solid #29343a}.lenshead b{color:#eef1ed}.lenshead span{color:#d5ad68;font-size:8px}.lensread{display:grid;grid-template-columns:72px 1fr;border-bottom:1px solid #29343a}.lensread span,.lensread b{padding:6px 8px;border-bottom:1px solid #20282c}.lensread span{color:#6f7d83}.lensread b{color:#d9dedd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.lensops{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#29343a}.lensops button{border:0;background:#0f1317;color:#eef1ed;padding:9px 5px;font:800 8px ui-monospace,monospace;cursor:pointer}.lensops button:disabled{opacity:.3;cursor:not-allowed}.lensops button:not(:disabled):hover{background:#172027}.lensstack{padding:8px 9px;color:#75838a;font-size:8px;word-break:break-word;border-top:1px solid #29343a}.lensreturn{color:#d5ad68!important}.lensstudio{color:#72bce7!important}
   </style>
+  ${statusMembrane?'<button class="statusMembrane" aria-label="Open route status" title="Preserved address; click for route status">'+statusMembrane+'</button>':''}
   <button class="tab nav" aria-label="Open showcase navigation" title="Showcase navigation">↖</button><button class="tab inspect" aria-label="Inspect current FIELD context" title="Inspect selection / field / route">◎</button><button class="tab lens" aria-label="Open Lens" title="Lens / projection composition">⊗</button>
   <nav class="panel" aria-label="Showcase route">
     <div class="head navOnly"><span class="state ${String(route.state||'').toLowerCase()}">${route.state||route.kind.toUpperCase()}</span><div class="ey">${route.operation||route.family||'PUBLIC ROUTE'}</div><div class="title">${route.title}</div></div>
@@ -61,8 +71,9 @@ async function start(){
     <section class="lensBlock"><div class="lenshead"><b>LENS / ROUTE</b><span data-l="mode">ROUTE</span></div><div class="lensread"><span>OBJECT</span><b data-l="object">—</b><span>APERTURE</span><b data-l="aperture">—</b><span>VIEW</span><b data-l="view">—</b></div><div class="lensops"><button data-l="out">↑ OUT</button><button data-l="in">↓ IN</button><button data-l="projection">↔ VIEW</button><button data-l="stackBtn">⊗ STACK</button><button class="lensreturn" data-l="return">↩ RETURN</button><button class="lensstudio" data-l="studio">STUDIO →</button></div><div class="lensstack" data-l="stack">0 · plain baseline</div><div class="foot">ROUTE projection unless a live Scale Studio API is present · VIEW_LENS never commits</div></section>
   </nav>`;
   document.documentElement.appendChild(host);
-  const tab=sh.querySelector('.tab.nav'),inspect=sh.querySelector('.tab.inspect'),lensTab=sh.querySelector('.tab.lens'),panel=sh.querySelector('.panel');
+  const tab=sh.querySelector('.tab.nav'),inspect=sh.querySelector('.tab.inspect'),lensTab=sh.querySelector('.tab.lens'),panel=sh.querySelector('.panel'),membrane=sh.querySelector('.statusMembrane');
   const close=()=>{panel.classList.remove('on');panel.classList.remove('lens')};
+  if(membrane)membrane.onclick=()=>{panel.classList.remove('lens');panel.classList.add('on')};
   const ensureLensState=()=>new Promise((resolve,reject)=>{if(window.LensState)return resolve(window.LensState);const prior=document.querySelector('script[data-lens-state-runtime]');if(prior){prior.addEventListener('load',()=>resolve(window.LensState),{once:true});prior.addEventListener('error',reject,{once:true});return}const x=document.createElement('script');x.src='/lens-state.js';x.dataset.lensStateRuntime='1';x.onload=()=>resolve(window.LensState);x.onerror=reject;document.head.appendChild(x)});
   const lens=q=>sh.querySelector('[data-l="'+q+'"]');
   const scaleApi=()=>window.ScaleLensSpatialAPI||null;
