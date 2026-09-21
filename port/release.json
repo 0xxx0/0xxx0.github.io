@@ -39,7 +39,8 @@
     "Port idea → Idea Atlas arrives prefilled but unsaved",
     "Port follow-up → Social Residue arrives prefilled but uncommitted",
     "Port text → Scale Lens parses the same source without a second paste",
-    "mobile-width route grid remains usable"
+    "mobile-width route grid remains usable",
+    "CENTER focused CURRENT move → HUMAN PORT arrives preloaded and still requires one explicit route choice"
   ],
   "delta": [
     "replace menu-only home with one local source intake",
@@ -47,7 +48,8 @@
     "add local session handoffs so target tools arrive preloaded",
     "clarify Contact as HUMAN PORT outbound/share boundary rather than HUMAN PORT itself",
     "retain specialized Laconic, Capsule, Continuity and Backstage tools below the primary router",
-    "preserve no-upload / no-auto-send / no-auto-classification boundary"
+    "preserve no-upload / no-auto-send / no-auto-classification boundary",
+    "accept bounded same-origin CENTER next-move preload into the canonical intake without granting route/send authority"
   ],
   "first_time_test": "Paste one source once and reach the intended tool preloaded within one explicit route choice."
 }
