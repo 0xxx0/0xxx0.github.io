@@ -55,9 +55,10 @@ class FieldAperture extends HTMLElement{
  emit(){this.dispatchEvent(new CustomEvent('aperture-focus',{detail:this.snapshot(),bubbles:true}))}
  snapshot(){const c=this.current(),s=this.currentScale();return{schema:'field-aperture-focus/v0.1',kind:this.A?.kind,label:this.A?.label,bytes:this.A?.bytes,scale:s?.id,scale_label:s?.label,index:this.pos,count:s?.units.length,address:c?.path||null,focus:typeof c?.value==='string'?c.value:preview(c?.value,240)}}
  magnitude(){
-   const b=Math.max(1,this.A?.bytes||1),log=Math.log10(b),gap=clamp(5+log*5.2,7,33);
+   const b=Math.max(1,this.A?.bytes||1),log=Math.log10(b),decades=clamp(log,0,12),gap=7+(decades/12)*26;
    const exp=Math.floor(log),mant=b/Math.pow(10,exp);
-   return{gap,log,band:'10^'+exp+' B',human:b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':b<1073741824?(b/1048576).toFixed(1)+' MB':(b/1073741824).toFixed(1)+' GB',mant}
+   const human=b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':b<1073741824?(b/1048576).toFixed(1)+' MB':b<1099511627776?(b/1073741824).toFixed(1)+' GB':(b/1099511627776).toFixed(1)+' TB';
+   return{gap,log,decades,band:'10^'+exp+' B',human,mant}
  }
  renderShell(){
  this.shadowRoot.innerHTML=`<style>
