@@ -1,75 +1,55 @@
 {
   "schema": "showcase-release/v1",
-  "surface": "INTERPHASE / SPACE SCALE",
-  "version": "0.2",
+  "surface": "ROOM / HTML SUBSTRATE",
+  "version": "0.3",
   "route": "/foundry/room/",
   "state": "CANDIDATE",
   "operation": "COMPOSE",
   "released": "2026-09-22",
-  "hypothesis": "A useful descendant of FURNISHER/INTERPHASE is not a cube UI. It is a recursive computational material: an object is a typed BLOCK from outside and a manipulable ROOM from inside; semantic zoom changes computational granularity, typed docking exposes composition, FOLD turns a working subgraph into a reusable abstraction, and RETURN preserves the derivation.",
-  "replaces_head": "/foundry/room/ 0.1 six-face projection probe",
-  "preserved_probe": "/foundry/room/room-0.1.html",
-  "laws": [
-    "BLOCK ⇄ ROOM: every composite can be operated as one block or entered as its internal graph.",
-    "ZOOM ≠ MAGNIFY: GLYPH / BLOCK / ROOM are unequal operational projections of the same graph identity.",
-    "DOCK REQUIRES TYPE FIT: direction and port type are checked before a seam exists.",
-    "FOLD ≠ FLATTEN: composition creates a reversible abstraction over the same child identities.",
-    "MACHINERY STAYS VISIBLE: ports, seams, operators and composite boundaries remain inspectable during use.",
-    "GEOMETRY IS A PROJECTION: graph topology and stable node/port identity survive layout changes.",
-    "RECIPE ≠ REALITY: materialization exports a declarative connection recipe and never invents physical fit/load/safety.",
-    "RETURN CLOSES THE MOVE: graph, composites, view, events and recipe can be returned as evidence."
+  "hypothesis": "The useful FURNISHER/INTERPHASE composition law can be expressed more clearly with ordinary HTML than with a custom infinite-canvas editor: DOM nesting is composition, native <details> is fold/unfold, visible links are seams, and the runtime interprets that same markup.",
+  "replaces_head": "/foundry/room/ 0.2 SPACE SCALE canvas",
+  "preserved_heads": [
+    "/foundry/room/space-scale-0.2.html",
+    "/foundry/room/room-0.1.html"
   ],
-  "recovered_lineage": {
-    "historical": [
-      "2018 FURNISHER: POINT / PATHS / PLANE / POWER; analog-first transformable kit-of-parts; physical joints as interface substrate.",
-      "2018–2019 product/pitch material: version-controllable room/configuration intent; joint-pattern 'stapler/compiler'; continuous transformation; programmatic interface; composable propagator/lattice framing; computation without computerisation.",
-      "2018 KALA + 2019 cylinder + 2020 INTERPHASE: room/camera, matrix transforms, focus, lenses, stores/transducers, cyclic controls.",
-      "Recovered room manifest: ROOM is projection/container/testbed, not kernel."
-    ],
-    "current_donors": [
-      "/kernel/INTERPHASE.schema.json: canonical object + events + projections + RETURN.",
-      "/foundry/axial/: fixed gate, discrete snap/readback, lawful compatibility support.",
-      "Scale Lens lineage: identity survives unequal projections.",
-      "ONE RETURN seam lineage: typed seams, quarter-turn docking, load/eject/replay and stable identity.",
-      "Projection Contract Harness: RECT/RADIAL/FAN/ROOM are replaceable layouts over one contract."
-    ],
-    "external_alt_tree": [
-      "Pad++: multiscale space and alternate informational physics instead of window/icon metaphors.",
-      "Dynamicland/Realtalk: small visible computational objects, ad-hoc coupling and programs that remain inspectable in use.",
-      "Ink & Switch Breadboard: make composition machinery visible instead of hiding it behind finished-app chrome.",
-      "Potluck: gradual enrichment rather than demanding a complete formal app before the artifact is useful.",
-      "Patchwork: branching/variation as substrate rather than app-specific afterthought.",
-      "Glamorous Toolkit: contextual tools are cheap and molded around the object/problem."
-    ]
-  },
+  "correction": [
+    "SPACE SCALE 0.2 made composition executable but hid the program in a separate JavaScript graph model.",
+    "That weakened the historical 'homoiconic interface language' aspiration and made the interface harder to understand.",
+    "0.3 removes the separate graph model from the current surface."
+  ],
+  "laws": [
+    "DOCUMENT = PROGRAM STRUCTURE: #program DOM is the canonical composition.",
+    "NESTING = COMPOSITION: a composite is ordinary nested HTML.",
+    "DETAILS = FOLD: closing/opening a <details> element changes abstraction visibility without changing identity.",
+    "LINK = SEAM: ordinary href anchors are both visible navigation and executable next edges.",
+    "SOURCE = SAME OBJECT: SOURCE edits and reapplies the exact #program markup, not a second serialized graph.",
+    "RETURN = MARKUP + TRACE: RETURN records the same HTML plus runtime evidence.",
+    "NO STRICT HOMOICONICITY CLAIM: behavior is still interpreted by JavaScript; call this DOM-as-program / structurally reflexive.",
+    "PHYSICAL REALITY REMAINS EXTERNAL: no fit/load/safety inference."
+  ],
   "implemented": [
-    "Infinite pan/zoom workfield with semantic GLYPH → BLOCK → ROOM levels.",
-    "Recursive composite nodes with typed proxy boundary ports that map back to stable child ports.",
-    "Click-to-arm typed docking; incompatible direction/type and double-bound inputs reject before mutation.",
-    "FOLD selection into a reversible composite without rewriting the primitive graph.",
-    "ENTER a composite as scope; zooming to ROOM reveals implementation while the composite boundary remains legible.",
-    "FORK a node/composite subtree with cloned internal seams for side-by-side counterfactual variation.",
-    "RUN a small safe operator graph without eval; trace exposes executed node/operator/data dependencies.",
-    "RECIPE exports declarative topology/ports/operators with explicit physical-safety non-claim.",
-    "PLAIN exposes canonical graph state; RETURN exports graph/view/composite/event evidence.",
-    "Three useful seeds: FURNISHER compiler path, minimal BLOCK/ROOM transform, and live FIELD route blocks."
+    "Traditional linear HTML document with native details/summary folding.",
+    "Nested FURNISHER COMPILER block whose children are its visible implementation.",
+    "Visible rel=next anchors used by RUN as the execution path.",
+    "Small safe interpreter for SOURCE / WRAP / GROUP / CONFIG / COMPILE / VERIFY / RETURN.",
+    "SOURCE panel exposes the exact live #program outerHTML and can reapply edited markup.",
+    "RETURN captures live markup and execution trace.",
+    "Direct links to the preserved 0.2 canvas and 0.1 cube for comparison."
   ],
   "boundaries": [
-    "No claim that zoomable canvases or node graphs are novel by themselves.",
-    "Novelty claim is limited to this specific recovered composition: recursive block↔room abstraction + semantic operational zoom + typed seams + reversible folding + evidence/RETURN across digital and future physical projections.",
-    "No arbitrary code execution or eval in graph RUN.",
+    "HTML+JavaScript is not strictly homoiconic in the Lisp sense.",
+    "The current claim is narrower: structural representation and executable composition share the DOM tree and visible links.",
+    "No custom node editor, pan/zoom substrate, drag graph or hidden topology is required for current use.",
     "No Home Assistant/HOUSE actuation.",
-    "No automatic claim that a digital recipe is physically safe, buildable or materially equivalent.",
-    "Exact historical product demo video remains unrecovered; surviving YC form contains blank demo/video URL fields."
+    "No digital-to-physical safety claim."
   ],
   "proof": {
-    "core": "/foundry/room/space-core.js",
-    "selftest": "/control/space-scale-selftest.js",
-    "old_probe": "/foundry/room/room-0.1.html",
-    "browser": "required before landing",
-    "comparator": "0.1 cube probe + PLAIN canonical graph remain directly inspectable"
+    "current_surface": "/foundry/room/index.html",
+    "preserved_canvas": "/foundry/room/space-scale-0.2.html",
+    "preserved_cube": "/foundry/room/room-0.1.html",
+    "browser": "required before landing"
   },
-  "evidence_gate": "Use 0.2 to compose and fold one real multi-step FIELD or HOUSE-safe planning transformation. Pass only if a composite can be understood, reused/forked and re-entered with less translation cost than a static app/panel flow while preserving visible seams and RETURN.",
-  "next_if_pass": "Transfer the core model—not this canvas UI—into one real host: likely physical configuration compiler, FIELD route composition, or a projection-aware notebook. Then prototype one printable/physical typed port token or joint-pattern witness.",
-  "next_if_fail": "Keep space-core and typed fold/dock semantics as donor; retire the zoom canvas rather than beautifying it."
+  "evidence_gate": "A new user should be able to understand the current composition by reading the page, open/close the compiler block without instructions, follow visible seams, run it, inspect SOURCE, and explain what structure RUN interpreted. If not, simplify again.",
+  "next_if_pass": "Use the DOM-as-program pattern on one real small FIELD transformation. Only reintroduce richer projections as optional views over the same HTML structure.",
+  "next_if_fail": "Reduce further to static HTML + links; keep the interpreter optional."
 }
