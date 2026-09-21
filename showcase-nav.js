@@ -20,6 +20,15 @@ async function start(){
   const p=norm();
   const route=data?.routes?.find(x=>norm(x.href)===p) || {href:p,title:(document.title||p),kind:'artifact',parent:fallbackParent(p)};
   const parent=route.parent||fallbackParent(p);
+  const textDoc=/\.(json|md|txt|csv|log|ya?ml)$/i;
+  const docsHref=value=>{
+    try{
+      const u=new URL(String(value||''),location.href);
+      if(u.origin!==location.origin||!textDoc.test(u.pathname))return value;
+      const src=u.pathname+u.search,ret=location.pathname+location.search+location.hash;
+      return '/docs/?src='+encodeURIComponent(src)+'&return='+encodeURIComponent(ret);
+    }catch(_){return value}
+  };
   pushTrail(p);
   if(route.kind==='artifact'){
     try{localStorage.setItem(LAST_KEY,JSON.stringify({href:route.href,title:route.title,operation:route.operation||'',state:route.state||'',at:Date.now()}));}catch(_){}
@@ -47,7 +56,7 @@ async function start(){
     <div class="head navOnly"><span class="state ${String(route.state||'').toLowerCase()}">${route.state||route.kind.toUpperCase()}</span><div class="ey">${route.operation||route.family||'PUBLIC ROUTE'}</div><div class="title">${route.title}</div></div>
     <div class="actions navOnly"><button data-a="back" title="Previous showcase route; does not undo artifact state">← BACK</button><button data-a="up" title="Declared hierarchy parent">↑ PARENT</button><button data-a="home">⌂ SHOWCASE</button></div>
     ${route.family?'<a class="family navOnly" href="'+(route.family_href||(route.family==='FOLD // BLOOM'?'/fold-bloom/':route.family==='FOUNDRY'?'/foundry/':parent||ROOT))+'">'+route.family+' / FAMILY</a>':''}
-    <div class="meta navOnly"><a href="/showcase-manifest.json">MANIFEST</a>${route.receipt?'<a href="'+route.receipt+'">RECEIPT</a>':''}<a href="/control/INTERACTION_SEMANTICS.json">ACTION LAW</a><a href="/control/FIELD_INDEX_CONTRACT.json">FI LAW</a></div>
+    <div class="meta navOnly"><a href="${docsHref('/showcase-manifest.json')}">MANIFEST</a>${route.receipt?'<a href="'+docsHref(route.receipt)+'">RECEIPT</a>':''}<a href="${docsHref('/control/INTERACTION_SEMANTICS.json')}">ACTION LAW</a><a href="${docsHref('/control/FIELD_INDEX_CONTRACT.json')}">FI LAW</a></div>
     <div class="foot navOnly">BACK = prior showcase route, never UNDO · ALT+↑ parent · ALT+HOME showcase · ESC close</div>
     <section class="lensBlock"><div class="lenshead"><b>LENS / ROUTE</b><span data-l="mode">ROUTE</span></div><div class="lensread"><span>OBJECT</span><b data-l="object">—</b><span>APERTURE</span><b data-l="aperture">—</b><span>VIEW</span><b data-l="view">—</b></div><div class="lensops"><button data-l="out">↑ OUT</button><button data-l="in">↓ IN</button><button data-l="projection">↔ VIEW</button><button data-l="stackBtn">⊗ STACK</button><button class="lensreturn" data-l="return">↩ RETURN</button><button class="lensstudio" data-l="studio">STUDIO →</button></div><div class="lensstack" data-l="stack">0 · plain baseline</div><div class="foot">ROUTE projection unless a live Scale Studio API is present · VIEW_LENS never commits</div></section>
   </nav>`;
