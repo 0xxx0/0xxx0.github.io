@@ -288,10 +288,7 @@ function fieldPeer(delta){
  let i=xs.findIndex(r=>r.href===focus.href);if(i<0)i=0;i=(i+Number(delta||0)+xs.length)%xs.length;focusRoute(xs[i],true)
 }
 function fieldVisualKids(){return (childrenMap().get(mapRoot)||[]).filter(mapMatches)}
-window.FieldLensHost=Object.freeze({
- focus:()=>focus,uiState:fieldUiState,restore:fieldRestore,project:fieldProject,projection:()=>($('mapFold').open?mapMode:'AXIAL_LATEST'),
- rise:fieldRise,dive:fieldDive,peer:fieldPeer,visualKids:fieldVisualKids,notify:notifyFieldIndex
-});
+window.FieldLensHost=Object.freeze({focus:()=>focus,uiState:fieldUiState,restore:fieldRestore,project:fieldProject,projection:()=>($('mapFold').open?mapMode:'AXIAL_LATEST'),rise:fieldRise,dive:fieldDive,peer:fieldPeer,visualKids:fieldVisualKids,notify:notifyFieldIndex});
 })();
 </script>
 <script src="./field-lens.js"></script>
