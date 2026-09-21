@@ -1,9 +1,9 @@
 {
   "schema": "showcase-release/v1",
   "title": "AXIAL / FOCUS STACK",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "state": "ACTIVE",
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "route": "/foundry/axial/",
   "parent": "/foundry/",
   "operation": "ORIENT",
@@ -22,7 +22,8 @@
     "shared source-neutral Constraint Surface support law + AXIAL-local position/angle helpers",
     "persistent clickable overview/minimap across RING/STRIP",
     "engineering witness inspector with local ghost trail",
-    "exportable AXIAL witness / unresolved residue"
+    "exportable AXIAL witness / unresolved residue",
+    "TRACE handoff: selected FIELD route or HOUSE anchor → FIELD TRACE / VERIFY"
   ],
   "evidence": [
     "FIELD adapter reads the actual showcase manifest",
@@ -46,7 +47,9 @@
     "overview and main surface mutate the same ring indices; no duplicate overview state",
     "inspector is opt-in and local-only",
     "/control/confluence/MECHANISM_TRANSFER_LOOP_2026-09-21.json defines the falsifiable transfer loop used for this delta",
-    "/control/constraint-surface-selftest.js checks the shared kernel against synthetic, FIELD manifest, AXIAL FIELD and HOUSE adapters"
+    "/control/constraint-surface-selftest.js checks the shared kernel against synthetic, FIELD manifest, AXIAL FIELD and HOUSE adapters",
+    "session-local TRACE handoff preserves S.focus.id, title and AXIAL focusAddress; FIELD source returns exact manifest route, HOUSE source returns /house/spatial/ plus exact anchor resource_ref",
+    "TRACE handoff performs no actuation and creates no policy authority"
   ],
   "promotion_gate": "The AXIAL instrument is ACTIVE for ordinary orientation/re-entry. Its comparative usability and physical-embodiment claims remain unresolved under the existing evolution.evidence_gate; failure of those claims does not invalidate the working orientation utility.",
   "lineage_exact": [
@@ -63,11 +66,11 @@
     "Blade Runner / Memory-Orb visual/mechanical association"
   ],
   "research_question": "Does a persistent navigable overview plus explicit engineering witness reduce orientation loss during deep focus while preserving the directness of the primary ring surface?",
-  "known_gap": "The overview and inspector are implemented but unmeasured. Their usefulness must be judged from ordinary navigation, especially re-entry after interruption, BACK usage, wrong-ring manipulation and whether users consult the overview without it becoming clutter. Constraint Surface extraction is an architectural reuse result, not evidence that AXIAL outperforms plain navigation.",
+  "known_gap": "Overview/inspector usefulness remains unmeasured. TRACE handoff is an integration result, not evidence that AXIAL improves policy decisions or that the reference policy equals live private authority.",
   "current_classification": {
-    "reviewed_at": "2026-09-21T16:30:00+08:00",
+    "reviewed_at": "2026-09-22T00:42:00+08:00",
     "state": "PROOF_REQUIRED",
-    "basis": "0.7.2 transfers exact overview and witness mechanisms from recovered donors, keeps study local and non-self-modifying, and introduces no proof-state promotion.",
+    "basis": "0.7.3 adds a bounded identity-preserving handoff into FIELD TRACE / VERIFY without changing AXIAL's unresolved comparative/physical proof claims.",
     "receipt": "/foundry/axial/release.json"
   }
 }
