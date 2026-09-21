@@ -6,7 +6,7 @@
 </head><body><main><header><div><div class="ey">HUMAN-READABLE CONTROL SHELF</div><h1>DOCS / READ</h1></div><nav><a href="../">FIELD</a><a href="../control/">CURRENT</a><a href="../control/confluence/">CONFLUENCE</a></nav></header>
 <p class="hint">One document, many lawful densities. The source URL remains canonical while APERTURE gives root/level/leaf or document/paragraph/sentence/word focus. Any same-origin text-like repo file can enter by address; RAW always remains available.</p>
 <div class="sourcebar"><label for="sourcePath">ADDRESS</label><input id="sourcePath" spellcheck="false" autocomplete="off" placeholder="/control/CURRENT.json"><button id="openPath">OPEN</button></div>
-<div class="layout"><div id="list" class="list"></div><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><span><a id="returnLink" class="returnLink" href="#" hidden>↩ RETURN</a> <a id="raw" href="#" hidden>RAW ↗</a></span></div><div class="apStage"><field-aperture id="docAperture" material-target="body"></field-aperture></div><details class="rawFold"><summary>RAW SOURCE</summary><pre id="text">Select a document from the left.</pre></details></section></div></main>
+<div class="layout"><div id="list" class="list"></div><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><span><button id="copyView">COPY VIEW</button> <a id="returnLink" class="returnLink" href="#" hidden>↩ RETURN</a> <a id="raw" href="#" hidden>RAW ↗</a></span></div><div class="apStage"><field-aperture id="docAperture" material-target="body"></field-aperture></div><details class="rawFold"><summary>RAW SOURCE</summary><pre id="text">Select a document from the left.</pre></details></section></div></main>
 <script src="../field-aperture.js"></script><script>
 const docs=[
 ['CURRENT','../control/CURRENT.json','Cold-start heads, fronts, holds and recovery targets'],
@@ -24,9 +24,20 @@ const docs=[
 ['CROSS-SYSTEM EXPEDITION','../control/confluence/CROSS_SYSTEM_EXPEDITION.md','Research charter + Hermes wrapper'],
 ['RSVP RECOVERY','../control/confluence/RSVP_RECOVERY.md','Temporal-focus / Watch reader lineage']
 ];
-const L=document.querySelector('#list'),T=document.querySelector('#text'),H=document.querySelector('#title'),R=document.querySelector('#raw'),A=document.querySelector('#docAperture'),P=document.querySelector('#sourcePath'),O=document.querySelector('#openPath'),B=document.querySelector('#returnLink');
+const L=document.querySelector('#list'),T=document.querySelector('#text'),H=document.querySelector('#title'),R=document.querySelector('#raw'),A=document.querySelector('#docAperture'),P=document.querySelector('#sourcePath'),O=document.querySelector('#openPath'),B=document.querySelector('#returnLink'),C=document.querySelector('#copyView');
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-');
 const TEXT_EXT=/\.(json|md|txt|csv|log|ya?ml|js|mjs|css|html|svg)$/i;
+function apertureView(){
+ const q=new URLSearchParams(location.search),index=Number(q.get('ap_index')),wpm=Number(q.get('ap_wpm'));
+ return{scale:q.get('ap_scale')||undefined,index:Number.isFinite(index)?index:undefined,address:q.get('ap_addr')||undefined,wpm:Number.isFinite(wpm)?wpm:undefined}
+}
+const initialAperture=apertureView();let firstLoad=true;
+function syncAperture(snap){
+ if(!snap)return;const q=new URLSearchParams(location.search);
+ snap.scale?q.set('ap_scale',snap.scale):q.delete('ap_scale');q.set('ap_index',String(Number.isFinite(+snap.index)?snap.index:0));
+ snap.address?q.set('ap_addr',snap.address):q.delete('ap_addr');q.set('ap_wpm',String(Number.isFinite(+snap.wpm)?snap.wpm:300));
+ history.replaceState(null,'','?'+q.toString()+location.hash)
+}
 function sameOrigin(value){
  try{const u=new URL(String(value||''),location.href);return u.origin===location.origin?u:null}catch(_){return null}
 }
@@ -49,11 +60,13 @@ async function openSource(n,value){
  try{
    const r=await fetch(u.pathname+u.search,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);
    const s=await r.text();let value=s,out=s;if(/\.json$/i.test(u.pathname)){try{value=JSON.parse(s);out=JSON.stringify(value,null,2)}catch(_){}}
-   T.textContent=out;A.load(value,{label:n});syncAddress(u,n);
+   T.textContent=out;const opt=firstLoad?{label:n,...initialAperture}:{label:n};firstLoad=false;A.load(value,opt);syncAddress(u,n);
  }catch(e){T.textContent='Unavailable: '+e.message}
 }
 function openTyped(){const u=sourceUrl(P.value);if(!u){T.textContent='Unavailable: use a same-origin text-like path such as /control/CURRENT.json';return}openSource(sourceLabel(u),u.pathname+u.search)}
+A.addEventListener('aperture-focus',e=>syncAperture(e.detail));
 O.onclick=openTyped;P.addEventListener('keydown',e=>{if(e.key==='Enter')openTyped()});
+C.onclick=async()=>{const old=C.textContent;try{await navigator.clipboard.writeText(location.href);C.textContent='COPIED'}catch(_){prompt('Copy addressed DOCS view:',location.href)}setTimeout(()=>C.textContent=old,700)};
 const Q=new URLSearchParams(location.search),ret=returnUrl(Q.get('return'));if(ret){B.hidden=false;B.href=ret}
 const direct=sourceUrl(Q.get('src'));
 if(direct)openSource(sourceLabel(direct),direct.pathname+direct.search);
