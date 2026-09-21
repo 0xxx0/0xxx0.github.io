@@ -105,13 +105,13 @@ function fieldActivationProbeHtml(){
     W().FieldLensHost.project('STRUCTURE');
     const row=await waitFor(()=>D().querySelector('.mapRow[data-href]')),href=row.dataset.href;rec.href=href;
     row.click();await waitFor(()=>W().FieldLensHost?.focus?.()?.href===href&&W().location.pathname==='/');
-    rec.focused=W().FieldLensHost.focus().href;rec.focusUrl=W().location.search;
+    rec.focused=W().FieldLensHost.focus().href;rec.focusUrl=W().location.search;rec.target=W().FieldLensHost.focus()?.alias_of||href;
     const same=await waitFor(()=>D().querySelector('.mapRow[data-href="'+href+'"]'));same.click();
-    await waitFor(()=>W().location.pathname===href);rec.opened=W().location.pathname;
+    await waitFor(()=>W().location.pathname===rec.target);rec.opened=W().location.pathname;
     W().history.back();
     await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===href);
     rec.returned=W().FieldLensHost.focus().href;rec.returnUrl=W().location.search;
-    done(rec.focused===href&&rec.opened===href&&rec.returned===href&&/focus=/.test(rec.returnUrl),rec);
+    done(rec.focused===href&&rec.opened===rec.target&&rec.returned===href&&/focus=/.test(rec.returnUrl),rec);
   })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
 }
@@ -707,6 +707,7 @@ try{
     if(c.name==='LENS focused real-use observation')console.log('LENS REAL USE',textAtId(r.out,'probeResult'));
     if(!ok){
       const source=textAtId(r.out,'sourceState');
+      const probe=textAtId(r.out,'probeResult');if(probe)console.log('SMOKE PROBE',c.name,probe.slice(0,1800));
       const body=visibleText(r.out).slice(0,700);
       fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(fatal?' browser-fatal':'')+(body?' body='+JSON.stringify(body):''));
       if(r.err.trim())console.error('SMOKE STDERR',c.name,r.err.slice(-1800));
