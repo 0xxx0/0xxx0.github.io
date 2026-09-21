@@ -1,0 +1,24 @@
+'use strict';
+const assert=require('assert');
+const L=require('../lens-state.js');
+const tests=[];
+function test(name,fn){try{fn();tests.push({name,pass:true})}catch(e){tests.push({name,pass:false,error:e.message})}}
+const route={schema:'field-route/v0.1',id:'o:fixture-alpha',href:'/field/fixture-alpha/',title:'Fixture Alpha',kind:'artifact',state:'ACTIVE',operation:'REPRESENT',parent:'/field/',family:'FIELD',role:'shared object fixture'};
+const snap={source:{id:'src_fixture',name:'fixture-alpha.json',format:'json'},identity:'o:fixture-alpha',selectedId:'o:fixture-alpha',domain:'DATADISC',scope:3,scopeName:'RECORD',address:{canonical:'/field/fixture-alpha/',range:'rng://fixture/0-0',returnAddress:'/field/fixture-alpha/'},chain:[]};
+const structure={lensId:'structure-context',lensVersion:'1',kind:L.VIEW,params:{depth:2},inputContract:'field-route/v0.1',outputContract:'projection/structure',preserves:['objectId','focusId'],hides:['raw-body'],derives:['parent','siblings'],authority:'PREVIEW'};
+const provenance={lensId:'provenance',lensVersion:'1',kind:L.VIEW,params:{mode:'compact'},inputContract:'*',outputContract:'projection/provenance',preserves:['objectId'],hides:[],derives:['sourceRefs'],authority:'PREVIEW'};
+
+test('field adapter validates',()=>assert.equal(L.validate(L.fromFieldRoute(route)).ok,true));
+test('scale adapter validates',()=>assert.equal(L.validate(L.fromScaleSnapshot(snap)).ok,true));
+test('same canonical identity survives unequal adapters',()=>assert.equal(L.fromFieldRoute(route).objectId,L.fromScaleSnapshot(snap).objectId));
+test('ordered composition round-trips',()=>{let s=L.fromFieldRoute(route);s=L.compose(s,structure);s=L.compose(s,provenance);const rt=L.deserialize(L.serialize(s));assert.equal(L.equivalent(s,rt),true);assert.deepEqual(rt.lensStack.map(x=>x.lensId),['structure-context','provenance'])});
+test('same ordered stack can be carried by scale state',()=>{let a=L.compose(L.compose(L.fromFieldRoute(route),structure),provenance);let b=L.compose(L.compose(L.fromScaleSnapshot(snap),structure),provenance);const ar=L.deserialize(L.serialize(a)),br=L.deserialize(L.serialize(b));assert.equal(ar.objectId,br.objectId);assert.deepEqual(ar.lensStack,br.lensStack)});
+test('view lens cannot claim commit authority',()=>assert.equal(L.validateDescriptor({...structure,authority:'COMMIT'}).ok,false));
+test('commit operator requires action toolglass',()=>{const s=L.normalize({...L.fromFieldRoute(route),operator:'COMMIT'});assert.equal(L.validate(s).ok,false)});
+test('action toolglass can carry explicit commit authority',()=>{const action={lensId:'tag-action',kind:L.ACTION,authority:'COMMIT',params:{tag:'x'}};const s=L.compose(L.fromFieldRoute(route),action);s.operator='COMMIT';assert.equal(L.validate(s).ok,true)});
+test('legacy field handoff adapts',()=>{const p={source:'field-index-map',text:JSON.stringify(route)};assert.equal(L.fromLegacyHandoff(p).objectId,'o:fixture-alpha')});
+test('legacy showcase handoff adapts',()=>{const p={schema:'scale-lens.handoff/v1',title:'Fixture',sourceUrl:'https://example.test/fixture',returnAddress:'/fixture'};assert.equal(L.fromLegacyHandoff(p).returnAddress,'/fixture')});
+test('handoff packet preserves reversible state',()=>{let s=L.compose(L.fromFieldRoute(route),structure);const packet=L.makeHandoff(s,{title:'Fixture'});assert.equal(packet.schema,L.HANDOFF_SCHEMA);assert.equal(L.equivalent(packet.state,s),true)});
+const failed=tests.filter(x=>!x.pass);
+console.log(JSON.stringify({schema:'0xxx0/lens-state-selftest/v0.1',pass:failed.length===0,count:tests.length,tests},null,2));
+if(failed.length)process.exit(1);
