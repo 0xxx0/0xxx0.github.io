@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "artifact": "HUMAN PORT",
   "route": "/port/",
-  "version": "1.5.1-preview",
+  "version": "1.5.2-preview",
   "date": "2026-09-22",
   "state": "ACTIVE_EXPERIMENT",
   "decision": "HUMAN PORT becomes an addressed object aperture: text/JSON/image/generic local files share one object envelope; Port handles temporary passage/focus/routing while FIELD INTAKE remains the separate reviewed admission gate.",
@@ -25,7 +25,8 @@
     "/contact/make/",
     "/continuity/",
     "/contact/backstage/",
-    "/care/"
+    "/care/",
+    "/body/fit/"
   ],
   "laws": [
     "OBJECT IDENTITY != BYTE HASH != PROJECTION ADDRESS",
@@ -35,7 +36,8 @@
     "SELECT != OPEN != APPLY != EXTERNAL SEND",
     "LOCAL STASH != CANONICAL REPOSITORY",
     "ROUTE RECEIPT != WORLD RETURN",
-    "PORT EVIDENCE OFFER != CARE ATTACH"
+    "PORT EVIDENCE OFFER != CARE ATTACH",
+    "PORT SENSOR OBJECT != BODY OBSERVATION until explicit import"
   ],
   "promotion_rule": "Keep /contact/ simple. Promote deeper mechanisms onto /port/ only when they reduce real interaction/re-entry cost.",
   "next_tests": [
@@ -59,7 +61,10 @@
     "add explicit purge for local object bytes",
     "add CARE / FIELD as a seventh structural route for TEXT/JSON/IMAGE/FILE evidence offers",
     "CARE handoff preserves Port object id/hash/media/provenance/scope/focus while source bytes remain under Port retention",
-    "CARE route remains explicit SELECT + OPEN and requires explicit ATTACH inside CARE"
+    "CARE route remains explicit SELECT + OPEN and requires explicit ATTACH inside CARE",
+    "add BODY / FIT as a structured text/JSON route for fittings/sensor observation packets",
+    "BODY / FIT handoff preserves object identity/provenance metadata and requires explicit import",
+    "keep image/file evidence on CARE rather than broadening BODY / FIT into a generic attachment surface"
   ],
   "first_time_test": "Paste one source once and reach the intended tool preloaded within one explicit route choice.",
   "donors": [
@@ -96,7 +101,7 @@
     "drop one authored JSON/text file and prove disk-loaded text routes identically to pasted text",
     "drop one opaque authored file and prove identity/provenance survives despite no semantic viewer"
   ],
-  "next": "Do not add media classes, bundles or auto-routing. Observe ordinary use of the existing object aperture, including the new CARE evidence route.",
+  "next": "Use one real structured sensor packet through Port → BODY / FIT before adding more routes or media.",
   "care_bridge_return": "/returns/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
   "care_bridge_confluence": "/control/confluence/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json"
 }
