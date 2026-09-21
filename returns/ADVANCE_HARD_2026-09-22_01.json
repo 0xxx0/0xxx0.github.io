@@ -14,12 +14,13 @@
   ],
   "after": {
     "branch_frontier": {
-      "branches": 112,
+      "branches": 111,
       "open_prs": 0,
       "merged": 73,
       "closed_unmerged": 22,
-      "no_pr": 16,
-      "unclassified_no_pr": 1
+      "no_pr": 15,
+      "unclassified_no_pr": 0,
+      "execution_branch_excluded": "confluence-hard-advance-20260922"
     },
     "tool_lineage": "/control/confluence/TOOL_LINEAGE_READING_2026-09-22.json",
     "ingest": "BLOCKED without semantic guesswork",
