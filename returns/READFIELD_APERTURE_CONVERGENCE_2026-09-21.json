@@ -24,5 +24,14 @@
     "authority": "PRESENTATION_AND_EXPERIMENT_ONLY",
     "network_write": "NONE"
   },
-  "stop": "Do not create another reader architecture. Next deltas must either improve ordinary reading/re-entry measurably or transfer a proven host mechanism back into APERTURE."
+  "stop": "Do not create another reader architecture. Next deltas must either improve ordinary reading/re-entry measurably or transfer a proven host mechanism back into APERTURE.",
+  "proof": {
+    "public_surface_check": "PASS",
+    "browser_smoke": "34/34",
+    "workflow_run": 35623905975,
+    "readfield_smoke": "PASS",
+    "aperture_multilingual": "PASS",
+    "docs_reader_focus": "PASS",
+    "painting_field_tests": "38/38"
+  }
 }
