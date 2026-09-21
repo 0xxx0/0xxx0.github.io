@@ -63,14 +63,14 @@
     },
     {
       "href": "/",
-      "title": "FIELD INDEX / AXIAL LATEST SUPPORT",
+      "title": "FIELD INDEX / TRACE VERIFY",
       "state": "ACTIVE",
-      "version": "0.5",
-      "operation": "ORIENT / FOCUS / SUPPORT",
-      "receipt": "/returns/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
+      "version": "0.6.2",
+      "operation": "ORIENT / TRACE / VERIFY",
+      "receipt": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "receipt_ok": true,
       "receipt_schema": "return-receipt/v0.1",
-      "release_updated": "2026-09-21"
+      "release_updated": "2026-09-22"
     },
     {
       "href": "/contact/",
