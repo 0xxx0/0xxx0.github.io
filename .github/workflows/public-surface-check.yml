@@ -21,6 +21,8 @@ jobs:
         run: node --check lens-proof.js
       - name: Validate shared Constraint Surface parity
         run: node control/constraint-surface-selftest.js
+      - name: Validate route grammar
+        run: node tools/audit-route-grammar.mjs
       - name: Validate static surface contracts
         run: node tools/validate-public.mjs
       - name: Run critical browser smoke
