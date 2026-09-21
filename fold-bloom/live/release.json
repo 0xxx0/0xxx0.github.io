@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
   "version": "LIVE 0.3",
-  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
+  "status": "ACTIVE_CANDIDATE_MERGED",
   "date": "2026-09-22",
   "donors": [
     {
@@ -61,7 +61,7 @@
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "PR CI + phone MP3 play: confirm multiple detected sections, ARC progress, two-verb readiness, late RETURN seal, no punishment when boundary estimate feels wrong",
+    "required_next": "Direct phone MP3 play across several detected sections: judge ARC readability, two-verb readiness, late RETURN seal, section-boundary plausibility and whether sealing creates desire to continue.",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
@@ -75,7 +75,10 @@
     "gameplay_pr": 119,
     "runtime_full_pass": "public-surface-check run 35656338927",
     "final_pr_ci": "PASS: public-surface-check run 35656619303 after coordination/receipt updates",
-    "section_arc_branch": "fold-bloom-section-arc-030"
+    "section_arc_branch": "fold-bloom-section-arc-030",
+    "section_arc_pr": 134,
+    "section_arc_merge_sha": "d6341f639ff53ab3adefef1554739965021de641",
+    "section_arc_ci": "PASS: public-surface-check run 35663346071 including LIVE gameplay + track + section-arc tests and phone-sized critical browser smoke"
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_SECTION_ARC_2026-09-22.json",
