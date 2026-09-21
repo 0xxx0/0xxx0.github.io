@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "surface": "APERTURE / INSPECTOR",
-  "version": "0.3",
+  "version": "0.4",
   "route": "/foundry/aperture/",
   "state": "UTILITY",
   "operation": "INSPECT",
@@ -30,8 +30,12 @@
     "ring gap / log10(bytes) magnitude",
     "prev/next",
     "scale −/+",
-    "RSVP temporal stepping",
+    "RSVP 60–3000 WPM with preset stepping",
+    "keyboard: SPACE play/pause · ↑↓ speed · ←→ step",
+    "bounded punctuation/long-token dwell",
     "TTS boundary-synced WORD focus",
+    "material-target host projection",
+    "aperture-material event + CSS material variables",
     "dock(source,opt) reusable in-place host API",
     "session handoff → standalone Aperture workbench"
   ],
@@ -49,15 +53,19 @@
     "host_integrations": [
       "/ FIELD AXIAL focus",
       "/port/ HUMAN PORT intake",
+      "/docs/ control-document reader",
       "/foundry/aperture/ standalone"
     ],
     "magnitude_ladder": "log10(bytes), visible ring gap spans 10^0..10^12",
     "rsvp_default": "if current scale has <2 units, temporal play selects WORD for text or first traversable JSON level",
-    "javascript_static_parse": "PASS"
+    "javascript_static_parse": "PASS",
+    "rsvp_range": "60–3000 WPM experimental control range; no comprehension claim",
+    "focus_schema": "field-aperture-focus/v0.2",
+    "material_projection": "position + scale + source magnitude → host CSS vars / event; presentation only"
   },
   "updated": "2026-09-21",
-  "known_gap": "The universal inspection capability is operational. The compact ring/magnitude mapping remains a presentation candidate; browser SpeechSynthesis boundary fidelity varies by engine/voice.",
-  "capability": "Summon one local inspector against arbitrary text/JSON/object context without making the inspector a project or authority surface.",
+  "known_gap": "The universal inspection capability is operational. Material mapping and high-speed RSVP are presentation/temporal candidates: usefulness at speed, chunking/ORP needs, punctuation dwell and whole-space visual load remain ordinary-use questions.",
+  "capability": "Summon one local inspector against arbitrary text/JSON/object context; preserve identity while scale, position, temporal focus and optional host material state move together.",
   "host_resolution": [
     "selected text",
     "active INPUT/TEXTAREA value",
@@ -69,5 +77,6 @@
     "state": "CANDIDATE_MAPPING",
     "mapping": "outer=position; inner=scale; gap=log10(bytes); center=foveated focus; time/voice drive position",
     "claim": "Useful visualization candidate only; not required for capability status."
-  }
+  },
+  "receipt": "/returns/APERTURE_MATERIAL_RSVP_2026-09-21.json"
 }
