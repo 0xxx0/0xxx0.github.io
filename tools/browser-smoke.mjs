@@ -407,7 +407,7 @@ const CASES=[
     name:'READFIELD over APERTURE',
     route:'/foundry/readfield/',
     options:{width:430,height:900,budget:7000},
-    check:dom=>/READFIELD/i.test(dom)&&/RF\\/02/i.test(dom)&&dom.includes('id=\"ap\"')&&dom.includes('id=\"lineMap\"')&&dom.includes('id=\"discMap\"')&&dom.includes('HOLD CONTEXT')&&dom.includes('field-aperture.js')&&!dom.includes('load failure')
+    check:dom=>/READFIELD/i.test(dom)&&dom.includes('RF/02')&&dom.includes('id=\"ap\"')&&dom.includes('id=\"lineMap\"')&&dom.includes('id=\"discMap\"')&&dom.includes('HOLD CONTEXT')&&dom.includes('field-aperture.js')&&!dom.includes('load failure')
   },
   {
     name:'DOCS APERTURE',
