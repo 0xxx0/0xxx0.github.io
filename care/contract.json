@@ -27,7 +27,8 @@
     "CARE HISTORY != COMPLIANCE SCORE",
     "CAREGIVER_OBSERVED != SELF_OBSERVED",
     "PORT OBJECT REFERENCE != SOURCE CONTENT",
-    "ATTACHED EVIDENCE != INTERPRETATION"
+    "ATTACHED EVIDENCE != INTERPRETATION",
+    "EVIDENCE REFERENCE MUST RETAIN SOURCE RETURN WHEN AVAILABLE"
   ],
   "capture": {
     "primary_prompt": "What changed?",
@@ -177,7 +178,8 @@
       "transport": "sessionStorage care.port.evidence.v01",
       "admission": "offer only; user must click ATTACH TO CURRENT CASE",
       "storage": "CARE stores object identity/hash/provenance/focus + bounded excerpt; local file/image bytes remain in HUMAN PORT IndexedDB",
-      "law": "PORT OBJECT != CARE EVIDENCE until explicit attach; ATTACH != INTERPRET."
+      "law": "PORT OBJECT != CARE EVIDENCE until explicit attach; ATTACH != INTERPRET.",
+      "return_path": "CARE may reopen the original Port object when the session envelope still exists or when LOCAL_STASH bytes remain addressable by payload_ref. Otherwise the ref stays explicit but non-durable."
     }
   }
 }
