@@ -122,6 +122,12 @@
   ],
   "ready_tasks": [
     {
+      "id": "INGEST-01",
+      "worker": "ARCHAEOLOGIST",
+      "task": "Local-only successor to the verified Sep-21 Documents ingest. Execute /control/packets/INGEST_ONE_FAMILY_2026-09-21.json against the private hashed reports; review exactly one app + authored design/spec family; no source moves, no public payload, no automatic route promotion.",
+      "receipt": "one private/local semantic family packet with exact hashes + provenance + relation class, or BLOCKED/NO_GAIN"
+    },
+    {
       "id": "REP-01",
       "worker": "TRANSLATOR",
       "task": "Representation instrumentation is already shipped. Use exact recovered Painting fixture /control/REPRESENTATION_PAINTING_2026-09-21.json plus existing FI PLAIN/FOVEATED proof bench to prepare one source-grounded comparison packet. Do not build another projection surface. Mark Dayline/Fold-Bloom NOT_USEFUL when their required temporal/cyclic state is absent.",
@@ -130,8 +136,8 @@
     {
       "id": "REC-01",
       "worker": "ARCHAEOLOGIST",
-      "task": "Continue Sep 05–19 Library census and exact duplicate collapse; prioritize runnable HTML/source packs and print/physical artifacts.",
-      "receipt": "CENSUS additions + repo-copy packets"
+      "task": "ANCHOR-ONLY recovery. Do not run as ambient census. Continue Sep 05–19 Library/source recovery only when MIGRATION_NOW or a concrete new source anchor names one target; one gain or one failed anchor then stop.",
+      "receipt": "one exact source/duplicate/lineage packet or explicit no-gain blocker; no broad sweep"
     },
     {
       "id": "PRINT-01",
