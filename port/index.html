@@ -158,9 +158,12 @@ async function mountProjection(){
   focus=textAperture.snapshot();
  }else if(obj.media_class==='IMAGE'){
   const blob=await PortObjectStore.blobFor(obj);
-  imageAperture=await PortObjectAperture.mountImage($('#projectionMount'),obj,blob);
-  imageAperture.addEventListener('object-focus',e=>{focus=e.detail;focusSummary();renderRoutes();persist()});
-  focus=imageAperture.snapshot();
+  if(!blob){$('#projectionMount').innerHTML='<div class="generic"><div><b>LOCAL BYTES MISSING</b><span>The object envelope survived, but its IndexedDB payload is unavailable. Reload or purge this object.</span></div></div>';focus=null;}
+  else{
+   imageAperture=await PortObjectAperture.mountImage($('#projectionMount'),obj,blob);
+   imageAperture.addEventListener('object-focus',e=>{focus=e.detail;focusSummary();renderRoutes();persist()});
+   focus=imageAperture.snapshot();
+  }
  }else{
   $('#projectionMount').innerHTML='<div class="generic"><div><b>GENERIC FILE</b><span>'+esc(obj.mime||'application/octet-stream')+' · '+fmtBytes(obj.size_bytes)+'</span><span>Identity/provenance available; no semantic projection adapter yet.</span></div></div>';
   focus=null;
