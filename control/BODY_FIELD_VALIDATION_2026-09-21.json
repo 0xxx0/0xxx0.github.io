@@ -1,0 +1,57 @@
+{
+  "schema": "0xxx0/body-field-validation/v0.2",
+  "at": "2026-09-21T21:18:00+08:00",
+  "artifact": "/body/",
+  "result": "PASS_STATIC_AND_CORE_SELFTEST",
+  "release": "0.2",
+  "core_selftest": {
+    "passed": 13,
+    "total": 13,
+    "tests": [
+      "clamp",
+      "typed factor keys",
+      "missing is not zero",
+      "contrast hidden below 3/3",
+      "contrast admitted at 3/3",
+      "coverage LOW",
+      "coverage MED",
+      "coverage HIGH",
+      "lag contrast admitted at 3/3",
+      "lag contrast excludes gaps >12h",
+      "test delta",
+      "address stable under region ordering",
+      "address changes with geometry version"
+    ]
+  },
+  "checks": {
+    "javascript_syntax": "PASS",
+    "state_schema": "0xxx0/body-field-state/v0.2",
+    "contract": "body-field-contract/v0.2",
+    "local_bodyplans": true,
+    "remote_anatomy_dependency": false,
+    "network_submission": false,
+    "missing_values": "explicit null; untouched != zero",
+    "pulse_same_return": true,
+    "pulse_next_return_lte_12h": true,
+    "factor_contrast_gate": "minimum 3 with + 3 without",
+    "test_loop": "baseline return -> one named action -> later return -> descriptive delta",
+    "body_house_bridge": "same-origin localStorage only",
+    "body_care_bridge": "same-origin localStorage offer; CARE import remains explicit",
+    "personal_state_committed": false
+  },
+  "evidence": {
+    "body_html_git_blob": "f3df6cfb7ace55f9b47cf8e49e12a4fc3f453872",
+    "core_git_blob": "6370066de851f76157fc17b41d3847210f94f4d2",
+    "selftest_git_blob": "9b8e30014f4c6bd5642ea0bacced2e996e99cc96",
+    "schema_git_blob": "085bf3d361b0521d6156f7fed8174660876992fb",
+    "contract_git_blob": "f35c133c0f8ab6d643c2600cd3bc83ac21fa992c",
+    "release_git_blob": "b771196389c4a0402574953a25d4de58324f08da"
+  },
+  "open_gaps": [
+    "deployed browser/mobile interaction still needs human use testing",
+    "watch/phone passive sensor source lane is adapter-ready but not connected",
+    "PULSE contrasts are descriptive and not adjusted for confounding",
+    "TEST is a lightweight self-observation loop, not a formal randomized n-of-1 engine",
+    "personal anatomical registration remains separate future work"
+  ]
+}
