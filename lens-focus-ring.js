@@ -19,7 +19,7 @@ function attach(api){
     focus.querySelector('span').textContent=(s.meta?.state||'')+(s.meta?.family?' · '+s.meta.family:'');
     sh.querySelector('.ap').textContent=String(s.aperture?.range||s.aperture?.level||'—');
     sh.querySelector('.proj').textContent=s.projection||'—';
-    const xs=s.lensStack||[];stackBtn.querySelector('span').textContent=String(xs.length);sh.querySelector('.foveate').textContent='FOVEATE '+(s.meta?.foveate?'ON':'OFF');
+    const xs=s.lensStack||[];stackBtn.querySelector('span').textContent=String(xs.length);const fv=sh.querySelector('.foveate');fv.textContent=s.meta?.foveate?(s.projection==='VISUAL'?'FOVEATE ON':'FOVEATE HELD'):'FOVEATE OFF';
     stack.innerHTML=xs.length?xs.map((x,i)=>'<div class="stackRow"><b>'+(i+1)+' · '+esc(x.lensId)+'</b><span>'+esc(x.kind)+' / '+esc(x.authority)+'</span></div>').join(''):'<div>NO COMPOSED VIEW LENSES</div>';
     rim.innerHTML=MODES.map(m=>'<button data-mode="'+m+'" class="'+(m===s.projection?'on':'')+'">'+(m==='STRUCTURE'?'STRUCT':m)+'</button>').join('');
     rim.querySelectorAll('button').forEach(b=>b.onclick=()=>{api.project?.(b.dataset.mode);render()});
