@@ -95,7 +95,7 @@ footer{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:v
  document.getElementById('attachHouseBody').onclick=function(){
   if(!lastProjection)return;
   var area=document.getElementById('houseArea').value||null,packet={schema:'0xxx0/house-body-context/v0.1',generated_at:lastProjection.generated_at||null,source_age_class:lastProjection.source_age_class||null,runtime_health_class:lastProjection.runtime_health_class||null,area:area,projection_schema:lastProjection.schema||null,classification:lastProjection.classification||null};
-  localStorage.setItem(HOUSEKEY,JSON.stringify(packet));document.getElementById('houseLocalTitle').textContent='ATTACHED · '+(packet.runtime_health_class||'—');
+  localStorage.setItem(HOUSEKEY,JSON.stringify(packet));document.getElementById('houseLocalTitle').textContent='ATTACHED · '+(packet.runtime_health_class||'—');location.assign('../body/');
  };
  document.getElementById('clearHouseBody').onclick=function(){localStorage.removeItem(HOUSEKEY);renderBodyBridge()};
  renderBodyBridge();
