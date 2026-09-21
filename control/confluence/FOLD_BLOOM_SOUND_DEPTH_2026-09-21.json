@@ -84,7 +84,20 @@
     "DEEP × WOOD × BROKEN · SCALE/MOTIF",
     "PULSE × DIRTY × DRIVE · SCALE/PULSE"
   ],
-  "status": "IMPLEMENTED_ON_BRANCH_CI_FOUND_PARENT_EDGE_DEPENDENCY_REPAIRED",
+  "status": "SHIPPED_ACTIVE_CANDIDATE",
   "branch": "two-dial-sonic-depth-010",
-  "return": "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json"
+  "return": "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
+  "ship": {
+    "pr": 89,
+    "merge_sha": "4d33e820ec0e7c98c3b5abfb46cbcd3f33467b21",
+    "ci_run": 35607729608,
+    "result": "PASS_ON_RERUN"
+  },
+  "verification_trace": [
+    "First CI: all new Fold/Bloom cases passed; existing Lens G2 Studio RETURN failed because attempted manifest reparent removed a proved ancestry edge.",
+    "Correction: Scale Lens remained visually extracted from playable sibling grid but manifest parent /fold-bloom/ was restored; graph ancestry and UI grouping were separated.",
+    "Second CI first attempt: Lens G2 and all Fold/Bloom cases passed; unrelated DOCS RSVP focus kernel timed out once.",
+    "Failed-job rerun: all route/static/browser/recovery/frozen-source tests passed."
+  ],
+  "stop": "SHIPPED. Do not add another world/voice/groove family until direct A/B listening yields a concrete missing behavior or performance defect."
 }
