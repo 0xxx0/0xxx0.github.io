@@ -122,6 +122,13 @@ if(issueSnapshot){check(issueSnapshot.schema==='field-repo-issues/v0.1','FIELD i
 if(exists('field-glyph.js')){try{new Function(read('field-glyph.js'))}catch(e){fail.push('JS field-glyph.js: '+e.message)}}
 if(exists('field-presentation.js')){try{new Function(read('field-presentation.js'))}catch(e){fail.push('JS field-presentation.js: '+e.message)}}
 if(exists('field-aperture.js')){try{new Function(read('field-aperture.js'))}catch(e){fail.push('JS field-aperture.js: '+e.message)}}
+if(exists('showcase-nav.js')){
+  const nav=read('showcase-nav.js');
+  try{new Function(nav)}catch(e){fail.push('JS showcase-nav.js: '+e.message)}
+  check(nav.includes('tab inspect'),'shared route adapter missing ambient Aperture inspector');
+  check(nav.includes('field-aperture.js'),'ambient Aperture inspector missing shared component loader');
+  check(nav.includes('getSelection'),'ambient Aperture inspector missing selection-context path');
+}
 if(exists('foundry/aperture/index.html')){
   const ap=read('foundry/aperture/index.html');
   for(const token of ['FOUNDRY / APERTURE','field-aperture.js','RSVP','SCALE LENS','TWO DIAL'])check(ap.includes(token),'Aperture surface token missing: '+token);
