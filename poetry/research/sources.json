@@ -1,0 +1,53 @@
+{
+  "schema": "verse-source-quarry/v0.1",
+  "updated": "2026-09-21",
+  "private_recovered": [
+    {
+      "title": "Systematising Glyph Design forVisualization.pdf",
+      "class": "EXACT_PRIVATE_DRIVE_SOURCE",
+      "notes": "Chapter 7.2: task-dependent poetry variables, poem glyphs, macro-glyphs, PoemViewer."
+    },
+    {
+      "title": "Systematic Glyph Design conversation research",
+      "class": "RECOVERED_ARCHIVE",
+      "notes": "Prior 2024 research branch around poetry visualization/glyph design."
+    }
+  ],
+  "public_sources": [
+    {
+      "title": "Rule-based Visual Mappings – with a Case Study on Poetry Visualization",
+      "year": 2013,
+      "url": "https://doi.org/10.1111/cgf.12125",
+      "transfer": "task-sensitive visual mapping / control-load reduction"
+    },
+    {
+      "title": "Poemage: Visualizing the Sonic Topology of a Poem",
+      "year": 2016,
+      "url": "https://doi.org/10.1109/TVCG.2015.2467811",
+      "transfer": "sonic relation sets + linked poem/path views"
+    },
+    {
+      "title": "Co-PoeTryMe",
+      "year": 2017,
+      "url": "https://aclanthology.org/W17-3508/",
+      "transfer": "constrained word/line alternatives + explicit adoption"
+    },
+    {
+      "title": "PoeTryMe",
+      "url": "https://poetryme.dei.uc.pt/",
+      "transfer": "language/form/seeds/surprise + English adaptation"
+    },
+    {
+      "title": "Poetry Machines",
+      "year": 2021,
+      "url": "https://doi.org/10.1145/3450741.3466813",
+      "transfer": "unequal poet-specific assist machines"
+    },
+    {
+      "title": "PoemPalette",
+      "year": 2026,
+      "url": "https://doi.org/10.1145/3772318.3791460",
+      "transfer": "manipulable poetic elements + symbol graph + guided agent"
+    }
+  ]
+}
