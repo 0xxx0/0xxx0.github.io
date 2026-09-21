@@ -26,7 +26,7 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 .axisName{padding:0 7px;color:var(--mut);font-size:6.5px;letter-spacing:.1em}.axisName b{display:block;color:var(--ink);font-size:7.5px}.axisName i{font-style:normal;color:#57646a}
 .axisViewport{overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory;padding-inline:50%;position:relative;overscroll-behavior-x:contain}.axisViewport::-webkit-scrollbar{display:none}.axisViewport:after{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:2px solid var(--hot);filter:drop-shadow(0 0 5px rgba(237,116,71,.35));pointer-events:none;z-index:3}
 .axisTrack{display:flex;width:max-content}.axisToken{scroll-snap-align:center;flex:none;width:112px;height:36px;border:0;border-right:1px solid #273136;background:#0b1012;color:#7f8b90;padding:3px 5px;display:grid;place-items:center;text-align:center;font-size:7px;line-height:1.15}
-.axisToken.on{background:#172027;color:#fff;outline:1px solid var(--hot);outline-offset:-2px}.axisToken:hover{background:#11181c}
+.axisToken small{display:block;font-size:5.6px;color:#536168;margin-top:2px}.axisToken.live{color:#aebbc0}.axisToken.live small{color:#6f9bb2}.axisToken.dead{opacity:.23}.axisToken.on{background:#172027;color:#fff;outline:1px solid var(--hot);outline-offset:-2px;opacity:1}.axisToken.on small{color:#f1a286}.axisToken:hover{background:#11181c;opacity:1}
 .axisToken.route{width:154px;grid-template-columns:28px 1fr;gap:5px;text-align:left}.axisToken.route .tokTxt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}.axisToken .sub{display:block;color:#59666c;font-size:5.8px;margin-top:2px}
 .aperture{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:9px;align-items:center;border-top:1px solid var(--line);padding:8px;background:#080b0d}
 .apGlyph{display:grid;place-items:center}.apMeta{color:var(--hot);font-size:6.5px;letter-spacing:.09em}.apBody strong{display:block;font:800 16px/1.05 system-ui,sans-serif;letter-spacing:-.03em}.apBody p{margin:4px 0 0;color:#95a1a5;font:8px/1.4 system-ui,sans-serif;max-width:86ch}.apPath{color:var(--cool);font-size:6.5px;margin-top:3px}
@@ -71,7 +71,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   <div class="aperture" id="aperture">
     <div class="apGlyph" id="apGlyph"></div>
     <div class="apBody"><div class="apMeta" id="apMeta">FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><p id="apRole">One fixed gate resolves the aligned vocabularies to an exact repository route.</p></div>
-    <div class="apActions"><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apLens">SCALE LENS</button><button class="secondary" id="apCopy">COPY ADDRESS</button></div>
+    <div class="apActions"><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apAxial">◎ EXPAND</button><button class="secondary" id="apLens">SCALE LENS</button><button class="secondary" id="apCopy">COPY</button></div>
   </div>
 </section>
 
@@ -136,10 +136,18 @@ function axes(){
  ];
 }
 function selectedValue(a){if(a.key==='route')return focus?.href||null;return axisState[a.key]}
+function matchesCandidate(r,key,value){
+ const state=key==='state'?value:axisState.state,operation=key==='operation'?value:axisState.operation,mode=key==='mode'?value:axisState.mode;
+ return (state==='ANY'||r.state===state)&&(operation==='ANY'||opOf(r)===operation)&&(mode==='ANY'||modesOf(r).includes(mode))
+}
+function supportFor(a,v){
+ if(a.key==='route'){const r=routeMap().get(v);return r&&matchesFilters(r)?1:0}
+ var n=0;latest.forEach(function(r){if(matchesCandidate(r,a.key,v))n++});return n
+}
 function tokenHTML(a,v){
- const on=selectedValue(a)===v;
- if(a.key==='route'){const r=routeMap().get(v);return'<button class="axisToken route '+(on?'on':'')+'" data-axis="route" data-value="'+esc(v)+'">'+routeGlyph(r,25)+'<span class="tokTxt">'+esc(r?.title||v)+'<span class="sub">'+esc(r?.index?.updated_at||'')+'</span></span></button>'}
- return'<button class="axisToken '+(on?'on':'')+'" data-axis="'+esc(a.key)+'" data-value="'+esc(v)+'">'+esc(v)+'</button>';
+ const on=selectedValue(a)===v,sup=supportFor(a,v),cl=(on?'on ':'')+(sup?'live':'dead');
+ if(a.key==='route'){const r=routeMap().get(v);return'<button class="axisToken route '+cl+'" data-axis="route" data-value="'+esc(v)+'">'+routeGlyph(r,25)+'<span class="tokTxt">'+esc(r?.title||v)+'<span class="sub">'+esc(r?.index?.updated_at||'')+' · '+sup+' live</span></span></button>'}
+ return'<button class="axisToken '+cl+'" data-axis="'+esc(a.key)+'" data-value="'+esc(v)+'">'+esc(v)+'<small>'+sup+' live</small></button>';
 }
 function renderAxes(){
  const as=axes();$('axialRows').innerHTML=as.map(a=>'<div class="axisRow"><div class="axisName"><b>'+esc(a.label)+'</b><i>'+a.values.length+' POS</i></div><div class="axisViewport" data-axis="'+esc(a.key)+'"><div class="axisTrack">'+a.values.map(v=>tokenHTML(a,v)).join('')+'</div></div></div>').join('');
@@ -167,8 +175,8 @@ function focusRoute(r,align){
 }
 function resetAxial(){axisState.state='ANY';axisState.operation='ANY';axisState.mode='ANY';focus=latest[0]||null;renderAxes();renderAperture();renderFeed();renderMapSelection()}
 function renderAperture(){
- if(!focus){$('apGlyph').innerHTML='';$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Change one strip or RESET. AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');return}
- $('apMeta').className='apMeta';$('apGlyph').innerHTML=routeGlyph(focus,34);$('apMeta').textContent=[focus.state||'—',opOf(focus),modesOf(focus).join(' · ')].join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(focus.index?.updated_at||'UNTRACKED');$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed repository surface.';$('apOpen').href='.'+focus.href;
+ if(!focus){$('apGlyph').innerHTML='';['apAxial','apLens','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');return}
+ ['apAxial','apLens','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';$('apGlyph').innerHTML=routeGlyph(focus,34);$('apMeta').textContent=[focus.state||'—',opOf(focus),modesOf(focus).join(' · ')].join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(focus.index?.updated_at||'UNTRACKED');$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed repository surface.';$('apOpen').href='.'+focus.href;
 }
 function renderFeed(){
  const xs=latest.slice(0,latestLimit),live=routes.filter(r=>['ACTIVE','STABLE','PROOF_REQUIRED','CANDIDATE'].includes(r.state)).length;
@@ -223,6 +231,7 @@ function renderMapSvg(){
 function renderMapSelection(){if($('mapFold').open&&(mapMode==='VISUAL'||mapMode==='PULSE'))renderMapSvg()}
 function drillSelected(){const cm=childrenMap(),h=focus?.href||mapSelected;if(h&&(cm.get(h)||[]).length){mapRoot=h;mapSelected=h;renderMap()}}
 function mapUp(){if(mapRoot==='/')return;mapRoot=routeMap().get(mapRoot)?.parent||'/';renderMap()}
+function openAxial(){if(!focus)return;var q=new URLSearchParams({focus:focus.href});location.assign('./foundry/axial/?'+q.toString())}
 function openLens(){
  if(!focus)return;const packet={text:JSON.stringify({schema:'field-route/v0.1',href:focus.href,title:focus.title,kind:focus.kind,state:focus.state,operation:focus.operation,role:focus.role,index:focus.index,parent:focus.parent,family:focus.family},null,2),label:'FIELD · '+(focus.title||focus.href),created_at:new Date().toISOString(),source:'field-index-axial-latest'};try{sessionStorage.setItem('scale.lens.handoff.v01',JSON.stringify(packet))}catch(_){}location.assign('./fold-bloom/lens/')
 }
@@ -237,7 +246,7 @@ Promise.all([
  $('axialMeta').textContent=latest.length+' addressed mutations · '+nowSet.size+' NOW · unequal vocabularies / one focus';
  renderHeads();renderPorts();resetAxial();loadIssues();renderMap();
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});
-$('axReset').onclick=resetAxial;$('apLens').onclick=openLens;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===18?40:18;$('moreLatest').textContent=latestLimit===18?'SHOW 40':'SHOW 18';renderFeed()};
+$('axReset').onclick=resetAxial;$('apAxial').onclick=openAxial;$('apLens').onclick=openLens;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===18?40:18;$('moreLatest').textContent=latestLimit===18?'SHOW 40':'SHOW 18';renderFeed()};
 $('mapTools').onclick=e=>{if(e.target.dataset.mode){mapMode=e.target.dataset.mode;renderMap()}};$('mapSearch').oninput=e=>{mapQuery=e.target.value.trim().toLowerCase();renderMap()};
 $('mapUp').onclick=mapUp;$('mapRootBtn').onclick=()=>{mapRoot='/';renderMap()};$('mapDrill').onclick=drillSelected;
 $('mapFold').addEventListener('toggle',()=>{if($('mapFold').open)renderMap()});
