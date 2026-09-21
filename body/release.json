@@ -1,0 +1,35 @@
+{
+  "schema": "release-receipt/v1",
+  "artifact": "BODY / FIELD",
+  "route": "/body/",
+  "version": "0.2",
+  "released": "2026-09-21",
+  "state": "EXPERIMENT",
+  "changes": [
+    "Recovered the unmerged BODY 0.1 lineage onto current master rather than merging the stale branch.",
+    "Replaced runtime-fetched body geometry with the shared same-repo /bodyplans/ registry.",
+    "Added NOW: one-gesture valence×activation capture, compact itch/pain/tension/energy/focus signals, context factors and optional detailed body address.",
+    "Added PULSE: seven-day cyclic time projection plus descriptive with-vs-without factor contrasts gated at n>=3 on each side.",
+    "Added TEST: one explicit action/intervention, selected target, baseline return, timed recheck and before/after receipt; no causal claim.",
+    "Added same-origin BODY↔HOUSE local bridge using private browser localStorage envelopes; no personal body state is committed to the repo.",
+    "Preserved body-plan geometry version/view/region identity and kept CARE as the episode/handoff instrument.",
+    "Added export/import/plain projection for durable local ownership."
+  ],
+  "checks": [
+    "no remote anatomy dependency",
+    "no personal state committed",
+    "body-plan registry is same-origin local asset",
+    "factor contrasts require >=3 with and >=3 without",
+    "test output is descriptive only",
+    "HOUSE bridge uses localStorage only",
+    "plain JSON export/import present"
+  ],
+  "prior_art": [
+    "How We Feel: low-friction emotion check-ins + body sensations/patterns",
+    "Nomie: user-owned tracker/context event ledger",
+    "Bearable/Daylio: descriptive factor comparisons with sample coverage",
+    "RADAR-base/AWARE: active self-report distinct from passive context streams",
+    "Open mHealth: preserve measure metadata/source/context"
+  ],
+  "honesty": "This is a personal observation and experimentation instrument, not a diagnostic, triage, or treatment recommendation system. Same-origin HOUSE packets carry projection metadata/context, not private runtime authority."
+}
