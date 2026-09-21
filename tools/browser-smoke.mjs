@@ -118,7 +118,30 @@ const CASES=[
   {
     name:'POETRY',
     route:'/poetry/',
-    check:dom=>/POETRY|VERSE/i.test(dom)&&!dom.includes('load failure')
+    check:dom=>/POETRY|VERSE/i.test(dom)&&dom.includes('WRITE / EXPLORE')&&!dom.includes('load failure')
+  },
+  {
+    name:'POEM MAP',
+    route:'/poetry/map/',
+    check:dom=>/POEM MAP 0\.2/i.test(dom)&&dom.includes('id="guideBtn"')&&dom.includes('id="importBtn"')&&dom.includes('data-mode="PAGE"')&&!dom.includes('load failure')
+  },
+  {
+    name:'VERSE ATLAS',
+    route:'/foundry/verse-atlas/',
+    check:dom=>{
+      const h=textAtId(dom,'health');
+      return /VERSE ATLAS/i.test(dom)&&/PASS/.test(h)&&dom.includes('id="replay"')&&!dom.includes('load failure');
+    }
+  },
+  {
+    name:'FOUNDRY',
+    route:'/foundry/',
+    check:dom=>/FOUNDRY/i.test(dom)&&/VERSE|AXIAL/i.test(dom)&&!dom.includes('load failure')
+  },
+  {
+    name:'SLEEPER RECOVERY',
+    route:'/recovery/sleeper/',
+    check:dom=>/Sleeper recovery/i.test(dom)&&/Exact source now recovered/i.test(dom)&&/Painting \/ Path/i.test(dom)
   }
 ];
 
