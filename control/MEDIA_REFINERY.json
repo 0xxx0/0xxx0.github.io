@@ -162,5 +162,26 @@
       ]
     }
   },
-  "current_experiment": "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json"
+  "current_experiment": "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json",
+  "automation_v0_1": {
+    "worker": "/scripts/media-refinery-run.py",
+    "profiles": "/control/MEDIA_REFINERY_PIPELINES.json",
+    "receipt": "/returns/MEDIA_REFINERY_AUTOMATION_2026-09-22.json",
+    "pipeline": [
+      "DISCOVER",
+      "HASH_DEDUPE",
+      "AESTHETIC",
+      "APPEARANCE_CLUSTER",
+      "CONTACT_SHEETS",
+      "BOUNDED_CONTROL_MAPS",
+      "SEMANTIC_REVIEW_QUEUE",
+      "RECIPE_QUEUE",
+      "SHARE_MEMORY_EXPORT"
+    ],
+    "resume_key": "relative_path + bytes + mtime_ns; exact SHA remains byte identity",
+    "semantic_loop": "worker-packets.jsonl -> memory/semantic-overlays/<batch>.json -> rerun -> reviewed C/A/P/M recipe candidates",
+    "render_boundary": "generation=false; recipes remain backend UNBOUND until TRANSLATE",
+    "heavy_output_boundary": "contact sheets, maps and bulk media stay local/external by default"
+  },
+  "current_automation": "/returns/MEDIA_REFINERY_AUTOMATION_2026-09-22.json"
 }

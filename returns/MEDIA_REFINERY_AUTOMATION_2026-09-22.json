@@ -1,0 +1,102 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "MEDIA-REFINERY-AUTOMATION-2026-09-22",
+  "date": "2026-09-22",
+  "object": "Resumable local-first FIELD MEDIA REFINERY automation spine",
+  "implementation": {
+    "worker": "/scripts/media-refinery-run.py",
+    "extractor": "/scripts/media-refinery.py",
+    "profiles": "/control/MEDIA_REFINERY_PIPELINES.json"
+  },
+  "pipeline": [
+    "DISCOVER",
+    "HASH_DEDUPE",
+    "AESTHETIC",
+    "APPEARANCE_CLUSTER",
+    "CONTACT_SHEETS",
+    "BOUNDED_CONTROL_MAPS",
+    "SEMANTIC_REVIEW_QUEUE",
+    "RECIPE_QUEUE",
+    "SHARE_MEMORY_EXPORT"
+  ],
+  "behavior": {
+    "source_mutation": false,
+    "recursive": true,
+    "resumable": "Reuse unchanged records by relative_path + bytes + mtime_ns; hashes and quantitative fingerprints are not recomputed.",
+    "appearance_clusters": "Triage/donor discovery only; never composition or meaning.",
+    "semantic_loop": "Worker emits one batch overlay into memory/semantic-overlays/<batch>.json; rerun binds reviewed semantics to exact item hashes.",
+    "recipe_loop": "Without semantic review only bounded AESTHETIC/surface transfer is proposed. With reviewed semantics the same batch may emit C/A/P/M one-axis candidates.",
+    "render_boundary": "No renderer is called. Recipe queue remains backend UNBOUND for later TRANSLATE.",
+    "heavy_outputs": "Contact sheets and control maps stay local under derived/ by default.",
+    "video": "Census + ffprobe metadata only by default; no frame flood."
+  },
+  "profiles": [
+    "archive-recovery",
+    "painting-composition",
+    "diagram-glyph",
+    "anatomy-diagram",
+    "scroll-poetry",
+    "state-mnemonic",
+    "selective-video",
+    "project-proof"
+  ],
+  "validation": [
+    {
+      "corpus": "B260728B exact recovered visual batch",
+      "files": 8,
+      "images": 8,
+      "byte_objects": 8,
+      "exact_duplicate_groups": 0,
+      "cold_run": {
+        "newly_analyzed": 8,
+        "reused_records": 0,
+        "semantic_overlays_loaded": 0,
+        "recipe_candidates": 1
+      },
+      "warm_run": {
+        "newly_analyzed": 0,
+        "reused_records": 8
+      },
+      "reviewed_rerun": {
+        "semantic_overlays_loaded": 1,
+        "recipe_candidates": 4,
+        "axes": [
+          "C",
+          "A",
+          "P",
+          "M"
+        ]
+      },
+      "source_mutated": false
+    },
+    {
+      "corpus": "House OS visual-board recovery sample",
+      "files": 4,
+      "images": 4,
+      "byte_objects": 4,
+      "exact_duplicate_groups": 0,
+      "profile": "painting-composition",
+      "semantic_overlays_loaded": 0,
+      "recipe_candidates": 1,
+      "outputs": [
+        "contact sheet",
+        "appearance clusters",
+        "exemplar structure/tone/focus maps",
+        "semantic worker packet",
+        "SHARE/MEMORY"
+      ],
+      "source_mutated": false
+    }
+  ],
+  "defect_caught": {
+    "issue": "Initial batch IDs depended only on parent+chunk and collided across unrelated ROOT batches.",
+    "correction": "Batch identity now includes source snapshot + parent + offset + exact item identities.",
+    "verified": "B260728B and House OS samples now produce distinct batch IDs."
+  },
+  "worker_contract": {
+    "authority": "READ/ANALYZE/ANNOTATE_ONLY",
+    "output": "one semantic overlay per batch",
+    "stop": "No source mutation, publication, generation, or new project creation."
+  },
+  "next_single_action": "Run archive-recovery over the next large local image root. Use worker-packets.jsonl for parallel semantic passes; rerun; select only reviewed C/A/P/M recipes for TRANSLATE."
+}
