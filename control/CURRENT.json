@@ -115,10 +115,10 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM instrument family · TWO DIAL 0.10.1 composition / ECOLOGY 0.2 lineage-game / LIVE 0.2 consequence-play + same-page custom songs / LISTEN 0.2.3 source-addressed audio projection",
+      "head": "FOLD//BLOOM instrument family · TWO DIAL 0.10.1 composition / ECOLOGY 0.2 lineage-game / LIVE 0.3 consequence-play + MP3 SECTION ARC / LISTEN 0.2.3 source-addressed audio projection",
       "state": "ACTIVE_CANDIDATE_FAMILY",
       "route": "/fold-bloom/",
-      "retained_function": "Current family keeps unequal heads explicit. LIVE 0.2 is now the one-hand gameplay candidate: CALL → inspect B/F/S/R consequence forecasts + cascade depth → choose placement → ratchet charge → commit; target topology stays player-authored. A local custom song can be loaded/analyzed/played inside LIVE on phone and may reward beat timing without choosing topology. TWO DIAL 0.10.1 remains deep composition authority; ECOLOGY remains persistence/lineage-game; LISTEN 0.2.3 remains the deeper source-addressed Suno/URL/AUDIO MAP/time laboratory; each scoped touch gesture now owns one frozen time window so phone scrubbing has a stable meaning. FIELD PULSE remains optional ephemeral coordination with RSVP and Two Dial; borrowed clock never becomes borrowed authorship.",
+      "retained_function": "Current family keeps unequal heads explicit. LIVE 0.3 is the one-hand gameplay candidate: CALL → inspect B/F/S/R forecasts → choose topology → ratchet/commit; local MP3 playback+analysis is user-verified working. Detected song sections now act as optional non-punitive SECTION ARCS: two successful CALLs using two distinct verbs make an arc ready, and a late direct/charged RETURN may seal it for a bounded bonus. Section estimates are temporal apertures, not semantic truth. Suno link resolution remains user-verified blocked/browser-CORS best-effort and is not a gameplay dependency. TWO DIAL remains deep composition authority; ECOLOGY remains lineage-game; LISTEN remains the deeper AUDIO MAP/source lab; FIELD PULSE may lend clock/section context without authorship.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -139,7 +139,9 @@
         "/control/confluence/FOLD_BLOOM_GAMEPLAY_2026-09-22.json",
         "/returns/FOLD_BLOOM_GAMEPLAY_2026-09-22.json",
         "/control/confluence/FOLD_BLOOM_LISTEN_SCOPE_GESTURE_2026-09-22.json",
-        "/returns/FOLD_BLOOM_LISTEN_SCOPE_GESTURE_2026-09-22.json"
+        "/returns/FOLD_BLOOM_LISTEN_SCOPE_GESTURE_2026-09-22.json",
+        "/control/confluence/FOLD_BLOOM_SECTION_ARC_2026-09-22.json",
+        "/returns/FOLD_BLOOM_SECTION_ARC_2026-09-22.json"
       ],
       "experimental": [
         {
@@ -147,8 +149,8 @@
           "route": "/fold-bloom/listen/",
           "state": "CANDIDATE_EXPERIMENT",
           "branch": "fold-bloom-listen-01",
-          "thesis": "Any bounded audio source can enter one LISTEN field: local file first; Suno/direct address best-effort; decoded audio becomes a hashed AUDIO MAP with polar time and scale traversal.",
-          "promotion_gate": "real MP3 progressive map proof + real song/mobile evidence + Suno/network trial + analysis plausibility",
+          "thesis": "Any bounded audio source can enter one LISTEN field: local file first and proven; Suno/direct address best-effort; decoded audio becomes a hashed AUDIO MAP with polar time and scale traversal.",
+          "promotion_gate": "local MP3 + section mapping now have real-use evidence; Suno network resolution is explicitly non-blocking/best-effort; analysis plausibility and section-arc play remain empirical.",
           "version": "0.2.3"
         }
       ]
