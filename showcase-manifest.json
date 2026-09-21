@@ -1526,7 +1526,8 @@
         "constraint visualization",
         "obligation gating",
         "alternate views of one state",
-        "ONE RETURN playable ancestor lane restored without replacing current Sleeper head"
+        "ONE RETURN playable ancestor lane restored without replacing current Sleeper head",
+        "project surface separates current head, playable donor, exact source snapshot and unresolved deployment identity"
       ],
       "contract": {
         "accepts": {
@@ -1612,13 +1613,14 @@
         "physical_fit": "Can gate workshop/home procedures when obligations are explicit."
       },
       "index": {
-        "updated_at": "2026-09-21T20:20:00+08:00",
+        "updated_at": "2026-09-22T04:39:00+08:00",
         "work_modes": [
           "VERIFY",
           "OPERATE",
           "PLAY"
         ]
-      }
+      },
+      "project": "/sleeper/project/"
     },
     {
       "href": "/fold-bloom/lens/",
@@ -5213,13 +5215,15 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-21T20:28:00+08:00",
+        "updated_at": "2026-09-22T04:39:00+08:00",
         "work_modes": [
           "VERIFY",
           "RECOVER"
         ]
       },
-      "classification": "REBUILT_ASCII_DONOR_NOT_POLISHED_ONE_RETURN_V2"
+      "classification": "REBUILT_ASCII_DONOR_NOT_POLISHED_ONE_RETURN_V2",
+      "preservation": "/recovery/sleeper/one-return-recon-0.2/PRESERVATION.json",
+      "frozen_copy": "/recovery/sleeper/one-return-recon-0.2/"
     },
     {
       "href": "/body/",
@@ -5648,6 +5652,57 @@
         "next_if_pass": "Transfer drawn-route plus reversible-return kernel to SLEEPER with the existing provenance contract; keep reading separate.",
         "next_if_fail": "Repair one observed interaction blocker or retain as donor; do not expand the roster or assert museum-level quality."
       }
+    },
+    {
+      "href": "/sleeper/project/",
+      "title": "SLEEPER / PROJECT 0.1",
+      "kind": "hub",
+      "parent": "/sleeper/",
+      "family": "SLEEPER",
+      "operation": "RECOVER",
+      "state": "ACTIVE",
+      "version": "0.1",
+      "receipt": "/returns/SLEEPER_PROJECT_ONE_RETURN_PRESERVATION_2026-09-22.json",
+      "role": "Public lineage/status map separating current ASCII Sleeper, playable ONE RETURN reconstruction, frozen exact donor copy, exact v2-era source shelf and unresolved polished-deployment identity.",
+      "transfer": [
+        "current head != donor != recovery target",
+        "playable != original",
+        "exact source != deployment proof",
+        "frozen byte preservation"
+      ],
+      "index": {
+        "updated_at": "2026-09-22T04:39:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY",
+          "PLAY"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/sleeper/one-return-recon-0.2/",
+      "title": "ONE RETURN RECON 0.2 · FROZEN",
+      "kind": "recovery",
+      "parent": "/recovery/sleeper/",
+      "family": "SLEEPER",
+      "operation": "PRESERVE",
+      "state": "DONOR",
+      "version": "0.2",
+      "showcase_card": false,
+      "receipt": "/recovery/sleeper/one-return-recon-0.2/PRESERVATION.json",
+      "role": "Byte-identical frozen copy of the live ASCII ONE RETURN / Nine Gate reconstruction. Preservation object only; not the polished Work-mode v2 target.",
+      "transfer": [
+        "exact byte preservation",
+        "playable donor provenance"
+      ],
+      "index": {
+        "updated_at": "2026-09-22T04:39:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      },
+      "classification": "FROZEN_EXACT_DONOR"
     }
   ],
   "release_law": [

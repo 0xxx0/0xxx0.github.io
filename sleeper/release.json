@@ -42,5 +42,19 @@
       "relation": "playable maze ancestor restored without replacing ASCII Sleeper POV 0.8"
     }
   ],
-  "provenance_note": "The current head and the restored ONE RETURN lane remain unequal artifacts. Shared lineage does not imply merge."
+  "provenance_note": "The current head, ASCII ONE RETURN reconstruction donor, v2-era exact source snapshot, and remembered polished deployment remain unequal objects. Shared lineage does not imply identity or merge.",
+  "amended": "2026-09-22",
+  "project_surface": "/sleeper/project/",
+  "preservation": {
+    "one_return_ascii_recon": {
+      "state": "FROZEN_EXACT_DONOR_COPY",
+      "live_route": "/sleeper/one-return/",
+      "frozen_route": "/recovery/sleeper/one-return-recon-0.2/",
+      "preservation": "/recovery/sleeper/one-return-recon-0.2/PRESERVATION.json",
+      "source_index_blob": "57fbd935c17a17800b78a1f2af4c52b4b37c52af",
+      "frozen_index_blob": "57fbd935c17a17800b78a1f2af4c52b4b37c52af",
+      "source_release_blob": "32039cac4061a41420017236e652a998db5333a4",
+      "frozen_release_blob": "32039cac4061a41420017236e652a998db5333a4"
+    }
+  }
 }
