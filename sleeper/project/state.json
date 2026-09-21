@@ -1,15 +1,29 @@
 {
-  "schema": "sleeper-project-state/v0.1",
-  "updated": "2026-09-22T04:39:00+08:00",
-  "purpose": "Public project surface for the SLEEPER lineage without collapsing current heads, exact donors, reconstructions and recovery targets.",
+  "schema": "sleeper-project-state/v0.2",
+  "updated": "2026-09-22T05:41:00+08:00",
+  "purpose": "Keep the actual ONE RETURN City Engine authority separate from later derivatives, reconstructions and evidence shelves.",
   "now": [
     {
-      "id": "ascii-sleeper-08",
-      "class": "CURRENT_HEAD",
-      "title": "ASCII Sleeper 0.8",
+      "id": "one-return-v2",
+      "class": "CANONICAL_HEAD",
+      "title": "SLEEPER // ONE RETURN v2 / City Engine v0.2",
       "route": "/sleeper/",
-      "state": "ACTIVE",
-      "note": "Current runnable constraint/evidence head. POV and PLAIN remain unequal projections of the same obligation state."
+      "source": "/recovery/sleeper/site-source-2026-09-18/",
+      "state": "EXACT_SOURCE_RECOVERED_RUNTIME_REACHABILITY_UNVERIFIED",
+      "figures": [
+        "urchin",
+        "slothcake",
+        "kite"
+      ],
+      "note": "User re-identification plus exact source discriminators resolve which Sleeper artifact this repo should surface. Historical deployment reachability remains unverified."
+    },
+    {
+      "id": "ascii-sleeper-08",
+      "class": "SUPERSEDED_DERIVATIVE",
+      "title": "ASCII Sleeper POV 0.8",
+      "route": "/sleeper/ascii-pov-0.8/",
+      "state": "PRESERVED",
+      "note": "Former top-level authority. Preserved rather than deleted; no longer allowed to stand in for the Sleeper maze target."
     },
     {
       "id": "one-return-ascii-recon",
@@ -18,26 +32,22 @@
       "route": "/sleeper/one-return/",
       "state": "PLAYABLE_DONOR",
       "frozen_copy": "/recovery/sleeper/one-return-recon-0.2/",
-      "note": "Later reconstruction from attested ASCII/Nine-Gate mechanics. Preserved and shipped; not the polished Work-mode v2."
-    },
-    {
-      "id": "one-return-v2-source",
-      "class": "EXACT_SOURCE_RECOVERY_TARGET",
-      "title": "SLEEPER // ONE RETURN v2-era source snapshot",
-      "route": "/recovery/sleeper/site-source-2026-09-18/",
-      "state": "SOURCE_SNAPSHOT_AVAILABLE_IDENTITY_RECONCILIATION_REQUIRED",
-      "target": "/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json",
-      "note": "Exact public source shelf exists. Identity with the remembered polished deployment remains unverified."
+      "note": "Later reconstruction from attested mechanics; not v2."
     }
   ],
   "recovered": [
+    {
+      "title": "Exact v2-era source shelf",
+      "route": "/recovery/sleeper/site-source-2026-09-18/",
+      "class": "CANONICAL_EXACT_SOURCE"
+    },
     {
       "title": "Workfield v1.2",
       "route": "/recovery/sleeper/workfield-v1.2/",
       "class": "FROZEN_EXACT_DONOR"
     },
     {
-      "title": "City Engine v0.2",
+      "title": "City Engine v0.2 source view",
       "route": "/recovery/sleeper/city-engine-v0.2/",
       "class": "EXACT_SOURCE"
     },
@@ -53,23 +63,18 @@
     }
   ],
   "unresolved": [
-    "Reconcile the exact v2-era public source snapshot with the remembered polished deployed version before promotion.",
-    "Preserve the three-figure snapshot versus four-operator/configuration recollection as an explicit contradiction; do not resolve by analogy.",
-    "Recover/verify wider Sleeper lineage chronology only from exact evidence; do not make the project page itself canonical history."
+    "Verify current reachability of the historical metaname Work route or recover a complete deployable package before claiming the original runtime is live.",
+    "Do not resolve historical three-figure versus remembered four-configuration variants by analogy; preserve version distinction if further evidence appears."
   ],
   "laws": [
     "RECOVER BEFORE INVENTING.",
-    "CURRENT HEAD != DONOR != RECOVERY TARGET.",
+    "CANONICAL HEAD != DERIVATIVE != DONOR.",
     "PLAYABLE != ORIGINAL.",
-    "EXACT SOURCE != DEPLOYMENT PROOF.",
-    "FROZEN COPY IS NEVER MODERNIZED IN PLACE."
+    "EXACT SOURCE != CURRENT DEPLOYMENT PROOF.",
+    "PRESERVE SUPERSEDED BYTES BEFORE REPOINTING AUTHORITY."
   ],
-  "ship": {
-    "state": "SHIPPED",
-    "pr": 124,
-    "commit": "406ec300de95dc841d1e9691f061e0bee623837e",
-    "pages_run": 35657759502,
-    "post_merge_ci": 35657760630,
-    "receipt": "/returns/SLEEPER_PROJECT_SHIPPED_2026-09-22.json"
+  "repair": {
+    "receipt": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
+    "branch": "repair/sleeper-one-return-authority-20260922"
   }
 }
