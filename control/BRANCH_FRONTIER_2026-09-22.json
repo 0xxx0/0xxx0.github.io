@@ -1,14 +1,14 @@
 {
   "schema": "branch-frontier/v0.2",
-  "generated_at": "2026-09-22T03:15:00+08:00",
+  "generated_at": "2026-09-22T03:18:00+08:00",
   "purpose": "Live refresh of branch pointer authority after the Sep-22 READFIELD/LISTEN/FIELD/BODY convergence wave. Preserve branch provenance while preventing stale pointers from reactivating work.",
   "counts": {
     "total": 111,
     "canonical": 1,
-    "open_pr": 0,
+    "open_pr": 1,
     "merged_pr_lineage": 73,
     "closed_unmerged_pr_lineage": 22,
-    "no_pr_pointer": 15
+    "no_pr_pointer": 14
   },
   "authority_law": [
     "MASTER is executable/public authority.",
@@ -19,7 +19,15 @@
     "A no-PR branch may not be merged or treated as current until its unique commits are recovered/classified.",
     "Branch age or evocative naming never grants priority."
   ],
-  "active_review": [],
+  "active_review": [
+    {
+      "branch": "field/waiting-body-calibration-20260922",
+      "sha": "1fbc9b425d1e37dade2b47e4f466184a6861ab66",
+      "prs": [
+        108
+      ]
+    }
+  ],
   "canonical": [
     "master"
   ],
@@ -65,11 +73,6 @@
       "successor": "confluence-replica-replan-20260921-v2 / PR #42",
       "rule": "merged successor owns current state",
       "sha": "4fa83fdf8afcc4b7eccb18f33fe2c50ac088286f"
-    },
-    "field/waiting-body-calibration-20260922": {
-      "state": "PURE_ANCESTOR_POINTER",
-      "sha": "40b9500e55118838de3706a9b5c22e79e76c3bd4",
-      "rule": "Identical to master at review (ahead=0, behind=0); no unique work to recover. Retain pointer only as waiting/provenance marker."
     },
     "field-return-poem-smoke-20260921": {
       "state": "SUPERSEDED_PROOF_BRANCH",
@@ -793,10 +796,10 @@
   "return_rule": "When a branch yields unique value, recover exact donor material or reconstruct one bounded delta on current master; do not revive the branch wholesale.",
   "snapshot_semantics": "Live GitHub census at this refresh. MASTER + CURRENT/QUEUE remain authority; branch pointers are provenance unless an open PR or explicit reconstruction says otherwise.",
   "seal": {
-    "open_prs": 0,
+    "open_prs": 1,
     "no_pr_unclassified": 0,
-    "result": "NO_HIDDEN_ACTIVE_BRANCH_FOUND_AT_SEAL",
-    "note": "Counts exclude the current authoring transport branch. No branch deletion implied; classified pointers remain provenance."
+    "result": "NO_HIDDEN_UNCLASSIFIED_BRANCH_FOUND",
+    "note": "Open PRs are explicit bounded proposals, not canonical authority. Counts exclude this authoring transport branch. No branch deletion implied."
   },
   "execution_branch_excluded": {
     "branch": "confluence-hard-advance-20260922",
