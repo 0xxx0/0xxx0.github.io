@@ -63,6 +63,7 @@ When mining prior conversations, user messages deserve special attention because
 - [RETRIEVAL / CANON](./RETRIEVAL_CANON.md) — schema × anchor recovery, provenance split, anti-merge, canonicalization, gap ranking and RETURN
 - [CONTINUITY / CASE](../../continuity/) — local-first executable projection for recurring human/animal/house/device/project cases
 - [CARE / FIELD](../../care/) — compact OBSERVE/FOLLOW/BRIEF projection for human/animal care and clinician/vet handoff
+- [CARE ↔ HUMAN PORT object bridge](./CARE_PORT_OBJECT_BRIDGE_2026-09-22.json) — exact CARE snapshots enter Port; Port text/JSON/image/file sources attach to CARE as explicit evidence refs without duplicating bytes
 - [TECHNIQUE QUARRY](./TECHNIQUE_QUARRY.md) — cross-domain methods and research tangents held as quarry until a bounded test earns promotion
 - [HOUSE confluence model](../../house/confluence.json)
 - [HOUSE frontier / open hardware + robotics + XR + motion-tool](./HOUSE_FRONTIER.md) — parked/reopenable donor packet; re-enter only from a named HOUSE/AXIAL capability gap
