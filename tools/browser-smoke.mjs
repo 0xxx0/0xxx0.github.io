@@ -181,8 +181,9 @@ try{
     console.log((ok?'PASS':'FAIL'),c.name,c.route);
     if(!ok){
       const source=textAtId(r.out,'sourceState');
-      fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(fatal?' browser-fatal':''));
-      if(process.env.SMOKE_DEBUG==='1')console.error(r.err.slice(-2500));
+      const body=r.out.replace(/<script[\s\S]*?<\/script>/gi,' ').replace(/<style[\s\S]*?<\/style>/gi,' ').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().slice(0,700);
+      fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(fatal?' browser-fatal':'')+(body?' body='+JSON.stringify(body):''));
+      if(r.err.trim())console.error('SMOKE STDERR',c.name,r.err.slice(-1800));
     }
   }
 }finally{
