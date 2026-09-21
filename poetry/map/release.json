@@ -49,7 +49,9 @@
     "explicit preview → adopt transaction gate",
     "locked-token adoption gate",
     "revision ancestry with before/after/provenance",
-    "undo last adoption"
+    "undo last adoption",
+    "candidate form-support counts analogous to AXIAL lawful-support counts",
+    "constraint support is admissibility only, never a literary-quality score"
   ],
   "boundaries": [
     "Map is a projection, not the poem.",
@@ -60,7 +62,8 @@
     "Forms constrain; they do not score literary value.",
     "Preview never mutates source.",
     "ADOPT is explicit and recorded; LOCK blocks adoption.",
-    "0.1 selective-visualization proof remains preserved at /poetry/lab/poem-map/."
+    "0.1 selective-visualization proof remains preserved at /poetry/lab/poem-map/.",
+    "Candidate support reports explicit form-envelope compatibility only; it is not a recommendation, ranking or poetry score."
   ],
   "next_experiments": [
     "intent verbs CONTINUE/REPLACE/ECHO/CONTRAST/TURN/RHYME/COMPRESS/EXPAND/SURPRISE/BREAK feeding provider-specific candidate queries",
@@ -82,5 +85,16 @@
     "proof_donor_version": "0.1",
     "promoted_descendant": "/poetry/map/",
     "relation": "0.1 asks whether selective visualization can answer one named question without displacing the poem; 0.2 turns that discipline into a co-creative authoring surface."
+  },
+  "verification": {
+    "javascript_static_parse": "PASS",
+    "checked_at": "2026-09-21T16:18:00+08:00",
+    "transaction_markers": [
+      "PREVIEW SOURCE UNCHANGED",
+      "LOCK blocks ADOPT",
+      "revision ancestry exported",
+      "UNDO ADOPT"
+    ],
+    "generation_proof_preserved": "/poetry/lab/poem-map/"
   }
 }
