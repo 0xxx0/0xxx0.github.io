@@ -2,12 +2,12 @@
   "schema": "release-receipt/v1",
   "title": "FOUNDRY / REAL CENTER",
   "version": "0.1",
-  "state": "EXPERIMENT",
-  "date": "2026-09-20",
+  "state": "CANDIDATE",
+  "date": "2026-09-21",
   "route": "/foundry/core/",
   "parent": "/foundry/",
   "showcase_card": false,
-  "claim": "Tests a slow canonical layer (center/laws/convergences) against live control state without promoting current heads, fronts or the 117-project corpus into the definition of the endeavour.",
+  "claim": "Tests a slow canonical-candidate layer (center/laws/convergences) against live control state without promoting current heads, fronts or the recovered project corpus into the definition of the endeavour.",
   "source_model": "/foundry/core/model.json",
   "canonical_draft": "/foundry/core/CANON.md",
   "live_state": "/control/CURRENT.json",
@@ -16,7 +16,7 @@
     "CANON_CANDIDATE is a draft status, not an irreversible declaration.",
     "Convergence names compress cross-lineage patterns and should be revised if they erase distinct mechanisms.",
     "Live heads and fronts are fetched from control state and may change independently of the slow model.",
-    "The 117-project federation remains a non-canonical donor corpus.",
+    "The recovered federation / project corpus remains a non-canonical donor corpus; no hard project count is canonical without a current census address.",
     "CENTER LAB is an explanatory geometry/projection probe; triangle centers carry no canonical semantic meaning unless an explicit criterion justifies the mapping."
   ],
   "current_classification": {
@@ -26,5 +26,15 @@
     "receipt": "/control/EXPERIMENT_WRANGLE_2026-09-20.json",
     "provenance_note": "Original release state remains contemporaneous provenance; this field records the later lifecycle classification."
   },
-  "updated": "2026-09-21"
+  "updated": "2026-09-21",
+  "previous_state": "EXPERIMENT",
+  "housekeeping": {
+    "at": "2026-09-21T16:27:00+08:00",
+    "change": "Normalized current lifecycle to CANDIDATE and removed unsupported hard corpus count.",
+    "evidence": [
+      "/showcase-manifest.json",
+      "/foundry/core/CANON.md",
+      "/foundry/core/model.json"
+    ]
+  }
 }

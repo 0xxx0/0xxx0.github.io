@@ -115,9 +115,11 @@ footer{margin:30px 0 12px;padding-top:10px;border-top:1px solid var(--line);disp
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 Promise.all([
  fetch('../control/MIGRATION.json',{cache:'no-store'}).then(r=>r.json()),
- fetch('../control/RECOVERY_POPULATION_2026-09-20.json',{cache:'no-store'}).then(r=>r.json()),
+ fetch('../control/CURRENT.json',{cache:'no-store'}).then(r=>r.json()).catch(()=>null),
  fetch('../control/MIGRATION_NOW.json',{cache:'no-store'}).then(r=>r.json())
-]).then(([m,r,n])=>{
+]).then(async([m,curr,n])=>{
+ const populationPath=(curr?.last_recovery_population||'/control/RECOVERY_POPULATION_2026-09-20.json').replace(/^\//,'../');
+ const r=await fetch(populationPath,{cache:'no-store'}).then(x=>{if(!x.ok)throw new Error('recovery population '+x.status);return x.json()});
  now.innerHTML=(n.now||[]).slice(0,3).map(x=>'<article class="nowcard"><div class="verb">'+esc(x.verb)+'</div><h2>'+esc(x.id)+'</h2><p><b>OBJECT</b> · '+esc(x.object)+'</p><p><b>DELTA</b> · '+esc(x.delta)+'</p><p class="stop"><b>STOP</b> · '+esc(x.stop)+'</p></article>').join('');
  const donors=m.artifacts.filter(x=>x.status==='LIVE_DONOR' && (String(x.source_type||'').includes('exact') || x.sha256 || String(x.action||'').includes('FROZEN')));
  const groups={};

@@ -110,7 +110,7 @@
     "no_claim": "The cylinder is optional. AXIAL survives if the focus-stack grammar is useful and the cylindrical embodiment is not."
   },
   "software_head": {
-    "name": "AXIAL / FOCUS STACK 0.7",
+    "name": "AXIAL / FOCUS STACK 0.7.1",
     "primary_source": "/showcase-manifest.json",
     "secondary_source": "/house/spatial/model.json",
     "projections": [
@@ -120,7 +120,10 @@
     "interaction": "drag annulus / release-to-snap; wheel or keyboard notch; strip token; result→ring inverse alignment",
     "lawful_support": "For each ring candidate v, count source identities satisfying v while all other aligned dimensions remain fixed. support=0 is visible as a dead move, never silently skipped.",
     "address_serialization": "Selected non-ANY dimensions + source + projection + focus serialize into the page URL; reload reconstructs the same focus where the source still contains that identity.",
-    "authority": "navigation/readback only; no public HOUSE actuation"
+    "authority": "navigation/readback only; no public HOUSE actuation",
+    "position_feedback": "Fixed 12-o'clock focus gate + moving per-ring position witness + ordinal i/n readout. Gate, ring orientation and semantic value are deliberately separate signals.",
+    "shared_core": "/foundry/axial/focus-core.js",
+    "research": "/foundry/axial/research.json"
   },
   "ring_law": [
     "Rings are independent cyclic vocabularies; equal cardinality is never assumed.",
@@ -131,7 +134,9 @@
     "RING and STRIP are lawful projections of the same selected indices and support relation.",
     "ANY widens one dimension without erasing the other selected dimensions.",
     "Identity→rings and rings→identity must round-trip when the source remains unchanged.",
-    "BACK navigates session state; RETURN records a durable focus receipt; neither is silently treated as the other."
+    "BACK navigates session state; RETURN records a durable focus receipt; neither is silently treated as the other.",
+    "Current ring position must be visually legible without inferring it from the source result.",
+    "Fixed focus gate and moving position witness are distinct signals: one says where the aperture reads; the other says where the control currently is."
   ],
   "source_adapters": {
     "FIELD": "Full Focus Stack: FAMILY × KIND × OPERATION × STATE × ROLE over /showcase-manifest.json. Root FIELD embeds a reduced chronology lens: ROUTE × STATE × OPERATION × WORK MODE over durable recent touches.",

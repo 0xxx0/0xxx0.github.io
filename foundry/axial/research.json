@@ -1,0 +1,140 @@
+{
+  "schema": "0xxx0/axial-human-factors/v0.1",
+  "date": "2026-09-21",
+  "status": "ACTIVE_RESEARCH_NOTE",
+  "observed_use": [
+    {
+      "source": "direct user use of FIELD/AXIAL",
+      "observation": "Current dial/ring position was not perceptually obvious enough even though a fixed focus gate existed.",
+      "implication": "A control needs an explicit present-position witness in addition to a semantic value and a focus gate."
+    }
+  ],
+  "recovered_internal_donors": [
+    {
+      "source": "Fold//Bloom focus-ring / Ecology",
+      "retained": [
+        "one bright gate",
+        "direct drag/swipe",
+        "release-to-snap",
+        "peripheral context remains visible"
+      ]
+    },
+    {
+      "source": "2019 FU / room / ring code family",
+      "retained": [
+        "radial geometry",
+        "CSS 3D / rotating projections",
+        "lens-style state transformation",
+        "speech/audio boundary experiments"
+      ]
+    },
+    {
+      "source": "RSVP+TTS TMP-SPEECHSYNTH 2018",
+      "retained": [
+        "time-indexed focus",
+        "speech boundary as position update"
+      ]
+    },
+    {
+      "source": "POLY cyclic fan dial",
+      "retained": [
+        "independent cyclic correspondence",
+        "fixed reading relation",
+        "aperture distinct from cyclic order"
+      ]
+    }
+  ],
+  "external_evidence": [
+    {
+      "id": "chan-chan-2003",
+      "citation": "Chan WH, Chan AHS. Movement compatibility for rotary control and circular display. Applied Ergonomics 34(1), 2003.",
+      "doi": "10.1016/S0003-6870(02)00075-3",
+      "evidence": "Hardware and simulation both showed strong clockwise↔clockwise / anticlockwise↔anticlockwise stereotypes at the 12 o'clock pointer; the authors recommend real-hardware tests when determining control-panel parameters.",
+      "transfer": "Keep a strong fixed 12-o'clock gate, preserve conventional directional mapping, and do not treat browser simulation as proof of physical control quality."
+    },
+    {
+      "id": "faa-rotary-controls",
+      "citation": "FAA Human Factors Considerations in the Design and Evaluation of Flight Deck Displays and Controls, §6.4.1 Rotary Controls.",
+      "url": "https://hfcc.dot.gov/publications/docs/GeneralGuidance/zz_FAA_GeneralGuidanceDoc_Chapter_06_Section_04.html",
+      "evidence": "Selected function and selector position should be clearly indicated; distinguishable detents/feedback and clear position marking are recommended; control choice should support the actual task.",
+      "transfer": "Show the current position explicitly, show which ring is active, make snap visible, and compare AXIAL to simpler controls for the same task."
+    },
+    {
+      "id": "shneiderman-direct-manipulation",
+      "citation": "Shneiderman B. The future of interactive systems and the emergence of direct manipulation. Behaviour & Information Technology 1(3), 1982/83.",
+      "doi": "10.1080/01449298208914450",
+      "evidence": "Direct manipulation emphasizes visible objects, rapid incremental reversible actions, and physical action rather than complex syntax.",
+      "transfer": "Keep selection visible during motion, make each notch incremental/reversible, and avoid modal command syntax for ordinary navigation."
+    },
+    {
+      "id": "buxton-three-state",
+      "citation": "Buxton W. A Three-State Model of Graphical Input. INTERACT 1990.",
+      "url": "https://billbuxton.com/3state.html",
+      "evidence": "Input-device capabilities should be matched to the demands of the interaction transaction.",
+      "transfer": "Separate tracking/positioning, engaged manipulation, and committed action; do not force one gesture to carry every transaction state."
+    },
+    {
+      "id": "fitzmaurice-ishii-buxton-1995",
+      "citation": "Fitzmaurice GW, Ishii H, Buxton WAS. Bricks: laying the foundations for graspable user interfaces. CHI 1995.",
+      "doi": "10.1145/223904.223964",
+      "evidence": "Physical handles can be tightly coupled to virtual objects or parameters so the grasped object itself carries manipulation semantics.",
+      "transfer": "A later physical AXIAL body must preserve readable state and tight object↔control coupling; a cylinder is optional unless it earns that coupling."
+    },
+    {
+      "id": "jacob-et-al-rbi-2008",
+      "citation": "Jacob RJK et al. Reality-Based Interaction: A Framework for Post-WIMP Interfaces. CHI 2008.",
+      "doi": "10.1145/1357054.1357089",
+      "evidence": "Reality-based interaction offers a framework for analyzing post-WIMP techniques by how they leverage familiar real-world knowledge while trading against expressive power and other qualities.",
+      "transfer": "Prefer mappings that reuse learned spatial/motor expectations; add abstraction only when it buys real expressive power."
+    },
+    {
+      "id": "kasuga-et-al-2022",
+      "citation": "Kasuga S et al. Integration of proprioceptive and visual feedback during online control of reaching. Journal of Neurophysiology 127(2), 2022.",
+      "doi": "10.1152/jn.00639.2020",
+      "evidence": "Vision and proprioception both contribute to online control; the study characterizes vision as more accurate and proprioception as faster, with important effects when the two become misaligned.",
+      "transfer": "Keep visual position feedback tightly synchronized with manipulation; later physical tests must check visual↔felt alignment rather than assuming one modality can substitute for the other."
+    }
+  ],
+  "design_rules_now": [
+    "CURRENT POSITION MUST BE VISIBLE WITHOUT READING THE DATA MODEL.",
+    "ACTIVE RING MUST BE DISTINGUISHABLE FROM OTHER RINGS.",
+    "FIXED GATE AND MOVING POSITION WITNESS ARE DIFFERENT SIGNALS.",
+    "VALUE + ORDINAL POSITION + SUPPORT ARE DIFFERENT READINGS; DO NOT COLLAPSE THEM.",
+    "CLOCKWISE / FORWARD MAPPINGS SHOULD FOLLOW ESTABLISHED EXPECTATIONS UNLESS A TASK-SPECIFIC TEST JUSTIFIES OTHERWISE.",
+    "SNAP / DETENT IS FEEDBACK, NOT DECORATION.",
+    "DEAD STATES MAY REMAIN INSPECTABLE; THE SYSTEM MUST NOT SILENTLY MOVE THE USER.",
+    "PLAIN LIST / SEARCH REMAINS THE CONTROL CONDITION.",
+    "BROWSER SUCCESS IS NOT PHYSICAL-HARDWARE EVIDENCE."
+  ],
+  "measures_for_observed_use": [
+    "time to reacquire current ring/value after interruption",
+    "wrong-ring-first manipulation rate",
+    "overshoot / reverse-correction count",
+    "dead-alignment entry rate",
+    "time from focus to OPEN",
+    "BACK use after wrong move",
+    "RING vs STRIP preference by task",
+    "identity→rings→identity round-trip failures",
+    "visual-position / physical-position mismatch in later hardware"
+  ],
+  "centralization": {
+    "shared_core": "/foundry/axial/focus-core.js",
+    "rule": "Support and position math live once; FIELD AXIAL/LATEST and full AXIAL may render differently but must not fork the law.",
+    "component_path": "Prefer a small dependency-free Web Component only when a third consumer needs the same interaction surface; keep source adapters outside the component.",
+    "dat_gui_path": "No dat.GUI/lil-gui/tweakpane dependency is currently present in the repo. If added later, use it only as a developer/debug inspector for state and mappings, never as the primary human interface."
+  },
+  "breakthrough_method": {
+    "hypothesis": "The strongest recent leaps were not caused by images alone. They occurred when a concrete visual/artifact reference acted as a retrieval anchor, exact donor behavior was recovered, a present-use failure was observed, and only one mechanism was transferred into a working surface.",
+    "loop": [
+      "IMAGE / PHYSICAL / CODE REFERENCE",
+      "RECOVER EXACT MECHANISM",
+      "NAME THE INVARIANT",
+      "OBSERVE CURRENT FRICTION",
+      "TRIANGULATE WITH HUMAN-FACTORS EVIDENCE",
+      "TRANSFER ONE MECHANISM",
+      "USE / MEASURE",
+      "RETURN"
+    ],
+    "anti_pattern": "Moodboard → metaphor → new interface with no recovered mechanism or task comparison."
+  }
+}

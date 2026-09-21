@@ -1,0 +1,27 @@
+{
+  "schema": "release-receipt/v1",
+  "title": "CONVERGENCE FIELD",
+  "version": "0.1",
+  "state": "CANDIDATE",
+  "date": "2026-09-21",
+  "route": "/foundry/convergence/",
+  "parent": "/foundry/",
+  "showcase_card": false,
+  "claim": "Local-first workbench for testing unequal projections over one captured object: NOW/LENS/RUN/PROOF/ATLAS share stable local object state and RETURN receipts without claiming that any renderer is canon.",
+  "observed_surface": [
+    "CAPTURE requires explicit source text for new user objects",
+    "NOW / LENS / RUN / PROOF / ATLAS operate over the same local state",
+    "PLAIN ↔ FIELD ablation uses identical stored state",
+    "RETURN receipts carry source hash, delta, residue, next re-entry and observed/user-rated metrics",
+    "export/import preserves objects and receipts by stable local ID"
+  ],
+  "provenance_boundary": "Fresh sessions now boot with sourceClass=DEMO and an explicit synthetic fixture. DEMO is not user material, canon or evidence.",
+  "known_limits": [
+    "LocalStorage is local browser state, not shared durable canon.",
+    "Several renderers are experimental projections and have no independent empirical validation.",
+    "Elapsed/counter metrics are observations; ratings are explicitly subjective.",
+    "Source hash is lightweight local identity support, not cryptographic integrity.",
+    "No renderer or stored object gains FIELD/CURRENT/MIGRATION authority by existing here."
+  ],
+  "return_path": "/foundry/"
+}
