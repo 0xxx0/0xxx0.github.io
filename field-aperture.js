@@ -171,10 +171,47 @@ class FieldAperture extends HTMLElement{
  nudgeWpm(dir){const ps=this.ratePresets,i=ps.findIndex(x=>x>=this.wpm),base=i<0?ps.length-1:i,next=clamp(base+(dir>0?(ps[base]===this.wpm?1:0):-1),0,ps.length-1);this.setWpm(ps[next])}
  cycleWpm(){const ps=this.ratePresets,i=ps.findIndex(x=>x>this.wpm);this.setWpm(ps[i<0?0:i])}
  onKey(e){if(e.target&&/INPUT|TEXTAREA|SELECT/.test(e.target.tagName))return;if(e.key===' '){e.preventDefault();this.toggleRSVP()}else if(e.key==='ArrowUp'){e.preventDefault();this.nudgeWpm(1)}else if(e.key==='ArrowDown'){e.preventDefault();this.nudgeWpm(-1)}else if(e.key==='ArrowRight'){e.preventDefault();this.step(1)}else if(e.key==='ArrowLeft'){e.preventDefault();this.step(-1)}}
- material(){const s=this.currentScale(),n=Math.max(1,s?.units.length||1),progress=n<=1?0:this.pos/(n-1),scaleFrac=this.A?.scales?.length>1?this.scale/(this.A.scales.length-1):0,mag=this.magnitude(),depth=this.A?.kind==='JSON'&&s?.id?.startsWith('L')?Number(s.id.slice(1))||0:this.scale;return{progress,scale:scaleFrac,magnitude:clamp(mag.decades/12,0,1),depth,kind:this.A?.kind||'NONE',x:(12+progress*76).toFixed(2)+'%',y:(18+scaleFrac*64).toFixed(2)+'%',angle:(20+progress*140).toFixed(1)+'deg',spacing:(18+mag.decades*3).toFixed(1)+'px',strength:(.035+.075*(.35+scaleFrac*.65)).toFixed(3)}}
+ structure(){
+  if(!this.A)return{progress:0,current:null,markers:[]};
+  const progress=this.sourceFraction();
+  if(this.A.kind==='TEXT'){
+    const parts=(this.A.sections?.length>1?this.A.sections:null)||(this.A.scales.find(x=>x.id==='PARA')?.units||[]);
+    const markers=(parts||[]).slice(0,40).map((u,i)=>({at:this.A.raw.length<=1?0:clamp((u.start||0)/Math.max(1,this.A.raw.length-1),0,1),label:u.key||u.text?.split('\n')[0]?.replace(/^#+\s*/,'').slice(0,60)||'§ '+(i+1),path:u.path||'section://'+i}));
+    const current=(parts||[]).find(u=>(u.start??0)<=this.anchor&&this.anchor<Math.max((u.start??0)+1,u.end??0))||null;
+    return{progress,current:current?{label:current.key||current.text?.split('\n')[0]?.replace(/^#+\s*/,'').slice(0,90)||'SECTION',start:current.start,end:current.end,path:current.path||null}:null,markers}
+  }
+  const ns=this.A.nodes||[],tops=ns.filter(x=>x.depth===1),p=this.jsonPath||this.current()?.path||'$';
+  const current=tops.find(x=>p===x.path||p.startsWith(x.path+'.')||p.startsWith(x.path+'['))||null;
+  const markers=tops.slice(0,40).map(x=>({at:ns.length<=1?0:clamp((x.order||0)/(ns.length-1),0,1),label:String(x.key||x.path).slice(0,70),path:x.path}));
+  return{progress,current:current?{label:String(current.key||current.path),path:current.path}:null,markers}
+ }
+ focusSpan(){
+  if(!this.A)return null;
+  if(this.A.kind==='TEXT'){
+    if(this.voiceCursor&&Number.isFinite(this.voiceCursor.start))return{start:this.voiceCursor.start,end:this.voiceCursor.end??this.voiceCursor.start+1,kind:'CURSOR'};
+    const u=this.current();if(Number.isFinite(u?.start)&&Number.isFinite(u?.end))return{start:u.start,end:u.end,kind:this.currentScale()?.id||'UNIT'}
+  }
+  return null
+ }
+ focusText(){
+  if(!this.A)return'';
+  if(this.A.kind==='TEXT'&&this.voiceCursor?.text)return this.voiceCursor.text;
+  const c=this.current();return typeof c?.value==='string'?c.value:preview(c?.value,320)
+ }
+ localXrefs(){
+  if(!this.A)return[];
+  let src='';
+  if(this.A.kind==='TEXT'){
+    const st=this.structure().current;if(st&&Number.isFinite(st.start)&&Number.isFinite(st.end))src=this.A.raw.slice(st.start,st.end);else src=this.focusText()
+  }else{
+    const c=this.current();try{src=JSON.stringify(c?.value??c?.key??'',null,2)}catch(_){src=String(c?.value??'')}
+  }
+  const xs=extractXrefs(src);return xs.length?xs:(this.A.xrefs||[]).slice(0,8)
+ }
+ material(){const s=this.currentScale(),progress=this.sourceFraction(),scaleFrac=this.A?.scales?.length>1?this.scale/(this.A.scales.length-1):0,mag=this.magnitude(),depth=this.A?.kind==='JSON'&&s?.id?.startsWith('L')?Number(s.id.slice(1))||0:this.scale;return{progress,scale:scaleFrac,magnitude:clamp(mag.decades/12,0,1),depth,kind:this.A?.kind||'NONE',x:(12+progress*76).toFixed(2)+'%',y:(18+scaleFrac*64).toFixed(2)+'%',angle:(20+progress*140).toFixed(1)+'deg',spacing:(18+mag.decades*3).toFixed(1)+'px',strength:(.035+.075*(.35+scaleFrac*.65)).toFixed(3)}}
  applyMaterial(){const m=this.material(),apply=t=>{if(!t)return;t.style.setProperty('--ap-progress',m.progress);t.style.setProperty('--ap-scale',m.scale);t.style.setProperty('--ap-magnitude',m.magnitude);t.style.setProperty('--ap-x',m.x);t.style.setProperty('--ap-y',m.y);t.style.setProperty('--ap-angle',m.angle);t.style.setProperty('--ap-spacing',m.spacing);t.style.setProperty('--ap-strength',m.strength);t.dataset.apertureKind=m.kind;t.dataset.apertureScale=this.currentScale()?.id||'NONE'};apply(this);const sel=this.getAttribute('material-target');if(sel){try{apply(document.querySelector(sel))}catch(_){}}return m}
  emit(){const snap=this.snapshot();this.dispatchEvent(new CustomEvent('aperture-focus',{detail:snap,bubbles:true}));this.dispatchEvent(new CustomEvent('aperture-material',{detail:snap.material,bubbles:true}))}
- snapshot(){const c=this.current(),s=this.currentScale();return{schema:'field-aperture-focus/v0.2',kind:this.A?.kind,label:this.A?.label,locale:this.A?.locale||this.locale||null,bytes:this.A?.bytes,scale:s?.id,scale_label:s?.label,index:this.pos,count:s?.units.length,address:c?.path||null,focus:typeof c?.value==='string'?c.value:preview(c?.value,240),wpm:this.wpm,playing:this.rsvp,loop:this.hasAttribute('loop'),material:this.material()}}
+ snapshot(){const c=this.current(),s=this.currentScale(),st=this.structure(),span=this.focusSpan();return{schema:'field-aperture-focus/v0.2',kind:this.A?.kind,label:this.A?.label,locale:this.A?.locale||this.locale||null,bytes:this.A?.bytes,scale:s?.id,scale_label:s?.label,index:this.pos,count:s?.units.length,address:c?.path||null,focus:this.focusText(),char_index:this.A?.kind==='TEXT'?this.anchor:null,span,source_progress:st.progress,section:st.current,structure:st.markers,xrefs:this.localXrefs(),cursor:this.voiceCursor,wpm:this.wpm,playing:this.rsvp,speaking:this.speaking,loop:this.hasAttribute('loop'),material:this.material()}}
  magnitude(){
    const b=Math.max(1,this.A?.bytes||1),log=Math.log10(b),decades=clamp(log,0,12),gap=7+(decades/12)*26;
    const exp=Math.floor(log),mant=b/Math.pow(10,exp);
