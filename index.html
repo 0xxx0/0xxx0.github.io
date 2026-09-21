@@ -232,13 +232,13 @@ function focusRoute(r,align,source='OTHER'){
 }
 function focusOrOpen(r,source='OTHER'){
  if(!r)return;
- if(focus?.href===r.href){noteOpen();location.assign('.'+r.href);return}
+ if(focus?.href===r.href){noteOpen();location.assign('.'+(r.alias_of||r.href));return}
  focusRoute(r,true,source)
 }
 function resetAxial(){axisState.state='ANY';axisState.operation='ANY';axisState.mode='ANY';focus=latest[0]||null;supportTrail=[latest.length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();renderTrial();syncAxialURL();notifyFieldIndex()}
 function renderAperture(){
  if(!focus){$('apGlyph').innerHTML='';['apInspect','apLens','apProof','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');return}
- ['apInspect','apLens','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';$('apGlyph').innerHTML=routeGlyph(focus,34);$('apMeta').textContent=[focus.state||'—',opOf(focus),modesOf(focus).join(' · ')].join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(focus.index?.updated_at||'UNTRACKED');$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed repository surface.';$('apOpen').href='.'+focus.href;
+ ['apInspect','apLens','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';$('apGlyph').innerHTML=routeGlyph(focus,34);$('apMeta').textContent=[focus.state||'—',opOf(focus),modesOf(focus).join(' · ')].join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(focus.index?.updated_at||'UNTRACKED');$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed repository surface.';$('apOpen').href='.'+(focus.alias_of||focus.href);
 }
 function renderFeed(){
  const xs=latest.slice(0,latestLimit),live=routes.filter(r=>['ACTIVE','STABLE','PROOF_REQUIRED','CANDIDATE'].includes(r.state)).length;
