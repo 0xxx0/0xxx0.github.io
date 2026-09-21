@@ -160,7 +160,7 @@
     "carrier": "showcase-manifest route.evolution; do not maintain a separate experiment registry.",
     "applies_to": "Any live route whose kind=experiment and state is not DONOR/FROZEN_DONOR, plus candidate workbenches intentionally enrolled in evolution.",
     "stages": {
-      "SEED": "Define host, question, baseline, one mutation and evidence gate before expanding implementation.",
+      "FRAME": "Name host, question, baseline, one mutation and evidence gate before expanding implementation.",
       "TEST": "Run the smallest comparator that can change the experiment's disposition.",
       "SELECT": "Evidence exists; choose pass/fail/ambiguous explicitly before more mutation.",
       "TRANSFER": "Move only the surviving mechanism into the named host; the experiment itself does not automatically become a new sovereign product.",
@@ -193,6 +193,9 @@
       "DONOR",
       "COMPOST"
     ],
-    "host_rule": "host must resolve to an existing manifest route and names the recipient/authority that would change if the experiment succeeds."
+    "host_rule": "host must resolve to an existing manifest route and names the recipient/authority that would change if the experiment succeeds.",
+    "deprecated_stage_aliases": {
+      "SEED": "FRAME"
+    }
   }
 }
