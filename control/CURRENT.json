@@ -167,17 +167,17 @@
     },
     {
       "lineage": "comms",
-      "head": "HUMAN PORT 1.5.1 OBJECT APERTURE + FIELD INTAKE 0.5 + CARE 0.5 evidence bridge + CONTACT/LACONIC/Router",
+      "head": "HUMAN PORT 1.5.2 OBJECT APERTURE + FIELD INTAKE 0.5 + CARE 0.5 + BODY / FIT 0.1 data routes + CONTACT/LACONIC/Router",
       "state": "ACTIVE",
       "route": "/port/",
-      "retained_function": "One addressed object may enter as text/JSON/image/file, retain byte/provenance identity, expose whole/focused projections and route FIT separately from CUES/HISTORY, then cross a bounded adapter. CARE now participates without owning bytes: exact care snapshots can enter Port; Port sources may be explicitly attached to a care case as evidence refs with source RETURN when available. CONTACT remains outbound; durable admission remains behind FIELD INTAKE review/APPLY."
+      "retained_function": "One addressed object may enter as text/JSON/image/file, retain byte/provenance identity, expose whole/focused projections and route FIT separately from CUES/HISTORY. CARE receives explicit evidence refs including image/file; BODY / FIT receives structured text/JSON sensor/fitting packets only. CONTACT remains outbound; durable admission remains behind FIELD INTAKE review/APPLY."
     },
     {
       "lineage": "house-spatial",
-      "head": "HOUSE / SPATIAL 0.6 + HOUSE / FIELD 0.4",
+      "head": "HOUSE / SPATIAL 0.6 + HOUSE / FIELD 0.5",
       "state": "ACTIVE",
       "route": "/house/spatial/",
-      "retained_function": "One addressed physical substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS. TRACE supports authored route RETURN→REPLAY, temporal focus, ink sediment, and Law Zoo-derived micro-law stacks; HA/HOUSEBUS retains device truth and actuation."
+      "retained_function": "One addressed physical substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS. HA/HOUSEBUS retains device truth and actuation. BODY/FIELD may attach public/local context; BODY / FIT defines the next typed sensor-observation adapter without importing HOUSE authority."
     },
     {
       "lineage": "shopping-field",
@@ -525,7 +525,10 @@
     "care_port_object_bridge": "/control/confluence/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
     "game_simulation_state_donors": "/control/research/GAME_SIMULATION_STATE_DONORS_2026-09-22.md",
     "fold_bloom_listen_source": "/control/confluence/FOLD_BLOOM_LISTEN_SOURCE_2026-09-22.json",
-    "fold_bloom_listen_source_return": "/returns/FOLD_BLOOM_LISTEN_SOURCE_2026-09-22.json"
+    "fold_bloom_listen_source_return": "/returns/FOLD_BLOOM_LISTEN_SOURCE_2026-09-22.json",
+    "body_fit": "/body/fit/",
+    "body_fit_research": "/control/research/BODY_FIT_SENSOR_FUSION_2026-09-22.md",
+    "body_fit_validation": "/control/BODY_FIT_VALIDATION_2026-09-22.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
