@@ -1,0 +1,61 @@
+{
+  "schema": "0xxx0/support-semantics/v0.1",
+  "updated": "2026-09-21",
+  "purpose": "Disambiguate live uses of the word support so exact compatibility, typed admissibility and heuristic evidence are never compared or merged as if they were the same quantity.",
+  "laws": [
+    "SUPPORT KIND MUST BE EXPLICIT WHEN THE NUMBER OR boolean CAN AFFECT INTERPRETATION.",
+    "EXACT SET SUPPORT != TYPED TRANSITION SUPPORT != HEURISTIC CUE SUPPORT.",
+    "SUPPORT != IMPORTANCE != CONFIDENCE != AUTHORITY != RECOMMENDATION.",
+    "ZERO EXACT SUPPORT means no source identity satisfies the current exact constraints; preserve the contradiction.",
+    "ZERO TYPED TRANSITION SUPPORT means the candidate transition is not admissible under the current contract.",
+    "ZERO HEURISTIC CUE SUPPORT means the heuristic found no matching cues; manual choice remains lawful unless policy says otherwise."
+  ],
+  "kinds": {
+    "EXACT_SET_CARDINALITY": {
+      "meaning": "Integer count of records that exactly survive a candidate value while all other selected dimensions remain fixed.",
+      "owner": "/lib/constraint-surface.js",
+      "consumers": [
+        "/",
+        "/foundry/axial/"
+      ],
+      "examples": [
+        "3 survivors",
+        "support=0 DEAD",
+        "LOCK when survivor count=1"
+      ],
+      "falsifiability": "Recompute from the named source and selected dimensions; counts must match."
+    },
+    "TYPED_TRANSITION_ADMISSIBILITY": {
+      "meaning": "Whether a candidate operation/lens may lawfully follow the current typed contract; may carry reasons and next contract.",
+      "owner": "/lens-state.js",
+      "consumers": [
+        "/fold-bloom/lens/",
+        "FIELD typed LensState transfer"
+      ],
+      "examples": [
+        "support=1 lens admissible",
+        "support=0 requires field-route/v0.1"
+      ],
+      "falsifiability": "Validate candidate inputContract against the current output contract; result must match typed composition law."
+    },
+    "HEURISTIC_CUE_EVIDENCE": {
+      "meaning": "Count/weight of textual or behavioral cues that suggest a candidate route; informative but not exact compatibility.",
+      "owner": "/port/",
+      "consumers": [
+        "/port/"
+      ],
+      "examples": [
+        "2 CUES for SHARE/REPLY",
+        "LIKELY route from weighted keywords"
+      ],
+      "falsifiability": "Re-run the declared cue grammar on the same text; count/score must reproduce, but semantic correctness remains empirical."
+    }
+  },
+  "forbidden_conversions": [
+    "Do not convert heuristic cue counts into exact survivor counts.",
+    "Do not interpret typed transition support as probability or confidence.",
+    "Do not rank exact Constraint Surface values merely because their support count is larger.",
+    "Do not make support authorize OPEN, COMMIT, SEND or WORLD actuation."
+  ],
+  "next": "If a fourth support-like mechanism appears, classify it here before reusing UI vocabulary or shared code."
+}
