@@ -1,0 +1,89 @@
+{
+  "schema": "0xxx0/rsvp-reader-focus-kernel/v0.1",
+  "at": "2026-09-21T20:51:00+08:00",
+  "state": "IMPLEMENTED_BROWSER_PROVED",
+  "surface": [
+    "/field-aperture.js",
+    "/docs/"
+  ],
+  "role": "one-source addressed RSVP / reading-focus utility",
+  "recovered_donors": [
+    {
+      "source": "/recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html",
+      "recovered": "one continuous SpeechSynthesisUtterance + boundary.charIndex as temporal cursor"
+    },
+    {
+      "source": "/recovery/focus-interface-sync-20260921/FU_FOVEATE_RECOVERY_2026-09-21.json",
+      "recovered": "explicit fovea/path state drives radial projection; focus is operational state, not decorative center"
+    },
+    {
+      "source": "/recovery/sleeper/site-source-2026-09-18/experiments/painting/engine.mjs",
+      "recovered": "Intl.Segmenter language-aware word/sentence/grapheme units with stable source offsets"
+    }
+  ],
+  "current_kernel": {
+    "invariant": "SCALE NEVER MOVES SOURCE POSITION.",
+    "source_position": {
+      "text": "canonical character offset",
+      "json": "canonical structural path"
+    },
+    "projections": [
+      "ORP/fixed recognition-point text",
+      "highlighted source window",
+      "outer ring source-position witness",
+      "linear whole-source strip + section/branch markers",
+      "addressed URL resume",
+      "VOICE boundary cursor",
+      "RSVP timed cursor",
+      "XREF source/citation/media strip"
+    ],
+    "text_scales": [
+      "DOCUMENT",
+      "SECTION",
+      "PARAGRAPH",
+      "SENTENCE",
+      "PHRASE",
+      "WORD",
+      "GRAPHEME"
+    ],
+    "json_scales": "ROOT → depth levels → LEAVES",
+    "timing": "WPM remains a reading-rate parameter above WORD; chunk dwell scales by estimated word count.",
+    "voice": "speech boundary charIndex moves the canonical source cursor while the chosen scale remains the view",
+    "host": "DOCS / READ",
+    "ingress": [
+      "same-origin repo text-like address",
+      "normal shared-route-adapter click on text-like repo links",
+      "session-local paste for long prose/chat"
+    ],
+    "xref": "near-focus references are a synchronized projection only; they do not mutate or canonize the source"
+  },
+  "browser_proof": {
+    "workflow_run": 35601857911,
+    "case": "DOCS RSVP focus kernel",
+    "result": "PASS",
+    "suite": "30/30 browser smoke PASS",
+    "proves": [
+      "one canonical char position survives WORD → SENTENCE → PARAGRAPH → SECTION",
+      "every coarser span still encloses that source position",
+      "Markdown section markers Alpha/Beta are visible structure witnesses",
+      "DOCS source window highlights the active source locus",
+      "ORP recognition point is present",
+      "ap_char address resume is emitted",
+      "session paste source remains browser-session-local",
+      "citation/source and media references surface in XREF"
+    ]
+  },
+  "boundaries": [
+    "RAW source remains available.",
+    "APERTURE is presentation/inspection only; no canonical source mutation or external authority.",
+    "AXIAL owns categorical constraint/orientation; this reader owns one-source focus.",
+    "Scale Lens owns deeper identity/provenance across projections; reader state is local addressed focus.",
+    "Speech boundary fidelity varies by browser/voice; wiring is proved, universal boundary timing is not claimed.",
+    "No comprehension advantage is claimed for high WPM or ORP."
+  ],
+  "held": [
+    "zooming INTO scale as a richer nested UI is deliberately deferred",
+    "exact historical red-dot/Alice reader artifact remains unrecovered"
+  ],
+  "return": "Use normally on DOCS/README/control text and pasted long prose. Reopen only from an observed reading failure or a stronger exact recovered donor."
+}
