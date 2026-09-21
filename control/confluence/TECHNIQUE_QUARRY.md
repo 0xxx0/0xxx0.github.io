@@ -103,3 +103,20 @@ A quarry item may move toward current architecture only after:
 5. evidence of improved recovery, coordination, transformation or RETURN.
 
 Otherwise leave it here.
+
+
+## Seed 06 — Game-scale state machines
+
+**Status:** QUARRY / HIGH RELEVANCE
+
+Research packet: [GAME-SCALE STATE DONORS](../research/GAME_SIMULATION_STATE_DONORS_2026-09-22.md)
+
+**Mechanism candidate:** large simulations remain tractable by separating static definitions, persistent facts, runtime effects, gates/conditions, shared current-state blackboards, projections and presentation owners.
+
+**Donors:** Cyberpunk 2077 / REDengine quest facts + TweakDB + blackboards + effects; RimWorld Hediffs; Dwarf Fortress body/tissue-targeted syndromes; Project Zomboid event→body-part damage; Unreal Gameplay Ability System.
+
+**Possible transfer:** CONTINUITY facts/events, CARE measurement/condition/gate separation, BODY addresses, HUMAN PORT object passage, FIELD CURRENT/RETURN distinction.
+
+**Critical anti-transfer:** game engines own the simulated ground truth. Real-world CARE does not. Never map “unset” to false/zero, never invent biological severity thresholds, and never let a derived current projection overwrite source evidence.
+
+**Cheapest test:** one real CARE case containing one observation, one measurement, one Port evidence object and one sourced IF/WHEN gate; require BODY/FOLLOW, BRIEF, Port and Intake projections to agree on the same underlying facts without copying or silent mutation.
