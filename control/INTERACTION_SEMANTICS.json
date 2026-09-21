@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/interaction-semantics/v0.1",
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "purpose": "Keep navigation, reversal, evidence, and re-entry distinct across the showcase so a familiar arrow cannot silently mean several incompatible operations.",
   "core_law": "BACK ≠ UNDO ≠ RETURN ≠ PARENT ≠ RESET",
   "operations": [
@@ -120,5 +120,9 @@
       "ref": "Point of no Undo, CHI 2023, DOI 10.1145/3544548.3581433",
       "lesson": "Not every consequential interaction should be cosmetically reversible; irreversibility itself can carry meaning."
     }
-  ]
+  ],
+  "support_semantics": {
+    "contract": "/control/SUPPORT_SEMANTICS.json",
+    "law": "EXACT SET SUPPORT != TYPED TRANSITION SUPPORT != HEURISTIC CUE SUPPORT; none implies authority."
+  }
 }
