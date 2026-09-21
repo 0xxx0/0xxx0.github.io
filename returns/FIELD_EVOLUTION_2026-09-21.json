@@ -1,0 +1,60 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "FIELD-EVOLUTION-2026-09-21",
+  "date": "2026-09-21",
+  "object": "FIELD INDEX experiment progression and root identity rendering",
+  "before": {
+    "experiment_state": "EXPERIMENT had been deprecated but later route writers reintroduced it.",
+    "experiment_progression": "No first-class replacement for the old EXPERIMENT query/work function.",
+    "index_identity": "NOW, HEADS and PULSE independently rendered canonical routes, producing repeated full entries even though the manifest itself had unique href/title identities.",
+    "validation": "Deprecated EXPERIMENT state was rejected, but live experiments were not required to declare a host/baseline/mutation/evidence gate and arbitrary non-deprecated route states could still appear."
+  },
+  "operation": [
+    "Normalize new EXPERIMENT routes into CANDIDATE / PROOF_REQUIRED and normalize poetry ACTIVE_REORIENTATION → ACTIVE.",
+    "Attach field-evolution/v0.1 contracts to seven current experimental/candidate surfaces.",
+    "Add EVOLVE as a named FIELD INDEX projection over canonical route.evolution metadata.",
+    "Fold canonical identities across fixed root readings NOW → HEADS → PULSE; explicit MAP/RECENT/EVOLVE remain lawful reprojections.",
+    "Strengthen public validation to enforce the lifecycle vocabulary, reject deprecated EXPERIMENT state, require evolution contracts on live kind=experiment routes, resolve hosts, validate generation/stage, and require the EVOLVE lens.",
+    "Document the operating law in Confluence/FIELD_EVOLUTION."
+  ],
+  "after": {
+    "deprecated_experiment_route_states": 0,
+    "duplicate_manifest_hrefs": 0,
+    "duplicate_manifest_titles": 0,
+    "evolutionary_routes": 7,
+    "stages": {
+      "TEST": 6,
+      "HOLD": 1
+    },
+    "selection_outputs": [
+      "TRANSFER",
+      "REPEAT_WITH_ONE_MUTATION",
+      "PARK",
+      "DONOR",
+      "COMPOST"
+    ],
+    "authority": "CURRENT still owns attention; EVOLVE is a projection, not a queue or scheduler."
+  },
+  "verification": {
+    "logical_validator_errors": [],
+    "root_inline_js": "COMPILES",
+    "evolve_button": "PRESENT",
+    "evolution_hosts": "ALL_RESOLVE_TO_MANIFEST_ROUTES",
+    "note": "GitHub connector exposes no push-associated workflow/status records for these direct commits; repository-level checks were evaluated against the committed bytes."
+  },
+  "changed_surfaces": [
+    "/showcase-manifest.json",
+    "/index.html",
+    "/control/FIELD_INDEX_CONTRACT.json",
+    "/tools/validate-public.mjs",
+    "/control/CURRENT.json",
+    "/control/confluence/FIELD_EVOLUTION.md"
+  ],
+  "residue": [
+    "Historical release receipts may still say EXPERIMENT because they record contemporaneous release state; current lifecycle lives in manifest/current_classification.",
+    "MAP/RECENT/EVOLVE may intentionally show a route already seen above because those are explicit alternate projections.",
+    "Evolution metadata currently selects disposition; it does not autonomously execute experiments."
+  ],
+  "next": "Use EVOLVE to choose a bounded evidence gate, not to create more experiments. On RETURN, either transfer the surviving mechanism into its host or park/donor/compost it before another generation.",
+  "return": "/"
+}
