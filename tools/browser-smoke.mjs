@@ -48,16 +48,14 @@ function lensProbeHtml(){
       const proof=d.getElementById('lens-proof-bench'),proofOpen=!!proof?.classList.contains('on');
       apLens.click();
       setTimeout(()=>{
-        const ring=d.getElementById('lens-focus-ring'),sh=ring?.shadowRoot,panel=sh?.querySelector('.panel');
-        const visual=sh?.querySelector('[data-mode="VISUAL"]');
+        const ring=d.getElementById('lens-focus-ring'),sh=ring?.shadowRoot,panel=sh?.querySelector('.panel'),visual=sh?.querySelector('[data-mode="VISUAL"]');
         if(!ring||!sh||!panel?.classList.contains('on')||!visual)return done(false,{stage:'ring',ring:!!ring,panelOpen:!!panel?.classList.contains('on'),visual:!!visual});
         visual.click();
         setTimeout(()=>{
           const during=compact(w.FieldLensHost.uiState());
           sh.querySelector('.return')?.click();
           setTimeout(()=>{
-            const after=compact(w.FieldLensHost.uiState());
-            const same=JSON.stringify(before)===JSON.stringify(after);
+            const after=compact(w.FieldLensHost.uiState()),same=JSON.stringify(before)===JSON.stringify(after);
             const overflow=Math.max(d.documentElement.scrollWidth,d.body?.scrollWidth||0)-d.documentElement.clientWidth;
             apProof.click();
             const proofAfter=!!d.getElementById('lens-proof-bench')?.classList.contains('on');
@@ -71,9 +69,8 @@ function lensProbeHtml(){
     if(finished)return;
     try{
       const w=f.contentWindow,d=f.contentDocument;
-      const apLens=d?.getElementById('apLens'),apProof=d?.getElementById('apProof');
-      const proof=d?.getElementById('lens-proof-bench'),proofOpen=!!proof?.classList.contains('on');
-      const state=w?.FieldLensHost?.uiState?.();
+      const apLens=d?.getElementById('apLens'),apProof=d?.getElementById('apProof'),proof=d?.getElementById('lens-proof-bench');
+      const proofOpen=!!proof?.classList.contains('on'),state=w?.FieldLensHost?.uiState?.();
       const ready=!!apLens&&!!apProof&&!!w?.LensFocusRing&&!!w?.FieldLensHost&&proofOpen&&state?.focusHref==='/fold-bloom/lens/';
       if(ready)return exercise(w,d);
       if(attempt>=45)return done(false,{stage:'boot-timeout',href:w?.location?.href||null,readyState:d?.readyState||null,apLens:!!apLens,apProof:!!apProof,proofOpen,ring:!!w?.LensFocusRing,host:!!w?.FieldLensHost,focusHref:state?.focusHref||null});

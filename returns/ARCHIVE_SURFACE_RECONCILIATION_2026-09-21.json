@@ -1,0 +1,46 @@
+{
+  "schema": "return-receipt/v1",
+  "id": "ARCHIVE-SURFACE-RECONCILIATION-2026-09-21",
+  "at": "2026-09-21T18:51:00+08:00",
+  "status": "IMPLEMENTED",
+  "object": "Public surface vs recovered/private archive reconciliation",
+  "observed": {
+    "tracked_tree_bytes": 24956795,
+    "tracked_blobs": 520,
+    "html_surfaces": 104,
+    "tracked_image_assets": 26,
+    "tracked_image_bytes": 14924723,
+    "recovery_bytes": 20975349,
+    "sleeper_public_bytes": 15561469,
+    "sleeper_public_images": 13,
+    "sleeper_private_backup_images": 2437,
+    "link_integrity": "PASS in existing route/link/sitemap audit",
+    "stale_problem": "semantic status visibility, not broken-path existence"
+  },
+  "laws": [
+    "PUBLIC = curated projection, not archive.",
+    "PRIVATE = reservoir, not backlog.",
+    "DONOR/PARKED = addressable evidence, not current work.",
+    "A route may remain alive for provenance while being visibly marked non-current."
+  ],
+  "delta": [
+    "Shared showcase route adapter now shows a compact status membrane for DONOR/FROZEN_DONOR/PARKED/REFERENCE/RETIRED/SUPERSEDED/alias states.",
+    "Triangle Bench, Triangle Glyph Lab and Triangle Center now load the shared route adapter so their preserved status is visible in-page.",
+    "Media Recovery now links directly to Sleeper Images + Stories and Painting / Path.",
+    "Sleeper gallery now states 13 reviewed public images versus a 2,437-image private reservoir and a reviewed-batch/contact-sheet promotion law.",
+    "Private Codex triangle calibration issue #4 closed as no-longer-current ambient debt.",
+    "Existing private ingest issue #8 refined to prefer an old runnable HTML + authored report/spec family when provenance supports it; no duplicate archaeology queue created."
+  ],
+  "next": [
+    "Wait for private issue #8 one-family return. If GAIN, promote only the bounded donor/spec relation.",
+    "For media expansion, generate source-hashed thumbnail/contact-sheet batches from private backup locally; review before any public originals.",
+    "Do not bulk-publish the 2,437-image reservoir or turn every old HTML into a Field Index route.",
+    "If donor status remains visually ambiguous on any legacy page, add shared route adapter rather than deleting the address."
+  ],
+  "non_claims": [
+    "Tracked working-tree byte count is not full .git history size.",
+    "The private 2,437-image archive was not enumerated or published in this pass.",
+    "Hosting headroom does not itself authorize publication."
+  ],
+  "return": "Public surface is smaller and clearer while archive recoverability remains intact."
+}
