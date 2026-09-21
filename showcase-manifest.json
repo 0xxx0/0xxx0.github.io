@@ -3886,14 +3886,14 @@
     },
     {
       "href": "/poetry/",
-      "title": "CHINESE POETRY COPILOT",
+      "title": "VERSE / CO-CREATIVE POETRY",
       "kind": "workbench",
       "parent": "/",
       "family": "PATH / POETRY",
       "operation": "COMPOSE",
-      "state": "ACTIVE_RECONNECTION",
+      "state": "ACTIVE_REORIENTATION",
       "showcase_card": true,
-      "role": "User-facing Jueju composition/study head over Verse Atlas; keeps Pathweaver/Grid-Path/MEANTOME as explicit donors and English Jue Ju as an open, not-implemented target.",
+      "role": "Language/form-neutral co-creative poetry re-entry: select material, expand candidate possibility, apply explicit constraints, bank/adopt/reject choices, then project/play/study through specialized engines. Jueju is one adapter, not the product identity.",
       "contract": {
         "accepts": {
           "kinds": [
@@ -3948,12 +3948,12 @@
         "explicit donor lineage"
       ],
       "index": {
-        "updated_at": "2026-09-21T04:05:00+08:00",
+        "updated_at": "2026-09-21T11:55:00+08:00",
         "work_modes": [
           "RECOVER",
+          "RESEARCH",
           "SPECIFY",
           "IMPLEMENT",
-          "VERIFY",
           "OPERATE"
         ]
       }
