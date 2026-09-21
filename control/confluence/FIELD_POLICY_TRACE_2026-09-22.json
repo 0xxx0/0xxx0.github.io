@@ -2,7 +2,7 @@
   "schema": "confluence-packet/v0.1",
   "id": "FIELD_POLICY_TRACE_2026-09-22",
   "date": "2026-09-22",
-  "status": "IMPLEMENTED_REFERENCE_INSTRUMENT",
+  "status": "IMPLEMENTED_REFERENCE_INSTRUMENT_WITH_CROSS_DOMAIN_DEMOS",
   "host": "/",
   "head": "FIELD INDEX 0.6.2 / TRACE VERIFY",
   "lineage": [
@@ -12,7 +12,8 @@
     "person-resource-policy: seven independent gates",
     "policy-resolution-trace: causal proof record",
     "policy-trace-verification v0.2: STRUCTURAL -> REPLAY -> SEALED",
-    "FIELD INDEX TRACE / VERIFY: focus-bound local executable projection"
+    "FIELD INDEX TRACE / VERIFY: focus-bound local executable projection",
+    "AXIAL handoff: exact focused address → FIELD TRACE resource identity"
   ],
   "laws": [
     "TAG selects context; it never creates authority.",
@@ -39,12 +40,29 @@
     "committed/exported trace excludes raw typed event text",
     "external Pages fetch unavailable from verifier environment"
   ],
-  "current_use": "Focus a route in FIELD INDEX -> invoke TRACE from Aperture or top nav -> TRACE / VERIFY opens immediately below AXIAL -> RUN TRACE -> inspect seven gates + causal events + verifier states -> focus changes visibly stale the trace -> rerun before COMMIT; EXPORT may preserve old trace as historical evidence.",
+  "current_use": "Focus a route in FIELD INDEX and open TRACE: first-open auto-selects COMMS/HOUSE/CHANGE demo from route family. Or select an exact FIELD route/HOUSE anchor in full AXIAL and press TRACE; FIELD opens the same TRACE instrument with that address preserved. Edit controls/text afterward for ordinary local use.",
   "trigger_for_next_real_step": "When a private person/resource registry and policy bytes exist, replace the generated FI reference policy with a private adapter and supply replay material to the verifier. Until then, do not fake REPLAY PASS.",
   "non_goals": [
     "not a live person policy registry",
     "not a send/act adapter",
     "not a replacement for HUMAN PORT or FIELD INTAKE",
     "not a new active front"
+  ],
+  "demo_cases": [
+    {
+      "id": "COMMS",
+      "shows": "ANSWER/DRAFT can be allowed while ACT/send remains separate",
+      "best_focus": "/port/, /contact/, /laconic/"
+    },
+    {
+      "id": "HOUSE",
+      "shows": "physical consequence crosses explicit ACT gate while exact HOUSE anchor identity is preserved from AXIAL",
+      "best_focus": "/house/ or AXIAL HOUSE anchor"
+    },
+    {
+      "id": "CHANGE",
+      "shows": "repository improvement proposal can be drafted without permission to mutate/publish canonical state",
+      "best_focus": "any other FIELD route"
+    }
   ]
 }
