@@ -2,8 +2,8 @@
   "schema": "0xxx0/return-index/v0.1",
   "generated": "2026-09-22",
   "source": "/showcase-manifest.json",
-  "count": 49,
-  "receipts_ok": 49,
+  "count": 50,
+  "receipts_ok": 50,
   "law": "A release without a return path is not closed.",
   "items": [
     {
@@ -543,6 +543,17 @@
       "receipt": "/body/fit/release.json",
       "receipt_ok": true,
       "receipt_schema": "release-receipt/v1",
+      "release_updated": "2026-09-22"
+    },
+    {
+      "href": "/docs/",
+      "title": "READFIELD / RSVP 0.7",
+      "state": "UTILITY",
+      "version": "0.7",
+      "operation": "READ",
+      "receipt": "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
+      "receipt_ok": true,
+      "receipt_schema": "return-receipt/v0.1",
       "release_updated": "2026-09-22"
     }
   ],
