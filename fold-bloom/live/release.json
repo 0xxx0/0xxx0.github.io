@@ -1,0 +1,41 @@
+{
+  "schema": "0xxx0/fold-bloom-live-release/v0.1",
+  "version": "LIVE 0.1",
+  "status": "EXPERIMENTAL_PERFORMANCE_HEAD",
+  "date": "2026-09-21",
+  "donors": [
+    {
+      "route": "/recovery/fold-bloom/fold-weave-0.1/",
+      "blob_sha": "62b98cf705fd286240be7c7d1b71cb1559cf7145",
+      "transfer": "12-cell ring, authored crease topology, cascade, mute-first causal score"
+    },
+    {
+      "route": "/fold-bloom/two-dial/",
+      "transfer": "phrase/pulse/form music grammar, continuous motion sonification, local RETURN discipline"
+    }
+  ],
+  "new": [
+    "explicit ratchet charge -> deliberate release performance grammar",
+    "four low-clutter sound fields: DEEP/TRANCE/WOOD/VOID",
+    "topology-to-audio mapping where crease span, cascade chain and charge affect harmony/rhythm",
+    "preallocated noise buffer and bounded 25ms lookahead scheduler",
+    "pure deterministic engine module with Node tests",
+    "small local snapshot and bounded RETURN packet",
+    "structural verb and performance cadence are separate, allowing FOLD/SPLIT -> RETURN without identity loss",
+    "charged RETURN opens a one-beat sparse aperture before motif density resumes",
+    "scheduler stale-clock guard prevents catch-up bursts after suspension",
+    "restored motif/rotation/scene hydrate the audio engine on reload"
+  ],
+  "constraints": [
+    "exact Fold Weave donor remains untouched",
+    "this is a performance/instrument head, not a replacement for Ecology cultivation or Two Dial two-hand composition",
+    "promote only after desktop + touch playtest demonstrates clearer agency and stronger sound than the donor"
+  ],
+  "verification": {
+    "engine_tests": "5/5 PASS",
+    "module_parse": "engine.js audio.js render.js app.js PASS",
+    "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
+    "required_next": "direct desktop + touch playtest"
+  },
+  "execution_contract": "./EXECUTION.md"
+}

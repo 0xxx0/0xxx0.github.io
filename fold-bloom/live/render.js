@@ -1,0 +1,29 @@
+import { N, TYPE_NAMES, gateCellIndex, isAligned, clamp } from './engine.js';
+
+const TAU=Math.PI*2;
+const COLORS=['#ff9852','#6dbdff','#72e4b6'];
+
+export class Renderer {
+  constructor(canvas) {
+    this.cv=canvas; this.g=canvas.getContext('2d'); this.w=0;this.h=0;this.cx=0;this.cy=0;this.r=0;
+    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.beat=0;this.lastEvent=null;
+    this.resize();
+    addEventListener('resize',()=>this.resize(),{passive:true});
+  }
+  resize(){const d=Math.min(2,devicePixelRatio||1),r=this.cv.getBoundingClientRect();this.cv.width=Math.max(1,Math.floor(r.width*d));this.cv.height=Math.max(1,Math.floor(r.height*d));this.g.setTransform(d,0,0,d,0,0);this.w=r.width;this.h=r.height;this.cx=this.w/2;this.cy=this.h*.52;this.r=Math.min(this.w*.34,this.h*.33,280)}
+  pulse(event){this.lastEvent=event;this.pulses.push({t:performance.now(),event});this.pulses=this.pulses.slice(-12)}
+  beatPulse(step){this.beat=step%16}
+  setDrag(offset){this.dragOffset=offset}
+  slotAngle(i,state){return -Math.PI/2 + (i+state.rotation)*TAU/N + this.dragOffset}
+  draw(state,now=performance.now()){
+    const g=this.g;g.clearRect(0,0,this.w,this.h);this._background(state,now);this._creases(state,now);this._ring(state,now);this._gate(state,now);this._causal(state,now);this._pulses(state,now);this._center(state,now)
+  }
+  _background(state,t){const g=this.g;const grd=g.createRadialGradient(this.cx,this.cy,5,this.cx,this.cy,Math.max(this.w,this.h)*.7);grd.addColorStop(0,'#0b1018');grd.addColorStop(1,'#05070b');g.fillStyle=grd;g.fillRect(0,0,this.w,this.h);g.save();g.translate(this.cx,this.cy);for(let i=0;i<4;i++){g.strokeStyle=`rgba(255,255,255,${.016+i*.006})`;g.lineWidth=.7;g.beginPath();g.arc(0,0,this.r*(.38+i*.18)+Math.sin(t*.0003+i)*2,0,TAU);g.stroke()}g.restore()}
+  _creases(state,t){const g=this.g;g.save();g.translate(this.cx,this.cy);for(const [a,b] of state.creases){const aa=this.slotAngle(a,state),bb=this.slotAngle(b,state),x1=Math.cos(aa)*this.r,y1=Math.sin(aa)*this.r,x2=Math.cos(bb)*this.r,y2=Math.sin(bb)*this.r;const c1=COLORS[state.cells[a].type];g.strokeStyle=c1+'55';g.lineWidth=1.2+state.cells[a].tier*.25;g.beginPath();g.moveTo(x1,y1);g.quadraticCurveTo(0,0,x2,y2);g.stroke();g.fillStyle=c1+'18';g.beginPath();g.arc(0,0,5+3*Math.sin(t*.003+a),0,TAU);g.fill()}g.restore()}
+  _ring(state,t){const g=this.g;g.save();g.translate(this.cx,this.cy);g.strokeStyle='rgba(255,255,255,.12)';g.lineWidth=1;g.beginPath();g.arc(0,0,this.r,0,TAU);g.stroke();state.cells.forEach((cell,i)=>{const a=this.slotAngle(i,state),x=Math.cos(a)*this.r,y=Math.sin(a)*this.r,rad=9+cell.tier*2.2,col=COLORS[cell.type];g.fillStyle=col+'28';g.strokeStyle=col+(cell.tier>=3?'dd':'88');g.lineWidth=1+cell.tier*.45;this._glyph(g,cell.type,x,y,rad);g.fill();g.stroke();if(state.anchors[cell.type]===i){g.strokeStyle=col+'bb';g.lineWidth=1;g.beginPath();g.arc(x,y,rad+7+2*Math.sin(t*.004+i),0,TAU);g.stroke()}});g.restore()}
+  _glyph(g,type,x,y,r){g.beginPath();if(type===0){for(let k=0;k<3;k++){const a=-Math.PI/2+k*TAU/3,px=x+Math.cos(a)*r,py=y+Math.sin(a)*r;k?g.lineTo(px,py):g.moveTo(px,py)}g.closePath()}else if(type===1){g.arc(x,y,r,0,TAU)}else{g.rect(x-r*.78,y-r*.78,r*1.56,r*1.56)}}
+  _gate(state,t){const g=this.g,x=this.cx,y=this.cy-this.r-36,col=COLORS[state.targetType],aligned=isAligned(state);g.save();g.strokeStyle=col+(aligned?'ff':'aa');g.lineWidth=aligned?2.4:1.2;g.beginPath();g.arc(x,y,16+(aligned?3*Math.sin(t*.008):0),0,TAU);g.stroke();g.fillStyle=col+(aligned?'30':'14');g.fill();g.font='700 9px ui-monospace,monospace';g.textAlign='center';g.fillStyle='rgba(255,255,255,.62)';g.fillText(TYPE_NAMES[state.targetType],x,y-24);g.restore()}
+  _causal(state,t){if(!isAligned(state))return;const g=this.g,idx=gateCellIndex(state),cell=state.cells[idx],a=this.slotAngle(idx,state),x=this.cx+Math.cos(a)*this.r,y=this.cy+Math.sin(a)*this.r,col=COLORS[cell.type];g.save();g.setLineDash([3,5]);g.strokeStyle=col+'77';g.lineWidth=1.3;g.beginPath();g.moveTo(x,y);g.quadraticCurveTo(this.cx,this.cy,this.cx,this.cy-this.r-36);g.stroke();g.setLineDash([]);g.restore()}
+  _pulses(state,t){const g=this.g;this.pulses=this.pulses.filter(p=>t-p.t<900);for(const p of this.pulses){const q=clamp((t-p.t)/900,0,1),ev=p.event,col=COLORS[ev.type];g.save();g.translate(this.cx,this.cy);for(const idx of ev.path){const a=this.slotAngle(idx,state),x=Math.cos(a)*this.r,y=Math.sin(a)*this.r;g.strokeStyle=col+Math.round((1-q)*180).toString(16).padStart(2,'0');g.lineWidth=1.6;g.beginPath();g.arc(x,y,11+q*22,0,TAU);g.stroke()}g.restore()}}
+  _center(state,t){const g=this.g,aligned=isAligned(state),charge=state.charge;g.save();g.translate(this.cx,this.cy);const pulse=.5+.5*Math.sin(t*.004+this.beat*.3);g.fillStyle=`rgba(255,255,255,${.03+.025*pulse})`;g.beginPath();g.arc(0,0,48+charge*16,0,TAU);g.fill();g.strokeStyle=aligned?'rgba(255,255,255,.82)':'rgba(255,255,255,.18)';g.lineWidth=aligned?1.8:1;g.beginPath();g.arc(0,0,32+charge*8,0,TAU);g.stroke();g.textAlign='center';g.fillStyle='rgba(255,255,255,.92)';g.font='900 18px ui-monospace,monospace';g.fillText(aligned?(state.mode==='RATCHET'?'RELEASE':'BLOOM'):'TURN',0,6);g.fillStyle='rgba(255,255,255,.38)';g.font='700 8px ui-monospace,monospace';g.fillText(state.mode==='RATCHET'?`CHARGE ${Math.round(charge/1.75*100)}%`:`FLOW ${state.flow}`,0,22);g.restore()}
+}
