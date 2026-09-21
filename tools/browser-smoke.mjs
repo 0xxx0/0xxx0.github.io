@@ -42,12 +42,12 @@ function lensProbeHtml(){
   const boot=(tries=0)=>{
     try{
       const w=f.contentWindow,d=w?.document;
-      const apLens=d?.getElementById('apLens'),apProof=d?.getElementById('apProof');
+      const apLens=d?.getElementById('apLens'),apProof=d?.getElementById('apProof'),ringHost=d?.getElementById('lens-focus-ring');
       const proof=d?.getElementById('lens-proof-bench'),proofOpen=!!proof?.classList.contains('on');
       const ready=w?.FieldLensHost?.uiState?.();
-      if(!apLens||!apProof||!w?.LensFocusRing||!w?.FieldLensHost||ready?.focusHref!=='/fold-bloom/lens/'){
+      if(!apLens||!apProof||!w?.LensFocusRing||!w?.FieldLensHost||!ringHost?.shadowRoot||ready?.focusHref!=='/fold-bloom/lens/'){
         if(tries<40){setTimeout(()=>boot(tries+1),100);return}
-        done(false,{stage:'boot',tries,apLens:!!apLens,apProof:!!apProof,proofOpen,ring:!!w?.LensFocusRing,host:!!w?.FieldLensHost,focusHref:ready?.focusHref||null});return
+        done(false,{stage:'boot',tries,apLens:!!apLens,apProof:!!apProof,proofOpen,ringApi:!!w?.LensFocusRing,ringHost:!!ringHost?.shadowRoot,host:!!w?.FieldLensHost,focusHref:ready?.focusHref||null});return
       }
       const compact=x=>({focusHref:x?.focusHref||null,axisState:x?.axisState||null,projection:x?.projection||null,mapMode:x?.mapMode||null,mapRoot:x?.mapRoot||null,mapSelected:x?.mapSelected||null,mapQuery:x?.mapQuery||'',mapOpen:!!x?.mapOpen});
       const before=compact(ready);
@@ -90,6 +90,23 @@ function poemMapProbeHtml(){
     }catch(e){if(tries<50){setTimeout(()=>probe(tries+1),100);return}done(false,{stage:'exception',error:String(e?.stack||e)})}
   };
   setTimeout(()=>probe(),150);
+  <\/script></body></html>`;
+}
+
+
+function lensProofAliasProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/lens-proof/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=12000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw new Error('waitFor timeout: '+label)};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    await waitFor(()=>W().location.pathname==='/'&&new URLSearchParams(W().location.search).has('lens_proof'),12000,'alias redirected to FIELD proof');
+    const bench=await waitFor(()=>{const x=D().getElementById('lens-proof-bench');return x?.classList.contains('on')?x:null},12000,'proof bench open');
+    rec.pathname=W().location.pathname;rec.search=W().location.search;rec.open=bench.classList.contains('on');rec.field=/FIELD INDEX/i.test(D().body?.innerText||'');
+    done(rec.pathname==='/'&&rec.open&&rec.field,rec);
+  })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
 }
 
@@ -210,7 +227,7 @@ function readerFocusProbeHtml(){
     const A=await waitFor(()=>{const a=D().getElementById('docAperture'),pb=D().getElementById('readPaste'),pt=D().getElementById('pasteText');return a?.snapshot?.()&&typeof pb?.onclick==='function'&&pt?a:null},12000,'DOCS controls bound');
     const sample='# Alpha\\nThe first paragraph establishes context.\\n\\n# Beta\\nRead this second phrase and keep position. [CURRENT](/control/CURRENT.json) ![map](/field-map.svg)';
     const pt=D().getElementById('pasteText'),pb=D().getElementById('readPaste');pt.value=sample;pb.click();
-    await waitFor(()=>A.A?.label==='PASTE'&&A.A?.kind==='TEXT'&&W().location.search.includes('paste=1'),12000,'PASTE loaded + addressed');
+    await waitFor(()=>A.A?.label?.startsWith('PASTE')&&A.A?.kind==='TEXT'&&W().location.search.includes('paste=1'),12000,'PASTE loaded + addressed');
     const target=sample.indexOf('second');A.restore({scale:'WORD',char_index:target,wpm:1200});
     rec.word=await waitFor(()=>{const x=A.snapshot();return x.scale==='WORD'&&x.wpm===1200?x:null},12000,'WORD focus restored');
     rec.wordMark=D().getElementById('reading')?.querySelector('mark')?.textContent||'';
@@ -424,6 +441,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(readerFocusProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/lens-proof-alias')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(lensProofAliasProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/lens-proof')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(lensProbeHtml());return;
@@ -565,8 +586,9 @@ const CASES=[
   },
   {
     name:'LENS PROOF alias',
-    route:'/lens-proof/',
-    check:dom=>/FIELD INDEX/i.test(dom)&&dom.includes('id="lens-proof-bench"')&&dom.includes('class="on"')
+    route:'/__smoke/lens-proof-alias',
+    options:{width:1040,height:820,budget:9000,timeout:16000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"pathname":"\/"/.test(dom)&&/"open":true/.test(dom)&&/"field":true/.test(dom)
   },
   {
     name:'LENS PROOF mobile RETURN',
