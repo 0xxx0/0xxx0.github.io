@@ -2,10 +2,21 @@
   "schema": "0xxx0/return-index/v0.1",
   "generated": "2026-09-21",
   "source": "/showcase-manifest.json",
-  "count": 41,
-  "receipts_ok": 41,
+  "count": 42,
+  "receipts_ok": 42,
   "law": "A release without a return path is not closed.",
   "items": [
+    {
+      "href": "/",
+      "title": "FIELD INDEX / EVOLUTION",
+      "state": "ACTIVE",
+      "version": "field-evolution/v0.1",
+      "operation": "ORIENT / EVOLVE",
+      "receipt": "/returns/FIELD_EVOLUTION_2026-09-21.json",
+      "receipt_ok": true,
+      "receipt_schema": "return-receipt/v0.1",
+      "release_updated": "2026-09-21"
+    },
     {
       "href": "/contact/",
       "title": "CONTACT 0.3",
