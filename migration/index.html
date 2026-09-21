@@ -48,7 +48,7 @@ footer{margin:30px 0 12px;padding-top:10px;border-top:1px solid var(--line);disp
     <div class="ey">MIGRATION / SALVAGE / ARCHAEOLOGY / QUARANTINE</div>
     <h1>SALVAGE<br>YARD</h1>
     <div class="mantra">BRING BACK PROOF, NOT CLUTTER.</div>
-    <p class="lede">Old does not mean important. Weird does not mean worthless. Polish does not mean alive. We preserve first, identify the mechanism, and only then decide whether a thing becomes a head, a donor, evidence, quarantine, or attic.</p>
+    <p class="lede"><b>MIGRATION is the recovery/evidence view.</b> Old does not mean important. Weird does not mean worthless. Polish does not mean alive. Recover exact identity and evidence first; then classify recovery disposition. Migration does not set current priority or recipient architecture.</p>
     <nav><a href="../">FIELD INDEX</a><a href="../recovery/">RECOVERY VAULT</a><a href="../control/migration/">CONTROL LEDGER</a><a href="./OPERATING_CHARTER.md">OPERATING LAW</a><a href="./CHARTER.md">FULL CHARTER</a><a href="../control/QUARANTINE_2026-09-20.json">QUARANTINE RECEIPT</a><a href="../control/MIGRATION.json">RAW JSON</a><a href="../dock/">DOCK</a></nav>
   </div>
   <aside class="side">
@@ -134,4 +134,5 @@ Promise.all([
  queue.innerHTML=(m.ingest_queue||[]).map(x=>'<div>'+esc(x)+'</div>').join('');
 }).catch(e=>{document.body.insertAdjacentHTML('beforeend','<pre>'+esc(e.message)+'</pre>')});
 </script>
-</main></body></html>
+</main><script src="/foundry/machine-rail.js" defer></script>
+</body></html>
