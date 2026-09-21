@@ -1,0 +1,75 @@
+{
+  "schema": "0xxx0/afk-action-surface/v0.1",
+  "at": "2026-09-21T17:43:00+08:00",
+  "purpose": "Derive lawful forward work while the user is AFK from current authority/evidence constraints; expose blocked actions instead of silently substituting adjacent work.",
+  "constraints": {
+    "human_observation_available": false,
+    "private_local_ingest_reports_available_to_this_session": false,
+    "bounded_repo_write_authority": true,
+    "public_repo_evidence_available": true,
+    "irreversible_filesystem_mutation": false,
+    "external_send_or_transport": false,
+    "new_hardware": false
+  },
+  "support_kind": "EXACT_TASK_COMPATIBILITY",
+  "candidates": [
+    {
+      "id": "USE-PORT-FIELD",
+      "requires": [
+        "human_observation"
+      ],
+      "state": "BLOCKED_NOW",
+      "reason": "Ordinary-use evidence cannot be synthesized while user is AFK."
+    },
+    {
+      "id": "REP-PAINTING-PAIR",
+      "requires": [
+        "human_paired_task"
+      ],
+      "state": "BLOCKED_NOW",
+      "reason": "Task advantage needs human paired evidence; exact source recovery alone is insufficient."
+    },
+    {
+      "id": "INGEST-ONE-FAMILY",
+      "requires": [
+        "private_local_ingest_reports"
+      ],
+      "state": "LOCAL_EXECUTOR_ONLY",
+      "reason": "This session cannot see the private index/inventory. Prepare a bounded local Codex/Hermes packet; do not guess filenames or family membership."
+    },
+    {
+      "id": "RECONCILE-WORKER-STATE",
+      "requires": [
+        "public_repo_evidence",
+        "bounded_repo_write_authority"
+      ],
+      "state": "LIVE",
+      "reason": "Worker docs still describe backup intake as dormant despite the verified Sep-21 ingest; safe to correct from receipts."
+    },
+    {
+      "id": "AXIAL-FEATURE-EXPANSION",
+      "requires": [
+        "ordinary_use_failure_or_named_missing_function"
+      ],
+      "state": "HELD",
+      "reason": "CURRENT explicitly holds expansion; Constraint Surface extraction and runtime smoke already exist."
+    },
+    {
+      "id": "HOUSE-PHYSICAL",
+      "requires": [
+        "explicit_user_selection",
+        "physical_observation"
+      ],
+      "state": "HELD",
+      "reason": "CURRENT holds HOUSE/SPATIAL until deliberately selected."
+    }
+  ],
+  "survivors": [
+    "RECONCILE-WORKER-STATE"
+  ],
+  "delegated_next": [
+    "INGEST-ONE-FAMILY"
+  ],
+  "law": "Possibility is not priority. A task survives only when its required evidence/authority is actually present; blocked tasks remain visible and are not approximated.",
+  "return": "Execute worker-state reconciliation now; emit one local-executor packet for the private one-family review; stop."
+}
