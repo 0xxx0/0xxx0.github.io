@@ -11,7 +11,7 @@ const frames=[
   {t:10,e:.26,c:.34,f:.08,l:.62,m:.28,h:.10},
   {t:12,e:.20,c:.28,f:.05,l:.70,m:.24,h:.06}
 ];
-const map={version:'test-map',stage:'DEEP',duration:12,bpm:120,frames,beats:[0,1,2,3,4,5,6,7,8,9,10,11,12],sections:[{t:0},{t:5.5},{t:9.5},{t:12}]};
+const map={version:'test-map',stage:'DEEP',duration:12,bpm:120,frameRate:.5,frames,beats:[0,1,2,3,4,5,6,7,8,9,10,11,12],sections:[{t:0},{t:5.5},{t:9.5},{t:12}]};
 
 test('trackfield is a bounded future projection of the AUDIO MAP',()=>{
   const w=buildTrackfield(map,1,{horizon:9,count:36});
