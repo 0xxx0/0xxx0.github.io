@@ -49,5 +49,6 @@
     "emits": "0xxx0.house.body.context.v01 (public HOUSE projection metadata + optional user-selected area label)",
     "authority": "context only; does not write BODY observations into house/state.json and does not grant BODY actuation authority",
     "privacy": "personal BODY state remains browser-local; no public projection includes it"
-  }
+  },
+  "validation": "/control/BODY_HOUSE_CONVERGENCE_2026-09-21.json"
 }
