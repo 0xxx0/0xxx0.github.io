@@ -1,0 +1,64 @@
+{
+  "schema": "verse-poem-map/release-v0.1",
+  "date": "2026-09-21",
+  "route": "/poetry/map/",
+  "status": "EXPERIMENTAL_LIVE",
+  "thesis": "One poem, linked entrances: source page, relation map, relation sets, author path and candidate bank. Expand possibilities without replacing authorship.",
+  "recovered_donors": [
+    {
+      "name": "Poemage",
+      "mechanism": "linked set / poem / path views; sonic topology; abstract view remains tied to original text"
+    },
+    {
+      "name": "Foundry Market+Solver",
+      "mechanism": "working bag, explicit constraints, least-change preview, blocked-state explanation"
+    },
+    {
+      "name": "Anthropy Pathweaver",
+      "mechanism": "source→path→reading→forge/return; play before theory"
+    },
+    {
+      "name": "Grid Path Compiler V3",
+      "mechanism": "stable identity + typed edge + path + unequal views + return; semantic zoom"
+    },
+    {
+      "name": "Co-PoeTryMe",
+      "mechanism": "user-guided constrained word/line alternatives that remain editable"
+    },
+    {
+      "name": "COPE",
+      "mechanism": "form-aware editor, dictionaries, analysis, nearest-neighbor inspiration and suggestions"
+    }
+  ],
+  "implemented": [
+    "editable arbitrary poem/fragment source",
+    "stable line/token addresses",
+    "linked MAP/PAGE/SETS selection",
+    "ORDER/SOUND/REPEAT/AUTHOR typed relation laws",
+    "weighted graph projection",
+    "manual author links and captured author paths",
+    "locks",
+    "candidate bank",
+    "opt-in Datamuse English means-like/rhyme/sounds-like lookup",
+    "form adapters: free/haiku/couplet/quatrain/sonnet/villanelle/jueju5/jueju7",
+    "lightweight heuristic feedback with explicit evidence limits",
+    "local persistence",
+    "RETURN JSON export"
+  ],
+  "boundaries": [
+    "Map is a projection, not the poem.",
+    "SOUND is approximate Latin-script heuristic in 0.1.",
+    "No automatic semantic embedding is claimed.",
+    "Jueju historical tone/rime remains OPEN.",
+    "Candidate lookup never auto-inserts text.",
+    "Forms constrain; they do not score literary value."
+  ],
+  "next_experiments": [
+    "candidate dock with explicit intent verbs CONTINUE/REPLACE/ECHO/CONTRAST/TURN/SURPRISE",
+    "non-destructive candidate preview in-place",
+    "true language adapters for phonology/rhyme",
+    "corpus neighborhood view",
+    "line/macro-glyph summaries derived from poetry-visualization research",
+    "game challenge layer where solved constraint state remains the poem state"
+  ]
+}
