@@ -2,7 +2,7 @@
   "schema": "0xxx0/lens-fi-toolglass-g2/v0.1",
   "at": "2026-09-21T21:12:00+08:00",
   "generation": 2,
-  "status": "LENS_PATH_PROVED__REPO_SUITE_BLOCKED_BY_UNRELATED_DOCS_FLAKE",
+  "status": "PROMOTED_PROVED_MASTER_GREEN",
   "problem": "FIELD Lens had become a detached second navigation cockpit: PEER changed selected route inside a control presented as refraction, duplicating AXIAL and weakening the VIEW_LENS identity law.",
   "crystallized_law": "HOST SELECTS. LENS REFRACTS.",
   "grammar": "OBJECT@ADDRESS → APERTURE → VIEW → STACK → DEEP LAB? → RETURN",
@@ -53,13 +53,13 @@
   "proof_required": [
     "SATISFIED: LensState laws 18/18",
     "SATISFIED: static/public contracts",
-    "SATISFIED twice: mobile Lens RETURN and no overflow path",
-    "SATISFIED twice: inline identity lock through APERTURE changes",
-    "SATISFIED twice: STACK apply/remove/reapply → Studio handoff → exact FIELD RETURN",
+    "SATISFIED: mobile Lens RETURN / no-overflow path",
+    "SATISFIED: inline identity lock through APERTURE changes",
+    "SATISFIED: STACK apply/remove/reapply → Studio handoff → exact FIELD RETURN",
     "SATISFIED: Scale Lens route smoke",
-    "NOT ATTRIBUTED TO LENS: aggregate workflow remains red because DOCS RSVP focus-kernel smoke times out intermittently/repeatedly on this PR"
+    "SATISFIED ON MASTER: entire public-surface workflow run 35607198414"
   ],
-  "stop_condition": "PROMOTE G2. Do not broaden Lens. Track DOCS RSVP smoke separately; next Lens work only on concrete repeated-use deficit such as named compound presets or a task-specific semantic zoom lens.",
+  "stop_condition": "G2 PROMOTED AND VERIFIED. Do not broaden Lens. Next Lens mutation requires a repeated-use deficit: e.g. named compound presets with real reuse, or a task-specific semantic-zoom lens with a paired baseline advantage.",
   "proof": {
     "head_sha": "a6e4470abe7e56ca4246bc0b846283138b4b873b",
     "workflow_run_id": 35606632845,
@@ -91,5 +91,18 @@
     ],
     "baseline_context": "master push run 35604443185 at base SHA 83d792ac1b56e41ca4e7126dfc909845f5d622f9 completed SUCCESS; branch does not modify DOCS reader runtime.",
     "disposition": "Treat Lens G2 as bounded PASS. Do not edit DOCS from this branch merely to manufacture a green aggregate check."
+  },
+  "final_return": {
+    "implementation_merge_sha": "d8a3b35ea51a5705e61e986f8cad6d3e80887397",
+    "master_workflow_run_id": 35607198414,
+    "master_workflow_result": "SUCCESS",
+    "verified": [
+      "LensState laws and round trip: SUCCESS",
+      "static surface contracts: SUCCESS",
+      "critical browser smoke: SUCCESS",
+      "recovered source/media checks: SUCCESS",
+      "frozen City/Painting tests: SUCCESS"
+    ],
+    "note": "Two pre-merge PR attempts hit the same unrelated DOCS RSVP smoke timeout while all Lens-specific probes passed; the master merge run then passed the entire suite. No DOCS code was changed by Lens G2."
   }
 }
