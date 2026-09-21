@@ -1,0 +1,91 @@
+{
+  "schema": "confluence.mechanism-transfer-loop/v0.1",
+  "date": "2026-09-21",
+  "status": "EXPERIMENTAL_METHOD",
+  "purpose": "Make cross-project inspiration falsifiable: preserve the source, recover the actual mechanism, bind it to an observed present failure, transfer the smallest useful unit, then judge it from subsequent use rather than aesthetic resemblance.",
+  "lifecycle": [
+    "TRIGGER",
+    "RECOVER",
+    "DISTINGUISH",
+    "TRIANGULATE",
+    "TRANSFER",
+    "USE",
+    "MEASURE",
+    "RETAIN | REVISE | REVERT",
+    "RETURN"
+  ],
+  "record": {
+    "id": "stable transfer id",
+    "trigger": {
+      "kind": "image | code | physical object | conversation | paper | observed-use failure",
+      "source": "exact address / file / route where possible",
+      "observed": "what was actually seen or reported"
+    },
+    "recovered": {
+      "exact_mechanism": "behavior that exists in the donor",
+      "provenance_class": "EXACT | RECONSTRUCTED | INFERRED",
+      "non_transferable_context": "what must not be silently imported"
+    },
+    "present_friction": {
+      "task": "what the user is trying to do now",
+      "failure": "observable current failure, not a general dislike",
+      "baseline": "plain/current alternative"
+    },
+    "triangulation": {
+      "internal_donors": [],
+      "external_evidence": [],
+      "speculation": "explicit hypothesis",
+      "disagreement": "preserve conflicting evidence"
+    },
+    "transfer": {
+      "recipient": "current head",
+      "unit": "one bounded mechanism",
+      "invariants": [],
+      "delta": "what changed",
+      "rollback": "how to remove it"
+    },
+    "use": {
+      "witness_source": "local/event/receipt path",
+      "measures": [],
+      "minimum_observation": "declared before adaptation"
+    },
+    "verdict": {
+      "state": "UNMEASURED | RETAIN | REVISE | REVERT",
+      "basis": "",
+      "next_review": ""
+    }
+  },
+  "laws": [
+    "RECOVER BEFORE INVENTING.",
+    "IMAGE REFERENCE IS A RETRIEVAL ANCHOR, NOT EVIDENCE OF FUNCTION.",
+    "AESTHETIC RESONANCE MAY START A TEST; IT MAY NOT COMPLETE ONE.",
+    "TRANSFER THE MECHANISM, NOT THE DONOR'S ENTIRE ONTOLOGY.",
+    "OBSERVED USE OUTRANKS SPECULATIVE POLISH.",
+    "EXTERNAL RESEARCH IS A PRIOR / FALSIFIER, NOT AN AUTHORITY SUBSTITUTE FOR THE TASK.",
+    "NO SILENT SELF-MODIFICATION: ADAPTATION CANDIDATES ARE SURFACED, THEN EXPLICITLY ENACTED AND RECEIPTED.",
+    "A FAILED TRANSFER IS USEFUL IF THE FAILURE IS PRESERVED."
+  ],
+  "first_case": {
+    "id": "axial-position-overview-2026-09-21",
+    "triggers": [
+      "user observed current dial position was not legible",
+      "Painting / Path minimap + viewport donor recovered",
+      "SLEEPER // ONE RETURN witness / ghostTrail donor recovered"
+    ],
+    "recipient": "/foundry/axial/",
+    "transfers": [
+      "fixed gate distinct from moving ring position witness",
+      "persistent overview that survives RING/STRIP projection and can navigate the main surface",
+      "local-only engineering witness / ghost trail with exportable residue"
+    ],
+    "measures": [
+      "ring moves by dimension",
+      "dead alignments",
+      "BACK usage",
+      "projection usage",
+      "OPEN / RETURN events",
+      "history depth and unresolved match count in exported witness"
+    ],
+    "adaptation_rule": "Only surface a candidate after minimum ordinary use; never automatically reorder or remap AXIAL."
+  }
+}
