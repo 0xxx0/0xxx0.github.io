@@ -169,6 +169,45 @@ Consequential medication logic remains outside autonomous FIELD authority:
 - interaction findings retain authoritative source and uncertainty;
 - escalate consequential ambiguity to pharmacist/clinician review.
 
+## Minimum sufficient sensorium
+
+Treat measurement itself as a resource cost.
+
+A sensor, prompt or derived score earns continued aperture only when it does at least one of:
+
+1. changes a real decision branch;
+2. resolves a named uncertainty;
+3. supplies a required safety/context constraint;
+4. provides evidence for a bounded test that is still undecided.
+
+Conceptually:
+
+```
+minimize  burden + privacy cost + attention cost + dependency
+subject to
+  enough information for the current decision
+  + declared safety constraints
+```
+
+This is a governance objective, not a clinical formula. The useful operational test is **marginal decision value**: if an additional stream repeatedly fails to change the available branch or reduce meaningful uncertainty, demote it from LIVE/CAMPAIGN toward GLANCE/CLOSED.
+
+This makes sensor removal a successful outcome.
+
+## Borrow from JITAI / micro-randomized methods, without importing the whole product model
+
+Modern JITAI work already gives a rigorous grammar for adaptive support:
+
+- **decision point** — when support could be considered;
+- **tailoring variables** — current state/context used to choose;
+- **availability** — whether the person can/should be interrupted;
+- **intervention options** — bounded actions, including doing nothing;
+- **decision rule** — how the option is selected;
+- **proximal outcome** — what near-term return evaluates the decision.
+
+BODY campaigns should use these primitives where useful. For low-risk behavioral options, explicit opt-in micro-randomization can sometimes distinguish “this prompt/action helps” from hindsight storytelling. It is not appropriate for unsupervised medication changes, hazardous interventions, or anything where random assignment itself would be unsafe.
+
+A candidate machine-readable carrier now exists at `/body/campaign.schema.json`. It deliberately includes an evidence gate, burden budget and FADE condition before a campaign earns more sensing.
+
 ## Calibration rather than dependence
 
 We should test whether sensing improves decisions enough to justify continued sensing.
