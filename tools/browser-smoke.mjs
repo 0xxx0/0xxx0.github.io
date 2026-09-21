@@ -429,6 +429,12 @@ const CASES=[
     }
   },
   {
+    name:'ONE RETURN / NINE GATE',
+    route:'/sleeper/one-return/',
+    options:{width:1180,height:900,budget:5000},
+    check:dom=>/ONE RETURN/i.test(dom)&&/NINE GATE/i.test(dom)&&dom.includes('id="city"')&&dom.includes('data-view="disc"')&&dom.includes('data-view="trace"')&&/previous RETURN ghost/i.test(dom)
+  },
+  {
     name:'SLEEPER RECOVERY',
     route:'/recovery/sleeper/',
     check:dom=>/Sleeper recovery/i.test(dom)&&/Exact source now recovered/i.test(dom)&&/Painting \/ Path/i.test(dom)
