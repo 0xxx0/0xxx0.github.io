@@ -117,6 +117,9 @@ if(manifest){
   });
   for(const href of walkDirs())check(manifestHrefSet.has(href),'directory index surface missing manifest address: '+href);
 }
+const issueSnapshot=parse('control/FIELD_ISSUES.json');
+if(issueSnapshot){check(issueSnapshot.schema==='field-repo-issues/v0.1','FIELD issue snapshot schema drifted');check(issueSnapshot.count===issueSnapshot.issues.length,'FIELD issue snapshot count mismatch');}
+if(exists('field-glyph.js')){try{new Function(read('field-glyph.js'))}catch(e){fail.push('JS field-glyph.js: '+e.message)}}
 const ret=parse('return-index.json');
 if(ret){
   check(ret.count===ret.items.length,'return-index count mismatch');
@@ -149,6 +152,9 @@ check(home.includes('>NOW<'),'root missing NOW reading');
 check(home.includes('>HEADS<'),'root missing HEADS reading');
 check(home.includes('>MAP<'),'root missing MAP reading');
 check(home.includes('>OPEN PORTS<'),'root missing OPEN PORTS reading');
+check(home.includes('LATEST / REPO TOUCHES'),'root missing LATEST re-entry reading');
+check(home.includes('ISSUES / REPO OPEN LOOPS'),'root missing ISSUES reading');
+check(home.includes('field-glyph.js'),'root missing shared FIELD glyph grammar');
 check(home.includes('FIELD_INDEX_CONTRACT.json'),'root missing FI contract link');
 compileInline('index.html');
 if(manifest){
