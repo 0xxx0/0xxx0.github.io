@@ -6,6 +6,7 @@
   "released": "2026-09-22",
   "state": "CANDIDATE",
   "changes": [
+    "hardened 0.3 tab/view switching after catching a runtime selector regression that static syntax alone did not expose",
     "0.2 donor retained: transformed FIT into an explicit LOADOUT surface with capability rail, known mass, power/service metadata, module cards, purpose-specific prep kits and revision-aware prep checks",
     "added optional loose prep items to saved loadout kits",
     "added persistent SET OUT loadout sessions that snapshot exact kit revision + module readiness + manually checked loose items",
@@ -40,7 +41,8 @@
     "PATINA derives marks from RETURN receipts and has no streak counter, decay or missed-day debt",
     "RETURN mark does not encode health score, diagnosis or improvement",
     "NEXT CUT is freeform reflective residue, not an automatic prescription",
-    "older 0.1/0.2 local state imports remain valid by defaulting returns[] and active_session"
+    "older 0.1/0.2 local state imports remain valid by defaulting returns[] and active_session",
+    "tab switching uses explicit multi-node selectors; loadout can move LOADOUT ↔ SENSE ↔ FUSE ↔ PATINA ↔ PLAIN without the prior single-selector .forEach failure"
   ],
   "open_gaps": [
     "CARE does not yet project explicit performed care actions into the same PATINA grammar; test BODY / FIT semantics before sharing that projection",
