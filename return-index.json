@@ -2,10 +2,21 @@
   "schema": "0xxx0/return-index/v0.1",
   "generated": "2026-09-21",
   "source": "/showcase-manifest.json",
-  "count": 45,
-  "receipts_ok": 45,
+  "count": 46,
+  "receipts_ok": 46,
   "law": "A release without a return path is not closed.",
   "items": [
+    {
+      "href": "/foundry/aperture/",
+      "title": "APERTURE CHARTER BOUNDARY",
+      "state": "UTILITY",
+      "version": "0.4",
+      "operation": "INSPECT",
+      "receipt": "/returns/APERTURE_CHARTER_BOUNDARY_2026-09-21.json",
+      "receipt_ok": true,
+      "receipt_schema": "return-receipt/v0.1",
+      "release_updated": "2026-09-21"
+    },
     {
       "href": "/control/",
       "title": "WORKER CONTROL RECONCILIATION",
