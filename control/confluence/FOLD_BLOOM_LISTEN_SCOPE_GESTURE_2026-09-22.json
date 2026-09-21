@@ -28,5 +28,7 @@
     "browser_regression": "PENDING_CI",
     "real_phone": "REQUIRED_NEXT: one-finger BEAT/PHRASE/SECTION/TRACK scrub should feel stable and visibly show HOLD"
   },
-  "stop_condition": "Do not add another music/game bridge from this pass. If CI passes, ship the interaction repair and return to the existing real-phone/audio gate."
+  "stop_condition": "Do not add another music/game bridge from this pass. If CI passes, ship the interaction repair and return to the existing real-phone/audio gate.",
+  "pull_request": 120,
+  "pull_request_url": "https://github.com/0xxx0/0xxx0.github.io/pull/120"
 }
