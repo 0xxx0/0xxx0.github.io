@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/body-fit-health-connect-adapter/v0.1",
-  "status": "CANDIDATE",
+  "status": "IMPLEMENTED_BUILD_VERIFIED_DEVICE_PROOF_REQUIRED",
   "updated": "2026-09-22",
   "host": "/body/fit/",
   "purpose": "Read the minimum campaign-selected Android Health Connect records and transform them into existing BODY / FIT sensor-observation envelopes without creating a second health store or writing imported data back to Health Connect.",
@@ -145,11 +145,56 @@
     ]
   },
   "next_proof": [
-    "Install/run a minimal Android reader locally.",
+    "Install the build-verified debug reader on the Android phone.",
     "Authorize only sleep + heart-rate reads.",
-    "Export one bounded bundle.",
-    "Import into BODY / FIT.",
-    "Verify timestamps, source app/device attribution, units and missingness survive.",
-    "Then decide whether an automatic local relay is worth its dependency cost."
+    "Build and explicitly save one 36-hour bundle.",
+    "Import that local bundle into BODY / FIT.",
+    "Verify timestamps, source app/device attribution, units, sample truncation state and missingness survive.",
+    "RETURN PASS / FAIL / AMBIGUOUS; only then decide whether any automatic local relay is worth its dependency cost."
+  ],
+  "implementation": {
+    "path": "/bridge/health-connect-reader/",
+    "version": "0.1",
+    "app_id": "io.github.field.bodybridge",
+    "behavior": [
+      "foreground-only Health Connect reads",
+      "READ_SLEEP + READ_HEART_RATE only",
+      "36-hour explicit read window",
+      "explicit document-picker JSON save",
+      "0xxx0/body-sensor-bundle/v0.1 output",
+      "source/device/recording-method provenance retained",
+      "no averaging of heart-rate source samples",
+      "5000 newest heart-rate sample export cap with explicit truncation metadata"
+    ],
+    "forbidden_by_source": [
+      "android.permission.INTERNET",
+      "Health Connect WRITE permissions",
+      "READ_HEALTH_DATA_IN_BACKGROUND",
+      "READ_HEALTH_DATA_HISTORY"
+    ]
+  },
+  "build_proof": {
+    "state": "PASS",
+    "workflow": "health-connect-reader-check",
+    "run_id": 35653352582,
+    "checks": [
+      "Gradle assembleDebug",
+      "least-privilege manifest assertions",
+      "non-empty debug APK"
+    ],
+    "toolchain": {
+      "agp": "9.4.0",
+      "gradle": "9.6.0",
+      "jdk": "17",
+      "compile_sdk": 36,
+      "target_sdk": 36,
+      "health_connect": "1.1.0"
+    }
+  },
+  "non_claims": [
+    "Build success does not prove Health Connect permission flow on the user's device.",
+    "Build success does not prove Samsung Health / Galaxy Watch records are present or attributed as expected.",
+    "No real personal health bundle has been produced, imported or committed.",
+    "The debug APK is a proof build, not a promoted production health application."
   ]
 }
