@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_TRACKFIELD_2026-09-22",
   "date": "2026-09-22",
   "operation": "USER IMMERSION GAP → RECOVER AUDIOSURF MECHANISM → AUDIO MAP AS WORLD → TRACKFIELD",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "route": "/fold-bloom/live/",
   "delta": [
     "LIVE becomes a ride through measured future audio rather than a ring with track telemetry",
@@ -13,5 +13,11 @@
     "family roles and provider/legal boundaries are explicit"
   ],
   "next_truth": "Load the same MP3 on phone and judge one thing first: can you see/feel a musical surge approaching, and does reaching it create the urge to keep riding?",
-  "stop": "No provider expansion until the TRACKFIELD hook is judged in real play."
+  "stop": "No provider expansion until the TRACKFIELD hook is judged in real play.",
+  "pr": 137,
+  "merge_sha": "d005ee56b127da6c547fc2b074edaa8688898cc4",
+  "ci": {
+    "run": 35666317285,
+    "result": "PASS"
+  }
 }
