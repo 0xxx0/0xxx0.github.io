@@ -68,7 +68,7 @@
       "head": "FIELD INDEX / NOW · HEADS · MAP · OPEN PORTS",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Orientation layer separating attention, heads, durable address structure, open ports and mutation history; VISUAL now exposes explicit address-depth SCALE, route→Scale Lens projection, and a separate public-safe PLAY surface for evidence-bearing contributor missions."
+      "retained_function": "Orientation layer separating attention, retained heads, durable address structure, evolutionary probes, open ports and mutation history. EVOLVE projects host→baseline→one mutation→evidence→selection without creating a parallel experiment backlog; fixed root readings fold repeated identities."
     },
     {
       "lineage": "scale-lens",
@@ -398,7 +398,9 @@
     "transductions": "/control/confluence/TRANSDUCTIONS.md",
     "transduction_registry": "/control/TRANSDUCTIONS.json",
     "preference_signals": "/control/PREFERENCE_SIGNALS.json",
-    "passive_feedback_return": "/returns/PASSIVE_FEEDBACK_2026-09-21.json"
+    "passive_feedback_return": "/returns/PASSIVE_FEEDBACK_2026-09-21.json",
+    "field_evolution": "/control/confluence/FIELD_EVOLUTION.md",
+    "field_evolution_return": "/returns/FIELD_EVOLUTION_2026-09-21.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
@@ -441,8 +443,11 @@
       "HEADS": "/control/CURRENT.json#current_heads",
       "MAP": "/showcase-manifest.json#routes",
       "OPEN_PORTS": "route.field.exit_paths where status != AVAILABLE",
-      "RECENT": "route.index.updated_at secondary lens only"
-    }
+      "RECENT": "route.index.updated_at secondary lens only",
+      "EVOLVE": "showcase-manifest route.evolution; bounded variation → evidence → selection → transfer/park/compost"
+    },
+    "evolution_contract": "/control/FIELD_INDEX_CONTRACT.json#evolution_contract",
+    "identity_fold": "Fixed root readings show a canonical route identity once: NOW first, then HEADS, then PULSE. Explicit MAP/RECENT/EVOLVE are named reprojections."
   },
   "last_recovery_survey": "/control/RECOVERY_SURVEY_2026-09-20_B.json",
   "last_recovery_population": "/control/RECOVERY_POPULATION_2026-09-20.json",
