@@ -2110,80 +2110,70 @@
     },
     {
       "href": "/foundry/room/",
-      "title": "INTERPHASE / SPACE SCALE 0.2",
+      "title": "INTERPHASE / MATERIAL RAIL 0.3",
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "COMPOSE",
       "state": "CANDIDATE",
-      "version": "0.2",
+      "version": "0.3",
       "receipt": "/foundry/room/release.json",
       "showcase_card": false,
-      "role": "Recursive BLOCK ⇄ ROOM composition substrate: typed seams, semantic operational zoom, reversible FOLD abstraction, subtree FORK, safe graph execution, declarative materialization recipe and RETURN over stable identities.",
+      "role": "Typed material rail / cassette compiler over the existing ROOM core: ordered adjacency replaces the generic node canvas; deterministic seam keys expose type fit; contiguous spans FOLD into reusable cassettes; ENTER reveals derivation; model-fit stays separate from physical contract-fit.",
       "transfer": [
-        "FURNISHER/SINDER multidimensional breadboard + joint-pattern compiler/stapler intent",
-        "FURNISHER POINT / PATHS / PLANE / POWER and analog-first physical-programming discipline",
-        "INTERPHASE lenses/state/transducers + room as projection rather than kernel",
-        "ONE RETURN typed seams / docking / replay",
-        "AXIAL fixed focus + discrete snap/readback",
-        "Scale Lens identity across unequal projections",
-        "Pad++ space-scale / alternate interface physics",
-        "Dynamicland visible compositional machinery and ad-hoc coupling",
-        "Breadboard / Potluck / Patchwork / Glamorous Toolkit malleability donors"
+        "FURNISHER/SINDER connection-pattern-as-interface and joint-pattern compiler/stapler intent",
+        "INTERPHASE source→reduce→focus→fold→act lineage",
+        "SPACE SCALE 0.2 typed fold/dock/run core retained without its rejected canvas projection",
+        "ONE RETURN stable identity / seams / RETURN",
+        "product-demo SAVE→LOAD→SIMULATION GAP boundary: model fit != physical contract fit",
+        "physical rail/cassette/partition lineage as future witness only after measured fit"
       ],
       "contract": {
         "accepts": {
           "kinds": [
-            "typed block graph",
-            "FIELD route set",
+            "typed block/cassette model",
             "configuration intent"
           ],
           "requires": [
-            "stable node identity",
-            "typed port identity"
+            "stable block identity",
+            "typed boundary ports"
           ],
           "optional": [
             "composite hierarchy",
-            "operator",
-            "starting semantic scale",
-            "scope"
+            "predicted/measured observable + tolerance",
+            "physical contract result"
           ]
         },
         "transforms": {
-          "verb": "compose typed blocks, fold a working subgraph into a reusable block, enter it as a room at deeper semantic scale, fork alternatives, and preserve the derivation through RETURN",
+          "verb": "project a typed composition onto an ordered carrier, fold contiguous spans into reusable cassettes, enter/exit derivation, fork alternatives, execute safely, and return an ordered material recipe",
           "preserves": [
-            "primitive node identity",
-            "primitive port identity",
-            "primitive edge topology",
-            "composite child identity",
-            "plain canonical graph",
+            "primitive identity",
+            "child identity",
+            "typed ports",
+            "underlying graph",
             "RETURN"
           ],
-          "reversibility": "full for digital composition/fold/fork projection operations",
-          "side_effects": "browser-local layout, selection, composition experiment and RETURN only"
+          "reversibility": "digital FOLD/ENTER/FORK/DISSOLVE operations preserve derivation; physical correspondence is not inferred",
+          "side_effects": "browser-local projection only"
         },
         "emits": {
           "kinds": [
-            "recursive block/room projection",
-            "typed graph",
+            "material rail",
+            "cassette recipe",
             "execution trace",
-            "declarative materialization recipe",
-            "space-scale RETURN"
+            "model-binding result",
+            "RETURN"
           ],
           "machine_readable": true,
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/foundry/room/release.json",
+          "receipt": "/returns/ROOM_MATERIAL_RAIL_2026-09-22.json",
           "checks": [
-            "incompatible typed ports reject before graph mutation",
-            "FOLD preserves child identities and derives boundary proxy ports",
-            "composite proxy ports resolve to original primitive ports",
-            "semantic scale maps GLYPH / BLOCK / ROOM without changing graph identity",
-            "FORK clones subtree plus internal seams",
-            "safe graph RUN completes seed pipeline without eval",
-            "materialization recipe states explicit physical-safety non-claim",
-            "ROOM 0.1 remains preserved as prior probe"
+            "rail projection selftest",
+            "browser surface smoke",
+            "existing SPACE SCALE core selftest retained",
+            "SPACE SCALE 0.2 and ROOM 0.1 preserved as reference projections"
           ],
           "return_path": "/foundry/room/"
         }
@@ -2197,35 +2187,35 @@
         "inputs": [
           {
             "medium": "DATA",
-            "kind": "typed nodes / ports / topology",
-            "interface": "space-core model"
+            "kind": "typed blocks / ports / topology",
+            "interface": "SPACE SCALE core"
           },
           {
             "medium": "HUMAN_ACTION",
-            "kind": "pan / semantic zoom / select / dock / fold / enter / fork",
-            "interface": "space-scale canvas"
+            "kind": "focus / mark / fold / enter / back / fork / run",
+            "interface": "MATERIAL RAIL"
           },
           {
-            "medium": "DATA",
-            "kind": "FIELD route metadata",
-            "interface": "FIELD seed"
+            "medium": "OBSERVATION",
+            "kind": "predicted / measured / tolerance + independent contract result",
+            "interface": "MODEL BINDING"
           }
         ],
         "outputs": [
           {
             "medium": "REPRESENTATION",
-            "kind": "GLYPH / BLOCK / ROOM semantic projections",
-            "interface": "space-scale canvas"
+            "kind": "ordered material rail + seam keys",
+            "interface": "MATERIAL RAIL"
           },
           {
             "medium": "DATA",
-            "kind": "typed composite graph + execution trace",
-            "interface": "SPACE SCALE core"
-          },
-          {
-            "medium": "DATA",
-            "kind": "declarative materialization recipe",
+            "kind": "cassette / topology recipe",
             "interface": "RECIPE"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "model-fit vs contract-fit result",
+            "interface": "BINDING"
           },
           {
             "medium": "EVIDENCE",
@@ -2235,19 +2225,14 @@
         ],
         "exit_paths": [
           {
-            "class": "PHYSICAL_COMPILER",
+            "class": "PHYSICAL_WITNESS",
             "status": "PROOF_REQUIRED",
-            "via": "materialization recipe → independent fit/load/safety gate"
-          },
-          {
-            "class": "FIELD_HOST",
-            "status": "AVAILABLE",
-            "via": "FIELD route seed / future bounded handoff"
+            "via": "seam key / cassette recipe → independent dimensional/load/safety evidence"
           },
           {
             "class": "PLAIN_GRAPH",
-            "status": "AVAILABLE",
-            "via": "PLAIN canonical graph"
+            "status": "REFERENCE",
+            "via": "/foundry/room/space-scale-0.2.html"
           },
           {
             "class": "ROOM_0_1_PROBE",
@@ -2255,32 +2240,33 @@
             "via": "/foundry/room/room-0.1.html"
           }
         ],
-        "physical_fit": "Digital composition substrate only. Physical correspondences require independent typed joint/material/load/safety evidence; no HOUSE/device authority."
+        "physical_fit": "Digital interface candidate only. Model fit and physical contract fit are explicitly independent."
       },
       "index": {
-        "updated_at": "2026-09-22T05:58:00+08:00",
+        "updated_at": "2026-09-22T06:20:00+08:00",
         "work_modes": [
           "RECOVER",
-          "RESEARCH",
           "SPECIFY",
           "IMPLEMENT",
-          "VERIFY"
+          "VERIFY",
+          "OPERATE"
         ]
       },
       "evolution": {
         "schema": "field-evolution/v0.1",
         "host": "/foundry/",
-        "generation": 2,
+        "generation": 3,
         "stage": "TEST",
-        "question": "Can recursive BLOCK ⇄ ROOM abstraction make a real configuration easier to compose, inspect, fork, reuse and re-enter than the six-face cube probe or a plain graph without hiding its machinery?",
-        "baseline": "ROOM 0.1 six-face relation projection + PLAIN canonical graph; neither turns working composition into a reusable recursive primitive.",
-        "mutation": "Replace cube-head with a space-scale composition substrate: GLYPH/BLOCK/ROOM semantic depth, typed ports, visible seams, reversible FOLD, subtree FORK, safe RUN and declarative RECIPE.",
-        "evidence_gate": "Core/static/browser tests, then compose one real multi-step FIELD or HOUSE-safe planning transformation. Require a folded composite to be reusable/forkable/re-enterable with lower translation cost and no loss of seam/provenance visibility.",
-        "next_if_pass": "Transfer space-core semantics into one real host and prototype one physical/printable typed-port or joint-pattern witness. Keep canvas replaceable.",
-        "next_if_fail": "PARK the zoom canvas; retain typed dock/fold/fork/recipe semantics as donor and return to a plainer host."
+        "question": "Can an ordered typed carrier make composition, folding and re-entry clearer than SPACE SCALE 0.2's generic node canvas while preserving the same underlying identities and seams?",
+        "baseline": "SPACE SCALE 0.2 typed core rendered as a freeform pan/zoom node canvas; user judged the current ROOM evolution poor.",
+        "mutation": "Keep the core; replace its head projection with MATERIAL RAIL: adjacency as composition, deterministic seam keys, one-hand span folding, cassette entry, explicit model↔reality binding.",
+        "evidence_gate": "Use one real configuration sequence. Require lower translation/re-entry cost than a plain list and visible preservation of derivation; otherwise park the rail UI.",
+        "next_if_pass": "Physicalize one harmless seam/cassette witness and measure model fit separately from physical contract fit.",
+        "next_if_fail": "Keep only the seam-key/cassette recipe mechanics as donors and stop inventing global ROOM surfaces."
       },
-      "recovery_note": "/control/confluence/ROOM_BLOCK_SPACE_SCALE_2026-09-22.md",
       "kernel": "/foundry/room/space-core.js",
+      "projection": "/foundry/room/rail-core.js",
+      "preserved_0_2": "/foundry/room/space-scale-0.2.html",
       "previous_probe": "/foundry/room/room-0.1.html"
     },
     {

@@ -35,6 +35,8 @@ jobs:
         run: node control/interphase-room-selftest.js
       - name: Validate BLOCK ROOM space-scale core
         run: node control/space-scale-selftest.js
+      - name: Validate ROOM material rail projection
+        run: node control/room-rail-selftest.js
       - name: Validate static surface contracts
         run: node tools/validate-public.mjs
       - name: Validate Triangle FORM rewrite core

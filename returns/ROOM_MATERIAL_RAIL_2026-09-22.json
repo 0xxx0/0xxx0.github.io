@@ -1,0 +1,30 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "ROOM-MATERIAL-RAIL-2026-09-22",
+  "at": "2026-09-22T06:20:00+08:00",
+  "before": "SPACE SCALE 0.2 used a generic infinite node canvas. Its underlying typed fold/dock/run model remained coherent, but the user judged the current ROOM evolution poor.",
+  "observation": "User verdict counts as failed UI evidence. Historical/product material emphasizes connection pattern as interface, physicalized topology, SAVE/LOAD/simulation-gap boundaries, and composable blocks rather than node-editor chrome.",
+  "operation": "Preserve 0.2 unchanged as donor; project the same core through MATERIAL RAIL 0.3: ordered typed slots, seam keys, MARK→FOLD cassette compilation, ENTER/BACK derivation traversal, fork/run/recipe/return, and explicit model-fit vs contract-fit binding.",
+  "changed": [
+    "/foundry/room/index.html",
+    "/foundry/room/rail-core.js",
+    "/control/room-rail-selftest.js",
+    "/foundry/room/release.json",
+    "/showcase-manifest.json",
+    "/tools/browser-smoke.mjs",
+    "/.github/workflows/public-surface-check.yml"
+  ],
+  "preserves": [
+    "/foundry/room/space-scale-0.2.html",
+    "/foundry/room/release-0.2.json",
+    "/foundry/room/room-0.1.html",
+    "/foundry/room/space-core.js"
+  ],
+  "non_claims": [
+    "Seam key bits are a deterministic interface witness, not a proven physical connector standard.",
+    "Model-fit calculator does not establish safety or physical contract fit.",
+    "No HOUSE/device actuation is introduced.",
+    "0.3 is a projection candidate, not a new kernel."
+  ],
+  "next": "Try one real configuration sequence; keep the rail only if it lowers translation/re-entry cost over a plain list."
+}

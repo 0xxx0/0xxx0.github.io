@@ -571,10 +571,10 @@ const CASES=[
     check:dom=>dom.includes('FOCUS STACK')&&dom.includes('RETURN')
   },
   {
-    name:'INTERPHASE SPACE SCALE',
+    name:'INTERPHASE MATERIAL RAIL',
     route:'/foundry/room/',
-    options:{width:1100,height:820,budget:2200,timeout:18000},
-    check:dom=>dom.includes('INTERPHASE / SPACE SCALE 0.2')&&dom.includes('id="canvas"')&&dom.includes('BLOCK ⇄ ROOM')&&dom.includes('id="foldBtn"')&&dom.includes('id="forkBtn"')&&dom.includes('space-core.js')
+    options:{width:1100,height:820,budget:2600,timeout:18000},
+    check:dom=>dom.includes('INTERPHASE / MATERIAL RAIL 0.3')&&dom.includes('id="rail"')&&dom.includes('MATERIAL RAIL')&&dom.includes('id="foldBtn"')&&dom.includes('id="enterBtn"')&&dom.includes('rail-core.js')&&dom.includes('MODEL ↔ REALITY BINDING')
   },
   {
     name:'AXIAL continuity + RETURN replay',
