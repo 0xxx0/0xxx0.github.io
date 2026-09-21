@@ -1,5 +1,5 @@
 {
-  "schema": "care-field-contract/v0.3",
+  "schema": "care-field-contract/v0.4",
   "updated": "2026-09-21",
   "title": "CARE / FIELD",
   "role": "specialized projection of CONTINUITY for real-world human/animal care observation, longitudinal follow-up and clinician/vet handoff",
@@ -64,7 +64,8 @@
       "BODYFIELD_EVENT_LEDGER_3",
       "0xxx0/care-case/v0.1",
       "0xxx0/care-case/v0.2",
-      "0xxx0/care-case/v0.3"
+      "0xxx0/care-case/v0.3",
+      "0xxx0/body-care-handoff/v0.1"
     ],
     "exports": [
       "0xxx0/continuity-case/v0.1",
@@ -136,5 +137,19 @@
       "trace coordinates remain in the active plan/view SVG coordinate frame",
       "event body_map stores geometry_version + view_box + trace coordinate space for replay"
     ]
+  },
+  "body_handoff": {
+    "transport": "same-origin browser localStorage",
+    "key": "0xxx0.body.care.handoff.v01",
+    "source_schema": "0xxx0/body-care-handoff/v0.1",
+    "admission": "offer only; user must click IMPORT INTO CURRENT CASE",
+    "preservation": [
+      "BODY event timestamp",
+      "state vector",
+      "BODY plan/view/region ids",
+      "body context",
+      "source cue"
+    ],
+    "law": "BODY EVENT != CARE CASE until explicit import"
   }
 }
