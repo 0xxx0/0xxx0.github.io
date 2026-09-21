@@ -458,11 +458,13 @@ function oneReturnGridReceiptProbeHtml(){
 
 
 function humanPortSpecimenProbeHtml(){
-  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:1100px;height:820px;border:0;display:block" src="/port/"></iframe><pre id="probeResult">PENDING</pre><script>
+  return '<!doctype html><html><body style="margin:0"><iframe id="f" style="width:1100px;height:820px;border:0;display:block" src="/port/"></iframe><pre id="probeResult">PENDING</pre><script src="/__smoke/human-port-specimens.js"></script></body></html>';
+}
+function humanPortSpecimenProbeJs(){
+  return `
   const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
   const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
   const stage=x=>{if(!finished)out.textContent='PENDING '+x+' '+JSON.stringify(rec)};
-  out.textContent='PENDING SCRIPT';
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   const waitFor=async(fn,limit=14000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw Error('waitFor timeout: '+label)};
   const W=()=>f.contentWindow,D=()=>W().document,SESSION='human.port.object.session.v01';
@@ -491,9 +493,9 @@ function humanPortSpecimenProbeHtml(){
     return {tag,handoff,capture,ret,after,status,beforeFocus,afterFocus:after?.focus?.address||null};
   }
   (async()=>{
-    stage('PORT_READY');await portReady();W().sessionStorage.clear();W().localStorage.removeItem('human.port.object.receipts.v01');f.src='/port/';await portReady();stage('IMAGE_LOAD');
+    stage('PORT_READY');await portReady();W().sessionStorage.clear();W().localStorage.removeItem('human.port.object.receipts.v01');f.src='/port/';await portReady();
 
-    const image=await loadRepoFile('/recovery/sleeper/site-source-2026-09-18/public/confluence-engine.png','confluence-engine.png','image/png');
+    stage('IMAGE_LOAD');const image=await loadRepoFile('/recovery/sleeper/site-source-2026-09-18/public/confluence-engine.png','confluence-engine.png','image/png');
     stage('IMAGE_ROUTE');const imageId=image.st.obj.object_id,imageHash=image.st.obj.sha256,imageRt=await intakeRoundTrip('image');
     rec.image={media:image.st.obj.media_class,hashExact:imageHash===image.expected,idSame:imageRt.ret.object_id===imageId&&imageRt.after?.obj?.object_id===imageId,provenanceOrigin:imageRt.handoff?.source_object?.provenance?.origin||null,returnState:imageRt.ret.state,status:imageRt.status};
 
@@ -514,10 +516,14 @@ function humanPortSpecimenProbeHtml(){
     rec.observation={provenancePreserved:[rec.image.provenanceOrigin,rec.json.provenanceOrigin,rec.file.provenanceOrigin].every(Boolean),jsonFocusPreserved:rec.json.focusPreserved};
     done(true,rec);
   })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
-  <\\/script></body></html>`;
+  `;
 }
 
 const server=http.createServer((req,res)=>{
+  if(String(req.url||'').startsWith('/__smoke/human-port-specimens.js')){
+    res.writeHead(200,{'content-type':'text/javascript; charset=utf-8','cache-control':'no-store'});
+    res.end(humanPortSpecimenProbeJs());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/human-port-specimens')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(humanPortSpecimenProbeHtml());return;
