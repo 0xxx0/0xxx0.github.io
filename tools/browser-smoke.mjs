@@ -219,8 +219,9 @@ function readerFocusProbeHtml(){
     rec.session=!!W().sessionStorage.getItem('docs.reader.paste.v1');
     const same=[rec.sent,rec.para,rec.section].every(x=>x.char_index===rec.word.char_index&&Math.abs(x.source_progress-rec.word.source_progress)<1e-9);
     const spans=[rec.sent,rec.para,rec.section].every(x=>x.span&&x.span.start<=x.char_index&&x.char_index<=x.span.end);
-    const ok=same&&spans&&rec.structure.length===2&&rec.xrefs.length>=2&&rec.session&&rec.orp&&rec.wordMark.toLowerCase().includes('second')&&/ap_char=/.test(rec.url)&&/CURRENT/.test(rec.xrefs.join(' '))&&/MEDIA/.test(rec.xrefs.join(' '));
-    done(!!ok,{same,spans,...rec});
+    const checks={same,spans,structure:rec.structure.length===2,xrefs:rec.xrefs.length>=2,session:rec.session,orp:!!rec.orp,wordMark:rec.wordMark.toLowerCase().includes('second'),urlChar:/ap_char=/.test(rec.url),current:/CURRENT/.test(rec.xrefs.join(' ')),media:/MEDIA/.test(rec.xrefs.join(' '))};
+    const ok=Object.values(checks).every(Boolean);
+    done(!!ok,{checks,structure:rec.structure,xrefs:rec.xrefs,wordMark:rec.wordMark,orp:rec.orp,url:rec.url,chars:[rec.word.char_index,rec.sent.char_index,rec.para.char_index,rec.section.char_index],progress:[rec.word.source_progress,rec.sent.source_progress,rec.para.source_progress,rec.section.source_progress],session:rec.session});
   })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),...rec}));
   <\/script></body></html>`;
 }
