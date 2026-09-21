@@ -1,0 +1,44 @@
+{
+  "schema": "return-receipt/v1",
+  "id": "SLEEPER-PROJECT-SHIPPED-2026-09-22",
+  "at": "2026-09-22T05:33:01+08:00",
+  "state": "SHIPPED",
+  "merge": {
+    "pr": 124,
+    "commit": "406ec300de95dc841d1e9691f061e0bee623837e",
+    "result": "MERGED"
+  },
+  "verification": {
+    "pre_merge_public_surface_ci": {
+      "run_id": 35657633817,
+      "conclusion": "success"
+    },
+    "post_merge_public_surface_ci": {
+      "run_id": 35657760630,
+      "conclusion": "success"
+    },
+    "pages": {
+      "run_id": 35657759502,
+      "build": "success",
+      "deploy": "success"
+    },
+    "browser_smoke": "success",
+    "recovery_identity_tests": "success"
+  },
+  "shipped_routes": [
+    "/sleeper/",
+    "/sleeper/project/",
+    "/sleeper/one-return/",
+    "/recovery/sleeper/",
+    "/recovery/sleeper/one-return-recon-0.2/"
+  ],
+  "preservation": {
+    "live_index_blob": "57fbd935c17a17800b78a1f2af4c52b4b37c52af",
+    "frozen_index_blob": "57fbd935c17a17800b78a1f2af4c52b4b37c52af",
+    "live_release_blob": "32039cac4061a41420017236e652a998db5333a4",
+    "frozen_release_blob": "32039cac4061a41420017236e652a998db5333a4",
+    "exact": true
+  },
+  "boundary": "ASCII ONE RETURN reconstruction is preserved/shipped as a playable donor. It is not promoted as the polished Work-mode ONE RETURN v2. The exact v2-era public source shelf remains a distinct identity-reconciliation target.",
+  "return": "/sleeper/project/"
+}
