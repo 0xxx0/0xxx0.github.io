@@ -142,8 +142,8 @@ const CASES=[
     name:'FOUNDRY CORE',
     route:'/foundry/core/',
     check:dom=>{
-      const center=textAtId(dom,'oneLine'),live=textAtId(dom,'liveStamp');
-      return center&&!/loading|failure/i.test(center)&&/updated/i.test(live)&&!dom.includes('CENTER LOAD FAILURE');
+      const center=textAtId(dom,'oneLine');
+      return /lived uncertainty/i.test(center)&&!/loading|failure/i.test(center)&&!dom.includes('CENTER LOAD FAILURE');
     }
   },
   {
@@ -157,7 +157,10 @@ const CASES=[
   {
     name:'CONFLUENCE',
     route:'/control/confluence/',
-    check:dom=>/CONFLUENCE/i.test(dom)&&/TRANSFER REGISTRY/i.test(dom)&&/FIELD DATADISC PULSE/i.test(dom)&&!dom.includes('Transfer registry unavailable')
+    check:dom=>{
+      const tx=textAtId(dom,'transfers');
+      return /CONFLUENCE/i.test(dom)&&/TRANSFER REGISTRY/i.test(dom)&&/IMPLEMENTED|PROOF_REQUIRED|PROPOSED/.test(tx)&&!/loading|unavailable/i.test(tx);
+    }
   },
   {
     name:'SLEEPER RECOVERY',
