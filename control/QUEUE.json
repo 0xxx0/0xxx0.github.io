@@ -8,6 +8,7 @@
       "goal": "Maintain exact recovered lineages, pursue only source-grounded blocked recovery, and stop solved families from reopening.",
       "horizon": "maintenance / opportunistic",
       "next": [
+        "Exact-recover the 2026-08-09 App Atlas tool set (Canon Console / Transfer Bench / Semantic Thread Tracer / Delta Ledger / Seeper) and the recovered Sleeper Keris/Conch/W8/Spiral tool source from File Library before inventing equivalents. Preserve exact bytes/source packet first; modernize only after recovery.",
         "City v0.2 source and later Painting runtime are recovered. Earlier Library painting-path.html remains a distinct variant; reopen only for a named version comparison, not presumed loss.",
         "Do not reopen Grid Path V4 or Fold Weave recovery unless a concrete missing function is identified.",
         "Continue exact-only Laconic archaeology only from source-level voice outputs/adoption evidence; do not reconstruct missing voices.",
@@ -81,5 +82,26 @@
   "last_recovery_run": "/control/RECOVERY_RUN_2026-09-21.json",
   "last_ingest_run": "/control/INGEST_RUN_2026-09-21.json",
   "last_representation": "/control/REPRESENTATION_01.json",
-  "last_recovery_mechanism_diff": "/control/RSVP_MECHANISM_DIFF_2026-09-21.json"
+  "last_recovery_mechanism_diff": "/control/RSVP_MECHANISM_DIFF_2026-09-21.json",
+  "next_three_transformations": [
+    {
+      "order": 1,
+      "id": "recover-toolbelt",
+      "move": "Recover exact historical tool sources into durable repo provenance; no cleanup or feature invention during recovery.",
+      "pass": "Exact bytes or verifiable source packet + provenance entry; missing material remains explicitly missing."
+    },
+    {
+      "order": 2,
+      "id": "derive-tool-lineage-reading",
+      "move": "Derive one read-only operator → donors → current carriers → RETURN/gaps reading from existing FIELD/CONFLUENCE records.",
+      "gate": "Only after the relevant tool sources are recovered exactly enough to prevent retrospective rewriting.",
+      "pass": "A cross-time mechanism question can be answered without project-by-project archaeology; plain search/list remains the control."
+    },
+    {
+      "order": 3,
+      "id": "ordinary-use-selects-build",
+      "move": "Use FIELD / Port / Lens / House normally; translate repeated real friction or unusually useful moments into bounded mechanism-transfer tests.",
+      "pass": "The next implementation is selected by observed repeated use evidence, not dormant-project attractiveness."
+    }
+  ]
 }
