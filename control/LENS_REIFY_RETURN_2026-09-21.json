@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/lens-reify-return/v0.1",
   "at": "2026-09-21T14:06:00+08:00",
-  "status": "IMPLEMENTED_PENDING_BROWSER_PROOF",
+  "status": "IMPLEMENTED_STATIC_PASS_BROWSER_PROOF_PENDING",
   "source_command": "Reify",
   "recovered_mission": "REIFY · research → code → physical state",
   "before": {
@@ -41,5 +41,17 @@
     "Do not merge Studio and FIELD into one UI.",
     "Do not treat visual projection as DATA_LENS getter/setter law."
   ],
-  "next": "Run the LENS-02 browser proof fixture; promote only after interaction and return gates pass."
+  "next": "Browser-smoke generic route aperture + FIELD Focus Ring + Studio handoff/RETURN; do not promote LENS-02 before receipts.",
+  "repair": {
+    "observed": "Concurrent showcase-nav Focus Ring logic referenced data-l controls that were absent from its shadow DOM and would throw during startup.",
+    "action": "Preserved the donor intent; added OBJECT/APERTURE/VIEW/STACK readouts and OUT/IN/VIEW/STACK/RETURN/STUDIO controls, plus null-safe rendering.",
+    "commit": "214d1d82e751b1dc9d5323482d4c320f9b2a4875",
+    "validation": "showcase-nav.js syntax PASS; all referenced data-l controls present."
+  },
+  "convergence": {
+    "field": "/lens-focus-ring.js is the richer FIELD-bound active-aperture proof.",
+    "generic": "/showcase-nav.js is the compact route-level Lens aperture on ordinary showcase surfaces.",
+    "studio": "ScaleLensSpatialAPI exposes live aperture/project/projections/return/lensState inside Scale Studio.",
+    "rule": "One LensState grammar; unequal UI projections remain unequal."
+  }
 }
