@@ -45,12 +45,17 @@ function uiState(){const h=H();return{...(h?.uiState?.()||{}),foveate}}
 function restore(st){if(!st)return;foveate=!!st.foveate;H()?.restore?.(st);sync()}
 function projections(){return['AXIAL_LATEST','VISUAL','PULSE','STRUCTURE','EVOLVE','RECENT']}
 function catalog(){return[FIELD_FOVEATE,SCALE_SPATIAL]}
+function setFoveate(next){
+  foveate=!!next;
+  if(foveate&&H()?.projection?.()!=='VISUAL')H()?.project?.('VISUAL');
+  sync();return snapshot();
+}
 function applyLens(id){
-  if(id==='field-foveate'){
-    foveate=!foveate;
-    if(foveate&&H()?.projection?.()!=='VISUAL')H()?.project?.('VISUAL');
-    sync();return snapshot();
-  }
+  if(id==='field-foveate')return setFoveate(true);
+  return snapshot();
+}
+function removeLens(id){
+  if(id==='field-foveate')return setFoveate(false);
   return snapshot();
 }
 function clearFoveation(){
@@ -89,10 +94,9 @@ function openStudio(){
   location.assign('./fold-bloom/lens/');
 }
 window.FieldLensAPI=Object.freeze({
-  snapshot,uiState,restore,projections,catalog,applyLens,
+  snapshot,uiState,restore,projections,catalog,applyLens,removeLens,
   rise:()=>{H()?.rise?.();sync()},
   dive:()=>{H()?.dive?.();sync()},
-  peer:d=>{H()?.peer?.(d);sync()},
   project:m=>{H()?.project?.(m);sync()},
   openStudio
 });

@@ -91,7 +91,7 @@ window.ScaleLensSpatialAPI=Object.freeze({
   aperture:delta=>{const n=clamp(scope+Number(delta||0),0,8);if(n!==scope)setScope(n,'focus ring aperture');return spatialSnapshot()},
   project:d=>{if(DOMAINS[d])setDomain(d);return spatialSnapshot()},
   projections:()=>Object.keys(DOMAINS),
-  return:()=>{const a=address();if(a.returnAddress)location.href=a.returnAddress;else history.back()},
+  return:()=>returnToCaller(),
   lensState:()=>sharedLensStateSnapshot()
 });
 window.ScaleLensStateAPI=Object.freeze({snapshot:sharedLensStateSnapshot});
@@ -100,7 +100,7 @@ function consumeLensHandoff(){
     if(window.LensState){
       const h=LensState.readHandoff();
       if(h){
-        sessionStorage.removeItem(LensState.HANDOFF_KEY);inboundLensState=h.state;document.body.classList.add('has-handoff');setLab(false);
+        sessionStorage.removeItem(LensState.HANDOFF_KEY);sessionStorage.removeItem('scale.lens.handoff.v01');inboundLensState=h.state;document.body.classList.add('has-handoff');setLab(false);
         const t=String(h.text||'').slice(0,250000);if(t){$('#text').value=t;load(t,h.title||'lens-handoff');return true}
       }
     }

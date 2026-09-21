@@ -130,6 +130,7 @@ function studioProbeHtml(){
     const sh=await waitFor(()=>D().getElementById('lens-focus-ring')?.shadowRoot);await waitFor(()=>sh.querySelector('.panel')?.classList.contains('on'));
     rec.inline=sh.host?.dataset?.placement==='inline'&&sh.host?.previousElementSibling?.id==='aperture';
     rec.noPeer=!sh.querySelector('.next')&&!sh.querySelector('.prev');
+    rec.noPeerApi=typeof W().FieldLensAPI?.peer==='undefined';
     sh.querySelector('.dive')?.click();await waitFor(()=>W().FieldLensHost.uiState()?.mapRoot==='/fold-bloom/');rec.dive=compact(W().FieldLensHost.uiState());rec.diveHref=W().FieldLensHost.focus()?.href||null;
     sh.querySelector('.rise')?.click();await waitFor(()=>W().FieldLensHost.uiState()?.mapRoot==='/');rec.rise=compact(W().FieldLensHost.uiState());rec.riseHref=W().FieldLensHost.focus()?.href||null;
     sh.querySelector('.stackBtn')?.click();let apply=await waitFor(()=>sh.querySelector('[data-lens="field-foveate"]'));apply.click();
@@ -143,11 +144,12 @@ function studioProbeHtml(){
     const studio=sh.querySelector('.studio');if(!studio)throw new Error('studio button missing');studio.click();
     const studioState=await waitFor(()=>W().location.pathname==='/fold-bloom/lens/'&&W().ScaleLensStateAPI?.snapshot?.());
     rec.studioObject=studioState.objectId;rec.upstreamStack=(studioState.meta?.upstreamLensStack||[]).map(x=>x.lensId);
+    rec.handoffKeysCleared=!W().sessionStorage.getItem('lens:handoff:v2')&&!W().sessionStorage.getItem('scale.lens.handoff.v01');
     const ret=await waitFor(()=>{const x=D().getElementById('returnUpstream');return x&&!x.hidden?x:null});rec.returnHref=ret.dataset.href||null;
     if(rec.studioObject!==rec.startHref||!rec.upstreamStack.includes('field-foveate'))throw new Error('studio identity/provenance mismatch');
-    ret.click();await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===rec.startHref);
+    if(!W().ScaleLensSpatialAPI?.return)throw new Error('Scale Lens RETURN API missing');rec.returnVia='ScaleLensSpatialAPI';W().ScaleLensSpatialAPI.return();await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===rec.startHref);
     rec.endHref=W().FieldLensHost.focus().href;rec.end=compact(W().FieldLensHost.uiState());
-    const ok=rec.inline&&rec.noPeer&&rec.dive.focusHref===rec.startHref&&rec.diveHref===rec.startHref&&rec.dive.mapRoot==='/fold-bloom/'&&rec.rise.focusHref===rec.startHref&&rec.riseHref===rec.startHref&&rec.rise.mapRoot==='/'&&rec.stackRemoved===true&&rec.fieldObject===rec.startHref&&rec.fieldStack.includes('field-foveate')&&rec.studioObject===rec.startHref&&rec.upstreamStack.includes('field-foveate')&&rec.endHref===rec.startHref;
+    const ok=rec.inline&&rec.noPeer&&rec.noPeerApi&&rec.dive.focusHref===rec.startHref&&rec.diveHref===rec.startHref&&rec.dive.mapRoot==='/fold-bloom/'&&rec.rise.focusHref===rec.startHref&&rec.riseHref===rec.startHref&&rec.rise.mapRoot==='/'&&rec.stackRemoved===true&&rec.fieldObject===rec.startHref&&rec.fieldStack.includes('field-foveate')&&rec.studioObject===rec.startHref&&rec.upstreamStack.includes('field-foveate')&&rec.handoffKeysCleared===true&&rec.endHref===rec.startHref;
     done(!!ok,rec);
   })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
@@ -250,6 +252,33 @@ function apertureMultilingualProbeHtml(){
   <\/script></body></html>`;
 }
 
+function genericLensReturnProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:390px;height:844px;border:0;display:block" src="/fold-bloom/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};
+  const done=(ok,data)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data);
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=8000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw Error('waitFor timeout')};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>f.contentWindow.document;
+    const host=await waitFor(()=>D().getElementById('showcase-route-adapter'));
+    const sh=await waitFor(()=>host.shadowRoot),tab=await waitFor(()=>sh.querySelector('.tab.lens'));
+    rec.before=W().location.pathname;rec.triggerGlyph=tab.textContent.trim();
+    tab.click();
+    await waitFor(()=>sh.querySelector('.panel.on.lens'));
+    rec.copy=!!sh.querySelector('[data-l="copy"]');
+    rec.deadStack=!!sh.querySelector('[data-l="stackBtn"]');
+    rec.overflow=Math.max(D().documentElement.scrollWidth,D().body?.scrollWidth||0)-D().documentElement.clientWidth;
+    const ret=sh.querySelector('[data-l="return"]');rec.returnButton=!!ret;
+    if(!ret)throw Error('generic Lens RETURN missing');
+    ret.click();
+    await waitFor(()=>!sh.querySelector('.panel.on'));
+    rec.after=W().location.pathname;
+    rec.closed=!sh.querySelector('.panel.on');
+    done(rec.before===rec.after&&rec.closed&&rec.copy&&!rec.deadStack&&rec.returnButton&&rec.overflow<=1&&rec.triggerGlyph==='◎',rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
 function oneReturnGridReceiptProbeHtml(){
   return `<!doctype html><html><body><iframe id="f" style="width:1100px;height:820px;border:0" src="/sleeper/one-return/"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};
@@ -268,6 +297,10 @@ function oneReturnGridReceiptProbeHtml(){
 }
 
 const server=http.createServer((req,res)=>{
+  if(String(req.url||'').startsWith('/__smoke/generic-lens-return')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(genericLensReturnProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/one-return-grid-receipt')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(oneReturnGridReceiptProbeHtml());return;
@@ -438,6 +471,12 @@ const CASES=[
     route:'/__smoke/lens-studio',
     options:{width:1280,height:900,budget:22000,timeout:28000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"field-foveate"/.test(dom)&&/"studioObject":"\/fold-bloom\/lens\/"/.test(dom)&&/"endHref":"\/fold-bloom\/lens\/"/.test(dom)
+  },
+  {
+    name:'GENERIC LENS RETURN ≠ BACK',
+    route:'/__smoke/generic-lens-return',
+    options:{width:430,height:900,budget:9000,timeout:16000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"before":"\/fold-bloom\/"/.test(dom)&&/"after":"\/fold-bloom\/"/.test(dom)&&/"closed":true/.test(dom)&&/"copy":true/.test(dom)&&/"deadStack":false/.test(dom)&&/"overflow":0/.test(dom)&&/"triggerGlyph":"◎"/.test(dom)
   },
   {
     name:'FOLD BLOOM convergence',

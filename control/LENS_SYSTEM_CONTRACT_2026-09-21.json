@@ -162,7 +162,7 @@
       "name": "Identity-locked Focus Ring / inline Toolglass",
       "delta": "the current host-selected object opens one spatially attached Lens controller; aperture, projection, composition and RETURN remain refractions over that identity; SELECT remains outside Lens",
       "proof": "mobile and desktop: find current identity, change scope, switch projection, RETURN in <=2 interactions per operation; no horizontal overflow",
-      "status": "PROMOTED_VERIFIED",
+      "status": "PROMOTED_VERIFIED_G2_HARDENED",
       "implementation": {
         "route_adapter": "/showcase-nav.js",
         "shared_state": "/lens-state.js",
@@ -174,7 +174,13 @@
           "PEER navigation is removed from Lens controls",
           "active catalog lenses can be removed in place; inherited constraints remain visibly inherited",
           "COPY STATE exports the exact LensState",
-          "DEEP LAB hands the same state/provenance to Scale Studio"
+          "DEEP LAB hands the same state/provenance to Scale Studio",
+          "APPLY and REMOVE are separate idempotent commands; labels no longer hide a toggle.",
+          "Lens API exposes no PEER/SELECT operation; host authority is enforced in the adapter surface.",
+          "Generic route RETURN closes Lens without browser navigation; COPY STATE replaces the former no-op STACK affordance.",
+          "Scale Studio API RETURN and visible RETURN share one exact-caller resolver.",
+          "successful v2 handoff consumption clears its legacy fallback to prevent stale replay.",
+          "portable Lens trigger is ◎; ⊗ remains COMPOSE."
         ],
         "focus_ring": "/lens-focus-ring.js",
         "field_adapter": "/field-lens.js",
@@ -182,15 +188,18 @@
         "boundary": "FIELD/AXIAL owns SELECT. Lens owns APERTURE / VIEW / STACK / RETURN."
       },
       "remaining_proof": [],
-      "state": "IMPLEMENTED_PROVED_G2_MASTER",
+      "state": "IMPLEMENTED_PROVED_G2_HARDENED",
       "evidence": {
-        "lens_state_laws": "18/18 PASS",
+        "lens_state_laws": "24/24 PASS",
         "static_surface_contracts": "PASS",
         "browser": "Lens-specific paths PASS twice on workflow 35606632845; aggregate job red only on unrelated DOCS RSVP focus-kernel timeout",
         "receipt": "/control/LENS_FI_TOOLGLASS_G2_2026-09-21.json",
         "master_merge": "d8a3b35ea51a5705e61e986f8cad6d3e80887397",
         "master_workflow_run": 35607198414,
-        "master_workflow": "SUCCESS"
+        "master_workflow": "SUCCESS",
+        "hardening_branch_run": 35615450862,
+        "hardening_browser": "All Lens-specific cases PASS on attempt 2; aggregate red only on unrelated DOCS RSVP timeout.",
+        "hardening_receipt": "/control/LENS_G2_HARDENING_RETURN_2026-09-21.json"
       }
     },
     {
@@ -225,16 +234,23 @@
     "do not delete deep Scale Studio capability"
   ],
   "return": {
-    "next": "Use G2 in ordinary FIELD work. No Lens feature work until repeated use exposes a concrete deficit.",
+    "next": "Use hardened G2 in ordinary FIELD work. No Lens feature work until repeated use exposes a concrete deficit.",
     "current_grammar": "HOST SELECTS OBJECT → LENS APERTURE / VIEW / STACK → DEEP LAB if needed → RETURN restores caller.",
-    "state": "G2_PROMOTED_VERIFIED",
+    "state": "G2_HARDENED_LENS_PATHS_PROVED",
     "master_proof": {
       "merge": "d8a3b35ea51a5705e61e986f8cad6d3e80887397",
       "workflow_run": 35607198414,
       "result": "SUCCESS"
     },
     "code_contract_receipt": "/control/LENS_FI_TOOLGLASS_G2_2026-09-21.json",
-    "note": "Pre-merge DOCS RSVP smoke flaked twice; master merge run passed the complete suite without Lens changing DOCS."
+    "note": "Pre-merge DOCS RSVP smoke flaked twice; master merge run passed the complete suite without Lens changing DOCS.",
+    "hardening_receipt": "/control/LENS_G2_HARDENING_RETURN_2026-09-21.json",
+    "hardening_proof": {
+      "workflow_run": 35615450862,
+      "attempt": 2,
+      "lens_paths": "PASS",
+      "aggregate": "DOCS_RSVP_FLAKE"
+    }
   },
   "execution": {
     "branch": "lens-convergence-contract-20260921",

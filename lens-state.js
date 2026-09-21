@@ -28,8 +28,8 @@
   }
 
   function normalizeDescriptor(input={}){
-    const kind=input.kind===ACTION?ACTION:VIEW;
-    const authority=AUTHORITIES.has(input.authority)?input.authority:'PREVIEW';
+    const kind=input.kind==null?VIEW:input.kind;
+    const authority=input.authority==null?'PREVIEW':input.authority;
     return {
       schema:DESCRIPTOR_SCHEMA,
       lensId:text(input.lensId||input.lens_id||input.id),
@@ -46,10 +46,11 @@
   }
 
   function validateDescriptor(input){
-    const d=normalizeDescriptor(input),errors=[];
+    const raw=isObj(input)?input:{},d=normalizeDescriptor(raw),errors=[];
+    if(raw.kind!=null&&raw.kind!==VIEW&&raw.kind!==ACTION)errors.push('descriptor.kind invalid');
+    if(raw.authority!=null&&!AUTHORITIES.has(raw.authority))errors.push('descriptor.authority invalid');
     if(!d.lensId)errors.push('descriptor.lensId required');
     if(d.kind===VIEW&&d.authority!=='PREVIEW')errors.push('VIEW_LENS authority must be PREVIEW');
-    if(!AUTHORITIES.has(d.authority))errors.push('descriptor.authority invalid');
     return {ok:errors.length===0,errors,descriptor:d};
   }
 
@@ -60,7 +61,7 @@
     const objectId=text(input.objectId||input.object_id||input.identity||input.canonicalOwnerId||input.focusId||input.selectedId||address);
     const focusId=text(input.focusId||input.focus_id||input.selectedId||input.identity||objectId);
     const projection=text(input.projection||input.domain||'SOURCE','SOURCE');
-    const operator=OPERATORS.has(input.operator)?input.operator:'SELECT';
+    const operator=input.operator==null?'SELECT':input.operator;
     const lensStack=(input.lensStack||input.lens_stack||input.stack||[]).map(normalizeDescriptor);
     return {
       schema:SCHEMA,
@@ -126,13 +127,15 @@
   }
 
   function validate(input){
-    const state=normalize(input),errors=[];
+    const raw=isObj(input)?input:{},state=normalize(raw),errors=[];
+    if(raw.operator!=null&&!OPERATORS.has(raw.operator))errors.push('operator invalid');
     if(!state.objectId)errors.push('objectId required');
     if(!state.focusId)errors.push('focusId required');
     if(!state.projection)errors.push('projection required');
 
+    const rawStack=Array.isArray(raw.lensStack)?raw.lensStack:Array.isArray(raw.lens_stack)?raw.lens_stack:Array.isArray(raw.stack)?raw.stack:[];
     const chain=normalize({...state,lensStack:[]});
-    state.lensStack.forEach((d,i)=>{
+    rawStack.forEach((d,i)=>{
       const v=validateDescriptor(d);
       v.errors.forEach(e=>errors.push('lensStack['+i+'].'+e));
       if(v.ok){

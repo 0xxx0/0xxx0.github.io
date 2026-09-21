@@ -1,0 +1,67 @@
+{
+  "schema": "0xxx0/lens-g2-hardening-return/v0.1",
+  "at": "2026-09-21T22:58:00+08:00",
+  "status": "LENS_PATHS_PROVED__READY_TO_MERGE",
+  "law": "HOST SELECTS. LENS REFRACTS.",
+  "base": {
+    "master_sha": "5bb4f5e5e0c8effe08dae9d4449ec86cef28f4dc",
+    "master_public_surface_run": 35613694303,
+    "result": "SUCCESS"
+  },
+  "carrier": {
+    "pr": 91,
+    "branch": "lens-g2-hardening-20260921",
+    "code_head": "0ac8943538c292917a5790b950b541f8ad053667"
+  },
+  "observed_before": [
+    "FIELD APPLY and REMOVE were the same hidden toggle operation.",
+    "LensState normalization could coerce explicit invalid kind/authority/operator values into valid-looking defaults before validation.",
+    "FieldLensAPI still exposed peer() even after G2 removed PEER from the visible Lens, leaving a latent SELECT backdoor.",
+    "Generic route Lens exposed a no-op STACK control and route-only RETURN called browser BACK.",
+    "Generic Lens trigger used ⊗ even though ⊗ already denotes COMPOSE; FIELD used ◎.",
+    "Scale Studio visible RETURN used the true caller resolver while ScaleLensSpatialAPI.return() still used an older address/history fallback.",
+    "A successful v2 Studio handoff left the simultaneously-written legacy fallback key behind, allowing stale later re-consumption."
+  ],
+  "delta": [
+    "APPLY and REMOVE are separate idempotent FIELD adapter commands.",
+    "Explicit invalid LensState enum values survive normalization and are rejected at validation boundaries; omitted values retain lawful defaults.",
+    "FieldLensAPI.peer is removed; route SELECT remains host-owned.",
+    "Focus Ring publishes truthful disclosure/view ARIA state and restores invocation focus when possible.",
+    "Generic Toolglass replaces dead STACK with COPY STATE and route-only RETURN closes Lens without navigation.",
+    "Portable Lens trigger is consistently ◎; ⊗ remains composition semantics.",
+    "ScaleLensSpatialAPI.return() delegates to the same returnToCaller() resolver as visible Studio controls.",
+    "v2 handoff consume clears both v2 and legacy fallback keys."
+  ],
+  "proof": {
+    "lens_state_selftest": "24/24 PASS",
+    "branch_workflow_run": 35615450862,
+    "branch_workflow_attempt": 2,
+    "job_id": 106385212255,
+    "lens_browser": [
+      "PASS LENS PROOF alias",
+      "PASS LENS PROOF mobile RETURN",
+      "PASS FIELD activation + re-entry",
+      "PASS LENS STACK STUDIO RETURN via ScaleLensSpatialAPI.return()",
+      "PASS GENERIC LENS RETURN ≠ BACK",
+      "PASS SCALE LENS"
+    ],
+    "generic_probe": [
+      "pathname unchanged across route-only RETURN",
+      "panel closes",
+      "COPY STATE exists",
+      "dead STACK absent",
+      "390px viewport has zero horizontal overflow",
+      "trigger glyph is ◎"
+    ],
+    "attribution": "Aggregate workflow attempt 2 is red only because DOCS RSVP focus kernel timed out; every Lens-specific case passed. Attempt 1 terminated on a browser-process timeout at the first '/' smoke before reaching product cases. No DOCS code is modified by this branch."
+  },
+  "invariants_preserved": [
+    "FOVEATE remains parked and optional.",
+    "FIELD/AXIAL owns SELECT.",
+    "Lens owns APERTURE / VIEW / STACK / RETURN.",
+    "Scale Studio remains DEEP LAB.",
+    "VIEW_LENS never commits canonical state.",
+    "BACK is navigation; RETURN restores or exits Lens state and is not disguised browser history."
+  ],
+  "stop_condition": "Ship this bounded hardening after final-head checks. Then use Lens normally; reopen architecture only for a repeated concrete deficit such as genuinely reused compound presets or a task-specific projection with paired evidence of benefit."
+}
