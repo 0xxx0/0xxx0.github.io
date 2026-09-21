@@ -19,6 +19,9 @@ test('view lens cannot claim commit authority',()=>assert.equal(L.validateDescri
 test('descriptor rejects unknown kind instead of coercing to VIEW',()=>assert.equal(L.validateDescriptor({...structure,kind:'MAGIC_LENS'}).ok,false));
 test('descriptor rejects unknown authority instead of coercing to PREVIEW',()=>assert.equal(L.validateDescriptor({...structure,authority:'MAYBE'}).ok,false));
 test('deserialize rejects unknown operator instead of coercing to SELECT',()=>assert.throws(()=>L.deserialize({...L.fromFieldRoute(route),operator:'TELEPORT'}),/operator invalid/));
+test('normalize preserves explicit invalid operator for validation',()=>{const s=L.normalize({...L.fromFieldRoute(route),operator:'TELEPORT'});assert.equal(s.operator,'TELEPORT');assert.equal(L.validate(s).ok,false)});
+test('normalizeDescriptor preserves explicit invalid kind for validation',()=>{const d=L.normalizeDescriptor({...structure,kind:'MAGIC_LENS'});assert.equal(d.kind,'MAGIC_LENS');assert.equal(L.validateDescriptor(d).ok,false)});
+test('normalizeDescriptor preserves explicit invalid authority for validation',()=>{const d=L.normalizeDescriptor({...structure,authority:'MAYBE'});assert.equal(d.authority,'MAYBE');assert.equal(L.validateDescriptor(d).ok,false)});
 test('commit operator requires action toolglass',()=>{const s=L.normalize({...L.fromFieldRoute(route),operator:'COMMIT'});assert.equal(L.validate(s).ok,false)});
 test('action toolglass can carry explicit commit authority',()=>{const action={lensId:'tag-action',kind:L.ACTION,authority:'COMMIT',params:{tag:'x'}};const s=L.compose(L.fromFieldRoute(route),action);s.operator='COMMIT';assert.equal(L.validate(s).ok,true)});
 test('legacy field handoff adapts',()=>{const p={source:'field-index-map',text:JSON.stringify(route)};assert.equal(L.fromLegacyHandoff(p).objectId,'o:fixture-alpha')});
