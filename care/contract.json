@@ -1,6 +1,6 @@
 {
-  "schema": "care-field-contract/v0.4",
-  "updated": "2026-09-21",
+  "schema": "care-field-contract/v0.5",
+  "updated": "2026-09-22",
   "title": "CARE / FIELD",
   "role": "specialized projection of CONTINUITY for real-world human/animal care observation, longitudinal follow-up and clinician/vet handoff",
   "not_a_new_core": true,
@@ -21,7 +21,12 @@
     "provider/vet plan is stored with source when known",
     "spatial marks are evidence, not anatomical diagnosis",
     "unknowns remain explicit",
-    "private case state remains browser-local unless user explicitly exports/shares"
+    "private case state remains browser-local unless user explicitly exports/shares",
+    "NO ENTRY != NORMAL",
+    "CARE HISTORY != COMPLIANCE SCORE",
+    "CAREGIVER_OBSERVED != SELF_OBSERVED",
+    "PORT OBJECT REFERENCE != SOURCE CONTENT",
+    "ATTACHED EVIDENCE != INTERPRETATION"
   ],
   "capture": {
     "primary_prompt": "What changed?",
@@ -65,14 +70,16 @@
       "0xxx0/care-case/v0.1",
       "0xxx0/care-case/v0.2",
       "0xxx0/care-case/v0.3",
-      "0xxx0/body-care-handoff/v0.1"
+      "0xxx0/body-care-handoff/v0.1",
+      "0xxx0/port-object-to-care/v0.1"
     ],
     "exports": [
       "0xxx0/continuity-case/v0.1",
       "plain-text clinician/vet brief",
-      "0xxx0/care-case/v0.3"
+      "0xxx0/care-case/v0.3",
+      "human-port-object/v0.1 CARE snapshot"
     ],
-    "human_port": "sessionStorage carrier human.port.handoff.v01; explicit user action only; no brief text in URL",
+    "human_port": "Two explicit paths: CONTACT BRIEF uses human.port.handoff.v01 and NEED when ASK exists; PORT CASE emits an exact hashed JSON snapshot into human.port.object.session.v01 for focus/routing/admission.",
     "bodyfield_geometry_rule": "Preserve BODYFIELD fragment metadata and trace point arrays in their source coordinate frame; do not render them on CARE's compact silhouette without an explicit registration transform."
   },
   "step_back_checks": [
@@ -88,7 +95,8 @@
     "interpretation without underlying observation",
     "single-event case has no trajectory",
     "explicit unknown count and latest-event freshness",
-    "body-plan coordinate frame preserved when spatial observations are present"
+    "body-plan coordinate frame preserved when spatial observations are present",
+    "session-only evidence reference that may outlive source availability"
   ],
   "non_goals": [
     "diagnosis ranking",
@@ -97,7 +105,8 @@
     "automatic messaging",
     "public storage of case data",
     "automatic threshold alerts",
-    "automatic causal interpretation of metric change"
+    "automatic causal interpretation of metric change",
+    "caregiver/patient compliance scoring"
   ],
   "research": "/control/research/CARE_STATE_2026-09-21.md",
   "course": {
@@ -151,5 +160,23 @@
       "source cue"
     ],
     "law": "BODY EVENT != CARE CASE until explicit import"
+  },
+  "port_bridge": {
+    "care_to_port": {
+      "object_schema": "human-port-object/v0.1",
+      "snapshot_schema": "0xxx0/care-port-snapshot/v0.1",
+      "source_class": "EVENT_REF",
+      "media_class": "JSON",
+      "transport": "sessionStorage human.port.object.session.v01",
+      "identity": "snapshot object_id = case id + exact snapshot SHA-256 prefix; semantic case id remains provenance.source_ref",
+      "law": "CASE != PORT SNAPSHOT; snapshot preserves exact case revision and may be focused/routed without mutating CARE."
+    },
+    "port_to_care": {
+      "handoff_schema": "0xxx0/port-object-to-care/v0.1",
+      "transport": "sessionStorage care.port.evidence.v01",
+      "admission": "offer only; user must click ATTACH TO CURRENT CASE",
+      "storage": "CARE stores object identity/hash/provenance/focus + bounded excerpt; local file/image bytes remain in HUMAN PORT IndexedDB",
+      "law": "PORT OBJECT != CARE EVIDENCE until explicit attach; ATTACH != INTERPRET."
+    }
   }
 }
