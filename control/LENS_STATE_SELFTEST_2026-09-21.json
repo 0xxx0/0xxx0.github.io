@@ -1,10 +1,10 @@
 {
   "schema": "0xxx0/lens-state-selftest/v0.1",
-  "ran_at": "2026-09-21T14:03:00+08:00",
-  "runtime": "node",
+  "ran_at": "2026-09-21T16:04:07+08:00",
+  "runtime": "GitHub Actions / Node 22",
   "pass": true,
-  "count": 11,
-  "result": "11/11 PASS",
+  "count": 18,
+  "result": "18/18 PASS",
   "covers": [
     "FIELD route adapter",
     "Scale Studio snapshot adapter",
@@ -14,7 +14,23 @@
     "ACTION_TOOLGLASS commit authority rule",
     "legacy FIELD handoff adapter",
     "legacy showcase handoff adapter",
-    "v2 reversible handoff packet"
+    "v2 reversible handoff packet",
+    "FIELD source contract = field-route/v0.1",
+    "Scale source contract = scale-snapshot/v0.1",
+    "FIELD-only lens has support=1 on FIELD",
+    "FIELD-only lens remains visible as support=0 on Scale",
+    "catalog preserves live and dead candidates",
+    "unsupported compose throws rather than coercing",
+    "wildcard contract matches lawful Scale family",
+    "ordered portable stack survives FIELD and Scale adapters",
+    "full repo public-surface validator passes after Lens law gate"
   ],
-  "note": "Executed locally against the exact payload committed in lens-state.js and control/lens-state-selftest.js before repository write."
+  "note": "Authoritative CI receipt from public-surface-check run 35575962447. LensState law/round-trip step passed, then the repository-wide public-surface validator also passed.",
+  "head": "0fef011ccdfa693ff7180b54cfd09035c28bdec6",
+  "workflow_run": {
+    "id": 35575962447,
+    "run_number": 728,
+    "job_id": 106257782175,
+    "conclusion": "success"
+  }
 }
