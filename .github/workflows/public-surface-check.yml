@@ -29,6 +29,8 @@ jobs:
           python3 control/ingest-context-locator-selftest.py
       - name: Validate HUMAN PORT object aperture
         run: node control/human-port-object-selftest.js
+      - name: Validate BODY FIT Health Connect transform
+        run: node body/fit/health-connect-selftest.cjs
       - name: Validate static surface contracts
         run: node tools/validate-public.mjs
       - name: Validate Triangle FORM rewrite core
