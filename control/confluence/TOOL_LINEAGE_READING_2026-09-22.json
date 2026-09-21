@@ -1,0 +1,158 @@
+{
+  "schema": "0xxx0/tool-lineage-reading/v0.1",
+  "date": "2026-09-22",
+  "mode": "READ_ONLY_PROJECTION",
+  "purpose": "Answer cross-time mechanism questions without reviving old projects or asserting ancestry where only recurrence/equivalence is supported.",
+  "source_grounding": {
+    "exact_source_locator": "/control/recovery/TOOLBELT_SOURCE_LOCATOR_2026-09-21.json",
+    "source_state": "Exact File Library identities + inspected content reverified; raw-byte repo materialization and SHA-256 remain open.",
+    "historical_sources": [
+      "app_atlas_v1.json",
+      "app_foundry_atlas_v1.html",
+      "The sleeper engine: a transformative journey.png"
+    ],
+    "boundary": "Historical source wording anchors the donor definitions. Current-carrier mapping below is reconstructed equivalence, not descent."
+  },
+  "operators": [
+    {
+      "operator": "KERIS",
+      "source_operation": "Distinguish / redefine / sever illusion.",
+      "donor_mechanisms": [
+        "Canon Console",
+        "Seeper"
+      ],
+      "current_carriers": [
+        {
+          "carrier": "FIELD evolution",
+          "function": "SELECT / HOLD / COMPOST separates variants without erasing provenance",
+          "evidence": "/control/FIELD_INDEX_CONTRACT.json"
+        },
+        {
+          "carrier": "branch frontier",
+          "function": "classifies canonical/open/merged/closed/no-PR authority without branch deletion",
+          "evidence": "/control/BRANCH_FRONTIER_2026-09-22.json"
+        },
+        {
+          "carrier": "policy/authority boundaries",
+          "function": "ingress, admission, actuation and proof remain distinct",
+          "evidence": "/control/confluence/TOOL_KERNEL_2026-09-21.md"
+        }
+      ],
+      "surviving_invariant": "Cut ambiguity while preserving the cut pieces and their return path.",
+      "gap": "No mandatory UI verb is required; ordinary labels remain primary."
+    },
+    {
+      "operator": "CONCH",
+      "source_operation": "Resonate / communicate / synchronize the unsaid.",
+      "donor_mechanisms": [
+        "Semantic Thread Tracer"
+      ],
+      "current_carriers": [
+        {
+          "carrier": "FIELD TRACE / VERIFY",
+          "function": "surface causal/policy evidence bound to current focus",
+          "evidence": "/control/FIELD_INDEX_CONTRACT.json"
+        },
+        {
+          "carrier": "HUMAN PORT",
+          "function": "surface cues/history around an addressed object without granting authority",
+          "evidence": "/port/"
+        },
+        {
+          "carrier": "RETURN receipts",
+          "function": "externalize what changed and what remains unresolved",
+          "evidence": "/returns/"
+        }
+      ],
+      "surviving_invariant": "Make hidden relation/evidence inspectable without converting observation into authority.",
+      "gap": "Cross-time recurrence is still easier to query in records than in the public FIELD UI."
+    },
+    {
+      "operator": "W8",
+      "source_operation": "Stabilize / hold weight / create gravity.",
+      "donor_mechanisms": [
+        "DataDisc / Context Graph",
+        "App Atlas provenance records"
+      ],
+      "current_carriers": [
+        {
+          "carrier": "FIELD route identity",
+          "function": "stable route/address survives projection changes",
+          "evidence": "/showcase-manifest.json"
+        },
+        {
+          "carrier": "recovery vault",
+          "function": "hash/source identity freezes donors against silent modernization",
+          "evidence": "/recovery/"
+        },
+        {
+          "carrier": "HUMAN PORT object identity",
+          "function": "byte/provenance identity persists across WHOLE/FOCUS routing",
+          "evidence": "/port/object.schema.json"
+        }
+      ],
+      "surviving_invariant": "Anchor identity/provenance strongly enough that later transformation remains reversible.",
+      "gap": "Toolbelt source bytes themselves are not yet hashed/materialized into repo."
+    },
+    {
+      "operator": "SPIRAL",
+      "source_operation": "Integrate / elevate / evolve / return.",
+      "donor_mechanisms": [
+        "Transfer Bench",
+        "Delta / Decision Ledger",
+        "DataDisc projection law"
+      ],
+      "current_carriers": [
+        {
+          "carrier": "Lens",
+          "function": "reproject one selected object while retaining caller/RETURN identity",
+          "evidence": "/control/LENS_REAL_USE_RETURN_2026-09-22.json"
+        },
+        {
+          "carrier": "READFIELD / APERTURE",
+          "function": "change scale/time/voice/context around one canonical source position",
+          "evidence": "/returns/READFIELD_CONVERGENCE_2026-09-22.json"
+        },
+        {
+          "carrier": "CONFLUENCE",
+          "function": "transfer named mechanisms across unequal lineages, then return with evidence",
+          "evidence": "/control/confluence/TOOL_KERNEL_2026-09-21.md"
+        }
+      ],
+      "surviving_invariant": "Integrate changed projections without flattening source identity or making the next move automatic.",
+      "gap": "Need ordinary-use evidence to decide which transfer deserves implementation next."
+    }
+  ],
+  "example_queries": [
+    {
+      "question": "Where has ANCHOR appeared and what survived?",
+      "answer_path": [
+        "W8",
+        "DataDisc/App Atlas donors",
+        "FIELD route identity",
+        "recovery hashes",
+        "HUMAN PORT object identity"
+      ]
+    },
+    {
+      "question": "Where do we distinguish evidence from authority?",
+      "answer_path": [
+        "KERIS",
+        "Canon Console/Seeper",
+        "FIELD TRACE",
+        "Port→Intake→Actuation sunder-cut"
+      ]
+    },
+    {
+      "question": "Where does RETURN survive reprojection?",
+      "answer_path": [
+        "SPIRAL",
+        "DataDisc/Transfer Bench",
+        "Lens",
+        "READFIELD",
+        "CONFLUENCE"
+      ]
+    }
+  ],
+  "stop_condition": "This is a projection over existing records, not a new sovereign tool. If plain search/list answers the same questions with lower re-entry cost, keep this artifact as a donor and do not build UI."
+}

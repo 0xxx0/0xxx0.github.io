@@ -1,0 +1,27 @@
+{
+  "schema": "0xxx0/ingest-family-review-return/v0.1",
+  "id": "INGEST-ONE-FAMILY-2026-09-22-BLOCKED",
+  "date": "2026-09-22",
+  "result": "BLOCKED",
+  "family_local_id": null,
+  "reason": "The current executor can read the public proof receipt/packet but cannot access the verified PRIVATE_LOCAL inventory.tsv, duplicates.tsv, index.jsonl, route-plan.tsv, index-run.json, run.json and original-name/hash provenance manifest required by the machine gate.",
+  "verified_public_context": {
+    "receipt": "/control/INGEST_RUN_2026-09-21.json",
+    "packet": "/control/packets/INGEST_ONE_FAMILY_2026-09-21.json",
+    "expected_report_hashes": {
+      "inventory.tsv": "8ac55341954458bdfe2712ac92750a40bbd8dae5d70ffcdcaad644bae75014c0",
+      "duplicates.tsv": "dbc8adbf79acb0389ab4b05fde4575845193a096927a89413def895421fa6385",
+      "run.json": "bffc9b55c6daf51bf23331f134dc62e77bfea3f0998030a5459daf0ceb9e69a4",
+      "index.jsonl": "c267cd3afd35fc79614bd332b6ed6e619598bee11999b4e4fae8768bffc184e7",
+      "route-plan.tsv": "34732fdd4cb346d03d038f987192e8364cef87a1adb2e28926e713d65a572002",
+      "index-run.json": "46b0bfd07555843232f08a3d410901885498bdfdf2dde29a9a6dc3f10c28aec9"
+    }
+  },
+  "not_done": [
+    "No title-based family grouping.",
+    "No semantic classification without hash/provenance join.",
+    "No filesystem move/rename/delete/publication."
+  ],
+  "one_next": "Run the existing local packet where ~/.0xxx0-ingest and the provenance manifest are accessible; require locator READY, review exactly one family, then RETURN the hash-addressed family view.",
+  "privacy_boundary": "Public receipt contains only already-public report hashes and blocker state; no private paths, filenames from the source tree, document contents or chat metadata."
+}

@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/execution-queue/v0.1",
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "max_live": 3,
   "live": [
     {
@@ -21,13 +21,13 @@
     {
       "id": "ingest-files-media",
       "goal": "Create one reversible local ingest layer for Downloads/Library/media that labels and deduplicates before moving anything.",
-      "horizon": "LOCAL DRY-RUN VERIFIED / maintenance",
+      "horizon": "LOCAL DRY-RUN VERIFIED / ONE-FAMILY REVIEW BLOCKED IN CURRENT EXECUTOR",
       "next": [
         "Local Documents dry-run completed: 559 files, 557 byte objects, two duplicate groups. Next review one exact app/design family using original-name/hash provenance; no automatic moves.",
         "Review REVIEW_CONFLICT records; never resolve them by rule order alone.",
         "Promote a filesystem move/rename rule only after a real dry-run demonstrates inverse/recovery behavior."
       ],
-      "receipt": "/control/INGEST_RUN_2026-09-21.json",
+      "receipt": "/control/INGEST_FAMILY_REVIEW_2026-09-22.json",
       "front_id": "ingest-files-media"
     },
     {
@@ -88,14 +88,18 @@
       "order": 1,
       "id": "recover-toolbelt",
       "move": "Recover exact historical tool sources into durable repo provenance; no cleanup or feature invention during recovery.",
-      "pass": "Exact bytes or verifiable source packet + provenance entry; missing material remains explicitly missing."
+      "pass": "Exact bytes or verifiable source packet + provenance entry; missing material remains explicitly missing.",
+      "status": "SOURCE_IDENTITY_AND_CONTENT_REVERIFIED / RAW_BYTES_BLOCKED_BY_HANDOFF",
+      "evidence": "/control/recovery/TOOLBELT_SOURCE_LOCATOR_2026-09-21.json"
     },
     {
       "order": 2,
       "id": "derive-tool-lineage-reading",
       "move": "Derive one read-only operator → donors → current carriers → RETURN/gaps reading from existing FIELD/CONFLUENCE records.",
       "gate": "Only after the relevant tool sources are recovered exactly enough to prevent retrospective rewriting.",
-      "pass": "A cross-time mechanism question can be answered without project-by-project archaeology; plain search/list remains the control."
+      "pass": "A cross-time mechanism question can be answered without project-by-project archaeology; plain search/list remains the control.",
+      "status": "DONE_READ_ONLY_V01",
+      "evidence": "/control/confluence/TOOL_LINEAGE_READING_2026-09-22.json"
     },
     {
       "order": 3,
