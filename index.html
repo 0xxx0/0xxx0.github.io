@@ -40,7 +40,7 @@ html[data-density="MARK"] .feedPath,html[data-density="MARK"] .feedBottom{displa
 <body><main>
 <header>
   <div><div class="ey">FI / φ · ORIENT / FIND / CONNECT / RETURN</div><h1>FIELD<br>INDEX</h1></div>
-  <div class="intro"><span class="introText"><b>Start with what changed.</b> LATEST is the fast re-entry path back into repository reality. ISSUES shows declared open loops. MAP is the structural projection when you need to zoom out. NOW still names deliberate attention; none of these readings silently outranks the others.</span>
+  <div class="intro"><span class="introText"><b>FIELD is the address view.</b> Start with what changed: LATEST returns to durable repo reality; ISSUES exposes declared loops; MAP shows structure and ports. NOW remains deliberate attention. FIELD locates and connects—it does not decide canon, recovery truth, or transfer adoption.</span>
     <nav><a class="play" href="./field-play.html">PLAY FIELD</a><a href="./port/">HUMAN PORT</a><a href="./dock/">DOCK</a><a href="./control/">CURRENT</a><a href="./foundry/">FOUNDRY</a><a href="./migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./control/confluence/">CONFLUENCE</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav>
     <div class="laws"><div class="law"><b>ATTENTION ≠ RECENCY</b><span>CURRENT owns NOW.</span></div><div class="law"><b>MAP ≠ BACKLOG</b><span>Existence is not obligation.</span></div><div class="law"><b>DONOR ≠ HEAD</b><span>Transfer without resurrection.</span></div><div class="law"><b>ADDRESS ≠ PROMOTE</b><span>Everything findable; almost nothing sovereign.</span></div><div class="law"><b>RETURN ≠ NEXT</b><span>Replan after every bounded move.</span></div></div>
   </div>
@@ -311,7 +311,7 @@ function renderRecent(){
 }
 function renderEvolution(){
   $('visualWrap').hidden=true;$('map').hidden=false;
-  const rank={TEST:0,SELECT:1,TRANSFER:2,SEED:3,HOLD:4,COMPOST:5},map=routeMap();
+  const rank={TEST:0,SELECT:1,TRANSFER:2,FRAME:3,SEED:3,HOLD:4,COMPOST:5},map=routeMap();
   let xs=routes.filter(r=>r.evolution&&matchFilter(r)).sort((a,b)=>(rank[a.evolution.stage]??9)-(rank[b.evolution.stage]??9)||String(b.index?.updated_at||'').localeCompare(String(a.index?.updated_at||'')));
   $('mapMeta').textContent=xs.length+' evolutionary objects · variation → evidence → selection → transfer · no separate backlog';
   $('map').className='evoGrid';
@@ -343,4 +343,5 @@ $('feedRecent').onclick=()=>{mode='RECENT';document.querySelectorAll('[data-mode
 $('find').oninput=e=>{query=e.target.value.trim().toLowerCase();renderMap()};$('scaleOut').onclick=scaleOut;$('scaleRoot').onclick=scaleRoot;$('miLens').onclick=lensSelected;$('statusMore').onclick=()=>{const d=$('statusDetail'),open=d.hidden;d.hidden=!open;$('statusMore').setAttribute('aria-expanded',String(open));$('statusMore').textContent=open?'CLOSE':'DETAIL'};
 })();
 </script>
+<script src="/foundry/machine-rail.js" defer></script>
 </body></html>
