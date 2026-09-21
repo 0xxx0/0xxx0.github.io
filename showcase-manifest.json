@@ -113,7 +113,8 @@
         "RSVP/foveated source focus",
         "passive metadata-only route evidence",
         "one source / many lawful routes",
-        "explicit outbound authority boundary"
+        "explicit outbound authority boundary",
+        "shared showcase route adapter / re-entry"
       ],
       "contract": {
         "transforms": {
@@ -305,7 +306,7 @@
         }
       ],
       "index": {
-        "updated_at": "2026-09-21T16:24:00+08:00",
+        "updated_at": "2026-09-21T16:31:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1553,7 +1554,8 @@
         "deep focus URL / reloadable address",
         "POLY cyclic correspondence: one aligned reading across independent wheels",
         "human-factors position indication / 12-o'clock check reading",
-        "shared focus-core law across FIELD + full AXIAL"
+        "shared focus-core law across FIELD + full AXIAL",
+        "shared APERTURE utility can inspect the exact current tuple/focus/support packet without owning AXIAL state"
       ],
       "contract": {
         "accepts": {
@@ -1672,7 +1674,7 @@
         "physical_fit": "Physical cylinder is now an optional later projection of a useful variable-cardinality ring stack, not the reason the software exists."
       },
       "index": {
-        "updated_at": "2026-09-21T16:12:00+08:00",
+        "updated_at": "2026-09-21T16:31:00+08:00",
         "work_modes": [
           "ORIENT",
           "REPRESENT",
@@ -1692,7 +1694,7 @@
         "next_if_pass": "TRANSFER the surviving transaction/aperture mechanism into the Foundry physical-control substrate; retain AXIAL as evidence fixture rather than spawning a new core.",
         "next_if_fail": "PARK the physical-control claim; preserve packet/ledger mechanisms as DONOR evidence."
       },
-      "role": "Variable-cardinality focus surface over real FIELD/HOUSE sources: a fixed 12-o'clock gate reads the current tuple, each ring carries an explicit moving position witness and ordinal, and every candidate shows whether it remains supported by the source.",
+      "role": "Variable-cardinality focus surface over real FIELD/HOUSE sources: fixed gate + explicit moving position witnesses + lawful support; current focus or even a zero-match tuple can be handed read-only to the shared APERTURE inspector.",
       "legacy_lab": {
         "href": "/foundry/axial/lab-0.5.1.html",
         "role": "Preserved STATE APERTURE transaction/projection lab with AXIAL_PACKET, event trace and ARM/RUN semantics.",
@@ -2354,7 +2356,13 @@
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": false,
-      "role": "Public route/link smoke surface for validating the showcase graph."
+      "role": "Public same-origin deployment smoke for core/current surfaces including AXIAL, APERTURE, HUMAN PORT and DOCS at mobile + desktop widths.",
+      "index": {
+        "updated_at": "2026-09-21T16:31:00+08:00",
+        "work_modes": [
+          "VERIFY"
+        ]
+      }
     },
     {
       "href": "/recovery/",
@@ -2478,11 +2486,13 @@
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": false,
-      "role": "Human-readable browser for CURRENT, FI law, migration/census, confluence and other control documents; read-only support surface.",
+      "role": "Human-readable browser for control documents with one-button APERTURE inspection of the loaded text/JSON; read-only support surface with shared route re-entry.",
       "index": {
-        "updated_at": "2026-09-20T19:00:00+08:00",
+        "updated_at": "2026-09-21T16:31:00+08:00",
         "work_modes": [
-          "IMPLEMENT"
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
         ]
       }
     },
@@ -4244,7 +4254,7 @@
       "state": "UTILITY",
       "version": "0.3",
       "receipt": "/foundry/aperture/release.json",
-      "role": "Ambient local inspection capability: summon against selected text, an active field value, addressed route metadata, pasted text/JSON, or a local file without leaving the host surface.",
+      "role": "Ambient local inspection capability: one source through semantic scale × position × time/voice, now grounded in exact RSVP boundary-clock transfer and partial exact FU foveate recovery; never owns host canonical state.",
       "transfer": [
         "Two Dial: two cyclic controls → one consequence",
         "AXIAL: fixed focus + unequal cyclic vocabularies",
@@ -4252,7 +4262,9 @@
         "RSVP 2018: speech boundary charIndex → temporal word focus",
         "portable dock(source,opt) host API",
         "session handoff / same inspector / different host",
-        "ambient selection-aware summon via /showcase-nav.js"
+        "ambient selection-aware summon via /showcase-nav.js",
+        "historical FU foveate: explicit focus-path state → radial/path projection",
+        "shared showcase route adapter / RETURN re-entry"
       ],
       "contract": {
         "accepts": {
@@ -4359,7 +4371,7 @@
         "physical_fit": "Potential compact ring/annulus control grammar; no physical embodiment claim in 0.1."
       },
       "index": {
-        "updated_at": "2026-09-21T16:04:00+08:00",
+        "updated_at": "2026-09-21T16:31:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
