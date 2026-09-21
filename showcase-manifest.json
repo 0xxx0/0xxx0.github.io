@@ -2289,6 +2289,31 @@
       }
     },
     {
+      "href": "/forward-field-proof/triangle/bench/",
+      "title": "TRIANGLE BENCH · FROZEN 0.1",
+      "kind": "artifact",
+      "parent": "/forward-field-proof/triangle/",
+      "family": "FIELD / PROOF",
+      "operation": "PROVE",
+      "state": "PARKED",
+      "version": "0.1",
+      "receipt": "/forward-field-proof/triangle/bench/release.json",
+      "showcase_card": false,
+      "role": "Exact pre-unification Triangle Bench preserved as a frozen comparison donor; no active-queue mutation and no human calibration claim.",
+      "transfer": [
+        "simplex allocation comparison",
+        "plain-control ablation",
+        "frozen pre-unification donor"
+      ],
+      "index": {
+        "updated_at": "2026-09-21T23:55:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      }
+    },
+    {
       "href": "/router-bench/",
       "title": "ROUTER BENCH 0.1",
       "kind": "workbench",
@@ -4832,6 +4857,18 @@
           "VERIFY",
           "RESEARCH"
         ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/foundry/readfield/",
+        "generation": 1,
+        "stage": "CANDIDATE_VALIDATION",
+        "question": "Can READFIELD add context recovery, parallel scan and spatial orientation around APERTURE 0.6 without creating a second cursor/reader engine?",
+        "baseline": "APERTURE 0.6 shared focus kernel plus plain source reading; RF-01 isolated React prototype is donor evidence only.",
+        "mutation": "Host FLOW / hold-context / marks / SHEET / TEXT / LINE↔DISC around the shared APERTURE cursor.",
+        "evidence_gate": "Public browser smoke plus ordinary use; DataDisc must remain paired with LINE and no host mechanism promotes into APERTURE without repeated cross-host value.",
+        "next_if_pass": "Keep READFIELD as the reader workbench and promote only mechanisms that demonstrate repeated utility.",
+        "next_if_fail": "Retain APERTURE kernel and demote/remove the failing READFIELD projection without source-state migration."
       }
     },
     {
