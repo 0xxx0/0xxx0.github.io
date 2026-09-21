@@ -1,0 +1,46 @@
+{
+  "schema": "0xxx0/lens-state-bridge-receipt/v0.1",
+  "at": "2026-09-21T14:12:00+08:00",
+  "branch": "lens-convergence-contract-20260921",
+  "pr": 50,
+  "status": "PASS_STATIC_AND_LOCAL_SELFTEST",
+  "local_selftest": "11/11 PASS",
+  "static_checks": {
+    "lens-state.js": {
+      "chars": 10029,
+      "syntax": true,
+      "error": null,
+      "hasV2": true,
+      "hasLegacy": true,
+      "hasStateAPI": false
+    },
+    "fold-bloom/lens/studio-v12.js": {
+      "chars": 31566,
+      "syntax": true,
+      "error": null,
+      "hasV2": true,
+      "hasLegacy": true,
+      "hasStateAPI": true
+    },
+    "index.html": {
+      "chars": 35637,
+      "loadsLensState": true,
+      "emitsV2": true,
+      "keepsLegacy": true
+    },
+    "fold-bloom/lens/index.html": {
+      "chars": 8806,
+      "loadsLensState": true,
+      "emitsV2": false,
+      "keepsLegacy": false
+    }
+  },
+  "migration": {
+    "preferred": "lens:handoff:v2 / scale-lens.handoff/v2",
+    "fallback": "scale.lens.handoff.v01",
+    "rule": "FIELD dual-writes during migration; Scale Studio reads v2 first then legacy."
+  },
+  "canonical_rule": "Incoming objectId remains canonical across the handoff; Scale Studio selectedId/local address remains projection-local focus.",
+  "focus_ring_hook": "ScaleLensStateAPI.snapshot() plus lens-state:state CustomEvent",
+  "unverified": "live browser click-through on GitHub Pages branch preview"
+}
