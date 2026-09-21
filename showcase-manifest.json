@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -2228,65 +2228,86 @@
     },
     {
       "href": "/forward-field-proof/triangle/",
-      "title": "TRIANGLE BENCH 0.1",
-      "kind": "experiment",
+      "title": "TRIANGLE 1.0 · GLYPH / FORM / POWER / BENCH",
+      "kind": "workbench",
       "parent": "/forward-field-proof/",
-      "operation": "PROVE",
-      "state": "PARKED",
-      "version": "0.1",
+      "operation": "OPERATE",
+      "state": "ACTIVE",
+      "version": "1.0",
       "receipt": "/forward-field-proof/triangle/release.json",
       "showcase_card": false,
       "field": {
         "roles": [
+          "WORLD_THROUGH",
           "VERIFY"
         ],
         "inputs": [
           {
+            "medium": "DATA",
+            "kind": "relational terms / payloads / numeric ternary relation",
+            "interface": "GLYPH / POWER"
+          },
+          {
             "medium": "HUMAN_ACTION",
-            "kind": "allocation gesture",
-            "interface": "triangle/plain controls"
+            "kind": "mark construction / geometric manipulation",
+            "interface": "FORM / BENCH"
           }
         ],
         "outputs": [
           {
+            "medium": "REPRESENTATION",
+            "kind": "compact addressed glyph",
+            "interface": "COPY / COPY LINK / EXPORT"
+          },
+          {
             "medium": "DATA",
-            "kind": "allocation state",
-            "interface": "decision fixture"
+            "kind": "normalized FORM state + rewrite trace",
+            "interface": "triangle-return/v1"
           },
           {
             "medium": "EVIDENCE",
-            "kind": "calibration receipt",
-            "interface": "JSON"
+            "kind": "explicit RETURN receipt",
+            "interface": "local history / JSON export"
           }
         ],
         "exit_paths": [
           {
-            "class": "VERIFY",
-            "status": "HUMAN_EVIDENCE_REQUIRED",
-            "via": "six trials + one real decision"
+            "class": "RETURN",
+            "status": "AVAILABLE",
+            "via": "RETURN / EXPORT"
+          },
+          {
+            "class": "DONOR_BENCH",
+            "status": "AVAILABLE",
+            "via": "/forward-field-proof/triangle/bench/"
+          },
+          {
+            "class": "DONOR_CENTER",
+            "status": "AVAILABLE",
+            "via": "/forward-field-proof/triangle/glyph/center/"
           }
         ],
-        "physical_fit": "Attention-allocation experiment; not a physical actuator."
+        "physical_fit": "Representation/reasoning instrument only; no external actuation or authority."
       },
       "index": {
-        "updated_at": "2026-09-21T18:51:00+08:00",
+        "updated_at": "2026-09-22T00:04:00+08:00",
         "work_modes": [
           "SPECIFY",
-          "VERIFY"
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
         ]
       },
-      "evolution": {
-        "schema": "field-evolution/v0.1",
-        "host": "/control/",
-        "generation": 1,
-        "stage": "HOLD",
-        "question": "Does direct simplex allocation expose a useful three-way tradeoff that a plain two-control representation misses?",
-        "baseline": "Plain two-control attention allocation.",
-        "mutation": "Direct EXPLOIT / EXPLORE / PROVE simplex manipulation.",
-        "evidence_gate": "Reopen only on a named control/AXIAL comparison need; then collect six human calibration trials plus one real decision receipt.",
-        "next_if_pass": "TRANSFER the useful allocation gesture or comparator into CURRENT/selection tooling.",
-        "next_if_fail": "COMPOST as negative evidence; keep the fixture recoverable."
-      }
+      "role": "Unified geometric instrument: eight-locus relational glyphs, one-mark executable FORM calculus, queryable power-triangle relation, and preserved simplex bench. Shared address/state/RETURN; semantics remain distinct.",
+      "transfer": [
+        "Triangle Glyph Lab 8-locus addressing grammar",
+        "Spencer-Brown-inspired FORM boundary discipline with executable CALL/CROSS core",
+        "Power Triangle missing-corner inverse-query notation",
+        "Triangle Bench direct simplex manipulation",
+        "shared triangle:// addresses + triangle-return/v1 receipts",
+        "old Bench preserved byte-for-byte under /forward-field-proof/triangle/bench/",
+        "CENTER retained separately as donor"
+      ]
     },
     {
       "href": "/router-bench/",
@@ -4317,7 +4338,7 @@
       "parent": "/forward-field-proof/triangle/",
       "family": "FIELD / PROOF",
       "operation": "REPRESENT",
-      "state": "CANDIDATE",
+      "state": "DONOR",
       "version": "0.1",
       "receipt": "/forward-field-proof/triangle/glyph/release.json",
       "showcase_card": false,
@@ -4325,21 +4346,22 @@
         "schema": "field-evolution/v0.1",
         "host": "/foundry/axial/",
         "generation": 1,
-        "stage": "TEST",
+        "stage": "TRANSFER",
         "question": "Can the eight-locus triangle encode entity/relation/context state compactly while remaining reconstructable without explanatory prose?",
         "baseline": "Plain labeled state packet / text representation.",
-        "mutation": "Three vertices + three edges + interior + outside/context with independent MARK/UNKNOWN state.",
-        "evidence_gate": "Encode one real MESSAGE, RETURN, POWER or FIELD object in both plain and glyph form; a fresh reader must recover the same relations/context from the glyph packet.",
-        "next_if_pass": "TRANSFER the representation primitive into AXIAL/FORM or another named recipient that needs compact relational state.",
-        "next_if_fail": "PARK compact notation; preserve the glyph lab as a bounded representation donor."
+        "mutation": "Historical 8-locus glyph experiment retained; its surviving grammar is transferred into unified Triangle 1.0.",
+        "evidence_gate": "Transfer complete. Reopen the standalone Glyph Lab only for regression comparison or a named missing function.",
+        "next_if_pass": "DONE: unified Triangle is the active recipient.",
+        "next_if_fail": "Preserve standalone lab as donor; do not create a second active glyph surface."
       },
       "index": {
-        "updated_at": "2026-09-21T18:51:00+08:00",
+        "updated_at": "2026-09-22T00:04:00+08:00",
         "work_modes": [
-          "SPECIFY",
+          "REFERENCE",
           "VERIFY"
         ]
-      }
+      },
+      "role": "Original 8-locus Glyph Lab preserved as a donor after its grammar transferred into unified /forward-field-proof/triangle/."
     },
     {
       "href": "/poetry/",
@@ -5186,6 +5208,26 @@
           "role": "Shared local-first reference body-plan substrate used by BODY and CARE."
         }
       ]
+    },
+    {
+      "href": "/forward-field-proof/triangle/bench/",
+      "title": "TRIANGLE BENCH 0.1 · FROZEN",
+      "kind": "artifact",
+      "parent": "/forward-field-proof/triangle/",
+      "family": "FIELD / PROOF",
+      "operation": "PROVE",
+      "state": "PARKED",
+      "version": "0.1",
+      "receipt": "/forward-field-proof/triangle/bench/release.json",
+      "showcase_card": false,
+      "role": "Exact pre-unification Triangle Bench retained for calibration/proof comparison. No active execution obligation.",
+      "index": {
+        "updated_at": "2026-09-22T00:04:00+08:00",
+        "work_modes": [
+          "REFERENCE",
+          "VERIFY"
+        ]
+      }
     }
   ],
   "release_law": [
@@ -5251,7 +5293,8 @@
     "poem_map_boot_repair": "f63bbfbc02b4a5f0bd74b9b31fb5e447255f62b2",
     "local_smoke_snapshot": "FIELD local/CI reads checked-in issue snapshot; public Pages keeps bounded live refresh.",
     "docs_addressable_return": "/returns/DOCS_ADDRESSABLE_APERTURE_2026-09-21.json",
-    "poem_map_boot_guard": "Runtime probe + static guard require plural selector helper for multi-element bindings."
+    "poem_map_boot_guard": "Runtime probe + static guard require plural selector helper for multi-element bindings.",
+    "triangle_unification": "Triangle 1.0 unifies GLYPH, FORM, POWER and BENCH at /forward-field-proof/triangle/. Old Bench is frozen at /triangle/bench/; standalone Glyph and Center remain donors."
   },
   "capability_model": {
     "CAPTURE": {
