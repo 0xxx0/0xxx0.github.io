@@ -1,0 +1,39 @@
+{
+  "schema": "0xxx0/transfer-receipt/v0.1",
+  "id": "RSVP-APERTURE-TRANSFER-2026-09-21",
+  "date": "2026-09-21",
+  "status": "IMPLEMENTED_STATIC_PASS_BROWSER_VARIANCE_EXPECTED",
+  "source": "/recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html",
+  "previous_decision": "/control/RSVP_MECHANISM_DIFF_2026-09-21.json",
+  "recipient": {
+    "component": "/field-aperture.js",
+    "surface": "/foundry/aperture/",
+    "classification": "UTILITY / INSPECT"
+  },
+  "clarification": "The earlier NO-TRANSFER decision remains valid for Verse Atlas, Sleeper and Painting Path. A later, different recipient exposed a named missing function: one generic local inspector whose TIME and VOICE modes must drive the same focus position. Only the continuous speech-boundary clock was transferred.",
+  "transferred": [
+    "one continuous SpeechSynthesisUtterance for text",
+    "onboundary charIndex as the temporal position clock",
+    "boundary charIndex → current WORD unit lookup",
+    "the same focus position drives visual readout and emits aperture-focus"
+  ],
+  "not_transferred": [
+    "2018 application shell",
+    "2018 global state model",
+    "old UI styling",
+    "any claim of browser-independent boundary fidelity",
+    "replacement of Painting Path / Verse / Sleeper temporal mechanisms"
+  ],
+  "proof_by_code_inspection": [
+    "field-aperture.js checks SpeechSynthesisUtterance availability",
+    "text speech creates one utterance from the full source",
+    "u.onboundary maps charIndex into WORD unit start/end offsets",
+    "matched unit updates pos, render() and aperture-focus emit()",
+    "STOP cancels speech synthesis and RSVP timer"
+  ],
+  "known_variance": [
+    "Speech boundary event availability/granularity varies by browser and voice.",
+    "Current WORD segmentation is lightweight whitespace-offset segmentation, not proof of linguistic tokenization quality."
+  ],
+  "return": "No additional reader-kernel transfer until ordinary browser use reveals a concrete failure or the recovered exact old red-dot reader provides a stronger mechanism."
+}
