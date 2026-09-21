@@ -18,7 +18,7 @@ function applyPatch() {
           schema: 'human-port-object-return/v0.1',
           object_id: incomingHandoff.source_object_id,
           state: accepted ? 'APPLIED' : 'REVIEWED_NO_MUTATION',
-          receipt_id: result.receipt.id || null,
+          receipt_id: result.receipt.receiptId || null,
           added: result.receipt.delta.added.map(x => x.id || x),
           replaced: result.receipt.delta.replaced.map(x => x.id || x),
           source_object: incomingHandoff.source_object || null,
