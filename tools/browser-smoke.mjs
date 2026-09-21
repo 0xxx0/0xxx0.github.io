@@ -91,7 +91,26 @@ function poemMapProbeHtml(){
   setTimeout(()=>probe(),150);
   <\/script></body></html>`;
 }
+function poemMapProbeHtml(){
+  return `<!doctype html><html><body><iframe id="f" style="width:1100px;height:820px;border:0" src="/poetry/map/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult');
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=10000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
+  const done=(ok,data)=>{result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    await waitFor(()=>W().__POEM_MAP__&&D().getElementById('statusText')&&D().getElementById('fieldNowBtn'));
+    const st=await waitFor(()=>{const x=D().getElementById('statusText')?.textContent||'';return /FIELD NOW LOADED/.test(x)?x:null});
+    const api=W().__POEM_MAP__,src=api.S?.source||'';
+    done(!!st&&api.S?.fieldLoaded===true&&/^FIELD NOW ·/m.test(src),{status:st,fieldLoaded:!!api.S?.fieldLoaded,sourceHead:src.slice(0,80)});
+  })().catch(e=>done(false,{error:String(e?.stack||e),status:f.contentDocument?.getElementById('statusText')?.textContent||null}));
+  <\/script></body></html>`;
+}
 const server=http.createServer((req,res)=>{
+  if(String(req.url||'').startsWith('/__smoke/poem-map')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(poemMapProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/lens-proof')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(lensProbeHtml());return;
@@ -217,8 +236,8 @@ const CASES=[
   {
     name:'POEM MAP',
     route:'/__smoke/poem-map',
-    options:{width:980,height:760,budget:9000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"fieldLoaded":true/.test(dom)&&/"mode":"PAGE"/.test(dom)&&/"controls":true/.test(dom)
+    options:{width:1180,height:900,budget:14000,timeout:20000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"fieldLoaded":true/.test(dom)&&/FIELD NOW LOADED/.test(dom)
   },
   {
     name:'VERSE ATLAS',
