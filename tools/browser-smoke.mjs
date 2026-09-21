@@ -700,7 +700,9 @@ try{
   const bin=browserBin();
   console.log('BROWSER SMOKE:',bin);
   for(const c of CASES){
-    const r=await runChrome(bin,c.route,c.options||{});
+    let r;
+    try{r=await runChrome(bin,c.route,c.options||{})}
+    catch(e){console.log('FAIL',c.name,c.route);console.log('SMOKE TIMEOUT',c.name,String(e?.message||e));fail.push(c.name+' '+c.route+' '+String(e?.message||e));continue}
     const fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);
     const ok=r.code===0&&!fatal&&c.check(r.out);
     console.log((ok?'PASS':'FAIL'),c.name,c.route);
@@ -708,7 +710,7 @@ try{
     if(!ok){
       const source=textAtId(r.out,'sourceState');
       const probe=textAtId(r.out,'probeResult');if(probe)console.log('SMOKE PROBE',c.name,probe.slice(0,1800));
-      const body=visibleText(r.out).slice(0,700);
+      const body=visibleText(r.out).slice(0,900);if(body)console.log('SMOKE BODY',c.name,body);
       fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(fatal?' browser-fatal':'')+(body?' body='+JSON.stringify(body):''));
       if(r.err.trim())console.error('SMOKE STDERR',c.name,r.err.slice(-1800));
     }
