@@ -89,6 +89,10 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
   <button class="tab" data-view="follow">FOLLOW</button>
   <button class="tab" data-view="brief">BRIEF</button>
 </div>
+<div id="bodyCareOffer" class="panel" style="display:none;margin:0 0 8px;padding:9px;border-color:#6f5c3f">
+ <div class="label">BODY / FIELD HANDOFF · browser-local</div>
+ <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px"><b id="bodyCareSummary" style="font:750 12px system-ui,sans-serif">BODY return waiting</b><div class="spacer"></div><button id="importBodyCare" class="primary">IMPORT INTO CURRENT CASE</button><button id="dismissBodyCare">DISMISS</button></div>
+</div>
 
 <section class="view" id="view-observe">
   <div class="panel observeGrid">
@@ -203,7 +207,7 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
 <script src="../bodyplans/registry.js"></script>
 <script>
 (()=>{'use strict';
-const KEY='0xxx0.care.field.v01';
+const KEY='0xxx0.care.field.v01',BODYCARE='0xxx0.body.care.handoff.v01';
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const now=()=>new Date().toISOString();
 const uid=p=>p+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7);
@@ -370,7 +374,17 @@ function review(){
  $('#reviewList').innerHTML=(gaps.length?gaps:['No structural gaps detected by this local ruleset.']).map(x=>'<li>'+esc(x)+'</li>').join('');$('#review').hidden=false;return gaps;
 }
 function buildBrief(){const t=brief();$('#briefText').textContent=t;review();return t}
-function renderAll(){pushCase();renderCases();renderMap();renderFollow()}
+function bodyCarePacket(){try{return JSON.parse(localStorage.getItem(BODYCARE)||'null')}catch(_){return null}}
+function renderBodyCareOffer(){
+ const p=bodyCarePacket(),el=$('#bodyCareOffer');if(!p||p.schema!=='0xxx0/body-care-handoff/v0.1'||!p.event){el.style.display='none';return}
+ const e=p.event,labels=e.body_address?.region_labels||[];$('#bodyCareSummary').textContent=[e.state?.label||'BODY check-in',labels.join(' · '),e.state?.itch!=null?'itch '+e.state.itch:null,e.state?.pain!=null?'pain '+e.state.pain:null].filter(Boolean).join(' · ');el.style.display='block'
+}
+function importBodyCare(){
+ const p=bodyCarePacket();if(!p?.event)return;const e=p.event,regions=e.body_address?.region_labels||[],prior=priorSameRegion(regions);
+ C.events.push({id:uid('evt'),at:e.observed_at||now(),type:'OBSERVATION',status:null,raw_note:e.note||e.state?.label||'BODY / FIELD check-in',regions,trace:[],body_map:e.body_address?{schema:'0xxx0/body-address/v0.1',plan_id:e.body_address.plan_id,geometry_version:e.body_address.geometry_version||null,view:e.body_address.view||null,view_box:null,trace_space:null,region_ids:e.body_address.region_ids||[],region_labels:regions}:null,qualities:[e.state?.label].filter(Boolean),magnitude:null,trend:'NEW',evidence_kind:'SELF_OBSERVED',measurement:null,interpretation:null,source_cue:'BODY / FIELD '+(e.id||''),prior_same_region_id:prior?.id||null,body_state:e.state||null,body_context:e.context||null});
+ C.updated_at=now();localStorage.removeItem(BODYCARE);renderAll();renderBodyCareOffer();flash('BODY IMPORTED ✓')
+}
+function renderAll(){pushCase();renderCases();renderMap();renderFollow();renderBodyCareOffer()}
 function save(){pullCase();const db=store();db[C.id]=C;saveStore(db);renderCases();$('#saveCase').textContent='SAVED ✓';setTimeout(()=>$('#saveCase').textContent='SAVE LOCAL',1000)}
 function importAny(j,name){
  if(['0xxx0/care-case/v0.1','0xxx0/care-case/v0.2','0xxx0/care-case/v0.3'].includes(j.schema)){C=j;C.schema='0xxx0/care-case/v0.3';C.course=C.course||{phase:'',next:'',gate:'',gate_source:'',owner:'',due:''};C.body_plan=C.body_plan||defaultPlanForKind(C.subject?.kind||'PERSON');renderAll();return}
@@ -423,7 +437,7 @@ $('#importBtn').onclick=()=>$('#importFile').click();$('#importFile').onchange=e
 $('#exportBtn').onclick=()=>{pullCase();download(C,(C.subject.label||'care-case').toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.care.json')};
 $('#exportContinuity').onclick=()=>download(continuityExport(),(C.subject.label||'care-case').toLowerCase().replace(/[^a-z0-9]+/g,'-')+'.continuity.json');
 $('#caseModal').onclick=e=>{if(e.target.id==='caseModal'){$('#caseModal').classList.remove('open');pullCase();renderMap();renderFollow()}};
-$('#eventTime').value=eventTimeLocal();renderAll();renderQualityChips();
+$('#importBodyCare').onclick=importBodyCare;$('#dismissBodyCare').onclick=()=>{localStorage.removeItem(BODYCARE);renderBodyCareOffer()};$('#eventTime').value=eventTimeLocal();renderAll();renderQualityChips();
 })();
 </script>
 <script src="/showcase-nav.js"></script>
