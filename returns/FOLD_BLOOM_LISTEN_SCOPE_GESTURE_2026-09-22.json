@@ -1,0 +1,25 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "kind": "FOLD_BLOOM_LISTEN_SCOPE_GESTURE_RETURN",
+  "status": "CANDIDATE_PENDING_CI",
+  "date": "2026-09-22",
+  "route": "/fold-bloom/listen/",
+  "version": "0.2.3",
+  "branch": "listen-scope-gesture-lock-01",
+  "changed": [
+    "/fold-bloom/listen/app.js",
+    "/fold-bloom/listen/audio-map.js",
+    "/fold-bloom/listen/selftest.mjs",
+    "/fold-bloom/listen/index.html",
+    "/fold-bloom/listen/release.json",
+    "/showcase-manifest.json",
+    "/control/CURRENT.json"
+  ],
+  "invariant": "One touch gesture owns one stable addressed time window; live scope resumes only after release.",
+  "tests": {
+    "selftest": "PENDING_CI",
+    "browser_smoke": "PENDING_CI",
+    "real_phone": "REQUIRED_NEXT"
+  },
+  "stop_condition": "No further feature expansion in this pass."
+}
