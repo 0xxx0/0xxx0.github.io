@@ -32,13 +32,26 @@
     "The curated shelf remains useful for common entry points; arbitrary addressing does not replace it."
   ],
   "verification": {
-    "static": "pending branch validation",
-    "browser": "pending public-surface-check",
-    "required_cases": [
+    "static": "PASS — route grammar, static surface contracts, LensState laws, Lens proof syntax and shared Constraint Surface parity",
+    "browser": "PASS — public-surface-check run 35590481669",
+    "browser_cases": [
       "DOCS /",
       "DOCS /?src=/showcase-manifest.json&return=/",
-      "existing FIELD/HUMAN PORT/AXIAL/Lens/Foundry smoke set"
-    ]
+      "FIELD",
+      "HUMAN PORT",
+      "AXIAL",
+      "APERTURE",
+      "CENTER variants",
+      "SCALE LENS",
+      "HOUSE SPATIAL",
+      "POETRY / POEM MAP / VERSE ATLAS",
+      "FOUNDRY / FOUNDRY CORE",
+      "MIGRATION",
+      "CONFLUENCE",
+      "SLEEPER RECOVERY"
+    ],
+    "recovered_source_tests": "PASS — recovered source identities/media catalogue and frozen City/Painting handlers"
   },
-  "next": "Use repository document links normally. If addressability reduces raw-JSON friction, retain. Do not add richer rendering until a specific document type exposes a missing operation."
+  "next": "Use repository document links normally. If addressability reduces raw-JSON friction, retain. Do not add richer rendering until a specific document type exposes a missing operation.",
+  "status": "IMPLEMENTED_VERIFIED_BRANCH"
 }
