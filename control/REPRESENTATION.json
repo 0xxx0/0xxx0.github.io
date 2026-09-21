@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/representation-kernel/v0.1",
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "source": "/recovery/seam-engine/ONE_RETURN_SEAM_ENGINE_v0.2.md",
   "claim": "One canonical event/state object may have many unequal lawful projections. A projection earns survival only when it changes a decision, exposes a constraint, improves manipulation/recovery, or verifies a return.",
   "not_claimed": [
@@ -82,11 +82,13 @@
     },
     {
       "id": "painting-path",
-      "current": "RECOVER_EXTERNAL",
+      "current": "/recovery/sleeper/painting-path/",
       "preserves": [
-        "spatial mark/path",
+        "stable authored region identity",
+        "source image identity",
+        "spatial polygon",
         "attention route",
-        "image as functional surface"
+        "append-only RETURN"
       ],
       "good_for": [
         "navigation through visual field",
@@ -94,7 +96,15 @@
         "art-as-interface"
       ],
       "hides": [
-        "exact canonical structure unless linked by explicit addresses"
+        "global archive structure unless linked by explicit addresses"
+      ],
+      "state": "EXACT_RECOVERED_RUNTIME_DONOR",
+      "evidence": "/returns/BACKUP_RECOVERY_2026-09-21.json",
+      "identity_key": "regions[].id",
+      "native_projections": [
+        "field",
+        "list",
+        "pulse"
       ]
     },
     {
@@ -185,7 +195,7 @@
     },
     {
       "id": "media-library",
-      "current": "PROVED_INGEST_01",
+      "current": "PROVED_INGEST_02_LOCAL_DOCUMENTS",
       "preserves": [
         "content hash",
         "source path",
@@ -203,7 +213,7 @@
       "hides": [
         "project meaning unless linked by semantic lineage"
       ],
-      "evidence": "/control/INGEST_RUN_2026-09-20.json"
+      "evidence": "/control/INGEST_RUN_2026-09-21.json"
     }
   ],
   "projection_acceptance": [
@@ -215,5 +225,8 @@
     "What is the fallback when the projection is unavailable?",
     "What receipt proves it helped?"
   ],
-  "first_concrete_object": "/control/REPRESENTATION_01.json"
+  "first_concrete_object": "/control/REPRESENTATION_01.json",
+  "additional_fixtures": [
+    "/control/REPRESENTATION_PAINTING_2026-09-21.json"
+  ]
 }
