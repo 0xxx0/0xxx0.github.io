@@ -258,21 +258,22 @@ function genericLensReturnProbeHtml(){
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   const waitFor=async(fn,limit=8000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw Error('waitFor timeout')};
   (async()=>{
-    const w=f.contentWindow,d=w.document;
-    const host=await waitFor(()=>d.getElementById('showcase-route-adapter'));
+    const W=()=>f.contentWindow,D=()=>f.contentWindow.document;
+    const host=await waitFor(()=>D().getElementById('showcase-route-adapter'));
     const sh=await waitFor(()=>host.shadowRoot),tab=await waitFor(()=>sh.querySelector('.tab.lens'));
-    rec.before=w.location.pathname;
+    rec.before=W().location.pathname;
     tab.click();
     await waitFor(()=>sh.querySelector('.panel.on.lens'));
     rec.copy=!!sh.querySelector('[data-l="copy"]');
     rec.deadStack=!!sh.querySelector('[data-l="stackBtn"]');
+    rec.overflow=Math.max(D().documentElement.scrollWidth,D().body?.scrollWidth||0)-D().documentElement.clientWidth;
     const ret=sh.querySelector('[data-l="return"]');rec.returnButton=!!ret;
     if(!ret)throw Error('generic Lens RETURN missing');
     ret.click();
     await waitFor(()=>!sh.querySelector('.panel.on'));
-    rec.after=w.location.pathname;
+    rec.after=W().location.pathname;
     rec.closed=!sh.querySelector('.panel.on');
-    done(rec.before===rec.after&&rec.closed&&rec.copy&&!rec.deadStack&&rec.returnButton,rec);
+    done(rec.before===rec.after&&rec.closed&&rec.copy&&!rec.deadStack&&rec.returnButton&&rec.overflow<=1,rec);
   })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
   <\/script></body></html>`;
 }
@@ -474,7 +475,7 @@ const CASES=[
     name:'GENERIC LENS RETURN ≠ BACK',
     route:'/__smoke/generic-lens-return',
     options:{width:430,height:900,budget:9000,timeout:16000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"before":"\/fold-bloom\/"/.test(dom)&&/"after":"\/fold-bloom\/"/.test(dom)&&/"closed":true/.test(dom)&&/"copy":true/.test(dom)&&/"deadStack":false/.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"before":"\/fold-bloom\/"/.test(dom)&&/"after":"\/fold-bloom\/"/.test(dom)&&/"closed":true/.test(dom)&&/"copy":true/.test(dom)&&/"deadStack":false/.test(dom)&&/"overflow":0/.test(dom)
   },
   {
     name:'FOLD BLOOM convergence',
