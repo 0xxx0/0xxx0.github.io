@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0xxx0.github.io/body/state.schema.json",
+  "title": "BODY / FIELD local state v0.2",
+  "type": "object",
+  "required": [
+    "schema",
+    "events",
+    "factors",
+    "tests"
+  ],
+  "properties": {
+    "schema": {
+      "const": "0xxx0/body-field-state/v0.2"
+    },
+    "updated_at": {
+      "type": "string"
+    },
+    "factors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "active_test": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "tests": {
+      "type": "array"
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "type",
+          "observed_at",
+          "source",
+          "state",
+          "context"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "const": "body.state"
+          },
+          "observed_at": {
+            "type": "string"
+          },
+          "recorded_at": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          },
+          "state": {
+            "type": "object",
+            "required": [
+              "valence",
+              "activation",
+              "itch",
+              "pain",
+              "tension",
+              "energy",
+              "focus"
+            ],
+            "properties": {
+              "valence": {
+                "type": "number",
+                "minimum": -1,
+                "maximum": 1
+              },
+              "activation": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 10
+              },
+              "label": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "itch": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 10
+              },
+              "pain": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 10
+              },
+              "tension": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 10
+              },
+              "energy": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 10
+              },
+              "focus": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 10
+              }
+            },
+            "additionalProperties": true
+          },
+          "body_address": {
+            "type": "object"
+          },
+          "context": {
+            "type": "object"
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
+    }
+  },
+  "additionalProperties": true
+}
