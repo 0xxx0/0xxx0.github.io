@@ -1,13 +1,13 @@
 {
   "schema": "release-receipt/v1",
   "title": "FOUNDRY / INSTRUMENT GATEWAY",
-  "version": "0.2",
+  "version": "0.3",
   "state": "ACTIVE",
-  "date": "2026-09-20",
+  "date": "2026-09-21",
   "route": "/foundry/",
   "parent": "/",
   "operation": "ORIENT",
-  "claim": "A small public gateway separates slow orientation, runnable instruments, proof surfaces and exact recovery donors while live priority remains delegated to /control/CURRENT.json.",
+  "claim": "A small public gateway over four unequal machine views: CORE / criteria, FIELD / address, MIGRATION / recovery evidence, CONFLUENCE / bounded transfer. No view becomes a duplicate database or runtime authority.",
   "live_state": "/control/CURRENT.json",
   "slow_center": "/foundry/core/",
   "recovery_home": "/migration/",
@@ -19,13 +19,15 @@
     "Public recovery routes are scrubbed projections; private source/context may remain elsewhere."
   ],
   "receipt": {
-    "change": "Replaced the legacy flat menu with ORIENT / OPERATE / PROVE / RECOVER strata and a live CURRENT front strip.",
+    "change": "Added a shared machine projection contract and compact cross-view rail; grounded the Core corpus claim; demoted unused SEED vocabulary to deprecated alias FRAME; made Confluence expose only explicit evidence-bounded transfer records.",
     "preserves": [
-      "existing canonical Foundry instruments",
       "slow-model/live-control separation",
+      "local vocabulary dimensions",
       "donor/head distinction",
-      "GitHub Pages static operation"
+      "recipient sovereignty",
+      "RETURN/replan boundary"
     ],
-    "next": "Use route-specific receipts and CURRENT/FIELD INDEX rather than adding more cards unless a distinct public function is missing."
-  }
+    "next": "Use the four views on normal work; add shared focus/handoff only after a real cross-view navigation failure is observed."
+  },
+  "machine_contract": "/foundry/machine.json"
 }
