@@ -78,6 +78,29 @@ Later Workfield reconstruction independently made the operational correspondence
 - W8 = anchor / preserve retrievability;
 - Spiral = change projection while preserving identity; return.
 
+## RECOVERED ARC SEQUENCE — CANDIDATE PROCESS DONOR
+
+The same recovered Sleeper visual names four arcs:
+
+- **HOSTAGE** — constraint discovery: see the captor, name the terms;
+- **FLOATING** — possibility without orientation: options expand, drift becomes the risk;
+- **KITE** — productive tension: tether to what matters; constraint creates usable lift;
+- **SPIRAL** — integration and return: retained differences are woven back into the changed system.
+
+A cautious technical translation is:
+
+```
+BOUND / NAME TERMS
+→ EXPLORE / DIVERGE
+→ TETHER / SELECT / TEST
+→ INTEGRATE / RETURN
+```
+
+This is a **candidate process donor**, not a claim that later Double Diamond, Fold/Bloom, FIELD evolution or other convergence loops descend from Sleeper. It is useful because it distinguishes four conditions we repeatedly confuse:
+constraint is not imprisonment; freedom is not orientation; selection requires tension; integration is not flattening.
+
+Test it only where those distinctions improve a real transition.
+
 ## RECONSTRUCTED CURRENT EQUIVALENCE
 
 These are useful equivalences, **not ancestry claims**.
