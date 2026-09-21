@@ -46,10 +46,11 @@
   }
 
   function validateDescriptor(input){
-    const d=normalizeDescriptor(input),errors=[];
+    const raw=isObj(input)?input:{},d=normalizeDescriptor(raw),errors=[];
+    if(raw.kind!=null&&raw.kind!==VIEW&&raw.kind!==ACTION)errors.push('descriptor.kind invalid');
+    if(raw.authority!=null&&!AUTHORITIES.has(raw.authority))errors.push('descriptor.authority invalid');
     if(!d.lensId)errors.push('descriptor.lensId required');
     if(d.kind===VIEW&&d.authority!=='PREVIEW')errors.push('VIEW_LENS authority must be PREVIEW');
-    if(!AUTHORITIES.has(d.authority))errors.push('descriptor.authority invalid');
     return {ok:errors.length===0,errors,descriptor:d};
   }
 
@@ -126,13 +127,15 @@
   }
 
   function validate(input){
-    const state=normalize(input),errors=[];
+    const raw=isObj(input)?input:{},state=normalize(raw),errors=[];
+    if(raw.operator!=null&&!OPERATORS.has(raw.operator))errors.push('operator invalid');
     if(!state.objectId)errors.push('objectId required');
     if(!state.focusId)errors.push('focusId required');
     if(!state.projection)errors.push('projection required');
 
+    const rawStack=Array.isArray(raw.lensStack)?raw.lensStack:Array.isArray(raw.lens_stack)?raw.lens_stack:Array.isArray(raw.stack)?raw.stack:[];
     const chain=normalize({...state,lensStack:[]});
-    state.lensStack.forEach((d,i)=>{
+    rawStack.forEach((d,i)=>{
       const v=validateDescriptor(d);
       v.errors.forEach(e=>errors.push('lensStack['+i+'].'+e));
       if(v.ok){
