@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_SOUND_DEPTH_2026-09-21",
   "date": "2026-09-21",
   "operation": "RECOVER → DEEPEN SOUND → CLARIFY FAMILY → VERIFY → SHIP",
-  "status": "BRANCH_IMPLEMENTED_PENDING_CI",
+  "status": "SHIPPED_ACTIVE_CANDIDATE",
   "branch": "two-dial-sonic-depth-010",
   "changed": [
     "/fold-bloom/two-dial/",
@@ -25,5 +25,40 @@
     "CI pending",
     "direct audio A/B pending"
   ],
-  "stop": "Do not add another synth/groove family before CI and embodied listening identify a concrete gap."
+  "stop": "No additional sound-family expansion until direct play returns evidence.",
+  "pr": 89,
+  "merge_sha": "4d33e820ec0e7c98c3b5abfb46cbcd3f33467b21",
+  "ci": {
+    "run_id": 35607729608,
+    "result": "PASS_ON_RERUN",
+    "passed": [
+      "route grammar",
+      "static public-surface contracts",
+      "LIVE WATCH DEMO browser surface",
+      "Two Dial 0.10 generated TRANCE/FM/POLY controls",
+      "Scale Lens G2 Studio RETURN after parent-edge correction",
+      "DOCS RSVP focus kernel on rerun",
+      "recovered source/media catalogue",
+      "frozen City/Painting tests"
+    ]
+  },
+  "corrections": [
+    "Do not conflate UI extraction with graph reparenting: Lens G2 proved /fold-bloom/ parent ancestry is operational.",
+    "Do not react to a single untouched browser-probe timeout by editing unrelated code; rerun/compare first."
+  ],
+  "next_evidence": {
+    "kind": "EMBODIED_AUDIO_A_B",
+    "suggested": [
+      "TRANCE × FM × DRIVE · OPEN",
+      "DRIFT × BELL × POLY · OPEN",
+      "DEEP × WOOD × BROKEN · SCALE/MOTIF",
+      "PULSE × DIRTY × DRIVE · SCALE/PULSE"
+    ],
+    "observe": [
+      "Does each VOICE occupy distinct musical territory?",
+      "Does each GROOVE alter bodily timing without obscuring relation events?",
+      "Can the same dial relation be heard differently under PULSE vs MOTIF vs FORM scope?",
+      "Any crackle, scheduler burst, stuck drone or menu friction over 10 minutes?"
+    ]
+  }
 }
