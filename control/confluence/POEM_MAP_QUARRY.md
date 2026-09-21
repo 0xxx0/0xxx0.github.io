@@ -307,3 +307,22 @@ Adds:
 - form adapters + RETURN.
 
 The 0.2 claim is not that a graph writes poetry. The map earns its existence only when it shortens a real authoring decision while preserving source identity and a plain-text return path.
+
+
+## Older Drive/context donor
+
+### 2021 DRaft with Hui
+Recovered Google Doc: `1sU1xpxIZrG-xt_SaFjwD_Es7-jdvuseuSplWxLXcWlY`
+
+This is not poetry research evidence; it is an older collaboration/design note about digital learning and interface overload. Relevant recurring user-side mechanisms include:
+- too many windows/tools causing context switching;
+- Focus+Context;
+- foveation;
+- log-polar / nonlinear representations;
+- complementary vs competitive cognitive tools;
+- chunking;
+- navigation/memory;
+- an explicit note to investigate infovis/text visualization;
+- interface design as shaping the possibility space and filtering representation.
+
+Use as **lineage/context**, not as empirical support. The interesting recurrence is that Poem Map's APERTURE / stable source / selective projection direction predates the current poetry branch as a general interface concern.
