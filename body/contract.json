@@ -24,19 +24,21 @@
     "HOUSE CONTEXT != BODY TRUTH",
     "REFERENCE BODY PLAN != PERSONAL ANATOMY",
     "ACTIVE SELF-REPORT and PASSIVE/ENVIRONMENT CONTEXT remain source-distinct",
-    "MISSING != ZERO"
+    "MISSING != ZERO",
+    "BODY EVENT != CARE CASE until explicit import"
   ],
   "storage": {
     "case_state": "localStorage 0xxx0.body.field.v02",
     "body_to_house": "localStorage 0xxx0.body.field.latest.v01",
-    "house_to_body": "localStorage 0xxx0.house.body.context.v01"
+    "house_to_body": "localStorage 0xxx0.house.body.context.v01",
+    "body_to_care": "localStorage 0xxx0.body.care.handoff.v01"
   },
   "body_plan": {
     "registry": "/bodyplans/registry.js",
     "address": "plan_id + geometry_version + view + selection_mode + region_ids"
   },
   "exits": {
-    "care": "/care/",
+    "care": "/care/ via explicit browser-local handoff; CARE requires user import into current case",
     "house": "/house/",
     "bodyplans": "/bodyplans/",
     "return": "/returns/"
