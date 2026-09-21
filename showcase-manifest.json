@@ -16,9 +16,8 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T14:50:00+08:00",
+        "updated_at": "2026-09-21T15:04:00+08:00",
         "work_modes": [
-          "INVESTIGATE",
           "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
@@ -26,7 +25,8 @@
         ]
       },
       "role": "Fast repo re-entry with semantic density: compact FIELD strip for NOW/HEAD state, newest-first LATEST rows with glyph rail, GitHub issues, and MAP/EVOLVE/PULSE as secondary projections.",
-      "receipt": "/returns/FIELD_EVOLUTION_2026-09-21.json"
+      "receipt": "/returns/FIELD_EVOLUTION_2026-09-21.json",
+      "machine_view": "FIELD"
     },
     {
       "href": "/contact/",
@@ -1374,14 +1374,14 @@
       "role": "Public instrument gateway separating ORIENT / OPERATE / PROVE / RECOVER while live priority remains in control/CURRENT.json.",
       "showcase_card": false,
       "index": {
-        "updated_at": "2026-09-21T04:05:00+08:00",
+        "updated_at": "2026-09-21T15:04:00+08:00",
         "work_modes": [
-          "RECOVER",
+          "SPECIFY",
           "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
+          "VERIFY"
         ]
-      }
+      },
+      "machine_view": "GATEWAY"
     },
     {
       "href": "/foundry/verse-atlas/",
@@ -2445,12 +2445,16 @@
       "showcase_card": false,
       "role": "Readable cross-lineage handoff shelf; coordinates unequal lineages through explicit differences, ablations and recipient-side RETURN without vocabulary collapse.",
       "index": {
-        "updated_at": "2026-09-21T02:55:41+08:00",
+        "updated_at": "2026-09-21T15:04:00+08:00",
         "work_modes": [
           "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "machine_view": "CONFLUENCE",
+      "operation": "TRANSFER"
     },
     {
       "href": "/recovery/rsvp/",
@@ -2593,9 +2597,10 @@
         "physical_fit": "Orientation layer only; physical truth remains reality-gated through House/workshop evidence and RETURN."
       },
       "index": {
-        "updated_at": "2026-09-21T14:21:00+08:00",
+        "updated_at": "2026-09-21T15:04:00+08:00",
         "work_modes": [
           "SPECIFY",
+          "IMPLEMENT",
           "VERIFY"
         ]
       },
@@ -2610,7 +2615,8 @@
         "evidence_gate": "Use it on one cross-lineage reconstruction/transfer decision; require a fresh process to reproduce the selected mechanism and preserve contradictions/provenance.",
         "next_if_pass": "TRANSFER the surviving orientation law into Foundry's stable control grammar.",
         "next_if_fail": "Keep as CANDIDATE or DONOR; do not canonize its convergence names."
-      }
+      },
+      "machine_view": "CORE"
     },
     {
       "href": "/law-zoo/",
@@ -3448,13 +3454,16 @@
       "showcase_card": false,
       "role": "Human-facing recovery/salvage home: evidence classes, promotion gate, trophy case, expeditions, quarantine, attic and ingest queue.",
       "index": {
-        "updated_at": "2026-09-20T22:55:00+08:00",
+        "updated_at": "2026-09-21T15:04:00+08:00",
         "work_modes": [
-          "RECOVER",
+          "SPECIFY",
+          "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "machine_view": "MIGRATION",
+      "operation": "RECOVER"
     },
     {
       "href": "/recovery/poly-furnisher/room-lineage/",
@@ -4159,7 +4168,8 @@
     "replica_replan": "Bounded Confluence transfer: generalized event/state substrate remains primary; after one bounded move, RETURN closes route authority and the next move requires explicit replan. Multi-agent Director/Worker/Critic choreography is not promoted by this evidence.",
     "shopping_field": "FI-SHOP-001 absorbs the recovered House OS shopping console and Shopping Field Menu contract as an FCM child adapter. Public route carries no personal inventory; legacy v0.4 exports import locally, with ambiguous CONFIRMED conservatively mapped to VERIFY.",
     "center_mass": "Triangle-centered many-front selection projection; /fcm/ remains an earlier parallel experiment.",
-    "verse_quarry": "Large poetry research/route map lives at /control/confluence/VERSE_VIS_QUARRY.md; /poetry/ keeps a small active writing surface."
+    "verse_quarry": "Large poetry research/route map lives at /control/confluence/VERSE_VIS_QUARRY.md; /poetry/ keeps a small active writing surface.",
+    "foundry_machine": "/foundry/machine.json defines CORE/FIELD/MIGRATION/CONFLUENCE as unequal projections over existing authorities; it is a projection contract, not a new database."
   },
   "capability_model": {
     "CAPTURE": {
