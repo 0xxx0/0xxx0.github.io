@@ -1,5 +1,5 @@
 'use strict';
-const APP_VERSION = '0.10.0-hold-fast-let-fly',
+const APP_VERSION = '0.10.1-field-pulse',
   SCHEMA = 3,
   STORE = 'fold-bloom-product-v04',
   SAVE_STORE = 'fold-bloom-cassettes-v1';
@@ -142,6 +142,25 @@ let scarsL = [0, 0, 0, 0, 0, 0],
 let live = { vL: 0, vR: 0, mode: 'STILL' },
   phrase = Array.from({ length: 16 }, () => ({ m: 0, h: 0, w: 0, verb: '' })),
   learnCursor = 0;
+const fieldEventListeners = new Set();
+let pulseLink = {
+  connected: false,
+  playing: false,
+  bpm: 0,
+  time: 0,
+  duration: 0,
+  beatIndex: -1,
+  sectionIndex: -1,
+  energy: 0,
+  flux: 0,
+  brightness: 0,
+  scope: '',
+  stage: '',
+  sourceHash: null,
+  sourceKind: null,
+  sourceAddress: null,
+  wall: 0,
+};
 let form = {
   state: 'GROUND',
   bars: 0,
@@ -180,6 +199,7 @@ let prefs = {
   motion: 0.7,
   haptic: true,
   quiet: false,
+  pulseLink: false,
 };
 let rngState = Date.now() >>> 0 || 1,
   events = [],
@@ -206,8 +226,60 @@ function rng() {
   return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
 }
 function emit(type, data = {}) {
-  events.push({ n: ++eventSeq, type, ...data });
+  const event = { n: ++eventSeq, type, ...data };
+  events.push(event);
   if (events.length > 160) events.shift();
+  for (const fn of fieldEventListeners) {
+    try { fn(event); } catch (_) {}
+  }
+}
+function normalizedPulseBpm(raw) {
+  let bpm = Number(raw);
+  if (!Number.isFinite(bpm) || bpm <= 0) return null;
+  while (bpm < 64) bpm *= 2;
+  while (bpm > 136) bpm /= 2;
+  return clamp(bpm, 56, 136);
+}
+function pulseIsLive(now = Date.now()) {
+  return !!(
+    prefs.pulseLink &&
+    pulseLink.connected &&
+    pulseLink.playing &&
+    normalizedPulseBpm(pulseLink.bpm) &&
+    now - pulseLink.wall < 2800
+  );
+}
+function pulseTempo() {
+  return pulseIsLive() ? normalizedPulseBpm(pulseLink.bpm) : null;
+}
+function updatePulseContext(data = {}, wall = Date.now()) {
+  pulseLink = {
+    ...pulseLink,
+    connected: true,
+    playing: !!data.playing,
+    bpm: Number(data.bpm) || 0,
+    time: Number(data.time) || 0,
+    duration: Number(data.duration) || 0,
+    beatIndex: Number.isFinite(Number(data.beatIndex)) ? Number(data.beatIndex) : -1,
+    sectionIndex: Number.isFinite(Number(data.sectionIndex)) ? Number(data.sectionIndex) : -1,
+    energy: clamp(Number(data.energy) || 0, 0, 1.5),
+    flux: clamp(Number(data.flux) || 0, 0, 1.5),
+    brightness: clamp(Number(data.brightness) || 0, 0, 1.5),
+    scope: String(data.scope || ''),
+    stage: String(data.stage || ''),
+    sourceHash: data.sourceHash || null,
+    sourceKind: data.sourceKind || null,
+    sourceAddress: data.sourceAddress || null,
+    wall: Number(wall) || Date.now(),
+  };
+  return { ...pulseLink, active: pulseIsLive(), tempo: pulseTempo() };
+}
+function setPulseLink(enabled) {
+  prefs.pulseLink = !!enabled;
+  emit('pulse-link', { enabled: prefs.pulseLink });
+  saveLocal();
+  hud();
+  return prefs.pulseLink;
 }
 function world() {
   return WORLDS[prefs.world];
