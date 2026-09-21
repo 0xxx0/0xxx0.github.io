@@ -48,6 +48,20 @@
       "year": 2026,
       "url": "https://doi.org/10.1145/3772318.3791460",
       "transfer": "manipulable poetic elements + symbol graph + guided agent"
+    },
+    {
+      "title": "iPoe: interactive poetry editor",
+      "url": "https://docs.racket-lang.org/ipoe/",
+      "transfer": "extensible poetic-form grammar; free verse, haiku, sonnets, limerick, sestina, villanelle, tanaga and custom forms; explicit poetic license"
+    },
+    {
+      "title": "plotspaces",
+      "year": 2026,
+      "url": "https://www.research.ed.ac.uk/en/publications/information-visualization-data-materialization-thinking-through-s/",
+      "transfer": "3D-fabricated literary scale visualization / physical poem projection"
     }
-  ]
+  ],
+  "identity_notes": {
+    "english_cope_memory": "UNRESOLVED: current evidence strongly matches PoeTryMe/Co-PoeTryMe (English + form/seed/surprise + fine-grained word/line alternatives) and may also overlap iPoe's broad form checker. Do not identify the user's historical link as one system until exact prior source is recovered."
+  }
 }
