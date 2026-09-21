@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/public-surface-qa/v0.1",
-  "updated": "2026-09-19",
+  "updated": "2026-09-21",
   "principle": "A public surface is an instrument, not a brochure or control-room costume.",
   "tests": [
     {
@@ -54,5 +54,9 @@
     "new app names for minor view variations"
   ],
   "naming_rule": "Canonical IDs remain stable. Public names may be concise operational aliases. Prefer memorable metaphor only when the interaction earns it; otherwise VERB / OBJECT.",
-  "promotion": "A surface enters root RUNNING only after VERB + UNIQUE + OBJECT + RETURN pass."
+  "promotion": "A surface enters root RUNNING only after VERB + UNIQUE + OBJECT + RETURN pass.",
+  "latest_audit": "/control/PUBLIC_ROUTE_QA_2026-09-21.json",
+  "route_grammar_gate": "/tools/audit-route-grammar.mjs",
+  "status": "ALL_95_ROUTES_CLASSIFIED_EXPLICIT_VERBS_GATED",
+  "return": "Every manifest route is classified KEEP/MERGE/DONOR/HIDE in the latest audit. Every non-root route now has an explicit operation verb. CI fails on missing operations, deprecated EXPERIMENT/SEED lifecycle states, duplicate hrefs, or malformed aliases. Naming/UNIQUE/PLAIN/MOBILE/PHYSICAL remain evidence questions where automation cannot decide honestly."
 }

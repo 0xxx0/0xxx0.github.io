@@ -1,10 +1,10 @@
 {
   "schema": "field-repo-issues/v0.1",
-  "generated_at": "2026-09-21T17:41:00+08:00",
+  "generated_at": "2026-09-21T17:38:00+08:00",
   "source": "GitHub open issues for 0xxx0/0xxx0.github.io",
   "dynamic_source": "https://api.github.com/repos/0xxx0/0xxx0.github.io/issues?state=open&per_page=100",
-  "count": 9,
-  "play_safe_count": 5,
+  "count": 8,
+  "play_safe_count": 4,
   "law": "FI may show all public repo issues. FIELD PLAY only selects play_safe=true issues; local/private/sensitive holds remain visible as repo truth but are not contributor missions.",
   "issues": [
     {
@@ -26,16 +26,6 @@
       "body": "## Goal\nUse the recovered ONE RETURN / SEAM ENGINE v0.2 as the substrate for one concrete cross-projection fixture.\n\n## Candidate projections\n- Scale Lens\n- Fold/Bloom\n- Atlas Dayline / Aperture\n- Painting / Path\n- plain list baseline\n\n## Required contract\nFor one shared object, state:\n- PRESERVES\n- HIDES\n- PERMITS\n- ROUND_TRIP\n- PLAIN_BASELINE\n- TEST\n- RETURN\n\n## Done when\nOne object can be selected/inspected across all surviving projections with stable identity, and at least one projection proves a task advantage rather than ornamental difference.\n\n## Do not\nDo not merge the interfaces into one mega-screen.",
       "play_safe": true,
       "disposition": "ACTIVE_PROOF_FIXTURE"
-    },
-    {
-      "number": 12,
-      "title": "QA 01 · Public route verb + naming audit",
-      "updated_at": "2026-09-21T08:45:00Z",
-      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/12",
-      "labels": [],
-      "body": "## Goal\nRemove appslop/dashboard-porn drift from the public surface without destroying distinctive instruments.\n\nUse /control/QA.json.\n\nFor every public route:\n1. What is its one verb?\n2. What exact object/state does it expose?\n3. What unique operation does it retain?\n4. What does it RETURN?\n5. Would plain text/list be better?\n6. Is the public name intuitive after one use?\n\nClassify:\nKEEP / RENAME / MERGE / DONOR / HIDE\n\nCanonical IDs and git lineage stay stable.",
-      "play_safe": true,
-      "disposition": "PUBLIC_QA_LENS_SLICE_CLEAN"
     },
     {
       "number": 11,
