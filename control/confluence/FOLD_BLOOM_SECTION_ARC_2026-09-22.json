@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_SECTION_ARC_2026-09-22",
   "date": "2026-09-22",
   "object": "FOLD//BLOOM LIVE 0.3 / custom MP3 → section-shaped play",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "observed_exactly_recovered": [
     "User reports same-page MP3 path was used successfully.",
     "User reports different detected sections 'sorta work'—not perfect, but perceptible/useful enough to continue.",
@@ -71,6 +71,17 @@
     "/tools/browser-smoke.mjs"
   ],
   "stop": "Do not add more source providers, semantic section classifiers, rhythm-game exporters or deeper cross-app coupling before direct phone evidence on SECTION ARC.",
-  "pr": null,
-  "return": "/returns/FOLD_BLOOM_SECTION_ARC_2026-09-22.json"
+  "pr": 134,
+  "return": "/returns/FOLD_BLOOM_SECTION_ARC_2026-09-22.json",
+  "merge_sha": "d6341f639ff53ab3adefef1554739965021de641",
+  "verification": {
+    "ci_run": 35663346071,
+    "ci_result": "PASS",
+    "code_bearing_ci_run": 35663346071,
+    "prior_ci_runs": [
+      35663195660,
+      35663271632
+    ],
+    "note": "Final code-bearing head passed engine/track/section-arc tests and full phone-sized critical browser smoke. A subsequent documentation-only newline repair was merged after the same code had passed; no runtime files changed in that repair."
+  }
 }
