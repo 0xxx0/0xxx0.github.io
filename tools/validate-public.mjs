@@ -125,9 +125,9 @@ if(exists('field-aperture.js')){try{new Function(read('field-aperture.js'))}catc
 if(exists('showcase-nav.js')){
   const nav=read('showcase-nav.js');
   try{new Function(nav)}catch(e){fail.push('JS showcase-nav.js: '+e.message)}
-  check(nav.includes('tab inspect'),'shared route adapter missing ambient Aperture inspector');
-  check(nav.includes('field-aperture.js'),'ambient Aperture inspector missing shared component loader');
-  check(nav.includes('getSelection'),'ambient Aperture inspector missing selection-context path');
+  check(nav.includes('tab read'),'shared route adapter missing READFIELD action');
+  check(nav.includes('readfield.handoff.v1'),'shared route adapter missing READFIELD handoff');
+  check(nav.includes('getSelection'),'READFIELD handoff missing selection-context path');
 }
 const charters=parse('control/INSTRUMENT_CHARTERS.json');
 const apertureRelease=parse('foundry/aperture/release.json');
@@ -142,7 +142,7 @@ if(apertureRelease){
 }
 if(exists('foundry/aperture/index.html')){
   const ap=read('foundry/aperture/index.html');
-  for(const token of ['FOUNDRY / APERTURE','field-aperture.js','RSVP','SCALE LENS','TWO DIAL'])check(ap.includes(token),'Aperture surface token missing: '+token);
+  for(const token of ['APERTURE HAS CONVERGED INTO READFIELD','readfield.handoff.v1','/docs/'])check(ap.includes(token),'Aperture compatibility token missing: '+token);
   compileInline('foundry/aperture/index.html');
 }
 if(exists('field-play.html')){const play=read('field-play.html');check(play.includes('field-presentation.js'),'FIELD PLAY missing shared presentation kernel');check(play.includes('field-glyph.js'),'FIELD PLAY missing shared glyph grammar');}
@@ -183,7 +183,7 @@ if(migrationNow){
 const home=read('index.html');
 const fi=fiContract;
 check(!!fi,'FIELD INDEX contract missing/unreadable');
-if(fi){check(fi.schema==='field-index-contract/v0.2','FIELD INDEX contract must be v0.2');check(fi.root_readings?.NOW&&fi.root_readings?.MAP&&fi.root_readings?.OPEN_PORTS&&fi.root_readings?.EVOLVE,'FIELD INDEX readings incomplete');check(fi.evolution_contract?.schema==='field-evolution/v0.1','FIELD evolution contract missing');}
+if(fi){check(fi.schema==='field-index-contract/v0.3','FIELD INDEX contract must be v0.3');check(fi.root_readings?.NOW&&fi.root_readings?.MAP&&fi.root_readings?.OPEN_PORTS&&fi.root_readings?.EVOLVE,'FIELD INDEX readings incomplete');check(fi.evolution_contract?.schema==='field-evolution/v0.1','FIELD evolution contract missing');}
 check(home.includes('href="./returns/"'),'root missing RETURN FIELD link');
 check(home.includes('data-mode="STRUCTURE"'),'root missing STRUCTURE map mode');
 check(home.includes('data-mode="RECENT"'),'root missing RECENT lens');
