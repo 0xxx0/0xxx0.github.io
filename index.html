@@ -68,11 +68,11 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <div class="reentry" aria-label="FIELD re-entry states"><a href="./control/"><span>NOW</span><b>CURRENT / QUEUE</b></a><a class="recover" href="./control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json"><span>RECOVER</span><b>POLISHED ONE RETURN v2</b></a><a class="transfer" href="./control/confluence/"><span>TRANSFER</span><b>CONFLUENCE</b></a></div>
 
 <section class="axial" id="axialLatest">
-  <div class="axialHead"><div><b>AXIAL / LATEST</b> <span id="axialMeta">loading repo mutations…</span></div><div class="axialActions"><span class="trial" id="axTrial" title="Local-only passive comparison. Click to copy receipt.">trial —</span><button id="axReset">RESET / NEWEST</button></div></div>
+  <div class="axialHead"><div><b>FIELD / FOCUS</b> <span id="axialMeta">loading repo mutations…</span></div><div class="axialActions"><span class="trial" id="axTrial" hidden title="Local-only passive comparison. Click to copy receipt.">trial —</span><button id="axReset">RESET / NEWEST</button></div></div>
   <div class="aperture" id="aperture">
     <div class="apGlyph" id="apGlyph"></div>
-    <div class="apBody"><div class="apMeta" id="apMeta">OBJECT / FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><div class="apReading" id="apProjection">READING · AXIAL / LATEST</div><p id="apRole">One fixed gate resolves the aligned vocabularies to an exact repository route.</p></div>
-    <div class="apActions"><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apInspect">INSPECT</button><button class="secondary" id="apAxial">◎ AXIAL</button><button class="secondary" id="apLens" title="Refract the selected object without changing FIELD selection">◎ LENS</button><button class="secondary" id="apProof">COMPARE</button><button class="secondary" id="apCopy">COPY</button></div>
+    <div class="apBody"><div class="apMeta" id="apMeta">OBJECT / FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><div class="apReading" id="apProjection">READING · FIELD / FOCUS</div><p id="apRole">One fixed gate resolves the aligned vocabularies to an exact repository route.</p></div>
+    <div class="apActions"><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apInspect">READ</button><button class="secondary" id="apLens" title="Refract the selected object without changing FIELD selection">◎ LENS</button><button class="secondary" id="apProof">COMPARE</button><button class="secondary" id="apCopy">COPY</button></div>
   </div>
   <div class="axialRows" id="axialRows"></div>
   <div class="survivors" id="survivors"><div class="survLabel">LIVE SET</div><div class="survMarks" id="survMarks"></div><div class="survState" id="survState">—</div></div>
@@ -142,7 +142,7 @@ function renderTrial(){const a=trial.axial_focus||0,l=trial.latest_focus||0,d=tr
 function trialReceipt(){return{...trial,exported_at:new Date().toISOString(),note:'LOCAL-ONLY interaction counts; no claim of usability superiority. AX=AXIAL focus selections; LI=plain LATEST row selections; Ø=dead intersections.'}}
 const routeMap=()=>new Map(routes.map(r=>[r.href,r]));
 const projectionOf=()=>$('mapFold')?.open?mapMode:'AXIAL_LATEST';
-const notifyFieldIndex=()=>{const projection=projectionOf(),w=$('apProjection');if(w)w.textContent='READING · '+projection.replace('_',' / ');window.dispatchEvent(new CustomEvent('field-index:state',{detail:{focus:focus?.href||null,projection,mapRoot,axisState:{...axisState}}}))};
+const notifyFieldIndex=()=>{const projection=projectionOf(),w=$('apProjection'),label=projection==='AXIAL_LATEST'?'FIELD / FOCUS':projection.replace('_',' / ');if(w)w.textContent='READING · '+label;window.dispatchEvent(new CustomEvent('field-index:state',{detail:{focus:focus?.href||null,projection,mapRoot,axisState:{...axisState}}}))};
 const opOf=r=>r.operation||r.kind||'—';
 const modesOf=r=>Array.isArray(r.index?.work_modes)&&r.index.work_modes.length?r.index.work_modes:['UNKNOWN'];
 const unique=xs=>[...new Set(xs.filter(Boolean))];
@@ -237,8 +237,8 @@ function focusOrOpen(r,source='OTHER'){
 }
 function resetAxial(){axisState.state='ANY';axisState.operation='ANY';axisState.mode='ANY';focus=latest[0]||null;supportTrail=[latest.length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();renderTrial();syncAxialURL();notifyFieldIndex()}
 function renderAperture(){
- if(!focus){$('apGlyph').innerHTML='';['apInspect','apAxial','apLens','apProof','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');return}
- ['apInspect','apAxial','apLens','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';$('apGlyph').innerHTML=routeGlyph(focus,34);$('apMeta').textContent=[focus.state||'—',opOf(focus),modesOf(focus).join(' · ')].join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(focus.index?.updated_at||'UNTRACKED');$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed repository surface.';$('apOpen').href='.'+focus.href;
+ if(!focus){$('apGlyph').innerHTML='';['apInspect','apLens','apProof','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');return}
+ ['apInspect','apLens','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';$('apGlyph').innerHTML=routeGlyph(focus,34);$('apMeta').textContent=[focus.state||'—',opOf(focus),modesOf(focus).join(' · ')].join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(focus.index?.updated_at||'UNTRACKED');$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed repository surface.';$('apOpen').href='.'+focus.href;
 }
 function renderFeed(){
  const xs=latest.slice(0,latestLimit),live=routes.filter(r=>['ACTIVE','STABLE','PROOF_REQUIRED','CANDIDATE'].includes(r.state)).length;
@@ -299,7 +299,13 @@ function openAxial(){if(!focus)return;var q=new URLSearchParams({focus:focus.hre
 function openLens(){
  if(!focus)return;const packet={text:JSON.stringify({schema:'field-route/v0.1',href:focus.href,title:focus.title,kind:focus.kind,state:focus.state,operation:focus.operation,role:focus.role,index:focus.index,parent:focus.parent,family:focus.family},null,2),label:'FIELD · '+(focus.title||focus.href),created_at:new Date().toISOString(),source:'field-index-axial-latest'};try{sessionStorage.setItem('scale.lens.handoff.v01',JSON.stringify(packet))}catch(_){}location.assign('./fold-bloom/lens/')
 }
-function inspectFocus(){if(!focus||!window.FieldAperture)return;window.FieldAperture.dock(focus,{label:focus.title||focus.href,from:'field-index-axial-latest'})}
+function inspectFocus(){
+ if(!focus)return;
+ const source=[focus.title||focus.href,focus.href,'',focus.role||focus.contract?.transforms?.verb||'','',...(Array.isArray(focus.transfer)?focus.transfer.slice(0,16).map(x=>'• '+x):[])].filter((x,i,a)=>x!==''||a[i-1]!=='').join('\n');
+ const returnAddress=location.pathname+location.search+location.hash;
+ try{sessionStorage.setItem('readfield.handoff.v1',JSON.stringify({schema:'readfield.handoff/v1',source,label:'FIELD · '+(focus.title||focus.href),returnAddress,created_at:new Date().toISOString()}))}catch(_){return}
+ location.assign('./docs/?handoff=1&return='+encodeURIComponent(returnAddress))
+}
 function openProof(){if(!focus)return;if(window.LensProof?.open){window.LensProof.open();return}const q=new URLSearchParams({lens_proof:'1',focus:focus.href});location.assign('./?'+q.toString())}
 async function copyTrial(){const data=JSON.stringify(trialReceipt(),null,2);try{await navigator.clipboard.writeText(data);const e=$('axTrial'),old=e.textContent;e.textContent='TRIAL COPIED';setTimeout(()=>renderTrial(),900)}catch(_){prompt('Copy local AXIAL trial:',data)}}
 async function copyAddress(){if(!focus)return;syncAxialURL();const txt=focus.href+'\n'+(focus.title||'')+'\n'+location.href;try{await navigator.clipboard.writeText(txt);const b=$('apCopy'),old=b.textContent;b.textContent='COPIED';setTimeout(()=>b.textContent=old,700)}catch(_){prompt('Copy address:',txt)}}
@@ -313,7 +319,7 @@ Promise.all([
  $('axialMeta').textContent=latest.length+' mutations · support is exact over current filters';
  renderHeads();renderPorts();applyInitialAxial();loadIssues();renderMap();
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});
-$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apAxial').onclick=openAxial;$('apLens').onclick=openLens;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===18?40:18;$('moreLatest').textContent=latestLimit===18?'SHOW 40':'SHOW 18';renderFeed()};
+$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===18?40:18;$('moreLatest').textContent=latestLimit===18?'SHOW 40':'SHOW 18';renderFeed()};
 $('mapTools').onclick=e=>{if(e.target.dataset.mode){mapMode=e.target.dataset.mode;renderMap();notifyFieldIndex()}};$('mapSearch').oninput=e=>{mapQuery=e.target.value.trim().toLowerCase();renderMap()};
 $('mapUp').onclick=mapUp;$('mapRootBtn').onclick=()=>{mapRoot='/';renderMap();notifyFieldIndex()};$('mapDrill').onclick=drillSelected;
 $('mapFold').addEventListener('toggle',()=>{if($('mapFold').open)renderMap();notifyFieldIndex()});
