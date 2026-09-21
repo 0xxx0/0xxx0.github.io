@@ -75,15 +75,17 @@
     },
     {
       "lineage": "scale-lens",
-      "head": "SCALE LENS RC11.2 + LensState 0.2 + actualize-1",
-      "state": "STABLE + PROVED_MECHANICS + FOVEATION_PARKED",
+      "head": "SCALE LENS RC11.2 + LensState 0.2 + G2 hardening-1",
+      "state": "STABLE + PROVED_MECHANICS + G2_HARDENED + FOVEATION_PARKED",
       "route": "/fold-bloom/lens/",
-      "retained_function": "Portable LensState/Focus Ring owns the simple grammar: one object → aperture → view/stack → RETURN. RC11.2 is explicitly the deep lab behind it. Studio actualize-1 puts OBJECT/APERTURE/VIEW/STACK/RETURN first, hides advanced machinery behind LAB on handoff, and resolves RETURN to the true caller. Initial human FOVEATE use showed no clear advantage, so PLAIN remains default and foveation is parked.",
+      "retained_function": "Portable ◎ Lens owns refraction only: host-selected object → aperture → view/stack → DEEP LAB? → RETURN. G2 hardening makes APPLY/REMOVE deterministic, rejects malformed typed state, removes latent peer-selection authority, unifies exact caller RETURN, consumes handoffs once, and makes generic route RETURN non-navigational. PLAIN remains default; FOVEATE stays parked.",
       "evidence": [
         "/control/LENS_G1_PROOF_SEAL_2026-09-21.json",
         "/control/FIELD_ACTIVATION_LAW.json",
         "/control/LENS_EVOLUTION_G1_2026-09-21.json",
-        "/control/LENS_FOVEATE_PROOF_2026-09-21.json"
+        "/control/LENS_FOVEATE_PROOF_2026-09-21.json",
+        "/control/LENS_FI_TOOLGLASS_G2_2026-09-21.json",
+        "/control/LENS_G2_HARDENING_RETURN_2026-09-21.json"
       ]
     },
     {
