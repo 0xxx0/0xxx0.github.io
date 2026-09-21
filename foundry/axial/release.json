@@ -19,7 +19,7 @@
     "OPEN / COPY / BACK / RETURN",
     "moving per-ring position witness + fixed 12-o'clock gate",
     "ordinal position readout",
-    "shared focus-core support/position math",
+    "shared source-neutral Constraint Surface support law + AXIAL-local position/angle helpers",
     "persistent clickable overview/minimap across RING/STRIP",
     "engineering witness inspector with local ghost trail",
     "exportable AXIAL witness / unresolved residue"
@@ -39,13 +39,14 @@
     "/foundry/axial/aperture.contract.json",
     "observed-use correction: current dial position was reported as insufficiently legible",
     "moving position witness is distinct from fixed focus gate",
-    "FIELD AXIAL/LATEST and full AXIAL share /foundry/axial/focus-core.js for support/position law",
+    "FIELD AXIAL/LATEST and full AXIAL share /lib/constraint-surface.js for survivor/support law; AXIAL keeps /foundry/axial/focus-core.js only for presentation compatibility and ring position/angle helpers",
     "/foundry/axial/research.json grounds current interaction rules in recovered donors + external human-factors evidence",
     "Painting / Path donor transfer: persistent overview remains visible while local focus changes",
     "ONE RETURN donor transfer: interaction ghostTrail + exported witness retain causal residue",
     "overview and main surface mutate the same ring indices; no duplicate overview state",
     "inspector is opt-in and local-only",
-    "/control/confluence/MECHANISM_TRANSFER_LOOP_2026-09-21.json defines the falsifiable transfer loop used for this delta"
+    "/control/confluence/MECHANISM_TRANSFER_LOOP_2026-09-21.json defines the falsifiable transfer loop used for this delta",
+    "/control/constraint-surface-selftest.js checks the shared kernel against synthetic, FIELD manifest, AXIAL FIELD and HOUSE adapters"
   ],
   "promotion_gate": "The AXIAL instrument is ACTIVE for ordinary orientation/re-entry. Its comparative usability and physical-embodiment claims remain unresolved under the existing evolution.evidence_gate; failure of those claims does not invalidate the working orientation utility.",
   "lineage_exact": [
@@ -62,7 +63,7 @@
     "Blade Runner / Memory-Orb visual/mechanical association"
   ],
   "research_question": "Does a persistent navigable overview plus explicit engineering witness reduce orientation loss during deep focus while preserving the directness of the primary ring surface?",
-  "known_gap": "The overview and inspector are implemented but unmeasured. Their usefulness must be judged from ordinary navigation, especially re-entry after interruption, BACK usage, wrong-ring manipulation and whether users consult the overview without it becoming clutter.",
+  "known_gap": "The overview and inspector are implemented but unmeasured. Their usefulness must be judged from ordinary navigation, especially re-entry after interruption, BACK usage, wrong-ring manipulation and whether users consult the overview without it becoming clutter. Constraint Surface extraction is an architectural reuse result, not evidence that AXIAL outperforms plain navigation.",
   "current_classification": {
     "reviewed_at": "2026-09-21T16:30:00+08:00",
     "state": "PROOF_REQUIRED",
