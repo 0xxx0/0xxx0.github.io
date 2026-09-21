@@ -1,0 +1,182 @@
+{
+  "schema": "human-port-route-contracts/v0.1",
+  "updated": "2026-09-21",
+  "fit_states": {
+    "DIRECT": "Target consumes this projection directly.",
+    "ADAPTER": "A bounded adapter can preserve identity/context while translating into the target's accepted input.",
+    "NONE": "No current lawful adapter. Manual future work may still add one; this is not an authority prohibition."
+  },
+  "routes": [
+    {
+      "id": "contact",
+      "label": "SHARE / REPLY",
+      "system": "CONTACT",
+      "href": "/contact/",
+      "accepts": {
+        "TEXT": "DIRECT",
+        "JSON": "DIRECT",
+        "IMAGE": "NONE",
+        "FILE": "NONE"
+      },
+      "focus": {
+        "TEXT": [
+          "WHOLE",
+          "FRAGMENT"
+        ],
+        "JSON": [
+          "WHOLE",
+          "NODE"
+        ],
+        "IMAGE": [],
+        "FILE": []
+      },
+      "side_effect": "local draft; external action still requires explicit Share/Copy",
+      "authority": "HUMAN_TRIGGERED_EXTERNAL_ONLY"
+    },
+    {
+      "id": "burst",
+      "label": "UNTANGLE IT",
+      "system": "BURST / INTERPRET",
+      "href": "/contact/burst/",
+      "accepts": {
+        "TEXT": "DIRECT",
+        "JSON": "ADAPTER",
+        "IMAGE": "NONE",
+        "FILE": "NONE"
+      },
+      "focus": {
+        "TEXT": [
+          "WHOLE",
+          "FRAGMENT"
+        ],
+        "JSON": [
+          "WHOLE",
+          "NODE"
+        ],
+        "IMAGE": [],
+        "FILE": []
+      },
+      "side_effect": "local interpretation candidate",
+      "authority": "LOCAL_VIEW_ONLY"
+    },
+    {
+      "id": "idea",
+      "label": "KEEP THE IDEA",
+      "system": "IDEA ATLAS",
+      "href": "/app-atlas/",
+      "accepts": {
+        "TEXT": "DIRECT",
+        "JSON": "ADAPTER",
+        "IMAGE": "ADAPTER",
+        "FILE": "ADAPTER"
+      },
+      "focus": {
+        "TEXT": [
+          "WHOLE",
+          "FRAGMENT"
+        ],
+        "JSON": [
+          "WHOLE",
+          "NODE"
+        ],
+        "IMAGE": [
+          "WHOLE",
+          "REGION_REF"
+        ],
+        "FILE": [
+          "WHOLE_REF"
+        ]
+      },
+      "side_effect": "local prefill; human must save",
+      "authority": "LOCAL_CANDIDATE_ONLY"
+    },
+    {
+      "id": "residue",
+      "label": "REMEMBER IT",
+      "system": "SOCIAL RESIDUE",
+      "href": "/contact/residue/",
+      "accepts": {
+        "TEXT": "DIRECT",
+        "JSON": "ADAPTER",
+        "IMAGE": "ADAPTER",
+        "FILE": "ADAPTER"
+      },
+      "focus": {
+        "TEXT": [
+          "WHOLE",
+          "FRAGMENT"
+        ],
+        "JSON": [
+          "WHOLE",
+          "NODE"
+        ],
+        "IMAGE": [
+          "WHOLE",
+          "REGION_REF"
+        ],
+        "FILE": [
+          "WHOLE_REF"
+        ]
+      },
+      "side_effect": "local prefill; no obligation inferred",
+      "authority": "LOCAL_CANDIDATE_ONLY"
+    },
+    {
+      "id": "lens",
+      "label": "CHANGE THE VIEW",
+      "system": "SCALE LENS",
+      "href": "/fold-bloom/lens/",
+      "accepts": {
+        "TEXT": "DIRECT",
+        "JSON": "DIRECT",
+        "IMAGE": "NONE",
+        "FILE": "NONE"
+      },
+      "focus": {
+        "TEXT": [
+          "WHOLE",
+          "FRAGMENT"
+        ],
+        "JSON": [
+          "WHOLE",
+          "NODE"
+        ],
+        "IMAGE": [],
+        "FILE": []
+      },
+      "side_effect": "local projection",
+      "authority": "VIEW_ONLY"
+    },
+    {
+      "id": "intake",
+      "label": "ADMIT FOR REVIEW",
+      "system": "FIELD INTAKE",
+      "href": "/field-intake/",
+      "accepts": {
+        "TEXT": "DIRECT",
+        "JSON": "DIRECT",
+        "IMAGE": "DIRECT",
+        "FILE": "DIRECT"
+      },
+      "focus": {
+        "TEXT": [
+          "WHOLE",
+          "FRAGMENT"
+        ],
+        "JSON": [
+          "WHOLE",
+          "NODE"
+        ],
+        "IMAGE": [
+          "WHOLE",
+          "REGION_REF"
+        ],
+        "FILE": [
+          "WHOLE_REF"
+        ]
+      },
+      "side_effect": "review candidate only; canonical mutation still requires explicit resolution + APPLY",
+      "authority": "CANDIDATE_ONLY"
+    }
+  ]
+}

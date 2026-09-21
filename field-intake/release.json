@@ -1,13 +1,14 @@
 {
   "surface": "field-intake",
-  "version": "0.4",
+  "version": "0.5",
   "protocol": "poly.ingress/v0.4",
   "released": "2026-09-16",
   "lineage": [
     "POLY DayState Compiler v0",
     "Capture Gate v0.2",
     "POLY Field Intake 0.3 / AppDeploy proof",
-    "FIELD INTAKE 0.4 / GitHub Pages"
+    "FIELD INTAKE 0.4 / GitHub Pages",
+    "FIELD INTAKE 0.5 / HUMAN PORT object-admission adapter"
   ],
   "visible_delta": [
     "explicit KEEP BOTH / REPLACE / REJECT resolution",
@@ -16,7 +17,10 @@
     "explicit ref: evidence links and unresolved-reference review",
     "record lineage view",
     "persistent quick-capture inbox",
-    "offline PWA cache"
+    "offline PWA cache",
+    "HUMAN PORT object handoff accepted as ordinary review candidate",
+    "source object id/hash/media/focus retained in ingress source provenance",
+    "FIELD INTAKE emits object-aware RETURN after APPLY/no-mutation review"
   ],
   "validation": {
     "core_tests": "5/5 pass",
@@ -25,13 +29,24 @@
     "local_http_smoke": "all required assets HTTP 200",
     "chromium_automation": "not available in build container due DBus stall; validate on deployed Pages surface",
     "continuity_handoff_js_syntax": "pass",
-    "continuity_handoff_authority_boundary": "candidate-only / existing gate sovereign"
+    "continuity_handoff_authority_boundary": "candidate-only / existing gate sovereign",
+    "port_object_handoff_js_syntax": "pass",
+    "port_object_authority_boundary": "candidate-only / existing resolution + APPLY remains sovereign",
+    "port_object_handoff_roundtrip_contract": "pass (schema symmetry + receiptId RETURN verified statically)"
   },
   "amended": "2026-09-21",
   "integration_delta": [
     "accepts a same-origin CONTINUITY / CASE v0.2 handoff as ordinary review candidates",
     "consumes field.intake.handoff.v01 once, then clears the transport key",
-    "does not bypass candidate analysis, explicit resolution, APPLY, receipt or rollback"
+    "does not bypass candidate analysis, explicit resolution, APPLY, receipt or rollback",
+    "accepts 0xxx0/port-object-to-field-intake/v0.1 through existing field.intake.handoff.v01 transport",
+    "preserves sourceObjectId/sourceObject metadata through candidate edits and re-analysis",
+    "local Port bytes remain outside canonical FIELD INTAKE state; candidate records reference portobj identity",
+    "APPLY emits human-port-object-return/v0.1 with exact receiptId; RETURN does not imply original file bytes were canonized"
   ],
-  "integration_contract": "/continuity/field-intake-adapter.json"
+  "integration_contracts": [
+    "/continuity/field-intake-adapter.json",
+    "/port/object.schema.json",
+    "/port/routes.json"
+  ]
 }

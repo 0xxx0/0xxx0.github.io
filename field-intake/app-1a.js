@@ -30,17 +30,30 @@ state.ingressReceipts ||= [];
 let incomingHandoff = null;
 try {
   const parsed = JSON.parse(sessionStorage.getItem(HANDOFF) || 'null');
-  if (parsed?.schema === '0xxx0/continuity-to-field-intake/v0.1' && typeof parsed.capture === 'string' && parsed.capture.trim()) {
+  const continuity = parsed?.schema === '0xxx0/continuity-to-field-intake/v0.1';
+  const portObject = parsed?.schema === '0xxx0/port-object-to-field-intake/v0.1';
+  if ((continuity || portObject) && typeof parsed.capture === 'string' && parsed.capture.trim()) {
     incomingHandoff = parsed;
     sessionStorage.removeItem(HANDOFF);
   }
 } catch {}
+const handoffKind = incomingHandoff?.schema === '0xxx0/port-object-to-field-intake/v0.1' ? 'port-object-handoff' : incomingHandoff ? 'continuity-handoff' : 'capture';
 let draft = incomingHandoff?.capture || (localStorage.getItem(DRAFT) ?? sampleCapture);
 let prefs = { defaultKind: 'task', rightMode: 'trace', filter: 'all', density: 'full', ...loadJson(PREFS, {}) };
-let envelope = makeEnvelope(state, compileCapture(draft, prefs.defaultKind), { kind: incomingHandoff ? 'continuity-handoff' : 'capture', raw: draft, sourceCaseId: incomingHandoff?.source_case_id || null });
+let envelope = makeEnvelope(state, compileCapture(draft, prefs.defaultKind), {
+  kind: handoffKind,
+  raw: draft,
+  sourceCaseId: incomingHandoff?.source_case_id || null,
+  sourceObjectId: incomingHandoff?.source_object_id || null,
+  sourceObject: incomingHandoff?.source_object || null
+});
 let selectedCandidateId = envelope.candidates[0]?.candidateId || null;
 let selectedRecordId = null;
-let notice = incomingHandoff ? 'CONTINUITY handoff loaded as review candidates. Canonical state is unchanged until you resolve and APPLY.' : '';
+let notice = incomingHandoff
+  ? (handoffKind === 'port-object-handoff'
+      ? 'HUMAN PORT object loaded as review candidates. Local bytes remain in Port; canonical state is unchanged until you resolve and APPLY.'
+      : 'CONTINUITY handoff loaded as review candidates. Canonical state is unchanged until you resolve and APPLY.')
+  : '';
 let noticeTone = incomingHandoff ? 'warn' : 'ok';
 let timer = null;
 let installPrompt = null;
@@ -65,7 +78,13 @@ function rebuildEnvelope(preserve = true) {
       dayStart: String(state.meta.dayStart || '11:00'),
       dayEnd: String(state.meta.dayEnd || '23:00'),
     }),
-    { kind: 'capture', raw: draft }
+    {
+      kind: incomingHandoff ? handoffKind : 'capture',
+      raw: draft,
+      sourceCaseId: incomingHandoff?.source_case_id || null,
+      sourceObjectId: incomingHandoff?.source_object_id || null,
+      sourceObject: incomingHandoff?.source_object || null
+    }
   );
   for (const candidate of envelope.candidates) {
     if (prior.has(candidate.record.id)) candidate.resolution = prior.get(candidate.record.id);

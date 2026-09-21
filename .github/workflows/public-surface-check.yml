@@ -27,6 +27,8 @@ jobs:
         run: |
           python3 -m py_compile scripts/locate-ingest-context.py
           python3 control/ingest-context-locator-selftest.py
+      - name: Validate HUMAN PORT object aperture
+        run: node control/human-port-object-selftest.js
       - name: Validate static surface contracts
         run: node tools/validate-public.mjs
       - name: Run critical browser smoke

@@ -1,0 +1,50 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "HUMAN-PORT-OBJECT-APERTURE-2026-09-21",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "before": {
+    "port": "Text/JSON-only source intake with focus aperture and heuristic route cues.",
+    "files": "No first-class local byte carrier; images/artifacts risked staying outside the Port grammar.",
+    "route_evidence": "Heuristic support presentation blurred structural capability and relevance.",
+    "admission": "No direct HUMAN PORT → FIELD INTAKE object candidate path."
+  },
+  "after": {
+    "object": "human-port-object/v0.1 envelope for TEXT/JSON/IMAGE/FILE",
+    "bytes": "SHA-256 + browser-local IndexedDB stash for local files",
+    "focus": "Field Aperture for TEXT/JSON; normalized canvas REGION focus for IMAGE; whole reference for generic FILE",
+    "route_evidence": "FIT / CUES / HISTORY displayed independently; AUTHORITY remains external",
+    "admission": "FIELD INTAKE 0.5 accepts candidate-only Port object handoff and returns exact receipt state to same object id",
+    "deletion": "Explicit PURGE removes Port-local bytes only"
+  },
+  "preserved": [
+    "exact source bytes/hash where available",
+    "semantic object id distinct from hash semantics",
+    "projection/focus address",
+    "source provenance",
+    "human SELECT → OPEN boundary",
+    "FIELD INTAKE resolution/APPLY sovereignty",
+    "no external send/upload by Port"
+  ],
+  "not_proved": [
+    "cross-device object synchronization",
+    "filesystem canonicalization",
+    "semantic understanding of opaque files",
+    "OCR/image classification",
+    "audio/video/PDF projection adapters",
+    "that FIELD INTAKE admission means original file bytes are part of canonical repository state"
+  ],
+  "evidence": [
+    "/port/object.schema.json",
+    "/port/routes.json",
+    "/port/object-store.js",
+    "/port/object-aperture.js",
+    "/field-intake/release.json",
+    "/control/TRANSDUCTIONS.json"
+  ],
+  "reality_gate": [
+    "real generated image: drop → SHA-256 → region focus → FIELD INTAKE → review/APPLY → RETURN to same portobj id",
+    "real authored JSON/text file: prove dropped-file and pasted-text paths converge downstream",
+    "real opaque authored file: prove identity/provenance survives with FILE whole-ref only"
+  ],
+  "next": "Use the three unequal specimens. Add another medium only after a concrete failure shows the adapter is needed."
+}
