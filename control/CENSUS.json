@@ -70,7 +70,8 @@
         "影庫_INDEX_v0.1.md",
         "B260728B / eight image-gen files"
       ],
-      "action": "Coherent visual batch B260728B is now exact-index evidenced and registered at /recovery/naming/visual-batch-B260728B.json. Keep batch unified; runnable/source/glyph instrument remains open."
+      "action": "Coherent visual batch B260728B is exact-index + exact-byte-hash evidenced and has a first MEDIA REFINERY fingerprint/composition pass. Keep batch unified; media bytes remain Library-only; runnable/source/glyph instrument remains open.",
+      "refinery": "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json"
     },
     {
       "cluster": "LAW ZOO / tiny-law executable material",
@@ -212,5 +213,6 @@
       "files": 40,
       "images": 13
     }
-  ]
+  ],
+  "last_media_refinery": "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json"
 }
