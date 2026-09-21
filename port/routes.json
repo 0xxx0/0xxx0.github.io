@@ -179,6 +179,32 @@
       "authority": "LOCAL_CANDIDATE_ONLY"
     },
     {
+      "id": "body-fit",
+      "label": "ADD TO BODY / FIT",
+      "system": "BODY / FIT",
+      "href": "/body/fit/",
+      "accepts": {
+        "TEXT": "ADAPTER",
+        "JSON": "DIRECT",
+        "IMAGE": "NONE",
+        "FILE": "NONE"
+      },
+      "focus": {
+        "TEXT": [
+          "WHOLE",
+          "FRAGMENT"
+        ],
+        "JSON": [
+          "WHOLE",
+          "NODE"
+        ],
+        "IMAGE": [],
+        "FILE": []
+      },
+      "side_effect": "browser-local sensor/fitting import offer only; BODY / FIT requires explicit import and does not gain source authority",
+      "authority": "LOCAL_CANDIDATE_ONLY"
+    },
+    {
       "id": "intake",
       "label": "ADMIT FOR REVIEW",
       "system": "FIELD INTAKE",
