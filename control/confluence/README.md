@@ -97,3 +97,5 @@ Return a bounded handoff packet with sources, deltas, uncertainties, and next ex
 - [GAME-SCALE STATE DONORS](../research/GAME_SIMULATION_STATE_DONORS_2026-09-22.md) — Cyberpunk/RimWorld/Dwarf Fortress/Zomboid/GAS mechanisms for definitions, facts, effects, gates, body state and projections
 
 - [BODY / FIT sensor-fusion research](../research/BODY_FIT_SENSOR_FUSION_2026-09-22.md) — Syndicate/Deus Ex fitted-body donors + SensorThings/Open mHealth/HA source-distinct observation model; executable child at `/body/fit/`
+
+- [BODY / FIT RETURN / PATINA](../research/BODY_FIT_RETURN_PATINA_2026-09-22.md) — non-punitive PREP→SET OUT→RETURN→PATINA loop; completion leaves a mark and one NEXT CUT rather than a streak score
