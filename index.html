@@ -118,7 +118,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <script src="./field-presentation.js"></script>
 <script src="./field-glyph.js"></script>
 <script src="./field-aperture.js"></script>
-<script src="./foundry/axial/focus-core.js"></script>
+<script src="./lib/constraint-surface.js"></script>
 <script src="./lens-state.js"></script>
 <script>
 (()=>{'use strict';
@@ -169,18 +169,28 @@ function matchesCandidate(r,key,value){
 }
 function supportFor(a,v){
  if(a.key==='route'){const r=routeMap().get(v);return r&&matchesFilters(r)?1:0}
- const keys=['state','operation','mode'],selected={state:axisState.state,operation:axisState.operation,mode:axisState.mode};
- return AxialFocusCore.support(latest,keys,selected,a.key,v,function(r,key,value){
-  if(value==='ANY')return true;if(key==='state')return r.state===value;if(key==='operation')return opOf(r)===value;return modesOf(r).includes(value)
- })
+ return ConstraintSurfaceCore.support(
+  latest,
+  ['state','operation','mode'],
+  {state:axisState.state,operation:axisState.operation,mode:axisState.mode},
+  a.key,
+  v,
+  function(r,key){
+   if(key==='state')return [r.state||'UNSET'];
+   if(key==='operation')return [opOf(r)];
+   if(key==='mode')return modesOf(r);
+   return []
+  }
+ )
 }
+function axisPosition(values,index){const n=Math.max(0,(values||[]).length),i=n?((Number(index)%n+n)%n):0;return{index:i,label:n?String(i+1).padStart(String(n).length,'0')+'/'+n:'0/0'}}
 function tokenHTML(a,v,maxSup){
  const on=selectedValue(a)===v,sup=supportFor(a,v),cl=(on?'on ':'')+(sup?'live':'dead'),pct=maxSup?Math.round(sup/maxSup*100):0,bar='<i class="supportBar" style="width:'+pct+'%"></i>';
  if(a.key==='route'){const r=routeMap().get(v);return'<button class="axisToken route '+cl+'" data-axis="route" data-value="'+esc(v)+'">'+routeGlyph(r,25)+'<span class="tokTxt">'+esc(r?.title||v)+'<span class="sub">'+esc(r?.index?.updated_at||'')+(sup?' · live':' · dead')+'</span></span>'+bar+'</button>'}
  return'<button class="axisToken '+cl+'" data-axis="'+esc(a.key)+'" data-value="'+esc(v)+'">'+esc(v)+'<small>'+sup+' live</small>'+bar+'</button>';
 }
 function renderAxes(){
- const as=axes();$('axialRows').innerHTML=as.map(a=>{const supports=a.values.map(v=>supportFor(a,v)),maxSup=Math.max(1,...supports),sv=selectedValue(a),pi=Math.max(0,a.values.indexOf(sv)),pos=AxialFocusCore.position(a.values,pi);return'<div class="axisRow"><div class="axisName"><b>'+esc(a.label)+'</b><i>'+pos.label+' · '+a.values.length+' POS</i></div><div class="axisViewport" data-axis="'+esc(a.key)+'"><div class="axisTrack">'+a.values.map(v=>tokenHTML(a,v,maxSup)).join('')+'</div></div></div>'}).join('');
+ const as=axes();$('axialRows').innerHTML=as.map(a=>{const supports=a.values.map(v=>supportFor(a,v)),maxSup=Math.max(1,...supports),sv=selectedValue(a),pi=Math.max(0,a.values.indexOf(sv)),pos=axisPosition(a.values,pi);return'<div class="axisRow"><div class="axisName"><b>'+esc(a.label)+'</b><i>'+pos.label+' · '+a.values.length+' POS</i></div><div class="axisViewport" data-axis="'+esc(a.key)+'"><div class="axisTrack">'+a.values.map(v=>tokenHTML(a,v,maxSup)).join('')+'</div></div></div>'}).join('');
  $('axialRows').querySelectorAll('.axisToken').forEach(b=>{b.onclick=e=>{e.stopPropagation();chooseAxis(b.dataset.axis,b.dataset.value,true)};b.onkeydown=e=>{if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;e.preventDefault();const row=[...b.parentElement.querySelectorAll('.axisToken')],i=row.indexOf(b),n=Math.max(0,Math.min(row.length-1,i+(e.key==='ArrowRight'?1:-1))),next=row[n];if(next){next.focus();chooseAxis(next.dataset.axis,next.dataset.value,true)}}});
  $('axialRows').querySelectorAll('.axisViewport').forEach(v=>v.addEventListener('scroll',()=>{clearTimeout(scrollTimers[v.dataset.axis]);scrollTimers[v.dataset.axis]=setTimeout(()=>nearestFromScroll(v),130)},{passive:true}));
  requestAnimationFrame(centerAxes);
