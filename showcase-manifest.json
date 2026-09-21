@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T18:02:00+08:00",
+        "updated_at": "2026-09-21T18:37:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -43,7 +43,8 @@
         "NAV / INSPECT / LENS remain distinct operations",
         "local PLAIN↔FOVEATED Lens proof bench with explicit receipt copy",
         "visible Lens proof entry in nav, aperture actions, LATEST and MAP",
-        "safe local focus→second-click OPEN friction cut"
+        "safe local focus→second-click OPEN friction cut",
+        "global manifest/receipt/law documents open through addressable DOCS projection; RAW preserved"
       ]
     },
     {
@@ -2523,10 +2524,12 @@
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": false,
-      "role": "Read-only control-document surface using the shared Field Aperture: selected JSON/Markdown remains canonical while scale/position focus and material host cues provide navigable structure; RAW remains available.",
+      "role": "Read-only addressable repository-document projection using the shared Field Aperture: any same-origin text-like file may enter by canonical source URL; scale/position/time and material host cues change only the reading, while RAW and RETURN preserve source identity and path home.",
       "index": {
-        "updated_at": "2026-09-21T17:48:00+08:00",
+        "updated_at": "2026-09-21T18:37:00+08:00",
         "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
           "OPERATE",
           "ORIENT",
           "INSPECT"
@@ -2535,8 +2538,13 @@
       "transfer": [
         "Field Aperture text/JSON scale ladder",
         "material host projection",
-        "same source / RAW fallback"
-      ]
+        "same source / RAW fallback",
+        "same-origin ?src= document ingress",
+        "optional caller RETURN",
+        "global route-adapter document links → DOCS",
+        "canonical RAW source preserved"
+      ],
+      "receipt": "/returns/DOCS_ADDRESSABLE_APERTURE_2026-09-21.json"
     },
     {
       "href": "/control/confluence/",
