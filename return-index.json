@@ -2,10 +2,21 @@
   "schema": "0xxx0/return-index/v0.1",
   "generated": "2026-09-21",
   "source": "/showcase-manifest.json",
-  "count": 42,
-  "receipts_ok": 42,
+  "count": 43,
+  "receipts_ok": 43,
   "law": "A release without a return path is not closed.",
   "items": [
+    {
+      "href": "/foundry/axial/",
+      "title": "CONSTRAINT SURFACE EXTRACTION",
+      "state": "ACTIVE",
+      "version": "0.1",
+      "operation": "ORIENT / SUPPORT",
+      "receipt": "/returns/CONSTRAINT_SURFACE_EXTRACTION_2026-09-21.json",
+      "receipt_ok": true,
+      "receipt_schema": "return-receipt/v0.1",
+      "release_updated": "2026-09-21"
+    },
     {
       "href": "/",
       "title": "FIELD INDEX / AXIAL LATEST SUPPORT",
