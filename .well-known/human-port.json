@@ -1,6 +1,6 @@
 {
   "schema": "human-port-descriptor/v0.1",
-  "version": "1.3-preview",
+  "version": "1.4-preview",
   "canonical": "https://0xxx0.github.io/port/",
   "surfaces": {
     "plain": "/contact/",
@@ -103,7 +103,11 @@
     "line_object": "/contact/line-object.json",
     "continuity": "/contact/continuity.json",
     "social_residue": "/contact/social-residue.json",
-    "social_residue_contract": "/contact/social-residue.json"
+    "social_residue_contract": "/contact/social-residue.json",
+    "axial_focus_stack": "/foundry/axial/",
+    "aperture_component": "/field-aperture.js",
+    "axial_graft": "/control/confluence/HUMAN_PORT_AXIAL_GRAFT_2026-09-21.json",
+    "focus_return": "/returns/HUMAN_PORT_FOCUS_APERTURE_2026-09-21.json"
   },
   "interpretation": {
     "state": "LAB",
@@ -183,8 +187,21 @@
   },
   "home": {
     "route": "/port/",
-    "model": "ONE SOURCE → EXPLICIT ROUTE",
+    "model": "ONE SOURCE → FOCUS → SUPPORT → SELECT → OPEN",
     "primary_input": "local text/source intake",
+    "focus": {
+      "component": "/field-aperture.js",
+      "scales": "TEXT: DOCUMENT/PARAGRAPH/SENTENCE/WORD; JSON: ROOT/LEVEL/LEAF",
+      "scope": [
+        "WHOLE_SOURCE",
+        "CURRENT_FOCUS"
+      ],
+      "law": "Focus changes projection/address, not canonical source identity."
+    },
+    "support": {
+      "kind": "deterministic lexical cue counts",
+      "law": "Support is not confidence, authority or obligation. Zero-support routes remain available."
+    },
     "routes": [
       {
         "label": "SHARE / REPLY",
@@ -217,7 +234,9 @@
         "handoff": "scale.lens.handoff.v01"
       }
     ],
-    "rule": "Port preserves one source and requires an explicit human route choice; it does not auto-classify, upload or send."
+    "open_gate": "Route selection is reversible view state. OPEN creates the local handoff/navigation. External send remains separately explicit at Contact.",
+    "reentry": "Same-session Port state restores source, focus, scope and selected route.",
+    "rule": "Port may suggest and focus; it may not auto-open, upload, send, or turn support into authority."
   },
   "handoffs": {
     "burst_to_laconic": {
@@ -269,6 +288,11 @@
       "state": "LIVE_LOCAL",
       "carrier": "sessionStorage",
       "rule": "Port source preloads Scale Lens as the same source object for projection."
+    },
+    "port_focus_scope": {
+      "state": "LIVE_LOCAL",
+      "carrier": "sessionStorage",
+      "rule": "Downstream handoffs may carry WHOLE or CURRENT FOCUS plus focus address metadata; canonical source remains recoverable in Port session."
     }
   },
   "suite_law": "Tools should form reversible handoffs, not isolated mini-apps. Each transfer preserves source identity and does not silently upgrade authority or commitment."
