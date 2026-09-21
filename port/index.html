@@ -119,14 +119,14 @@ function renderRoutes(){
  $('#openGate').disabled=!selectedRoute||!payload.value.trim();
  $('#openGate').textContent=selectedRoute?'OPEN '+routeLabel(selectedRoute)+' →':'OPEN →';
 }
-function updateLikely(){
+function updateLikely(reloadAperture=true){
  const c=updateSupport(),next=inferRoute(routeText());
  likely=next.value;likelySource=next.source;
  if(!selectedRoute&&payload.value.trim())selectedRoute=likely;
  renderRoutes();
  if(payload.value.trim())note('FOCUS → '+(scope==='focus'&&focus?focus.scale_label+' '+(focus.index+1)+'/'+focus.count:'WHOLE')+' · LIKELY '+routeLabel(likely)+' · support is cue-count, not authority');
  window.FieldSignals?.emit('candidate',{group:'human-port-route',value:likely,source:likelySource,cues:c[likely]||0});
- hydrateAperture();
+ if(reloadAperture)hydrateAperture();
  persist();
 }
 function hydrateAperture(){
@@ -196,8 +196,8 @@ function go(kind){
 }
 document.querySelectorAll('[data-port-route]').forEach(b=>b.onclick=()=>{selectedRoute=b.dataset.portRoute;renderRoutes();note('SELECTED '+routeLabel(selectedRoute)+' · OPEN is separate');persist()});
 $('#openGate').onclick=()=>{if(selectedRoute)go(selectedRoute)};
-$('#scopeWhole').onclick=()=>{scope='whole';renderFocus();updateLikely();note('ROUTING WHOLE SOURCE')};
-$('#scopeFocus').onclick=()=>{if(!focus)return;scope='focus';renderFocus();updateLikely();note('ROUTING CURRENT FOCUS · support recomputed · original source remains in Port session')};
+$('#scopeWhole').onclick=()=>{scope='whole';renderFocus();updateLikely(false);note('ROUTING WHOLE SOURCE')};
+$('#scopeFocus').onclick=()=>{if(!focus)return;scope='focus';renderFocus();updateLikely(false);note('ROUTING CURRENT FOCUS · support recomputed · original source remains in Port session')};
 document.querySelectorAll('[data-sample]').forEach(b=>b.onclick=()=>{
  const samples={
   messy:"ok wait no — I meant send the draft to her, but not tonight. also remind me what we decided about the paintings? and haha the weird donor-organ joke probably actually contains a mechanism somehow",
