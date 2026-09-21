@@ -3,7 +3,7 @@
   "date": "2026-09-21",
   "route": "/poetry/map/",
   "status": "EXPERIMENTAL_LIVE",
-  "thesis": "One poem, linked entrances: source page, relation map, relation sets, author path and candidate bank. Expand possibilities without replacing authorship.",
+  "thesis": "One stable poem, many linked entrances and reversible authoring moves: PAGE/MAP/SETS expose typed relations; APERTURE controls load; candidates are previewed before explicit adoption; revisions remain attributable and returnable.",
   "recovered_donors": [
     {
       "name": "Poemage",
@@ -43,7 +43,13 @@
     "form adapters: free/haiku/couplet/quatrain/sonnet/villanelle/jueju5/jueju7",
     "lightweight heuristic feedback with explicit evidence limits",
     "local persistence",
-    "RETURN JSON export"
+    "RETURN JSON export",
+    "aperture / visual-load control that preserves selected and AUTHOR relations first",
+    "non-destructive candidate preview",
+    "explicit preview → adopt transaction gate",
+    "locked-token adoption gate",
+    "revision ancestry with before/after/provenance",
+    "undo last adoption"
   ],
   "boundaries": [
     "Map is a projection, not the poem.",
@@ -51,19 +57,30 @@
     "No automatic semantic embedding is claimed.",
     "Jueju historical tone/rime remains OPEN.",
     "Candidate lookup never auto-inserts text.",
-    "Forms constrain; they do not score literary value."
+    "Forms constrain; they do not score literary value.",
+    "Preview never mutates source.",
+    "ADOPT is explicit and recorded; LOCK blocks adoption.",
+    "0.1 selective-visualization proof remains preserved at /poetry/lab/poem-map/."
   ],
   "next_experiments": [
-    "candidate dock with explicit intent verbs CONTINUE/REPLACE/ECHO/CONTRAST/TURN/SURPRISE",
-    "non-destructive candidate preview in-place",
-    "true language adapters for phonology/rhyme",
-    "corpus neighborhood view",
-    "line/macro-glyph summaries derived from poetry-visualization research",
-    "game challenge layer where solved constraint state remains the poem state"
+    "intent verbs CONTINUE/REPLACE/ECHO/CONTRAST/TURN/RHYME/COMPRESS/EXPAND/SURPRISE/BREAK feeding provider-specific candidate queries",
+    "declarative form-adapter schema instead of hardcoded form UI",
+    "real phonetic/language adapters replacing approximate spelling heuristics",
+    "corpus neighborhood view with exact provenance",
+    "line/macro-glyph summary zoom for dense poems",
+    "challenge/game layer where solved constraint state remains the editable poem"
   ],
   "current_classification": {
     "reviewed_at": "2026-09-21T16:02:00+08:00",
     "state": "CANDIDATE",
     "basis": "Substantial workbench is implemented and usable, but receipt remains explicitly experimental with open language/corpus/game trials; historical status EXPERIMENTAL_LIVE remains above."
+  },
+  "version": "0.2",
+  "state": "EXPERIMENTAL_LIVE",
+  "lineage": {
+    "proof_donor": "/poetry/lab/poem-map/",
+    "proof_donor_version": "0.1",
+    "promoted_descendant": "/poetry/map/",
+    "relation": "0.1 asks whether selective visualization can answer one named question without displacing the poem; 0.2 turns that discipline into a co-creative authoring surface."
   }
 }
