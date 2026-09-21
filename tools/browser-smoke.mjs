@@ -476,7 +476,7 @@ function humanPortSpecimenProbeJs(){
     const expected=hex(await crypto.subtle.digest('SHA-256',ab)),file=new (W().File)([ab],name,{type});
     const dt=new (W().DataTransfer)();dt.items.add(file);const input=D().getElementById('fileInput');input.files=dt.files;
     rec.fileInjection={name,count:input.files?.length||0,accepted:input.files?.[0]?.name||null,mode:'bound-handler'};
-    input.onchange();
+    await input.onchange();
     await sleep(350);rec.fileInjection.status=D().getElementById('status')?.textContent||'';rec.fileInjection.sessionLabel=session()?.obj?.label||null;
     const st=await waitFor(()=>{const x=session();return x?.obj?.label===name&&D().getElementById('work')?.classList.contains('on')?x:null},14000,'object '+name);
     return {st,expected};
