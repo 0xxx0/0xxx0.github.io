@@ -703,10 +703,10 @@ const CASES=[
     check:dom=>/HOLD FAST \/ LET FLY/i.test(dom)&&/SCALE OF CONSEQUENCE/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')&&dom.includes('id="pulseLinkBtn"')&&dom.includes('data-fold-bloom-pulse="ready"')
   },
   {
-    name:'FOLD BLOOM LISTEN 0.2.2',
+    name:'FOLD BLOOM LISTEN 0.2.3',
     route:'/fold-bloom/listen/',
     options:{width:1180,height:900,budget:9000},
-    check:dom=>/LISTEN 0\.2\.2/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="urlInput"')&&dom.includes('id="urlBtn"')
+    check:dom=>/LISTEN 0\.2\.3/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="urlInput"')&&dom.includes('id="urlBtn"')
   },
   {
     name:'FOLD BLOOM LISTEN preview render',
