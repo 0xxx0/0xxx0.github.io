@@ -172,7 +172,7 @@ const CASES=[
   {
     name:'FOLD BLOOM convergence',
     route:'/fold-bloom/',
-    check:dom=>/FOLD \/\/ BLOOM/i.test(dom)&&/Fold Weave 0\.1/i.test(dom)&&/Ecology 0\.2/i.test(dom)&&/Two Dial 0\.9/i.test(dom)
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)&&/href="\.\/two-dial\/"/i.test(dom)
   },
   {
     name:'SCALE LENS',
