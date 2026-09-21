@@ -85,8 +85,8 @@ const CASES=[
     name:'CENTER current',
     route:'/forward-field-proof/triangle/glyph/center/',
     check:dom=>{
-      const s=textAtId(dom,'sourceState');
-      return /CURRENT/.test(s)&&!/loading|failure/i.test(s)&&!dom.includes('CENTER could not load');
+      const s=textAtId(dom,'sourceState'),n=Number(textAtId(dom,'count'));
+      return /CURRENT/.test(s)&&/CENTER/.test(s)&&!/loading|failure/i.test(s)&&Number.isFinite(n)&&n>0;
     }
   },
   {
@@ -101,8 +101,8 @@ const CASES=[
     name:'CENTER federation',
     route:'/forward-field-proof/triangle/glyph/center/?source=FEDERATION',
     check:dom=>{
-      const s=textAtId(dom,'sourceState');
-      return /FEDERATION/.test(s)&&!/loading|failure/i.test(s)&&!dom.includes('SOURCE FAILURE');
+      const s=textAtId(dom,'sourceState'),n=Number(textAtId(dom,'count'));
+      return /FEDERATION/.test(s)&&!/loading|failure/i.test(s)&&Number.isFinite(n)&&n>0;
     }
   },
   {
