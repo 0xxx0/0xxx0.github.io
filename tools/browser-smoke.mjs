@@ -160,6 +160,11 @@ const CASES=[
     check:dom=>/DOCS \/ READ/i.test(dom)&&dom.includes('id="docAperture"')&&dom.includes('RAW SOURCE')
   },
   {
+    name:'DOCS ADDRESS',
+    route:'/docs/?src=/showcase-manifest.json&return=/',
+    check:dom=>textAtId(dom,'title')==='showcase-manifest.json'&&dom.includes('id="returnLink"')&&dom.includes('href="/showcase-manifest.json"')
+  },
+  {
     name:'CENTER current',
     route:'/forward-field-proof/triangle/glyph/center/',
     check:dom=>{
