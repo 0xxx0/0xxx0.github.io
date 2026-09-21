@@ -128,13 +128,13 @@
     },
     {
       "href": "/port/",
-      "title": "HUMAN PORT 1.5.1",
+      "title": "HUMAN PORT 1.5.2",
       "kind": "hub",
       "parent": "/",
       "family": "HUMAN PORT",
       "operation": "ROUTE",
       "state": "ACTIVE",
-      "version": "1.5.1-preview",
+      "version": "1.5.2-preview",
       "receipt": "/port/release.json",
       "showcase_card": false,
       "role": "Canonical addressed object aperture: accept text/JSON/image/local files as one Port object, preserve byte/provenance identity, focus lawful projections, expose FIT/CUES/HISTORY separately, then SELECT + OPEN a bounded route. FIELD INTAKE remains the separate reviewed admission gate.",
@@ -145,7 +145,8 @@
         "INGEST SHA-256/provenance discipline",
         "FIT != CUES != HISTORY != AUTHORITY",
         "object-aware RETURN / re-entry",
-        "CARE evidence-reference route without byte duplication"
+        "CARE evidence-reference route without byte duplication",
+        "BODY / FIT structured sensor-object route"
       ],
       "contract": {
         "transforms": {
@@ -248,6 +249,11 @@
             "class": "CARE",
             "status": "AVAILABLE",
             "via": "/care/ evidence offer; explicit CARE attach required"
+          },
+          {
+            "class": "BODY_FIT",
+            "status": "AVAILABLE",
+            "via": "/body/fit/ structured TEXT/JSON offer; explicit import required"
           },
           {
             "class": "CANONICAL_INGEST",
@@ -356,7 +362,7 @@
         }
       ],
       "index": {
-        "updated_at": "2026-09-22T00:45:21+08:00",
+        "updated_at": "2026-09-22T01:03:12+08:00",
         "work_modes": [
           "RESEARCH",
           "SPECIFY",
@@ -420,6 +426,14 @@
           "summary": "CARE evidence route: addressed Port objects may be explicitly offered/attached to CARE without byte duplication.",
           "receipt": "/returns/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
           "provenance": "release amendment commit"
+        },
+        {
+          "version": "1.5.2-preview",
+          "date": "2026-09-22",
+          "commit": "3fd26deeff6d98f0d460349f54c7ee19f86690ad",
+          "summary": "Structured BODY / FIT route for sensor/fitting JSON/text packets; image/file evidence stays with CARE.",
+          "receipt": "/port/release.json",
+          "provenance": "exact runtime handoff commit"
         }
       ]
     },
@@ -5220,7 +5234,8 @@
         "descriptive factor contrasts",
         "single-factor before/after tests",
         "BODY↔HOUSE local context envelope",
-        "explicit BODY→CARE local handoff"
+        "explicit BODY→CARE local handoff",
+        "BODY / FIT child projection for fitted devices/sensor coverage"
       ],
       "contract": {
         "accepts": {
@@ -5349,12 +5364,11 @@
         "physical_fit": "Low-burden real-world self-observation and bounded self-management experiments; not diagnosis, triage, or treatment authority."
       },
       "index": {
-        "updated_at": "2026-09-21T21:18:00+08:00",
+        "updated_at": "2026-09-22T01:03:12+08:00",
         "work_modes": [
-          "RESEARCH",
-          "IMPLEMENT",
           "OPERATE",
-          "VERIFY"
+          "VERIFY",
+          "RESEARCH"
         ]
       },
       "owned_surfaces": [
@@ -5365,6 +5379,111 @@
           "state": "STABLE",
           "operation": "ADDRESS",
           "role": "Shared local-first reference body-plan substrate used by BODY and CARE."
+        }
+      ]
+    },
+    {
+      "href": "/body/fit/",
+      "title": "BODY / FIT 0.1",
+      "kind": "workbench",
+      "parent": "/body/",
+      "family": "BODY / FIELD",
+      "operation": "ADDRESS",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "receipt": "/body/fit/release.json",
+      "role": "Fitted-body and sensor-coverage projection over the shared BODY PLAN: manage body-addressed wearables/sensors/supports/prostheses/implants/accessories, preserve replacement lineage, retain source-distinct observations, and time-align streams without default averaging or causal claims.",
+      "transfer": [
+        "Syndicate Wars Cryovat body-fitting donor",
+        "Deus Ex body-slot compatibility/revision donor",
+        "RimWorld condition/implant/capability separation donor",
+        "OGC SensorThings source/property/observation/feature-of-interest separation",
+        "Open mHealth acquisition provenance/effective-time distinction",
+        "shared BODY PLAN addresses",
+        "BODY↔HOUSE context boundary",
+        "HUMAN PORT JSON/text ingestion"
+      ],
+      "field": {
+        "roles": [
+          "WORLD_IN",
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "body-addressed fitting/revision",
+            "interface": "local FIT surface"
+          },
+          {
+            "medium": "DATA",
+            "kind": "sensor/measurement observation JSON",
+            "interface": "manual/file/HUMAN PORT adapter"
+          },
+          {
+            "medium": "DATA",
+            "kind": "HOUSE context envelope",
+            "interface": "same-origin localStorage"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "fitting lineage + observation ledger",
+            "interface": "local/exported JSON"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "source-distinct fusion projection",
+            "interface": "FUSE lens"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "HUMAN_PORT",
+            "status": "AVAILABLE",
+            "via": "/port/ TEXT/JSON → explicit BODY / FIT import"
+          },
+          {
+            "class": "HOUSE_SENSOR_STREAM",
+            "status": "ADAPTER_REQUIRED",
+            "via": "private HOUSEBUS/HA typed observation adapter"
+          },
+          {
+            "class": "HEALTH_PLATFORM",
+            "status": "CANDIDATE",
+            "via": "Health Connect / Samsung Health adapter after real-use proof"
+          },
+          {
+            "class": "HIGH_RES_ANATOMY",
+            "status": "DONOR",
+            "via": "recovered BODYFIELD × Open Twin cassette; only promote if task beats plain/shared-plan view"
+          },
+          {
+            "class": "CARE",
+            "status": "AVAILABLE",
+            "via": "/care/ remains episode/course/handoff authority"
+          }
+        ],
+        "physical_fit": "Body-associated fitting and sensor-stream registry/projection; no diagnosis, automatic thresholding, causal inference or actuation authority."
+      },
+      "index": {
+        "updated_at": "2026-09-22T01:03:12+08:00",
+        "work_modes": [
+          "RECOVER",
+          "RESEARCH",
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "versions": [
+        {
+          "version": "0.1",
+          "date": "2026-09-22",
+          "commit": "52393d4e894949f0db2b91c89d6a12582cd070b3",
+          "summary": "Shared-body-plan FIT/SENSE/FUSE/HISTORY workbench with revision lineage and source-distinct sensor observations.",
+          "receipt": "/body/fit/release.json",
+          "provenance": "initial workbench commit; Port adapter hardened immediately after"
         }
       ]
     },
