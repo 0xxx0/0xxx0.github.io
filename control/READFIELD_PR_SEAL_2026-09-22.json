@@ -3,9 +3,11 @@
   "date": "2026-09-22",
   "object": "READFIELD / RSVP 0.7 pull-request convergence",
   "authority": {
-    "master": "a0b8abf6ff57f73ed61ba4c5deb829ec11053952",
+    "proof_hardened_master": "a0b8abf6ff57f73ed61ba4c5deb829ec11053952",
+    "lineage_seal_merge": "412435d78a447585c283fac481f8ee1647915779",
     "canonical_ship_pr": 104,
     "proof_hardening_pr": 105,
+    "lineage_seal_pr": 107,
     "proof_run_id": 35639977109,
     "proof_state": "GREEN"
   },
