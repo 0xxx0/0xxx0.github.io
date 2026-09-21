@@ -109,10 +109,17 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "Two Dial 0.9 + Ecology 0.2",
-      "state": "STABLE_FROZEN_BRANCHES",
-      "route": "/fold-bloom/",
-      "retained_function": "Embodied cyclic control + persistence/lineage; do not silently merge branches."
+      "head": "FOLD//BLOOM LIVE 0.1 + retained Fold Weave / Two Dial / Ecology branches",
+      "state": "ACTIVE_CANDIDATE",
+      "route": "/fold-bloom/live/",
+      "retained_function": "Current performance head tests turn → bounded ratchet charge → deliberate aligned release → authored crease/cascade topology → changed future music. Fold Weave 0.1 remains exact/frozen; Two Dial remains the separate two-hand composition donor; Ecology remains the cultivation/game branch. Promotion is gated by direct desktop + touch play, not code completion.",
+      "evidence": [
+        "/fold-bloom/live/release.json",
+        "/fold-bloom/live/EXECUTION.md",
+        "/control/confluence/FOLD_BLOOM_LIVE_2026-09-21.json",
+        "/returns/FOLD_BLOOM_LIVE_2026-09-21.json",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/85"
+      ]
     },
     {
       "lineage": "axial",
@@ -456,7 +463,9 @@
     "human_port_object_return": "/returns/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json",
     "field_activation_law": "/control/FIELD_ACTIVATION_LAW.json",
     "field_index_convergence_return": "/returns/FIELD_INDEX_CONVERGENCE_2026-09-21.json",
-    "house_poly_furnisher_sinder_donor": "/control/confluence/HOUSE_POLY_FURNISHER_SINDER_DONOR_2026-09-21.md"
+    "house_poly_furnisher_sinder_donor": "/control/confluence/HOUSE_POLY_FURNISHER_SINDER_DONOR_2026-09-21.md",
+    "fold_bloom_live_confluence": "/control/confluence/FOLD_BLOOM_LIVE_2026-09-21.json",
+    "fold_bloom_live_return": "/returns/FOLD_BLOOM_LIVE_2026-09-21.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",

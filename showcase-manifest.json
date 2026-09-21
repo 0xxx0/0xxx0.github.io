@@ -998,11 +998,126 @@
       "parent": "/",
       "family": "FOLD // BLOOM",
       "operation": "ORIENT",
-      "state": "STABLE",
+      "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-21T18:46:00+08:00",
+        "updated_at": "2026-09-21T20:50:00+08:00",
         "work_modes": [
-          "VERIFY"
+          "IMPLEMENT",
+          "VERIFY",
+          "RELEASE"
+        ]
+      },
+      "role": "FOLD//BLOOM family entry. LIVE 0.1 is the current performance candidate; exact/recovered and stable sibling branches remain separately addressable."
+    },
+    {
+      "href": "/fold-bloom/live/",
+      "title": "FOLD//BLOOM LIVE 0.1",
+      "kind": "artifact",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "PLAY",
+      "state": "ACTIVE",
+      "version": "0.1",
+      "receipt": "/returns/FOLD_BLOOM_LIVE_2026-09-21.json",
+      "role": "Current performance candidate: turn → charge → deliberate release → authored topology → changed future music. Preserves Fold Weave donor identity and keeps Ecology/Two Dial distinct.",
+      "transfer": [
+        "Fold Weave: 12-cell ring / authored crease topology / cascade / mute-first causal score",
+        "Two Dial: phrase-pulse-form music grammar / continuous motion sonification / bounded local RETURN",
+        "new: ratchet charge + explicit release cadence + topology-driven audio"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "cyclic pointer/touch/keyboard gesture",
+            "local instrument state"
+          ],
+          "requires": [],
+          "optional": [
+            "audio enabled"
+          ]
+        },
+        "transforms": {
+          "verb": "accumulate bounded tension, release only on alignment, write/reuse crease topology, and map structural consequences into future musical state",
+          "preserves": [
+            "donor provenance",
+            "topology identity",
+            "local state",
+            "mute-readable causality",
+            "RETURN path"
+          ],
+          "reversibility": "bounded",
+          "side_effects": "local browser state / explicit export only"
+        },
+        "emits": {
+          "kinds": [
+            "visual causal score",
+            "audio response",
+            "bounded RETURN packet"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/returns/FOLD_BLOOM_LIVE_2026-09-21.json",
+          "checks": [
+            "engine invariants 5/5",
+            "module syntax pass",
+            "public-surface CI",
+            "desktop/touch play remains promotion gate"
+          ],
+          "return_path": "/fold-bloom/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "CURRENT_HEAD"
+        ],
+        "inputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "turn / ratchet / release",
+            "interface": "pointer/touch/keyboard"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "SOUND",
+            "kind": "topology-conditioned musical state",
+            "interface": "WebAudio"
+          },
+          {
+            "medium": "LIGHT",
+            "kind": "mute-first causal score",
+            "interface": "canvas/display"
+          },
+          {
+            "medium": "DATA",
+            "kind": "bounded instrument RETURN",
+            "interface": "JSON export"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "RETURN",
+            "status": "AVAILABLE",
+            "via": "bounded JSON export"
+          },
+          {
+            "class": "DONOR_COMPARISON",
+            "status": "AVAILABLE",
+            "via": "/recovery/fold-bloom/fold-weave-0.1/ + /fold-bloom/two-dial/"
+          }
+        ],
+        "physical_fit": "Performance/control grammar suitable for later encoder/touch/physical-control adapters; no hardware authority implied."
+      },
+      "index": {
+        "updated_at": "2026-09-21T20:50:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE",
+          "RELEASE"
         ]
       }
     },
