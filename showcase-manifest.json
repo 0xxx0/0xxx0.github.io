@@ -4786,16 +4786,16 @@
     },
     {
       "href": "/sleeper/one-return/",
-      "title": "ONE RETURN / NINE GATE",
+      "title": "ASCII ONE RETURN / NINE GATE · RECONSTRUCTION",
       "kind": "artifact",
       "parent": "/sleeper/",
       "family": "SLEEPER",
       "operation": "PLAY",
-      "state": "ACTIVE",
-      "version": "reified-0.2",
+      "state": "DONOR",
+      "version": "ascii-reified-0.2",
       "showcase_card": false,
       "receipt": "/sleeper/one-return/release.json",
-      "role": "Playable maze ancestor lane: source-seeded deterministic ASCII labyrinth → nine ordered gates → semantic challenge/deformation → CITY/DISC/TRACE projections → previous-return ghost → evidence-bearing RETURN.",
+      "role": "Playable reconstruction derived from attested ASCII/Nine-Gate mechanics. Useful donor/experiment, but NOT the polished Work-mode SLEEPER // ONE RETURN v2 whose world compiler used PHRASE + CELL + FIGURE and reproducible world links.",
       "transfer": [
         "sentence/corpus → deterministic topology",
         "Nine Gate ordered traversal",
@@ -4823,14 +4823,13 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-21T20:20:00+08:00",
+        "updated_at": "2026-09-21T20:28:00+08:00",
         "work_modes": [
-          "PLAY",
           "VERIFY",
-          "OPERATE"
+          "RECOVER"
         ]
       },
-      "classification": "PLAYABLE_LINEAGE_LANE"
+      "classification": "REBUILT_ASCII_DONOR_NOT_POLISHED_ONE_RETURN_V2"
     }
   ],
   "release_law": [
