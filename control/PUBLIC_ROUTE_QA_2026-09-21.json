@@ -1,0 +1,2216 @@
+{
+  "schema": "0xxx0/public-route-qa-audit/v0.1",
+  "at": "2026-09-21T17:38:00+08:00",
+  "source": "/showcase-manifest.json",
+  "issue": 12,
+  "route_count": 95,
+  "law": "Conservative classification: do not rename/merge a distinctive instrument without evidence. Alias != sovereign surface; donor != head; support-only utility may stay addressable while hidden from primary presentation.",
+  "results": {
+    "operation_missing_before": 25,
+    "operation_missing_after": 0,
+    "deprecated_state_count": 0,
+    "duplicate_title_count": 0,
+    "obvious_generic_title_count": 0,
+    "disposition_counts": {
+      "KEEP": 20,
+      "HIDE": 34,
+      "DONOR": 33,
+      "MERGE": 8
+    }
+  },
+  "mutation": {
+    "operation_assignments": [
+      [
+        "/contact/",
+        "ADDRESS"
+      ],
+      [
+        "/fold-bloom/",
+        "ORIENT"
+      ],
+      [
+        "/fold-bloom/",
+        "state=STABLE"
+      ],
+      [
+        "/router-bench/",
+        "ROUTE"
+      ],
+      [
+        "/control/",
+        "ORIENT"
+      ],
+      [
+        "/returns/",
+        "RETURN"
+      ],
+      [
+        "/showcase-selftest/",
+        "VERIFY"
+      ],
+      [
+        "/recovery/",
+        "RECOVER"
+      ],
+      [
+        "/recovery/path-grid/",
+        "RECOVER"
+      ],
+      [
+        "/recovery/fold-bloom/fold-weave-0.1/",
+        "RECOVER"
+      ],
+      [
+        "/docs/",
+        "INSPECT"
+      ],
+      [
+        "/law-zoo/",
+        "ORIENT"
+      ],
+      [
+        "/dock/",
+        "ORIENT"
+      ],
+      [
+        "/control/migration/",
+        "RECOVER"
+      ],
+      [
+        "/recovery/foundry-cabinet-v4/",
+        "RECOVER"
+      ],
+      [
+        "/recovery/sleeper/",
+        "RECOVER"
+      ],
+      [
+        "/recovery/axial/",
+        "RECOVER"
+      ],
+      [
+        "/recovery/media/",
+        "RECOVER"
+      ],
+      [
+        "/recovery/poly-furnisher/",
+        "RECOVER"
+      ],
+      [
+        "/contact/burst/",
+        "ROUTE"
+      ],
+      [
+        "/contact/family/",
+        "ROUTE"
+      ],
+      [
+        "/contact/friend/",
+        "ROUTE"
+      ],
+      [
+        "/contact/work/",
+        "ROUTE"
+      ],
+      [
+        "/contact/agent/",
+        "ROUTE"
+      ],
+      [
+        "/contact/make/",
+        "ROUTE"
+      ],
+      [
+        "/contact/next/",
+        "ROUTE"
+      ]
+    ],
+    "note": "Only high-confidence missing verbs/state were filled. No public title was renamed."
+  },
+  "routes": [
+    {
+      "href": "/",
+      "title": "FIELD INDEX",
+      "kind": "root",
+      "state": null,
+      "operation": null,
+      "disposition": "KEEP",
+      "reason": "Current retained lineage head.",
+      "qa": {
+        "verb": false,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/contact/",
+      "title": "CONTACT 0.3",
+      "kind": "rendezvous",
+      "state": "STABLE",
+      "operation": "ADDRESS",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/port/",
+      "title": "HUMAN PORT 1.4",
+      "kind": "hub",
+      "state": "ACTIVE",
+      "operation": "ROUTE",
+      "disposition": "KEEP",
+      "reason": "Current retained lineage head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/laconic/",
+      "title": "LACONIC / ICONIC 0.3",
+      "kind": "artifact",
+      "state": "ACTIVE",
+      "operation": "DRAFT",
+      "disposition": "KEEP",
+      "reason": "No evidence of duplication or naming failure; retain current address.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/field-intake/",
+      "title": "FIELD INTAKE 0.4",
+      "kind": "artifact",
+      "state": "STABLE",
+      "operation": "CAPTURE",
+      "disposition": "KEEP",
+      "reason": "No evidence of duplication or naming failure; retain current address.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/continuity/",
+      "title": "CONTINUITY / CASE 0.2",
+      "kind": "workbench",
+      "state": "ACTIVE",
+      "operation": "CANONICALIZE",
+      "disposition": "KEEP",
+      "reason": "No evidence of duplication or naming failure; retain current address.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/care/",
+      "title": "CARE / FIELD 0.3",
+      "kind": "workbench",
+      "state": "ACTIVE",
+      "operation": "CAPTURE",
+      "disposition": "KEEP",
+      "reason": "No evidence of duplication or naming failure; retain current address.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/fold-bloom/",
+      "title": "FOLD // BLOOM",
+      "kind": "hub",
+      "state": "STABLE",
+      "operation": "ORIENT",
+      "disposition": "KEEP",
+      "reason": "Current retained lineage head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": false,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST"
+      ]
+    },
+    {
+      "href": "/fold-bloom/two-dial/",
+      "title": "TWO DIAL",
+      "kind": "artifact",
+      "state": "STABLE",
+      "operation": "PLAY",
+      "disposition": "KEEP",
+      "reason": "No evidence of duplication or naming failure; retain current address.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/fold-bloom/ecology/",
+      "title": "ECOLOGY 0.2",
+      "kind": "artifact",
+      "state": "STABLE",
+      "operation": "PLAY",
+      "disposition": "KEEP",
+      "reason": "No evidence of duplication or naming failure; retain current address.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/sleeper/",
+      "title": "ASCII SLEEPER 0.8",
+      "kind": "artifact",
+      "state": "ACTIVE",
+      "operation": "PLAY",
+      "disposition": "KEEP",
+      "reason": "Current retained lineage head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/fold-bloom/lens/",
+      "title": "SCALE LENS",
+      "kind": "artifact",
+      "state": "STABLE",
+      "operation": "REPRESENT",
+      "disposition": "KEEP",
+      "reason": "Current retained lineage head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/foundry/",
+      "title": "FOUNDRY",
+      "kind": "hub",
+      "state": "ACTIVE",
+      "operation": "ORIENT",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/foundry/verse-atlas/",
+      "title": "VERSE ATLAS",
+      "kind": "artifact",
+      "state": "STABLE",
+      "operation": "REPRESENT",
+      "disposition": "KEEP",
+      "reason": "No evidence of duplication or naming failure; retain current address.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/foundry/convergence/",
+      "title": "CONVERGENCE FIELD",
+      "kind": "workbench",
+      "state": "CANDIDATE",
+      "operation": "PROJECT",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/foundry/axial/",
+      "title": "AXIAL / FOCUS STACK 0.7.2",
+      "kind": "experiment",
+      "state": "ACTIVE",
+      "operation": "ORIENT",
+      "disposition": "KEEP",
+      "reason": "Current retained lineage head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/foundry/convergence/identity-lab.html",
+      "title": "IDENTITY LAB",
+      "kind": "artifact",
+      "state": "STABLE",
+      "operation": "PROVE",
+      "disposition": "KEEP",
+      "reason": "No evidence of duplication or naming failure; retain current address.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/atlas-dayline/",
+      "title": "ATLAS DAYLINE",
+      "kind": "artifact",
+      "state": "STABLE",
+      "operation": "PLAN",
+      "disposition": "KEEP",
+      "reason": "No evidence of duplication or naming failure; retain current address.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/forward-field-proof/",
+      "title": "FIELD / PROOF",
+      "kind": "artifact",
+      "state": "STABLE",
+      "operation": "PROVE",
+      "disposition": "KEEP",
+      "reason": "No evidence of duplication or naming failure; retain current address.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/forward-field-proof/triangle/",
+      "title": "TRIANGLE BENCH 0.1",
+      "kind": "experiment",
+      "state": "PARKED",
+      "operation": "PROVE",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/router-bench/",
+      "title": "ROUTER BENCH 0.1",
+      "kind": "workbench",
+      "state": "REFERENCE",
+      "operation": "ROUTE",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/fcm/",
+      "title": "FORWARD CENTER MASS 0.2",
+      "kind": "workbench",
+      "state": "DONOR",
+      "operation": "ROUTE",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/shopping/",
+      "title": "SHOPPING FIELD 0.1",
+      "kind": "adapter",
+      "state": "ACTIVE",
+      "operation": "ACQUIRE",
+      "disposition": "KEEP",
+      "reason": "Current retained lineage head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/control/",
+      "title": "CURRENT / CONTROL",
+      "kind": "control",
+      "state": "ACTIVE",
+      "operation": "ORIENT",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/returns/",
+      "title": "RETURN LEDGER",
+      "kind": "evidence",
+      "state": "STABLE",
+      "operation": "RETURN",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/showcase-selftest/",
+      "title": "SHOWCASE SELFTEST",
+      "kind": "validator",
+      "state": "UTILITY",
+      "operation": "VERIFY",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/",
+      "title": "RECOVERY VAULT",
+      "kind": "recovery",
+      "state": "ACTIVE",
+      "operation": "RECOVER",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/path-grid/",
+      "title": "PATH / GRID RECOVERY",
+      "kind": "donor-hub",
+      "state": "FROZEN_DONOR",
+      "operation": "RECOVER",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/fold-bloom/fold-weave-0.1/",
+      "title": "FOLD WEAVE 0.1",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "RECOVER",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/house/",
+      "title": "HOUSE / FIELD",
+      "kind": "system",
+      "state": "STABLE",
+      "operation": "PROJECT",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/house/spatial/",
+      "title": "HOUSE / SPATIAL",
+      "kind": "workbench",
+      "state": "ACTIVE",
+      "operation": "REPRESENT",
+      "disposition": "KEEP",
+      "reason": "Current retained lineage head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/docs/",
+      "title": "DOCS / READ",
+      "kind": "documentation",
+      "state": "UTILITY",
+      "operation": "INSPECT",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/control/confluence/",
+      "title": "CONFLUENCE",
+      "kind": "documentation",
+      "state": "ACTIVE",
+      "operation": "TRANSFER",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/rsvp/",
+      "title": "RSVP / TEMPORAL FOCUS 2018",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "REPRESENT",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/foundry/core/",
+      "title": "FOUNDRY / REAL CENTER 0.1",
+      "kind": "workbench",
+      "state": "CANDIDATE",
+      "operation": "ORIENT",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/law-zoo/",
+      "title": "LAW ZOO / FIVE MACHINES",
+      "kind": "hub",
+      "state": "FROZEN_DONOR",
+      "operation": "ORIENT",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/law-zoo/law_zoo_field_guide.html",
+      "title": "LAW ZOO / FIELD GUIDE",
+      "kind": "experiment",
+      "state": "FROZEN_DONOR",
+      "operation": "MUTATE",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST"
+      ]
+    },
+    {
+      "href": "/law-zoo/palimpsest.html",
+      "title": "PALIMPSEST",
+      "kind": "experiment",
+      "state": "FROZEN_DONOR",
+      "operation": "RERENDER",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST"
+      ]
+    },
+    {
+      "href": "/law-zoo/law_districts.html",
+      "title": "LAW DISTRICTS",
+      "kind": "experiment",
+      "state": "FROZEN_DONOR",
+      "operation": "TRAVERSE",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST"
+      ]
+    },
+    {
+      "href": "/law-zoo/one_law_two_senses.html",
+      "title": "ONE LAW / TWO SENSES",
+      "kind": "experiment",
+      "state": "FROZEN_DONOR",
+      "operation": "MODULATE",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST"
+      ]
+    },
+    {
+      "href": "/law-zoo/error_garden.html",
+      "title": "ERROR GARDEN",
+      "kind": "experiment",
+      "state": "FROZEN_DONOR",
+      "operation": "BREED",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST"
+      ]
+    },
+    {
+      "href": "/dock/",
+      "title": "DOCK / ORIENTATION",
+      "kind": "control",
+      "state": "ACTIVE",
+      "operation": "ORIENT",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/control/migration/",
+      "title": "MIGRATION FIELD",
+      "kind": "control",
+      "state": "ACTIVE",
+      "operation": "RECOVER",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/foundry-cabinet-v4/",
+      "title": "FOUNDRY CABINET V4",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "RECOVER",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/path-grid/grid-path-compiler-v4/",
+      "title": "GRID PATH COMPILER V4",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "COMPILE",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/path-grid/anthropy-pathweaver/",
+      "title": "ANTHROPY PATHWEAVER",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "WEAVE",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/path-grid/projection-harness/",
+      "title": "PROJECTION HARNESS",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "PROJECT",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/path-grid/foundry-federation/",
+      "title": "FOUNDRY FEDERATION",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "FEDERATE",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/path-grid/market-solver/",
+      "title": "MARKET + SOLVER",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "SOLVE",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/path-grid/cell-foundry-r2/",
+      "title": "CELL FOUNDRY R2",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "ROUTE",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/env0/",
+      "title": "ENV-0 / BODY ↔ HOUSE",
+      "kind": "recovery",
+      "state": "RECOVER",
+      "operation": "REIFY",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/sleeper/",
+      "title": "SLEEPER / RECOVERY",
+      "kind": "recovery",
+      "state": "ACTIVE",
+      "operation": "RECOVER",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/sleeper/workfield-v1.2/",
+      "title": "SLEEPER WORKFIELD v1.2",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "WORK",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/axial/",
+      "title": "AXIAL / RECOVERY",
+      "kind": "recovery",
+      "state": "ACTIVE",
+      "operation": "RECOVER",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/axial/state-transform-v0.3/",
+      "title": "STATE × TRANSFORM v0.3",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "TRANSACT",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/axial/compositor-v0.2/print-template.svg",
+      "title": "AXIAL COMPOSITOR v0.2 / PRINT",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "PRINT",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/media/",
+      "title": "OLDER MEDIA / RECOVERY",
+      "kind": "recovery",
+      "state": "ACTIVE",
+      "operation": "RECOVER",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/media/datadisc/datadisc.html",
+      "title": "DATADISC · 2019",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "PROJECT",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/naming/",
+      "title": "NAMING / GAME-OF-NAMES RECOVERY",
+      "kind": "recovery",
+      "state": "RECOVER",
+      "operation": "RECOVER",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/env0/ENV0_plate14_A2_v0_1.svg",
+      "title": "ENV-0 / INTEGRATED FIELD MASTER",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "PROJECT",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/env0/ENV0_symbols_A2_v0_1.svg",
+      "title": "ENV-0 / SYMBOL + TYPE MASTER",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "ENCODE",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/poly-furnisher/",
+      "title": "POLY / FURNISHER RECOVERY",
+      "kind": "recovery",
+      "state": "ACTIVE",
+      "operation": "RECOVER",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/poly-furnisher/kraken-2019/",
+      "title": "KRAKEN · 2019",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "HOST",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/poly-furnisher/proto-kernel-2020/",
+      "title": "POLY PROTO-KERNEL · 2020",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "TRANSFORM",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/migration/",
+      "title": "MIGRATION / SALVAGE YARD",
+      "kind": "control",
+      "state": "ACTIVE",
+      "operation": "RECOVER",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/poly-furnisher/room-lineage/",
+      "title": "FU ROOM / INTERPHASE ROOM LINEAGE",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "PROJECT",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/poly-furnisher/interphase-lineage/",
+      "title": "INTERPHASE / CYLINDER LINEAGE",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "PROJECT",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/kala/",
+      "title": "KALA / DESKTOP CHARACTER 2018–2020",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "INHABIT",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/foundry/methods/",
+      "title": "SHAPE / LAW ATLAS 0.1",
+      "kind": "workbench",
+      "state": "CANDIDATE",
+      "operation": "INVESTIGATE",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/app-atlas/",
+      "title": "IDEA ATLAS",
+      "kind": "workbench",
+      "state": "ACTIVE",
+      "operation": "CAPTURE",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/bodyplans/",
+      "title": "BODY PLANS / REGISTRY",
+      "kind": "system",
+      "state": "STABLE",
+      "operation": "ADDRESS",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/contact/interpret/",
+      "title": "HUMAN PORT / INTERPRET",
+      "kind": "workbench",
+      "state": "ACTIVE",
+      "operation": "INTERPRET",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/contact/residue/",
+      "title": "HUMAN PORT / SOCIAL RESIDUE",
+      "kind": "workbench",
+      "state": "ACTIVE",
+      "operation": "REMEMBER",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/contact/backstage/",
+      "title": "HUMAN PORT / BACKSTAGE",
+      "kind": "workbench",
+      "state": "ACTIVE",
+      "operation": "RECOVER",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/contact/capsule/",
+      "title": "HUMAN PORT / CAPSULE",
+      "kind": "workbench",
+      "state": "ACTIVE",
+      "operation": "RETURN",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/contact/burst/",
+      "title": "BURST / INTERPRET",
+      "kind": "alias",
+      "state": "UTILITY",
+      "operation": "ROUTE",
+      "disposition": "MERGE",
+      "reason": "Thin alias only; behavior/state authority belongs to alias_of target.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "ALIAS_NOT_SOVEREIGN",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/contact/family/",
+      "title": "HUMAN PORT / FAMILY",
+      "kind": "alias",
+      "state": "UTILITY",
+      "operation": "ROUTE",
+      "disposition": "MERGE",
+      "reason": "Thin alias only; behavior/state authority belongs to alias_of target.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "ALIAS_NOT_SOVEREIGN",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/contact/friend/",
+      "title": "HUMAN PORT / FRIEND",
+      "kind": "alias",
+      "state": "UTILITY",
+      "operation": "ROUTE",
+      "disposition": "MERGE",
+      "reason": "Thin alias only; behavior/state authority belongs to alias_of target.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "ALIAS_NOT_SOVEREIGN",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/contact/work/",
+      "title": "HUMAN PORT / WORK",
+      "kind": "alias",
+      "state": "UTILITY",
+      "operation": "ROUTE",
+      "disposition": "MERGE",
+      "reason": "Thin alias only; behavior/state authority belongs to alias_of target.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "ALIAS_NOT_SOVEREIGN",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/contact/agent/",
+      "title": "HUMAN PORT / AGENT",
+      "kind": "alias",
+      "state": "UTILITY",
+      "operation": "ROUTE",
+      "disposition": "MERGE",
+      "reason": "Thin alias only; behavior/state authority belongs to alias_of target.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "ALIAS_NOT_SOVEREIGN",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/contact/make/",
+      "title": "HUMAN PORT / MAKE",
+      "kind": "alias",
+      "state": "UTILITY",
+      "operation": "ROUTE",
+      "disposition": "MERGE",
+      "reason": "Thin alias only; behavior/state authority belongs to alias_of target.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "ALIAS_NOT_SOVEREIGN",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/contact/next/",
+      "title": "HUMAN PORT / MOVED",
+      "kind": "alias",
+      "state": "UTILITY",
+      "operation": "ROUTE",
+      "disposition": "MERGE",
+      "reason": "Thin alias only; behavior/state authority belongs to alias_of target.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "ALIAS_NOT_SOVEREIGN",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/field-play.html",
+      "title": "FIELD / PLAY",
+      "kind": "workbench",
+      "state": "ACTIVE",
+      "operation": "VERIFY",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/forward-field-proof/triangle/glyph/",
+      "title": "TRIANGLE GLYPH LAB 0.1",
+      "kind": "experiment",
+      "state": "CANDIDATE",
+      "operation": "REPRESENT",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": false,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/poetry/",
+      "title": "VERSE",
+      "kind": "hub",
+      "state": "ACTIVE",
+      "operation": "ORIENT",
+      "disposition": "KEEP",
+      "reason": "No evidence of duplication or naming failure; retain current address.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/forward-field-proof/triangle/glyph/center/",
+      "title": "TRIANGLE CENTER / FOCUS FIELD 0.3",
+      "kind": "experiment",
+      "state": "DONOR",
+      "operation": "ROUTE",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/poetry/lab/",
+      "title": "VERSE LAB",
+      "kind": "lab",
+      "state": "ACTIVE",
+      "operation": "EXPERIMENT",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/poetry/lab/poem-map/",
+      "title": "POEM MAP 0.1",
+      "kind": "experiment",
+      "state": "CANDIDATE",
+      "operation": "PROJECT",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": false,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "RETURN_NOT_EXPLICIT_IN_MANIFEST",
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/foundry/aperture/",
+      "title": "APERTURE / INSPECTOR 0.4",
+      "kind": "utility",
+      "state": "UTILITY",
+      "operation": "INSPECT",
+      "disposition": "HIDE",
+      "reason": "Support/utility route remains addressable but should not compete for primary public surface.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/poetry/map/",
+      "title": "POEM MAP 0.2",
+      "kind": "workbench",
+      "state": "CANDIDATE",
+      "operation": "PROJECT",
+      "disposition": "KEEP",
+      "reason": "Current retained lineage head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "NOT_PRIMARY_CARD"
+      ]
+    },
+    {
+      "href": "/recovery/sleeper/site-source-2026-09-18/",
+      "title": "SLEEPER / EXACT SOURCE SHELF",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "RECOVER / RETRIEVE",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/recovery/sleeper/city-engine-v0.2/",
+      "title": "CITY ENGINE v0.2 / SOURCE",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "RECOVER / RETRIEVE",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/recovery/sleeper/painting-path/",
+      "title": "PAINTING / PATH",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "RECOVER / RETRIEVE",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/recovery/media/sleeper-atlas/",
+      "title": "SLEEPER / IMAGES & STORIES",
+      "kind": "donor",
+      "state": "FROZEN_DONOR",
+      "operation": "RECOVER / RETRIEVE",
+      "disposition": "DONOR",
+      "reason": "Recovered/transfer-capable donor; preserve address without competing as current head.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": []
+    },
+    {
+      "href": "/lens-proof/",
+      "title": "LENS PROOF",
+      "kind": "alias",
+      "state": "UTILITY",
+      "operation": "PROVE",
+      "disposition": "MERGE",
+      "reason": "Thin alias only; behavior/state authority belongs to alias_of target.",
+      "qa": {
+        "verb": true,
+        "unique": "NOT_AUTO_JUDGED",
+        "object": true,
+        "return": true,
+        "plain": "NOT_AUTO_JUDGED",
+        "naming": true,
+        "mobile": "NOT_AUTO_JUDGED",
+        "physical": "NOT_AUTO_JUDGED"
+      },
+      "flags": [
+        "ALIAS_NOT_SOVEREIGN",
+        "NOT_PRIMARY_CARD"
+      ]
+    }
+  ],
+  "return": "QA 01 is now machine-readable. Remaining flags are evidence gaps, not automatic rename/merge authority."
+}

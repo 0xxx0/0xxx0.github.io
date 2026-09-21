@@ -91,13 +91,13 @@
         "physical_fit": "Explicit external-action boundary: manual human share is the safe fallback; disclosed delegated automation may bind behind policy without claiming direct human authorship."
       },
       "index": {
-        "updated_at": "2026-09-21T02:45:00+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
           "SPECIFY",
-          "IMPLEMENT",
           "VERIFY"
         ]
-      }
+      },
+      "operation": "ADDRESS"
     },
     {
       "href": "/port/",
@@ -962,7 +962,16 @@
       "title": "FOLD // BLOOM",
       "kind": "hub",
       "parent": "/",
-      "family": "FOLD // BLOOM"
+      "family": "FOLD // BLOOM",
+      "operation": "ORIENT",
+      "state": "STABLE",
+      "index": {
+        "updated_at": "2026-09-21T17:45:00+08:00",
+        "work_modes": [
+          "SPECIFY",
+          "VERIFY"
+        ]
+      }
     },
     {
       "href": "/fold-bloom/two-dial/",
@@ -2154,12 +2163,13 @@
         "physical_fit": "Can route toward physical adapters semantically; public bench itself never actuates."
       },
       "index": {
-        "updated_at": "2026-09-20T23:58:00+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "VERIFY",
-          "OPERATE"
+          "SPECIFY",
+          "VERIFY"
         ]
-      }
+      },
+      "operation": "ROUTE"
     },
     {
       "href": "/fcm/",
@@ -2366,13 +2376,13 @@
       "showcase_card": false,
       "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff.",
       "index": {
-        "updated_at": "2026-09-21T17:50:00+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "VERIFY",
           "SPECIFY",
-          "OPERATE"
+          "VERIFY"
         ]
-      }
+      },
+      "operation": "ORIENT"
     },
     {
       "href": "/returns/",
@@ -2383,13 +2393,13 @@
       "showcase_card": false,
       "role": "Shared public receipt/evidence surface; durable result and residue rather than another planning view.",
       "index": {
-        "updated_at": "2026-09-21T09:09:24.851148+00:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "VERIFY",
-          "RELEASE"
+          "SPECIFY",
+          "VERIFY"
         ]
-      }
+      },
+      "operation": "RETURN"
     },
     {
       "href": "/showcase-selftest/",
@@ -2398,7 +2408,15 @@
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": false,
-      "role": "Public route/link smoke surface for validating the showcase graph."
+      "role": "Public route/link smoke surface for validating the showcase graph.",
+      "operation": "VERIFY",
+      "index": {
+        "updated_at": "2026-09-21T17:45:00+08:00",
+        "work_modes": [
+          "SPECIFY",
+          "VERIFY"
+        ]
+      }
     },
     {
       "href": "/recovery/",
@@ -2409,13 +2427,13 @@
       "showcase_card": false,
       "role": "Exact frozen donor families, blockers and recovery receipts; not a competing product surface.",
       "index": {
-        "updated_at": "2026-09-21T09:09:24.851148+00:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "VERIFY",
-          "RELEASE"
+          "SPECIFY",
+          "VERIFY"
         ]
-      }
+      },
+      "operation": "RECOVER"
     },
     {
       "href": "/recovery/path-grid/",
@@ -2425,7 +2443,15 @@
       "family": "FOUNDRY",
       "state": "FROZEN_DONOR",
       "showcase_card": false,
-      "role": "Exact Cabinet V4 family: general grid/path compiler and five unequal companion instruments."
+      "role": "Exact Cabinet V4 family: general grid/path compiler and five unequal companion instruments.",
+      "operation": "RECOVER",
+      "index": {
+        "updated_at": "2026-09-21T17:45:00+08:00",
+        "work_modes": [
+          "SPECIFY",
+          "VERIFY"
+        ]
+      }
     },
     {
       "href": "/recovery/fold-bloom/fold-weave-0.1/",
@@ -2435,7 +2461,15 @@
       "family": "FOLD/BLOOM",
       "state": "FROZEN_DONOR",
       "showcase_card": false,
-      "role": "Persistent crease-anchor topology branch retained beside Ecology pending playtest."
+      "role": "Persistent crease-anchor topology branch retained beside Ecology pending playtest.",
+      "operation": "RECOVER",
+      "index": {
+        "updated_at": "2026-09-21T17:45:00+08:00",
+        "work_modes": [
+          "SPECIFY",
+          "VERIFY"
+        ]
+      }
     },
     {
       "href": "/house/",
@@ -2525,18 +2559,18 @@
       "showcase_card": false,
       "role": "Read-only control-document surface using the shared Field Aperture: selected JSON/Markdown remains canonical while scale/position focus and material host cues provide navigable structure; RAW remains available.",
       "index": {
-        "updated_at": "2026-09-21T17:48:00+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "OPERATE",
-          "ORIENT",
-          "INSPECT"
+          "SPECIFY",
+          "VERIFY"
         ]
       },
       "transfer": [
         "Field Aperture text/JSON scale ladder",
         "material host projection",
         "same source / RAW fallback"
-      ]
+      ],
+      "operation": "INSPECT"
     },
     {
       "href": "/control/confluence/",
@@ -2730,12 +2764,13 @@
       "role": "Exact recovered family launcher for five intentionally unequal tiny-law machines; shared principle, no forced shared runtime.",
       "receipt": "/law-zoo/artifact_manifest.json",
       "index": {
-        "updated_at": "2026-09-20T23:58:00+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "VERIFY",
-          "OPERATE"
+          "SPECIFY",
+          "VERIFY"
         ]
-      }
+      },
+      "operation": "ORIENT"
     },
     {
       "href": "/law-zoo/law_zoo_field_guide.html",
@@ -3078,14 +3113,13 @@
       "showcase_card": false,
       "role": "Scale/orientation reset: purpose, live fronts, drift signals and bounded next move.",
       "index": {
-        "updated_at": "2026-09-21T09:21:54.530563+00:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "INVESTIGATE",
-          "VERIFY",
           "SPECIFY",
-          "RELEASE"
+          "VERIFY"
         ]
-      }
+      },
+      "operation": "ORIENT"
     },
     {
       "href": "/control/migration/",
@@ -3096,14 +3130,13 @@
       "showcase_card": false,
       "role": "Recovery/import/dedup/quarantine ledger; copy first, classify second, merge third.",
       "index": {
-        "updated_at": "2026-09-21T09:21:54.530563+00:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "INVESTIGATE",
-          "VERIFY",
           "SPECIFY",
-          "RELEASE"
+          "VERIFY"
         ]
-      }
+      },
+      "operation": "RECOVER"
     },
     {
       "href": "/recovery/foundry-cabinet-v4/",
@@ -3116,12 +3149,13 @@
       "role": "Exact self-contained provenance cabinet carrying six unequal recovered instruments.",
       "receipt": "/recovery/foundry-cabinet-v4/manifest.json",
       "index": {
-        "updated_at": "2026-09-20T21:55:00+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "RECOVER",
+          "SPECIFY",
           "VERIFY"
         ]
-      }
+      },
+      "operation": "RECOVER"
     },
     {
       "href": "/recovery/path-grid/grid-path-compiler-v4/",
@@ -3261,14 +3295,14 @@
       "showcase_card": false,
       "role": "Sleeper lineage recovery shelf: Workfield v1.2 remains a frozen sibling donor; exact City Engine v0.2 source, later Painting runtime, and 13 reviewed project illustrations were recovered on 2026-09-21. Current /sleeper/ head remains unchanged.",
       "index": {
-        "updated_at": "2026-09-21T17:41:00+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "VERIFY",
-          "OPERATE"
+          "SPECIFY",
+          "VERIFY"
         ]
       },
-      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json"
+      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
+      "operation": "RECOVER"
     },
     {
       "href": "/recovery/sleeper/workfield-v1.2/",
@@ -3314,13 +3348,13 @@
       "role": "Exact recovered AXIAL family: v0.3 transaction harness + v0.2 printable compositor/build packet; current /foundry/axial/ remains separate head.",
       "receipt": "/recovery/axial/manifest.json",
       "index": {
-        "updated_at": "2026-09-20T22:20:00+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "VERIFY",
-          "SPECIFY"
+          "SPECIFY",
+          "VERIFY"
         ]
-      }
+      },
+      "operation": "RECOVER"
     },
     {
       "href": "/recovery/axial/state-transform-v0.3/",
@@ -3385,12 +3419,13 @@
       "showcase_card": false,
       "role": "Historical temporal/radial instrument shelf: exact DataDisc 2019 + RSVP/TTS 2018 fixtures for mechanism comparison.",
       "index": {
-        "updated_at": "2026-09-20T22:20:00+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "RECOVER",
+          "SPECIFY",
           "VERIFY"
         ]
-      }
+      },
+      "operation": "RECOVER"
     },
     {
       "href": "/recovery/media/datadisc/datadisc.html",
@@ -3493,13 +3528,13 @@
       "role": "Exact 2019–2021 executable + intent/contraction evidence family; later survey spec remains interpretive rather than source evidence.",
       "receipt": "/recovery/poly-furnisher/manifest.json",
       "index": {
-        "updated_at": "2026-09-20T22:40:00+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "VERIFY",
-          "INVESTIGATE"
+          "SPECIFY",
+          "VERIFY"
         ]
-      }
+      },
+      "operation": "RECOVER"
     },
     {
       "href": "/recovery/poly-furnisher/kraken-2019/",
@@ -3857,12 +3892,13 @@
       "alias_of": "/contact/interpret/#mode=burst",
       "role": "Thin entry alias into INTERPRET burst mode.",
       "index": {
-        "updated_at": "2026-09-21T02:16:10+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
-          "OPERATE"
+          "SPECIFY",
+          "VERIFY"
         ]
-      }
+      },
+      "operation": "ROUTE"
     },
     {
       "href": "/contact/family/",
@@ -3875,12 +3911,13 @@
       "alias_of": "/contact/capsule/#view=family",
       "role": "Lens alias into CAPSULE family view.",
       "index": {
-        "updated_at": "2026-09-21T02:16:10+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
-          "OPERATE"
+          "SPECIFY",
+          "VERIFY"
         ]
-      }
+      },
+      "operation": "ROUTE"
     },
     {
       "href": "/contact/friend/",
@@ -3893,12 +3930,13 @@
       "alias_of": "/contact/capsule/#view=friend",
       "role": "Lens alias into CAPSULE friend view.",
       "index": {
-        "updated_at": "2026-09-21T02:16:10+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
-          "OPERATE"
+          "SPECIFY",
+          "VERIFY"
         ]
-      }
+      },
+      "operation": "ROUTE"
     },
     {
       "href": "/contact/work/",
@@ -3911,12 +3949,13 @@
       "alias_of": "/contact/capsule/#view=work",
       "role": "Lens alias into CAPSULE work view.",
       "index": {
-        "updated_at": "2026-09-21T02:16:10+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
-          "OPERATE"
+          "SPECIFY",
+          "VERIFY"
         ]
-      }
+      },
+      "operation": "ROUTE"
     },
     {
       "href": "/contact/agent/",
@@ -3929,12 +3968,13 @@
       "alias_of": "/contact/capsule/#view=agent",
       "role": "Lens alias into CAPSULE agent view.",
       "index": {
-        "updated_at": "2026-09-21T02:16:10+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
-          "OPERATE"
+          "SPECIFY",
+          "VERIFY"
         ]
-      }
+      },
+      "operation": "ROUTE"
     },
     {
       "href": "/contact/make/",
@@ -3947,12 +3987,13 @@
       "alias_of": "/contact/capsule/#make=1",
       "role": "Builder alias into CAPSULE custom-link mode.",
       "index": {
-        "updated_at": "2026-09-21T02:16:10+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
-          "OPERATE"
+          "SPECIFY",
+          "VERIFY"
         ]
-      }
+      },
+      "operation": "ROUTE"
     },
     {
       "href": "/contact/next/",
@@ -3965,12 +4006,13 @@
       "alias_of": "/port/",
       "role": "Legacy redirect back to canonical HUMAN PORT.",
       "index": {
-        "updated_at": "2026-09-21T02:16:10+08:00",
+        "updated_at": "2026-09-21T17:45:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
-          "OPERATE"
+          "SPECIFY",
+          "VERIFY"
         ]
-      }
+      },
+      "operation": "ROUTE"
     },
     {
       "href": "/field-play.html",
