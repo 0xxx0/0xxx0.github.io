@@ -438,7 +438,9 @@
     "docs_reader_addressable": "/docs/?src=/path/to/same-origin-file.json&return=/caller",
     "docs_reader_return": "/returns/DOCS_ADDRESSABLE_APERTURE_2026-09-21.json",
     "human_port_object_aperture": "/control/confluence/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json",
-    "human_port_object_return": "/returns/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json"
+    "human_port_object_return": "/returns/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json",
+    "field_activation_law": "/control/FIELD_ACTIVATION_LAW.json",
+    "field_index_convergence_return": "/returns/FIELD_INDEX_CONVERGENCE_2026-09-21.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
@@ -488,13 +490,15 @@
     "identity_fold": "SUPERSEDED_ON_PRIMARY_REENTRY",
     "issue_snapshot": "/control/FIELD_ISSUES.json",
     "glyph_grammar": "/field-glyph.js",
-    "shared_focus": "AXIAL / LATEST / MAP / HEADS / OPEN PORTS select one manifest route; INSPECT reads that route; LENS composes lawful projections over the same identity; OPEN navigates.",
+    "shared_focus": "AXIAL / LATEST / MAP / HEADS / OPEN PORTS select one manifest route. First activation focuses; activating the already-focused local route opens it. INSPECT reads that route; AXIAL or LENS change the reading; outbound/consequential authority remains explicit.",
     "plain_control": "LATEST chronological rows remain directly under the compositor.",
     "support_field": "AXIAL 0.7 exact support counts + survivor set; support ≠ importance.",
     "passive_trial": "field-axial-trial/v0.1 local-only; ordinary use before interpretation.",
     "ambient_inspector": "◎ resolves selected text → active field value → current route object, then docks /field-aperture.js locally. Utility, not head.",
     "lens_support": "LensState v0.2 typed ordered contract support; support=0 stays visible; support ≠ authority. Foveation remains TEST until paired task evidence.",
-    "proof_surface": "/lens-proof/ is a discoverable alias into the same FI local Lens proof state; it owns no separate canonical object/runtime."
+    "proof_surface": "/lens-proof/ is a discoverable alias into the same FI local Lens proof state; it owns no separate canonical object/runtime.",
+    "activation_law": "/control/FIELD_ACTIVATION_LAW.json",
+    "convergence_return": "/returns/FIELD_INDEX_CONVERGENCE_2026-09-21.json"
   },
   "last_recovery_survey": "/control/RECOVERY_SURVEY_2026-09-20_B.json",
   "last_recovery_population": "/control/RECOVERY_POPULATION_2026-09-20.json",
