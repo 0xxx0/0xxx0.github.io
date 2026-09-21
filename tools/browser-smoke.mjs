@@ -111,7 +111,7 @@ function fieldListenProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/?focus=%2Ffold-bloom%2Flisten%2F"></iframe><pre id="probeResult">PENDING</pre><script>
   const target='/fold-bloom/listen/',out=document.getElementById('probeResult'),f=document.getElementById('f'),rec={};let finished=false;
   const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
-  const stage=x=>{if(!finished)out.textContent='PENDING '+x+' '+JSON.stringify(rec)};
+  const stage=x=>{rec.stage=x;if(!finished)out.textContent='PENDING '+x+' '+JSON.stringify(rec)};
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   const waitFor=async(fn,limit=10000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw Error('waitFor timeout')};
   (async()=>{
@@ -474,7 +474,10 @@ function humanPortSpecimenProbeJs(){
   async function loadRepoFile(src,name,type){
     const rr=await fetch(src,{cache:'no-store'});if(!rr.ok)throw Error('fixture '+rr.status+' '+src);const ab=await rr.arrayBuffer();
     const expected=hex(await crypto.subtle.digest('SHA-256',ab)),file=new (W().File)([ab],name,{type});
-    const dt=new (W().DataTransfer)();dt.items.add(file);const input=D().getElementById('fileInput');input.files=dt.files;input.dispatchEvent(new (W().Event)('change',{bubbles:true}));
+    const dt=new (W().DataTransfer)();dt.items.add(file);const input=D().getElementById('fileInput');input.files=dt.files;
+    rec.fileInjection={name,count:input.files?.length||0,accepted:input.files?.[0]?.name||null};
+    input.dispatchEvent(new (W().Event)('change',{bubbles:true}));
+    await sleep(350);rec.fileInjection.status=D().getElementById('status')?.textContent||'';rec.fileInjection.sessionLabel=session()?.obj?.label||null;
     const st=await waitFor(()=>{const x=session();return x?.obj?.label===name&&D().getElementById('work')?.classList.contains('on')?x:null},14000,'object '+name);
     return {st,expected};
   }
