@@ -16,17 +16,17 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T19:34:00+08:00",
+        "updated_at": "2026-09-21T20:34:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "Fast repo re-entry around one focused manifest route. The object/action dock precedes projection machinery; AXIAL / LATEST, HEADS, MAP and OPEN PORTS are lawful readings over the same identity, with one local focus→repeat-open activation law and chronology retained as the plain control.",
+      "role": "Fast repo re-entry around one focused manifest route, with an explicit NOW / RECOVER / TRANSFER rail before projection machinery so current authority, known missing objects, and cross-lineage handoff do not collapse into one list.",
       "receipt": "/returns/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
       "machine_view": "FIELD",
-      "version": "0.6",
+      "version": "0.6.1",
       "transfer": [
         "AXIAL 0.6.1 unequal-vocabulary focus compositor",
         "selection != navigation",
@@ -47,7 +47,10 @@
         "visible active-reading witness without creating new state",
         "deep Lens stack → Scale Studio → RETURN identity/provenance path browser-guarded",
         "Lens comparator retained as optional parked utility after no clear PLAIN↔FOVEATED human gain",
-        "Focus Ring primary path reduced to RETURN + DEEP LAB; proof machinery no longer competes with ordinary use"
+        "Focus Ring primary path reduced to RETURN + DEEP LAB; proof machinery no longer competes with ordinary use",
+        "NOW / RECOVER / TRANSFER re-entry states remain distinct",
+        "CONFLUENCE promoted to root navigation rather than buried under Foundry",
+        "polished ONE RETURN v2 exposed as recovery target while ASCII reconstruction remains donor"
       ],
       "activation_law": "/control/FIELD_ACTIVATION_LAW.json",
       "convergence_return": "/returns/FIELD_INDEX_CONVERGENCE_2026-09-21.json"
@@ -2740,18 +2743,19 @@
       "parent": "/control/",
       "state": "ACTIVE",
       "showcase_card": false,
-      "role": "Readable cross-lineage handoff shelf: recover exact donors and operational tools, distinguish mechanism from carrier, coordinate bounded transfers across unequal lineages, and require recipient-side RETURN without vocabulary collapse.",
+      "role": "Cross-lineage coordination surface that explicitly distinguishes NOW/current authority, RECOVER targets, DONORS, and bounded TRANSFERS. Packages mechanisms without absorbing source organisms; currently exposes polished Work-mode ONE RETURN v2 as a recovery target and its ASCII/Grid Path neighbors as donors, not substitutes.",
       "index": {
-        "updated_at": "2026-09-21T19:35:00+08:00",
+        "updated_at": "2026-09-21T20:34:00+08:00",
         "work_modes": [
           "RECOVER",
-          "INVESTIGATE",
-          "SPECIFY",
-          "VERIFY"
+          "VERIFY",
+          "OPERATE"
         ]
       },
       "machine_view": "CONFLUENCE",
-      "operation": "TRANSFER"
+      "operation": "TRANSFER",
+      "recovery_target": "/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json",
+      "handoff": "/control/confluence/ONE_RETURN_WORK_HANDOFF.md"
     },
     {
       "href": "/recovery/rsvp/",
