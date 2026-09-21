@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM LISTEN",
-  "version": "0.1",
+  "version": "0.2",
   "state": "CANDIDATE",
   "operation": "LISTEN",
   "route": "/fold-bloom/listen/",
   "date": "2026-09-21",
-  "thesis": "A supplied song can become an addressed playable field without uploading it: decode locally, extract a bounded audio map, then let ring/time and vertical scope operate on the same analysis clock.",
+  "thesis": "Any bounded audio source—local file first, remote address when lawful/available—can become the same addressed playable field: source → decoded audio → AUDIO MAP → polar time × scope → reactive field → RETURN.",
   "recovered_transfer": [
     "RC8-era Fold/Bloom behavior: vertical scale traversal + horizontal/topological operation, recovered from collaboration context but exact executable remains unfound",
     "Ecology/Two Dial ring dynamics: cyclic wrap, shortest circular delta, detent/inertia ergonomics",
@@ -21,17 +21,28 @@
     "audio-derived annular map with beat and section witnesses",
     "WebGL2 Julia/fractal field driven by analyzed features",
     "ring drag scrubs time; wheel/up-down changes BEAT/PHRASE/SECTION/TRACK scope",
-    "bounded JSON AUDIO MAP export with source SHA-256"
+    "bounded JSON AUDIO MAP export with source SHA-256",
+    "source-address intake beside local file intake",
+    "Suno song URL / UUID recognition with public clip metadata best-effort resolution",
+    "direct http(s) audio address adapter",
+    "96 MB remote-byte guard before decode",
+    "Suno metadata may carry title/artist/tags/plain lyrics into AUDIO MAP source provenance; lyrics remain explicitly unaligned",
+    "remote failure collapses cleanly back to local file intake instead of changing the instrument state"
   ],
   "constraints": [
     "no upload/network required for user audio",
     "analysis is intentionally approximate and interpretable; not claimed equivalent to Audiosurf or commercial MIR",
     "do not merge this into Two Dial/Ecology until direct play proves a useful relation",
-    "no external analysis dependency in 0.1; professional MIR/SoundFont donors are researched separately"
+    "no external analysis dependency in 0.1; professional MIR/SoundFont donors are researched separately",
+    "remote source adapters are best-effort and network/CORS dependent; local file intake remains the authority path",
+    "Suno clip/CDN endpoint behavior is external and may change; adapter failure must not break LISTEN",
+    "plain lyrics discovered in metadata are source evidence only; no synchronization claim until timed alignment exists"
   ],
   "verification": {
-    "module_syntax": "PENDING",
-    "browser_surface": "PENDING",
+    "module_syntax": "BROWSER_SMOKE_PENDING",
+    "browser_surface": "PENDING: LISTEN 0.2 + URL controls",
+    "source_parser": "PENDING: in-browser Suno UUID + direct URL classification",
+    "remote_suno_fetch": "UNVERIFIED_EXTERNAL: requires real browser/network test with a supplied Suno song",
     "real_audio_analysis": "REQUIRED_NEXT"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · evolution stage=TEST"
