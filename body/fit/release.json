@@ -2,10 +2,18 @@
   "schema": "release-receipt/v1",
   "artifact": "BODY / FIT",
   "route": "/body/fit/",
-  "version": "0.1",
+  "version": "0.3",
   "released": "2026-09-22",
-  "state": "CANDIDATE",
+  "state": "EXPERIMENT",
   "changes": [
+    "0.2 donor retained: transformed FIT into an explicit LOADOUT surface with capability rail, known mass, power/service metadata, module cards, purpose-specific prep kits and revision-aware prep checks",
+    "added optional loose prep items to saved loadout kits",
+    "added persistent SET OUT loadout sessions that snapshot exact kit revision + module readiness + manually checked loose items",
+    "added explicit ATTACH LATEST BODY during an active session, reusing BODY state only when the user chooses",
+    "added RETURN + MARK with freeform return note and one NEXT CUT for the next preparation",
+    "added PATINA projection: deterministic virtual return glyphs accumulate without streaks, decay or missed-day penalties",
+    "added NEXT CUTS surface so reflective residue becomes an actionable input to the next loadout iteration",
+    "full HISTORY now includes RETURN alongside fitting lineage and sensor observations",
     "HUMAN PORT now offers TEXT/JSON objects to BODY / FIT through an explicit session adapter; BODY / FIT still requires explicit import",
     "created body-plan-centered FIT / SENSE / FUSE / HISTORY / PLAIN workbench",
     "shared same-repo BODY PLAN registry rather than introducing new anatomy geometry",
@@ -25,17 +33,25 @@
     "unknown/stale availability explicit",
     "fusion preserves source rows and performs no default averaging",
     "HOUSE context remains non-causal",
-    "Port handoff does not auto-create a fitting or observation; unsupported JSON is rejected visibly"
+    "Port handoff does not auto-create a fitting or observation; unsupported JSON is rejected visibly",
+    "loadout SET OUT never actuates devices or mutates BODY/CARE/HOUSE",
+    "incomplete prep can still SET OUT; discrepancy remains in the returned snapshot rather than blocking action",
+    "latest BODY state is attached only by an explicit user action during an active session",
+    "PATINA derives marks from RETURN receipts and has no streak counter, decay or missed-day debt",
+    "RETURN mark does not encode health score, diagnosis or improvement",
+    "NEXT CUT is freeform reflective residue, not an automatic prescription",
+    "older 0.1/0.2 local state imports remain valid by defaulting returns[] and active_session"
   ],
   "open_gaps": [
+    "CARE does not yet project explicit performed care actions into the same PATINA grammar; test BODY / FIT semantics before sharing that projection",
+    "ordinary-use proof: run the same saved kit twice and verify first RETURN/NEXT CUT makes second prep materially better",
     "private HOUSEBUS/HA sensor adapter not yet wired",
     "Health Connect/Samsung Health adapter remains deferred",
-    "Open Twin high-resolution projection remains a recovered donor cassette, not runtime-linked here",
-    "real use test with one fitting + one sensor stream + one HOUSE context required"
+    "Open Twin high-resolution projection remains a recovered donor cassette, not runtime-linked here"
   ],
-  "research": "/control/research/BODY_FIT_SENSOR_FUSION_2026-09-22.md",
+  "research": "/control/research/BODY_FIT_RETURN_PATINA_2026-09-22.md",
   "return": "/body/fit/",
-  "validation": "/control/BODY_FIT_VALIDATION_2026-09-22.json",
+  "validation": "/control/BODY_FIT_VALIDATION_2026-09-22_V03.json",
   "sensor_schema": "/body/fit/sensor-observation.schema.json",
-  "return_receipt": "/returns/BODY_FIT_SENSOR_FUSION_2026-09-22.json"
+  "return_receipt": "/returns/BODY_FIT_RETURN_PATINA_2026-09-22.json"
 }
