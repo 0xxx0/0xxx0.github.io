@@ -229,8 +229,10 @@ function emit(type, data = {}) {
   const event = { n: ++eventSeq, type, ...data };
   events.push(event);
   if (events.length > 160) events.shift();
-  for (const fn of fieldEventListeners) {
-    try { fn(event); } catch (_) {}
+  if (!demo?.preview) {
+    for (const fn of fieldEventListeners) {
+      try { fn(event); } catch (_) {}
+    }
   }
 }
 function normalizedPulseBpm(raw) {
