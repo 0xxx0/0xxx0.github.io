@@ -25,7 +25,7 @@
     "source_authority": "showcase-manifest route identity remains canonical"
   },
   "verification": {
-    "status": "CURRENT_PR_CI_REQUESTED_AFTER_REBASE",
+    "status": "CURRENT_PR_CI_REQUESTED_AFTER_PORT15_REBASE",
     "prior_merge_ref_run": 978,
     "prior_merge_ref_result": "PASS",
     "browser_cases": ["FIELD activation + re-entry", "LENS STACK STUDIO RETURN", "existing LENS PROOF mobile RETURN"]
