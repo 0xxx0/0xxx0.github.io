@@ -1,0 +1,26 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "BODY_FIT_RETURN_PATINA_2026-09-22",
+  "date": "2026-09-22",
+  "state": "RETURNED_BOUNDED_DELTA",
+  "object": "BODY / FIT 0.3",
+  "operation": "PREP -> SET OUT -> RETURN -> PATINA -> NEXT CUT",
+  "delta": [
+    "purpose kits now include optional loose prep items",
+    "loadout runs persist exact prep snapshots",
+    "explicit latest BODY state can be attached without duplicating another emotional scoring UI",
+    "RETURN + MARK creates a non-punitive completion receipt",
+    "PATINA makes returned sessions visually accumulative with no streak/decay",
+    "NEXT CUT turns each return into one concrete input for the next preparation"
+  ],
+  "laws": [
+    "MARK = RETURN RECEIPT, NOT REWARD",
+    "GAP != FAILURE",
+    "MORE MARKS != HEALTHIER",
+    "CARE ACTION COMPLETED != CONDITION IMPROVED",
+    "BODY REF != LOADOUT SUCCESS"
+  ],
+  "proof": "/control/BODY_FIT_VALIDATION_2026-09-22_V03.json",
+  "research": "/control/research/BODY_FIT_RETURN_PATINA_2026-09-22.md",
+  "stop": "Use one saved kit twice before adding streaks, currency, character pets, cargo physics, or CARE patina."
+}
