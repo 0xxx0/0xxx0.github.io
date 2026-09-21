@@ -1,55 +1,61 @@
 {
   "schema": "showcase-release/v1",
-  "surface": "ROOM / HTML SUBSTRATE",
-  "version": "0.3",
+  "surface": "ROOM / MATERIAL DOM",
+  "version": "0.4",
   "route": "/foundry/room/",
   "state": "CANDIDATE",
   "operation": "COMPOSE",
   "released": "2026-09-22",
-  "hypothesis": "The useful FURNISHER/INTERPHASE composition law can be expressed more clearly with ordinary HTML than with a custom infinite-canvas editor: DOM nesting is composition, native <details> is fold/unfold, visible links are seams, and the runtime interprets that same markup.",
-  "replaces_head": "/foundry/room/ 0.2 SPACE SCALE canvas",
+  "hypothesis": "The FURNISHER/INTERPHASE composition law is clearest when the visible material interface and executable structure are the same DOM object: hard-edged blocks occupy an ordered carrier; visible typed seams are executable links; FOLD literally wraps sibling DOM into a cassette; ENTER reveals the same nested implementation; SOURCE returns that structural DOM; and model fit remains distinct from physical contract fit.",
+  "replaces_head": "unmerged ROOM / HTML SUBSTRATE 0.3 proposal; itself a correction of SPACE SCALE 0.2",
   "preserved_heads": [
+    "/foundry/room/html-substrate-0.3.html",
     "/foundry/room/space-scale-0.2.html",
     "/foundry/room/room-0.1.html"
   ],
-  "correction": [
-    "SPACE SCALE 0.2 made composition executable but hid the program in a separate JavaScript graph model.",
-    "That weakened the historical 'homoiconic interface language' aspiration and made the interface harder to understand.",
-    "0.3 removes the separate graph model from the current surface."
+  "corrections": [
+    "SPACE SCALE 0.2 had useful typed fold/dock/run semantics but the generic canvas was rejected by direct user evaluation.",
+    "HTML SUBSTRATE 0.3 removed the hidden graph model but over-corrected into a conventional vertical document.",
+    "0.4 keeps DOM-as-program and gives it a material/cassette projection without introducing a second canonical graph."
   ],
   "laws": [
-    "DOCUMENT = PROGRAM STRUCTURE: #program DOM is the canonical composition.",
-    "NESTING = COMPOSITION: a composite is ordinary nested HTML.",
-    "DETAILS = FOLD: closing/opening a <details> element changes abstraction visibility without changing identity.",
-    "LINK = SEAM: ordinary href anchors are both visible navigation and executable next edges.",
-    "SOURCE = SAME OBJECT: SOURCE edits and reapplies the exact #program markup, not a second serialized graph.",
-    "RETURN = MARKUP + TRACE: RETURN records the same HTML plus runtime evidence.",
-    "NO STRICT HOMOICONICITY CLAIM: behavior is still interpreted by JavaScript; call this DOM-as-program / structurally reflexive.",
-    "PHYSICAL REALITY REMAINS EXTERNAL: no fit/load/safety inference."
+    "STRUCTURAL DOM = PROGRAM: the nested #program DOM is the composition the runtime interprets.",
+    "VISIBLE SEAM = EXECUTABLE EDGE: rel=next anchors are both readable links and the RUN route.",
+    "FOLD MUTATES STRUCTURE, NOT A SHADOW MODEL: contiguous sibling blocks are wrapped in a real DOM cassette; child ids survive.",
+    "CASSETTE CLOSED/OPEN = ABSTRACTION VISIBILITY: one object may be read as a block or its implementation.",
+    "TYPE KEY IS A WITNESS, NOT A STANDARD: deterministic seam bits expose type identity and may seed print/tactile/optical experiments, but no physical fit is implied.",
+    "MODEL FIT != PHYSICAL CONTRACT FIT.",
+    "NO STRICT HOMOICONICITY CLAIM: JavaScript still interprets behavior; the narrower claim is DOM-as-program / structural reflexivity.",
+    "RETURN PRESERVES STRUCTURAL DOM + TRACE + BINDING."
   ],
   "implemented": [
-    "Traditional linear HTML document with native details/summary folding.",
-    "Nested FURNISHER COMPILER block whose children are its visible implementation.",
-    "Visible rel=next anchors used by RUN as the execution path.",
-    "Small safe interpreter for SOURCE / WRAP / GROUP / CONFIG / COMPILE / VERIFY / RETURN.",
-    "SOURCE panel exposes the exact live #program outerHTML and can reapply edited markup.",
-    "RETURN captures live markup and execution trace.",
-    "Direct links to the preserved 0.2 canvas and 0.1 cube for comparison."
+    "Hard-edge horizontal material rail; no freeform node canvas or wire spaghetti.",
+    "Current FURNISHER program is ordinary nested HTML details blocks and visible rel=next seams.",
+    "Deterministic five-bit seam keys rendered directly from declared type.",
+    "MARK → move → FOLD wraps the actual sibling DOM into a generated cassette and rewires the visible top-level route.",
+    "ENTER / BACK focuses the cassette implementation without replacing its identity.",
+    "DISSOLVE restores generated cassette children.",
+    "RUN follows visible top-level seams; GROUP executes nested child blocks and records internal trace.",
+    "VERIFY includes an explicit predicted/measured/tolerance model binding and an independent contract-fit bit.",
+    "SOURCE edits/reapplies the structural #program DOM; transient focus/run classes are excluded.",
+    "RETURN emits program DOM, run trace, binding and interaction events.",
+    "Built-in browser selftest proves initial run, nested trace, binding fixture, generated fold, folded run, SOURCE preservation and RETURN schema."
   ],
   "boundaries": [
     "HTML+JavaScript is not strictly homoiconic in the Lisp sense.",
-    "The current claim is narrower: structural representation and executable composition share the DOM tree and visible links.",
-    "No custom node editor, pan/zoom substrate, drag graph or hidden topology is required for current use.",
-    "No Home Assistant/HOUSE actuation.",
-    "No digital-to-physical safety claim."
+    "Seam-key geometry is not a proven physical connector or encoding standard.",
+    "Model-fit does not establish buildability, structural safety or contract-fit.",
+    "No HOUSE/Home Assistant actuation.",
+    "SPACE SCALE 0.2 core remains donor/tested machinery but is not the current UI authority."
   ],
   "proof": {
-    "current_surface": "/foundry/room/index.html",
-    "preserved_canvas": "/foundry/room/space-scale-0.2.html",
-    "preserved_cube": "/foundry/room/room-0.1.html",
-    "browser": "required before landing"
+    "current_surface": "/foundry/room/index.html?selftest=1",
+    "built_in_selftest": "id=roomSelftest",
+    "preserved_html_0_3": "/foundry/room/html-substrate-0.3.html",
+    "preserved_canvas_0_2": "/foundry/room/space-scale-0.2.html",
+    "preserved_cube_0_1": "/foundry/room/room-0.1.html"
   },
-  "evidence_gate": "A new user should be able to understand the current composition by reading the page, open/close the compiler block without instructions, follow visible seams, run it, inspect SOURCE, and explain what structure RUN interpreted. If not, simplify again.",
-  "next_if_pass": "Use the DOM-as-program pattern on one real small FIELD transformation. Only reintroduce richer projections as optional views over the same HTML structure.",
-  "next_if_fail": "Reduce further to static HTML + links; keep the interpreter optional."
+  "evidence_gate": "Use 0.4 on one real configuration sequence. Pass only if typed adjacency + literal DOM folding makes the program easier to inspect, alter and re-enter than both a plain list and the 0.2 canvas. If not, keep the DOM law and demote the rail projection.",
+  "next_if_pass": "Bind one cassette to a harmless physical witness (printed key, rail slot, panel/cassette arrangement, or measured HOUSE planning fixture) and record model-fit and physical contract-fit independently.",
+  "next_if_fail": "Reduce to structural HTML + links; retain seam-key/fold mechanics only where they pay rent."
 }

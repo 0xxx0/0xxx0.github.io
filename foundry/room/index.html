@@ -2,226 +2,184 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#050708">
 <meta name="robots" content="noindex,nofollow">
-<title>ROOM 0.3 / HTML SUBSTRATE</title>
+<title>ROOM 0.4 / MATERIAL DOM</title>
 <style>
-html{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#fff;color:#111}
-body{max-width:860px;margin:0 auto;padding:24px 16px 80px;line-height:1.5}
-a{color:#0645ad}header{border-bottom:2px solid #111;padding-bottom:12px;margin-bottom:20px}
-h1{font:800 clamp(30px,7vw,62px)/.95 system-ui,sans-serif;letter-spacing:-.05em;margin:6px 0}
-nav{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0 0}
-button,select,input,textarea{font:inherit;border:1px solid #111;background:#fff;color:#111;border-radius:0;padding:5px 7px}
-button{cursor:pointer}.note{max-width:70ch}.muted{color:#666}.law{border-left:4px solid #111;padding-left:12px;margin:18px 0}
-#program{border-top:1px solid #aaa;margin-top:18px;padding-top:14px}
-.block{border:1px solid #777;margin:10px 0;background:#fff}
-.block>.block{margin:10px}
-.block summary{cursor:pointer;padding:8px 10px;font-weight:700}
-.block[open]>summary{border-bottom:1px solid #bbb}
-.body{padding:8px 10px}
-.meta{font-size:.82em;color:#666}
-.seam{margin:.5em 0}.seam b{display:inline-block;min-width:42px}
-.block.running{outline:3px solid #111}
-.block.pass{outline:3px solid #4b8}.block.fail{outline:3px solid #b55}
-.controls{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
-#result,#sourceText,#returnText{width:100%;min-height:150px;white-space:pre-wrap}
-.panel{margin-top:22px;border-top:2px solid #111;padding-top:12px}
-details.panel>summary{cursor:pointer;font-weight:700}
-code{background:#f2f2f2;padding:1px 3px}
-@media(prefers-color-scheme:dark){
- html{background:#0a0a0a;color:#eee}a{color:#8ab4ff}
- button,select,input,textarea{background:#0a0a0a;color:#eee;border-color:#aaa}
- .block{background:#0a0a0a;border-color:#777}.block[open]>summary{border-color:#555}
- code{background:#222}.muted,.meta{color:#aaa}
-}
+:root{--bg:#050708;--ink:#edf0ec;--mut:#758187;--line:#313b3f;--line2:#59676d;--hot:#ef7043;--cool:#78c4e7;--gold:#d8b36a;--ok:#91d58b;--bad:#e37979}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font:10px/1.42 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+button,input,select,textarea{font:inherit;color:inherit;border-radius:0}button{cursor:pointer}a{color:inherit}.app{height:100%;display:grid;grid-template-rows:auto 1fr auto}
+header{display:grid;grid-template-columns:auto 1fr auto;border-bottom:1px solid var(--line);min-height:58px;background:#06090a}.brand{padding:9px 12px;border-right:1px solid var(--line)}.ey{font-size:7px;letter-spacing:.18em;color:var(--hot)}.brand b{display:block;font:900 20px/.9 system-ui,sans-serif;letter-spacing:-.055em;margin-top:4px}.brand span{color:var(--mut);font-size:7px}
+.tools{display:flex;min-width:0;overflow:auto}.tools button{border:0;border-right:1px solid var(--line);background:#080c0e;padding:8px 10px;white-space:nowrap}.tools button:hover,.tools button.active{background:var(--ink);color:var(--bg)}.status{border-left:1px solid var(--line);padding:8px 11px;min-width:160px;color:var(--mut)}.status b{color:var(--ink)}
+.stage{position:relative;min-height:0;overflow:hidden}.axis{position:absolute;left:0;right:0;top:50%;height:1px;background:#1f292d;pointer-events:none}.address{position:absolute;z-index:4;left:10px;top:9px;color:#5f6d73;font-size:7px;letter-spacing:.14em}.address b{color:var(--gold)}
+.viewport{position:absolute;inset:0;overflow:auto hidden;touch-action:pan-x;scroll-snap-type:x proximity}
+#program{height:100%;min-width:max-content;display:flex;align-items:center;gap:0;padding:44px max(16vw,100px);transition:.15s}.block{position:relative;display:block;width:208px;min-width:208px;min-height:168px;border:1px solid #3b484d;background:#080c0e;scroll-snap-align:center;transition:width .18s,transform .18s,opacity .18s,border-color .18s}.block>summary{list-style:none;height:34px;border-bottom:1px solid #2a3539;padding:7px 8px;cursor:pointer;font-weight:800;letter-spacing:.04em}.block>summary::-webkit-details-marker{display:none}.block>summary:before{content:"＋";color:#637177;margin-right:7px}.block[open]>summary:before{content:"−";color:var(--gold)}.block.focused{border-color:var(--ink);transform:translateY(-9px)}.block.inrange{box-shadow:inset 0 -4px var(--gold)}.block.scope-hidden{display:none}.block.scope-host{width:min(920px,88vw);transform:none}.block.running{outline:2px solid var(--cool)}.block.pass{outline:2px solid var(--ok)}
+.body{padding:10px}.meta{font-size:7px;color:#718087}.op{font-size:7px;color:var(--cool);margin:5px 0}.desc{color:#849196;font-size:8px;line-height:1.45;min-height:34px}.seam{margin:9px -10px -10px;border-top:1px solid #273236;height:42px;display:flex;align-items:center}.seam a{width:100%;height:100%;display:grid;grid-template-columns:1fr auto;align-items:center;padding:0 8px;text-decoration:none;color:#869399}.seam a:hover{background:#10171a;color:var(--ink)}.seam strong{font-size:7px;color:var(--cool)}.keybits{width:34px;height:20px;border:1px solid #3a474c;padding:2px;display:grid;grid-template-columns:repeat(5,1fr);gap:2px}.keybits i{display:block;background:#1b2529}.keybits i.on{background:var(--cool)}
+.cassette{border-color:#75613d;background:#0b0c0b}.cassette>summary{color:var(--gold)}.cassette[open]{width:min(740px,74vw)}.cassette>.body>.children{display:flex;gap:0;align-items:stretch;overflow-x:auto;padding:8px 0}.cassette>.body>.children>.block{width:172px;min-width:172px;min-height:142px}.cassette>.body>.children>.block .desc{min-height:24px}.cassette:not([open])>.body{display:none}
+.bind{border-top:1px solid #293438;margin-top:8px;padding-top:8px}.bindGrid{display:grid;grid-template-columns:repeat(4,minmax(48px,1fr));gap:4px}.bindGrid input{width:100%;border:1px solid var(--line);background:#050708;padding:4px}.bindResult{font-size:7px;color:var(--mut);margin-top:6px}.ok{color:var(--ok)!important}.bad{color:var(--bad)!important}
+footer{border-top:1px solid var(--line);min-height:112px;display:grid;grid-template-columns:1fr 1fr 1fr;background:#06090a}.pane{padding:9px 11px;border-right:1px solid var(--line);min-width:0}.pane:last-child{border-right:0}.label{font-size:6px;letter-spacing:.15em;color:#657278}.focusTitle{font:900 20px/.9 system-ui,sans-serif;letter-spacing:-.05em;margin-top:5px}.focusMeta{color:#859297;margin-top:7px}.focusMeta b{color:var(--ink)}.law{color:#829095;font-size:8px;max-width:60ch}
+.overlay{position:absolute;z-index:20;inset:8px;background:#050708f8;border:1px solid var(--line);display:none;padding:12px}.overlay.on{display:grid;grid-template-rows:auto 1fr auto;gap:8px}.overlayHead{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding-bottom:8px}.overlayHead button,.overlayActions button{border:1px solid var(--line);background:#090d0f;padding:5px 8px}.overlay textarea{width:100%;height:100%;resize:none;border:1px solid var(--line);background:#070a0b;color:#c9d1ce;padding:10px;font:9px/1.5 ui-monospace,monospace}.overlayActions{display:flex;gap:6px}.selftest{position:absolute;left:4px;bottom:4px;font-size:6px;color:#536167;z-index:30}
+@media(max-width:760px){header{grid-template-columns:1fr auto}.tools{grid-column:1/-1;order:3;border-top:1px solid var(--line)}.brand span{display:none}.status{min-width:110px}.block{width:170px;min-width:170px}.cassette[open]{width:88vw}#program{padding-left:28vw;padding-right:28vw}footer{grid-template-columns:1fr 1fr}.pane:nth-child(3){display:none}.bindGrid{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
+<div class="app">
 <header>
-  <div class="meta">FU / FURNISHER / INTERPHASE · GENERATION 3</div>
-  <h1>ROOM 0.3<br>HTML SUBSTRATE</h1>
-  <p class="note"><strong>The document is the graph.</strong> Open a heading to enter a block. Close it to treat the same composition as one thing. Follow ordinary links to traverse seams. RUN follows those same links. SOURCE shows the exact markup being interpreted.</p>
-  <nav>
-    <a href="/foundry/">FOUNDRY</a>
-    <a href="#program">PROGRAM</a>
-    <a href="#sourcePanel">SOURCE</a>
-    <a href="./space-scale-0.2.html">0.2 CANVAS</a>
-    <a href="./room-0.1.html">0.1 CUBE</a>
-  </nav>
+  <div class="brand"><div class="ey">FU / FURNISHER / INTERPHASE · GENERATION 4</div><b>MATERIAL DOM</b><span>DOM = program structure · adjacency = seam · fold = cassette · source = same object</span></div>
+  <div class="tools"><button id="prevBtn">←</button><button id="nextBtn">→</button><button id="markBtn">MARK</button><button id="foldBtn">FOLD</button><button id="dissolveBtn">DISSOLVE</button><button id="enterBtn">ENTER</button><button id="backBtn">BACK</button><button id="runBtn">RUN</button><button id="sourceBtn">SOURCE</button><button id="returnBtn">RETURN</button></div>
+  <div class="status" id="status"><b>ROOM 0.4</b><br>structural reflexivity</div>
 </header>
-
-<div class="law">
-  <b>No strict homoiconicity claim.</b><br>
-  This is <em>DOM-as-program</em>: the same nested HTML you see is the structure the tiny runtime reads. Behavior still lives in JavaScript, so this is structurally reflexive rather than Lisp-style homoiconic.
-</div>
-
-<div class="controls">
-  <button id="runBtn">RUN FROM INTENT</button>
-  <button id="clearBtn">CLEAR TRACE</button>
-  <button id="returnBtn">RETURN</button>
-</div>
-
-<main id="program" data-schema="0xxx0/html-room/v0.3" data-entry="intent">
-  <details class="block" id="intent" data-op="SOURCE" data-type-out="INTENT" open>
-    <summary>INTENT <span class="meta">SOURCE → INTENT</span></summary>
-    <div class="body">
-      <p class="value">make one useful physical configuration</p>
-      <p class="seam"><b>OUT</b> <a rel="next" data-type="INTENT" href="#bound">INTENT → BOUND</a></p>
-    </div>
-  </details>
-
-  <details class="block" id="bound" data-op="WRAP" data-type-in="INTENT" data-type-out="CONSTRAINT" open>
-    <summary>BOUND <span class="meta">INTENT → CONSTRAINT</span></summary>
-    <div class="body">
-      <p>Make the intent explicit enough that a transformation can be checked.</p>
-      <p class="seam"><b>IN</b> <a href="#intent">INTENT ← INTENT</a></p>
-      <p class="seam"><b>OUT</b> <a rel="next" data-type="CONSTRAINT" href="#compiler">CONSTRAINT → FURNISHER COMPILER</a></p>
-    </div>
-  </details>
-
-  <details class="block" id="compiler" data-op="GROUP" data-type-in="CONSTRAINT" data-type-out="EVIDENCE" open>
-    <summary>FURNISHER COMPILER <span class="meta">COMPOSITE · close me = one block</span></summary>
-    <div class="body">
-      <p class="muted">The children below are the implementation. The outer <code>&lt;details&gt;</code> is the abstraction boundary.</p>
-
-      <details class="block" id="search" data-op="CONFIG" data-type-in="CONSTRAINT" data-type-out="CONFIG" open>
-        <summary>SEARCH <span class="meta">CONSTRAINT → CONFIG</span></summary>
-        <div class="body">
-          <p>Generate a bounded candidate configuration. No physical claim yet.</p>
-          <p class="seam"><b>OUT</b> <a rel="next" data-type="CONFIG" href="#compile">CONFIG → COMPILE</a></p>
+<section class="stage">
+  <div class="axis"></div><div class="address" id="address">PROGRAM / <b>ROOT</b></div>
+  <div class="viewport" id="viewport">
+    <main id="program" data-schema="0xxx0/material-dom/v0.4" data-entry="intent">
+      <details class="block" id="intent" data-op="SOURCE" data-type-out="INTENT" open>
+        <summary>INTENT <span class="meta">SOURCE → INTENT</span></summary>
+        <div class="body"><div class="op">SOURCE</div><div class="desc value">make one useful physical configuration</div><p class="seam out"><a rel="next" data-type="INTENT" href="#bound"><strong>INTENT → BOUND</strong><span class="keybits" data-type="INTENT"></span></a></p></div>
+      </details>
+      <details class="block" id="bound" data-op="WRAP" data-type-in="INTENT" data-type-out="CONSTRAINT" open>
+        <summary>BOUND <span class="meta">INTENT → CONSTRAINT</span></summary>
+        <div class="body"><div class="op">WRAP</div><div class="desc">Make the intent explicit enough that a transform can be checked.</div><p class="seam out"><a rel="next" data-type="CONSTRAINT" href="#compiler"><strong>CONSTRAINT → COMPILER</strong><span class="keybits" data-type="CONSTRAINT"></span></a></p></div>
+      </details>
+      <details class="block cassette" id="compiler" data-op="GROUP" data-type-in="CONSTRAINT" data-type-out="EVIDENCE" open>
+        <summary>FURNISHER COMPILER <span class="meta">CASSETTE · close = one block</span></summary>
+        <div class="body"><div class="desc">This cassette is ordinary nested HTML. Its children are the visible implementation.</div>
+          <div class="children">
+            <details class="block" id="search" data-op="CONFIG" data-type-in="CONSTRAINT" data-type-out="CONFIG" open>
+              <summary>SEARCH <span class="meta">CONSTRAINT → CONFIG</span></summary>
+              <div class="body"><div class="op">CONFIG</div><div class="desc">Bounded candidate; no physical claim.</div><p class="seam out"><a rel="next" data-type="CONFIG" href="#compile"><strong>CONFIG → COMPILE</strong><span class="keybits" data-type="CONFIG"></span></a></p></div>
+            </details>
+            <details class="block" id="compile" data-op="COMPILE" data-type-in="CONFIG" data-type-out="PATTERN" open>
+              <summary>COMPILE <span class="meta">CONFIG → PATTERN</span></summary>
+              <div class="body"><div class="op">COMPILE</div><div class="desc">POINT / PATH / PLANE / POWER relation recipe.</div><p class="seam out"><a rel="next" data-type="PATTERN" href="#verify"><strong>PATTERN → VERIFY</strong><span class="keybits" data-type="PATTERN"></span></a></p></div>
+            </details>
+            <details class="block" id="verify" data-op="VERIFY" data-type-in="PATTERN" data-type-out="EVIDENCE" open>
+              <summary>VERIFY <span class="meta">PATTERN → EVIDENCE</span></summary>
+              <div class="body"><div class="op">MODEL BINDING</div><div class="desc">Model fit and physical contract fit remain independent facts.</div>
+                <div class="bind"><div class="bindGrid"><input id="pred" type="number" value="100" aria-label="predicted"><input id="meas" type="number" value="103" aria-label="measured"><input id="tol" type="number" value="5" min="0.0001" step="0.1" aria-label="tolerance"><label><input id="contract" type="checkbox" checked> contract</label></div><div class="bindResult" id="bindResult"></div></div>
+                <p class="seam out"><a rel="next" data-type="EVIDENCE" href="#return"><strong>EVIDENCE → RETURN</strong><span class="keybits" data-type="EVIDENCE"></span></a></p>
+              </div>
+            </details>
+          </div>
+          <p class="seam out"><a rel="next" data-type="EVIDENCE" href="#return"><strong>CASSETTE OUT → RETURN</strong><span class="keybits" data-type="EVIDENCE"></span></a></p>
         </div>
       </details>
-
-      <details class="block" id="compile" data-op="COMPILE" data-type-in="CONFIG" data-type-out="PATTERN" open>
-        <summary>COMPILE <span class="meta">CONFIG → PATTERN</span></summary>
-        <div class="body">
-          <p>Express the candidate as POINT / PATH / PLANE / POWER relations.</p>
-          <p class="seam"><b>OUT</b> <a rel="next" data-type="PATTERN" href="#verify">PATTERN → VERIFY</a></p>
-        </div>
+      <details class="block" id="return" data-op="RETURN" data-type-in="EVIDENCE" data-type-out="RECEIPT" open>
+        <summary>RETURN <span class="meta">EVIDENCE → RECEIPT</span></summary>
+        <div class="body"><div class="op">RETURN</div><div class="desc">Program structure + trace + binding become the receipt.</div></div>
       </details>
-
-      <details class="block" id="verify" data-op="VERIFY" data-type-in="PATTERN" data-type-out="EVIDENCE" open>
-        <summary>VERIFY <span class="meta">PATTERN → EVIDENCE</span></summary>
-        <div class="body">
-          <p>Check typed continuity and preserve explicit unknowns. Physical fit/load/safety remain outside this page.</p>
-          <p class="seam"><b>OUT</b> <a rel="next" data-type="EVIDENCE" href="#return">EVIDENCE → RETURN</a></p>
-        </div>
-      </details>
-    </div>
-  </details>
-
-  <details class="block" id="return" data-op="RETURN" data-type-in="EVIDENCE" data-type-out="RECEIPT" open>
-    <summary>RETURN <span class="meta">EVIDENCE → RECEIPT</span></summary>
-    <div class="body">
-      <p>Return the exact document structure plus the execution trace.</p>
-      <p class="seam"><b>IN</b> <a href="#verify">EVIDENCE ← VERIFY</a></p>
-    </div>
-  </details>
-</main>
-
-<section class="panel">
-  <h2>RUN RESULT</h2>
-  <pre id="result">Nothing has run yet.</pre>
-</section>
-
-<details class="panel" id="sourcePanel">
-  <summary>SOURCE / EDIT THE PROGRAM</summary>
-  <p class="muted">This is the actual markup under <code>#program</code>. Edit it and APPLY. There is no second graph model to keep in sync.</p>
-  <textarea id="sourceText" spellcheck="false"></textarea>
-  <div class="controls">
-    <button id="refreshSource">REFRESH SOURCE</button>
-    <button id="applySource">APPLY SOURCE</button>
-    <button id="copySource">COPY SOURCE</button>
+    </main>
   </div>
-</details>
-
-<details class="panel">
-  <summary>RETURN RECEIPT</summary>
-  <textarea id="returnText" readonly></textarea>
-</details>
-
+  <aside class="overlay" id="overlay"><div class="overlayHead"><b id="overlayTitle">INSPECT</b><button id="closeOverlay">CLOSE</button></div><textarea id="overlayText" spellcheck="false"></textarea><div class="overlayActions"><button id="applyOverlay">APPLY SOURCE</button><button id="copyOverlay">COPY</button></div></aside>
+  <pre id="roomSelftest" class="selftest">NOT RUN</pre>
+</section>
+<footer>
+  <div class="pane"><div class="label">FOCUS APERTURE</div><div class="focusTitle" id="focusTitle">—</div><div class="focusMeta" id="focusMeta">—</div></div>
+  <div class="pane"><div class="label">CURRENT LAW</div><div class="law">The visible nested HTML is the program structure the tiny runtime interprets. FOLD literally wraps sibling DOM blocks into a cassette. Seam type is visible as a deterministic key. No canvas graph sits underneath this surface.</div></div>
+  <div class="pane"><div class="label">REALITY BOUNDARY</div><div class="law">A deterministic key is only an interface witness. A model may fit while the physical result fails its independent contract, or vice versa. No load / safety / buildability is inferred.</div></div>
+</footer>
+</div>
 <script>
 (()=>{'use strict';
-const $=s=>document.querySelector(s),program=()=>$('#program');
-let lastRun=null;
-
-function blocks(){return [...program().querySelectorAll('.block')]}
-function block(id){return program().querySelector('#'+CSS.escape(id))}
-function next(blockEl){return blockEl?.querySelector(':scope > .body a[rel="next"]')?.getAttribute('href')?.replace(/^#/,'')||null}
-function directChildren(el){return [...el.querySelectorAll(':scope > .body > .block')]}
-function valueText(el){return el.querySelector(':scope > .body > .value')?.textContent.trim()||''}
-
+const $=s=>document.querySelector(s),program=()=>$('#program'),allBlocks=()=>[...program().querySelectorAll('.block')],block=id=>program().querySelector('#'+CSS.escape(id));
+let focus='compiler',mark=null,scope=null,lastRun=null,events=[],overlayMode='view',foldN=0;
+const event=(kind,payload={})=>{events.push({kind,payload,at:new Date().toISOString()});events=events.slice(-96)};
+function typeKey(type){let h=2166136261;for(const c of String(type||'VOID').toUpperCase()){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}const bits=[];for(let i=0;i<5;i++)bits.push((h>>>(i*5))&1);if(!bits.some(Boolean))bits[0]=1;return bits.join('')}
+function decorateKeys(){program().querySelectorAll('.keybits').forEach(k=>{const bits=typeKey(k.dataset.type);k.innerHTML=bits.split('').map(b=>'<i class="'+(b==='1'?'on':'')+'"></i>').join('');k.title=(k.dataset.type||'VOID')+' / '+bits})}
+function directChildren(el){return [...el.querySelectorAll(':scope > .body > .children > .block')]}
+function topBlocks(){return [...program().children].filter(x=>x.classList?.contains('block'))}
+function visibleBlocks(){return scope?directChildren(block(scope)):topBlocks()}
+function nextAnchor(el){return el?.querySelector(':scope > .body > .seam.out > a[rel="next"]')||null}
+function nextId(el){return nextAnchor(el)?.getAttribute('href')?.replace(/^#/,'')||null}
+function valueText(el){return el?.querySelector(':scope > .body > .value')?.textContent.trim()||''}
+function binding(el=block('verify')){const p=Number(el?.querySelector('#pred')?.value),m=Number(el?.querySelector('#meas')?.value),t=Math.abs(Number(el?.querySelector('#tol')?.value)),contract=!!el?.querySelector('#contract')?.checked,valid=[p,m,t].every(Number.isFinite)&&t>0,g=valid?Math.abs(m-p)/t:null,fit=valid&&g<=1;return{valid,predicted:p,measured:m,tolerance:t,normalized_gap:g,model_fit:fit,contract_fit:contract,interpretation:!valid?'INVALID':fit&&contract?'MODEL_AND_CONTRACT_FIT':!fit&&contract?'MODEL_RECALIBRATION_REQUIRED':fit&&!contract?'PHYSICAL_CONTRACT_FAILED':'MODEL_AND_CONTRACT_FAILED'}}
+function updateBinding(){const b=binding(),el=$('#bindResult');if(!el)return;el.innerHTML='gap/tol <b class="'+(b.model_fit?'ok':'bad')+'">'+(b.normalized_gap==null?'—':b.normalized_gap.toFixed(2))+'</b> · model <b class="'+(b.model_fit?'ok':'bad')+'">'+(b.model_fit?'FIT':'FAIL')+'</b> · contract <b class="'+(b.contract_fit?'ok':'bad')+'">'+(b.contract_fit?'FIT':'FAIL')+'</b><br>'+b.interpretation}
 function applyOp(el,input){
-  const op=(el.dataset.op||'PASS').toUpperCase();
-  if(op==='SOURCE')return valueText(el);
-  if(op==='WRAP')return {value:input,bounded:true};
-  if(op==='GROUP'){
-    const kids=directChildren(el);let v=input,trace=[];
-    for(const k of kids){v=applyOp(k,v);trace.push({id:k.id,op:k.dataset.op,output:v})}
-    return {group:el.id,value:v,internal_trace:trace};
-  }
-  if(op==='CONFIG')return {intent:input,reversible:true,analog_first:true,status:'CANDIDATE'};
-  if(op==='COMPILE')return {schema:'room-html/pattern/v0.1',input,relations:['POINT','PATH','PLANE','POWER']};
-  if(op==='VERIFY')return {pass:input!=null,input,checks:['typed continuity','explicit unknowns'],physical_status:'UNVERIFIED'};
-  if(op==='RETURN')return {status:'RETURNED',value:input};
-  return input;
+ const op=(el.dataset.op||'PASS').toUpperCase();
+ if(op==='SOURCE')return valueText(el);
+ if(op==='WRAP')return{value:input,bounded:true};
+ if(op==='GROUP'){let v=input,trace=[];for(const k of directChildren(el)){const out=applyOp(k,v);trace.push({id:k.id,op:k.dataset.op||'PASS',input:v,output:out});v=out}return{group:el.id,value:v,internal_trace:trace}}
+ if(op==='CONFIG')return{intent:input,reversible:true,analog_first:true,status:'CANDIDATE'};
+ if(op==='COMPILE')return{schema:'room-material/pattern/v0.1',input,relations:['POINT','PATH','PLANE','POWER']};
+ if(op==='VERIFY')return{pass:input!=null,input,checks:['typed continuity','explicit unknowns'],model_binding:binding(el),physical_status:'CONTRACT_REPORTED_SEPARATELY'};
+ if(op==='RETURN')return{status:'RETURNED',value:input};
+ return input;
 }
-
-function clearTrace(){blocks().forEach(x=>x.classList.remove('running','pass','fail'))}
+function clearRuntime(){allBlocks().forEach(x=>x.classList.remove('running','pass'))}
 function run(){
-  clearTrace();
-  const entry=program().dataset.entry||blocks()[0]?.id;
-  let id=entry,input=null,trace=[],seen=new Set(),guard=0;
-  while(id&&guard++<64){
-    if(seen.has(id))throw new Error('cycle at #'+id);seen.add(id);
-    const el=block(id);if(!el)throw new Error('missing block #'+id);
-    el.classList.add('running');
-    const output=applyOp(el,input),n=next(el);
-    trace.push({id,op:el.dataset.op||'PASS',input,output,next:n});
-    input=output;id=n;
-  }
-  blocks().forEach(x=>x.classList.remove('running'));
-  trace.forEach(t=>block(t.id)?.classList.add('pass'));
-  lastRun={schema:'0xxx0/html-room-run/v0.3',entry,trace,result:input,at:new Date().toISOString()};
-  $('#result').textContent=JSON.stringify(lastRun,null,2);
-  return lastRun;
+ clearRuntime();let id=program().dataset.entry||topBlocks()[0]?.id,input=null,trace=[],seen=new Set(),guard=0;
+ while(id&&guard++<96){if(seen.has(id))throw new Error('cycle at #'+id);seen.add(id);const el=block(id);if(!el)throw new Error('missing block #'+id);el.classList.add('running');const output=applyOp(el,input),n=nextId(el);trace.push({id,op:el.dataset.op||'PASS',input,output,next:n});input=output;id=n}
+ clearRuntime();trace.forEach(t=>block(t.id)?.classList.add('pass'));lastRun={schema:'0xxx0/material-dom-run/v0.4',entry:program().dataset.entry,trace,result:input,at:new Date().toISOString()};event('run',{steps:trace.length});return lastRun;
 }
-
-function source(){return program().outerHTML}
-function refreshSource(){ $('#sourceText').value=source() }
-function applySource(){
-  const t=document.createElement('template');t.innerHTML=$('#sourceText').value.trim();
-  const nextProgram=t.content.querySelector('#program');
-  if(!nextProgram){alert('SOURCE must contain one element with id="program".');return}
-  program().replaceWith(nextProgram);
-  lastRun=null;$('#result').textContent='Source applied. RUN when ready.';refreshSource();
+function stripRuntime(root){root.querySelectorAll('.focused,.inrange,.running,.pass,.scope-hidden,.scope-host').forEach(el=>el.classList.remove('focused','inrange','running','pass','scope-hidden','scope-host'));return root}
+function source(){const c=stripRuntime(program().cloneNode(true));return c.outerHTML}
+function currentContainer(){return scope?block(scope).querySelector(':scope > .body > .children'):program()}
+function setFocus(id){if(!block(id))return;focus=id;event('focus',{id});render()}
+function rangeIds(){const xs=visibleBlocks().map(x=>x.id),a=xs.indexOf(mark),b=xs.indexOf(focus);if(a<0||b<0)return[];return xs.slice(Math.min(a,b),Math.max(a,b)+1)}
+function render(){
+ allBlocks().forEach(x=>x.classList.remove('focused','inrange','scope-hidden','scope-host'));
+ const f=block(focus)||visibleBlocks()[0];if(f)focus=f.id;
+ if(scope){const host=block(scope);topBlocks().forEach(x=>{if(x!==host)x.classList.add('scope-hidden')});host?.classList.add('scope-host');if(host)host.open=true}
+ const r=new Set(mark&&focus?rangeIds():[]);allBlocks().forEach(x=>{if(x.id===focus)x.classList.add('focused');if(r.has(x.id))x.classList.add('inrange')});
+ const el=block(focus);$('#focusTitle').textContent=el?.querySelector(':scope > summary')?.childNodes[0]?.textContent.trim()||focus||'—';
+ $('#focusMeta').innerHTML=el?('<b>'+el.id+'</b> · '+(el.dataset.op||'PASS')+' · '+(el.dataset.typeIn||'SOURCE')+' → '+(el.dataset.typeOut||'SINK')+(mark?' · MARK '+mark:'')):'—';
+ $('#address').innerHTML='PROGRAM / <b>'+(scope||'ROOT')+'</b> · '+visibleBlocks().length+' BLOCKS';
+ $('#status').innerHTML='<b>ROOM 0.4</b><br>'+(scope?'ENTERED '+scope:(mark?'span armed':'material DOM'));
+ updateBinding();requestAnimationFrame(()=>block(focus)?.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'}));
 }
-async function copy(text){
-  try{await navigator.clipboard.writeText(text)}catch(_){}
+function move(d){const xs=visibleBlocks(),i=Math.max(0,xs.findIndex(x=>x.id===focus)),j=Math.max(0,Math.min(xs.length-1,i+d));if(xs[j])setFocus(xs[j].id)}
+function toggleMark(){mark=mark===focus?null:focus;event('mark',{mark});render()}
+function seamMarkup(type,next){if(!next)return'';return '<p class="seam out"><a rel="next" data-type="'+type+'" href="#'+next+'"><strong>'+type+' → '+next.toUpperCase()+'</strong><span class="keybits" data-type="'+type+'"></span></a></p>'}
+function foldSpan(){
+ const xs=visibleBlocks(),ids=rangeIds();if(ids.length<2)throw new Error('MARK one end, move focus, then FOLD');
+ const chosen=ids.map(block),first=chosen[0],last=chosen[chosen.length-1],lo=xs.indexOf(first),hi=xs.indexOf(last),pred=xs[lo-1]||null,succ=xs[hi+1]||null,container=currentContainer();
+ const wrap=document.createElement('details');wrap.className='block cassette';wrap.id='cassette-'+(++foldN);wrap.dataset.op='GROUP';wrap.dataset.generated='fold';wrap.dataset.typeIn=first.dataset.typeIn||'';wrap.dataset.typeOut=last.dataset.typeOut||'';wrap.open=true;
+ const sum=document.createElement('summary');sum.innerHTML='CASSETTE '+foldN+' <span class="meta">'+chosen.length+' BLOCKS · generated fold</span>';const body=document.createElement('div');body.className='body';const desc=document.createElement('div');desc.className='desc';desc.textContent='Generated by FOLD; child DOM identities are preserved.';const kids=document.createElement('div');kids.className='children';body.append(desc,kids);if(succ)body.insertAdjacentHTML('beforeend',seamMarkup(last.dataset.typeOut||'ANY',succ.id));wrap.append(sum,body);
+ container.insertBefore(wrap,first);chosen.forEach(x=>kids.appendChild(x));
+ if(pred){const a=nextAnchor(pred);if(a&&a.getAttribute('href')==='#'+first.id)a.setAttribute('href','#'+wrap.id)}
+ else if(program().dataset.entry===first.id)program().dataset.entry=wrap.id;
+ focus=wrap.id;mark=null;event('fold',{id:wrap.id,children:ids});decorateKeys();render();return wrap.id;
 }
-function makeReturn(){
-  const ret={
-    schema:'0xxx0/html-room-return/v0.3',
-    route:location.pathname,
-    program_html:source(),
-    run:lastRun,
-    law:'DOM-as-program; structurally reflexive, not strict homoiconicity',
-    physical_status:'NO PHYSICAL FIT/LOAD/SAFETY CLAIM',
-    at:new Date().toISOString()
-  };
-  $('#returnText').value=JSON.stringify(ret,null,2);
-  copy($('#returnText').value);
-  return ret;
+function dissolve(){
+ const w=block(focus);if(!w||w.dataset.generated!=='fold')throw new Error('Focus a generated cassette');
+ const kids=directChildren(w),container=w.parentElement,pred=[...container.children].filter(x=>x.classList?.contains('block'))[[...container.children].filter(x=>x.classList?.contains('block')).indexOf(w)-1]||null,first=kids[0];
+ if(pred){const a=nextAnchor(pred);if(a&&a.getAttribute('href')==='#'+w.id)a.setAttribute('href','#'+first.id)}
+ else if(program().dataset.entry===w.id)program().dataset.entry=first.id;
+ kids.forEach(k=>container.insertBefore(k,w));w.remove();focus=first.id;mark=null;event('dissolve',{id:w.id});decorateKeys();render();
 }
-
-$('#runBtn').onclick=()=>{try{run()}catch(e){$('#result').textContent='RUN ERROR: '+e.message}};
-$('#clearBtn').onclick=clearTrace;
-$('#returnBtn').onclick=makeReturn;
-$('#refreshSource').onclick=refreshSource;
-$('#applySource').onclick=applySource;
-$('#copySource').onclick=()=>copy(source());
-refreshSource();
-window.RoomHTML={run,source,returnReceipt:makeReturn};
+function enter(){const el=block(focus);if(!el||!el.classList.contains('cassette')||!directChildren(el).length)throw new Error('Focus a cassette');scope=el.id;focus=directChildren(el)[0].id;mark=null;event('enter',{scope});render()}
+function back(){if(!scope)return;const old=scope,host=block(scope),parent=host?.parentElement?.closest('.block');scope=parent?.id||null;focus=old;mark=null;event('back',{scope});render()}
+function programBindingInputs(){return ['pred','meas','tol','contract'].map(id=>block('verify')?.querySelector('#'+id)).filter(Boolean)}
+function syncInputAttrs(){programBindingInputs().forEach(el=>{if(el.type==='checkbox'){if(el.checked)el.setAttribute('checked','');else el.removeAttribute('checked')}else el.setAttribute('value',el.value)});updateBinding()}
+function show(title,text,mode='view'){overlayMode=mode;$('#overlayTitle').textContent=title;$('#overlayText').value=text;$('#overlayText').readOnly=mode!=='source';$('#applyOverlay').style.display=mode==='source'?'inline-block':'none';$('#overlay').classList.add('on')}
+function applySource(){const t=document.createElement('template');t.innerHTML=$('#overlayText').value.trim();const p=t.content.querySelector('#program');if(!p)throw new Error('SOURCE must contain #program');program().replaceWith(p);focus=p.dataset.entry||topBlocks()[0]?.id;scope=null;mark=null;decorateKeys();event('source_apply');$('#overlay').classList.remove('on');render()}
+function makeReturn(showIt=true){const ret={schema:'0xxx0/material-dom-return/v0.4',route:location.pathname,program_html:source(),run:lastRun,binding:binding(),events:[...events],law:'DOM-as-program / structurally reflexive; not strict homoiconicity',physical_status:'NO LOAD / SAFETY / BUILDABILITY CLAIM',at:new Date().toISOString()};if(showIt)show('RETURN',JSON.stringify(ret,null,2));return ret}
+function invoke(fn){try{fn()}catch(e){show('OPERATION REJECTED',String(e.message||e))}}
+function selftest(){
+ try{
+  const a=run(),ids=a.trace.map(x=>x.id).join(',');
+  if(ids!=='intent,bound,compiler,return')throw new Error('top trace '+ids);
+  const g=a.trace.find(x=>x.id==='compiler')?.output?.internal_trace?.map(x=>x.id).join(',');
+  if(g!=='search,compile,verify')throw new Error('internal trace '+g);
+  if(!binding().model_fit||!binding().contract_fit)throw new Error('binding fixture');
+  setFocus('bound');mark='bound';setFocus('compiler');const c=foldSpan();
+  const tops=topBlocks().map(x=>x.id);if(tops.length!==3||tops[1]!==c)throw new Error('fold topology '+tops.join(','));
+  const b=run();if(b.trace.map(x=>x.id).join(',')!=='intent,'+c+',return')throw new Error('folded run');
+  if(!source().includes('data-generated="fold"'))throw new Error('source lost fold');
+  if(makeReturn(false).schema!=='0xxx0/material-dom-return/v0.4')throw new Error('return schema');
+  $('#roomSelftest').textContent='PASS · DOM PROGRAM · FOLD · RUN · BIND · RETURN';
+ }catch(e){$('#roomSelftest').textContent='FAIL · '+String(e.message||e)}
+}
+document.addEventListener('click',e=>{const s=e.target.closest('#program summary');if(s)setFocus(s.parentElement.id)});
+document.addEventListener('dblclick',e=>{const s=e.target.closest('#program summary');if(s){setFocus(s.parentElement.id);invoke(enter)}});
+document.addEventListener('input',e=>{if(['pred','meas','tol','contract'].includes(e.target.id))syncInputAttrs()});
+$('#prevBtn').onclick=()=>move(-1);$('#nextBtn').onclick=()=>move(1);$('#markBtn').onclick=toggleMark;$('#foldBtn').onclick=()=>invoke(foldSpan);$('#dissolveBtn').onclick=()=>invoke(dissolve);$('#enterBtn').onclick=()=>invoke(enter);$('#backBtn').onclick=back;
+$('#runBtn').onclick=()=>invoke(()=>show('RUN',JSON.stringify(run(),null,2)));$('#sourceBtn').onclick=()=>show('SOURCE / STRUCTURAL DOM',source(),'source');$('#returnBtn').onclick=()=>makeReturn(true);$('#closeOverlay').onclick=()=>$('#overlay').classList.remove('on');$('#applyOverlay').onclick=()=>invoke(applySource);$('#copyOverlay').onclick=()=>navigator.clipboard?.writeText($('#overlayText').value).catch(()=>{});
+document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea'))return;if(e.key==='ArrowLeft')move(-1);else if(e.key==='ArrowRight')move(1);else if(e.key==='Enter')invoke(enter);else if(e.key==='Escape')back();else if(e.key.toLowerCase()==='m')toggleMark();else if(e.key.toLowerCase()==='f')invoke(foldSpan)});
+let tx=null;$('#viewport').addEventListener('touchstart',e=>tx=e.touches[0]?.clientX??null,{passive:true});$('#viewport').addEventListener('touchend',e=>{if(tx==null)return;const x=e.changedTouches[0]?.clientX??tx,d=x-tx;tx=null;if(Math.abs(d)>52)move(d>0?-1:1)},{passive:true});
+decorateKeys();syncInputAttrs();render();window.RoomMaterial={run,source,returnReceipt:()=>makeReturn(false),foldSpan,enter,back,binding,snapshot:()=>({entry:program().dataset.entry,top:topBlocks().map(x=>x.id),scope,focus})};
+if(new URLSearchParams(location.search).get('selftest')==='1')setTimeout(selftest,40);
 })();
 </script>
 <script src="/showcase-nav.js" defer></script>
