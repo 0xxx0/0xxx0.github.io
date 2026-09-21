@@ -1,0 +1,18 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "CARE_PORT_OBJECT_BRIDGE_2026-09-22",
+  "date": "2026-09-22",
+  "state": "RETURNED",
+  "object": "CARE / FIELD 0.5 × HUMAN PORT 1.5.1",
+  "operation": "cross-lineage bounded convergence",
+  "delta": [
+    "exact CARE case snapshot can enter HUMAN PORT as an addressed JSON object",
+    "Port objects can enter CARE as explicit evidence refs without byte duplication",
+    "CARE evidence refs can return to Port source when source remains addressable",
+    "direct consult intent corrected to NEED when ASK exists",
+    "FIELD private-file gap closed through existing Port substrate"
+  ],
+  "proof": "/control/CARE_VALIDATION_2026-09-22_V05.json",
+  "confluence": "/control/confluence/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
+  "stop": "Use it on real evidence before expanding the model."
+}
