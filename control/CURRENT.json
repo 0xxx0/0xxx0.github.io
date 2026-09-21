@@ -65,10 +65,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX / NOW · HEADS · MAP · OPEN PORTS",
+      "head": "FIELD INDEX / LATEST · ISSUES · MAP",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Orientation layer separating attention, retained heads, durable address structure, evolutionary probes, open ports and mutation history. EVOLVE projects host→baseline→one mutation→evidence→selection without creating a parallel experiment backlog; fixed root readings fold repeated identities."
+      "retained_function": "Fast re-entry from newest durable repo touches first; GitHub issues expose declared open loops; semantic glyph rail compresses the same list; NOW remains explicit attention, HEADS is a collapsed advanced lineage reading, MAP/EVOLVE/PULSE are secondary projections."
     },
     {
       "lineage": "scale-lens",
@@ -400,7 +400,9 @@
     "preference_signals": "/control/PREFERENCE_SIGNALS.json",
     "passive_feedback_return": "/returns/PASSIVE_FEEDBACK_2026-09-21.json",
     "field_evolution": "/control/confluence/FIELD_EVOLUTION.md",
-    "field_evolution_return": "/returns/FIELD_EVOLUTION_2026-09-21.json"
+    "field_evolution_return": "/returns/FIELD_EVOLUTION_2026-09-21.json",
+    "field_issues": "/control/FIELD_ISSUES.json",
+    "field_glyph": "/field-glyph.js"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
@@ -437,7 +439,7 @@
       "UNKNOWN"
     ],
     "touch_rule": "A tracked public route changes RECENT only when a durable repo mutation updates route.index.updated_at; discussion alone never bumps it. CURRENT, not RECENT, owns attention.",
-    "default_reading": "STRUCTURE",
+    "default_reading": "LATEST",
     "readings": {
       "NOW": "/control/CURRENT.json#active_fronts",
       "HEADS": "/control/CURRENT.json#current_heads",
@@ -447,7 +449,9 @@
       "EVOLVE": "showcase-manifest route.evolution; bounded variation → evidence → selection → transfer/park/compost"
     },
     "evolution_contract": "/control/FIELD_INDEX_CONTRACT.json#evolution_contract",
-    "identity_fold": "Fixed root readings show a canonical route identity once: NOW first, then HEADS, then PULSE. Explicit MAP/RECENT/EVOLVE are named reprojections."
+    "identity_fold": "SUPERSEDED_ON_PRIMARY_REENTRY",
+    "issue_snapshot": "/control/FIELD_ISSUES.json",
+    "glyph_grammar": "/field-glyph.js"
   },
   "last_recovery_survey": "/control/RECOVERY_SURVEY_2026-09-20_B.json",
   "last_recovery_population": "/control/RECOVERY_POPULATION_2026-09-20.json",
