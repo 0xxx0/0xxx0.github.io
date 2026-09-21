@@ -279,3 +279,31 @@ Kill any route if:
 - it destroys source traceability
 - it claims semantics from geometry alone
 - it requires a separate app merely because language/form changed
+
+
+## Generation split
+
+### POEM MAP 0.1 — selective visualization proof
+Route: `/poetry/lab/poem-map/`
+
+Question: can one named visual question reveal structure without displacing the readable poem?
+
+Preserve as a boring/control ancestor:
+SOURCE / REPEAT / ORTHO ECHO / STRUCTURE / LINE PROFILE + RELATED/HARD focus.
+
+### POEM MAP 0.2 — co-creative authoring descendant
+Route: `/poetry/map/`
+
+Adds:
+- linked PAGE / MAP / SETS entrances;
+- typed ORDER / SOUND / REPEAT / AUTHOR relations;
+- continuous relation weights;
+- APERTURE for visual load;
+- locks and explicit author paths;
+- candidate bank;
+- non-destructive TRY preview;
+- explicit ADOPT gate;
+- revision ancestry + undo;
+- form adapters + RETURN.
+
+The 0.2 claim is not that a graph writes poetry. The map earns its existence only when it shortens a real authoring decision while preserving source identity and a plain-text return path.
