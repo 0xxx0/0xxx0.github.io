@@ -224,6 +224,9 @@ check(home.includes('lib/constraint-surface.js'),'FIELD root missing shared Cons
 check(!home.includes('foundry/axial/focus-core.js'),'FIELD root must not depend on AXIAL presentation core');
 const axialPath='foundry/axial/index.html';
 const axialLabPath='foundry/axial/lab-0.5.1.html';
+const roomPath='foundry/room/index.html';
+const roomCorePath='foundry/room/room-core.js';
+const roomRelease=parse('foundry/room/release.json');
 if(exists(axialPath)){
   const a=read(axialPath),axialRoute=(manifest?.routes||[]).find(r=>r.href==='/foundry/axial/'),v=axialRelease?.version||axialRoute?.version;
   check(a.includes('../../lib/constraint-surface.js'),'AXIAL missing shared Constraint Surface kernel');
@@ -238,9 +241,24 @@ if(exists(axialLabPath)){
   compileInline(axialLabPath);
 }
 
+if(exists(roomCorePath)){
+  try{new Function(read(roomCorePath))}catch(e){fail.push('JS '+roomCorePath+': '+e.message)}
+}else fail.push('INTERPHASE ROOM core missing');
+if(exists(roomPath)){
+  const room=read(roomPath),route=(manifest?.routes||[]).find(r=>r.href==='/foundry/room/');
+  for(const token of ['INTERPHASE / ROOM 0.1','data-face="F"','data-face="U"','id="returnBtn"','PLAIN','room-core.js'])check(room.includes(token),'INTERPHASE ROOM surface missing token: '+token);
+  check(route?.state==='CANDIDATE','INTERPHASE ROOM must remain CANDIDATE until comparative use evidence');
+  check(route?.kind==='experiment','INTERPHASE ROOM route kind drifted');
+  check(route?.evolution?.host==='/foundry/','INTERPHASE ROOM evolution host drifted');
+  check(roomRelease?.version==='0.1','INTERPHASE ROOM release version drifted');
+  check(roomRelease?.route==='/foundry/room/','INTERPHASE ROOM release route drifted');
+  check(/projection, never canonical object truth/i.test((roomRelease?.boundary||[]).join(' ')),'INTERPHASE ROOM lost projection authority boundary');
+  compileInline(roomPath);
+}
+
 if(exists('showcase-selftest/index.html')){
   const st=read('showcase-selftest/index.html');
-  for(const token of ["/docs/","/foundry/axial/","/port/","const TOTAL=CASES.length*WIDTHS.length","c.adapter!==false"])check(st.includes(token),'showcase self-test missing current-surface coverage: '+token);
+  for(const token of ["/docs/","/foundry/axial/","/foundry/room/","/port/","const TOTAL=CASES.length*WIDTHS.length","c.adapter!==false"])check(st.includes(token),'showcase self-test missing current-surface coverage: '+token);
   compileInline('showcase-selftest/index.html');
 }
 

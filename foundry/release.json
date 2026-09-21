@@ -3,7 +3,7 @@
   "title": "FOUNDRY / INSTRUMENT GATEWAY",
   "version": "0.3",
   "state": "ACTIVE",
-  "date": "2026-09-21",
+  "date": "2026-09-22",
   "route": "/foundry/",
   "parent": "/",
   "operation": "ORIENT",
@@ -29,5 +29,19 @@
     ],
     "next": "Use the four views on normal work; add shared focus/handoff only after a real cross-view navigation failure is observed."
   },
-  "machine_contract": "/foundry/machine.json"
+  "machine_contract": "/foundry/machine.json",
+  "amendments": [
+    {
+      "date": "2026-09-22",
+      "change": "Added INTERPHASE / ROOM 0.1 as a bounded CANDIDATE projection: one FIELD route through six opposing relations with explicit door traversal, PLAIN comparator and RETURN. Also repaired the gateway's displayed AXIAL version to 0.7.3.",
+      "route": "/foundry/room/",
+      "preserves": [
+        "candidate ≠ canon",
+        "ROOM projection ≠ kernel",
+        "identity through projection",
+        "plain control",
+        "RETURN/replan boundary"
+      ]
+    }
+  ]
 }
