@@ -63,8 +63,8 @@ export class ListenRenderer{
     this.ctx.setTransform(d,0,0,d,0,0);
   }
   markBeat(i){if(i!==this.lastBeat){this.lastBeat=i;this.beatPulse=1}}
-  draw(map,feature,time,scope,playing){
-    const progress=map?.duration?clamp(time/map.duration,0,1):0,f=feature||{e:.1,c:.4,f:.05,l:.3,m:.4,h:.3};
+  draw(map,feature,time,scope,playing,range=null){
+    const lo=range?.[0]??0,hi=range?.[1]??map?.duration??1,span=Math.max(.001,hi-lo),progress=map?.duration?clamp((time-lo)/span,0,1):0,f=feature||{e:.1,c:.4,f:.05,l:.3,m:.4,h:.3};
     this.beatPulse*=.88;
     if(this.gl){
       const gl=this.gl,u=this.u;gl.useProgram(this.pr);
@@ -72,9 +72,9 @@ export class ListenRenderer{
     }else{
       const x=this.ctx; x.fillStyle='#05070b';x.fillRect(0,0,this.w,this.h);
     }
-    this.overlayMap(map,time,scope,playing,f);
+    this.overlayMap(map,time,scope,playing,f,[lo,hi]);
   }
-  overlayMap(map,time,scope,playing,feature){
+  overlayMap(map,time,scope,playing,feature,range){
     const x=this.ctx,w=this.w,h=this.h,cx=w*.5,cy=h*.53,r=Math.min(w,h)*.34;
     const f=feature||{e:.1,c:.4,f:.05,l:.3,m:.4,h:.3},energy=clamp(f.e||0,0,1.25),flux=clamp(f.f||0,0,1.5);
     x.clearRect(0,0,w,h);x.save();x.translate(cx,cy);
@@ -86,28 +86,28 @@ export class ListenRenderer{
     x.strokeStyle=`rgba(109,189,255,${.16+.30*flux})`;x.lineWidth=1+1.6*flux;x.beginPath();x.arc(0,0,Math.max(10,r-18-flux*7),0,TAU);x.stroke();
 
     if(map?.frames?.length){
-      const frames=map.frames,step=Math.max(1,Math.ceil(frames.length/720));
+      const lo=range?.[0]??0,hi=range?.[1]??map.duration,span=Math.max(.001,hi-lo),angle=t=>-Math.PI/2+TAU*clamp((t-lo)/span,0,1),frames=map.frames,fps=map.frameRate||(map.sampleRate/map.hop)||1,i0=clamp(Math.floor(lo*fps),0,frames.length-1),i1=clamp(Math.ceil(hi*fps),i0,frames.length-1),step=Math.max(1,Math.ceil((i1-i0+1)/720));
       x.beginPath();
       let begun=false;
-      for(let i=0;i<frames.length;i+=step){
-        const q=frames[i],a=-Math.PI/2+TAU*(q.t/map.duration),rr=r+8+(q.e||0)*26+(q.f||0)*14;
+      for(let i=i0;i<=i1;i+=step){
+        const q=frames[i],a=angle(q.t),rr=r+8+(q.e||0)*26+(q.f||0)*14;
         const px=Math.cos(a)*rr,py=Math.sin(a)*rr;
         if(!begun){x.moveTo(px,py);begun=true}else x.lineTo(px,py);
       }
       x.closePath();x.fillStyle='rgba(109,189,255,.055)';x.fill();
       x.strokeStyle='rgba(225,240,250,.62)';x.lineWidth=1.35;x.stroke();
 
-      for(let i=0;i<frames.length;i+=step){
-        const q=frames[i],a=-Math.PI/2+TAU*(q.t/map.duration),inner=r-5,outer=r+7+(q.e||0)*23+(q.f||0)*16;
+      for(let i=i0;i<=i1;i+=step){
+        const q=frames[i],a=angle(q.t),inner=r-5,outer=r+7+(q.e||0)*23+(q.f||0)*16;
         x.strokeStyle=`rgba(255,255,255,${.10+.50*Math.min(1,q.e||0)})`;x.lineWidth=.8+2.8*Math.min(1,q.f||0);
         x.beginPath();x.moveTo(Math.cos(a)*inner,Math.sin(a)*inner);x.lineTo(Math.cos(a)*outer,Math.sin(a)*outer);x.stroke();
       }
 
       x.strokeStyle='rgba(255,190,90,.78)';x.lineWidth=1.7;
-      for(const bt of map.beats||[]){const a=-Math.PI/2+TAU*(bt/map.duration);x.beginPath();x.moveTo(Math.cos(a)*(r-12),Math.sin(a)*(r-12));x.lineTo(Math.cos(a)*(r+13),Math.sin(a)*(r+13));x.stroke()}
+      for(const bt of map.beats||[]){if(bt<lo||bt>hi)continue;const a=angle(bt);x.beginPath();x.moveTo(Math.cos(a)*(r-12),Math.sin(a)*(r-12));x.lineTo(Math.cos(a)*(r+13),Math.sin(a)*(r+13));x.stroke()}
       x.strokeStyle='rgba(110,190,255,.95)';x.lineWidth=2.4;
-      for(const sec of map.sections||[]){if(sec.t<=0||sec.t>=map.duration)continue;const a=-Math.PI/2+TAU*(sec.t/map.duration);x.beginPath();x.moveTo(Math.cos(a)*(r-24),Math.sin(a)*(r-24));x.lineTo(Math.cos(a)*(r+24),Math.sin(a)*(r+24));x.stroke()}
-      const a=-Math.PI/2+TAU*(time/map.duration);
+      for(const sec of map.sections||[]){if(sec.t<=lo||sec.t>=hi)continue;const a=angle(sec.t);x.beginPath();x.moveTo(Math.cos(a)*(r-24),Math.sin(a)*(r-24));x.lineTo(Math.cos(a)*(r+24),Math.sin(a)*(r+24));x.stroke()}
+      const a=angle(time);
       x.strokeStyle='white';x.lineWidth=3;x.beginPath();x.moveTo(Math.cos(a)*(r-32),Math.sin(a)*(r-32));x.lineTo(Math.cos(a)*(r+34),Math.sin(a)*(r+34));x.stroke();
       x.fillStyle='white';x.beginPath();x.arc(Math.cos(a)*(r+34),Math.sin(a)*(r+34),3.2,0,TAU);x.fill();
     }
