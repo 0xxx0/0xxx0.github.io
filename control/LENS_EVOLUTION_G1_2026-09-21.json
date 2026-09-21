@@ -49,10 +49,19 @@
       "FIELD root loads LensState before its inline host and field-lens/focus-ring after host creation.",
       "FieldLensHost exposes the existing focus closure rather than maintaining a duplicate selectedRoute.",
       "Scale Lens route carries field-evolution/v0.1 generation 1 TEST metadata."
+    ],
+    "ci": {
+      "run_id": 35575962447,
+      "head": "0fef011ccdfa693ff7180b54cfd09035c28bdec6",
+      "lens_state": "18/18 PASS",
+      "public_surface": "PASS"
+    },
+    "boundary": [
+      "FIELD-specific lens stacks remain upstream provenance when entering Scale Studio; they are not silently activated under the Scale contract.",
+      "LensState v0.2 rejects incompatible ordered compositions."
     ]
   },
   "evidence_required": [
-    "GitHub Actions expanded LensState selftest passes.",
     "390px browser smoke: AXIAL focus → ◎ LENS → STACK live/dead candidates → FOVEATE → Studio → RETURN.",
     "desktop repeats same identity/RETURN path.",
     "No horizontal overflow or hidden essential control.",
@@ -61,5 +70,5 @@
   ],
   "disposition_if_pass": "TRANSFER typed support planner + Focus Ring composition grammar to ordinary FIELD/generic surfaces; keep Scale Studio as deep lab.",
   "disposition_if_fail": "PARK Focus Ring UI; keep LensState typed support law as DONOR; ordinary Scale Lens remains RC11.2 legacy entry.",
-  "return": "TEST is open. Do not mark this generation SELECT/TRANSFER until browser and CI receipts exist."
+  "return": "CODE/CONTRACT TEST PASSED. Generation remains TEST until the live phone/desktop interaction path and foveation comparison produce receipts; only then choose TRANSFER / REPEAT / PARK."
 }
