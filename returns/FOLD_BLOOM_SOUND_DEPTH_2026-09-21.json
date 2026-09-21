@@ -1,0 +1,29 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FOLD_BLOOM_SOUND_DEPTH_2026-09-21",
+  "date": "2026-09-21",
+  "operation": "RECOVER → DEEPEN SOUND → CLARIFY FAMILY → VERIFY → SHIP",
+  "status": "BRANCH_IMPLEMENTED_PENDING_CI",
+  "branch": "two-dial-sonic-depth-010",
+  "changed": [
+    "/fold-bloom/two-dial/",
+    "/fold-bloom/two-dial/music-data.js",
+    "/fold-bloom/live/",
+    "/fold-bloom/",
+    "/showcase-manifest.json",
+    "/control/CURRENT.json",
+    "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json"
+  ],
+  "preserved": [
+    "Two Dial MATTER×HARMONY relation algebra",
+    "/recovery/fold-bloom/fold-weave-0.1/ exact donor",
+    "/fold-bloom/ecology/ independent game/lineage branch",
+    "/fold-bloom/lens/ URL and representation capability"
+  ],
+  "verification": [
+    "browser smoke extended to require LIVE demo and generated TRANCE/FM/POLY Two Dial controls",
+    "CI pending",
+    "direct audio A/B pending"
+  ],
+  "stop": "Do not add another synth/groove family before CI and embodied listening identify a concrete gap."
+}

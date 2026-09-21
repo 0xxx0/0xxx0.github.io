@@ -491,10 +491,17 @@ function commit() {
   scarsR[R] = Math.min(9, scarsR[R] + 0.6 + 0.35 * power);
   burst(original);
   chord(original);
-  applyPatternVerb(original, power);
-  transformMusic(original, false, power);
-  advanceForm(original, power);
-  applyMemoryVerb(original, power);
+  if (prefs.mode === 'SCALE') {
+    if (prefs.scope === 'PULSE') applyPatternVerb(original, power);
+    else if (prefs.scope === 'VOICE') transformMusic(original, false, power);
+    else if (prefs.scope === 'MOTIF') applyMemoryVerb(original, power);
+    else if (prefs.scope === 'FORM') { transformMusic(original, false, Math.max(1,power-1)); advanceForm(original, power); }
+  } else {
+    applyPatternVerb(original, power);
+    transformMusic(original, false, power);
+    advanceForm(original, power);
+    applyMemoryVerb(original, power);
+  }
   if (echoBefore > 0 && audio && soundOn) {
     let n = audio.currentTime + 0.12;
     pluck(
@@ -508,10 +515,17 @@ function commit() {
     splitCharge = 0;
     setTimeout(() => {
       chord('BLOOM');
-      applyPatternVerb('BLOOM', 1);
-      transformMusic('BLOOM', true, 1);
-      advanceForm('BLOOM', 1);
-      applyMemoryVerb('BLOOM', 1);
+      if (prefs.mode === 'SCALE') {
+        if (prefs.scope === 'PULSE') applyPatternVerb('BLOOM',1);
+        else if (prefs.scope === 'VOICE') transformMusic('BLOOM',true,1);
+        else if (prefs.scope === 'MOTIF') applyMemoryVerb('BLOOM',1);
+        else if (prefs.scope === 'FORM') { transformMusic('BLOOM',true,1); advanceForm('BLOOM',1); }
+      } else {
+        applyPatternVerb('BLOOM', 1);
+        transformMusic('BLOOM', true, 1);
+        advanceForm('BLOOM', 1);
+        applyMemoryVerb('BLOOM', 1);
+      }
       burst('BLOOM');
       emit('compose', { ops: ['FOLD', 'BLOOM'] });
       saveLocal();
@@ -557,6 +571,9 @@ function commit() {
     mode: prefs.mode,
     form: form.state,
     world: prefs.world,
+    voice: prefs.voice,
+    groove: prefs.groove,
+    scope: prefs.mode === 'SCALE' ? prefs.scope : 'ALL',
     request: requested,
     phrase: phraseCount + 1,
     phrasePos,
@@ -588,7 +605,7 @@ function hud() {
   $('#future').textContent =
     (live.mode === 'STILL' ? 'FIELD' : live.mode) +
     (splitCharge ? ' · CHARGED' : '') +
-    ` · ${form.state} · ${prefs.world}`;
+    ` · ${form.state} · ${prefs.world} · ${prefs.voice}${prefs.mode === 'SCALE' ? ' · '+prefs.scope : ''}`;
   $('#leftHud').firstChild.textContent =
     prefs.mode === 'OPEN' ? 'MOVES ' : 'PHRASES ';
   $('#rightHud').firstChild.textContent = 'MOTIF ';

@@ -1,0 +1,89 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_SOUND_DEPTH_2026-09-21",
+  "date": "2026-09-21",
+  "object": "FOLD//BLOOM instrument family",
+  "user_evidence": {
+    "status": "EXPLICIT_CURRENT_FEEDBACK",
+    "observations": [
+      "Two Dial was run for a while and became partly intelligible in use.",
+      "The requested improvement is wider/deeper music generation, more modes/instruments and cleaner menus/options—not replacement of the two-dial relation core.",
+      "LIVE was fun/useful but its purpose needed to become legible; it should not monopolize the family.",
+      "Scale Lens felt operationally strange inside the Fold/Bloom sibling grid.",
+      "The earlier scale-in-Fold/Bloom interaction was remembered as promising and worth recovering as a mode."
+    ]
+  },
+  "recovered": {
+    "collaboration_history": {
+      "evidence_class": "RECOVERED_FROM_COLLABORATION_CONTEXT_NOT_CURRENT_REPO_SOURCE",
+      "mechanism": "earlier Fold/Bloom scale interaction coupled topology change with scope/scale change; later Scale Lens became a standalone addressed-representation line",
+      "transfer_decision": "recover scale as SCALE OF CONSEQUENCE inside Two Dial; do not collapse modern Scale Lens back into the music/game instrument"
+    },
+    "repo_state": {
+      "two_dial_09": "existing Euclidean pulse transforms, BLOOM/FOLD/SPLIT/RETURN pattern and motif operators, phrase memory, harmonic voice-leading and WebAudio effects",
+      "live_01": "one-hand charge/release performance head",
+      "scale_lens": "stable RC11.2 + actualize-1 representation instrument"
+    }
+  },
+  "research": {
+    "date_checked": "2026-09-21",
+    "sources": [
+      "Strudel mini-notation / synth / effects / time modifiers / pattern factories",
+      "TidalCycles tutorial/reference"
+    ],
+    "transferable_mechanisms": [
+      "keep pattern structure separable from sound source",
+      "Euclidean distribution + rotation + reversal + stacking",
+      "polymetric crossing rather than only denser 16-step grids",
+      "independent voicing/timbre dimensions",
+      "continuous modulation/effect thinking without importing DAW surface complexity"
+    ],
+    "non_transfer": [
+      "external sample/CDN dependency",
+      "live-coding text syntax as primary UI",
+      "unbounded effect/plugin menus"
+    ]
+  },
+  "changed": {
+    "two_dial_010": [
+      "WORLD × VOICE × GROOVE separated",
+      "TRANCE and DRIFT added to five existing worlds",
+      "AIR/WOOD/FM/BELL/BOW/DIRTY voice engines",
+      "GROUND/DRIVE/SWING/BROKEN/POLY grooves",
+      "SCALE mode routes relation consequences to PULSE/VOICE/MOTIF/FORM",
+      "one reusable noise buffer replaces repeated transient-buffer allocation",
+      "PLAY/SOUND/STATE menu panes replace long undifferentiated drawer",
+      "cassette/RETURN state includes voice/groove/scope"
+    ],
+    "live_01": [
+      "bounded WATCH DEMO makes the charge→release thesis observable and hands control back after twelve releases or immediately on takeover"
+    ],
+    "family": [
+      "/fold-bloom/ is the current family head",
+      "Scale Lens removed from playable sibling grid and reparented to root representation lineage while URL/capability remain unchanged"
+    ]
+  },
+  "laws": [
+    "HOLD FAST: preserve the small relation algebra and donor boundaries",
+    "LET FLY: expand timbre, groove, voicing, temporal scale and consequence range",
+    "DEPTH BEFORE CONTROL COUNT: new range must compose through existing gestures",
+    "UNEQUAL HEADS: LIVE ≠ TWO DIAL ≠ ECOLOGY ≠ SCALE LENS",
+    "NO NAME CHANGE YET: naming remains deliberately held until play evidence warrants it"
+  ],
+  "evaluation": [
+    "A/B WORLD while demo runs: world changes harmonic/tempo atmosphere without changing relation grammar",
+    "A/B VOICE: FM/WOOD/BELL/BOW/DIRTY must sound materially distinct, not cosmetic",
+    "A/B GROOVE: DRIVE/SWING/BROKEN/POLY must change bodily timing without obscuring relation events",
+    "SCALE PULSE vs MOTIF vs FORM must produce learnably different consequences from the same dial relation",
+    "10-minute run: no crackle/runaway scheduler/stuck drone/material menu or frame friction"
+  ],
+  "first_play_set": [
+    "TRANCE × FM × DRIVE · OPEN",
+    "DRIFT × BELL × POLY · OPEN",
+    "DEEP × WOOD × BROKEN · SCALE/MOTIF",
+    "PULSE × DIRTY × DRIVE · SCALE/PULSE"
+  ],
+  "status": "IMPLEMENTED_ON_BRANCH_PENDING_CI_AND_DIRECT_LISTENING",
+  "branch": "two-dial-sonic-depth-010",
+  "return": "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json"
+}

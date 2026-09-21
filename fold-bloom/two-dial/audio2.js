@@ -2,7 +2,7 @@ function scheduler() {
   if (!audio || audio.state !== 'running' || !soundOn) return;
   while (mus.next < audio.currentTime + 0.12) {
     let stepDur = 60 / currentBpm() / 4,
-      swing = world().sync * 0.18 + form.sync * 0.08,
+      swing = world().sync * 0.08 + (groove().swing || 0) + form.sync * 0.05,
       when = mus.next + (mus.step % 2 ? stepDur * swing : 0);
     musicStep(mus.step, when);
     mus.step = (mus.step + 1) % 16;
@@ -46,8 +46,8 @@ function liveStart() {
   dR = audio.createOscillator();
   gL = audio.createGain();
   gR = audio.createGain();
-  dL.type = world().bass;
-  dR.type = world().body;
+  dL.type = voice().live || world().bass;
+  dR.type = voice().live || world().body;
   gL.gain.value = 0.002;
   gR.gain.value = 0.002;
   dL.connect(gL);
@@ -68,34 +68,17 @@ function liveUpdate() {
   gR.gain.setTargetAtTime(soundOn ? 0.002 + spd * 0.012 : 0, n, 0.035);
   if (filter)
     filter.frequency.setTargetAtTime(
-      world().cut * (0.72 + spd * 0.62),
+      world().cut * (voice().brightness || 1) * (0.72 + spd * 0.62),
       n,
       0.05
     );
 }
 function chord(v) {
   if (!audio || !soundOn) return;
-  let w = world(),
-    map = {
-      BLOOM: [0, 2, 4],
-      FOLD: [0, 2, 5],
-      SPLIT: [0, 1, 3],
-      RETURN: [0, 2, 4, 6],
-    },
-    q = map[v],
-    n = audio.currentTime + 0.015;
+  let w = world(), map = { BLOOM:[0,2,4], FOLD:[0,2,5], SPLIT:[0,1,3], RETURN:[0,2,4,6] }, q = map[v], n = audio.currentTime + 0.015;
   q.forEach((off, i) => {
-    let idx = R + off,
-      oct = Math.floor(idx / 6) * 12,
-      pc = w.scale[wrap(idx, 6)];
-    tone(
-      w.root + 12 + pc + oct,
-      n + i * 0.028,
-      0.34,
-      0.04,
-      i % 2 ? w.lead : w.body,
-      w.cut
-    );
+    let idx = R + off, oct = Math.floor(idx / 6) * 12, pc = w.scale[wrap(idx, 6)];
+    voiceNote(w.root + 12 + pc + oct, n + i * 0.028, v==='RETURN'?.48:.34, 0.026 + .006*q.length, i%2?'lead':'body', (i-(q.length-1)/2)*.2);
   });
 }
 function softCurve(amount = 1.25) {
@@ -122,6 +105,8 @@ async function initSound() {
         return false;
       }
       audio = new AC();
+      noiseBuffer = audio.createBuffer(1, Math.floor(audio.sampleRate), audio.sampleRate);
+      { let d=noiseBuffer.getChannelData(0); for(let i=0;i<d.length;i++) d[i]=rng()*2-1; }
       master = audio.createGain();
       filter = audio.createBiquadFilter();
       saturator = audio.createWaveShaper();
@@ -188,8 +173,8 @@ function applyWorldAudio() {
       0.12
     );
   if (dL) {
-    dL.type = world().bass;
-    dR.type = world().body;
+    dL.type = voice().live || world().bass;
+    dR.type = voice().live || world().body;
   }
   form.sync = Math.max(world().sync, Math.min(form.sync, 0.62));
   liveUpdate();
@@ -197,16 +182,7 @@ function applyWorldAudio() {
 function soundCheck() {
   if (!audio) return;
   let n = audio.currentTime + 0.02;
-  [0, 2, 4].forEach((d, i) =>
-    tone(
-      world().root + world().scale[d],
-      n + i * 0.07,
-      0.25,
-      0.04,
-      world().lead,
-      world().cut
-    )
-  );
+  [0,2,4].forEach((d,i)=>voiceNote(world().root + world().scale[d], n+i*.07, .25, .028, 'lead', (i-1)*.22));
 }
 function toggleSound() {
   soundOn = !soundOn;
