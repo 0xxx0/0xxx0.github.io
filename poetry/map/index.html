@@ -223,17 +223,17 @@ function localCorpusCandidates(intent,n){
  let hits=[],arr=S.corpus,key=n.norm;
  for(let i=0;i<arr.length;i++)if(arr[i].norm===key)hits.push(i);
  let score=new Map(),add=(t,why,w=1)=>{if(!t||t.norm===key)return;let k=t.text;if(!score.has(k))score.set(k,{word:k,why,w:0});let q=score.get(k);q.w+=w;if(!q.why.includes(why))q.why+=' · '+why};
- for(const i of hits){
-   if(intent==='continue'){add(arr[i+1],'LOCAL CORPUS · observed follower',4)}
-   else if(intent==='replace'||intent==='turn'||intent==='surprise'){
-     for(let d=-4;d<=4;d++){if(!d)continue;let t=arr[i+d];if(!t)continue;
-       let w=intent==='replace'?(Math.abs(d)<=2?3:1):intent==='turn'?(Math.abs(d)>=2?2:1):(Math.abs(d)>=3?3:1);
-       add(t,'LOCAL CORPUS · context '+(d>0?'+':'')+d,w)
-     }
-   }else if(intent==='echo'||intent==='rhyme'){
-     for(const t of arr){if(t.norm===key)continue;if(isHan(n.text)||isHan(t.text))continue;
-       let sim=soundSim(n.norm,t.norm);if((intent==='echo'&&sim>=2)||(intent==='rhyme'&&soundKey(n.norm).tail===soundKey(t.norm).tail))add(t,'LOCAL CORPUS · approx sound',sim||1)
-     }
+ if(intent==='echo'||intent==='rhyme'){
+   if(isHan(n.text))return[];
+   const targetTail=soundKey(n.norm).tail;
+   for(const t of arr){if(t.norm===key||isHan(t.text))continue;let sim=soundSim(n.norm,t.norm);
+     if((intent==='echo'&&sim>=2)||(intent==='rhyme'&&targetTail&&targetTail===soundKey(t.norm).tail))add(t,'LOCAL CORPUS · approx sound',sim||1)
+   }
+ }else for(const i of hits){
+   if(intent==='continue')add(arr[i+1],'LOCAL CORPUS · observed follower',4);
+   else if(intent==='replace'||intent==='turn'||intent==='surprise')for(let d=-4;d<=4;d++){if(!d)continue;let t=arr[i+d];if(!t)continue;
+     let w=intent==='replace'?(Math.abs(d)<=2?3:1):intent==='turn'?(Math.abs(d)>=2?2:1):(Math.abs(d)>=3?3:1);
+     add(t,'LOCAL CORPUS · context '+(d>0?'+':'')+d,w)
    }
  }
  return [...score.values()].sort((a,b)=>b.w-a.w||a.word.localeCompare(b.word)).slice(0,12)
