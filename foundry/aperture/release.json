@@ -33,7 +33,8 @@
     "RSVP temporal stepping",
     "TTS boundary-synced WORD focus",
     "dock(source,opt) reusable in-place host API",
-    "session handoff → standalone Aperture workbench"
+    "session handoff → standalone Aperture workbench",
+    "shared showcase route adapter / RETURN-reentry"
   ],
   "non_claims": [
     "Ring gap is not semantic importance.",
@@ -53,10 +54,11 @@
     ],
     "magnitude_ladder": "log10(bytes), visible ring gap spans 10^0..10^12",
     "rsvp_default": "if current scale has <2 units, temporal play selects WORD for text or first traversable JSON level",
-    "javascript_static_parse": "PASS"
+    "javascript_static_parse": "PASS",
+    "shared_route_adapter": "/showcase-nav.js"
   },
   "updated": "2026-09-21",
-  "known_gap": "The universal inspection capability is operational. The compact ring/magnitude mapping remains a presentation candidate; browser SpeechSynthesis boundary fidelity varies by engine/voice.",
+  "known_gap": "Universal inspection is operational. Ring/magnitude mapping remains a presentation candidate; browser SpeechSynthesis boundary fidelity varies by engine/voice; the exact historical red-dot/Alice reader remains unrecovered.",
   "capability": "Summon one local inspector against arbitrary text/JSON/object context without making the inspector a project or authority surface.",
   "host_resolution": [
     "selected text",
@@ -69,5 +71,10 @@
     "state": "CANDIDATE_MAPPING",
     "mapping": "outer=position; inner=scale; gap=log10(bytes); center=foveated focus; time/voice drive position",
     "claim": "Useful visualization candidate only; not required for capability status."
+  },
+  "lineage_recovery": {
+    "fu_foveate": "/control/FU_FOVEATE_RECOVERY_2026-09-21.json",
+    "rsvp_transfer": "/control/RSVP_APERTURE_TRANSFER_2026-09-21.json",
+    "convergence": "/control/confluence/FOCUS_INTERFACE_SYNC_2026-09-21.json"
   }
 }
