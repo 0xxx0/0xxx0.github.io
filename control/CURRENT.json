@@ -14,62 +14,34 @@
     "COMPRESSION MUST RETAIN A RETURN PATH",
     "BACK ≠ UNDO ≠ RETURN ≠ PARENT",
     "DISCUSSION ≠ INDEX TOUCH; MUTATION → INDEX TOUCH",
-    "MATERIAL MUTATION → FIELD INDEX TOUCH; CURRENT-HEAD OR CROSS-LINEAGE MUTATION → BOUNDED CONFLUENCE/RETURN; DO NOT LOG CHAT NOISE"
+    "MATERIAL MUTATION → FIELD INDEX TOUCH; CURRENT-HEAD OR CROSS-LINEAGE MUTATION → BOUNDED CONFLUENCE/RETURN; DO NOT LOG CHAT NOISE",
+    "PROGRESS REQUIRES CONVERSION: a new usable capability, exact recovery that unlocks one, user-facing simplification, or a real-world/other-human consequence. RECEIPTS ALONE DO NOT COUNT.",
+    "WAITING_ON_HUMAN != ACTIVE_FRONT. Park human/world dependencies in WAITING until the human actually chooses or encounters them.",
+    "NO RECEIPT-ONLY OR SEAL-ONLY PR UNLESS IT RESOLVES A LIVE AMBIGUITY, FAILING GATE, OR AUTHORITY CONFLICT."
   ],
   "active_fronts": [
     {
-      "id": "repo-convergence",
-      "state": "ACTIVE_MAINTENANCE",
-      "center": "/migration/ → /control/migration/ ledger → /recovery/ vault → Field Index promotion",
-      "objective": "Recover durable lineage and exact operational tools—not only recent runnable artifacts—preserve unique mechanisms/style/provenance, quarantine generic drift, and make surviving tools/mechanisms findable without silently merging their original containers.",
-      "evidence": [
-        "/migration/",
-        "/migration/CHARTER.md",
-        "/control/migration/",
-        "/control/MIGRATION.json",
-        "/recovery/",
-        "/control/FIELD_INDEX_AUDIT_2026-09-20.json",
-        "/control/RECOVERY_POPULATION_2026-09-20.json",
-        "/returns/BACKUP_RECOVERY_2026-09-21.json",
-        "/control/confluence/TOOL_KERNEL_2026-09-21.md"
-      ]
-    },
-    {
-      "id": "ingest-files-media",
-      "state": "ACTIVE_MAINTENANCE",
-      "center": "local-first inventory / hashes / tags / duplicate review before automatic moves",
-      "objective": "Create a reversible ingest substrate for files, media, generated artifacts and source packs so recovery becomes continuous rather than another archaeology event.",
-      "evidence": [
-        "/control/QUEUE.json",
-        "/dock/",
-        "/control/INGEST_RUN_2026-09-20.json",
-        "/control/REPRESENTATION_01.json",
-        "/control/INGEST_RUN_2026-09-21.json",
-        "/control/MEDIA_REFINERY.json",
-        "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json",
-        "/scripts/media-refinery-run.py",
-        "/control/MEDIA_REFINERY_PIPELINES.json",
-        "/returns/MEDIA_REFINERY_AUTOMATION_2026-09-22.json"
-      ]
-    },
-    {
-      "id": "human-port-use",
+      "id": "conversion",
       "state": "ACTIVE_NOW",
-      "center": "/port/ PORT_OBJECT → focus → FIT/CUES/HISTORY → SELECT → OPEN → downstream route or FIELD INTAKE → RETURN",
-      "objective": "Observe HUMAN PORT 1.5 in ordinary use across three unequal real objects—generated image, authored text/JSON, opaque authored file. The closed PR #111 harness is non-authoritative; refine only from actual use evidence or a separately reproduced product failure.",
+      "center": "existing verified heads → actual use / share / world contact → observed delta → RETURN",
+      "objective": "Convert accumulated machinery into consequences outside the control plane. Prefer an existing head and the smallest delta that makes it more usable, shareable, embodied, or externally consequential. Do not create a new framework to coordinate this.",
       "evidence": [
-        "/port/",
-        "/port/object.schema.json",
-        "/port/routes.json",
-        "/port/object-store.js",
-        "/port/object-aperture.js",
-        "/field-intake/",
-        "/field-intake/release.json",
-        "/returns/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json",
-        "/control/confluence/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json",
-        "/control/confluence/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
-        "/returns/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
-        "/returns/HARD_ADVANCE_2026-09-22.json"
+        "/foundry/machine.json",
+        "/control/confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md",
+        "/showcase-manifest.json"
+      ]
+    },
+    {
+      "id": "recovery-ingest",
+      "state": "ACTIVE_MAINTENANCE",
+      "center": "/recovery/ + exact-source gaps + local-first ingest + MEDIA REFINERY",
+      "objective": "Maintain recoverability continuously, but reopen archaeology only when it removes a live blocker, prevents false lineage, or feeds an active conversion. Blocked local/human dependencies do not occupy NOW.",
+      "evidence": [
+        "/recovery/",
+        "/control/MIGRATION.json",
+        "/control/MEDIA_REFINERY.json",
+        "/scripts/media-refinery-run.py",
+        "/control/INGEST_FAMILY_REVIEW_2026-09-22.json"
       ]
     }
   ],
@@ -378,8 +350,8 @@
     }
   ],
   "next_single_action": {
-    "id": "human-port-object-specimens-01",
-    "instruction": "Continue ordinary HUMAN PORT use until three unequal real object classes have naturally occurred: generated image, authored text/JSON, opaque authored file. Do not recreate PR #111 as a QA ritual. Preserve the first real failure/override/RETURN from each class; revise only from that evidence."
+    "id": "conversion-first",
+    "instruction": "Do not open another coordination/seal task. Select the highest-leverage machine-executable conversion on an existing head. Prefer: (1) make something usable/shareable by another human, (2) make something meet physical/device reality, (3) recover exact source only when it unlocks 1 or 2. If the next lawful move needs human/world input, put it in WAITING and continue with another executable conversion."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
@@ -698,5 +670,10 @@
     "remaining_raw_byte_gate": "Exact File Library PNG file_000000006c8c71faa92311288535624e → byte-capable handoff → /recovery/toolbelt/ → SHA-256; no surrogate."
   },
   "last_media_refinery": "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json",
-  "last_media_refinery_automation": "/returns/MEDIA_REFINERY_AUTOMATION_2026-09-22.json"
+  "last_media_refinery_automation": "/returns/MEDIA_REFINERY_AUTOMATION_2026-09-22.json",
+  "conversion_reset": {
+    "at": "2026-09-22T05:43:00+08:00",
+    "reason": "Generativity/proof bookkeeping had begun to exceed conversion; maintenance and ordinary-use waits were occupying NOW.",
+    "synthesis": "/control/confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md"
+  }
 }
