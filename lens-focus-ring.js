@@ -13,7 +13,7 @@ function attach(api){
   let origin=null,startedAt=null,trace=[];
   function snap(){try{return api.snapshot?.()||null}catch(_){return null}}
   function mark(action){const s=snap();trace.push({at:new Date().toISOString(),action,focusId:s?.focusId||null,objectId:s?.objectId||null,aperture:s?.aperture||null,projection:s?.projection||null,foveate:!!s?.meta?.foveate,stack:(s?.lensStack||[]).map(x=>x.lensId)})}
-  function writeReceipt(exit){const receipt={schema:'0xxx0/lens-focus-ring-interaction/v0.1',startedAt,endedAt:new Date().toISOString(),exit,origin,end:api.uiState?.()||null,actions:trace.slice(),actionCount:Math.max(0,trace.length-1)};try{sessionStorage.setItem(RECEIPT_KEY,JSON.stringify(receipt))}catch(_){}return receipt}
+  function writeReceipt(exit){const endedAt=new Date().toISOString(),receipt={schema:'0xxx0/lens-focus-ring-interaction/v0.1',startedAt,endedAt,durationMs:startedAt?Math.max(0,Date.parse(endedAt)-Date.parse(startedAt)):null,exit,origin,end:api.uiState?.()||null,actions:trace.slice(),actionCount:Math.max(0,trace.length-1)};try{sessionStorage.setItem(RECEIPT_KEY,JSON.stringify(receipt))}catch(_){}return receipt}
   function render(){
     const s=snap();if(!s)return;
     const title=s.meta?.title||s.focusId||s.objectId||'—';
@@ -43,7 +43,8 @@ function attach(api){
   addEventListener('keydown',e=>{if(e.key==='Escape'&&panel.classList.contains('on'))close()});
   return Object.freeze({render,open,close,lastReceipt:()=>{try{return JSON.parse(sessionStorage.getItem(RECEIPT_KEY)||'null')}catch(_){return null}}});
 }
-window.LensFocusRing=Object.freeze({attach,RECEIPT_KEY});
+function readReceipt(){try{return JSON.parse(sessionStorage.getItem(RECEIPT_KEY)||'null')}catch(_){return null}}
+window.LensFocusRing=Object.freeze({attach,RECEIPT_KEY,readReceipt});
 function boot(){if(window.FieldLensAPI)attach(window.FieldLensAPI)}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
 })();
