@@ -33,6 +33,8 @@ jobs:
         run: node body/fit/health-connect-selftest.cjs
       - name: Validate INTERPHASE ROOM projection core
         run: node control/interphase-room-selftest.js
+      - name: Validate BLOCK ROOM space-scale core
+        run: node control/space-scale-selftest.js
       - name: Validate static surface contracts
         run: node tools/validate-public.mjs
       - name: Validate Triangle FORM rewrite core
