@@ -1,0 +1,136 @@
+{
+  "schema": "0xxx0/state-survey/v0.1",
+  "id": "FIELD-STATE-SURVEY-2026-09-21-1731",
+  "at": "2026-09-21T17:31:00+08:00",
+  "master": "3c4e4c379debc71e625ab3f5d938fd9c1611cf3b",
+  "purpose": "Reconcile recent Codex/recovery/coordination work and identify what is genuinely enabled now versus still unproved.",
+  "observed": {
+    "codex_recovery": {
+      "merge": "9e9edf23828376c76672b58c5655c3e022556ca2",
+      "pr": 61,
+      "title": "Recover City/Painting; reconcile Field coordination and verify local ingest",
+      "enabled": [
+        "Exact City v0.2 source and later standalone Painting runtime are recovered rather than prose-reconstructed.",
+        "40 recovered source/assets are SHA-256 verified; 38 engine/Painting tests pass.",
+        "13 reviewed Site illustrations are public; wider private media archive remains private.",
+        "City/Painting exact-source blocker is closed; full City deployment remains separate and optional."
+      ],
+      "evidence": [
+        "/returns/BACKUP_RECOVERY_2026-09-21.json",
+        "/control/RECOVERY_RUN_2026-09-21.json",
+        "/recovery/sleeper/site-source-2026-09-18/manifest.json"
+      ]
+    },
+    "local_ingest": {
+      "enabled": [
+        "Actual bounded local Documents ingest is proven, not hypothetical.",
+        "559 files indexed into 557 byte objects with two exact duplicate groups.",
+        "559/559 hashes match the pre-existing backup asset manifest.",
+        "Source was not mutated; raw inventory/path/content remains private."
+      ],
+      "not_enabled": [
+        "No automatic move/delete/rename rule.",
+        "No semantic publication authority from filename/title similarity.",
+        "No whole-disk scanner mandate."
+      ],
+      "evidence": [
+        "/control/INGEST_RUN_2026-09-21.json"
+      ]
+    },
+    "constraint_surface": {
+      "enabled": [
+        "Shared source-neutral support/survivor law extracted to /lib/constraint-surface.js.",
+        "FIELD and AXIAL can use the same exact support math without sharing all UI semantics.",
+        "HUMAN PORT support remains explicitly heuristic cue evidence, not AXIAL exact support."
+      ],
+      "not_enabled": [
+        "A universal ontology.",
+        "Automatic cross-interface equivalence.",
+        "Silent correction of zero-support states."
+      ],
+      "evidence": [
+        "/lib/constraint-surface.js",
+        "/control/INTERACTION_SEMANTICS.json",
+        "/control/INSTRUMENT_CHARTERS.json"
+      ]
+    },
+    "field_port_axial": {
+      "enabled": [
+        "FIELD INDEX / AXIAL LATEST 0.5 current head.",
+        "AXIAL / FOCUS STACK 0.7.2 current head with visible lawful/dead support and persistent overview.",
+        "HUMAN PORT 1.4 current head with addressed focus, support cues, explicit SELECT then OPEN, and no autonomous sending.",
+        "FIELD local PLAIN↔FOVEATED proof bench already records paired-task evidence locally."
+      ],
+      "evidence": [
+        "/control/CURRENT.json",
+        "/showcase-manifest.json"
+      ]
+    },
+    "representation": {
+      "before": "Painting was still recorded as external/unrecovered in the representation kernel.",
+      "after": [
+        "Painting Path now points to recovered runtime.",
+        "Sep-21 local ingest replaces Sep-20 ingest as current media-library evidence.",
+        "Exact recovered Painting region fixture added at /control/REPRESENTATION_PAINTING_2026-09-21.json."
+      ],
+      "next_proof": "Human paired-task evidence; no new projection surface required."
+    },
+    "open_prs": {
+      "body_field_21": {
+        "state": "DRAFT_HOLD_DONOR",
+        "reason": "Current master already has shared /bodyplans/ and CARE 0.3. Resume only from a named missing function, consuming the shared registry; do not merge stale branch wholesale."
+      }
+    }
+  },
+  "active_surface": {
+    "fronts": [
+      "repo-convergence / maintenance",
+      "ingest-files-media / maintenance",
+      "human-port-use / ACTIVE_NOW"
+    ],
+    "current_single_action": "Use FIELD and HUMAN PORT normally; collect ordinary choice/override/backtrack evidence only when it occurs.",
+    "holds": [
+      "AXIAL feature expansion",
+      "HOUSE physical/spatial work until deliberately selected",
+      "transport/autoresponder expansion",
+      "new hardware"
+    ]
+  },
+  "immediate_actions_executed": [
+    "Reconciled /control/REPRESENTATION.json with exact Painting recovery and Sep-21 ingest.",
+    "Added source-grounded Painting representation fixture; explicitly marked Dayline/Fold-Bloom NOT_USEFUL when required state is absent.",
+    "Indexed Codex interaction semantics and instrument charters in /control/POLICY_INDEX.json.",
+    "Updated Hermes REP-01 so it does not rebuild already-shipped representation instrumentation.",
+    "Added CURRENT pointer to the Painting representation fixture.",
+    "Updated issue #10 with the new exact-source representation boundary.",
+    "Marked draft PR #21 as HOLD/DONOR pending current-master reconciliation rather than implicit NEXT."
+  ],
+  "immediate_next": [
+    {
+      "id": "USE-PORT-FIELD",
+      "priority": 1,
+      "action": "Ordinary FIELD/HUMAN PORT use; when a real confusion/backtrack occurs, preserve one content-free receipt and turn only that friction into a test.",
+      "why": "CURRENT already selects this; instrumentation exists and needs human evidence, not more architecture."
+    },
+    {
+      "id": "REP-PAINTING-PAIR",
+      "priority": 2,
+      "action": "Run one paired recovered Painting FIELD vs LIST locate/read/RETURN task using the same region identity.",
+      "why": "Exact source now exists; this is the smallest source-grounded task-advantage test."
+    },
+    {
+      "id": "INGEST-ONE-FAMILY",
+      "priority": 3,
+      "action": "On the Mac/Hermes side, review one exact app + design-document family from the verified 559-file ingest using hash/original-name provenance; no moves.",
+      "why": "Local ingest substrate is proven and now needs one semantic review, not a larger scan."
+    }
+  ],
+  "do_not_do": [
+    "Do not merge diverged experimental branches wholesale just because they are ahead.",
+    "Do not redeploy City merely because source is recovered.",
+    "Do not open another representation architecture; use existing proof bench and exact fixtures.",
+    "Do not expand autonomous messaging or sending from HUMAN PORT.",
+    "Do not interpret open draft PR #21 as priority authority."
+  ],
+  "return": "Recent work reduced missing substrate. The current bottleneck is evidence from ordinary use and one-family semantic review, not more concepts."
+}
