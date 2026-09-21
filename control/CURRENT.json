@@ -528,6 +528,15 @@
     "codex_handoff": "private issue #8",
     "note": "No broad rescan, no automatic file mutation, no change to CURRENT.next_single_action."
   },
+  "perimeter_state": {
+    "branch_frontier": "/control/BRANCH_FRONTIER_2026-09-21.json",
+    "recovered_donors": [
+      "/recovery/focus-interface-sync-20260921/RECOVERY.json",
+      "/recovery/showcase-map-v0/RECOVERY.json"
+    ],
+    "authority": "MASTER + CURRENT/QUEUE define executable/current coordination state; open PRs are bounded proposals; all other branch pointers are provenance/donor state until explicitly reconstructed.",
+    "rule": "A branch name never reactivates work. Recover exact donor material or reconstruct one bounded delta on current master."
+  },
   "deep_tool_lineage": {
     "status": "RECOVERED + RECONSTRUCTED; exact source recovery still open for named File Library artifacts",
     "note": "/control/confluence/TOOL_KERNEL_2026-09-21.md",
@@ -539,5 +548,8 @@
       "SPIRAL": "REPROJECT / INTEGRATE / RE-ENTER / RETURN"
     },
     "rule": "Mnemonic/mythic aliases are retrieval and cognition aids only; they never establish lineage, proof, usefulness or authority."
-  }
+  },
+  "recovery_refs": [
+    "/recovery/focus-interface-sync-20260921/FOCUS_INTERFACE_SYNC_2026-09-21.json"
+  ]
 }
