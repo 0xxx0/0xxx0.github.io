@@ -47,7 +47,7 @@ function runChrome(bin,route){
     const url='http://'+HOST+':'+PORT+route;
     const args=[
       '--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage',
-      '--hide-scrollbars','--virtual-time-budget=3500','--dump-dom',url
+      '--hide-scrollbars','--virtual-time-budget=6500','--dump-dom',url
     ];
     const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});
     let out='',err='';
@@ -80,6 +80,16 @@ const CASES=[
     name:'AXIAL',
     route:'/foundry/axial/',
     check:dom=>dom.includes('FOCUS STACK')&&dom.includes('RETURN')
+  },
+  {
+    name:'APERTURE',
+    route:'/foundry/aperture/',
+    check:dom=>/APERTURE/i.test(dom)&&dom.includes('field-aperture')&&dom.includes('60–3000 WPM')
+  },
+  {
+    name:'DOCS APERTURE',
+    route:'/docs/',
+    check:dom=>/DOCS \/ READ/i.test(dom)&&dom.includes('id="docAperture"')&&dom.includes('RAW SOURCE')
   },
   {
     name:'CENTER current',
