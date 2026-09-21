@@ -648,14 +648,13 @@
       "rule": "closed branches retain provenance; master remains authority"
     },
     "last_live_census": {
-      "branches": 114,
+      "branches": 115,
       "open_prs": 0,
-      "merged_pr_lineage": 76,
+      "merged_pr_lineage": 77,
       "closed_unmerged_pr_lineage": 23,
       "no_pr_pointers": 14,
       "unclassified_no_pr": 0,
-      "census_master": "5912190d99ae7573edecef9932c57ff824ec197b",
-      "execution_branch_excluded": "confluence-hard-seal-20260922",
+      "census_master": "cb5843f64a66dcc7c7180037cbf40b2991c5311b",
       "active_review": []
     },
     "human_port_specimen_harness": {
@@ -663,7 +662,8 @@
       "state": "CLOSED_UNMERGED_DONOR",
       "finding": "No product defect established. The browser-smoke virtual-time model is unsuitable as authority for real local File→IndexedDB ordinary-use evidence.",
       "rule": "Do not reopen as QA work. Continue CURRENT.next_single_action only through ordinary use or a separately reproduced product failure."
-    }
+    },
+    "last_hard_advance": "/returns/HARD_ADVANCE_2026-09-22.json"
   },
   "deep_tool_lineage": {
     "status": "SOURCE_IDENTITIES_AND_CONTENT_REVERIFIED + READ_ONLY_LINEAGE_READING; RAW BYTE MATERIALIZATION OPEN",
