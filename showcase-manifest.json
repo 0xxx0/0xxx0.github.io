@@ -2078,7 +2078,7 @@
         "next_if_pass": "TRANSFER the surviving transaction/aperture mechanism into the Foundry physical-control substrate; retain AXIAL as evidence fixture rather than spawning a new core.",
         "next_if_fail": "PARK the physical-control claim; preserve packet/ledger mechanisms as DONOR evidence."
       },
-      "role": "Variable-cardinality focus surface over real FIELD/HOUSE sources: fixed gate + moving dial witness + lawful support + persistent whole-stack overview let local focus remain oriented; an opt-in local engineering witness preserves interaction residue without silently adapting the interface.",
+      "role": "Variable-cardinality focus surface over real FIELD/HOUSE sources: fixed gate + moving dial witness + lawful support + persistent whole-stack overview let local focus remain oriented; an opt-in local engineering witness preserves interaction residue without silently adapting the interface. It remains an orientation/TRACE experiment, not the canonical reading surface.",
       "legacy_lab": {
         "href": "/foundry/axial/lab-0.5.1.html",
         "role": "Preserved STATE APERTURE transaction/projection lab with AXIAL_PACKET, event trace and ARM/RUN semantics.",
@@ -2918,14 +2918,14 @@
     },
     {
       "href": "/docs/",
-      "title": "READ / RSVP 0.6",
+      "title": "READFIELD / RSVP 0.7",
       "kind": "utility",
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": true,
-      "role": "Addressed repository and pasted-text reader: one canonical source position survives scale changes while ORP RSVP, VOICE, highlighted context, whole-source ring/strip witnesses and nearby citation/media XREFs move around it; RAW remains the source baseline.",
+      "role": "Canonical reader: one source position survives scale, ORP RSVP, VOICE and context changes. READFIELD defaults to focused text plus a linear source strip; ring geometry is optional. Same-origin repo text and session-local page/paste handoffs enter directly; RAW and RETURN remain intact.",
       "index": {
-        "updated_at": "2026-09-21T20:27:00+08:00",
+        "updated_at": "2026-09-22T01:32:00+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
@@ -2934,17 +2934,18 @@
       },
       "transfer": [
         "one canonical source cursor across DOCUMENT/SECTION/PARAGRAPH/SENTENCE/PHRASE/WORD/GRAPHEME",
-        "ORP fixed-recognition-point RSVP at 60–3000 WPM",
+        "reader-first ORP + linear source strip; ring geometry optional/internal",
+        "ORP RSVP at 60–3000 WPM with direct speed rail",
         "VOICE boundary charIndex → same source cursor without forcing WORD scale",
-        "highlighted source window + whole-source position witness",
-        "section / JSON-branch structure markers",
+        "throttled highlighted context projection during high-speed play",
+        "section / JSON-branch structure markers cached across temporal ticks",
         "near-focus source/citation/media XREF strip",
-        "same-origin README/Markdown/JSON/text ingress",
-        "session-local long-text paste",
+        "same-origin repo text ingress + route-wide READFIELD handoff",
+        "session-local long-text/page paste",
         "RAW + RETURN preserved"
       ],
       "operation": "READ",
-      "receipt": "/control/RSVP_READER_FOCUS_KERNEL_2026-09-21.json",
+      "receipt": "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
       "contract": {
         "accepts": {
           "kinds": [
@@ -2963,7 +2964,7 @@
           ]
         },
         "transforms": {
-          "verb": "read one source through scale × position × time while preserving the same canonical source position",
+          "verb": "read one source through scale × position × time while preserving one canonical source position; context and geometry remain projections, not prerequisites",
           "preserves": [
             "source bytes/text",
             "canonical source position",
@@ -2977,26 +2978,27 @@
           "kinds": [
             "field-aperture-focus/v0.2",
             "addressed reader URL",
-            "highlighted context",
-            "XREF projection"
+            "throttled highlighted context",
+            "XREF projection",
+            "readfield.handoff/v1"
           ],
           "machine_readable": true,
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/control/RSVP_READER_FOCUS_KERNEL_2026-09-21.json",
+          "receipt": "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
           "checks": [
             "WORD→SENTENCE→PARAGRAPH→SECTION source-position invariance",
-            "highlight follows active span",
-            "section markers",
-            "ap_char resume",
-            "session-local paste",
-            "citation + media XREF",
-            "30/30 browser smoke"
+            "reader mode does not require ring geometry",
+            "high-speed focus events outpace contextual DOM reconstruction",
+            "route-wide READ handoff preserves return address",
+            "section markers + ap_char resume + session-local paste + citation/media XREF",
+            "browser smoke"
           ],
           "return_path": "/docs/"
         }
-      }
+      },
+      "version": "0.7"
     },
     {
       "href": "/control/confluence/",
@@ -4756,15 +4758,15 @@
     },
     {
       "href": "/foundry/aperture/",
-      "title": "APERTURE / INSPECTOR 0.4",
-      "kind": "utility",
+      "title": "APERTURE → READFIELD",
+      "kind": "alias",
       "parent": "/foundry/",
       "family": "FOUNDRY",
-      "operation": "INSPECT",
+      "operation": "READ",
       "state": "UTILITY",
-      "version": "0.4",
-      "receipt": "/returns/APERTURE_MATERIAL_RSVP_2026-09-21.json",
-      "role": "Ambient local inspection capability for arbitrary text/JSON/object context: source identity stays fixed while scale, position, time and optional material host state move together.",
+      "version": "0.7 alias",
+      "receipt": "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
+      "role": "Compatibility address only. The public reading surface converged into /docs/ READFIELD; /field-aperture.js remains the reusable focus kernel.",
       "transfer": [
         "Two Dial: two cyclic controls → one consequence",
         "AXIAL: fixed focus + unequal cyclic vocabularies",
@@ -4796,7 +4798,7 @@
           ]
         },
         "transforms": {
-          "verb": "project one source through scale × position × time × optional material host state while preserving exact local focus identity",
+          "verb": "compatibility redirect into canonical READFIELD; reusable APERTURE kernel remains host-owned",
           "preserves": [
             "source content",
             "focus address",
@@ -4810,16 +4812,14 @@
         },
         "emits": {
           "kinds": [
-            "field-aperture-focus/v0.2",
-            "aperture-material",
-            "local focus event",
-            "optional speech output"
+            "redirect to /docs/",
+            "preserved session handoff"
           ],
           "machine_readable": true,
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/returns/APERTURE_MATERIAL_RSVP_2026-09-21.json",
+          "receipt": "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
           "checks": [
             "text scale ladder",
             "JSON depth ladder",
@@ -4831,7 +4831,7 @@
             "material-target host projection",
             "DOCS JSON/text reuse"
           ],
-          "return_path": "/foundry/aperture/"
+          "return_path": "/docs/"
         }
       },
       "field": {
@@ -4893,21 +4893,15 @@
         ],
         "physical_fit": "Potential compact ring/annulus control grammar; no physical embodiment claim in 0.1."
       },
-      "index": {
-        "updated_at": "2026-09-21T18:45:00+08:00",
-        "work_modes": [
-          "INSPECT",
-          "VERIFY",
-          "OPERATE"
-        ]
-      },
       "showcase_card": false,
       "projection_experiment": {
         "status": "CANDIDATE_MAPPING",
         "question": "Do scale×position rings plus logarithmic source-size gap improve orientation enough to survive as the default compact projection?",
         "variable": "presentation only",
         "fallback": "plain compact focus/address controls; utility remains useful without the ring mapping."
-      }
+      },
+      "alias_of": "/docs/",
+      "redirects_to": "/docs/"
     },
     {
       "href": "/poetry/map/",
