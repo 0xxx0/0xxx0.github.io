@@ -1,0 +1,55 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "APERTURE-USABILITY-CUT-2026-09-21",
+  "date": "2026-09-21",
+  "object": "APERTURE 0.5 usability hardening after concrete ordinary-use failures",
+  "prior_receipt": "/returns/APERTURE_CHARTER_BOUNDARY_2026-09-21.json",
+  "before": {
+    "continuity": "AXIAL source switches discarded local history; APERTURE focus state could not be resumed through DOCS URLs; AXIAL RETURN receipts were display-only.",
+    "temporal": "RSVP inferred playback from timer existence, silently wrapped at the final unit, and an addressable DOCS host could rewrite browser history at RSVP cadence.",
+    "language": "TEXT WORD units used whitespace tokenization, collapsing continuous scripts such as Chinese/Japanese/Thai into coarse units.",
+    "speech": "SpeechSynthesis boundary callbacks had no generation token, so a late callback from cancelled speech could mutate a newer source."
+  },
+  "operation": [
+    "Made AXIAL cross-source BACK restore exact pre-switch state and made local RETURN receipts replayable.",
+    "Made APERTURE restore scale/address/index/WPM and made DOCS encode that reading state in its URL with COPY VIEW.",
+    "Separated RSVP playing state from timer scheduling; finite playback now stops at the final unit unless loop is explicit.",
+    "Throttled DOCS URL checkpoints during active high-speed RSVP and flush exact focus on pause/end.",
+    "Transferred Painting Path's Intl.Segmenter language-aware word/sentence/grapheme mechanism with source offsets and GRAPHEME scale.",
+    "Transferred Painting Path's speech cancellation-token law so stale TTS callbacks cannot move a newer source."
+  ],
+  "lineage": {
+    "exact_donor": "/recovery/sleeper/site-source-2026-09-18/experiments/painting/engine.mjs",
+    "donor_ui": "/recovery/sleeper/site-source-2026-09-18/experiments/painting/view.js",
+    "donor_doc": "/recovery/sleeper/site-source-2026-09-18/docs/PAINTING_PATH.md",
+    "retained_from_2018": "/recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html",
+    "transfer_rule": "Recover proven temporal/segmentation mechanisms; do not absorb Painting Path identity, geometry, route, challenge or action semantics."
+  },
+  "after": {
+    "authority": "PRESENTATION_AND_INSPECTION_ONLY",
+    "snapshot": "field-aperture-focus/v0.2 now also reports locale / playing / loop",
+    "temporal_default": "FINITE; cyclic geometry remains independent from cyclic time",
+    "multilingual": "Intl.Segmenter WORD / SENTENCE / GRAPHEME with fallback; load(...,{locale}) supported",
+    "durable_state": "HOST_OWNED; DOCS uses addressable URL state, AXIAL local RETURN uses replayable host state",
+    "network_write": "NONE"
+  },
+  "proof": {
+    "static": "LensState laws, route grammar, HUMAN PORT object aperture and public-surface contracts remain green.",
+    "browser": [
+      "AXIAL cross-source BACK + RETURN replay",
+      "DOCS exact Aperture resume",
+      "3000-WPM finite RSVP + sparse URL checkpointing",
+      "seven-language segmentation: zh/en/ms/ta/ja/ar/th",
+      "emoji grapheme cluster: A👩‍🔬é → 3 units"
+    ],
+    "human": "NOT_CLAIMED — comprehension advantage, preferred WPM, ORP/chunking and material projection value remain ordinary-use questions."
+  },
+  "non_claims": [
+    "High WPM does not imply comprehension.",
+    "Language-aware segmentation does not claim linguistic perfection.",
+    "GRAPHEME is an inspection/temporal unit, not a semantic word.",
+    "APERTURE remains an inspector; it does not acquire canonical truth, constraint-solving or actuation authority."
+  ],
+  "return": "The instrument can now be left, resumed, replayed, read at speed without runaway URL churn, and used across the recovered multilingual corpus without whitespace-token collapse.",
+  "next": "Stop architecture work. Reopen only from a concrete ordinary-use failure; likely remaining temporal candidates are ORP/chunking or presentation density, each requiring its own evidence."
+}
