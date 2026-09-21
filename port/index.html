@@ -2,224 +2,233 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#07090b">
-<title>HUMAN PORT</title>
+<title>HUMAN PORT / OBJECT APERTURE</title>
 <style>
-:root{--bg:#07090b;--panel:#0b0f12;--ink:#eef2ef;--mut:#859197;--line:#2b363b;--hot:#ed7245;--cool:#73bce8;--green:#9ed88c;--gold:#d7ae67}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}button,input,textarea{font:inherit;border-radius:0}button{cursor:pointer}a{color:inherit;text-decoration:none}body{padding:max(18px,env(safe-area-inset-top)) 14px max(34px,env(safe-area-inset-bottom))}main{width:min(1040px,100%);margin:auto}
-header{padding:36px 0 22px;border-bottom:1px solid var(--line)}.ey{font-size:9px;letter-spacing:.19em;color:var(--hot)}h1{margin:10px 0 12px;font:900 clamp(58px,12vw,118px)/.78 system-ui,-apple-system,sans-serif;letter-spacing:-.085em}.lead{max-width:780px;font:16px/1.5 system-ui,-apple-system,sans-serif;color:#c1c9cc}.sub{max-width:760px;margin-top:9px;color:#859197;font:10px/1.55 system-ui,-apple-system,sans-serif}
-.intake{margin-top:20px;border:1px solid var(--line);background:var(--panel)}.intakehead{display:flex;justify-content:space-between;gap:12px;padding:9px 11px;border-bottom:1px solid var(--line);font-size:8px;letter-spacing:.13em}.intakehead span:last-child{color:var(--green)}.labelrow{display:grid;grid-template-columns:160px 1fr;gap:1px;background:var(--line)}.labelrow label{background:#090d10;padding:11px;color:var(--mut);font-size:8px;letter-spacing:.11em}.labelrow input{border:0;background:#0b0f12;color:var(--ink);padding:11px;outline:none}.intake textarea{width:100%;min-height:180px;border:0;border-top:1px solid var(--line);background:#0b0f12;color:var(--ink);padding:14px;resize:vertical;outline:none;font:15px/1.55 system-ui,-apple-system,sans-serif}
-.samples{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);border-top:1px solid var(--line)}.samples button{border:0;background:#090d10;color:#7f8b90;padding:8px 10px;font-size:8px}.samples button:hover{background:#11181c;color:#fff}
-.focusDeck{display:none;border-top:1px solid var(--line);background:#080b0d}.focusDeck.on{display:grid;grid-template-columns:minmax(260px,1fr) minmax(230px,.8fr);gap:1px;background:var(--line)}.focusPane,.focusControl{background:#080b0d;padding:9px}.focusTop{display:flex;justify-content:space-between;gap:10px;color:var(--mut);font-size:7px;letter-spacing:.11em;margin-bottom:6px}.focusTop b{color:var(--hot)}.scopeChoice{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-bottom:8px}.scopeChoice button{border:0;background:#090d10;color:#879399;padding:8px}.scopeChoice button.on{background:#141c20;color:#fff;box-shadow:inset 0 -2px 0 var(--cool)}.focusRead{border:1px solid var(--line);padding:10px;min-height:90px;background:#0a0e10}.focusRead b{display:block;font:800 15px/1.1 system-ui,sans-serif}.focusRead span{display:block;margin-top:6px;color:#829096;font-size:8px}.focusRead p{margin:8px 0 0;color:#b0b9bc;font:10px/1.45 system-ui,sans-serif;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.receiptLine{margin-top:7px;color:#69767c;font-size:7px}.routes{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.route{border:0;background:#0a0e10;color:var(--ink);padding:13px 11px;text-align:left;min-height:122px;position:relative}.route:hover,.route:focus{background:#12191d;outline:none}.route.likely{box-shadow:inset 0 3px 0 var(--cool)}.route.on{background:#162127;outline:1px solid var(--hot);outline-offset:-1px}.route.likely small:after{content:" · LIKELY";color:var(--ink)}.route b{display:block;font:800 15px/1.05 system-ui,sans-serif;letter-spacing:-.02em}.route small{display:block;margin-top:6px;color:var(--cool);font-size:7px;letter-spacing:.11em}.route span{display:block;margin-top:8px;color:#839097;font:9px/1.45 system-ui,sans-serif}.route em{position:absolute;right:8px;bottom:7px;font-style:normal;color:#66757b;font-size:7px}.route.idea small{color:var(--gold)}.route.share small{color:var(--green)}.statusbar{display:grid;grid-template-columns:1fr auto auto;border-top:1px solid var(--line)}.status{min-height:34px;padding:9px 11px;color:#718087;font-size:8px}.status.hot{color:var(--hot)}.inspectBtn,.openGate{border:0;border-left:1px solid var(--line);background:#090d10;padding:7px 11px;font-size:8px}.inspectBtn{color:var(--cool)}.openGate{color:var(--gold);min-width:118px}.openGate:disabled{color:#4f5b60}.openGate:not(:disabled){background:#15130e}
-.sectionhead{display:flex;justify-content:space-between;gap:12px;align-items:end;margin:26px 0 8px}.sectionhead b{font-size:9px;letter-spacing:.15em}.sectionhead span{font-size:8px;color:var(--mut)}
-.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.tool{background:var(--panel);padding:14px;min-height:112px}.tool:hover{background:#11181c}.tool b{display:block;font-size:9px;letter-spacing:.12em}.tool span{display:block;margin-top:7px;color:#849096;font:9px/1.5 system-ui,sans-serif}
-.explain{margin-top:18px;border:1px solid var(--line);background:#090d10}.explain summary{cursor:pointer;list-style:none;padding:11px 13px;font-size:8px;letter-spacing:.13em;color:#a8b1b5}.explain summary::-webkit-details-marker{display:none}.explain summary:after{content:' +';color:var(--cool)}.explain[open] summary:after{content:' −'}.inside{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line)}.inside div{background:var(--panel);padding:12px}.inside b{display:block;font-size:8px;letter-spacing:.1em}.inside span{display:block;margin-top:5px;color:#7d898f;font:9px/1.45 system-ui,sans-serif}
-.truth{margin-top:16px;border-left:2px solid var(--gold);padding:9px 11px;color:#8e9a9f;font:10px/1.55 system-ui,sans-serif}.truth b{color:#d8bd88}
-footer{margin-top:20px;padding-top:10px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;color:#68747a;font-size:8px}footer a{color:#8fcdf2}
-@media(max-width:800px){.focusDeck.on{grid-template-columns:1fr}.routes{grid-template-columns:1fr 1fr}.tools{grid-template-columns:1fr 1fr}.inside{grid-template-columns:1fr}.labelrow{grid-template-columns:1fr}.sectionhead{display:block}.sectionhead span{display:block;margin-top:4px}}
-@media(max-width:460px){.routes,.tools{grid-template-columns:1fr}.route{min-height:auto}.statusbar{grid-template-columns:1fr 1fr}.status{grid-column:1/-1}.openGate{min-width:0}footer{display:block}}
+:root{--bg:#07090b;--panel:#0b0f12;--ink:#eef2ef;--mut:#849197;--line:#2b363b;--hot:#ed7245;--cool:#73bce8;--green:#9ed88c;--gold:#d7ae67}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}button,input,textarea{font:inherit;border-radius:0}button{cursor:pointer}a{color:inherit;text-decoration:none}body{padding:max(18px,env(safe-area-inset-top)) 14px max(34px,env(safe-area-inset-bottom))}main{width:min(1120px,100%);margin:auto}
+header{padding:34px 0 20px;border-bottom:1px solid var(--line)}.ey{font-size:9px;letter-spacing:.19em;color:var(--hot)}h1{margin:9px 0 11px;font:900 clamp(58px,12vw,118px)/.78 system-ui,sans-serif;letter-spacing:-.085em}.lead{max-width:850px;font:16px/1.5 system-ui,sans-serif;color:#c1c9cc}.sub{max-width:850px;margin-top:8px;color:#859197;font:10px/1.55 system-ui,sans-serif}
+.intake{margin-top:18px;border:1px solid var(--line);background:var(--panel)}.head{display:flex;justify-content:space-between;gap:12px;padding:9px 11px;border-bottom:1px solid var(--line);font-size:8px;letter-spacing:.13em}.head span:last-child{color:var(--green)}
+.entry{display:grid;grid-template-columns:1.15fr .85fr;gap:1px;background:var(--line)}.textentry,.fileentry{background:#090d10;padding:12px}.entry label{display:block;color:var(--mut);font-size:8px;letter-spacing:.1em;margin-bottom:7px}.textentry input,.textentry textarea{width:100%;border:1px solid var(--line);background:#0b0f12;color:var(--ink);padding:10px;outline:none}.textentry textarea{min-height:135px;resize:vertical;font:13px/1.5 system-ui,sans-serif}.entryactions{display:flex;gap:1px;margin-top:7px;background:var(--line)}.entryactions button,.filelabel{flex:1;border:0;background:#0a0e10;color:var(--ink);padding:9px;text-align:center;font-size:8px;letter-spacing:.08em}.filelabel input{display:none}
+.drop{min-height:202px;border:1px dashed #3a464b;display:grid;place-items:center;padding:18px;text-align:center;color:#849096}.drop.hot{border-color:var(--hot);background:#120d0b}.drop b{display:block;font:800 20px/1 system-ui,sans-serif;color:var(--ink)}.drop span{display:block;margin-top:8px;font:9px/1.5 system-ui,sans-serif}.drop .tiny{font-size:7px;color:#67757b}
+.objectbar{display:none;border-top:1px solid var(--line);grid-template-columns:minmax(0,1fr) auto;background:#090d10}.objectbar.on{display:grid}.objmeta{padding:10px 12px}.objmeta b{display:block;font:800 15px/1.15 system-ui,sans-serif}.objmeta span{display:block;margin-top:5px;color:#79868c;font-size:8px;word-break:break-all}.objacts{display:flex}.objacts button{border:0;border-left:1px solid var(--line);background:#090d10;color:#89969b;padding:0 10px;font-size:8px}.objacts button.danger{color:var(--hot)}
+.work{display:none;border-top:1px solid var(--line);grid-template-columns:minmax(320px,1.3fr) minmax(260px,.7fr);gap:1px;background:var(--line)}.work.on{display:grid}.projection,.control{background:#080b0d;padding:10px}.cap{display:flex;justify-content:space-between;gap:10px;color:#7d8a90;font-size:7px;letter-spacing:.11em;margin-bottom:7px}.cap b{color:var(--hot)}#projectionMount{min-height:170px}.generic{border:1px solid var(--line);padding:18px;min-height:170px;display:grid;place-items:center;text-align:center;color:#849096}.generic b{font:800 22px/1 system-ui,sans-serif;color:var(--ink);display:block}.generic span{display:block;margin-top:8px}
+.object-image-wrap{display:grid;place-items:center}.object-image-wrap canvas{max-width:100%;height:auto;touch-action:none;border:1px solid var(--line)}.object-image-meta{margin-top:6px;color:#77858a;font-size:7px;word-break:break-all}
+.scope{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}.scope button{border:0;background:#090d10;color:#869399;padding:9px}.scope button.on{background:#151e22;color:#fff;box-shadow:inset 0 -2px 0 var(--cool)}.focusread{margin-top:8px;border:1px solid var(--line);padding:10px;min-height:110px}.focusread b{display:block;font:800 15px/1.1 system-ui,sans-serif}.focusread span{display:block;margin-top:6px;color:#7c898f;font-size:8px;word-break:break-all}.focusread p{margin:8px 0 0;color:#adb6ba;font:10px/1.45 system-ui,sans-serif;max-height:72px;overflow:hidden}.laws{margin-top:8px;color:#6d7a80;font-size:7px}
+.routes{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.route{border:0;background:#0a0e10;color:var(--ink);padding:12px;text-align:left;min-height:130px;position:relative}.route:hover{background:#11181c}.route.on{background:#162127;outline:1px solid var(--hot);outline-offset:-1px}.route.likely{box-shadow:inset 0 3px 0 var(--cool)}.route b{display:block;font:800 15px/1.05 system-ui,sans-serif}.route small{display:block;margin-top:6px;color:var(--cool);font-size:7px;letter-spacing:.1em}.route span{display:block;margin-top:8px;color:#829096;font:9px/1.4 system-ui,sans-serif}.metrics{position:absolute;left:12px;right:12px;bottom:8px;display:flex;gap:5px;flex-wrap:wrap}.metric{border:1px solid #344046;padding:2px 4px;color:#748188;font-size:6px}.metric.fit-DIRECT{color:var(--green)}.metric.fit-ADAPTER{color:var(--gold)}.metric.fit-NONE{color:#69747a}
+.gate{display:grid;grid-template-columns:1fr auto;border-top:1px solid var(--line)}.status{padding:9px 11px;color:#78868c;font-size:8px}.status.hot{color:var(--hot)}.open{border:0;border-left:1px solid var(--line);background:#13110d;color:var(--gold);padding:8px 16px;min-width:150px}.open:disabled{color:#4d585d;background:#090d10}
+.secondary{margin-top:20px}.secondary h2{font-size:9px;letter-spacing:.14em}.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.tool{background:#0b0f12;padding:13px;min-height:100px}.tool:hover{background:#11181c}.tool b{display:block;font-size:8px;letter-spacing:.1em}.tool span{display:block;margin-top:6px;color:#819096;font:9px/1.45 system-ui,sans-serif}
+footer{margin-top:20px;padding-top:10px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;color:#66747a;font-size:8px}footer a{color:#8fcdf2}
+@media(max-width:820px){.entry,.work{grid-template-columns:1fr}.routes{grid-template-columns:1fr 1fr}.tools{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.routes,.tools{grid-template-columns:1fr}.gate{grid-template-columns:1fr}.open{border-left:0;border-top:1px solid var(--line)}.objectbar.on{grid-template-columns:1fr}.objacts{border-top:1px solid var(--line)}}
 </style></head><body><main>
 <header>
-  <div class="ey">0 / HUMAN PORT · LOCAL INTAKE / ROUTER</div>
-  <h1>HUMAN<br>PORT.</h1>
-  <div class="lead">Bring one source in. Focus it at the scale that matters, see which routes have support, select one, then OPEN.</div>
-  <div class="sub">The source survives every projection. Zero-support routes remain available. Preference history stores choices, never payload text. Nothing sends externally without an explicit action.</div>
+<div class="ey">0 / HUMAN PORT 1.5 · OBJECT APERTURE</div>
+<h1>BRING THE<br>THING IN.</h1>
+<div class="lead">Text, JSON, an image, or a local file enters as one addressed object. Preserve its identity. Focus a lawful projection. Inspect structural FIT separately from semantic CUES and local HISTORY. Then SELECT and OPEN.</div>
+<div class="sub">Files stay in this browser. No upload, publish, filesystem move, or canonical admission happens here. FIELD INTAKE is a separate reviewed gate.</div>
 </header>
 
-<section class="intake" aria-label="Human Port intake">
-  <div class="intakehead"><span>PORT INTAKE · ONE SOURCE</span><span>LOCAL / SESSION ONLY</span></div>
-  <div class="labelrow"><label for="label">LABEL · OPTIONAL</label><input id="label" maxlength="100" placeholder="cousin app idea / reply to Amy / weird note / dataset"></div>
-  <textarea id="payload" maxlength="12000" placeholder="Paste or write the thing here. Do not clean it first."></textarea>
-  <div class="samples">
-    <button data-sample="messy">TRY MESSY NOTE</button>
-    <button data-sample="idea">TRY IDEA</button>
-    <button data-sample="follow">TRY FOLLOW-UP</button>
-    <button id="clear">CLEAR</button>
+<section class="intake">
+<div class="head"><span>OBJECT INTAKE</span><span>LOCAL / HASHED / REVERSIBLE</span></div>
+<div class="entry">
+  <div class="textentry">
+    <label for="label">TEXT / JSON · LABEL OPTIONAL</label>
+    <input id="label" maxlength="120" placeholder="cousin app idea / config / weird note">
+    <textarea id="payload" maxlength="250000" placeholder="Paste raw text or JSON. Do not clean it first."></textarea>
+    <div class="entryactions"><button id="loadText">LOAD TEXT OBJECT</button><button id="sampleJson">TRY JSON</button><button id="sampleText">TRY TEXT</button></div>
   </div>
-  <section class="focusDeck" id="focusDeck" aria-label="Port focus aperture">
-    <div class="focusPane"><div class="focusTop"><b>FOCUS APERTURE</b><span>AXIAL × SCALE LENS × RSVP</span></div><div id="apertureMount"></div></div>
-    <div class="focusControl">
-      <div class="focusTop"><b>ROUTE SCOPE</b><span>same source · unequal projection</span></div>
-      <div class="scopeChoice"><button id="scopeWhole" class="on">WHOLE SOURCE</button><button id="scopeFocus">CURRENT FOCUS</button></div>
-      <div class="focusRead"><b id="focusTitle">WHOLE SOURCE</b><span id="focusMeta">no focus address yet</span><p id="focusText">Move the aperture to a paragraph, sentence, word, JSON level or leaf. Routing can use that focus without replacing the original source.</p></div>
-      <div id="lastReceipt" class="receiptLine">NO ROUTE RECEIPT YET</div>
-    </div>
-  </section>
-  <div class="routes">
-    <button class="route share" data-port-route="contact"><b>SHARE / REPLY</b><small>CONTACT</small><span>Prepare it for explicit Share or Copy through a real channel.</span><em data-support="contact">0 CUES</em></button>
-    <button class="route" data-port-route="burst"><b>UNTANGLE IT</b><small>BURST / INTERPRET</small><span>Preserve the raw source and separate asks, corrections, callbacks and possible readings.</span><em data-support="burst">0 CUES</em></button>
-    <button class="route idea" data-port-route="idea"><b>KEEP THE IDEA</b><small>IDEA ATLAS</small><span>Capture lineage and invariant without committing to build it.</span><em data-support="idea">0 CUES</em></button>
-    <button class="route" data-port-route="residue"><b>REMEMBER IT</b><small>SOCIAL RESIDUE</small><span>Keep an offer, follow-up, question or promise without turning it into debt.</span><em data-support="residue">0 CUES</em></button>
-    <button class="route" data-port-route="lens"><b>CHANGE THE VIEW</b><small>SCALE LENS</small><span>Project the same source across scale, structure and address.</span><em data-support="lens">0 CUES</em></button>
+  <div class="fileentry">
+    <label>LOCAL FILE / IMAGE</label>
+    <div id="drop" class="drop"><div><b>DROP A FILE</b><span>or choose one from this device</span><span class="tiny">bytes → SHA-256 → local IndexedDB stash · no upload</span></div></div>
+    <div class="entryactions"><label class="filelabel">CHOOSE FILE<input id="fileInput" type="file"></label><button id="showStash">LOCAL STASH</button></div>
   </div>
-  <div class="statusbar"><div id="status" class="status">Paste one thing. Focus if useful. Select a route. OPEN is a separate step.</div><button class="inspectBtn" id="inspectBtn">FLOAT APERTURE</button><button class="openGate" id="openGate" disabled>OPEN →</button></div>
+</div>
+
+<div id="objectBar" class="objectbar">
+  <div class="objmeta"><b id="objectTitle">OBJECT</b><span id="objectMeta">—</span></div>
+  <div class="objacts"><button id="clearObject">CLEAR VIEW</button><button id="purgeObject" class="danger">PURGE BYTES</button></div>
+</div>
+
+<section id="work" class="work">
+  <div class="projection"><div class="cap"><b>OBJECT APERTURE</b><span id="projectionKind">—</span></div><div id="projectionMount"></div></div>
+  <div class="control">
+    <div class="cap"><b>ADDRESS / SCOPE</b><span>identity ≠ projection</span></div>
+    <div class="scope"><button id="scopeWhole" class="on">WHOLE OBJECT</button><button id="scopeFocus">CURRENT FOCUS</button></div>
+    <div class="focusread"><b id="focusTitle">WHOLE OBJECT</b><span id="focusAddress">—</span><p id="focusPreview">Load an object.</p></div>
+    <div class="laws">FIT = structural adapter · CUES = heuristic relevance · HISTORY = local completed OPENs · AUTHORITY remains independent.</div>
+  </div>
 </section>
 
-<div class="sectionhead"><b>SPECIALIZED TOOLS</b><span>use directly when the job is already clear</span></div>
-<section class="tools">
-  <a class="tool" href="../laconic/"><b>WRITE A REPLY · LACONIC / ICONIC</b><span>Choose a move and shape the line. Best after you already know what the response should do.</span></a>
-  <a class="tool" href="../contact/make/"><b>MAKE A CAPSULE</b><span>Create a contextual share link for one person, encounter or artifact.</span></a>
-  <a class="tool" href="../continuity/"><b>BUILD A CASE · CONTINUITY</b><span>Preserve sources, facts, gaps and conflicts before handing a situation onward.</span></a>
-  <a class="tool" href="../contact/backstage/"><b>KEEP THE MAKING HISTORY</b><span>Pin the strange/funny turn that actually changed an artifact; harvest mechanisms, not raw people.</span></a>
+<div id="routes" class="routes"></div>
+<div class="gate"><div id="status" class="status">Load an object first.</div><button id="openGate" class="open" disabled>OPEN →</button></div>
 </section>
 
-<details class="explain">
-  <summary>WHAT HUMAN PORT ACTUALLY IS</summary>
-  <div class="inside">
-    <div><b>ADDRESS</b><span>What is entering, and where should it go?</span></div>
-    <div><b>INTERPRET</b><span>What is observed, possible and unresolved?</span></div>
-    <div><b>POLICY</b><span>What is actually permitted?</span></div>
-    <div><b>TRANSFORM</b><span>Draft, preserve, project, route or hand off.</span></div>
-    <div><b>RETURN</b><span>What changed, what survived, what remains open?</span></div>
-  </div>
-</details>
+<section class="secondary">
+<h2>SPECIALIZED TOOLS</h2>
+<div class="tools">
+<a class="tool" href="../laconic/"><b>LACONIC / ICONIC</b><span>Shape a response after meaning is sufficiently resolved.</span></a>
+<a class="tool" href="../contact/make/"><b>CAPSULE</b><span>Make a contextual share link for one encounter.</span></a>
+<a class="tool" href="../continuity/"><b>CONTINUITY</b><span>Canonicalize a source-rich case with gaps and conflicts preserved.</span></a>
+<a class="tool" href="../contact/backstage/"><b>BACKSTAGE</b><span>Keep making-history and harvest bounded donor mechanisms.</span></a>
+</div>
+</section>
 
-<div class="truth"><b>CONTACT IS ONLY ONE PORT.</b> The public Contact page is the conventional “reach me” door. HUMAN PORT is the larger selective boundary between a source and the tools, people, agents or projections that may lawfully receive it.</div>
-
-<footer><span>ONE SOURCE · MANY LAWFUL ROUTES · NARROW AUTHORITY</span><span><a href="../contact/">CONTACT →</a> · <a href="../.well-known/human-port.json">MACHINE →</a> · <a href="../">FIELD →</a></span></footer>
+<footer><span>PORT = PASSAGE · FIELD INTAKE = ADMISSION · INGEST = BYTE/PROVENANCE SUBSTRATE</span><span><a href="../field-intake/">FIELD INTAKE →</a> · <a href="../">FIELD →</a></span></footer>
 
 <script src="../field-aperture.js"></script>
 <script src="../field-signals.js"></script>
+<script src="./object-store.js"></script>
+<script src="./object-aperture.js"></script>
 <script>
 (()=>{'use strict';
-const $=s=>document.querySelector(s),payload=$('#payload'),label=$('#label'),status=$('#status');
-const SESSION='human.port.session.v02',RECEIPTS='human.port.route.receipts.v01';
-const ROUTES=['contact','burst','idea','residue','lens'];
-let likely=null,likelySource='none',timer=null,selectedRoute=null,scope='whole',focus=null,aperture=null;
-const routeLabel=k=>({contact:'SHARE / REPLY',burst:'UNTANGLE IT',idea:'KEEP THE IDEA',residue:'REMEMBER IT',lens:'CHANGE THE VIEW'}[k]||k);
-const firstLine=s=>String(s||'').split(/\r?\n/).map(x=>x.trim()).find(Boolean)||'Untitled intake';
-function note(t,hot=false){status.textContent=t;status.classList.toggle('hot',hot)}
-function source(){const text=payload.value.trim();if(!text){note('PASTE OR WRITE SOMETHING FIRST.',true);return null}return{text,label:label.value.trim()||firstLine(text).slice(0,96),created_at:new Date().toISOString(),source:'human-port-intake'}}
-function cues(text){
- const t=String(text||'').toLowerCase(),out={contact:0,burst:0,idea:0,residue:0,lens:0},score={contact:0,burst:0,idea:0,residue:0,lens:0};
- const hit=(k,re,w=1)=>{const m=t.match(re)||[];out[k]+=m.length;score[k]+=m.length*w};
- hit('contact',/\b(reply|respond|send|message|email|text|tell|draft|write back)\b/g,2);
- hit('residue',/\b(remind|remember|follow[- ]?up|promise|owed?|later|don't forget|do not forget)\b/g,2);
- hit('idea',/\b(idea|prototype|build|make|app|mechanism|what if|could we|design)\b/g,1.5);
- hit('lens',/\b(compare|map|structure|scale|view|projection|relationship|lineage|zoom)\b/g,1.5);
- hit('burst',/\b(unclear|messy|confus|separate|untangle|what.*mean|multiple|several|wait|actually|sorry|no)\b/g,1.25);
- return{out,score};
-}
-function inferRoute(text){
- const {score}=cues(text),ranked=Object.entries(score).sort((a,b)=>b[1]-a[1]);
- if(ranked[0][1]>0&&ranked[0][1]>ranked[1][1])return{value:ranked[0][0],source:'content-cues'};
- const pref=window.FieldSignals?.preference('human-port-route',ROUTES);
- return pref?{value:pref.value,source:'local-history'}:{value:'burst',source:'fallback'};
-}
-function routeText(){return scope==='focus'&&focus&&String(focus.focus||'').trim()?String(focus.focus):payload.value}
-function updateSupport(){
- const c=cues(routeText()).out;
- ROUTES.forEach(k=>{const el=document.querySelector('[data-support="'+k+'"]');if(el)el.textContent=c[k]+' '+(c[k]===1?'CUE':'CUES')});
+const $=s=>document.querySelector(s);
+const SESSION='human.port.object.session.v01',RECEIPTS='human.port.object.receipts.v01';
+let routeContracts=null,obj=null,textAperture=null,imageAperture=null,focus=null,scope='whole',selected=null,likely=null;
+const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const note=(t,hot=false)=>{$('#status').textContent=t;$('#status').classList.toggle('hot',hot)};
+const fmtBytes=n=>n==null?'—':n<1024?n+' B':n<1048576?(n/1024).toFixed(1)+' KB':(n/1048576).toFixed(1)+' MB';
+const routeById=id=>routeContracts?.routes.find(r=>r.id===id);
+function loadReceipts(){try{return JSON.parse(localStorage.getItem(RECEIPTS)||'[]')}catch(_){return[]}}
+function historyCount(id){return loadReceipts().filter(r=>r.route===id).length}
+function cuesFor(text){
+ const t=String(text||'').toLowerCase(),c={contact:0,burst:0,idea:0,residue:0,lens:0,intake:0};
+ const hit=(k,re)=>c[k]+=(t.match(re)||[]).length;
+ hit('contact',/\b(reply|send|message|email|tell|draft|write back)\b/g);
+ hit('burst',/\b(messy|unclear|wait|actually|sorry|confus|untangle|multiple|several)\b/g);
+ hit('idea',/\b(idea|app|prototype|build|make|design|mechanism|what if|could we)\b/g);
+ hit('residue',/\b(remind|remember|follow[- ]?up|promise|later|owed?|do not forget|don't forget)\b/g);
+ hit('lens',/\b(map|structure|scale|view|projection|relationship|zoom|compare)\b/g);
+ hit('intake',/\b(record|admit|canon|canonical|evidence|observation|measure|source|artifact)\b/g);
  return c;
 }
-function renderRoutes(){
- document.querySelectorAll('[data-port-route]').forEach(b=>{
-   b.classList.toggle('likely',b.dataset.portRoute===likely);
-   b.classList.toggle('on',b.dataset.portRoute===selectedRoute);
+function fitFor(route){
+ if(!obj||!route)return'NONE';
+ const base=route.accepts?.[obj.media_class]||'NONE';
+ if(base==='NONE')return'NONE';
+ if(scope==='focus'&&focus){
+  const key=obj.media_class==='IMAGE'?'REGION_REF':obj.media_class==='FILE'?'WHOLE_REF':obj.media_class==='JSON'?'NODE':'FRAGMENT';
+  if(!(route.focus?.[obj.media_class]||[]).includes(key))return'NONE';
+ }
+ return base;
+}
+async function cueText(){
+ if(!obj)return'';
+ if(obj.media_class==='TEXT'||obj.media_class==='JSON')return scope==='focus'&&focus?.focus?String(focus.focus):await PortObjectStore.textFor(obj);
+ return obj.label+' '+(obj.mime||'')+' '+(focus?.address||'');
+}
+async function renderRoutes(){
+ if(!routeContracts)return;
+ const ct=cuesFor(await cueText());
+ let best=null,bestScore=-1;
+ const cards=routeContracts.routes.map(r=>{
+  const fit=fitFor(r),hist=historyCount(r.id),cue=ct[r.id]||0,score=(fit==='DIRECT'?6:fit==='ADAPTER'?3:-50)+cue*2+Math.min(hist,4);
+  if(score>bestScore){bestScore=score;best=r.id}
+  return{r,fit,hist,cue};
  });
- $('#openGate').disabled=!selectedRoute||!payload.value.trim();
- $('#openGate').textContent=selectedRoute?'OPEN '+routeLabel(selectedRoute)+' →':'OPEN →';
+ likely=best;
+ $('#routes').innerHTML=cards.map(({r,fit,hist,cue})=>'<button class="route '+(r.id===selected?'on ':'')+(r.id===likely?'likely':'')+'" data-route="'+esc(r.id)+'"><b>'+esc(r.label)+'</b><small>'+esc(r.system)+'</small><span>'+esc(r.side_effect)+'</span><div class="metrics"><i class="metric fit-'+fit+'">FIT '+fit+'</i><i class="metric">CUES '+cue+'</i><i class="metric">HISTORY '+hist+'</i></div></button>').join('');
+ $('#openGate').disabled=!selected||fitFor(routeById(selected))==='NONE';
+ $('#openGate').textContent=selected?'OPEN '+routeById(selected).label+' →':'OPEN →';
+ if(obj)note('LIKELY '+routeById(likely).label+' · support is advisory · SELECT then OPEN');
 }
-function updateLikely(reloadAperture=true){
- const c=updateSupport(),next=inferRoute(routeText());
- likely=next.value;likelySource=next.source;
- if(!selectedRoute&&payload.value.trim())selectedRoute=likely;
- renderRoutes();
- if(payload.value.trim())note('FOCUS → '+(scope==='focus'&&focus?focus.scale_label+' '+(focus.index+1)+'/'+focus.count:'WHOLE')+' · LIKELY '+routeLabel(likely)+' · support is cue-count, not authority');
- window.FieldSignals?.emit('candidate',{group:'human-port-route',value:likely,source:likelySource,cues:c[likely]||0});
- if(reloadAperture)hydrateAperture();
- persist();
+function persist(){try{sessionStorage.setItem(SESSION,JSON.stringify({obj,focus,scope,selected,at:new Date().toISOString()}))}catch(_){}}
+function objectMeta(){
+ if(!obj)return;
+ $('#objectBar').classList.add('on');$('#work').classList.add('on');
+ $('#objectTitle').textContent=obj.label||obj.object_id;
+ $('#objectMeta').textContent=[obj.media_class,obj.mime||'—',fmtBytes(obj.size_bytes),obj.sha256?'SHA256 '+obj.sha256.slice(0,20)+'…':'no hash',obj.retention,obj.object_id].join(' · ');
+ $('#purgeObject').hidden=obj.retention!=='LOCAL_STASH';
 }
-function hydrateAperture(){
- const x=source();if(!x){$('#focusDeck').classList.remove('on');return}
- $('#focusDeck').classList.add('on');
- const wanted=focus;
- if(!aperture){
-   aperture=window.FieldAperture?.mount($('#apertureMount'),x.text,{label:x.label});
-   aperture?.addEventListener('aperture-focus',e=>{focus=e.detail;renderFocus();if(scope==='focus'){const c=updateSupport(),next=inferRoute(routeText());likely=next.value;likelySource=next.source;renderRoutes();note('FOCUS '+focus.scale_label+' '+(focus.index+1)+'/'+focus.count+' · LIKELY '+routeLabel(likely)+' · '+(c[likely]||0)+' cue'+((c[likely]||0)===1?'':'s'))}persist()});
- }else aperture.load(x.text,{label:x.label});
- if(wanted?.scale&&aperture?.A?.scales){
-   const si=aperture.A.scales.findIndex(q=>q.id===wanted.scale);
-   if(si>=0){aperture.setScale(si);aperture.setPos(Math.min(wanted.index||0,Math.max(0,aperture.currentScale().units.length-1)))}
- }
- focus=aperture?.snapshot?.()||focus;renderFocus();
-}
-function renderFocus(){
+function focusSummary(){
  const use=scope==='focus'&&focus;
- $('#scopeWhole').classList.toggle('on',scope==='whole');$('#scopeFocus').classList.toggle('on',scope==='focus');
- $('#scopeFocus').disabled=!focus;
- if(use){
-   $('#focusTitle').textContent=focus.scale_label+' · '+(focus.index+1)+'/'+focus.count;
-   $('#focusMeta').textContent=(focus.address||'—')+' · '+(focus.kind||'SOURCE');
-   $('#focusText').textContent=focus.focus||'(empty focus)';
+ $('#scopeWhole').classList.toggle('on',scope==='whole');$('#scopeFocus').classList.toggle('on',scope==='focus');$('#scopeFocus').disabled=!focus;
+ $('#focusTitle').textContent=use?(focus.scale_label||focus.kind||'FOCUS'):'WHOLE OBJECT';
+ $('#focusAddress').textContent=use?(focus.address||'—'):(obj?.object_id||'—');
+ $('#focusPreview').textContent=use?(focus.focus||focus.address||'focused projection'):(obj?.media_class==='IMAGE'?'whole image':obj?.media_class==='FILE'?'whole file reference':(obj?.text_payload||'whole source').slice(0,360));
+}
+async function mountProjection(){
+ if(!obj)return;
+ $('#projectionKind').textContent=obj.media_class;
+ $('#projectionMount').innerHTML='';
+ if(textAperture?.destroy)textAperture.destroy();if(imageAperture?.destroy)imageAperture.destroy();textAperture=imageAperture=null;focus=null;
+ if(obj.media_class==='TEXT'||obj.media_class==='JSON'){
+  const text=await PortObjectStore.textFor(obj);
+  textAperture=FieldAperture.mount($('#projectionMount'),text,{label:obj.label});
+  textAperture.addEventListener('aperture-focus',e=>{focus=e.detail;focusSummary();renderRoutes();persist()});
+  focus=textAperture.snapshot();
+ }else if(obj.media_class==='IMAGE'){
+  const blob=await PortObjectStore.blobFor(obj);
+  imageAperture=await PortObjectAperture.mountImage($('#projectionMount'),obj,blob);
+  imageAperture.addEventListener('object-focus',e=>{focus=e.detail;focusSummary();renderRoutes();persist()});
+  focus=imageAperture.snapshot();
  }else{
-   $('#focusTitle').textContent='WHOLE SOURCE';
-   $('#focusMeta').textContent=(payload.value.length||0)+' chars · canonical intake';
-   $('#focusText').textContent=payload.value.trim()?payload.value.trim().slice(0,340):'Move the aperture to focus a smaller lawful projection.';
+  $('#projectionMount').innerHTML='<div class="generic"><div><b>GENERIC FILE</b><span>'+esc(obj.mime||'application/octet-stream')+' · '+fmtBytes(obj.size_bytes)+'</span><span>Identity/provenance available; no semantic projection adapter yet.</span></div></div>';
+  focus=null;
  }
+ objectMeta();focusSummary();await renderRoutes();persist();
 }
-function routedSource(){
- const x=source();if(!x)return null;
- const useFocus=scope==='focus'&&focus&&String(focus.focus||'').trim();
- return{...x,whole_text:x.text,text:useFocus?String(focus.focus):x.text,scope:useFocus?'focus':'whole',focus:useFocus?focus:null};
+async function activate(next){obj=next;scope='whole';selected=null;await mountProjection()}
+async function loadText(){
+ const text=$('#payload').value.trim();if(!text){note('PASTE TEXT OR JSON FIRST.',true);return}
+ obj=await PortObjectStore.fromText(text,$('#label').value.trim()||undefined);
+ $('#payload').value='';$('#label').value='';scope='whole';selected=null;await mountProjection();
 }
-function loadReceipts(){try{return JSON.parse(localStorage.getItem(RECEIPTS)||'[]')}catch(_){return[]}}
-function receipt(kind,x){
- const r={at:new Date().toISOString(),route:kind,scope:x.scope,focus_address:x.focus?.address||null,focus_scale:x.focus?.scale||null,source_chars:x.whole_text.length,candidate:likely,candidate_source:likelySource};
- const rs=loadReceipts();rs.push(r);try{localStorage.setItem(RECEIPTS,JSON.stringify(rs.slice(-24)))}catch(_){}
- renderLastReceipt();return r;
+async function loadFile(file){
+ if(!file)return;note('HASHING + STASHING '+file.name+'…');
+ try{obj=await PortObjectStore.fromFile(file);scope='whole';selected=null;await mountProjection();note('LOCAL OBJECT READY · '+obj.media_class+' · '+fmtBytes(obj.size_bytes))}
+ catch(e){note('FILE LOAD FAILED · '+e.message,true)}
 }
-function renderLastReceipt(){const r=loadReceipts().slice(-1)[0];$('#lastReceipt').textContent=r?'LAST ROUTE · '+r.route.toUpperCase()+' · '+r.scope.toUpperCase()+(r.focus_scale?' / '+r.focus_scale:'')+' · '+new Date(r.at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}):'NO ROUTE RECEIPT YET'}
-function persist(){try{sessionStorage.setItem(SESSION,JSON.stringify({text:payload.value,label:label.value,selectedRoute,scope,focus,at:new Date().toISOString()}))}catch(_){}}
-function go(kind){
- const x=routedSource();if(!x)return;
- window.FieldSignals?.choice('human-port-route',kind,{source:'open-gate',scope:x.scope});
- window.FieldSignals?.emit(kind===likely?'candidate-accepted':'candidate-overridden',{group:'human-port-route',candidate:likely,value:kind,source:likelySource,scope:x.scope});
- receipt(kind,x);persist();
- const meta={port_source_scope:x.scope,port_focus:x.focus?{scale:x.focus.scale,address:x.focus.address,index:x.focus.index,count:x.focus.count}:null,port_whole_chars:x.whole_text.length};
+function currentProjectionText(){
+ if(!obj)return'';
+ if(obj.media_class==='TEXT'||obj.media_class==='JSON')return scope==='focus'&&focus?.focus?String(focus.focus):obj.text_payload||'';
+ return [obj.label,obj.media_class,obj.mime||'',obj.sha256?'sha256:'+obj.sha256:'',scope==='focus'&&focus?.address?'focus:'+focus.address:''].filter(Boolean).join(' · ');
+}
+function intakeCapture(){
+ const ref=obj.object_id.replace(/[^a-z0-9:_-]/gi,'-');
+ const parts=['[obs]','Port object',obj.label,'media',obj.media_class,'mime',obj.mime||'unknown','sha256',obj.sha256||'none','@human-port','#object-intake','ref:'+ref];
+ if(scope==='focus'&&focus?.address)parts.push('// focus '+focus.address+'; candidate only; bytes remain in HUMAN PORT local stash');
+ else parts.push('// candidate only; source bytes remain in HUMAN PORT local stash');
+ return parts.join(' ');
+}
+function writeReceipt(route,fit){
+ const r={at:new Date().toISOString(),object_id:obj.object_id,media_class:obj.media_class,route,fit,scope,focus_address:scope==='focus'?focus?.address||null:null,size_bytes:obj.size_bytes,sha256:obj.sha256||null};
+ const rs=loadReceipts();rs.push(r);localStorage.setItem(RECEIPTS,JSON.stringify(rs.slice(-40)));return r;
+}
+async function openRoute(){
+ if(!selected||!obj)return;const route=routeById(selected),fit=fitFor(route);if(fit==='NONE'){note('NO CURRENT ADAPTER FOR '+route.system+' ← '+obj.media_class,true);return}
+ const summary=currentProjectionText(),meta={port_object_id:obj.object_id,port_media_class:obj.media_class,port_fit:fit,port_scope:scope,port_focus:scope==='focus'?focus:null,port_sha256:obj.sha256||null};
+ writeReceipt(selected,fit);FieldSignals?.choice('human-port-object-route',selected,{media:obj.media_class,fit,scope});persist();
  try{
-  if(kind==='contact'){
-   sessionStorage.setItem('human.port.handoff.v01',JSON.stringify({draft:x.text.slice(0,1200),mode:'REPLY',source:x.source,created_at:x.created_at,...meta}));
-   location.assign('../contact/');return;
+  if(selected==='contact'){sessionStorage.setItem('human.port.handoff.v01',JSON.stringify({draft:summary.slice(0,1200),mode:'REPLY',source:'human-port-object',created_at:new Date().toISOString(),...meta}));location.assign('../contact/');return}
+  if(selected==='burst'){sessionStorage.setItem('human.port.interpret.handoff.v01',JSON.stringify({raw:summary,label:obj.label,source:'human-port-object',created_at:new Date().toISOString(),...meta}));location.assign('../contact/burst/');return}
+  if(selected==='idea'){sessionStorage.setItem('app.atlas.handoff.v01',JSON.stringify({name:obj.label,invariant:summary,lineage:['HUMAN PORT','OBJECT APERTURE',obj.media_class],source:summary,object_ref:obj.object_id,created_at:new Date().toISOString(),...meta}));location.assign('../app-atlas/');return}
+  if(selected==='residue'){sessionStorage.setItem('human.port.residue.handoff.v01',JSON.stringify({subject:obj.label,source:summary,object_ref:obj.object_id,created_at:new Date().toISOString(),...meta}));location.assign('../contact/residue/');return}
+  if(selected==='lens'){sessionStorage.setItem('scale.lens.handoff.v01',JSON.stringify({text:summary,label:obj.label,created_at:new Date().toISOString(),object_ref:obj.object_id,...meta}));location.assign('../fold-bloom/lens/');return}
+  if(selected==='intake'){
+   sessionStorage.setItem('field.intake.handoff.v01',JSON.stringify({schema:'0xxx0/port-object-to-field-intake/v0.1',capture:intakeCapture(),source_object_id:obj.object_id,source_object:{label:obj.label,media_class:obj.media_class,mime:obj.mime,size_bytes:obj.size_bytes,sha256:obj.sha256,retention:obj.retention,focus:scope==='focus'?focus:null},created_at:new Date().toISOString()}));
+   location.assign('../field-intake/');return;
   }
-  if(kind==='burst'){
-   sessionStorage.setItem('human.port.interpret.handoff.v01',JSON.stringify({raw:x.text,label:x.label,source:x.source,created_at:x.created_at,whole_raw:x.scope==='focus'?x.whole_text:undefined,...meta}));
-   location.assign('../contact/burst/');return;
-  }
-  if(kind==='idea'){
-   sessionStorage.setItem('app.atlas.handoff.v01',JSON.stringify({name:x.label,invariant:x.text,lineage:['HUMAN PORT','PORT INTAKE',x.scope==='focus'?'FOCUS APERTURE':'WHOLE SOURCE'],source:x.whole_text,created_at:x.created_at,...meta}));
-   location.assign('../app-atlas/');return;
-  }
-  if(kind==='residue'){
-   sessionStorage.setItem('human.port.residue.handoff.v01',JSON.stringify({subject:x.label,source:x.text,whole_source:x.scope==='focus'?x.whole_text:undefined,created_at:x.created_at,...meta}));
-   location.assign('../contact/residue/');return;
-  }
-  if(kind==='lens'){
-   sessionStorage.setItem('scale.lens.handoff.v01',JSON.stringify({text:x.text,label:x.label+(x.scope==='focus'?' · focus':''),created_at:x.created_at,whole_text:x.scope==='focus'?x.whole_text:undefined,...meta}));
-   location.assign('../fold-bloom/lens/');return;
-  }
- }catch(e){note('LOCAL HANDOFF FAILED · '+e.message,true)}
+ }catch(e){note('HANDOFF FAILED · '+e.message,true)}
 }
-document.querySelectorAll('[data-port-route]').forEach(b=>b.onclick=()=>{selectedRoute=b.dataset.portRoute;renderRoutes();note('SELECTED '+routeLabel(selectedRoute)+' · OPEN is separate');persist()});
-$('#openGate').onclick=()=>{if(selectedRoute)go(selectedRoute)};
-$('#scopeWhole').onclick=()=>{scope='whole';renderFocus();updateLikely(false);note('ROUTING WHOLE SOURCE')};
-$('#scopeFocus').onclick=()=>{if(!focus)return;scope='focus';renderFocus();updateLikely(false);note('ROUTING CURRENT FOCUS · support recomputed · original source remains in Port session')};
-document.querySelectorAll('[data-sample]').forEach(b=>b.onclick=()=>{
- const samples={
-  messy:"ok wait no — I meant send the draft to her, but not tonight. also remind me what we decided about the paintings? and haha the weird donor-organ joke probably actually contains a mechanism somehow",
-  idea:"My cousin has an app idea: one object can appear as a map, timeline, message and game without losing its identity. I said I could help think it through.",
-  follow:"I told them I would look at the paintings and send thoughts. I still care about the work, but I am not sure the original follow-up is the right next move."
- };
- payload.value=samples[b.dataset.sample]||'';label.value={messy:'messy multi-thread note',idea:'cousin app idea',follow:'paintings follow-up'}[b.dataset.sample]||'';selectedRoute=null;scope='whole';updateLikely();
-});
-payload.addEventListener('input',()=>{clearTimeout(timer);timer=setTimeout(updateLikely,220)},{passive:true});
-payload.addEventListener('paste',()=>{clearTimeout(timer);timer=setTimeout(updateLikely,60)},{passive:true});
-label.addEventListener('input',persist,{passive:true});
-$('#inspectBtn').onclick=()=>{const x=source();if(!x)return;window.FieldAperture?.dock(x.text,{label:x.label,from:'human-port'})};
-$('#clear').onclick=()=>{payload.value='';label.value='';likely=null;selectedRoute=null;focus=null;scope='whole';aperture=null;$('#apertureMount').innerHTML='';$('#focusDeck').classList.remove('on');document.querySelectorAll('[data-port-route]').forEach(b=>b.classList.remove('likely','on'));updateSupport();renderRoutes();try{sessionStorage.removeItem(SESSION)}catch(_){}note('CLEARED · NOTHING STORED')};
-let explicitPreload=false;
-try{const raw=sessionStorage.getItem('human.port.intake.preload.v01');if(raw){const x=JSON.parse(raw);sessionStorage.removeItem('human.port.intake.preload.v01');payload.value=String(x.text||'').slice(0,12000);label.value=String(x.label||'').slice(0,100);explicitPreload=true;note('PRELOADED FROM '+String(x.source||'CENTER').toUpperCase())}}catch(e){note('PRELOAD FAILED · '+e.message,true)}
-if(!explicitPreload)try{const raw=sessionStorage.getItem(SESSION);if(raw){const x=JSON.parse(raw);payload.value=String(x.text||'').slice(0,12000);label.value=String(x.label||'').slice(0,100);selectedRoute=ROUTES.includes(x.selectedRoute)?x.selectedRoute:null;scope=x.scope==='focus'?'focus':'whole';focus=x.focus||null;note('RE-ENTERED · SOURCE + FOCUS RESTORED FROM THIS SESSION')}}catch(_){}
-renderLastReceipt();updateSupport();if(payload.value.trim())updateLikely();else renderRoutes();
+$('#loadText').onclick=loadText;
+$('#sampleJson').onclick=()=>{$('#label').value='sample object';$('#payload').value=JSON.stringify({object:'painting-study',state:'candidate',views:['image','timeline','game'],return:{status:'open'}},null,2)};
+$('#sampleText').onclick=()=>{$('#label').value='messy note';$('#payload').value='I said I would look at the paintings, and there is probably an app idea in this, but I am not sure the follow-up itself is still the right move.'};
+const drop=$('#drop'),fileInput=$('#fileInput');
+fileInput.onchange=()=>loadFile(fileInput.files?.[0]);
+['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('hot')}));
+['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('hot')}));
+drop.addEventListener('drop',e=>loadFile(e.dataTransfer?.files?.[0]));drop.onclick=()=>fileInput.click();
+$('#routes').onclick=e=>{const b=e.target.closest('[data-route]');if(!b)return;selected=b.dataset.route;renderRoutes();note('SELECTED '+routeById(selected).label+' · FIT '+fitFor(routeById(selected))+' · OPEN remains separate');persist()};
+$('#openGate').onclick=openRoute;
+$('#scopeWhole').onclick=()=>{scope='whole';focusSummary();renderRoutes();persist()};
+$('#scopeFocus').onclick=()=>{if(!focus)return;scope='focus';focusSummary();renderRoutes();persist()};
+$('#clearObject').onclick=()=>{obj=null;focus=null;scope='whole';selected=null;$('#objectBar').classList.remove('on');$('#work').classList.remove('on');$('#projectionMount').innerHTML='';$('#routes').innerHTML='';$('#openGate').disabled=true;sessionStorage.removeItem(SESSION);note('VIEW CLEARED · LOCAL STASH UNCHANGED')};
+$('#purgeObject').onclick=async()=>{if(!obj||obj.retention!=='LOCAL_STASH')return;const id=obj.object_id;if(!confirm('Purge local bytes for '+obj.label+'?'))return;await PortObjectStore.remove(id);$('#clearObject').click();note('PURGED '+id)};
+$('#showStash').onclick=async()=>{const xs=await PortObjectStore.list();alert(xs.length?xs.map(x=>x.label+' · '+x.media_class+' · '+fmtBytes(x.size_bytes)+' · '+x.object_id).join('\n'):'LOCAL STASH EMPTY')};
+(async()=>{
+ try{routeContracts=await fetch('./routes.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()})}catch(e){note('ROUTE CONTRACT UNAVAILABLE · '+e.message,true);return}
+ try{const raw=sessionStorage.getItem(SESSION);if(raw){const s=JSON.parse(raw);if(s.obj){obj=s.obj;focus=s.focus||null;scope=s.scope==='focus'?'focus':'whole';selected=s.selected||null;await mountProjection();note('RE-ENTERED · OBJECT IDENTITY RESTORED')}}}catch(_){}
+})();
 })();
 </script>
 </main></body></html>
