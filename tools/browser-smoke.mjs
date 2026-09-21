@@ -144,11 +144,12 @@ function studioProbeHtml(){
     const studio=sh.querySelector('.studio');if(!studio)throw new Error('studio button missing');studio.click();
     const studioState=await waitFor(()=>W().location.pathname==='/fold-bloom/lens/'&&W().ScaleLensStateAPI?.snapshot?.());
     rec.studioObject=studioState.objectId;rec.upstreamStack=(studioState.meta?.upstreamLensStack||[]).map(x=>x.lensId);
+    rec.handoffKeysCleared=!W().sessionStorage.getItem('lens:handoff:v2')&&!W().sessionStorage.getItem('scale.lens.handoff.v01');
     const ret=await waitFor(()=>{const x=D().getElementById('returnUpstream');return x&&!x.hidden?x:null});rec.returnHref=ret.dataset.href||null;
     if(rec.studioObject!==rec.startHref||!rec.upstreamStack.includes('field-foveate'))throw new Error('studio identity/provenance mismatch');
     if(!W().ScaleLensSpatialAPI?.return)throw new Error('Scale Lens RETURN API missing');rec.returnVia='ScaleLensSpatialAPI';W().ScaleLensSpatialAPI.return();await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===rec.startHref);
     rec.endHref=W().FieldLensHost.focus().href;rec.end=compact(W().FieldLensHost.uiState());
-    const ok=rec.inline&&rec.noPeer&&rec.noPeerApi&&rec.dive.focusHref===rec.startHref&&rec.diveHref===rec.startHref&&rec.dive.mapRoot==='/fold-bloom/'&&rec.rise.focusHref===rec.startHref&&rec.riseHref===rec.startHref&&rec.rise.mapRoot==='/'&&rec.stackRemoved===true&&rec.fieldObject===rec.startHref&&rec.fieldStack.includes('field-foveate')&&rec.studioObject===rec.startHref&&rec.upstreamStack.includes('field-foveate')&&rec.endHref===rec.startHref;
+    const ok=rec.inline&&rec.noPeer&&rec.noPeerApi&&rec.dive.focusHref===rec.startHref&&rec.diveHref===rec.startHref&&rec.dive.mapRoot==='/fold-bloom/'&&rec.rise.focusHref===rec.startHref&&rec.riseHref===rec.startHref&&rec.rise.mapRoot==='/'&&rec.stackRemoved===true&&rec.fieldObject===rec.startHref&&rec.fieldStack.includes('field-foveate')&&rec.studioObject===rec.startHref&&rec.upstreamStack.includes('field-foveate')&&rec.handoffKeysCleared===true&&rec.endHref===rec.startHref;
     done(!!ok,rec);
   })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
