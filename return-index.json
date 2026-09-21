@@ -2,10 +2,21 @@
   "schema": "0xxx0/return-index/v0.1",
   "generated": "2026-09-21",
   "source": "/showcase-manifest.json",
-  "count": 44,
-  "receipts_ok": 44,
+  "count": 45,
+  "receipts_ok": 45,
   "law": "A release without a return path is not closed.",
   "items": [
+    {
+      "href": "/control/",
+      "title": "WORKER CONTROL RECONCILIATION",
+      "state": "ACTIVE",
+      "version": "2026-09-21",
+      "operation": "COORDINATE",
+      "receipt": "/returns/WORKER_CONTROL_RECONCILIATION_2026-09-21.json",
+      "receipt_ok": true,
+      "receipt_schema": "return-receipt/v0.1",
+      "release_updated": "2026-09-21"
+    },
     {
       "href": "/recovery/sleeper/",
       "title": "BACKUP → CITY / PAINTING / MEDIA",

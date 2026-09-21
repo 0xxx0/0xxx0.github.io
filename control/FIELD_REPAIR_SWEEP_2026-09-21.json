@@ -1,0 +1,150 @@
+{
+  "schema": "field-repair-sweep/v0.1",
+  "id": "FIELD-REPAIR-SWEEP-2026-09-21-1741",
+  "at": "2026-09-21T17:41:00+08:00",
+  "purpose": "Calm rebase after concurrent Codex/recovery/poetry/Foundry changes; distinguish real breakage from buried capability and stale coordination.",
+  "recovered_state": {
+    "codex_backup": {
+      "merge": "9e9edf23828376c76672b58c5655c3e022556ca2",
+      "pr": 61,
+      "branch": "recovery/backup-20260921",
+      "state": "MERGED_MASTER_AHEAD",
+      "enabled": [
+        "exact City v0.2 source and later Painting runtime recovered",
+        "40 exact source/assets SHA-256 verified",
+        "38 City/Painting tests passed in recovery receipt",
+        "13 reviewed illustrations public; 2437-image wider backup remains private",
+        "bounded local Documents ingest verified: 559 files / 557 byte objects / 2 duplicate groups / source unmutated"
+      ],
+      "authority": [
+        "/returns/BACKUP_RECOVERY_2026-09-21.json",
+        "/control/INGEST_RUN_2026-09-21.json",
+        "/control/STATE_SURVEY_2026-09-21_1731.json"
+      ]
+    },
+    "ledger_audit": {
+      "manifest_routes": 95,
+      "current_heads": 9,
+      "current_head_fetch": "9/9 PASS via GitHub source fetch",
+      "current_head_inline_js": "PASS where inline scripts exist",
+      "queue_current_alignment": "PASS",
+      "manifest_state_parent_integrity": "PASS in bounded current-head audit"
+    }
+  },
+  "regressions_fixed": [
+    {
+      "area": "Verse Atlas",
+      "problem": "General Poetry/Copilot open-draft behavior was grafted directly into an already sealed specialist engine.",
+      "fix": "Restored Verse Atlas index/app to Sep-20 round-trip-tested state; preserved experimental grafts on verse-pre-rebase-20260921.",
+      "boundary": "Verse Atlas = sealed Jueju-native specialist; general Verse experiments stay outside it."
+    },
+    {
+      "area": "Poem Map",
+      "problem": "Abstract MAP was the first entrance; map-law controls dominated first use; RETURN exported but did not replay.",
+      "fix": "PAGE default/persisted; 30-second guide; advanced disclosure for map law; RETURN IMPORT/replay; safety branch poem-map-pre-orientation-20260921.",
+      "preserved": [
+        "PAGE/MAP/SETS",
+        "ORDER/SOUND/REPEAT/AUTHOR",
+        "APERTURE",
+        "locks",
+        "author paths",
+        "candidate bank",
+        "TRY→ADOPT",
+        "revision ancestry",
+        "form adapters"
+      ]
+    },
+    {
+      "area": "Verse navigation",
+      "problem": "Instrument names dominated over writer goals and stale copy said candidate dock was still NEXT.",
+      "fix": "Action-first Verse rail: WRITE/EXPLORE; FIND WORDS/SOLVE; COMPOSE BY PATH; STUDY JUEJU; PLAY/MULTILINGUAL; RUN EXPERIMENTS. Lab now marks candidate dock TRANSFERRED."
+    },
+    {
+      "area": "Manifest / recovery copy",
+      "problem": "General /poetry/ still had Chinese/Jueju-specific machine contract; Sleeper recovery role still described resolved blockers.",
+      "fix": "/poetry/ reclassified as ORIENT hub with source-preserving route contract; /recovery/sleeper/ records exact Sep-21 recovery and unchanged current Sleeper head."
+    },
+    {
+      "area": "Open loops",
+      "problem": "GitHub issues #5 and #7 remained open after their own done criteria were satisfied.",
+      "fix": "Closed both as completed; regenerated FIELD_ISSUES snapshot from 11 to 9 open issues."
+    }
+  ],
+  "capabilities_added": [
+    {
+      "name": "Poem Map local corpus provider",
+      "status": "CANDIDATE",
+      "behavior": "User explicitly selects a local text file. It stays browser-session-only. Selected tokens can obtain observed follower/context candidates and approximate Latin-script sound echoes with LOCAL CORPUS provenance.",
+      "privacy": "Corpus bytes are not uploaded, persisted or exported. RETURN records only loaded/token-count metadata plus any banked/adopted candidate provenance.",
+      "non_claim": "Co-occurrence is not semantic equivalence; Han phonology is not inferred."
+    },
+    {
+      "name": "capability-retention QA",
+      "status": "IMPLEMENTED",
+      "behavior": "Static validator now fails if Poem Map loses guide/import/corpus, PAGE/MAP/SETS, relation-law/aperture controls or TRY/ADOPT/LOCK; Verse Atlas loses study/parallel/glyph/RSVP/RETURN replay.",
+      "reason": "Rendering alone is insufficient protection against feature destruction."
+    },
+    {
+      "name": "critical browser-smoke coverage",
+      "status": "IMPLEMENTED_CI",
+      "behavior": "Existing browser smoke now includes Verse home, Poem Map, Verse Atlas live health, Foundry and Sleeper recovery in addition to FIELD/PORT/AXIAL/CENTER/Scale Lens/House.",
+      "caveat": "Push workflow is wired; this chat cannot query push-triggered Actions runs through the available GitHub wrapper, so post-change run result is not claimed here."
+    }
+  ],
+  "contract_now": {
+    "VERSE /poetry/": "small action-first re-entry hub",
+    "POEM MAP /poetry/map/": "current candidate authoring experiment",
+    "VERSE ATLAS /foundry/verse-atlas/": "sealed Jueju-native study/evidence/path/RSVP specialist",
+    "PATHWEAVER": "composition/play/forge donor",
+    "MARKET+SOLVER": "optionality/constraint/least-change donor",
+    "GRID PATH": "path/address/projection/multilingual donor",
+    "POEM MAP 0.1": "selective-visualization control ancestor",
+    "FOUNDRY": "instrument gateway/quarry; not poetry product authority",
+    "MOTHER": "comparison/learning bench; not authoring UI"
+  },
+  "expand_options": [
+    {
+      "id": "FORM-SCHEMA",
+      "value": "Declarative form adapters so styles become data rather than UI forks.",
+      "gate": "after current Poem Map authoring loop produces a real RETURN"
+    },
+    {
+      "id": "PHONETIC-ADAPTER",
+      "value": "Replace approximate spelling SOUND/rhyme with named English/Chinese/other phonetic resources.",
+      "gate": "source-backed adapter; no universal phonology claims"
+    },
+    {
+      "id": "MACRO-GLYPH",
+      "value": "Optional line/poem summaries from recovered poetry visualization research when token maps overload.",
+      "gate": "must beat PAGE for a named comparison task"
+    },
+    {
+      "id": "CORPUS-MAP",
+      "value": "External/local poem neighborhoods with exact provenance; separate from internal Poem Map topology.",
+      "gate": "do not conflate corpus similarity with poem structure"
+    },
+    {
+      "id": "CHALLENGE",
+      "value": "Constraint/game state where solving leaves the editable poem, not a score-only minigame.",
+      "gate": "must preserve source/revision/RETURN"
+    }
+  ],
+  "contract_options": [
+    "Keep advanced relation-law sliders available but out of first-use path.",
+    "Keep frozen/recovered donors directly reachable without promoting them into current heads.",
+    "Keep one stable specialist when evidence/study semantics differ rather than folding it into a mega-editor.",
+    "Close solved issues and stale blockers rather than preserving backlog as identity.",
+    "No new sovereign app merely because language/form changes."
+  ],
+  "next_bounded_moves": [
+    "Let CI/browser-smoke judge the newly guarded critical routes; fix concrete failing case rather than redesigning broadly.",
+    "Use Poem Map on one real fragment: PAGE → select → local/manual/Datamuse possibility → TRY → ADOPT/LOCK → optional MAP → EXPORT → IMPORT.",
+    "Use the verified 559-file ingest to review one exact app + design-document family by hash/original-name provenance; no moves.",
+    "Only then select one expansion: declarative form schema, real phonetic adapter, macro-glyph overload view, corpus neighborhood, or challenge mode."
+  ],
+  "unknowns": [
+    "Rendered post-change browser smoke result is not observable through the available push-run connector in this chat.",
+    "User-perceived failures on routes not covered by current critical smoke need exact route/action/error or ordinary-use evidence.",
+    "Pinterest-specific visual backup remains a separate historical backup task; PR #61 concerns the repo/local backup recovery tranche, not proof that Pinterest mirroring was completed."
+  ]
+}

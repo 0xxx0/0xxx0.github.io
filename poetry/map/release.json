@@ -56,7 +56,9 @@
     "30-second first-use play path: source/demo → PAGE selection → intent → TRY → ADOPT/BANK → MAP/SETS/PATH → RETURN",
     "map-law weights and APERTURE remain intact behind an ADVANCED disclosure rather than being removed",
     "RETURN JSON import/replay restores source, form, relation weights, aperture, locks, author path/edges, bank, revisions and captures",
-    "internal selftest surface exposed as window.__POEM_MAP__.selftest()"
+    "internal selftest surface exposed as window.__POEM_MAP__.selftest()",
+    "session-only local corpus file provider; corpus bytes are not uploaded, persisted or exported",
+    "local corpus intent options: observed followers/context and approximate Latin-script sound echoes with explicit LOCAL CORPUS provenance"
   ],
   "boundaries": [
     "Map is a projection, not the poem.",
@@ -71,10 +73,12 @@
     "Candidate support reports explicit form-envelope compatibility only; it is not a recommendation, ranking or poetry score.",
     "PAGE is the legibility/control entrance; MAP and SETS must earn attention rather than replace reading.",
     "First-use orientation changes disclosure/order only; the 0.2 authoring feature set remains available.",
-    "Rendered-browser smoke of the post-rebase orientation/replay changes remains pending; static JS/DOM integrity is verified."
+    "Rendered-browser smoke of the post-rebase orientation/replay changes remains pending; static JS/DOM integrity is verified.",
+    "Local corpus contents remain session-only; RETURN records only loaded/token-count metadata and adopted/banked candidate provenance.",
+    "Local corpus context is observed co-occurrence, not automatic semantic equivalence."
   ],
   "next_experiments": [
-    "intent verbs CONTINUE/REPLACE/ECHO/CONTRAST/TURN/RHYME/COMPRESS/EXPAND/SURPRISE/BREAK feeding provider-specific candidate queries",
+    "extend the existing intent dock only where a named authoring gap appears; COMPRESS/EXPAND/BREAK remain unimplemented rather than implied",
     "declarative form-adapter schema instead of hardcoded form UI",
     "real phonetic/language adapters replacing approximate spelling heuristics",
     "corpus neighborhood view with exact provenance",
@@ -105,13 +109,15 @@
     ],
     "generation_proof_preserved": "/poetry/lab/poem-map/",
     "dom_selector_integrity": "PASS_NO_MISSING_IDS",
-    "current_source_sha": "2a715df2c3064b9adebdcc14ca0c97dd35e63c4f",
+    "current_source_sha": "3b309115886ef903ba0b6eb41ab29245f769bb26",
     "page_default_and_persisted": "PASS_STATIC",
     "guide_markers": "PASS_STATIC",
     "return_import_replay_contract": "PASS_STATIC",
     "selftest_exposed": "YES_RUNTIME_EXECUTION_PENDING",
     "rendered_browser_smoke": "PENDING_ENVIRONMENT",
-    "checked_on": "2026-09-21"
+    "checked_on": "2026-09-21",
+    "local_corpus_static_contract": "PASS",
+    "return_replay_clears_session_corpus": "PASS_STATIC"
   },
   "updated": "2026-09-21",
   "next_bounded_test": {
