@@ -1224,7 +1224,8 @@
       "transfer": [
         "constraint visualization",
         "obligation gating",
-        "alternate views of one state"
+        "alternate views of one state",
+        "ONE RETURN playable ancestor lane restored without replacing current Sleeper head"
       ],
       "contract": {
         "accepts": {
@@ -1310,10 +1311,11 @@
         "physical_fit": "Can gate workshop/home procedures when obligations are explicit."
       },
       "index": {
-        "updated_at": "2026-09-20T23:58:00+08:00",
+        "updated_at": "2026-09-21T20:20:00+08:00",
         "work_modes": [
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "PLAY"
         ]
       }
     },
@@ -4781,6 +4783,53 @@
       },
       "alias_of": "/?lens_proof=1",
       "showcase_card": false
+    },
+    {
+      "href": "/sleeper/one-return/",
+      "title": "ONE RETURN / NINE GATE",
+      "kind": "artifact",
+      "parent": "/sleeper/",
+      "family": "SLEEPER",
+      "operation": "PLAY",
+      "state": "ACTIVE_LINEAGE_LANE",
+      "version": "reified-0.2",
+      "showcase_card": false,
+      "receipt": "/sleeper/one-return/release.json",
+      "role": "Playable maze ancestor lane: source-seeded deterministic ASCII labyrinth → nine ordered gates → semantic challenge/deformation → CITY/DISC/TRACE projections → previous-return ghost → evidence-bearing RETURN.",
+      "transfer": [
+        "sentence/corpus → deterministic topology",
+        "Nine Gate ordered traversal",
+        "semantic success changes topology",
+        "DataDisc as same-state alternate projection",
+        "ghost previous RETURN",
+        "event trace + RETURN witness"
+      ],
+      "contract": {
+        "transforms": {
+          "verb": "compile source into deterministic maze and enact semantic gate traversal",
+          "preserves": [
+            "source units",
+            "gate identity/order",
+            "projection identity",
+            "action trace",
+            "RETURN history"
+          ],
+          "reversibility": "local/reset/import",
+          "side_effects": "local/browser only"
+        },
+        "evidence": {
+          "receipt": "/sleeper/one-return/release.json",
+          "return_path": "/sleeper/"
+        }
+      },
+      "index": {
+        "updated_at": "2026-09-21T20:20:00+08:00",
+        "work_modes": [
+          "PLAY",
+          "VERIFY",
+          "OPERATE"
+        ]
+      }
     }
   ],
   "release_law": [
