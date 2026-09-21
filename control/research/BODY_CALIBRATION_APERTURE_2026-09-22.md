@@ -169,6 +169,17 @@ Consequential medication logic remains outside autonomous FIELD authority:
 - interaction findings retain authoritative source and uncertainty;
 - escalate consequential ambiguity to pharmacist/clinician review.
 
+### Exposure source ladder — Singapore-local first where applicable
+
+Keep four questions separate:
+
+1. **WHAT IS IT?** Normalize ingredient/formulation/strength and preserve brand/product identity. RxNorm is useful when the concept exists, but identity normalization is not interaction authority.
+2. **IS THIS PRODUCT LOCALLY LEGITIMATE / FLAGGED?** Use Singapore HSA Infosearch/Register of Therapeutic Products for medicines; for supplements/traditional medicines consult HSA's voluntarily notified complementary-product list and illegal/adulterated-product alerts. Voluntary notification must not be rendered as HSA endorsement.
+3. **WHAT DOES THE PRODUCT/LABEL SAY?** Prefer the current locally approved product information / patient information where available; preserve jurisdiction and revision date.
+4. **WHAT IS KNOWN ABOUT INTERACTIONS / TIMING?** Use authoritative product labels plus evidence-oriented clinical/pharmacology sources. For supplements, NIH ODS/NCCIH fact sheets are useful public evidence donors. Absence from one source is **UNKNOWN / NOT FOUND**, never “no interaction.”
+
+For high-consequence combinations, uncertain identity, prescription timing changes, pregnancy, surgery, severe organ impairment or similarly consequential contexts, the tool should prepare a concise source-backed pharmacist/clinician question rather than manufacture a schedule.
+
 ## Minimum sufficient sensorium
 
 Treat measurement itself as a resource cost.
