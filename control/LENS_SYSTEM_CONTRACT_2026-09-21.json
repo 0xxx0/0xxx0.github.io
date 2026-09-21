@@ -108,21 +108,22 @@
     "source_refs": "source/provenance identifiers"
   },
   "focus_ring_v0": {
-    "status": "IMPLEMENTED_RECONSTRUCTED_FROM_RECOVERED_TEMPORAL_AND_APERTURE_DONORS; exact older red-dot ring still to recover",
-    "role": "small common temporal/spatial focus controller in front of Scale Studio: current focus, aperture, projection, ordered view stack and RETURN; not a replacement for Studio",
-    "default_surface": "collapsed ◎ LENS aperture from global route adapter",
+    "status": "IMPLEMENTED_G2_IDENTITY_LOCKED_INLINE_TOOLGLASS",
+    "role": "portable refraction controller over the host-selected object: LENS changes aperture, projection and ordered view stack; the host owns SELECT; Scale Studio remains the deep lab",
+    "default_surface": "on FIELD, ◎ LENS unfolds inline from the current aperture; generic routes may use the compact floating trigger",
     "visible_model": {
-      "center": "current focus identity + current projection",
-      "in_out": "APERTURE finer/coarser while preserving focus identity",
-      "left_right": "previous/next lawful peer at the current level",
-      "rim": "projection chooser; labels always visible when open",
-      "stack": "COMPOSE opens a compact ordered lens-stack sheet",
-      "return": "persistent RETURN control to exact invoking route"
+      "center": "IDENTITY LOCK: current host-selected object/focus; Lens never disguises selection as refraction",
+      "in_out": "APERTURE OUT / IN changes semantic context while preserving object identity",
+      "rim": "projection chooser; switching VIEW preserves canonical object identity",
+      "stack": "COMPOSE exposes ordered active lenses plus lawful/dead candidates; removable catalog lenses are reversible in place",
+      "return": "persistent RETURN restores exact invoking FIELD UI state",
+      "deep_lab": "DEEP LAB transfers the same LensState/provenance to Scale Studio"
     },
     "interaction_constraints": [
+      "host owns SELECT; Lens does not expose peer navigation as a refraction control",
       "phone: one-thumb operable; no essential hover",
-      "desktop: may become movable Toolglass but shares the same LensState",
-      "do not overload gaze as primary input",
+      "FIELD: tool unfolds spatially adjacent to the active aperture instead of becoming a detached second cockpit",
+      "generic routes may use a compact floating Toolglass trigger but share the same LensState",
       "all gesture-only actions also have visible controls/keyboard paths",
       "browser/accessibility focus indicator remains distinct from conceptual FOCUS RING state"
     ],
@@ -158,24 +159,36 @@
     },
     {
       "id": "LENS-02",
-      "name": "FOCUS RING aperture HUD",
-      "delta": "FIELD AXIAL/LATEST selected route opens one Focus Ring over the same identity; aperture/projection/typed STACK/RETURN remain projections over that canonical focus.",
+      "name": "Identity-locked Focus Ring / inline Toolglass",
+      "delta": "the current host-selected object opens one spatially attached Lens controller; aperture, projection, composition and RETURN remain refractions over that identity; SELECT remains outside Lens",
       "proof": "mobile and desktop: find current identity, change scope, switch projection, RETURN in <=2 interactions per operation; no horizontal overflow",
-      "status": "PROVED",
+      "status": "PROMOTED_G2",
       "implementation": {
         "route_adapter": "/showcase-nav.js",
         "shared_state": "/lens-state.js",
         "studio_surface": "/fold-bloom/lens/",
         "studio_api": "/fold-bloom/lens/studio-v12.js",
         "behavior": [
-          "collapsed global ◎ opens current object/aperture/projection/stack/RETURN",
-          "Scale Studio exposes live aperture + projection operations to the ring",
-          "generic routes preserve current identity and can enter full Studio with a reversible handoff payload",
-          "controls remain square, visible, non-hover-essential and mobile-width bounded"
-        ]
+          "◎ LENS unfolds beside the current FIELD aperture rather than as a detached navigation panel",
+          "identity is visibly locked while aperture/view/stack change",
+          "PEER navigation is removed from Lens controls",
+          "active catalog lenses can be removed in place; inherited constraints remain visibly inherited",
+          "COPY STATE exports the exact LensState",
+          "DEEP LAB hands the same state/provenance to Scale Studio"
+        ],
+        "focus_ring": "/lens-focus-ring.js",
+        "field_adapter": "/field-lens.js",
+        "placement": "inline after #aperture on FIELD; compact floating trigger elsewhere",
+        "boundary": "FIELD/AXIAL owns SELECT. Lens owns APERTURE / VIEW / STACK / RETURN."
       },
       "remaining_proof": [],
-      "state": "IMPLEMENTED_PROVED_PRIMARY_APERTURE"
+      "state": "IMPLEMENTED_PROVED_G2",
+      "evidence": {
+        "lens_state_laws": "18/18 PASS",
+        "static_surface_contracts": "PASS",
+        "browser": "Lens-specific paths PASS twice on workflow 35606632845; aggregate job red only on unrelated DOCS RSVP focus-kernel timeout",
+        "receipt": "/control/LENS_FI_TOOLGLASS_G2_2026-09-21.json"
+      }
     },
     {
       "id": "LENS-03",
@@ -195,7 +208,7 @@
     }
   ],
   "gaps": [
-    "Studio actualize-1 is a usability hierarchy change, not new Lens architecture: dock first, LAB depth second, true caller RETURN.",
+    "Named persisted compound-lens presets remain unpromoted; composition is now inspectable and locally reversible, but preset naming/sharing needs a concrete repeated-use case.",
     "Exact historical red-dot RSVP/radial Focus Ring implementation remains unrecovered; current Focus Ring is a lawful reconstruction, not a claimed replica.",
     "compound stacks are typed and inspectable, but named persisted compound-lens presets are not yet promoted.",
     "RC11.3 portrait/toolglass branch remains separate/unfinished",
@@ -209,10 +222,11 @@
     "do not delete deep Scale Studio capability"
   ],
   "return": {
-    "next": "Validate actualize-1 in the full browser suite, then use the Lens normally. Reopen FOVEATE only for a concrete task deficiency.",
-    "current_grammar": "FIELD focuses object → LENS changes aperture/view/stack → DEEP LAB inspects → RETURN restores caller.",
-    "test_anchor": "Automated mechanics are sealed by /control/LENS_G1_PROOF_SEAL_2026-09-21.json; LENS-03 is parked by /control/LENS_FOVEATE_PROOF_2026-09-21.json.",
-    "code_contract_receipt": "/control/LENS_EVOLUTION_G1_2026-09-21.json"
+    "next": "Use G2 in ordinary FIELD work. Do not add Lens features until a repeated task exposes a concrete deficit.",
+    "current_grammar": "HOST SELECTS OBJECT → LENS APERTURE / VIEW / STACK → DEEP LAB if needed → RETURN restores caller.",
+    "test_anchor": "G2 identity-locked FI Toolglass is promoted; FOVEATE remains parked after no clear human gain.",
+    "code_contract_receipt": "/control/LENS_FI_TOOLGLASS_G2_2026-09-21.json",
+    "separate_repo_issue": "DOCS RSVP focus-kernel browser smoke timed out on PR attempts while Lens-specific cases passed; not repaired in Lens branch."
   },
   "execution": {
     "branch": "lens-convergence-contract-20260921",

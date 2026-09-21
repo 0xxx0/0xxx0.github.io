@@ -1,0 +1,95 @@
+{
+  "schema": "0xxx0/lens-fi-toolglass-g2/v0.1",
+  "at": "2026-09-21T21:12:00+08:00",
+  "generation": 2,
+  "status": "LENS_PATH_PROVED__REPO_SUITE_BLOCKED_BY_UNRELATED_DOCS_FLAKE",
+  "problem": "FIELD Lens had become a detached second navigation cockpit: PEER changed selected route inside a control presented as refraction, duplicating AXIAL and weakening the VIEW_LENS identity law.",
+  "crystallized_law": "HOST SELECTS. LENS REFRACTS.",
+  "grammar": "OBJECT@ADDRESS → APERTURE → VIEW → STACK → DEEP LAB? → RETURN",
+  "mutation": [
+    "FIELD Lens now unfolds inline immediately after the current #aperture.",
+    "PEER controls are removed from the Focus Ring; route selection remains owned by FIELD/AXIAL.",
+    "identity lock is explicit while APERTURE OUT/IN and VIEW changes operate.",
+    "active catalog lenses can be removed in place; inherited constraints are labelled INHERITED.",
+    "COPY STATE exports exact LensState.",
+    "parked FOVEATE remains optional and is not restored to primary status.",
+    "generic routes retain compact floating Toolglass behavior."
+  ],
+  "research_basis": [
+    {
+      "anchor": "Toolglass and Magic Lenses",
+      "finding": "spatially explicit tools/filters can be composed while keeping the application object beneath them visible",
+      "url": "https://doi.org/10.1145/166117.166126"
+    },
+    {
+      "anchor": "Focus+context empirical comparison",
+      "finding": "focus+context is task-dependent; pan/zoom can be faster for locating/searching, so foveation should not be assumed superior",
+      "url": "https://arxiv.org/abs/2203.05109"
+    },
+    {
+      "anchor": "Semantic Zoom and Mini-Maps for Software Cities",
+      "finding": "semantic zoom can help large navigable spaces when representation changes with scale and orientation support is retained",
+      "url": "https://arxiv.org/abs/2510.00003"
+    },
+    {
+      "anchor": "2026 multi-scale semantic zoom",
+      "finding": "recent work continues to use discrete representation changes across scales rather than pure magnification",
+      "url": "https://arxiv.org/abs/2604.08823"
+    }
+  ],
+  "invariants": [
+    "VIEW_LENS never silently changes canonical object identity.",
+    "SELECT is an explicit host operation, not disguised as aperture/view movement.",
+    "RETURN restores invoking FIELD UI state.",
+    "Dead/unsupported candidate lenses remain inspectable.",
+    "FOVEATE is optional until a concrete task demonstrates gain."
+  ],
+  "files": [
+    "/lens-focus-ring.js",
+    "/field-lens.js",
+    "/index.html",
+    "/control/LENS_SYSTEM_CONTRACT_2026-09-21.json"
+  ],
+  "proof_required": [
+    "SATISFIED: LensState laws 18/18",
+    "SATISFIED: static/public contracts",
+    "SATISFIED twice: mobile Lens RETURN and no overflow path",
+    "SATISFIED twice: inline identity lock through APERTURE changes",
+    "SATISFIED twice: STACK apply/remove/reapply → Studio handoff → exact FIELD RETURN",
+    "SATISFIED: Scale Lens route smoke",
+    "NOT ATTRIBUTED TO LENS: aggregate workflow remains red because DOCS RSVP focus-kernel smoke times out intermittently/repeatedly on this PR"
+  ],
+  "stop_condition": "PROMOTE G2. Do not broaden Lens. Track DOCS RSVP smoke separately; next Lens work only on concrete repeated-use deficit such as named compound presets or a task-specific semantic zoom lens.",
+  "proof": {
+    "head_sha": "a6e4470abe7e56ca4246bc0b846283138b4b873b",
+    "workflow_run_id": 35606632845,
+    "attempts": [
+      {
+        "result": "repository job failed at unrelated DOCS RSVP focus kernel timeout",
+        "lens_state_laws": "18/18 PASS",
+        "static_surface_contracts": "PASS",
+        "lens_browser_cases": [
+          "PASS LENS PROOF alias",
+          "PASS LENS PROOF mobile RETURN",
+          "PASS FIELD activation + re-entry",
+          "PASS LENS STACK STUDIO RETURN",
+          "PASS SCALE LENS"
+        ]
+      },
+      {
+        "result": "same unrelated DOCS RSVP focus kernel timeout reproduced",
+        "lens_state_laws": "18/18 PASS",
+        "static_surface_contracts": "PASS",
+        "lens_browser_cases": [
+          "PASS LENS PROOF alias",
+          "PASS LENS PROOF mobile RETURN",
+          "PASS FIELD activation + re-entry",
+          "PASS LENS STACK STUDIO RETURN",
+          "PASS SCALE LENS"
+        ]
+      }
+    ],
+    "baseline_context": "master push run 35604443185 at base SHA 83d792ac1b56e41ca4e7126dfc909845f5d622f9 completed SUCCESS; branch does not modify DOCS reader runtime.",
+    "disposition": "Treat Lens G2 as bounded PASS. Do not edit DOCS from this branch merely to manufacture a green aggregate check."
+  }
+}
