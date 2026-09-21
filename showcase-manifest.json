@@ -25,7 +25,7 @@
           "OPERATE"
         ]
       },
-      "role": "Fast repo re-entry first: newest durable route touches in a linear list + semantic glyph rail; open GitHub issues; collapsed lineage heads; MAP/EVOLVE/PULSE remain named secondary projections.",
+      "role": "Fast repo re-entry with semantic density: compact FIELD strip for NOW/HEAD state, newest-first LATEST rows with glyph rail, GitHub issues, and MAP/EVOLVE/PULSE as secondary projections.",
       "receipt": "/returns/FIELD_EVOLUTION_2026-09-21.json"
     },
     {
@@ -3860,10 +3860,10 @@
       "family": "FIELD / PARTICIPATION",
       "operation": "VERIFY",
       "state": "ACTIVE",
-      "version": "0.2",
+      "version": "0.3",
       "receipt": "/field-play.release.json",
       "showcase_card": false,
-      "role": "Public-safe contributor mission deck derived from declared FIELD gaps plus explicitly play-safe open GitHub issues. One bounded move → evidence-bearing RETURN; no private access, auto-write, scoring authority or autoplay.",
+      "role": "Public-safe contributor mission deck using the shared FIELD presentation/glyph grammar; manifest gaps + play-safe GitHub issues collapse MARK→COMPACT→FULL without changing mission identity or authority.",
       "contract": {
         "accepts": {
           "kinds": [
@@ -3909,7 +3909,6 @@
       "index": {
         "updated_at": "2026-09-21T14:50:00+08:00",
         "work_modes": [
-          "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
@@ -4309,7 +4308,16 @@
     "identity_fold": "SUPERSEDED_ON_ROOT_2026-09-21: LATEST intentionally repeats routes already present in NOW/HEADS because chronology is a re-entry instrument, not a canonical-identity display.",
     "default_reading": "LATEST",
     "glyph_grammar": "/field-glyph.js",
-    "issue_snapshot": "/control/FIELD_ISSUES.json"
+    "issue_snapshot": "/control/FIELD_ISSUES.json",
+    "presentation_kernel": "/field-presentation.js",
+    "presentation_contract": "/control/FIELD_PRESENTATION.json",
+    "presentation_ladder": [
+      "MARK",
+      "COMPACT",
+      "FULL"
+    ],
+    "attention_projection": "NOW is represented as a compact glyph strip; prose/detail has zero layout cost until explicit reveal. Retained heads share the strip as lower-emphasis marks and remain fully available in the collapsed lineage reading.",
+    "glyph_semantics": "frame=kind; inner mark=operation; color=state; corner marks=NOW/HEAD/ISSUE; Chinese mnemonic keys are legend aids, not a separate authority vocabulary."
   },
   "policy_trace_verification": "/policy-trace-verification.json",
   "policy_trace_event_model": "/policy-trace-event-model.json",
