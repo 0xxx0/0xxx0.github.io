@@ -1513,7 +1513,20 @@
       "title": "CONVERGENCE FIELD",
       "kind": "workbench",
       "parent": "/foundry/",
-      "family": "FOUNDRY"
+      "family": "FOUNDRY",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "operation": "PROJECT",
+      "receipt": "/foundry/convergence/release.json",
+      "role": "Local-first candidate workbench for testing unequal NOW/LENS/RUN/PROOF/ATLAS projections over one captured object with explicit RETURN; fresh bootstrap data is DEMO, not user evidence.",
+      "showcase_card": false,
+      "index": {
+        "updated_at": "2026-09-21T16:31:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      }
     },
     {
       "href": "/foundry/axial/",
@@ -2482,9 +2495,8 @@
       "showcase_card": false,
       "role": "Readable cross-lineage handoff shelf; coordinates unequal lineages through explicit differences, ablations and recipient-side RETURN without vocabulary collapse.",
       "index": {
-        "updated_at": "2026-09-21T15:04:00+08:00",
+        "updated_at": "2026-09-21T16:31:00+08:00",
         "work_modes": [
-          "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
@@ -2552,7 +2564,7 @@
           "preserves": [
             "identity/provenance boundary",
             "current ≠ constitution",
-            "117 ≠ canon",
+            "CORPUS ≠ CANON",
             "RETURN path"
           ],
           "reversibility": "full",
@@ -2574,7 +2586,7 @@
           "checks": [
             "model.json is source for slow layer",
             "CURRENT.json supplies live layer",
-            "117 explicitly non-canonical",
+            "recovered corpus explicitly non-canonical; hard counts require census evidence",
             "no runtime authority"
           ],
           "return_path": "/foundry/"
@@ -2634,9 +2646,8 @@
         "physical_fit": "Orientation layer only; physical truth remains reality-gated through House/workshop evidence and RETURN."
       },
       "index": {
-        "updated_at": "2026-09-21T15:04:00+08:00",
+        "updated_at": "2026-09-21T16:31:00+08:00",
         "work_modes": [
-          "SPECIFY",
           "IMPLEMENT",
           "VERIFY"
         ]
@@ -3491,9 +3502,8 @@
       "showcase_card": false,
       "role": "Human-facing recovery/salvage home: evidence classes, promotion gate, trophy case, expeditions, quarantine, attic and ingest queue.",
       "index": {
-        "updated_at": "2026-09-21T15:04:00+08:00",
+        "updated_at": "2026-09-21T16:31:00+08:00",
         "work_modes": [
-          "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
@@ -3627,9 +3637,9 @@
         "physical_fit": "May inform House routing/spatial/procurement tests; no method receives authority without a real RETURN."
       },
       "index": {
-        "updated_at": "2026-09-21T14:21:00+08:00",
+        "updated_at": "2026-09-21T16:31:00+08:00",
         "work_modes": [
-          "SPECIFY",
+          "IMPLEMENT",
           "VERIFY"
         ]
       },
