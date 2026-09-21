@@ -276,8 +276,8 @@ function receipt(){return{format:'VERSE/POEM-MAP-0.2',source:S.source,mode:S.mod
  S.authorEdges=Array.isArray(r.author_edges)?r.author_edges.map(x=>({...x})):[];
  S.bank=Array.isArray(r.bank)?r.bank.map(x=>({...x})):[];S.preview=null;
  S.revisions=Array.isArray(r.revisions)?r.revisions.map(x=>({...x})):[];
- S.captures=Array.isArray(r.captures)?r.captures.map(x=>({...x})):[];
- S.selected=null;$('#source').value=S.source;$('#form').value=S.form;
+ S.captures=Array.isArray(r.captures)?r.captures.map(x=>({...x})):[];S.corpus=[];
+ S.selected=null;$('#source').value=S.source;$('#form').value=S.form;$('#corpusState').textContent='session-only · none loaded';
  for(let [id,key,out] of [['orderW','order','wo'],['soundW','sound','ws'],['repeatW','repeat','wr'],['authorW','author','wa']]){
    $('#'+id).value=S.weights[key];$('#'+out).textContent=(+S.weights[key]).toFixed(2)
  }
@@ -298,7 +298,7 @@ function selftest(){
  a('writer-intent dock remains plural',['continue','replace','echo','contrast','turn','rhyme','surprise'].every(k=>!!INTENTS[k]),Object.keys(INTENTS).join(' · '));
  a('RETURN contract intact',receipt().format==='VERSE/POEM-MAP-0.2',receipt().format);a('RETURN replay function exposed',typeof applyReceipt==='function','applyReceipt');
  a('historical Jueju prosody still OPEN',receipt().claims.jueju_historical_prosody==='OPEN',receipt().claims.jueju_historical_prosody);
- a('map sound remains explicitly approximate',receipt().claims.sound==='APPROX_LATIN_HEURISTIC',receipt().claims.sound);a('local corpus is session-only',receipt().local_corpus.persistence==='SESSION_ONLY_NOT_EXPORTED',receipt().local_corpus.persistence);
+ a('map sound remains explicitly approximate',receipt().claims.sound==='APPROX_LATIN_HEURISTIC',receipt().claims.sound);a('local corpus is session-only',receipt().local_corpus.persistence==='SESSION_ONLY_NOT_EXPORTED',receipt().local_corpus.persistence);a('RETURN replay does not claim corpus persistence',!receipt().local_corpus.loaded||receipt().local_corpus.persistence==='SESSION_ONLY_NOT_EXPORTED','corpus excluded from durable replay');
  return t
 }
 function closeGuide(){localStorage.setItem('verse-poem-map-guide-seen','1');$('#guideShade').classList.remove('show')}
