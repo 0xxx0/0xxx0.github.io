@@ -23,6 +23,8 @@ jobs:
         run: node control/constraint-surface-selftest.js
       - name: Validate static surface contracts
         run: node tools/validate-public.mjs
+      - name: Run critical browser smoke
+        run: node tools/browser-smoke.mjs
       - name: Validate recovered source identities and media catalogue
         run: node tools/verify-backup-recovery.mjs
       - name: Test frozen City engines and Painting handlers
