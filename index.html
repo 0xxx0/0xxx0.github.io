@@ -222,7 +222,7 @@ function fieldLensSnapshot(){
   s.projection=mode;
   s.meta={...s.meta,visualRoot,filter,query,foveate};
   if(filter!=='ALL')s=LensState.compose(s,{lensId:'field-filter',lensVersion:'1',kind:LensState.VIEW,params:{filter},inputContract:'field-route/v0.1',outputContract:'projection/field-filter',preserves:['objectId','focusId'],hides:[],derives:['visible-route-set'],authority:'PREVIEW'});
-  if(foveate)s=LensState.compose(s,{lensId:'field-foveate',lensVersion:'0.1',kind:LensState.VIEW,params:{bands:['FOVEA','PARA','PERIPHERY'],focus:selectedRoute,aperture:visualRoot},inputContract:'projection/field-map',outputContract:'projection/field-foveated',preserves:['objectId','focusId','route-position'],hides:['periphery-subdetail'],derives:['semantic-distance-band'],authority:'PREVIEW'});
+  if(foveate&&mode==='VISUAL')s=LensState.compose(s,{lensId:'field-foveate',lensVersion:'0.1',kind:LensState.VIEW,params:{bands:['FOVEA','PARA','PERIPHERY'],focus:selectedRoute,aperture:visualRoot},inputContract:'projection/field-map',outputContract:'projection/field-foveated',preserves:['objectId','focusId','route-position'],hides:['periphery-subdetail'],derives:['semantic-distance-band'],authority:'PREVIEW'});
   return LensState.normalize(s);
 }
 function fieldLensEmit(){const s=fieldLensSnapshot();if(s)dispatchEvent(new CustomEvent('field-lens:state',{detail:s}))}
