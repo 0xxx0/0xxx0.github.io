@@ -1,0 +1,37 @@
+{
+  "schema": "recovery-packet/v0.1",
+  "id": "FOCUS-INTERFACE-SYNC-RECOVERY-2026-09-21",
+  "recovered_at": "2026-09-21",
+  "status": "EXACT_TEXT_RECORDS_RECOVERED_FROM_STALE_BRANCH",
+  "origin_branch": "confluence/focus-interface-sync-20260921-r3",
+  "purpose": "Preserve the FU/FOVEATE + RSVP/APERTURE + focus-interface convergence records without reviving the stale implementation branch.",
+  "files": [
+    {
+      "origin_branch": "confluence/focus-interface-sync-20260921-r3",
+      "origin_path": "control/FU_FOVEATE_RECOVERY_2026-09-21.json",
+      "origin_blob_sha": "68e485a977df525513607008d1e2e63f9025bd9f",
+      "recovered_path": "recovery/focus-interface-sync-20260921/FU_FOVEATE_RECOVERY_2026-09-21.json",
+      "commit_sha": "5eae06bf361cfad20aa2cd8e74af2e53210a4433"
+    },
+    {
+      "origin_branch": "confluence/focus-interface-sync-20260921-r3",
+      "origin_path": "control/RSVP_APERTURE_TRANSFER_2026-09-21.json",
+      "origin_blob_sha": "5cb8ddbdf5b195941fd57d9f487b417872fa16f2",
+      "recovered_path": "recovery/focus-interface-sync-20260921/RSVP_APERTURE_TRANSFER_2026-09-21.json",
+      "commit_sha": "7dc7c3345d354901d99c4d91fb2a2b85f4c1ba8f"
+    },
+    {
+      "origin_branch": "confluence/focus-interface-sync-20260921-r3",
+      "origin_path": "control/confluence/FOCUS_INTERFACE_SYNC_2026-09-21.json",
+      "origin_blob_sha": "b452f7bcf63381b21a529eb9395f06f54d662a53",
+      "recovered_path": "recovery/focus-interface-sync-20260921/FOCUS_INTERFACE_SYNC_2026-09-21.json",
+      "commit_sha": "67539a97dd678badb09107393b960dac24bdd752"
+    }
+  ],
+  "interpretation": [
+    "These recovered records are donor/evidence, not current authority.",
+    "Current FIELD 0.6 / AXIAL / APERTURE / Lens / Port contracts remain authoritative.",
+    "Historical FU full-source identity remains partial/unknown exactly as stated in the recovered receipt.",
+    "Do not recreate a second focus state authority from this packet."
+  ]
+}

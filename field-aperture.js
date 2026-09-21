@@ -46,7 +46,25 @@ class FieldAperture extends HTMLElement{
  constructor(){super();this.attachShadow({mode:'open'});this.A=null;this.scale=0;this.pos=0;this.timer=null;this.wpm=300;this.speaking=false;this.bound=this.onPointer.bind(this);this.boundKey=this.onKey.bind(this);this.ratePresets=[120,200,300,450,650,900,1200,1600,2200,3000]}
  connectedCallback(){this.renderShell();this.tabIndex=this.tabIndex<0?0:this.tabIndex;this.addEventListener('keydown',this.boundKey);if(this.hasAttribute('source'))this.load(this.getAttribute('source'),{label:this.getAttribute('label')||'Source'})}
  disconnectedCallback(){this.stop();this.removeEventListener('keydown',this.boundKey)}
- load(source,opt={}){this.stop();this.A=analyze(source,opt.label||'Untitled');this.scale=clamp(opt.scale??0,0,this.A.scales.length-1);this.pos=0;if(Number.isFinite(opt.wpm))this.wpm=clamp(Math.round(opt.wpm),60,3000);this.render();this.emit()}
+ scaleIndex(value){
+  if(!this.A)return 0;if(value==null||value==='')return 0;
+  const n=Number(value);if(Number.isInteger(n)&&String(value).trim()!=='')return clamp(n,0,this.A.scales.length-1);
+  const want=String(value).toUpperCase(),i=this.A.scales.findIndex(x=>String(x.id).toUpperCase()===want||String(x.label).toUpperCase()===want);return i>=0?i:0
+ }
+ locate(address,preferred=this.scale){
+  if(!this.A||!address)return null;const order=[preferred,...this.A.scales.map((_,i)=>i).filter(i=>i!==preferred)];
+  for(const si of order){const units=this.A.scales[si]?.units||[],pi=units.findIndex(x=>x.path===address);if(pi>=0)return{scale:si,index:pi}}return null
+ }
+ load(source,opt={}){
+  this.stop();this.A=analyze(source,opt.label||'Untitled');this.scale=this.scaleIndex(opt.scale);this.pos=0;
+  const hit=this.locate(opt.address,this.scale);if(hit){this.scale=hit.scale;this.pos=hit.index}else{const i=Number(opt.index);if(Number.isFinite(i))this.pos=clamp(Math.round(i),0,Math.max(0,this.currentScale().units.length-1))}
+  const w=Number(opt.wpm);if(Number.isFinite(w))this.wpm=clamp(Math.round(w),60,3000);this.render();this.emit();return this.snapshot()
+ }
+ restore(snap={}){
+  if(!this.A)return null;this.stop();this.scale=this.scaleIndex(snap.scale);const hit=this.locate(snap.address,this.scale);
+  if(hit){this.scale=hit.scale;this.pos=hit.index}else{const i=Number(snap.index);this.pos=Number.isFinite(i)?clamp(Math.round(i),0,Math.max(0,this.currentScale().units.length-1)):0}
+  const w=Number(snap.wpm);if(Number.isFinite(w))this.wpm=clamp(Math.round(w),60,3000);this.render();this.emit();return this.snapshot()
+ }
  currentScale(){return this.A?.scales[this.scale]}
  current(){const s=this.currentScale();return s?.units[clamp(this.pos,0,Math.max(0,s.units.length-1))]||null}
  setScale(i){if(!this.A)return;this.scale=mod(i,this.A.scales.length);this.pos=clamp(this.pos,0,Math.max(0,this.currentScale().units.length-1));this.render();this.emit()}

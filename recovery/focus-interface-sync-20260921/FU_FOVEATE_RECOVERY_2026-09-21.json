@@ -1,0 +1,54 @@
+{
+  "schema": "0xxx0/recovery-receipt/v0.1",
+  "id": "FU-FOVEATE-RECOVERY-2026-09-21",
+  "date": "2026-09-21",
+  "status": "PARTIAL_EXACT_SOURCE_FRAGMENT_RECOVERY",
+  "class": "HISTORICAL_DONOR_NOT_CURRENT_HEAD",
+  "recovery_basis": "Exact source fragments recovered from the user's conversation-export archive; complete original file identity and byte-for-byte source are not yet frozen in the repository.",
+  "observed_exact": [
+    {
+      "mechanism": "FOVEA_STATE",
+      "fragment": "faxconf: { fovea:[0], faxsplits:SPWC, faxsrc:'', faxtree:[], faxdat:[], faxschema:{tags:['div','div','span','span','span'], classes:['article','sentence','phrase','word','char'],content:true}, ... }",
+      "meaning": "The old FU scalable UI stored focus explicitly as a path/index selection over a hierarchical text/data decomposition."
+    },
+    {
+      "mechanism": "FOVEATE_OPERATOR",
+      "fragment": "foveate = ($tore,way=world['pathline'+$tore.state().face]) => is => (stockpath($tore)(['faxconf','fovea'])(is), showpath($tore,way))",
+      "meaning": "Foveation was an executable state change followed by path projection, not merely a visual metaphor."
+    },
+    {
+      "mechanism": "FOCUS_TO_RADIAL_GEOMETRY",
+      "fragment": "radface=($tore)=>($=$tore.state().faxconf,reduce((a,c,i)=>a+$.radius(i),0)($.fovea))",
+      "meaning": "The selected fovea path contributed directly to radial geometry."
+    },
+    {
+      "mechanism": "INPUT_TO_FOCUS_TO_RING",
+      "fragment": "fullmodsrc('o')(INPUT.value,true) → foveate($o)(slice(1)(lastfactor($o.state().faxconf.faxdat))) → update ringoline → replace ringo with ring_svg(...)",
+      "meaning": "Source ingestion, hierarchical focus selection and radial re-projection were one operational chain."
+    },
+    {
+      "mechanism": "PRIMETXT",
+      "source_hint": "FU5X2.html",
+      "fragment": "PRIMETXT style uses red stroke/fill SVG text and a 90-degree transform.",
+      "meaning": "Prime/red/radial material is exact adjacent evidence, but not enough to identify the remembered red-dot reader."
+    }
+  ],
+  "reconstructed_correspondence": {
+    "AXIAL": "Fixed gate + explicit current position is a modern constraint/address compositor; it should consume focus evidence, not impersonate the old FU reader.",
+    "APERTURE": "Scale × position × time/voice is the closest current generic inspector projection of the old source→fovea→ring operator family.",
+    "SCALE_LENS": "Deep stable-address projection workbench; unequal projections preserve identity but do not own the historical fovea lineage.",
+    "RSVP": "Recovered temporal cursor donor; speech boundaries can drive the same focused position.",
+    "TWO_DIAL": "Interaction donor for two independent cyclic controls producing one consequence."
+  },
+  "unknown": [
+    "Exact full original source file containing the remembered minimal red-dot-around-ring reader.",
+    "Exact Alice passage/specimen remembered from the old reader.",
+    "Whether PRIMETXT/prime-number experiments and the red-dot reader were one artifact or adjacent experiments."
+  ],
+  "anti_drift": [
+    "Do not rename the modern Focus Ring as the recovered historical artifact.",
+    "Do not promote prime-number geometry into the Lens/AXIAL ontology without stronger exact evidence.",
+    "Do not create a second focus state authority when AXIAL/APERTURE/Lens already expose compatible projections."
+  ],
+  "next_recovery": "Search restored backups around FU5X2 / EMPTY3-RF / scratch / RSVP-TTS variants for exact foveate, ring_svg, SpeechSynthesis, Alice and red-dot/ring combinations; freeze byte-exact source when found."
+}
