@@ -15,7 +15,8 @@
     "Extend evolution selection pressure with case -> mechanism -> unequal-case transfer -> generalize.",
     "Specify /body/campaign.schema.json with explicit question, decision, streams, evidence gate, burden budget, JITAI-style decision points, safety class, RETURN and FADE condition.",
     "Add conversation-to-durable-state routing: executable now -> EXECUTE/RETURN; human/world dependency -> WAITING; speculation -> Idea/Residue/HOLD; evidence -> Intake/Continuity; sensitive content stays private.",
-    "Specify /body/fit/health-connect.adapter.json as a read-only, least-privilege Android native boundary that exports existing BODY / FIT sensor bundles rather than inventing another store."
+    "Specify /body/fit/health-connect.adapter.json as a read-only, least-privilege Android native boundary that exports existing BODY / FIT sensor bundles rather than inventing another store.",
+    "Make WAITING rows browser-local checkable; DONE LOCAL suppresses visual friction but does not close the source item or fabricate evidence."
   ],
   "after": [
     "Human dependencies become re-enterable from the root without contaminating CURRENT/QUEUE.",
@@ -23,7 +24,8 @@
     "Future generalization is gated on transfer evidence rather than enthusiasm.",
     "Campaigns now have a candidate machine-readable carrier whose success can include reducing measurement.",
     "Repeated mentions can converge on one durable dependency instead of duplicating TODOs or vanishing into chat residue.",
-    "Health Connect now has an explicit source-preserving path into BODY / FIT; the remaining dependency is an actual Android reader/permission proof, not an unresolved architecture question."
+    "Health Connect now has an explicit source-preserving path into BODY / FIT; the remaining dependency is an actual Android reader/permission proof, not an unresolved architecture question.",
+    "The root waiting surface now behaves like a compact personal checklist while preserving repository truth separately."
   ],
   "evidence": [
     "/control/WAITING.json",
