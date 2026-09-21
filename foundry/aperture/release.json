@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "surface": "APERTURE / INSPECTOR",
-  "version": "0.5",
+  "version": "0.6",
   "route": "/foundry/aperture/",
   "state": "UTILITY",
   "operation": "INSPECT",
@@ -33,25 +33,23 @@
     }
   ],
   "controls": [
-    "outer ring / position",
-    "inner ring / scale",
-    "ring gap / log10(bytes) magnitude",
-    "prev/next",
-    "scale −/+",
-    "RSVP 60–3000 WPM with preset stepping",
+    "outer ring / canonical whole-source position",
+    "inner ring / scale around the same source position",
+    "structure ticks / text sections or JSON branches",
+    "fixed recognition point / ORP",
+    "prev/next explicit source movement",
+    "scale −/+ without moving source position",
+    "RSVP 60–3000 WPM with word-count-normalized chunk dwell",
     "keyboard: SPACE play/pause · ↑↓ speed · ←→ step",
-    "bounded punctuation/long-token dwell",
-    "TTS boundary-synced WORD focus",
+    "VOICE from current focus; speech boundary charIndex drives the same source cursor without forcing WORD scale",
     "material-target host projection",
-    "aperture-material event + CSS material variables",
+    "field-aperture-focus/v0.2 rich snapshot: char_index / span / source_progress / section / structure / xrefs / cursor",
     "dock(source,opt) reusable in-place host API",
-    "session handoff → standalone Aperture workbench",
-    "addressable restore: scale / address / index / WPM",
-    "DOCS COPY VIEW exact reading address",
+    "addressable restore: scale / address / index / char position / WPM",
+    "DOCS highlighted source window + synchronized XREF",
+    "session-local long-text paste",
     "finite RSVP by default; explicit loop attribute opts into cyclic time",
-    "language-aware WORD segmentation with locale",
-    "GRAPHEME scale for continuous scripts / emoji-safe focus",
-    "speech generation token blocks stale cancelled callbacks"
+    "language-aware segmentation + grapheme scale"
   ],
   "non_claims": [
     "Ring gap is not semantic importance.",
@@ -76,13 +74,20 @@
     "rsvp_range": "60–3000 WPM experimental control range; no comprehension claim",
     "focus_schema": "field-aperture-focus/v0.2",
     "material_projection": "position + scale + source magnitude → host CSS vars / event; presentation only",
-    "addressed_resume": "DOCS src + ap_scale + ap_index + ap_addr + ap_wpm round-trip in browser smoke",
+    "addressed_resume": "DOCS src/paste + ap_scale + ap_index + ap_addr + ap_char + ap_wpm",
     "high_speed": "3000-WPM browser witness: finite endpoint + throttled DOCS address checkpoints",
-    "multilingual": "browser witness mirrors recovered Painting Path seven-language segmentation: zh/en/ms/ta/ja/ar/th + grapheme cluster"
+    "multilingual": "browser witness mirrors recovered Painting Path seven-language segmentation: zh/en/ms/ta/ja/ar/th + grapheme cluster",
+    "focus_kernel_browser_run": 35601857911,
+    "focus_kernel_case": "DOCS RSVP focus kernel PASS",
+    "browser_smoke": "30/30 PASS",
+    "scale_law": "WORD→SENTENCE→PARAGRAPH→SECTION preserves one canonical source char position",
+    "docs_highlight": "PASS",
+    "xref": "citation/source + media PASS",
+    "session_paste": "PASS"
   },
   "updated": "2026-09-21",
-  "known_gap": "The universal inspection capability is operational and continuity/temporal/language failures found in ordinary use are hardened. Remaining candidates are human-use questions: ORP/chunking, preferred temporal density, comparative comprehension and whole-space material load.",
-  "capability": "Summon one local inspector against arbitrary text/JSON/object context; preserve identity while scale, address, multilingual unit, position, temporal focus and optional host material state move together, with replayable/addressable host return.",
+  "known_gap": "Reader focus kernel is browser-proved. Human comprehension/preferences at extreme WPM remain unclaimed; speech boundary fidelity varies by browser/voice; deeper zoom-into-scale UI is intentionally held.",
+  "capability": "Summon one local reader/inspector against arbitrary text/JSON/object context; keep one canonical source position while scale, ORP focus, source highlight, ring/strip witness, RSVP time and speech-boundary time move together; preserve RAW/source identity and host-owned RETURN.",
   "host_resolution": [
     "selected text",
     "active INPUT/TEXTAREA value",
@@ -91,9 +96,9 @@
     "standalone paste/file/session handoff"
   ],
   "experimental_projection": {
-    "state": "CANDIDATE_MAPPING",
-    "mapping": "outer=position; inner=scale; gap=log10(bytes); center=foveated focus; time/voice drive position",
-    "claim": "Useful visualization candidate only; not required for capability status."
+    "state": "RETAINED_UTILITY",
+    "mapping": "outer=canonical whole-source position; inner=scale; structure ticks=sections/branches; center=fixed recognition point; time/voice drive one source cursor",
+    "claim": "Operational position/scale witness; no semantic-importance or comprehension claim."
   },
   "receipt": "/returns/APERTURE_USABILITY_CUT_2026-09-21.json",
   "charter": "/control/INSTRUMENT_CHARTERS.json#field-aperture",
@@ -110,5 +115,6 @@
     "lens_state": "OUTSIDE — typed transition admissibility",
     "state_aperture": "OUTSIDE — TEST/ARM/RUN consequence semantics",
     "material_projection": "INSIDE presentation only"
-  }
+  },
+  "reader_receipt": "/control/RSVP_READER_FOCUS_KERNEL_2026-09-21.json"
 }

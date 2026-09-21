@@ -2,11 +2,11 @@
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow"><title>DOCS / READ</title>
 <style>
-:root{--bg:#090b0c;--ink:#edf0ed;--muted:#88949a;--line:#30383c;--hot:#e87548;--cool:#8dd5ff;--ap-x:50%;--ap-y:30%;--ap-angle:40deg;--ap-spacing:32px;--ap-strength:.04}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;position:relative}body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at var(--ap-x) var(--ap-y),rgba(141,213,255,.10),transparent 31%),repeating-linear-gradient(var(--ap-angle),rgba(232,117,72,var(--ap-strength)) 0 1px,transparent 1px var(--ap-spacing));transition:background-position .18s linear,opacity .18s linear;opacity:.9}main{max-width:1200px;margin:auto;padding:20px 14px 60px;position:relative;z-index:1}header{display:flex;justify-content:space-between;gap:18px;align-items:end;border-bottom:1px solid var(--line);padding:18px 0}h1{margin:0;font-size:clamp(34px,8vw,76px);line-height:.85;letter-spacing:-.06em}.ey{color:var(--hot);font-size:9px;letter-spacing:.16em}nav{display:flex;gap:6px;flex-wrap:wrap}a,button,input{color:var(--ink);background:#0c0f11;border:1px solid var(--line);padding:6px 8px;text-decoration:none;font:10px monospace}button{cursor:pointer}.sourcebar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:5px;align-items:center;margin:10px 0 0}.sourcebar label{font-size:8px;letter-spacing:.12em;color:var(--muted)}.sourcebar input{width:100%;color:var(--cool)}.returnLink{border-color:var(--hot);color:#ffd0bd}.layout{display:grid;grid-template-columns:310px 1fr;gap:10px;margin-top:12px}.list{display:grid;gap:5px;align-content:start}.doc{width:100%;text-align:left;padding:9px}.doc.on{border-color:var(--cool);background:#10181c}.doc b{display:block}.doc span{color:var(--muted);font-size:9px}.viewer{border:1px solid var(--line);min-height:70vh;overflow:auto;background:rgba(9,12,14,.83);backdrop-filter:blur(3px)}.viewerHead{position:sticky;top:0;background:#0c0f11;border-bottom:1px solid var(--line);padding:8px;display:flex;justify-content:space-between;z-index:3}.apStage{padding:9px;border-bottom:1px solid var(--line);background:#080b0dcc}.rawFold summary{cursor:pointer;padding:8px 10px;color:var(--muted);font-size:9px;letter-spacing:.1em;border-bottom:1px solid var(--line)}.viewer pre{white-space:pre-wrap;word-break:break-word;margin:0;padding:14px;font:11px/1.55 ui-monospace,monospace;color:#cdd5d2}.hint{color:var(--muted);font:12px/1.5 system-ui,sans-serif}@media(max-width:760px){header{display:block}nav{margin-top:12px}.layout{grid-template-columns:1fr}.viewer{min-height:55vh}}</style>
+:root{--bg:#090b0c;--ink:#edf0ed;--muted:#88949a;--line:#30383c;--hot:#e87548;--cool:#8dd5ff;--ap-x:50%;--ap-y:30%;--ap-angle:40deg;--ap-spacing:32px;--ap-strength:.04}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace;position:relative}body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(circle at var(--ap-x) var(--ap-y),rgba(141,213,255,.10),transparent 31%),repeating-linear-gradient(var(--ap-angle),rgba(232,117,72,var(--ap-strength)) 0 1px,transparent 1px var(--ap-spacing));transition:background-position .18s linear,opacity .18s linear;opacity:.9}main{max-width:1200px;margin:auto;padding:20px 14px 60px;position:relative;z-index:1}header{display:flex;justify-content:space-between;gap:18px;align-items:end;border-bottom:1px solid var(--line);padding:18px 0}h1{margin:0;font-size:clamp(34px,8vw,76px);line-height:.85;letter-spacing:-.06em}.ey{color:var(--hot);font-size:9px;letter-spacing:.16em}nav{display:flex;gap:6px;flex-wrap:wrap}a,button,input{color:var(--ink);background:#0c0f11;border:1px solid var(--line);padding:6px 8px;text-decoration:none;font:10px monospace}button{cursor:pointer}.sourcebar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:5px;align-items:center;margin:10px 0 0}.sourcebar label{font-size:8px;letter-spacing:.12em;color:var(--muted)}.sourcebar input{width:100%;color:var(--cool)}.pasteFold{margin-top:6px;border:1px solid var(--line);background:#080b0d}.pasteFold summary{cursor:pointer;padding:7px 9px;color:var(--muted);font-size:8px;letter-spacing:.12em}.pasteBody{display:grid;grid-template-columns:1fr auto;gap:6px;padding:8px;border-top:1px solid var(--line)}.pasteBody textarea{min-height:92px;resize:vertical;background:#06090a;color:var(--ink);border:1px solid var(--line);padding:8px;font:10px/1.45 ui-monospace,monospace}.pasteNote{grid-column:1/-1;color:var(--muted);font-size:8px}.returnLink{border-color:var(--hot);color:#ffd0bd}.layout{display:grid;grid-template-columns:310px 1fr;gap:10px;margin-top:12px}.list{display:grid;gap:5px;align-content:start}.doc{width:100%;text-align:left;padding:9px}.doc.on{border-color:var(--cool);background:#10181c}.doc b{display:block}.doc span{color:var(--muted);font-size:9px}.viewer{border:1px solid var(--line);min-height:70vh;overflow:auto;background:rgba(9,12,14,.83);backdrop-filter:blur(3px)}.viewerHead{position:sticky;top:0;background:#0c0f11;border-bottom:1px solid var(--line);padding:8px;display:flex;justify-content:space-between;z-index:3}.apStage{padding:9px;border-bottom:1px solid var(--line);background:#080b0dcc}.focusMeta{display:flex;gap:8px;flex-wrap:wrap;padding:7px 10px;border-bottom:1px solid var(--line);color:var(--muted);font-size:8px}.focusMeta b{color:var(--cool)}.reading{padding:14px;white-space:pre-wrap;word-break:break-word;font:12px/1.65 ui-monospace,monospace;color:#cdd5d2;min-height:180px;max-height:48vh;overflow:auto;background:#090c0e}.reading mark{background:#e87548;color:#090b0c;padding:1px 2px}.reading .edge{color:#5e6b70}.xrefBar{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:start;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 10px}.xrefBar>b{font-size:7px;letter-spacing:.12em;color:var(--hot);padding-top:5px}.xrefs{display:flex;flex-wrap:wrap;gap:4px}.xrefs a{font-size:8px;padding:4px 6px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.xrefs a.media{border-color:#9b7bd8;color:#d7c8ff}.xrefs a.source{border-color:var(--cool);color:#cceeff}.rawFold summary{cursor:pointer;padding:8px 10px;color:var(--muted);font-size:9px;letter-spacing:.1em;border-bottom:1px solid var(--line)}.viewer pre{white-space:pre-wrap;word-break:break-word;margin:0;padding:14px;font:11px/1.55 ui-monospace,monospace;color:#cdd5d2}.hint{color:var(--muted);font:12px/1.5 system-ui,sans-serif}@media(max-width:760px){header{display:block}nav{margin-top:12px}.layout{grid-template-columns:1fr}.viewer{min-height:55vh}}</style>
 </head><body><main><header><div><div class="ey">HUMAN-READABLE CONTROL SHELF</div><h1>DOCS / READ</h1></div><nav><a href="../">FIELD</a><a href="../control/">CURRENT</a><a href="../control/confluence/">CONFLUENCE</a></nav></header>
 <p class="hint">One document, many lawful densities. The source URL remains canonical while APERTURE gives root/level/leaf or document/paragraph/sentence/word focus. Any same-origin text-like repo file can enter by address; RAW always remains available.</p>
-<div class="sourcebar"><label for="sourcePath">ADDRESS</label><input id="sourcePath" spellcheck="false" autocomplete="off" placeholder="/control/CURRENT.json"><button id="openPath">OPEN</button></div>
-<div class="layout"><div id="list" class="list"></div><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><span><button id="copyView">COPY VIEW</button> <a id="returnLink" class="returnLink" href="#" hidden>↩ RETURN</a> <a id="raw" href="#" hidden>RAW ↗</a></span></div><div class="apStage"><field-aperture id="docAperture" material-target="body"></field-aperture></div><details class="rawFold"><summary>RAW SOURCE</summary><pre id="text">Select a document from the left.</pre></details></section></div></main>
+<div class="sourcebar"><label for="sourcePath">ADDRESS</label><input id="sourcePath" spellcheck="false" autocomplete="off" placeholder="/control/CURRENT.json"><button id="openPath">OPEN</button></div><details class="pasteFold"><summary>PASTE / LONG TEXT / SERMON</summary><div class="pasteBody"><textarea id="pasteText" placeholder="Paste anything long here. Session-local; not uploaded or written to the repo."></textarea><button id="readPaste">READ</button><div class="pasteNote">Reader state may enter the URL; pasted source bytes do not.</div></div></details>
+<div class="layout"><div id="list" class="list"></div><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><span><button id="copyView">COPY VIEW</button> <a id="returnLink" class="returnLink" href="#" hidden>↩ RETURN</a> <a id="raw" href="#" hidden>RAW ↗</a></span></div><div class="apStage"><field-aperture id="docAperture" material-target="body"></field-aperture></div><div class="focusMeta" id="focusMeta"><b>FOCUS —</b><span>scale —</span><span>position —</span></div><div class="reading" id="reading">Select a document from the left.</div><div class="xrefBar"><b>XREF</b><div id="xrefs" class="xrefs"><span class="hint">source / citations / media near focus</span></div></div><details class="rawFold"><summary>RAW SOURCE</summary><pre id="text">Select a document from the left.</pre></details></section></div></main>
 <script src="../field-aperture.js"></script><script>
 const docs=[
 ['CURRENT','../control/CURRENT.json','Cold-start heads, fronts, holds and recovery targets'],
@@ -24,21 +24,22 @@ const docs=[
 ['CROSS-SYSTEM EXPEDITION','../control/confluence/CROSS_SYSTEM_EXPEDITION.md','Research charter + Hermes wrapper'],
 ['RSVP RECOVERY','../control/confluence/RSVP_RECOVERY.md','Temporal-focus / Watch reader lineage']
 ];
-const L=document.querySelector('#list'),T=document.querySelector('#text'),H=document.querySelector('#title'),R=document.querySelector('#raw'),A=document.querySelector('#docAperture'),P=document.querySelector('#sourcePath'),O=document.querySelector('#openPath'),B=document.querySelector('#returnLink'),C=document.querySelector('#copyView');
+const L=document.querySelector('#list'),T=document.querySelector('#text'),H=document.querySelector('#title'),R=document.querySelector('#raw'),A=document.querySelector('#docAperture'),P=document.querySelector('#sourcePath'),O=document.querySelector('#openPath'),B=document.querySelector('#returnLink'),C=document.querySelector('#copyView'),V=document.querySelector('#reading'),M=document.querySelector('#focusMeta'),X=document.querySelector('#xrefs'),PT=document.querySelector('#pasteText'),PB=document.querySelector('#readPaste');
+let activeRaw='',activeUrl=null,activeLabel='',sourceEpoch=0;
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-');
 const TEXT_EXT=/\.(json|md|txt|csv|log|ya?ml|js|mjs|css|html|svg)$/i;
 function apertureView(){
- const q=new URLSearchParams(location.search),index=Number(q.get('ap_index')),wpm=Number(q.get('ap_wpm'));
- return{scale:q.get('ap_scale')||undefined,index:Number.isFinite(index)?index:undefined,address:q.get('ap_addr')||undefined,wpm:Number.isFinite(wpm)?wpm:undefined}
+ const q=new URLSearchParams(location.search),index=Number(q.get('ap_index')),wpm=Number(q.get('ap_wpm')),charIndex=Number(q.get('ap_char'));
+ return{scale:q.get('ap_scale')||undefined,index:Number.isFinite(index)?index:undefined,address:q.get('ap_addr')||undefined,wpm:Number.isFinite(wpm)?wpm:undefined,charIndex:Number.isFinite(charIndex)?charIndex:undefined}
 }
 const initialAperture=apertureView();let firstLoad=true,apSyncTimer=null,apSyncPending=null;
 function writeAperture(snap){
  const q=new URLSearchParams(location.search);snap.scale?q.set('ap_scale',snap.scale):q.delete('ap_scale');q.set('ap_index',String(Number.isFinite(+snap.index)?snap.index:0));
- snap.address?q.set('ap_addr',snap.address):q.delete('ap_addr');q.set('ap_wpm',String(Number.isFinite(+snap.wpm)?snap.wpm:300));history.replaceState(null,'','?'+q.toString()+location.hash)
+ snap.address?q.set('ap_addr',snap.address):q.delete('ap_addr');if(Number.isFinite(+snap.char_index))q.set('ap_char',String(Math.round(+snap.char_index)));else q.delete('ap_char');q.set('ap_wpm',String(Number.isFinite(+snap.wpm)?snap.wpm:300));history.replaceState(null,'','?'+q.toString()+location.hash)
 }
 function syncAperture(snap){
- if(!snap)return;apSyncPending=snap;
- if(!snap.playing){if(apSyncTimer){clearTimeout(apSyncTimer);apSyncTimer=null}const x=apSyncPending;apSyncPending=null;writeAperture(x);return}
+ if(!snap)return;renderReading(snap);apSyncPending=snap;
+ if(!snap.playing&&!snap.speaking){if(apSyncTimer){clearTimeout(apSyncTimer);apSyncTimer=null}const x=apSyncPending;apSyncPending=null;writeAperture(x);return}
  if(apSyncTimer)return;apSyncTimer=setTimeout(()=>{apSyncTimer=null;const x=apSyncPending;apSyncPending=null;if(x)writeAperture(x)},250)
 }
 function sameOrigin(value){
@@ -52,26 +53,83 @@ function returnUrl(value){
 }
 function sourceLabel(u){const p=u.pathname.split('/').filter(Boolean);return decodeURIComponent(p.at(-1)||u.pathname||'DOCUMENT')}
 function syncAddress(u,label){
- const q=new URLSearchParams(location.search),src=u.pathname+u.search;q.set('src',src);
+ const q=new URLSearchParams(location.search),src=u.pathname+u.search;q.set('src',src);q.delete('paste');
  const ret=returnUrl(q.get('return'));if(!ret)q.delete('return');
  history.replaceState(null,'','?'+q.toString()+'#'+slug(label));P.value=src;
 }
+
+function validSnapSpan(snap){
+ const span=snap?.span;if(!span||!Number.isFinite(+span.start)||!Number.isFinite(+span.end))return null;
+ let a=clampNumber(+span.start,0,Math.max(0,activeRaw.length)),b=clampNumber(+span.end,a,Math.max(a,activeRaw.length));
+ if(b-a>800){a=clampNumber(Number(snap.char_index)||a,0,Math.max(0,activeRaw.length-1));b=Math.min(activeRaw.length,a+1)}
+ return{start:a,end:b}
+}
+function clampNumber(x,a,b){return Math.max(a,Math.min(b,x))}
+function renderReading(snap){
+ if(!snap)return;
+ const bits=[];const strong=document.createElement('b');strong.textContent='FOCUS '+(snap.scale_label||snap.scale||'—');bits.push(strong);
+ const sec=document.createElement('span');sec.textContent=snap.section?.label||'WHOLE SOURCE';bits.push(sec);
+ const pos=document.createElement('span');pos.textContent=Math.round((Number(snap.source_progress)||0)*100)+'% · '+(snap.address||'—');bits.push(pos);M.replaceChildren(...bits);
+ V.replaceChildren();
+ if(snap.kind==='TEXT'&&activeRaw){
+   const span=validSnapSpan(snap)||{start:clampNumber(Number(snap.char_index)||0,0,Math.max(0,activeRaw.length-1)),end:clampNumber((Number(snap.char_index)||0)+1,1,activeRaw.length)};
+   const from=Math.max(0,span.start-900),to=Math.min(activeRaw.length,Math.max(span.end+900,from+1800));
+   const pre=document.createElement('span'),mark=document.createElement('mark'),post=document.createElement('span');
+   pre.textContent=(from?'… ':'')+activeRaw.slice(from,span.start);mark.textContent=activeRaw.slice(span.start,Math.max(span.start+1,span.end))||'·';post.textContent=activeRaw.slice(Math.max(span.start+1,span.end),to)+(to<activeRaw.length?' …':'');
+   V.append(pre,mark,post);mark.scrollIntoView?.({block:'center',inline:'nearest'});
+ }else{
+   const pre=document.createElement('pre');pre.style.margin='0';pre.style.whiteSpace='pre-wrap';pre.textContent=snap.focus||'(empty)';V.append(pre)
+ }
+ renderXrefs(snap)
+}
+function docsReaderHref(u){
+ const ret=returnUrl(new URLSearchParams(location.search).get('return'));const q=new URLSearchParams();q.set('src',u.pathname+u.search);if(ret)q.set('return',ret);return '/docs/?'+q.toString()
+}
+function renderXrefs(snap){
+ X.replaceChildren();
+ if(activeUrl){const a=document.createElement('a');a.className='source';a.href=activeUrl.pathname+activeUrl.search;a.target='_blank';a.rel='noopener';a.textContent='SOURCE · '+sourceLabel(activeUrl);X.append(a)}
+ else{const s=document.createElement('span');s.className='hint';s.textContent='PASTE · SESSION SOURCE';X.append(s)}
+ for(const ref of snap?.xrefs||[]){
+   try{
+     const base=activeUrl||location.href,u=new URL(String(ref.href||''),base),a=document.createElement('a'),media=/\.(?:png|jpe?g|gif|webp|svg|mp3|wav|m4a|mp4|webm|pdf)$/i.test(u.pathname);
+     a.textContent=(media?'MEDIA · ':ref.kind==='MARKDOWN'?'REF · ':'XREF · ')+(ref.label||sourceLabel(u));
+     if(media)a.className='media';
+     if(u.origin===location.origin&&TEXT_EXT.test(u.pathname)){a.href=docsReaderHref(u)}
+     else{a.href=u.href;a.target='_blank';a.rel='noopener'}
+     X.append(a)
+   }catch(_){}
+ }
+}
+function apertureOptions(label,value){
+ const opt={label};if(typeof value==='string')opt.scale='PHRASE';
+ if(firstLoad){for(const [k,v] of Object.entries(initialAperture))if(v!==undefined)opt[k]=v}
+ return opt
+}
+function openPaste(text=PT.value){
+ const s=String(text||'').trim();if(!s)return;sourceEpoch++;
+ activeRaw=s;activeUrl=null;activeLabel='PASTE';H.textContent='PASTE / SESSION';R.hidden=true;T.textContent=s;P.value='';document.querySelectorAll('.doc').forEach(b=>b.classList.remove('on'));
+ try{sessionStorage.setItem('docs.reader.paste.v1',s)}catch(_){}
+ const q=new URLSearchParams(location.search);q.delete('src');q.set('paste','1');history.replaceState(null,'','?'+q.toString()+'#paste');
+ const opt=apertureOptions('PASTE',s);firstLoad=false;A.load(s,opt)
+}
+
 docs.forEach(([n,u,d])=>{const b=document.createElement('button');b.className='doc';b.dataset.slug=slug(n);b.innerHTML='<b>'+n+'</b><span>'+d+'</span>';b.onclick=()=>openSource(n,u);L.append(b)});
 async function openSource(n,value){
- const u=sourceUrl(value);if(!u){T.textContent='Unavailable: source must be a same-origin text-like repo file.';return}
+ const u=sourceUrl(value);if(!u){T.textContent='Unavailable: source must be a same-origin text-like repo file.';return}const epoch=++sourceEpoch;
  H.textContent=n;R.hidden=false;R.href=u.pathname+u.search;T.textContent='Loading…';document.querySelectorAll('.doc').forEach(b=>b.classList.toggle('on',b.dataset.slug===slug(n)));
  try{
    const r=await fetch(u.pathname+u.search,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);
-   const s=await r.text();let value=s,out=s;if(/\.json$/i.test(u.pathname)){try{value=JSON.parse(s);out=JSON.stringify(value,null,2)}catch(_){}}
-   T.textContent=out;const opt=firstLoad?{label:n,...initialAperture}:{label:n};firstLoad=false;A.load(value,opt);syncAddress(u,n);
- }catch(e){T.textContent='Unavailable: '+e.message}
+   const s=await r.text();if(epoch!==sourceEpoch)return;let value=s,out=s;if(/\.json$/i.test(u.pathname)){try{value=JSON.parse(s);out=JSON.stringify(value,null,2)}catch(_){}}
+   if(epoch!==sourceEpoch)return;activeRaw=out;activeUrl=u;activeLabel=n;T.textContent=out;const opt=apertureOptions(n,value);firstLoad=false;A.load(value,opt);syncAddress(u,n);
+ }catch(e){if(epoch===sourceEpoch)T.textContent='Unavailable: '+e.message}
 }
 function openTyped(){const u=sourceUrl(P.value);if(!u){T.textContent='Unavailable: use a same-origin text-like path such as /control/CURRENT.json';return}openSource(sourceLabel(u),u.pathname+u.search)}
 A.addEventListener('aperture-focus',e=>syncAperture(e.detail));
-O.onclick=openTyped;P.addEventListener('keydown',e=>{if(e.key==='Enter')openTyped()});
+O.onclick=openTyped;P.addEventListener('keydown',e=>{if(e.key==='Enter')openTyped()});PB.onclick=()=>openPaste();PT.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='Enter')openPaste()});
 C.onclick=async()=>{const old=C.textContent;try{await navigator.clipboard.writeText(location.href);C.textContent='COPIED'}catch(_){prompt('Copy addressed DOCS view:',location.href)}setTimeout(()=>C.textContent=old,700)};
 const Q=new URLSearchParams(location.search),ret=returnUrl(Q.get('return'));if(ret){B.hidden=false;B.href=ret}
-const direct=sourceUrl(Q.get('src'));
+const direct=sourceUrl(Q.get('src')),paste=Q.has('paste')?(()=>{try{return sessionStorage.getItem('docs.reader.paste.v1')||''}catch(_){return''}})():'';
 if(direct)openSource(sourceLabel(direct),direct.pathname+direct.search);
+else if(paste){PT.value=paste;openPaste(paste)}
 else{const wanted=location.hash.slice(1),entry=docs.find(x=>slug(x[0])===wanted)||docs[0];if(entry)openSource(entry[0],entry[1])}
 </script></body></html>

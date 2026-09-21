@@ -29,6 +29,7 @@ async function start(){
       return '/docs/?src='+encodeURIComponent(src)+'&return='+encodeURIComponent(ret);
     }catch(_){return value}
   };
+  document.addEventListener('click',e=>{if(e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;const a=e.target?.closest?.('a[href]');if(!a||a.hasAttribute('download')||a.target==='_blank'||a.dataset?.raw==='1')return;const href=a.getAttribute('href'),mapped=docsHref(href);if(mapped&&mapped!==href){e.preventDefault();go(mapped)}},{capture:true});
   const routeState=String(route.state||'').toUpperCase();
   const statusMembrane=route.kind==='alias'?'ALIAS · MOVED':
     route.kind==='donor'||routeState==='DONOR'?'DONOR · PRESERVED':
