@@ -94,6 +94,39 @@ function poemMapProbeHtml(){
 }
 
 
+
+function listenSourceProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><pre id="probeResult">PENDING</pre><script type="module">
+  const out=document.getElementById('probeResult'),rec={};
+  const done=(ok,data)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data);
+  try{
+    const api=await import('/fold-bloom/listen/source-adapters.js');
+    const id='11111111-2222-4333-8444-555555555555';
+    rec.suno=api.parseSunoId('https://suno.com/song/'+id);
+    rec.direct=api.classifySourceAddress('https://example.com/audio.mp3').kind;
+    rec.limit=api.MAX_REMOTE_BYTES;
+    done(rec.suno===id&&rec.direct==='REMOTE_AUDIO'&&rec.limit===96*1024*1024,rec);
+  }catch(e){done(false,{error:String(e?.stack||e),...rec})}
+  <\/script></body></html>`;
+}
+function fieldListenProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/?focus=%2Ffold-bloom%2Flisten%2F"></iframe><pre id="probeResult">PENDING</pre><script>
+  const target='/fold-bloom/listen/',out=document.getElementById('probeResult'),f=document.getElementById('f'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=10000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw Error('waitFor timeout')};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    await waitFor(()=>W().FieldLensHost?.focus?.()?.href===target);
+    rec.focused=W().FieldLensHost.focus().href;
+    W().FieldLensHost.project('STRUCTURE');
+    const row=await waitFor(()=>D().querySelector('.mapRow[data-href="'+target+'"]'));
+    rec.visible=!!row;rec.href=row?.dataset?.href||null;rec.root=W().location.pathname;
+    done(rec.focused===target&&rec.visible&&rec.href===target&&rec.root==='/',rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
 function lensProofAliasProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/lens-proof/"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
@@ -449,6 +482,14 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(lensProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/listen-source')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(listenSourceProbeHtml());return;
+  }
+  if(String(req.url||'').startsWith('/__smoke/field-listen')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(fieldListenProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/field-activation')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(fieldActivationProbeHtml());return;
@@ -603,6 +644,12 @@ const CASES=[
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"focused":"\//.test(dom)&&/"opened":"\//.test(dom)&&/"returned":"\//.test(dom)
   },
   {
+    name:'FIELD LISTEN candidate focus',
+    route:'/__smoke/field-listen',
+    options:{width:1040,height:820,budget:16000,timeout:22000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"visible":true/.test(dom)&&/"focused":"\/fold-bloom\/listen\/"/.test(dom)&&/"href":"\/fold-bloom\/listen\/"/.test(dom)&&/"root":"\/"/.test(dom)
+  },
+  {
     name:'LENS STACK STUDIO RETURN',
     route:'/__smoke/lens-studio',
     options:{width:1280,height:900,budget:22000,timeout:28000},
@@ -637,10 +684,16 @@ const CASES=[
     check:dom=>/HOLD FAST \/ LET FLY/i.test(dom)&&/SCALE OF CONSEQUENCE/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')
   },
   {
-    name:'FOLD BLOOM LISTEN 0.1',
+    name:'FOLD BLOOM LISTEN 0.2',
     route:'/fold-bloom/listen/',
     options:{width:1180,height:900,budget:9000},
-    check:dom=>/LISTEN 0\.1/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')
+    check:dom=>/LISTEN 0\.2/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="urlInput"')&&dom.includes('id="urlBtn"')
+  },
+  {
+    name:'FOLD BLOOM LISTEN source adapter',
+    route:'/__smoke/listen-source',
+    options:{width:1000,height:820,budget:10000,timeout:16000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"direct":"REMOTE_AUDIO"/.test(dom)&&/"limit":100663296/.test(dom)
   },
   {
     name:'SCALE LENS',
