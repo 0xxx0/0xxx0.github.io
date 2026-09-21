@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FIELD / PLAY",
-  "version": "0.1",
+  "version": "0.2",
   "route": "/field-play.html",
   "state": "ACTIVE",
   "operation": "VERIFY",
   "released": "2026-09-21",
-  "purpose": "Turn public-safe unresolved FIELD gaps into bounded contributor missions with evidence-bearing RETURN receipts.",
+  "purpose": "Turn public-safe unresolved FIELD gaps and selected public GitHub issues into bounded contributor missions with evidence-bearing RETURN receipts.",
   "laws": [
     "MISSION != AUTHORITY",
     "ONE BOUNDED MOVE",
@@ -14,9 +14,9 @@
     "RETURN != NEXT",
     "PRIVATE/MEDICAL/MESSAGING ADAPTERS EXCLUDED FROM PUBLIC DECK"
   ],
-  "representative_interaction": "ROLL MISSION → OPEN TARGET → perform one bounded move → PASS/PARTIAL/FAIL → COPY RETURN JSON",
+  "representative_interaction": "ROLL or open #issue=N → OPEN TARGET → perform one bounded move → PASS/PARTIAL/FAIL → COPY RETURN JSON",
   "validation": {
-    "inline_javascript_syntax": "PASS",
+    "inline_javascript_syntax": "PASS_STATIC_PARSE",
     "manifest_derived_deck": true,
     "local_storage_only": "return count only",
     "network_write": "NONE",
@@ -25,7 +25,13 @@
       "workflow_run": 35530945950,
       "commit": "d2ef134cd19ba5828f9061d3d4d18b2ea862d295"
     },
-    "public_safe_filter": "PASS_BY_SOURCE_RULE: excludes /port, /continuity, /care, /field-intake, /router-bench, /atlas-dayline and private/clinical/vet/messaging/encrypted/sensor-bind gaps from public deck."
+    "public_safe_filter": "PASS_BY_SOURCE_RULE: excludes /port, /continuity, /care, /field-intake, /router-bench, /atlas-dayline and private/clinical/vet/messaging/encrypted/sensor-bind gaps from public deck.",
+    "issue_source": {
+      "snapshot": "/control/FIELD_ISSUES.json",
+      "play_safe_only": true,
+      "live_issue_visibility_on_FIELD_INDEX": true,
+      "network_write": "NONE"
+    }
   },
-  "known_gap": "No submission transport or shared scoreboard by design; contributor returns are copied explicitly and reviewed before repo mutation."
+  "known_gap": "No submission transport or shared scoreboard by design. GitHub issue missions are explicit public-safe selections; contributor returns are copied and reviewed before any repo mutation."
 }
