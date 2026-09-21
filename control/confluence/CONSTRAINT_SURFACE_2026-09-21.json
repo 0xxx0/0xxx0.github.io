@@ -1,7 +1,7 @@
 {
   "schema": "confluence.constraint-surface/v0.1",
   "date": "2026-09-21",
-  "state": "IMPLEMENTED",
+  "state": "VERIFIED_KERNEL",
   "provenance": {
     "donor": "/foundry/axial/ 0.7.x lawful-support mechanism",
     "exact_kernel": "/lib/constraint-surface.js",
@@ -41,10 +41,19 @@
     "constraint_surface": "computes possibility only",
     "state_aperture": "transforms and crosses consequence/authority boundaries"
   },
-  "promotion_rule": "Do not build a reusable UI component until a third consumer needs the same interaction surface. Reuse the headless kernel now.",
+  "promotion_rule": "Do not create a new UI/project. A third exact-set consumer may import the headless kernel through a domain adapter. Heuristic or typed-transition support are explicitly different semantics.",
   "next_surprising_test": "If a third domain needs exact lawful-neighborhood support, adapt only its dimensions/getValues function and compare whether the same kernel survives unchanged.",
   "support_semantics": {
     "kind": "EXACT_SET_CARDINALITY",
     "contract": "/control/SUPPORT_SEMANTICS.json"
+  },
+  "verification": {
+    "date": "2026-09-21",
+    "result": "PASS",
+    "field_candidate_checks": 73,
+    "axial_candidate_checks": 106,
+    "house_candidate_checks": 38,
+    "compatibility_adapter": "PASS",
+    "non_claim": "Verification proves exact algorithm parity/reuse only; it does not prove interface superiority or physical value."
   }
 }
