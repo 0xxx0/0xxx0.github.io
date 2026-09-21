@@ -2,7 +2,7 @@
   "schema": "0xxx0/return/v0.1",
   "id": "FOLD_BLOOM_LIVE_2026-09-21",
   "date": "2026-09-21",
-  "status": "SHIP_CANDIDATE_PENDING_CI_MERGE",
+  "status": "SHIPPED_ACTIVE_CANDIDATE",
   "operation": "CONVERGE / INDEX / SHIP",
   "changed": [
     "/fold-bloom/live/",
@@ -20,8 +20,19 @@
   "verification": [
     "engine tests 5/5 PASS",
     "module parse PASS",
-    "public-surface CI rerun required after FIELD INDEX route admission"
+    "FIELD INDEX route grammar PASS",
+    "static public-surface contracts PASS",
+    "critical browser smoke PASS on CI rerun",
+    "recovered source/media verification PASS",
+    "frozen City/Painting tests PASS"
   ],
   "next_evidence": "direct desktop + touch playtest; tune one operator only from observed failure",
-  "pr": "https://github.com/0xxx0/0xxx0.github.io/pull/85"
+  "pr": "https://github.com/0xxx0/0xxx0.github.io/pull/85",
+  "merge_sha": "74b449d089963a71c29c1535ef457b154ba427a7",
+  "ci": {
+    "workflow": "public-surface-check",
+    "run_id": 35603017221,
+    "result": "PASS_ON_RERUN",
+    "notes": "route grammar, static surface contracts, critical browser smoke, recovered source identity/media catalogue and frozen City/Painting tests all passed"
+  }
 }

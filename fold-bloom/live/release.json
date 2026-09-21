@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
   "version": "LIVE 0.1",
-  "status": "EXPERIMENTAL_PERFORMANCE_HEAD",
+  "status": "ACTIVE_CANDIDATE_SHIPPED",
   "date": "2026-09-21",
   "donors": [
     {
@@ -35,7 +35,11 @@
     "engine_tests": "5/5 PASS",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "direct desktop + touch playtest"
+    "required_next": "direct desktop + touch playtest for instrument-quality promotion",
+    "repo_browser_smoke": "PASS: public-surface-check run 35603017221 rerun",
+    "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
+    "merge_sha": "74b449d089963a71c29c1535ef457b154ba427a7"
   },
-  "execution_contract": "./EXECUTION.md"
+  "execution_contract": "./EXECUTION.md",
+  "return": "/returns/FOLD_BLOOM_LIVE_2026-09-21.json"
 }

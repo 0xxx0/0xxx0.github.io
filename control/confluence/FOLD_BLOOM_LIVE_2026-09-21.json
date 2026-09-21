@@ -10,7 +10,14 @@
     "ecology_branch": "/fold-bloom/ecology/",
     "pr": "https://github.com/0xxx0/0xxx0.github.io/pull/85",
     "engine_tests": "5/5 PASS",
-    "prior_ci_failure": "public-surface-check rejected unindexed /fold-bloom/live/ directory; repaired by FIELD INDEX admission in this convergence pass"
+    "prior_ci_failure": "public-surface-check rejected unindexed /fold-bloom/live/ directory; repaired by FIELD INDEX admission in this convergence pass",
+    "shipped": true,
+    "merge_sha": "74b449d089963a71c29c1535ef457b154ba427a7",
+    "public_surface_ci": {
+      "run_id": 35603017221,
+      "result": "PASS_ON_RERUN"
+    },
+    "current_field_index_route": "/fold-bloom/live/"
   },
   "transfer": {
     "from": [
@@ -57,5 +64,5 @@
     "muted play exposes target/alignment/crease/cascade/charge",
     "10-minute desktop/touch run has no scheduler burst, stuck drone, scroll conflict or material frame drop"
   ],
-  "stop": "Ship as current ACTIVE_CANDIDATE and stop feature expansion until embodied play returns evidence."
+  "stop": "Shipped as current ACTIVE_CANDIDATE. Stop repository expansion; next authority comes from embodied desktop/touch play and a bounded RETURN."
 }
