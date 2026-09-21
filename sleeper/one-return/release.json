@@ -1,7 +1,7 @@
 {
   "schema": "release-receipt/v1",
   "name": "ONE RETURN / NINE GATE",
-  "version": "reified-0.2",
+  "version": "reified-0.2 + grid-receipt-seam-1",
   "state": "PLAYABLE_LINEAGE_LANE",
   "released": "2026-09-21",
   "route": "/sleeper/one-return/",
@@ -36,6 +36,25 @@
     "single-file runtime",
     "dependency-free core",
     "browser smoke route required before merge",
-    "RETURN export schema one-return/import-reified-0.2"
-  ]
+    "RETURN export schema one-return/import-reified-0.2",
+    "browser runtime proof: BY/GRID-PATH-2 import preserves upstream fingerprint/path/address and yields nine-gate maze"
+  ],
+  "interop": {
+    "input": "BY/GRID-PATH-2",
+    "donor": "/recovery/path-grid/grid-path-compiler-v4/",
+    "transform": "reading strands/cells + receipt identity → deterministic ONE RETURN maze projection",
+    "preserves": [
+      "source fingerprint",
+      "path id",
+      "compressed address",
+      "reading",
+      "source pack"
+    ],
+    "does_not_preserve": [
+      "Grid Path rectangle geometry",
+      "typed BY edges as maze edges",
+      "route cost"
+    ],
+    "return": "ONE RETURN witness carries upstream receipt identity in `upstream`"
+  }
 }

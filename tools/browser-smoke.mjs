@@ -210,7 +210,28 @@ function apertureMultilingualProbeHtml(){
   <\/script></body></html>`;
 }
 
+function oneReturnGridReceiptProbeHtml(){
+  return `<!doctype html><html><body><iframe id="f" style="width:1100px;height:820px;border:0" src="/sleeper/one-return/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};
+  const done=(ok,data)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data);
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=8000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw Error('waitFor timeout')};
+  (async()=>{
+    const api=await waitFor(()=>f.contentWindow.OneReturnAPI);
+    const receipt={format:'BY/GRID-PATH-2',source:{fingerprint:'src:nine:test',pack:'nine',rows:2,cols:2,matrix:[['A','B'],['C','D']]},path:{id:'path:test:abcd',cells:[{r:0,c:0,token:'A'},{r:0,c:1,token:'B'},{r:1,c:0,token:'C'},{r:1,c:1,token:'D'}],break_after:[1],edges:[]},compression:{address:'@00:E1/S1'},reading:{flat:'ABCD',strands:['AB','CD']},view:'TEXT'};
+    api.importPacket(receipt);const snap=await waitFor(()=>{const x=api.snapshot();return x?.upstream?.pathId==='path:test:abcd'?x:null});
+    rec.upstream=snap.upstream;rec.source=snap.source;rec.seed=snap.seed;rec.gates=snap.gates?.length||0;
+    const packet=api.exportPacket();rec.packetUpstream=packet.upstream;
+    done(snap.upstream.sourceFingerprint==='src:nine:test'&&snap.upstream.address==='@00:E1/S1'&&snap.source[0]==='AB'&&snap.source[1]==='CD'&&snap.seed.includes('path:test:abcd')&&rec.gates===9&&packet.upstream.pathId==='path:test:abcd',rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
 const server=http.createServer((req,res)=>{
+  if(String(req.url||'').startsWith('/__smoke/one-return-grid-receipt')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(oneReturnGridReceiptProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/aperture-multilingual')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(apertureMultilingualProbeHtml());return;
@@ -427,6 +448,12 @@ const CASES=[
       const tx=textAtId(dom,'transfers');
       return /CONFLUENCE/i.test(dom)&&/TRANSFER REGISTRY/i.test(dom)&&/IMPLEMENTED|PROOF_REQUIRED|PROPOSED/.test(tx)&&!/loading|unavailable/i.test(tx);
     }
+  },
+  {
+    name:'ONE RETURN ← GRID PATH receipt seam',
+    route:'/__smoke/one-return-grid-receipt',
+    options:{width:1180,height:900,budget:9000,timeout:16000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"pathId":"path:test:abcd"/.test(dom)&&/"sourceFingerprint":"src:nine:test"/.test(dom)&&/"gates":9/.test(dom)
   },
   {
     name:'ONE RETURN / NINE GATE',
