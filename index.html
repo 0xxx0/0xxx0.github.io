@@ -16,7 +16,7 @@ header{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end;
 .intro{color:#a9b3b6;font:12px/1.58 system-ui,sans-serif;max-width:580px}.intro b{color:var(--ink)}nav{display:flex;gap:5px;flex-wrap:wrap;margin-top:13px}nav a{border:1px solid var(--line);padding:6px 8px;font-size:8px;letter-spacing:.08em}nav a.play{border-color:var(--hot);color:#ffd1bf}
 .laws{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px}.law{background:#090d0f;padding:8px}.law b{display:block;color:var(--cool);font-size:8px}.law span{display:block;margin-top:3px;color:var(--mut);font-size:7px}
 .section{margin-top:26px}.sectionHead{display:grid;grid-template-columns:1fr auto;align-items:end;gap:12px;border-bottom:1px solid var(--line);padding-bottom:7px;margin-bottom:8px}.sectionHead b{font-size:10px;letter-spacing:.16em}.sectionHead span{font-size:8px;color:var(--mut)}
-.nowGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.moveGate{margin-top:7px;border:1px solid var(--line);background:#090d0f;padding:8px 10px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}.moveGate b{color:var(--hot);font-size:7px;letter-spacing:.12em}.moveGate span{color:#9ca8ac;font:9px/1.45 system-ui,sans-serif}.front{background:var(--p);padding:13px;min-height:150px;display:flex;flex-direction:column}.front:hover{background:#101619}.front .num{font-size:8px;color:var(--hot)}.front h2{margin:18px 0 7px;font:800 20px/1 system-ui,sans-serif;letter-spacing:-.04em}.front p{margin:0;color:#a5afb2;font:9px/1.55 system-ui,sans-serif}.front .state{margin-top:auto;padding-top:14px;color:var(--green);font-size:7px;letter-spacing:.1em}
+.fieldStrip{margin-top:10px;border:1px solid var(--line);background:#090d0f;display:grid;grid-template-columns:auto auto 1px minmax(0,1fr) auto;align-items:center;gap:7px;padding:5px 6px;min-height:42px}.stripLead{display:flex;align-items:center;gap:7px;white-space:nowrap}.stripLead b{font-size:7px;letter-spacing:.13em;color:var(--hot)}.stripLead span{color:var(--mut);font-size:6.5px}.stripSep{align-self:stretch;background:var(--line)}.stripMarks,.stripHeads{display:flex;align-items:center;gap:3px;min-width:0;overflow-x:auto;scrollbar-width:none}.statusMark{display:flex;align-items:center;gap:4px;min-width:0;border:1px solid transparent;padding:2px 4px;background:#090d0f}.statusMark:hover{border-color:#536168;background:#101619}.statusMark .smText{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:7px;max-width:130px}.statusMark .smKey{color:var(--mut);font-size:7px}.statusMark.now{border-color:#4b332b}.statusMark.headOnly{opacity:.78}.statusMore{border:1px solid var(--line);padding:5px 7px;font-size:7px;color:var(--mut);white-space:nowrap}.statusDetail{border:1px solid var(--line);border-top:0;background:#090d0f}.statusDetail>summary{cursor:pointer;list-style:none;padding:6px 8px;color:var(--mut);font-size:7px;letter-spacing:.1em}.statusDetail>summary::-webkit-details-marker{display:none}.statusRows{border-top:1px solid #20282c}.statusRow{display:grid;grid-template-columns:34px minmax(150px,.8fr) 2fr auto;gap:9px;align-items:center;padding:7px 8px;border-bottom:1px solid #20282c}.statusRow:last-child{border-bottom:0}.statusRow strong{font:750 11px/1.1 system-ui,sans-serif}.statusRow p{margin:0;color:#98a4a8;font:8px/1.4 system-ui,sans-serif}.moveGate{padding:7px 8px;display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start}.moveGate b{color:var(--hot);font-size:7px;letter-spacing:.12em}.moveGate span{color:#9ca8ac;font:8px/1.4 system-ui,sans-serif}
 .heads{border-top:1px solid var(--line)}.head{display:grid;grid-template-columns:minmax(180px,.8fr) 120px 2fr auto;gap:12px;padding:9px 3px;border-bottom:1px solid #20282c;align-items:start}.head:hover{background:#0b1012}.head strong{font:750 14px/1.1 system-ui,sans-serif}.head .hs{font-size:7px;letter-spacing:.09em;color:var(--green)}.head p{margin:0;color:#96a2a6;font:9px/1.45 system-ui,sans-serif}.arrow{color:#7a878d}
 .mapTools{display:flex;gap:4px;flex-wrap:wrap}.mapTools input{min-height:30px;padding:6px 8px;width:210px}
 .mapStage{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:7px}.mapCanvas{border:1px solid var(--line);background:var(--p);min-height:590px;overflow:hidden;position:relative}.mapCanvas svg{display:block;width:100%;height:590px}.mapInspector{border:1px solid var(--line);background:var(--p);padding:12px;min-height:590px}.miEy{color:var(--hot);font-size:7px;letter-spacing:.13em}.miName{margin:12px 0 5px;font:800 22px/.95 system-ui,sans-serif;letter-spacing:-.045em}.miPath{color:var(--cool);font-size:8px;word-break:break-all}.miRole{margin-top:14px;color:#a2adb0;font:10px/1.55 system-ui,sans-serif}.miMeta{display:grid;grid-template-columns:80px 1fr;border-top:1px solid var(--line);margin-top:14px}.miMeta span{padding:6px 0;border-bottom:1px solid #20282c}.miMeta span:nth-child(odd){color:var(--mut)}.miOpen,.miLens{display:block;width:100%;border:1px solid var(--line);padding:9px;margin-top:7px;text-align:center;color:var(--ink);background:#090d0f}.miOpen:hover,.miLens:hover{border-color:var(--cool)}.crumbs{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:9px}.crumbs button{min-height:25px;padding:4px 6px;font-size:7px}.scaleCtl{display:grid;grid-template-columns:auto auto 1fr;gap:3px;margin-bottom:10px}.scaleCtl button{min-height:25px;padding:4px 7px;font-size:7px}.scaleCtl span{border:1px solid var(--line);padding:5px 7px;color:var(--cool);font-size:7px;text-align:right}
@@ -29,22 +29,34 @@ header{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end;
 .ports{border-top:1px solid var(--line)}.portRow{display:grid;grid-template-columns:minmax(170px,.75fr) 130px 150px 2fr auto;gap:10px;padding:8px 3px;border-bottom:1px solid #20282c}.portRow:hover{background:#0b1012}.portRow .name{font:750 12px/1.1 system-ui,sans-serif}.portRow .kind{font-size:7px;color:var(--cool);letter-spacing:.08em}.portRow .status{font-size:7px;color:var(--gold);letter-spacing:.06em}.portRow .via{font:8.5px/1.4 system-ui,sans-serif;color:#96a2a6}
 .health{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.health a{background:#090d0f;padding:10px}.health b{display:block;font-size:8px}.health span{display:block;margin-top:3px;color:var(--mut);font-size:7px}
 .foot{display:flex;justify-content:space-between;gap:18px;margin-top:24px;padding-top:9px;border-top:1px solid var(--line);font-size:7px;color:#657278}
+html[data-density="COMPACT"] .statusMark .smText{max-width:76px}html[data-density="COMPACT"] .stripLead span{display:none}
+html[data-density="MARK"] body{padding:max(7px,env(safe-area-inset-top)) 7px max(18px,env(safe-area-inset-bottom))}
+html[data-density="MARK"] header{grid-template-columns:1fr;padding:8px 0 6px;gap:4px}html[data-density="MARK"] header h1{font-size:34px;line-height:.9;letter-spacing:-.06em;margin:3px 0}html[data-density="MARK"] header h1 br{display:none}html[data-density="MARK"] .introText{display:none}html[data-density="MARK"] nav{display:flex;flex-wrap:nowrap;overflow-x:auto;margin-top:4px;scrollbar-width:none}html[data-density="MARK"] nav a{flex:none;padding:4px 6px;font-size:6.5px}html[data-density="MARK"] .laws{grid-template-columns:repeat(5,max-content);overflow-x:auto;border-left:0;border-right:0;margin-top:4px;scrollbar-width:none}html[data-density="MARK"] .law{padding:4px 6px}html[data-density="MARK"] .law b{font-size:6px}html[data-density="MARK"] .law span{display:none}
+html[data-density="MARK"] .fieldStrip{grid-template-columns:auto auto 1px minmax(0,1fr) auto;margin-top:5px;gap:3px;padding:3px;min-height:34px}html[data-density="MARK"] .stripLead span,html[data-density="MARK"] .statusMark .smText,html[data-density="MARK"] .statusMark .smKey{display:none}html[data-density="MARK"] .statusMark{padding:1px}html[data-density="MARK"] .statusMore{padding:4px;font-size:0}html[data-density="MARK"] .statusMore:after{content:"···";font-size:9px}html[data-density="MARK"] .statusDetail>summary{padding:4px 5px}html[data-density="MARK"] .section{margin-top:14px}html[data-density="MARK"] .sectionHead{margin-bottom:4px;padding-bottom:4px}html[data-density="MARK"] .sectionHead span{display:none}
+html[data-density="MARK"] .feedPath,html[data-density="MARK"] .feedBottom{display:none}html[data-density="MARK"] .feedStats{display:none}html[data-density="MARK"] .feedItem{padding:6px 1px}html[data-density="MARK"] .issueMeta{display:none}
 @media(max-width:900px){header{grid-template-columns:1fr}.laws{grid-template-columns:1fr 1fr}.nowGrid,.mapGrid{grid-template-columns:1fr}.feedShell{grid-template-columns:minmax(0,1fr) 36px;gap:4px}.feedStats{grid-template-columns:1fr 1fr}.feedStat:nth-child(2){border-right:0}.feedItem{grid-template-columns:30px minmax(0,1fr) auto;padding:8px 1px;gap:7px}.feedTouch,.feedMode{display:none}.feedBottom{justify-self:end}.feedArrow{display:none}.glyphRail{top:6px;padding:2px}.glyphRail button{min-height:29px;height:29px}.issueRow{grid-template-columns:42px minmax(0,1fr) auto}.issueDisp{display:none}.issuePlay{grid-column:3}.mapStage{grid-template-columns:1fr}.mapInspector{min-height:auto}.head{grid-template-columns:1fr auto}.head p{grid-column:1/-1}.flatRow,.portRow{grid-template-columns:1fr auto}.flatRow .meta,.flatRow .status,.flatRow .desc,.portRow .kind,.portRow .status,.portRow .via{grid-column:1}.flatRow .arrow,.portRow .arrow{grid-column:2;grid-row:1/-1}.sectionHead{grid-template-columns:1fr}.mapTools input{width:100%}.health{grid-template-columns:1fr 1fr}.foot{display:block}}
 </style>
 </head>
 <body><main>
 <header>
   <div><div class="ey">FI / φ · ORIENT / FIND / CONNECT / RETURN</div><h1>FIELD<br>INDEX</h1></div>
-  <div class="intro"><b>Start with what changed.</b> LATEST is the fast re-entry path back into repository reality. ISSUES shows declared open loops. MAP is the structural projection when you need to zoom out. NOW still names deliberate attention; none of these readings silently outranks the others.
+  <div class="intro"><span class="introText"><b>Start with what changed.</b> LATEST is the fast re-entry path back into repository reality. ISSUES shows declared open loops. MAP is the structural projection when you need to zoom out. NOW still names deliberate attention; none of these readings silently outranks the others.</span>
     <nav><a class="play" href="./field-play.html">PLAY FIELD</a><a href="./port/">HUMAN PORT</a><a href="./dock/">DOCK</a><a href="./control/">CURRENT</a><a href="./foundry/">FOUNDRY</a><a href="./migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./control/confluence/">CONFLUENCE</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav>
     <div class="laws"><div class="law"><b>ATTENTION ≠ RECENCY</b><span>CURRENT owns NOW.</span></div><div class="law"><b>MAP ≠ BACKLOG</b><span>Existence is not obligation.</span></div><div class="law"><b>DONOR ≠ HEAD</b><span>Transfer without resurrection.</span></div><div class="law"><b>ADDRESS ≠ PROMOTE</b><span>Everything findable; almost nothing sovereign.</span></div><div class="law"><b>RETURN ≠ NEXT</b><span>Replan after every bounded move.</span></div></div>
   </div>
 </header>
 
-<section class="section">
-  <div class="sectionHead"><div><b>NOW</b><span id="nowMeta">loading current attention…</span></div><span>≤3 execution fronts · from CURRENT</span></div>
-  <div id="now" class="nowGrid"><div class="front"><p>Loading /control/CURRENT.json…</p></div></div><div id="moveGate" class="moveGate"><b>MOVE GATE</b><span>Loading execution contract…</span></div>
+<section class="fieldStrip" id="fieldStrip">
+  <div class="stripLead"><b>NOW</b><span id="nowMeta">loading…</span></div>
+  <div class="stripMarks" id="nowMarks"></div><div class="stripSep"></div>
+  <div class="stripHeads" id="headMarks"></div>
+  <a class="statusMore" href="#lineageReading">DETAIL</a>
 </section>
+<details class="statusDetail" id="statusDetail">
+  <summary>REVEAL ACTIVE FRONTS / MOVE GATE</summary>
+  <div class="statusRows" id="nowDetailRows"></div>
+  <div id="moveGate" class="moveGate"><b>MOVE GATE</b><span>Loading execution contract…</span></div>
+</details>
 
 <section class="section" id="pulseFeed">
   <div class="sectionHead"><div><b>LATEST / REPO TOUCHES</b><span id="feedMeta">loading durable touches…</span></div><span>newest first · click top and keep moving</span></div>
@@ -56,7 +68,7 @@ header{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end;
   <div class="issues" id="issueList"><div class="issueRow"><div class="issueTitle">Loading open issues…</div></div></div>
 </section>
 
-<details class="lineageHold">
+<details class="lineageHold" id="lineageReading">
   <summary><b>HEADS / LINEAGE READING</b><span>advanced · retained current lineages, not required for ordinary navigation</span></summary>
   <div class="sectionHead"><div><b>HEADS</b><span id="headMeta">retained current lineages</span></div><span>current ≠ active ≠ stable</span></div>
   <div id="heads" class="heads"><div class="head"><p>Loading current heads…</p></div></div>
@@ -84,13 +96,14 @@ header{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end;
 <div class="foot"><span>OBJECT → ADDRESS → STATE → MUTATE → EVIDENCE → SELECT → TRANSFER → RETURN → REPLAN</span><span>FIELD INDEX is orientation; CURRENT is attention; CONFLUENCE moves bounded mechanisms between unequal lineages.</span></div>
 </main>
 
+<script src="./field-presentation.js"></script>
 <script src="./field-glyph.js"></script>
 <script src="./field-signals.js"></script>
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const NS='http://www.w3.org/2000/svg';
-let manifest=null,current=null,routes=[],issueSnapshot=[],
+let manifest=null,current=null,routes=[],issueSnapshot=[],nowFronts=[],headRows=[],
     mode=(window.FieldSignals?.preference('field-map-mode',['VISUAL','PULSE','STRUCTURE','EVOLVE','RECENT'])?.value)||'VISUAL',
     filter='ALL',query='',headSet=new Set,nowRouteSet=new Set,visualRoot='/',selectedRoute='/';
 const routeMap=()=>new Map(routes.map(r=>[r.href,r]));
@@ -107,18 +120,24 @@ function hrefForFront(f){
   return m&&map.has(m[0])?m[0]:'/control/';
 }
 function renderNow(){
-  const fs=(current?.active_fronts||[]).slice(0,3);
-  nowRouteSet=new Set(fs.map(hrefForFront));
-  $('nowMeta').textContent=fs.length+' active fronts · attention source /control/CURRENT.json';
+  nowFronts=(current?.active_fronts||[]).slice(0,3);
+  nowRouteSet=new Set(nowFronts.map(hrefForFront));
+  $('nowMeta').textContent=nowFronts.length+' active';
   const gate=current?.execution_contract;$('moveGate').querySelector('span').textContent=gate?.loop?gate.loop+' · '+gate.gate:'SELECT → EXECUTE ONE BOUNDED MOVE → RETURN → REPLAN';
-  $('now').innerHTML=fs.map((f,i)=>{const href=hrefForFront(f),r=routeMap().get(href),touch=r?.index?.updated_at?' · TOUCH '+r.index.updated_at:'';return '<a class="front" href=".'+esc(href)+'"><div class="num">0'+(i+1)+' / '+esc(f.id)+'</div><h2>'+esc(String(f.id).replace(/-/g,' ').toUpperCase())+'</h2><p>'+esc(f.objective||f.center||'')+'</p><div class="state">'+esc(f.state||'ACTIVE')+esc(touch)+' · OPEN →</div></a>'}).join('')||'<div class="front"><p>No active fronts declared.</p></div>';
+  $('nowDetailRows').innerHTML=nowFronts.map((f,i)=>{const href=hrefForFront(f),r=routeMap().get(href)||{href,title:f.id,kind:'control',state:f.state,operation:'OPERATE'};return '<a class="statusRow" href=".'+esc(href)+'"><div>'+(window.FieldGlyph?.svg(r,{size:27,now:true,head:headSet.has(href)})||'')+'</div><strong>'+esc(String(f.id).replace(/-/g,' ').toUpperCase())+'</strong><p>'+esc(f.objective||f.center||'')+'</p><span class="badge '+esc(f.state)+'">'+esc(f.state||'ACTIVE')+'</span></a>'}).join('');
+}
+function renderStatusStrip(){
+  const map=routeMap();
+  $('nowMarks').innerHTML=nowFronts.map((f,i)=>{const href=hrefForFront(f),r=map.get(href)||{href,title:f.id,kind:'control',state:f.state,operation:'OPERATE'},key=window.FieldGlyph?.mnemonic(r)||'';return '<a class="statusMark now" href=".'+esc(href)+'" title="'+esc((r.title||f.id)+' · '+f.state)+'">'+(window.FieldGlyph?.svg(r,{size:25,now:true,head:headSet.has(href)})||'')+'<span class="smKey">'+esc(key)+'</span><span class="smText">'+esc(r.title||f.id)+'</span></a>'}).join('');
+  $('headMarks').innerHTML=headRows.map(h=>{const r=map.get(h.route)||{href:h.route,title:h.head,kind:'artifact',state:h.state,operation:'READ'},key=window.FieldGlyph?.mnemonic(r)||'';return '<a class="statusMark '+(nowRouteSet.has(h.route)?'now':'headOnly')+'" href=".'+esc(h.route)+'" title="'+esc(h.head+' · '+h.state)+'">'+(window.FieldGlyph?.svg(r,{size:21,now:nowRouteSet.has(h.route),head:true})||'')+'<span class="smKey">'+esc(key)+'</span><span class="smText">'+esc(h.lineage)+'</span></a>'}).join('');
 }
 function renderHeads(){
-  const hs=current?.current_heads||[];
-  headSet=new Set(hs.map(h=>h.route));
-  const folded=hs.filter(h=>nowRouteSet.has(h.route)),visible=hs.filter(h=>!nowRouteSet.has(h.route));
-  $('headMeta').textContent=hs.length+' retained heads · '+folded.length+' folded into NOW · identity shown once per fixed reading';
-  $('heads').innerHTML=visible.map(h=>{const r=routeMap().get(h.route),touch=r?.index?.updated_at?' · '+r.index.updated_at:'';return '<a class="head" href=".'+esc(h.route)+'"><strong>'+esc(h.head)+'</strong><span class="hs">'+esc(h.state)+esc(touch)+'</span><p>'+esc(h.retained_function||'')+'</p><span class="arrow">OPEN →</span></a>'}).join('')||(folded.length?'<div class="head"><p>All retained heads are already represented in NOW.</p></div>':'<div class="head"><p>No current heads declared.</p></div>');
+  headRows=current?.current_heads||[];
+  headSet=new Set(headRows.map(h=>h.route));
+  $('headMeta').textContent=headRows.length+' retained lineages · advanced reading';
+  $('heads').innerHTML=headRows.map(h=>{const r=routeMap().get(h.route),touch=r?.index?.updated_at?' · '+r.index.updated_at:'';return '<a class="head" href=".'+esc(h.route)+'"><strong>'+esc(h.head)+'</strong><span class="hs">'+esc(h.state)+esc(touch)+'</span><p>'+esc(h.retained_function||'')+'</p><span class="arrow">OPEN →</span></a>'}).join('')||'<div class="head"><p>No current heads declared.</p></div>';
+  renderStatusStrip();
+  renderNow();
 }
 function feedId(h){return 'touch-'+String(h).replace(/[^a-z0-9]+/gi,'-').replace(/^-|-$/g,'')}
 function renderFeed(){
