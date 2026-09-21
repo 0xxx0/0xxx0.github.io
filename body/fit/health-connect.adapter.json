@@ -1,0 +1,155 @@
+{
+  "schema": "0xxx0/body-fit-health-connect-adapter/v0.1",
+  "status": "CANDIDATE",
+  "updated": "2026-09-22",
+  "host": "/body/fit/",
+  "purpose": "Read the minimum campaign-selected Android Health Connect records and transform them into existing BODY / FIT sensor-observation envelopes without creating a second health store or writing imported data back to Health Connect.",
+  "boundary": {
+    "runtime": "Android native reader required; the static web surface does not directly access Health Connect.",
+    "default_transport": "explicit local JSON bundle -> BODY / FIT IMPORT JSON FILE",
+    "future_transport": "private local relay / HOUSEBUS / Hermes only if it reduces friction without broadening authority",
+    "cloud_required": false,
+    "write_back": false
+  },
+  "laws": [
+    "READ ONLY BY DEFAULT.",
+    "ASK ONLY FOR RECORD TYPES REQUIRED BY AN ACTIVE CAMPAIGN.",
+    "HEALTH CONNECT RECORD != BODY TRUTH.",
+    "DATA ORIGIN + DEVICE + RECORDING METHOD SURVIVE TRANSFORM.",
+    "SOURCE RECORD != FIELD-DERIVED FEATURE.",
+    "MISSING PERMISSION != ZERO.",
+    "NO PERSONAL HEALTH VALUES IN THE PUBLIC REPOSITORY.",
+    "DO NOT WRITE THIRD-PARTY READ DATA BACK INTO HEALTH CONNECT."
+  ],
+  "first_proof": {
+    "goal": "Prove one night of sleep-session metadata plus heart-rate lineage can cross the boundary locally with source identity intact.",
+    "required": [
+      "SleepSessionRecord",
+      "HeartRateRecord"
+    ],
+    "optional": [
+      "RestingHeartRateRecord",
+      "HeartRateVariabilityRmssdRecord",
+      "ExerciseSessionRecord"
+    ],
+    "not_required": [
+      "calories",
+      "readiness_score",
+      "stress_score",
+      "sleep_score",
+      "sleep_stage_summary_score"
+    ]
+  },
+  "record_map": [
+    {
+      "health_connect": "SleepSessionRecord",
+      "permission": "android.permission.health.READ_SLEEP",
+      "observations": [
+        {
+          "observed_property": "sleep.duration",
+          "result": "duration minutes computed from source startTime/endTime",
+          "unit": "min",
+          "derivedness": "D3",
+          "note": "FIELD computes duration from a source interval; retain original start/end and stage payload in provenance/context rather than pretending duration is a direct measurement."
+        },
+        {
+          "observed_property": "sleep.session",
+          "result": "source interval/session descriptor",
+          "unit": null,
+          "derivedness": "D1"
+        }
+      ]
+    },
+    {
+      "health_connect": "HeartRateRecord",
+      "permission": "android.permission.health.READ_HEART_RATE",
+      "observations": [
+        {
+          "observed_property": "heart_rate",
+          "result": "one source sample per observation for first proof; later batching may be a projection only",
+          "unit": "bpm",
+          "derivedness": "D0"
+        }
+      ]
+    },
+    {
+      "health_connect": "RestingHeartRateRecord",
+      "permission": "android.permission.health.READ_RESTING_HEART_RATE",
+      "observations": [
+        {
+          "observed_property": "heart_rate.resting",
+          "result": "beatsPerMinute",
+          "unit": "bpm",
+          "derivedness": "D1"
+        }
+      ]
+    },
+    {
+      "health_connect": "HeartRateVariabilityRmssdRecord",
+      "permission": "android.permission.health.READ_HEART_RATE_VARIABILITY",
+      "observations": [
+        {
+          "observed_property": "hrv.rmssd",
+          "result": "heartRateVariabilityMillis",
+          "unit": "ms",
+          "derivedness": "D1"
+        }
+      ]
+    },
+    {
+      "health_connect": "ExerciseSessionRecord",
+      "permission": "android.permission.health.READ_EXERCISE",
+      "observations": [
+        {
+          "observed_property": "exercise.session",
+          "result": "exercise type + source interval; duration may be projected explicitly",
+          "unit": null,
+          "derivedness": "D1"
+        }
+      ]
+    }
+  ],
+  "provenance_map": {
+    "source_id": "hc:<metadata.dataOrigin.packageName>:<record-type>",
+    "source_class": "WEARABLE when device/source evidence supports wearable origin; otherwise IMPORT/PHONE as appropriate rather than guessed",
+    "phenomenon_time": "source record/sample effective time or explicit start/end interval representation",
+    "recorded_at": "metadata.lastModifiedTime when available",
+    "acquisition_method": "metadata.recordingMethod + Health Connect record type",
+    "source_ref": "Health Connect record id when locally retained",
+    "provenance": [
+      "metadata.dataOrigin",
+      "metadata.device manufacturer/model/type when present",
+      "metadata.recordingMethod",
+      "metadata.lastModifiedTime",
+      "source record type",
+      "adapter schema/version",
+      "original interval/sample timestamps"
+    ]
+  },
+  "permission_strategy": {
+    "law": "Campaign-selected least privilege.",
+    "example_sleep_hr": [
+      "android.permission.health.READ_SLEEP",
+      "android.permission.health.READ_HEART_RATE"
+    ],
+    "revoke_behavior": "Loss/revocation becomes explicit unavailable/unknown state; it does not synthesize zeros or silently expand permissions."
+  },
+  "export_bundle": {
+    "schema": "0xxx0/body-sensor-bundle/v0.1",
+    "target": "BODY / FIT existing JSON import",
+    "contains": "sensor observations + adapter/source metadata only",
+    "excludes": [
+      "account tokens",
+      "Health Connect permissions state beyond needed provenance",
+      "unselected record types"
+    ]
+  },
+  "next_proof": [
+    "Install/run a minimal Android reader locally.",
+    "Authorize only sleep + heart-rate reads.",
+    "Export one bounded bundle.",
+    "Import into BODY / FIT.",
+    "Verify timestamps, source app/device attribution, units and missingness survive.",
+    "Then decide whether an automatic local relay is worth its dependency cost."
+  ]
+}
