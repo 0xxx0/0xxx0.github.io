@@ -13,7 +13,7 @@
   },
   "projections": {
     "NOW": "one-gesture valence/activation + compact signals + optional body address/context",
-    "PULSE": "same events on cyclic day/time field plus descriptive factor contrasts",
+    "PULSE": "same events on cyclic day/time field plus sample-gated same-return or next-return<=12h descriptive factor contrasts",
     "TEST": "one explicit intervention/action against one selected outcome with before/after return",
     "BRIDGE": "same-origin localStorage BODY↔HOUSE context envelopes; no public personal state",
     "PLAIN": "canonical local JSON ablation/export"
@@ -25,7 +25,9 @@
     "REFERENCE BODY PLAN != PERSONAL ANATOMY",
     "ACTIVE SELF-REPORT and PASSIVE/ENVIRONMENT CONTEXT remain source-distinct",
     "MISSING != ZERO",
-    "BODY EVENT != CARE CASE until explicit import"
+    "BODY EVENT != CARE CASE until explicit import",
+    "UNTOUCHED != ZERO",
+    "LAGGED CONTRAST != DELAYED CAUSATION"
   ],
   "storage": {
     "case_state": "localStorage 0xxx0.body.field.v02",
@@ -42,5 +44,10 @@
     "house": "/house/",
     "bodyplans": "/bodyplans/",
     "return": "/returns/"
+  },
+  "core": {
+    "path": "/body/core.js",
+    "selftest": "/body/selftest.js",
+    "role": "pure state/factor/contrast/test/address functions reusable by other clients"
   }
 }
