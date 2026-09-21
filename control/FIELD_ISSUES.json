@@ -1,0 +1,121 @@
+{
+  "schema": "field-repo-issues/v0.1",
+  "generated_at": "2026-09-21T14:50:00+08:00",
+  "source": "GitHub open issues for 0xxx0/0xxx0.github.io",
+  "dynamic_source": "https://api.github.com/repos/0xxx0/0xxx0.github.io/issues?state=open&per_page=100",
+  "count": 11,
+  "play_safe_count": 6,
+  "law": "FI may show all public repo issues. FIELD PLAY only selects play_safe=true issues; local/private/sensitive holds remain visible as repo truth but are not contributor missions.",
+  "issues": [
+    {
+      "number": 35,
+      "title": "Converge FOLD//BLOOM Weave + make Scale Lens an aperture, without capability loss",
+      "updated_at": "2026-09-21T06:26:11Z",
+      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/35",
+      "labels": [],
+      "body": "## Objective\n\nAdvance two coupled-but-distinct fronts without deleting recovered capability.\n\n### A — FOLD//BLOOM convergence\n- Preserve exact recovered donor: `/recovery/fold-bloom/fold-weave-0.1/`.\n- Surface Fold Weave 0.1 prominently enough to actually play/test it.\n- Treat authored persistent CREASE topology as the selected experimental transfer into the living FOLD//BLOOM line.\n- Preserve Ecology 0.2 as an ancestor/comparison specimen; do not silently replace or delete it.\n- Recover/retain valuable later FOLD//BLOOM mechanics (Garden, ecology/temperament, lineage, breeding/grafting, memory, archaeology, Law/Style labs, RETURN) while dropping only demonstrated duplication/superfluous presentation.\n- Do not merge Two Dial / Instrument back into the ecology line merely for taxonomy.\n\n### B — Scale Lens aperture + UX\n- Preserve RC11.2 deep capability. No feature culling.\n- Make the interface visibly easier to parse on desktop and mobile.\n- Hard-edge/square control language: square buttons, reduced decorative rounding, clearer hierarchy and spacing.\n- Promote stable address / source / projection / RETURN as the primary reading path.\n- Extend the existing global `showcase-nav.js` adapter with a LENS action.\n- Allow a current same-origin page or contract JSON to open in Scale Lens with a return address.\n- Field Intake → Lens → inspect → RETURN should work.\n- Contract JSON → Lens human-readable hierarchy → RAW remains available.\n- Keep deep Studio as the laboratory; add simpler access in front rather than deleting advanced panels.\n\n## Recovered evidence / constraints\n- `restore-fold-weave-exact` exists; exact Fold Weave source was corrected/restored on 2026-09-20 after an earlier 317-line truncation.\n- `control/FOLD_WEAVE_PROMOTION_2026-09-20.json` selects `AUTHORED_CREASE_TOPOLOGY_KERNEL` as `EXPERIMENTAL_SELECTABLE_MODE`, not wholesale donor replacement.\n- Scale Lens already recognizes `poly.ingress/v0.4`, preserves Field Intake canonical IDs/provenance, and can return upstream.\n- Existing global route adapter is already the correct substrate for a small Lens aperture.\n\n## Do not touch\n- Exact recovered donor bytes except for a separate clearly-derived branch.\n- Ecology 0.2 frozen specimen.\n- RC11.2 parser/address/provenance/receipt/deep projection machinery.\n- RETURN semantics.\n\n## Acceptance\n1. Fold Weave is reachable from a meaningful FOLD//BLOOM surface and clearly labelled recovered/current candidate.\n2. Ecology 0.2 remains reachable and identified as retained ancestor/comparison.\n3. Scale Lens is visibly hard-edged/square and more legible without capability removal.\n4. Every showcase surface can invoke LENS through the existing route adapter.\n5. Same-origin JSON contract can load directly in Lens.\n6. Lens can return to the invoking route.\n7. Existing raw JSON paths remain available.\n8. Relevant FIELD INDEX timestamps/work modes are updated per `/control/FIELD_INDEX_CONTRACT.json`.\n9. Return with tested URLs/screenshots or explicit failure receipts.\n\n## Worker split\n**Hermes:** recover lineage, compare lost mechanics, identify omissions/regressions, produce bounded packets/QA. Read-only unless authority is explicitly expanded.\n\n**Codex:** bounded repo mutation + tests + receipts.\n\n**Human:** comparative play only where behavior cannot be decided from code/evidence (MIRROR vs CREASE default).",
+      "play_safe": true,
+      "disposition": "PUBLIC_REPO"
+    },
+    {
+      "number": 14,
+      "title": "Pipeline HOLD · Messaging/account cleanup + autoresponder substrate",
+      "updated_at": "2026-09-19T07:09:33Z",
+      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/14",
+      "labels": [],
+      "body": "## State\nHOLD / research and inventory. Do not send, delete, archive, label or mutate accounts from this task.\n\n## Goal\nMap the eventual communication substrate across email and messengers as one policy-governed intent/event/RETURN system rather than one bot per channel.\n\nRecover/define:\n- account/channel identities\n- person/resource policies\n- read/remember/acknowledge/draft/act/escalate gates\n- thread/message canonical IDs\n- drafts vs sent actions\n- autoresponder templates/decision traces\n- audit/RETURN\n\n## Immediate output\nConnector/tool availability map + read-only inventory plan + one bounded Gmail proof candidate.\n\nNo all-messenger automation until each channel has explicit authority and rollback semantics.",
+      "play_safe": false,
+      "disposition": "PRIVATE_OR_SENSITIVE_HOLD"
+    },
+    {
+      "number": 13,
+      "title": "Adapter HOLD · Body / health / anatomy state projection",
+      "updated_at": "2026-09-19T07:09:30Z",
+      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/13",
+      "labels": [],
+      "body": "## State\nHOLD / adapter research only. Do not make this a live front.\n\n## Goal\nRecover the transferable structure used in health/body/case consolidation without importing private medical content.\n\nCandidate canonical concepts:\n- anatomical address / region\n- observation vs interpretation\n- event / intervention\n- evidence confidence\n- chronology\n- state delta\n- residue / unresolved\n- RETURN\n\n## Safety\nObservation != diagnosis. Confidence/source must remain explicit.\n\n## Done when\nA privacy-safe Domain Pack/schema exists and can project into plain chronology, body map, training view, and printable reference without changing canonical identity.",
+      "play_safe": false,
+      "disposition": "PRIVATE_OR_SENSITIVE_HOLD"
+    },
+    {
+      "number": 12,
+      "title": "QA 01 · Public route verb + naming audit",
+      "updated_at": "2026-09-20T14:58:34Z",
+      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/12",
+      "labels": [],
+      "body": "## Goal\nRemove appslop/dashboard-porn drift from the public surface without destroying distinctive instruments.\n\nUse /control/QA.json.\n\nFor every public route:\n1. What is its one verb?\n2. What exact object/state does it expose?\n3. What unique operation does it retain?\n4. What does it RETURN?\n5. Would plain text/list be better?\n6. Is the public name intuitive after one use?\n\nClassify:\nKEEP / RENAME / MERGE / DONOR / HIDE\n\nCanonical IDs and git lineage stay stable.",
+      "play_safe": true,
+      "disposition": "PUBLIC_REPO"
+    },
+    {
+      "number": 11,
+      "title": "Print 01 · Digital → stencil/proof → physical → RETURN",
+      "updated_at": "2026-09-20T14:05:37Z",
+      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/11",
+      "labels": [],
+      "body": "## Goal\nReify the print/proof mechanisms already present in Cassette Atlas / House OS materials.\n\n## Loop\ncanonical object/state\n→ SVG/PDF plate\n→ print/sticker/stencil/template\n→ physical placement/use\n→ photo/measurement/observation\n→ RETURN receipt\n\n## Candidate first fixture\nOne address strip / route tile / tool label / stencil with:\n- stable ID\n- scale\n- registration\n- revision\n- source pointer\n- manual fallback\n\n## Done when\nThe physical artifact can be traced back to exact digital source and the observed physical consequence returns to the ledger.",
+      "play_safe": true,
+      "disposition": "PUBLIC_REPO"
+    },
+    {
+      "number": 10,
+      "title": "Representation 01 · One object across five projections",
+      "updated_at": "2026-09-21T06:26:13Z",
+      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/10",
+      "labels": [],
+      "body": "## Goal\nUse the recovered ONE RETURN / SEAM ENGINE v0.2 as the substrate for one concrete cross-projection fixture.\n\n## Candidate projections\n- Scale Lens\n- Fold/Bloom\n- Atlas Dayline / Aperture\n- Painting / Path\n- plain list baseline\n\n## Required contract\nFor one shared object, state:\n- PRESERVES\n- HIDES\n- PERMITS\n- ROUND_TRIP\n- PLAIN_BASELINE\n- TEST\n- RETURN\n\n## Done when\nOne object can be selected/inspected across all surviving projections with stable identity, and at least one projection proves a task advantage rather than ornamental difference.\n\n## Do not\nDo not merge the interfaces into one mega-screen.",
+      "play_safe": true,
+      "disposition": "PUBLIC_REPO"
+    },
+    {
+      "number": 9,
+      "title": "Recovery HOLD · Naming / glyph / Game-of-Names lineage",
+      "updated_at": "2026-09-20T14:05:35Z",
+      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/9",
+      "labels": [],
+      "body": "## State\nHOLD / RECOVER-WHEN-PAYOFF. This is deliberately not a fourth live front.\n\n## Goal\nLocate exact artifacts/notes around naming systems, Game of Names, glyph/seal protocols, semantic identity and related experiments; preserve lineage and identify mechanisms that belong in current language/address tooling.\n\n## Questions\n- Which artifacts are exact runnable/source specimens?\n- Which naming operations preserve referent/identity across transforms?\n- What belongs with Verse/Path, what belongs with seals/glyphs, and what is a separate game/instrument?\n- Which branches are merely aesthetic shells?\n\n## Done when\nA small lineage map and recovery entries exist; no new mega-app is invented.",
+      "play_safe": true,
+      "disposition": "PUBLIC_REPO"
+    },
+    {
+      "number": 8,
+      "title": "Reality 01 · One physical before→change→after RETURN",
+      "updated_at": "2026-09-19T04:00:54Z",
+      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/8",
+      "labels": [],
+      "body": "## Goal\nKeep the abstraction stack reality-gated by completing one bounded physical/home transformation.\n\n## Contract\nPick one zone or owned endpoint → record before-state → make one reversible change → record after-state → state what became easier/measurably different.\n\n## Bounds\nNo new hardware purchase required. No expansion into a full House OS architecture.\n\n## Receipt\nBefore/after evidence + one paragraph/JSON record of the state delta.",
+      "play_safe": false,
+      "disposition": "LOCAL_EVIDENCE_HOLD"
+    },
+    {
+      "number": 7,
+      "title": "Ingest 01 · Run read-only local file/media dry-run",
+      "updated_at": "2026-09-19T04:00:52Z",
+      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/7",
+      "labels": [],
+      "body": "## Goal\nEstablish the local ingest substrate without moving or deleting anything.\n\n## Starting point\n- `/scripts/ingest-scan.sh`\n- `/control/INGEST.json`\n\n## Run against\nStart with one bounded ingress directory (e.g. Downloads or a project-export folder), not the whole disk.\n\n## Done when\n- inventory.tsv exists\n- exact duplicate groups are reported\n- run.json confirms source mutation = false\n- review notes identify candidate deterministic rules and candidate semantic tags\n\n## Promotion rule\nNo automatic move/delete rule until its dry-run has been reviewed and its recovery path is known.",
+      "play_safe": false,
+      "disposition": "LOCAL_EVIDENCE_HOLD"
+    },
+    {
+      "number": 6,
+      "title": "Census · Cluster Sep 05–19 Library artifacts",
+      "updated_at": "2026-09-20T10:44:49Z",
+      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/6",
+      "labels": [],
+      "body": "## Goal\nTurn the recent Library/file explosion into a deduplicated recovery census.\n\n## Method\n1. inventory exact files and hashes\n2. group exact duplicates\n3. group near versions by lineage/name/content\n4. classify HEAD / DONOR / RECOVER / QUARANTINE / SUPERSEDED\n5. add only distinctive runnable/source artifacts to the migration ledger\n\n## Priority clusters already visible\n- Fold/Bloom / fold-weave\n- AXIAL / state-transform\n- ENV0 / House OS physical boards\n- generated visual/reference batches\n- Foundry / Grid Path / Verse Atlas\n- Sleeper checkpoints\n\n## Receipt\nA machine-readable census plus counts by class; no source deletion.",
+      "play_safe": false,
+      "disposition": "LOCAL_EVIDENCE_HOLD"
+    },
+    {
+      "number": 5,
+      "title": "Recovery 02 · Freeze Sleeper City Engine + Painting/Path",
+      "updated_at": "2026-09-20T14:05:32Z",
+      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/5",
+      "labels": [],
+      "body": "## Goal\nRecover the two external Sleeper-related surfaces as separate frozen specimens:\n- sleeper-one-return City Engine\n- Painting / Path\n\n## Done when\n- exact source/assets are preserved where obtainable\n- each gets provenance + hash receipt\n- relationship to `/sleeper/` is classified as ancestor/sibling/donor rather than silently merged\n- Painting/Path retains painting-first navigation semantics\n\n## Do not\nDo not normalize either surface into a dashboard/card UI during recovery.",
+      "play_safe": true,
+      "disposition": "PUBLIC_REPO"
+    }
+  ]
+}
