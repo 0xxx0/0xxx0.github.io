@@ -59,9 +59,11 @@ function runChrome(bin,route){
   });
 }
 function textAtId(dom,id){
-  const re=new RegExp('<[^>]+id=["\\']'+id+'["\\'][^>]*>([\\s\\S]{0,400}?)<\\/[^>]+>','i');
-  const m=dom.match(re);
-  return m?m[1].replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim():'';
+  const marker='id="'+id+'"',i=dom.indexOf(marker);
+  if(i<0)return '';
+  const gt=dom.indexOf('>',i),end=gt<0?-1:dom.indexOf('</',gt+1);
+  if(gt<0||end<0)return '';
+  return dom.slice(gt+1,end).replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
 }
 const CASES=[
   {
