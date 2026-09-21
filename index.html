@@ -78,7 +78,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 </section>
 
 <section class="section" id="latest">
-  <div class="sectionHead"><div><b>LATEST / REPO TOUCHES</b><span id="feedMeta">newest first</span></div><span>click row = focus · OPEN above = navigate</span></div>
+  <div class="sectionHead"><div><b>LATEST / REPO TOUCHES</b><span id="feedMeta">newest first</span></div><span>click = focus · click focused item again = open</span></div>
   <div class="feedStats" id="feedStats"></div>
   <div class="feedRail" id="feedRail"></div>
   <div class="feedMore"><span>Chronology remains the plain truth beneath AXIAL.</span><button id="moreLatest">SHOW 40</button></div>
@@ -113,7 +113,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   <div class="foldBody health"><a href="./control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json"><b>SITEMAP</b><span>coverage</span></a><a href="./control/FIELD_INDEX_ROUTE_HEALTH_2026-09-21.json"><b>ROUTES</b><span>metadata</span></a><a href="./control/FIELD_INDEX_LINK_AUDIT_2026-09-21.json"><b>LINKS</b><span>integrity</span></a><a href="./returns/"><b>RETURN</b><span>receipts</span></a><a href="./showcase-selftest/"><b>SELFTEST</b><span>validator</span></a></div>
 </details>
 
-<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>same route · chronology / axial / map · explicit OPEN</span></div>
+<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>same route · chronology / axial / map · focus first · second click opens local route</span></div>
 
 <script src="./field-presentation.js"></script>
 <script src="./field-glyph.js"></script>
@@ -198,7 +198,7 @@ function renderAxes(){
 function renderSurvivors(){
  const xs=currentMatches(),shown=xs.slice(0,30),box=$('survivors');box.classList.toggle('lock',xs.length===1);box.classList.toggle('dead',xs.length===0);
  $('survMarks').innerHTML=shown.map(r=>'<button class="survMark '+(focus?.href===r.href?'on':'')+'" data-href="'+esc(r.href)+'" title="'+esc(r.title||r.href)+'">'+routeGlyph(r,21)+'</button>').join('')+(xs.length>shown.length?'<span class="trail">+'+(xs.length-shown.length)+'</span>':'');
- $('survMarks').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r){noteFocus('AXIAL',true);focusRoute(r,true,'SYSTEM')}});
+ $('survMarks').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,'AXIAL')});
  const trail=supportTrail.length?'<span class="trail">'+supportTrail.slice(-6).join('→')+'</span>':'';
  $('survState').innerHTML=(xs.length===0?'DEAD':xs.length===1?'LOCK 1':'LIVE '+xs.length)+trail;
 }
@@ -212,7 +212,7 @@ function nearestFromScroll(v){
  if(!best.classList.contains('on'))chooseAxis(best.dataset.axis,best.dataset.value,true);
 }
 function chooseAxis(key,value,fromUser){
- if(key==='route'){const r=routeMap().get(value);if(r){if(fromUser)noteFocus('AXIAL',true);focusRoute(r,true,'SYSTEM')}return}
+ if(key==='route'){const r=routeMap().get(value);if(r){if(fromUser)focusOrOpen(r,'AXIAL');else focusRoute(r,true,'SYSTEM')}return}
  axisState[key]=value;const xs=currentMatches(),found=xs[0]||null;focus=found;if(fromUser){supportTrail.push(xs.length);noteFocus('AXIAL',!!found)}renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();syncAxialURL();notifyFieldIndex();
 }
 function focusRoute(r,align,source='OTHER'){
@@ -220,6 +220,11 @@ function focusRoute(r,align,source='OTHER'){
  if(r&&align){axisState.state=r.state||'UNSET';axisState.operation=opOf(r);axisState.mode=modesOf(r)[0]||'ANY'}
  if(source!=='SYSTEM')noteFocus(source,!!r);
  const xs=currentMatches();supportTrail.push(xs.length);renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();syncAxialURL();notifyFieldIndex();
+}
+function focusOrOpen(r,source='OTHER'){
+ if(!r)return;
+ if(focus?.href===r.href){noteOpen();location.assign('.'+r.href);return}
+ focusRoute(r,true,source)
 }
 function resetAxial(){axisState.state='ANY';axisState.operation='ANY';axisState.mode='ANY';focus=latest[0]||null;supportTrail=[latest.length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();renderTrial();syncAxialURL();notifyFieldIndex()}
 function renderAperture(){
@@ -230,7 +235,7 @@ function renderFeed(){
  const xs=latest.slice(0,latestLimit),live=routes.filter(r=>['ACTIVE','STABLE','PROOF_REQUIRED','CANDIDATE'].includes(r.state)).length;
  $('feedMeta').textContent=xs.length+' shown · manifest index.updated_at';$('feedStats').innerHTML=[['NOW',nowSet.size],['ISSUES',issues.length||'—'],['LIVE',live],['ADDRESSED',routes.length]].map(([k,v])=>'<div class="feedStat"><b>'+esc(v)+'</b><span>'+k+'</span></div>').join('');
  $('feedRail').innerHTML=xs.map(r=>'<button class="feedItem '+(focus?.href===r.href?'on':'')+'" data-href="'+esc(r.href)+'"><div>'+routeGlyph(r,25)+'</div><div class="feedMain"><strong>'+esc(r.title||r.href)+'</strong><div class="feedPath">'+esc(r.href)+'</div></div><div class="feedTouch">'+esc(r.index?.updated_at||'')+'</div><div class="feedMode">'+esc(modesOf(r).join(' · '))+'</div><div class="feedState">'+esc(r.state||'—')+'</div></button>').join('');
- $('feedRail').querySelectorAll('.feedItem').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusRoute(r,true,'LATEST')});
+ $('feedRail').querySelectorAll('.feedItem').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,'LATEST')});
 }
 function renderIssues(xs){
  issues=xs||[];const sorted=issues.slice().sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||'')));$('issueMeta').textContent=sorted.length+' open · '+sorted.filter(x=>x.play_safe).length+' playable';
