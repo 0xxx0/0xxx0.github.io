@@ -122,13 +122,13 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 (()=>{'use strict';
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 let manifest,current,routes=[],latest=[],latestLimit=18,focus=null,headSet=new Set,nowSet=new Set,issues=[],mapMode='VISUAL',mapRoot='/',mapSelected='/',mapQuery='',supportTrail=[];
-const axisState={state:'ANY',operation:'ANY',mode:'ANY'},scrollTimers={};
+const INIT=new URLSearchParams(location.search),axisState={state:'ANY',operation:'ANY',mode:'ANY'},scrollTimers={};
 const TRIAL_KEY='field.axial.latest.trial.v01';
 let trial={schema:'field-axial-trial/v0.1',axial_focus:0,latest_focus:0,other_focus:0,dead:0,opens:{AXIAL:0,LATEST:0,OTHER:0},open_ms:{AXIAL:0,LATEST:0,OTHER:0},last_source:null,last_at:null};
 try{trial={...trial,...JSON.parse(localStorage.getItem(TRIAL_KEY)||'{}')}}catch(_){}
 function saveTrial(){try{localStorage.setItem(TRIAL_KEY,JSON.stringify(trial))}catch(_){}renderTrial()}
 function noteFocus(source,ok=true){if(!['AXIAL','LATEST'].includes(source))source='OTHER';trial[source==='AXIAL'?'axial_focus':source==='LATEST'?'latest_focus':'other_focus']++;if(!ok)trial.dead++;trial.last_source=source;trial.last_at=Date.now();saveTrial()}
-function noteOpen(){const source=['AXIAL','LATEST'].includes(trial.last_source)?trial.last_source:'OTHER';trial.opens[source]=(trial.opens[source]||0)+1;if(trial.last_at)trial.open_ms[source]=(trial.open_ms[source]||0)+Math.max(0,Date.now()-trial.last_at);saveTrial()}
+function noteOpen(){if(!focus)return;const source=['AXIAL','LATEST'].includes(trial.last_source)?trial.last_source:'OTHER';trial.opens[source]=(trial.opens[source]||0)+1;if(trial.last_at)trial.open_ms[source]=(trial.open_ms[source]||0)+Math.max(0,Date.now()-trial.last_at);saveTrial()}
 function renderTrial(){const a=trial.axial_focus||0,l=trial.latest_focus||0,d=trial.dead||0;$('axTrial').textContent='AX '+a+' · LI '+l+(d?' · Ø'+d:'')}
 function trialReceipt(){return{...trial,exported_at:new Date().toISOString(),note:'LOCAL-ONLY interaction counts; no claim of usability superiority. AX=AXIAL focus selections; LI=plain LATEST row selections; Ø=dead intersections.'}}
 const routeMap=()=>new Map(routes.map(r=>[r.href,r]));
@@ -139,6 +139,18 @@ const nowHref=f=>{const map=routeMap(),ev=(f.evidence||[]).find(x=>map.has(x));i
 function routeGlyph(r,size=27){return window.FieldGlyph?.svg(r,{size,now:nowSet.has(r.href),head:headSet.has(r.href)})||''}
 function matchesFilters(r){return (axisState.state==='ANY'||r.state===axisState.state)&&(axisState.operation==='ANY'||opOf(r)===axisState.operation)&&(axisState.mode==='ANY'||modesOf(r).includes(axisState.mode))}
 function currentMatches(){return latest.filter(matchesFilters)}
+function syncAxialURL(){
+ const p=new URLSearchParams();if(axisState.state!=='ANY')p.set('ax_state',axisState.state);if(axisState.operation!=='ANY')p.set('ax_op',axisState.operation);if(axisState.mode!=='ANY')p.set('ax_mode',axisState.mode);if(focus)p.set('focus',focus.href);
+ const q=p.toString();history.replaceState(null,'',location.pathname+(q?'?'+q:''));
+}
+function applyInitialAxial(){
+ const state=INIT.get('ax_state'),op=INIT.get('ax_op'),mode=INIT.get('ax_mode'),href=INIT.get('focus');
+ if(state)axisState.state=state;if(op)axisState.operation=op;if(mode)axisState.mode=mode;
+ const r=href&&routeMap().get(href);focus=r||currentMatches()[0]||latest[0]||null;
+ if(r){axisState.state=r.state||axisState.state;axisState.operation=opOf(r);axisState.mode=modesOf(r)[0]||axisState.mode}
+ supportTrail=[latest.length,currentMatches().length].filter((v,i,a)=>i===0||v!==a[i-1]);
+ renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();renderTrial();syncAxialURL();
+}
 function axes(){
  return[
   {key:'route',label:'ROUTE',values:latest.map(r=>r.href)},
@@ -163,7 +175,7 @@ function tokenHTML(a,v,maxSup){
 }
 function renderAxes(){
  const as=axes();$('axialRows').innerHTML=as.map(a=>{const supports=a.values.map(v=>supportFor(a,v)),maxSup=Math.max(1,...supports);return'<div class="axisRow"><div class="axisName"><b>'+esc(a.label)+'</b><i>'+a.values.length+' POS</i></div><div class="axisViewport" data-axis="'+esc(a.key)+'"><div class="axisTrack">'+a.values.map(v=>tokenHTML(a,v,maxSup)).join('')+'</div></div></div>'}).join('');
- $('axialRows').querySelectorAll('.axisToken').forEach(b=>b.onclick=e=>{e.stopPropagation();chooseAxis(b.dataset.axis,b.dataset.value,true)});
+ $('axialRows').querySelectorAll('.axisToken').forEach(b=>{b.onclick=e=>{e.stopPropagation();chooseAxis(b.dataset.axis,b.dataset.value,true)};b.onkeydown=e=>{if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;e.preventDefault();const row=[...b.parentElement.querySelectorAll('.axisToken')],i=row.indexOf(b),n=Math.max(0,Math.min(row.length-1,i+(e.key==='ArrowRight'?1:-1))),next=row[n];if(next){next.focus();chooseAxis(next.dataset.axis,next.dataset.value,true)}}});
  $('axialRows').querySelectorAll('.axisViewport').forEach(v=>v.addEventListener('scroll',()=>{clearTimeout(scrollTimers[v.dataset.axis]);scrollTimers[v.dataset.axis]=setTimeout(()=>nearestFromScroll(v),130)},{passive:true}));
  requestAnimationFrame(centerAxes);
 }
@@ -185,15 +197,15 @@ function nearestFromScroll(v){
 }
 function chooseAxis(key,value,fromUser){
  if(key==='route'){const r=routeMap().get(value);if(r){if(fromUser)noteFocus('AXIAL',true);focusRoute(r,true,'SYSTEM')}return}
- axisState[key]=value;const xs=currentMatches(),found=xs[0]||null;focus=found;if(fromUser){supportTrail.push(xs.length);noteFocus('AXIAL',!!found)}renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();
+ axisState[key]=value;const xs=currentMatches(),found=xs[0]||null;focus=found;if(fromUser){supportTrail.push(xs.length);noteFocus('AXIAL',!!found)}renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();syncAxialURL();
 }
 function focusRoute(r,align,source='OTHER'){
  focus=r||null;
  if(r&&align){axisState.state=r.state||'UNSET';axisState.operation=opOf(r);axisState.mode=modesOf(r)[0]||'ANY'}
  if(source!=='SYSTEM')noteFocus(source,!!r);
- const xs=currentMatches();supportTrail.push(xs.length);renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();
+ const xs=currentMatches();supportTrail.push(xs.length);renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();syncAxialURL();
 }
-function resetAxial(){axisState.state='ANY';axisState.operation='ANY';axisState.mode='ANY';focus=latest[0]||null;supportTrail=[latest.length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();renderTrial()}
+function resetAxial(){axisState.state='ANY';axisState.operation='ANY';axisState.mode='ANY';focus=latest[0]||null;supportTrail=[latest.length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();renderTrial();syncAxialURL()}
 function renderAperture(){
  if(!focus){$('apGlyph').innerHTML='';['apInspect','apAxial','apLens','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');return}
  ['apInspect','apAxial','apLens','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';$('apGlyph').innerHTML=routeGlyph(focus,34);$('apMeta').textContent=[focus.state||'—',opOf(focus),modesOf(focus).join(' · ')].join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(focus.index?.updated_at||'UNTRACKED');$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed repository surface.';$('apOpen').href='.'+focus.href;
@@ -257,7 +269,7 @@ function openLens(){
 }
 function inspectFocus(){if(!focus||!window.FieldAperture)return;window.FieldAperture.dock(focus,{label:focus.title||focus.href,from:'field-index-axial-latest'})}
 async function copyTrial(){const data=JSON.stringify(trialReceipt(),null,2);try{await navigator.clipboard.writeText(data);const e=$('axTrial'),old=e.textContent;e.textContent='TRIAL COPIED';setTimeout(()=>renderTrial(),900)}catch(_){prompt('Copy local AXIAL trial:',data)}}
-async function copyAddress(){if(!focus)return;const txt=focus.href+'\n'+(focus.title||'')+'\n'+new URL('.'+focus.href,location.href).href;try{await navigator.clipboard.writeText(txt);const b=$('apCopy'),old=b.textContent;b.textContent='COPIED';setTimeout(()=>b.textContent=old,700)}catch(_){prompt('Copy address:',txt)}}
+async function copyAddress(){if(!focus)return;syncAxialURL();const txt=focus.href+'\n'+(focus.title||'')+'\n'+location.href;try{await navigator.clipboard.writeText(txt);const b=$('apCopy'),old=b.textContent;b.textContent='COPIED';setTimeout(()=>b.textContent=old,700)}catch(_){prompt('Copy address:',txt)}}
 
 Promise.all([
  fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>r.json()),
@@ -266,7 +278,7 @@ Promise.all([
  manifest=m;current=c;routes=(m.routes||[]).filter(r=>r.href!=='/');latest=routes.filter(r=>r.index?.updated_at).sort((a,b)=>String(b.index.updated_at).localeCompare(String(a.index.updated_at)));
  headSet=new Set((c.current_heads||[]).map(h=>h.route));nowSet=new Set((c.active_fronts||[]).slice(0,3).map(nowHref));
  $('axialMeta').textContent=latest.length+' mutations · support is exact over current filters';
- renderHeads();renderPorts();resetAxial();loadIssues();renderMap();
+ renderHeads();renderPorts();applyInitialAxial();loadIssues();renderMap();
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});
 $('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apAxial').onclick=openAxial;$('apLens').onclick=openLens;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===18?40:18;$('moreLatest').textContent=latestLimit===18?'SHOW 40':'SHOW 18';renderFeed()};
 $('mapTools').onclick=e=>{if(e.target.dataset.mode){mapMode=e.target.dataset.mode;renderMap()}};$('mapSearch').oninput=e=>{mapQuery=e.target.value.trim().toLowerCase();renderMap()};
