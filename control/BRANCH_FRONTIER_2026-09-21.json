@@ -1,0 +1,357 @@
+{
+  "schema": "branch-frontier/v0.1",
+  "generated_at": "2026-09-21",
+  "purpose": "Make branch pointers legible so historical implementation branches cannot silently become active work.",
+  "counts": {
+    "total": 78,
+    "canonical": 1,
+    "open_pr": 3,
+    "merged_pr_lineage": 44,
+    "closed_unmerged_pr_lineage": 16,
+    "no_pr_pointer": 14
+  },
+  "authority_law": [
+    "MASTER is executable/public authority.",
+    "CURRENT + QUEUE define the small active coordination surface.",
+    "An OPEN PR is bounded proposed work, not authority until merged.",
+    "A merged-PR branch is provenance only; its branch pointer does not make it current.",
+    "A closed-unmerged PR is a donor, failed variant or superseded experiment unless explicitly reconstructed on current master.",
+    "A no-PR branch may not be merged or treated as current until its unique commits are recovered/classified.",
+    "Branch age or evocative naming never grants priority."
+  ],
+  "active_review": [
+    {
+      "branch": "axial-usability-cut-20260921",
+      "pr": 73,
+      "title": "AXIAL usability cut: replayable RETURN + addressed APERTURE resume"
+    },
+    {
+      "branch": "lens-studio-actualize-20260921",
+      "pr": 75,
+      "title": "Lens Studio: object-first dock + opt-in deep lab"
+    },
+    {
+      "branch": "perimeter-recovery-20260921",
+      "pr": 74,
+      "title": "Perimeter recovery — pin hidden donor islands and branch frontier"
+    }
+  ],
+  "canonical": [
+    "master"
+  ],
+  "no_pr_review": {
+    "aperture-material-rsvp-040": {
+      "state": "SUPERSEDED_PREDECESSOR",
+      "successor": "aperture-material-rsvp-040-r2 / PR #62",
+      "rule": "do not merge; current APERTURE is newer"
+    },
+    "body-field-v01": {
+      "state": "SUPERSEDED_PREDECESSOR",
+      "successor": "body-field-v01-current / closed donor PR #21",
+      "rule": "BODY remains HOLD/donor; reconstruct on current contracts only"
+    },
+    "confluence/focus-interface-sync-20260921-r2": {
+      "state": "RECOVERED_DONOR_FAMILY",
+      "recovery": "/recovery/focus-interface-sync-20260921/",
+      "rule": "do not merge stale implementation branch"
+    },
+    "confluence/focus-interface-sync-20260921-r3": {
+      "state": "RECOVERED_DONOR_FAMILY",
+      "recovery": "/recovery/focus-interface-sync-20260921/",
+      "rule": "exact donor records recovered by perimeter pass"
+    },
+    "confluence/focus-interface-sync-20260921": {
+      "state": "RECOVERED_DONOR_FAMILY",
+      "recovery": "/recovery/focus-interface-sync-20260921/",
+      "rule": "do not merge stale implementation branch"
+    },
+    "confluence/house-marks-20260921": {
+      "state": "SUPERSEDED_PREDECESSOR",
+      "successor": "confluence/house-marks-20260921-r2 / PR #30",
+      "rule": "merged successor owns current state"
+    },
+    "confluence-replica-replan-20260921": {
+      "state": "SUPERSEDED_PREDECESSOR",
+      "successor": "confluence-replica-replan-20260921-v2 / PR #42",
+      "rule": "merged successor owns current state"
+    },
+    "field-return-poem-smoke-20260921": {
+      "state": "SUPERSEDED_PROOF_BRANCH",
+      "successor": "PR #67 + FIELD 0.6 / PR #69 + Lens G1 / PR #71",
+      "rule": "do not merge; stale proof edits replaced by current browser guards"
+    },
+    "foundry-verify": {
+      "state": "PURE_ANCESTOR_POINTER",
+      "rule": "ahead=0 at review; no unique work to recover"
+    },
+    "house-field-v01": {
+      "state": "RETAINED_EXACT_DONOR",
+      "rule": "already pinned in CURRENT as HOUSE/FIELD superseded donor; do not merge wholesale"
+    },
+    "poem-map-pre-calm-face-20260921": {
+      "state": "PURE_ANCESTOR_POINTER",
+      "rule": "ahead=0 at review; current Poem Map owns state"
+    },
+    "poem-map-pre-orientation-20260921": {
+      "state": "PURE_ANCESTOR_POINTER",
+      "rule": "ahead=0 at review; current Poem Map owns state"
+    },
+    "showcase-overview-field-v0": {
+      "state": "RECOVERED_DONOR_SPECIMEN",
+      "recovery": "/recovery/showcase-map-v0/",
+      "rule": "visual geometry donor only; no second live FIELD map"
+    },
+    "verse-pre-rebase-20260921": {
+      "state": "PURE_ANCESTOR_POINTER",
+      "rule": "ahead=0 at review; no unique work to recover"
+    }
+  },
+  "merged_branch_count": 44,
+  "closed_unmerged_branch_count": 16,
+  "merged_branches": [
+    {
+      "branch": "aperture-material-rsvp-040-r2",
+      "pr": 62
+    },
+    {
+      "branch": "axial-aperture-05",
+      "pr": 32
+    },
+    {
+      "branch": "axial-converge-0.4",
+      "pr": 3
+    },
+    {
+      "branch": "axial-focus-stack-060",
+      "pr": 52
+    },
+    {
+      "branch": "axial-lawful-focus-070-r2",
+      "pr": 55
+    },
+    {
+      "branch": "axial-lens-onepass-061",
+      "pr": 53
+    },
+    {
+      "branch": "axial-onboarding-051",
+      "pr": 34
+    },
+    {
+      "branch": "axial-overview-inspector-072",
+      "pr": 59
+    },
+    {
+      "branch": "axial-position-humanfactors-071-r2",
+      "pr": 57
+    },
+    {
+      "branch": "care-bodyplans-v03-20260921",
+      "pr": 38
+    },
+    {
+      "branch": "care-course-v02-20260921",
+      "pr": 31
+    },
+    {
+      "branch": "confluence/house-marks-20260921-r2",
+      "pr": 30
+    },
+    {
+      "branch": "confluence-replica-replan-20260921-v2",
+      "pr": 42
+    },
+    {
+      "branch": "correct-laconic-selection-2024-12-29",
+      "pr": 20
+    },
+    {
+      "branch": "field/passive-feedback-loop-20260921",
+      "pr": 51
+    },
+    {
+      "branch": "field-convergence-activation-20260921",
+      "pr": 69
+    },
+    {
+      "branch": "field-index-frontier-01",
+      "pr": 23
+    },
+    {
+      "branch": "field-mobile-ledger-20260921",
+      "pr": 49
+    },
+    {
+      "branch": "field-mobile-pulse-20260921",
+      "pr": 48
+    },
+    {
+      "branch": "human-port-convergence-v1",
+      "pr": 36
+    },
+    {
+      "branch": "human-port-focus-aperture-v14",
+      "pr": 58
+    },
+    {
+      "branch": "human-port-home-clarity-v2",
+      "pr": 39
+    },
+    {
+      "branch": "human-port-intake-v13",
+      "pr": 41
+    },
+    {
+      "branch": "human-port-live-next",
+      "pr": 28
+    },
+    {
+      "branch": "human-port-object-aperture-v15",
+      "pr": 68
+    },
+    {
+      "branch": "human-port-suite-advance-v12",
+      "pr": 40
+    },
+    {
+      "branch": "instrument-contract-back-charters",
+      "pr": 17
+    },
+    {
+      "branch": "laconic-iconic-recovery-v01",
+      "pr": 15
+    },
+    {
+      "branch": "laconic-iconic-v02-scenes-care",
+      "pr": 16
+    },
+    {
+      "branch": "laconic-v03-vault-lineage",
+      "pr": 33
+    },
+    {
+      "branch": "lens-browser-proof-20260921",
+      "pr": 64
+    },
+    {
+      "branch": "lens-convergence-contract-20260921",
+      "pr": 50
+    },
+    {
+      "branch": "lens-proof-bench-20260921",
+      "pr": 60
+    },
+    {
+      "branch": "qa-route-grammar-20260921",
+      "pr": 63
+    },
+    {
+      "branch": "recover-laconic-2025-bank",
+      "pr": 18
+    },
+    {
+      "branch": "recover-persona-to-council-lineage",
+      "pr": 22
+    },
+    {
+      "branch": "recovery/backup-20260921",
+      "pr": 61
+    },
+    {
+      "branch": "repair-return-poem-current-20260921",
+      "pr": 67
+    },
+    {
+      "branch": "restore-fold-weave-exact",
+      "pr": 19
+    },
+    {
+      "branch": "seal-lens-g1-proof-20260921",
+      "pr": 71
+    },
+    {
+      "branch": "shopping-field-core",
+      "pr": 45
+    },
+    {
+      "branch": "shopping-field-current-sync",
+      "pr": 46
+    },
+    {
+      "branch": "sync/sovereign-node-frontier-20260921",
+      "pr": 47
+    },
+    {
+      "branch": "tool-kernel-convergence-20260921",
+      "pr": 72
+    }
+  ],
+  "closed_unmerged_branches": [
+    {
+      "branch": "axial-compositor-0.1-r2",
+      "pr": 2
+    },
+    {
+      "branch": "axial-compositor-0.1",
+      "pr": 1
+    },
+    {
+      "branch": "axial-lawful-focus-070",
+      "pr": 54
+    },
+    {
+      "branch": "axial-position-humanfactors-071",
+      "pr": 56
+    },
+    {
+      "branch": "body-field-v01-current",
+      "pr": 21
+    },
+    {
+      "branch": "converge-fold-bloom-scale-lens",
+      "pr": 37
+    },
+    {
+      "branch": "docs-addressable-aperture-01",
+      "pr": 65
+    },
+    {
+      "branch": "human-port-capsules-v04",
+      "pr": 25
+    },
+    {
+      "branch": "human-port-context-v06",
+      "pr": 27
+    },
+    {
+      "branch": "human-port-interpret-backstage-v05",
+      "pr": 26
+    },
+    {
+      "branch": "human-port-residue-v01",
+      "pr": 29
+    },
+    {
+      "branch": "human-port-v03",
+      "pr": 24
+    },
+    {
+      "branch": "lens-deep-proof-current-20260921",
+      "pr": 70
+    },
+    {
+      "branch": "lens-studio-roundtrip-20260921",
+      "pr": 66
+    },
+    {
+      "branch": "shopping-field-integration",
+      "pr": 43
+    },
+    {
+      "branch": "shopping-field-integration-v2",
+      "pr": 44
+    }
+  ],
+  "return_rule": "When a branch yields unique value, recover exact donor material or reconstruct one bounded delta on current master; do not revive the branch wholesale.",
+  "next_census_trigger": "Only when an open PR is stranded, a no-PR branch appears, or branch ambiguity blocks re-entry; branch count alone is not an active front."
+}
