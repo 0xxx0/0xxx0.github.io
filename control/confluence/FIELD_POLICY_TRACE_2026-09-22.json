@@ -1,0 +1,49 @@
+{
+  "schema": "confluence-packet/v0.1",
+  "id": "FIELD_POLICY_TRACE_2026-09-22",
+  "date": "2026-09-22",
+  "status": "IMPLEMENTED_REFERENCE_INSTRUMENT",
+  "host": "/",
+  "head": "FIELD INDEX 0.6.2 / TRACE VERIFY",
+  "lineage": [
+    "TAG / Tag Projection: removable retrieval/context coordinates over canon",
+    "policy-selector: tags/exact/pattern/fallback select applicable policy only",
+    "policy-inheritance: base -> person/resource parallel -> channel; deny/lock/grant algebra",
+    "person-resource-policy: seven independent gates",
+    "policy-resolution-trace: causal proof record",
+    "policy-trace-verification v0.2: STRUCTURAL -> REPLAY -> SEALED",
+    "FIELD INDEX TRACE / VERIFY: focus-bound local executable projection"
+  ],
+  "laws": [
+    "TAG selects context; it never creates authority.",
+    "FOCUS may become a resource address; focus never grants permission.",
+    "TRACE records authority resolution; trace never creates authority.",
+    "FAIL proves violation; INDETERMINATE means evidence/capability missing.",
+    "Raw event text is not retained by the FI reference trace.",
+    "This is substrate beneath existing fronts, not a fourth FCM front."
+  ],
+  "implementation": {
+    "ui": "/index.html#traceFold",
+    "runtime": "/field-policy-trace.mjs",
+    "trace_schema": "/policy-resolution-trace.schema.json",
+    "verifier": "/policy-trace-verifier.mjs",
+    "verification_spec": "/policy-trace-verification.json",
+    "selector_model": "/policy-selector-model.json",
+    "return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json"
+  },
+  "observed_verification": [
+    "field-policy-trace.mjs parses after import removal in source-level smoke",
+    "root TRACE fold/nav/module wiring present",
+    "runtime contains no fetch/network call",
+    "committed/exported trace excludes raw typed event text",
+    "external Pages fetch unavailable from verifier environment"
+  ],
+  "current_use": "Focus a route in FIELD INDEX -> open TRACE / VERIFY -> RUN TRACE -> inspect seven gates + event stream + structural/replay/sealed statuses -> optionally COMMIT TRACE locally or EXPORT.",
+  "trigger_for_next_real_step": "When a private person/resource registry and policy bytes exist, replace the generated FI reference policy with a private adapter and supply replay material to the verifier. Until then, do not fake REPLAY PASS.",
+  "non_goals": [
+    "not a live person policy registry",
+    "not a send/act adapter",
+    "not a replacement for HUMAN PORT or FIELD INTAKE",
+    "not a new active front"
+  ]
+}
