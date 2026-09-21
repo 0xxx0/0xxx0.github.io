@@ -17,7 +17,10 @@ Donors remain addressable and independent:
 4. **Mute parity.** A player must still read target, alignment, authored folds, cascade and charge with audio off.
 5. **Bound the engine.** Graph, history, motif, particles/visual pulses and scheduler catch-up stay bounded.
 6. **Preserve donors.** Transfer mechanisms by explicit provenance; never silently mutate exact recovery artifacts.
-7. **Forecast before commitment.** If several matching placements have different consequences, expose those differences before release; hidden topology is not gameplay.\n8. **Borrowed clock/form ≠ borrowed authorship.** Same-page local MP3 is the proven phone authority path; LISTEN/FIELD PULSE may lend beat/section context and timing reward, but audio never auto-releases or chooses BLOOM/FOLD/SPLIT/RETURN.\n9. **Section estimates are apertures, not truth labels.** A section may offer a close/seal opportunity; a bad boundary must never invalidate a move or punish the player.\n10. **One musical delta per evaluation.** Tune gesture→consequence before adding modes, organisms or menus.
+7. **Forecast before commitment.** If several matching placements have different consequences, expose those differences before release; hidden topology is not gameplay.
+8. **Borrowed clock/form ≠ borrowed authorship.** Same-page local MP3 is the proven phone authority path; LISTEN/FIELD PULSE may lend beat/section context and timing reward, but audio never auto-releases or chooses BLOOM/FOLD/SPLIT/RETURN.
+9. **Section estimates are apertures, not truth labels.** A section may offer a close/seal opportunity; a bad boundary must never invalidate a move or punish the player.
+10. **One musical delta per evaluation.** Tune gesture→consequence before adding modes, organisms or menus.
 
 ## Iteration loop
 `OBSERVE → NAME FAILURE → CHANGE ONE OPERATOR → STATIC TEST → BROWSER/TOUCH PLAY → A/B DONOR → RECEIPT → KEEP/REVERT`
@@ -36,10 +39,13 @@ Do not call LIVE canonical until direct desktop + touch play establishes all of 
 2. Within 120 s, a blind-ish listener can hear a difference between ordinary BLOOM and a crease/cascade event without reading the HUD.
 3. A charged structural event retains its topology identity (e.g. `FOLD → RETURN`) and the RETURN aperture is perceptible.
 4. Muted play still exposes target, alignment, creases, cascade path and charge.
-5. With a same-page MP3, beat timing and SECTION ARC progress feel causally fair; two CALL hits with two distinct verbs can make the late-section RETURN aperture readable without making it compulsory.\n6. No runaway scheduler catch-up, stuck drone, touch-scroll conflict or material frame drop during a 10-minute run.
+5. With a same-page MP3, beat timing and SECTION ARC progress feel causally fair; two CALL hits with two distinct verbs can make the late-section RETURN aperture readable without making it compulsory.
+6. No runaway scheduler catch-up, stuck drone, touch-scroll conflict or material frame drop during a 10-minute run.
 
 ## Next useful transforms — only after play
-- Tune CALL selection, forecast legibility, charge curve and return aperture from observed choices/timing, not taste in isolation.\n- If SECTION ARC survives play, export section/beat + authored-operation tape before any deeper Audiosurf/Beat Saber bridge.\n- Treat Suno/remote source loading as best-effort convenience only; do not spend gameplay passes bypassing browser/CORS boundaries. Proven fallback: obtain/export MP3 and load locally.
+- Tune CALL selection, forecast legibility, charge curve and return aperture from observed choices/timing, not taste in isolation.
+- If SECTION ARC survives play, export section/beat + authored-operation tape before any deeper Audiosurf/Beat Saber bridge.
+- Treat Suno/remote source loading as best-effort convenience only; do not spend gameplay passes bypassing browser/CORS boundaries. Proven fallback: obtain/export MP3 and load locally.
 - If LIVE wins the A/B, transplant the music engine into the full Fold Weave surface while keeping Ecology separate.
 - Add performance capture/replay only if the existing bounded RETURN packet proves insufficient for comparing runs.
 
