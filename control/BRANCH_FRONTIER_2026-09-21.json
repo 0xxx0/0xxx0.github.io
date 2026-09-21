@@ -5,10 +5,10 @@
   "counts": {
     "total": 78,
     "canonical": 1,
-    "open_pr": 2,
+    "open_pr": 3,
     "merged_pr_lineage": 44,
     "closed_unmerged_pr_lineage": 16,
-    "no_pr_pointer": 15
+    "no_pr_pointer": 14
   },
   "authority_law": [
     "MASTER is executable/public authority.",
@@ -24,6 +24,11 @@
       "branch": "axial-usability-cut-20260921",
       "pr": 73,
       "title": "AXIAL usability cut: replayable RETURN + addressed APERTURE resume"
+    },
+    {
+      "branch": "lens-studio-actualize-20260921",
+      "pr": 75,
+      "title": "Lens Studio: object-first dock + opt-in deep lab"
     },
     {
       "branch": "perimeter-recovery-20260921",
@@ -73,7 +78,7 @@
     "field-return-poem-smoke-20260921": {
       "state": "SUPERSEDED_PROOF_BRANCH",
       "successor": "PR #67 + FIELD 0.6 / PR #69 + Lens G1 / PR #71",
-      "rule": "do not merge; contains stale proof edits already replaced by current browser guards"
+      "rule": "do not merge; stale proof edits replaced by current browser guards"
     },
     "foundry-verify": {
       "state": "PURE_ANCESTOR_POINTER",
@@ -82,10 +87,6 @@
     "house-field-v01": {
       "state": "RETAINED_EXACT_DONOR",
       "rule": "already pinned in CURRENT as HOUSE/FIELD superseded donor; do not merge wholesale"
-    },
-    "lens-studio-actualize-20260921": {
-      "state": "UNRESOLVED_POINTER",
-      "rule": "recover/classify before use"
     },
     "poem-map-pre-calm-face-20260921": {
       "state": "PURE_ANCESTOR_POINTER",
