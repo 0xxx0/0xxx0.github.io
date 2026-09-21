@@ -2708,30 +2708,85 @@
     },
     {
       "href": "/docs/",
-      "title": "DOCS / READ",
-      "kind": "documentation",
+      "title": "READ / RSVP 0.6",
+      "kind": "utility",
       "parent": "/",
       "state": "UTILITY",
-      "showcase_card": false,
-      "role": "Read-only addressable repository-document projection using the shared Field Aperture: any same-origin text-like file may enter by canonical source URL; scale/position/time and material host cues change only the reading, while RAW and RETURN preserve source identity and path home.",
+      "showcase_card": true,
+      "role": "Addressed repository and pasted-text reader: one canonical source position survives scale changes while ORP RSVP, VOICE, highlighted context, whole-source ring/strip witnesses and nearby citation/media XREFs move around it; RAW remains the source baseline.",
       "index": {
-        "updated_at": "2026-09-21T19:10:00+08:00",
+        "updated_at": "2026-09-21T20:27:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
+          "READ",
+          "INSPECT",
           "VERIFY"
         ]
       },
       "transfer": [
-        "Field Aperture text/JSON scale ladder",
-        "material host projection",
-        "same source / RAW fallback",
-        "same-origin ?src= document ingress",
-        "optional caller RETURN",
-        "global route-adapter document links → DOCS",
-        "canonical RAW source preserved"
+        "one canonical source cursor across DOCUMENT/SECTION/PARAGRAPH/SENTENCE/PHRASE/WORD/GRAPHEME",
+        "ORP fixed-recognition-point RSVP at 60–3000 WPM",
+        "VOICE boundary charIndex → same source cursor without forcing WORD scale",
+        "highlighted source window + whole-source position witness",
+        "section / JSON-branch structure markers",
+        "near-focus source/citation/media XREF strip",
+        "same-origin README/Markdown/JSON/text ingress",
+        "session-local long-text paste",
+        "RAW + RETURN preserved"
       ],
-      "operation": "INSPECT",
-      "receipt": "/returns/DOCS_ADDRESSABLE_APERTURE_2026-09-21.json"
+      "operation": "READ",
+      "receipt": "/control/RSVP_READER_FOCUS_KERNEL_2026-09-21.json",
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "same-origin repository text-like address",
+            "pasted long text",
+            "JSON/object source"
+          ],
+          "requires": [
+            "one source"
+          ],
+          "optional": [
+            "return address",
+            "starting scale",
+            "starting char/path position",
+            "WPM"
+          ]
+        },
+        "transforms": {
+          "verb": "read one source through scale × position × time while preserving the same canonical source position",
+          "preserves": [
+            "source bytes/text",
+            "canonical source position",
+            "RAW path",
+            "RETURN"
+          ],
+          "reversibility": "full reading/navigation",
+          "side_effects": "browser-local timers / speech synthesis / session paste only"
+        },
+        "emits": {
+          "kinds": [
+            "field-aperture-focus/v0.2",
+            "addressed reader URL",
+            "highlighted context",
+            "XREF projection"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/control/RSVP_READER_FOCUS_KERNEL_2026-09-21.json",
+          "checks": [
+            "WORD→SENTENCE→PARAGRAPH→SECTION source-position invariance",
+            "highlight follows active span",
+            "section markers",
+            "ap_char resume",
+            "session-local paste",
+            "citation + media XREF",
+            "30/30 browser smoke"
+          ],
+          "return_path": "/docs/"
+        }
+      }
     },
     {
       "href": "/control/confluence/",
