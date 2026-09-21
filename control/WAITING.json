@@ -9,7 +9,8 @@
     "Each item names one smallest human move and the machine move it unlocks.",
     "Sensitive/private content is never stored here; keep only a public-safe dependency description.",
     "Ordinary use may satisfy a waiting item; no dedicated QA ritual is required unless the evidence gate specifically needs one.",
-    "When evidence arrives, close or transform the item rather than letting it become permanent backlog."
+    "When evidence arrives, close or transform the item rather than letting it become permanent backlog.",
+    "DONE LOCAL != SOURCE CLOSED; browser-local acknowledgement suppresses visual friction but does not manufacture evidence or mutate the repository item."
   ],
   "items": [
     {
