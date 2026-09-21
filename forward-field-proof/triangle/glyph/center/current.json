@@ -4,24 +4,24 @@
   "sources": {
     "current": {
       "path": "/control/CURRENT.json",
-      "sha": "10c823b0556d924adeb13096394bcaf636f14dbe",
+      "sha": "a8918d610746c292f388aed7a6e15622ac824f28",
       "updated": "2026-09-21"
     },
     "queue": {
       "path": "/control/QUEUE.json",
-      "sha": "09c0a539460313362d05629056e802a0ad98688b",
+      "sha": "669fb8a7b167e9721518ed6c5fe70ae323d240db",
       "updated": "2026-09-21"
     }
   },
   "actions": [
     {
-      "id": "current:passive-feedback-observe-01",
+      "id": "current:passive-human-port-focus-observe-01",
       "source": "CURRENT",
       "front": "control",
       "status": "CONTROL",
       "horizon": "NOW",
-      "title": "Use FIELD and HUMAN PORT normally. Do not perform a dedicated QA ritual. Let local choice/o…",
-      "instruction": "Use FIELD and HUMAN PORT normally. Do not perform a dedicated QA ritual. Let local choice/override signals accumulate; only inspect or refine the model after ordinary use produces evidence or a concrete failure.",
+      "title": "Use FIELD and HUMAN PORT normally. If Port is useful, use WHOLE/FOCUS and OPEN naturally; d…",
+      "instruction": "Use FIELD and HUMAN PORT normally. If Port is useful, use WHOLE/FOCUS and OPEN naturally; do not perform a dedicated QA ritual. Let content-free choice/override/backtrack evidence accumulate and refine only after ordinary use reveals a concrete failure or repeated pattern.",
       "goal": "Authoritative CURRENT next_single_action",
       "evidence": "/control/CURRENT.json",
       "operators": [
@@ -32,14 +32,14 @@
       ],
       "profile": {
         "INTENT": [
-          0.4358974358974359,
-          0.2820512820512821,
+          0.5897435897435898,
+          0.12820512820512822,
           0.2820512820512821
         ],
         "SYSTEM": [
-          0.37777777777777777,
-          0.37777777777777777,
-          0.24444444444444446
+          0.45098039215686275,
+          0.21568627450980396,
+          0.33333333333333337
         ]
       },
       "route": "/"
@@ -50,10 +50,37 @@
       "front": "recover-repo",
       "status": "LIVE",
       "horizon": "maintenance / opportunistic",
+      "title": "City v0.2 source and later Painting runtime are recovered. Earlier Library painting-path.ht…",
+      "instruction": "City v0.2 source and later Painting runtime are recovered. Earlier Library painting-path.html remains a distinct variant; reopen only for a named version comparison, not presumed loss.",
+      "goal": "Maintain exact recovered lineages, pursue only source-grounded blocked recovery, and stop solved families from reopening.",
+      "evidence": "/returns/BACKUP_RECOVERY_2026-09-21.json",
+      "operators": [
+        "RECOVER"
+      ],
+      "profile": {
+        "INTENT": [
+          0.33333333333333337,
+          0.5151515151515151,
+          0.15151515151515152
+        ],
+        "SYSTEM": [
+          0.18518518518518517,
+          0.6296296296296295,
+          0.18518518518518517
+        ]
+      },
+      "route": "/migration/"
+    },
+    {
+      "id": "queue:recover-repo:02",
+      "source": "QUEUE",
+      "front": "recover-repo",
+      "status": "LIVE",
+      "horizon": "maintenance / opportunistic",
       "title": "Do not reopen Grid Path V4 or Fold Weave recovery unless a concrete missing function is ide…",
       "instruction": "Do not reopen Grid Path V4 or Fold Weave recovery unless a concrete missing function is identified.",
       "goal": "Maintain exact recovered lineages, pursue only source-grounded blocked recovery, and stop solved families from reopening.",
-      "evidence": "/control/RECOVERY_RUN_2026-09-19.json + /control/RSVP_MECHANISM_DIFF_2026-09-21.json",
+      "evidence": "/returns/BACKUP_RECOVERY_2026-09-21.json",
       "operators": [
         "RECOVER"
       ],
@@ -72,64 +99,7 @@
       "route": "/migration/"
     },
     {
-      "id": "queue:recover-repo:02",
-      "source": "QUEUE",
-      "front": "recover-repo",
-      "status": "LIVE",
-      "horizon": "maintenance / opportunistic",
-      "title": "NEXT RECOVERY MOVE: freeze the exact File Library painting-path.html surfaced during RSVP d…",
-      "instruction": "NEXT RECOVERY MOVE: freeze the exact File Library painting-path.html surfaced during RSVP diff into /recovery/ with byte hash + manifest, then feed it through CENSUS/MIGRATION without redesign.",
-      "goal": "Maintain exact recovered lineages, pursue only source-grounded blocked recovery, and stop solved families from reopening.",
-      "evidence": "/control/RECOVERY_RUN_2026-09-19.json + /control/RSVP_MECHANISM_DIFF_2026-09-21.json",
-      "operators": [
-        "RECOVER",
-        "VERIFY",
-        "REIFY",
-        "ROUTE"
-      ],
-      "profile": {
-        "INTENT": [
-          0.5111111111111111,
-          0.24444444444444446,
-          0.24444444444444446
-        ],
-        "SYSTEM": [
-          0.33333333333333337,
-          0.5151515151515151,
-          0.15151515151515152
-        ]
-      },
-      "route": "/migration/"
-    },
-    {
       "id": "queue:recover-repo:03",
-      "source": "QUEUE",
-      "front": "recover-repo",
-      "status": "LIVE",
-      "horizon": "maintenance / opportunistic",
-      "title": "Keep Sleeper City Engine blocked until exact source/assets or authorized checkpoint bytes s…",
-      "instruction": "Keep Sleeper City Engine blocked until exact source/assets or authorized checkpoint bytes surface; Painting Path is no longer part of that exact-source gap.",
-      "goal": "Maintain exact recovered lineages, pursue only source-grounded blocked recovery, and stop solved families from reopening.",
-      "evidence": "/control/RECOVERY_RUN_2026-09-19.json + /control/RSVP_MECHANISM_DIFF_2026-09-21.json",
-      "operators": [
-        "RECOVER"
-      ],
-      "profile": {
-        "INTENT": [
-          0.24444444444444446,
-          0.6444444444444444,
-          0.1111111111111111
-        ],
-        "SYSTEM": [
-          0.15151515151515152,
-          0.6969696969696969,
-          0.15151515151515152
-        ]
-      },
-      "route": "/migration/"
-    },
-    {
-      "id": "queue:recover-repo:04",
       "source": "QUEUE",
       "front": "recover-repo",
       "status": "LIVE",
@@ -137,7 +107,7 @@
       "title": "Continue exact-only Laconic archaeology only from source-level voice outputs/adoption evide…",
       "instruction": "Continue exact-only Laconic archaeology only from source-level voice outputs/adoption evidence; do not reconstruct missing voices.",
       "goal": "Maintain exact recovered lineages, pursue only source-grounded blocked recovery, and stop solved families from reopening.",
-      "evidence": "/control/RECOVERY_RUN_2026-09-19.json + /control/RSVP_MECHANISM_DIFF_2026-09-21.json",
+      "evidence": "/returns/BACKUP_RECOVERY_2026-09-21.json",
       "operators": [
         "RECOVER",
         "VERIFY"
@@ -157,7 +127,7 @@
       "route": "/migration/"
     },
     {
-      "id": "queue:recover-repo:05",
+      "id": "queue:recover-repo:04",
       "source": "QUEUE",
       "front": "recover-repo",
       "status": "LIVE",
@@ -165,7 +135,7 @@
       "title": "Complete ENV-0 PDF byte-copy/hash verification when exact PDF bytes are materializable to t…",
       "instruction": "Complete ENV-0 PDF byte-copy/hash verification when exact PDF bytes are materializable to the repo writer.",
       "goal": "Maintain exact recovered lineages, pursue only source-grounded blocked recovery, and stop solved families from reopening.",
-      "evidence": "/control/RECOVERY_RUN_2026-09-19.json + /control/RSVP_MECHANISM_DIFF_2026-09-21.json",
+      "evidence": "/returns/BACKUP_RECOVERY_2026-09-21.json",
       "operators": [
         "RECOVER",
         "VERIFY"
@@ -185,7 +155,7 @@
       "route": "/migration/"
     },
     {
-      "id": "queue:recover-repo:06",
+      "id": "queue:recover-repo:05",
       "source": "QUEUE",
       "front": "recover-repo",
       "status": "LIVE",
@@ -193,7 +163,7 @@
       "title": "Continue Game-of-Names only from isolated runnable/source artifacts; visual/name doctrine e…",
       "instruction": "Continue Game-of-Names only from isolated runnable/source artifacts; visual/name doctrine evidence alone does not establish a game.",
       "goal": "Maintain exact recovered lineages, pursue only source-grounded blocked recovery, and stop solved families from reopening.",
-      "evidence": "/control/RECOVERY_RUN_2026-09-19.json + /control/RSVP_MECHANISM_DIFF_2026-09-21.json",
+      "evidence": "/returns/BACKUP_RECOVERY_2026-09-21.json",
       "operators": [
         "RECOVER",
         "VERIFY"
@@ -217,24 +187,25 @@
       "source": "QUEUE",
       "front": "ingest-files-media",
       "status": "LIVE",
-      "horizon": "PROVED V0.1 / maintenance",
-      "title": "Repeat the same scanner/indexer against a real bounded local ingress directory when filesys…",
-      "instruction": "Repeat the same scanner/indexer against a real bounded local ingress directory when filesystem access is available.",
+      "horizon": "LOCAL DRY-RUN VERIFIED / maintenance",
+      "title": "Local Documents dry-run completed: 559 files, 557 byte objects, two duplicate groups. Next …",
+      "instruction": "Local Documents dry-run completed: 559 files, 557 byte objects, two duplicate groups. Next review one exact app/design family using original-name/hash provenance; no automatic moves.",
       "goal": "Create one reversible local ingest layer for Downloads/Library/media that labels and deduplicates before moving anything.",
-      "evidence": "/control/INGEST_RUN_2026-09-20.json + /control/REPRESENTATION_01.json",
+      "evidence": "/control/INGEST_RUN_2026-09-21.json",
       "operators": [
-        "EXECUTE"
+        "RECOVER",
+        "VERIFY"
       ],
       "profile": {
         "INTENT": [
-          0.5238095238095238,
-          0.23809523809523808,
-          0.23809523809523808
+          0.15151515151515152,
+          0.15151515151515152,
+          0.6969696969696969
         ],
         "SYSTEM": [
-          0.3333333333333333,
-          0.3333333333333333,
-          0.3333333333333333
+          0.18518518518518517,
+          0.6296296296296295,
+          0.18518518518518517
         ]
       },
       "route": "/dock/"
@@ -244,11 +215,11 @@
       "source": "QUEUE",
       "front": "ingest-files-media",
       "status": "LIVE",
-      "horizon": "PROVED V0.1 / maintenance",
+      "horizon": "LOCAL DRY-RUN VERIFIED / maintenance",
       "title": "Review REVIEW_CONFLICT records; never resolve them by rule order alone.",
       "instruction": "Review REVIEW_CONFLICT records; never resolve them by rule order alone.",
       "goal": "Create one reversible local ingest layer for Downloads/Library/media that labels and deduplicates before moving anything.",
-      "evidence": "/control/INGEST_RUN_2026-09-20.json + /control/REPRESENTATION_01.json",
+      "evidence": "/control/INGEST_RUN_2026-09-21.json",
       "operators": [
         "VERIFY"
       ],
@@ -271,11 +242,11 @@
       "source": "QUEUE",
       "front": "ingest-files-media",
       "status": "LIVE",
-      "horizon": "PROVED V0.1 / maintenance",
+      "horizon": "LOCAL DRY-RUN VERIFIED / maintenance",
       "title": "Promote a filesystem move/rename rule only after a real dry-run demonstrates inverse/recove…",
       "instruction": "Promote a filesystem move/rename rule only after a real dry-run demonstrates inverse/recovery behavior.",
       "goal": "Create one reversible local ingest layer for Downloads/Library/media that labels and deduplicates before moving anything.",
-      "evidence": "/control/INGEST_RUN_2026-09-20.json + /control/REPRESENTATION_01.json",
+      "evidence": "/control/INGEST_RUN_2026-09-21.json",
       "operators": [
         "VERIFY",
         "REIFY",
@@ -297,116 +268,34 @@
       "route": "/dock/"
     },
     {
-      "id": "queue:reality-house:01",
+      "id": "queue:human-port-use:01",
       "source": "QUEUE",
-      "front": "reality-house",
+      "front": "human-port-use",
       "status": "LIVE",
-      "horizon": "NEXT NOW",
-      "title": "Use one ordinary bounded physical zone, tool, material interaction or owned endpoint.",
-      "instruction": "Use one ordinary bounded physical zone, tool, material interaction or owned endpoint.",
-      "goal": "Make one visible physical/home/workshop state simpler and measurable, then admit that observed object/zone into FIELD INDEX so future work is driven by ports rather than project names.",
-      "evidence": "physical RETURN + first observed FIELD INDEX row + one CONNECT/MOVE result",
-      "operators": [
-        "REIFY"
-      ],
-      "profile": {
-        "INTENT": [
-          0.6969696969696969,
-          0.15151515151515152,
-          0.15151515151515152
-        ],
-        "SYSTEM": [
-          0.6444444444444444,
-          0.1111111111111111,
-          0.24444444444444446
-        ]
-      },
-      "route": "/house/spatial/"
-    },
-    {
-      "id": "queue:reality-house:02",
-      "source": "QUEUE",
-      "front": "reality-house",
-      "status": "LIVE",
-      "horizon": "NEXT NOW",
-      "title": "Record OBSERVED → ACTION → RESULT with the smallest useful evidence.",
-      "instruction": "Record OBSERVED → ACTION → RESULT with the smallest useful evidence.",
-      "goal": "Make one visible physical/home/workshop state simpler and measurable, then admit that observed object/zone into FIELD INDEX so future work is driven by ports rather than project names.",
-      "evidence": "physical RETURN + first observed FIELD INDEX row + one CONNECT/MOVE result",
+      "horizon": "ACTIVE_NOW / ordinary use",
+      "title": "Use FIELD and HUMAN PORT normally. If Port is useful, use WHOLE/FOCUS and OPEN naturally; d…",
+      "instruction": "Use FIELD and HUMAN PORT normally. If Port is useful, use WHOLE/FOCUS and OPEN naturally; do not perform a dedicated QA ritual. Let content-free choice/override/backtrack evidence accumulate and refine only after ordinary use reveals a concrete failure or repeated pattern.",
+      "goal": "Observe ordinary HUMAN PORT use; no transport or autonomous sending.",
+      "evidence": "/port/release.json",
       "operators": [
         "VERIFY",
         "REIFY",
+        "ROUTE",
         "RETURN"
       ],
       "profile": {
         "INTENT": [
-          0.33333333333333337,
-          0.15151515151515152,
-          0.5151515151515151
-        ],
-        "SYSTEM": [
-          0.37777777777777777,
-          0.37777777777777777,
+          0.6444444444444444,
+          0.1111111111111111,
           0.24444444444444446
-        ]
-      },
-      "route": "/house/spatial/"
-    },
-    {
-      "id": "queue:reality-house:03",
-      "source": "QUEUE",
-      "front": "reality-house",
-      "status": "LIVE",
-      "horizon": "NEXT NOW",
-      "title": "Add the observed thing to FIELD INDEX with location, mobility, dependencies, input/output p…",
-      "instruction": "Add the observed thing to FIELD INDEX with location, mobility, dependencies, input/output ports and evidence.",
-      "goal": "Make one visible physical/home/workshop state simpler and measurable, then admit that observed object/zone into FIELD INDEX so future work is driven by ports rather than project names.",
-      "evidence": "physical RETURN + first observed FIELD INDEX row + one CONNECT/MOVE result",
-      "operators": [
-        "VERIFY",
-        "REIFY"
-      ],
-      "profile": {
-        "INTENT": [
-          0.5151515151515151,
-          0.1515151515151515,
-          0.3333333333333333
         ],
         "SYSTEM": [
-          0.45098039215686275,
-          0.21568627450980396,
-          0.33333333333333337
+          0.4603174603174603,
+          0.17460317460317462,
+          0.36507936507936506
         ]
       },
-      "route": "/house/spatial/"
-    },
-    {
-      "id": "queue:reality-house:04",
-      "source": "QUEUE",
-      "front": "reality-house",
-      "status": "LIVE",
-      "horizon": "NEXT NOW",
-      "title": "Ask one CONNECT or MOVE question; use the missing port as the next-work selector.",
-      "instruction": "Ask one CONNECT or MOVE question; use the missing port as the next-work selector.",
-      "goal": "Make one visible physical/home/workshop state simpler and measurable, then admit that observed object/zone into FIELD INDEX so future work is driven by ports rather than project names.",
-      "evidence": "physical RETURN + first observed FIELD INDEX row + one CONNECT/MOVE result",
-      "operators": [
-        "REIFY",
-        "ROUTE"
-      ],
-      "profile": {
-        "INTENT": [
-          0.5897435897435898,
-          0.2820512820512821,
-          0.12820512820512822
-        ],
-        "SYSTEM": [
-          0.5686274509803921,
-          0.09803921568627452,
-          0.33333333333333337
-        ]
-      },
-      "route": "/house/spatial/"
+      "route": "/port/"
     }
   ],
   "held": [
@@ -435,7 +324,7 @@
           0.5238095238095238
         ]
       },
-      "route": "/port/"
+      "route": "/"
     },
     {
       "id": "held:machine-representation",
@@ -443,28 +332,26 @@
       "front": "machine-representation",
       "status": "HOLD",
       "horizon": "HOLD",
-      "title": "AXIAL / FOCUS STACK 0.7 + FIELD AXIAL LATEST 0.5",
-      "instruction": "Interface mechanism is now instrumented rather than theory-only: exact support, visible survivor set, deep focus and local passive AXIAL-vs-LATEST comparison exist. Hold further conceptual expansion until ordinary use produces evidence or a concrete failure.",
-      "goal": "Interface mechanism is now instrumented rather than theory-only: exact support, visible survivor set, deep focus and local passive AXIAL-vs-LATEST comparison exist. Hold further conceptual expansion until ordinary use produces evidence or a concrete failure.",
+      "title": "AXIAL / FOCUS STACK 0.7.2",
+      "instruction": "Overview/minimap and engineering witness are now implemented from recovered donors. Hold feature expansion; ordinary use and exported witnesses should determine RETAIN/REVISE/REVERT under the mechanism-transfer loop.",
+      "goal": "Overview/minimap and engineering witness are now implemented from recovered donors. Hold feature expansion; ordinary use and exported witnesses should determine RETAIN/REVISE/REVERT under the mechanism-transfer loop.",
       "evidence": "/control/CURRENT.json",
       "operators": [
-        "RECOVER",
-        "VERIFY",
         "REIFY"
       ],
       "profile": {
         "INTENT": [
-          0.40740740740740744,
-          0.18518518518518517,
-          0.40740740740740744
+          0.5238095238095238,
+          0.23809523809523808,
+          0.23809523809523808
         ],
         "SYSTEM": [
-          0.40740740740740744,
-          0.40740740740740744,
-          0.18518518518518517
+          0.5238095238095238,
+          0.23809523809523808,
+          0.23809523809523808
         ]
       },
-      "route": "/foundry/axial/"
+      "route": "/"
     },
     {
       "id": "held:reality-house",
@@ -501,14 +388,14 @@
       "id": "next-direction",
       "a": {
         "source": "CURRENT.next_single_action",
-        "value": "Use FIELD and HUMAN PORT normally. Do not perform a dedicated QA ritual. Let local choice/override signals accumulate; only inspect or refine the model after ordinary use produces evidence or a concrete failure."
+        "value": "Use FIELD and HUMAN PORT normally. If Port is useful, use WHOLE/FOCUS and OPEN naturally; do not perform a dedicated QA ritual. Let content-free choice/override/backtrack evidence accumulate and refine only after ordinary use reveals a concrete failure or repeated pattern."
       },
       "b": {
         "source": "QUEUE.turn_order",
-        "value": "TURN E — NEXT: one actual physical/print RETURN → first observed FIELD INDEX row → one CONNECT/MOVE query; then DOCK review."
+        "value": null
       },
       "rule": "PRESERVE_CONTRADICTION_UNTIL_RETURN"
     }
   ],
-  "note": "CENTER CURRENT projection. Actions are exact CURRENT/QUEUE instructions with deterministic heuristic profiles for geometry only. Geometry does not alter authority."
+  "note": "Fallback snapshot only. CENTER prefers live CURRENT/QUEUE. Geometry is a reversible projection and does not alter authority."
 }
