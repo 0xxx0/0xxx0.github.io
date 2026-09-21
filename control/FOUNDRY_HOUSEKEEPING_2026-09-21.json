@@ -1,0 +1,54 @@
+{
+  "schema": "foundry-housekeeping-audit/v0.1",
+  "at": "2026-09-21",
+  "scope": {
+    "entries": [
+      "index.html",
+      "foundry/index.html",
+      "foundry/core/index.html",
+      "foundry/methods/index.html",
+      "foundry/aperture/index.html",
+      "foundry/convergence/index.html",
+      "foundry/convergence/identity-lab.html",
+      "foundry/verse-atlas/index.html",
+      "foundry/axial/index.html",
+      "migration/index.html",
+      "control/confluence/index.html",
+      "recovery/index.html",
+      "recovery/path-grid/index.html",
+      "returns/index.html"
+    ],
+    "route_count": 13,
+    "static_reference_count": 105,
+    "runtime_literal_reference_count": 18
+  },
+  "result": "FAIL",
+  "checks": {
+    "missing_route_files": [],
+    "missing_parents": [],
+    "missing_receipts": [],
+    "broken_static_refs": [
+      {
+        "from": "foundry/methods/index.html",
+        "target": "foundry/core/",
+        "ok": false
+      }
+    ],
+    "broken_runtime_literal_refs": []
+  },
+  "repairs": [
+    "Core and Methods release lifecycle normalized from stale EXPERIMENT to current CANDIDATE while preserving previous_state.",
+    "Unsupported hard '117-project' corpus count removed from Core canon/model/release/manifest language; hard counts now require census evidence.",
+    "Confluence visible escaped-newline residue removed.",
+    "Migration now follows CURRENT.last_recovery_population with a dated fallback instead of hardcoding one historical population file.",
+    "Convergence Field fresh-session bootstrap changed from misleading USER source to explicit DEMO fixture.",
+    "Convergence Field now has a CANDIDATE release receipt and manifest lifecycle/receipt metadata.",
+    "Foundry four-view machine rail and projection contract retained through concurrent FIELD simplification."
+  ],
+  "non_claims": [
+    "This audit checks repository addresses and literal static/runtime references; it does not simulate every browser interaction.",
+    "Dynamic links generated from recovered data are governed by their owning ledgers/manifests and are not exhaustively enumerated here.",
+    "Frozen historical fossils are not modernized merely to satisfy current runtime conventions."
+  ],
+  "next": "Prefer normal use and specific breakage reports over another broad redesign. If a route fails in-browser, capture exact route + action + visible error and repair that boundary."
+}
