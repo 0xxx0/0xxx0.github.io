@@ -21,3 +21,10 @@ jobs:
           gradle-version: '9.6.0'
       - name: Compile BODY BRIDGE debug APK
         run: gradle -p android/body-bridge :app:assembleDebug --stacktrace
+      - name: Retain debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: body-bridge-debug
+          path: android/body-bridge/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
+          retention-days: 7
