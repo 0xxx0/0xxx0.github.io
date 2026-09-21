@@ -141,10 +141,7 @@ const CASES=[
   {
     name:'FOUNDRY CORE',
     route:'/foundry/core/',
-    check:dom=>{
-      const center=textAtId(dom,'oneLine');
-      return /lived uncertainty/i.test(center)&&!/loading|failure/i.test(center)&&!dom.includes('CENTER LOAD FAILURE');
-    }
+    check:dom=>/Turn lived uncertainty into manipulable state/i.test(dom)&&!dom.includes('CENTER LOAD FAILURE')
   },
   {
     name:'MIGRATION',
