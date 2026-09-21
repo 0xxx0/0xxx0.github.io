@@ -91,13 +91,14 @@ const routeById=id=>routeContracts?.routes.find(r=>r.id===id);
 function loadReceipts(){try{return JSON.parse(localStorage.getItem(RECEIPTS)||'[]')}catch(_){return[]}}
 function historyCount(id){return loadReceipts().filter(r=>r.route===id).length}
 function cuesFor(text){
- const t=String(text||'').toLowerCase(),c={contact:0,burst:0,idea:0,residue:0,lens:0,intake:0};
+ const t=String(text||'').toLowerCase(),c={contact:0,burst:0,idea:0,residue:0,lens:0,care:0,intake:0};
  const hit=(k,re)=>c[k]+=(t.match(re)||[]).length;
  hit('contact',/\b(reply|send|message|email|tell|draft|write back)\b/g);
  hit('burst',/\b(messy|unclear|wait|actually|sorry|confus|untangle|multiple|several)\b/g);
  hit('idea',/\b(idea|app|prototype|build|make|design|mechanism|what if|could we)\b/g);
  hit('residue',/\b(remind|remember|follow[- ]?up|promise|later|owed?|do not forget|don't forget)\b/g);
  hit('lens',/\b(map|structure|scale|view|projection|relationship|zoom|compare)\b/g);
+ hit('care',/\b(care|health|symptom|pain|eye|seizure|med(?:ication)?|doctor|vet|lab|treatment|appointment|result|patient|pet)\b/g);
  hit('intake',/\b(record|admit|canon|canonical|evidence|observation|measure|source|artifact)\b/g);
  return c;
 }
@@ -210,6 +211,11 @@ async function openRoute(){
   if(selected==='idea'){sessionStorage.setItem('app.atlas.handoff.v01',JSON.stringify({name:obj.label,invariant:summary,lineage:['HUMAN PORT','OBJECT APERTURE',obj.media_class],source:summary,object_ref:obj.object_id,created_at:new Date().toISOString(),...meta}));location.assign('../app-atlas/');return}
   if(selected==='residue'){sessionStorage.setItem('human.port.residue.handoff.v01',JSON.stringify({subject:obj.label,source:summary,object_ref:obj.object_id,created_at:new Date().toISOString(),...meta}));location.assign('../contact/residue/');return}
   if(selected==='lens'){sessionStorage.setItem('scale.lens.handoff.v01',JSON.stringify({text:summary,label:obj.label,created_at:new Date().toISOString(),object_ref:obj.object_id,...meta}));location.assign('../fold-bloom/lens/');return}
+  if(selected==='care'){
+   const sourceObject={schema:obj.schema,object_id:obj.object_id,source_class:obj.source_class,media_class:obj.media_class,label:obj.label,mime:obj.mime||null,size_bytes:obj.size_bytes??null,sha256:obj.sha256||null,created_at:obj.created_at,retention:obj.retention,provenance:obj.provenance||{},payload_ref:obj.payload_ref||null};
+   sessionStorage.setItem('care.port.evidence.v01',JSON.stringify({schema:'0xxx0/port-object-to-care/v0.1',created_at:new Date().toISOString(),source_object_id:obj.object_id,source_object:sourceObject,scope,focus:scope==='focus'?focus:null,projection_excerpt:String(summary||'').slice(0,1600)}));
+   location.assign('../care/');return;
+  }
   if(selected==='intake'){
    sessionStorage.setItem('field.intake.handoff.v01',JSON.stringify({schema:'0xxx0/port-object-to-field-intake/v0.1',capture:intakeCapture(),source_object_id:obj.object_id,source_object:{label:obj.label,media_class:obj.media_class,mime:obj.mime,size_bytes:obj.size_bytes,sha256:obj.sha256,retention:obj.retention,focus:scope==='focus'?focus:null},created_at:new Date().toISOString()}));
    location.assign('../field-intake/');return;
