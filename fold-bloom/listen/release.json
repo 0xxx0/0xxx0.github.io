@@ -60,12 +60,14 @@
     "remote_suno_fetch": "REQUIRED_REAL_BROWSER: external endpoint/CORS behavior intentionally not claimed",
     "real_audio_analysis": "REQUIRED_NEXT: first real-song play",
     "merge_sha": "716867fab903b513627e45adfb7ca586617f39f6",
-    "intake_activation": "PENDING_CI: app boot + native label targets non-hidden file input + activation event",
+    "intake_activation": "PASS: public-surface-check run 35640203852",
     "regression_reason": "User observed CHOOSE AUDIO was inert on deployed 0.2; static DOM smoke had not tested app boot or activation.",
     "user_audio_observation": "OBSERVED: real phone audio playback succeeded but field appeared visually empty on 0.2.1",
-    "progressive_audio_pipeline": "PENDING_CI: real MP3 fixture → decode → PREVIEW visible/loaded → DEEP map → rendered score",
-    "mobile_scope": "PENDING_CI_AND_REAL_PHONE: scope-window unit law + browser surface, then one touch scrub trial",
-    "field_pulse": "/control/FIELD_PULSE_CONTRACT.json"
+    "progressive_audio_pipeline": "PASS REPO FIXTURE: public-surface-check run 35640203852; real-song phone trial still required",
+    "mobile_scope": "PASS REPO: scope-window law + browser suite in run 35640203852; REAL_PHONE touch trial required",
+    "field_pulse": "/control/FIELD_PULSE_CONTRACT.json",
+    "field_pulse_repo": "PASS REPO: envelope selftest + full browser regression run 35640203852; real cross-tab phone trial required",
+    "field_pulse_merge_sha": "70d63be41dfc5d04b04063d2f90524dca0bb6526"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · visible on FIELD INDEX · host=/fold-bloom/ · evolution stage=TEST",
   "updated": "2026-09-22"
