@@ -34,6 +34,16 @@
       "recipient": "/poetry/",
       "test": "Transfer only as a named missing function into the current poetry head; do not fork another verse engine.",
       "return": "/control/confluence/VERSE_LINEAGE.md"
+    },
+    {
+      "id": "grid-path-one-return-receipt",
+      "status": "IMPLEMENTED",
+      "donor": "/recovery/path-grid/grid-path-compiler-v4/",
+      "evidence_class": "EXACT_FROZEN_DONOR + RUNTIME_ADAPTER",
+      "unit": "BY/GRID-PATH-2 receipt: source fingerprint + path id/address + reading strands/cells → ONE RETURN upstream source projection",
+      "recipient": "/sleeper/one-return/",
+      "test": "Browser import must preserve source fingerprint, path id and compressed address in ONE RETURN upstream state and RETURN export while deriving a new nine-gate maze. No Grid Path geometry equivalence is claimed.",
+      "return": "/control/confluence/ONE_RETURN_LANE.md"
     }
   ]
 }
