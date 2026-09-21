@@ -4862,7 +4862,7 @@
         "schema": "field-evolution/v0.1",
         "host": "/foundry/readfield/",
         "generation": 1,
-        "stage": "CANDIDATE_VALIDATION",
+        "stage": "TEST",
         "question": "Can READFIELD add context recovery, parallel scan and spatial orientation around APERTURE 0.6 without creating a second cursor/reader engine?",
         "baseline": "APERTURE 0.6 shared focus kernel plus plain source reading; RF-01 isolated React prototype is donor evidence only.",
         "mutation": "Host FLOW / hold-context / marks / SHEET / TEXT / LINE↔DISC around the shared APERTURE cursor.",
