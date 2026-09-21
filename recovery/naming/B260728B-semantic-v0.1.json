@@ -1,0 +1,248 @@
+{
+  "schema": "0xxx0/media-semantic-overlay/v0.1",
+  "batch": "B260728B",
+  "review_basis": "Visual review of the exact eight-image Library batch; semantic labels are reviewable overlays, not byte identity.",
+  "items": [
+    {
+      "seq": 1,
+      "composition_class": "AXIAL_PORTAL",
+      "composition": {
+        "axis": "vertical-central",
+        "scaffold": [
+          "nested arches",
+          "central figure",
+          "city canyon"
+        ],
+        "flow": "center-to-lower-edge",
+        "depth": "deep axial perspective"
+      },
+      "surface": [
+        "warm parchment",
+        "graphite/ink linework",
+        "rust-red accent"
+      ],
+      "pattern": [
+        "nested thresholds",
+        "radial seals",
+        "micro-grid annotation"
+      ],
+      "meaning": [
+        "boundary",
+        "state layers",
+        "threshold crossing"
+      ],
+      "composition_subtype": "NESTED_GATE"
+    },
+    {
+      "seq": 2,
+      "composition_class": "RADIAL_FIELD",
+      "composition": {
+        "axis": "radial-central",
+        "scaffold": [
+          "concentric rings",
+          "center seed",
+          "landscape bands"
+        ],
+        "flow": "inward/outward radial",
+        "depth": "layered plan-perspective hybrid"
+      },
+      "surface": [
+        "warm parchment",
+        "graphite/ink linework",
+        "rust-red accent"
+      ],
+      "pattern": [
+        "concentric rings",
+        "orbital markers",
+        "micro-grid annotation"
+      ],
+      "meaning": [
+        "care field",
+        "nested reach",
+        "center/periphery"
+      ],
+      "composition_subtype": "CONCENTRIC_ATLAS"
+    },
+    {
+      "seq": 3,
+      "composition_class": "PATH_FIELD",
+      "composition": {
+        "axis": "vertical with lateral meander",
+        "scaffold": [
+          "stacked architectural cliffs",
+          "serpentine path",
+          "small traveler"
+        ],
+        "flow": "top-to-bottom meander",
+        "depth": "deep canyon perspective"
+      },
+      "surface": [
+        "warm parchment",
+        "graphite/ink linework",
+        "rust-red accent"
+      ],
+      "pattern": [
+        "switchback path",
+        "terraced blocks",
+        "side specimen circles"
+      ],
+      "meaning": [
+        "indirect search",
+        "choice path",
+        "navigation under uncertainty"
+      ],
+      "composition_subtype": "SERPENTINE_CANYON"
+    },
+    {
+      "seq": 4,
+      "composition_class": "PATH_FIELD",
+      "composition": {
+        "axis": "axonometric diagonal",
+        "scaffold": [
+          "isometric settlement",
+          "looping route",
+          "void wells"
+        ],
+        "flow": "network circulation",
+        "depth": "isometric field"
+      },
+      "surface": [
+        "warm parchment",
+        "graphite/ink linework",
+        "rust-red accent"
+      ],
+      "pattern": [
+        "modular blocks",
+        "loop network",
+        "diagram sidecars"
+      ],
+      "meaning": [
+        "settlement flow",
+        "distributed routing",
+        "field organization"
+      ],
+      "composition_subtype": "ISOMETRIC_LABYRINTH"
+    },
+    {
+      "seq": 5,
+      "composition_class": "OBLIQUE_PORTAL",
+      "composition": {
+        "axis": "strong diagonal",
+        "scaffold": [
+          "tilted monumental frame",
+          "open landscape",
+          "serpentine trace"
+        ],
+        "flow": "lower-center to portal interior",
+        "depth": "oblique threshold perspective"
+      },
+      "surface": [
+        "warm parchment",
+        "graphite/ink linework",
+        "rust-red accent"
+      ],
+      "pattern": [
+        "rotated frame",
+        "path trace",
+        "geometric inset diagrams"
+      ],
+      "meaning": [
+        "rotate the map",
+        "sideways exit",
+        "frame change"
+      ],
+      "composition_subtype": "TILTED_GATE"
+    },
+    {
+      "seq": 6,
+      "composition_class": "AXIAL_PORTAL",
+      "composition": {
+        "axis": "vertical-central",
+        "scaffold": [
+          "rectilinear portal",
+          "central corridor",
+          "side diagnostic panels"
+        ],
+        "flow": "foreground-to-center passage",
+        "depth": "frontal architectural perspective"
+      },
+      "surface": [
+        "warm parchment",
+        "graphite/ink linework",
+        "rust-red accent"
+      ],
+      "pattern": [
+        "line taxonomy",
+        "rectilinear maze",
+        "node-link diagrams"
+      ],
+      "meaning": [
+        "distinction",
+        "changing lines",
+        "classification as passage"
+      ],
+      "composition_subtype": "FRONTAL_CATALOG"
+    },
+    {
+      "seq": 7,
+      "composition_class": "RADIAL_FIELD",
+      "composition": {
+        "axis": "radial-central with frontal observer",
+        "scaffold": [
+          "concentric stepped basin",
+          "foreground witness",
+          "rear portal"
+        ],
+        "flow": "observer-to-center-to-portal",
+        "depth": "theatrical radial perspective"
+      },
+      "surface": [
+        "warm parchment",
+        "dense graphite/ink",
+        "rust-red luminous center"
+      ],
+      "pattern": [
+        "concentric steps",
+        "book/page modules",
+        "portal rectangles"
+      ],
+      "meaning": [
+        "reader recursion",
+        "escape condition",
+        "attention trap"
+      ],
+      "composition_subtype": "AMPHITHEATER"
+    },
+    {
+      "seq": 8,
+      "composition_class": "AXIAL_PORTAL",
+      "composition": {
+        "axis": "vertical-central hybrid",
+        "scaffold": [
+          "rear portal",
+          "central figure",
+          "foreground radial field",
+          "fragmented architecture"
+        ],
+        "flow": "foreground center through portal",
+        "depth": "multi-zone atlas perspective"
+      },
+      "surface": [
+        "warm parchment",
+        "graphite/ink linework",
+        "rust-red accent"
+      ],
+      "pattern": [
+        "radial basin",
+        "portal stack",
+        "specimen circles"
+      ],
+      "meaning": [
+        "partial return",
+        "open atlas",
+        "re-entry"
+      ],
+      "composition_subtype": "RADIAL_FOREGROUND"
+    }
+  ]
+}
