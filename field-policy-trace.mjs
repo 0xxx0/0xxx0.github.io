@@ -198,6 +198,6 @@ function mount(){
   const syncFocus=()=>{const f=focusResource();$('traceFocus').textContent='focus → '+(f?(f.title+' · '+f.href):'none')};
   $('traceRun').onclick=run;$('traceCommit').onclick=commit;$('traceExport').onclick=exportTrace;
   $('traceFold').addEventListener('toggle',()=>{if($('traceFold').open){syncFocus();if(!currentTrace)run()}});
-  window.addEventListener('field-focus',syncFocus);ledgerState();syncFocus();
+  window.addEventListener('field-index:state',syncFocus);ledgerState();syncFocus();
 }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',mount); else mount();
