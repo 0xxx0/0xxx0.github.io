@@ -1,0 +1,42 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_LISTEN_SCOPE_GESTURE_2026-09-22",
+  "status": "CANDIDATE_PENDING_CI",
+  "date": "2026-09-22",
+  "object": "FOLD//BLOOM LISTEN mobile scoped interaction",
+  "observed": [
+    "User reported that the various LISTEN scope controls did not seem to do much on phone.",
+    "0.2.2 made scope operational, but the app recomputed scopeWindow from audio.currentTime on every pointermove.",
+    "Because pointermove also changed audio.currentTime, BEAT/PHRASE/SECTION could move their represented time domain underneath the same finger gesture."
+  ],
+  "recovered_current_head": [
+    "LIVE advanced concurrently to 0.2 consequence-play with same-page custom songs and beat-distance timing.",
+    "LISTEN remains the deeper source-addressed audio-map/time laboratory; this repair does not alter LIVE gameplay, Two Dial authorship, Ecology lineage-game, or FIELD PULSE authority boundaries."
+  ],
+  "delta": [
+    "Pointerdown captures one scope window as gesture authority.",
+    "All pointermove angle→time mapping uses that frozen window until pointerup/cancel.",
+    "The center witness appends HOLD while the frozen window is active.",
+    "Pointer release drops the frozen window and resumes ordinary live scope tracking.",
+    "scrubTime(range,fraction) is pure and bounded for deterministic selftest."
+  ],
+  "drift_control": {
+    "superseded_pr": 120,
+    "reason": "First cut carried a stale Fold/Bloom CURRENT description while LIVE 0.2 landed concurrently; no stale authority is merged.",
+    "action": "Re-applied the LISTEN-only delta on fresh master as listen-scope-gesture-lock-02."
+  },
+  "preserved": [
+    "LIVE 0.2 gameplay + same-page custom-song work",
+    "AUDIO MAP identity/provenance",
+    "FIELD PULSE contract and no-authority law",
+    "local-file authority + best-effort remote source adapter",
+    "BEAT/PHRASE/SECTION/TRACK semantics",
+    "no new hub, bridge or automatic musical coupling"
+  ],
+  "verification": {
+    "selftest": "PENDING_CI",
+    "browser_regression": "PENDING_CI",
+    "real_phone": "REQUIRED_NEXT: one-finger BEAT/PHRASE/SECTION/TRACK scrub should feel stable and visibly show HOLD"
+  },
+  "stop_condition": "Ship only if CI passes. Then return to the existing direct-phone Fold/Bloom play gate; do not add another music/game bridge from this pass."
+}
