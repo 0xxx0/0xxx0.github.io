@@ -1,28 +1,31 @@
 {
   "schema": "0xxx0/lens-ci-status/v0.1",
-  "at": "2026-09-21T14:56:00+08:00",
+  "at": "2026-09-21T16:04:07+08:00",
   "pr": 50,
   "branch": "lens-convergence-contract-20260921",
-  "head": "ea4825abe62952ea6fbd3ad70f84c063c16495c7",
+  "head": "0fef011ccdfa693ff7180b54cfd09035c28bdec6",
   "lens_selftest_local": "11/11 PASS",
   "workflow_delta": "public-surface-check runs LensState law/round-trip selftest before the general public-surface validator",
-  "inherited_surface_gate": {
-    "master_latest_run_id": 35568447547,
-    "master_latest_conclusion": "failure",
-    "note": "The master public-surface workflow was already failing independently of PR #50; prior PR runs fail at 'Validate static surface contracts' before any Lens-specific step."
-  },
   "head_workflow_runs": [
     {
-      "id": 35568340910,
+      "id": 35575962447,
       "name": "public-surface-check",
       "status": "completed",
-      "conclusion": "failure",
-      "run_number": 618,
-      "jobs_url": "https://api.github.com/repos/0xxx0/0xxx0.github.io/actions/runs/35568340910/jobs",
-      "logs_url": "https://api.github.com/repos/0xxx0/0xxx0.github.io/actions/runs/35568340910/logs",
-      "workflow_id": 361744765
+      "conclusion": "success",
+      "run_number": 728
     }
   ],
-  "claim": "CI wiring is present, but no Lens-specific GitHub Actions success is claimed until a workflow run is associated with the current head.",
-  "return": "Keep local 11/11 + static syntax receipts as current evidence; browser/task proof remains separate."
+  "claim": "The clean LensState v0.2 merge head passed all 18 law/round-trip tests in GitHub Actions and then passed the repo-wide public-surface validator.",
+  "return": "CI/static generation sub-gate is closed. Live browser interaction and paired foveation task evidence remain open; no interaction promotion is claimed.",
+  "lens_selftest_ci": "18/18 PASS",
+  "workflow_run": {
+    "id": 35575962447,
+    "run_number": 728,
+    "job_id": 106257782175,
+    "conclusion": "success",
+    "steps": {
+      "lens_state": "success",
+      "public_surface": "success"
+    }
+  }
 }
