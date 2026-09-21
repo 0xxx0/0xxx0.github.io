@@ -111,6 +111,7 @@ function fieldListenProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/?focus=%2Ffold-bloom%2Flisten%2F"></iframe><pre id="probeResult">PENDING</pre><script>
   const target='/fold-bloom/listen/',out=document.getElementById('probeResult'),f=document.getElementById('f'),rec={};let finished=false;
   const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const stage=x=>{if(!finished)out.textContent='PENDING '+x+' '+JSON.stringify(rec)};
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   const waitFor=async(fn,limit=10000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw Error('waitFor timeout')};
   (async()=>{
@@ -488,24 +489,24 @@ function humanPortSpecimenProbeHtml(){
     return {tag,handoff,capture,ret,after,status,beforeFocus,afterFocus:after?.focus?.address||null};
   }
   (async()=>{
-    await portReady();await W().PortObjectStore.clear();W().sessionStorage.clear();W().localStorage.removeItem('human.port.object.receipts.v01');f.src='/port/';await portReady();
+    stage('PORT_READY');await portReady();W().sessionStorage.clear();W().localStorage.removeItem('human.port.object.receipts.v01');f.src='/port/';await portReady();stage('IMAGE_LOAD');
 
     const image=await loadRepoFile('/recovery/sleeper/site-source-2026-09-18/public/confluence-engine.png','confluence-engine.png','image/png');
-    const imageId=image.st.obj.object_id,imageHash=image.st.obj.sha256,imageRt=await intakeRoundTrip('image');
+    stage('IMAGE_ROUTE');const imageId=image.st.obj.object_id,imageHash=image.st.obj.sha256,imageRt=await intakeRoundTrip('image');
     rec.image={media:image.st.obj.media_class,hashExact:imageHash===image.expected,idSame:imageRt.ret.object_id===imageId&&imageRt.after?.obj?.object_id===imageId,provenanceOrigin:imageRt.handoff?.source_object?.provenance?.origin||null,returnState:imageRt.ret.state,status:imageRt.status};
 
-    const json=await loadRepoFile('/control/READFIELD_CONVERGENCE_2026-09-22.json','READFIELD_CONVERGENCE_2026-09-22.json','application/json');
+    stage('JSON_LOAD');const json=await loadRepoFile('/control/READFIELD_CONVERGENCE_2026-09-22.json','READFIELD_CONVERGENCE_2026-09-22.json','application/json');
     const ap=await waitFor(()=>D().querySelector('#projectionMount field-aperture'),8000,'json aperture');
     ap.shadowRoot.getElementById('scaleUp').click();ap.shadowRoot.getElementById('next').click();
     await waitFor(()=>session()?.focus?.address&&session().focus.address!=='$',8000,'json focus');
     D().getElementById('scopeFocus').click();await sleep(100);
     const jsonBefore=session(),jsonFocus=jsonBefore.focus?.address||null,jsonId=jsonBefore.obj.object_id,jsonHash=jsonBefore.obj.sha256;
-    const jsonRt=await intakeRoundTrip('json',jsonFocus);
+    stage('JSON_ROUTE');const jsonRt=await intakeRoundTrip('json',jsonFocus);
     rec.json={media:jsonBefore.obj.media_class,hashExact:jsonHash===json.expected,idSame:jsonRt.ret.object_id===jsonId&&jsonRt.after?.obj?.object_id===jsonId,focusBefore:jsonFocus,focusAfter:jsonRt.afterFocus,focusPreserved:jsonFocus===jsonRt.afterFocus,provenanceOrigin:jsonRt.handoff?.source_object?.provenance?.origin||null,returnState:jsonRt.ret.state,status:jsonRt.status};
 
-    const file=await loadRepoFile('/recovery/axial/compositor-v0.2/print-template.svg','axial-compositor-v0.2-print-template.svg','application/octet-stream');
+    stage('FILE_LOAD');const file=await loadRepoFile('/recovery/axial/compositor-v0.2/print-template.svg','axial-compositor-v0.2-print-template.svg','application/octet-stream');
     const fileId=file.st.obj.object_id,fileHash=file.st.obj.sha256,generic=/GENERIC FILE/.test(D().getElementById('projectionMount')?.textContent||'');
-    const fileRt=await intakeRoundTrip('file');
+    stage('FILE_ROUTE');const fileRt=await intakeRoundTrip('file');
     rec.file={media:file.st.obj.media_class,hashExact:fileHash===file.expected,idSame:fileRt.ret.object_id===fileId&&fileRt.after?.obj?.object_id===fileId,generic,provenanceOrigin:fileRt.handoff?.source_object?.provenance?.origin||null,returnState:fileRt.ret.state,status:fileRt.status};
 
     rec.observation={provenancePreserved:[rec.image.provenanceOrigin,rec.json.provenanceOrigin,rec.file.provenanceOrigin].every(Boolean),jsonFocusPreserved:rec.json.focusPreserved};
