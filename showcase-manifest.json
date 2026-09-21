@@ -16,8 +16,9 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T19:22:00+08:00",
+        "updated_at": "2026-09-21T19:34:00+08:00",
         "work_modes": [
+          "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
@@ -39,14 +40,14 @@
         "LensState v0.2 typed composition over the same AXIAL/LATEST focus",
         "visible lawful/dead next-lens support",
         "NAV / INSPECT / LENS remain distinct operations",
-        "local PLAIN↔FOVEATED Lens proof bench with explicit receipt copy",
-        "visible Lens proof entry in nav, aperture actions, LATEST and MAP",
         "safe local focus→second-click OPEN friction cut",
         "global manifest/receipt/law documents open through addressable DOCS projection; RAW preserved",
         "focus-first object/action dock before selector machinery",
         "one local activation law across AXIAL/LATEST/HEADS/MAP/OPEN PORTS",
         "visible active-reading witness without creating new state",
-        "deep Lens stack → Scale Studio → RETURN identity/provenance path browser-guarded"
+        "deep Lens stack → Scale Studio → RETURN identity/provenance path browser-guarded",
+        "Lens comparator retained as optional parked utility after no clear PLAIN↔FOVEATED human gain",
+        "Focus Ring primary path reduced to RETURN + DEEP LAB; proof machinery no longer competes with ordinary use"
       ],
       "activation_law": "/control/FIELD_ACTIVATION_LAW.json",
       "convergence_return": "/returns/FIELD_INDEX_CONVERGENCE_2026-09-21.json"
@@ -1324,9 +1325,9 @@
       "family": "FOLD // BLOOM",
       "operation": "REPRESENT",
       "state": "STABLE",
-      "version": "RC11.2",
+      "version": "RC11.2 + actualize-1",
       "receipt": "/fold-bloom/lens/release.json",
-      "patch": "g2-interop-1+spatial-donor-1+mobile-importer-wrap-1+field-index-route-handoff-1+lensstate-v02+lawful-stack-support-1+axial-focus-bind-1",
+      "patch": "g2-interop-1+spatial-donor-1+mobile-importer-wrap-1+field-index-route-handoff-1+lensstate-v02+lawful-stack-support-1+axial-focus-bind-1+actualize-1",
       "transfer": [
         "data inspection",
         "provenance-preserving projection",
@@ -1335,7 +1336,10 @@
         "typed LensState v0.2 composition",
         "lawful lens-stack support / dead composition visibility",
         "AXIAL/LATEST shared focus adapter",
-        "FI local proof-bench handoff for LENS-03"
+        "object-first LensState orientation dock",
+        "true caller RETURN from header/dock",
+        "handoff-compact / direct-open-LAB split",
+        "advanced RC11.2 capability retained behind explicit LAB"
       ],
       "contract": {
         "accepts": {
@@ -1423,23 +1427,25 @@
         "physical_fit": "Prepare addressed objects/specs for decision or fabrication; should not actuate directly."
       },
       "index": {
-        "updated_at": "2026-09-21T19:26:20+08:00",
+        "updated_at": "2026-09-21T19:34:00+08:00",
         "work_modes": [
-          "VERIFY"
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
         ]
       },
-      "role": "Stable RC11.2 deep projection workbench plus an experimental portable LensState head: one canonical FIELD/Studio identity, typed ordered composition, lawful next-lens support, explicit dead states and RETURN.",
+      "role": "Stable deep addressed-projection lab behind the portable LensState/Focus Ring grammar. actualize-1 presents OBJECT / APERTURE / VIEW / STACK / RETURN first, keeps advanced RC11.2 machinery behind LAB on handoff, and preserves all parser/provenance/projection/receipt capability.",
       "evolution": {
         "schema": "field-evolution/v0.1",
         "host": "/",
         "generation": 1,
-        "stage": "MECHANICS_PROVED_HUMAN_COMPARATOR_OPEN",
+        "stage": "ACTUALIZE_1_VALIDATION",
         "question": "Can typed LensState + lawful stack support turn FIELD's AXIAL-selected route into a reusable composition instrument without creating a second selection model or losing identity/RETURN?",
         "baseline": "FIELD AXIAL/LATEST exact focus + legacy one-way SCALE LENS handoff; Scale Studio operators exist, but the ordinary surface does not show typed composition support or dead next-lens states.",
-        "mutation": "LensState v0.2 contract support + root Focus Ring bound directly to AXIAL/LATEST focus. Candidate lenses expose support=1 or support=0 with reason; unsupported composition is rejected rather than silently coerced.",
-        "evidence_gate": "Automated browser proof now passes exact mobile RETURN, FIELD activation/re-entry, DIVE/RISE/PEER, supported STACK → Scale Studio identity/upstream-provenance handoff, and Studio ↩ INTAKE. Remaining gate is only paired human PLAIN↔FOVEATED T1/T2/T3 evidence before promoting LENS-03 or making FOVEATE default.",
-        "next_if_pass": "If paired human receipts meet the declared gate, promote FOVEATE as a retained projection/default where useful; keep LensState, Focus Ring activation law and RC11.2 Studio unchanged.",
-        "next_if_fail": "Keep the proved Lens mechanics; leave FOVEATE optional/experimental. Do not park the whole Focus Ring or reopen identity/RETURN architecture."
+        "mutation": "Proved LensState/Focus Ring mechanics retained. Studio hierarchy inverted so the addressed object and return path precede parser/operator/deep-lab machinery; FOVEATE is parked after no clear human gain.",
+        "evidence_gate": "Lens mechanics already pass automated browser proof. FOVEATE promotion is resolved NO CLEAR GAIN / PARKED. Current bounded gate is full static + browser validation of actualize-1 Studio legibility/RETURN changes.",
+        "next_if_pass": "Retain OBJECT/APERTURE/VIEW/STACK/RETURN dock as ordinary Studio entry; keep PLAIN default and FOVEATE parked.",
+        "next_if_fail": "Repair only the failing Studio usability/runtime seam; preserve proved identity/RETURN architecture and keep FOVEATE parked."
       },
       "evolution_receipt": "/control/LENS_EVOLUTION_G1_2026-09-21.json",
       "proof_receipt": "/control/LENS_G1_PROOF_SEAL_2026-09-21.json"
@@ -4712,7 +4718,7 @@
     },
     {
       "href": "/lens-proof/",
-      "title": "LENS PROOF",
+      "title": "LENS COMPARATOR / PARKED",
       "kind": "alias",
       "parent": "/",
       "family": "FIELD / LENS",
@@ -4720,11 +4726,11 @@
       "state": "UTILITY",
       "version": "0.1",
       "receipt": "/control/LENS_FOVEATE_PROOF_2026-09-21.json",
-      "role": "Discoverable utility alias into FIELD INDEX's local PLAIN↔FOVEATED Lens proof bench. Owns no separate canonical state.",
+      "role": "Optional utility alias into FIELD's retained PLAIN↔FOVEATED comparator. Initial direct human use showed no notable/self-evident advantage, so it is not a primary Lens path and owns no canonical state.",
       "transfer": [
-        "REP-01 paired projection proof",
-        "LENS-03 PLAIN↔FOVEATED task evidence",
-        "local explicit receipt copy"
+        "archived REP-01 paired projection comparator",
+        "parked LENS-03 evidence surface",
+        "browser-local explicit receipt copy"
       ],
       "contract": {
         "accepts": {
@@ -4768,10 +4774,9 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-21T17:38:00+08:00",
+        "updated_at": "2026-09-21T19:34:00+08:00",
         "work_modes": [
-          "VERIFY",
-          "OPERATE"
+          "VERIFY"
         ]
       },
       "alias_of": "/?lens_proof=1",

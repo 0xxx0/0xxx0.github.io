@@ -1,18 +1,18 @@
 {
   "schema": "0xxx0/lens-system-contract/v0.1",
   "date": "2026-09-21",
-  "status": "EVOLUTION_G1_TEST_CODE_PASS_BROWSER_PROOF_PENDING",
+  "status": "G1_MECHANICS_PROVED_FOVEATE_PARKED_STUDIO_ACTUALIZATION",
   "purpose": "Make recovered lens/optics capabilities legible and composable across FIELD surfaces without replacing Scale Lens Studio or creating another sovereign application.",
   "current_head": {
     "surface": "/fold-bloom/lens/",
-    "version": "Scale Lens Studio RC11.2",
-    "role": "deep inspection / addressed projection workbench",
+    "version": "Scale Lens Studio RC11.2 + actualize-1",
+    "role": "deep addressed projection lab behind the portable LensState/Focus Ring entry grammar",
     "constraint": "preserve parser, stable identity/address, provenance, receipts, projections and RETURN",
     "portable_layer": {
       "schema": "0xxx0/lens-state/v0.2",
       "host": "FIELD AXIAL/LATEST canonical focus",
       "role": "typed projection/composition law with explicit lawful/dead next-lens support",
-      "deep_lab": "Scale Lens Studio RC11.2 remains stable and authoritative for deep inspection"
+      "deep_lab": "Scale Lens Studio RC11.2 remains the deep inspection lab, now entered through an OBJECT/APERTURE/VIEW/STACK/RETURN dock before advanced machinery."
     }
   },
   "lineage": {
@@ -151,8 +151,8 @@
       "id": "LENS-01",
       "name": "Shared LensState + composition contract",
       "delta": "one schema/adapter usable by Scale Lens, FIELD, Human Port and AXIAL without merging their UIs",
-      "proof": "same object + same ordered view stack serializes/restores identically on at least two surfaces",
-      "state": "IMPLEMENTED_CI_PASS_18_OF_18_BROWSER_ROUNDTRIP_PENDING",
+      "proof": "LensState laws, FIELD activation/re-entry, and FIELD→Studio→FIELD identity/provenance round trip pass on master.",
+      "state": "IMPLEMENTED_PROVED",
       "proof_receipt": "/control/LENS_STATE_SELFTEST_2026-09-21.json"
     },
     {
@@ -160,7 +160,7 @@
       "name": "FOCUS RING aperture HUD",
       "delta": "FIELD AXIAL/LATEST selected route opens one Focus Ring over the same identity; aperture/projection/typed STACK/RETURN remain projections over that canonical focus.",
       "proof": "mobile and desktop: find current identity, change scope, switch projection, RETURN in <=2 interactions per operation; no horizontal overflow",
-      "status": "IMPLEMENTED_PENDING_BROWSER_PROOF",
+      "status": "PROVED",
       "implementation": {
         "route_adapter": "/showcase-nav.js",
         "shared_state": "/lens-state.js",
@@ -173,22 +173,15 @@
           "controls remain square, visible, non-hover-essential and mobile-width bounded"
         ]
       },
-      "remaining_proof": [
-        "phone: no horizontal overflow",
-        "desktop: same state/readout",
-        "scope change <=2 interactions",
-        "projection change <=2 interactions",
-        "RETURN restores invoking route",
-        "shared object identity survives generic-route → Studio handoff in actual browser runtime"
-      ],
-      "state": "EVOLUTION_G1_CODE_PASS_BROWSER_SMOKE_PENDING"
+      "remaining_proof": [],
+      "state": "IMPLEMENTED_PROVED_PRIMARY_APERTURE"
     },
     {
       "id": "LENS-03",
       "name": "Foveated FIELD proof",
       "delta": "one existing FIELD/graph surface renders FOVEA/PARA/PERIPHERY while preserving stable identity",
-      "proof": "paired plain baseline test for locate/context/return; promote only if it reduces steps/errors or improves context without harming orientation",
-      "state": "PROOF_BENCH_IMPLEMENTED_HUMAN_RUNS_REQUIRED",
+      "proof": "Initial direct human PLAIN↔FOVEATED use produced no notable or self-evident advantage; withhold promotion.",
+      "state": "PARKED_NO_CLEAR_GAIN",
       "implementation": {
         "runtime": "/lens-proof.js",
         "entry": [
@@ -196,15 +189,15 @@
           "/?lens_proof=1"
         ],
         "storage": "browser-local until explicit COPY"
-      }
+      },
+      "decision": "PLAIN default; FOVEATE optional parked donor/comparator."
     }
   ],
   "gaps": [
-    "LensState v0.2 exists and passes CI on the draft convergence branch but is not yet promoted to master.",
-    "live phone/desktop interaction proof is still required for AXIAL focus → Lens stack → Studio → RETURN.",
+    "Studio actualize-1 is a usability hierarchy change, not new Lens architecture: dock first, LAB depth second, true caller RETURN.",
+    "Exact historical red-dot RSVP/radial Focus Ring implementation remains unrecovered; current Focus Ring is a lawful reconstruction, not a claimed replica.",
     "compound stacks are typed and inspectable, but named persisted compound-lens presets are not yet promoted.",
     "exact old red-dot RSVP/radial Focus Ring implementation is still unrecovered; historical temporal/radial/aperture donors are now recovered separately",
-    "no cross-surface task benchmark has yet earned promotion of fisheye/foveation over plain baseline",
     "RC11.3 portrait/toolglass branch remains separate/unfinished",
     "SeeThings remains an unresolved retrieval anchor rather than a mechanism"
   ],
@@ -216,9 +209,9 @@
     "do not delete deep Scale Studio capability"
   ],
   "return": {
-    "next": "Run the bounded browser proof for evolution generation 1. If identity/RETURN and mobile layout pass, SELECT TRANSFER; otherwise PARK/REPEAT with one mutation.",
-    "current_grammar": "AXIAL selects → INSPECT reads → LENS reframes/composes → OPEN navigates → RETURN restores.",
-    "test_anchor": "Issue #10 remains the cross-projection/foveation comparator; Issue #35 remains the Scale Lens convergence front.",
+    "next": "Validate actualize-1 in the full browser suite, then use the Lens normally. Reopen FOVEATE only for a concrete task deficiency.",
+    "current_grammar": "FIELD focuses object → LENS changes aperture/view/stack → DEEP LAB inspects → RETURN restores caller.",
+    "test_anchor": "Automated mechanics are sealed by /control/LENS_G1_PROOF_SEAL_2026-09-21.json; LENS-03 is parked by /control/LENS_FOVEATE_PROOF_2026-09-21.json.",
     "code_contract_receipt": "/control/LENS_EVOLUTION_G1_2026-09-21.json"
   },
   "execution": {

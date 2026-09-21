@@ -3,6 +3,8 @@ const L=()=>window.LensState,H=()=>window.FieldLensHost;
 let foveate=false;
 const FIELD_FOVEATE={
   lensId:'field-foveate',lensVersion:'0.2',kind:'VIEW_LENS',
+  status:'PARKED_NO_CLEAR_GAIN',
+  note:'Initial human PLAIN↔FOVEATED trial produced no notable or self-evident task advantage; retain as optional donor, not primary Lens path.',
   params:{bands:['FOVEA','PARA','PERIPHERY']},
   inputContract:'field-route/v0.1',outputContract:'field-route/v0.1',
   preserves:['objectId','focusId','route-position'],hides:['periphery-subdetail'],
