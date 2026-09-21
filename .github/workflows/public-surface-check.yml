@@ -23,6 +23,10 @@ jobs:
         run: node control/constraint-surface-selftest.js
       - name: Validate route grammar
         run: node tools/audit-route-grammar.mjs
+      - name: Validate ingest context locator
+        run: |
+          python3 -m py_compile scripts/locate-ingest-context.py
+          python3 control/ingest-context-locator-selftest.py
       - name: Validate static surface contracts
         run: node tools/validate-public.mjs
       - name: Run critical browser smoke
