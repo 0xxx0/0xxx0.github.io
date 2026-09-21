@@ -42,7 +42,7 @@ async function start(){
   .actions{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:#29343a}.actions button,.family{border:0;background:#0f1317;color:#eef1ed;padding:10px 7px;font:800 9px ui-monospace,monospace;cursor:pointer;text-decoration:none;text-align:center}.actions button:hover,.actions button:focus,.family:hover{background:#172027;outline:none}
   .foot{padding:8px 10px;color:#69757c;font-size:8px;border-top:1px solid #29343a}.family{display:block;border-top:1px solid #29343a;text-align:left;color:#9ba6ac}.meta{display:flex;border-top:1px solid #29343a}.meta a{flex:1;padding:7px 8px;color:#7f8b92;text-decoration:none;font-size:8px;text-align:center}.meta a+a{border-left:1px solid #29343a}.meta a:hover{color:#eef1ed}
   </style>
-  <button class="tab" aria-label="Open showcase navigation" title="Showcase navigation">↖</button>
+  <button class="tab" aria-label="Open focus ring" title="Focus Ring / route navigation">◎</button>
   <nav class="panel" aria-label="Showcase route">
     <div class="head"><span class="state ${String(route.state||'').toLowerCase()}">${route.state||route.kind.toUpperCase()}</span><div class="ey">${route.operation||route.family||'PUBLIC ROUTE'}</div><div class="title">${route.title}</div></div>
     <div class="actions"><button data-a="back" title="Previous showcase route; does not undo artifact state">← BACK</button><button data-a="up" title="Declared hierarchy parent">↑ PARENT</button><button data-a="home">⌂ SHOWCASE</button></div>
@@ -51,9 +51,55 @@ async function start(){
     <div class="foot">BACK = prior showcase route, never UNDO · ALT+↑ parent · ALT+HOME showcase · ESC close</div>
   </nav>`;
   document.documentElement.appendChild(host);
+  if(!window.LensState&&!document.querySelector('script[data-lens-state-runtime]')){
+    const s=document.createElement('script');s.src='/lens-state.js';s.defer=true;s.dataset.lensStateRuntime='1';
+    s.onload=()=>{try{renderLens()}catch(_){}};document.head.appendChild(s);
+  }
   const tab=sh.querySelector('.tab'),panel=sh.querySelector('.panel');
   const close=()=>panel.classList.remove('on');
-  tab.onclick=()=>panel.classList.toggle('on');
+  const lens=q=>sh.querySelector('[data-l="'+q+'"]');
+  let lensState=null,projectionIndex=0;
+  const short=x=>{x=String(x??'—');return x.length>42?x.slice(0,18)+'…'+x.slice(-18):x};
+  const api=()=>window.ScaleLensSpatialAPI||null;
+  const routeLensState=()=>window.LensState?window.LensState.fromFieldRoute({...route,schema:'field-route/v0.1'},{returnAddress:route.href||p}):null;
+  const currentLensState=()=>{
+    const a=api();
+    if(a?.lensState){try{return a.lensState()}catch(_){}}
+    return routeLensState()||lensState;
+  };
+  const renderLens=()=>{
+    const a=api(),s=currentLensState();
+    if(s)lensState=s;
+    lens('mode').textContent=a?'LIVE':'ROUTE';
+    lens('object').textContent=short(s?.objectId||route.id||route.href||p);
+    lens('aperture').textContent=short(s?.aperture?.level??route.kind??'surface');
+    lens('view').textContent=short(s?.projection||route.operation||route.family||'SOURCE');
+    lens('stack').textContent=s?.lensStack?.length?String(s.lensStack.length)+' · '+s.lensStack.map(x=>x.lensId).join(' → '):'0 · plain baseline';
+    lens('out').disabled=!a?.aperture;
+    lens('in').disabled=!a?.aperture;
+    lens('projection').disabled=!a?.project;
+  };
+  const openStudio=()=>{
+    const s=currentLensState()||routeLensState();
+    const body=(document.body?.innerText||document.title||route.title||'').slice(0,120000);
+    try{
+      if(window.LensState&&s)window.LensState.storeHandoff(s,{title:route.title||document.title,sourceUrl:location.href,text:body},sessionStorage);
+      sessionStorage.setItem('scale.lens.handoff.v01',JSON.stringify({text:body,label:route.title||'route',returnAddress:route.href||p,at:new Date().toISOString()}));
+    }catch(_){}
+    go('/fold-bloom/lens/');
+  };
+  lens('out').onclick=()=>{api()?.aperture?.(+1);renderLens()};
+  lens('in').onclick=()=>{api()?.aperture?.(-1);renderLens()};
+  lens('projection').onclick=()=>{
+    const a=api(),ps=a?.projections?.()||[];
+    if(!ps.length)return;
+    const now=currentLensState()?.projection,ix=Math.max(0,ps.indexOf(now));
+    projectionIndex=(ix+1)%ps.length;a.project(ps[projectionIndex]);renderLens();
+  };
+  lens('studio').onclick=openStudio;
+  lens('stackBtn').onclick=()=>{const s=currentLensState();lens('stack').textContent=s?.lensStack?.length?s.lensStack.map((x,i)=>String(i+1)+':'+x.lensId).join(' → '):'0 · plain baseline'};
+  lens('return').onclick=()=>{const a=api();if(a?.return)a.return();else back()};
+  tab.onclick=()=>{panel.classList.toggle('on');if(panel.classList.contains('on'))renderLens()};
   sh.querySelector('[data-a="back"]').onclick=back;
   sh.querySelector('[data-a="up"]').onclick=()=>go(parent);
   sh.querySelector('[data-a="home"]').onclick=()=>go(ROOT);
