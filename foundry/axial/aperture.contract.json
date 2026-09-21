@@ -1,9 +1,9 @@
 {
-  "schema": "0xxx0/axial-aperture-contract/v0.1",
+  "schema": "0xxx0/axial-focus-stack-contract/v0.2",
   "updated": "2026-09-21",
-  "status": "CURRENT_SYNTHESIS_PROOF_REQUIRED",
+  "status": "CURRENT_SOFTWARE_HEAD_PROOF_REQUIRED",
   "route": "/foundry/axial/",
-  "proposition": "A cylindrical interface is useful when physical topology makes computational address, transform, visibility and authority directly readable rather than merely decorative.",
+  "proposition": "Independent cyclic indices with unequal cardinalities can share one focus spine: alignment forms an address/filter, an aperture reveals matching identities, and the same state may be projected as ring or strip without changing source identity.",
   "layers": {
     "SPEC": "lawful mapping; no embodiment claim",
     "LAB": "browser correspondence model at /foundry/axial/",
@@ -54,22 +54,14 @@
     "Blade Runner / Memory-Orb association is a user-recognized visual/mechanical analogue; no recovered evidence establishes it as the historical source of the cylinder lineage."
   ],
   "body_mapping": {
-    "semantic": [
-      "OBJECT ring",
-      "OPERATOR ring",
-      "FRAME ring"
-    ],
-    "continuous": {
-      "theta": "twist ±180°",
-      "z": "axial slide 0–60 mm"
-    },
-    "aperture": "outer sleeve/window reveals bounded addressed state; APERTURE changes window size/offset, never object identity",
-    "reference": "fixed spine/index line makes state readable without software",
-    "authority": [
-      "SAFE",
-      "TEST",
-      "ARM",
-      "RUN"
+    "status": "DEFERRED_UNTIL_SOFTWARE_UTILITY",
+    "rule": "A physical body may extrude the proven ring stack later; its ring counts must come from a useful schema rather than a fixed four-state demo.",
+    "retained": [
+      "independent rings",
+      "fixed reference spine",
+      "detents/snap",
+      "optional sleeve/aperture",
+      "readback without software"
     ]
   },
   "projection_laws": {
@@ -103,17 +95,41 @@
     "Physical promotion requires state readback without software."
   ],
   "first_physical_return": {
-    "prerequisite": "Use the already recovered one-MODE-ring diagnostic packet before fabricating the whole body.",
-    "then": "Add one opaque sliding/rotating sleeve with a literal window over a printed state field; keep it passive.",
-    "question": "Can a person inspect, save, disturb, and restore an addressed state from the object itself without software?",
+    "prerequisite": "Use the software FOCUS STACK on real FIELD/HOUSE navigation first and identify a ring composition worth carrying physically.",
+    "then": "Build only that composition as a passive indexed body; choose diameter/travel from ergonomics and material, not from the old 50 mm fixture default.",
+    "question": "Does the physical projection preserve the same address/readback advantage after the screen is removed?",
     "evidence": [
-      "target state before disturbance",
-      "restored ring/window address",
+      "software address before build",
+      "physical ring cardinalities",
+      "target focus",
+      "restored focus",
       "readback error",
       "restore time",
-      "photo of fixed index/window",
-      "residue/ambiguity"
+      "ambiguity/residue"
     ],
-    "no_claim": "No sensing, haptics, model-fit or low-translation advantage is established until measured."
+    "no_claim": "The cylinder is optional. AXIAL survives if the focus-stack grammar is useful and the cylindrical embodiment is not."
+  },
+  "software_head": {
+    "name": "AXIAL / FOCUS STACK 0.6",
+    "primary_source": "/showcase-manifest.json",
+    "secondary_source": "/house/spatial/model.json",
+    "projections": [
+      "RING",
+      "STRIP"
+    ],
+    "interaction": "drag annulus / release-to-snap; wheel or keyboard notch; click result to align exact source facets",
+    "authority": "navigation/readback only; no public HOUSE actuation"
+  },
+  "ring_law": [
+    "Rings are independent cyclic vocabularies; equal cardinality is never assumed.",
+    "A fixed focus spine reads exactly one token per ring.",
+    "The aligned tuple is a query/address over a named source, not a claim that the vocabularies are naturally equivalent.",
+    "RING and STRIP are lawful projections of the same selected indices.",
+    "ANY widens one dimension without erasing the other selected dimensions.",
+    "BACK navigates session state; RETURN records a focus receipt; neither is silently treated as the other."
+  ],
+  "source_adapters": {
+    "FIELD": "FAMILY × KIND × OPERATION × STATE × ROLE over /showcase-manifest.json",
+    "HOUSE": "ROOM × TYPE × CONFIDENCE × ENTITY over /house/spatial/model.json; public model only"
   }
 }
