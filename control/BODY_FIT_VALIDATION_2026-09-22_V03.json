@@ -1,0 +1,35 @@
+{
+  "schema": "0xxx0/body-fit-validation/v0.3",
+  "at": "2026-09-22T01:37:00+08:00",
+  "artifact": "/body/fit/",
+  "result": "PASS_STATIC_CONTRACT",
+  "checks": {
+    "javascript_syntax": "PASS",
+    "network_submission": false,
+    "local_storage_key": "0xxx0.body.fit.v01",
+    "loadout_kits": true,
+    "loose_prep_items": true,
+    "revision_aware_prep": true,
+    "active_session_persistence": true,
+    "incomplete_prep_not_blocking": true,
+    "return_mark": true,
+    "next_cut": true,
+    "explicit_body_attach": "0xxx0.body.field.latest.v01 only by ATTACH LATEST BODY",
+    "patina": "derived from RETURN receipts; no streak/decay/score",
+    "history_includes_return": true,
+    "backward_compat": "returns[] and active_session default on old state import",
+    "authority_boundaries": [
+      "BODY",
+      "CARE",
+      "HOUSE",
+      "HUMAN PORT remain separate"
+    ]
+  },
+  "open_questions": [
+    "ordinary-use proof: same kit twice with one NEXT CUT between returns",
+    "whether loose-item checklist is enough before adding actual cargo position/weight for non-fitted objects",
+    "whether CARE performed-actions deserve a compatible patina projection after BODY / FIT proves useful",
+    "whether PATINA marks should eventually bind body addresses spatially or remain a separate return field"
+  ],
+  "research": "/control/research/BODY_FIT_RETURN_PATINA_2026-09-22.md"
+}
