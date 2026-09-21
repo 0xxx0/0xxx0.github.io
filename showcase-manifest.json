@@ -1629,13 +1629,23 @@
         "physical_fit": "Digital correspondence model for a passive ring + twist/slide + aperture cylinder; physical readback/restore comparison remains required."
       },
       "index": {
-        "updated_at": "2026-09-21T01:12:00+08:00",
+        "updated_at": "2026-09-21T14:21:00+08:00",
         "work_modes": [
-          "RECOVER",
           "SPECIFY",
-          "IMPLEMENT",
           "VERIFY"
         ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/foundry/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can semantic address × theta/z motion × bounded aperture × explicit transaction gating reconstruct consequential change with less translation overhead than plain controls?",
+        "baseline": "Plain digital controls + narrative interpretation; no physical correspondence claim.",
+        "mutation": "STATE APERTURE 0.5.1 transaction/gesture model over the existing AXIAL lineage.",
+        "evidence_gate": "Interpret the declared 10-trial digital harness, then complete one physical nested-tube comparison with before/gesture/after + error/residue receipts.",
+        "next_if_pass": "TRANSFER the surviving transaction/aperture mechanism into the Foundry physical-control substrate; retain AXIAL as evidence fixture rather than spawning a new core.",
+        "next_if_fail": "PARK the physical-control claim; preserve packet/ledger mechanisms as DONOR evidence."
       }
     },
     {
@@ -1993,11 +2003,23 @@
         "physical_fit": "Attention-allocation experiment; not a physical actuator."
       },
       "index": {
-        "updated_at": "2026-09-20T23:58:00+08:00",
+        "updated_at": "2026-09-21T14:21:00+08:00",
         "work_modes": [
-          "VERIFY",
-          "OPERATE"
+          "SPECIFY",
+          "VERIFY"
         ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/control/",
+        "generation": 1,
+        "stage": "HOLD",
+        "question": "Does direct simplex allocation expose a useful three-way tradeoff that a plain two-control representation misses?",
+        "baseline": "Plain two-control attention allocation.",
+        "mutation": "Direct EXPLOIT / EXPLORE / PROVE simplex manipulation.",
+        "evidence_gate": "Reopen only on a named control/AXIAL comparison need; then collect six human calibration trials plus one real decision receipt.",
+        "next_if_pass": "TRANSFER the useful allocation gesture or comparator into CURRENT/selection tooling.",
+        "next_if_fail": "COMPOST as negative evidence; keep the fixture recoverable."
       }
     },
     {
@@ -2568,13 +2590,23 @@
         "physical_fit": "Orientation layer only; physical truth remains reality-gated through House/workshop evidence and RETURN."
       },
       "index": {
-        "updated_at": "2026-09-21T00:19:00+08:00",
+        "updated_at": "2026-09-21T14:21:00+08:00",
         "work_modes": [
-          "INVESTIGATE",
-          "RESEARCH",
           "SPECIFY",
           "VERIFY"
         ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/foundry/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Does the slow center/laws/convergences layer improve cross-lineage reconstruction and orientation without erasing unequal mechanisms?",
+        "baseline": "Live heads/fronts + donor corpus without a slow canonical projection.",
+        "mutation": "Criterion-aware REAL CENTER / canonical-candidate projection over durable lineage evidence.",
+        "evidence_gate": "Use it on one cross-lineage reconstruction/transfer decision; require a fresh process to reproduce the selected mechanism and preserve contradictions/provenance.",
+        "next_if_pass": "TRANSFER the surviving orientation law into Foundry's stable control grammar.",
+        "next_if_fail": "Keep as CANDIDATE or DONOR; do not canonize its convergence names."
       }
     },
     {
@@ -3546,11 +3578,23 @@
         "physical_fit": "May inform House routing/spatial/procurement tests; no method receives authority without a real RETURN."
       },
       "index": {
-        "updated_at": "2026-09-21T02:21:00+08:00",
+        "updated_at": "2026-09-21T14:21:00+08:00",
         "work_modes": [
-          "VERIFY",
-          "OPERATE"
+          "SPECIFY",
+          "VERIFY"
         ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/foundry/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can external mathematical/design/security methods change a real local decision when admitted by invariant matching rather than visual analogy?",
+        "baseline": "Local mechanism reasoning without the external method.",
+        "mutation": "Invariant → attributed method → bounded consequence test → RETURN.",
+        "evidence_gate": "Complete one bounded transfer test from methods.json where the external method changes a decision and the changed consequence can be checked.",
+        "next_if_pass": "TRANSFER only the proven method/operator into its named recipient with attribution.",
+        "next_if_fail": "COMPOST the analogy; retain it as negative knowledge rather than local canon."
       }
     },
     {
@@ -3879,10 +3923,29 @@
       "parent": "/forward-field-proof/triangle/",
       "family": "FIELD / PROOF",
       "operation": "REPRESENT",
-      "state": "EXPERIMENT",
+      "state": "CANDIDATE",
       "version": "0.1",
       "receipt": "/forward-field-proof/triangle/glyph/release.json",
-      "showcase_card": false
+      "showcase_card": false,
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/foundry/axial/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can the eight-locus triangle encode entity/relation/context state compactly while remaining reconstructable without explanatory prose?",
+        "baseline": "Plain labeled state packet / text representation.",
+        "mutation": "Three vertices + three edges + interior + outside/context with independent MARK/UNKNOWN state.",
+        "evidence_gate": "Encode one real MESSAGE, RETURN, POWER or FIELD object in both plain and glyph form; a fresh reader must recover the same relations/context from the glyph packet.",
+        "next_if_pass": "TRANSFER the representation primitive into AXIAL/FORM or another named recipient that needs compact relational state.",
+        "next_if_fail": "PARK compact notation; preserve the glyph lab as a bounded representation donor."
+      },
+      "index": {
+        "updated_at": "2026-09-21T14:21:00+08:00",
+        "work_modes": [
+          "SPECIFY",
+          "VERIFY"
+        ]
+      }
     },
     {
       "href": "/poetry/",
@@ -3891,7 +3954,7 @@
       "parent": "/",
       "family": "PATH / POETRY",
       "operation": "COMPOSE",
-      "state": "ACTIVE_REORIENTATION",
+      "state": "ACTIVE",
       "showcase_card": true,
       "role": "Language/form-neutral co-creative poetry re-entry: select material, expand candidate possibility, apply explicit constraints, bank/adopt/reject choices, then project/play/study through specialized engines. Jueju is one adapter, not the product identity.",
       "contract": {
@@ -3948,14 +4011,10 @@
         "explicit donor lineage"
       ],
       "index": {
-        "updated_at": "2026-09-21T13:30:00+08:00",
+        "updated_at": "2026-09-21T14:21:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "RESEARCH",
           "SPECIFY",
-          "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
+          "VERIFY"
         ]
       }
     },
@@ -3966,10 +4025,29 @@
       "parent": "/forward-field-proof/triangle/glyph/",
       "family": "FIELD / PROOF",
       "operation": "ROUTE",
-      "state": "EXPERIMENT",
+      "state": "PROOF_REQUIRED",
       "version": "0.1",
       "receipt": "/forward-field-proof/triangle/glyph/center/release.json",
-      "showcase_card": false
+      "showcase_card": false,
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/control/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Does a movable three-axis desired-intent vector improve selection among many fronts compared with the ordinary CURRENT/list reading?",
+        "baseline": "CURRENT fronts + plain list/metadata selection.",
+        "mutation": "Project fronts into an explicit simplex lens and compare their positions to a movable desired-intent vector; optionally inspect the centroid of up to three pins.",
+        "evidence_gate": "Use one actual replan plus at least two replayable comparison decisions; record whether the lens changed a choice or exposed a tradeoff that the plain reading did not.",
+        "next_if_pass": "TRANSFER only the selection lens into CURRENT/FIELD as an optional projection; keep CURRENT as authority.",
+        "next_if_fail": "PARK the center-mass selector and retain the geometry as a donor/comparator."
+      },
+      "index": {
+        "updated_at": "2026-09-21T14:21:00+08:00",
+        "work_modes": [
+          "SPECIFY",
+          "VERIFY"
+        ]
+      }
     },
     {
       "href": "/poetry/lab/",
@@ -3999,18 +4077,28 @@
       "parent": "/poetry/lab/",
       "family": "PATH / POETRY",
       "operation": "PROJECT",
-      "state": "EXPERIMENT",
+      "state": "PROOF_REQUIRED",
       "showcase_card": false,
       "role": "Selective poetry information-visualization probe: stable readable poem, one question/lens at a time, click-to-focus, static line comparison, explicit weak-control claims.",
       "receipt": "browser export: poem-map-return.json",
       "index": {
-        "updated_at": "2026-09-21T13:30:00+08:00",
+        "updated_at": "2026-09-21T14:21:00+08:00",
         "work_modes": [
-          "RESEARCH",
-          "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
+          "SPECIFY",
+          "VERIFY"
         ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/poetry/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can one-question-at-a-time visualization produce a concrete authoring decision without obscuring the readable poem?",
+        "baseline": "Readable plain poem with no analytical overlay.",
+        "mutation": "Selective SOURCE / REPEAT / ORTHO ECHO / STRUCTURE / LINE PROFILE lens with click-to-focus and explicit weak-claim boundaries.",
+        "evidence_gate": "Run one real co-creative poem session; preserve source + lens + focus + before/after authoring choice in RETURN. Pass only if the map causes or clarifies a specific line-level decision while the plain text remains primary.",
+        "next_if_pass": "TRANSFER the useful lens into the canonical /poetry/ authoring flow as an optional projection.",
+        "next_if_fail": "COMPOST or DONOR the visualization; do not expand into a dashboard of poetic metrics."
       }
     }
   ],
