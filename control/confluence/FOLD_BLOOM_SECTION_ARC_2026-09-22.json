@@ -1,0 +1,76 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_SECTION_ARC_2026-09-22",
+  "date": "2026-09-22",
+  "object": "FOLD//BLOOM LIVE 0.3 / custom MP3 → section-shaped play",
+  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "observed_exactly_recovered": [
+    "User reports same-page MP3 path was used successfully.",
+    "User reports different detected sections 'sorta work'—not perfect, but perceptible/useful enough to continue.",
+    "User reports Suno link remains blocked."
+  ],
+  "reconstructed": [
+    "The prior pass solved source intake and topology legibility, but section information was still mostly telemetry.",
+    "Cross-origin Suno failure should be treated as a source-adapter boundary, not as a reason to stall gameplay."
+  ],
+  "implemented": [
+    "LIVE schema/version advances 0.2 → 0.3 while restoring 0.1/0.2 snapshots.",
+    "SECTION ARC is ephemeral performance state layered over persistent topology.",
+    "A section arc becomes READY after 2 successful CALLs using at least 2 distinct topology verbs.",
+    "At sectionProgress >= 0.72, a RETURN aperture opens.",
+    "A ready arc seals when the player performs direct RETURN or a charged cadence containing RETURN.",
+    "Seal awards a bounded FLOW bonus; no seal is required and no miss penalty exists.",
+    "Outer progress ring exposes section progress and late RETURN aperture; sealed arcs receive a distinct witness.",
+    "Same-page and FIELD PULSE transport expose sectionCount, sectionStart, sectionEnd and sectionProgress.",
+    "LIVE RETURN export includes sectionArc performance state.",
+    "LISTEN stores last remote failure and explicitly distinguishes Suno/browser-CORS block from local decode failure."
+  ],
+  "laws": [
+    "LOCAL MP3 IS THE PROVEN PHONE AUTHORITY PATH.",
+    "REMOTE/SUNO IS BEST-EFFORT CONVENIENCE, NOT A GAMEPLAY DEPENDENCY.",
+    "SECTION ESTIMATE = TEMPORAL APERTURE, NOT SEMANTIC TRUTH.",
+    "BORROWED CLOCK/FORM != BORROWED AUTHORSHIP.",
+    "NO PENALTY FOR A BAD SECTION BOUNDARY.",
+    "SECTION CLOSE MAY REWARD A RETURN BUT NEVER BLOCK ANOTHER AUTHORED MOVE."
+  ],
+  "successor_notes": {
+    "keep": [
+      "Reuse LISTEN analysis-core/preview-map/analysis-worker rather than fork a second MIR stack.",
+      "Keep PREVIEW immediate and allow DEEP refinement later.",
+      "Keep topology forecasts visible before commitment.",
+      "Keep source failures explicit and typed."
+    ],
+    "do_not_repeat": [
+      "Do not spend gameplay iterations trying to bypass Suno CORS/auth/browser restrictions.",
+      "Do not turn detected sections into forced verse/chorus semantic labels.",
+      "Do not make CALL streaks or section seals punitive.",
+      "Do not make external audio choose BLOOM/FOLD/SPLIT/RETURN."
+    ],
+    "next_evidence": [
+      "Real MP3 on phone with >=2 detected sections.",
+      "Whether ARC readiness is understood without reading docs.",
+      "Whether late RETURN closure feels musical rather than arbitrary.",
+      "Whether section boundaries are stable enough to shape play.",
+      "Whether player wants another section after sealing one."
+    ]
+  },
+  "changed": [
+    "/fold-bloom/live/section-arc.js",
+    "/fold-bloom/live/tests/section-arc.test.mjs",
+    "/fold-bloom/live/track.js",
+    "/fold-bloom/live/app.js",
+    "/fold-bloom/live/render.js",
+    "/fold-bloom/live/index.html",
+    "/fold-bloom/live/app.css",
+    "/fold-bloom/live/engine.js",
+    "/fold-bloom/listen/app.js",
+    "/fold-bloom/live/tests/track.test.mjs",
+    "/fold-bloom/live/EXECUTION.md",
+    "/fold-bloom/live/release.json",
+    "/.github/workflows/public-surface-check.yml",
+    "/tools/browser-smoke.mjs"
+  ],
+  "stop": "Do not add more source providers, semantic section classifiers, rhythm-game exporters or deeper cross-app coupling before direct phone evidence on SECTION ARC.",
+  "pr": null,
+  "return": "/returns/FOLD_BLOOM_SECTION_ARC_2026-09-22.json"
+}
