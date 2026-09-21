@@ -1,0 +1,103 @@
+{
+  "schema": "field-pulse/v0.1",
+  "status": "CANDIDATE_SHARED_RUNTIME",
+  "date": "2026-09-22",
+  "purpose": "Carry bounded temporal/performance context between same-origin FIELD instruments without creating a new canonical state authority.",
+  "authority": "NONE",
+  "transport": {
+    "primary": "BroadcastChannel(field-pulse-v0)",
+    "same_context": "field-pulse-local CustomEvent",
+    "fallback_snapshot": "sessionStorage field.pulse.last.v0",
+    "scope": "same origin / browser session",
+    "rule": "Absence or failure of pulse transport never blocks an instrument's local operation."
+  },
+  "envelope": {
+    "required": [
+      "schema",
+      "source",
+      "instance",
+      "kind",
+      "seq",
+      "wall",
+      "at",
+      "data"
+    ],
+    "kinds": {
+      "transport": "compact playback clock/features only; never audio bytes or full AUDIO MAP",
+      "operation": "bounded authored/performed operation such as BLOOM/FOLD/SPLIT/RETURN",
+      "focus": "bounded addressed reader focus and pace"
+    }
+  },
+  "current_bindings": [
+    {
+      "producer": "FOLD//BLOOM LISTEN 0.2.2",
+      "kind": "transport",
+      "data": [
+        "playing",
+        "time",
+        "duration",
+        "bpm",
+        "tempoConfidence",
+        "beatIndex",
+        "sectionIndex",
+        "scope",
+        "scopeStart",
+        "scopeEnd",
+        "energy",
+        "flux",
+        "brightness",
+        "stage",
+        "sourceHash",
+        "sourceKind",
+        "sourceAddress"
+      ]
+    },
+    {
+      "consumer": "FOLD//BLOOM LIVE 0.1",
+      "from": "LISTEN transport",
+      "effect": "beat pulse + compact TRACK witness only; no automatic musical authority"
+    },
+    {
+      "producer": "FOLD//BLOOM LIVE 0.1",
+      "kind": "operation",
+      "data": [
+        "operation",
+        "cadence",
+        "operations",
+        "slot",
+        "type",
+        "chain",
+        "charge",
+        "power",
+        "scene",
+        "trackTime",
+        "trackBeat"
+      ]
+    },
+    {
+      "producer_consumer": "READFIELD / RSVP 0.7",
+      "from": "LISTEN transport",
+      "effect": "explicit PULSE OFF/×2/×4/×8 maps BPM to WPM; reader focus publishes compact focus events"
+    }
+  ],
+  "laws": [
+    "pulse context != canonical object authority",
+    "source hash/address may witness provenance; pulse never carries audio bytes",
+    "consumer behavior must be explicit or visibly optional",
+    "no hidden cross-app mutation",
+    "RETURN/export remains the durable evidence boundary"
+  ],
+  "external_media_boundary": {
+    "suno": "Share links are valid addresses; LISTEN may best-effort resolve public audio or accept a downloaded local file.",
+    "local_audio": "Canonical analyzable source for LISTEN; decoded in-browser.",
+    "youtube": "Candidate playback/link adapter; do not pretend iframe media exposes raw audio analysis.",
+    "spotify": "Publishing/listening target only for this visual synchronization path; do not synchronize Spotify recordings to FIELD visuals via Spotify developer tooling.",
+    "self_hosted": "Same-origin owned audio is a lawful future source when licensing/storage are explicit."
+  },
+  "next_adapters": [
+    "Beat/event tape exporter for rhythm-game tooling",
+    "Audiosurf 2 local-audio + optional FIELD skin/mod donor",
+    "Beat Saber draft beatmap/event exporter from AUDIO MAP + authored FIELD operations"
+  ],
+  "stop_condition": "Do not add another bridge/hub. First verify phone scope behavior, LISTEN→LIVE pulse witness, and READFIELD pulse pace with real audio."
+}
