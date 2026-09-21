@@ -1,4 +1,5 @@
 (()=>{'use strict';
+const F=globalThis.TriangleFormCore;if(!F)throw new Error('TriangleFormCore missing');
 const K='triangle-unified-v1';
 const IDS=['A','B','C','AB','BC','CA','I','O'];
 const TYPES={A:'VERTEX / ENTITY',B:'VERTEX / ENTITY',C:'VERTEX / ENTITY',AB:'EDGE / RELATION',BC:'EDGE / RELATION',CA:'EDGE / RELATION',I:'INTERIOR / COMPOSITION',O:'OUTSIDE / CONTEXT'};
@@ -40,30 +41,15 @@ const pathKey=p=>p.join('.');
 function getMark(root,path){let region=root,mark=null;for(const idx of path){mark=region[idx];if(!mark)return null;region=mark.children}return mark}
 function regionAt(root,path){let region=root;for(const idx of path){const m=region[idx];if(!m)return null;region=m.children}return region}
 function parentRegion(root,path){return path.length<=1?root:getMark(root,path.slice(0,-1)).children}
-const serializeRegion=region=>region.map(m=>'('+serializeRegion(m.children)+')').join('');
-function findRedexes(region,base=[],depth=0,out=[]){
-  region.forEach((m,i)=>findRedexes(m.children,base.concat(i),depth+1,out));
-  for(let i=0;i<region.length-1;i++)if(region[i].children.length===0&&region[i+1].children.length===0)out.push({kind:'CALL',path:base.slice(),index:i,depth});
-  region.forEach((m,i)=>{if(m.children.length===1&&m.children[0].children.length===0)out.push({kind:'CROSS',path:base.slice(),index:i,depth})});
-  return out;
-}
-function redexes(root=formRoot()){return findRedexes(root).sort((a,b)=>b.depth-a.depth||(a.kind===b.kind?0:(a.kind==='CALL'?-1:1))||a.index-b.index)}
+const serializeRegion=F.serialize;
+function redexes(root=formRoot()){return F.redexes(root)}
 function applyRedex(r,root=formRoot(),record=true){
-  const region=regionAt(root,r.path);if(!region)return false;const before=serializeRegion(root);
-  if(r.kind==='CALL'){
-    if(!region[r.index]||!region[r.index+1]||region[r.index].children.length||region[r.index+1].children.length)return false;
-    region.splice(r.index+1,1);
-  }else{
-    const m=region[r.index];if(!m||m.children.length!==1||m.children[0].children.length!==0)return false;
-    region.splice(r.index,1);
-  }
-  if(record)S.formTrace[S.selected].unshift({rule:r.kind,before,after:serializeRegion(root)});
+  const x=F.apply(root,r);if(!x)return false;
+  if(record)S.formTrace[S.selected].unshift(x);
   return true;
 }
-function normalizedCopy(){
-  const root=clone(formRoot());let guard=0;while(guard++<200){const r=redexes(root)[0];if(!r)break;applyRedex(r,root,false)}return root;
-}
-function formValue(){const r=normalizedCopy();if(r.length===0)return'UNMARKED';if(r.length===1&&r[0].children.length===0)return'MARKED';return'UNRESOLVED'}
+function normalizedCopy(){return F.normalize(formRoot()).root}
+function formValue(){return F.normalize(formRoot()).value}
 function renderFormMark(mark,path,calls,cross){
   const key=pathKey(path);let cls='formMark';if(S.formSelected[S.selected]===key)cls+=' selected';if(calls.has(key))cls+=' redexCall';if(cross.has(key))cls+=' redexCross';
   return '<div class="'+cls+'" data-formpath="'+key+'">'+(mark.children.length?'<div class="formRegion">'+mark.children.map((m,i)=>renderFormMark(m,path.concat(i),calls,cross)).join('')+'</div>':'<span class="formEmpty">MARK</span>')+'</div>';
