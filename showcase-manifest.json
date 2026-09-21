@@ -110,7 +110,7 @@
       "showcase_card": false,
       "role": "Canonical HUMAN PORT intake/router with addressed focus: preserve one source, optionally focus a lawful projection, inspect route support, SELECT, then explicitly OPEN a bounded local handoff.",
       "transfer": [
-        "AXIAL 0.7.1 visible support + fixed focus + explicit position witness + OPEN",
+        "AXIAL 0.7.1 visible-support presentation law + fixed focus + explicit position witness + OPEN; Port support semantics remain heuristic cue evidence",
         "Scale Lens canonical identity across unequal projections",
         "RSVP/foveated source focus",
         "passive metadata-only route evidence",
@@ -132,7 +132,8 @@
             "re-entry path"
           ],
           "reversibility": "full",
-          "side_effects": "local/browser or explicit human share only"
+          "side_effects": "local/browser or explicit human share only",
+          "support_kind": "HEURISTIC_CUE_EVIDENCE"
         },
         "evidence": {
           "receipt": "/port/release.json",
@@ -307,9 +308,9 @@
         }
       ],
       "index": {
-        "updated_at": "2026-09-21T16:24:00+08:00",
+        "updated_at": "2026-09-21T17:18:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
+          "SPECIFY",
           "VERIFY",
           "OPERATE"
         ]
