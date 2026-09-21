@@ -1,0 +1,116 @@
+{
+  "schema": "poetry-convergence/v0.1",
+  "date": "2026-09-21",
+  "purpose": "Compact rebase after poetry/Foundry regression and navigation confusion.",
+  "observed": {
+    "regression": [
+      "A Jueju recovery branch was over-promoted into the product identity as Chinese Poetry Copilot.",
+      "The sealed Verse Atlas specialist was directly mutated by cross-product deep-link/open-draft behavior before that product shell was proven.",
+      "Poem Map 0.2 already existed but was not treated as the current authoring experiment during the detour.",
+      "Poem Map re-entered in MAP and exposed relation-law tuning early, increasing first-use cognitive load.",
+      "Poem Map RETURN exported state but did not replay it."
+    ],
+    "not_regression": [
+      "Foundry's broader split is intentional: one path engine does not imply one poetry theory.",
+      "Pathweaver, Market+Solver, Grid Path, MEANTOME and Verse Atlas retain distinct jobs.",
+      "Poem Map 0.2 already contained locks, author paths, possibility intents, candidate bank, TRY→ADOPT, revision ancestry, form adapters and aperture."
+    ]
+  },
+  "rebase": {
+    "safety_branches": [
+      "verse-pre-rebase-20260921",
+      "poem-map-pre-orientation-20260921"
+    ],
+    "verse_atlas": {
+      "route": "/foundry/verse-atlas/",
+      "role": "SEALED_JUEJU_SPECIALIST",
+      "restored_from_commit": "16dd8eba1605",
+      "restored_blobs": {
+        "index.html": "475638bcc42636dd7c80cc5a9a85104b19ac5084",
+        "app.js": "e980885bc4f36e0c3719b5fe0be2688828d0b5ef"
+      },
+      "prior_receipt": "/control/VERSE_ATLAS_ROUNDTRIP_2026-09-20.json",
+      "receipt_result": "PASS_CORE_ROUNDTRIP",
+      "rule": "Do not put general Verse product experiments inside this sealed specialist without a named missing function and a new regression receipt."
+    },
+    "poem_map": {
+      "route": "/poetry/map/",
+      "role": "CURRENT_CANDIDATE_AUTHORING_EXPERIMENT",
+      "version": "0.2",
+      "proof_ancestor": "/poetry/lab/poem-map/",
+      "changes_this_rebase": [
+        "PAGE default/persisted",
+        "30-second play path",
+        "advanced disclosure for map law/aperture",
+        "RETURN import/replay",
+        "selftest surface"
+      ],
+      "verification": "static JS parse + DOM selector integrity PASS; rendered browser smoke pending"
+    }
+  },
+  "ownership": [
+    {
+      "surface": "/poetry/map/",
+      "name": "POEM MAP 0.2",
+      "job": "current co-creative authoring experiment: source → focus → possibility → choice → projection → return"
+    },
+    {
+      "surface": "/poetry/",
+      "name": "VERSE",
+      "job": "small re-entry/home; points to unequal instruments"
+    },
+    {
+      "surface": "/foundry/verse-atlas/",
+      "name": "VERSE ATLAS",
+      "job": "sealed Jueju-native study/evidence/RSVP/RETURN specialist"
+    },
+    {
+      "surface": "/recovery/path-grid/anthropy-pathweaver/",
+      "name": "PATHWEAVER",
+      "job": "composition/play/forge donor"
+    },
+    {
+      "surface": "/recovery/path-grid/market-solver/",
+      "name": "MARKET + SOLVER",
+      "job": "optionality/constraints/least-change donor"
+    },
+    {
+      "surface": "/recovery/path-grid/grid-path-compiler-v4/",
+      "name": "GRID PATH",
+      "job": "path/address/projection/multilingual donor"
+    },
+    {
+      "surface": "/poetry/lab/poem-map/",
+      "name": "POEM MAP 0.1",
+      "job": "boring selective-visualization control ancestor"
+    }
+  ],
+  "current_play_path": [
+    "Open Poem Map.",
+    "Use TINY DEMO or paste your own source.",
+    "Stay in PAGE first and select one token.",
+    "Choose one writer intent or bank a manual alternative.",
+    "TRY previews without editing; ADOPT commits with ancestry; LOCK protects.",
+    "Open MAP or SETS only when relationship space is useful; author/capture paths optionally.",
+    "EXPORT and IMPORT to test RETURN."
+  ],
+  "laws": [
+    "SOURCE remains sovereign.",
+    "PAGE ≠ MAP ≠ SETS; they are unequal readings of one poem state.",
+    "Reachable/candidate text ≠ authored text until explicit ADOPT.",
+    "Forms constrain; they do not score poetry.",
+    "Jueju is an adapter/native specialist context, not the product identity.",
+    "Language/form changes should not require separate apps.",
+    "Do not add another view/provider/form before a real Poem Map use RETURN or concrete failure."
+  ],
+  "open": [
+    "Rendered-browser smoke test for post-rebase Poem Map changes.",
+    "Real phonetic/language adapters; current SOUND and English syllable/rhyme are explicitly approximate.",
+    "Declarative form schema instead of hardcoded forms.",
+    "Exact corpus-neighborhood provider with provenance.",
+    "Optional line/macro-glyph overview for dense poems if it beats plain PAGE.",
+    "Game/challenge layer only if solved state remains the editable poem."
+  ],
+  "research_quarry": "/poetry/research/sources.json",
+  "confluence_quarry": "/control/confluence/POEM_MAP_QUARRY.md"
+}
