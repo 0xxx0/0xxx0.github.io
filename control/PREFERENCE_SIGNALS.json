@@ -1,0 +1,64 @@
+{
+  "schema": "0xxx0/preference-signals/v0.1",
+  "updated": "2026-09-21",
+  "status": "ACTIVE_EXPERIMENT",
+  "purpose": "Learn low-risk interface defaults passively without confusing observed behavior with durable preference or authority.",
+  "storage": {
+    "location": "browser localStorage",
+    "key": "field.signals.v01",
+    "max_events": 512,
+    "payload_content": "NEVER_STORED"
+  },
+  "evidence_classes": [
+    {
+      "signal": "direct choice",
+      "weight": "medium",
+      "meaning": "chosen option in this context"
+    },
+    {
+      "signal": "override of candidate",
+      "weight": "high",
+      "meaning": "candidate was wrong or less preferred here"
+    },
+    {
+      "signal": "repeat choice",
+      "weight": "increases with recurrence",
+      "meaning": "possible local default"
+    },
+    {
+      "signal": "dwell",
+      "weight": "weak",
+      "meaning": "engagement/reading only; not approval"
+    },
+    {
+      "signal": "backtrack/reversal",
+      "weight": "negative-contextual",
+      "meaning": "possible friction; requires sequence interpretation"
+    },
+    {
+      "signal": "explicit statement",
+      "weight": "high but scoped",
+      "meaning": "user language remains authoritative for stated scope"
+    }
+  ],
+  "promotion": {
+    "current_rule": "For one choice group, expose a derived default only after >=3 observed direct choices and top option share >=0.60.",
+    "forbidden": [
+      "one-shot global preference inference",
+      "authority escalation from behavior",
+      "persisting source/payload text",
+      "silently deleting alternatives",
+      "treating dwell as approval"
+    ],
+    "decay": "Not yet implemented; counts are a deliberately simple reversible baseline."
+  },
+  "feedback_loop": [
+    "observe",
+    "derive candidate",
+    "apply only to low-risk presentation",
+    "capture accept/override/backtrack",
+    "refine or withdraw candidate"
+  ],
+  "export": "window.FieldSignals.export()",
+  "clear": "window.FieldSignals.clear()"
+}
