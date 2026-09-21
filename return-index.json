@@ -2,8 +2,8 @@
   "schema": "0xxx0/return-index/v0.1",
   "generated": "2026-09-22",
   "source": "/showcase-manifest.json",
-  "count": 48,
-  "receipts_ok": 48,
+  "count": 49,
+  "receipts_ok": 49,
   "law": "A release without a return path is not closed.",
   "items": [
     {
@@ -85,9 +85,9 @@
     },
     {
       "href": "/port/",
-      "title": "HUMAN PORT 1.5.1",
+      "title": "HUMAN PORT 1.5.2",
       "state": "ACTIVE",
-      "version": "1.5.1-preview",
+      "version": "1.5.2-preview",
       "operation": "ROUTE",
       "receipt": "/port/release.json",
       "receipt_ok": true,
@@ -533,6 +533,17 @@
       "receipt_ok": true,
       "receipt_schema": "release-receipt/v1",
       "release_updated": "2026-09-21"
+    },
+    {
+      "href": "/body/fit/",
+      "title": "BODY / FIT 0.1",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "operation": "ADDRESS",
+      "receipt": "/body/fit/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": "2026-09-22"
     }
   ],
   "note": "Lifecycle state/version/title are synchronized from current manifest classification; release receipts retain historical contemporaneous state."
