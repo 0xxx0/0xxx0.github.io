@@ -3948,12 +3948,13 @@
         "explicit donor lineage"
       ],
       "index": {
-        "updated_at": "2026-09-21T11:55:00+08:00",
+        "updated_at": "2026-09-21T13:30:00+08:00",
         "work_modes": [
           "RECOVER",
           "RESEARCH",
           "SPECIFY",
           "IMPLEMENT",
+          "VERIFY",
           "OPERATE"
         ]
       }
@@ -3969,6 +3970,48 @@
       "version": "0.1",
       "receipt": "/forward-field-proof/triangle/glyph/center/release.json",
       "showcase_card": false
+    },
+    {
+      "href": "/poetry/lab/",
+      "title": "VERSE LAB",
+      "kind": "lab",
+      "parent": "/poetry/",
+      "family": "PATH / POETRY",
+      "operation": "EXPERIMENT",
+      "state": "ACTIVE",
+      "showcase_card": false,
+      "role": "Bounded experiments for co-creative poetry; large research route map stays in Confluence while the lab exposes only currently executable probes.",
+      "index": {
+        "updated_at": "2026-09-21T13:30:00+08:00",
+        "work_modes": [
+          "RESEARCH",
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/poetry/lab/poem-map/",
+      "title": "POEM MAP 0.1",
+      "kind": "experiment",
+      "parent": "/poetry/lab/",
+      "family": "PATH / POETRY",
+      "operation": "PROJECT",
+      "state": "EXPERIMENT",
+      "showcase_card": false,
+      "role": "Selective poetry information-visualization probe: stable readable poem, one question/lens at a time, click-to-focus, static line comparison, explicit weak-control claims.",
+      "receipt": "browser export: poem-map-return.json",
+      "index": {
+        "updated_at": "2026-09-21T13:30:00+08:00",
+        "work_modes": [
+          "RESEARCH",
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      }
     }
   ],
   "release_law": [
@@ -4022,7 +4065,8 @@
     "field_index_pulse": "PULSE is a DataDisc-2019 donor graft: route mutation history projected as a spiral field. It is explicitly secondary to STRUCTURE and NOW; spiral proximity/recency never imply semantic similarity or priority.",
     "replica_replan": "Bounded Confluence transfer: generalized event/state substrate remains primary; after one bounded move, RETURN closes route authority and the next move requires explicit replan. Multi-agent Director/Worker/Critic choreography is not promoted by this evidence.",
     "shopping_field": "FI-SHOP-001 absorbs the recovered House OS shopping console and Shopping Field Menu contract as an FCM child adapter. Public route carries no personal inventory; legacy v0.4 exports import locally, with ambiguous CONFIRMED conservatively mapped to VERIFY.",
-    "center_mass": "Triangle-centered many-front selection projection; /fcm/ remains an earlier parallel experiment."
+    "center_mass": "Triangle-centered many-front selection projection; /fcm/ remains an earlier parallel experiment.",
+    "verse_quarry": "Large poetry research/route map lives at /control/confluence/VERSE_VIS_QUARRY.md; /poetry/ keeps a small active writing surface."
   },
   "capability_model": {
     "CAPTURE": {
