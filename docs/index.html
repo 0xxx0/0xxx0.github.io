@@ -31,12 +31,15 @@ function apertureView(){
  const q=new URLSearchParams(location.search),index=Number(q.get('ap_index')),wpm=Number(q.get('ap_wpm'));
  return{scale:q.get('ap_scale')||undefined,index:Number.isFinite(index)?index:undefined,address:q.get('ap_addr')||undefined,wpm:Number.isFinite(wpm)?wpm:undefined}
 }
-const initialAperture=apertureView();let firstLoad=true;
+const initialAperture=apertureView();let firstLoad=true,apSyncTimer=null,apSyncPending=null;
+function writeAperture(snap){
+ const q=new URLSearchParams(location.search);snap.scale?q.set('ap_scale',snap.scale):q.delete('ap_scale');q.set('ap_index',String(Number.isFinite(+snap.index)?snap.index:0));
+ snap.address?q.set('ap_addr',snap.address):q.delete('ap_addr');q.set('ap_wpm',String(Number.isFinite(+snap.wpm)?snap.wpm:300));history.replaceState(null,'','?'+q.toString()+location.hash)
+}
 function syncAperture(snap){
- if(!snap)return;const q=new URLSearchParams(location.search);
- snap.scale?q.set('ap_scale',snap.scale):q.delete('ap_scale');q.set('ap_index',String(Number.isFinite(+snap.index)?snap.index:0));
- snap.address?q.set('ap_addr',snap.address):q.delete('ap_addr');q.set('ap_wpm',String(Number.isFinite(+snap.wpm)?snap.wpm:300));
- history.replaceState(null,'','?'+q.toString()+location.hash)
+ if(!snap)return;apSyncPending=snap;
+ if(!snap.playing){if(apSyncTimer){clearTimeout(apSyncTimer);apSyncTimer=null}const x=apSyncPending;apSyncPending=null;writeAperture(x);return}
+ if(apSyncTimer)return;apSyncTimer=setTimeout(()=>{apSyncTimer=null;const x=apSyncPending;apSyncPending=null;if(x)writeAperture(x)},250)
 }
 function sameOrigin(value){
  try{const u=new URL(String(value||''),location.href);return u.origin===location.origin?u:null}catch(_){return null}
