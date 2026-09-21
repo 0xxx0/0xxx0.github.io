@@ -22,9 +22,9 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 .axialHead{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 7px;border-bottom:1px solid var(--line)}
 .axialHead b{font-size:8px;letter-spacing:.13em;color:var(--hot)}.axialHead span{color:var(--mut);font-size:7px}.axialHead button{padding:4px 7px;font-size:7px}.axialActions{display:flex;align-items:center;gap:4px}.trial{border:1px solid var(--line);padding:4px 6px;color:var(--mut);font-size:6.5px;cursor:pointer;white-space:nowrap}.trial:hover{border-color:#59676d;color:var(--ink)}
 .axialRows{position:relative;padding:4px 0}
-.axisRow{display:grid;grid-template-columns:68px minmax(0,1fr);align-items:center;border-bottom:1px solid #1d2529;min-height:44px}.axisRow:last-child{border-bottom:0}
+.axisRow{display:grid;grid-template-columns:68px minmax(0,1fr);align-items:center;border-bottom:1px solid #1d2529;min-height:44px;position:relative}.axisRow:last-child{border-bottom:0}.axisRow:after{content:"";position:absolute;left:calc(68px + (100% - 68px)/2);top:0;bottom:0;border-left:2px solid var(--hot);filter:drop-shadow(0 0 5px rgba(237,116,71,.35));pointer-events:none;z-index:4}.axisRow:before{content:"▼";position:absolute;left:calc(68px + (100% - 68px)/2 - 4px);top:-5px;color:var(--hot);font-size:8px;line-height:1;pointer-events:none;z-index:5}
 .axisName{padding:0 7px;color:var(--mut);font-size:6.5px;letter-spacing:.1em}.axisName b{display:block;color:var(--ink);font-size:7.5px}.axisName i{font-style:normal;color:#57646a}
-.axisViewport{overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory;padding-inline:50%;position:relative;overscroll-behavior-x:contain}.axisViewport::-webkit-scrollbar{display:none}.axisViewport:after{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:2px solid var(--hot);filter:drop-shadow(0 0 5px rgba(237,116,71,.35));pointer-events:none;z-index:3}
+.axisViewport{overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory;padding-inline:50%;position:relative;overscroll-behavior-x:contain}.axisViewport::-webkit-scrollbar{display:none}
 .axisTrack{display:flex;width:max-content}.axisToken{scroll-snap-align:center;scroll-snap-stop:always;flex:none;width:112px;height:36px;border:0;border-right:1px solid #273136;background:#0b1012;color:#7f8b90;padding:3px 5px;display:grid;place-items:center;text-align:center;font-size:7px;line-height:1.15;position:relative;overflow:hidden;transition:opacity .12s ease,background .12s ease,color .12s ease}.axisToken .supportBar{position:absolute;left:0;bottom:0;height:2px;background:var(--cool);opacity:.48;pointer-events:none}.axisToken.on .supportBar{background:var(--hot);opacity:.95}
 .axisToken small{display:block;font-size:5.6px;color:#536168;margin-top:2px}.axisToken.live{color:#aebbc0}.axisToken.live small{color:#6f9bb2}.axisToken.dead{opacity:.23}.axisToken.on{background:#172027;color:#fff;outline:1px solid var(--hot);outline-offset:-2px;opacity:1}.axisToken.on small{color:#f1a286}.axisToken:hover{background:#11181c;opacity:1}
 .axisToken.route{width:154px;grid-template-columns:28px 1fr;gap:5px;text-align:left}.axisToken.route .tokTxt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}.axisToken .sub{display:block;color:#59666c;font-size:5.8px;margin-top:2px}
@@ -51,7 +51,7 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 /* density projection */
 html[data-density="MARK"] body{padding-left:6px;padding-right:6px}
 html[data-density="MARK"] header{padding:5px 0}html[data-density="MARK"] h1{font-size:27px}html[data-density="MARK"] nav a{padding:4px 5px;font-size:6px}
-html[data-density="MARK"] .axisRow{grid-template-columns:43px minmax(0,1fr);min-height:39px}html[data-density="MARK"] .axisName{padding-left:4px;padding-right:3px;font-size:5.5px}html[data-density="MARK"] .axisName b{font-size:6px}
+html[data-density="MARK"] .axisRow{grid-template-columns:43px minmax(0,1fr);min-height:39px}html[data-density="MARK"] .axisRow:after{left:calc(43px + (100% - 43px)/2)}html[data-density="MARK"] .axisRow:before{left:calc(43px + (100% - 43px)/2 - 4px)}html[data-density="MARK"] .axisName{padding-left:4px;padding-right:3px;font-size:5.5px}html[data-density="MARK"] .axisName b{font-size:6px}
 html[data-density="MARK"] .axisToken{width:72px;height:32px;font-size:6px}html[data-density="MARK"] .axisToken.route{width:46px;display:grid;grid-template-columns:1fr}html[data-density="MARK"] .axisToken.route .tokTxt{display:none}
 html[data-density="MARK"] .survivors{grid-template-columns:auto minmax(0,1fr) auto;padding:3px 4px;gap:4px}html[data-density="MARK"] .survMarks{flex-wrap:nowrap;max-height:24px}html[data-density="MARK"] .survMark{width:22px;height:22px}html[data-density="MARK"] .trail{display:none}html[data-density="MARK"] .aperture{grid-template-columns:31px minmax(0,1fr) auto;padding:6px;gap:5px}html[data-density="MARK"] .apBody strong{font-size:12px}html[data-density="MARK"] .apBody p,.apPath{display:none}html[data-density="MARK"] .apActions .secondary{display:none}
 html[data-density="MARK"] .feedStats{display:none}html[data-density="MARK"] .feedItem{grid-template-columns:27px minmax(0,1fr) 62px;padding:6px 1px}html[data-density="MARK"] .feedTouch,.feedMode{display:none}html[data-density="MARK"] .feedPath{display:none}
@@ -118,6 +118,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <script src="./field-presentation.js"></script>
 <script src="./field-glyph.js"></script>
 <script src="./field-aperture.js"></script>
+<script src="./foundry/axial/focus-core.js"></script>
 <script src="./lens-state.js"></script>
 <script>
 (()=>{'use strict';
@@ -168,7 +169,10 @@ function matchesCandidate(r,key,value){
 }
 function supportFor(a,v){
  if(a.key==='route'){const r=routeMap().get(v);return r&&matchesFilters(r)?1:0}
- var n=0;latest.forEach(function(r){if(matchesCandidate(r,a.key,v))n++});return n
+ const keys=['state','operation','mode'],selected={state:axisState.state,operation:axisState.operation,mode:axisState.mode};
+ return AxialFocusCore.support(latest,keys,selected,a.key,v,function(r,key,value){
+  if(value==='ANY')return true;if(key==='state')return r.state===value;if(key==='operation')return opOf(r)===value;return modesOf(r).includes(value)
+ })
 }
 function tokenHTML(a,v,maxSup){
  const on=selectedValue(a)===v,sup=supportFor(a,v),cl=(on?'on ':'')+(sup?'live':'dead'),pct=maxSup?Math.round(sup/maxSup*100):0,bar='<i class="supportBar" style="width:'+pct+'%"></i>';
@@ -176,7 +180,7 @@ function tokenHTML(a,v,maxSup){
  return'<button class="axisToken '+cl+'" data-axis="'+esc(a.key)+'" data-value="'+esc(v)+'">'+esc(v)+'<small>'+sup+' live</small>'+bar+'</button>';
 }
 function renderAxes(){
- const as=axes();$('axialRows').innerHTML=as.map(a=>{const supports=a.values.map(v=>supportFor(a,v)),maxSup=Math.max(1,...supports);return'<div class="axisRow"><div class="axisName"><b>'+esc(a.label)+'</b><i>'+a.values.length+' POS</i></div><div class="axisViewport" data-axis="'+esc(a.key)+'"><div class="axisTrack">'+a.values.map(v=>tokenHTML(a,v,maxSup)).join('')+'</div></div></div>'}).join('');
+ const as=axes();$('axialRows').innerHTML=as.map(a=>{const supports=a.values.map(v=>supportFor(a,v)),maxSup=Math.max(1,...supports),sv=selectedValue(a),pi=Math.max(0,a.values.indexOf(sv)),pos=AxialFocusCore.position(a.values,pi);return'<div class="axisRow"><div class="axisName"><b>'+esc(a.label)+'</b><i>'+pos.label+' · '+a.values.length+' POS</i></div><div class="axisViewport" data-axis="'+esc(a.key)+'"><div class="axisTrack">'+a.values.map(v=>tokenHTML(a,v,maxSup)).join('')+'</div></div></div>'}).join('');
  $('axialRows').querySelectorAll('.axisToken').forEach(b=>{b.onclick=e=>{e.stopPropagation();chooseAxis(b.dataset.axis,b.dataset.value,true)};b.onkeydown=e=>{if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;e.preventDefault();const row=[...b.parentElement.querySelectorAll('.axisToken')],i=row.indexOf(b),n=Math.max(0,Math.min(row.length-1,i+(e.key==='ArrowRight'?1:-1))),next=row[n];if(next){next.focus();chooseAxis(next.dataset.axis,next.dataset.value,true)}}});
  $('axialRows').querySelectorAll('.axisViewport').forEach(v=>v.addEventListener('scroll',()=>{clearTimeout(scrollTimers[v.dataset.axis]);scrollTimers[v.dataset.axis]=setTimeout(()=>nearestFromScroll(v),130)},{passive:true}));
  requestAnimationFrame(centerAxes);
@@ -287,30 +291,11 @@ $('mapTools').onclick=e=>{if(e.target.dataset.mode){mapMode=e.target.dataset.mod
 $('mapUp').onclick=mapUp;$('mapRootBtn').onclick=()=>{mapRoot='/';renderMap();notifyFieldIndex()};$('mapDrill').onclick=drillSelected;
 $('mapFold').addEventListener('toggle',()=>{if($('mapFold').open)renderMap();notifyFieldIndex()});
 window.addEventListener('field-density',()=>{renderAxes();renderFeed()});
-function fieldPathTo(href){
- const out=['/'];let h=href,guard=0,tmp=[];
- while(h&&h!=='/'&&guard++<32){const r=routeMap().get(h);if(!r)break;tmp.unshift(r.href);h=r.parent||'/'}
- return out.concat(tmp);
-}
+function fieldPathTo(href){const out=['/'];let h=href,guard=0,tmp=[];while(h&&h!=='/'&&guard++<32){const r=routeMap().get(h);if(!r)break;tmp.unshift(r.href);h=r.parent||'/'}return out.concat(tmp)}
 function fieldUiState(){return{focusHref:focus?.href||null,axisState:{...axisState},projection:$('mapFold').open?mapMode:'AXIAL_LATEST',mapMode,mapRoot,mapSelected,mapQuery,mapOpen:$('mapFold').open,mapDepth:Math.max(0,fieldPathTo(mapRoot).length-1)}}
-function fieldRestore(st){
- if(!st)return;
- if(st.axisState){axisState.state=st.axisState.state||'ANY';axisState.operation=st.axisState.operation||'ANY';axisState.mode=st.axisState.mode||'ANY'}
- const r=st.focusHref?routeMap().get(st.focusHref):null;if(r)focus=r;
- mapMode=st.mapMode||((st.projection&&st.projection!=='AXIAL_LATEST')?st.projection:mapMode);
- mapRoot=st.mapRoot||'/';mapSelected=st.mapSelected||focus?.href||mapRoot;mapQuery=st.mapQuery||'';$('mapSearch').value=mapQuery;$('mapFold').open=!!st.mapOpen;
- supportTrail=[currentMatches().length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMap();renderTrial();syncAxialURL();notifyFieldIndex()
-}
-function fieldProject(mode){
- if(mode==='AXIAL_LATEST'){$('mapFold').open=false;document.getElementById('axialLatest')?.scrollIntoView({block:'start'});notifyFieldIndex();return}
- if(!['VISUAL','PULSE','STRUCTURE','EVOLVE','RECENT'].includes(mode))return;
- mapMode=mode;$('mapFold').open=true;renderMap();notifyFieldIndex()
-}
-function fieldDive(){
- const target=focus?.href;if(!target)return;const path=fieldPathTo(target),i=path.indexOf(mapRoot);
- if(i>=0&&i<path.length-1)mapRoot=path[i+1];else mapRoot=focus?.parent||'/';
- mapSelected=target;$('mapFold').open=true;if(mapMode!=='VISUAL')mapMode='VISUAL';renderMap();notifyFieldIndex()
-}
+function fieldRestore(st){if(!st)return;if(st.axisState){axisState.state=st.axisState.state||'ANY';axisState.operation=st.axisState.operation||'ANY';axisState.mode=st.axisState.mode||'ANY'}const r=st.focusHref?routeMap().get(st.focusHref):null;if(r)focus=r;mapMode=st.mapMode||((st.projection&&st.projection!=='AXIAL_LATEST')?st.projection:mapMode);mapRoot=st.mapRoot||'/';mapSelected=st.mapSelected||focus?.href||mapRoot;mapQuery=st.mapQuery||'';$('mapSearch').value=mapQuery;$('mapFold').open=!!st.mapOpen;supportTrail=[currentMatches().length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMap();renderTrial();syncAxialURL();notifyFieldIndex()}
+function fieldProject(mode){if(mode==='AXIAL_LATEST'){$('mapFold').open=false;document.getElementById('axialLatest')?.scrollIntoView({block:'start'});notifyFieldIndex();return}if(!['VISUAL','PULSE','STRUCTURE','EVOLVE','RECENT'].includes(mode))return;mapMode=mode;$('mapFold').open=true;renderMap();notifyFieldIndex()}
+function fieldDive(){const target=focus?.href;if(!target)return;const path=fieldPathTo(target),i=path.indexOf(mapRoot);if(i>=0&&i<path.length-1)mapRoot=path[i+1];else mapRoot=focus?.parent||'/';mapSelected=target;$('mapFold').open=true;if(mapMode!=='VISUAL')mapMode='VISUAL';renderMap();notifyFieldIndex()}
 function fieldRise(){if(mapRoot==='/')return;mapRoot=routeMap().get(mapRoot)?.parent||'/';$('mapFold').open=true;if(mapMode!=='VISUAL')mapMode='VISUAL';renderMap();notifyFieldIndex()}
 function fieldPeer(delta){if(!focus)return;const parent=focus.parent||'/',xs=(childrenMap().get(parent)||[]);if(!xs.length)return;let i=xs.findIndex(r=>r.href===focus.href);if(i<0)i=0;i=(i+Number(delta||0)+xs.length)%xs.length;focusRoute(xs[i],true,'OTHER')}
 function fieldVisualKids(){return (childrenMap().get(mapRoot)||[]).filter(mapMatches)}
