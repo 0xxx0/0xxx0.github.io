@@ -204,15 +204,15 @@ function readerFocusProbeHtml(){
   const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
   const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-  const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw new Error('waitFor timeout')};
+  const waitFor=async(fn,limit=12000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw new Error('waitFor timeout: '+label)};
   (async()=>{
     const W=()=>f.contentWindow,D=()=>W().document;
-    const A=await waitFor(()=>D().getElementById('docAperture')?.snapshot?.()&&D().getElementById('docAperture'));
+    const A=await waitFor(()=>{const a=D().getElementById('docAperture'),pb=D().getElementById('readPaste'),pt=D().getElementById('pasteText');return a?.snapshot?.()&&typeof pb?.onclick==='function'&&pt?a:null},12000,'DOCS controls bound');
     const sample='# Alpha\\nThe first paragraph establishes context.\\n\\n# Beta\\nRead this second phrase and keep position. [CURRENT](/control/CURRENT.json) ![map](/field-map.svg)';
     const pt=D().getElementById('pasteText'),pb=D().getElementById('readPaste');pt.value=sample;pb.click();
-    await waitFor(()=>A.A?.label==='PASTE'&&A.A?.kind==='TEXT'&&W().location.search.includes('paste=1'));
+    await waitFor(()=>A.A?.label==='PASTE'&&A.A?.kind==='TEXT'&&W().location.search.includes('paste=1'),12000,'PASTE loaded + addressed');
     const target=sample.indexOf('second');A.restore({scale:'WORD',char_index:target,wpm:1200});
-    rec.word=await waitFor(()=>{const x=A.snapshot();return x.scale==='WORD'&&x.wpm===1200?x:null});
+    rec.word=await waitFor(()=>{const x=A.snapshot();return x.scale==='WORD'&&x.wpm===1200?x:null},12000,'WORD focus restored');
     rec.wordMark=D().getElementById('reading')?.querySelector('mark')?.textContent||'';
     rec.orp=A.shadowRoot?.getElementById('focusOrp')?.textContent||'';
     A.setScale(A.scaleIndex('SENT'));rec.sent=A.snapshot();
