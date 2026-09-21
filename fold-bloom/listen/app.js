@@ -1,18 +1,19 @@
 import {ListenRenderer} from './render.js';
 import {SCOPES,frameAt,beatIndexAt,sectionIndexAt} from './audio-map.js';
-import {TAU,clamp,pointAngle01} from './polar-control.js';
+import {pointAngle01} from './polar-control.js';
+import {parseSunoId,classifySourceAddress,resolveSourceAddress,fetchRemoteAudio} from './source-adapters.js';
+
 const $=s=>document.querySelector(s);
 const gl=$('#field'),overlay=$('#overlay'),renderer=new ListenRenderer(gl,overlay),audio=$('#audio');
 const worker=new Worker('./analysis-worker.js',{type:'module'});
 let map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,raf=0;
+
 function scope(){return SCOPES[scopeIndex]}
 function setScope(i,announce=true){
   scopeIndex=(i+SCOPES.length)%SCOPES.length;
-  $('#scope').textContent=scope();$$scope();
+  $('#scope').textContent=scope();
+  document.querySelectorAll('[data-scope]').forEach((el,j)=>el.classList.toggle('on',j===scopeIndex));
   if(announce)toast(scope());
-}
-function $$scope(){
-  document.querySelectorAll('[data-scope]').forEach((el,i)=>el.classList.toggle('on',i===scopeIndex));
 }
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on')}
 function fmt(t){if(!Number.isFinite(t))return'0:00';const m=Math.floor(t/60),s=Math.floor(t%60);return `${m}:${String(s).padStart(2,'0')}`}
@@ -27,14 +28,69 @@ function mixdown(buffer,targetRate=22050){
   }
   return {pcm:out,sampleRate:buffer.sampleRate/ratio};
 }
-async function loadFile(file){
+function sourceLabel(meta){
+  if(meta.sourceKind==='SUNO')return meta.resolution==='PUBLIC_CLIP_METADATA'?'SUNO / METADATA':'SUNO / UUID';
+  if(meta.sourceKind==='REMOTE_AUDIO')return'REMOTE AUDIO';
+  return'LOCAL ONLY';
+}
+async function analyzeBytes(bytes,playbackBlob,meta){
   $('#status').textContent='DECODING';$('#drop').classList.add('busy');
-  const bytes=await file.arrayBuffer(),hashP=hashBuffer(bytes),ctx=new (window.AudioContext||window.webkitAudioContext)(),decoded=await ctx.decodeAudioData(bytes.slice(0));
-  const h=await hashP,{pcm,sampleRate}=mixdown(decoded);await ctx.close().catch(()=>{});
-  if(objectURL)URL.revokeObjectURL(objectURL);objectURL=URL.createObjectURL(file);audio.src=objectURL;
-  fileMeta={name:file.name,size:file.size,type:file.type||'audio',hash:h,duration:decoded.duration,sourceSampleRate:decoded.sampleRate};
-  $('#track').textContent=file.name;$('#status').textContent='ANALYZING';$('#meta').textContent=`${fmt(decoded.duration)} · ${(file.size/1048576).toFixed(1)} MB · LOCAL ONLY`;
+  const hashP=hashBuffer(bytes.slice(0)),ctx=new (window.AudioContext||window.webkitAudioContext)();
+  const decoded=await ctx.decodeAudioData(bytes.slice(0));
+  const hash=await hashP,{pcm,sampleRate}=mixdown(decoded);await ctx.close().catch(()=>{});
+  if(objectURL)URL.revokeObjectURL(objectURL);
+  objectURL=URL.createObjectURL(playbackBlob);audio.src=objectURL;
+  fileMeta={
+    ...meta,
+    name:meta.name||'AUDIO SOURCE',
+    size:meta.size??playbackBlob.size,
+    type:meta.type||playbackBlob.type||'audio',
+    hash,
+    duration:decoded.duration,
+    sourceSampleRate:decoded.sampleRate
+  };
+  $('#track').textContent=fileMeta.name;
+  const lyricNote=fileMeta.lyrics?' · LYRICS FOUND / UNALIGNED':'';
+  const tagNote=fileMeta.tags?` · ${String(fileMeta.tags).slice(0,42)}`:'';
+  $('#meta').textContent=`${fmt(decoded.duration)} · ${(fileMeta.size/1048576).toFixed(1)} MB · ${sourceLabel(fileMeta)}${lyricNote}${tagNote}`;
+  $('#status').textContent='ANALYZING';
   worker.postMessage({type:'analyze',pcm:pcm.buffer,sampleRate,duration:decoded.duration},[pcm.buffer]);
+}
+async function loadFile(file){
+  const bytes=await file.arrayBuffer();
+  return analyzeBytes(bytes,file,{name:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',sourceAddress:null});
+}
+async function loadAddress(input){
+  $('#status').textContent='RESOLVING';$('#drop').classList.add('busy');
+  try{
+    const source=await resolveSourceAddress(input);
+    $('#track').textContent=source.title||'REMOTE SOURCE';
+    $('#meta').textContent=source.kind==='SUNO'
+      ?`${source.resolution.replaceAll('_',' ')} · FETCHING AUDIO`
+      :'DIRECT ADDRESS · FETCHING AUDIO';
+    const remote=await fetchRemoteAudio(source);
+    const blob=new Blob([remote.bytes],{type:remote.type||'audio/mpeg'});
+    await analyzeBytes(remote.bytes,blob,{
+      name:source.title||source.audioUrl.split('/').pop()||'REMOTE AUDIO',
+      size:remote.size,
+      type:remote.type,
+      sourceKind:source.kind,
+      sourceAddress:source.address,
+      sourceId:source.sunoId||null,
+      metadataAddress:source.metadataUrl||null,
+      resolution:source.resolution,
+      artist:source.artist||'',
+      tags:source.tags||'',
+      lyrics:source.lyrics||'',
+      metadataError:source.metadataError||null
+    });
+  }catch(err){
+    $('#drop').classList.remove('busy');
+    $('#status').textContent='REMOTE BLOCKED · LOAD FILE';
+    $('#meta').textContent='ADDRESS KEPT · NETWORK/CORS RESOLUTION FAILED · LOCAL FILE STILL WORKS';
+    toast('REMOTE BLOCKED · USE LOCAL FILE');
+    console.warn(err);
+  }
 }
 worker.onmessage=e=>{
   if(e.data.type==='progress'){$('#status').textContent=`ANALYZING ${Math.round(e.data.progress*100)}%`;return}
@@ -45,13 +101,16 @@ worker.onmessage=e=>{
     $('#transport').disabled=false;$('#export').disabled=false;toast('MAP READY');
   }
 };
-$('#file').onchange=e=>e.target.files?.[0]&&loadFile(e.target.files[0]).catch(err=>{$('#status').textContent='DECODE ERROR';console.warn(err)});
+
 const drop=$('#drop');
+$('#file').onchange=e=>e.target.files?.[0]&&loadFile(e.target.files[0]).catch(err=>{$('#drop').classList.remove('busy');$('#status').textContent='DECODE ERROR';console.warn(err)});
+$('#chooseBtn').onclick=e=>{e.stopPropagation();$('#file').click()};
+$('#urlBtn').onclick=e=>{e.stopPropagation();const v=$('#urlInput').value.trim();if(v)loadAddress(v)};
+$('#urlInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('#urlBtn').click()}});
 ['dragenter','dragover'].forEach(k=>drop.addEventListener(k,e=>{e.preventDefault();drop.classList.add('over')}));
 ['dragleave','drop'].forEach(k=>drop.addEventListener(k,e=>{e.preventDefault();drop.classList.remove('over')}));
 drop.addEventListener('drop',e=>{const f=e.dataTransfer.files?.[0];if(f)loadFile(f).catch(console.warn)});
-drop.onclick=()=>$('#file').click();
-$('#loadBtn').onclick=()=>{drop.classList.remove('loaded');$('#file').click()};
+$('#loadBtn').onclick=()=>{drop.classList.remove('loaded');$('#urlInput').focus()};
 $('#transport').onclick=async()=>{if(!audio.src)return;if(audio.paused){await audio.play()}else audio.pause()};
 audio.onplay=()=>{$('#transport').textContent='PAUSE'};audio.onpause=()=>{$('#transport').textContent='PLAY'};
 $('#export').onclick=()=>{
@@ -81,4 +140,7 @@ function loop(){
 }
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else{cancelAnimationFrame(raf);loop()}});
 setScope(1,false);loop();
-window.FoldBloomListen={state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta})};
+window.FoldBloomListen={
+  state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta}),
+  parseSunoId,classifySourceAddress,resolveSourceAddress
+};

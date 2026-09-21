@@ -1,0 +1,37 @@
+{
+  "schema": "release-receipt/v1",
+  "artifact": "BODY / FIT",
+  "route": "/body/fit/",
+  "version": "0.1",
+  "released": "2026-09-22",
+  "state": "CANDIDATE",
+  "changes": [
+    "created body-plan-centered FIT / SENSE / FUSE / HISTORY / PLAIN workbench",
+    "shared same-repo BODY PLAN registry rather than introducing new anatomy geometry",
+    "added body-addressed fitting lifecycle and explicit revision lineage with replaces/superseded_by",
+    "added source-distinct sensor/measurement observation envelope inspired by SensorThings/Open mHealth",
+    "added time-window fusion projection that aligns but does not average sources",
+    "reads existing HOUSE→BODY local context envelope without acquiring HOUSE authority",
+    "supports JSON observation/bundle import and browser-local export/re-import",
+    "reserved HUMAN PORT session adapter key body.fit.port.sensor.v01"
+  ],
+  "checks": [
+    "private local state only",
+    "shared body-plan geometry remains donor/reference geometry",
+    "fitting revision does not overwrite prior record",
+    "observation effective time distinct from recorded time",
+    "source class retained",
+    "unknown/stale availability explicit",
+    "fusion preserves source rows and performs no default averaging",
+    "HOUSE context remains non-causal"
+  ],
+  "open_gaps": [
+    "HUMAN PORT BODY/FIT route not yet wired",
+    "private HOUSEBUS/HA sensor adapter not yet wired",
+    "Health Connect/Samsung Health adapter remains deferred",
+    "Open Twin high-resolution projection remains a recovered donor cassette, not runtime-linked here",
+    "real use test with one fitting + one sensor stream + one HOUSE context required"
+  ],
+  "research": "/control/research/BODY_FIT_SENSOR_FUSION_2026-09-22.md",
+  "return": "/body/fit/"
+}
