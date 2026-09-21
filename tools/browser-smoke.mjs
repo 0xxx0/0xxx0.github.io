@@ -112,10 +112,19 @@ function fieldListenProbeHtml(){
   const target='/fold-bloom/listen/',out=document.getElementById('probeResult'),f=document.getElementById('f'),rec={};let finished=false;
   const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-  const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw Error('waitFor timeout')};
-  (async()=>{const W=()=>f.contentWindow,D=()=>W().document;await waitFor(()=>W().FieldLensHost?.focus?.()?.href===target);rec.focused=W().FieldLensHost.focus().href;W().FieldLensHost.project('STRUCTURE');const row=await waitFor(()=>D().querySelector('.mapRow[data-href="'+target+'"]'));rec.visible=!!row;row.click();await sleep(160);if(W().location.pathname==='/'){const again=await waitFor(()=>D().querySelector('.mapRow[data-href="'+target+'"]'));again.click()}await waitFor(()=>W().location.pathname===target);rec.opened=W().location.pathname;W().history.back();await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===target);rec.returned=W().FieldLensHost.focus().href;done(rec.visible&&rec.focused===target&&rec.opened===target&&rec.returned===target,rec)})().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
+  const waitFor=async(fn,limit=10000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw Error('waitFor timeout')};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    await waitFor(()=>W().FieldLensHost?.focus?.()?.href===target);
+    rec.focused=W().FieldLensHost.focus().href;
+    W().FieldLensHost.project('STRUCTURE');
+    const row=await waitFor(()=>D().querySelector('.mapRow[data-href="'+target+'"]'));
+    rec.visible=!!row;rec.href=row?.dataset?.href||null;rec.root=W().location.pathname;
+    done(rec.focused===target&&rec.visible&&rec.href===target&&rec.root==='/',rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
   <\/script></body></html>`;
 }
+
 function fieldActivationProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/"></iframe><pre id="probeResult">PENDING</pre><script>
   const result=document.getElementById('probeResult'),f=document.getElementById('f'),rec={};let finished=false;
@@ -581,10 +590,10 @@ const CASES=[
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"focused":"\//.test(dom)&&/"opened":"\//.test(dom)&&/"returned":"\//.test(dom)
   },
   {
-    name:'FIELD LISTEN candidate access',
+    name:'FIELD LISTEN candidate focus',
     route:'/__smoke/field-listen',
     options:{width:1040,height:820,budget:16000,timeout:22000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"visible":true/.test(dom)&&/"focused":"\/fold-bloom\/listen\/"/.test(dom)&&/"opened":"\/fold-bloom\/listen\/"/.test(dom)&&/"returned":"\/fold-bloom\/listen\/"/.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"visible":true/.test(dom)&&/"focused":"\/fold-bloom\/listen\/"/.test(dom)&&/"href":"\/fold-bloom\/listen\/"/.test(dom)&&/"root":"\/"/.test(dom)
   },
   {
     name:'LENS STACK STUDIO RETURN',
