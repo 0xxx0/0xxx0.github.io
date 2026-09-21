@@ -40,7 +40,8 @@
     "repo_browser_smoke": "PASS: public-surface-check run 35603017221 rerun",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "74b449d089963a71c29c1535ef457b154ba427a7",
-    "demo_browser_smoke": "PENDING_CI: intro must expose demoBtn / WATCH DEMO"
+    "demo_browser_smoke": "PASS: CI run 35607729608 exposed LIVE demoBtn / WATCH DEMO",
+    "sound_depth_merge_sha": "4d33e820ec0e7c98c3b5abfb46cbcd3f33467b21"
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_LIVE_2026-09-21.json",
