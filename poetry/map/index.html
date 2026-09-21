@@ -54,8 +54,8 @@ textarea{width:100%;resize:vertical;padding:8px;line-height:1.5}.page{white-spac
  <div id="actions" class="hidden">
   <div class="row"><button id="lockBtn">LOCK</button><button id="pathBtn">+ PATH</button><button id="linkBtn">LINK NEXT</button></div>
   <div class="k">Possibility dock</div>
-  <div class="online"><button data-online="ml">MEANS LIKE</button><button data-online="rel_rhy">RHYME</button><button data-online="sl">SOUNDS LIKE</button></div>
-  <div class="tiny" style="margin:4px 0">Online word search is opt-in and sends only the selected Latin-script token to Datamuse. Candidates never enter the poem automatically.</div>
+  <div class="online" id="intentDock"><button data-intent="continue">CONTINUE</button><button data-intent="replace">REPLACE</button><button data-intent="echo">ECHO</button><button data-intent="contrast">CONTRAST</button><button data-intent="turn">TURN</button><button data-intent="rhyme">RHYME</button><button data-intent="surprise">SURPRISE</button></div>
+  <div class="tiny" style="margin:4px 0">Writer intent is primary; Datamuse is only the current English provider. The selected Latin-script token is sent only after you press an intent. Returned words go to BANK, then TRY → ADOPT; nothing silently edits the poem.</div>
   <div id="candidates" class="card"></div>
   <div class="row"><input id="manualCand" placeholder="bank a word…" style="min-width:0;padding:6px"><button id="addCand">BANK</button></div>
  </div>
@@ -187,7 +187,25 @@ $('#lockBtn').onclick=()=>{if(!S.selected)return;S.locks.has(S.selected)?S.locks
 $('#pathBtn').onclick=()=>{if(!S.selected)return;if(S.authorPath.at(-1)!==S.selected)S.authorPath.push(S.selected);if(S.authorPath.length>1){let a=S.authorPath.at(-2),b=S.authorPath.at(-1);if(!S.authorEdges.some(e=>e.a===a&&e.b===b))S.authorEdges.push({a,b,type:'AUTHOR',why:'author path'})}parse()};
 $('#linkBtn').onclick=()=>{if(!S.selected)return;S.linkPending=S.linkPending===S.selected?null:S.selected;renderPanels();$('#statusText').textContent=S.linkPending?'Select another token to create an AUTHOR edge.':'Link cancelled.'};
 $('#addCand').onclick=()=>{let w=$('#manualCand').value.trim();if(!w)return;S.bank.push({word:w,why:'human bank',for:S.selected});$('#manualCand').value='';save();renderBank();renderBottom()};
-$$('[data-online]').forEach(b=>b.onclick=async()=>{let n=node(S.selected);if(!n||!/[A-Za-z]/.test(n.text))return status('ONLINE WORDS NEED LATIN TOKEN');let rel=b.dataset.online,statusLabel=rel==='ml'?'meaning neighborhood':rel==='rel_rhy'?'rhyme':'sound neighborhood';status('QUERY '+statusLabel.toUpperCase());try{let r=await fetch('https://api.datamuse.com/words?'+rel+'='+encodeURIComponent(n.text)+'&max=12'),d=await r.json();for(let x of d){if(!S.bank.some(q=>q.word===x.word&&q.for===n.id))S.bank.push({word:x.word,why:'Datamuse · '+statusLabel,for:n.id,score:x.score||null})}save();renderBank();renderBottom();status('BANKED '+d.length+' · NOTHING INSERTED')}catch(e){status('ONLINE WORD LOOKUP UNAVAILABLE')}});
+const INTENTS={
+ continue:{param:'lc',why:'likely follower / continue'},
+ replace:{param:'ml',why:'meaning alternative / replace'},
+ echo:{param:'sl',why:'sound echo'},
+ contrast:{param:'rel_ant',why:'antonym / contrast'},
+ turn:{param:'rel_trg',why:'associated word / turn'},
+ rhyme:{param:'rel_rhy',why:'rhyme'},
+ surprise:{param:'rel_trg',why:'weaker association / surprise',tail:true}
+};
+$('[data-intent]').forEach(b=>b.onclick=async()=>{
+ let n=node(S.selected),intent=b.dataset.intent,cfg=INTENTS[intent];if(!n||!/[A-Za-z]/.test(n.text))return status('THIS PROVIDER NEEDS A LATIN-SCRIPT TOKEN');
+ status('QUERY '+intent.toUpperCase());
+ try{
+   let p=new URLSearchParams({max:'24',md:'sp'});p.set(cfg.param,n.text);
+   let r=await fetch('https://api.datamuse.com/words?'+p.toString()),d=await r.json(),pick=cfg.tail?d.slice(8,20):d.slice(0,12),added=0;
+   for(let x of pick){if(!S.bank.some(q=>q.word===x.word&&q.for===n.id&&q.intent===intent)){S.bank.push({word:x.word,why:'Datamuse · '+cfg.why,for:n.id,intent,score:x.score||null,numSyllables:x.numSyllables||null,tags:x.tags||[]});added++}}
+   save();renderBank();renderBottom();status('BANKED '+added+' '+intent.toUpperCase()+' OPTIONS · NOTHING INSERTED')
+ }catch(e){status('OPTION PROVIDER UNAVAILABLE')}
+});
 $('#cancelPreview').onclick=()=>{S.preview=null;save();renderPanels();status('PREVIEW CANCELLED · SOURCE UNCHANGED')};$('#undoRevision').onclick=undoRevision;
 $('#clearPath').onclick=()=>{S.authorPath=[];S.authorEdges=[];parse()};$('#capturePath').onclick=()=>{let xs=S.authorPath.map(node).filter(Boolean);if(!xs.length)return;S.captures.push({id:'P'+(S.captures.length+1),cells:S.authorPath.slice(),reading:xs.map(x=>x.text).join(' '),address:S.authorPath.join('>'),created:new Date().toISOString()});save();renderCaptures();status('PATH CAPTURED')};
 $('#form').onchange=e=>{S.form=e.target.value;save();renderConstraints()};for(let [id,key,out] of [['orderW','order','wo'],['soundW','sound','ws'],['repeatW','repeat','wr'],['authorW','author','wa']])$('#'+id).oninput=e=>{S.weights[key]=+e.target.value;$('#'+out).textContent=(+e.target.value).toFixed(2);save()};
