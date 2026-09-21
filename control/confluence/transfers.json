@@ -1,0 +1,39 @@
+{
+  "schema": "confluence-transfer-registry/v0.1",
+  "updated": "2026-09-21",
+  "status": "PARTIAL_REGISTRY",
+  "law": "FROM → TRANSFER UNIT → TO → TEST → RETURN",
+  "non_claim": "This registry does not imply every Confluence document is a transfer packet. Only records with explicit donor/source, bounded unit, recipient and evidence posture belong here.",
+  "records": [
+    {
+      "id": "field-datadisc-pulse",
+      "status": "IMPLEMENTED",
+      "donor": "/recovery/media/datadisc/datadisc.html",
+      "evidence_class": "EXACT_BYTE_VERIFIED_FIXTURE",
+      "unit": "stable addressed items + mutation state projected as a spiral change field",
+      "recipient": "/",
+      "test": "PULSE uses existing manifest route IDs and index.updated_at only; it must not imply priority, semantic proximity or ancestry.",
+      "return": "/control/confluence/FIELD_INDEX_DATADISC_GRAFT_2026-09-21.json"
+    },
+    {
+      "id": "house-marks",
+      "status": "PROOF_REQUIRED",
+      "donor": "HOUSE OS field-system mark/glyph thread; exact binary source not yet ingested",
+      "evidence_class": "TRANSFER_CONTRACT_ONLY",
+      "unit": "MARK projection + Interface Tile + legibility/function harness",
+      "recipient": "/house/spatial/",
+      "test": "One bounded physical comparison must show lower ambiguity, faster recovery, safer action or better state correspondence than PLAIN/control.",
+      "return": "/control/confluence/HOUSE_MARKS.md"
+    },
+    {
+      "id": "verse-pathweaver-composition",
+      "status": "PROPOSED",
+      "donor": "/recovery/path-grid/anthropy-pathweaver/",
+      "evidence_class": "EXACT_DONOR + RECOVERY_NOTE",
+      "unit": "open composition flow: canonical opener + genuinely open remaining lines + optional hinge + line-relation notes",
+      "recipient": "/poetry/",
+      "test": "Transfer only as a named missing function into the current poetry head; do not fork another verse engine.",
+      "return": "/control/confluence/VERSE_LINEAGE.md"
+    }
+  ]
+}
