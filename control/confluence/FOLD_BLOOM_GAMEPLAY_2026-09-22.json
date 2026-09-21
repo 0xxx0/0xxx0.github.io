@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_GAMEPLAY_2026-09-22",
   "date": "2026-09-22",
   "object": "Design Fold Bloom Instrument / LIVE 0.2 gameplay convergence",
-  "status": "BRANCH_VERIFIED_PENDING_MERGE",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "recovered_user_questions": {
     "A": "Hook Fold/Bloom into respective apps/games.",
     "B": "Make custom songs practical: Suno links, self-hosted audio, Spotify/YouTube boundaries.",
@@ -70,7 +70,10 @@
       "critical browser smoke",
       "recovery catalogue and frozen unrelated surfaces"
     ],
-    "direct_embodied_play": "REQUIRED_NEXT"
+    "direct_embodied_play": "REQUIRED_NEXT",
+    "pre_merge_runtime_ci_run": 35656338927,
+    "final_coordination_ci_run": 35656619303,
+    "final_coordination_ci_note": "Run was still completing after merge; runtime/gameplay code was unchanged from the prior full PASS. Direct embodied phone play remains authoritative."
   },
   "changed": [
     "/fold-bloom/live/engine.js",
@@ -104,5 +107,6 @@
   ],
   "stop": "No Audiosurf/Beat Saber exporter, AXIAL/APERTURE music panel, automatic coupling, or ecology expansion before the direct phone gameplay RETURN.",
   "return": "/returns/FOLD_BLOOM_GAMEPLAY_2026-09-22.json",
-  "pr": 119
+  "pr": 119,
+  "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac"
 }
