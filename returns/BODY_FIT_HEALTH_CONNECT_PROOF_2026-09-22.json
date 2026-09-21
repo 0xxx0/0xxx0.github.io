@@ -1,0 +1,50 @@
+{
+  "schema": "return-receipt/v1",
+  "id": "BODY-FIT-HEALTH-CONNECT-PROOF-2026-09-22",
+  "at": "2026-09-22",
+  "object": "/body/fit/",
+  "before": [
+    "Health Connect existed only as a specified adapter boundary; BODY / FIT could not consume a raw Health Connect export.",
+    "No native source existed to exercise the Android permission/read/export boundary.",
+    "The remaining wait mixed machine implementation with real-device human evidence."
+  ],
+  "intervention": [
+    "Added pure 0xxx0/health-connect-export/v0.1 -> 0xxx0/body-sensor-bundle/v0.1 transform with provenance-preserving fixture/selftest.",
+    "Wired BODY / FIT existing JSON import to accept the raw Health Connect export and transform locally.",
+    "Added minimal Android BODY BRIDGE source with READ_SLEEP + READ_HEART_RATE only, 48h sleep aperture, HR only inside returned sleep sessions, and explicit local JSON export.",
+    "Added native compile CI and transient 7-day debug APK artifact; no APK binary committed.",
+    "Corrected AGP 9.4 toolchain to built-in Kotlin after compiler rejected the legacy Kotlin Android plugin.",
+    "Separated automated proof from real-device proof in WAITING and adapter contracts."
+  ],
+  "automated_evidence": {
+    "transform_selftest": "PASS",
+    "public_surface_check": "PASS before final receipt-only amendments; final branch CI required before merge",
+    "android_compile": "PASS after AGP 9.4 built-in Kotlin correction",
+    "permissions": [
+      "android.permission.health.READ_SLEEP",
+      "android.permission.health.READ_HEART_RATE"
+    ],
+    "prohibited_by_design": [
+      "Health Connect write permission",
+      "background polling",
+      "cloud upload",
+      "diagnosis/scoring"
+    ]
+  },
+  "evidence": [
+    "/body/fit/health-connect.adapter.json",
+    "/body/fit/health-connect-transform.js",
+    "/body/fit/health-connect-fixture.json",
+    "/body/fit/health-connect-selftest.cjs",
+    "/android/body-bridge/",
+    "/.github/workflows/body-bridge-android.yml",
+    "/control/WAITING.json"
+  ],
+  "return_state": "AUTOMATED_GREEN / REAL_DEVICE_REQUIRED",
+  "residue": [
+    "No real personal Health Connect record has entered the public repository.",
+    "Samsung Health -> Health Connect source population and phone permission behavior remain physical/device evidence.",
+    "Operational promotion requires one real export -> BODY/FIT import round trip with provenance intact."
+  ],
+  "next": "Human/world proof only: install transient CI APK, grant two read categories, export one bounded packet, import into BODY / FIT, then RETURN exact result."
+}

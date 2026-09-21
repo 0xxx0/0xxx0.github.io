@@ -1,12 +1,12 @@
 {
   "schema": "0xxx0/body-fit-health-connect-adapter/v0.1",
-  "status": "CANDIDATE",
+  "status": "TRANSFORM_PROVED / NATIVE_COMPILES / REAL_DEVICE_REQUIRED",
   "updated": "2026-09-22",
   "host": "/body/fit/",
-  "purpose": "Read the minimum campaign-selected Android Health Connect records and transform them into existing BODY / FIT sensor-observation envelopes without creating a second health store or writing imported data back to Health Connect.",
+  "purpose": "Read the minimum campaign-selected Android Health Connect records into a bounded raw export, then transform locally inside BODY / FIT into existing sensor-observation envelopes without creating a second health store or writing imported data back to Health Connect.",
   "boundary": {
-    "runtime": "Android native reader required; the static web surface does not directly access Health Connect.",
-    "default_transport": "explicit local JSON bundle -> BODY / FIT IMPORT JSON FILE",
+    "runtime": "Minimal native Android source lives at /android/body-bridge/; BODY / FIT static web surface owns the raw-export → canonical observation transform.",
+    "default_transport": "BODY BRIDGE explicit local 0xxx0/health-connect-export/v0.1 JSON -> BODY / FIT import -> /body/fit/health-connect-transform.js -> 0xxx0/body-sensor-bundle/v0.1",
     "future_transport": "private local relay / HOUSEBUS / Hermes only if it reduces friction without broadening authority",
     "cloud_required": false,
     "write_back": false
@@ -134,22 +134,38 @@
     ],
     "revoke_behavior": "Loss/revocation becomes explicit unavailable/unknown state; it does not synthesize zeros or silently expand permissions."
   },
-  "export_bundle": {
-    "schema": "0xxx0/body-sensor-bundle/v0.1",
-    "target": "BODY / FIT existing JSON import",
-    "contains": "sensor observations + adapter/source metadata only",
+  "next_proof": [
+    "Compile the minimal Android BODY BRIDGE source against current Health Connect/AGP.",
+    "Install/run BODY BRIDGE locally.",
+    "Authorize only sleep + heart-rate reads.",
+    "Export one bounded 0xxx0/health-connect-export/v0.1 packet.",
+    "Import it into BODY / FIT and verify timestamps, source app/device attribution, units and missingness survive.",
+    "Then decide whether an automatic local relay is worth its dependency cost."
+  ],
+  "native_export": {
+    "schema": "0xxx0/health-connect-export/v0.1",
+    "producer": "/android/body-bridge/",
+    "content": "selected raw Health Connect record fields + provenance only",
+    "aperture": "last 48h SleepSessionRecord; HeartRateRecord only inside returned sleep intervals for first proof",
     "excludes": [
       "account tokens",
-      "Health Connect permissions state beyond needed provenance",
+      "write permissions",
+      "background polling",
       "unselected record types"
     ]
   },
-  "next_proof": [
-    "Install/run a minimal Android reader locally.",
-    "Authorize only sleep + heart-rate reads.",
-    "Export one bounded bundle.",
-    "Import into BODY / FIT.",
-    "Verify timestamps, source app/device attribution, units and missingness survive.",
-    "Then decide whether an automatic local relay is worth its dependency cost."
-  ]
+  "transform": {
+    "path": "/body/fit/health-connect-transform.js",
+    "test": "/body/fit/health-connect-selftest.cjs",
+    "fixture": "/body/fit/health-connect-fixture.json",
+    "output_schema": "0xxx0/body-sensor-bundle/v0.1",
+    "target": "BODY / FIT existing JSON import"
+  },
+  "automated_proof": {
+    "transform": "PASS · /body/fit/health-connect-selftest.cjs in public-surface CI",
+    "native_compile": "PASS · :app:assembleDebug against AGP 9.4.0 / Health Connect 1.1.0",
+    "browser_repo_suite": "PASS",
+    "artifact": "body-bridge-debug workflow artifact retained 7 days",
+    "non_claim": "Compile/fixture proof does not prove real phone permissions, Samsung Health sync, source population, or a personal round trip."
+  }
 }

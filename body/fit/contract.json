@@ -74,6 +74,7 @@
     "0xxx0/body-fit-state/v0.1",
     "0xxx0/body-sensor-observation/v0.1",
     "0xxx0/body-sensor-bundle/v0.1",
+    "0xxx0/health-connect-export/v0.1 -> local transform -> 0xxx0/body-sensor-bundle/v0.1",
     "HUMAN PORT session object adapter"
   ],
   "research": "/control/research/BODY_FIT_RETURN_PATINA_2026-09-22.md",
@@ -112,5 +113,11 @@
   "care_boundary": {
     "law": "CARE ACTION COMPLETED != CONDITION IMPROVED",
     "note": "Loadout completion semantics may be useful for caregivers/pet care, but BODY / FIT does not mutate CARE cases or infer clinical improvement."
+  },
+  "health_connect": {
+    "status": "TRANSFORM_WIRED / NATIVE_SOURCE_REQUIRED",
+    "adapter": "/body/fit/health-connect.adapter.json",
+    "transform": "/body/fit/health-connect-transform.js",
+    "law": "Raw Health Connect export packets are transformed locally into existing observation envelopes; BODY / FIT remains the canonical browser-local observation ledger and never writes imported records back to Health Connect."
   }
 }

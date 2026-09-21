@@ -5541,8 +5541,8 @@
       "family": "BODY / FIELD",
       "operation": "ADDRESS",
       "state": "CANDIDATE",
-      "version": "0.3",
-      "receipt": "/body/fit/release.json",
+      "version": "0.3.1-candidate",
+      "receipt": "/returns/BODY_FIT_HEALTH_CONNECT_PROOF_2026-09-22.json",
       "role": "Fitted-body, purpose-loadout and sensor-coverage projection over the shared BODY PLAN: manage addressed modules, prep saved kits, align source-distinct observations, then close real use with RETURN/PATINA and one NEXT CUT without streak scoring.",
       "transfer": [
         "Syndicate Wars Cryovat body-fitting donor",
@@ -5556,7 +5556,9 @@
         "Death Stranding preparation→action→return donor",
         "Fold/Bloom ratchet/garden/RETURN donor",
         "non-punitive completion patina",
-        "explicit BODY valence/state reference on return"
+        "explicit BODY valence/state reference on return",
+        "Health Connect raw-export adapter with provenance-preserving BODY / FIT transform",
+        "minimum-sufficient sensor aperture: sleep + heart rate only for first proof"
       ],
       "field": {
         "roles": [
@@ -5632,11 +5634,12 @@
         "physical_fit": "Body-associated fitting and sensor-stream registry/projection; no diagnosis, automatic thresholding, causal inference or actuation authority."
       },
       "index": {
-        "updated_at": "2026-09-22T02:50:00+08:00",
+        "updated_at": "2026-09-22T05:24:00+08:00",
         "work_modes": [
-          "OPERATE",
-          "VERIFY",
-          "IMPLEMENT"
+          "RESEARCH",
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY"
         ]
       },
       "versions": [

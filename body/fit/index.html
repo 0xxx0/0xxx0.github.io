@@ -139,7 +139,7 @@ header{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:end;pa
     <div class="field"><label>ACQUISITION</label><input id="obsMethod" placeholder="sensor / user entry / HA entity / file…"></div>
     <div class="field"><label>SOURCE REF</label><input id="obsRef" placeholder="entity_id / report / object id / topic…"></div>
    </div>
-   <div class="actionrow"><button id="addObs" class="primary">RETURN OBSERVATION</button><button id="portImport">IMPORT PORT JSON</button><button id="fileImport">IMPORT JSON FILE</button><input id="importFile" type="file" accept=".json,application/json" hidden></div>
+   <div class="actionrow"><button id="addObs" class="primary">RETURN OBSERVATION</button><button id="portImport">IMPORT PORT JSON</button><button id="fileImport">IMPORT JSON / HEALTH CONNECT</button><input id="importFile" type="file" accept=".json,application/json" hidden></div><div class="small" style="margin-top:6px">Health Connect export packets are transformed locally into source-distinct BODY / FIT observations. Imported source records remain historical evidence; no write-back.</div>
   </div>
   <div id="obsList" class="list"></div>
  </div>
@@ -170,6 +170,7 @@ header{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:end;pa
 <div class="foot"><span>BODY / FIT 0.3 · PREP → SET OUT → RETURN → PATINA · local-first</span><span><a href="../">BODY / FIELD ←</a> · <a href="../../care/">CARE →</a></span></div>
 
 <script src="../../bodyplans/registry.js"></script>
+<script src="./health-connect-transform.js"></script>
 <script>
 (()=>{'use strict';
 const KEY='0xxx0.body.fit.v01',HOUSE='0xxx0.house.body.context.v01',BODYLATEST='0xxx0.body.field.latest.v01',PORT='body.fit.port.sensor.v01';
@@ -360,6 +361,12 @@ function setView(v){document.querySelectorAll('.tab').forEach(b=>b.classList.tog
 $$('.tab').forEach(b=>b.onclick=()=>setView(b.dataset.view));
 
 function importPacket(j,origin){
+ let transformedFrom=null;
+ if(j?.schema==='0xxx0/health-connect-export/v0.1'){
+   if(!window.HealthConnectBodyFit?.transformExport)throw new Error('Health Connect transform unavailable');
+   transformedFrom=j.schema;
+   j=window.HealthConnectBodyFit.transformExport(j);
+ }
  if(j.schema==='0xxx0/body-fit-state/v0.1'){D=j;D.fittings=D.fittings||[];D.observations=D.observations||[];D.kits=D.kits||[];D.returns=D.returns||[];D.active_session=D.active_session||null;D.imports=D.imports||[];save();renderAll();return}
  let obs=[];
  if(j.schema==='0xxx0/body-sensor-observation/v0.1')obs=[j];
@@ -367,7 +374,7 @@ function importPacket(j,origin){
  else if(Array.isArray(j.observations))obs=j.observations;
  else throw new Error('Unsupported BODY / FIT JSON schema');
  obs.forEach(o=>{const x=structuredClone(o);x.id=x.id||uid('obs');x.recorded_at=x.recorded_at||now();D.observations.push(x)});
- D.imports.push({at:now(),origin,count:obs.length});save();renderAll()
+ D.imports.push({at:now(),origin,count:obs.length,transformed_from:transformedFrom,source:j.source||null});save();renderAll()
 }
 $('#fileImport').onclick=()=>$('#importFile').click();$('#importBtn').onclick=()=>$('#importFile').click();
 $('#importFile').onchange=e=>{const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{importPacket(JSON.parse(r.result),f.name)}catch(err){alert('Import failed: '+err.message)}};r.readAsText(f)};
