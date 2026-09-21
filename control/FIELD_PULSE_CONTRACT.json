@@ -49,13 +49,17 @@
         "stage",
         "sourceHash",
         "sourceKind",
-        "sourceAddress"
+        "sourceAddress",
+        "beatTime",
+        "beatPhase",
+        "beatDistance",
+        "sectionProgress"
       ]
     },
     {
-      "consumer": "FOLD//BLOOM LIVE 0.1",
+      "consumer": "FOLD//BLOOM LIVE 0.2",
       "from": "LISTEN transport",
-      "effect": "beat pulse + compact TRACK witness only; no automatic musical authority"
+      "effect": "beat pulse + compact TRACK witness + optional release-timing bonus; no automatic release and no topology authority"
     },
     {
       "producer": "FOLD//BLOOM LIVE 0.1",
@@ -91,7 +95,8 @@
     "consumer behavior must be explicit or visibly optional",
     "no hidden cross-app mutation",
     "RETURN/export remains the durable evidence boundary",
-    "borrowed clock != borrowed authorship; a consumer may follow temporal context without delegating its transformation grammar"
+    "borrowed clock != borrowed authorship; a consumer may follow temporal context without delegating its transformation grammar",
+    "timing bonus != topology authority; external song phase may reward a release but cannot choose its Fold/Bloom operation"
   ],
   "external_media_boundary": {
     "suno": "Share links are valid addresses; LISTEN may best-effort resolve public audio or accept a downloaded local file.",
@@ -105,5 +110,5 @@
     "Audiosurf 2 local-audio + optional FIELD skin/mod donor",
     "Beat Saber draft beatmap/event exporter from AUDIO MAP + authored FIELD operations"
   ],
-  "stop_condition": "Do not add another bridge/hub or another automatic musical coupling. First verify real-phone LISTEN scope, LISTEN→LIVE beat witness, READFIELD pulse pace, and LISTEN↔TWO DIAL opt-in clock with real audio."
+  "stop_condition": "Verify real-phone LISTEN→LIVE beat-distance timing and that CALL choice remains legible/useful with and without a linked song before adding more automatic coupling."
 }

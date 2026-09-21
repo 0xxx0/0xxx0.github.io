@@ -691,9 +691,10 @@ const CASES=[
     check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/EXTRACTED DESCENDANT · SCALE LENS/i.test(dom)&&/TWO DIAL 0\.10/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)
   },
   {
-    name:'FOLD BLOOM LIVE demo',
+    name:'FOLD BLOOM LIVE 0.2 gameplay',
     route:'/fold-bloom/live/',
-    check:dom=>/LIVE 0\.1/i.test(dom)&&dom.includes('id="demoBtn"')&&/WATCH DEMO/i.test(dom)
+    options:{width:430,height:900,budget:9000},
+    check:dom=>/LIVE 0\.2/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('id="demoBtn"')&&dom.includes('id="call"')&&dom.includes('id="streak"')&&dom.includes('id="timing"')&&dom.includes('id="trackFile"')&&dom.includes('id="trackLoad"')&&dom.includes('id="trackToggle"')&&/WATCH DEMO/i.test(dom)
   },
   {
     name:'TWO DIAL sound field 0.10',

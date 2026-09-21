@@ -3,7 +3,7 @@
 Status: experimental performance head. Do not overwrite frozen donors.
 
 ## Current head
-`/fold-bloom/live/` tests a single thesis: **turn → accumulate tension → choose release → topology changes future music**.
+`/fold-bloom/live/` tests a single thesis: **read the CALL → inspect forecast consequences → turn → accumulate tension → commit → topology changes future music**. A linked song may reward timing, but never chooses topology.
 
 Donors remain addressable and independent:
 - Fold Weave 0.1: `/recovery/fold-bloom/fold-weave-0.1/` — exact frozen donor; ring / crease / cascade / mute-first causal score.
@@ -17,7 +17,7 @@ Donors remain addressable and independent:
 4. **Mute parity.** A player must still read target, alignment, authored folds, cascade and charge with audio off.
 5. **Bound the engine.** Graph, history, motif, particles/visual pulses and scheduler catch-up stay bounded.
 6. **Preserve donors.** Transfer mechanisms by explicit provenance; never silently mutate exact recovery artifacts.
-7. **One musical delta per evaluation.** Tune gesture→consequence before adding modes, organisms or menus.
+7. **Forecast before commitment.** If several matching placements have different consequences, expose those differences before release; hidden topology is not gameplay.\n8. **Borrowed clock ≠ borrowed authorship.** Same-page local audio is the phone authority path; LISTEN/FIELD PULSE may lend beat/section context and timing reward, but audio never auto-releases or chooses BLOOM/FOLD/SPLIT/RETURN.\n9. **One musical delta per evaluation.** Tune gesture→consequence before adding modes, organisms or menus.
 
 ## Iteration loop
 `OBSERVE → NAME FAILURE → CHANGE ONE OPERATOR → STATIC TEST → BROWSER/TOUCH PLAY → A/B DONOR → RECEIPT → KEEP/REVERT`
@@ -32,14 +32,14 @@ A change survives only if it improves at least one without materially harming th
 
 ## Promotion gate
 Do not call LIVE canonical until direct desktop + touch play establishes all of these:
-1. Within 60 s, RATCHET is understood as **stored tension**, not merely step navigation.
+1. Within 60 s, a player can explain TARGET vs CALL, identify at least two candidate consequence labels, and use RATCHET as **stored tension**, not merely step navigation.
 2. Within 120 s, a blind-ish listener can hear a difference between ordinary BLOOM and a crease/cascade event without reading the HUD.
 3. A charged structural event retains its topology identity (e.g. `FOLD → RETURN`) and the RETURN aperture is perceptible.
 4. Muted play still exposes target, alignment, creases, cascade path and charge.
-5. No runaway scheduler catch-up, stuck drone, touch-scroll conflict or material frame drop during a 10-minute run.
+5. With a same-page custom song or optional LISTEN link, beat flashes and PERFECT/GOOD timing feel causally fair while topology remains fully playable with no song loaded.\n6. No runaway scheduler catch-up, stuck drone, touch-scroll conflict or material frame drop during a 10-minute run.
 
 ## Next useful transforms — only after play
-- Tune charge curve + return aperture from observed timing, not taste in isolation.
+- Tune CALL selection, forecast legibility, charge curve and return aperture from observed choices/timing, not taste in isolation.\n- If external-song timing survives play, consider a bounded beat/event-tape exporter before any deeper Audiosurf/Beat Saber bridge.
 - If LIVE wins the A/B, transplant the music engine into the full Fold Weave surface while keeping Ecology separate.
 - Add performance capture/replay only if the existing bounded RETURN packet proves insufficient for comparing runs.
 

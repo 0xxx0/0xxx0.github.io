@@ -1,0 +1,108 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_GAMEPLAY_2026-09-22",
+  "date": "2026-09-22",
+  "object": "Design Fold Bloom Instrument / LIVE 0.2 gameplay convergence",
+  "status": "BRANCH_VERIFIED_PENDING_MERGE",
+  "recovered_user_questions": {
+    "A": "Hook Fold/Bloom into respective apps/games.",
+    "B": "Make custom songs practical: Suno links, self-hosted audio, Spotify/YouTube boundaries.",
+    "C": "Relate the instrument to Audiosurf, Beat Saber and other rhythm-game forms without cloning them.",
+    "D": "Compose meaningfully with Aperture, AXIAL and RSVP rather than proliferating disconnected panels."
+  },
+  "observed_failure": [
+    "LIVE 0.1 contained meaningful crease/cascade topology but mostly asked the player to match EMBER/WATER/MOSS at one gate.",
+    "Different matching placements could produce different BLOOM/FOLD/SPLIT/RETURN consequences, but those differences were hidden until after release.",
+    "On phone the TARGET HUD was hidden, further weakening the objective.",
+    "Cross-tab LISTEN→LIVE FIELD PULSE is useful on desktop but cannot be the phone authority path because background tabs may be throttled or suspended."
+  ],
+  "implemented": {
+    "core_loop": "CALL → inspect target-colored consequence forecasts → choose placement → accumulate RATCHET tension → COMMIT → topology changes future options/music",
+    "forecasts": "Every legal target-colored slot exposes B/F/S/R plus cascade depth before commitment; candidates satisfying the current CALL receive a stronger witness.",
+    "call": "Each round generates a deterministic achievable CALL for BLOOM/FOLD/SPLIT/RETURN plus minimum cascade depth. CALL success builds a bounded streak and score multiplier; an open/non-call release remains lawful rather than hard-failing.",
+    "mobile": "TARGET / CALL / STREAK / BEAT remain visible; secondary telemetry is hidden first.",
+    "custom_song_phone": "LIVE can load, decode, play and analyze one local audio file in-page. It reuses LISTEN preview-map, AUDIO MAP and analysis-worker code. PREVIEW is immediate; DEEP refinement follows for <=20 minute material.",
+    "custom_song_timing": "Song beat phase/distance may award PERFECT/GOOD flow multipliers and creates a visible beat witness. Timing never blocks release, changes topology, or selects a verb.",
+    "optional_field_pulse": "If no same-page song is active, LISTEN may still lend transport through FIELD PULSE. Same-page audio wins on phone.",
+    "demo": "WATCH DEMO now searches for a placement that satisfies the current CALL rather than releasing the first symbol match.",
+    "compatibility": "Existing LIVE 0.1 local snapshots migrate into LIVE 0.2."
+  },
+  "answers": {
+    "A": {
+      "state": "PARTLY_IMPLEMENTED_WITH_CLEAN_SEAM",
+      "answer": "FIELD PULSE already connects LISTEN clock/features to LIVE, RSVP and Two Dial. LIVE publishes authored operations back. Same-page custom-song play removes the phone dependency on cross-tab transport. Do not add a central hub; add bounded adapters only when a target app can use a real event/operation.",
+      "next": "After embodied play, export a small beat/event tape from AUDIO MAP + authored LIVE operations for game-tool adapters."
+    },
+    "B": {
+      "state": "IMPLEMENTED_BOUNDARIES + LOCAL_AUTHORITY",
+      "answer": "Local file is now playable/analyzable inside LIVE and remains the reliable phone path. LISTEN retains Suno URL/UUID + direct remote-audio best-effort resolution. Same-origin self-hosted owned/licensed audio is the clean future remote path. YouTube remains playback/link only; Spotify remains listening/publishing only for this architecture.",
+      "caution": "Do not represent iframe/Spotify playback as raw analyzable audio, and do not add Suno auth/cookie scraping."
+    },
+    "C": {
+      "state": "NEXT_EXPORT_DEFINED_NOT_PRETENDED_SHIPPED",
+      "answer": "The reusable unit is AUDIO MAP + authored operation tape, not an Audiosurf clone. Candidate adapters are beat/event tape, Audiosurf 2 local-audio/skin/mod donor experiments, and Beat Saber draft beatmap/event export.",
+      "gate": "Do not build exporters until LIVE 0.2 custom-song play proves that beat timing and topology choices are actually enjoyable and legible."
+    },
+    "D": {
+      "state": "PARTLY_IMPLEMENTED; DEEPER COUPLING HELD",
+      "answer": "RSVP already has an explicit LISTEN BPM→WPM PULSE adapter; Two Dial has opt-in PULSE LINK. AXIAL/APERTURE should project or inspect the same addressed song/operation objects rather than acquire another music panel. No new coupling was added in this pass because gameplay agency was the bottleneck.",
+      "law": "Projection and clock may be borrowed; transformation authority stays with the receiving instrument."
+    }
+  },
+  "laws": [
+    "Forecast before commitment: hidden consequences are not gameplay.",
+    "Borrowed clock != borrowed authorship.",
+    "Timing bonus != topology authority.",
+    "Same-page local audio is the phone authority path; cross-tab pulse is optional coordination.",
+    "A missed CALL is an authored alternative, not a failure state; the game rewards intent without collapsing into streak punishment.",
+    "RETURN/AUDIO MAP/operation exports are durable evidence; live pulse is ephemeral."
+  ],
+  "verification": {
+    "pre_seal_ci_run": 35656338927,
+    "result": "PASS",
+    "proved": [
+      "route grammar",
+      "static public contracts",
+      "LISTEN analysis + preview render",
+      "LIVE gameplay engine tests",
+      "LIVE same-page custom-song transport tests",
+      "phone-sized LIVE 0.2 runtime boot and controls",
+      "critical browser smoke",
+      "recovery catalogue and frozen unrelated surfaces"
+    ],
+    "direct_embodied_play": "REQUIRED_NEXT"
+  },
+  "changed": [
+    "/fold-bloom/live/engine.js",
+    "/fold-bloom/live/app.js",
+    "/fold-bloom/live/render.js",
+    "/fold-bloom/live/index.html",
+    "/fold-bloom/live/track.js",
+    "/fold-bloom/live/tests/engine.test.mjs",
+    "/fold-bloom/live/tests/track.test.mjs",
+    "/fold-bloom/listen/app.js",
+    "/control/FIELD_PULSE_CONTRACT.json",
+    "/fold-bloom/live/EXECUTION.md",
+    "/fold-bloom/live/release.json",
+    "/control/CURRENT.json",
+    "/tools/browser-smoke.mjs",
+    "/.github/workflows/public-surface-check.yml"
+  ],
+  "preserved": [
+    "/recovery/fold-bloom/fold-weave-0.1/ exact donor remains untouched",
+    "Two Dial remains deep composition authority",
+    "Ecology remains separate persistence/lineage-game",
+    "LISTEN remains the deeper source-addressed audio-map laboratory",
+    "no automatic external-song release or topology mutation"
+  ],
+  "next_truth": [
+    "On phone, LOAD CUSTOM SONG with one real track and confirm PREVIEW then DEEP.",
+    "Without looking at explanatory text, distinguish TARGET, CALL, candidate B/F/S/R labels, and choose at least two different outcomes.",
+    "Compare muted, synth-only, and custom-song play.",
+    "Judge PERFECT/GOOD timing: rewarding rather than arbitrary; topology choice must remain primary.",
+    "Run long enough to see whether CALLs create strategy or merely chores. Revise CALL selection before adding more modes if they feel prescriptive."
+  ],
+  "stop": "No Audiosurf/Beat Saber exporter, AXIAL/APERTURE music panel, automatic coupling, or ecology expansion before the direct phone gameplay RETURN.",
+  "return": "/returns/FOLD_BLOOM_GAMEPLAY_2026-09-22.json",
+  "pr": 119
+}
