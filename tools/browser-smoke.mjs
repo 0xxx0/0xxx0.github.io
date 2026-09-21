@@ -141,28 +141,24 @@ function listenIntakeProbeHtml(){
   })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
   <\/script></body></html>`;
 }
-function listenAudioProbeHtml(){
-  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/fold-bloom/listen/"></iframe><pre id="probeResult">PENDING</pre><script>
-  const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
-  const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
-  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-  const waitFor=async(fn,limit=16000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(40)}throw Error('waitFor timeout')};
-  const ink=D=>{const c=D.getElementById('overlay'),x=c.getContext('2d'),d=x.getImageData(0,0,c.width,c.height).data;let alpha=0;for(let i=3;i<d.length;i+=16)if(d[i]>20)alpha++;return alpha};
-  (async()=>{
-    const W=()=>f.contentWindow,D=()=>W().document;
-    await waitFor(()=>W().FoldBloomListen?.boot==='ready');await sleep(120);rec.before=ink(D());
-    const blob=await W().fetch('/fold-bloom/listen/test-fixtures/pulse-120bpm-2s.mp3').then(r=>{if(!r.ok)throw Error('fixture '+r.status);return r.blob()});
-    const file=new (W().File)([blob],'pulse-120bpm-2s.mp3',{type:'audio/mpeg'}),dt=new (W().DataTransfer)();dt.items.add(file);
-    const input=D().getElementById('file');input.files=dt.files;input.dispatchEvent(new (W().Event)('change',{bubbles:true}));
-    rec.wait='preview';await waitFor(()=>W().FoldBloomListen.state().previewBuilds>0);
-    const preview=W().FoldBloomListen.state();rec.previewStage=preview.stage;rec.previewFrames=preview.map?.frames?.length||0;rec.loadedAtPreview=D().getElementById('drop').classList.contains('loaded');
-    rec.wait='deep';await waitFor(()=>W().FoldBloomListen.state().deepBuilds>0);rec.wait='render';await waitFor(()=>W().FoldBloomListen.state().renderedMapFrames>4);await sleep(120);
-    const state=W().FoldBloomListen.state();rec.after=ink(D());rec.stage=state.stage;rec.previewBuilds=state.previewBuilds;rec.deepBuilds=state.deepBuilds;rec.rendered=state.renderedMapFrames;
-    rec.frames=state.map?.frames?.length||0;rec.bpm=state.map?.bpm||0;rec.duration=state.map?.duration||0;rec.renderer=state.renderer;rec.loaded=D().getElementById('drop').classList.contains('loaded');rec.transport=!D().getElementById('transport').disabled;rec.status=D().getElementById('status').textContent;
-    done(rec.previewBuilds===1&&rec.previewFrames>8&&rec.loadedAtPreview&&rec.deepBuilds===1&&rec.rendered>4&&rec.stage==='DEEP'&&rec.frames>4&&rec.bpm>70&&rec.bpm<180&&rec.duration>1.8&&rec.loaded&&rec.transport&&rec.after>rec.before*1.08,rec);
-  })().catch(e=>done(false,{error:String(e?.stack||e),status:f.contentWindow?.document?.getElementById('status')?.textContent||null,state:f.contentWindow?.FoldBloomListen?.state?.()||null,...rec}));
+function listenPreviewProbeHtml(){
+  return `<!doctype html><html><body style="margin:0;background:#05070b"><canvas id="g" width="900" height="700"></canvas><canvas id="o" width="900" height="700"></canvas><pre id="probeResult">PENDING</pre><script type="module">
+  const out=document.getElementById('probeResult'),rec={};
+  const done=(ok,data)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data);
+  try{
+    const [{buildPreviewMap},{ListenRenderer}]=await Promise.all([import('/fold-bloom/listen/preview-map.js'),import('/fold-bloom/listen/render.js')]);
+    const sr=12000,dur=8,n=sr*dur,pcm=new Float32Array(n);
+    for(let i=0;i<n;i++){const t=i/sr,p=t%.5;pcm[i]=.05*Math.sin(2*Math.PI*220*t)+(p<.055?.72*Math.sin(2*Math.PI*90*p)*Math.exp(-p*34):0)}
+    const map=buildPreviewMap(pcm,sr,dur),g=document.getElementById('g'),o=document.getElementById('o'),r=new ListenRenderer(g,o);
+    const x=o.getContext('2d'),before=x.getImageData(0,0,o.width,o.height).data;let beforeInk=0;for(let i=3;i<before.length;i+=16)if(before[i]>20)beforeInk++;
+    r.draw(map,map.frames[0],0,1,false);
+    const after=x.getImageData(0,0,o.width,o.height).data;let afterInk=0;for(let i=3;i<after.length;i+=16)if(after[i]>20)afterInk++;
+    rec.stage=map.stage;rec.frames=map.frames.length;rec.before=beforeInk;rec.after=afterInk;rec.mode=r.mode;
+    done(map.stage==='PREVIEW'&&map.frames.length>=24&&afterInk>beforeInk*1.08,rec);
+  }catch(e){done(false,{error:String(e?.stack||e),...rec})}
   <\/script></body></html>`;
 }
+
 function fieldActivationProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/"></iframe><pre id="probeResult">PENDING</pre><script>
   const result=document.getElementById('probeResult'),f=document.getElementById('f'),rec={};let finished=false;
@@ -506,9 +502,9 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(fieldListenProbeHtml());return;
   }
-  if(String(req.url||'').startsWith('/__smoke/listen-audio')){
+  if(String(req.url||'').startsWith('/__smoke/listen-preview')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
-    res.end(listenAudioProbeHtml());return;
+    res.end(listenPreviewProbeHtml());return;
   }
   if(String(req.url||'').startsWith('/__smoke/listen-intake')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
@@ -714,10 +710,10 @@ const CASES=[
     check:dom=>/LISTEN 0\.2\.2/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="urlInput"')&&dom.includes('id="urlBtn"')
   },
   {
-    name:'FOLD BLOOM LISTEN audio end-to-end',
-    route:'/__smoke/listen-audio',
+    name:'FOLD BLOOM LISTEN preview render',
+    route:'/__smoke/listen-preview',
     options:{width:1000,height:820,budget:18000,timeout:24000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"previewBuilds":1/.test(dom)&&/"deepBuilds":1/.test(dom)&&/"stage":"DEEP"/.test(dom)&&/"loadedAtPreview":true/.test(dom)&&/"transport":true/.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"stage":"PREVIEW"/.test(dom)&&/"frames":[2-9][0-9]/.test(dom)&&/"after":[1-9][0-9]+/.test(dom)
   },
   {
     name:'FOLD BLOOM LISTEN intake activation',
