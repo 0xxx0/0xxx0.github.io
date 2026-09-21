@@ -1,0 +1,23 @@
+name: body-bridge-android
+on:
+  pull_request:
+    paths:
+      - 'android/body-bridge/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '9.6.0'
+      - name: Compile BODY BRIDGE debug APK
+        run: gradle -p android/body-bridge :app:assembleDebug --stacktrace
