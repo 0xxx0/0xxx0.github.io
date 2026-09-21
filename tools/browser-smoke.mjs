@@ -250,6 +250,32 @@ function apertureMultilingualProbeHtml(){
   <\/script></body></html>`;
 }
 
+function genericLensReturnProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:390px;height:844px;border:0;display:block" src="/fold-bloom/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};
+  const done=(ok,data)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data);
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=8000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw Error('waitFor timeout')};
+  (async()=>{
+    const w=f.contentWindow,d=w.document;
+    const host=await waitFor(()=>d.getElementById('showcase-route-adapter'));
+    const sh=await waitFor(()=>host.shadowRoot),tab=await waitFor(()=>sh.querySelector('.tab.lens'));
+    rec.before=w.location.pathname;
+    tab.click();
+    await waitFor(()=>sh.querySelector('.panel.on.lens'));
+    rec.copy=!!sh.querySelector('[data-l="copy"]');
+    rec.deadStack=!!sh.querySelector('[data-l="stackBtn"]');
+    const ret=sh.querySelector('[data-l="return"]');rec.returnButton=!!ret;
+    if(!ret)throw Error('generic Lens RETURN missing');
+    ret.click();
+    await waitFor(()=>!sh.querySelector('.panel.on'));
+    rec.after=w.location.pathname;
+    rec.closed=!sh.querySelector('.panel.on');
+    done(rec.before===rec.after&&rec.closed&&rec.copy&&!rec.deadStack&&rec.returnButton,rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
 function oneReturnGridReceiptProbeHtml(){
   return `<!doctype html><html><body><iframe id="f" style="width:1100px;height:820px;border:0" src="/sleeper/one-return/"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};
@@ -268,6 +294,10 @@ function oneReturnGridReceiptProbeHtml(){
 }
 
 const server=http.createServer((req,res)=>{
+  if(String(req.url||'').startsWith('/__smoke/generic-lens-return')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(genericLensReturnProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/one-return-grid-receipt')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(oneReturnGridReceiptProbeHtml());return;
@@ -438,6 +468,12 @@ const CASES=[
     route:'/__smoke/lens-studio',
     options:{width:1280,height:900,budget:22000,timeout:28000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"field-foveate"/.test(dom)&&/"studioObject":"\/fold-bloom\/lens\/"/.test(dom)&&/"endHref":"\/fold-bloom\/lens\/"/.test(dom)
+  },
+  {
+    name:'GENERIC LENS RETURN ≠ BACK',
+    route:'/__smoke/generic-lens-return',
+    options:{width:430,height:900,budget:9000,timeout:16000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"before":"\/fold-bloom\/"/.test(dom)&&/"after":"\/fold-bloom\/"/.test(dom)&&/"closed":true/.test(dom)&&/"copy":true/.test(dom)&&/"deadStack":false/.test(dom)
   },
   {
     name:'FOLD BLOOM convergence',
