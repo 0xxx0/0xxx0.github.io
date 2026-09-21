@@ -90,7 +90,7 @@
     "state": "CANDIDATE",
     "basis": "Substantial workbench is implemented and usable, but receipt remains explicitly experimental with open language/corpus/game trials; historical status EXPERIMENTAL_LIVE remains above."
   },
-  "version": "0.2",
+  "version": "0.2.1",
   "state": "EXPERIMENTAL_LIVE",
   "lineage": {
     "proof_donor": "/poetry/lab/poem-map/",
@@ -109,19 +109,97 @@
     ],
     "generation_proof_preserved": "/poetry/lab/poem-map/",
     "dom_selector_integrity": "PASS_NO_MISSING_IDS",
-    "current_source_sha": "3b309115886ef903ba0b6eb41ab29245f769bb26",
+    "current_source_sha": "0f4c6910fff82fd1f2fe536c37e4d893ce594f8f",
     "page_default_and_persisted": "PASS_STATIC",
     "guide_markers": "PASS_STATIC",
     "return_import_replay_contract": "PASS_STATIC",
     "selftest_exposed": "YES_RUNTIME_EXECUTION_PENDING",
-    "rendered_browser_smoke": "PENDING_ENVIRONMENT",
+    "rendered_browser_smoke": "CI_REQUIRED",
     "checked_on": "2026-09-21",
     "local_corpus_static_contract": "PASS",
-    "return_replay_clears_session_corpus": "PASS_STATIC"
+    "return_replay_clears_session_corpus": "PASS_STATIC",
+    "calm_face_static_contract": "PASS",
+    "inline_javascript_parse": "PASS"
   },
   "updated": "2026-09-21",
   "next_bounded_test": {
-    "instruction": "Use TINY DEMO → PAGE → select one word → request one intent → TRY → ADOPT → EXPORT → mutate/reset → IMPORT; verify source/revision/lock/path state returns and note any point of confusion.",
-    "stop": "Do not add another provider/view/form until this loop has a real user RETURN or a concrete failure."
-  }
+    "instruction": "Open fresh Poem Map. FIELD NOW should populate without opening drawers. Select one term in PAGE, use one wheel action, inspect bank/TRY→ADOPT only if useful, optionally open MAP, then EXPORT→IMPORT.",
+    "compare": "Poem Map 0.1 for approachability; 0.2.1 must preserve 0.2 capability without making first contact heavier than 0.1.",
+    "stop": "If first-use still requires understanding forms, relation weights or provider internals, treat that as failure and reduce disclosure—not capability."
+  },
+  "face": "CALM_FIELD_FIRST",
+  "interface_contract": {
+    "always_visible": [
+      "source projection",
+      "PAGE / MAP / SETS switch",
+      "FIELD NOW",
+      "SOURCE drawer",
+      "DETAIL drawer",
+      "RETURN status"
+    ],
+    "contextual": [
+      "selected token",
+      "golden-angle focus wheel",
+      "NEXT / TURN / ECHO / WILD",
+      "candidate preview/adopt only after request"
+    ],
+    "drawer": [
+      "source editing",
+      "candidate bank",
+      "locks",
+      "revision ancestry",
+      "author path",
+      "captured readings"
+    ],
+    "advanced": [
+      "form/constraint pack",
+      "map relation weights",
+      "visual aperture",
+      "zoom/RSVP Aperture utility"
+    ],
+    "donor_depth": [
+      "Pathweaver",
+      "Market+Solver",
+      "Grid Path",
+      "Verse Atlas",
+      "Poem Map 0.1 control"
+    ]
+  },
+  "preload": {
+    "id": "FIELD_NOW",
+    "source": [
+      "CURRENT.active_fronts",
+      "CURRENT.current_heads",
+      "FIELD_ISSUES open titles"
+    ],
+    "candidate_corpus": [
+      "FIELD NOW source",
+      "current head retained_function",
+      "manifest title/role/operation/family"
+    ],
+    "persistence": "source may be saved as normal poem-map state; derived corpus is session-only and not exported",
+    "purpose": "Use Poem Map on actual collaboration language for naming, pattern finding, compression and route-making rather than requiring poetry-for-poetry's-sake."
+  },
+  "donors": [
+    {
+      "source": "/poetry/lab/poem-map/",
+      "unit": "one readable source + one question at a time"
+    },
+    {
+      "source": "/foundry/aperture/",
+      "unit": "stable object across scale/focus/time; ring inspector behind demand"
+    },
+    {
+      "source": "/recovery/media/datadisc/datadisc.html",
+      "unit": "radial/spiral multichannel projection + focus magnification; identity survives reorder"
+    },
+    {
+      "source": "/atlas-dayline/",
+      "unit": "plain/list baseline remains available while radial projection is optional"
+    },
+    {
+      "source": "/foundry/axial/",
+      "unit": "fixed focus, unequal vocabularies, contextual next move rather than permanent control wall"
+    }
+  ]
 }
