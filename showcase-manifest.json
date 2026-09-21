@@ -97,7 +97,8 @@
           "IMPLEMENT",
           "VERIFY"
         ]
-      }
+      },
+      "operation": "ADDRESS"
     },
     {
       "href": "/port/",
@@ -962,7 +963,9 @@
       "title": "FOLD // BLOOM",
       "kind": "hub",
       "parent": "/",
-      "family": "FOLD // BLOOM"
+      "family": "FOLD // BLOOM",
+      "operation": "ORIENT",
+      "state": "STABLE"
     },
     {
       "href": "/fold-bloom/two-dial/",
@@ -2159,7 +2162,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "operation": "ROUTE"
     },
     {
       "href": "/fcm/",
@@ -2372,7 +2376,8 @@
           "SPECIFY",
           "OPERATE"
         ]
-      }
+      },
+      "operation": "ORIENT"
     },
     {
       "href": "/returns/",
@@ -2389,7 +2394,8 @@
           "VERIFY",
           "RELEASE"
         ]
-      }
+      },
+      "operation": "RETURN"
     },
     {
       "href": "/showcase-selftest/",
@@ -2398,7 +2404,8 @@
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": false,
-      "role": "Public route/link smoke surface for validating the showcase graph."
+      "role": "Public route/link smoke surface for validating the showcase graph.",
+      "operation": "VERIFY"
     },
     {
       "href": "/recovery/",
@@ -2415,7 +2422,8 @@
           "VERIFY",
           "RELEASE"
         ]
-      }
+      },
+      "operation": "RECOVER"
     },
     {
       "href": "/recovery/path-grid/",
@@ -2425,7 +2433,8 @@
       "family": "FOUNDRY",
       "state": "FROZEN_DONOR",
       "showcase_card": false,
-      "role": "Exact Cabinet V4 family: general grid/path compiler and five unequal companion instruments."
+      "role": "Exact Cabinet V4 family: general grid/path compiler and five unequal companion instruments.",
+      "operation": "RECOVER"
     },
     {
       "href": "/recovery/fold-bloom/fold-weave-0.1/",
@@ -2435,7 +2444,8 @@
       "family": "FOLD/BLOOM",
       "state": "FROZEN_DONOR",
       "showcase_card": false,
-      "role": "Persistent crease-anchor topology branch retained beside Ecology pending playtest."
+      "role": "Persistent crease-anchor topology branch retained beside Ecology pending playtest.",
+      "operation": "RECOVER"
     },
     {
       "href": "/house/",
@@ -2536,7 +2546,8 @@
         "Field Aperture text/JSON scale ladder",
         "material host projection",
         "same source / RAW fallback"
-      ]
+      ],
+      "operation": "INSPECT"
     },
     {
       "href": "/control/confluence/",
@@ -2735,7 +2746,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "operation": "ORIENT"
     },
     {
       "href": "/law-zoo/law_zoo_field_guide.html",
@@ -3085,7 +3097,8 @@
           "SPECIFY",
           "RELEASE"
         ]
-      }
+      },
+      "operation": "ORIENT"
     },
     {
       "href": "/control/migration/",
@@ -3103,7 +3116,8 @@
           "SPECIFY",
           "RELEASE"
         ]
-      }
+      },
+      "operation": "RECOVER"
     },
     {
       "href": "/recovery/foundry-cabinet-v4/",
@@ -3121,7 +3135,8 @@
           "RECOVER",
           "VERIFY"
         ]
-      }
+      },
+      "operation": "RECOVER"
     },
     {
       "href": "/recovery/path-grid/grid-path-compiler-v4/",
@@ -3268,7 +3283,8 @@
           "OPERATE"
         ]
       },
-      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json"
+      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
+      "operation": "RECOVER"
     },
     {
       "href": "/recovery/sleeper/workfield-v1.2/",
@@ -3320,7 +3336,8 @@
           "VERIFY",
           "SPECIFY"
         ]
-      }
+      },
+      "operation": "RECOVER"
     },
     {
       "href": "/recovery/axial/state-transform-v0.3/",
@@ -3390,7 +3407,8 @@
           "RECOVER",
           "VERIFY"
         ]
-      }
+      },
+      "operation": "RECOVER"
     },
     {
       "href": "/recovery/media/datadisc/datadisc.html",
@@ -3499,7 +3517,8 @@
           "VERIFY",
           "INVESTIGATE"
         ]
-      }
+      },
+      "operation": "RECOVER"
     },
     {
       "href": "/recovery/poly-furnisher/kraken-2019/",
@@ -3862,7 +3881,8 @@
           "IMPLEMENT",
           "OPERATE"
         ]
-      }
+      },
+      "operation": "ROUTE"
     },
     {
       "href": "/contact/family/",
@@ -3880,7 +3900,8 @@
           "IMPLEMENT",
           "OPERATE"
         ]
-      }
+      },
+      "operation": "ROUTE"
     },
     {
       "href": "/contact/friend/",
@@ -3898,7 +3919,8 @@
           "IMPLEMENT",
           "OPERATE"
         ]
-      }
+      },
+      "operation": "ROUTE"
     },
     {
       "href": "/contact/work/",
@@ -3916,7 +3938,8 @@
           "IMPLEMENT",
           "OPERATE"
         ]
-      }
+      },
+      "operation": "ROUTE"
     },
     {
       "href": "/contact/agent/",
@@ -3934,7 +3957,8 @@
           "IMPLEMENT",
           "OPERATE"
         ]
-      }
+      },
+      "operation": "ROUTE"
     },
     {
       "href": "/contact/make/",
@@ -3952,7 +3976,8 @@
           "IMPLEMENT",
           "OPERATE"
         ]
-      }
+      },
+      "operation": "ROUTE"
     },
     {
       "href": "/contact/next/",
@@ -3970,7 +3995,8 @@
           "IMPLEMENT",
           "OPERATE"
         ]
-      }
+      },
+      "operation": "ROUTE"
     },
     {
       "href": "/field-play.html",
