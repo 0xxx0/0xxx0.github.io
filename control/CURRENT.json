@@ -517,7 +517,8 @@
     "fold_bloom_sound_depth_return": "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
     "triangle": "/forward-field-proof/triangle/",
     "triangle_return": "/returns/TRIANGLE_UNIFIED_2026-09-22.json",
-    "care_port_object_bridge": "/control/confluence/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json"
+    "care_port_object_bridge": "/control/confluence/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
+    "game_simulation_state_donors": "/control/research/GAME_SIMULATION_STATE_DONORS_2026-09-22.md"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
@@ -561,7 +562,8 @@
       "MAP": "/showcase-manifest.json#routes",
       "OPEN_PORTS": "route.field.exit_paths where status != AVAILABLE",
       "RECENT": "route.index.updated_at secondary lens only",
-      "EVOLVE": "showcase-manifest route.evolution; bounded variation → evidence → selection → transfer/park/compost"
+      "EVOLVE": "showcase-manifest route.evolution; bounded variation → evidence → selection → transfer/park/compost",
+      "VERSIONS": "showcase-manifest route.versions; shipped release lineage with commit/receipt provenance; never substitutes for RECENT or EVOLVE"
     },
     "evolution_contract": "/control/FIELD_INDEX_CONTRACT.json#evolution_contract",
     "identity_fold": "SUPERSEDED_ON_PRIMARY_REENTRY",
