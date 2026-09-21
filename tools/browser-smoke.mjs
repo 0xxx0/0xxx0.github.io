@@ -571,10 +571,10 @@ const CASES=[
     check:dom=>dom.includes('FOCUS STACK')&&dom.includes('RETURN')
   },
   {
-    name:'ROOM HTML substrate',
-    route:'/foundry/room/',
-    options:{width:900,height:900,budget:1800,timeout:18000},
-    check:dom=>dom.includes('ROOM 0.3')&&dom.includes('id="program"')&&dom.includes('data-schema="0xxx0/html-room/v0.3"')&&dom.includes('id="compiler"')&&dom.includes('rel="next"')&&dom.includes('id="sourceText"')&&dom.includes('id="returnBtn"')&&!dom.includes('space-core.js')
+    name:'ROOM MATERIAL DOM 0.4',
+    route:'/foundry/room/?selftest=1',
+    options:{width:1000,height:820,budget:4200,timeout:18000},
+    check:dom=>dom.includes('ROOM 0.4')&&dom.includes('MATERIAL DOM')&&dom.includes('id="program"')&&dom.includes('data-schema="0xxx0/material-dom/v0.4"')&&dom.includes('id="compiler"')&&dom.includes('rel="next"')&&dom.includes('id="foldBtn"')&&dom.includes('id="roomSelftest"')&&/PASS · DOM PROGRAM · FOLD · RUN · BIND · RETURN/.test(dom)&&!dom.includes('space-core.js')
   },
   {
     name:'AXIAL continuity + RETURN replay',
