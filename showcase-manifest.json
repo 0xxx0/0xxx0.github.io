@@ -1167,26 +1167,27 @@
           "RELEASE"
         ]
       },
-      "role": "Current Fold/Bloom family head. TWO DIAL composes relations; ECOLOGY grows lineage; LIVE 0.3 tests consequence choice plus optional MP3-driven SECTION ARCS; LISTEN maps external audio into addressed time/feature context. Local MP3 is the proven phone path; Suno/remote resolution remains best-effort. Scale Lens remains an extracted representation descendant, not a playable peer."
+      "role": "Current unequal Fold/Bloom family: LIVE 0.4 rides owned/local audio by projecting AUDIO MAP into future TRACKFIELD terrain; TWO DIAL composes music/form and may borrow clock only; ECOLOGY evolves persistent lineage/game state; LISTEN is the deeper source/AUDIO MAP laboratory. Local MP3 is proven; catalogs/providers remain adapters, not authority."
     },
     {
       "href": "/fold-bloom/live/",
-      "title": "FOLD//BLOOM LIVE 0.3",
+      "title": "FOLD//BLOOM LIVE 0.4",
       "kind": "artifact",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "PLAY",
       "state": "ACTIVE",
-      "version": "0.3",
-      "receipt": "/returns/FOLD_BLOOM_SECTION_ARC_2026-09-22.json",
-      "role": "One-hand consequence/play head: inspect B/F/S/R forecasts → choose topology → ratchet/commit. Proven local MP3 playback/analysis can lend beat timing and coarse detected sections as optional SECTION ARCS; two CALL hits with two distinct verbs make an arc ready, and a late direct/charged RETURN may seal it for a bounded bonus. Audio supplies clock/form but never topology authority.",
+      "version": "0.4",
+      "receipt": "/returns/FOLD_BLOOM_TRACKFIELD_2026-09-22.json",
+      "role": "Performance-ride head: local/owned audio → AUDIO MAP → TRACKFIELD future terrain, while the 12-cell Fold/Bloom ring remains the authored topology instrument. Beats/energy/flux/spectral balance/section-change evidence become visible geometry rather than extra telemetry; section seals stay optional/non-punitive.",
       "transfer": [
-        "Fold Weave: 12-cell ring / authored crease topology / cascade / mute-first causal score",
-        "Two Dial: phrase-pulse-form music grammar / continuous motion sonification / bounded local RETURN",
-        "LIVE 0.2: visible consequence forecasts + achievable CALLs + same-page custom-song host",
-        "LIVE 0.3: non-punitive SECTION ARC / late RETURN aperture / bounded section seal",
-        "FIELD PULSE operation producer + optional LISTEN section/beat witness",
-        "proven phone source: local MP3; Suno/remote remains best-effort"
+        "Fold Weave: 12-cell authored crease topology / cascade / mute-first causal score",
+        "Two Dial: phrase-pulse-form music grammar / release discipline",
+        "LIVE 0.2: consequence forecasts + achievable CALLs + same-page local-song host",
+        "LIVE 0.3: non-punitive SECTION ARC / late RETURN aperture",
+        "LIVE 0.4: AUDIO MAP → TRACKFIELD perspective future / visible surge anticipation",
+        "silent reversible autoplay mechanism preview before entry",
+        "proven source: local MP3; provider catalogs remain optional downstream adapters"
       ],
       "contract": {
         "accepts": {
@@ -1204,13 +1205,17 @@
           ]
         },
         "transforms": {
-          "verb": "forecast topology consequence, accumulate bounded tension, commit an authored release, and optionally shape play into non-punitive song-section arcs with a late RETURN aperture",
+          "verb": "project the measured future of an owned/local track as perspective terrain, forecast topology consequence, accumulate bounded tension, and commit authored BLOOM/FOLD/SPLIT/RETURN without letting audio choose topology",
           "preserves": [
             "donor provenance",
             "topology identity",
             "local state",
             "mute-readable causality",
-            "RETURN path"
+            "RETURN path",
+            "AUDIO MAP identity",
+            "trackfield derivability",
+            "external-audio non-authority",
+            "section-boundary non-punitive semantics"
           ],
           "reversibility": "bounded",
           "side_effects": "local browser state / explicit export only"
@@ -1220,19 +1225,20 @@
             "visual causal score",
             "audio response",
             "bounded RETURN packet",
-            "FIELD PULSE operation with optional section witness"
+            "FIELD PULSE operation with optional section witness",
+            "AUDIO MAP-derived perspective TRACKFIELD"
           ],
           "machine_readable": true,
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/returns/FOLD_BLOOM_SECTION_ARC_2026-09-22.json",
+          "receipt": "/returns/FOLD_BLOOM_TRACKFIELD_2026-09-22.json",
           "checks": [
-            "LIVE 0.3 engine/track/section-arc tests",
+            "LIVE 0.4 engine/track/section-arc/TRACKFIELD tests",
             "phone-sized runtime smoke",
             "user-verified local MP3 path",
-            "user-reported section differences partially useful",
-            "direct touch play remains promotion gate"
+            "user feedback: prior LIVE lacked Audiosurf-level hook/immersion",
+            "direct touch MP3 ride remains promotion gate"
           ],
           "return_path": "/fold-bloom/"
         },
@@ -1277,6 +1283,11 @@
             "medium": "DATA",
             "kind": "bounded instrument RETURN",
             "interface": "JSON export"
+          },
+          {
+            "medium": "LIGHT/SPACE",
+            "kind": "future audio features projected as perspective terrain",
+            "interface": "TRACKFIELD canvas projection"
           }
         ],
         "exit_paths": [
