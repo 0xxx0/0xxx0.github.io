@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_SECTION_ARC_2026-09-22",
   "date": "2026-09-22",
   "operation": "USER MP3 RETURN → DEMOTE BLOCKED SUNO → PROMOTE SECTION SIGNAL → BUILD SECTION ARC",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "route": "/fold-bloom/live/",
   "evidence": {
     "mp3": "USER-VERIFIED WORKING",
@@ -18,5 +18,11 @@
     "Suno block now produces an explicit MP3 fallback rather than a false unresolved gameplay gate"
   ],
   "next_truth": "Play one real MP3 across several detected sections and report whether section close creates anticipation/desire to continue rather than obligation.",
-  "stop": "No further feature family until this embodied return."
+  "stop": "No further feature family until this embodied return.",
+  "pr": 134,
+  "merge_sha": "d6341f639ff53ab3adefef1554739965021de641",
+  "ci": {
+    "run": 35663346071,
+    "result": "PASS"
+  }
 }
