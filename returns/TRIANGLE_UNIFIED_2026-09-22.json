@@ -8,7 +8,7 @@
     "problem": "No single stable address exposed the shared geometry while keeping the different laws distinct."
   },
   "intervention": [
-    "preserved the original Triangle Bench byte-for-byte at /forward-field-proof/triangle/bench/",
+    "preserved the original Triangle Bench at /forward-field-proof/triangle/bench/ with one relative-link relocation fix",
     "replaced /forward-field-proof/triangle/ with a unified four-mode instrument",
     "implemented GLYPH 8-locus grammar with MESSAGE / RETURN / FIELD presets",
     "implemented FORM as an executable one-mark tree calculus with CALL / CROSS STEP and NORMALIZE",
@@ -23,7 +23,7 @@
     "form_core_single_source": true,
     "form_selftest_cases": 6,
     "browser_smoke_registered": true,
-    "old_bench_preserved": true
+    "old_bench_preserved": "CONTENT_PRESERVED_WITH_RELOCATION_LINK_FIX"
   },
   "commits": [
     "983a377eaa5632b8fb1315adb4fe6b0490d8af1d",
