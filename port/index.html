@@ -132,10 +132,15 @@ function updateLikely(reloadAperture=true){
 function hydrateAperture(){
  const x=source();if(!x){$('#focusDeck').classList.remove('on');return}
  $('#focusDeck').classList.add('on');
+ const wanted=focus;
  if(!aperture){
    aperture=window.FieldAperture?.mount($('#apertureMount'),x.text,{label:x.label});
    aperture?.addEventListener('aperture-focus',e=>{focus=e.detail;renderFocus();if(scope==='focus'){const c=updateSupport(),next=inferRoute(routeText());likely=next.value;likelySource=next.source;renderRoutes();note('FOCUS '+focus.scale_label+' '+(focus.index+1)+'/'+focus.count+' · LIKELY '+routeLabel(likely)+' · '+(c[likely]||0)+' cue'+((c[likely]||0)===1?'':'s'))}persist()});
  }else aperture.load(x.text,{label:x.label});
+ if(wanted?.scale&&aperture?.A?.scales){
+   const si=aperture.A.scales.findIndex(q=>q.id===wanted.scale);
+   if(si>=0){aperture.setScale(si);aperture.setPos(Math.min(wanted.index||0,Math.max(0,aperture.currentScale().units.length-1)))}
+ }
  focus=aperture?.snapshot?.()||focus;renderFocus();
 }
 function renderFocus(){
@@ -213,7 +218,7 @@ $('#inspectBtn').onclick=()=>{const x=source();if(!x)return;window.FieldAperture
 $('#clear').onclick=()=>{payload.value='';label.value='';likely=null;selectedRoute=null;focus=null;scope='whole';aperture=null;$('#apertureMount').innerHTML='';$('#focusDeck').classList.remove('on');document.querySelectorAll('[data-port-route]').forEach(b=>b.classList.remove('likely','on'));updateSupport();renderRoutes();try{sessionStorage.removeItem(SESSION)}catch(_){}note('CLEARED · NOTHING STORED')};
 let explicitPreload=false;
 try{const raw=sessionStorage.getItem('human.port.intake.preload.v01');if(raw){const x=JSON.parse(raw);sessionStorage.removeItem('human.port.intake.preload.v01');payload.value=String(x.text||'').slice(0,12000);label.value=String(x.label||'').slice(0,100);explicitPreload=true;note('PRELOADED FROM '+String(x.source||'CENTER').toUpperCase())}}catch(e){note('PRELOAD FAILED · '+e.message,true)}
-if(!explicitPreload)try{const raw=sessionStorage.getItem(SESSION);if(raw){const x=JSON.parse(raw);payload.value=String(x.text||'').slice(0,12000);label.value=String(x.label||'').slice(0,100);selectedRoute=ROUTES.includes(x.selectedRoute)?x.selectedRoute:null;scope=x.scope==='focus'?'focus':'whole';note('RE-ENTERED · SOURCE RESTORED FROM THIS SESSION')}}catch(_){}
+if(!explicitPreload)try{const raw=sessionStorage.getItem(SESSION);if(raw){const x=JSON.parse(raw);payload.value=String(x.text||'').slice(0,12000);label.value=String(x.label||'').slice(0,100);selectedRoute=ROUTES.includes(x.selectedRoute)?x.selectedRoute:null;scope=x.scope==='focus'?'focus':'whole';focus=x.focus||null;note('RE-ENTERED · SOURCE + FOCUS RESTORED FROM THIS SESSION')}}catch(_){}
 renderLastReceipt();updateSupport();if(payload.value.trim())updateLikely();else renderRoutes();
 })();
 </script>
