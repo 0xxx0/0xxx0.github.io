@@ -313,10 +313,11 @@
     "A RETURN receipt can state what changed and whether the result still serves the larger front."
   ],
   "corpus_policy": {
-    "federation_117": "NON_CANONICAL_CORPUS / DONOR SAMPLE",
     "rule": "Inventory may grow without increasing control cardinality. Corpus membership never grants execution priority or canonical status.",
     "current_heads_source": "/control/CURRENT.json",
-    "recovery_source": "/control/MIGRATION.json"
+    "recovery_source": "/control/MIGRATION.json",
+    "recovered_federation": "NON_CANONICAL_CORPUS / DONOR SAMPLE",
+    "count_rule": "No hard corpus/project count is canonical unless backed by a current census address."
   },
   "canonical_unit": {
     "shape": "{ identity, address, state_in, transform, projection?, act?, state_out, evidence, reversibility, provenance, return }",
@@ -425,5 +426,6 @@
     ],
     "euler_line": "For a non-equilateral triangle, centroid G, circumcenter O, orthocenter H and nine-point center N are collinear on the Euler line; the incenter I is generally not. This is useful as a warning: one object can have several legitimate centers, and not all center definitions even belong to the same relation.",
     "transfer_rule": "Never assign meaning to a geometric center because the picture is suggestive. First name the invariant or optimization criterion; only then choose the geometry that implements it."
-  }
+  },
+  "machine_contract": "/foundry/machine.json"
 }

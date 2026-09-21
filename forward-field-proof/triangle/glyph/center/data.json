@@ -1,0 +1,3505 @@
+{
+  "schema": "0xxx0/triangle-center-snapshot/v0.2",
+  "generated": "2026-09-21",
+  "count": 117,
+  "sources": {
+    "atlas": {
+      "path": "/federation-atlas.json",
+      "sha": "9a936416b1482e9ed4d8b5f2e4549b28ede131de"
+    },
+    "map": {
+      "path": "/fcm-map.json",
+      "sha": "69ec99e5c751a521e245b91327dd0cc1a7b0e67b"
+    },
+    "manifest": {
+      "path": "/showcase-manifest.json",
+      "sha": "bdfce645faa0853a3ac270fbe278042b57404cd9"
+    }
+  },
+  "objects": [
+    {
+      "id": "CONST-001",
+      "province": "Knowledge Substrate",
+      "subprogram": "Federation governance",
+      "title": "The World Must Remain Answerable",
+      "type": "constitution",
+      "state": "active",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed artifact",
+      "priority": "P0",
+      "horizon": "now",
+      "output_class": "constitution",
+      "purpose": "Give the federation one operational constitution without collapsing distinct worlds.",
+      "operators": [
+        "SURFACE"
+      ],
+      "gravity": 0.462,
+      "fcm": 0.764,
+      "centrality": {
+        "in": 6,
+        "out": 0
+      }
+    },
+    {
+      "id": "KS-001",
+      "province": "Knowledge Substrate",
+      "subprogram": "Formal system",
+      "title": "SINDERESIS",
+      "type": "language/specification",
+      "state": "active",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P0",
+      "horizon": "now",
+      "output_class": "dossier",
+      "purpose": "Represent thought as situated symbols and inspectable transformations.",
+      "operators": [
+        "PROJECT"
+      ],
+      "gravity": 0.231,
+      "fcm": 0.711,
+      "centrality": {
+        "in": 3,
+        "out": 1
+      }
+    },
+    {
+      "id": "KS-002",
+      "province": "Knowledge Substrate",
+      "subprogram": "Epistemic security",
+      "title": "CSOS / Epistemic Security",
+      "type": "control system",
+      "state": "active",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P0",
+      "horizon": "now",
+      "output_class": "protocol",
+      "purpose": "Preserve provenance, contradiction, uncertainty and saturation boundaries.",
+      "operators": [
+        "ADDRESS",
+        "STATE",
+        "PROVE"
+      ],
+      "gravity": 0.846,
+      "fcm": 0.927,
+      "centrality": {
+        "in": 11,
+        "out": 2
+      }
+    },
+    {
+      "id": "KS-003",
+      "province": "Knowledge Substrate",
+      "subprogram": "Federation registry",
+      "title": "Master Index and Artifact Registry",
+      "type": "registry",
+      "state": "active",
+      "epistemic_status": "established",
+      "confirmation": "confirmed artifact",
+      "priority": "P0",
+      "horizon": "now",
+      "output_class": "registry",
+      "purpose": "Make the federation findable, filterable and non-destructively extensible.",
+      "operators": [
+        "ADDRESS"
+      ],
+      "gravity": 1,
+      "fcm": 0.887,
+      "centrality": {
+        "in": 13,
+        "out": 1
+      }
+    },
+    {
+      "id": "KS-004",
+      "province": "Knowledge Substrate",
+      "subprogram": "Lineage/Civilization Research",
+      "title": "Code Archaeology and Project Lineage",
+      "type": "recovery system",
+      "state": "triaged",
+      "epistemic_status": "established",
+      "confirmation": "confirmed project",
+      "priority": "P0",
+      "horizon": "now",
+      "output_class": "registry",
+      "purpose": "Recover actual lineage across duplicated, renamed and abandoned implementations.",
+      "operators": [
+        "ADDRESS",
+        "PROVE"
+      ],
+      "gravity": 0.462,
+      "fcm": 0.74,
+      "centrality": {
+        "in": 6,
+        "out": 1
+      }
+    },
+    {
+      "id": "A003",
+      "province": "Knowledge Substrate",
+      "subprogram": "Laconic recovery",
+      "title": "Missingness Recovery Runner",
+      "type": "recovery tool",
+      "state": "cooling down",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed artifact",
+      "priority": "P0",
+      "horizon": "now",
+      "output_class": "code artifact",
+      "purpose": "Search declared gaps before canonization.",
+      "operators": [
+        "ADDRESS"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.576,
+      "centrality": {
+        "in": 2,
+        "out": 3
+      }
+    },
+    {
+      "id": "A001",
+      "province": "Knowledge Substrate",
+      "subprogram": "Laconic recovery",
+      "title": "Searchable Laconic Ledger",
+      "type": "registry",
+      "state": "active",
+      "epistemic_status": "established",
+      "confirmation": "confirmed project",
+      "priority": "P0",
+      "horizon": "now",
+      "output_class": "registry",
+      "purpose": "Make recovered lines searchable with provenance, variants and status.",
+      "operators": [
+        "ADDRESS"
+      ],
+      "gravity": 0.308,
+      "fcm": 0.728,
+      "centrality": {
+        "in": 4,
+        "out": 1
+      }
+    },
+    {
+      "id": "A002",
+      "province": "Knowledge Substrate",
+      "subprogram": "Laconic recovery",
+      "title": "Canonical Line Book and Provenance Sidecar",
+      "type": "canon",
+      "state": "captured",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "canon page",
+      "purpose": "Publish selected lines without severing variants and lineage.",
+      "operators": [
+        "ADDRESS"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.479,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "A004",
+      "province": "Knowledge Substrate",
+      "subprogram": "Laconic recovery",
+      "title": "Multilingual Line Atlas",
+      "type": "atlas",
+      "state": "canonical",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed artifact",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "canon page",
+      "purpose": "Preserve multilingual variants and translation fan-out.",
+      "operators": [
+        "ADDRESS",
+        "PROJECT"
+      ],
+      "gravity": 0,
+      "fcm": 0.43,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "KS-009",
+      "province": "Knowledge Substrate",
+      "subprogram": "Laconic recovery",
+      "title": "Laconic / Iconic Script Bank",
+      "type": "source bank",
+      "state": "captured",
+      "epistemic_status": "unknown",
+      "confirmation": "unresolved",
+      "priority": "P0",
+      "horizon": "now",
+      "output_class": "source document",
+      "purpose": "Recover the original line/script source rather than reconstruct it from later summaries.",
+      "operators": [
+        "ADDRESS"
+      ],
+      "gravity": 0,
+      "fcm": 0.558,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "KS-010",
+      "province": "Knowledge Substrate",
+      "subprogram": "Memory systems",
+      "title": "NotebookLM / Gemini Memory Workbench",
+      "type": "knowledge system",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "prompt pack",
+      "purpose": "Run source-grounded compression, self-audit and audio overview loops.",
+      "operators": [
+        "ADDRESS",
+        "ACTUATE",
+        "PROVE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.464,
+      "centrality": {
+        "in": 1,
+        "out": 2
+      }
+    },
+    {
+      "id": "KS-011",
+      "province": "Knowledge Substrate",
+      "subprogram": "Memory systems",
+      "title": "LLM Wiki / Personal Knowledge Substrate",
+      "type": "knowledge system",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "system",
+      "purpose": "Provide a durable modular knowledge layer parallel to prompts, skills and tools.",
+      "operators": [
+        "STATE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.351,
+      "centrality": {
+        "in": 1,
+        "out": 2
+      }
+    },
+    {
+      "id": "KS-012",
+      "province": "Knowledge Substrate",
+      "subprogram": "Epistemic security",
+      "title": "Proof Ledger / Provenance Atom",
+      "type": "registry/protocol",
+      "state": "triaged",
+      "epistemic_status": "established",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "registry",
+      "purpose": "Record before, intervention, observation, delta, cost, unexpected and return.",
+      "operators": [
+        "STATE",
+        "ADDRESS",
+        "PROVE",
+        "SENSE"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.647,
+      "centrality": {
+        "in": 2,
+        "out": 1
+      }
+    },
+    {
+      "id": "APP-003",
+      "province": "Knowledge Substrate",
+      "subprogram": "Canon control",
+      "title": "Canon Console",
+      "type": "app",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "app",
+      "purpose": "Review source, status, branch, function and preserve/promote/branch/revise/reject moves.",
+      "operators": [
+        "ADDRESS",
+        "SURFACE"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.572,
+      "centrality": {
+        "in": 2,
+        "out": 2
+      }
+    },
+    {
+      "id": "APP-004",
+      "province": "Knowledge Substrate",
+      "subprogram": "Transfer",
+      "title": "Transfer Bench",
+      "type": "app",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "app",
+      "purpose": "Move mechanisms across projects without copying surface vocabulary.",
+      "operators": [
+        "SURFACE"
+      ],
+      "gravity": 0,
+      "fcm": 0.5,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "KS-015",
+      "province": "Knowledge Substrate",
+      "subprogram": "Lineage",
+      "title": "Semantic Thread Tracer",
+      "type": "projection",
+      "state": "superseded",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "hold",
+      "output_class": "dashboard",
+      "purpose": "Trace source lineage and semantic mutation across time.",
+      "operators": [
+        "ADDRESS",
+        "PROJECT",
+        "SURFACE"
+      ],
+      "gravity": 0,
+      "fcm": 0.289,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "KS-016",
+      "province": "Knowledge Substrate",
+      "subprogram": "Decision lineage",
+      "title": "Delta / Decision Ledger",
+      "type": "projection",
+      "state": "superseded",
+      "epistemic_status": "established",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "hold",
+      "output_class": "registry",
+      "purpose": "Expose decision deltas and supersession records.",
+      "operators": [
+        "ADDRESS",
+        "STATE",
+        "PROJECT"
+      ],
+      "gravity": 0,
+      "fcm": 0.289,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "APP-010",
+      "province": "Knowledge Substrate",
+      "subprogram": "Prompt systems",
+      "title": "PSS Runtime",
+      "type": "app/runtime",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "code artifact",
+      "purpose": "Execute multi-pass prompt/program scaffolds with visible state and failure handling.",
+      "operators": [
+        "STATE",
+        "ROUTE",
+        "SURFACE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.464,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "KS-018",
+      "province": "Knowledge Substrate",
+      "subprogram": "Prompt systems",
+      "title": "Meta-Prompt Compiler",
+      "type": "authoring mode",
+      "state": "superseded",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P3",
+      "horizon": "hold",
+      "output_class": "prompt pack",
+      "purpose": "Compile recovered prompt structures into PSS programs.",
+      "operators": [
+        "STATE"
+      ],
+      "gravity": 0,
+      "fcm": 0.156,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "KS-019",
+      "province": "Knowledge Substrate",
+      "subprogram": "Lineage/Civilization Research",
+      "title": "Portable Source Packs",
+      "type": "source package",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "proposal only",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "dossier",
+      "purpose": "Carry bounded source context between tools without replaying whole archives.",
+      "operators": [
+        "ADDRESS",
+        "STATE",
+        "PROVE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.426,
+      "centrality": {
+        "in": 1,
+        "out": 3
+      }
+    },
+    {
+      "id": "KS-020",
+      "province": "Knowledge Substrate",
+      "subprogram": "Lineage/Civilization Research",
+      "title": "Bureau of Simulacra",
+      "type": "governance/research system",
+      "state": "captured",
+      "epistemic_status": "metaphor",
+      "confirmation": "confirmed project",
+      "priority": "P3",
+      "horizon": "later",
+      "output_class": "dossier",
+      "purpose": "Classify representations, copies, masks and transferred claims without confusing them with sources.",
+      "operators": [
+        "ADDRESS",
+        "PROVE"
+      ],
+      "gravity": 0,
+      "fcm": 0.313,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "KS-021",
+      "province": "Knowledge Substrate",
+      "subprogram": "Risk research",
+      "title": "Toilet / Bathroom Fatality Threat Reconstruction",
+      "type": "research program",
+      "state": "active",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "dossier",
+      "purpose": "Repair denominators and map hidden sanitation-space risks to cheap interventions.",
+      "operators": [
+        "PROJECT",
+        "PROVE"
+      ],
+      "gravity": 0,
+      "fcm": 0.598,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "KS-022",
+      "province": "Knowledge Substrate",
+      "subprogram": "Sustainability",
+      "title": "Sustainability as Homeodynamic Capacity",
+      "type": "research/design thesis",
+      "state": "active",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "dossier",
+      "purpose": "Define sustainability as rates, ranges, recovery and adaptive capacity rather than static state.",
+      "operators": [
+        "STATE",
+        "PROVE"
+      ],
+      "gravity": 0,
+      "fcm": 0.598,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "KS-023",
+      "province": "Knowledge Substrate",
+      "subprogram": "Lineage/Civilization Research",
+      "title": "Non-destructive Dedup Manifest",
+      "type": "registry",
+      "state": "staged",
+      "epistemic_status": "established",
+      "confirmation": "confirmed project",
+      "priority": "P0",
+      "horizon": "next",
+      "output_class": "registry",
+      "purpose": "Inventory file families by metadata/hash while preserving meaningful variants.",
+      "operators": [
+        "ADDRESS",
+        "PROVE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.636,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "KS-024",
+      "province": "Knowledge Substrate",
+      "subprogram": "Research intake",
+      "title": "Reading Lists / Information Hazard / Hyperstition Research",
+      "type": "research queue",
+      "state": "captured",
+      "epistemic_status": "unknown",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "dossier",
+      "purpose": "Recover useful adjacent knowledge without importing unsafe or unsupported mechanisms.",
+      "operators": [
+        "PROJECT",
+        "PROVE"
+      ],
+      "gravity": 0,
+      "fcm": 0.371,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "IG-001",
+      "province": "Inner Governance",
+      "subprogram": "Council",
+      "title": "Council of Selves",
+      "type": "governance system",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "protocol",
+      "purpose": "Use bounded offices to expose competing partial perspectives and end in an observable move.",
+      "operators": [
+        "STATE",
+        "ROUTE"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.572,
+      "centrality": {
+        "in": 2,
+        "out": 0
+      }
+    },
+    {
+      "id": "IG-002",
+      "province": "Inner Governance",
+      "subprogram": "Council",
+      "title": "Inner OS / Inner Parliament",
+      "type": "governance system",
+      "state": "captured",
+      "epistemic_status": "metaphor",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "dossier",
+      "purpose": "Coordinate inner roles without converting them into fixed identities.",
+      "operators": [
+        "ROUTE"
+      ],
+      "gravity": 0,
+      "fcm": 0.333,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "IG-003",
+      "province": "Inner Governance",
+      "subprogram": "Embodied practice",
+      "title": "Body Practice and Skill Acquisition",
+      "type": "practice system",
+      "state": "triaged",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "protocol",
+      "purpose": "Increase skill, control, play and resilience through safe measurable practice.",
+      "operators": [
+        "STATE"
+      ],
+      "gravity": 0.231,
+      "fcm": 0.553,
+      "centrality": {
+        "in": 3,
+        "out": 2
+      }
+    },
+    {
+      "id": "IG-004",
+      "province": "Inner Governance",
+      "subprogram": "Embodied practice",
+      "title": "Qigong and Visualization Research",
+      "type": "research/practice",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "dossier",
+      "purpose": "Separate supported training effects from tradition, analogy and speculation.",
+      "operators": [
+        "PROJECT",
+        "PROVE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.426,
+      "centrality": {
+        "in": 1,
+        "out": 2
+      }
+    },
+    {
+      "id": "IG-005",
+      "province": "Inner Governance",
+      "subprogram": "Embodied practice",
+      "title": "Biofeedback and Sonification",
+      "type": "measurement system",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "dashboard",
+      "purpose": "Make bodily or environmental signals perceptible without turning observations into verdicts.",
+      "operators": [
+        "SENSE",
+        "SURFACE"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.572,
+      "centrality": {
+        "in": 2,
+        "out": 1
+      }
+    },
+    {
+      "id": "APP-050",
+      "province": "Inner Governance",
+      "subprogram": "Care",
+      "title": "Cat Canon",
+      "type": "app",
+      "state": "triaged",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "registry",
+      "purpose": "Preserve care observations, interventions and questions for veterinary review.",
+      "operators": [
+        "ADDRESS",
+        "SENSE",
+        "STATE",
+        "SURFACE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.63,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "IG-006",
+      "province": "Inner Governance",
+      "subprogram": "Care",
+      "title": "Cat Care Operating Protocol",
+      "type": "care protocol",
+      "state": "active",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "now",
+      "output_class": "protocol",
+      "purpose": "Coordinate hygiene, comfort, grooming, window safety and health questions.",
+      "operators": [
+        "STATE",
+        "SENSE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.66,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "IG-007",
+      "province": "Inner Governance",
+      "subprogram": "Care",
+      "title": "Home Care and Room Reset",
+      "type": "care/maintenance system",
+      "state": "staged",
+      "epistemic_status": "established",
+      "confirmation": "confirmed project",
+      "priority": "P0",
+      "horizon": "now",
+      "output_class": "physical cassette",
+      "purpose": "Make restoration of a usable room state fast, visible and repeatable.",
+      "operators": [
+        "STATE",
+        "ROUTE",
+        "SENSE"
+      ],
+      "gravity": 0.231,
+      "fcm": 0.753,
+      "centrality": {
+        "in": 3,
+        "out": 2
+      }
+    },
+    {
+      "id": "IG-008",
+      "province": "Inner Governance",
+      "subprogram": "Embodied record",
+      "title": "Body Timeline",
+      "type": "app/record",
+      "state": "captured",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "fieldnote capture sheet",
+      "purpose": "Keep descriptive training and health observations exportable without a diagnostic engine.",
+      "operators": [
+        "SENSE",
+        "STATE",
+        "SURFACE"
+      ],
+      "gravity": 0,
+      "fcm": 0.408,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "IG-009",
+      "province": "Inner Governance",
+      "subprogram": "Field deck",
+      "title": "Wellness Bingo",
+      "type": "app/mechanic",
+      "state": "cooling down",
+      "epistemic_status": "unknown",
+      "confirmation": "confirmed project",
+      "priority": "P3",
+      "horizon": "hold",
+      "output_class": "fieldnote capture sheet",
+      "purpose": "Test whether the board primitive supports varied healthy practices.",
+      "operators": [
+        "SENSE",
+        "SURFACE",
+        "PROVE"
+      ],
+      "gravity": 0,
+      "fcm": 0.273,
+      "centrality": {
+        "in": 0,
+        "out": 0
+      }
+    },
+    {
+      "id": "IG-010",
+      "province": "Inner Governance",
+      "subprogram": "Council",
+      "title": "Voice Runtime / Deliberation Engine",
+      "type": "runtime",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "proposal only",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "code artifact",
+      "purpose": "Run bounded viewpoints as a traceable deliberation rather than theatrical personas.",
+      "operators": [
+        "ROUTE"
+      ],
+      "gravity": 0,
+      "fcm": 0.333,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "APP-031",
+      "province": "Symbolic Language",
+      "subprogram": "Glyph systems",
+      "title": "Glyph Grammar / Seal Composer",
+      "type": "app/system",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "app",
+      "purpose": "Preserve semantic identity through controlled transforms from primitive to fabrication.",
+      "operators": [
+        "PROJECT",
+        "ADDRESS",
+        "SURFACE"
+      ],
+      "gravity": 0.308,
+      "fcm": 0.645,
+      "centrality": {
+        "in": 4,
+        "out": 3
+      }
+    },
+    {
+      "id": "SL-002",
+      "province": "Symbolic Language",
+      "subprogram": "Glyph systems",
+      "title": "ATYY Mon Grammar",
+      "type": "design grammar",
+      "state": "triaged",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "canon page",
+      "purpose": "Derive systematic visual families from shared primitives, topology and proportions.",
+      "operators": [
+        "PROJECT",
+        "ADDRESS"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.572,
+      "centrality": {
+        "in": 2,
+        "out": 1
+      }
+    },
+    {
+      "id": "SL-003",
+      "province": "Symbolic Language",
+      "subprogram": "Seal systems",
+      "title": "Zhou Family Seal System",
+      "type": "design family",
+      "state": "active",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "visual artifact",
+      "purpose": "Create related personalized seals with controlled identity and fabrication paths.",
+      "operators": [
+        "PROJECT",
+        "ADDRESS"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.616,
+      "centrality": {
+        "in": 1,
+        "out": 2
+      }
+    },
+    {
+      "id": "APP-001",
+      "province": "Symbolic Language",
+      "subprogram": "Context representation",
+      "title": "DataDisc / Context Graph",
+      "type": "app/system",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P0",
+      "horizon": "next",
+      "output_class": "app",
+      "purpose": "Keep raw artifacts in place while inspectable context records generate alternate views.",
+      "operators": [
+        "PROJECT",
+        "STATE",
+        "SURFACE"
+      ],
+      "gravity": 0.538,
+      "fcm": 0.751,
+      "centrality": {
+        "in": 7,
+        "out": 2
+      }
+    },
+    {
+      "id": "SL-005",
+      "province": "Symbolic Language",
+      "subprogram": "Navigation",
+      "title": "Spiral Interface",
+      "type": "interaction grammar",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "code artifact",
+      "purpose": "Use spiral in/out as explicit traversal, scope or abstraction control.",
+      "operators": [
+        "PROJECT",
+        "SURFACE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.517,
+      "centrality": {
+        "in": 1,
+        "out": 2
+      }
+    },
+    {
+      "id": "APP-032",
+      "province": "Symbolic Language",
+      "subprogram": "Radial systems",
+      "title": "Folding Fan / Radial Interface",
+      "type": "app/interface",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "app",
+      "purpose": "Make fold and radial position perform meaningful address transformations.",
+      "operators": [
+        "PROJECT",
+        "SURFACE"
+      ],
+      "gravity": 0.231,
+      "fcm": 0.59,
+      "centrality": {
+        "in": 3,
+        "out": 2
+      }
+    },
+    {
+      "id": "SL-007",
+      "province": "Symbolic Language",
+      "subprogram": "Radial systems",
+      "title": "Fanfold",
+      "type": "creative prototype",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "visual artifact",
+      "purpose": "Make folded adjacency change narrative or composition.",
+      "operators": [
+        "PROJECT"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.351,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "C10",
+      "province": "Symbolic Language",
+      "subprogram": "Spatial grammar",
+      "title": "Labyrinth Route Tile",
+      "type": "cassette/module",
+      "state": "staged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P0",
+      "horizon": "next",
+      "output_class": "physical cassette",
+      "purpose": "Expose typed paths for structure, data, airflow, sensing, power and semantics.",
+      "operators": [
+        "PROJECT",
+        "ROUTE"
+      ],
+      "gravity": 0.308,
+      "fcm": 0.689,
+      "centrality": {
+        "in": 4,
+        "out": 2
+      }
+    },
+    {
+      "id": "C09",
+      "province": "Symbolic Language",
+      "subprogram": "Mechanism grammar",
+      "title": "SINDER Joint",
+      "type": "cassette/module",
+      "state": "staged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "physical cassette",
+      "purpose": "Treat a joint as a programmable relation with motions, limits and failure cues.",
+      "operators": [
+        "ACTUATE",
+        "ROUTE",
+        "PROJECT"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.639,
+      "centrality": {
+        "in": 2,
+        "out": 1
+      }
+    },
+    {
+      "id": "SL-010",
+      "province": "Symbolic Language",
+      "subprogram": "Spatial grammar",
+      "title": "Tile / Backplane Grammar",
+      "type": "interface grammar",
+      "state": "captured",
+      "epistemic_status": "adjacent-domain analogy",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "canon page",
+      "purpose": "Expose adjacency and typed ports without making tile, route, hinge and room identical.",
+      "operators": [
+        "ADDRESS",
+        "PROJECT",
+        "SURFACE"
+      ],
+      "gravity": 0,
+      "fcm": 0.408,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "SL-011",
+      "province": "Symbolic Language",
+      "subprogram": "Spatial projection",
+      "title": "Cube / Rooms Projection",
+      "type": "representation system",
+      "state": "captured",
+      "epistemic_status": "metaphor",
+      "confirmation": "confirmed project",
+      "priority": "P3",
+      "horizon": "later",
+      "output_class": "visual artifact",
+      "purpose": "Project formal/symbolic structures into navigable rooms without losing source semantics.",
+      "operators": [
+        "PROJECT",
+        "ADDRESS"
+      ],
+      "gravity": 0,
+      "fcm": 0.313,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "SL-012",
+      "province": "Symbolic Language",
+      "subprogram": "Formal system",
+      "title": "Action Algebra and Exposed AST",
+      "type": "formal mechanism",
+      "state": "staged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P0",
+      "horizon": "next",
+      "output_class": "code artifact",
+      "purpose": "Represent transformations as inspectable operations with source-preserving structure.",
+      "operators": [
+        "ADDRESS",
+        "PROJECT"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.636,
+      "centrality": {
+        "in": 1,
+        "out": 2
+      }
+    },
+    {
+      "id": "APP-030",
+      "province": "Symbolic Language",
+      "subprogram": "Pattern systems",
+      "title": "Pattern Laboratory",
+      "type": "app",
+      "state": "triaged",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "later",
+      "output_class": "app",
+      "purpose": "Explore aperiodic tilings, substitutions, recursion, symmetry and fractal dimension.",
+      "operators": [
+        "PROJECT",
+        "SURFACE"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.506,
+      "centrality": {
+        "in": 2,
+        "out": 1
+      }
+    },
+    {
+      "id": "APP-061",
+      "province": "Symbolic Language",
+      "subprogram": "Pattern systems",
+      "title": "Pattern Bloom",
+      "type": "app",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "app",
+      "purpose": "Generate visual/material families while retaining an underlying pattern signature.",
+      "operators": [
+        "PROJECT",
+        "SURFACE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.426,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "APP-062",
+      "province": "Symbolic Language",
+      "subprogram": "Glyph deployment",
+      "title": "Seal to World",
+      "type": "app",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "app",
+      "purpose": "Carry one glyph across object, textile, architecture, interface and motion without losing topology.",
+      "operators": [
+        "SURFACE",
+        "PROJECT",
+        "ACTUATE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.464,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "SL-016",
+      "province": "Symbolic Language",
+      "subprogram": "Spatial worlds",
+      "title": "Monscopia Explorer",
+      "type": "app/world",
+      "state": "captured",
+      "epistemic_status": "unknown",
+      "confirmation": "confirmed project",
+      "priority": "P3",
+      "horizon": "later",
+      "output_class": "app",
+      "purpose": "Recover a long-lineage spatial interaction grammar before rebuilding it.",
+      "operators": [
+        "SURFACE",
+        "ADDRESS",
+        "PROJECT"
+      ],
+      "gravity": 0,
+      "fcm": 0.351,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "SL-017",
+      "province": "Symbolic Language",
+      "subprogram": "Motion grammar",
+      "title": "Glyphline / Pattern Motion Forge",
+      "type": "app",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P3",
+      "horizon": "later",
+      "output_class": "visual artifact",
+      "purpose": "Animate glyph and pattern rules while retaining topological identity.",
+      "operators": [
+        "PROJECT",
+        "SURFACE",
+        "ADDRESS",
+        "ACTUATE"
+      ],
+      "gravity": 0,
+      "fcm": 0.388,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "MP-001",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Prison Age",
+      "title": "Prison Age",
+      "type": "world/diagnostic system",
+      "state": "active",
+      "epistemic_status": "metaphor",
+      "confirmation": "confirmed artifact",
+      "priority": "P0",
+      "horizon": "now",
+      "output_class": "dossier",
+      "purpose": "Use constraint, jurisdiction, re-entry and excluded remainder as operational diagnostics.",
+      "operators": [
+        "PROJECT",
+        "SURFACE"
+      ],
+      "gravity": 0.615,
+      "fcm": 0.837,
+      "centrality": {
+        "in": 8,
+        "out": 1
+      }
+    },
+    {
+      "id": "MP-002",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Storm/Confluence",
+      "title": "Child of Storms",
+      "type": "poetic system",
+      "state": "active",
+      "epistemic_status": "metaphor",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "canon page",
+      "purpose": "Carry labor, making, fracture, inheritance and confluence through minimal powerful forms.",
+      "operators": [
+        "ADDRESS",
+        "PROJECT"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.616,
+      "centrality": {
+        "in": 1,
+        "out": 2
+      }
+    },
+    {
+      "id": "MP-003",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Wake/Contact",
+      "title": "You’re a Wake",
+      "type": "poetic/convergence system",
+      "state": "active",
+      "epistemic_status": "metaphor",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "reader edition",
+      "purpose": "Organize contact, distinction, rotation and trace into a coherent poetic structure.",
+      "operators": [
+        "PROJECT",
+        "SURFACE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.616,
+      "centrality": {
+        "in": 1,
+        "out": 2
+      }
+    },
+    {
+      "id": "MP-004",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Performance/state",
+      "title": "Rasa Protocol and Performance System",
+      "type": "performance grammar",
+      "state": "triaged",
+      "epistemic_status": "adjacent-domain analogy",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "protocol",
+      "purpose": "Use state, perturbation, transition and residue as invisible performance architecture.",
+      "operators": [
+        "STATE",
+        "PROJECT"
+      ],
+      "gravity": 0,
+      "fcm": 0.409,
+      "centrality": {
+        "in": 0,
+        "out": 0
+      }
+    },
+    {
+      "id": "MP-005",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Sleeper",
+      "title": "Sleeper Worlds / Federation",
+      "type": "world federation",
+      "state": "active",
+      "epistemic_status": "metaphor",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "dossier",
+      "purpose": "Federate worlds through operators while preserving chronology and canon boundaries.",
+      "operators": [
+        "ADDRESS",
+        "PROJECT",
+        "SURFACE"
+      ],
+      "gravity": 0.231,
+      "fcm": 0.689,
+      "centrality": {
+        "in": 3,
+        "out": 1
+      }
+    },
+    {
+      "id": "MP-006",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Microstories",
+      "title": "All Paths Real, None Final — 512 Microstories",
+      "type": "story collection",
+      "state": "canonical",
+      "epistemic_status": "metaphor",
+      "confirmation": "confirmed artifact",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "reader edition",
+      "purpose": "Preserve a large branching microstory field as a recoverable corpus.",
+      "operators": [
+        "PROJECT",
+        "SURFACE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.448,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "MP-007",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Poetry",
+      "title": "Anthropy Poetry Draft",
+      "type": "poetry collection",
+      "state": "triaged",
+      "epistemic_status": "metaphor",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "reader edition",
+      "purpose": "Distill recurring motifs and line-level devices into a coherent set.",
+      "operators": [
+        "PROJECT",
+        "ACTUATE",
+        "SURFACE"
+      ],
+      "gravity": 0,
+      "fcm": 0.575,
+      "centrality": {
+        "in": 0,
+        "out": 0
+      }
+    },
+    {
+      "id": "MP-008",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Storyworld",
+      "title": "Slothcake",
+      "type": "storyworld",
+      "state": "captured",
+      "epistemic_status": "metaphor",
+      "confirmation": "confirmed project",
+      "priority": "P3",
+      "horizon": "later",
+      "output_class": "canon page",
+      "purpose": "Preserve a distinct playful storyworld and its transferable mechanics.",
+      "operators": [
+        "PROJECT",
+        "ADDRESS",
+        "SURFACE"
+      ],
+      "gravity": 0,
+      "fcm": 0.351,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "MP-009",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Singapore worlds",
+      "title": "Sig Nap Ore / Singapore Microstories",
+      "type": "storyworld",
+      "state": "captured",
+      "epistemic_status": "metaphor",
+      "confirmation": "confirmed project",
+      "priority": "P3",
+      "horizon": "later",
+      "output_class": "canon page",
+      "purpose": "Develop compressed Singapore-specific stories and spatial language.",
+      "operators": [
+        "PROJECT",
+        "ADDRESS",
+        "SURFACE"
+      ],
+      "gravity": 0,
+      "fcm": 0.351,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "MP-010",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Prison Age outputs",
+      "title": "Prison Age Field Deck",
+      "type": "artifact family",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "visual artifact",
+      "purpose": "Make 24–36 operational cards that translate canon into field use.",
+      "operators": [
+        "PROJECT",
+        "ADDRESS",
+        "SURFACE"
+      ],
+      "gravity": 0,
+      "fcm": 0.575,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "MP-011",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Prison Age outputs",
+      "title": "Folding-Fan Codex",
+      "type": "artifact family",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "visual artifact",
+      "purpose": "Use physical folding/radial adjacency as a canonical reading mechanism.",
+      "operators": [
+        "PROJECT",
+        "ADDRESS"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.388,
+      "centrality": {
+        "in": 1,
+        "out": 2
+      }
+    },
+    {
+      "id": "MP-012",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Prison Age outputs",
+      "title": "Prison Age Reader Edition",
+      "type": "artifact family",
+      "state": "captured",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "reader edition",
+      "purpose": "Create a legible textual entry point without flattening source status.",
+      "operators": [
+        "PROJECT",
+        "ADDRESS",
+        "SURFACE"
+      ],
+      "gravity": 0,
+      "fcm": 0.408,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "MP-013",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Prison Age outputs",
+      "title": "Prison Age Hypertext Archive",
+      "type": "artifact family",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "dashboard",
+      "purpose": "Navigate source, variants, motifs and operations through explicit links.",
+      "operators": [
+        "ADDRESS",
+        "PROJECT",
+        "SURFACE"
+      ],
+      "gravity": 0,
+      "fcm": 0.408,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "MP-014",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Prison Age outputs",
+      "title": "Fake Broadcast Annual",
+      "type": "artifact family",
+      "state": "captured",
+      "epistemic_status": "metaphor",
+      "confirmation": "confirmed project",
+      "priority": "P3",
+      "horizon": "later",
+      "output_class": "reader edition",
+      "purpose": "Express the world through bounded simulated media forms.",
+      "operators": [
+        "PROJECT",
+        "SURFACE"
+      ],
+      "gravity": 0,
+      "fcm": 0.313,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "MP-015",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Prison Age outputs",
+      "title": "Visual Evidence Atlas",
+      "type": "artifact family",
+      "state": "triaged",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "visual artifact",
+      "purpose": "Join visual density with explicit evidence and semantic status.",
+      "operators": [
+        "PROJECT",
+        "ADDRESS",
+        "PROVE"
+      ],
+      "gravity": 0,
+      "fcm": 0.575,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "MP-016",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Series control",
+      "title": "Plate 09 — Verification / Epistemic Control",
+      "type": "visual specification",
+      "state": "staged",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P0",
+      "horizon": "next",
+      "output_class": "visual artifact",
+      "purpose": "Make verification and epistemic status visible rather than adding another loose theme.",
+      "operators": [
+        "PROJECT",
+        "PROVE"
+      ],
+      "gravity": 0.231,
+      "fcm": 0.672,
+      "centrality": {
+        "in": 3,
+        "out": 2
+      }
+    },
+    {
+      "id": "MP-017",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Series control",
+      "title": "Series Grammar v1 + Semantic Validation Schema v1",
+      "type": "design/control system",
+      "state": "active",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P0",
+      "horizon": "now",
+      "output_class": "canon page",
+      "purpose": "Define visual invariants and classify every statement as poetic, heuristic, derived, tested or verified.",
+      "operators": [
+        "PROJECT",
+        "ADDRESS",
+        "STATE",
+        "PROVE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.788,
+      "centrality": {
+        "in": 1,
+        "out": 2
+      }
+    },
+    {
+      "id": "MP-018",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Interactive atlas",
+      "title": "Phantom Grid v26",
+      "type": "interactive artifact",
+      "state": "canonical",
+      "epistemic_status": "unknown",
+      "confirmation": "confirmed artifact",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "code artifact",
+      "purpose": "Preserve a complex interactive visual stratum for lineage analysis.",
+      "operators": [
+        "PROJECT",
+        "ADDRESS"
+      ],
+      "gravity": 0,
+      "fcm": 0.43,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "MP-019",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Atlas",
+      "title": "Architectural Atlas of Eight Worlds",
+      "type": "visual artifact",
+      "state": "captured",
+      "epistemic_status": "metaphor",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "visual artifact",
+      "purpose": "Map multiple worlds without implying shared chronology.",
+      "operators": [
+        "PROJECT",
+        "ADDRESS",
+        "SURFACE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.426,
+      "centrality": {
+        "in": 1,
+        "out": 2
+      }
+    },
+    {
+      "id": "C14",
+      "province": "Mythic and Poetic Engine",
+      "subprogram": "Creative cassette",
+      "title": "Episode Seed",
+      "type": "cassette",
+      "state": "triaged",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed artifact",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "dossier",
+      "purpose": "Preserve one creative unit while allowing many projections.",
+      "operators": [
+        "PROJECT",
+        "ROUTE"
+      ],
+      "gravity": 0,
+      "fcm": 0.409,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "ST-001",
+      "province": "Sovereign Toolchain",
+      "subprogram": "Core substrate",
+      "title": "Sovereign Node",
+      "type": "system",
+      "state": "active",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P0",
+      "horizon": "next",
+      "output_class": "system",
+      "purpose": "Keep essential capability local, observable, reversible, composable and recoverable.",
+      "operators": [
+        "ROUTE",
+        "ACTUATE"
+      ],
+      "gravity": 0.615,
+      "fcm": 0.793,
+      "centrality": {
+        "in": 8,
+        "out": 5
+      }
+    },
+    {
+      "id": "ST-002",
+      "province": "Sovereign Toolchain",
+      "subprogram": "Core substrate",
+      "title": "Nix-Darwin Baseline",
+      "type": "configuration",
+      "state": "triaged",
+      "epistemic_status": "established",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "code artifact",
+      "purpose": "Provide one idempotent, pinned, recoverable machine configuration.",
+      "operators": [
+        "ROUTE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.517,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "ST-003",
+      "province": "Sovereign Toolchain",
+      "subprogram": "AI runtime",
+      "title": "Local Model Runtime",
+      "type": "runtime",
+      "state": "triaged",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "code artifact",
+      "purpose": "Run selected local models with explicit capability and resource limits.",
+      "operators": [
+        "ROUTE",
+        "ADDRESS"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.555,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "ST-004",
+      "province": "Sovereign Toolchain",
+      "subprogram": "Agent runtime",
+      "title": "Hermes Agent / Workspace",
+      "type": "agent system",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "later",
+      "output_class": "code artifact",
+      "purpose": "Provide a minimal inspectable agent layer over local tools and context.",
+      "operators": [
+        "ROUTE"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.469,
+      "centrality": {
+        "in": 2,
+        "out": 2
+      }
+    },
+    {
+      "id": "ST-005",
+      "province": "Sovereign Toolchain",
+      "subprogram": "Agent runtime",
+      "title": "OpenClaw",
+      "type": "agent system",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "code artifact",
+      "purpose": "Provide self-hosted bounded agent execution behind a sealed interface.",
+      "operators": [
+        "ROUTE",
+        "SURFACE"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.444,
+      "centrality": {
+        "in": 2,
+        "out": 2
+      }
+    },
+    {
+      "id": "ST-006",
+      "province": "Sovereign Toolchain",
+      "subprogram": "Communications",
+      "title": "Kagemusha / Promise Keeper",
+      "type": "communications system",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "protocol",
+      "purpose": "Protect promises by extracting commitments, drafting replies and returning consequential action for review.",
+      "operators": [
+        "STATE",
+        "ROUTE",
+        "SURFACE"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.61,
+      "centrality": {
+        "in": 2,
+        "out": 2
+      }
+    },
+    {
+      "id": "ST-007",
+      "province": "Sovereign Toolchain",
+      "subprogram": "Communications",
+      "title": "Private Communications Gateway",
+      "type": "communications system",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "code artifact",
+      "purpose": "Route private contact deliberately across Telegram, HTTP, messaging and voice.",
+      "operators": [
+        "ROUTE",
+        "SURFACE"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.406,
+      "centrality": {
+        "in": 2,
+        "out": 2
+      }
+    },
+    {
+      "id": "ST-008",
+      "province": "Sovereign Toolchain",
+      "subprogram": "Memory",
+      "title": "Memory Tiers and Encrypted Archive",
+      "type": "storage system",
+      "state": "triaged",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "system",
+      "purpose": "Separate Ephemeral, Working and Canonical memory with documented recovery.",
+      "operators": [
+        "ADDRESS",
+        "ROUTE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.555,
+      "centrality": {
+        "in": 1,
+        "out": 2
+      }
+    },
+    {
+      "id": "ST-009",
+      "province": "Sovereign Toolchain",
+      "subprogram": "Federation",
+      "title": "Portable Civilization Pack",
+      "type": "package",
+      "state": "captured",
+      "epistemic_status": "metaphor",
+      "confirmation": "proposal only",
+      "priority": "P3",
+      "horizon": "later",
+      "output_class": "system",
+      "purpose": "Carry a minimal set of laws, tools and sources across environments.",
+      "operators": [
+        "ADDRESS",
+        "ROUTE"
+      ],
+      "gravity": 0,
+      "fcm": 0.313,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "C11",
+      "province": "Sovereign Toolchain",
+      "subprogram": "Communications",
+      "title": "Promise Keeper Cassette",
+      "type": "cassette",
+      "state": "triaged",
+      "epistemic_status": "established",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "protocol",
+      "purpose": "Surface commitments without silently acting.",
+      "operators": [
+        "ROUTE",
+        "STATE",
+        "SURFACE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.592,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "C12",
+      "province": "Sovereign Toolchain",
+      "subprogram": "Runtime",
+      "title": "Tool / Skill Bundle",
+      "type": "cassette",
+      "state": "triaged",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed artifact",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "protocol",
+      "purpose": "Load only the capabilities a task needs with safe bounds and stop rules.",
+      "operators": [
+        "ROUTE",
+        "STATE"
+      ],
+      "gravity": 0,
+      "fcm": 0.409,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "WD-001",
+      "province": "World Deployment",
+      "subprogram": "Cassette system",
+      "title": "Cassette Atlas",
+      "type": "system/atlas",
+      "state": "active",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed artifact",
+      "priority": "P0",
+      "horizon": "now",
+      "output_class": "registry",
+      "purpose": "Define bounded reloadable modules with manifests, typed ports, fallback and return.",
+      "operators": [
+        "ADDRESS",
+        "SURFACE",
+        "STATE",
+        "ROUTE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.788,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "C01",
+      "province": "World Deployment",
+      "subprogram": "Cassette system",
+      "title": "Context Boot",
+      "type": "cassette",
+      "state": "triaged",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "physical cassette",
+      "purpose": "Restore a project without replaying its whole thread.",
+      "operators": [
+        "SURFACE",
+        "STATE",
+        "ROUTE",
+        "PROJECT"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.63,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "C02",
+      "province": "World Deployment",
+      "subprogram": "Cassette system",
+      "title": "Project State",
+      "type": "cassette",
+      "state": "active",
+      "epistemic_status": "established",
+      "confirmation": "confirmed artifact",
+      "priority": "P0",
+      "horizon": "now",
+      "output_class": "registry",
+      "purpose": "Show source, proposed, tested, rejected, absent and blocked states.",
+      "operators": [
+        "ADDRESS",
+        "SURFACE",
+        "STATE",
+        "ROUTE"
+      ],
+      "gravity": 0,
+      "fcm": 0.77,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "C03",
+      "province": "World Deployment",
+      "subprogram": "Cassette system",
+      "title": "Source + Claim Audit",
+      "type": "cassette",
+      "state": "triaged",
+      "epistemic_status": "established",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "protocol",
+      "purpose": "Stop synthesis from outrunning evidence.",
+      "operators": [
+        "PROVE",
+        "SURFACE",
+        "ADDRESS",
+        "STATE"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.647,
+      "centrality": {
+        "in": 2,
+        "out": 1
+      }
+    },
+    {
+      "id": "C04",
+      "province": "World Deployment",
+      "subprogram": "Cassette system",
+      "title": "Decision Delta",
+      "type": "cassette",
+      "state": "triaged",
+      "epistemic_status": "established",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "protocol",
+      "purpose": "Preserve why a direction changed.",
+      "operators": [
+        "STATE",
+        "SURFACE",
+        "ROUTE"
+      ],
+      "gravity": 0,
+      "fcm": 0.575,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "C05",
+      "province": "World Deployment",
+      "subprogram": "Workbench",
+      "title": "Workbench Router",
+      "type": "cassette/system",
+      "state": "staged",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed artifact",
+      "priority": "P0",
+      "horizon": "now",
+      "output_class": "physical cassette",
+      "purpose": "Move only required tools and state from archive to active bench.",
+      "operators": [
+        "ROUTE",
+        "SURFACE",
+        "STATE",
+        "ACTUATE"
+      ],
+      "gravity": 0.308,
+      "fcm": 0.808,
+      "centrality": {
+        "in": 4,
+        "out": 2
+      }
+    },
+    {
+      "id": "C06",
+      "province": "World Deployment",
+      "subprogram": "Workbench",
+      "title": "Scroll / Reel Carrier",
+      "type": "cassette",
+      "state": "staged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "physical cassette",
+      "purpose": "Combine ordered access, compact storage and an unfurled work/display surface.",
+      "operators": [
+        "SURFACE",
+        "ROUTE",
+        "ACTUATE",
+        "PROJECT"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.658,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "C07",
+      "province": "World Deployment",
+      "subprogram": "Capture",
+      "title": "Capture / Photogrammetry",
+      "type": "cassette",
+      "state": "triaged",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed artifact",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "physical cassette",
+      "purpose": "Make repeatable object capture without rebuilding the setup.",
+      "operators": [
+        "SENSE",
+        "SURFACE",
+        "ROUTE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.464,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "C08",
+      "province": "World Deployment",
+      "subprogram": "Measurement",
+      "title": "Measurement + Calibration",
+      "type": "cassette",
+      "state": "staged",
+      "epistemic_status": "established",
+      "confirmation": "confirmed artifact",
+      "priority": "P0",
+      "horizon": "next",
+      "output_class": "physical cassette",
+      "purpose": "Keep instruments, references, safe ranges and uncertainty together.",
+      "operators": [
+        "SENSE",
+        "SURFACE",
+        "ROUTE",
+        "PROVE"
+      ],
+      "gravity": 0.462,
+      "fcm": 0.8,
+      "centrality": {
+        "in": 6,
+        "out": 1
+      }
+    },
+    {
+      "id": "C13",
+      "province": "World Deployment",
+      "subprogram": "House OS",
+      "title": "House Zone / Spatial State",
+      "type": "cassette",
+      "state": "triaged",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "physical cassette",
+      "purpose": "Describe what a zone supports and how it changes.",
+      "operators": [
+        "SURFACE",
+        "STATE",
+        "ROUTE",
+        "ACTUATE"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.647,
+      "centrality": {
+        "in": 2,
+        "out": 2
+      }
+    },
+    {
+      "id": "C15",
+      "province": "World Deployment",
+      "subprogram": "App system",
+      "title": "App Foundry Seed",
+      "type": "cassette",
+      "state": "triaged",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "registry",
+      "purpose": "Turn a fleeting app idea into a comparable testable unit.",
+      "operators": [
+        "SURFACE",
+        "ROUTE",
+        "ADDRESS",
+        "PROVE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.63,
+      "centrality": {
+        "in": 1,
+        "out": 1
+      }
+    },
+    {
+      "id": "WD-017",
+      "province": "World Deployment",
+      "subprogram": "Workbench",
+      "title": "Maker Cart / Portable Foldable Workbench",
+      "type": "physical system",
+      "state": "active",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P0",
+      "horizon": "now",
+      "output_class": "physical cassette",
+      "purpose": "Provide compact interoperable staging across tools, projects and rooms.",
+      "operators": [
+        "ACTUATE",
+        "SURFACE",
+        "ROUTE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.75,
+      "centrality": {
+        "in": 1,
+        "out": 4
+      }
+    },
+    {
+      "id": "APP-041",
+      "province": "World Deployment",
+      "subprogram": "House OS",
+      "title": "Spatial State Engine / House OS",
+      "type": "app/system",
+      "state": "active",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P0",
+      "horizon": "now",
+      "output_class": "dashboard",
+      "purpose": "Coordinate addressed room/object/surface state with Home Assistant device authority: Spatial State owns geometry, addresses, evidence and uncertainty; HA/HOUSEBUS owns device truth and actuation; manual fallback and RETURN remain valid.",
+      "operators": [
+        "SURFACE",
+        "STATE",
+        "ACTUATE"
+      ],
+      "gravity": 0.462,
+      "fcm": 0.733,
+      "centrality": {
+        "in": 6,
+        "out": 3
+      }
+    },
+    {
+      "id": "WD-019",
+      "province": "World Deployment",
+      "subprogram": "Spatial build",
+      "title": "Room Systems / Foldable Partition",
+      "type": "physical system",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "physical cassette",
+      "purpose": "Create attractive reversible room structures that deploy and reset quickly.",
+      "operators": [
+        "SURFACE",
+        "STATE",
+        "ROUTE",
+        "ACTUATE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.63,
+      "centrality": {
+        "in": 1,
+        "out": 3
+      }
+    },
+    {
+      "id": "WD-020",
+      "province": "World Deployment",
+      "subprogram": "Measurement",
+      "title": "Sensor and Measurement Stack",
+      "type": "hardware system",
+      "state": "triaged",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "dashboard",
+      "purpose": "Measure only variables that can change a concrete room or maker decision.",
+      "operators": [
+        "SURFACE",
+        "SENSE",
+        "STATE"
+      ],
+      "gravity": 0.692,
+      "fcm": 0.734,
+      "centrality": {
+        "in": 9,
+        "out": 2
+      }
+    },
+    {
+      "id": "WD-021",
+      "province": "World Deployment",
+      "subprogram": "Care automation",
+      "title": "Plant Watering Integration",
+      "type": "physical/automation system",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "physical cassette",
+      "purpose": "Integrate simple plant care with manual operation and observable state.",
+      "operators": [
+        "STATE",
+        "SURFACE",
+        "ROUTE",
+        "SENSE"
+      ],
+      "gravity": 0,
+      "fcm": 0.446,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "APP-000",
+      "province": "World Deployment",
+      "subprogram": "App system",
+      "title": "App Foundry",
+      "type": "app",
+      "state": "triaged",
+      "epistemic_status": "established",
+      "confirmation": "confirmed artifact",
+      "priority": "P0",
+      "horizon": "next",
+      "output_class": "app",
+      "purpose": "Capture an idea once and preserve ancestry through branch, merge, test, build or kill.",
+      "operators": [
+        "SURFACE",
+        "ROUTE",
+        "SENSE",
+        "PROVE"
+      ],
+      "gravity": 0.308,
+      "fcm": 0.736,
+      "centrality": {
+        "in": 4,
+        "out": 2
+      }
+    },
+    {
+      "id": "APP-002",
+      "province": "World Deployment",
+      "subprogram": "Atlas",
+      "title": "Living Atlas",
+      "type": "app",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "later",
+      "output_class": "dashboard",
+      "purpose": "Show projects, evidence, decisions, artifacts, branches, gaps and next safe moves.",
+      "operators": [
+        "SURFACE",
+        "ADDRESS",
+        "STATE",
+        "PROJECT"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.581,
+      "centrality": {
+        "in": 2,
+        "out": 3
+      }
+    },
+    {
+      "id": "APP-040",
+      "province": "World Deployment",
+      "subprogram": "Creative tool",
+      "title": "Layer It",
+      "type": "app",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P1",
+      "horizon": "later",
+      "output_class": "app",
+      "purpose": "Treat a real scene as a persistent composition stack with inherited layers.",
+      "operators": [
+        "SURFACE"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.469,
+      "centrality": {
+        "in": 2,
+        "out": 1
+      }
+    },
+    {
+      "id": "APP-060",
+      "province": "World Deployment",
+      "subprogram": "Creative platform",
+      "title": "Chain × Layer It",
+      "type": "app",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed artifact",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "app",
+      "purpose": "Let each remix change exactly one named layer or constraint while preserving ancestry.",
+      "operators": [
+        "SURFACE"
+      ],
+      "gravity": 0.154,
+      "fcm": 0.406,
+      "centrality": {
+        "in": 2,
+        "out": 2
+      }
+    },
+    {
+      "id": "WD-026",
+      "province": "World Deployment",
+      "subprogram": "Atlas projection",
+      "title": "Schematic Labyrinth",
+      "type": "app/visualization",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "visual artifact",
+      "purpose": "Render real project maps without sacrificing source labels.",
+      "operators": [
+        "PROJECT",
+        "SURFACE",
+        "ADDRESS"
+      ],
+      "gravity": 0,
+      "fcm": 0.408,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "WD-027",
+      "province": "World Deployment",
+      "subprogram": "Measurement app",
+      "title": "Acoustic Twin",
+      "type": "app",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "dashboard",
+      "purpose": "Model acoustic conditions only after measurement reliability is established.",
+      "operators": [
+        "SURFACE",
+        "SENSE"
+      ],
+      "gravity": 0,
+      "fcm": 0.371,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "WD-028",
+      "province": "World Deployment",
+      "subprogram": "Repair",
+      "title": "Device Teardown Helper",
+      "type": "app/protocol",
+      "state": "captured",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P3",
+      "horizon": "later",
+      "output_class": "protocol",
+      "purpose": "Document low-risk device inspection and reassembly before adding explanation.",
+      "operators": [
+        "SURFACE",
+        "STATE",
+        "ACTUATE"
+      ],
+      "gravity": 0,
+      "fcm": 0.351,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "WD-029",
+      "province": "World Deployment",
+      "subprogram": "House OS",
+      "title": "Renovation App",
+      "type": "app",
+      "state": "superseded",
+      "epistemic_status": "unknown",
+      "confirmation": "confirmed project",
+      "priority": "P3",
+      "horizon": "hold",
+      "output_class": "app",
+      "purpose": "Recover prior renovation specification before deciding separate build.",
+      "operators": [
+        "SURFACE",
+        "ACTUATE"
+      ],
+      "gravity": 0,
+      "fcm": 0.194,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "WD-030",
+      "province": "World Deployment",
+      "subprogram": "Creative tool",
+      "title": "Return Engine",
+      "type": "app",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "visual artifact",
+      "purpose": "Generate past/present/possible-return views with visible invariants.",
+      "operators": [
+        "SURFACE",
+        "STATE",
+        "PROJECT"
+      ],
+      "gravity": 0,
+      "fcm": 0.408,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "WD-031",
+      "province": "World Deployment",
+      "subprogram": "Creative tool",
+      "title": "Lawful Remix",
+      "type": "app/mechanic",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "later",
+      "output_class": "protocol",
+      "purpose": "Compare free prompting with declared-one-rule remixes for replayability.",
+      "operators": [
+        "SURFACE",
+        "STATE"
+      ],
+      "gravity": 0,
+      "fcm": 0.371,
+      "centrality": {
+        "in": 0,
+        "out": 1
+      }
+    },
+    {
+      "id": "WD-032",
+      "province": "World Deployment",
+      "subprogram": "Institution",
+      "title": "Open Air Forge OS / Future Firm",
+      "type": "institution system",
+      "state": "triaged",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P1",
+      "horizon": "next",
+      "output_class": "system",
+      "purpose": "Turn archive, docket, cassette, field and institution into a small-firm operating rhythm.",
+      "operators": [
+        "SURFACE",
+        "ROUTE"
+      ],
+      "gravity": 0,
+      "fcm": 0.537,
+      "centrality": {
+        "in": 0,
+        "out": 3
+      }
+    },
+    {
+      "id": "WD-033",
+      "province": "World Deployment",
+      "subprogram": "Motion platform",
+      "title": "Roller / Scroller XY Platform",
+      "type": "physical system",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P3",
+      "horizon": "later",
+      "output_class": "physical cassette",
+      "purpose": "Explore compact ordered motion shared by scroll, plotter and display projects.",
+      "operators": [
+        "ACTUATE",
+        "SURFACE",
+        "ROUTE",
+        "PROJECT"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.406,
+      "centrality": {
+        "in": 1,
+        "out": 2
+      }
+    },
+    {
+      "id": "WD-034",
+      "province": "World Deployment",
+      "subprogram": "Motion platform",
+      "title": "Plotter / CNC / Wall Printer Family",
+      "type": "physical system",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P3",
+      "horizon": "later",
+      "output_class": "physical cassette",
+      "purpose": "Recover common motion/control infrastructure across marking tools.",
+      "operators": [
+        "ACTUATE",
+        "SURFACE",
+        "ROUTE"
+      ],
+      "gravity": 0.077,
+      "fcm": 0.368,
+      "centrality": {
+        "in": 1,
+        "out": 2
+      }
+    },
+    {
+      "id": "WD-035",
+      "province": "World Deployment",
+      "subprogram": "Robotics",
+      "title": "Floor Drawing Bot / Rover",
+      "type": "physical system",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P3",
+      "horizon": "later",
+      "output_class": "physical cassette",
+      "purpose": "Use mobile marking as a low-risk embodiment of geometry and control.",
+      "operators": [
+        "SURFACE",
+        "ROUTE",
+        "ACTUATE"
+      ],
+      "gravity": 0,
+      "fcm": 0.351,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "WD-036",
+      "province": "World Deployment",
+      "subprogram": "Mechanism",
+      "title": "Wire Bender",
+      "type": "physical system",
+      "state": "captured",
+      "epistemic_status": "testable hypothesis",
+      "confirmation": "confirmed project",
+      "priority": "P3",
+      "horizon": "hold",
+      "output_class": "physical cassette",
+      "purpose": "Explore programmable shaping as a possible fabrication primitive.",
+      "operators": [
+        "SURFACE",
+        "ROUTE",
+        "ACTUATE"
+      ],
+      "gravity": 0,
+      "fcm": 0.291,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "WD-037",
+      "province": "World Deployment",
+      "subprogram": "Field network",
+      "title": "LoRa / Meshtastic Field Node",
+      "type": "hardware/network",
+      "state": "captured",
+      "epistemic_status": "bounded evidence",
+      "confirmation": "confirmed project",
+      "priority": "P3",
+      "horizon": "later",
+      "output_class": "code artifact",
+      "purpose": "Provide low-bandwidth local field communication and sensing experiments.",
+      "operators": [
+        "SURFACE",
+        "ACTUATE",
+        "PROVE"
+      ],
+      "gravity": 0,
+      "fcm": 0.351,
+      "centrality": {
+        "in": 0,
+        "out": 2
+      }
+    },
+    {
+      "id": "WD-038",
+      "province": "World Deployment",
+      "subprogram": "Procurement",
+      "title": "Maker Cart Procurement and Price Registry",
+      "type": "registry",
+      "state": "triaged",
+      "epistemic_status": "established",
+      "confirmation": "confirmed project",
+      "priority": "P2",
+      "horizon": "next",
+      "output_class": "registry",
+      "purpose": "Compare owned inventory and local/second-hand sources behind explicit purchase gates.",
+      "operators": [
+        "ADDRESS",
+        "SURFACE",
+        "ACTUATE"
+      ],
+      "gravity": 0,
+      "fcm": 0.512,
+      "centrality": {
+        "in": 0,
+        "out": 3
+      }
+    }
+  ],
+  "routes": [
+    {
+      "href": "/",
+      "title": "FIELD INDEX",
+      "operation": null,
+      "state": null,
+      "kind": "root"
+    },
+    {
+      "href": "/contact/",
+      "title": "CONTACT 0.3",
+      "operation": null,
+      "state": "STABLE",
+      "kind": "rendezvous"
+    },
+    {
+      "href": "/port/",
+      "title": "HUMAN PORT 1.3",
+      "operation": "ROUTE",
+      "state": "ACTIVE",
+      "kind": "hub"
+    },
+    {
+      "href": "/laconic/",
+      "title": "LACONIC / ICONIC 0.3",
+      "operation": "DRAFT",
+      "state": "ACTIVE",
+      "kind": "artifact"
+    },
+    {
+      "href": "/field-intake/",
+      "title": "FIELD INTAKE 0.4",
+      "operation": "CAPTURE",
+      "state": "STABLE",
+      "kind": "artifact"
+    },
+    {
+      "href": "/continuity/",
+      "title": "CONTINUITY / CASE 0.2",
+      "operation": "CANONICALIZE",
+      "state": "ACTIVE",
+      "kind": "workbench"
+    },
+    {
+      "href": "/care/",
+      "title": "CARE / FIELD 0.3",
+      "operation": "CAPTURE",
+      "state": "ACTIVE",
+      "kind": "workbench"
+    },
+    {
+      "href": "/fold-bloom/",
+      "title": "FOLD // BLOOM",
+      "operation": null,
+      "state": null,
+      "kind": "hub"
+    },
+    {
+      "href": "/fold-bloom/two-dial/",
+      "title": "TWO DIAL",
+      "operation": "PLAY",
+      "state": "STABLE",
+      "kind": "artifact"
+    },
+    {
+      "href": "/fold-bloom/ecology/",
+      "title": "ECOLOGY 0.2",
+      "operation": "PLAY",
+      "state": "STABLE",
+      "kind": "artifact"
+    },
+    {
+      "href": "/sleeper/",
+      "title": "ASCII SLEEPER 0.8",
+      "operation": "PLAY",
+      "state": "ACTIVE",
+      "kind": "artifact"
+    },
+    {
+      "href": "/fold-bloom/lens/",
+      "title": "SCALE LENS",
+      "operation": "REPRESENT",
+      "state": "STABLE",
+      "kind": "artifact"
+    },
+    {
+      "href": "/foundry/",
+      "title": "FOUNDRY",
+      "operation": "ORIENT",
+      "state": "ACTIVE",
+      "kind": "hub"
+    },
+    {
+      "href": "/foundry/verse-atlas/",
+      "title": "VERSE ATLAS",
+      "operation": "REPRESENT",
+      "state": "STABLE",
+      "kind": "artifact"
+    },
+    {
+      "href": "/foundry/convergence/",
+      "title": "CONVERGENCE FIELD",
+      "operation": null,
+      "state": null,
+      "kind": "workbench"
+    },
+    {
+      "href": "/foundry/axial/",
+      "title": "AXIAL / FOCUS STACK 0.7",
+      "operation": "PROVE",
+      "state": "PROOF_REQUIRED",
+      "kind": "experiment"
+    },
+    {
+      "href": "/foundry/convergence/identity-lab.html",
+      "title": "IDENTITY LAB",
+      "operation": "PROVE",
+      "state": "STABLE",
+      "kind": "artifact"
+    },
+    {
+      "href": "/atlas-dayline/",
+      "title": "ATLAS DAYLINE",
+      "operation": "PLAN",
+      "state": "STABLE",
+      "kind": "artifact"
+    },
+    {
+      "href": "/forward-field-proof/",
+      "title": "FIELD / PROOF",
+      "operation": "PROVE",
+      "state": "STABLE",
+      "kind": "artifact"
+    },
+    {
+      "href": "/forward-field-proof/triangle/",
+      "title": "TRIANGLE BENCH 0.1",
+      "operation": "PROVE",
+      "state": "PARKED",
+      "kind": "experiment"
+    },
+    {
+      "href": "/router-bench/",
+      "title": "ROUTER BENCH 0.1",
+      "operation": null,
+      "state": "REFERENCE",
+      "kind": "workbench"
+    },
+    {
+      "href": "/fcm/",
+      "title": "FORWARD CENTER MASS 0.2",
+      "operation": "ROUTE",
+      "state": "DONOR",
+      "kind": "workbench"
+    },
+    {
+      "href": "/shopping/",
+      "title": "SHOPPING FIELD 0.1",
+      "operation": "ACQUIRE",
+      "state": "ACTIVE",
+      "kind": "adapter"
+    },
+    {
+      "href": "/control/",
+      "title": "CURRENT / CONTROL",
+      "operation": null,
+      "state": "ACTIVE",
+      "kind": "control"
+    },
+    {
+      "href": "/returns/",
+      "title": "RETURN LEDGER",
+      "operation": null,
+      "state": "STABLE",
+      "kind": "evidence"
+    },
+    {
+      "href": "/showcase-selftest/",
+      "title": "SHOWCASE SELFTEST",
+      "operation": null,
+      "state": "UTILITY",
+      "kind": "validator"
+    },
+    {
+      "href": "/recovery/",
+      "title": "RECOVERY VAULT",
+      "operation": null,
+      "state": "ACTIVE",
+      "kind": "recovery"
+    },
+    {
+      "href": "/recovery/path-grid/",
+      "title": "PATH / GRID RECOVERY",
+      "operation": null,
+      "state": "FROZEN_DONOR",
+      "kind": "donor-hub"
+    },
+    {
+      "href": "/recovery/fold-bloom/fold-weave-0.1/",
+      "title": "FOLD WEAVE 0.1",
+      "operation": null,
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/house/",
+      "title": "HOUSE / FIELD",
+      "operation": "PROJECT",
+      "state": "STABLE",
+      "kind": "system"
+    },
+    {
+      "href": "/house/spatial/",
+      "title": "HOUSE / SPATIAL",
+      "operation": "REPRESENT",
+      "state": "ACTIVE",
+      "kind": "workbench"
+    },
+    {
+      "href": "/docs/",
+      "title": "DOCS / READ",
+      "operation": null,
+      "state": "UTILITY",
+      "kind": "documentation"
+    },
+    {
+      "href": "/control/confluence/",
+      "title": "CONFLUENCE",
+      "operation": "TRANSFER",
+      "state": "ACTIVE",
+      "kind": "documentation"
+    },
+    {
+      "href": "/recovery/rsvp/",
+      "title": "RSVP / TEMPORAL FOCUS 2018",
+      "operation": "REPRESENT",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/foundry/core/",
+      "title": "FOUNDRY / REAL CENTER 0.1",
+      "operation": "ORIENT",
+      "state": "CANDIDATE",
+      "kind": "workbench"
+    },
+    {
+      "href": "/law-zoo/",
+      "title": "LAW ZOO / FIVE MACHINES",
+      "operation": null,
+      "state": "FROZEN_DONOR",
+      "kind": "hub"
+    },
+    {
+      "href": "/law-zoo/law_zoo_field_guide.html",
+      "title": "LAW ZOO / FIELD GUIDE",
+      "operation": "MUTATE",
+      "state": "FROZEN_DONOR",
+      "kind": "experiment"
+    },
+    {
+      "href": "/law-zoo/palimpsest.html",
+      "title": "PALIMPSEST",
+      "operation": "RERENDER",
+      "state": "FROZEN_DONOR",
+      "kind": "experiment"
+    },
+    {
+      "href": "/law-zoo/law_districts.html",
+      "title": "LAW DISTRICTS",
+      "operation": "TRAVERSE",
+      "state": "FROZEN_DONOR",
+      "kind": "experiment"
+    },
+    {
+      "href": "/law-zoo/one_law_two_senses.html",
+      "title": "ONE LAW / TWO SENSES",
+      "operation": "MODULATE",
+      "state": "FROZEN_DONOR",
+      "kind": "experiment"
+    },
+    {
+      "href": "/law-zoo/error_garden.html",
+      "title": "ERROR GARDEN",
+      "operation": "BREED",
+      "state": "FROZEN_DONOR",
+      "kind": "experiment"
+    },
+    {
+      "href": "/dock/",
+      "title": "DOCK / ORIENTATION",
+      "operation": null,
+      "state": "ACTIVE",
+      "kind": "control"
+    },
+    {
+      "href": "/control/migration/",
+      "title": "MIGRATION FIELD",
+      "operation": null,
+      "state": "ACTIVE",
+      "kind": "control"
+    },
+    {
+      "href": "/recovery/foundry-cabinet-v4/",
+      "title": "FOUNDRY CABINET V4",
+      "operation": null,
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/recovery/path-grid/grid-path-compiler-v4/",
+      "title": "GRID PATH COMPILER V4",
+      "operation": "COMPILE",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/recovery/path-grid/anthropy-pathweaver/",
+      "title": "ANTHROPY PATHWEAVER",
+      "operation": "WEAVE",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/recovery/path-grid/projection-harness/",
+      "title": "PROJECTION HARNESS",
+      "operation": "PROJECT",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/recovery/path-grid/foundry-federation/",
+      "title": "FOUNDRY FEDERATION",
+      "operation": "FEDERATE",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/recovery/path-grid/market-solver/",
+      "title": "MARKET + SOLVER",
+      "operation": "SOLVE",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/recovery/path-grid/cell-foundry-r2/",
+      "title": "CELL FOUNDRY R2",
+      "operation": "ROUTE",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/recovery/env0/",
+      "title": "ENV-0 / BODY ↔ HOUSE",
+      "operation": "REIFY",
+      "state": "RECOVER",
+      "kind": "recovery"
+    },
+    {
+      "href": "/recovery/sleeper/",
+      "title": "SLEEPER / RECOVERY",
+      "operation": null,
+      "state": "ACTIVE",
+      "kind": "recovery"
+    },
+    {
+      "href": "/recovery/sleeper/workfield-v1.2/",
+      "title": "SLEEPER WORKFIELD v1.2",
+      "operation": "WORK",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/recovery/axial/",
+      "title": "AXIAL / RECOVERY",
+      "operation": null,
+      "state": "ACTIVE",
+      "kind": "recovery"
+    },
+    {
+      "href": "/recovery/axial/state-transform-v0.3/",
+      "title": "STATE × TRANSFORM v0.3",
+      "operation": "TRANSACT",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/recovery/axial/compositor-v0.2/print-template.svg",
+      "title": "AXIAL COMPOSITOR v0.2 / PRINT",
+      "operation": "PRINT",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/recovery/media/",
+      "title": "OLDER MEDIA / RECOVERY",
+      "operation": null,
+      "state": "ACTIVE",
+      "kind": "recovery"
+    },
+    {
+      "href": "/recovery/media/datadisc/datadisc.html",
+      "title": "DATADISC · 2019",
+      "operation": "PROJECT",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/recovery/naming/",
+      "title": "NAMING / GAME-OF-NAMES RECOVERY",
+      "operation": "RECOVER",
+      "state": "RECOVER",
+      "kind": "recovery"
+    },
+    {
+      "href": "/recovery/env0/ENV0_plate14_A2_v0_1.svg",
+      "title": "ENV-0 / INTEGRATED FIELD MASTER",
+      "operation": "PROJECT",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/recovery/env0/ENV0_symbols_A2_v0_1.svg",
+      "title": "ENV-0 / SYMBOL + TYPE MASTER",
+      "operation": "ENCODE",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/recovery/poly-furnisher/",
+      "title": "POLY / FURNISHER RECOVERY",
+      "operation": null,
+      "state": "ACTIVE",
+      "kind": "recovery"
+    },
+    {
+      "href": "/recovery/poly-furnisher/kraken-2019/",
+      "title": "KRAKEN · 2019",
+      "operation": "HOST",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/recovery/poly-furnisher/proto-kernel-2020/",
+      "title": "POLY PROTO-KERNEL · 2020",
+      "operation": "TRANSFORM",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/migration/",
+      "title": "MIGRATION / SALVAGE YARD",
+      "operation": "RECOVER",
+      "state": "ACTIVE",
+      "kind": "control"
+    },
+    {
+      "href": "/recovery/poly-furnisher/room-lineage/",
+      "title": "FU ROOM / INTERPHASE ROOM LINEAGE",
+      "operation": "PROJECT",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/recovery/poly-furnisher/interphase-lineage/",
+      "title": "INTERPHASE / CYLINDER LINEAGE",
+      "operation": "PROJECT",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/recovery/kala/",
+      "title": "KALA / DESKTOP CHARACTER 2018–2020",
+      "operation": "INHABIT",
+      "state": "FROZEN_DONOR",
+      "kind": "donor"
+    },
+    {
+      "href": "/foundry/methods/",
+      "title": "SHAPE / LAW ATLAS 0.1",
+      "operation": "INVESTIGATE",
+      "state": "CANDIDATE",
+      "kind": "workbench"
+    },
+    {
+      "href": "/app-atlas/",
+      "title": "IDEA ATLAS",
+      "operation": "CAPTURE",
+      "state": "ACTIVE",
+      "kind": "workbench"
+    },
+    {
+      "href": "/bodyplans/",
+      "title": "BODY PLANS / REGISTRY",
+      "operation": "ADDRESS",
+      "state": "STABLE",
+      "kind": "system"
+    },
+    {
+      "href": "/contact/interpret/",
+      "title": "HUMAN PORT / INTERPRET",
+      "operation": "INTERPRET",
+      "state": "ACTIVE",
+      "kind": "workbench"
+    },
+    {
+      "href": "/contact/residue/",
+      "title": "HUMAN PORT / SOCIAL RESIDUE",
+      "operation": "REMEMBER",
+      "state": "ACTIVE",
+      "kind": "workbench"
+    },
+    {
+      "href": "/contact/backstage/",
+      "title": "HUMAN PORT / BACKSTAGE",
+      "operation": "RECOVER",
+      "state": "ACTIVE",
+      "kind": "workbench"
+    },
+    {
+      "href": "/contact/capsule/",
+      "title": "HUMAN PORT / CAPSULE",
+      "operation": "RETURN",
+      "state": "ACTIVE",
+      "kind": "workbench"
+    },
+    {
+      "href": "/contact/burst/",
+      "title": "BURST / INTERPRET",
+      "operation": null,
+      "state": "UTILITY",
+      "kind": "alias"
+    },
+    {
+      "href": "/contact/family/",
+      "title": "HUMAN PORT / FAMILY",
+      "operation": null,
+      "state": "UTILITY",
+      "kind": "alias"
+    },
+    {
+      "href": "/contact/friend/",
+      "title": "HUMAN PORT / FRIEND",
+      "operation": null,
+      "state": "UTILITY",
+      "kind": "alias"
+    },
+    {
+      "href": "/contact/work/",
+      "title": "HUMAN PORT / WORK",
+      "operation": null,
+      "state": "UTILITY",
+      "kind": "alias"
+    },
+    {
+      "href": "/contact/agent/",
+      "title": "HUMAN PORT / AGENT",
+      "operation": null,
+      "state": "UTILITY",
+      "kind": "alias"
+    },
+    {
+      "href": "/contact/make/",
+      "title": "HUMAN PORT / MAKE",
+      "operation": null,
+      "state": "UTILITY",
+      "kind": "alias"
+    },
+    {
+      "href": "/contact/next/",
+      "title": "HUMAN PORT / MOVED",
+      "operation": null,
+      "state": "UTILITY",
+      "kind": "alias"
+    },
+    {
+      "href": "/field-play.html",
+      "title": "FIELD / PLAY",
+      "operation": "VERIFY",
+      "state": "ACTIVE",
+      "kind": "workbench"
+    },
+    {
+      "href": "/forward-field-proof/triangle/glyph/",
+      "title": "TRIANGLE GLYPH LAB 0.1",
+      "operation": "REPRESENT",
+      "state": "CANDIDATE",
+      "kind": "experiment"
+    },
+    {
+      "href": "/poetry/",
+      "title": "VERSE / CO-CREATIVE POETRY",
+      "operation": "COMPOSE",
+      "state": "ACTIVE",
+      "kind": "workbench"
+    },
+    {
+      "href": "/forward-field-proof/triangle/glyph/center/",
+      "title": "TRIANGLE CENTER MASS 0.1",
+      "operation": "ROUTE",
+      "state": "PROOF_REQUIRED",
+      "kind": "experiment"
+    },
+    {
+      "href": "/poetry/lab/",
+      "title": "VERSE LAB",
+      "operation": "EXPERIMENT",
+      "state": "ACTIVE",
+      "kind": "lab"
+    },
+    {
+      "href": "/poetry/lab/poem-map/",
+      "title": "POEM MAP 0.1",
+      "operation": "PROJECT",
+      "state": "PROOF_REQUIRED",
+      "kind": "experiment"
+    }
+  ],
+  "note": "Self-contained fallback snapshot for Triangle Center. Runtime prefers current root sources; this snapshot prevents path/deployment failure from making the instrument unusable."
+}

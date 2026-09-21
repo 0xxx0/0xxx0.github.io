@@ -61,7 +61,7 @@ A candidate deserves active work only when:
 
 ## CORPUS
 
-The **117-project federation is not canon**. It is a **NON_CANONICAL CORPUS / DONOR SAMPLE**.
+The **recovered federation / project corpus is not canon**. It is a **NON_CANONICAL CORPUS / DONOR SAMPLE**. No hard project count is canonical unless backed by a current census address.
 
 Inventory may grow to hundreds or thousands without increasing control cardinality. Corpus membership grants neither priority nor canonical status. Current heads and fronts come from `/control/CURRENT.json`; recovery state comes from the migration/recovery ledgers.
 
@@ -86,6 +86,19 @@ REAL CENTER is the **constitutional / selection layer**, not the scheduler, inve
 - **RETURN** asks: what actually changed?
 
 A useful Real Center decision is therefore not “what should I do next?” but “is this proposed branch actually new capability, a lawful projection/transfer, or architecture drift?”
+
+## FOUR VIEWS / ONE MACHINE
+
+The same collaboration state is read through four unequal projections:
+
+- **CORE / CRITERIA** — what must survive a lawful transformation?
+- **FIELD / ADDRESS** — what exists, where is it, what can it do, and where are its open ports?
+- **MIGRATION / RECOVER** — what exact thing existed, what evidence supports it, and what is its recovery disposition?
+- **CONFLUENCE / TRANSFER** — what bounded mechanism may cross lineages, what must it preserve, and what recipient-side evidence earns adoption?
+
+These are views, not four databases. Their local vocabularies name different dimensions and must not be forced into false equivalence.
+
+Machine projection contract: `/foundry/machine.json`.
 
 ## CENTER IS A CRITERION, NOT A POINT
 

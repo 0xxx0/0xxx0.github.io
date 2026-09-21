@@ -1,34 +1,38 @@
 {
   "schema": "showcase-release/v1",
-  "title": "AXIAL / STATE APERTURE",
-  "version": "0.5.1",
-  "state": "EXPERIMENT",
+  "title": "AXIAL / FOCUS STACK",
+  "version": "0.7",
+  "state": "PROOF_REQUIRED",
   "updated": "2026-09-21",
   "route": "/foundry/axial/",
   "parent": "/foundry/",
   "operation": "PROVE",
-  "hypothesis": "A cylindrical controller can compress semantic address, continuous transform, bounded visibility and explicit commit into a physically readable state with lower translation burden than separated controls.",
+  "hypothesis": "A stack of unequal cyclic indices aligned to one fixed focus can make multi-dimensional state faster to orient and traverse while preserving source identity across ring and strip projections.",
   "controls": [
-    "OBJECT ring",
-    "OPERATOR ring",
-    "FRAME ring",
-    "θ / TWIST ±180°",
-    "z / AXIAL 0–60 mm",
-    "literal APERTURE window",
-    "SAFE/TEST/ARM/RUN"
+    "FIELD/HOUSE source",
+    "variable-cardinality ring or strip projection",
+    "fixed bright focus gate",
+    "per-position lawful-support counts",
+    "dead-alignment visibility without auto-correction",
+    "tap result → rings explain identity",
+    "shareable deep focus URL",
+    "OPEN / COPY / BACK / RETURN"
   ],
   "evidence": [
-    "operator-specific 10-trial mapping check (descriptive only)",
-    "frame-specific projection behavior",
-    "literal aperture clipping rather than scale proxy",
-    "latched RUN semantics",
-    "before/gesture/after provenance ledger",
-    "packet events traverse same ledger",
-    "RETURN receipts",
-    "/foundry/axial/aperture.contract.json",
-    "onboarding correction: explicit first-contact path + runnable aperture demo; no proof-state change"
+    "FIELD adapter reads the actual showcase manifest",
+    "HOUSE adapter reads the actual public spatial model",
+    "ring cardinalities are source-derived rather than forced equal",
+    "each candidate position is scored against all other currently aligned rings",
+    "zero-support positions remain inspectable but visibly dim; supported moves remain bright",
+    "RING and STRIP render the same selected indices and support relation",
+    "focus result can align rings back to an exact source identity",
+    "AXIAL focus state serializes into a reloadable URL",
+    "FIELD INDEX embedded AXIAL / LATEST can EXPAND the selected route into the full Focus Stack",
+    "BACK and RETURN remain distinct",
+    "AXIAL 0.5.1 transaction/projection lab remains preserved at /foundry/axial/lab-0.5.1.html",
+    "/foundry/axial/aperture.contract.json"
   ],
-  "promotion_gate": "Remain PROOF_REQUIRED until (1) comparative digital evidence is produced through FIELD / PROOF or equivalent control, and (2) one passive physical cylinder/aperture readback-and-restore comparison produces interpretable receipts. A runnable browser instrument is not physical proof.",
+  "promotion_gate": "Remain PROOF_REQUIRED. Use the 0.7 lawful-support instrument for real FIELD/HOUSE re-entry, then compare reorientation and wrong-turn behavior against plain chronology/faceted search. Physical embodiment remains deferred until a software ring composition earns it.",
   "lineage_exact": [
     "2019 rotating-cylinder / INTERPHASE donor",
     "STATE × TRANSFORM v0.3",
@@ -42,12 +46,12 @@
   "inspiration_not_provenance": [
     "Blade Runner / Memory-Orb visual/mechanical association"
   ],
-  "research_question": "Can one physically inspect, set, disturb, restore and commit meaningful state through ring + θ/z + aperture topology with less translation and fewer mode errors than a plain separated control surface?",
-  "known_gap": "No physical aperture/sleeve result exists yet. Detent force, backlash, eyes-free acquisition, readback, restoration, nonlinear mappings and comparative advantage remain unvalidated.",
+  "research_question": "Does visible support for every possible ring move let a person traverse unequal vocabularies with fewer dead ends and lower reorientation cost while preserving exact source identity?",
+  "known_gap": "Support counts are exact over the loaded public source, but there is still no comparative usability result. HOUSE remains a public-safe static model, not live actuation. Physical embodiment remains unvalidated and optional.",
   "current_classification": {
-    "reviewed_at": "2026-09-21T01:12:00+08:00",
+    "reviewed_at": "2026-09-21T15:20:00+08:00",
     "state": "PROOF_REQUIRED",
-    "basis": "0.5.1 improves legibility/onboarding and demotes 50 mm to a non-canonical fixture dimension; proof requirements are unchanged.",
+    "basis": "0.7 turns correspondence into an executable constraint surface: every ring position shows whether it remains lawful under the other aligned dimensions, focus is deep-linkable, and FIELD can hand exact identities into AXIAL.",
     "receipt": "/foundry/axial/release.json"
   }
 }

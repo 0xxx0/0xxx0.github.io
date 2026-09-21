@@ -65,10 +65,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX / NOW · HEADS · MAP · OPEN PORTS",
+      "head": "FIELD INDEX / AXIAL LATEST 0.4",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Orientation layer separating attention, heads, durable address structure, open ports and mutation history; VISUAL now exposes explicit address-depth SCALE, route→Scale Lens projection, and a separate public-safe PLAY surface for evidence-bearing contributor missions."
+      "retained_function": "Fast repo re-entry: newest-first LATEST remains the plain source; embedded AXIAL aligns ROUTE × STATE × OPERATION × WORK MODE through one focus gate, while list/map/heads/ports share that exact route selection and explicit OPEN owns navigation."
     },
     {
       "lineage": "scale-lens",
@@ -100,10 +100,10 @@
     },
     {
       "lineage": "axial",
-      "head": "AXIAL / STATE APERTURE 0.5",
+      "head": "AXIAL / FOCUS STACK 0.7",
       "state": "PROOF_REQUIRED",
       "route": "/foundry/axial/",
-      "retained_function": "Discrete semantic address × θ/z transform × literal bounded aperture × explicit transaction gate → WORLD projection + evidence."
+      "retained_function": "Unequal cyclic vocabularies × one focus gate + exact per-position support → lawful source aperture; identity↔rings and URL reload round-trip; root FIELD carries a reduced AXIAL / LATEST projection."
     },
     {
       "lineage": "comms",
@@ -307,8 +307,8 @@
     {
       "id": "machine-representation",
       "state": "HOLD_CURRENT_HEAD",
-      "center": "AXIAL / STATE APERTURE 0.5",
-      "reason": "Current head now incorporates the exact 2019 cylinder donor as mechanism evidence and corrects APERTURE/frame semantics. Hold further expansion until comparative or physical readback evidence."
+      "center": "AXIAL / FOCUS STACK 0.7",
+      "reason": "The next missing function is now evidence, not interface theory: 0.7 exposes exact lawful/dead moves, deep focus and FIELD handoff. Hold conceptual expansion until real use or comparative proof identifies a failure."
     },
     {
       "id": "reality-house",
@@ -398,7 +398,15 @@
     "transductions": "/control/confluence/TRANSDUCTIONS.md",
     "transduction_registry": "/control/TRANSDUCTIONS.json",
     "preference_signals": "/control/PREFERENCE_SIGNALS.json",
-    "passive_feedback_return": "/returns/PASSIVE_FEEDBACK_2026-09-21.json"
+    "passive_feedback_return": "/returns/PASSIVE_FEEDBACK_2026-09-21.json",
+    "field_evolution": "/control/confluence/FIELD_EVOLUTION.md",
+    "field_evolution_return": "/returns/FIELD_EVOLUTION_2026-09-21.json",
+    "field_issues": "/control/FIELD_ISSUES.json",
+    "field_glyph": "/field-glyph.js",
+    "field_presentation": "/control/FIELD_PRESENTATION.json",
+    "field_presentation_kernel": "/field-presentation.js",
+    "field_index_axial_latest": "/control/confluence/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
+    "field_index_axial_latest_return": "/returns/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
@@ -435,14 +443,21 @@
       "UNKNOWN"
     ],
     "touch_rule": "A tracked public route changes RECENT only when a durable repo mutation updates route.index.updated_at; discussion alone never bumps it. CURRENT, not RECENT, owns attention.",
-    "default_reading": "STRUCTURE",
+    "default_reading": "AXIAL_LATEST",
     "readings": {
       "NOW": "/control/CURRENT.json#active_fronts",
       "HEADS": "/control/CURRENT.json#current_heads",
       "MAP": "/showcase-manifest.json#routes",
       "OPEN_PORTS": "route.field.exit_paths where status != AVAILABLE",
-      "RECENT": "route.index.updated_at secondary lens only"
-    }
+      "RECENT": "route.index.updated_at secondary lens only",
+      "EVOLVE": "showcase-manifest route.evolution; bounded variation → evidence → selection → transfer/park/compost"
+    },
+    "evolution_contract": "/control/FIELD_INDEX_CONTRACT.json#evolution_contract",
+    "identity_fold": "SUPERSEDED_ON_PRIMARY_REENTRY",
+    "issue_snapshot": "/control/FIELD_ISSUES.json",
+    "glyph_grammar": "/field-glyph.js",
+    "shared_focus": "AXIAL / LATEST / MAP / HEADS / OPEN PORTS select one manifest route; OPEN navigates.",
+    "plain_control": "LATEST chronological rows remain directly under the compositor."
   },
   "last_recovery_survey": "/control/RECOVERY_SURVEY_2026-09-20_B.json",
   "last_recovery_population": "/control/RECOVERY_POPULATION_2026-09-20.json",

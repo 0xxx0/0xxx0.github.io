@@ -2,10 +2,21 @@
   "schema": "0xxx0/return-index/v0.1",
   "generated": "2026-09-21",
   "source": "/showcase-manifest.json",
-  "count": 41,
-  "receipts_ok": 41,
+  "count": 42,
+  "receipts_ok": 42,
   "law": "A release without a return path is not closed.",
   "items": [
+    {
+      "href": "/",
+      "title": "FIELD INDEX / AXIAL LATEST",
+      "state": "ACTIVE",
+      "version": "0.4",
+      "operation": "ORIENT / FOCUS",
+      "receipt": "/returns/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
+      "receipt_ok": true,
+      "receipt_schema": "return-receipt/v0.1",
+      "release_updated": "2026-09-21"
+    },
     {
       "href": "/contact/",
       "title": "CONTACT 0.3",
@@ -140,14 +151,14 @@
     },
     {
       "href": "/foundry/axial/",
-      "title": "AXIAL / STATE APERTURE 0.5.1",
+      "title": "AXIAL / FOCUS STACK 0.7",
       "state": "PROOF_REQUIRED",
-      "version": "0.5.1",
+      "version": "0.7",
       "operation": "PROVE",
       "receipt": "/foundry/axial/release.json",
       "receipt_ok": true,
       "receipt_schema": "showcase-release/v1",
-      "release_updated": "2026-09-19"
+      "release_updated": "2026-09-21"
     },
     {
       "href": "/foundry/convergence/identity-lab.html",

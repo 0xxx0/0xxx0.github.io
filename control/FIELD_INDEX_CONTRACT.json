@@ -1,7 +1,7 @@
 {
   "schema": "field-index-contract/v0.2",
   "updated": "2026-09-21",
-  "purpose": "Keep FIELD INDEX a durable orientation map: separate attention, current heads, address structure, unresolved interfaces and recent mutation so increasing system depth does not collapse into one activity feed.",
+  "purpose": "Keep FIELD INDEX usable under growth: fast newest-first repo re-entry with one shared focus identity across AXIAL, chronology and map; secondary structure/issues/lineage/proof readings remain available without competing for the first screen.",
   "laws": [
     "ATTENTION ≠ RECENCY. /control/CURRENT.json owns NOW; route.index.updated_at records mutation evidence only.",
     "MAP ≠ BACKLOG. A route may exist without being active, owed, important or scheduled.",
@@ -13,14 +13,22 @@
     "RECEIPT WHEN CLAIM CHANGES. If implementation/test/release status changes, update or create the relevant receipt and RETURN entry.",
     "ADDRESS EVERY SURFACE; PROMOTE ALMOST NONE. Every directory index surface gets a manifest address or explicit alias disposition; sitemap inclusion never implies NOW, HEAD, priority or canon.",
     "RETURN ≠ NEXT. RETURN closes and exposes evidence; every subsequent move is a fresh replan, not inherited route authority.",
-    "RECONSTRUCTION > NARRATION. Promote cross-lineage mechanisms only after a fresh process can reproduce the claimed behavior from durable state or an equivalent bounded test."
+    "RECONSTRUCTION > NARRATION. Promote cross-lineage mechanisms only after a fresh process can reproduce the claimed behavior from durable state or an equivalent bounded test.",
+    "EXPERIMENT ≠ STATE. Experimental form is route.kind/operation; lifecycle state must say what can lawfully happen next.",
+    "EVOLUTION REQUIRES A HOST. A live experiment exists to change, transfer into, or falsify something outside itself; no ownerless experiment may accumulate roadmap authority.",
+    "CHRONOLOGY MAY REPEAT IDENTITY. LATEST may show a route already present in NOW or HEADS because re-entry from recent mutation is a different task from canonical identity display.",
+    "DENSITY IS A PROJECTION. MARK / COMPACT / FULL may change information density but never identity, state, authority, order or target.",
+    "PROSE PAYS RENT. Fixed prose may not occupy persistent root space when the same function can survive as a mark with explicit reveal.",
+    "SELECTION ≠ NAVIGATION. Selecting a route in AXIAL, LATEST, HEADS, PORTS or MAP changes one local focus object; OPEN is the explicit navigation action.",
+    "ONE FOCUS / MANY PROJECTIONS. AXIAL strips, chronological rows and map positions must resolve to the same manifest route identity.",
+    "NO INTERSECTION ≠ NEAREST GUESS. An AXIAL tuple with no exact manifest match reports no match rather than inventing a route."
   ],
   "root_order": {
-    "default": "STRUCTURE",
-    "structure_key": "route.parent + manifest identity",
+    "default": "AXIAL_LATEST",
     "recent_key": "route.index.updated_at",
     "recent_tie_break": "manifest order",
-    "meaning": "Root defaults to address structure. UPDATED_DESC remains available only as the RECENT reading."
+    "structure_key": "route.parent + manifest identity",
+    "meaning": "Chronology is the underlying source order. AXIAL adds reversible focus/filter projection without replacing or re-ranking LATEST."
   },
   "activity_modes": {
     "RECOVER": "Retrieve exact prior artifacts/lineage before synthesis.",
@@ -48,9 +56,9 @@
     ]
   },
   "ui_contract": {
-    "root_now": "Render CURRENT.active_fronts first and cap visible execution fronts at three.",
-    "root_heads": "Render CURRENT.current_heads independently from NOW so stable/held lineages remain recoverable without claiming attention.",
-    "root_map": "Render repository directory index surfaces from manifest parent relations as a searchable collapsed tree. Every directory index surface must have a manifest address; redirect/lens doors use kind=alias. Sitemap completeness never implies priority.",
+    "root_now": "CURRENT.active_fronts are encoded as NOW attention marks on the shared route glyph/focus rather than a persistent dashboard block.",
+    "root_heads": "CURRENT.current_heads remains a collapsed lineage reading; selecting a head updates the shared focus and does not navigate until OPEN.",
+    "root_map": "MAP is collapsed by default. VISUAL/PULSE/STRUCTURE/EVOLVE/RECENT share the same route focus used by AXIAL/LATEST.",
     "root_recent": "Expose index.updated_at as a secondary RECENT lens, never the default ordering.",
     "root_frontier": "Derive OPEN PORTS live from route.field.exit_paths; never maintain a duplicate hand-written backlog of the same exits.",
     "corner_nav": "Shared showcase route adapter remains the canonical BACK/PARENT/SHOWCASE control on tracked non-root routes.",
@@ -62,7 +70,14 @@
     "root_move_gate": "Render CURRENT.execution_contract as a compact MOVE GATE adjacent to NOW: one bounded move → evidence-bearing RETURN → explicit replan. It is a control law, not another project/front.",
     "root_scale": "VISUAL exposes explicit SCALE − / ROOT controls. Scale is parent-child address depth, not CSS zoom: changing scale changes the projection neighborhood while preserving route identity.",
     "root_scale_lens_handoff": "Selected MAP route may be copied locally into SCALE LENS via scale.lens.handoff.v01. This is a projection handoff; Lens cannot mutate canonical FIELD manifest state.",
-    "root_play": "/field-play.html derives a public-safe mission deck from unresolved manifest gaps. Missions carry no authority; they terminate in field-game-return/v0.1 evidence for explicit review/replan."
+    "root_play": "/field-play.html derives public-safe missions from manifest gaps plus FIELD_ISSUES entries with play_safe=true. Returns remain report-only and require review.",
+    "root_evolve": "EVOLVE is a named projection over canonical manifest routes carrying route.evolution. It shows host, generation, stage, mutation and evidence gate; it is not a new backlog or authority source.",
+    "root_identity_fold": "SUPERSEDED for LATEST. Identity folding may still be used inside projections where repetition harms legibility, but never to remove recent mutations from the primary re-entry list.",
+    "root_latest": "Primary re-entry is AXIAL / LATEST over the ordinary newest-first route list. The list remains directly below as the plain chronological control/source reading.",
+    "root_issues": "Render open GitHub issues as a separate newest-activity-first repo-truth list. Live GitHub API may refresh a checked-in /control/FIELD_ISSUES.json fallback. Issue presence is not priority.",
+    "root_density": "/field-presentation.js may reduce route tokens toward glyph-only marks at MARK density while preserving route order, axis value and explicit OPEN.",
+    "root_glyph": "/field-glyph.js composes marks from route kind × operation × state × NOW/HEAD/ISSUE attention marks. Every mark must target/reveal the same route identity as its full representation.",
+    "root_axial_latest": "Adapt AXIAL 0.6.1 STRIP projection over ROUTE × STATE × OPERATION × WORK MODE. Axes have unequal cardinalities; one fixed bright gate resolves an exact manifest route. Selecting a route aligns other axes back to its values."
   },
   "query_semantics": {
     "BOTTLENECK": {
@@ -116,7 +131,7 @@
     },
     "HEADS": {
       "source": "/control/CURRENT.json#current_heads",
-      "meaning": "Retained current lineage heads. A head may be stable, active, held or proof-required without occupying NOW."
+      "meaning": "Collapsed advanced lineage reading. Retained heads remain recoverable without occupying primary navigation."
     },
     "MAP": {
       "source": "/showcase-manifest.json#routes",
@@ -129,6 +144,66 @@
     "RECENT": {
       "source": "route.index.updated_at",
       "meaning": "Secondary mutation-history reading only. Recent touch never overrides CURRENT attention."
+    },
+    "EVOLVE": {
+      "source": "showcase-manifest route.evolution",
+      "meaning": "Bounded evolutionary work: host → question → one mutation → evidence gate → transfer/park/compost. It is a projection over canonical routes, not a separate queue."
+    },
+    "LATEST": {
+      "source": "showcase-manifest route.index.updated_at",
+      "meaning": "Primary human re-entry: newest durable route mutations first. Duplication with NOW/HEADS is intentional."
+    },
+    "ISSUES": {
+      "source": "GitHub open issues + /control/FIELD_ISSUES.json fallback",
+      "meaning": "Declared repo open loops. Visibility is not priority or authority."
+    },
+    "AXIAL_LATEST": {
+      "source": "showcase-manifest routes + route.index.updated_at",
+      "meaning": "Primary compact focus compositor. ROUTE / STATE / OPERATION / WORK MODE are unequal strips over real manifest values; focus remains exact route identity."
+    }
+  },
+  "evolution_contract": {
+    "schema": "field-evolution/v0.1",
+    "purpose": "Turn experimental work into bounded variation → evidence → selection → transfer rather than a permanent bucket of prototypes.",
+    "carrier": "showcase-manifest route.evolution; do not maintain a separate experiment registry.",
+    "applies_to": "Any live route whose kind=experiment and state is not DONOR/FROZEN_DONOR, plus candidate workbenches intentionally enrolled in evolution.",
+    "stages": {
+      "FRAME": "Name host, question, baseline, one mutation and evidence gate before expanding implementation.",
+      "TEST": "Run the smallest comparator that can change the experiment's disposition.",
+      "SELECT": "Evidence exists; choose pass/fail/ambiguous explicitly before more mutation.",
+      "TRANSFER": "Move only the surviving mechanism into the named host; the experiment itself does not automatically become a new sovereign product.",
+      "HOLD": "No present work. Resume only on a named dependency or explicit selection.",
+      "COMPOST": "Failed/superseded branch is retained as negative knowledge or donor residue; no beautification debt."
+    },
+    "required_fields": [
+      "host",
+      "generation",
+      "stage",
+      "question",
+      "baseline",
+      "mutation",
+      "evidence_gate",
+      "next_if_pass",
+      "next_if_fail"
+    ],
+    "laws": [
+      "ONE MUTATION PER GENERATION. If multiple mechanisms change, split or reset the generation.",
+      "BASELINE BEFORE NOVELTY. Every test names the plain/current comparator it must beat or materially differ from.",
+      "PASS MEANS TRANSFER, NOT EMPIRE. A successful experiment normally donates a mechanism to its host; it does not earn an independent roadmap by default.",
+      "FAILURE RETURNS VALUE. A failed branch becomes PARKED/DONOR/COMPOST with its evidence retained so the same idea is not rediscovered from zero.",
+      "NO SECOND GENERATION WITHOUT RETURN. Evidence closes the current generation; a new mutation requires explicit replan.",
+      "PHYSICAL CLAIMS REQUIRE PHYSICAL RECEIPTS. Digital proxies can prepare but never satisfy a physical correspondence claim."
+    ],
+    "selection_outputs": [
+      "TRANSFER",
+      "REPEAT_WITH_ONE_MUTATION",
+      "PARK",
+      "DONOR",
+      "COMPOST"
+    ],
+    "host_rule": "host must resolve to an existing manifest route and names the recipient/authority that would change if the experiment succeeds.",
+    "deprecated_stage_aliases": {
+      "SEED": "FRAME"
     }
   }
 }

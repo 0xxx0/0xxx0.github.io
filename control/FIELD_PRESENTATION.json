@@ -1,0 +1,46 @@
+{
+  "schema": "field-presentation/v0.1",
+  "updated": "2026-09-21",
+  "purpose": "Project the same FIELD identity/state/operation at different information densities without inventing separate mobile/desktop semantics.",
+  "ladder": {
+    "MARK": "Glyph/mark only. Identity is available through target/title/aria or reveal; no prose required.",
+    "COMPACT": "Glyph + short identity + only decision-relevant metadata.",
+    "FULL": "Glyph + identity + provenance/state/role/details where space and task justify them."
+  },
+  "laws": [
+    "DENSITY IS A PROJECTION, NOT A DIFFERENT OBJECT.",
+    "AVAILABLE SPACE MAY CHANGE REPRESENTATION; IT MAY NOT CHANGE IDENTITY, STATE, AUTHORITY OR ORDER.",
+    "MARK MUST ROUND-TRIP TO THE SAME TARGET AS FULL.",
+    "TEXT IS REVEALABLE RESIDUE, NOT A PERMANENT TAX ON SCREEN AREA.",
+    "SEMANTIC MARKS COMPOSE FROM KIND × OPERATION × STATE × ATTENTION; decorative uniqueness is not a glyph law.",
+    "MOBILE/DESKTOP ARE IMPLEMENTATION CONDITIONS, NOT SEPARATE INTERFACE ONTOLOGIES."
+  ],
+  "carrier": "/field-presentation.js",
+  "mark_grammar": "/field-glyph.js",
+  "current_consumer": "/ FIELD INDEX",
+  "next_adoption_rule": "Adopt on another surface only when it removes duplicated responsive/presentation logic without erasing that surface's distinct interaction identity.",
+  "current_consumers": [
+    "/",
+    "/field-play.html"
+  ],
+  "glyph_mnemonics": {
+    "kind_examples": {
+      "工": "workbench",
+      "試": "experiment",
+      "物": "artifact",
+      "復": "recovery",
+      "器": "system",
+      "中": "hub"
+    },
+    "operation_examples": {
+      "驗": "verify/test",
+      "映": "represent/project",
+      "回": "return",
+      "行": "plan/route/move",
+      "位": "address/orient/index",
+      "化": "transform/compose",
+      "讀": "read/interpret"
+    },
+    "rule": "Mnemonic characters aid learning/recall only. Canonical semantics remain route.kind / route.operation / route.state."
+  }
+}

@@ -53,6 +53,7 @@ const scanStaticLinks=(page)=>{
     if(target===false)fail.push('broken static link '+page+' -> '+m[1]);
   }
 };
+const fiContract=parse('control/FIELD_INDEX_CONTRACT.json');
 const manifest=parse('showcase-manifest.json');
 const runtimeKinds=new Set(['artifact','experiment','workbench','rendezvous','hub','system']);
 if(manifest){
@@ -78,8 +79,26 @@ if(manifest){
   const port=(manifest.routes||[]).find(r=>r.href==='/port/');
   check(!!port,'canonical HUMAN PORT route absent');
   if(port){check(port.state==='ACTIVE','HUMAN PORT must be ACTIVE');check(Array.isArray(port.owned_surfaces)&&port.owned_surfaces.length>=5,'HUMAN PORT owned surfaces missing');}
-  const deprecated=new Set(['EXPERIMENT']);
-  for(const r of manifest.routes||[])if(deprecated.has(r.state))fail.push('deprecated route.state '+r.state+': '+r.href);
+  const deprecated=new Set(fiContract?.route_state_contract?.deprecated_states||['EXPERIMENT']);
+  const allowedStates=new Set(Object.keys(fiContract?.route_state_contract?.states||{}));
+  for(const r of manifest.routes||[]){
+    if(deprecated.has(r.state))fail.push('deprecated route.state '+r.state+': '+r.href);
+    if(r.state&&allowedStates.size&&!allowedStates.has(r.state))fail.push('unknown route.state '+r.state+': '+r.href);
+  }
+  const evo=fiContract?.evolution_contract||{};
+  const evoFields=evo.required_fields||['host','generation','stage','question','baseline','mutation','evidence_gate','next_if_pass','next_if_fail'];
+  const evoStages=new Set(Object.keys(evo.stages||{}));
+  const donorStates=new Set(['DONOR','FROZEN_DONOR']);
+  for(const r of manifest.routes||[]){
+    const liveExperiment=r.kind==='experiment'&&!donorStates.has(r.state);
+    if(!liveExperiment)continue;
+    check(!!r.evolution,'live experiment missing evolution contract: '+r.href);
+    if(!r.evolution)continue;
+    for(const k of evoFields)check(r.evolution[k]!==undefined&&r.evolution[k]!==null&&String(r.evolution[k]).trim()!=='','experiment evolution missing '+k+': '+r.href);
+    check(Number.isInteger(r.evolution.generation)&&r.evolution.generation>=1,'experiment generation invalid: '+r.href);
+    if(evoStages.size)check(evoStages.has(r.evolution.stage),'experiment evolution stage invalid '+r.evolution.stage+': '+r.href);
+    check((manifest.routes||[]).some(x=>x.href===r.evolution.host),'experiment evolution host missing from manifest '+r.href+' -> '+r.evolution.host);
+  }
   const fcm=(manifest.routes||[]).find(r=>r.href==='/fcm/');
   if(fcm)check(fcm.version==='0.2','FCM current version drifted from 0.2');
   const manifestHrefSet=new Set(hrefs);
@@ -98,6 +117,11 @@ if(manifest){
   });
   for(const href of walkDirs())check(manifestHrefSet.has(href),'directory index surface missing manifest address: '+href);
 }
+const issueSnapshot=parse('control/FIELD_ISSUES.json');
+if(issueSnapshot){check(issueSnapshot.schema==='field-repo-issues/v0.1','FIELD issue snapshot schema drifted');check(issueSnapshot.count===issueSnapshot.issues.length,'FIELD issue snapshot count mismatch');}
+if(exists('field-glyph.js')){try{new Function(read('field-glyph.js'))}catch(e){fail.push('JS field-glyph.js: '+e.message)}}
+if(exists('field-presentation.js')){try{new Function(read('field-presentation.js'))}catch(e){fail.push('JS field-presentation.js: '+e.message)}}
+if(exists('field-play.html')){const play=read('field-play.html');check(play.includes('field-presentation.js'),'FIELD PLAY missing shared presentation kernel');check(play.includes('field-glyph.js'),'FIELD PLAY missing shared glyph grammar');}
 const ret=parse('return-index.json');
 if(ret){
   check(ret.count===ret.items.length,'return-index count mismatch');
@@ -119,16 +143,25 @@ if(migrationNow){
   for(const id of duplicateValues(nowIds))fail.push('duplicate MIGRATION NOW id '+id);
 }
 const home=read('index.html');
-const fi=parse('control/FIELD_INDEX_CONTRACT.json');
+const fi=fiContract;
 check(!!fi,'FIELD INDEX contract missing/unreadable');
-if(fi){check(fi.schema==='field-index-contract/v0.2','FIELD INDEX contract must be v0.2');check(fi.root_readings?.NOW&&fi.root_readings?.MAP&&fi.root_readings?.OPEN_PORTS,'FIELD INDEX readings incomplete');}
+if(fi){check(fi.schema==='field-index-contract/v0.2','FIELD INDEX contract must be v0.2');check(fi.root_readings?.NOW&&fi.root_readings?.MAP&&fi.root_readings?.OPEN_PORTS&&fi.root_readings?.EVOLVE,'FIELD INDEX readings incomplete');check(fi.evolution_contract?.schema==='field-evolution/v0.1','FIELD evolution contract missing');}
 check(home.includes('href="./returns/"'),'root missing RETURN FIELD link');
 check(home.includes('data-mode="STRUCTURE"'),'root missing STRUCTURE map mode');
 check(home.includes('data-mode="RECENT"'),'root missing RECENT lens');
-check(home.includes('>NOW<'),'root missing NOW reading');
-check(home.includes('>HEADS<'),'root missing HEADS reading');
-check(home.includes('>MAP<'),'root missing MAP reading');
+check(home.includes('data-mode="EVOLVE"'),'root missing EVOLVE lens');
+check(home.includes('AXIAL / LATEST'),'root missing AXIAL / LATEST compositor');
+check(home.includes('data-mode="VISUAL"')&&home.includes('data-mode="PULSE"'),'root missing visual/pulse map projections');
+check(home.includes('>HEADS / LINEAGES<'),'root missing collapsed HEADS lineage reading');
+check(home.includes('MAP / PROJECTIONS'),'root missing MAP reading');
 check(home.includes('>OPEN PORTS<'),'root missing OPEN PORTS reading');
+check(home.includes('LATEST / REPO TOUCHES'),'root missing LATEST re-entry reading');
+check(home.includes('ISSUES / REPO OPEN LOOPS'),'root missing ISSUES reading');
+check(home.includes('field-glyph.js'),'root missing shared FIELD glyph grammar');
+check(home.includes('field-presentation.js'),'root missing FIELD presentation kernel');
+check(home.includes('id="axialLatest"'),'root missing unified AXIAL latest surface');
+check(home.includes('id="apOpen"'),'root missing explicit focus OPEN action');
+check(!home.includes('class="nowGrid"'),'root regressed to oversized NOW card grid');
 check(home.includes('FIELD_INDEX_CONTRACT.json'),'root missing FI contract link');
 compileInline('index.html');
 if(manifest){
@@ -140,10 +173,16 @@ if(manifest){
   }
 }
 const axialPath='foundry/axial/index.html';
+const axialLabPath='foundry/axial/lab-0.5.1.html';
 if(exists(axialPath)){
   const a=read(axialPath);
-  for(const token of ['START 10','AXIAL_PACKET','ARM','RUN','RETURN'])check(a.includes(token),'AXIAL contract token missing: '+token);
+  for(const token of ['FOCUS STACK','FIELD INDEX','HOUSE: SOFA LIGHT','RING','STRIP','RETURN'])check(a.includes(token),'AXIAL 0.6 focus-stack token missing: '+token);
   compileInline(axialPath);
+}
+if(exists(axialLabPath)){
+  const a=read(axialLabPath);
+  for(const token of ['START 10','AXIAL_PACKET','ARM','RUN','RETURN'])check(a.includes(token),'AXIAL legacy lab token missing: '+token);
+  compileInline(axialLabPath);
 }
 for(const p of ['returns/index.html','foundry/index.html','fcm/index.html','router-bench/index.html'])compileInline(p);
 if(fail.length){console.error('PUBLIC SURFACE CHECK FAIL\n- '+fail.join('\n- '));process.exit(1)}

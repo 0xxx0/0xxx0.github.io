@@ -1,0 +1,49 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "FOUNDRY / APERTURE",
+  "version": "0.1",
+  "route": "/foundry/aperture/",
+  "state": "PROOF_REQUIRED",
+  "operation": "INSPECT",
+  "released": "2026-09-21",
+  "hypothesis": "A two-ring scale×position aperture with stable focus can inspect radically different source sizes and structures with less chrome while preserving address, temporal traversal and an explicit path back to the source.",
+  "donors": [
+    {
+      "source": "/fold-bloom/two-dial/",
+      "unit": "two cyclic controls → one consequence"
+    },
+    {
+      "source": "/foundry/axial/",
+      "unit": "fixed focus + unequal cyclic vocabularies"
+    },
+    {
+      "source": "/fold-bloom/lens/",
+      "unit": "stable address across zoom/projection"
+    },
+    {
+      "source": "/recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html",
+      "unit": "SpeechSynthesis boundary charIndex → word focus"
+    }
+  ],
+  "controls": [
+    "outer ring / position",
+    "inner ring / scale",
+    "ring gap / log10(bytes) magnitude",
+    "prev/next",
+    "scale −/+",
+    "RSVP temporal stepping",
+    "TTS boundary-synced WORD focus"
+  ],
+  "non_claims": [
+    "Ring gap is not semantic importance.",
+    "No claim that logarithmic bytes is the final magnitude encoding.",
+    "No comparative usability proof yet.",
+    "TTS boundary event behavior varies by browser/voice."
+  ],
+  "verification": {
+    "shared_component": "/field-aperture.js",
+    "local_only": true,
+    "network_write": "NONE",
+    "source_identity_preserved": true
+  }
+}
