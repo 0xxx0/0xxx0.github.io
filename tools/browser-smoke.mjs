@@ -473,8 +473,8 @@ function humanPortSpecimenProbeJs(){
   function session(){try{return JSON.parse(W().sessionStorage.getItem(SESSION)||'null')}catch(_){return null}}
   async function loadRepoFile(src,name,type){
     const rr=await fetch(src,{cache:'no-store'});if(!rr.ok)throw Error('fixture '+rr.status+' '+src);const ab=await rr.arrayBuffer();
-    const expected=hex(await crypto.subtle.digest('SHA-256',ab)),file=new W().File([ab],name,{type});
-    const dt=new W().DataTransfer();dt.items.add(file);const input=D().getElementById('fileInput');input.files=dt.files;input.dispatchEvent(new W().Event('change',{bubbles:true}));
+    const expected=hex(await crypto.subtle.digest('SHA-256',ab)),file=new (W().File)([ab],name,{type});
+    const dt=new (W().DataTransfer)();dt.items.add(file);const input=D().getElementById('fileInput');input.files=dt.files;input.dispatchEvent(new (W().Event)('change',{bubbles:true}));
     const st=await waitFor(()=>{const x=session();return x?.obj?.label===name&&D().getElementById('work')?.classList.contains('on')?x:null},14000,'object '+name);
     return {st,expected};
   }
