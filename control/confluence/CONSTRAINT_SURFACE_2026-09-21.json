@@ -1,0 +1,46 @@
+{
+  "schema": "confluence.constraint-surface/v0.1",
+  "date": "2026-09-21",
+  "state": "IMPLEMENTED",
+  "provenance": {
+    "donor": "/foundry/axial/ 0.7.x lawful-support mechanism",
+    "exact_kernel": "/lib/constraint-surface.js",
+    "compatibility_adapter": "/foundry/axial/focus-core.js",
+    "parity_test": "/control/constraint-surface-selftest.js"
+  },
+  "law": "records × dimensions × selection → exact survivors + exact candidate support",
+  "outputs": [
+    "survivors",
+    "per-dimension candidate support",
+    "LIVE|LOCK|DEAD",
+    "record explanation"
+  ],
+  "non_goals": [
+    "ranking",
+    "recommendation",
+    "navigation",
+    "URL/history",
+    "ring geometry",
+    "continuous transform",
+    "TEST/ARM/RUN",
+    "WORLD actuation",
+    "RETURN authority"
+  ],
+  "consumers": [
+    {
+      "route": "/",
+      "use": "AXIAL / LATEST support field over STATE × OPERATION × WORK MODE"
+    },
+    {
+      "route": "/foundry/axial/",
+      "use": "FOCUS STACK support field over source-defined unequal dimensions"
+    }
+  ],
+  "boundary": {
+    "focus_stack": "projects and navigates constraint state",
+    "constraint_surface": "computes possibility only",
+    "state_aperture": "transforms and crosses consequence/authority boundaries"
+  },
+  "promotion_rule": "Do not build a reusable UI component until a third consumer needs the same interaction surface. Reuse the headless kernel now.",
+  "next_surprising_test": "If a third domain needs exact lawful-neighborhood support, adapt only its dimensions/getValues function and compare whether the same kernel survives unchanged."
+}
