@@ -1,12 +1,11 @@
 {
   "schema": "showcase-release/v1",
-  "surface": "FOUNDRY / APERTURE",
-  "version": "0.2",
+  "surface": "APERTURE / INSPECTOR",
+  "version": "0.3",
   "route": "/foundry/aperture/",
-  "state": "PROOF_REQUIRED",
+  "state": "UTILITY",
   "operation": "INSPECT",
   "released": "2026-09-21",
-  "hypothesis": "A two-ring scale×position aperture with stable focus can inspect radically different source sizes and structures with less chrome while preserving address, temporal traversal and an explicit path back to the source.",
   "donors": [
     {
       "source": "/fold-bloom/two-dial/",
@@ -57,5 +56,18 @@
     "javascript_static_parse": "PASS"
   },
   "updated": "2026-09-21",
-  "known_gap": "No comparative usability evidence yet; browser SpeechSynthesis boundary fidelity varies by engine/voice, and byte magnitude may not be the final visual size encoding."
+  "known_gap": "The universal inspection capability is operational. The compact ring/magnitude mapping remains a presentation candidate; browser SpeechSynthesis boundary fidelity varies by engine/voice.",
+  "capability": "Summon one local inspector against arbitrary text/JSON/object context without making the inspector a project or authority surface.",
+  "host_resolution": [
+    "selected text",
+    "active INPUT/TEXTAREA value",
+    "current FIELD route object",
+    "explicit dock(source,opt)",
+    "standalone paste/file/session handoff"
+  ],
+  "experimental_projection": {
+    "state": "CANDIDATE_MAPPING",
+    "mapping": "outer=position; inner=scale; gap=log10(bytes); center=foveated focus; time/voice drive position",
+    "claim": "Useful visualization candidate only; not required for capability status."
+  }
 }
