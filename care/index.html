@@ -338,10 +338,27 @@ function renderMeasurements(xs){
  const keys=Object.keys(groups);
  $('#metricBoard').innerHTML=keys.length?keys.map(k=>{const a=groups[k],last=a[a.length-1],prev=a[a.length-2],lv=Number(last.measurement.value),pv=prev?Number(prev.measurement.value):null,delta=prev&&Number.isFinite(pv)?lv-pv:null,unit=last.measurement.unit||'';return '<div class="metricCard"><div class="metricHead"><b>'+esc(k)+'</b><span>n='+a.length+'</span></div><div class="metricLatest">'+esc(last.measurement.value+(unit?' '+unit:''))+'</div><div class="metricDelta">'+(delta===null?'single recorded value':'Δ '+(delta>0?'+':'')+delta.toPrecision(3)+' from prior')+'</div>'+sparklineSVG(a)+'</div>'}).join(''):'<div class="courseEmpty" style="grid-column:1/-1">No numeric measurement course yet. Measurements remain optional.</div>'
 }
+function evidenceSessionObject(ref){
+ try{const s=JSON.parse(sessionStorage.getItem(PORTSESSION)||'null');return s?.obj?.object_id===ref.port_object_id?s.obj:null}catch(_){return null}
+}
+function openEvidenceInPort(id){
+ const ref=(C.evidence_refs||[]).find(x=>x.id===id);if(!ref)return;
+ let obj=evidenceSessionObject(ref);
+ if(!obj&&ref.availability==='PORT_LOCAL_STASH'&&ref.port_payload_ref){
+  obj={schema:'human-port-object/v0.1',object_id:ref.port_object_id,source_class:ref.source_class||'LOCAL_FILE',media_class:ref.media_class,label:ref.label,mime:ref.mime||null,size_bytes:ref.size_bytes??null,sha256:ref.sha256||null,created_at:ref.source_created_at||ref.attached_at,retention:ref.retention||'LOCAL_STASH',provenance:ref.provenance||{origin:'care-evidence-ref'},payload_ref:ref.port_payload_ref,text_payload:null,focus:null};
+ }
+ if(!obj){alert('Original Port source is no longer available in this session. CARE preserved its identity/hash/reference, but the source must be reintroduced to inspect it again.');return}
+ sessionStorage.setItem(PORTSESSION,JSON.stringify({obj,focus:null,scope:'whole',selected:null,at:now()}));location.assign('../port/')
+}
+function renderEvidenceRefs(){
+ const root=$('#followEvidence'),refs=C.evidence_refs||[];if(!refs.length){root.innerHTML='EVIDENCE · none attached';return}
+ root.innerHTML='<div class="label">EVIDENCE · '+refs.length+'</div>'+refs.map(r=>'<div style="display:flex;gap:8px;align-items:center;margin-top:6px"><span style="flex:1">'+esc(r.label)+' · '+esc(r.media_class)+(r.sha256?' · '+esc(r.sha256.slice(0,12))+'…':'')+(r.focus?.address?' · '+esc(r.focus.address):'')+'</span><button data-evidence-open="'+esc(r.id)+'">OPEN SOURCE</button></div>').join('');
+ $('[data-evidence-open]').forEach(b=>b.onclick=()=>openEvidenceInPort(b.dataset.evidenceOpen))
+}
 function renderFollow(){
  pullCase();$('#followSubject').textContent=C.subject.label||'unnamed';$('#followBaseline').textContent=C.baseline||'—';$('#followTreatment').textContent=C.treatment||'—';$('#followAsk').textContent=C.ask||'—';
  C.course=C.course||{};$('#followPhase').textContent=C.course.phase||'—';$('#followNext').textContent=C.course.next||'—';$('#followGate').textContent=C.course.gate||'—';$('#followOwner').textContent=[C.course.owner,C.course.due].filter(Boolean).join(' · ')||'—';
- C.evidence_refs=C.evidence_refs||[];$('#followEvidence').textContent=C.evidence_refs.length?'EVIDENCE · '+C.evidence_refs.map(r=>r.label+' · '+r.media_class+(r.focus?.address?' · '+r.focus.address:'')).join('  /  '):'EVIDENCE · none attached';
+ C.evidence_refs=C.evidence_refs||[];renderEvidenceRefs();
  const xs=(C.events||[]).slice().sort((a,b)=>String(b.at).localeCompare(String(a.at)));renderMeasurements(xs);
  $('#timeline').innerHTML=xs.map(e=>{
   const reg=(e.regions||[]).join(' · ')||(e.trace?.length?'painted trace':'no location');
@@ -402,7 +419,7 @@ function renderPortCareOffer(){
 function importPortCareEvidence(){
  const p=portCarePacket();if(!p?.source_object)return;C.evidence_refs=C.evidence_refs||[];const s=p.source_object,key=[s.object_id,p.scope,p.focus?.address||'whole'].join('|');
  if(C.evidence_refs.some(r=>r._dedupe===key)){sessionStorage.removeItem(PORTCARE);renderPortCareOffer();flash('EVIDENCE ALREADY ATTACHED');return}
- C.evidence_refs.push({schema:'0xxx0/care-evidence-ref/v0.1',id:uid('evidence'),attached_at:now(),port_object_id:s.object_id,label:s.label||s.object_id,media_class:s.media_class,mime:s.mime||null,size_bytes:s.size_bytes??null,sha256:s.sha256||null,retention:s.retention||'REFERENCE_ONLY',provenance:s.provenance||{},scope:p.scope||'whole',focus:p.focus||null,projection_excerpt:p.projection_excerpt||null,port_payload_ref:s.payload_ref||null,availability:s.retention==='LOCAL_STASH'?'PORT_LOCAL_STASH':'SESSION_OR_REFERENCE_ONLY',_dedupe:key});
+ C.evidence_refs.push({schema:'0xxx0/care-evidence-ref/v0.1',id:uid('evidence'),attached_at:now(),port_object_id:s.object_id,source_class:s.source_class||'EVENT_REF',source_created_at:s.created_at||null,label:s.label||s.object_id,media_class:s.media_class,mime:s.mime||null,size_bytes:s.size_bytes??null,sha256:s.sha256||null,retention:s.retention||'REFERENCE_ONLY',provenance:s.provenance||{},scope:p.scope||'whole',focus:p.focus||null,projection_excerpt:p.projection_excerpt||null,port_payload_ref:s.payload_ref||null,availability:s.retention==='LOCAL_STASH'?'PORT_LOCAL_STASH':'SESSION_OR_REFERENCE_ONLY',_dedupe:key});
  C.updated_at=now();sessionStorage.removeItem(PORTCARE);renderAll();flash('EVIDENCE ATTACHED ✓')
 }
 function renderAll(){pushCase();renderCases();renderMap();renderFollow();renderBodyCareOffer();renderPortCareOffer()}
