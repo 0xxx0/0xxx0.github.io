@@ -4142,21 +4142,23 @@
     },
     {
       "href": "/foundry/aperture/",
-      "title": "APERTURE 0.1",
+      "title": "APERTURE 0.2",
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "INSPECT",
       "state": "PROOF_REQUIRED",
-      "version": "0.1",
+      "version": "0.2",
       "receipt": "/foundry/aperture/release.json",
       "showase_card": false,
-      "role": "Reusable two-ring scale×position inspector for text/JSON: outer dial chooses focus position, inner dial chooses scale, ring gap encodes logarithmic source magnitude, and RSVP/TTS drive the same stable focus.",
+      "role": "Reusable two-ring scale×position inspector for text/JSON and addressed route objects: summon in-place from FIELD or HUMAN PORT, or use the standalone workbench; RSVP/TTS drive the same stable focus.",
       "transfer": [
         "Two Dial: two cyclic controls → one consequence",
         "AXIAL: fixed focus + unequal cyclic vocabularies",
         "Scale Lens: stable address across zoom",
-        "RSVP 2018: speech boundary charIndex → temporal word focus"
+        "RSVP 2018: speech boundary charIndex → temporal word focus",
+        "portable dock(source,opt) host API",
+        "session handoff / same inspector / different host"
       ],
       "contract": {
         "accepts": {
@@ -4263,7 +4265,7 @@
         "physical_fit": "Potential compact ring/annulus control grammar; no physical embodiment claim in 0.1."
       },
       "index": {
-        "updated_at": "2026-09-21T15:54:02+08:00",
+        "updated_at": "2026-09-21T15:58:00+08:00",
         "work_modes": [
           "RECOVER",
           "SPECIFY",
