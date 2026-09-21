@@ -5,8 +5,10 @@ const tests=[];
 function test(name,fn){try{fn();tests.push({name,pass:true})}catch(e){tests.push({name,pass:false,error:e.message})}}
 const route={schema:'field-route/v0.1',id:'o:fixture-alpha',href:'/field/fixture-alpha/',title:'Fixture Alpha',kind:'artifact',state:'ACTIVE',operation:'REPRESENT',parent:'/field/',family:'FIELD',role:'shared object fixture'};
 const snap={source:{id:'src_fixture',name:'fixture-alpha.json',format:'json'},identity:'o:fixture-alpha',selectedId:'o:fixture-alpha',domain:'DATADISC',scope:3,scopeName:'RECORD',address:{canonical:'/field/fixture-alpha/',range:'rng://fixture/0-0',returnAddress:'/field/fixture-alpha/'},chain:[]};
-const structure={lensId:'structure-context',lensVersion:'1',kind:L.VIEW,params:{depth:2},inputContract:'field-route/v0.1',outputContract:'projection/structure',preserves:['objectId','focusId'],hides:['raw-body'],derives:['parent','siblings'],authority:'PREVIEW'};
+const structure={lensId:'structure-context',lensVersion:'1',kind:L.VIEW,params:{depth:2},inputContract:'*',outputContract:'projection/structure',preserves:['objectId','focusId'],hides:['raw-body'],derives:['parent','siblings'],authority:'PREVIEW'};
 const provenance={lensId:'provenance',lensVersion:'1',kind:L.VIEW,params:{mode:'compact'},inputContract:'*',outputContract:'projection/provenance',preserves:['objectId'],hides:[],derives:['sourceRefs'],authority:'PREVIEW'};
+const fieldOnly={lensId:'field-foveate',lensVersion:'0.2',kind:L.VIEW,params:{bands:['FOVEA','PARA','PERIPHERY']},inputContract:'field-route/v0.1',outputContract:'field-route/v0.1',preserves:['objectId','focusId','route-position'],hides:['periphery-subdetail'],derives:['semantic-distance-band'],authority:'PREVIEW'};
+const scaleOnly={lensId:'scale-spatial',lensVersion:'1',kind:L.VIEW,params:{},inputContract:'scale-*',outputContract:'scale-snapshot/v0.1',preserves:['objectId'],hides:[],derives:['spatial-context'],authority:'PREVIEW'};
 
 test('field adapter validates',()=>assert.equal(L.validate(L.fromFieldRoute(route)).ok,true));
 test('scale adapter validates',()=>assert.equal(L.validate(L.fromScaleSnapshot(snap)).ok,true));
@@ -19,6 +21,13 @@ test('action toolglass can carry explicit commit authority',()=>{const action={l
 test('legacy field handoff adapts',()=>{const p={source:'field-index-map',text:JSON.stringify(route)};assert.equal(L.fromLegacyHandoff(p).objectId,'o:fixture-alpha')});
 test('legacy showcase handoff adapts',()=>{const p={schema:'scale-lens.handoff/v1',title:'Fixture',sourceUrl:'https://example.test/fixture',returnAddress:'/fixture'};assert.equal(L.fromLegacyHandoff(p).returnAddress,'/fixture')});
 test('handoff packet preserves reversible state',()=>{let s=L.compose(L.fromFieldRoute(route),structure);const packet=L.makeHandoff(s,{title:'Fixture'});assert.equal(packet.schema,L.HANDOFF_SCHEMA);assert.equal(L.equivalent(packet.state,s),true)});
+test('field adapter exposes source contract',()=>assert.equal(L.currentContract(L.fromFieldRoute(route)),'field-route/v0.1'));
+test('scale adapter exposes source contract',()=>assert.equal(L.currentContract(L.fromScaleSnapshot(snap)),'scale-snapshot/v0.1'));
+test('field-only lens is supported on FIELD',()=>assert.equal(L.supportDescriptor(L.fromFieldRoute(route),fieldOnly).support,1));
+test('field-only lens remains visible as dead on Scale',()=>{const s=L.supportDescriptor(L.fromScaleSnapshot(snap),fieldOnly);assert.equal(s.support,0);assert.ok(s.reasons[0].includes('requires field-route/v0.1'))});
+test('catalog preserves live and dead candidates',()=>{const xs=L.supportCatalog(L.fromFieldRoute(route),[fieldOnly,scaleOnly]);assert.deepEqual(xs.map(x=>x.support),[1,0]);assert.equal(xs[1].descriptor.lensId,'scale-spatial')});
+test('compose rejects unsupported lens instead of silently coercing',()=>assert.throws(()=>L.compose(L.fromScaleSnapshot(snap),fieldOnly),/unsupported lens field-foveate/));
+test('wildcard contract matches lawful scale family',()=>assert.equal(L.supportDescriptor(L.fromScaleSnapshot(snap),scaleOnly).support,1));
 const failed=tests.filter(x=>!x.pass);
 console.log(JSON.stringify({schema:'0xxx0/lens-state-selftest/v0.1',pass:failed.length===0,count:tests.length,tests},null,2));
 if(failed.length)process.exit(1);
