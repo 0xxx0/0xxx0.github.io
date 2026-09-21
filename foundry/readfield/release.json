@@ -64,7 +64,10 @@
     "expected_kernel": "field-aperture-focus/v0.2",
     "network_write": "NONE",
     "local_only": true,
-    "smoke": "PENDING_BRANCH_VALIDATION"
+    "public_surface_check": "PASS",
+    "browser_smoke": "PASS 34/34",
+    "workflow_run": 35623905975,
+    "painting_field_tests": "PASS 38/38"
   },
   "capability": "Read one addressed source through temporal focus, context recovery, structural scan, plain source and controlled minimap topology without losing the canonical source position.",
   "next": "Use normally. Promote context/marks/map mechanisms into the shared kernel only if ordinary use exposes repeated cross-host value.",
