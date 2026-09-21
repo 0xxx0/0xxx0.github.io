@@ -97,21 +97,21 @@
     },
     {
       "lineage": "sleeper-one-return",
-      "head": "ASCII SLEEPER 0.8 + polished ONE RETURN v2 recovery target",
-      "state": "ACTIVE + RECOVERY_TARGET",
+      "head": "SLEEPER // ONE RETURN v2 / City Engine v0.2",
+      "state": "CANONICAL_SOURCE_RECOVERED / HISTORICAL_RUNTIME_REACHABILITY_UNVERIFIED",
       "route": "/sleeper/",
-      "retained_function": "ASCII Sleeper POV 0.8 remains the current local constraint/evidence head. The later ASCII ONE RETURN/Nine-Gate reconstruction remains playable at /sleeper/one-return/ and is now frozen byte-identically under Recovery as a donor. The polished Work-mode SLEEPER // ONE RETURN v2 remains a distinct source/deployment reconciliation target: exact public source shelf exists, but identity with the remembered polished deployment/version is not yet proved. /sleeper/project/ is the public status/lineage map; it does not merge these objects.",
+      "retained_function": "Canonical Sleeper authority is the recovered ONE RETURN v2-era City Engine: PHRASE + VERSE CELL + FIGURE → deterministic city → eight enacted Gate proofs → return to origin → Return Artifact v2. Exact source defines URCHIN / SLOTHCAKE / KITE figures and CONCH / KERIS / W8 / SPIRAL operators. The former ASCII Sleeper POV 0.8 top-level build is preserved at /sleeper/ascii-pov-0.8/ as a superseded derivative; /sleeper/one-return/ remains a playable later ASCII reconstruction donor. Historical Work-route identity is recorded but current reachability is not verified.",
       "evidence": [
-        "/sleeper/release.json",
+        "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
         "/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json",
-        "/sleeper/one-return/release.json",
-        "/recovery/sleeper/",
-        "/sleeper/project/",
-        "/recovery/sleeper/one-return-recon-0.2/PRESERVATION.json",
-        "/returns/SLEEPER_PROJECT_ONE_RETURN_PRESERVATION_2026-09-22.json"
+        "/recovery/sleeper/site-source-2026-09-18/manifest.json",
+        "/recovery/sleeper/site-source-2026-09-18/docs/ONE_RETURN_V2.md",
+        "/recovery/sleeper/site-source-2026-09-18/app/one-return/world-law.ts",
+        "/sleeper/ascii-pov-0.8/release.json",
+        "/sleeper/one-return/release.json"
       ],
-      "last_return": "/returns/ONE_RETURN_REIFICATION_2026-09-21.json",
-      "correction": "The last_return records a completed ASCII reconstruction experiment, not recovery of polished ONE RETURN v2."
+      "last_return": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
+      "correction": "ASCII Sleeper POV 0.8 was a mistaken repository authority assignment. It is preserved, not deleted; canonical authority now follows the exact recovered v2 City Engine source."
     },
     {
       "lineage": "fold-bloom",
@@ -674,6 +674,7 @@
   "conversion_reset": {
     "at": "2026-09-22T05:43:00+08:00",
     "reason": "Generativity/proof bookkeeping had begun to exceed conversion; maintenance and ordinary-use waits were occupying NOW.",
-    "synthesis": "/control/confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md"
+    "synthesis": "/control/confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md",
+    "sleeper_authority": "Exact v2-era ONE RETURN City Engine source restored as Sleeper authority; ASCII POV 0.8 preserved as superseded derivative."
   }
 }
