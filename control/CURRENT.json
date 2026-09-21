@@ -538,8 +538,9 @@
     "rule": "A branch name never reactivates work. Recover exact donor material or reconstruct one bounded delta on current master."
   },
   "deep_tool_lineage": {
-    "status": "RECOVERED + RECONSTRUCTED; exact source recovery still open for named File Library artifacts",
+    "status": "RECOVERED + RECONSTRUCTED; exact App Atlas + Sleeper operator source identities located in File Library; byte materialization to repo still open",
     "note": "/control/confluence/TOOL_KERNEL_2026-09-21.md",
+    "source_locator": "/control/recovery/TOOLBELT_SOURCE_LOCATOR_2026-09-21.json",
     "compression": "continuity under transformation: preserve identity/provenance while cutting, tracing, anchoring, reprojecting, acting and returning",
     "optional_aliases": {
       "KERIS": "DISTINGUISH / CUT / BOUND / PARK",
