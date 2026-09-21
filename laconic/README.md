@@ -159,3 +159,5 @@ Still open at source level:
 - the earliest direct use of the exact proper name **“Council of Selves.”**
 
 Recovery rule: **generic council image ≠ proper-name project; interacting characters ≠ internal selves; persona mode ≠ simultaneous plurality; later canon ≠ proof of earlier identity.**
+
+2026-09-22 exact-source pass: the 5–6 internal-voice request is independently reverified in the current export/search corpus, but its direct original message node and generated voice set remain unrecovered. Later Council casts and later multi-persona scenes are therefore not accepted as substitutes.
