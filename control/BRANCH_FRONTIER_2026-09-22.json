@@ -3,12 +3,12 @@
   "generated_at": "2026-09-22T03:15:00+08:00",
   "purpose": "Live refresh of branch pointer authority after the Sep-22 READFIELD/LISTEN/FIELD/BODY convergence wave. Preserve branch provenance while preventing stale pointers from reactivating work.",
   "counts": {
-    "total": 112,
+    "total": 111,
     "canonical": 1,
     "open_pr": 0,
     "merged_pr_lineage": 73,
     "closed_unmerged_pr_lineage": 22,
-    "no_pr_pointer": 16
+    "no_pr_pointer": 15
   },
   "authority_law": [
     "MASTER is executable/public authority.",
@@ -59,9 +59,6 @@
       "successor": "confluence/house-marks-20260921-r2 / PR #30",
       "rule": "merged successor owns current state",
       "sha": "1c21b697bee097d9a0adef3dadd47f81fcb3a0d1"
-    },
-    "confluence-hard-advance-20260922": {
-      "sha": "77701146b577c729cda90f4e75c9b3c4a2d8df66"
     },
     "confluence-replica-replan-20260921": {
       "state": "SUPERSEDED_PREDECESSOR",
@@ -797,8 +794,12 @@
   "snapshot_semantics": "Live GitHub census at this refresh. MASTER + CURRENT/QUEUE remain authority; branch pointers are provenance unless an open PR or explicit reconstruction says otherwise.",
   "seal": {
     "open_prs": 0,
-    "no_pr_unclassified": 1,
-    "result": "REVIEW_REQUIRED",
-    "note": "No branch deletion implied. Closed/merged/no-PR pointers remain recoverable provenance."
+    "no_pr_unclassified": 0,
+    "result": "NO_HIDDEN_ACTIVE_BRANCH_FOUND_AT_SEAL",
+    "note": "Counts exclude the current authoring transport branch. No branch deletion implied; classified pointers remain provenance."
+  },
+  "execution_branch_excluded": {
+    "branch": "confluence-hard-advance-20260922",
+    "reason": "Authoring transport for this snapshot; excluded from corpus classification. It will become PR lineage or be discarded, never project authority."
   }
 }
