@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/body-fit-health-connect-adapter/v0.1",
-  "status": "TRANSFORM_PROVED / NATIVE_COMPILE_PENDING / REAL_DEVICE_REQUIRED",
+  "status": "TRANSFORM_PROVED / NATIVE_COMPILES / REAL_DEVICE_REQUIRED",
   "updated": "2026-09-22",
   "host": "/body/fit/",
   "purpose": "Read the minimum campaign-selected Android Health Connect records into a bounded raw export, then transform locally inside BODY / FIT into existing sensor-observation envelopes without creating a second health store or writing imported data back to Health Connect.",
@@ -160,5 +160,12 @@
     "fixture": "/body/fit/health-connect-fixture.json",
     "output_schema": "0xxx0/body-sensor-bundle/v0.1",
     "target": "BODY / FIT existing JSON import"
+  },
+  "automated_proof": {
+    "transform": "PASS · /body/fit/health-connect-selftest.cjs in public-surface CI",
+    "native_compile": "PASS · :app:assembleDebug against AGP 9.4.0 / Health Connect 1.1.0",
+    "browser_repo_suite": "PASS",
+    "artifact": "body-bridge-debug workflow artifact retained 7 days",
+    "non_claim": "Compile/fixture proof does not prove real phone permissions, Samsung Health sync, source population, or a personal round trip."
   }
 }
