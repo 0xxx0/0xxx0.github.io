@@ -694,7 +694,7 @@ const CASES=[
     name:'FOLD BLOOM LIVE 0.2 gameplay',
     route:'/fold-bloom/live/',
     options:{width:430,height:900,budget:9000},
-    check:dom=>/LIVE 0\.2/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('id="demoBtn"')&&dom.includes('id="call"')&&dom.includes('id="streak"')&&dom.includes('id="timing"')&&/WATCH DEMO/i.test(dom)
+    check:dom=>/LIVE 0\.2/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('id="demoBtn"')&&dom.includes('id="call"')&&dom.includes('id="streak"')&&dom.includes('id="timing"')&&dom.includes('id="trackFile"')&&dom.includes('id="trackLoad"')&&dom.includes('id="trackToggle"')&&/WATCH DEMO/i.test(dom)
   },
   {
     name:'TWO DIAL sound field 0.10',
