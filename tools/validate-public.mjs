@@ -160,10 +160,16 @@ if(manifest){
   }
 }
 const axialPath='foundry/axial/index.html';
+const axialLabPath='foundry/axial/lab-0.5.1.html';
 if(exists(axialPath)){
   const a=read(axialPath);
-  for(const token of ['START 10','AXIAL_PACKET','ARM','RUN','RETURN'])check(a.includes(token),'AXIAL contract token missing: '+token);
+  for(const token of ['FOCUS STACK','FIELD INDEX','HOUSE: SOFA LIGHT','RING','STRIP','RETURN'])check(a.includes(token),'AXIAL 0.6 focus-stack token missing: '+token);
   compileInline(axialPath);
+}
+if(exists(axialLabPath)){
+  const a=read(axialLabPath);
+  for(const token of ['START 10','AXIAL_PACKET','ARM','RUN','RETURN'])check(a.includes(token),'AXIAL legacy lab token missing: '+token);
+  compileInline(axialLabPath);
 }
 for(const p of ['returns/index.html','foundry/index.html','fcm/index.html','router-bench/index.html'])compileInline(p);
 if(fail.length){console.error('PUBLIC SURFACE CHECK FAIL\n- '+fail.join('\n- '));process.exit(1)}

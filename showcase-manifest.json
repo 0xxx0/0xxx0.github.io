@@ -1502,53 +1502,52 @@
     },
     {
       "href": "/foundry/axial/",
-      "title": "AXIAL / STATE APERTURE 0.5.1",
+      "title": "AXIAL / FOCUS STACK 0.6",
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "PROVE",
       "state": "PROOF_REQUIRED",
-      "version": "0.5.1",
+      "version": "0.6",
       "receipt": "/foundry/axial/release.json",
       "showcase_card": false,
       "transfer": [
-        "tangible semantic address",
-        "continuous embodied transform",
-        "literal bounded aperture",
-        "transaction/commit semantics",
-        "provenance-preserving machine bridge"
+        "unequal cyclic indices / luopan-cryptex correspondence",
+        "focus-ring drag + release-to-snap",
+        "Scale Lens identity-through-projection",
+        "manifest-backed FIELD addressing",
+        "HOUSE spatial address projection",
+        "BACK ≠ RETURN"
       ],
-      "event_schema": "/foundry/axial/event.schema.json",
       "contract": {
         "accepts": {
           "kinds": [
-            "detented semantic state",
-            "axial/twist transform",
-            "transaction gate"
+            "showcase manifest",
+            "house spatial model",
+            "human ring/focus gesture"
           ],
           "requires": [],
           "optional": [
-            "trial target",
-            "AXIAL_PACKET"
+            "search text",
+            "focus preset"
           ]
         },
         "transforms": {
-          "verb": "address discrete meaning, transform through θ/z, reveal a bounded projection, then latch consequence through ARM/RUN",
+          "verb": "align independent cyclic vocabularies into a bounded source query while preserving exact source identity across ring/strip projections",
           "preserves": [
-            "semantic address",
-            "latched snapshot",
-            "event ancestry",
+            "source identity",
+            "selected ring indices",
+            "focus address",
             "return path"
           ],
-          "reversibility": "bounded",
-          "side_effects": "local"
+          "reversibility": "full for navigation",
+          "side_effects": "local/browser navigation only"
         },
         "emits": {
           "kinds": [
-            "live state/aperture packet",
-            "interaction event",
-            "bounded/applied projection",
-            "RETURN receipt"
+            "focused source identity",
+            "AXIAL focus address",
+            "local RETURN receipt"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -1556,23 +1555,15 @@
         "evidence": {
           "receipt": "/foundry/axial/release.json",
           "checks": [
-            "operator-specific mapping check",
-            "frame law changes projection",
-            "APERTURE changes window not object scale",
-            "before/gesture/after trace",
-            "ARM snapshot",
-            "RUN receipt",
-            "comparative + physical proof still required"
+            "variable cardinality",
+            "real source adapters",
+            "ring/strip state equivalence",
+            "focus-to-source round trip",
+            "BACK distinct from RETURN",
+            "comparative proof still required"
           ],
           "return_path": "/foundry/axial/"
-        },
-        "preserves": [
-          "semantic address",
-          "canonical source identity",
-          "latched snapshot",
-          "event ancestry",
-          "return path"
-        ]
+        }
       },
       "field": {
         "roles": [
@@ -1582,56 +1573,58 @@
         ],
         "inputs": [
           {
-            "medium": "HUMAN_ACTION",
-            "kind": "detented semantic address",
-            "interface": "OBJECT/OPERATOR/FRAME rings"
-          },
-          {
-            "medium": "MOTION",
-            "kind": "θ/z transform",
-            "interface": "twist/axial sleeve"
+            "medium": "DATA",
+            "kind": "FIELD manifest / HOUSE public model",
+            "interface": "source adapter"
           },
           {
             "medium": "HUMAN_ACTION",
-            "kind": "transaction gate",
-            "interface": "SAFE/TEST/ARM/RUN"
+            "kind": "cyclic focus selection",
+            "interface": "drag/snap annulus or strip token"
           }
         ],
         "outputs": [
           {
-            "medium": "DATA",
-            "kind": "live state/aperture packet",
-            "interface": "AXIAL_PACKET"
+            "medium": "REPRESENTATION",
+            "kind": "bounded matching identities",
+            "interface": "focus aperture"
           },
           {
-            "medium": "REPRESENTATION",
-            "kind": "bounded projection",
-            "interface": "WORLD/LOCAL/LENS/SOURCE"
+            "medium": "DATA",
+            "kind": "stable focus address",
+            "interface": "copy/open"
           },
           {
             "medium": "EVIDENCE",
-            "kind": "RETURN receipt",
-            "interface": "JSON"
+            "kind": "focus RETURN receipt",
+            "interface": "local JSON state"
           }
         ],
         "exit_paths": [
           {
-            "class": "PHYSICAL_CONTROL",
-            "status": "SPECIFIED",
-            "via": "nested-tube/detent build"
+            "class": "OPEN_ROUTE",
+            "status": "AVAILABLE",
+            "via": "focused FIELD route"
           },
           {
-            "class": "MACHINE_BRIDGE",
-            "status": "CANDIDATE",
-            "via": "AXIAL_PACKET adapter"
+            "class": "HOUSE_RUNTIME",
+            "status": "ADAPTER_REQUIRED",
+            "via": "private Home Assistant / HOUSEBUS"
+          },
+          {
+            "class": "PHYSICAL_BODY",
+            "status": "DEFERRED",
+            "via": "only after useful ring composition is proven"
           }
         ],
-        "physical_fit": "Digital correspondence model for a passive ring + twist/slide + aperture cylinder; physical readback/restore comparison remains required."
+        "physical_fit": "Physical cylinder is now an optional later projection of a useful variable-cardinality ring stack, not the reason the software exists."
       },
       "index": {
-        "updated_at": "2026-09-21T14:21:00+08:00",
+        "updated_at": "2026-09-21T14:19:00+08:00",
         "work_modes": [
-          "SPECIFY",
+          "RECOVER",
+          "ORIENT",
+          "REPRESENT",
           "VERIFY"
         ]
       },
@@ -1646,6 +1639,12 @@
         "evidence_gate": "Interpret the declared 10-trial digital harness, then complete one physical nested-tube comparison with before/gesture/after + error/residue receipts.",
         "next_if_pass": "TRANSFER the surviving transaction/aperture mechanism into the Foundry physical-control substrate; retain AXIAL as evidence fixture rather than spawning a new core.",
         "next_if_fail": "PARK the physical-control claim; preserve packet/ledger mechanisms as DONOR evidence."
+      },
+      "role": "Variable-cardinality radial focus/index over real FIELD and HOUSE sources: align independent cyclic vocabularies to one spine, reveal matching identities through an aperture, preserve identity across RING/STRIP projections, then OPEN or RETURN.",
+      "legacy_lab": {
+        "href": "/foundry/axial/lab-0.5.1.html",
+        "role": "Preserved STATE APERTURE transaction/projection lab with AXIAL_PACKET, event trace and ARM/RUN semantics.",
+        "event_schema": "/foundry/axial/event.schema.json"
       }
     },
     {
@@ -4080,7 +4079,6 @@
       "state": "PROOF_REQUIRED",
       "showcase_card": false,
       "role": "Selective poetry information-visualization probe: stable readable poem, one question/lens at a time, click-to-focus, static line comparison, explicit weak-control claims.",
-      "receipt": "browser export: poem-map-return.json",
       "index": {
         "updated_at": "2026-09-21T14:21:00+08:00",
         "work_modes": [
@@ -4099,6 +4097,10 @@
         "evidence_gate": "Run one real co-creative poem session; preserve source + lens + focus + before/after authoring choice in RETURN. Pass only if the map causes or clarifies a specific line-level decision while the plain text remains primary.",
         "next_if_pass": "TRANSFER the useful lens into the canonical /poetry/ authoring flow as an optional projection.",
         "next_if_fail": "COMPOST or DONOR the visualization; do not expand into a dashboard of poetic metrics."
+      },
+      "return_export": {
+        "kind": "browser-generated",
+        "filename": "poem-map-return.json"
       }
     }
   ],
