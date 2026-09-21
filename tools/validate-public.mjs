@@ -129,6 +129,17 @@ if(exists('showcase-nav.js')){
   check(nav.includes('field-aperture.js'),'ambient Aperture inspector missing shared component loader');
   check(nav.includes('getSelection'),'ambient Aperture inspector missing selection-context path');
 }
+const charters=parse('control/INSTRUMENT_CHARTERS.json');
+const apertureRelease=parse('foundry/aperture/release.json');
+if(apertureRelease){
+  const charter=charters?.instruments?.find(x=>x.id==='field-aperture');
+  check(!!charter,'APERTURE instrument charter missing');
+  check(apertureRelease.charter==='/control/INSTRUMENT_CHARTERS.json#field-aperture','APERTURE release charter pointer drifted');
+  check(apertureRelease.return_contract?.durability==='HOST_OWNED','APERTURE return durability must remain host-owned');
+  check(/presentation-only|presentation only/i.test(charter?.PROMISE||''),'APERTURE charter must preserve presentation-only authority boundary');
+  check(/does not absorb AXIAL exact-set support/i.test(charter?.PROMISE||''),'APERTURE charter lost Constraint Surface boundary');
+  check(/TEST\/ARM\/RUN/i.test(charter?.PROMISE||''),'APERTURE charter lost STATE APERTURE boundary');
+}
 if(exists('foundry/aperture/index.html')){
   const ap=read('foundry/aperture/index.html');
   for(const token of ['FOUNDRY / APERTURE','field-aperture.js','RSVP','SCALE LENS','TWO DIAL'])check(ap.includes(token),'Aperture surface token missing: '+token);
