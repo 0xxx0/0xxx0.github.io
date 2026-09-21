@@ -166,8 +166,8 @@ try{
     const ok=r.code===0&&!fatal&&c.check(r.out);
     console.log((ok?'PASS':'FAIL'),c.name,c.route);
     if(!ok){
-      const source=textAtId(r.out,'sourceState');
-      fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(fatal?' browser-fatal':''));
+      const source=textAtId(r.out,'sourceState'),oneLine=textAtId(r.out,'oneLine'),transfers=textAtId(r.out,'transfers');
+      fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(oneLine?' oneLine='+JSON.stringify(oneLine):'')+(transfers?' transfers='+JSON.stringify(transfers):'')+(fatal?' browser-fatal':''));
       if(process.env.SMOKE_DEBUG==='1')console.error(r.err.slice(-2500));
     }
   }
