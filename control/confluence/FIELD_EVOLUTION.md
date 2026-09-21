@@ -87,6 +87,30 @@ Prefer experiments that:
 
 Reject or compost experiments that only add surface area, duplicate a current capability, or cannot state what evidence would change their fate.
 
+## Case-to-mechanism transfer
+
+A local case may generate a strong mechanism candidate, but it does not establish a universal.
+
+```
+CASE A
+→ solve the exact problem
+→ extract one bounded mechanism
+→ RETURN
+→ deliberately unequal CASE B
+→ replicate / adapt / fail
+→ GENERALIZE only the surviving invariant
+```
+
+Selection rules:
+
+- **Complement before compete.** Prefer adapters, standards, donor grafts and source-of-truth interoperability before reimplementing commodity capability.
+- **Private detail does not become ontology.** Extract a mechanism only when it can be stated independently of sensitive case wording/data.
+- **One case discovers; transfer tests.** A second unequal context is the minimum serious pressure against accidental overfitting.
+- **Failure travels too.** Preserve failed transfer evidence so another domain does not rediscover the same false universal.
+- **Generality is earned by invariance, not by abstraction.**
+
+This law permits intense optimization for the immediate human case while keeping a clean path toward broader usefulness.
+
 ## Return
 
 Receipt: `/returns/FIELD_EVOLUTION_2026-09-21.json`
