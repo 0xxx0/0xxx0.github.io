@@ -1,0 +1,52 @@
+{
+  "schema": "0xxx0/body-house-convergence/v0.1",
+  "at": "2026-09-21T21:18:00+08:00",
+  "result": "PASS_STATIC_CONTRACT",
+  "object": "BODY / FIELD 0.2 ↔ HOUSE / FIELD 0.5 ↔ CARE / FIELD 0.4",
+  "laws": [
+    "BODY owns private self-observation",
+    "HOUSE owns environment/device projection and private runtime remains Home Assistant/HOUSEBUS",
+    "CARE owns episode/course/handoff",
+    "ENV-0 relation envelopes connect contexts without collapsing authorities",
+    "MISSING != ZERO",
+    "CONTRAST != CAUSE",
+    "BODY EVENT != CARE CASE until explicit import"
+  ],
+  "bridges": {
+    "body_to_house": {
+      "key": "0xxx0.body.field.latest.v01",
+      "mode": "browser-local latest BODY return",
+      "write_to_repo": false
+    },
+    "house_to_body": {
+      "key": "0xxx0.house.body.context.v01",
+      "mode": "explicit public-projection context attach + navigate to BODY",
+      "write_to_repo": false
+    },
+    "body_to_care": {
+      "key": "0xxx0.body.care.handoff.v01",
+      "mode": "explicit offer + explicit CARE import",
+      "write_to_repo": false
+    }
+  },
+  "checks": {
+    "body_js": "PASS",
+    "care_js": "PASS",
+    "house_js": "PASS",
+    "body_core_selftest": "13/13",
+    "remote_anatomy": false,
+    "body_network_submission": false,
+    "care_network_submission": false,
+    "house_network": "same-origin ./state.json only",
+    "bodyplans_parent": "/body/",
+    "care_owns_bodyplans": false
+  },
+  "evidence": {
+    "body_html_git_blob": "f3df6cfb7ace55f9b47cf8e49e12a4fc3f453872",
+    "care_html_git_blob": "461aed6251ca1850c33ab625f306e26cac092f23",
+    "house_html_git_blob": "eb09ee792407b77801ebc7d2ced0067a94070831",
+    "manifest_git_blob": "b8179c11b244b45dd500e0784bc936ff0ac9bd74",
+    "return_index_git_blob": "f78625c166548bda760b433f6ea45a1ad74ff39e"
+  },
+  "next_proof": "Use BODY NOW for real low-burden returns, explicitly attach one HOUSE context, run one TEST, and optionally import one BODY return into CARE. Observe friction before adding sensor automation."
+}

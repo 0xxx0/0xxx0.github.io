@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#090b0d">
+<meta name="description" content="BODY / FIELD — local-first embodied state, cyclic replay, self-test and HOUSE context bridge.">
+<title>BODY / FIELD · NOW / PULSE / TEST</title>
+<style>
+:root{--bg:#090b0d;--p:#0e1316;--p2:#0a0e11;--ink:#edf1ed;--mut:#7f8c93;--line:#2b373d;--hot:#e97443;--cool:#72b8e4;--gold:#d9b36a;--green:#9bd49e;--vio:#aa8bd8}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(12px,env(safe-area-inset-top)) 10px max(28px,env(safe-area-inset-bottom))}button,input,textarea,select{font:inherit;border-radius:0;color:inherit}button{cursor:pointer;border:1px solid var(--line);background:var(--p2);padding:7px 9px;min-height:34px;font-size:8px;letter-spacing:.08em}button:hover,button:focus{background:#131a1e;border-color:#536269;outline:none}.on,.primary{border-color:#55798a;color:#dff5ff;background:#0d171c}input,textarea,select{border:1px solid var(--line);background:#0b0f12;padding:8px;outline:none}textarea{width:100%;resize:vertical}a{color:inherit;text-decoration:none}
+main{width:min(1180px,100%);margin:auto}header{display:grid;grid-template-columns:1.2fr .8fr;gap:20px;align-items:end;padding:22px 0 13px;border-bottom:1px solid var(--line)}.ey{font-size:8px;letter-spacing:.17em;color:var(--hot)}h1{margin:6px 0 0;font:850 clamp(42px,8vw,80px)/.82 system-ui,-apple-system,sans-serif;letter-spacing:-.07em}.intro{font:11px/1.55 system-ui,sans-serif;color:#aab3b7}.truth{color:var(--gold);font-size:8px;text-align:right}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:10px 0}.tab{border:0;min-height:40px}.tab.on{box-shadow:inset 0 -3px 0 var(--cool);background:#11181c}.view[hidden]{display:none!important}
+.panel{border:1px solid var(--line);background:var(--p2)}.nowgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}.cell{background:var(--p2);padding:10px;min-width:0}.k{font-size:7px;letter-spacing:.13em;color:var(--mut);text-transform:uppercase}.big{font:800 18px/1.05 system-ui,sans-serif}.note{color:#a5afb3;font:10px/1.45 system-ui,sans-serif}.small{color:var(--mut);font-size:8px}
+.stateplane{height:310px;border:1px solid var(--line);position:relative;background:
+linear-gradient(to right,rgba(233,116,67,.12),rgba(114,184,228,.08)),
+linear-gradient(to top,rgba(233,116,67,.08),rgba(170,139,216,.06));touch-action:none;cursor:crosshair;overflow:hidden}
+.stateplane:before,.stateplane:after{content:"";position:absolute;background:#324047;pointer-events:none}.stateplane:before{left:50%;top:0;width:1px;height:100%}.stateplane:after{top:50%;left:0;height:1px;width:100%}.axis{position:absolute;color:#6d7b82;font-size:7px;pointer-events:none}.aL{left:7px;top:50%}.aR{right:7px;top:50%}.aT{left:50%;top:6px}.aB{left:50%;bottom:6px}.cursor{position:absolute;width:18px;height:18px;border:2px solid var(--ink);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 4px rgba(114,184,228,.15);pointer-events:none}.stateRead{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);margin-top:6px}.stateRead div{background:var(--p);padding:8px}.stateRead b{display:block;font-size:7px;color:var(--mut)}.stateRead strong{font:800 20px system-ui,sans-serif}
+.chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}.chip{border-radius:999px;min-height:28px;padding:5px 8px;color:var(--mut)}.chip.on{color:#fff;border-color:#80563c;background:#251b15}
+.slider{display:grid;grid-template-columns:78px 1fr 28px;gap:8px;align-items:center;padding:6px 0;border-bottom:1px solid #20292d}.slider:last-child{border-bottom:0}.slider label{color:#aab4b8}.slider output{text-align:right;color:var(--gold)}input[type=range]{padding:0;border:0;background:transparent}
+.contextrow{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:9px}.field label{display:block;color:var(--mut);font-size:7px;letter-spacing:.1em;margin-bottom:4px}.field input,.field select{width:100%}
+.bodybox{display:grid;grid-template-columns:minmax(240px,.9fr) 1.1fr;gap:8px;margin-top:9px}.mapwrap{height:430px;border:1px solid var(--line);background:#080c0e;position:relative;overflow:hidden}.bodymap{width:100%;height:100%;display:block}.outline{fill:#11181c;stroke:#66747b;stroke-width:1.15;vector-effect:non-scaling-stroke;pointer-events:none}.region{fill:#182126;stroke:#4f5e66;stroke-width:.7;vector-effect:non-scaling-stroke;cursor:pointer}.region:hover{fill:#29363d}.region.sel{fill:var(--hot);stroke:#ffd0ae}.toolbar{display:flex;gap:5px;flex-wrap:wrap;margin:6px 0}.toolbar select{width:auto;max-width:160px}.addressbox{border:1px solid var(--line);padding:9px;background:#0c1114;min-height:75px}.addressbox b{display:block;font:750 12px system-ui,sans-serif}.addressbox span{color:var(--mut);font-size:8px}
+.returnbar{display:grid;grid-template-columns:1fr auto;gap:6px;margin-top:9px}.returnbar button{min-height:44px;font-weight:800}.flash{color:var(--green)}
+.pulsegrid{display:grid;grid-template-columns:minmax(320px,1fr) 380px;gap:8px}.pulseCard{border:1px solid var(--line);background:var(--p2);padding:10px}.radial{height:470px}.radial svg{width:100%;height:100%;display:block}.ring{fill:none;stroke:#29343a;stroke-width:1}.spoke{stroke:#20292d;stroke-width:1}.pulseDot{cursor:pointer;stroke:#071013;stroke-width:2}.pulseDot:hover{stroke:#fff}.ledger{max-height:470px;overflow:auto;border:1px solid var(--line)}.event{display:grid;grid-template-columns:76px 1fr auto;gap:8px;padding:8px;border-bottom:1px solid #222c31;background:#0b0f12;cursor:pointer}.event:hover{background:#11171b}.event:last-child{border-bottom:0}.eventtime{font-size:7px;color:var(--mut)}.event b{font:750 11px system-ui,sans-serif}.event .meta{color:#6f7d84;font-size:7px;margin-top:3px}.event strong{color:var(--gold)}
+.learnbar{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin:10px 0}.learnbar select{width:auto}.contrastGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}.contrast{background:#0b0f12;padding:9px;min-height:105px}.contrast b{display:block;font-size:8px;color:var(--mut)}.contrast strong{display:block;margin:5px 0;font:800 18px system-ui,sans-serif}.contrast p{margin:0;color:#9fa9ad;font:9px/1.4 system-ui,sans-serif}
+.testgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.testCard{border:1px solid var(--line);background:var(--p2);padding:11px}.testCard .field{margin-top:8px}.activeTest{border-left:3px solid var(--vio)}.testHist{margin-top:8px;border:1px solid var(--line)}.testRow{padding:8px;border-bottom:1px solid #222c31}.testRow:last-child{border-bottom:0}.deltaGood{color:var(--green)}.deltaHot{color:var(--hot)}
+.bridgegrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.bridgeCard{border:1px solid var(--line);background:var(--p2);padding:11px;min-height:180px}.bridgeCard h3{margin:4px 0 8px;font:800 18px system-ui,sans-serif}.kv{display:grid;grid-template-columns:100px 1fr;border-top:1px solid var(--line)}.kv span{padding:5px 2px;border-bottom:1px solid #20282d}.kv span:nth-child(odd){color:var(--mut)}.law{margin-top:8px;padding:8px;border:1px solid var(--line);color:#9fa9ad}
+.plain{white-space:pre-wrap;word-break:break-word;padding:12px;min-height:420px;font:9px/1.5 ui-monospace,monospace}.foot{display:flex;justify-content:space-between;gap:12px;margin-top:14px;padding-top:8px;border-top:1px solid var(--line);color:#69777d;font-size:8px}
+@media(max-width:820px){header{grid-template-columns:1fr}.truth{text-align:left}.tabs{grid-template-columns:repeat(5,1fr)}.nowgrid,.pulsegrid,.testgrid,.bridgegrid{grid-template-columns:1fr}.bodybox{grid-template-columns:1fr}.mapwrap{height:380px}.radial{height:360px}.contextrow{grid-template-columns:1fr}.foot{display:block}}
+</style></head>
+<body><main>
+<header><div><div class="ey">BODY / FIELD · PRIVATE LOCAL STATE</div><h1>HOW<br>NOW?</h1></div><div><div class="intro">Fast embodied check-ins, detailed body address when useful, cyclic replay, one-factor tests, and a local BODY↔HOUSE bridge. Track enough to notice; not so much that tracking becomes the work.</div><div class="truth">OBSERVATION ≠ DIAGNOSIS · CONTRAST ≠ CAUSE · HOUSE CONTEXT ≠ BODY TRUTH</div></div></header>
+<nav class="tabs"><button class="tab on" data-view="now">NOW</button><button class="tab" data-view="pulse">PULSE</button><button class="tab" data-view="test">TEST</button><button class="tab" data-view="bridge">BRIDGE</button><button class="tab" data-view="plain">PLAIN</button></nav>
+
+<section class="view" id="view-now">
+<div class="panel nowgrid">
+ <div class="cell">
+  <div class="k">01 · STATE PLANE · one gesture</div>
+  <div id="statePlane" class="stateplane">
+   <span class="axis aL">UNPLEASANT</span><span class="axis aR">PLEASANT</span><span class="axis aT">ACTIVATED</span><span class="axis aB">QUIET</span><i id="stateCursor" class="cursor" style="display:none"></i>
+  </div>
+  <div class="stateRead"><div><b>VALENCE</b><strong id="valenceOut">—</strong></div><div><b>ACTIVATION</b><strong id="activationOut">—</strong></div></div>
+  <div class="k" style="margin-top:8px">WORD · optional</div><div id="moodChips" class="chips"></div>
+  <input id="customWord" style="width:100%;margin-top:6px" placeholder="or your own word…">
+ </div>
+ <div class="cell">
+  <div class="k">02 · SIGNALS · 0 = absent / 10 = strong</div><div class="small">untouched = missing · move only what you mean to record</div>
+  <div class="slider"><label>ITCH</label><input data-signal="itch" type="range" min="0" max="10" step="1" value="0"><output id="out-itch">—</output></div>
+  <div class="slider"><label>PAIN</label><input data-signal="pain" type="range" min="0" max="10" step="1" value="0"><output id="out-pain">—</output></div>
+  <div class="slider"><label>TENSION</label><input data-signal="tension" type="range" min="0" max="10" step="1" value="0"><output id="out-tension">—</output></div>
+  <div class="slider"><label>ENERGY</label><input data-signal="energy" type="range" min="0" max="10" step="1" value="5"><output id="out-energy">—</output></div>
+  <div class="slider"><label>FOCUS</label><input data-signal="focus" type="range" min="0" max="10" step="1" value="5"><output id="out-focus">—</output></div>
+
+  <div class="contextrow">
+   <div class="field"><label>PLACE</label><select id="place"><option>home</option><option>out</option><option>work</option><option>transit</option><option>other</option></select></div>
+   <div class="field"><label>AREA / PLACE DETAIL</label><input id="area" placeholder="study / bedroom / train / park…"></div>
+   <div class="field"><label>POSTURE / ACTION</label><select id="posture"><option value="">—</option><option>sitting</option><option>standing</option><option>walking</option><option>lying</option><option>training</option><option>working</option><option>eating</option><option>showering</option><option>other</option></select></div>
+   <div class="field"><label>NOTE</label><input id="note" placeholder="anything that matters right now…"></div>
+  </div>
+
+  <div class="k" style="margin-top:9px">ENVIRONMENT · optional</div><div id="envChips" class="chips"></div>
+  <div class="k" style="margin-top:9px">FACTORS · optional</div><div id="factorChips" class="chips"></div>
+  <div class="contextrow"><div class="field"><label>ADD FACTOR</label><input id="factorAdd" placeholder="custom factor…"></div><div class="field"><label>&nbsp;</label><button id="addFactor">ADD +</button></div></div>
+ </div>
+</div>
+
+<div class="bodybox">
+ <div class="panel cell">
+  <div class="k">03 · WHERE? · optional reference localization</div>
+  <div class="toolbar"><select id="planSelect"></select><button id="viewToggle">FRONT ↔ BACK</button><button id="granularity" class="on">GROUP</button><button id="wholeBody">WHOLE BODY</button><button id="clearBody">CLEAR</button></div>
+  <div class="mapwrap"><svg id="bodyMap" class="bodymap" aria-label="reference body map"></svg></div>
+  <div class="small" id="planMeta">local body-plan registry</div>
+ </div>
+ <div class="panel cell">
+  <div class="k">ACTIVE BODY ADDRESS</div><div class="addressbox"><b id="whereOut">no location selected</b><span id="addressOut">location is optional</span></div>
+  <div class="k" style="margin-top:10px">WHY THIS STAYS OPTIONAL</div><p class="note">Mood, fatigue, irritation, sleepiness, medication effects, whole-body itch, focus and many other states may not have one useful point on a diagram. The body map is an address tool, not the definition of the event.</p>
+  <div class="k" style="margin-top:10px">HOUSE CONTEXT</div><div id="houseAttach" class="addressbox"><b>no HOUSE packet attached</b><span>open HOUSE → attach its current public projection metadata locally, or log context manually above.</span></div>
+  <div class="returnbar"><button id="returnNow" class="primary">RETURN NOW →</button><button id="resetNow">RESET</button></div>
+  <div id="returnFlash" class="small"></div>
+ </div>
+</div>
+</section>
+
+<section class="view" id="view-pulse" hidden>
+ <div class="pulsegrid">
+  <div class="pulseCard"><div class="k">CYCLIC REPLAY · angle = time of day · rings = days ago · size = selected signal</div><div class="learnbar"><label class="small">DOT SIZE</label><select id="pulseTarget"><option>itch</option><option>pain</option><option>tension</option><option>energy</option><option>focus</option><option>activation</option></select><button id="refreshPulse">REFRESH</button></div><div class="radial"><svg id="pulseSvg" viewBox="0 0 520 520"></svg></div></div>
+  <div><div class="k" style="margin-bottom:6px">RECENT RETURNS</div><div id="ledger" class="ledger"></div></div>
+ </div>
+ <div class="learnbar"><span class="k">DESCRIPTIVE CONTRASTS</span><select id="learnTarget"><option>itch</option><option>pain</option><option>tension</option><option>energy</option><option>focus</option><option>valence</option><option>activation</option></select><select id="learnMode"><option value="same">SAME RETURN</option><option value="next12">NEXT RETURN ≤12H</option></select><span class="small">shown only with ≥3 with and ≥3 without · not causal</span></div>
+ <div id="contrasts" class="contrastGrid"></div>
+</section>
+
+<section class="view" id="view-test" hidden>
+ <div class="testgrid">
+  <div class="testCard">
+   <div class="k">ONE-THING TEST · observation before explanation</div><div class="big" style="margin-top:5px">Change one thing. Recheck.</div>
+   <div class="field"><label>THING / ACTION</label><input id="testThing" style="width:100%" placeholder="what are you deliberately trying?"></div>
+   <div class="contextrow"><div class="field"><label>TARGET</label><select id="testTarget"><option>itch</option><option>pain</option><option>tension</option><option>energy</option><option>focus</option><option>valence</option><option>activation</option></select></div><div class="field"><label>RECHECK AFTER</label><select id="testMinutes"><option value="10">10 min</option><option value="20">20 min</option><option value="30" selected>30 min</option><option value="60">60 min</option><option value="120">2 hr</option></select></div></div>
+   <button id="startTest" class="primary" style="width:100%;margin-top:8px">START FROM LATEST RETURN</button>
+   <p class="note">This is a lightweight self-observation loop, not a randomized clinical trial. Repeated or medically consequential experiments need stronger design and appropriate clinical guidance.</p>
+  </div>
+  <div class="testCard activeTest"><div class="k">ACTIVE TEST</div><div id="activeTest">none</div><div class="toolbar"><button id="closeTest">RETURN TEST WITH LATEST CHECK-IN</button><button id="cancelTest">CANCEL</button></div></div>
+ </div>
+ <div class="k" style="margin:10px 0 6px">TEST RETURNS</div><div id="testHistory" class="testHist"></div>
+</section>
+
+<section class="view" id="view-bridge" hidden>
+ <div class="bridgegrid">
+  <div class="bridgeCard"><div class="k">BODY → HOUSE</div><h3>Latest local body return</h3><div id="bodyBridgeState" class="kv"></div><div class="toolbar"><a href="../house/"><button>OPEN HOUSE →</button></a><button id="republishBody">REPUBLISH LATEST</button><button id="sendCare">SEND LATEST TO CARE →</button></div></div>
+  <div class="bridgeCard"><div class="k">HOUSE → BODY</div><h3>Attached HOUSE context</h3><div id="houseBridgeState" class="kv"></div><div class="toolbar"><a href="../house/"><button>ATTACH FROM HOUSE →</button></a><button id="clearHouseContext">CLEAR LOCAL CONTEXT</button></div></div>
+  <div class="bridgeCard"><div class="k">ENV-0 RELATION</div><h3>Typed, not metaphorical</h3><div class="law">BODY observation + place/posture/environment + optional HOUSE projection metadata → <b>COINCIDENT_WITH / OBSERVED_DURING / CONTACTS / EXPOSED_TO</b>. Never auto-promote to CAUSED_BY.</div></div>
+  <div class="bridgeCard"><div class="k">SOURCE LANES</div><h3>Active + passive stay separate</h3><div class="kv"><span>SELF REPORT</span><span>active · this interface</span><span>HOUSE</span><span>context packet · local bridge</span><span>WATCH / PHONE</span><span>adapter-ready · not connected here</span><span>CARE</span><span>episode/handoff surface · separate authority</span></div></div>
+ </div>
+</section>
+
+<section class="view" id="view-plain" hidden>
+ <div class="toolbar"><button id="exportBody">EXPORT JSON</button><button id="importBody">IMPORT JSON</button><input id="importFile" type="file" accept=".json,application/json" hidden><button id="clearAll">CLEAR LOCAL DATA</button></div>
+ <pre id="plainText" class="panel plain"></pre>
+</section>
+
+<div class="foot"><span>BODY / FIELD 0.2 · NOW → PULSE → TEST → BRIDGE → RETURN</span><span>public code · private browser-local observations</span></div>
+<script src="../bodyplans/registry.js"></script>
+<script src="./core.js"></script>
+<script>
+(()=>{'use strict';
+const KEY='0xxx0.body.field.v02',LATEST='0xxx0.body.field.latest.v01',HOUSE='0xxx0.house.body.context.v01',CARE='0xxx0.body.care.handoff.v01';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],now=()=>new Date().toISOString(),uid=p=>p+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const BFC=window.BodyFieldCore,clamp=BFC.clamp,mean=BFC.mean,targetValue=BFC.targetValue,factorKeys=BFC.factorKeys;
+const DEFAULT_FACTORS=['poor sleep','meal','caffeine','exercise','shower','outdoors','screen','social','medication','supplement'];
+const ENV=['warm','cool','humid','dry','stuffy','breezy','bright','dim','noisy','quiet'];
+const MOODS={
+ upBad:['irritable','restless','tense','anxious','angry','overloaded'],
+ upGood:['engaged','energized','focused','excited','playful','alert'],
+ lowBad:['drained','flat','sad','foggy','heavy','withdrawn'],
+ lowGood:['calm','content','relieved','settled','soft','rested']
+};
+function blank(){return{schema:'0xxx0/body-field-state/v0.2',updated_at:now(),events:[],factors:DEFAULT_FACTORS.slice(),tests:[],active_test:null}}
+function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||'null');return x&&Array.isArray(x.events)?x:blank()}catch(_){return blank()}}
+function save(){D.updated_at=now();localStorage.setItem(KEY,JSON.stringify(D));renderPlain()}
+let D=load(),state={valence:null,activation:null,label:'',signals:{itch:null,pain:null,tension:null,energy:null,focus:null},env:new Set(),factors:new Set(),selected:new Set(),whole:false,plan:'human-reference-m',view:'front',mode:'group'};
+function reg(){return window.BODY_PLAN_REGISTRY?.plans||{}}
+function plan(){return reg()[state.plan]||Object.values(reg())[0]}
+function planView(){const p=plan();if(!p)return null;if(!p.views[state.view])state.view=p.defaultView;return p.views[state.view]}
+function setView(v){$$('.tab').forEach(b=>b.classList.toggle('on',b.dataset.view===v));$$('.view').forEach(x=>x.hidden=x.id!=='view-'+v);if(v==='pulse')renderPulse();if(v==='test')renderTests();if(v==='bridge')renderBridge();if(v==='plain')renderPlain()}
+$$('.tab').forEach(b=>b.onclick=()=>setView(b.dataset.view));
+
+function setPlane(clientX,clientY){const r=$('#statePlane').getBoundingClientRect(),x=clamp((clientX-r.left)/r.width,0,1),y=clamp((clientY-r.top)/r.height,0,1);state.valence=+(x*2-1).toFixed(2);state.activation=+((1-y)*10).toFixed(1);renderState()}
+$('#statePlane').addEventListener('pointerdown',e=>{setPlane(e.clientX,e.clientY);e.currentTarget.setPointerCapture?.(e.pointerId)});
+$('#statePlane').addEventListener('pointermove',e=>{if(e.buttons)setPlane(e.clientX,e.clientY)});
+function moodList(){if(state.activation==null||state.valence==null)return[];return state.activation>=5?(state.valence<0?MOODS.upBad:MOODS.upGood):(state.valence<0?MOODS.lowBad:MOODS.lowGood)}
+function renderState(){const has=state.valence!=null&&state.activation!=null,c=$('#stateCursor');c.style.display=has?'':'none';if(has){const x=(state.valence+1)/2*100,y=(1-state.activation/10)*100;c.style.left=x+'%';c.style.top=y+'%'}$('#valenceOut').textContent=state.valence==null?'—':((state.valence>0?'+':'')+state.valence.toFixed(2));$('#activationOut').textContent=state.activation==null?'—':state.activation.toFixed(1);$('#moodChips').innerHTML=has?moodList().map(x=>'<button class="chip '+(state.label===x?'on':'')+'" data-mood="'+esc(x)+'">'+esc(x)+'</button>').join(''):'<span class="small">touch plane to reveal words</span>';$('[data-mood]').forEach(b=>b.onclick=()=>{state.label=state.label===b.dataset.mood?'':b.dataset.mood;$('#customWord').value=state.label;renderState()})}
+$('#customWord').oninput=e=>state.label=e.target.value.trim();
+$$('[data-signal]').forEach(i=>i.oninput=()=>{state.signals[i.dataset.signal]=Number(i.value);$('#out-'+i.dataset.signal).textContent=i.value});
+function chipSet(el,items,set){el.innerHTML=items.map(x=>'<button class="chip '+(set.has(x)?'on':'')+'" data-v="'+esc(x)+'">'+esc(x)+'</button>').join('');[...el.children].forEach(b=>b.onclick=()=>{const v=b.dataset.v;set.has(v)?set.delete(v):set.add(v);renderContext()})}
+function renderContext(){chipSet($('#envChips'),ENV,state.env);chipSet($('#factorChips'),D.factors,state.factors)}
+$('#addFactor').onclick=()=>{const v=$('#factorAdd').value.trim();if(!v)return;if(!D.factors.includes(v))D.factors.push(v);state.factors.add(v);$('#factorAdd').value='';save();renderContext()};
+
+function syncPlans(){const s=$('#planSelect'),ids=Object.values(reg()).filter(p=>p.kind==='PERSON').map(p=>p.id);if(!ids.includes(state.plan))state.plan=ids[0];s.innerHTML=ids.map(id=>'<option value="'+esc(id)+'">'+esc(reg()[id].label)+'</option>').join('');s.value=state.plan}
+function activeKey(f){return state.mode==='precise'?f.id:f.group}
+function activeLabel(key){const v=planView();if(state.mode==='precise')return v?.fragments.find(f=>f.id===key)?.label||key;return String(key).replace(/-/g,' ')}
+function renderBody(){syncPlans();const p=plan(),v=planView(),svg=$('#bodyMap');if(!p||!v)return;svg.setAttribute('viewBox',v.viewBox);const tf=v.transform?' transform="'+esc(v.transform)+'"':'';svg.innerHTML='<g'+tf+'><path class="outline" d="'+esc(v.outlineD)+'"/>'+v.fragments.map(f=>'<path class="region '+(state.whole||state.selected.has(activeKey(f))?'sel':'')+'" data-id="'+esc(f.id)+'" data-group="'+esc(f.group)+'" d="'+esc(f.pathData)+'"/>').join('')+'</g>';$$('#bodyMap .region').forEach(el=>el.onclick=()=>{state.whole=false;const f=v.fragments.find(x=>x.id===el.dataset.id),k=activeKey(f);state.selected.has(k)?state.selected.delete(k):state.selected.add(k);renderBody()});const labels=state.whole?['whole body']:[...state.selected].map(activeLabel);$('#whereOut').textContent=labels.join(' · ')||'no location selected';$('#addressOut').textContent=state.whole?'WHOLE / diffuse reference':labels.length?(state.plan+' / '+state.view+' / '+state.mode+' / '+labels.length+' selected'):'location is optional';$('#planMeta').textContent=p.label+' · '+state.view.toUpperCase()+' · '+state.mode.toUpperCase()+' · LOCAL · geometry '+p.geometryVersion;$('#granularity').textContent=state.mode.toUpperCase();$('#granularity').classList.toggle('on',state.mode==='group')}
+$('#planSelect').onchange=()=>{state.plan=$('#planSelect').value;state.view=plan().defaultView;state.selected.clear();state.whole=false;renderBody()};
+$('#viewToggle').onclick=()=>{const p=plan(),vs=Object.keys(p.views),i=vs.indexOf(state.view);state.view=vs[(i+1)%vs.length];state.selected.clear();state.whole=false;renderBody()};
+$('#granularity').onclick=()=>{state.mode=state.mode==='group'?'precise':'group';state.selected.clear();state.whole=false;renderBody()};
+$('#wholeBody').onclick=()=>{state.whole=!state.whole;state.selected.clear();renderBody()};$('#clearBody').onclick=()=>{state.whole=false;state.selected.clear();renderBody()};
+
+function houseContext(){try{return JSON.parse(localStorage.getItem(HOUSE)||'null')}catch(_){return null}}
+function renderHouseAttach(){const h=houseContext(),el=$('#houseAttach');if(!h){el.innerHTML='<b>no HOUSE packet attached</b><span>open HOUSE → attach its current public projection metadata locally, or log context manually above.</span>';return}el.innerHTML='<b>'+esc(h.runtime_health_class||'HOUSE context')+' · '+esc(h.source_age_class||'')+'</b><span>projection '+esc(h.generated_at||'—')+(h.area?' · area '+esc(h.area):'')+' · local envelope only</span>'}
+function resetNow(){state.valence=null;state.activation=null;state.label='';state.signals={itch:null,pain:null,tension:null,energy:null,focus:null};state.env.clear();state.factors.clear();state.selected.clear();state.whole=false;$('#customWord').value='';$('#area').value='';$('#posture').value='';$('#note').value='';$('[data-signal]').forEach(i=>{$('#out-'+i.dataset.signal).textContent='—'});renderState();renderContext();renderBody()}
+$('#resetNow').onclick=resetNow;
+function returnNow(){const p=plan(),v=planView(),h=houseContext(),labels=state.whole?['whole body']:[...state.selected].map(activeLabel),ids=state.whole?['WHOLE']:[...state.selected],word=$('#customWord').value.trim()||state.label||null,note=$('#note').value.trim()||null,hasState=state.valence!=null||state.activation!=null||Object.values(state.signals).some(x=>x!=null)||word||note||ids.length||state.env.size||state.factors.size;if(!hasState)return alert('Add one observation: touch the state plane, move a signal, add a word/note, choose a body region or context factor.');const e={id:uid('body'),type:'body.state',observed_at:now(),recorded_at:now(),source:'SELF_REPORTED',state:{valence:state.valence,activation:state.activation,label:word,...state.signals},body_address:{plan_id:state.plan,geometry_version:p?.geometryVersion||null,view:state.view,selection_mode:state.whole?'whole':state.mode,region_ids:ids,region_labels:labels},context:{place:$('#place').value,area:$('#area').value.trim()||null,posture:$('#posture').value||null,environment:[...state.env],factors:[...state.factors],house_ref:h?{schema:h.schema||null,generated_at:h.generated_at||null,source_age_class:h.source_age_class||null,runtime_health_class:h.runtime_health_class||null,area:h.area||null}:null},note:note};D.events.push(e);save();const pub={schema:'0xxx0/body-house-bridge/v0.1',event_id:e.id,observed_at:e.observed_at,state:e.state,body_address:{plan_id:e.body_address.plan_id,view:e.body_address.view,region_labels:e.body_address.region_labels},context:e.context};localStorage.setItem(LATEST,JSON.stringify(pub));$('#returnFlash').textContent='RETURNED · '+new Date(e.observed_at).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'});$('#returnFlash').className='small flash';setTimeout(()=>{$('#returnFlash').className='small'},1200);renderBridge();renderPulse()}
+$('#returnNow').onclick=returnNow;
+
+function dotColor(e){const v=Number(e.state?.valence||0);return v>0.18?'var(--cool)':v<-.18?'var(--hot)':'var(--vio)'}
+function renderPulse(){const es=D.events.slice().sort((a,b)=>a.observed_at.localeCompare(b.observed_at)),svg=$('#pulseSvg'),cx=260,cy=260,target=$('#pulseTarget').value,nowMs=Date.now();let s='';for(let d=0;d<7;d++){const r=58+d*27;s+='<circle class="ring" cx="'+cx+'" cy="'+cy+'" r="'+r+'"/>'}for(let h=0;h<24;h+=6){const a=(h/24*Math.PI*2)-Math.PI/2,x=cx+248*Math.cos(a),y=cy+248*Math.sin(a);s+='<line class="spoke" x1="'+cx+'" y1="'+cy+'" x2="'+x+'" y2="'+y+'"/><text x="'+(cx+232*Math.cos(a))+'" y="'+(cy+232*Math.sin(a))+'" fill="#718087" font-size="9" text-anchor="middle">'+String(h).padStart(2,'0')+'</text>'}es.forEach(e=>{const dt=new Date(e.observed_at),age=(nowMs-dt.getTime())/86400000;if(age<0||age>=7)return;const ring=Math.floor(age),r=58+ring*27,a=((dt.getHours()+dt.getMinutes()/60)/24*Math.PI*2)-Math.PI/2,val=targetValue(e,target),size=4+clamp(Number.isFinite(val)?Math.abs(val):0,0,10)*.6,x=cx+r*Math.cos(a),y=cy+r*Math.sin(a);s+='<circle class="pulseDot" data-id="'+esc(e.id)+'" cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+size.toFixed(1)+'" fill="'+dotColor(e)+'"><title>'+esc(new Date(e.observed_at).toLocaleString()+' · '+target+' '+val+' · '+(e.state?.label||''))+'</title></circle>'});svg.innerHTML=s;$$('.pulseDot').forEach(x=>x.onclick=()=>{const e=D.events.find(q=>q.id===x.dataset.id);if(e)alert(eventSummary(e))});renderLedger();renderContrasts()}
+function fmt(v){return v==null?'—':v}function eventSummary(e){return [new Date(e.observed_at).toLocaleString(),e.state?.label||'', 'itch '+fmt(e.state?.itch),'pain '+fmt(e.state?.pain),'energy '+fmt(e.state?.energy), (e.body_address?.region_labels||[]).join(', '),factorKeys(e).join(' · '),e.note||''].filter(Boolean).join('\n')}
+function renderLedger(){const es=D.events.slice().sort((a,b)=>b.observed_at.localeCompare(a.observed_at)).slice(0,40);$('#ledger').innerHTML=es.length?es.map(e=>'<div class="event" data-id="'+esc(e.id)+'"><div class="eventtime">'+esc(new Date(e.observed_at).toLocaleString([], {month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}))+'</div><div><b>'+esc(e.state?.label||'check-in')+'</b><div class="meta">'+esc('itch '+fmt(e.state?.itch)+' · pain '+fmt(e.state?.pain)+' · energy '+fmt(e.state?.energy)+' · '+factorKeys(e).join(' · '))+'</div></div><strong>'+esc((e.state?.valence>0?'+':'')+Number(e.state?.valence||0).toFixed(1))+'</strong></div>').join(''):'<div class="note" style="padding:10px">No returns yet.</div>';$$('#ledger .event').forEach(x=>x.onclick=()=>{const e=D.events.find(q=>q.id===x.dataset.id);if(e)alert(eventSummary(e))})}
+function renderContrasts(){const target=$('#learnTarget').value,mode=$('#learnMode').value,rows=mode==='next12'?BFC.lagContrasts(D.events,target,3,12):BFC.contrasts(D.events,target,3),scope=mode==='next12'?'next return ≤12h':'same return';$('#contrasts').innerHTML=rows.length?rows.slice(0,18).map(r=>'<div class="contrast"><b>'+esc(r.factor)+' · coverage '+r.coverage+' · '+scope+'</b><strong>'+(r.diff>0?'+':'')+r.diff.toFixed(2)+'</strong><p>'+esc(target)+' mean difference, with vs without. n '+r.with_n+' / '+r.without_n+'. Descriptive only.</p></div>').join(''):'<div class="contrast"><b>NOT ENOUGH CONTRAST YET</b><strong>keep it light</strong><p>We wait for at least 3 usable returns with and 3 without a factor before showing a difference.</p></div>'}
+$('#pulseTarget').onchange=renderPulse;$('#learnTarget').onchange=renderContrasts;$('#learnMode').onchange=renderContrasts;$('#refreshPulse').onclick=renderPulse;
+
+function latest(){return D.events.slice().sort((a,b)=>b.observed_at.localeCompare(a.observed_at))[0]||null}
+function renderTests(){const t=D.active_test,box=$('#activeTest');if(!t){box.innerHTML='<p class="note">No active test. Make a NOW return first, then choose one thing to change.</p>'}else{const base=D.events.find(e=>e.id===t.baseline_event_id),candidate=D.events.filter(e=>new Date(e.observed_at)>new Date(t.started_at)).sort((a,b)=>b.observed_at.localeCompare(a.observed_at))[0],due=new Date(t.due_at);box.innerHTML='<div class="kv"><span>thing</span><span>'+esc(t.thing)+'</span><span>target</span><span>'+esc(t.target)+' · baseline '+esc(t.baseline_value)+'</span><span>started</span><span>'+esc(new Date(t.started_at).toLocaleString())+'</span><span>recheck</span><span>'+esc(due.toLocaleString())+'</span><span>new return</span><span>'+(candidate?esc(new Date(candidate.observed_at).toLocaleString()):'none yet')+'</span></div>'}$('#testHistory').innerHTML=D.tests.length?D.tests.slice().reverse().map(t=>'<div class="testRow"><b>'+esc(t.thing)+' · '+esc(t.target)+'</b><div class="small">'+esc(new Date(t.started_at).toLocaleString())+' → '+esc(new Date(t.ended_at).toLocaleString())+' · '+esc(t.before)+' → '+esc(t.after)+' · Δ '+(t.delta>0?'+':'')+esc(t.delta.toFixed(2))+' · descriptive only</div></div>').join(''):'<div class="testRow note">No completed tests.</div>'}
+$('#startTest').onclick=()=>{const e=latest(),thing=$('#testThing').value.trim(),target=$('#testTarget').value,min=Number($('#testMinutes').value);if(!e)return alert('Make a NOW return first.');if(!thing)return alert('Name the one thing you are changing.');const base=targetValue(e,target);if(!Number.isFinite(base))return alert('The latest return has no usable '+target+' value.');D.active_test={id:uid('test'),thing,target,baseline_event_id:e.id,baseline_value:base,started_at:now(),due_at:new Date(Date.now()+min*60000).toISOString(),planned_minutes:min};save();renderTests()};
+$('#closeTest').onclick=()=>{const t=D.active_test;if(!t)return;const after=D.events.filter(e=>new Date(e.observed_at)>new Date(t.started_at)).sort((a,b)=>b.observed_at.localeCompare(a.observed_at))[0];if(!after)return alert('Make a new NOW return after the test started.');const av=targetValue(after,t.target);if(!Number.isFinite(av))return alert('The new return has no usable '+t.target+' value.');D.tests.push({...t,ended_at:now(),after_event_id:after.id,before:t.baseline_value,after:av,delta:av-t.baseline_value});D.active_test=null;save();renderTests();renderPulse()};
+$('#cancelTest').onclick=()=>{D.active_test=null;save();renderTests()};
+
+function kvHtml(obj){return Object.entries(obj).map(([k,v])=>'<span>'+esc(k)+'</span><span>'+esc(v??'—')+'</span>').join('')}
+function renderBridge(){let b=null,h=null;try{b=JSON.parse(localStorage.getItem(LATEST)||'null')}catch(_){}try{h=JSON.parse(localStorage.getItem(HOUSE)||'null')}catch(_){}$('#bodyBridgeState').innerHTML=b?kvHtml({observed:new Date(b.observed_at).toLocaleString(),word:b.state?.label||'—',itch:fmt(b.state?.itch),pain:fmt(b.state?.pain),place:b.context?.place,area:b.context?.area||'—',environment:(b.context?.environment||[]).join(' · ')||'—'}):kvHtml({state:'none yet'});$('#houseBridgeState').innerHTML=h?kvHtml({generated:h.generated_at||'—',runtime:h.runtime_health_class||'—',age:h.source_age_class||'—',area:h.area||'—',schema:h.schema||'—'}):kvHtml({state:'no local HOUSE context packet'});renderHouseAttach()}
+$('#republishBody').onclick=()=>{const e=latest();if(!e)return;localStorage.setItem(LATEST,JSON.stringify({schema:'0xxx0/body-house-bridge/v0.1',event_id:e.id,observed_at:e.observed_at,state:e.state,body_address:{plan_id:e.body_address?.plan_id,view:e.body_address?.view,region_labels:e.body_address?.region_labels},context:e.context}));renderBridge()};$('#sendCare').onclick=()=>{const e=latest();if(!e)return alert('Make a NOW return first.');localStorage.setItem(CARE,JSON.stringify({schema:'0xxx0/body-care-handoff/v0.1',created_at:now(),event:e}));location.assign('../care/')};
+$('#clearHouseContext').onclick=()=>{localStorage.removeItem(HOUSE);renderBridge()};
+
+function renderPlain(){$('#plainText').textContent=JSON.stringify(D,null,2)}
+$('#exportBody').onclick=()=>{save();const a=document.createElement('a'),b=new Blob([JSON.stringify(D,null,2)],{type:'application/json'});a.href=URL.createObjectURL(b);a.download='body-field-state.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
+$('#importBody').onclick=()=>$('#importFile').click();$('#importFile').onchange=e=>{const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const j=JSON.parse(r.result);if(j.schema!=='0xxx0/body-field-state/v0.2')throw Error('unsupported schema');D=j;save();renderContext();renderPulse();renderTests();renderBridge();renderPlain()}catch(err){alert('Import failed: '+err.message)}};r.readAsText(f)};
+$('#clearAll').onclick=()=>{if(confirm('Clear BODY / FIELD local data on this browser?')){localStorage.removeItem(KEY);localStorage.removeItem(LATEST);D=blank();save();resetNow();renderPulse();renderTests();renderBridge()}};
+
+renderState();renderContext();renderBody();renderHouseAttach();renderPulse();renderTests();renderBridge();renderPlain();
+})();
+</script>
+<script src="/showcase-nav.js"></script>
+</main></body></html>

@@ -1,0 +1,49 @@
+# BODY / FIELD · PULSE convergence
+
+Date: 2026-09-21
+Status: implemented experiment
+
+## Three leaps
+
+1. **NOW** — event-based EMA: valence × activation in one gesture; five compact body/cognitive signals; optional body address and context. Burden is deliberately low.
+2. **PULSE** — same event ledger projected radially by time-of-day/day-age; descriptive factor contrasts appear only when both with/without groups have at least three observations. No causal language.
+3. **TEST** — tracking becomes action: name one thing, choose one target, retain baseline, recheck, RETURN delta. This is deliberately weaker than a formal n-of-1 trial and says so.
+
+## HOUSE interface
+
+BODY and HOUSE share origin but not authority. The bridge uses two browser-local envelopes:
+
+- `0xxx0.body.field.latest.v01` — latest BODY return for HOUSE to display locally.
+- `0xxx0.house.body.context.v01` — current HOUSE public-projection metadata deliberately attached by the user for BODY context.
+
+No personal BODY observations are written into committed HOUSE state. Home Assistant / HOUSEBUS remains environment/device authority.
+
+## Donor mechanisms
+
+- How We Feel: quick emotion vocabulary, valence/energy structure, body sensations, pattern review.
+- Nomie: tracker + context log, user-owned data.
+- Bearable / Daylio: with/without factor contrasts and coverage/confidence thinking.
+- RADAR-base / AWARE: active report and passive context are separate source lanes.
+- Open mHealth: measure without context/source metadata is semantically weak.
+- AHRQ n-of-1 guidance: repeated outcome measurement and explicit time-varying exposure matter; our TEST is a lightweight precursor, not a trial engine.
+
+## Non-goals
+
+- diagnosis / triage / medical thresholding;
+- claiming factors caused a state change;
+- uploading private state to the public repository;
+- direct public access to Home Assistant;
+- turning HOUSE into a model of the body or BODY into a building dashboard.
+
+## Source anchors
+
+- How We Feel — https://howwefeel.org/
+- Daylio activity/mood statistics — https://daylio.net/faq/docs/daylio-faq/about/activity-and-mood-statistics/
+- Bearable factor correlations — https://bearable.app/support/howto/how-to-find-correlations/
+- Nomie 6 OSS — https://github.com/open-nomie/nomie6-oss
+- RADAR-base — https://radar-base.org/getting-started-with-radar-base/
+- AWARE Framework — https://www.awareframework.com/
+- Open mHealth schema principles — https://www.openmhealth.org/documentation/schema-docs/overview/
+- AHRQ N-of-1 guide — https://effectivehealthcare.ahrq.gov/products/n-1-trials/research-2014-5
+- EMA burden study — https://www.jmir.org/2024/1/e50275
+- Home Assistant Recorder/history — https://www.home-assistant.io/integrations/recorder

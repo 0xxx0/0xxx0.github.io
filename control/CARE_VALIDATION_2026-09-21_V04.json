@@ -1,0 +1,40 @@
+{
+  "schema": "0xxx0/care-validation/v0.4",
+  "at": "2026-09-21T21:18:00+08:00",
+  "artifact": "/care/",
+  "result": "PASS_STATIC_CONTRACT",
+  "release": "0.4",
+  "checks": {
+    "javascript_syntax": "PASS",
+    "case_schema": "0xxx0/care-case/v0.3",
+    "contract": "care-field-contract/v0.4",
+    "body_handoff_key": "0xxx0.body.care.handoff.v01",
+    "body_handoff_auto_mutation": false,
+    "explicit_import_button": true,
+    "preserved_on_import": [
+      "timestamp",
+      "body-plan id",
+      "geometry version",
+      "view",
+      "region ids",
+      "region labels",
+      "state vector",
+      "context",
+      "source cue"
+    ],
+    "stable_region_matching": true,
+    "network_submission": false,
+    "human_port_private_carrier": true
+  },
+  "evidence": {
+    "care_html_git_blob": "461aed6251ca1850c33ab625f306e26cac092f23",
+    "case_schema_git_blob": "e708c57db6c33f38cbc7b44e5620dda71a4ece19",
+    "contract_git_blob": "19425da05478f8e7df581521a2aff04bd696027e",
+    "release_git_blob": "4ff5816db9b2596b0f7569d3326fb92f5f1b7c1e"
+  },
+  "open_gaps": [
+    "deployed end-to-end BODY -> CARE click-through needs human browser testing",
+    "private file/image attachment store remains separate",
+    "no diagnostic or triage engine by design"
+  ]
+}

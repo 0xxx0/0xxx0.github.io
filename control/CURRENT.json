@@ -402,7 +402,7 @@
     "shape_law_issue": "0xxx0/0#7",
     "care_field": "/care/",
     "care_state_research": "/control/research/CARE_STATE_2026-09-21.md",
-    "care_validation": "/control/CARE_VALIDATION_2026-09-21_V03.json",
+    "care_validation": "/control/CARE_VALIDATION_2026-09-21_V04.json",
     "care_course": "/control/research/CARE_COURSE_2026-09-21.md",
     "laconic_lineage": "/laconic/recovered/persona-to-council-lineage.json",
     "laconic_early_plurality": "/laconic/recovered/early-plurality-donors-2024.json",
@@ -478,7 +478,14 @@
     "field_index_convergence_return": "/returns/FIELD_INDEX_CONVERGENCE_2026-09-21.json",
     "house_poly_furnisher_sinder_donor": "/control/confluence/HOUSE_POLY_FURNISHER_SINDER_DONOR_2026-09-21.md",
     "fold_bloom_live_confluence": "/control/confluence/FOLD_BLOOM_LIVE_2026-09-21.json",
-    "fold_bloom_live_return": "/returns/FOLD_BLOOM_LIVE_2026-09-21.json"
+    "fold_bloom_live_return": "/returns/FOLD_BLOOM_LIVE_2026-09-21.json",
+    "body_field": "/body/",
+    "body_state_schema": "/body/state.schema.json",
+    "body_pulse_research": "/control/research/BODY_PULSE_2026-09-21.md",
+    "body_validation": "/control/BODY_FIELD_VALIDATION_2026-09-21.json",
+    "bodyplans": "/bodyplans/",
+    "house_field": "/house/",
+    "body_house_convergence": "/control/BODY_HOUSE_CONVERGENCE_2026-09-21.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",

@@ -32,6 +32,7 @@ tr:last-child td{border-bottom:0}
 #intent-panel[data-state="browser"]{opacity:.7}
 ul{margin:6px 0 0;padding-left:16px;color:#a7b0b4;font-size:10px}
 li{margin:3px 0}
+.bridgeActions{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.bridgeActions button,.bridgeActions select{font:inherit;background:var(--p2);color:var(--ink);border:1px solid var(--line);padding:7px 9px;border-radius:0;font-size:8px}.bridgeLocal{color:#a7b0b4;font-size:9px}.bridgeLocal strong{color:var(--ink)}
 footer{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:var(--muted);font-size:9px;line-height:1.7}
 @media(max-width:700px){header{grid-template-columns:1fr}.kernel{grid-template-columns:repeat(3,1fr)}}
 </style></head>
@@ -58,6 +59,14 @@ footer{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:v
     <div class="cell"><b>CURRENT HEAD</b><strong>substrate → projections</strong><ul><li>floor + ceiling/RCP + walls/elevations are first-class surfaces.</li><li>PLAN · SECTION · 3D · FIELD are projections of the same IDs.</li><li><a class="c" href="./spatial/">OPEN SPATIAL ENGINE →</a> · <a class="c" href="./spatial-state.json">lineage JSON →</a> · <a class="c" href="./confluence.json">CONFLUENCE →</a></li></ul></div>
   </div>
 </section>
+<section class="section" id="body-house-bridge">
+ <h2>BODY ↔ HOUSE · local bridge</h2>
+ <div class="grid2">
+  <div class="cell"><b>LATEST BODY RETURN · browser-local</b><strong id="bodyLocalTitle">none yet</strong><div id="bodyLocalMeta" class="bridgeLocal">BODY / FIELD can publish its latest local return here without committing personal state.</div><div class="bridgeActions"><a href="../body/"><button type="button">OPEN BODY →</button></a></div></div>
+  <div class="cell"><b>ATTACH HOUSE CONTEXT → BODY</b><strong id="houseLocalTitle">projection not loaded</strong><div class="bridgeLocal">Send only this public projection's timestamp/health class + an optional area label into browser-local BODY context.</div><div class="bridgeActions"><select id="houseArea"><option value="">area optional</option></select><button id="attachHouseBody" type="button">ATTACH LOCALLY → BODY</button><button id="clearHouseBody" type="button">CLEAR</button></div></div>
+ </div>
+ <div class="bridgeLocal" style="margin-top:6px">No BODY observation is written into <code>house/state.json</code>. Home Assistant / HOUSEBUS remains runtime authority; this is an ENV-0 context envelope only.</div>
+</section>
 <div id="app"><div class="section"><table><tr><td class="m">Loading projection…</td></tr></table></div></div>
 <div class="section" id="intent-panel"><h2>Intent</h2></div>
 <footer>
@@ -72,8 +81,26 @@ footer{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:v
  function badge(v){return '<span class="tag '+esc(cls[v]||'m')+'">'+esc(v)+'</span>'}
  function table(head,rows){return '<table><thead><tr>'+head.map(function(h){return '<th>'+esc(h)+'</th>'}).join('')+'</tr></thead><tbody>'+rows+'</tbody></table>'}
  function ageStr(s){if(s==null)return 'UNAVAILABLE';if(s<90)return s+'s';if(s<5400)return Math.round(s/60)+'m';if(s<172800)return Math.round(s/3600)+'h';return Math.round(s/86400)+'d'}
- var app=document.getElementById('app');
+ var app=document.getElementById('app'),lastProjection=null;
+ var BODYKEY='0xxx0.body.field.latest.v01',HOUSEKEY='0xxx0.house.body.context.v01';
+ function readLocal(k){try{return JSON.parse(localStorage.getItem(k)||'null')}catch(_){return null}}
+ function renderBodyBridge(){
+  var b=readLocal(BODYKEY),bt=document.getElementById('bodyLocalTitle'),bm=document.getElementById('bodyLocalMeta');
+  if(b){bt.textContent=(b.state&&b.state.label)||'body return';bm.innerHTML='<strong>'+esc(new Date(b.observed_at).toLocaleString())+'</strong> · itch '+esc(b.state&&b.state.itch)+' · pain '+esc(b.state&&b.state.pain)+' · '+esc(b.context&&b.context.place||'')+(b.context&&b.context.area?' / '+esc(b.context.area):'')+'<br>'+esc((b.context&&b.context.environment||[]).join(' · '))}
+  else{bt.textContent='none yet';bm.textContent='BODY / FIELD can publish its latest local return here without committing personal state.'}
+  var title=document.getElementById('houseLocalTitle'),sel=document.getElementById('houseArea');
+  if(lastProjection){title.textContent=(lastProjection.runtime_health_class||'—')+' · '+(lastProjection.source_age_class||'—');sel.innerHTML='<option value="">area optional</option>'+((lastProjection.areas||[]).map(function(a){return '<option value="'+esc(a.id||a.label)+'">'+esc(a.label||a.id)+'</option>'}).join(''))}
+  else title.textContent='projection not loaded';
+ }
+ document.getElementById('attachHouseBody').onclick=function(){
+  if(!lastProjection)return;
+  var area=document.getElementById('houseArea').value||null,packet={schema:'0xxx0/house-body-context/v0.1',generated_at:lastProjection.generated_at||null,source_age_class:lastProjection.source_age_class||null,runtime_health_class:lastProjection.runtime_health_class||null,area:area,projection_schema:lastProjection.schema||null,classification:lastProjection.classification||null};
+  localStorage.setItem(HOUSEKEY,JSON.stringify(packet));document.getElementById('houseLocalTitle').textContent='ATTACHED · '+(packet.runtime_health_class||'—');location.assign('../body/');
+ };
+ document.getElementById('clearHouseBody').onclick=function(){localStorage.removeItem(HOUSEKEY);renderBodyBridge()};
+ renderBodyBridge();
  function render(d){
+  lastProjection=d;renderBodyBridge();
   document.getElementById('gen').textContent=d.generated_at||'—';
   document.getElementById('age').textContent=ageStr(d.source_age_seconds)+' ('+(d.source_age_class||'—')+')';
   document.getElementById('rt').textContent=d.runtime_health_class||'—';
@@ -119,7 +146,7 @@ footer{margin-top:26px;padding-top:12px;border-top:1px solid var(--line);color:v
    '<tr><td class="m">return</td><td class="m">Receipts and the registry remain the record. <a href="../returns/">RETURN FIELD →</a></td></tr>'
   ].join(''))+'</div>';
   document.getElementById('gen').textContent='—';
-  document.getElementById('rt').textContent='UNAVAILABLE';
+  document.getElementById('rt').textContent='UNAVAILABLE';renderBodyBridge();
  }
  fetch('./state.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(render).catch(function(e){offline(e.message||'unavailable')});
 })();
