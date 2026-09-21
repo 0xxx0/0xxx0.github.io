@@ -1,0 +1,43 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_PULSE_COMPOSE_2026-09-22",
+  "status": "IMPLEMENTED_CANDIDATE",
+  "date": "2026-09-22",
+  "object": "FOLD//BLOOM family / shared FIELD PULSE composition",
+  "observed": [
+    "User reports the LISTEN ring/scope surface is subtle on phone and asks for hooks into FIELD apps/games, external music sources, rhythm-game relations, and APERTURE/AXIAL/RSVP composition.",
+    "LISTEN 0.2.2 and FIELD PULSE v0.1 already exist on current master; READFIELD already has explicit pulse-paced RSVP and LIVE already witnesses LISTEN beat/energy."
+  ],
+  "recovered": [
+    "/fold-bloom/listen/ is the audio intake/analysis projection; it remains local-file authoritative with best-effort Suno/direct address resolution.",
+    "/lib/field-pulse.js is ephemeral same-origin coordination only, not canonical state.",
+    "/fold-bloom/two-dial/ is the deep composition authority: MATTER × HARMONY → BLOOM/FOLD/SPLIT/RETURN plus WORLD × VOICE × GROOVE × SCALE."
+  ],
+  "delta": {
+    "route": "/fold-bloom/two-dial/",
+    "version": "0.10.1",
+    "changes": [
+      "Add explicit PULSE LINK OFF/ON control; OFF is default.",
+      "When ON and fresh LISTEN transport is playing, external BPM is octave-folded into 64–136 BPM and used as Two Dial's scheduler clock.",
+      "Energy and section remain visible witnesses; they do not mutate notes, harmony, motifs or form automatically.",
+      "Link expires automatically when LISTEN pulses go stale, preserving internal-clock fallback.",
+      "Two Dial commit/compose events publish bounded FIELD PULSE operation envelopes back to other instruments.",
+      "Phone HUD visibly reports PULSE <BPM> or PULSE WAIT."
+    ]
+  },
+  "boundaries": [
+    "borrowed clock != borrowed authorship",
+    "no automatic semantic mapping from song sections to BLOOM/FOLD/SPLIT/RETURN",
+    "no new bridge/hub surface",
+    "AUDIO MAP/source hash remain durable evidence; pulse remains ephemeral",
+    "do not extend to another consumer before real phone/headphone evidence"
+  ],
+  "verification": {
+    "repo_static": "PENDING_BRANCH_CI",
+    "browser_module_boot": "PENDING_BRANCH_CI",
+    "real_phone": "REQUIRED_NEXT: LISTEN + TWO DIAL same-origin cross-tab play with real audio"
+  },
+  "next_if_pass": "Design one beat/event tape export from AUDIO MAP + authored FIELD operations for Audiosurf/Beat Saber/tooling experiments; do not couple another live app first.",
+  "next_if_fail": "Keep FIELD PULSE for READFIELD/LIVE; remove or revise Two Dial clock borrowing without disturbing its 0.10 composition grammar.",
+  "stop_condition": "No additional live music bridge until the phone trial establishes that the linked clock is perceptible, stable and musically useful."
+}
