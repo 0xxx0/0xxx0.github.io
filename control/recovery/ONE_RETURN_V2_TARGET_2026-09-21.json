@@ -1,0 +1,71 @@
+{
+  "schema": "recovery-target/v0.1",
+  "id": "ONE_RETURN_V2_TARGET_2026-09-21",
+  "corrected_at": "2026-09-21T20:28:00+08:00",
+  "status": "IDENTIFIED_NOT_SOURCE_MATERIALIZED",
+  "target": {
+    "name": "SLEEPER // ONE RETURN",
+    "generation": "polished Work-mode / v2-era build",
+    "historical_url": "https://sleeper-one-return.metaname.chatgpt.site",
+    "historical_route": "/one-return",
+    "workspace_2026_09_10": "/workspace/sites/sleeper-one-return/",
+    "spec": "/workspace/sites/sleeper-one-return/docs/ONE_RETURN_V2.md"
+  },
+  "discriminators": {
+    "compiler": "PHRASE + CELL + FIGURE → deterministic world",
+    "phrase_effect": "topology/passages/Gate coordinates/wall alphabet/world key",
+    "cell_effect": "carried tokens / Gate order / governing law / provenance",
+    "figure_effect": "distinct movement/protocol physics / operator bias",
+    "play": "enacted Gates plus return; City and Disc projections",
+    "portability": "Witness JSON import/export + reproducible world links"
+  },
+  "recovered_runtime_evidence": {
+    "date": "2026-09-10",
+    "tests": [
+      "12 engine tests passed",
+      "deterministic Unicode seed normalization passed",
+      "phrase/cell/figure world compilation passed",
+      "Nine-Gate evidence and transfer prerequisites passed",
+      "Return Artifact provenance and measures passed",
+      "360 generated-city reachability/completability checks passed",
+      "production Worker build passed",
+      "three rendered-route tests passed"
+    ]
+  },
+  "figure_evidence": {
+    "known": "Four figure/Transfer configurations existed; retrieved conversation states Q/1 starts Conch and Conch reveals first signals.",
+    "likely_names": [
+      "Conch",
+      "Keris",
+      "W8",
+      "Spiral"
+    ],
+    "boundary": "The four names are recovered as the operator/configuration set, but the surviving source packet does not yet prove the exact picker labels or preserve every per-figure physics rule. Do not reconstruct those rules by analogy."
+  },
+  "url_boundary": {
+    "known": "Historical host contains `metaname` in the domain and the app supported reproducible world/deep links.",
+    "unknown": "Exact query parameter names/serialization syntax are not recovered in current accessible evidence.",
+    "rule": "Do not invent URL syntax."
+  },
+  "false_positive": {
+    "route": "/sleeper/one-return/",
+    "artifact": "later ASCII/Nine-Gate reconstruction",
+    "disposition": "DONOR",
+    "reason": "Surface resemblance (ASCII city/Nine Gates/DataDisc) lacks the v2 PHRASE+CELL+FIGURE compiler and figure-specific physics. It is not the polished game."
+  },
+  "recovery_sources_checked": [
+    "File Library: ONE_RETURN_SEAM_ENGINE_RESEARCH_v0.1.md",
+    "File Library: ONE_RETURN_SEAM_ENGINE_v0.2.md",
+    "File Library: ASCII_SLEEPER_THREAD_RECOVERY_2026-09-10.md",
+    "connected Google Drive searches",
+    "0xxx0 GitHub repositories",
+    "current AppDeploy inventory",
+    "public web search / historical hostname"
+  ],
+  "residue": [
+    "actual Work project/source snapshot is not exposed by current tools",
+    "exact figure picker UI and all per-figure physics mappings remain missing",
+    "exact reproducible URL query syntax remains missing"
+  ],
+  "stop_rule": "Do not rebuild v2 from the ASCII donor. Recover source/project snapshot or enough exact UI/code evidence first."
+}
