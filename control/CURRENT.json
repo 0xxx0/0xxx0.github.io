@@ -332,7 +332,7 @@
     "field_index_contract": "/control/FIELD_INDEX_CONTRACT.json",
     "house_confluence": "/house/confluence.json",
     "house_spatial_lineage": "/house/spatial-state.json",
-    "docs_reader": "/docs/",
+    "docs_reader": "/docs/?src=/path/to/same-origin-file.json&return=/caller",
     "confluence": "/control/confluence/",
     "law_zoo_confluence": "/control/confluence/LAW_ZOO.md",
     "cross_system_expedition": "/control/confluence/CROSS_SYSTEM_EXPEDITION.md",
@@ -427,7 +427,8 @@
     "representation_painting_fixture": "/control/REPRESENTATION_PAINTING_2026-09-21.json",
     "lens_proof_runtime": "/lens-proof.js",
     "field_repair_sweep": "/control/FIELD_REPAIR_SWEEP_2026-09-21.json",
-    "aperture_material_return": "/returns/APERTURE_MATERIAL_RSVP_2026-09-21.json"
+    "aperture_material_return": "/returns/APERTURE_MATERIAL_RSVP_2026-09-21.json",
+    "docs_reader_return": "/returns/DOCS_ADDRESSABLE_APERTURE_2026-09-21.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
