@@ -25,7 +25,7 @@ const docs=[
 ['RSVP RECOVERY','../control/confluence/RSVP_RECOVERY.md','Temporal-focus / Watch reader lineage']
 ];
 const L=document.querySelector('#list'),T=document.querySelector('#text'),H=document.querySelector('#title'),R=document.querySelector('#raw'),A=document.querySelector('#docAperture'),P=document.querySelector('#sourcePath'),O=document.querySelector('#openPath'),B=document.querySelector('#returnLink'),C=document.querySelector('#copyView'),V=document.querySelector('#reading'),M=document.querySelector('#focusMeta'),X=document.querySelector('#xrefs'),PT=document.querySelector('#pasteText'),PB=document.querySelector('#readPaste');
-let activeRaw='',activeUrl=null,activeLabel='';
+let activeRaw='',activeUrl=null,activeLabel='',sourceEpoch=0;
 const slug=s=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-');
 const TEXT_EXT=/\.(json|md|txt|csv|log|ya?ml|js|mjs|css|html|svg)$/i;
 function apertureView(){
@@ -106,7 +106,7 @@ function apertureOptions(label,value){
  return opt
 }
 function openPaste(text=PT.value){
- const s=String(text||'').trim();if(!s)return;
+ const s=String(text||'').trim();if(!s)return;sourceEpoch++;
  activeRaw=s;activeUrl=null;activeLabel='PASTE';H.textContent='PASTE / SESSION';R.hidden=true;T.textContent=s;P.value='';document.querySelectorAll('.doc').forEach(b=>b.classList.remove('on'));
  try{sessionStorage.setItem('docs.reader.paste.v1',s)}catch(_){}
  const q=new URLSearchParams(location.search);q.delete('src');q.set('paste','1');history.replaceState(null,'','?'+q.toString()+'#paste');
@@ -115,13 +115,13 @@ function openPaste(text=PT.value){
 
 docs.forEach(([n,u,d])=>{const b=document.createElement('button');b.className='doc';b.dataset.slug=slug(n);b.innerHTML='<b>'+n+'</b><span>'+d+'</span>';b.onclick=()=>openSource(n,u);L.append(b)});
 async function openSource(n,value){
- const u=sourceUrl(value);if(!u){T.textContent='Unavailable: source must be a same-origin text-like repo file.';return}
+ const u=sourceUrl(value);if(!u){T.textContent='Unavailable: source must be a same-origin text-like repo file.';return}const epoch=++sourceEpoch;
  H.textContent=n;R.hidden=false;R.href=u.pathname+u.search;T.textContent='Loading…';document.querySelectorAll('.doc').forEach(b=>b.classList.toggle('on',b.dataset.slug===slug(n)));
  try{
    const r=await fetch(u.pathname+u.search,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);
-   const s=await r.text();let value=s,out=s;if(/\.json$/i.test(u.pathname)){try{value=JSON.parse(s);out=JSON.stringify(value,null,2)}catch(_){}}
-   activeRaw=out;activeUrl=u;activeLabel=n;T.textContent=out;const opt=apertureOptions(n,value);firstLoad=false;A.load(value,opt);syncAddress(u,n);
- }catch(e){T.textContent='Unavailable: '+e.message}
+   const s=await r.text();if(epoch!==sourceEpoch)return;let value=s,out=s;if(/\.json$/i.test(u.pathname)){try{value=JSON.parse(s);out=JSON.stringify(value,null,2)}catch(_){}}
+   if(epoch!==sourceEpoch)return;activeRaw=out;activeUrl=u;activeLabel=n;T.textContent=out;const opt=apertureOptions(n,value);firstLoad=false;A.load(value,opt);syncAddress(u,n);
+ }catch(e){if(epoch===sourceEpoch)T.textContent='Unavailable: '+e.message}
 }
 function openTyped(){const u=sourceUrl(P.value);if(!u){T.textContent='Unavailable: use a same-origin text-like path such as /control/CURRENT.json';return}openSource(sourceLabel(u),u.pathname+u.search)}
 A.addEventListener('aperture-focus',e=>syncAperture(e.detail));
