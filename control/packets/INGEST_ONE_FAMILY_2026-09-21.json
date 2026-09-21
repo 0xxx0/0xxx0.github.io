@@ -45,7 +45,8 @@
   ],
   "preflight": [
     "git fetch --prune origin if operating inside a repo; report branch/dirty/HEAD/origin divergence before any write.",
-    "Locate each private report and verify its SHA-256 before analysis. If any required report is missing or hash-mismatched, RETURN BLOCKED and stop.",
+    "Run /scripts/locate-ingest-context.py. It must verify the six Sep-21 report hashes before analysis. If default ~/.0xxx0-ingest is not the report parent, set INGEST_REPORT_ROOT or pass one bounded --report-root.",
+    "Require locator result READY before semantic review. If reports verify but provenance is partial/missing, pass exactly one known --provenance-root or RETURN BLOCKED; do not search the whole home directory.",
     "Confirm the source tree remains read-only for this task; output must live outside the scanned source tree.",
     "Resolve /control/POLICY_INDEX.json plus /control/HERMES_LONG_GOALS.json when Hermes is used."
   ],
@@ -101,5 +102,25 @@
     "On ambiguous provenance that cannot distinguish version/association/duplicate.",
     "Before any move/delete/rename/publication."
   ],
-  "expected_return": "One evidence-bearing semantic family packet or an explicit BLOCKED/NO_GAIN receipt."
+  "expected_return": "One evidence-bearing semantic family packet or an explicit BLOCKED/NO_GAIN receipt.",
+  "locator": {
+    "script": "/scripts/locate-ingest-context.py",
+    "default_report_root": "~/.0xxx0-ingest",
+    "environment_override": "INGEST_REPORT_ROOT",
+    "behavior": "Find only the six expected report basenames under bounded report roots, require exact SHA-256 match, read verified run.json for the source root, then score bounded provenance-manifest candidates by overlap with the 559 inventory hashes.",
+    "success": "READY only when a >=90% hash-overlap provenance candidate is found; otherwise return reports-ready/provenance-review and require one explicit --provenance-root or stop.",
+    "example": "python3 scripts/locate-ingest-context.py"
+  },
+  "selection_hints": {
+    "preferred_if_exactly_supported": [
+      "old runnable HTML + authored report/spec family",
+      "POLY / FURNISHER / SINDER physical-programmable-substrate lineage if exact hash provenance links runnable/source bytes to the recovered 2018 product-description/spec material",
+      "another family with stronger exact provenance if the preferred anchors do not survive"
+    ],
+    "reject": [
+      "title-only grouping",
+      "visual resemblance without provenance",
+      "already-solved City/Painting or Path/Grid absent a concrete contradiction"
+    ]
+  }
 }
