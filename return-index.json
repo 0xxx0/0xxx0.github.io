@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/return-index/v0.1",
-  "generated": "2026-09-21",
+  "generated": "2026-09-22",
   "source": "/showcase-manifest.json",
   "count": 48,
   "receipts_ok": 48,
@@ -87,12 +87,12 @@
       "href": "/port/",
       "title": "HUMAN PORT 1.2",
       "state": "ACTIVE",
-      "version": "1.2-preview",
+      "version": "1.5.1-preview",
       "operation": "ROUTE",
       "receipt": "/port/release.json",
       "receipt_ok": true,
       "receipt_schema": "release-receipt/v1",
-      "release_updated": null
+      "release_updated": "2026-09-22"
     },
     {
       "href": "/laconic/",
@@ -131,12 +131,12 @@
       "href": "/care/",
       "title": "CARE / FIELD 0.4",
       "state": "ACTIVE",
-      "version": "0.4",
+      "version": "0.5",
       "operation": "CAPTURE",
       "receipt": "/care/release.json",
       "receipt_ok": true,
       "receipt_schema": "release-receipt/v1",
-      "release_updated": "2026-09-21"
+      "release_updated": "2026-09-22"
     },
     {
       "href": "/fold-bloom/two-dial/",
