@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T17:04:00+08:00",
+        "updated_at": "2026-09-21T17:48:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -41,7 +41,8 @@
         "LensState v0.2 typed composition over the same AXIAL/LATEST focus",
         "visible lawful/dead next-lens support",
         "NAV / INSPECT / LENS remain distinct operations",
-        "local PLAIN↔FOVEATED Lens proof bench with explicit receipt copy"
+        "local PLAIN↔FOVEATED Lens proof bench with explicit receipt copy",
+        "safe local focus→second-click OPEN friction cut"
       ]
     },
     {
@@ -2522,13 +2523,20 @@
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": false,
-      "role": "Human-readable browser for CURRENT, FI law, migration/census, confluence and other control documents; read-only support surface.",
+      "role": "Read-only control-document surface using the shared Field Aperture: selected JSON/Markdown remains canonical while scale/position focus and material host cues provide navigable structure; RAW remains available.",
       "index": {
-        "updated_at": "2026-09-20T19:00:00+08:00",
+        "updated_at": "2026-09-21T17:48:00+08:00",
         "work_modes": [
-          "IMPLEMENT"
+          "OPERATE",
+          "ORIENT",
+          "INSPECT"
         ]
-      }
+      },
+      "transfer": [
+        "Field Aperture text/JSON scale ladder",
+        "material host projection",
+        "same source / RAW fallback"
+      ]
     },
     {
       "href": "/control/confluence/",
@@ -4285,15 +4293,15 @@
     },
     {
       "href": "/foundry/aperture/",
-      "title": "APERTURE / INSPECTOR",
+      "title": "APERTURE / INSPECTOR 0.4",
       "kind": "utility",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "INSPECT",
       "state": "UTILITY",
-      "version": "0.3",
-      "receipt": "/foundry/aperture/release.json",
-      "role": "Ambient local inspection capability: summon against selected text, an active field value, addressed route metadata, pasted text/JSON, or a local file without leaving the host surface.",
+      "version": "0.4",
+      "receipt": "/returns/APERTURE_MATERIAL_RSVP_2026-09-21.json",
+      "role": "Ambient local inspection capability for arbitrary text/JSON/object context: source identity stays fixed while scale, position, time and optional material host state move together.",
       "transfer": [
         "Two Dial: two cyclic controls → one consequence",
         "AXIAL: fixed focus + unequal cyclic vocabularies",
@@ -4301,7 +4309,10 @@
         "RSVP 2018: speech boundary charIndex → temporal word focus",
         "portable dock(source,opt) host API",
         "session handoff / same inspector / different host",
-        "ambient selection-aware summon via /showcase-nav.js"
+        "ambient selection-aware summon via /showcase-nav.js",
+        "material host projection: position/scale/magnitude → CSS variables",
+        "high-speed RSVP control 60–3000 WPM",
+        "DOCS automatic aperture reuse"
       ],
       "contract": {
         "accepts": {
@@ -4321,7 +4332,7 @@
           ]
         },
         "transforms": {
-          "verb": "project one source through scale × position × time while preserving exact local focus identity",
+          "verb": "project one source through scale × position × time × optional material host state while preserving exact local focus identity",
           "preserves": [
             "source content",
             "focus address",
@@ -4333,7 +4344,8 @@
         },
         "emits": {
           "kinds": [
-            "field-aperture-focus/v0.1",
+            "field-aperture-focus/v0.2",
+            "aperture-material",
             "local focus event",
             "optional speech output"
           ],
@@ -4341,17 +4353,27 @@
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/foundry/aperture/release.json",
+          "receipt": "/returns/APERTURE_MATERIAL_RSVP_2026-09-21.json",
           "checks": [
             "text scale ladder",
             "JSON depth ladder",
             "logarithmic magnitude gap",
             "RSVP stepping",
             "SpeechSynthesis word-boundary sync",
-            "dock reuse in FIELD/HUMAN PORT"
+            "dock reuse in FIELD/HUMAN PORT",
+            "60–3000 WPM speed control",
+            "material-target host projection",
+            "DOCS JSON/text reuse"
           ],
           "return_path": "/foundry/aperture/"
-        }
+        },
+        "preserves": [
+          "source content",
+          "focus address",
+          "scale identity",
+          "local-only authority",
+          "host material state is presentation-only"
+        ]
       },
       "field": {
         "roles": [
@@ -4380,7 +4402,12 @@
           {
             "medium": "DATA",
             "kind": "stable local address + scale + index",
-            "interface": "field-aperture-focus/v0.1"
+            "interface": "field-aperture-focus/v0.2"
+          },
+          {
+            "medium": "REPRESENTATION",
+            "kind": "material position/scale/magnitude witness",
+            "interface": "CSS vars + aperture-material event"
           },
           {
             "medium": "AUDIO",
@@ -4408,11 +4435,12 @@
         "physical_fit": "Potential compact ring/annulus control grammar; no physical embodiment claim in 0.1."
       },
       "index": {
-        "updated_at": "2026-09-21T16:04:00+08:00",
+        "updated_at": "2026-09-21T17:48:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "REPRESENT"
         ]
       },
       "showcase_card": false,
