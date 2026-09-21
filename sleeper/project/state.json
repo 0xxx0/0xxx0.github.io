@@ -63,5 +63,13 @@
     "PLAYABLE != ORIGINAL.",
     "EXACT SOURCE != DEPLOYMENT PROOF.",
     "FROZEN COPY IS NEVER MODERNIZED IN PLACE."
-  ]
+  ],
+  "ship": {
+    "state": "SHIPPED",
+    "pr": 124,
+    "commit": "406ec300de95dc841d1e9691f061e0bee623837e",
+    "pages_run": 35657759502,
+    "post_merge_ci": 35657760630,
+    "receipt": "/returns/SLEEPER_PROJECT_SHIPPED_2026-09-22.json"
+  }
 }
