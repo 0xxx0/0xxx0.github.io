@@ -27,3 +27,8 @@ export function scopeWindow(map,time,scope){
   }
   const b=bi>=0?beats[bi]:time;return [Math.max(0,b-beatDur*.5),Math.min(map.duration,b+beatDur*.5)];
 }
+
+export function scrubTime(range,fraction){
+  const lo=Number.isFinite(Number(range?.[0]))?Number(range[0]):0,rawHi=Number.isFinite(Number(range?.[1]))?Number(range[1]):lo,hi=Math.max(lo,rawHi),p=Math.max(0,Math.min(1,Number(fraction)||0));
+  return lo+p*Math.max(.001,hi-lo);
+}
