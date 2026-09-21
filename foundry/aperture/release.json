@@ -78,5 +78,20 @@
     "mapping": "outer=position; inner=scale; gap=log10(bytes); center=foveated focus; time/voice drive position",
     "claim": "Useful visualization candidate only; not required for capability status."
   },
-  "receipt": "/returns/APERTURE_MATERIAL_RSVP_2026-09-21.json"
+  "receipt": "/returns/APERTURE_MATERIAL_RSVP_2026-09-21.json",
+  "charter": "/control/INSTRUMENT_CHARTERS.json#field-aperture",
+  "return_contract": {
+    "snapshot_schema": "field-aperture-focus/v0.2",
+    "local_handoff": "field.aperture.handoff.v01",
+    "durability": "HOST_OWNED",
+    "law": "APERTURE emits inspectable focus state; it does not silently promote that state into canonical history, semantic truth or action authority."
+  },
+  "boundary": {
+    "constraint_surface": "OUTSIDE — exact survivor/support law over record sets",
+    "axial_focus_stack": "OUTSIDE — categorical orientation across unequal dimensions",
+    "scale_lens": "DONOR / deeper identity-provenance owner",
+    "lens_state": "OUTSIDE — typed transition admissibility",
+    "state_aperture": "OUTSIDE — TEST/ARM/RUN consequence semantics",
+    "material_projection": "INSIDE presentation only"
+  }
 }

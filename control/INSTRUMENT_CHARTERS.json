@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/instrument-charters/v0.1",
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "purpose": "A compact maturity contract for instruments that have become important enough to survive beyond one experiment.",
   "maturity_gate": {
     "required_when": "STABLE, or an EXPERIMENT has a retained unique mechanism/public route and is being used as a donor for other work.",
@@ -217,6 +217,36 @@
         "motif:identity-through-projection",
         "motif:typed-path"
       ]
+    },
+    {
+      "id": "field-aperture",
+      "route": "/foundry/aperture/",
+      "maturity": "UTILITY / EXPERIMENTAL_PROJECTION",
+      "PASSION": "Keep one source graspable while attention changes scale, position, speed and voice, without manufacturing a second copy of the thing.",
+      "PURPOSE": "Inspect arbitrary local text/JSON/object context through addressed scale and focus, optionally traverse it temporally or by speech, and hand the resulting focus state back to the host.",
+      "POWER": "One compact component keeps source identity stable while visual density, local address, temporal focus and speech-boundary focus move together; the same component can dock into FIELD, HUMAN PORT, Docs or a standalone workbench.",
+      "PROOF": [
+        "field-aperture-focus/v0.2 snapshots reproduce current kind/scale/index/address/focus state",
+        "the same shared component runs across FIELD, HUMAN PORT, Docs and standalone APERTURE",
+        "source identity is preserved while scale/position/time/voice change",
+        "browser smoke and static checks pass for current host integrations",
+        "human task advantage over plain reading/inspection remains unproved"
+      ],
+      "PROMISE": "APERTURE is an inspection/projection utility, not an ontology or authority layer. Bytes/magnitude, ring gap, scale, material variables, WPM and speech timing never imply semantic importance, truth, confidence or permission. It does not absorb AXIAL exact-set support, LensState typed transition law, or STATE APERTURE TEST/ARM/RUN consequence semantics.",
+      "PRICE": "Dense controls and radial/material cues can exceed the value of plain scrolling/search; high-speed RSVP and browser speech behavior add cognitive/runtime variability. The component only earns presence when rapid reacquisition or multi-scale inspection is useful.",
+      "RETURN": "A field-aperture-focus/v0.2 snapshot and optional session handoff containing source label/kind, bytes, scale, index/count, local address, focus preview, WPM and material witness. Durability beyond the session is the host's responsibility.",
+      "motifs": [
+        "motif:identity-through-projection"
+      ],
+      "boundary": {
+        "constraint_surface": "Computes exact possibility across a record set; APERTURE does not.",
+        "axial_focus_stack": "Orients across unequal categorical dimensions; APERTURE inspects one source.",
+        "scale_lens": "Owns deeper canonical identity/provenance across projections; APERTURE preserves only the local inspected source/address supplied to it.",
+        "lens_state": "Checks typed projection/transition admissibility; APERTURE does not authorize composition.",
+        "state_aperture": "Owns consequential transform/TEST/ARM/RUN lineage; APERTURE is presentation-only.",
+        "two_dial": "Donates coupled cyclic-control feel; APERTURE does not universalize BLOOM/FOLD relation semantics.",
+        "rsvp": "Donates temporal/speech focus; speed is a traversal parameter, not a comprehension claim."
+      }
     }
   ]
 }
