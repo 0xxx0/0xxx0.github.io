@@ -1,0 +1,22 @@
+{
+  "schema": "field-presentation/v0.1",
+  "updated": "2026-09-21",
+  "purpose": "Project the same FIELD identity/state/operation at different information densities without inventing separate mobile/desktop semantics.",
+  "ladder": {
+    "MARK": "Glyph/mark only. Identity is available through target/title/aria or reveal; no prose required.",
+    "COMPACT": "Glyph + short identity + only decision-relevant metadata.",
+    "FULL": "Glyph + identity + provenance/state/role/details where space and task justify them."
+  },
+  "laws": [
+    "DENSITY IS A PROJECTION, NOT A DIFFERENT OBJECT.",
+    "AVAILABLE SPACE MAY CHANGE REPRESENTATION; IT MAY NOT CHANGE IDENTITY, STATE, AUTHORITY OR ORDER.",
+    "MARK MUST ROUND-TRIP TO THE SAME TARGET AS FULL.",
+    "TEXT IS REVEALABLE RESIDUE, NOT A PERMANENT TAX ON SCREEN AREA.",
+    "SEMANTIC MARKS COMPOSE FROM KIND × OPERATION × STATE × ATTENTION; decorative uniqueness is not a glyph law.",
+    "MOBILE/DESKTOP ARE IMPLEMENTATION CONDITIONS, NOT SEPARATE INTERFACE ONTOLOGIES."
+  ],
+  "carrier": "/field-presentation.js",
+  "mark_grammar": "/field-glyph.js",
+  "current_consumer": "/ FIELD INDEX",
+  "next_adoption_rule": "Adopt on another surface only when it removes duplicated responsive/presentation logic without erasing that surface's distinct interaction identity."
+}
