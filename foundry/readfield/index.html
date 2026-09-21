@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#080909">
+<title>READFIELD · APERTURE reader</title>
+<style>
+:root{--bg:#080909;--panel:#0d0f0f;--panel2:#111414;--ink:#ecece6;--mut:#69706e;--line:#2a2e2c;--hot:#ff7043;--cool:#72bce7;--green:#98d49b}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}button,textarea,input{font:inherit;border-radius:0}button{cursor:pointer}body{padding:max(10px,env(safe-area-inset-top)) 10px max(72px,env(safe-area-inset-bottom))}
+main{width:min(820px,100%);margin:auto}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:7px 0 9px;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:9px}.sig{border:1px solid #4b514e;padding:3px 5px;font-size:8px}.brand b{font:800 13px system-ui,sans-serif;letter-spacing:.06em}.kernel{color:var(--mut);font-size:7px}.kernel b{color:var(--cool)}.return{border:0;background:none;color:#aab0ad;text-align:right;font-size:7px;letter-spacing:.1em}.return span{display:block;color:#58605d;margin-top:2px;max-width:46vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin:8px 0 11px}.tabs button,.bar button,.sourceTools button{border:1px solid var(--line);background:#0d1010;color:#727976;padding:8px 5px;font-size:7px;letter-spacing:.1em}.tabs button.on,.bar button.on{border-color:#777f7b;color:#f2f2ec;background:#171a19}.view{display:none}.view.on{display:block}
+.flowStage{display:grid;gap:7px}.apWrap{border:1px solid #1c2220;background:#070909;padding:6px}.hostRail{display:grid;grid-template-columns:repeat(4,1fr);gap:3px}.hostRail button{border:1px solid var(--line);background:#0d1010;color:#9da4a1;padding:9px 5px;font-size:7px;letter-spacing:.08em}.hostRail button.marked{border-color:var(--cool);color:#cfefff}.hostRail .contextHold{border-color:#555d59}.hostRail .voice{border-color:#3d5965}.hostRail .receipt{border-color:#6a5832;color:#e5c889}
+.context{display:none;border:1px solid #3b403e;border-left:2px solid var(--hot);padding:11px 12px;background:#0c0e0d}.context.on{display:block}.context .ey{color:var(--hot);font-size:7px;letter-spacing:.12em}.context p{font:16px/1.65 Georgia,serif;color:#bfc3bc;margin:8px 0 0}.context mark{background:#3b1c13;color:#fff;padding:0 2px}
+.meta{display:flex;justify-content:space-between;gap:8px;color:var(--mut);font-size:7px;padding-top:3px}.meta b{color:#aab2ae;font-weight:500}
+.head{display:flex;justify-content:space-between;gap:12px;align-items:end;margin-bottom:8px}.head span{font-size:7px;letter-spacing:.12em;color:var(--mut)}.head b{font-size:8px;color:#aeb5b1}.bar{display:grid;grid-template-columns:repeat(4,1fr);gap:3px;margin-bottom:7px}.mapStage{height:310px;border:1px solid var(--line);background:#090b0b;position:relative;display:grid;place-items:center;touch-action:none}.lineMap{position:relative;width:calc(100% - 34px);height:70px}.lineMap:before{content:"";position:absolute;left:0;right:0;top:35px;border-top:2px solid #404643}.lineTick,.discTick{position:absolute;background:#69716d;pointer-events:none}.lineTick{top:28px;width:1px;height:14px}.lineTick.section{height:25px;top:23px;background:#868f8b}.lineTick.mark{height:19px;top:25px;background:var(--cool);width:2px}.lineCursor{position:absolute;top:19px;width:4px;height:33px;background:var(--hot);transform:translateX(-50%);pointer-events:none}.lineLabels{position:absolute;inset:53px 0 auto;display:flex;justify-content:space-between;color:#58605d;font-size:6px}.discMap{width:min(72vw,285px);aspect-ratio:1;position:relative}.discMap svg{display:block;width:100%;height:100%;overflow:visible}.discBase{fill:none;stroke:#414744;stroke-width:1.4}.discGuide{fill:none;stroke:#202523;stroke-width:1}.discTick{display:none}.discMap line{stroke:#68716d;stroke-width:1.3}.discMap line.section{stroke:#8b948f;stroke-width:2}.discMap line.mark{stroke:var(--cool);stroke-width:3}.discMap line.cursor{stroke:var(--hot);stroke-width:5}.discMap text{fill:#dfe2dd;text-anchor:middle;font:800 22px ui-monospace,monospace}.discMap text.sub{fill:#69716d;font-size:7px;letter-spacing:.12em;font-weight:400}.mapHint{position:absolute;left:10px;right:10px;bottom:8px;text-align:center;color:#555d59;font-size:7px;pointer-events:none}.trial{display:flex;align-items:center;gap:8px;min-height:28px;color:#5d6561;font-size:7px}.trial .recording{color:var(--hot)}.trial button{margin-left:auto;border:1px solid var(--line);background:#0d1010;color:#8f9793;padding:5px 7px;font-size:7px}
+.sheetGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:5px}.tile{min-height:132px;border:1px solid var(--line);background:#0d1010;color:#aab0ad;text-align:left;padding:12px;display:flex;flex-direction:column}.tile small{color:#5d6561;font-size:7px}.tile strong{font:15px/1.3 Georgia,serif;margin:auto 0;display:block}.tile span{align-self:flex-end;color:#7f8783}.tile.active{border-color:var(--hot);background:#121513}
+.sourceTools{display:grid;grid-template-columns:1fr auto auto;gap:3px;margin-bottom:6px}.sourceTools input{min-width:0;border:1px solid var(--line);background:#0d1010;color:#d8dbd5;padding:7px}.editor{width:100%;min-height:300px;resize:vertical;border:1px solid var(--line);background:#090b0b;color:#d7dad5;padding:12px;font:12px/1.55 ui-monospace,monospace;outline:none}.sourceRead{font:16px/1.72 Georgia,serif;color:#aeb3ad}.sourceRead p{margin:0 0 6px;padding:10px 12px;border-left:2px solid transparent;cursor:pointer}.sourceRead p.active{border-left-color:var(--hot);background:#101212;color:#f0f0ea}.sourceRead mark{background:#3b1c13;color:#fff;padding:1px 2px}
+.foot{position:fixed;z-index:20;left:50%;bottom:0;transform:translateX(-50%);width:min(100%,820px);display:flex;justify-content:space-between;gap:8px;align-items:center;background:#080a0af2;border-top:1px solid var(--line);padding:9px 11px max(9px,env(safe-area-inset-bottom));color:#555d59;font-size:7px}.foot b{color:#8a928e;font-weight:500}.foot a{color:#6f8ea0;text-decoration:none}
+.toast{position:fixed;left:50%;bottom:58px;transform:translateX(-50%);background:#151918;border:1px solid #3f4743;padding:7px 10px;color:#d8dcd6;font-size:7px;opacity:0;pointer-events:none;transition:opacity .12s}.toast.on{opacity:1}
+@media(max-width:560px){body{padding-inline:7px}.kernel{display:none}.tabs{margin-bottom:7px}.apWrap{padding:3px}.hostRail{grid-template-columns:repeat(2,1fr)}.mapStage{height:285px}.sheetGrid{grid-template-columns:1fr 1fr}.tile{min-height:118px;padding:9px}.tile strong{font-size:13px}.sourceTools{grid-template-columns:1fr 1fr}.sourceTools input{grid-column:1/-1}.foot span:nth-child(2){display:none}}
+@media(max-width:350px){.sheetGrid{grid-template-columns:1fr}.brand b{font-size:11px}}
+</style>
+</head>
+<body>
+<main>
+<header class="top">
+  <div class="brand"><span class="sig">RF/02</span><b>READFIELD</b><span class="kernel">hosted by <b>APERTURE 0.6</b></span></div>
+  <button class="return" id="returnBtn">RETURN<span id="returnMeta">source → focus → receipt</span></button>
+</header>
+<nav class="tabs" aria-label="Reader projections">
+  <button class="on" data-view="flow">FLOW</button>
+  <button data-view="map">MAP</button>
+  <button data-view="sheet">SHEET</button>
+  <button data-view="text">TEXT</button>
+</nav>
+
+<section class="view on" id="flow">
+  <div class="flowStage">
+    <div class="apWrap"><field-aperture id="ap"></field-aperture></div>
+    <div class="hostRail">
+      <button id="contextHold" class="contextHold">HOLD CONTEXT</button>
+      <button id="markBtn">MARK</button>
+      <button id="voiceBtn" class="voice">VOICE</button>
+      <button id="flowReceipt" class="receipt">COPY RETURN</button>
+    </div>
+    <div class="context" id="context"><div class="ey">CONTEXT APERTURE · SAME SOURCE</div><p id="contextText"></p></div>
+    <div class="meta"><span id="flowScale">—</span><b id="flowAddress">—</b><span id="flowProgress">0%</span></div>
+  </div>
+</section>
+
+<section class="view" id="map">
+  <div class="head"><span>E1 · INFORMATION-MATCHED MINIMAP</span><b id="mapPct">0%</b></div>
+  <div class="bar">
+    <button class="on" id="lineBtn">LINE</button>
+    <button id="discBtn">DISC</button>
+    <button id="trialStart">START TRIAL</button>
+    <button id="trialStop">STOP</button>
+  </div>
+  <div class="mapStage" id="mapStage">
+    <div class="lineMap" id="lineMap"></div>
+    <div class="discMap" id="discMap" hidden><svg id="discSvg" viewBox="0 0 240 240"></svg></div>
+    <div class="mapHint">same source coordinate · click/tap to seek · geometry is the experimental variable</div>
+  </div>
+  <div class="trial"><span id="trialState">TRIAL IDLE</span><span id="eventCount">0 EVENTS</span><button id="copyTrial">COPY E1 RECEIPT</button></div>
+</section>
+
+<section class="view" id="sheet">
+  <div class="head"><span>PARALLEL SCAN · SECTION/PARAGRAPH PROJECTION</span><b>select → FLOW</b></div>
+  <div class="sheetGrid" id="sheetGrid"></div>
+</section>
+
+<section class="view" id="text">
+  <div class="head"><span>SOURCE / RETURN</span><b id="sourceState">LOCKED</b></div>
+  <div class="sourceTools">
+    <input id="label" value="READFIELD specimen" aria-label="source label">
+    <button id="editBtn">EDIT SOURCE</button>
+    <button id="useBtn">USE SOURCE</button>
+  </div>
+  <textarea class="editor" id="editor" spellcheck="false" hidden></textarea>
+  <div class="sourceRead" id="sourceRead"></div>
+</section>
+</main>
+
+<footer class="foot"><span id="receiptLine">—</span><span><b>APERTURE owns cursor</b> · READFIELD owns projections/marks/experiments</span><a href="../aperture/">KERNEL ↗</a></footer>
+<div class="toast" id="toast"></div>
+
+<script src="../../field-aperture.js"></script>
+<script>
+(function(){
+'use strict';
+const $=id=>document.getElementById(id);
+const SAMPLE='# Orientation\\nREADFIELD is an instrument for acquiring information without surrendering orientation. One source should remain the same addressable object while its perceptual form changes.\\n\\n# Temporal focus\\nRapid serial presentation is useful when attention must narrow, but fixed word timing throws away structure. Phrase and sentence scales should be reversible views over one source cursor, not new copies of the document.\\n\\n# Repair\\nReading includes hesitation, regression, context recovery and return. Pause must reopen the neighborhood around the current source position so a missed relation can be repaired without restarting.\\n\\n# Parallel scan\\nA contact sheet exposes structural chunks at once so peripheral vision can choose a path. The selected chunk collapses into temporal focus and can expand back into ordinary text without losing its address.\\n\\n# Falsifier\\nRepresentation complexity must remain lower than the information gained from it. DataDisc therefore competes against an information-matched line while both seek the exact same source coordinate.';
+const ap=$('ap'),editor=$('editor'),label=$('label');
+let source=SAMPLE,view='flow',mapForm='line',snap=null,context=false,trial=null,events=[];
+let marks=loadMarks();
+function loadMarks(){try{return JSON.parse(localStorage.getItem('readfield.marks.v2')||'[]')}catch(_){return[]}}
+function saveMarks(){localStorage.setItem('readfield.marks.v2',JSON.stringify(marks))}
+function clamp(x,a,b){return Math.max(a,Math.min(b,x))}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function toast(s){$('toast').textContent=s;$('toast').classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>$('toast').classList.remove('on'),1100)}
+function hashText(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return 'fnv1a-'+(h>>>0).toString(16).padStart(8,'0')}
+function setView(next){view=next;document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x.id===next));document.querySelectorAll('[data-view]').forEach(x=>x.classList.toggle('on',x.dataset.view===next));log('view:'+next);renderHost()}
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>setView(b.dataset.view));
+function log(event,data={}){if(!trial)return;events.push({t:Math.round(performance.now()-trial.started),event,condition:mapForm,char:snap?.char_index??null,progress:snap?.source_progress??0,...data});$('eventCount').textContent=events.length+' EVENTS'}
+function scale(id){return ap.A?.scales?.find(x=>x.id===id)||null}
+function unitAt(id,at=snap?.char_index??0){const s=scale(id);if(!s)return null;return s.units.find(x=>(x.start??0)<=at&&at<Math.max((x.start??0)+1,x.end??0))||s.units[0]||null}
+function activeMark(){const at=snap?.char_index;if(!Number.isFinite(at))return -1;return marks.findIndex(m=>Math.abs(m.char-at)<=2)}
+function mark(){
+ if(!snap||!Number.isFinite(snap.char_index))return;
+ const i=activeMark();
+ if(i>=0)marks.splice(i,1);
+ else marks.push({char:snap.char_index,at:snap.source_progress,address:snap.address,label:String(snap.focus||'').slice(0,72)});
+ marks.sort((a,b)=>a.char-b.char);saveMarks();log(i>=0?'mark:remove':'mark:add');renderHost()
+}
+function contextHtml(){
+ const p=unitAt('PARA')||unitAt('SENT');if(!p)return esc(snap?.focus||'');
+ const raw=String(ap.A?.raw||''),a=p.start??0,b=p.end??raw.length,fa=clamp(snap?.span?.start??snap?.char_index??a,a,b),fb=clamp(snap?.span?.end??fa+1,fa,b);
+ return esc(raw.slice(a,fa))+'<mark>'+esc(raw.slice(fa,fb))+'</mark>'+esc(raw.slice(fb,b))
+}
+function showContext(on){context=!!on;$('context').classList.toggle('on',context);if(context)$('contextText').innerHTML=contextHtml()}
+const ch=$('contextHold');ch.addEventListener('pointerdown',e=>{e.preventDefault();showContext(true);log('context:open')});['pointerup','pointerleave','pointercancel'].forEach(k=>ch.addEventListener(k,()=>showContext(false)));ch.onclick=e=>e.preventDefault();
+$('markBtn').onclick=mark;$('voiceBtn').onclick=()=>{if(!snap)return;if(snap.speaking)ap.stop();else ap.speak();log(snap.speaking?'voice:stop':'voice:start')};
+function seek(frac,why='map:seek'){frac=clamp(frac,0,1);ap.seekFraction(frac);log(why,{seek:frac});setView('flow')}
+function mapPointerFrac(e,disc=false){
+ const r=e.currentTarget.getBoundingClientRect();
+ if(!disc)return clamp((e.clientX-r.left)/r.width,0,1);
+ const x=e.clientX-(r.left+r.width/2),y=e.clientY-(r.top+r.height/2),a=Math.atan2(y,x)+Math.PI/2;
+ return ((a<0?a+Math.PI*2:a)/(Math.PI*2))
+}
+$('lineMap').onclick=e=>seek(mapPointerFrac(e,false));$('discMap').onclick=e=>seek(mapPointerFrac(e,true));
+function lineTick(at,klass,title){const x=document.createElement('i');x.className='lineTick '+klass;x.style.left=(clamp(at,0,1)*100)+'%';x.title=title||'';return x}
+function polar(frac,r){const a=-Math.PI/2+clamp(frac,0,1)*Math.PI*2;return[120+Math.cos(a)*r,120+Math.sin(a)*r]}
+function svgEl(tag,attrs,klass){const x=document.createElementNS('http://www.w3.org/2000/svg',tag);if(klass)x.setAttribute('class',klass);Object.entries(attrs||{}).forEach(([k,v])=>x.setAttribute(k,String(v)));return x}
+function renderMap(){
+ if(!snap)return;const frac=snap.source_progress||0,st=snap.structure||[];
+ $('mapPct').textContent=Math.round(frac*100)+'%';$('lineBtn').classList.toggle('on',mapForm==='line');$('discBtn').classList.toggle('on',mapForm==='disc');$('lineMap').hidden=mapForm!=='line';$('discMap').hidden=mapForm!=='disc';
+ const lm=$('lineMap');lm.replaceChildren();
+ st.forEach(m=>lm.appendChild(lineTick(m.at,'section',m.label)));marks.forEach(m=>lm.appendChild(lineTick(m.at,'mark',m.label)));
+ const cur=lineTick(frac,'lineCursor','current');cur.className='lineCursor';lm.appendChild(cur);
+ const labels=document.createElement('div');labels.className='lineLabels';labels.innerHTML='<span>0</span><span>source</span><span>100</span>';lm.appendChild(labels);
+ const svg=$('discSvg');svg.replaceChildren();svg.appendChild(svgEl('circle',{cx:120,cy:120,r:94},'discBase'));svg.appendChild(svgEl('circle',{cx:120,cy:120,r:77},'discGuide'));
+ const radial=(at,klass,r1=88,r2=101)=>{const a=polar(at,r1),b=polar(at,r2),l=svgEl('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1]},klass);return l};
+ st.forEach(m=>{const x=radial(m.at,'section',86,100);x.appendChild(svgEl('title'));x.firstChild.textContent=m.label||'';svg.appendChild(x)});
+ marks.forEach(m=>{const x=radial(m.at,'mark',84,103);x.appendChild(svgEl('title'));x.firstChild.textContent=m.label||'mark';svg.appendChild(x)});
+ svg.appendChild(radial(frac,'cursor',80,107));const pct=svgEl('text',{x:120,y:118});pct.textContent=Math.round(frac*100)+'%';svg.appendChild(pct);const sub=svgEl('text',{x:120,y:134},'sub');sub.textContent='CANONICAL SOURCE POSITION';svg.appendChild(sub)
+}
+function renderSheet(){
+ const s=(scale('SECTION')?.units?.length>1?scale('SECTION'):scale('PARA'))||scale('SENT');const g=$('sheetGrid');g.replaceChildren();if(!s)return;
+ s.units.slice(0,80).forEach((u,i)=>{const b=document.createElement('button'),mid=((u.start??0)+(u.end??0))/2,active=(u.start??0)<=(snap?.char_index??-1)&&(snap?.char_index??-1)<Math.max((u.start??0)+1,u.end??0);b.className='tile'+(active?' active':'');b.innerHTML='<small>'+String(i+1).padStart(2,'0')+' · '+Math.round(((u.start??0)/Math.max(1,ap.A.raw.length))*100)+'%</small><strong>'+esc(String(u.text||u.value||'').replace(/^#+\\s*/,'').slice(0,145))+'</strong><span>→</span>';b.onclick=()=>{ap.selectChar(mid);log('sheet:select',{index:i});setView('flow')};g.appendChild(b)})
+}
+function renderSource(){
+ const s=scale('PARA')||scale('SENT'),g=$('sourceRead');g.replaceChildren();if(!s)return;
+ s.units.forEach((u,i)=>{const p=document.createElement('p'),active=(u.start??0)<=(snap?.char_index??-1)&&(snap?.char_index??-1)<Math.max((u.start??0)+1,u.end??0),raw=String(ap.A.raw||''),a=u.start??0,b=u.end??raw.length;p.className=active?'active':'';if(active&&snap?.span){const fa=clamp(snap.span.start,a,b),fb=clamp(snap.span.end,fa,b);p.innerHTML=esc(raw.slice(a,fa))+'<mark>'+esc(raw.slice(fa,fb))+'</mark>'+esc(raw.slice(fb,b))}else p.textContent=String(u.text||u.value||'');p.onclick=()=>{ap.selectChar((a+b)/2);log('text:select',{index:i});setView('flow')};g.appendChild(p)})
+}
+function receipt(kind='RETURN'){
+ return {schema:'readfield/return/v0.2',kind,at:new Date().toISOString(),source:{label:ap.A?.label||label.value,chars:ap.A?.raw?.length||0,hash:hashText(ap.A?.raw||'')},cursor:snap,marks:[...marks],view,map_form:mapForm,trial:trial?{condition:mapForm,events:[...events]}:null,kernel:'field-aperture-focus/v0.2'}
+}
+async function copy(x,msg){try{await navigator.clipboard.writeText(JSON.stringify(x,null,2));toast(msg)}catch(_){toast('COPY UNAVAILABLE')}}
+$('returnBtn').onclick=() => copy(receipt(),'RETURN COPIED');$('flowReceipt').onclick=() => copy(receipt(),'RETURN COPIED');
+$('copyTrial').onclick=()=>copy(receipt('E1_MAP_GEOMETRY'),'E1 RECEIPT COPIED');
+$('trialStart').onclick=()=>{trial={started:performance.now(),wall:new Date().toISOString()};events=[];log('trial:start');$('trialState').textContent='RECORDING · '+mapForm.toUpperCase();$('trialState').className='recording';renderHost()};
+$('trialStop').onclick=()=>{log('trial:stop');trial=null;$('trialState').textContent='TRIAL STOPPED';$('trialState').className='';renderHost()};
+$('lineBtn').onclick=()=>{mapForm='line';log('condition:line');renderMap()};$('discBtn').onclick=()=>{mapForm='disc';log('condition:disc');renderMap()};
+$('editBtn').onclick=()=>{editor.hidden=!editor.hidden;$('sourceRead').hidden=!editor.hidden;$('sourceState').textContent=editor.hidden?'LOCKED':'EDITING'};
+$('useBtn').onclick=()=>{source=editor.value.trim()||SAMPLE;marks=[];saveMarks();events=[];trial=null;ap.load(source,{label:label.value||'READFIELD source',scale:'PHRASE',wpm:snap?.wpm||420});editor.hidden=true;$('sourceRead').hidden=false;$('sourceState').textContent='LOCKED';setView('flow');toast('SOURCE LOADED')};
+function renderHost(){
+ if(!snap)return;$('flowScale').textContent=(snap.scale_label||snap.scale||'—')+' · '+snap.wpm+' WPM';$('flowAddress').textContent=snap.address||'—';$('flowProgress').textContent=Math.round((snap.source_progress||0)*100)+'%';$('returnMeta').textContent=(snap.scale||'—')+' · '+Math.round((snap.source_progress||0)*100)+'% · '+marks.length+' marks';$('receiptLine').textContent=(snap.scale||'—')+' · '+(snap.index+1)+'/'+snap.count+' · '+marks.length+' marks';$('markBtn').classList.toggle('marked',activeMark()>=0);$('markBtn').textContent=activeMark()>=0?'MARKED':'MARK';$('voiceBtn').textContent=snap.speaking?'STOP VOICE':'VOICE';if(context)$('contextText').innerHTML=contextHtml();renderMap();renderSheet();renderSource()
+}
+ap.addEventListener('aperture-focus',e=>{snap=e.detail;renderHost()});
+editor.value=source;ap.load(source,{label:label.value,scale:'PHRASE',wpm:420});
+window.__READFIELD__={snapshot:()=>receipt('SNAPSHOT'),aperture:()=>ap,seek,setView,mark,marks:()=>[...marks]};
+})();
+</script>
+<script src="../../showcase-nav.js" defer></script>
+</body>
+</html>
