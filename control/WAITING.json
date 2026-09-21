@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/waiting/v0.1",
-  "updated": "2026-09-22T02:41:00+08:00",
+  "updated": "2026-09-22T05:31:00+08:00",
   "purpose": "Compact public-safe projection of work whose next lawful move depends on human observation, choice, permission, private input, or physical action. This is not the machine execution queue.",
   "laws": [
     "WAITING != QUEUE.",
@@ -17,11 +17,14 @@
       "id": "body-health-connect-permission",
       "route": "/body/fit/",
       "state": "WAITING_ON_HUMAN",
-      "human_move": "When ready, run/authorize the minimal Android Health Connect reader for only sleep + heart rate and export one local proof bundle.",
-      "why": "The repo can specify the adapter, but cannot grant phone-side Health Connect permissions or produce a real personal source record.",
-      "unlocks": "Verify /body/fit/health-connect.adapter.json against one real bounded bundle in BODY / FIT; only then decide whether an automatic local relay is worth adding.",
+      "human_move": "Install/run BODY BRIDGE, grant only Sleep + Heart Rate read access, export one local raw packet, then import it into BODY / FIT.",
+      "why": "The repo can prove the transform and compile the native reader, but cannot grant phone-side Health Connect permissions or produce real personal source records.",
+      "unlocks": "Close the adapter proof with one real bounded source→export→transform→BODY/FIT round trip; only then consider an automatic local relay or more record types.",
       "privacy": "No raw personal health data is committed to the public repo.",
-      "adapter": "/body/fit/health-connect.adapter.json"
+      "adapter": "/body/fit/health-connect.adapter.json",
+      "native_source": "/android/body-bridge/",
+      "transform": "/body/fit/health-connect-transform.js",
+      "proof_state": "AUTOMATED_TRANSFORM_GREEN / NATIVE_COMPILE_PENDING / REAL_DEVICE_REQUIRED"
     },
     {
       "id": "body-calibration-first-campaign",
