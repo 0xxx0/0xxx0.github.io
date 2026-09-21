@@ -1,6 +1,6 @@
 {
-  "schema": "field-index-contract/v0.2",
-  "updated": "2026-09-21",
+  "schema": "field-index-contract/v0.3",
+  "updated": "2026-09-22",
   "purpose": "Keep FIELD INDEX usable under growth: fast newest-first repo re-entry with one shared focus identity across AXIAL, chronology and map; secondary structure/issues/lineage/proof readings remain available without competing for the first screen.",
   "laws": [
     "ATTENTION ≠ RECENCY. /control/CURRENT.json owns NOW; route.index.updated_at records mutation evidence only.",
@@ -24,7 +24,11 @@
     "NO INTERSECTION ≠ NEAREST GUESS. An AXIAL tuple with no exact manifest match reports no match rather than inventing a route.",
     "SUPPORT ≠ IMPORTANCE. AXIAL support counts are exact compatibility counts under the currently aligned dimensions, not priority, probability or recommendation.",
     "VISIBLE POSSIBILITY SET. When constraints change, the surviving exact route identities should remain perceptible before navigation; one survivor may read LOCK, zero reads DEAD.",
-    "EVIDENCE MAY ACCUMULATE PASSIVELY / LOCALLY. Comparative interface evidence may be recorded in browser-local receipts without network telemetry or dedicated QA ritual."
+    "EVIDENCE MAY ACCUMULATE PASSIVELY / LOCALLY. Comparative interface evidence may be recorded in browser-local receipts without network telemetry or dedicated QA ritual.",
+    "TRACE ≠ AUTHORITY. A policy trace records selector/policy/operation evidence; it never creates permission, identity, priority or next-move authority.",
+    "VERIFY STATES ARE THREE-VALUED. FAIL proves violation; INDETERMINATE means required evidence/capability is unavailable; PASS requires every check for the requested profile to execute and pass.",
+    "FOCUS MAY BECOME RESOURCE ADDRESS. TRACE / VERIFY may bind the current FIELD focus as an opaque resource reference, but focus itself grants no READ/REMEMBER/ANSWER/DRAFT/ACT/ESCALATE permission.",
+    "RAW INPUT DOES NOT ENTER THE TRACE BY DEFAULT. Local reference tracing may derive an event digest/ref from typed text, but committed/exported traces remain content-free unless a future private policy explicitly governs retention."
   ],
   "root_order": {
     "default": "AXIAL_LATEST",
@@ -83,7 +87,9 @@
     "root_axial_latest": "AXIAL / LATEST 0.5 adapts AXIAL 0.7 over ROUTE × STATE × OPERATION × WORK MODE. Every position exposes exact lawful support; support is encoded as count + luminance + compact bar, current matches form a survivor glyph set, and one fixed aperture resolves the selected exact route.",
     "root_axial_survivors": "Render the current exact-match set between the strips and focus aperture. One survivor = LOCK 1; zero = DEAD; many = LIVE n. A short survivor-count trail may expose how the possibility space collapsed during the current interaction.",
     "root_axial_trial": "Store only local browser interaction counts under field-axial-trial/v0.1: AXIAL focus selections, plain LATEST focus selections, dead intersections, OPEN counts and rough focus→OPEN elapsed time. No automatic network transmission and no claim that elapsed time alone proves usability.",
-    "root_axial_deeplink": "Embedded focus may serialize ax_state / ax_op / ax_mode / focus into the root URL. Reload/share must reconstruct the same bounded focus state when values still exist."
+    "root_axial_deeplink": "Embedded focus may serialize ax_state / ax_op / ax_mode / focus into the root URL. Reload/share must reconstruct the same bounded focus state when values still exist.",
+    "root_trace_verify": "/field-policy-trace.mjs binds the current shared FIELD focus to a local reference policy trace; shows seven gates plus causal events; runs /policy-trace-verifier.mjs for STRUCTURAL/REPLAY/SEALED status; local commit/export excludes raw input.",
+    "root_trace_status": "STRUCTURAL/REPLAY/SEALED are evidence levels, not quality scores. Explicitly unsealed trace fails SEALED; unavailable replay/schema evidence returns INDETERMINATE."
   },
   "query_semantics": {
     "BOTTLENECK": {
@@ -166,6 +172,10 @@
     "AXIAL_LATEST": {
       "source": "showcase-manifest routes + route.index.updated_at + AXIAL 0.7 support law",
       "meaning": "Primary focus compositor. Unequal route/state/operation/work-mode vocabularies expose exact support and survivor-set collapse while preserving ordinary chronological control below."
+    },
+    "TRACE_VERIFY": {
+      "source": "/field-policy-trace.mjs + /policy-resolution-trace.schema.json + /policy-trace-verifier.mjs",
+      "meaning": "Collapsed-by-default proof lens over the currently focused route. It demonstrates policy trace mechanics with a local reference policy and cannot stand in for real private person/resource policy resolution."
     }
   },
   "evolution_contract": {
