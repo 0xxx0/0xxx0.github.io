@@ -61,7 +61,9 @@
         "/field-intake/",
         "/field-intake/release.json",
         "/returns/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json",
-        "/control/confluence/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json"
+        "/control/confluence/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json",
+        "/control/confluence/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
+        "/returns/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json"
       ]
     }
   ],
@@ -160,10 +162,10 @@
     },
     {
       "lineage": "comms",
-      "head": "HUMAN PORT 1.5 OBJECT APERTURE + FIELD INTAKE 0.5 admission bridge + CONTACT/LACONIC/Router",
+      "head": "HUMAN PORT 1.5.1 OBJECT APERTURE + FIELD INTAKE 0.5 + CARE 0.5 evidence bridge + CONTACT/LACONIC/Router",
       "state": "ACTIVE",
       "route": "/port/",
-      "retained_function": "One addressed object may enter as text/JSON/image/file, retain byte/provenance identity, expose whole/focused projections and route FIT separately from CUES/HISTORY, then cross a bounded adapter. Durable admission remains behind FIELD INTAKE review/APPLY; Port never silently canonizes or uploads the source."
+      "retained_function": "One addressed object may enter as text/JSON/image/file, retain byte/provenance identity, expose whole/focused projections and route FIT separately from CUES/HISTORY, then cross a bounded adapter. CARE now participates without owning bytes: exact care snapshots can enter Port; Port sources may be explicitly attached to a care case as evidence refs with source RETURN when available. CONTACT remains outbound; durable admission remains behind FIELD INTAKE review/APPLY."
     },
     {
       "lineage": "house-spatial",
@@ -427,7 +429,7 @@
     "shape_law_issue": "0xxx0/0#7",
     "care_field": "/care/",
     "care_state_research": "/control/research/CARE_STATE_2026-09-21.md",
-    "care_validation": "/control/CARE_VALIDATION_2026-09-21_V04.json",
+    "care_validation": "/control/CARE_VALIDATION_2026-09-22_V05.json",
     "care_course": "/control/research/CARE_COURSE_2026-09-21.md",
     "laconic_lineage": "/laconic/recovered/persona-to-council-lineage.json",
     "laconic_early_plurality": "/laconic/recovered/early-plurality-donors-2024.json",
@@ -514,7 +516,8 @@
     "fold_bloom_sound_depth": "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
     "fold_bloom_sound_depth_return": "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
     "triangle": "/forward-field-proof/triangle/",
-    "triangle_return": "/returns/TRIANGLE_UNIFIED_2026-09-22.json"
+    "triangle_return": "/returns/TRIANGLE_UNIFIED_2026-09-22.json",
+    "care_port_object_bridge": "/control/confluence/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
