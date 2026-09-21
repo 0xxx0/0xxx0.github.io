@@ -1,0 +1,121 @@
+{
+  "schema": "0xxx0/hermes-media-curator/v0.1",
+  "id": "FIELD-HERMES-MEDIA-CURATOR",
+  "updated": "2026-09-22",
+  "purpose": "Use Hermes as a bounded supervisor over MEDIA REFINERY while local vision handles bulk semantic annotation.",
+  "roles": {
+    "deterministic_refinery": {
+      "implementation": "/scripts/media-refinery-run.py",
+      "authority": [
+        "discover",
+        "hash",
+        "dedupe",
+        "fingerprint",
+        "batch",
+        "contact_sheet",
+        "control_maps",
+        "recipe_compile"
+      ],
+      "model_calls": false
+    },
+    "bulk_semantic_worker": {
+      "implementation": "/scripts/media-curator-cycle.py",
+      "default_model": "qwen3-vl:8b",
+      "endpoint": "Ollama /api/chat",
+      "authority": [
+        "semantic_overlay_only"
+      ],
+      "structured_outputs": true,
+      "retries": 2,
+      "source_mutation": false
+    },
+    "hermes_supervisor": {
+      "skill": "/skills/media-curator/SKILL.md",
+      "bootstrap": "/scripts/hermes-media-bootstrap.sh",
+      "recommended_provider": "ChatGPT/Codex OAuth or another strong configured Hermes provider",
+      "local_only_option": {
+        "model": "field-qwen3-vl:8b-64k",
+        "base_url": "http://localhost:11434/v1",
+        "context_length": 65536
+      },
+      "authority": [
+        "launch bounded cycles",
+        "read morning return",
+        "adjudicate held/high-value batches",
+        "delegate exception review",
+        "schedule only after bounded proof"
+      ]
+    }
+  },
+  "model_policy": {
+    "bulk_visual_semantics": {
+      "model": "qwen3-vl:8b",
+      "reason": "Small enough for continuous local throughput while retaining vision, OCR and spatial semantics.",
+      "note": "Bulk worker talks directly to Ollama and sets num_ctx=65536 per request."
+    },
+    "supervisor": {
+      "preferred": "strong Hermes tool model via configured provider; ChatGPT/Codex OAuth avoids a separate OpenAI API key when available",
+      "law": "Do not spend supervisor inference on every image."
+    },
+    "similarity_embedding_next": {
+      "preferred": "SigLIP2",
+      "status": "NOT_YET_IMPLEMENTED",
+      "use": "semantic image retrieval / nearest-neighbor family discovery",
+      "law": "Embedding similarity is a retrieval signal, not lineage or composition truth."
+    },
+    "structural_embedding_optional": {
+      "preferred": "DINOv3",
+      "status": "PARKED",
+      "use": "morphology/structure-sensitive similarity when SigLIP2 + quantitative metrics prove insufficient."
+    }
+  },
+  "loop": [
+    "MEDIA ROOT (read-only)",
+    "REFINERY DISCOVER/HASH/DEDUPE",
+    "BATCH + CONTACT SHEET",
+    "LOCAL QWEN3-VL SEMANTIC OVERLAY",
+    "OVERLAY VALIDATION",
+    "ACCEPT or bounded RETRY/HOLD",
+    "REFINERY RERUN",
+    "RECIPE QUEUE",
+    "HERMES MORNING RETURN",
+    "human selects recipes before TRANSLATE/render"
+  ],
+  "laws": [
+    "SOURCE TREE IS READ-ONLY.",
+    "ORGANIZATION IS AN INDEX/VIEW BEFORE IT IS A FILESYSTEM MOVE.",
+    "LOCAL BULK MODEL MAY ONLY RETURN SEMANTIC OVERLAYS.",
+    "LOW-CONFIDENCE OR INVALID OVERLAYS DO NOT ENTER CANONICAL MEMORY.",
+    "HERMES HANDLES EXCEPTIONS; IT DOES NOT DUPLICATE DETERMINISTIC PIPELINE WORK.",
+    "NO RENDERING OR TRANSLATE IN THE CURATION LOOP.",
+    "NO CRON UNTIL A SMALL BOUNDED RUN COMPLETES CLEANLY."
+  ],
+  "local_surfaces": {
+    "memory": [
+      "index.jsonl",
+      "duplicates.json",
+      "batches.json",
+      "worker-packets.jsonl",
+      "overlay-submissions/",
+      "overlay-validation/",
+      "semantic-overlays/",
+      "recipe-queue.json",
+      "morning-return.json"
+    ],
+    "derived": [
+      "contact-sheets/",
+      "maps/"
+    ],
+    "source_media": "never copied to repo by default"
+  },
+  "first_proof": {
+    "max_batches": 3,
+    "success": [
+      "source_mutated=false",
+      "rendering_performed=false",
+      "all attempted batches either accepted or explicitly held",
+      "morning-return exists",
+      "recipe queue changes only after accepted overlay evidence"
+    ]
+  }
+}
