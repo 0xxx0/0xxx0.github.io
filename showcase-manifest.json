@@ -4079,7 +4079,6 @@
       "state": "PROOF_REQUIRED",
       "showcase_card": false,
       "role": "Selective poetry information-visualization probe: stable readable poem, one question/lens at a time, click-to-focus, static line comparison, explicit weak-control claims.",
-      "receipt": "browser export: poem-map-return.json",
       "index": {
         "updated_at": "2026-09-21T14:21:00+08:00",
         "work_modes": [
@@ -4098,6 +4097,10 @@
         "evidence_gate": "Run one real co-creative poem session; preserve source + lens + focus + before/after authoring choice in RETURN. Pass only if the map causes or clarifies a specific line-level decision while the plain text remains primary.",
         "next_if_pass": "TRANSFER the useful lens into the canonical /poetry/ authoring flow as an optional projection.",
         "next_if_fail": "COMPOST or DONOR the visualization; do not expand into a dashboard of poetic metrics."
+      },
+      "return_export": {
+        "kind": "browser-generated",
+        "filename": "poem-map-return.json"
       }
     }
   ],
