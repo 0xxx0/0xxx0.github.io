@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#07090a"><meta name="robots" content="noindex,nofollow">
-<title>POEM MAP 0.2 · VERSE</title>
+<title>POEM MAP 0.2.1 · VERSE</title>
 <style>
 :root{--bg:#07090a;--panel:#0c1114;--panel2:#10171b;--ink:#edf1ee;--muted:#7f8d94;--line:#29363d;--line2:#40515a;--hot:#f0a15a;--cyan:#72d2e5;--green:#9bd27f;--pink:#ea8ab8;--gold:#d9b56e;--red:#e97870}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--ink);font:12px/1.38 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -64,11 +64,11 @@ details.advanced[open]>summary:after{content:" −"}
 }
 </style></head>
 <body><div class="app">
-<header class="top"><div class="brand">VERSE <em>// POEM MAP 0.2</em></div><div class="spacer"></div><button id="fieldNowBtn" class="fieldNow">FIELD NOW</button><button id="leftBtn">SOURCE</button><button id="rightBtn">DETAIL</button><button id="guideBtn">?</button><a class="desktop" href="../">VERSE</a><a class="desktop" href="../../foundry/">FOUNDRY</a></header>
+<header class="top"><div class="brand">VERSE <em>// POEM MAP 0.2.1</em></div><div class="spacer"></div><button id="fieldNowBtn" class="fieldNow">FIELD NOW</button><button id="leftBtn">SOURCE</button><button id="rightBtn">DETAIL</button><button id="guideBtn">?</button><a class="desktop" href="../">VERSE</a><a class="desktop" href="../../foundry/">FOUNDRY</a></header>
 <div class="shell"><div id="shade" class="sheetShade"></div>
 <aside id="left" class="side left">
  <div class="k">Source</div>
- <textarea id="source" rows="9" placeholder="Paste a poem, fragment, seed words, or start typing…"></textarea>
+ <textarea id="source" rows="9" placeholder="Paste a poem, note, brief, naming field, fragment, or seed words…"></textarea>
  <div class="row" style="margin-top:5px"><button id="mapIt" class="hot">MAP SOURCE</button><button id="clear">CLEAR</button></div>
  <div class="row" style="margin-top:5px"><button id="loadField">FIELD NOW</button><button id="loadDemo">TINY DEMO</button><button id="loadJueju">JUEJU DONOR</button></div>
  <details class="advanced" id="formDetails"><summary>FORM / CONSTRAINT PACK</summary>
@@ -89,14 +89,14 @@ details.advanced[open]>summary:after{content:" −"}
 
 <main class="stage">
  <canvas id="map"></canvas>
- <div class="stageNote" id="note">Paste anything. PAGE keeps the poem legible; MAP exposes relation paths; SETS shows the neighborhoods that generated them.</div>
+ <div class="stageNote" id="note">One source. Select one token. PAGE stays readable; the wheel offers a few moves; MAP / SETS appear only when relation space helps.</div>
  <nav class="modeDock"><button class="on" data-mode="PAGE">PAGE</button><button data-mode="MAP">MAP</button><button data-mode="SETS">SETS</button></nav>
  <div class="focusWheel" id="focusWheel">
     <button class="wheelCore" id="wheelCore">FOCUS<small>DETAIL</small></button>
-    <button data-wheel-intent="continue">CONTINUE</button>
+    <button data-wheel-intent="continue">NEXT</button>
     <button data-wheel-intent="turn">TURN</button>
     <button data-wheel-intent="echo">ECHO</button>
-    <button data-wheel-intent="surprise">SURPRISE</button>
+    <button data-wheel-intent="surprise">WILD</button>
     <button id="wheelMore">MORE</button>
   </div>
   <div class="bottomBar" id="bottom"><span class="chip">SELECT A WORD</span></div>
@@ -359,11 +359,11 @@ $('#cancelPreview').onclick=()=>{S.preview=null;save();renderPanels();status('PR
 $('#clearPath').onclick=()=>{S.authorPath=[];S.authorEdges=[];parse()};$('#capturePath').onclick=()=>{let xs=S.authorPath.map(node).filter(Boolean);if(!xs.length)return;S.captures.push({id:'P'+(S.captures.length+1),cells:S.authorPath.slice(),reading:xs.map(x=>x.text).join(' '),address:S.authorPath.join('>'),created:new Date().toISOString()});save();renderCaptures();status('PATH CAPTURED')};
 $('#form').onchange=e=>{S.form=e.target.value;save();renderConstraints()};for(let [id,key,out] of [['orderW','order','wo'],['soundW','sound','ws'],['repeatW','repeat','wr'],['authorW','author','wa']])$('#'+id).oninput=e=>{S.weights[key]=+e.target.value;$('#'+out).textContent=(+e.target.value).toFixed(2);save()};
 $('#aperture').oninput=e=>{S.aperture=+e.target.value;$('#wap').textContent=S.aperture.toFixed(2);save()};
-$('#mapIt').onclick=parse;$('#clear').onclick=()=>{$('#source').value='';Object.assign(S,{source:'',nodes:[],edges:[],selected:null,authorPath:[],authorEdges:[],bank:[],preview:null,revisions:[],captures:[],locks:new Set()});render();save()};$('#loadDemo').onclick=()=>{S.fieldLoaded=false;$('#source').value=DEMO;parse()};$('#loadField').onclick=loadFieldNow;$('#fieldNowBtn').onclick=loadFieldNow;$('#loadJueju').onclick=()=>{$('#source').value=JUEJU;S.form='jueju7';$('#form').value=S.form;parse()};
+$('#mapIt').onclick=()=>{S.fieldLoaded=false;parse()};$('#clear').onclick=()=>{$('#source').value='';Object.assign(S,{source:'',fieldLoaded:false,nodes:[],edges:[],selected:null,authorPath:[],authorEdges:[],bank:[],preview:null,revisions:[],captures:[],locks:new Set()});render();save()};$('#loadDemo').onclick=()=>{S.fieldLoaded=false;$('#source').value=DEMO;parse()};$('#loadField').onclick=loadFieldNow;$('#fieldNowBtn').onclick=loadFieldNow;$('#loadJueju').onclick=()=>{S.fieldLoaded=false;$('#source').value=JUEJU;S.form='jueju7';$('#form').value=S.form;parse()};
 $('#resetLayout').onclick=()=>{S.layoutSeed++;initPositions();save()};$('#exportBtn').onclick=()=>{let r=receipt(),a=document.createElement('a');a.download='poem-map-return.json';a.href=URL.createObjectURL(new Blob([JSON.stringify(r,null,2)],{type:'application/json'}));a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);status('RETURN EXPORTED')};$('#importBtn').onclick=()=>$('#importFile').click();$('#importFile').onchange=async e=>{let file=e.target.files?.[0];e.target.value='';if(!file)return;try{applyReceipt(JSON.parse(await file.text()));status('RETURN REPLAYED')}catch(err){status('IMPORT FAILED · INVALID POEM MAP RETURN')}};
 function receipt(){return{format:'VERSE/POEM-MAP-0.2',source:S.source,mode:S.mode,nodes:S.nodes.map(({id,line,index,text,norm})=>({id,line,index,text,norm})),form:S.form,weights:S.weights,aperture:S.aperture,locks:[...S.locks],author_path:S.authorPath,author_edges:S.authorEdges,bank:S.bank,preview:S.preview,revisions:S.revisions,captures:S.captures,local_corpus:{loaded:S.corpus.length>0,token_count:S.corpus.length,persistence:'SESSION_ONLY_NOT_EXPORTED'},claims:{sound:'APPROX_LATIN_HEURISTIC',semantic:'NO_AUTOMATIC_SEMANTIC_EMBEDDING',jueju_historical_prosody:'OPEN'},created:new Date().toISOString()}}function applyReceipt(r){
  if(!r||r.format!=='VERSE/POEM-MAP-0.2'||typeof r.source!=='string')throw new Error('RETURN FORMAT');
- S.source=r.source;S.form=FORMS[r.form]?r.form:'free';S.mode=['PAGE','MAP','SETS'].includes(r.mode)?r.mode:'PAGE';
+ S.source=r.source;S.fieldLoaded=false;S.form=FORMS[r.form]?r.form:'free';S.mode=['PAGE','MAP','SETS'].includes(r.mode)?r.mode:'PAGE';
  S.weights={...S.weights,...(r.weights||{})};S.aperture=Number.isFinite(+r.aperture)?Math.max(.05,Math.min(1,+r.aperture)):S.aperture;
  S.locks=new Set(Array.isArray(r.locks)?r.locks:[]);S.authorPath=Array.isArray(r.author_path)?r.author_path.slice():[];
  S.authorEdges=Array.isArray(r.author_edges)?r.author_edges.map(x=>({...x})):[];
