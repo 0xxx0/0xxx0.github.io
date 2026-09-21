@@ -56,9 +56,11 @@ function orpParts(text){
 }
 function extractXrefs(text){
  const raw=String(text??''),out=[],seen=new Set(),push=(href,label,kind)=>{href=String(href||'').trim();if(!href||seen.has(href))return;seen.add(href);out.push({href,label:String(label||href).trim().slice(0,90),kind})};
+ for(const m of raw.matchAll(/!\[([^\]]{0,120})\]\(([^)\s]+)(?:\s+["'][^"']*["'])?\)/g))push(m[2],m[1]||m[2],'MEDIA');
  for(const m of raw.matchAll(/\[([^\]]{1,120})\]\(([^)\s]+)(?:\s+["'][^"']*["'])?\)/g))push(m[2],m[1],'MARKDOWN');
+ for(const m of raw.matchAll(/^\s*\[[^\]]+\]:\s*(\S+)/gm))push(m[1],m[1],'CITATION');
  for(const m of raw.matchAll(/\bhttps?:\/\/[^\s<>"')\]]+/g))push(m[0],m[0],'URL');
- for(const m of raw.matchAll(/(?:^|[\s"'(])((?:\.{0,2}\/|\/)[A-Za-z0-9_./-]+\.(?:md|json|txt|csv|ya?ml|html)(?:#[A-Za-z0-9_.:-]+)?)/g))push(m[1],m[1],'REPO');
+ for(const m of raw.matchAll(/(?:^|[\s"'(])((?:\.{0,2}\/|\/)[A-Za-z0-9_./-]+\.(?:md|json|txt|csv|ya?ml|html|png|jpe?g|gif|webp|svg|mp3|wav|m4a|mp4|webm|pdf)(?:#[A-Za-z0-9_.:-]+)?)/g))push(m[1],m[1],/\.(?:png|jpe?g|gif|webp|svg|mp3|wav|m4a|mp4|webm|pdf)(?:#|$)/i.test(m[1])?'MEDIA':'REPO');
  return out.slice(0,12)
 }
 function jsonNodes(root){
