@@ -125,7 +125,7 @@
     },
     {
       "href": "/port/",
-      "title": "HUMAN PORT 1.5",
+      "title": "HUMAN PORT 1.5.1",
       "kind": "hub",
       "parent": "/",
       "family": "HUMAN PORT",
@@ -353,14 +353,72 @@
         }
       ],
       "index": {
-        "updated_at": "2026-09-22T00:27:00+08:00",
+        "updated_at": "2026-09-22T00:45:21+08:00",
         "work_modes": [
-          "RECOVER",
+          "RESEARCH",
           "SPECIFY",
           "IMPLEMENT",
           "VERIFY"
         ]
-      }
+      },
+      "versions": [
+        {
+          "version": "1.0",
+          "date": "2026-09-21",
+          "commit": "1e889e947ae6698d997e37fa57e83b8f3dccaa9c",
+          "summary": "Canonical /port/ separated from /contact/; Idea Atlas seed and social-residue transfer.",
+          "receipt": "/port/release.json",
+          "provenance": "exact version commit"
+        },
+        {
+          "version": "1.1",
+          "date": "2026-09-21",
+          "commit": "a0f022053138c4b6457513dcbc5f5769d828472c",
+          "summary": "First-time clarity: five plain-language doors before protocol vocabulary.",
+          "receipt": "/port/release.json",
+          "provenance": "exact version commit"
+        },
+        {
+          "version": "1.2",
+          "date": "2026-09-21",
+          "commit": "fc69b2b16ba8bcd2a2f58c97b775e32965fd7a38",
+          "summary": "Connected BURST→Laconic→Contact, Residue→Idea Atlas, Continuity→Contact; hardened local/private handoffs.",
+          "receipt": "/port/release.json",
+          "provenance": "exact version commit"
+        },
+        {
+          "version": "1.3",
+          "date": "2026-09-21",
+          "commit": "1d759d6671a0405a5e1f0c78ee6a5d450adddec3",
+          "summary": "One-source intake/router with preloaded Contact, BURST, Idea Atlas, Residue and Scale Lens.",
+          "receipt": "/port/release.json",
+          "provenance": "exact version commit"
+        },
+        {
+          "version": "1.4",
+          "date": "2026-09-21",
+          "commit": "45497b4a13aef893f9fa508bfed1a95b014f52fc",
+          "summary": "AXIAL focus aperture graft: WHOLE/FOCUS routing, cue support, SELECT→OPEN gate and session re-entry.",
+          "receipt": "/returns/HUMAN_PORT_FOCUS_APERTURE_2026-09-21.json",
+          "provenance": "exact version commit"
+        },
+        {
+          "version": "1.5",
+          "date": "2026-09-21",
+          "commit": "72046fcdc7daa13ba386d150c258c2d072a7b585",
+          "summary": "PORT_OBJECT envelopes for text/JSON/image/file, SHA-256 + local byte stash, focus, FIT/CUES/HISTORY, FIELD INTAKE candidate admission.",
+          "receipt": "/returns/HUMAN_PORT_OBJECT_APERTURE_2026-09-21.json",
+          "provenance": "exact version commit"
+        },
+        {
+          "version": "1.5.1-preview",
+          "date": "2026-09-22",
+          "commit": "66cc5b529720824d5f1574253752281eccf79a77",
+          "summary": "CARE evidence route: addressed Port objects may be explicitly offered/attached to CARE without byte duplication.",
+          "receipt": "/returns/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
+          "provenance": "release amendment commit"
+        }
+      ]
     },
     {
       "href": "/laconic/",
@@ -801,7 +859,7 @@
     },
     {
       "href": "/care/",
-      "title": "CARE / FIELD 0.4",
+      "title": "CARE / FIELD 0.5",
       "kind": "workbench",
       "parent": "/continuity/",
       "family": "CONFLUENCE / CONTINUITY",
@@ -1022,16 +1080,58 @@
         "physical_fit": "Observation/course/handoff tool for care episodes involving people or animals; no diagnostic, triage, threshold or treatment authority."
       },
       "index": {
-        "updated_at": "2026-09-22T00:27:00+08:00",
+        "updated_at": "2026-09-22T00:45:21+08:00",
         "work_modes": [
-          "RECOVER",
+          "RESEARCH",
           "SPECIFY",
           "IMPLEMENT",
           "VERIFY"
         ]
       },
       "owned_surfaces": [],
-      "role": "Compact care-state projection over CONTINUITY/BODY with explicit Port object passage: observe/follow course/brief, preserve sourced care trajectory and spatial evidence, attach addressed Port evidence refs without duplicating bytes, then route either a brief to CONTACT or an exact case snapshot through HUMAN PORT."
+      "role": "Compact care-state projection over CONTINUITY/BODY with explicit Port object passage: observe/follow course/brief, preserve sourced care trajectory and spatial evidence, attach addressed Port evidence refs without duplicating bytes, then route either a brief to CONTACT or an exact case snapshot through HUMAN PORT.",
+      "versions": [
+        {
+          "version": "0.1",
+          "date": "2026-09-21",
+          "commit": "2c5b23d99b5b8768e0f80f782af6782d12af4204",
+          "summary": "Compact OBSERVE / FOLLOW / BRIEF workbench over CONTINUITY + BODYFIELD; local-first care capture and clinician/vet handoff.",
+          "receipt": "/care/release.json",
+          "provenance": "release lineage recovered from repository commit history"
+        },
+        {
+          "version": "0.2",
+          "date": "2026-09-21",
+          "commit": "1cc7a256b7febfb0278e14f57ac51a4109a678a2",
+          "summary": "Sourced care-course state, descriptive measurement trajectories and privacy-safe HUMAN PORT consult handoff.",
+          "receipt": "/control/CARE_VALIDATION_2026-09-21_V02.json",
+          "provenance": "exact version commit"
+        },
+        {
+          "version": "0.3",
+          "date": "2026-09-21",
+          "commit": "05fbd49aea85217bf54da6d7e257a0a9bee61d9f",
+          "summary": "Shared local body-plan registry, geometry-versioned body addresses and local detailed human/feline plans.",
+          "receipt": "/control/CARE_VALIDATION_2026-09-21_V03.json",
+          "provenance": "exact version commit"
+        },
+        {
+          "version": "0.4",
+          "date": "2026-09-21",
+          "commit": "b348a76d0e01badbb8392653333f41dd506b742b",
+          "summary": "Explicit BODY / FIELD → CARE offer/import; preserves timestamp, body-plan/view/region identity, state vector/context and source cue.",
+          "receipt": "/control/CARE_VALIDATION_2026-09-21_V04.json",
+          "provenance": "version advanced inside BODY / FIELD 0.2 convergence commit"
+        },
+        {
+          "version": "0.5",
+          "date": "2026-09-22",
+          "commit": "5e74a98d2c5ecd5a4528cb8ce8f24f2671d0604c",
+          "summary": "Bidirectional HUMAN PORT object bridge: exact CARE snapshots outward; explicit Port evidence refs inward; source RETURN where addressable.",
+          "receipt": "/control/CARE_VALIDATION_2026-09-22_V05.json",
+          "provenance": "release commit plus later v0.5 source-return hardening"
+        }
+      ]
     },
     {
       "href": "/fold-bloom/",
