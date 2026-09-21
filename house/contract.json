@@ -1,6 +1,6 @@
 {
-  "schema": "house-field-contract/v0.1",
-  "updated": "2026-09-20",
+  "schema": "house-field-contract/v0.2",
+  "updated": "2026-09-21",
   "title": "HOUSE / FIELD",
   "purpose": "Public-safe projection of addressed physical resources, capabilities, integration health and evidence for one household control plane. Private runtime authority remains Home Assistant / HOUSEBUS.",
   "current_surface": {
@@ -33,7 +33,7 @@
     "operational security details"
   ],
   "enforcement": "The generator builds the public document by whitelist and then scans the serialized JSON for forbidden patterns; it refuses to write on any match. The committed state.json carries its own sanitization result.",
-  "kernel_role": "OBJECT -> ADDRESS -> PROJECT (this page). OPERATE is private (Home Assistant). RETURN is /returns/ plus the receipt ledger.",
+  "kernel_role": "OBJECT -> ADDRESS -> PROJECT (public HOUSE page). OPERATE remains private Home Assistant / HOUSEBUS. BODY↔HOUSE uses a local ENV-0 context envelope. RETURN is /returns/ plus the receipt ledger.",
   "return_path": "/returns/",
   "machine_state": "/house/state.json",
   "spatial_state": {
@@ -41,5 +41,13 @@
     "lineage": "/house/spatial-state.json",
     "relation": "Spatial State Engine supplies ADDRESS/PROJECT semantics; Home Assistant / HOUSEBUS retains OPERATE authority.",
     "thin_slice": "2D room/object graph + manual state + explicit HA entity mapping; add sensors only where they remove real friction."
+  },
+  "body_bridge": {
+    "schema": "0xxx0/house-body-context/v0.1",
+    "transport": "same-origin browser localStorage only",
+    "receives": "0xxx0.body.field.latest.v01 (latest local BODY return for local display only)",
+    "emits": "0xxx0.house.body.context.v01 (public HOUSE projection metadata + optional user-selected area label)",
+    "authority": "context only; does not write BODY observations into house/state.json and does not grant BODY actuation authority",
+    "privacy": "personal BODY state remains browser-local; no public projection includes it"
   }
 }
