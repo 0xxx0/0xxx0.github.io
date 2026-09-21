@@ -4791,7 +4791,7 @@
       "parent": "/sleeper/",
       "family": "SLEEPER",
       "operation": "PLAY",
-      "state": "ACTIVE_LINEAGE_LANE",
+      "state": "ACTIVE",
       "version": "reified-0.2",
       "showcase_card": false,
       "receipt": "/sleeper/one-return/release.json",
@@ -4829,7 +4829,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "classification": "PLAYABLE_LINEAGE_LANE"
     }
   ],
   "release_law": [
