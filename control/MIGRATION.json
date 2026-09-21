@@ -513,14 +513,14 @@
   ],
   "ingest_queue": [
     "CENSUS: hash/source-grounded ingest of newly surfaced artifacts; collapse exact duplicates before semantic branching.",
-    "SLEEPER / PAINTING: exact-source only. Resume from HTML/JS/CSS/assets, authorized checkpoint bytes, saved page/site, or source archive; no prose reconstruction.",
+    "SLEEPER / PAINTING: exact City source and later Painting runtime are frozen. Full City deployment and earlier variant comparison are separate optional moves; do not reopen the source gap.",
     "LACONIC: recover exact historical voice outputs/adoption evidence; preserve EXACT / RECONSTRUCTED / NEW firewall.",
     "NAMING / GAME OF NAMES: visual batch B260728B recovered as one deliverable; runnable/source/glyph artifact remains the exact-source target.",
     "ENV-0: byte-copy/hash-verify the two exact located PDFs, then hand one print/physical fixture to the appropriate active front.",
     "DESKTOP PETS BEYOND KALA: anchor-only recovery from proper name/source/screenshot/code; no generic mascot search.",
     "QUARANTINE: classify generic site shells only when source/provenance is known; extract a named mechanism or attic them."
   ],
-  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
+  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-21.json",
   "last_mechanism_diff": "/control/MECHANISM_DIFF_2026-09-19.json",
   "process": {
     "human_home": "/migration/",

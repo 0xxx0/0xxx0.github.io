@@ -2364,11 +2364,11 @@
       "showcase_card": false,
       "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff.",
       "index": {
-        "updated_at": "2026-09-21T09:13:23.195905+00:00",
+        "updated_at": "2026-09-21T09:21:54.530563+00:00",
         "work_modes": [
-          "RECOVER",
-          "SPECIFY",
+          "INVESTIGATE",
           "VERIFY",
+          "SPECIFY",
           "RELEASE"
         ]
       }
@@ -2539,11 +2539,11 @@
       "showcase_card": false,
       "role": "Readable cross-lineage handoff shelf; coordinates unequal lineages through explicit differences, ablations and recipient-side RETURN without vocabulary collapse.",
       "index": {
-        "updated_at": "2026-09-21T09:13:23.195905+00:00",
+        "updated_at": "2026-09-21T09:21:54.530563+00:00",
         "work_modes": [
-          "RECOVER",
-          "SPECIFY",
+          "INVESTIGATE",
           "VERIFY",
+          "SPECIFY",
           "RELEASE"
         ]
       },
@@ -3070,9 +3070,12 @@
       "showcase_card": false,
       "role": "Scale/orientation reset: purpose, live fronts, drift signals and bounded next move.",
       "index": {
-        "updated_at": "2026-09-20T21:55:00+08:00",
+        "updated_at": "2026-09-21T09:21:54.530563+00:00",
         "work_modes": [
-          "OPERATE"
+          "INVESTIGATE",
+          "VERIFY",
+          "SPECIFY",
+          "RELEASE"
         ]
       }
     },
@@ -3085,10 +3088,11 @@
       "showcase_card": false,
       "role": "Recovery/import/dedup/quarantine ledger; copy first, classify second, merge third.",
       "index": {
-        "updated_at": "2026-09-21T09:09:24.851148+00:00",
+        "updated_at": "2026-09-21T09:21:54.530563+00:00",
         "work_modes": [
-          "RECOVER",
+          "INVESTIGATE",
           "VERIFY",
+          "SPECIFY",
           "RELEASE"
         ]
       }
@@ -3549,10 +3553,11 @@
       "showcase_card": false,
       "role": "Human-facing recovery/salvage home: evidence classes, promotion gate, trophy case, expeditions, quarantine, attic and ingest queue.",
       "index": {
-        "updated_at": "2026-09-21T09:09:24.851148+00:00",
+        "updated_at": "2026-09-21T09:21:54.530563+00:00",
         "work_modes": [
-          "RECOVER",
+          "INVESTIGATE",
           "VERIFY",
+          "SPECIFY",
           "RELEASE"
         ]
       },

@@ -1,0 +1,51 @@
+{
+  "schema": "0xxx0/ingest-run-receipt/v0.1",
+  "id": "INGEST-LOCAL-DOCUMENTS-2026-09-21",
+  "date": "2026-09-21",
+  "scope": "Actual local organized export Documents directory; not the whole disk.",
+  "scanner": "/scripts/ingest-scan.sh",
+  "indexer": "/scripts/ingest-index.py",
+  "files_indexed": 559,
+  "byte_objects": 557,
+  "exact_duplicate_groups": 2,
+  "hash": "sha256",
+  "stat": "bsd",
+  "mutated_source": false,
+  "source_hash_match": "559/559 match the pre-existing backup asset manifest",
+  "tagged_records": 0,
+  "route_proposals": 0,
+  "review_conflicts": 0,
+  "private_reports": [
+    {
+      "name": "inventory.tsv",
+      "sha256": "8ac55341954458bdfe2712ac92750a40bbd8dae5d70ffcdcaad644bae75014c0"
+    },
+    {
+      "name": "duplicates.tsv",
+      "sha256": "dbc8adbf79acb0389ab4b05fde4575845193a096927a89413def895421fa6385"
+    },
+    {
+      "name": "run.json",
+      "sha256": "bffc9b55c6daf51bf23331f134dc62e77bfea3f0998030a5459daf0ceb9e69a4"
+    },
+    {
+      "name": "index.jsonl",
+      "sha256": "c267cd3afd35fc79614bd332b6ed6e619598bee11999b4e4fae8768bffc184e7"
+    },
+    {
+      "name": "route-plan.tsv",
+      "sha256": "34732fdd4cb346d03d038f987192e8364cef87a1adb2e28926e713d65a572002"
+    },
+    {
+      "name": "index-run.json",
+      "sha256": "46b0bfd07555843232f08a3d410901885498bdfdf2dde29a9a6dc3f10c28aec9"
+    }
+  ],
+  "review": {
+    "deterministic": "Use exact content hash to join the preserved original-name/source manifest. Export filenames have ordinal prefixes, so the existing basename-anchored rules do not match this layout. Do not broaden rules blindly.",
+    "semantic": "App source / authored specification / research reference / physical build sheet are candidate tags only; title similarity cannot approve publication.",
+    "duplicates": "Two byte-identical groups identified. No source deleted, moved or designated canonical.",
+    "privacy": "Paths, filenames, raw inventory, document contents and chat metadata remain local. Public receipt contains counts and report hashes only."
+  },
+  "next": "Review one app plus design-document family using the existing ingest front; semantic tagging is not publication authority."
+}

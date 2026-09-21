@@ -207,6 +207,24 @@ if(exists(axialLabPath)){
   compileInline(axialLabPath);
 }
 for(const p of ['returns/index.html','foundry/index.html','fcm/index.html','router-bench/index.html'])compileInline(p);
+const currentCoord=parse('control/CURRENT.json'),queueCoord=parse('control/QUEUE.json');
+if(currentCoord&&queueCoord){
+  const active=new Set((currentCoord.active_fronts||[]).map(x=>x.id));
+  const queued=(queueCoord.live||[]).map(x=>x.front_id||x.id);
+  check(queued.length<=queueCoord.max_live,'QUEUE exceeds max_live');
+  check(new Set(queued).size===queued.length,'QUEUE duplicate live front');
+  check(queued.length===active.size&&queued.every(id=>active.has(id)),'QUEUE live fronts drift from CURRENT authority');
+  const held=new Set((currentCoord.held_fronts||[]).map(x=>x.id));
+  check(queued.every(id=>!held.has(id)),'QUEUE schedules a CURRENT-held front');
+  const city=currentCoord.recovery_targets?.find(x=>x.id==='sleeper-deep-lineage');
+  if(city?.status==='EXACT_CITY_SOURCE_AND_PAINTING_RUNTIME_RECOVERED'){
+    check(!migrationNow?.open_gaps?.some(x=>x.id==='painting-city'),'resolved City/Painting source gap reopened in MIGRATION_NOW');
+    for(const id of ['sleeper-one-return-city-engine','sleeper-painting-path']){
+      const a=migration?.artifacts?.find(x=>x.id===id);
+      check(a?.retrieval_state==='EXACT_SOURCE_RECOVERED_2026-09-21','recovered source contradicts migration ledger: '+id);
+    }
+  }
+}
 if(fail.length){console.error('PUBLIC SURFACE CHECK FAIL\n- '+fail.join('\n- '));process.exit(1)}
 console.log('PUBLIC SURFACE CHECK PASS');
 console.log('manifest routes:',manifest?.routes?.length||0);
