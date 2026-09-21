@@ -15,15 +15,17 @@
       "lens laws: GetPut / PutGet / PutPut",
       "Scale Lens RC9→RC11.2: stable focus, semantic scale ladders, projection, provenance, RETURN",
       "AXIAL aperture contract: APERTURE changes visible scope, never canonical identity",
-      "Sleeper Workfield v1: ACTIVE APERTURE with FOCUS/FIELD/DISC/LEDGER; W8·ANCHOR preserves identity; SPIRAL·REFRAME changes view while identity remains selected; ORIGIN RETURN"
+      "Sleeper Workfield v1: ACTIVE APERTURE with FOCUS/FIELD/DISC/LEDGER; W8·ANCHOR preserves identity; SPIRAL·REFRAME changes view while identity remains selected; ORIGIN RETURN",
+      "2018 RSVP+TTS TMP-SPEECHSYNTH fixture: SpeechSynthesisUtterance + word segmentation + boundary-driven active-word highlighting; exact archived fixture recovered as a temporal focus/cursor donor",
+      "historical FU / room specimens (FU5X2.html, scratch.html, EMPTY3-RF.html): dependency-light browser room/rotator work, SVG circle/line/ring geometry, SpeechSynthesis/WebAudio surfaces, lenses/state/transforms; FU5X2 also contains a red PRIMETXT SVG text configuration"
     ],
     "reconstructed_or_partial": [
       "KALA / DOCK→APERTURE→FOCUS→OPERATE→MARK→RETURN shell",
-      "FOCUS RING geometry/name remains reconstructed; current implementation is derived from exact Workfield aperture semantics + KALA aperture semantics, not claimed as an exact historical ring artifact"
+      "FOCUS RING remains a reconstruction, but it is now grounded in multiple exact historical donors: RSVP temporal cursor/highlighting, FU room/radial/browser mechanisms, Workfield aperture semantics and KALA aperture semantics; the exact old red-dot-around-ring reader artifact is still unrecovered."
     ],
     "unknown": [
       "SeeThings: File Library retrieval surfaced recurring 'seethings / hidden focus' visual-study prompts/images, but no executable mechanism or formal contract in searched material; keep as retrieval anchor.",
-      "Any exact older artifact explicitly named FOCUS RING remains unrecovered."
+      "Exact historical red-dot-around-ring RSVP/foveated reader implementation and the remembered Alice text specimen remain unrecovered; do not substitute the current HUD for them."
     ]
   },
   "law_families": {
@@ -91,8 +93,8 @@
     "source_refs": "source/provenance identifiers"
   },
   "focus_ring_v0": {
-    "status": "PROPOSED_FROM_RECOVERED_LINEAGE; exact older ring still to recover",
-    "role": "small common controller in front of Scale Studio, not a replacement for Studio",
+    "status": "IMPLEMENTED_RECONSTRUCTED_FROM_RECOVERED_TEMPORAL_AND_APERTURE_DONORS; exact older red-dot ring still to recover",
+    "role": "small common temporal/spatial focus controller in front of Scale Studio: current focus, aperture, projection, ordered view stack and RETURN; not a replacement for Studio",
     "default_surface": "collapsed ◎ LENS aperture from global route adapter",
     "visible_model": {
       "center": "current focus identity + current projection",
@@ -108,7 +110,13 @@
       "do not overload gaze as primary input",
       "all gesture-only actions also have visible controls/keyboard paths",
       "browser/accessibility focus indicator remains distinct from conceptual FOCUS RING state"
-    ]
+    ],
+    "historical_donor_mapping": {
+      "RSVP_2018": "TIME / cursor: speech-boundary-aligned active unit and sequential focus",
+      "FU_ROOM_RADIAL": "PROJECTION / browser substrate: room faces, rotators, SVG ring/path geometry, low-dependency Web APIs",
+      "WORKFIELD_KALA": "APERTURE / identity / RETURN: active scope and reversible entry state",
+      "PRIME_ROD_ADJACENT": "adjacent visual-language exploration only; retain as retrieval anchor, do not make it a Lens primitive without stronger evidence"
+    }
   },
   "foveation_v0": {
     "meaning": "allocate representation detail by semantic/structural distance from focus, not merely geometric magnification",
@@ -170,7 +178,7 @@
   ],
   "gaps": [
     "no shared typed LensState/compound-lens schema exists in master",
-    "no recovered repo implementation of older FOCUS RING/foveation donor yet",
+    "exact old red-dot RSVP/radial Focus Ring implementation is still unrecovered; historical temporal/radial/aperture donors are now recovered separately",
     "Scale Studio exposes operators but composition is not yet a legible saved lens stack",
     "no cross-surface task benchmark has yet earned promotion of fisheye/foveation over plain baseline",
     "RC11.3 portrait/toolglass branch remains separate/unfinished",
@@ -184,7 +192,7 @@
     "do not delete deep Scale Studio capability"
   ],
   "return": {
-    "next": "Implement LENS-01 adapter + serializer first; then make LENS-02 read/write that state without touching RC11.2 internals.",
+    "next": "Use the current LENS-02 implementation as a bounded modern surface, while separately recovering the exact old RSVP/red-dot ring from backups. Feed recovered temporal cursor semantics into TIME/PULSE without rewriting LensState or RC11.2.",
     "test_anchor": "Issue #10 REP-01 can serve as the cross-projection fixture; Issue #35 remains the Scale Lens aperture/UX convergence front."
   },
   "execution": {
