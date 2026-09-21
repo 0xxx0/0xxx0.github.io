@@ -558,7 +558,7 @@ const CASES=[
     name:'FIELD',
     route:'/',
     options:{width:1040,height:820,budget:1800,timeout:18000},
-    check:dom=>dom.includes('id="axialLatest"')&&dom.includes('FIELD / FOCUS')&&/NOW/.test(dom)&&/POLISHED ONE RETURN v2/.test(dom)&&/CONFLUENCE/.test(dom)
+    check:dom=>dom.includes('id="axialLatest"')&&dom.includes('FIELD / FOCUS')&&/NOW/.test(dom)&&/CANONICAL ONE RETURN v2/.test(dom)&&/CONFLUENCE/.test(dom)
   },
   {
     name:'HUMAN PORT',
