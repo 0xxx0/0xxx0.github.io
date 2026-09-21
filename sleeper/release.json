@@ -33,5 +33,14 @@
     "basis": "Runnable current head with deployed self-tests and same-state POV/PLAIN verification; unresolved HUMAN_ACTION remains an exit condition, not lifecycle identity.",
     "receipt": "/control/EXPERIMENT_WRANGLE_2026-09-20.json",
     "provenance_note": "Original release state remains contemporaneous provenance; this field records the later lifecycle classification."
-  }
+  },
+  "related_lanes": [
+    {
+      "route": "/sleeper/one-return/",
+      "name": "ONE RETURN / NINE GATE",
+      "state": "PLAYABLE_LINEAGE_LANE",
+      "relation": "playable maze ancestor restored without replacing ASCII Sleeper POV 0.8"
+    }
+  ],
+  "provenance_note": "The current head and the restored ONE RETURN lane remain unequal artifacts. Shared lineage does not imply merge."
 }
