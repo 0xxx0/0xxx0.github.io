@@ -14,28 +14,31 @@
     "Extend FIELD law so WAITING is neither queue nor priority and cannot contain private payloads.",
     "Extend evolution selection pressure with case -> mechanism -> unequal-case transfer -> generalize.",
     "Specify /body/campaign.schema.json with explicit question, decision, streams, evidence gate, burden budget, JITAI-style decision points, safety class, RETURN and FADE condition.",
-    "Add conversation-to-durable-state routing: executable now -> EXECUTE/RETURN; human/world dependency -> WAITING; speculation -> Idea/Residue/HOLD; evidence -> Intake/Continuity; sensitive content stays private."
+    "Add conversation-to-durable-state routing: executable now -> EXECUTE/RETURN; human/world dependency -> WAITING; speculation -> Idea/Residue/HOLD; evidence -> Intake/Continuity; sensitive content stays private.",
+    "Specify /body/fit/health-connect.adapter.json as a read-only, least-privilege Android native boundary that exports existing BODY / FIT sensor bundles rather than inventing another store."
   ],
   "after": [
     "Human dependencies become re-enterable from the root without contaminating CURRENT/QUEUE.",
     "The health/wearable direction has a durable public-safe source packet tied to existing hosts.",
     "Future generalization is gated on transfer evidence rather than enthusiasm.",
     "Campaigns now have a candidate machine-readable carrier whose success can include reducing measurement.",
-    "Repeated mentions can converge on one durable dependency instead of duplicating TODOs or vanishing into chat residue."
+    "Repeated mentions can converge on one durable dependency instead of duplicating TODOs or vanishing into chat residue.",
+    "Health Connect now has an explicit source-preserving path into BODY / FIT; the remaining dependency is an actual Android reader/permission proof, not an unresolved architecture question."
   ],
   "evidence": [
     "/control/WAITING.json",
     "/body/campaign.schema.json",
+    "/body/fit/health-connect.adapter.json",
     "/control/research/BODY_CALIBRATION_APERTURE_2026-09-22.md",
     "/control/FIELD_INDEX_CONTRACT.json",
     "/control/confluence/FIELD_EVOLUTION.md",
     "/index.html"
   ],
   "residue": [
-    "Health Connect phone-side adapter is still unimplemented.",
     "No personal medication/supplement list or health stream is committed.",
     "Ordinary-use proof remains human-world evidence, not repo-generated.",
-    "Campaign schema is candidate-only; no campaign UI or autonomous intervention engine was promoted."
+    "Campaign schema is candidate-only; no campaign UI or autonomous intervention engine was promoted.",
+    "Health Connect Android reader/runtime is still unimplemented; adapter contract and proof boundary are specified."
   ],
   "next": "Wait for one lawful human/world signal while machine-side research/specification may continue without pretending the dependency is resolved."
 }
