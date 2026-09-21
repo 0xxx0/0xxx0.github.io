@@ -1160,7 +1160,7 @@
       "operation": "ORIENT",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-22T02:58:00+08:00",
+        "updated_at": "2026-09-22T05:20:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1168,7 +1168,7 @@
           "RELEASE"
         ]
       },
-      "role": "Current Fold/Bloom family head. TWO DIAL composes relations and may explicitly borrow LISTEN's FIELD PULSE clock without yielding authorship; ECOLOGY grows lineage; LIVE tests deliberate tension/release; LISTEN maps external audio into addressed time/feature context. Scale Lens remains an extracted representation descendant, not a playable peer."
+      "role": "Current Fold/Bloom family head. TWO DIAL composes relations and may explicitly borrow LISTEN's FIELD PULSE clock without yielding authorship; ECOLOGY grows lineage; LIVE tests deliberate tension/release; LISTEN 0.2.3 maps external audio into addressed time/feature context with gesture-stable mobile scope. Scale Lens remains an extracted representation descendant, not a playable peer."
     },
     {
       "href": "/fold-bloom/live/",
@@ -5544,15 +5544,15 @@
     },
     {
       "href": "/fold-bloom/listen/",
-      "title": "FOLD // BLOOM LISTEN 0.2.2",
+      "title": "FOLD // BLOOM LISTEN 0.2.3",
       "kind": "experiment",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "LISTEN",
       "state": "CANDIDATE",
-      "role": "Progressive source-addressed audio projection candidate. Local/Suno-addressed audio becomes a PREVIEW→DEEP AUDIO MAP; BEAT/PHRASE/SECTION/TRACK now changes the actual polar time domain and touch scrub range. FIELD PULSE v0.1 publishes compact transport/features without audio bytes.",
+      "role": "Progressive source-addressed audio projection candidate. Local/Suno-addressed audio becomes a PREVIEW→DEEP AUDIO MAP; BEAT/PHRASE/SECTION/TRACK changes the actual polar time domain and touch scrub range. 0.2.3 freezes that domain for each pointer gesture so the ring cannot slide under the finger; HOLD visibly witnesses touch ownership. FIELD PULSE publishes compact transport/features without audio bytes.",
       "index": {
-        "updated_at": "2026-09-22T02:34:00+08:00",
+        "updated_at": "2026-09-22T05:20:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -5568,7 +5568,9 @@
           "real Suno fetch pending",
           "real-song trials pending",
           "native file-picker activation + app boot browser proof",
-          "real encoded MP3 → PREVIEW → DEEP → rendered score browser proof"
+          "real encoded MP3 → PREVIEW → DEEP → rendered score browser proof",
+          "frozen scope-window scrub selftest",
+          "real-phone HOLD gesture trial pending"
         ],
         "return_path": "/fold-bloom/listen/"
       },
@@ -5579,17 +5581,18 @@
         "stage": "TEST",
         "question": "Does local audio to bounded event map to polar time ring and scale rail produce a musically legible playable field beyond a decorative visualizer?",
         "baseline": "Ordinary audio playback plus existing Fold/Bloom branches without source-audio analysis or time-addressed visual terrain.",
-        "mutation": "LISTEN 0.2 keeps the same local analysis/annular/fractal field while adding a bounded SOURCE ADDRESS seam: Suno song URL/UUID or direct http(s) audio → best-effort metadata/audio resolution → same local decoder/analyzer; remote bytes are capped and failures return to local file intake.",
+        "mutation": "LISTEN 0.2.3 keeps local analysis/annular/fractal field + bounded SOURCE ADDRESS seam and repairs mobile scope agency: pointerdown freezes the current BEAT/PHRASE/SECTION/TRACK window for the entire gesture; angle maps into that fixed window; HOLD witnesses ownership; release resumes live scope tracking.",
         "evidence_gate": "Browser smoke must prove the source parser and FI route; then use at least three materially different real tracks including the supplied Suno source if remote CORS permits. Require plausible beat stepping, some section boundaries matching heard form changes, responsive ring/scope control, and no regression to local-file authority.",
         "next_if_pass": "Transfer the surviving audio-map, time-ring, and scale-rail mechanisms into the Fold/Bloom family shell and keep LISTEN as a projection rather than a separate roadmap.",
         "next_if_fail": "Park or donate weak analysis/visualization parts; preserve the polar/scale interaction and source-hash audio map if independently useful."
       },
-      "version": "0.2.2",
+      "version": "0.2.3",
       "contract": "/control/FIELD_PULSE_CONTRACT.json",
       "receipt": "/returns/FIELD_PULSE_2026-09-22.json",
       "transfer": [
         "operational scope-window touch semantics",
-        "FIELD PULSE transport producer"
+        "FIELD PULSE transport producer",
+        "gesture-stable scoped scrub window"
       ]
     },
     {
