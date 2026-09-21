@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#080a0c"><title>AXIAL / FOCUS STACK 0.7.1</title>
+<meta name="theme-color" content="#080a0c"><title>AXIAL / FOCUS STACK 0.7.2</title>
 <style>
 :root{--bg:#080a0c;--panel:#0d1114;--panel2:#0a0d0f;--ink:#f0f2ee;--mut:#818d92;--line:#2b3539;--hot:#ef7043;--cool:#69b7e6;--gold:#d9b36c;--green:#9bd78c}
 *{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -24,6 +24,9 @@ header{display:flex;justify-content:space-between;gap:18px;align-items:end;paddi
 .spine{position:absolute;left:50%;top:0;height:calc(50% - 77px);border-left:2px solid var(--hot);pointer-events:none;filter:drop-shadow(0 0 7px rgba(239,112,67,.42))}.spine:before{content:"FOCUS";position:absolute;top:7px;left:5px;color:var(--hot);font-size:7px;letter-spacing:.14em}
 .ringLegend{position:absolute;left:8px;bottom:8px;display:grid;gap:3px;pointer-events:none;max-width:48%}.ringLegend div{background:rgba(7,10,12,.82);border-left:2px solid #3d494e;padding:3px 6px;font-size:7px;color:#96a2a7;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.ringLegend b{color:#fff}.ringLegend i{font-style:normal;color:#5f6b70}
 .help{position:absolute;right:8px;bottom:8px;color:#647176;font-size:7px;text-align:right;line-height:1.5;pointer-events:none}
+.overview{position:absolute;right:8px;top:8px;width:188px;height:88px;border:1px solid #344148;background:#070a0ce8;z-index:5;cursor:crosshair;box-shadow:0 4px 18px #0007}.overview .oRing{fill:none;stroke:#35444b;stroke-width:1}.overview .oRing.active{stroke:#69b7e6;stroke-width:1.8}.overview .oTick{fill:#536168}.overview .oTick.live{fill:#69b7e6}.overview .oTick.on{fill:#ef7043}.overview text{fill:#8d999e;font:6px ui-monospace,SFMono-Regular,Menlo,monospace;pointer-events:none}.overview .oGate{stroke:#ef7043;stroke-width:1.5}
+dialog.dev{width:min(760px,calc(100vw - 20px));max-height:calc(100vh - 20px);border:1px solid #46545a;background:#080b0d;color:var(--ink);padding:0;border-radius:0;box-shadow:0 20px 100px #000b}dialog.dev::backdrop{background:#020405cc}.devHead{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#080b0d;z-index:2}.devHead b{font-size:9px;letter-spacing:.13em}.devHead button{min-height:30px;padding:3px 8px}.devGrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line)}.devPane{background:#0b0f11;padding:10px;min-width:0}.devPane h3{margin:0 0 7px;font-size:8px;letter-spacing:.12em;color:var(--mut)}.devPane pre{white-space:pre-wrap;word-break:break-word;font-size:7px;line-height:1.45;max-height:300px;overflow:auto;margin:0;color:#aeb9bd}.devTrace{max-height:300px;overflow:auto}.devEvt{border-bottom:1px solid #20282c;padding:5px 0;font-size:7px;color:#76848a}.devEvt b{color:#c7d0d3}.devActions{display:flex;gap:5px;align-items:center;padding:9px 10px;border-top:1px solid var(--line)}.devActions button{font-size:7px}.devActions a{margin-left:auto}.devHint{border-left:2px solid var(--gold);padding:7px 8px;background:#111319;color:#b6ab91;font:8px/1.45 system-ui,sans-serif}
+@media(max-width:650px){.overview{width:145px;height:72px}.devGrid{grid-template-columns:1fr}}
 #strip{display:none;height:100%;overflow:auto;padding:34px 14px 20px;position:relative}#strip:after{content:"";position:absolute;top:0;bottom:0;left:50%;border-left:2px solid var(--hot);pointer-events:none}
 .stripRow{display:grid;grid-template-columns:92px 1fr;align-items:center;margin:10px 0}.stripName{font-size:8px;letter-spacing:.12em;color:var(--mut)}.stripName b{display:block;color:var(--ink);font-size:9px}.stripViewport{overflow-x:auto;scrollbar-width:none;border:1px solid #222c30;background:#090c0e;padding:5px 50%;scroll-snap-type:x mandatory}.stripViewport::-webkit-scrollbar{display:none}.stripTrack{display:flex;width:max-content}.stripToken{width:104px;min-height:42px;display:grid;place-items:center;text-align:center;border:0;border-right:1px solid #273136;background:#0d1215;color:#7f8b90;scroll-snap-align:center;padding:4px;font-size:8px;position:relative}.stripToken small{display:block;color:#546167;font-size:6px;margin-top:2px}.stripToken.live{color:#b9c5c9}.stripToken.live small{color:#72a8c6}.stripToken.dead{opacity:.22}.stripToken.on{background:#172027;color:#fff;outline:1px solid var(--hot);outline-offset:-2px;opacity:1}.stripToken.on small{color:#f4a383}
 .aperture{border:1px solid var(--line);background:#080b0d;padding:10px}.tuple{display:flex;gap:5px;flex-wrap:wrap}.chip{border:1px solid #354146;padding:5px 7px;font-size:8px}.chip b{color:var(--hot);font-weight:700}.summary{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:end;margin-top:10px}.summary strong{font:900 38px/.85 system-ui,sans-serif;letter-spacing:-.06em}.summary span{display:block;color:var(--mut);font-size:8px;margin-top:5px}.status{color:var(--gold);font-size:8px;text-align:right}
@@ -44,7 +47,7 @@ footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid 
 <div class="controls">
   <b>SOURCE</b><button id="srcField" class="on">FIELD INDEX</button><button id="srcHouse">HOUSE</button>
   <b style="margin-left:8px">PROJECTION</b><button id="viewRing" class="on">RING</button><button id="viewStrip">STRIP</button>
-  <span class="spacer"></span><button id="findMe">◎ FIND AXIAL</button><button id="reset">ALL / CLEAR</button>
+  <span class="spacer"></span><button id="findMe">◎ FIND AXIAL</button><button id="inspect">INSPECT</button><button id="reset">ALL / CLEAR</button>
 </div>
 
 <section class="primer">
@@ -63,6 +66,7 @@ footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid 
    <div class="spine"></div>
    <div class="centerRead"><div><b id="matchN">—</b><span>MATCHES IN APERTURE</span><em id="centerFocus">loading…</em></div></div>
    <div class="ringLegend" id="legend"></div>
+   <svg id="overview" class="overview" viewBox="0 0 188 88" aria-label="AXIAL overview. Click a position to jump."></svg>
    <div class="help">DRAG RING ↔<br>WHEEL = ONE NOTCH<br>↑↓ RING · ←→ NOTCH</div>
  </div>
 </section>
@@ -89,6 +93,15 @@ footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid 
 </div>
 <span hidden>HOUSE: SOFA LIGHT</span><footer><span><a href="../../">← FIELD</a> · <a href="../">FOUNDRY</a> · <a href="../../fold-bloom/lens/">SCALE LENS</a></span><span>RING STACK → FOCUS → APERTURE → OPEN / RETURN</span></footer>
 </main>
+<dialog id="dev" class="dev">
+ <div class="devHead"><b>AXIAL / ENGINEERING WITNESS</b><button id="devClose" aria-label="Close inspector">×</button></div>
+ <div class="devGrid">
+  <section class="devPane"><h3>RAW STATE</h3><pre id="devRaw"></pre></section>
+  <section class="devPane"><h3>OBSERVED USE / LOCAL ONLY</h3><div id="devHint" class="devHint"></div><pre id="devStats"></pre></section>
+  <section class="devPane" style="grid-column:1/-1"><h3>GHOST TRAIL / LAST EVENTS</h3><div id="devTrace" class="devTrace"></div></section>
+ </div>
+ <div class="devActions"><button id="devCopy">COPY STATE</button><button id="devExport">EXPORT WITNESS</button><button id="devClear">CLEAR LOCAL STUDY</button><a href="./research.json">RESEARCH →</a></div>
+</dialog>
 <script src="./focus-core.js"></script>
 <script>
 (function(){'use strict';
@@ -96,6 +109,11 @@ var TAU=Math.PI*2,$=function(s){return document.querySelector(s)},cv=$('#wheel')
 var initSource=String(INIT.get('source')||'FIELD').toUpperCase();if(initSource!=='HOUSE')initSource='FIELD';
 var S={source:initSource,projection:String(INIT.get('view')||'RING').toUpperCase()==='STRIP'?'STRIP':'RING',rings:[],records:[],matches:[],focus:null,history:[],returns:[],activeRing:0,search:'',drag:null,loaded:false};
 try{S.returns=JSON.parse(localStorage.getItem('axial-focus-returns-v06')||'[]')}catch(_){}
+const STUDY_KEY='axial-study-v01';let study={schema:'axial.study/v0.1',started_at:new Date().toISOString(),events:[],counts:{},ring_moves:{},projection:{RING:0,STRIP:0},source:{FIELD:0,HOUSE:0}};
+try{const q=JSON.parse(localStorage.getItem(STUDY_KEY)||'null');if(q)study={...study,...q,counts:{...study.counts,...(q.counts||{})},ring_moves:{...study.ring_moves,...(q.ring_moves||{})},projection:{...study.projection,...(q.projection||{})},source:{...study.source,...(q.source||{})}}}catch(_){}
+function saveStudy(){try{localStorage.setItem(STUDY_KEY,JSON.stringify({...study,events:study.events.slice(-200)}))}catch(_){}}
+function trace(type,p){p=p||{};const e={at:new Date().toISOString(),type,...p};study.events.push(e);if(study.events.length>200)study.events.shift();study.counts[type]=(study.counts[type]||0)+1;if(p.ring)study.ring_moves[p.ring]=(study.ring_moves[p.ring]||0)+1;saveStudy();renderDev()}
+function studyHint(){const moves=Object.values(study.ring_moves).reduce((a,b)=>a+b,0),pairs=Object.entries(study.ring_moves).sort((a,b)=>b[1]-a[1]),dead=study.counts.DEAD||0,back=study.counts.BACK||0;if(moves<8)return'NO ADAPTATION YET · use the instrument first. '+moves+'/8 minimum ring moves observed locally.';const top=pairs[0]||['—',0],share=moves?top[1]/moves:0;if(share>=.6)return'OBSERVE · '+top[0]+' carries '+Math.round(share*100)+'% of ring moves. Candidate for prominence, not auto-reordering.';if(dead>=3)return'OBSERVE · '+dead+' dead alignments reached. Inspect whether support cues or dimension choice are failing.';if(back>=4)return'OBSERVE · BACK used '+back+' times. Re-entry/orientation may still be costing too much.';return'NO STRONG ADAPTATION SIGNAL · preserve current ordering and keep collecting ordinary use.'}
 function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]})}
 function uniq(a){return Array.from(new Set(a.filter(function(x){return x!=null&&String(x).trim()!==''}).map(function(x){return String(x)}))).sort(function(a,b){return a.localeCompare(b)})}
 function mod(n,m){return((n%m)+m)%m}
@@ -105,7 +123,7 @@ function ringDef(key,label,vals){var v=['ANY'].concat(uniq(vals).filter(function
 function snapState(){return{source:S.source,projection:S.projection,rings:S.rings.map(function(r){return{key:r.key,index:r.index}}),focus:S.focus&&S.focus.id||null,search:S.search}}
 function sameState(a,b){return JSON.stringify(a)===JSON.stringify(b)}
 function pushHistory(before){if(!before)return;var now=snapState();if(!sameState(before,now)){S.history.push(before);if(S.history.length>80)S.history.shift()}}
-function setIndex(r,i,remember){var before=remember?snapState():null;r.index=mod(i,r.values.length);r.rot=-r.index*TAU/r.values.length;if(remember)pushHistory(before);recompute()}
+function setIndex(r,i,remember){var before=remember?snapState():null,from=r.index;r.index=mod(i,r.values.length);r.rot=-r.index*TAU/r.values.length;if(remember)pushHistory(before);recompute();if(remember){trace('NOTCH',{ring:r.key,from,to:r.index,value:selected(r),support:(r.support&&r.support[r.index])||0});if(!S.matches.length)trace('DEAD',{ring:r.key,value:selected(r)})}}
 function selected(r){return r.values[r.index]}
 function recVal(rec,key){var v=rec[key];return Array.isArray(v)?v:[v==null?'NONE':String(v)]}
 function matchesRing(rec,r,v){v=v==null?selected(r):v;if(v==='ANY')return true;return recVal(rec,r.key).indexOf(v)>=0}
@@ -181,7 +199,7 @@ function recompute(){
 function focusRecord(rec,align,remember){
  if(!rec)return;var before=snapState();if(remember!==false)remember=true;S.focus=rec;
  if(align){S.rings.forEach(function(r){var vals=recVal(rec,r.key),i=r.values.indexOf(vals[0]);if(i>=0){r.index=i;r.rot=-i*TAU/r.values.length}});S.search='';$('#search').value=''}
- if(remember)pushHistory(before);recompute()
+ if(remember)pushHistory(before);recompute();if(remember)trace('FOCUS',{focus:rec.id,align:!!align})
 }
 function dims(){
  var rect=cv.getBoundingClientRect(),d=Math.min(2,devicePixelRatio||1);cv.width=Math.max(1,Math.round(rect.width*d));cv.height=Math.max(1,Math.round(rect.height*d));ctx.setTransform(d,0,0,d,0,0);return{w:rect.width,h:rect.height,cx:rect.width/2,cy:rect.height/2,outer:Math.min(rect.width,rect.height)*.46,inner:86}
@@ -208,7 +226,7 @@ function drawWheel(){
   }
   ctx.strokeStyle=ri===S.activeRing?'rgba(105,183,230,.62)':'rgba(80,96,103,.32)';ctx.lineWidth=ri===S.activeRing?2:1;ctx.beginPath();ctx.arc(0,0,ro,0,TAU);ctx.stroke();
   /* moving index witness + fixed 12-o'clock gate: current ring orientation is always explicit */
-  var wa=AxialFocusCore.angle(r.index,r.values.length,r.rot),w0=ro-bw*.82,w1=ro-bw*.18;
+  var wa=AxialFocusCore.angle(0,r.values.length,r.rot),w0=ro-bw*.82,w1=ro-bw*.18;
   ctx.strokeStyle=ri===S.activeRing?'#69b7e6':'rgba(239,112,67,.72)';ctx.lineWidth=ri===S.activeRing?3:1.5;ctx.beginPath();ctx.moveTo(Math.cos(wa)*w0,Math.sin(wa)*w0);ctx.lineTo(Math.cos(wa)*w1,Math.sin(wa)*w1);ctx.stroke();
   ctx.fillStyle=ri===S.activeRing?'#69b7e6':'#ef7043';ctx.beginPath();ctx.arc(Math.cos(wa)*rm,Math.sin(wa)*rm,ri===S.activeRing?3.4:2.2,0,TAU);ctx.fill()
  }
@@ -222,6 +240,20 @@ function renderStrip(){
  el.querySelectorAll('.stripToken').forEach(function(b){b.onclick=function(){S.activeRing=+b.dataset.ri;setIndex(S.rings[S.activeRing],+b.dataset.i,true)}});
  requestAnimationFrame(function(){el.querySelectorAll('.stripToken.on').forEach(function(b){b.scrollIntoView({block:'nearest',inline:'center'})})})
 }
+function renderOverview(){
+ const o=$('#overview');if(!o||!S.rings.length){if(o)o.innerHTML='';return}
+ const cx=47,cy=44,base=11,gap=Math.min(6.4,29/Math.max(1,S.rings.length-1));let z='<line class="oGate" x1="'+cx+'" y1="4" x2="'+cx+'" y2="'+(cy-base+1)+'"/>';
+ S.rings.forEach(function(r,ri){const rad=base+ri*gap,pos=AxialFocusCore.position(r.values,r.index),active=ri===S.activeRing;z+='<circle class="oRing '+(active?'active':'')+'" cx="'+cx+'" cy="'+cy+'" r="'+rad+'" data-mini-ring="'+ri+'"/>';const max=Math.max.apply(null,r.support||[1])||1;
+  r.values.forEach(function(v,i){const a=AxialFocusCore.angle(i,r.values.length,r.rot),sup=(r.support&&r.support[i])||0,rr=rad,x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr,cl='oTick '+(sup?'live ':'')+(i===r.index?'on':'');z+='<circle class="'+cl+'" cx="'+x.toFixed(2)+'" cy="'+y.toFixed(2)+'" r="'+(i===r.index?2.4:sup?1.25:.75)+'" opacity="'+(sup?(.28+.72*Math.sqrt(sup/max)).toFixed(2):'.12')+'" data-mini-ri="'+ri+'" data-mini-i="'+i+'"/>'});
+  z+='<text x="94" y="'+(13+ri*14)+'">'+esc(r.label)+' '+pos.label+' · '+esc(selected(r))+'</text>'
+ });o.innerHTML=z;
+ o.querySelectorAll('[data-mini-ri]').forEach(function(n){n.onclick=function(e){e.stopPropagation();const ri=+n.dataset.miniRi,i=+n.dataset.miniI;S.activeRing=ri;setIndex(S.rings[ri],i,true)}});
+ o.querySelectorAll('[data-mini-ring]').forEach(function(n){n.onclick=function(){S.activeRing=+n.dataset.miniRing;render()}});
+}
+function devState(){return{schema:'axial.engineering-state/v0.1',source:S.source,projection:S.projection,active_ring:S.rings[S.activeRing]?.key||null,address:address(),focus:S.focus&&{id:S.focus.id,title:S.focus.title,href:S.focus.href},matches:S.matches.length,rings:S.rings.map(function(r){const p=AxialFocusCore.position(r.values,r.index);return{key:r.key,label:r.label,value:selected(r),index:r.index,ordinal:p.label,total:r.values.length,support:(r.support&&r.support[r.index])||0,rotation_rad:+r.rot.toFixed(4),support_vector:r.support}}),history_depth:S.history.length}}
+function renderDev(){if(!$('#devRaw'))return;$('#devRaw').textContent=JSON.stringify(devState(),null,2);$('#devStats').textContent=JSON.stringify({started_at:study.started_at,counts:study.counts,ring_moves:study.ring_moves,projection:study.projection,source:study.source,event_count:study.events.length},null,2);$('#devHint').textContent=studyHint();$('#devTrace').innerHTML=study.events.slice(-40).reverse().map(function(e){return'<div class="devEvt"><b>'+esc(e.type)+'</b> · '+esc(e.at.slice(11,19))+' · '+esc(Object.entries(e).filter(function(x){return!['type','at'].includes(x[0])}).map(function(x){return x[0]+'='+x[1]}).join(' · '))+'</div>'}).join('')||'<div class="empty">No interaction residue yet.</div>'}
+function witness(){return{schema:'axial.witness/v0.1',at:new Date().toISOString(),state:devState(),ghostTrail:study.events.slice(-200),returns:S.returns.slice(0,30),residue:{history_depth:S.history.length,dead_events:study.counts.DEAD||0,unresolved_matches:S.matches.length},study:{counts:study.counts,ring_moves:study.ring_moves,projection:study.projection,source:study.source,hint:studyHint()}}}
+function downloadJSON(v,name){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(v,null,2)],{type:'application/json'}));a.download=name;a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},1000)}
 function render(){
  $('#srcField').classList.toggle('on',S.source==='FIELD');$('#srcHouse').classList.toggle('on',S.source==='HOUSE');$('#viewRing').classList.toggle('on',S.projection==='RING');$('#viewStrip').classList.toggle('on',S.projection==='STRIP');
  cv.style.display=S.projection==='RING'?'block':'none';document.querySelector('.spine').style.display=S.projection==='RING'?'block':'none';$('#stageLabel').textContent=S.source+(S.source==='FIELD'?' INDEX':' / SPATIAL')+' · '+(S.projection==='RING'?'DRAG RING · RELEASE TO SNAP · GATE READS ALIGNMENT':'SAME ADDRESS UNWRAPPED · TAP TOKEN TO ALIGN');
@@ -235,24 +267,25 @@ function render(){
  var f=$('#focusCard');if(S.focus)f.innerHTML='<div class="k">'+esc(S.source+' / FOCUS')+'</div><h2>'+esc(S.focus.title)+'</h2><p>'+esc(S.focus.desc||'Addressed identity in current source.')+'</p><div class="addr">'+esc(focusAddress())+'</div>';else f.innerHTML='<div class="k">FOCUS</div><h2>—</h2><p>No identity is inside the current aperture.</p>';
  $('#open').disabled=!S.focus;$('#copy').disabled=!S.focus;$('#back').disabled=!S.history.length;
  $('#receipts').innerHTML=S.returns.length?S.returns.slice(0,12).map(function(r){return'<div class="receipt"><b>'+esc(r.source)+'</b> · '+esc(r.focus_title||'NO FOCUS')+'<br>'+esc(r.address)+'</div>'}).join(''):'<div class="empty">No returns yet.</div>';
- renderStrip();drawWheel()
+ renderStrip();drawWheel();renderOverview();renderDev()
 }
 function pointerPos(e){var r=cv.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
 cv.onpointerdown=function(e){if(!S.rings.length)return;var D=dims(),p=pointerPos(e),ri=bandAt(p.x,p.y,D);if(ri<0)return;S.activeRing=ri;var a=Math.atan2(p.y-D.cy,p.x-D.cx);S.drag={ri:ri,last:a,start:a,before:snapState(),moved:0};cv.classList.add('drag');cv.setPointerCapture(e.pointerId);render()}
 cv.onpointermove=function(e){if(!S.drag)return;var D=dims(),p=pointerPos(e),a=Math.atan2(p.y-D.cy,p.x-D.cx),d=Math.atan2(Math.sin(a-S.drag.last),Math.cos(a-S.drag.last)),r=S.rings[S.drag.ri],step=TAU/r.values.length;r.rot+=d;r.index=mod(Math.round(-r.rot/step),r.values.length);S.drag.last=a;S.drag.moved+=Math.abs(d);recompute()}
-cv.onpointerup=function(e){if(!S.drag)return;var D=dims(),p=pointerPos(e),r=S.rings[S.drag.ri],step=TAU/r.values.length;if(S.drag.moved<.045){var a=Math.atan2(p.y-D.cy,p.x-D.cx),idx=mod(Math.round((a+Math.PI/2-r.rot)/step),r.values.length);r.index=idx}r.rot=-r.index*step;var before=S.drag.before;S.drag=null;cv.classList.remove('drag');pushHistory(before);recompute()}
+cv.onpointerup=function(e){if(!S.drag)return;var D=dims(),p=pointerPos(e),ri=S.drag.ri,r=S.rings[ri],step=TAU/r.values.length,from=S.drag.before.rings.find(function(x){return x.key===r.key})?.index??r.index,moved=S.drag.moved;if(moved<.045){var a=Math.atan2(p.y-D.cy,p.x-D.cx),idx=mod(Math.round((a+Math.PI/2-r.rot)/step),r.values.length);r.index=idx}r.rot=-r.index*step;var before=S.drag.before;S.drag=null;cv.classList.remove('drag');pushHistory(before);recompute();trace('DRAG',{ring:r.key,from,to:r.index,value:selected(r),radians:+moved.toFixed(3),support:(r.support&&r.support[r.index])||0});if(!S.matches.length)trace('DEAD',{ring:r.key,value:selected(r)})}
 cv.onpointercancel=function(){S.drag=null;cv.classList.remove('drag');render()}
 cv.addEventListener('wheel',function(e){e.preventDefault();var D=dims(),p=pointerPos(e),ri=bandAt(p.x,p.y,D);if(ri<0)ri=S.activeRing;S.activeRing=ri;setIndex(S.rings[ri],S.rings[ri].index+(e.deltaY>0?1:-1),true)},{passive:false});
 addEventListener('keydown',function(e){if(!S.rings.length||/INPUT|TEXTAREA/.test(document.activeElement.tagName))return;if(e.key==='ArrowUp'||e.key==='ArrowDown'){e.preventDefault();S.activeRing=mod(S.activeRing+(e.key==='ArrowDown'?1:-1),S.rings.length);render()}if(e.key==='ArrowLeft'||e.key==='ArrowRight'){e.preventDefault();setIndex(S.rings[S.activeRing],S.rings[S.activeRing].index+(e.key==='ArrowRight'?1:-1),true)}})
-$('#srcField').onclick=function(){initialApplied=true;loadSource('FIELD')};$('#srcHouse').onclick=function(){initialApplied=true;loadSource('HOUSE')};
-$('#viewRing').onclick=function(){S.projection='RING';render();syncURL()};$('#viewStrip').onclick=function(){S.projection='STRIP';render();syncURL()};
+$('#srcField').onclick=function(){initialApplied=true;study.source.FIELD++;trace('SOURCE',{source:'FIELD'});loadSource('FIELD')};$('#srcHouse').onclick=function(){initialApplied=true;study.source.HOUSE++;trace('SOURCE',{source:'HOUSE'});loadSource('HOUSE')};
+$('#viewRing').onclick=function(){S.projection='RING';study.projection.RING++;trace('PROJECTION',{projection:'RING'});render();syncURL()};$('#viewStrip').onclick=function(){S.projection='STRIP';study.projection.STRIP++;trace('PROJECTION',{projection:'STRIP'});render();syncURL()};
 $('#findMe').onclick=function(){if(S.source==='FIELD')applyPreset({family:'FOUNDRY',kind:'EXPERIMENT',operation:'PROVE',state:'PROOF_REQUIRED',role:'VERIFY'},true);else applyPreset({room:'LIVING_DINING',type:'COMFORT',confidence:'PLACEHOLDER',entity:'light.floor_lamp'},true)};
 $('#reset').onclick=function(){var before=snapState();S.rings.forEach(function(r){r.index=0;r.rot=0});S.search='';$('#search').value='';pushHistory(before);recompute()};
 $('#search').oninput=function(e){S.search=e.target.value;recompute()};$('#clearSearch').onclick=function(){S.search='';$('#search').value='';recompute()};
-$('#back').onclick=function(){var s=S.history.pop();if(!s)return;if(s.source!==S.source){loadSource(s.source).then?0:0;return}S.projection=s.projection||S.projection;S.rings.forEach(function(r){var q=s.rings.find(function(x){return x.key===r.key});if(q){r.index=mod(q.index,r.values.length);r.rot=-r.index*TAU/r.values.length}});S.search=s.search||'';$('#search').value=S.search;recompute()};
-$('#open').onclick=function(){if(S.focus)location.href=S.focus.href};
+$('#back').onclick=function(){var s=S.history.pop();if(!s)return;trace('BACK',{history:S.history.length});if(s.source!==S.source){loadSource(s.source).then?0:0;return}S.projection=s.projection||S.projection;S.rings.forEach(function(r){var q=s.rings.find(function(x){return x.key===r.key});if(q){r.index=mod(q.index,r.values.length);r.rot=-r.index*TAU/r.values.length}});S.search=s.search||'';$('#search').value=S.search;recompute()};
+$('#open').onclick=function(){if(S.focus){trace('OPEN',{focus:S.focus.id});location.href=S.focus.href}};
 $('#copy').onclick=async function(){if(!S.focus)return;syncURL();var txt=location.href+'\n'+focusAddress()+'\n'+S.focus.title;try{await navigator.clipboard.writeText(txt);this.textContent='COPIED';var b=this;setTimeout(function(){b.textContent='COPY'},700)}catch(_){prompt('Copy AXIAL focus:',txt)}};
-$('#ret').onclick=function(){syncURL();var r={schema:'axial.focus-return/0.7',at:new Date().toISOString(),source:S.source,address:focusAddress(),url:location.href,query:Object.fromEntries(S.rings.map(function(x){return[x.key,selected(x)]})),support:Object.fromEntries(S.rings.map(function(x){return[x.key,(x.support&&x.support[x.index])||0]})),focus_id:S.focus&&S.focus.id||null,focus_title:S.focus&&S.focus.title||null,projection:S.projection};S.returns.unshift(r);S.returns=S.returns.slice(0,60);localStorage.setItem('axial-focus-returns-v06',JSON.stringify(S.returns));render()};
-addEventListener('resize',drawWheel);loadSource(S.source);
+$('#ret').onclick=function(){syncURL();var r={schema:'axial.focus-return/0.7.2',at:new Date().toISOString(),source:S.source,address:focusAddress(),url:location.href,query:Object.fromEntries(S.rings.map(function(x){return[x.key,selected(x)]})),support:Object.fromEntries(S.rings.map(function(x){return[x.key,(x.support&&x.support[x.index])||0]})),focus_id:S.focus&&S.focus.id||null,focus_title:S.focus&&S.focus.title||null,projection:S.projection,ghost_tail:study.events.slice(-12)};S.returns.unshift(r);S.returns=S.returns.slice(0,60);localStorage.setItem('axial-focus-returns-v06',JSON.stringify(S.returns));trace('RETURN',{focus:S.focus&&S.focus.id||null});render()};
+$('#inspect').onclick=function(){renderDev();$('#dev').showModal()};$('#devClose').onclick=function(){$('#dev').close()};$('#devCopy').onclick=async function(){const txt=JSON.stringify(devState(),null,2);try{await navigator.clipboard.writeText(txt);this.textContent='COPIED';const b=this;setTimeout(function(){b.textContent='COPY STATE'},650)}catch(_){prompt('AXIAL state',txt)}};$('#devExport').onclick=function(){trace('EXPORT_WITNESS');downloadJSON(witness(),'axial-witness.json')};$('#devClear').onclick=function(){study={schema:'axial.study/v0.1',started_at:new Date().toISOString(),events:[],counts:{},ring_moves:{},projection:{RING:0,STRIP:0},source:{FIELD:0,HOUSE:0}};saveStudy();renderDev()};
+addEventListener('resize',function(){drawWheel();renderOverview()});loadSource(S.source);
 })();
 </script></body></html>
