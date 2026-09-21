@@ -120,6 +120,8 @@ if(manifest){
 const issueSnapshot=parse('control/FIELD_ISSUES.json');
 if(issueSnapshot){check(issueSnapshot.schema==='field-repo-issues/v0.1','FIELD issue snapshot schema drifted');check(issueSnapshot.count===issueSnapshot.issues.length,'FIELD issue snapshot count mismatch');}
 if(exists('field-glyph.js')){try{new Function(read('field-glyph.js'))}catch(e){fail.push('JS field-glyph.js: '+e.message)}}
+if(exists('field-presentation.js')){try{new Function(read('field-presentation.js'))}catch(e){fail.push('JS field-presentation.js: '+e.message)}}
+if(exists('field-play.html')){const play=read('field-play.html');check(play.includes('field-presentation.js'),'FIELD PLAY missing shared presentation kernel');check(play.includes('field-glyph.js'),'FIELD PLAY missing shared glyph grammar');}
 const ret=parse('return-index.json');
 if(ret){
   check(ret.count===ret.items.length,'return-index count mismatch');
@@ -155,6 +157,9 @@ check(home.includes('>OPEN PORTS<'),'root missing OPEN PORTS reading');
 check(home.includes('LATEST / REPO TOUCHES'),'root missing LATEST re-entry reading');
 check(home.includes('ISSUES / REPO OPEN LOOPS'),'root missing ISSUES reading');
 check(home.includes('field-glyph.js'),'root missing shared FIELD glyph grammar');
+check(home.includes('field-presentation.js'),'root missing FIELD presentation kernel');
+check(home.includes('id="fieldStrip"'),'root missing compact FIELD attention strip');
+check(!home.includes('class="nowGrid"'),'root regressed to oversized NOW card grid');
 check(home.includes('FIELD_INDEX_CONTRACT.json'),'root missing FI contract link');
 compileInline('index.html');
 if(manifest){
