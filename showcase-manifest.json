@@ -1766,9 +1766,10 @@
       "role": "Public instrument gateway separating ORIENT / OPERATE / PROVE / RECOVER while live priority remains in control/CURRENT.json.",
       "showcase_card": false,
       "index": {
-        "updated_at": "2026-09-22T05:25:00+08:00",
+        "updated_at": "2026-09-22T05:58:00+08:00",
         "work_modes": [
           "RECOVER",
+          "RESEARCH",
           "IMPLEMENT",
           "VERIFY",
           "ORIENT"
@@ -2105,55 +2106,65 @@
     },
     {
       "href": "/foundry/room/",
-      "title": "INTERPHASE / ROOM 0.1",
+      "title": "INTERPHASE / SPACE SCALE 0.2",
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
-      "operation": "REPRESENT",
+      "operation": "COMPOSE",
       "state": "CANDIDATE",
-      "version": "0.1",
+      "version": "0.2",
       "receipt": "/foundry/room/release.json",
       "showcase_card": false,
-      "role": "Six-face signed spatial projection over one real FIELD route: PRESENT↔RETURN, INPUT↔OUTPUT, INTENTION↔EVIDENCE. Rotation changes the active reading without changing object identity; walking through a local wall door changes the addressed object explicitly and leaves a local trail.",
+      "role": "Recursive BLOCK ⇄ ROOM composition substrate: typed seams, semantic operational zoom, reversible FOLD abstraction, subtree FORK, safe graph execution, declarative materialization recipe and RETURN over stable identities.",
       "transfer": [
-        "2018 KALA F/L/U/R/B/D room + direct camera manipulation",
-        "2019 rotating-cylinder state/readback discipline",
-        "2020 INTERPHASE VIEWPORT/CAMERA/ROOM + Lens/Iso/Traversal/Store lineage",
-        "FU explicit fovea → projection relation",
-        "AXIAL fixed gate + release-to-snap",
-        "Scale Lens identity through unequal projections",
-        "canonical INTERPHASE object/events/projections/RETURN schema"
+        "FURNISHER/SINDER multidimensional breadboard + joint-pattern compiler/stapler intent",
+        "FURNISHER POINT / PATHS / PLANE / POWER and analog-first physical-programming discipline",
+        "INTERPHASE lenses/state/transducers + room as projection rather than kernel",
+        "ONE RETURN typed seams / docking / replay",
+        "AXIAL fixed focus + discrete snap/readback",
+        "Scale Lens identity across unequal projections",
+        "Pad++ space-scale / alternate interface physics",
+        "Dynamicland visible compositional machinery and ad-hoc coupling",
+        "Breadboard / Potluck / Patchwork / Glamorous Toolkit malleability donors"
       ],
       "contract": {
         "accepts": {
           "kinds": [
-            "showcase-manifest FIELD route"
+            "typed block graph",
+            "FIELD route set",
+            "configuration intent"
           ],
           "requires": [
-            "stable route identity"
+            "stable node identity",
+            "typed port identity"
           ],
           "optional": [
-            "starting face",
-            "return/trail state"
+            "composite hierarchy",
+            "operator",
+            "starting semantic scale",
+            "scope"
           ]
         },
         "transforms": {
-          "verb": "re-project one addressed FIELD route into six opposing spatial relation faces, then permit explicit local door traversal to another addressed route",
+          "verb": "compose typed blocks, fold a working subgraph into a reusable block, enter it as a room at deeper semantic scale, fork alternatives, and preserve the derivation through RETURN",
           "preserves": [
-            "route identity",
-            "manifest provenance",
-            "orientation ≠ semantics",
-            "PLAIN control",
+            "primitive node identity",
+            "primitive port identity",
+            "primitive edge topology",
+            "composite child identity",
+            "plain canonical graph",
             "RETURN"
           ],
-          "reversibility": "full",
-          "side_effects": "browser-local orientation, trail and RETURN receipt only"
+          "reversibility": "full for digital composition/fold/fork projection operations",
+          "side_effects": "browser-local layout, selection, composition experiment and RETURN only"
         },
         "emits": {
           "kinds": [
-            "six-face room projection",
-            "0xxx0/interphase/v0.1 snapshot",
-            "local RETURN receipt"
+            "recursive block/room projection",
+            "typed graph",
+            "execution trace",
+            "declarative materialization recipe",
+            "space-scale RETURN"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -2161,11 +2172,14 @@
         "evidence": {
           "receipt": "/foundry/room/release.json",
           "checks": [
-            "all six faces round-trip face → orientation → face",
-            "each face derives from the same manifest route identity",
-            "door traversal is explicit and address-changing",
-            "PLAIN baseline remains available",
-            "RETURN carries object id, event ids, before/after, evidence and next routes"
+            "incompatible typed ports reject before graph mutation",
+            "FOLD preserves child identities and derives boundary proxy ports",
+            "composite proxy ports resolve to original primitive ports",
+            "semantic scale maps GLYPH / BLOCK / ROOM without changing graph identity",
+            "FORK clones subtree plus internal seams",
+            "safe graph RUN completes seed pipeline without eval",
+            "materialization recipe states explicit physical-safety non-claim",
+            "ROOM 0.1 remains preserved as prior probe"
           ],
           "return_path": "/foundry/room/"
         }
@@ -2173,55 +2187,77 @@
       "field": {
         "roles": [
           "WORLD_THROUGH",
+          "TRANSFORM",
           "VERIFY"
         ],
         "inputs": [
           {
             "medium": "DATA",
-            "kind": "FIELD manifest route",
-            "interface": "?route=/path/ or room command line"
+            "kind": "typed nodes / ports / topology",
+            "interface": "space-core model"
           },
           {
             "medium": "HUMAN_ACTION",
-            "kind": "rotation / face selection / door traversal",
-            "interface": "drag-snap, FLURBD keys, wall doors"
+            "kind": "pan / semantic zoom / select / dock / fold / enter / fork",
+            "interface": "space-scale canvas"
+          },
+          {
+            "medium": "DATA",
+            "kind": "FIELD route metadata",
+            "interface": "FIELD seed"
           }
         ],
         "outputs": [
           {
             "medium": "REPRESENTATION",
-            "kind": "signed six-face spatial reading",
-            "interface": "CSS3D room"
+            "kind": "GLYPH / BLOCK / ROOM semantic projections",
+            "interface": "space-scale canvas"
           },
           {
             "medium": "DATA",
-            "kind": "INTERPHASE snapshot",
-            "interface": "copy state"
+            "kind": "typed composite graph + execution trace",
+            "interface": "SPACE SCALE core"
+          },
+          {
+            "medium": "DATA",
+            "kind": "declarative materialization recipe",
+            "interface": "RECIPE"
           },
           {
             "medium": "EVIDENCE",
-            "kind": "local projection RETURN",
+            "kind": "composition RETURN",
             "interface": "RETURN"
           }
         ],
         "exit_paths": [
           {
-            "class": "PLAIN_CONTROL",
-            "status": "AVAILABLE",
-            "via": "PLAIN view on the same route"
+            "class": "PHYSICAL_COMPILER",
+            "status": "PROOF_REQUIRED",
+            "via": "materialization recipe → independent fit/load/safety gate"
           },
           {
-            "class": "FIELD_ROUTE",
+            "class": "FIELD_HOST",
             "status": "AVAILABLE",
-            "via": "wall door or OPEN canonical object"
+            "via": "FIELD route seed / future bounded handoff"
+          },
+          {
+            "class": "PLAIN_GRAPH",
+            "status": "AVAILABLE",
+            "via": "PLAIN canonical graph"
+          },
+          {
+            "class": "ROOM_0_1_PROBE",
+            "status": "REFERENCE",
+            "via": "/foundry/room/room-0.1.html"
           }
         ],
-        "physical_fit": "Spatial cognition experiment only. No HOUSE geometry, device truth or actuation authority."
+        "physical_fit": "Digital composition substrate only. Physical correspondences require independent typed joint/material/load/safety evidence; no HOUSE/device authority."
       },
       "index": {
-        "updated_at": "2026-09-22T05:25:00+08:00",
+        "updated_at": "2026-09-22T05:58:00+08:00",
         "work_modes": [
           "RECOVER",
+          "RESEARCH",
           "SPECIFY",
           "IMPLEMENT",
           "VERIFY"
@@ -2230,17 +2266,18 @@
       "evolution": {
         "schema": "field-evolution/v0.1",
         "host": "/foundry/",
-        "generation": 1,
+        "generation": 2,
         "stage": "TEST",
-        "question": "Do six stable opposing relations improve re-orientation, relation discovery or route traversal over a plain manifest reading without making 3D manipulation a tax?",
-        "baseline": "PLAIN mode exposes the same canonical showcase-manifest route without spatial projection.",
-        "mutation": "One route identity is projected as a deterministic signed room: +Z PRESENT, -Z RETURN, -X INPUT, +X OUTPUT, +Y INTENTION, -Y EVIDENCE; direct rotation snaps to faces and local wall doors traverse explicit route relations.",
-        "evidence_gate": "Core self-test + static/browser public-surface validation, then one ordinary-use comparison after interruption: recover what/why/proof/next in ROOM versus PLAIN and record wrong-relation/navigation-tax residue.",
-        "next_if_pass": "Retain ROOM as an optional projection and test one bounded FIELD or Scale Lens handoff without creating a second selection authority.",
-        "next_if_fail": "PARK the 3D projection; preserve the six-opposition relation law and exact donor lineage as reusable evidence."
+        "question": "Can recursive BLOCK ⇄ ROOM abstraction make a real configuration easier to compose, inspect, fork, reuse and re-enter than the six-face cube probe or a plain graph without hiding its machinery?",
+        "baseline": "ROOM 0.1 six-face relation projection + PLAIN canonical graph; neither turns working composition into a reusable recursive primitive.",
+        "mutation": "Replace cube-head with a space-scale composition substrate: GLYPH/BLOCK/ROOM semantic depth, typed ports, visible seams, reversible FOLD, subtree FORK, safe RUN and declarative RECIPE.",
+        "evidence_gate": "Core/static/browser tests, then compose one real multi-step FIELD or HOUSE-safe planning transformation. Require a folded composite to be reusable/forkable/re-enterable with lower translation cost and no loss of seam/provenance visibility.",
+        "next_if_pass": "Transfer space-core semantics into one real host and prototype one physical/printable typed-port or joint-pattern witness. Keep canvas replaceable.",
+        "next_if_fail": "PARK the zoom canvas; retain typed dock/fold/fork/recipe semantics as donor and return to a plainer host."
       },
-      "recovery_note": "/control/confluence/INTERPHASE_ROOM_CONVERGENCE_2026-09-22.md",
-      "kernel": "/foundry/room/room-core.js"
+      "recovery_note": "/control/confluence/ROOM_BLOCK_SPACE_SCALE_2026-09-22.md",
+      "kernel": "/foundry/room/space-core.js",
+      "previous_probe": "/foundry/room/room-0.1.html"
     },
     {
       "href": "/foundry/convergence/identity-lab.html",
