@@ -1,0 +1,41 @@
+{
+  "schema": "0xxx0/hard-advance-return/v0.1",
+  "id": "HARD-ADVANCE-2026-09-22-0344",
+  "at": "2026-09-22T03:44:00+08:00",
+  "before": {
+    "master": "5912190d99ae7573edecef9932c57ff824ec197b",
+    "current_next": "human-port-object-specimens-01",
+    "open_prs_before": 1,
+    "open_pr": 111,
+    "stale_risk": "Dedicated browser specimen harness was being mistaken for ordinary-use evidence; branch frontier snapshots lagged live PR state."
+  },
+  "operation": [
+    "Recovered live branch/PR perimeter from GitHub rather than trusting stale snapshot counts.",
+    "Reviewed PR #111 and its repeated CI failures.",
+    "Distinguished CI virtual-time/IndexedDB observation-harness behavior from HUMAN PORT product behavior.",
+    "Closed PR #111 unmerged with explicit donor disposition.",
+    "Recomputed branch authority census and preserved all branch pointers.",
+    "Reasserted ordinary-use-only HUMAN PORT evidence gate in CURRENT and QUEUE."
+  ],
+  "after": {
+    "branch_counts": {
+      "total": 114,
+      "canonical": 1,
+      "open_pr": 0,
+      "merged_pr_lineage": 76,
+      "closed_unmerged_pr_lineage": 23,
+      "no_pr_pointer": 14
+    },
+    "open_prs": 0,
+    "no_pr_unclassified": 0,
+    "human_port_specimen_pr": "CLOSED_UNMERGED_OBSERVATION_HARNESS_DONOR",
+    "next_authority": "ordinary HUMAN PORT use; no dedicated specimen QA ritual"
+  },
+  "preservation": {
+    "deleted_branches": 0,
+    "merged_stale_branches": 0,
+    "provenance": "PR #111 discussion + branch pointer preserved",
+    "authority": "master + CURRENT/QUEUE"
+  },
+  "stop_condition": "Do not invent a HUMAN PORT fix from CI harness behavior. Re-enter only on real use evidence or independently reproduced defect."
+}
