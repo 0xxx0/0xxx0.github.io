@@ -81,10 +81,10 @@
       "stage": 7,
       "label": "MULTI_VOICE_INTERNAL_SELVES_REQUEST",
       "date": "later in Response Consolidation Strategy; exact turn date still open",
-      "evidence_class": "RECOVERED_EXACT_PROMPT_SNIPPET_SECONDARY_SOURCE",
+      "evidence_class": "RECOVERED_EXACT_PROMPT_SNIPPET_SECONDARY_SOURCE_REVERIFIED",
       "user_exact": "Summarise all the laconic iconic scripted responses categorise organise them. Maybe start by indexing all of the stuff generatednfirst ... rheres a wuitr a bit of overlap. I wanna consolidate the list filter out the low quality ones. maybe try to generate 5 or.6.distinct styles and voices for rrsspective personas internal selves. but consolidate the bangers and highest quality highest frequency come backs and or phrases to practice.",
       "mechanism_change": "persona modes become a deliberately plural set of internal voices",
-      "open": "recover direct source message id/date and exact generated 5–6 voice outputs"
+      "open": "Direct original message node/date and exact generated 5–6 voice outputs remain unrecovered after 2026-09-22 exact File Library pass."
     },
     {
       "stage": 8,
@@ -98,7 +98,7 @@
         "work expands from simple one-liners into multi-self chatter and inner dialogues"
       ],
       "mechanism_change": "voices stop being mutually exclusive style presets and begin interacting with one another",
-      "open": "recover exact initiating user turns and first assistant multi-self scene"
+      "open": "Direct initiating user turns and first assistant multi-self scene remain unrecovered after 2026-09-22 exact File Library pass."
     },
     {
       "stage": 9,
@@ -125,7 +125,8 @@
     "do_not_infer": [
       "Do not call the Dec 2024 named archetypes the Council yet.",
       "Do not claim exact 5–6 voice identities until direct outputs are recovered.",
-      "Do not treat later master-seed summaries as proof that every listed episode/persona existed in Dec 2024."
+      "Do not treat later master-seed summaries as proof that every listed episode/persona existed in Dec 2024.",
+      "Do not map later six-primary Council summaries or later multi-persona casts onto the missing 5–6 internal-voice output without a direct bridge."
     ]
   },
   "compressed_lineage": "parallel donors [interacting symbolic figures | comic council image | user-adopted persona switching] → explicit request for 5–6 internal voices → interacting selves → Council of Selves canon",
@@ -161,5 +162,22 @@
       "source_ref": "./selection-chain-2024-12-29.json",
       "mechanism": "user says personality-setting experiments are literally true, then explicitly prioritizes persona testing + scenarios"
     }
-  ]
+  ],
+  "latest_exact_source_pass": {
+    "at": "2026-09-22",
+    "operation": "Exact-only File Library archaeology for the missing 5–6 internal-voice consolidation and first multi-self chatter.",
+    "observed": [
+      "The historical user request for `5 or 6 distinct styles and voices for respective personas/internal selves` is independently reverified in the current conversation export/search corpus.",
+      "The recovered representation still resolves to a past-chat/search snippet for Response Consolidation Strategy rather than the direct original message node with message id/date.",
+      "Later direct multi-persona and Council material exists, but no recovered source establishes that those later casts are the missing 5–6 voice output set."
+    ],
+    "not_recovered": [
+      "direct original message node/date for the 5–6 internal-voice request",
+      "direct generated 5–6 voice output set",
+      "direct `5 selves chatter – realistic personas` initiating turn",
+      "first assistant multi-self scene produced from that turn"
+    ],
+    "disposition": "OPEN_SOURCE_GAP_REVERIFIED",
+    "rule": "Do not substitute later Council casts, later six-persona summaries, or unrelated multi-persona scenes for the missing direct output. Reopen only on a direct message node/source output/adoption record."
+  }
 }
