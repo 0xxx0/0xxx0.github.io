@@ -105,7 +105,7 @@ linear-gradient(to top,rgba(233,116,67,.08),rgba(170,139,216,.06));touch-action:
 
 <section class="view" id="view-bridge" hidden>
  <div class="bridgegrid">
-  <div class="bridgeCard"><div class="k">BODY → HOUSE</div><h3>Latest local body return</h3><div id="bodyBridgeState" class="kv"></div><div class="toolbar"><a href="../house/"><button>OPEN HOUSE →</button></a><button id="republishBody">REPUBLISH LATEST</button></div></div>
+  <div class="bridgeCard"><div class="k">BODY → HOUSE</div><h3>Latest local body return</h3><div id="bodyBridgeState" class="kv"></div><div class="toolbar"><a href="../house/"><button>OPEN HOUSE →</button></a><button id="republishBody">REPUBLISH LATEST</button><button id="sendCare">SEND LATEST TO CARE →</button></div></div>
   <div class="bridgeCard"><div class="k">HOUSE → BODY</div><h3>Attached HOUSE context</h3><div id="houseBridgeState" class="kv"></div><div class="toolbar"><a href="../house/"><button>ATTACH FROM HOUSE →</button></a><button id="clearHouseContext">CLEAR LOCAL CONTEXT</button></div></div>
   <div class="bridgeCard"><div class="k">ENV-0 RELATION</div><h3>Typed, not metaphorical</h3><div class="law">BODY observation + place/posture/environment + optional HOUSE projection metadata → <b>COINCIDENT_WITH / OBSERVED_DURING / CONTACTS / EXPOSED_TO</b>. Never auto-promote to CAUSED_BY.</div></div>
   <div class="bridgeCard"><div class="k">SOURCE LANES</div><h3>Active + passive stay separate</h3><div class="kv"><span>SELF REPORT</span><span>active · this interface</span><span>HOUSE</span><span>context packet · local bridge</span><span>WATCH / PHONE</span><span>adapter-ready · not connected here</span><span>CARE</span><span>episode/handoff surface · separate authority</span></div></div>
@@ -121,7 +121,7 @@ linear-gradient(to top,rgba(233,116,67,.08),rgba(170,139,216,.06));touch-action:
 <script src="../bodyplans/registry.js"></script>
 <script>
 (()=>{'use strict';
-const KEY='0xxx0.body.field.v02',LATEST='0xxx0.body.field.latest.v01',HOUSE='0xxx0.house.body.context.v01';
+const KEY='0xxx0.body.field.v02',LATEST='0xxx0.body.field.latest.v01',HOUSE='0xxx0.house.body.context.v01',CARE='0xxx0.body.care.handoff.v01';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],now=()=>new Date().toISOString(),uid=p=>p+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),mean=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
@@ -188,7 +188,7 @@ $('#cancelTest').onclick=()=>{D.active_test=null;save();renderTests()};
 
 function kvHtml(obj){return Object.entries(obj).map(([k,v])=>'<span>'+esc(k)+'</span><span>'+esc(v??'—')+'</span>').join('')}
 function renderBridge(){let b=null,h=null;try{b=JSON.parse(localStorage.getItem(LATEST)||'null')}catch(_){}try{h=JSON.parse(localStorage.getItem(HOUSE)||'null')}catch(_){}$('#bodyBridgeState').innerHTML=b?kvHtml({observed:new Date(b.observed_at).toLocaleString(),word:b.state?.label||'—',itch:b.state?.itch,pain:b.state?.pain,place:b.context?.place,area:b.context?.area||'—',environment:(b.context?.environment||[]).join(' · ')||'—'}):kvHtml({state:'none yet'});$('#houseBridgeState').innerHTML=h?kvHtml({generated:h.generated_at||'—',runtime:h.runtime_health_class||'—',age:h.source_age_class||'—',area:h.area||'—',schema:h.schema||'—'}):kvHtml({state:'no local HOUSE context packet'});renderHouseAttach()}
-$('#republishBody').onclick=()=>{const e=latest();if(!e)return;localStorage.setItem(LATEST,JSON.stringify({schema:'0xxx0/body-house-bridge/v0.1',event_id:e.id,observed_at:e.observed_at,state:e.state,body_address:{plan_id:e.body_address?.plan_id,view:e.body_address?.view,region_labels:e.body_address?.region_labels},context:e.context}));renderBridge()};
+$('#republishBody').onclick=()=>{const e=latest();if(!e)return;localStorage.setItem(LATEST,JSON.stringify({schema:'0xxx0/body-house-bridge/v0.1',event_id:e.id,observed_at:e.observed_at,state:e.state,body_address:{plan_id:e.body_address?.plan_id,view:e.body_address?.view,region_labels:e.body_address?.region_labels},context:e.context}));renderBridge()};$('#sendCare').onclick=()=>{const e=latest();if(!e)return alert('Make a NOW return first.');localStorage.setItem(CARE,JSON.stringify({schema:'0xxx0/body-care-handoff/v0.1',created_at:now(),event:e}));location.assign('../care/')};
 $('#clearHouseContext').onclick=()=>{localStorage.removeItem(HOUSE);renderBridge()};
 
 function renderPlain(){$('#plainText').textContent=JSON.stringify(D,null,2)}
