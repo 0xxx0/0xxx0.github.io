@@ -65,6 +65,9 @@ function textAtId(dom,id){
   if(gt<0||end<0)return '';
   return dom.slice(gt+1,end).replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
 }
+function visibleText(dom){
+  return String(dom||'').replace(/<script[\s\S]*?<\/script>/gi,' ').replace(/<style[\s\S]*?<\/style>/gi,' ').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
+}
 const CASES=[
   {
     name:'FIELD',
@@ -141,7 +144,7 @@ const CASES=[
   {
     name:'FOUNDRY CORE',
     route:'/foundry/core/',
-    check:dom=>/Turn lived uncertainty into manipulable state/i.test(dom)&&!dom.includes('CENTER LOAD FAILURE')
+    check:dom=>{const text=visibleText(dom);return /Turn lived uncertainty into manipulable state/i.test(text)&&!/CENTER LOAD FAILURE/i.test(text)}
   },
   {
     name:'MIGRATION',
@@ -178,7 +181,7 @@ try{
     console.log((ok?'PASS':'FAIL'),c.name,c.route);
     if(!ok){
       const source=textAtId(r.out,'sourceState');
-      const body=r.out.replace(/<script[\s\S]*?<\/script>/gi,' ').replace(/<style[\s\S]*?<\/style>/gi,' ').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim().slice(0,700);
+      const body=visibleText(r.out).slice(0,700);
       fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(fatal?' browser-fatal':'')+(body?' body='+JSON.stringify(body):''));
       if(r.err.trim())console.error('SMOKE STDERR',c.name,r.err.slice(-1800));
     }
