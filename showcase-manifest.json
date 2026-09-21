@@ -2617,14 +2617,14 @@
       "parent": "/control/",
       "state": "ACTIVE",
       "showcase_card": false,
-      "role": "Readable cross-lineage handoff shelf; coordinates unequal lineages through explicit differences, ablations and recipient-side RETURN without vocabulary collapse.",
+      "role": "Readable cross-lineage handoff shelf: recover exact donors and operational tools, distinguish mechanism from carrier, coordinate bounded transfers across unequal lineages, and require recipient-side RETURN without vocabulary collapse.",
       "index": {
-        "updated_at": "2026-09-21T09:21:54.530563+00:00",
+        "updated_at": "2026-09-21T19:35:00+08:00",
         "work_modes": [
+          "RECOVER",
           "INVESTIGATE",
-          "VERIFY",
           "SPECIFY",
-          "RELEASE"
+          "VERIFY"
         ]
       },
       "machine_view": "CONFLUENCE",
