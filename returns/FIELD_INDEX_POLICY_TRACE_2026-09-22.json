@@ -1,0 +1,46 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "FIELD_INDEX_POLICY_TRACE_2026-09-22",
+  "date": "2026-09-22",
+  "route": "/",
+  "title": "FIELD INDEX 0.6.2 / TRACE VERIFY",
+  "state": "ACTIVE",
+  "operation": "IMPLEMENT / VERIFY / OPERATE",
+  "objective": "Move policy-resolution trace work out of schema-only space and into the actual FIELD INDEX interface as a focus-bound local instrument.",
+  "changed": [
+    "/field-policy-trace.mjs",
+    "/index.html",
+    "/showcase-manifest.json",
+    "/control/CURRENT.json",
+    "/control/FIELD_INDEX_CONTRACT.json"
+  ],
+  "behavior": [
+    "TRACE / VERIFY is collapsed by default inside FIELD INDEX.",
+    "Current shared FI focus is bound as an opaque resource ref for the local reference trace.",
+    "Typed event text is processed locally only to derive event_ref; raw text is not embedded in committed/exported trace.",
+    "Seven gates render: READ, REMEMBER, ACKNOWLEDGE, ANSWER, DRAFT, ACT, ESCALATE.",
+    "Causal trace renders selector -> matched policy -> per-gate operations/denies -> stage -> seven gate finals -> resolution final.",
+    "STRUCTURAL / REPLAY / SEALED statuses run through /policy-trace-verifier.mjs.",
+    "COMMIT TRACE stores trace-only JSON in browser localStorage; EXPORT emits trace JSON.",
+    "No fetch/network action exists in field-policy-trace.mjs."
+  ],
+  "verification": {
+    "source_module_syntax": "PASS",
+    "root_trace_fold_wired": "PASS",
+    "root_module_loaded": "PASS",
+    "root_trace_nav_wired": "PASS",
+    "module_network_fetch_absent": "PASS",
+    "raw_payload_embedded_flag": "false",
+    "trace_verifier_input_strips_ui_only_metadata": "PASS",
+    "browser_pages_smoke": "NOT_RUN",
+    "reason": "Repository/source verification completed in connected GitHub environment; live Pages deployment/browser execution not yet independently observed."
+  },
+  "laws_preserved": [
+    "TRACE != AUTHORITY",
+    "FOCUS != PERMISSION",
+    "FAIL != INDETERMINATE",
+    "RAW INPUT DOES NOT ENTER TRACE BY DEFAULT",
+    "No fourth FCM front created"
+  ],
+  "next_state": "Ordinary use: focus any FIELD route, open TRACE / VERIFY, run the local reference trace, inspect seven gates and verifier states. Promote toward replay only when real private policy material is available."
+}
