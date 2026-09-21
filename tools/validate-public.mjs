@@ -188,10 +188,16 @@ if(manifest){
     check(Array.isArray(r.index?.work_modes)&&r.index.work_modes.length>0,'tracked route missing index.work_modes: '+r.href);
   }
 }
+if(exists('lib/constraint-surface.js')){
+  try{new Function(read('lib/constraint-surface.js'))}catch(e){fail.push('JS lib/constraint-surface.js: '+e.message)}
+}else fail.push('Constraint Surface shared kernel missing');
+check(home.includes('lib/constraint-surface.js'),'FIELD root missing shared Constraint Surface kernel');
+check(!home.includes('foundry/axial/focus-core.js'),'FIELD root must not depend on AXIAL presentation core');
 const axialPath='foundry/axial/index.html';
 const axialLabPath='foundry/axial/lab-0.5.1.html';
 if(exists(axialPath)){
   const a=read(axialPath);
+  check(a.includes('../../lib/constraint-surface.js'),'AXIAL missing shared Constraint Surface kernel');
   for(const token of ['FOCUS STACK','FIELD INDEX','HOUSE: SOFA LIGHT','RING','STRIP','RETURN'])check(a.includes(token),'AXIAL 0.6 focus-stack token missing: '+token);
   compileInline(axialPath);
 }
