@@ -127,9 +127,6 @@ if(exists('foundry/aperture/index.html')){
   for(const token of ['FOUNDRY / APERTURE','field-aperture.js','RSVP','SCALE LENS','TWO DIAL'])check(ap.includes(token),'Aperture surface token missing: '+token);
   compileInline('foundry/aperture/index.html');
 }
-check(home.includes('field-aperture.js'),'FIELD root missing reusable Aperture component');
-check(home.includes('id="apInspect"'),'FIELD root missing focused Aperture action');
-if(exists('port/index.html')){const p=read('port/index.html');check(p.includes('field-aperture.js'),'HUMAN PORT missing reusable Aperture component');check(p.includes('id="inspectBtn"'),'HUMAN PORT missing Aperture intake action');}
 if(exists('field-play.html')){const play=read('field-play.html');check(play.includes('field-presentation.js'),'FIELD PLAY missing shared presentation kernel');check(play.includes('field-glyph.js'),'FIELD PLAY missing shared glyph grammar');}
 const ret=parse('return-index.json');
 if(ret){
@@ -168,6 +165,9 @@ check(home.includes('LATEST / REPO TOUCHES'),'root missing LATEST re-entry readi
 check(home.includes('ISSUES / REPO OPEN LOOPS'),'root missing ISSUES reading');
 check(home.includes('field-glyph.js'),'root missing shared FIELD glyph grammar');
 check(home.includes('field-presentation.js'),'root missing FIELD presentation kernel');
+check(home.includes('field-aperture.js'),'FIELD root missing reusable Aperture component');
+check(home.includes('id="apInspect"'),'FIELD root missing focused Aperture action');
+if(exists('port/index.html')){const p=read('port/index.html');check(p.includes('field-aperture.js'),'HUMAN PORT missing reusable Aperture component');check(p.includes('id="inspectBtn"'),'HUMAN PORT missing Aperture intake action');}
 check(home.includes('id="axialLatest"'),'root missing unified AXIAL latest surface');
 check(home.includes('id="apOpen"'),'root missing explicit focus OPEN action');
 check(!home.includes('class="nowGrid"'),'root regressed to oversized NOW card grid');
