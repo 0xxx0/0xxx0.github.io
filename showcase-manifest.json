@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T16:40:00+08:00",
+        "updated_at": "2026-09-21T16:52:00+08:00",
         "work_modes": [
           "RECOVER",
           "SPECIFY",
@@ -42,7 +42,8 @@
         "deep-linkable embedded focus",
         "LensState v0.2 typed composition over the same AXIAL/LATEST focus",
         "visible lawful/dead next-lens support",
-        "NAV / INSPECT / LENS remain distinct operations"
+        "NAV / INSPECT / LENS remain distinct operations",
+        "local PLAIN↔FOVEATED Lens proof bench with explicit receipt copy"
       ]
     },
     {
@@ -1291,7 +1292,8 @@
         "FIELD route re-projection via local handoff",
         "typed LensState v0.2 composition",
         "lawful lens-stack support / dead composition visibility",
-        "AXIAL/LATEST shared focus adapter"
+        "AXIAL/LATEST shared focus adapter",
+        "FI local proof-bench handoff for LENS-03"
       ],
       "contract": {
         "accepts": {
@@ -1376,7 +1378,7 @@
         "physical_fit": "Prepare addressed objects/specs for decision or fabrication; should not actuate directly."
       },
       "index": {
-        "updated_at": "2026-09-21T16:40:00+08:00",
+        "updated_at": "2026-09-21T16:52:00+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
@@ -1393,7 +1395,7 @@
         "question": "Can typed LensState + lawful stack support turn FIELD's AXIAL-selected route into a reusable composition instrument without creating a second selection model or losing identity/RETURN?",
         "baseline": "FIELD AXIAL/LATEST exact focus + legacy one-way SCALE LENS handoff; Scale Studio operators exist, but the ordinary surface does not show typed composition support or dead next-lens states.",
         "mutation": "LensState v0.2 contract support + root Focus Ring bound directly to AXIAL/LATEST focus. Candidate lenses expose support=1 or support=0 with reason; unsupported composition is rejected rather than silently coerced.",
-        "evidence_gate": "Expanded LensState selftest must pass in CI; then browser-smoke AXIAL focus → ◎ LENS → supported FOVEATE application + visible dead Scale-only candidate → Studio handoff → exact FIELD RETURN on phone and desktop. Canonical route identity must remain unchanged except intentional PEER selection.",
+        "evidence_gate": "Use FI Focus Ring → PROOF or `/?lens_proof=1` for paired PLAIN/FOVEATED T1/T2/T3 runs. Promotion requires identity continuity in both conditions and a context-heavy task advantage without extra wrong-route selections; otherwise keep FOVEATE experimental.",
         "next_if_pass": "TRANSFER LensState/support planner into FIELD root and generic route adapter as the shared composition law; retain RC11.2 Studio as the deep lab and retire special-case lens controls.",
         "next_if_fail": "PARK the Focus Ring/compositor UI; keep typed LensState and support/dead-state law as DONOR infrastructure, restore the stable legacy Studio handoff as the ordinary path."
       },

@@ -1,11 +1,11 @@
 {
   "schema": "0xxx0/lens-foveate-proof/v0.1",
-  "at": "2026-09-21T14:37:00+08:00",
-  "branch": "lens-convergence-contract-20260921",
-  "pr": 50,
+  "at": "2026-09-21T16:52:00+08:00",
+  "branch": "lens-proof-bench-20260921",
+  "pr": "post-merge proof bench",
   "target": "LENS-03",
-  "state": "EXPERIMENTAL_IMPLEMENTED_TASK_PROOF_REQUIRED",
-  "surface": "FIELD INDEX / VISUAL",
+  "state": "PROOF_BENCH_IMPLEMENTED_HUMAN_RUNS_REQUIRED",
+  "surface": "FIELD INDEX / local proof mode",
   "ablation": {
     "plain": "FOVEATE OFF",
     "treatment": "FOVEATE ON",
@@ -53,7 +53,13 @@
       "aperture",
       "projection",
       "foveate state",
-      "lens stack"
+      "lens stack",
+      "stateTransitions",
+      "wrongRouteSelections",
+      "peerVisits",
+      "RETURN seen",
+      "projection sequence",
+      "identity continuity"
     ],
     "benchmark": [
       {
@@ -72,7 +78,7 @@
         "goal": "VISUAL → STRUCTURE → VISUAL, preserve identity, then RETURN to entry UI state"
       }
     ],
-    "protocol": "Run each task PLAIN and FOVEATED; alternate condition order across at least three passes. Do not count the pre-task FOVEATE toggle.",
+    "protocol": "Run each task PLAIN and FOVEATED; alternate condition order across at least three passes. The bench applies condition/setup before timing and keeps receipts browser-local until explicit COPY.",
     "record": [
       "completion",
       "durationMs",
@@ -80,7 +86,17 @@
       "wrong-route selections",
       "identity continuity",
       "subjective orientation residue"
-    ]
+    ],
+    "bench": {
+      "entry": [
+        "Focus Ring → PROOF",
+        "/?lens_proof=1"
+      ],
+      "runtime": "/lens-proof.js",
+      "local_store": "lens:proof:runs:v1",
+      "last_receipt": "lens:proof:last:v1",
+      "exports": "0xxx0/lens-proof-packet/v0.1 JSON copied explicitly by the human"
+    }
   },
   "promotion_gate": [
     "Identity continuity must be 100% in both conditions.",
@@ -94,12 +110,14 @@
     "same_layout_rule": "PASS_BY_CODE_INSPECTION",
     "foveation_descriptor": "PRESENT",
     "plain_baseline": "PRESENT",
-    "interaction_receipt": "PRESENT"
+    "interaction_receipt": "PRESENT",
+    "proof_bench_js": "PRESENT",
+    "proof_bench_local_only": true
   },
   "unverified": [
-    "live browser execution",
     "390px mobile layout",
-    "human task benchmark"
+    "human paired task benchmark",
+    "whether FOVEATED earns promotion over PLAIN"
   ],
-  "return": "Do not promote LENS-03 until the benchmark produces a receipt; implementation existence is not evidence of task advantage."
+  "return": "Open FI and use Focus Ring → PROOF, or `/?lens_proof=1`. Generate paired local receipts. Do not promote LENS-03 until human evidence passes the declared gate."
 }
