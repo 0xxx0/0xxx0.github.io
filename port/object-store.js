@@ -31,7 +31,8 @@ async function fromFile(file){
 }
 async function fromText(text,label='Untitled intake'){
  const raw=String(text),ab=enc.encode(raw),hash=await sha256(ab),id='portobj:text:'+hash.slice(0,24);
- return {schema:'human-port-object/v0.1',object_id:id,source_class:'TEXT_ENTRY',media_class:(()=>{try{JSON.parse(raw);return'JSON'}catch(_){return'TEXT'}})(),label:String(label||'Untitled intake').slice(0,160),mime:'text/plain',size_bytes:ab.byteLength,sha256:hash,created_at:new Date().toISOString(),retention:'SESSION',provenance:{origin:'human-port-text-entry',source_ref:null},payload_ref:null,text_payload:raw,focus:null};
+ let media='TEXT';try{JSON.parse(raw);media='JSON'}catch(_){}
+ return {schema:'human-port-object/v0.1',object_id:id,source_class:'TEXT_ENTRY',media_class:media,label:String(label||'Untitled intake').slice(0,160),mime:media==='JSON'?'application/json':'text/plain',size_bytes:ab.byteLength,sha256:hash,created_at:new Date().toISOString(),retention:'SESSION',provenance:{origin:'human-port-text-entry',source_ref:null},payload_ref:null,text_payload:raw,focus:null};
 }
 async function get(id){const r=await tx('readonly',s=>s.get(id));return r||null}
 async function remove(id){await tx('readwrite',s=>s.delete(id));return true}
