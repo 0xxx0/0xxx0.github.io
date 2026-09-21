@@ -2,7 +2,7 @@
   "schema": "0xxx0/source-locator/v0.1",
   "id": "TOOLBELT-SOURCE-LOCATOR-2026-09-21",
   "at": "2026-09-21",
-  "status": "EXACT_SOURCE_IDENTITIES_LOCATED_BYTES_NOT_YET_MATERIALIZED_TO_REPO",
+  "status": "EXACT_SOURCE_IDENTITIES_AND_CONTENT_REVERIFIED_BYTES_NOT_YET_MATERIALIZED_TO_REPO",
   "purpose": "Replace reconstructed/search-level uncertainty around the App Atlas tool set and Sleeper operator quartet with exact File Library source identities, while preserving the distinction between located source and byte-recovered repo artifact.",
   "sources": [
     {
@@ -113,5 +113,13 @@
     "rule": "Do not reconstruct or modernize these sources as a substitute for byte recovery. Use this locator to retrieve the exact originals when a materialization path is available."
   },
   "current_correspondence": "/control/confluence/TOOL_KERNEL_2026-09-21.md",
-  "next": "Materialize the exact three source files into /recovery/toolbelt/ with byte hashes when the File Library→repo byte handoff is available; until then this locator closes identity/search uncertainty but not byte provenance."
+  "next": "Materialize the exact three source files into /recovery/toolbelt/ with byte hashes when the File Library→repo byte handoff is available; until then this locator closes identity/search uncertainty but not byte provenance.",
+  "reverified_at": "2026-09-22",
+  "reverification": {
+    "app_atlas_json": "Exact File Library file present; schema_version 1.0 and App Atlas records inspected.",
+    "app_foundry_html": "Exact File Library runnable projection present; read-only-except-export projection embeds App Atlas data.",
+    "sleeper_operator_visual": "Exact File Library image present; KERIS/CONCH/W8/SPIRAL source wording inspected.",
+    "byte_boundary": "Current tools still do not provide a raw File Library byte→GitHub handoff, so SHA-256 remains intentionally null."
+  },
+  "read_only_lineage_projection": "/control/confluence/TOOL_LINEAGE_READING_2026-09-22.json"
 }
