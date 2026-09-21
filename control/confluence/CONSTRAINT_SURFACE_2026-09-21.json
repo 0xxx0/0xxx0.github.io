@@ -42,5 +42,9 @@
     "state_aperture": "transforms and crosses consequence/authority boundaries"
   },
   "promotion_rule": "Do not build a reusable UI component until a third consumer needs the same interaction surface. Reuse the headless kernel now.",
-  "next_surprising_test": "If a third domain needs exact lawful-neighborhood support, adapt only its dimensions/getValues function and compare whether the same kernel survives unchanged."
+  "next_surprising_test": "If a third domain needs exact lawful-neighborhood support, adapt only its dimensions/getValues function and compare whether the same kernel survives unchanged.",
+  "support_semantics": {
+    "kind": "EXACT_SET_CARDINALITY",
+    "contract": "/control/SUPPORT_SEMANTICS.json"
+  }
 }
