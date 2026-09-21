@@ -2,7 +2,27 @@
   "schema": "recovery-target/v0.1",
   "id": "ONE_RETURN_V2_TARGET_2026-09-21",
   "corrected_at": "2026-09-21T20:28:00+08:00",
-  "status": "IDENTIFIED_NOT_SOURCE_MATERIALIZED",
+  "status": "SOURCE_SNAPSHOT_AVAILABLE_IDENTITY_RECONCILIATION_REQUIRED",
+  "source_reconciliation": {
+    "evidence_class": "EXACT_PUBLIC_SOURCE_NOT_DEPLOYMENT_PROOF",
+    "source_shelf": "/recovery/sleeper/site-source-2026-09-18/",
+    "manifest": "/recovery/sleeper/site-source-2026-09-18/manifest.json",
+    "source_commit": "50f886c829dcee98b043c55ef9de0c631fd31987",
+    "core_history_commit": "a9c00285df143f3c2054b2167e86ee2f6db2ae1f",
+    "core_history_date": "2026-09-10",
+    "core_history_subject": "Deepen One Return into a causal city engine",
+    "world_law": "/recovery/sleeper/site-source-2026-09-18/app/one-return/world-law.ts",
+    "design": "/recovery/sleeper/site-source-2026-09-18/docs/ONE_RETURN_V2.md",
+    "client": "/recovery/sleeper/site-source-2026-09-18/app/one-return/one-return-client.tsx",
+    "verified_core_continuity": "world-law.ts, city-layout.ts, protocol.ts, app/lib/seed.ts and docs/ONE_RETURN_V2.md are unchanged between the recovered Sep-10 core commit and exported snapshot. Client differs by two Interphase navigation-link additions; do not call the whole snapshots identical.",
+    "snapshot_figure_ids": ["urchin", "slothcake", "kite"],
+    "snapshot_operator_ids": ["conch", "keris", "w8", "spiral"],
+    "snapshot_query_parameters": ["source", "cell", "figure", "world"],
+    "snapshot_witness": {"schema": "sleeper.one-return", "version": 2, "restores": "verified world inputs, not completed action-trace replay"},
+    "boundary": "These are facts about the existing public snapshot. They do not prove visual equivalence to the remembered polished deployment or four FIGURE choices. Keep figures distinct from operators and preserve the conflicting recollection.",
+    "next": "Compare this existing source against the requested version before asking for another broad export. Request only discriminating screenshot/Witness/version evidence if the three-figure snapshot is not the intended target. Do not rebuild or promote either candidate automatically.",
+    "return": "/returns/ONE_RETURN_SOURCE_RECONCILIATION_2026-09-21.json"
+  },
   "target": {
     "name": "SLEEPER // ONE RETURN",
     "generation": "polished Work-mode / v2-era build",
@@ -33,6 +53,7 @@
     ]
   },
   "figure_evidence": {
+    "evidence_scope": "Prior conversation-derived recollection, retained as unresolved against the exact public snapshot's three figures/four operators; not a source-code fact.",
     "known": "Four figure/Transfer configurations existed; retrieved conversation states Q/1 starts Conch and Conch reveals first signals.",
     "likely_names": [
       "Conch",
@@ -44,7 +65,7 @@
   },
   "url_boundary": {
     "known": "Historical host contains `metaname` in the domain and the app supported reproducible world/deep links.",
-    "unknown": "Exact query parameter names/serialization syntax are not recovered in current accessible evidence.",
+    "unknown": "The remembered deployment's exact version remains unconfirmed. The public snapshot does recover source/cell/figure/world serialization; see source_reconciliation rather than treating all syntax as missing.",
     "rule": "Do not invent URL syntax."
   },
   "false_positive": {
@@ -63,9 +84,9 @@
     "public web search / historical hostname"
   ],
   "residue": [
-    "actual Work project/source snapshot is not exposed by current tools",
-    "exact figure picker UI and all per-figure physics mappings remain missing",
-    "exact reproducible URL query syntax remains missing"
+    "An exact public source subset is available; it is not a complete deployable Worker package.",
+    "The snapshot has three figures and four operators. Relationship to the recalled four-configuration picker requires version/evidence reconciliation, not analogy.",
+    "Snapshot URL syntax and per-figure physics are recovered; identity with the remembered deployed UI and full runtime behavior remain unverified."
   ],
-  "stop_rule": "Do not rebuild v2 from the ASCII donor. Recover source/project snapshot or enough exact UI/code evidence first."
+  "stop_rule": "Do not rebuild v2 from the ASCII donor. Inspect the already materialized public snapshot first; reconcile intended version and runtime evidence before promotion."
 }

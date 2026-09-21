@@ -2544,10 +2544,11 @@
       "showcase_card": false,
       "role": "Cold-start collaboration recovery surface: active fronts, current heads, recovery targets and downstream agent handoff.",
       "index": {
-        "updated_at": "2026-09-21T17:45:00+08:00",
+        "updated_at": "2026-09-21T14:37:48.549192+00:00",
         "work_modes": [
-          "SPECIFY",
-          "VERIFY"
+          "INVESTIGATE",
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "ORIENT"
@@ -2561,10 +2562,11 @@
       "showcase_card": false,
       "role": "Shared public receipt/evidence surface; durable result and residue rather than another planning view.",
       "index": {
-        "updated_at": "2026-09-21T17:45:00+08:00",
+        "updated_at": "2026-09-21T14:37:48.549192+00:00",
         "work_modes": [
-          "SPECIFY",
-          "VERIFY"
+          "INVESTIGATE",
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "operation": "RETURN"
@@ -2811,11 +2813,11 @@
       "showcase_card": false,
       "role": "Cross-lineage coordination surface that explicitly distinguishes NOW/current authority, RECOVER targets, DONORS, and bounded TRANSFERS. Packages mechanisms without absorbing source organisms; currently exposes polished Work-mode ONE RETURN v2 as a recovery target and its ASCII/Grid Path neighbors as donors, not substitutes.",
       "index": {
-        "updated_at": "2026-09-21T20:34:00+08:00",
+        "updated_at": "2026-09-21T14:37:48.549192+00:00",
         "work_modes": [
-          "RECOVER",
+          "INVESTIGATE",
           "VERIFY",
-          "OPERATE"
+          "IMPLEMENT"
         ]
       },
       "machine_view": "CONFLUENCE",

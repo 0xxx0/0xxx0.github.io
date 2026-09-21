@@ -1,0 +1,21 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "ONE_RETURN_SOURCE_RECONCILIATION_2026-09-21",
+  "date": "2026-09-21",
+  "operation": "RECONCILE_EXISTING_SOURCE_POINTER",
+  "before": "PR #83/#86 target and handoff described source/URL syntax as unavailable despite the exact City subset already published by PR #61.",
+  "delta": "Reconnect target and handoff to existing public source; distinguish source availability from requested-version identity, deployment and UI proof.",
+  "source": "/recovery/sleeper/site-source-2026-09-18/manifest.json",
+  "target": "/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json",
+  "verification": {
+    "source_hashes": "40/40 PASS",
+    "history": "Recovered Sep-10 a9c00285df143f3c2054b2167e86ee2f6db2ae1f to exported 50f886c829dcee98b043c55ef9de0c631fd31987: five named core/design files unchanged; client differs by two Interphase link additions.",
+    "figures_vs_operators": "Three snapshot figure IDs and four operator IDs remain distinct; conflicting historical recollection retained.",
+    "runtime": "Existing engine tests establish snapshot laws only. No browser/deployment/target-UI equivalence claim."
+  },
+  "private_material_published": false,
+  "source_bytes_changed": false,
+  "current_heads_changed": false,
+  "new_app_or_registry": false,
+  "stop": "One pointer/provenance reconciliation only. Do not deploy City, publish Toolbelt files, alter other holds, or implement an authority auditor in this pass."
+}
