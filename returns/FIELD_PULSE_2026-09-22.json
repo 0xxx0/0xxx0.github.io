@@ -1,0 +1,17 @@
+{
+  "schema": "return/v1",
+  "id": "FIELD_PULSE_2026-09-22",
+  "status": "IMPLEMENTED_CANDIDATE_PENDING_CI",
+  "object": "FIELD PULSE v0.1 + LISTEN mobile scope repair",
+  "changed_object": "FOLD//BLOOM family and READFIELD now share bounded temporal/performance context; LISTEN scope has operational semantics on touch.",
+  "evidence": [
+    "/control/FIELD_PULSE_CONTRACT.json",
+    "/control/confluence/FIELD_PULSE_2026-09-22.json",
+    "/fold-bloom/listen/selftest.mjs"
+  ],
+  "verification": {
+    "ci": "PENDING",
+    "phone_real_audio": "REQUIRED_RETURN"
+  },
+  "next": "Run CI, merge only if contracts/browser smoke pass, then test one real audio track on phone before adding rhythm-game exporters."
+}
