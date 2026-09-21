@@ -106,7 +106,7 @@
       "version": "1.3-preview",
       "receipt": "/port/release.json",
       "showcase_card": false,
-      "role": "Canonical HUMAN PORT local intake/router: preserve one source, choose an explicit bounded route, and arrive at Contact, BURST, Idea Atlas, Social Residue or Scale Lens preloaded without auto-upload, auto-classification or auto-send.",
+      "role": "Canonical HUMAN PORT local intake/router: preserve one source, including bounded same-origin preloads such as CENTER next moves, choose an explicit route, and arrive at the target preloaded without auto-send or authority expansion.",
       "transfer": [
         "one source / many lawful routes",
         "small public aperture / large recoverable depth",
@@ -115,7 +115,8 @@
         "residue without obligation",
         "idea ancestry without build commitment",
         "explicit outbound authority boundary",
-        "Aperture dock: inspect intake source in place"
+        "Aperture dock: inspect intake source in place",
+        "Triangle Center bounded CURRENT-action preload"
       ],
       "contract": {
         "transforms": {
@@ -304,7 +305,7 @@
         }
       ],
       "index": {
-        "updated_at": "2026-09-21T15:54:02+08:00",
+        "updated_at": "2026-09-21T16:18:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -4067,13 +4068,13 @@
     },
     {
       "href": "/forward-field-proof/triangle/glyph/center/",
-      "title": "TRIANGLE CENTER / FOCUS FIELD 0.2",
+      "title": "TRIANGLE CENTER / FOCUS FIELD 0.3",
       "kind": "experiment",
       "parent": "/forward-field-proof/triangle/glyph/",
       "family": "FIELD / PROOF",
       "operation": "ROUTE",
       "state": "CANDIDATE",
-      "version": "0.2",
+      "version": "0.3",
       "receipt": "/forward-field-proof/triangle/glyph/center/release.json",
       "showcase_card": false,
       "evolution": {
@@ -4081,19 +4082,86 @@
         "host": "/control/",
         "generation": 1,
         "stage": "TEST",
-        "question": "Does a movable three-axis desired-intent vector improve selection among many fronts compared with the ordinary CURRENT/list reading?",
-        "baseline": "CURRENT fronts + plain list/metadata selection.",
-        "mutation": "Project fronts into an explicit simplex lens and compare their positions to a movable desired-intent vector; optionally inspect the centroid of up to three pins.",
-        "evidence_gate": "Use one actual replan plus at least two replayable comparison decisions; record whether the lens changed a choice or exposed a tradeoff that the plain reading did not.",
-        "next_if_pass": "TRANSFER only the selection lens into CURRENT/FIELD as an optional projection; keep CURRENT as authority.",
-        "next_if_fail": "PARK the center-mass selector and retain the geometry as a donor/comparator."
+        "question": "Does continuous intent + discrete CURRENT constraints change or clarify one real next-move choice compared with reading CURRENT/QUEUE plainly?",
+        "baseline": "Plain /control/CURRENT.json + /control/QUEUE.json reading and existing FIELD/AXIAL re-entry.",
+        "mutation": "Project exact CURRENT/QUEUE next-action instructions into a simplex lens with visible support strips, one exact focus, passive choice/override signals and optional HUMAN PORT handoff.",
+        "evidence_gate": "Use CENTER during ordinary work rather than a dedicated QA ritual. Require at least two passive choice/override observations plus one real RETURN where CENTER changed a choice or exposed a tradeoff missed by the plain reading.",
+        "next_if_pass": "TRANSFER only the smallest useful selection projection into CURRENT/FIELD; keep CURRENT/QUEUE authoritative and CENTER recoverable as evidence fixture.",
+        "next_if_fail": "PARK or DONOR CENTER; retain triangle/glyph mechanisms without another active surface."
       },
       "index": {
-        "updated_at": "2026-09-21T16:04:00+08:00",
+        "updated_at": "2026-09-21T16:18:00+08:00",
         "work_modes": [
-          "SPECIFY",
+          "ORIENT",
+          "OPERATE",
           "VERIFY"
         ]
+      },
+      "role": "Optional CURRENT next-move selector: continuous intent simplex × exact CURRENT/QUEUE actions × discrete support strips × one focus; FEDERATION remains a secondary memory projection.",
+      "transfer": [
+        "AXIAL unequal support strips + no-fake-focus law",
+        "Triangle continuous three-axis preference",
+        "CURRENT/QUEUE exact next-action projection",
+        "FieldSignals passive candidate/override evidence",
+        "HUMAN PORT bounded local preload"
+      ],
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "CURRENT + QUEUE next-action state",
+            "interface": "/control/CURRENT.json + /control/QUEUE.json"
+          },
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "intent gesture + discrete constraint selection",
+            "interface": "triangle + strips"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "ranked/focused bounded next moves",
+            "interface": "focus aperture"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "candidate / accepted / overridden signal",
+            "interface": "FieldSignals local history"
+          },
+          {
+            "medium": "DATA",
+            "kind": "bounded HUMAN PORT preload",
+            "interface": "same-origin sessionStorage"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "local focus RETURN",
+            "interface": "browser state"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "OPEN_ROUTE",
+            "status": "AVAILABLE",
+            "via": "focused bounded route"
+          },
+          {
+            "class": "HUMAN_PORT",
+            "status": "AVAILABLE",
+            "via": "/port/ preload"
+          },
+          {
+            "class": "ROOT_FIELD_TRANSFER",
+            "status": "EVIDENCE_REQUIRED",
+            "via": "only after evolution gate"
+          }
+        ],
+        "physical_fit": "Can select a physical/print next move, but cannot satisfy the physical RETURN itself."
       }
     },
     {
@@ -4379,7 +4447,8 @@
     "verse_quarry": "Large poetry research/route map lives at /control/confluence/VERSE_VIS_QUARRY.md; /poetry/ keeps a small active writing surface.",
     "foundry_machine": "/foundry/machine.json defines CORE/FIELD/MIGRATION/CONFLUENCE as unequal projections over existing authorities; it is a projection contract, not a new database.",
     "triangle_center_focus_field": "0.2 repairs root source loading, adds local fallback snapshot, and transfers AXIAL Focus Stack mechanics into triangle-based many-front selection.",
-    "poem_map_state_normalization": "Poem Map 0.2 release receipt retains historical status EXPERIMENTAL_LIVE, but current FIELD lifecycle state is CANDIDATE per its current_classification and FIELD lifecycle law."
+    "poem_map_state_normalization": "Poem Map 0.2 release receipt retains historical status EXPERIMENTAL_LIVE, but current FIELD lifecycle state is CANDIDATE per its current_classification and FIELD lifecycle law.",
+    "triangle_center_current": "CENTER 0.3 defaults to exact CURRENT/QUEUE next moves, records passive local choice evidence, and may preload HUMAN PORT. Root FIELD promotion is evidence-gated."
   },
   "capability_model": {
     "CAPTURE": {
