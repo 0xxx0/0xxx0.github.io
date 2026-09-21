@@ -2,8 +2,8 @@
   "schema": "release-receipt/v1",
   "artifact": "HUMAN PORT",
   "route": "/port/",
-  "version": "1.5-preview",
-  "date": "2026-09-21",
+  "version": "1.5.1-preview",
+  "date": "2026-09-22",
   "state": "ACTIVE_EXPERIMENT",
   "decision": "HUMAN PORT becomes an addressed object aperture: text/JSON/image/generic local files share one object envelope; Port handles temporary passage/focus/routing while FIELD INTAKE remains the separate reviewed admission gate.",
   "recovered_user_functions": [
@@ -24,7 +24,8 @@
     "/laconic/",
     "/contact/make/",
     "/continuity/",
-    "/contact/backstage/"
+    "/contact/backstage/",
+    "/care/"
   ],
   "laws": [
     "OBJECT IDENTITY != BYTE HASH != PROJECTION ADDRESS",
@@ -33,7 +34,8 @@
     "FOCUS != SOURCE REPLACEMENT",
     "SELECT != OPEN != APPLY != EXTERNAL SEND",
     "LOCAL STASH != CANONICAL REPOSITORY",
-    "ROUTE RECEIPT != WORLD RETURN"
+    "ROUTE RECEIPT != WORLD RETURN",
+    "PORT EVIDENCE OFFER != CARE ATTACH"
   ],
   "promotion_rule": "Keep /contact/ simple. Promote deeper mechanisms onto /port/ only when they reduce real interaction/re-entry cost.",
   "next_tests": [
@@ -41,7 +43,8 @@
     "ordinary use: override LIKELY when cue support is wrong",
     "re-enter Port from a downstream tool and confirm source/focus restoration is useful rather than sticky",
     "observe whether SELECT → OPEN adds useful deliberation or needless friction",
-    "do not expand cue grammar or add transport until ordinary evidence accumulates"
+    "do not expand cue grammar or add transport until ordinary evidence accumulates",
+    "ordinary use: attach one real image/report object to CARE and confirm source identity survives without duplicate byte storage"
   ],
   "delta": [
     "add human-port-object/v0.1 object envelope",
@@ -53,7 +56,10 @@
     "keep heuristic CUES and local HISTORY as separate readings",
     "add FIELD INTAKE as sixth route with candidate-only handoff",
     "add object-aware FIELD INTAKE RETURN to the same Port object id",
-    "add explicit purge for local object bytes"
+    "add explicit purge for local object bytes",
+    "add CARE / FIELD as a seventh structural route for TEXT/JSON/IMAGE/FILE evidence offers",
+    "CARE handoff preserves Port object id/hash/media/provenance/scope/focus while source bytes remain under Port retention",
+    "CARE route remains explicit SELECT + OPEN and requires explicit ATTACH inside CARE"
   ],
   "first_time_test": "Paste one source once and reach the intended tool preloaded within one explicit route choice.",
   "donors": [
@@ -90,5 +96,5 @@
     "drop one authored JSON/text file and prove disk-loaded text routes identically to pasted text",
     "drop one opaque authored file and prove identity/provenance survives despite no semantic viewer"
   ],
-  "next": "Do not add audio/video/PDF or AI auto-routing until the three unequal object specimens survive ordinary use."
+  "next": "Do not add media classes, bundles or auto-routing. Observe ordinary use of the existing object aperture, including the new CARE evidence route."
 }
