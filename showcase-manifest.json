@@ -4153,22 +4153,23 @@
     },
     {
       "href": "/foundry/aperture/",
-      "title": "APERTURE 0.2",
-      "kind": "experiment",
+      "title": "APERTURE / INSPECTOR",
+      "kind": "utility",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "INSPECT",
-      "state": "PROOF_REQUIRED",
-      "version": "0.2",
+      "state": "UTILITY",
+      "version": "0.3",
       "receipt": "/foundry/aperture/release.json",
-      "role": "Reusable two-ring scale×position inspector for text/JSON and addressed route objects: summon in-place from FIELD or HUMAN PORT, or use the standalone workbench; RSVP/TTS drive the same stable focus.",
+      "role": "Ambient local inspection capability: summon against selected text, an active field value, addressed route metadata, pasted text/JSON, or a local file without leaving the host surface.",
       "transfer": [
         "Two Dial: two cyclic controls → one consequence",
         "AXIAL: fixed focus + unequal cyclic vocabularies",
         "Scale Lens: stable address across zoom",
         "RSVP 2018: speech boundary charIndex → temporal word focus",
         "portable dock(source,opt) host API",
-        "session handoff / same inspector / different host"
+        "session handoff / same inspector / different host",
+        "ambient selection-aware summon via /showcase-nav.js"
       ],
       "contract": {
         "accepts": {
@@ -4275,28 +4276,20 @@
         "physical_fit": "Potential compact ring/annulus control grammar; no physical embodiment claim in 0.1."
       },
       "index": {
-        "updated_at": "2026-09-21T15:58:00+08:00",
+        "updated_at": "2026-09-21T16:04:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "evolution": {
-        "schema": "field-evolution/v0.1",
-        "host": "/foundry/",
-        "generation": 1,
-        "stage": "TEST",
-        "question": "Can one tiny scale×position aperture replace large inspector/control panels for heterogeneous text/JSON while keeping exact focus, temporal reading and source magnitude legible?",
-        "baseline": "textarea/tree inspector + separate reader/TTS controls",
-        "mutation": "two-ring foveated inspector with log source-magnitude gap and shared RSVP/TTS focus",
-        "evidence_gate": "Use on at least three hosts and compare reorientation / focus recovery against plain source view.",
-        "next_if_pass": "TRANSFER field-aperture.js as a small shared instrument available to FIELD/HUMAN PORT/LENS and other surfaces.",
-        "next_if_fail": "PARK ring encoding; keep source analyzer and temporal-focus donor mechanics."
-      },
-      "showcase_card": false
+      "showcase_card": false,
+      "projection_experiment": {
+        "status": "CANDIDATE_MAPPING",
+        "question": "Do scale×position rings plus logarithmic source-size gap improve orientation enough to survive as the default compact projection?",
+        "variable": "presentation only",
+        "fallback": "plain compact focus/address controls; utility remains useful without the ring mapping."
+      }
     },
     {
       "href": "/poetry/map/",
