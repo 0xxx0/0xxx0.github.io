@@ -1526,7 +1526,8 @@
         "constraint visualization",
         "obligation gating",
         "alternate views of one state",
-        "ONE RETURN playable ancestor lane restored without replacing current Sleeper head"
+        "ONE RETURN playable ancestor lane restored without replacing current Sleeper head",
+        "project surface separates current head, playable donor, exact source snapshot and unresolved deployment identity"
       ],
       "contract": {
         "accepts": {
@@ -1612,13 +1613,14 @@
         "physical_fit": "Can gate workshop/home procedures when obligations are explicit."
       },
       "index": {
-        "updated_at": "2026-09-21T20:20:00+08:00",
+        "updated_at": "2026-09-22T04:39:00+08:00",
         "work_modes": [
           "VERIFY",
           "OPERATE",
           "PLAY"
         ]
-      }
+      },
+      "project": "/sleeper/project/"
     },
     {
       "href": "/fold-bloom/lens/",
@@ -1764,11 +1766,12 @@
       "role": "Public instrument gateway separating ORIENT / OPERATE / PROVE / RECOVER while live priority remains in control/CURRENT.json.",
       "showcase_card": false,
       "index": {
-        "updated_at": "2026-09-21T15:04:00+08:00",
+        "updated_at": "2026-09-22T05:25:00+08:00",
         "work_modes": [
-          "SPECIFY",
+          "RECOVER",
           "IMPLEMENT",
-          "VERIFY"
+          "VERIFY",
+          "ORIENT"
         ]
       },
       "machine_view": "GATEWAY"
@@ -2099,6 +2102,145 @@
       },
       "research": "/foundry/axial/research.json",
       "shared_core": "/foundry/axial/focus-core.js"
+    },
+    {
+      "href": "/foundry/room/",
+      "title": "INTERPHASE / ROOM 0.1",
+      "kind": "experiment",
+      "parent": "/foundry/",
+      "family": "FOUNDRY",
+      "operation": "REPRESENT",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "receipt": "/foundry/room/release.json",
+      "showcase_card": false,
+      "role": "Six-face signed spatial projection over one real FIELD route: PRESENT↔RETURN, INPUT↔OUTPUT, INTENTION↔EVIDENCE. Rotation changes the active reading without changing object identity; walking through a local wall door changes the addressed object explicitly and leaves a local trail.",
+      "transfer": [
+        "2018 KALA F/L/U/R/B/D room + direct camera manipulation",
+        "2019 rotating-cylinder state/readback discipline",
+        "2020 INTERPHASE VIEWPORT/CAMERA/ROOM + Lens/Iso/Traversal/Store lineage",
+        "FU explicit fovea → projection relation",
+        "AXIAL fixed gate + release-to-snap",
+        "Scale Lens identity through unequal projections",
+        "canonical INTERPHASE object/events/projections/RETURN schema"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "showcase-manifest FIELD route"
+          ],
+          "requires": [
+            "stable route identity"
+          ],
+          "optional": [
+            "starting face",
+            "return/trail state"
+          ]
+        },
+        "transforms": {
+          "verb": "re-project one addressed FIELD route into six opposing spatial relation faces, then permit explicit local door traversal to another addressed route",
+          "preserves": [
+            "route identity",
+            "manifest provenance",
+            "orientation ≠ semantics",
+            "PLAIN control",
+            "RETURN"
+          ],
+          "reversibility": "full",
+          "side_effects": "browser-local orientation, trail and RETURN receipt only"
+        },
+        "emits": {
+          "kinds": [
+            "six-face room projection",
+            "0xxx0/interphase/v0.1 snapshot",
+            "local RETURN receipt"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/foundry/room/release.json",
+          "checks": [
+            "all six faces round-trip face → orientation → face",
+            "each face derives from the same manifest route identity",
+            "door traversal is explicit and address-changing",
+            "PLAIN baseline remains available",
+            "RETURN carries object id, event ids, before/after, evidence and next routes"
+          ],
+          "return_path": "/foundry/room/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "FIELD manifest route",
+            "interface": "?route=/path/ or room command line"
+          },
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "rotation / face selection / door traversal",
+            "interface": "drag-snap, FLURBD keys, wall doors"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "signed six-face spatial reading",
+            "interface": "CSS3D room"
+          },
+          {
+            "medium": "DATA",
+            "kind": "INTERPHASE snapshot",
+            "interface": "copy state"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "local projection RETURN",
+            "interface": "RETURN"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "PLAIN_CONTROL",
+            "status": "AVAILABLE",
+            "via": "PLAIN view on the same route"
+          },
+          {
+            "class": "FIELD_ROUTE",
+            "status": "AVAILABLE",
+            "via": "wall door or OPEN canonical object"
+          }
+        ],
+        "physical_fit": "Spatial cognition experiment only. No HOUSE geometry, device truth or actuation authority."
+      },
+      "index": {
+        "updated_at": "2026-09-22T05:25:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/foundry/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Do six stable opposing relations improve re-orientation, relation discovery or route traversal over a plain manifest reading without making 3D manipulation a tax?",
+        "baseline": "PLAIN mode exposes the same canonical showcase-manifest route without spatial projection.",
+        "mutation": "One route identity is projected as a deterministic signed room: +Z PRESENT, -Z RETURN, -X INPUT, +X OUTPUT, +Y INTENTION, -Y EVIDENCE; direct rotation snaps to faces and local wall doors traverse explicit route relations.",
+        "evidence_gate": "Core self-test + static/browser public-surface validation, then one ordinary-use comparison after interruption: recover what/why/proof/next in ROOM versus PLAIN and record wrong-relation/navigation-tax residue.",
+        "next_if_pass": "Retain ROOM as an optional projection and test one bounded FIELD or Scale Lens handoff without creating a second selection authority.",
+        "next_if_fail": "PARK the 3D projection; preserve the six-opposition relation law and exact donor lineage as reusable evidence."
+      },
+      "recovery_note": "/control/confluence/INTERPHASE_ROOM_CONVERGENCE_2026-09-22.md",
+      "kernel": "/foundry/room/room-core.js"
     },
     {
       "href": "/foundry/convergence/identity-lab.html",
@@ -5213,13 +5355,15 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-21T20:28:00+08:00",
+        "updated_at": "2026-09-22T04:39:00+08:00",
         "work_modes": [
           "VERIFY",
           "RECOVER"
         ]
       },
-      "classification": "REBUILT_ASCII_DONOR_NOT_POLISHED_ONE_RETURN_V2"
+      "classification": "REBUILT_ASCII_DONOR_NOT_POLISHED_ONE_RETURN_V2",
+      "preservation": "/recovery/sleeper/one-return-recon-0.2/PRESERVATION.json",
+      "frozen_copy": "/recovery/sleeper/one-return-recon-0.2/"
     },
     {
       "href": "/body/",
@@ -5651,6 +5795,57 @@
         "next_if_pass": "Transfer drawn-route plus reversible-return kernel to SLEEPER with the existing provenance contract; keep reading separate.",
         "next_if_fail": "Repair one observed interaction blocker or retain as donor; do not expand the roster or assert museum-level quality."
       }
+    },
+    {
+      "href": "/sleeper/project/",
+      "title": "SLEEPER / PROJECT 0.1",
+      "kind": "hub",
+      "parent": "/sleeper/",
+      "family": "SLEEPER",
+      "operation": "RECOVER",
+      "state": "ACTIVE",
+      "version": "0.1",
+      "receipt": "/returns/SLEEPER_PROJECT_SHIPPED_2026-09-22.json",
+      "role": "Public lineage/status map separating current ASCII Sleeper, playable ONE RETURN reconstruction, frozen exact donor copy, exact v2-era source shelf and unresolved polished-deployment identity.",
+      "transfer": [
+        "current head != donor != recovery target",
+        "playable != original",
+        "exact source != deployment proof",
+        "frozen byte preservation"
+      ],
+      "index": {
+        "updated_at": "2026-09-22T05:33:01+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY",
+          "PLAY"
+        ]
+      }
+    },
+    {
+      "href": "/recovery/sleeper/one-return-recon-0.2/",
+      "title": "ONE RETURN RECON 0.2 · FROZEN",
+      "kind": "recovery",
+      "parent": "/recovery/sleeper/",
+      "family": "SLEEPER",
+      "operation": "PRESERVE",
+      "state": "DONOR",
+      "version": "0.2",
+      "showcase_card": false,
+      "receipt": "/recovery/sleeper/one-return-recon-0.2/PRESERVATION.json",
+      "role": "Byte-identical frozen copy of the live ASCII ONE RETURN / Nine Gate reconstruction. Preservation object only; not the polished Work-mode v2 target.",
+      "transfer": [
+        "exact byte preservation",
+        "playable donor provenance"
+      ],
+      "index": {
+        "updated_at": "2026-09-22T04:39:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      },
+      "classification": "FROZEN_EXACT_DONOR"
     }
   ],
   "release_law": [
