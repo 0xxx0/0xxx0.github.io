@@ -1,0 +1,37 @@
+{
+  "schema": "return-receipt/v1",
+  "id": "SLEEPER_AUTHORITY_REPAIR_2026-09-22",
+  "at": "2026-09-22T05:41:00+08:00",
+  "trigger": "User rejected ASCII Sleeper 0.8 as the intended Sleeper artifact and identified the sought work as the maze with multiple characters from the Branch · Brainstorm ASCII Sleeper lineage.",
+  "observed": [
+    "Former /sleeper/ authority was ASCII Sleeper POV 0.8: a four-contract POV/PLAIN constraint field.",
+    "Exact recovered ONE RETURN v2-era source exists under /recovery/sleeper/site-source-2026-09-18/ from Sites Git bundle commit 50f886c829dcee98b043c55ef9de0c631fd31987.",
+    "Recovered world-law defines three figures: urchin, slothcake, kite; four operators: conch, keris, w8, spiral.",
+    "Recovered design defines PHRASE + VERSE CELL + FIGURE → deterministic city → eight enacted Gates → return to origin → Return Artifact v2.",
+    "Historical Work host is recorded as sleeper-one-return.metaname.chatgpt.site/one-return; current reachability could not be verified by this executor."
+  ],
+  "correction": {
+    "canonical_head": "SLEEPER // ONE RETURN v2 / City Engine v0.2 exact recovered source",
+    "former_ascii_08": "SUPERSEDED_DERIVATIVE_PRESERVED",
+    "ascii_one_return_recon": "PLAYABLE_DONOR",
+    "deployment_claim": "UNVERIFIED_CURRENT_REACHABILITY"
+  },
+  "preservation": {
+    "route": "/sleeper/ascii-pov-0.8/",
+    "exact_blobs": {
+      "index": "c4964cc28719a9d93259330545c98cfcf32d89c0",
+      "app": "dfed35630f95f85e3c9fc178c5944d636f8cb783",
+      "style": "600ae1d4cf792bd780b408098428cb9b00b57c40",
+      "release": "f97dcbe8ab22830c392b06cedb932a83ee18fa50"
+    }
+  },
+  "touched": [
+    "/sleeper/",
+    "/sleeper/project/",
+    "/recovery/sleeper/",
+    "/control/CURRENT.json",
+    "/showcase-manifest.json",
+    "/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json"
+  ],
+  "boundary": "This repair corrects repository authority and discoverability. It does not fabricate a missing deploy package or claim that the historical external runtime is currently reachable."
+}
