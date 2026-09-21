@@ -9,7 +9,7 @@ const $=s=>document.querySelector(s), STORE='fb-live-0.1';
 const cv=$('#field'), renderer=new Renderer(cv);
 let state=load() || createState();
 let dragging=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
-let demo={on:false,timer:0,releases:0};
+let demo={on:false,timer:0,releases:0,preview:false,startState:null};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
 let linkedTrack=null,lastLinkedBeat=-1,trackStatus='NONE',sectionArc=createSectionArc();
@@ -20,7 +20,7 @@ const liveTrack=new LiveTrack($('#trackAudio'),{
 liveTrack.setVolume(.78);
 audio.hydrate(state);
 
-function save(){try{localStorage.setItem(STORE,JSON.stringify(snapshot(state)))}catch(_){}}
+function save(){if(demo.preview)return;try{localStorage.setItem(STORE,JSON.stringify(snapshot(state)))}catch(_){}}
 function load(){try{return restore(JSON.parse(localStorage.getItem(STORE)||'null'))}catch(_){return null}}
 function haptic(ms=5){try{navigator.vibrate?.(ms)}catch(_){}}
 function toast(text){const el=$('#toast');el.textContent=text;el.classList.remove('on');void el.offsetWidth;el.classList.add('on')}
@@ -81,7 +81,7 @@ function update(){
   $('#chargeBar').style.width=`${Math.min(100,state.charge/1.75*100)}%`;
   $('#status').textContent=statusText();
   $('#soundBtn').textContent=audio.soundOn?'♪':'×';
-  $('#build').textContent=`${VERSION} · consequence forecasts + section arcs · bounded 8-note motif · ${state.history.length} recent events`;
+  $('#build').textContent=`${VERSION} · AUDIO MAP → TRACKFIELD · consequence forecasts + section arcs · ${state.history.length} recent events`;
   renderer.setDrag(dragAngle);
   save();
 }
@@ -89,6 +89,7 @@ function update(){
 async function ensureAudio(){try{await audio.init();return true}catch(_){return false}}
 async function loadLocalSong(file){
   if(!file)return;
+  stopDemo(false);
   try{
     await ensureAudio();trackStatus='DECODING';update();await liveTrack.load(file);
     $('#intro').classList.remove('on');toast('CUSTOM SONG READY');update();
@@ -131,24 +132,44 @@ function toggleMode(){state=setMode(state,state.mode==='RATCHET'?'FLOW':'RATCHET
 function cycleScene(){const names=audio.sceneNames(),i=names.indexOf(state.scene),name=names[(i+1)%names.length];state=setScene(state,name);audio.setScene(name);toast(name);update()}
 
 function stopDemo(takeover=false){
-  if(!demo.on)return;demo.on=false;clearTimeout(demo.timer);demo.timer=0;
+  if(!demo.on)return;
+  const wasPreview=demo.preview,start=demo.startState;
+  demo.on=false;clearTimeout(demo.timer);demo.timer=0;
+  if(wasPreview&&start){const restored=restore(start);if(restored)state=restored;dragAngle=0;renderer.setDrag(0)}
+  demo.preview=false;demo.startState=null;
+  update();
   if(takeover)toast('YOUR TURN');
 }
 async function demoTick(){
   if(!demo.on)return;
   const forecast=currentForecast();
   if(canRelease(state) && callHit(forecast)){
-    await doRelease();demo.releases++;
-    if(demo.releases%3===0)cycleScene();
-    if(demo.releases>=12){stopDemo(false);toast('DEMO RETURN · YOUR TURN');return}
-    demo.timer=setTimeout(demoTick,620);
+    if(demo.preview){
+      const out=release(state,{timing:'FREE',timingMultiplier:1});
+      if(out.event){state=out.state;renderer.pulse(out.event)}
+    }else await doRelease();
+    demo.releases++;
+    if(!demo.preview&&demo.releases%3===0)cycleScene();
+    if(demo.releases>=12){
+      if(demo.preview&&$('#intro').classList.contains('on')){
+        const restored=restore(demo.startState);if(restored)state=restored;
+        demo.releases=0;dragAngle=0;renderer.setDrag(0);update();demo.timer=setTimeout(demoTick,780);return
+      }
+      stopDemo(false);toast('DEMO RETURN · YOUR TURN');return
+    }
+    update();demo.timer=setTimeout(demoTick,demo.preview?520:620);
   }else{
-    step(1);demo.timer=setTimeout(demoTick,270);
+    step(1);demo.timer=setTimeout(demoTick,demo.preview?210:270);
   }
 }
-async function startDemo(){
-  if(demo.on)return;await ensureAudio();state=setMode(state,'RATCHET');demo={on:true,timer:0,releases:0};
-  $('#intro').classList.remove('on');toast('WATCH · CHARGE → RELEASE');update();demoTick();
+async function startDemo({preview=false}={}){
+  if(demo.on)return;
+  if(!preview)await ensureAudio();
+  const startState=snapshot(state);
+  state=setMode(state,'RATCHET');
+  demo={on:true,timer:0,releases:0,preview,startState};
+  if(!preview){$('#intro').classList.remove('on');toast('WATCH · CHARGE → RELEASE')}
+  update();demoTick();
 }
 
 function pointDown(e){
@@ -180,7 +201,7 @@ $('#soundBtn').onclick=async()=>{if(!audio.ctx)await ensureAudio();else audio.se
 $('#menuBtn').onclick=()=>$('#settings').classList.toggle('on');$('#closeSettings').onclick=()=>$('#settings').classList.remove('on');
 $('#vol').value=Math.round(audio.volume*100);$('#vol').oninput=e=>audio.setVolume(+e.target.value/100);
 $('#trackVol').value=Math.round($('#trackAudio').volume*100);$('#trackVol').oninput=e=>liveTrack.setVolume(+e.target.value/100);
-$('#trackLoad').onclick=()=>$('#trackFile').click();$('#songIntroBtn').onclick=()=>$('#trackFile').click();
+$('#trackLoad').onclick=()=>$('#trackFile').click();$('#songIntroBtn').onclick=()=>{stopDemo(false);$('#trackFile').click()};
 $('#trackFile').onchange=e=>loadLocalSong(e.target.files?.[0]);
 $('#trackToggle').onclick=()=>liveTrack.toggle().then(()=>update()).catch(()=>toast('SONG PLAY BLOCKED'));
 $('#listenBtn').onclick=()=>window.open('../listen/','fold-bloom-listen');
@@ -191,7 +212,7 @@ $('#exportBtn').onclick=()=>{
 $('#resetBtn').onclick=()=>{const now=Date.now(),b=$('#resetBtn');if(!b.dataset.arm||now>+b.dataset.arm){b.dataset.arm=now+3500;b.textContent='CONFIRM RESET';toast('PRESS AGAIN');return}delete b.dataset.arm;b.textContent='NEW FIELD';state=createState();sectionArc=createSectionArc();audio.hydrate(state);dragAngle=0;update();toast('NEW FIELD')};
 $('#playBtn').onclick=async()=>{stopDemo(false);await ensureAudio();$('#intro').classList.remove('on');update()};
 $('#mutePlay').onclick=()=>{stopDemo(false);$('#intro').classList.remove('on');audio.setSound(false);update()};
-$('#demoBtn').onclick=startDemo;
+$('#demoBtn').onclick=()=>{if(demo.on)stopDemo(false);startDemo({preview:false})};
 
 addEventListener('keydown',e=>{
   if(e.repeat)return;stopDemo(true);
@@ -217,9 +238,11 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden){stopDemo(f
 function loop(t){
   const local=liveTrack.transport();
   if(local){linkedTrack=local;syncArc(local,true);const beat=Number(local.beatIndex);if(Number.isFinite(beat)&&beat>=0&&beat!==lastLinkedBeat){lastLinkedBeat=beat;renderer.beatPulse(beat,Number(local.energy)||0)}}
+  renderer.setTrackfield(liveTrack.active()?liveTrack.trackfield(13.5,48):null);
   renderer.setSectionArc(sectionArcView(sectionArc,linkedTrack));
   renderer.draw(state,t);raf=requestAnimationFrame(loop)
 }raf=requestAnimationFrame(loop);
 update();
 document.documentElement.dataset.foldBloomLive='ready';
-window.FoldBloomLive={version:VERSION,state:()=>({...snapshot(state),linkedTrack,sectionArc}),release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack)};
+window.FoldBloomLive={version:VERSION,state:()=>({...snapshot(state),linkedTrack,sectionArc,trackfield:liveTrack.trackfield()}),release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>liveTrack.trackfield()};
+setTimeout(()=>{if($('#intro').classList.contains('on')&&!demo.on)startDemo({preview:true})},650);
