@@ -21,5 +21,7 @@
     "browser_smoke": "PENDING_CI",
     "real_phone": "REQUIRED_NEXT"
   },
-  "stop_condition": "No further feature expansion in this pass."
+  "stop_condition": "No further feature expansion in this pass.",
+  "pull_request": 120,
+  "pull_request_url": "https://github.com/0xxx0/0xxx0.github.io/pull/120"
 }
