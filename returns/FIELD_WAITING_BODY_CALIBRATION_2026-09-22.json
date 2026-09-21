@@ -12,15 +12,18 @@
     "Expose WAITING / YOU as a collapsed compact FIELD INDEX projection.",
     "Record BODY / CALIBRATION APERTURE as a host-bound research/transfer packet rather than a new app.",
     "Extend FIELD law so WAITING is neither queue nor priority and cannot contain private payloads.",
-    "Extend evolution selection pressure with case -> mechanism -> unequal-case transfer -> generalize."
+    "Extend evolution selection pressure with case -> mechanism -> unequal-case transfer -> generalize.",
+    "Specify /body/campaign.schema.json with explicit question, decision, streams, evidence gate, burden budget, JITAI-style decision points, safety class, RETURN and FADE condition."
   ],
   "after": [
     "Human dependencies become re-enterable from the root without contaminating CURRENT/QUEUE.",
     "The health/wearable direction has a durable public-safe source packet tied to existing hosts.",
-    "Future generalization is gated on transfer evidence rather than enthusiasm."
+    "Future generalization is gated on transfer evidence rather than enthusiasm.",
+    "Campaigns now have a candidate machine-readable carrier whose success can include reducing measurement."
   ],
   "evidence": [
     "/control/WAITING.json",
+    "/body/campaign.schema.json",
     "/control/research/BODY_CALIBRATION_APERTURE_2026-09-22.md",
     "/control/FIELD_INDEX_CONTRACT.json",
     "/control/confluence/FIELD_EVOLUTION.md",
@@ -29,7 +32,8 @@
   "residue": [
     "Health Connect phone-side adapter is still unimplemented.",
     "No personal medication/supplement list or health stream is committed.",
-    "Ordinary-use proof remains human-world evidence, not repo-generated."
+    "Ordinary-use proof remains human-world evidence, not repo-generated.",
+    "Campaign schema is candidate-only; no campaign UI or autonomous intervention engine was promoted."
   ],
   "next": "Wait for one lawful human/world signal while machine-side research/specification may continue without pretending the dependency is resolved."
 }
