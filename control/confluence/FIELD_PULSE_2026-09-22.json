@@ -1,0 +1,62 @@
+{
+  "schema": "confluence-packet/v1",
+  "id": "FIELD_PULSE_2026-09-22",
+  "observed": [
+    "User reported the in-scope controls did not seem to do much on phone.",
+    "LISTEN 0.2.2 computed BEAT/PHRASE/SECTION/TRACK windows but ring scrubbing still mapped every gesture to the full track.",
+    "FOLD//BLOOM LIVE 0.1 is a 12-cell topology/performance ring; LISTEN is the separate waveform/audio-map ring."
+  ],
+  "recovered": [
+    {
+      "route": "/fold-bloom/listen/",
+      "version": "0.2.2",
+      "role": "local/Suno-addressed audio decode → preview/deep AUDIO MAP → polar time field"
+    },
+    {
+      "route": "/fold-bloom/live/",
+      "version": "0.1",
+      "role": "ratchet/charge/release → topology operation → sound/score"
+    },
+    {
+      "route": "/docs/",
+      "version": "0.7",
+      "role": "READFIELD / RSVP over shared APERTURE source cursor"
+    },
+    {
+      "route": "/foundry/axial/",
+      "note": "CURRENT still calls AXIAL / FOCUS STACK 0.7.3 ACTIVE, while READFIELD merge prose described standalone AXIAL as parked/reference. Preserve this authority contradiction for later reconciliation; this packet does not resolve it."
+    }
+  ],
+  "implemented": [
+    "LISTEN scope now changes the represented/scrubbed time domain rather than only a visual label.",
+    "Phone scope controls move to a horizontal thumb-reachable strip.",
+    "FIELD PULSE v0.1 shared runtime added under /lib/field-pulse.js.",
+    "LISTEN publishes compact transport/audio-feature pulses.",
+    "LIVE receives LISTEN beat context and publishes structural release operations.",
+    "READFIELD provides explicit PULSE ×2/×4/×8 BPM→WPM sync and publishes bounded focus."
+  ],
+  "external_research": [
+    "Suno supports share links and now exposes an official API platform; downloaded audio remains the robust analyzable path.",
+    "Spotify Web Playback can play/control Premium streams but Spotify policy prohibits synchronizing Spotify recordings with visual media; treat Spotify as outbound listening/distribution, not FIELD clock.",
+    "YouTube iframe playback is controllable but raw audio analysis remains cross-origin constrained.",
+    "Audiosurf 2 natively generates rides from local audio and exposes mod/skin tooling.",
+    "Beat Saber community tooling documents current beatmap schemas suitable for exporter work."
+  ],
+  "current_delta": "Make the existing instruments cooperate through one bounded temporal contract; do not create a new sovereign app.",
+  "files": [
+    "/lib/field-pulse.js",
+    "/fold-bloom/listen/app.js",
+    "/fold-bloom/listen/render.js",
+    "/fold-bloom/listen/app.css",
+    "/fold-bloom/live/app.js",
+    "/docs/index.html",
+    "/control/FIELD_PULSE_CONTRACT.json"
+  ],
+  "test_gate": [
+    "LISTEN selftest proves AUDIO MAP + scope ordering + pulse envelope",
+    "browser smoke still passes LISTEN preview/intake and READFIELD/LIVE surfaces",
+    "real phone: scope visibly changes ring domain and scrub granularity",
+    "real phone: PULSE mode changes READFIELD WPM from real track BPM"
+  ],
+  "stop": "After repository verification, stop feature expansion until one real phone/audio trial returns evidence."
+}
