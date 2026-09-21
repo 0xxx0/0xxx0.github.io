@@ -1,0 +1,804 @@
+{
+  "schema": "branch-frontier/v0.2",
+  "generated_at": "2026-09-22T03:15:00+08:00",
+  "purpose": "Live refresh of branch pointer authority after the Sep-22 READFIELD/LISTEN/FIELD/BODY convergence wave. Preserve branch provenance while preventing stale pointers from reactivating work.",
+  "counts": {
+    "total": 112,
+    "canonical": 1,
+    "open_pr": 0,
+    "merged_pr_lineage": 73,
+    "closed_unmerged_pr_lineage": 22,
+    "no_pr_pointer": 16
+  },
+  "authority_law": [
+    "MASTER is executable/public authority.",
+    "CURRENT + QUEUE define the small active coordination surface.",
+    "An OPEN PR is bounded proposed work, not authority until merged.",
+    "A merged-PR branch is provenance only; its branch pointer does not make it current.",
+    "A closed-unmerged PR is a donor, failed variant or superseded experiment unless explicitly reconstructed on current master.",
+    "A no-PR branch may not be merged or treated as current until its unique commits are recovered/classified.",
+    "Branch age or evocative naming never grants priority."
+  ],
+  "active_review": [],
+  "canonical": [
+    "master"
+  ],
+  "no_pr_review": {
+    "aperture-material-rsvp-040": {
+      "state": "SUPERSEDED_PREDECESSOR",
+      "successor": "aperture-material-rsvp-040-r2 / PR #62",
+      "rule": "do not merge; current APERTURE is newer",
+      "sha": "bc863ad5e13ada3859956253da6a4e576a79398e"
+    },
+    "body-field-v01": {
+      "state": "SUPERSEDED_PREDECESSOR",
+      "successor": "body-field-v01-current / closed donor PR #21",
+      "rule": "BODY remains HOLD/donor; reconstruct on current contracts only",
+      "sha": "863fba05c4dff4c1f0985136a3f8c6eed2144186"
+    },
+    "confluence/focus-interface-sync-20260921-r2": {
+      "state": "RECOVERED_DONOR_FAMILY",
+      "recovery": "/recovery/focus-interface-sync-20260921/",
+      "rule": "do not merge stale implementation branch",
+      "sha": "37aacd4231de0a5b9a2f360c662ca13fc41a9e73"
+    },
+    "confluence/focus-interface-sync-20260921-r3": {
+      "state": "RECOVERED_DONOR_FAMILY",
+      "recovery": "/recovery/focus-interface-sync-20260921/",
+      "rule": "exact donor records recovered by perimeter pass",
+      "sha": "9700a3eaae2cff3294acdcef383d49ea2d03e7ef"
+    },
+    "confluence/focus-interface-sync-20260921": {
+      "state": "RECOVERED_DONOR_FAMILY",
+      "recovery": "/recovery/focus-interface-sync-20260921/",
+      "rule": "do not merge stale implementation branch",
+      "sha": "c0b7ff4a73e70b61a9396cd2d1ef523d125b249a"
+    },
+    "confluence/house-marks-20260921": {
+      "state": "SUPERSEDED_PREDECESSOR",
+      "successor": "confluence/house-marks-20260921-r2 / PR #30",
+      "rule": "merged successor owns current state",
+      "sha": "1c21b697bee097d9a0adef3dadd47f81fcb3a0d1"
+    },
+    "confluence-hard-advance-20260922": {
+      "sha": "77701146b577c729cda90f4e75c9b3c4a2d8df66"
+    },
+    "confluence-replica-replan-20260921": {
+      "state": "SUPERSEDED_PREDECESSOR",
+      "successor": "confluence-replica-replan-20260921-v2 / PR #42",
+      "rule": "merged successor owns current state",
+      "sha": "4fa83fdf8afcc4b7eccb18f33fe2c50ac088286f"
+    },
+    "field/waiting-body-calibration-20260922": {
+      "state": "PURE_ANCESTOR_POINTER",
+      "sha": "40b9500e55118838de3706a9b5c22e79e76c3bd4",
+      "rule": "Identical to master at review (ahead=0, behind=0); no unique work to recover. Retain pointer only as waiting/provenance marker."
+    },
+    "field-return-poem-smoke-20260921": {
+      "state": "SUPERSEDED_PROOF_BRANCH",
+      "successor": "PR #67 + FIELD 0.6 / PR #69 + Lens G1 / PR #71",
+      "rule": "do not merge; stale proof edits replaced by current browser guards",
+      "sha": "6025b43f0ad3bf7f0da643d67a415988bd380b5c"
+    },
+    "foundry-verify": {
+      "state": "PURE_ANCESTOR_POINTER",
+      "rule": "ahead=0 at review; no unique work to recover",
+      "sha": "9c8c44c7110942667b6f9a0f779455ea6819d408"
+    },
+    "house-field-v01": {
+      "state": "RETAINED_EXACT_DONOR",
+      "rule": "already pinned in CURRENT as HOUSE/FIELD superseded donor; do not merge wholesale",
+      "sha": "89ac69c55004f504b641ded908d1760ca7c8b057"
+    },
+    "poem-map-pre-calm-face-20260921": {
+      "state": "PURE_ANCESTOR_POINTER",
+      "rule": "ahead=0 at review; current Poem Map owns state",
+      "sha": "ba202172fc04e02686b70ecbdcba371550ab1045"
+    },
+    "poem-map-pre-orientation-20260921": {
+      "state": "PURE_ANCESTOR_POINTER",
+      "rule": "ahead=0 at review; current Poem Map owns state",
+      "sha": "0138f2bbc7523f49b34bbf5982285962db13e00e"
+    },
+    "showcase-overview-field-v0": {
+      "state": "RECOVERED_DONOR_SPECIMEN",
+      "recovery": "/recovery/showcase-map-v0/",
+      "rule": "visual geometry donor only; no second live FIELD map",
+      "sha": "2cb9d37b952e3f5547e0d35d674087b746407a04"
+    },
+    "verse-pre-rebase-20260921": {
+      "state": "PURE_ANCESTOR_POINTER",
+      "rule": "ahead=0 at review; no unique work to recover",
+      "sha": "f58f8043988fbb3320a907cd2db78d614e2de903"
+    }
+  },
+  "merged_branches": [
+    {
+      "branch": "aperture-material-rsvp-040-r2",
+      "prs": [
+        62
+      ],
+      "sha": "74348e6c65d61827ab3c7d34ce96c5c5c426faea"
+    },
+    {
+      "branch": "aperture-multilingual-segmentation-20260921",
+      "prs": [
+        79
+      ],
+      "sha": "547cc4689907d2c8289bc6f4c671fd1160532a8f"
+    },
+    {
+      "branch": "aperture-rsvp-hardening-20260921",
+      "prs": [
+        77
+      ],
+      "sha": "f032cf08f94e172830bc9e8cc965f4b14a516e4d"
+    },
+    {
+      "branch": "axial-aperture-05",
+      "prs": [
+        32
+      ],
+      "sha": "b5db06169347d5b3d45f17eb13ee11ac8061325c"
+    },
+    {
+      "branch": "axial-converge-0.4",
+      "prs": [
+        3
+      ],
+      "sha": "57f29595a8a64f712d04b2541ac0e83d446c527b"
+    },
+    {
+      "branch": "axial-focus-stack-060",
+      "prs": [
+        52
+      ],
+      "sha": "87f6cecf3db3648443f3ebc9689a15259c898e9f"
+    },
+    {
+      "branch": "axial-lawful-focus-070-r2",
+      "prs": [
+        55
+      ],
+      "sha": "6e97776f98509e59175aa6017787ecd333f716ae"
+    },
+    {
+      "branch": "axial-lens-onepass-061",
+      "prs": [
+        53
+      ],
+      "sha": "f6f492fd40f7b4e4b71e16ce03168dcfd80c0870"
+    },
+    {
+      "branch": "axial-onboarding-051",
+      "prs": [
+        34
+      ],
+      "sha": "371c1014b398a4c8971b8495b3edf154adf0fbaf"
+    },
+    {
+      "branch": "axial-overview-inspector-072",
+      "prs": [
+        59
+      ],
+      "sha": "e8494cc62f0e26b9382335a94f43e9346aaa23c8"
+    },
+    {
+      "branch": "axial-position-humanfactors-071-r2",
+      "prs": [
+        57
+      ],
+      "sha": "4cb1d8012df1bbd3bf9dd8f014c05641db4b1e03"
+    },
+    {
+      "branch": "axial-usability-cut-20260921",
+      "prs": [
+        73
+      ],
+      "sha": "9a443efe25bcad35ca1ed6b9ff361ece5c4d02cf"
+    },
+    {
+      "branch": "body-pulse-house-bridge-20260921",
+      "prs": [
+        88
+      ],
+      "sha": "ea41182d4851696197f6827d1431ac40a3b2cc82"
+    },
+    {
+      "branch": "care-bodyplans-v03-20260921",
+      "prs": [
+        38
+      ],
+      "sha": "583c6a23dc4851c69a4aec53f90df060e765161c"
+    },
+    {
+      "branch": "care-course-v02-20260921",
+      "prs": [
+        31
+      ],
+      "sha": "a69b09f4a4a14ec12b96794f4a7a3d3b9ec1e7d1"
+    },
+    {
+      "branch": "confluence/house-marks-20260921-r2",
+      "prs": [
+        30
+      ],
+      "sha": "dae30eac54c712729dd17ac1828e9280c5106ac8"
+    },
+    {
+      "branch": "confluence-one-return-reentry-20260921",
+      "prs": [
+        86
+      ],
+      "sha": "9b772f1ecfb9e1dacf511c4ff163499e4638173a"
+    },
+    {
+      "branch": "confluence-replica-replan-20260921-v2",
+      "prs": [
+        42
+      ],
+      "sha": "84b706e5880bb2cf07ce72e54c2bf540af2189c1"
+    },
+    {
+      "branch": "convergence/source-target-reconciliation",
+      "prs": [
+        90
+      ],
+      "sha": "f6c9c6945473eb84090f63c88cb4e1f6c6e6bf29"
+    },
+    {
+      "branch": "correct-laconic-selection-2024-12-29",
+      "prs": [
+        20
+      ],
+      "sha": "7230dbcc771ba2fdc246f12b1a83907ea2eea0df"
+    },
+    {
+      "branch": "docs-rsvp-smoke-readiness-20260922",
+      "prs": [
+        95
+      ],
+      "sha": "13852d6f1460488d608cbbceb5b819053558865a"
+    },
+    {
+      "branch": "field/passive-feedback-loop-20260921",
+      "prs": [
+        51
+      ],
+      "sha": "4b2165814ca68e2deaad3aec883c717400773e66"
+    },
+    {
+      "branch": "field-convergence-activation-20260921",
+      "prs": [
+        69
+      ],
+      "sha": "a875dec465f61e69c49df651d5e4f1e3df09ff0d"
+    },
+    {
+      "branch": "field-index-frontier-01",
+      "prs": [
+        23
+      ],
+      "sha": "4b3fd3148759922a9d07e667c9c2ee2344244588"
+    },
+    {
+      "branch": "field-mobile-ledger-20260921",
+      "prs": [
+        49
+      ],
+      "sha": "5043d0b2d752eb27ac2973d084904a2188517126"
+    },
+    {
+      "branch": "field-mobile-pulse-20260921",
+      "prs": [
+        48
+      ],
+      "sha": "3d68c317d344fd926d5e15cc6f512ef259d145d1"
+    },
+    {
+      "branch": "field-pulse-mobile-20260922",
+      "prs": [
+        106
+      ],
+      "sha": "f55d227d66332aee6f27d68371d0901118a36a51"
+    },
+    {
+      "branch": "fold-bloom-listen-01",
+      "prs": [
+        92
+      ],
+      "sha": "c3849c5bcd44eadd645ee00a53004f1afb292369"
+    },
+    {
+      "branch": "fold-bloom-listen-source-adapter",
+      "prs": [
+        99
+      ],
+      "sha": "6bac38c85c19110d4ee13cbcfb73a89d38d2d6cf"
+    },
+    {
+      "branch": "fold-bloom-live-01",
+      "prs": [
+        85
+      ],
+      "sha": "cf370cdad763c1551f22934efdb03902878de0a2"
+    },
+    {
+      "branch": "human-port-convergence-v1",
+      "prs": [
+        36
+      ],
+      "sha": "7e77939ba4762c4299c06ddf2c5e32dfebfb6335"
+    },
+    {
+      "branch": "human-port-focus-aperture-v14",
+      "prs": [
+        58
+      ],
+      "sha": "32283c785ba19b61ef9d5054585e23e6675d5f5c"
+    },
+    {
+      "branch": "human-port-home-clarity-v2",
+      "prs": [
+        39
+      ],
+      "sha": "db07dc994be438daf72a7c3b907d86bf65c3a3fd"
+    },
+    {
+      "branch": "human-port-intake-v13",
+      "prs": [
+        41
+      ],
+      "sha": "9508c10922c48c14cf4553909bcf8882846b6601"
+    },
+    {
+      "branch": "human-port-live-next",
+      "prs": [
+        28
+      ],
+      "sha": "03f1be9a03423c0e4b9812edae3067908ff0126e"
+    },
+    {
+      "branch": "human-port-object-aperture-v15",
+      "prs": [
+        68
+      ],
+      "sha": "310c104baa7c1e5f927fae3637a80bff3cd40e91"
+    },
+    {
+      "branch": "human-port-suite-advance-v12",
+      "prs": [
+        40
+      ],
+      "sha": "7a375913a5116196b6f40d9dadde22efe32f65ab"
+    },
+    {
+      "branch": "instrument-contract-back-charters",
+      "prs": [
+        17
+      ],
+      "sha": "1b1dab10a523bfbb66e55e5af697e35d640efa41"
+    },
+    {
+      "branch": "laconic-iconic-recovery-v01",
+      "prs": [
+        15
+      ],
+      "sha": "e4f10e1c63904454f70873ef97289df30ddfaf2c"
+    },
+    {
+      "branch": "laconic-iconic-v02-scenes-care",
+      "prs": [
+        16
+      ],
+      "sha": "610c4946d401173a1288a80e223e3d3437f4f984"
+    },
+    {
+      "branch": "laconic-v03-vault-lineage",
+      "prs": [
+        33
+      ],
+      "sha": "c752932c491e7d631f03feb153acbb603a6c4a28"
+    },
+    {
+      "branch": "lens-browser-proof-20260921",
+      "prs": [
+        64
+      ],
+      "sha": "7ffd16b3e936aec2ffe5c322897f0ad74683f6a3"
+    },
+    {
+      "branch": "lens-convergence-contract-20260921",
+      "prs": [
+        50
+      ],
+      "sha": "f2fa1aa1a73b1ddb32743d73bd4a731b3d38a9f1"
+    },
+    {
+      "branch": "lens-fi-toolglass-g2-20260921",
+      "prs": [
+        87
+      ],
+      "sha": "d7e4fff0003ae4cea8f10d4a39136a75a839832b"
+    },
+    {
+      "branch": "lens-g2-hardening-20260921",
+      "prs": [
+        91
+      ],
+      "sha": "e2d152b4fa2244f9e7f78ffb7873952aee4a00b4"
+    },
+    {
+      "branch": "lens-proof-bench-20260921",
+      "prs": [
+        60
+      ],
+      "sha": "0c60065281222335da7ebe8c88e58cfb84d45e71"
+    },
+    {
+      "branch": "lens-real-use-pass-20260922",
+      "prs": [
+        94
+      ],
+      "sha": "e490ac63ad42a4ab5a9027da828eea6db762d91f"
+    },
+    {
+      "branch": "lens-recovery-anchor-20260921",
+      "prs": [
+        78
+      ],
+      "sha": "5f8b596cc4c1de4f54fd65701d1b97e5530347ec"
+    },
+    {
+      "branch": "lens-studio-actualize-20260921",
+      "prs": [
+        75
+      ],
+      "sha": "e2d101d1a2eeb5fa5304339ca6f3c241e7523c3e"
+    },
+    {
+      "branch": "listen-intake-hardening",
+      "prs": [
+        102
+      ],
+      "sha": "defe5b553b008b195d13154da6e74d20d94d29cc"
+    },
+    {
+      "branch": "listen-progressive-longform",
+      "prs": [
+        103
+      ],
+      "sha": "6b48efa34b0c5bda382b0a8390769d601e040f1e"
+    },
+    {
+      "branch": "one-return-authority-correction-20260921",
+      "prs": [
+        83
+      ],
+      "sha": "d3871e7a46cbcccb5580fa12eb9edf1ee9d8d813"
+    },
+    {
+      "branch": "one-return-grid-receipt-seam-20260921",
+      "prs": [
+        81
+      ],
+      "sha": "8a6e46a225feb701dc74fe4f2aa109a118810936"
+    },
+    {
+      "branch": "one-return-live-lane-20260921",
+      "prs": [
+        80
+      ],
+      "sha": "32d84b45e819b2b8c5b075e9cb3ad27c1fee8ee0"
+    },
+    {
+      "branch": "one-return-return-seal-20260921",
+      "prs": [
+        82
+      ],
+      "sha": "b3b9b0b24c0d451efb8c7387a29535943764e516"
+    },
+    {
+      "branch": "perimeter-recovery-20260921",
+      "prs": [
+        74
+      ],
+      "sha": "dee57c564cb5b4c4f294f66e8478dcd45dba49c2"
+    },
+    {
+      "branch": "qa-route-grammar-20260921",
+      "prs": [
+        63
+      ],
+      "sha": "b1231956ac527fa47d260edbe9315abebafb993d"
+    },
+    {
+      "branch": "reader-focus-kernel-20260921",
+      "prs": [
+        84
+      ],
+      "sha": "aeaaad0b0b6bb91e64b72fc1c70bb100315b457d"
+    },
+    {
+      "branch": "readfield-postmerge-proof-20260922",
+      "prs": [
+        105
+      ],
+      "sha": "b2b6dcac43752b7b03b4b39516f1caaa45e252fe"
+    },
+    {
+      "branch": "readfield-pr-lineage-seal-20260922",
+      "prs": [
+        107
+      ],
+      "sha": "bae19823ce99f31c123c0f6361e7d6d9ea8386ba"
+    },
+    {
+      "branch": "readfield-ship-final2-20260922",
+      "prs": [
+        104
+      ],
+      "sha": "9a03d49304f1c3c0b7e5065a93252bf0dc15d562"
+    },
+    {
+      "branch": "recover-laconic-2025-bank",
+      "prs": [
+        18
+      ],
+      "sha": "0ee774b8083a2d49fbabfda1227d8456b25ed80f"
+    },
+    {
+      "branch": "recover-persona-to-council-lineage",
+      "prs": [
+        22
+      ],
+      "sha": "2cf18a7e2777ce960089ff052c46c5b1f47092fe"
+    },
+    {
+      "branch": "recovery/backup-20260921",
+      "prs": [
+        61
+      ],
+      "sha": "6adcfabf47619991ed04668665f75b0cd9fa87de"
+    },
+    {
+      "branch": "repair-return-poem-current-20260921",
+      "prs": [
+        67
+      ],
+      "sha": "caa662b9019ff0fb5a57f5f32df5f273b73229f9"
+    },
+    {
+      "branch": "restore-fold-weave-exact",
+      "prs": [
+        19
+      ],
+      "sha": "491ef78d817bbcc0b9adbdec9025ecad595da48e"
+    },
+    {
+      "branch": "seal-lens-g1-proof-20260921",
+      "prs": [
+        71
+      ],
+      "sha": "599d2752abb4b5ffafdd0ac0b88284035d91505b"
+    },
+    {
+      "branch": "shopping-field-core",
+      "prs": [
+        45
+      ],
+      "sha": "0e10c6260df4056008508cd772b0056572861f2e"
+    },
+    {
+      "branch": "shopping-field-current-sync",
+      "prs": [
+        46
+      ],
+      "sha": "d9da0fc40e743c39c52a68ff1ec82201adca74f8"
+    },
+    {
+      "branch": "sync/sovereign-node-frontier-20260921",
+      "prs": [
+        47
+      ],
+      "sha": "9c87529049421bd13980007d79958eb72bcf0155"
+    },
+    {
+      "branch": "tool-kernel-convergence-20260921",
+      "prs": [
+        72
+      ],
+      "sha": "3bc3c823d55780fe65ed1b1936adf284f9da5bab"
+    },
+    {
+      "branch": "toolbelt-source-locators-20260921",
+      "prs": [
+        76
+      ],
+      "sha": "b9e96c8509ba96eb26ca524213a4c7bbdd59551f"
+    },
+    {
+      "branch": "two-dial-sonic-depth-010",
+      "prs": [
+        89
+      ],
+      "sha": "c6fe5bafd08d0928725f7aa62a76ee051c39b964"
+    }
+  ],
+  "closed_unmerged_branches": [
+    {
+      "branch": "axial-compositor-0.1-r2",
+      "prs": [
+        2
+      ],
+      "sha": "1d46a90f537f6fbc7909c94232609bd4a1515d72"
+    },
+    {
+      "branch": "axial-compositor-0.1",
+      "prs": [
+        1
+      ],
+      "sha": "92e31ae7627956afe1b7c9068a7dafd70ae082af"
+    },
+    {
+      "branch": "axial-lawful-focus-070",
+      "prs": [
+        54
+      ],
+      "sha": "30011f6d887a4d4e670be6fa0648fc5ff713860e"
+    },
+    {
+      "branch": "axial-position-humanfactors-071",
+      "prs": [
+        56
+      ],
+      "sha": "5fb252d67af1511fabfa76f3bfbc5ad337a56f19"
+    },
+    {
+      "branch": "body-field-v01-current",
+      "prs": [
+        21
+      ],
+      "sha": "61746e6c9a204cf29eee1c01495fa992adc6d33c"
+    },
+    {
+      "branch": "converge-fold-bloom-scale-lens",
+      "prs": [
+        37
+      ],
+      "sha": "a73c649eff13f5976c8caf8c7ee03626cb57f882"
+    },
+    {
+      "branch": "docs-addressable-aperture-01",
+      "prs": [
+        65
+      ],
+      "sha": "7e1d76bc6419a861f58cb84ac48acc25835efdc0"
+    },
+    {
+      "branch": "field-listen-access-proof",
+      "prs": [
+        97
+      ],
+      "sha": "bd308ace54f31830c61e45989a5b566e0bede27b"
+    },
+    {
+      "branch": "human-port-capsules-v04",
+      "prs": [
+        25
+      ],
+      "sha": "398ee456e30bd422f56200fa18a0ff0846a2f547"
+    },
+    {
+      "branch": "human-port-context-v06",
+      "prs": [
+        27
+      ],
+      "sha": "eadf36d0c86c43cc05aedca7b209a9ced9788994"
+    },
+    {
+      "branch": "human-port-interpret-backstage-v05",
+      "prs": [
+        26
+      ],
+      "sha": "4f223454d69c05921c1db96c8f791e3ed434262b"
+    },
+    {
+      "branch": "human-port-residue-v01",
+      "prs": [
+        29
+      ],
+      "sha": "2f376a6b997b87fe4e4f3e9a16540d30cfa628a3"
+    },
+    {
+      "branch": "human-port-v03",
+      "prs": [
+        24
+      ],
+      "sha": "a3dbbf823d71b7fcb2938a513fbe266eda44620c"
+    },
+    {
+      "branch": "lens-deep-proof-current-20260921",
+      "prs": [
+        70
+      ],
+      "sha": "fe016a77d745ddc4f8a2e12ea7644da69bae10d3"
+    },
+    {
+      "branch": "lens-studio-roundtrip-20260921",
+      "prs": [
+        66
+      ],
+      "sha": "f4afefaf8c504d2fdfe1bbb23d4a73324bb26eca"
+    },
+    {
+      "branch": "readfield-aperture-convergence-20260921",
+      "prs": [
+        93
+      ],
+      "sha": "19cb7b698c065404518c169a813cd1747391162b"
+    },
+    {
+      "branch": "readfield-convergence-20260922",
+      "prs": [
+        96
+      ],
+      "sha": "81abf61b62bacbe6ebecc46a1510f9a17f59cd1c"
+    },
+    {
+      "branch": "readfield-convergence-current-20260922",
+      "prs": [
+        98
+      ],
+      "sha": "170571858b5444e1ae134f1e8e9589b0450fb773"
+    },
+    {
+      "branch": "readfield-final-20260922",
+      "prs": [
+        100
+      ],
+      "sha": "c74837b7e0c79b47dd643c05749907aaf59fb43d"
+    },
+    {
+      "branch": "readfield-ship-20260922",
+      "prs": [
+        101
+      ],
+      "sha": "826dc275cdeb829dd1bf35c596042fad6a4a70f3"
+    },
+    {
+      "branch": "shopping-field-integration",
+      "prs": [
+        43
+      ],
+      "sha": "96d37f2e8048c7c5065781f07068e76e60bca145"
+    },
+    {
+      "branch": "shopping-field-integration-v2",
+      "prs": [
+        44
+      ],
+      "sha": "68523f040d0abe3b9788953f4f29700e230ce1e8"
+    }
+  ],
+  "readfield_seal": {
+    "canonical_ship_pr": 104,
+    "proof_hardening_pr": 105,
+    "lineage_seal_pr": 107,
+    "superseded_closed": [
+      93,
+      96,
+      98,
+      100,
+      101
+    ]
+  },
+  "return_rule": "When a branch yields unique value, recover exact donor material or reconstruct one bounded delta on current master; do not revive the branch wholesale.",
+  "snapshot_semantics": "Live GitHub census at this refresh. MASTER + CURRENT/QUEUE remain authority; branch pointers are provenance unless an open PR or explicit reconstruction says otherwise.",
+  "seal": {
+    "open_prs": 0,
+    "no_pr_unclassified": 1,
+    "result": "REVIEW_REQUIRED",
+    "note": "No branch deletion implied. Closed/merged/no-PR pointers remain recoverable provenance."
+  }
+}
