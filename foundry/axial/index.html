@@ -30,7 +30,7 @@ header{display:flex;justify-content:space-between;gap:18px;align-items:end;paddi
 .search{display:grid;grid-template-columns:1fr auto;margin-top:9px}.search input{min-width:0;padding:8px 9px;border-right:0}.search button{min-width:58px}
 .results{border:1px solid var(--line);margin-top:8px;max-height:290px;overflow:auto}.result{display:grid;grid-template-columns:1fr auto;gap:8px;padding:9px;border-bottom:1px solid var(--line);cursor:pointer;background:#0a0e11}.result:last-child{border-bottom:0}.result:hover,.result.on{background:#131a1e}.result b{font:800 12px/1.15 system-ui,sans-serif}.result small{display:block;color:var(--mut);font-size:7px;margin-top:5px}.result i{font-style:normal;color:var(--cool);font-size:9px}
 .focusCard{border:1px solid var(--line);margin-top:8px;padding:12px;background:linear-gradient(135deg,#0a0e11,#0d1418);min-height:105px;box-shadow:inset 0 0 40px rgba(105,183,230,.025)}.focusCard .k{font-size:7px;letter-spacing:.13em;color:var(--mut)}.focusCard h2{font:900 22px/.95 system-ui,sans-serif;letter-spacing:-.045em;margin:7px 0}.focusCard p{margin:0;color:#95a0a5;font:9px/1.5 system-ui,sans-serif}.addr{margin-top:7px;color:var(--cool);font-size:8px;word-break:break-all}
-.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:8px}.actions button,.actions a{min-height:38px;display:grid;place-items:center;text-decoration:none;border:1px solid var(--line);background:var(--panel2);color:var(--ink);font-size:8px;text-align:center;padding:5px}.actions .primary{border-color:var(--cool);color:var(--cool)}.actions .return{border-color:var(--gold);color:var(--gold)}
+.actions{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:8px}.actions button,.actions a{min-height:38px;display:grid;place-items:center;text-decoration:none;border:1px solid var(--line);background:var(--panel2);color:var(--ink);font-size:8px;text-align:center;padding:5px}.actions .primary{border-color:var(--cool);color:var(--cool)}.actions .return{border-color:var(--gold);color:var(--gold)}
 .receipts{margin-top:8px;border:1px solid var(--line);max-height:130px;overflow:auto}.receipt{padding:6px 8px;border-bottom:1px solid var(--line);font-size:7px;color:#7e8b90}.receipt:last-child{border-bottom:0}.receipt b{color:#cbd2d4}.empty{padding:14px;color:#657176;font-size:8px}
 .boundary{margin-top:8px;border-left:2px solid var(--gold);padding:7px 9px;background:#111319;color:#9c9482;font:9px/1.45 system-ui,sans-serif}
 footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:8px;margin-top:10px;color:#667278;font-size:8px}
@@ -79,6 +79,7 @@ footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid 
  <div class="actions">
    <button class="primary" id="open">OPEN</button>
    <button id="copy">COPY</button>
+   <button id="inspect">INSPECT</button>
    <button id="back">BACK</button>
    <button class="return" id="ret">RETURN</button>
  </div>
@@ -89,6 +90,7 @@ footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid 
 </div>
 <span hidden>HOUSE: SOFA LIGHT</span><footer><span><a href="../../">← FIELD</a> · <a href="../">FOUNDRY</a> · <a href="../../fold-bloom/lens/">SCALE LENS</a></span><span>RING STACK → FOCUS → APERTURE → OPEN / RETURN</span></footer>
 </main>
+<script src="../../field-aperture.js"></script>
 <script src="./focus-core.js"></script>
 <script>
 (function(){'use strict';
@@ -252,7 +254,8 @@ $('#search').oninput=function(e){S.search=e.target.value;recompute()};$('#clearS
 $('#back').onclick=function(){var s=S.history.pop();if(!s)return;if(s.source!==S.source){loadSource(s.source).then?0:0;return}S.projection=s.projection||S.projection;S.rings.forEach(function(r){var q=s.rings.find(function(x){return x.key===r.key});if(q){r.index=mod(q.index,r.values.length);r.rot=-r.index*TAU/r.values.length}});S.search=s.search||'';$('#search').value=S.search;recompute()};
 $('#open').onclick=function(){if(S.focus)location.href=S.focus.href};
 $('#copy').onclick=async function(){if(!S.focus)return;syncURL();var txt=location.href+'\n'+focusAddress()+'\n'+S.focus.title;try{await navigator.clipboard.writeText(txt);this.textContent='COPIED';var b=this;setTimeout(function(){b.textContent='COPY'},700)}catch(_){prompt('Copy AXIAL focus:',txt)}};
+$('#inspect').onclick=function(){if(!window.FieldAperture)return;var f=S.focus,src={schema:'axial.focus-inspection/v0.1',source:S.source,address:focusAddress(),focus:f?{id:f.id,title:f.title,href:f.href||null,desc:f.desc||''}:null,tuple:Object.fromEntries(S.rings.map(function(r){return[r.key,selected(r)]})),support:Object.fromEntries(S.rings.map(function(r){return[r.key,(r.support&&r.support[r.index])||0]})),match_count:S.matches.length,projection:S.projection};window.FieldAperture.dock(src,{label:'AXIAL · '+(f?(f.title||f.id):'CURRENT APERTURE'),from:'/foundry/axial/'});};
 $('#ret').onclick=function(){syncURL();var r={schema:'axial.focus-return/0.7',at:new Date().toISOString(),source:S.source,address:focusAddress(),url:location.href,query:Object.fromEntries(S.rings.map(function(x){return[x.key,selected(x)]})),support:Object.fromEntries(S.rings.map(function(x){return[x.key,(x.support&&x.support[x.index])||0]})),focus_id:S.focus&&S.focus.id||null,focus_title:S.focus&&S.focus.title||null,projection:S.projection};S.returns.unshift(r);S.returns=S.returns.slice(0,60);localStorage.setItem('axial-focus-returns-v06',JSON.stringify(S.returns));render()};
 addEventListener('resize',drawWheel);loadSource(S.source);
 })();
-</script></body></html>
+</script><script src="/showcase-nav.js" defer></script></body></html>
