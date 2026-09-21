@@ -20,7 +20,7 @@
       "id": "repo-convergence",
       "state": "ACTIVE_MAINTENANCE",
       "center": "/migration/ → /control/migration/ ledger → /recovery/ vault → Field Index promotion",
-      "objective": "Recover and repo the last ~2 weeks of runnable artifacts in batches, preserve unique mechanisms/style/lineage, quarantine generic website drift, and make every surviving thing findable without silently merging it.",
+      "objective": "Recover durable lineage and exact operational tools—not only recent runnable artifacts—preserve unique mechanisms/style/provenance, quarantine generic drift, and make surviving tools/mechanisms findable without silently merging their original containers.",
       "evidence": [
         "/migration/",
         "/migration/CHARTER.md",
@@ -29,7 +29,8 @@
         "/recovery/",
         "/control/FIELD_INDEX_AUDIT_2026-09-20.json",
         "/control/RECOVERY_POPULATION_2026-09-20.json",
-        "/returns/BACKUP_RECOVERY_2026-09-21.json"
+        "/returns/BACKUP_RECOVERY_2026-09-21.json",
+        "/control/confluence/TOOL_KERNEL_2026-09-21.md"
       ]
     },
     {
@@ -525,5 +526,17 @@
     "current_local_followup": "INGEST-01 / one family semantic review",
     "codex_handoff": "private issue #8",
     "note": "No broad rescan, no automatic file mutation, no change to CURRENT.next_single_action."
+  },
+  "deep_tool_lineage": {
+    "status": "RECOVERED + RECONSTRUCTED; exact source recovery still open for named File Library artifacts",
+    "note": "/control/confluence/TOOL_KERNEL_2026-09-21.md",
+    "compression": "continuity under transformation: preserve identity/provenance while cutting, tracing, anchoring, reprojecting, acting and returning",
+    "optional_aliases": {
+      "KERIS": "DISTINGUISH / CUT / BOUND / PARK",
+      "CONCH": "TRACE / SURFACE / EXTERNALIZE / EVIDENCE",
+      "W8": "ANCHOR / HOLD / STABILIZE IDENTITY",
+      "SPIRAL": "REPROJECT / INTEGRATE / RE-ENTER / RETURN"
+    },
+    "rule": "Mnemonic/mythic aliases are retrieval and cognition aids only; they never establish lineage, proof, usefulness or authority."
   }
 }
