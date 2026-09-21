@@ -64,7 +64,8 @@
       "policy_trace_verifier": "/policy-trace-verifier.mjs",
       "policy_trace_verification": "/policy-trace-verification.json",
       "axial_support_return": "/returns/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
-      "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json"
+      "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
+      "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json"
     },
     {
       "href": "/contact/",
@@ -2873,11 +2874,11 @@
       "showcase_card": false,
       "role": "Cross-lineage coordination surface that explicitly distinguishes NOW/current authority, RECOVER targets, DONORS, and bounded TRANSFERS. Packages mechanisms without absorbing source organisms; currently exposes polished Work-mode ONE RETURN v2 as a recovery target and its ASCII/Grid Path neighbors as donors, not substitutes.",
       "index": {
-        "updated_at": "2026-09-21T14:37:48.549192+00:00",
+        "updated_at": "2026-09-22T00:29:00+08:00",
         "work_modes": [
-          "INVESTIGATE",
-          "VERIFY",
-          "IMPLEMENT"
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY"
         ]
       },
       "machine_view": "CONFLUENCE",
