@@ -223,12 +223,33 @@ function readerFocusProbeHtml(){
     rec.xrefs=[...D().querySelectorAll('#xrefs a')].map(a=>a.textContent);
     rec.highlight=D().getElementById('reading')?.querySelector('mark')?.textContent||'';
     rec.structure=rec.section.structure?.map(x=>x.label)||[];
-    rec.session=!!W().sessionStorage.getItem('docs.reader.paste.v1');
+    rec.session=!!W().sessionStorage.getItem('docs.reader.paste.v1');rec.reader=A.hasAttribute('reader');rec.dialDisplay=W().getComputedStyle(A.shadowRoot.querySelector('.dial')).display;
     const same=[rec.sent,rec.para,rec.section].every(x=>x.char_index===rec.word.char_index&&Math.abs(x.source_progress-rec.word.source_progress)<1e-9);
     const spans=[rec.sent,rec.para,rec.section].every(x=>x.span&&x.span.start<=x.char_index&&x.char_index<=x.span.end);
-    const checks={same,spans,structure:rec.structure.length===2,xrefs:rec.xrefs.length>=2,session:rec.session,orp:!!rec.orp,wordMark:rec.wordMark.toLowerCase().includes('second'),urlChar:/ap_char=/.test(rec.url),current:/CURRENT/.test(rec.xrefs.join(' ')),media:/MEDIA/.test(rec.xrefs.join(' '))};
+    const checks={same,spans,structure:rec.structure.length===2,xrefs:rec.xrefs.length>=2,session:rec.session,orp:!!rec.orp,wordMark:rec.wordMark.toLowerCase().includes('second'),urlChar:/ap_char=/.test(rec.url),current:/CURRENT/.test(rec.xrefs.join(' ')),media:/MEDIA/.test(rec.xrefs.join(' ')),reader:rec.reader&&rec.dialDisplay==='none'};
+    const perf=Array.from({length:260},(_,i)=>'focus'+i).join(' ');pt.value=perf;pb.click();await waitFor(()=>A.A?.label==='PASTE'&&A.A?.words>=250);A.restore({scale:'WORD',index:0,wpm:3000});
+    let focusEvents=0,contextMutations=0;const onFocus=()=>focusEvents++;A.addEventListener('aperture-focus',onFocus);const mo=new MutationObserver(()=>contextMutations++);mo.observe(D().getElementById('reading'),{childList:true,subtree:true,characterData:true});A.toggleRSVP();await sleep(540);if(A.snapshot().playing)A.toggleRSVP();mo.disconnect();A.removeEventListener('aperture-focus',onFocus);checks.performance=focusEvents>=14&&contextMutations<=8;
     const ok=Object.values(checks).every(Boolean);
-    done(!!ok,{checks,structure:rec.structure,xrefs:rec.xrefs,wordMark:rec.wordMark,orp:rec.orp,url:rec.url,chars:[rec.word.char_index,rec.sent.char_index,rec.para.char_index,rec.section.char_index],progress:[rec.word.source_progress,rec.sent.source_progress,rec.para.source_progress,rec.section.source_progress],session:rec.session});
+    done(!!ok,{checks,structure:rec.structure,xrefs:rec.xrefs,wordMark:rec.wordMark,orp:rec.orp,url:rec.url,chars:[rec.word.char_index,rec.sent.char_index,rec.para.char_index,rec.section.char_index],progress:[rec.word.source_progress,rec.sent.source_progress,rec.para.source_progress,rec.section.source_progress],session:rec.session,dialDisplay:rec.dialDisplay,focusEvents,contextMutations});
+  })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
+
+function readfieldRouteHandoffProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/foundry/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw new Error('waitFor timeout')};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    const sh=await waitFor(()=>D().getElementById('showcase-route-adapter')?.shadowRoot);
+    const read=await waitFor(()=>sh.querySelector('.tab.read'));rec.label=read.textContent;read.click();
+    await waitFor(()=>W().location.pathname==='/docs/'&&D().getElementById('docAperture')?.A?.label?.startsWith('Page ·'));
+    rec.title=D().getElementById('title')?.textContent||'';rec.returnHref=D().getElementById('returnLink')?.getAttribute('href')||'';rec.reader=D().getElementById('docAperture')?.hasAttribute('reader')||false;
+    rec.source=(D().getElementById('text')?.textContent||'').slice(0,180);
+    done(rec.label==='READ'&&rec.reader&&rec.returnHref.startsWith('/foundry/')&&rec.source.length>20,rec);
   })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),...rec}));
   <\/script></body></html>`;
 }
@@ -383,6 +404,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(oneReturnGridReceiptProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/readfield-handoff')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(readfieldRouteHandoffProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/aperture-multilingual')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(apertureMultilingualProbeHtml());return;
@@ -452,7 +477,7 @@ const CASES=[
   {
     name:'FIELD',
     route:'/',
-    check:dom=>dom.includes('id="axialLatest"')&&dom.includes('AXIAL / LATEST')&&/NOW/.test(dom)&&/POLISHED ONE RETURN v2/.test(dom)&&/CONFLUENCE/.test(dom)
+    check:dom=>dom.includes('id="axialLatest"')&&dom.includes('FIELD / FOCUS')&&/NOW/.test(dom)&&/POLISHED ONE RETURN v2/.test(dom)&&/CONFLUENCE/.test(dom)
   },
   {
     name:'HUMAN PORT',
@@ -471,9 +496,9 @@ const CASES=[
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"backSame":true/.test(dom)&&/"replaySame":true/.test(dom)&&/"restoreButton":true/.test(dom)
   },
   {
-    name:'APERTURE',
+    name:'APERTURE compatibility → READFIELD',
     route:'/foundry/aperture/',
-    check:dom=>/APERTURE/i.test(dom)&&dom.includes('field-aperture')&&dom.includes('60–3000 WPM')
+    check:dom=>/READFIELD/i.test(dom)&&dom.includes('id="docAperture"')
   },
   {
     name:'APERTURE multilingual segmentation',
@@ -482,9 +507,9 @@ const CASES=[
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"zh"/.test(dom)&&/"ta"/.test(dom)&&/"ja"/.test(dom)&&/"ar"/.test(dom)&&/"th"/.test(dom)&&/"count":3/.test(dom)
   },
   {
-    name:'DOCS APERTURE',
+    name:'READFIELD',
     route:'/docs/',
-    check:dom=>/DOCS \/ READ/i.test(dom)&&dom.includes('id="docAperture"')&&dom.includes('RAW SOURCE')
+    check:dom=>/READFIELD/i.test(dom)&&dom.includes('id="docAperture"')&&dom.includes('reader')&&dom.includes('RAW SOURCE')
   },
   {
     name:'DOCS ADDRESS',
@@ -498,10 +523,16 @@ const CASES=[
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"scale":"LEAF"/.test(dom)&&/"wpm":650/.test(dom)&&/"copyView":true/.test(dom)&&/"throttled":true/.test(dom)&&/"ended":true/.test(dom)
   },
   {
-    name:'DOCS RSVP focus kernel',
+    name:'READFIELD focus kernel + performance',
     route:'/__smoke/reader-focus',
+    options:{width:1040,height:820,budget:16000,timeout:22000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"same":true/.test(dom)&&/"spans":true/.test(dom)&&/"performance":true/.test(dom)&&/"reader":true/.test(dom)&&/"session":true/.test(dom)
+  },
+  {
+    name:'READFIELD route handoff',
+    route:'/__smoke/readfield-handoff',
     options:{width:1040,height:820,budget:14000,timeout:20000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"same":true/.test(dom)&&/"spans":true/.test(dom)&&/"structure":\["Alpha","Beta"\]/.test(dom)&&/"session":true/.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"label":"READ"/.test(dom)&&/"reader":true/.test(dom)
   },
   {
     name:'TRIANGLE unified',
