@@ -15,6 +15,14 @@ function contrasts(events,target,minEach){
  });
  rows.sort(function(a,b){return Math.abs(b.diff)-Math.abs(a.diff)});return rows
 }
+function lagContrasts(events,target,minEach,maxHours){
+ minEach=minEach==null?3:minEach;maxHours=maxHours==null?12:maxHours;
+ var xs=(events||[]).slice().sort(function(a,b){return String(a.observed_at||'').localeCompare(String(b.observed_at||''))}),pairs=[];
+ for(var i=0;i<xs.length-1;i++){var a=xs[i],b=xs[i+1],dt=(new Date(b.observed_at)-new Date(a.observed_at))/36e5;if(dt<0||dt>maxHours)continue;var y=targetValue(b,target);if(!Number.isFinite(y))continue;pairs.push({factors:factorKeys(a),outcome:y})}
+ var all=Array.from(new Set(pairs.flatMap(function(p){return p.factors}))),rows=[];
+ all.forEach(function(f){var yes=pairs.filter(function(p){return p.factors.includes(f)}).map(function(p){return p.outcome}),no=pairs.filter(function(p){return !p.factors.includes(f)}).map(function(p){return p.outcome});if(yes.length<minEach||no.length<minEach)return;var ay=mean(yes),an=mean(no);rows.push({factor:f,with_n:yes.length,without_n:no.length,with_mean:ay,without_mean:an,diff:ay-an,coverage:coverage(Math.min(yes.length,no.length)),lag_hours:maxHours})});
+ rows.sort(function(a,b){return Math.abs(b.diff)-Math.abs(a.diff)});return rows
+}
 function testDelta(test,afterEvent){
  if(!test||!afterEvent)return null;var after=targetValue(afterEvent,test.target);if(!Number.isFinite(after)||!Number.isFinite(Number(test.baseline_value)))return null;
  return {before:Number(test.baseline_value),after:after,delta:after-Number(test.baseline_value)}
@@ -22,5 +30,5 @@ function testDelta(test,afterEvent){
 function addressKey(a){
  if(!a)return null;return [a.plan_id||'',a.geometry_version||'',a.view||'',a.selection_mode||'',(a.region_ids||[]).slice().sort().join(',')].join('|')
 }
-g.BodyFieldCore={clamp:clamp,mean:mean,targetValue:targetValue,factorKeys:factorKeys,coverage:coverage,contrasts:contrasts,testDelta:testDelta,addressKey:addressKey};
+g.BodyFieldCore={clamp:clamp,mean:mean,targetValue:targetValue,factorKeys:factorKeys,coverage:coverage,contrasts:contrasts,lagContrasts:lagContrasts,testDelta:testDelta,addressKey:addressKey};
 })(typeof window!=='undefined'?window:globalThis);
