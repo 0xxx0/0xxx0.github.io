@@ -110,15 +110,17 @@
   ],
   "donors": [
     {
-      "name": "POLY / FURNISHER",
+      "name": "POLY / spatial-computational adapter lineage",
       "disposition": "DONOR",
       "contributes": [
-        "signed-axis ROOM -X +X -Y +Y -Z +Z",
-        "orientation R separate from semantics",
-        "stable identity across projections",
-        "deterministic docking"
+        "room/cube as projection and interaction testbed rather than kernel",
+        "optional signed-axis ports only when physical orientation/mating is consequential",
+        "orientation separate from semantics",
+        "state/lens/transform experiments that preserve address across projections"
       ],
-      "exclusion": "Do not force cube/port grammar onto arbitrary house geometry where it adds no decision value."
+      "exclusion": "Do not retroactively project signed-port POLY onto the 2018 FURNISHER pitch; do not force cube/port grammar onto arbitrary HOUSE geometry or non-spatial domains.",
+      "source": "/control/confluence/HOUSE_POLY_FURNISHER_SINDER_DONOR_2026-09-21.md",
+      "evidence_class": "2019–2021 exact frozen executable family + 2026 bounded reinterpretation"
     },
     {
       "name": "ONE RETURN / SEAM ENGINE",
@@ -137,12 +139,16 @@
       "name": "SINDER / FURNISHER",
       "disposition": "DONOR",
       "contributes": [
-        "space as functional presence",
-        "Point → Path → Plane → Power",
-        "reconfigurable physical-space lineage",
-        "ink-brush movement/economy as computational design analogy"
+        "FURNISHER as proposed human-scale pipes/joints/foldable-surface embodiment",
+        "POWER / PLANES / PATHS / POINT decomposition from the 2018 source",
+        "reconfiguration by changing connection pattern",
+        "analog-first/manual fallback as a safety/security property",
+        "fixed stock transformed into multiple useful configurations",
+        "configuration/room versioning as an intent to be reframed as derivation + measurement + receipt"
       ],
-      "exclusion": "Mechanical/folding infrastructure remains separate from current apartment geometry unless physically instantiated."
+      "exclusion": "Historical design intent is not proof of structural, electrical, plumbing or load-bearing fitness. Do not revive the startup/platform or literal room-version-control claims inside HOUSE.",
+      "source": "/control/confluence/HOUSE_POLY_FURNISHER_SINDER_DONOR_2026-09-21.md",
+      "evidence_class": "2018 authored product/platform intent + later exact lineage evidence"
     },
     {
       "name": "MANDALA / COMPASS / FLOWER lineages",
@@ -250,5 +256,14 @@
     ],
     "authority_boundary": "MARK may expose an intent or pointer; HOUSE_3 / Home Assistant remains the authority for device truth and actuation.",
     "promotion_gate": "One bounded physical RETURN must show lower ambiguity, faster recovery, safer action, or better state correspondence than the PLAIN/control condition."
-  }
+  },
+  "donor_briefs": [
+    {
+      "id": "POLY_FURNISHER_SINDER_HOUSE_2026_09_21",
+      "source": "/control/confluence/HOUSE_POLY_FURNISHER_SINDER_DONOR_2026-09-21.md",
+      "disposition": "BOUNDED_DONOR / NO_PROMOTION",
+      "distilled_inheritance": "physical maneuverability under proof",
+      "reopen_gate": "A named current HOUSE physical friction must exist before transferring one mechanism; compare against PLAIN and require a reversible physical RETURN."
+    }
+  ]
 }
