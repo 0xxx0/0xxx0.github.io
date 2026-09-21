@@ -43,6 +43,7 @@ button,input,select{font:inherit;color:inherit;border-radius:0}button{cursor:poi
     <div class="tools">
       <select id="seed" aria-label="seed model"><option value="furnisher">FURNISHER</option><option value="block">BLOCK/ROOM</option><option value="field">FIELD</option></select>
       <button id="resetBtn">RESET</button>
+      <button id="multiBtn">MULTI</button>
       <button id="foldBtn">FOLD</button>
       <button id="openBtn">ENTER</button>
       <button id="forkBtn">FORK</button>
@@ -61,7 +62,7 @@ button,input,select{font:inherit;color:inherit;border-radius:0}button{cursor:poi
   </main>
 
   <div class="breadcrumb"><button id="homeBtn">ROOT</button><span id="scopeLabel">scope · <b>WORLD</b></span><button id="fitBtn">FIT</button><button id="minusBtn">−</button><button id="plusBtn">+</button></div>
-  <div class="legend"><b>SPACE-SCALE 0.2</b> · wheel/pinch-equivalent buttons change semantic scale. GLYPH → BLOCK → ROOM. Click ports to wire. Shift-click blocks to select. Double-click a composite to enter it. <span class="future">No cube required.</span></div>
+  <div class="legend"><b>SPACE-SCALE 0.2</b> · wheel/pinch-equivalent buttons change semantic scale. GLYPH → BLOCK → ROOM. Click ports to wire. MULTI or Shift-click blocks to select. Double-click a composite to enter it. <span class="future">No cube required.</span></div>
   <div class="toast" id="toast"></div>
   <aside class="overlay" id="overlay"><div class="overlayHead"><b id="overlayTitle">INSPECT</b><button id="closeOverlay">CLOSE</button></div><pre id="overlayBody"></pre></aside>
 </div>
@@ -70,7 +71,7 @@ button,input,select{font:inherit;color:inherit;border-radius:0}button{cursor:poi
 <script>
 (()=>{'use strict';
 const S=window.SpaceScale,$=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-let state=S.seedFurnisher(),selection=new Set(),armed=null,events=[],drag=null,pan=null,manifest=null;
+let state=S.seedFurnisher(),selection=new Set(),armed=null,events=[],drag=null,pan=null,manifest=null,multi=false;
 const canvas=$('#canvas'),world=$('#world'),nodesEl=$('#nodes'),edgesEl=$('#edges'),overlay=$('#overlay');
 const toast=(s,bad=false)=>{const t=$('#toast');t.textContent=s;t.style.color=bad?'var(--bad)':'var(--green)';t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),1500)};
 const event=(kind,payload={})=>{events.push({kind,payload,at:new Date().toISOString()});events=events.slice(-100)};
@@ -213,7 +214,7 @@ function armPort(ref){
 nodesEl.addEventListener('click',e=>{
   const p=e.target.closest('.port');if(p){e.stopPropagation();armPort({node:p.dataset.node,port:p.dataset.port});return}
   const el=e.target.closest('.node');if(!el)return;
-  const id=el.dataset.node;if(e.shiftKey){selection.has(id)?selection.delete(id):selection.add(id)}else{selection=new Set([id])}
+  const id=el.dataset.node;if(e.shiftKey||multi){selection.has(id)?selection.delete(id):selection.add(id)}else{selection=new Set([id])}
   render();
 });
 nodesEl.addEventListener('dblclick',e=>{const el=e.target.closest('.node');if(el&&node(el.dataset.node)?.kind==='composite')enter(el.dataset.node)});
@@ -223,18 +224,18 @@ nodesEl.addEventListener('pointerdown',e=>{
   const members=n.kind==='composite'?[id,...S.descendants(state,id)]:[id];
   drag={id,x:e.clientX,y:e.clientY,start:Object.fromEntries(members.map(k=>[k,{x:node(k).x,y:node(k).y}]))};
 });
-nodesEl.addEventListener('pointermove',e=>{
+addEventListener('pointermove',e=>{
   if(!drag)return;const dx=(e.clientX-drag.x)/state.view.scale,dy=(e.clientY-drag.y)/state.view.scale;
   for(const [id,p] of Object.entries(drag.start)){const n=node(id);if(n){n.x=p.x+dx;n.y=p.y+dy}}render();
 });
-nodesEl.addEventListener('pointerup',e=>{if(drag){event('move',{id:drag.id});drag=null}});
+addEventListener('pointerup',e=>{if(drag){event('move',{id:drag.id});drag=null}});
 
 canvas.addEventListener('wheel',e=>{e.preventDefault();setScale(state.view.scale*Math.exp(-e.deltaY*.0012),e.clientX,e.clientY)},{passive:false});
 canvas.addEventListener('pointerdown',e=>{if(e.target.closest('.node'))return;canvas.setPointerCapture?.(e.pointerId);pan={x:e.clientX,y:e.clientY,vx:state.view.x,vy:state.view.y};canvas.classList.add('panning');selection.clear();render()});
 canvas.addEventListener('pointermove',e=>{if(!pan)return;state.view.x=pan.vx+e.clientX-pan.x;state.view.y=pan.vy+e.clientY-pan.y;render()});
 canvas.addEventListener('pointerup',()=>{if(pan){event('pan');pan=null;canvas.classList.remove('panning')}});
 
-$('#foldBtn').onclick=foldSelection;$('#openBtn').onclick=()=>enter();$('#forkBtn').onclick=forkSelection;$('#dissolveBtn').onclick=dissolveSelection;$('#runBtn').onclick=runGraph;$('#recipeBtn').onclick=recipe;$('#plainBtn').onclick=()=>inspect('PLAIN · CANONICAL GRAPH',state);$('#returnBtn').onclick=ret;
+$('#multiBtn').onclick=()=>{multi=!multi;$('#multiBtn').classList.toggle('active',multi);toast(multi?'MULTI SELECT ON':'MULTI SELECT OFF')};$('#foldBtn').onclick=foldSelection;$('#openBtn').onclick=()=>enter();$('#forkBtn').onclick=forkSelection;$('#dissolveBtn').onclick=dissolveSelection;$('#runBtn').onclick=runGraph;$('#recipeBtn').onclick=recipe;$('#plainBtn').onclick=()=>inspect('PLAIN · CANONICAL GRAPH',state);$('#returnBtn').onclick=ret;
 $('#homeBtn').onclick=root;$('#fitBtn').onclick=()=>fit();$('#minusBtn').onclick=()=>setScale(state.view.scale/1.35);$('#plusBtn').onclick=()=>setScale(state.view.scale*1.35);$('#resetBtn').onclick=()=>seed();$('#seed').onchange=()=>seed();
 $('#closeOverlay').onclick=()=>overlay.classList.remove('on');addEventListener('keydown',e=>{if(e.key==='Escape')overlay.classList.remove('on');if(e.key==='Enter'&&selection.size===1&&node(selectedOne())?.kind==='composite')enter();if((e.key==='+'||e.key==='=')&&!e.metaKey)setScale(state.view.scale*1.25);if(e.key==='-'&&!e.metaKey)setScale(state.view.scale/1.25)});
 
