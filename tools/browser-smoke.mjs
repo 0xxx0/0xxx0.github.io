@@ -152,18 +152,19 @@ function axialContinuityProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:1100px;height:820px;border:0;display:block" src="/foundry/axial/?focus=%2Ffold-bloom%2Flens%2F"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
   const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const stage=x=>{rec.stage=x;result.textContent='PENDING '+x+' '+JSON.stringify(rec)};
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-  const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
+  const waitFor=async(fn,limit=5000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout @ '+rec.stage)};
   (async()=>{
     const W=()=>f.contentWindow,D=()=>W().document;
-    const api=await waitFor(()=>W().AxialFocusAPI);
-    await waitFor(()=>api.snapshot()?.source==='FIELD'&&api.snapshot()?.focus==='route:/fold-bloom/lens/');
+    stage('API');const api=await waitFor(()=>W().AxialFocusAPI);
+    stage('FIELD_READY');await waitFor(()=>api.snapshot()?.source==='FIELD'&&api.snapshot()?.focus==='route:/fold-bloom/lens/');
     rec.before=api.snapshot();
-    D().getElementById('srcHouse').click();await waitFor(()=>api.snapshot()?.source==='HOUSE'&&!D().getElementById('back').disabled);rec.house=api.snapshot();
-    D().getElementById('back').click();await waitFor(()=>api.snapshot()?.source==='FIELD'&&api.snapshot()?.focus===rec.before.focus);rec.afterBack=api.snapshot();
-    D().getElementById('ret').click();await waitFor(()=>api.returns().length>0);rec.returnAddress=api.returns()[0].address;rec.restoreButton=!!D().querySelector('#receipts [data-return="0"]');
-    D().getElementById('srcHouse').click();await waitFor(()=>api.snapshot()?.source==='HOUSE'&&!D().getElementById('back').disabled);
-    await api.restoreReturn(0);await waitFor(()=>api.snapshot()?.source==='FIELD'&&api.snapshot()?.focus===rec.before.focus);rec.afterReplay=api.snapshot();
+    stage('HOUSE_1');D().getElementById('srcHouse').click();await waitFor(()=>api.snapshot()?.source==='HOUSE'&&!D().getElementById('back').disabled);rec.house=api.snapshot();
+    stage('BACK');D().getElementById('back').click();await waitFor(()=>api.snapshot()?.source==='FIELD'&&api.snapshot()?.focus===rec.before.focus);rec.afterBack=api.snapshot();
+    stage('RETURN');D().getElementById('ret').click();await waitFor(()=>api.returns().length>0);rec.returnAddress=api.returns()[0].address;rec.restoreButton=!!D().querySelector('#receipts [data-return="0"]');
+    stage('HOUSE_2');D().getElementById('srcHouse').click();await waitFor(()=>api.snapshot()?.source==='HOUSE'&&!D().getElementById('back').disabled);
+    stage('REPLAY');await api.restoreReturn(0);await waitFor(()=>api.snapshot()?.source==='FIELD'&&api.snapshot()?.focus===rec.before.focus);rec.afterReplay=api.snapshot();
     rec.backSame=JSON.stringify(rec.before)===JSON.stringify(rec.afterBack);rec.replaySame=JSON.stringify(rec.before)===JSON.stringify(rec.afterReplay);
     done(rec.backSame&&rec.replaySame&&rec.restoreButton&&/^field:\/\//.test(rec.returnAddress||''),rec);
   })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),...rec}));
