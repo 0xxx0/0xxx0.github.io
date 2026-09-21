@@ -1,0 +1,28 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "BODY_FIT_SENSOR_FUSION_2026-09-22",
+  "date": "2026-09-22",
+  "state": "RETURNED_BOUNDED_DELTA",
+  "object": "BODY / FIT 0.1",
+  "operation": "BODY PLAN -> FITTING / SENSOR / FUSION projection",
+  "recovered_donors": [
+    "BODY / FIELD 0.2 shared body-plan addresses and BODY↔HOUSE context",
+    "BODYFIELD × Open Twin cassette: atlas address + OpenCap movement + evidence obligations",
+    "Syndicate Wars Cryovat: visible body-region fitting/upgrade configuration",
+    "Deus Ex: body-specific augmentation slots + upgrade levels",
+    "RimWorld: implants/conditions/function remain separate",
+    "OGC SensorThings + Open mHealth: source/property/feature/time/provenance separation",
+    "HUMAN PORT 1.5.x addressed object passage"
+  ],
+  "delta": [
+    "/body/fit/ FIT/SENSE/FUSE/HISTORY/PLAIN workbench",
+    "body-addressed fitting lifecycle with explicit supersession lineage",
+    "typed source-distinct sensor observation schema",
+    "time-alignment fusion projection with no default averaging",
+    "existing HOUSE context remains separate and non-causal",
+    "HUMAN PORT 1.5.2 offers TEXT/JSON to BODY / FIT; explicit import required"
+  ],
+  "proof": "/control/BODY_FIT_VALIDATION_2026-09-22.json",
+  "research": "/control/research/BODY_FIT_SENSOR_FUSION_2026-09-22.md",
+  "stop": "Run one real fitting + one real sensor stream + one HOUSE context through the surface before connecting private HA/Health Connect or promoting Open Twin 3D."
+}

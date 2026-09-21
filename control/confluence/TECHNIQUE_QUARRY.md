@@ -120,3 +120,16 @@ Research packet: [GAME-SCALE STATE DONORS](../research/GAME_SIMULATION_STATE_DON
 **Critical anti-transfer:** game engines own the simulated ground truth. Real-world CARE does not. Never map “unset” to false/zero, never invent biological severity thresholds, and never let a derived current projection overwrite source evidence.
 
 **Cheapest test:** one real CARE case containing one observation, one measurement, one Port evidence object and one sourced IF/WHEN gate; require BODY/FOLLOW, BRIEF, Port and Intake projections to agree on the same underlying facts without copying or silent mutation.
+
+
+## Seed 07 — Fitted-body / equipment-slot projection
+
+**Status:** TESTING / BODY / FIT 0.1
+
+**Donors:** Syndicate Wars Cryovat; Deus Ex augmentation slots; Cyberpunk cyberware categories; RimWorld implants/capacities; Escape from Tarkov part-local state.
+
+**Mechanism candidate:** use one body address substrate to project attachments, sensor coverage, revision lineage and functional/capability consequences without turning those projections into anatomy or health truth.
+
+**Current test:** /body/fit/
+
+**Critical transfer law:** FITTING != BODY; SENSOR != TRUTH; CAPABILITY != DIAGNOSIS; revision supersedes without erasing prior fitted state.

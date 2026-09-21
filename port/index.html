@@ -216,6 +216,10 @@ async function openRoute(){
    sessionStorage.setItem('care.port.evidence.v01',JSON.stringify({schema:'0xxx0/port-object-to-care/v0.1',created_at:new Date().toISOString(),source_object_id:obj.object_id,source_object:sourceObject,scope,focus:scope==='focus'?focus:null,projection_excerpt:String(summary||'').slice(0,1600)}));
    location.assign('../care/');return;
   }
+  if(selected==='body-fit'){
+   sessionStorage.setItem('body.fit.port.sensor.v01',JSON.stringify({schema:'0xxx0/port-object-to-body-fit/v0.1',created_at:new Date().toISOString(),object_id:obj.object_id,media_class:obj.media_class,label:obj.label,sha256:obj.sha256||null,scope,focus:scope==='focus'?focus:null,text_payload:String(summary||''),provenance:obj.provenance||{}}));
+   location.assign('../body/fit/');return;
+  }
   if(selected==='intake'){
    sessionStorage.setItem('field.intake.handoff.v01',JSON.stringify({schema:'0xxx0/port-object-to-field-intake/v0.1',capture:intakeCapture(),source_object_id:obj.object_id,source_object:{label:obj.label,media_class:obj.media_class,mime:obj.mime,size_bytes:obj.size_bytes,sha256:obj.sha256,retention:obj.retention,focus:scope==='focus'?focus:null},created_at:new Date().toISOString()}));
    location.assign('../field-intake/');return;

@@ -1,0 +1,28 @@
+{
+  "schema": "0xxx0/body-fit-validation/v0.1",
+  "at": "2026-09-22T01:03:12+08:00",
+  "artifact": "/body/fit/",
+  "result": "PASS_STATIC_CONTRACT",
+  "checks": {
+    "javascript_syntax": "PASS",
+    "network_submission": false,
+    "shared_body_plan_registry": true,
+    "fitting_revision_lineage": "replaces + superseded_by; no overwrite",
+    "sensor_observation_schema": "0xxx0/body-sensor-observation/v0.1",
+    "effective_time_distinct_from_recorded_time": true,
+    "source_class_preserved": true,
+    "unknown_stale_explicit": true,
+    "fusion": "time alignment only; no averaging",
+    "house_bridge": "reads existing browser-local context; no HOUSE actuation/runtime authority",
+    "human_port": "TEXT/JSON route only; explicit BODY / FIT import required",
+    "care_boundary": "image/file clinical evidence remains CARE/HUMAN PORT responsibility",
+    "open_twin": "recovered donor cassette retained; no false personal anatomical registration"
+  },
+  "open_gaps": [
+    "private HOUSEBUS/HA typed sensor adapter",
+    "Health Connect / Samsung Health adapter after one real-use proof",
+    "real fitting + sensor stream + HOUSE context trial",
+    "Open Twin high-resolution runtime projection only if shared-plan view proves insufficient"
+  ],
+  "research": "/control/research/BODY_FIT_SENSOR_FUSION_2026-09-22.md"
+}
