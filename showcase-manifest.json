@@ -16,17 +16,15 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T15:17:06+08:00",
+        "updated_at": "2026-09-21T15:20:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE",
-          "RELEASE"
+          "ORIENT"
         ]
       },
-      "role": "Fast repo re-entry through AXIAL / LATEST: newest-first chronology remains the source reading; ROUTE × STATE × OPERATION × WORK MODE align through one focus gate to the same exact route shared by the list and map. Selection is local; OPEN navigates.",
+      "role": "Fast repo re-entry with AXIAL / LATEST as an embedded lawful-focus strip: chronology remains plain truth, while state/operation/work-mode positions expose supported moves and can expand an exact route into the full AXIAL Focus Stack.",
       "receipt": "/returns/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
       "machine_view": "FIELD",
       "version": "0.4",
@@ -1511,13 +1509,13 @@
     },
     {
       "href": "/foundry/axial/",
-      "title": "AXIAL / FOCUS STACK 0.6.1",
+      "title": "AXIAL / FOCUS STACK 0.7",
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "PROVE",
       "state": "PROOF_REQUIRED",
-      "version": "0.6.1",
+      "version": "0.7",
       "receipt": "/foundry/axial/release.json",
       "showcase_card": false,
       "transfer": [
@@ -1529,7 +1527,10 @@
         "BACK ≠ RETURN",
         "Fold//Bloom bright-gate + drag/release-snap interaction",
         "Scale Lens stable identity across unequal projections",
-        "foveated focus: one selected reading, surrounding context retained"
+        "foveated focus: one selected reading, surrounding context retained",
+        "lawful-neighborhood / per-position support",
+        "deep focus URL / reloadable address",
+        "POLY cyclic correspondence: one aligned reading across independent wheels"
       ],
       "contract": {
         "accepts": {
@@ -1545,12 +1546,14 @@
           ]
         },
         "transforms": {
-          "verb": "align independent cyclic vocabularies into a bounded source query while preserving exact source identity across ring/strip projections",
+          "verb": "align unequal cyclic vocabularies into a bounded source query, expose the lawful neighborhood around that alignment, and preserve exact source identity across projection and reload",
           "preserves": [
             "source identity",
             "selected ring indices",
             "focus address",
-            "return path"
+            "return path",
+            "candidate support relation",
+            "shareable focus address"
           ],
           "reversibility": "full for navigation",
           "side_effects": "local/browser navigation only"
@@ -1559,7 +1562,9 @@
           "kinds": [
             "focused source identity",
             "AXIAL focus address",
-            "local RETURN receipt"
+            "local RETURN receipt",
+            "per-position support counts",
+            "reloadable AXIAL focus URL"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -1572,7 +1577,9 @@
             "ring/strip state equivalence",
             "focus-to-source round trip",
             "BACK distinct from RETURN",
-            "comparative proof still required"
+            "comparative proof still required",
+            "dead positions are derived from exact source support, not heuristic dimming",
+            "deep focus reload reconstructs the addressed identity"
           ],
           "return_path": "/foundry/axial/"
         }
@@ -1610,6 +1617,16 @@
             "medium": "EVIDENCE",
             "kind": "focus RETURN receipt",
             "interface": "local JSON state"
+          },
+          {
+            "medium": "DATA",
+            "kind": "lawful move support",
+            "interface": "per-ring candidate counts"
+          },
+          {
+            "medium": "DATA",
+            "kind": "reloadable focus address",
+            "interface": "URL"
           }
         ],
         "exit_paths": [
@@ -1632,12 +1649,12 @@
         "physical_fit": "Physical cylinder is now an optional later projection of a useful variable-cardinality ring stack, not the reason the software exists."
       },
       "index": {
-        "updated_at": "2026-09-21T15:03:00+08:00",
+        "updated_at": "2026-09-21T15:20:00+08:00",
         "work_modes": [
-          "RECOVER",
           "ORIENT",
           "REPRESENT",
-          "VERIFY"
+          "VERIFY",
+          "OPERATE"
         ]
       },
       "evolution": {
@@ -1652,7 +1669,7 @@
         "next_if_pass": "TRANSFER the surviving transaction/aperture mechanism into the Foundry physical-control substrate; retain AXIAL as evidence fixture rather than spawning a new core.",
         "next_if_fail": "PARK the physical-control claim; preserve packet/ledger mechanisms as DONOR evidence."
       },
-      "role": "Turn one of several unequal cyclic vocabularies under a fixed bright gate; the alignment resolves real FIELD/HOUSE identities, and selecting an identity aligns the rings back to explain its address.",
+      "role": "Variable-cardinality focus surface over real FIELD/HOUSE sources: one bright gate reads the current tuple while every candidate position shows whether it is still supported by the source; identity and ring state round-trip through shareable focus URLs.",
       "legacy_lab": {
         "href": "/foundry/axial/lab-0.5.1.html",
         "role": "Preserved STATE APERTURE transaction/projection lab with AXIAL_PACKET, event trace and ARM/RUN semantics.",
