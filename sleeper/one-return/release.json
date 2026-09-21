@@ -1,8 +1,8 @@
 {
   "schema": "release-receipt/v1",
-  "name": "ONE RETURN / NINE GATE",
+  "name": "ASCII ONE RETURN / NINE GATE · RECONSTRUCTION",
   "version": "reified-0.2 + grid-receipt-seam-1",
-  "state": "PLAYABLE_LINEAGE_LANE",
+  "state": "DONOR",
   "released": "2026-09-21",
   "route": "/sleeper/one-return/",
   "parent": "/sleeper/",
@@ -11,7 +11,7 @@
     "one_return_nine_gate_rebuilt_v0.1.html (2026-09-13)",
     "Sleeper / Workfield / Semantic City family"
   ],
-  "classification": "IMPORT_REIFIED_NOT_BYTE_IDENTICAL",
+  "classification": "FALSE_POSITIVE_HEAD_CORRECTED_TO_ASCII_RECONSTRUCTION_DONOR",
   "preserves": [
     "deterministic corpus-seeded ASCII labyrinth",
     "semantic letters in walls",
@@ -68,5 +68,11 @@
     "grid_receipt_master_attempt": 2,
     "pages_run": 35598569054,
     "result": "PASS"
+  },
+  "authority_correction": {
+    "at": "2026-09-21T20:28:00+08:00",
+    "reason": "User identified the promoted artifact as the wrong, low-fi reconstruction. The intended game is the polished Work-mode SLEEPER // ONE RETURN v2 with PHRASE+CELL+FIGURE compilation and figure-specific physics.",
+    "target": "/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json",
+    "rule": "Keep this runnable as an experiment/donor; never cite it as recovery of polished ONE RETURN v2."
   }
 }
