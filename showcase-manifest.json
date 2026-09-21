@@ -16,15 +16,16 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T14:21:00+08:00",
+        "updated_at": "2026-09-21T14:50:00+08:00",
         "work_modes": [
+          "INVESTIGATE",
           "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "Visual orientation layer over CURRENT + manifest + exit contracts: identity-folded NOW/HEADS/PULSE, explicit EVOLVE selection pressure, address-depth SCALE, named MAP/RECENT reprojections, bounded MOVE GATE, and route handoff into Scale Lens.",
+      "role": "Fast repo re-entry first: newest durable route touches in a linear list + semantic glyph rail; open GitHub issues; collapsed lineage heads; MAP/EVOLVE/PULSE remain named secondary projections.",
       "receipt": "/returns/FIELD_EVOLUTION_2026-09-21.json"
     },
     {
@@ -3859,10 +3860,10 @@
       "family": "FIELD / PARTICIPATION",
       "operation": "VERIFY",
       "state": "ACTIVE",
-      "version": "0.1",
+      "version": "0.2",
       "receipt": "/field-play.release.json",
       "showcase_card": false,
-      "role": "Public-safe contributor mission deck derived from declared FIELD proof/recovery/interface gaps. One bounded move → evidence-bearing RETURN; no private access, auto-write, scoring authority or autoplay.",
+      "role": "Public-safe contributor mission deck derived from declared FIELD gaps plus explicitly play-safe open GitHub issues. One bounded move → evidence-bearing RETURN; no private access, auto-write, scoring authority or autoplay.",
       "contract": {
         "accepts": {
           "kinds": [
@@ -3906,12 +3907,12 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-21T03:01:17+08:00",
+        "updated_at": "2026-09-21T14:50:00+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
-          "RELEASE"
+          "OPERATE"
         ]
       }
     },
@@ -4257,7 +4258,7 @@
       "RETURN"
     ],
     "contract": "/control/FIELD_INDEX_CONTRACT.json",
-    "default_order": "STRUCTURE",
+    "default_order": "UPDATED_DESC",
     "activity_modes": [
       "RECOVER",
       "INVESTIGATE",
@@ -4272,11 +4273,13 @@
     ],
     "secondary_order": "RECENT_UPDATED_DESC",
     "readings": {
+      "LATEST": "route.index.updated_at newest-first re-entry list",
+      "ISSUES": "GitHub open issues with live API + checked-in fallback snapshot",
       "NOW": "/control/CURRENT.json#active_fronts",
-      "HEADS": "/control/CURRENT.json#current_heads",
+      "HEADS": "/control/CURRENT.json#current_heads collapsed advanced reading",
       "MAP": "/showcase-manifest.json#routes parent graph",
       "OPEN_PORTS": "route.field.exit_paths where status != AVAILABLE",
-      "RECENT": "route.index.updated_at",
+      "RECENT": "full route.index.updated_at mutation lens",
       "EVOLVE": "route.evolution bounded variation → evidence → selection → transfer/park/compost"
     },
     "sitemap_audit": "/control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json",
@@ -4299,11 +4302,14 @@
     ],
     "pulse_donor": "/control/confluence/FIELD_INDEX_DATADISC_GRAFT_2026-09-21.json",
     "play": "/field-play.html",
-    "play_law": "Mission selection is participation, not authority: public-safe gap → one bounded move → evidence → RETURN → explicit review/replan.",
+    "play_law": "FIELD PLAY may draw from manifest gaps and play_safe GitHub issues only; issue visibility does not imply contributor eligibility.",
     "scale_navigation": "VISUAL drill depth is explicit SCALE: ROOT=0, child family/local projections increase depth; SCALE − returns one parent without changing route identity.",
     "scale_lens_handoff": "Selected MAP route can be handed locally into SCALE LENS through scale.lens.handoff.v01 as the same addressed object.",
     "evolution_contract": "/control/FIELD_INDEX_CONTRACT.json#evolution_contract",
-    "identity_fold": "Fixed root readings fold repeated route identities NOW → HEADS → PULSE; explicit MAP/RECENT/EVOLVE are named reprojections."
+    "identity_fold": "SUPERSEDED_ON_ROOT_2026-09-21: LATEST intentionally repeats routes already present in NOW/HEADS because chronology is a re-entry instrument, not a canonical-identity display.",
+    "default_reading": "LATEST",
+    "glyph_grammar": "/field-glyph.js",
+    "issue_snapshot": "/control/FIELD_ISSUES.json"
   },
   "policy_trace_verification": "/policy-trace-verification.json",
   "policy_trace_event_model": "/policy-trace-event-model.json",
