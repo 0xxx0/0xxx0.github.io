@@ -21,7 +21,10 @@
     "PROSE PAYS RENT. Fixed prose may not occupy persistent root space when the same function can survive as a mark with explicit reveal.",
     "SELECTION ≠ NAVIGATION. Selecting a route in AXIAL, LATEST, HEADS, PORTS or MAP changes one local focus object; OPEN is the explicit navigation action.",
     "ONE FOCUS / MANY PROJECTIONS. AXIAL strips, chronological rows and map positions must resolve to the same manifest route identity.",
-    "NO INTERSECTION ≠ NEAREST GUESS. An AXIAL tuple with no exact manifest match reports no match rather than inventing a route."
+    "NO INTERSECTION ≠ NEAREST GUESS. An AXIAL tuple with no exact manifest match reports no match rather than inventing a route.",
+    "SUPPORT ≠ IMPORTANCE. AXIAL support counts are exact compatibility counts under the currently aligned dimensions, not priority, probability or recommendation.",
+    "VISIBLE POSSIBILITY SET. When constraints change, the surviving exact route identities should remain perceptible before navigation; one survivor may read LOCK, zero reads DEAD.",
+    "EVIDENCE MAY ACCUMULATE PASSIVELY / LOCALLY. Comparative interface evidence may be recorded in browser-local receipts without network telemetry or dedicated QA ritual."
   ],
   "root_order": {
     "default": "AXIAL_LATEST",
@@ -73,11 +76,14 @@
     "root_play": "/field-play.html derives public-safe missions from manifest gaps plus FIELD_ISSUES entries with play_safe=true. Returns remain report-only and require review.",
     "root_evolve": "EVOLVE is a named projection over canonical manifest routes carrying route.evolution. It shows host, generation, stage, mutation and evidence gate; it is not a new backlog or authority source.",
     "root_identity_fold": "SUPERSEDED for LATEST. Identity folding may still be used inside projections where repetition harms legibility, but never to remove recent mutations from the primary re-entry list.",
-    "root_latest": "Primary re-entry is AXIAL / LATEST over the ordinary newest-first route list. The list remains directly below as the plain chronological control/source reading.",
+    "root_latest": "Plain newest-first LATEST remains immediately beneath AXIAL as the control/source reading; selecting a row updates the same focus identity rather than navigating until OPEN.",
     "root_issues": "Render open GitHub issues as a separate newest-activity-first repo-truth list. Live GitHub API may refresh a checked-in /control/FIELD_ISSUES.json fallback. Issue presence is not priority.",
     "root_density": "/field-presentation.js may reduce route tokens toward glyph-only marks at MARK density while preserving route order, axis value and explicit OPEN.",
     "root_glyph": "/field-glyph.js composes marks from route kind × operation × state × NOW/HEAD/ISSUE attention marks. Every mark must target/reveal the same route identity as its full representation.",
-    "root_axial_latest": "Adapt AXIAL 0.6.1 STRIP projection over ROUTE × STATE × OPERATION × WORK MODE. Axes have unequal cardinalities; one fixed bright gate resolves an exact manifest route. Selecting a route aligns other axes back to its values."
+    "root_axial_latest": "AXIAL / LATEST 0.5 adapts AXIAL 0.7 over ROUTE × STATE × OPERATION × WORK MODE. Every position exposes exact lawful support; support is encoded as count + luminance + compact bar, current matches form a survivor glyph set, and one fixed aperture resolves the selected exact route.",
+    "root_axial_survivors": "Render the current exact-match set between the strips and focus aperture. One survivor = LOCK 1; zero = DEAD; many = LIVE n. A short survivor-count trail may expose how the possibility space collapsed during the current interaction.",
+    "root_axial_trial": "Store only local browser interaction counts under field-axial-trial/v0.1: AXIAL focus selections, plain LATEST focus selections, dead intersections, OPEN counts and rough focus→OPEN elapsed time. No automatic network transmission and no claim that elapsed time alone proves usability.",
+    "root_axial_deeplink": "Embedded focus may serialize ax_state / ax_op / ax_mode / focus into the root URL. Reload/share must reconstruct the same bounded focus state when values still exist."
   },
   "query_semantics": {
     "BOTTLENECK": {
@@ -158,8 +164,8 @@
       "meaning": "Declared repo open loops. Visibility is not priority or authority."
     },
     "AXIAL_LATEST": {
-      "source": "showcase-manifest routes + route.index.updated_at",
-      "meaning": "Primary compact focus compositor. ROUTE / STATE / OPERATION / WORK MODE are unequal strips over real manifest values; focus remains exact route identity."
+      "source": "showcase-manifest routes + route.index.updated_at + AXIAL 0.7 support law",
+      "meaning": "Primary focus compositor. Unequal route/state/operation/work-mode vocabularies expose exact support and survivor-set collapse while preserving ordinary chronological control below."
     }
   },
   "evolution_contract": {
