@@ -637,7 +637,7 @@ const CASES=[
     name:'FIELD focus + addressed re-entry',
     route:'/__smoke/field-activation',
     options:{width:1040,height:820,budget:18000,timeout:24000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"focused":"\//.test(dom)&&/"openHref":"\//.test(dom)&&/"returned":"\//.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"focused":"\//.test(dom)&&/"openHref":"\.\/fold-bloom\/"/.test(dom)&&/"returned":"\//.test(dom)
   },
   {
     name:'FIELD LISTEN candidate focus',
