@@ -1,0 +1,134 @@
+{
+  "schema": "foundry-machine/v0.1",
+  "updated": "2026-09-21",
+  "status": "PROJECTION_CONTRACT",
+  "purpose": "Make FOUNDRY CORE, FIELD INDEX, MIGRATION and CONFLUENCE read as unequal views over the same durable collaboration state without creating a new database, scheduler, ontology or runtime authority.",
+  "center": "Turn lived uncertainty into manipulable state, transform it deliberately across media, and get evidence back without losing identity, provenance or the path home.",
+  "shared_unit": "/foundry/core/model.json#canonical_unit",
+  "views": [
+    {
+      "id": "CORE",
+      "short": "C",
+      "route": "/foundry/core/",
+      "verb": "CRITERIA",
+      "question": "What must survive a lawful transformation?",
+      "reads": [
+        "/foundry/core/model.json",
+        "/control/CURRENT.json"
+      ],
+      "owns": [
+        "slow candidate laws",
+        "invariant loop",
+        "admission criteria",
+        "cross-media convergence hypotheses"
+      ],
+      "does_not_own": [
+        "current priority",
+        "artifact inventory",
+        "recovery disposition",
+        "runtime authority"
+      ]
+    },
+    {
+      "id": "FIELD",
+      "short": "F",
+      "route": "/",
+      "verb": "ADDRESS",
+      "question": "What exists, where is it, what can it do, and where are its open ports?",
+      "reads": [
+        "/showcase-manifest.json",
+        "/control/CURRENT.json",
+        "/control/FIELD_ISSUES.json"
+      ],
+      "owns": [
+        "public addresses",
+        "route identity",
+        "lifecycle projection",
+        "capability/I-O projection",
+        "latest mutation projection"
+      ],
+      "does_not_own": [
+        "source truth",
+        "recovery evidence class",
+        "cross-lineage adoption",
+        "automatic priority"
+      ]
+    },
+    {
+      "id": "MIGRATION",
+      "short": "M",
+      "route": "/migration/",
+      "verb": "RECOVER",
+      "question": "What exact thing existed, what evidence supports it, and what is its recovery disposition?",
+      "reads": [
+        "/control/MIGRATION.json",
+        "/control/MIGRATION_NOW.json",
+        "/recovery/"
+      ],
+      "owns": [
+        "source recovery",
+        "evidence-class separation",
+        "dedup/quarantine",
+        "recovery disposition",
+        "promotion gate"
+      ],
+      "does_not_own": [
+        "current priority",
+        "recipient architecture",
+        "automatic promotion",
+        "redesign authority"
+      ]
+    },
+    {
+      "id": "CONFLUENCE",
+      "short": "X",
+      "route": "/control/confluence/",
+      "verb": "TRANSFER",
+      "question": "What bounded mechanism can cross from one lineage to another, what must it preserve, and what recipient-side evidence would earn adoption?",
+      "reads": [
+        "/control/confluence/",
+        "/control/confluence/transfers.json"
+      ],
+      "owns": [
+        "bounded transfer packets",
+        "donor/recipient distinction",
+        "preserved invariants",
+        "recipient-side test/RETURN"
+      ],
+      "does_not_own": [
+        "source identity",
+        "recipient sovereignty",
+        "canon by analogy",
+        "wholesale project merge"
+      ]
+    }
+  ],
+  "shared_authorities": {
+    "attention": "/control/CURRENT.json",
+    "address_graph": "/showcase-manifest.json",
+    "recovery": "/control/MIGRATION.json + /recovery/",
+    "transfer": "/control/confluence/ packets",
+    "evidence": "/returns/ + route receipts",
+    "reality": "domain owners such as /house/; no projection substitutes for observed world state"
+  },
+  "cycle": [
+    "CORE supplies criteria, not priority.",
+    "FIELD identifies the addressed host, capability or missing port.",
+    "MIGRATION recovers exact source/evidence when a donor or lineage claim is needed.",
+    "CONFLUENCE packages only the bounded transferable mechanism.",
+    "The recipient changes under its own authority and emits evidence.",
+    "RETURN closes that move; subsequent work is replanned from returned state."
+  ],
+  "vocabulary_alignment": {
+    "rule": "Do not collapse independent dimensions merely to make labels match.",
+    "field_state": "Lifecycle/evidence posture of a public route (ACTIVE, STABLE, PROOF_REQUIRED, CANDIDATE, DONOR, FROZEN_DONOR, RECOVER, etc.).",
+    "migration_status": "Recovery disposition (LIVE_HEAD, LIVE_DONOR, RECOVER, IMPORT, MERGE_CANDIDATE, QUARANTINE). It is not the FIELD lifecycle state.",
+    "confluence_status": "Transfer posture (for example IMPLEMENTED, PROOF_REQUIRED, PROPOSED). Adoption is recipient-side and evidence-bearing.",
+    "core_status": "Canonical confidence of the slow model. CANON_CANDIDATE is explicitly revisable."
+  },
+  "known_gaps": [
+    "CONFLUENCE has only a small machine-readable transfer registry; expand it only when a packet has explicit donor/source, transfer unit, recipient, test and RETURN.",
+    "Some child workbenches inherit a parent release boundary and have no independent receipt. Do not describe them as independently verified releases without evidence.",
+    "Historical counts or labels must carry an evidence address or remain qualitative."
+  ]
+}
