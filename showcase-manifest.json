@@ -5412,7 +5412,8 @@
         "Death Stranding preparation→action→return donor",
         "Fold/Bloom ratchet/garden/RETURN donor",
         "non-punitive completion patina",
-        "explicit BODY valence/state reference on return"
+        "explicit BODY valence/state reference on return",
+        "Health Connect read-only sleep + heart-rate source bridge; build verified / real-device proof required"
       ],
       "field": {
         "roles": [
@@ -5466,8 +5467,9 @@
           },
           {
             "class": "HEALTH_PLATFORM",
-            "status": "CANDIDATE",
-            "via": "Health Connect / Samsung Health adapter after real-use proof"
+            "status": "PROOF_REQUIRED",
+            "via": "/bridge/health-connect-reader/ → explicit local JSON → /body/fit/ import; real-device proof required",
+            "proof": "/returns/BODY_HEALTH_CONNECT_READER_2026-09-22.json"
           },
           {
             "class": "HIGH_RES_ANATOMY",
@@ -5488,11 +5490,10 @@
         "physical_fit": "Body-associated fitting and sensor-stream registry/projection; no diagnosis, automatic thresholding, causal inference or actuation authority."
       },
       "index": {
-        "updated_at": "2026-09-22T02:50:00+08:00",
+        "updated_at": "2026-09-22T04:39:00+08:00",
         "work_modes": [
-          "OPERATE",
-          "VERIFY",
-          "IMPLEMENT"
+          "IMPLEMENT",
+          "VERIFY"
         ]
       },
       "versions": [
