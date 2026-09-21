@@ -1,0 +1,192 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_INSTRUMENT_HEAD_2026-09-22",
+  "date": "2026-09-22",
+  "object": "Design Fold Bloom Instrument / FOLD//BLOOM music-performance lineage",
+  "status": "RECOVERED_CURRENT_HEAD_NOT_CODE_STUCK_EVIDENCE_GATED",
+  "question": "Is the thread/work stuck, and what is the latest durable musical/custom-song mapping insight?",
+  "observed_exact": {
+    "repository": "0xxx0/0xxx0.github.io",
+    "open_prs_at_check": 0,
+    "family_root": "/fold-bloom/",
+    "current_surfaces": {
+      "live": "/fold-bloom/live/",
+      "listen": "/fold-bloom/listen/",
+      "two_dial": "/fold-bloom/two-dial/",
+      "ecology": "/fold-bloom/ecology/",
+      "lens": "/fold-bloom/lens/"
+    },
+    "listen_release": {
+      "version": "0.2.2",
+      "lifecycle": "CANDIDATE",
+      "merge_lineage": [
+        "716867fab903b513627e45adfb7ca586617f39f6",
+        "70d63be41dfc5d04b04063d2f90524dca0bb6526"
+      ],
+      "thesis": "Any bounded audio source can become the same addressed playable field: SOURCE → DECODED AUDIO → AUDIO MAP → POLAR TIME × SCOPE → REACTIVE FIELD → RETURN.",
+      "source_seam": [
+        "LOCAL_FILE",
+        "SUNO",
+        "REMOTE_AUDIO"
+      ],
+      "local_authority": "Local file stays canonical/network-free; remote addresses are best-effort adapters.",
+      "analysis": [
+        "PCM decode in browser",
+        "worker FFT feature extraction",
+        "RMS energy",
+        "spectral centroid/brightness",
+        "positive spectral flux",
+        "low/mid/high spectral balance",
+        "tempo + beat phase estimate",
+        "coarse section boundaries",
+        "source SHA-256 provenance"
+      ],
+      "playable_projection": [
+        "ANGLE = TIME",
+        "ring drag = scrub within current addressed scope",
+        "BEAT / PHRASE / SECTION / TRACK alter the actual time-domain window",
+        "audio map drives both annular event witnesses and a reactive field",
+        "PREVIEW appears immediately after decode; DEEP analysis refines later",
+        "long-form >20 min remains interactive in PREVIEW rather than blocking"
+      ],
+      "latest_phone_corrections": [
+        "CHOOSE AUDIO no longer depends on LISTEN JavaScript; native label→file activation",
+        "renderer + Worker boot are lazy/failure-isolated",
+        "2D score remains when WebGL is unavailable",
+        "mobile scope controls moved to a horizontal thumb-reachable strip",
+        "repo CI proves encoded MP3 PREVIEW → DEEP → rendered map"
+      ],
+      "user_observation_preserved": "On 0.2.1, real phone audio playback succeeded but the field appeared visually empty; 0.2.2 contains the corrective pipeline, but a real-phone retest remains required."
+    },
+    "field_pulse": {
+      "schema": "field-pulse/v0.1",
+      "status": "CANDIDATE_SHARED_RUNTIME",
+      "authority": "NONE",
+      "purpose": "Carry bounded temporal/performance context between same-origin FIELD instruments without making a hub or canonical state.",
+      "transport": [
+        "BroadcastChannel(field-pulse-v0)",
+        "local CustomEvent",
+        "sessionStorage last snapshot"
+      ],
+      "listen_transport": [
+        "playing",
+        "time",
+        "duration",
+        "bpm",
+        "tempoConfidence",
+        "beatIndex",
+        "sectionIndex",
+        "scope",
+        "scopeStart",
+        "scopeEnd",
+        "energy",
+        "flux",
+        "brightness",
+        "stage",
+        "sourceHash",
+        "sourceKind",
+        "sourceAddress"
+      ],
+      "bindings": [
+        "LISTEN → LIVE: optional beat pulse + compact track witness; no automatic musical authority",
+        "LISTEN → READFIELD/RSVP: explicit PULSE OFF/×2/×4/×8 maps BPM to WPM",
+        "LISTEN → TWO DIAL: explicit PULSE LINK supplies octave-folded metrical tempo plus energy/section context",
+        "TWO DIAL and LIVE can publish bounded performed operations back into FIELD PULSE"
+      ],
+      "law": "borrowed clock != borrowed authorship"
+    },
+    "live_01": {
+      "transfer": [
+        "Fold Weave 0.1",
+        "Two Dial 0.9"
+      ],
+      "core": [
+        "12-cell authored crease/cascade topology",
+        "phrase/pulse/form music grammar",
+        "continuous gesture sonification",
+        "bounded RETURN"
+      ],
+      "musical_delta": [
+        "RATCHET stores bounded tension and release is explicit",
+        "topology verb is distinct from RETURN cadence",
+        "crease span / cascade / charge change audio",
+        "charged RETURN opens a sparse temporal aperture"
+      ]
+    },
+    "two_dial_sound_depth": {
+      "worlds": [
+        "TRANCE",
+        "DRIFT"
+      ],
+      "voices": [
+        "AIR",
+        "WOOD",
+        "FM",
+        "BELL",
+        "BOW",
+        "DIRTY"
+      ],
+      "grooves": [
+        "GROUND",
+        "DRIVE",
+        "SWING",
+        "BROKEN",
+        "POLY"
+      ],
+      "scopes": [
+        "PULSE",
+        "VOICE",
+        "MOTIF",
+        "FORM"
+      ],
+      "retained_authority": "MATTER×HARMONY relation algebra, motif/form transformation and composition remain authored by Two Dial rather than delegated to source audio."
+    },
+    "external_media_boundary": {
+      "suno": "Share links/UUIDs are address candidates; public metadata/audio may resolve best-effort; no auth/cookie scraping.",
+      "youtube": "Candidate playback/link adapter only; iframe playback must not be represented as raw analyzable audio.",
+      "spotify": "Listening/publishing target only for this path; no claim that Spotify developer tooling can expose recording audio for FIELD analysis/synchronization.",
+      "self_hosted": "Same-origin owned/licensed audio is a clean future source seam."
+    },
+    "future_export_donors_not_yet_implemented": [
+      "beat/event tape exporter for rhythm-game tooling",
+      "Audiosurf 2 local-audio + optional FIELD skin/mod donor",
+      "Beat Saber draft beatmap/event exporter from AUDIO MAP + authored FIELD operations"
+    ]
+  },
+  "reconstructed_insights": [
+    "The important object is not 'a waveform ring'. It is a reversible projection of a song into an addressed temporal field.",
+    "Custom-song mapping becomes useful when analysis produces durable evidence (AUDIO MAP + source hash) and interaction uses multiple temporal apertures rather than a decorative amplitude visualizer.",
+    "A song can lend clock, density, energy and sectional context while each instrument retains its own transformation grammar. This prevents audio-reactivity from flattening everything into one visualization.",
+    "FIELD PULSE is the missing connective tissue: tiny live envelopes connect LISTEN, LIVE, RSVP and TWO DIAL without creating another dashboard/hub or moving canonical authority.",
+    "The same song can therefore be projected differently: RSVP receives pace; LIVE receives beat/track witnesses; TWO DIAL receives optional metrical context; future rhythm-game exports receive beat/event tapes.",
+    "RETURN remains the proof boundary: live pulse is ephemeral; AUDIO MAP/source hash and instrument exports are durable.",
+    "Scope is operational, not cosmetic: BEAT→PHRASE→SECTION→TRACK changes the address space in which scrubbing/attention occurs."
+  ],
+  "provenance_conflict": {
+    "state": "PRESERVE_UNRESOLVED",
+    "detail": "The Sep-22 repo packet says a real Suno address was supplied, but conversation recovery in this check did not recover an exact URL/UUID. Do not fabricate or re-publish one until exact source evidence is recovered."
+  },
+  "current_gate": {
+    "classification": "EVIDENCE_GATE_NOT_IMPLEMENTATION_STALL",
+    "next_truths": [
+      "Retest LISTEN 0.2.2 on a real phone with a local song: confirm visible PREVIEW, then DEEP map.",
+      "For one real Suno/source address, report only RESOLVES / CORS_BLOCKED / DECODE_FAIL / MAP_READY.",
+      "Compare heard transients/tempo/sections against AUDIO MAP witnesses.",
+      "Verify LISTEN→LIVE beat witness, READFIELD pulse pacing, and LISTEN↔TWO DIAL opt-in clock with real audio.",
+      "Only after these returns decide whether to refine MIR, visual grammar, or export adapters."
+    ],
+    "stop": "No new visual modes, hub, automatic musical coupling, or source-specific hacks before real-track evidence."
+  },
+  "source_artifacts": [
+    "/fold-bloom/listen/release.json",
+    "/fold-bloom/listen/README.md",
+    "/fold-bloom/listen/audio-map.js",
+    "/fold-bloom/listen/source-adapters.js",
+    "/control/FIELD_PULSE_CONTRACT.json",
+    "/control/confluence/FOLD_BLOOM_LISTEN_SOURCE_2026-09-22.json",
+    "/returns/FOLD_BLOOM_LISTEN_SOURCE_2026-09-22.json",
+    "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
+    "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
+    "/control/confluence/FOLD_BLOOM_LIVE_2026-09-21.json"
+  ]
+}
