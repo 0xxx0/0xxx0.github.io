@@ -645,10 +645,11 @@
       "rule": "closed branches retain provenance; master remains authority"
     },
     "last_live_census": {
-      "branches": 112,
+      "branches": 111,
       "open_prs": 0,
-      "no_pr_pointers": 16,
-      "unclassified_no_pr": 1
+      "no_pr_pointers": 15,
+      "unclassified_no_pr": 0,
+      "execution_branch_excluded": "confluence-hard-advance-20260922"
     }
   },
   "deep_tool_lineage": {
