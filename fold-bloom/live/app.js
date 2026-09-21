@@ -117,7 +117,7 @@ $('#mutePlay').onclick=()=>{stopDemo(false);$('#intro').classList.remove('on');a
 $('#demoBtn').onclick=startDemo;
 
 addEventListener('keydown',e=>{
-  if(e.repeat)return;
+  if(e.repeat)return;stopDemo(true);
   if(e.key==='ArrowLeft'){e.preventDefault();step(-1)}
   else if(e.key==='ArrowRight'){e.preventDefault();step(1)}
   else if(e.code==='Space'||e.key==='Enter'){e.preventDefault();doRelease()}
