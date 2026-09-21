@@ -1,0 +1,61 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "INTERPHASE / ROOM",
+  "version": "0.1",
+  "route": "/foundry/room/",
+  "state": "CANDIDATE",
+  "operation": "REPRESENT",
+  "released": "2026-09-22",
+  "hypothesis": "A six-face room can preserve one addressed object while making its opposing relations perceptually legible: PRESENT↔RETURN, INPUT↔OUTPUT, INTENTION↔EVIDENCE. Rotation changes the active reading; walking through a local door changes the object and leaves a trail.",
+  "lineage": {
+    "exact": [
+      "/recovery/kala/old-kala-0-room-2018.html",
+      "/recovery/poly-furnisher/interphase-lineage/rotating-cylinder-2019.html",
+      "/recovery/poly-furnisher/interphase-lineage/proto1-terse-2020.html",
+      "/recovery/poly-furnisher/interphase-lineage/interphase-2020.html",
+      "/recovery/poly-furnisher/room-lineage/FU5X2.html",
+      "/recovery/poly-furnisher/room-lineage/EMPTY3-RF.html",
+      "/recovery/poly-furnisher/room-lineage/scratch.html",
+      "/kernel/INTERPHASE.schema.json"
+    ],
+    "later_interpretive": [
+      "interphase_bridge_v0_2.html · 2026-04-29 · File Library descendant/reconstruction, not historical source evidence",
+      "/recovery/focus-interface-sync-20260921/FU_FOVEATE_RECOVERY_2026-09-21.json"
+    ],
+    "rule": "Historical room/cube code is frozen evidence. ROOM 0.1 is a new descendant that transfers only explicit mechanisms: VIEWPORT/CAMERA/ROOM, signed faces, direct rotation, focus/foveation, canonical state, projection, local trail and RETURN."
+  },
+  "face_law": {
+    "F": "+Z · PRESENT / OBJECT",
+    "B": "-Z · RETURN / PROVENANCE",
+    "L": "-X · INPUT / CONTEXT",
+    "R": "+X · OUTPUT / ACTION",
+    "U": "+Y · INTENTION / PURPOSE",
+    "D": "-Y · GROUND / EVIDENCE"
+  },
+  "controls": [
+    "drag room → release-to-snap",
+    "F/L/U/R/B/D direct face focus",
+    "arrow-key quarter turns",
+    "route command line → load one FIELD route into the room",
+    "local wall doors → walk to related manifest routes without losing the room grammar",
+    "PLAIN baseline exposes the same manifest object without spatial projection",
+    "RETURN emits/stores an INTERPHASE-compatible local receipt"
+  ],
+  "capability": "Project a real FIELD route into six opposing relation faces while preserving route identity, source provenance and explicit RETURN. The ceiling carries intention, floor carries proof, left/right carry ingress/egress, front/back carry presence/provenance.",
+  "boundary": [
+    "ROOM is a projection, never canonical object truth.",
+    "Rotation never mutates the addressed FIELD route.",
+    "Walking through a door changes addressed object explicitly and records a local event.",
+    "No Home Assistant/HOUSE actuation.",
+    "No claim that spatialization is universally superior to the PLAIN baseline.",
+    "No claim that the 2026 descendant reproduces the exact remembered historical red-dot/Alice reader."
+  ],
+  "proof": {
+    "core": "/foundry/room/room-core.js",
+    "selftest": "/control/interphase-room-selftest.js",
+    "schema": "/kernel/INTERPHASE.schema.json",
+    "browser": "pending PR CI / public surface smoke"
+  },
+  "known_gap": "Human comparative value remains unmeasured. Promotion depends on whether the six oppositions improve re-orientation, relation discovery or route traversal compared with the plain route reading.",
+  "recovery_note": "/control/confluence/INTERPHASE_ROOM_CONVERGENCE_2026-09-22.md"
+}

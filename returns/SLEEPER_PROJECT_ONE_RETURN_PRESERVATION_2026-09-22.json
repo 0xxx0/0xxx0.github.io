@@ -1,0 +1,56 @@
+{
+  "schema": "return-receipt/v1",
+  "id": "SLEEPER-PROJECT-ONE-RETURN-PRESERVATION-2026-09-22",
+  "at": "2026-09-22T04:39:00+08:00",
+  "state": "PRESERVED_SHIPPABLE_PROJECT_SURFACE_INITIATED",
+  "before": [
+    "ASCII Sleeper 0.8 was the current runnable head at /sleeper/.",
+    "ASCII ONE RETURN / Nine Gate reconstruction was runnable at /sleeper/one-return/ but only preserved through ordinary Git history.",
+    "Polished ONE RETURN v2 was already correctly separated as a recovery target with an exact public source shelf and unresolved deployment/version identity.",
+    "The Sleeper recovery page still contained a stale claim that the v2 source snapshot had not been materialized.",
+    "No dedicated Sleeper project/status surface existed."
+  ],
+  "intervention": [
+    "Copied the live ASCII ONE RETURN reconstruction index.html and release.json byte-for-byte into /recovery/sleeper/one-return-recon-0.2/.",
+    "Verified live and frozen copies have identical Git blob SHAs for both preserved files.",
+    "Added PRESERVATION.json with anti-overwrite and identity-boundary laws.",
+    "Initiated /sleeper/project/ as a public status/lineage surface separating CURRENT HEAD / PLAYABLE DONOR / EXACT SOURCE / RECOVERY TARGET.",
+    "Linked the current ASCII Sleeper UI to PROJECT.",
+    "Corrected the stale Sleeper recovery page to state that the exact v2-era public source shelf is materialized while deployment identity remains open.",
+    "Indexed the new project route and frozen donor in showcase-manifest.json.",
+    "Amended sleeper/release.json with preservation evidence without changing ASCII Sleeper 0.8's head identity."
+  ],
+  "evidence": {
+    "live_maze": "/sleeper/one-return/",
+    "frozen_maze": "/recovery/sleeper/one-return-recon-0.2/",
+    "preservation": "/recovery/sleeper/one-return-recon-0.2/PRESERVATION.json",
+    "project": "/sleeper/project/",
+    "project_state": "/sleeper/project/state.json",
+    "v2_target": "/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json",
+    "v2_source_shelf": "/recovery/sleeper/site-source-2026-09-18/",
+    "blob_proof": {
+      "index_html": {
+        "live": "57fbd935c17a17800b78a1f2af4c52b4b37c52af",
+        "frozen": "57fbd935c17a17800b78a1f2af4c52b4b37c52af",
+        "equal": true
+      },
+      "release_json": {
+        "live": "32039cac4061a41420017236e652a998db5333a4",
+        "frozen": "32039cac4061a41420017236e652a998db5333a4",
+        "equal": true
+      }
+    }
+  },
+  "distinctions": [
+    "ASCII Sleeper 0.8 remains the current head.",
+    "ASCII ONE RETURN reconstruction remains a playable donor/reconstruction, not recovered polished v2.",
+    "The frozen copy preserves the reconstruction exactly; it is not a new authoritative version.",
+    "The exact public v2-era source snapshot is evidence, but identity with the remembered deployed polished version remains unresolved."
+  ],
+  "residue": [
+    "Need CI/public route proof for the new project page and preservation route before merge.",
+    "ONE RETURN v2 deployment/version reconciliation remains open.",
+    "Wider Sleeper chronology should continue to be recovered from exact evidence rather than inferred from the project page."
+  ],
+  "next": "Run public route/CI proof, merge if green, then treat device/browser interaction findings as the only reason to mutate the preserved maze or project page."
+}

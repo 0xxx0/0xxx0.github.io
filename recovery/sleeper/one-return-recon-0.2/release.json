@@ -1,0 +1,78 @@
+{
+  "schema": "release-receipt/v1",
+  "name": "ASCII ONE RETURN / NINE GATE · RECONSTRUCTION",
+  "version": "reified-0.2 + grid-receipt-seam-1",
+  "state": "DONOR",
+  "released": "2026-09-21",
+  "route": "/sleeper/one-return/",
+  "parent": "/sleeper/",
+  "lineage": [
+    "attested ONE RETURN / Nine Gate standalone game",
+    "one_return_nine_gate_rebuilt_v0.1.html (2026-09-13)",
+    "Sleeper / Workfield / Semantic City family"
+  ],
+  "classification": "FALSE_POSITIVE_HEAD_CORRECTED_TO_ASCII_RECONSTRUCTION_DONOR",
+  "preserves": [
+    "deterministic corpus-seeded ASCII labyrinth",
+    "semantic letters in walls",
+    "nine ordered Gates",
+    "CITY/DISC/TRACE same-state projections",
+    "radial DataDisc",
+    "RSVP encounter rail",
+    "semantic success deforms topology",
+    "previous RETURN ghost",
+    "append event trace",
+    "local persistence",
+    "JSON import/export",
+    "evidence-bearing RETURN witness"
+  ],
+  "distinction": {
+    "from_current_sleeper": "Current /sleeper/ POV 0.8 remains the active constraint/evidence head; ONE RETURN is a playable ancestor lane, not a replacement.",
+    "from_workfield": "Workfield remains the practical source/task substrate; maze traversal is preserved here because it is the point of this organism.",
+    "from_grid_path": "Grid Path Compiler is a later path/route instrument, not the maze-game head."
+  },
+  "provenance": "Reconstituted from the recovered runnable v0.1 source/content and recovery notes; original lost standalone executable is not claimed recovered.",
+  "verification": [
+    "single-file runtime",
+    "dependency-free core",
+    "browser smoke route required before merge",
+    "RETURN export schema one-return/import-reified-0.2",
+    "browser runtime proof: BY/GRID-PATH-2 import preserves upstream fingerprint/path/address and yields nine-gate maze"
+  ],
+  "interop": {
+    "input": "BY/GRID-PATH-2",
+    "donor": "/recovery/path-grid/grid-path-compiler-v4/",
+    "transform": "reading strands/cells + receipt identity → deterministic ONE RETURN maze projection",
+    "preserves": [
+      "source fingerprint",
+      "path id",
+      "compressed address",
+      "reading",
+      "source pack"
+    ],
+    "does_not_preserve": [
+      "Grid Path rectangle geometry",
+      "typed BY edges as maze edges",
+      "route cost"
+    ],
+    "return": "ONE RETURN witness carries upstream receipt identity in `upstream`"
+  },
+  "return_receipt": "/returns/ONE_RETURN_REIFICATION_2026-09-21.json",
+  "verification_detail": {
+    "live_lane_pr": 80,
+    "live_lane_pr_run": 35597939499,
+    "live_lane_master_run": 35598080988,
+    "grid_receipt_pr": 81,
+    "grid_receipt_pr_run": 35598453910,
+    "grid_receipt_master_run": 35598569739,
+    "grid_receipt_master_attempt": 2,
+    "pages_run": 35598569054,
+    "result": "PASS"
+  },
+  "authority_correction": {
+    "at": "2026-09-21T20:28:00+08:00",
+    "reason": "User identified the promoted artifact as the wrong, low-fi reconstruction. The intended game is the polished Work-mode SLEEPER // ONE RETURN v2 with PHRASE+CELL+FIGURE compilation and figure-specific physics.",
+    "target": "/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json",
+    "rule": "Keep this runnable as an experiment/donor; never cite it as recovery of polished ONE RETURN v2."
+  }
+}

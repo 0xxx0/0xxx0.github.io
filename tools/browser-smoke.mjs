@@ -571,6 +571,12 @@ const CASES=[
     check:dom=>dom.includes('FOCUS STACK')&&dom.includes('RETURN')
   },
   {
+    name:'INTERPHASE ROOM',
+    route:'/foundry/room/?route=%2Ffoundry%2Faxial%2F&face=U',
+    options:{width:1100,height:820,budget:1800,timeout:18000},
+    check:dom=>dom.includes('INTERPHASE / ROOM 0.1')&&dom.includes('id="stage"')&&dom.includes('INTENTION')&&dom.includes('AXIAL / FOCUS STACK 0.7.3')&&dom.includes('data-face="U"')
+  },
+  {
     name:'AXIAL continuity + RETURN replay',
     route:'/__smoke/axial-continuity',
     options:{width:1180,height:880,budget:18000,timeout:24000},

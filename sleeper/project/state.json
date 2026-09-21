@@ -1,0 +1,75 @@
+{
+  "schema": "sleeper-project-state/v0.1",
+  "updated": "2026-09-22T04:39:00+08:00",
+  "purpose": "Public project surface for the SLEEPER lineage without collapsing current heads, exact donors, reconstructions and recovery targets.",
+  "now": [
+    {
+      "id": "ascii-sleeper-08",
+      "class": "CURRENT_HEAD",
+      "title": "ASCII Sleeper 0.8",
+      "route": "/sleeper/",
+      "state": "ACTIVE",
+      "note": "Current runnable constraint/evidence head. POV and PLAIN remain unequal projections of the same obligation state."
+    },
+    {
+      "id": "one-return-ascii-recon",
+      "class": "PLAYABLE_DONOR",
+      "title": "ASCII ONE RETURN / Nine Gate · reconstruction",
+      "route": "/sleeper/one-return/",
+      "state": "PLAYABLE_DONOR",
+      "frozen_copy": "/recovery/sleeper/one-return-recon-0.2/",
+      "note": "Later reconstruction from attested ASCII/Nine-Gate mechanics. Preserved and shipped; not the polished Work-mode v2."
+    },
+    {
+      "id": "one-return-v2-source",
+      "class": "EXACT_SOURCE_RECOVERY_TARGET",
+      "title": "SLEEPER // ONE RETURN v2-era source snapshot",
+      "route": "/recovery/sleeper/site-source-2026-09-18/",
+      "state": "SOURCE_SNAPSHOT_AVAILABLE_IDENTITY_RECONCILIATION_REQUIRED",
+      "target": "/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json",
+      "note": "Exact public source shelf exists. Identity with the remembered polished deployment remains unverified."
+    }
+  ],
+  "recovered": [
+    {
+      "title": "Workfield v1.2",
+      "route": "/recovery/sleeper/workfield-v1.2/",
+      "class": "FROZEN_EXACT_DONOR"
+    },
+    {
+      "title": "City Engine v0.2",
+      "route": "/recovery/sleeper/city-engine-v0.2/",
+      "class": "EXACT_SOURCE"
+    },
+    {
+      "title": "Painting / Path",
+      "route": "/recovery/sleeper/painting-path/",
+      "class": "EXACT_SELF_CONTAINED_APP"
+    },
+    {
+      "title": "Sleeper media / atlas",
+      "route": "/recovery/media/sleeper-atlas/",
+      "class": "SOURCE_LINKED_MEDIA"
+    }
+  ],
+  "unresolved": [
+    "Reconcile the exact v2-era public source snapshot with the remembered polished deployed version before promotion.",
+    "Preserve the three-figure snapshot versus four-operator/configuration recollection as an explicit contradiction; do not resolve by analogy.",
+    "Recover/verify wider Sleeper lineage chronology only from exact evidence; do not make the project page itself canonical history."
+  ],
+  "laws": [
+    "RECOVER BEFORE INVENTING.",
+    "CURRENT HEAD != DONOR != RECOVERY TARGET.",
+    "PLAYABLE != ORIGINAL.",
+    "EXACT SOURCE != DEPLOYMENT PROOF.",
+    "FROZEN COPY IS NEVER MODERNIZED IN PLACE."
+  ],
+  "ship": {
+    "state": "SHIPPED",
+    "pr": 124,
+    "commit": "406ec300de95dc841d1e9691f061e0bee623837e",
+    "pages_run": 35657759502,
+    "post_merge_ci": 35657760630,
+    "receipt": "/returns/SLEEPER_PROJECT_SHIPPED_2026-09-22.json"
+  }
+}
