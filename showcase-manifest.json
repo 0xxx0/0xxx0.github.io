@@ -4137,7 +4137,7 @@
       "parent": "/forward-field-proof/triangle/glyph/",
       "family": "FIELD / PROOF",
       "operation": "ROUTE",
-      "state": "CANDIDATE",
+      "state": "DONOR",
       "version": "0.3",
       "receipt": "/forward-field-proof/triangle/glyph/center/release.json",
       "showcase_card": false,
@@ -4145,30 +4145,30 @@
         "schema": "field-evolution/v0.1",
         "host": "/control/",
         "generation": 1,
-        "stage": "TEST",
+        "stage": "TRANSFER",
         "question": "Does continuous intent + discrete CURRENT constraints change or clarify one real next-move choice compared with reading CURRENT/QUEUE plainly?",
         "baseline": "Plain /control/CURRENT.json + /control/QUEUE.json reading and existing FIELD/AXIAL re-entry.",
-        "mutation": "Project exact CURRENT/QUEUE next-action instructions into either CENTER (simplex similarity) or PLAIN (source order) while keeping identical constraints, focus and actions; record passive choice/override evidence and optional HUMAN PORT handoff.",
-        "evidence_gate": "Use the instrument during ordinary work. Require at least two passive CENTER/PLAIN choice observations plus one real RETURN where CENTER changed/clarified a choice relative to PLAIN; no dedicated QA ritual.",
-        "next_if_pass": "TRANSFER only the smallest useful selection projection into CURRENT/FIELD; keep CURRENT/QUEUE authoritative and CENTER recoverable as evidence fixture.",
-        "next_if_fail": "PARK or DONOR CENTER; retain triangle/glyph mechanisms without another active surface."
+        "mutation": "Historical test retained: exact CURRENT/QUEUE actions were projected through CENTER vs PLAIN while keeping constraints/focus/actions comparable.",
+        "evidence_gate": "Disposition already selected by CURRENT authority: retain CENTER as donor only. Reopen only if a named missing selection function cannot be expressed by current FIELD/PLAIN/FCM surfaces.",
+        "next_if_pass": "DONE: transfer only surviving mechanics; do not promote CENTER itself.",
+        "next_if_fail": "Keep donor/negative evidence; no beautification or active-front debt."
       },
       "index": {
-        "updated_at": "2026-09-21T16:18:00+08:00",
+        "updated_at": "2026-09-21T17:39:00+08:00",
         "work_modes": [
-          "ORIENT",
-          "OPERATE",
+          "REFERENCE",
           "VERIFY"
         ]
       },
-      "role": "Optional CURRENT next-move selector: continuous intent simplex × exact CURRENT/QUEUE actions × discrete support strips × one focus; FEDERATION remains a secondary memory projection.",
+      "role": "Preserved donor/comparison surface. Its useful control direction (plain reading + bounded FCM/selection mechanics) has been absorbed elsewhere; CENTER no longer carries an execution obligation.",
       "transfer": [
         "AXIAL unequal support strips + no-fake-focus law",
         "Triangle continuous three-axis preference",
         "CURRENT/QUEUE exact next-action projection",
         "FieldSignals passive candidate/override evidence",
         "HUMAN PORT bounded local preload",
-        "same-instrument CENTER↔PLAIN passive comparator"
+        "same-instrument CENTER↔PLAIN passive comparator",
+        "runtime browser smoke as system-wide validation donor"
       ],
       "field": {
         "roles": [
@@ -4750,7 +4750,8 @@
     "triangle_center_focus_field": "0.2 repairs root source loading, adds local fallback snapshot, and transfers AXIAL Focus Stack mechanics into triangle-based many-front selection.",
     "poem_map_state_normalization": "Poem Map 0.2 release receipt retains historical status EXPERIMENTAL_LIVE, but current FIELD lifecycle state is CANDIDATE per its current_classification and FIELD lifecycle law.",
     "triangle_center_current": "CENTER 0.3 defaults to exact CURRENT/QUEUE next moves, records passive local choice evidence, and may preload HUMAN PORT. Root FIELD promotion is evidence-gated.",
-    "runtime_repair_return": "/returns/FOUNDRY_RUNTIME_REPAIR_2026-09-21.json"
+    "runtime_repair_return": "/returns/FOUNDRY_RUNTIME_REPAIR_2026-09-21.json",
+    "center_disposition": "Center Mass 0.3 is DONOR per CURRENT; PLAIN/FCM absorbed useful control mechanics. Reopen only on a named missing function."
   },
   "capability_model": {
     "CAPTURE": {
