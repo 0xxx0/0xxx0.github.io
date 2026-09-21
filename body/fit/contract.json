@@ -55,7 +55,8 @@
       "SELF_REPORTED",
       "IMPORT",
       "OTHER"
-    ]
+    ],
+    "schema_path": "/body/fit/sensor-observation.schema.json"
   },
   "fusion": {
     "method": "time-align observations by observed_property within a user-selected window; preserve one row per source",
@@ -75,5 +76,6 @@
     "0xxx0/body-sensor-bundle/v0.1",
     "HUMAN PORT session object adapter"
   ],
-  "research": "/control/research/BODY_FIT_SENSOR_FUSION_2026-09-22.md"
+  "research": "/control/research/BODY_FIT_SENSOR_FUSION_2026-09-22.md",
+  "validation": "/control/BODY_FIT_VALIDATION_2026-09-22.json"
 }
