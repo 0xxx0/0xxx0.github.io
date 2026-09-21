@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM LISTEN",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "state": "CANDIDATE",
   "operation": "LISTEN",
   "route": "/fold-bloom/listen/",
@@ -30,7 +30,12 @@
     "remote failure collapses cleanly back to local file intake instead of changing the instrument state",
     "native label→file-input activation: CHOOSE AUDIO no longer depends on LISTEN JavaScript",
     "renderer and analysis Worker boot are lazy/failure-isolated so visual failure cannot disable intake",
-    "runtime exposes boot sentinel and renderer fallback state for browser proof"
+    "runtime exposes boot sentinel and renderer fallback state for browser proof",
+    "progressive PREVIEW map appears immediately after successful decode before deep analysis completes",
+    "song-fast deep analysis uses 12 kHz mixdown with 1024 FFT / 2048 hop",
+    "long-form material over 20 minutes remains interactive as PREVIEW rather than blocking on full deep analysis",
+    "2D score remains legible when WebGL is absent or unavailable",
+    "end-to-end CI loads a real encoded MP3 fixture and proves PREVIEW → DEEP → rendered map"
   ],
   "constraints": [
     "no upload/network required for user audio",
@@ -51,7 +56,9 @@
     "real_audio_analysis": "REQUIRED_NEXT: first real-song play",
     "merge_sha": "716867fab903b513627e45adfb7ca586617f39f6",
     "intake_activation": "PENDING_CI: app boot + native label targets non-hidden file input + activation event",
-    "regression_reason": "User observed CHOOSE AUDIO was inert on deployed 0.2; static DOM smoke had not tested app boot or activation."
+    "regression_reason": "User observed CHOOSE AUDIO was inert on deployed 0.2; static DOM smoke had not tested app boot or activation.",
+    "user_audio_observation": "OBSERVED: real phone audio playback succeeded but field appeared visually empty on 0.2.1",
+    "progressive_audio_pipeline": "PENDING_CI: real MP3 fixture → decode → PREVIEW visible/loaded → DEEP map → rendered score"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · visible on FIELD INDEX · host=/fold-bloom/ · evolution stage=TEST"
 }

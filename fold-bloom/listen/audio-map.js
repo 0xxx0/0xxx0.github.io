@@ -1,7 +1,8 @@
 export const SCOPES=['BEAT','PHRASE','SECTION','TRACK'];
 export function frameIndexAt(map,time){
   if(!map?.frames?.length)return 0;
-  return Math.max(0,Math.min(map.frames.length-1,Math.round(time*map.sampleRate/map.hop)));
+  const fps=map.frameRate||(map.sampleRate/map.hop);
+  return Math.max(0,Math.min(map.frames.length-1,Math.round(time*fps)));
 }
 export function frameAt(map,time){return map?.frames?.[frameIndexAt(map,time)]||null}
 export function beatIndexAt(map,time){

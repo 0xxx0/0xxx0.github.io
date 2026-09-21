@@ -5533,15 +5533,15 @@
     },
     {
       "href": "/fold-bloom/listen/",
-      "title": "FOLD // BLOOM LISTEN 0.2.1",
+      "title": "FOLD // BLOOM LISTEN 0.2.2",
       "kind": "experiment",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "LISTEN",
       "state": "CANDIDATE",
-      "role": "Source-addressed audio projection candidate. 0.2.1 hardens intake: native file-picker activation is independent of JS; renderer/Worker failures degrade visuals/analysis rather than disabling CHOOSE AUDIO. Local file remains canonical; Suno/direct addresses remain best-effort.",
+      "role": "Progressive source-addressed audio projection candidate. Successful decode yields an immediate PREVIEW score before deep analysis; song-length audio refines asynchronously, long-form stays usable as preview, and the 2D score remains legible without WebGL.",
       "index": {
-        "updated_at": "2026-09-22T01:08:00+08:00",
+        "updated_at": "2026-09-22T02:15:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -5556,7 +5556,8 @@
           "source-address parser browser proof",
           "real Suno fetch pending",
           "real-song trials pending",
-          "native file-picker activation + app boot browser proof"
+          "native file-picker activation + app boot browser proof",
+          "real encoded MP3 → PREVIEW → DEEP → rendered score browser proof"
         ],
         "return_path": "/fold-bloom/listen/"
       },
@@ -5572,7 +5573,7 @@
         "next_if_pass": "Transfer the surviving audio-map, time-ring, and scale-rail mechanisms into the Fold/Bloom family shell and keep LISTEN as a projection rather than a separate roadmap.",
         "next_if_fail": "Park or donate weak analysis/visualization parts; preserve the polar/scale interaction and source-hash audio map if independently useful."
       },
-      "version": "0.2.1"
+      "version": "0.2.2"
     }
   ],
   "release_law": [

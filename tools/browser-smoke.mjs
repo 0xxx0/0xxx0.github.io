@@ -141,6 +141,24 @@ function listenIntakeProbeHtml(){
   })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
   <\/script></body></html>`;
 }
+function listenPreviewProbeHtml(){
+  return `<!doctype html><html><body style="margin:0;background:#05070b"><canvas id="g" width="900" height="700"></canvas><canvas id="o" width="900" height="700"></canvas><pre id="probeResult">PENDING</pre><script type="module">
+  const out=document.getElementById('probeResult'),rec={};
+  const done=(ok,data)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data);
+  try{
+    const [{buildPreviewMap},{ListenRenderer}]=await Promise.all([import('/fold-bloom/listen/preview-map.js'),import('/fold-bloom/listen/render.js')]);
+    const sr=12000,dur=8,n=sr*dur,pcm=new Float32Array(n);
+    for(let i=0;i<n;i++){const t=i/sr,p=t%.5;pcm[i]=.05*Math.sin(2*Math.PI*220*t)+(p<.055?.72*Math.sin(2*Math.PI*90*p)*Math.exp(-p*34):0)}
+    const map=buildPreviewMap(pcm,sr,dur),g=document.getElementById('g'),o=document.getElementById('o'),r=new ListenRenderer(g,o);
+    const x=o.getContext('2d'),before=x.getImageData(0,0,o.width,o.height).data;let beforeInk=0;for(let i=3;i<before.length;i+=16)if(before[i]>20)beforeInk++;
+    r.draw(map,map.frames[0],0,1,false);
+    const after=x.getImageData(0,0,o.width,o.height).data;let afterInk=0;for(let i=3;i<after.length;i+=16)if(after[i]>20)afterInk++;
+    rec.stage=map.stage;rec.frames=map.frames.length;rec.before=beforeInk;rec.after=afterInk;rec.mode=r.mode;
+    done(map.stage==='PREVIEW'&&map.frames.length>=24&&afterInk>beforeInk*1.08,rec);
+  }catch(e){done(false,{error:String(e?.stack||e),...rec})}
+  <\/script></body></html>`;
+}
+
 function fieldActivationProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/"></iframe><pre id="probeResult">PENDING</pre><script>
   const result=document.getElementById('probeResult'),f=document.getElementById('f'),rec={};let finished=false;
@@ -484,6 +502,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(fieldListenProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/listen-preview')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(listenPreviewProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/listen-intake')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(listenIntakeProbeHtml());return;
@@ -682,10 +704,16 @@ const CASES=[
     check:dom=>/HOLD FAST \/ LET FLY/i.test(dom)&&/SCALE OF CONSEQUENCE/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')
   },
   {
-    name:'FOLD BLOOM LISTEN 0.2.1',
+    name:'FOLD BLOOM LISTEN 0.2.2',
     route:'/fold-bloom/listen/',
     options:{width:1180,height:900,budget:9000},
-    check:dom=>/LISTEN 0\.2\.1/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="urlInput"')&&dom.includes('id="urlBtn"')
+    check:dom=>/LISTEN 0\.2\.2/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="urlInput"')&&dom.includes('id="urlBtn"')
+  },
+  {
+    name:'FOLD BLOOM LISTEN preview render',
+    route:'/__smoke/listen-preview',
+    options:{width:1000,height:820,budget:18000,timeout:24000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"stage":"PREVIEW"/.test(dom)&&/"frames":[2-9][0-9]/.test(dom)&&/"after":[1-9][0-9]+/.test(dom)
   },
   {
     name:'FOLD BLOOM LISTEN intake activation',
@@ -774,11 +802,14 @@ const CASES=[
 ];
 
 await new Promise((resolve,reject)=>server.listen(PORT,HOST,e=>e?reject(e):resolve()));
+const smokeOnly=String(process.env.SMOKE_ONLY||'').trim();
+const RUN_CASES=smokeOnly?CASES.filter(c=>c.name===smokeOnly):CASES;
+if(smokeOnly&&!RUN_CASES.length)throw new Error('unknown SMOKE_ONLY '+smokeOnly);
 let fail=[];
 try{
   const bin=browserBin();
   console.log('BROWSER SMOKE:',bin);
-  for(const c of CASES){
+  for(const c of RUN_CASES){
     let r;
     try{r=await runChrome(bin,c.route,c.options||{})}
     catch(e){console.log('FAIL',c.name,c.route);console.log('SMOKE TIMEOUT',c.name,String(e?.message||e));fail.push(c.name+' '+c.route+' '+String(e?.message||e));continue}
@@ -800,4 +831,4 @@ if(fail.length){
   console.error('BROWSER SMOKE FAIL\n- '+fail.join('\n- '));
   process.exit(1);
 }
-console.log('BROWSER SMOKE PASS · cases:',CASES.length);
+console.log('BROWSER SMOKE PASS · cases:',RUN_CASES.length);
