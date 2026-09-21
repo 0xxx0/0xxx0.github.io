@@ -3,6 +3,7 @@ import { FoldBloomAudio } from './audio.js';
 import { Renderer } from './render.js';
 import { createFieldPulse } from '../../lib/field-pulse.js';
 import { LiveTrack } from './track.js';
+import { createSectionArc, syncSectionArc, observeSectionRelease, sectionArcLabel, sectionArcView } from './section-arc.js';
 
 const $=s=>document.querySelector(s), STORE='fb-live-0.1';
 const cv=$('#field'), renderer=new Renderer(cv);
@@ -11,7 +12,7 @@ let dragging=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
 let demo={on:false,timer:0,releases:0};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
-let linkedTrack=null,lastLinkedBeat=-1,trackStatus='NONE';
+let linkedTrack=null,lastLinkedBeat=-1,trackStatus='NONE',sectionArc=createSectionArc();
 const liveTrack=new LiveTrack($('#trackAudio'),{
   onState:t=>{trackStatus=t;update()},
   onMap:m=>toast(m?.stage==='DEEP'?'SONG MAP · DEEP':'SONG MAP · PREVIEW')
@@ -37,6 +38,15 @@ function timingNow(){
   if(d<=.20)return {timing:'GOOD',timingMultiplier:1.18,label:'GOOD'};
   return {timing:'OPEN',timingMultiplier:1,label:'OPEN'};
 }
+function syncArc(track=linkedTrack,announce=false){
+  const out=syncSectionArc(sectionArc,track);
+  sectionArc=out.arc;
+  renderer.setSectionArc(sectionArcView(sectionArc,track));
+  if(announce&&out.event?.kind==='SECTION_CHANGE'){
+    toast(out.event.previous?.sealed?`SECTION ${out.event.from+1} SEALED → ${out.event.to+1}`:`SECTION ${out.event.from+1} → ${out.event.to+1}`);
+  }
+  return out.event;
+}
 function currentForecast(){return forecastRelease(state)}
 function callHit(f=currentForecast()){return forecastMatchesCall(state.call,f)}
 function releaseLabel(){
@@ -58,6 +68,7 @@ function update(){
   $('#call').textContent=callLabel(state.call);
   $('#streak').textContent=state.callStreak>1?state.callStreak+'×':'—';
   $('#timing').textContent=linkedTrack?.playing?timingNow().label:'—';
+  $('#arc').textContent=sectionArcLabel(sectionArc,linkedTrack);
   $('#trackState').textContent=trackStatus;
   $('#trackToggle').disabled=!liveTrack.active();
   $('#trackToggle').textContent=liveTrack.active()?($('#trackAudio').paused?'PLAY SONG':'PAUSE SONG'):'PLAY / PAUSE';
@@ -70,7 +81,7 @@ function update(){
   $('#chargeBar').style.width=`${Math.min(100,state.charge/1.75*100)}%`;
   $('#status').textContent=statusText();
   $('#soundBtn').textContent=audio.soundOn?'♪':'×';
-  $('#build').textContent=`${VERSION} · visible forecasts + achievable calls · bounded 8-note motif · ${state.history.length} recent events`;
+  $('#build').textContent=`${VERSION} · consequence forecasts + section arcs · bounded 8-note motif · ${state.history.length} recent events`;
   renderer.setDrag(dragAngle);
   save();
 }
@@ -100,10 +111,20 @@ async function doRelease(){
   if(!canRelease(state)) return;
   await ensureAudio();
   const out=release(state,timingNow()); if(!out.event)return;
-  state=out.state; audio.release(out.event); renderer.pulse(out.event); haptic(Math.min(28,7+out.event.chain*3+(out.event.callMet?3:0)));
-  fieldPulse.publish('operation',{operation:out.event.verb,cadence:out.event.cadence,operations:out.event.operations,slot:out.event.slot,type:out.event.typeName,chain:out.event.chain,charge:out.event.charge,power:out.event.power,scene:out.event.scene,call:out.event.call,callMet:out.event.callMet,timing:out.event.timing,flowGain:out.event.flowGain,trackTime:linkedTrack?.time??null,trackBeat:linkedTrack?.beatIndex??null});
+  state=out.state;
+  const arcOut=observeSectionRelease(sectionArc,out.event,linkedTrack);
+  sectionArc=arcOut.arc;
+  if(arcOut.bonus){
+    state.flow+=arcOut.bonus;
+    const last=state.history[state.history.length-1];
+    if(last)last.sectionArc={sectionIndex:sectionArc.sectionIndex,sealed:true,bonus:arcOut.bonus,hits:sectionArc.hits,verbs:[...sectionArc.verbs]};
+  }
+  renderer.setSectionArc(sectionArcView(sectionArc,linkedTrack));
+  audio.release(out.event); renderer.pulse(out.event); haptic(Math.min(34,7+out.event.chain*3+(out.event.callMet?3:0)+(arcOut.bonus?5:0)));
+  fieldPulse.publish('operation',{operation:out.event.verb,cadence:out.event.cadence,operations:out.event.operations,slot:out.event.slot,type:out.event.typeName,chain:out.event.chain,charge:out.event.charge,power:out.event.power,scene:out.event.scene,call:out.event.call,callMet:out.event.callMet,timing:out.event.timing,flowGain:out.event.flowGain,sectionIndex:linkedTrack?.sectionIndex??null,sectionProgress:linkedTrack?.sectionProgress??null,sectionSeal:arcOut.event?.kind==='SECTION_SEAL',sectionBonus:arcOut.bonus||0,trackTime:linkedTrack?.time??null,trackBeat:linkedTrack?.beatIndex??null});
   const timing=out.event.timing&&out.event.timing!=='FREE'?' · '+out.event.timing:'';
-  toast(`${out.event.callMet?'CALL ✓':'OPEN'} · ${out.event.verb}${out.event.chain>1?' ×'+out.event.chain:''}${timing}`); dragAngle=0; update();
+  const arc=arcOut.bonus?` · SECTION SEALED +${arcOut.bonus}`:'';
+  toast(`${out.event.callMet?'CALL ✓':'OPEN'} · ${out.event.verb}${out.event.chain>1?' ×'+out.event.chain:''}${timing}${arc}`); dragAngle=0; update();
 }
 
 function toggleMode(){state=setMode(state,state.mode==='RATCHET'?'FLOW':'RATCHET');toast(state.mode);update()}
@@ -164,10 +185,10 @@ $('#trackFile').onchange=e=>loadLocalSong(e.target.files?.[0]);
 $('#trackToggle').onclick=()=>liveTrack.toggle().then(()=>update()).catch(()=>toast('SONG PLAY BLOCKED'));
 $('#listenBtn').onclick=()=>window.open('../listen/','fold-bloom-listen');
 $('#exportBtn').onclick=()=>{
-  const packet={kind:'FOLD_BLOOM_LIVE_RETURN',version:VERSION,created:new Date().toISOString(),source:{foldWeave:'/recovery/fold-bloom/fold-weave-0.1/',twoDial:'/fold-bloom/two-dial/'},state:snapshot(state)};
+  const packet={kind:'FOLD_BLOOM_LIVE_RETURN',version:VERSION,created:new Date().toISOString(),source:{foldWeave:'/recovery/fold-bloom/fold-weave-0.1/',twoDial:'/fold-bloom/two-dial/'},state:snapshot(state),performance:{sectionArc}};
   const blob=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`fold-bloom-live-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('RETURN EXPORTED')
 };
-$('#resetBtn').onclick=()=>{const now=Date.now(),b=$('#resetBtn');if(!b.dataset.arm||now>+b.dataset.arm){b.dataset.arm=now+3500;b.textContent='CONFIRM RESET';toast('PRESS AGAIN');return}delete b.dataset.arm;b.textContent='NEW FIELD';state=createState();audio.hydrate(state);dragAngle=0;update();toast('NEW FIELD')};
+$('#resetBtn').onclick=()=>{const now=Date.now(),b=$('#resetBtn');if(!b.dataset.arm||now>+b.dataset.arm){b.dataset.arm=now+3500;b.textContent='CONFIRM RESET';toast('PRESS AGAIN');return}delete b.dataset.arm;b.textContent='NEW FIELD';state=createState();sectionArc=createSectionArc();audio.hydrate(state);dragAngle=0;update();toast('NEW FIELD')};
 $('#playBtn').onclick=async()=>{stopDemo(false);await ensureAudio();$('#intro').classList.remove('on');update()};
 $('#mutePlay').onclick=()=>{stopDemo(false);$('#intro').classList.remove('on');audio.setSound(false);update()};
 $('#demoBtn').onclick=startDemo;
@@ -186,6 +207,7 @@ addEventListener('keydown',e=>{
 fieldPulse.subscribe(msg=>{
   if(msg.source!=='FOLD_BLOOM_LISTEN'||msg.kind!=='transport'||liveTrack.active())return;
   linkedTrack=msg.data?{...msg.data,_receivedAt:performance.now()}:null;
+  syncArc(linkedTrack,true);
   const beat=Number(linkedTrack?.beatIndex);
   if(Number.isFinite(beat)&&beat>=0&&beat!==lastLinkedBeat){lastLinkedBeat=beat;renderer.beatPulse(beat,Number(linkedTrack.energy)||0)}
   update();
@@ -194,9 +216,10 @@ fieldPulse.subscribe(msg=>{
 document.addEventListener('visibilitychange',()=>{if(document.hidden){stopDemo(false);audio.stop()}else if(audio.ctx)audio.start()});
 function loop(t){
   const local=liveTrack.transport();
-  if(local){linkedTrack=local;const beat=Number(local.beatIndex);if(Number.isFinite(beat)&&beat>=0&&beat!==lastLinkedBeat){lastLinkedBeat=beat;renderer.beatPulse(beat,Number(local.energy)||0)}}
+  if(local){linkedTrack=local;syncArc(local,true);const beat=Number(local.beatIndex);if(Number.isFinite(beat)&&beat>=0&&beat!==lastLinkedBeat){lastLinkedBeat=beat;renderer.beatPulse(beat,Number(local.energy)||0)}}
+  renderer.setSectionArc(sectionArcView(sectionArc,linkedTrack));
   renderer.draw(state,t);raf=requestAnimationFrame(loop)
 }raf=requestAnimationFrame(loop);
 update();
 document.documentElement.dataset.foldBloomLive='ready';
-window.FoldBloomLive={version:VERSION,state:()=>({...snapshot(state),linkedTrack}),release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow()};
+window.FoldBloomLive={version:VERSION,state:()=>({...snapshot(state),linkedTrack,sectionArc}),release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack)};
