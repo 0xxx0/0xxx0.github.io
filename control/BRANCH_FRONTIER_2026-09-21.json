@@ -1,14 +1,14 @@
 {
   "schema": "branch-frontier/v0.1",
-  "generated_at": "2026-09-21",
+  "generated_at": "2026-09-21T19:56:42+08:00",
   "purpose": "Make branch pointers legible so historical implementation branches cannot silently become active work.",
   "counts": {
-    "total": 78,
+    "total": 81,
     "canonical": 1,
-    "open_pr": 3,
-    "merged_pr_lineage": 44,
+    "open_pr": 0,
+    "merged_pr_lineage": 49,
     "closed_unmerged_pr_lineage": 16,
-    "no_pr_pointer": 14
+    "no_pr_pointer": 15
   },
   "authority_law": [
     "MASTER is executable/public authority.",
@@ -19,23 +19,7 @@
     "A no-PR branch may not be merged or treated as current until its unique commits are recovered/classified.",
     "Branch age or evocative naming never grants priority."
   ],
-  "active_review": [
-    {
-      "branch": "axial-usability-cut-20260921",
-      "pr": 73,
-      "title": "AXIAL usability cut: replayable RETURN + addressed APERTURE resume"
-    },
-    {
-      "branch": "lens-studio-actualize-20260921",
-      "pr": 75,
-      "title": "Lens Studio: object-first dock + opt-in deep lab"
-    },
-    {
-      "branch": "perimeter-recovery-20260921",
-      "pr": 74,
-      "title": "Perimeter recovery — pin hidden donor islands and branch frontier"
-    }
-  ],
+  "active_review": [],
   "canonical": [
     "master"
   ],
@@ -106,12 +90,16 @@
       "rule": "ahead=0 at review; no unique work to recover"
     }
   },
-  "merged_branch_count": 44,
+  "merged_branch_count": 49,
   "closed_unmerged_branch_count": 16,
   "merged_branches": [
     {
       "branch": "aperture-material-rsvp-040-r2",
       "pr": 62
+    },
+    {
+      "branch": "aperture-rsvp-hardening-20260921",
+      "pr": 77
     },
     {
       "branch": "axial-aperture-05",
@@ -144,6 +132,10 @@
     {
       "branch": "axial-position-humanfactors-071-r2",
       "pr": 57
+    },
+    {
+      "branch": "axial-usability-cut-20260921",
+      "pr": 73
     },
     {
       "branch": "care-bodyplans-v03-20260921",
@@ -242,6 +234,14 @@
       "pr": 60
     },
     {
+      "branch": "lens-studio-actualize-20260921",
+      "pr": 75
+    },
+    {
+      "branch": "perimeter-recovery-20260921",
+      "pr": 74
+    },
+    {
       "branch": "qa-route-grammar-20260921",
       "pr": 63
     },
@@ -284,6 +284,10 @@
     {
       "branch": "tool-kernel-convergence-20260921",
       "pr": 72
+    },
+    {
+      "branch": "toolbelt-source-locators-20260921",
+      "pr": 76
     }
   ],
   "closed_unmerged_branches": [
@@ -353,5 +357,16 @@
     }
   ],
   "return_rule": "When a branch yields unique value, recover exact donor material or reconstruct one bounded delta on current master; do not revive the branch wholesale.",
-  "next_census_trigger": "Only when an open PR is stranded, a no-PR branch appears, or branch ambiguity blocks re-entry; branch count alone is not an active front."
+  "next_census_trigger": "Only when an open PR is stranded, a no-PR branch appears, or branch ambiguity blocks re-entry; branch count alone is not an active front.",
+  "snapshot_semantics": "This is a sealed perimeter census at the end of the 2026-09-21 hardening pass. Branch/PR state can change later; use live GitHub state for current review and this file for authority rules + recovered classification.",
+  "live_queries": {
+    "open_prs": "GitHub: repo:0xxx0/0xxx0.github.io is:pr is:open",
+    "open_issues": "GitHub: repo:0xxx0/0xxx0.github.io is:issue is:open"
+  },
+  "seal": {
+    "open_prs": 0,
+    "no_pr_unclassified": 1,
+    "result": "NO_HIDDEN_ACTIVE_BRANCH_FOUND_AT_SEAL",
+    "note": "No branch deletion is implied; classified pointers remain as provenance."
+  }
 }
