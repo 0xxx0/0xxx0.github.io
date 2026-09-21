@@ -65,10 +65,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX / LATEST · STRIP · ISSUES · MAP",
+      "head": "FIELD INDEX / AXIAL LATEST 0.4",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry under semantic density: NOW/HEAD state collapses to a compact compositional mark strip, LATEST remains newest-first, issues expose repo loops, and prose/detail is reveal-on-demand. MARK/COMPACT/FULL preserve identity."
+      "retained_function": "Fast repo re-entry: newest-first LATEST remains the plain source; embedded AXIAL aligns ROUTE × STATE × OPERATION × WORK MODE through one focus gate, while list/map/heads/ports share that exact route selection and explicit OPEN owns navigation."
     },
     {
       "lineage": "scale-lens",
@@ -404,7 +404,9 @@
     "field_issues": "/control/FIELD_ISSUES.json",
     "field_glyph": "/field-glyph.js",
     "field_presentation": "/control/FIELD_PRESENTATION.json",
-    "field_presentation_kernel": "/field-presentation.js"
+    "field_presentation_kernel": "/field-presentation.js",
+    "field_index_axial_latest": "/control/confluence/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
+    "field_index_axial_latest_return": "/returns/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
@@ -441,7 +443,7 @@
       "UNKNOWN"
     ],
     "touch_rule": "A tracked public route changes RECENT only when a durable repo mutation updates route.index.updated_at; discussion alone never bumps it. CURRENT, not RECENT, owns attention.",
-    "default_reading": "LATEST",
+    "default_reading": "AXIAL_LATEST",
     "readings": {
       "NOW": "/control/CURRENT.json#active_fronts",
       "HEADS": "/control/CURRENT.json#current_heads",
@@ -453,7 +455,9 @@
     "evolution_contract": "/control/FIELD_INDEX_CONTRACT.json#evolution_contract",
     "identity_fold": "SUPERSEDED_ON_PRIMARY_REENTRY",
     "issue_snapshot": "/control/FIELD_ISSUES.json",
-    "glyph_grammar": "/field-glyph.js"
+    "glyph_grammar": "/field-glyph.js",
+    "shared_focus": "AXIAL / LATEST / MAP / HEADS / OPEN PORTS select one manifest route; OPEN navigates.",
+    "plain_control": "LATEST chronological rows remain directly under the compositor."
   },
   "last_recovery_survey": "/control/RECOVERY_SURVEY_2026-09-20_B.json",
   "last_recovery_population": "/control/RECOVERY_POPULATION_2026-09-20.json",
