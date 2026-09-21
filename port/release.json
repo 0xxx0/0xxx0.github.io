@@ -96,5 +96,7 @@
     "drop one authored JSON/text file and prove disk-loaded text routes identically to pasted text",
     "drop one opaque authored file and prove identity/provenance survives despite no semantic viewer"
   ],
-  "next": "Do not add media classes, bundles or auto-routing. Observe ordinary use of the existing object aperture, including the new CARE evidence route."
+  "next": "Do not add media classes, bundles or auto-routing. Observe ordinary use of the existing object aperture, including the new CARE evidence route.",
+  "care_bridge_return": "/returns/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
+  "care_bridge_confluence": "/control/confluence/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json"
 }
