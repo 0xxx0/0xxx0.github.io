@@ -1,0 +1,53 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "FIELD-INDEX-AXIAL-SUPPORT-2026-09-21",
+  "date": "2026-09-21",
+  "object": "FIELD INDEX / AXIAL LATEST support-field pass",
+  "before": {
+    "field_version": "0.4",
+    "mechanism": "AXIAL strips resolved exact routes but support counts were mostly textual and the surviving possibility set was not directly visible.",
+    "evidence_gap": "No passive comparison path between AXIAL selection and plain chronological LATEST."
+  },
+  "operation": [
+    "Import AXIAL 0.7 per-position lawful-support counts into embedded FIELD strips.",
+    "Encode support redundantly as exact count + brightness + normalized two-pixel support bar.",
+    "Render the currently compatible route set as a compact glyph constellation between strips and aperture.",
+    "Render a survivor-count collapse trail from ordinary selections.",
+    "Preserve dead positions as dim/selectable contradictions.",
+    "Add local-only passive AXIAL-vs-LATEST focus/open counters with copyable receipt.",
+    "Add reloadable/shareable embedded AXIAL state via ax_state / ax_op / ax_mode / focus query parameters.",
+    "Add discrete ArrowLeft/ArrowRight strip stepping.",
+    "Retain APERTURE, full AXIAL EXPAND, Scale Lens and explicit OPEN as separate projections/actions."
+  ],
+  "after": {
+    "manifest_cardinality_at_receipt": {
+      "routes_with_touch": 83,
+      "state_values": 11,
+      "operation_values": 47,
+      "work_mode_values": 10
+    },
+    "possible_set": "visible before navigation",
+    "lock_state": "one survivor => LOCK 1",
+    "contradiction_state": "zero survivor => DEAD / no nearest guess",
+    "local_trial_schema": "field-axial-trial/v0.1",
+    "network_write": "NONE"
+  },
+  "verification": {
+    "root_inline_js": "COMPILES",
+    "prior_public_surface_check": {
+      "status": "PASS",
+      "run": 35575979899,
+      "commit": "c910e5763ea841a25c4f95d286cd05b99047ec69"
+    },
+    "support_source": "/foundry/axial/ 0.7",
+    "aperture_source": "/field-aperture.js",
+    "exact_manifest_source": "/showcase-manifest.json"
+  },
+  "residue": [
+    "Comparative usability remains unproven; passive local counts only make ordinary-use evidence collectible.",
+    "OPEN latency is a crude orientation proxy, not task success.",
+    "The current four embedded axes are a bounded FIELD re-entry adapter, not a universal AXIAL vocabulary."
+  ],
+  "next": "Use FIELD normally. When enough ordinary interaction accumulates, copy the local trial receipt and compare AXIAL vs LATEST focus→OPEN behavior before changing the mechanism again.",
+  "return": "/"
+}
