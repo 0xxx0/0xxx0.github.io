@@ -779,13 +779,13 @@
     },
     {
       "href": "/care/",
-      "title": "CARE / FIELD 0.3",
+      "title": "CARE / FIELD 0.4",
       "kind": "workbench",
       "parent": "/continuity/",
       "family": "CONFLUENCE / CONTINUITY",
       "operation": "CAPTURE",
       "state": "ACTIVE",
-      "version": "0.3",
+      "version": "0.4",
       "receipt": "/care/release.json",
       "transfer": [
         "human/animal care observation",
@@ -801,7 +801,8 @@
         "local detailed body-plan registry",
         "stable plan/view/region body addresses",
         "feline care localization",
-        "shared BODY plan substrate (non-owned)"
+        "shared BODY plan substrate (non-owned)",
+        "explicit BODY / FIELD local handoff"
       ],
       "contract": {
         "accepts": {
@@ -812,7 +813,8 @@
             "appointment",
             "result",
             "CONTINUITY case",
-            "BODYFIELD ledger"
+            "BODYFIELD ledger",
+            "BODY / FIELD handoff"
           ],
           "requires": [],
           "optional": [
@@ -853,7 +855,8 @@
             "body-plan ID",
             "body-plan view",
             "stable body region IDs",
-            "body-plan source attribution"
+            "body-plan source attribution",
+            "BODY state vector/context on explicit import"
           ],
           "reversibility": "full",
           "side_effects": "browser-local only after explicit SAVE"
@@ -883,7 +886,8 @@
             "conditional gate/source separation",
             "measurement trend has no invented threshold",
             "HUMAN PORT brief text not placed in URL",
-            "explicit send boundary"
+            "explicit send boundary",
+            "BODY handoff does not mutate case before explicit import"
           ],
           "return_path": "/care/"
         }
@@ -978,7 +982,7 @@
         "physical_fit": "Observation/course/handoff tool for care episodes involving people or animals; no diagnostic, triage, threshold or treatment authority."
       },
       "index": {
-        "updated_at": "2026-09-21T02:21:00+08:00",
+        "updated_at": "2026-09-21T21:18:00+08:00",
         "work_modes": [
           "VERIFY",
           "OPERATE"
@@ -5019,7 +5023,8 @@
         "cyclic time replay",
         "descriptive factor contrasts",
         "single-factor before/after tests",
-        "BODY↔HOUSE local context envelope"
+        "BODY↔HOUSE local context envelope",
+        "explicit BODY→CARE local handoff"
       ],
       "contract": {
         "accepts": {
@@ -5060,7 +5065,8 @@
             "descriptive factor contrasts",
             "before/after TEST receipt",
             "BODY→HOUSE local envelope",
-            "JSON export"
+            "JSON export",
+            "BODY→CARE handoff offer"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -5121,7 +5127,7 @@
           {
             "class": "CARE",
             "status": "AVAILABLE",
-            "via": "/care/ for episode/handoff work"
+            "via": "explicit same-origin local handoff; CARE requires user import"
           },
           {
             "class": "HOUSE_CONTEXT",
