@@ -6,7 +6,7 @@ function renderHeader() {
   const total = Object.values(counts).reduce((sum, value) => sum + value, 0);
   mast.innerHTML = `
     <div>
-      <div class="kicker">POLY / INGRESS MEMBRANE 0.4</div>
+      <div class="kicker">POLY / INGRESS MEMBRANE 0.5</div>
       <h1>FIELD INTAKE</h1>
       <p>Capture can be compressed and provisional. Canonical state changes only through a visible resolution and leaves a reversible receipt.</p>
     </div>
