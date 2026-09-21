@@ -1,54 +1,76 @@
-# ROOM 0.3 — HTML substrate correction
+# ROOM 0.4 — MATERIAL DOM convergence
 
 Date: 2026-09-22  
 Status: CANDIDATE
 
-## Correction
+## Why 0.2 failed
 
-The 0.2 SPACE SCALE canvas made composition executable, but it also reintroduced a hidden second model: the visible nodes were projections of a JavaScript graph. That increased interaction cost and weakened the old "homoiconic interface language" aspiration.
+SPACE SCALE 0.2 proved useful internal mechanics—typed ports, reversible FOLD, nested identity, safe RUN—but presented them through a generic infinite node canvas. Direct user evaluation rejected the current ROOM evolution. That is sufficient UI evidence: do not beautify the canvas.
 
-Strictly, HTML + JavaScript is **not homoiconic** in the Lisp sense: the interpreter/program language and the represented program are not the same language/data structure.
+## What 0.3 corrected
 
-0.3 therefore makes the narrower and more useful claim:
+The unmerged HTML SUBSTRATE 0.3 proposal removed the hidden second graph model. DOM nesting became composition, native details became fold visibility, visible links became seams, and SOURCE became the structural document itself.
 
-> **DOM-as-program / structurally reflexive:** the same nested HTML structure the human reads is the structure the tiny runtime interprets.
+That correction is retained at `/foundry/room/html-substrate-0.3.html`.
 
-## Current law
+Its weakness is the opposite one: it collapses the old multidimensional-breadboard / cassette / physical-interface intelligence into a conventional vertical document.
 
-- DOM nesting = composition.
-- `<details>` = native fold/unfold / abstraction visibility.
-- `id` = stable local address.
-- visible `<a rel="next" href="#...">` = seam + executable next edge.
-- `data-op` = minimal operator declaration.
-- SOURCE = exact live `#program.outerHTML`.
-- RETURN = that exact markup + execution trace.
-- No separate canvas graph is authoritative.
+## 0.4 convergence
 
-## Preserved
+Keep the substrate law. Change the projection.
 
-- `/foundry/room/space-scale-0.2.html` — typed BLOCK ⇄ ROOM canvas experiment.
-- `/foundry/room/room-0.1.html` — six-face spatial relation probe.
-- `space-core.js` remains a donor/tested kernel, not current UI authority.
+```
+VISIBLE BLOCK
+  = actual DOM block
 
-## Why this is closer to FURNISHER / INTERPHASE
+VISIBLE SEAM
+  = actual rel=next link + declared type
 
-The old product material wanted an exposed programming language derived from visible connections, a multidimensional breadboard, composable parts, and inspectable transformations. A plain document whose visible links and nesting are also the executable structure fits that requirement better than a custom visual editor whose real program lives elsewhere.
+FOLD
+  = wrap actual sibling DOM nodes in a cassette
 
-The browser itself supplies most of the interaction grammar:
-open, close, link, anchor, form, source, history.
+ENTER
+  = focus the same nested DOM children
 
-Reintroduce custom geometry only when a specific projection proves useful.
+SOURCE
+  = structural #program DOM
+
+RUN
+  = interpret those same visible links / nested blocks
+
+RETURN
+  = structural DOM + trace + model binding
+```
+
+There is no authoritative canvas graph underneath the current surface.
+
+The material rail is therefore replaceable presentation over a structurally reflexive document, while FOLD remains a real source mutation rather than a view-only trick.
+
+## Recovered product-video boundary carried forward
+
+The historical product-video analysis recovered **SAVE → LOAD → SIMULATION GAP** before renewed physical/mechanical material. 0.4 makes that distinction concrete inside VERIFY:
+
+```
+MODEL FIT
+  predicted vs measured within declared tolerance
+
+PHYSICAL CONTRACT FIT
+  independently acceptable for intended physical use
+```
+
+Neither implies the other.
+
+## Physical direction
+
+The five-bit seam key is intentionally only a deterministic witness for type identity. It may later be rendered as print, notch, tactile key, optical code, resistance, NFC, color or another medium. No physical compatibility is claimed until measured.
 
 ## Pass condition
 
-Someone encountering the page cold should be able to:
+Use one real configuration.
 
-1. read the transformation top-to-bottom;
-2. close FURNISHER COMPILER and understand that it is now one abstract block;
-3. reopen it and see the implementation;
-4. follow a visible seam;
-5. press RUN and identify the path RUN followed;
-6. open SOURCE and recognize the same structure;
-7. obtain RETURN without learning a graph-editor interaction language.
+Keep 0.4 only if a person can understand and alter the composition more cheaply than:
 
-If that still needs explanation, reduce again.
+1. a plain ordered list; and
+2. SPACE SCALE 0.2.
+
+If the rail is merely prettier, demote it and keep the structural DOM law.
