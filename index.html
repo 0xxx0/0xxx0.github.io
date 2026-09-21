@@ -20,14 +20,15 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 /* AXIAL / LATEST */
 .axial{margin-top:9px;border:1px solid var(--line);background:var(--p)}
 .axialHead{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:6px 7px;border-bottom:1px solid var(--line)}
-.axialHead b{font-size:8px;letter-spacing:.13em;color:var(--hot)}.axialHead span{color:var(--mut);font-size:7px}.axialHead button{padding:4px 7px;font-size:7px}
+.axialHead b{font-size:8px;letter-spacing:.13em;color:var(--hot)}.axialHead span{color:var(--mut);font-size:7px}.axialHead button{padding:4px 7px;font-size:7px}.axialActions{display:flex;align-items:center;gap:4px}.trial{border:1px solid var(--line);padding:4px 6px;color:var(--mut);font-size:6.5px;cursor:pointer;white-space:nowrap}.trial:hover{border-color:#59676d;color:var(--ink)}
 .axialRows{position:relative;padding:4px 0}
 .axisRow{display:grid;grid-template-columns:68px minmax(0,1fr);align-items:center;border-bottom:1px solid #1d2529;min-height:44px}.axisRow:last-child{border-bottom:0}
 .axisName{padding:0 7px;color:var(--mut);font-size:6.5px;letter-spacing:.1em}.axisName b{display:block;color:var(--ink);font-size:7.5px}.axisName i{font-style:normal;color:#57646a}
 .axisViewport{overflow-x:auto;scrollbar-width:none;scroll-snap-type:x mandatory;padding-inline:50%;position:relative;overscroll-behavior-x:contain}.axisViewport::-webkit-scrollbar{display:none}.axisViewport:after{content:"";position:absolute;left:50%;top:0;bottom:0;border-left:2px solid var(--hot);filter:drop-shadow(0 0 5px rgba(237,116,71,.35));pointer-events:none;z-index:3}
-.axisTrack{display:flex;width:max-content}.axisToken{scroll-snap-align:center;flex:none;width:112px;height:36px;border:0;border-right:1px solid #273136;background:#0b1012;color:#7f8b90;padding:3px 5px;display:grid;place-items:center;text-align:center;font-size:7px;line-height:1.15}
+.axisTrack{display:flex;width:max-content}.axisToken{scroll-snap-align:center;scroll-snap-stop:always;flex:none;width:112px;height:36px;border:0;border-right:1px solid #273136;background:#0b1012;color:#7f8b90;padding:3px 5px;display:grid;place-items:center;text-align:center;font-size:7px;line-height:1.15;position:relative;overflow:hidden;transition:opacity .12s ease,background .12s ease,color .12s ease}.axisToken .supportBar{position:absolute;left:0;bottom:0;height:2px;background:var(--cool);opacity:.48;pointer-events:none}.axisToken.on .supportBar{background:var(--hot);opacity:.95}
 .axisToken small{display:block;font-size:5.6px;color:#536168;margin-top:2px}.axisToken.live{color:#aebbc0}.axisToken.live small{color:#6f9bb2}.axisToken.dead{opacity:.23}.axisToken.on{background:#172027;color:#fff;outline:1px solid var(--hot);outline-offset:-2px;opacity:1}.axisToken.on small{color:#f1a286}.axisToken:hover{background:#11181c;opacity:1}
 .axisToken.route{width:154px;grid-template-columns:28px 1fr;gap:5px;text-align:left}.axisToken.route .tokTxt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}.axisToken .sub{display:block;color:#59666c;font-size:5.8px;margin-top:2px}
+.survivors{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:7px;align-items:center;border-top:1px solid var(--line);padding:5px 7px;background:#090d0f}.survivors.lock{box-shadow:inset 2px 0 0 var(--green)}.survivors.dead{box-shadow:inset 2px 0 0 var(--bad)}.survLabel{font-size:6.5px;letter-spacing:.1em;color:var(--mut);white-space:nowrap}.survMarks{display:flex;gap:1px;flex-wrap:wrap;max-height:54px;overflow:hidden}.survMark{width:27px;height:27px;min-height:0;padding:1px;display:grid;place-items:center;border:1px solid transparent;background:#090d0f}.survMark:hover,.survMark.on{border-color:#66757b;background:#11181c}.survState{font-size:7px;color:var(--cool);white-space:nowrap}.survivors.lock .survState{color:var(--green)}.survivors.dead .survState{color:var(--bad)}.trail{color:#59676d;font-size:6px;margin-left:4px}
 .aperture{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:9px;align-items:center;border-top:1px solid var(--line);padding:8px;background:#080b0d}
 .apGlyph{display:grid;place-items:center}.apMeta{color:var(--hot);font-size:6.5px;letter-spacing:.09em}.apBody strong{display:block;font:800 16px/1.05 system-ui,sans-serif;letter-spacing:-.03em}.apBody p{margin:4px 0 0;color:#95a1a5;font:8px/1.4 system-ui,sans-serif;max-width:86ch}.apPath{color:var(--cool);font-size:6.5px;margin-top:3px}
 .apActions{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.apActions a,.apActions button{padding:6px 8px;font-size:7px;white-space:nowrap}.apActions .open{border-color:var(--cool);color:var(--cool)}.noMatch{color:var(--bad)!important}
@@ -52,7 +53,7 @@ html[data-density="MARK"] body{padding-left:6px;padding-right:6px}
 html[data-density="MARK"] header{padding:5px 0}html[data-density="MARK"] h1{font-size:27px}html[data-density="MARK"] nav a{padding:4px 5px;font-size:6px}
 html[data-density="MARK"] .axisRow{grid-template-columns:43px minmax(0,1fr);min-height:39px}html[data-density="MARK"] .axisName{padding-left:4px;padding-right:3px;font-size:5.5px}html[data-density="MARK"] .axisName b{font-size:6px}
 html[data-density="MARK"] .axisToken{width:72px;height:32px;font-size:6px}html[data-density="MARK"] .axisToken.route{width:46px;display:grid;grid-template-columns:1fr}html[data-density="MARK"] .axisToken.route .tokTxt{display:none}
-html[data-density="MARK"] .aperture{grid-template-columns:31px minmax(0,1fr) auto;padding:6px;gap:5px}html[data-density="MARK"] .apBody strong{font-size:12px}html[data-density="MARK"] .apBody p,.apPath{display:none}html[data-density="MARK"] .apActions .secondary{display:none}
+html[data-density="MARK"] .survivors{grid-template-columns:auto minmax(0,1fr) auto;padding:3px 4px;gap:4px}html[data-density="MARK"] .survMarks{flex-wrap:nowrap;max-height:24px}html[data-density="MARK"] .survMark{width:22px;height:22px}html[data-density="MARK"] .trail{display:none}html[data-density="MARK"] .aperture{grid-template-columns:31px minmax(0,1fr) auto;padding:6px;gap:5px}html[data-density="MARK"] .apBody strong{font-size:12px}html[data-density="MARK"] .apBody p,.apPath{display:none}html[data-density="MARK"] .apActions .secondary{display:none}
 html[data-density="MARK"] .feedStats{display:none}html[data-density="MARK"] .feedItem{grid-template-columns:27px minmax(0,1fr) 62px;padding:6px 1px}html[data-density="MARK"] .feedTouch,.feedMode{display:none}html[data-density="MARK"] .feedPath{display:none}
 html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COMPACT"] .axisToken{width:92px}
 
@@ -66,8 +67,9 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 </header>
 
 <section class="axial" id="axialLatest">
-  <div class="axialHead"><div><b>AXIAL / LATEST</b> <span id="axialMeta">loading repo mutations…</span></div><button id="axReset">RESET / NEWEST</button></div>
+  <div class="axialHead"><div><b>AXIAL / LATEST</b> <span id="axialMeta">loading repo mutations…</span></div><div class="axialActions"><span class="trial" id="axTrial" title="Local-only passive comparison. Click to copy receipt.">trial —</span><button id="axReset">RESET / NEWEST</button></div></div>
   <div class="axialRows" id="axialRows"></div>
+  <div class="survivors" id="survivors"><div class="survLabel">LIVE SET</div><div class="survMarks" id="survMarks"></div><div class="survState" id="survState">—</div></div>
   <div class="aperture" id="aperture">
     <div class="apGlyph" id="apGlyph"></div>
     <div class="apBody"><div class="apMeta" id="apMeta">FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><p id="apRole">One fixed gate resolves the aligned vocabularies to an exact repository route.</p></div>
@@ -120,8 +122,16 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-let manifest,current,routes=[],latest=[],latestLimit=18,focus=null,headSet=new Set,nowSet=new Set,issues=[],mapMode='VISUAL',mapRoot='/',mapSelected='/',mapQuery='';
-const axisState={state:'ANY',operation:'ANY',mode:'ANY'},scrollTimers={};
+let manifest,current,routes=[],latest=[],latestLimit=18,focus=null,headSet=new Set,nowSet=new Set,issues=[],mapMode='VISUAL',mapRoot='/',mapSelected='/',mapQuery='',supportTrail=[];
+const INIT=new URLSearchParams(location.search),axisState={state:'ANY',operation:'ANY',mode:'ANY'},scrollTimers={};
+const TRIAL_KEY='field.axial.latest.trial.v01';
+let trial={schema:'field-axial-trial/v0.1',axial_focus:0,latest_focus:0,other_focus:0,dead:0,opens:{AXIAL:0,LATEST:0,OTHER:0},open_ms:{AXIAL:0,LATEST:0,OTHER:0},last_source:null,last_at:null};
+try{trial={...trial,...JSON.parse(localStorage.getItem(TRIAL_KEY)||'{}')}}catch(_){}
+function saveTrial(){try{localStorage.setItem(TRIAL_KEY,JSON.stringify(trial))}catch(_){}renderTrial()}
+function noteFocus(source,ok=true){if(!['AXIAL','LATEST'].includes(source))source='OTHER';trial[source==='AXIAL'?'axial_focus':source==='LATEST'?'latest_focus':'other_focus']++;if(!ok)trial.dead++;trial.last_source=source;trial.last_at=Date.now();saveTrial()}
+function noteOpen(){if(!focus)return;const source=['AXIAL','LATEST'].includes(trial.last_source)?trial.last_source:'OTHER';trial.opens[source]=(trial.opens[source]||0)+1;if(trial.last_at)trial.open_ms[source]=(trial.open_ms[source]||0)+Math.max(0,Date.now()-trial.last_at);saveTrial()}
+function renderTrial(){const a=trial.axial_focus||0,l=trial.latest_focus||0,d=trial.dead||0;$('axTrial').textContent='AX '+a+' · LI '+l+(d?' · Ø'+d:'')}
+function trialReceipt(){return{...trial,exported_at:new Date().toISOString(),note:'LOCAL-ONLY interaction counts; no claim of usability superiority. AX=AXIAL focus selections; LI=plain LATEST row selections; Ø=dead intersections.'}}
 const routeMap=()=>new Map(routes.map(r=>[r.href,r]));
 const notifyFieldIndex=()=>window.dispatchEvent(new CustomEvent('field-index:state',{detail:{focus:focus?.href||null,projection:$('mapFold')?.open?mapMode:'AXIAL_LATEST',mapRoot,axisState:{...axisState}}}));
 const opOf=r=>r.operation||r.kind||'—';
@@ -130,6 +140,19 @@ const unique=xs=>[...new Set(xs.filter(Boolean))];
 const nowHref=f=>{const map=routeMap(),ev=(f.evidence||[]).find(x=>map.has(x));if(ev)return ev;const m=String(f.center||'').match(/\/[A-Za-z0-9._/-]*\//);return m&&map.has(m[0])?m[0]:'/control/'};
 function routeGlyph(r,size=27){return window.FieldGlyph?.svg(r,{size,now:nowSet.has(r.href),head:headSet.has(r.href)})||''}
 function matchesFilters(r){return (axisState.state==='ANY'||r.state===axisState.state)&&(axisState.operation==='ANY'||opOf(r)===axisState.operation)&&(axisState.mode==='ANY'||modesOf(r).includes(axisState.mode))}
+function currentMatches(){return latest.filter(matchesFilters)}
+function syncAxialURL(){
+ const p=new URLSearchParams();if(axisState.state!=='ANY')p.set('ax_state',axisState.state);if(axisState.operation!=='ANY')p.set('ax_op',axisState.operation);if(axisState.mode!=='ANY')p.set('ax_mode',axisState.mode);if(focus)p.set('focus',focus.href);
+ const q=p.toString();history.replaceState(null,'',location.pathname+(q?'?'+q:''));
+}
+function applyInitialAxial(){
+ const state=INIT.get('ax_state'),op=INIT.get('ax_op'),mode=INIT.get('ax_mode'),href=INIT.get('focus');
+ if(state)axisState.state=state;if(op)axisState.operation=op;if(mode)axisState.mode=mode;
+ const r=href&&routeMap().get(href);focus=r||currentMatches()[0]||latest[0]||null;
+ if(r){axisState.state=r.state||axisState.state;axisState.operation=opOf(r);axisState.mode=modesOf(r)[0]||axisState.mode}
+ supportTrail=[latest.length,currentMatches().length].filter((v,i,a)=>i===0||v!==a[i-1]);
+ renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();renderTrial();syncAxialURL();
+}
 function axes(){
  return[
   {key:'route',label:'ROUTE',values:latest.map(r=>r.href)},
@@ -147,16 +170,23 @@ function supportFor(a,v){
  if(a.key==='route'){const r=routeMap().get(v);return r&&matchesFilters(r)?1:0}
  var n=0;latest.forEach(function(r){if(matchesCandidate(r,a.key,v))n++});return n
 }
-function tokenHTML(a,v){
- const on=selectedValue(a)===v,sup=supportFor(a,v),cl=(on?'on ':'')+(sup?'live':'dead');
- if(a.key==='route'){const r=routeMap().get(v);return'<button class="axisToken route '+cl+'" data-axis="route" data-value="'+esc(v)+'">'+routeGlyph(r,25)+'<span class="tokTxt">'+esc(r?.title||v)+'<span class="sub">'+esc(r?.index?.updated_at||'')+' · '+sup+' live</span></span></button>'}
- return'<button class="axisToken '+cl+'" data-axis="'+esc(a.key)+'" data-value="'+esc(v)+'">'+esc(v)+'<small>'+sup+' live</small></button>';
+function tokenHTML(a,v,maxSup){
+ const on=selectedValue(a)===v,sup=supportFor(a,v),cl=(on?'on ':'')+(sup?'live':'dead'),pct=maxSup?Math.round(sup/maxSup*100):0,bar='<i class="supportBar" style="width:'+pct+'%"></i>';
+ if(a.key==='route'){const r=routeMap().get(v);return'<button class="axisToken route '+cl+'" data-axis="route" data-value="'+esc(v)+'">'+routeGlyph(r,25)+'<span class="tokTxt">'+esc(r?.title||v)+'<span class="sub">'+esc(r?.index?.updated_at||'')+(sup?' · live':' · dead')+'</span></span>'+bar+'</button>'}
+ return'<button class="axisToken '+cl+'" data-axis="'+esc(a.key)+'" data-value="'+esc(v)+'">'+esc(v)+'<small>'+sup+' live</small>'+bar+'</button>';
 }
 function renderAxes(){
- const as=axes();$('axialRows').innerHTML=as.map(a=>'<div class="axisRow"><div class="axisName"><b>'+esc(a.label)+'</b><i>'+a.values.length+' POS</i></div><div class="axisViewport" data-axis="'+esc(a.key)+'"><div class="axisTrack">'+a.values.map(v=>tokenHTML(a,v)).join('')+'</div></div></div>').join('');
- $('axialRows').querySelectorAll('.axisToken').forEach(b=>b.onclick=e=>{e.stopPropagation();chooseAxis(b.dataset.axis,b.dataset.value,true)});
+ const as=axes();$('axialRows').innerHTML=as.map(a=>{const supports=a.values.map(v=>supportFor(a,v)),maxSup=Math.max(1,...supports);return'<div class="axisRow"><div class="axisName"><b>'+esc(a.label)+'</b><i>'+a.values.length+' POS</i></div><div class="axisViewport" data-axis="'+esc(a.key)+'"><div class="axisTrack">'+a.values.map(v=>tokenHTML(a,v,maxSup)).join('')+'</div></div></div>'}).join('');
+ $('axialRows').querySelectorAll('.axisToken').forEach(b=>{b.onclick=e=>{e.stopPropagation();chooseAxis(b.dataset.axis,b.dataset.value,true)};b.onkeydown=e=>{if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;e.preventDefault();const row=[...b.parentElement.querySelectorAll('.axisToken')],i=row.indexOf(b),n=Math.max(0,Math.min(row.length-1,i+(e.key==='ArrowRight'?1:-1))),next=row[n];if(next){next.focus();chooseAxis(next.dataset.axis,next.dataset.value,true)}}});
  $('axialRows').querySelectorAll('.axisViewport').forEach(v=>v.addEventListener('scroll',()=>{clearTimeout(scrollTimers[v.dataset.axis]);scrollTimers[v.dataset.axis]=setTimeout(()=>nearestFromScroll(v),130)},{passive:true}));
  requestAnimationFrame(centerAxes);
+}
+function renderSurvivors(){
+ const xs=currentMatches(),shown=xs.slice(0,30),box=$('survivors');box.classList.toggle('lock',xs.length===1);box.classList.toggle('dead',xs.length===0);
+ $('survMarks').innerHTML=shown.map(r=>'<button class="survMark '+(focus?.href===r.href?'on':'')+'" data-href="'+esc(r.href)+'" title="'+esc(r.title||r.href)+'">'+routeGlyph(r,21)+'</button>').join('')+(xs.length>shown.length?'<span class="trail">+'+(xs.length-shown.length)+'</span>':'');
+ $('survMarks').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r){noteFocus('AXIAL',true);focusRoute(r,true,'SYSTEM')}});
+ const trail=supportTrail.length?'<span class="trail">'+supportTrail.slice(-6).join('→')+'</span>':'';
+ $('survState').innerHTML=(xs.length===0?'DEAD':xs.length===1?'LOCK 1':'LIVE '+xs.length)+trail;
 }
 function centerAxes(){
  $('axialRows').querySelectorAll('.axisViewport').forEach(v=>{const on=v.querySelector('.axisToken.on');if(on)on.scrollIntoView({block:'nearest',inline:'center',behavior:'smooth'})});
@@ -168,15 +198,16 @@ function nearestFromScroll(v){
  if(!best.classList.contains('on'))chooseAxis(best.dataset.axis,best.dataset.value,true);
 }
 function chooseAxis(key,value,fromUser){
- if(key==='route'){const r=routeMap().get(value);if(r)focusRoute(r,true);return}
- axisState[key]=value;const found=latest.find(matchesFilters)||null;focus=found;renderAxes();renderAperture();renderFeed();renderMapSelection();notifyFieldIndex();
+ if(key==='route'){const r=routeMap().get(value);if(r){if(fromUser)noteFocus('AXIAL',true);focusRoute(r,true,'SYSTEM')}return}
+ axisState[key]=value;const xs=currentMatches(),found=xs[0]||null;focus=found;if(fromUser){supportTrail.push(xs.length);noteFocus('AXIAL',!!found)}renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();syncAxialURL();notifyFieldIndex();
 }
-function focusRoute(r,align){
+function focusRoute(r,align,source='OTHER'){
  focus=r||null;
  if(r&&align){axisState.state=r.state||'UNSET';axisState.operation=opOf(r);axisState.mode=modesOf(r)[0]||'ANY'}
- renderAxes();renderAperture();renderFeed();renderMapSelection();notifyFieldIndex();
+ if(source!=='SYSTEM')noteFocus(source,!!r);
+ const xs=currentMatches();supportTrail.push(xs.length);renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();syncAxialURL();notifyFieldIndex();
 }
-function resetAxial(){axisState.state='ANY';axisState.operation='ANY';axisState.mode='ANY';focus=latest[0]||null;renderAxes();renderAperture();renderFeed();renderMapSelection();notifyFieldIndex()}
+function resetAxial(){axisState.state='ANY';axisState.operation='ANY';axisState.mode='ANY';focus=latest[0]||null;supportTrail=[latest.length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();renderTrial();syncAxialURL();notifyFieldIndex()}
 function renderAperture(){
  if(!focus){$('apGlyph').innerHTML='';['apInspect','apAxial','apLens','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');return}
  ['apInspect','apAxial','apLens','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';$('apGlyph').innerHTML=routeGlyph(focus,34);$('apMeta').textContent=[focus.state||'—',opOf(focus),modesOf(focus).join(' · ')].join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(focus.index?.updated_at||'UNTRACKED');$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed repository surface.';$('apOpen').href='.'+focus.href;
@@ -185,7 +216,7 @@ function renderFeed(){
  const xs=latest.slice(0,latestLimit),live=routes.filter(r=>['ACTIVE','STABLE','PROOF_REQUIRED','CANDIDATE'].includes(r.state)).length;
  $('feedMeta').textContent=xs.length+' shown · manifest index.updated_at';$('feedStats').innerHTML=[['NOW',nowSet.size],['ISSUES',issues.length||'—'],['LIVE',live],['ADDRESSED',routes.length]].map(([k,v])=>'<div class="feedStat"><b>'+esc(v)+'</b><span>'+k+'</span></div>').join('');
  $('feedRail').innerHTML=xs.map(r=>'<button class="feedItem '+(focus?.href===r.href?'on':'')+'" data-href="'+esc(r.href)+'"><div>'+routeGlyph(r,25)+'</div><div class="feedMain"><strong>'+esc(r.title||r.href)+'</strong><div class="feedPath">'+esc(r.href)+'</div></div><div class="feedTouch">'+esc(r.index?.updated_at||'')+'</div><div class="feedMode">'+esc(modesOf(r).join(' · '))+'</div><div class="feedState">'+esc(r.state||'—')+'</div></button>').join('');
- $('feedRail').querySelectorAll('.feedItem').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusRoute(r,true)});
+ $('feedRail').querySelectorAll('.feedItem').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusRoute(r,true,'LATEST')});
 }
 function renderIssues(xs){
  issues=xs||[];const sorted=issues.slice().sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||'')));$('issueMeta').textContent=sorted.length+' open · '+sorted.filter(x=>x.play_safe).length+' playable';
@@ -196,11 +227,11 @@ async function loadIssues(){
  try{const live=await fetch('https://api.github.com/repos/0xxx0/0xxx0.github.io/issues?state=open&per_page=100',{headers:{Accept:'application/vnd.github+json'}}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()});const pol=new Map((snap.issues||[]).map(x=>[x.number,x]));renderIssues(live.filter(x=>!x.pull_request).map(x=>{const p=pol.get(x.number)||{};return{number:x.number,title:x.title,updated_at:x.updated_at,html_url:x.html_url,play_safe:!!p.play_safe,disposition:p.disposition||'PUBLIC_REPO'}}))}catch(_){}
 }
 function renderHeads(){
- const hs=current?.current_heads||[];$('headMeta').textContent=hs.length+' retained';$('headList').innerHTML=hs.map(h=>'<button class="headRow" data-href="'+esc(h.route)+'"><div>'+routeGlyph(routeMap().get(h.route)||{href:h.route,state:h.state,kind:'artifact'},23)+'</div><div><div class="rowTitle">'+esc(h.head)+'</div><div class="rowMeta">'+esc(h.retained_function||'')+'</div></div><div class="tiny">'+esc(h.state)+'</div><span>FOCUS</span></button>').join('');$('headList').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusRoute(r,true)});
+ const hs=current?.current_heads||[];$('headMeta').textContent=hs.length+' retained';$('headList').innerHTML=hs.map(h=>'<button class="headRow" data-href="'+esc(h.route)+'"><div>'+routeGlyph(routeMap().get(h.route)||{href:h.route,state:h.state,kind:'artifact'},23)+'</div><div><div class="rowTitle">'+esc(h.head)+'</div><div class="rowMeta">'+esc(h.retained_function||'')+'</div></div><div class="tiny">'+esc(h.state)+'</div><span>FOCUS</span></button>').join('');$('headList').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusRoute(r,true,'OTHER')});
 }
 function renderPorts(){
  const xs=routes.flatMap(r=>(r.field?.exit_paths||[]).filter(e=>e.status!=='AVAILABLE').map(e=>({r,e})));$('portMeta').textContent=xs.length+' unresolved';
- $('ports').innerHTML=xs.map(x=>'<button class="portRow" data-href="'+esc(x.r.href)+'"><div>'+routeGlyph(x.r,22)+'</div><div><div class="rowTitle">'+esc(x.r.title)+'</div><div class="rowMeta">'+esc(x.e.via||'unspecified')+'</div></div><div class="tiny">'+esc(x.e.status||'OPEN')+'</div><span>FOCUS</span></button>').join('');$('ports').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>focusRoute(routeMap().get(b.dataset.href),true));
+ $('ports').innerHTML=xs.map(x=>'<button class="portRow" data-href="'+esc(x.r.href)+'"><div>'+routeGlyph(x.r,22)+'</div><div><div class="rowTitle">'+esc(x.r.title)+'</div><div class="rowMeta">'+esc(x.e.via||'unspecified')+'</div></div><div class="tiny">'+esc(x.e.status||'OPEN')+'</div><span>FOCUS</span></button>').join('');$('ports').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>focusRoute(routeMap().get(b.dataset.href),true,'OTHER'));
 }
 
 /* MAP shares the same focus */
@@ -215,7 +246,7 @@ function renderMap(){
  else if(mapMode==='EVOLVE')xs=routes.filter(r=>r.evolution&&mapMatches(r));
  else xs=routes.filter(mapMatches).sort((a,b)=>String(a.href).localeCompare(String(b.href)));
  list.innerHTML=xs.map(r=>'<button class="mapRow" data-href="'+esc(r.href)+'"><div>'+routeGlyph(r,22)+'</div><div><div class="rowTitle">'+esc(r.title||r.href)+'</div><div class="rowMeta">'+esc(r.href)+(r.evolution?' · '+esc(r.evolution.stage):'')+'</div></div><div class="tiny">'+esc(r.state||r.kind||'—')+'</div></button>').join('');
- list.querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>focusRoute(routeMap().get(b.dataset.href),true));
+ list.querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>focusRoute(routeMap().get(b.dataset.href),true,'OTHER'));
  $('mapMeta').textContent=xs.length+' '+mapMode.toLowerCase()+' items';
 }
 function renderMapSvg(){
@@ -223,12 +254,12 @@ function renderMapSvg(){
  if(mapMode==='PULSE'){
    const xs=latest.filter(mapMatches).slice(0,48),cx=500,cy=215,pts=[];xs.forEach((r,i)=>{const a=-1.2+i*.52,rad=25+i*6.2,x=cx+Math.cos(a)*rad*1.2,y=cy+Math.sin(a)*rad*.62;pts.push({r,x,y})});
    if(pts.length)svg.append(el('polyline',{class:'pulsePath',points:pts.map(p=>p.x+','+p.y).join(' ')}));
-   pts.forEach(p=>{const c=el('circle',{cx:p.x,cy:p.y,r:focus?.href===p.r.href?7:5,class:'pulseDot '+(focus?.href===p.r.href?'sel':'')});c.style.cursor='pointer';c.onclick=()=>focusRoute(p.r,true);svg.append(c)});
+   pts.forEach(p=>{const c=el('circle',{cx:p.x,cy:p.y,r:focus?.href===p.r.href?7:5,class:'pulseDot '+(focus?.href===p.r.href?'sel':'')});c.style.cursor='pointer';c.onclick=()=>focusRoute(p.r,true,'OTHER');svg.append(c)});
    $('mapTitle').textContent='PULSE';$('mapPath').textContent='mutation spiral · identity preserved';$('mapMeta').textContent=xs.length+' recent mutations';return;
  }
  const cm=childrenMap(),kids=(cm.get(mapRoot)||[]).filter(mapMatches),cx=500,cy=215,rx=360,ry=155;
  const center=routeMap().get(mapRoot)||{title:'FIELD',href:'/'};const ct=el('text',{x:cx,y:cy+4,'text-anchor':'middle'});ct.textContent=center.title||'FIELD';ct.setAttribute('fill','#edf0ed');ct.setAttribute('font-size','12');svg.append(ct);
- kids.forEach((r,i)=>{const a=-Math.PI/2+Math.PI*2*i/Math.max(1,kids.length),x=cx+Math.cos(a)*rx,y=cy+Math.sin(a)*ry;svg.append(el('line',{x1:cx,y1:cy,x2:x,y2:y,class:'mapEdge'}));const g=el('g',{class:'mapNode '+(focus?.href===r.href?'sel':'')});g.style.cursor='pointer';const w=Math.max(84,Math.min(150,42+(r.title||r.href).length*4.7));g.append(el('rect',{x:x-w/2,y:y-17,width:w,height:34}));const t=el('text',{x,y:y+3,'text-anchor':'middle'});t.textContent=(r.title||r.href).slice(0,24);g.append(t);g.onclick=()=>{mapSelected=r.href;focusRoute(r,true);renderMapSelection()};svg.append(g)});
+ kids.forEach((r,i)=>{const a=-Math.PI/2+Math.PI*2*i/Math.max(1,kids.length),x=cx+Math.cos(a)*rx,y=cy+Math.sin(a)*ry;svg.append(el('line',{x1:cx,y1:cy,x2:x,y2:y,class:'mapEdge'}));const g=el('g',{class:'mapNode '+(focus?.href===r.href?'sel':'')});g.style.cursor='pointer';const w=Math.max(84,Math.min(150,42+(r.title||r.href).length*4.7));g.append(el('rect',{x:x-w/2,y:y-17,width:w,height:34}));const t=el('text',{x,y:y+3,'text-anchor':'middle'});t.textContent=(r.title||r.href).slice(0,24);g.append(t);g.onclick=()=>{mapSelected=r.href;focusRoute(r,true,'OTHER');renderMapSelection()};svg.append(g)});
  $('mapTitle').textContent=center.title||'FIELD';$('mapPath').textContent=mapRoot;$('mapMeta').textContent=kids.length+' children · visual root '+mapRoot;
 }
 function renderMapSelection(){if($('mapFold').open&&(mapMode==='VISUAL'||mapMode==='PULSE'))renderMapSvg()}
@@ -239,7 +270,8 @@ function openLens(){
  if(!focus)return;const packet={text:JSON.stringify({schema:'field-route/v0.1',href:focus.href,title:focus.title,kind:focus.kind,state:focus.state,operation:focus.operation,role:focus.role,index:focus.index,parent:focus.parent,family:focus.family},null,2),label:'FIELD · '+(focus.title||focus.href),created_at:new Date().toISOString(),source:'field-index-axial-latest'};try{sessionStorage.setItem('scale.lens.handoff.v01',JSON.stringify(packet))}catch(_){}location.assign('./fold-bloom/lens/')
 }
 function inspectFocus(){if(!focus||!window.FieldAperture)return;window.FieldAperture.dock(focus,{label:focus.title||focus.href,from:'field-index-axial-latest'})}
-async function copyAddress(){if(!focus)return;const txt=focus.href+'\n'+(focus.title||'')+'\n'+new URL('.'+focus.href,location.href).href;try{await navigator.clipboard.writeText(txt);const b=$('apCopy'),old=b.textContent;b.textContent='COPIED';setTimeout(()=>b.textContent=old,700)}catch(_){prompt('Copy address:',txt)}}
+async function copyTrial(){const data=JSON.stringify(trialReceipt(),null,2);try{await navigator.clipboard.writeText(data);const e=$('axTrial'),old=e.textContent;e.textContent='TRIAL COPIED';setTimeout(()=>renderTrial(),900)}catch(_){prompt('Copy local AXIAL trial:',data)}}
+async function copyAddress(){if(!focus)return;syncAxialURL();const txt=focus.href+'\n'+(focus.title||'')+'\n'+location.href;try{await navigator.clipboard.writeText(txt);const b=$('apCopy'),old=b.textContent;b.textContent='COPIED';setTimeout(()=>b.textContent=old,700)}catch(_){prompt('Copy address:',txt)}}
 
 Promise.all([
  fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>r.json()),
@@ -247,30 +279,27 @@ Promise.all([
 ]).then(([m,c])=>{
  manifest=m;current=c;routes=(m.routes||[]).filter(r=>r.href!=='/');latest=routes.filter(r=>r.index?.updated_at).sort((a,b)=>String(b.index.updated_at).localeCompare(String(a.index.updated_at)));
  headSet=new Set((c.current_heads||[]).map(h=>h.route));nowSet=new Set((c.active_fronts||[]).slice(0,3).map(nowHref));
- $('axialMeta').textContent=latest.length+' addressed mutations · '+nowSet.size+' NOW · unequal vocabularies / one focus';
- renderHeads();renderPorts();resetAxial();loadIssues();renderMap();
+ $('axialMeta').textContent=latest.length+' mutations · support is exact over current filters';
+ renderHeads();renderPorts();applyInitialAxial();loadIssues();renderMap();
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});
-$('axReset').onclick=resetAxial;$('apInspect').onclick=inspectFocus;$('apAxial').onclick=openAxial;$('apLens').onclick=openLens;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===18?40:18;$('moreLatest').textContent=latestLimit===18?'SHOW 40':'SHOW 18';renderFeed()};
+$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apAxial').onclick=openAxial;$('apLens').onclick=openLens;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===18?40:18;$('moreLatest').textContent=latestLimit===18?'SHOW 40':'SHOW 18';renderFeed()};
 $('mapTools').onclick=e=>{if(e.target.dataset.mode){mapMode=e.target.dataset.mode;renderMap();notifyFieldIndex()}};$('mapSearch').oninput=e=>{mapQuery=e.target.value.trim().toLowerCase();renderMap()};
 $('mapUp').onclick=mapUp;$('mapRootBtn').onclick=()=>{mapRoot='/';renderMap();notifyFieldIndex()};$('mapDrill').onclick=drillSelected;
 $('mapFold').addEventListener('toggle',()=>{if($('mapFold').open)renderMap();notifyFieldIndex()});
 window.addEventListener('field-density',()=>{renderAxes();renderFeed()});
-
 function fieldPathTo(href){
  const out=['/'];let h=href,guard=0,tmp=[];
  while(h&&h!=='/'&&guard++<32){const r=routeMap().get(h);if(!r)break;tmp.unshift(r.href);h=r.parent||'/'}
  return out.concat(tmp);
 }
-function fieldUiState(){
- return{focusHref:focus?.href||null,axisState:{...axisState},projection:$('mapFold').open?mapMode:'AXIAL_LATEST',mapMode,mapRoot,mapSelected,mapQuery,mapOpen:$('mapFold').open,mapDepth:Math.max(0,fieldPathTo(mapRoot).length-1)}
-}
+function fieldUiState(){return{focusHref:focus?.href||null,axisState:{...axisState},projection:$('mapFold').open?mapMode:'AXIAL_LATEST',mapMode,mapRoot,mapSelected,mapQuery,mapOpen:$('mapFold').open,mapDepth:Math.max(0,fieldPathTo(mapRoot).length-1)}}
 function fieldRestore(st){
  if(!st)return;
  if(st.axisState){axisState.state=st.axisState.state||'ANY';axisState.operation=st.axisState.operation||'ANY';axisState.mode=st.axisState.mode||'ANY'}
  const r=st.focusHref?routeMap().get(st.focusHref):null;if(r)focus=r;
  mapMode=st.mapMode||((st.projection&&st.projection!=='AXIAL_LATEST')?st.projection:mapMode);
  mapRoot=st.mapRoot||'/';mapSelected=st.mapSelected||focus?.href||mapRoot;mapQuery=st.mapQuery||'';$('mapSearch').value=mapQuery;$('mapFold').open=!!st.mapOpen;
- renderAxes();renderAperture();renderFeed();renderMap();notifyFieldIndex()
+ supportTrail=[currentMatches().length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMap();renderTrial();syncAxialURL();notifyFieldIndex()
 }
 function fieldProject(mode){
  if(mode==='AXIAL_LATEST'){$('mapFold').open=false;document.getElementById('axialLatest')?.scrollIntoView({block:'start'});notifyFieldIndex();return}
@@ -283,10 +312,7 @@ function fieldDive(){
  mapSelected=target;$('mapFold').open=true;if(mapMode!=='VISUAL')mapMode='VISUAL';renderMap();notifyFieldIndex()
 }
 function fieldRise(){if(mapRoot==='/')return;mapRoot=routeMap().get(mapRoot)?.parent||'/';$('mapFold').open=true;if(mapMode!=='VISUAL')mapMode='VISUAL';renderMap();notifyFieldIndex()}
-function fieldPeer(delta){
- if(!focus)return;const parent=focus.parent||'/',xs=(childrenMap().get(parent)||[]);if(!xs.length)return;
- let i=xs.findIndex(r=>r.href===focus.href);if(i<0)i=0;i=(i+Number(delta||0)+xs.length)%xs.length;focusRoute(xs[i],true)
-}
+function fieldPeer(delta){if(!focus)return;const parent=focus.parent||'/',xs=(childrenMap().get(parent)||[]);if(!xs.length)return;let i=xs.findIndex(r=>r.href===focus.href);if(i<0)i=0;i=(i+Number(delta||0)+xs.length)%xs.length;focusRoute(xs[i],true,'OTHER')}
 function fieldVisualKids(){return (childrenMap().get(mapRoot)||[]).filter(mapMatches)}
 window.FieldLensHost=Object.freeze({focus:()=>focus,uiState:fieldUiState,restore:fieldRestore,project:fieldProject,projection:()=>($('mapFold').open?mapMode:'AXIAL_LATEST'),rise:fieldRise,dive:fieldDive,peer:fieldPeer,visualKids:fieldVisualKids,notify:notifyFieldIndex});
 })();
