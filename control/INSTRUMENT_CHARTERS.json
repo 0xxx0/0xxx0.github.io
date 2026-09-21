@@ -221,20 +221,21 @@
     {
       "id": "field-aperture",
       "route": "/foundry/aperture/",
-      "maturity": "UTILITY / EXPERIMENTAL_PROJECTION",
+      "maturity": "UTILITY / BROWSER-PROVED READER PROJECTION",
       "PASSION": "Keep one source graspable while attention changes scale, position, speed and voice, without manufacturing a second copy of the thing.",
-      "PURPOSE": "Inspect arbitrary local text/JSON/object context through addressed scale and focus, optionally traverse it temporally or by speech, and hand the resulting focus state back to the host.",
-      "POWER": "One compact component keeps source identity stable while visual density, local address, temporal focus and speech-boundary focus move together; the same component can dock into FIELD, HUMAN PORT, Docs or a standalone workbench.",
+      "PURPOSE": "Inspect/read one local text/JSON/object source through a stable addressed source position while scale, RSVP/voice time, ORP focus, source highlight and reference projections change around it.",
+      "POWER": "One compact component keeps source identity and canonical source position stable while visual density, local address, scale, RSVP timing and speech-boundary focus move together; DOCS adds highlighted context/XREF while RAW remains recoverable.",
       "PROOF": [
-        "field-aperture-focus/v0.2 snapshots reproduce current kind/scale/index/address/focus state",
-        "the same shared component runs across FIELD, HUMAN PORT, Docs and standalone APERTURE",
-        "source identity is preserved while scale/position/time/voice change",
-        "browser smoke and static checks pass for current host integrations",
-        "human task advantage over plain reading/inspection remains unproved"
+        "field-aperture-focus/v0.2 emits scale/index/address plus char_index/span/source_progress/structure/xrefs without source mutation",
+        "WORD → SENTENCE → PARAGRAPH → SECTION preserves the identical source position in browser proof",
+        "DOCS highlights that exact locus and emits citation/media XREF while session paste remains local",
+        "the same component runs across FIELD, HUMAN PORT, DOCS and standalone APERTURE",
+        "multilingual segmentation and addressed resume remain browser-guarded",
+        "human comprehension advantage at high speed remains unclaimed"
       ],
       "PROMISE": "APERTURE is an inspection/projection utility, not an ontology or authority layer. Host material/ring/scale outputs are presentation-only. Bytes/magnitude, ring gap, scale, material variables, WPM and speech timing never imply semantic importance, truth, confidence or permission. It does not absorb AXIAL exact-set support, LensState typed transition law, or STATE APERTURE TEST/ARM/RUN consequence semantics.",
-      "PRICE": "Dense controls and radial/material cues can exceed the value of plain scrolling/search; high-speed RSVP and browser speech behavior add cognitive/runtime variability. The component only earns presence when rapid reacquisition or multi-scale inspection is useful.",
-      "RETURN": "A field-aperture-focus/v0.2 snapshot and optional session handoff containing source label/kind, bytes, scale, index/count, local address, focus preview, WPM and material witness. Durability beyond the session is the host's responsibility.",
+      "PRICE": "ORP/radial/strip cues and high-speed RSVP can exceed the value of plain scrolling/search; speech-boundary behavior varies by browser/voice. Use the reader when rapid reacquisition, long-form traversal or multi-scale orientation is useful; RAW/plain reading remains the baseline.",
+      "RETURN": "A field-aperture-focus/v0.2 snapshot with source label/kind, bytes, scale, index/count, local address, canonical char/path position, active span, section/branch markers, XREF cues, WPM and material witness. Durability beyond the session is host-owned.",
       "motifs": [
         "motif:identity-through-projection"
       ],
