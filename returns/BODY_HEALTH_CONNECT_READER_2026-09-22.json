@@ -1,0 +1,60 @@
+{
+  "schema": "return-receipt/v1",
+  "id": "BODY-HEALTH-CONNECT-READER-2026-09-22",
+  "at": "2026-09-22T04:39:00+08:00",
+  "state": "BUILD_VERIFIED_DEVICE_PROOF_REQUIRED",
+  "before": [
+    "BODY / FIT accepted source-distinct sensor bundles, and a Health Connect adapter contract existed.",
+    "No Android/Wear implementation existed in the repository.",
+    "The next Health Connect dependency was partly architectural rather than purely device-bound."
+  ],
+  "intervention": [
+    "Searched the repository for existing Android/Wear/Health Connect donors; none were found.",
+    "Implemented a minimal Android source bridge under /bridge/health-connect-reader/.",
+    "Restricted declared Health Connect permissions to READ_SLEEP + READ_HEART_RATE.",
+    "Excluded INTERNET, Health Connect write, background-health and historical-read permissions.",
+    "Read only on explicit foreground action over a 36-hour window.",
+    "Mapped SleepSessionRecord and HeartRateRecord into existing 0xxx0/body-sensor-observation/v0.1 records and 0xxx0/body-sensor-bundle/v0.1.",
+    "Preserved source app, device, recording method, Health Connect record id and source timestamps.",
+    "Kept heart-rate source samples unaveraged and declared a 5000-newest-sample cap.",
+    "Added path-scoped Android assemble / least-privilege / APK existence CI."
+  ],
+  "evidence": {
+    "implementation": "/bridge/health-connect-reader/",
+    "adapter": "/body/fit/health-connect.adapter.json",
+    "observation_schema": "/body/fit/sensor-observation.schema.json",
+    "body_fit": "/body/fit/",
+    "ci": {
+      "workflow": "health-connect-reader-check",
+      "run_id": 35653352582,
+      "conclusion": "success",
+      "proved": [
+        "assembleDebug succeeds",
+        "manifest least-privilege assertions pass",
+        "debug APK exists"
+      ]
+    },
+    "public_surface_ci": {
+      "run_id": 35653352602,
+      "conclusion": "success"
+    }
+  },
+  "after": [
+    "The Health Connect gap is no longer an implementation/specification gap.",
+    "A build-verified read-only bridge exists and targets BODY / FIT's current sensor envelope.",
+    "WAITING can now name one exact physical/device proof instead of an architectural task."
+  ],
+  "non_claims": [
+    "No real phone install has been observed.",
+    "No Health Connect permission UI has been exercised on the user's device.",
+    "No Samsung Health or Galaxy Watch source record has been observed by this bridge.",
+    "No personal health data was produced or committed.",
+    "A build-verified debug APK is not a promoted production health application."
+  ],
+  "residue": [
+    "Real-device install + Sleep/Heart rate grant + one 36-hour export remains required.",
+    "One exported bundle must import into BODY / FIT with source/device/timestamp/missingness semantics intact.",
+    "Automatic local relay remains deliberately unimplemented until the manual proof shows enough value."
+  ],
+  "next": "Install/test one real bundle; RETURN PASS / FAIL / AMBIGUOUS. Do not broaden permissions or automate transport before that proof."
+}
