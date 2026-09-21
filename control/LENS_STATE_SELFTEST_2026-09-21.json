@@ -1,0 +1,20 @@
+{
+  "schema": "0xxx0/lens-state-selftest/v0.1",
+  "ran_at": "2026-09-21T14:03:00+08:00",
+  "runtime": "node",
+  "pass": true,
+  "count": 11,
+  "result": "11/11 PASS",
+  "covers": [
+    "FIELD route adapter",
+    "Scale Studio snapshot adapter",
+    "stable identity across unequal projections",
+    "ordered lens-stack serialization/deserialization",
+    "VIEW_LENS preview authority rule",
+    "ACTION_TOOLGLASS commit authority rule",
+    "legacy FIELD handoff adapter",
+    "legacy showcase handoff adapter",
+    "v2 reversible handoff packet"
+  ],
+  "note": "Executed locally against the exact payload committed in lens-state.js and control/lens-state-selftest.js before repository write."
+}
