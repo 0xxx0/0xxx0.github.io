@@ -1,0 +1,44 @@
+{
+  "schema": "body-field-contract/v0.2",
+  "updated": "2026-09-21",
+  "title": "BODY / FIELD",
+  "purpose": "Private-local embodied state instrument over shared body plans: fast NOW capture, cyclic PULSE replay, bounded TEST loops and typed BODY↔HOUSE context without diagnostic or causal overclaim.",
+  "operation": "OBSERVE",
+  "kernel": "OBJECT -> ADDRESS -> OBSERVE -> PROJECT -> TEST -> RETURN",
+  "authority_split": {
+    "body": "self-observation, body address, locally retained state history",
+    "care": "episode / clinician-vet handoff and care-course coordination",
+    "house": "environment/device state authority remains private Home Assistant / HOUSEBUS",
+    "env0": "typed relation bridge between BODY observation and WORLD/HOUSE context"
+  },
+  "projections": {
+    "NOW": "one-gesture valence/activation + compact signals + optional body address/context",
+    "PULSE": "same events on cyclic day/time field plus descriptive factor contrasts",
+    "TEST": "one explicit intervention/action against one selected outcome with before/after return",
+    "BRIDGE": "same-origin localStorage BODY↔HOUSE context envelopes; no public personal state",
+    "PLAIN": "canonical local JSON ablation/export"
+  },
+  "evidence_laws": [
+    "OBSERVATION != DIAGNOSIS",
+    "DESCRIPTIVE CONTRAST != CAUSE",
+    "HOUSE CONTEXT != BODY TRUTH",
+    "REFERENCE BODY PLAN != PERSONAL ANATOMY",
+    "ACTIVE SELF-REPORT and PASSIVE/ENVIRONMENT CONTEXT remain source-distinct",
+    "MISSING != ZERO"
+  ],
+  "storage": {
+    "case_state": "localStorage 0xxx0.body.field.v02",
+    "body_to_house": "localStorage 0xxx0.body.field.latest.v01",
+    "house_to_body": "localStorage 0xxx0.house.body.context.v01"
+  },
+  "body_plan": {
+    "registry": "/bodyplans/registry.js",
+    "address": "plan_id + geometry_version + view + selection_mode + region_ids"
+  },
+  "exits": {
+    "care": "/care/",
+    "house": "/house/",
+    "bodyplans": "/bodyplans/",
+    "return": "/returns/"
+  }
+}
