@@ -5678,6 +5678,30 @@
           "PLAY"
         ]
       }
+    },
+    {
+      "href": "/recovery/sleeper/one-return-recon-0.2/",
+      "title": "ONE RETURN RECON 0.2 · FROZEN",
+      "kind": "recovery",
+      "parent": "/recovery/sleeper/",
+      "family": "SLEEPER",
+      "operation": "PRESERVE",
+      "state": "FROZEN_EXACT_DONOR",
+      "version": "0.2",
+      "showcase_card": false,
+      "receipt": "/recovery/sleeper/one-return-recon-0.2/PRESERVATION.json",
+      "role": "Byte-identical frozen copy of the live ASCII ONE RETURN / Nine Gate reconstruction. Preservation object only; not the polished Work-mode v2 target.",
+      "transfer": [
+        "exact byte preservation",
+        "playable donor provenance"
+      ],
+      "index": {
+        "updated_at": "2026-09-22T04:39:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      }
     }
   ],
   "release_law": [
