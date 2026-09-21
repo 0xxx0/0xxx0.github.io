@@ -1,0 +1,163 @@
+{
+  "schema": "0xxx0/representation-fixture/v0.1",
+  "id": "REP-PAINTING-WINDOW-2026-09-21",
+  "date": "2026-09-21",
+  "purpose": "Use one exact recovered Painting Path region to test unequal projections without forcing every projection to fit.",
+  "source": {
+    "recovery_receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
+    "source_manifest": "/recovery/sleeper/site-source-2026-09-18/manifest.json",
+    "engine": {
+      "path": "/recovery/sleeper/site-source-2026-09-18/experiments/painting/engine.mjs",
+      "sha256": "2f393cbcfe16b27276fcdbd3fba7d1e8aef32c7f2b45fed6c3c62facbdabb16a"
+    },
+    "image": {
+      "path": "/recovery/sleeper/site-source-2026-09-18/experiments/painting/spring-dawn-detail.jpg",
+      "sha256": "509438475e9d5df964da52a7516d412484f0a4de9a2bedf08efe3c81577a7dcc"
+    },
+    "test": {
+      "path": "/recovery/sleeper/site-source-2026-09-18/tests/painting-path.test.mjs",
+      "sha256": "7c77192aadf37e532da10f7d321c2baa7e9b6086af95457dbc78cb60fb7bd973"
+    }
+  },
+  "canonical_object": {
+    "semantic_identity": "painting:spring-dawn#region:window",
+    "source_id": "spring-dawn",
+    "region_id": "window",
+    "title": "窗 · Window",
+    "authority": "authored",
+    "polygon": [
+      [
+        0.168,
+        0.16
+      ],
+      [
+        0.484,
+        0.179
+      ],
+      [
+        0.486,
+        0.563
+      ],
+      [
+        0.181,
+        0.568
+      ]
+    ],
+    "question": "Find the open room framed by the red window lattice.",
+    "intent": "Find a gesture that crosses the frame. Distinguish observation from interpretation.",
+    "identity_law": "Projection may change presentation, order, scale or context; it may not change source_id or region_id."
+  },
+  "projections": [
+    {
+      "id": "painting-field",
+      "route": "/recovery/sleeper/painting-path/",
+      "state": "NATIVE_RECOVERED",
+      "preserves": [
+        "source_id",
+        "region_id",
+        "polygon",
+        "authored text/question/intent",
+        "returns"
+      ],
+      "hides": [
+        "global archive context"
+      ],
+      "permits": [
+        "select",
+        "read",
+        "route_toggle",
+        "return"
+      ],
+      "round_trip": "Native engine test proves FIELD→LIST→FIELD keeps selected region identity.",
+      "plain_baseline": false
+    },
+    {
+      "id": "painting-list",
+      "route": "/recovery/sleeper/painting-path/",
+      "state": "NATIVE_RECOVERED_PLAIN_BASELINE",
+      "preserves": [
+        "source_id",
+        "region_id",
+        "authored text/question/intent",
+        "returns"
+      ],
+      "hides": [
+        "image-space geometry as primary navigation"
+      ],
+      "permits": [
+        "select",
+        "read",
+        "route_toggle",
+        "return"
+      ],
+      "round_trip": "Native engine test proves LIST→FIELD retains region_id.",
+      "plain_baseline": true
+    },
+    {
+      "id": "painting-pulse",
+      "route": "/recovery/sleeper/painting-path/",
+      "state": "NATIVE_RECOVERED",
+      "preserves": [
+        "region_id",
+        "selected text",
+        "reading controls"
+      ],
+      "hides": [
+        "simultaneous whole-image context"
+      ],
+      "permits": [
+        "read selected region"
+      ],
+      "round_trip": "Returns to the same canonical selected region.",
+      "plain_baseline": false
+    },
+    {
+      "id": "scale-lens",
+      "route": "/fold-bloom/lens/",
+      "state": "ADAPTER_CANDIDATE",
+      "preserves": [
+        "semantic identity",
+        "source provenance",
+        "nested address spring-dawn→window",
+        "return address"
+      ],
+      "hides": [
+        "native painting interaction unless explicitly linked"
+      ],
+      "permits": [
+        "inspect at source/image/region scale"
+      ],
+      "round_trip": "Must resolve back to painting:spring-dawn#region:window without creating a second object.",
+      "test": "Adapter-only until a real task needs cross-scale inspection."
+    },
+    {
+      "id": "aperture-dayline",
+      "route": "/atlas-dayline/",
+      "state": "NOT_USEFUL_FOR_THIS_OBJECT_YET",
+      "reason": "A static painting region has no earned temporal bearing or commitment state. Do not invent one."
+    },
+    {
+      "id": "fold-bloom",
+      "route": "/fold-bloom/",
+      "state": "NOT_USEFUL_FOR_THIS_OBJECT_YET",
+      "reason": "The recovered region has no earned cyclic/phase relation. Do not map static image selection into BLOOM/FOLD metaphor merely for coverage."
+    }
+  ],
+  "evidence_already_proved": [
+    "Painting FIELD and LIST share stable selected region identity.",
+    "Projection changes do not create RETURN receipts by themselves.",
+    "Authored region authority is explicit.",
+    "Session round-trip retains selected identity, route, returns and viewport.",
+    "Recovered engine/tests are exact-source frozen and hash-verified."
+  ],
+  "not_yet_proved": [
+    "Task advantage of FIELD over LIST for ordinary human use.",
+    "Scale Lens adapter improves recovery/comprehension for this region.",
+    "Any value from Dayline or Fold/Bloom for this object."
+  ],
+  "next_test": {
+    "task": "Use the recovered window region for one paired locate/read/RETURN task in native FIELD versus LIST. Preserve source_id+region_id and record wrong selections, elapsed time, backtracks and whether the observation could be returned.",
+    "stop": "If FIELD adds friction without better context/orientation, retain LIST as the preferred projection for that task. Do not invent another projection."
+  },
+  "return": "One paired human receipt or an explicit NOT_USEFUL disposition. No new app."
+}
