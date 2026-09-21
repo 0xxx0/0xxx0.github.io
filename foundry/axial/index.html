@@ -194,7 +194,7 @@ function renderStrip(){
 }
 function render(){
  $('#srcField').classList.toggle('on',S.source==='FIELD');$('#srcHouse').classList.toggle('on',S.source==='HOUSE');$('#viewRing').classList.toggle('on',S.projection==='RING');$('#viewStrip').classList.toggle('on',S.projection==='STRIP');
- cv.style.display=S.projection==='RING'?'block':'none';$('#stageLabel').textContent=S.source+(S.source==='FIELD'?' INDEX':' / SPATIAL')+' · '+(S.projection==='RING'?'drag any annulus · release to snap · click a segment to jump':'same state unwrapped · click a token to align');
+ cv.style.display=S.projection==='RING'?'block':'none';document.querySelector('.spine').style.display=S.projection==='RING'?'block':'none';$('#stageLabel').textContent=S.source+(S.source==='FIELD'?' INDEX':' / SPATIAL')+' · '+(S.projection==='RING'?'drag any annulus · release to snap · click a segment to jump':'same state unwrapped · click a token to align');
  $('#legend').innerHTML=S.rings.map(function(r,i){return'<div style="border-left-color:'+(i===S.activeRing?'#69b7e6':'#3d494e')+'"><b>'+esc(r.label)+'</b> '+esc(selected(r))+' <i>/ '+r.values.length+'</i></div>'}).join('');
  $('#tuple').innerHTML=S.rings.map(function(r){return'<span class="chip"><b>'+esc(r.label)+'</b> '+esc(selected(r))+'</span>'}).join('');
  $('#count').textContent=S.loaded?S.matches.length:'—';$('#matchN').textContent=S.loaded?S.matches.length:'—';$('#countSub').textContent=S.source==='FIELD'?'FIELD routes satisfying the aligned tuple':'HOUSE anchors satisfying the aligned tuple';
