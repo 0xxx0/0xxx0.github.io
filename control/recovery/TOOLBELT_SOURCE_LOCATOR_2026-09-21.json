@@ -2,7 +2,7 @@
   "schema": "0xxx0/source-locator/v0.1",
   "id": "TOOLBELT-SOURCE-LOCATOR-2026-09-21",
   "at": "2026-09-21",
-  "status": "EXACT_SOURCE_IDENTITIES_AND_CONTENT_REVERIFIED_BYTES_NOT_YET_MATERIALIZED_TO_REPO",
+  "status": "TEXT_SOURCES_MATERIALIZED_REPO_HASHED / ORIGINAL_BYTE_IDENTITY_UNPROVEN / SLEEPER_PNG_RAW_BINARY_BLOCKED",
   "purpose": "Replace reconstructed/search-level uncertainty around the App Atlas tool set and Sleeper operator quartet with exact File Library source identities, while preserving the distinction between located source and byte-recovered repo artifact.",
   "sources": [
     {
@@ -45,8 +45,12 @@
           }
         ]
       },
-      "recovery_state": "LOCATED_NOT_BYTE_MATERIALIZED",
-      "sha256": null
+      "recovery_state": "DECODED_TEXT_MATERIALIZED_REPO_HASHED",
+      "sha256": null,
+      "repo_path": "/recovery/toolbelt/app_atlas_v1.json",
+      "repo_sha256": "746ef176d11433703a3cc7031de7475cefdb2cc9106bbe674777110d7a592612",
+      "repo_utf8_bytes": 24648,
+      "byte_identity": "UNPROVEN_SOURCE_RAW_BYTES_UNAVAILABLE"
     },
     {
       "role": "APP_ATLAS_RUNNABLE_PROJECTION",
@@ -58,8 +62,12 @@
         "subtitle": "provenance → lineage → triage → next falsifying experiment",
         "embedded_data": "same App Atlas v1 tool records observed in source"
       },
-      "recovery_state": "LOCATED_NOT_BYTE_MATERIALIZED",
-      "sha256": null
+      "recovery_state": "SOURCE_FAITHFUL_UTF8_MATERIALIZED_REPO_HASHED",
+      "sha256": null,
+      "repo_path": "/recovery/toolbelt/app_foundry_atlas_v1.html",
+      "repo_sha256": "0adbf801488c8042bb101ecef767f4c76b97fca7918e5269aa8fedb251321299",
+      "repo_utf8_bytes": 25697,
+      "byte_identity": "UNPROVEN_SOURCE_RAW_BYTES_UNAVAILABLE"
     },
     {
       "role": "SLEEPER_OPERATOR_VISUAL",
@@ -103,17 +111,21 @@
         ],
         "transformation_grammar": "Keris → Conch → W8 → Spiral; Distinguish → Resonate → Stabilize → Integrate"
       },
-      "recovery_state": "LOCATED_NOT_BYTE_MATERIALIZED",
-      "sha256": null
+      "recovery_state": "LOCATED_RAW_BINARY_BLOCKED",
+      "sha256": null,
+      "repo_path": null,
+      "blocker": "No raw File Library file URI/byte stream is exposed to this executor; exact-title Drive/Gmail searches found no byte-addressable duplicate."
     }
   ],
   "boundary": {
-    "located": "Exact File Library identity and inspected source content are known.",
-    "not_recovered": "Original file bytes have not been copied into this GitHub repository and no byte hash is claimed here.",
-    "rule": "Do not reconstruct or modernize these sources as a substitute for byte recovery. Use this locator to retrieve the exact originals when a materialization path is available."
+    "located": "Exact File Library identities and inspected source content are known for all three targets.",
+    "materialized": "The two text artifacts now exist in /recovery/toolbelt/ as repo bytes with repo SHA-256 hashes and semantic cross-checks.",
+    "not_proven": "Those repo hashes do not prove byte equality to the original File Library text files because original raw hashes are unavailable.",
+    "blocked": "The target Sleeper PNG remains binary-only in File Library and has not been copied or re-encoded.",
+    "rule": "Never upgrade CONTENT_MATERIALIZED to SOURCE_BYTE_VERIFIED without an independent original byte stream/hash."
   },
   "current_correspondence": "/control/confluence/TOOL_KERNEL_2026-09-21.md",
-  "next": "Materialize the exact three source files into /recovery/toolbelt/ with byte hashes when the File Library→repo byte handoff is available; until then this locator closes identity/search uncertainty but not byte provenance.",
+  "next": "Acquire a byte-capable reference for the exact transformative-journey PNG; copy without re-encoding, SHA-256 it, then close Toolbelt raw-byte recovery. Text source rediscovery is no longer the bottleneck.",
   "reverified_at": "2026-09-22",
   "reverification": {
     "app_atlas_json": "Exact File Library file present; schema_version 1.0 and App Atlas records inspected.",
@@ -121,5 +133,6 @@
     "sleeper_operator_visual": "Exact File Library image present; KERIS/CONCH/W8/SPIRAL source wording inspected.",
     "byte_boundary": "Current tools still do not provide a raw File Library byte→GitHub handoff, so SHA-256 remains intentionally null."
   },
-  "read_only_lineage_projection": "/control/confluence/TOOL_LINEAGE_READING_2026-09-22.json"
+  "read_only_lineage_projection": "/control/confluence/TOOL_LINEAGE_READING_2026-09-22.json",
+  "materialization_receipt": "/recovery/toolbelt/RECOVERY.json"
 }

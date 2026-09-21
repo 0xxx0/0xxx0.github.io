@@ -1,0 +1,693 @@
+{
+  "schema_version": "1.0",
+  "generated": "2026-08-09",
+  "provenance_legend": {
+    "U": "user-originated or explicitly requested",
+    "D": "attested in retrieved docs/code/archive",
+    "A": "prior assistant-origin proposal",
+    "H": "imported from pasted Higgsfield conversation",
+    "I": "new inference/derivative, explicitly marked as such"
+  },
+  "ideas": [
+    {
+      "id": "APP-000",
+      "name": "App Foundry",
+      "organism": "ATLAS",
+      "decision": "BUILD",
+      "provenance": "U",
+      "invariant": "Capture an idea once; preserve ancestry while it branches, merges, is tested, built, or killed.",
+      "lineage": [
+        "Idea Vault",
+        "Project OS",
+        "Living Atlas"
+      ],
+      "artifacts": "This registry is its seed.",
+      "next": "Use this file for one week; every new idea must enter through a lineage-aware record.",
+      "priority": 4
+    },
+    {
+      "id": "APP-001",
+      "name": "DataDisc / Context Graph",
+      "organism": "ATLAS",
+      "decision": "BUILD",
+      "provenance": "U+D",
+      "invariant": "Raw artifacts stay where they are; inspectable context records explain why they matter and generate alternate views.",
+      "lineage": [
+        "DataDisc HTML",
+        "Context Records",
+        "radial/spiral views"
+      ],
+      "artifacts": "Multiple datadisc.html copies + Context Records README.",
+      "next": "Rebuild one legacy DataDisc fixture as an interpreter over event records, not a new database.",
+      "priority": 4
+    },
+    {
+      "id": "APP-002",
+      "name": "Living Atlas",
+      "organism": "ATLAS",
+      "decision": "BUILD",
+      "provenance": "U+A+D",
+      "invariant": "One command surface shows projects, evidence, decisions, artifacts, branches, gaps, and next safe moves.",
+      "lineage": [
+        "Project Atlas",
+        "BLIGHT Project Dashboard",
+        "POS Dashboard"
+      ],
+      "artifacts": "Dashboard concepts and project registries in archive.",
+      "next": "Derive project, timeline, branch, and artifact projections from the same records.",
+      "priority": 4
+    },
+    {
+      "id": "APP-003",
+      "name": "Canon Console",
+      "organism": "ATLAS",
+      "decision": "BUILD",
+      "provenance": "D",
+      "invariant": "Every candidate item gets source, status, branch, function, conflict, and a preserve/promote/branch/revise/reject move.",
+      "lineage": [
+        "A/R/P/Ø canon protocol"
+      ],
+      "artifacts": "Portable protocol in Sleeper/Spiral canon material.",
+      "next": "Implement as the first App Foundry review pane.",
+      "priority": 4
+    },
+    {
+      "id": "APP-004",
+      "name": "Transfer Bench",
+      "organism": "ATLAS",
+      "decision": "BUILD",
+      "provenance": "D",
+      "invariant": "Move mechanisms across projects without copying surface vocabulary.",
+      "lineage": [
+        "cross-project mechanism transfer"
+      ],
+      "artifacts": "SOURCE FORM → INVARIANT → DESTINATION → TRANSLATION → TEST protocol.",
+      "next": "Add a two-project transfer form and require a falsifiable test.",
+      "priority": 4
+    },
+    {
+      "id": "APP-005",
+      "name": "Semantic Thread Tracer",
+      "organism": "ATLAS",
+      "decision": "MERGE",
+      "provenance": "A+D",
+      "invariant": "Reveal recurring conceptual threads and where they split, converge, or re-enter.",
+      "lineage": [
+        "Time-Distortion Memory Scroll",
+        "DataDisc"
+      ],
+      "artifacts": "Archived workflow spec.",
+      "next": "Implement as an Atlas projection, not a standalone product.",
+      "priority": 2
+    },
+    {
+      "id": "APP-006",
+      "name": "The Delta / Decision Ledger",
+      "organism": "ATLAS",
+      "decision": "MERGE",
+      "provenance": "H+I",
+      "invariant": "Show only meaningful state changes and preserve why each decision changed.",
+      "lineage": [
+        "Context events",
+        "supersession records"
+      ],
+      "artifacts": "Compatible with append-only context record schema.",
+      "next": "Make delta a query over Atlas events; do not create a second journal.",
+      "priority": 2
+    },
+    {
+      "id": "APP-007",
+      "name": "Seeper",
+      "organism": "ATLAS",
+      "decision": "INCUBATE",
+      "provenance": "D",
+      "invariant": "Detect leakage between evidence, desire, metaphor, reconstruction, and fiction.",
+      "lineage": [
+        "epistemic security",
+        "canon protocol"
+      ],
+      "artifacts": "Named in cross-project registry as information hygiene.",
+      "next": "Prototype a source-status classifier inside Canon Console.",
+      "priority": 3
+    },
+    {
+      "id": "APP-010",
+      "name": "PSS Runtime",
+      "organism": "OPERATOR",
+      "decision": "BUILD",
+      "provenance": "U+D",
+      "invariant": "Execute multi-pass prompt/program scaffolds with visible state, validation, failure handling, and outputs.",
+      "lineage": [
+        "Prompt Scaffold Spec",
+        "PIRFMP-Ω",
+        "POS"
+      ],
+      "artifacts": "Repeatedly identified as an unbuilt runtime gap.",
+      "next": "Run one existing prompt scaffold end-to-end with a minimal state machine.",
+      "priority": 4
+    },
+    {
+      "id": "APP-011",
+      "name": "Meta-Prompt Compiler",
+      "organism": "OPERATOR",
+      "decision": "MERGE",
+      "provenance": "A",
+      "invariant": "Compile intent, evidence rules, transforms, and output contracts into executable prompt programs.",
+      "lineage": [
+        "PSS Runtime",
+        "prompt recovery"
+      ],
+      "artifacts": "Multiple prompt architectures exist.",
+      "next": "Treat as a PSS authoring mode, not a separate app.",
+      "priority": 2
+    },
+    {
+      "id": "APP-012",
+      "name": "Un-Ask",
+      "organism": "OPERATOR",
+      "decision": "INCUBATE",
+      "provenance": "H",
+      "invariant": "Generate the missing questions and unknown-unknown probes, not more answers.",
+      "lineage": [
+        "adversarial pass",
+        "falsifier discipline"
+      ],
+      "artifacts": "Imported Higgsfield-chat proposal.",
+      "next": "Test as one operator inside PSS; standalone only if usage proves distinct.",
+      "priority": 3
+    },
+    {
+      "id": "APP-013",
+      "name": "Constraint / Borrowed Audience / Last Draft",
+      "organism": "OPERATOR",
+      "decision": "MERGE",
+      "provenance": "H+I",
+      "invariant": "Transform a work by applying constraints, audiences, and structural critique without replacing authorship.",
+      "lineage": [
+        "Constraint Engine",
+        "Borrowed Audience",
+        "Last Draft"
+      ],
+      "artifacts": "Imported proposals; strong fit as one review suite.",
+      "next": "Merge into a single Workbench review mode.",
+      "priority": 2
+    },
+    {
+      "id": "APP-014",
+      "name": "30-Second Expert",
+      "organism": "OPERATOR",
+      "decision": "INCUBATE",
+      "provenance": "H",
+      "invariant": "Surface the one trap or prerequisite most likely to matter before acting in an unfamiliar domain.",
+      "lineage": [
+        "Un-Ask",
+        "epistemic security"
+      ],
+      "artifacts": "Imported proposal.",
+      "next": "Keep as a bounded query template; avoid a generic chat-wrapper product.",
+      "priority": 3
+    },
+    {
+      "id": "APP-020",
+      "name": "Council Runtime / Council of Selves",
+      "organism": "SELF",
+      "decision": "BUILD",
+      "provenance": "U+D",
+      "invariant": "Bounded offices contribute compressed tokens; collisions stay explicit; synthesis ends in an observable move and return condition.",
+      "lineage": [
+        "Council of Selves",
+        "Inner OS",
+        "Council Runtime"
+      ],
+      "artifacts": "Full CASE/STATE/VOICES/TOKENS/COLLISIONS/SYNTHESIS/MOVE/RETURN protocol.",
+      "next": "Implement one decision screen with 3–5 offices and a return-evidence field.",
+      "priority": 4
+    },
+    {
+      "id": "APP-021",
+      "name": "CAOS",
+      "organism": "SELF",
+      "decision": "INCUBATE",
+      "provenance": "U+D",
+      "invariant": "Turn cognitive-aesthetic states and archetypes into an inspectable operating interface.",
+      "lineage": [
+        "vΩ framework",
+        "CAOS OS spec",
+        "CAOS app spec"
+      ],
+      "artifacts": "Archived sequence explicitly reached app spec and Canvas preview.",
+      "next": "Recover the app spec before inventing any new CAOS features.",
+      "priority": 3
+    },
+    {
+      "id": "APP-022",
+      "name": "Kagemusha / Promise Keeper",
+      "organism": "SELF",
+      "decision": "INCUBATE",
+      "provenance": "U+I",
+      "invariant": "Protect attention by turning communication obligations into explicit queues, drafts, promises, follow-ups, and closure.",
+      "lineage": [
+        "social front",
+        "scripted response banks"
+      ],
+      "artifacts": "Cross-thread system concept.",
+      "next": "Start read-only: extract commitments and pending replies; no autonomous sending.",
+      "priority": 3
+    },
+    {
+      "id": "APP-023",
+      "name": "Slothcake Scheduler",
+      "organism": "SELF",
+      "decision": "INCUBATE",
+      "provenance": "A",
+      "invariant": "Use elastic, symbolic, non-linear task blocks rather than brittle calendar guilt.",
+      "lineage": [
+        "Slothcake",
+        "radial planning"
+      ],
+      "artifacts": "Earlier software concept.",
+      "next": "Test whether radial/fan interaction adds measurable value over a normal list.",
+      "priority": 3
+    },
+    {
+      "id": "APP-030",
+      "name": "Pattern Laboratory",
+      "organism": "GLYPH",
+      "decision": "BUILD",
+      "provenance": "U+D",
+      "invariant": "Explore lawful non-repetition: aperiodic tilings, substitutions, recursion, symmetry, and fractal dimension in one manipulable field.",
+      "lineage": [
+        "Spectre generator",
+        "aperiodic monotile",
+        "Fractal Dimension Explorer"
+      ],
+      "artifacts": "Tiling generator repeatedly identified as missing; aperiodicity recurs throughout canon.",
+      "next": "Implement deterministic Spectre/Penrose-style modes plus box-counting dimension for generated masks.",
+      "priority": 4
+    },
+    {
+      "id": "APP-031",
+      "name": "Glyph Grammar / Seal Composer",
+      "organism": "GLYPH",
+      "decision": "BUILD",
+      "provenance": "U+I+D",
+      "invariant": "Semantic identity survives controlled transforms from primitive → glyph → composition → seal/stencil/fabrication.",
+      "lineage": [
+        "Glyph Weaving",
+        "seal/mon system",
+        "Labyrinthine Typographic Engine"
+      ],
+      "artifacts": "Existing design grammar + fabrication validation concepts.",
+      "next": "Ship SVG export with topology and minimum-width checks before aesthetic presets.",
+      "priority": 4
+    },
+    {
+      "id": "APP-032",
+      "name": "Folding Fan / Radial Interface",
+      "organism": "GLYPH",
+      "decision": "BUILD",
+      "provenance": "U+D",
+      "invariant": "Physical folding and radial position create meaningful address transformations rather than decorative navigation.",
+      "lineage": [
+        "CD radial planning",
+        "fan scheduler",
+        "scroll interface"
+      ],
+      "artifacts": "Archived physical-electronic radial planning system and fan interfaces.",
+      "next": "Model folds/segments/ports in a browser and print one real fan from the same data.",
+      "priority": 4
+    },
+    {
+      "id": "APP-033",
+      "name": "Monscopia Explorer",
+      "organism": "GLYPH",
+      "decision": "INCUBATE",
+      "provenance": "U+D",
+      "invariant": "A spatial cognitive landscape lets state, obstruction, route, return, and transformation be navigated rather than merely described.",
+      "lineage": [
+        "Monscopia",
+        "Sinderesis",
+        "Return Engine"
+      ],
+      "artifacts": "Old spatial renderings + newer anthology/canon references.",
+      "next": "Recover the earliest interaction grammar; avoid rebuilding it as generic fantasy world.",
+      "priority": 3
+    },
+    {
+      "id": "APP-034",
+      "name": "SonoAerius",
+      "organism": "GLYPH",
+      "decision": "INCUBATE",
+      "provenance": "A",
+      "invariant": "A multimodal pseudo-instrument maps gesture/state/material language into evolving sound structures.",
+      "lineage": [
+        "music kernel",
+        "sonification"
+      ],
+      "artifacts": "Earlier generative-tool concept.",
+      "next": "Require one distinct interaction that cannot be replaced by a normal synth preset browser.",
+      "priority": 3
+    },
+    {
+      "id": "APP-040",
+      "name": "Layer It",
+      "organism": "FIELD",
+      "decision": "BUILD",
+      "provenance": "U",
+      "invariant": "Treat a real scene as a persistent composition stack: add, mask, transform, regenerate, compare, inherit.",
+      "lineage": [
+        "reality overlaying composition",
+        "spatial state",
+        "mural/stencil workflows"
+      ],
+      "artifacts": "Explicit new user concept.",
+      "next": "Thin slice: photo → named layers → regenerate one layer without destroying the rest.",
+      "priority": 4
+    },
+    {
+      "id": "APP-041",
+      "name": "Spatial State Engine / House OS",
+      "organism": "FIELD",
+      "decision": "BUILD",
+      "provenance": "U+D",
+      "invariant": "Attach state and action to place, object, and transition while gracefully degrading from manual to sensor-rich operation.",
+      "lineage": [
+        "House OS",
+        "digital twin",
+        "memory palace"
+      ],
+      "artifacts": "Spatial State Engine explicitly mapped to place/object/transition in canon material.",
+      "next": "Start with a 2D room/object graph and manual state changes before any 3D/world-model layer.",
+      "priority": 4
+    },
+    {
+      "id": "APP-042",
+      "name": "Expedition OS",
+      "organism": "FIELD",
+      "decision": "MERGE",
+      "provenance": "I+D",
+      "invariant": "A trip/field project becomes a compact decision, capture, practice, route, and return system.",
+      "lineage": [
+        "Trip System Supreme",
+        "field manual",
+        "training arc"
+      ],
+      "artifacts": "Working offline-first Trip System Supreme code exists in archive.",
+      "next": "Generalize the data model only after extracting the existing Trip System feature set.",
+      "priority": 2
+    },
+    {
+      "id": "APP-043",
+      "name": "Renovation App",
+      "organism": "FIELD",
+      "decision": "INCUBATE",
+      "provenance": "D",
+      "invariant": "Location + issue + evidence + decision + owner + status + export in an elderly-readable interface.",
+      "lineage": [
+        "home project management",
+        "issue log"
+      ],
+      "artifacts": "Archived project index explicitly lists issue-log, PDF export, monetization, clean UI.",
+      "next": "Recover old spec and compare with Spatial State Engine before separate build.",
+      "priority": 3
+    },
+    {
+      "id": "APP-044",
+      "name": "Acoustic Twin",
+      "organism": "FIELD",
+      "decision": "INCUBATE",
+      "provenance": "H",
+      "invariant": "Measure a room's acoustic response and convert it into actionable spatial placement guidance.",
+      "lineage": [
+        "digital twin",
+        "audio/sonification"
+      ],
+      "artifacts": "Imported Higgsfield-chat proposal.",
+      "next": "Prototype measurement reliability before adding AI explanation.",
+      "priority": 3
+    },
+    {
+      "id": "APP-045",
+      "name": "Workbench Router",
+      "organism": "FIELD",
+      "decision": "INCUBATE",
+      "provenance": "I",
+      "invariant": "A portable workbench exposes tools, sensors, controllers, routing, power, and active build state through one graceful-degradation interface.",
+      "lineage": [
+        "maker cart",
+        "nomadic lab",
+        "House OS"
+      ],
+      "artifacts": "Implied by maker/workbench systems.",
+      "next": "Model capabilities and connectors, not inventory shopping.",
+      "priority": 3
+    },
+    {
+      "id": "APP-046",
+      "name": "Device Teardown Helper",
+      "organism": "FIELD",
+      "decision": "INCUBATE",
+      "provenance": "A",
+      "invariant": "Device evidence becomes a structured repair record: identity, symptoms, parts, observations, decisions, verification.",
+      "lineage": [
+        "repair workflows",
+        "evidence atlas"
+      ],
+      "artifacts": "Earlier proposed coding derivative.",
+      "next": "Keep documentation-first and safety-bounded; test on a low-risk device.",
+      "priority": 3
+    },
+    {
+      "id": "APP-050",
+      "name": "Cat Canon",
+      "organism": "LIFE",
+      "decision": "BUILD",
+      "provenance": "U+D",
+      "invariant": "Turn observations about environment, behavior, care, and interventions into a clean history and questions for a veterinarian.",
+      "lineage": [
+        "Cat room system",
+        "CSV logger"
+      ],
+      "artifacts": "Observation schema and repeated unbuilt-app references.",
+      "next": "Build frictionless mobile logging + timeline export; no diagnostic claims.",
+      "priority": 4
+    },
+    {
+      "id": "APP-051",
+      "name": "Wellness Bingo",
+      "organism": "LIFE",
+      "decision": "INCUBATE",
+      "provenance": "U+D",
+      "invariant": "Tiny selectable practices become a lightweight shareable board instead of a heavy tracker.",
+      "lineage": [
+        "React miniapp"
+      ],
+      "artifacts": "Runnable single-file/React work exists.",
+      "next": "Either finish and archive as solved, or merge the board primitive into a broader field-deck system.",
+      "priority": 3
+    },
+    {
+      "id": "APP-052",
+      "name": "Body Timeline",
+      "organism": "LIFE",
+      "decision": "INCUBATE",
+      "provenance": "H",
+      "invariant": "Maintain a neutral chronological record of health events and produce concise clinician-ready summaries.",
+      "lineage": [
+        "timeline/log patterns"
+      ],
+      "artifacts": "Imported proposal.",
+      "next": "Keep descriptive and export-focused; no diagnostic engine.",
+      "priority": 3
+    },
+    {
+      "id": "APP-060",
+      "name": "Chain × Layer It",
+      "organism": "GENERATIVE",
+      "decision": "BUILD",
+      "provenance": "H+U+I",
+      "invariant": "Every published composition can be inherited; each remix changes exactly one named layer or constraint, preserving ancestry.",
+      "lineage": [
+        "Chain",
+        "Layer It",
+        "Canon branching"
+      ],
+      "artifacts": "Derived from user Layer It + imported Chain.",
+      "next": "Prototype a three-generation lineage gallery with one-change-per-generation rule.",
+      "priority": 4
+    },
+    {
+      "id": "APP-061",
+      "name": "Pattern Bloom",
+      "organism": "GENERATIVE",
+      "decision": "BUILD",
+      "provenance": "U+I",
+      "invariant": "A mathematical seed generates a family of visual/material worlds while retaining the same underlying aperiodic or fractal signature.",
+      "lineage": [
+        "Pattern Laboratory",
+        "That, But"
+      ],
+      "artifacts": "Native pattern lineage.",
+      "next": "Generate a 3×3 family from one deterministic seed and display the invariant beside outputs.",
+      "priority": 4
+    },
+    {
+      "id": "APP-062",
+      "name": "Seal to World",
+      "organism": "GENERATIVE",
+      "decision": "BUILD",
+      "provenance": "U+I",
+      "invariant": "A user-made glyph/seal becomes architecture, textile, object, interface, motion, and environment without losing its topology.",
+      "lineage": [
+        "Glyph Grammar",
+        "Layer It"
+      ],
+      "artifacts": "Native glyph/fabrication lineage.",
+      "next": "Use one seal as a multi-reference control and test recognizability across six outputs.",
+      "priority": 4
+    },
+    {
+      "id": "APP-063",
+      "name": "Return Engine",
+      "organism": "GENERATIVE",
+      "decision": "INCUBATE",
+      "provenance": "U+D+I",
+      "invariant": "One artifact returns through changed conditions; each version must preserve traceable invariants while revealing a new consequence.",
+      "lineage": [
+        "Monscopia Return Engine",
+        "retrocausal return",
+        "Life Retold"
+      ],
+      "artifacts": "Return is explicit in later anthology/canon work.",
+      "next": "Use one image/object and generate past/present/possible-return triptych with visible lineage.",
+      "priority": 3
+    },
+    {
+      "id": "APP-064",
+      "name": "Fanfold",
+      "organism": "GENERATIVE",
+      "decision": "INCUBATE",
+      "provenance": "U+I",
+      "invariant": "A composition is designed for multiple folded/unfolded states; every state is meaningful and generatable.",
+      "lineage": [
+        "Folding Fan Interface",
+        "Layer It"
+      ],
+      "artifacts": "Physical fan system gives a non-generic transform grammar.",
+      "next": "Make one 8-panel artwork whose folded adjacency changes the narrative/composition.",
+      "priority": 3
+    },
+    {
+      "id": "APP-065",
+      "name": "Lawful Remix",
+      "organism": "GENERATIVE",
+      "decision": "INCUBATE",
+      "provenance": "U+I",
+      "invariant": "Remix by changing one declared rule—period, material, weather, scale, topology—while all other invariants stay fixed.",
+      "lineage": [
+        "That, But",
+        "aperiodicity",
+        "Transfer Bench"
+      ],
+      "artifacts": "Derived from native transformation grammar.",
+      "next": "Compare free prompting vs declared-one-rule remixes for consistency and replayability.",
+      "priority": 3
+    },
+    {
+      "id": "APP-066",
+      "name": "Schematic Labyrinth",
+      "organism": "GENERATIVE",
+      "decision": "INCUBATE",
+      "provenance": "D+I",
+      "invariant": "A concept becomes a navigable visual field whose paths encode claims, conflicts, omissions, and return routes.",
+      "lineage": [
+        "Monscopia",
+        "Labyrinthine Typographic Engine",
+        "Visual Evidence Atlas"
+      ],
+      "artifacts": "Later anthology specifies labyrinthine construction/validation primitives.",
+      "next": "Render one real project map as image/video without sacrificing source labels.",
+      "priority": 3
+    },
+    {
+      "id": "APP-067",
+      "name": "Casting Call / Storybook",
+      "organism": "GENERATIVE",
+      "decision": "KILL",
+      "provenance": "H",
+      "invariant": "Persistent characters reused across generated scenes.",
+      "lineage": [
+        "Casting Call",
+        "Storybook of Us"
+      ],
+      "artifacts": "Imported proposals.",
+      "next": "Keep consistency mechanics as infrastructure; do not ship as another generic character app.",
+      "priority": 1
+    },
+    {
+      "id": "APP-068",
+      "name": "Morph / Dream Machine",
+      "organism": "GENERATIVE",
+      "decision": "KILL",
+      "provenance": "H",
+      "invariant": "Single-input transformation toy.",
+      "lineage": [
+        "Morph",
+        "Dream Machine"
+      ],
+      "artifacts": "Imported proposals.",
+      "next": "Retain only useful transformation presets; no standalone build.",
+      "priority": 1
+    },
+    {
+      "id": "APP-069",
+      "name": "Prompt Tennis",
+      "organism": "GENERATIVE",
+      "decision": "KILL",
+      "provenance": "H",
+      "invariant": "Prompt guessing/remix as game.",
+      "lineage": [
+        "generation game"
+      ],
+      "artifacts": "Imported proposal.",
+      "next": "Potential mechanic inside a gallery; too detached from native project lineage to prioritize.",
+      "priority": 1
+    },
+    {
+      "id": "APP-070",
+      "name": "Tab Hospice",
+      "organism": "UTILITY",
+      "decision": "KILL",
+      "provenance": "H",
+      "invariant": "Archive old browser tabs without losing retrievability.",
+      "lineage": [],
+      "artifacts": "Imported proposal.",
+      "next": "Useful but unrelated; existing browser-extension territory.",
+      "priority": 1
+    },
+    {
+      "id": "APP-071",
+      "name": "Price of Silence",
+      "organism": "UTILITY",
+      "decision": "KILL",
+      "provenance": "H",
+      "invariant": "Expose opportunity cost of unattended commitments.",
+      "lineage": [],
+      "artifacts": "Imported proposal.",
+      "next": "Conceptual lens, not current build.",
+      "priority": 1
+    },
+    {
+      "id": "APP-072",
+      "name": "Bill Whisperer",
+      "organism": "UTILITY",
+      "decision": "KILL",
+      "provenance": "H",
+      "invariant": "Explain bills and recurring charges in plain language.",
+      "lineage": [],
+      "artifacts": "Imported proposal.",
+      "next": "Generic document utility; low native leverage.",
+      "priority": 1
+    }
+  ]
+}

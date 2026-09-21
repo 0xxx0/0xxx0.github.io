@@ -8,7 +8,7 @@
       "goal": "Maintain exact recovered lineages, pursue only source-grounded blocked recovery, and stop solved families from reopening.",
       "horizon": "maintenance / opportunistic",
       "next": [
-        "Source identity is now located for App Atlas (`app_atlas_v1.json`, `app_foundry_atlas_v1.html`) and the Sleeper operator visual (`The sleeper engine: a transformative journey.png`). Next is byte materialization + hashing into `/recovery/toolbelt/`; do not reconstruct or modernize them as a substitute for exact bytes.",
+        "App Atlas JSON + runnable HTML are now durable under /recovery/toolbelt/ with repo SHA-256 and semantic cross-checks; original File Library text byte equality remains unproven. The exact `The sleeper engine: a transformative journey.png` raw binary is the remaining Toolbelt gate: materialize without re-encoding, hash, then seal.",
         "City v0.2 source and later Painting runtime are recovered. Earlier Library painting-path.html remains a distinct variant; reopen only for a named version comparison, not presumed loss.",
         "Do not reopen Grid Path V4 or Fold Weave recovery unless a concrete missing function is identified.",
         "Laconic exact-source pass (2026-09-22) reverified the 5–6 internal-voice request but did not recover its direct message node/output set or first `5 selves chatter` turn. Reopen only on direct source output/adoption evidence; do not substitute later Council casts or unrelated multi-persona scenes.",
@@ -90,9 +90,9 @@
       "order": 1,
       "id": "recover-toolbelt",
       "move": "Recover exact historical tool sources into durable repo provenance; no cleanup or feature invention during recovery.",
-      "pass": "Exact bytes or verifiable source packet + provenance entry; missing material remains explicitly missing.",
-      "status": "SOURCE_IDENTITY_AND_CONTENT_REVERIFIED / RAW_BYTES_BLOCKED_BY_HANDOFF",
-      "evidence": "/control/recovery/TOOLBELT_SOURCE_LOCATOR_2026-09-21.json"
+      "pass": "Complete only when the exact transformative-journey PNG original bytes are materialized and SHA-256 recorded; text repo hashes alone do not certify original byte identity.",
+      "status": "PARTIAL_MATERIALIZATION: 2 TEXT ARTIFACTS REPO-HASHED / PNG RAW BINARY BLOCKED",
+      "evidence": "/recovery/toolbelt/RECOVERY.json"
     },
     {
       "order": 2,
