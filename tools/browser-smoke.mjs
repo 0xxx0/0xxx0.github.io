@@ -39,92 +39,60 @@ function lensProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:390px;height:844px;border:0;display:block" src="/?lens_proof=1&focus=%2Ffold-bloom%2Flens%2F"></iframe><pre id="probeResult">PENDING</pre><script>
   const result=document.getElementById('probeResult'),f=document.getElementById('f');
   const done=(ok,data)=>{result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
-  f.onload=()=>setTimeout(()=>{
-    try{
-      const w=f.contentWindow,d=w.document;
-      const compact=x=>({focusHref:x?.focusHref||null,axisState:x?.axisState||null,projection:x?.projection||null,mapMode:x?.mapMode||null,mapRoot:x?.mapRoot||null,mapSelected:x?.mapSelected||null,mapQuery:x?.mapQuery||'',mapOpen:!!x?.mapOpen});
-      const before=compact(w.FieldLensHost?.uiState?.());
-      const apLens=d.getElementById('apLens'),apProof=d.getElementById('apProof');
-      const proof=d.getElementById('lens-proof-bench'),proofOpen=!!proof?.classList.contains('on');
-      if(!apLens||!apProof||!w.LensFocusRing||!w.FieldLensHost)return done(false,{stage:'boot',apLens:!!apLens,apProof:!!apProof,proofOpen,ring:!!w.LensFocusRing,host:!!w.FieldLensHost});
-      apLens.click();
-      setTimeout(()=>{
-        const ring=d.getElementById('lens-focus-ring'),sh=ring?.shadowRoot,panel=sh?.querySelector('.panel');
-        const visual=sh?.querySelector('[data-mode="VISUAL"]');
-        if(!ring||!sh||!panel?.classList.contains('on')||!visual)return done(false,{stage:'ring',ring:!!ring,panelOpen:!!panel?.classList.contains('on'),visual:!!visual});
-        visual.click();
-        setTimeout(()=>{
-          const during=compact(w.FieldLensHost?.uiState?.());
-          sh.querySelector('.return')?.click();
-          setTimeout(()=>{
-            const after=compact(w.FieldLensHost?.uiState?.());
-            const same=JSON.stringify(before)===JSON.stringify(after);
-            const overflow=Math.max(d.documentElement.scrollWidth,d.body?.scrollWidth||0)-d.documentElement.clientWidth;
-            apProof.click();
-            const proofAfter=!!d.getElementById('lens-proof-bench')?.classList.contains('on');
-            done(same&&proofOpen&&proofAfter&&overflow<=1&&during.projection==='VISUAL',{before,during,after,same,proofOpen,proofAfter,overflow,clientWidth:d.documentElement.clientWidth});
-          },180);
-        },180);
-      },180);
-    }catch(e){done(false,{stage:'exception',error:String(e?.stack||e)})}
-  },900);
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=8000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
+  const compact=x=>({focusHref:x?.focusHref||null,axisState:x?.axisState||null,projection:x?.projection||null,mapMode:x?.mapMode||null,mapRoot:x?.mapRoot||null,mapSelected:x?.mapSelected||null,mapQuery:x?.mapQuery||'',mapOpen:!!x?.mapOpen});
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    await waitFor(()=>D().getElementById('apLens')&&D().getElementById('apProof')&&W().LensFocusRing&&W().FieldLensHost&&W().FieldLensAPI);
+    const before=compact(W().FieldLensHost.uiState()),proofOpen=!!D().getElementById('lens-proof-bench')?.classList.contains('on');
+    D().getElementById('apLens').click();
+    const sh=await waitFor(()=>D().getElementById('lens-focus-ring')?.shadowRoot);
+    await waitFor(()=>sh.querySelector('.panel')?.classList.contains('on'));
+    const visual=await waitFor(()=>sh.querySelector('[data-mode="VISUAL"]'));visual.click();
+    await waitFor(()=>W().FieldLensHost.uiState()?.projection==='VISUAL');
+    const during=compact(W().FieldLensHost.uiState());
+    sh.querySelector('.return')?.click();
+    await waitFor(()=>JSON.stringify(compact(W().FieldLensHost.uiState()))===JSON.stringify(before));
+    const after=compact(W().FieldLensHost.uiState()),same=JSON.stringify(before)===JSON.stringify(after);
+    D().getElementById('apProof').click();await waitFor(()=>D().getElementById('lens-proof-bench')?.classList.contains('on'));
+    const proofAfter=true,overflow=Math.max(D().documentElement.scrollWidth,D().body?.scrollWidth||0)-D().documentElement.clientWidth;
+    done(same&&proofOpen&&proofAfter&&overflow<=1&&during.projection==='VISUAL',{before,during,after,same,proofOpen,proofAfter,overflow,clientWidth:D().documentElement.clientWidth});
+  })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),href:f.contentWindow?.location?.href||null}));
   <\/script></body></html>`;
 }
 function studioProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:1180px;height:820px;border:0;display:block" src="/?focus=%2Ffold-bloom%2Flens%2F"></iframe><pre id="probeResult">PENDING</pre><script>
-  const result=document.getElementById('probeResult'),f=document.getElementById('f');let stage=0;const rec={};
+  const result=document.getElementById('probeResult'),f=document.getElementById('f'),rec={};
   const done=(ok,data)=>{result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
   const compact=x=>({focusHref:x?.focusHref||null,projection:x?.projection||null,mapRoot:x?.mapRoot||null,mapOpen:!!x?.mapOpen});
-  f.onload=()=>setTimeout(()=>{
-    try{
-      const w=f.contentWindow,d=w.document;
-      if(stage===0){
-        rec.startHref=w.FieldLensHost?.focus?.()?.href||null;rec.start=compact(w.FieldLensHost?.uiState?.());
-        const lens=d.getElementById('apLens');if(rec.startHref!=='/fold-bloom/lens/'||!lens||!w.LensFocusRing)return done(false,{stage:'field-boot',...rec});
-        lens.click();
-        setTimeout(()=>{
-          const sh=d.getElementById('lens-focus-ring')?.shadowRoot;if(!sh)return done(false,{stage:'ring-shadow'});
-          sh.querySelector('.dive')?.click();
-          setTimeout(()=>{
-            rec.dive=compact(w.FieldLensHost?.uiState?.());
-            sh.querySelector('.rise')?.click();
-            setTimeout(()=>{
-              rec.rise=compact(w.FieldLensHost?.uiState?.());
-              sh.querySelector('.next')?.click();
-              setTimeout(()=>{
-                rec.peerHref=w.FieldLensHost?.focus?.()?.href||null;
-                sh.querySelector('.prev')?.click();
-                setTimeout(()=>{
-                  rec.peerBack=w.FieldLensHost?.focus?.()?.href||null;
-                  sh.querySelector('.stackBtn')?.click();
-                  const apply=sh.querySelector('[data-lens="field-foveate"]');if(!apply)return done(false,{stage:'stack-candidate',...rec});
-                  apply.click();
-                  setTimeout(()=>{
-                    const s=w.FieldLensAPI?.snapshot?.();rec.fieldObject=s?.objectId||null;rec.fieldStack=(s?.lensStack||[]).map(x=>x.lensId);
-                    const studio=sh.querySelector('.studio');if(!studio)return done(false,{stage:'studio-button',...rec});
-                    stage=1;studio.click();
-                  },220);
-                },180);
-              },180);
-            },180);
-          },180);
-        },180);
-        return;
-      }
-      if(stage===1){
-        const s=w.ScaleLensStateAPI?.snapshot?.(),ret=d.getElementById('returnUpstream');
-        rec.studioObject=s?.objectId||null;rec.upstreamStack=(s?.meta?.upstreamLensStack||[]).map(x=>x.lensId);rec.returnVisible=!!ret&&!ret.hidden;rec.returnHref=ret?.dataset?.href||null;
-        const studioOk=rec.studioObject===rec.startHref&&rec.upstreamStack.includes('field-foveate')&&rec.returnVisible;
-        if(!studioOk)return done(false,{stage:'studio-state',...rec});
-        stage=2;ret.click();return;
-      }
-      if(stage===2){
-        rec.endHref=w.FieldLensHost?.focus?.()?.href||null;rec.end=compact(w.FieldLensHost?.uiState?.());
-        const ok=rec.dive?.focusHref===rec.startHref&&rec.dive?.mapRoot==='/fold-bloom/'&&rec.rise?.focusHref===rec.startHref&&rec.rise?.mapRoot==='/'&&rec.peerHref&&rec.peerHref!==rec.startHref&&rec.peerBack===rec.startHref&&rec.fieldObject===rec.startHref&&rec.fieldStack.includes('field-foveate')&&rec.studioObject===rec.startHref&&rec.upstreamStack.includes('field-foveate')&&rec.endHref===rec.startHref;
-        done(!!ok,rec);
-      }
-    }catch(e){done(false,{stage:'exception-'+stage,error:String(e?.stack||e),...rec})}
-  },1000);
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    await waitFor(()=>D().getElementById('apLens')&&W().FieldLensHost&&W().FieldLensAPI&&W().LensFocusRing);
+    rec.startHref=W().FieldLensHost.focus()?.href||null;rec.start=compact(W().FieldLensHost.uiState());
+    if(rec.startHref!=='/fold-bloom/lens/')throw new Error('wrong start '+rec.startHref);
+    D().getElementById('apLens').click();
+    const sh=await waitFor(()=>D().getElementById('lens-focus-ring')?.shadowRoot);await waitFor(()=>sh.querySelector('.panel')?.classList.contains('on'));
+    sh.querySelector('.dive')?.click();await waitFor(()=>W().FieldLensHost.uiState()?.mapRoot==='/fold-bloom/');rec.dive=compact(W().FieldLensHost.uiState());
+    sh.querySelector('.rise')?.click();await waitFor(()=>W().FieldLensHost.uiState()?.mapRoot==='/');rec.rise=compact(W().FieldLensHost.uiState());
+    sh.querySelector('.next')?.click();await waitFor(()=>W().FieldLensHost.focus()?.href&&W().FieldLensHost.focus()?.href!==rec.startHref);rec.peerHref=W().FieldLensHost.focus().href;
+    sh.querySelector('.prev')?.click();await waitFor(()=>W().FieldLensHost.focus()?.href===rec.startHref);rec.peerBack=W().FieldLensHost.focus().href;
+    sh.querySelector('.stackBtn')?.click();const apply=await waitFor(()=>sh.querySelector('[data-lens="field-foveate"]'));apply.click();
+    const fieldState=await waitFor(()=>{const s=W().FieldLensAPI.snapshot?.();return s?.lensStack?.some(x=>x.lensId==='field-foveate')?s:null});
+    rec.fieldObject=fieldState.objectId;rec.fieldStack=fieldState.lensStack.map(x=>x.lensId);
+    const studio=sh.querySelector('.studio');if(!studio)throw new Error('studio button missing');studio.click();
+    const studioState=await waitFor(()=>W().location.pathname==='/fold-bloom/lens/'&&W().ScaleLensStateAPI?.snapshot?.());
+    rec.studioObject=studioState.objectId;rec.upstreamStack=(studioState.meta?.upstreamLensStack||[]).map(x=>x.lensId);
+    const ret=await waitFor(()=>{const x=D().getElementById('returnUpstream');return x&&!x.hidden?x:null});rec.returnHref=ret.dataset.href||null;
+    if(rec.studioObject!==rec.startHref||!rec.upstreamStack.includes('field-foveate'))throw new Error('studio identity/provenance mismatch');
+    ret.click();
+    await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===rec.startHref);
+    rec.endHref=W().FieldLensHost.focus().href;rec.end=compact(W().FieldLensHost.uiState());
+    const ok=rec.dive.focusHref===rec.startHref&&rec.dive.mapRoot==='/fold-bloom/'&&rec.rise.focusHref===rec.startHref&&rec.rise.mapRoot==='/'&&rec.peerHref!==rec.startHref&&rec.peerBack===rec.startHref&&rec.fieldObject===rec.startHref&&rec.fieldStack.includes('field-foveate')&&rec.studioObject===rec.startHref&&rec.upstreamStack.includes('field-foveate')&&rec.endHref===rec.startHref;
+    done(!!ok,rec);
+  })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
 }
 const server=http.createServer((req,res)=>{
@@ -227,13 +195,13 @@ const CASES=[
   {
     name:'LENS PROOF mobile RETURN',
     route:'/__smoke/lens-proof',
-    options:{width:430,height:900,budget:9000},
+    options:{width:430,height:900,budget:14000,timeout:20000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"same":true/.test(dom)&&/"proofAfter":true/.test(dom)&&/"overflow":0/.test(dom)
   },
   {
     name:'LENS STACK STUDIO RETURN',
     route:'/__smoke/lens-studio',
-    options:{width:1280,height:900,budget:16000,timeout:22000},
+    options:{width:1280,height:900,budget:22000,timeout:28000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"field-foveate"/.test(dom)&&/"studioObject":"\/fold-bloom\/lens\/"/.test(dom)&&/"endHref":"\/fold-bloom\/lens\/"/.test(dom)
   },
   {
