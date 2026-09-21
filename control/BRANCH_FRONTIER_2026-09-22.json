@@ -1,13 +1,13 @@
 {
   "schema": "branch-frontier/v0.2",
-  "generated_at": "2026-09-22T03:18:00+08:00",
-  "purpose": "Live refresh of branch pointer authority after the Sep-22 READFIELD/LISTEN/FIELD/BODY convergence wave. Preserve branch provenance while preventing stale pointers from reactivating work.",
+  "generated_at": "2026-09-22T03:44:00+08:00",
+  "purpose": "Live hard-pass branch authority seal after READFIELD convergence and HUMAN PORT observation-harness closure. Preserve provenance; eliminate phantom active work.",
   "counts": {
-    "total": 111,
+    "total": 114,
     "canonical": 1,
-    "open_pr": 1,
-    "merged_pr_lineage": 73,
-    "closed_unmerged_pr_lineage": 22,
+    "open_pr": 0,
+    "merged_pr_lineage": 76,
+    "closed_unmerged_pr_lineage": 23,
     "no_pr_pointer": 14
   },
   "authority_law": [
@@ -19,15 +19,7 @@
     "A no-PR branch may not be merged or treated as current until its unique commits are recovered/classified.",
     "Branch age or evocative naming never grants priority."
   ],
-  "active_review": [
-    {
-      "branch": "field/waiting-body-calibration-20260922",
-      "sha": "1fbc9b425d1e37dade2b47e4f466184a6861ab66",
-      "prs": [
-        108
-      ]
-    }
-  ],
+  "active_review": [],
   "canonical": [
     "master"
   ],
@@ -115,514 +107,535 @@
   "merged_branches": [
     {
       "branch": "aperture-material-rsvp-040-r2",
+      "sha": "74348e6c65d61827ab3c7d34ce96c5c5c426faea",
       "prs": [
         62
-      ],
-      "sha": "74348e6c65d61827ab3c7d34ce96c5c5c426faea"
+      ]
     },
     {
       "branch": "aperture-multilingual-segmentation-20260921",
+      "sha": "547cc4689907d2c8289bc6f4c671fd1160532a8f",
       "prs": [
         79
-      ],
-      "sha": "547cc4689907d2c8289bc6f4c671fd1160532a8f"
+      ]
     },
     {
       "branch": "aperture-rsvp-hardening-20260921",
+      "sha": "f032cf08f94e172830bc9e8cc965f4b14a516e4d",
       "prs": [
         77
-      ],
-      "sha": "f032cf08f94e172830bc9e8cc965f4b14a516e4d"
+      ]
     },
     {
       "branch": "axial-aperture-05",
+      "sha": "b5db06169347d5b3d45f17eb13ee11ac8061325c",
       "prs": [
         32
-      ],
-      "sha": "b5db06169347d5b3d45f17eb13ee11ac8061325c"
+      ]
     },
     {
       "branch": "axial-converge-0.4",
+      "sha": "57f29595a8a64f712d04b2541ac0e83d446c527b",
       "prs": [
         3
-      ],
-      "sha": "57f29595a8a64f712d04b2541ac0e83d446c527b"
+      ]
     },
     {
       "branch": "axial-focus-stack-060",
+      "sha": "87f6cecf3db3648443f3ebc9689a15259c898e9f",
       "prs": [
         52
-      ],
-      "sha": "87f6cecf3db3648443f3ebc9689a15259c898e9f"
+      ]
     },
     {
       "branch": "axial-lawful-focus-070-r2",
+      "sha": "6e97776f98509e59175aa6017787ecd333f716ae",
       "prs": [
         55
-      ],
-      "sha": "6e97776f98509e59175aa6017787ecd333f716ae"
+      ]
     },
     {
       "branch": "axial-lens-onepass-061",
+      "sha": "f6f492fd40f7b4e4b71e16ce03168dcfd80c0870",
       "prs": [
         53
-      ],
-      "sha": "f6f492fd40f7b4e4b71e16ce03168dcfd80c0870"
+      ]
     },
     {
       "branch": "axial-onboarding-051",
+      "sha": "371c1014b398a4c8971b8495b3edf154adf0fbaf",
       "prs": [
         34
-      ],
-      "sha": "371c1014b398a4c8971b8495b3edf154adf0fbaf"
+      ]
     },
     {
       "branch": "axial-overview-inspector-072",
+      "sha": "e8494cc62f0e26b9382335a94f43e9346aaa23c8",
       "prs": [
         59
-      ],
-      "sha": "e8494cc62f0e26b9382335a94f43e9346aaa23c8"
+      ]
     },
     {
       "branch": "axial-position-humanfactors-071-r2",
+      "sha": "4cb1d8012df1bbd3bf9dd8f014c05641db4b1e03",
       "prs": [
         57
-      ],
-      "sha": "4cb1d8012df1bbd3bf9dd8f014c05641db4b1e03"
+      ]
     },
     {
       "branch": "axial-usability-cut-20260921",
+      "sha": "9a443efe25bcad35ca1ed6b9ff361ece5c4d02cf",
       "prs": [
         73
-      ],
-      "sha": "9a443efe25bcad35ca1ed6b9ff361ece5c4d02cf"
+      ]
     },
     {
       "branch": "body-pulse-house-bridge-20260921",
+      "sha": "ea41182d4851696197f6827d1431ac40a3b2cc82",
       "prs": [
         88
-      ],
-      "sha": "ea41182d4851696197f6827d1431ac40a3b2cc82"
+      ]
     },
     {
       "branch": "care-bodyplans-v03-20260921",
+      "sha": "583c6a23dc4851c69a4aec53f90df060e765161c",
       "prs": [
         38
-      ],
-      "sha": "583c6a23dc4851c69a4aec53f90df060e765161c"
+      ]
     },
     {
       "branch": "care-course-v02-20260921",
+      "sha": "a69b09f4a4a14ec12b96794f4a7a3d3b9ec1e7d1",
       "prs": [
         31
-      ],
-      "sha": "a69b09f4a4a14ec12b96794f4a7a3d3b9ec1e7d1"
+      ]
     },
     {
       "branch": "confluence/house-marks-20260921-r2",
+      "sha": "dae30eac54c712729dd17ac1828e9280c5106ac8",
       "prs": [
         30
-      ],
-      "sha": "dae30eac54c712729dd17ac1828e9280c5106ac8"
+      ]
+    },
+    {
+      "branch": "confluence-hard-advance-20260922",
+      "sha": "4c11c3b373b6bd7fc86e9c72618d0815075c15c8",
+      "prs": [
+        109
+      ]
     },
     {
       "branch": "confluence-one-return-reentry-20260921",
+      "sha": "9b772f1ecfb9e1dacf511c4ff163499e4638173a",
       "prs": [
         86
-      ],
-      "sha": "9b772f1ecfb9e1dacf511c4ff163499e4638173a"
+      ]
     },
     {
       "branch": "confluence-replica-replan-20260921-v2",
+      "sha": "84b706e5880bb2cf07ce72e54c2bf540af2189c1",
       "prs": [
         42
-      ],
-      "sha": "84b706e5880bb2cf07ce72e54c2bf540af2189c1"
+      ]
     },
     {
       "branch": "convergence/source-target-reconciliation",
+      "sha": "f6c9c6945473eb84090f63c88cb4e1f6c6e6bf29",
       "prs": [
         90
-      ],
-      "sha": "f6c9c6945473eb84090f63c88cb4e1f6c6e6bf29"
+      ]
     },
     {
       "branch": "correct-laconic-selection-2024-12-29",
+      "sha": "7230dbcc771ba2fdc246f12b1a83907ea2eea0df",
       "prs": [
         20
-      ],
-      "sha": "7230dbcc771ba2fdc246f12b1a83907ea2eea0df"
+      ]
     },
     {
       "branch": "docs-rsvp-smoke-readiness-20260922",
+      "sha": "13852d6f1460488d608cbbceb5b819053558865a",
       "prs": [
         95
-      ],
-      "sha": "13852d6f1460488d608cbbceb5b819053558865a"
+      ]
     },
     {
       "branch": "field/passive-feedback-loop-20260921",
+      "sha": "4b2165814ca68e2deaad3aec883c717400773e66",
       "prs": [
         51
-      ],
-      "sha": "4b2165814ca68e2deaad3aec883c717400773e66"
+      ]
+    },
+    {
+      "branch": "field/waiting-body-calibration-20260922",
+      "sha": "ab3c6a3434db939c601e4623a03a54e5663135ab",
+      "prs": [
+        108
+      ]
     },
     {
       "branch": "field-convergence-activation-20260921",
+      "sha": "a875dec465f61e69c49df651d5e4f1e3df09ff0d",
       "prs": [
         69
-      ],
-      "sha": "a875dec465f61e69c49df651d5e4f1e3df09ff0d"
+      ]
     },
     {
       "branch": "field-index-frontier-01",
+      "sha": "4b3fd3148759922a9d07e667c9c2ee2344244588",
       "prs": [
         23
-      ],
-      "sha": "4b3fd3148759922a9d07e667c9c2ee2344244588"
+      ]
     },
     {
       "branch": "field-mobile-ledger-20260921",
+      "sha": "5043d0b2d752eb27ac2973d084904a2188517126",
       "prs": [
         49
-      ],
-      "sha": "5043d0b2d752eb27ac2973d084904a2188517126"
+      ]
     },
     {
       "branch": "field-mobile-pulse-20260921",
+      "sha": "3d68c317d344fd926d5e15cc6f512ef259d145d1",
       "prs": [
         48
-      ],
-      "sha": "3d68c317d344fd926d5e15cc6f512ef259d145d1"
+      ]
     },
     {
       "branch": "field-pulse-mobile-20260922",
+      "sha": "f55d227d66332aee6f27d68371d0901118a36a51",
       "prs": [
         106
-      ],
-      "sha": "f55d227d66332aee6f27d68371d0901118a36a51"
+      ]
     },
     {
       "branch": "fold-bloom-listen-01",
+      "sha": "c3849c5bcd44eadd645ee00a53004f1afb292369",
       "prs": [
         92
-      ],
-      "sha": "c3849c5bcd44eadd645ee00a53004f1afb292369"
+      ]
     },
     {
       "branch": "fold-bloom-listen-source-adapter",
+      "sha": "6bac38c85c19110d4ee13cbcfb73a89d38d2d6cf",
       "prs": [
         99
-      ],
-      "sha": "6bac38c85c19110d4ee13cbcfb73a89d38d2d6cf"
+      ]
     },
     {
       "branch": "fold-bloom-live-01",
+      "sha": "cf370cdad763c1551f22934efdb03902878de0a2",
       "prs": [
         85
-      ],
-      "sha": "cf370cdad763c1551f22934efdb03902878de0a2"
+      ]
+    },
+    {
+      "branch": "fold-bloom-pulse-compose-01",
+      "sha": "fcfeea9e8db053b372d9f41f9550d20585273ad5",
+      "prs": [
+        110
+      ]
     },
     {
       "branch": "human-port-convergence-v1",
+      "sha": "7e77939ba4762c4299c06ddf2c5e32dfebfb6335",
       "prs": [
         36
-      ],
-      "sha": "7e77939ba4762c4299c06ddf2c5e32dfebfb6335"
+      ]
     },
     {
       "branch": "human-port-focus-aperture-v14",
+      "sha": "32283c785ba19b61ef9d5054585e23e6675d5f5c",
       "prs": [
         58
-      ],
-      "sha": "32283c785ba19b61ef9d5054585e23e6675d5f5c"
+      ]
     },
     {
       "branch": "human-port-home-clarity-v2",
+      "sha": "db07dc994be438daf72a7c3b907d86bf65c3a3fd",
       "prs": [
         39
-      ],
-      "sha": "db07dc994be438daf72a7c3b907d86bf65c3a3fd"
+      ]
     },
     {
       "branch": "human-port-intake-v13",
+      "sha": "9508c10922c48c14cf4553909bcf8882846b6601",
       "prs": [
         41
-      ],
-      "sha": "9508c10922c48c14cf4553909bcf8882846b6601"
+      ]
     },
     {
       "branch": "human-port-live-next",
+      "sha": "03f1be9a03423c0e4b9812edae3067908ff0126e",
       "prs": [
         28
-      ],
-      "sha": "03f1be9a03423c0e4b9812edae3067908ff0126e"
+      ]
     },
     {
       "branch": "human-port-object-aperture-v15",
+      "sha": "310c104baa7c1e5f927fae3637a80bff3cd40e91",
       "prs": [
         68
-      ],
-      "sha": "310c104baa7c1e5f927fae3637a80bff3cd40e91"
+      ]
     },
     {
       "branch": "human-port-suite-advance-v12",
+      "sha": "7a375913a5116196b6f40d9dadde22efe32f65ab",
       "prs": [
         40
-      ],
-      "sha": "7a375913a5116196b6f40d9dadde22efe32f65ab"
+      ]
     },
     {
       "branch": "instrument-contract-back-charters",
+      "sha": "1b1dab10a523bfbb66e55e5af697e35d640efa41",
       "prs": [
         17
-      ],
-      "sha": "1b1dab10a523bfbb66e55e5af697e35d640efa41"
+      ]
     },
     {
       "branch": "laconic-iconic-recovery-v01",
+      "sha": "e4f10e1c63904454f70873ef97289df30ddfaf2c",
       "prs": [
         15
-      ],
-      "sha": "e4f10e1c63904454f70873ef97289df30ddfaf2c"
+      ]
     },
     {
       "branch": "laconic-iconic-v02-scenes-care",
+      "sha": "610c4946d401173a1288a80e223e3d3437f4f984",
       "prs": [
         16
-      ],
-      "sha": "610c4946d401173a1288a80e223e3d3437f4f984"
+      ]
     },
     {
       "branch": "laconic-v03-vault-lineage",
+      "sha": "c752932c491e7d631f03feb153acbb603a6c4a28",
       "prs": [
         33
-      ],
-      "sha": "c752932c491e7d631f03feb153acbb603a6c4a28"
+      ]
     },
     {
       "branch": "lens-browser-proof-20260921",
+      "sha": "7ffd16b3e936aec2ffe5c322897f0ad74683f6a3",
       "prs": [
         64
-      ],
-      "sha": "7ffd16b3e936aec2ffe5c322897f0ad74683f6a3"
+      ]
     },
     {
       "branch": "lens-convergence-contract-20260921",
+      "sha": "f2fa1aa1a73b1ddb32743d73bd4a731b3d38a9f1",
       "prs": [
         50
-      ],
-      "sha": "f2fa1aa1a73b1ddb32743d73bd4a731b3d38a9f1"
+      ]
     },
     {
       "branch": "lens-fi-toolglass-g2-20260921",
+      "sha": "d7e4fff0003ae4cea8f10d4a39136a75a839832b",
       "prs": [
         87
-      ],
-      "sha": "d7e4fff0003ae4cea8f10d4a39136a75a839832b"
+      ]
     },
     {
       "branch": "lens-g2-hardening-20260921",
+      "sha": "e2d152b4fa2244f9e7f78ffb7873952aee4a00b4",
       "prs": [
         91
-      ],
-      "sha": "e2d152b4fa2244f9e7f78ffb7873952aee4a00b4"
+      ]
     },
     {
       "branch": "lens-proof-bench-20260921",
+      "sha": "0c60065281222335da7ebe8c88e58cfb84d45e71",
       "prs": [
         60
-      ],
-      "sha": "0c60065281222335da7ebe8c88e58cfb84d45e71"
+      ]
     },
     {
       "branch": "lens-real-use-pass-20260922",
+      "sha": "e490ac63ad42a4ab5a9027da828eea6db762d91f",
       "prs": [
         94
-      ],
-      "sha": "e490ac63ad42a4ab5a9027da828eea6db762d91f"
+      ]
     },
     {
       "branch": "lens-recovery-anchor-20260921",
+      "sha": "5f8b596cc4c1de4f54fd65701d1b97e5530347ec",
       "prs": [
         78
-      ],
-      "sha": "5f8b596cc4c1de4f54fd65701d1b97e5530347ec"
+      ]
     },
     {
       "branch": "lens-studio-actualize-20260921",
+      "sha": "e2d101d1a2eeb5fa5304339ca6f3c241e7523c3e",
       "prs": [
         75
-      ],
-      "sha": "e2d101d1a2eeb5fa5304339ca6f3c241e7523c3e"
+      ]
     },
     {
       "branch": "listen-intake-hardening",
+      "sha": "defe5b553b008b195d13154da6e74d20d94d29cc",
       "prs": [
         102
-      ],
-      "sha": "defe5b553b008b195d13154da6e74d20d94d29cc"
+      ]
     },
     {
       "branch": "listen-progressive-longform",
+      "sha": "6b48efa34b0c5bda382b0a8390769d601e040f1e",
       "prs": [
         103
-      ],
-      "sha": "6b48efa34b0c5bda382b0a8390769d601e040f1e"
+      ]
     },
     {
       "branch": "one-return-authority-correction-20260921",
+      "sha": "d3871e7a46cbcccb5580fa12eb9edf1ee9d8d813",
       "prs": [
         83
-      ],
-      "sha": "d3871e7a46cbcccb5580fa12eb9edf1ee9d8d813"
+      ]
     },
     {
       "branch": "one-return-grid-receipt-seam-20260921",
+      "sha": "8a6e46a225feb701dc74fe4f2aa109a118810936",
       "prs": [
         81
-      ],
-      "sha": "8a6e46a225feb701dc74fe4f2aa109a118810936"
+      ]
     },
     {
       "branch": "one-return-live-lane-20260921",
+      "sha": "32d84b45e819b2b8c5b075e9cb3ad27c1fee8ee0",
       "prs": [
         80
-      ],
-      "sha": "32d84b45e819b2b8c5b075e9cb3ad27c1fee8ee0"
+      ]
     },
     {
       "branch": "one-return-return-seal-20260921",
+      "sha": "b3b9b0b24c0d451efb8c7387a29535943764e516",
       "prs": [
         82
-      ],
-      "sha": "b3b9b0b24c0d451efb8c7387a29535943764e516"
+      ]
     },
     {
       "branch": "perimeter-recovery-20260921",
+      "sha": "dee57c564cb5b4c4f294f66e8478dcd45dba49c2",
       "prs": [
         74
-      ],
-      "sha": "dee57c564cb5b4c4f294f66e8478dcd45dba49c2"
+      ]
     },
     {
       "branch": "qa-route-grammar-20260921",
+      "sha": "b1231956ac527fa47d260edbe9315abebafb993d",
       "prs": [
         63
-      ],
-      "sha": "b1231956ac527fa47d260edbe9315abebafb993d"
+      ]
     },
     {
       "branch": "reader-focus-kernel-20260921",
+      "sha": "aeaaad0b0b6bb91e64b72fc1c70bb100315b457d",
       "prs": [
         84
-      ],
-      "sha": "aeaaad0b0b6bb91e64b72fc1c70bb100315b457d"
+      ]
     },
     {
       "branch": "readfield-postmerge-proof-20260922",
+      "sha": "b2b6dcac43752b7b03b4b39516f1caaa45e252fe",
       "prs": [
         105
-      ],
-      "sha": "b2b6dcac43752b7b03b4b39516f1caaa45e252fe"
+      ]
     },
     {
       "branch": "readfield-pr-lineage-seal-20260922",
+      "sha": "bae19823ce99f31c123c0f6361e7d6d9ea8386ba",
       "prs": [
         107
-      ],
-      "sha": "bae19823ce99f31c123c0f6361e7d6d9ea8386ba"
+      ]
     },
     {
       "branch": "readfield-ship-final2-20260922",
+      "sha": "9a03d49304f1c3c0b7e5065a93252bf0dc15d562",
       "prs": [
         104
-      ],
-      "sha": "9a03d49304f1c3c0b7e5065a93252bf0dc15d562"
+      ]
     },
     {
       "branch": "recover-laconic-2025-bank",
+      "sha": "0ee774b8083a2d49fbabfda1227d8456b25ed80f",
       "prs": [
         18
-      ],
-      "sha": "0ee774b8083a2d49fbabfda1227d8456b25ed80f"
+      ]
     },
     {
       "branch": "recover-persona-to-council-lineage",
+      "sha": "2cf18a7e2777ce960089ff052c46c5b1f47092fe",
       "prs": [
         22
-      ],
-      "sha": "2cf18a7e2777ce960089ff052c46c5b1f47092fe"
+      ]
     },
     {
       "branch": "recovery/backup-20260921",
+      "sha": "6adcfabf47619991ed04668665f75b0cd9fa87de",
       "prs": [
         61
-      ],
-      "sha": "6adcfabf47619991ed04668665f75b0cd9fa87de"
+      ]
     },
     {
       "branch": "repair-return-poem-current-20260921",
+      "sha": "caa662b9019ff0fb5a57f5f32df5f273b73229f9",
       "prs": [
         67
-      ],
-      "sha": "caa662b9019ff0fb5a57f5f32df5f273b73229f9"
+      ]
     },
     {
       "branch": "restore-fold-weave-exact",
+      "sha": "491ef78d817bbcc0b9adbdec9025ecad595da48e",
       "prs": [
         19
-      ],
-      "sha": "491ef78d817bbcc0b9adbdec9025ecad595da48e"
+      ]
     },
     {
       "branch": "seal-lens-g1-proof-20260921",
+      "sha": "599d2752abb4b5ffafdd0ac0b88284035d91505b",
       "prs": [
         71
-      ],
-      "sha": "599d2752abb4b5ffafdd0ac0b88284035d91505b"
+      ]
     },
     {
       "branch": "shopping-field-core",
+      "sha": "0e10c6260df4056008508cd772b0056572861f2e",
       "prs": [
         45
-      ],
-      "sha": "0e10c6260df4056008508cd772b0056572861f2e"
+      ]
     },
     {
       "branch": "shopping-field-current-sync",
+      "sha": "d9da0fc40e743c39c52a68ff1ec82201adca74f8",
       "prs": [
         46
-      ],
-      "sha": "d9da0fc40e743c39c52a68ff1ec82201adca74f8"
+      ]
     },
     {
       "branch": "sync/sovereign-node-frontier-20260921",
+      "sha": "9c87529049421bd13980007d79958eb72bcf0155",
       "prs": [
         47
-      ],
-      "sha": "9c87529049421bd13980007d79958eb72bcf0155"
+      ]
     },
     {
       "branch": "tool-kernel-convergence-20260921",
+      "sha": "3bc3c823d55780fe65ed1b1936adf284f9da5bab",
       "prs": [
         72
-      ],
-      "sha": "3bc3c823d55780fe65ed1b1936adf284f9da5bab"
+      ]
     },
     {
       "branch": "toolbelt-source-locators-20260921",
+      "sha": "b9e96c8509ba96eb26ca524213a4c7bbdd59551f",
       "prs": [
         76
-      ],
-      "sha": "b9e96c8509ba96eb26ca524213a4c7bbdd59551f"
+      ]
     },
     {
       "branch": "two-dial-sonic-depth-010",
+      "sha": "c6fe5bafd08d0928725f7aa62a76ee051c39b964",
       "prs": [
         89
-      ],
-      "sha": "c6fe5bafd08d0928725f7aa62a76ee051c39b964"
+      ]
     }
   ],
   "closed_unmerged_branches": [
@@ -711,6 +724,15 @@
       "sha": "2f376a6b997b87fe4e4f3e9a16540d30cfa628a3"
     },
     {
+      "branch": "human-port-specimens-01-20260922",
+      "prs": [
+        111
+      ],
+      "sha": "01991a9f8fdd2c388444bb32b3cc92e76ad662ae",
+      "state": "OBSERVATION_HARNESS_DONOR",
+      "rule": "Dedicated HUMAN PORT specimen smoke was closed unmerged; virtual-time/IndexedDB harness behavior is not product evidence. Resume only from ordinary-use evidence or independently reproduced failure."
+    },
+    {
       "branch": "human-port-v03",
       "prs": [
         24
@@ -736,35 +758,45 @@
       "prs": [
         93
       ],
-      "sha": "19cb7b698c065404518c169a813cd1747391162b"
+      "sha": "19cb7b698c065404518c169a813cd1747391162b",
+      "state": "READFIELD_SUPERSEDED_SEALED",
+      "rule": "See /control/READFIELD_PR_SEAL_2026-09-22.json; do not merge."
     },
     {
       "branch": "readfield-convergence-20260922",
       "prs": [
         96
       ],
-      "sha": "81abf61b62bacbe6ebecc46a1510f9a17f59cd1c"
+      "sha": "81abf61b62bacbe6ebecc46a1510f9a17f59cd1c",
+      "state": "READFIELD_SUPERSEDED_SEALED",
+      "rule": "See /control/READFIELD_PR_SEAL_2026-09-22.json; do not merge."
     },
     {
       "branch": "readfield-convergence-current-20260922",
       "prs": [
         98
       ],
-      "sha": "170571858b5444e1ae134f1e8e9589b0450fb773"
+      "sha": "170571858b5444e1ae134f1e8e9589b0450fb773",
+      "state": "READFIELD_SUPERSEDED_SEALED",
+      "rule": "See /control/READFIELD_PR_SEAL_2026-09-22.json; do not merge."
     },
     {
       "branch": "readfield-final-20260922",
       "prs": [
         100
       ],
-      "sha": "c74837b7e0c79b47dd643c05749907aaf59fb43d"
+      "sha": "c74837b7e0c79b47dd643c05749907aaf59fb43d",
+      "state": "READFIELD_SUPERSEDED_SEALED",
+      "rule": "See /control/READFIELD_PR_SEAL_2026-09-22.json; do not merge."
     },
     {
       "branch": "readfield-ship-20260922",
       "prs": [
         101
       ],
-      "sha": "826dc275cdeb829dd1bf35c596042fad6a4a70f3"
+      "sha": "826dc275cdeb829dd1bf35c596042fad6a4a70f3",
+      "state": "READFIELD_SUPERSEDED_SEALED",
+      "rule": "See /control/READFIELD_PR_SEAL_2026-09-22.json; do not merge."
     },
     {
       "branch": "shopping-field-integration",
@@ -796,13 +828,19 @@
   "return_rule": "When a branch yields unique value, recover exact donor material or reconstruct one bounded delta on current master; do not revive the branch wholesale.",
   "snapshot_semantics": "Live GitHub census at this refresh. MASTER + CURRENT/QUEUE remain authority; branch pointers are provenance unless an open PR or explicit reconstruction says otherwise.",
   "seal": {
-    "open_prs": 1,
+    "open_prs": 0,
     "no_pr_unclassified": 0,
-    "result": "NO_HIDDEN_UNCLASSIFIED_BRANCH_FOUND",
-    "note": "Open PRs are explicit bounded proposals, not canonical authority. Counts exclude this authoring transport branch. No branch deletion implied."
+    "result": "ZERO_OPEN_PRS_NO_HIDDEN_UNCLASSIFIED_BRANCH",
+    "note": "All live no-PR pointers are already classified. Closed branches remain provenance/donors; no deletion implied."
   },
   "execution_branch_excluded": {
-    "branch": "confluence-hard-advance-20260922",
-    "reason": "Authoring transport for this snapshot; excluded from corpus classification. It will become PR lineage or be discarded, never project authority."
+    "branch": "confluence-hard-seal-20260922",
+    "reason": "Authoring transport for this seal; excluded from census and must become merged PR lineage or closed donor."
+  },
+  "hard_pass": {
+    "master_at_census": "5912190d99ae7573edecef9932c57ff824ec197b",
+    "human_port_specimen_pr": 111,
+    "specimen_disposition": "CLOSED_UNMERGED_OBSERVATION_HARNESS_DONOR",
+    "rationale": "The temporary browser harness repeatedly exercised CI virtual-time/IndexedDB behavior rather than ordinary HUMAN PORT use. It was not promoted into product authority."
   }
 }
