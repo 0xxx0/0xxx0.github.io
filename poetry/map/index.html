@@ -67,7 +67,7 @@ details.advanced[open]>summary:after{content:" −"}
   <div class="row"><button id="lockBtn">LOCK</button><button id="pathBtn">+ PATH</button><button id="linkBtn">LINK NEXT</button></div>
   <div class="k">Possibility dock</div>
   <div class="online" id="intentDock"><button data-intent="continue">CONTINUE</button><button data-intent="replace">REPLACE</button><button data-intent="echo">ECHO</button><button data-intent="contrast">CONTRAST</button><button data-intent="turn">TURN</button><button data-intent="rhyme">RHYME</button><button data-intent="surprise">SURPRISE</button></div>
-  <div class="tiny" style="margin:4px 0">Writer intent is primary; Datamuse is only the current English provider. The selected Latin-script token is sent only after you press an intent. Returned words go to BANK, then TRY → ADOPT; nothing silently edits the poem.</div>
+  <div class="tiny" style="margin:4px 0">Writer intent is primary; Datamuse is only the current English provider. The selected Latin-script token is sent only after you press an intent. Returned words go to BANK, then TRY → ADOPT; nothing silently edits the poem.</div><div class="row" style="margin:5px 0"><button id="corpusBtn">LOCAL CORPUS</button><span id="corpusState" class="tiny" style="align-self:center">session-only · none loaded</span></div><input id="corpusFile" type="file" accept=".txt,.md,.csv,.json" hidden>
   <div id="candidates" class="card"></div>
   <div class="row"><input id="manualCand" placeholder="bank a word…" style="min-width:0;padding:6px"><button id="addCand">BANK</button></div>
  </div>
@@ -112,7 +112,7 @@ const FORMS={
  jueju7:{name:'JUEJU 7',lines:4,chars:7,note:'historical 平仄/rime OPEN'},
  jueju5:{name:'JUEJU 5',lines:4,chars:5,note:'historical 平仄/rime OPEN'}
 };
-const S={source:'',nodes:[],edges:[],selected:null,mode:'PAGE',locks:new Set(),authorPath:[],authorEdges:[],linkPending:null,bank:[],preview:null,revisions:[],captures:[],weights:{order:.7,sound:.65,repeat:.9,author:1},aperture:.7,form:'free',layoutSeed:1,drag:null};
+const S={source:'',nodes:[],edges:[],selected:null,mode:'PAGE',locks:new Set(),authorPath:[],authorEdges:[],linkPending:null,bank:[],preview:null,revisions:[],captures:[],corpus:[],weights:{order:.7,sound:.65,repeat:.9,author:1},aperture:.7,form:'free',layoutSeed:1,drag:null};
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 function isHan(ch){return /[\u3400-\u9fff\uf900-\ufaff]/u.test(ch)}
 function tokenizeLine(line,li){let out=[],re=/[\u3400-\u9fff\uf900-\ufaff]|[\p{L}\p{N}'’-]+|[^\s]/gu,m,ti=0;while((m=re.exec(line))){let raw=m[0];if(/^\s+$/.test(raw))continue;out.push({id:'L'+(li+1)+'T'+(++ti),line:li,index:ti-1,text:raw,norm:raw.toLocaleLowerCase(),start:m.index,x:0,y:0,vx:0,vy:0})}return out}
@@ -213,6 +213,31 @@ $('#lockBtn').onclick=()=>{if(!S.selected)return;S.locks.has(S.selected)?S.locks
 $('#pathBtn').onclick=()=>{if(!S.selected)return;if(S.authorPath.at(-1)!==S.selected)S.authorPath.push(S.selected);if(S.authorPath.length>1){let a=S.authorPath.at(-2),b=S.authorPath.at(-1);if(!S.authorEdges.some(e=>e.a===a&&e.b===b))S.authorEdges.push({a,b,type:'AUTHOR',why:'author path'})}parse()};
 $('#linkBtn').onclick=()=>{if(!S.selected)return;S.linkPending=S.linkPending===S.selected?null:S.selected;renderPanels();$('#statusText').textContent=S.linkPending?'Select another token to create an AUTHOR edge.':'Link cancelled.'};
 $('#addCand').onclick=()=>{let w=$('#manualCand').value.trim();if(!w)return;S.bank.push({word:w,why:'human bank',for:S.selected});$('#manualCand').value='';save();renderBank();renderBottom()};
+function loadLocalCorpus(text){
+  let rows=String(text||'').replace(/\r/g,'').split('\n'),tokens=[];
+  rows.forEach((line,li)=>tokenizeLine(line,li).forEach(t=>{if(/[\p{L}\p{N}\u3400-\u9fff]/u.test(t.text))tokens.push({text:t.text,norm:t.norm,line:li})}));
+  S.corpus=tokens.slice(0,50000);$('#corpusState').textContent=S.corpus.length+' local tokens · session-only';return S.corpus.length
+}
+function localCorpusCandidates(intent,n){
+ if(!n||!S.corpus.length)return[];
+ let hits=[],arr=S.corpus,key=n.norm;
+ for(let i=0;i<arr.length;i++)if(arr[i].norm===key)hits.push(i);
+ let score=new Map(),add=(t,why,w=1)=>{if(!t||t.norm===key)return;let k=t.text;if(!score.has(k))score.set(k,{word:k,why,w:0});let q=score.get(k);q.w+=w;if(!q.why.includes(why))q.why+=' · '+why};
+ for(const i of hits){
+   if(intent==='continue'){add(arr[i+1],'LOCAL CORPUS · observed follower',4)}
+   else if(intent==='replace'||intent==='turn'||intent==='surprise'){
+     for(let d=-4;d<=4;d++){if(!d)continue;let t=arr[i+d];if(!t)continue;
+       let w=intent==='replace'?(Math.abs(d)<=2?3:1):intent==='turn'?(Math.abs(d)>=2?2:1):(Math.abs(d)>=3?3:1);
+       add(t,'LOCAL CORPUS · context '+(d>0?'+':'')+d,w)
+     }
+   }else if(intent==='echo'||intent==='rhyme'){
+     for(const t of arr){if(t.norm===key)continue;if(isHan(n.text)||isHan(t.text))continue;
+       let sim=soundSim(n.norm,t.norm);if((intent==='echo'&&sim>=2)||(intent==='rhyme'&&soundKey(n.norm).tail===soundKey(t.norm).tail))add(t,'LOCAL CORPUS · approx sound',sim||1)
+     }
+   }
+ }
+ return [...score.values()].sort((a,b)=>b.w-a.w||a.word.localeCompare(b.word)).slice(0,12)
+}
 const INTENTS={
  continue:{param:'lc',why:'likely follower / continue'},
  replace:{param:'ml',why:'meaning alternative / replace'},
@@ -222,15 +247,20 @@ const INTENTS={
  rhyme:{param:'rel_rhy',why:'rhyme'},
  surprise:{param:'rel_trg',why:'weaker association / surprise',tail:true}
 };
+$('#corpusBtn').onclick=()=>$('#corpusFile').click();
+$('#corpusFile').onchange=async e=>{let file=e.target.files?.[0];e.target.value='';if(!file)return;try{let n=loadLocalCorpus(await file.text());status('LOCAL CORPUS READY · '+n+' TOKENS · NOTHING UPLOADED')}catch(err){status('LOCAL CORPUS READ FAILED')}};
 $('[data-intent]').forEach(b=>b.onclick=async()=>{
- let n=node(S.selected),intent=b.dataset.intent,cfg=INTENTS[intent];if(!n||!/[A-Za-z]/.test(n.text))return status('THIS PROVIDER NEEDS A LATIN-SCRIPT TOKEN');
- status('QUERY '+intent.toUpperCase());
+ let n=node(S.selected),intent=b.dataset.intent,cfg=INTENTS[intent];if(!n)return status('SELECT A WORD OR CHARACTER');
+ let local=localCorpusCandidates(intent,n),addedLocal=0;
+ for(const x of local)if(!S.bank.some(q=>q.word===x.word&&q.for===n.id&&q.intent===intent)){S.bank.push({word:x.word,why:x.why,for:n.id,intent,provider:'LOCAL_CORPUS'});addedLocal++}
+ if(!/[A-Za-z]/.test(n.text)){save();renderBank();renderBottom();return status(addedLocal?'BANKED '+addedLocal+' LOCAL '+intent.toUpperCase()+' OPTIONS · NOTHING INSERTED':'NO LOCAL OPTIONS · LOAD A CORPUS OR BANK MANUALLY')}
+ status('QUERY '+intent.toUpperCase()+(addedLocal?' · '+addedLocal+' LOCAL READY':''));
  try{
    let p=new URLSearchParams({max:'24',md:'sp'});p.set(cfg.param,n.text);
    let r=await fetch('https://api.datamuse.com/words?'+p.toString()),d=await r.json(),pick=cfg.tail?d.slice(8,20):d.slice(0,12),added=0;
-   for(let x of pick){if(!S.bank.some(q=>q.word===x.word&&q.for===n.id&&q.intent===intent)){S.bank.push({word:x.word,why:'Datamuse · '+cfg.why,for:n.id,intent,score:x.score||null,numSyllables:x.numSyllables||null,tags:x.tags||[]});added++}}
-   save();renderBank();renderBottom();status('BANKED '+added+' '+intent.toUpperCase()+' OPTIONS · NOTHING INSERTED')
- }catch(e){status('OPTION PROVIDER UNAVAILABLE')}
+   for(let x of pick){if(!S.bank.some(q=>q.word===x.word&&q.for===n.id&&q.intent===intent)){S.bank.push({word:x.word,why:'Datamuse · '+cfg.why,for:n.id,intent,provider:'DATAMUSE',score:x.score||null,numSyllables:x.numSyllables||null,tags:x.tags||[]});added++}}
+   save();renderBank();renderBottom();status('BANKED '+(addedLocal+added)+' '+intent.toUpperCase()+' OPTIONS · LOCAL '+addedLocal+' / DATAMUSE '+added+' · NOTHING INSERTED')
+ }catch(e){save();renderBank();renderBottom();status(addedLocal?'DATAMUSE UNAVAILABLE · '+addedLocal+' LOCAL OPTIONS BANKED':'OPTION PROVIDER UNAVAILABLE')}
 });
 $('#cancelPreview').onclick=()=>{S.preview=null;save();renderPanels();status('PREVIEW CANCELLED · SOURCE UNCHANGED')};$('#undoRevision').onclick=undoRevision;
 $('#clearPath').onclick=()=>{S.authorPath=[];S.authorEdges=[];parse()};$('#capturePath').onclick=()=>{let xs=S.authorPath.map(node).filter(Boolean);if(!xs.length)return;S.captures.push({id:'P'+(S.captures.length+1),cells:S.authorPath.slice(),reading:xs.map(x=>x.text).join(' '),address:S.authorPath.join('>'),created:new Date().toISOString()});save();renderCaptures();status('PATH CAPTURED')};
@@ -238,7 +268,7 @@ $('#form').onchange=e=>{S.form=e.target.value;save();renderConstraints()};for(le
 $('#aperture').oninput=e=>{S.aperture=+e.target.value;$('#wap').textContent=S.aperture.toFixed(2);save()};
 $('#mapIt').onclick=parse;$('#clear').onclick=()=>{$('#source').value='';Object.assign(S,{source:'',nodes:[],edges:[],selected:null,authorPath:[],authorEdges:[],bank:[],preview:null,revisions:[],captures:[],locks:new Set()});render();save()};$('#loadDemo').onclick=()=>{$('#source').value=DEMO;parse()};$('#loadJueju').onclick=()=>{$('#source').value=JUEJU;S.form='jueju7';$('#form').value=S.form;parse()};
 $('#resetLayout').onclick=()=>{S.layoutSeed++;initPositions();save()};$('#exportBtn').onclick=()=>{let r=receipt(),a=document.createElement('a');a.download='poem-map-return.json';a.href=URL.createObjectURL(new Blob([JSON.stringify(r,null,2)],{type:'application/json'}));a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);status('RETURN EXPORTED')};$('#importBtn').onclick=()=>$('#importFile').click();$('#importFile').onchange=async e=>{let file=e.target.files?.[0];e.target.value='';if(!file)return;try{applyReceipt(JSON.parse(await file.text()));status('RETURN REPLAYED')}catch(err){status('IMPORT FAILED · INVALID POEM MAP RETURN')}};
-function receipt(){return{format:'VERSE/POEM-MAP-0.2',source:S.source,mode:S.mode,nodes:S.nodes.map(({id,line,index,text,norm})=>({id,line,index,text,norm})),form:S.form,weights:S.weights,aperture:S.aperture,locks:[...S.locks],author_path:S.authorPath,author_edges:S.authorEdges,bank:S.bank,preview:S.preview,revisions:S.revisions,captures:S.captures,claims:{sound:'APPROX_LATIN_HEURISTIC',semantic:'NO_AUTOMATIC_SEMANTIC_EMBEDDING',jueju_historical_prosody:'OPEN'},created:new Date().toISOString()}}function applyReceipt(r){
+function receipt(){return{format:'VERSE/POEM-MAP-0.2',source:S.source,mode:S.mode,nodes:S.nodes.map(({id,line,index,text,norm})=>({id,line,index,text,norm})),form:S.form,weights:S.weights,aperture:S.aperture,locks:[...S.locks],author_path:S.authorPath,author_edges:S.authorEdges,bank:S.bank,preview:S.preview,revisions:S.revisions,captures:S.captures,local_corpus:{loaded:S.corpus.length>0,token_count:S.corpus.length,persistence:'SESSION_ONLY_NOT_EXPORTED'},claims:{sound:'APPROX_LATIN_HEURISTIC',semantic:'NO_AUTOMATIC_SEMANTIC_EMBEDDING',jueju_historical_prosody:'OPEN'},created:new Date().toISOString()}}function applyReceipt(r){
  if(!r||r.format!=='VERSE/POEM-MAP-0.2'||typeof r.source!=='string')throw new Error('RETURN FORMAT');
  S.source=r.source;S.form=FORMS[r.form]?r.form:'free';S.mode=['PAGE','MAP','SETS'].includes(r.mode)?r.mode:'PAGE';
  S.weights={...S.weights,...(r.weights||{})};S.aperture=Number.isFinite(+r.aperture)?Math.max(.05,Math.min(1,+r.aperture)):S.aperture;
@@ -268,7 +298,7 @@ function selftest(){
  a('writer-intent dock remains plural',['continue','replace','echo','contrast','turn','rhyme','surprise'].every(k=>!!INTENTS[k]),Object.keys(INTENTS).join(' · '));
  a('RETURN contract intact',receipt().format==='VERSE/POEM-MAP-0.2',receipt().format);a('RETURN replay function exposed',typeof applyReceipt==='function','applyReceipt');
  a('historical Jueju prosody still OPEN',receipt().claims.jueju_historical_prosody==='OPEN',receipt().claims.jueju_historical_prosody);
- a('map sound remains explicitly approximate',receipt().claims.sound==='APPROX_LATIN_HEURISTIC',receipt().claims.sound);
+ a('map sound remains explicitly approximate',receipt().claims.sound==='APPROX_LATIN_HEURISTIC',receipt().claims.sound);a('local corpus is session-only',receipt().local_corpus.persistence==='SESSION_ONLY_NOT_EXPORTED',receipt().local_corpus.persistence);
  return t
 }
 function closeGuide(){localStorage.setItem('verse-poem-map-guide-seen','1');$('#guideShade').classList.remove('show')}
@@ -278,6 +308,6 @@ $('#guideShade').onclick=e=>{if(e.target.id==='guideShade')closeGuide()};
 $('#guideDemo').onclick=()=>{$('#source').value=DEMO;parse();setMode('PAGE');closeGuide();status('DEMO READY · TAP A WORD → CHOOSE AN INTENT')};
 load();if(S.source)parse();else render();setMode(S.mode||'PAGE');requestAnimationFrame(draw);
 if(!localStorage.getItem('verse-poem-map-guide-seen'))$('#guideShade').classList.add('show');
-window.__POEM_MAP__={S,receipt,applyReceipt,parse,setMode,previewCandidate,adoptCandidate,undoRevision,selftest};
+window.__POEM_MAP__={S,receipt,applyReceipt,parse,setMode,previewCandidate,adoptCandidate,undoRevision,selftest,loadLocalCorpus,localCorpusCandidates};
 })();
 </script></body></html>
