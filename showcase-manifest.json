@@ -16,18 +16,17 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T16:04:07+08:00",
+        "updated_at": "2026-09-21T16:40:00+08:00",
         "work_modes": [
           "RECOVER",
           "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE",
-          "RELEASE",
-          "ORIENT"
+          "RELEASE"
         ]
       },
-      "role": "Fast repo re-entry through AXIAL / LATEST 0.5: newest-first chronology remains the plain source; ROUTE × STATE × OPERATION × WORK MODE expose exact lawful support, a visible survivor set and collapse trail, deep-linkable focus, shared Aperture/Lens/AXIAL projections, and a local-only passive AXIAL-vs-LATEST comparison.",
+      "role": "Fast repo re-entry with AXIAL / LATEST as a reduced lawful-focus projection. Each strip now exposes explicit ordinal position under a fixed gate while sharing support/position math with full AXIAL; chronology remains the plain control.",
       "receipt": "/returns/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
       "machine_view": "FIELD",
       "version": "0.5",
@@ -41,7 +40,9 @@
         "support collapse trail",
         "local-only passive AXIAL-vs-LATEST trial",
         "deep-linkable embedded focus",
-        "LensState v0.2 lawful composition over the same AXIAL/LATEST focus"
+        "LensState v0.2 typed composition over the same AXIAL/LATEST focus",
+        "visible lawful/dead next-lens support",
+        "NAV / INSPECT / LENS remain distinct operations"
       ]
     },
     {
@@ -99,36 +100,37 @@
     },
     {
       "href": "/port/",
-      "title": "HUMAN PORT 1.3",
+      "title": "HUMAN PORT 1.4",
       "kind": "hub",
       "parent": "/",
       "family": "HUMAN PORT",
       "operation": "ROUTE",
       "state": "ACTIVE",
-      "version": "1.3-preview",
+      "version": "1.4-preview",
       "receipt": "/port/release.json",
       "showcase_card": false,
-      "role": "Canonical HUMAN PORT local intake/router: preserve one source, choose an explicit bounded route, and arrive at Contact, BURST, Idea Atlas, Social Residue or Scale Lens preloaded without auto-upload, auto-classification or auto-send.",
+      "role": "Canonical HUMAN PORT intake/router with addressed focus: preserve one source, optionally focus a lawful projection, inspect route support, SELECT, then explicitly OPEN a bounded local handoff.",
       "transfer": [
+        "AXIAL 0.7.1 visible support + fixed focus + explicit position witness + OPEN",
+        "Scale Lens canonical identity across unequal projections",
+        "RSVP/foveated source focus",
+        "passive metadata-only route evidence",
         "one source / many lawful routes",
-        "small public aperture / large recoverable depth",
-        "binding without automatic activation",
-        "raw-source preservation",
-        "residue without obligation",
-        "idea ancestry without build commitment",
-        "explicit outbound authority boundary",
-        "Aperture dock: inspect intake source in place"
+        "explicit outbound authority boundary"
       ],
       "contract": {
         "transforms": {
-          "verb": "accept one local source and explicitly route it into the smallest useful bounded surface while preserving source identity, authority boundaries and a return path",
+          "verb": "accept one local source; preserve identity; focus whole or addressed projection; expose support; require human SELECT + OPEN; route into bounded downstream tool",
           "preserves": [
-            "source wording",
+            "canonical source wording",
+            "focus address",
             "context != authority",
+            "support != confidence",
+            "select != open",
             "draft != send",
             "residue != obligation",
             "idea != build commitment",
-            "return path"
+            "re-entry path"
           ],
           "reversibility": "full",
           "side_effects": "local/browser or explicit human share only"
@@ -147,20 +149,20 @@
         "inputs": [
           {
             "medium": "DATA",
-            "kind": "message / messy note / idea / residue / text-data source",
-            "interface": "one local Port intake"
+            "kind": "one source object + optional addressed focus",
+            "interface": "Port intake + Field Aperture"
           }
         ],
         "outputs": [
           {
             "medium": "DATA",
-            "kind": "preloaded bounded handoff",
-            "interface": "same-origin session handoff"
+            "kind": "bounded whole/focus handoff",
+            "interface": "explicit OPEN + same-origin session handoff"
           },
           {
-            "medium": "HUMAN_ACTION",
-            "kind": "explicit external share",
-            "interface": "CONTACT"
+            "medium": "EVIDENCE",
+            "kind": "content-free route receipt",
+            "interface": "local metadata"
           }
         ],
         "exit_paths": [
@@ -306,7 +308,7 @@
         }
       ],
       "index": {
-        "updated_at": "2026-09-21T15:54:02+08:00",
+        "updated_at": "2026-09-21T16:24:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1374,7 +1376,7 @@
         "physical_fit": "Prepare addressed objects/specs for decision or fabrication; should not actuate directly."
       },
       "index": {
-        "updated_at": "2026-09-21T15:49:00+08:00",
+        "updated_at": "2026-09-21T16:40:00+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
@@ -1426,7 +1428,7 @@
       "family": "FOUNDRY",
       "operation": "REPRESENT",
       "state": "STABLE",
-      "receipt": "/foundry/verse-atlas/release.json",
+      "receipt": "/control/VERSE_ATLAS_ROUNDTRIP_2026-09-20.json",
       "transfer": [
         "stable annotation",
         "language/study interfaces",
@@ -1521,30 +1523,43 @@
         "physical_fit": "Promising for assembly/procedure routes once addresses point to real objects/steps."
       },
       "index": {
-        "updated_at": "2026-09-21T04:05:00+08:00",
+        "updated_at": "2026-09-21T15:50:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
+          "RECOVER",
+          "VERIFY"
         ]
-      }
+      },
+      "role": "Sealed Jueju-native specialist: stable 4×7 source identity, study/evidence, path/glyph/RSVP and replayable RETURN. General Verse experiments belong outside this engine."
     },
     {
       "href": "/foundry/convergence/",
       "title": "CONVERGENCE FIELD",
       "kind": "workbench",
       "parent": "/foundry/",
-      "family": "FOUNDRY"
+      "family": "FOUNDRY",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "operation": "PROJECT",
+      "receipt": "/foundry/convergence/release.json",
+      "role": "Local-first candidate workbench for testing unequal NOW/LENS/RUN/PROOF/ATLAS projections over one captured object with explicit RETURN; fresh bootstrap data is DEMO, not user evidence.",
+      "showcase_card": false,
+      "index": {
+        "updated_at": "2026-09-21T16:31:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      }
     },
     {
       "href": "/foundry/axial/",
-      "title": "AXIAL / FOCUS STACK 0.7",
+      "title": "AXIAL / FOCUS STACK 0.7.1",
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "ORIENT",
       "state": "ACTIVE",
-      "version": "0.7",
+      "version": "0.7.1",
       "receipt": "/foundry/axial/release.json",
       "showcase_card": false,
       "transfer": [
@@ -1559,7 +1574,9 @@
         "foveated focus: one selected reading, surrounding context retained",
         "lawful-neighborhood / per-position support",
         "deep focus URL / reloadable address",
-        "POLY cyclic correspondence: one aligned reading across independent wheels"
+        "POLY cyclic correspondence: one aligned reading across independent wheels",
+        "human-factors position indication / 12-o'clock check reading",
+        "shared focus-core law across FIELD + full AXIAL"
       ],
       "contract": {
         "accepts": {
@@ -1678,7 +1695,7 @@
         "physical_fit": "Physical cylinder is now an optional later projection of a useful variable-cardinality ring stack, not the reason the software exists."
       },
       "index": {
-        "updated_at": "2026-09-21T16:04:00+08:00",
+        "updated_at": "2026-09-21T16:12:00+08:00",
         "work_modes": [
           "ORIENT",
           "REPRESENT",
@@ -1698,12 +1715,14 @@
         "next_if_pass": "TRANSFER the surviving transaction/aperture mechanism into the Foundry physical-control substrate; retain AXIAL as evidence fixture rather than spawning a new core.",
         "next_if_fail": "PARK the physical-control claim; preserve packet/ledger mechanisms as DONOR evidence."
       },
-      "role": "Variable-cardinality focus surface over real FIELD/HOUSE sources: one bright gate reads the current tuple while every candidate position shows whether it is still supported by the source; identity and ring state round-trip through shareable focus URLs.",
+      "role": "Variable-cardinality focus surface over real FIELD/HOUSE sources: a fixed 12-o'clock gate reads the current tuple, each ring carries an explicit moving position witness and ordinal, and every candidate shows whether it remains supported by the source.",
       "legacy_lab": {
         "href": "/foundry/axial/lab-0.5.1.html",
         "role": "Preserved STATE APERTURE transaction/projection lab with AXIAL_PACKET, event trace and ARM/RUN semantics.",
         "event_schema": "/foundry/axial/event.schema.json"
-      }
+      },
+      "research": "/foundry/axial/research.json",
+      "shared_core": "/foundry/axial/focus-core.js"
     },
     {
       "href": "/foundry/convergence/identity-lab.html",
@@ -2499,9 +2518,8 @@
       "showcase_card": false,
       "role": "Readable cross-lineage handoff shelf; coordinates unequal lineages through explicit differences, ablations and recipient-side RETURN without vocabulary collapse.",
       "index": {
-        "updated_at": "2026-09-21T15:04:00+08:00",
+        "updated_at": "2026-09-21T16:31:00+08:00",
         "work_modes": [
-          "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
@@ -2569,7 +2587,7 @@
           "preserves": [
             "identity/provenance boundary",
             "current ≠ constitution",
-            "117 ≠ canon",
+            "CORPUS ≠ CANON",
             "RETURN path"
           ],
           "reversibility": "full",
@@ -2591,7 +2609,7 @@
           "checks": [
             "model.json is source for slow layer",
             "CURRENT.json supplies live layer",
-            "117 explicitly non-canonical",
+            "recovered corpus explicitly non-canonical; hard counts require census evidence",
             "no runtime authority"
           ],
           "return_path": "/foundry/"
@@ -2651,9 +2669,8 @@
         "physical_fit": "Orientation layer only; physical truth remains reality-gated through House/workshop evidence and RETURN."
       },
       "index": {
-        "updated_at": "2026-09-21T15:04:00+08:00",
+        "updated_at": "2026-09-21T16:31:00+08:00",
         "work_modes": [
-          "SPECIFY",
           "IMPLEMENT",
           "VERIFY"
         ]
@@ -3508,9 +3525,8 @@
       "showcase_card": false,
       "role": "Human-facing recovery/salvage home: evidence classes, promotion gate, trophy case, expeditions, quarantine, attic and ingest queue.",
       "index": {
-        "updated_at": "2026-09-21T15:04:00+08:00",
+        "updated_at": "2026-09-21T16:31:00+08:00",
         "work_modes": [
-          "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
@@ -3644,9 +3660,9 @@
         "physical_fit": "May inform House routing/spatial/procurement tests; no method receives authority without a real RETURN."
       },
       "index": {
-        "updated_at": "2026-09-21T14:21:00+08:00",
+        "updated_at": "2026-09-21T16:31:00+08:00",
         "work_modes": [
-          "SPECIFY",
+          "IMPLEMENT",
           "VERIFY"
         ]
       },
@@ -4014,14 +4030,14 @@
     },
     {
       "href": "/poetry/",
-      "title": "VERSE / CO-CREATIVE POETRY",
+      "title": "VERSE",
       "kind": "workbench",
       "parent": "/",
       "family": "PATH / POETRY",
       "operation": "COMPOSE",
       "state": "ACTIVE",
       "showcase_card": true,
-      "role": "Language/form-neutral co-creative poetry re-entry: select material, expand candidate possibility, apply explicit constraints, bank/adopt/reject choices, then project/play/study through specialized engines. Jueju is one adapter, not the product identity.",
+      "role": "Small poetry re-entry/home routing into Poem Map current experiment and unequal specialist/donor instruments.",
       "contract": {
         "accepts": {
           "kinds": [
@@ -4076,26 +4092,23 @@
         "explicit donor lineage"
       ],
       "index": {
-        "updated_at": "2026-09-21T16:10:00+08:00",
+        "updated_at": "2026-09-21T15:50:00+08:00",
         "work_modes": [
           "RECOVER",
-          "RESEARCH",
           "SPECIFY",
-          "IMPLEMENT",
-          "VERIFY",
           "OPERATE"
         ]
       }
     },
     {
       "href": "/forward-field-proof/triangle/glyph/center/",
-      "title": "TRIANGLE CENTER / FOCUS FIELD 0.2",
+      "title": "TRIANGLE CENTER / FOCUS FIELD 0.3",
       "kind": "experiment",
       "parent": "/forward-field-proof/triangle/glyph/",
       "family": "FIELD / PROOF",
       "operation": "ROUTE",
       "state": "CANDIDATE",
-      "version": "0.2",
+      "version": "0.3",
       "receipt": "/forward-field-proof/triangle/glyph/center/release.json",
       "showcase_card": false,
       "evolution": {
@@ -4103,19 +4116,87 @@
         "host": "/control/",
         "generation": 1,
         "stage": "TEST",
-        "question": "Does a movable three-axis desired-intent vector improve selection among many fronts compared with the ordinary CURRENT/list reading?",
-        "baseline": "CURRENT fronts + plain list/metadata selection.",
-        "mutation": "Project fronts into an explicit simplex lens and compare their positions to a movable desired-intent vector; optionally inspect the centroid of up to three pins.",
-        "evidence_gate": "Use one actual replan plus at least two replayable comparison decisions; record whether the lens changed a choice or exposed a tradeoff that the plain reading did not.",
-        "next_if_pass": "TRANSFER only the selection lens into CURRENT/FIELD as an optional projection; keep CURRENT as authority.",
-        "next_if_fail": "PARK the center-mass selector and retain the geometry as a donor/comparator."
+        "question": "Does continuous intent + discrete CURRENT constraints change or clarify one real next-move choice compared with reading CURRENT/QUEUE plainly?",
+        "baseline": "Plain /control/CURRENT.json + /control/QUEUE.json reading and existing FIELD/AXIAL re-entry.",
+        "mutation": "Project exact CURRENT/QUEUE next-action instructions into either CENTER (simplex similarity) or PLAIN (source order) while keeping identical constraints, focus and actions; record passive choice/override evidence and optional HUMAN PORT handoff.",
+        "evidence_gate": "Use the instrument during ordinary work. Require at least two passive CENTER/PLAIN choice observations plus one real RETURN where CENTER changed/clarified a choice relative to PLAIN; no dedicated QA ritual.",
+        "next_if_pass": "TRANSFER only the smallest useful selection projection into CURRENT/FIELD; keep CURRENT/QUEUE authoritative and CENTER recoverable as evidence fixture.",
+        "next_if_fail": "PARK or DONOR CENTER; retain triangle/glyph mechanisms without another active surface."
       },
       "index": {
-        "updated_at": "2026-09-21T16:04:00+08:00",
+        "updated_at": "2026-09-21T16:18:00+08:00",
         "work_modes": [
-          "SPECIFY",
+          "ORIENT",
+          "OPERATE",
           "VERIFY"
         ]
+      },
+      "role": "Optional CURRENT next-move selector: continuous intent simplex × exact CURRENT/QUEUE actions × discrete support strips × one focus; FEDERATION remains a secondary memory projection.",
+      "transfer": [
+        "AXIAL unequal support strips + no-fake-focus law",
+        "Triangle continuous three-axis preference",
+        "CURRENT/QUEUE exact next-action projection",
+        "FieldSignals passive candidate/override evidence",
+        "HUMAN PORT bounded local preload",
+        "same-instrument CENTER↔PLAIN passive comparator"
+      ],
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "CURRENT + QUEUE next-action state",
+            "interface": "/control/CURRENT.json + /control/QUEUE.json"
+          },
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "intent gesture + discrete constraint selection",
+            "interface": "triangle + strips"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "ranked/focused bounded next moves",
+            "interface": "focus aperture"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "candidate / accepted / overridden signal",
+            "interface": "FieldSignals local history"
+          },
+          {
+            "medium": "DATA",
+            "kind": "bounded HUMAN PORT preload",
+            "interface": "same-origin sessionStorage"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "local focus RETURN",
+            "interface": "browser state"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "OPEN_ROUTE",
+            "status": "AVAILABLE",
+            "via": "focused bounded route"
+          },
+          {
+            "class": "HUMAN_PORT",
+            "status": "AVAILABLE",
+            "via": "/port/ preload"
+          },
+          {
+            "class": "ROOT_FIELD_TRANSFER",
+            "status": "EVIDENCE_REQUIRED",
+            "via": "only after evolution gate"
+          }
+        ],
+        "physical_fit": "Can select a physical/print next move, but cannot satisfy the physical RETURN itself."
       }
     },
     {
@@ -4324,7 +4405,7 @@
       "version": "0.2",
       "receipt": "/poetry/map/release.json",
       "showcase_card": false,
-      "role": "Promoted co-creative descendant of /poetry/lab/poem-map/ 0.1: one stable poem across PAGE/MAP/SETS with typed relations, aperture, locks, author paths, candidate bank, reversible preview→ADOPT transaction, revision ancestry, form adapters and RETURN.",
+      "role": "Current Verse authoring experiment: PAGE-first readable source, linked MAP/SETS, explicit relation laws + aperture, writer-intent candidate bank, locks, preview→ADOPT transaction, revision ancestry, author paths and replayable RETURN.",
       "transfer": [
         "Poemage linked poem/set/path entrances",
         "Foundry typed path laws",
@@ -4334,11 +4415,10 @@
         "Axial state×transform×aperture discipline"
       ],
       "index": {
-        "updated_at": "2026-09-21T16:10:00+08:00",
+        "updated_at": "2026-09-21T15:50:00+08:00",
         "work_modes": [
           "RECOVER",
           "RESEARCH",
-          "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
@@ -4401,7 +4481,8 @@
     "verse_quarry": "Large poetry research/route map lives at /control/confluence/VERSE_VIS_QUARRY.md; /poetry/ keeps a small active writing surface.",
     "foundry_machine": "/foundry/machine.json defines CORE/FIELD/MIGRATION/CONFLUENCE as unequal projections over existing authorities; it is a projection contract, not a new database.",
     "triangle_center_focus_field": "0.2 repairs root source loading, adds local fallback snapshot, and transfers AXIAL Focus Stack mechanics into triangle-based many-front selection.",
-    "poem_map_state_normalization": "Poem Map 0.2 release receipt retains historical status EXPERIMENTAL_LIVE, but current FIELD lifecycle state is CANDIDATE per its current_classification and FIELD lifecycle law."
+    "poem_map_state_normalization": "Poem Map 0.2 release receipt retains historical status EXPERIMENTAL_LIVE, but current FIELD lifecycle state is CANDIDATE per its current_classification and FIELD lifecycle law.",
+    "triangle_center_current": "CENTER 0.3 defaults to exact CURRENT/QUEUE next moves, records passive local choice evidence, and may preload HUMAN PORT. Root FIELD promotion is evidence-gated."
   },
   "capability_model": {
     "CAPTURE": {
