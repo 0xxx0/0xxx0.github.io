@@ -29,6 +29,8 @@ jobs:
           python3 control/ingest-context-locator-selftest.py
       - name: Validate HUMAN PORT object aperture
         run: node control/human-port-object-selftest.js
+      - name: Validate INTERPHASE ROOM projection core
+        run: node control/interphase-room-selftest.js
       - name: Validate static surface contracts
         run: node tools/validate-public.mjs
       - name: Validate Triangle FORM rewrite core
