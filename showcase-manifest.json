@@ -4622,7 +4622,7 @@
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "READ",
-      "state": "SUPERSEDED",
+      "state": "UTILITY",
       "version": "0.7 alias",
       "receipt": "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
       "role": "Compatibility address only. The standalone APERTURE geometry bench converged into /docs/ READFIELD; /field-aperture.js remains the reusable focus kernel for hosts.",
@@ -4759,7 +4759,8 @@
         "variable": "presentation only",
         "fallback": "plain compact focus/address controls; utility remains useful without the ring mapping."
       },
-      "redirects_to": "/docs/"
+      "redirects_to": "/docs/",
+      "alias_of": "/docs/"
     },
     {
       "href": "/poetry/map/",
