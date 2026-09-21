@@ -999,7 +999,7 @@
       "operation": "ORIENT",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-21T21:23:00+08:00",
+        "updated_at": "2026-09-22T00:00:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1007,7 +1007,7 @@
           "RELEASE"
         ]
       },
-      "role": "Current Fold/Bloom family head. Three unequal playable heads share a transformation grammar without being collapsed: LIVE = one-hand tension/release performance; TWO DIAL = deep generative composition; ECOLOGY = persistent game/lineage. Scale Lens is an extracted representation descendant, not a fourth game branch."
+      "role": "Current Fold/Bloom family head. TWO DIAL composes relations; ECOLOGY grows lineage; LIVE tests deliberate tension/release. LISTEN 0.1 is an explicitly experimental fourth projection: external audio becomes an addressed time-ring/scale-rail/fractal field. Scale Lens remains an extracted representation descendant, not a playable peer."
     },
     {
       "href": "/fold-bloom/live/",
@@ -5227,6 +5227,45 @@
           "REFERENCE",
           "VERIFY"
         ]
+      }
+    },
+    {
+      "href": "/fold-bloom/listen/",
+      "title": "FOLD // BLOOM LISTEN 0.1",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "LISTEN",
+      "state": "CANDIDATE",
+      "role": "Local audio → AUDIO MAP → TIME RING × SCALE RAIL → reactive fractal field → RETURN. Exact audio bytes remain local; exported map carries source hash and bounded analysis state.",
+      "index": {
+        "updated_at": "2026-09-22T00:00:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "evidence": {
+        "receipt": "/fold-bloom/listen/release.json",
+        "checks": [
+          "analysis selftest",
+          "browser surface",
+          "real-song trials pending"
+        ],
+        "return_path": "/fold-bloom/listen/"
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Does local audio to bounded event map to polar time ring and scale rail produce a musically legible playable field beyond a decorative visualizer?",
+        "baseline": "Ordinary audio playback plus existing Fold/Bloom branches without source-audio analysis or time-addressed visual terrain.",
+        "mutation": "LISTEN 0.1 adds local decode, bounded spectral/onset/tempo/section analysis, annular time addressing, BEAT to PHRASE to SECTION to TRACK scale traversal, and one WebGL fractal projection driven by the same analysis clock.",
+        "evidence_gate": "Use at least three materially different real tracks; require plausible beat stepping, some section boundaries matching heard form changes, responsive ring/scope control on desktop/mobile, and no regression to existing Fold/Bloom heads.",
+        "next_if_pass": "Transfer the surviving audio-map, time-ring, and scale-rail mechanisms into the Fold/Bloom family shell and keep LISTEN as a projection rather than a separate roadmap.",
+        "next_if_fail": "Park or donate weak analysis/visualization parts; preserve the polar/scale interaction and source-hash audio map if independently useful."
       }
     }
   ],

@@ -1,0 +1,38 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "FOLD//BLOOM LISTEN",
+  "version": "0.1",
+  "state": "CANDIDATE",
+  "operation": "LISTEN",
+  "route": "/fold-bloom/listen/",
+  "date": "2026-09-21",
+  "thesis": "A supplied song can become an addressed playable field without uploading it: decode locally, extract a bounded audio map, then let ring/time and vertical scope operate on the same analysis clock.",
+  "recovered_transfer": [
+    "RC8-era Fold/Bloom behavior: vertical scale traversal + horizontal/topological operation, recovered from collaboration context but exact executable remains unfound",
+    "Ecology/Two Dial ring dynamics: cyclic wrap, shortest circular delta, detent/inertia ergonomics",
+    "Fold/Bloom mute-readable visual grammar"
+  ],
+  "new": [
+    "local audio file intake via browser decodeAudioData",
+    "worker-based offline FFT feature extraction",
+    "RMS energy, spectral centroid, spectral flux, low/mid/high balance",
+    "autocorrelation tempo estimate and beat phase",
+    "coarse section boundary inference",
+    "audio-derived annular map with beat and section witnesses",
+    "WebGL2 Julia/fractal field driven by analyzed features",
+    "ring drag scrubs time; wheel/up-down changes BEAT/PHRASE/SECTION/TRACK scope",
+    "bounded JSON AUDIO MAP export with source SHA-256"
+  ],
+  "constraints": [
+    "no upload/network required for user audio",
+    "analysis is intentionally approximate and interpretable; not claimed equivalent to Audiosurf or commercial MIR",
+    "do not merge this into Two Dial/Ecology until direct play proves a useful relation",
+    "no external analysis dependency in 0.1; professional MIR/SoundFont donors are researched separately"
+  ],
+  "verification": {
+    "module_syntax": "PENDING",
+    "browser_surface": "PENDING",
+    "real_audio_analysis": "REQUIRED_NEXT"
+  },
+  "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · evolution stage=TEST"
+}

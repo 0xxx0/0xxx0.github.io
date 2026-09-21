@@ -500,6 +500,12 @@ const CASES=[
     check:dom=>/HOLD FAST \/ LET FLY/i.test(dom)&&/SCALE OF CONSEQUENCE/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')
   },
   {
+    name:'FOLD BLOOM LISTEN 0.1',
+    route:'/fold-bloom/listen/',
+    options:{width:1180,height:900,budget:9000},
+    check:dom=>/LISTEN 0\.1/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')
+  },
+  {
     name:'SCALE LENS',
     route:'/fold-bloom/lens/',
     check:dom=>/SCALE LENS/i.test(dom)&&!dom.includes('load failure')
