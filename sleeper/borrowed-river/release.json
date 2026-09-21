@@ -1,0 +1,30 @@
+{
+  "schema": "field.release/v1",
+  "artifact": "Borrowed River 0.1",
+  "route": "/sleeper/borrowed-river/",
+  "status": "CANDIDATE",
+  "source": "Recovered SLEEPER experiments/river unfinished source",
+  "changes": [
+    "Independent build preserves earlier Painting / Path reader",
+    "Return JSON accepted by same replay validator as voyage JSON",
+    "Out-of-bounds and unknown departure rejected before geometric sampling",
+    "Dialog replacement releases held input"
+  ],
+  "validation": {
+    "engine": "PASS: all four branch combinations; full return; both save formats; negative imports",
+    "syntax": "PASS",
+    "build": "PASS",
+    "browser": "NOT_RUN: Chromium absent",
+    "human_feel": "UNVERIFIED"
+  },
+  "interop": {
+    "schema": "sleeper.borrowed-river.return",
+    "version": 1,
+    "automatic_other_project_import": false
+  },
+  "limits": [
+    "Authored geography, not generated world model",
+    "Branches change path and words, not physics",
+    "Touch, audio, downloads and viewport composition need real-browser validation"
+  ]
+}

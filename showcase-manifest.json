@@ -5591,6 +5591,51 @@
         "operational scope-window touch semantics",
         "FIELD PULSE transport producer"
       ]
+    },
+    {
+      "href": "/sleeper/borrowed-river/",
+      "title": "BORROWED RIVER 0.1",
+      "kind": "experiment",
+      "parent": "/sleeper/",
+      "operation": "PLAY",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "showcase_card": false,
+      "role": "Draw a finite river around stone, sail branching landings, and return along your actual strokes; original painting voyage with replay-validated save/return.",
+      "receipt": "/sleeper/borrowed-river/release.json",
+      "index": {
+        "updated_at": "2026-09-21T13:20:00Z",
+        "work_modes": [
+          "RECOVER",
+          "IMPLEMENT",
+          "VERIFY",
+          "RELEASE"
+        ]
+      },
+      "transfer": [
+        "authored stroke → traversable route",
+        "reversible path → return artifact"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "sleeper.borrowed-river v1",
+            "sleeper.borrowed-river.return v1"
+          ]
+        },
+        "transforms": {
+          "verb": "draw, validate, sail, return",
+          "preserves": [
+            "crossing geometry",
+            "landing identity",
+            "source provenance"
+          ]
+        },
+        "evidence": {
+          "receipt": "/sleeper/borrowed-river/release.json",
+          "return_path": "/sleeper/borrowed-river/"
+        }
+      }
     }
   ],
   "release_law": [
