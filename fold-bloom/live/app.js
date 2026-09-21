@@ -1,6 +1,7 @@
 import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, TYPE_NAMES, N } from './engine.js';
 import { FoldBloomAudio } from './audio.js';
 import { Renderer } from './render.js';
+import { createFieldPulse } from '../../lib/field-pulse.js';
 
 const $=s=>document.querySelector(s), STORE='fb-live-0.1';
 const cv=$('#field'), renderer=new Renderer(cv);
@@ -8,6 +9,8 @@ let state=load() || createState();
 let dragging=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
 let demo={on:false,timer:0,releases:0};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
+const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
+let linkedTrack=null,lastLinkedBeat=-1;
 audio.hydrate(state);
 
 function save(){try{localStorage.setItem(STORE,JSON.stringify(snapshot(state)))}catch(_){}}
@@ -15,6 +18,10 @@ function load(){try{return restore(JSON.parse(localStorage.getItem(STORE)||'null
 function haptic(ms=5){try{navigator.vibrate?.(ms)}catch(_){}}
 function toast(text){const el=$('#toast');el.textContent=text;el.classList.remove('on');void el.offsetWidth;el.classList.add('on')}
 
+function statusText(){
+  const idx=gateCellIndex(state),c=state.cells[idx],track=linkedTrack?.playing?` · TRACK B${Math.max(0,linkedTrack.beatIndex)+1} E${Math.round((linkedTrack.energy||0)*100)}`:'';
+  return `GATE ${String(idx).padStart(2,'0')} · ${TYPE_NAMES[c.type]} · ${state.creases.length} CREASE${state.creases.length===1?'':'S'} · ${state.blooms} BLOOMS${track}`;
+}
 function update(){
   $('#flow').textContent=state.flow.toLocaleString();
   $('#chain').textContent=state.bestChain>1?state.bestChain+'×':'—';
@@ -26,8 +33,7 @@ function update(){
   $('#releaseBtn').disabled=!canRelease(state);
   $('#releaseBtn').textContent=canRelease(state)?(state.mode==='RATCHET'?'RELEASE':'BLOOM'):'SEEK MATCH';
   $('#chargeBar').style.width=`${Math.min(100,state.charge/1.75*100)}%`;
-  const idx=gateCellIndex(state), c=state.cells[idx];
-  $('#status').textContent=`GATE ${String(idx).padStart(2,'0')} · ${TYPE_NAMES[c.type]} · ${state.creases.length} CREASE${state.creases.length===1?'':'S'} · ${state.blooms} BLOOMS`;
+  $('#status').textContent=statusText();
   $('#soundBtn').textContent=audio.soundOn?'♪':'×';
   $('#build').textContent=`${VERSION} · deterministic topology · bounded 8-note motif · ${state.history.length} recent events`;
   renderer.setDrag(dragAngle);
@@ -53,6 +59,7 @@ async function doRelease(){
   await ensureAudio();
   const out=release(state); if(!out.event)return;
   state=out.state; audio.release(out.event); renderer.pulse(out.event); haptic(Math.min(24,7+out.event.chain*3));
+  fieldPulse.publish('operation',{operation:out.event.verb,cadence:out.event.cadence,operations:out.event.operations,slot:out.event.slot,type:out.event.typeName,chain:out.event.chain,charge:out.event.charge,power:out.event.power,scene:out.event.scene,trackTime:linkedTrack?.time??null,trackBeat:linkedTrack?.beatIndex??null});
   toast(`${out.event.verb}${out.event.chain>1?' ×'+out.event.chain:''}${out.event.cadence?' → '+out.event.cadence:''}`); dragAngle=0; update();
 }
 
@@ -127,7 +134,15 @@ addEventListener('keydown',e=>{
   else if(e.key==='Escape')$('#settings').classList.toggle('on');
 });
 
+fieldPulse.subscribe(msg=>{
+  if(msg.source!=='FOLD_BLOOM_LISTEN'||msg.kind!=='transport')return;
+  linkedTrack=msg.data||null;
+  const beat=Number(linkedTrack?.beatIndex);
+  if(Number.isFinite(beat)&&beat>=0&&beat!==lastLinkedBeat){lastLinkedBeat=beat;renderer.beatPulse(beat)}
+  $('#status').textContent=statusText();
+});
+
 document.addEventListener('visibilitychange',()=>{if(document.hidden){stopDemo(false);audio.stop()}else if(audio.ctx)audio.start()});
 function loop(t){renderer.draw(state,t);raf=requestAnimationFrame(loop)}raf=requestAnimationFrame(loop);
 update();
-window.FoldBloomLive={version:VERSION,state:()=>snapshot(state),release:doRelease,step};
+window.FoldBloomLive={version:VERSION,state:()=>({...snapshot(state),linkedTrack}),release:doRelease,step};

@@ -35,7 +35,10 @@
     "song-fast deep analysis uses 12 kHz mixdown with 1024 FFT / 2048 hop",
     "long-form material over 20 minutes remains interactive as PREVIEW rather than blocking on full deep analysis",
     "2D score remains legible when WebGL is absent or unavailable",
-    "end-to-end CI loads a real encoded MP3 fixture and proves PREVIEW → DEEP → rendered map"
+    "end-to-end CI loads a real encoded MP3 fixture and proves PREVIEW → DEEP → rendered map",
+    "BEAT/PHRASE/SECTION/TRACK now change the actual ring time domain and touch scrub range rather than acting mainly as labels",
+    "phone scope controls move to a horizontal thumb-reachable strip above transport",
+    "FIELD PULSE v0.1 publishes compact playback/time/BPM/beat/section/energy/flux/brightness context without audio bytes"
   ],
   "constraints": [
     "no upload/network required for user audio",
@@ -44,7 +47,9 @@
     "no external analysis dependency in 0.1; professional MIR/SoundFont donors are researched separately",
     "remote source adapters are best-effort and network/CORS dependent; local file intake remains the authority path",
     "Suno clip/CDN endpoint behavior is external and may change; adapter failure must not break LISTEN",
-    "plain lyrics discovered in metadata are source evidence only; no synchronization claim until timed alignment exists"
+    "plain lyrics discovered in metadata are source evidence only; no synchronization claim until timed alignment exists",
+    "FIELD PULSE is ephemeral coordination only; AUDIO MAP + source hash remain the durable evidence objects",
+    "scope semantics must remain useful without another app connected"
   ],
   "verification": {
     "module_runtime": "PASS: LISTEN 0.2 surface executed in browser smoke",
@@ -58,7 +63,10 @@
     "intake_activation": "PENDING_CI: app boot + native label targets non-hidden file input + activation event",
     "regression_reason": "User observed CHOOSE AUDIO was inert on deployed 0.2; static DOM smoke had not tested app boot or activation.",
     "user_audio_observation": "OBSERVED: real phone audio playback succeeded but field appeared visually empty on 0.2.1",
-    "progressive_audio_pipeline": "PENDING_CI: real MP3 fixture → decode → PREVIEW visible/loaded → DEEP map → rendered score"
+    "progressive_audio_pipeline": "PENDING_CI: real MP3 fixture → decode → PREVIEW visible/loaded → DEEP map → rendered score",
+    "mobile_scope": "PENDING_CI_AND_REAL_PHONE: scope-window unit law + browser surface, then one touch scrub trial",
+    "field_pulse": "/control/FIELD_PULSE_CONTRACT.json"
   },
-  "current_classification": "kind=experiment · lifecycle=CANDIDATE · visible on FIELD INDEX · host=/fold-bloom/ · evolution stage=TEST"
+  "current_classification": "kind=experiment · lifecycle=CANDIDATE · visible on FIELD INDEX · host=/fold-bloom/ · evolution stage=TEST",
+  "updated": "2026-09-22"
 }

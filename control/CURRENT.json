@@ -96,13 +96,15 @@
       "head": "READFIELD / RSVP 0.7 + APERTURE focus kernel",
       "state": "UTILITY / READER_FIRST / BROWSER_PROOF_REQUIRED",
       "route": "/docs/",
-      "retained_function": "Canonical one-source reader. One source position persists while DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE, highlighted context and XREF change around it. Ordinary use is linear/reader-first; ring geometry is optional. Repo pages can hand selection/input/page text directly into READFIELD with exact RETURN.",
+      "retained_function": "Canonical one-source reader. One source position persists while DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE, highlighted context and XREF change around it. Ordinary use is linear/reader-first; ring geometry is optional. Repo pages can hand selection/input/page text directly into READFIELD with exact RETURN. Optional FIELD PULSE tempo adapter maps LISTEN BPM to explicit ×2/×4/×8 WPM and publishes bounded reader focus; OFF remains default.",
       "evidence": [
         "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
         "/control/READFIELD_CONVERGENCE_2026-09-22.json",
         "/control/RSVP_READER_FOCUS_KERNEL_2026-09-21.json",
         "/foundry/aperture/release.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/84"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/84",
+        "/control/FIELD_PULSE_CONTRACT.json",
+        "/returns/FIELD_PULSE_2026-09-22.json"
       ]
     },
     {
@@ -132,7 +134,7 @@
       "head": "FOLD//BLOOM instrument family · TWO DIAL 0.10 composition / ECOLOGY 0.2 game / LIVE 0.1 performance + LISTEN 0.2.2 source-addressed audio projection",
       "state": "ACTIVE_CANDIDATE_FAMILY",
       "route": "/fold-bloom/",
-      "retained_function": "Current family keeps unequal heads explicit. LIVE is the narrow one-hand ratchet/charge/release performance proof with bounded demo. TWO DIAL 0.10 is the deep generative composition line: preserved MATTER×HARMONY relation algebra plus 7 WORLDs, 6 VOICE engines, 5 GROOVEs and SCALE-of-consequence over PULSE/VOICE/MOTIF/FORM. ECOLOGY remains persistence/lineage/game. Scale Lens is related historically but is now an extracted representation lineage rather than a Fold/Bloom playable branch. LISTEN 0.2.2 remains a CANDIDATE projection: local file is canonical; optional Suno/direct audio addresses resolve into the same bounded AUDIO MAP when browser/network policy permits. The map preserves source hash/provenance and may carry unaligned source lyrics/tags. TIME RING × BEAT/PHRASE/SECTION/TRACK scale rail → reactive fractal field → RETURN remains the embodied loop. /lib/polar-control.js remains a candidate donor for AXIAL/APERTURE ring ergonomics.",
+      "retained_function": "Current family keeps unequal heads explicit. LIVE is the narrow one-hand ratchet/charge/release performance proof with bounded demo. TWO DIAL 0.10 is the deep generative composition line: preserved MATTER×HARMONY relation algebra plus 7 WORLDs, 6 VOICE engines, 5 GROOVEs and SCALE-of-consequence over PULSE/VOICE/MOTIF/FORM. ECOLOGY remains persistence/lineage/game. Scale Lens is related historically but is now an extracted representation lineage rather than a Fold/Bloom playable branch. LISTEN 0.2.2 remains a CANDIDATE projection: local file is canonical; optional Suno/direct audio addresses resolve into the same bounded AUDIO MAP when browser/network policy permits. The map preserves source hash/provenance and may carry unaligned source lyrics/tags. TIME RING × BEAT/PHRASE/SECTION/TRACK scale rail → reactive fractal field → RETURN remains the embodied loop. /lib/polar-control.js remains a candidate donor for AXIAL/APERTURE ring ergonomics. FIELD PULSE v0.1 now gives LISTEN operational scope on touch, publishes compact transport, lets LIVE witness track beat/energy while publishing structural releases, and exposes the same temporal context to READFIELD without creating a new state authority.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -144,7 +146,10 @@
         "/fold-bloom/listen/README.md",
         "/lib/polar-control.js",
         "/control/confluence/FOLD_BLOOM_LISTEN_SOURCE_2026-09-22.json",
-        "/returns/FOLD_BLOOM_LISTEN_SOURCE_2026-09-22.json"
+        "/returns/FOLD_BLOOM_LISTEN_SOURCE_2026-09-22.json",
+        "/control/FIELD_PULSE_CONTRACT.json",
+        "/control/confluence/FIELD_PULSE_2026-09-22.json",
+        "/returns/FIELD_PULSE_2026-09-22.json"
       ],
       "experimental": [
         {

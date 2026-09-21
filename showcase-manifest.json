@@ -1179,11 +1179,13 @@
       "state": "ACTIVE",
       "version": "0.1",
       "receipt": "/returns/FOLD_BLOOM_LIVE_2026-09-21.json",
-      "role": "One-hand performance head: turn → bounded charge → deliberate aligned release → authored topology → changed future music. WATCH DEMO makes the thesis observable without prior instruction.",
+      "role": "One-hand performance head: turn → bounded charge → deliberate aligned release → authored topology → changed future music. WATCH DEMO makes the thesis observable without prior instruction. FIELD PULSE v0.1 publishes structural release operations and may witness LISTEN beat/energy without granting the track automatic topology authority.",
       "transfer": [
         "Fold Weave: 12-cell ring / authored crease topology / cascade / mute-first causal score",
         "Two Dial: phrase-pulse-form music grammar / continuous motion sonification / bounded local RETURN",
-        "new: ratchet charge + explicit release cadence + topology-driven audio"
+        "new: ratchet charge + explicit release cadence + topology-driven audio",
+        "FIELD PULSE operation producer",
+        "LISTEN beat witness"
       ],
       "contract": {
         "accepts": {
@@ -1271,7 +1273,7 @@
         "physical_fit": "Performance/control grammar suitable for later encoder/touch/physical-control adapters; no hardware authority implied."
       },
       "index": {
-        "updated_at": "2026-09-21T21:23:00+08:00",
+        "updated_at": "2026-09-22T02:34:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2923,9 +2925,9 @@
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": true,
-      "role": "Canonical reader: one source position survives scale, ORP RSVP, VOICE and context changes. READFIELD defaults to focused text plus a linear source strip; ring geometry is optional. Same-origin repo text and session-local page/paste handoffs enter directly; RAW and RETURN remain intact.",
+      "role": "Canonical reader: one source position survives scale, ORP RSVP, VOICE and context changes. READFIELD defaults to focused text plus a linear source strip; ring geometry is optional. Same-origin repo text and session-local page/paste handoffs enter directly; RAW and RETURN remain intact. Optional PULSE ×2/×4/×8 maps LISTEN BPM into reader WPM; OFF is default, and bounded reader focus is published back onto FIELD PULSE.",
       "index": {
-        "updated_at": "2026-09-22T01:32:00+08:00",
+        "updated_at": "2026-09-22T02:34:00+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
@@ -2942,7 +2944,8 @@
         "near-focus source/citation/media XREF strip",
         "same-origin repo text ingress + route-wide READFIELD handoff",
         "session-local long-text/page paste",
-        "RAW + RETURN preserved"
+        "RAW + RETURN preserved",
+        "FIELD PULSE tempo consumer / focus producer"
       ],
       "operation": "READ",
       "receipt": "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
@@ -5539,9 +5542,9 @@
       "family": "FOLD // BLOOM",
       "operation": "LISTEN",
       "state": "CANDIDATE",
-      "role": "Progressive source-addressed audio projection candidate. Successful decode yields an immediate PREVIEW score before deep analysis; song-length audio refines asynchronously, long-form stays usable as preview, and the 2D score remains legible without WebGL.",
+      "role": "Progressive source-addressed audio projection candidate. Local/Suno-addressed audio becomes a PREVIEW→DEEP AUDIO MAP; BEAT/PHRASE/SECTION/TRACK now changes the actual polar time domain and touch scrub range. FIELD PULSE v0.1 publishes compact transport/features without audio bytes.",
       "index": {
-        "updated_at": "2026-09-22T02:15:00+08:00",
+        "updated_at": "2026-09-22T02:34:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -5573,7 +5576,13 @@
         "next_if_pass": "Transfer the surviving audio-map, time-ring, and scale-rail mechanisms into the Fold/Bloom family shell and keep LISTEN as a projection rather than a separate roadmap.",
         "next_if_fail": "Park or donate weak analysis/visualization parts; preserve the polar/scale interaction and source-hash audio map if independently useful."
       },
-      "version": "0.2.2"
+      "version": "0.2.2",
+      "contract": "/control/FIELD_PULSE_CONTRACT.json",
+      "receipt": "/returns/FIELD_PULSE_2026-09-22.json",
+      "transfer": [
+        "operational scope-window touch semantics",
+        "FIELD PULSE transport producer"
+      ]
     }
   ],
   "release_law": [

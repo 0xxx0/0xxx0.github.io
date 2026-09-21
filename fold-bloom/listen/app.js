@@ -1,12 +1,14 @@
 import {ListenRenderer} from './render.js';
-import {SCOPES,frameAt,beatIndexAt,sectionIndexAt} from './audio-map.js';
+import {SCOPES,frameAt,beatIndexAt,sectionIndexAt,scopeWindow} from './audio-map.js';
 import {pointAngle01} from './polar-control.js';
 import {parseSunoId,classifySourceAddress,resolveSourceAddress,fetchRemoteAudio} from './source-adapters.js';
 import {buildPreviewMap} from './preview-map.js';
+import {createFieldPulse} from '../../lib/field-pulse.js';
 
 const $=s=>document.querySelector(s);
 const gl=$('#field'),overlay=$('#overlay'),audio=$('#audio'),drop=$('#drop');
-let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0;
+let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0;
+const fieldPulse=createFieldPulse('FOLD_BLOOM_LISTEN');
 
 function toast(t){const e=$('#toast');if(!e)return;e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on')}
 function status(t){const e=$('#status');if(e)e.textContent=t}
@@ -17,6 +19,7 @@ function setScope(i,announce=true){
   $('#scope').textContent=scope();
   document.querySelectorAll('[data-scope]').forEach((el,j)=>el.classList.toggle('on',j===scopeIndex));
   if(announce)toast(scope());
+  if(map)publishTransport(true);
 }
 function fallbackRenderer(){
   const ctx=overlay?.getContext?.('2d');
@@ -46,7 +49,7 @@ function onWorkerMessage(e){
     map=e.data.map;map.source=fileMeta;map.stage='DEEP';deepBuilds++;status('READY · DEEP MAP');drop.classList.remove('busy');drop.classList.add('loaded');
     $('#bpm').textContent=`${map.bpm.toFixed(1)} BPM`;$('#confidence').textContent=`${Math.round(map.tempoConfidence*100)}% TEMPO CONF`;
     $('#beats').textContent=`${map.beats.length} BEATS`;$('#sections').textContent=`${Math.max(0,map.sections.length-1)} SECTIONS`;
-    $('#transport').disabled=false;$('#export').disabled=false;toast('MAP READY');
+    $('#transport').disabled=false;$('#export').disabled=false;toast('MAP READY');publishTransport(true);
   }
 }
 function ensureWorker(){
@@ -89,7 +92,7 @@ async function analyzeBytes(bytes,playbackBlob,meta){
     $('#beats').textContent='… BEATS';$('#sections').textContent='1 SPAN';
     $('#transport').disabled=false;$('#export').disabled=false;
     status(decoded.duration>1200?'LONGFORM PREVIEW · DEEP MAP DEFERRED':'PREVIEW READY · REFINING');
-    toast('PREVIEW READY');
+    toast('PREVIEW READY');publishTransport(true);
 
     if(decoded.duration>1200)return;
     ensureWorker().postMessage({type:'analyze',pcm:pcm.buffer,sampleRate,duration:decoded.duration},[pcm.buffer]);
@@ -119,11 +122,11 @@ $('#urlInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefau
 drop.addEventListener('drop',e=>{const f=e.dataTransfer.files?.[0];if(f)loadFile(f)});
 $('#loadBtn').onclick=()=>{drop.classList.remove('loaded');$('#urlInput').focus()};
 $('#transport').onclick=async()=>{if(!audio.src)return;if(audio.paused)await audio.play();else audio.pause()};
-audio.onplay=()=>$('#transport').textContent='PAUSE';audio.onpause=()=>$('#transport').textContent='PLAY';
+audio.onplay=()=>{$('#transport').textContent='PAUSE';publishTransport(true)};audio.onpause=()=>{$('#transport').textContent='PLAY';publishTransport(true)};audio.ontimeupdate=()=>publishTransport(false);
 $('#export').onclick=()=>{if(!map)return;const packet={kind:'FOLD_BLOOM_AUDIO_MAP',created:new Date().toISOString(),map},b=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`fold-bloom-audio-map-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 document.querySelectorAll('[data-scope]').forEach((b,i)=>b.onclick=()=>setScope(i));
 addEventListener('wheel',e=>{if(Math.abs(e.deltaY)<2)return;e.preventDefault();setScope(scopeIndex+(e.deltaY>0?1:-1))},{passive:false});
-function scrub(e){if(!map)return;const r=overlay.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*.53,p=pointAngle01(e.clientX,e.clientY,cx,cy);audio.currentTime=p*map.duration}
+function scrub(e){if(!map)return;const r=overlay.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*.53,p=pointAngle01(e.clientX,e.clientY,cx,cy),range=scopeWindow(map,audio.currentTime,scope());audio.currentTime=range[0]+p*Math.max(.001,range[1]-range[0]);publishTransport(true)}
 overlay.onpointerdown=e=>{if(!map)return;drag=true;overlay.setPointerCapture?.(e.pointerId);scrub(e)};
 overlay.onpointermove=e=>{if(drag){e.preventDefault();scrub(e)}};overlay.onpointerup=()=>drag=false;overlay.onpointercancel=()=>drag=false;
 addEventListener('keydown',e=>{
@@ -133,10 +136,26 @@ addEventListener('keydown',e=>{
   else if(e.key==='ArrowLeft'&&map)audio.currentTime=Math.max(0,audio.currentTime-(60/(map.bpm||90)));
   else if(e.key==='ArrowRight'&&map)audio.currentTime=Math.min(map.duration,audio.currentTime+(60/(map.bpm||90)));
 });
+function transportPayload(){
+  if(!map)return null;
+  const time=audio.currentTime||0,f=frameAt(map,time)||{e:.18,c:.4,f:.05},range=scopeWindow(map,time,scope());
+  return {
+    playing:!audio.paused,time,duration:map.duration||0,bpm:map.bpm||0,tempoConfidence:map.tempoConfidence||0,
+    beatIndex:beatIndexAt(map,time),sectionIndex:sectionIndexAt(map,time),scope:scope(),scopeStart:range[0],scopeEnd:range[1],
+    energy:+(f.e||0).toFixed(4),flux:+(f.f||0).toFixed(4),brightness:+(f.c||0).toFixed(4),
+    stage:map.stage||'UNKNOWN',sourceHash:fileMeta?.hash||null,sourceKind:fileMeta?.sourceKind||null,sourceAddress:fileMeta?.sourceAddress||null
+  };
+}
+function publishTransport(force=false){
+  if(!map)return;
+  const now=performance.now();if(!force&&now-lastPulseAt<120)return;lastPulseAt=now;
+  fieldPulse.publish('transport',transportPayload());
+}
 function loop(){
-  const time=audio.currentTime||0,f=frameAt(map,time)||{e:.18,c:.4,f:.05,l:.3,m:.4,h:.3},bi=beatIndexAt(map,time),si=sectionIndexAt(map,time),r=ensureRenderer();
-  if(map&&bi>=0)r.markBeat(bi);r.draw(map,f,time,scopeIndex,!audio.paused);if(map)renderedMapFrames++;
-  $('#time').textContent=`${fmt(time)} / ${fmt(map?.duration||0)}`;$('#energy').textContent=`E ${Math.round((f.e||0)*100)}`;$('#flux').textContent=`Δ ${Math.round((f.f||0)*100)}`;$('#bright').textContent=`C ${Math.round((f.c||0)*100)}`;$('#where').textContent=map?.stage==='PREVIEW'?`PREVIEW · ${scope()}`:map?`BEAT ${Math.max(0,bi)+1} · SECTION ${Math.max(0,si)+1}`:'DROP A TRACK';
+  const time=audio.currentTime||0,f=frameAt(map,time)||{e:.18,c:.4,f:.05,l:.3,m:.4,h:.3},bi=beatIndexAt(map,time),si=sectionIndexAt(map,time),r=ensureRenderer(),range=scopeWindow(map,time,scope());
+  if(map&&bi>=0)r.markBeat(bi);r.draw(map,f,time,scopeIndex,!audio.paused,range);if(map){renderedMapFrames++;publishTransport(false)}
+  $('#time').textContent=`${fmt(time)} / ${fmt(map?.duration||0)}`;$('#energy').textContent=`E ${Math.round((f.e||0)*100)}`;$('#flux').textContent=`Δ ${Math.round((f.f||0)*100)}`;$('#bright').textContent=`C ${Math.round((f.c||0)*100)}`;
+  $('#where').textContent=map?`${scope()} ${fmt(range[0])}–${fmt(range[1])}${map.stage==='PREVIEW'?' · PREVIEW':` · B${Math.max(0,bi)+1} S${Math.max(0,si)+1}`}`:'DROP A TRACK';
   raf=requestAnimationFrame(loop);
 }
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else{cancelAnimationFrame(raf);loop()}});
