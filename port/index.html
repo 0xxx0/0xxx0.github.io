@@ -178,9 +178,12 @@ async function loadFile(file){
  try{obj=await PortObjectStore.fromFile(file);scope='whole';selected=null;await mountProjection();note('LOCAL OBJECT READY · '+obj.media_class+' · '+fmtBytes(obj.size_bytes))}
  catch(e){note('FILE LOAD FAILED · '+e.message,true)}
 }
-function currentProjectionText(){
+async function currentProjectionText(){
  if(!obj)return'';
- if(obj.media_class==='TEXT'||obj.media_class==='JSON')return scope==='focus'&&focus?.focus?String(focus.focus):obj.text_payload||'';
+ if(obj.media_class==='TEXT'||obj.media_class==='JSON'){
+  const whole=await PortObjectStore.textFor(obj);
+  return scope==='focus'&&focus?.focus?String(focus.focus):whole;
+ }
  return [obj.label,obj.media_class,obj.mime||'',obj.sha256?'sha256:'+obj.sha256:'',scope==='focus'&&focus?.address?'focus:'+focus.address:''].filter(Boolean).join(' · ');
 }
 function intakeCapture(){
@@ -196,7 +199,7 @@ function writeReceipt(route,fit){
 }
 async function openRoute(){
  if(!selected||!obj)return;const route=routeById(selected),fit=fitFor(route);if(fit==='NONE'){note('NO CURRENT ADAPTER FOR '+route.system+' ← '+obj.media_class,true);return}
- const summary=currentProjectionText(),meta={port_object_id:obj.object_id,port_media_class:obj.media_class,port_fit:fit,port_scope:scope,port_focus:scope==='focus'?focus:null,port_sha256:obj.sha256||null};
+ const summary=await currentProjectionText(),meta={port_object_id:obj.object_id,port_media_class:obj.media_class,port_fit:fit,port_scope:scope,port_focus:scope==='focus'?focus:null,port_sha256:obj.sha256||null};
  writeReceipt(selected,fit);FieldSignals?.choice('human-port-object-route',selected,{media:obj.media_class,fit,scope});persist();
  try{
   if(selected==='contact'){sessionStorage.setItem('human.port.handoff.v01',JSON.stringify({draft:summary.slice(0,1200),mode:'REPLY',source:'human-port-object',created_at:new Date().toISOString(),...meta}));location.assign('../contact/');return}
@@ -228,6 +231,16 @@ $('#showStash').onclick=async()=>{const xs=await PortObjectStore.list();alert(xs
 (async()=>{
  try{routeContracts=await fetch('./routes.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()})}catch(e){note('ROUTE CONTRACT UNAVAILABLE · '+e.message,true);return}
  try{const raw=sessionStorage.getItem(SESSION);if(raw){const s=JSON.parse(raw);if(s.obj){obj=s.obj;focus=s.focus||null;scope=s.scope==='focus'?'focus':'whole';selected=s.selected||null;await mountProjection();note('RE-ENTERED · OBJECT IDENTITY RESTORED')}}}catch(_){}
+ try{
+  const raw=sessionStorage.getItem('human.port.object.return.v01');
+  if(raw){
+   const r=JSON.parse(raw);sessionStorage.removeItem('human.port.object.return.v01');
+   if(r?.object_id&&obj?.object_id===r.object_id){
+    note('RETURN · FIELD INTAKE '+String(r.state||'REVIEWED')+(r.receipt_id?' · '+r.receipt_id:''));
+    const rs=loadReceipts();rs.push({at:r.at||new Date().toISOString(),object_id:r.object_id,route:'intake-return',fit:'RETURN',scope:'whole',focus_address:null,size_bytes:obj.size_bytes,sha256:obj.sha256||null,return_state:r.state||'UNKNOWN',receipt_id:r.receipt_id||null});localStorage.setItem(RECEIPTS,JSON.stringify(rs.slice(-40)));
+   }
+  }
+ }catch(_){}
 })();
 })();
 </script>
