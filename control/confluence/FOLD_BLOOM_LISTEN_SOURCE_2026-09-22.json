@@ -1,0 +1,42 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_LISTEN_SOURCE_2026-09-22",
+  "date": "2026-09-22",
+  "object": "FOLD//BLOOM LISTEN 0.2",
+  "status": "MERGED_VISIBLE_CANDIDATE",
+  "route": "/fold-bloom/listen/",
+  "merge_sha": "716867fab903b513627e45adfb7ca586617f39f6",
+  "observed": [
+    "User requested that runnable experimental work be visible through FIELD INDEX rather than hidden behind promotion ceremony.",
+    "A real Suno song address was supplied as the first external source candidate; exact URL is intentionally not copied into this public coordination packet.",
+    "The existing polar time ring and vertical BEAT/PHRASE/SECTION/TRACK scope interaction remain the valued embodied core."
+  ],
+  "changed": [
+    "SOURCE becomes an addressable seam: LOCAL_FILE / SUNO / REMOTE_AUDIO.",
+    "Suno URL or UUID may resolve public clip metadata best-effort; direct http(s) audio may enter the same decoder.",
+    "Remote bytes are capped at 96 MB; failure returns cleanly to local file intake.",
+    "Title/artist/tags/plain lyrics may enter source provenance; lyrics remain explicitly UNALIGNED.",
+    "CI now proves LISTEN route focus visibility inside FIELD plus the shared FIELD activation law, rather than duplicating a second full navigation ritual."
+  ],
+  "preserved": [
+    "local file remains canonical and network-free",
+    "same bounded AUDIO MAP analyzer and polar/scope field",
+    "CANDIDATE lifecycle; FI visibility does not imply promotion",
+    "no Suno auth/cookie scraping",
+    "no lyric synchronization claim"
+  ],
+  "evidence": {
+    "ci_run": 35628756742,
+    "listen_surface": "PASS",
+    "source_parser": "PASS",
+    "field_listen_focus": "PASS",
+    "shared_field_activation": "PASS",
+    "overall_workflow": "FAIL_UNRELATED_LENS_TIMING_PROBES"
+  },
+  "next_evidence": [
+    "Paste the supplied Suno URL into LISTEN 0.2 in a real browser; record RESOLVES / CORS_BLOCKED / DECODE_FAIL / MAP_READY.",
+    "If MAP_READY, compare estimated beats and sections with what is heard.",
+    "Do not expand visual modes until source/clock truth is observed."
+  ],
+  "return": "/returns/FOLD_BLOOM_LISTEN_SOURCE_2026-09-22.json"
+}

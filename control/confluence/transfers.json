@@ -1,6 +1,6 @@
 {
   "schema": "confluence-transfer-registry/v0.1",
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "status": "PARTIAL_REGISTRY",
   "law": "FROM → TRANSFER UNIT → TO → TEST → RETURN",
   "non_claim": "This registry does not imply every Confluence document is a transfer packet. Only records with explicit donor/source, bounded unit, recipient and evidence posture belong here.",
@@ -64,6 +64,16 @@
       "recipient": "/fold-bloom/two-dial/",
       "test": "Browser must materialize generated TRANCE/FM/POLY controls and all static contracts; direct A/B play must show materially distinct voice/groove/scope effects without weakening the preserved two-dial relation grammar.",
       "return": "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json"
+    },
+    {
+      "id": "fold-bloom-listen-source-02",
+      "status": "IMPLEMENTED_CANDIDATE",
+      "donor": "LISTEN 0.1 local analyzer + source-address seam",
+      "evidence_class": "EXECUTABLE + BROWSER_PROVED_SOURCE_PARSER + REAL_SOURCE_PENDING",
+      "unit": "bounded source address → same local decoder/AUDIO MAP; preserve local-file authority",
+      "recipient": "/fold-bloom/listen/ → /fold-bloom/",
+      "test": "Suno/direct parser and FIELD focus pass in browser CI; next authority is one real browser fetch/decode/map trial.",
+      "return": "/returns/FOLD_BLOOM_LISTEN_SOURCE_2026-09-22.json"
     }
   ]
 }

@@ -50,6 +50,8 @@ When mining prior conversations, user messages deserve special attention because
 
 ## Current confluence packets
 
+- [FOLD//BLOOM LISTEN SOURCE](./FOLD_BLOOM_LISTEN_SOURCE_2026-09-22.json) — visible LISTEN 0.2 candidate: local-first source addressing, bounded Suno/direct adapter, FI focus proof, and real-track evidence gate
+
 - [FOLD//BLOOM SOUND DEPTH](./FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json) — HOLD FAST / LET FLY pass: Two Dial 0.10 sound depth, recovered scale-of-consequence mode, LIVE demo boundary, and Scale Lens extraction from the playable sibling grid
 
 - [FOLD//BLOOM LIVE 0.1](./FOLD_BLOOM_LIVE_2026-09-21.json) — Fold Weave × Two Dial mechanism transfer into the current performance head; donor boundaries, tests, ship state and embodied promotion gate

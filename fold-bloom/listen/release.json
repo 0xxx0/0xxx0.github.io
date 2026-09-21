@@ -39,11 +39,14 @@
     "plain lyrics discovered in metadata are source evidence only; no synchronization claim until timed alignment exists"
   ],
   "verification": {
-    "module_syntax": "BROWSER_SMOKE_PENDING",
-    "browser_surface": "PENDING: LISTEN 0.2 + URL controls",
-    "source_parser": "PENDING: in-browser Suno UUID + direct URL classification",
-    "remote_suno_fetch": "UNVERIFIED_EXTERNAL: requires real browser/network test with a supplied Suno song",
-    "real_audio_analysis": "REQUIRED_NEXT"
+    "module_runtime": "PASS: LISTEN 0.2 surface executed in browser smoke",
+    "browser_surface": "PASS: CI run 35628756742 · FOLD BLOOM LISTEN 0.2",
+    "source_parser": "PASS: CI run 35628756742 · isolated Suno/direct source adapter",
+    "field_index_focus": "PASS: CI run 35628756742 · exact LISTEN focus visible in FIELD STRUCTURE; shared FIELD activation law separately passed",
+    "workflow_note": "Overall run failed only in unrelated existing Lens timing probes; LISTEN-specific cases all passed",
+    "remote_suno_fetch": "REQUIRED_REAL_BROWSER: external endpoint/CORS behavior intentionally not claimed",
+    "real_audio_analysis": "REQUIRED_NEXT: first real-song play",
+    "merge_sha": "716867fab903b513627e45adfb7ca586617f39f6"
   },
-  "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · evolution stage=TEST"
+  "current_classification": "kind=experiment · lifecycle=CANDIDATE · visible on FIELD INDEX · host=/fold-bloom/ · evolution stage=TEST"
 }

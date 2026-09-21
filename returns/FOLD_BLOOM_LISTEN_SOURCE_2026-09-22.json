@@ -1,0 +1,31 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FOLD_BLOOM_LISTEN_SOURCE_2026-09-22",
+  "date": "2026-09-22",
+  "operation": "SOURCE ADDRESS → LISTEN FIELD",
+  "status": "MERGED_VISIBLE_CANDIDATE",
+  "route": "/fold-bloom/listen/",
+  "pr": 99,
+  "merge_sha": "716867fab903b513627e45adfb7ca586617f39f6",
+  "evidence": {
+    "ci_run": 35628756742,
+    "passed": [
+      "route grammar",
+      "static public contracts",
+      "FIELD activation + re-entry",
+      "FIELD LISTEN candidate focus",
+      "LISTEN 0.2 browser surface",
+      "LISTEN source adapter parser",
+      "Two Dial 0.10",
+      "Fold/Bloom family"
+    ],
+    "unrelated_failures": [
+      "Lens proof alias timing",
+      "Lens mobile panel timing",
+      "Lens Studio timing"
+    ],
+    "external_suno_fetch": "UNVERIFIED"
+  },
+  "next_truth": "Use one real browser source address or local audio file. Report only what actually happens: RESOLVES / CORS_BLOCKED / DECODE_FAIL / MAP_READY plus audible beat/section mismatch.",
+  "stop": "No source-specific hacks or additional visual modes before first real-track evidence."
+}
