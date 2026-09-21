@@ -1,0 +1,57 @@
+{
+  "schema": "0xxx0/convergence-packet/v0.1",
+  "id": "CARE-HUMAN-PORT-OBJECT-BRIDGE-2026-09-22",
+  "date": "2026-09-22",
+  "status": "REALIZED_BOUNDED_DELTA",
+  "question": "How should CARE use the newer HUMAN PORT object aperture without becoming a file store, messaging system or admission authority?",
+  "recovered_state": {
+    "care": "CARE 0.4 already owned episode observation, care course, clinician/vet brief, BODY/CONTINUITY conversion and direct CONTACT handoff.",
+    "port": "HUMAN PORT 1.5 already owned addressed TEXT/JSON/IMAGE/FILE passage, exact byte hash/local stash, focus, FIT/CUES/HISTORY and candidate-only FIELD INTAKE routing.",
+    "body": "BODY / FIELD 0.2 already owned low-burden NOW/PULSE/TEST embodied returns and explicit BODY -> CARE offer.",
+    "intake": "FIELD INTAKE 0.5 already owned reviewed durable admission of Port objects."
+  },
+  "blindspots_closed": [
+    "CARE declared private image/file attachments as a gap even though Port already had the appropriate private local byte substrate.",
+    "CARE bypassed Port object identity/focus and jumped directly to CONTACT, losing lawful alternate routes for the same case.",
+    "CARE evidence refs lacked a return path back to the addressed source object.",
+    "CARE direct consult used REPLY even when the case had an explicit ASK."
+  ],
+  "delta": [
+    "CARE PORT CASE emits an exact SHA-256 JSON snapshot as human-port-object/v0.1 with case id/revision retained in provenance.",
+    "Port gains ADD TO CARE for TEXT/JSON/IMAGE/FILE; it sends identity/hash/provenance/scope/focus as an offer only.",
+    "CARE requires explicit ATTACH TO CURRENT CASE and stores a care-evidence-ref/v0.1 reference rather than duplicating file/image bytes.",
+    "CARE FOLLOW/BRIEF expose evidence references and OPEN SOURCE returns addressable sources to Port.",
+    "CONTACT BRIEF uses NEED when CARE ASK is non-empty, otherwise REPLY.",
+    "FIELD now marks CARE PRIVATE_FILES AVAILABLE through Port rather than maintaining stale adapter debt."
+  ],
+  "authority_split": {
+    "port": "source-object passage, local byte retention, focus and route selection",
+    "care": "care-context attachment, longitudinal interpretation boundary and consult compression",
+    "contact": "explicit outbound text/share boundary",
+    "field_intake": "durable reviewed admission",
+    "body": "embodied self-observation and BODY/HOUSE context",
+    "continuity": "source-rich canonicalization and anti-merge"
+  },
+  "laws": [
+    "CASE != BRIEF != PORT != SEND",
+    "PORT OBJECT != CARE EVIDENCE until explicit attach",
+    "ATTACHED EVIDENCE != INTERPRETATION",
+    "PORT OBJECT REFERENCE != SOURCE CONTENT",
+    "EVIDENCE REFERENCE MUST RETAIN SOURCE RETURN WHEN AVAILABLE",
+    "NO ENTRY != NORMAL",
+    "CARE HISTORY != COMPLIANCE SCORE",
+    "CAREGIVER_OBSERVED != SELF_OBSERVED"
+  ],
+  "nonclaims": [
+    "No OCR, diagnosis, triage or automatic interpretation was added.",
+    "CARE does not own or duplicate HUMAN PORT local file/image bytes.",
+    "A Port route cue does not imply medical relevance or authority.",
+    "A source reference may become non-durable if it was session-only; CARE surfaces this rather than pretending persistence."
+  ],
+  "next_evidence": [
+    "ordinary use with one real eye photo/report or other care artifact through Port -> CARE -> OPEN SOURCE",
+    "ordinary use of one CARE case through PORT CASE, focus BRIEF or ASK, then choose CONTACT versus FIELD INTAKE",
+    "observe whether multi-object evidence bundles are actually needed before designing them"
+  ],
+  "stop_condition": "Do not add bundles, new media classes, adaptive clinical question engines or automated care routing until ordinary use exposes a repeated deficit."
+}
