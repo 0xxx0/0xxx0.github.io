@@ -1,9 +1,9 @@
 {
-  "schema": "0xxx0/axial-focus-stack-contract/v0.2",
+  "schema": "0xxx0/axial-focus-stack-contract/v0.3",
   "updated": "2026-09-21",
   "status": "CURRENT_SOFTWARE_HEAD_PROOF_REQUIRED",
   "route": "/foundry/axial/",
-  "proposition": "Independent cyclic indices with unequal cardinalities can share one focus spine: alignment forms an address/filter, an aperture reveals matching identities, and the same state may be projected as ring or strip without changing source identity.",
+  "proposition": "Independent cyclic indices with unequal cardinalities can share one focus spine; each possible move can expose its remaining support in the source, so the interface shows not only the current address but the lawful neighborhood around it.",
   "layers": {
     "SPEC": "lawful mapping; no embodiment claim",
     "LAB": "browser correspondence model at /foundry/axial/",
@@ -95,7 +95,7 @@
     "Physical promotion requires state readback without software."
   ],
   "first_physical_return": {
-    "prerequisite": "Use the software FOCUS STACK on real FIELD/HOUSE navigation first and identify a ring composition worth carrying physically.",
+    "prerequisite": "Use lawful-support AXIAL on real FIELD/HOUSE navigation first. Identify which ring composition and support cues remain useful after repeated use before designing hardware.",
     "then": "Build only that composition as a passive indexed body; choose diameter/travel from ergonomics and material, not from the old 50 mm fixture default.",
     "question": "Does the physical projection preserve the same address/readback advantage after the screen is removed?",
     "evidence": [
@@ -110,26 +110,31 @@
     "no_claim": "The cylinder is optional. AXIAL survives if the focus-stack grammar is useful and the cylindrical embodiment is not."
   },
   "software_head": {
-    "name": "AXIAL / FOCUS STACK 0.6",
+    "name": "AXIAL / FOCUS STACK 0.7",
     "primary_source": "/showcase-manifest.json",
     "secondary_source": "/house/spatial/model.json",
     "projections": [
       "RING",
       "STRIP"
     ],
-    "interaction": "drag annulus / release-to-snap; wheel or keyboard notch; click result to align exact source facets",
+    "interaction": "drag annulus / release-to-snap; wheel or keyboard notch; strip token; result→ring inverse alignment",
+    "lawful_support": "For each ring candidate v, count source identities satisfying v while all other aligned dimensions remain fixed. support=0 is visible as a dead move, never silently skipped.",
+    "address_serialization": "Selected non-ANY dimensions + source + projection + focus serialize into the page URL; reload reconstructs the same focus where the source still contains that identity.",
     "authority": "navigation/readback only; no public HOUSE actuation"
   },
   "ring_law": [
     "Rings are independent cyclic vocabularies; equal cardinality is never assumed.",
     "A fixed focus spine reads exactly one token per ring.",
     "The aligned tuple is a query/address over a named source, not a claim that the vocabularies are naturally equivalent.",
-    "RING and STRIP are lawful projections of the same selected indices.",
+    "Every candidate token may expose support under the other selected dimensions.",
+    "support=0 means the candidate cannot produce an identity under the current other constraints; it remains selectable so contradiction/dead ends stay inspectable.",
+    "RING and STRIP are lawful projections of the same selected indices and support relation.",
     "ANY widens one dimension without erasing the other selected dimensions.",
-    "BACK navigates session state; RETURN records a focus receipt; neither is silently treated as the other."
+    "Identity→rings and rings→identity must round-trip when the source remains unchanged.",
+    "BACK navigates session state; RETURN records a durable focus receipt; neither is silently treated as the other."
   ],
   "source_adapters": {
-    "FIELD": "FAMILY × KIND × OPERATION × STATE × ROLE over /showcase-manifest.json",
+    "FIELD": "Full Focus Stack: FAMILY × KIND × OPERATION × STATE × ROLE over /showcase-manifest.json. Root FIELD embeds a reduced chronology lens: ROUTE × STATE × OPERATION × WORK MODE over durable recent touches.",
     "HOUSE": "ROOM × TYPE × CONFIDENCE × ENTITY over /house/spatial/model.json; public model only"
   }
 }
