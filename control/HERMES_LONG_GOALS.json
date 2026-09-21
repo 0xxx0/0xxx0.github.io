@@ -29,7 +29,7 @@
     },
     {
       "id": "BACKUP-INTAKE-WARDEN",
-      "mode": "armed when BACKUP_INGRESS path is supplied",
+      "mode": "PROVED on bounded Sep-21 Documents ingress; re-arm only for a new explicit BACKUP_INGRESS",
       "purpose": "Turn old/new backup drops into recoverable evidence without reorganizing the user's filesystem.",
       "inputs": [
         "one explicit BACKUP_INGRESS directory only"
@@ -42,8 +42,17 @@
         "prepare candidate recovery packets",
         "separate exact duplicate from semantic/version similarity"
       ],
-      "output": "inventory receipt + duplicate clusters + at most a few high-value source anchors",
-      "stop": "No move/delete/rename. Do not scan the whole home directory. Stop when the bounded ingress is indexed."
+      "output": "For a new ingress: inventory receipt + duplicate clusters + a few source anchors. For the already-proved Sep-21 ingress: execute only the one-family semantic review packet when local private reports are available.",
+      "stop": "No move/delete/rename. Do not scan the whole home directory. Stop when the bounded ingress is indexed.",
+      "proof": {
+        "receipt": "/control/INGEST_RUN_2026-09-21.json",
+        "files_indexed": 559,
+        "byte_objects": 557,
+        "exact_duplicate_groups": 2,
+        "source_hash_match": "559/559",
+        "source_mutated": false
+      },
+      "current_successor": "/control/packets/INGEST_ONE_FAMILY_2026-09-21.json"
     },
     {
       "id": "POLICY-WARDEN",
@@ -83,5 +92,5 @@
     }
   ],
   "notify_rule": "Do not wake the user for 'still OK'. Surface only concrete delta, failure, contradiction, recovery, or decision-worthy packet.",
-  "setup_note": "BACKUP-INTAKE-WARDEN remains dormant until the user supplies the exact backup ingress folder path."
+  "setup_note": "BACKUP-INTAKE-WARDEN is no longer unproved: the bounded Sep-21 Documents ingress passed. It remains dormant for NEW ingress until an explicit path is supplied; current follow-up is one private/local family review, not another scan."
 }
