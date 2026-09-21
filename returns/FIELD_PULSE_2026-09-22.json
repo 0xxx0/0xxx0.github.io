@@ -1,7 +1,7 @@
 {
   "schema": "return/v1",
   "id": "FIELD_PULSE_2026-09-22",
-  "status": "IMPLEMENTED_CANDIDATE_PENDING_CI",
+  "status": "SHIPPED_CANDIDATE_REAL_PHONE_REQUIRED",
   "object": "FIELD PULSE v0.1 + LISTEN mobile scope repair",
   "changed_object": "FOLD//BLOOM family and READFIELD now share bounded temporal/performance context; LISTEN scope has operational semantics on touch.",
   "evidence": [
@@ -10,8 +10,14 @@
     "/fold-bloom/listen/selftest.mjs"
   ],
   "verification": {
-    "ci": "PENDING",
-    "phone_real_audio": "REQUIRED_RETURN"
+    "ci": "PASS: public-surface-check run 35640203852",
+    "listen_analysis_core": "PASS: preview/deep analysis + scope ordering + FIELD PULSE envelope",
+    "listen_preview_render": "PASS",
+    "critical_browser_smoke": "PASS",
+    "route_static_recovery_regressions": "PASS",
+    "phone_real_audio": "REQUIRED_RETURN: scope touch semantics + LISTEN→LIVE witness + READFIELD PULSE WPM"
   },
-  "next": "Run CI, merge only if contracts/browser smoke pass, then test one real audio track on phone before adding rhythm-game exporters."
+  "next": "On phone, test one real track: verify BEAT/PHRASE/SECTION/TRACK visibly change ring time-domain/scrub granularity; then verify LIVE track witness and READFIELD PULSE ×4. Do not add rhythm-game exporters until that RETURN.",
+  "merge_sha": "70d63be41dfc5d04b04063d2f90524dca0bb6526",
+  "pull_request": 106
 }
