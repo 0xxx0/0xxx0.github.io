@@ -1770,7 +1770,7 @@
       "role": "Public instrument gateway separating ORIENT / OPERATE / PROVE / RECOVER while live priority remains in control/CURRENT.json.",
       "showcase_card": false,
       "index": {
-        "updated_at": "2026-09-22T05:58:00+08:00",
+        "updated_at": "2026-09-22T06:08:00+08:00",
         "work_modes": [
           "RECOVER",
           "RESEARCH",
@@ -2110,65 +2110,55 @@
     },
     {
       "href": "/foundry/room/",
-      "title": "INTERPHASE / SPACE SCALE 0.2",
+      "title": "ROOM / HTML SUBSTRATE 0.3",
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "COMPOSE",
       "state": "CANDIDATE",
-      "version": "0.2",
+      "version": "0.3",
       "receipt": "/foundry/room/release.json",
       "showcase_card": false,
-      "role": "Recursive BLOCK ⇄ ROOM composition substrate: typed seams, semantic operational zoom, reversible FOLD abstraction, subtree FORK, safe graph execution, declarative materialization recipe and RETURN over stable identities.",
+      "role": "DOM-as-program composition surface: ordinary nested HTML is the program structure, <details> folds abstraction, visible links are seams, SOURCE edits the same markup, and RETURN preserves markup plus trace.",
       "transfer": [
-        "FURNISHER/SINDER multidimensional breadboard + joint-pattern compiler/stapler intent",
-        "FURNISHER POINT / PATHS / PLANE / POWER and analog-first physical-programming discipline",
-        "INTERPHASE lenses/state/transducers + room as projection rather than kernel",
-        "ONE RETURN typed seams / docking / replay",
-        "AXIAL fixed focus + discrete snap/readback",
-        "Scale Lens identity across unequal projections",
-        "Pad++ space-scale / alternate interface physics",
-        "Dynamicland visible compositional machinery and ad-hoc coupling",
-        "Breadboard / Potluck / Patchwork / Glamorous Toolkit malleability donors"
+        "FURNISHER/SINDER homoiconic-interface aspiration, joint-pattern compiler and multidimensional-breadboard intent",
+        "INTERPHASE room-as-projection-not-kernel correction",
+        "SPACE SCALE 0.2 executable composition semantics, stripped of custom canvas UI",
+        "ordinary HTML/DOM nesting, anchors and details/summary as dependency-light substrate"
       ],
       "contract": {
         "accepts": {
           "kinds": [
-            "typed block graph",
-            "FIELD route set",
-            "configuration intent"
+            "HTML composition document"
           ],
           "requires": [
-            "stable node identity",
-            "typed port identity"
+            "stable element ids",
+            "visible rel=next seams"
           ],
           "optional": [
-            "composite hierarchy",
-            "operator",
-            "starting semantic scale",
-            "scope"
+            "nested composite details",
+            "data-op",
+            "data-type-in",
+            "data-type-out"
           ]
         },
         "transforms": {
-          "verb": "compose typed blocks, fold a working subgraph into a reusable block, enter it as a room at deeper semantic scale, fork alternatives, and preserve the derivation through RETURN",
+          "verb": "interpret the same visible HTML tree as a small composition program without maintaining a second graph model",
           "preserves": [
-            "primitive node identity",
-            "primitive port identity",
-            "primitive edge topology",
-            "composite child identity",
-            "plain canonical graph",
+            "DOM element identity",
+            "nesting",
+            "visible seams",
+            "source markup",
             "RETURN"
           ],
-          "reversibility": "full for digital composition/fold/fork projection operations",
-          "side_effects": "browser-local layout, selection, composition experiment and RETURN only"
+          "reversibility": "source markup can be edited/reapplied; native fold/unfold is non-destructive",
+          "side_effects": "browser-local run trace and RETURN only"
         },
         "emits": {
           "kinds": [
-            "recursive block/room projection",
-            "typed graph",
+            "native HTML composition",
             "execution trace",
-            "declarative materialization recipe",
-            "space-scale RETURN"
+            "HTML+trace RETURN"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -2176,93 +2166,74 @@
         "evidence": {
           "receipt": "/foundry/room/release.json",
           "checks": [
-            "incompatible typed ports reject before graph mutation",
-            "FOLD preserves child identities and derives boundary proxy ports",
-            "composite proxy ports resolve to original primitive ports",
-            "semantic scale maps GLYPH / BLOCK / ROOM without changing graph identity",
-            "FORK clones subtree plus internal seams",
-            "safe graph RUN completes seed pipeline without eval",
-            "materialization recipe states explicit physical-safety non-claim",
-            "ROOM 0.1 remains preserved as prior probe"
+            "#program is the live canonical structure",
+            "nested <details> is visible composition",
+            "RUN traverses visible rel=next anchors",
+            "SOURCE serializes #program.outerHTML",
+            "no space-core.js dependency on current surface",
+            "0.2 canvas and 0.1 cube remain preserved"
           ],
           "return_path": "/foundry/room/"
         }
       },
       "field": {
         "roles": [
-          "WORLD_THROUGH",
           "TRANSFORM",
           "VERIFY"
         ],
         "inputs": [
           {
-            "medium": "DATA",
-            "kind": "typed nodes / ports / topology",
-            "interface": "space-core model"
+            "medium": "DOCUMENT",
+            "kind": "HTML markup",
+            "interface": "#program DOM"
           },
           {
             "medium": "HUMAN_ACTION",
-            "kind": "pan / semantic zoom / select / dock / fold / enter / fork",
-            "interface": "space-scale canvas"
-          },
-          {
-            "medium": "DATA",
-            "kind": "FIELD route metadata",
-            "interface": "FIELD seed"
+            "kind": "open/close/follow/run/edit source",
+            "interface": "native HTML controls"
           }
         ],
         "outputs": [
           {
-            "medium": "REPRESENTATION",
-            "kind": "GLYPH / BLOCK / ROOM semantic projections",
-            "interface": "space-scale canvas"
+            "medium": "DOCUMENT",
+            "kind": "same live HTML program",
+            "interface": "SOURCE"
           },
           {
             "medium": "DATA",
-            "kind": "typed composite graph + execution trace",
-            "interface": "SPACE SCALE core"
-          },
-          {
-            "medium": "DATA",
-            "kind": "declarative materialization recipe",
-            "interface": "RECIPE"
+            "kind": "execution trace",
+            "interface": "RUN RESULT"
           },
           {
             "medium": "EVIDENCE",
-            "kind": "composition RETURN",
+            "kind": "markup + trace RETURN",
             "interface": "RETURN"
           }
         ],
         "exit_paths": [
           {
-            "class": "PHYSICAL_COMPILER",
-            "status": "PROOF_REQUIRED",
-            "via": "materialization recipe → independent fit/load/safety gate"
+            "class": "SPACE_SCALE_0_2",
+            "status": "REFERENCE",
+            "via": "/foundry/room/space-scale-0.2.html"
           },
           {
-            "class": "FIELD_HOST",
-            "status": "AVAILABLE",
-            "via": "FIELD route seed / future bounded handoff"
-          },
-          {
-            "class": "PLAIN_GRAPH",
-            "status": "AVAILABLE",
-            "via": "PLAIN canonical graph"
-          },
-          {
-            "class": "ROOM_0_1_PROBE",
+            "class": "ROOM_0_1",
             "status": "REFERENCE",
             "via": "/foundry/room/room-0.1.html"
+          },
+          {
+            "class": "FOUNDRY",
+            "status": "AVAILABLE",
+            "via": "/foundry/"
           }
         ],
-        "physical_fit": "Digital composition substrate only. Physical correspondences require independent typed joint/material/load/safety evidence; no HOUSE/device authority."
+        "physical_fit": "None. This is an interface/composition experiment; physical materialization remains a separate reality gate."
       },
       "index": {
-        "updated_at": "2026-09-22T05:58:00+08:00",
+        "updated_at": "2026-09-22T06:08:00+08:00",
         "work_modes": [
           "RECOVER",
-          "RESEARCH",
-          "SPECIFY",
+          "SIMPLIFY",
           "IMPLEMENT",
           "VERIFY"
         ]
@@ -2270,18 +2241,21 @@
       "evolution": {
         "schema": "field-evolution/v0.1",
         "host": "/foundry/",
-        "generation": 2,
+        "generation": 3,
         "stage": "TEST",
-        "question": "Can recursive BLOCK ⇄ ROOM abstraction make a real configuration easier to compose, inspect, fork, reuse and re-enter than the six-face cube probe or a plain graph without hiding its machinery?",
-        "baseline": "ROOM 0.1 six-face relation projection + PLAIN canonical graph; neither turns working composition into a reusable recursive primitive.",
-        "mutation": "Replace cube-head with a space-scale composition substrate: GLYPH/BLOCK/ROOM semantic depth, typed ports, visible seams, reversible FOLD, subtree FORK, safe RUN and declarative RECIPE.",
-        "evidence_gate": "Core/static/browser tests, then compose one real multi-step FIELD or HOUSE-safe planning transformation. Require a folded composite to be reusable/forkable/re-enterable with lower translation cost and no loss of seam/provenance visibility.",
-        "next_if_pass": "Transfer space-core semantics into one real host and prototype one physical/printable typed-port or joint-pattern witness. Keep canvas replaceable.",
-        "next_if_fail": "PARK the zoom canvas; retain typed dock/fold/fork/recipe semantics as donor and return to a plainer host."
+        "question": "Can the composition law be understood and used directly as ordinary HTML, without a custom canvas or separate graph model?",
+        "baseline": "SPACE SCALE 0.2 custom canvas with separate JavaScript graph model.",
+        "mutation": "Make the DOM itself the program structure: nesting=composition, details=fold, anchors=seams, SOURCE=same markup.",
+        "evidence_gate": "A new user can read, fold, traverse, RUN, inspect SOURCE and explain the composition without learning a custom interaction grammar.",
+        "next_if_pass": "Apply DOM-as-program to one real FIELD transformation; richer views remain optional projections.",
+        "next_if_fail": "Reduce further to static HTML + links and keep execution optional."
       },
-      "recovery_note": "/control/confluence/ROOM_BLOCK_SPACE_SCALE_2026-09-22.md",
-      "kernel": "/foundry/room/space-core.js",
-      "previous_probe": "/foundry/room/room-0.1.html"
+      "kernel": "inline DOM interpreter",
+      "previous_heads": [
+        "/foundry/room/space-scale-0.2.html",
+        "/foundry/room/room-0.1.html"
+      ],
+      "recovery_note": "/control/confluence/ROOM_HTML_SUBSTRATE_2026-09-22.md"
     },
     {
       "href": "/foundry/convergence/identity-lab.html",
