@@ -4084,8 +4084,8 @@
         "stage": "TEST",
         "question": "Does continuous intent + discrete CURRENT constraints change or clarify one real next-move choice compared with reading CURRENT/QUEUE plainly?",
         "baseline": "Plain /control/CURRENT.json + /control/QUEUE.json reading and existing FIELD/AXIAL re-entry.",
-        "mutation": "Project exact CURRENT/QUEUE next-action instructions into a simplex lens with visible support strips, one exact focus, passive choice/override signals and optional HUMAN PORT handoff.",
-        "evidence_gate": "Use CENTER during ordinary work rather than a dedicated QA ritual. Require at least two passive choice/override observations plus one real RETURN where CENTER changed a choice or exposed a tradeoff missed by the plain reading.",
+        "mutation": "Project exact CURRENT/QUEUE next-action instructions into either CENTER (simplex similarity) or PLAIN (source order) while keeping identical constraints, focus and actions; record passive choice/override evidence and optional HUMAN PORT handoff.",
+        "evidence_gate": "Use the instrument during ordinary work. Require at least two passive CENTER/PLAIN choice observations plus one real RETURN where CENTER changed/clarified a choice relative to PLAIN; no dedicated QA ritual.",
         "next_if_pass": "TRANSFER only the smallest useful selection projection into CURRENT/FIELD; keep CURRENT/QUEUE authoritative and CENTER recoverable as evidence fixture.",
         "next_if_fail": "PARK or DONOR CENTER; retain triangle/glyph mechanisms without another active surface."
       },
@@ -4103,7 +4103,8 @@
         "Triangle continuous three-axis preference",
         "CURRENT/QUEUE exact next-action projection",
         "FieldSignals passive candidate/override evidence",
-        "HUMAN PORT bounded local preload"
+        "HUMAN PORT bounded local preload",
+        "same-instrument CENTER↔PLAIN passive comparator"
       ],
       "field": {
         "roles": [
