@@ -19,7 +19,7 @@ No account, server, background worker, analytics, cloud transport, diagnosis, sc
 Pinned toolchain:
 
 - Android Gradle Plugin 9.4.0
-- Kotlin 2.4.10
+- Kotlin support: built into Android Gradle Plugin 9.4.0
 - JDK 17
 - compile/target SDK 36
 - `androidx.health.connect:connect-client:1.1.0`
