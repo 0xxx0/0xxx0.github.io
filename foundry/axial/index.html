@@ -33,7 +33,7 @@ dialog.dev{width:min(760px,calc(100vw - 20px));max-height:calc(100vh - 20px);bor
 .search{display:grid;grid-template-columns:1fr auto;margin-top:9px}.search input{min-width:0;padding:8px 9px;border-right:0}.search button{min-width:58px}
 .results{border:1px solid var(--line);margin-top:8px;max-height:290px;overflow:auto}.result{display:grid;grid-template-columns:1fr auto;gap:8px;padding:9px;border-bottom:1px solid var(--line);cursor:pointer;background:#0a0e11}.result:last-child{border-bottom:0}.result:hover,.result.on{background:#131a1e}.result b{font:800 12px/1.15 system-ui,sans-serif}.result small{display:block;color:var(--mut);font-size:7px;margin-top:5px}.result i{font-style:normal;color:var(--cool);font-size:9px}
 .focusCard{border:1px solid var(--line);margin-top:8px;padding:12px;background:linear-gradient(135deg,#0a0e11,#0d1418);min-height:105px;box-shadow:inset 0 0 40px rgba(105,183,230,.025)}.focusCard .k{font-size:7px;letter-spacing:.13em;color:var(--mut)}.focusCard h2{font:900 22px/.95 system-ui,sans-serif;letter-spacing:-.045em;margin:7px 0}.focusCard p{margin:0;color:#95a0a5;font:9px/1.5 system-ui,sans-serif}.addr{margin-top:7px;color:var(--cool);font-size:8px;word-break:break-all}
-.actions{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-top:8px}.actions button,.actions a{min-height:38px;display:grid;place-items:center;text-decoration:none;border:1px solid var(--line);background:var(--panel2);color:var(--ink);font-size:8px;text-align:center;padding:5px}.actions .primary{border-color:var(--cool);color:var(--cool)}.actions .return{border-color:var(--gold);color:var(--gold)}
+.actions{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:8px}.actions button,.actions a{min-height:38px;display:grid;place-items:center;text-decoration:none;border:1px solid var(--line);background:var(--panel2);color:var(--ink);font-size:8px;text-align:center;padding:5px}.actions .primary{border-color:var(--cool);color:var(--cool)}.actions .return{border-color:var(--gold);color:var(--gold)}
 .receipts{margin-top:8px;border:1px solid var(--line);max-height:130px;overflow:auto}.receipt{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:7px;align-items:center;padding:6px 8px;border-bottom:1px solid var(--line);font-size:7px;color:#7e8b90}.receipt:last-child{border-bottom:0}.receipt b{color:#cbd2d4}.receipt button{min-height:27px;padding:3px 7px;font-size:7px;border-color:#4b4434;color:var(--gold)}.empty{padding:14px;color:#657176;font-size:8px}
 .boundary{margin-top:8px;border-left:2px solid var(--gold);padding:7px 9px;background:#111319;color:#9c9482;font:9px/1.45 system-ui,sans-serif}
 footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding-top:8px;margin-top:10px;color:#667278;font-size:8px}
@@ -82,6 +82,7 @@ footer{display:flex;justify-content:space-between;gap:12px;border-top:1px solid 
  <div class="focusCard" id="focusCard"><div class="k">FOCUS</div><h2>—</h2><p>Rotate a ring or choose a result.</p></div>
  <div class="actions">
    <button class="primary" id="open">OPEN</button>
+   <button id="tracePolicy">TRACE</button>
    <button id="copy">COPY</button>
    <button id="back">BACK</button>
    <button class="return" id="ret">RETURN</button>
@@ -296,7 +297,7 @@ function render(){
  var res=$('#results');if(!S.loaded)res.innerHTML='<div class="empty">Loading…</div>';else if(!S.matches.length)res.innerHTML='<div class="empty">DEAD ALIGNMENT · dim positions cannot satisfy the other rings. Turn toward a bright position, ANY, or BACK.</div>';else res.innerHTML=S.matches.slice(0,40).map(function(r){return'<div class="result '+(S.focus&&S.focus.id===r.id?'on':'')+'" data-id="'+esc(r.id)+'"><div><b>'+esc(r.title)+'</b><small>'+esc(r.desc||r.href)+'</small></div><i>FOCUS →</i></div>'}).join('');
  res.querySelectorAll('.result').forEach(function(el){el.onclick=function(){var rec=S.matches.find(function(x){return x.id===el.dataset.id});focusRecord(rec,true)}});
  var f=$('#focusCard');if(S.focus)f.innerHTML='<div class="k">'+esc(S.source+' / FOCUS')+'</div><h2>'+esc(S.focus.title)+'</h2><p>'+esc(S.focus.desc||'Addressed identity in current source.')+'</p><div class="addr">'+esc(focusAddress())+'</div>';else f.innerHTML='<div class="k">FOCUS</div><h2>—</h2><p>No identity is inside the current aperture.</p>';
- $('#open').disabled=!S.focus;$('#copy').disabled=!S.focus;$('#back').disabled=!S.history.length;
+ $('#open').disabled=!S.focus;$('#tracePolicy').disabled=!S.focus;$('#copy').disabled=!S.focus;$('#back').disabled=!S.history.length;
  $('#receipts').innerHTML=S.returns.length?S.returns.slice(0,12).map(function(r,i){return'<div class="receipt"><div><b>'+esc(r.source)+'</b> · '+esc(r.focus_title||'NO FOCUS')+'<br>'+esc(r.address)+'</div><button data-return="'+i+'">RESTORE</button></div>'}).join(''):'<div class="empty">No returns yet.</div>';
  $('#receipts').querySelectorAll('[data-return]').forEach(function(b){b.onclick=function(){restoreReturn(S.returns[+b.dataset.return],true)}});
  renderStrip();drawWheel();renderOverview();renderDev()
@@ -314,7 +315,16 @@ $('#findMe').onclick=function(){if(S.source==='FIELD')applyPreset({family:'FOUND
 $('#reset').onclick=function(){var before=snapState();S.rings.forEach(function(r){r.index=0;r.rot=0});S.search='';$('#search').value='';pushHistory(before);recompute()};
 $('#search').oninput=function(e){S.search=e.target.value;recompute()};$('#clearSearch').onclick=function(){S.search='';$('#search').value='';recompute()};
 $('#back').onclick=async function(){var st=S.history.pop();if(!st)return;trace('BACK',{history:S.history.length});const ok=await restoreState(st);if(!ok){S.history.push(st);render()}};
+function openPolicyTrace(){
+ if(!S.focus)return;
+ var href=S.source==='FIELD'?S.focus.href:'/house/spatial/';
+ var packet={schema:'field-trace-handoff/v0.1',at:new Date().toISOString(),source:'AXIAL',resource_ref:S.focus.id,focus_href:href,title:S.focus.title,address:focusAddress()};
+ try{sessionStorage.setItem('field.trace.handoff.v01',JSON.stringify(packet))}catch(_){}
+ trace('TRACE_HANDOFF',{focus:S.focus.id,href:href});
+ location.href='../../?focus='+encodeURIComponent(href)+'&trace=1';
+}
 $('#open').onclick=function(){if(S.focus){trace('OPEN',{focus:S.focus.id});location.href=S.focus.href}};
+$('#tracePolicy').onclick=openPolicyTrace;
 $('#copy').onclick=async function(){if(!S.focus)return;syncURL();var txt=location.href+'\n'+focusAddress()+'\n'+S.focus.title;try{await navigator.clipboard.writeText(txt);this.textContent='COPIED';var b=this;setTimeout(function(){b.textContent='COPY'},700)}catch(_){prompt('Copy AXIAL focus:',txt)}};
 $('#ret').onclick=function(){createReturn();const b=this,old=b.textContent;b.textContent='RETURNED';setTimeout(function(){b.textContent=old},650)};
 $('#inspect').onclick=function(){renderDev();$('#dev').showModal()};$('#devClose').onclick=function(){$('#dev').close()};$('#devCopy').onclick=async function(){const txt=JSON.stringify(devState(),null,2);try{await navigator.clipboard.writeText(txt);this.textContent='COPIED';const b=this;setTimeout(function(){b.textContent='COPY STATE'},650)}catch(_){prompt('AXIAL state',txt)}};$('#devExport').onclick=function(){trace('EXPORT_WITNESS');downloadJSON(witness(),'axial-witness.json')};$('#devClear').onclick=function(){study={schema:'axial.study/v0.1',started_at:new Date().toISOString(),events:[],counts:{},ring_moves:{},projection:{RING:0,STRIP:0},source:{FIELD:0,HOUSE:0}};saveStudy();renderDev()};
