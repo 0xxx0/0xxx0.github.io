@@ -1,0 +1,117 @@
+{
+  "schema": "0xxx0/source-locator/v0.1",
+  "id": "TOOLBELT-SOURCE-LOCATOR-2026-09-21",
+  "at": "2026-09-21",
+  "status": "EXACT_SOURCE_IDENTITIES_LOCATED_BYTES_NOT_YET_MATERIALIZED_TO_REPO",
+  "purpose": "Replace reconstructed/search-level uncertainty around the App Atlas tool set and Sleeper operator quartet with exact File Library source identities, while preserving the distinction between located source and byte-recovered repo artifact.",
+  "sources": [
+    {
+      "role": "APP_ATLAS_CANONICAL_DATA",
+      "title": "app_atlas_v1.json",
+      "file_library_created_at": "2026-08-09T06:50:14Z",
+      "observed": {
+        "schema_version": "1.0",
+        "generated": "2026-08-09",
+        "records": [
+          {
+            "id": "APP-003",
+            "name": "Canon Console",
+            "decision": "BUILD",
+            "invariant": "Every candidate item gets source, status, branch, function, conflict, and a preserve/promote/branch/revise/reject move."
+          },
+          {
+            "id": "APP-004",
+            "name": "Transfer Bench",
+            "decision": "BUILD",
+            "invariant": "Move mechanisms across projects without copying surface vocabulary."
+          },
+          {
+            "id": "APP-005",
+            "name": "Semantic Thread Tracer",
+            "decision": "MERGE",
+            "invariant": "Reveal recurring conceptual threads and where they split, converge, or re-enter."
+          },
+          {
+            "id": "APP-006",
+            "name": "The Delta / Decision Ledger",
+            "decision": "MERGE",
+            "invariant": "Show only meaningful state changes and preserve why each decision changed."
+          },
+          {
+            "id": "APP-007",
+            "name": "Seeper",
+            "decision": "INCUBATE",
+            "invariant": "Detect leakage between evidence, desire, metaphor, reconstruction, and fiction."
+          }
+        ]
+      },
+      "recovery_state": "LOCATED_NOT_BYTE_MATERIALIZED",
+      "sha256": null
+    },
+    {
+      "role": "APP_ATLAS_RUNNABLE_PROJECTION",
+      "title": "app_foundry_atlas_v1.html",
+      "file_library_created_at": "2026-08-09T06:50:10Z",
+      "observed": {
+        "title": "App Foundry — App Atlas v1",
+        "mode": "read-only except export",
+        "subtitle": "provenance → lineage → triage → next falsifying experiment",
+        "embedded_data": "same App Atlas v1 tool records observed in source"
+      },
+      "recovery_state": "LOCATED_NOT_BYTE_MATERIALIZED",
+      "sha256": null
+    },
+    {
+      "role": "SLEEPER_OPERATOR_VISUAL",
+      "title": "The sleeper engine: a transformative journey.png",
+      "file_library_created_at": "2026-07-15T11:32:19Z",
+      "observed": {
+        "operators": [
+          {
+            "name": "KERIS",
+            "source_words": [
+              "Distinguishes.",
+              "Redefines.",
+              "Severs illusion."
+            ]
+          },
+          {
+            "name": "CONCH",
+            "source_words": [
+              "Resonates.",
+              "Communicates.",
+              "Synchronizes the unsaid."
+            ]
+          },
+          {
+            "name": "W8",
+            "source_words": [
+              "Stabilizes.",
+              "Holds weight.",
+              "Creates gravity for becoming."
+            ]
+          },
+          {
+            "name": "SPIRAL",
+            "source_words": [
+              "Integrates.",
+              "Elevates.",
+              "Evolves.",
+              "Returns."
+            ]
+          }
+        ],
+        "transformation_grammar": "Keris → Conch → W8 → Spiral; Distinguish → Resonate → Stabilize → Integrate"
+      },
+      "recovery_state": "LOCATED_NOT_BYTE_MATERIALIZED",
+      "sha256": null
+    }
+  ],
+  "boundary": {
+    "located": "Exact File Library identity and inspected source content are known.",
+    "not_recovered": "Original file bytes have not been copied into this GitHub repository and no byte hash is claimed here.",
+    "rule": "Do not reconstruct or modernize these sources as a substitute for byte recovery. Use this locator to retrieve the exact originals when a materialization path is available."
+  },
+  "current_correspondence": "/control/confluence/TOOL_KERNEL_2026-09-21.md",
+  "next": "Materialize the exact three source files into /recovery/toolbelt/ with byte hashes when the File Library→repo byte handoff is available; until then this locator closes identity/search uncertainty but not byte provenance."
+}
