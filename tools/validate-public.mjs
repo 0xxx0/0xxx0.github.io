@@ -221,6 +221,20 @@ if(exists(axialLabPath)){
   compileInline(axialLabPath);
 }
 for(const p of ['returns/index.html','foundry/index.html','fcm/index.html','router-bench/index.html'])compileInline(p);
+if(exists('poetry/map/index.html')){
+  const p=read('poetry/map/index.html');
+  for(const token of ['POEM MAP 0.2','id="guideBtn"','id="importBtn"','id="corpusBtn"','data-mode="PAGE"','data-mode="MAP"','data-mode="SETS"','ORDER','SOUND','REPEAT','AUTHOR','APERTURE','TRY','ADOPT','LOCK'])check(p.includes(token),'Poem Map capability token missing: '+token);
+  compileInline('poetry/map/index.html');
+}
+if(exists('poetry/index.html')){
+  const p=read('poetry/index.html');
+  for(const token of ['WRITE / EXPLORE','FIND WORDS / SOLVE','COMPOSE BY PATH','STUDY JUEJU','PLAY / MULTILINGUAL'])check(p.includes(token),'VERSE re-entry option missing: '+token);
+}
+if(exists('foundry/verse-atlas/app.js')){
+  const v=read('foundry/verse-atlas/app.js');
+  try{new Function(v)}catch(e){fail.push('JS foundry/verse-atlas/app.js: '+e.message)}
+  for(const token of ['stateFromReceipt','applyReceipt','renderStudy','renderParallel','renderGlyph','renderRsvp','exportReceipt'])check(v.includes(token),'Verse Atlas sealed capability missing: '+token);
+}
 const currentCoord=parse('control/CURRENT.json'),queueCoord=parse('control/QUEUE.json');
 if(currentCoord&&queueCoord){
   const active=new Set((currentCoord.active_fronts||[]).map(x=>x.id));
