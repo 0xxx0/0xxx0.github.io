@@ -90,9 +90,9 @@
       "order": 1,
       "id": "recover-toolbelt",
       "move": "Recover exact historical tool sources into durable repo provenance; no cleanup or feature invention during recovery.",
-      "pass": "Exact bytes or verifiable source packet + provenance entry; missing material remains explicitly missing.",
-      "status": "SOURCE_IDENTITY_AND_CONTENT_REVERIFIED / RAW_BYTES_BLOCKED_BY_HANDOFF",
-      "evidence": "/control/recovery/TOOLBELT_SOURCE_LOCATOR_2026-09-21.json"
+      "pass": "Complete only when the exact transformative-journey PNG original bytes are materialized and SHA-256 recorded; text repo hashes alone do not certify original byte identity.",
+      "status": "PARTIAL_MATERIALIZATION: 2 TEXT ARTIFACTS REPO-HASHED / PNG RAW BINARY BLOCKED",
+      "evidence": "/recovery/toolbelt/RECOVERY.json"
     },
     {
       "order": 2,
