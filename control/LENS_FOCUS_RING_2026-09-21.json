@@ -1,10 +1,10 @@
 {
   "schema": "0xxx0/lens-focus-ring-receipt/v0.1",
-  "at": "2026-09-21T14:23:00+08:00",
+  "at": "2026-09-21T18:46:00+08:00",
   "branch": "lens-convergence-contract-20260921",
   "pr": 50,
   "target": "LENS-02",
-  "state": "EXPERIMENTAL_IMPLEMENTED_PROOF_REQUIRED",
+  "state": "MOBILE_RETURN_SMOKE_PASS_DEEP_INTERACTION_PENDING",
   "surface": "FIELD INDEX",
   "recovered_donors": [
     "Workfield active aperture: FOCUS / DISC / ROUTES / LEDGER / RETURN",
@@ -47,18 +47,33 @@
   ],
   "not_claimed": [
     "The exact remembered red-dot-around-ring RSVP/foveated reader and Alice text specimen are not yet recovered; current Focus Ring geometry is not claimed as that historical artifact.",
-    "No live browser/mobile smoke has yet been run on this branch.",
+    "RISE / DIVE / PEER / typed STACK → Studio → RETURN have not yet been exercised together in one browser interaction receipt.",
     "No task advantage over FIELD's plain controls has yet been measured.",
-    "LENS-02 is not promoted beyond experimental until interaction proof."
+    "LENS-03 foveation remains experimental pending paired human receipts."
   ],
   "next_proof": [
-    "390px and desktop browser smoke: open/close, RISE, DIVE, PEER, projection rim, STACK, RETURN, OPEN STUDIO.",
-    "Verify selected route identity survives all four projections.",
-    "Compare operations through Focus Ring vs existing FIELD controls for interaction count and orientation errors."
+    "Exercise RISE, DIVE, PEER and a supported STACK candidate, then Studio handoff and RETURN in one interaction path.",
+    "Run the existing PLAIN ↔ FOVEATED T1/T2/T3 proof bench and compare task evidence.",
+    "Promote only the mechanism that beats or materially differs from the plain baseline."
   ],
   "recovery_next": [
     "Search restored backups for RSVP/radial reader variants around the 2018 RSVP fixture and FU room/ring files.",
     "Prefer exact source over reconstruction; preserve any Alice text, red cursor, timing/scrub, speech-boundary and ring geometry behavior byte-for-byte as a fixture.",
     "Map recovered reader behavior into Lens TIME/PULSE only after source-level comparison."
-  ]
+  ],
+  "browser_smoke": {
+    "run_id": 35590504889,
+    "pr": 64,
+    "tested_head": "7ffd16b3e936aec2ffe5c322897f0ad74683f6a3",
+    "merged_head": "f65664b18c81fb924c60d067b8658da07b7ad718",
+    "viewport": "390px same-origin FI probe",
+    "passed": [
+      "LENS PROOF alias returns into FIELD with proof bench open",
+      "FI apLens opens the actual Focus Ring",
+      "VISUAL projection changes UI state",
+      "RETURN restores exact pre-ring FIELD UI state",
+      "FI PROOF control opens the local proof bench",
+      "horizontal overflow delta = 0"
+    ]
+  }
 }
