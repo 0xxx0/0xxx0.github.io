@@ -1519,7 +1519,6 @@
         "HOUSE spatial address projection",
         "BACK ≠ RETURN"
       ],
-      "event_schema": "/foundry/axial/event.schema.json",
       "contract": {
         "accepts": {
           "kinds": [
@@ -1641,7 +1640,12 @@
         "next_if_pass": "TRANSFER the surviving transaction/aperture mechanism into the Foundry physical-control substrate; retain AXIAL as evidence fixture rather than spawning a new core.",
         "next_if_fail": "PARK the physical-control claim; preserve packet/ledger mechanisms as DONOR evidence."
       },
-      "role": "Variable-cardinality radial focus/index over real FIELD and HOUSE sources: align independent cyclic vocabularies to one spine, reveal matching identities through an aperture, preserve identity across RING/STRIP projections, then OPEN or RETURN."
+      "role": "Variable-cardinality radial focus/index over real FIELD and HOUSE sources: align independent cyclic vocabularies to one spine, reveal matching identities through an aperture, preserve identity across RING/STRIP projections, then OPEN or RETURN.",
+      "legacy_lab": {
+        "href": "/foundry/axial/lab-0.5.1.html",
+        "role": "Preserved STATE APERTURE transaction/projection lab with AXIAL_PACKET, event trace and ARM/RUN semantics.",
+        "event_schema": "/foundry/axial/event.schema.json"
+      }
     },
     {
       "href": "/foundry/convergence/identity-lab.html",
