@@ -23,9 +23,12 @@
     "STRUCTURAL / REPLAY / SEALED statuses run through /policy-trace-verifier.mjs.",
     "COMMIT TRACE stores trace-only JSON in browser localStorage; EXPORT emits trace JSON.",
     "No fetch/network action exists in field-policy-trace.mjs.",
-    "TRACE / VERIFY lives immediately after AXIAL and before LATEST chronology.",
     "Aperture TRACE opens the same instrument for the currently focused route.",
-    "Changing FIELD focus marks the displayed trace stale and disables COMMIT until rerun."
+    "Changing FIELD focus marks the displayed trace stale and disables COMMIT until rerun.",
+    "First-open TRACE runs a context-aware reference demo: COMMS for communication surfaces, HOUSE for house surfaces, CHANGE elsewhere.",
+    "Explicit COMMS / HOUSE / CHANGE demo buttons remain available for comparison.",
+    "AXIAL TRACE carries selected FIELD route or exact HOUSE anchor into FIELD as a session-local resource address.",
+    "The AXIAL handoff contributes address/provenance only; it never grants READ/REMEMBER/ANSWER/DRAFT/ACT/ESCALATE authority."
   ],
   "verification": {
     "source_module_syntax": "PASS",
@@ -39,7 +42,11 @@
     "reason": "Repository/source verification completed in connected GitHub environment; live Pages deployment/browser execution not yet independently observed.",
     "trace_position_before_latest": "PASS",
     "aperture_trace_action_wired": "PASS",
-    "stale_focus_invalidation_source_wired": "PASS"
+    "stale_focus_invalidation_source_wired": "PASS",
+    "contextual_demo_buttons_wired": "PASS",
+    "first_open_auto_demo_wired": "PASS",
+    "axial_trace_handoff_source_wired": "PASS",
+    "axial_house_anchor_identity_preserved": "PASS"
   },
   "laws_preserved": [
     "TRACE != AUTHORITY",
