@@ -265,5 +265,7 @@ function voiceNote(m, when, d = 0.22, v = 0.018, role = 'lead', pan = 0) {
   return tone(m,when,d,v,type,world().cut*(voice().brightness||1));
 }
 function currentBpm() {
+  const linked = pulseTempo();
+  if (linked) return linked;
   return clamp(world().bpm + (mus.energy - 0.28) * 34, 56, 118);
 }
