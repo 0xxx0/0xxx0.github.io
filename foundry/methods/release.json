@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "title": "SHAPE / LAW ATLAS",
   "version": "0.1",
-  "state": "EXPERIMENT",
+  "state": "CANDIDATE",
   "date": "2026-09-21",
   "route": "/foundry/methods/",
   "parent": "/foundry/",
@@ -15,5 +15,14 @@
     "Method-to-project mappings are hypotheses until a bounded test changes a real decision.",
     "External frameworks remain attributed donors, not local canon.",
     "Triangle/simplex, triangle-center geometry, triads, graph problems and process diamonds are intentionally kept distinct."
-  ]
+  ],
+  "previous_state": "EXPERIMENT",
+  "housekeeping": {
+    "at": "2026-09-21T16:27:00+08:00",
+    "change": "Normalized current lifecycle to CANDIDATE; experimental form remains represented by workbench/method hypothesis rather than lifecycle state.",
+    "evidence": [
+      "/showcase-manifest.json",
+      "/control/FIELD_INDEX_CONTRACT.json"
+    ]
+  }
 }
