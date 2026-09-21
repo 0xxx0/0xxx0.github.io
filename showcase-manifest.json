@@ -2110,68 +2110,73 @@
     },
     {
       "href": "/foundry/room/",
-      "title": "ROOM / HTML SUBSTRATE 0.3",
+      "title": "ROOM / MATERIAL DOM 0.4",
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "COMPOSE",
       "state": "CANDIDATE",
-      "version": "0.3",
-      "receipt": "/foundry/room/release.json",
+      "version": "0.4",
+      "receipt": "/returns/ROOM_MATERIAL_DOM_2026-09-22.json",
       "showcase_card": false,
-      "role": "DOM-as-program composition surface: ordinary nested HTML is the program structure, <details> folds abstraction, visible links are seams, SOURCE edits the same markup, and RETURN preserves markup plus trace.",
+      "role": "Structurally reflexive material/cassette interface: the visible nested DOM is the program the runtime interprets; rel=next links are typed seams; FOLD literally wraps sibling DOM into a cassette; ENTER reveals derivation; model-fit remains independent from physical contract-fit.",
       "transfer": [
-        "FURNISHER/SINDER homoiconic-interface aspiration, joint-pattern compiler and multidimensional-breadboard intent",
-        "INTERPHASE room-as-projection-not-kernel correction",
-        "SPACE SCALE 0.2 executable composition semantics, stripped of custom canvas UI",
-        "ordinary HTML/DOM nesting, anchors and details/summary as dependency-light substrate"
+        "FURNISHER/SINDER connection-pattern-as-interface, joint-pattern compiler and multidimensional-breadboard intent",
+        "INTERPHASE source → reduce → focus → fold → act lineage",
+        "HTML SUBSTRATE 0.3 DOM-as-program correction without its conventional-document projection",
+        "SPACE SCALE 0.2 typed fold/dock/run semantics retained as donor, not current UI authority",
+        "product-video SAVE → LOAD → SIMULATION GAP boundary: MODEL FIT != PHYSICAL CONTRACT FIT",
+        "physical rail/cassette/partition lineage as future measured witness only"
       ],
       "contract": {
         "accepts": {
           "kinds": [
-            "HTML composition document"
+            "structural HTML composition",
+            "typed blocks / cassettes"
           ],
           "requires": [
             "stable element ids",
-            "visible rel=next seams"
+            "visible rel=next seams",
+            "declared data-type boundaries"
           ],
           "optional": [
-            "nested composite details",
-            "data-op",
-            "data-type-in",
-            "data-type-out"
+            "nested cassette details",
+            "predicted/measured observable + tolerance",
+            "independent physical contract result"
           ]
         },
         "transforms": {
-          "verb": "interpret the same visible HTML tree as a small composition program without maintaining a second graph model",
+          "verb": "interpret the visible DOM as a composition program, fold contiguous siblings into a real DOM cassette, traverse/re-enter that derivation, execute visible seams, and RETURN the same structural source plus trace/binding",
           "preserves": [
             "DOM element identity",
+            "child identity",
             "nesting",
-            "visible seams",
+            "typed seams",
             "source markup",
             "RETURN"
           ],
-          "reversibility": "source markup can be edited/reapplied; native fold/unfold is non-destructive",
-          "side_effects": "browser-local run trace and RETURN only"
+          "reversibility": "generated cassette folds can be dissolved; SOURCE can be edited/reapplied; fold visibility is non-destructive",
+          "side_effects": "browser-local structural mutation / trace / RETURN only"
         },
         "emits": {
           "kinds": [
-            "native HTML composition",
+            "material DOM composition",
             "execution trace",
-            "HTML+trace RETURN"
+            "model-binding result",
+            "structural DOM + trace RETURN"
           ],
           "machine_readable": true,
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/foundry/room/release.json",
+          "receipt": "/returns/ROOM_MATERIAL_DOM_2026-09-22.json",
           "checks": [
-            "#program is the live canonical structure",
-            "nested <details> is visible composition",
-            "RUN traverses visible rel=next anchors",
-            "SOURCE serializes #program.outerHTML",
-            "no space-core.js dependency on current surface",
-            "0.2 canvas and 0.1 cube remain preserved"
+            "built-in ?selftest=1 proves initial run + internal GROUP trace",
+            "MARK → FOLD mutates the actual #program DOM and preserves child ids",
+            "folded cassette remains executable from visible rel=next seams",
+            "SOURCE preserves generated cassette structure",
+            "MODEL FIT and physical CONTRACT FIT remain independent",
+            "0.3 HTML / 0.2 canvas / 0.1 cube remain preserved"
           ],
           "return_path": "/foundry/room/"
         }
@@ -2179,38 +2184,59 @@
       "field": {
         "roles": [
           "TRANSFORM",
-          "VERIFY"
+          "VERIFY",
+          "WORLD_THROUGH"
         ],
         "inputs": [
           {
             "medium": "DOCUMENT",
-            "kind": "HTML markup",
+            "kind": "nested HTML program",
             "interface": "#program DOM"
           },
           {
             "medium": "HUMAN_ACTION",
-            "kind": "open/close/follow/run/edit source",
-            "interface": "native HTML controls"
+            "kind": "focus / mark / fold / dissolve / enter / back / run / source edit",
+            "interface": "MATERIAL DOM"
+          },
+          {
+            "medium": "OBSERVATION",
+            "kind": "predicted / measured / tolerance + independent contract result",
+            "interface": "MODEL BINDING"
           }
         ],
         "outputs": [
           {
             "medium": "DOCUMENT",
-            "kind": "same live HTML program",
+            "kind": "same structural DOM program",
             "interface": "SOURCE"
           },
           {
             "medium": "DATA",
-            "kind": "execution trace",
-            "interface": "RUN RESULT"
+            "kind": "execution + nested GROUP trace",
+            "interface": "RUN"
           },
           {
             "medium": "EVIDENCE",
-            "kind": "markup + trace RETURN",
+            "kind": "model-fit vs contract-fit result",
+            "interface": "VERIFY"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "structural DOM + trace + binding + events",
             "interface": "RETURN"
           }
         ],
         "exit_paths": [
+          {
+            "class": "PHYSICAL_WITNESS",
+            "status": "PROOF_REQUIRED",
+            "via": "typed seam/cassette → independent dimensional/load/safety evidence"
+          },
+          {
+            "class": "HTML_SUBSTRATE_0_3",
+            "status": "REFERENCE",
+            "via": "/foundry/room/html-substrate-0.3.html"
+          },
           {
             "class": "SPACE_SCALE_0_2",
             "status": "REFERENCE",
@@ -2220,38 +2246,36 @@
             "class": "ROOM_0_1",
             "status": "REFERENCE",
             "via": "/foundry/room/room-0.1.html"
-          },
-          {
-            "class": "FOUNDRY",
-            "status": "AVAILABLE",
-            "via": "/foundry/"
           }
         ],
-        "physical_fit": "None. This is an interface/composition experiment; physical materialization remains a separate reality gate."
+        "physical_fit": "None inferred. A model may fit measurements while the physical result fails its independent contract, or vice versa."
       },
       "index": {
-        "updated_at": "2026-09-22T06:08:00+08:00",
+        "updated_at": "2026-09-22T06:42:00+08:00",
         "work_modes": [
           "RECOVER",
           "SIMPLIFY",
           "IMPLEMENT",
-          "VERIFY"
+          "VERIFY",
+          "OPERATE"
         ]
       },
       "evolution": {
         "schema": "field-evolution/v0.1",
         "host": "/foundry/",
-        "generation": 3,
+        "generation": 4,
         "stage": "TEST",
-        "question": "Can the composition law be understood and used directly as ordinary HTML, without a custom canvas or separate graph model?",
-        "baseline": "SPACE SCALE 0.2 custom canvas with separate JavaScript graph model.",
-        "mutation": "Make the DOM itself the program structure: nesting=composition, details=fold, anchors=seams, SOURCE=same markup.",
-        "evidence_gate": "A new user can read, fold, traverse, RUN, inspect SOURCE and explain the composition without learning a custom interaction grammar.",
-        "next_if_pass": "Apply DOM-as-program to one real FIELD transformation; richer views remain optional projections.",
-        "next_if_fail": "Reduce further to static HTML + links and keep execution optional."
+        "question": "Can a material/cassette projection over the same executable DOM make composition and re-entry materially clearer than both a plain document and SPACE SCALE 0.2's node canvas?",
+        "baseline": "0.2 hid composition behind a separate graph/canvas; 0.3 exposed the DOM but reduced the interaction to a conventional document.",
+        "mutation": "Use the DOM itself as program structure while projecting sibling blocks on a hard-edged material rail; visible typed seams execute, FOLD wraps the actual DOM into a cassette, ENTER reveals children, SOURCE/RETURN preserve that same structure.",
+        "evidence_gate": "Use one real configuration sequence. Require lower translation/re-entry cost than both a plain ordered list and the 0.2 canvas; otherwise demote the rail and retain only the structural-DOM law.",
+        "next_if_pass": "Physicalize one harmless seam/cassette witness and record model-fit and physical contract-fit independently.",
+        "next_if_fail": "Reduce to structural HTML + links and keep richer projection mechanics only where they pay rent."
       },
-      "kernel": "inline DOM interpreter",
+      "kernel": "inline structural DOM interpreter",
+      "current_projection": "material rail / cassette",
       "previous_heads": [
+        "/foundry/room/html-substrate-0.3.html",
         "/foundry/room/space-scale-0.2.html",
         "/foundry/room/room-0.1.html"
       ],
