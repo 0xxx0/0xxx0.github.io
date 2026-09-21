@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>ROOM 0.3 / HTML SUBSTRATE</title>
+<style>
+html{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#fff;color:#111}
+body{max-width:860px;margin:0 auto;padding:24px 16px 80px;line-height:1.5}
+a{color:#0645ad}header{border-bottom:2px solid #111;padding-bottom:12px;margin-bottom:20px}
+h1{font:800 clamp(30px,7vw,62px)/.95 system-ui,sans-serif;letter-spacing:-.05em;margin:6px 0}
+nav{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0 0}
+button,select,input,textarea{font:inherit;border:1px solid #111;background:#fff;color:#111;border-radius:0;padding:5px 7px}
+button{cursor:pointer}.note{max-width:70ch}.muted{color:#666}.law{border-left:4px solid #111;padding-left:12px;margin:18px 0}
+#program{border-top:1px solid #aaa;margin-top:18px;padding-top:14px}
+.block{border:1px solid #777;margin:10px 0;background:#fff}
+.block>.block{margin:10px}
+.block summary{cursor:pointer;padding:8px 10px;font-weight:700}
+.block[open]>summary{border-bottom:1px solid #bbb}
+.body{padding:8px 10px}
+.meta{font-size:.82em;color:#666}
+.seam{margin:.5em 0}.seam b{display:inline-block;min-width:42px}
+.block.running{outline:3px solid #111}
+.block.pass{outline:3px solid #4b8}.block.fail{outline:3px solid #b55}
+.controls{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+#result,#sourceText,#returnText{width:100%;min-height:150px;white-space:pre-wrap}
+.panel{margin-top:22px;border-top:2px solid #111;padding-top:12px}
+details.panel>summary{cursor:pointer;font-weight:700}
+code{background:#f2f2f2;padding:1px 3px}
+@media(prefers-color-scheme:dark){
+ html{background:#0a0a0a;color:#eee}a{color:#8ab4ff}
+ button,select,input,textarea{background:#0a0a0a;color:#eee;border-color:#aaa}
+ .block{background:#0a0a0a;border-color:#777}.block[open]>summary{border-color:#555}
+ code{background:#222}.muted,.meta{color:#aaa}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="meta">FU / FURNISHER / INTERPHASE · GENERATION 3</div>
+  <h1>ROOM 0.3<br>HTML SUBSTRATE</h1>
+  <p class="note"><strong>The document is the graph.</strong> Open a heading to enter a block. Close it to treat the same composition as one thing. Follow ordinary links to traverse seams. RUN follows those same links. SOURCE shows the exact markup being interpreted.</p>
+  <nav>
+    <a href="/foundry/">FOUNDRY</a>
+    <a href="#program">PROGRAM</a>
+    <a href="#sourcePanel">SOURCE</a>
+    <a href="./space-scale-0.2.html">0.2 CANVAS</a>
+    <a href="./room-0.1.html">0.1 CUBE</a>
+  </nav>
+</header>
+
+<div class="law">
+  <b>No strict homoiconicity claim.</b><br>
+  This is <em>DOM-as-program</em>: the same nested HTML you see is the structure the tiny runtime reads. Behavior still lives in JavaScript, so this is structurally reflexive rather than Lisp-style homoiconic.
+</div>
+
+<div class="controls">
+  <button id="runBtn">RUN FROM INTENT</button>
+  <button id="clearBtn">CLEAR TRACE</button>
+  <button id="returnBtn">RETURN</button>
+</div>
+
+<main id="program" data-schema="0xxx0/html-room/v0.3" data-entry="intent">
+  <details class="block" id="intent" data-op="SOURCE" data-type-out="INTENT" open>
+    <summary>INTENT <span class="meta">SOURCE → INTENT</span></summary>
+    <div class="body">
+      <p class="value">make one useful physical configuration</p>
+      <p class="seam"><b>OUT</b> <a rel="next" data-type="INTENT" href="#bound">INTENT → BOUND</a></p>
+    </div>
+  </details>
+
+  <details class="block" id="bound" data-op="WRAP" data-type-in="INTENT" data-type-out="CONSTRAINT" open>
+    <summary>BOUND <span class="meta">INTENT → CONSTRAINT</span></summary>
+    <div class="body">
+      <p>Make the intent explicit enough that a transformation can be checked.</p>
+      <p class="seam"><b>IN</b> <a href="#intent">INTENT ← INTENT</a></p>
+      <p class="seam"><b>OUT</b> <a rel="next" data-type="CONSTRAINT" href="#compiler">CONSTRAINT → FURNISHER COMPILER</a></p>
+    </div>
+  </details>
+
+  <details class="block" id="compiler" data-op="GROUP" data-type-in="CONSTRAINT" data-type-out="EVIDENCE" open>
+    <summary>FURNISHER COMPILER <span class="meta">COMPOSITE · close me = one block</span></summary>
+    <div class="body">
+      <p class="muted">The children below are the implementation. The outer <code>&lt;details&gt;</code> is the abstraction boundary.</p>
+
+      <details class="block" id="search" data-op="CONFIG" data-type-in="CONSTRAINT" data-type-out="CONFIG" open>
+        <summary>SEARCH <span class="meta">CONSTRAINT → CONFIG</span></summary>
+        <div class="body">
+          <p>Generate a bounded candidate configuration. No physical claim yet.</p>
+          <p class="seam"><b>OUT</b> <a rel="next" data-type="CONFIG" href="#compile">CONFIG → COMPILE</a></p>
+        </div>
+      </details>
+
+      <details class="block" id="compile" data-op="COMPILE" data-type-in="CONFIG" data-type-out="PATTERN" open>
+        <summary>COMPILE <span class="meta">CONFIG → PATTERN</span></summary>
+        <div class="body">
+          <p>Express the candidate as POINT / PATH / PLANE / POWER relations.</p>
+          <p class="seam"><b>OUT</b> <a rel="next" data-type="PATTERN" href="#verify">PATTERN → VERIFY</a></p>
+        </div>
+      </details>
+
+      <details class="block" id="verify" data-op="VERIFY" data-type-in="PATTERN" data-type-out="EVIDENCE" open>
+        <summary>VERIFY <span class="meta">PATTERN → EVIDENCE</span></summary>
+        <div class="body">
+          <p>Check typed continuity and preserve explicit unknowns. Physical fit/load/safety remain outside this page.</p>
+          <p class="seam"><b>OUT</b> <a rel="next" data-type="EVIDENCE" href="#return">EVIDENCE → RETURN</a></p>
+        </div>
+      </details>
+    </div>
+  </details>
+
+  <details class="block" id="return" data-op="RETURN" data-type-in="EVIDENCE" data-type-out="RECEIPT" open>
+    <summary>RETURN <span class="meta">EVIDENCE → RECEIPT</span></summary>
+    <div class="body">
+      <p>Return the exact document structure plus the execution trace.</p>
+      <p class="seam"><b>IN</b> <a href="#verify">EVIDENCE ← VERIFY</a></p>
+    </div>
+  </details>
+</main>
+
+<section class="panel">
+  <h2>RUN RESULT</h2>
+  <pre id="result">Nothing has run yet.</pre>
+</section>
+
+<details class="panel" id="sourcePanel">
+  <summary>SOURCE / EDIT THE PROGRAM</summary>
+  <p class="muted">This is the actual markup under <code>#program</code>. Edit it and APPLY. There is no second graph model to keep in sync.</p>
+  <textarea id="sourceText" spellcheck="false"></textarea>
+  <div class="controls">
+    <button id="refreshSource">REFRESH SOURCE</button>
+    <button id="applySource">APPLY SOURCE</button>
+    <button id="copySource">COPY SOURCE</button>
+  </div>
+</details>
+
+<details class="panel">
+  <summary>RETURN RECEIPT</summary>
+  <textarea id="returnText" readonly></textarea>
+</details>
+
+<script>
+(()=>{'use strict';
+const $=s=>document.querySelector(s),program=()=>$('#program');
+let lastRun=null;
+
+function blocks(){return [...program().querySelectorAll('.block')]}
+function block(id){return program().querySelector('#'+CSS.escape(id))}
+function next(blockEl){return blockEl?.querySelector(':scope > .body a[rel="next"]')?.getAttribute('href')?.replace(/^#/,'')||null}
+function directChildren(el){return [...el.querySelectorAll(':scope > .body > .block')]}
+function valueText(el){return el.querySelector(':scope > .body > .value')?.textContent.trim()||''}
+
+function applyOp(el,input){
+  const op=(el.dataset.op||'PASS').toUpperCase();
+  if(op==='SOURCE')return valueText(el);
+  if(op==='WRAP')return {value:input,bounded:true};
+  if(op==='GROUP'){
+    const kids=directChildren(el);let v=input,trace=[];
+    for(const k of kids){v=applyOp(k,v);trace.push({id:k.id,op:k.dataset.op,output:v})}
+    return {group:el.id,value:v,internal_trace:trace};
+  }
+  if(op==='CONFIG')return {intent:input,reversible:true,analog_first:true,status:'CANDIDATE'};
+  if(op==='COMPILE')return {schema:'room-html/pattern/v0.1',input,relations:['POINT','PATH','PLANE','POWER']};
+  if(op==='VERIFY')return {pass:input!=null,input,checks:['typed continuity','explicit unknowns'],physical_status:'UNVERIFIED'};
+  if(op==='RETURN')return {status:'RETURNED',value:input};
+  return input;
+}
+
+function clearTrace(){blocks().forEach(x=>x.classList.remove('running','pass','fail'))}
+function run(){
+  clearTrace();
+  const entry=program().dataset.entry||blocks()[0]?.id;
+  let id=entry,input=null,trace=[],seen=new Set(),guard=0;
+  while(id&&guard++<64){
+    if(seen.has(id))throw new Error('cycle at #'+id);seen.add(id);
+    const el=block(id);if(!el)throw new Error('missing block #'+id);
+    el.classList.add('running');
+    const output=applyOp(el,input),n=next(el);
+    trace.push({id,op:el.dataset.op||'PASS',input,output,next:n});
+    input=output;id=n;
+  }
+  blocks().forEach(x=>x.classList.remove('running'));
+  trace.forEach(t=>block(t.id)?.classList.add('pass'));
+  lastRun={schema:'0xxx0/html-room-run/v0.3',entry,trace,result:input,at:new Date().toISOString()};
+  $('#result').textContent=JSON.stringify(lastRun,null,2);
+  return lastRun;
+}
+
+function source(){return program().outerHTML}
+function refreshSource(){ $('#sourceText').value=source() }
+function applySource(){
+  const t=document.createElement('template');t.innerHTML=$('#sourceText').value.trim();
+  const nextProgram=t.content.querySelector('#program');
+  if(!nextProgram){alert('SOURCE must contain one element with id="program".');return}
+  program().replaceWith(nextProgram);
+  lastRun=null;$('#result').textContent='Source applied. RUN when ready.';refreshSource();
+}
+async function copy(text){
+  try{await navigator.clipboard.writeText(text)}catch(_){}
+}
+function makeReturn(){
+  const ret={
+    schema:'0xxx0/html-room-return/v0.3',
+    route:location.pathname,
+    program_html:source(),
+    run:lastRun,
+    law:'DOM-as-program; structurally reflexive, not strict homoiconicity',
+    physical_status:'NO PHYSICAL FIT/LOAD/SAFETY CLAIM',
+    at:new Date().toISOString()
+  };
+  $('#returnText').value=JSON.stringify(ret,null,2);
+  copy($('#returnText').value);
+  return ret;
+}
+
+$('#runBtn').onclick=()=>{try{run()}catch(e){$('#result').textContent='RUN ERROR: '+e.message}};
+$('#clearBtn').onclick=clearTrace;
+$('#returnBtn').onclick=makeReturn;
+$('#refreshSource').onclick=refreshSource;
+$('#applySource').onclick=applySource;
+$('#copySource').onclick=()=>copy(source());
+refreshSource();
+window.RoomHTML={run,source,returnReceipt:makeReturn};
+})();
+</script>
+<script src="/showcase-nav.js" defer></script>
+</body>
+</html>
