@@ -2,8 +2,8 @@
   "schema": "0xxx0/return-index/v0.1",
   "generated": "2026-09-21",
   "source": "/showcase-manifest.json",
-  "count": 46,
-  "receipts_ok": 46,
+  "count": 47,
+  "receipts_ok": 47,
   "law": "A release without a return path is not closed.",
   "items": [
     {
@@ -274,12 +274,12 @@
       "href": "/house/",
       "title": "HOUSE / FIELD",
       "state": "STABLE",
-      "version": "0.4",
+      "version": "0.5",
       "operation": "PROJECT",
       "receipt": "/house/release.json",
       "receipt_ok": true,
       "receipt_schema": "release-receipt/v1",
-      "release_updated": "2026-09-20"
+      "release_updated": "2026-09-21"
     },
     {
       "href": "/house/spatial/",
@@ -511,6 +511,17 @@
       "receipt_ok": true,
       "receipt_schema": "release-receipt/v1",
       "release_updated": null
+    },
+    {
+      "href": "/body/",
+      "title": "BODY / FIELD 0.2",
+      "state": "EXPERIMENT",
+      "version": "0.2",
+      "operation": "OBSERVE",
+      "receipt": "/body/release.json",
+      "receipt_ok": true,
+      "receipt_schema": "release-receipt/v1",
+      "release_updated": "2026-09-21"
     }
   ],
   "note": "Lifecycle state/version/title are synchronized from current manifest classification; release receipts retain historical contemporaneous state."
