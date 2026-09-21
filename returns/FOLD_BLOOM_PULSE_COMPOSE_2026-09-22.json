@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/return/v0.1",
   "kind": "FOLD_BLOOM_PULSE_COMPOSE_RETURN",
-  "status": "IMPLEMENTED_CANDIDATE",
+  "status": "SHIPPED_VERIFIED",
   "date": "2026-09-22",
   "route": "/fold-bloom/two-dial/",
   "version": "0.10.1",
@@ -21,8 +21,12 @@
   ],
   "invariant": "LISTEN may supply timing context only after explicit PULSE LINK; Two Dial remains the author of its musical and transformation grammar.",
   "tests": {
-    "browser_smoke": "PENDING",
-    "field_index": "PENDING",
-    "phone_cross_tab": "REQUIRED_NEXT"
-  }
+    "browser_smoke": "PASS: public-surface-check run 35644367601",
+    "field_index": "PASS: route grammar + static contracts in run 35644367601",
+    "phone_cross_tab": "REQUIRED_NEXT",
+    "module_boot": "PASS: Two Dial browser smoke observed data-fold-bloom-pulse=ready in run 35644367601"
+  },
+  "merge_sha": "71c08a81faa49b815b0048bb69721462edf9db3e",
+  "pull_request": "https://github.com/0xxx0/0xxx0.github.io/pull/110",
+  "stop_condition": "Repository expansion stops here; next authority comes from real-phone LISTEN↔TWO DIAL play."
 }
