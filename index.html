@@ -192,7 +192,17 @@ function tokenHTML(a,v,maxSup){
 function renderAxes(){
  const as=axes();$('axialRows').innerHTML=as.map(a=>{const supports=a.values.map(v=>supportFor(a,v)),maxSup=Math.max(1,...supports),sv=selectedValue(a),pi=Math.max(0,a.values.indexOf(sv)),pos=axisPosition(a.values,pi);return'<div class="axisRow"><div class="axisName"><b>'+esc(a.label)+'</b><i>'+pos.label+' · '+a.values.length+' POS</i></div><div class="axisViewport" data-axis="'+esc(a.key)+'"><div class="axisTrack">'+a.values.map(v=>tokenHTML(a,v,maxSup)).join('')+'</div></div></div>'}).join('');
  $('axialRows').querySelectorAll('.axisToken').forEach(b=>{b.onclick=e=>{e.stopPropagation();chooseAxis(b.dataset.axis,b.dataset.value,true)};b.onkeydown=e=>{if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;e.preventDefault();const row=[...b.parentElement.querySelectorAll('.axisToken')],i=row.indexOf(b),n=Math.max(0,Math.min(row.length-1,i+(e.key==='ArrowRight'?1:-1))),next=row[n];if(next){next.focus();chooseAxis(next.dataset.axis,next.dataset.value,true)}}});
- $('axialRows').querySelectorAll('.axisViewport').forEach(v=>v.addEventListener('scroll',()=>{clearTimeout(scrollTimers[v.dataset.axis]);scrollTimers[v.dataset.axis]=setTimeout(()=>nearestFromScroll(v),130)},{passive:true}));
+ $('axialRows').querySelectorAll('.axisViewport').forEach(v=>{
+  const arm=()=>{v.dataset.userScroll='1'};
+  v.addEventListener('pointerdown',arm,{passive:true});
+  v.addEventListener('wheel',arm,{passive:true});
+  v.addEventListener('touchstart',arm,{passive:true});
+  v.addEventListener('scroll',()=>{
+   if(v.dataset.userScroll!=='1')return;
+   clearTimeout(scrollTimers[v.dataset.axis]);
+   scrollTimers[v.dataset.axis]=setTimeout(()=>{nearestFromScroll(v);v.dataset.userScroll=''},130)
+  },{passive:true});
+ });
  requestAnimationFrame(centerAxes);
 }
 function renderSurvivors(){
