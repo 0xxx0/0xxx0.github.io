@@ -1,0 +1,399 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "MEDIA-REFINERY-B260728B-2026-09-22",
+  "date": "2026-09-22",
+  "object": "First bounded FIELD / MEDIA REFINERY pass over exact Library batch B260728B",
+  "source": {
+    "manifest": "/recovery/naming/visual-batch-B260728B.json",
+    "images": 8,
+    "byte_access": "Library materialized read-only into working environment",
+    "repo_media_copy": false,
+    "source_mutated": false
+  },
+  "result": {
+    "exact_images": 8,
+    "byte_objects": 8,
+    "exact_duplicate_groups": 0,
+    "dimensions": "1122x1402 all 8",
+    "aspect": 0.800285,
+    "composition_classes": {
+      "AXIAL_PORTAL": 3,
+      "RADIAL_FIELD": 2,
+      "PATH_FIELD": 2,
+      "OBLIQUE_PORTAL": 1
+    },
+    "batch_quantitative": {
+      "luminance_mean": {
+        "mean": 0.704206,
+        "min": 0.623401,
+        "max": 0.737154,
+        "stdev": 0.033337
+      },
+      "contrast": {
+        "mean": 0.140171,
+        "min": 0.11482,
+        "max": 0.189449,
+        "stdev": 0.021729
+      },
+      "entropy": {
+        "mean": 0.777568,
+        "min": 0.737323,
+        "max": 0.841922,
+        "stdev": 0.028869
+      },
+      "saturation": {
+        "mean": 0.204496,
+        "min": 0.180018,
+        "max": 0.23268,
+        "stdev": 0.015758
+      },
+      "colorfulness": {
+        "mean": 0.085063,
+        "min": 0.079105,
+        "max": 0.102628,
+        "stdev": 0.00712
+      },
+      "gradient_mean": {
+        "mean": 0.032801,
+        "min": 0.028262,
+        "max": 0.037833,
+        "stdev": 0.003261
+      },
+      "gradient_p90": {
+        "mean": 0.08564,
+        "min": 0.071374,
+        "max": 0.099286,
+        "stdev": 0.008291
+      },
+      "edge_density_strong": {
+        "mean": 0.113855,
+        "min": 0.080297,
+        "max": 0.140671,
+        "stdev": 0.019467
+      },
+      "quiet_fraction": {
+        "mean": 0.652073,
+        "min": 0.573659,
+        "max": 0.697253,
+        "stdev": 0.039656
+      },
+      "dark_fraction": {
+        "mean": 0.008377,
+        "min": 0.000066,
+        "max": 0.04394,
+        "stdev": 0.013724
+      },
+      "light_fraction": {
+        "mean": 0.593406,
+        "min": 0.419876,
+        "max": 0.700139,
+        "stdev": 0.083733
+      }
+    },
+    "semantic_overlay": "/recovery/naming/B260728B-semantic-v0.1.json",
+    "extractor": "/scripts/media-refinery.py"
+  },
+  "items": [
+    {
+      "seq": 1,
+      "sha256": "fa65462cd6da2e2dee52079b8f94f3cdadc245d02e10decab1954fa6a7daacbc",
+      "bytes": 2672791,
+      "composition_class": "AXIAL_PORTAL",
+      "composition_subtype": "NESTED_GATE",
+      "quantitative": {
+        "luminance_mean": 0.737154,
+        "contrast": 0.11482,
+        "entropy": 0.737323,
+        "saturation": 0.202077,
+        "colorfulness": 0.087836,
+        "gradient_mean": 0.031892,
+        "gradient_p90": 0.085063,
+        "edge_density_strong": 0.110898,
+        "symmetry": {
+          "left_right": 0.937203,
+          "top_bottom": 0.91057
+        },
+        "visual_center": {
+          "x": 0.479095,
+          "y": 0.487966
+        }
+      }
+    },
+    {
+      "seq": 2,
+      "sha256": "25269fe0fb3f6935c64ac8dcbcc44d09e6a49bda9a8ab6bac81af7a6f8ce7f30",
+      "bytes": 2891937,
+      "composition_class": "RADIAL_FIELD",
+      "composition_subtype": "CONCENTRIC_ATLAS",
+      "quantitative": {
+        "luminance_mean": 0.720007,
+        "contrast": 0.120882,
+        "entropy": 0.786614,
+        "saturation": 0.23268,
+        "colorfulness": 0.084177,
+        "gradient_mean": 0.035843,
+        "gradient_p90": 0.09155,
+        "edge_density_strong": 0.13242,
+        "symmetry": {
+          "left_right": 0.93463,
+          "top_bottom": 0.904455
+        },
+        "visual_center": {
+          "x": 0.502786,
+          "y": 0.490317
+        }
+      }
+    },
+    {
+      "seq": 3,
+      "sha256": "475683558df5641c4f29b6753648da51023716e1b9694ec1c9280dc5dbad546b",
+      "bytes": 2688252,
+      "composition_class": "PATH_FIELD",
+      "composition_subtype": "SERPENTINE_CANYON",
+      "quantitative": {
+        "luminance_mean": 0.707553,
+        "contrast": 0.140365,
+        "entropy": 0.784339,
+        "saturation": 0.185844,
+        "colorfulness": 0.079583,
+        "gradient_mean": 0.029444,
+        "gradient_p90": 0.076897,
+        "edge_density_strong": 0.093315,
+        "symmetry": {
+          "left_right": 0.906137,
+          "top_bottom": 0.901509
+        },
+        "visual_center": {
+          "x": 0.497232,
+          "y": 0.503896
+        }
+      }
+    },
+    {
+      "seq": 4,
+      "sha256": "c587a06dc5740c77db0855142ee70142faade203718f608985426f52c69baf1d",
+      "bytes": 2918571,
+      "composition_class": "PATH_FIELD",
+      "composition_subtype": "ISOMETRIC_LABYRINTH",
+      "quantitative": {
+        "luminance_mean": 0.717822,
+        "contrast": 0.132064,
+        "entropy": 0.755136,
+        "saturation": 0.198984,
+        "colorfulness": 0.081306,
+        "gradient_mean": 0.035955,
+        "gradient_p90": 0.099286,
+        "edge_density_strong": 0.140671,
+        "symmetry": {
+          "left_right": 0.909816,
+          "top_bottom": 0.901493
+        },
+        "visual_center": {
+          "x": 0.485983,
+          "y": 0.480154
+        }
+      }
+    },
+    {
+      "seq": 5,
+      "sha256": "3abae64334c47b70c41627a9f462bbd0ced466f0525e0850974253bd7c159c5c",
+      "bytes": 2663371,
+      "composition_class": "OBLIQUE_PORTAL",
+      "composition_subtype": "TILTED_GATE",
+      "quantitative": {
+        "luminance_mean": 0.706718,
+        "contrast": 0.138759,
+        "entropy": 0.767993,
+        "saturation": 0.213097,
+        "colorfulness": 0.083143,
+        "gradient_mean": 0.028262,
+        "gradient_p90": 0.071374,
+        "edge_density_strong": 0.080297,
+        "symmetry": {
+          "left_right": 0.897391,
+          "top_bottom": 0.90172
+        },
+        "visual_center": {
+          "x": 0.499599,
+          "y": 0.505412
+        }
+      }
+    },
+    {
+      "seq": 6,
+      "sha256": "ff74f8efc65e4702c642dfdbc4e335319a67e16b8a52b19f4325840535331a0b",
+      "bytes": 2541849,
+      "composition_class": "AXIAL_PORTAL",
+      "composition_subtype": "FRONTAL_CATALOG",
+      "quantitative": {
+        "luminance_mean": 0.729778,
+        "contrast": 0.153808,
+        "entropy": 0.764792,
+        "saturation": 0.180018,
+        "colorfulness": 0.079105,
+        "gradient_mean": 0.030021,
+        "gradient_p90": 0.083765,
+        "edge_density_strong": 0.107453,
+        "symmetry": {
+          "left_right": 0.939493,
+          "top_bottom": 0.901963
+        },
+        "visual_center": {
+          "x": 0.47852,
+          "y": 0.525576
+        }
+      }
+    },
+    {
+      "seq": 7,
+      "sha256": "550225487fc19d958274bb22773b5fec957979558b6c7230f47b31e92927d9a9",
+      "bytes": 2894652,
+      "composition_class": "RADIAL_FIELD",
+      "composition_subtype": "AMPHITHEATER",
+      "quantitative": {
+        "luminance_mean": 0.623401,
+        "contrast": 0.189449,
+        "entropy": 0.841922,
+        "saturation": 0.211766,
+        "colorfulness": 0.102628,
+        "gradient_mean": 0.037833,
+        "gradient_p90": 0.092303,
+        "edge_density_strong": 0.133062,
+        "symmetry": {
+          "left_right": 0.896323,
+          "top_bottom": 0.844276
+        },
+        "visual_center": {
+          "x": 0.500003,
+          "y": 0.466035
+        }
+      }
+    },
+    {
+      "seq": 8,
+      "sha256": "00f300904940f67cc1e84e19831c790a353c9d1c6e50114fbd47362f9921e936",
+      "bytes": 2843319,
+      "composition_class": "AXIAL_PORTAL",
+      "composition_subtype": "RADIAL_FOREGROUND",
+      "quantitative": {
+        "luminance_mean": 0.691215,
+        "contrast": 0.131218,
+        "entropy": 0.782425,
+        "saturation": 0.211499,
+        "colorfulness": 0.082725,
+        "gradient_mean": 0.033159,
+        "gradient_p90": 0.084882,
+        "edge_density_strong": 0.112722,
+        "symmetry": {
+          "left_right": 0.920971,
+          "top_bottom": 0.891886
+        },
+        "visual_center": {
+          "x": 0.492002,
+          "y": 0.495049
+        }
+      }
+    }
+  ],
+  "derived_local_only": {
+    "contact_sheet": {
+      "sha256": "e64526eb9f06e97ba1ffd6b7e76a8ee2867d021074d3a2c1b69e39eef6e6f7e7",
+      "bytes": 1738307
+    },
+    "seq1_structure_map": {
+      "sha256": "fba027115cb4d72fdd02e59f7b1fda6a0e3fec44064d62cb1dc736af71c18963",
+      "bytes": 1371115
+    },
+    "seq1_tone_map": {
+      "sha256": "fb71eda87b4f34efb749d8fbd259a806168f5435f256dda187366109ce335747",
+      "bytes": 914912
+    },
+    "seq1_focus_map": {
+      "sha256": "a9c8a56547dee5aa23d8b1f4516a7b3976e99efcda8be7889f73e2494c6c2dce",
+      "bytes": 57973
+    },
+    "reason": "Proves contact-sheet + control-map generation without adding media bulk to the repository."
+  },
+  "finding": [
+    "The batch is aesthetically coherent but compositionally diverse; one embedding/channel should not be asked to represent both.",
+    "A numeric-only clustering trial mostly isolated the darkest/highest-contrast image rather than the useful spatial families, so composition classification remains a separate semantic/geometry layer.",
+    "Image 7 is the strongest within-batch aesthetic-density outlier and is useful as an AESTHETIC-only donor without importing a new style corpus.",
+    "The first bad edge-density metric was rejected before commit because its percentile definition forced near-constant density; v0.1 uses fixed normalized-gradient density plus gradient strength."
+  ],
+  "controlled_variation_packet": {
+    "source_seq": 1,
+    "hypothesis": "Composition, aesthetic density, pattern and semantic meaning can be varied one at a time while the other PAINT axes stay locked.",
+    "budget": {
+      "max_rendered_outputs": 4,
+      "per_axis": 1,
+      "video": 0,
+      "sweeps": 0
+    },
+    "variants": [
+      {
+        "id": "C1_COMPOSITION_ONLY",
+        "unlock": [
+          "composition"
+        ],
+        "donor_seq": 2,
+        "change": "AXIAL_PORTAL/NESTED_GATE -> RADIAL_FIELD/CONCENTRIC_ATLAS",
+        "lock": [
+          "surface",
+          "pattern",
+          "meaning",
+          "transformation"
+        ]
+      },
+      {
+        "id": "A1_AESTHETIC_ONLY",
+        "unlock": [
+          "surface"
+        ],
+        "donor_seq": 7,
+        "change": {
+          "contrast": "0.114820 -> target 0.189449",
+          "luminance": "0.737154 -> target 0.623401",
+          "gradient_mean": "0.031892 -> target 0.037833"
+        },
+        "lock": [
+          "composition",
+          "pattern",
+          "meaning",
+          "transformation"
+        ]
+      },
+      {
+        "id": "P1_PATTERN_ONLY",
+        "unlock": [
+          "pattern"
+        ],
+        "donor_seq": 4,
+        "change": "nested thresholds/radial seals/micro-grid -> modular blocks/loop network/diagram sidecars",
+        "lock": [
+          "composition",
+          "surface",
+          "meaning",
+          "transformation"
+        ]
+      },
+      {
+        "id": "M1_MEANING_ONLY",
+        "unlock": [
+          "meaning",
+          "transformation"
+        ],
+        "donor_seq": 8,
+        "change": "boundary/state-layers/threshold-crossing -> partial-return/open-atlas/re-entry",
+        "lock": [
+          "composition",
+          "surface",
+          "pattern"
+        ]
+      }
+    ],
+    "backend": "UNBOUND",
+    "why_not_rendered_yet": "The compiler pass intentionally stops before choosing a renderer. Rendering is the next bounded TRANSLATE step and must preserve the declared locks; choosing Higgsfield, ComfyUI or another backend cannot alter the experiment definition.",
+    "stop": "Stop after four outputs or earlier when any locked axis drifts materially in two attempts. Do not open additional axes to rescue a backend."
+  },
+  "next_single_action": "TRANSLATE the four fixed recipes to one renderer adapter and render exactly one output per axis; compare against locks before any sweep or second backend."
+}
