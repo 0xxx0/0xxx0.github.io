@@ -28,7 +28,9 @@
     "TRACE ≠ AUTHORITY. A policy trace records selector/policy/operation evidence; it never creates permission, identity, priority or next-move authority.",
     "VERIFY STATES ARE THREE-VALUED. FAIL proves violation; INDETERMINATE means required evidence/capability is unavailable; PASS requires every check for the requested profile to execute and pass.",
     "FOCUS MAY BECOME RESOURCE ADDRESS. TRACE / VERIFY may bind the current FIELD focus as an opaque resource reference, but focus itself grants no READ/REMEMBER/ANSWER/DRAFT/ACT/ESCALATE permission.",
-    "RAW INPUT DOES NOT ENTER THE TRACE BY DEFAULT. Local reference tracing may derive an event digest/ref from typed text, but committed/exported traces remain content-free unless a future private policy explicitly governs retention."
+    "RAW INPUT DOES NOT ENTER THE TRACE BY DEFAULT. Local reference tracing may derive an event digest/ref from typed text, but committed/exported traces remain content-free unless a future private policy explicitly governs retention.",
+    "TRACE IS AN OPERATION, NOT ANOTHER SOVEREIGN ROUTE. Root TRACE, Aperture TRACE and the TRACE / VERIFY fold are entrances to one focus-bound instrument.",
+    "STALE TRACE ≠ CURRENT PROOF. Changing FIELD focus invalidates the current trace binding until the trace is rerun against the new addressed resource."
   ],
   "root_order": {
     "default": "AXIAL_LATEST",
@@ -89,7 +91,9 @@
     "root_axial_trial": "Store only local browser interaction counts under field-axial-trial/v0.1: AXIAL focus selections, plain LATEST focus selections, dead intersections, OPEN counts and rough focus→OPEN elapsed time. No automatic network transmission and no claim that elapsed time alone proves usability.",
     "root_axial_deeplink": "Embedded focus may serialize ax_state / ax_op / ax_mode / focus into the root URL. Reload/share must reconstruct the same bounded focus state when values still exist.",
     "root_trace_verify": "/field-policy-trace.mjs binds the current shared FIELD focus to a local reference policy trace; shows seven gates plus causal events; runs /policy-trace-verifier.mjs for STRUCTURAL/REPLAY/SEALED status; local commit/export excludes raw input.",
-    "root_trace_status": "STRUCTURAL/REPLAY/SEALED are evidence levels, not quality scores. Explicitly unsealed trace fails SEALED; unavailable replay/schema evidence returns INDETERMINATE."
+    "root_trace_status": "STRUCTURAL/REPLAY/SEALED are evidence levels, not quality scores. Explicitly unsealed trace fails SEALED; unavailable replay/schema evidence returns INDETERMINATE.",
+    "root_trace_placement": "TRACE / VERIFY is collapsed by default immediately after AXIAL and before LATEST chronology. It is reachable from top navigation and as TRACE in the focused-object Aperture action dock; both open the same instrument rather than a duplicate route.",
+    "root_trace_binding": "A rendered trace is bound to the route focus present when RUN TRACE executes. If shared FIELD focus changes, the trace becomes visibly STALE and COMMIT is disabled until rerun. Old trace export remains possible as historical evidence."
   },
   "query_semantics": {
     "BOTTLENECK": {
