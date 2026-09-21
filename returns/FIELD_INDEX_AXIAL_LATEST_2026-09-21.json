@@ -1,0 +1,66 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "FIELD-INDEX-AXIAL-LATEST-2026-09-21",
+  "date": "2026-09-21",
+  "object": "FIELD INDEX / AXIAL LATEST unified focus compositor",
+  "before": {
+    "root": "LATEST chronology, compact attention marks, issues and map existed as separate readings.",
+    "interaction": "Row/map selection generally navigated or maintained separate local selections; the simplified root was mid-transition and still carried legacy strip assumptions.",
+    "axial": "AXIAL 0.6.1 existed as a separate PROOF_REQUIRED Foundry instrument over FIELD/HOUSE."
+  },
+  "operation": [
+    "Graft AXIAL 0.6.1 STRIP mechanics into the root LATEST reading.",
+    "Derive four unequal vocabularies from live manifest data: ROUTE, STATE, OPERATION and WORK MODE.",
+    "Use one fixed bright focus gate across all four strips.",
+    "Make ROUTE selection align the other axes back to the exact source identity.",
+    "Make STATE/OPERATION/WORK MODE selection filter real manifest routes; no exact intersection returns an explicit no-match state.",
+    "Share one focus identity across AXIAL strips, plain newest-first rows, HEADS/ports selectors and MAP projections.",
+    "Separate selection from navigation: clicking selects; OPEN is explicit.",
+    "Keep the ordinary chronological list directly below AXIAL as the plain source reading."
+  ],
+  "after": {
+    "latest_routes": 81,
+    "axis_cardinalities": {
+      "route": 81,
+      "state": 10,
+      "operation": 46,
+      "work_mode": 10
+    },
+    "focus_source": "showcase-manifest route identity",
+    "projections": [
+      "AXIAL_STRIP",
+      "LATEST_LIST",
+      "VISUAL_MAP",
+      "PULSE",
+      "STRUCTURE",
+      "EVOLVE",
+      "RECENT"
+    ],
+    "external_projection": "selected route → Scale Lens via scale.lens.handoff.v01",
+    "authority": "CURRENT owns attention; AXIAL selection does not mutate manifest/current state."
+  },
+  "verification": {
+    "root_inline_js": "COMPILES",
+    "public_surface_check": {
+      "status": "PASS",
+      "run": 35572307804,
+      "head_sha": "da1fbedc4f2f1faf58c8182dac429f1cbce7a56a"
+    },
+    "donor_receipt": "/foundry/axial/release.json",
+    "graft_receipt": "/control/confluence/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
+    "no_match_rule": "explicit; no nearest-route invention",
+    "sample_tuple_check": "Newest 12 manifest routes each had a unique STATE × OPERATION × first WORK MODE tuple at validation time."
+  },
+  "changed_surfaces": [
+    "/index.html",
+    "/tools/validate-public.mjs",
+    "/control/confluence/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json"
+  ],
+  "residue": [
+    "No comparative usability evidence yet; the embedded AXIAL compositor is an operational experiment, not proof that it beats the plain list.",
+    "The plain chronological list remains authoritative for re-entry ordering.",
+    "AXIAL 0.6.1 remains PROOF_REQUIRED and no physical-cylinder claim transfers into FIELD INDEX."
+  ],
+  "next": "Use FIELD INDEX normally. Compare whether AXIAL reduces reorientation when looking for a recent route by state/operation/work-mode; preserve the plain list as control.",
+  "return": "/"
+}
