@@ -262,7 +262,7 @@ function genericLensReturnProbeHtml(){
     const W=()=>f.contentWindow,D=()=>f.contentWindow.document;
     const host=await waitFor(()=>D().getElementById('showcase-route-adapter'));
     const sh=await waitFor(()=>host.shadowRoot),tab=await waitFor(()=>sh.querySelector('.tab.lens'));
-    rec.before=W().location.pathname;
+    rec.before=W().location.pathname;rec.triggerGlyph=tab.textContent.trim();
     tab.click();
     await waitFor(()=>sh.querySelector('.panel.on.lens'));
     rec.copy=!!sh.querySelector('[data-l="copy"]');
@@ -274,7 +274,7 @@ function genericLensReturnProbeHtml(){
     await waitFor(()=>!sh.querySelector('.panel.on'));
     rec.after=W().location.pathname;
     rec.closed=!sh.querySelector('.panel.on');
-    done(rec.before===rec.after&&rec.closed&&rec.copy&&!rec.deadStack&&rec.returnButton&&rec.overflow<=1,rec);
+    done(rec.before===rec.after&&rec.closed&&rec.copy&&!rec.deadStack&&rec.returnButton&&rec.overflow<=1&&rec.triggerGlyph==='◎',rec);
   })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
   <\/script></body></html>`;
 }
@@ -476,7 +476,7 @@ const CASES=[
     name:'GENERIC LENS RETURN ≠ BACK',
     route:'/__smoke/generic-lens-return',
     options:{width:430,height:900,budget:9000,timeout:16000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"before":"\/fold-bloom\/"/.test(dom)&&/"after":"\/fold-bloom\/"/.test(dom)&&/"closed":true/.test(dom)&&/"copy":true/.test(dom)&&/"deadStack":false/.test(dom)&&/"overflow":0/.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"before":"\/fold-bloom\/"/.test(dom)&&/"after":"\/fold-bloom\/"/.test(dom)&&/"closed":true/.test(dom)&&/"copy":true/.test(dom)&&/"deadStack":false/.test(dom)&&/"overflow":0/.test(dom)&&/"triggerGlyph":"◎"/.test(dom)
   },
   {
     name:'FOLD BLOOM convergence',
