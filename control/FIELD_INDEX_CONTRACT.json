@@ -13,7 +13,10 @@
     "RECEIPT WHEN CLAIM CHANGES. If implementation/test/release status changes, update or create the relevant receipt and RETURN entry.",
     "ADDRESS EVERY SURFACE; PROMOTE ALMOST NONE. Every directory index surface gets a manifest address or explicit alias disposition; sitemap inclusion never implies NOW, HEAD, priority or canon.",
     "RETURN ≠ NEXT. RETURN closes and exposes evidence; every subsequent move is a fresh replan, not inherited route authority.",
-    "RECONSTRUCTION > NARRATION. Promote cross-lineage mechanisms only after a fresh process can reproduce the claimed behavior from durable state or an equivalent bounded test."
+    "RECONSTRUCTION > NARRATION. Promote cross-lineage mechanisms only after a fresh process can reproduce the claimed behavior from durable state or an equivalent bounded test.",
+    "EXPERIMENT ≠ STATE. Experimental form is route.kind/operation; lifecycle state must say what can lawfully happen next.",
+    "EVOLUTION REQUIRES A HOST. A live experiment exists to change, transfer into, or falsify something outside itself; no ownerless experiment may accumulate roadmap authority.",
+    "IDENTITY ONCE PER FIXED READING. NOW → HEADS → PULSE fold already-represented route identities; explicit MAP/RECENT/EVOLVE lenses may re-project them because the projection is named."
   ],
   "root_order": {
     "default": "STRUCTURE",
@@ -62,7 +65,9 @@
     "root_move_gate": "Render CURRENT.execution_contract as a compact MOVE GATE adjacent to NOW: one bounded move → evidence-bearing RETURN → explicit replan. It is a control law, not another project/front.",
     "root_scale": "VISUAL exposes explicit SCALE − / ROOT controls. Scale is parent-child address depth, not CSS zoom: changing scale changes the projection neighborhood while preserving route identity.",
     "root_scale_lens_handoff": "Selected MAP route may be copied locally into SCALE LENS via scale.lens.handoff.v01. This is a projection handoff; Lens cannot mutate canonical FIELD manifest state.",
-    "root_play": "/field-play.html derives a public-safe mission deck from unresolved manifest gaps. Missions carry no authority; they terminate in field-game-return/v0.1 evidence for explicit review/replan."
+    "root_play": "/field-play.html derives a public-safe mission deck from unresolved manifest gaps. Missions carry no authority; they terminate in field-game-return/v0.1 evidence for explicit review/replan.",
+    "root_evolve": "EVOLVE is a named projection over canonical manifest routes carrying route.evolution. It shows host, generation, stage, mutation and evidence gate; it is not a new backlog or authority source.",
+    "root_identity_fold": "Fixed root sections fold repeated route identities after their first full representation: NOW first, then HEADS, then PULSE. MAP/RECENT/EVOLVE may show the same identity again only because the alternate projection is explicit."
   },
   "query_semantics": {
     "BOTTLENECK": {
@@ -129,6 +134,51 @@
     "RECENT": {
       "source": "route.index.updated_at",
       "meaning": "Secondary mutation-history reading only. Recent touch never overrides CURRENT attention."
+    },
+    "EVOLVE": {
+      "source": "showcase-manifest route.evolution",
+      "meaning": "Bounded evolutionary work: host → question → one mutation → evidence gate → transfer/park/compost. It is a projection over canonical routes, not a separate queue."
     }
+  },
+  "evolution_contract": {
+    "schema": "field-evolution/v0.1",
+    "purpose": "Turn experimental work into bounded variation → evidence → selection → transfer rather than a permanent bucket of prototypes.",
+    "carrier": "showcase-manifest route.evolution; do not maintain a separate experiment registry.",
+    "applies_to": "Any live route whose kind=experiment and state is not DONOR/FROZEN_DONOR, plus candidate workbenches intentionally enrolled in evolution.",
+    "stages": {
+      "SEED": "Define host, question, baseline, one mutation and evidence gate before expanding implementation.",
+      "TEST": "Run the smallest comparator that can change the experiment's disposition.",
+      "SELECT": "Evidence exists; choose pass/fail/ambiguous explicitly before more mutation.",
+      "TRANSFER": "Move only the surviving mechanism into the named host; the experiment itself does not automatically become a new sovereign product.",
+      "HOLD": "No present work. Resume only on a named dependency or explicit selection.",
+      "COMPOST": "Failed/superseded branch is retained as negative knowledge or donor residue; no beautification debt."
+    },
+    "required_fields": [
+      "host",
+      "generation",
+      "stage",
+      "question",
+      "baseline",
+      "mutation",
+      "evidence_gate",
+      "next_if_pass",
+      "next_if_fail"
+    ],
+    "laws": [
+      "ONE MUTATION PER GENERATION. If multiple mechanisms change, split or reset the generation.",
+      "BASELINE BEFORE NOVELTY. Every test names the plain/current comparator it must beat or materially differ from.",
+      "PASS MEANS TRANSFER, NOT EMPIRE. A successful experiment normally donates a mechanism to its host; it does not earn an independent roadmap by default.",
+      "FAILURE RETURNS VALUE. A failed branch becomes PARKED/DONOR/COMPOST with its evidence retained so the same idea is not rediscovered from zero.",
+      "NO SECOND GENERATION WITHOUT RETURN. Evidence closes the current generation; a new mutation requires explicit replan.",
+      "PHYSICAL CLAIMS REQUIRE PHYSICAL RECEIPTS. Digital proxies can prepare but never satisfy a physical correspondence claim."
+    ],
+    "selection_outputs": [
+      "TRANSFER",
+      "REPEAT_WITH_ONE_MUTATION",
+      "PARK",
+      "DONOR",
+      "COMPOST"
+    ],
+    "host_rule": "host must resolve to an existing manifest route and names the recipient/authority that would change if the experiment succeeds."
   }
 }
