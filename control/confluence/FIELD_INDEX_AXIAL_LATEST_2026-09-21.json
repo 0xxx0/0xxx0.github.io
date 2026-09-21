@@ -1,0 +1,41 @@
+{
+  "schema": "donor-transplant/v0.1",
+  "date": "2026-09-21",
+  "donor": {
+    "id": "axial-focus-stack-0.6.1",
+    "source": "/foundry/axial/",
+    "evidence": "/foundry/axial/release.json",
+    "state": "PROOF_REQUIRED"
+  },
+  "recipient": {
+    "address": "/",
+    "surface": "FIELD INDEX / LATEST"
+  },
+  "transfer": {
+    "operation": "ADAPT",
+    "unit": "unequal vocabularies × one fixed bright focus gate → exact source aperture",
+    "preserves": [
+      "fixed focus gate",
+      "unequal axis cardinalities",
+      "STRIP projection",
+      "exact source identity as focus result",
+      "source identity can drive all axes back",
+      "explicit OPEN separate from selection",
+      "no fabricated result when tuple has no exact intersection"
+    ],
+    "changes": [
+      "AXIAL rings become four FIELD latest strips",
+      "source vocabulary becomes ROUTE × STATE × OPERATION × WORK MODE",
+      "latest route chronology remains the plain underlying source",
+      "same focus object is shared by AXIAL, linear LATEST and MAP projections"
+    ]
+  },
+  "law": "Selection changes focus; navigation requires explicit OPEN. Projection changes do not create a new route identity.",
+  "result": "FIELD root now uses AXIAL / LATEST as the primary compact compositor over chronological repo mutation state.",
+  "non_claims": [
+    "No comparative usability win is claimed yet.",
+    "AXIAL donor remains PROOF_REQUIRED.",
+    "FIELD does not inherit HOUSE or physical-cylinder claims.",
+    "The compositor does not replace route.index.updated_at chronology."
+  ]
+}
