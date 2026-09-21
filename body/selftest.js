@@ -9,6 +9,8 @@ t('contrast admitted at 3/3',function(){var xs=[e(8,['x']),e(7,['x']),e(9,['x'])
 t('coverage low',function(){return C.coverage(3)==='LOW'});
 t('coverage medium',function(){return C.coverage(6)==='MED'});
 t('coverage high',function(){return C.coverage(12)==='HIGH'});
+t('lag contrast admitted at 3/3',function(){var base=Date.parse('2026-09-21T00:00:00Z'),xs=[];for(var i=0;i<7;i++){var a=e(i<3?8:3,i<3?['x']:[]);a.observed_at=new Date(base+i*2*3600000).toISOString();xs.push(a)}var r=C.lagContrasts(xs,'itch',3,12)[0];return r&&r.with_n===3&&r.without_n===3});
+t('lag contrast excludes long gaps',function(){var a=e(8,['x']),b=e(2,[]);a.observed_at='2026-09-21T00:00:00Z';b.observed_at='2026-09-22T00:00:00Z';return C.lagContrasts([a,b],'itch',1,12).length===0});
 t('test delta',function(){var r=C.testDelta({target:'itch',baseline_value:8},e(5));return r.before===8&&r.after===5&&r.delta===-3});
 t('address key stable under region ordering',function(){var a={plan_id:'p',geometry_version:'g',view:'front',selection_mode:'group',region_ids:['b','a']},b={...a,region_ids:['a','b']};return C.addressKey(a)===C.addressKey(b)});
 t('address key changes with geometry',function(){return C.addressKey({plan_id:'p',geometry_version:'g1',view:'front',region_ids:['a']})!==C.addressKey({plan_id:'p',geometry_version:'g2',view:'front',region_ids:['a']})});
