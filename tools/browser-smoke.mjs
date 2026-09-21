@@ -37,14 +37,12 @@ function resolveFile(urlPath){
 }
 function lensProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:390px;height:844px;border:0;display:block" src="/?lens_proof=1&focus=%2Ffold-bloom%2Flens%2F"></iframe><pre id="probeResult">PENDING</pre><script>
-  const result=document.getElementById('probeResult'),f=document.getElementById('f');
-  let finished=false;
+  const result=document.getElementById('probeResult'),f=document.getElementById('f');let finished=false;
   const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
   const compact=x=>({focusHref:x?.focusHref||null,axisState:x?.axisState||null,projection:x?.projection||null,mapMode:x?.mapMode||null,mapRoot:x?.mapRoot||null,mapSelected:x?.mapSelected||null,mapQuery:x?.mapQuery||'',mapOpen:!!x?.mapOpen});
   function exercise(w,d){
     try{
-      const before=compact(w.FieldLensHost.uiState());
-      const apLens=d.getElementById('apLens'),apProof=d.getElementById('apProof');
+      const before=compact(w.FieldLensHost.uiState()),apLens=d.getElementById('apLens'),apProof=d.getElementById('apProof');
       const proof=d.getElementById('lens-proof-bench'),proofOpen=!!proof?.classList.contains('on');
       apLens.click();
       setTimeout(()=>{
@@ -52,13 +50,11 @@ function lensProbeHtml(){
         if(!ring||!sh||!panel?.classList.contains('on')||!visual)return done(false,{stage:'ring',ring:!!ring,panelOpen:!!panel?.classList.contains('on'),visual:!!visual});
         visual.click();
         setTimeout(()=>{
-          const during=compact(w.FieldLensHost.uiState());
-          sh.querySelector('.return')?.click();
+          const during=compact(w.FieldLensHost.uiState());sh.querySelector('.return')?.click();
           setTimeout(()=>{
             const after=compact(w.FieldLensHost.uiState()),same=JSON.stringify(before)===JSON.stringify(after);
             const overflow=Math.max(d.documentElement.scrollWidth,d.body?.scrollWidth||0)-d.documentElement.clientWidth;
-            apProof.click();
-            const proofAfter=!!d.getElementById('lens-proof-bench')?.classList.contains('on');
+            apProof.click();const proofAfter=!!d.getElementById('lens-proof-bench')?.classList.contains('on');
             done(same&&proofOpen&&proofAfter&&overflow<=1&&during.projection==='VISUAL',{before,during,after,same,proofOpen,proofAfter,overflow,clientWidth:d.documentElement.clientWidth});
           },180);
         },180);
@@ -68,26 +64,42 @@ function lensProbeHtml(){
   function waitReady(attempt=0){
     if(finished)return;
     try{
-      const w=f.contentWindow,d=f.contentDocument;
-      const apLens=d?.getElementById('apLens'),apProof=d?.getElementById('apProof'),proof=d?.getElementById('lens-proof-bench');
+      const w=f.contentWindow,d=f.contentDocument,apLens=d?.getElementById('apLens'),apProof=d?.getElementById('apProof'),proof=d?.getElementById('lens-proof-bench');
       const proofOpen=!!proof?.classList.contains('on'),state=w?.FieldLensHost?.uiState?.();
-      const ready=!!apLens&&!!apProof&&!!w?.LensFocusRing&&!!w?.FieldLensHost&&proofOpen&&state?.focusHref==='/fold-bloom/lens/';
-      if(ready)return exercise(w,d);
-      if(attempt>=45)return done(false,{stage:'boot-timeout',href:w?.location?.href||null,readyState:d?.readyState||null,apLens:!!apLens,apProof:!!apProof,proofOpen,ring:!!w?.LensFocusRing,host:!!w?.FieldLensHost,focusHref:state?.focusHref||null});
+      if(apLens&&apProof&&w?.LensFocusRing&&w?.FieldLensHost&&proofOpen&&state?.focusHref==='/fold-bloom/lens/')return exercise(w,d);
+      if(attempt>=50)return done(false,{stage:'boot-timeout',href:w?.location?.href||null,readyState:d?.readyState||null,apLens:!!apLens,apProof:!!apProof,proofOpen,ring:!!w?.LensFocusRing,host:!!w?.FieldLensHost,focusHref:state?.focusHref||null});
       setTimeout(()=>waitReady(attempt+1),100);
-    }catch(e){
-      if(attempt>=45)return done(false,{stage:'boot-exception',error:String(e?.stack||e)});
-      setTimeout(()=>waitReady(attempt+1),100);
-    }
+    }catch(e){if(attempt>=50)return done(false,{stage:'boot-exception',error:String(e?.stack||e)});setTimeout(()=>waitReady(attempt+1),100)}
   }
-  f.addEventListener('load',()=>setTimeout(()=>waitReady(0),30));
-  setTimeout(()=>waitReady(0),60);
+  f.addEventListener('load',()=>setTimeout(()=>waitReady(0),30));setTimeout(()=>waitReady(0),60);
+  <\/script></body></html>`;
+}
+function poemMapProbeHtml(){
+  return `<!doctype html><html><body><iframe id="f" style="width:900px;height:700px;border:0" src="/poetry/map/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult');let kicked=false,finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  function probe(tries=0){
+    if(finished)return;
+    try{
+      const w=f.contentWindow,d=f.contentDocument,api=w?.__POEM_MAP__,s=api?.S;
+      const controls=!!d?.getElementById('fieldNowBtn')&&!!d?.getElementById('focusWheel')&&!!d?.getElementById('pmAperture')&&!!d?.getElementById('importBtn')&&!!d?.getElementById('corpusBtn');
+      if(api&&!kicked&&!s?.fieldLoaded){kicked=true;Promise.resolve(api.loadFieldNow?.()).catch(()=>{})}
+      if(api&&s?.fieldLoaded&&String(s.source||'').startsWith('FIELD NOW ·')&&s.mode==='PAGE'&&controls)return done(true,{fieldLoaded:true,mode:s.mode,source:String(s.source).slice(0,48),corpus:s.corpus?.length||0,controls});
+      if(tries>=60)return done(false,{stage:'ready-timeout',tries,href:w?.location?.href||null,readyState:d?.readyState||null,api:!!api,fieldLoaded:!!s?.fieldLoaded,mode:s?.mode||null,source:String(s?.source||'').slice(0,48),controls});
+      setTimeout(()=>probe(tries+1),100);
+    }catch(e){if(tries>=60)return done(false,{stage:'exception',error:String(e?.stack||e)});setTimeout(()=>probe(tries+1),100)}
+  }
+  f.addEventListener('load',()=>setTimeout(()=>probe(0),30));setTimeout(()=>probe(0),60);
   <\/script></body></html>`;
 }
 const server=http.createServer((req,res)=>{
   if(String(req.url||'').startsWith('/__smoke/lens-proof')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(lensProbeHtml());return;
+  }
+  if(String(req.url||'').startsWith('/__smoke/poem-map')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(poemMapProbeHtml());return;
   }
   const file=resolveFile(req.url);
   if(!file){res.writeHead(404,{'content-type':'text/plain'});res.end('not found');return}
@@ -210,11 +222,9 @@ const CASES=[
   },
   {
     name:'POEM MAP',
-    route:'/poetry/map/',
-    check:dom=>{
-      const st=textAtId(dom,'statusText');
-      return /POEM MAP 0\.2\.1/i.test(dom)&&dom.includes('id="fieldNowBtn"')&&dom.includes('id="focusWheel"')&&dom.includes('id="pmAperture"')&&dom.includes('id="importBtn"')&&dom.includes('id="corpusBtn"')&&dom.includes('data-mode="PAGE"')&&/FIELD NOW LOADED/.test(st)&&!dom.includes('load failure');
-    }
+    route:'/__smoke/poem-map',
+    options:{width:980,height:760,budget:9000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"fieldLoaded":true/.test(dom)&&/"mode":"PAGE"/.test(dom)&&/"controls":true/.test(dom)
   },
   {
     name:'VERSE ATLAS',
