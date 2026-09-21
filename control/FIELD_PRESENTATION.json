@@ -18,5 +18,29 @@
   "carrier": "/field-presentation.js",
   "mark_grammar": "/field-glyph.js",
   "current_consumer": "/ FIELD INDEX",
-  "next_adoption_rule": "Adopt on another surface only when it removes duplicated responsive/presentation logic without erasing that surface's distinct interaction identity."
+  "next_adoption_rule": "Adopt on another surface only when it removes duplicated responsive/presentation logic without erasing that surface's distinct interaction identity.",
+  "current_consumers": [
+    "/",
+    "/field-play.html"
+  ],
+  "glyph_mnemonics": {
+    "kind_examples": {
+      "工": "workbench",
+      "試": "experiment",
+      "物": "artifact",
+      "復": "recovery",
+      "器": "system",
+      "中": "hub"
+    },
+    "operation_examples": {
+      "驗": "verify/test",
+      "映": "represent/project",
+      "回": "return",
+      "行": "plan/route/move",
+      "位": "address/orient/index",
+      "化": "transform/compose",
+      "讀": "read/interpret"
+    },
+    "rule": "Mnemonic characters aid learning/recall only. Canonical semantics remain route.kind / route.operation / route.state."
+  }
 }
