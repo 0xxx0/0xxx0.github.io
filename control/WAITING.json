@@ -16,10 +16,11 @@
       "id": "body-health-connect-permission",
       "route": "/body/fit/",
       "state": "WAITING_ON_HUMAN",
-      "human_move": "When ready, authorize/test Health Connect on the Android phone and expose one tiny proof stream: sleep + heart rate.",
-      "why": "The public repo cannot prove device permissions, source availability, or phone-side data.",
-      "unlocks": "Map Health Connect records into the existing 0xxx0/body-sensor-observation/v0.1 envelope without creating a new health store.",
-      "privacy": "No raw personal health data is committed to the public repo."
+      "human_move": "When ready, run/authorize the minimal Android Health Connect reader for only sleep + heart rate and export one local proof bundle.",
+      "why": "The repo can specify the adapter, but cannot grant phone-side Health Connect permissions or produce a real personal source record.",
+      "unlocks": "Verify /body/fit/health-connect.adapter.json against one real bounded bundle in BODY / FIT; only then decide whether an automatic local relay is worth adding.",
+      "privacy": "No raw personal health data is committed to the public repo.",
+      "adapter": "/body/fit/health-connect.adapter.json"
     },
     {
       "id": "body-calibration-first-campaign",
