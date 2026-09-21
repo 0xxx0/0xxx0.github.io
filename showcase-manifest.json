@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T16:05:51+08:00",
+        "updated_at": "2026-09-21T16:12:00+08:00",
         "work_modes": [
           "RECOVER",
           "SPECIFY",
@@ -26,7 +26,7 @@
           "RELEASE"
         ]
       },
-      "role": "Fast repo re-entry through AXIAL / LATEST 0.5: newest-first chronology remains the plain source; ROUTE × STATE × OPERATION × WORK MODE expose exact lawful support, a visible survivor set and collapse trail, deep-linkable focus, shared Aperture/Lens/AXIAL projections, and a local-only passive AXIAL-vs-LATEST comparison.",
+      "role": "Fast repo re-entry with AXIAL / LATEST as a reduced lawful-focus projection. Each strip now exposes explicit ordinal position under a fixed gate while sharing support/position math with full AXIAL; chronology remains the plain control.",
       "receipt": "/returns/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
       "machine_view": "FIELD",
       "version": "0.5",
@@ -108,7 +108,7 @@
       "showcase_card": false,
       "role": "Canonical HUMAN PORT intake/router with addressed focus: preserve one source, optionally focus a lawful projection, inspect route support, SELECT, then explicitly OPEN a bounded local handoff.",
       "transfer": [
-        "AXIAL visible support + fixed focus + explicit OPEN",
+        "AXIAL 0.7.1 visible support + fixed focus + explicit position witness + OPEN",
         "Scale Lens canonical identity across unequal projections",
         "RSVP/foveated source focus",
         "passive metadata-only route evidence",
@@ -1513,17 +1513,30 @@
       "title": "CONVERGENCE FIELD",
       "kind": "workbench",
       "parent": "/foundry/",
-      "family": "FOUNDRY"
+      "family": "FOUNDRY",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "operation": "PROJECT",
+      "receipt": "/foundry/convergence/release.json",
+      "role": "Local-first candidate workbench for testing unequal NOW/LENS/RUN/PROOF/ATLAS projections over one captured object with explicit RETURN; fresh bootstrap data is DEMO, not user evidence.",
+      "showcase_card": false,
+      "index": {
+        "updated_at": "2026-09-21T16:31:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      }
     },
     {
       "href": "/foundry/axial/",
-      "title": "AXIAL / FOCUS STACK 0.7",
+      "title": "AXIAL / FOCUS STACK 0.7.1",
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "ORIENT",
       "state": "ACTIVE",
-      "version": "0.7",
+      "version": "0.7.1",
       "receipt": "/foundry/axial/release.json",
       "showcase_card": false,
       "transfer": [
@@ -1538,7 +1551,9 @@
         "foveated focus: one selected reading, surrounding context retained",
         "lawful-neighborhood / per-position support",
         "deep focus URL / reloadable address",
-        "POLY cyclic correspondence: one aligned reading across independent wheels"
+        "POLY cyclic correspondence: one aligned reading across independent wheels",
+        "human-factors position indication / 12-o'clock check reading",
+        "shared focus-core law across FIELD + full AXIAL"
       ],
       "contract": {
         "accepts": {
@@ -1657,7 +1672,7 @@
         "physical_fit": "Physical cylinder is now an optional later projection of a useful variable-cardinality ring stack, not the reason the software exists."
       },
       "index": {
-        "updated_at": "2026-09-21T16:04:00+08:00",
+        "updated_at": "2026-09-21T16:12:00+08:00",
         "work_modes": [
           "ORIENT",
           "REPRESENT",
@@ -1677,12 +1692,14 @@
         "next_if_pass": "TRANSFER the surviving transaction/aperture mechanism into the Foundry physical-control substrate; retain AXIAL as evidence fixture rather than spawning a new core.",
         "next_if_fail": "PARK the physical-control claim; preserve packet/ledger mechanisms as DONOR evidence."
       },
-      "role": "Variable-cardinality focus surface over real FIELD/HOUSE sources: one bright gate reads the current tuple while every candidate position shows whether it is still supported by the source; identity and ring state round-trip through shareable focus URLs.",
+      "role": "Variable-cardinality focus surface over real FIELD/HOUSE sources: a fixed 12-o'clock gate reads the current tuple, each ring carries an explicit moving position witness and ordinal, and every candidate shows whether it remains supported by the source.",
       "legacy_lab": {
         "href": "/foundry/axial/lab-0.5.1.html",
         "role": "Preserved STATE APERTURE transaction/projection lab with AXIAL_PACKET, event trace and ARM/RUN semantics.",
         "event_schema": "/foundry/axial/event.schema.json"
-      }
+      },
+      "research": "/foundry/axial/research.json",
+      "shared_core": "/foundry/axial/focus-core.js"
     },
     {
       "href": "/foundry/convergence/identity-lab.html",
@@ -2478,9 +2495,8 @@
       "showcase_card": false,
       "role": "Readable cross-lineage handoff shelf; coordinates unequal lineages through explicit differences, ablations and recipient-side RETURN without vocabulary collapse.",
       "index": {
-        "updated_at": "2026-09-21T15:04:00+08:00",
+        "updated_at": "2026-09-21T16:31:00+08:00",
         "work_modes": [
-          "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
@@ -2548,7 +2564,7 @@
           "preserves": [
             "identity/provenance boundary",
             "current ≠ constitution",
-            "117 ≠ canon",
+            "CORPUS ≠ CANON",
             "RETURN path"
           ],
           "reversibility": "full",
@@ -2570,7 +2586,7 @@
           "checks": [
             "model.json is source for slow layer",
             "CURRENT.json supplies live layer",
-            "117 explicitly non-canonical",
+            "recovered corpus explicitly non-canonical; hard counts require census evidence",
             "no runtime authority"
           ],
           "return_path": "/foundry/"
@@ -2630,9 +2646,8 @@
         "physical_fit": "Orientation layer only; physical truth remains reality-gated through House/workshop evidence and RETURN."
       },
       "index": {
-        "updated_at": "2026-09-21T15:04:00+08:00",
+        "updated_at": "2026-09-21T16:31:00+08:00",
         "work_modes": [
-          "SPECIFY",
           "IMPLEMENT",
           "VERIFY"
         ]
@@ -3487,9 +3502,8 @@
       "showcase_card": false,
       "role": "Human-facing recovery/salvage home: evidence classes, promotion gate, trophy case, expeditions, quarantine, attic and ingest queue.",
       "index": {
-        "updated_at": "2026-09-21T15:04:00+08:00",
+        "updated_at": "2026-09-21T16:31:00+08:00",
         "work_modes": [
-          "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
@@ -3623,9 +3637,9 @@
         "physical_fit": "May inform House routing/spatial/procurement tests; no method receives authority without a real RETURN."
       },
       "index": {
-        "updated_at": "2026-09-21T14:21:00+08:00",
+        "updated_at": "2026-09-21T16:31:00+08:00",
         "work_modes": [
-          "SPECIFY",
+          "IMPLEMENT",
           "VERIFY"
         ]
       },
