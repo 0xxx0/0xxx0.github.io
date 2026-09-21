@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_TRACKFIELD_MEDIA_2026-09-22",
   "date": "2026-09-22",
   "object": "FOLD//BLOOM LIVE 0.4 / anticipation-first TRACKFIELD + media boundary",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "observed_exactly_recovered": [
     "User reports LIVE 0.3 'kinda works' and is 'pretty damn cool'.",
     "User reports the current result lacks the gripping hook / impressiveness / drop anticipation remembered from Audiosurf.",
@@ -97,5 +97,18 @@
     "Only if the local loop survives: trial Audius/Jamendo as source adapters without changing core gameplay."
   ],
   "stop": "Do not add multiple providers, puzzle lanes, avatars, semantic section classifiers or a new music model before direct TRACKFIELD play evidence.",
-  "return": "/returns/FOLD_BLOOM_TRACKFIELD_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_TRACKFIELD_2026-09-22.json",
+  "pr": 137,
+  "merge_sha": "d005ee56b127da6c547fc2b074edaa8688898cc4",
+  "verification": {
+    "ci_run": 35666317285,
+    "result": "PASS",
+    "checks": [
+      "TRACKFIELD unit tests",
+      "LIVE engine/track/section-arc tests",
+      "static surface contracts",
+      "phone-sized critical browser smoke",
+      "full repo regression"
+    ]
+  }
 }
