@@ -101,7 +101,7 @@ function analyze(source,label='Untitled',locale='en'){
  return{kind,label,locale,raw,data:raw,bytes,chars,words:words.length,sentences:sentences.length,phrases:phrases.length,graphemes:graphemes.length,paragraphs:paras.length,sections,scales,xrefs:extractXrefs(raw)};
 }
 class FieldAperture extends HTMLElement{
- constructor(){super();this.attachShadow({mode:'open'});this.A=null;this.scale=0;this.pos=0;this.timer=null;this.rsvp=false;this.wpm=300;this.speaking=false;this.voiceToken=0;this.bound=this.onPointer.bind(this);this.boundKey=this.onKey.bind(this);this.ratePresets=[120,200,300,450,650,900,1200,1600,2200,3000]}
+ constructor(){super();this.attachShadow({mode:'open'});this.A=null;this.scale=0;this.pos=0;this.anchor=0;this.jsonPath=null;this.voiceCursor=null;this.timer=null;this.rsvp=false;this.wpm=300;this.speaking=false;this.voiceToken=0;this.bound=this.onPointer.bind(this);this.boundKey=this.onKey.bind(this);this.ratePresets=[120,200,300,450,650,900,1200,1600,2200,3000]}
  connectedCallback(){this.renderShell();this.tabIndex=this.tabIndex<0?0:this.tabIndex;this.addEventListener('keydown',this.boundKey);if(this.hasAttribute('source'))this.load(this.getAttribute('source'),{label:this.getAttribute('label')||'Source'})}
  disconnectedCallback(){this.stop();this.removeEventListener('keydown',this.boundKey)}
  scaleIndex(value){
@@ -114,19 +114,58 @@ class FieldAperture extends HTMLElement{
   for(const si of order){const units=this.A.scales[si]?.units||[],pi=units.findIndex(x=>x.path===address);if(pi>=0)return{scale:si,index:pi}}return null
  }
  load(source,opt={}){
-  this.stop();this.locale=String(opt.locale||this.getAttribute('lang')||document.documentElement.lang||navigator.language||'en');this.A=analyze(source,opt.label||'Untitled',this.locale);this.scale=this.scaleIndex(opt.scale);this.pos=0;
-  const hit=this.locate(opt.address,this.scale);if(hit){this.scale=hit.scale;this.pos=hit.index}else{const i=Number(opt.index);if(Number.isFinite(i))this.pos=clamp(Math.round(i),0,Math.max(0,this.currentScale().units.length-1))}
+  this.stop();this.locale=String(opt.locale||this.getAttribute('lang')||document.documentElement.lang||navigator.language||'en');this.A=analyze(source,opt.label||'Untitled',this.locale);this.scale=this.scaleIndex(opt.scale);this.pos=0;this.anchor=0;this.jsonPath=null;this.voiceCursor=null;
+  const hit=this.locate(opt.address,this.scale);
+  if(hit){this.scale=hit.scale;this.pos=hit.index}
+  else if(this.A.kind==='TEXT'&&Number.isFinite(Number(opt.charIndex))){this.anchor=clamp(Math.round(Number(opt.charIndex)),0,Math.max(0,this.A.raw.length-1));this.pos=this.indexForAnchor(this.scale)}
+  else{const i=Number(opt.index);if(Number.isFinite(i))this.pos=clamp(Math.round(i),0,Math.max(0,this.currentScale().units.length-1))}
+  this.captureAnchor();
   const w=Number(opt.wpm);if(Number.isFinite(w))this.wpm=clamp(Math.round(w),60,3000);this.render();this.emit();return this.snapshot()
  }
  restore(snap={}){
-  if(!this.A)return null;this.stop();this.scale=this.scaleIndex(snap.scale);const hit=this.locate(snap.address,this.scale);
-  if(hit){this.scale=hit.scale;this.pos=hit.index}else{const i=Number(snap.index);this.pos=Number.isFinite(i)?clamp(Math.round(i),0,Math.max(0,this.currentScale().units.length-1)):0}
+  if(!this.A)return null;this.stop();this.scale=this.scaleIndex(snap.scale);this.voiceCursor=null;
+  const hit=this.locate(snap.address,this.scale);
+  if(hit){this.scale=hit.scale;this.pos=hit.index}
+  else if(this.A.kind==='TEXT'&&Number.isFinite(Number(snap.char_index))){this.anchor=clamp(Math.round(Number(snap.char_index)),0,Math.max(0,this.A.raw.length-1));this.pos=this.indexForAnchor(this.scale)}
+  else{const i=Number(snap.index);this.pos=Number.isFinite(i)?clamp(Math.round(i),0,Math.max(0,this.currentScale().units.length-1)):0}
+  this.captureAnchor();
   const w=Number(snap.wpm);if(Number.isFinite(w))this.wpm=clamp(Math.round(w),60,3000);this.render();this.emit();return this.snapshot()
  }
  currentScale(){return this.A?.scales[this.scale]}
  current(){const s=this.currentScale();return s?.units[clamp(this.pos,0,Math.max(0,s.units.length-1))]||null}
- setScale(i){if(!this.A)return;this.scale=mod(i,this.A.scales.length);this.pos=clamp(this.pos,0,Math.max(0,this.currentScale().units.length-1));this.render();this.emit()}
- setPos(i){const s=this.currentScale();if(!s)return;this.pos=mod(i,s.units.length);this.render();this.emit()}
+ captureAnchor(){
+  const u=this.current();if(!u||!this.A)return;
+  if(this.A.kind==='TEXT'){const a=Number(u.start),b=Number(u.end);if(Number.isFinite(a)&&Number.isFinite(b))this.anchor=clamp(Math.floor((a+b)/2),0,Math.max(0,this.A.raw.length-1))}
+  else this.jsonPath=u.path||this.jsonPath;
+ }
+ sourceFraction(){
+  if(!this.A)return 0;
+  if(this.A.kind==='TEXT')return this.A.raw.length<=1?0:clamp(this.anchor/Math.max(1,this.A.raw.length-1),0,1);
+  const p=this.jsonPath||this.current()?.path,ns=this.A.nodes||[];let i=ns.findIndex(x=>x.path===p);
+  if(i<0&&p)i=ns.findIndex(x=>p.startsWith(x.path+'.')||p.startsWith(x.path+'['));
+  return ns.length<=1?0:clamp(Math.max(0,i)/(ns.length-1),0,1)
+ }
+ indexForAnchor(si=this.scale){
+  const units=this.A?.scales?.[si]?.units||[];if(!units.length)return 0;
+  if(this.A.kind==='TEXT'){
+    const at=clamp(this.anchor,0,Math.max(0,this.A.raw.length-1));
+    let i=units.findIndex(u=>Number.isFinite(u.start)&&Number.isFinite(u.end)&&u.start<=at&&at<Math.max(u.start+1,u.end));
+    if(i<0){let d=Infinity;units.forEach((u,k)=>{const mid=((Number(u.start)||0)+(Number(u.end)||0))/2,q=Math.abs(mid-at);if(q<d){d=q;i=k}})}return Math.max(0,i)
+  }
+  const p=this.jsonPath||this.current()?.path||'$',common=(a,b)=>{let i=0,n=Math.min(a.length,b.length);while(i<n&&a[i]===b[i])i++;return i};
+  let best=0,score=-Infinity;units.forEach((u,i)=>{const q=String(u.path||'');let s=common(p,q);if(q===p)s+=100000;else if(p.startsWith(q+'.')||p.startsWith(q+'['))s+=50000+q.length;else if(q.startsWith(p+'.')||q.startsWith(p+'['))s+=40000+p.length;if(s>score){score=s;best=i}});return best
+ }
+ seekFraction(frac){
+  if(!this.A)return;frac=clamp(Number(frac)||0,0,1);this.voiceCursor=null;
+  if(this.A.kind==='TEXT'){this.anchor=Math.round(frac*Math.max(0,this.A.raw.length-1));this.pos=this.indexForAnchor(this.scale)}
+  else{const ns=this.A.nodes||[],n=ns[clamp(Math.round(frac*Math.max(0,ns.length-1)),0,Math.max(0,ns.length-1))];this.jsonPath=n?.path||this.jsonPath;this.pos=this.indexForAnchor(this.scale)}
+  this.render();this.emit()
+ }
+ selectChar(at,cursor=null){
+  if(!this.A||this.A.kind!=='TEXT')return;this.anchor=clamp(Math.round(Number(at)||0),0,Math.max(0,this.A.raw.length-1));this.pos=this.indexForAnchor(this.scale);this.voiceCursor=cursor;this.render();this.emit()
+ }
+ setScale(i){if(!this.A)return;this.captureAnchor();this.scale=mod(i,this.A.scales.length);this.pos=this.indexForAnchor(this.scale);this.render();this.emit()}
+ setPos(i){const s=this.currentScale();if(!s)return;this.pos=mod(i,s.units.length);this.voiceCursor=null;this.captureAnchor();this.render();this.emit()}
  step(n=1){this.setPos(this.pos+n)}
  setWpm(n){const was=!!this.timer;this.wpm=clamp(Math.round(Number(n)||300),60,3000);if(was){clearTimeout(this.timer);this.timer=null;this.scheduleRSVP()}this.render();this.emit()}
  nudgeWpm(dir){const ps=this.ratePresets,i=ps.findIndex(x=>x>=this.wpm),base=i<0?ps.length-1:i,next=clamp(base+(dir>0?(ps[base]===this.wpm?1:0):-1),0,ps.length-1);this.setWpm(ps[next])}
