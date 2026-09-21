@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/library-census-seed/v0.1",
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "scope": "Recent Library artifacts surfaced during recovery; seed only, not a complete inventory.",
   "confirmed_exact_duplicates": [
     {
@@ -54,7 +54,7 @@
         "sleeper_workfield_v1.2_current_slice.html",
         "sleeper_pov_v0.7_private_checkpoint.zip"
       ],
-      "action": "Workfield v1.2 exact source frozen at /recovery/sleeper/workfield-v1.2/. Current /sleeper/ remains head. City Engine/Painting and checkpoint bytes remain separate blocked exact-source work."
+      "action": "Workfield stays separate. City v0.2 source, Painting standalone app and Site artwork recovered from the 2026-09-18 exported Git snapshot. Full City deployment remains open."
     },
     {
       "cluster": "Path / Verse / Foundry",
@@ -133,10 +133,10 @@
   "next": [
     "Continue hash/metadata-first census for newly surfaced Library/repo artifacts; collapse exact duplicates before semantic clustering.",
     "Complete ENV-0 only by byte-copying/hash-verifying the two exact located PDFs; editable masters are already frozen.",
-    "Continue exact-source search only for blocked Sleeper, historical Laconic voice outputs and isolated Game-of-Names artifacts.",
+    "Continue exact-source search only for historical Laconic voice outputs and isolated Game-of-Names artifacts.",
     "Keep generated image/physical-source harvest separate from runnable app recovery; attach provenance before promotion."
   ],
-  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
+  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-21.json",
   "recovered_this_pass": [
     {
       "family": "path-grid-language",
@@ -203,6 +203,14 @@
       "route": "/recovery/naming/",
       "classification": "EXACT_LIBRARY_INDEXED_VISUAL_BATCH",
       "receipt": "/recovery/naming/visual-batch-B260728B.json"
+    },
+    {
+      "family": "Sleeper City / Painting / artwork",
+      "route": "/recovery/sleeper/",
+      "classification": "SELECTIVE_EXACT_FROZEN_SOURCE",
+      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
+      "files": 40,
+      "images": 13
     }
   ]
 }

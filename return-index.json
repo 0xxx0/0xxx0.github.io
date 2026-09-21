@@ -2,10 +2,21 @@
   "schema": "0xxx0/return-index/v0.1",
   "generated": "2026-09-21",
   "source": "/showcase-manifest.json",
-  "count": 43,
-  "receipts_ok": 43,
+  "count": 44,
+  "receipts_ok": 44,
   "law": "A release without a return path is not closed.",
   "items": [
+    {
+      "href": "/recovery/sleeper/",
+      "title": "BACKUP → CITY / PAINTING / MEDIA",
+      "state": "FROZEN_DONOR",
+      "version": "2026-09-18",
+      "operation": "RECOVER / RETRIEVE",
+      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
+      "receipt_ok": true,
+      "receipt_schema": "return-receipt/v0.1",
+      "release_updated": "2026-09-21"
+    },
     {
       "href": "/foundry/axial/",
       "title": "CONSTRAINT SURFACE EXTRACTION",

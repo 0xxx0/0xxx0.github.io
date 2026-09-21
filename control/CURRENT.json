@@ -28,7 +28,8 @@
         "/control/MIGRATION.json",
         "/recovery/",
         "/control/FIELD_INDEX_AUDIT_2026-09-20.json",
-        "/control/RECOVERY_POPULATION_2026-09-20.json"
+        "/control/RECOVERY_POPULATION_2026-09-20.json",
+        "/returns/BACKUP_RECOVERY_2026-09-21.json"
       ]
     },
     {
@@ -40,7 +41,8 @@
         "/control/QUEUE.json",
         "/dock/",
         "/control/INGEST_RUN_2026-09-20.json",
-        "/control/REPRESENTATION_01.json"
+        "/control/REPRESENTATION_01.json",
+        "/control/INGEST_RUN_2026-09-21.json"
       ]
     },
     {
@@ -189,7 +191,7 @@
       "name": "SLEEPER WORKFIELD v1.2",
       "state": "FROZEN_EXACT_DONOR",
       "route": "/recovery/sleeper/workfield-v1.2/",
-      "rule": "Sibling donor only; current /sleeper/ stays head; Painting/City exact-source gap remains."
+      "rule": "Sibling donor only; current /sleeper/ stays head. City and later Painting source are separately recovered in the 2026-09-21 receipt; Workfield is not their identity basis."
     },
     {
       "name": "AXIAL v0.3 + Compositor v0.2",
@@ -250,10 +252,10 @@
     },
     {
       "id": "sleeper-deep-lineage",
-      "status": "PARTIAL_EXACT_RECOVERY_WORKFIELD_FROZEN_PAINTING_PATH_SURFACED_CITY_BLOCKED",
+      "status": "EXACT_CITY_SOURCE_AND_PAINTING_RUNTIME_RECOVERED",
       "query": "Hostage/Floating/Kite/Spiral → ONE RETURN/Nine Gate → Semantic City → Workfield → Sleeper POV → WAKE/Atlas → minigame cascade",
-      "payoff": "Exact Sleeper Workfield v1.2 remains frozen. Exact Library artifact painting-path.html surfaced during RSVP diff and should be frozen next through CENSUS/MIGRATION. City Engine remains unresolved; do not infer it from Workfield, Painting Path or current /sleeper/.",
-      "receipt": "/control/RECOVERY_RUN_2026-09-19.json"
+      "payoff": "City v0.2 source and later Painting continuation recovered from exported Git commit 50f886c829dc. 38 tests passed. Original earlier painting-path.html and Workfield remain distinct. City full deployment is still open.",
+      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json"
     },
     {
       "id": "path-grid-deep-lineage",
@@ -317,10 +319,10 @@
   "orientation": "/control/ORIENTATION.json",
   "execution_queue": "/control/QUEUE.json",
   "dock": "/dock/",
-  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
+  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-21.json",
   "last_mechanism_diff": "/control/RSVP_MECHANISM_DIFF_2026-09-21.json",
   "last_validation": "/control/RECOVERY_VALIDATION_2026-09-19.json",
-  "last_ingest_run": "/control/INGEST_RUN_2026-09-20.json",
+  "last_ingest_run": "/control/INGEST_RUN_2026-09-21.json",
   "last_representation": "/control/REPRESENTATION_01.json",
   "documentation": {
     "interaction_semantics": "/control/INTERACTION_SEMANTICS.json",

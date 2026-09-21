@@ -1,0 +1,10 @@
+import fs from 'node:fs';
+import path from 'node:path';
+const dir=path.dirname(new URL(import.meta.url).pathname);
+const read=n=>fs.readFileSync(path.join(dir,n),'utf8');
+const image=fs.readFileSync(path.join(dir,'spring-dawn-detail.jpg')).toString('base64');
+const data='const DEFAULT_IMAGE='+JSON.stringify('data:image/jpeg;base64,'+image)+';';
+const engine=read('engine.mjs').replace(/^export /gm,'');
+const html=read('shell.html').replace('/*STYLE*/',read('style.css')).replace('/*DATA*/',data).replace('/*CODE*/',engine+'\n'+read('view.js'));
+fs.writeFileSync(path.join(dir,'../../public/painting.html'),html);
+console.log('Built painting.html: '+Buffer.byteLength(html)+' bytes');

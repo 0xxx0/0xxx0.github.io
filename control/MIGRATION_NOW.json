@@ -18,7 +18,6 @@
       "object": "known source gaps with a concrete anchor",
       "delta": "freeze exact bytes/spec/evidence or make blocker more precise",
       "priority": [
-        "Sleeper City Engine / Painting-Path",
         "historical Laconic exact outputs",
         "Game-of-Names isolated public-safe artifact",
         "ENV-0 PDF byte mirror",
@@ -36,6 +35,7 @@
     }
   ],
   "closed_recently": [
+    "City v0.2 exact source and later Painting standalone runtime recovered with 40 file hashes and 38 tests. Full City deployment is a separate optional task, not an exact-source gap.",
     "KALA 2018/2020 exact family recovered; broader pet lineage remains anchor-only.",
     "FU Room representatives frozen and duplicate families collapsed.",
     "INTERPHASE/cylinder representatives frozen and duplicate backups collapsed.",
@@ -43,13 +43,6 @@
     "POLY/FURNISHER 2019–2021 core evidence frozen."
   ],
   "open_gaps": [
-    {
-      "id": "painting-city",
-      "name": "Sleeper City Engine / Painting-Path",
-      "state": "BLOCKED_EXACT_SOURCE",
-      "route": "/recovery/sleeper/",
-      "next_trigger": "exact HTML/JS/CSS/assets, authorized checkpoint bytes, saved page/site, or source archive"
-    },
     {
       "id": "naming",
       "name": "Naming / Game of Names",

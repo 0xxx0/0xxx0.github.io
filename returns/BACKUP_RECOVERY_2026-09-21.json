@@ -1,0 +1,44 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "BACKUP-RECOVERY-2026-09-21",
+  "date": "2026-09-21",
+  "object": "Exact City/Painting donor recovery and bounded media/confluence integration",
+  "before": {
+    "city": "EXACT_SOURCE_BLOCKED",
+    "painting": "EARLIER_LIBRARY_VARIANT_SURFACED; LATER_SITE_SOURCE_BLOCKED"
+  },
+  "after": {
+    "source": "/recovery/sleeper/site-source-2026-09-18/",
+    "painting": "/recovery/sleeper/painting-path/",
+    "city": "/recovery/sleeper/city-engine-v0.2/",
+    "media": "/recovery/media/sleeper-atlas/",
+    "confluence": "/control/confluence/BACKUP_MEDIA_RETURN_2026-09-21.md",
+    "exact_files": 40,
+    "public_images": 13,
+    "private_backup_images": 2437,
+    "current_heads": "UNCHANGED"
+  },
+  "verification": {
+    "exact_sha256": "40/40 PASS",
+    "engine_and_painting_tests": "38/38 PASS from public subset; Node 26.5.0; no npm install",
+    "city_layouts": "360 generated layouts included in engine test suite",
+    "source_bundle": "git fsck PASS",
+    "browser_check": "NOT_RUN; user requested tool-based verification without browser interaction",
+    "public_surface_check": "PASS; route/link/parent coverage, 44 return receipts, 18 LensState tests and Constraint Surface parity"
+  },
+  "privacy": {
+    "raw_chats": "NOT_PUBLISHED",
+    "account_metadata": "NOT_PUBLISHED",
+    "private_photos": "NOT_PUBLISHED",
+    "provider_configuration": "NOT_PUBLISHED",
+    "publication_scope": "Explicit source allowlist and reviewed Site project illustrations only"
+  },
+  "limits": [
+    "City React runtime is not deployed here.",
+    "Historical source-document build claims are preserved, not independently re-certified.",
+    "Phone touch and device speech are not tested.",
+    "Public 13-image sample is not the complete private 2437-image archive.",
+    "Atlas/Dayline story import adapter is not implemented."
+  ],
+  "next": "Fresh replan from Confluence packet; prioritize exact apps/design evidence and recipient-side tests over bulk media uploads."
+}

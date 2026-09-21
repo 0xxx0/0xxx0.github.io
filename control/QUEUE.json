@@ -8,37 +8,36 @@
       "goal": "Maintain exact recovered lineages, pursue only source-grounded blocked recovery, and stop solved families from reopening.",
       "horizon": "maintenance / opportunistic",
       "next": [
+        "City v0.2 source and later Painting runtime are recovered. Earlier Library painting-path.html remains a distinct variant; reopen only for a named version comparison, not presumed loss.",
         "Do not reopen Grid Path V4 or Fold Weave recovery unless a concrete missing function is identified.",
-        "NEXT RECOVERY MOVE: freeze the exact File Library painting-path.html surfaced during RSVP diff into /recovery/ with byte hash + manifest, then feed it through CENSUS/MIGRATION without redesign.",
-        "Keep Sleeper City Engine blocked until exact source/assets or authorized checkpoint bytes surface; Painting Path is no longer part of that exact-source gap.",
         "Continue exact-only Laconic archaeology only from source-level voice outputs/adoption evidence; do not reconstruct missing voices.",
         "Complete ENV-0 PDF byte-copy/hash verification when exact PDF bytes are materializable to the repo writer.",
         "Continue Game-of-Names only from isolated runnable/source artifacts; visual/name doctrine evidence alone does not establish a game."
       ],
-      "receipt": "/control/RECOVERY_RUN_2026-09-19.json + /control/RSVP_MECHANISM_DIFF_2026-09-21.json"
+      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
+      "front_id": "repo-convergence"
     },
     {
       "id": "ingest-files-media",
       "goal": "Create one reversible local ingest layer for Downloads/Library/media that labels and deduplicates before moving anything.",
-      "horizon": "PROVED V0.1 / maintenance",
+      "horizon": "LOCAL DRY-RUN VERIFIED / maintenance",
       "next": [
-        "Repeat the same scanner/indexer against a real bounded local ingress directory when filesystem access is available.",
+        "Local Documents dry-run completed: 559 files, 557 byte objects, two duplicate groups. Next review one exact app/design family using original-name/hash provenance; no automatic moves.",
         "Review REVIEW_CONFLICT records; never resolve them by rule order alone.",
         "Promote a filesystem move/rename rule only after a real dry-run demonstrates inverse/recovery behavior."
       ],
-      "receipt": "/control/INGEST_RUN_2026-09-20.json + /control/REPRESENTATION_01.json"
+      "receipt": "/control/INGEST_RUN_2026-09-21.json",
+      "front_id": "ingest-files-media"
     },
     {
-      "id": "reality-house",
-      "goal": "Make one visible physical/home/workshop state simpler and measurable, then admit that observed object/zone into FIELD INDEX so future work is driven by ports rather than project names.",
-      "horizon": "NEXT NOW",
+      "id": "human-port-use",
+      "front_id": "human-port-use",
+      "goal": "Observe ordinary HUMAN PORT use; no transport or autonomous sending.",
+      "horizon": "ACTIVE_NOW / ordinary use",
       "next": [
-        "Use one ordinary bounded physical zone, tool, material interaction or owned endpoint.",
-        "Record OBSERVED → ACTION → RESULT with the smallest useful evidence.",
-        "Add the observed thing to FIELD INDEX with location, mobility, dependencies, input/output ports and evidence.",
-        "Ask one CONNECT or MOVE question; use the missing port as the next-work selector."
+        "Use FIELD and HUMAN PORT normally. If Port is useful, use WHOLE/FOCUS and OPEN naturally; do not perform a dedicated QA ritual. Let content-free choice/override/backtrack evidence accumulate and refine only after ordinary use reveals a concrete failure or repeated pattern."
       ],
-      "receipt": "physical RETURN + first observed FIELD INDEX row + one CONNECT/MOVE result"
+      "receipt": "/port/release.json"
     }
   ],
   "held": [
@@ -57,6 +56,19 @@
     {
       "id": "new-hardware",
       "reason": "Existing owned endpoints and physical environment must produce a RETURN first."
+    },
+    {
+      "id": "reality-house",
+      "goal": "Make one visible physical/home/workshop state simpler and measurable, then admit that observed object/zone into FIELD INDEX so future work is driven by ports rather than project names.",
+      "horizon": "HOLD_USER_DIRECTED",
+      "next": [
+        "Use one ordinary bounded physical zone, tool, material interaction or owned endpoint.",
+        "Record OBSERVED → ACTION → RESULT with the smallest useful evidence.",
+        "Add the observed thing to FIELD INDEX with location, mobility, dependencies, input/output ports and evidence.",
+        "Ask one CONNECT or MOVE question; use the missing port as the next-work selector."
+      ],
+      "receipt": "physical RETURN + first observed FIELD INDEX row + one CONNECT/MOVE result",
+      "reason": "CURRENT holds HOUSE/SPATIAL; do not interpret this retained recipe as NEXT NOW."
     }
   ],
   "turn_order": [
@@ -64,10 +76,10 @@
     "TURN B — DONE: mechanism diff completed; Verse Atlas gained RETURN replay, Fold Weave remains a sibling.",
     "TURN C — DONE: ingest scanner hardened and bounded read-only dry-run produced exact hashes/duplicates + semantic overlay.",
     "TURN D — DONE: REPRESENTATION 01 binds state-transform HTML + README as one semantic artifact without collapsing byte identity.",
-    "TURN E — NEXT: one actual physical/print RETURN → first observed FIELD INDEX row → one CONNECT/MOVE query; then DOCK review."
+    "TURN E — HELD (CURRENT authority): one actual physical/print RETURN → first observed FIELD INDEX row → one CONNECT/MOVE query; then DOCK review."
   ],
-  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
-  "last_ingest_run": "/control/INGEST_RUN_2026-09-20.json",
+  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-21.json",
+  "last_ingest_run": "/control/INGEST_RUN_2026-09-21.json",
   "last_representation": "/control/REPRESENTATION_01.json",
   "last_recovery_mechanism_diff": "/control/RSVP_MECHANISM_DIFF_2026-09-21.json"
 }

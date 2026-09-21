@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/migration-ledger/v0.1",
-  "updated": "2026-09-20",
+  "updated": "2026-09-21",
   "purpose": "Batch recovery + dedup ledger for the last ~2 weeks. Copy/recover first; classify second; merge only after mechanisms and lineage are visible.",
   "laws": [
     "NO DELETION DURING INGEST",
@@ -126,25 +126,27 @@
       "name": "Sleeper // One Return · City Engine v0.2",
       "family": "sleeper",
       "status": "IMPORT",
-      "source_type": "external-live",
+      "source_type": "exported-git-exact-subset",
       "source_url": "https://sleeper-one-return.metaname.chatgpt.site/",
       "unique": "Phrase + verse cell + figure compile into reproducible ASCII city; eight proofs + ninth RETURN; distinct source-material compiler and figure physics.",
-      "action": "KEEP IMPORT OPEN, but do not reconstruct from prose. Resume from exact source/assets or authorized checkpoint bytes. Workfield v1.2 recovery is adjacent evidence only and does not resolve this exact-source import.",
-      "retrieval_state": "BLOCKED_EXACT_SOURCE_2026-09-19",
-      "blocker": "Recorded external URL is currently inaccessible through available retrieval; exact source/assets not imported.",
-      "checkpoint": "Library sleeper_pov_v0.7_private_checkpoint.zip exists (213577 bytes) but raw-byte access is not authorized in this session."
+      "action": "Preserve exact donor. Engine source and tests recovered; full City deployment remains open.",
+      "retrieval_state": "EXACT_SOURCE_RECOVERED_2026-09-21",
+      "checkpoint": "Separate private v0.7 checkpoint is not the identity basis for this City v0.2 recovery.",
+      "route": "/recovery/sleeper/city-engine-v0.2/",
+      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json"
     },
     {
       "id": "sleeper-painting-path",
       "name": "Painting / Path",
       "family": "painting-interface",
-      "status": "IMPORT",
-      "source_type": "external-live",
+      "status": "LIVE_DONOR",
+      "source_type": "exported-git-exact-subset",
       "source_url": "https://sleeper-one-return.metaname.chatgpt.site/painting",
       "unique": "Painting itself as navigable interface: select detail → read/speak/route/finding, with zoom/outline/route interactions.",
-      "action": "KEEP IMPORT OPEN. Painting-first interaction must be recovered exactly; no cards/forms reconstruction. Workfield v1.2 recovery is adjacent evidence only and does not resolve this exact-source import.",
-      "retrieval_state": "BLOCKED_EXACT_SOURCE_2026-09-19",
-      "blocker": "Recorded external /painting URL is currently inaccessible through available retrieval; exact source/assets not imported."
+      "action": "Preserve exact donor. Standalone runtime and 17 tests recovered; no current-head promotion.",
+      "retrieval_state": "EXACT_SOURCE_RECOVERED_2026-09-21",
+      "route": "/recovery/sleeper/painting-path/",
+      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json"
     },
     {
       "id": "two-dial-0-9",
@@ -511,14 +513,14 @@
   ],
   "ingest_queue": [
     "CENSUS: hash/source-grounded ingest of newly surfaced artifacts; collapse exact duplicates before semantic branching.",
-    "SLEEPER / PAINTING: exact-source only. Resume from HTML/JS/CSS/assets, authorized checkpoint bytes, saved page/site, or source archive; no prose reconstruction.",
+    "SLEEPER / PAINTING: exact City source and later Painting runtime are frozen. Full City deployment and earlier variant comparison are separate optional moves; do not reopen the source gap.",
     "LACONIC: recover exact historical voice outputs/adoption evidence; preserve EXACT / RECONSTRUCTED / NEW firewall.",
     "NAMING / GAME OF NAMES: visual batch B260728B recovered as one deliverable; runnable/source/glyph artifact remains the exact-source target.",
     "ENV-0: byte-copy/hash-verify the two exact located PDFs, then hand one print/physical fixture to the appropriate active front.",
     "DESKTOP PETS BEYOND KALA: anchor-only recovery from proper name/source/screenshot/code; no generic mascot search.",
     "QUARANTINE: classify generic site shells only when source/provenance is known; extract a named mechanism or attic them."
   ],
-  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
+  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-21.json",
   "last_mechanism_diff": "/control/MECHANISM_DIFF_2026-09-19.json",
   "process": {
     "human_home": "/migration/",
