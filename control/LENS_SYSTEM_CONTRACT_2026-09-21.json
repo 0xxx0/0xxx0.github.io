@@ -188,7 +188,15 @@
       "name": "Foveated FIELD proof",
       "delta": "one existing FIELD/graph surface renders FOVEA/PARA/PERIPHERY while preserving stable identity",
       "proof": "paired plain baseline test for locate/context/return; promote only if it reduces steps/errors or improves context without harming orientation",
-      "state": "IMPLEMENTED_EXPERIMENTAL_TASK_BENCHMARK_PENDING"
+      "state": "PROOF_BENCH_IMPLEMENTED_HUMAN_RUNS_REQUIRED",
+      "implementation": {
+        "runtime": "/lens-proof.js",
+        "entry": [
+          "Focus Ring → PROOF",
+          "/?lens_proof=1"
+        ],
+        "storage": "browser-local until explicit COPY"
+      }
     }
   ],
   "gaps": [
@@ -224,9 +232,10 @@
       "/control/LENS_FOCUS_RING_2026-09-21.json",
       "/control/LENS_FOVEATE_PROOF_2026-09-21.json",
       "/field-lens.js",
-      "/control/LENS_EVOLUTION_G1_2026-09-21.json"
+      "/control/LENS_EVOLUTION_G1_2026-09-21.json",
+      "/lens-proof.js"
     ],
-    "current_return": "Lens evolution G1 code/contract sub-gate passed: 18/18 LensState CI plus repo-wide public-surface PASS at head 0fef011c. Interaction proof remains the sole promotion blocker for G1."
+    "current_return": "Lens G1 is merged to master. LENS-03 now has a runnable local FI proof bench; promotion remains blocked only on human paired-task evidence, not missing instrumentation."
   },
   "updated": "2026-09-21"
 }
