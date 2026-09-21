@@ -1,0 +1,52 @@
+{
+  "schema": "recovery-packet/v0.1",
+  "id": "SHOWCASE-MAP-V0-RECOVERY-2026-09-21",
+  "recovered_at": "2026-09-21",
+  "status": "EXACT_SOURCE_RECOVERED_INERT",
+  "origin_branch": "showcase-overview-field-v0",
+  "purpose": "Preserve the earlier SHOWCASE / APERTURE 0.1 visual-map specimen as an inert donor. It must not become a second live FIELD map by accident.",
+  "files": [
+    {
+      "origin_branch": "showcase-overview-field-v0",
+      "origin_path": "showcase-map/README.md",
+      "origin_blob_sha": "aa8e3b7168adbbabdec5685eec973e2e77a6c2f6",
+      "recovered_path": "recovery/showcase-map-v0/README.source.md",
+      "commit_sha": "27f6197768f6b26c4eb89ac51562fa5516421a2b"
+    },
+    {
+      "origin_branch": "showcase-overview-field-v0",
+      "origin_path": "showcase-map/index.html",
+      "origin_blob_sha": "be902d1b30e074e4a612b3b1047ca28e068b4a5a",
+      "recovered_path": "recovery/showcase-map-v0/index.html.source.txt",
+      "commit_sha": "66abaf54b2e4cf9a0446e0506bf0ccdcac4af692"
+    },
+    {
+      "origin_branch": "showcase-overview-field-v0",
+      "origin_path": "showcase-map/app.js",
+      "origin_blob_sha": "780b974b22dae48f070acd84b708d102089733e9",
+      "recovered_path": "recovery/showcase-map-v0/app.js.source.txt",
+      "commit_sha": "4d2eb1b2b1a0e753779b4b19b1e1f975b20c147b"
+    },
+    {
+      "origin_branch": "showcase-overview-field-v0",
+      "origin_path": "showcase-map/showcase-changes.json",
+      "origin_blob_sha": "80376c289d65a866947e342f3c07da9aa3d372b4",
+      "recovered_path": "recovery/showcase-map-v0/showcase-changes.json.source.txt",
+      "commit_sha": "fafd96ee9ba98b5678185b09d63884a47fbe9352"
+    }
+  ],
+  "why_inert": "The original HTML/JS assume branch-era relative runtime paths and stale public counts. Runtime source is stored as .source.txt so Pages/route validation cannot mistake it for a current app.",
+  "transferable_mechanisms": [
+    "inner/middle/outer semantic-resolution rings",
+    "stable object identity while resolution changes",
+    "curated meaningful-delta ring rather than raw commit spectacle",
+    "visual channel law: topology vs change vs selected provenance",
+    "promotion gate requiring plain-list control and <=2-interaction retrieval"
+  ],
+  "non_transfer": [
+    "stale route counts",
+    "old artifact filtering assumptions",
+    "parallel canonical state",
+    "automatic promotion to FIELD root"
+  ]
+}
