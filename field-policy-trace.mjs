@@ -141,12 +141,12 @@ function renderGlyph(trace){
     '<text x="58" y="56" text-anchor="middle" fill="#edf0ed" font-size="6">TRACE</text><text x="58" y="64" text-anchor="middle" fill="#7d898f" font-size="4">'+trace.events.length+' EVT</text></svg>';
 }
 function style(){
-  const el=document.createElement('style');el.textContent=\`
+  const el=document.createElement('style');el.textContent=`
 #tracePanel{display:grid;grid-template-columns:minmax(260px,.85fr) minmax(0,1.4fr);gap:1px;background:var(--line);border:1px solid var(--line)}
 .traceInput,.traceOut{background:#090d0f;padding:9px;min-width:0}.traceInput textarea,.traceInput select{width:100%;border:1px solid var(--line);border-radius:0;background:#070b0d;color:var(--ink);font:8px/1.45 ui-monospace,monospace;padding:7px}.traceInput textarea{min-height:88px;resize:vertical}.traceFields{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:5px}.traceButtons{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}.traceButtons button,.traceButtons a{border:1px solid var(--line);padding:5px 7px;font-size:7px;background:#090d0f}.traceButtons .run{border-color:var(--hot);color:#ffd0bd}.traceFocus{font-size:6px;color:var(--cool);margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .traceSummary{display:grid;grid-template-columns:116px minmax(0,1fr);gap:8px;align-items:center}.traceProfiles{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line)}.traceProfile{background:#0b1012;padding:6px}.traceProfile b{font-size:8px}.traceProfile span{display:block;color:var(--mut);font-size:6px;margin-top:2px}.traceProfile.pass b{color:var(--green)}.traceProfile.fail b{color:var(--bad)}.traceProfile.indeterminate b{color:var(--gold)}
 .traceGates{display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);margin-top:6px}.traceGate{background:#0b1012;padding:5px}.traceGate b{font-size:6px;display:block}.traceGate span{font-size:7px}.traceEvents{margin-top:6px;border-top:1px solid var(--line);max-height:220px;overflow:auto}.traceEvent{display:grid;grid-template-columns:28px 132px 72px minmax(0,1fr);gap:5px;padding:4px 2px;border-bottom:1px solid #1d2529;font-size:6px}.traceEvent .typ{color:var(--cool)}.traceEvent .stage{color:var(--mut)}.traceEvent .gate{color:var(--gold)}
-@media(max-width:760px){#tracePanel{grid-template-columns:1fr}.traceFields{grid-template-columns:1fr 1fr}.traceSummary{grid-template-columns:92px 1fr}.traceGates{grid-template-columns:repeat(4,1fr)}.traceEvent{grid-template-columns:25px 112px 58px minmax(0,1fr)}}\`;document.head.appendChild(el);
+@media(max-width:760px){#tracePanel{grid-template-columns:1fr}.traceFields{grid-template-columns:1fr 1fr}.traceSummary{grid-template-columns:92px 1fr}.traceGates{grid-template-columns:repeat(4,1fr)}.traceEvent{grid-template-columns:25px 112px 58px minmax(0,1fr)}}`;document.head.appendChild(el);
 }
 let currentTrace=null;
 function render(trace){
@@ -182,7 +182,7 @@ async function run(){
 }
 function mount(){
   const host=$('tracePanel');if(!host)return;style();
-  host.innerHTML=\`<div class="traceInput">
+  host.innerHTML=`<div class="traceInput">
     <div class="ey">LOCAL REFERENCE POLICY · NO NETWORK ACTION</div>
     <textarea id="traceText">Draft a bounded reply about the currently focused FIELD object, but do not send anything.</textarea>
     <div class="traceFields">
@@ -194,7 +194,7 @@ function mount(){
     <div class="traceFields" style="grid-template-columns:1fr"><label><div class="ey">SIDE EFFECT</div><select id="traceEffects"><option selected>none</option><option>local</option><option>external</option></select></label></div>
     <div class="traceFocus" id="traceFocus">focus → —</div>
     <div class="traceButtons"><button class="run" id="traceRun">RUN TRACE</button><button id="traceCommit">COMMIT TRACE</button><button id="traceExport">EXPORT</button><a href="./router-bench/">ROUTER BENCH</a><span class="traceFocus" id="traceLedger">0 local traces</span></div>
-  </div><div class="traceOut"><div class="traceSummary"><div id="traceGlyph"></div><div id="traceProfiles" class="traceProfiles"></div></div><div id="traceGates" class="traceGates"></div><div id="traceEvents" class="traceEvents"></div></div>\`;
+  </div><div class="traceOut"><div class="traceSummary"><div id="traceGlyph"></div><div id="traceProfiles" class="traceProfiles"></div></div><div id="traceGates" class="traceGates"></div><div id="traceEvents" class="traceEvents"></div></div>`;
   const syncFocus=()=>{const f=focusResource();$('traceFocus').textContent='focus → '+(f?(f.title+' · '+f.href):'none')};
   $('traceRun').onclick=run;$('traceCommit').onclick=commit;$('traceExport').onclick=exportTrace;
   $('traceFold').addEventListener('toggle',()=>{if($('traceFold').open){syncFocus();if(!currentTrace)run()}});
