@@ -191,6 +191,40 @@ function docsApertureProbeHtml(){
   <\/script></body></html>`;
 }
 
+
+function readerFocusProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/docs/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw new Error('waitFor timeout')};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    const A=await waitFor(()=>D().getElementById('docAperture')?.snapshot?.()&&D().getElementById('docAperture'));
+    const sample='# Alpha\\nThe first paragraph establishes context.\\n\\n# Beta\\nRead this second phrase and keep position. [CURRENT](/control/CURRENT.json) ![map](/field-map.svg)';
+    const pt=D().getElementById('pasteText'),pb=D().getElementById('readPaste');pt.value=sample;pb.click();
+    await waitFor(()=>A.A?.label==='PASTE'&&A.A?.kind==='TEXT'&&W().location.search.includes('paste=1'));
+    const target=sample.indexOf('second');A.restore({scale:'WORD',char_index:target,wpm:1200});
+    rec.word=await waitFor(()=>{const x=A.snapshot();return x.scale==='WORD'&&x.wpm===1200?x:null});
+    rec.wordMark=D().getElementById('reading')?.querySelector('mark')?.textContent||'';
+    rec.orp=A.shadowRoot?.getElementById('focusOrp')?.textContent||'';
+    A.setScale(A.scaleIndex('SENT'));rec.sent=A.snapshot();
+    A.setScale(A.scaleIndex('PARA'));rec.para=A.snapshot();
+    A.setScale(A.scaleIndex('SECTION'));rec.section=A.snapshot();
+    await sleep(120);
+    rec.url=W().location.search;
+    rec.xrefs=[...D().querySelectorAll('#xrefs a')].map(a=>a.textContent);
+    rec.highlight=D().getElementById('reading')?.querySelector('mark')?.textContent||'';
+    rec.structure=rec.section.structure?.map(x=>x.label)||[];
+    rec.session=!!W().sessionStorage.getItem('docs.reader.paste.v1');
+    const same=[rec.sent,rec.para,rec.section].every(x=>x.char_index===rec.word.char_index&&Math.abs(x.source_progress-rec.word.source_progress)<1e-9);
+    const spans=[rec.sent,rec.para,rec.section].every(x=>x.span&&x.span.start<=x.char_index&&x.char_index<=x.span.end);
+    const ok=same&&spans&&rec.structure.length===2&&rec.xrefs.length>=2&&rec.session&&rec.orp&&rec.wordMark.toLowerCase().includes('second')&&/ap_char=/.test(rec.url)&&/CURRENT/.test(rec.xrefs.join(' '))&&/MEDIA/.test(rec.xrefs.join(' '));
+    done(!!ok,{same,spans,...rec});
+  })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
 function apertureMultilingualProbeHtml(){
   return `<!doctype html><html><body><pre id="probeResult">PENDING</pre><script src="/field-aperture.js"></script><script>
   const result=document.getElementById('probeResult'),rec={};
@@ -243,6 +277,10 @@ const server=http.createServer((req,res)=>{
   if(String(req.url||'').startsWith('/__smoke/docs-aperture')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(docsApertureProbeHtml());return;
+  }
+  if(String(req.url||'').startsWith('/__smoke/reader-focus')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(readerFocusProbeHtml());return;
   }
   if(String(req.url||'').startsWith('/__smoke/lens-proof')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
@@ -341,6 +379,12 @@ const CASES=[
     route:'/__smoke/docs-aperture',
     options:{width:1040,height:820,budget:12000,timeout:18000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"scale":"LEAF"/.test(dom)&&/"wpm":650/.test(dom)&&/"copyView":true/.test(dom)&&/"throttled":true/.test(dom)&&/"ended":true/.test(dom)
+  },
+  {
+    name:'DOCS RSVP focus kernel',
+    route:'/__smoke/reader-focus',
+    options:{width:1040,height:820,budget:14000,timeout:20000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"same":true/.test(dom)&&/"spans":true/.test(dom)&&/"structure":\["Alpha","Beta"\]/.test(dom)&&/"session":true/.test(dom)
   },
   {
     name:'CENTER current',
