@@ -432,7 +432,9 @@
     "route_grammar_gate": "/tools/audit-route-grammar.mjs",
     "poem_map_calm_face": "/control/POEM_MAP_CALM_FACE_2026-09-21.json",
     "ingest_solved_problem_raid": "/control/research/INGEST_SOLVED_PROBLEM_RAID_2026-09-21.md",
-    "open_instrument_quarry": "/control/confluence/OPEN_INSTRUMENT_QUARRY_2026-09-21.md"
+    "open_instrument_quarry": "/control/confluence/OPEN_INSTRUMENT_QUARRY_2026-09-21.md",
+    "docs_reader_addressable": "/docs/?src=/path/to/same-origin-file.json&return=/caller",
+    "docs_reader_return": "/returns/DOCS_ADDRESSABLE_APERTURE_2026-09-21.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
