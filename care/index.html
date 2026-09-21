@@ -380,7 +380,7 @@ function renderBodyCareOffer(){
  const e=p.event,labels=e.body_address?.region_labels||[];$('#bodyCareSummary').textContent=[e.state?.label||'BODY check-in',labels.join(' · '),e.state?.itch!=null?'itch '+e.state.itch:null,e.state?.pain!=null?'pain '+e.state.pain:null].filter(Boolean).join(' · ');el.style.display='block'
 }
 function importBodyCare(){
- const p=bodyCarePacket();if(!p?.event)return;const e=p.event,regions=e.body_address?.region_labels||[],prior=priorSameRegion(regions);
+ const p=bodyCarePacket();if(!p?.event)return;const e=p.event,regions=e.body_address?.region_labels||[],regionKeys=e.body_address?.region_ids||regions,prior=priorSameRegion(regionKeys);
  C.events.push({id:uid('evt'),at:e.observed_at||now(),type:'OBSERVATION',status:null,raw_note:e.note||e.state?.label||'BODY / FIELD check-in',regions,trace:[],body_map:e.body_address?{schema:'0xxx0/body-address/v0.1',plan_id:e.body_address.plan_id,geometry_version:e.body_address.geometry_version||null,view:e.body_address.view||null,view_box:null,trace_space:null,region_ids:e.body_address.region_ids||[],region_labels:regions}:null,qualities:[e.state?.label].filter(Boolean),magnitude:null,trend:'NEW',evidence_kind:'SELF_OBSERVED',measurement:null,interpretation:null,source_cue:'BODY / FIELD '+(e.id||''),prior_same_region_id:prior?.id||null,body_state:e.state||null,body_context:e.context||null});
  C.updated_at=now();localStorage.removeItem(BODYCARE);renderAll();renderBodyCareOffer();flash('BODY IMPORTED ✓')
 }
