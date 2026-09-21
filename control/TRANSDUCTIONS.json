@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/transductions/v0.1",
-  "updated": "2026-09-21T16:40:00+08:00",
+  "updated": "2026-09-21",
   "status": "EXPERIMENTAL_BRANCH",
   "purpose": "One registry for composable bounded transformations across UI, agents, HOUSE/HAOS and physical return. Preserve mechanisms; do not create parallel pipelines.",
   "lineage": {
@@ -127,7 +127,7 @@
     },
     {
       "id": "xd.route.support",
-      "state": "ACTIVE_EXPERIMENT",
+      "state": "SUPERSEDED_BY_TYPED_SPLIT",
       "source": "current Port route scope (whole or focus)",
       "focus": "bounded HUMAN PORT route set",
       "transform": "count explicit lexical cues + derive low-risk likely route",
@@ -135,7 +135,8 @@
       "observable": "per-route cue counts + LIKELY suggestion; zero-support routes stay available",
       "evidence": "cue counts + candidate accept/override + content-free route receipt",
       "authority": "SUGGESTION_ONLY",
-      "reversibility": "manual route override before OPEN"
+      "reversibility": "manual route override before OPEN",
+      "note": "HUMAN PORT 1.5 separates structural FIT from heuristic CUES and local HISTORY; retain as provenance only."
     },
     {
       "id": "xd.lens.compose",
@@ -148,6 +149,42 @@
       "evidence": "LensState serialization + support result + sourceRefs + returnAddress; CI law receipt",
       "authority": "VIEW_ONLY unless an explicit ACTION_TOOLGLASS declares bounded COMMIT authority",
       "reversibility": "uncompose/RETURN for view state; consequential rollback is compensating RETURN, never history erasure"
+    },
+    {
+      "id": "xd.route.fit",
+      "state": "ACTIVE_EXPERIMENT",
+      "source": "PORT_OBJECT envelope + route capability contract",
+      "focus": "media class + current projection/focus kind",
+      "transform": "exact contract lookup → DIRECT / ADAPTER / NONE",
+      "commit": "none; view evidence only",
+      "observable": "structural ability of a route to consume this projection",
+      "evidence": "/port/routes.json + object media/focus address",
+      "authority": "CAPABILITY_EVIDENCE_ONLY",
+      "reversibility": "instant as object/focus/contract changes"
+    },
+    {
+      "id": "xd.route.cues",
+      "state": "ACTIVE_EXPERIMENT",
+      "source": "current object projection text/label metadata",
+      "focus": "one bounded route set",
+      "transform": "deterministic lexical cue count",
+      "commit": "none",
+      "observable": "heuristic relevance hints",
+      "evidence": "cue count only; never called confidence",
+      "authority": "SUGGESTION_ONLY",
+      "reversibility": "instant"
+    },
+    {
+      "id": "xd.route.history",
+      "state": "ACTIVE_EXPERIMENT",
+      "source": "content-free completed OPEN receipts",
+      "focus": "one route id",
+      "transform": "count prior completed local OPENs",
+      "commit": "local metadata receipt only",
+      "observable": "local usage history",
+      "evidence": "route/scope/media/focus metadata; no payload text",
+      "authority": "PRESENTATION_HINT_ONLY",
+      "reversibility": "clear local receipt store"
     }
   ],
   "compositions": [
@@ -186,17 +223,20 @@
       "note": "Separate sensing from actuation authority."
     },
     {
-      "id": "human-port-focus-route",
+      "id": "human-port-object-route",
       "state": "ACTIVE_SLICE",
       "chain": [
+        "PORT_OBJECT",
         "xd.focus.address",
-        "xd.route.support",
+        "xd.route.fit",
+        "xd.route.cues",
+        "xd.route.history",
         "human SELECT",
         "explicit OPEN",
-        "local handoff receipt",
-        "RE_ENTER"
+        "bounded adapter",
+        "RETURN / RE_ENTER"
       ],
-      "note": "AXIAL support/focus + Scale Lens identity/projection + RSVP foveation + HUMAN PORT authority boundary. SELECT/OPEN are distinct; external send remains separate."
+      "note": "HUMAN PORT 1.5: one addressed object survives unequal projections. FIT/CUES/HISTORY remain separate; authority is never derived from them. FIELD INTAKE is the reviewed admission boundary."
     },
     {
       "id": "field-focus-lens-return",
