@@ -152,7 +152,7 @@ check(home.includes('data-mode="RECENT"'),'root missing RECENT lens');
 check(home.includes('data-mode="EVOLVE"'),'root missing EVOLVE lens');
 check(home.includes('>NOW<'),'root missing NOW reading');
 check(home.includes('>HEADS<'),'root missing HEADS reading');
-check(home.includes('>MAP<'),'root missing MAP reading');
+check(home.includes('>MAP<')||home.includes('MAP / PROJECTIONS'),'root missing MAP reading');
 check(home.includes('>OPEN PORTS<'),'root missing OPEN PORTS reading');
 check(home.includes('LATEST / REPO TOUCHES'),'root missing LATEST re-entry reading');
 check(home.includes('ISSUES / REPO OPEN LOOPS'),'root missing ISSUES reading');
