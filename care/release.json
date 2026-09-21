@@ -2,11 +2,17 @@
   "schema": "release-receipt/v1",
   "artifact": "CARE / FIELD",
   "route": "/care/",
-  "version": "0.4",
-  "released": "2026-09-21",
+  "version": "0.5",
+  "released": "2026-09-22",
   "state": "EXPERIMENT",
   "relation": "specialized CONTINUITY projection; shared BODY PLAN registry donor; BODYFIELD high-resolution lineage; HUMAN PORT downstream handoff; COURSE preserves sourced care path",
   "changes": [
+    "added PORT CASE: exact CARE snapshot becomes hashed human-port-object/v0.1 JSON with case identity retained in provenance",
+    "added HUMAN PORT → CARE evidence route for TEXT/JSON/IMAGE/FILE objects; explicit ATTACH required",
+    "CARE evidence refs preserve Port object id/hash/media/provenance/focus while file/image bytes remain in HUMAN PORT IndexedDB",
+    "direct CARE consult handoff now uses CONTACT NEED when an explicit ASK exists, otherwise REPLY",
+    "FOLLOW and BRIEF expose attached evidence references without treating them as interpretation",
+    "added evidence laws: NO ENTRY != NORMAL; CARE HISTORY != COMPLIANCE SCORE; CAREGIVER_OBSERVED != SELF_OBSERVED",
     "Added explicit BODY / FIELD local handoff offer; user must import into the current CARE case.",
     "Imported BODY events preserve body-plan/view/region identity, state vector/context, time and source cue.",
     "BODY handoff does not auto-create or mutate a CARE case.",
@@ -52,18 +58,24 @@
     "HUMAN PORT private session carrier retained",
     "geometry version preserved with body-map event address",
     "BODY handoff requires explicit import",
-    "stable BODY region IDs used for prior-overlap matching"
+    "stable BODY region IDs used for prior-overlap matching",
+    "CARE → PORT snapshot is exact-hashed JSON and satisfies human-port-object/v0.1 required fields",
+    "Port → CARE attachment is explicit and does not duplicate local file/image bytes",
+    "session/reference-only Port evidence is surfaced by STEP BACK as a durability gap",
+    "direct CONTACT consult chooses NEED only when CARE ASK is non-empty"
   ],
   "open_gaps": [
+    "cross-device private evidence portability remains unresolved",
+    "no multi-object evidence bundle/share primitive yet; CARE brief lists references while source objects remain separately addressed",
+    "session-only HUMAN PORT text/JSON objects need stash/export if the original source must outlive the browser session",
     "manual mobile pointer/trace usability test on detailed human fragments",
     "feline reference map is coarse localization geometry, not veterinary anatomical atlas",
     "BODY / FIELD route should adopt the same local registry after its current open branch is reconciled",
-    "no private image/file attachment store yet; source cue only",
     "no clinician-authored adaptive question bank",
     "no validated triage/urgency engine by design",
     "no FHIR CarePlan/QuestionnaireResponse export yet",
     "no automatic metric threshold interpretation by design"
   ],
   "return": "/care/",
-  "validation": "/control/CARE_VALIDATION_2026-09-21_V04.json"
+  "validation": "/control/CARE_VALIDATION_2026-09-22_V05.json"
 }
