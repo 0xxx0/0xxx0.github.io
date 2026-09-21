@@ -100,7 +100,7 @@ function consumeLensHandoff(){
     if(window.LensState){
       const h=LensState.readHandoff();
       if(h){
-        sessionStorage.removeItem(LensState.HANDOFF_KEY);inboundLensState=h.state;document.body.classList.add('has-handoff');setLab(false);
+        sessionStorage.removeItem(LensState.HANDOFF_KEY);sessionStorage.removeItem('scale.lens.handoff.v01');inboundLensState=h.state;document.body.classList.add('has-handoff');setLab(false);
         const t=String(h.text||'').slice(0,250000);if(t){$('#text').value=t;load(t,h.title||'lens-handoff');return true}
       }
     }
