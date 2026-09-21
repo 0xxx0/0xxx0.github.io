@@ -356,7 +356,7 @@ function renderHistory(){
 }
 function renderPlain(){$('#plainText').textContent=JSON.stringify(D,null,2)}
 function renderAll(){renderBody();renderHouse();renderFitList();renderObsList();renderSession();renderPatina();renderHistory();renderPlain();if(!$('#view-fuse').hidden)renderFuse()}
-function setView(v){$('.tab').forEach(b=>b.classList.toggle('on',b.dataset.view===v));$('.view').forEach(x=>x.hidden=x.id!=='view-'+v);if(v==='fuse')renderFuse();if(v==='history'){renderPatina();renderHistory()}if(v==='plain')renderPlain()}
+function setView(v){document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('on',b.dataset.view===v));document.querySelectorAll('.view').forEach(x=>x.hidden=x.id!=='view-'+v);if(v==='fuse')renderFuse();if(v==='history'){renderPatina();renderHistory()}if(v==='plain')renderPlain()}
 $$('.tab').forEach(b=>b.onclick=()=>setView(b.dataset.view));
 
 function importPacket(j,origin){
