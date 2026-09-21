@@ -48,6 +48,7 @@ When mining prior conversations, user messages deserve special attention because
 
 ## Current confluence packets
 
+- [BACKUP → MEDIA / FIELD](./BACKUP_MEDIA_RETURN_2026-09-21.md) — recovered City/Painting source, tested intent, media scope and bounded recipient-side comparisons; not a new head
 - [LAW ZOO / tiny-law branch](./LAW_ZOO.md)
 - [Cross-system perceptual / learning expedition](./CROSS_SYSTEM_EXPEDITION.md)
 - [RSVP temporal-focus recovery](./RSVP_RECOVERY.md)

@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#101719"><title>Painting / Path — SLEEPER</title><meta name="description" content="Explore a painting, read in place, author a short route and keep what you found."><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23101719' d='M0 0h32v32H0z'/%3E%3Cpath stroke='%23f5ad76' fill='none' stroke-width='2' d='M5 25V7h22v18H5m5-5 6-10 6 10'/%3E%3C/svg%3E"><style>/*STYLE*/</style></head>
+<body>
+<header class="top"><a href="/atlas" id="atlasLink" aria-label="Back to Atlas">↖</a><h1>PAINTING <span>/</span> PATH</h1><span id="saveState" class="save-state">Local field</span><button id="menu" aria-label="Open materials and session controls">•••</button></header>
+<main id="main">
+ <section id="field" aria-label="Painting field">
+  <div id="stage" tabindex="0" aria-label="Painting. Drag to pan, use plus and minus to zoom. Tab to region controls."><div id="world"><svg id="art" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1 1" preserveAspectRatio="none"><image id="paintingImage" width="1" height="1" preserveAspectRatio="none"/><g id="outlines"></g><polyline id="draft" fill="#7bd5e51a" stroke="#7bd5e5" stroke-width="2" vector-effect="non-scaling-stroke"/></svg></div><div id="pins"></div></div>
+  <div id="plain" hidden aria-label="The same regions as a list"></div>
+  <nav class="viewbar" aria-label="View controls"><div class="segments"><button id="fieldMode" aria-pressed="true">Painting</button><button id="listMode" aria-pressed="false">List</button></div><button id="find">Find a detail</button></nav>
+  <div id="challenge" hidden><span class="eyebrow">LOOK / CHOOSE</span><strong id="question"></strong><span id="score"></span><button id="endChallenge" aria-label="End detail challenge">×</button></div>
+  <div class="camera-controls"><button id="fit" aria-label="See whole painting">⤢</button><button id="zoomOut" aria-label="Zoom out">−</button><button id="zoomIn" aria-label="Zoom in">+</button><button id="hints" aria-pressed="true" aria-label="Show region markers">◉</button></div>
+  <div id="drawbar" hidden><span id="drawHint">Tap around a region</span><button id="markView">Use this view</button><button id="undoPoint">↶ Point</button><button id="finishDraw">Finish outline</button><button id="cancelDraw">Cancel</button></div>
+  <div id="paintingCredit"></div><svg id="mini" viewBox="0 0 200 70" aria-label="Overview: click to move" tabindex="0"><image id="miniImage" width="200" height="70" preserveAspectRatio="xMidYMid meet"/><rect id="miniFrame" fill="none" stroke="#f5ad76" stroke-width="1.5"/></svg>
+ </section>
+ <section class="dock" aria-label="Selected region">
+  <div class="routebar"><div id="routeStops" aria-label="Your route"></div><button id="routeGo" hidden>Begin route →</button></div>
+  <div id="focusView"><div class="focusline"><div><span class="eyebrow" id="regionMeta">CHOOSE A DETAIL</span><h2 id="regionTitle">Tap a marked part of the painting</h2></div><button id="focusCamera" aria-label="Focus selected region">↗</button></div><p id="intent"></p><div class="actions"><button id="read" class="primary">Read / PULSE</button><button id="addRoute">+ Route</button><button id="capture">Keep a finding</button><button id="edit" aria-label="Edit this region">✎</button></div></div>
+  <section id="reader" hidden aria-label="PULSE reader"><div class="read-head"><span id="readingIdentity"></span><span id="chunkCount"></span><button id="closeReader" aria-label="Close reader">×</button></div><div id="word" dir="auto"></div><div class="read-controls"><button id="previous" aria-label="Previous reading unit">←</button><button id="flow">Read</button><button id="speak">Speak</button><button id="next" aria-label="Next reading unit">→</button><button id="readOptions" aria-label="Reading settings">Aa</button></div><div id="textStrip" aria-label="Nearby reading units. Select to revisit."></div></section>
+  <div id="message" role="status">Select a detail. Read it, trace a route, or keep a finding.</div>
+ </section>
+</main>
+<dialog id="sheet"><div class="sheet-top"><h2 id="sheetTitle">Materials</h2><button id="closeSheet" aria-label="Close panel">×</button></div><div id="sheetBody"></div></dialog>
+<input type="file" id="imageInput" accept="image/png,image/jpeg,image/webp,image/gif" hidden><input type="file" id="sessionInput" accept="application/json,.json" hidden>
+<script>/*DATA*/</script><script type="module">/*CODE*/</script></body></html>

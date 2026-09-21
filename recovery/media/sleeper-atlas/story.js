@@ -1,0 +1,11 @@
+(async()=>{
+'use strict';
+const status=document.querySelector('#status'), list=document.querySelector('#sequence'), output=document.querySelector('#export');
+let chosen=[];
+const catalog=await fetch('catalog.json').then(r=>{if(!r.ok)throw Error('catalog unavailable');return r.json()});
+function render(){list.replaceChildren();for(const id of chosen){const x=catalog.items.find(x=>x.id===id),li=document.createElement('li');li.textContent=x.title;list.append(li)}document.querySelectorAll('[data-pick]').forEach(b=>{const yes=chosen.includes(b.dataset.pick);b.setAttribute('aria-pressed',String(yes));b.textContent=yes?'Remove from story':'Add to story'});output.disabled=!chosen.length;status.textContent=chosen.length?`${chosen.length}/3 selected · ordered selection, not historical chronology.`:'No story selected.'}
+document.querySelectorAll('[data-pick]').forEach(b=>b.onclick=()=>{const id=b.dataset.pick;if(chosen.includes(id))chosen=chosen.filter(x=>x!==id);else if(chosen.length<3)chosen.push(id);else{status.textContent='Three stops maximum. Remove one before adding another.';return}render()});
+document.querySelector('#filter').oninput=e=>{const q=e.target.value.toLowerCase().trim();document.querySelectorAll('figure[data-search]').forEach(f=>f.hidden=!f.dataset.search.includes(q))};
+document.querySelector('#clear').onclick=()=>{chosen=[];render()};
+output.onclick=()=>{const packet={schema:'0xxx0/media-story-pack/v0.1',authority:'AUTHORED_SELECTION_NOT_CHRONOLOGY',created_at:new Date().toISOString(),source_catalog:new URL('catalog.json',location.href).href,source_manifest:catalog.source_manifest,steps:chosen.map((id,i)=>({order:i+1,...catalog.items.find(x=>x.id===id)})),atlas_dayline_adapter:'NOT_IMPLEMENTED',return_to:'/recovery/media/sleeper-atlas/'};const url=URL.createObjectURL(new Blob([JSON.stringify(packet,null,2)+'\n'],{type:'application/json'})),a=document.createElement('a');a.href=url;a.download='sleeper-story-pack.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);status.textContent='Export requested. Keep the JSON with its source references; no state was sent to a server.'};
+})().catch(e=>{document.querySelector('#status').textContent='Catalog unavailable; original image links still work.';console.error(e)});

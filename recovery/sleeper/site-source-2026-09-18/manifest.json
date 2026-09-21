@@ -1,0 +1,309 @@
+{
+  "schema": "0xxx0/recovery/site-source/v0.1",
+  "status": "SELECTIVE_EXACT_FROZEN_SOURCE",
+  "recovered_at": "2026-09-21T09:09:24.851148+00:00",
+  "source": {
+    "kind": "ChatGPT Sites Git bundle",
+    "export_date": "2026-09-18",
+    "commit": "50f886c829dcee98b043c55ef9de0c631fd31987"
+  },
+  "scope": "Selected City source, dependency-free engine tests, Painting source/runtime, two original design documents and Site artwork. Not a complete Site deployment.",
+  "exclusions": [
+    "raw chats",
+    "library/account metadata",
+    "Git history and bundle",
+    "provider bindings and write-only secrets",
+    "authentication/database/provider plumbing",
+    "unreviewed personal media"
+  ],
+  "source_documents": "Historical authoring/build claims remain dated source claims, not newly verified deployment evidence.",
+  "files": [
+    {
+      "source_path": "app/one-return/city-layout.ts",
+      "path": "/recovery/sleeper/site-source-2026-09-18/app/one-return/city-layout.ts",
+      "bytes": 5589,
+      "sha256": "cfe728236d87d01580559ad0cb5bd8b8d9980f171677ae81f8d07d8ad32035de",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "app/one-return/one-return-client.tsx",
+      "path": "/recovery/sleeper/site-source-2026-09-18/app/one-return/one-return-client.tsx",
+      "bytes": 55662,
+      "sha256": "9703007248b72fee5b8f696badc4aed10f7a3ad98b2c63eac3e98cb19de89289",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "app/one-return/page.tsx",
+      "path": "/recovery/sleeper/site-source-2026-09-18/app/one-return/page.tsx",
+      "bytes": 226,
+      "sha256": "9dbe71137d8d0b623af240cb3dcce795756f1e830b06780352ae13557fa76d1a",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "app/one-return/protocol.ts",
+      "path": "/recovery/sleeper/site-source-2026-09-18/app/one-return/protocol.ts",
+      "bytes": 2075,
+      "sha256": "a87744d24f8c59f19bf18c02c57dbf45e5be07893b506cbc708af91515f7d1cb",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "app/one-return/world-law.ts",
+      "path": "/recovery/sleeper/site-source-2026-09-18/app/one-return/world-law.ts",
+      "bytes": 15418,
+      "sha256": "795aa8b050c20ff230552819e8e7c82efcf8b594b0301ad4eebc9d8fddb010a1",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "app/lib/seed.ts",
+      "path": "/recovery/sleeper/site-source-2026-09-18/app/lib/seed.ts",
+      "bytes": 1340,
+      "sha256": "5d19c6ab80e3fcf9f1167e26fa226612a59669e9df9170b07bb8462850617518",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "app/field-catalog.ts",
+      "path": "/recovery/sleeper/site-source-2026-09-18/app/field-catalog.ts",
+      "bytes": 4547,
+      "sha256": "31b89a13ba6e56c0e60b819e2548997951cfb8940ea8383f67c8aa7a4d70de04",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "app/globals.css",
+      "path": "/recovery/sleeper/site-source-2026-09-18/app/globals.css",
+      "bytes": 90663,
+      "sha256": "373741e21b7633f6fd76cf52a3d1643fc7993ce53a53f7385ab073dcc201bd89",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "app/lab/pack.ts",
+      "path": "/recovery/sleeper/site-source-2026-09-18/app/lab/pack.ts",
+      "bytes": 6414,
+      "sha256": "649f8aa5539177bbf01ab69cf6f958ecb8133151337263c5060fbdf17258bb84",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "app/lab/catalog.ts",
+      "path": "/recovery/sleeper/site-source-2026-09-18/app/lab/catalog.ts",
+      "bytes": 5599,
+      "sha256": "bb0318a5b27627dfe0ca1607bdbe68364c730ba7893e18f703326ccaf2daadb1",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "app/lab/instrument/engine.ts",
+      "path": "/recovery/sleeper/site-source-2026-09-18/app/lab/instrument/engine.ts",
+      "bytes": 24443,
+      "sha256": "fd598e54fc6966dcb42630132f1515d106485abe5c48fccb6c39fcc3937789e0",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "app/lab/jue/engine.ts",
+      "path": "/recovery/sleeper/site-source-2026-09-18/app/lab/jue/engine.ts",
+      "bytes": 9232,
+      "sha256": "47c90ac13d52e2f77a5a7e6674c92b495ef78db4fc332094032e70428594d590",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "app/lab/kite/engine.ts",
+      "path": "/recovery/sleeper/site-source-2026-09-18/app/lab/kite/engine.ts",
+      "bytes": 7004,
+      "sha256": "c9880ecee349efcc363121d61be87c9626b791cd259cdfde5f9e4b72c4db5791",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "app/lab/rsvp/engine.ts",
+      "path": "/recovery/sleeper/site-source-2026-09-18/app/lab/rsvp/engine.ts",
+      "bytes": 7544,
+      "sha256": "d3103156f00a2907d02da82c596a7f24760c46fc35b41e0b0fd17486315d82c6",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "app/lab/rsvp/audio-analysis.ts",
+      "path": "/recovery/sleeper/site-source-2026-09-18/app/lab/rsvp/audio-analysis.ts",
+      "bytes": 4843,
+      "sha256": "627fadf3f371b515cf73e509719925728f05316507bd07bf13cb58787d2bfd17",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "docs/ONE_RETURN_V2.md",
+      "path": "/recovery/sleeper/site-source-2026-09-18/docs/ONE_RETURN_V2.md",
+      "bytes": 6813,
+      "sha256": "e3490341dd5e3d6e29a78e0a97694541174fb84e6d1ee62130a427a7d267bf74",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "docs/PAINTING_PATH.md",
+      "path": "/recovery/sleeper/site-source-2026-09-18/docs/PAINTING_PATH.md",
+      "bytes": 6387,
+      "sha256": "583c3323c0f1376fc77a332d54d488e210340e021b9e772cc1e7d27466ceabad",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "tests/field-engines.test.mjs",
+      "path": "/recovery/sleeper/site-source-2026-09-18/tests/field-engines.test.mjs",
+      "bytes": 19472,
+      "sha256": "828e08517436d7854877f5c82ddeff2b6974a77784bcc7a617d0775eab0bd925",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "tests/painting-path.test.mjs",
+      "path": "/recovery/sleeper/site-source-2026-09-18/tests/painting-path.test.mjs",
+      "bytes": 6780,
+      "sha256": "7c77192aadf37e532da10f7d321c2baa7e9b6086af95457dbc78cb60fb7bd973",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "tests/painting-ui.test.mjs",
+      "path": "/recovery/sleeper/site-source-2026-09-18/tests/painting-ui.test.mjs",
+      "bytes": 4930,
+      "sha256": "66f0e84d9483ba68ad880d40e5fc2d5c26689ee8573066b23aa1e03d8dba9b14",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "public/painting.html",
+      "path": "/recovery/sleeper/site-source-2026-09-18/public/painting.html",
+      "bytes": 3429506,
+      "sha256": "60628b22b1f7668bc4fef3acf583d8dd1016b9c3c9768d14d3ed399bdf62f007",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "experiments/painting/build.mjs",
+      "path": "/recovery/sleeper/site-source-2026-09-18/experiments/painting/build.mjs",
+      "bytes": 687,
+      "sha256": "6131a3d4b83e37e640b82350f78830d6ad341af4a29399250d4836f364b4cecc",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "experiments/painting/engine.mjs",
+      "path": "/recovery/sleeper/site-source-2026-09-18/experiments/painting/engine.mjs",
+      "bytes": 15406,
+      "sha256": "2f393cbcfe16b27276fcdbd3fba7d1e8aef32c7f2b45fed6c3c62facbdabb16a",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "experiments/painting/shell.html",
+      "path": "/recovery/sleeper/site-source-2026-09-18/experiments/painting/shell.html",
+      "bytes": 4670,
+      "sha256": "899c6cf33e1e6e5bf05e3e10307e950a877d800e17c7ac59dd1f2586684a5ac1",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "experiments/painting/spring-dawn-detail.jpg",
+      "path": "/recovery/sleeper/site-source-2026-09-18/experiments/painting/spring-dawn-detail.jpg",
+      "bytes": 2527253,
+      "sha256": "509438475e9d5df964da52a7516d412484f0a4de9a2bedf08efe3c81577a7dcc",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "experiments/painting/style.css",
+      "path": "/recovery/sleeper/site-source-2026-09-18/experiments/painting/style.css",
+      "bytes": 11254,
+      "sha256": "3dbc17809a1f5cb37005cabfcb62595ad5b32bddc0446f09ccf1b7a98a964fc8",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "experiments/painting/view.js",
+      "path": "/recovery/sleeper/site-source-2026-09-18/experiments/painting/view.js",
+      "bytes": 28587,
+      "sha256": "40ca161cb18922acce9b60f7dbc980f55ff312a4ed0674b0d5a3ac493cb1f2af",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "public/botanage.png",
+      "path": "/recovery/sleeper/site-source-2026-09-18/public/botanage.png",
+      "bytes": 410909,
+      "sha256": "0c968b72c0c2983e761504886512ae6072146bc562367e96d43b08da570a7e54",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "public/cloudbone.png",
+      "path": "/recovery/sleeper/site-source-2026-09-18/public/cloudbone.png",
+      "bytes": 394089,
+      "sha256": "f950d57cd1dee12fb3d8bcc649239c2bb45b84ab7cf935ea42bca2392a8da0d0",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "public/confluence-engine.png",
+      "path": "/recovery/sleeper/site-source-2026-09-18/public/confluence-engine.png",
+      "bytes": 483231,
+      "sha256": "a3aeea3da08eaea39f6cde88ed13abb873067f8fe7e672bed7c303d9afa69321",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "public/confluence.png",
+      "path": "/recovery/sleeper/site-source-2026-09-18/public/confluence.png",
+      "bytes": 466610,
+      "sha256": "f294b5986adb39bfca1bec2510f3c40e817bfb03ab568e4a7e19b41f4484b767",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "public/cultivators.png",
+      "path": "/recovery/sleeper/site-source-2026-09-18/public/cultivators.png",
+      "bytes": 383322,
+      "sha256": "486e8f4ee5f9aa0e1f378f9d44093cf52cb7b57594ac6aa01dbc7fa7a35eed02",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "public/keris-cut.png",
+      "path": "/recovery/sleeper/site-source-2026-09-18/public/keris-cut.png",
+      "bytes": 435684,
+      "sha256": "2113c54f02c3f33282aa0b34b3efa4da77791595da586d57034be7084ef37294",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "public/labyrinth.png",
+      "path": "/recovery/sleeper/site-source-2026-09-18/public/labyrinth.png",
+      "bytes": 416498,
+      "sha256": "620b822efaa1ef112d37925b15a539135d30cd92c5b77e5a25916d3009127f15",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "public/ministry-ridge.png",
+      "path": "/recovery/sleeper/site-source-2026-09-18/public/ministry-ridge.png",
+      "bytes": 408129,
+      "sha256": "b61d0e56cb3b698257ad4679ce461fb39c6139f74b00f5dcb86c02aaa4103863",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "public/og-atlas.png",
+      "path": "/recovery/sleeper/site-source-2026-09-18/public/og-atlas.png",
+      "bytes": 2981450,
+      "sha256": "9e0f59f59fd250e043c168e1c052ae97863ac147b7c7e391a7bf9be084b05f64",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "public/og.png",
+      "path": "/recovery/sleeper/site-source-2026-09-18/public/og.png",
+      "bytes": 2837663,
+      "sha256": "e0be741fe981c8b613458b0373215909ef440fbbd547b7ed38115532f2446ca9",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "public/prison-atlas.png",
+      "path": "/recovery/sleeper/site-source-2026-09-18/public/prison-atlas.png",
+      "bytes": 397689,
+      "sha256": "9b92d1e4c1623c713557a3289536212b5739d6ae958c8c9716fba04c63ecc710",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "public/sleeper-world.png",
+      "path": "/recovery/sleeper/site-source-2026-09-18/public/sleeper-world.png",
+      "bytes": 353950,
+      "sha256": "2a79bcc476cff22ff08fd86c30f99a579dded6b59fd2e42d54cb3622f05d91d6",
+      "disposition": "EXACT_COPY"
+    },
+    {
+      "source_path": "public/wake-scroll.png",
+      "path": "/recovery/sleeper/site-source-2026-09-18/public/wake-scroll.png",
+      "bytes": 2162739,
+      "sha256": "6b813759dbaf3b7d4da95dafc1efb4a0273baab717f878b541dfcc34c4d84d0f",
+      "disposition": "EXACT_COPY"
+    }
+  ],
+  "verification": {
+    "exact_sha256": true,
+    "source_git_fsck": "PASS",
+    "tests": "38/38 PASS rerun from the published subset; Node 26.5.0",
+    "city_runtime": "NOT_DEPLOYED",
+    "painting_device_speech": "NOT_TESTED"
+  }
+}

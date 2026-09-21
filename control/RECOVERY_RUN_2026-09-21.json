@@ -1,0 +1,16 @@
+{
+  "schema": "0xxx0/recovery-run/v0.1",
+  "date": "2026-09-21",
+  "recovered": [
+    {
+      "id": "sleeper-city-painting",
+      "route": "/recovery/sleeper/",
+      "status": "EXACT_SOURCE_RECOVERED",
+      "summary": "City source + Painting runtime + 13 artwork images; current heads unchanged."
+    }
+  ],
+  "resolved_ids": [
+    "sleeper-city-painting"
+  ],
+  "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json"
+}
