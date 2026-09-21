@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_GAMEPLAY_2026-09-22",
   "date": "2026-09-22",
   "operation": "RECOVER USER GAMEPLAY ASKS → NAME AGENCY FAILURE → IMPLEMENT LIVE 0.2 → PHONE-SAFE CUSTOM SONG → VERIFY",
-  "status": "VERIFIED_BRANCH_PENDING_MERGE",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "route": "/fold-bloom/live/",
   "branch": "fold-bloom-gameplay-020",
   "pr": 119,
@@ -15,9 +15,10 @@
     "CI now directly exercises LIVE gameplay and custom-song transport"
   ],
   "ci": {
-    "run": 35656338927,
-    "result": "PASS"
+    "runtime_full_pass": 35656338927,
+    "final_coordination_run": 35656619303
   },
   "next_truth": "Direct phone play is now the authority: one real local song, several CALLs, muted/synth/song A-B, then RETURN whether choice/timing are genuinely fun and legible.",
-  "stop": "Do not infer gameplay success from CI."
+  "stop": "Do not infer gameplay success from CI.",
+  "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac"
 }
