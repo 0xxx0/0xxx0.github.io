@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow"><meta name="theme-color" content="#090b0d">
+<meta name="description" content="BODY / FIT — local-first fitted-body, sensor coverage and source-distinct fusion over shared BODY plans.">
+<title>BODY / FIT</title>
+<style>
+:root{--bg:#090b0d;--p:#0e1316;--p2:#0a0e11;--ink:#eef1ee;--mut:#7d8a91;--line:#2c373d;--hot:#e77745;--cool:#75b9e3;--gold:#d9b36d;--green:#98d39f;--vio:#a98bd8}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(12px,env(safe-area-inset-top)) 10px max(28px,env(safe-area-inset-bottom))}
+button,input,textarea,select{font:inherit;border-radius:0;color:inherit}button{cursor:pointer;border:1px solid var(--line);background:var(--p2);padding:7px 9px;min-height:34px;font-size:8px;letter-spacing:.08em}
+button:hover,button:focus{background:#141a1e;border-color:#56656d;outline:none}.on,.primary{border-color:#567b8d;color:#e2f5ff;background:#0e171b}
+input,textarea,select{width:100%;border:1px solid var(--line);background:#0b0f12;padding:8px;outline:none}textarea{resize:vertical;min-height:72px}
+a{color:inherit;text-decoration:none}main{width:min(1180px,100%);margin:auto}
+header{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:end;padding:20px 0 12px;border-bottom:1px solid var(--line)}
+.ey{font-size:8px;letter-spacing:.17em;color:var(--hot)}h1{margin:5px 0 0;font:850 clamp(44px,8vw,82px)/.82 system-ui,-apple-system,sans-serif;letter-spacing:-.07em}
+.intro{font:11px/1.55 system-ui,sans-serif;color:#a6b0b5}.truth{color:var(--gold);font-size:8px;text-align:right}
+.tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:10px 0}.tab{border:0;min-height:40px}.tab.on{box-shadow:inset 0 -3px 0 var(--cool);background:#11181c}
+.shell{display:grid;grid-template-columns:minmax(280px,.92fr) minmax(330px,1.08fr);gap:8px}.panel{border:1px solid var(--line);background:var(--p2);padding:10px}.sticky{align-self:start}
+.k{font-size:7px;letter-spacing:.13em;color:var(--mut);text-transform:uppercase}.small{color:var(--mut);font-size:8px}.note{color:#a5afb3;font:10px/1.45 system-ui,sans-serif}
+.toolbar{display:flex;gap:5px;flex-wrap:wrap;margin:7px 0}.toolbar select{width:auto;max-width:190px}.mapwrap{height:520px;border:1px solid var(--line);background:#080c0e;overflow:hidden}.bodymap{width:100%;height:100%;display:block}
+.outline{fill:#11181c;stroke:#65737a;stroke-width:1.15;vector-effect:non-scaling-stroke;pointer-events:none}.region{fill:#182126;stroke:#4f5d65;stroke-width:.7;vector-effect:non-scaling-stroke;cursor:pointer}.region:hover{fill:#29363d}.region.sel{fill:var(--hot);stroke:#ffd0ae}.region.fit{fill:#254332}.region.sense{fill:#203d50}.region.both{fill:#554226}
+.addr{border:1px solid var(--line);padding:9px;background:#0c1114;margin-top:7px}.addr b{display:block;font:750 12px system-ui,sans-serif}.addr span{display:block;margin-top:3px;color:var(--mut);font-size:8px}
+.view[hidden]{display:none!important}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}.field{background:var(--p2);padding:8px}.field label{display:block;font-size:7px;letter-spacing:.1em;color:var(--mut);margin-bottom:4px}
+.actionrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}.actionrow .primary{min-height:40px}.list{border:1px solid var(--line);margin-top:8px}.item{padding:9px;border-bottom:1px solid #232d32;background:#0b0f12}.item:last-child{border-bottom:0}
+.itemtop{display:flex;gap:8px;justify-content:space-between}.item b{font:750 11px system-ui,sans-serif}.meta{color:var(--mut);font-size:7px}.desc{color:#aeb7bb;font:9px/1.45 system-ui,sans-serif;margin-top:4px}.tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}.tag{border:1px solid var(--line);padding:2px 5px;font-size:7px;color:var(--mut)}.tag.active{color:var(--green)}.tag.stale{color:var(--gold)}.tag.retired{color:#c68a91}
+.fuseControls{display:grid;grid-template-columns:1fr 140px auto;gap:6px}.fusion{margin-top:8px}.fgroup{border:1px solid var(--line);margin-bottom:7px}.fhead{padding:7px 9px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}.frow{display:grid;grid-template-columns:110px 1fr 90px;gap:8px;padding:8px 9px;border-bottom:1px solid #232d32}.frow:last-child{border-bottom:0}.value{font:800 16px system-ui,sans-serif}.source{color:var(--cool)}
+.house{border:1px solid var(--line);padding:9px;margin-top:8px}.house b{display:block}.house span{color:var(--mut)}
+.plain{white-space:pre-wrap;word-break:break-word;min-height:420px;font:9px/1.45 ui-monospace,monospace}
+.foot{display:flex;justify-content:space-between;gap:12px;margin-top:15px;padding-top:8px;border-top:1px solid var(--line);color:#67757b;font-size:8px}
+@media(max-width:820px){header,.shell{grid-template-columns:1fr}.truth{text-align:left}.mapwrap{height:390px}.formgrid{grid-template-columns:1fr}.fuseControls{grid-template-columns:1fr 1fr}.fuseControls button{grid-column:1/-1}.frow{grid-template-columns:90px 1fr}.frow .meta{grid-column:2}.foot{display:block}}
+</style></head>
+<body><main>
+<header><div><div class="ey">BODY / FIT · FITTED BODY / SENSOR COVERAGE</div><h1>FIT.<br>SENSE.</h1></div><div><div class="intro">A body plan as an operational platform: what is fitted where, what can observe what, how revisions replace one another, and which HOUSE context was present. Sensor sources remain distinct; fusion is a projection.</div><div class="truth">FITTING ≠ BODY · SENSOR ≠ TRUTH · FUSION ≠ AVERAGE · HOUSE CONTEXT ≠ CAUSE</div></div></header>
+
+<nav class="tabs"><button class="tab on" data-view="fit">FIT</button><button class="tab" data-view="sense">SENSE</button><button class="tab" data-view="fuse">FUSE</button><button class="tab" data-view="history">HISTORY</button><button class="tab" data-view="plain">PLAIN</button></nav>
+
+<div class="shell">
+<aside class="panel sticky">
+ <div class="k">BODY ADDRESS</div>
+ <div class="toolbar"><select id="planSelect"></select><button id="viewToggle">FRONT ↔ BACK</button><button id="granularity" class="on">GROUP</button><button id="wholeBody">WHOLE</button><button id="clearBody">CLEAR</button></div>
+ <div class="mapwrap"><svg id="bodyMap" class="bodymap" aria-label="shared reference body plan"></svg></div>
+ <div class="addr"><b id="whereOut">no location selected</b><span id="addressOut">select a region or whole body</span></div>
+ <div class="small" id="planMeta"></div>
+ <div class="house" id="houseBox"><b>HOUSE · no context attached</b><span>BODY / HOUSE context remains a separate source lane.</span></div>
+</aside>
+
+<section>
+ <div class="view" id="view-fit">
+  <div class="panel">
+   <div class="k">ADD / EVOLVE FITTING</div>
+   <p class="note">Syndicate-style body fitting, translated into real use: wearables, sensors, supports, prostheses, implants or accessories. Revision history is preserved instead of overwriting.</p>
+   <div id="evolveCue" class="addr" style="display:none"></div>
+   <div class="formgrid">
+    <div class="field"><label>LABEL</label><input id="fitLabel" placeholder="watch / brace / glasses / sensor patch…"></div>
+    <div class="field"><label>CLASS</label><select id="fitClass"><option>WEARABLE</option><option>SENSOR</option><option>SUPPORT</option><option>PROSTHESIS</option><option>IMPLANT</option><option>ACCESSORY</option><option>OTHER</option></select></div>
+    <div class="field"><label>LIFECYCLE</label><select id="fitState"><option>CANDIDATE</option><option>PLANNED</option><option>FITTED</option><option>ACTIVE</option><option>PAUSED</option><option>RETIRED</option></select></div>
+    <div class="field"><label>REVISION / MODEL</label><input id="fitRevision" placeholder="v1 / gen2 / model…"></div>
+    <div class="field"><label>CAPABILITIES</label><input id="fitCaps" placeholder="heart_rate, movement, vision_support…"></div>
+    <div class="field"><label>INTERFACES</label><input id="fitInterfaces" placeholder="BLE, MQTT, Health Connect, manual…"></div>
+   </div>
+   <div class="field" style="border:1px solid var(--line);border-top:0"><label>NOTE / SOURCE</label><textarea id="fitNote" placeholder="What this fitting is for; provenance/model source; constraints."></textarea></div>
+   <div class="actionrow"><button id="addFit" class="primary">ADD FITTING</button><button id="cancelEvolve" style="display:none">CANCEL EVOLVE</button></div>
+  </div>
+  <div id="fitList" class="list"></div>
+ </div>
+
+ <div class="view" id="view-sense" hidden>
+  <div class="panel">
+   <div class="k">RETURN SENSOR / MEASUREMENT OBSERVATION</div>
+   <p class="note">Modelled after SensorThings/Open mHealth: source, observed property, target, effective time and acquisition provenance stay explicit.</p>
+   <div class="formgrid">
+    <div class="field"><label>SOURCE ID / LABEL</label><input id="obsSource" placeholder="watch.hr / room.temp / manual…"></div>
+    <div class="field"><label>SOURCE CLASS</label><select id="obsSourceClass"><option>WEARABLE</option><option>HOUSE</option><option>PHONE</option><option>CLINICAL_DEVICE</option><option>SELF_REPORTED</option><option>IMPORT</option><option>OTHER</option></select></div>
+    <div class="field"><label>OBSERVED PROPERTY</label><input id="obsProperty" placeholder="heart_rate / temperature / movement…"></div>
+    <div class="field"><label>BIND TO FITTING · OPTIONAL</label><select id="obsFitting"><option value="">— none —</option></select></div>
+    <div class="field"><label>VALUE</label><input id="obsValue" placeholder="72"></div>
+    <div class="field"><label>UNIT</label><input id="obsUnit" placeholder="bpm / °C / count / enum…"></div>
+    <div class="field"><label>EFFECTIVE / PHENOMENON TIME</label><input id="obsTime" type="datetime-local"></div>
+    <div class="field"><label>AVAILABILITY</label><select id="obsAvailability"><option>LIVE</option><option>LAST_KNOWN</option><option>STALE</option><option>UNKNOWN</option></select></div>
+    <div class="field"><label>ACQUISITION</label><input id="obsMethod" placeholder="sensor / user entry / HA entity / file…"></div>
+    <div class="field"><label>SOURCE REF</label><input id="obsRef" placeholder="entity_id / report / object id / topic…"></div>
+   </div>
+   <div class="actionrow"><button id="addObs" class="primary">RETURN OBSERVATION</button><button id="portImport">IMPORT PORT JSON</button><button id="fileImport">IMPORT JSON FILE</button><input id="importFile" type="file" accept=".json,application/json" hidden></div>
+  </div>
+  <div id="obsList" class="list"></div>
+ </div>
+
+ <div class="view" id="view-fuse" hidden>
+  <div class="panel">
+   <div class="k">SOURCE-DISTINCT FUSION</div>
+   <p class="note">Align streams around the latest selected property. No default averaging, no causal inference, and stale/unknown sources remain visible.</p>
+   <div class="fuseControls"><select id="fuseProperty"></select><select id="fuseWindow"><option value="900000">15 MIN</option><option value="3600000">1 HOUR</option><option value="21600000">6 HOURS</option><option value="86400000">24 HOURS</option></select><button id="refreshFuse">REFRESH</button></div>
+  </div>
+  <div id="fusion" class="fusion"></div>
+ </div>
+
+ <div class="view" id="view-history" hidden>
+   <div class="panel"><div class="k">LINEAGE / RETURNS</div><p class="note">Fittings are superseded, not overwritten. Observations remain timestamped source events.</p></div>
+   <div id="historyList" class="list"></div>
+ </div>
+
+ <div class="view" id="view-plain" hidden>
+  <div class="panel"><div class="toolbar"><button id="exportBtn">EXPORT JSON</button><button id="importBtn">IMPORT STATE</button><button id="clearBtn">CLEAR LOCAL</button></div><pre id="plainText" class="plain"></pre></div>
+ </div>
+</section>
+</div>
+<div class="foot"><span>BODY / FIT 0.1 · shared BODY PLAN · local-first</span><span><a href="../">BODY / FIELD ←</a> · <a href="../../care/">CARE →</a></span></div>
+
+<script src="../../bodyplans/registry.js"></script>
+<script>
+(()=>{'use strict';
+const KEY='0xxx0.body.fit.v01',HOUSE='0xxx0.house.body.context.v01',PORT='body.fit.port.sensor.v01';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],now=()=>new Date().toISOString(),uid=p=>p+'-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const blank=()=>({schema:'0xxx0/body-fit-state/v0.1',updated_at:now(),fittings:[],observations:[],imports:[]});
+function load(){try{const x=JSON.parse(localStorage.getItem(KEY)||'null');return x&&Array.isArray(x.fittings)&&Array.isArray(x.observations)?x:blank()}catch(_){return blank()}}
+let D=load(),S={plan:'human-reference-m',view:'front',mode:'group',selected:new Set(),whole:false,evolving:null};
+function save(){D.updated_at=now();localStorage.setItem(KEY,JSON.stringify(D));renderPlain()}
+function reg(){return window.BODY_PLAN_REGISTRY?.plans||{}}
+function plan(){return reg()[S.plan]||Object.values(reg())[0]}
+function pview(){const p=plan();if(!p)return null;if(!p.views[S.view])S.view=p.defaultView;return p.views[S.view]}
+function activeKey(f){return S.mode==='precise'?f.id:f.group}
+function activeLabel(key){const v=pview();if(S.mode==='precise')return v?.fragments.find(f=>f.id===key)?.label||key;return String(key).replace(/-/g,' ')}
+function addr(){const p=plan(),labels=S.whole?['whole body']:[...S.selected].map(activeLabel),ids=S.whole?['WHOLE']:[...S.selected];return{plan_id:S.plan,geometry_version:p?.geometryVersion||null,view:S.view,selection_mode:S.whole?'whole':S.mode,region_ids:ids,region_labels:labels}}
+function addrMatch(a,f){if(!a||!f?.body_address)return false;if(a.region_ids?.includes('WHOLE')||f.body_address.region_ids?.includes('WHOLE'))return true;return (a.region_ids||[]).some(x=>(f.body_address.region_ids||[]).includes(x))}
+function csv(v){return String(v||'').split(',').map(x=>x.trim()).filter(Boolean)}
+function dtLocal(){const d=new Date(),z=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+z(d.getMonth()+1)+'-'+z(d.getDate())+'T'+z(d.getHours())+':'+z(d.getMinutes())}
+
+function syncPlans(){const s=$('#planSelect'),ps=Object.values(reg());if(!ps.some(p=>p.id===S.plan))S.plan=ps[0]?.id||'';s.innerHTML=ps.map(p=>'<option value="'+esc(p.id)+'">'+esc(p.label)+'</option>').join('');s.value=S.plan}
+function coverageSets(){
+ const fit=new Set(),sense=new Set();
+ D.fittings.filter(x=>!['RETIRED'].includes(x.lifecycle)).forEach(x=>(x.body_address?.region_ids||[]).forEach(r=>fit.add(r)));
+ D.observations.forEach(x=>(x.feature_of_interest?.body_address?.region_ids||[]).forEach(r=>sense.add(r)));
+ return{fit,sense}
+}
+function renderBody(){
+ syncPlans();const p=plan(),v=pview(),svg=$('#bodyMap');if(!p||!v)return;svg.setAttribute('viewBox',v.viewBox);const tf=v.transform?' transform="'+esc(v.transform)+'"':'';const cov=coverageSets();
+ svg.innerHTML='<g'+tf+'><path class="outline" d="'+esc(v.outlineD)+'"/>'+v.fragments.map(f=>{const k=activeKey(f),sel=S.whole||S.selected.has(k),isFit=cov.fit.has(k)||cov.fit.has(f.id)||cov.fit.has(f.group),isSense=cov.sense.has(k)||cov.sense.has(f.id)||cov.sense.has(f.group),cl=sel?'sel':isFit&&isSense?'both':isFit?'fit':isSense?'sense':'';return'<path class="region '+cl+'" data-id="'+esc(f.id)+'" d="'+esc(f.pathData)+'"/>'}).join('')+'</g>';
+ $$('#bodyMap .region').forEach(el=>el.onclick=()=>{S.whole=false;const f=v.fragments.find(x=>x.id===el.dataset.id),k=activeKey(f);S.selected.has(k)?S.selected.delete(k):S.selected.add(k);renderBody();renderFitList();renderObsList();renderHistory()});
+ const a=addr();$('#whereOut').textContent=a.region_labels.join(' · ')||'no location selected';$('#addressOut').textContent=a.region_ids.length?(a.plan_id+' / '+a.view+' / '+a.selection_mode+' / '+a.region_ids.length+' selected'):'select a region or whole body';$('#planMeta').textContent=p.label+' · geometry '+p.geometryVersion+' · green=fitting · blue=sensed · amber=both';
+}
+$('#planSelect').onchange=()=>{S.plan=$('#planSelect').value;S.view=plan().defaultView;S.selected.clear();S.whole=false;renderAll()};
+$('#viewToggle').onclick=()=>{const vs=Object.keys(plan().views),i=vs.indexOf(S.view);S.view=vs[(i+1)%vs.length];S.selected.clear();S.whole=false;renderAll()};
+$('#granularity').onclick=()=>{S.mode=S.mode==='group'?'precise':'group';S.selected.clear();S.whole=false;$('#granularity').textContent=S.mode.toUpperCase();$('#granularity').classList.toggle('on',S.mode==='group');renderAll()};
+$('#wholeBody').onclick=()=>{S.whole=!S.whole;S.selected.clear();renderAll()};$('#clearBody').onclick=()=>{S.whole=false;S.selected.clear();renderAll()};
+
+function fitAddressText(x){return x.body_address?.region_labels?.join(' · ')||'unlocated'}
+function renderFitSelect(){const s=$('#obsFitting');s.innerHTML='<option value="">— none —</option>'+D.fittings.filter(x=>x.lifecycle!=='RETIRED').map(x=>'<option value="'+esc(x.id)+'">'+esc(x.label+' · '+(x.revision||x.lifecycle))+'</option>').join('')}
+function renderFitList(){
+ const a=addr(),xs=D.fittings.slice().sort((x,y)=>String(y.updated_at||y.created_at).localeCompare(String(x.updated_at||x.created_at))),sel=a.region_ids.length?xs.filter(x=>addrMatch(a,x)):xs;
+ $('#fitList').innerHTML=sel.length?sel.map(x=>'<div class="item"><div class="itemtop"><b>'+esc(x.label)+'</b><span class="meta">'+esc(x.class)+' · '+esc(x.lifecycle)+'</span></div><div class="desc">'+esc(fitAddressText(x))+(x.revision?' · '+esc(x.revision):'')+(x.replaces?' · replaces '+esc(x.replaces):'')+'</div><div class="tags">'+(x.capabilities||[]).map(q=>'<span class="tag">'+esc(q)+'</span>').join('')+(x.interfaces||[]).map(q=>'<span class="tag source">'+esc(q)+'</span>').join('')+'</div><div class="actionrow"><button data-evolve="'+esc(x.id)+'">EVOLVE</button><button data-retire="'+esc(x.id)+'">RETIRE</button></div></div>').join(''):'<div class="item small">No fittings'+(a.region_ids.length?' at this address':'')+'.</div>';
+ $$('[data-evolve]').forEach(b=>b.onclick=()=>beginEvolve(b.dataset.evolve));$$('[data-retire]').forEach(b=>b.onclick=()=>retireFit(b.dataset.retire));renderFitSelect()
+}
+function clearFitForm(){S.evolving=null;$('#fitLabel').value='';$('#fitRevision').value='';$('#fitCaps').value='';$('#fitInterfaces').value='';$('#fitNote').value='';$('#fitClass').value='WEARABLE';$('#fitState').value='CANDIDATE';$('#evolveCue').style.display='none';$('#cancelEvolve').style.display='none';$('#addFit').textContent='ADD FITTING'}
+function beginEvolve(id){const x=D.fittings.find(q=>q.id===id);if(!x)return;S.evolving=id;$('#fitLabel').value=x.label;$('#fitClass').value=x.class;$('#fitState').value='PLANNED';$('#fitRevision').value='';$('#fitCaps').value=(x.capabilities||[]).join(', ');$('#fitInterfaces').value=(x.interfaces||[]).join(', ');$('#fitNote').value=x.note||'';$('#evolveCue').style.display='block';$('#evolveCue').innerHTML='<b>EVOLVING '+esc(x.label)+'</b><span>new record will replace '+esc(x.id)+'; old revision remains in history</span>';$('#cancelEvolve').style.display='';$('#addFit').textContent='ADD REVISION'}
+function retireFit(id){const x=D.fittings.find(q=>q.id===id);if(!x)return;x.lifecycle='RETIRED';x.updated_at=now();save();renderAll()}
+$('#cancelEvolve').onclick=clearFitForm;
+$('#addFit').onclick=()=>{
+ const label=$('#fitLabel').value.trim();if(!label)return alert('Add a fitting label.');
+ const a=addr();if(!a.region_ids.length)return alert('Select a body region or WHOLE first.');
+ const x={id:uid('fit'),created_at:now(),updated_at:now(),label,class:$('#fitClass').value,lifecycle:$('#fitState').value,revision:$('#fitRevision').value.trim()||null,body_address:a,capabilities:csv($('#fitCaps').value),interfaces:csv($('#fitInterfaces').value),note:$('#fitNote').value.trim()||null,replaces:S.evolving||null,provenance:{source:'LOCAL_USER_ENTRY'}};
+ if(S.evolving){const old=D.fittings.find(q=>q.id===S.evolving);if(old){old.superseded_by=x.id;old.updated_at=now()}}
+ D.fittings.push(x);save();clearFitForm();renderAll()
+};
+
+function obsAddressText(o){const a=o.feature_of_interest?.body_address;return a?.region_labels?.join(' · ')||o.feature_of_interest?.house_area||'unlocated'}
+function renderObsList(){
+ const a=addr(),xs=D.observations.slice().sort((x,y)=>String(y.phenomenon_time).localeCompare(String(x.phenomenon_time))),sel=a.region_ids.length?xs.filter(x=>addrMatch(a,{body_address:x.feature_of_interest?.body_address})):xs;
+ $('#obsList').innerHTML=sel.length?sel.slice(0,80).map(o=>'<div class="item"><div class="itemtop"><b>'+esc(o.observed_property)+'</b><span class="meta">'+esc(o.availability)+' · '+esc(o.source_class)+'</span></div><div class="desc"><span class="value">'+esc(o.result.value)+' '+esc(o.result.unit||'')+'</span> · '+esc(o.source_id)+' · '+esc(obsAddressText(o))+'</div><div class="meta">'+esc(new Date(o.phenomenon_time).toLocaleString())+(o.source_ref?' · '+esc(o.source_ref):'')+'</div></div>').join(''):'<div class="item small">No sensor/measurement observations'+(a.region_ids.length?' at this address':'')+'.</div>';
+ renderFuseSelect()
+}
+function addObservation(o){
+ if(!o.id)o.id=uid('obs');if(!o.recorded_at)o.recorded_at=now();D.observations.push(o);save();renderAll()
+}
+$('#addObs').onclick=()=>{
+ const source=$('#obsSource').value.trim(),prop=$('#obsProperty').value.trim(),val=$('#obsValue').value.trim();if(!source||!prop||val==='')return alert('Source, observed property and value are required.');
+ const a=addr(),fitId=$('#obsFitting').value||null,fit=fitId&&D.fittings.find(x=>x.id===fitId);
+ addObservation({schema:'0xxx0/body-sensor-observation/v0.1',source_id:source,source_class:$('#obsSourceClass').value,observed_property:prop,result:{value:val,unit:$('#obsUnit').value.trim()||null},phenomenon_time:$('#obsTime').value?new Date($('#obsTime').value).toISOString():now(),acquisition_method:$('#obsMethod').value.trim()||null,availability:$('#obsAvailability').value,source_ref:$('#obsRef').value.trim()||null,fitting_id:fitId,feature_of_interest:{kind:a.region_ids.length?'BODY_ADDRESS':'WHOLE_BODY',body_address:a.region_ids.length?a:(fit?.body_address||null),house_area:$('#obsSourceClass').value==='HOUSE'?(houseContext()?.area||null):null},provenance:{entered_via:'BODY_FIT'}});
+ $('#obsValue').value='';$('#obsRef').value=''
+};
+function houseContext(){try{return JSON.parse(localStorage.getItem(HOUSE)||'null')}catch(_){return null}}
+function renderHouse(){const h=houseContext(),el=$('#houseBox');if(!h){el.innerHTML='<b>HOUSE · no context attached</b><span>Open HOUSE and attach context to BODY, or import HOUSE observations through Port/JSON.</span>';return}el.innerHTML='<b>HOUSE · '+esc(h.runtime_health_class||'context')+'</b><span>'+esc(h.generated_at||'—')+(h.area?' · '+esc(h.area):'')+' · '+esc(h.source_age_class||'')+' · context only</span>'}
+
+function renderFuseSelect(){const props=[...new Set(D.observations.map(x=>x.observed_property).filter(Boolean))].sort(),s=$('#fuseProperty'),prior=s.value;s.innerHTML=props.length?props.map(x=>'<option>'+esc(x)+'</option>').join(''):'<option value="">— no observations —</option>';if(props.includes(prior))s.value=prior}
+function renderFuse(){
+ const prop=$('#fuseProperty').value,win=Number($('#fuseWindow').value),xs=D.observations.filter(x=>x.observed_property===prop).sort((a,b)=>String(b.phenomenon_time).localeCompare(String(a.phenomenon_time))),root=$('#fusion');if(!xs.length){root.innerHTML='<div class="item small">No observations for this property.</div>';return}
+ const anchor=new Date(xs[0].phenomenon_time).getTime(),near=xs.filter(x=>Math.abs(anchor-new Date(x.phenomenon_time).getTime())<=win),by={};near.forEach(x=>(by[x.source_id]||(by[x.source_id]=[])).push(x));
+ root.innerHTML='<div class="fgroup"><div class="fhead"><b>'+esc(prop)+'</b><span class="meta">anchor '+esc(new Date(anchor).toLocaleString())+' · '+Math.round(win/60000)+' min window · '+near.length+' source events</span></div>'+Object.entries(by).map(([src,rows])=>{const o=rows[0];return'<div class="frow"><div class="source">'+esc(src)+'</div><div><span class="value">'+esc(o.result.value)+' '+esc(o.result.unit||'')+'</span><div class="desc">'+esc(o.source_class)+' · '+esc(obsAddressText(o))+'</div></div><div class="meta">'+esc(o.availability)+'<br>'+esc(new Date(o.phenomenon_time).toLocaleTimeString())+'</div></div>'}).join('')+'</div><div class="house"><b>FUSION LAW</b><span>Rows are aligned, not averaged. Disagreement is retained. HOUSE observations are context unless the observed property explicitly targets the body.</span></div>'
+}
+$('#refreshFuse').onclick=renderFuse;$('#fuseProperty').onchange=renderFuse;$('#fuseWindow').onchange=renderFuse;
+
+function renderHistory(){
+ const rows=[];
+ D.fittings.forEach(x=>rows.push({t:x.updated_at||x.created_at,k:'FITTING',label:x.label+' · '+x.lifecycle+(x.revision?' · '+x.revision:''),meta:(x.replaces?'replaces '+x.replaces+' · ':'')+fitAddressText(x)}));
+ D.observations.forEach(x=>rows.push({t:x.phenomenon_time,k:'OBSERVATION',label:x.observed_property+' · '+x.result.value+' '+(x.result.unit||''),meta:x.source_id+' · '+x.source_class+' · '+obsAddressText(x)}));
+ rows.sort((a,b)=>String(b.t).localeCompare(String(a.t)));$('#historyList').innerHTML=rows.length?rows.slice(0,120).map(x=>'<div class="item"><div class="itemtop"><b>'+esc(x.k)+'</b><span class="meta">'+esc(new Date(x.t).toLocaleString())+'</span></div><div class="desc">'+esc(x.label)+'</div><div class="meta">'+esc(x.meta)+'</div></div>').join(''):'<div class="item small">No history yet.</div>'
+}
+function renderPlain(){$('#plainText').textContent=JSON.stringify(D,null,2)}
+function renderAll(){renderBody();renderHouse();renderFitList();renderObsList();renderHistory();renderPlain();if(!$('#view-fuse').hidden)renderFuse()}
+function setView(v){$$('.tab').forEach(b=>b.classList.toggle('on',b.dataset.view===v));$$('.view').forEach(x=>x.hidden=x.id!=='view-'+v);if(v==='fuse')renderFuse();if(v==='history')renderHistory();if(v==='plain')renderPlain()}
+$$('.tab').forEach(b=>b.onclick=()=>setView(b.dataset.view));
+
+function importPacket(j,origin){
+ if(j.schema==='0xxx0/body-fit-state/v0.1'){D=j;D.fittings=D.fittings||[];D.observations=D.observations||[];D.imports=D.imports||[];save();renderAll();return}
+ let obs=[];
+ if(j.schema==='0xxx0/body-sensor-observation/v0.1')obs=[j];
+ else if(j.schema==='0xxx0/body-sensor-bundle/v0.1')obs=j.observations||[];
+ else if(Array.isArray(j.observations))obs=j.observations;
+ else throw new Error('Unsupported BODY / FIT JSON schema');
+ obs.forEach(o=>{const x=structuredClone(o);x.id=x.id||uid('obs');x.recorded_at=x.recorded_at||now();D.observations.push(x)});
+ D.imports.push({at:now(),origin,count:obs.length});save();renderAll()
+}
+$('#fileImport').onclick=()=>$('#importFile').click();$('#importBtn').onclick=()=>$('#importFile').click();
+$('#importFile').onchange=e=>{const f=e.target.files?.[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{importPacket(JSON.parse(r.result),f.name)}catch(err){alert('Import failed: '+err.message)}};r.readAsText(f)};
+function portPacket(){try{return JSON.parse(sessionStorage.getItem(PORT)||'null')}catch(_){return null}}
+$('#portImport').onclick=()=>{const p=portPacket();if(!p)return alert('No BODY / FIT Port handoff is waiting.');try{const j=typeof p.text_payload==='string'?JSON.parse(p.text_payload):p.payload;importPacket(j,'HUMAN_PORT '+(p.object_id||''));sessionStorage.removeItem(PORT)}catch(err){alert('Port object is not a supported sensor JSON packet: '+err.message)}};
+$('#exportBtn').onclick=()=>{const b=new Blob([JSON.stringify(D,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='body-fit-'+new Date().toISOString().slice(0,10)+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),500)};
+$('#clearBtn').onclick=()=>{if(!confirm('Clear BODY / FIT local state in this browser?'))return;D=blank();save();renderAll()};
+$('#obsTime').value=dtLocal();renderAll();
+})();
+</script>
+<script src="/showcase-nav.js"></script>
+</main></body></html>
