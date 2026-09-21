@@ -148,7 +148,54 @@ function studioProbeHtml(){
   <\/script></body></html>`;
 }
 
+function axialContinuityProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:1100px;height:820px;border:0;display:block" src="/foundry/axial/?focus=%2Ffold-bloom%2Flens%2F"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    const api=await waitFor(()=>W().AxialFocusAPI);
+    await waitFor(()=>api.snapshot()?.source==='FIELD'&&api.snapshot()?.focus==='route:/fold-bloom/lens/');
+    rec.before=api.snapshot();
+    D().getElementById('srcHouse').click();await waitFor(()=>api.snapshot()?.source==='HOUSE');rec.house=api.snapshot();
+    D().getElementById('back').click();await waitFor(()=>api.snapshot()?.source==='FIELD'&&api.snapshot()?.focus===rec.before.focus);rec.afterBack=api.snapshot();
+    D().getElementById('ret').click();await waitFor(()=>api.returns().length>0);rec.returnAddress=api.returns()[0].address;rec.restoreButton=!!D().querySelector('#receipts [data-return="0"]');
+    D().getElementById('srcHouse').click();await waitFor(()=>api.snapshot()?.source==='HOUSE');
+    await api.restoreReturn(0);await waitFor(()=>api.snapshot()?.source==='FIELD'&&api.snapshot()?.focus===rec.before.focus);rec.afterReplay=api.snapshot();
+    rec.backSame=JSON.stringify(rec.before)===JSON.stringify(rec.afterBack);rec.replaySame=JSON.stringify(rec.before)===JSON.stringify(rec.afterReplay);
+    done(rec.backSame&&rec.replaySame&&rec.restoreButton&&/^field:\/\//.test(rec.returnAddress||''),rec);
+  })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
+function docsApertureProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/docs/?src=%2Fcontrol%2FCURRENT.json&ap_scale=LEAF&ap_index=1&ap_wpm=650&return=%2F"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    const A=await waitFor(()=>D().getElementById('docAperture')?.snapshot?.()&&D().getElementById('docAperture'));
+    rec.start=await waitFor(()=>{const x=A.snapshot();return x.scale==='LEAF'&&x.index===1&&x.wpm===650?x:null});
+    A.step(1);rec.next=await waitFor(()=>{const x=A.snapshot(),q=new URLSearchParams(W().location.search);return x.index===2&&q.get('ap_scale')===x.scale&&q.get('ap_index')===String(x.index)&&q.get('ap_addr')===x.address&&q.get('ap_wpm')==='650'?x:null});
+    rec.url=W().location.search;A.restore(rec.start);rec.restored=await waitFor(()=>{const x=A.snapshot();return x.scale===rec.start.scale&&x.index===rec.start.index&&x.address===rec.start.address&&x.wpm===rec.start.wpm?x:null});
+    rec.copyView=!!D().getElementById('copyView');done(!!rec.copyView&&rec.restored.address===rec.start.address,rec);
+  })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
 const server=http.createServer((req,res)=>{
+  if(String(req.url||'').startsWith('/__smoke/axial-continuity')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(axialContinuityProbeHtml());return;
+  }
+  if(String(req.url||'').startsWith('/__smoke/docs-aperture')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(docsApertureProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/lens-proof')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(lensProbeHtml());return;
@@ -215,6 +262,12 @@ const CASES=[
     check:dom=>dom.includes('FOCUS STACK')&&dom.includes('RETURN')
   },
   {
+    name:'AXIAL continuity + RETURN replay',
+    route:'/__smoke/axial-continuity',
+    options:{width:1180,height:880,budget:18000,timeout:24000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"backSame":true/.test(dom)&&/"replaySame":true/.test(dom)&&/"restoreButton":true/.test(dom)
+  },
+  {
     name:'APERTURE',
     route:'/foundry/aperture/',
     check:dom=>/APERTURE/i.test(dom)&&dom.includes('field-aperture')&&dom.includes('60–3000 WPM')
@@ -228,6 +281,12 @@ const CASES=[
     name:'DOCS ADDRESS',
     route:'/docs/?src=/showcase-manifest.json&return=/',
     check:dom=>textAtId(dom,'title')==='showcase-manifest.json'&&dom.includes('id="returnLink"')&&dom.includes('href="/showcase-manifest.json"')
+  },
+  {
+    name:'DOCS Aperture addressed resume',
+    route:'/__smoke/docs-aperture',
+    options:{width:1040,height:820,budget:12000,timeout:18000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"scale":"LEAF"/.test(dom)&&/"wpm":650/.test(dom)&&/"copyView":true/.test(dom)
   },
   {
     name:'CENTER current',
