@@ -42,12 +42,12 @@ function lensProbeHtml(){
   const boot=(tries=0)=>{
     try{
       const w=f.contentWindow,d=w?.document;
-      const apLens=d?.getElementById('apLens'),apProof=d?.getElementById('apProof');
+      const apLens=d?.getElementById('apLens'),apProof=d?.getElementById('apProof'),ringHost=d?.getElementById('lens-focus-ring');
       const proof=d?.getElementById('lens-proof-bench'),proofOpen=!!proof?.classList.contains('on');
       const ready=w?.FieldLensHost?.uiState?.();
-      if(!apLens||!apProof||!w?.LensFocusRing||!w?.FieldLensHost||ready?.focusHref!=='/fold-bloom/lens/'){
+      if(!apLens||!apProof||!w?.LensFocusRing||!w?.FieldLensHost||!ringHost?.shadowRoot||!proofOpen||ready?.focusHref!=='/fold-bloom/lens/'){
         if(tries<40){setTimeout(()=>boot(tries+1),100);return}
-        done(false,{stage:'boot',tries,apLens:!!apLens,apProof:!!apProof,proofOpen,ring:!!w?.LensFocusRing,host:!!w?.FieldLensHost,focusHref:ready?.focusHref||null});return
+        done(false,{stage:'boot',tries,apLens:!!apLens,apProof:!!apProof,proofOpen,ringApi:!!w?.LensFocusRing,ringHost:!!ringHost?.shadowRoot,host:!!w?.FieldLensHost,focusHref:ready?.focusHref||null});return
       }
       const compact=x=>({focusHref:x?.focusHref||null,axisState:x?.axisState||null,projection:x?.projection||null,mapMode:x?.mapMode||null,mapRoot:x?.mapRoot||null,mapSelected:x?.mapSelected||null,mapQuery:x?.mapQuery||'',mapOpen:!!x?.mapOpen});
       const before=compact(ready);
@@ -151,15 +151,15 @@ function fieldActivationProbeHtml(){
     const W=()=>f.contentWindow,D=()=>W().document;
     await waitFor(()=>W().FieldLensHost?.focus?.()?.href);
     W().FieldLensHost.project('STRUCTURE');
-    const row=await waitFor(()=>D().querySelector('.mapRow[data-href]')),href=row.dataset.href;rec.href=href;
+    const href='/fold-bloom/',row=await waitFor(()=>D().querySelector('.mapRow[data-href="'+href+'"]'));rec.href=href;
     row.click();await waitFor(()=>W().FieldLensHost?.focus?.()?.href===href&&W().location.pathname==='/');
-    rec.focused=W().FieldLensHost.focus().href;rec.focusUrl=W().location.search;
+    rec.focused=W().FieldLensHost.focus().href;rec.focusUrl=W().location.search;rec.target=W().FieldLensHost.focus()?.alias_of||href;
     const same=await waitFor(()=>D().querySelector('.mapRow[data-href="'+href+'"]'));same.click();
-    await waitFor(()=>W().location.pathname===href);rec.opened=W().location.pathname;
+    await waitFor(()=>W().location.pathname===rec.target);rec.opened=W().location.pathname;
     W().history.back();
     await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===href);
     rec.returned=W().FieldLensHost.focus().href;rec.returnUrl=W().location.search;
-    done(rec.focused===href&&rec.opened===href&&rec.returned===href&&/focus=/.test(rec.returnUrl),rec);
+    done(rec.focused===href&&rec.opened===rec.target&&rec.returned===href&&/focus=/.test(rec.returnUrl),rec);
   })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
 }
@@ -172,10 +172,10 @@ function studioProbeHtml(){
   const compact=x=>({focusHref:x?.focusHref||null,projection:x?.projection||null,mapRoot:x?.mapRoot||null,mapOpen:!!x?.mapOpen});
   (async()=>{
     const W=()=>f.contentWindow,D=()=>W().document;
-    await waitFor(()=>D().getElementById('apLens')&&W().FieldLensHost&&W().FieldLensAPI&&W().LensFocusRing&&W().FieldLensHost.focus?.()?.href==='/fold-bloom/lens/');
+    const sh=await waitFor(()=>D().getElementById('apLens')&&W().FieldLensHost&&W().FieldLensAPI&&W().LensFocusRing&&W().FieldLensHost.focus?.()?.href==='/fold-bloom/lens/'?D().getElementById('lens-focus-ring')?.shadowRoot:null);
     rec.startHref=W().FieldLensHost.focus()?.href||null;rec.start=compact(W().FieldLensHost.uiState());
     D().getElementById('apLens').click();
-    const sh=await waitFor(()=>D().getElementById('lens-focus-ring')?.shadowRoot);await waitFor(()=>sh.querySelector('.panel')?.classList.contains('on'));
+    await waitFor(()=>sh.querySelector('.panel')?.classList.contains('on'));
     rec.inline=sh.host?.dataset?.placement==='inline'&&sh.host?.previousElementSibling?.id==='aperture';
     rec.noPeer=!sh.querySelector('.next')&&!sh.querySelector('.prev');
     rec.noPeerApi=typeof W().FieldLensAPI?.peer==='undefined';
@@ -258,7 +258,7 @@ function readerFocusProbeHtml(){
     const A=await waitFor(()=>{const a=D().getElementById('docAperture'),pb=D().getElementById('readPaste'),pt=D().getElementById('pasteText');return a?.snapshot?.()&&typeof pb?.onclick==='function'&&pt?a:null},12000,'DOCS controls bound');
     const sample='# Alpha\\nThe first paragraph establishes context.\\n\\n# Beta\\nRead this second phrase and keep position. [CURRENT](/control/CURRENT.json) ![map](/field-map.svg)';
     const pt=D().getElementById('pasteText'),pb=D().getElementById('readPaste');pt.value=sample;pb.click();
-    await waitFor(()=>A.A?.label==='PASTE'&&A.A?.kind==='TEXT'&&W().location.search.includes('paste=1'),12000,'PASTE loaded + addressed');
+    await waitFor(()=>A.A?.label?.startsWith('PASTE')&&A.A?.kind==='TEXT'&&W().location.search.includes('paste=1'),12000,'PASTE loaded + addressed');
     const target=sample.indexOf('second');A.restore({scale:'WORD',char_index:target,wpm:1200});
     rec.word=await waitFor(()=>{const x=A.snapshot();return x.scale==='WORD'&&x.wpm===1200?x:null},12000,'WORD focus restored');
     rec.wordMark=D().getElementById('reading')?.querySelector('mark')?.textContent||'';
@@ -271,12 +271,33 @@ function readerFocusProbeHtml(){
     rec.xrefs=[...D().querySelectorAll('#xrefs a')].map(a=>a.textContent);
     rec.highlight=D().getElementById('reading')?.querySelector('mark')?.textContent||'';
     rec.structure=rec.section.structure?.map(x=>x.label)||[];
-    rec.session=!!W().sessionStorage.getItem('docs.reader.paste.v1');
+    rec.session=!!W().sessionStorage.getItem('docs.reader.paste.v1');rec.reader=A.hasAttribute('reader');rec.dialDisplay=W().getComputedStyle(A.shadowRoot.querySelector('.dial')).display;
     const same=[rec.sent,rec.para,rec.section].every(x=>x.char_index===rec.word.char_index&&Math.abs(x.source_progress-rec.word.source_progress)<1e-9);
     const spans=[rec.sent,rec.para,rec.section].every(x=>x.span&&x.span.start<=x.char_index&&x.char_index<=x.span.end);
-    const checks={same,spans,structure:rec.structure.length===2,xrefs:rec.xrefs.length>=2,session:rec.session,orp:!!rec.orp,wordMark:rec.wordMark.toLowerCase().includes('second'),urlChar:/ap_char=/.test(rec.url),current:/CURRENT/.test(rec.xrefs.join(' ')),media:/MEDIA/.test(rec.xrefs.join(' '))};
+    const checks={same,spans,structure:rec.structure.length===2,xrefs:rec.xrefs.length>=2,session:rec.session,orp:!!rec.orp,wordMark:rec.wordMark.toLowerCase().includes('second'),urlChar:/ap_char=/.test(rec.url),current:/CURRENT/.test(rec.xrefs.join(' ')),media:/MEDIA/.test(rec.xrefs.join(' ')),reader:rec.reader&&rec.dialDisplay==='none'};
+    const perf=Array.from({length:260},(_,i)=>'focus'+i).join(' ');pt.value=perf;pb.click();await waitFor(()=>A.A?.label?.startsWith('PASTE')&&(A.A?.scales?.find(x=>x.id==='WORD')?.units?.length||0)>=250,12000,'performance paste loaded');A.restore({scale:'WORD',index:0,wpm:3000});
+    let focusEvents=0,contextMutations=0;const onFocus=()=>focusEvents++;A.addEventListener('aperture-focus',onFocus);const mo=new MutationObserver(()=>contextMutations++);mo.observe(D().getElementById('reading'),{childList:true,subtree:true,characterData:true});A.toggleRSVP();await sleep(540);if(A.snapshot().playing)A.toggleRSVP();mo.disconnect();A.removeEventListener('aperture-focus',onFocus);checks.performance=focusEvents>=14&&contextMutations<=8;
     const ok=Object.values(checks).every(Boolean);
-    done(!!ok,{checks,structure:rec.structure,xrefs:rec.xrefs,wordMark:rec.wordMark,orp:rec.orp,url:rec.url,chars:[rec.word.char_index,rec.sent.char_index,rec.para.char_index,rec.section.char_index],progress:[rec.word.source_progress,rec.sent.source_progress,rec.para.source_progress,rec.section.source_progress],session:rec.session});
+    done(!!ok,{checks,structure:rec.structure,xrefs:rec.xrefs,wordMark:rec.wordMark,orp:rec.orp,url:rec.url,chars:[rec.word.char_index,rec.sent.char_index,rec.para.char_index,rec.section.char_index],progress:[rec.word.source_progress,rec.sent.source_progress,rec.para.source_progress,rec.section.source_progress],session:rec.session,dialDisplay:rec.dialDisplay,focusEvents,contextMutations});
+  })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
+
+function readfieldRouteHandoffProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/foundry/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=12000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw new Error('waitFor timeout: '+label)};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    const sh=await waitFor(()=>D().getElementById('showcase-route-adapter')?.shadowRoot,12000,'route adapter');
+    const read=await waitFor(()=>sh.querySelector('.tab.read'),12000,'READ action');rec.label=read.textContent;read.click();
+    await waitFor(()=>W().location.pathname==='/docs/'&&D().getElementById('docAperture')?.A?.label?.startsWith('Page ·'),12000,'READFIELD handoff');
+    rec.title=D().getElementById('title')?.textContent||'';rec.returnHref=D().getElementById('returnLink')?.getAttribute('href')||'';rec.reader=D().getElementById('docAperture')?.hasAttribute('reader')||false;
+    rec.source=(D().getElementById('text')?.textContent||'').slice(0,180);
+    done(rec.label==='READ'&&rec.reader&&rec.returnHref.startsWith('/foundry/')&&rec.source.length>20,rec);
   })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),...rec}));
   <\/script></body></html>`;
 }
@@ -309,7 +330,7 @@ function lensRealUseProbeHtml(){
     const W=()=>f.contentWindow,D=()=>W().document;
 
     // FIELD: open Lens, refract, collapse, let host select another object, then reopen/RETURN.
-    await waitFor(()=>W().FieldLensHost?.focus?.()?.href==='/fold-bloom/two-dial/'&&W().LensFocusRing&&D().getElementById('apLens'));
+    await waitFor(()=>W().FieldLensHost?.focus?.()?.href==='/fold-bloom/two-dial/'&&W().LensFocusRing&&D().getElementById('apLens')&&D().getElementById('lens-focus-ring')?.shadowRoot);
     rec.field.start=W().FieldLensHost.focus().href;
     D().getElementById('apLens').click();
     let sh=await waitFor(()=>D().getElementById('lens-focus-ring')?.shadowRoot);
@@ -447,6 +468,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(readerFocusProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/readfield-handoff')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(readfieldRouteHandoffProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/lens-proof')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(lensProbeHtml());return;
@@ -512,7 +537,8 @@ const CASES=[
   {
     name:'FIELD',
     route:'/',
-    check:dom=>dom.includes('id="axialLatest"')&&dom.includes('AXIAL / LATEST')&&/NOW/.test(dom)&&/POLISHED ONE RETURN v2/.test(dom)&&/CONFLUENCE/.test(dom)
+    options:{width:1040,height:820,budget:1800,timeout:18000},
+    check:dom=>dom.includes('id="axialLatest"')&&dom.includes('FIELD / FOCUS')&&/NOW/.test(dom)&&/POLISHED ONE RETURN v2/.test(dom)&&/CONFLUENCE/.test(dom)
   },
   {
     name:'HUMAN PORT',
@@ -531,9 +557,9 @@ const CASES=[
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"backSame":true/.test(dom)&&/"replaySame":true/.test(dom)&&/"restoreButton":true/.test(dom)
   },
   {
-    name:'APERTURE',
+    name:'APERTURE compatibility → READFIELD',
     route:'/foundry/aperture/',
-    check:dom=>/APERTURE/i.test(dom)&&dom.includes('field-aperture')&&dom.includes('60–3000 WPM')
+    check:dom=>/READFIELD/i.test(dom)&&dom.includes('id="docAperture"')
   },
   {
     name:'APERTURE multilingual segmentation',
@@ -542,9 +568,9 @@ const CASES=[
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"zh"/.test(dom)&&/"ta"/.test(dom)&&/"ja"/.test(dom)&&/"ar"/.test(dom)&&/"th"/.test(dom)&&/"count":3/.test(dom)
   },
   {
-    name:'DOCS APERTURE',
+    name:'READFIELD',
     route:'/docs/',
-    check:dom=>/DOCS \/ READ/i.test(dom)&&dom.includes('id="docAperture"')&&dom.includes('RAW SOURCE')
+    check:dom=>/READFIELD/i.test(dom)&&dom.includes('id="docAperture"')&&dom.includes('reader')&&dom.includes('RAW SOURCE')
   },
   {
     name:'DOCS ADDRESS',
@@ -558,10 +584,16 @@ const CASES=[
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"scale":"LEAF"/.test(dom)&&/"wpm":650/.test(dom)&&/"copyView":true/.test(dom)&&/"throttled":true/.test(dom)&&/"ended":true/.test(dom)
   },
   {
-    name:'DOCS RSVP focus kernel',
+    name:'READFIELD focus kernel + performance',
     route:'/__smoke/reader-focus',
+    options:{width:1040,height:820,budget:16000,timeout:22000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"same":true/.test(dom)&&/"spans":true/.test(dom)&&/"performance":true/.test(dom)&&/"reader":true/.test(dom)&&/"session":true/.test(dom)
+  },
+  {
+    name:'READFIELD route handoff',
+    route:'/__smoke/readfield-handoff',
     options:{width:1040,height:820,budget:14000,timeout:20000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"same":true/.test(dom)&&/"spans":true/.test(dom)&&/"structure":\["Alpha","Beta"\]/.test(dom)&&/"session":true/.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"label":"READ"/.test(dom)&&/"reader":true/.test(dom)
   },
   {
     name:'TRIANGLE unified',
@@ -747,14 +779,16 @@ try{
   const bin=browserBin();
   console.log('BROWSER SMOKE:',bin);
   for(const c of CASES){
-    const r=await runChrome(bin,c.route,c.options||{});
+    let r;
+    try{r=await runChrome(bin,c.route,c.options||{})}
+    catch(e){console.log('FAIL',c.name,c.route);console.log('SMOKE TIMEOUT',c.name,String(e?.message||e));fail.push(c.name+' '+c.route+' '+String(e?.message||e));continue}
     const fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);
     const ok=r.code===0&&!fatal&&c.check(r.out);
     console.log((ok?'PASS':'FAIL'),c.name,c.route);
     if(c.name==='LENS focused real-use observation')console.log('LENS REAL USE',textAtId(r.out,'probeResult'));
     if(!ok){
-      const source=textAtId(r.out,'sourceState');
-      const body=visibleText(r.out).slice(0,700);
+      const source=textAtId(r.out,'sourceState'),probe=textAtId(r.out,'probeResult');if(probe)console.log('SMOKE PROBE',c.name,probe.slice(0,1800));
+      const body=visibleText(r.out).slice(0,900);if(body)console.log('SMOKE BODY',c.name,body);
       fail.push(c.name+' '+c.route+' code='+r.code+(source?' sourceState='+JSON.stringify(source):'')+(fatal?' browser-fatal':'')+(body?' body='+JSON.stringify(body):''));
       if(r.err.trim())console.error('SMOKE STDERR',c.name,r.err.slice(-1800));
     }

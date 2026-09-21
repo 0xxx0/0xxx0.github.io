@@ -1,0 +1,37 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "READFIELD-CONVERGENCE-2026-09-22",
+  "date": "2026-09-22",
+  "object": "READFIELD / RSVP 0.7 convergence",
+  "before": {
+    "canonical_reader": "/docs/ READ / RSVP 0.6",
+    "duplicate_surface": "/foundry/aperture/ APERTURE 0.4",
+    "friction": "reader functionality split across names and geometry; context rendering coupled too tightly to high-speed focus"
+  },
+  "operation": [
+    "made /docs/ the canonical READFIELD surface",
+    "made APERTURE geometry optional through reader mode",
+    "added direct speed rail",
+    "cached source structure markers",
+    "throttled context projection separately from temporal focus",
+    "added route-wide READ → READFIELD handoff with exact RETURN",
+    "converted standalone APERTURE into compatibility alias",
+    "kept AXIAL 0.7.3 active and historically distinct"
+  ],
+  "after": {
+    "canonical_surface": "/docs/",
+    "kernel": "/field-aperture.js",
+    "handoff": "readfield.handoff/v1",
+    "compatibility": "/foundry/aperture/",
+    "authority": "READ / PRESENTATION / INSPECTION ONLY"
+  },
+  "proof": {
+    "state": "PENDING_FINAL_BROWSER_GATE"
+  },
+  "non_claims": [
+    "No speed-reading comprehension claim.",
+    "Ring geometry is retained as optional donor/projection, not declared useless.",
+    "No historical APERTURE or AXIAL evidence was rewritten."
+  ],
+  "return": "One public reading surface carries source→focus→time/voice/context→RETURN while orientation, refraction and policy evidence stay separate."
+}

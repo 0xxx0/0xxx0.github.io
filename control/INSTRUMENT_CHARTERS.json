@@ -220,22 +220,22 @@
     },
     {
       "id": "field-aperture",
-      "route": "/foundry/aperture/",
-      "maturity": "UTILITY / BROWSER-PROVED READER PROJECTION",
+      "route": "/docs/",
+      "maturity": "UTILITY / READER-FIRST / BROWSER PROOF REQUIRED",
       "PASSION": "Keep one source graspable while attention changes scale, position, speed and voice, without manufacturing a second copy of the thing.",
-      "PURPOSE": "Inspect/read one local text/JSON/object source through a stable addressed source position while scale, RSVP/voice time, ORP focus, source highlight and reference projections change around it.",
-      "POWER": "One compact component keeps source identity and canonical source position stable while visual density, local address, scale, RSVP timing and speech-boundary focus move together; DOCS adds highlighted context/XREF while RAW remains recoverable.",
+      "PURPOSE": "Read one local text/JSON/object source through a stable addressed source position while scale, RSVP/voice time, ORP focus, linear source context and references change around it. Ring geometry is optional.",
+      "POWER": "One compact kernel keeps source identity and canonical position stable while READFIELD presents the simplest useful projection first: ORP focus + linear source strip + direct pace + context. Hosts may opt into ring/material projections without forcing them on ordinary reading.",
       "PROOF": [
-        "field-aperture-focus/v0.2 emits scale/index/address plus char_index/span/source_progress/structure/xrefs without source mutation",
-        "WORD → SENTENCE → PARAGRAPH → SECTION preserves the identical source position in browser proof",
-        "DOCS highlights that exact locus and emits citation/media XREF while session paste remains local",
-        "the same component runs across FIELD, HUMAN PORT, DOCS and standalone APERTURE",
-        "multilingual segmentation and addressed resume remain browser-guarded",
+        "field-aperture-focus/v0.2 preserves canonical char/path position across scale",
+        "READFIELD reader mode hides ring geometry while keeping source strip/focus/time operable",
+        "high-speed temporal focus updates faster than throttled prose-context reconstruction",
+        "route-wide READ handoff preserves caller RETURN",
+        "address resume, multilingual segmentation, finite RSVP, XREF and RAW remain browser-guarded",
         "human comprehension advantage at high speed remains unclaimed"
       ],
       "PROMISE": "APERTURE is an inspection/projection utility, not an ontology or authority layer. Host material/ring/scale outputs are presentation-only. Bytes/magnitude, ring gap, scale, material variables, WPM and speech timing never imply semantic importance, truth, confidence or permission. It does not absorb AXIAL exact-set support, LensState typed transition law, or STATE APERTURE TEST/ARM/RUN consequence semantics.",
-      "PRICE": "ORP/radial/strip cues and high-speed RSVP can exceed the value of plain scrolling/search; speech-boundary behavior varies by browser/voice. Use the reader when rapid reacquisition, long-form traversal or multi-scale orientation is useful; RAW/plain reading remains the baseline.",
-      "RETURN": "A field-aperture-focus/v0.2 snapshot with source label/kind, bytes, scale, index/count, local address, canonical char/path position, active span, section/branch markers, XREF cues, WPM and material witness. Durability beyond the session is host-owned.",
+      "PRICE": "ORP and high-speed RSVP can exceed the value of plain reading; optional geometry can distract; speech-boundary fidelity varies by browser/voice. Keep the plain source and RETURN close.",
+      "RETURN": "field-aperture-focus/v0.2 + addressed reader URL + exact caller RETURN; session-local handoff bytes remain host-owned.",
       "motifs": [
         "motif:identity-through-projection"
       ],

@@ -1,0 +1,45 @@
+{
+  "schema": "0xxx0/readfield-convergence/v0.2",
+  "at": "2026-09-22T01:32:00+08:00",
+  "status": "IMPLEMENTED_PENDING_FINAL_BROWSER_PROOF",
+  "object": "READFIELD / RSVP",
+  "observed": {
+    "friction": [
+      "reading was split across /docs/, ambient APERTURE and AXIAL-facing affordances",
+      "ordinary reading still carried ring geometry that did not earn its cost",
+      "high-WPM temporal focus could force heavier context DOM work at the same rate",
+      "generic routes offered inspection instead of direct reading handoff"
+    ],
+    "preserved": [
+      "AXIAL 0.7.3 remains an active orientation/TRACE experiment",
+      "Constraint Surface remains exact source-neutral support law",
+      "Lens remains a separate refraction/provenance instrument",
+      "historical APERTURE/AXIAL receipts are not rewritten"
+    ]
+  },
+  "decision": {
+    "canonical_reader": "/docs/",
+    "public_name": "READFIELD / RSVP 0.7",
+    "kernel": "/field-aperture.js",
+    "aperture_compatibility": "/foundry/aperture/ → /docs/",
+    "law": "one source + one canonical position; scale/time/voice/context are projections around it"
+  },
+  "implementation": [
+    "reader mode hides dial geometry while retaining ORP focus, linear source strip, scale, voice and time controls",
+    "direct 60–3000 WPM rail",
+    "structure marker DOM cached across temporal ticks",
+    "highlighted context throttled independently from the temporal cursor",
+    "generic route READ handoff uses selection → active text field → visible page text and preserves exact RETURN",
+    "standalone APERTURE becomes compatibility alias; reusable kernel remains available",
+    "FIELD public focus dock uses READ rather than a duplicate APERTURE inspector"
+  ],
+  "proof_required": [
+    "reader mode dial display none",
+    "high-speed focus events materially outnumber contextual DOM rebuilds",
+    "route READ → READFIELD preserves RETURN",
+    "address resume, multilingual segmentation and finite RSVP remain green",
+    "Lens/RETURN invariants remain green",
+    "FIELD URL normalization preserves explicit projection flags such as lens_proof"
+  ],
+  "stop_condition": "Ship on one full green public-surface-check; do not add more reading geometry until real use exposes a deficit."
+}
