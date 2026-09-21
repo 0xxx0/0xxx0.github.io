@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM LISTEN",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "state": "CANDIDATE",
   "operation": "LISTEN",
   "route": "/fold-bloom/listen/",
@@ -38,7 +38,9 @@
     "end-to-end CI loads a real encoded MP3 fixture and proves PREVIEW → DEEP → rendered map",
     "BEAT/PHRASE/SECTION/TRACK now change the actual ring time domain and touch scrub range rather than acting mainly as labels",
     "phone scope controls move to a horizontal thumb-reachable strip above transport",
-    "FIELD PULSE v0.1 publishes compact playback/time/BPM/beat/section/energy/flux/brightness context without audio bytes"
+    "FIELD PULSE v0.1 publishes compact playback/time/BPM/beat/section/energy/flux/brightness context without audio bytes",
+    "mobile scoped scrubbing freezes the active BEAT/PHRASE/SECTION/TRACK time window for the lifetime of each pointer gesture, preventing the domain from sliding under the finger",
+    "center witness appends HOLD while a scoped gesture owns the frozen time window; release resumes live scope tracking"
   ],
   "constraints": [
     "no upload/network required for user audio",
@@ -67,7 +69,8 @@
     "mobile_scope": "PASS REPO: scope-window law + browser suite in run 35640203852; REAL_PHONE touch trial required",
     "field_pulse": "/control/FIELD_PULSE_CONTRACT.json",
     "field_pulse_repo": "PASS REPO: envelope selftest + full browser regression run 35640203852; real cross-tab phone trial required",
-    "field_pulse_merge_sha": "70d63be41dfc5d04b04063d2f90524dca0bb6526"
+    "field_pulse_merge_sha": "70d63be41dfc5d04b04063d2f90524dca0bb6526",
+    "mobile_scope_gesture_lock": "PENDING_CI: pure scrub-window selftest + existing LISTEN browser regression; real-phone touch feel still required"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · visible on FIELD INDEX · host=/fold-bloom/ · evolution stage=TEST",
   "updated": "2026-09-22"
