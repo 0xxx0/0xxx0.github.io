@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#101214">
+<title>Triangle Bench · Exploit / Explore / Prove</title>
+<style>
+:root{--bg:#101214;--panel:#15191c;--ink:#eef0ea;--muted:#8b9498;--line:#394247;--hot:#e56b3f;--cool:#67acd6;--proof:#a8d58d;--warn:#d6ad63}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(12px,env(safe-area-inset-top)) 12px max(28px,env(safe-area-inset-bottom))}
+button,input{font:inherit;color:inherit;border-radius:0}button{min-height:34px;border:1px solid var(--line);background:#111518;padding:6px 9px;cursor:pointer;text-transform:uppercase;font-size:9px;letter-spacing:.08em}button:hover,button:focus-visible{border-color:var(--ink);outline:none}button.on,button.primary{border-color:var(--cool);color:#d7f2ff}button.danger{border-color:#704339;color:#ef9b83}.app{width:min(1100px,100%);margin:auto}
+header{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:end;padding:22px 0 12px;border-bottom:1px solid var(--line)}.ey{color:var(--hot);font-size:9px;letter-spacing:.15em}h1{margin:5px 0 0;font:800 clamp(34px,7vw,70px)/.88 system-ui,-apple-system,sans-serif;letter-spacing:-.06em}.sub{max-width:560px;color:#aeb5b8;font:12px/1.55 system-ui,-apple-system,sans-serif}.return{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line)}
+.rule{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);margin:12px 0 0}.rule div{padding:8px 9px;border-right:1px solid var(--line)}.rule div:last-child{border-right:0}.rule b{display:block;font-size:9px;letter-spacing:.13em}.rule span{display:block;color:var(--muted);font-size:8px;margin-top:3px}
+.toolbar{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}.modes{display:flex}.modes button{border-right:0}.modes button:last-child{border-right:1px solid var(--line)}.status{color:var(--muted);font-size:9px}
+.grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:10px}.pane{background:var(--panel);padding:12px}.pane h2{margin:0 0 9px;font:700 16px system-ui,-apple-system,sans-serif;letter-spacing:-.02em}
+.triwrap{position:relative;min-height:520px;display:grid;place-items:center;border:1px solid #283137;background:#111518}.triwrap svg{width:min(100%,680px);height:auto;touch-action:none;user-select:none}.edge{stroke:#4e5a60;stroke-width:1;fill:#0e1214}.gridline{stroke:#263036;stroke-width:.7}.vertex{font:700 13px ui-monospace,monospace;fill:var(--ink);letter-spacing:.08em}.vertex.exploit{fill:var(--hot)}.vertex.explore{fill:var(--cool)}.vertex.prove{fill:var(--proof)}.dot{fill:var(--ink);stroke:#000;stroke-width:1.5}.cross{stroke:#eef0ea;stroke-width:1}.wlabel{font:11px ui-monospace,monospace;fill:#c9d0d2}
+.plain{display:grid;gap:13px;min-height:520px;align-content:center;padding:20px;border:1px solid #283137;background:#111518}.plain label{display:grid;grid-template-columns:90px 1fr 42px;gap:8px;align-items:center}.plain span{color:var(--muted);font-size:9px}.plain output{text-align:right}.plain input[type=range]{width:100%;accent-color:currentColor}.plain .ex{color:var(--hot)}.plain .xr{color:var(--cool)}.plain .pv{color:var(--proof)}.plain .pv input{opacity:.45}
+.weights{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:8px}.weight{background:#111518;padding:8px}.weight span{display:block;color:var(--muted);font-size:8px}.weight strong{font-size:20px;font-weight:500}.weight:nth-child(1) strong{color:var(--hot)}.weight:nth-child(2) strong{color:var(--cool)}.weight:nth-child(3) strong{color:var(--proof)}
+.candidates{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}.candidate{background:#111518;padding:10px}.candidate.win{box-shadow:inset 3px 0 var(--proof)}.ctop{display:flex;justify-content:space-between;gap:8px}.candidate b{font:700 13px system-ui,-apple-system,sans-serif}.candidate .score{font-size:13px}.candidate p{margin:5px 0 0;color:var(--muted);font-size:8px}.bar{height:3px;background:#252e33;margin-top:8px}.bar i{display:block;height:100%;background:#bbc5c9}.profile{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:6px;color:#889297;font-size:7.5px}
+.margin{padding:8px 0;color:var(--muted);font-size:9px}.controls{display:flex;flex-wrap:wrap;gap:5px;margin:9px 0}.box{border-top:1px solid var(--line);padding-top:10px;margin-top:11px}.box h3{margin:0 0 6px;font-size:10px;letter-spacing:.12em}.target{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:start;border:1px solid var(--line);padding:8px;background:#111518}.target strong{font-size:24px}.target p{margin:0;color:var(--muted);font-size:9px}.trialrow{display:grid;grid-template-columns:42px 70px 1fr 70px;gap:6px;border-bottom:1px dotted #333d42;padding:5px 0;font-size:8px}.trialrow span{color:var(--muted)}.verdict{border:1px solid var(--line);padding:9px;margin-top:8px}.verdict b{display:block;font-size:14px}.pass{color:var(--proof)}.hold{color:var(--warn)}.fail{color:var(--hot)}.coverage{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);margin-top:8px}.coverage div{background:#111518;padding:7px}.coverage span{display:block;font-size:7px;color:var(--muted)}.coverage strong{font-size:14px}
+.note{color:var(--muted);font:9px/1.55 system-ui,-apple-system,sans-serif}.micro{font-size:8px;color:var(--muted)}[hidden]{display:none!important}
+@media(max-width:760px){header{grid-template-columns:1fr}.rule{grid-template-columns:1fr}.rule div{border-right:0;border-bottom:1px solid var(--line)}.rule div:last-child{border-bottom:0}.grid{grid-template-columns:1fr}.triwrap,.plain{min-height:430px}.toolbar{align-items:flex-start;flex-direction:column}.trialrow{grid-template-columns:36px 64px 1fr}.trialrow span:last-child{grid-column:3}.coverage{grid-template-columns:1fr}}
+</style>
+</head>
+<body><div class="app">
+<header><div><div class="ey">FIELD / PROOF · EXPERIMENT 0.1</div><h1>EXPLOIT /<br>EXPLORE / PROVE</h1></div><div class="sub">One attention budget, three competing intentions. Same state through a plain control or a direct simplex. If the triangle cannot improve operation without losing precision, demote it.<br><br><a class="return" href="../">← RETURN TO FIELD / PROOF</a> · <a class="return" href="./glyph/">GLYPH LAB →</a></div></header>
+<section class="rule"><div><b>EXPLOIT</b><span>turn known capability into useful output</span></div><div><b>EXPLORE</b><span>buy option value / expose unknowns</span></div><div><b>PROVE</b><span>reduce uncertainty with evidence</span></div></section>
+<div class="toolbar"><div class="modes"><button id="triangleMode" class="on">TRIANGLE</button><button id="plainMode">PLAIN</button></div><div class="status" id="status">DECISION MODE · weights are hypotheses, not truth</div></div>
+<div class="grid">
+<section class="pane">
+<div id="triangleUI" class="triwrap">
+<svg id="tri" viewBox="0 0 600 520" role="img" aria-label="Exploit Explore Prove tradeoff triangle">
+<polygon class="edge" points="300,55 65,450 535,450"></polygon>
+<g id="gridLines"></g>
+<text x="300" y="28" text-anchor="middle" class="vertex exploit">EXPLOIT</text>
+<text x="34" y="478" class="vertex explore">EXPLORE</text>
+<text x="566" y="478" text-anchor="end" class="vertex prove">PROVE</text>
+<g id="pointer"><line class="cross" x1="292" y1="318" x2="308" y2="318"></line><line class="cross" x1="300" y1="310" x2="300" y2="326"></line><circle class="dot" cx="300" cy="318" r="6"></circle></g>
+<text id="pointLabel" x="300" y="344" text-anchor="middle" class="wlabel">33 / 33 / 34</text>
+</svg>
+</div>
+<div id="plainUI" class="plain" hidden>
+<label class="ex"><span>EXPLOIT</span><input id="eRange" type="range" min="0" max="100" value="33"><output id="eOut">33</output></label>
+<label class="xr"><span>EXPLORE</span><input id="xRange" type="range" min="0" max="67" value="33"><output id="xOut">33</output></label>
+<label class="pv"><span>PROVE</span><input id="pRange" type="range" min="0" max="100" value="34" disabled><output id="pOut">34</output></label>
+<div class="note">PLAIN exposes the same two degrees of freedom: choose EXPLOIT, then EXPLORE from the remaining budget; PROVE is the remainder.</div>
+</div>
+<div class="weights"><div class="weight"><span>EXPLOIT</span><strong id="wE">33%</strong></div><div class="weight"><span>EXPLORE</span><strong id="wX">33%</strong></div><div class="weight"><span>PROVE</span><strong id="wP">34%</strong></div></div>
+</section>
+<aside class="pane">
+<h2>Current bounded actions</h2>
+<div id="candidates" class="candidates"></div><div id="margin" class="margin"></div>
+<div class="controls"><button id="beginDecision">BEGIN DECISION</button><button id="commitDecision" class="primary" disabled>COMMIT RECEIPT</button><button id="exportEvidence">EXPORT JSON</button></div>
+<div class="box">
+<h3>CALIBRATION · 6 TRIALS</h3>
+<div id="target" class="target"><strong>—</strong><p>Reproduce three fixed allocations using the requested interface. Same targets, counterbalanced order.</p></div>
+<div class="controls"><button id="startCal">START NEXT</button><button id="commitCal" disabled>COMMIT CAL</button><button id="reset" class="danger">RESET EVIDENCE</button></div>
+<div id="trials" class="micro">No trials yet.</div>
+<div id="coverage" class="coverage"></div>
+<div id="verdict" class="verdict"><b>UNRESOLVED</b><span class="micro">Need six calibration trials.</span></div>
+</div>
+</aside>
+</div>
+</div>
+<script>
+(()=>{'use strict';
+const V='triangle-bench/v0.1',K='triangle-bench-v0.1',A={x:300,y:55},B={x:65,y:450},C={x:535,y:450};
+const candidates=[
+{id:'showcase-trace',label:'SHOWCASE TRACE',owner:'PUB-SHOWCASE-TRACE',profile:[1,.10,.35],note:'close public traceability / release evidence'},
+{id:'house-manual-run',label:'HOUSE MANUAL RUN',owner:'G3-HOUSE-MANUAL-RUN',profile:[.55,.35,1],note:'touch reality: observation → action → completion → RETURN'},
+{id:'forward-field-trials',label:'FORWARD FIELD TRIALS',owner:'Forward Field Proof',profile:[.20,.90,.82],note:'3–5 genuine paired PLAIN/FIELD trials'}
+];
+const sequence=[
+{mode:'TRIANGLE',target:[.70,.20,.10]},
+{mode:'PLAIN',target:[.70,.20,.10]},
+{mode:'PLAIN',target:[.15,.70,.15]},
+{mode:'TRIANGLE',target:[.15,.70,.15]},
+{mode:'TRIANGLE',target:[.20,.20,.60]},
+{mode:'PLAIN',target:[.20,.20,.60]}
+];
+const $=id=>document.getElementById(id),clamp=(x,a,b)=>Math.max(a,Math.min(b,x)),sum=a=>a.reduce((x,y)=>x+y,0),median=a=>{a=[...a].sort((x,y)=>x-y);if(!a.length)return null;const m=Math.floor(a.length/2);return a.length%2?a[m]:(a[m-1]+a[m])/2},pct=x=>Math.round(x*100);
+let S=load(),W=S.weights||[1/3,1/3,1/3],mode=S.mode||'TRIANGLE',calActive=null,decisionStart=null,decisionInteractions=0;
+function load(){try{const x=JSON.parse(localStorage.getItem(K));if(x&&x.version===V)return x}catch{}return{version:V,weights:[1/3,1/3,1/3],mode:'TRIANGLE',calibration:[],decisions:[]}}
+function save(){S.weights=W;S.mode=mode;localStorage.setItem(K,JSON.stringify(S))}
+function baryPoint(w){return{x:w[0]*A.x+w[1]*B.x+w[2]*C.x,y:w[0]*A.y+w[1]*B.y+w[2]*C.y}}
+function pointWeights(p){const d=(B.y-C.y)*(A.x-C.x)+(C.x-B.x)*(A.y-C.y);let e=((B.y-C.y)*(p.x-C.x)+(C.x-B.x)*(p.y-C.y))/d;let x=((C.y-A.y)*(p.x-C.x)+(A.x-C.x)*(p.y-C.y))/d;let pr=1-e-x;let a=[Math.max(0,e),Math.max(0,x),Math.max(0,pr)],z=sum(a)||1;return a.map(v=>v/z)}
+function scores(w=W){return candidates.map(c=>({...c,score:c.profile.reduce((s,v,i)=>s+v*w[i],0)})).sort((a,b)=>b.score-a.score)}
+function setMode(m,forced=false){mode=m;$('triangleMode').classList.toggle('on',m==='TRIANGLE');$('plainMode').classList.toggle('on',m==='PLAIN');$('triangleUI').hidden=m!=='TRIANGLE';$('plainUI').hidden=m!=='PLAIN';if(!forced&&calActive)return;save();render()}
+function setWeights(w,user=false){let z=sum(w)||1;W=w.map(v=>clamp(v/z,0,1));z=sum(W)||1;W=W.map(v=>v/z);if(user){if(calActive)calActive.interactions++;if(decisionStart)decisionInteractions++}save();render()}
+function render(){const p=baryPoint(W),ptr=$('pointer');ptr.querySelector('circle').setAttribute('cx',p.x);ptr.querySelector('circle').setAttribute('cy',p.y);const ls=ptr.querySelectorAll('line');ls[0].setAttribute('x1',p.x-8);ls[0].setAttribute('x2',p.x+8);ls[0].setAttribute('y1',p.y);ls[0].setAttribute('y2',p.y);ls[1].setAttribute('x1',p.x);ls[1].setAttribute('x2',p.x);ls[1].setAttribute('y1',p.y-8);ls[1].setAttribute('y2',p.y+8);$('pointLabel').setAttribute('x',p.x);$('pointLabel').setAttribute('y',p.y+26);$('pointLabel').textContent=W.map(pct).join(' / ');
+$('wE').textContent=pct(W[0])+'%';$('wX').textContent=pct(W[1])+'%';$('wP').textContent=pct(W[2])+'%';
+const ev=Math.round(W[0]*100),xv=Math.round(W[1]*100);$('eRange').value=ev;$('xRange').max=Math.max(0,100-ev);$('xRange').value=Math.min(xv,100-ev);$('pRange').value=Math.max(0,100-ev-Math.min(xv,100-ev));$('eOut').textContent=$('eRange').value;$('xOut').textContent=$('xRange').value;$('pOut').textContent=$('pRange').value;
+const ss=scores(),top=ss[0],runner=ss[1];$('candidates').innerHTML=ss.map((c,i)=>'<div class="candidate '+(i===0?'win':'')+'"><div class="ctop"><b>'+c.label+'</b><span class="score">'+c.score.toFixed(3)+'</span></div><p>'+c.note+'</p><div class="bar"><i style="width:'+Math.round(c.score*100)+'%"></i></div><div class="profile"><span>E '+c.profile[0].toFixed(2)+'</span><span>X '+c.profile[1].toFixed(2)+'</span><span>P '+c.profile[2].toFixed(2)+'</span></div></div>').join('');
+$('margin').textContent='WINNER · '+top.label+' · margin '+(top.score-runner.score).toFixed(3)+' over '+runner.label;
+renderTrials();renderVerdict();save()}
+function gridCoverage(steps=40){const win=Object.fromEntries(candidates.map(c=>[c.id,0]));let n=0;for(let i=0;i<=steps;i++)for(let j=0;j<=steps-i;j++){const w=[i/steps,j/steps,1-i/steps-j/steps],top=scores(w)[0];win[top.id]++;n++}return{n,share:Object.fromEntries(Object.entries(win).map(([k,v])=>[k,v/n]))}}
+const coverage=gridCoverage();$('coverage').innerHTML=candidates.map(c=>'<div><span>'+c.label+'</span><strong>'+Math.round(coverage.share[c.id]*1000)/10+'%</strong></div>').join('');
+function drawGrid(){const g=$('gridLines');for(const t of [.2,.4,.6,.8]){const q1=baryPoint([t,0,1-t]),q2=baryPoint([t,1-t,0]);const q3=baryPoint([0,t,1-t]),q4=baryPoint([1-t,t,0]);const q5=baryPoint([0,1-t,t]),q6=baryPoint([1-t,0,t]);for(const [u,v] of [[q1,q2],[q3,q4],[q5,q6]]){const l=document.createElementNS('http://www.w3.org/2000/svg','line');l.setAttribute('x1',u.x);l.setAttribute('y1',u.y);l.setAttribute('x2',v.x);l.setAttribute('y2',v.y);l.setAttribute('class','gridline');g.appendChild(l)}}}
+function pointer(e){const svg=$('tri'),r=svg.getBoundingClientRect(),p={x:(e.clientX-r.left)*600/r.width,y:(e.clientY-r.top)*520/r.height};setWeights(pointWeights(p),true)}
+let drag=false;$('tri').addEventListener('pointerdown',e=>{drag=true;$('tri').setPointerCapture(e.pointerId);pointer(e)});$('tri').addEventListener('pointermove',e=>{if(drag)pointer(e)});$('tri').addEventListener('pointerup',()=>drag=false);$('tri').addEventListener('pointercancel',()=>drag=false);
+$('eRange').oninput=()=>{let e=+$('eRange').value/100,x=Math.min(+$('xRange').value/100,1-e);$('xRange').max=Math.round((1-e)*100);setWeights([e,x,1-e-x],true)};
+$('xRange').oninput=()=>{let e=+$('eRange').value/100,x=+$('xRange').value/100;setWeights([e,x,Math.max(0,1-e-x)],true)};
+$('triangleMode').onclick=()=>{if(!calActive)setMode('TRIANGLE')};$('plainMode').onclick=()=>{if(!calActive)setMode('PLAIN')};
+function renderTrials(){if(!S.calibration.length){$('trials').textContent='No trials yet.';return}$('trials').innerHTML=S.calibration.map((t,i)=>'<div class="trialrow"><b>'+String(i+1).padStart(2,'0')+'</b><span>'+t.mode+'</span><span>error '+t.error.toFixed(3)+' · '+t.interactions+' moves</span><span>'+Math.round(t.ms)+' ms</span></div>').join('')}
+function summary(){const by=m=>S.calibration.filter(x=>x.mode===m),p=by('PLAIN'),t=by('TRIANGLE');return{plain:{n:p.length,median_ms:median(p.map(x=>x.ms)),median_error:median(p.map(x=>x.error))},triangle:{n:t.length,median_ms:median(t.map(x=>x.ms)),median_error:median(t.map(x=>x.error))}}}
+function verdict(){const s=summary(),coveragePass=Object.values(coverage.share).every(x=>x>=.05);if(S.calibration.length<6)return{state:'UNRESOLVED',class:'',coverage:coveragePass,precision:null,speed:null,summary:s};const precision=s.triangle.median_error<=s.plain.median_error+.05,speed=s.triangle.median_ms<=s.plain.median_ms*1.25,state=coveragePass&&precision&&speed?'KEEP':coveragePass&&(precision||speed)?'HOLD':'DEMOTE';return{state,class:state==='KEEP'?'pass':state==='HOLD'?'hold':'fail',coverage:coveragePass,precision,speed,summary:s}}
+function renderVerdict(){const v=verdict(),b=$('verdict');b.innerHTML='<b class="'+v.class+'">'+v.state+'</b><span class="micro">coverage '+flag(v.coverage)+' · precision '+flag(v.precision)+' · speed '+flag(v.speed)+'</span>';function flag(x){return x==null?'—':x?'PASS':'FAIL'}}
+$('startCal').onclick=()=>{if(S.calibration.length>=sequence.length)return;const q=sequence[S.calibration.length];setMode(q.mode,true);setWeights([1/3,1/3,1/3]);calActive={...q,started:performance.now(),interactions:0};$('target').querySelector('strong').textContent=q.target.map(pct).join('/');$('target').querySelector('p').textContent='TRIAL '+(S.calibration.length+1)+' · '+q.mode+' · reproduce target allocation, then COMMIT CAL.';$('startCal').disabled=true;$('commitCal').disabled=false;$('status').textContent='CALIBRATION ACTIVE · '+q.mode};
+$('commitCal').onclick=()=>{if(!calActive)return;const err=(Math.abs(W[0]-calActive.target[0])+Math.abs(W[1]-calActive.target[1])+Math.abs(W[2]-calActive.target[2]))/2;S.calibration.push({mode:calActive.mode,target:calActive.target,weights:[...W],error:err,ms:performance.now()-calActive.started,interactions:calActive.interactions,at:new Date().toISOString()});calActive=null;$('startCal').disabled=S.calibration.length>=sequence.length;$('commitCal').disabled=true;$('target').querySelector('strong').textContent=S.calibration.length>=6?'DONE':'—';$('target').querySelector('p').textContent=S.calibration.length>=6?'Calibration complete. Use the verdict, then commit one real decision.':'Next trial is ready.';$('status').textContent='DECISION MODE · calibration '+S.calibration.length+'/6';save();render()};
+$('beginDecision').onclick=()=>{decisionStart=performance.now();decisionInteractions=0;$('commitDecision').disabled=false;$('status').textContent='DECISION ACTIVE · choose attention allocation, then commit'};
+$('commitDecision').onclick=()=>{if(!decisionStart)return;const ss=scores(),v=verdict();S.decisions.push({at:new Date().toISOString(),mode,weights:[...W],winner:ss[0].id,winner_label:ss[0].label,score:ss[0].score,runner_up:ss[1].id,margin:ss[0].score-ss[1].score,ms:performance.now()-decisionStart,interactions:decisionInteractions,verdict:v.state});decisionStart=null;$('commitDecision').disabled=true;$('status').textContent='RECEIPT STAMPED · '+ss[0].label;save();render()};
+$('exportEvidence').onclick=()=>{const payload={schema:'triangle-bench-evidence/v0.1',exported_at:new Date().toISOString(),experiment:V,vertices:['EXPLOIT','EXPLORE','PROVE'],candidates,coverage,calibration:S.calibration,summary:summary(),verdict:verdict(),decisions:S.decisions};const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='triangle-bench-evidence-'+new Date().toISOString().replace(/[:.]/g,'-')+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+$('reset').onclick=()=>{if(!confirm('Reset local Triangle Bench evidence?'))return;localStorage.removeItem(K);location.reload()};
+drawGrid();setMode(mode);render();
+})();
+</script>
+<script src="/showcase-nav.js" defer></script>
+</body></html>
