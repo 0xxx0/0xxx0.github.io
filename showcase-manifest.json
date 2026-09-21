@@ -97,37 +97,37 @@
     },
     {
       "href": "/port/",
-      "title": "HUMAN PORT 1.3",
+      "title": "HUMAN PORT 1.4",
       "kind": "hub",
       "parent": "/",
       "family": "HUMAN PORT",
       "operation": "ROUTE",
       "state": "ACTIVE",
-      "version": "1.3-preview",
+      "version": "1.4-preview",
       "receipt": "/port/release.json",
       "showcase_card": false,
-      "role": "Canonical HUMAN PORT local intake/router: preserve one source, including bounded same-origin preloads such as CENTER next moves, choose an explicit route, and arrive at the target preloaded without auto-send or authority expansion.",
+      "role": "Canonical HUMAN PORT intake/router with addressed focus: preserve one source, optionally focus a lawful projection, inspect route support, SELECT, then explicitly OPEN a bounded local handoff.",
       "transfer": [
+        "AXIAL 0.7.1 visible support + fixed focus + explicit position witness + OPEN",
+        "Scale Lens canonical identity across unequal projections",
+        "RSVP/foveated source focus",
+        "passive metadata-only route evidence",
         "one source / many lawful routes",
-        "small public aperture / large recoverable depth",
-        "binding without automatic activation",
-        "raw-source preservation",
-        "residue without obligation",
-        "idea ancestry without build commitment",
-        "explicit outbound authority boundary",
-        "Aperture dock: inspect intake source in place",
-        "Triangle Center bounded CURRENT-action preload"
+        "explicit outbound authority boundary"
       ],
       "contract": {
         "transforms": {
-          "verb": "accept one local source and explicitly route it into the smallest useful bounded surface while preserving source identity, authority boundaries and a return path",
+          "verb": "accept one local source; preserve identity; focus whole or addressed projection; expose support; require human SELECT + OPEN; route into bounded downstream tool",
           "preserves": [
-            "source wording",
+            "canonical source wording",
+            "focus address",
             "context != authority",
+            "support != confidence",
+            "select != open",
             "draft != send",
             "residue != obligation",
             "idea != build commitment",
-            "return path"
+            "re-entry path"
           ],
           "reversibility": "full",
           "side_effects": "local/browser or explicit human share only"
@@ -146,20 +146,20 @@
         "inputs": [
           {
             "medium": "DATA",
-            "kind": "message / messy note / idea / residue / text-data source",
-            "interface": "one local Port intake"
+            "kind": "one source object + optional addressed focus",
+            "interface": "Port intake + Field Aperture"
           }
         ],
         "outputs": [
           {
             "medium": "DATA",
-            "kind": "preloaded bounded handoff",
-            "interface": "same-origin session handoff"
+            "kind": "bounded whole/focus handoff",
+            "interface": "explicit OPEN + same-origin session handoff"
           },
           {
-            "medium": "HUMAN_ACTION",
-            "kind": "explicit external share",
-            "interface": "CONTACT"
+            "medium": "EVIDENCE",
+            "kind": "content-free route receipt",
+            "interface": "local metadata"
           }
         ],
         "exit_paths": [
@@ -305,7 +305,7 @@
         }
       ],
       "index": {
-        "updated_at": "2026-09-21T16:18:00+08:00",
+        "updated_at": "2026-09-21T16:24:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",

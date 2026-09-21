@@ -46,19 +46,16 @@
     {
       "id": "human-port-use",
       "state": "ACTIVE_NOW",
-      "center": "/port/ one-source intake → explicit local route → target tool → RETURN",
-      "objective": "Prove HUMAN PORT 1.3 reduces repasting and route confusion: paste one real source once, choose one explicit route, verify the target arrives preloaded, and RETURN what failed before adding private transport or autonomous sending.",
+      "center": "/port/ source → focus aperture → support → SELECT → OPEN → downstream tool → re-enter",
+      "objective": "Use HUMAN PORT 1.4 normally and observe whether addressed focus + visible support reduce repasting/re-entry without adding route friction. Preserve explicit authority boundaries; do not add transport or autonomous sending from this experiment.",
       "evidence": [
         "/port/",
-        "/port/intake-1.3.json",
-        "/contact/",
-        "/contact/burst/",
-        "/laconic/",
-        "/contact/residue/",
-        "/app-atlas/",
-        "/fold-bloom/lens/",
-        "/continuity/",
-        "/control/confluence/HUMAN_PORT_CONVERGENCE_2026-09-21.md"
+        "/port/release.json",
+        "/returns/HUMAN_PORT_FOCUS_APERTURE_2026-09-21.json",
+        "/control/confluence/HUMAN_PORT_AXIAL_GRAFT_2026-09-21.json",
+        "/foundry/axial/",
+        "/field-aperture.js",
+        "/control/PREFERENCE_SIGNALS.json"
       ]
     }
   ],
@@ -107,10 +104,10 @@
     },
     {
       "lineage": "comms",
-      "head": "HUMAN PORT 1.3 intake + CONTACT 0.3 + LACONIC / ICONIC 0.3 + Router / Policy",
+      "head": "HUMAN PORT 1.4 focus aperture + CONTACT 0.3 + LACONIC / ICONIC 0.3 + Router / Policy",
       "state": "ACTIVE",
       "route": "/port/",
-      "retained_function": "One local source enters /port/, then the human explicitly routes it to interpretation, idea ancestry, social residue, projection or Contact. Contact remains the explicit external Share/Copy boundary; Laconic remains bounded drafting; policy/router remains the authority substrate."
+      "retained_function": "One source enters Port, survives whole/focused projections, exposes visible route cue counts, then moves only after SELECT → OPEN. AXIAL 0.7.1 supplies focus/support/open interaction law and explicit position witnesses; Scale Lens preserves identity across projections; Contact remains the separate external Share/Copy boundary."
     },
     {
       "lineage": "house-spatial",
@@ -287,8 +284,8 @@
     }
   ],
   "next_single_action": {
-    "id": "passive-feedback-observe-01",
-    "instruction": "Use FIELD and HUMAN PORT normally. Do not perform a dedicated QA ritual. Let local choice/override signals accumulate; only inspect or refine the model after ordinary use produces evidence or a concrete failure."
+    "id": "passive-human-port-focus-observe-01",
+    "instruction": "Use FIELD and HUMAN PORT normally. If Port is useful, use WHOLE/FOCUS and OPEN naturally; do not perform a dedicated QA ritual. Let content-free choice/override/backtrack evidence accumulate and refine only after ordinary use reveals a concrete failure or repeated pattern."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
@@ -416,7 +413,9 @@
     "poem_map_proof": "/poetry/lab/poem-map/",
     "field_index_axial_support": "/control/confluence/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
     "field_index_axial_support_return": "/returns/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
-    "ambient_inspector": "/showcase-nav.js#◎"
+    "ambient_inspector": "/showcase-nav.js#◎",
+    "human_port_axial_graft": "/control/confluence/HUMAN_PORT_AXIAL_GRAFT_2026-09-21.json",
+    "human_port_focus_return": "/returns/HUMAN_PORT_FOCUS_APERTURE_2026-09-21.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
