@@ -320,7 +320,8 @@ function lensRealUseProbeHtml(){
     const directAdapter=await waitFor(()=>D().getElementById('showcase-route-adapter')),directTab=directAdapter.shadowRoot?.querySelector('.tab.lens');
     rec.studio.directDuplicatePortableLens=!!directTab&&!directTab.hidden;
 
-    done(true,rec);
+    const ok=rec.field.staleOrigin===false&&rec.field.afterReturn===rec.field.hostSelected&&rec.generic.disabledTransforms===0&&rec.generic.hiddenTransforms===3&&rec.generic.returnExact===true&&rec.studio.identityStable===true&&rec.studio.duplicatePortableLens===false&&rec.studio.directDuplicatePortableLens===false&&rec.studio.headerReturn===rec.studio.dockReturn;
+    done(ok,rec);
   })().catch(e=>done(false,{error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
 }
@@ -558,7 +559,7 @@ const CASES=[
     name:'LENS focused real-use observation',
     route:'/__smoke/lens-real-use',
     options:{width:1280,height:900,budget:24000,timeout:32000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"hostSelected":"\/fold-bloom\/live\/"/.test(dom)&&/"returnExact":true/.test(dom)&&/"identityStable":true/.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"staleOrigin":false/.test(dom)&&/"hiddenTransforms":3/.test(dom)&&/"duplicatePortableLens":false/.test(dom)&&/"directDuplicatePortableLens":false/.test(dom)&&/"returnExact":true/.test(dom)&&/"identityStable":true/.test(dom)
   },
   {
     name:'GENERIC LENS RETURN ≠ BACK',
