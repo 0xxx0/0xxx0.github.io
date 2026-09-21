@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-22T00:29:00+08:00",
+        "updated_at": "2026-09-22T00:31:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -55,7 +55,10 @@
         "seven-gate READ/REMEMBER/ACK/ANSWER/DRAFT/ACT/ESCALATE visualization",
         "inline STRUCTURAL/REPLAY/SEALED verifier statuses with FAIL != INDETERMINATE",
         "receipt-only local trace ledger; raw event text is not retained",
-        "policy trace remains a reference instrument, not live person/resource authority"
+        "policy trace remains a reference instrument, not live person/resource authority",
+        "TRACE / VERIFY sits immediately after AXIAL and before LATEST chronology",
+        "focused-object TRACE action opens the same root instrument beside INSPECT / AXIAL / LENS / COMPARE",
+        "focus change invalidates the displayed trace binding until rerun; stale traces cannot be committed as current"
       ],
       "activation_law": "/control/FIELD_ACTIVATION_LAW.json",
       "convergence_return": "/returns/FIELD_INDEX_CONVERGENCE_2026-09-21.json",
