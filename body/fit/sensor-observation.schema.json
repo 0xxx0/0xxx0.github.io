@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://0xxx0.github.io/body/fit/sensor-observation.schema.json",
+  "title": "BODY / FIT sensor observation v0.1",
+  "type": "object",
+  "required": [
+    "schema",
+    "source_id",
+    "source_class",
+    "observed_property",
+    "result",
+    "phenomenon_time",
+    "availability",
+    "feature_of_interest"
+  ],
+  "properties": {
+    "schema": {
+      "const": "0xxx0/body-sensor-observation/v0.1"
+    },
+    "id": {
+      "type": "string"
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_class": {
+      "enum": [
+        "WEARABLE",
+        "HOUSE",
+        "PHONE",
+        "CLINICAL_DEVICE",
+        "SELF_REPORTED",
+        "IMPORT",
+        "OTHER"
+      ]
+    },
+    "observed_property": {
+      "type": "string",
+      "minLength": 1
+    },
+    "result": {
+      "type": "object",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "type": [
+            "string",
+            "number",
+            "integer",
+            "boolean",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "phenomenon_time": {
+      "type": "string"
+    },
+    "recorded_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "acquisition_method": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "availability": {
+      "enum": [
+        "LIVE",
+        "LAST_KNOWN",
+        "STALE",
+        "UNKNOWN"
+      ]
+    },
+    "source_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "fitting_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "feature_of_interest": {
+      "type": "object",
+      "required": [
+        "kind"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "BODY_ADDRESS",
+            "WHOLE_BODY",
+            "HOUSE_ADDRESS",
+            "OTHER"
+          ]
+        },
+        "body_address": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "house_area": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "provenance": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}
