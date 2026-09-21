@@ -404,6 +404,12 @@ const CASES=[
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"zh"/.test(dom)&&/"ta"/.test(dom)&&/"ja"/.test(dom)&&/"ar"/.test(dom)&&/"th"/.test(dom)&&/"count":3/.test(dom)
   },
   {
+    name:'READFIELD over APERTURE',
+    route:'/foundry/readfield/',
+    options:{width:430,height:900,budget:7000},
+    check:dom=>/READFIELD/i.test(dom)&&/RF\/02/i.test(dom)&&dom.includes('id="ap"')&&dom.includes('id="lineMap"')&&dom.includes('id="discMap"')&&dom.includes('HOLD CONTEXT')&&dom.includes('field-aperture.js')&&!dom.includes('load failure')
+  },
+  {
     name:'DOCS APERTURE',
     route:'/docs/',
     check:dom=>/DOCS \/ READ/i.test(dom)&&dom.includes('id="docAperture"')&&dom.includes('RAW SOURCE')
