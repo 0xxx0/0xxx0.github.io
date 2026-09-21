@@ -1,0 +1,41 @@
+{
+  "schema": "release-receipt/v1",
+  "name": "ONE RETURN / NINE GATE",
+  "version": "reified-0.2",
+  "state": "PLAYABLE_LINEAGE_LANE",
+  "released": "2026-09-21",
+  "route": "/sleeper/one-return/",
+  "parent": "/sleeper/",
+  "lineage": [
+    "attested ONE RETURN / Nine Gate standalone game",
+    "one_return_nine_gate_rebuilt_v0.1.html (2026-09-13)",
+    "Sleeper / Workfield / Semantic City family"
+  ],
+  "classification": "IMPORT_REIFIED_NOT_BYTE_IDENTICAL",
+  "preserves": [
+    "deterministic corpus-seeded ASCII labyrinth",
+    "semantic letters in walls",
+    "nine ordered Gates",
+    "CITY/DISC/TRACE same-state projections",
+    "radial DataDisc",
+    "RSVP encounter rail",
+    "semantic success deforms topology",
+    "previous RETURN ghost",
+    "append event trace",
+    "local persistence",
+    "JSON import/export",
+    "evidence-bearing RETURN witness"
+  ],
+  "distinction": {
+    "from_current_sleeper": "Current /sleeper/ POV 0.8 remains the active constraint/evidence head; ONE RETURN is a playable ancestor lane, not a replacement.",
+    "from_workfield": "Workfield remains the practical source/task substrate; maze traversal is preserved here because it is the point of this organism.",
+    "from_grid_path": "Grid Path Compiler is a later path/route instrument, not the maze-game head."
+  },
+  "provenance": "Reconstituted from the recovered runnable v0.1 source/content and recovery notes; original lost standalone executable is not claimed recovered.",
+  "verification": [
+    "single-file runtime",
+    "dependency-free core",
+    "browser smoke route required before merge",
+    "RETURN export schema one-return/import-reified-0.2"
+  ]
+}
