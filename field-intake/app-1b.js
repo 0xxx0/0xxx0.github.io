@@ -16,7 +16,8 @@ function renderHeader() {
     <span><b>${state.ingressReceipts.length}</b> receipts</span>
     <span><b>${envelope.candidates.length}</b> candidates</span>
     <span><b>${draft.split('\n').filter(line => line.trim()).length}</b> inbox lines</span>
-    ${notice ? `<span class="notice ${noticeTone}">${esc(notice)}</span>` : '<span class="notice">nothing mutates before APPLY PATCH</span>'}`;
+    ${notice ? `<span class="notice ${noticeTone}">${esc(notice)}</span>` : '<span class="notice">nothing mutates before APPLY PATCH</span>'}
+    ${incomingHandoff?.schema === '0xxx0/port-object-to-field-intake/v0.1' ? '<a class="notice" href="../port/">RETURN TO HUMAN PORT →</a>' : ''}`;
 }
 
 function renderKinds() {
