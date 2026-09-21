@@ -13,7 +13,8 @@
     "Added TEST: one explicit action/intervention, selected target, baseline return, timed recheck and before/after receipt; no causal claim.",
     "Added same-origin BODY↔HOUSE local bridge using private browser localStorage envelopes; no personal body state is committed to the repo.",
     "Preserved body-plan geometry version/view/region identity and kept CARE as the episode/handoff instrument.",
-    "Added export/import/plain projection for durable local ownership."
+    "Added export/import/plain projection for durable local ownership.",
+    "Added explicit browser-local BODY → CARE handoff; CARE offers import into the current case rather than mutating automatically."
   ],
   "checks": [
     "no remote anatomy dependency",
@@ -22,7 +23,8 @@
     "factor contrasts require >=3 with and >=3 without",
     "test output is descriptive only",
     "HOUSE bridge uses localStorage only",
-    "plain JSON export/import present"
+    "plain JSON export/import present",
+    "BODY→CARE handoff is localStorage only and requires explicit CARE import"
   ],
   "prior_art": [
     "How We Feel: low-friction emotion check-ins + body sensations/patterns",
