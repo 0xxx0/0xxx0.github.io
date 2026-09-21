@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FIELD / PLAY",
-  "version": "0.2",
+  "version": "0.3",
   "route": "/field-play.html",
   "state": "ACTIVE",
   "operation": "VERIFY",
   "released": "2026-09-21",
-  "purpose": "Turn public-safe unresolved FIELD gaps and selected public GitHub issues into bounded contributor missions with evidence-bearing RETURN receipts.",
+  "purpose": "Turn public-safe FIELD gaps and selected public GitHub issues into bounded contributor missions, projected through the shared MARK / COMPACT / FULL presentation and compositional glyph grammar.",
   "laws": [
     "MISSION != AUTHORITY",
     "ONE BOUNDED MOVE",
@@ -31,6 +31,16 @@
       "play_safe_only": true,
       "live_issue_visibility_on_FIELD_INDEX": true,
       "network_write": "NONE"
+    },
+    "shared_presentation": {
+      "kernel": "/field-presentation.js",
+      "glyph": "/field-glyph.js",
+      "densities": [
+        "MARK",
+        "COMPACT",
+        "FULL"
+      ],
+      "rule": "density changes representation only; mission identity/authority/return packet stay invariant"
     }
   },
   "known_gap": "No submission transport or shared scoreboard by design. GitHub issue missions are explicit public-safe selections; contributor returns are copied and reviewed before any repo mutation."
