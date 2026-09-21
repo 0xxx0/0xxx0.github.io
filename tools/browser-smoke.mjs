@@ -666,6 +666,7 @@ try{
     const fatal=/Uncaught (?:TypeError|ReferenceError|SyntaxError)|net::ERR_|Aw, Snap/i.test(r.err);
     const ok=r.code===0&&!fatal&&c.check(r.out);
     console.log((ok?'PASS':'FAIL'),c.name,c.route);
+    if(c.name==='LENS focused real-use observation')console.log('LENS REAL USE',textAtId(r.out,'probeResult'));
     if(!ok){
       const source=textAtId(r.out,'sourceState');
       const body=visibleText(r.out).slice(0,700);
