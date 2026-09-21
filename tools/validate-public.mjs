@@ -125,9 +125,9 @@ if(exists('field-aperture.js')){try{new Function(read('field-aperture.js'))}catc
 if(exists('showcase-nav.js')){
   const nav=read('showcase-nav.js');
   try{new Function(nav)}catch(e){fail.push('JS showcase-nav.js: '+e.message)}
-  check(nav.includes('tab inspect'),'shared route adapter missing ambient Aperture inspector');
-  check(nav.includes('field-aperture.js'),'ambient Aperture inspector missing shared component loader');
-  check(nav.includes('getSelection'),'ambient Aperture inspector missing selection-context path');
+  check(nav.includes('tab read'),'shared route adapter missing READFIELD action');
+  check(nav.includes('readfield.handoff.v1'),'shared route adapter missing READFIELD handoff');
+  check(nav.includes('getSelection'),'READFIELD handoff missing selection-context path');
 }
 const charters=parse('control/INSTRUMENT_CHARTERS.json');
 const apertureRelease=parse('foundry/aperture/release.json');
@@ -142,7 +142,7 @@ if(apertureRelease){
 }
 if(exists('foundry/aperture/index.html')){
   const ap=read('foundry/aperture/index.html');
-  for(const token of ['FOUNDRY / APERTURE','field-aperture.js','RSVP','SCALE LENS','TWO DIAL'])check(ap.includes(token),'Aperture surface token missing: '+token);
+  for(const token of ['APERTURE HAS CONVERGED INTO READFIELD','readfield.handoff.v1','/docs/'])check(ap.includes(token),'Aperture compatibility token missing: '+token);
   compileInline('foundry/aperture/index.html');
 }
 if(exists('field-play.html')){const play=read('field-play.html');check(play.includes('field-presentation.js'),'FIELD PLAY missing shared presentation kernel');check(play.includes('field-glyph.js'),'FIELD PLAY missing shared glyph grammar');}
@@ -188,7 +188,7 @@ check(home.includes('href="./returns/"'),'root missing RETURN FIELD link');
 check(home.includes('data-mode="STRUCTURE"'),'root missing STRUCTURE map mode');
 check(home.includes('data-mode="RECENT"'),'root missing RECENT lens');
 check(home.includes('data-mode="EVOLVE"'),'root missing EVOLVE lens');
-check(home.includes('AXIAL / LATEST'),'root missing AXIAL / LATEST compositor');
+check(home.includes('FIELD / FOCUS'),'root missing FIELD / FOCUS compositor');
 check(home.includes('data-mode="VISUAL"')&&home.includes('data-mode="PULSE"'),'root missing visual/pulse map projections');
 check(home.includes('>HEADS / LINEAGES<'),'root missing collapsed HEADS lineage reading');
 check(home.includes('MAP / PROJECTIONS'),'root missing MAP reading');
@@ -198,7 +198,7 @@ check(home.includes('ISSUES / REPO OPEN LOOPS'),'root missing ISSUES reading');
 check(home.includes('field-glyph.js'),'root missing shared FIELD glyph grammar');
 check(home.includes('field-presentation.js'),'root missing FIELD presentation kernel');
 check(home.includes('field-aperture.js'),'FIELD root missing reusable Aperture component');
-check(home.includes('id="apInspect"'),'FIELD root missing focused Aperture action');
+check(home.includes('id="apInspect"')&&home.includes('>READ</button>'),'FIELD root missing focused READFIELD action');
 if(exists('port/index.html')){const p=read('port/index.html');check(p.includes('field-aperture.js'),'HUMAN PORT missing reusable Aperture component');check(p.includes('id="inspectBtn"'),'HUMAN PORT missing Aperture intake action');}
 check(home.includes('id="axialLatest"'),'root missing unified AXIAL latest surface');
 check(home.includes('id="apOpen"'),'root missing explicit focus OPEN action');
