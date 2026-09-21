@@ -40,7 +40,8 @@
         "NAV / INSPECT / LENS remain distinct operations",
         "local PLAIN↔FOVEATED Lens proof bench with explicit receipt copy",
         "visible Lens proof entry in nav, aperture actions, LATEST and MAP",
-        "safe local focus→second-click OPEN friction cut"
+        "safe local focus→second-click OPEN friction cut",
+        "global manifest/receipt/law documents open through addressable DOCS projection; RAW preserved"
       ]
     },
     {
@@ -2550,20 +2551,25 @@
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": false,
-      "role": "Read-only control-document surface using the shared Field Aperture: selected JSON/Markdown remains canonical while scale/position focus and material host cues provide navigable structure; RAW remains available.",
+      "role": "Read-only addressable repository-document projection using the shared Field Aperture: any same-origin text-like file may enter by canonical source URL; scale/position/time and material host cues change only the reading, while RAW and RETURN preserve source identity and path home.",
       "index": {
-        "updated_at": "2026-09-21T17:45:00+08:00",
+        "updated_at": "2026-09-21T19:10:00+08:00",
         "work_modes": [
-          "SPECIFY",
+          "IMPLEMENT",
           "VERIFY"
         ]
       },
       "transfer": [
         "Field Aperture text/JSON scale ladder",
         "material host projection",
-        "same source / RAW fallback"
+        "same source / RAW fallback",
+        "same-origin ?src= document ingress",
+        "optional caller RETURN",
+        "global route-adapter document links → DOCS",
+        "canonical RAW source preserved"
       ],
-      "operation": "INSPECT"
+      "operation": "INSPECT",
+      "receipt": "/returns/DOCS_ADDRESSABLE_APERTURE_2026-09-21.json"
     },
     {
       "href": "/control/confluence/",
@@ -4794,7 +4800,8 @@
     "center_disposition": "Center Mass 0.3 is DONOR per CURRENT; PLAIN/FCM absorbed useful control mechanics. Reopen only on a named missing function.",
     "archive_surface_return": "/returns/ARCHIVE_SURFACE_RECONCILIATION_2026-09-21.json",
     "poem_map_boot_repair": "f63bbfbc02b4a5f0bd74b9b31fb5e447255f62b2",
-    "local_smoke_snapshot": "FIELD local/CI reads checked-in issue snapshot; public Pages keeps bounded live refresh."
+    "local_smoke_snapshot": "FIELD local/CI reads checked-in issue snapshot; public Pages keeps bounded live refresh.",
+    "docs_addressable_return": "/returns/DOCS_ADDRESSABLE_APERTURE_2026-09-21.json"
   },
   "capability_model": {
     "CAPTURE": {
