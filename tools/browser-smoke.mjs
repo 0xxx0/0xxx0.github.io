@@ -558,7 +558,7 @@ const CASES=[
     name:'FIELD',
     route:'/',
     options:{width:1040,height:820,budget:1800,timeout:18000},
-    check:dom=>dom.includes('id="axialLatest"')&&dom.includes('FIELD / FOCUS')&&/NOW/.test(dom)&&/CANONICAL ONE RETURN v2/.test(dom)&&/CONFLUENCE/.test(dom)
+    check:dom=>dom.includes('id="axialLatest"')&&dom.includes('FIELD / FOCUS')&&/NOW/.test(dom)&&/SLEEPER \/\/ ONE RETURN v2/.test(dom)&&/CONFLUENCE/.test(dom)
   },
   {
     name:'HUMAN PORT',
@@ -784,7 +784,7 @@ const CASES=[
     route:'/control/confluence/',
     check:dom=>{
       const tx=textAtId(dom,'transfers');
-      return /CONFLUENCE/i.test(dom)&&/COORDINATION SURFACE/i.test(dom)&&/POLISHED ONE RETURN v2/.test(dom)&&/ASCII RECON/.test(dom)&&/GRID PATH V4/.test(dom)&&/TRANSFER REGISTRY/i.test(dom)&&/IMPLEMENTED|PROOF_REQUIRED|PROPOSED/.test(tx)&&!/loading|unavailable/i.test(tx);
+      return /CONFLUENCE/i.test(dom)&&/COORDINATION SURFACE/i.test(dom)&&/CANONICAL ONE RETURN v2/.test(dom)&&/ASCII RECON/.test(dom)&&/GRID PATH V4/.test(dom)&&/TRANSFER REGISTRY/i.test(dom)&&/IMPLEMENTED|PROOF_REQUIRED|PROPOSED/.test(tx)&&!/loading|unavailable/i.test(tx);
     }
   },
   {
