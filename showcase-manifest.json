@@ -16,17 +16,17 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T20:34:00+08:00",
+        "updated_at": "2026-09-22T00:29:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "Fast repo re-entry around one focused manifest route, with an explicit NOW / RECOVER / TRANSFER rail before projection machinery so current authority, known missing objects, and cross-lineage handoff do not collapse into one list.",
+      "role": "Fast repo re-entry around one focused manifest route, with NOW / RECOVER / TRANSFER separated from projection machinery; TRACE / VERIFY now binds a local policy-resolution proof to the same focused route without turning tags, focus, or reference policies into authority.",
       "receipt": "/returns/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
       "machine_view": "FIELD",
-      "version": "0.6.1",
+      "version": "0.6.2",
       "transfer": [
         "AXIAL 0.6.1 unequal-vocabulary focus compositor",
         "selection != navigation",
@@ -50,10 +50,19 @@
         "Focus Ring primary path reduced to RETURN + DEEP LAB; proof machinery no longer competes with ordinary use",
         "NOW / RECOVER / TRANSFER re-entry states remain distinct",
         "CONFLUENCE promoted to root navigation rather than buried under Foundry",
-        "polished ONE RETURN v2 exposed as recovery target while ASCII reconstruction remains donor"
+        "polished ONE RETURN v2 exposed as recovery target while ASCII reconstruction remains donor",
+        "focus-bound local policy-resolution trace over the same FIELD route identity",
+        "seven-gate READ/REMEMBER/ACK/ANSWER/DRAFT/ACT/ESCALATE visualization",
+        "inline STRUCTURAL/REPLAY/SEALED verifier statuses with FAIL != INDETERMINATE",
+        "receipt-only local trace ledger; raw event text is not retained",
+        "policy trace remains a reference instrument, not live person/resource authority"
       ],
       "activation_law": "/control/FIELD_ACTIVATION_LAW.json",
-      "convergence_return": "/returns/FIELD_INDEX_CONVERGENCE_2026-09-21.json"
+      "convergence_return": "/returns/FIELD_INDEX_CONVERGENCE_2026-09-21.json",
+      "policy_trace_runtime": "/field-policy-trace.mjs",
+      "policy_trace_spec": "/policy-resolution-trace.schema.json",
+      "policy_trace_verifier": "/policy-trace-verifier.mjs",
+      "policy_trace_verification": "/policy-trace-verification.json"
     },
     {
       "href": "/contact/",
