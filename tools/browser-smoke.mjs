@@ -143,24 +143,25 @@ function listenIntakeProbeHtml(){
 }
 function fieldActivationProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/"></iframe><pre id="probeResult">PENDING</pre><script>
-  const result=document.getElementById('probeResult'),f=document.getElementById('f'),rec={};let finished=false;
+  const result=document.getElementById('probeResult'),f=document.getElementById('f'),rec={stage:'BOOT'};let finished=false;
   const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const stage=x=>{rec.stage=x;result.textContent='PENDING '+x+' '+JSON.stringify(rec)};
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-  const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
+  const waitFor=async(fn,limit=6000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw new Error('waitFor timeout @ '+rec.stage)};
   (async()=>{
     const W=()=>f.contentWindow,D=()=>W().document;
-    await waitFor(()=>W().FieldLensHost?.focus?.()?.href);
-    W().FieldLensHost.project('STRUCTURE');
-    const href='/fold-bloom/',row=await waitFor(()=>D().querySelector('.mapRow[data-href="'+href+'"]'));rec.href=href;
-    row.click();await waitFor(()=>W().FieldLensHost?.focus?.()?.href===href&&W().location.pathname==='/');
+    stage('FIELD_READY');await waitFor(()=>W().FieldLensHost?.focus?.()?.href);
+    stage('STRUCTURE');W().FieldLensHost.project('STRUCTURE');
+    const href='/fold-bloom/';stage('ROW');const row=await waitFor(()=>D().querySelector('.mapRow[data-href="'+href+'"]'));rec.href=href;
+    stage('FOCUS');row.click();await waitFor(()=>W().FieldLensHost?.focus?.()?.href===href&&W().location.pathname==='/');
     rec.focused=W().FieldLensHost.focus().href;rec.focusUrl=W().location.search;rec.target=W().FieldLensHost.focus()?.alias_of||href;
-    const same=await waitFor(()=>D().querySelector('.mapRow[data-href="'+href+'"]'));same.click();
-    await waitFor(()=>W().location.pathname===rec.target);rec.opened=W().location.pathname;
-    W().history.back();
-    await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===href);
+    stage('OPEN');const same=await waitFor(()=>D().querySelector('.mapRow[data-href="'+href+'"]'));same.click();
+    stage('OPENED');await waitFor(()=>W().location.pathname===rec.target);rec.opened=W().location.pathname;
+    stage('BACK');W().history.back();
+    stage('RETURNED');await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===href);
     rec.returned=W().FieldLensHost.focus().href;rec.returnUrl=W().location.search;
     done(rec.focused===href&&rec.opened===rec.target&&rec.returned===href&&/focus=/.test(rec.returnUrl),rec);
-  })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
+  })().catch(e=>done(false,{error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
 }
 function studioProbeHtml(){
