@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
   "version": "LIVE 0.2",
-  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFIED",
+  "status": "ACTIVE_CANDIDATE_MERGED",
   "date": "2026-09-22",
   "donors": [
     {
@@ -55,14 +55,16 @@
     "required_next": "direct phone play: load one real song inside LIVE; choose different forecast outcomes; compare muted vs synth vs custom-song play; judge CALL clarity and PERFECT/GOOD timing fairness",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
-    "merge_sha": "74b449d089963a71c29c1535ef457b154ba427a7",
+    "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
     "demo_browser_smoke": "PASS: CI run 35607729608 exposed LIVE demoBtn / WATCH DEMO",
     "sound_depth_merge_sha": "4d33e820ec0e7c98c3b5abfb46cbcd3f33467b21",
     "field_pulse": "/control/FIELD_PULSE_CONTRACT.json",
     "field_pulse_repo": "PASS REPO REGRESSION: public-surface-check run 35640203852; real LISTEN→LIVE cross-tab phone witness required",
     "field_pulse_merge_sha": "70d63be41dfc5d04b04063d2f90524dca0bb6526",
     "gameplay_branch": "fold-bloom-gameplay-020",
-    "gameplay_ci_run": 35656338927
+    "gameplay_ci_run": 35656338927,
+    "gameplay_pr": 119,
+    "runtime_full_pass": "public-surface-check run 35656338927"
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_GAMEPLAY_2026-09-22.json",
