@@ -19,7 +19,7 @@
       "returns/index.html"
     ],
     "route_count": 13,
-    "static_reference_count": 105,
+    "static_reference_count": 112,
     "runtime_literal_reference_count": 18
   },
   "result": "FAIL",
@@ -29,8 +29,38 @@
     "missing_receipts": [],
     "broken_static_refs": [
       {
-        "from": "foundry/methods/index.html",
-        "target": "foundry/core/",
+        "from": "index.html",
+        "target": "/",
+        "ok": false
+      },
+      {
+        "from": "foundry/aperture/index.html",
+        "target": "/",
+        "ok": false
+      },
+      {
+        "from": "foundry/axial/index.html",
+        "target": "/",
+        "ok": false
+      },
+      {
+        "from": "migration/index.html",
+        "target": "/",
+        "ok": false
+      },
+      {
+        "from": "control/confluence/index.html",
+        "target": "/",
+        "ok": false
+      },
+      {
+        "from": "recovery/index.html",
+        "target": "/",
+        "ok": false
+      },
+      {
+        "from": "returns/index.html",
+        "target": "/",
         "ok": false
       }
     ],
@@ -50,5 +80,6 @@
     "Dynamic links generated from recovered data are governed by their owning ledgers/manifests and are not exhaustively enumerated here.",
     "Frozen historical fossils are not modernized merely to satisfy current runtime conventions."
   ],
-  "next": "Prefer normal use and specific breakage reports over another broad redesign. If a route fails in-browser, capture exact route + action + visible error and repair that boundary."
+  "next": "Prefer normal use and specific breakage reports over another broad redesign. If a route fails in-browser, capture exact route + action + visible error and repair that boundary.",
+  "audit_correction": "Initial scan falsely flagged a valid directory target because the checker mishandled trailing slashes; rerun resolves directory routes against both tree nodes and index.html."
 }
