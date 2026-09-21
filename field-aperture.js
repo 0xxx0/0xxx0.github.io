@@ -99,9 +99,24 @@ class FieldAperture extends HTMLElement{
  }
 }
 customElements.define('field-aperture',FieldAperture);
+function ensureDock(){
+ let wrap=document.querySelector('[data-field-aperture-dock]');
+ if(wrap)return wrap;
+ wrap=document.createElement('aside');wrap.dataset.fieldApertureDock='1';
+ Object.assign(wrap.style,{position:'fixed',right:'8px',bottom:'8px',zIndex:'2147482000',width:'min(420px,calc(100vw - 16px))',background:'#07090a',boxShadow:'0 12px 40px rgba(0,0,0,.45)'});
+ const bar=document.createElement('div');Object.assign(bar.style,{display:'flex',justifyContent:'space-between',alignItems:'center',border:'1px solid #2a3439',borderBottom:'0',background:'#090d0f',padding:'4px 5px',font:'7px ui-monospace,monospace',color:'#7d898f'});
+ bar.innerHTML='<span>APERTURE / DOCK</span><span><button data-collapse style="font:inherit;color:#edf0ed;background:#090d0f;border:1px solid #2a3439;padding:2px 5px">−</button> <button data-close style="font:inherit;color:#edf0ed;background:#090d0f;border:1px solid #2a3439;padding:2px 5px">×</button></span>';
+ const el=document.createElement('field-aperture');el.dataset.fieldDock='1';wrap.append(bar,el);document.body.appendChild(wrap);
+ bar.querySelector('[data-close]').onclick=()=>wrap.remove();
+ bar.querySelector('[data-collapse]').onclick=e=>{const hidden=el.hidden=!el.hidden;e.currentTarget.textContent=hidden?'+':'−'};
+ return wrap;
+}
 window.FieldAperture={
  analyze,
  mount(target,source,opt={}){const el=document.createElement('field-aperture');target.appendChild(el);el.load(source,opt);return el},
- inspect(source,opt={}){let el=document.querySelector('field-aperture[data-field-global]');if(!el){el=document.createElement('field-aperture');el.dataset.fieldGlobal='1';document.body.appendChild(el)}el.load(source,opt);return el}
+ inspect(source,opt={}){let el=document.querySelector('field-aperture[data-field-global]');if(!el){el=document.createElement('field-aperture');el.dataset.fieldGlobal='1';document.body.appendChild(el)}el.load(source,opt);return el},
+ dock(source,opt={}){const wrap=ensureDock(),el=wrap.querySelector('field-aperture');el.hidden=false;wrap.querySelector('[data-collapse]').textContent='−';el.load(source,opt);return el},
+ closeDock(){document.querySelector('[data-field-aperture-dock]')?.remove()},
+ handoff(source,opt={}){try{sessionStorage.setItem('field.aperture.handoff.v01',JSON.stringify({source,label:opt.label||'Handoff',created_at:new Date().toISOString(),from:opt.from||location.pathname}))}catch(_){}}
 };
 })();
