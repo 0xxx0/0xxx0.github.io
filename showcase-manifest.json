@@ -3252,15 +3252,16 @@
       "family": "SLEEPER",
       "state": "ACTIVE",
       "showcase_card": false,
-      "role": "Lineage recovery shelf: exact Workfield v1.2 sibling donor plus explicit City Engine/Painting exact-source blockers.",
+      "role": "Sleeper lineage recovery shelf: Workfield v1.2 remains a frozen sibling donor; exact City Engine v0.2 source, later Painting runtime, and 13 reviewed project illustrations were recovered on 2026-09-21. Current /sleeper/ head remains unchanged.",
       "index": {
-        "updated_at": "2026-09-21T09:09:24.851148+00:00",
+        "updated_at": "2026-09-21T17:41:00+08:00",
         "work_modes": [
           "RECOVER",
           "VERIFY",
-          "RELEASE"
+          "OPERATE"
         ]
-      }
+      },
+      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json"
     },
     {
       "href": "/recovery/sleeper/workfield-v1.2/",
@@ -4061,65 +4062,58 @@
     {
       "href": "/poetry/",
       "title": "VERSE",
-      "kind": "workbench",
+      "kind": "hub",
       "parent": "/",
       "family": "PATH / POETRY",
-      "operation": "COMPOSE",
+      "operation": "ORIENT",
       "state": "ACTIVE",
       "showcase_card": true,
-      "role": "Small poetry re-entry/home routing into Poem Map current experiment and unequal specialist/donor instruments.",
+      "role": "Small Verse re-entry surface. Choose the authoring job first, then enter Poem Map, Pathweaver, Market+Solver, Verse Atlas, Grid Path, or the bounded lab. Navigation itself does not rewrite poem state.",
       "contract": {
         "accepts": {
           "kinds": [
-            "four-line seven-character Chinese verse draft",
-            "Jueju study source",
-            "recovered unresolved opener"
+            "authoring intent",
+            "poem or fragment already held by the user"
           ],
           "requires": [],
           "optional": [
-            "path",
-            "caesura",
-            "study projection"
+            "language",
+            "form",
+            "desired operation"
           ]
         },
         "transforms": {
-          "verb": "compose / study / project while preserving line-character identity and evidence class",
+          "verb": "orient to an unequal poetry instrument without claiming shared semantics",
           "preserves": [
-            "source line identity",
-            "character address",
-            "open-vs-verified claim status",
+            "user source",
+            "instrument boundaries",
             "return path"
           ],
           "reversibility": "full",
-          "side_effects": "local"
+          "side_effects": "none"
         },
         "emits": {
           "kinds": [
-            "verse state",
-            "study projection",
-            "path/glyph/RSVP projection",
-            "RETURN receipt"
+            "explicit route to authoring/study/path/constraint/experiment surface"
           ],
-          "machine_readable": true,
+          "machine_readable": false,
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/foundry/verse-atlas/?view=return",
+          "receipt": "/control/POETRY_CONVERGENCE_2026-09-21.json",
           "checks": [
-            "7-character source shape",
-            "historical rime remains OPEN without source",
-            "平/仄 remains OPEN without source",
-            "RETURN replay"
+            "Poem Map is current candidate authoring head",
+            "Verse Atlas remains sealed specialist",
+            "donors stay explicit"
           ],
           "return_path": "/poetry/"
         }
       },
       "transfer": [
-        "open composition flow from Pathweaver",
-        "Verse Atlas evidence firewall",
-        "study projection",
-        "temporal reading",
-        "explicit donor lineage"
+        "action-first re-entry",
+        "unequal instrument routing",
+        "source sovereignty",
+        "plain return path"
       ],
       "index": {
         "updated_at": "2026-09-21T15:50:00+08:00",
