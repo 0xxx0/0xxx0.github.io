@@ -495,5 +495,13 @@
     "reconstruction_test": "When promoting a reusable mechanism, prefer demonstrated reconstruction from durable state over persuasive narration.",
     "source_of_next": "CURRENT.next_single_action, QUEUE, or an explicit human/worker selection after RETURN."
   },
-  "last_state_survey": "/control/STATE_SURVEY_2026-09-21_1731.json"
+  "last_state_survey": "/control/STATE_SURVEY_2026-09-21_1731.json",
+  "last_afk_action_surface": "/control/AFK_ACTION_SURFACE_2026-09-21.json",
+  "last_worker_packet": "/control/packets/INGEST_ONE_FAMILY_2026-09-21.json",
+  "worker_state": {
+    "backup_ingest": "VERIFIED_BOUNDED_2026-09-21",
+    "current_local_followup": "INGEST-01 / one family semantic review",
+    "codex_handoff": "private issue #8",
+    "note": "No broad rescan, no automatic file mutation, no change to CURRENT.next_single_action."
+  }
 }
