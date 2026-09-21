@@ -39,6 +39,8 @@ jobs:
         env:
           SMOKE_ONLY: FOLD BLOOM LISTEN preview render
         run: node tools/browser-smoke.mjs
+      - name: Test FOLD BLOOM LIVE engine
+        run: node --test fold-bloom/live/tests/engine.test.mjs
       - name: Run critical browser smoke
         run: node tools/browser-smoke.mjs
       - name: Validate recovered source identities and media catalogue
