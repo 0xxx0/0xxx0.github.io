@@ -162,7 +162,7 @@
       "name": "Identity-locked Focus Ring / inline Toolglass",
       "delta": "the current host-selected object opens one spatially attached Lens controller; aperture, projection, composition and RETURN remain refractions over that identity; SELECT remains outside Lens",
       "proof": "mobile and desktop: find current identity, change scope, switch projection, RETURN in <=2 interactions per operation; no horizontal overflow",
-      "status": "PROMOTED_G2",
+      "status": "PROMOTED_VERIFIED",
       "implementation": {
         "route_adapter": "/showcase-nav.js",
         "shared_state": "/lens-state.js",
@@ -182,12 +182,15 @@
         "boundary": "FIELD/AXIAL owns SELECT. Lens owns APERTURE / VIEW / STACK / RETURN."
       },
       "remaining_proof": [],
-      "state": "IMPLEMENTED_PROVED_G2",
+      "state": "IMPLEMENTED_PROVED_G2_MASTER",
       "evidence": {
         "lens_state_laws": "18/18 PASS",
         "static_surface_contracts": "PASS",
         "browser": "Lens-specific paths PASS twice on workflow 35606632845; aggregate job red only on unrelated DOCS RSVP focus-kernel timeout",
-        "receipt": "/control/LENS_FI_TOOLGLASS_G2_2026-09-21.json"
+        "receipt": "/control/LENS_FI_TOOLGLASS_G2_2026-09-21.json",
+        "master_merge": "d8a3b35ea51a5705e61e986f8cad6d3e80887397",
+        "master_workflow_run": 35607198414,
+        "master_workflow": "SUCCESS"
       }
     },
     {
@@ -222,11 +225,16 @@
     "do not delete deep Scale Studio capability"
   ],
   "return": {
-    "next": "Use G2 in ordinary FIELD work. Do not add Lens features until a repeated task exposes a concrete deficit.",
+    "next": "Use G2 in ordinary FIELD work. No Lens feature work until repeated use exposes a concrete deficit.",
     "current_grammar": "HOST SELECTS OBJECT → LENS APERTURE / VIEW / STACK → DEEP LAB if needed → RETURN restores caller.",
-    "test_anchor": "G2 identity-locked FI Toolglass is promoted; FOVEATE remains parked after no clear human gain.",
+    "state": "G2_PROMOTED_VERIFIED",
+    "master_proof": {
+      "merge": "d8a3b35ea51a5705e61e986f8cad6d3e80887397",
+      "workflow_run": 35607198414,
+      "result": "SUCCESS"
+    },
     "code_contract_receipt": "/control/LENS_FI_TOOLGLASS_G2_2026-09-21.json",
-    "separate_repo_issue": "DOCS RSVP focus-kernel browser smoke timed out on PR attempts while Lens-specific cases passed; not repaired in Lens branch."
+    "note": "Pre-merge DOCS RSVP smoke flaked twice; master merge run passed the complete suite without Lens changing DOCS."
   },
   "execution": {
     "branch": "lens-convergence-contract-20260921",
