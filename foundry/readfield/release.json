@@ -1,0 +1,72 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "READFIELD / APERTURE READER",
+  "version": "RF/02",
+  "route": "/foundry/readfield/",
+  "state": "EXPERIMENT",
+  "operation": "REPRESENT",
+  "released": "2026-09-21",
+  "kernel": {
+    "route": "/field-aperture.js",
+    "release": "/foundry/aperture/release.json",
+    "version": "0.6",
+    "law": "APERTURE owns source analysis, canonical cursor, scale, ORP, RSVP and voice. READFIELD owns reader projections, marks and experiment receipts."
+  },
+  "donors": [
+    {
+      "source": "/recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html",
+      "unit": "temporal focus + speech-boundary cursor"
+    },
+    {
+      "source": "/recovery/sleeper/site-source-2026-09-18/experiments/painting/",
+      "unit": "PULSE pause/context + same-source return"
+    },
+    {
+      "source": "/foundry/verse-atlas/",
+      "unit": "one addressed source across spatial/temporal projections"
+    },
+    {
+      "source": "/recovery/path-grid/",
+      "unit": "source → address → projection → RETURN discipline"
+    },
+    {
+      "source": "READFIELD RF-01 AppDeploy",
+      "unit": "FLOW / hold-context / SHEET / LINE↔DISC experimental shell"
+    }
+  ],
+  "controls": [
+    "FLOW shared APERTURE 0.6 kernel",
+    "hold-to-open context aperture",
+    "source-stable MARK",
+    "VOICE from current focus",
+    "MAP LINE↔DISC information-matched topology switch",
+    "E1 local event receipt",
+    "SHEET structural contact sheet",
+    "TEXT source/return projection",
+    "local source replacement"
+  ],
+  "invariants": [
+    "one source cursor across projections",
+    "source bytes are not copied into experiment receipts",
+    "MAP geometry may seek but does not create semantic meaning",
+    "DataDisc remains experimental against LINE",
+    "marks are host-owned and address the canonical source position",
+    "RETURN includes kernel snapshot + host marks/view/experiment state"
+  ],
+  "non_claims": [
+    "No universal RSVP comprehension advantage.",
+    "No DataDisc superiority claim.",
+    "No claim that contact-sheet selection is semantic summarization.",
+    "No new state authority beyond the shared APERTURE kernel."
+  ],
+  "verification": {
+    "shared_component": "/field-aperture.js",
+    "expected_kernel": "field-aperture-focus/v0.2",
+    "network_write": "NONE",
+    "local_only": true,
+    "smoke": "PENDING_BRANCH_VALIDATION"
+  },
+  "capability": "Read one addressed source through temporal focus, context recovery, structural scan, plain source and controlled minimap topology without losing the canonical source position.",
+  "next": "Use normally. Promote context/marks/map mechanisms into the shared kernel only if ordinary use exposes repeated cross-host value.",
+  "return": "/returns/READFIELD_APERTURE_CONVERGENCE_2026-09-21.json"
+}
