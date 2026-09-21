@@ -88,17 +88,23 @@
       "public_surface_check_run": 35530945950
     },
     "actualize_1": {
-      "status": "PENDING_CURRENT_BRANCH_CI",
+      "status": "VERIFIED_MERGED",
       "branch": "lens-studio-actualize-20260921",
+      "pr": 75,
+      "branch_workflow_run": 35596244925,
+      "master_workflow_run": 35596397684,
+      "pages_run": 35596396716,
+      "result": "PASS",
       "requirements": [
-        "static surface contracts",
-        "390px/desktop browser smoke",
-        "Lens mobile exact RETURN",
-        "FIELD activation + re-entry",
-        "Lens STACK → Studio → RETURN"
+        "static surface contracts PASS",
+        "browser smoke PASS",
+        "Lens mobile exact RETURN PASS",
+        "FIELD activation + re-entry PASS",
+        "Lens STACK → Studio → RETURN PASS",
+        "Pages deployment PASS"
       ]
     }
   },
-  "known_gap": "No Lens architecture proof gap remains. FOVEATE is parked after no clear human gain. actualize-1 must pass current full browser CI before release; exact historical red-dot RSVP ring remains unrecovered.",
+  "known_gap": "No Lens architecture proof gap remains. FOVEATE is parked after no clear human gain; actualize-1 is verified/merged. Exact historical red-dot RSVP ring remains unrecovered.",
   "updated": "2026-09-21"
 }
