@@ -1,0 +1,40 @@
+{
+  "schema": "donor-transplant/v0.1",
+  "date": "2026-09-21",
+  "donor": {
+    "source": "/foundry/axial/",
+    "version": "0.7",
+    "evidence": "/foundry/axial/release.json",
+    "state": "PROOF_REQUIRED"
+  },
+  "recipient": {
+    "address": "/",
+    "surface": "FIELD INDEX / AXIAL LATEST"
+  },
+  "transfer": {
+    "operation": "GRAFT",
+    "unit": "lawful-support field over unequal aligned vocabularies",
+    "preserves": [
+      "exact per-position support counts under all other selected dimensions",
+      "zero-support positions remain selectable but visibly dim",
+      "one fixed focus gate",
+      "exact route identity",
+      "shareable deep focus",
+      "no auto-correction to nearest valid state"
+    ],
+    "adaptation": [
+      "support count also drives a small visual support bar per token",
+      "current exact matches render as a compact survivor glyph set",
+      "survivor-count history renders as a collapse trail such as 83→12→3→1",
+      "plain newest-first LATEST remains the control directly below",
+      "local-only passive trial counts AXIAL-vs-LATEST focus and OPEN behavior"
+    ]
+  },
+  "result": "The embedded compositor now exposes the shape of the remaining possibility space before selection, not only the selected value after the fact.",
+  "non_claims": [
+    "No usability superiority is claimed.",
+    "Support count is lawful compatibility under current manifest dimensions, not importance or probability.",
+    "The collapse trail is interaction residue, not a score.",
+    "Local trial data never leaves the browser automatically."
+  ]
+}
