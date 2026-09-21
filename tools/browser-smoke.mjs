@@ -172,10 +172,10 @@ function studioProbeHtml(){
   const compact=x=>({focusHref:x?.focusHref||null,projection:x?.projection||null,mapRoot:x?.mapRoot||null,mapOpen:!!x?.mapOpen});
   (async()=>{
     const W=()=>f.contentWindow,D=()=>W().document;
-    await waitFor(()=>D().getElementById('apLens')&&W().FieldLensHost&&W().FieldLensAPI&&W().LensFocusRing&&W().FieldLensHost.focus?.()?.href==='/fold-bloom/lens/');
+    const sh=await waitFor(()=>D().getElementById('apLens')&&W().FieldLensHost&&W().FieldLensAPI&&W().LensFocusRing&&W().FieldLensHost.focus?.()?.href==='/fold-bloom/lens/'?D().getElementById('lens-focus-ring')?.shadowRoot:null);
     rec.startHref=W().FieldLensHost.focus()?.href||null;rec.start=compact(W().FieldLensHost.uiState());
     D().getElementById('apLens').click();
-    const sh=await waitFor(()=>D().getElementById('lens-focus-ring')?.shadowRoot);await waitFor(()=>sh.querySelector('.panel')?.classList.contains('on'));
+    await waitFor(()=>sh.querySelector('.panel')?.classList.contains('on'));
     rec.inline=sh.host?.dataset?.placement==='inline'&&sh.host?.previousElementSibling?.id==='aperture';
     rec.noPeer=!sh.querySelector('.next')&&!sh.querySelector('.prev');
     rec.noPeerApi=typeof W().FieldLensAPI?.peer==='undefined';
