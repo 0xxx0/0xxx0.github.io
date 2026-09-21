@@ -7,6 +7,14 @@
 
 ## What to share
 
+**Before requesting another export:** inspect the [already recovered source shelf](../../recovery/sleeper/site-source-2026-09-18/) and [hash manifest](../../recovery/sleeper/site-source-2026-09-18/manifest.json). PR #61 published the causal City source; the later target record had not reconciled that evidence.
+
+The recovered Git history contains the 2026-09-10 causal-engine commit `a9c00285df143f3c2054b2167e86ee2f6db2ae1f`. Its world law, layout, protocol, seed and design document survive unchanged in the exported snapshot. The client has two later Interphase navigation-link additions. This is exact core continuity, **not** whole-version or visual equivalence.
+
+The public snapshot distinguishes **three figures** (`urchin`, `slothcake`, `kite`) from **four operators** (`conch`, `keris`, `w8`, `spiral`). Its world URL serializes `source`, `cell`, `figure`, `world`; its v2 witness restores verified inputs, not a completed play trace. Do not overwrite the recalled four-configuration evidence or silently relabel operators as figures.
+
+The remaining gate is **which version/UI the user meant, then runtime verification**—not a claim that no City source exists. If this snapshot differs from the intended version, request only the discriminating selector screenshot, two Witness exports, or exact version/source difference. No new public head or runtime is authorised by this pointer repair.
+
 Best handoff, in descending order:
 
 1. **Work project/source export** — zip/folder containing source + package/config + docs + tests.
@@ -53,9 +61,9 @@ Recovered distinctions:
 - **FIGURE** affects movement/protocol physics — this is the defining discriminator from the ASCII reconstruction.
 - reproducible world/deep links and Witness import/export existed.
 
-## Import rule
+## Import rule for a genuinely different or more complete target
 
-When the real project arrives:
+When additional target evidence or a more complete project arrives:
 
 1. preserve it first under a frozen recovery/source shelf;
 2. run it without rewriting;
