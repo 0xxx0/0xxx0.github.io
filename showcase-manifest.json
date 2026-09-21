@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-22T00:31:00+08:00",
+        "updated_at": "2026-09-22T00:42:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -58,7 +58,10 @@
         "policy trace remains a reference instrument, not live person/resource authority",
         "TRACE / VERIFY sits immediately after AXIAL and before LATEST chronology",
         "focused-object TRACE action opens the same root instrument beside INSPECT / AXIAL / LENS / COMPARE",
-        "focus change invalidates the displayed trace binding until rerun; stale traces cannot be committed as current"
+        "focus change invalidates the displayed trace binding until rerun; stale traces cannot be committed as current",
+        "context-aware TRACE demo chooses COMMS / HOUSE / CHANGE from the currently focused FIELD route",
+        "AXIAL focus handoff preserves exact FIELD route or HOUSE anchor identity into TRACE selector facts",
+        "first TRACE open demonstrates the mechanism automatically, then remains an editable local instrument"
       ],
       "activation_law": "/control/FIELD_ACTIVATION_LAW.json",
       "convergence_return": "/returns/FIELD_INDEX_CONVERGENCE_2026-09-21.json",
@@ -1876,13 +1879,13 @@
     },
     {
       "href": "/foundry/axial/",
-      "title": "AXIAL / FOCUS STACK 0.7.2",
+      "title": "AXIAL / FOCUS STACK 0.7.3",
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "ORIENT",
       "state": "ACTIVE",
-      "version": "0.7.2",
+      "version": "0.7.3",
       "receipt": "/foundry/axial/release.json",
       "showcase_card": false,
       "transfer": [
@@ -1903,7 +1906,8 @@
         "Painting / Path overview→local orientation",
         "ONE RETURN ghostTrail / witness residue",
         "explicit transfer-study loop: donor→friction→evidence→use→verdict",
-        "shared Constraint Surface kernel: source-neutral survivor/support law"
+        "shared Constraint Surface kernel: source-neutral survivor/support law",
+        "focused address → FIELD policy trace handoff without granting authority"
       ],
       "contract": {
         "accepts": {
@@ -1940,7 +1944,8 @@
             "per-position support counts",
             "reloadable AXIAL focus URL",
             "local engineering witness",
-            "interaction ghost trail"
+            "interaction ghost trail",
+            "focus-preserving policy trace handoff packet"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -1958,7 +1963,8 @@
             "deep focus reload reconstructs the addressed identity",
             "overview selection round-trips into canonical ring state",
             "witness export includes state + residue + local study counts",
-            "no silent adaptive remapping"
+            "no silent adaptive remapping",
+            "TRACE handoff preserves selected FIELD route or HOUSE anchor identity while leaving authority resolution to FIELD policy trace"
           ],
           "return_path": "/foundry/axial/"
         }
@@ -2006,6 +2012,11 @@
             "medium": "DATA",
             "kind": "reloadable focus address",
             "interface": "URL"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "policy trace handoff",
+            "interface": "session-local AXIAL → FIELD TRACE"
           }
         ],
         "exit_paths": [
@@ -2023,12 +2034,17 @@
             "class": "PHYSICAL_BODY",
             "status": "DEFERRED",
             "via": "only after useful ring composition is proven"
+          },
+          {
+            "class": "POLICY_TRACE",
+            "status": "AVAILABLE",
+            "via": "FIELD INDEX TRACE / VERIFY reference instrument"
           }
         ],
         "physical_fit": "Physical cylinder is now an optional later projection of a useful variable-cardinality ring stack, not the reason the software exists."
       },
       "index": {
-        "updated_at": "2026-09-21T17:04:00+08:00",
+        "updated_at": "2026-09-22T00:42:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
