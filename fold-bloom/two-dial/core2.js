@@ -590,7 +590,7 @@ function toast(v) {
   setTimeout(() => z.classList.remove('on'), 420);
 }
 function buzz() {
-  if (!prefs.haptic) return;
+  if (demo?.preview || !prefs.haptic) return;
   try {
     navigator.vibrate?.(5);
   } catch (e) {}
