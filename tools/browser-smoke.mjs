@@ -455,7 +455,70 @@ function oneReturnGridReceiptProbeHtml(){
   <\/script></body></html>`;
 }
 
+
+function humanPortSpecimenProbeHtml(){
+  return \`<!doctype html><html><body style="margin:0"><iframe id="f" style="width:1100px;height:820px;border:0;display:block" src="/port/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=14000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw Error('waitFor timeout: '+label)};
+  const W=()=>f.contentWindow,D=()=>W().document,SESSION='human.port.object.session.v01';
+  const hex=buf=>[...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+  async function portReady(){return waitFor(()=>W().location.pathname==='/port/'&&D().getElementById('fileInput')&&W().PortObjectStore,true,14000,'port ready')}
+  function session(){try{return JSON.parse(W().sessionStorage.getItem(SESSION)||'null')}catch(_){return null}}
+  async function loadRepoFile(src,name,type){
+    const rr=await fetch(src,{cache:'no-store'});if(!rr.ok)throw Error('fixture '+rr.status+' '+src);const ab=await rr.arrayBuffer();
+    const expected=hex(await crypto.subtle.digest('SHA-256',ab)),file=new W().File([ab],name,{type});
+    const dt=new W().DataTransfer();dt.items.add(file);const input=D().getElementById('fileInput');input.files=dt.files;input.dispatchEvent(new W().Event('change',{bubbles:true}));
+    const st=await waitFor(()=>{const x=session();return x?.obj?.label===name&&D().getElementById('work')?.classList.contains('on')?x:null},14000,'object '+name);
+    return {st,expected};
+  }
+  async function intakeRoundTrip(tag,beforeFocus=null){
+    const route=await waitFor(()=>D().querySelector('[data-route="intake"]'),8000,'intake route');route.click();
+    const gate=await waitFor(()=>{const x=D().getElementById('openGate');return x&&!x.disabled?x:null},8000,'intake gate');
+    gate.click();
+    const raw=W().sessionStorage.getItem('field.intake.handoff.v01'),handoff=raw?JSON.parse(raw):null;
+    await waitFor(()=>W().location.pathname==='/field-intake/'&&D().getElementById('acceptSafeBtn'),14000,'field intake');
+    const capture=D().getElementById('captureInput')?.value||'';
+    D().getElementById('acceptSafeBtn').click();await sleep(100);D().getElementById('applyBtn').click();
+    const ret=await waitFor(()=>{const x=W().sessionStorage.getItem('human.port.object.return.v01');return x?JSON.parse(x):null},10000,'intake return');
+    f.src='/port/';await portReady();
+    await waitFor(()=>D().getElementById('objectBar')?.classList.contains('on'),10000,'port reentry');await sleep(180);
+    const after=session(),status=D().getElementById('status')?.textContent||'';
+    return {tag,handoff,capture,ret,after,status,beforeFocus,afterFocus:after?.focus?.address||null};
+  }
+  (async()=>{
+    await portReady();await W().PortObjectStore.clear();W().sessionStorage.clear();W().localStorage.removeItem('human.port.object.receipts.v01');f.src='/port/';await portReady();
+
+    const image=await loadRepoFile('/recovery/sleeper/site-source-2026-09-18/public/confluence-engine.png','confluence-engine.png','image/png');
+    const imageId=image.st.obj.object_id,imageHash=image.st.obj.sha256,imageRt=await intakeRoundTrip('image');
+    rec.image={media:image.st.obj.media_class,hashExact:imageHash===image.expected,idSame:imageRt.ret.object_id===imageId&&imageRt.after?.obj?.object_id===imageId,provenanceOrigin:imageRt.handoff?.source_object?.provenance?.origin||null,returnState:imageRt.ret.state,status:imageRt.status};
+
+    const json=await loadRepoFile('/control/READFIELD_CONVERGENCE_2026-09-22.json','READFIELD_CONVERGENCE_2026-09-22.json','application/json');
+    const ap=await waitFor(()=>D().querySelector('#projectionMount field-aperture'),8000,'json aperture');
+    ap.shadowRoot.getElementById('scaleUp').click();ap.shadowRoot.getElementById('next').click();
+    await waitFor(()=>session()?.focus?.address&&session().focus.address!=='$',8000,'json focus');
+    D().getElementById('scopeFocus').click();await sleep(100);
+    const jsonBefore=session(),jsonFocus=jsonBefore.focus?.address||null,jsonId=jsonBefore.obj.object_id,jsonHash=jsonBefore.obj.sha256;
+    const jsonRt=await intakeRoundTrip('json',jsonFocus);
+    rec.json={media:jsonBefore.obj.media_class,hashExact:jsonHash===json.expected,idSame:jsonRt.ret.object_id===jsonId&&jsonRt.after?.obj?.object_id===jsonId,focusBefore:jsonFocus,focusAfter:jsonRt.afterFocus,focusPreserved:jsonFocus===jsonRt.afterFocus,provenanceOrigin:jsonRt.handoff?.source_object?.provenance?.origin||null,returnState:jsonRt.ret.state,status:jsonRt.status};
+
+    const file=await loadRepoFile('/recovery/axial/compositor-v0.2/print-template.svg','axial-compositor-v0.2-print-template.svg','application/octet-stream');
+    const fileId=file.st.obj.object_id,fileHash=file.st.obj.sha256,generic=/GENERIC FILE/.test(D().getElementById('projectionMount')?.textContent||'');
+    const fileRt=await intakeRoundTrip('file');
+    rec.file={media:file.st.obj.media_class,hashExact:fileHash===file.expected,idSame:fileRt.ret.object_id===fileId&&fileRt.after?.obj?.object_id===fileId,generic,provenanceOrigin:fileRt.handoff?.source_object?.provenance?.origin||null,returnState:fileRt.ret.state,status:fileRt.status};
+
+    rec.observation={provenancePreserved:[rec.image.provenanceOrigin,rec.json.provenanceOrigin,rec.file.provenanceOrigin].every(Boolean),jsonFocusPreserved:rec.json.focusPreserved};
+    done(true,rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
+  <\\/script></body></html>\`;
+}
+
 const server=http.createServer((req,res)=>{
+  if(String(req.url||'').startsWith('/__smoke/human-port-specimens')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(humanPortSpecimenProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/lens-real-use')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(lensRealUseProbeHtml());return;
@@ -554,6 +617,12 @@ function visibleText(dom){
   return String(dom||'').replace(/<script[\s\S]*?<\/script>/gi,' ').replace(/<style[\s\S]*?<\/style>/gi,' ').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
 }
 const CASES=[
+  {
+    name:'HUMAN PORT specimen observation',
+    route:'/__smoke/human-port-specimens',
+    options:{width:1200,height:900,budget:36000,timeout:46000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"image"/.test(dom)&&/"json"/.test(dom)&&/"file"/.test(dom)
+  },
   {
     name:'FIELD',
     route:'/',
@@ -815,6 +884,7 @@ try{
     const ok=r.code===0&&!fatal&&c.check(r.out);
     console.log((ok?'PASS':'FAIL'),c.name,c.route);
     if(c.name==='LENS focused real-use observation')console.log('LENS REAL USE',textAtId(r.out,'probeResult'));
+    if(c.name==='HUMAN PORT specimen observation')console.log('HUMAN PORT SPECIMENS',textAtId(r.out,'probeResult'));
     if(!ok){
       const source=textAtId(r.out,'sourceState'),probe=textAtId(r.out,'probeResult');if(probe)console.log('SMOKE PROBE',c.name,probe.slice(0,1800));
       const body=visibleText(r.out).slice(0,900);if(body)console.log('SMOKE BODY',c.name,body);
