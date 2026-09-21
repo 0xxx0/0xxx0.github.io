@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
-  "version": "LIVE 0.3",
-  "status": "ACTIVE_CANDIDATE_MERGED",
+  "version": "LIVE 0.4",
+  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
   "date": "2026-09-22",
   "donors": [
     {
@@ -47,7 +47,14 @@
     "bad or missed section boundaries never invalidate moves or apply penalties",
     "renderer adds a low-clutter outer section-progress ring and late-section close witness",
     "LISTEN/LIVE transport exposes section count/start/end/progress for same-page and FIELD PULSE paths",
-    "LISTEN now records browser/CORS remote failures explicitly; Suno blocked state tells the player to use the proven MP3 path"
+    "LISTEN now records browser/CORS remote failures explicitly; Suno blocked state tells the player to use the proven MP3 path",
+    "TRACKFIELD v0.1: the same AUDIO MAP used for timing is projected as future perspective terrain",
+    "energy + flux shape road impact/width/rise; spectral balance bends the route; beat changes cross the road; coarse section changes become gates",
+    "strong measured surges can be visible seconds before arrival, shifting LIVE from telemetry toward anticipation",
+    "TRACKFIELD is projection-only: no second hidden world model and no invented verse/chorus semantics",
+    "LIVE onboarding now runs a silent reversible real-mechanism demo behind the intro; preview never persists, vibrates or emits FIELD operations",
+    "TWO DIAL receives the same reversible silent autoplay onboarding rule while remaining the composition branch",
+    "family roles are explicit: LIVE rides external/owned audio; TWO DIAL composes music/form; ECOLOGY evolves persistent lineage"
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -55,13 +62,16 @@
     "promote only after desktop + touch playtest demonstrates clearer agency and stronger sound than the donor",
     "external track pulse never auto-releases or mutates LIVE topology",
     "CALL/forecast gameplay must remain legible and complete with audio muted and with LISTEN absent",
-    "section analysis is approximate temporal evidence, not semantic truth and not a source of mandatory moves"
+    "section analysis is approximate temporal evidence, not semantic truth and not a source of mandatory moves",
+    "TRACKFIELD geometry must remain derivable from AUDIO MAP features and time; do not fork a decorative visualizer state model",
+    "provider/catalog integrations remain downstream of a compelling local-MP3 game loop",
+    "silent onboarding preview is non-authoritative and must restore clean state on takeover"
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "Direct phone MP3 play across several detected sections: judge ARC readability, two-verb readiness, late RETURN seal, section-boundary plausibility and whether sealing creates desire to continue.",
+    "required_next": "CI + direct phone MP3 ride: confirm perspective track is visible/useful, upcoming surges/section gates create anticipation, ring remains legible over the road, and autoplay preview hands off cleanly.",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
@@ -78,10 +88,11 @@
     "section_arc_branch": "fold-bloom-section-arc-030",
     "section_arc_pr": 134,
     "section_arc_merge_sha": "d6341f639ff53ab3adefef1554739965021de641",
-    "section_arc_ci": "PASS: public-surface-check run 35663346071 including LIVE gameplay + track + section-arc tests and phone-sized critical browser smoke"
+    "section_arc_ci": "PASS: public-surface-check run 35663346071 including LIVE gameplay + track + section-arc tests and phone-sized critical browser smoke",
+    "trackfield_branch": "fold-bloom-trackfield-040"
   },
   "execution_contract": "./EXECUTION.md",
-  "return": "/returns/FOLD_BLOOM_SECTION_ARC_2026-09-22.json",
+  "return": "/returns/FOLD_BLOOM_TRACKFIELD_2026-09-22.json",
   "updated": "2026-09-22",
   "observed_user_return": {
     "date": "2026-09-22",
@@ -90,5 +101,19 @@
     "section_differences": "PARTIALLY_WORKING / USEFUL ENOUGH TO ADVANCE",
     "suno_link": "BLOCKED",
     "interpretation": "Promote local MP3 + section structure; demote Suno link resolution from gameplay gate to best-effort source adapter."
+  },
+  "observed_user_return_0_4": {
+    "date": "2026-09-22",
+    "confidence": "DIRECT_USER_REPORT",
+    "live_0_3": "KINDA_WORKS / PRETTY_COOL",
+    "failure": "LACKS_AUDIOSURF_LEVEL_HOOK_IMMERSION_DROP_IMPRESSIVENESS",
+    "requests": [
+      "scale ambition",
+      "brief media integration survey",
+      "update visualization",
+      "keep homoiconic/structurally reflexive direction",
+      "autoplay demonstrations for onboarding",
+      "clarify LIVE vs TWO DIAL vs ECOLOGY"
+    ]
   }
 }

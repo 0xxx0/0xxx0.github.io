@@ -1,4 +1,5 @@
 import { N, TYPE_NAMES, gateCellIndex, isAligned, forecastAtSlot, forecastRelease, forecastMatchesCall, callLabel, clamp } from './engine.js';
+import {projectTrackfield} from './trackfield.js';
 
 const TAU=Math.PI*2;
 const COLORS=['#ff9852','#6dbdff','#72e4b6'];
@@ -6,7 +7,7 @@ const COLORS=['#ff9852','#6dbdff','#72e4b6'];
 export class Renderer {
   constructor(canvas) {
     this.cv=canvas; this.g=canvas.getContext('2d'); this.w=0;this.h=0;this.cx=0;this.cy=0;this.r=0;
-    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;
+    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;
     this.resize();
     addEventListener('resize',()=>this.resize(),{passive:true});
   }
@@ -15,12 +16,70 @@ export class Renderer {
   beatPulse(step,energy=.35){this.beat=step%16;this.beatAt=performance.now();this.beatEnergy=clamp(Number(energy)||0,0,1)}
   setDrag(offset){this.dragOffset=offset}
   setSectionArc(view){this.sectionArc=view||null}
+  setTrackfield(world){this.trackfield=world||null}
   slotAngle(i,state){return -Math.PI/2 + (i+state.rotation)*TAU/N + this.dragOffset}
   draw(state,now=performance.now()){
-    const g=this.g;g.clearRect(0,0,this.w,this.h);this._background(state,now);this._section(state,now);this._creases(state,now);this._ring(state,now);this._gate(state,now);this._causal(state,now);this._pulses(state,now);this._center(state,now)
+    const road=!!this.trackfield?.points?.length;
+    this.cx=this.w/2;this.cy=this.h*(road?.64:.52);this.r=Math.min(this.w*(road?.27:.34),this.h*(road?.225:.33),road?220:280);
+    const g=this.g;g.clearRect(0,0,this.w,this.h);this._background(state,now);if(road)this._trackfield(state,now);this._section(state,now);this._creases(state,now);this._ring(state,now);this._gate(state,now);this._causal(state,now);this._pulses(state,now);this._center(state,now)
   }
   _background(state,t){const g=this.g;const grd=g.createRadialGradient(this.cx,this.cy,5,this.cx,this.cy,Math.max(this.w,this.h)*.7);grd.addColorStop(0,'#0b1018');grd.addColorStop(1,'#05070b');g.fillStyle=grd;g.fillRect(0,0,this.w,this.h);g.save();g.translate(this.cx,this.cy);for(let i=0;i<4;i++){g.strokeStyle=`rgba(255,255,255,${.016+i*.006})`;g.lineWidth=.7;g.beginPath();g.arc(0,0,this.r*(.38+i*.18)+Math.sin(t*.0003+i)*2,0,TAU);g.stroke()}
     const beatLife=clamp(1-(t-this.beatAt)/260,0,1);if(beatLife>0){g.strokeStyle=`rgba(255,255,255,${(.12+.35*this.beatEnergy)*beatLife})`;g.lineWidth=1+2*beatLife;g.beginPath();g.arc(0,0,this.r+10+14*(1-beatLife),0,TAU);g.stroke()}g.restore()}
+  _trackfield(state,t){
+    const proj=projectTrackfield(this.trackfield,this.w,this.h);if(!proj?.slices?.length)return;
+    const g=this.g,s=proj.slices,shake=clamp((proj.current?.flux||0)-.72,0,.5);
+    g.save();g.translate(Math.sin(t*.028)*shake*3,Math.cos(t*.021)*shake*1.5);
+    const horizon=s[s.length-1];
+    const haze=g.createRadialGradient(horizon.centerX,horizon.baseY,2,horizon.centerX,horizon.baseY,Math.max(this.w,this.h)*.42);
+    haze.addColorStop(0,`rgba(109,189,255,${.08+.10*clamp(proj.current?.brightness||0,0,1)})`);
+    haze.addColorStop(1,'rgba(5,7,11,0)');
+    g.fillStyle=haze;g.fillRect(0,0,this.w,this.h);
+
+    for(let i=s.length-2;i>=0;i--){
+      const a=s[i],b=s[i+1],hot=clamp(a.impact,0,1.25),flux=clamp(a.flux,0,1.25);
+      const al=Math.round(16+hot*24+flux*10).toString(16).padStart(2,'0');
+      g.fillStyle=(a.sectionIndex%2===0?'#6dbdff':'#ff9852')+al;
+      g.beginPath();g.moveTo(a.centerX-a.half,a.baseY);g.lineTo(a.centerX+a.half,a.baseY);g.lineTo(b.centerX+b.half,b.baseY);g.lineTo(b.centerX-b.half,b.baseY);g.closePath();g.fill();
+    }
+
+    g.lineWidth=1;
+    for(const frac of [-1,-1/3,1/3,1]){
+      g.beginPath();
+      for(let i=0;i<s.length;i++){
+        const p=s[i],x=p.centerX+p.half*frac,y=p.baseY;
+        i?g.lineTo(x,y):g.moveTo(x,y);
+      }
+      g.strokeStyle=Math.abs(frac)===1?'rgba(255,255,255,.38)':'rgba(255,255,255,.18)';
+      g.stroke();
+    }
+
+    for(let i=1;i<s.length;i++){
+      const p=s[i];
+      if(p.beatEdge){
+        g.strokeStyle=`rgba(255,255,255,${.10+.18*clamp(p.impact,0,1)})`;g.lineWidth=1;
+        g.beginPath();g.moveTo(p.centerX-p.half,p.baseY);g.lineTo(p.centerX+p.half,p.baseY);g.stroke();
+      }
+      if(p.sectionEdge){
+        const top=p.baseY-Math.max(14,p.half*.46);
+        g.strokeStyle='rgba(255,255,255,.62)';g.lineWidth=1.6;
+        g.beginPath();g.moveTo(p.centerX-p.half,p.baseY);g.lineTo(p.centerX-p.half,top);g.lineTo(p.centerX+p.half,top);g.lineTo(p.centerX+p.half,p.baseY);g.stroke();
+      }
+      if(p.impact>.96&&s[i-1].impact<=.96){
+        const top=p.baseY-Math.max(10,p.half*.34);
+        g.strokeStyle='rgba(255,255,255,.34)';g.lineWidth=1;
+        for(let k=0;k<3;k++){
+          const m=1+k*.15;
+          g.beginPath();g.moveTo(p.centerX-p.half*m,p.baseY);g.quadraticCurveTo(p.centerX,top-k*9,p.centerX+p.half*m,p.baseY);g.stroke();
+        }
+      }
+    }
+    if(proj.surge&&proj.surge.ahead<8){
+      const ix=Math.min(s.length-1,Math.max(0,proj.surge.index)),p=s[ix];
+      g.textAlign='center';g.font='800 7px ui-monospace,monospace';g.fillStyle='rgba(255,255,255,.48)';
+      g.fillText(`SURGE ${proj.surge.ahead.toFixed(1)}s`,p.centerX,p.baseY-18);
+    }
+    g.restore();
+  }
   _section(state,t){
     const v=this.sectionArc;if(!v||v.sectionIndex<0||v.sectionCount<2)return;
     const g=this.g,r=this.r+27,start=-Math.PI/2,p=clamp(v.progress||0,0,1);

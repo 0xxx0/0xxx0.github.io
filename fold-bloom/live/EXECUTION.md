@@ -3,7 +3,7 @@
 Status: experimental performance head. Do not overwrite frozen donors.
 
 ## Current head
-`/fold-bloom/live/` tests: **CALL → inspect consequences → choose topology → build tension → commit → topology changes future music**. With a proven local MP3, detected sections add optional SECTION ARCS: build variety, then close a late-section RETURN aperture. The song supplies time/form; it never chooses topology.
+`/fold-bloom/live/` tests: **owned/local track → AUDIO MAP → visible future terrain → authored topology → release into the arriving music**. TRACKFIELD turns the same measured map used for timing into perspective geometry: energy/flux shape impact and width, spectral balance bends the route, beats cross it and coarse section changes become gates. The Fold/Bloom ring remains the player's topology instrument.
 
 Donors remain addressable and independent:
 - Fold Weave 0.1: `/recovery/fold-bloom/fold-weave-0.1/` — exact frozen donor; ring / crease / cascade / mute-first causal score.
@@ -20,7 +20,10 @@ Donors remain addressable and independent:
 7. **Forecast before commitment.** If several matching placements have different consequences, expose those differences before release; hidden topology is not gameplay.
 8. **Borrowed clock/form ≠ borrowed authorship.** Same-page local MP3 is the proven phone authority path; LISTEN/FIELD PULSE may lend beat/section context and timing reward, but audio never auto-releases or chooses BLOOM/FOLD/SPLIT/RETURN.
 9. **Section estimates are apertures, not truth labels.** A section may offer a close/seal opportunity; a bad boundary must never invalidate a move or punish the player.
-10. **One musical delta per evaluation.** Tune gesture→consequence before adding modes, organisms or menus.
+10. **Projection, not decoration.** TRACKFIELD must be derived from the same AUDIO MAP that drives timing; do not invent a second hidden road model.
+11. **Anticipation beats telemetry.** If a feature can be felt as approaching geometry, prefer that over another HUD number.
+12. **Onboarding demonstrates the mechanism.** Before entry, run a silent reversible preview of the real instrument. Preview state never persists, emits FIELD operations or vibrates. First intentional action restores clean state and transfers control.
+13. **One musical delta per evaluation.** Tune gesture→consequence before adding modes, organisms or menus.
 
 ## Iteration loop
 `OBSERVE → NAME FAILURE → CHANGE ONE OPERATOR → STATIC TEST → BROWSER/TOUCH PLAY → A/B DONOR → RECEIPT → KEEP/REVERT`
@@ -32,6 +35,7 @@ A change survives only if it improves at least one without materially harming th
 - audible distinction of local bloom vs fold vs cascade
 - mute-first playability
 - frame/audio stability on phone
+- anticipation / spatial legibility of an upcoming surge or section change
 
 ## Promotion gate
 Do not call LIVE canonical until direct desktop + touch play establishes all of these:
@@ -39,15 +43,17 @@ Do not call LIVE canonical until direct desktop + touch play establishes all of 
 2. Within 120 s, a blind-ish listener can hear a difference between ordinary BLOOM and a crease/cascade event without reading the HUD.
 3. A charged structural event retains its topology identity (e.g. `FOLD → RETURN`) and the RETURN aperture is perceptible.
 4. Muted play still exposes target, alignment, creases, cascade path and charge.
-5. With a same-page MP3, beat timing and SECTION ARC progress feel causally fair; two CALL hits with two distinct verbs can make the late-section RETURN aperture readable without making it compulsory.
-6. No runaway scheduler catch-up, stuck drone, touch-scroll conflict or material frame drop during a 10-minute run.
+5. With a same-page MP3, TRACKFIELD makes at least one upcoming energy/section change perceptible before it arrives, without pretending to know verse/chorus semantics.
+6. Beat timing and SECTION ARC remain causally fair; two CALL hits with two distinct verbs can make the late-section RETURN aperture readable without making it compulsory.
+7. No runaway scheduler catch-up, stuck drone, touch-scroll conflict or material frame drop during a 10-minute run.
 
 ## Next useful transforms — only after play
 - Tune CALL selection, forecast legibility, charge curve and return aperture from observed choices/timing, not taste in isolation.
-- If SECTION ARC survives play, export section/beat + authored-operation tape before any deeper Audiosurf/Beat Saber bridge.
+- If TRACKFIELD survives play, evolve the road/player coupling before adding puzzle lanes: authored BLOOM/FOLD/SPLIT/RETURN should reshape how the ride is traversed, not merely score it.
+- If that coupling survives, export section/beat + authored-operation tape before any deeper rhythm-game bridge.
 - Treat Suno/remote source loading as best-effort convenience only; do not spend gameplay passes bypassing browser/CORS boundaries. Proven fallback: obtain/export MP3 and load locally.
 - If LIVE wins the A/B, transplant the music engine into the full Fold Weave surface while keeping Ecology separate.
 - Add performance capture/replay only if the existing bounded RETURN packet proves insufficient for comparing runs.
 
 ## Stop condition for this pass
-Engine invariants pass; modules parse; candidate is surfaced separately; exact donor bytes are unchanged. Stop before semantic/ecology expansion. The next evidence required is embodied play.
+TRACKFIELD projection tests + runtime smoke pass; exact donors remain untouched. Stop before adding provider catalogs, semantic section classifiers or puzzle-lane systems. The next authority is embodied MP3 play: does seeing the music coming create anticipation, immersion and desire to replay?

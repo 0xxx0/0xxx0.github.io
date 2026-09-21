@@ -1,0 +1,101 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_TRACKFIELD_MEDIA_2026-09-22",
+  "date": "2026-09-22",
+  "object": "FOLD//BLOOM LIVE 0.4 / anticipation-first TRACKFIELD + media boundary",
+  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "observed_exactly_recovered": [
+    "User reports LIVE 0.3 'kinda works' and is 'pretty damn cool'.",
+    "User reports the current result lacks the gripping hook / impressiveness / drop anticipation remembered from Audiosurf.",
+    "User wants larger ambition, immersion/wonder, brief media integrations/playlists exploration, updated visualization, structural reflexivity/homoiconic direction, and autoplay demos/onboarding.",
+    "Local MP3 remains the proven working source."
+  ],
+  "reconstructed": [
+    "The missing hook is not another analysis metric; it is embodied anticipation: the future of the song should become spatially legible before it arrives.",
+    "LIVE, TWO DIAL and ECOLOGY had overlapping Fold/Bloom language but unequal intended roles were not visible enough at the family surface."
+  ],
+  "implemented": [
+    "TRACKFIELD v0.1 directly projects AUDIO MAP frame evidence into perspective future terrain.",
+    "energy/flux → impact, width and rise; low/high spectral balance + brightness → bend; beat changes → transverse marks; coarse section changes → gates.",
+    "strong future impact transitions become visible surge structures before arrival.",
+    "Fold/Bloom ring remains the authored topology layer over the track world.",
+    "LIVE and TWO DIAL onboarding run silent reversible demonstrations of their real mechanics; preview state does not persist, vibrate or publish FIELD operations.",
+    "family page now distinguishes LIVE=ride, TWO DIAL=compose, ECOLOGY=evolve."
+  ],
+  "media_integration_matrix": [
+    {
+      "source": "LOCAL_FILE / owned audio",
+      "priority": "P0",
+      "role": "AUTHORITATIVE_NOW",
+      "use": "same-page playback + decode + AUDIO MAP + TRACKFIELD",
+      "note": "proven on phone"
+    },
+    {
+      "source": "same-origin/self-hosted audio",
+      "priority": "P0_NEXT",
+      "role": "CLEAN_SOURCE",
+      "use": "playlist/library without cross-origin dependence",
+      "note": "storage/licensing remain explicit"
+    },
+    {
+      "source": "Audius",
+      "priority": "P1_RESEARCH",
+      "role": "CATALOG_CANDIDATE",
+      "use": "search / playlists / discovery / stream endpoints",
+      "boundary": "validate browser stream/CORS and track rights before shipping game sync"
+    },
+    {
+      "source": "Jamendo",
+      "priority": "P1_RESEARCH",
+      "role": "LICENSE_AWARE_CATALOG_CANDIDATE",
+      "use": "tracks / feeds / playlists / radios / stream URLs",
+      "boundary": "client_id + per-track license/download conditions"
+    },
+    {
+      "source": "Spotify",
+      "priority": "PARK_FOR_SYNC_GAME",
+      "role": "PLAYBACK_METADATA_ONLY",
+      "use": "library/metadata/control only where useful",
+      "boundary": "current developer policy prohibits synchronizing Spotify recordings with visual media; not a TRACKFIELD source"
+    },
+    {
+      "source": "SoundCloud",
+      "priority": "RIGHTS_GATED",
+      "role": "PLAYBACK_METADATA_CANDIDATE",
+      "use": "stream/progress where permitted",
+      "boundary": "game/audiovisual synchronization requires necessary synchronization rights"
+    },
+    {
+      "source": "YouTube",
+      "priority": "WITNESS_ONLY",
+      "role": "PLAYER_LINK",
+      "use": "playback/queue/time context",
+      "boundary": "iframe/player does not provide raw analyzable audio bytes for AUDIO MAP"
+    },
+    {
+      "source": "Suno",
+      "priority": "BEST_EFFORT_ONLY",
+      "role": "ADDRESS / MANUAL_EXPORT",
+      "use": "share-link provenance; export/download MP3 → local path",
+      "boundary": "real browser path remains blocked; do not gate gameplay on resolution"
+    }
+  ],
+  "laws": [
+    "THE MAP THAT TIMES THE MUSIC SHOULD BE THE MAP THAT DRAWS THE WORLD.",
+    "ANTICIPATION > TELEMETRY.",
+    "PROJECT AUDIO EVIDENCE; DO NOT INVENT SEMANTIC VERSE/CHORUS TRUTH.",
+    "LIVE RIDES; TWO DIAL COMPOSES; ECOLOGY EVOLVES.",
+    "CATALOG ACCESS DOES NOT OVERRIDE MEDIA/SYNCHRONIZATION RIGHTS.",
+    "PROVIDER COUNT IS NOT A SUBSTITUTE FOR A GRIPPING LOCAL LOOP.",
+    "AUTOPLAY PREVIEW IS REVERSIBLE, SILENT AND NON-AUTHORITATIVE."
+  ],
+  "next_evidence": [
+    "Real phone MP3: does TRACKFIELD create a felt approach to a surge/drop before it arrives?",
+    "Can the ring/CALL remain legible while riding the perspective world?",
+    "Does section gating feel structural rather than HUD-like?",
+    "Does silent autoplay demo make the instrument understandable faster?",
+    "Only if the local loop survives: trial Audius/Jamendo as source adapters without changing core gameplay."
+  ],
+  "stop": "Do not add multiple providers, puzzle lanes, avatars, semantic section classifiers or a new music model before direct TRACKFIELD play evidence.",
+  "return": "/returns/FOLD_BLOOM_TRACKFIELD_2026-09-22.json"
+}

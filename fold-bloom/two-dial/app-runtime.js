@@ -84,6 +84,7 @@ function restore(x) {
   return true;
 }
 function saveLocal() {
+  if (demo?.preview) return;
   try {
     localStorage.setItem(STORE, JSON.stringify(minimalSnapshot()));
   } catch (e) {}
@@ -369,7 +370,7 @@ $('#soundBtn').onclick = async () => {
     }
   } else toggleSound();
 };
-$('#demoBtn').onclick = startDemo;
+$('#demoBtn').onclick = () => { if (demo.on) stopDemo(false); startDemo(false); };
 $('#shareBtn').onclick = shareNow;
 $('#copyBtn').onclick = copyCode;
 $('#exportBtn').onclick = exportPacket;
@@ -412,6 +413,7 @@ $('#quietBtn').onclick = () => {
     })
 );
 $('#playBtn').onclick = async () => {
+  if (demo.on) stopDemo(false);
   await initSound();
   $('#intro').style.display = 'none';
   run = true;
@@ -432,6 +434,7 @@ setMenuPane('PLAY');
 syncUI();
 renderSaves();
 hud();
+setTimeout(()=>{if($('#intro')?.style.display!=='none'&&!demo.on)startDemo(true)},700);
 window.FoldBloom = {
   version: APP_VERSION,
   state: () => minimalSnapshot(),

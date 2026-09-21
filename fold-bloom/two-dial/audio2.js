@@ -241,29 +241,40 @@ function demoStep() {
     demo.timer = setTimeout(demoStep, 980);
   });
 }
-async function startDemo() {
+async function startDemo(preview = false) {
   if (demo.on) return stopDemo(false);
-  let ok = await initSound();
-  if (!ok) return;
+  if (!preview) {
+    let ok = await initSound();
+    if (!ok) return;
+  }
   demo.on = true;
   demo.i = 0;
   demo.prevMode = prefs.mode;
+  demo.preview = !!preview;
+  demo.startState = preview ? minimalSnapshot() : null;
   prefs.mode = 'PLAY';
-  $('#demoBtn').textContent = 'STOP DEMO';
+  if (!preview) $('#demoBtn').textContent = 'STOP DEMO';
   syncUI();
-  closeDrawer();
-  toast('DEMO · WATCH THE SCORE');
+  if (!preview) {
+    closeDrawer();
+    toast('DEMO · WATCH THE SCORE');
+  }
   demoStep();
 }
 function stopDemo(takeover = true) {
   if (!demo.on) return;
+  const wasPreview = demo.preview, start = demo.startState;
   demo.on = false;
   clearTimeout(demo.timer);
   cancelAnimationFrame(demo.raf);
-  prefs.mode = demo.prevMode;
+  demo.preview = false;
+  demo.startState = null;
+  if (wasPreview && start) restore(start);
+  else prefs.mode = demo.prevMode;
   live.vL = live.vR = 0;
   classifyMotion();
   syncUI();
+  if (wasPreview) saveLocal();
   $('#demoBtn').textContent = 'START DEMO';
   if (takeover) toast('YOUR TURN');
 }

@@ -210,7 +210,7 @@ let rngState = Date.now() >>> 0 || 1,
   gL = null,
   gR = null;
 const OUT_GAIN = 0.68;
-let demo = { on: false, i: 0, timer: 0, prevMode: 'PLAY', raf: 0 };
+let demo = { on: false, i: 0, timer: 0, prevMode: 'PLAY', raf: 0, preview: false, startState: null };
 function wrap(n, m) {
   return ((n % m) + m) % m;
 }
@@ -229,8 +229,10 @@ function emit(type, data = {}) {
   const event = { n: ++eventSeq, type, ...data };
   events.push(event);
   if (events.length > 160) events.shift();
-  for (const fn of fieldEventListeners) {
-    try { fn(event); } catch (_) {}
+  if (!demo?.preview) {
+    for (const fn of fieldEventListeners) {
+      try { fn(event); } catch (_) {}
+    }
   }
 }
 function normalizedPulseBpm(raw) {
