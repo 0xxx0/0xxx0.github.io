@@ -20,13 +20,19 @@
       ]
     },
     {
-      "source": "2019 FU / room / ring code family",
+      "source": "2019 FU / room / ring family + recovered FU foveate source fragments",
       "retained": [
         "radial geometry",
         "CSS 3D / rotating projections",
         "lens-style state transformation",
-        "speech/audio boundary experiments"
-      ]
+        "speech/audio boundary experiments",
+        "explicit faxconf.fovea path state",
+        "foveate() writes focus state then re-projects path",
+        "selected fovea path contributes to radial geometry",
+        "article/sentence/phrase/word/char hierarchy as focus scales"
+      ],
+      "receipt": "/recovery/focus-interface-sync-20260921/FU_FOVEATE_RECOVERY_2026-09-21.json",
+      "provenance_class": "PARTIAL_EXACT_SOURCE_FRAGMENTS"
     },
     {
       "source": "RSVP+TTS TMP-SPEECHSYNTH 2018",
@@ -160,7 +166,7 @@
     "anti_pattern": "Moodboard → metaphor → new interface with no recovered mechanism or task comparison."
   },
   "live_study": {
-    "version": "0.7.2",
+    "version": "0.7.3",
     "storage": "localStorage axial-study-v01; never uploaded automatically",
     "witness_export": "axial-witness.json",
     "observed": [
@@ -182,5 +188,13 @@
     ],
     "preserved_boundary": "/foundry/axial/lab-0.5.1.html retains STATE APERTURE transform/TEST/ARM/RUN semantics outside the kernel.",
     "invariant": "records × dimensions × selection → survivors + candidate support; expose possibility, never choose or act."
+  },
+  "interface_ecology": {
+    "AXIAL": "categorical constraint/address compositor: unequal dimensions + exact support + fixed gate + explicit current-position witness",
+    "READFIELD": "canonical one-source reader: source position × semantic scale × RSVP/VOICE/context; APERTURE geometry is optional/internal",
+    "SCALE_LENS": "deep stable-identity typed projection/composition workbench",
+    "FIELD": "re-entry/orchestration surface; focus may hand into AXIAL, READFIELD, Lens or TRACE without becoming authority",
+    "rule": "Share identity/focus/RETURN laws, not UI ownership or state authority.",
+    "recovery": "/recovery/focus-interface-sync-20260921/RECOVERY.json"
   }
 }

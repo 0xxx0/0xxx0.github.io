@@ -49,7 +49,9 @@
     "/control/confluence/MECHANISM_TRANSFER_LOOP_2026-09-21.json defines the falsifiable transfer loop used for this delta",
     "/control/constraint-surface-selftest.js checks the shared kernel against synthetic, FIELD manifest, AXIAL FIELD and HOUSE adapters",
     "session-local TRACE handoff preserves S.focus.id, title and AXIAL focusAddress; FIELD source returns exact manifest route, HOUSE source returns /house/spatial/ plus exact anchor resource_ref",
-    "TRACE handoff performs no actuation and creates no policy authority"
+    "TRACE handoff performs no actuation and creates no policy authority",
+    "/recovery/focus-interface-sync-20260921/FU_FOVEATE_RECOVERY_2026-09-21.json recovers partial exact fovea-path → radial projection evidence",
+    "/recovery/focus-interface-sync-20260921/FOCUS_INTERFACE_SYNC_2026-09-21.json preserves AXIAL/READFIELD/Lens role boundaries"
   ],
   "promotion_gate": "The AXIAL instrument is ACTIVE for ordinary orientation/re-entry. Its comparative usability and physical-embodiment claims remain unresolved under the existing evolution.evidence_gate; failure of those claims does not invalidate the working orientation utility.",
   "lineage_exact": [
@@ -72,5 +74,9 @@
     "state": "PROOF_REQUIRED",
     "basis": "0.7.3 adds a bounded identity-preserving handoff into FIELD TRACE / VERIFY without changing AXIAL's unresolved comparative/physical proof claims.",
     "receipt": "/foundry/axial/release.json"
-  }
+  },
+  "lineage_partial_exact": [
+    "Historical FU foveate family: exact source fragments for explicit fovea path + foveate() re-projection; full red-dot/Alice reader remains unresolved"
+  ],
+  "interface_boundary": "AXIAL owns unequal-dimensional orientation and exact support. READFIELD owns one-source position/scale/time reading. Scale Lens owns deeper typed projection/provenance."
 }

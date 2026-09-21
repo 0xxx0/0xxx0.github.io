@@ -30,6 +30,10 @@
     {
       "source": "/recovery/sleeper/site-source-2026-09-18/experiments/painting/view.js",
       "unit": "speech cancellation token prevents stale callbacks"
+    },
+    {
+      "source": "/recovery/focus-interface-sync-20260921/FU_FOVEATE_RECOVERY_2026-09-21.json",
+      "unit": "explicit fovea/path state → source-preserving radial/path projection; full historical reader unresolved"
     }
   ],
   "controls": [
@@ -78,9 +82,10 @@
     "docs_highlight": "PASS",
     "xref": "citation/source + media PASS",
     "session_paste": "PASS",
-    "reader_first": "pending PR browser proof: reader attribute hides dial while source strip and focus remain live",
-    "performance": "pending PR browser proof: 3000-WPM focus events must outpace throttled context DOM reconstruction",
-    "route_handoff": "pending PR browser proof: generic route READ → READFIELD with exact RETURN"
+    "reader_first": "PASS — canonical /docs/ READFIELD defaults to linear reader mode; ring geometry optional",
+    "performance": "PASS — high-speed focus events decoupled from throttled context DOM projection",
+    "route_handoff": "PASS — shared route READ → READFIELD preserves exact RETURN",
+    "convergence_run": 35639977109
   },
   "updated": "2026-09-22",
   "known_gap": "Human comprehension/preference at extreme WPM remains unclaimed. ORP/chunking choices should now be driven by actual reading use, not by adding more geometry.",
@@ -119,5 +124,10 @@
     "/port/ HUMAN PORT intake",
     "/docs/ canonical READFIELD",
     "/foundry/aperture/ compatibility redirect"
-  ]
+  ],
+  "lineage_recovery": {
+    "focus_interface": "/recovery/focus-interface-sync-20260921/RECOVERY.json",
+    "fu_foveate": "/recovery/focus-interface-sync-20260921/FU_FOVEATE_RECOVERY_2026-09-21.json",
+    "rsvp_transfer": "/recovery/focus-interface-sync-20260921/RSVP_APERTURE_TRANSFER_2026-09-21.json"
+  }
 }

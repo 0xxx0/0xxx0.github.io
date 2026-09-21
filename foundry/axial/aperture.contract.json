@@ -110,7 +110,7 @@
     "no_claim": "The cylinder is optional. AXIAL survives if the focus-stack grammar is useful and the cylindrical embodiment is not."
   },
   "software_head": {
-    "name": "AXIAL / FOCUS STACK 0.7.2",
+    "name": "AXIAL / FOCUS STACK 0.7.3",
     "primary_source": "/showcase-manifest.json",
     "secondary_source": "/house/spatial/model.json",
     "projections": [
@@ -147,5 +147,22 @@
   "source_adapters": {
     "FIELD": "Full Focus Stack: FAMILY × KIND × OPERATION × STATE × ROLE over /showcase-manifest.json. Root FIELD embeds a reduced chronology lens: ROUTE × STATE × OPERATION × WORK MODE over durable recent touches.",
     "HOUSE": "ROOM × TYPE × CONFIDENCE × ENTITY over /house/spatial/model.json; public model only"
+  },
+  "interface_relations": {
+    "READFIELD": {
+      "route": "/docs/",
+      "relation": "sibling reader, not AXIAL submode",
+      "boundary": "READFIELD traverses one source through canonical position/scale/time/voice. AXIAL composes unequal categorical dimensions and exact support."
+    },
+    "SCALE_LENS": {
+      "route": "/fold-bloom/lens/",
+      "relation": "deep projection/composition workbench",
+      "boundary": "Lens preserves identity/provenance across typed projections; AXIAL remains orientation/constraint addressing."
+    },
+    "FU_FOVEATE": {
+      "receipt": "/recovery/focus-interface-sync-20260921/FU_FOVEATE_RECOVERY_2026-09-21.json",
+      "relation": "historical donor evidence",
+      "boundary": "Recovered fragments prove explicit fovea-path state and radial re-projection; they do not make modern AXIAL or READFIELD identical to the unrecovered historical reader."
+    }
   }
 }
