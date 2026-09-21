@@ -7,7 +7,7 @@ import {createFieldPulse} from '../../lib/field-pulse.js';
 
 const $=s=>document.querySelector(s);
 const gl=$('#field'),overlay=$('#overlay'),audio=$('#audio'),drop=$('#drop');
-let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0;
+let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null;
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LISTEN');
 
 function toast(t){const e=$('#toast');if(!e)return;e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on')}
@@ -105,13 +105,20 @@ async function loadFile(file){
   catch(error){console.warn(error);drop.classList.remove('busy');status('DECODE ERROR · CHOOSE ANOTHER FILE');toast('DECODE ERROR')}
 }
 async function loadAddress(input){
-  status('RESOLVING');drop.classList.add('busy');
+  status('RESOLVING');drop.classList.add('busy');lastRemoteFailure=null;
   try{
     const source=await resolveSourceAddress(input);$('#track').textContent=source.title||'REMOTE SOURCE';
     $('#meta').textContent=source.kind==='SUNO'?`${source.resolution.replaceAll('_',' ')} · FETCHING AUDIO`:'DIRECT ADDRESS · FETCHING AUDIO';
     const remote=await fetchRemoteAudio(source),blob=new Blob([remote.bytes],{type:remote.type||'audio/mpeg'});
     await analyzeBytes(remote.bytes,blob,{name:source.title||source.audioUrl.split('/').pop()||'REMOTE AUDIO',size:remote.size,type:remote.type,sourceKind:source.kind,sourceAddress:source.address,sourceId:source.sunoId||null,metadataAddress:source.metadataUrl||null,resolution:source.resolution,artist:source.artist||'',tags:source.tags||'',lyrics:source.lyrics||'',metadataError:source.metadataError||null});
-  }catch(error){drop.classList.remove('busy');status('REMOTE BLOCKED · LOAD FILE');$('#meta').textContent='ADDRESS KEPT · NETWORK/CORS RESOLUTION FAILED · LOCAL FILE STILL WORKS';toast('REMOTE BLOCKED · USE LOCAL FILE');console.warn(error)}
+  }catch(error){
+    const kind=parseSunoId(input)?'SUNO':'REMOTE_AUDIO';
+    lastRemoteFailure={kind,address:String(input||''),error:String(error?.message||error),at:new Date().toISOString()};
+    drop.classList.remove('busy');
+    status(kind==='SUNO'?'SUNO BLOCKED HERE · USE MP3':'REMOTE BLOCKED · LOAD FILE');
+    $('#meta').textContent=kind==='SUNO'?'BROWSER/CORS PATH BLOCKED · PROVEN PATH: EXPORT/DOWNLOAD MP3 → CHOOSE AUDIO':'ADDRESS KEPT · NETWORK/CORS RESOLUTION FAILED · LOCAL FILE STILL WORKS';
+    toast(kind==='SUNO'?'SUNO BLOCKED · USE MP3':'REMOTE BLOCKED · USE LOCAL FILE');console.warn(error)
+  }
 }
 
 $('#file').addEventListener('change',e=>loadFile(e.target.files?.[0]));
@@ -147,12 +154,12 @@ function transportPayload(){
   const nextBeat=beatIndex>=0?Number(beats[beatIndex+1]??(beatTime+beatPeriod)):(time+beatPeriod);
   const beatSpan=Math.max(.001,nextBeat-beatTime),beatPhase=Math.max(0,Math.min(1,(time-beatTime)/beatSpan));
   const beatDistance=Math.max(0,Math.min(Math.abs(time-beatTime),Math.abs(nextBeat-time)));
-  const sectionIndex=sectionIndexAt(map,time),sections=map.sections||[],sectionStart=sectionIndex>=0?Number(sections[sectionIndex]?.t||0):0;
+  const sectionIndex=sectionIndexAt(map,time),sections=map.sections||[],sectionCount=Math.max(1,sections.length-1),sectionStart=sectionIndex>=0?Number(sections[sectionIndex]?.t||0):0;
   const sectionEnd=sectionIndex>=0?Number(sections[sectionIndex+1]?.t??map.duration):map.duration;
   const sectionProgress=sectionEnd>sectionStart?Math.max(0,Math.min(1,(time-sectionStart)/(sectionEnd-sectionStart))):0;
   return {
     playing:!audio.paused,time,duration:map.duration||0,bpm:map.bpm||0,tempoConfidence:map.tempoConfidence||0,
-    beatIndex,beatTime,beatPhase,beatDistance,sectionIndex,sectionProgress,scope:scope(),scopeStart:range[0],scopeEnd:range[1],
+    beatIndex,beatTime,beatPhase,beatDistance,sectionIndex,sectionCount,sectionStart,sectionEnd,sectionProgress,scope:scope(),scopeStart:range[0],scopeEnd:range[1],
     energy:+(f.e||0).toFixed(4),flux:+(f.f||0).toFixed(4),brightness:+(f.c||0).toFixed(4),
     stage:map.stage||'UNKNOWN',sourceHash:fileMeta?.hash||null,sourceKind:fileMeta?.sourceKind||null,sourceAddress:fileMeta?.sourceAddress||null
   };
@@ -173,5 +180,5 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnima
 window.addEventListener('error',e=>{console.warn('LISTEN runtime error',e.error||e.message);if(!map)status('APP DEGRADED · FILE PICKER STILL AVAILABLE')});
 setScope(1,false);
 document.documentElement.dataset.listenBoot='ready';
-window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl'}),parseSunoId,classifySourceAddress,resolveSourceAddress};
+window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),parseSunoId,classifySourceAddress,resolveSourceAddress};
 requestAnimationFrame(loop);
