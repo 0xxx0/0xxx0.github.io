@@ -236,9 +236,9 @@ function mount(){
     }
   };
   $('traceRun').onclick=run;$('traceDemo').onclick=()=>applyDemo();$('traceDemoComms').onclick=()=>applyDemo('COMMS');$('traceDemoHouse').onclick=()=>applyDemo('HOUSE');$('traceDemoChange').onclick=()=>applyDemo('CHANGE');$('traceCommit').onclick=commit;$('traceExport').onclick=exportTrace;
-  $('traceFold').addEventListener('toggle',()=>{if($('traceFold').open){syncFocus();if(!currentTrace)run()}});
+  $('traceFold').addEventListener('toggle',()=>{if($('traceFold').open){syncFocus();if(!currentTrace)applyDemo()}});
   window.addEventListener('field-index:state',syncFocus);
-  window.addEventListener('field-trace:open',()=>{syncFocus();if(!currentTrace||currentTraceFocusHref!==(focusResource()?.href||null))run()});
+  window.addEventListener('field-trace:open',()=>{syncFocus();if(!currentTrace||currentTraceFocusHref!==(focusResource()?.href||null))applyDemo()});
   ledgerState();syncFocus();
   if($('traceFold').open&&!currentTrace)applyDemo();
 }
