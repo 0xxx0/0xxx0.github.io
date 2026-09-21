@@ -134,8 +134,28 @@ function formReport(){let f=FORMS[S.form],lines=S.source.split('\n'),nonblank=li
 function renderConstraints(){let f=FORMS[S.form],rows=formReport();$('#constraints').innerHTML='<b>'+f.name+'</b>'+(rows.length?rows.map(r=>'<div class="constraint"><b>'+esc(r[0])+'</b><span class="'+r[2]+'">'+esc(r[1])+'</span></div>').join(''):'<div class="sub" style="margin-top:5px">No mandatory shape.</div>')+'<div class="tiny" style="margin-top:5px">English syllable/rhyme checks are lightweight heuristics in 0.2; form adapters declare constraints, not literary value.</div>'}
 function neighborhood(n){if(!n)return[];let map=new Map();for(let e of S.edges){let other=e.a===n.id?e.b:e.b===n.id?e.a:null;if(!other)continue;let o=node(other);if(!o)continue;let pri=e.type==='AUTHOR'?0:e.type==='REPEAT'?1:e.type==='SOUND'?2:3,k=o.id;if(!map.has(k)||map.get(k).pri>pri)map.set(k,{word:o.text,why:e.why,type:e.type,pri,id:o.id})}return [...map.values()].sort((a,b)=>a.pri-b.pri).slice(0,10)}
 function renderPanels(){let n=node(S.selected);$('#mTokens').textContent=S.nodes.length;$('#mLines').textContent=S.source?S.source.split('\n').length:0;$('#mEdges').textContent=S.edges.length;$('#mLocks').textContent=S.locks.size;$('#actions').classList.toggle('hidden',!n);$('#selection').innerHTML=n?'<b style="font:25px ui-serif,serif">'+esc(n.text)+'</b>'+(S.preview&&S.preview.target===n.id?'<div style="color:var(--hot);font:18px ui-serif,serif;margin-top:4px">→ '+esc(S.preview.word)+' <span class="tiny">PREVIEW / SOURCE UNCHANGED</span></div>':'')+'<div class="sub">'+n.id+' · line '+(n.line+1)+' · token '+(n.index+1)+(S.locks.has(n.id)?' · LOCKED':'')+'</div>':'<span class="sub">Select a word or character in MAP/PAGE.</span>';if(n){let near=neighborhood(n);$('#candidates').innerHTML=near.length?near.map(x=>'<div class="cand"><div><b>'+esc(x.word)+'</b><div class="why">'+esc(x.type)+' · '+esc(x.why)+'</div></div><button data-jump="'+x.id+'">SEE</button></div>').join(''):'<span class="sub">No local relation candidates yet. Try an online word neighborhood or bank your own.</span>';$('#candidates').querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>select(b.dataset.jump));$('#lockBtn').textContent=S.locks.has(n.id)?'UNLOCK':'LOCK';$('#linkBtn').textContent=S.linkPending===n.id?'CANCEL LINK':'LINK NEXT'}renderBank();renderRevisions();renderPath();renderCaptures();renderBottom();renderConstraints()}
+function candidateSupport(x){
+ let target=node(x&&x.for)||node(S.selected);if(!target)return{pass:0,total:0,label:'NO TARGET'};
+ let f=FORMS[S.form],lines=S.source.split('\n'),line=lines[target.line]||'';
+ lines[target.line]=line.slice(0,target.start)+x.word+line.slice(target.start+target.text.length);
+ let next=lines.join('\n'),nonblank=lines.filter(v=>v.trim()),checks=[];
+ if(f.lines!=null)checks.push({name:'line envelope',ok:nonblank.length<=f.lines});
+ if(f.chars){let n=Array.from((lines[target.line]||'').replace(/\s/g,'')).length;checks.push({name:'character envelope',ok:n<=f.chars})}
+ if(f.syll){let goal=Array.isArray(f.syll)?f.syll[target.line]:f.syll;if(goal!=null)checks.push({name:'syllable envelope',ok:lineSyll(lines[target.line]||'')<=goal})}
+ if(f.rhyme){
+   let words=S.nodes.filter(n=>n.line===target.line&&/[\p{L}\p{N}]/u.test(n.text)),last=words.at(-1);
+   let scheme=String(f.rhyme).replace(/[^A-Z]/g,'');
+   if(last&&last.id===target.id&&scheme[target.line]){
+     let group=scheme[target.line],prior=-1;for(let i=0;i<target.line;i++)if(scheme[i]===group)prior=i;
+     if(prior>=0){let ref=rhymeTail(lines[prior]||''),got=rhymeTail(lines[target.line]||'');if(ref&&got)checks.push({name:'approx rhyme group',ok:ref===got})}
+   }
+ }
+ let pass=checks.filter(c=>c.ok).length,total=checks.length;
+ return{pass,total,label:total?(pass+'/'+total+' FORM SUPPORT'):'FREE MOVE',checks,next}
+}
+function supportClass(q){return !q.total?'':q.pass===q.total?'pass':q.pass===0?'fail':'warn'}
 function renderBank(){
- $('#bank').innerHTML=S.bank.length?S.bank.map((x,i)=>'<div class="cand"><div><b>'+esc(x.word)+'</b><div class="why">'+esc(x.why)+(x.adopted?' · ADOPTED':'')+'</div></div><div class="row"><button class="'+(S.preview&&S.preview.index===i?'hot':'')+'" data-preview="'+i+'">'+(S.preview&&S.preview.index===i?'ARMED':'TRY')+'</button><button class="good" data-adopt="'+i+'">ADOPT</button><button data-bank="'+i+'">×</button></div></div>').join(''):'<span class="sub">Nothing banked yet.</span>';
+ $('#bank').innerHTML=S.bank.length?S.bank.map((x,i)=>{let q=candidateSupport(x);return '<div class="cand"><div><b>'+esc(x.word)+'</b><div class="why">'+esc(x.why)+(x.adopted?' · ADOPTED':'')+' · <span class="'+supportClass(q)+'">'+esc(q.label)+'</span></div></div><div class="row"><button class="'+(S.preview&&S.preview.index===i?'hot':'')+'" data-preview="'+i+'">'+(S.preview&&S.preview.index===i?'ARMED':'TRY')+'</button><button class="good" data-adopt="'+i+'">ADOPT</button><button data-bank="'+i+'">×</button></div></div>'}).join(''):'<span class="sub">Nothing banked yet.</span>';
  $('#bank').querySelectorAll('[data-preview]').forEach(b=>b.onclick=()=>previewCandidate(+b.dataset.preview));
  $('#bank').querySelectorAll('[data-adopt]').forEach(b=>b.onclick=()=>adoptCandidate(+b.dataset.adopt));
  $('#bank').querySelectorAll('[data-bank]').forEach(b=>b.onclick=()=>{let i=+b.dataset.bank;if(S.preview&&S.preview.index===i)S.preview=null;S.bank.splice(i,1);save();renderPanels()})
