@@ -50,7 +50,10 @@
     "host_integrations": [
       "/ FIELD AXIAL focus",
       "/port/ HUMAN PORT intake",
-      "/foundry/aperture/ standalone"
+      "/foundry/aperture/ standalone",
+      "/foundry/axial/ exact focus/tuple/support inspection",
+      "/docs/ loaded control-document inspection",
+      "/showcase-nav.js ambient selected text / active field / route metadata"
     ],
     "magnitude_ladder": "log10(bytes), visible ring gap spans 10^0..10^12",
     "rsvp_default": "if current scale has <2 units, temporal play selects WORD for text or first traversable JSON level",
