@@ -5,7 +5,7 @@
 :root{--bg:#090b0c;--ink:#edf0ed;--muted:#88949a;--line:#30383c;--hot:#e87548;--cool:#8dd5ff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}main{max-width:1200px;margin:auto;padding:20px 14px 60px}header{display:flex;justify-content:space-between;gap:18px;align-items:end;border-bottom:1px solid var(--line);padding:18px 0}h1{margin:0;font-size:clamp(34px,8vw,76px);line-height:.85;letter-spacing:-.06em}.ey{color:var(--hot);font-size:9px;letter-spacing:.16em}nav{display:flex;gap:6px;flex-wrap:wrap}a,button{color:var(--ink);background:#0c0f11;border:1px solid var(--line);padding:6px 8px;text-decoration:none;font:10px monospace;cursor:pointer}.layout{display:grid;grid-template-columns:310px 1fr;gap:10px;margin-top:12px}.list{display:grid;gap:5px;align-content:start}.doc{width:100%;text-align:left;padding:9px}.doc b{display:block}.doc span{color:var(--muted);font-size:9px}.viewer{border:1px solid var(--line);min-height:70vh;overflow:auto}.viewerHead{position:sticky;top:0;background:#0c0f11;border-bottom:1px solid var(--line);padding:8px;display:flex;justify-content:space-between}.viewer pre{white-space:pre-wrap;word-break:break-word;margin:0;padding:14px;font:11px/1.55 ui-monospace,monospace;color:#cdd5d2}.hint{color:var(--muted);font:12px/1.5 system-ui,sans-serif}@media(max-width:760px){header{display:block}nav{margin-top:12px}.layout{grid-template-columns:1fr}.viewer{min-height:55vh}}</style>
 </head><body><main><header><div><div class="ey">HUMAN-READABLE CONTROL SHELF</div><h1>DOCS / READ</h1></div><nav><a href="../">FIELD</a><a href="../control/">CURRENT</a><a href="../control/confluence/">CONFLUENCE</a></nav></header>
 <p class="hint">The repo has many useful JSON/Markdown control documents. This is only a reader: it changes nothing.</p>
-<div class="layout"><div id="list" class="list"></div><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><a id="raw" href="#" hidden>RAW ↗</a></div><pre id="text">Select a document from the left.</pre></section></div></main>
+<div class="layout"><div id="list" class="list"></div><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><span><button id="inspectDoc" hidden>◎ APERTURE</button> <a id="raw" href="#" hidden>RAW ↗</a></span></div><pre id="text">Select a document from the left.</pre></section></div></main>
 <script>
 const docs=[
 ['CURRENT','../control/CURRENT.json','Cold-start heads, fronts, holds and recovery targets'],
@@ -21,9 +21,14 @@ const docs=[
 ['CONFLUENCE / README','../control/confluence/README.md','Thread-worker coordination model'],
 ['LAW ZOO','../control/confluence/LAW_ZOO.md','Tiny-law branch handoff'],
 ['CROSS-SYSTEM EXPEDITION','../control/confluence/CROSS_SYSTEM_EXPEDITION.md','Research charter + Hermes wrapper'],
-['RSVP RECOVERY','../control/confluence/RSVP_RECOVERY.md','Temporal-focus / Watch reader lineage']
+['RSVP RECOVERY','../control/confluence/RSVP_RECOVERY.md','Temporal-focus / Watch reader lineage'],
+['FOCUS / INTERFACE SYNC','../control/confluence/FOCUS_INTERFACE_SYNC_2026-09-21.json','AXIAL × APERTURE × Lens × FU/RSVP role boundaries'],
+['FU FOVEATE RECOVERY','../control/FU_FOVEATE_RECOVERY_2026-09-21.json','Partial exact historical fovea/radial mechanism recovery'],
+['RSVP → APERTURE','../control/RSVP_APERTURE_TRANSFER_2026-09-21.json','Bounded speech-boundary clock transfer receipt']
 ];
-const L=document.querySelector('#list'),T=document.querySelector('#text'),H=document.querySelector('#title'),R=document.querySelector('#raw');
+const L=document.querySelector('#list'),T=document.querySelector('#text'),H=document.querySelector('#title'),R=document.querySelector('#raw'),I=document.querySelector('#inspectDoc');
+let current={name:'',url:'',text:''};
 docs.forEach(([n,u,d])=>{const b=document.createElement('button');b.className='doc';b.innerHTML='<b>'+n+'</b><span>'+d+'</span>';b.onclick=()=>load(n,u);L.append(b)});
-async function load(n,u){H.textContent=n;R.hidden=false;R.href=u;T.textContent='Loading…';try{const r=await fetch(u,{cache:'no-store'}),s=await r.text();let out=s;if(u.endsWith('.json')){try{out=JSON.stringify(JSON.parse(s),null,2)}catch{}}T.textContent=out;location.hash=n.toLowerCase().replace(/[^a-z0-9]+/g,'-')}catch(e){T.textContent='Unavailable: '+e.message}}
-</script></body></html>
+async function load(n,u){H.textContent=n;R.hidden=false;R.href=u;I.hidden=true;T.textContent='Loading…';try{const r=await fetch(u,{cache:'no-store'}),s=await r.text();let out=s;if(u.endsWith('.json')){try{out=JSON.stringify(JSON.parse(s),null,2)}catch{}}current={name:n,url:u,text:out};T.textContent=out;I.hidden=false;location.hash=n.toLowerCase().replace(/[^a-z0-9]+/g,'-')}catch(e){current={name:'',url:'',text:''};T.textContent='Unavailable: '+e.message}}
+I.onclick=()=>{if(!current.text||!window.FieldAperture)return;window.FieldAperture.dock(current.text,{label:current.name+' · DOCS',from:'/docs/'})};
+</script><script src="../field-aperture.js"></script><script src="/showcase-nav.js" defer></script></body></html>
