@@ -46,7 +46,10 @@
         "/control/REPRESENTATION_01.json",
         "/control/INGEST_RUN_2026-09-21.json",
         "/control/MEDIA_REFINERY.json",
-        "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json"
+        "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json",
+        "/scripts/media-refinery-run.py",
+        "/control/MEDIA_REFINERY_PIPELINES.json",
+        "/returns/MEDIA_REFINERY_AUTOMATION_2026-09-22.json"
       ]
     },
     {
@@ -692,5 +695,6 @@
     ],
     "remaining_raw_byte_gate": "Exact File Library PNG file_000000006c8c71faa92311288535624e → byte-capable handoff → /recovery/toolbelt/ → SHA-256; no surrogate."
   },
-  "last_media_refinery": "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json"
+  "last_media_refinery": "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json",
+  "last_media_refinery_automation": "/returns/MEDIA_REFINERY_AUTOMATION_2026-09-22.json"
 }
