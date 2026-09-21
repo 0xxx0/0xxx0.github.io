@@ -235,6 +235,7 @@ for(const p of ['returns/index.html','foundry/index.html','fcm/index.html','rout
 if(exists('poetry/map/index.html')){
   const p=read('poetry/map/index.html');
   for(const token of ['POEM MAP 0.2.1','id="fieldNowBtn"','id="focusWheel"','id="pmAperture"','id="guideBtn"','id="importBtn"','id="corpusBtn"','id="formDetails"','id="mapLawDetails"','data-mode="PAGE"','data-mode="MAP"','data-mode="SETS"','ORDER','SOUND','REPEAT','AUTHOR','APERTURE','TRY','ADOPT','LOCK'])check(p.includes(token),'Poem Map capability token missing: '+token);
+  check(!/(?:^|[^$])\$\(\s*['"`][^'"`]+['"`]\s*\)\.forEach\s*\(/m.test(p),'Poem Map must not call forEach on single querySelector result');
   compileInline('poetry/map/index.html');
 }
 if(exists('poetry/index.html')){

@@ -1,0 +1,57 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "DOCS-ADDRESSABLE-APERTURE-2026-09-21",
+  "at": "2026-09-21T18:37:00+08:00",
+  "object": "/docs/ as a universal read-only projection over same-origin repository text files",
+  "before": {
+    "docs": "A curated shelf of 14 control documents; the Aperture worked well once a file was selected.",
+    "raw_links": "Global route-adapter MANIFEST / RECEIPT / ACTION LAW / FI LAW links opened repository files directly.",
+    "gap": "The reader capability was good but addressability was not general; arbitrary repo JSON/Markdown still required raw-browser reading or manual shelf wiring."
+  },
+  "operation": [
+    "Add ?src=/path.ext ingress for same-origin text-like repository files.",
+    "Preserve exact canonical source URL as RAW rather than copying or rewriting the document.",
+    "Add optional ?return=/caller and visible RETURN without changing document state.",
+    "Add compact ADDRESS input so an unlisted repo file can be opened directly.",
+    "Route global showcase-nav MANIFEST / text-like RECEIPT / ACTION LAW / FI LAW links through DOCS by default.",
+    "Keep non-text-like or external receipt links unchanged.",
+    "Add browser smoke for direct source ingress."
+  ],
+  "after": {
+    "canonical_loop": "FILE URL → DOCS projection → APERTURE scale/position/time → RAW or RETURN",
+    "source_allowlist": "same-origin paths ending json/md/txt/csv/log/yaml/yml/js/mjs/css/html/svg inside DOCS; global route adapter wraps json/md/txt/csv/log/yaml/yml metadata links",
+    "writes": "NONE",
+    "source_mutation": "NONE",
+    "external_fetch": "REJECTED BY DOCS INGRESS",
+    "authority": "READ / INSPECT only"
+  },
+  "non_claims": [
+    "DOCS does not become canonical storage.",
+    "Material orientation cues are not semantic importance.",
+    "Opening a receipt through DOCS does not alter the receipt.",
+    "The curated shelf remains useful for common entry points; arbitrary addressing does not replace it."
+  ],
+  "verification": {
+    "static": "PASS — route grammar, static surface contracts, LensState laws, Lens proof syntax and shared Constraint Surface parity",
+    "browser": "PASS — public-surface-check run 35590481669",
+    "browser_cases": [
+      "DOCS /",
+      "DOCS /?src=/showcase-manifest.json&return=/",
+      "FIELD",
+      "HUMAN PORT",
+      "AXIAL",
+      "APERTURE",
+      "CENTER variants",
+      "SCALE LENS",
+      "HOUSE SPATIAL",
+      "POETRY / POEM MAP / VERSE ATLAS",
+      "FOUNDRY / FOUNDRY CORE",
+      "MIGRATION",
+      "CONFLUENCE",
+      "SLEEPER RECOVERY"
+    ],
+    "recovered_source_tests": "PASS — recovered source identities/media catalogue and frozen City/Painting handlers"
+  },
+  "next": "Use repository document links normally. If addressability reduces raw-JSON friction, retain. Do not add richer rendering until a specific document type exposes a missing operation.",
+  "status": "IMPLEMENTED_VERIFIED_BRANCH"
+}
