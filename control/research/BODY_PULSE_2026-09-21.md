@@ -34,3 +34,16 @@ No personal BODY observations are written into committed HOUSE state. Home Assis
 - uploading private state to the public repository;
 - direct public access to Home Assistant;
 - turning HOUSE into a model of the body or BODY into a building dashboard.
+
+## Source anchors
+
+- How We Feel — https://howwefeel.org/
+- Daylio activity/mood statistics — https://daylio.net/faq/docs/daylio-faq/about/activity-and-mood-statistics/
+- Bearable factor correlations — https://bearable.app/support/howto/how-to-find-correlations/
+- Nomie 6 OSS — https://github.com/open-nomie/nomie6-oss
+- RADAR-base — https://radar-base.org/getting-started-with-radar-base/
+- AWARE Framework — https://www.awareframework.com/
+- Open mHealth schema principles — https://www.openmhealth.org/documentation/schema-docs/overview/
+- AHRQ N-of-1 guide — https://effectivehealthcare.ahrq.gov/products/n-1-trials/research-2014-5
+- EMA burden study — https://www.jmir.org/2024/1/e50275
+- Home Assistant Recorder/history — https://www.home-assistant.io/integrations/recorder
