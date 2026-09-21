@@ -1,0 +1,42 @@
+{
+  "schema": "return-receipt/v0.1",
+  "id": "READFIELD-CONVERGENCE-2026-09-22",
+  "date": "2026-09-22",
+  "object": "READFIELD / RSVP 0.7 convergence",
+  "before": {
+    "public_surfaces": [
+      "/docs/ READ / RSVP 0.6",
+      "/foundry/aperture/ stale APERTURE 0.4 bench",
+      "/foundry/axial/ active ring focus stack"
+    ],
+    "friction": "reader functionality was split across names and geometry; highlighted context rebuilt on every high-speed focus tick"
+  },
+  "operation": [
+    "made /docs/ the canonical READFIELD / RSVP surface",
+    "made APERTURE geometry optional via reader-first component mode",
+    "added direct speed rail while preserving keyboard/buttons",
+    "cached structural marker DOM",
+    "throttled context projection separately from the temporal cursor",
+    "replaced route-wide inspect glyph with explicit READ → READFIELD handoff",
+    "redirected standalone APERTURE to READFIELD with old handoff compatibility",
+    "parked standalone AXIAL as preserved reference while retaining transferred constraint law",
+    "renamed FIELD root presentation from AXIAL / LATEST to FIELD / FOCUS without changing its internal state contract"
+  ],
+  "after": {
+    "canonical_surface": "/docs/",
+    "kernel": "/field-aperture.js",
+    "route_handoff": "readfield.handoff/v1",
+    "compatibility": "/foundry/aperture/",
+    "parked": "/foundry/axial/",
+    "authority": "READ / PRESENTATION / INSPECTION ONLY"
+  },
+  "proof": {
+    "state": "PENDING_PR_BROWSER_GATE"
+  },
+  "non_claims": [
+    "No speed-reading comprehension claim.",
+    "Ring geometry is not declared useless; it is simply no longer required for ordinary reading.",
+    "Parking AXIAL does not delete its recovered lineage or extracted support law."
+  ],
+  "return": "One public reader surface now carries source→focus→time/voice/context→RETURN; donor geometry remains available without competing for primary use."
+}
