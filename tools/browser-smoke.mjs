@@ -297,7 +297,7 @@ const CASES=[
   {
     name:'FIELD',
     route:'/',
-    check:dom=>dom.includes('id="axialLatest"')&&dom.includes('AXIAL / LATEST')
+    check:dom=>dom.includes('id="axialLatest"')&&dom.includes('AXIAL / LATEST')&&/NOW/.test(dom)&&/POLISHED ONE RETURN v2/.test(dom)&&/CONFLUENCE/.test(dom)
   },
   {
     name:'HUMAN PORT',
@@ -446,7 +446,7 @@ const CASES=[
     route:'/control/confluence/',
     check:dom=>{
       const tx=textAtId(dom,'transfers');
-      return /CONFLUENCE/i.test(dom)&&/TRANSFER REGISTRY/i.test(dom)&&/IMPLEMENTED|PROOF_REQUIRED|PROPOSED/.test(tx)&&!/loading|unavailable/i.test(tx);
+      return /CONFLUENCE/i.test(dom)&&/COORDINATION SURFACE/i.test(dom)&&/POLISHED ONE RETURN v2/.test(dom)&&/ASCII RECON/.test(dom)&&/GRID PATH V4/.test(dom)&&/TRANSFER REGISTRY/i.test(dom)&&/IMPLEMENTED|PROOF_REQUIRED|PROPOSED/.test(tx)&&!/loading|unavailable/i.test(tx);
     }
   },
   {
