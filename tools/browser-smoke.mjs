@@ -571,10 +571,10 @@ const CASES=[
     check:dom=>dom.includes('FOCUS STACK')&&dom.includes('RETURN')
   },
   {
-    name:'ROOM HTML substrate',
-    route:'/foundry/room/',
-    options:{width:900,height:900,budget:1800,timeout:18000},
-    check:dom=>dom.includes('ROOM 0.3')&&dom.includes('id="program"')&&dom.includes('data-schema="0xxx0/html-room/v0.3"')&&dom.includes('id="compiler"')&&dom.includes('rel="next"')&&dom.includes('id="sourceText"')&&dom.includes('id="returnBtn"')&&!dom.includes('space-core.js')
+    name:'ROOM MATERIAL DOM 0.4',
+    route:'/foundry/room/?selftest=1',
+    options:{width:1000,height:820,budget:4200,timeout:18000},
+    check:dom=>dom.includes('ROOM 0.4')&&dom.includes('MATERIAL DOM')&&dom.includes('id="program"')&&dom.includes('data-schema="0xxx0/material-dom/v0.4"')&&dom.includes('id="compiler"')&&dom.includes('rel="next"')&&dom.includes('id="foldBtn"')&&dom.includes('id="roomSelftest"')&&/PASS · DOM PROGRAM · FOLD · RUN · BIND · RETURN/.test(dom)&&!dom.includes('space-core.js')
   },
   {
     name:'AXIAL continuity + RETURN replay',
@@ -697,10 +697,10 @@ const CASES=[
     check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/EXTRACTED DESCENDANT · SCALE LENS/i.test(dom)&&/TWO DIAL 0\.10/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)
   },
   {
-    name:'FOLD BLOOM LIVE 0.3 section arc',
+    name:'FOLD BLOOM LIVE 0.2 gameplay',
     route:'/fold-bloom/live/',
     options:{width:430,height:900,budget:9000},
-    check:dom=>/LIVE 0\.3/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('id="demoBtn"')&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="timing"')&&dom.includes('id="trackFile"')&&dom.includes('id="trackLoad"')&&dom.includes('id="trackToggle"')&&/SECTION ARC|section arcs/i.test(dom)&&/WATCH DEMO/i.test(dom)
+    check:dom=>/LIVE 0\.2/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('id="demoBtn"')&&dom.includes('id="call"')&&dom.includes('id="streak"')&&dom.includes('id="timing"')&&dom.includes('id="trackFile"')&&dom.includes('id="trackLoad"')&&dom.includes('id="trackToggle"')&&/WATCH DEMO/i.test(dom)
   },
   {
     name:'TWO DIAL sound field 0.10',

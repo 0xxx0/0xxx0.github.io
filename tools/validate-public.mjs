@@ -250,19 +250,23 @@ if(exists(spaceCorePath)){
 }else fail.push('SPACE SCALE 0.2 fossil core missing');
 if(exists(roomPath)){
   const room=read(roomPath),route=(manifest?.routes||[]).find(r=>r.href==='/foundry/room/');
-  for(const token of ['ROOM 0.3','id="program"','data-schema="0xxx0/html-room/v0.3"','id="compiler"','rel="next"','id="sourceText"','id="returnBtn"','DOM-as-program'])check(room.includes(token),'ROOM HTML surface missing token: '+token);
-  check(!room.includes('space-core.js'),'ROOM 0.3 current surface must not depend on SPACE SCALE graph core');
+  for(const token of ['ROOM 0.4','MATERIAL DOM','id="program"','data-schema="0xxx0/material-dom/v0.4"','id="compiler"','rel="next"','id="foldBtn"','id="roomSelftest"','MODEL FIT','DOM = program structure'])check(room.includes(token),'ROOM MATERIAL DOM surface missing token: '+token);
+  check(!room.includes('space-core.js'),'ROOM 0.4 current surface must not depend on SPACE SCALE graph core');
+  check(exists('foundry/room/html-substrate-0.3.html'),'ROOM HTML SUBSTRATE 0.3 donor missing');
+  check(exists('foundry/room/release-0.3.json'),'ROOM HTML SUBSTRATE 0.3 release donor missing');
   check(exists('foundry/room/space-scale-0.2.html'),'SPACE SCALE 0.2 fossil missing');
   check(exists('foundry/room/release-0.2.json'),'SPACE SCALE 0.2 release fossil missing');
   check(exists('foundry/room/room-0.1.html'),'INTERPHASE ROOM 0.1 probe fossil missing');
   check(exists('foundry/room/release-0.1.json'),'INTERPHASE ROOM 0.1 release fossil missing');
-  check(route?.state==='CANDIDATE','ROOM HTML must remain CANDIDATE until ordinary-use evidence');
-  check(route?.kind==='experiment','ROOM HTML route kind drifted');
-  check(route?.operation==='COMPOSE','ROOM HTML operation drifted');
-  check(route?.evolution?.host==='/foundry/','ROOM HTML evolution host drifted');
-  check(roomRelease?.version==='0.3','ROOM HTML release version drifted');
-  check(roomRelease?.route==='/foundry/room/','ROOM HTML release route drifted');
-  check(/not strictly homoiconic|strict homoiconicity/i.test((roomRelease?.boundaries||[]).join(' ')),'ROOM HTML must preserve non-homoiconicity boundary');
+  check(route?.state==='CANDIDATE','ROOM MATERIAL DOM must remain CANDIDATE until real-use evidence');
+  check(route?.kind==='experiment','ROOM MATERIAL DOM route kind drifted');
+  check(route?.operation==='COMPOSE','ROOM MATERIAL DOM operation drifted');
+  check(route?.evolution?.host==='/foundry/','ROOM MATERIAL DOM evolution host drifted');
+  check(route?.evolution?.generation===4,'ROOM MATERIAL DOM generation drifted');
+  check(roomRelease?.version==='0.4','ROOM MATERIAL DOM release version drifted');
+  check(roomRelease?.route==='/foundry/room/','ROOM MATERIAL DOM release route drifted');
+  check(/not strictly homoiconic|strict homoiconicity/i.test((roomRelease?.boundaries||[]).join(' ')),'ROOM MATERIAL DOM must preserve non-homoiconicity boundary');
+  check((roomRelease?.laws||[]).some(x=>/MODEL FIT != PHYSICAL CONTRACT FIT/i.test(String(x))),'ROOM MATERIAL DOM must preserve model/contract separation');
   compileInline(roomPath);
 }
 
