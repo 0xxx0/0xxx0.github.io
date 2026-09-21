@@ -65,10 +65,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX / LATEST · ISSUES · MAP",
+      "head": "FIELD INDEX / LATEST · STRIP · ISSUES · MAP",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast re-entry from newest durable repo touches first; GitHub issues expose declared open loops; semantic glyph rail compresses the same list; NOW remains explicit attention, HEADS is a collapsed advanced lineage reading, MAP/EVOLVE/PULSE are secondary projections."
+      "retained_function": "Fast repo re-entry under semantic density: NOW/HEAD state collapses to a compact compositional mark strip, LATEST remains newest-first, issues expose repo loops, and prose/detail is reveal-on-demand. MARK/COMPACT/FULL preserve identity."
     },
     {
       "lineage": "scale-lens",
@@ -402,7 +402,9 @@
     "field_evolution": "/control/confluence/FIELD_EVOLUTION.md",
     "field_evolution_return": "/returns/FIELD_EVOLUTION_2026-09-21.json",
     "field_issues": "/control/FIELD_ISSUES.json",
-    "field_glyph": "/field-glyph.js"
+    "field_glyph": "/field-glyph.js",
+    "field_presentation": "/control/FIELD_PRESENTATION.json",
+    "field_presentation_kernel": "/field-presentation.js"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
