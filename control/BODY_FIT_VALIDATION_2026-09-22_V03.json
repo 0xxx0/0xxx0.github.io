@@ -1,8 +1,8 @@
 {
   "schema": "0xxx0/body-fit-validation/v0.3",
-  "at": "2026-09-22T01:37:00+08:00",
+  "at": "2026-09-22T02:50:00+08:00",
   "artifact": "/body/fit/",
-  "result": "PASS_STATIC_CONTRACT",
+  "result": "PASS_STATIC_CONTRACT_PLUS_RUNTIME_REGRESSION",
   "checks": {
     "javascript_syntax": "PASS",
     "network_submission": false,
@@ -23,7 +23,11 @@
       "CARE",
       "HOUSE",
       "HUMAN PORT remain separate"
-    ]
+    ],
+    "runtime_tab_switch": "PASS — explicit querySelectorAll NodeLists; prior single-selector .forEach regression removed",
+    "loadout_surface": "PASS — ACTIVE LOADOUT / PREP KITS / SET OUT / RETURN + MARK / PATINA / NEXT CUT present",
+    "loadout_metrics": "PASS — modules/capabilities/known-mass/streams are descriptive projections only; no body score",
+    "sensor_fusion_surface": "PASS — FUSE remains source-distinct and non-averaging"
   },
   "open_questions": [
     "ordinary-use proof: same kit twice with one NEXT CUT between returns",
@@ -31,5 +35,14 @@
     "whether CARE performed-actions deserve a compatible patina projection after BODY / FIT proves useful",
     "whether PATINA marks should eventually bind body addresses spatially or remain a separate return field"
   ],
-  "research": "/control/research/BODY_FIT_RETURN_PATINA_2026-09-22.md"
+  "research": "/control/research/BODY_FIT_RETURN_PATINA_2026-09-22.md",
+  "regressions": [
+    {
+      "id": "tab-selector-0.3",
+      "found": "2026-09-22",
+      "symptom": "view tab handler used the single-selector helper with .forEach; page could load while tab switching failed at runtime",
+      "fix_commit": "2a470c809a24c5cb80e7707ce9af295007773e69",
+      "invariant": "all multi-node view/tab operations use querySelectorAll or $$"
+    }
+  ]
 }
