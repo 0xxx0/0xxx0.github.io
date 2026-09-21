@@ -146,7 +146,7 @@ function studioProbeHtml(){
     rec.studioObject=studioState.objectId;rec.upstreamStack=(studioState.meta?.upstreamLensStack||[]).map(x=>x.lensId);
     const ret=await waitFor(()=>{const x=D().getElementById('returnUpstream');return x&&!x.hidden?x:null});rec.returnHref=ret.dataset.href||null;
     if(rec.studioObject!==rec.startHref||!rec.upstreamStack.includes('field-foveate'))throw new Error('studio identity/provenance mismatch');
-    ret.click();await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===rec.startHref);
+    if(!W().ScaleLensSpatialAPI?.return)throw new Error('Scale Lens RETURN API missing');rec.returnVia='ScaleLensSpatialAPI';W().ScaleLensSpatialAPI.return();await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===rec.startHref);
     rec.endHref=W().FieldLensHost.focus().href;rec.end=compact(W().FieldLensHost.uiState());
     const ok=rec.inline&&rec.noPeer&&rec.noPeerApi&&rec.dive.focusHref===rec.startHref&&rec.diveHref===rec.startHref&&rec.dive.mapRoot==='/fold-bloom/'&&rec.rise.focusHref===rec.startHref&&rec.riseHref===rec.startHref&&rec.rise.mapRoot==='/'&&rec.stackRemoved===true&&rec.fieldObject===rec.startHref&&rec.fieldStack.includes('field-foveate')&&rec.studioObject===rec.startHref&&rec.upstreamStack.includes('field-foveate')&&rec.endHref===rec.startHref;
     done(!!ok,rec);
