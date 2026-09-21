@@ -11,9 +11,24 @@ function applyPatch() {
     const result = applyEnvelope(state, envelope);
     state = result.state;
     save();
+    if (incomingHandoff?.schema === '0xxx0/port-object-to-field-intake/v0.1' && incomingHandoff.source_object_id) {
+      try {
+        const accepted = (result.receipt.delta.added.length + result.receipt.delta.replaced.length) > 0;
+        sessionStorage.setItem('human.port.object.return.v01', JSON.stringify({
+          schema: 'human-port-object-return/v0.1',
+          object_id: incomingHandoff.source_object_id,
+          state: accepted ? 'APPLIED' : 'REVIEWED_NO_MUTATION',
+          receipt_id: result.receipt.id || null,
+          added: result.receipt.delta.added.map(x => x.id || x),
+          replaced: result.receipt.delta.replaced.map(x => x.id || x),
+          source_object: incomingHandoff.source_object || null,
+          at: new Date().toISOString()
+        }));
+      } catch {}
+    }
     prefs.rightMode = 'receipts';
     rebuildEnvelope(false);
-    setNotice(`Patch applied: +${result.receipt.delta.added.length} add · ~${result.receipt.delta.replaced.length} replace.`, 'ok');
+    setNotice(`Patch applied: +${result.receipt.delta.added.length} add · ~${result.receipt.delta.replaced.length} replace.${incomingHandoff?.schema === '0xxx0/port-object-to-field-intake/v0.1' ? ' HUMAN PORT RETURN ready.' : ''}`, 'ok');
     render();
   } catch (error) {
     setNotice(error instanceof Error ? error.message : 'Patch failed.', 'error');
