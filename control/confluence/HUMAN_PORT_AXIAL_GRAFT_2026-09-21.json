@@ -1,0 +1,61 @@
+{
+  "schema": "0xxx0/mechanism-graft/v0.1",
+  "id": "HUMAN-PORT-AXIAL-GRAFT-2026-09-21",
+  "recipient": "/port/",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "question": "Which proven interface mechanisms from AXIAL/Lens/RSVP/passive-feedback improve HUMAN PORT hydration and behavior without importing their surface vocabulary wholesale?",
+  "donors": [
+    {
+      "source": "/foundry/axial/",
+      "mechanism": "unequal state vocabularies + visible support + fixed focus + explicit OPEN + distinct RETURN",
+      "transfer": "per-route exact cue support; selected route; explicit OPEN gate; route receipt"
+    },
+    {
+      "source": "/field-aperture.js",
+      "mechanism": "source magnitude + scale + position + fixed foveated focus",
+      "transfer": "inline source focus at DOCUMENT/PARAGRAPH/SENTENCE/WORD or JSON scales"
+    },
+    {
+      "source": "/fold-bloom/lens/",
+      "mechanism": "canonical identity != projection address",
+      "transfer": "WHOLE SOURCE vs CURRENT FOCUS while original remains canonical"
+    },
+    {
+      "source": "/control/RSVP_MECHANISM_DIFF_2026-09-21.json",
+      "mechanism": "continuous temporal focus / speech-boundary donor",
+      "transfer": "existing aperture RSVP/TTS controls remain available inside Port focus instrument"
+    },
+    {
+      "source": "/control/INTERACTION_SEMANTICS.json",
+      "mechanism": "BACK != UNDO != RETURN; operations must be semantically distinct",
+      "transfer": "route SELECT != OPEN; route receipt != RETURN; re-entry restores session state"
+    },
+    {
+      "source": "/control/PREFERENCE_SIGNALS.json",
+      "mechanism": "passive metadata-only choice evidence",
+      "transfer": "route preference derives only from completed OPEN choices; payload text is never logged"
+    },
+    {
+      "source": "TRANSIT / INTERCHANGE lineage",
+      "mechanism": "one object moves between mechanisms without becoming separate projects",
+      "transfer": "same source object is handed to Contact/BURST/Idea Atlas/Residue/Lens"
+    }
+  ],
+  "result": [
+    "Port now hydrates an inline focus aperture from the source.",
+    "Route support recomputes against WHOLE or CURRENT FOCUS.",
+    "Zero-support routes remain selectable; support is not permission.",
+    "Route selection no longer navigates immediately; OPEN is a separate gate.",
+    "Session re-entry restores source, focus, scope and selected route.",
+    "Route receipts store metadata only: route/scope/focus address/source length/candidate provenance.",
+    "Specialized tools remain downstream; no new sovereign project created."
+  ],
+  "exclusions": [
+    "Do not copy AXIAL ring-stack aesthetics wholesale.",
+    "Do not treat cue counts as confidence or authority.",
+    "Do not store source text in passive preference history or route receipts.",
+    "Do not call route receipt a RETURN from the downstream world.",
+    "Do not auto-open a route from heuristic support."
+  ],
+  "next_evidence": "Ordinary use only: observe whether focus-routing reduces repasting/re-entry or produces unnecessary friction. Refine after repeated choice/override/backtrack evidence."
+}
