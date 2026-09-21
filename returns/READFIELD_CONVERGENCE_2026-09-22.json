@@ -31,7 +31,9 @@
     "authority": "READ / PRESENTATION / INSPECTION ONLY"
   },
   "proof": {
-    "state": "PENDING_PR_BROWSER_GATE"
+    "state": "FINAL_BROWSER_GATE_RUNNING",
+    "pr": 101,
+    "head": "3742888efbc8b5c650689af27b9f9a5f9cdc0dd3"
   },
   "non_claims": [
     "No speed-reading comprehension claim.",
