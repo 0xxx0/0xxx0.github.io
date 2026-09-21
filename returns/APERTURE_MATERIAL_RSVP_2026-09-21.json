@@ -1,0 +1,48 @@
+{
+  "schema": "return-receipt/v1",
+  "id": "APERTURE-MATERIAL-RSVP-2026-09-21",
+  "at": "2026-09-21T17:48:00+08:00",
+  "status": "IMPLEMENTED_STATIC_PASS",
+  "trigger": [
+    "ordinary-use friction: FIELD landing required an unnecessary explicit OPEN after focus for safe local navigation",
+    "HUMAN PORT demonstrated that automatically mounting the existing Field Aperture against the current source is materially more usable than requiring a separate inspector workflow",
+    "DOCS / READ was still a plain <pre> despite the shared aperture already supporting TEXT and JSON",
+    "RSVP control was fixed at 300 WPM despite the underlying temporal-focus mechanism supporting much faster stepping"
+  ],
+  "delta": {
+    "shared_component": "/field-aperture.js",
+    "changes": [
+      "focus event schema advanced to field-aperture-focus/v0.2",
+      "RSVP WPM control expanded to 60–3000 WPM with preset stepping and keyboard control",
+      "RSVP timer changed from fixed setInterval to reschedulable dwell so speed changes apply immediately and punctuation/long tokens may receive bounded extra dwell",
+      "position / scale / source magnitude now emit material state as CSS custom properties and aperture-material events",
+      "material-target attribute can project that state into a host element without changing source data",
+      "DOCS / READ embeds the same aperture automatically for every selected control document and materializes scale/position into the page field",
+      "standalone APERTURE workbench uses the same whole-space material projection",
+      "FIELD safe local navigation now uses focus-first / second-click-open on route/survivor/latest items; explicit OPEN remains available"
+    ]
+  },
+  "authority": [
+    "material projection changes presentation only",
+    "document/source data is read-only",
+    "FIELD second-click navigation is limited to local repository routes and is not generalized to HUMAN PORT/external/consequential actions",
+    "RSVP speed range is an experimental control range, not a comprehension claim"
+  ],
+  "evidence": {
+    "static": [
+      "field-aperture.js JavaScript parse PASS",
+      "DOCS inline JavaScript parse PASS",
+      "APERTURE workbench inline JavaScript parse PASS",
+      "FIELD INDEX inline JavaScript parse PASS"
+    ],
+    "external_benchmark": [
+      "Current RSVP products commonly expose adjustable speed above ordinary reading rates; examples found during this pass include 1000+ WPM and one current extension advertising 50–2000 WPM. This motivated removing the 300 WPM UI ceiling but does not validate comprehension at high speed."
+    ]
+  },
+  "next_use": [
+    "Use DOCS normally and observe whether material scale/position improves orientation or becomes visual noise.",
+    "Use RSVP at personally useful rates; if high-speed use exposes need for chunking/ORP/smart pauses, treat each as a separate mechanism test.",
+    "Observe whether FIELD second-click-open removes friction without causing accidental navigation."
+  ],
+  "return": "One existing component now carries source identity, scale, position, time and material host state across HUMAN PORT, DOCS, FIELD dock and standalone APERTURE. No new sovereign project."
+}
