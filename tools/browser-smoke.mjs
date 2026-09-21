@@ -139,6 +139,27 @@ const CASES=[
     check:dom=>/FOUNDRY/i.test(dom)&&/VERSE|AXIAL/i.test(dom)&&!dom.includes('load failure')
   },
   {
+    name:'FOUNDRY CORE',
+    route:'/foundry/core/',
+    check:dom=>{
+      const center=textAtId(dom,'oneLine'),live=textAtId(dom,'liveStamp');
+      return center&&!/loading|failure/i.test(center)&&/updated/i.test(live)&&!dom.includes('CENTER LOAD FAILURE');
+    }
+  },
+  {
+    name:'MIGRATION',
+    route:'/migration/',
+    check:dom=>{
+      const trophy=textAtId(dom,'trophyCount');
+      return /exact|frozen|donor/i.test(trophy)&&!/Loading active migration surface/i.test(dom);
+    }
+  },
+  {
+    name:'CONFLUENCE',
+    route:'/control/confluence/',
+    check:dom=>/CONFLUENCE/i.test(dom)&&/TRANSFER REGISTRY/i.test(dom)&&/FIELD DATADISC PULSE/i.test(dom)&&!dom.includes('Transfer registry unavailable')
+  },
+  {
     name:'SLEEPER RECOVERY',
     route:'/recovery/sleeper/',
     check:dom=>/Sleeper recovery/i.test(dom)&&/Exact source now recovered/i.test(dom)&&/Painting \/ Path/i.test(dom)
