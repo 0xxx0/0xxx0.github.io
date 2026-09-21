@@ -139,6 +139,7 @@ payload.addEventListener('input',()=>{clearTimeout(timer);timer=setTimeout(updat
 payload.addEventListener('paste',()=>{clearTimeout(timer);timer=setTimeout(updateLikely,40)},{passive:true});
 $('#inspectBtn').onclick=()=>{const x=source();if(!x)return;window.FieldAperture?.dock(x.text,{label:x.label,from:'human-port'})};
 $('#clear').onclick=()=>{payload.value='';label.value='';likely=null;document.querySelectorAll('[data-route]').forEach(b=>b.classList.remove('likely'));note('CLEARED · NOTHING STORED')};
+try{const raw=sessionStorage.getItem('human.port.intake.preload.v01');if(raw){const x=JSON.parse(raw);sessionStorage.removeItem('human.port.intake.preload.v01');payload.value=String(x.text||'').slice(0,12000);label.value=String(x.label||'').slice(0,100);updateLikely();note('PRELOADED FROM '+String(x.source||'CENTER').toUpperCase()+' · choose the lawful route')}}catch(e){note('PRELOAD FAILED · '+e.message,true)}
 })();
 </script>
 </main></body></html>
