@@ -1,0 +1,39 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "PASSIVE-FEEDBACK-2026-09-21",
+  "branch": "field/passive-feedback-loop-20260921",
+  "state": "BOUNDED_EXPERIMENT_READY",
+  "before": {
+    "field": "Projection modes were manually selected; no local preference feedback loop.",
+    "port": "Five conceptual routes were presented equally and required an explicit meta-choice.",
+    "compositions": "Speculative loops lived across discussions/lineages without one current composition registry."
+  },
+  "delta": [
+    "Added field-signals.js: bounded local metadata-only signal log.",
+    "Added /control/TRANSDUCTIONS.json and /control/PREFERENCE_SIGNALS.json.",
+    "FIELD derives a low-risk map-mode default only after >=3 choices and >=0.60 top share.",
+    "HUMAN PORT proposes a likely route locally and records candidate accept/override without storing payload text.",
+    "Added /control/confluence/TRANSDUCTIONS.md as the single parking/consolidation point for speculative compositions."
+  ],
+  "evidence": [
+    "field-signals.js parses successfully.",
+    "index.html inline script parses successfully.",
+    "port/index.html inline script parses successfully.",
+    "Preference harness: PULSE chosen 2/3 -> candidate PULSE share 0.6667; after 3/4 -> share 0.75.",
+    "All changes isolated on branch; master untouched."
+  ],
+  "authority": {
+    "preference": "VIEW/ROUTING SUGGESTION ONLY",
+    "external_actions": "UNCHANGED; explicit or separately pre-delegated authority required",
+    "payload_logging": "FORBIDDEN"
+  },
+  "residue": [
+    "No decay/recency weighting yet.",
+    "No sequence model for backtrack/reversal yet.",
+    "PORT route heuristic is deterministic and intentionally simple.",
+    "No HAOS adapter wired yet; only composition placeholder.",
+    "No autonomous recursive executor wired by this change."
+  ],
+  "revert": "Delete branch or revert its commits; master is unchanged until merge.",
+  "next": "Compare branch to master, then merge only if diff remains bounded and structurally consistent."
+}

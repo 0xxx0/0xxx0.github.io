@@ -1,0 +1,151 @@
+{
+  "schema": "0xxx0/transductions/v0.1",
+  "updated": "2026-09-21",
+  "status": "EXPERIMENTAL_BRANCH",
+  "purpose": "One registry for composable bounded transformations across UI, agents, HOUSE/HAOS and physical return. Preserve mechanisms; do not create parallel pipelines.",
+  "lineage": {
+    "exact_donor": "/recovery/poly-furnisher/interphase-lineage/interphase-2020.html",
+    "observed_primitives": [
+      "flow/wolf composition",
+      "Lens/Iso/Traversal focus",
+      "Store action(transform)(event)",
+      "reducers/transducers: xduce/mapping/filtering"
+    ],
+    "later_relations": [
+      "FTTC Frame→Transform→Test→Commit",
+      "SOURCE→TRANSFORM→RETURN",
+      "HOUSE OBSERVE→TARGET→ROUTES→TEST→RESULT→RETURN"
+    ],
+    "rule": "Recover donor semantics; current registry is a new composition layer, not a claim that historical code implemented current behavior."
+  },
+  "primitive": {
+    "shape": [
+      "source",
+      "focus",
+      "transform",
+      "commit",
+      "observable",
+      "evidence",
+      "authority",
+      "reversibility"
+    ],
+    "laws": [
+      "IDENTITY survives projection unless a declared transform creates a new object.",
+      "OBSERVATION may refine a candidate default; it may not grant authority.",
+      "COMPOSITION preserves each member's authority ceiling.",
+      "NO RECURSION WITHOUT DELTA OR NEW EVIDENCE.",
+      "A failed/ambiguous transform returns residue instead of silently selecting another goal.",
+      "Consequential external action requires explicit or pre-delegated bounded authority."
+    ]
+  },
+  "transductions": [
+    {
+      "id": "xd.signal.observe",
+      "state": "ACTIVE_EXPERIMENT",
+      "source": "local UI event",
+      "focus": "action metadata only; never payload text",
+      "transform": "sanitize + classify",
+      "commit": "bounded localStorage signal log",
+      "observable": "choice/dwell/navigation/control event",
+      "evidence": "timestamp + route + action metadata",
+      "authority": "LOCAL_OBSERVATION",
+      "reversibility": "clear local log"
+    },
+    {
+      "id": "xd.preference.derive",
+      "state": "ACTIVE_EXPERIMENT",
+      "source": "repeated local choice signals",
+      "focus": "one choice group",
+      "transform": "count + dominance threshold",
+      "commit": "none; derive on read",
+      "observable": "candidate default after >=3 observations and >=0.60 share",
+      "evidence": "counts retained locally",
+      "authority": "SUGGESTION_ONLY",
+      "reversibility": "automatic as evidence distribution changes"
+    },
+    {
+      "id": "xd.projection.choose",
+      "state": "PROPOSED",
+      "source": "object + current intent + preference evidence",
+      "focus": "projection family",
+      "transform": "rank lawful projections",
+      "commit": "ephemeral view selection",
+      "observable": "object opens in useful representation",
+      "evidence": "override/accept/backtrack signals",
+      "authority": "VIEW_ONLY",
+      "reversibility": "instant manual override"
+    },
+    {
+      "id": "xd.work.advance",
+      "state": "PROPOSED",
+      "source": "current head + bounded next transformation",
+      "focus": "one state delta",
+      "transform": "execute → verify",
+      "commit": "artifact + RETURN when pass criteria hold",
+      "observable": "changed durable state",
+      "evidence": "tests/receipt/residue",
+      "authority": "BOUNDED_WRITE_ONLY",
+      "reversibility": "branch/revert/compensating transform"
+    },
+    {
+      "id": "xd.house.observe",
+      "state": "PLACEHOLDER",
+      "source": "HAOS/House event stream",
+      "focus": "declared entity/event adapter",
+      "transform": "normalize to FIELD event",
+      "commit": "local event/state update",
+      "observable": "changed sensed state",
+      "evidence": "source event id/time",
+      "authority": "READ_ONLY",
+      "reversibility": "not applicable; observation append-only"
+    },
+    {
+      "id": "xd.house.act",
+      "state": "PLACEHOLDER",
+      "source": "bounded proposed physical action",
+      "focus": "capability + target + purpose",
+      "transform": "policy/authority gate → actuation",
+      "commit": "world action + receipt",
+      "observable": "measured state change or failure",
+      "evidence": "before/after + source event + command result",
+      "authority": "EXPLICIT_OR_PREDELEGATED",
+      "reversibility": "capability-specific; never assumed"
+    }
+  ],
+  "compositions": [
+    {
+      "id": "passive-refine",
+      "state": "ACTIVE_SLICE",
+      "chain": [
+        "xd.signal.observe",
+        "xd.preference.derive",
+        "xd.projection.choose"
+      ],
+      "note": "Preference evidence tunes presentation only; no authority escalation."
+    },
+    {
+      "id": "autonomous-bounded-work",
+      "state": "PROPOSED",
+      "chain": [
+        "orient current head",
+        "xd.work.advance",
+        "RETURN",
+        "re-orient"
+      ],
+      "note": "May repeat only under an explicit bounded recurrence contract; otherwise stop after one consequential delta."
+    },
+    {
+      "id": "house-closed-loop",
+      "state": "PLACEHOLDER",
+      "chain": [
+        "xd.house.observe",
+        "state estimate",
+        "candidate transform",
+        "xd.house.act",
+        "measure",
+        "RETURN"
+      ],
+      "note": "Separate sensing from actuation authority."
+    }
+  ]
+}

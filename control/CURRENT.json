@@ -287,8 +287,8 @@
     }
   ],
   "next_single_action": {
-    "id": "human-port-real-intake-01",
-    "instruction": "Use HUMAN PORT 1.3 on one real source when convenient: paste it once at /port/, choose BURST / IDEA ATLAS / SOCIAL RESIDUE / SCALE LENS / CONTACT, verify the target arrives preloaded, and record only what reduced re-entry cost or failed. Do not add private transport or autonomous sending before that RETURN."
+    "id": "passive-feedback-observe-01",
+    "instruction": "Use FIELD and HUMAN PORT normally. Do not perform a dedicated QA ritual. Let local choice/override signals accumulate; only inspect or refine the model after ordinary use produces evidence or a concrete failure."
   },
   "downstream": {
     "codex": "repository writer / bounded implementation",
@@ -394,7 +394,11 @@
     "verse_copilot_recovery": "/control/confluence/VERSE_COPILOT_RECOVERY.md",
     "verse_visualization_quarry": "/control/confluence/VERSE_VIS_QUARRY.md",
     "verse_lab": "/poetry/lab/",
-    "poem_map": "/poetry/lab/poem-map/"
+    "poem_map": "/poetry/lab/poem-map/",
+    "transductions": "/control/confluence/TRANSDUCTIONS.md",
+    "transduction_registry": "/control/TRANSDUCTIONS.json",
+    "preference_signals": "/control/PREFERENCE_SIGNALS.json",
+    "passive_feedback_return": "/returns/PASSIVE_FEEDBACK_2026-09-21.json"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",

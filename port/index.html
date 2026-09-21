@@ -9,7 +9,7 @@
 header{padding:36px 0 22px;border-bottom:1px solid var(--line)}.ey{font-size:9px;letter-spacing:.19em;color:var(--hot)}h1{margin:10px 0 12px;font:900 clamp(58px,12vw,118px)/.78 system-ui,-apple-system,sans-serif;letter-spacing:-.085em}.lead{max-width:780px;font:16px/1.5 system-ui,-apple-system,sans-serif;color:#c1c9cc}.sub{max-width:760px;margin-top:9px;color:#859197;font:10px/1.55 system-ui,-apple-system,sans-serif}
 .intake{margin-top:20px;border:1px solid var(--line);background:var(--panel)}.intakehead{display:flex;justify-content:space-between;gap:12px;padding:9px 11px;border-bottom:1px solid var(--line);font-size:8px;letter-spacing:.13em}.intakehead span:last-child{color:var(--green)}.labelrow{display:grid;grid-template-columns:160px 1fr;gap:1px;background:var(--line)}.labelrow label{background:#090d10;padding:11px;color:var(--mut);font-size:8px;letter-spacing:.11em}.labelrow input{border:0;background:#0b0f12;color:var(--ink);padding:11px;outline:none}.intake textarea{width:100%;min-height:180px;border:0;border-top:1px solid var(--line);background:#0b0f12;color:var(--ink);padding:14px;resize:vertical;outline:none;font:15px/1.55 system-ui,-apple-system,sans-serif}
 .samples{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);border-top:1px solid var(--line)}.samples button{border:0;background:#090d10;color:#7f8b90;padding:8px 10px;font-size:8px}.samples button:hover{background:#11181c;color:#fff}
-.routes{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.route{border:0;background:#0a0e10;color:var(--ink);padding:13px 11px;text-align:left;min-height:110px}.route:hover,.route:focus{background:#12191d;outline:none}.route b{display:block;font:800 15px/1.05 system-ui,sans-serif;letter-spacing:-.02em}.route small{display:block;margin-top:6px;color:var(--cool);font-size:7px;letter-spacing:.11em}.route span{display:block;margin-top:8px;color:#839097;font:9px/1.45 system-ui,sans-serif}.route.idea small{color:var(--gold)}.route.share small{color:var(--green)}.status{min-height:31px;border-top:1px solid var(--line);padding:8px 11px;color:#718087;font-size:8px}.status.hot{color:var(--hot)}
+.routes{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.route{border:0;background:#0a0e10;color:var(--ink);padding:13px 11px;text-align:left;min-height:110px}.route:hover,.route:focus{background:#12191d;outline:none}.route.likely{background:#111b20;box-shadow:inset 0 3px 0 var(--cool)}.route.likely small:after{content:" · LIKELY";color:var(--ink)}.route b{display:block;font:800 15px/1.05 system-ui,sans-serif;letter-spacing:-.02em}.route small{display:block;margin-top:6px;color:var(--cool);font-size:7px;letter-spacing:.11em}.route span{display:block;margin-top:8px;color:#839097;font:9px/1.45 system-ui,sans-serif}.route.idea small{color:var(--gold)}.route.share small{color:var(--green)}.status{min-height:31px;border-top:1px solid var(--line);padding:8px 11px;color:#718087;font-size:8px}.status.hot{color:var(--hot)}
 .sectionhead{display:flex;justify-content:space-between;gap:12px;align-items:end;margin:26px 0 8px}.sectionhead b{font-size:9px;letter-spacing:.15em}.sectionhead span{font-size:8px;color:var(--mut)}
 .tools{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}.tool{background:var(--panel);padding:14px;min-height:112px}.tool:hover{background:#11181c}.tool b{display:block;font-size:9px;letter-spacing:.12em}.tool span{display:block;margin-top:7px;color:#849096;font:9px/1.5 system-ui,sans-serif}
 .explain{margin-top:18px;border:1px solid var(--line);background:#090d10}.explain summary{cursor:pointer;list-style:none;padding:11px 13px;font-size:8px;letter-spacing:.13em;color:#a8b1b5}.explain summary::-webkit-details-marker{display:none}.explain summary:after{content:' +';color:var(--cool)}.explain[open] summary:after{content:' −'}.inside{border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line)}.inside div{background:var(--panel);padding:12px}.inside b{display:block;font-size:8px;letter-spacing:.1em}.inside span{display:block;margin-top:5px;color:#7d898f;font:9px/1.45 system-ui,sans-serif}
@@ -20,9 +20,9 @@ footer{margin-top:20px;padding-top:10px;border-top:1px solid var(--line);display
 </style></head><body><main>
 <header>
   <div class="ey">0 / HUMAN PORT · LOCAL INTAKE / ROUTER</div>
-  <h1>BRING<br>SOMETHING IN.</h1>
-  <div class="lead">A message. A messy thought. An idea. A promise. A piece of text or data. Keep the source intact, then route it to the smallest useful instrument.</div>
-  <div class="sub">Nothing here uploads by itself. Nothing here sends as you. The same source can take different lawful paths without becoming five different things.</div>
+  <h1>HUMAN<br>PORT.</h1>
+  <div class="lead">Paste or write one source. The port keeps it intact, proposes the smallest useful transform, and leaves the alternatives available.</div>
+  <div class="sub">Source text stays out of preference history. Nothing sends externally without an explicit action.</div>
 </header>
 
 <section class="intake" aria-label="Human Port intake">
@@ -68,14 +68,40 @@ footer{margin-top:20px;padding-top:10px;border-top:1px solid var(--line);display
 
 <footer><span>ONE SOURCE · MANY LAWFUL ROUTES · NARROW AUTHORITY</span><span><a href="../contact/">CONTACT →</a> · <a href="../.well-known/human-port.json">MACHINE →</a> · <a href="../">FIELD →</a></span></footer>
 
+<script src="../field-signals.js"></script>
 <script>
 (()=>{'use strict';
 const $=s=>document.querySelector(s),payload=$('#payload'),label=$('#label'),status=$('#status');
+let likely=null,likelySource='none',timer=null;
+const ROUTES=['contact','burst','idea','residue','lens'];
+const routeLabel=k=>({contact:'SHARE / REPLY',burst:'UNTANGLE IT',idea:'KEEP THE IDEA',residue:'REMEMBER IT',lens:'CHANGE THE VIEW'}[k]||k);
+function inferRoute(text){
+ const t=String(text||'').toLowerCase(),s={contact:0,burst:0,idea:0,residue:0,lens:0};
+ const hit=(k,re,w=1)=>{const m=t.match(re);if(m)s[k]+=m.length*w};
+ hit('contact',/\b(reply|respond|send|message|email|text|tell|draft|write back)\b/g,2);
+ hit('residue',/\b(remind|remember|follow[- ]?up|promise|owed?|later|don't forget|do not forget)\b/g,2);
+ hit('idea',/\b(idea|prototype|build|make|app|mechanism|what if|could we|design)\b/g,1.5);
+ hit('lens',/\b(compare|map|structure|scale|view|projection|relationship|lineage|zoom)\b/g,1.5);
+ hit('burst',/\b(unclear|messy|confus|separate|untangle|what.*mean|multiple|several)\b/g,1.5);
+ const ranked=Object.entries(s).sort((a,b)=>b[1]-a[1]);
+ if(ranked[0][1]>0&&ranked[0][1]>ranked[1][1])return {value:ranked[0][0],source:'content-shape'};
+ const pref=window.FieldSignals?.preference('human-port-route',ROUTES);
+ return pref?{value:pref.value,source:'local-history'}:{value:'burst',source:'fallback'};
+}
+function updateLikely(){
+ const next=inferRoute(payload.value);
+ if(next.value===likely&&next.source===likelySource)return;
+ likely=next.value;likelySource=next.source;
+ document.querySelectorAll('[data-route]').forEach(b=>b.classList.toggle('likely',b.dataset.route===likely));
+ if(payload.value.trim())note('LIKELY → '+routeLabel(likely)+' · choose another route to correct it');
+ window.FieldSignals?.emit('candidate',{group:'human-port-route',value:likely,source:likelySource});
+}
 const firstLine=s=>String(s||'').split(/\r?\n/).map(x=>x.trim()).find(Boolean)||'Untitled intake';
 function note(t,hot=false){status.textContent=t;status.classList.toggle('hot',hot)}
 function source(){const text=payload.value.trim();if(!text){note('PASTE OR WRITE SOMETHING FIRST.',true);return null}return{text,label:label.value.trim()||firstLine(text).slice(0,96),created_at:new Date().toISOString(),source:'human-port-intake'}}
 function go(kind){
  const x=source();if(!x)return;
+ window.FieldSignals?.emit(kind===likely?'candidate-accepted':'candidate-overridden',{group:'human-port-route',candidate:likely,value:kind,source:likelySource});
  try{
   if(kind==='contact'){
    sessionStorage.setItem('human.port.handoff.v01',JSON.stringify({draft:x.text.slice(0,1200),mode:'REPLY',source:x.source,created_at:x.created_at}));
@@ -106,9 +132,11 @@ document.querySelectorAll('[data-sample]').forEach(b=>b.onclick=()=>{
   idea:"My cousin has an app idea: one object can appear as a map, timeline, message and game without losing its identity. I said I could help think it through.",
   follow:"I told them I would look at the paintings and send thoughts. I still care about the work, but I am not sure the original follow-up is the right next move."
  };
- payload.value=samples[b.dataset.sample]||'';label.value={messy:'messy multi-thread note',idea:'cousin app idea',follow:'paintings follow-up'}[b.dataset.sample]||'';note('SAMPLE LOADED · CHOOSE A ROUTE');
+ payload.value=samples[b.dataset.sample]||'';label.value={messy:'messy multi-thread note',idea:'cousin app idea',follow:'paintings follow-up'}[b.dataset.sample]||'';updateLikely();
 });
-$('#clear').onclick=()=>{payload.value='';label.value='';note('CLEARED · NOTHING STORED')};
+payload.addEventListener('input',()=>{clearTimeout(timer);timer=setTimeout(updateLikely,180)},{passive:true});
+payload.addEventListener('paste',()=>{clearTimeout(timer);timer=setTimeout(updateLikely,40)},{passive:true});
+$('#clear').onclick=()=>{payload.value='';label.value='';likely=null;document.querySelectorAll('[data-route]').forEach(b=>b.classList.remove('likely'));note('CLEARED · NOTHING STORED')};
 })();
 </script>
 </main></body></html>
