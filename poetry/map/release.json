@@ -51,7 +51,12 @@
     "revision ancestry with before/after/provenance",
     "undo last adoption",
     "candidate form-support counts analogous to AXIAL lawful-support counts",
-    "constraint support is admissibility only, never a literary-quality score"
+    "constraint support is admissibility only, never a literary-quality score",
+    "PAGE is now the default and persisted first entrance; MAP/SETS remain linked projections",
+    "30-second first-use play path: source/demo → PAGE selection → intent → TRY → ADOPT/BANK → MAP/SETS/PATH → RETURN",
+    "map-law weights and APERTURE remain intact behind an ADVANCED disclosure rather than being removed",
+    "RETURN JSON import/replay restores source, form, relation weights, aperture, locks, author path/edges, bank, revisions and captures",
+    "internal selftest surface exposed as window.__POEM_MAP__.selftest()"
   ],
   "boundaries": [
     "Map is a projection, not the poem.",
@@ -63,7 +68,10 @@
     "Preview never mutates source.",
     "ADOPT is explicit and recorded; LOCK blocks adoption.",
     "0.1 selective-visualization proof remains preserved at /poetry/lab/poem-map/.",
-    "Candidate support reports explicit form-envelope compatibility only; it is not a recommendation, ranking or poetry score."
+    "Candidate support reports explicit form-envelope compatibility only; it is not a recommendation, ranking or poetry score.",
+    "PAGE is the legibility/control entrance; MAP and SETS must earn attention rather than replace reading.",
+    "First-use orientation changes disclosure/order only; the 0.2 authoring feature set remains available.",
+    "Rendered-browser smoke of the post-rebase orientation/replay changes remains pending; static JS/DOM integrity is verified."
   ],
   "next_experiments": [
     "intent verbs CONTINUE/REPLACE/ECHO/CONTRAST/TURN/RHYME/COMPRESS/EXPAND/SURPRISE/BREAK feeding provider-specific candidate queries",
@@ -95,6 +103,19 @@
       "revision ancestry exported",
       "UNDO ADOPT"
     ],
-    "generation_proof_preserved": "/poetry/lab/poem-map/"
+    "generation_proof_preserved": "/poetry/lab/poem-map/",
+    "dom_selector_integrity": "PASS_NO_MISSING_IDS",
+    "current_source_sha": "2a715df2c3064b9adebdcc14ca0c97dd35e63c4f",
+    "page_default_and_persisted": "PASS_STATIC",
+    "guide_markers": "PASS_STATIC",
+    "return_import_replay_contract": "PASS_STATIC",
+    "selftest_exposed": "YES_RUNTIME_EXECUTION_PENDING",
+    "rendered_browser_smoke": "PENDING_ENVIRONMENT",
+    "checked_on": "2026-09-21"
+  },
+  "updated": "2026-09-21",
+  "next_bounded_test": {
+    "instruction": "Use TINY DEMO → PAGE → select one word → request one intent → TRY → ADOPT → EXPORT → mutate/reset → IMPORT; verify source/revision/lock/path state returns and note any point of confusion.",
+    "stop": "Do not add another provider/view/form until this loop has a real user RETURN or a concrete failure."
   }
 }
