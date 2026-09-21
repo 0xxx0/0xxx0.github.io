@@ -34,8 +34,9 @@
     "No HAOS adapter wired yet; only composition placeholder.",
     "No autonomous recursive executor wired by this change."
   ],
-  "revert": "Revert squash commit f056a9019b3eeaa9f2a461b95d1b9a165e3e8b04 to return master to the prior baseline; original experiment branch remains an audit reference.",
+  "revert": "Clean rollback: revert receipt-update commit 57408d15625eb697d7deba18c5d72d7afb1c74b2 first, then revert squash commit f056a9019b3eeaa9f2a461b95d1b9a165e3e8b04. The experiment branch remains an audit reference.",
   "next": "Use normally. Let passive evidence accumulate; refine only when ordinary use produces repeated signal or a concrete failure.",
   "merged_at": "2026-09-21",
-  "merge_commit": "f056a9019b3eeaa9f2a461b95d1b9a165e3e8b04"
+  "merge_commit": "f056a9019b3eeaa9f2a461b95d1b9a165e3e8b04",
+  "receipt_update_commit": "57408d15625eb697d7deba18c5d72d7afb1c74b2"
 }
