@@ -1,5 +1,5 @@
 import {ListenRenderer} from './render.js';
-import {SCOPES,frameAt,beatIndexAt,sectionIndexAt,scopeWindow} from './audio-map.js';
+import {SCOPES,frameAt,beatIndexAt,sectionIndexAt,scopeWindow,scrubTime} from './audio-map.js';
 import {pointAngle01} from './polar-control.js';
 import {parseSunoId,classifySourceAddress,resolveSourceAddress,fetchRemoteAudio} from './source-adapters.js';
 import {buildPreviewMap} from './preview-map.js';
@@ -7,7 +7,7 @@ import {createFieldPulse} from '../../lib/field-pulse.js';
 
 const $=s=>document.querySelector(s);
 const gl=$('#field'),overlay=$('#overlay'),audio=$('#audio'),drop=$('#drop');
-let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0;
+let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0;
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LISTEN');
 
 function toast(t){const e=$('#toast');if(!e)return;e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on')}
@@ -18,6 +18,7 @@ function setScope(i,announce=true){
   scopeIndex=(i+SCOPES.length)%SCOPES.length;
   $('#scope').textContent=scope();
   document.querySelectorAll('[data-scope]').forEach((el,j)=>el.classList.toggle('on',j===scopeIndex));
+  if(drag){drag=false;dragRange=null}
   if(announce)toast(scope());
   if(map)publishTransport(true);
 }
@@ -126,9 +127,11 @@ audio.onplay=()=>{$('#transport').textContent='PAUSE';publishTransport(true)};au
 $('#export').onclick=()=>{if(!map)return;const packet={kind:'FOLD_BLOOM_AUDIO_MAP',created:new Date().toISOString(),map},b=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`fold-bloom-audio-map-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 document.querySelectorAll('[data-scope]').forEach((b,i)=>b.onclick=()=>setScope(i));
 addEventListener('wheel',e=>{if(Math.abs(e.deltaY)<2)return;e.preventDefault();setScope(scopeIndex+(e.deltaY>0?1:-1))},{passive:false});
-function scrub(e){if(!map)return;const r=overlay.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*.53,p=pointAngle01(e.clientX,e.clientY,cx,cy),range=scopeWindow(map,audio.currentTime,scope());audio.currentTime=range[0]+p*Math.max(.001,range[1]-range[0]);publishTransport(true)}
-overlay.onpointerdown=e=>{if(!map)return;drag=true;overlay.setPointerCapture?.(e.pointerId);scrub(e)};
-overlay.onpointermove=e=>{if(drag){e.preventDefault();scrub(e)}};overlay.onpointerup=()=>drag=false;overlay.onpointercancel=()=>drag=false;
+function scrub(e){if(!map)return;const r=overlay.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*.53,p=pointAngle01(e.clientX,e.clientY,cx,cy),range=dragRange||scopeWindow(map,audio.currentTime,scope());audio.currentTime=scrubTime(range,p);publishTransport(true)}
+overlay.onpointerdown=e=>{if(!map)return;drag=true;dragRange=scopeWindow(map,audio.currentTime,scope());overlay.setPointerCapture?.(e.pointerId);scrub(e)};
+overlay.onpointermove=e=>{if(drag){e.preventDefault();scrub(e)}};
+function endScrub(){if(!drag&&dragRange===null)return;drag=false;dragRange=null;publishTransport(true)}
+overlay.onpointerup=endScrub;overlay.onpointercancel=endScrub;
 addEventListener('keydown',e=>{
   if(e.code==='Space'&&audio.src){e.preventDefault();$('#transport').click()}
   else if(e.key==='ArrowUp'){e.preventDefault();setScope(scopeIndex-1)}
@@ -152,15 +155,15 @@ function publishTransport(force=false){
   fieldPulse.publish('transport',transportPayload());
 }
 function loop(){
-  const time=audio.currentTime||0,f=frameAt(map,time)||{e:.18,c:.4,f:.05,l:.3,m:.4,h:.3},bi=beatIndexAt(map,time),si=sectionIndexAt(map,time),r=ensureRenderer(),range=scopeWindow(map,time,scope());
+  const time=audio.currentTime||0,f=frameAt(map,time)||{e:.18,c:.4,f:.05,l:.3,m:.4,h:.3},bi=beatIndexAt(map,time),si=sectionIndexAt(map,time),r=ensureRenderer(),range=dragRange||scopeWindow(map,time,scope());
   if(map&&bi>=0)r.markBeat(bi);r.draw(map,f,time,scopeIndex,!audio.paused,range);if(map){renderedMapFrames++;publishTransport(false)}
   $('#time').textContent=`${fmt(time)} / ${fmt(map?.duration||0)}`;$('#energy').textContent=`E ${Math.round((f.e||0)*100)}`;$('#flux').textContent=`Δ ${Math.round((f.f||0)*100)}`;$('#bright').textContent=`C ${Math.round((f.c||0)*100)}`;
-  $('#where').textContent=map?`${scope()} ${fmt(range[0])}–${fmt(range[1])}${map.stage==='PREVIEW'?' · PREVIEW':` · B${Math.max(0,bi)+1} S${Math.max(0,si)+1}`}`:'DROP A TRACK';
+  $('#where').textContent=map?`${scope()} ${fmt(range[0])}–${fmt(range[1])}${dragRange?' · HOLD':''}${map.stage==='PREVIEW'?' · PREVIEW':` · B${Math.max(0,bi)+1} S${Math.max(0,si)+1}`}`:'DROP A TRACK';
   raf=requestAnimationFrame(loop);
 }
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else{cancelAnimationFrame(raf);loop()}});
 window.addEventListener('error',e=>{console.warn('LISTEN runtime error',e.error||e.message);if(!map)status('APP DEGRADED · FILE PICKER STILL AVAILABLE')});
 setScope(1,false);
 document.documentElement.dataset.listenBoot='ready';
-window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,stage:map?.stage||'EMPTY',previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl'}),parseSunoId,classifySourceAddress,resolveSourceAddress};
+window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl'}),parseSunoId,classifySourceAddress,resolveSourceAddress};
 requestAnimationFrame(loop);
