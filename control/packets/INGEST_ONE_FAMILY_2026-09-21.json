@@ -73,7 +73,8 @@
     "Record exact hashes, original names, dates/source anchors where available, and duplicate state.",
     "Classify the relationship using one relation_class; preserve contradictions.",
     "Compare against CURRENT/MIGRATION/CENSUS only to identify an existing recipient or donor shelf; do not create a new project name.",
-    "Prepare one candidate packet. Do not perform filesystem mutation or public publication."
+    "Prepare one candidate packet. Do not perform filesystem mutation or public publication.",
+    "Emit the result as a non-destructive family view over exact hashes. Do not create/move a source folder merely to make the relationship visible."
   ],
   "output": {
     "required": [
@@ -87,7 +88,8 @@
       "CONFLICTS",
       "CANDIDATE_DELTA",
       "PRIVACY_BOUNDARY",
-      "ONE_NEXT"
+      "ONE_NEXT",
+      "FAMILY_VIEW: one hash-addressed non-destructive family view matching /control/packets/INGEST_ONE_FAMILY_2026-09-21.json#family_view"
     ],
     "privacy": "Do not paste private document contents, raw paths, chat metadata or personal filenames into public repo output. A private/local packet may retain local paths if needed."
   },
@@ -121,6 +123,25 @@
       "title-only grouping",
       "visual resemblance without provenance",
       "already-solved City/Painting or Path/Grid absent a concrete contradiction"
+    ]
+  },
+  "family_view": {
+    "schema": "0xxx0/family-view/v0.1",
+    "purpose": "Non-destructive alias/projection over exact byte identities. A family view groups evidence without moving, renaming or claiming canonical ownership of the source files.",
+    "required_fields": [
+      "family_local_id",
+      "members[{content_hash,original_name_or_local_label,role,relation,source_anchor}]",
+      "relation_class",
+      "current_recipient_or_donor_shelf",
+      "conflicts",
+      "evidence",
+      "one_next"
+    ],
+    "laws": [
+      "Hash identity remains byte identity; family membership is an overlay.",
+      "One byte object may appear in multiple lawful views without relocation.",
+      "A family view is disposable/recomputable; source bytes remain authoritative.",
+      "Do not promote the view to a new project name unless a later human/canonical decision explicitly does so."
     ]
   }
 }
