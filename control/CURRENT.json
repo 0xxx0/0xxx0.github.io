@@ -137,10 +137,10 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM instrument family · TWO DIAL 0.10.1 composition / ECOLOGY 0.2 lineage-game / LIVE 0.2 consequence-play + same-page custom songs / LISTEN 0.2.2 source-addressed audio projection",
+      "head": "FOLD//BLOOM instrument family · TWO DIAL 0.10.1 composition / ECOLOGY 0.2 lineage-game / LIVE 0.2 consequence-play + same-page custom songs / LISTEN 0.2.3 source-addressed audio projection",
       "state": "ACTIVE_CANDIDATE_FAMILY",
       "route": "/fold-bloom/",
-      "retained_function": "Current family keeps unequal heads explicit. LIVE 0.2 is now the one-hand gameplay candidate: CALL → inspect B/F/S/R consequence forecasts + cascade depth → choose placement → ratchet charge → commit; target topology stays player-authored. A local custom song can be loaded/analyzed/played inside LIVE on phone and may reward beat timing without choosing topology. TWO DIAL 0.10.1 remains deep composition authority; ECOLOGY remains persistence/lineage-game; LISTEN remains the deeper source-addressed Suno/URL/AUDIO MAP/time laboratory. FIELD PULSE remains optional ephemeral coordination with RSVP and Two Dial; borrowed clock never becomes borrowed authorship.",
+      "retained_function": "Current family keeps unequal heads explicit. LIVE 0.2 is now the one-hand gameplay candidate: CALL → inspect B/F/S/R consequence forecasts + cascade depth → choose placement → ratchet charge → commit; target topology stays player-authored. A local custom song can be loaded/analyzed/played inside LIVE on phone and may reward beat timing without choosing topology. TWO DIAL 0.10.1 remains deep composition authority; ECOLOGY remains persistence/lineage-game; LISTEN 0.2.3 remains the deeper source-addressed Suno/URL/AUDIO MAP/time laboratory; each scoped touch gesture now owns one frozen time window so phone scrubbing has a stable meaning. FIELD PULSE remains optional ephemeral coordination with RSVP and Two Dial; borrowed clock never becomes borrowed authorship.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -159,7 +159,9 @@
         "/control/confluence/FOLD_BLOOM_PULSE_COMPOSE_2026-09-22.json",
         "/returns/FOLD_BLOOM_PULSE_COMPOSE_2026-09-22.json",
         "/control/confluence/FOLD_BLOOM_GAMEPLAY_2026-09-22.json",
-        "/returns/FOLD_BLOOM_GAMEPLAY_2026-09-22.json"
+        "/returns/FOLD_BLOOM_GAMEPLAY_2026-09-22.json",
+        "/control/confluence/FOLD_BLOOM_LISTEN_SCOPE_GESTURE_2026-09-22.json",
+        "/returns/FOLD_BLOOM_LISTEN_SCOPE_GESTURE_2026-09-22.json"
       ],
       "experimental": [
         {
@@ -169,7 +171,7 @@
           "branch": "fold-bloom-listen-01",
           "thesis": "Any bounded audio source can enter one LISTEN field: local file first; Suno/direct address best-effort; decoded audio becomes a hashed AUDIO MAP with polar time and scale traversal.",
           "promotion_gate": "real MP3 progressive map proof + real song/mobile evidence + Suno/network trial + analysis plausibility",
-          "version": "0.2.2"
+          "version": "0.2.3"
         }
       ]
     },
