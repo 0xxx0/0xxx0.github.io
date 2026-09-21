@@ -7,6 +7,7 @@
   "state": "EXPERIMENT",
   "relation": "specialized CONTINUITY projection; shared BODY PLAN registry donor; BODYFIELD high-resolution lineage; HUMAN PORT downstream handoff; COURSE preserves sourced care path",
   "changes": [
+    "attached Port evidence can OPEN SOURCE back into HUMAN PORT when the session object or LOCAL_STASH bytes remain available",
     "added PORT CASE: exact CARE snapshot becomes hashed human-port-object/v0.1 JSON with case identity retained in provenance",
     "added HUMAN PORT → CARE evidence route for TEXT/JSON/IMAGE/FILE objects; explicit ATTACH required",
     "CARE evidence refs preserve Port object id/hash/media/provenance/focus while file/image bytes remain in HUMAN PORT IndexedDB",
@@ -62,7 +63,8 @@
     "CARE → PORT snapshot is exact-hashed JSON and satisfies human-port-object/v0.1 required fields",
     "Port → CARE attachment is explicit and does not duplicate local file/image bytes",
     "session/reference-only Port evidence is surfaced by STEP BACK as a durability gap",
-    "direct CONTACT consult chooses NEED only when CARE ASK is non-empty"
+    "direct CONTACT consult chooses NEED only when CARE ASK is non-empty",
+    "CARE source-return reconstructs only addressable Port objects; unavailable session-only sources surface an explicit non-durable warning"
   ],
   "open_gaps": [
     "cross-device private evidence portability remains unresolved",
