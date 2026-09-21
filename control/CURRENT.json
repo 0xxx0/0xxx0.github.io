@@ -94,16 +94,18 @@
     },
     {
       "lineage": "sleeper-one-return",
-      "head": "ASCII SLEEPER 0.8 + ONE RETURN / NINE GATE lane",
-      "state": "ACTIVE",
+      "head": "ASCII SLEEPER 0.8 + polished ONE RETURN v2 recovery target",
+      "state": "ACTIVE + RECOVERY_TARGET",
       "route": "/sleeper/",
-      "retained_function": "Current Sleeper POV remains the constraint/evidence head. /sleeper/one-return/ restores the playable maze ancestor as a distinct live lane: deterministic source→labyrinth→Nine Gates→semantic deformation→CITY/DISC/TRACE→ghost→RETURN. It can now consume exact Grid Path V4 `BY/GRID-PATH-2` receipts as provenance-preserving upstream source projections without claiming geometry equivalence. Workfield v1.2 remains the practical source/task substrate.",
+      "retained_function": "ASCII Sleeper POV 0.8 remains the current local constraint/evidence head. The polished Work-mode SLEEPER // ONE RETURN v2 is the actual ONE RETURN game recovery target: PHRASE + CELL + FIGURE compile a deterministic world; FIGURE changes movement/protocol physics; Gates enact proof; City/Disc and Witness/Return preserve world identity. The current /sleeper/one-return/ route is only a later ASCII/Nine-Gate reconstruction donor and must not stand in for v2.",
       "evidence": [
         "/sleeper/release.json",
+        "/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json",
         "/sleeper/one-return/release.json",
         "/recovery/sleeper/"
       ],
-      "last_return": "/returns/ONE_RETURN_REIFICATION_2026-09-21.json"
+      "last_return": "/returns/ONE_RETURN_REIFICATION_2026-09-21.json",
+      "correction": "The last_return records a completed ASCII reconstruction experiment, not recovery of polished ONE RETURN v2."
     },
     {
       "lineage": "fold-bloom",
