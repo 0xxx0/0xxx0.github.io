@@ -77,7 +77,7 @@ header{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end;
 <div class="foot"><span>OBJECT → ADDRESS → STATE → TRANSFORM → PROJECTION → EVIDENCE → RETURN → REPLAN</span><span>FIELD INDEX is orientation; CURRENT is attention; CONFLUENCE moves bounded mechanisms between unequal lineages.</span></div>
 </main>
 
-<script>
+<script src="./lens-state.js"></script>\n<script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const NS='http://www.w3.org/2000/svg';
@@ -205,7 +205,7 @@ function showInspector(href){
 }
 function scaleOut(){if(visualRoot==='/')return;const r=routeMap().get(visualRoot);visualRoot=r?.parent||'/';selectedRoute=visualRoot;renderVisual()}
 function scaleRoot(){visualRoot='/';selectedRoute='/';renderVisual()}
-function lensSelected(){const r=selectedRoute==='/'?{title:'FIELD INDEX',href:'/',kind:'root',state:'CORE',role:'Orientation layer over CURRENT + manifest + exit contracts.'}:routeMap().get(selectedRoute);if(!r)return;const packet={text:JSON.stringify({schema:'field-route/v0.1',href:r.href,title:r.title,kind:r.kind,state:r.state,operation:r.operation,role:role(r),index:r.index,parent:r.parent,family:r.family},null,2),label:'FIELD · '+(r.title||r.href),created_at:new Date().toISOString(),source:'field-index-map'};try{sessionStorage.setItem('scale.lens.handoff.v01',JSON.stringify(packet));location.assign('./fold-bloom/lens/')}catch(_){location.assign('./fold-bloom/lens/')}}
+function lensSelected(){const r=selectedRoute==='/'?{title:'FIELD INDEX',href:'/',kind:'root',state:'CORE',role:'Orientation layer over CURRENT + manifest + exit contracts.'}:routeMap().get(selectedRoute);if(!r)return;const route={schema:'field-route/v0.1',id:r.id||r.href,href:r.href,title:r.title,kind:r.kind,state:r.state,operation:r.operation,role:role(r),index:r.index,parent:r.parent,family:r.family},text=JSON.stringify(route,null,2),legacy={text,label:'FIELD · '+(r.title||r.href),created_at:new Date().toISOString(),source:'field-index-map'};try{if(window.LensState){const s=LensState.fromFieldRoute(route,{returnAddress:location.pathname+location.search+location.hash});LensState.storeHandoff(s,{title:legacy.label,sourceUrl:r.href,text})}sessionStorage.setItem('scale.lens.handoff.v01',JSON.stringify(legacy));location.assign('./fold-bloom/lens/')}catch(_){try{sessionStorage.setItem('scale.lens.handoff.v01',JSON.stringify(legacy))}catch(__){}location.assign('./fold-bloom/lens/')}}
 function subtreeHas(r,cm){
   if(matchFilter(r))return true;
   return (cm.get(r.href)||[]).some(c=>subtreeHas(c,cm));
