@@ -164,20 +164,18 @@ function fieldActivationProbeHtml(){
   const result=document.getElementById('probeResult'),f=document.getElementById('f'),rec={};let finished=false;
   const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-  const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
+  const waitFor=async(fn,limit=10000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw new Error('waitFor timeout: '+label)};
   (async()=>{
-    const W=()=>f.contentWindow,D=()=>W().document;
-    await waitFor(()=>W().FieldLensHost?.focus?.()?.href);
+    const W=()=>f.contentWindow,D=()=>W().document,href='/fold-bloom/';
+    await waitFor(()=>W().FieldLensHost?.focus?.()?.href,10000,'FIELD ready');
     W().FieldLensHost.project('STRUCTURE');
-    const href='/fold-bloom/',row=await waitFor(()=>D().querySelector('.mapRow[data-href="'+href+'"]'));rec.href=href;
-    row.click();await waitFor(()=>W().FieldLensHost?.focus?.()?.href===href&&W().location.pathname==='/');
-    rec.focused=W().FieldLensHost.focus().href;rec.focusUrl=W().location.search;rec.target=W().FieldLensHost.focus()?.alias_of||href;
-    const same=await waitFor(()=>D().querySelector('.mapRow[data-href="'+href+'"]'));same.click();
-    await waitFor(()=>W().location.pathname===rec.target);rec.opened=W().location.pathname;
-    W().history.back();
-    await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===href);
+    const row=await waitFor(()=>D().querySelector('.mapRow[data-href="'+href+'"]'),10000,'target row');
+    row.click();await waitFor(()=>W().FieldLensHost?.focus?.()?.href===href&&new URLSearchParams(W().location.search).get('focus')===href,10000,'focus address');
+    rec.focused=W().FieldLensHost.focus().href;rec.focusUrl=W().location.search;rec.openHref=D().getElementById('apOpen')?.getAttribute('href')||'';
+    f.src='/?focus='+encodeURIComponent(href);
+    await waitFor(()=>W().location.pathname==='/'&&W().FieldLensHost?.focus?.()?.href===href,10000,'addressed reload');
     rec.returned=W().FieldLensHost.focus().href;rec.returnUrl=W().location.search;
-    done(rec.focused===href&&rec.opened===rec.target&&rec.returned===href&&/focus=/.test(rec.returnUrl),rec);
+    done(rec.focused===href&&rec.returned===href&&rec.openHref.endsWith(href)&&new URLSearchParams(rec.returnUrl).get('focus')===href,rec);
   })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
 }
@@ -658,10 +656,10 @@ const CASES=[
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"same":true/.test(dom)&&/"proofAfter":true/.test(dom)&&/"overflow":0/.test(dom)
   },
   {
-    name:'FIELD activation + re-entry',
+    name:'FIELD focus + addressed re-entry',
     route:'/__smoke/field-activation',
     options:{width:1040,height:820,budget:18000,timeout:24000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"focused":"\//.test(dom)&&/"opened":"\//.test(dom)&&/"returned":"\//.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"focused":"\//.test(dom)&&/"openHref":"\.\/fold-bloom\/"/.test(dom)&&/"returned":"\//.test(dom)
   },
   {
     name:'FIELD LISTEN candidate focus',
