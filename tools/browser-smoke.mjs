@@ -159,10 +159,10 @@ function axialContinuityProbeHtml(){
     const api=await waitFor(()=>W().AxialFocusAPI);
     await waitFor(()=>api.snapshot()?.source==='FIELD'&&api.snapshot()?.focus==='route:/fold-bloom/lens/');
     rec.before=api.snapshot();
-    D().getElementById('srcHouse').click();await waitFor(()=>api.snapshot()?.source==='HOUSE');rec.house=api.snapshot();
+    D().getElementById('srcHouse').click();await waitFor(()=>api.snapshot()?.source==='HOUSE'&&!D().getElementById('back').disabled);rec.house=api.snapshot();
     D().getElementById('back').click();await waitFor(()=>api.snapshot()?.source==='FIELD'&&api.snapshot()?.focus===rec.before.focus);rec.afterBack=api.snapshot();
     D().getElementById('ret').click();await waitFor(()=>api.returns().length>0);rec.returnAddress=api.returns()[0].address;rec.restoreButton=!!D().querySelector('#receipts [data-return="0"]');
-    D().getElementById('srcHouse').click();await waitFor(()=>api.snapshot()?.source==='HOUSE');
+    D().getElementById('srcHouse').click();await waitFor(()=>api.snapshot()?.source==='HOUSE'&&!D().getElementById('back').disabled);
     await api.restoreReturn(0);await waitFor(()=>api.snapshot()?.source==='FIELD'&&api.snapshot()?.focus===rec.before.focus);rec.afterReplay=api.snapshot();
     rec.backSame=JSON.stringify(rec.before)===JSON.stringify(rec.afterBack);rec.replaySame=JSON.stringify(rec.before)===JSON.stringify(rec.afterReplay);
     done(rec.backSame&&rec.replaySame&&rec.restoreButton&&/^field:\/\//.test(rec.returnAddress||''),rec);
