@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/return-index/v0.1",
-  "generated": "2026-09-21",
+  "generated": "2026-09-22",
   "source": "/showcase-manifest.json",
   "count": 48,
   "receipts_ok": 48,
@@ -18,15 +18,15 @@
       "release_updated": "2026-09-21"
     },
     {
-      "href": "/foundry/aperture/",
-      "title": "APERTURE 0.5 / USABILITY CUT",
+      "href": "/docs/",
+      "title": "READFIELD / RSVP 0.7",
       "state": "UTILITY",
-      "version": "0.5",
-      "operation": "INSPECT",
-      "receipt": "/returns/APERTURE_USABILITY_CUT_2026-09-21.json",
+      "version": "0.7",
+      "operation": "READ",
+      "receipt": "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
       "receipt_ok": true,
       "receipt_schema": "return-receipt/v0.1",
-      "release_updated": "2026-09-21"
+      "release_updated": "2026-09-22"
     },
     {
       "href": "/control/",
