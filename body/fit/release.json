@@ -23,7 +23,8 @@
     "added time-window fusion projection that aligns but does not average sources",
     "reads existing HOUSE→BODY local context envelope without acquiring HOUSE authority",
     "supports JSON observation/bundle import and browser-local export/re-import",
-    "reserved HUMAN PORT session adapter key body.fit.port.sensor.v01"
+    "reserved HUMAN PORT session adapter key body.fit.port.sensor.v01",
+    "implemented BODY / Health Connect Reader 0.1 as a separate Android source bridge: foreground read-only sleep + heart-rate → existing BODY / FIT sensor bundle; build verified, real-device proof still required"
   ],
   "checks": [
     "private local state only",
@@ -42,18 +43,29 @@
     "RETURN mark does not encode health score, diagnosis or improvement",
     "NEXT CUT is freeform reflective residue, not an automatic prescription",
     "older 0.1/0.2 local state imports remain valid by defaulting returns[] and active_session",
-    "tab switching uses explicit multi-node selectors; loadout can move LOADOUT ↔ SENSE ↔ FUSE ↔ PATINA ↔ PLAIN without the prior single-selector .forEach failure"
+    "tab switching uses explicit multi-node selectors; loadout can move LOADOUT ↔ SENSE ↔ FUSE ↔ PATINA ↔ PLAIN without the prior single-selector .forEach failure",
+    "Health Connect reader assembleDebug passes on AGP 9.4.0 / Gradle 9.6.0 / JDK 17 / API 36",
+    "reader manifest source requires only READ_SLEEP + READ_HEART_RATE and excludes INTERNET, Health Connect write, background-read and historical-read permissions",
+    "reader output remains explicit local file handoff; BODY / FIT import remains explicit and sovereign"
   ],
   "open_gaps": [
     "CARE does not yet project explicit performed care actions into the same PATINA grammar; test BODY / FIT semantics before sharing that projection",
     "ordinary-use proof: run the same saved kit twice and verify first RETURN/NEXT CUT makes second prep materially better",
     "private HOUSEBUS/HA sensor adapter not yet wired",
-    "Health Connect/Samsung Health adapter remains deferred",
+    "Health Connect reader is build-verified; real-device permission + one sleep/HR bundle → BODY / FIT import proof remains open",
     "Open Twin high-resolution projection remains a recovered donor cassette, not runtime-linked here"
   ],
   "research": "/control/research/BODY_FIT_RETURN_PATINA_2026-09-22.md",
   "return": "/body/fit/",
   "validation": "/control/BODY_FIT_VALIDATION_2026-09-22_V03.json",
   "sensor_schema": "/body/fit/sensor-observation.schema.json",
-  "return_receipt": "/returns/BODY_FIT_RETURN_PATINA_2026-09-22.json"
+  "return_receipt": "/returns/BODY_FIT_RETURN_PATINA_2026-09-22.json",
+  "amended": "2026-09-22",
+  "health_connect_reader": {
+    "state": "BUILD_VERIFIED_DEVICE_PROOF_REQUIRED",
+    "implementation": "/bridge/health-connect-reader/",
+    "adapter": "/body/fit/health-connect.adapter.json",
+    "ci_run": 35653352582,
+    "proof_receipt": "/returns/BODY_HEALTH_CONNECT_READER_2026-09-22.json"
+  }
 }
