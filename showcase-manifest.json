@@ -4345,7 +4345,8 @@
         "ambient selection-aware summon via /showcase-nav.js",
         "material host projection: position/scale/magnitude → CSS variables",
         "high-speed RSVP control 60–3000 WPM",
-        "DOCS automatic aperture reuse"
+        "DOCS automatic aperture reuse",
+        "single-source inspection across scale/position/time/voice; host owns durable RETURN"
       ],
       "contract": {
         "accepts": {
@@ -4374,7 +4375,8 @@
             "host material state remains presentation-only"
           ],
           "reversibility": "full navigation",
-          "side_effects": "browser-local speech synthesis / timer only"
+          "side_effects": "browser-local speech synthesis / timer only",
+          "charter": "/control/INSTRUMENT_CHARTERS.json#field-aperture"
         },
         "emits": {
           "kinds": [
@@ -4462,12 +4464,11 @@
         "physical_fit": "Potential compact ring/annulus control grammar; no physical embodiment claim in 0.1."
       },
       "index": {
-        "updated_at": "2026-09-21T17:48:00+08:00",
+        "updated_at": "2026-09-21T18:45:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
+          "INSPECT",
           "VERIFY",
-          "OPERATE",
-          "REPRESENT"
+          "OPERATE"
         ]
       },
       "showcase_card": false,
