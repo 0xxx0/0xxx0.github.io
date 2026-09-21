@@ -166,7 +166,7 @@ class FieldAperture extends HTMLElement{
  selectChar(at,cursor=null){
   if(!this.A||this.A.kind!=='TEXT')return;this.anchor=clamp(Math.round(Number(at)||0),0,Math.max(0,this.A.raw.length-1));this.pos=this.indexForAnchor(this.scale);this.voiceCursor=cursor;this.render();this.emit()
  }
- setScale(i){if(!this.A)return;this.captureAnchor();this.scale=mod(i,this.A.scales.length);this.pos=this.indexForAnchor(this.scale);this.render();this.emit()}
+ setScale(i){if(!this.A)return;this.scale=mod(i,this.A.scales.length);this.pos=this.indexForAnchor(this.scale);this.render();this.emit()}
  setPos(i){const s=this.currentScale();if(!s)return;this.pos=mod(i,s.units.length);this.voiceCursor=null;this.captureAnchor();this.render();this.emit()}
  step(n=1){this.setPos(this.pos+n)}
  setWpm(n){const was=!!this.timer,voice=this.speaking;this.wpm=clamp(Math.round(Number(n)||300),60,3000);if(was){clearTimeout(this.timer);this.timer=null;this.scheduleRSVP()}this.render();this.emit();if(voice)queueMicrotask(()=>this.speak())}
