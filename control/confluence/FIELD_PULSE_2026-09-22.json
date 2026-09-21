@@ -58,5 +58,13 @@
     "real phone: scope visibly changes ring domain and scrub granularity",
     "real phone: PULSE mode changes READFIELD WPM from real track BPM"
   ],
-  "stop": "After repository verification, stop feature expansion until one real phone/audio trial returns evidence."
+  "stop": "Repository pass is shipped. Stop feature expansion until one real phone/audio trial verifies operational scope, LISTEN→LIVE witness, and READFIELD pulse pace.",
+  "shipped": {
+    "pull_request": 106,
+    "merge_sha": "70d63be41dfc5d04b04063d2f90524dca0bb6526",
+    "ci_run": 35640203852,
+    "ci": "PASS",
+    "repository_state": "SHIPPED_CANDIDATE",
+    "remaining_authority": "REAL_PHONE_AUDIO_RETURN"
+  }
 }
