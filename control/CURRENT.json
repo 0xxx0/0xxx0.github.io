@@ -70,10 +70,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.6.2 / AXIAL LATEST + TRACE VERIFY",
+      "head": "FIELD INDEX 0.7 / FOCUS + READFIELD + TRACE VERIFY",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one manifest route identity. TRACE / VERIFY sits in the primary focus flow, auto-demonstrates COMMS/HOUSE/CHANGE according to focused route, accepts exact AXIAL address handoffs, preserves seven-gate/verifier evidence, and invalidates stale proof after focus changes."
+      "retained_function": "Fast repo re-entry around one manifest route identity. FIELD focuses routes and exposes OPEN/READ/LENS/TRACE/COMPARE/RETURN; exact constraint filtering remains internal machinery rather than a second public reading product. TRACE / VERIFY stays focus-bound and evidence-only; READ hands selected/page material into canonical READFIELD with exact RETURN."
     },
     {
       "lineage": "scale-lens",
@@ -93,11 +93,13 @@
     },
     {
       "lineage": "rsvp-reader",
-      "head": "READ / RSVP 0.6 + APERTURE focus kernel",
-      "state": "UTILITY / BROWSER_PROVED",
+      "head": "READFIELD / RSVP 0.7 + APERTURE focus kernel",
+      "state": "UTILITY / READER_FIRST / BROWSER_PROOF_REQUIRED",
       "route": "/docs/",
-      "retained_function": "One source, one canonical position, many scales. READ / RSVP keeps position fixed while DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE, source highlighting, whole-source ring/strip witnesses and citation/media XREFs change around it. Same-origin repo text links enter the reader; pasted long text stays session-local; RAW remains available.",
+      "retained_function": "Canonical one-source reader. One source position persists while DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE, highlighted context and XREF change around it. Ordinary use is linear/reader-first; ring geometry is optional. Repo pages can hand selection/input/page text directly into READFIELD with exact RETURN.",
       "evidence": [
+        "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
+        "/control/READFIELD_CONVERGENCE_2026-09-22.json",
         "/control/RSVP_READER_FOCUS_KERNEL_2026-09-21.json",
         "/foundry/aperture/release.json",
         "https://github.com/0xxx0/0xxx0.github.io/pull/84"
