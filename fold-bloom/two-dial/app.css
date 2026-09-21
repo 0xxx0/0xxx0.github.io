@@ -165,9 +165,10 @@ canvas {
   inset: 0;
   background: radial-gradient(
     circle at 50% 45%,
-    rgba(16, 36, 49, 0.97),
-    rgba(4, 11, 17, 0.98) 65%
+    rgba(16, 36, 49, 0.72),
+    rgba(4, 11, 17, 0.90) 70%
   );
+  backdrop-filter: blur(2px);
   display: grid;
   place-items: center;
   padding: 28px;
