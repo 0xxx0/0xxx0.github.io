@@ -1,0 +1,142 @@
+{
+  "schema": "0xxx0/media-refinery-pipelines/v0.1",
+  "default_profile": "archive-recovery",
+  "global": {
+    "workers": 4,
+    "exports": {"share": true, "memory": true},
+    "source_mutation": false,
+    "recipes": {"auto_render": false, "max_candidates_per_batch": 4}
+  },
+  "profiles": {
+    "archive-recovery": {
+      "recursive": true,
+      "batching": {"mode": "folder_then_chunk", "max_items": 24},
+      "contact_sheets": true,
+      "appearance_clustering": {"enabled": true, "max_clusters": 8},
+      "control_maps": {"mode": "exemplars", "max_per_batch": 4},
+      "videos": {"probe": true, "extract_frames": false},
+      "semantic": {
+        "auto_classify": false,
+        "required_fields": ["composition_class", "composition_subtype", "axis", "scaffold", "flow", "depth", "surface", "pattern", "meaning"]
+      },
+      "domain_constraints": [
+        "Recover and deduplicate before any semantic grouping.",
+        "Folder/title similarity is triage evidence only, never lineage authority.",
+        "Generated-media rendering is disabled by default."
+      ]
+    },
+    "painting-composition": {
+      "recursive": true,
+      "batching": {"mode": "folder_then_chunk", "max_items": 16},
+      "contact_sheets": true,
+      "appearance_clustering": {"enabled": true, "max_clusters": 6},
+      "control_maps": {"mode": "exemplars", "max_per_batch": 6},
+      "semantic": {
+        "auto_classify": false,
+        "required_fields": ["composition_class", "composition_subtype", "axis", "scaffold", "flow", "depth", "surface", "pattern", "meaning"]
+      },
+      "domain_constraints": [
+        "Composition and surface/style must be annotated separately.",
+        "Prefer structure/focus/tone controls before prompt-only composition changes.",
+        "Treat aesthetic clusters as donor discovery only; never as composition classes."
+      ]
+    },
+    "diagram-glyph": {
+      "recursive": true,
+      "batching": {"mode": "folder_then_chunk", "max_items": 20},
+      "contact_sheets": true,
+      "appearance_clustering": {"enabled": true, "max_clusters": 6},
+      "control_maps": {"mode": "exemplars", "max_per_batch": 8},
+      "semantic": {
+        "auto_classify": false,
+        "required_fields": ["composition_class", "axis", "scaffold", "surface", "pattern", "meaning", "topology", "text_or_labels"]
+      },
+      "domain_constraints": [
+        "Preserve topology before surface variation.",
+        "Text/labels are locked unless explicitly declared editable.",
+        "Prefer SVG/vector skeletons and masks when structure is part of identity."
+      ]
+    },
+    "anatomy-diagram": {
+      "recursive": true,
+      "batching": {"mode": "folder_then_chunk", "max_items": 16},
+      "contact_sheets": true,
+      "appearance_clustering": {"enabled": true, "max_clusters": 6},
+      "control_maps": {"mode": "exemplars", "max_per_batch": 8},
+      "semantic": {
+        "auto_classify": false,
+        "required_fields": ["composition_class", "axis", "scaffold", "surface", "pattern", "meaning", "anatomical_region", "label_state"]
+      },
+      "domain_constraints": [
+        "Do not infer medical correctness from visual similarity.",
+        "Anatomical labels and relationships require source-backed review before transformation.",
+        "Separate mnemonic/illustrative transformations from factual anatomical diagrams."
+      ]
+    },
+    "scroll-poetry": {
+      "recursive": true,
+      "batching": {"mode": "folder_then_chunk", "max_items": 24},
+      "contact_sheets": true,
+      "appearance_clustering": {"enabled": true, "max_clusters": 5},
+      "control_maps": {"mode": "exemplars", "max_per_batch": 3},
+      "semantic": {
+        "auto_classify": false,
+        "required_fields": ["composition_class", "reading_path", "sequence_role", "surface", "pattern", "meaning", "text_or_poem_anchor"]
+      },
+      "domain_constraints": [
+        "Preserve ordering and reading path as first-class lineage.",
+        "SCROLL owns reveal/sequence; PAINT owns frame appearance.",
+        "Do not flatten multi-state fold/scroll objects into unrelated stills."
+      ]
+    },
+    "state-mnemonic": {
+      "recursive": true,
+      "batching": {"mode": "folder_then_chunk", "max_items": 20},
+      "contact_sheets": true,
+      "appearance_clustering": {"enabled": true, "max_clusters": 6},
+      "control_maps": {"mode": "exemplars", "max_per_batch": 6},
+      "semantic": {
+        "auto_classify": false,
+        "required_fields": ["composition_class", "state_variables", "transition_mapping", "surface", "pattern", "meaning"]
+      },
+      "domain_constraints": [
+        "STATE mapping must remain inspectable; beauty cannot erase state legibility.",
+        "Distinguish state encoding from decorative symbolism.",
+        "Prefer reversible mappings and explicit transition evidence."
+      ]
+    },
+    "selective-video": {
+      "recursive": true,
+      "batching": {"mode": "folder_then_chunk", "max_items": 12},
+      "contact_sheets": true,
+      "appearance_clustering": {"enabled": true, "max_clusters": 5},
+      "control_maps": {"mode": "exemplars", "max_per_batch": 3},
+      "videos": {"probe": true, "extract_frames": false},
+      "semantic": {
+        "auto_classify": false,
+        "required_fields": ["composition_class", "motion_role", "camera_role", "event_boundary", "surface", "meaning"]
+      },
+      "domain_constraints": [
+        "MOVE begins from a stable still/scene recipe; motion is not a substitute for unresolved composition.",
+        "Do not extract or generate long frame sequences during census.",
+        "Use video probes to select bounded clips/keyframes before expensive processing."
+      ]
+    },
+    "project-proof": {
+      "recursive": true,
+      "batching": {"mode": "folder_then_chunk", "max_items": 12},
+      "contact_sheets": true,
+      "appearance_clustering": {"enabled": false, "max_clusters": 1},
+      "control_maps": {"mode": "exemplars", "max_per_batch": 2},
+      "semantic": {
+        "auto_classify": false,
+        "required_fields": ["proof_claim", "project", "artifact_role", "before_after", "surface", "meaning"]
+      },
+      "domain_constraints": [
+        "Proof media must identify the claim it supports.",
+        "Do not optimize presentation before evidence identity is established.",
+        "SHARE may be concise; MEMORY must preserve exact lineage."
+      ]
+    }
+  }
+}
