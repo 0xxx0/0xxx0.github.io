@@ -139,10 +139,11 @@
     "visual-position / physical-position mismatch in later hardware"
   ],
   "centralization": {
-    "shared_core": "/foundry/axial/focus-core.js",
-    "rule": "Support and position math live once; FIELD AXIAL/LATEST and full AXIAL may render differently but must not fork the law.",
-    "component_path": "Prefer a small dependency-free Web Component only when a third consumer needs the same interaction surface; keep source adapters outside the component.",
-    "dat_gui_path": "No dat.GUI/lil-gui/tweakpane dependency is currently present in the repo. If added later, use it only as a developer/debug inspector for state and mappings, never as the primary human interface."
+    "shared_constraint_core": "/lib/constraint-surface.js",
+    "axial_projection_helper": "/foundry/axial/focus-core.js",
+    "rule": "Survivor/support law is source-neutral and shared by FIELD and AXIAL. AXIAL-only ordinal/angle presentation remains under AXIAL. STATE APERTURE transaction/actuation semantics are not part of Constraint Surface.",
+    "component_path": "Promote a UI component only when a third consumer needs the same interaction surface; source adapters and consequence semantics stay outside the kernel.",
+    "dat_gui_path": "No dat.GUI/lil-gui/tweakpane dependency is currently required. If added later, use it only as a developer/debug inspector, never as the primary human interface."
   },
   "breakthrough_method": {
     "hypothesis": "The strongest recent leaps were not caused by images alone. They occurred when a concrete visual/artifact reference acted as a retrieval anchor, exact donor behavior was recovered, a present-use failure was observed, and only one mechanism was transferred into a working surface.",
@@ -170,5 +171,16 @@
     ],
     "adaptation_policy": "The inspector may surface a candidate such as one ring dominating use or repeated dead alignments. It never automatically reorders, remaps or changes authority. Any adaptation must be an explicit new transfer with receipt.",
     "method": "/control/confluence/MECHANISM_TRANSFER_LOOP_2026-09-21.json"
+  },
+  "constraint_surface_extraction": {
+    "state": "IMPLEMENTED_PENDING_ORDINARY_USE",
+    "kernel": "/lib/constraint-surface.js",
+    "parity_test": "/control/constraint-surface-selftest.js",
+    "consumers": [
+      "/",
+      "/foundry/axial/"
+    ],
+    "preserved_boundary": "/foundry/axial/lab-0.5.1.html retains STATE APERTURE transform/TEST/ARM/RUN semantics outside the kernel.",
+    "invariant": "records × dimensions × selection → survivors + candidate support; expose possibility, never choose or act."
   }
 }
