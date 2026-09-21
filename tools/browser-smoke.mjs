@@ -127,6 +127,24 @@ function fieldListenProbeHtml(){
   <\/script></body></html>`;
 }
 
+
+function listenIntakeProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/fold-bloom/listen/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=10000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw Error('waitFor timeout')};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    await waitFor(()=>W().FoldBloomListen?.boot==='ready');
+    const input=D().getElementById('file'),label=D().getElementById('chooseLabel');
+    rec.boot=W().FoldBloomListen.boot;rec.input=!!input;rec.label=!!label;rec.hidden=input?.hasAttribute('hidden')||false;rec.for=label?.htmlFor||null;rec.pointer=W().getComputedStyle(label).pointerEvents;
+    let activated=0;input?.addEventListener('click',()=>activated++,{once:true});label?.click();await sleep(80);rec.activated=activated;
+    done(rec.boot==='ready'&&rec.input&&rec.label&&!rec.hidden&&rec.for==='file'&&rec.pointer!=='none'&&rec.activated===1,rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
 function lensProofAliasProbeHtml(){
   return `<!doctype html><html><body><pre id="probeResult">PENDING</pre><script>
   const out=document.getElementById('probeResult'),rec={};try{
@@ -482,6 +500,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(fieldListenProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/listen-intake')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(listenIntakeProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/field-activation')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(fieldActivationProbeHtml());return;
@@ -677,10 +699,16 @@ const CASES=[
     check:dom=>/HOLD FAST \/ LET FLY/i.test(dom)&&/SCALE OF CONSEQUENCE/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')
   },
   {
-    name:'FOLD BLOOM LISTEN 0.2',
+    name:'FOLD BLOOM LISTEN 0.2.1',
     route:'/fold-bloom/listen/',
     options:{width:1180,height:900,budget:9000},
-    check:dom=>/LISTEN 0\.2/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="urlInput"')&&dom.includes('id="urlBtn"')
+    check:dom=>/LISTEN 0\.2\.1/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="urlInput"')&&dom.includes('id="urlBtn"')
+  },
+  {
+    name:'FOLD BLOOM LISTEN intake activation',
+    route:'/__smoke/listen-intake',
+    options:{width:1000,height:820,budget:12000,timeout:18000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"boot":"ready"/.test(dom)&&/"hidden":false/.test(dom)&&/"for":"file"/.test(dom)&&/"activated":1/.test(dom)
   },
   {
     name:'FOLD BLOOM LISTEN source adapter',
