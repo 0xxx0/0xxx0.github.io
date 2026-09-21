@@ -461,6 +461,8 @@ function humanPortSpecimenProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:1100px;height:820px;border:0;display:block" src="/port/"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
   const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const stage=x=>{if(!finished)out.textContent='PENDING '+x+' '+JSON.stringify(rec)};
+  out.textContent='PENDING SCRIPT';
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
   const waitFor=async(fn,limit=14000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw Error('waitFor timeout: '+label)};
   const W=()=>f.contentWindow,D=()=>W().document,SESSION='human.port.object.session.v01';
