@@ -77,12 +77,15 @@ header{display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:end;
 <div class="foot"><span>OBJECT → ADDRESS → STATE → TRANSFORM → PROJECTION → EVIDENCE → RETURN → REPLAN</span><span>FIELD INDEX is orientation; CURRENT is attention; CONFLUENCE moves bounded mechanisms between unequal lineages.</span></div>
 </main>
 
+<script src="./field-signals.js"></script>
 <script src="./lens-state.js"></script>
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const NS='http://www.w3.org/2000/svg';
-let manifest=null,current=null,routes=[],mode='VISUAL',filter='ALL',query='',headSet=new Set,nowRouteSet=new Set,visualRoot='/',selectedRoute='/',foveate=false;
+let manifest=null,current=null,routes=[],
+    mode=(window.FieldSignals?.preference('field-map-mode',['VISUAL','PULSE','STRUCTURE','RECENT'])?.value)||'VISUAL',
+    filter='ALL',query='',headSet=new Set,nowRouteSet=new Set,visualRoot='/',selectedRoute='/',foveate=false;
 const routeMap=()=>new Map(routes.map(r=>[r.href,r]));
 const stateLive=s=>['ACTIVE','PROOF_REQUIRED','CANDIDATE'].includes(String(s||''));
 const isDonor=r=>String(r.state||'').includes('DONOR')||String(r.kind||'').includes('donor');
@@ -326,7 +329,10 @@ Promise.all([
  fetch('./control/CURRENT.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('current '+r.status);return r.json()})
 ]).then(([m,c])=>{
  manifest=m;current=c;routes=(m.routes||[]).filter(r=>r.href!=='/');
- renderNow();renderHeads();renderFeed();renderMap();renderPorts();
+ renderNow();renderHeads();renderFeed();
+ document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));
+ if(mode!=='VISUAL')window.FieldSignals?.emit('default-applied',{group:'field-map-mode',value:mode});
+ renderMap();renderPorts();
 }).catch(e=>{$('now').innerHTML='<div class="front"><p>Control load failed · '+esc(e.message)+'</p></div>';$('map').innerHTML='<div class="branch"><div style="padding:12px">Manifest unavailable.</div></div>'});
 $('mapTools').onclick=e=>{
  if(e.target.dataset.mode){mode=e.target.dataset.mode;document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===mode));renderMap();return}
