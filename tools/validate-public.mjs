@@ -131,7 +131,7 @@ if(exists('showcase-nav.js')){
 }
 if(exists('foundry/aperture/index.html')){
   const ap=read('foundry/aperture/index.html');
-  for(const token of ['FOUNDRY / APERTURE','field-aperture.js','RSVP','SCALE LENS','TWO DIAL'])check(ap.includes(token),'Aperture surface token missing: '+token);
+  for(const token of ['FOUNDRY / APERTURE 0.3','field-aperture.js','RSVP','SCALE LENS','TWO DIAL','showcase-nav.js'])check(ap.includes(token),'Aperture surface token missing: '+token);
   compileInline('foundry/aperture/index.html');
 }
 if(exists('field-play.html')){const play=read('field-play.html');check(play.includes('field-presentation.js'),'FIELD PLAY missing shared presentation kernel');check(play.includes('field-glyph.js'),'FIELD PLAY missing shared glyph grammar');}
@@ -174,7 +174,19 @@ check(home.includes('field-glyph.js'),'root missing shared FIELD glyph grammar')
 check(home.includes('field-presentation.js'),'root missing FIELD presentation kernel');
 check(home.includes('field-aperture.js'),'FIELD root missing reusable Aperture component');
 check(home.includes('id="apInspect"'),'FIELD root missing focused Aperture action');
-if(exists('port/index.html')){const p=read('port/index.html');check(p.includes('field-aperture.js'),'HUMAN PORT missing reusable Aperture component');check(p.includes('id="inspectBtn"'),'HUMAN PORT missing Aperture intake action');}
+if(exists('port/index.html')){const p=read('port/index.html');check(p.includes('field-aperture.js'),'HUMAN PORT missing reusable Aperture component');check(p.includes('id="inspectBtn"'),'HUMAN PORT missing Aperture intake action');check(p.includes('showcase-nav.js'),'HUMAN PORT missing shared route adapter');}
+
+if(exists('docs/index.html')){
+  const d=read('docs/index.html');
+  for(const token of ['id="inspectDoc"','field-aperture.js','showcase-nav.js','FOCUS_INTERFACE_SYNC_2026-09-21.json','FU_FOVEATE_RECOVERY_2026-09-21.json','RSVP_APERTURE_TRANSFER_2026-09-21.json'])check(d.includes(token),'DOCS focus-interface token missing: '+token);
+  compileInline('docs/index.html');
+}
+if(exists('showcase-selftest/index.html')){
+  const t=read('showcase-selftest/index.html');
+  for(const token of ['/foundry/axial/','/foundry/aperture/','/port/','/docs/','const TOTAL=CASES.length*WIDTHS.length'])check(t.includes(token),'self-test focus-interface token missing: '+token);
+  compileInline('showcase-selftest/index.html');
+}
+
 check(home.includes('id="axialLatest"'),'root missing unified AXIAL latest surface');
 check(home.includes('id="apOpen"'),'root missing explicit focus OPEN action');
 check(!home.includes('class="nowGrid"'),'root regressed to oversized NOW card grid');
@@ -192,7 +204,7 @@ const axialPath='foundry/axial/index.html';
 const axialLabPath='foundry/axial/lab-0.5.1.html';
 if(exists(axialPath)){
   const a=read(axialPath);
-  for(const token of ['FOCUS STACK','FIELD INDEX','HOUSE: SOFA LIGHT','RING','STRIP','RETURN'])check(a.includes(token),'AXIAL 0.6 focus-stack token missing: '+token);
+  for(const token of ['FOCUS STACK','FIELD INDEX','HOUSE: SOFA LIGHT','RING','STRIP','RETURN','id="inspect"','field-aperture.js','showcase-nav.js','axial.focus-inspection/v0.1'])check(a.includes(token),'AXIAL 0.7 focus-stack token missing: '+token);
   compileInline(axialPath);
 }
 if(exists(axialLabPath)){
