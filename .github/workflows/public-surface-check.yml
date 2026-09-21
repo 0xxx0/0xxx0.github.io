@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Validate static surface contracts
-        run: node tools/validate-public.mjs
       - name: Validate LensState laws and round trip
         run: node control/lens-state-selftest.js
+      - name: Validate static surface contracts
+        run: node tools/validate-public.mjs
