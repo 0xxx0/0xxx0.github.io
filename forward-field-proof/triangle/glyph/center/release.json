@@ -41,10 +41,13 @@
     "FieldSignals candidate/accepted/overridden events are emitted during ordinary CURRENT use",
     "focused CURRENT action can preload HUMAN PORT through same-origin sessionStorage",
     "OPEN remains explicit and uses a bounded route adapter",
-    "BACK, RETURN and PIN remain distinct"
+    "BACK, RETURN and PIN remain distinct",
+    "same-instrument CENTER vs PLAIN CURRENT/QUEUE reading comparator",
+    "PLAIN preserves exact source order while sharing the same constraints, focus, OPEN/PIN/PORT/RETURN actions",
+    "passive FieldSignals evidence records which reading proposed the selected move"
   ],
   "authority_boundary": "CENTER proposes/focuses only. It does not mutate CURRENT, QUEUE, repository state, external communication, House actuation or purchases.",
-  "evolution_gate": "Do not graft CENTER into root FIELD yet. Use it normally; require passive choice/override evidence plus at least one real RETURN where the lens changed a choice or exposed a tradeoff that plain CURRENT/QUEUE did not.",
+  "evolution_gate": "Use CENTER during ordinary work, occasionally toggle the same source to PLAIN, and require passive candidate/override evidence plus at least one real RETURN where geometry changed or clarified a choice. If no such delta appears, demote the selector.",
   "known_limits": [
     "The simplex profiles are deterministic heuristics, not ground truth.",
     "CURRENT action adapter must be refreshed when CURRENT/QUEUE semantics materially change; live root loading is preferred.",
@@ -58,6 +61,7 @@
     "CURRENT and FEDERATION source toggle present",
     "FieldSignals integration present",
     "HUMAN PORT handoff producer and consumer both present",
-    "root/fallback source paths remain hardened"
+    "root/fallback source paths remain hardened",
+    "CENTER/PLAIN comparator syntax and source-order path verified"
   ]
 }
