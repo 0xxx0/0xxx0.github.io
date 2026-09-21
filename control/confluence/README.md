@@ -91,3 +91,5 @@ NO autonomous messaging
 Implementation clauses become candidate patches/specifications only.
 Return a bounded handoff packet with sources, deltas, uncertainties, and next executable actions.
 ```
+
+- [GAME-SCALE STATE DONORS](../research/GAME_SIMULATION_STATE_DONORS_2026-09-22.md) — Cyberpunk/RimWorld/Dwarf Fortress/Zomboid/GAS mechanisms for definitions, facts, effects, gates, body state and projections
