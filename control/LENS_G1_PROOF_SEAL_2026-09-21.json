@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/lens-g1-proof-seal/v0.1",
-  "at": "2026-09-21T19:26:20+08:00",
+  "at": "2026-09-21T19:34:00+08:00",
   "object": "/fold-bloom/lens/ + FIELD Focus Ring / LensState v0.2",
   "proof_run": {
     "id": 35594006860,
@@ -31,16 +31,6 @@
     "FOVEATED is faster, clearer or preferable to PLAIN for a human task",
     "the reconstructed Focus Ring is the exact unrecovered historical RSVP ring artifact"
   ],
-  "remaining_gate": {
-    "id": "LENS-03-HUMAN-COMPARATOR",
-    "protocol": "/control/LENS_FOVEATE_PROOF_2026-09-21.json",
-    "tasks": [
-      "T1_LOCATE",
-      "T2_CONTEXT",
-      "T3_REFRACT_RETURN"
-    ],
-    "rule": "Promote FOVEATE only if paired human receipts meet the declared continuity/error/action-or-duration gate."
-  },
   "law_refs": [
     "/control/FIELD_ACTIVATION_LAW.json",
     "/control/LENS_SYSTEM_CONTRACT_2026-09-21.json",
@@ -48,6 +38,11 @@
     "/control/LENS_EVOLUTION_G1_2026-09-21.json",
     "/control/LENS_FOVEATE_PROOF_2026-09-21.json"
   ],
-  "disposition": "AUTOMATED_ENGINEERING_PROOF_COMPLETE_HUMAN_COMPARATOR_OPEN",
-  "return": "Do not add Lens architecture. Next lawful Lens move is comparative play or a concrete regression repair."
+  "disposition": "G1_MECHANICS_PROVED_FOVEATE_PARKED_STUDIO_USABILITY_ACTUALIZED",
+  "return": "Lens mechanics are proved. FOVEATE is parked after no clear human gain. Do not reopen architecture; current product work is legibility/usability of the deep Studio and concrete regressions only.",
+  "human_comparator": {
+    "status": "RESOLVED_PARKED",
+    "result": "No notable or self-evident advantage observed for FOVEATED over PLAIN in direct use.",
+    "consequence": "PLAIN remains default; FOVEATE remains optional parked donor."
+  }
 }
