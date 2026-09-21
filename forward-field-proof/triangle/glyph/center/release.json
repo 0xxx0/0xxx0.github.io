@@ -1,13 +1,29 @@
 {
   "schema": "release-receipt/v1",
-  "title": "Triangle Center Mass",
-  "version": "0.1",
+  "title": "Triangle Center / Focus Field",
+  "version": "0.2",
   "state": "EXPERIMENT",
   "date": "2026-09-21",
   "route": "/forward-field-proof/triangle/glyph/center/",
   "parent": "/forward-field-proof/triangle/glyph/",
   "showcase_card": false,
-  "claim": "Tests whether a three-axis simplex can steer selection among many federation fronts by projecting all fronts as points and ranking them against a movable desired intent vector.",
+  "claim": "Tests whether many fronts become easier to steer when continuous triangle preference is composed with AXIAL-style discrete constraint strips, exact focus identity, explicit navigation, and a weighted pinned center of mass.",
+  "donor": {
+    "route": "/foundry/axial/",
+    "transfer": "unequal vocabularies × visible support × one focus aperture × explicit OPEN/BACK/RETURN"
+  },
+  "geometry": {
+    "position": "triangle profile in active lens",
+    "mass": "0.25 + 0.75 × current experimental FCM score",
+    "constraints": [
+      "province",
+      "priority",
+      "state",
+      "operator"
+    ],
+    "focus": "one exact federation object",
+    "pins": "maximum 3; weighted centroid by mass"
+  },
   "lenses": {
     "INTENT": [
       "EXPLOIT",
@@ -20,13 +36,44 @@
       "SHARE"
     ]
   },
-  "selection": "score = 0.77 simplex similarity + 0.23 existing experimental FCM score",
-  "pins": "up to three local fronts; their centroid is rendered as actual center of mass against the desired cursor",
+  "source_strategy": {
+    "primary": [
+      "/federation-atlas.json",
+      "/fcm-map.json",
+      "/showcase-manifest.json"
+    ],
+    "fallback": "./data.json",
+    "failure_policy": "never fabricate identities or auto-correct a zero-support tuple"
+  },
+  "controls": [
+    "drag desired triangle point",
+    "unequal filter strips with support counts",
+    "visible zero-support selections",
+    "search inside current aperture",
+    "click point/result to focus exact identity",
+    "OPEN only when title maps exactly to a public route",
+    "PIN / UNPIN up to three",
+    "weighted pinned center mass + desire/mass gap",
+    "BACK session history",
+    "RETURN local focus receipt",
+    "deep-linkable lens/filter/weights/focus/pins/search state"
+  ],
   "mutation": "LOCAL_ONLY",
+  "verification": [
+    "117 fallback objects / 117 unique IDs",
+    "inline JavaScript syntax check passed",
+    "old ../../../federation-atlas.json path removed",
+    "absolute root paths + local snapshot fallback present"
+  ],
   "known_limits": [
-    "Profiles are heuristic projections from current public registry metadata and operator mappings.",
-    "A three-axis lens cannot represent every relevant decision dimension simultaneously.",
-    "The triangle remains a lens over many fronts, not a claim that work itself is intrinsically ternary.",
-    "Pinned center of mass is an arithmetic centroid in the active lens, not an objective portfolio optimum."
-  ]
+    "Intent/system profiles remain heuristic projections from registry metadata and operator mappings.",
+    "FCM mass is an experimental leverage signal, not objective importance.",
+    "Exact public OPEN matching is deliberately conservative and may leave many registry objects without a route.",
+    "No comparative usability win is claimed yet."
+  ],
+  "current_classification": {
+    "reviewed_at": "2026-09-21T16:02:00+08:00",
+    "state": "PROOF_REQUIRED",
+    "basis": "Current evolution stage is TEST and the receipt explicitly claims no comparative usability win; historical release state EXPERIMENT is retained above as contemporaneous evidence."
+  }
 }

@@ -1,0 +1,65 @@
+{
+  "schema": "donor-transplant/v0.1",
+  "date": "2026-09-21",
+  "recipient": {
+    "address": "/foundry/aperture/",
+    "name": "APERTURE"
+  },
+  "donors": [
+    {
+      "source": "/fold-bloom/two-dial/",
+      "unit": "two cyclic controls → one consequence",
+      "preserved": [
+        "independent cyclic controls",
+        "one shared consequence"
+      ]
+    },
+    {
+      "source": "/foundry/axial/",
+      "unit": "fixed foveal gate over unequal vocabularies",
+      "preserved": [
+        "focus gate",
+        "scale/position independence",
+        "explicit no-fake-focus law"
+      ]
+    },
+    {
+      "source": "/fold-bloom/lens/",
+      "unit": "stable identity/address across zoom",
+      "preserved": [
+        "same source under scale change",
+        "address survives projection"
+      ]
+    },
+    {
+      "source": "/recovery/rsvp/RSVP_TTS_TMP_SPEECHSYNTH_20180502.html",
+      "unit": "SpeechSynthesis boundary charIndex drives word focus",
+      "preserved": [
+        "temporal focus",
+        "speech-boundary synchronization",
+        "pause/cancel-compatible browser speech path"
+      ]
+    }
+  ],
+  "adaptation": {
+    "outer_ring": "position within current scale",
+    "inner_ring": "scale/granularity",
+    "ring_gap": "logarithmic source byte magnitude over 10^0..10^12",
+    "center": "foveated current value/address",
+    "time": "RSVP advances position",
+    "voice": "TTS boundary events drive the same WORD position",
+    "hosts": [
+      "FIELD selected route metadata",
+      "HUMAN PORT intake text",
+      "standalone paste/file workbench"
+    ]
+  },
+  "laws": [
+    "SAME SOURCE / MANY TRAVERSALS",
+    "SCALE CHANGE MUST NOT INVENT A NEW SOURCE",
+    "TIME AND VOICE DRIVE THE SAME POSITION STATE",
+    "MAGNITUDE IS ORIENTATION, NOT IMPORTANCE",
+    "HOST MAY SUMMON THE APERTURE WITHOUT SURRENDERING CANONICAL STATE"
+  ],
+  "status": "PROOF_REQUIRED"
+}

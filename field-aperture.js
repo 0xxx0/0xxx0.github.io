@@ -55,9 +55,10 @@ class FieldAperture extends HTMLElement{
  emit(){this.dispatchEvent(new CustomEvent('aperture-focus',{detail:this.snapshot(),bubbles:true}))}
  snapshot(){const c=this.current(),s=this.currentScale();return{schema:'field-aperture-focus/v0.1',kind:this.A?.kind,label:this.A?.label,bytes:this.A?.bytes,scale:s?.id,scale_label:s?.label,index:this.pos,count:s?.units.length,address:c?.path||null,focus:typeof c?.value==='string'?c.value:preview(c?.value,240)}}
  magnitude(){
-   const b=Math.max(1,this.A?.bytes||1),log=Math.log10(b),gap=clamp(5+log*5.2,7,33);
+   const b=Math.max(1,this.A?.bytes||1),log=Math.log10(b),decades=clamp(log,0,12),gap=7+(decades/12)*26;
    const exp=Math.floor(log),mant=b/Math.pow(10,exp);
-   return{gap,log,band:'10^'+exp+' B',human:b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':b<1073741824?(b/1048576).toFixed(1)+' MB':(b/1073741824).toFixed(1)+' GB',mant}
+   const human=b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':b<1073741824?(b/1048576).toFixed(1)+' MB':b<1099511627776?(b/1073741824).toFixed(1)+' GB':(b/1099511627776).toFixed(1)+' TB';
+   return{gap,log,decades,band:'10^'+exp+' B',human,mant}
  }
  renderShell(){
  this.shadowRoot.innerHTML=`<style>
@@ -86,7 +87,7 @@ class FieldAperture extends HTMLElement{
   q('centerWord').textContent=center.length>15?center.slice(0,14)+'…':center||'—';q('centerMeta').textContent=s.label+' · '+(this.pos+1)+'/'+n;
   q('ey').textContent=this.A.kind+' · '+s.label;q('size').textContent=mag.human+' · '+mag.band;q('focus').textContent=focus||'(empty)';q('addr').textContent=c?.path||s.id+'://'+this.pos;q('meter').style.width=(frac*100)+'%';q('rate').textContent=this.wpm+' WPM';q('rsvp').textContent=this.timer?'Ⅱ RSVP':'▶ RSVP';
  }
- toggleRSVP(){if(this.timer){clearInterval(this.timer);this.timer=null;this.render();return}const s=this.currentScale();if(!s||s.units.length<2)return;this.timer=setInterval(()=>this.step(1),Math.max(45,60000/this.wpm));this.render()}
+ toggleRSVP(){if(this.timer){clearInterval(this.timer);this.timer=null;this.render();return}let s=this.currentScale();if(!s)return;if(s.units.length<2){const preferred=this.A.kind==='TEXT'?this.A.scales.findIndex(x=>x.id==='WORD'):this.A.scales.findIndex(x=>x.units.length>1);if(preferred>=0){this.scale=preferred;this.pos=0;s=this.currentScale()}}if(!s||s.units.length<2)return;this.timer=setInterval(()=>this.step(1),Math.max(45,60000/this.wpm));this.render()}
  stop(){if(this.timer){clearInterval(this.timer);this.timer=null}if('speechSynthesis'in window)window.speechSynthesis.cancel();this.speaking=false;this.render()}
  speak(){
    if(!this.A||!('speechSynthesis'in window)||!('SpeechSynthesisUtterance'in window))return;
@@ -99,9 +100,24 @@ class FieldAperture extends HTMLElement{
  }
 }
 customElements.define('field-aperture',FieldAperture);
+function ensureDock(){
+ let wrap=document.querySelector('[data-field-aperture-dock]');
+ if(wrap)return wrap;
+ wrap=document.createElement('aside');wrap.dataset.fieldApertureDock='1';
+ Object.assign(wrap.style,{position:'fixed',right:'8px',bottom:'8px',zIndex:'2147482000',width:'min(420px,calc(100vw - 16px))',background:'#07090a',boxShadow:'0 12px 40px rgba(0,0,0,.45)'});
+ const bar=document.createElement('div');Object.assign(bar.style,{display:'flex',justifyContent:'space-between',alignItems:'center',border:'1px solid #2a3439',borderBottom:'0',background:'#090d0f',padding:'4px 5px',font:'7px ui-monospace,monospace',color:'#7d898f'});
+ bar.innerHTML='<span>APERTURE / DOCK</span><span><button data-collapse style="font:inherit;color:#edf0ed;background:#090d0f;border:1px solid #2a3439;padding:2px 5px">−</button> <button data-close style="font:inherit;color:#edf0ed;background:#090d0f;border:1px solid #2a3439;padding:2px 5px">×</button></span>';
+ const el=document.createElement('field-aperture');el.dataset.fieldDock='1';wrap.append(bar,el);document.body.appendChild(wrap);
+ bar.querySelector('[data-close]').onclick=()=>wrap.remove();
+ bar.querySelector('[data-collapse]').onclick=e=>{const hidden=el.hidden=!el.hidden;e.currentTarget.textContent=hidden?'+':'−'};
+ return wrap;
+}
 window.FieldAperture={
  analyze,
  mount(target,source,opt={}){const el=document.createElement('field-aperture');target.appendChild(el);el.load(source,opt);return el},
- inspect(source,opt={}){let el=document.querySelector('field-aperture[data-field-global]');if(!el){el=document.createElement('field-aperture');el.dataset.fieldGlobal='1';document.body.appendChild(el)}el.load(source,opt);return el}
+ inspect(source,opt={}){let el=document.querySelector('field-aperture[data-field-global]');if(!el){el=document.createElement('field-aperture');el.dataset.fieldGlobal='1';document.body.appendChild(el)}el.load(source,opt);return el},
+ dock(source,opt={}){const wrap=ensureDock(),el=wrap.querySelector('field-aperture');el.hidden=false;wrap.querySelector('[data-collapse]').textContent='−';el.load(source,opt);return el},
+ closeDock(){document.querySelector('[data-field-aperture-dock]')?.remove()},
+ handoff(source,opt={}){try{sessionStorage.setItem('field.aperture.handoff.v01',JSON.stringify({source,label:opt.label||'Handoff',created_at:new Date().toISOString(),from:opt.from||location.pathname}))}catch(_){}}
 };
 })();

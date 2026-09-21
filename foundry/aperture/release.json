@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOUNDRY / APERTURE",
-  "version": "0.1",
+  "version": "0.2",
   "route": "/foundry/aperture/",
   "state": "PROOF_REQUIRED",
   "operation": "INSPECT",
@@ -32,7 +32,9 @@
     "prev/next",
     "scale −/+",
     "RSVP temporal stepping",
-    "TTS boundary-synced WORD focus"
+    "TTS boundary-synced WORD focus",
+    "dock(source,opt) reusable in-place host API",
+    "session handoff → standalone Aperture workbench"
   ],
   "non_claims": [
     "Ring gap is not semantic importance.",
@@ -44,6 +46,16 @@
     "shared_component": "/field-aperture.js",
     "local_only": true,
     "network_write": "NONE",
-    "source_identity_preserved": true
-  }
+    "source_identity_preserved": true,
+    "host_integrations": [
+      "/ FIELD AXIAL focus",
+      "/port/ HUMAN PORT intake",
+      "/foundry/aperture/ standalone"
+    ],
+    "magnitude_ladder": "log10(bytes), visible ring gap spans 10^0..10^12",
+    "rsvp_default": "if current scale has <2 units, temporal play selects WORD for text or first traversable JSON level",
+    "javascript_static_parse": "PASS"
+  },
+  "updated": "2026-09-21",
+  "known_gap": "No comparative usability evidence yet; browser SpeechSynthesis boundary fidelity varies by engine/voice, and byte magnitude may not be the final visual size encoding."
 }

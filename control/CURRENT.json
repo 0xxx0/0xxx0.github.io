@@ -82,7 +82,7 @@
       "head": "VERSE / co-creative poetry + specialized adapters",
       "state": "REORIENTED_ACTIVE",
       "route": "/poetry/",
-      "retained_function": "One authoring product: selection + optional candidates + explicit constraints + bank/adopt/reject + projections/RETURN. Jueju/Verse Atlas, Pathweaver, Market+Solver and Grid Path remain unequal engines/adapters; language/form do not define separate products."
+      "retained_function": "One co-creative authoring product over stable poem state. POEM MAP 0.1 is the current live experiment: PAGE/MAP/SETS linked entrances + typed relation weights + aperture + locks/author paths + candidate bank + form adapters + RETURN. Jueju/Verse Atlas remains a specialist study/evidence adapter; Pathweaver, Market+Solver and Grid Path remain explicit donors."
     },
     {
       "lineage": "sleeper-one-return",
@@ -103,7 +103,7 @@
       "head": "AXIAL / FOCUS STACK 0.7",
       "state": "PROOF_REQUIRED",
       "route": "/foundry/axial/",
-      "retained_function": "Unequal cyclic vocabularies × one focus gate + exact per-position support → lawful source aperture; identity↔rings and URL reload round-trip; root FIELD carries a reduced AXIAL / LATEST projection."
+      "retained_function": "Unequal cyclic vocabularies × one focus gate + exact per-position support → lawful source aperture; identity↔rings and URL reload round-trip; root FIELD carries a reduced AXIAL / LATEST projection. APERTURE 0.2 is a separate portable inspection recipient of the focus-ring mechanism, not a replacement for AXIAL."
     },
     {
       "lineage": "comms",
@@ -394,7 +394,7 @@
     "verse_copilot_recovery": "/control/confluence/VERSE_COPILOT_RECOVERY.md",
     "verse_visualization_quarry": "/control/confluence/VERSE_VIS_QUARRY.md",
     "verse_lab": "/poetry/lab/",
-    "poem_map": "/poetry/lab/poem-map/",
+    "poem_map": "/poetry/map/",
     "transductions": "/control/confluence/TRANSDUCTIONS.md",
     "transduction_registry": "/control/TRANSDUCTIONS.json",
     "preference_signals": "/control/PREFERENCE_SIGNALS.json",
@@ -406,7 +406,12 @@
     "field_presentation": "/control/FIELD_PRESENTATION.json",
     "field_presentation_kernel": "/field-presentation.js",
     "field_index_axial_latest": "/control/confluence/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
-    "field_index_axial_latest_return": "/returns/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json"
+    "field_index_axial_latest_return": "/returns/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
+    "aperture": "/foundry/aperture/",
+    "aperture_release": "/foundry/aperture/release.json",
+    "aperture_convergence": "/control/confluence/APERTURE_CONVERGENCE_2026-09-21.json",
+    "aperture_component": "/field-aperture.js",
+    "poem_map_quarry": "/control/confluence/POEM_MAP_QUARRY.md"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
