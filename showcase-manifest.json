@@ -5355,6 +5355,82 @@
       ]
     },
     {
+      "href": "/body/fit/",
+      "title": "BODY / FIT 0.1",
+      "kind": "workbench",
+      "parent": "/body/",
+      "family": "BODY / FIELD",
+      "operation": "FIT",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "receipt": "/body/fit/release.json",
+      "role": "Body-plan-addressed fitting and sensor-fusion workbench: preserve fitting revision lineage, source-distinct observations, stale/unknown state and disagreement while projecting aligned local evidence without diagnosis or HOUSE authority.",
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "body-addressed fitting",
+            "body sensor observation",
+            "body sensor bundle",
+            "HOUSE context envelope"
+          ],
+          "requires": [
+            "shared BODY PLAN address"
+          ],
+          "optional": [
+            "HUMAN PORT session object",
+            "time-window selection",
+            "local JSON import"
+          ]
+        },
+        "transforms": {
+          "verb": "attach fittings and source-distinct observations to BODY addresses, align them in time without averaging away disagreement, and preserve revision/provenance history",
+          "preserves": [
+            "body address",
+            "fitting revision lineage",
+            "source identity",
+            "phenomenon time",
+            "recorded time",
+            "availability",
+            "provenance",
+            "source disagreement"
+          ],
+          "reversibility": "browser-local export/re-import; fitting revisions append rather than overwrite",
+          "side_effects": "browser-local only"
+        },
+        "emits": {
+          "kinds": [
+            "body-fit state",
+            "source-distinct observation ledger",
+            "time-window fusion projection",
+            "JSON export",
+            "HUMAN PORT adapter offer"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/body/fit/release.json",
+          "checks": [
+            "private local state only",
+            "revision does not overwrite prior fitting",
+            "observation time distinct from recorded time",
+            "unknown/stale explicit",
+            "fusion preserves one row per source",
+            "HOUSE context remains non-causal"
+          ],
+          "return_path": "/body/fit/"
+        }
+      },
+      "index": {
+        "updated_at": "2026-09-22T01:04:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      }
+    },
+    {
       "href": "/forward-field-proof/triangle/bench/",
       "title": "TRIANGLE BENCH 0.1 · FROZEN",
       "kind": "artifact",
