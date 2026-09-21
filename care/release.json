@@ -2,11 +2,14 @@
   "schema": "release-receipt/v1",
   "artifact": "CARE / FIELD",
   "route": "/care/",
-  "version": "0.3",
+  "version": "0.4",
   "released": "2026-09-21",
   "state": "EXPERIMENT",
   "relation": "specialized CONTINUITY projection; shared BODY PLAN registry donor; BODYFIELD high-resolution lineage; HUMAN PORT downstream handoff; COURSE preserves sourced care path",
   "changes": [
+    "Added explicit BODY / FIELD local handoff offer; user must import into the current CARE case.",
+    "Imported BODY events preserve body-plan/view/region identity, state vector/context, time and source cue.",
+    "BODY handoff does not auto-create or mutate a CARE case.",
     "body observations now store geometry_version, view_box and trace_space for future-safe replay",
     "replaced inline placeholder human/cat drawings with shared local body-plan registry",
     "copied pinned MIT human vector corpus into repo: detailed front/back human reference M/F plans",
@@ -47,7 +50,9 @@
     "observation/interpretation separation",
     "no fetch/XHR/WebSocket/sendBeacon in CARE application logic",
     "HUMAN PORT private session carrier retained",
-    "geometry version preserved with body-map event address"
+    "geometry version preserved with body-map event address",
+    "BODY handoff requires explicit import",
+    "stable BODY region IDs used for prior-overlap matching"
   ],
   "open_gaps": [
     "manual mobile pointer/trace usability test on detailed human fragments",
