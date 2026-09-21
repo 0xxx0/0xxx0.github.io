@@ -5604,7 +5604,7 @@
       "role": "Draw a finite river around stone, sail branching landings, and return along your actual strokes; original painting voyage with replay-validated save/return.",
       "receipt": "/sleeper/borrowed-river/release.json",
       "index": {
-        "updated_at": "2026-09-21T13:20:00Z",
+        "updated_at": "2026-09-21T20:16:13.936Z",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -5635,6 +5635,18 @@
           "receipt": "/sleeper/borrowed-river/release.json",
           "return_path": "/sleeper/borrowed-river/"
         }
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/sleeper/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Does drawing the actual navigable route make the painting worth inhabiting and replaying?",
+        "baseline": "Painting / Path: inspect regions, read, annotate, save camera routes.",
+        "mutation": "The authored stroke becomes constrained water that carries the boat and provides its route home.",
+        "evidence_gate": "Mechanical four-branch completion and save/return replay pass. Still require browser touch/audio/render checks, player explanation of ink/stone causality, and voluntary second voyage choosing another branch.",
+        "next_if_pass": "Transfer drawn-route plus reversible-return kernel to SLEEPER with the existing provenance contract; keep reading separate.",
+        "next_if_fail": "Repair one observed interaction blocker or retain as donor; do not expand the roster or assert museum-level quality."
       }
     }
   ],
