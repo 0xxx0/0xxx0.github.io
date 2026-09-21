@@ -1,8 +1,8 @@
 {
   "schema": "showcase-release/v1",
   "surface": "Scale Lens Studio",
-  "version": "RC11.2",
-  "patch": "g2-interop-1+spatial-donor-1+mobile-importer-wrap-1+field-index-route-handoff-1",
+  "version": "RC11.2 + actualize-1",
+  "patch": "g2-interop-1+spatial-donor-1+mobile-importer-wrap-1+field-index-route-handoff-1+lensstate-v02+focus-ring-proved+actualize-1",
   "route": "/fold-bloom/lens/",
   "state": "STABLE",
   "operation": "REPRESENT",
@@ -24,7 +24,13 @@
     "render canonical ancestry as clickable six-face CSS3D slabs with drag rotation, wheel depth and keyboard reset/toggle",
     "preserve canonical identity, local address, upstream RETURN and RC11.3 separation",
     "mobile importer reflow removes horizontal overflow at 390px without clipping controls",
-    "accept FIELD INDEX selected-route handoff through existing scale.lens.handoff.v01 consumer; route identity/state/operation/role are serialized as the same addressed source object before re-projection"
+    "accept FIELD INDEX selected-route handoff through existing scale.lens.handoff.v01 consumer; route identity/state/operation/role are serialized as the same addressed source object before re-projection",
+    "add a persistent OBJECT / APERTURE / VIEW / STACK / RETURN orientation dock before Studio machinery",
+    "start FIELD handoffs in compact mode while direct Studio opens keep source/import LAB available",
+    "resolve header/dock RETURN to the actual invoking LensState return address instead of ../",
+    "demote operator/import/spatial/schema/receipt machinery behind explicit LAB without deleting capability",
+    "remove duplicate /lens-state.js include and hard-edge the Studio UI",
+    "demote FOVEATE from primary Lens path after no clear human advantage; retain as parked optional VIEW_LENS donor"
   ],
   "validation": {
     "private_adapter_selftest": "11/11 PASS",
@@ -80,8 +86,19 @@
       "key": "scale.lens.handoff.v01",
       "rule": "FIELD route identity is preserved as source text/object; Lens re-projects it and does not own canonical FIELD state.",
       "public_surface_check_run": 35530945950
+    },
+    "actualize_1": {
+      "status": "PENDING_CURRENT_BRANCH_CI",
+      "branch": "lens-studio-actualize-20260921",
+      "requirements": [
+        "static surface contracts",
+        "390px/desktop browser smoke",
+        "Lens mobile exact RETURN",
+        "FIELD activation + re-entry",
+        "Lens STACK → Studio → RETURN"
+      ]
     }
   },
-  "known_gap": "No generic live-smoke gap remains. Further UI changes require rerunning the external smoke gate; RC11.3 portrait remains a separate unfinished branch.",
+  "known_gap": "No Lens architecture proof gap remains. FOVEATE is parked after no clear human gain. actualize-1 must pass current full browser CI before release; exact historical red-dot RSVP ring remains unrecovered.",
   "updated": "2026-09-21"
 }
