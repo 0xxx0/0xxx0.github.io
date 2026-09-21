@@ -6,6 +6,9 @@
   "released": "2026-09-21",
   "state": "EXPERIMENT",
   "changes": [
+    "Extracted /body/core.js pure kernel and executable fixture selftest.",
+    "Made untouched state dimensions explicitly null; zero is recorded only when intentionally set.",
+    "Added SAME RETURN / NEXT RETURN ≤12H PULSE contrast lens with the same minimum-sample gate.",
     "Recovered the unmerged BODY 0.1 lineage onto current master rather than merging the stale branch.",
     "Replaced runtime-fetched body geometry with the shared same-repo /bodyplans/ registry.",
     "Added NOW: one-gesture valence×activation capture, compact itch/pain/tension/energy/focus signals, context factors and optional detailed body address.",
@@ -24,7 +27,10 @@
     "test output is descriptive only",
     "HOUSE bridge uses localStorage only",
     "plain JSON export/import present",
-    "BODY→CARE handoff is localStorage only and requires explicit CARE import"
+    "BODY→CARE handoff is localStorage only and requires explicit CARE import",
+    "BODY core fixture selftest 13/13 PASS",
+    "missing values excluded from numeric contrasts",
+    "lagged contrasts do not bridge gaps >12h"
   ],
   "prior_art": [
     "How We Feel: low-friction emotion check-ins + body sensations/patterns",
@@ -33,5 +39,6 @@
     "RADAR-base/AWARE: active self-report distinct from passive context streams",
     "Open mHealth: preserve measure metadata/source/context"
   ],
-  "honesty": "This is a personal observation and experimentation instrument, not a diagnostic, triage, or treatment recommendation system. Same-origin HOUSE packets carry projection metadata/context, not private runtime authority."
+  "honesty": "This is a personal observation and experimentation instrument, not a diagnostic, triage, or treatment recommendation system. Same-origin HOUSE packets carry projection metadata/context, not private runtime authority.",
+  "validation": "/control/BODY_FIELD_VALIDATION_2026-09-21.json"
 }
