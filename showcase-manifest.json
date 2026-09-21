@@ -16,16 +16,25 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T15:12:51+08:00",
+        "updated_at": "2026-09-21T15:17:06+08:00",
         "work_modes": [
+          "RECOVER",
+          "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "RELEASE"
         ]
       },
-      "role": "Fast repo re-entry with semantic density: compact FIELD strip for NOW/HEAD state, newest-first LATEST rows with glyph rail, GitHub issues, and MAP/EVOLVE/PULSE as secondary projections.",
-      "receipt": "/returns/FIELD_EVOLUTION_2026-09-21.json",
-      "machine_view": "FIELD"
+      "role": "Fast repo re-entry through AXIAL / LATEST: newest-first chronology remains the source reading; ROUTE × STATE × OPERATION × WORK MODE align through one focus gate to the same exact route shared by the list and map. Selection is local; OPEN navigates.",
+      "receipt": "/returns/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
+      "machine_view": "FIELD",
+      "version": "0.4",
+      "transfer": [
+        "AXIAL 0.6.1 unequal-vocabulary focus compositor",
+        "selection != navigation",
+        "shared focus across chronology / axial / map"
+      ]
     },
     {
       "href": "/contact/",
@@ -4318,7 +4327,7 @@
     "scale_lens_handoff": "Selected MAP route can be handed locally into SCALE LENS through scale.lens.handoff.v01 as the same addressed object.",
     "evolution_contract": "/control/FIELD_INDEX_CONTRACT.json#evolution_contract",
     "identity_fold": "SUPERSEDED_ON_ROOT_2026-09-21: LATEST intentionally repeats routes already present in NOW/HEADS because chronology is a re-entry instrument, not a canonical-identity display.",
-    "default_reading": "LATEST",
+    "default_reading": "AXIAL_LATEST",
     "glyph_grammar": "/field-glyph.js",
     "issue_snapshot": "/control/FIELD_ISSUES.json",
     "presentation_kernel": "/field-presentation.js",
@@ -4329,7 +4338,21 @@
       "FULL"
     ],
     "attention_projection": "NOW is represented as a compact glyph strip; prose/detail has zero layout cost until explicit reveal. Retained heads share the strip as lower-emphasis marks and remain fully available in the collapsed lineage reading.",
-    "glyph_semantics": "frame=kind; inner mark=operation; color=state; corner marks=NOW/HEAD/ISSUE; Chinese mnemonic keys are legend aids, not a separate authority vocabulary."
+    "glyph_semantics": "frame=kind; inner mark=operation; color=state; corner marks=NOW/HEAD/ISSUE; Chinese mnemonic keys are legend aids, not a separate authority vocabulary.",
+    "axial_latest": {
+      "donor": "/foundry/axial/",
+      "receipt": "/control/confluence/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
+      "axes": [
+        "ROUTE",
+        "STATE",
+        "OPERATION",
+        "WORK MODE"
+      ],
+      "source_order": "route.index.updated_at DESC",
+      "focus_rule": "exact manifest route only; no intersection => explicit no match",
+      "interaction": "select in any projection; explicit OPEN navigates",
+      "control": "plain LATEST list remains immediately beneath compositor"
+    }
   },
   "policy_trace_verification": "/policy-trace-verification.json",
   "policy_trace_event_model": "/policy-trace-event-model.json",
