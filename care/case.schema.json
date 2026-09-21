@@ -390,6 +390,15 @@
               "PORT_LOCAL_STASH",
               "SESSION_OR_REFERENCE_ONLY"
             ]
+          },
+          "source_class": {
+            "type": "string"
+          },
+          "source_created_at": {
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
         "additionalProperties": true
