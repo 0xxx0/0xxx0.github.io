@@ -1,0 +1,105 @@
+{
+  "schema": "0xxx0/lens-foveate-proof/v0.1",
+  "at": "2026-09-21T14:37:00+08:00",
+  "branch": "lens-convergence-contract-20260921",
+  "pr": 50,
+  "target": "LENS-03",
+  "state": "EXPERIMENTAL_IMPLEMENTED_TASK_PROOF_REQUIRED",
+  "surface": "FIELD INDEX / VISUAL",
+  "ablation": {
+    "plain": "FOVEATE OFF",
+    "treatment": "FOVEATE ON",
+    "invariant": [
+      "same manifest routes",
+      "same canonical selectedRoute",
+      "same visualRoot aperture",
+      "same node coordinates",
+      "same projection=VISUAL"
+    ],
+    "delta": "representation detail only"
+  },
+  "bands": {
+    "FOVEA": "selected route; identity remains explicit",
+    "PARA": "direct structural context: parent/children of the focused aperture",
+    "PERIPHERY": "same-aperture sibling/background routes; subdetail suppressed, topology retained"
+  },
+  "composition": {
+    "lensId": "field-foveate",
+    "kind": "VIEW_LENS",
+    "authority": "PREVIEW",
+    "preserves": [
+      "objectId",
+      "focusId",
+      "route-position"
+    ],
+    "hides": [
+      "periphery-subdetail"
+    ],
+    "derives": [
+      "semantic-distance-band"
+    ],
+    "active_only_when": "projection === VISUAL"
+  },
+  "measurement": {
+    "receipt_key": "lens:focus-ring:last-receipt:v1",
+    "receipt_schema": "0xxx0/lens-focus-ring-interaction/v0.1",
+    "automatic": [
+      "startedAt",
+      "endedAt",
+      "durationMs",
+      "actionCount",
+      "ordered actions",
+      "focus identity",
+      "aperture",
+      "projection",
+      "foveate state",
+      "lens stack"
+    ],
+    "benchmark": [
+      {
+        "id": "T1_LOCATE",
+        "start": "FIELD root",
+        "goal": "focus Scale Lens Studio and confirm its address/state"
+      },
+      {
+        "id": "T2_CONTEXT",
+        "start": "Scale Lens Studio focused",
+        "goal": "identify containing aperture and one same-aperture peer without losing focus"
+      },
+      {
+        "id": "T3_REFRACT_RETURN",
+        "start": "focused route",
+        "goal": "VISUAL → STRUCTURE → VISUAL, preserve identity, then RETURN to entry UI state"
+      }
+    ],
+    "protocol": "Run each task PLAIN and FOVEATED; alternate condition order across at least three passes. Do not count the pre-task FOVEATE toggle.",
+    "record": [
+      "completion",
+      "durationMs",
+      "actionCount",
+      "wrong-route selections",
+      "identity continuity",
+      "subjective orientation residue"
+    ]
+  },
+  "promotion_gate": [
+    "Identity continuity must be 100% in both conditions.",
+    "FOVEATED must reduce median actionCount or duration for at least one context-heavy task without increasing wrong-route selections.",
+    "No material regression on T1_LOCATE.",
+    "If no advantage appears, keep foveation experimental and retain the plain baseline."
+  ],
+  "static_validation": {
+    "field_inline_syntax": "PASS",
+    "focus_ring_syntax": "PASS",
+    "same_layout_rule": "PASS_BY_CODE_INSPECTION",
+    "foveation_descriptor": "PRESENT",
+    "plain_baseline": "PRESENT",
+    "interaction_receipt": "PRESENT"
+  },
+  "unverified": [
+    "live browser execution",
+    "390px mobile layout",
+    "human task benchmark"
+  ],
+  "return": "Do not promote LENS-03 until the benchmark produces a receipt; implementation existence is not evidence of task advantage."
+}
