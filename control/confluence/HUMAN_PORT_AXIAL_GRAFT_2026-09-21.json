@@ -6,9 +6,9 @@
   "question": "Which proven interface mechanisms from AXIAL/Lens/RSVP/passive-feedback improve HUMAN PORT hydration and behavior without importing their surface vocabulary wholesale?",
   "donors": [
     {
-      "source": "/foundry/axial/",
-      "mechanism": "unequal state vocabularies + visible support + fixed focus + explicit OPEN + distinct RETURN",
-      "transfer": "per-route exact cue support; selected route; explicit OPEN gate; route receipt"
+      "source": "/foundry/axial/ 0.7.1",
+      "mechanism": "unequal state vocabularies + visible support + fixed focus gate + moving position witness + explicit OPEN + distinct RETURN",
+      "transfer": "per-route cue support; inline fixed focus; moving scale/position witnesses from shared aperture; selected route; explicit OPEN gate; route receipt"
     },
     {
       "source": "/field-aperture.js",
@@ -48,7 +48,8 @@
     "Route selection no longer navigates immediately; OPEN is a separate gate.",
     "Session re-entry restores source, focus, scope and selected route.",
     "Route receipts store metadata only: route/scope/focus address/source length/candidate provenance.",
-    "Specialized tools remain downstream; no new sovereign project created."
+    "Specialized tools remain downstream; no new sovereign project created.",
+    "Latest AXIAL 0.7.1 observed-use correction retained: focus gate, moving position witness, semantic value and support remain separate readings."
   ],
   "exclusions": [
     "Do not copy AXIAL ring-stack aesthetics wholesale.",
