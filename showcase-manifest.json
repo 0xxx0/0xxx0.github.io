@@ -16,23 +16,30 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T15:54:02+08:00",
+        "updated_at": "2026-09-21T16:05:51+08:00",
         "work_modes": [
+          "RECOVER",
+          "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE",
-          "ORIENT"
+          "RELEASE"
         ]
       },
-      "role": "Fast repo re-entry with AXIAL / LATEST as an embedded lawful-focus strip: chronology remains plain truth, while state/operation/work-mode positions expose supported moves and can expand an exact route into the full AXIAL Focus Stack.",
-      "receipt": "/returns/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
+      "role": "Fast repo re-entry through AXIAL / LATEST 0.5: newest-first chronology remains the plain source; ROUTE × STATE × OPERATION × WORK MODE expose exact lawful support, a visible survivor set and collapse trail, deep-linkable focus, shared Aperture/Lens/AXIAL projections, and a local-only passive AXIAL-vs-LATEST comparison.",
+      "receipt": "/returns/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
       "machine_view": "FIELD",
-      "version": "0.4",
+      "version": "0.5",
       "transfer": [
         "AXIAL 0.6.1 unequal-vocabulary focus compositor",
         "selection != navigation",
         "shared focus across chronology / axial / map",
-        "Aperture dock: inspect focused route without leaving FIELD"
+        "Aperture dock: inspect focused route without leaving FIELD",
+        "AXIAL 0.7 lawful-support field",
+        "visible survivor-set constellation",
+        "support collapse trail",
+        "local-only passive AXIAL-vs-LATEST trial",
+        "deep-linkable embedded focus"
       ]
     },
     {
@@ -4542,7 +4549,9 @@
     "glyph_semantics": "frame=kind; inner mark=operation; color=state; corner marks=NOW/HEAD/ISSUE; Chinese mnemonic keys are legend aids, not a separate authority vocabulary.",
     "axial_latest": {
       "donor": "/foundry/axial/",
-      "receipt": "/control/confluence/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
+      "donor_version": "0.7",
+      "receipt": "/control/confluence/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
+      "return": "/returns/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
       "axes": [
         "ROUTE",
         "STATE",
@@ -4550,8 +4559,17 @@
         "WORK MODE"
       ],
       "source_order": "route.index.updated_at DESC",
-      "focus_rule": "exact manifest route only; no intersection => explicit no match",
-      "interaction": "select in any projection; explicit OPEN navigates",
+      "support": "exact count under all other aligned dimensions; zero remains visible/selectable",
+      "possibility_projection": "compatible routes render as a compact glyph survivor set; interaction residue renders as survivor-count collapse trail",
+      "focus_rule": "exact manifest route only; no intersection => explicit DEAD/no match",
+      "interaction": "selection updates shared focus; explicit OPEN navigates",
+      "deep_link": [
+        "ax_state",
+        "ax_op",
+        "ax_mode",
+        "focus"
+      ],
+      "passive_trial": "field-axial-trial/v0.1 in localStorage only; no network write; compare ordinary AXIAL-vs-LATEST focus/open behavior",
       "control": "plain LATEST list remains immediately beneath compositor"
     }
   },
