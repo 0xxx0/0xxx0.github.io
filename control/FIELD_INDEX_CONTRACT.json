@@ -1,7 +1,7 @@
 {
   "schema": "field-index-contract/v0.2",
   "updated": "2026-09-21",
-  "purpose": "Keep FIELD INDEX usable under growth: default to fast newest-first re-entry, while preserving attention, lineage, structure, unresolved interfaces, issues and alternate projections as separate readings.",
+  "purpose": "Keep FIELD INDEX usable under growth: fast newest-first repo re-entry with one shared focus identity across AXIAL, chronology and map; secondary structure/issues/lineage/proof readings remain available without competing for the first screen.",
   "laws": [
     "ATTENTION ≠ RECENCY. /control/CURRENT.json owns NOW; route.index.updated_at records mutation evidence only.",
     "MAP ≠ BACKLOG. A route may exist without being active, owed, important or scheduled.",
@@ -18,14 +18,17 @@
     "EVOLUTION REQUIRES A HOST. A live experiment exists to change, transfer into, or falsify something outside itself; no ownerless experiment may accumulate roadmap authority.",
     "CHRONOLOGY MAY REPEAT IDENTITY. LATEST may show a route already present in NOW or HEADS because re-entry from recent mutation is a different task from canonical identity display.",
     "DENSITY IS A PROJECTION. MARK / COMPACT / FULL may change information density but never identity, state, authority, order or target.",
-    "PROSE PAYS RENT. Fixed prose may not occupy persistent root space when the same function can survive as a mark with explicit reveal."
+    "PROSE PAYS RENT. Fixed prose may not occupy persistent root space when the same function can survive as a mark with explicit reveal.",
+    "SELECTION ≠ NAVIGATION. Selecting a route in AXIAL, LATEST, HEADS, PORTS or MAP changes one local focus object; OPEN is the explicit navigation action.",
+    "ONE FOCUS / MANY PROJECTIONS. AXIAL strips, chronological rows and map positions must resolve to the same manifest route identity.",
+    "NO INTERSECTION ≠ NEAREST GUESS. An AXIAL tuple with no exact manifest match reports no match rather than inventing a route."
   ],
   "root_order": {
-    "default": "LATEST_UPDATED_DESC",
+    "default": "AXIAL_LATEST",
     "recent_key": "route.index.updated_at",
     "recent_tie_break": "manifest order",
     "structure_key": "route.parent + manifest identity",
-    "meaning": "Root human re-entry defaults to newest durable route touches. STRUCTURE/VISUAL are named projections for orientation, not the mandatory first navigation path."
+    "meaning": "Chronology is the underlying source order. AXIAL adds reversible focus/filter projection without replacing or re-ranking LATEST."
   },
   "activity_modes": {
     "RECOVER": "Retrieve exact prior artifacts/lineage before synthesis.",
@@ -53,9 +56,9 @@
     ]
   },
   "ui_contract": {
-    "root_now": "Render CURRENT.active_fronts as a compact semantic FIELD strip, not a three-card dashboard. At MARK density, active fronts and retained heads may reduce to glyphs; full objective prose appears only on explicit reveal.",
-    "root_heads": "Keep CURRENT.current_heads available as a collapsed advanced lineage reading; ordinary navigation must not require understanding the head model.",
-    "root_map": "Render repository directory index surfaces from manifest parent relations as a searchable collapsed tree. Every directory index surface must have a manifest address; redirect/lens doors use kind=alias. Sitemap completeness never implies priority.",
+    "root_now": "CURRENT.active_fronts are encoded as NOW attention marks on the shared route glyph/focus rather than a persistent dashboard block.",
+    "root_heads": "CURRENT.current_heads remains a collapsed lineage reading; selecting a head updates the shared focus and does not navigate until OPEN.",
+    "root_map": "MAP is collapsed by default. VISUAL/PULSE/STRUCTURE/EVOLVE/RECENT share the same route focus used by AXIAL/LATEST.",
     "root_recent": "Expose index.updated_at as a secondary RECENT lens, never the default ordering.",
     "root_frontier": "Derive OPEN PORTS live from route.field.exit_paths; never maintain a duplicate hand-written backlog of the same exits.",
     "corner_nav": "Shared showcase route adapter remains the canonical BACK/PARENT/SHOWCASE control on tracked non-root routes.",
@@ -70,10 +73,11 @@
     "root_play": "/field-play.html derives public-safe missions from manifest gaps plus FIELD_ISSUES entries with play_safe=true. Returns remain report-only and require review.",
     "root_evolve": "EVOLVE is a named projection over canonical manifest routes carrying route.evolution. It shows host, generation, stage, mutation and evidence gate; it is not a new backlog or authority source.",
     "root_identity_fold": "SUPERSEDED for LATEST. Identity folding may still be used inside projections where repetition harms legibility, but never to remove recent mutations from the primary re-entry list.",
-    "root_latest": "Render a newest-first linear list of durable route touches near the top of FIELD INDEX. Do not fold out NOW/HEAD routes. The same list must compress into a semantic glyph rail generated from route state/kind/operation.",
+    "root_latest": "Primary re-entry is AXIAL / LATEST over the ordinary newest-first route list. The list remains directly below as the plain chronological control/source reading.",
     "root_issues": "Render open GitHub issues as a separate newest-activity-first repo-truth list. Live GitHub API may refresh a checked-in /control/FIELD_ISSUES.json fallback. Issue presence is not priority.",
-    "root_density": "/field-presentation.js applies MARK / COMPACT / FULL from available viewport width. This is a representation projection, not a separate mobile/desktop information architecture.",
-    "root_glyph": "/field-glyph.js composes marks from route kind × operation × state × NOW/HEAD/ISSUE attention marks. Every mark must target/reveal the same route identity as its full representation."
+    "root_density": "/field-presentation.js may reduce route tokens toward glyph-only marks at MARK density while preserving route order, axis value and explicit OPEN.",
+    "root_glyph": "/field-glyph.js composes marks from route kind × operation × state × NOW/HEAD/ISSUE attention marks. Every mark must target/reveal the same route identity as its full representation.",
+    "root_axial_latest": "Adapt AXIAL 0.6.1 STRIP projection over ROUTE × STATE × OPERATION × WORK MODE. Axes have unequal cardinalities; one fixed bright gate resolves an exact manifest route. Selecting a route aligns other axes back to its values."
   },
   "query_semantics": {
     "BOTTLENECK": {
@@ -152,6 +156,10 @@
     "ISSUES": {
       "source": "GitHub open issues + /control/FIELD_ISSUES.json fallback",
       "meaning": "Declared repo open loops. Visibility is not priority or authority."
+    },
+    "AXIAL_LATEST": {
+      "source": "showcase-manifest routes + route.index.updated_at",
+      "meaning": "Primary compact focus compositor. ROUTE / STATE / OPERATION / WORK MODE are unequal strips over real manifest values; focus remains exact route identity."
     }
   },
   "evolution_contract": {
