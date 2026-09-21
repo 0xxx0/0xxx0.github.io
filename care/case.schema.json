@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://0xxx0.github.io/care/case.schema.json",
-  "title": "CARE case v0.3",
+  "title": "CARE case v0.3 + additive evidence references",
   "type": "object",
   "required": [
     "schema",
@@ -297,6 +297,103 @@
     "body_plan": {
       "type": "string",
       "description": "Reference body-plan ID used for current capture surface; does not assert personal anatomy."
+    },
+    "evidence_refs": {
+      "type": "array",
+      "description": "References to HUMAN PORT objects attached explicitly to the case. Source bytes remain governed by Port retention; CARE stores identity/provenance/focus, not duplicate file bytes.",
+      "items": {
+        "type": "object",
+        "required": [
+          "schema",
+          "id",
+          "attached_at",
+          "port_object_id",
+          "label",
+          "media_class",
+          "availability"
+        ],
+        "properties": {
+          "schema": {
+            "const": "0xxx0/care-evidence-ref/v0.1"
+          },
+          "id": {
+            "type": "string"
+          },
+          "attached_at": {
+            "type": "string"
+          },
+          "port_object_id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "media_class": {
+            "enum": [
+              "TEXT",
+              "JSON",
+              "IMAGE",
+              "FILE"
+            ]
+          },
+          "mime": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "size_bytes": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "sha256": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "retention": {
+            "type": "string"
+          },
+          "provenance": {
+            "type": "object"
+          },
+          "scope": {
+            "enum": [
+              "whole",
+              "focus"
+            ]
+          },
+          "focus": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "projection_excerpt": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "port_payload_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "availability": {
+            "enum": [
+              "PORT_LOCAL_STASH",
+              "SESSION_OR_REFERENCE_ONLY"
+            ]
+          }
+        },
+        "additionalProperties": true
+      }
     }
   },
   "additionalProperties": true
