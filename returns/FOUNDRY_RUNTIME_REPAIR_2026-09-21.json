@@ -1,0 +1,75 @@
+{
+  "schema": "return-receipt/v1",
+  "id": "FOUNDRY-RUNTIME-REPAIR-2026-09-21",
+  "at": "2026-09-21T18:02:00+08:00",
+  "status": "IMPLEMENTED_VERIFIED",
+  "object": "Foundry/FIELD runtime repair after concurrent Codex updates",
+  "observed": [
+    "FIELD root could stall browser smoke when the live GitHub Issues refresh remained pending in restricted/offline execution.",
+    "Foundry Core rendered correctly, but browser smoke falsely failed because it searched serialized inline script source for the literal error string CENTER LOAD FAILURE.",
+    "Confluence and Core initial runtime assertions were stricter than their actual contracts; Migration was healthy.",
+    "Foundry Core UI still displayed the unsupported hard-count badge 117 ≠ CANON after the underlying canon/model/receipt had already demoted that count.",
+    "APERTURE 0.4 PR #62 initially reintroduced the unbounded FIELD Issues fetch while changing local focus/open behavior."
+  ],
+  "changes": [
+    {
+      "area": "FIELD",
+      "delta": "Live GitHub Issues refresh now uses AbortController with a 2.5s bound; checked-in FIELD_ISSUES remains the immediate fallback.",
+      "authority": "Remote refresh is optional enrichment; FIELD remains usable without network completion."
+    },
+    {
+      "area": "BROWSER_SMOKE",
+      "delta": "Expanded runtime coverage to Foundry Core, Migration and Confluence; added rendered visible-text extraction and compact DOM context on failure.",
+      "authority": "Smoke checks rendered state rather than matching error literals embedded inside source scripts."
+    },
+    {
+      "area": "FOUNDRY_CORE",
+      "delta": "Visible badge changed from unsupported 117 ≠ CANON to CORPUS ≠ CANON.",
+      "authority": "Hard corpus counts require a current census address."
+    },
+    {
+      "area": "APERTURE_0_4",
+      "delta": "Rebased PR #62 on the rendered-text smoke helper and preserved FIELD's bounded live-issues fallback before merge.",
+      "authority": "Material projection is presentation-only; local repo second-click navigation does not generalize to HUMAN PORT or consequential/external actions."
+    }
+  ],
+  "verified": {
+    "field_fix_commit": "17d473e775257375346fc903ef7f1d5d71b5e1a1",
+    "field_fix_ci": {
+      "run": 35585454567,
+      "result": "PASS"
+    },
+    "smoke_visible_text_commit": "86dd9139268aa31870ce04ae8335dd95543e34e2",
+    "smoke_visible_text_ci": {
+      "run": 35586126957,
+      "result": "PASS"
+    },
+    "aperture_pr": 62,
+    "aperture_pr_head": "74348e6c65d61827ab3c7d34ce96c5c5c426faea",
+    "aperture_pr_ci": {
+      "run": 35586369122,
+      "result": "PASS"
+    },
+    "merge_commit": "c5c1c95f06d320937bfce62b4c02468ef4c7a897",
+    "merged_master_ci": {
+      "run": 35586468254,
+      "result": "PASS"
+    },
+    "merged_checks": [
+      "LensState laws + round trip",
+      "Lens proof syntax",
+      "Constraint Surface parity",
+      "public static surface contracts",
+      "critical browser smoke including APERTURE / DOCS / Core / Migration / Confluence",
+      "backup recovery identities/media catalogue",
+      "frozen City engines + Painting handlers"
+    ]
+  },
+  "non_claims": [
+    "Passing browser smoke is not human usability evidence.",
+    "APERTURE high-speed RSVP range is not a comprehension claim.",
+    "Poem Map/APERTURE/Verse red runs during this tranche were inherited Core-smoke false positives unless their own step logs showed otherwise.",
+    "No human ordinary-use evidence, private ingest-family review or physical HOUSE proof was synthesized while the user was AFK."
+  ],
+  "return": "Current master has a green runtime/static/recovery gate. Continue from real ordinary-use failure or the already-delegated private one-family ingest return; do not open another architecture branch from this repair sweep."
+}
