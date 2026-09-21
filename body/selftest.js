@@ -4,6 +4,7 @@ function t(name,fn){var pass=false,err=null;try{pass=!!fn()}catch(e){err=String(
 function e(v,f,env,posture,place){return{state:{itch:v,pain:v,energy:10-v,focus:5,valence:(5-v)/5,activation:5},context:{factors:f||[],environment:env||[],posture:posture||null,place:place||null}}}
 t('clamp',function(){return C.clamp(12,0,10)===10&&C.clamp(-1,0,10)===0});
 t('factor keys typed',function(){var x=C.factorKeys(e(1,['caffeine'],['warm'],'sitting','home'));return x.includes('caffeine')&&x.includes('env:warm')&&x.includes('posture:sitting')&&x.includes('place:home')});
+t('missing is not zero',function(){return Number.isNaN(C.targetValue({state:{itch:null}},'itch'))&&Number.isNaN(C.targetValue({state:{}},'itch'))});
 t('contrast hidden below 3/3',function(){var xs=[e(8,['x']),e(7,['x']),e(3,[]),e(2,[]),e(4,[])];return C.contrasts(xs,'itch',3).length===0});
 t('contrast admitted at 3/3',function(){var xs=[e(8,['x']),e(7,['x']),e(9,['x']),e(3,[]),e(2,[]),e(4,[])],r=C.contrasts(xs,'itch',3)[0];return r&&r.with_n===3&&r.without_n===3&&Math.abs(r.diff-5)<1e-9});
 t('coverage low',function(){return C.coverage(3)==='LOW'});
