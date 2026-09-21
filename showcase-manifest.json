@@ -5686,7 +5686,7 @@
       "parent": "/recovery/sleeper/",
       "family": "SLEEPER",
       "operation": "PRESERVE",
-      "state": "FROZEN_EXACT_DONOR",
+      "state": "DONOR",
       "version": "0.2",
       "showcase_card": false,
       "receipt": "/recovery/sleeper/one-return-recon-0.2/PRESERVATION.json",
@@ -5701,7 +5701,8 @@
           "RECOVER",
           "VERIFY"
         ]
-      }
+      },
+      "classification": "FROZEN_EXACT_DONOR"
     }
   ],
   "release_law": [
