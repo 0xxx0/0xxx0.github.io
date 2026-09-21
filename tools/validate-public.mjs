@@ -234,7 +234,7 @@ if(exists(axialLabPath)){
 for(const p of ['returns/index.html','foundry/index.html','fcm/index.html','router-bench/index.html'])compileInline(p);
 if(exists('poetry/map/index.html')){
   const p=read('poetry/map/index.html');
-  for(const token of ['POEM MAP 0.2','id="guideBtn"','id="importBtn"','id="corpusBtn"','data-mode="PAGE"','data-mode="MAP"','data-mode="SETS"','ORDER','SOUND','REPEAT','AUTHOR','APERTURE','TRY','ADOPT','LOCK'])check(p.includes(token),'Poem Map capability token missing: '+token);
+  for(const token of ['POEM MAP 0.2.1','id="fieldNowBtn"','id="focusWheel"','id="pmAperture"','id="guideBtn"','id="importBtn"','id="corpusBtn"','id="formDetails"','id="mapLawDetails"','data-mode="PAGE"','data-mode="MAP"','data-mode="SETS"','ORDER','SOUND','REPEAT','AUTHOR','APERTURE','TRY','ADOPT','LOCK'])check(p.includes(token),'Poem Map capability token missing: '+token);
   compileInline('poetry/map/index.html');
 }
 if(exists('poetry/index.html')){
