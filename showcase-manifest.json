@@ -1520,8 +1520,8 @@
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
-      "operation": "PROVE",
-      "state": "PROOF_REQUIRED",
+      "operation": "ORIENT",
+      "state": "ACTIVE",
       "version": "0.7",
       "receipt": "/foundry/axial/release.json",
       "showcase_card": false,
@@ -1656,7 +1656,7 @@
         "physical_fit": "Physical cylinder is now an optional later projection of a useful variable-cardinality ring stack, not the reason the software exists."
       },
       "index": {
-        "updated_at": "2026-09-21T15:20:00+08:00",
+        "updated_at": "2026-09-21T16:04:00+08:00",
         "work_modes": [
           "ORIENT",
           "REPRESENT",
@@ -4072,7 +4072,7 @@
       "parent": "/forward-field-proof/triangle/glyph/",
       "family": "FIELD / PROOF",
       "operation": "ROUTE",
-      "state": "PROOF_REQUIRED",
+      "state": "CANDIDATE",
       "version": "0.2",
       "receipt": "/forward-field-proof/triangle/glyph/center/release.json",
       "showcase_card": false,
@@ -4089,7 +4089,7 @@
         "next_if_fail": "PARK the center-mass selector and retain the geometry as a donor/comparator."
       },
       "index": {
-        "updated_at": "2026-09-21T16:02:00+08:00",
+        "updated_at": "2026-09-21T16:04:00+08:00",
         "work_modes": [
           "SPECIFY",
           "VERIFY"
@@ -4124,11 +4124,11 @@
       "parent": "/poetry/lab/",
       "family": "PATH / POETRY",
       "operation": "PROJECT",
-      "state": "PROOF_REQUIRED",
+      "state": "CANDIDATE",
       "showcase_card": false,
       "role": "Selective poetry information-visualization probe: stable readable poem, one question/lens at a time, click-to-focus, static line comparison, explicit weak-control claims.",
       "index": {
-        "updated_at": "2026-09-21T14:21:00+08:00",
+        "updated_at": "2026-09-21T16:04:00+08:00",
         "work_modes": [
           "SPECIFY",
           "VERIFY"
