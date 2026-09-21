@@ -8,7 +8,7 @@
     {
       "source": "/foundry/axial/ 0.7.1",
       "mechanism": "unequal state vocabularies + visible support + fixed focus gate + moving position witness + explicit OPEN + distinct RETURN",
-      "transfer": "per-route cue support; inline fixed focus; moving scale/position witnesses from shared aperture; selected route; explicit OPEN gate; route receipt"
+      "transfer": "presentation law only: expose per-route cue evidence, keep zero-cue routes visible, keep selection distinct from OPEN. Port cue counts remain HEURISTIC_CUE_EVIDENCE and do not reuse AXIAL exact-set support math."
     },
     {
       "source": "/field-aperture.js",
@@ -56,7 +56,9 @@
     "Do not treat cue counts as confidence or authority.",
     "Do not store source text in passive preference history or route receipts.",
     "Do not call route receipt a RETURN from the downstream world.",
-    "Do not auto-open a route from heuristic support."
+    "Do not auto-open a route from heuristic support.",
+    "Do not equate Port cue support with Constraint Surface exact-set support or LensState typed transition support."
   ],
-  "next_evidence": "Ordinary use only: observe whether focus-routing reduces repasting/re-entry or produces unnecessary friction. Refine after repeated choice/override/backtrack evidence."
+  "next_evidence": "Ordinary use only: observe whether focus-routing reduces repasting/re-entry or produces unnecessary friction. Refine after repeated choice/override/backtrack evidence.",
+  "support_semantics": "/control/SUPPORT_SEMANTICS.json#HEURISTIC_CUE_EVIDENCE"
 }
