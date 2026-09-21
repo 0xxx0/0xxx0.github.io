@@ -56,5 +56,17 @@
       "route cost"
     ],
     "return": "ONE RETURN witness carries upstream receipt identity in `upstream`"
+  },
+  "return_receipt": "/returns/ONE_RETURN_REIFICATION_2026-09-21.json",
+  "verification_detail": {
+    "live_lane_pr": 80,
+    "live_lane_pr_run": 35597939499,
+    "live_lane_master_run": 35598080988,
+    "grid_receipt_pr": 81,
+    "grid_receipt_pr_run": 35598453910,
+    "grid_receipt_master_run": 35598569739,
+    "grid_receipt_master_attempt": 2,
+    "pages_run": 35598569054,
+    "result": "PASS"
   }
 }
