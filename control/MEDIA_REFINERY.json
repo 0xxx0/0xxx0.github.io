@@ -1,0 +1,166 @@
+{
+  "schema": "0xxx0/media-refinery-contract/v0.1",
+  "id": "FIELD-MEDIA-REFINERY",
+  "updated": "2026-09-22",
+  "primary_abstraction": "PAINT = Composition × Surface × Pattern × Meaning × Transformation",
+  "laws": [
+    "RECOVER BEFORE GENERATE",
+    "BYTE IDENTITY != AESTHETIC FINGERPRINT != COMPOSITION CLASS != SEMANTIC MEANING",
+    "COMPOSITION CONTROL AND STYLE CONTROL REMAIN SEPARATE",
+    "STRUCTURE-SENSITIVE WORK GETS PROCEDURAL/VECTOR/DEPTH/MASK SCAFFOLDS BEFORE RENDERING",
+    "RENDER BACKENDS ARE ADAPTERS, NOT THE COMPILER",
+    "NO SWEEP WITHOUT HYPOTHESIS + BUDGET + STOP CONDITION",
+    "SELECTED SOURCE -> RECIPE -> RESULT RETAINS LINEAGE; BULK MEDIA STAYS OUT OF REPO",
+    "EXPORT SHARE FOR HUMANS; EXPORT MEMORY FOR RECONSTRUCTION"
+  ],
+  "operators": {
+    "COMPOSE": {
+      "input": [
+        "source/reference",
+        "geometry/scaffold",
+        "composition constraints"
+      ],
+      "output": [
+        "composition spec",
+        "structure/focus/tone controls"
+      ],
+      "authority": "spatial arrangement only"
+    },
+    "AESTHETIC": {
+      "input": [
+        "image batch",
+        "optional semantic review"
+      ],
+      "output": [
+        "quantitative fingerprint",
+        "surface/palette/mark descriptors"
+      ],
+      "authority": "appearance only; never composition identity"
+    },
+    "PAINT": {
+      "input": [
+        "Composition",
+        "Surface",
+        "Pattern",
+        "Meaning",
+        "Transformation"
+      ],
+      "output": "backend-neutral render recipe",
+      "authority": "binds five explicit axes without hiding locks"
+    },
+    "TRANSLATE": {
+      "input": [
+        "backend-neutral recipe",
+        "backend adapter"
+      ],
+      "output": "backend-native request/control graph",
+      "authority": "translation only; cannot rewrite recipe intent"
+    },
+    "SCROLL": {
+      "input": [
+        "ordered frames/regions",
+        "reading path",
+        "continuity rules"
+      ],
+      "output": "spatial/temporal scroll specification",
+      "authority": "sequence + reveal"
+    },
+    "STATE": {
+      "input": [
+        "state variables",
+        "visual grammar",
+        "transition mapping"
+      ],
+      "output": "state representation specification",
+      "authority": "state-to-visual mapping"
+    },
+    "MOVE": {
+      "input": [
+        "stable still recipe",
+        "motion/camera/event constraints"
+      ],
+      "output": "bounded video/motion recipe",
+      "authority": "motion only unless recipe explicitly unlocks another axis"
+    }
+  },
+  "recipe_contract": {
+    "required": [
+      "source",
+      "operator",
+      "composition",
+      "surface",
+      "pattern",
+      "meaning",
+      "transformation",
+      "locks",
+      "hypothesis",
+      "budget",
+      "stop",
+      "backend"
+    ],
+    "backend_default": "UNBOUND",
+    "lock_law": "Every controlled variation declares exactly which axes may change. Unlisted axes are locked by source lineage.",
+    "budget_law": "Budget counts rendered outputs, not prompt attempts. A failed structural lock consumes evidence and can trigger stop.",
+    "stop_law": "Stop when the hypothesis is answered, the budget is exhausted, or a locked axis drifts materially. Do not compensate by opening more axes."
+  },
+  "aesthetic_extraction_v0_1": {
+    "quantitative": [
+      "sha256",
+      "dimensions/aspect",
+      "luminance",
+      "contrast",
+      "entropy",
+      "saturation",
+      "colorfulness",
+      "dominant palette",
+      "gradient strength",
+      "strong-edge density",
+      "orientation energy",
+      "bilateral symmetry",
+      "center/border/thirds energy",
+      "visual center",
+      "quiet/dark/light fractions"
+    ],
+    "semantic": [
+      "composition_class",
+      "composition_subtype",
+      "axis",
+      "scaffold",
+      "flow",
+      "depth",
+      "surface",
+      "pattern",
+      "meaning"
+    ],
+    "implementation": "/scripts/media-refinery.py"
+  },
+  "storage": {
+    "repo": "scripts + contracts + compact fingerprints/receipts + selected recipes only",
+    "external_or_local": "source media, contact sheets, masks/control maps, render outputs unless intentionally promoted",
+    "lineage_key": "sha256 for byte identity + explicit source receipt + recipe id + backend result id/hash"
+  },
+  "exports": {
+    "SHARE": {
+      "purpose": "human legibility",
+      "contains": [
+        "contact sheet or selected outputs",
+        "short recipe card",
+        "lineage pointer",
+        "what changed/what stayed locked"
+      ]
+    },
+    "MEMORY": {
+      "purpose": "future reconstruction",
+      "contains": [
+        "hashes",
+        "fingerprints",
+        "semantic overlay",
+        "full recipe",
+        "adapter/version",
+        "result hashes",
+        "selection/rejection evidence"
+      ]
+    }
+  },
+  "current_experiment": "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json"
+}

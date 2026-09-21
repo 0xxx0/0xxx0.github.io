@@ -2,7 +2,7 @@
   "schema": "0xxx0/recovery/naming-visual-batch/v0.1",
   "batch": "B260728B",
   "label": "名 / sublime game of names continuation",
-  "status": "EXACT_LIBRARY_INDEX_FOUND_IMAGES_LIBRARY_ONLY",
+  "status": "EXACT_LIBRARY_INDEX_AND_BYTES_FINGERPRINTED_NOT_MIRRORED",
   "recovered_at": "2026-09-21",
   "source_index": {
     "name": "影庫_INDEX_v0.1.md",
@@ -16,56 +16,69 @@
       "seq": 1,
       "file": "image-gen-1.png",
       "file_id": "file_00000000476c8206837a4558f71880e3",
-      "proposed_name": "XX_ZA_B260728B-01_YI__untitled.png"
+      "proposed_name": "XX_ZA_B260728B-01_YI__untitled.png",
+      "sha256": "fa65462cd6da2e2dee52079b8f94f3cdadc245d02e10decab1954fa6a7daacbc"
     },
     {
       "seq": 2,
       "file": "image-gen-2.png",
       "file_id": "file_00000000baa08230a5b7eb41f435f0e7",
-      "proposed_name": "XX_ZA_B260728B-02_YI__untitled.png"
+      "proposed_name": "XX_ZA_B260728B-02_YI__untitled.png",
+      "sha256": "25269fe0fb3f6935c64ac8dcbcc44d09e6a49bda9a8ab6bac81af7a6f8ce7f30"
     },
     {
       "seq": 3,
       "file": "image-gen-3.png",
       "file_id": "file_00000000a9748211bf09d8fdbe9f2603",
-      "proposed_name": "XX_ZA_B260728B-03_YI__untitled.png"
+      "proposed_name": "XX_ZA_B260728B-03_YI__untitled.png",
+      "sha256": "475683558df5641c4f29b6753648da51023716e1b9694ec1c9280dc5dbad546b"
     },
     {
       "seq": 4,
       "file": "image-gen-4.png",
       "file_id": "file_0000000042548209997820d22be73369",
-      "proposed_name": "XX_ZA_B260728B-04_YI__untitled.png"
+      "proposed_name": "XX_ZA_B260728B-04_YI__untitled.png",
+      "sha256": "c587a06dc5740c77db0855142ee70142faade203718f608985426f52c69baf1d"
     },
     {
       "seq": 5,
       "file": "image-gen-5.png",
       "file_id": "file_00000000ad7c8211b223f6f0f3b71356",
-      "proposed_name": "XX_ZA_B260728B-05_YI__untitled.png"
+      "proposed_name": "XX_ZA_B260728B-05_YI__untitled.png",
+      "sha256": "3abae64334c47b70c41627a9f462bbd0ced466f0525e0850974253bd7c159c5c"
     },
     {
       "seq": 6,
       "file": "image-gen-6.png",
       "file_id": "file_000000003ab88230a5b049994631bcfb",
-      "proposed_name": "XX_ZA_B260728B-06_YI__untitled.png"
+      "proposed_name": "XX_ZA_B260728B-06_YI__untitled.png",
+      "sha256": "ff74f8efc65e4702c642dfdbc4e335319a67e16b8a52b19f4325840535331a0b"
     },
     {
       "seq": 7,
       "file": "image-gen-7.png",
       "file_id": "file_00000000919882099d0043d4f2f4b235",
-      "proposed_name": "XX_ZA_B260728B-07_YI__untitled.png"
+      "proposed_name": "XX_ZA_B260728B-07_YI__untitled.png",
+      "sha256": "550225487fc19d958274bb22773b5fec957979558b6c7230f47b31e92927d9a9"
     },
     {
       "seq": 8,
       "file": "image-gen-8.png",
       "file_id": "file_0000000022048209a12d526cdad5a8c8",
-      "proposed_name": "XX_ZA_B260728B-08_YI__untitled.png"
+      "proposed_name": "XX_ZA_B260728B-08_YI__untitled.png",
+      "sha256": "00f300904940f67cc1e84e19831c790a353c9d1c6e50114fbd47362f9921e936"
     }
   ],
   "boundary": [
     "This proves a coherent Game-of-Names visual artifact batch existed.",
-    "Image bytes are still Library-only in this pass; no repo byte mirror/hash receipt yet.",
+    "All eight Library image byte objects were read and SHA-256 fingerprinted on 2026-09-22; source bytes were not mutated.",
+    "Image bytes remain Library-only; no repo media mirror was created.",
     "This does not prove a runnable Game-of-Names engine, naming algorithm, or canonical titled set.",
     "Do not split the eight images into eight sovereign projects."
   ],
-  "next_trigger": "Mirror/hash the batch only if the visual lineage becomes useful to a current naming/glyph/print surface; independently continue exact search for an isolated runnable/source/glyph artifact."
+  "next_trigger": "Use the fixed four-variant MEDIA REFINERY packet when a renderer adapter is selected; keep repo storage to compact lineage/recipe evidence unless an output is intentionally promoted.",
+  "fingerprinted_at": "2026-09-22",
+  "fingerprint_receipt": "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json",
+  "semantic_overlay": "/recovery/naming/B260728B-semantic-v0.1.json",
+  "extractor": "/scripts/media-refinery.py"
 }

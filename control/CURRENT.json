@@ -44,7 +44,9 @@
         "/dock/",
         "/control/INGEST_RUN_2026-09-20.json",
         "/control/REPRESENTATION_01.json",
-        "/control/INGEST_RUN_2026-09-21.json"
+        "/control/INGEST_RUN_2026-09-21.json",
+        "/control/MEDIA_REFINERY.json",
+        "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json"
       ]
     },
     {
@@ -684,5 +686,6 @@
       "/recovery/toolbelt/app_foundry_atlas_v1.html"
     ],
     "remaining_raw_byte_gate": "Exact File Library PNG file_000000006c8c71faa92311288535624e → byte-capable handoff → /recovery/toolbelt/ → SHA-256; no surrogate."
-  }
+  },
+  "last_media_refinery": "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json"
 }
