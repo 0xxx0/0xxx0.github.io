@@ -29,8 +29,8 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 .axisToken small{display:block;font-size:5.6px;color:#536168;margin-top:2px}.axisToken.live{color:#aebbc0}.axisToken.live small{color:#6f9bb2}.axisToken.dead{opacity:.23}.axisToken.on{background:#172027;color:#fff;outline:1px solid var(--hot);outline-offset:-2px;opacity:1}.axisToken.on small{color:#f1a286}.axisToken:hover{background:#11181c;opacity:1}
 .axisToken.route{width:154px;grid-template-columns:28px 1fr;gap:5px;text-align:left}.axisToken.route .tokTxt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;width:100%}.axisToken .sub{display:block;color:#59666c;font-size:5.8px;margin-top:2px}
 .survivors{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:7px;align-items:center;border-top:1px solid var(--line);padding:5px 7px;background:#090d0f}.survivors.lock{box-shadow:inset 2px 0 0 var(--green)}.survivors.dead{box-shadow:inset 2px 0 0 var(--bad)}.survLabel{font-size:6.5px;letter-spacing:.1em;color:var(--mut);white-space:nowrap}.survMarks{display:flex;gap:1px;flex-wrap:wrap;max-height:54px;overflow:hidden}.survMark{width:27px;height:27px;min-height:0;padding:1px;display:grid;place-items:center;border:1px solid transparent;background:#090d0f}.survMark:hover,.survMark.on{border-color:#66757b;background:#11181c}.survState{font-size:7px;color:var(--cool);white-space:nowrap}.survivors.lock .survState{color:var(--green)}.survivors.dead .survState{color:var(--bad)}.trail{color:#59676d;font-size:6px;margin-left:4px}
-.aperture{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:9px;align-items:center;border-top:1px solid var(--line);padding:8px;background:#080b0d}
-.apGlyph{display:grid;place-items:center}.apMeta{color:var(--hot);font-size:6.5px;letter-spacing:.09em}.apBody strong{display:block;font:800 16px/1.05 system-ui,sans-serif;letter-spacing:-.03em}.apBody p{margin:4px 0 0;color:#95a1a5;font:8px/1.4 system-ui,sans-serif;max-width:86ch}.apPath{color:var(--cool);font-size:6.5px;margin-top:3px}
+.aperture{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:9px;align-items:center;border-bottom:1px solid var(--line);padding:8px;background:#080b0d}
+.apGlyph{display:grid;place-items:center}.apMeta{color:var(--hot);font-size:6.5px;letter-spacing:.09em}.apBody strong{display:block;font:800 16px/1.05 system-ui,sans-serif;letter-spacing:-.03em}.apBody p{margin:4px 0 0;color:#95a1a5;font:8px/1.4 system-ui,sans-serif;max-width:86ch}.apPath{color:var(--cool);font-size:6.5px;margin-top:3px}.apReading{color:var(--gold);font-size:6px;letter-spacing:.08em;margin-top:3px}
 .apActions{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.apActions a,.apActions button{padding:6px 8px;font-size:7px;white-space:nowrap}.apActions .open{border-color:var(--cool);color:var(--cool)}.apActions .proof{border-color:var(--green);color:var(--green)}.noMatch{color:var(--bad)!important}
 
 /* LATEST */
@@ -68,17 +68,18 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 
 <section class="axial" id="axialLatest">
   <div class="axialHead"><div><b>AXIAL / LATEST</b> <span id="axialMeta">loading repo mutations…</span></div><div class="axialActions"><span class="trial" id="axTrial" title="Local-only passive comparison. Click to copy receipt.">trial —</span><button id="axReset">RESET / NEWEST</button></div></div>
-  <div class="axialRows" id="axialRows"></div>
-  <div class="survivors" id="survivors"><div class="survLabel">LIVE SET</div><div class="survMarks" id="survMarks"></div><div class="survState" id="survState">—</div></div>
   <div class="aperture" id="aperture">
     <div class="apGlyph" id="apGlyph"></div>
-    <div class="apBody"><div class="apMeta" id="apMeta">FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><p id="apRole">One fixed gate resolves the aligned vocabularies to an exact repository route.</p></div>
-    <div class="apActions"><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apInspect">APERTURE</button><button class="secondary" id="apAxial">◎ EXPAND</button><button class="secondary" id="apLens">⊗ LENS</button><button class="proof" id="apProof">PROOF</button><button class="secondary" id="apCopy">COPY</button></div>
+    <div class="apBody"><div class="apMeta" id="apMeta">OBJECT / FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><div class="apReading" id="apProjection">READING · AXIAL / LATEST</div><p id="apRole">One fixed gate resolves the aligned vocabularies to an exact repository route.</p></div>
+    <div class="apActions"><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apInspect">INSPECT</button><button class="secondary" id="apAxial">◎ AXIAL</button><button class="secondary" id="apLens">⊗ LENS</button><button class="proof" id="apProof">PROOF</button><button class="secondary" id="apCopy">COPY</button></div>
   </div>
+  <div class="axialRows" id="axialRows"></div>
+  <div class="survivors" id="survivors"><div class="survLabel">LIVE SET</div><div class="survMarks" id="survMarks"></div><div class="survState" id="survState">—</div></div>
+
 </section>
 
 <section class="section" id="latest">
-  <div class="sectionHead"><div><b>LATEST / REPO TOUCHES</b><span id="feedMeta">newest first</span></div><span>click = focus · click focused item again = open</span></div>
+  <div class="sectionHead"><div><b>LATEST / REPO TOUCHES</b><span id="feedMeta">newest first</span></div><span>local route projections: first click = focus · focused click = open</span></div>
   <div class="feedStats" id="feedStats"></div>
   <div class="feedRail" id="feedRail"></div>
   <div class="feedMore"><span>Chronology remains the plain truth beneath AXIAL.</span><button id="moreLatest">SHOW 40</button></div>
@@ -134,7 +135,8 @@ function noteOpen(){if(!focus)return;const source=['AXIAL','LATEST'].includes(tr
 function renderTrial(){const a=trial.axial_focus||0,l=trial.latest_focus||0,d=trial.dead||0;$('axTrial').textContent='AX '+a+' · LI '+l+(d?' · Ø'+d:'')}
 function trialReceipt(){return{...trial,exported_at:new Date().toISOString(),note:'LOCAL-ONLY interaction counts; no claim of usability superiority. AX=AXIAL focus selections; LI=plain LATEST row selections; Ø=dead intersections.'}}
 const routeMap=()=>new Map(routes.map(r=>[r.href,r]));
-const notifyFieldIndex=()=>window.dispatchEvent(new CustomEvent('field-index:state',{detail:{focus:focus?.href||null,projection:$('mapFold')?.open?mapMode:'AXIAL_LATEST',mapRoot,axisState:{...axisState}}}));
+const projectionOf=()=>$('mapFold')?.open?mapMode:'AXIAL_LATEST';
+const notifyFieldIndex=()=>{const projection=projectionOf(),w=$('apProjection');if(w)w.textContent='READING · '+projection.replace('_',' / ');window.dispatchEvent(new CustomEvent('field-index:state',{detail:{focus:focus?.href||null,projection,mapRoot,axisState:{...axisState}}}))};
 const opOf=r=>r.operation||r.kind||'—';
 const modesOf=r=>Array.isArray(r.index?.work_modes)&&r.index.work_modes.length?r.index.work_modes:['UNKNOWN'];
 const unique=xs=>[...new Set(xs.filter(Boolean))];
@@ -249,11 +251,11 @@ async function loadIssues(){
  try{const live=await fetch('https://api.github.com/repos/0xxx0/0xxx0.github.io/issues?state=open&per_page=100',{headers:{Accept:'application/vnd.github+json'},signal:ctrl.signal}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()});const pol=new Map((snap.issues||[]).map(x=>[x.number,x]));renderIssues(live.filter(x=>!x.pull_request).map(x=>{const p=pol.get(x.number)||{};return{number:x.number,title:x.title,updated_at:x.updated_at,html_url:x.html_url,play_safe:!!p.play_safe,disposition:p.disposition||'PUBLIC_REPO'}}))}catch(_){}finally{clearTimeout(timeout)}
 }
 function renderHeads(){
- const hs=current?.current_heads||[];$('headMeta').textContent=hs.length+' retained';$('headList').innerHTML=hs.map(h=>'<button class="headRow" data-href="'+esc(h.route)+'"><div>'+routeGlyph(routeMap().get(h.route)||{href:h.route,state:h.state,kind:'artifact'},23)+'</div><div><div class="rowTitle">'+esc(h.head)+'</div><div class="rowMeta">'+esc(h.retained_function||'')+'</div></div><div class="tiny">'+esc(h.state)+'</div><span>FOCUS</span></button>').join('');$('headList').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusRoute(r,true,'OTHER')});
+ const hs=current?.current_heads||[];$('headMeta').textContent=hs.length+' retained';$('headList').innerHTML=hs.map(h=>'<button class="headRow" data-href="'+esc(h.route)+'"><div>'+routeGlyph(routeMap().get(h.route)||{href:h.route,state:h.state,kind:'artifact'},23)+'</div><div><div class="rowTitle">'+esc(h.head)+'</div><div class="rowMeta">'+esc(h.retained_function||'')+'</div></div><div class="tiny">'+esc(h.state)+'</div><span>FOCUS / OPEN</span></button>').join('');$('headList').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,'OTHER')});
 }
 function renderPorts(){
  const xs=routes.flatMap(r=>(r.field?.exit_paths||[]).filter(e=>e.status!=='AVAILABLE').map(e=>({r,e})));$('portMeta').textContent=xs.length+' unresolved';
- $('ports').innerHTML=xs.map(x=>'<button class="portRow" data-href="'+esc(x.r.href)+'"><div>'+routeGlyph(x.r,22)+'</div><div><div class="rowTitle">'+esc(x.r.title)+'</div><div class="rowMeta">'+esc(x.e.via||'unspecified')+'</div></div><div class="tiny">'+esc(x.e.status||'OPEN')+'</div><span>FOCUS</span></button>').join('');$('ports').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>focusRoute(routeMap().get(b.dataset.href),true,'OTHER'));
+ $('ports').innerHTML=xs.map(x=>'<button class="portRow" data-href="'+esc(x.r.href)+'"><div>'+routeGlyph(x.r,22)+'</div><div><div class="rowTitle">'+esc(x.r.title)+'</div><div class="rowMeta">'+esc(x.e.via||'unspecified')+'</div></div><div class="tiny">'+esc(x.e.status||'OPEN')+'</div><span>FOCUS / OPEN</span></button>').join('');$('ports').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>focusOrOpen(routeMap().get(b.dataset.href),'OTHER'));
 }
 
 /* MAP shares the same focus */
@@ -268,7 +270,7 @@ function renderMap(){
  else if(mapMode==='EVOLVE')xs=routes.filter(r=>r.evolution&&mapMatches(r));
  else xs=routes.filter(mapMatches).sort((a,b)=>String(a.href).localeCompare(String(b.href)));
  list.innerHTML=xs.map(r=>'<button class="mapRow" data-href="'+esc(r.href)+'"><div>'+routeGlyph(r,22)+'</div><div><div class="rowTitle">'+esc(r.title||r.href)+'</div><div class="rowMeta">'+esc(r.href)+(r.evolution?' · '+esc(r.evolution.stage):'')+'</div></div><div class="tiny">'+esc(r.state||r.kind||'—')+'</div></button>').join('');
- list.querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>focusRoute(routeMap().get(b.dataset.href),true,'OTHER'));
+ list.querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>focusOrOpen(routeMap().get(b.dataset.href),'OTHER'));
  $('mapMeta').textContent=xs.length+' '+mapMode.toLowerCase()+' items';
 }
 function renderMapSvg(){
@@ -276,12 +278,12 @@ function renderMapSvg(){
  if(mapMode==='PULSE'){
    const xs=latest.filter(mapMatches).slice(0,48),cx=500,cy=215,pts=[];xs.forEach((r,i)=>{const a=-1.2+i*.52,rad=25+i*6.2,x=cx+Math.cos(a)*rad*1.2,y=cy+Math.sin(a)*rad*.62;pts.push({r,x,y})});
    if(pts.length)svg.append(el('polyline',{class:'pulsePath',points:pts.map(p=>p.x+','+p.y).join(' ')}));
-   pts.forEach(p=>{const c=el('circle',{cx:p.x,cy:p.y,r:focus?.href===p.r.href?7:5,class:'pulseDot '+(focus?.href===p.r.href?'sel':'')});c.style.cursor='pointer';c.onclick=()=>focusRoute(p.r,true,'OTHER');svg.append(c)});
+   pts.forEach(p=>{const c=el('circle',{cx:p.x,cy:p.y,r:focus?.href===p.r.href?7:5,class:'pulseDot '+(focus?.href===p.r.href?'sel':'')});c.style.cursor='pointer';c.onclick=()=>focusOrOpen(p.r,'OTHER');svg.append(c)});
    $('mapTitle').textContent='PULSE';$('mapPath').textContent='mutation spiral · identity preserved';$('mapMeta').textContent=xs.length+' recent mutations';return;
  }
  const cm=childrenMap(),kids=(cm.get(mapRoot)||[]).filter(mapMatches),cx=500,cy=215,rx=360,ry=155;
  const center=routeMap().get(mapRoot)||{title:'FIELD',href:'/'};const ct=el('text',{x:cx,y:cy+4,'text-anchor':'middle'});ct.textContent=center.title||'FIELD';ct.setAttribute('fill','#edf0ed');ct.setAttribute('font-size','12');svg.append(ct);
- kids.forEach((r,i)=>{const a=-Math.PI/2+Math.PI*2*i/Math.max(1,kids.length),x=cx+Math.cos(a)*rx,y=cy+Math.sin(a)*ry;svg.append(el('line',{x1:cx,y1:cy,x2:x,y2:y,class:'mapEdge'}));const g=el('g',{class:'mapNode '+(focus?.href===r.href?'sel':'')});g.style.cursor='pointer';const w=Math.max(84,Math.min(150,42+(r.title||r.href).length*4.7));g.append(el('rect',{x:x-w/2,y:y-17,width:w,height:34}));const t=el('text',{x,y:y+3,'text-anchor':'middle'});t.textContent=(r.title||r.href).slice(0,24);g.append(t);g.onclick=()=>{mapSelected=r.href;focusRoute(r,true,'OTHER');renderMapSelection()};svg.append(g)});
+ kids.forEach((r,i)=>{const a=-Math.PI/2+Math.PI*2*i/Math.max(1,kids.length),x=cx+Math.cos(a)*rx,y=cy+Math.sin(a)*ry;svg.append(el('line',{x1:cx,y1:cy,x2:x,y2:y,class:'mapEdge'}));const g=el('g',{class:'mapNode '+(focus?.href===r.href?'sel':'')});g.style.cursor='pointer';const w=Math.max(84,Math.min(150,42+(r.title||r.href).length*4.7));g.append(el('rect',{x:x-w/2,y:y-17,width:w,height:34}));const t=el('text',{x,y:y+3,'text-anchor':'middle'});t.textContent=(r.title||r.href).slice(0,24);g.append(t);g.onclick=()=>{mapSelected=r.href;focusOrOpen(r,'OTHER');renderMapSelection()};svg.append(g)});
  $('mapTitle').textContent=center.title||'FIELD';$('mapPath').textContent=mapRoot;$('mapMeta').textContent=kids.length+' children · visual root '+mapRoot;
 }
 function renderMapSelection(){if($('mapFold').open&&(mapMode==='VISUAL'||mapMode==='PULSE'))renderMapSvg()}

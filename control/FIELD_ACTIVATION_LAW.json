@@ -1,0 +1,37 @@
+{
+  "schema": "field-activation-law/v0.1",
+  "id": "FIELD-ACTIVATION-01",
+  "updated": "2026-09-21",
+  "scope": "FIELD INDEX route projections over showcase-manifest local routes",
+  "purpose": "Make route identity, projection, operation, navigation and return behave the same regardless of which FIELD reading selected the route.",
+  "kernel": ["OBJECT", "ADDRESS", "PROJECT", "OPERATE", "RETURN"],
+  "invariants": [
+    "Exactly one manifest route is the focused object at a time.",
+    "AXIAL, LATEST, HEADS, MAP and OPEN PORTS are projections over that same route identity, not competing stores.",
+    "Changing a projection changes reading context, not route identity.",
+    "First activation of a different local route focuses it and writes the focus address into FIELD re-entry state.",
+    "Activating the already-focused same-origin local route may OPEN that route.",
+    "INSPECT, AXIAL and LENS operate on the focused route without silently changing canonical route identity.",
+    "Consequential or outbound actions remain behind their explicit action boundary; repeat-click navigation never grants send/actuate authority.",
+    "RETURN or browser re-entry must restore the invoking FIELD route identity when the caller state is available."
+  ],
+  "affordance": {
+    "local_route": "first click = FOCUS; focused click = OPEN",
+    "inspect": "explicit INSPECT",
+    "axial": "explicit AXIAL",
+    "lens": "explicit LENS",
+    "proof": "explicit PROOF",
+    "outbound": "explicit downstream authority gate"
+  },
+  "implementations": ["/index.html", "/field-lens.js", "/lens-focus-ring.js", "/showcase-nav.js"],
+  "verification": [
+    "browser smoke: FIELD activation + re-entry",
+    "browser smoke: LENS STACK → Studio → RETURN",
+    "existing mobile Lens RETURN and route/static validators"
+  ],
+  "non_claims": [
+    "Repeat-click OPEN is not permission to perform consequential external actions.",
+    "A projection being reachable does not make it useful or preferred.",
+    "This law does not merge AXIAL, APERTURE, Lens or DOCS into one interface."
+  ]
+}
