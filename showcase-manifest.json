@@ -16,23 +16,32 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-21T15:54:02+08:00",
+        "updated_at": "2026-09-21T16:04:07+08:00",
         "work_modes": [
+          "RECOVER",
+          "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE",
+          "RELEASE",
           "ORIENT"
         ]
       },
-      "role": "Fast repo re-entry with AXIAL / LATEST as an embedded lawful-focus strip: chronology remains plain truth, while state/operation/work-mode positions expose supported moves and can expand an exact route into the full AXIAL Focus Stack.",
-      "receipt": "/returns/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
+      "role": "Fast repo re-entry through AXIAL / LATEST 0.5: newest-first chronology remains the plain source; ROUTE × STATE × OPERATION × WORK MODE expose exact lawful support, a visible survivor set and collapse trail, deep-linkable focus, shared Aperture/Lens/AXIAL projections, and a local-only passive AXIAL-vs-LATEST comparison.",
+      "receipt": "/returns/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
       "machine_view": "FIELD",
-      "version": "0.4",
+      "version": "0.5",
       "transfer": [
         "AXIAL 0.6.1 unequal-vocabulary focus compositor",
         "selection != navigation",
         "shared focus across chronology / axial / map",
-        "Aperture dock: inspect focused route without leaving FIELD"
+        "Aperture dock: inspect focused route without leaving FIELD",
+        "AXIAL 0.7 lawful-support field",
+        "visible survivor-set constellation",
+        "support collapse trail",
+        "local-only passive AXIAL-vs-LATEST trial",
+        "deep-linkable embedded focus",
+        "LensState v0.2 lawful composition over the same AXIAL/LATEST focus"
       ]
     },
     {
@@ -1533,8 +1542,8 @@
       "kind": "experiment",
       "parent": "/foundry/",
       "family": "FOUNDRY",
-      "operation": "PROVE",
-      "state": "PROOF_REQUIRED",
+      "operation": "ORIENT",
+      "state": "ACTIVE",
       "version": "0.7",
       "receipt": "/foundry/axial/release.json",
       "showcase_card": false,
@@ -1669,7 +1678,7 @@
         "physical_fit": "Physical cylinder is now an optional later projection of a useful variable-cardinality ring stack, not the reason the software exists."
       },
       "index": {
-        "updated_at": "2026-09-21T15:20:00+08:00",
+        "updated_at": "2026-09-21T16:04:00+08:00",
         "work_modes": [
           "ORIENT",
           "REPRESENT",
@@ -4067,7 +4076,7 @@
         "explicit donor lineage"
       ],
       "index": {
-        "updated_at": "2026-09-21T15:50:00+08:00",
+        "updated_at": "2026-09-21T16:10:00+08:00",
         "work_modes": [
           "RECOVER",
           "RESEARCH",
@@ -4085,7 +4094,7 @@
       "parent": "/forward-field-proof/triangle/glyph/",
       "family": "FIELD / PROOF",
       "operation": "ROUTE",
-      "state": "PROOF_REQUIRED",
+      "state": "CANDIDATE",
       "version": "0.2",
       "receipt": "/forward-field-proof/triangle/glyph/center/release.json",
       "showcase_card": false,
@@ -4102,7 +4111,7 @@
         "next_if_fail": "PARK the center-mass selector and retain the geometry as a donor/comparator."
       },
       "index": {
-        "updated_at": "2026-09-21T16:02:00+08:00",
+        "updated_at": "2026-09-21T16:04:00+08:00",
         "work_modes": [
           "SPECIFY",
           "VERIFY"
@@ -4137,11 +4146,11 @@
       "parent": "/poetry/lab/",
       "family": "PATH / POETRY",
       "operation": "PROJECT",
-      "state": "PROOF_REQUIRED",
+      "state": "CANDIDATE",
       "showcase_card": false,
       "role": "Selective poetry information-visualization probe: stable readable poem, one question/lens at a time, click-to-focus, static line comparison, explicit weak-control claims.",
       "index": {
-        "updated_at": "2026-09-21T14:21:00+08:00",
+        "updated_at": "2026-09-21T16:04:00+08:00",
         "work_modes": [
           "SPECIFY",
           "VERIFY"
@@ -4166,22 +4175,23 @@
     },
     {
       "href": "/foundry/aperture/",
-      "title": "APERTURE 0.2",
-      "kind": "experiment",
+      "title": "APERTURE / INSPECTOR",
+      "kind": "utility",
       "parent": "/foundry/",
       "family": "FOUNDRY",
       "operation": "INSPECT",
-      "state": "PROOF_REQUIRED",
-      "version": "0.2",
+      "state": "UTILITY",
+      "version": "0.3",
       "receipt": "/foundry/aperture/release.json",
-      "role": "Reusable two-ring scale×position inspector for text/JSON and addressed route objects: summon in-place from FIELD or HUMAN PORT, or use the standalone workbench; RSVP/TTS drive the same stable focus.",
+      "role": "Ambient local inspection capability: summon against selected text, an active field value, addressed route metadata, pasted text/JSON, or a local file without leaving the host surface.",
       "transfer": [
         "Two Dial: two cyclic controls → one consequence",
         "AXIAL: fixed focus + unequal cyclic vocabularies",
         "Scale Lens: stable address across zoom",
         "RSVP 2018: speech boundary charIndex → temporal word focus",
         "portable dock(source,opt) host API",
-        "session handoff / same inspector / different host"
+        "session handoff / same inspector / different host",
+        "ambient selection-aware summon via /showcase-nav.js"
       ],
       "contract": {
         "accepts": {
@@ -4288,41 +4298,33 @@
         "physical_fit": "Potential compact ring/annulus control grammar; no physical embodiment claim in 0.1."
       },
       "index": {
-        "updated_at": "2026-09-21T15:58:00+08:00",
+        "updated_at": "2026-09-21T16:04:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "SPECIFY",
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "evolution": {
-        "schema": "field-evolution/v0.1",
-        "host": "/foundry/",
-        "generation": 1,
-        "stage": "TEST",
-        "question": "Can one tiny scale×position aperture replace large inspector/control panels for heterogeneous text/JSON while keeping exact focus, temporal reading and source magnitude legible?",
-        "baseline": "textarea/tree inspector + separate reader/TTS controls",
-        "mutation": "two-ring foveated inspector with log source-magnitude gap and shared RSVP/TTS focus",
-        "evidence_gate": "Use on at least three hosts and compare reorientation / focus recovery against plain source view.",
-        "next_if_pass": "TRANSFER field-aperture.js as a small shared instrument available to FIELD/HUMAN PORT/LENS and other surfaces.",
-        "next_if_fail": "PARK ring encoding; keep source analyzer and temporal-focus donor mechanics."
-      },
-      "showcase_card": false
+      "showcase_card": false,
+      "projection_experiment": {
+        "status": "CANDIDATE_MAPPING",
+        "question": "Do scale×position rings plus logarithmic source-size gap improve orientation enough to survive as the default compact projection?",
+        "variable": "presentation only",
+        "fallback": "plain compact focus/address controls; utility remains useful without the ring mapping."
+      }
     },
     {
       "href": "/poetry/map/",
-      "title": "POEM MAP 0.1",
+      "title": "POEM MAP 0.2",
       "kind": "workbench",
       "parent": "/poetry/",
       "family": "PATH / POETRY",
       "operation": "PROJECT",
       "state": "CANDIDATE",
-      "version": "0.1",
+      "version": "0.2",
       "receipt": "/poetry/map/release.json",
       "showcase_card": false,
-      "role": "Linked PAGE/MAP/SETS authoring projection over one stable poem state: typed ORDER/SOUND/REPEAT/AUTHOR laws, continuous weights, aperture, locks, author paths, candidate bank, form adapters and RETURN.",
+      "role": "Promoted co-creative descendant of /poetry/lab/poem-map/ 0.1: one stable poem across PAGE/MAP/SETS with typed relations, aperture, locks, author paths, candidate bank, reversible preview→ADOPT transaction, revision ancestry, form adapters and RETURN.",
       "transfer": [
         "Poemage linked poem/set/path entrances",
         "Foundry typed path laws",
@@ -4332,7 +4334,7 @@
         "Axial state×transform×aperture discipline"
       ],
       "index": {
-        "updated_at": "2026-09-21T16:02:00+08:00",
+        "updated_at": "2026-09-21T16:10:00+08:00",
         "work_modes": [
           "RECOVER",
           "RESEARCH",
@@ -4398,7 +4400,8 @@
     "center_mass": "Triangle-centered many-front selection projection; /fcm/ remains an earlier parallel experiment.",
     "verse_quarry": "Large poetry research/route map lives at /control/confluence/VERSE_VIS_QUARRY.md; /poetry/ keeps a small active writing surface.",
     "foundry_machine": "/foundry/machine.json defines CORE/FIELD/MIGRATION/CONFLUENCE as unequal projections over existing authorities; it is a projection contract, not a new database.",
-    "triangle_center_focus_field": "0.2 repairs root source loading, adds local fallback snapshot, and transfers AXIAL Focus Stack mechanics into triangle-based many-front selection."
+    "triangle_center_focus_field": "0.2 repairs root source loading, adds local fallback snapshot, and transfers AXIAL Focus Stack mechanics into triangle-based many-front selection.",
+    "poem_map_state_normalization": "Poem Map 0.2 release receipt retains historical status EXPERIMENTAL_LIVE, but current FIELD lifecycle state is CANDIDATE per its current_classification and FIELD lifecycle law."
   },
   "capability_model": {
     "CAPTURE": {
@@ -4562,7 +4565,9 @@
     "glyph_semantics": "frame=kind; inner mark=operation; color=state; corner marks=NOW/HEAD/ISSUE; Chinese mnemonic keys are legend aids, not a separate authority vocabulary.",
     "axial_latest": {
       "donor": "/foundry/axial/",
-      "receipt": "/control/confluence/FIELD_INDEX_AXIAL_LATEST_2026-09-21.json",
+      "donor_version": "0.7",
+      "receipt": "/control/confluence/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
+      "return": "/returns/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
       "axes": [
         "ROUTE",
         "STATE",
@@ -4570,8 +4575,17 @@
         "WORK MODE"
       ],
       "source_order": "route.index.updated_at DESC",
-      "focus_rule": "exact manifest route only; no intersection => explicit no match",
-      "interaction": "select in any projection; explicit OPEN navigates",
+      "support": "exact count under all other aligned dimensions; zero remains visible/selectable",
+      "possibility_projection": "compatible routes render as a compact glyph survivor set; interaction residue renders as survivor-count collapse trail",
+      "focus_rule": "exact manifest route only; no intersection => explicit DEAD/no match",
+      "interaction": "selection updates shared focus; explicit OPEN navigates",
+      "deep_link": [
+        "ax_state",
+        "ax_op",
+        "ax_mode",
+        "focus"
+      ],
+      "passive_trial": "field-axial-trial/v0.1 in localStorage only; no network write; compare ordinary AXIAL-vs-LATEST focus/open behavior",
       "control": "plain LATEST list remains immediately beneath compositor"
     }
   },
