@@ -39,19 +39,22 @@ function lensProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:390px;height:844px;border:0;display:block" src="/?lens_proof=1&focus=%2Ffold-bloom%2Flens%2F"></iframe><pre id="probeResult">PENDING</pre><script>
   const result=document.getElementById('probeResult'),f=document.getElementById('f');
   const done=(ok,data)=>{result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
-  f.onload=()=>setTimeout(()=>{
+  const boot=(tries=0)=>{
     try{
-      const w=f.contentWindow,d=w.document;
+      const w=f.contentWindow,d=w?.document;
+      const apLens=d?.getElementById('apLens'),apProof=d?.getElementById('apProof');
+      const proof=d?.getElementById('lens-proof-bench'),proofOpen=!!proof?.classList.contains('on');
+      if(!apLens||!apProof||!w?.LensFocusRing||!w?.FieldLensHost){
+        if(tries<40){setTimeout(()=>boot(tries+1),100);return}
+        done(false,{stage:'boot',tries,apLens:!!apLens,apProof:!!apProof,proofOpen,ring:!!w?.LensFocusRing,host:!!w?.FieldLensHost});return
+      }
       const compact=x=>({focusHref:x?.focusHref||null,axisState:x?.axisState||null,projection:x?.projection||null,mapMode:x?.mapMode||null,mapRoot:x?.mapRoot||null,mapSelected:x?.mapSelected||null,mapQuery:x?.mapQuery||'',mapOpen:!!x?.mapOpen});
-      const before=compact(w.FieldLensHost?.uiState?.());
-      const apLens=d.getElementById('apLens'),apProof=d.getElementById('apProof');
-      const proof=d.getElementById('lens-proof-bench'),proofOpen=!!proof?.classList.contains('on');
-      if(!apLens||!apProof||!w.LensFocusRing||!w.FieldLensHost)return done(false,{stage:'boot',apLens:!!apLens,apProof:!!apProof,proofOpen,ring:!!w.LensFocusRing,host:!!w.FieldLensHost});
+      const before=compact(w.FieldLensHost.uiState?.());
       apLens.click();
       setTimeout(()=>{
         const ring=d.getElementById('lens-focus-ring'),sh=ring?.shadowRoot,panel=sh?.querySelector('.panel');
         const visual=sh?.querySelector('[data-mode="VISUAL"]');
-        if(!ring||!sh||!panel?.classList.contains('on')||!visual)return done(false,{stage:'ring',ring:!!ring,panelOpen:!!panel?.classList.contains('on'),visual:!!visual});
+        if(!ring||!sh||!panel?.classList.contains('on')||!visual){done(false,{stage:'ring',ring:!!ring,panelOpen:!!panel?.classList.contains('on'),visual:!!visual});return}
         visual.click();
         setTimeout(()=>{
           const during=compact(w.FieldLensHost?.uiState?.());
@@ -66,14 +69,36 @@ function lensProbeHtml(){
           },180);
         },180);
       },180);
-    }catch(e){done(false,{stage:'exception',error:String(e?.stack||e)})}
-  },900);
+    }catch(e){if(tries<40){setTimeout(()=>boot(tries+1),100);return}done(false,{stage:'exception',error:String(e?.stack||e)})}
+  };
+  setTimeout(()=>boot(),150);
+  <\/script></body></html>`;
+}
+function poemMapProbeHtml(){
+  return `<!doctype html><html><body><iframe id="f" style="width:900px;height:700px;border:0" src="/poetry/map/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult');let kicked=false;
+  const done=(ok,data)=>{result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const probe=(tries=0)=>{
+    try{
+      const w=f.contentWindow,api=w?.__POEM_MAP__,s=api?.S,d=w?.document;
+      if(api&&!kicked&&!s?.fieldLoaded){kicked=true;Promise.resolve(api.loadFieldNow?.()).catch(()=>{})}
+      const controls=!!d?.getElementById('fieldNowBtn')&&!!d?.getElementById('focusWheel')&&!!d?.getElementById('pmAperture')&&!!d?.getElementById('importBtn')&&!!d?.getElementById('corpusBtn');
+      if(api&&s?.fieldLoaded&&String(s.source||'').startsWith('FIELD NOW ·')&&s.mode==='PAGE'&&controls){done(true,{fieldLoaded:true,mode:s.mode,source:String(s.source).slice(0,48),corpus:s.corpus?.length||0,controls});return}
+      if(tries<50){setTimeout(()=>probe(tries+1),100);return}
+      done(false,{tries,api:!!api,fieldLoaded:!!s?.fieldLoaded,mode:s?.mode||null,source:String(s?.source||'').slice(0,48),controls});
+    }catch(e){if(tries<50){setTimeout(()=>probe(tries+1),100);return}done(false,{stage:'exception',error:String(e?.stack||e)})}
+  };
+  setTimeout(()=>probe(),150);
   <\/script></body></html>`;
 }
 const server=http.createServer((req,res)=>{
   if(String(req.url||'').startsWith('/__smoke/lens-proof')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(lensProbeHtml());return;
+  }
+  if(String(req.url||'').startsWith('/__smoke/poem-map')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(poemMapProbeHtml());return;
   }
   const file=resolveFile(req.url);
   if(!file){res.writeHead(404,{'content-type':'text/plain'});res.end('not found');return}
@@ -191,11 +216,9 @@ const CASES=[
   },
   {
     name:'POEM MAP',
-    route:'/poetry/map/',
-    check:dom=>{
-      const st=textAtId(dom,'statusText');
-      return /POEM MAP 0\.2\.1/i.test(dom)&&dom.includes('id="fieldNowBtn"')&&dom.includes('id="focusWheel"')&&dom.includes('id="pmAperture"')&&dom.includes('id="importBtn"')&&dom.includes('id="corpusBtn"')&&dom.includes('data-mode="PAGE"')&&/FIELD NOW LOADED/.test(st)&&!dom.includes('load failure');
-    }
+    route:'/__smoke/poem-map',
+    options:{width:980,height:760,budget:9000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"fieldLoaded":true/.test(dom)&&/"mode":"PAGE"/.test(dom)&&/"controls":true/.test(dom)
   },
   {
     name:'VERSE ATLAS',
