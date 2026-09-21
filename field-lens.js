@@ -97,7 +97,6 @@ window.FieldLensAPI=Object.freeze({
   snapshot,uiState,restore,projections,catalog,applyLens,removeLens,
   rise:()=>{H()?.rise?.();sync()},
   dive:()=>{H()?.dive?.();sync()},
-  peer:d=>{H()?.peer?.(d);sync()},
   project:m=>{H()?.project?.(m);sync()},
   openStudio
 });
