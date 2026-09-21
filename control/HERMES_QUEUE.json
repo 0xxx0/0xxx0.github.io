@@ -78,7 +78,7 @@
     {
       "id": "PIPELINE_SCOUT",
       "cadence": "low priority / research only",
-      "mission": "Find existing tools that reduce implementation cost for media ingest, print/proof, messaging bridges, local automation, and artifact publication.",
+      "mission": "Find an existing maintained tool only when a named current bottleneck is not already covered by the solved-problem raid. Prefer benchmark/extract over platform migration.",
       "output": [
         "TOOL",
         "WHAT_FUNCTION_IT_REPLACES",
@@ -89,7 +89,12 @@
         "TEST_WITH_OWNED_DATA",
         "REJECT_IF"
       ],
-      "stop": "Research only tools that alter a current build decision."
+      "stop": "Read the solved-problem raid first. If it already covers the function, do not re-research it. No tool scouting without an observed bottleneck that could alter a current build/adoption decision.",
+      "inputs": [
+        "/control/research/INGEST_SOLVED_PROBLEM_RAID_2026-09-21.md",
+        "/control/research/OPEN_INSTRUMENT_QUARRY_2026-09-21.md",
+        "one named current bottleneck only"
+      ]
     },
     {
       "id": "MIGRATION_WARDEN",
