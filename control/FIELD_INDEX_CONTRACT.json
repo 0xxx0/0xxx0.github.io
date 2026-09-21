@@ -180,6 +180,10 @@
     "TRACE_VERIFY": {
       "source": "/field-policy-trace.mjs + /policy-resolution-trace.schema.json + /policy-trace-verifier.mjs",
       "meaning": "Collapsed-by-default proof lens over the currently focused route. It demonstrates policy trace mechanics with a local reference policy and cannot stand in for real private person/resource policy resolution."
+    },
+    "VERSIONS": {
+      "source": "showcase-manifest route.versions",
+      "meaning": "Release lineage reading: shipped semantic versions with exact commit/receipt provenance. Distinct from RECENT mutation chronology and EVOLVE bounded experiments."
     }
   },
   "evolution_contract": {
