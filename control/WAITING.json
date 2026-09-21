@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/waiting/v0.1",
-  "updated": "2026-09-22T02:41:00+08:00",
+  "updated": "2026-09-22T04:39:00+08:00",
   "purpose": "Compact public-safe projection of work whose next lawful move depends on human observation, choice, permission, private input, or physical action. This is not the machine execution queue.",
   "laws": [
     "WAITING != QUEUE.",
@@ -16,12 +16,14 @@
     {
       "id": "body-health-connect-permission",
       "route": "/body/fit/",
-      "state": "WAITING_ON_HUMAN",
-      "human_move": "When ready, run/authorize the minimal Android Health Connect reader for only sleep + heart rate and export one local proof bundle.",
-      "why": "The repo can specify the adapter, but cannot grant phone-side Health Connect permissions or produce a real personal source record.",
-      "unlocks": "Verify /body/fit/health-connect.adapter.json against one real bounded bundle in BODY / FIT; only then decide whether an automatic local relay is worth adding.",
+      "state": "WAITING_ON_DEVICE_PROOF",
+      "human_move": "Install the build-verified BODY Bridge debug APK; grant Sleep + Heart rate only; build/save one 36-hour JSON bundle; import it into BODY / FIT.",
+      "why": "The Android reader now compiles and its least-privilege manifest is CI-verified, but this session cannot install it, grant Health Connect permissions, or inspect a real personal source bundle.",
+      "unlocks": "Verify the actual Samsung Health / Galaxy Watch → Health Connect → BODY / FIT path, then choose PASS / REVISE / DROP for any automatic relay.",
       "privacy": "No raw personal health data is committed to the public repo.",
-      "adapter": "/body/fit/health-connect.adapter.json"
+      "adapter": "/body/fit/health-connect.adapter.json",
+      "implementation": "/bridge/health-connect-reader/",
+      "build_proof": "health-connect-reader-check run 35653352582"
     },
     {
       "id": "body-calibration-first-campaign",
