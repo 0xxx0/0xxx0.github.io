@@ -23,13 +23,13 @@
   ],
   "after": {
     "branch_frontier": {
-      "total": 81,
+      "total": 80,
       "canonical": 1,
       "open_pr": 0,
       "merged_pr_lineage": 49,
       "closed_unmerged_pr_lineage": 16,
-      "no_pr_pointer": 15,
-      "unclassified_no_pr": 1
+      "no_pr_pointer": 14,
+      "unclassified_no_pr": 0
     },
     "active_surface": "CURRENT retains exactly three active fronts; branch pointers do not reactivate work.",
     "open_issues": [

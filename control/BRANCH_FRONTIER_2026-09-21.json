@@ -3,12 +3,12 @@
   "generated_at": "2026-09-21T19:56:42+08:00",
   "purpose": "Make branch pointers legible so historical implementation branches cannot silently become active work.",
   "counts": {
-    "total": 81,
+    "total": 80,
     "canonical": 1,
     "open_pr": 0,
     "merged_pr_lineage": 49,
     "closed_unmerged_pr_lineage": 16,
-    "no_pr_pointer": 15
+    "no_pr_pointer": 14
   },
   "authority_law": [
     "MASTER is executable/public authority.",
@@ -365,8 +365,8 @@
   },
   "seal": {
     "open_prs": 0,
-    "no_pr_unclassified": 1,
+    "no_pr_unclassified": 0,
     "result": "NO_HIDDEN_ACTIVE_BRANCH_FOUND_AT_SEAL",
-    "note": "No branch deletion is implied; classified pointers remain as provenance."
+    "note": "No branch deletion is implied; the 14 no-PR pointers are classified ancestor/superseded/recovered donor state. Classified pointers remain as provenance."
   }
 }
