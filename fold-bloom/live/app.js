@@ -2,6 +2,7 @@ import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelea
 import { FoldBloomAudio } from './audio.js';
 import { Renderer } from './render.js';
 import { createFieldPulse } from '../../lib/field-pulse.js';
+import { LiveTrack } from './track.js';
 
 const $=s=>document.querySelector(s), STORE='fb-live-0.1';
 const cv=$('#field'), renderer=new Renderer(cv);
@@ -10,7 +11,12 @@ let dragging=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
 let demo={on:false,timer:0,releases:0};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
-let linkedTrack=null,lastLinkedBeat=-1;
+let linkedTrack=null,lastLinkedBeat=-1,trackStatus='NONE';
+const liveTrack=new LiveTrack($('#trackAudio'),{
+  onState:t=>{trackStatus=t;update()},
+  onMap:m=>toast(m?.stage==='DEEP'?'SONG MAP · DEEP':'SONG MAP · PREVIEW')
+});
+liveTrack.setVolume(.78);
 audio.hydrate(state);
 
 function save(){try{localStorage.setItem(STORE,JSON.stringify(snapshot(state)))}catch(_){}}
@@ -52,6 +58,9 @@ function update(){
   $('#call').textContent=callLabel(state.call);
   $('#streak').textContent=state.callStreak>1?state.callStreak+'×':'—';
   $('#timing').textContent=linkedTrack?.playing?timingNow().label:'—';
+  $('#trackState').textContent=trackStatus;
+  $('#trackToggle').disabled=!liveTrack.active();
+  $('#trackToggle').textContent=liveTrack.active()?($('#trackAudio').paused?'PLAY SONG':'PAUSE SONG'):'PLAY / PAUSE';
   $('#mode').textContent=state.mode;
   $('#scene').textContent=state.scene;
   $('#modeBtn').textContent=state.mode;
@@ -67,6 +76,13 @@ function update(){
 }
 
 async function ensureAudio(){try{await audio.init();return true}catch(_){return false}}
+async function loadLocalSong(file){
+  if(!file)return;
+  try{
+    await ensureAudio();trackStatus='DECODING';update();await liveTrack.load(file);
+    $('#intro').classList.remove('on');toast('CUSTOM SONG READY');update();
+  }catch(error){console.warn(error);trackStatus='SONG ERROR';toast('SONG DECODE ERROR');update()}
+}
 
 function step(dir,count=1){
   const n=Math.max(1,Math.min(8,Math.abs(count|0)));
@@ -142,6 +158,11 @@ $('#releaseBtn').onclick=()=>{stopDemo(true);doRelease()};$('#modeBtn').onclick=
 $('#soundBtn').onclick=async()=>{if(!audio.ctx)await ensureAudio();else audio.setSound(!audio.soundOn);update()};
 $('#menuBtn').onclick=()=>$('#settings').classList.toggle('on');$('#closeSettings').onclick=()=>$('#settings').classList.remove('on');
 $('#vol').value=Math.round(audio.volume*100);$('#vol').oninput=e=>audio.setVolume(+e.target.value/100);
+$('#trackVol').value=Math.round($('#trackAudio').volume*100);$('#trackVol').oninput=e=>liveTrack.setVolume(+e.target.value/100);
+$('#trackLoad').onclick=()=>$('#trackFile').click();$('#songIntroBtn').onclick=()=>$('#trackFile').click();
+$('#trackFile').onchange=e=>loadLocalSong(e.target.files?.[0]);
+$('#trackToggle').onclick=()=>liveTrack.toggle().then(()=>update()).catch(()=>toast('SONG PLAY BLOCKED'));
+$('#listenBtn').onclick=()=>window.open('../listen/','fold-bloom-listen');
 $('#exportBtn').onclick=()=>{
   const packet={kind:'FOLD_BLOOM_LIVE_RETURN',version:VERSION,created:new Date().toISOString(),source:{foldWeave:'/recovery/fold-bloom/fold-weave-0.1/',twoDial:'/fold-bloom/two-dial/'},state:snapshot(state)};
   const blob=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`fold-bloom-live-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('RETURN EXPORTED')
@@ -163,7 +184,7 @@ addEventListener('keydown',e=>{
 });
 
 fieldPulse.subscribe(msg=>{
-  if(msg.source!=='FOLD_BLOOM_LISTEN'||msg.kind!=='transport')return;
+  if(msg.source!=='FOLD_BLOOM_LISTEN'||msg.kind!=='transport'||liveTrack.active())return;
   linkedTrack=msg.data?{...msg.data,_receivedAt:performance.now()}:null;
   const beat=Number(linkedTrack?.beatIndex);
   if(Number.isFinite(beat)&&beat>=0&&beat!==lastLinkedBeat){lastLinkedBeat=beat;renderer.beatPulse(beat,Number(linkedTrack.energy)||0)}
@@ -171,7 +192,11 @@ fieldPulse.subscribe(msg=>{
 });
 
 document.addEventListener('visibilitychange',()=>{if(document.hidden){stopDemo(false);audio.stop()}else if(audio.ctx)audio.start()});
-function loop(t){renderer.draw(state,t);raf=requestAnimationFrame(loop)}raf=requestAnimationFrame(loop);
+function loop(t){
+  const local=liveTrack.transport();
+  if(local){linkedTrack=local;const beat=Number(local.beatIndex);if(Number.isFinite(beat)&&beat>=0&&beat!==lastLinkedBeat){lastLinkedBeat=beat;renderer.beatPulse(beat,Number(local.energy)||0)}}
+  renderer.draw(state,t);raf=requestAnimationFrame(loop)
+}raf=requestAnimationFrame(loop);
 update();
 document.documentElement.dataset.foldBloomLive='ready';
 window.FoldBloomLive={version:VERSION,state:()=>({...snapshot(state),linkedTrack}),release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow()};
