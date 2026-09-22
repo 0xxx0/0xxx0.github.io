@@ -3,8 +3,14 @@
   "id": "FOLD_BLOOM_LOCAL_TEST_PACKS_2026-09-22",
   "date": "2026-09-22",
   "operation": "UPLOADED AUDIO -> EXACT HASH CENSUS -> LOCAL TEST PACKS -> SET 0.1.1 INTAKE",
-  "status": "BRANCH_CANDIDATE",
+  "status": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
   "baseline": "master@f60a9d6d8ba696f9d1223d4814375871a4b2b1b4",
+  "pullRequest": 163,
+  "mergeSha": "70d01529a982690891483edbbe09b8600b6e70c4",
+  "ci": {
+    "run": 1646,
+    "status": "PASS"
+  },
   "delta": [
     "Four uploaded sources have exact SHA-256 identities and bounded acoustic/provenance evidence.",
     "Three authored tracks become one explicit editable seed proposal rather than hidden defaults.",
@@ -28,6 +34,7 @@
     "pack metadata does not enter Experience Set fields",
     "long-form speech does not silently contaminate the default music journey"
   ],
+  "technicalGate": "PASS: core pack contract, SET browser smoke, LISTEN/LIVE regressions, recovery integrity and Sleeper/Painting tests.",
   "humanGate": [
     "select the exact three song files",
     "confirm 3/3 pack recognition",
@@ -36,5 +43,5 @@
     "export and re-import exact set JSON",
     "decide KEEP / REVISE / REJECT before JOURNEY RIDE"
   ],
-  "stop": "No raw media publication and no JOURNEY RIDE implementation until technical CI and the direct local-file gate close."
+  "stop": "No raw media publication and no JOURNEY RIDE implementation until the direct local-file gate closes."
 }

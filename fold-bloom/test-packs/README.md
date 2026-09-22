@@ -1,5 +1,7 @@
 # FOLD//BLOOM — LOCAL TEST PACKS
 
+Status: **MERGED / TECHNICALLY GREEN / HUMAN-GATED** via PR #163 · merge `70d01529a982690891483edbbe09b8600b6e70c4` · CI run 1646 PASS.
+
 These packs recognize exact local files by SHA-256 and supply **suggested test order, weight, seam and role metadata**.
 
 They do not contain, fetch or publish audio bytes.
@@ -42,3 +44,9 @@ It is deliberately not inserted into the default music journey.
 - catalog: `/fold-bloom/test-packs/catalog.json`
 - pure recognition/planning core: `/fold-bloom/test-packs/test-pack-core.js`
 - tests: `/fold-bloom/test-packs/tests/test-pack-core.test.mjs`
+- SET intake: `/fold-bloom/set/`
+- hash-only seed witness: `/fold-bloom/set/?demo=seed`
+
+## Remaining gate
+
+Select the three exact local song files, confirm recognition, explicitly apply the seed, alter at least one authored order/weight/seam, export/re-import, then return `KEEP / REVISE / REJECT`. JOURNEY RIDE remains downstream.

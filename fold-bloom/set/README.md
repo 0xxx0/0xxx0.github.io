@@ -1,6 +1,8 @@
 # FOLD//BLOOM — SET COMPOSITOR 0.1.1
 
-Status: implementation candidate over merged SET 0.1. Baseline PR #158 · merge `65257b7ed3d8e9afef0324f0775efce90ba8f789`; state seal PR #159 · merge `f60a9d6d8ba696f9d1223d4814375871a4b2b1b4`.
+Status: **MERGED ACTIVE CANDIDATE / HUMAN GATE** via PR #163 · merge `70d01529a982690891483edbbe09b8600b6e70c4` · public-surface-check run 1646 PASS.
+
+Baseline SET 0.1: PR #158 · merge `65257b7ed3d8e9afef0324f0775efce90ba8f789`; state seal PR #159 · merge `f60a9d6d8ba696f9d1223d4814375871a4b2b1b4`.
 
 Route: `/fold-bloom/set/`
 
@@ -17,7 +19,7 @@ Interior seams use only `CUT / DISSOLVE / CARRY / RESET`. Final closure remains 
 
 ## 0.1.1 delta — local test packs
 
-The uploaded audio is now represented as **hash-recognized local test evidence**, not repository media.
+The uploaded audio is represented as **hash-recognized local test evidence**, not repository media.
 
 ### Default three-track seed
 
@@ -71,7 +73,8 @@ The persistent source-spine law remains: identity/address/aperture/authored cali
 - generic demo: `/fold-bloom/set/?demo=1`
 - hash-only seed demo: `/fold-bloom/set/?demo=seed`
 - source schema: `/fold-bloom/experience-set/experience-set.js`
+- merge evidence: PR #163 / CI run 1646
 
 ## Stop
 
-Verify pure tests and the existing phone-sized SET browser smoke. Then use the three real local tracks: confirm recognition, explicitly apply the seed arc, alter at least one order/weight/seam, export/re-import, and decide whether the result feels like shaping one journey. JOURNEY RIDE remains blocked until that receipt.
+Technical promotion is complete. Use the three real local tracks: confirm recognition, explicitly apply the seed arc, alter at least one order/weight/seam, export/re-import, and decide whether the result feels like shaping one journey. JOURNEY RIDE remains blocked until that human receipt.

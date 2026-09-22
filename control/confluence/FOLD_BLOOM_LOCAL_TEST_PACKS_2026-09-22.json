@@ -3,8 +3,14 @@
   "id": "FOLD_BLOOM_LOCAL_TEST_PACKS_2026-09-22",
   "date": "2026-09-22",
   "object": "Four uploaded local audio sources -> hash-recognized test packs",
-  "status": "BRANCH_CANDIDATE",
+  "status": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
   "baseline": "master@f60a9d6d8ba696f9d1223d4814375871a4b2b1b4",
+  "implementation": {
+    "pullRequest": 163,
+    "mergeSha": "70d01529a982690891483edbbe09b8600b6e70c4",
+    "ciRun": 1646,
+    "ci": "PASS"
+  },
   "userIntent": [
     "Use the three authored tracks as possible defaults/placeholders while Fold/Bloom continues forward.",
     "Treat the large NotebookLM export as a useful test source rather than forcing it into the music journey.",
@@ -114,6 +120,8 @@
     "/fold-bloom/test-packs/tests/test-pack-core.test.mjs",
     "/fold-bloom/set/?demo=seed"
   ],
-  "stop": "Do not publish audio bytes or begin JOURNEY RIDE in this pass. First verify recognition, explicit apply, manual mutation and exact export/import with the real local files.",
+  "technicalGate": "CLOSED_PASS",
+  "humanGate": "Select the three exact songs locally, apply the seed, alter at least one authored parameter, export/re-import, then return KEEP / REVISE / REJECT.",
+  "stop": "Do not publish audio bytes or begin JOURNEY RIDE until the direct local-file human gate closes.",
   "return": "/returns/FOLD_BLOOM_LOCAL_TEST_PACKS_2026-09-22.json"
 }
