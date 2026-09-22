@@ -40,6 +40,9 @@ export async function resolveSourceAddress(input='',fetcher=globalThis.fetch){
     duration:Number(meta.duration)||null,
     tags:meta.tags||'',
     lyrics:typeof meta.prompt==='string'?meta.prompt:'',
+    providerBpm:Number(meta.bpm??meta.tempo)||null,
+    providerKey:meta.key||meta.key_signature||meta.keySignature||null,
+    providerTimeSignature:meta.time_signature||meta.timeSignature||null,
     resolution:clip?'PUBLIC_CLIP_METADATA':'UUID_CDN_FALLBACK',
     metadataError
   };
