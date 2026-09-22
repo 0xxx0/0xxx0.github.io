@@ -1,55 +1,63 @@
 {
   "schema": "0xxx0/hermes-handoff/v0.1",
   "id": "HERMES-FOLD-BLOOM-2026-09-22",
-  "updated": "2026-09-22T13:22:00+08:00",
+  "updated": "2026-09-22T14:38:00+08:00",
   "purpose": "Give Hermes enough exact current state to continue Fold/Bloom/LISTEN work without rediscovering the collaboration or flattening unequal branches.",
-  "primary_law": "RECOVER BEFORE INVENTING. Current operative intention is /control/PURE_INTENTION.json. Prefer direct-play evidence over another control layer; preserve exact source hash, unequal projections and human authorship.",
+  "primary_law": "RECOVER BEFORE INVENTING. Current operative intention is /control/PURE_INTENTION.json. The active Fold/Bloom object is an addressed-source cycle, not a pile of music apps: preserve exact source hash, CELL/ADDRESS/PATH distinctions, unequal projections, witness-only IDLE and human authorship.",
   "current_family": {
     "hub": "/fold-bloom/",
-    "live": {
-      "route": "/fold-bloom/live/",
-      "version": "0.8",
-      "role": "hierarchical performance ride / authored world-writing over same-source AUDIO MAP or synthetic FIELD COURSE",
+    "atlas": {
+      "route": "/fold-bloom/atlas/",
+      "version": "0.1",
+      "role": "outer memory/share surface: exact source hash CELL → deterministic glyph → human PATH/note → share/RETURN; never stores source audio",
       "current_truths": [
-        "terrain now distinguishes beat ribs, stronger downbeats, analyzed phrase gates and section macro gates",
-        "grade/speed/altitude/projection and smoothed camera response are materially stronger than 0.7",
-        "future phrase-scale energy trend anticipates climbs/drops",
-        "BLOOM/FOLD/SPLIT/RETURN remain authored reversible deformation",
-        "AUTO RIDE DEMO traverses SPLIT branches",
-        "local source hash survives AUDIO MAP/transport"
-      ],
-      "receipt": "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json"
+        "synthetic zero-permission constellation is public/demo-safe",
+        "up to 12 local files refine PREVIEW→DEEP through shared analyzer",
+        "URL/JSON share preserves source hashes/path but omits audio bytes",
+        "IDLE cycles focus only"
+      ]
     },
     "listen": {
       "route": "/fold-bloom/listen/",
-      "version": "0.4",
-      "role": "addressed-stream analysis / annotation / deterministic source-glyph lens",
+      "version": "0.5",
+      "role": "cartographer / source analysis / lyrics intake / addressed-message builder",
       "portable_schema": "field-addressed-stream/v0.1",
-      "laws": [
-        "horizontal/ring motion = ADDRESS",
-        "vertical/wheel/up-down = APERTURE",
-        "beat / phrase / section are unequal temporal evidence scales",
-        "PIN is authored evidence at source+address, separate from analysis",
-        "deterministic glyph is source-derived identity/projection, not lineage",
-        "audio host vocabulary is not universal stream semantics"
-      ],
-      "audio_identity": [
-        "SHA-256 exact source witness",
-        "local approximate BPM/beats, beat-synchronous phrase novelty/fallback, sections, chroma key/mode",
-        "fold-bloom-audio-glyph/v0.1 deterministic SVG thumbnail",
-        "provider metadata remains optional provenance"
-      ],
-      "receipt": "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json"
+      "current_truths": [
+        "ID3v2 common identity fields + USLT lyrics recover locally when present",
+        "USLT lyrics are explicitly unaligned source evidence",
+        "PIN meaning is human-authored at exact source addresses",
+        "pins export as fold-bloom-addressed-message/v0.1",
+        "same-source PINs can become LIVE road landmarks",
+        "IDLE witnesses aperture changes only"
+      ]
+    },
+    "live": {
+      "route": "/fold-bloom/live/",
+      "version": "0.9",
+      "public_identity": "LIVE / DRIVE candidate",
+      "role": "embodied reader + authored world-writing over hashed AUDIO MAP / synthetic FIELD COURSE",
+      "current_truths": [
+        "0.8 hierarchical beat/downbeat/phrase/section terrain retained",
+        "BLOOM/FOLD/SPLIT/RETURN remain human-authored road deformation",
+        "IDLE RIDE may follow source clock but restores engine/deformation/ride/arc state on takeover",
+        "exact-source LISTEN pins render as approaching authored landmarks/notes",
+        "different source hash receives no landmarks"
+      ]
+    },
+    "readfield": {
+      "route": "/docs/",
+      "version": "0.7.1",
+      "role": "text-native temporal reader; receives embedded/recovered lyrics session-locally and may borrow LISTEN tempo without borrowing text authority"
     },
     "two_dial": {
       "route": "/fold-bloom/two-dial/",
-      "version": "0.10.2",
-      "role": "composition authority; same-page local file or LISTEN pulse may lend tempo/beat/energy/phrase/section context"
+      "version": "0.10.3",
+      "role": "composition authority; same local source or LISTEN may lend time/energy/phrase/section context; IDLE composition is reversible witness-play"
     },
     "ecology": {
       "route": "/fold-bloom/ecology/",
       "version": "0.2",
-      "role": "persistent lineage/game; audio mapping held. Candidate transfer is song-as-climate/regime, not road/racer skin."
+      "role": "persistent lineage/game; audio mapping held. Candidate transfer remains song-as-climate/regime, not road/racer skin."
     }
   },
   "exact_reentry": [
@@ -66,54 +74,62 @@
     "/control/PURE_INTENTION.json",
     "/control/confluence/FOLD_BLOOM_HORIZON_2026-09-22.json",
     "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json",
-    "/fold-bloom/listen/audio-glyph.js"
+    "/fold-bloom/listen/audio-glyph.js",
+    "/fold-bloom/atlas/README.md",
+    "/fold-bloom/atlas/release.json",
+    "/control/FOLD_BLOOM_IDLE_CONTRACT.json",
+    "/control/confluence/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
+    "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
+    "/fold-bloom/listen/id3.js"
   ],
   "user_return_to_preserve": [
-    "Current LIVE direction received strong direct delight/usefulness return; reify and refine instead of resetting.",
-    "Inclines should become materially steeper and motion more embodied.",
-    "Beat / phrase / larger structural changes should produce different-scale consequences.",
-    "Audio→glyph file thumbnails are a longstanding important idea and now a durable implementation/horizon.",
-    "Demo mode should teach the actual mechanism.",
-    "Two Dial should accept a local file without letting source analysis author composition.",
-    "Update one bounded pure-intention record on substantive passes."
+    "Current ride received strong delight/usefulness return: hone/reify instead of resetting.",
+    "Always-available idle/living mode matters, including when an uploaded track is present.",
+    "Glyph Atlas/file-thumbnail identity remains a high-value longstanding idea.",
+    "Reconnect implementation to Path / LawZoo / Palimpsest / RSVP lineages rather than naming them decoratively.",
+    "Local embedded lyrics → READFIELD is desirable when available.",
+    "LISTEN may become a map builder: one human places meaning at source addresses; another may later encounter it in an unequal projection.",
+    "There is a potentially contemplative/resonant/ritual quality worth protecting through craft, not medicalizing.",
+    "Shareable/performance links matter; audio ownership/provenance boundaries must remain explicit."
   ],
   "authority_boundaries": [
+    "SOURCE HASH is identity evidence; glyph is projection; similarity is never lineage.",
+    "PIN/PATH/note meaning is human-authored, never inferred from audio analysis.",
+    "IDLE may move/listen/perform temporarily but may not persist or publish automatic acts as human-authored state.",
     "LISTEN may lend clock/context but does not author LIVE topology or TWO DIAL composition.",
-    "FIELD PULSE stays bounded/ephemeral; do not turn it into a universal state bus.",
-    "Pins are authored evidence, never analysis truth.",
-    "Approximate key/mode/sections are evidence, not semantic ground truth.",
-    "READFIELD adaptation must preserve one canonical text address and use text-native apertures; do not import beats/racer HUD.",
-    "Do not spend cycles bypassing remote-provider/CORS limits while local MP3 path works."
+    "READFIELD remains text-native; lyrics without timings are unaligned text evidence.",
+    "Atlas share packets never bundle source audio.",
+    "No public messaging/social backend until local addressed-message use proves real.",
+    "Ecology remains held until one concrete song-as-climate transfer is observed."
   ],
   "next_execution": [
     {
-      "id": "FB-PLAY-08",
+      "id": "GLYPH-ATLAS-REAL-01",
       "priority": 1,
-      "instruction": "Use one familiar local file in LIVE 0.8. Record whether inclines are physical enough, phrase gates useful/noisy, motion smooth, and AUTO RIDE explanatory.",
-      "pass": "one concrete felt return with route/device/source; no speculative expansion"
+      "instruction": "Load 5–12 personally familiar tracks into GLYPH ATLAS 0.1. After several glances/returns, record whether any glyphs become recognizable or aid retrieval beyond filenames. Name exact visual confusions.",
+      "pass": "human recognition/relearning evidence or a precise failure; do not add embeddings first"
     },
     {
-      "id": "GLYPH-ATLAS-PROBE",
+      "id": "ADDRESS-CHOREOGRAPHY-01",
       "priority": 2,
-      "instruction": "In LISTEN 0.4, export glyphs for 5–12 familiar files and judge recognition/relearning. Do not add embeddings until deterministic glyph usefulness is observed.",
-      "pass": "human can distinguish/relearn some sources from glyphs or names exact failure"
+      "instruction": "With one emotionally/factually familiar local track, place 2–4 meaningful LISTEN pins. Load the exact same file in LIVE 0.9 and observe landmark arrival/note readability. Do not infer meaning; record whether encounter feels embodied or cluttered.",
+      "pass": "same-source landmarks arrive at expected moments and one concrete feel judgment exists"
     },
     {
-      "id": "TWO-DIAL-TRACK",
+      "id": "IDLE-SOURCE-01",
       "priority": 3,
-      "instruction": "Load the same file into Two Dial 0.10.2 and play MATTER×HARMONY. Judge whether borrowed tempo/energy/phrase/section increases composition feel without making actions feel automated.",
-      "pass": "source context is perceptible while dial authorship remains clear"
+      "instruction": "On LIVE and TWO DIAL, load a local track, invoke IDLE, then take over mid-track. Confirm source time can continue while automatic authored state disappears. If track has embedded USLT lyrics, also test READFIELD handoff.",
+      "pass": "no automatic state leak; current source time preserved; lyrics explicitly unaligned if present"
     }
   ],
   "held_until_evidence": [
-    "AUDIO GLYPH ATLAS learned-embedding neighborhood layer",
-    "READFIELD second-host transfer",
-    "sensor/video adapters",
+    "learned Glyph Atlas embedding neighborhoods / semantic clustering",
+    "timed lyric alignment or karaoke semantics",
+    "public addressed-message/social backend",
     "Ecology song-as-climate mapping",
-    "actual audio time-stretch mode",
-    "provider catalog proliferation",
-    "lane collectibles / Audiosurf imitation",
-    "new universal hub or automatic cross-app musical coupling"
+    "audio time-stretch and lane-collectible rhythm-game imitation",
+    "separate /drive/ route until direct use proves DRIVE is a durable identity rather than a LIVE projection",
+    "new universal hub or automatic cross-app authority"
   ],
   "return_format": {
     "observed": "exact behavior/device/input",
@@ -122,5 +138,12 @@
     "preserved": "authority/provenance boundaries",
     "next_truth": "one unresolved empirical question"
   },
-  "note": "Current execution packet supersedes its own 0.7/0.3 version fields. Follow PURE_INTENTION + HORIZON RETURN first; use current repo state rather than reconstructing from older handoff wording."
+  "note": "PR #145 merged at cad6f19189285ab421c4c3f6d90ee4804ba40130; public-surface-check 35693062152 passed. Follow PURE_INTENTION + FOLD_BLOOM_ATLAS_IDLE RETURN first. The current object is the source-preserving cycle, not any one surface.",
+  "lineage_to_recover_before_future_mutation": [
+    "/law-zoo/palimpsest.html — representation may become dynamical without becoming canonical truth",
+    "/recovery/path-grid/GRID_PATH_COMPILER_V3_SPEC.md — CELL → PATH → ADDRESS → unequal VIEW → RETURN",
+    "/recovery/path-grid/anthropy-pathweaver/index.html — one path, unequal glyph/score projections; neither proves the other",
+    "/control/confluence/VERSE_LINEAGE.md + /foundry/verse-atlas/ — one source survives PATH/GLYPH/RSVP/RETURN behind evidence firewall",
+    "/recovery/seam-engine/ONE_RETURN_SEAM_ENGINE_v0.2.md — stable identity / preview honesty / return with retained difference"
+  ]
 }
