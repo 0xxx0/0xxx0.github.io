@@ -6658,6 +6658,35 @@
           "INSPECT"
         ]
       }
+    },
+    {
+      "href": "/port/comms/",
+      "title": "HUMAN PORT / COMMS SPINE 0.1",
+      "kind": "workbench",
+      "parent": "/port/",
+      "family": "HUMAN PORT",
+      "operation": "ADDRESS",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "showcase_card": false,
+      "role": "One exact conversation stays canonically addressable while signal extraction, human annotation, obligation state, response coverage, bot handoff and RETURN become unequal projections beside it. Source identity is the SHA-256 of the exact pasted text, computed in-browser; address is message id + clause id + exact character range. SOURCE MUTATION IS FALSE by design. Laws: SOURCE THREAD != DERIVED SIGNALS != HUMAN MARKS != RESPONSE; EVERY PROMOTED COMMS ITEM RETURNS TO AN EXACT SOURCE RANGE; DERIVED != HUMAN AUTHORED; COVERED != DELETED. Privacy: no network send, sessionStorage by default, export is a user-triggered JSON download. Non-goals: no automatic semantic truth claim, no LLM dependency for core usefulness, no message sending, no contact transport.",
+      "evidence": {
+        "checks": [
+          "source identity is a SHA-256 of exact pasted text, computed in the browser; source_mutation is false",
+          "every promoted item must return to an exact character range in the source thread",
+          "runs with no network send and no LLM dependency for its core usefulness"
+        ],
+        "return_path": "/port/"
+      },
+      "index": {
+        "updated_at": "2026-09-23T02:51:03+08:00",
+        "work_modes": [
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      }
     }
   ],
   "release_law": [
