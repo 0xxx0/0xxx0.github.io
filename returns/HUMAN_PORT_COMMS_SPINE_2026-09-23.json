@@ -3,7 +3,7 @@
   "id": "HUMAN_PORT_COMMS_SPINE_2026-09-23",
   "date": "2026-09-23",
   "operation": "RAW THREAD → EXACT TURN/CLAUSE ADDRESS → DERIVED + HUMAN SIGNALS → RESPONSE COVERAGE → AGENT PACKET / RETURN",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "route": "/port/comms/",
   "changed_object": "HUMAN PORT gains a source-preserving communications instrument that works locally without model/API dependence and avoids chapter-scroll as the primary navigation model.",
   "exact_delta": [
@@ -14,8 +14,21 @@
     "OPEN/COVERED/DEFERRED/DROPPED state preserves residue",
     "draft response may explicitly cover selected source obligations",
     "agent packet carries exact source addresses instead of summary-only asks",
-    "RETURN can carry source + addressed signals + response coverage"
+    "RETURN can carry source + addressed signals + response coverage",
+    "source-bearing RETURN can be imported later to restore the same addressed thread, HUMAN marks, signal states, response draft and coverage"
   ],
   "stop": "Do not add AI extraction, transport/send authority, people graph, social backend, or automatic chapter summaries before direct real-thread evidence.",
-  "one_next": "Paste a real overloaded thread and use the instrument end-to-end; return the first moment where its source spine or coverage model fails to match how communication actually feels."
+  "one_next": "Paste a real overloaded thread and use the instrument end-to-end; return the first moment where its source spine or coverage model fails to match how communication actually feels.",
+  "pull_request": 176,
+  "merge_sha": "73ee33d3f7ac92f84b7f8acc7db2761384f456e7",
+  "ci": {
+    "public_surface_check": {
+      "run": 35768470121,
+      "result": "PASS"
+    },
+    "route_registration": {
+      "run": 35768470033,
+      "result": "PASS"
+    }
+  }
 }

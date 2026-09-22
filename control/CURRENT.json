@@ -268,10 +268,15 @@
     },
     {
       "lineage": "comms",
-      "head": "HUMAN PORT 1.5.2 OBJECT APERTURE + FIELD INTAKE 0.5 + CARE 0.5 + BODY / FIT 0.1 data routes + CONTACT/LACONIC/Router",
-      "state": "ACTIVE",
+      "head": "HUMAN PORT 1.6.0 + COMMS SPINE 0.1 / OBJECT APERTURE + ADDRESSED THREAD / FIELD INTAKE + CARE + BODY/FIT + CONTACT/LACONIC/Router",
+      "state": "ACTIVE + COMMS_SPINE_ACTIVE_CANDIDATE",
       "route": "/port/",
-      "retained_function": "One addressed object may enter as text/JSON/image/file, retain byte/provenance identity, expose whole/focused projections and route FIT separately from CUES/HISTORY. CARE receives explicit evidence refs including image/file; BODY / FIT receives structured text/JSON sensor/fitting packets only. CONTACT remains outbound; durable admission remains behind FIELD INTAKE review/APPLY."
+      "retained_function": "One addressed object may enter as text/JSON/image/file and retain byte/provenance identity across lawful projections. COMMS SPINE 0.1 adds a specialized communication projection: an exact thread is SHA-256 identified and turn/clause addressed; DERIVED ASK/PROMISE/DECISION/WAITING/CONSTRAINT cues remain advisory beside HUMAN marks; OPEN/COVERED/DEFERRED/DROPPED obligation state and response coverage remain source-addressed; bot packets and resumable RETURN preserve residue without chapter-scroll-first navigation or send authority. FIELD INTAKE remains reviewed durable admission; CONTACT remains outbound.",
+      "evidence": [
+        "/port/comms/release.json",
+        "/returns/HUMAN_PORT_COMMS_SPINE_2026-09-23.json",
+        "/port/comms/"
+      ]
     },
     {
       "lineage": "house-spatial",

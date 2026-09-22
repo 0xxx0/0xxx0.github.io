@@ -4,7 +4,7 @@
   "route": "/port/comms/",
   "version": "0.1",
   "date": "2026-09-23",
-  "state": "CANDIDATE_BRANCH_VERIFY",
+  "state": "MERGED_ACTIVE_CANDIDATE",
   "thesis": "One exact conversation remains canonically addressable while signal extraction, human annotation, obligation state, response coverage, bot handoff and RETURN become unequal projections beside it.",
   "source_model": {
     "schema": "comms-spine/v0.1",
@@ -18,7 +18,8 @@
     "OBLIGATION LATTICE: ASK / PROMISE / DECISION / WAITING / CONSTRAINT / NOTE",
     "response/handoff lane with explicit coverage state",
     "comms-spine-agent-packet/v0.1",
-    "comms-spine-return/v0.1"
+    "comms-spine-return/v0.1",
+    "source-bearing RETURN import/resume restores exact thread, human marks, states, response and coverage"
   ],
   "provenance_classes": {
     "DERIVED": "weak deterministic heuristic suggestion; confidence < 1; never human intent truth",
@@ -45,7 +46,8 @@
     "address_navigation": "turn spine, previous/next keys, LOCATE from any signal",
     "human_marking": "select exact clause then ASK/PROMISE/DECISION/WAITING/CONSTRAINT/NOTE",
     "response_coverage": "target signals then COVER / DEFER / REOPEN explicitly",
-    "bot_handoff": "copy source-addressed agent packet; no summary-only handoff"
+    "bot_handoff": "copy source-addressed agent packet; no summary-only handoff",
+    "return_resume": "IMPORT RETURN restores a source-bearing comms-spine-return/v0.1 after a source/session switch; address-only receipts are deliberately not resumable"
   },
   "privacy": {
     "network_send": false,
@@ -57,7 +59,10 @@
   "evidence": [
     "/port/comms/tests/core.test.mjs",
     "/tools/comms-spine-smoke.mjs",
-    "/port/comms/?demo=1"
+    "/port/comms/?demo=1",
+    "PR #176",
+    "public-surface-check 35768470121 PASS",
+    "Route Registration 35768470033 PASS"
   ],
   "promotion_gate": [
     "core tests preserve exact source slices through parser/signals/RETURN",
@@ -74,5 +79,19 @@
     "no chapter-summary navigation",
     "no replacement of HUMAN PORT, READFIELD, LACONIC, CONTINUITY or agent-router"
   ],
-  "next": "Use one real long conversation, author/correct marks, draft a real response, cover/defer obligations, then decide whether COMMS SPINE materially reduces re-entry/obligation loss."
+  "next": "Use one real long conversation, author/correct marks, draft a real response, cover/defer obligations, then decide whether COMMS SPINE materially reduces re-entry/obligation loss.",
+  "verification": {
+    "pull_request": 176,
+    "merge_sha": "73ee33d3f7ac92f84b7f8acc7db2761384f456e7",
+    "public_surface_check": {
+      "run": 35768470121,
+      "result": "PASS"
+    },
+    "route_registration": {
+      "run": 35768470033,
+      "result": "PASS"
+    },
+    "comms_core_tests": "12/12 PASS",
+    "phone_flow": "430×900 create → HUMAN mark → target ASK → draft → COVER → RETURN → source switch → resume PASS"
+  }
 }
