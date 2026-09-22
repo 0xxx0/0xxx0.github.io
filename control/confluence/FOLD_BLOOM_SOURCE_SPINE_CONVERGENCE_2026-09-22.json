@@ -1,0 +1,45 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_SOURCE_SPINE_CONVERGENCE_2026-09-22",
+  "date": "2026-09-22",
+  "object": "FOLD//BLOOM post-Experience-Set convergence / recovered source-editor intent",
+  "status": "BRANCH_CANDIDATE",
+  "baseline": "master@30f9e96863fa23e0719fc09f0aed8252c4f179ae",
+  "recovered_user_intent": [
+    "LISTEN should mature into an editor/calibration/annotation surface rather than remain mainly a workflow launcher.",
+    "Global lyric/text offset is insufficient when alignment drifts; calibration needs anchors/warp rather than a larger offset.",
+    "READFIELD/RSVP should preserve the same source position across projection changes instead of behaving like a weak outbound link.",
+    "A persistent low-clutter position/structure witness may fade into the background across scales and surfaces."
+  ],
+  "convergence": {
+    "law": "SOURCE → MAP → PROFILE → PROJECTION → HUMAN OPERATION → RETURN",
+    "source_spine": "exact source/set identity + canonical address + aperture + authored calibration/marks + current projection witness",
+    "not": "a new app, hub, timeline authority, source identity, or analyzer",
+    "listen": "source editor/cartographer",
+    "ride": "embodied projection over the same addressed source",
+    "readfield_rsvp": "reading projection over the same canonical address",
+    "atlas": "memory/inspection projection of the same source cell"
+  },
+  "text_alignment": {
+    "problem": "one global offset cannot correct nonlinear transcript/lyric drift",
+    "law": "source cue timestamps remain immutable evidence",
+    "future_calibration": "human-authored piecewise anchor/warp stored beside evidence as SHAPE/PROFILE state",
+    "compatibility": "the current textOffset remains the one-anchor/uniform special case",
+    "state": "NAMED_NOT_IMPLEMENTED"
+  },
+  "progress": {
+    "experience_set": "MERGED_COMPLETE_PR_152",
+    "next_executable": "SET COMPOSITOR 0.1",
+    "after": [
+      "JOURNEY RIDE 0.1",
+      "SOURCE SHELL 0.1",
+      "PODCAST ADAPTER 0.1"
+    ]
+  },
+  "known_concrete_gaps": [
+    "LISTEN phone pointer/ring scrubs ADDRESS, but vertical pointer swipe does not currently change APERTURE.",
+    "No single 430×900 real-MP3 regression currently proves local load → address/aperture gesture → pin persistence → LIVE grade/speed/SPLIT continuity."
+  ],
+  "stop": "Update authority, intent and successor state only. Do not create a SOURCE SPINE app or start compositor/runtime implementation in this convergence pass.",
+  "return": "/returns/FOLD_BLOOM_SOURCE_SPINE_CONVERGENCE_2026-09-22.json"
+}
