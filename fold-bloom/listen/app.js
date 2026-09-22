@@ -50,7 +50,7 @@ function onWorkerMessage(e){
     map=e.data.map;map.source=fileMeta;map.stage='DEEP';deepBuilds++;status('READY · DEEP MAP');drop.classList.remove('busy');drop.classList.add('loaded');
     $('#bpm').textContent=`${map.bpm.toFixed(1)} BPM`;$('#confidence').textContent=`${Math.round(map.tempoConfidence*100)}% TEMPO CONF`;
     $('#beats').textContent=`${map.beats.length} BEATS`;$('#sections').textContent=`${Math.max(0,map.sections.length-1)} SECTIONS`;
-    $('#transport').disabled=false;$('#export').disabled=false;toast('MAP READY');publishTransport(true);
+    $('#transport').disabled=false;$('#export').disabled=false;toast('MAP READY');updateWorkflow();publishTransport(true);
   }
 }
 function ensureWorker(){
@@ -91,7 +91,7 @@ async function analyzeBytes(bytes,playbackBlob,meta){
     drop.classList.remove('busy');drop.classList.add('loaded');
     $('#bpm').textContent='… BPM';$('#confidence').textContent='PREVIEW';
     $('#beats').textContent='… BEATS';$('#sections').textContent='1 SPAN';
-    $('#transport').disabled=false;$('#export').disabled=false;
+    $('#transport').disabled=false;$('#export').disabled=false;updateWorkflow();
     status(decoded.duration>1200?'LONGFORM PREVIEW · DEEP MAP DEFERRED':'PREVIEW READY · REFINING');
     toast('PREVIEW READY');publishTransport(true);
 
@@ -121,6 +121,43 @@ async function loadAddress(input){
   }
 }
 
+
+function updateWorkflow(){
+  const use=$('#useBtn'),read=$('#useRead'),law=$('#useLaw');
+  if(use)use.disabled=!map;
+  if(read){
+    const b=read.querySelector('b'),sp=read.querySelector('span'),hasLyrics=!!String(fileMeta?.lyrics||'').trim();
+    if(b)b.textContent=hasLyrics?'READ LYRICS · RSVP':'READ · RSVP';
+    if(sp)sp.textContent=hasLyrics?'Send recovered source lyrics session-locally; borrow tempo as ×2 / ×4 / ×8 WPM. Lyrics remain unaligned source evidence.':'Open READFIELD beside this track; borrow tempo as ×2 / ×4 / ×8 WPM for any repo document or pasted text.';
+  }
+  if(law&&map){
+    const bpm=Number(map.bpm)||0;
+    law.textContent=(bpm?Math.round(bpm)+' BPM · ':'')+'FIELD PULSE carries clock/features only. Borrowed clock ≠ borrowed authorship. AUDIO MAP + RETURN remain durable evidence.';
+  }
+}
+function toggleUse(force){
+  const sh=$('#useSheet');if(!sh)return;
+  const open=typeof force==='boolean'?force:!sh.classList.contains('on');
+  sh.classList.toggle('on',open);sh.setAttribute('aria-hidden',String(!open));$('#useBtn')?.classList.toggle('on',open);
+}
+function openSurface(href){
+  publishTransport(true);toggleUse(false);
+  const w=window.open(href,'_blank');
+  if(!w)location.assign(href);
+}
+function openReadfield(){
+  if(!map)return;
+  publishTransport(true);toggleUse(false);
+  const ret=location.pathname+location.search, q=new URLSearchParams({pulse:'4',return:ret});
+  const lyrics=String(fileMeta?.lyrics||'').trim();
+  if(lyrics){
+    try{sessionStorage.setItem('readfield.handoff.v1',JSON.stringify({source:lyrics,label:`LYRICS · ${fileMeta?.name||'TRACK'}`,returnAddress:ret,sourceKind:fileMeta?.sourceKind||null,sourceHash:fileMeta?.hash||null}))}catch(_){}
+    q.set('handoff','1');
+  }
+  const href='/docs/?'+q.toString(),w=window.open(href,'_blank');
+  if(!w)location.assign(href);
+}
+
 $('#file').addEventListener('change',e=>loadFile(e.target.files?.[0]));
 $('#chooseLabel').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('#file').click()}});
 $('#urlBtn').addEventListener('click',()=>{const v=$('#urlInput').value.trim();if(v)loadAddress(v)});
@@ -129,6 +166,8 @@ $('#urlInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefau
 ['dragleave','drop'].forEach(k=>drop.addEventListener(k,e=>{e.preventDefault();drop.classList.remove('over')}));
 drop.addEventListener('drop',e=>{const f=e.dataTransfer.files?.[0];if(f)loadFile(f)});
 $('#loadBtn').onclick=()=>{drop.classList.remove('loaded');$('#urlInput').focus()};
+$('#useBtn').onclick=()=>toggleUse();$('#closeUse').onclick=()=>toggleUse(false);
+$('#useRide').onclick=()=>openSurface('../live/');$('#useRead').onclick=openReadfield;$('#useCompose').onclick=()=>openSurface('../two-dial/?pulse=1');$('#useMap').onclick=()=>{toggleUse(false);$('#export').click()};
 $('#transport').onclick=async()=>{if(!audio.src)return;if(audio.paused)await audio.play();else audio.pause()};
 audio.onplay=()=>{$('#transport').textContent='PAUSE';publishTransport(true)};audio.onpause=()=>{$('#transport').textContent='PLAY';publishTransport(true)};audio.ontimeupdate=()=>publishTransport(false);
 $('#export').onclick=()=>{if(!map)return;const packet={kind:'FOLD_BLOOM_AUDIO_MAP',created:new Date().toISOString(),map},b=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`fold-bloom-audio-map-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
@@ -145,6 +184,7 @@ addEventListener('keydown',e=>{
   else if(e.key==='ArrowDown'){e.preventDefault();setScope(scopeIndex+1)}
   else if(e.key==='ArrowLeft'&&map)audio.currentTime=Math.max(0,audio.currentTime-(60/(map.bpm||90)));
   else if(e.key==='ArrowRight'&&map)audio.currentTime=Math.min(map.duration,audio.currentTime+(60/(map.bpm||90)));
+  else if(e.key==='Escape')toggleUse(false);
 });
 function transportPayload(){
   if(!map)return null;
@@ -178,7 +218,7 @@ function loop(){
 }
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else{cancelAnimationFrame(raf);loop()}});
 window.addEventListener('error',e=>{console.warn('LISTEN runtime error',e.error||e.message);if(!map)status('APP DEGRADED · FILE PICKER STILL AVAILABLE')});
-setScope(1,false);
+setScope(1,false);updateWorkflow();
 document.documentElement.dataset.listenBoot='ready';
 window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),parseSunoId,classifySourceAddress,resolveSourceAddress};
 requestAnimationFrame(loop);
