@@ -122,10 +122,10 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM instrument family · LIVE 0.13 AUTOPILOT POLISH / GLYPH ATLAS 0.2 inspectable source memory / LISTEN 0.6 source-bundle + ride tuning / TWO DIAL 0.10.3 composition / ECOLOGY 0.2 lineage-game",
+      "head": "FOLD//BLOOM instrument family · EXPERIENCE SET 0.1 / SET 0.1 candidate / LIVE 0.13 / GLYPH ATLAS 0.2 / LISTEN 0.6 / TWO DIAL 0.10.3 / ECOLOGY 0.2",
       "state": "ACTIVE_CANDIDATE_FAMILY",
       "route": "/fold-bloom/",
-      "retained_function": "One exact linear source remains itself while moving through unequal projections. LISTEN 0.6 binds exact audio bytes to origin/meta/text/collection facets, human pins and a source-hash RIDE PROFILE; GLYPH ATLAS 0.2 compiles the same source into inspectable memory. LIVE 0.13 preserves 0.12's solid-world/source laws while improving lived contact: AUTOPILOT is a first-class reversible witness control; phone settings are safe-area bounded and reachable; TRACKFIELD model work is bounded to ~36 Hz while display geometry is smoothed at RAF rate without mutating source time/event evidence; DEEP/TRANCE/WOOD/VOID morph through perceptual OKLab color with subtle golden-ratio section variation; long-form timed text lookup is logarithmic and runtime exposes a bounded perf witness. The ring remains a cyclic control/state projection against the linear source address. TWO DIAL remains composition authority; ECOLOGY persistent lineage.",
+      "retained_function": "One exact source remains itself while moving through unequal projections, and multiple exact source refs may now be authored into one Experience Set. SET 0.1 authors order, weight and explicit transition seams without storing source bytes or acquiring analyzer authority. LISTEN 0.6 remains source editor/cartographer; GLYPH ATLAS 0.2 memory; LIVE 0.13 embodied RIDE; TWO DIAL composition authority; ECOLOGY persistent lineage. Source-spine continuity means identity/address/aperture/authored calibration may travel without becoming a second source of truth.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -186,7 +186,10 @@
         "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
         "/fold-bloom/convergence/SUCCESSOR_HANDOFF_2026-09-22.md",
         "/control/confluence/FOLD_BLOOM_SOURCE_SPINE_CONVERGENCE_2026-09-22.json",
-        "/returns/FOLD_BLOOM_SOURCE_SPINE_CONVERGENCE_2026-09-22.json"
+        "/returns/FOLD_BLOOM_SOURCE_SPINE_CONVERGENCE_2026-09-22.json",
+        "/control/confluence/FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json",
+        "/returns/FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json",
+        "/fold-bloom/set/release.json"
       ],
       "experimental": [
         {
@@ -221,29 +224,30 @@
       "latest_return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
       "next_executable": {
         "id": "fold-bloom-set-compositor-01",
-        "state": "SPECIFIED_NOT_STARTED",
-        "objective": "Implement SET COMPOSITOR 0.1 over the merged Experience Set v0.1 boundary: fast block reorder/snap, explicit transition seams, source identity/weight witnesses, and same-cell entry into existing SEE/SHAPE surfaces without creating a second source model.",
-        "prerequisite_complete": {
-          "id": "fold-bloom-experience-set-01",
-          "state": "MERGED_COMPLETE",
-          "pull_request": 152,
-          "merge": "8debd93298b29a19b2c0d7f7672a053f56ccbe98",
-          "schema": "/fold-bloom/experience-set/experience-set.js",
-          "receipt": "/returns/FOLD_BLOOM_EXPERIENCE_SET_010_2026-09-22.json"
+        "state": "IMPLEMENTED_BRANCH_CANDIDATE",
+        "objective": "Verify and promote SET COMPOSITOR 0.1: local source refs → hard-edge blocks → authored weight/order → explicit CUT/DISSOLVE/CARRY/RESET seams → exact Experience Set RETURN.",
+        "implementation": {
+          "branch": "fold-bloom/set-compositor-010",
+          "route": "/fold-bloom/set/",
+          "core": "/fold-bloom/set/set-core.js",
+          "tests": "/fold-bloom/set/tests/set-core.test.mjs",
+          "release": "/fold-bloom/set/release.json",
+          "receipt": "/returns/FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json"
         },
-        "recovered_constraints": [
-          "LISTEN is the source editor/cartographer, not a duplicate launcher surface.",
-          "Preserve one source spine: identity + canonical address + aperture + authored calibration/marks + projection witness.",
-          "READFIELD/RSVP must eventually project the same address rather than fork source state.",
-          "Anchor/warp text calibration is authored projection state and must not rewrite cue evidence."
+        "preserves": [
+          "merged fold-bloom-experience-set/v0.1 field closure",
+          "child source identity",
+          "source bytes remain outside set state",
+          "LISTEN source-editor authority",
+          "source-spine continuity without a new hub/app"
         ],
-        "sequence": [
-          "SET COMPOSITOR 0.1 / block-Tetris authoring surface",
+        "promotion_gate": "CI + 430×900 browser smoke; then direct human: author/reorder a 3–7 source set and decide whether it feels like shaping one journey rather than maintaining a playlist.",
+        "after_merge": [
           "JOURNEY RIDE 0.1 / continuous multi-source traversal",
           "SOURCE SHELL 0.1 / RIDE · SEE · SHAPE",
           "PODCAST ADAPTER 0.1 / first non-music proof"
         ],
-        "law": "Complete → RETURN → replan after each bounded move. A material 0.13 body regression or the known LISTEN phone-aperture gap may interrupt with one named repair."
+        "law": "No Journey Ride, provider catalog, DJ timeline, or new Experience Set fields until this bounded G2 evidence closes."
       }
     },
     {
