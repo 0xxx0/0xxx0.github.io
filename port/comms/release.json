@@ -1,0 +1,78 @@
+{
+  "schema": "release-receipt/v1",
+  "artifact": "HUMAN PORT / COMMS SPINE",
+  "route": "/port/comms/",
+  "version": "0.1",
+  "date": "2026-09-23",
+  "state": "CANDIDATE_BRANCH_VERIFY",
+  "thesis": "One exact conversation remains canonically addressable while signal extraction, human annotation, obligation state, response coverage, bot handoff and RETURN become unequal projections beside it.",
+  "source_model": {
+    "schema": "comms-spine/v0.1",
+    "identity": "SHA-256 of exact pasted source text in browser",
+    "address": "message id + clause id + exact character [start,end) range",
+    "source_mutation": false
+  },
+  "projections": [
+    "compressed horizontal turn/source spine",
+    "single-message SOURCE FOVEA with clause addresses",
+    "OBLIGATION LATTICE: ASK / PROMISE / DECISION / WAITING / CONSTRAINT / NOTE",
+    "response/handoff lane with explicit coverage state",
+    "comms-spine-agent-packet/v0.1",
+    "comms-spine-return/v0.1"
+  ],
+  "provenance_classes": {
+    "DERIVED": "weak deterministic heuristic suggestion; confidence < 1; never human intent truth",
+    "HUMAN": "explicit authored mark at exact source range; confidence 1"
+  },
+  "signal_states": [
+    "OPEN",
+    "COVERED",
+    "DEFERRED",
+    "DROPPED"
+  ],
+  "laws": [
+    "SOURCE THREAD != DERIVED SIGNALS != HUMAN MARKS != RESPONSE",
+    "EVERY PROMOTED COMMS ITEM RETURNS TO AN EXACT SOURCE RANGE",
+    "DERIVED != HUMAN AUTHORED",
+    "COVERED != DELETED",
+    "SUMMARY/TASK/RESPONSE != SOURCE",
+    "OPEN RESIDUE SURVIVES RETURN",
+    "NO NETWORK SEND AUTHORITY",
+    "SESSION-ONLY BY DEFAULT; LOCAL PIN IS EXPLICIT"
+  ],
+  "interaction": {
+    "non_scroll_primary": "whole thread is compressed into a horizontal spine; primary reading surface holds one addressed turn at a time",
+    "address_navigation": "turn spine, previous/next keys, LOCATE from any signal",
+    "human_marking": "select exact clause then ASK/PROMISE/DECISION/WAITING/CONSTRAINT/NOTE",
+    "response_coverage": "target signals then COVER / DEFER / REOPEN explicitly",
+    "bot_handoff": "copy source-addressed agent packet; no summary-only handoff"
+  },
+  "privacy": {
+    "network_send": false,
+    "default_storage": "sessionStorage",
+    "optional_storage": "explicit PIN LOCAL → localStorage",
+    "export": "user-triggered JSON download",
+    "human_port_import": "current HUMAN PORT text/JSON session object only"
+  },
+  "evidence": [
+    "/port/comms/tests/core.test.mjs",
+    "/tools/comms-spine-smoke.mjs",
+    "/port/comms/?demo=1"
+  ],
+  "promotion_gate": [
+    "core tests preserve exact source slices through parser/signals/RETURN",
+    "430×900 browser flow: demo → HUMAN mark → target ASK → draft → COVER → packet",
+    "no horizontal page overflow on phone-sized smoke",
+    "one real long messy chat: user can recover place and open obligations without reading a chapter-scroll transcript",
+    "at least one wrong derived suggestion can coexist with a corrective HUMAN mark without source mutation"
+  ],
+  "non_goals": [
+    "no automatic semantic truth claim",
+    "no LLM dependency for core usefulness",
+    "no message sending",
+    "no contact transport",
+    "no chapter-summary navigation",
+    "no replacement of HUMAN PORT, READFIELD, LACONIC, CONTINUITY or agent-router"
+  ],
+  "next": "Use one real long conversation, author/correct marks, draft a real response, cover/defer obligations, then decide whether COMMS SPINE materially reduces re-entry/obligation loss."
+}

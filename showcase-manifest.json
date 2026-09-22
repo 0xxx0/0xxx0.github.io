@@ -129,16 +129,16 @@
     },
     {
       "href": "/port/",
-      "title": "HUMAN PORT 1.5.2",
+      "title": "HUMAN PORT 1.6.0",
       "kind": "hub",
       "parent": "/",
       "family": "HUMAN PORT",
       "operation": "ROUTE",
       "state": "ACTIVE",
-      "version": "1.5.2-preview",
+      "version": "1.6.0-preview",
       "receipt": "/port/release.json",
       "showcase_card": false,
-      "role": "Canonical addressed object aperture: accept text/JSON/image/local files as one Port object, preserve byte/provenance identity, focus lawful projections, expose FIT/CUES/HISTORY separately, then SELECT + OPEN a bounded route. FIELD INTAKE remains the separate reviewed admission gate.",
+      "role": "Canonical addressed object aperture plus COMMS SPINE 0.1: text/JSON/image/local files remain stable Port objects; communication threads may additionally preserve exact turn/clause addresses while weak derived signals, human marks, response coverage and bot handoff remain unequal projections beside the source. FIELD INTAKE remains the separate reviewed admission gate.",
       "transfer": [
         "PORT_OBJECT envelope across text/json/image/file",
         "AXIAL focus / explicit OPEN",
@@ -360,10 +360,18 @@
           "state": "UTILITY",
           "operation": "ROUTE",
           "role": "Compatibility alias to canonical /port/."
+        },
+        {
+          "href": "/port/comms/",
+          "title": "COMMS SPINE 0.1",
+          "kind": "workbench",
+          "state": "CANDIDATE",
+          "operation": "INTERPRET",
+          "role": "Addressed communication instrument: compressed turn spine + exact clause fovea + DERIVED/HUMAN obligation lattice + explicit response coverage + agent packet + RETURN."
         }
       ],
       "index": {
-        "updated_at": "2026-09-22T01:03:12+08:00",
+        "updated_at": "2026-09-23T02:20:00+08:00",
         "work_modes": [
           "RESEARCH",
           "SPECIFY",
@@ -435,6 +443,14 @@
           "summary": "Structured BODY / FIT route for sensor/fitting JSON/text packets; image/file evidence stays with CARE.",
           "receipt": "/port/release.json",
           "provenance": "exact runtime handoff commit"
+        },
+        {
+          "version": "1.6.0-preview",
+          "date": "2026-09-23",
+          "commit": "BRANCH_CANDIDATE",
+          "summary": "COMMS SPINE 0.1 adds exact-address thread navigation, human-authored obligation marks, response coverage, bot packets and residue-preserving RETURN without chapter-scroll UI.",
+          "receipt": "/port/comms/release.json",
+          "provenance": "candidate branch"
         }
       ]
     },
@@ -6632,6 +6648,48 @@
         "work_modes": [
           "VERIFY",
           "OPERATE"
+        ]
+      }
+    },
+    {
+      "href": "/port/comms/",
+      "title": "HUMAN PORT / COMMS SPINE 0.1",
+      "kind": "workbench",
+      "parent": "/port/",
+      "family": "HUMAN PORT",
+      "operation": "INTERPRET",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "receipt": "/port/comms/release.json",
+      "showcase_card": false,
+      "role": "Source-preserving communication workbench. Paste one thread; keep exact turn/clause character addresses; inspect weak ASK/PROMISE/DECISION/WAITING/CONSTRAINT suggestions; author HUMAN marks; explicitly COVER/DEFER residue in a response; emit agent packet and RETURN.",
+      "contract": {
+        "transforms": {
+          "verb": "project one exact conversation into turn spine, addressed clauses, advisory signals, human marks, response coverage and handoff packet without mutating the canonical source",
+          "preserves": [
+            "exact source text",
+            "source hash",
+            "turn/clause character ranges",
+            "derived-vs-human provenance",
+            "open residue",
+            "response coverage links",
+            "RETURN"
+          ],
+          "reversibility": "full",
+          "side_effects": "sessionStorage by default; optional explicit browser-local pin/export only",
+          "support_kind": "HEURISTIC_CUE_EVIDENCE"
+        },
+        "evidence": {
+          "receipt": "/port/comms/release.json",
+          "return_path": "/port/comms/"
+        }
+      },
+      "index": {
+        "updated_at": "2026-09-23T02:20:00+08:00",
+        "work_modes": [
+          "INTERPRET",
+          "OPERATE",
+          "RETURN"
         ]
       }
     }
