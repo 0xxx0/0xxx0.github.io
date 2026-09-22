@@ -89,6 +89,7 @@ Reopen a head only if it removes immediate friction, provides a needed tool, cap
 - Coordination board: `/nexus/board.html`
 - Convergence dashboard: `/nexus/index.html`
 - System map: `/nexus/map.html`
+- **Convergence strip on root**: `/` (generated — regenerate with `node scripts/generate-convergence-strip.mjs`)
 - Worker boot capsule: `/control/WORKER_BOOT.json`
 - Submission contract: `/control/SUBMISSION_CONTRACT.json`
 

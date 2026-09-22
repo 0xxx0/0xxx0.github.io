@@ -157,11 +157,38 @@ jobs:
           findManifests(recoveryDir);
           console.log('Manifested routes:', [...manifested].join('\\n'));
           "
+      - name: Check convergence strip freshness
+        run: |
+          echo "=== Convergence strip freshness ==="
+          node -e "
+          const fs = require('fs');
+          const stripPath = './control/convergence-strip.json';
+          if (!fs.existsSync(stripPath)) {
+            console.log('WARNING: convergence-strip.json missing — run scripts/generate-convergence-strip.mjs');
+            process.exit(0);
+          }
+          const strip = JSON.parse(fs.readFileSync(stripPath, 'utf8'));
+          const gen = Date.parse(strip.generated);
+          const cur = JSON.parse(fs.readFileSync('./control/CURRENT.json', 'utf8'));
+          const curT = Date.parse(cur.updated);
+          const ageMin = Math.round((Date.now() - gen) / 60000);
+          console.log('Strip generated: ' + strip.generated + ' (' + ageMin + ' min ago)');
+          console.log('Strip claims: ' + strip.commits_today + ' commits today, ' + strip.branch_count + ' branches, ' + strip.live_fronts + ' live fronts');
+          if (curT && gen && curT > gen) {
+            console.log('NOTE: CURRENT.json is newer than the strip — regenerate with scripts/generate-convergence-strip.mjs');
+          } else {
+            console.log('Strip is at least as new as CURRENT.json');
+          }
+          // Never fail the build on freshness — inform only.
+          "
       - name: Write validation report
         if: always()
         run: |
           echo "Validation run: $(date -u)" > /tmp/validation-report.md
           echo "All checks completed." >> /tmp/validation-report.md
+          if [ -f control/convergence-strip.json ]; then
+            echo "Strip: $(node -e "const s=require('./control/convergence-strip.json');console.log(s.commits_today+' commits, '+s.branch_count+' branches, '+s.live_fronts+' fronts')")" >> /tmp/validation-report.md
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
