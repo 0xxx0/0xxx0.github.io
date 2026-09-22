@@ -3,7 +3,7 @@
   "surface": "TWO DIAL",
   "version": "0.10.3",
   "route": "/fold-bloom/two-dial/",
-  "state": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
+  "state": "ACTIVE_CANDIDATE_SHIPPED",
   "operation": "PLAY",
   "released": "2026-09-22",
   "thesis": "HOLD FAST / LET FLY: same-source temporal context may animate the instrument, while IDLE demonstrates its relation algebra only as reversible witness-play and MATTER × HARMONY remains the sole composition authority.",
@@ -58,8 +58,10 @@
     "local_track_phone": "REQUIRED_NEXT: one local MP3, play/pause, verify Two Dial tempo/energy context changes while dial relations still author notes/form.",
     "local_track_merge_sha": "36ca59b4658a95238e0474ae727d301901a991ac",
     "local_track_pr": 144,
-    "idle_witness": "PENDING_CI",
-    "idle_phone": "REQUIRED_NEXT: load local track → IDLE → touch dial; confirm source clock continues but automatic motif/form changes disappear."
+    "idle_witness": "PASS: public-surface-check 35693062152; Two Dial 0.10.3 local-track + reversible IDLE browser surface green.",
+    "idle_phone": "REQUIRED_NEXT: load local track → IDLE → touch dial; confirm source clock continues but automatic motif/form changes disappear.",
+    "idle_witness_pr": 145,
+    "idle_witness_merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130"
   },
   "known_gap": "Instrument-quality judgment still requires direct listening. Local track context is now implemented; do not map song features directly into harmony/verbs until real play identifies a useful missing relation.",
   "confluence": "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
