@@ -202,7 +202,9 @@
         "/returns/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json",
         "/control/confluence/FOLD_BLOOM_LISTEN_PHONE_CONTINUITY_2026-09-22.json",
         "/returns/FOLD_BLOOM_LISTEN_PHONE_CONTINUITY_2026-09-22.json",
-        "/tools/fold-bloom-listen-phone-smoke.mjs"
+        "/tools/fold-bloom-listen-phone-smoke.mjs",
+        "/control/confluence/FOLD_BLOOM_FIXED_POINT_WINDDOWN_2026-09-22.json",
+        "/returns/FOLD_BLOOM_WINDDOWN_2026-09-22.json"
       ],
       "experimental": [
         {
@@ -236,39 +238,25 @@
       "merge_sha": "7734a77b1961335eb59bf142e499573a6a74c2b2",
       "latest_return": "/returns/FOLD_BLOOM_LISTEN_PHONE_CONTINUITY_2026-09-22.json",
       "next_executable": {
-        "id": "fold-bloom-three-track-lived-gate",
-        "state": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
-        "objective": "Open the shareable GHOST → FORGE → WILL witness with no files, then in the owner browser bind the exact recovered three tracks once and compare metadata-only witness vs real local-audio Journey. Decide whether the set reads/feels like one authored journey rather than three tracks plus transitions.",
-        "exact_seed": [
-          "preforme · sha256:06ca33eb185845330718d8c9428c29a3a3bcb6d94f64e18270e4adb7400757cc",
-          "THROUGH THE FIRE · sha256:ac6c2c5fc654177da675b5d419a16b5430483371a524f5016ca45c7399905f04",
-          "BY YOUR WILL / 遺志 · sha256:00f41b223138e760e64a08c882606d18f2fcaafcc2e75526396f2c8c4fdfc2bc"
+        "id": "fold-bloom-lived-tuning-gate",
+        "state": "HOLD_FOR_HUMAN_USE",
+        "objective": "Use the exact recovered tracks locally across SET / LISTEN / LIVE / optional Journey and return only lived evidence. No new engine or ontology is authorized by current state.",
+        "human_questions": [
+          "Does SET remain the clearest compositional surface?",
+          "Does Journey earn continued use or remain secondary?",
+          "Are IMMERSION and DROP GAIN perceptually legible at their current defaults/ranges?",
+          "With a loaded track, should synth default active, reduced, muted, or consequence-only?",
+          "Do LIVE terrain/drop/world/branch mechanics feel materially better under real tracks?",
+          "Would one-tap reuse of already-bound exact local tracks inside LISTEN/LIVE save enough friction to justify a small prototype selector?"
         ],
-        "share_route": "/fold-bloom/set/journey.html?demo=seed&auto=1",
-        "human_receipt": [
-          "Does a context-free person understand that this is one journey within ~20 seconds?",
-          "Does GHOST → FORGE → WILL read as an arc before hearing the audio?",
-          "With real local audio bound, do CARRY → DISSOLVE → RETURN feel meaningfully authored rather than playlist mechanics?",
-          "Does the byte-private/public-witness distinction remain obvious?"
+        "preserve": [
+          "GHOST → FORGE → WILL stays bottom DEMO, never START HERE",
+          "private track bytes remain local unless explicitly authorized for publication",
+          "SET = composition; LISTEN = source editor/cartographer; LIVE = embodied ride; Journey = secondary traversal",
+          "technical continuity issue #157 remains closed"
         ],
-        "after_keep": "SOURCE SHELL / RIDE · SEE · SHAPE should be a doorway refinement, not another engine.",
-        "law": "Technical continuity is closed. Human use owns the next decision; do not begin doorway convergence or a non-music adapter merely because CI is green.",
-        "implementation": {
-          "pull_request": 167,
-          "merge": "91db332e327a80c8daa8182add8720b48d1e7fea",
-          "ci_run": 1673,
-          "ci": "PASS",
-          "share_route": "/fold-bloom/set/journey.html?demo=seed&auto=1",
-          "receipt": "/returns/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json"
-        },
-        "technical_continuity": {
-          "issue": 157,
-          "state": "CLOSED_COMPLETE",
-          "pull_request": 171,
-          "merge": "7734a77b1961335eb59bf142e499573a6a74c2b2",
-          "ci_run": 1697,
-          "proof": "real MP3 · phone ADDRESS/APERTURE · PIN reload · exact-hash LISTEN→LIVE · terrain variation · SPLIT branch · evidence stability"
-        }
+        "resume_from": "/control/confluence/FOLD_BLOOM_FIXED_POINT_WINDDOWN_2026-09-22.json",
+        "law": "Do not convert unresolved feel/tuning questions into feature work without direct lived evidence."
       }
     },
     {
