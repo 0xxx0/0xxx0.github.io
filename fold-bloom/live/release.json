@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
   "version": "LIVE 0.12",
-  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
+  "status": "ACTIVE_CANDIDATE_MERGED",
   "date": "2026-09-22",
   "donors": [
     {
@@ -160,7 +160,7 @@
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "Direct phone replay of the same song used on 0.11. First judge MATERIAL: slopes opaque / no see-through mesh. Then EVENT: one drop gives one burst without jitter/retrigger. Then WORLDS: DEEP/TRANCE/WOOD/VOID feel materially distinct. Finally tune TEXT SYNC and confirm LISTEN edits propagate to LIVE for the same source hash.",
+    "required_next": "Replay the same familiar source on phone. Judge MATERIAL first (opaque slopes/no bleed-through), then EVENT (one drop/one burst), WORLD distinction, IMMERSION/DROP tuning, and TEXT SYNC. Use LISTEN to change the same-source profile and verify LIVE reflects it.",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
@@ -212,7 +212,9 @@
     "macrodrop_merge_sha": "1d43c3edf1469c85a5fa7e3317460cd6932911b8",
     "macrodrop_regression": "First CI caught a test selecting the pre-impact frame while asserting post-impact open-sky state; corrected the test boundary without loosening production drop thresholds, then full CI passed.",
     "visual_world_branch": "fold-bloom-live-012-visual-worlds",
-    "visual_world_ci": "PENDING PR CI"
+    "visual_world_ci": "PASS: public-surface-check run 35700392105; visual-world/profile tests, full LIVE regression stack, LISTEN preview and critical browser smoke green",
+    "visual_world_pr": 149,
+    "visual_world_merge_sha": "44ebcd809313ac633c13bbadc199c2b2e2e5997c"
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json",
