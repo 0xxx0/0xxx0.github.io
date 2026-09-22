@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07090d"><meta name="color-scheme" content="dark">
+<title>FOLD//BLOOM — JOURNEY RIDE 0.1</title>
+<link rel="stylesheet" href="./app.css">
+</head>
+<body>
+<div id="app">
+<header>
+  <div><b>FOLD//BLOOM</b><span>JOURNEY RIDE 0.1 · SET TRAVERSAL</span></div>
+  <nav><a href="../">FAMILY</a><a href="../set/">SET</a><a href="../listen/">LISTEN</a><a href="../live/">LIVE</a></nav>
+</header>
+<main>
+  <section class="hero">
+    <div class="ey">EXPERIENCE SET → LOCAL BINDINGS → CONTINUOUS ADDRESS → RETURN</div>
+    <h1 id="journeyTitle">NO SET LOADED</h1>
+    <p>Ride one authored set without concatenating or rewriting its sources. Source time remains native; seams alter traversal only.</p>
+    <div class="actions">
+      <button id="lastSetBtn" class="primary">LOAD LAST SET</button>
+      <button id="importBtn">IMPORT SET</button><input id="setFile" type="file" accept="application/json,.json" hidden>
+      <label class="button" for="audioFiles">BIND LOCAL AUDIO</label><input id="audioFiles" type="file" accept="audio/*,.mp3,.m4a,.wav,.flac,.ogg,.aac,.webm" multiple hidden>
+      <button id="returnBtn">RETURN RECEIPT</button>
+    </div>
+  </section>
+
+  <section class="statusGrid" aria-label="Journey state">
+    <div><span>SET</span><b id="setState">NONE</b></div>
+    <div><span>BINDINGS</span><b id="bindState">0 / 0</b></div>
+    <div><span>ADDRESS</span><b id="addressState">—</b></div>
+    <div><span>SEAM</span><b id="seamState">—</b></div>
+  </section>
+
+  <section class="stage" id="stage" data-phase="IDLE">
+    <div class="stageHead"><span id="cellState">CELL —</span><span id="sourceState">SOURCE UNBOUND</span></div>
+    <div class="signal"><i id="sourceBar"></i><i id="journeyBar"></i></div>
+    <div class="now">
+      <span id="roleState">WAITING FOR SET</span>
+      <b id="trackState">—</b>
+      <code id="hashState">—</code>
+    </div>
+    <div class="time"><b id="sourceTime">00:00.0</b><span>SOURCE</span><b id="journeyTime">00:00.0</b><span>JOURNEY</span></div>
+    <input id="seek" type="range" min="0" max="1000" value="0" aria-label="Source position">
+    <div class="transport">
+      <button id="prevBtn">◀ PREV</button>
+      <button id="playBtn" class="primary">PLAY</button>
+      <button id="nextBtn">NEXT ▶</button>
+    </div>
+  </section>
+
+  <section class="spine">
+    <div class="spineHead"><b>JOURNEY SPINE</b><span>source identity remains exact · address is dual</span></div>
+    <div id="rail" class="rail"></div>
+  </section>
+
+  <section class="law">
+    <b>SEAM EXECUTION</b>
+    <div class="lawGrid">
+      <span><strong>CUT</strong> immediate next source</span>
+      <span><strong>CARRY</strong> immediate next source, continuity witness retained</span>
+      <span><strong>DISSOLVE</strong> bounded 2.4s overlap; both source clocks remain native</span>
+      <span><strong>RESET</strong> bounded 0.65s gap before next source</span>
+    </div>
+  </section>
+
+  <section class="return">
+    <div><b>RETURN</b><span id="systemState">LOCAL · WAITING</span></div>
+    <pre id="receipt"></pre>
+  </section>
+</main>
+<audio id="audioA" preload="metadata"></audio><audio id="audioB" preload="metadata"></audio>
+<div id="toast" class="toast"></div>
+</div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
