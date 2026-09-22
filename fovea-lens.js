@@ -33,6 +33,10 @@ const TAU=Math.PI*2;
 const R=54;
 
 let on=false, el=null, ring=null, x=0, y=0, raf=0, target=null;
+/* KINETIC STATE — the lens has mass. It trails the pointer under springs,
+   stretches when it moves fast (squash & stretch), and overshoots when it
+   locks a new target. Source: kinetic interaction / Disney 12 / P5. */
+let px=0,py=0,vx=0,vy=0,scale=1,targetScale=1,spin=0,targetSpin=0,lockAt=0,stagger=0,lastProbe=0;
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function polar(cx,cy,r,a){return[cx+r*Math.cos(a),cy+r*Math.sin(a)]}
@@ -115,15 +119,16 @@ function draw(){
   const pts=d.radial.map((v,i)=>polar(c,c,R*v,rot+TAU*i/d.radial.length));
   const poly=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(2)+' '+p[1].toFixed(2)).join(' ')+' Z';
   const out=[];
-  out.push('<path d="'+poly+'" fill="'+col+'" fill-opacity=".10" stroke="'+col+'" stroke-width="1.1" stroke-opacity=".85"/>');
+  let dly=0; const nextD=()=>{dly+=22;return dly};
+  out.push('<path class="fovIn" style="animation-delay:'+nextD()+'ms" d="'+poly+'" fill="'+col+'" fill-opacity=".10" stroke="'+col+'" stroke-width="1.1" stroke-opacity=".85"/>');
   d.chroma.forEach((v,i)=>{                       // 12 real state-count buckets
     const a=rot+TAU*i/12,[x1,y1]=polar(c,c,R*.18,a),[x2,y2]=polar(c,c,R*(.30+.55*(1-v)),a);
-    out.push('<path d="M'+x1.toFixed(2)+' '+y1.toFixed(2)+' L'+x2.toFixed(2)+' '+y2.toFixed(2)+'" stroke="'+col+'" stroke-width=".8" stroke-opacity="'+(.14+.5*(1-v)).toFixed(2)+'"/>');
+    out.push('<path class="fovIn" style="animation-delay:'+((i*18)+40)+'ms" d="M'+x1.toFixed(2)+' '+y1.toFixed(2)+' L'+x2.toFixed(2)+' '+y2.toFixed(2)+'" stroke="'+col+'" stroke-width=".8" stroke-opacity="'+(.14+.5*(1-v)).toFixed(2)+'"/>');
   });
   const sec=Math.min(16,d.sectionCount);          // real child count of the focus
   for(let i=0;i<sec;i++){
     const a=rot+TAU*i/sec,[x1,y1]=polar(c,c,R*.92,a),[x2,y2]=polar(c,c,R,a);
-    out.push('<path d="M'+x1.toFixed(2)+' '+y1.toFixed(2)+' L'+x2.toFixed(2)+' '+y2.toFixed(2)+'" stroke="'+col+'" stroke-width=".7" stroke-opacity=".45"/>');
+    out.push('<path class="fovIn" style="animation-delay:'+((i*14)+90)+'ms" d="M'+x1.toFixed(2)+' '+y1.toFixed(2)+' L'+x2.toFixed(2)+' '+y2.toFixed(2)+'" stroke="'+col+'" stroke-width=".7" stroke-opacity=".45"/>');
   }
   out.push('<circle cx="'+c+'" cy="'+c+'" r="'+(R*.12+.11*R*d.inner).toFixed(2)+'" fill="none" stroke="'+col+'" stroke-width="1.1" stroke-opacity=".9"/>');
   out.push('<circle cx="'+c+'" cy="'+c+'" r="2" fill="'+col+'" fill-opacity=".9"/>');
@@ -138,7 +143,13 @@ function place(){
   el.style.transform='translate3d('+(x-R-6)+'px,'+(y-R-6)+'px,0)';
   const t=probe(x,y);
   const key=(t?.href||'')+'|'+(MAP()?.all?MAP().all().size:0);
-  if(key!==(el.dataset.key||'')){el.dataset.key=key;target=t;draw()}
+  if(key!==(el.dataset.key||'')){
+    el.dataset.key=key;target=t;draw();
+    // ANTICIPATION: lock a new target with an overshoot and a small kick
+    lockAt=performance.now();
+    targetSpin=(hexSeed(t?.href||'field')%9)-4;      // deterministic ±4deg
+    stagger=0;                                        // restart the staggered draw
+  }
   if(t&&el.dataset.href!==t.href){el.dataset.href=t.href;el.title=t.title||t.href;readout(t)}
 }
 
@@ -159,9 +170,25 @@ function readout(t){
 function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 
 /* ---- ACT at the point of attention ---- */
+function burst(col){
+  if(!el)return;
+  const b=document.createElement('div');
+  b.className='fovBurst';
+  b.style.borderColor=col||'#72bce7';
+  /* clean up on the animation's own end, not a timer: background tabs throttle
+     setTimeout to >=1000ms, so a timer leaks stray bursts. Same trap as rAF. */
+  b.addEventListener('animationend',()=>b.remove(),{once:true});
+  /* belt and braces: if the tab is hidden the animation never advances, so
+     animationend never fires. A fallback timer (throttled to ~1s, still fires)
+     guarantees the element does not outlive its welcome. */
+  setTimeout(()=>b.remove(),1500);
+  el.appendChild(b);
+}
 function onClick(e){
   if(!on)return;
   const t=target; if(!t||!t.href)return;
+  burst(t.state?stateColor(t.state):'#72bce7');      // FOLLOW-THROUGH: the press leaves a mark
+  lockAt=performance.now();                           // and the lens reacts to its own action
   if(e.shiftKey){window.__fieldAct?.open?.(t.href)}
   else{window.__fieldAct?.focus?.(t.href)}
   setTimeout(place,30);
@@ -172,7 +199,28 @@ function onWheel(e){
   window.__fieldAct?.peer?.(d);
   setTimeout(place,40);
 }
-function loop(){if(!on)return;place();raf=requestAnimationFrame(loop)}
+/* ---- THE SPRING: stiffness k, friction damp. Not position-lerp: real velocity,
+ * so the figure carries momentum and releases it. ---- */
+function physics(){
+  const k=0.26, damp=0.74;
+  vx=(vx+(x-px)*k)*damp; vy=(vy+(y-py)*k)*damp;
+  px+=vx; py+=vy;
+  const speed=Math.hypot(vx,vy);
+  // squash & stretch: fast motion elongates the lens along its travel
+  const stretch=Math.min(.30, speed*.016);
+  const stretchTarget=1+stretch;
+  scale+=(stretchTarget-scale)*.30;
+  // overshoot & settle when the ring changed target (P5 slam-in)
+  if(performance.now()-lockAt<260){ scale+= (1.16-scale)*.22; }
+  spin+= (targetSpin-spin)*.12;
+  if(el)el.style.transform='translate3d('+(px-R-6).toFixed(1)+'px,'+(py-R-6).toFixed(1)+'px,0) scale('+scale.toFixed(3)+') rotate('+spin.toFixed(2)+'deg)';
+}
+function loop(){
+  if(!on)return;
+  physics();
+  if(performance.now()-lastProbe>60){lastProbe=performance.now();place()}
+  raf=requestAnimationFrame(loop);
+}
 
 /* Movement applies on the event, not on a frame: a backgrounded tab never
  * fires requestAnimationFrame, and a lens that freezes when the tab is not
@@ -190,7 +238,9 @@ function ensure(){
 }
 
 const MOVE={passive:true};
-function onMove(e){x=e.clientX;y=e.clientY;if(el)el.style.opacity='1';place()}
+function onMove(e){x=e.clientX;y=e.clientY;
+  if(!px&&!py){px=x;py=y}   /* first contact: arrive, do not fly in from the corner */
+  if(el)el.style.opacity='1';place()}
 function onLeave(){if(el)el.style.opacity='0'}
 function onEnter(){if(el&&on)el.style.opacity='1'}
 function onKey(e){
@@ -205,7 +255,7 @@ function toggle(next){
   const b=document.getElementById('foveaToggle');
   if(b)b.classList.toggle('on',on);
   if(on){
-    ensure();el.style.opacity='0';
+    ensure();el.style.opacity='0';px=x;py=y;vx=0;vy=0;scale=.7;lockAt=performance.now();
     window.addEventListener('mousemove',onMove,MOVE);
     window.addEventListener('mouseleave',onLeave);
     window.addEventListener('mouseenter',onEnter);
@@ -219,7 +269,7 @@ function toggle(next){
     window.removeEventListener('click',onClick,true);
     window.removeEventListener('wheel',onWheel);
     cancelAnimationFrame(raf);
-    if(el)el.style.opacity='0';
+    if(el){el.style.opacity='0';el.querySelectorAll('.fovBurst').forEach(b=>b.remove())}
   }
   return on;
 }
