@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_EMBODIED_POV_2026-09-22",
   "date": "2026-09-22",
   "operation": "TRACKFIELD MOTION → PERIPHERAL OPTIC FLOW + BODY FRAME + SOURCE/VERB SKY WITNESSES",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "route": "/fold-bloom/live/",
   "delta": [
     "velocity becomes peripheral optic flow rather than HUD-only telemetry",
@@ -12,5 +12,11 @@
     "BLOOM/FOLD/SPLIT/RETURN get bounded consequence effects",
     "combo/streak scoring does not drive FX"
   ],
-  "next_truth": "Play one familiar song without looking at VEL/GRADE. If motion and structural arrival can be felt from the field itself, keep; if it reads as decorative spectacle, revert or reduce."
+  "next_truth": "Play one familiar song without looking at VEL/GRADE. If motion and structural arrival can be felt from the field itself, keep; if it reads as decorative spectacle, revert or reduce.",
+  "pr": 147,
+  "merge_sha": "d872d9bbdb303dddbfc28fc09bd1e681e97a27fb",
+  "ci": {
+    "run": 35696511392,
+    "result": "PASS"
+  }
 }
