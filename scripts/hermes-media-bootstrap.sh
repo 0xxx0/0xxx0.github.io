@@ -8,8 +8,8 @@ ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MEDIA_ROOT="${1:-}"
 OUT_DIR="${2:-$HOME/.0xxx0-media/refinery}"
 PROFILE="media-curator"
-LOCAL_MODEL="qwen3-vl:8b"
-HERMES_LOCAL_MODEL="field-qwen3-vl:8b-64k"
+LOCAL_MODEL="${MEDIA_BULK_MODEL:-qwen3.5:9b}"
+HERMES_LOCAL_BASE="${HERMES_LOCAL_BASE:-qwen3.5:27b}"\nHERMES_LOCAL_MODEL="${HERMES_LOCAL_MODEL:-field-qwen3.5-27b-64k}"\nCREATE_HERMES_LOCAL="${CREATE_HERMES_LOCAL:-0}"
 
 if [[ -z "$MEDIA_ROOT" ]]; then
   echo "usage: $0 /absolute/path/to/media [output-dir]" >&2
@@ -44,17 +44,23 @@ if ! ollama list | awk '{print $1}' | grep -qx "$LOCAL_MODEL"; then
   ollama pull "$LOCAL_MODEL"
 fi
 
-# Hermes needs >=64K context for agent/tool use. Give the optional local supervisor
-# its own persistent Ollama model instead of changing the global Ollama server.
-TMP_MODELFILE="$(mktemp)"
-trap 'rm -f "$TMP_MODELFILE"' EXIT
-cat > "$TMP_MODELFILE" <<EOF
-FROM $LOCAL_MODEL
+# A heavier local Hermes supervisor is optional. Never auto-pull it as a setup side effect.
+# Set CREATE_HERMES_LOCAL=1 only when you explicitly want the 27B local adjudicator.
+if [[ "$CREATE_HERMES_LOCAL" == "1" ]]; then
+  if ! ollama list | awk '{print $1}' | grep -qx "$HERMES_LOCAL_BASE"; then
+    echo "Pulling optional local Hermes supervisor base: $HERMES_LOCAL_BASE"
+    ollama pull "$HERMES_LOCAL_BASE"
+  fi
+  TMP_MODELFILE="$(mktemp)"
+  trap 'rm -f "$TMP_MODELFILE"' EXIT
+  cat > "$TMP_MODELFILE" <<EOF
+FROM $HERMES_LOCAL_BASE
 PARAMETER num_ctx 65536
 EOF
-if ! ollama list | awk '{print $1}' | grep -qx "$HERMES_LOCAL_MODEL"; then
-  echo "Creating optional 64K local Hermes model: $HERMES_LOCAL_MODEL"
-  ollama create "$HERMES_LOCAL_MODEL" -f "$TMP_MODELFILE"
+  if ! ollama list | awk '{print $1}' | grep -qx "$HERMES_LOCAL_MODEL"; then
+    echo "Creating optional 64K local Hermes model: $HERMES_LOCAL_MODEL"
+    ollama create "$HERMES_LOCAL_MODEL" -f "$TMP_MODELFILE"
+  fi
 fi
 
 if ! hermes profile list | sed 's/^[*[:space:]]*//' | grep -qx "$PROFILE"; then
@@ -81,7 +87,8 @@ echo "Recommended supervisor setup:"
 echo "  hermes -p $PROFILE model"
 echo "  -> choose ChatGPT or Codex Subscription for the supervisor/adjudicator."
 echo
-echo "Local-only supervisor alternative:"
+echo "Local-only supervisor alternative (manual/optional):"
+echo "  CREATE_HERMES_LOCAL=1 $0 '$MEDIA_ROOT' '$OUT_DIR'"
 echo "  hermes -p $PROFILE model"
 echo "  -> Custom endpoint"
 echo "  -> http://localhost:11434/v1"
