@@ -3,7 +3,7 @@
   "id": "HERMES-FOLD-BLOOM-TRANSFER-RESEARCH-2026-09-22",
   "date": "2026-09-22",
   "status": "MANUAL_ACTIVATION_NOT_QUEUED",
-  "purpose": "Run bounded complementary research/evaluation work around Fold/Bloom / Addressed Continuity without touching the active local test-pack branch or spawning new architectures.",
+  "purpose": "Run bounded complementary research/evaluation work around Fold/Bloom / Addressed Continuity without mutating merged SET 0.1.1 local test packs or spawning new architectures.",
   "baseline": {
     "master": "fcaa51064ee6081f73d6cb5f6f68b961ccb66e9e",
     "merged_test_pack": {
@@ -235,7 +235,7 @@
     ]
   },
   "do_not_do": [
-    "do not mutate merged SET 0.1.1 test-pack catalog/runtime from a research task",
+    "do not mutate merged SET 0.1.1 test-pack catalog/runtime or raw local media from a research task",
     "do not commit audio bytes or private local paths",
     "do not create a SOURCE SPINE app",
     "do not create a universal sonification framework",
