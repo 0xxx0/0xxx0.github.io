@@ -1,8 +1,8 @@
 # FOLD//BLOOM — EXECUTION ROADMAP
-## 0.12 → 1.0 · SOURCE → MAP → PROFILE → PROJECTION → RETURN
+## 0.13 → 1.0 · SOURCE → MAP → PROFILE → PROJECTION → RETURN
 
 **Date:** 2026-09-22  
-**Current head:** LIVE 0.12 / LISTEN 0.6 / GLYPH ATLAS 0.2 / TWO DIAL 0.10.3 / ECOLOGY 0.2  
+**Current head:** LIVE 0.13 / LISTEN 0.6 / GLYPH ATLAS 0.2 / EXPERIENCE SET 0.1 / TWO DIAL 0.10.3 / ECOLOGY 0.2  
 **Purpose:** convert the now-proven single-source ride into a coherent experience system without multiplying disconnected apps.
 
 ---
@@ -153,6 +153,22 @@ A person who knows none of our terms should be able to:
 4. understand that these are views of the **same object**;
 5. return to the source without losing work.
 
+### Recovered source-spine law
+
+The later Design/Fold–Bloom thread clarified a missing continuity mechanism; absorb it here rather than creating another app.
+
+**SOURCE SPINE = exact source/set identity + canonical address + aperture + authored calibration/marks + current projection witness.**
+
+- LISTEN is the source editor/cartographer: inspect, align text, pin, calibrate, place a source into a set.
+- LIVE/RIDE consumes the same address and authored state without gaining MAP authority.
+- READFIELD/RSVP is a reading projection at the same address, not merely a launcher link.
+- ATLAS is memory/inspection of the same source cell.
+- A persistent rail/background position witness may survive projection changes, but it is projection state, not source truth.
+- Nonlinear text correction, when implemented, must be authored **anchor/warp calibration beside immutable cue evidence**; never rewrite source cue times to make the display look aligned.
+- The current global text offset remains a valid one-anchor special case.
+
+This is a mechanism refinement of G2/G4, not a new ontology or fourth active front.
+
 ### Surface convergence
 
 Do not merge the engines. Merge the **doorway**.
@@ -301,7 +317,7 @@ Before new machinery:
 
 ---
 
-## G1 — EXPERIENCE SET SCHEMA
+## G1 — EXPERIENCE SET SCHEMA · COMPLETE
 
 Implement:
 
@@ -325,6 +341,8 @@ Evidence:
 ---
 
 ## G2 — SET COMPOSITOR / TETRIS BOARD
+
+**Current next executable.** Experience Set v0.1 is merged and round-trips exactly.
 
 Implement one visual editor:
 
