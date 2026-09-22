@@ -703,10 +703,10 @@ const CASES=[
     check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/EXTRACTED DESCENDANT · SCALE LENS/i.test(dom)&&/TWO DIAL 0\.10/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)
   },
   {
-    name:'FOLD BLOOM LIVE 0.6 CHOOSE TRACKFIELD',
+    name:'FOLD BLOOM LIVE 0.7 motion CHOOSE TRACKFIELD',
     route:'/fold-bloom/live/',
     options:{width:430,height:900,budget:9000},
-    check:dom=>/LIVE 0\.6/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('id="demoBtn"')&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="trackFile"')&&/WRITE \/ CHOOSE \/ TRAVERSE/i.test(dom)&&/same left\/right turn/i.test(dom)&&/real traversable fork/i.test(dom)
+    check:dom=>/LIVE 0\\.7/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('id="demoBtn"')&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="speed"')&&dom.includes('id="grade"')&&dom.includes('id="trackFile"')&&/WRITE \/ CHOOSE \/ TRAVERSE/i.test(dom)&&/same left\/right turn/i.test(dom)&&/real traversable fork/i.test(dom)
   },
   {
     name:'TWO DIAL sound field 0.10',
