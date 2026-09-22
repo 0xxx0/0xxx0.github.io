@@ -3,7 +3,7 @@
 Status: experimental performance head. Do not overwrite frozen donors.
 
 ## Current head
-`/fold-bloom/live/` now tests: **track/course → continuous measured terrain → smooth traversal camera; authored release → deformation tape; terrain × operations → road actually ridden**. LIVE 0.8 makes motion hierarchical and more physical: beats cut road ribs, downbeats strike harder, analyzed phrase changes form mid-scale gates, sections remain macro gates, quiet/falling energy climbs more steeply, rising/energetic passages dive and visually accelerate, and spectral balance turns the route. Local MP3 uses measured AUDIO MAP; normal mode uses a clearly-marked synthetic FIELD COURSE through the same projection/deformation engine.
+`/fold-bloom/live/` now tests: **track/course → continuous measured terrain → smooth traversal camera; authored release → deformation tape; terrain × operations → road actually ridden**. LIVE 0.9 retains the hierarchical physical terrain of 0.8 and adds **witness-only IDLE + exact-source authored landmarks**: beats cut road ribs, downbeats strike harder, analyzed phrase changes form mid-scale gates, sections remain macro gates, quiet/falling energy climbs more steeply, rising/energetic passages dive and visually accelerate, and spectral balance turns the route. Local MP3 uses measured AUDIO MAP; normal mode uses a clearly-marked synthetic FIELD COURSE through the same projection/deformation engine.
 
 Donors remain addressable and independent:
 - Fold Weave 0.1: `/recovery/fold-bloom/fold-weave-0.1/` — exact frozen donor; ring / crease / cascade / mute-first causal score.
@@ -22,7 +22,7 @@ Donors remain addressable and independent:
 9. **Phrase/section estimates are apertures, not truth labels.** A section may offer a close/seal opportunity; a bad boundary must never invalidate a move or punish the player.
 10. **Projection, not decoration.** TRACKFIELD must be derived from the same AUDIO MAP that drives timing; do not invent a second hidden road model.
 11. **Anticipation beats telemetry.** If a feature can be felt as approaching geometry, prefer that over another HUD number.
-12. **Onboarding demonstrates the mechanism.** Before entry, run a silent reversible preview of the real instrument. Preview state never persists, emits FIELD operations or vibrates. First intentional action restores clean state and transfers control.
+12. **IDLE demonstrates without authorship.** Before entry—or whenever explicitly invoked—run the real instrument on a reversible snapshot. A loaded track may keep advancing as source clock, but automatic topology, branch, deformation and section-arc state never persists or emits authored FIELD operations. First intentional action restores the human field at the source's current address.
 13. **Operations write the world.** BLOOM/FOLD/SPLIT/RETURN must visibly alter future TRACKFIELD geometry, not merely score/HUD state.
 14. **Source stays source.** Deformation tape never mutates AUDIO MAP evidence; it is a reversible authored layer addressed to track time.
 15. **Verb identity must survive combination.** Charged `FOLD → RETURN` must visibly read as kink/compression followed by convergence, not as one generic flash.
@@ -35,6 +35,8 @@ Donors remain addressable and independent:
 22. **Normal mode uses the same world-writing engine.** FIELD COURSE is synthetic/demo evidence, never mislabeled as analyzed audio, but BLOOM/FOLD/SPLIT/RETURN must deform it exactly as they deform an MP3 TRACKFIELD.
 23. **Smooth the signal, not the meaning.** Interpolate AUDIO MAP frames and low-pass camera motion; remove threshold shake/pops while keeping grade/turn/split/return categorically readable.
 24. **One musical delta per evaluation.** Tune gesture→consequence before adding modes, organisms or menus.
+25. **Human marks may enter terrain; machine meaning may not.** Same-source LISTEN PINs can become road landmarks because their address/text was authored. Terrain analysis must never invent landmark text or narrative.
+26. **Exact source key gates message projection.** A landmark may appear only when its PIN source key matches the loaded local source hash.
 
 ## Iteration loop
 `OBSERVE → NAME FAILURE → CHANGE ONE OPERATOR → STATIC TEST → BROWSER/TOUCH PLAY → A/B DONOR → RECEIPT → KEEP/REVERT`
@@ -63,7 +65,11 @@ Do not call LIVE canonical until direct desktop + touch play establishes all of 
 7. After one of each verb, a player can identify from the road alone which operation was written: BLOOM widened/opened; FOLD kinked/compressed; SPLIT forked; RETURN reconverged.
 8. During a SPLIT, an ordinary left/right ring turn can choose LEFT/RIGHT; chosen branch becomes visually dominant and camera alignment eases onto it; ignoring the split remains lawful.
 9. RETURN or split completion recenters without deleting the recorded branch trace.
-10. Quiet vs intense fixtures produce strongly separated climb/descent geometry and distinct visual velocity; rising/falling phrase-scale energy trend becomes visible before impact.\n11. PLAY FIELD without MP3 still shows moving terrain and accepts the same road-writing operations.\n12. No runaway scheduler catch-up, stuck drone, touch-scroll conflict or material frame drop during a 10-minute run.
+10. Quiet vs intense fixtures produce strongly separated climb/descent geometry and distinct visual velocity; rising/falling phrase-scale energy trend becomes visible before impact.
+11. PLAY FIELD without MP3 still shows moving terrain and accepts the same road-writing operations.
+12. IDLE RIDE over a loaded source may advance playback time, but first touch restores all automatic engine/deformation/ride/arc state.
+13. Same-source LISTEN PINs appear at their exact road addresses; a different source hash reveals none.
+14. No runaway scheduler catch-up, stuck drone, touch-scroll conflict or material frame drop during a 10-minute run.
 
 ## Next useful transforms — only after play
 - Tune CALL selection, forecast legibility, charge curve and return aperture from observed choices/timing, not taste in isolation.
@@ -74,4 +80,4 @@ Do not call LIVE canonical until direct desktop + touch play establishes all of 
 - Add performance capture/replay only if the existing bounded RETURN packet proves insufficient for comparing runs.
 
 ## Stop condition for this pass
-0.8 tests must prove stronger terrain separation, beat/downbeat/phrase/section hierarchy, source-hash continuity and branch-aware AUTO RIDE without regressing existing topology. Stop before time-stretch, lane collectibles, Ecology audio graft or provider proliferation. Next authority: desktop/phone play—are inclines finally physical, phrase gates useful rather than noisy, and AUTO RIDE explanatory rather than decorative?
+0.9 tests must prove witness-only IDLE restores all authored layers, existing terrain/topology regressions remain green, and the exact-source PIN → landmark seam is source-hash bounded. Stop before timed lyrics, public messaging, time-stretch, lane collectibles or Ecology audio graft. Next authority: direct play—does IDLE feel alive without impersonating you, and does an authored mark feel meaningful when encountered in the road rather than like HUD clutter?
