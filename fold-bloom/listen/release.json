@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM LISTEN",
-  "version": "0.4",
-  "state": "CANDIDATE_MERGED",
+  "version": "0.5",
+  "state": "CANDIDATE_BRANCH_VERIFY",
   "operation": "LISTEN",
   "route": "/fold-bloom/listen/",
   "date": "2026-09-22",
-  "thesis": "One hashed audio source becomes a reusable addressed object: analyzed beat/phrase/section hierarchy, deterministic source glyph, ADDRESS×APERTURE navigation, authored pins, and unequal projections into LISTEN/LIVE/Two Dial.",
+  "thesis": "One hashed source becomes an addressed object that can be inspected, marked, read and returned: local metadata/lyrics recovery, beat→phrase→section apertures, deterministic glyph identity, human PIN path, witness-only IDLE, and unequal handoffs to Atlas/Drive/Readfield/Two Dial.",
   "recovered_transfer": [
     "RC8-era Fold/Bloom behavior: vertical scale traversal + horizontal/topological operation, recovered from collaboration context but exact executable remains unfound",
     "Ecology/Two Dial ring dynamics: cyclic wrap, shortest circular delta, detent/inertia ergonomics",
@@ -59,7 +59,13 @@
     "transport may carry optional phraseIndex/phraseStart/phraseEnd/phraseProgress as bounded temporal context",
     "deterministic fold-bloom-audio-glyph/v0.1 compiles source hash + frame contour + chroma + sections + tempo into a thumbnail SVG",
     "glyph remains stable for the same source/map and exports independently as .field-glyph.svg",
-    "AUDIO MAP JSON export carries glyph descriptor beside map and authored annotations"
+    "AUDIO MAP JSON export carries glyph descriptor beside map and authored annotations",
+    "local MP3 intake parses common ID3v2.3/v2.4 title/artist/album/genre/BPM/key and USLT unsynchronized lyrics without a network dependency",
+    "embedded local lyrics feed the existing READFIELD handoff as explicitly unaligned source evidence",
+    "IDLE witnesses beat/phrase/section scale changes without scrubbing, pinning or altering source state; prior aperture restores on takeover",
+    "AUDIO MAP export now contains fold-bloom-addressed-message/v0.1: exact source witness plus source-ordered human PIN cells",
+    "ATLAS workflow carries the deterministic glyph/source witness into Glyph Atlas without carrying audio bytes",
+    "same-source pins are intentionally consumable by LIVE as authored road landmarks"
   ],
   "constraints": [
     "no upload/network required for user audio",
@@ -80,7 +86,10 @@
     "horizontal address and vertical aperture must remain perceptually distinct on trackpad/touch/keyboard",
     "do not implement a second stream host until LISTEN 0.3 interaction survives direct use",
     "phrase novelty is approximate structural evidence; GRID_FALLBACK is labeled and never semantic truth",
-    "audio glyph is an identity/projection aid, not proof that similar-looking files are related"
+    "audio glyph is an identity/projection aid, not proof that similar-looking files are related",
+    "embedded lyrics are text evidence only; USLT has no timing/alignment claim",
+    "source-ordered pin path is authored meaning at addresses, not an inferred narrative",
+    "IDLE changes only the witness aperture and must restore the prior human view on takeover"
   ],
   "verification": {
     "module_runtime": "PASS: LISTEN 0.2 surface executed in browser smoke",
@@ -105,15 +114,16 @@
     "workflow_phone": "REQUIRED: real phone USE TRACK reachability + READFIELD entry + return flow",
     "stream_lens_branch": "fold-bloom-listen-stream-lens-030",
     "stream_lens_ci": "PASS: public-surface-check run 35685019871; static contracts, analysis+stream-lens tests, preview browser render, LIVE regression, critical browser smoke, recovery and Sleeper tests all passed.",
-    "required_next": "Direct use: familiar tracks, judge phrase gates/aperture and glyph recognizability; verify same file hash survives LISTEN→LIVE→Two Dial.",
+    "required_next": "Use a local MP3 with embedded ID3/USLT if available; verify lyrics→READFIELD, IDLE aperture witness, pin→LIVE landmark and Atlas handoff.",
     "stream_lens_pr": 142,
     "stream_lens_merge_sha": "683d0067100c8d8b376e2b38a23c07f11b3fed9b",
     "migration_gate_repair": "PASS: removed two already-recovered Sleeper entries from ingest_queue and aligned migration exact-source authority to /returns/BACKUP_RECOVERY_2026-09-21.json while preserving Sep-22 public runtime recovery separately.",
     "horizon_04": "PASS: public-surface-check run 35690332201; phrase novelty/fallback, deterministic audio glyph, stream lens, source adapter, preview render and full browser regression green.",
     "horizon_04_pr": 144,
-    "horizon_04_merge_sha": "36ca59b4658a95238e0474ae727d301901a991ac"
+    "horizon_04_merge_sha": "36ca59b4658a95238e0474ae727d301901a991ac",
+    "listen_05": "PENDING_CI"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · portable donor=field-addressed-stream/v0.1",
   "updated": "2026-09-22",
-  "return": "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json"
 }
