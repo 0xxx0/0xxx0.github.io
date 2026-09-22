@@ -179,9 +179,12 @@ async function demoTick(){
     if(demo.releases>=12){
       if(demo.preview&&$('#intro').classList.contains('on')){
         const restored=restore(demo.startState);if(restored)state=restored;
+        if(demo.startRide)ride={...demo.startRide,trace:(demo.startRide.trace||[]).map(x=>({...x}))};
+        if(demo.startTape)deformationTape=demo.startTape.map(x=>({...x}));
+        if(demo.startArc)sectionArc={...demo.startArc,verbs:[...(demo.startArc.verbs||[])]};
         demo.releases=0;dragAngle=0;renderer.setDrag(0);update();demo.timer=setTimeout(demoTick,780);return
       }
-      stopDemo(false);toast('DEMO RETURN · YOUR TURN');return
+      stopDemo(false);toast('IDLE RETURN · YOUR TURN');return
     }
     update();demo.timer=setTimeout(demoTick,demo.preview?520:620);
   }else{
