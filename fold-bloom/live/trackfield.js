@@ -52,6 +52,11 @@ export function trackfieldPoint(frame={},u=0,{energyTrend=0}={}){
 }
 
 
+export function macroDropEventId(t=0){
+  const q=Math.round((Number(t)||0)*2)/2;
+  return `drop@${q.toFixed(1)}`;
+}
+
 export function detectMacroDrop(points=[]){
   if(!Array.isArray(points)||points.length<8)return null;
   let best=null;
@@ -73,7 +78,7 @@ export function detectMacroDrop(points=[]){
     const strength=clamp((raw-.28)/.78,0,1);
     if(strength<.26||rise<.16||(Number(p.energy)||0)<.48)continue;
     const candidate={
-      id:`drop@${Number(p.t||0).toFixed(3)}`,t:Number(p.t)||0,ahead,index:i,
+      id:macroDropEventId(p.t),t:Number(p.t)||0,ahead,index:i,
       strength:+strength.toFixed(4),rise:+rise.toFixed(4),impactRise:+impactRise.toFixed(4),
       preEnergy:+avgE.toFixed(4),hitEnergy:+(Number(p.energy)||0).toFixed(4),flux:+flux.toFixed(4)
     };
@@ -148,7 +153,7 @@ export function buildTrackfield(map,time=0,{horizon=12,count=44}={}){
   }
   const sections=Math.max(1,(map.sections?.length||1)-1);
   return {
-    schema:'fold-bloom-trackfield/v0.5',
+    schema:'fold-bloom-trackfield/v0.6',
     sourceMap:map.version||null,
     stage:map.stage||'UNKNOWN',
     time:start,
