@@ -714,10 +714,10 @@ const CASES=[
     check:dom=>/HOLD FAST \/ LET FLY/i.test(dom)&&/SCALE OF CONSEQUENCE/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')&&dom.includes('id="pulseLinkBtn"')&&dom.includes('data-fold-bloom-pulse="ready"')
   },
   {
-    name:'FOLD BLOOM LISTEN 0.2.4 workflows',
+    name:'FOLD BLOOM LISTEN 0.3 stream lens',
     route:'/fold-bloom/listen/',
     options:{width:1180,height:900,budget:9000},
-    check:dom=>/LISTEN 0\.2\.4/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="urlInput"')&&dom.includes('id="urlBtn"')&&dom.includes('id="useBtn"')&&dom.includes('id="useSheet"')&&/USE THIS TRACK WITH/.test(dom)
+    check:dom=>/LISTEN 0\.3/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/ADDRESS/.test(dom)&&/APERTURE/.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="key"')&&dom.includes('id="pinBtn"')&&dom.includes('id="pinsBtn"')&&dom.includes('id="pinSheet"')&&dom.includes('id="useBtn"')&&dom.includes('id="useSheet"')&&dom.includes('data-listen-lens="field-addressed-stream/v0.1"')&&/USE THIS TRACK WITH/.test(dom)
   },
   {
     name:'FOLD BLOOM LISTEN preview render',
