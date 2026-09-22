@@ -8,6 +8,7 @@ import {STREAM_LENS_SCHEMA,scrubByDelta,stepAddress,makeStreamPin,normalizePins}
 import {audioGlyphDescriptor,audioGlyphSvg} from './audio-glyph.js';
 import {parseLocalAudioMeta,localDisplayName} from './media-meta.js';
 import {groupLocalInputs,parseTextSidecar,parsePlaylistText} from './sidecar-text.js';
+import {sourceBundleFromMeta} from './source-bundle.js';
 
 const $=s=>document.querySelector(s);
 const gl=$('#field'),overlay=$('#overlay'),audio=$('#audio'),drop=$('#drop');
@@ -185,6 +186,7 @@ async function analyzeBytes(bytes,playbackBlob,meta){
     const decoded=await ctx.decodeAudioData(bytes.slice(0)),hash=await hashP,{pcm,sampleRate}=mixdown(decoded);
     if(objectURL)URL.revokeObjectURL(objectURL);objectURL=URL.createObjectURL(playbackBlob);audio.src=objectURL;
     fileMeta={...meta,name:meta.name||'AUDIO SOURCE',size:meta.size??playbackBlob.size,type:meta.type||playbackBlob.type||'audio',hash,duration:decoded.duration,sourceSampleRate:decoded.sampleRate};
+    fileMeta.bundle=sourceBundleFromMeta(fileMeta);
     loadPins();
     $('#track').textContent=fileMeta.name;
     const lyricNote=fileMeta.lyrics?' · LYRICS FOUND / UNALIGNED':'',tagNote=fileMeta.tags?` · ${String(fileMeta.tags).slice(0,42)}`:'';
@@ -247,7 +249,8 @@ async function loadFile(file,{sidecars=[],collection=null}={}){
       metadataSource:[meta.metadataSource,text?'SIDECAR_TEXT':null,origin?'SOURCE_ADDRESS':null].filter(Boolean).join('+')||null,
       origin:origin?{kind:origin.kind,address:origin.address,id:origin.sunoId||null,resolution:origin.resolution||null}:null,
       collection:collectionEvidence?{kind:collectionEvidence.kind||'PLAYLIST',name:collectionEvidence.name||'PLAYLIST',address:collectionEvidence.address||null,id:collectionEvidence.id||null,count:collectionEvidence.entries?.length||null}:null,
-      textEvidence:textEvidence.map(x=>({name:x.name,kind:x.kind,alignment:x.alignment,chars:x.chars,cueCount:x.cueCount}))
+      textEvidence:textEvidence.map(x=>({name:x.name,kind:x.kind,alignment:x.alignment,chars:x.chars,cueCount:x.cueCount})),
+      timedText:text?.cues?.length?{name:text.name,kind:text.kind,alignment:text.alignment,cues:text.cues.slice(0,1200)}:null
     };
     await analyzeBytes(bytes,file,sourceMeta);
     if(origin||collectionEvidence){toast(origin?'SOURCE LINK × LOCAL BYTES BOUND':'PLAYLIST CONTEXT × AUDIO BOUND');pendingSource=null}
@@ -321,7 +324,7 @@ function addressedReturn(){
   return {
     kind:'FOLD_BLOOM_ADDRESSED_MESSAGE',
     schema:'fold-bloom-addressed-message/v0.1',
-    source:{key:sourcePinKey(),name:fileMeta?.name||'SOURCE',hash:fileMeta?.hash||null,kind:fileMeta?.sourceKind||null,origin:fileMeta?.origin||null,collection:fileMeta?.collection||null,textEvidence:fileMeta?.textEvidence||[]},
+    source:{key:sourcePinKey(),name:fileMeta?.name||'SOURCE',hash:fileMeta?.hash||null,kind:fileMeta?.sourceKind||null,bundle:fileMeta?.bundle||null,origin:fileMeta?.origin||null,collection:fileMeta?.collection||null,textEvidence:fileMeta?.textEvidence||[]},
     path:{order:'SOURCE_ADDRESS',humanAuthored:true,cells:ps.map((p,i)=>({n:i+1,id:p.id,address:p.address,scope:p.scope,label:p.label,note:p.note,features:p.features}))},
     warning:'Path meaning is authored by the human. Source order and analysis features do not infer semantics.'
   };
@@ -360,7 +363,7 @@ $('#pinSave').onclick=commitPin;$('#pinDelete').onclick=deletePin;$('#pinClose')
 $('#useRide').onclick=()=>openSurface('../live/');$('#useRead').onclick=openReadfield;$('#useCompose').onclick=()=>openSurface('../two-dial/?pulse=1');$('#useAtlas').onclick=openAtlas;$('#useMap').onclick=()=>{toggleUse(false);$('#export').click()};
 $('#transport').onclick=async()=>{stopIdle(true);if(!audio.src)return;if(audio.paused)await audio.play();else audio.pause()};
 audio.onplay=()=>{$('#transport').textContent='PAUSE';publishTransport(true)};audio.onpause=()=>{$('#transport').textContent='PLAY';publishTransport(true)};audio.ontimeupdate=()=>publishTransport(false);
-$('#export').onclick=()=>{if(!map)return;const packet={kind:'FOLD_BLOOM_AUDIO_MAP',created:new Date().toISOString(),map,glyph:glyphDesc||audioGlyphDescriptor(map,fileMeta||{}),annotations:{schema:STREAM_LENS_SCHEMA,pins:normalizePins(pins,sourcePinKey())},addressedMessage:addressedReturn()},b=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`fold-bloom-audio-map-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+$('#export').onclick=()=>{if(!map)return;const packet={kind:'FOLD_BLOOM_AUDIO_MAP',created:new Date().toISOString(),sourceBundle:fileMeta?.bundle||null,timedText:fileMeta?.timedText||null,map,glyph:glyphDesc||audioGlyphDescriptor(map,fileMeta||{}),annotations:{schema:STREAM_LENS_SCHEMA,pins:normalizePins(pins,sourcePinKey())},addressedMessage:addressedReturn()},b=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`fold-bloom-audio-map-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 document.querySelectorAll('[data-scope]').forEach((b,i)=>b.onclick=()=>setScope(i));
 addEventListener('wheel',e=>{
   if(e.target?.closest?.('#pinSheet,#useSheet,#drop'))return;
