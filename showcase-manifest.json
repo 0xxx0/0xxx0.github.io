@@ -1159,7 +1159,7 @@
       "operation": "ORIENT",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-22T14:20:00+08:00",
+        "updated_at": "2026-09-22T19:00:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1167,19 +1167,19 @@
           "RELEASE"
         ]
       },
-      "role": "Unequal Fold/Bloom source cycle: EXPERIENCE SET 0.1 is the pure journey boundary; SET 0.1 authors ordered source refs and explicit seams; GLYPH ATLAS 0.2 gives inspectable source-cell memory; LISTEN 0.6 binds source facets and source-hash ride tuning; LIVE 0.13 rides one addressed source with exact-time semantics; TWO DIAL 0.10.3 composes; ECOLOGY stays persistent lineage."
+      "role": "Fold/Bloom now has a coherent local-first path: exact source identity → SET 0.1.1 authoring → JOURNEY RIDE 0.1.2 traversal, with a shareable metadata-true GHOST → FORGE → WILL witness over the recovered three-track seed. Raw audio remains private/local; LISTEN maps one source, LIVE embodies one source, ATLAS remembers, TWO DIAL composes, ECOLOGY remains lineage."
     },
     {
       "href": "/fold-bloom/set/",
-      "title": "FOLD//BLOOM SET 0.1",
+      "title": "FOLD//BLOOM SET 0.1.1",
       "kind": "artifact",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "SHAPE",
-      "state": "CANDIDATE",
-      "version": "0.1",
+      "state": "ACTIVE_CANDIDATE",
+      "version": "0.1.1",
       "index": {
-        "updated_at": "2026-09-22",
+        "updated_at": "2026-09-22T19:00:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1187,7 +1187,7 @@
         ]
       },
       "receipt": "/returns/FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json",
-      "role": "Local-first Experience Set compositor. Owned/local source bytes may be hashed into exact source references, then order, experiential weight and explicit CUT/DISSOLVE/CARRY/RESET seams are authored without storing source bytes or acquiring analyzer authority. RETURN closes the set.",
+      "role": "Local-first Experience Set compositor + same-origin source vault bridge. Exact local files are hashed once; Experience Set state remains byte-free while exact local blobs may be reused by LISTEN and JOURNEY on the same browser origin.",
       "transfer": [
         "Experience Set v0.1 exact round-trip boundary",
         "source-spine law: identity/address may survive projection changes without creating a second source",
@@ -1226,6 +1226,69 @@
         },
         "evidence": {
           "receipt": "/returns/FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json",
+          "return_path": "/fold-bloom/"
+        }
+      }
+    },
+    {
+      "href": "/fold-bloom/set/journey.html",
+      "title": "FOLD//BLOOM JOURNEY RIDE 0.1.2",
+      "kind": "artifact",
+      "parent": "/fold-bloom/set/",
+      "family": "FOLD // BLOOM",
+      "operation": "RIDE_SET",
+      "state": "ACTIVE_CANDIDATE",
+      "version": "0.1.2",
+      "index": {
+        "updated_at": "2026-09-22T19:00:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "VERIFY",
+          "RELEASE"
+        ]
+      },
+      "receipt": "/returns/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json",
+      "role": "Traverse one Experience Set while each source keeps native identity/time. Public seed witness uses the exact recovered preforme → THROUGH THE FIRE → BY YOUR WILL / 遺志 identities, durations and CARRY → DISSOLVE → RETURN seams with no bundled audio; same-browser exact local media enables real playback.",
+      "transfer": [
+        "Experience Set v0.1",
+        "same-origin exact-hash local source spine",
+        "dual source/journey address",
+        "shareable metadata-true witness without media publication"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "fold-bloom-experience-set/v0.1",
+            "same-origin exact-hash local audio bindings",
+            "metadata-only recovered seed witness"
+          ],
+          "requires": [],
+          "optional": [
+            "local source vault"
+          ]
+        },
+        "transforms": {
+          "verb": "traverse ordered source refs through explicit seam laws while keeping native source clocks and deriving one journey address",
+          "preserves": [
+            "source identity",
+            "native source time",
+            "byte-free set state",
+            "private/local audio authority",
+            "explicit seam law"
+          ],
+          "reversibility": "bounded",
+          "side_effects": "local browser playback/state + explicit RETURN only"
+        },
+        "emits": {
+          "kinds": [
+            "fold-bloom-journey-return/v0.1",
+            "shareable metadata-only seed witness"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/returns/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json",
           "return_path": "/fold-bloom/"
         }
       }
