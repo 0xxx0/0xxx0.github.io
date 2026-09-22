@@ -4,8 +4,8 @@
 <title>FOLD//BLOOM — GLYPH ATLAS 0.2</title><link rel="stylesheet" href="./app.css">
 </head><body>
 <main id="app">
-<header><div><div class="ey">FOLD//BLOOM · SOURCE CONSTELLATIONS</div><h1>GLYPH ATLAS <span>0.2</span></h1></div><div class="headActions"><button id="idleBtn">IDLE</button><button id="loadBtn">ADD AUDIO</button><button id="shareBtn">SHARE</button></div></header>
-<input id="files" type="file" accept="audio/*,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.mp4,.lrc,.vtt,.srt,.txt,.md,.m3u,.m3u8,.pls" multiple hidden>
+<header><div><div class="ey">FOLD//BLOOM · SOURCE CONSTELLATIONS</div><h1>GLYPH ATLAS <span>0.2</span></h1></div><div class="headActions"><button id="idleBtn">IDLE</button><button id="loadBtn">ADD SOURCE</button><button id="shareBtn">SHARE</button></div></header>
+<input id="files" type="file" accept="audio/*,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.mp4,.lrc,.vtt,.srt,.txt,.md,.markdown,.m3u,.m3u8,.pls" multiple hidden><input id="rebindFile" type="file" accept=".txt,.md,.markdown,text/plain,text/markdown" hidden>
 <section class="law"><b>SOURCE = CELL</b><b>GLYPH = THUMBNAIL</b><b>FOCUS = INSIDE</b><b>PATH / SHARE = RETURN</b></section>
 <section id="stage">
   <div id="wall" class="wall" aria-label="Audio glyph atlas"></div>
@@ -14,7 +14,7 @@
     <div class="ey" id="focusKind">SOURCE</div><h2 id="focusName">NO SOURCE</h2>
     <div class="focusMeta" id="focusMeta">Load local tracks, or watch the synthetic constellation.</div>
     <div class="focusHash" id="focusHash">—</div><div class="inside" id="inside"><div class="insideEmpty">FOCUS A CELL TO SEE INSIDE</div></div>
-    <div class="focusActions"><button id="pathBtn" disabled>ADD TO PATH</button><button id="listenBtn" disabled>OPEN LISTEN</button><button id="liveBtn" disabled>OPEN RIDE</button><button id="originBtn" disabled>OPEN ORIGIN</button><button id="removeBtn" disabled>REMOVE CELL</button></div>
+    <div class="focusActions"><button id="pathBtn" disabled>ADD TO PATH</button><button id="readBtn" hidden disabled>READ</button><button id="rebindBtn" hidden disabled>REBIND DOCUMENT</button><button id="listenBtn" disabled>OPEN LISTEN</button><button id="liveBtn" disabled>OPEN RIDE</button><button id="originBtn" disabled>OPEN ORIGIN</button><button id="removeBtn" disabled>REMOVE CELL</button></div>
   </aside>
 </section>
 <section class="path">
@@ -24,5 +24,5 @@
 </section>
 <footer><span id="status">DEMO CONSTELLATION · SYNTHETIC</span><span>same source → glyph thumbnail → inside facets → LISTEN / RIDE / COMPOSE · projections stay unequal</span></footer>
 </main>
-<script type="module" src="./app.js"></script>
+<script src="../../lib/document-structure.js"></script><script type="module" src="./app.js"></script>
 </body></html>
