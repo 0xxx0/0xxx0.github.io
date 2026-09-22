@@ -1159,7 +1159,7 @@
       "operation": "ORIENT",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-22T13:05:00+08:00",
+        "updated_at": "2026-09-22T13:22:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1178,7 +1178,7 @@
       "operation": "PLAY",
       "state": "ACTIVE",
       "version": "0.8",
-      "receipt": "/returns/FOLD_BLOOM_MOTION_2026-09-22.json",
+      "receipt": "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json",
       "role": "Hierarchical world-writing ride. Same-source local MP3 → AUDIO MAP v0.4 → steeper TRACKFIELD: beat ribs, stronger downbeats, analyzed phrase gates, section macro gates, energy-trend anticipation, and amplified smoothed camera pitch/velocity. BLOOM/FOLD/SPLIT/RETURN remain authored reversible terrain operations; AUTO RIDE DEMO now traverses approaching SPLIT branches.",
       "transfer": [
         "Fold Weave: authored 12-cell topology / crease / cascade / mute-first causal score",
@@ -1242,13 +1242,13 @@
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/returns/FOLD_BLOOM_MOTION_2026-09-22.json",
+          "receipt": "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json",
           "checks": [
-            "LIVE 0.7 engine/track/section/TRACKFIELD/deformation/ride/practice-course tests",
-            "pixel-level climb/descent separation",
-            "cold-start FIELD_PRACTICE browser smoke",
+            "LIVE 0.8 engine/track/phrase/TRACKFIELD/deformation/ride/practice-course tests",
+            "strong pixel-level climb/descent separation + future energy-trend anticipation",
+            "cold-start FIELD_PRACTICE + branch-aware AUTO RIDE browser smoke",
             "phone-sized critical browser smoke",
-            "direct human smoothness/motion feel remains promotion gate"
+            "direct human slope/phrase/motion feel remains promotion gate"
           ],
           "return_path": "/fold-bloom/"
         },
@@ -1274,7 +1274,7 @@
           },
           {
             "medium": "SOUND/DATA",
-            "kind": "local MP3 → in-browser AUDIO MAP / beat + section transport",
+            "kind": "local MP3 → hashed AUDIO MAP / beat + phrase + section transport",
             "interface": "file picker / Web Audio"
           }
         ],
@@ -1315,7 +1315,7 @@
         "physical_fit": "Performance/control grammar suitable for later encoder/touch/physical-control adapters; no hardware authority implied."
       },
       "index": {
-        "updated_at": "2026-09-22T13:05:00+08:00",
+        "updated_at": "2026-09-22T13:22:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1402,7 +1402,7 @@
           },
           {
             "medium": "DATA",
-            "kind": "ephemeral tempo/energy/section context",
+            "kind": "optional local AUDIO MAP or ephemeral tempo/energy/phrase/section context",
             "interface": "FIELD PULSE v0.1 / opt-in PULSE LINK"
           }
         ],
@@ -1438,7 +1438,7 @@
         "physical_fit": "Control primitive; candidate for tangible dial/encoder interfaces."
       },
       "index": {
-        "updated_at": "2026-09-22T13:05:00+08:00",
+        "updated_at": "2026-09-22T13:22:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1446,7 +1446,7 @@
           "RELEASE"
         ]
       },
-      "role": "Deep composition head. MATTER × HARMONY preserves the compact BLOOM/FOLD/SPLIT/RETURN relation while WORLD × VOICE × GROOVE widens timbre/rhythm and SCALE aims consequences at PULSE, VOICE, MOTIF or FORM. Optional PULSE LINK borrows LISTEN tempo/energy/section context only; Two Dial remains the musical/transformation authority."
+      "role": "Composition head. MATTER × HARMONY preserves BLOOM/FOLD/SPLIT/RETURN authorship while WORLD × VOICE × GROOVE × SCALE shapes music. 0.10.2 can load the same hashed local file directly, or borrow LISTEN pulse context; tempo/beat/energy/phrase/section may condition timing/context but never choose notes, verbs, motif or form."
     },
     {
       "href": "/fold-bloom/ecology/",
@@ -5783,7 +5783,7 @@
       "state": "CANDIDATE",
       "role": "Addressed-stream audio lens. One hashed source survives ADDRESS×APERTURE navigation, analyzed beat/phrase/section hierarchy, optional provider metadata, human PIN annotations, and a deterministic source glyph suitable for file thumbnails. AUDIO MAP/glyph evidence can project into LIVE or Two Dial without transferring authorship.",
       "index": {
-        "updated_at": "2026-09-22T13:05:00+08:00",
+        "updated_at": "2026-09-22T13:22:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -5791,17 +5791,14 @@
         ]
       },
       "evidence": {
-        "receipt": "/fold-bloom/listen/release.json",
+        "receipt": "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json",
         "checks": [
-          "analysis selftest",
-          "LISTEN 0.2 browser surface",
-          "source-address parser browser proof",
-          "real Suno fetch pending",
-          "real-song trials pending",
-          "native file-picker activation + app boot browser proof",
-          "real encoded MP3 → PREVIEW → DEEP → rendered score browser proof",
-          "frozen scope-window scrub selftest",
-          "real-phone HOLD gesture trial pending"
+          "AUDIO MAP v0.4 phrase novelty + GRID_FALLBACK selftest",
+          "deterministic audio glyph stability test",
+          "source-address/hash + stream-lens tests",
+          "real encoded MP3 PREVIEW → DEEP → rendered score browser proof",
+          "LISTEN 0.4 glyph/pin/aperture browser surface",
+          "real familiar-track phrase/glyph judgment remains required"
         ],
         "return_path": "/fold-bloom/listen/"
       },
