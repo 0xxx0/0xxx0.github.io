@@ -1,6 +1,7 @@
 import {putLocalMedia,hasLocalMedia,requestPersistentLocalStorage,localStorageEstimate} from '../local-media-store.js';
 
 const input=document.getElementById('files'),drop=document.getElementById('drop'),rail=document.getElementById('rail');
+const syntheticDemo=new URLSearchParams(location.search).has('demo');
 let storing=0,stored=0,failed=0;
 
 async function hashFile(file){
@@ -11,7 +12,7 @@ async function hashFile(file){
 function ensureWitness(){
   let el=document.getElementById('vaultState');
   if(el)return el;
-  el=document.createElement('span');el.id='vaultState';el.textContent='VAULT · LOCAL';
+  el=document.createElement('span');el.id='vaultState';el.textContent=syntheticDemo?'VAULT · SYNTHETIC / BYTE-FREE':'VAULT · LOCAL';
   document.querySelector('.drop .stats')?.append(el);
   return el;
 }
@@ -48,9 +49,9 @@ async function decorateBlock(block,index,state){
     btn=document.createElement('button');btn.type='button';btn.dataset.vaultListen='1';btn.className='vaultListen';
     const mini=block.querySelector('.mini');mini?.append(btn);
   }
-  const available=await hasLocalMedia(entry.sourceId).catch(()=>false);
+  const available=syntheticDemo?false:await hasLocalMedia(entry.sourceId).catch(()=>false);
   btn.textContent=available?'LISTEN':'LISTEN · BIND';
-  btn.title=available?'Open this exact local source in LISTEN':'The source hash is known, but this browser does not hold its bytes yet';
+  btn.title=available?'Open this exact local source in LISTEN':syntheticDemo?'Synthetic demo contains hashes only; select the real local file once':'The source hash is known, but this browser does not hold its bytes yet';
   btn.onclick=()=>location.assign(sourceHref(entry.sourceId));
   block.dataset.localMedia=available?'ready':'missing';
 }
@@ -59,7 +60,7 @@ async function refreshButtons(){
   const state=window.FoldBloomSet?.state?.();if(!state)return;
   const blocks=[...document.querySelectorAll('#rail .block')];
   await Promise.all(blocks.map((block,index)=>decorateBlock(block,index,state)));
-  document.documentElement.dataset.localVault='ready';
+  document.documentElement.dataset.localVault=syntheticDemo?'synthetic':'ready';
 }
 
 function ensureJourneyAction(){
@@ -76,4 +77,4 @@ ensureWitness();ensureJourneyAction();
 const wait=setInterval(()=>{if(window.FoldBloomSet){clearInterval(wait);refreshButtons()}},60);
 setTimeout(()=>clearInterval(wait),12000);
 
-window.FoldBloomLocalVault={storeFiles,refresh:refreshButtons,sourceHref};
+window.FoldBloomLocalVault={storeFiles,refresh:refreshButtons,sourceHref,syntheticDemo};
