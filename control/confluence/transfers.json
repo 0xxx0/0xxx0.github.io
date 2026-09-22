@@ -77,12 +77,12 @@
     },
     {
       "id": "field-pulse-workflow-ux",
-      "status": "IMPLEMENTED_CANDIDATE",
+      "status": "SHIPPED_CANDIDATE_PHONE_REQUIRED",
       "donor": "/control/FIELD_PULSE_CONTRACT.json + /fold-bloom/listen/ 0.2.3 + /docs/ 0.7",
       "evidence_class": "EXECUTABLE_SHARED_RUNTIME + USER_OBSERVED_UX_FRICTION",
       "unit": "existing FIELD PULSE bindings → explicit RIDE / READ / COMPOSE / MAP workflow entries + last-tempo READFIELD hydration",
       "recipient": "/fold-bloom/listen/ + /docs/ + /fold-bloom/two-dial/",
-      "test": "Browser suite must prove LISTEN workflow surface and READFIELD ?pulse=4 while preserving existing reader/LISTEN/LIVE/TWO DIAL cases; phone return must establish discoverability and reachability.",
+      "test": "Repository browser/route suite PASS in run 35673287881. Remaining authority: real-phone discoverability/reachability for LISTEN USE TRACK → READFIELD/TWO DIAL and exact RETURN.",
       "return": "/returns/FIELD_PULSE_WORKFLOW_2026-09-22.json"
     }
   ]
