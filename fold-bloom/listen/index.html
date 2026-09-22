@@ -15,7 +15,14 @@
     <button id="useCompose" type="button"><b>COMPOSE · TWO DIAL</b><span>Borrow tempo / energy / section context. MATTER × HARMONY still writes the music.</span></button>
     <button id="useAtlas" type="button"><b>ATLAS · GLYPH</b><span>Carry this exact source glyph into the persistent Glyph Atlas; audio bytes stay local.</span></button><button id="useMap" type="button"><b>RETURN · MESSAGE MAP</b><span>Export AUDIO MAP + glyph + pins as an authored source-ordered address path.</span></button>
   </div>
-  <div class="useLaw" id="useLaw">FIELD PULSE carries clock/features only. Borrowed clock ≠ borrowed authorship. AUDIO MAP + RETURN remain durable evidence. IDLE witnesses; it never pins or rewrites the source.</div>
+  <div class="rideTune" id="rideTune">
+    <div class="rideTuneHead"><b>RIDE PROFILE</b><span>same source · shared with LIVE</span></div>
+    <label><span>SOLIDITY <b id="rideSolidVal">100%</b></span><input id="rideSolid" type="range" min="72" max="100" step="1" value="100"></label>
+    <label><span>IMMERSION <b id="rideImmersionVal">1.00×</b></span><input id="rideImmersion" type="range" min="55" max="145" step="1" value="100"></label>
+    <label><span>DROP GAIN <b id="rideDropVal">1.00×</b></span><input id="rideDrop" type="range" min="55" max="165" step="1" value="100"></label>
+    <label><span>TEXT SYNC <b id="rideTextVal">+0.00s</b></span><input id="rideText" type="range" min="-800" max="800" step="5" value="0"></label>
+  </div>
+  <div class="useLaw" id="useLaw">FIELD PULSE carries clock/features only. Borrowed clock ≠ borrowed authorship. RIDE PROFILE changes projection/timing only; AUDIO MAP + RETURN remain durable evidence. IDLE witnesses; it never pins or rewrites the source.</div>
 </aside>
 <aside id="pinSheet" class="pinSheet" aria-hidden="true">
   <div class="pinHead"><div><small>STREAM ANNOTATION</small><b id="pinAddress">0:00 · PHRASE</b></div><button id="pinClose" type="button" aria-label="Close annotations">×</button></div>
