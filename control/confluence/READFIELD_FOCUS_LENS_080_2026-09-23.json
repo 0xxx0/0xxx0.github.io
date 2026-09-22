@@ -3,7 +3,7 @@
   "id": "READFIELD_FOCUS_LENS_080_2026-09-23",
   "date": "2026-09-23",
   "object": "READFIELD optional focus lens convergence",
-  "status": "BRANCH_CANDIDATE",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "sourceAuthority": "READFIELD text/focus cursor",
   "donors": {
     "triangle": "/forward-field-proof/triangle/ · center frame only; no selector authority",
@@ -36,5 +36,18 @@
     "Triangle and AXIAL remain donor geometries",
     "PLAIN remains the default performance baseline"
   ],
-  "promotionGate": "Existing READFIELD smoke remains green AND dedicated 430×900 FOCUS lens smoke proves FOCUS/MIN/PLAIN transitions, 6000 WPM, 72-source marker coverage, glyph witness and LISTEN pulse."
+  "promotionGate": "Technical gate passed. Human gate: use PLAIN / FOCUS / MIN on real long text and, optionally, while LISTEN is supplying pulse; keep only the projections that improve orientation without slowing reading.",
+  "pullRequest": 177,
+  "mergeSha": "ace1bf8d7e1c114069f7c82651d37d0cd218af6f",
+  "proof": {
+    "publicSurfaceCheck": {
+      "run": 1747,
+      "conclusion": "success"
+    },
+    "routeRegistration": {
+      "run": 29,
+      "conclusion": "success"
+    }
+  },
+  "stop": "Do not create a separate convergence app or move audio/glyph authority into READFIELD. Further work requires direct use evidence."
 }
