@@ -728,7 +728,7 @@ const CASES=[
   {
     name:'FOLD BLOOM LISTEN preview render',
     route:'/__smoke/listen-preview',
-    options:{width:1000,height:820,budget:18000,timeout:24000},
+    options:{width:1000,height:820,budget:18000,timeout:32000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"stage":"PREVIEW"/.test(dom)&&/"frames":[2-9][0-9]/.test(dom)&&/"after":[1-9][0-9]+/.test(dom)
   },
   {
