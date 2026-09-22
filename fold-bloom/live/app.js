@@ -16,7 +16,7 @@ let dragging=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
 let demo={on:false,timer:0,releases:0,preview:false,startState:null,startRide:null,startTape:null,startArc:null};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
-let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),sourceLandmarks=[];
+let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),sourceLandmarks=[],textOn=true,lastTextKey='',lastDropHapticId=null;
 const practiceTrack=new PracticeTrack();
 const liveTrack=new LiveTrack($('#trackAudio'),{
   onState:t=>{trackStatus=t;update()},
@@ -71,6 +71,20 @@ function releaseLabel(){
   return callHit(f)?`${op} · HIT CALL`:`${op} · RELEASE`;
 }
 
+
+function updateTextWitness(){
+  const box=$('#lyric'),mode=$('#lyricMode'),body=$('#lyricText');
+  const w=textOn&&liveTrack.active()?liveTrack.textWitness():null;
+  if(!w?.text){if(!box.hidden)box.hidden=true;lastTextKey='';return null}
+  const key=[w.mode,w.alignment,w.start,w.text].join('|');
+  if(key!==lastTextKey){
+    lastTextKey=key;box.hidden=false;
+    mode.textContent=w.mode==='TIMED'?((w.kind||'TEXT')+' · TIMED'):((w.kind||'TEXT')+' · FLOAT / UNALIGNED');
+    body.textContent=String(w.text||'').slice(0,320);
+  }
+  return w;
+}
+
 function statusText(){
   const idx=gateCellIndex(state),c=state.cells[idx],f=currentForecast(),track=linkedTrack?.playing?` · TRACK B${Math.max(0,linkedTrack.beatIndex)+1} ${timingNow().label} · ROAD ${deformationSummary(deformationTape,Number(linkedTrack.time)||0)}`:'';
   const forecast=f?` · HERE ${f.verb}${f.chain>1?'×'+f.chain:''}${callHit(f)?' ✓':''}`:'';
@@ -88,6 +102,7 @@ function update(){
   $('#speed').textContent=latestWorld?`${Number(latestWorld.currentSpeed||1).toFixed(2)}×`:'—';
   const g=Number(latestWorld?.currentGrade)||0;$('#grade').textContent=!latestWorld?'—':Math.abs(g)<.08?'LEVEL':g>0?`UP ${Math.round(g*100)}`:`DOWN ${Math.round(Math.abs(g)*100)}`;
   $('#trackState').textContent=liveTrack.active()?trackStatus+(sourceLandmarks.length?` · ${sourceLandmarks.length} MARKS`:''):(externalTrack?'LISTEN PULSE':'FIELD COURSE');
+  $('#textBtn').textContent=textOn?'TEXT AUTO':'TEXT OFF';
   $('#trackToggle').disabled=!liveTrack.active();
   $('#trackToggle').textContent=liveTrack.active()?($('#trackAudio').paused?'PLAY SONG':'PAUSE SONG'):'PLAY / PAUSE';
   $('#mode').textContent=state.mode;
@@ -105,12 +120,12 @@ function update(){
 }
 
 async function ensureAudio(){try{await audio.init();return true}catch(_){return false}}
-async function loadLocalSong(file){
-  if(!file)return;
+async function loadLocalSong(files){
+  if(!files||!files.length)return;
   stopDemo(false);
   try{
     deformationTape=[];sectionArc=createSectionArc();ride=createRideState();latestWorld=null;linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;
-    await ensureAudio();trackStatus='DECODING';update();await liveTrack.load(file);
+    await ensureAudio();trackStatus='DECODING';update();await liveTrack.loadFiles(files);
     $('#intro').classList.remove('on');toast('CUSTOM SONG READY');update();
   }catch(error){console.warn(error);trackStatus='SONG ERROR';toast('SONG DECODE ERROR');update()}
 }
@@ -199,7 +214,16 @@ async function demoTick(){
     }
     update();demo.timer=setTimeout(demoTick,demo.preview?520:620);
   }else{
-    step(1);demo.timer=setTimeout(demoTick,demo.preview?210:270);
+    if(demo.preview&&state.mode==='FLOW'){
+      const bend=Number(latestWorld?.currentBend)||0,beat=Number(linkedTrack?.beatIndex)||0;
+      const dir=Math.abs(bend)>.12?Math.sign(bend):(beat%2?1:-1);
+      state=rotateSteps(state,dir||1);
+      audio.setMotion(state.rotation,.35);
+      update();
+      demo.timer=setTimeout(demoTick,105);
+    }else{
+      step(1);demo.timer=setTimeout(demoTick,demo.preview?210:270);
+    }
   }
 }
 async function startDemo({preview=true,playTrack=false}={}){
@@ -210,7 +234,6 @@ async function startDemo({preview=true,playTrack=false}={}){
   if(demo.on)return;
   if(!preview)await ensureAudio();
   const startState=snapshot(state);
-  state=setMode(state,'RATCHET');
   demo={on:true,timer:0,releases:0,preview,startState,startRide:{...ride,trace:(ride.trace||[]).map(x=>({...x}))},startTape:deformationTape.map(x=>({...x})),startArc:{...sectionArc,verbs:[...(sectionArc.verbs||[])]}};
   document.documentElement.dataset.foldBloomIdle='on';
   if(!$('#intro').classList.contains('on'))toast(liveTrack.active()?'IDLE RIDE · SOURCE CLOCK / NO AUTHORSHIP':'IDLE RIDE · WITNESS ONLY')
@@ -247,8 +270,9 @@ $('#menuBtn').onclick=()=>{stopDemo(true);$('#settings').classList.toggle('on')}
 $('#vol').value=Math.round(audio.volume*100);$('#vol').oninput=e=>audio.setVolume(+e.target.value/100);
 $('#trackVol').value=Math.round($('#trackAudio').volume*100);$('#trackVol').oninput=e=>liveTrack.setVolume(+e.target.value/100);
 $('#trackLoad').onclick=()=>{stopDemo(true);$('#trackFile').click()};$('#songIntroBtn').onclick=()=>{stopDemo(false);$('#trackFile').click()};
-$('#trackFile').onchange=e=>loadLocalSong(e.target.files?.[0]);
+$('#trackFile').onchange=e=>loadLocalSong(e.target.files);
 $('#trackToggle').onclick=()=>{stopDemo(true);liveTrack.toggle().then(()=>update()).catch(()=>toast('SONG PLAY BLOCKED'))};
+$('#textBtn').onclick=()=>{textOn=!textOn;lastTextKey='';updateTextWitness();update()};
 $('#listenBtn').onclick=()=>window.open('../listen/','fold-bloom-listen');
 $('#exportBtn').onclick=()=>{
   const packet={kind:'FOLD_BLOOM_LIVE_RETURN',version:VERSION,created:new Date().toISOString(),source:{foldWeave:'/recovery/fold-bloom/fold-weave-0.1/',twoDial:'/fold-bloom/two-dial/'},state:snapshot(state),performance:{sectionArc,deformationTape,ride:{...ride,trace:(ride.trace||[]).map(x=>({...x}))}}};
@@ -303,6 +327,11 @@ function loop(t){
     deformationTape=pruneDeformationTape(deformationTape,Number(linkedTrack.time)||0);
   }
   latestWorld=baseWorld?applyDeformations(baseWorld,deformationTape):null;
+  const drop=latestWorld?.drop;
+  if(drop&&Number(drop.ahead)>=0&&Number(drop.ahead)<=.28&&drop.id!==lastDropHapticId){
+    lastDropHapticId=drop.id;
+    haptic(Math.round(14+26*(Number(drop.strength)||0)));
+  }
   document.documentElement.dataset.trackfieldSource=liveTrack.active()?'LOCAL_FILE':externalFresh?'FIELD_PULSE':'FIELD_PRACTICE';
   document.documentElement.dataset.trackfieldMotion=latestWorld?`${Number(latestWorld.currentSpeed||1).toFixed(2)}:${Number(latestWorld.currentGrade||0).toFixed(2)}:${Number(latestWorld.currentBend||0).toFixed(2)}`:'NONE';
   const dt=Math.max(0,Math.min(.12,(t-lastLoopT)/1000||.016));lastLoopT=t;
@@ -313,10 +342,11 @@ function loop(t){
   $('#speed').textContent=latestWorld?Number(latestWorld.currentSpeed||1).toFixed(2)+'×':'—';
   const grade=Number(latestWorld?.currentGrade)||0;$('#grade').textContent=!latestWorld?'—':Math.abs(grade)<.08?'LEVEL':grade>0?'UP '+Math.round(grade*100):'DOWN '+Math.round(Math.abs(grade)*100);
   renderer.setTrackfield(latestWorld);
+  updateTextWitness();
   renderer.setSectionArc(sectionArcView(sectionArc,linkedTrack));
   renderer.draw(state,t);raf=requestAnimationFrame(loop)
 }raf=requestAnimationFrame(loop);
 update();
-document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomPov='embodied-v0.1';document.documentElement.dataset.foldBloomIdleLaw='witness-v0.1';document.documentElement.dataset.foldBloomIdle='off';document.documentElement.dataset.foldBloomLandmarks='0';
-window.FoldBloomLive={version:VERSION,state:()=>({...snapshot(state),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld}),release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),practice:()=>practiceTrack.map};
+document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomPov='embodied-v0.2';document.documentElement.dataset.foldBloomMacroDrop='v0.1';document.documentElement.dataset.foldBloomIdleLaw='witness-v0.1';document.documentElement.dataset.foldBloomIdle='off';document.documentElement.dataset.foldBloomLandmarks='0';
+window.FoldBloomLive={version:VERSION,state:()=>({...snapshot(state),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:liveTrack.textWitness(),sourceMeta:liveTrack.metadata()}),release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),practice:()=>practiceTrack.map};
 setTimeout(()=>{if($('#intro').classList.contains('on')&&!demo.on)startDemo({preview:true})},650);
