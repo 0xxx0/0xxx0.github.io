@@ -46,7 +46,7 @@ jobs:
           SMOKE_ONLY: FOLD BLOOM LISTEN preview render
         run: node tools/browser-smoke.mjs
       - name: Test FOLD BLOOM LIVE gameplay + track + section arcs + TRACKFIELD deformation + ride
-        run: node --test fold-bloom/live/tests/engine.test.mjs fold-bloom/live/tests/track.test.mjs fold-bloom/live/tests/section-arc.test.mjs fold-bloom/live/tests/trackfield.test.mjs fold-bloom/live/tests/track-deform.test.mjs fold-bloom/live/tests/ride.test.mjs
+        run: node --test fold-bloom/live/tests/engine.test.mjs fold-bloom/live/tests/track.test.mjs fold-bloom/live/tests/section-arc.test.mjs fold-bloom/live/tests/trackfield.test.mjs fold-bloom/live/tests/practice-track.test.mjs fold-bloom/live/tests/track-deform.test.mjs fold-bloom/live/tests/ride.test.mjs
       - name: Run critical browser smoke
         run: node tools/browser-smoke.mjs
       - name: Validate recovered source identities and media catalogue
