@@ -321,7 +321,7 @@ function addressedReturn(){
   return {
     kind:'FOLD_BLOOM_ADDRESSED_MESSAGE',
     schema:'fold-bloom-addressed-message/v0.1',
-    source:{key:sourcePinKey(),name:fileMeta?.name||'SOURCE',hash:fileMeta?.hash||null,kind:fileMeta?.sourceKind||null},
+    source:{key:sourcePinKey(),name:fileMeta?.name||'SOURCE',hash:fileMeta?.hash||null,kind:fileMeta?.sourceKind||null,origin:fileMeta?.origin||null,collection:fileMeta?.collection||null,textEvidence:fileMeta?.textEvidence||[]},
     path:{order:'SOURCE_ADDRESS',humanAuthored:true,cells:ps.map((p,i)=>({n:i+1,id:p.id,address:p.address,scope:p.scope,label:p.label,note:p.note,features:p.features}))},
     warning:'Path meaning is authored by the human. Source order and analysis features do not infer semantics.'
   };
@@ -329,7 +329,7 @@ function addressedReturn(){
 function openAtlas(){
   if(!map||!glyphDesc)return;
   toggleUse(false);
-  const entry={id:fileMeta?.hash||glyphDesc.sourceHash,name:fileMeta?.name||'SOURCE',artist:fileMeta?.artist||'',duration:map.duration||0,sourceHash:fileMeta?.hash||glyphDesc.sourceHash,sourceKind:fileMeta?.sourceKind||'AUDIO_MAP',glyph:glyphDesc};
+  const entry={id:fileMeta?.hash||glyphDesc.sourceHash,name:fileMeta?.name||'SOURCE',artist:fileMeta?.artist||'',album:fileMeta?.album||'',format:fileMeta?.type||'',duration:map.duration||0,sourceHash:fileMeta?.hash||glyphDesc.sourceHash,sourceKind:fileMeta?.sourceKind||'AUDIO_MAP',origin:fileMeta?.origin||null,collection:fileMeta?.collection||null,textWitness:(fileMeta?.textEvidence?.[0]||fileMeta?.lyrics)?{kind:fileMeta?.textEvidence?.[0]?.kind||(fileMeta?.lyrics?'LYRICS':null),alignment:fileMeta?.textEvidence?.[0]?.alignment||fileMeta?.lyricsAlignment||null,chars:String(fileMeta?.lyrics||'').length,cues:fileMeta?.textEvidence?.[0]?.cueCount||0}:null,glyph:glyphDesc};
   try{sessionStorage.setItem('fold-bloom.atlas.handoff.v1',JSON.stringify({entry,from:location.pathname}))}catch(_){}
   const w=window.open('../atlas/','_blank');if(!w)location.assign('../atlas/');
 }
@@ -346,13 +346,13 @@ function openReadfield(){
   if(!w)location.assign(href);
 }
 
-$('#file').addEventListener('change',e=>loadFile(e.target.files?.[0]));
+$('#file').addEventListener('change',e=>loadFiles(e.target.files));
 $('#chooseLabel').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('#file').click()}});
 $('#urlBtn').addEventListener('click',()=>{const v=$('#urlInput').value.trim();if(v)loadAddress(v)});
 $('#urlInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('#urlBtn').click()}});
 ['dragenter','dragover'].forEach(k=>drop.addEventListener(k,e=>{e.preventDefault();drop.classList.add('over')}));
 ['dragleave','drop'].forEach(k=>drop.addEventListener(k,e=>{e.preventDefault();drop.classList.remove('over')}));
-drop.addEventListener('drop',e=>{const f=e.dataTransfer.files?.[0];if(f)loadFile(f)});
+drop.addEventListener('drop',e=>{const fs=e.dataTransfer.files;if(fs?.length)loadFiles(fs)});
 $('#loadBtn').onclick=()=>{drop.classList.remove('loaded');$('#urlInput').focus()};
 $('#useBtn').onclick=()=>toggleUse();$('#closeUse').onclick=()=>toggleUse(false);
 $('#pinBtn').onclick=()=>{stopIdle(true);openPinSheet(null,audio.currentTime)};$('#pinsBtn').onclick=()=>{stopIdle(true);openPinSheet(pins[0]||null,audio.currentTime)};$('#glyphBtn').onclick=downloadGlyph;$('#idleBtn').onclick=()=>startIdle();
@@ -431,5 +431,5 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnima
 window.addEventListener('error',e=>{console.warn('LISTEN runtime error',e.error||e.message);if(!map)status('APP DEGRADED · FILE PICKER STILL AVAILABLE')});
 setScope(1,false);updateWorkflow();
 document.documentElement.dataset.listenBoot='ready';document.documentElement.dataset.listenLens=STREAM_LENS_SCHEMA;syncPins();
-window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,glyph:glyphDesc,idle:idle.on,addressedMessage:map?addressedReturn():null,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,pins:normalizePins(pins,sourcePinKey()),sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),parseSunoId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc};
+window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,pendingSource,glyph:glyphDesc,idle:idle.on,addressedMessage:map?addressedReturn():null,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,pins:normalizePins(pins,sourcePinKey()),sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc};
 requestAnimationFrame(loop);
