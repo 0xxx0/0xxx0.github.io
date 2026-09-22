@@ -2,7 +2,7 @@
   "schema": "0xxx0/confluence-return/v0.1",
   "id": "SOVEREIGN-NODE-KIT-2026-09-22",
   "updated": "2026-09-22",
-  "state": "IMPLEMENTED_VALIDATED_UNMERGED",
+  "state": "MERGED_VALIDATED_PARKED",
   "from": [
     "Frontier Stack Watch / sovereign-node thread",
     "existing provider contracts",
@@ -44,7 +44,7 @@
     "Run executor fixture separately per harness/profile/worktree.",
     "Run Ollama endurance against an explicit installed model tag and new evidence path."
   ],
-  "return_pending": "Actual Mac mini runtime receipts remain pending until a current conversion or material node decision justifies running the kit.",
+  "return_pending": "Actual Mac mini runtime receipts remain pending until a current conversion or material node decision justifies running the kit. The kit itself is merged and validated.",
   "stop": "Merge the executable kit; do not activate a new sovereign-node front or run heavyweight model downloads merely to generate receipts.",
   "validation": [
     "JSON.parse passes for SOVEREIGN_NODE_RUNTIME.json, HERMES_MEDIA_CURATOR.json and this packet.",
@@ -53,5 +53,9 @@
     "Endurance harness refuses to mix evidence into an existing JSONL file unless --append is explicit.",
     "bash -n passes for sovereign-node-freeze.sh and the updated Hermes media bootstrap.",
     "No Mac mini runtime, provider, model download, canonical state or external service was mutated by validation."
-  ]
+  ],
+  "merge": {
+    "pr": 153,
+    "sha": "6e9dd97a33f91dcccd72c5b26f1fe3440f4bec83"
+  }
 }
