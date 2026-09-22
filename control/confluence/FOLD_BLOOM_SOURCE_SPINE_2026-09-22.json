@@ -1,0 +1,53 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_SOURCE_SPINE_2026-09-22",
+  "date": "2026-09-22",
+  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "object": "LISTEN 0.7 SOURCE EDITOR × READFIELD 0.8 SOURCE SPINE × LIVE 0.13 shared alignment",
+  "observed_exact_user_return": [
+    "LISTEN should also work as an editor, not only a map/viewer/workflow launcher.",
+    "The existing lyric sync/offset is not working well enough for the current track and the available offset range is insufficient.",
+    "The existing READFIELD/RSVP link from LISTEN is not yet useful enough.",
+    "A persistent UX element that fades into the background should help maintain position/place across scales or layers of reality.",
+    "The horizontal/ambient visual feedback in the background is especially compelling and should be expanded as orientation/mood rather than dashboard telemetry.",
+    "Annotation should converge across LISTEN and reading/RSVP rather than belong to one isolated surface.",
+    "Future user-authored tracks may be supplied as test/default candidates; local/private QA is allowed, but public repo/default inclusion requires explicit publication permission."
+  ],
+  "recovered_donors": [
+    "READFIELD/APERTURE already preserves one canonical text position across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME.",
+    "LISTEN already preserves exact source hash, AUDIO MAP evidence, source-addressed marks, ride profile and canonical audio time.",
+    "Prior product-demo/interface lineage favors stable address + explicit bindings + persistent position over multiplying panels or treating similar projections as identical."
+  ],
+  "delta": [
+    "LISTEN 0.7 reframes its lower sheet as SOURCE EDITOR: MAP evidence / MARK meaning / ALIGN binding / SHAPE experience / PROJECT+RETURN.",
+    "field-text-alignment/v0.1 creates source-hash authored calibration separate from original cue evidence.",
+    "One anchor fixes arbitrary offset; two+ anchors correct drift via bounded piecewise-linear playback→cue mapping; coarse nudge supports ±120s.",
+    "Timed cue timestamps remain immutable evidence; untimed lyrics remain explicitly estimated/unaligned.",
+    "field-source-spine/v0.1 is a fading horizontal continuity instrument shared by LISTEN, LIVE and READFIELD.",
+    "LISTEN SOURCE HORIZON adds low-alpha low/mid/high/energy traces from the current aperture as ambient map feedback.",
+    "READFIELD 0.8 can enter at the aligned audio-derived character address, FOLLOW AUDIO one-way, then release immediately when the reader takes control.",
+    "READFIELD SOURCE SPINE shows unequal audio head and text-focus head simultaneously rather than pretending they are identical.",
+    "READFIELD MARK resolves textual focus back through alignment to source time and writes the same source-addressed mark used by LISTEN/LIVE.",
+    "LIVE 0.13 consumes the shared alignment and SOURCE SPINE while retaining its current autopilot/perf/world-morph head."
+  ],
+  "laws": [
+    "SOURCE ADDRESS PERSISTS; PROJECTIONS MAY MOVE AROUND IT.",
+    "LISTEN OWNS TEMPORAL EDITING; READFIELD OWNS TEXTUAL FOCUS; LIVE OWNS EMBODIED TRAVERSAL.",
+    "ALIGNMENT MODEL ≠ ORIGINAL CUE EVIDENCE.",
+    "FOLLOW IS BORROWED POSITION, NOT BORROWED AUTHORITY.",
+    "MANUAL READER ACTION RELEASES FOLLOW.",
+    "A MARK MAY BE AUTHORED FROM ANY PROJECTION ONLY WHEN IT CAN RETURN TO THE SAME SOURCE ADDRESS.",
+    "SOURCE SPINE IS A CONTINUITY WITNESS, NOT ANOTHER APP OR DATABASE.",
+    "AMBIENT FEEDBACK SHOULD FADE INTO ORIENTATION RATHER THAN DEMAND ATTENTION."
+  ],
+  "menu_model": {
+    "MAP": "immutable/recomputed source evidence",
+    "MARK": "human-authored meaning at source address",
+    "ALIGN": "authored temporal/text binding over evidence",
+    "SHAPE": "ride/world/profile calibration",
+    "PROJECT": "RIDE / READFIELD / TWO DIAL / ATLAS",
+    "RETURN": "durable source packet"
+  },
+  "stop": "Do not merge LISTEN and READFIELD engines or make cross-tab audio control implicit. Preserve unequal authority. Do not start another large Experience Set UI until this direct source-editor/follow QA returns.",
+  "next_truth": "Use the problematic track: create one anchor near the start and one later in the song. Verify lyric drift becomes usable in LISTEN→LIVE and READFIELD FOLLOW; then touch READFIELD manually and confirm FOLLOW releases while both heads remain visible."
+}
