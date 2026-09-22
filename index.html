@@ -45,6 +45,13 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 .foldBody.nested{padding-left:8px;border-left:1px solid #1b2429}
 .foldBody.nested details.fold{margin-top:6px;border-top:0}
 .foldBody.nested details.fold>summary{padding:4px 0}
+/* THE FOVEA — cursor-following lens (fovea-lens.js) */
+#foveaLens{position:fixed;left:0;top:0;width:120px;height:120px;pointer-events:none;z-index:9998;opacity:0;transition:opacity .18s ease;will-change:transform;mix-blend-mode:screen}
+#foveaLens svg{display:block;overflow:visible}
+#foveaLens[data-band="FOVEA"]{filter:drop-shadow(0 0 6px rgba(114,188,231,.35))}
+#foveaToggle{display:none}
+#foveaToggle.ready{display:inline-block}
+#foveaToggle.on{color:var(--gold);border-color:var(--gold)}
 /* FOLDS */
 .fold{margin-top:12px;border-top:1px solid var(--line)}.fold>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:10px;padding:8px 2px;color:var(--mut)}.fold>summary::-webkit-details-marker{display:none}.fold>summary b{color:var(--ink);font-size:8px;letter-spacing:.12em}.fold>summary span{font-size:7px}.fold[open]>summary{border-bottom:1px solid var(--line)}.foldBody{padding:7px 0}
 .issueRow,.headRow,.portRow{display:grid;grid-template-columns:42px minmax(0,1fr) 112px auto;gap:8px;align-items:center;padding:7px 3px;border-bottom:1px solid #20282c}.issueRow:hover,.headRow:hover,.portRow:hover{background:#0b1012}.issueNo{color:var(--hot);font:800 11px system-ui,sans-serif}.rowTitle{font:750 11px/1.12 system-ui,sans-serif}.rowMeta{color:var(--mut);font-size:6.5px;margin-top:2px}.tiny{font-size:6.5px;color:var(--gold)}.tinyButton{border:1px solid var(--line);padding:5px 6px;font-size:7px}.tinyButton.hot{border-color:var(--hot);color:#ffd0bd}.waitRow{display:grid;grid-template-columns:82px minmax(0,1fr) 120px 56px;gap:8px;align-items:start;padding:7px 3px;border-bottom:1px solid #20282c}.waitRow.done{opacity:.42}.waitRow.done .waitMove{text-decoration:line-through}.waitState{font-size:6.5px;color:var(--gold);letter-spacing:.05em}.waitMove{font:750 10px/1.25 system-ui,sans-serif}.waitWhy{color:var(--mut);font-size:6.5px;margin-top:3px}.waitRoute{font-size:6.5px;color:var(--cool);text-align:right}.waitAck{padding:4px 5px;font-size:6px;min-height:24px}.waitRow.done .waitAck{color:var(--green);border-color:#49684e}
@@ -256,7 +263,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   </div>
 </details>
 
-<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>same route · chronology / axial / map · focus first · second click opens local route</span></div>
+<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>same route · chronology / axial / map · focus first · second click opens local route</span><button id="foveaToggle" title="Cursor lens — follows the pointer and reads whatever is beneath it. Toggle with the f key.">◎ FOVEA</button></div>
 
 <script src="./field-presentation.js"></script>
 <script src="./field-glyph.js"></script>
@@ -500,6 +507,7 @@ function fieldDive(){const target=focus?.href;if(!target)return;const path=field
 function fieldRise(){if(mapRoot==='/')return;mapRoot=routeMap().get(mapRoot)?.parent||'/';$('mapFold').open=true;if(mapMode!=='VISUAL')mapMode='VISUAL';renderMap();notifyFieldIndex()}
 function fieldPeer(delta){if(!focus)return;const parent=focus.parent||'/',xs=(childrenMap().get(parent)||[]);if(!xs.length)return;let i=xs.findIndex(r=>r.href===focus.href);if(i<0)i=0;i=(i+Number(delta||0)+xs.length)%xs.length;focusRoute(xs[i],true,'OTHER')}
 function fieldVisualKids(){return (childrenMap().get(mapRoot)||[]).filter(mapMatches)}
+window.__fieldRouteMap={get:h=>routeMap().get(h),all:()=>routeMap()};
 window.FieldLensHost=Object.freeze({focus:()=>focus,uiState:fieldUiState,restore:fieldRestore,project:fieldProject,projection:()=>($('mapFold').open?mapMode:'AXIAL_LATEST'),rise:fieldRise,dive:fieldDive,peer:fieldPeer,visualKids:fieldVisualKids,notify:notifyFieldIndex});
 })();
 </script>
@@ -507,4 +515,5 @@ window.FieldLensHost=Object.freeze({focus:()=>focus,uiState:fieldUiState,restore
 <script src="./lens-focus-ring.js"></script>
 <script src="./lens-proof.js"></script>
 <script type="module" src="./field-policy-trace.mjs"></script>
+<script src="./fovea-lens.js"></script>
 </main></body></html>
