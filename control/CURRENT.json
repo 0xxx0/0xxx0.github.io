@@ -74,10 +74,10 @@
     },
     {
       "lineage": "rsvp-reader",
-      "head": "READFIELD / RSVP 0.7.1 + APERTURE focus kernel",
-      "state": "UTILITY / READER_FIRST / VERIFIED_SHIPPED",
+      "head": "READFIELD / RSVP 0.8 · SOURCE SPINE + FOLLOW",
+      "state": "UTILITY / READER_FIRST / ACTIVE_CANDIDATE",
       "route": "/docs/",
-      "retained_function": "Canonical one-source reader. One source position persists while DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE, highlighted context and XREF change around it. Ordinary use is linear/reader-first; ring geometry is optional. 0.7.1 exposes concrete FAST READ / READ TO MUSIC / VOICE+EYES / WORK use cases. Explicit LISTEN→READFIELD workflow entry may request PULSE ×2/×4/×8 and immediately use the latest same-session BPM, visibly marked LIVE or LAST; OFF remains default and READFIELD retains text/focus authority.",
+      "retained_function": "Canonical one-source reader. One text position persists while DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context change around it. 0.8 adds an optional LISTEN-linked continuity layer without surrendering reader authority: aligned handoff enters at the corresponding text character, FOLLOW AUDIO may borrow source position one-way, SOURCE SPINE shows unequal audio/text heads plus source marks/anchors, and any manual reader movement releases follow. READFIELD MARK can resolve current textual focus back to the same source-time address and write the shared source annotation.",
       "evidence": [
         "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
         "/control/READFIELD_CONVERGENCE_2026-09-22.json",
@@ -90,7 +90,11 @@
         "https://github.com/0xxx0/0xxx0.github.io/pull/105",
         "/control/READFIELD_PR_SEAL_2026-09-22.json",
         "/control/confluence/FIELD_PULSE_WORKFLOW_2026-09-22.json",
-        "/returns/FIELD_PULSE_WORKFLOW_2026-09-22.json"
+        "/returns/FIELD_PULSE_WORKFLOW_2026-09-22.json",
+        "/control/confluence/FOLD_BLOOM_SOURCE_SPINE_2026-09-22.json",
+        "/returns/FOLD_BLOOM_SOURCE_SPINE_2026-09-22.json",
+        "/lib/text-alignment.js",
+        "/lib/source-spine.js"
       ]
     },
     {
@@ -122,10 +126,10 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM instrument family · LIVE 0.13 AUTOPILOT POLISH / GLYPH ATLAS 0.2 inspectable source memory / LISTEN 0.6 source-bundle + ride tuning / TWO DIAL 0.10.3 composition / ECOLOGY 0.2 lineage-game",
+      "head": "FOLD//BLOOM instrument family · LIVE 0.13 AUTOPILOT + SOURCE SPINE / GLYPH ATLAS 0.2 inspectable source memory / LISTEN 0.7 SOURCE EDITOR / TWO DIAL 0.10.3 composition / ECOLOGY 0.2 lineage-game",
       "state": "ACTIVE_CANDIDATE_FAMILY",
       "route": "/fold-bloom/",
-      "retained_function": "One exact linear source remains itself while moving through unequal projections. LISTEN 0.6 binds exact audio bytes to origin/meta/text/collection facets, human pins and a source-hash RIDE PROFILE; GLYPH ATLAS 0.2 compiles the same source into inspectable memory. LIVE 0.13 preserves 0.12's solid-world/source laws while improving lived contact: AUTOPILOT is a first-class reversible witness control; phone settings are safe-area bounded and reachable; TRACKFIELD model work is bounded to ~36 Hz while display geometry is smoothed at RAF rate without mutating source time/event evidence; DEEP/TRANCE/WOOD/VOID morph through perceptual OKLab color with subtle golden-ratio section variation; long-form timed text lookup is logarithmic and runtime exposes a bounded perf witness. The ring remains a cyclic control/state projection against the linear source address. TWO DIAL remains composition authority; ECOLOGY persistent lineage.",
+      "retained_function": "One exact linear source remains itself while moving through unequal projections. LISTEN 0.7 is now the source editor: AUDIO MAP remains evidence while source-addressed MARKS, anchor-based text ALIGNMENT, RIDE SHAPE/profile and downstream projections remain authored layers around it. field-text-alignment/v0.1 can repair large offset and drift without rewriting cue evidence. field-source-spine/v0.1 carries fading source position, scope, sections, marks and alignment anchors through LISTEN, LIVE and READFIELD. LIVE 0.13 preserves its newer AUTOPILOT/perf/display-smoothing/world-morph head while consuming the shared alignment/marks/spine; READFIELD 0.8 preserves reader authority while optionally FOLLOWING the audio one-way until human reading action releases it. The ring remains a cyclic control/state projection against the linear source address.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -184,7 +188,11 @@
         "/returns/FOLD_BLOOM_CONVERGENCE_PACKET_2026-09-22.json",
         "/control/confluence/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
         "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
-        "/fold-bloom/convergence/SUCCESSOR_HANDOFF_2026-09-22.md"
+        "/fold-bloom/convergence/SUCCESSOR_HANDOFF_2026-09-22.md",
+        "/control/confluence/FOLD_BLOOM_SOURCE_SPINE_2026-09-22.json",
+        "/returns/FOLD_BLOOM_SOURCE_SPINE_2026-09-22.json",
+        "/lib/text-alignment.js",
+        "/lib/source-spine.js"
       ],
       "experimental": [
         {
@@ -197,26 +205,26 @@
           "promotion_gate": "Direct 5–12 familiar-source recognition/relearning + thumbnail→inside feel + share/path use."
         },
         {
-          "id": "fold-bloom-listen-06",
+          "id": "fold-bloom-listen-07",
           "route": "/fold-bloom/listen/",
-          "state": "MERGED_ACTIVE_CANDIDATE",
+          "state": "BRANCH_CANDIDATE_VERIFY",
           "branch": "master@ce475fe2f9abca2068032c3dc4bdf236bcf0ee45",
-          "version": "0.6",
-          "thesis": "One exact source binds unequal origin/meta/text/collection/analysis facets plus human pins and a source-addressed downstream RIDE PROFILE while preserving byte/AUDIO MAP authority.",
-          "promotion_gate": "Direct same-source use: edit ride profile in LISTEN → LIVE reflects it without changing AUDIO MAP; verify source bundle/map/pin/return remains intact."
+          "version": "0.7",
+          "thesis": "One exact source keeps immutable AUDIO MAP evidence while LISTEN authors MARK / ALIGN / SHAPE around it and exposes a fading SOURCE SPINE for cross-projection continuity.",
+          "promotion_gate": "Problem-track QA: two anchors repair drift; LISTEN→LIVE lyrics agree; READFIELD FOLLOW enters at correct text position and releases on human touch."
         },
         {
           "id": "fold-bloom-live-013",
           "route": "/fold-bloom/live/",
-          "state": "MERGED_ACTIVE_CANDIDATE",
+          "state": "BRANCH_CANDIDATE_VERIFY",
           "branch": "master@ce475fe2f9abca2068032c3dc4bdf236bcf0ee45",
           "version": "0.13",
-          "thesis": "An addressed linear source becomes solid embodied terrain with exact source-time semantics and a smoother human-facing projection: reachable AUTOPILOT, phone-safe controls, bounded model cadence, display-only geometry stabilization and perceptually morphing worlds.",
-          "promotion_gate": "Phone body test: AUTOPILOT reachable; all settings reachable; jitter better/same/worse; response crisp/too smooth; worlds elegant/distinct; no source-time/drop regression."
+          "thesis": "LIVE 0.13 retains autopilot/perf/world-morph polish while consuming shared source alignment, source marks and SOURCE SPINE without acquiring editor or remote-control authority.",
+          "promotion_gate": "Existing 0.13 body QA plus same-track alignment/spine witness: no timing/perf regression."
         }
       ],
       "merge_sha": "ce475fe2f9abca2068032c3dc4bdf236bcf0ee45",
-      "latest_return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
+      "latest_return": "/returns/FOLD_BLOOM_SOURCE_SPINE_2026-09-22.json",
       "next_executable": {
         "id": "fold-bloom-experience-set-01",
         "state": "MERGED_COMPLETE",
