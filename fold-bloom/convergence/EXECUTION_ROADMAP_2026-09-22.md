@@ -2,7 +2,7 @@
 ## 0.13 → 1.0 · SOURCE → MAP → PROFILE → PROJECTION → RETURN
 
 **Date:** 2026-09-22  
-**Current head:** LIVE 0.13 / LISTEN 0.6 / GLYPH ATLAS 0.2 / EXPERIENCE SET 0.1 / TWO DIAL 0.10.3 / ECOLOGY 0.2  
+**Current head:** LIVE 0.13 / LISTEN 0.6 / GLYPH ATLAS 0.2 / EXPERIENCE SET 0.1 / SET 0.1 / TWO DIAL 0.10.3 / ECOLOGY 0.2  
 **Purpose:** convert the now-proven single-source ride into a coherent experience system without multiplying disconnected apps.
 
 ---
@@ -19,6 +19,7 @@
 - Solid geometry matters. 0.11 proved that increased intelligence can still regress felt reality if the material model becomes visually incoherent.
 - A source profile is preference/calibration, not source truth.
 - The user's nervous-system report is a first-class promotion gate.
+- SET 0.1 can author exact local source refs, order, experiential weight and explicit CUT / DISSOLVE / CARRY / RESET seams, then round-trip the existing Experience Set boundary without storing source bytes or acquiring analyzer authority.
 
 ### Not yet proven
 
@@ -71,65 +72,40 @@ Never collapse these stages into one opaque model.
 
 # 2. Small active surface
 
-Only three active fronts until evidence closes one.
+Do **not** treat the following as three simultaneous builds. Current Fold/Bloom implementation work is gated by **Front A human evidence**; Front B and Front C are staged destinations, not active feature fronts.
 
-## FRONT A — SET / JOURNEY COMPOSITOR
+## FRONT A — SET HUMAN GATE → JOURNEY
 
-**Goal:** graduate from “ride one file” to “curate an experience.”
+**Goal:** decide whether the technically complete set compositor produces a genuinely authored multi-source experience before building traversal across it.
 
-### Smallest meaningful delta
+### Current state
 
-Create a bounded `EXPERIENCE SET` object that contains:
+- EXPERIENCE SET 0.1 is merged and exact-round-trip proved.
+- SET 0.1 is merged at `/fold-bloom/set/` via PR #158; PR #159 sealed the human gate.
+- SET owns **order / weight / seam authorship** only.
+- It does not store source bytes, analyze sources, beatmatch, or become a DAW.
 
-- ordered source-cell refs;
-- act/segment labels;
-- source-local ride profiles;
-- transition laws;
-- optional authored landmark carry;
-- one set glyph / set RETURN.
+### Do now
 
-### Required transitions
+Use 3–7 meaningful source refs and answer:
 
-Start with only five:
+- Can sources be added and reordered without friction?
+- Do CUT / DISSOLVE / CARRY / RESET seams feel like authored journey boundaries rather than playlist settings?
+- Does phone long-press drag work well enough, with ◀ / ▶ as fallback?
+- Does RETURN/import preserve the authored set exactly?
+- Most importantly: does the result feel like **shaping one journey**?
 
-- `CUT` — hard boundary;
-- `DISSOLVE` — visual/audio-field continuity without source identity merge;
-- `CARRY` — keep world/profile state into next source;
-- `RESET` — new source, clean projection state;
-- `RETURN` — collapse accumulated set state into one end artifact.
+### Decision gate
 
-Do not add DJ mixing, beatmatching or provider catalogs in the first implementation.
+- **KEEP** → enter G3 / JOURNEY RIDE 0.1.
+- **REPAIR** → make one bounded compositor-interaction repair, then repeat this gate.
+- **KILL / RETHINK** → preserve Experience Set as a clean boundary; do not build Journey Ride merely because the schema exists.
 
-### “Tetris / converge” compositional model
-
-Use a block compositor where each source is a **cell with real duration/weight**.
-
-The editor is not a generic DAW. It is a spatial composition surface:
-
-- horizontal extent = source duration or chosen experiential weight;
-- vertical band = act / world / attention layer;
-- transition seam = explicit law;
-- landmarks = embedded addressed marks;
-- profile overlays = visible bounded modifiers;
-- the same cell opens into Atlas/LISTEN/LIVE.
-
-The user should be able to rearrange the set as quickly as moving Tetris pieces, while every piece remains the exact same source object.
-
-### Promotion gate
-
-A 3–7 source set must:
-
-- load locally;
-- reorder without identity loss;
-- play/ride continuously;
-- visibly show boundaries/transition law;
-- export/re-import exactly;
-- produce one set glyph/summary;
-- feel like **one journey**, not several tabs.
+Do not add another set schema, provider catalog, DJ timeline, or journey runtime before this human receipt.
 
 ---
 
-## FRONT B — NORMIE-FIRST UNIFIED SURFACE
+## FRONT B — NORMIE-FIRST UNIFIED SURFACE · STAGED
 
 **Goal:** make first contact obvious without flattening the depth.
 
@@ -198,7 +174,7 @@ Give the surface to a new human with no explanation. Pass if they can:
 
 ---
 
-## FRONT C — ONE NON-MUSIC ADAPTER
+## FRONT C — ONE NON-MUSIC ADAPTER · PARKED
 
 **Goal:** prove that FOLD//BLOOM is a source-traversal system, not merely an audio visualizer.
 
@@ -300,9 +276,9 @@ Each should be normalized, inspectable and traceable back to source evidence.
 
 # 4. Execution sequence
 
-## G0 — 0.12 BODY QA
+## G0 — 0.13 BODY QA / INTERRUPT GATE
 
-Before new machinery:
+Do not reopen as a polish loop. Use this only when direct LIVE 0.13 use exposes a regression:
 
 - same known track;
 - opaque slopes?;
@@ -340,30 +316,35 @@ Evidence:
 
 ---
 
-## G2 — SET COMPOSITOR / TETRIS BOARD
+## G2 — SET COMPOSITOR / TETRIS BOARD · MERGED / HUMAN GATE
 
-**Current next executable.** Experience Set v0.1 is merged and round-trips exactly.
+Implemented as SET 0.1:
 
-Implement one visual editor:
+- consumes `fold-bloom-experience-set/v0.1` without adding fields;
+- exact local source refs by SHA-256;
+- authored order and experiential weight;
+- explicit interior CUT / DISSOLVE / CARRY / RESET seams;
+- desktop drag, phone long-press drag and explicit move-button fallback;
+- exact JSON import/export;
+- lightweight local persistence;
+- final closure remains RETURN.
 
-- source blocks;
-- reorder / snap;
-- acts;
-- transition seams;
-- duration/weight display;
-- thumbnail glyph;
-- open source in SEE / SHAPE;
-- play from selected seam.
+Evidence:
 
-No timeline micro-editing.
+- route: `/fold-bloom/set/`
+- implementation PR: #158 · merge `65257b7ed3d8e9afef0324f0775efce90ba8f789`
+- CI: public-surface-check run 1635 PASS
+- state seal: PR #159 · merge `f60a9d6d8ba696f9d1223d4814375871a4b2b1b4`
 
-Gate:
+Current gate:
 
-- 5-source set can be made in under 90 seconds by the user.
+> Use 3–7 meaningful source refs. Promote only if authoring feels like shaping one journey rather than maintaining a playlist.
 
 ---
 
-## G3 — CONTINUOUS JOURNEY RIDE
+## G3 — CONTINUOUS JOURNEY RIDE · BLOCKED ON G2 HUMAN GATE
+
+Only enter this stage if direct SET 0.1 use returns KEEP.
 
 LIVE consumes an EXPERIENCE SET.
 

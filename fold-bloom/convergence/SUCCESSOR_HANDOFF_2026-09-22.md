@@ -1,5 +1,5 @@
 # FOLD//BLOOM — SUCCESSOR HANDOFF
-## LIVE 0.13 + EXPERIENCE SET 0.1 / 2026-09-22
+## LIVE 0.13 + EXPERIENCE SET 0.1 + SET 0.1 / 2026-09-22
 
 This file is for future ChatGPT / Hermes / a human returning cold.
 
@@ -11,15 +11,17 @@ Authoritative current merged family:
 - GLYPH ATLAS 0.2 inspectable source memory
 - TWO DIAL 0.10.3 composition authority
 - EXPERIENCE SET 0.1 pure higher-order journey object — PR #152 · merged and CI green
+- SET 0.1 local-first compositor — PR #158 · merge `65257b7ed3d8e9afef0324f0775efce90ba8f789` · CI run 1635 PASS; PR #159 seals human gate
 - ECOLOGY 0.2 persistent lineage/game
 
 Read in this order:
 1. `/control/CURRENT.json#current_heads[fold-bloom]`
-2. `/fold-bloom/live/release.json`
-3. `/returns/FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json`
-4. `/fold-bloom/convergence/EXECUTION_ROADMAP_2026-09-22.md`
-5. `/fold-bloom/convergence/EXPERIENCE_COMPILER_SPEC_0.1.md`
-6. this file
+2. `/fold-bloom/convergence/README.md`
+3. `/fold-bloom/convergence/THREAD_COLLAPSE_2026-09-22.md`
+4. `/fold-bloom/convergence/ADDRESSED_CONTINUITY_2026-09-22.md`
+5. `/fold-bloom/convergence/EXECUTION_ROADMAP_2026-09-22.md`
+6. the release file for the surface you are actually touching
+7. this file
 
 Do not reconstruct the architecture from screenshots or names.
 
@@ -92,18 +94,58 @@ This pass is intentionally polish/performance/succession, not new ontology.
 - Do not grow a combo economy unless direct use proves it means something.
 - Do not clone LIVE racer visuals into Ecology or READFIELD.
 
-## CURRENT NEXT EXECUTABLE — DO NOT REDESIGN IT
+## CURRENT NEXT ACTION — HUMAN EVIDENCE BEFORE MORE RUNTIME
 
-EXPERIENCE SET v0.1 is **done**. PR #152 merged the pure schema/codec/fixture/tests; PR #154 sealed merge state.
+EXPERIENCE SET 0.1 and SET 0.1 are both **done technically**.
 
-The bounded sequence now resumes at:
+Do **not** implement SET again.
 
-1. **SET COMPOSITOR 0.1 / block-Tetris authoring surface**
-2. JOURNEY RIDE 0.1 / continuous multi-source traversal
-3. SOURCE SHELL 0.1 / RIDE · SEE · SHAPE
-4. PODCAST ADAPTER 0.1 / first non-music proof
+### Gate 1 — SET 0.1
+
+Route: `/fold-bloom/set/`
+
+Use 3–7 meaningful source refs. Decide:
+
+- add/reorder friction;
+- whether explicit seams feel like authored journey boundaries;
+- phone long-press drag acceptability;
+- exact RETURN/import;
+- one journey vs playlist wrapper.
+
+If KEEP → JOURNEY RIDE 0.1 becomes lawful.  
+If REPAIR → one bounded SET interaction repair first.
+
+### Gate 2 — LISTEN phone continuity
+
+Issue #157 remains open:
+
+- phone horizontal/ring ADDRESS;
+- phone vertical APERTURE;
+- one real-MP3 430×900 LISTEN → LIVE continuity proof;
+- pin persistence / source-time evidence preserved.
+
+The lyric anchor/warp problem is real but is **not required** to close Issue #157.
+
+### Gate 3 — LIVE 0.13 body return
+
+Only react to lived regressions:
+
+- AUTOPILOT / controls reachable;
+- jitter;
+- response crispness;
+- drop event coherence;
+- world distinction.
+
+Do not turn internal perf witnesses into a substitute for the body report.
+
+### Downstream sequence
+
+1. JOURNEY RIDE 0.1 — only after SET KEEP.
+2. SOURCE SHELL 0.1 / RIDE · SEE · SHAPE — only after journey continuity is earned.
+3. PODCAST ADAPTER 0.1 — first non-music proof.
 
 Use:
+- `/fold-bloom/set/`
 - `/fold-bloom/experience-set/`
 - `/fold-bloom/convergence/EXECUTION_ROADMAP_2026-09-22.md`
 - `/fold-bloom/convergence/EXPERIENCE_COMPILER_SPEC_0.1.md`
@@ -119,6 +161,8 @@ A later chat branch added useful intent that was not yet durable in this handoff
 - A persistent low-clutter position/structure rail may fade into the background across LISTEN/RIDE/READ, provided it remains a projection witness rather than a second timeline.
 
 Do not create a SOURCE SPINE app. Reify the mechanism inside G2/G4 and existing source-addressed state.
+
+Superseded PR #155 contains a tested-but-conflicting runtime experiment for anchor alignment / fading spine / READFIELD follow+mark / source-horizon feedback. It is **quarry only**. Recover individual mechanisms only after current gates; never merge #155 wholesale.
 
 0.13 body QA may still interrupt this sequence if material/event coherence, reachability or response regresses.
 

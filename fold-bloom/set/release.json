@@ -4,7 +4,7 @@
   "title": "FOLD//BLOOM SET 0.1",
   "version": "0.1",
   "date": "2026-09-22",
-  "state": "BRANCH_CANDIDATE",
+  "state": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
   "route": "/fold-bloom/set/",
   "consumes": "fold-bloom-experience-set/v0.1",
   "operation": "SHAPE",
@@ -21,8 +21,16 @@
     "tests": "/fold-bloom/set/tests/set-core.test.mjs",
     "browser": "/fold-bloom/set/?demo=1"
   },
-  "stop": "Do not implement Journey Ride, provider catalogs, DJ timeline editing, or new Experience Set fields in this pass.",
-  "status": "MERGED_COMPLETE",
-  "pullRequest": 156,
-  "mergeSha": "e5ead6c3893581c75dd512db8cc28eb3268b54b6"
+  "stop": "Technical promotion is complete. Do not implement Journey Ride until direct 3–7-source use decides whether SET authoring feels like shaping one journey rather than maintaining a playlist.",
+  "status": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
+  "pullRequest": 158,
+  "mergeSha": "65257b7ed3d8e9afef0324f0775efce90ba8f789",
+  "ci": {
+    "run": 1635,
+    "status": "PASS"
+  },
+  "seal": {
+    "pullRequest": 159,
+    "mergeSha": "f60a9d6d8ba696f9d1223d4814375871a4b2b1b4"
+  }
 }
