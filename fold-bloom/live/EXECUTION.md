@@ -3,7 +3,7 @@
 Status: experimental performance head. Do not overwrite frozen donors.
 
 ## Current head
-`/fold-bloom/live/` now tests: **track/course → continuous measured terrain → smooth traversal camera; authored release → deformation tape; terrain × operations → road actually ridden**. LIVE 0.7 makes motion explicit: quiet/low-flux passages climb, energetic/flux-heavy passages descend and visually accelerate, spectral balance turns the route. Local MP3 uses measured AUDIO MAP; normal mode uses a clearly-marked synthetic FIELD COURSE through the same projection/deformation engine.
+`/fold-bloom/live/` now tests: **track/course → continuous measured terrain → smooth traversal camera; authored release → deformation tape; terrain × operations → road actually ridden**. LIVE 0.8 makes motion hierarchical and more physical: beats cut road ribs, downbeats strike harder, analyzed phrase changes form mid-scale gates, sections remain macro gates, quiet/falling energy climbs more steeply, rising/energetic passages dive and visually accelerate, and spectral balance turns the route. Local MP3 uses measured AUDIO MAP; normal mode uses a clearly-marked synthetic FIELD COURSE through the same projection/deformation engine.
 
 Donors remain addressable and independent:
 - Fold Weave 0.1: `/recovery/fold-bloom/fold-weave-0.1/` — exact frozen donor; ring / crease / cascade / mute-first causal score.
@@ -18,8 +18,8 @@ Donors remain addressable and independent:
 5. **Bound the engine.** Graph, history, motif, particles/visual pulses and scheduler catch-up stay bounded.
 6. **Preserve donors.** Transfer mechanisms by explicit provenance; never silently mutate exact recovery artifacts.
 7. **Forecast before commitment.** If several matching placements have different consequences, expose those differences before release; hidden topology is not gameplay.
-8. **Borrowed clock/form ≠ borrowed authorship.** Same-page local MP3 is the proven phone authority path; LISTEN/FIELD PULSE may lend beat/section context and timing reward, but audio never auto-releases or chooses BLOOM/FOLD/SPLIT/RETURN.
-9. **Section estimates are apertures, not truth labels.** A section may offer a close/seal opportunity; a bad boundary must never invalidate a move or punish the player.
+8. **Borrowed clock/form ≠ borrowed authorship.** Same-page local MP3 is the proven phone authority path; LISTEN/FIELD PULSE may lend beat/phrase/section context and timing reward, but audio never auto-releases or chooses BLOOM/FOLD/SPLIT/RETURN.
+9. **Phrase/section estimates are apertures, not truth labels.** A section may offer a close/seal opportunity; a bad boundary must never invalidate a move or punish the player.
 10. **Projection, not decoration.** TRACKFIELD must be derived from the same AUDIO MAP that drives timing; do not invent a second hidden road model.
 11. **Anticipation beats telemetry.** If a feature can be felt as approaching geometry, prefer that over another HUD number.
 12. **Onboarding demonstrates the mechanism.** Before entry, run a silent reversible preview of the real instrument. Preview state never persists, emits FIELD operations or vibrates. First intentional action restores clean state and transfers control.
@@ -63,7 +63,7 @@ Do not call LIVE canonical until direct desktop + touch play establishes all of 
 7. After one of each verb, a player can identify from the road alone which operation was written: BLOOM widened/opened; FOLD kinked/compressed; SPLIT forked; RETURN reconverged.
 8. During a SPLIT, an ordinary left/right ring turn can choose LEFT/RIGHT; chosen branch becomes visually dominant and camera alignment eases onto it; ignoring the split remains lawful.
 9. RETURN or split completion recenters without deleting the recorded branch trace.
-10. Quiet vs intense fixtures produce visibly separated climb/descent geometry and distinct visual velocity.\n11. PLAY FIELD without MP3 still shows moving terrain and accepts the same road-writing operations.\n12. No runaway scheduler catch-up, stuck drone, touch-scroll conflict or material frame drop during a 10-minute run.
+10. Quiet vs intense fixtures produce strongly separated climb/descent geometry and distinct visual velocity; rising/falling phrase-scale energy trend becomes visible before impact.\n11. PLAY FIELD without MP3 still shows moving terrain and accepts the same road-writing operations.\n12. No runaway scheduler catch-up, stuck drone, touch-scroll conflict or material frame drop during a 10-minute run.
 
 ## Next useful transforms — only after play
 - Tune CALL selection, forecast legibility, charge curve and return aperture from observed choices/timing, not taste in isolation.
@@ -74,4 +74,4 @@ Do not call LIVE canonical until direct desktop + touch play establishes all of 
 - Add performance capture/replay only if the existing bounded RETURN packet proves insufficient for comparing runs.
 
 ## Stop condition for this pass
-Motion/grade/speed interpolation + deformation + normal FIELD COURSE tests and phone smoke must pass; exact donors remain untouched. Stop before time-stretch, lane collectibles or provider proliferation. Next authority: desktop/phone play—are climbs/descents obvious, velocity continuous, and the ride materially smoother?
+0.8 tests must prove stronger terrain separation, beat/downbeat/phrase/section hierarchy, source-hash continuity and branch-aware AUTO RIDE without regressing existing topology. Stop before time-stretch, lane collectibles, Ecology audio graft or provider proliferation. Next authority: desktop/phone play—are inclines finally physical, phrase gates useful rather than noisy, and AUTO RIDE explanatory rather than decorative?
