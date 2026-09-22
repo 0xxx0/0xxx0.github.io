@@ -1,0 +1,77 @@
+{
+  "receipt": "FOLD_BLOOM_SEED_GATE_UNLOCK",
+  "schema": "fold-bloom-return-receipt/v0.1",
+  "date": "2026-09-22",
+  "author": "hermes/archive (FIELD HOUSE, independent lane)",
+  "gate": "three-track lived/share gate (FOLD//BLOOM)",
+  "finding": "ALL THREE EXACT SOURCES ARE PRESENT ON LOCAL DISK. The remaining human gate is fully actionable with zero additional recovery work.",
+  "verification": {
+    "method": "full SHA-256 of local file bytes vs fold-bloom/test-packs/catalog.json entries[].sourceId",
+    "pack": "work-trance-seed-2026-09-22",
+    "pack_title": "GHOST → FORGE → WILL",
+    "results": [
+      {
+        "role_index": 1,
+        "title": "preforme",
+        "local_path": "/Users/mcvoid/Downloads/preforme.mp3",
+        "staged_path": "/Users/mcvoid/Downloads/FOLD_BLOOM_SEED/01_preforme.mp3",
+        "duration_s": 230.6,
+        "sha256": "06ca33eb185845330718d8c9428c29a3a3bcb6d94f64e18270e4adb7400757cc",
+        "match": true,
+        "weight": 0.85,
+        "transitionOut": "CARRY"
+      },
+      {
+        "role_index": 2,
+        "title": "THROUGH THE FIRE",
+        "local_path": "/Users/mcvoid/Downloads/THROUGH THE FIRE.mp3",
+        "staged_path": "/Users/mcvoid/Downloads/FOLD_BLOOM_SEED/02_THROUGH_THE_FIRE.mp3",
+        "duration_s": 424.8,
+        "sha256": "ac6c2c5fc654177da675b5d419a16b5430483371a524f5016ca45c7399905f04",
+        "match": true,
+        "weight": 1.2,
+        "transitionOut": "DISSOLVE"
+      },
+      {
+        "role_index": 3,
+        "title": "BY YOUR WILL / 遺志",
+        "local_path": "/Users/mcvoid/Downloads/BY YOUR WILL _ 遺志.mp3",
+        "staged_path": "/Users/mcvoid/Downloads/FOLD_BLOOM_SEED/03_BY_YOUR_WILL_遺志.mp3",
+        "duration_s": 364.8,
+        "sha256": "00f41b223138e760e64a08c882606d18f2fcaafcc2e75526396f2c8c4fdfc2bc",
+        "match": true,
+        "weight": 1,
+        "transitionOut": "RETURN"
+      }
+    ],
+    "verdict": "ALL THREE EXACT"
+  },
+  "gate_operation": {
+    "witness_url": "https://0xxx0.github.io/fold-bloom/set/journey.html?demo=seed&auto=1",
+    "step_1": "Open the witness URL (metadata-only demo — GHOST → FORGE → WILL).",
+    "step_2": "Bind the three exact sources locally, in order, from /Users/mcvoid/Downloads/FOLD_BLOOM_SEED/",
+    "step_3": "Re-run the same journey with real audio bound.",
+    "step_4": "Return KEEP / REVISE / REJECT on the one-journey-vs-playlist feel.",
+    "note": "Binding is hash-verified, so the local files are provably the exact seed — no guesswork about which file is which role."
+  },
+  "seed": {
+    "chain": "preforme → THROUGH THE FIRE → BY YOUR WILL / 遺志",
+    "authored_transitions": "CARRY → DISSOLVE → RETURN",
+    "total_duration_s": 1020.2
+  },
+  "boundaries": {
+    "no_writes_to": [
+      "fold-bloom/",
+      "control/CURRENT.json",
+      "control/MIGRATION.json"
+    ],
+    "reason": "Independent lane. FOLD//BLOOM has active workers; this receipt is additive and changes no shared state.",
+    "raw_audio_in_repo": false,
+    "raw_audio_reason": "Raw audio bytes stay local; only hashes/metadata are recorded."
+  },
+  "what_this_unblocks": "The single highest-value remaining action for FOLD//BLOOM — the lived/share gate — which by the packet's own law can only be closed by human evidence. The fastest help is making the human path frictionless, not building ahead of it.",
+  "unknown": [
+    "Whether the demo's local binding accepts the staged folder directly or requires per-file selection (not tested — requires a real browser with the files bound).",
+    "Whether the felt result will be KEEP, REVISE, or REJECT — that is the human gate itself."
+  ]
+}
