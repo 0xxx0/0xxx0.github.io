@@ -14,11 +14,11 @@ import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
 const P = [
   ['2018', 'KALA', 'desktop character', 'A visible character in a room', 'ASCII character + CSS3D room transform', '/recovery/kala/'],
   ['2019', 'KRAKEN / POLY', 'capability exposure', 'Capability exposure, lenses, transducers, combinators', 'The reducer/transducer protocol', '/recovery/poly-furnisher/'],
-  ['2019', 'DataDisc', 'radial projection', '150-item compound-glyph spiral projection', 'Radial multichannel projection', '/recovery/media/datadisc/'],
+  ['2019', 'DataDisc', 'radial projection', '150-item compound-glyph spiral projection', 'Radial multichannel projection', '/recovery/media/datadisc/datadisc.html'],
   ['2020', 'proto-kernel / INTERPHASE', 'integrated kernel', 'Integrated kernel before formal cleanup', 'Reducer / matrix / lens / scheduling', '/recovery/poly-furnisher/proto-kernel-2020/'],
   ['2021+', 'Grid Path Compiler V4', 'path machinery', 'LATIN CONTROL, MEANTOME, Nine-Gate adapters', 'Path / address / RSVP machinery', '/recovery/path-grid/'],
   ['2024-12', 'Sleeper / Hostage', 'generative grammar', '"The Sleeper takes itself hostage. What\'s the ransom?"', 'A generative grammar', 'live City Engine'],
-  ['2025', 'Laconic / Iconic', 'phrase machinery', 'Compact reusable phrase machinery', '255 recovered items', '/laconic/recovered/'],
+  ['2025', 'Laconic / Iconic', 'phrase machinery', 'Compact reusable phrase machinery', '255 recovered items', '/laconic/'],
   ['2026-08', 'voic-anchor / sovereign node', 'clean agent base', 'A clean personal-agent base', 'Nix / Hermes / Ollama awareness, ICM method', 'Downloads/31aug/'],
   ['2026', 'phantom-grid', 'single-file stack', 'Single-file sovereign AI stack', 'The generator lineage', 'phantom-grid-v31'],
   ['2026', 'Project Federation', 'index without erasure', '117 indexed projects without erasure', 'Stable IDs, missingness, next action', 'PROJECT-FEDERATION'],
