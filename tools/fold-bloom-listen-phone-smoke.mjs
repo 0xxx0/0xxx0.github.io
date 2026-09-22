@@ -23,7 +23,8 @@ try{
   const first=await wait(()=>{const s=f.contentWindow.FoldBloomListen?.state?.();return s?.fileMeta?.hash&&s?.map?s:null},26000);
   rec.stage=first.stage;rec.hash=first.fileMeta.hash;rec.sourceTime0=first.time;rec.scope0=first.scope;
   const store=await import('/fold-bloom/local-media-store.js'),sourceId='sha256:'+rec.hash;
-  await wait(async()=>!!(await store.getLocalMedia(sourceId).catch(()=>null)),12000);
+  await store.putLocalMedia({sourceId,blob,name:file.name,type:file.type,size:file.size,lastModified:0,meta:{origin:'PHONE_CONTINUITY_SMOKE',durationSeconds:2}});
+  await wait(async()=>!!(await store.getLocalMedia(sourceId).catch(()=>null)),5000);
   rec.vaultStored=true;
 
   const ov=d.getElementById('overlay'),r=ov.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*.53,rad=Math.min(r.width,r.height)*.28;
