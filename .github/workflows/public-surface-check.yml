@@ -57,6 +57,8 @@ jobs:
         run: node tools/browser-smoke.mjs
       - name: Test FOLD BLOOM local vault cross-surface handoff
         run: node tools/fold-bloom-spine-smoke.mjs
+      - name: Test FOLD BLOOM LISTEN phone continuity with real MP3
+        run: node tools/fold-bloom-listen-phone-smoke.mjs
       - name: Test FOLD BLOOM LIVE gameplay + track + section arcs + TRACKFIELD deformation + ride
         run: node --test fold-bloom/live/tests/engine.test.mjs fold-bloom/live/tests/track.test.mjs fold-bloom/live/tests/section-arc.test.mjs fold-bloom/live/tests/trackfield.test.mjs fold-bloom/live/tests/practice-track.test.mjs fold-bloom/live/tests/track-deform.test.mjs fold-bloom/live/tests/ride.test.mjs fold-bloom/live/tests/pov-effects.test.mjs fold-bloom/live/tests/visual-worlds.test.mjs fold-bloom/live/tests/projection-smoothing.test.mjs
       - name: Run critical browser smoke

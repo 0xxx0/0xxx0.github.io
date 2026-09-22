@@ -100,6 +100,7 @@ export class LiveTrack {
     const ctx=new AC();
     try{
       const decoded=await ctx.decodeAudioData(bytes.slice(0)),hash=await hashP,{pcm,sampleRate}=mixdown(decoded);
+      this.meta={...this.meta,hash,sourceKind:'LOCAL_FILE',size:file.size,type:file.type||'audio',duration:decoded.duration};
       this.map=buildPreviewMap(pcm,sampleRate,decoded.duration);this.map.source={name:localDisplayName(meta,file.name),fileName:file.name,title:meta.title||'',artist:meta.artist||'',album:meta.album||'',lyricsAlignment:textEvidence?.alignment||meta.lyricsAlignment||null,metadataSource:meta.metadataSource||null,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',hash};this.worldCache=null;this.worldTime=-1;
       if(this.url)URL.revokeObjectURL(this.url);this.url=URL.createObjectURL(file);this.audio.src=this.url;
       this.loading=false;this.onMap(this.map);this.onState(this.stateLabel());
