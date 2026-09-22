@@ -474,6 +474,9 @@ addEventListener('keydown',e=>{
     else audio.currentTime=stepAddress(scopeWindow(map,audio.currentTime,scope()),audio.currentTime,d,{fraction:1/28});
     publishTransport(true);
   }
+  else if(e.key.toLowerCase()==='a'&&textTimeline.length){e.preventDefault();anchorSelectedText()}
+  else if(e.key==='['&&textTimeline.length){e.preventDefault();alignTargetIndex=(alignTargetIndex-1+textTimeline.length)%textTimeline.length;renderAlignmentEditor(false)}
+  else if(e.key===']'&&textTimeline.length){e.preventDefault();alignTargetIndex=(alignTargetIndex+1)%textTimeline.length;renderAlignmentEditor(false)}
   else if(e.key.toLowerCase()==='p'&&map){e.preventDefault();openPinSheet(null,audio.currentTime)}
 });
 function sourceSpineMarks(){
