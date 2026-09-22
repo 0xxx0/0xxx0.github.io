@@ -203,17 +203,54 @@ async function analyzeBytes(bytes,playbackBlob,meta){
     ensureWorker().postMessage({type:'analyze',pcm:pcm.buffer,sampleRate,duration:decoded.duration},[pcm.buffer]);
   }finally{await ctx.close().catch(()=>{})}
 }
-async function loadFile(file){
+async function readTextEvidence(sidecars=[]){
+  const out=[];
+  for(const f of sidecars){
+    try{out.push(parseTextSidecar(await f.text(),f.name))}catch(error){console.warn('sidecar',f.name,error)}
+  }
+  return out.filter(x=>x.text);
+}
+async function readPlaylistEvidence(files=[]){
+  const out=[];
+  for(const f of files){
+    try{out.push(parsePlaylistText(await f.text(),f.name))}catch(error){console.warn('playlist',f.name,error)}
+  }
+  return out.filter(x=>x.entries?.length);
+}
+async function loadFiles(files){
+  const grouped=groupLocalInputs(files),playlistEvidence=await readPlaylistEvidence(grouped.playlists);
+  if(!grouped.groups.length){
+    if(playlistEvidence.length){
+      pendingSource={kind:'LOCAL_PLAYLIST',title:playlistEvidence[0].name,collection:playlistEvidence[0],resolution:'LOCAL_PLAYLIST_FILE'};
+      drop.classList.remove('busy');status('PLAYLIST CAPTURED · '+playlistEvidence[0].entries.length+' ADDRESSES · LOAD ONE AUDIO TO BIND');
+      $('#meta').textContent='PLAYLIST IS CONTEXT / ORDER · AUDIO BYTES STILL REQUIRED FOR A MAP';toast('PLAYLIST CONTEXT READY');
+    }
+    return;
+  }
+  const g=grouped.groups[0];
+  await loadFile(g.audio,{sidecars:g.sidecars,collection:playlistEvidence[0]||null});
+}
+async function loadFile(file,{sidecars=[],collection=null}={}){
   if(!file)return;
   stopIdle(false);
   try{
-    const bytes=await file.arrayBuffer(),id3=parseId3(bytes);
-    await analyzeBytes(bytes,file,{
-      name:id3DisplayName(id3,file.name),sourceFileName:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',sourceAddress:null,
-      title:id3.title||'',artist:id3.artist||'',album:id3.album||'',tags:id3.genre||'',lyrics:id3.lyrics||'',
-      lyricsLanguage:id3.lyricsLanguage||null,lyricsAlignment:id3.lyricsAlignment||null,
-      providerBpm:id3.bpm||null,providerKey:id3.key||null,metadataSource:id3.present?'ID3V2':null
-    })
+    const bytes=await file.arrayBuffer(),meta=parseLocalAudioMeta(bytes,file.name),textEvidence=await readTextEvidence(sidecars);
+    const text=textEvidence[0]||null,origin=pendingSource&&pendingSource.kind!=='LOCAL_PLAYLIST'&&pendingSource.kind!=='SUNO_PLAYLIST'?pendingSource:null;
+    const collectionEvidence=collection||(pendingSource?.kind==='LOCAL_PLAYLIST'?pendingSource.collection:null)||(pendingSource?.kind==='SUNO_PLAYLIST'?{kind:'SUNO_PLAYLIST',name:pendingSource.title||'SUNO PLAYLIST',address:pendingSource.address,id:pendingSource.playlistId,entries:[]}:null);
+    const title=meta.title||origin?.title||'',artist=meta.artist||origin?.artist||'',album=meta.album||'',lyrics=text?.text||meta.lyrics||origin?.lyrics||'';
+    const sourceMeta={
+      name:title?(artist?artist+' — '+title:title):localDisplayName(meta,file.name),sourceFileName:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',
+      sourceAddress:origin?.address||null,sourceId:origin?.sunoId||null,metadataAddress:origin?.metadataUrl||null,resolution:origin?.resolution||null,
+      title,artist,album,tags:meta.genre||origin?.tags||'',lyrics,
+      lyricsLanguage:meta.lyricsLanguage||null,lyricsAlignment:text?.alignment||meta.lyricsAlignment||(origin?.lyrics?'UNALIGNED_PROVIDER_META':null),
+      providerBpm:meta.bpm||origin?.providerBpm||null,providerKey:meta.key||origin?.providerKey||null,providerTimeSignature:origin?.providerTimeSignature||null,
+      metadataSource:[meta.metadataSource,text?'SIDECAR_TEXT':null,origin?'SOURCE_ADDRESS':null].filter(Boolean).join('+')||null,
+      origin:origin?{kind:origin.kind,address:origin.address,id:origin.sunoId||null,resolution:origin.resolution||null}:null,
+      collection:collectionEvidence?{kind:collectionEvidence.kind||'PLAYLIST',name:collectionEvidence.name||'PLAYLIST',address:collectionEvidence.address||null,id:collectionEvidence.id||null,count:collectionEvidence.entries?.length||null}:null,
+      textEvidence:textEvidence.map(x=>({name:x.name,kind:x.kind,alignment:x.alignment,chars:x.chars,cueCount:x.cueCount}))
+    };
+    await analyzeBytes(bytes,file,sourceMeta);
+    if(origin||collectionEvidence){toast(origin?'SOURCE LINK × LOCAL BYTES BOUND':'PLAYLIST CONTEXT × AUDIO BOUND');pendingSource=null}
   }
   catch(error){console.warn(error);drop.classList.remove('busy');status('DECODE ERROR · CHOOSE ANOTHER FILE');toast('DECODE ERROR')}
 }
