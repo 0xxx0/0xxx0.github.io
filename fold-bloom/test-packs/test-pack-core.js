@@ -78,6 +78,7 @@ export function buildPackPlan(catalog,packId,sourceIds=[]){
     pack,
     complete:missing.length===0,
     missing,
+    extras,
     orderedSourceIds:[...orderedPackIds.filter(id=>presentSet.has(id)),...extras],
     entries:pack.entries.map(entry=>({...entry,sourceId:normalizeSourceId(entry.sourceId)})),
     title:pack.title
