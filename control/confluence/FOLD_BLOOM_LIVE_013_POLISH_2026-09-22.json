@@ -2,7 +2,7 @@
   "schema": "0xxx0/confluence-packet/v0.1",
   "id": "FOLD_BLOOM_LIVE_013_POLISH_2026-09-22",
   "date": "2026-09-22",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "object": "FOLD//BLOOM LIVE 0.13 / human-contact + display/perf polish",
   "observed": [
     "User reports remaining jitter but overall experience is pretty great.",
@@ -30,5 +30,18 @@
   ],
   "next_truth": "Phone QA: AUTOPILOT reachability, menu reachability, jitter vs responsiveness, scene morph elegance. If pass, resume existing EXPERIENCE SET v0.1 sequence; if fail, repair lived surface before set/compositor work.",
   "handoff": "/fold-bloom/convergence/SUCCESSOR_HANDOFF_2026-09-22.md",
-  "return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
+  "pr": 151,
+  "merge_sha": "ce475fe2f9abca2068032c3dc4bdf236bcf0ee45",
+  "verification": {
+    "ci_run": 35705196976,
+    "result": "PASS",
+    "notes": [
+      "LISTEN/source-bundle regression passed",
+      "LIVE gameplay/track/section/TRACKFIELD/deformation/ride/POV/visual-world/projection-smoothing tests passed",
+      "critical phone-sized browser smoke passed with AUTOPILOT, perf witness and 0.13 runtime sentinels",
+      "first CI exposed an obsolete exact-hex section-parity test; proof was updated to parity + bounded distinctness without weakening production behavior",
+      "recovery/media and Sleeper/City/Painting regression tail passed"
+    ]
+  }
 }
