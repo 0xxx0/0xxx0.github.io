@@ -122,10 +122,10 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM instrument family · LIVE 0.11 MACRO DROP / GLYPH ATLAS 0.2 inspectable source memory / LISTEN 0.6 source-bundle cartographer / TWO DIAL 0.10.3 composition / ECOLOGY 0.2 lineage-game",
+      "head": "FOLD//BLOOM instrument family · LIVE 0.12 SOLID VISUAL WORLDS / GLYPH ATLAS 0.2 inspectable source memory / LISTEN 0.6 source-bundle + ride tuning / TWO DIAL 0.10.3 composition / ECOLOGY 0.2 lineage-game",
       "state": "ACTIVE_CANDIDATE_FAMILY",
       "route": "/fold-bloom/",
-      "retained_function": "One exact linear source remains itself while moving through unequal projections. LISTEN 0.6 binds exact audio bytes to optional origin/meta/timed-or-untimed text/playlist facets and human pins; GLYPH ATLAS 0.2 compiles the same source into an inspectable deterministic thumbnail. LIVE 0.11 is the embodied traversal projection: beat→phrase→section texture plus rare relative MACRO DROP evidence can become buildup/tunnel/plunge/open-sky terrain; optional embedded/sidecar text rides the same playhead with alignment provenance; reversible IDLE preserves FLOW/RATCHET without borrowing authorship. The ring is a cyclic control/state projection against the linear source address, not the source timeline itself. TWO DIAL remains composition authority; ECOLOGY persistent lineage.",
+      "retained_function": "One exact linear source remains itself while moving through unequal projections. LISTEN 0.6 binds exact audio bytes to origin/meta/text/collection facets, human pins and a source-hash RIDE PROFILE; GLYPH ATLAS 0.2 compiles the same source into inspectable memory. LIVE 0.12 keeps 0.11's hierarchical/macro source analysis but restores material coherence: solid occluding terrain, stable one-shot macro body events, four distinct DEEP/TRANCE/WOOD/VOID visual worlds, and per-source solidity/immersion/drop/text-sync calibration shared with LISTEN. The profile mutates projection/timing only, never AUDIO MAP evidence. The ring remains a cyclic control/state projection against the linear source address. TWO DIAL remains composition authority; ECOLOGY persistent lineage.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -173,14 +173,16 @@
         "/control/confluence/FOLD_BLOOM_EMBODIED_POV_2026-09-22.json",
         "/returns/FOLD_BLOOM_EMBODIED_POV_2026-09-22.json",
         "/control/confluence/FOLD_BLOOM_NERVOUS_SYSTEM_RETURN_2026-09-22.json",
-        "/returns/FOLD_BLOOM_NERVOUS_SYSTEM_2026-09-22.json"
+        "/returns/FOLD_BLOOM_NERVOUS_SYSTEM_2026-09-22.json",
+        "/control/confluence/FOLD_BLOOM_VISUAL_WORLD_RETURN_2026-09-22.json",
+        "/returns/FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json"
       ],
       "experimental": [
         {
           "id": "fold-bloom-atlas-02",
           "route": "/fold-bloom/atlas/",
           "state": "MERGED_ACTIVE_CANDIDATE",
-          "branch": "master@1d43c3edf1469c85a5fa7e3317460cd6932911b8",
+          "branch": "master@44ebcd809313ac633c13bbadc199c2b2e2e5997c",
           "version": "0.2",
           "thesis": "Exact source glyph thumbnails open back into bounded identity/structure/signature/text/origin/collection facets, then support human PATH/RETURN without storing audio or confusing projection with identity.",
           "promotion_gate": "Direct 5–12 familiar-source recognition/relearning + thumbnail→inside feel + share/path use."
@@ -189,23 +191,23 @@
           "id": "fold-bloom-listen-06",
           "route": "/fold-bloom/listen/",
           "state": "MERGED_ACTIVE_CANDIDATE",
-          "branch": "master@1d43c3edf1469c85a5fa7e3317460cd6932911b8",
+          "branch": "master@44ebcd809313ac633c13bbadc199c2b2e2e5997c",
           "version": "0.6",
-          "thesis": "One exact source can bind unequal origin/meta/text/collection/analysis facets, then become AUDIO MAP, annotation path, glyph or downstream projection while preserving byte identity.",
-          "promotion_gate": "Direct source-bundle use: local MP3/M4A + optional link/text/playlist context → map/pin/return."
+          "thesis": "One exact source binds unequal origin/meta/text/collection/analysis facets plus human pins and a source-addressed downstream RIDE PROFILE while preserving byte/AUDIO MAP authority.",
+          "promotion_gate": "Direct same-source use: edit ride profile in LISTEN → LIVE reflects it without changing AUDIO MAP; verify source bundle/map/pin/return remains intact."
         },
         {
-          "id": "fold-bloom-live-011",
+          "id": "fold-bloom-live-012",
           "route": "/fold-bloom/live/",
           "state": "MERGED_ACTIVE_CANDIDATE",
-          "branch": "master@1d43c3edf1469c85a5fa7e3317460cd6932911b8",
-          "version": "0.11",
-          "thesis": "An addressed linear source can become embodied hierarchical terrain with rare source-derived macro drops, source text witnesses and reversible FLOW/RATCHET IDLE while human verbs retain durable world-writing authority.",
-          "promotion_gate": "Known-song body test: DROP timing / tunnel pressure / plunge / open-sky consequence / text legibility."
+          "branch": "master@44ebcd809313ac633c13bbadc199c2b2e2e5997c",
+          "version": "0.12",
+          "thesis": "An addressed linear source becomes solid embodied terrain with rare stable macro events and distinct visual worlds; a source-hash profile tunes projection/timing while human Fold/Bloom verbs retain durable world-writing authority.",
+          "promotion_gate": "Same-song body test: opaque slopes / no bleed-through; one stable drop event; distinct DEEP/TRANCE/WOOD/VOID; useful immersion/drop/text-sync tuning."
         }
       ],
-      "merge_sha": "1d43c3edf1469c85a5fa7e3317460cd6932911b8",
-      "latest_return": "/returns/FOLD_BLOOM_NERVOUS_SYSTEM_2026-09-22.json"
+      "merge_sha": "44ebcd809313ac633c13bbadc199c2b2e2e5997c",
+      "latest_return": "/returns/FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json"
     },
     {
       "lineage": "axial",
