@@ -124,5 +124,11 @@
     "label": "archive-reader :8777",
     "src": "curl body-asserted over 11 routes (title not 404/err, no Errno, >500B): /, /status, /asks, /interfaces, /contacts, /threads, /unified, /b/desktop, /b/documents pass; /thread?cid=0 and /b/codex return HTTP 200 WITH AN ERROR BODY",
     "ok": true
+  },
+  {
+    "v": "published (static build)",
+    "label": "gods-eye-view — separate origin",
+    "src": "https://github.com/0xxx0/gods-eye-view — vite build of bilawalsidhu/gods-eye-view (MIT, (c) 2026 Bilawal Sidhu); 41,118 stars upstream; build output only, no source edits",
+    "ok": true
   }
 ]

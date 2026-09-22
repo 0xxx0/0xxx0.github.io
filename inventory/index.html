@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>THE INVENTORY — what the scattered things actually do</title>
+<style>
+  :root{--bg:#05070a;--ink:#e8ece9;--mut:#6b7780;--hot:#ed7447;--cool:#72bce7;--gold:#d5ad68;--green:#98d49b;--line:#1d262c}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.65 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:1080px;margin:0 auto;padding:30px 20px 80px}
+  header.top{border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:24px}
+  h1{margin:0 0 8px;font-size:15px;font-weight:500;letter-spacing:.22em;color:var(--gold)}
+  .sub{color:var(--mut);letter-spacing:.05em}.sub b{color:var(--ink);font-weight:500}
+  .why{border:1px solid var(--line);background:#000;padding:14px 16px;margin-bottom:26px;color:var(--mut);
+    font-size:11px;line-height:1.75}
+  .why b{color:var(--ink);font-weight:500}
+  .toc{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:26px}
+  .toc a{border:1px solid var(--line);padding:5px 9px;font-size:9px;letter-spacing:.14em;
+    color:var(--mut);text-decoration:none;text-transform:uppercase}
+  .toc a:hover{color:var(--gold);border-color:var(--gold)}
+  .sys{border:1px solid var(--line);background:#000;margin-bottom:14px}
+  .sys>header{display:block;padding:13px 15px;border-bottom:1px solid var(--line);background:#080b0e}
+  .sys .hdr{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .sys h3{margin:0;font-size:13px;letter-spacing:.14em;color:var(--ink);font-weight:500}
+  .burden{font-size:8px;letter-spacing:.16em;padding:2px 7px;border:1px solid var(--line);white-space:nowrap}
+  .burden.load{color:var(--green);border-color:#315837}
+  .burden.mix{color:var(--gold);border-color:#3a2c1e}
+  .burden.cand{color:var(--cool);border-color:#1f4a5e}
+  .sys .one{color:var(--ink);font-size:12px;margin-top:7px;line-height:1.6}
+  .sys .meta{color:var(--mut);font-size:9px;letter-spacing:.09em;margin-top:6px}
+  table{width:100%;border-collapse:collapse}
+  td{padding:8px 15px;border-bottom:1px solid #111a1f;font-size:11px;vertical-align:top}
+  tr:last-child td{border-bottom:0}
+  td.p{color:var(--cool);white-space:nowrap;width:1%;padding-right:20px}
+  td.w{color:var(--ink);line-height:1.6}
+  .note{padding:10px 15px;border-top:1px solid #111a1f;color:var(--mut);font-size:10px;line-height:1.7;background:#05080a}
+  footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--mut);font-size:9px;letter-spacing:.08em}
+  footer a{color:var(--cool);text-decoration:none}
+  @media(max-width:700px){td.p{white-space:normal}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>THE INVENTORY</h1>
+  <div class="sub"><b>7 systems</b> hiding behind <b>7 recurring names</b> ·
+  every entry grounded in the registry, not guessed · generated from showcase-manifest.json</div>
+</header>
+
+<div class="why">
+  <b>Why this page exists.</b> Forty-seven files across this repo share seven names —
+  <b>lens</b>, <b>trace</b>, <b>map</b>, <b>glyph</b>, <b>aperture</b>, <b>audit</b>, <b>health</b> —
+  and nothing said which were load-bearing and which were parked.<br><br>
+  They are not clutter. They are <b>seven distinct systems</b>, each doing one job, several of them
+  small and most of them finished. The confusion was that they were never named as families.
+  <b>Now they are.</b> Each description below is quoted from the surface's own registered entry.
+</div>
+
+<div class="toc">
+  <a href="#lens">LENS / FOCUS</a>
+  <a href="#trace">POLICY TRACE</a>
+  <a href="#glyph">GLYPH</a>
+  <a href="#map">MAP</a>
+  <a href="#audit">AUDIT / HEALTH</a>
+  <a href="#house">HOUSE / SPATIAL</a>
+  <a href="#aperture">APERTURE / PORT</a>
+</div>
+
+<article class="sys" id="lens">
+  <header>
+    <div class="hdr">
+      <h3>LENS / FOCUS</h3>
+      <span class="burden load">LOAD-BEARING</span>
+    </div>
+    <div class="one">Where you are looking, and how a source survives being looked at differently.</div>
+    <div class="meta">7 runtime js · 21 state files · ~56 KB code</div>
+  </header>
+  <table>
+  <tr><td class="p">/field-aperture.js</td><td class="w">THE KERNEL. Reusable focus kernel — everything else here is a view over it.</td></tr>
+  <tr><td class="p">/lens-state.js</td><td class="w">Configures the lens. Carries the typed state the kernel reads.</td></tr>
+  <tr><td class="p">/lens-focus-ring.js</td><td class="w">The visual focus ring. Presentation, not logic.</td></tr>
+  <tr><td class="p">/docs/</td><td class="w">The public reading surface. READFIELD / RSVP 0.7.1 — the only lens a normal reader meets.</td></tr>
+  <tr><td class="p">/lens-proof/</td><td class="w">PARKED. A comparator. Direct human use showed no self-evident advantage, so it owns no canonical path.</td></tr>
+  <tr><td class="p">/foundry/aperture/</td><td class="w">ALIAS ONLY. The public reading surface converged into /docs/. Kept so old addresses resolve.</td></tr>
+  </table>
+  <div class="note">One kernel, several projections. The kernel is the thing; the rest are views of it.</div>
+</article>
+<article class="sys" id="trace">
+  <header>
+    <div class="hdr">
+      <h3>POLICY TRACE</h3>
+      <span class="burden load">LOAD-BEARING</span>
+    </div>
+    <div class="one">Why a decision was made — the audit trail of lawful moves.</div>
+    <div class="meta">4 js/schema · ~150 KB schema+examples · 4 control state</div>
+  </header>
+  <table>
+  <tr><td class="p">/field-policy-trace.mjs</td><td class="w">Records the trace. Turns a decision into a checkable event sequence.</td></tr>
+  <tr><td class="p">/policy-trace-verifier.mjs</td><td class="w">Verifies the trace. Runs in CI — a trace that cannot verify is not a claim.</td></tr>
+  <tr><td class="p">/policy-resolution-trace.schema.json</td><td class="w">THE LARGE ONE (94 KB). The formal grammar of a lawful decision.</td></tr>
+  <tr><td class="p">/policy-trace-event-model.json</td><td class="w">The event vocabulary the schema and verifier share.</td></tr>
+  </table>
+  <div class="note">This is the repo explaining itself. Large because a trace schema must describe every lawful transition.</div>
+</article>
+<article class="sys" id="glyph">
+  <header>
+    <div class="hdr">
+      <h3>GLYPH</h3>
+      <span class="burden cand">ACTIVE</span>
+    </div>
+    <div class="one">A deterministic picture of an exact thing. Same bytes in, same mark out.</div>
+    <div class="meta">3 files · ~7 KB</div>
+  </header>
+  <table>
+  <tr><td class="p">/field-glyph.js</td><td class="w">The generator. Shared presentation/glyph grammar used across FIELD surfaces.</td></tr>
+  <tr><td class="p">/fold-bloom/listen/audio-glyph.js</td><td class="w">Audio glyphs. An exact audio hash compiles to a deterministic thumbnail.</td></tr>
+  <tr><td class="p">/fold-bloom/atlas/</td><td class="w">GLYPH ATLAS 0.2 — the gallery. Focus opens a cell into identity / structure / signature / text / origin facets.</td></tr>
+  </table>
+  <div class="note">Small, and load-bearing for recognition: it is how an exact source becomes recognisable without being re-read.</div>
+</article>
+<article class="sys" id="map">
+  <header>
+    <div class="hdr">
+      <h3>MAP</h3>
+      <span class="burden mix">MIXED</span>
+    </div>
+    <div class="one">Spatial and structural views of things that are not one-dimensional.</div>
+    <div class="meta">4 files · ~40 KB</div>
+  </header>
+  <table>
+  <tr><td class="p">/nexus/map.html</td><td class="w">SYSTEM MAP. How the surfaces relate and which are load-bearing. Orientation for a cold reader.</td></tr>
+  <tr><td class="p">/fcm-map.json</td><td class="w">The focus/context map data the mapping surfaces read.</td></tr>
+  <tr><td class="p">/poetry/map/</td><td class="w">POEM MAP 0.2.1 — CANDIDATE. Readable page first; selected-token focus wheel second.</td></tr>
+  <tr><td class="p">/poetry/lab/poem-map/</td><td class="w">POEM MAP 0.1 — CANDIDATE. The earlier probe, kept as comparison.</td></tr>
+  </table>
+  <div class="note">One system map (load-bearing orientation), one FCM map, and two poetry maps that are candidates.</div>
+</article>
+<article class="sys" id="audit">
+  <header>
+    <div class="hdr">
+      <h3>AUDIT / HEALTH</h3>
+      <span class="burden load">LOAD-BEARING (the checks) / STALE (the snapshots)</span>
+    </div>
+    <div class="one">What is broken, and whether it still is. The checks that keep the rest honest.</div>
+    <div class="meta">7 state files · ~30 KB</div>
+  </header>
+  <table>
+  <tr><td class="p">/control/FIELD_INDEX_AUDIT_2026-09-21.json</td><td class="w">A dated audit snapshot. Evidence of that moment only — do not read as current.</td></tr>
+  <tr><td class="p">/control/FIELD_INDEX_AUDIT_2026-09-20.json</td><td class="w">The earlier snapshot. Superseded by the 21st, retained as record.</td></tr>
+  <tr><td class="p">/control/FIELD_INDEX_LINK_AUDIT_2026-09-21.json</td><td class="w">Which links resolved on that date.</td></tr>
+  <tr><td class="p">/control/LENS_CI_STATUS_2026-09-21.json</td><td class="w">A point-in-time CI reading. The live answer is the Actions tab.</td></tr>
+  <tr><td class="p">LIVE (not files)</td><td class="w">Route Registration · public-surface-check · convergence-validate — the gates that actually run.</td></tr>
+  </table>
+  <div class="note">The dated snapshots are evidence of a moment, not live state. The live gates are the CI workflows.</div>
+</article>
+<article class="sys" id="house">
+  <header>
+    <div class="hdr">
+      <h3>HOUSE / SPATIAL</h3>
+      <span class="burden cand">CANDIDATE</span>
+    </div>
+    <div class="one">The same trace idea applied to a physical room instead of a document.</div>
+    <div class="meta">3 files · ~9 KB</div>
+  </header>
+  <table>
+  <tr><td class="p">/house/spatial/</td><td class="w">HOUSE / SPATIAL — runnable multi-projection spatial workbench: addressed house substrate plus TRACE ink-path.</td></tr>
+  <tr><td class="p">/house/spatial/trace-rules.json</td><td class="w">What may leave a mark on the room substrate.</td></tr>
+  <tr><td class="p">/house/spatial/trace-path-laws.json</td><td class="w">The laws a traced path must obey.</td></tr>
+  </table>
+  <div class="note">The bridge between the digital trace system and actual space. Small, and the only one of its kind.</div>
+</article>
+<article class="sys" id="aperture">
+  <header>
+    <div class="hdr">
+      <h3>APERTURE / PORT</h3>
+      <span class="burden load">LOAD-BEARING</span>
+    </div>
+    <div class="one">How an arbitrary thing (text, image, file) is accepted and addressed.</div>
+    <div class="meta">2 files · ~37 KB</div>
+  </header>
+  <table>
+  <tr><td class="p">/port/</td><td class="w">HUMAN PORT 1.5.2 — canonical addressed object aperture. Accepts text/JSON/image/local files as one Port object, preserving byte identity.</td></tr>
+  <tr><td class="p">/port/object-aperture.js</td><td class="w">The implementation of that acceptance.</td></tr>
+  <tr><td class="p">/foundry/convergence/</td><td class="w">CONVERGENCE FIELD — CANDIDATE workbench testing unequal NOW/LENS/RUN/PROOF/ATLAS projections over one captured object.</td></tr>
+  </table>
+  <div class="note">The front door. If something is not addressed through here, it has no provenance.</div>
+</article>
+
+<footer>
+  THE INVENTORY · families only, nothing moved ·
+  <a href="../witness/">the witness</a> · <a href="../godseye/">the account</a> ·
+  <a href="../reader/">the reader</a> · <a href="../nexus/">field nexus</a> · <a href="../">field index</a>
+</footer>
+</div>
+</body>
+</html>
