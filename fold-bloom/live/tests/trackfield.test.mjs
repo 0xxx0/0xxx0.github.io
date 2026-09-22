@@ -15,12 +15,14 @@ const map={version:'test-map',stage:'DEEP',duration:12,bpm:120,frameRate:.5,fram
 
 test('trackfield is a bounded future projection of the AUDIO MAP',()=>{
   const w=buildTrackfield(map,1,{horizon:9,count:36});
-  assert.equal(w.schema,'fold-bloom-trackfield/v0.3');
+  assert.equal(w.schema,'fold-bloom-trackfield/v0.4');
   assert.equal(w.points.length,36);
   assert.equal(w.time,1);
   assert.ok(w.points[0].ahead===0);
   assert.ok(w.points.at(-1).t<=10.01);
   assert.ok(w.points.some(p=>p.beatEdge));
+  assert.ok(w.points.some(p=>p.downbeatEdge));
+  assert.ok(w.points.some(p=>p.phraseEdge));
   assert.ok(w.points.some(p=>p.sectionEdge));
 });
 
@@ -71,8 +73,8 @@ test('quiet climb and intense descent separate visibly in screen space',()=>{
   const climb=projectTrackfield(buildTrackfield(mk(.16,.03,.78,.06),0,{horizon:9,count:40}),430,900);
   const descent=projectTrackfield(buildTrackfield(mk(.92,.58,.12,.70),0,{horizon:9,count:40}),430,900);
   const i=30;
-  assert.ok(climb.slices[i].baseY<descent.slices[i].baseY-35);
-  assert.ok(descent.currentSpeed>climb.currentSpeed+.45);
+  assert.ok(climb.slices[i].baseY<descent.slices[i].baseY-70);
+  assert.ok(descent.currentSpeed>climb.currentSpeed+.65);
 });
 
 
@@ -83,4 +85,14 @@ test('chosen SPLIT branch shifts camera toward the selected traversal',()=>{
   const right=projectTrackfield(splitWorld,430,900,{rideLateral:1});
   assert.ok(right.cameraShift>20);
   assert.ok(right.slices[4].centerX<neutral.slices[4].centerX);
+});
+
+
+test('future energy trend anticipates a drop with steeper grade before impact',()=>{
+  const flat=trackfieldPoint({e:.45,c:.5,f:.08,l:.4,h:.3},.5,{energyTrend:0});
+  const rising=trackfieldPoint({e:.45,c:.5,f:.08,l:.4,h:.3},.5,{energyTrend:.5});
+  const falling=trackfieldPoint({e:.45,c:.5,f:.08,l:.4,h:.3},.5,{energyTrend:-.5});
+  assert.ok(rising.grade<flat.grade-.3);
+  assert.ok(falling.grade>flat.grade+.3);
+  assert.ok(rising.speed>flat.speed);
 });
