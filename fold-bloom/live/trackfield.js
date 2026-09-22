@@ -78,9 +78,11 @@ export function buildTrackfield(map,time=0,{horizon=12,count=44}={}){
 
   let surge=null,maxImpact=0;
   for(let i=1;i<points.length;i++){
-    const p=points[i],prevPoint=points[i-1];
-    maxImpact=Math.max(maxImpact,p.impact);
-    if(!surge&&p.ahead>.45&&p.impact>=.92&&p.impact-prevPoint.impact>=.13)surge={ahead:p.ahead,impact:p.impact,index:i};
+    const p=points[i];maxImpact=Math.max(maxImpact,p.impact);
+    let j=i-1;
+    while(j>0&&p.ahead-points[j].ahead<.72)j--;
+    const base=points[j]||points[0],window=Math.max(.001,p.ahead-base.ahead),rise=p.impact-base.impact,riseRate=rise/window;
+    if(!surge&&p.ahead>.55&&p.impact>=.78&&rise>=.16&&riseRate>=.16)surge={ahead:p.ahead,impact:p.impact,rise:+rise.toFixed(4),riseRate:+riseRate.toFixed(4),index:i};
   }
   const sections=Math.max(1,(map.sections?.length||1)-1);
   return {
