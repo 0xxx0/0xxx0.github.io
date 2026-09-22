@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
   "version": "LIVE 0.13",
-  "status": "ACTIVE_CANDIDATE_MERGED",
+  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
   "date": "2026-09-22",
   "donors": [
     {
@@ -129,7 +129,11 @@
     "section-index variation uses an irrational golden-ratio phase to produce subtle non-repeating intra-scene palette/pattern shifts",
     "timed-text lookup now uses binary search, making long transcripts/podcasts scale logarithmically instead of scanning all prior cues every frame",
     "HUD/data-attribute/perf writes are throttled to 10 Hz while canvas motion remains full-rate",
-    "runtime exposes bounded FPS/model-slice witness for QA and successor agents"
+    "runtime exposes bounded FPS/model-slice witness for QA and successor agents",
+    "LIVE consumes the same source-hash field-text-alignment/v0.1 edited by LISTEN; anchored drift correction replaces the old ±8 second-only lyric path",
+    "LIVE TEXT NUDGE becomes a coarse ±120 second adjustment over the shared alignment model; precise anchor authoring remains in LISTEN",
+    "fading SOURCE SPINE carries local source progress, sections, LISTEN marks and text-alignment anchors through the ride without replacing the embodied field",
+    "SOURCE SPINE seeks local owned audio only; optional external FIELD PULSE remains context and is never secretly controlled"
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -170,7 +174,9 @@
     "AUTOPILOT remains reversible witness-play and may not persist authored operations",
     "model rebuild throttling may reduce CPU load but must not quantize source-time semantics or one-shot macro-event identity",
     "perceptual scene morphing changes projection only; source audio/map/profile authority remains unchanged",
-    "performance witnesses are diagnostic and must not become score/reward mechanics"
+    "performance witnesses are diagnostic and must not become score/reward mechanics",
+    "LIVE may consume shared alignment/profile/marks but LISTEN remains the editor for temporal bindings",
+    "source-spine interaction may seek local same-page audio; it must not acquire remote/cross-tab control authority"
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
@@ -235,7 +241,8 @@
     "polish_ci": "PASS: public-surface-check run 35705196976; LISTEN regression, full LIVE stack incl. projection smoothing, critical phone browser smoke, recovery and Sleeper/City/Painting tail all green",
     "polish_pr": 151,
     "polish_merge_sha": "ce475fe2f9abca2068032c3dc4bdf236bcf0ee45",
-    "polish_regression": "First CI failed an obsolete exact-color parity test after intentional golden-phase section tinting. Updated proof to preserve parity/world identity while permitting bounded section variation; production laws unchanged; rerun fully passed."
+    "polish_regression": "First CI failed an obsolete exact-color parity test after intentional golden-phase section tinting. Updated proof to preserve parity/world identity while permitting bounded section variation; production laws unchanged; rerun fully passed.",
+    "source_spine_alignment": "PENDING PR CI + direct same-track LISTEN→LIVE alignment QA"
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
