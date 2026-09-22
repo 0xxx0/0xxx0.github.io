@@ -1,36 +1,51 @@
 {
   "schema": "0xxx0/release/v0.1",
-  "id": "FOLD_BLOOM_SET_COMPOSITOR_010",
-  "title": "FOLD//BLOOM SET 0.1",
-  "version": "0.1",
+  "id": "FOLD_BLOOM_SET_COMPOSITOR_011",
+  "title": "FOLD//BLOOM SET 0.1.1",
+  "version": "0.1.1",
   "date": "2026-09-22",
-  "state": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
+  "state": "BRANCH_CANDIDATE_OVER_MERGED_HUMAN_GATE",
   "route": "/fold-bloom/set/",
   "consumes": "fold-bloom-experience-set/v0.1",
   "operation": "SHAPE",
+  "baseline": {
+    "state": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
+    "pullRequest": 158,
+    "mergeSha": "65257b7ed3d8e9afef0324f0775efce90ba8f789",
+    "ci": {
+      "run": 1635,
+      "status": "PASS"
+    },
+    "seal": {
+      "pullRequest": 159,
+      "mergeSha": "f60a9d6d8ba696f9d1223d4814375871a4b2b1b4"
+    }
+  },
+  "delta": [
+    "recognize four user-supplied local sources by exact SHA-256 without publishing audio bytes",
+    "offer one explicit three-track journey seed: preforme -> THROUGH THE FIRE -> BY YOUR WILL / 遺志",
+    "keep the NotebookLM aperiodic-geometry export as a separate long-form stress pack",
+    "apply suggested order, experiential weights, roles and CARRY / DISSOLVE / RETURN seams only after explicit human action",
+    "expose a hash-only seed demo at /fold-bloom/set/?demo=seed"
+  ],
   "laws": [
     "SOURCE REFS, NOT SOURCE BYTES",
+    "HASH RECOGNITION DOES NOT GRANT SOURCE OR AUTHORSHIP AUTHORITY",
+    "PACK SUGGESTIONS ARE REVERSIBLE PROFILE / SHAPE STATE",
     "ORDER IS AUTHORED",
     "SEAMS ARE EXPLICIT",
     "CUT / DISSOLVE / CARRY / RESET INTERIOR; RETURN CLOSES",
     "REORDER MUST NOT CHANGE CHILD SOURCE IDENTITY",
-    "SET AUTHORSHIP DOES NOT ACQUIRE MAP/ANALYZER AUTHORITY"
+    "SET AUTHORSHIP DOES NOT ACQUIRE MAP / ANALYZER AUTHORITY"
   ],
   "evidence": {
     "core": "/fold-bloom/set/set-core.js",
     "tests": "/fold-bloom/set/tests/set-core.test.mjs",
-    "browser": "/fold-bloom/set/?demo=1"
+    "catalog": "/fold-bloom/test-packs/catalog.json",
+    "catalogCore": "/fold-bloom/test-packs/test-pack-core.js",
+    "catalogTests": "/fold-bloom/test-packs/tests/test-pack-core.test.mjs",
+    "genericBrowser": "/fold-bloom/set/?demo=1",
+    "seedBrowser": "/fold-bloom/set/?demo=seed"
   },
-  "stop": "Technical promotion is complete. Do not implement Journey Ride until direct 3–7-source use decides whether SET authoring feels like shaping one journey rather than maintaining a playlist.",
-  "status": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
-  "pullRequest": 158,
-  "mergeSha": "65257b7ed3d8e9afef0324f0775efce90ba8f789",
-  "ci": {
-    "run": 1635,
-    "status": "PASS"
-  },
-  "seal": {
-    "pullRequest": 159,
-    "mergeSha": "f60a9d6d8ba696f9d1223d4814375871a4b2b1b4"
-  }
+  "stop": "Technical promotion for SET 0.1 remains valid. Do not publish raw audio or implement Journey Ride until the three exact local songs pass recognition -> explicit seed apply -> manual mutation -> exact export/import and the existing human gate returns KEEP / REVISE / REJECT."
 }

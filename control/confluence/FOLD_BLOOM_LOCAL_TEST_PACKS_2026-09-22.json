@@ -1,0 +1,119 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_LOCAL_TEST_PACKS_2026-09-22",
+  "date": "2026-09-22",
+  "object": "Four uploaded local audio sources -> hash-recognized test packs",
+  "status": "BRANCH_CANDIDATE",
+  "baseline": "master@f60a9d6d8ba696f9d1223d4814375871a4b2b1b4",
+  "userIntent": [
+    "Use the three authored tracks as possible defaults/placeholders while Fold/Bloom continues forward.",
+    "Treat the large NotebookLM export as a useful test source rather than forcing it into the music journey.",
+    "Keep the line moving while retaining the option to fold prior surfaces behind the current one."
+  ],
+  "privacyBoundary": {
+    "published": [
+      "SHA-256 identity",
+      "bounded title/artist/origin metadata",
+      "duration and file size",
+      "suggested reversible test role/order/weight/seam"
+    ],
+    "notPublished": [
+      "raw audio bytes",
+      "local filesystem paths",
+      "embedded lyrics bodies"
+    ],
+    "law": "Hash recognition does not grant source, authorship or analysis authority."
+  },
+  "observed": [
+    {
+      "sourceId": "sha256:06ca33eb185845330718d8c9428c29a3a3bcb6d94f64e18270e4adb7400757cc",
+      "title": "preforme",
+      "artist": "stgoh",
+      "durationSeconds": 230.592,
+      "sizeBytes": 5258216,
+      "meanDbfs": -18.9019,
+      "dynamicSpanP10P90Db": 7.0205,
+      "tempoEstimateBpm": 117.5,
+      "embeddedText": true,
+      "origin": {
+        "kind": "SUNO",
+        "id": "e051aad9-767b-4a4a-9348-2cc75f0abcbb"
+      }
+    },
+    {
+      "sourceId": "sha256:ac6c2c5fc654177da675b5d419a16b5430483371a524f5016ca45c7399905f04",
+      "title": "THROUGH THE FIRE",
+      "artist": "stgoh",
+      "durationSeconds": 424.8,
+      "sizeBytes": 10206056,
+      "meanDbfs": -16.9999,
+      "dynamicSpanP10P90Db": 9.4029,
+      "tempoEstimateBpm": 143.6,
+      "tempoNote": "Detector likely reads double-time; embedded source text names 70/85 BPM sections.",
+      "embeddedText": true,
+      "origin": {
+        "kind": "SUNO",
+        "id": "575eea44-0c76-4d49-b253-6ded993184bb"
+      }
+    },
+    {
+      "sourceId": "sha256:00f41b223138e760e64a08c882606d18f2fcaafcc2e75526396f2c8c4fdfc2bc",
+      "title": "BY YOUR WILL / 遺志",
+      "artist": "stgoh",
+      "durationSeconds": 364.872,
+      "sizeBytes": 8766199,
+      "meanDbfs": -17.1001,
+      "dynamicSpanP10P90Db": 7.6527,
+      "tempoEstimateBpm": 92.3,
+      "embeddedText": true,
+      "origin": {
+        "kind": "SUNO",
+        "id": "bdf2d8b8-6490-4387-a3ab-939d5bac4c2e"
+      }
+    },
+    {
+      "sourceId": "sha256:7bf144bacd674e594882e11085c149c29655ffeda1c3b9f390b500388ea65647",
+      "title": "Aperiodic geometry stops human model collapse",
+      "artist": "NotebookLM export",
+      "durationSeconds": 2393.396825,
+      "sizeBytes": 77029609,
+      "meanDbfs": -28.3976,
+      "dynamicSpanP10P90Db": 4.7719,
+      "embeddedText": false,
+      "origin": {
+        "kind": "NOTEBOOKLM_EXPORT",
+        "id": null
+      }
+    }
+  ],
+  "reconstructed": {
+    "defaultJourney": {
+      "id": "work-trance-seed-2026-09-22",
+      "title": "GHOST -> FORGE -> WILL",
+      "order": [
+        "preforme",
+        "THROUGH THE FIRE",
+        "BY YOUR WILL / 遺志"
+      ],
+      "seams": [
+        "CARRY",
+        "DISSOLVE",
+        "RETURN"
+      ],
+      "status": "EXPLICIT_EDITABLE_SUGGESTION"
+    },
+    "longformStress": {
+      "id": "aperiodic-longform-stress-2026-09-22",
+      "use": "LISTEN long-form address/aperture + transcript calibration + future podcast adapter",
+      "status": "SEPARATE_FROM_DEFAULT_MUSIC_JOURNEY"
+    }
+  },
+  "implemented": [
+    "/fold-bloom/test-packs/catalog.json",
+    "/fold-bloom/test-packs/test-pack-core.js",
+    "/fold-bloom/test-packs/tests/test-pack-core.test.mjs",
+    "/fold-bloom/set/?demo=seed"
+  ],
+  "stop": "Do not publish audio bytes or begin JOURNEY RIDE in this pass. First verify recognition, explicit apply, manual mutation and exact export/import with the real local files.",
+  "return": "/returns/FOLD_BLOOM_LOCAL_TEST_PACKS_2026-09-22.json"
+}

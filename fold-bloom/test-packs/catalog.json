@@ -1,0 +1,108 @@
+{
+  "schema": "fold-bloom-local-test-packs/v0.1",
+  "date": "2026-09-22",
+  "privacy": "Exact hashes and descriptive metadata only. Raw audio bytes are never stored or fetched by this catalog.",
+  "packs": [
+    {
+      "id": "work-trance-seed-2026-09-22",
+      "title": "GHOST → FORGE → WILL",
+      "kind": "JOURNEY_SEED",
+      "default": true,
+      "purpose": "Three-track local journey seed for SET ordering, seam authorship, LISTEN text/address work and later JOURNEY RIDE continuity.",
+      "rationale": "Begin with intimate unresolved address, carry it into sustained forging motion, then dissolve into chosen inheritance and release.",
+      "entries": [
+        {
+          "sourceId": "sha256:06ca33eb185845330718d8c9428c29a3a3bcb6d94f64e18270e4adb7400757cc",
+          "title": "preforme",
+          "artist": "stgoh",
+          "durationSeconds": 230.592,
+          "sizeBytes": 5258216,
+          "origin": {
+            "kind": "SUNO",
+            "id": "e051aad9-767b-4a4a-9348-2cc75f0abcbb"
+          },
+          "role": "LYRIC / ADDRESS / INTIMATE PRESSURE",
+          "weight": 0.85,
+          "transitionOut": "CARRY",
+          "tests": [
+            "embedded lyric recovery",
+            "text address and calibration",
+            "quiet-to-intense projection response",
+            "clean terminal decay"
+          ]
+        },
+        {
+          "sourceId": "sha256:ac6c2c5fc654177da675b5d419a16b5430483371a524f5016ca45c7399905f04",
+          "title": "THROUGH THE FIRE",
+          "artist": "stgoh",
+          "durationSeconds": 424.8,
+          "sizeBytes": 10206056,
+          "origin": {
+            "kind": "SUNO",
+            "id": "575eea44-0c76-4d49-b253-6ded993184bb"
+          },
+          "role": "MOTION / FORGE ARC / RECURRENCE",
+          "weight": 1.2,
+          "transitionOut": "DISSOLVE",
+          "tests": [
+            "sustained climb and descent",
+            "speed variation",
+            "recurring motif witness",
+            "macro transition density"
+          ]
+        },
+        {
+          "sourceId": "sha256:00f41b223138e760e64a08c882606d18f2fcaafcc2e75526396f2c8c4fdfc2bc",
+          "title": "BY YOUR WILL / 遺志",
+          "artist": "stgoh",
+          "durationSeconds": 364.872,
+          "sizeBytes": 8766199,
+          "origin": {
+            "kind": "SUNO",
+            "id": "bdf2d8b8-6490-4387-a3ab-939d5bac4c2e"
+          },
+          "role": "MULTILINGUAL / MACRO DROP / RESOLUTION",
+          "weight": 1,
+          "transitionOut": "RETURN",
+          "tests": [
+            "rare large event response",
+            "multilingual embedded text",
+            "section and drop identity",
+            "set closure and RETURN"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "aperiodic-longform-stress-2026-09-22",
+      "title": "APERIODIC GEOMETRY / LONGFORM STRESS",
+      "kind": "LONGFORM_STRESS",
+      "default": false,
+      "purpose": "Single-source long-form speech pressure test for LISTEN address/aperture, transcript calibration and the future podcast adapter.",
+      "rationale": "Keep it separate from the default music journey. Its value is duration, speech continuity and likely nonlinear transcript drift rather than musical seam feel.",
+      "entries": [
+        {
+          "sourceId": "sha256:7bf144bacd674e594882e11085c149c29655ffeda1c3b9f390b500388ea65647",
+          "title": "Aperiodic geometry stops human model collapse",
+          "artist": "NotebookLM export",
+          "durationSeconds": 2393.396825,
+          "sizeBytes": 77029609,
+          "origin": {
+            "kind": "NOTEBOOKLM_EXPORT",
+            "id": null
+          },
+          "role": "LONGFORM SPEECH / ADDRESS / TRANSCRIPT DRIFT",
+          "weight": 1,
+          "transitionOut": "RETURN",
+          "tests": [
+            "40-minute source handling",
+            "long-form timed-text lookup",
+            "BEAT / PHRASE / SECTION / TRACK aperture behavior",
+            "future anchor-warp transcript calibration",
+            "podcast adapter boundary"
+          ]
+        }
+      ]
+    }
+  ]
+}
