@@ -2,7 +2,7 @@
   "schema": "0xxx0/confluence-packet/v0.1",
   "id": "FOLD_BLOOM_EMBODIED_POV_2026-09-22",
   "date": "2026-09-22",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "object": "FOLD//BLOOM LIVE 0.10 / embodiment as congruent multimodal witness",
   "observed": [
     "User wants stronger movement POV / embodiment / immersion, including effects or explosions in the sky.",
@@ -34,5 +34,18 @@
     "Does reduced-motion remain usable?"
   ],
   "stop": "Do not add particle storms, combo fireworks, collectible lanes or unrelated spectacle. Next visual increase must answer a named perceptual failure.",
-  "return": "/returns/FOLD_BLOOM_EMBODIED_POV_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_EMBODIED_POV_2026-09-22.json",
+  "pr": 147,
+  "merge_sha": "d872d9bbdb303dddbfc28fc09bd1e681e97a27fb",
+  "verification": {
+    "ci_run": 35696511392,
+    "result": "PASS",
+    "checks": [
+      "POV effect tests",
+      "LIVE gameplay/track/section/TRACKFIELD/deformation/ride tests",
+      "LISTEN preview smoke",
+      "critical phone-sized browser smoke",
+      "repo-wide static/recovery regressions"
+    ]
+  }
 }
