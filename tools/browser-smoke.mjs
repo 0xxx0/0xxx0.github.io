@@ -700,7 +700,7 @@ const CASES=[
   {
     name:'FOLD BLOOM convergence',
     route:'/fold-bloom/',
-    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/GLYPH ATLAS 0\.2/i.test(dom)&&/LISTEN 0\.6/i.test(dom)&&/LIVE 0\.13/i.test(dom)&&/TWO DIAL 0\.10\.3/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/GLYPH ATLAS 0\.2/i.test(dom)&&/LISTEN 0\.7/i.test(dom)&&/LIVE 0\.13/i.test(dom)&&/TWO DIAL 0\.10\.3/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)
   },
   {
     name:'FOLD BLOOM GLYPH ATLAS 0.2 INSIDE',
