@@ -1178,6 +1178,14 @@
       "operation": "SHAPE",
       "state": "CANDIDATE",
       "version": "0.1",
+      "index": {
+        "updated_at": "2026-09-22",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
       "receipt": "/returns/FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json",
       "role": "Local-first Experience Set compositor. Owned/local source bytes may be hashed into exact source references, then order, experiential weight and explicit CUT/DISSOLVE/CARRY/RESET seams are authored without storing source bytes or acquiring analyzer authority. RETURN closes the set.",
       "transfer": [
