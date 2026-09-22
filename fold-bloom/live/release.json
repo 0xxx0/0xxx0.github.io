@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
   "version": "LIVE 0.7",
-  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
+  "status": "ACTIVE_CANDIDATE_MERGED",
   "date": "2026-09-22",
   "donors": [
     {
@@ -106,7 +106,7 @@
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "CI + desktop/phone: compare FIELD COURSE and same MP3; verify obvious climb/descent, continuous velocity, smoother turns, normal-mode deformation, and no loss of SPLIT branch legibility.",
+    "required_next": "Direct desktop/phone A/B: PLAY FIELD first, then the same MP3. Without relying on VEL/GRADE labels, judge whether climb/descent is unmistakable, energetic passages feel faster, turns are smoother, and FOLD/SPLIT/RETURN remain legible.",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
@@ -137,7 +137,11 @@
     "ride_pr": 140,
     "ride_merge_sha": "394ff6639690eecfdb15fed81bc1220d662b8f5c",
     "ride_ci": "PASS: public-surface-check run 35678147159, including engine/track/section/TRACKFIELD/deformation/ride tests and critical browser smoke",
-    "motion_branch": "fold-bloom-motion-070"
+    "motion_branch": "fold-bloom-motion-070",
+    "motion_pr": 141,
+    "motion_merge_sha": "3dc38617be81ac215b95998ba14ff82fb1a5e2d9",
+    "motion_ci": "PASS: public-surface-check run 35680273840, including interpolation/grade/speed/practice-course/deformation/ride tests and critical browser smoke",
+    "motion_regression": "CI caught old adjacent-frame SURGE detection becoming invalid after smoothing; replaced with temporal-window impact-rise detection before merge."
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_MOTION_2026-09-22.json",
