@@ -12,8 +12,17 @@ export function parseSunoId(input=''){
     return id&&UUID_RE.test(id)?id.toLowerCase():null;
   }catch(_){return null}
 }
+export function parseSunoPlaylistId(input=''){
+  const raw=String(input||'').trim();
+  try{
+    const u=new URL(raw);if(!/(^|\.)suno\.com$/i.test(u.hostname))return null;
+    const parts=u.pathname.split('/').filter(Boolean),ix=parts.findIndex(x=>x.toLowerCase()==='playlist'),id=ix>=0?parts[ix+1]:null;
+    return id||null;
+  }catch(_){return null}
+}
 export function classifySourceAddress(input=''){
-  const raw=String(input||'').trim(),sunoId=parseSunoId(raw);
+  const raw=String(input||'').trim(),playlistId=parseSunoPlaylistId(raw),sunoId=parseSunoId(raw);
+  if(playlistId)return {kind:'SUNO_PLAYLIST',playlistId,address:raw};
   if(sunoId)return {kind:'SUNO',sunoId,address:raw};
   try{
     const u=new URL(raw);
@@ -23,6 +32,7 @@ export function classifySourceAddress(input=''){
 }
 export async function resolveSourceAddress(input='',fetcher=globalThis.fetch){
   const c=classifySourceAddress(input);
+  if(c.kind==='SUNO_PLAYLIST')return {...c,title:'SUNO PLAYLIST',resolution:'PLAYLIST_ADDRESS_ONLY',audioUrl:null};
   if(c.kind!=='SUNO')return {...c,audioUrl:c.address,title:new URL(c.address).pathname.split('/').pop()||'REMOTE AUDIO',resolution:'DIRECT_URL'};
   const metadataUrl=`https://studio-api-prod.suno.com/api/clip/${c.sunoId}`;
   let clip=null,metadataError=null;
