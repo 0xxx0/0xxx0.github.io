@@ -1,5 +1,5 @@
 import {buildPreviewMap} from '../listen/preview-map.js';
-import {frameAt,beatIndexAt,sectionIndexAt} from '../listen/audio-map.js';
+import {frameAt,beatIndexAt,phraseIndexAt,sectionIndexAt} from '../listen/audio-map.js';
 import {buildTrackfield} from './trackfield.js';
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -24,12 +24,15 @@ export function transportFromMap(map,time=0,playing=false){
   const nextBeat=beatIndex>=0?Number(beats[beatIndex+1]??(beatTime+beatPeriod)):(time+beatPeriod);
   const beatSpan=Math.max(.001,nextBeat-beatTime),beatPhase=clamp((time-beatTime)/beatSpan,0,1);
   const beatDistance=Math.max(0,Math.min(Math.abs(time-beatTime),Math.abs(nextBeat-time)));
+  const phraseIndex=phraseIndexAt(map,time),phrases=map.phrases||[],phraseCount=Math.max(0,phrases.length-1),phraseStart=phraseIndex>=0?Number(phrases[phraseIndex]?.t||0):null;
+  const phraseEnd=phraseIndex>=0?Number(phrases[phraseIndex+1]?.t??map.duration):null;
+  const phraseProgress=phraseStart!==null&&phraseEnd>phraseStart?clamp((time-phraseStart)/(phraseEnd-phraseStart),0,1):null;
   const sectionIndex=sectionIndexAt(map,time),sections=map.sections||[],sectionCount=Math.max(1,sections.length-1),sectionStart=sectionIndex>=0?Number(sections[sectionIndex]?.t||0):0;
   const sectionEnd=sectionIndex>=0?Number(sections[sectionIndex+1]?.t??map.duration):map.duration;
   const sectionProgress=sectionEnd>sectionStart?clamp((time-sectionStart)/(sectionEnd-sectionStart),0,1):0;
   return {
     playing:!!playing,time,duration:map.duration||0,bpm:map.bpm||0,tempoConfidence:map.tempoConfidence||0,
-    beatIndex,beatTime,beatPhase,beatDistance,sectionIndex,sectionCount,sectionStart,sectionEnd,sectionProgress,scope:'TRACK',scopeStart:0,scopeEnd:map.duration||0,
+    beatIndex,beatTime,beatPhase,beatDistance,phraseIndex,phraseCount,phraseStart,phraseEnd,phraseProgress,sectionIndex,sectionCount,sectionStart,sectionEnd,sectionProgress,scope:'TRACK',scopeStart:0,scopeEnd:map.duration||0,
     energy:+(f.e||0).toFixed(4),flux:+(f.f||0).toFixed(4),brightness:+(f.c||0).toFixed(4),
     stage:map.stage||'UNKNOWN',sourceHash:map.source?.hash||null,sourceKind:'LOCAL_FILE',sourceAddress:null
   };
