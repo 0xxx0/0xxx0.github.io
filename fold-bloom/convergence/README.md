@@ -1,35 +1,73 @@
 # FOLD//BLOOM — CONVERGENCE PACKET
 
 **Date:** 2026-09-22  
-**Anchor:** LIVE 0.13 / LISTEN 0.6 / GLYPH ATLAS 0.2 / EXPERIENCE SET 0.1
+**Anchor:** LIVE 0.13 / LISTEN 0.6 / GLYPH ATLAS 0.2 / EXPERIENCE SET 0.1 / SET 0.1
 
-This packet separates three kinds of authority:
+This directory is the **small active re-entry surface** for FOLD//BLOOM. Do not reconstruct the project from old chats, screenshots, or attractive abandoned branches.
 
-1. **[EXECUTION ROADMAP](./EXECUTION_ROADMAP_2026-09-22.md)** — what to build next and in what order.
-2. **[DESIGN DOCTRINE](./DESIGN_DOCTRINE_2026-09-22.md)** — what must remain true while the implementation changes.
-3. **[EXPERIENCE COMPILER SPEC](./EXPERIENCE_COMPILER_SPEC_0.1.md)** — typed implementation/product contract for the next phase.
+## Read in this order
+
+1. **[THREAD COLLAPSE](./THREAD_COLLAPSE_2026-09-22.md)** — what the overlapping recent chats were actually trying to do; merged truth vs quarry vs open gates.
+2. **[ADDRESSED CONTINUITY](./ADDRESSED_CONTINUITY_2026-09-22.md)** — the deeper SOURCE SPINE abstraction and its lawful transfer beyond music.
+3. **[EXECUTION ROADMAP](./EXECUTION_ROADMAP_2026-09-22.md)** — current sequence and promotion gates.
+4. **[DESIGN DOCTRINE](./DESIGN_DOCTRINE_2026-09-22.md)** — laws that must remain true while implementation changes.
+5. **[EXPERIENCE COMPILER SPEC](./EXPERIENCE_COMPILER_SPEC_0.1.md)** — typed boundary for set/journey work.
+6. **[SUCCESSOR HANDOFF](./SUCCESSOR_HANDOFF_2026-09-22.md)** — cold-start operational handoff.
 
 Compression:
 
 ```
 SOURCE
 → MAP
-→ PROFILE
+→ PROFILE / CALIBRATION
 → PROJECTION
 → HUMAN OPERATION
 → RETURN
 ```
 
-Current progression:
+Continuity refinement:
 
 ```
-EXPERIENCE SET v0.1 ✓
-→ SET COMPOSITOR 0.1 ◇ CANDIDATE
-→ JOURNEY RIDE 0.1
+IDENTITY + ADDRESS + APERTURE + AUTHORED MARKS/CALIBRATION
+→ survive projection changes
+→ without becoming a second source of truth
+```
+
+## Current progression
+
+```
+EXPERIENCE SET 0.1 ✓
+→ SET 0.1 ✓ MERGED / HUMAN GATE
+→ if KEEP: JOURNEY RIDE 0.1
 → UNIFIED SOURCE SHELL
 → ONE NON-MUSIC ADAPTER
 ```
 
-Recovered source-editor intent is not a new branch: LISTEN is the cartographer/editor for the same addressed source, while LIVE/READFIELD/ATLAS remain unequal projections. The persistent **source spine** is identity + canonical address + aperture + authored calibration/marks carried between those projections; it must not become a new source of truth.
+SET 0.1 is implemented at `/fold-bloom/set/`; the next decision is **human use**, not another compositor implementation.
 
-LIVE 0.13 remains body-gated. A material/jitter/control regression may interrupt the sequence; SET COMPOSITOR 0.1 is now implemented as a bounded candidate at `/fold-bloom/set/`; promote it only after CI + phone-sized smoke + a direct 3–7 source authoring check. JOURNEY RIDE remains downstream.
+## Small active surface
+
+Only these currently deserve attention:
+
+1. **SET 0.1 human gate** — 3–7 meaningful source refs; does order/weight/seam authoring feel like shaping one journey rather than maintaining a playlist?
+2. **Issue #157 · LISTEN phone source-editor continuity** — horizontal ADDRESS + vertical APERTURE gesture, then one real-MP3 430×900 LISTEN→LIVE continuity proof.
+3. **LIVE 0.13 body QA** — only when direct use exposes material/jitter/drop/world/reachability problems.
+
+Everything else is downstream or parked. In particular:
+
+- JOURNEY RIDE waits for SET human evidence.
+- SOURCE SHELL waits for a reason to converge surfaces after journey evidence.
+- anchor/warp lyric calibration is a named future calibration problem; superseded PR #155 is quarry only.
+- provider proliferation, DAW editing, social/feed systems and a standalone SOURCE SPINE app remain parked.
+
+## Source-editor intent
+
+LISTEN is the cartographer/editor for the same addressed source. LIVE, READFIELD, ATLAS, TWO DIAL and ECOLOGY remain unequal instruments.
+
+**SOURCE SPINE** is a continuity mechanism:
+
+**exact source/set identity + canonical address + aperture + authored calibration/marks + current projection witness**
+
+It must not become a hub, duplicate source, second timeline authority, or excuse to merge engines.
+
+For the broader abstraction and transfer rules, read [ADDRESSED CONTINUITY](./ADDRESSED_CONTINUITY_2026-09-22.md).
