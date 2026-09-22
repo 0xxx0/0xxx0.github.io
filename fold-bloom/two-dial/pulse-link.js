@@ -7,6 +7,15 @@ if(!api) throw new Error('FOLD//BLOOM Two Dial API unavailable');
 const pulse=createFieldPulse('FOLD_BLOOM_TWO_DIAL');
 const btn=$('#pulseLinkBtn'),status=$('#pulseLinkStatus'),openBtn=$('#pulseListenBtn');
 let lastListen=null;
+const pulseRequest=new URLSearchParams(location.search).get('pulse')==='1';
+const lastPulse=pulse.last();
+if(lastPulse?.source==='FOLD_BLOOM_LISTEN'&&lastPulse.kind==='transport'){
+  lastListen=lastPulse;api.updatePulseContext?.(lastPulse.data,lastPulse.wall);
+}
+if(pulseRequest){
+  const state=api.state?.()||{};
+  if(!state.prefs?.pulseLink)api.setPulseLink?.(true);
+}
 
 function render(){
   const state=api.state?.()||{},linked=!!state.prefs?.pulseLink,p=api.pulseState?.()||{};
