@@ -1,0 +1,34 @@
+name: disk-integrity-check
+on:
+  schedule:
+    - cron: '0 8 * * 1'  # weekly Monday 8am UTC
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for unreferenced files in /recovery/
+        run: |
+          echo "=== Recovery files without manifest entries ==="
+          for dir in recovery/*/; do
+            if [ ! -f "${dir}manifest.json" ]; then
+              echo "  NO MANIFEST: ${dir}"
+            fi
+          done
+      - name: Check for duplicate index.html patterns
+        run: |
+          echo "=== Checking for empty/generic index.html files ==="
+          find . -name "index.html" -size -1k 2>/dev/null | head -20
+      - name: Check stale .gitkeep files
+        run: |
+          echo "=== Gitkeep files ==="
+          find . -name ".gitkeep" 2>/dev/null
+      - name: Report
+        run: |
+          echo "Disk integrity check completed: $(date -u)"
+          echo "Files: $(find . -not -path './.git/*' -type f | wc -l)"
+          echo "Dirs: $(find . -not -path './.git/*' -type d | wc -l)"

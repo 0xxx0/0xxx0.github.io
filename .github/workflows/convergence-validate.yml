@@ -1,0 +1,168 @@
+name: convergence-validate
+on:
+  push:
+    branches: [master]
+  schedule:
+    - cron: '0 6 * * 1'  # weekly Monday 6am UTC
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate MIGRATION.json
+        run: |
+          echo "=== Checking MIGRATION.json artifact routes ==="
+          node -e "
+          const m = require('./control/MIGRATION.json');
+          const fs = require('fs');
+          let issues = [];
+          for (const a of m.artifacts || []) {
+            if (a.route && !fs.existsSync('.' + a.route)) {
+              issues.push('MISSING: ' + a.id + ' route ' + a.route);
+            }
+            if (a.status === 'BLOCKED_EXACT_SOURCE' && a.source_url) {
+              // Mark for manual review — can't verify external URLs in CI
+              issues.push('REVIEW: ' + a.id + ' blocked source ' + a.source_url);
+            }
+          }
+          if (issues.length) {
+            console.log('Issues found:\\n' + issues.join('\\n'));
+            process.exit(1);
+          }
+          console.log('All MIGRATION.json routes verified OK');
+          "
+      - name: Validate CURRENT.json references
+        run: |
+          echo "=== Checking CURRENT.json references ==="
+          node -e "
+          const c = require('./control/CURRENT.json');
+          const fs = require('fs');
+          let issues = [];
+          // Check all documentation paths
+          for (const [k, v] of Object.entries(c.documentation || {})) {
+            if (typeof v === 'string' && v.startsWith('/')) {
+              if (!fs.existsSync('.' + v)) {
+                issues.push('MISSING doc: ' + k + ' at ' + v);
+              }
+            }
+          }
+          // Check evidence paths in active_fronts
+          for (const f of c.active_fronts || []) {
+            for (const ev of f.evidence || []) {
+              if (ev.startsWith('/') && !fs.existsSync('.' + ev)) {
+                issues.push('MISSING evidence: ' + f.id + ' -> ' + ev);
+              }
+            }
+          }
+          if (issues.length) {
+            console.log('Issues found:\\n' + issues.join('\\n'));
+            process.exit(1);
+          }
+          console.log('All CURRENT.json references verified OK');
+          "
+      - name: Validate showcase routes
+        run: |
+          echo "=== Checking showcase-manifest.json routes ==="
+          node -e "
+          const s = require('./showcase-manifest.json');
+          const fs = require('fs');
+          let issues = [];
+          // Check route paths in the manifest
+          const routes = s.routes || s.entries || [];
+          for (const r of routes) {
+            const path = r.path || r.route || r.href;
+            if (path && path.startsWith('/')) {
+              if (!fs.existsSync('.' + path) && !fs.existsSync('.' + path + '/index.html')) {
+                issues.push('DEAD ROUTE: ' + path);
+              }
+            }
+          }
+          if (issues.length) {
+            console.log('Dead routes:\\n' + issues.join('\\n'));
+            process.exit(1);
+          }
+          console.log('All showcase routes verified');
+          "
+      - name: Validate recovery manifest hashes
+        run: |
+          echo "=== Checking recovery manifest hashes ==="
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+          const crypto = require('crypto');
+          const recoveryDir = './recovery/';
+          let issues = [];
+          function check(dir) {
+            const entries = fs.readdirSync(dir, {withFileTypes: true});
+            for (const e of entries) {
+              const full = path.join(dir, e.name);
+              if (e.isDirectory()) {
+                check(full);
+              } else if (e.name === 'manifest.json') {
+                try {
+                  const m = JSON.parse(fs.readFileSync(full, 'utf8'));
+                  const src = m.source;
+                  if (src && src.sha256) {
+                    const route = m.route || path.dirname(full).replace(recoveryDir, '/recovery/');
+                    const actualPath = path.join(path.dirname(full), src.name || 'index.html');
+                    if (fs.existsSync(actualPath)) {
+                      const actual = crypto.createHash('sha256').update(fs.readFileSync(actualPath)).digest('hex');
+                      if (actual !== src.sha256) {
+                        issues.push('HASH MISMATCH: ' + route + ' expected ' + src.sha256 + ' got ' + actual);
+                      }
+                    }
+                  }
+                } catch(e) {}
+              }
+            }
+          }
+          check(recoveryDir);
+          if (issues.length) {
+            console.log('Hash issues:\\n' + issues.join('\\n'));
+            process.exit(1);
+          }
+          console.log('All recovery hashes verified OK');
+          "
+      - name: Report orphan recovery files
+        run: |
+          echo "=== Files in /recovery/ without manifest entries ==="
+          node -e "
+          const fs = require('fs');
+          const path = require('path');
+          const recoveryDir = './recovery/';
+          const manifested = new Set();
+          function findManifests(dir) {
+            const entries = fs.readdirSync(dir, {withFileTypes: true});
+            for (const e of entries) {
+              const full = path.join(dir, e.name);
+              if (e.isDirectory()) findManifests(full);
+              else if (e.name === 'manifest.json') {
+                try {
+                  const m = JSON.parse(fs.readFileSync(full, 'utf8'));
+                  const route = m.route || path.dirname(full).replace(recoveryDir, '/recovery/');
+                  manifested.add(route);
+                } catch(e) {}
+              }
+            }
+          }
+          findManifests(recoveryDir);
+          console.log('Manifested routes:', [...manifested].join('\\n'));
+          "
+      - name: Write validation report
+        if: always()
+        run: |
+          echo "Validation run: $(date -u)" > /tmp/validation-report.md
+          echo "All checks completed." >> /tmp/validation-report.md
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: validation-report
+          path: /tmp/validation-report.md

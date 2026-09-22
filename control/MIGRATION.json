@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/migration-ledger/v0.1",
-  "updated": "2026-09-21",
+  "updated": "2026-09-22",
   "purpose": "Batch recovery + dedup ledger for the last ~2 weeks. Copy/recover first; classify second; merge only after mechanisms and lineage are visible.",
   "laws": [
     "NO DELETION DURING INGEST",
@@ -125,28 +125,27 @@
       "id": "sleeper-one-return-city-engine",
       "name": "Sleeper // One Return · City Engine v0.2",
       "family": "sleeper",
-      "status": "IMPORT",
-      "source_type": "exported-git-exact-subset",
+      "status": "RECOVERED_AND_IMPORTED",
+      "source_type": "external-live-web-fetch",
       "source_url": "https://sleeper-one-return.metaname.chatgpt.site/",
-      "unique": "Phrase + verse cell + figure compile into reproducible ASCII city; eight proofs + ninth RETURN; distinct source-material compiler and figure physics.",
-      "action": "Preserve exact donor. Engine source and tests recovered; full City deployment remains open.",
-      "retrieval_state": "EXACT_SOURCE_RECOVERED_2026-09-21",
-      "checkpoint": "Separate private v0.7 checkpoint is not the identity basis for this City v0.2 recovery.",
-      "route": "/recovery/sleeper/city-engine-v0.2/",
-      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json"
+      "unique": "Phrase + verse cell + figure compile into reproducible ASCII city; eight proofs + ninth RETURN; distinct source-material compiler and figure physics. Full Next.js app with 10-field Field Atlas, Nine Gates, operators, mobile controls.",
+      "design_conversation": "Brainstorm ASCII Sleeper City (2026-08-24, 945 msgs) + Branch (2026-09-10, 964 msgs) — both in ChatGPT Sept export conversations-007.json and conversations-008.json",
+      "action": "KEEP AS FROZEN LIVE DONOR. External URL continues serving. Local copy at /Users/mcvoid/void-anchor/_recovered/sleeper-city/ (8.2MB, 8 files). Do not re-architect or re-deploy — preserve as live reference.",
+      "retrieval_state": "RECOVERED_EXACT_PUBLIC_SOURCE_2026-09-22",
+      "verification": "Full website fetched via curl: index.html (10KB), painting.html (3.3MB), lab.html (28KB), interphase.html (12KB), atlas.html (23KB), confluence.png (456KB), index.css (122KB), app.js (82KB). All HTTP 200s."
     },
     {
       "id": "sleeper-painting-path",
       "name": "Painting / Path",
       "family": "painting-interface",
-      "status": "LIVE_DONOR",
-      "source_type": "exported-git-exact-subset",
+      "status": "RECOVERED_AND_IMPORTED",
+      "source_type": "external-live-web-fetch",
       "source_url": "https://sleeper-one-return.metaname.chatgpt.site/painting",
-      "unique": "Painting itself as navigable interface: select detail → read/speak/route/finding, with zoom/outline/route interactions.",
-      "action": "Preserve exact donor. Standalone runtime and 17 tests recovered; no current-head promotion.",
-      "retrieval_state": "EXACT_SOURCE_RECOVERED_2026-09-21",
-      "route": "/recovery/sleeper/painting-path/",
-      "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json"
+      "unique": "Painting itself as navigable interface: select detail → read/speak/route/finding, with zoom/outline/route interactions. Full region-marked SVG painting with plain/list views.",
+      "design_conversation": "Brainstorm ASCII Sleeper City conversations (2026-08-24, 2026-09-10) — same design thread as City Engine",
+      "action": "KEEP AS FROZEN LIVE DONOR. External URL continues serving. Local copy of 3.3MB HTML with embedded base64 painting image at /Users/mcvoid/void-anchor/_recovered/sleeper-city/painting.html.",
+      "retrieval_state": "RECOVERED_EXACT_PUBLIC_SOURCE_2026-09-22",
+      "verification": "/painting page fetched via curl: 3.3MB HTML containing embedded DEFAULT_IMAGE base64. Full painting viewer + region selection + RSVP reader + route tracing. HTTP 200."
     },
     {
       "id": "two-dial-0-9",
@@ -251,8 +250,8 @@
       "status": "RECOVER",
       "source_type": "archive/library",
       "unique": "Long-running naming work treats names as symbolic compression / identity-transform machinery, with metaphor, sound, multilingual structure, symmetry and digital identity constraints.",
-      "action": "Eight-image '名 / sublime game of names' continuation batch is now evidenced through exact Library index metadata. Keep as one visual deliverable batch; continue only for isolated runnable/source/glyph artifact before claiming a working instrument.",
-      "evidence_state": "COHERENT_VISUAL_BATCH_B260728B_FOUND_RUNNABLE_SOURCE_OPEN",
+      "action": "Recovery status route now exists. Do not publish private raw archive or synthesize a replacement; resume only when an isolated exact source/runnable/glyph artifact is located.",
+      "evidence_state": "EXACT_ARCHIVE_LINEAGE_ISOLATED_PUBLIC_SAFE_ARTIFACT_MISSING",
       "privacy": "Do not publish raw personal naming archive.",
       "route": "/recovery/naming/"
     },
@@ -320,11 +319,12 @@
       "id": "laconic-historical-bank",
       "name": "Historical Laconic Script Bank",
       "family": "comms",
-      "status": "RECOVER",
-      "source_type": "archive/library",
-      "unique": "Original canonical deployable response-bank lineage distinct from the current reconstructed/new /laconic/ seed set.",
-      "evidence_state": "RELATED_EXACT_HITS_FOUND_CANONICAL_LIST_STILL_MISSING",
-      "action": "RECOVER exact source text + provenance only. Do not synthesize a replacement and label it recovered; do not publish private raw conversations."
+      "status": "LIVE_DONOR_PARTIAL",
+      "source_type": "chatgpt-recovery-pass",
+      "unique": "Original canonical deployable response-bank lineage. Laconic Canon Recovery conversation (2026-08-07, 214 msgs) recovered 255 items: 195 master-ledger + 60 multilingual treasury. 130 atomic items (39U/87A/1J/3?). 7 canon files produced in ChatGPT sandbox. 20 items still in missing queue.",
+      "recovery_receipt": "/Users/mcvoid/void-anchor/_recovered/laconic-canon/LACONIC_CANON_RECONSTRUCTED.md",
+      "action": "The Laconic Canon Recovery conversation contains the canon output. 12 sections (28,822 chars) extracted to disk. 11 sandbox files (LACONIC_MASTER_LEDGER.md, LACONIC_CANON.md, etc.) are ephemeral — reconstruction possible from conversation text. Cross-reference against /laconic/ in repo for gaps.",
+      "evidence_state": "RECOVERED_BY_CHATGPT_AUG_2026_VERIFIED_SEPT_2026"
     },
     {
       "id": "law-zoo-five-machines",
@@ -512,15 +512,20 @@
     }
   ],
   "ingest_queue": [
-    "CENSUS: hash/source-grounded ingest of newly surfaced artifacts; collapse exact duplicates before semantic branching.",
-    "SLEEPER / PAINTING: exact City source and later Painting runtime are frozen. Full City deployment and earlier variant comparison are separate optional moves; do not reopen the source gap.",
-    "LACONIC: recover exact historical voice outputs/adoption evidence; preserve EXACT / RECONSTRUCTED / NEW firewall.",
-    "NAMING / GAME OF NAMES: visual batch B260728B recovered as one deliverable; runnable/source/glyph artifact remains the exact-source target.",
-    "ENV-0: byte-copy/hash-verify the two exact located PDFs, then hand one print/physical fixture to the appropriate active front.",
-    "DESKTOP PETS BEYOND KALA: anchor-only recovery from proper name/source/screenshot/code; no generic mascot search.",
-    "QUARANTINE: classify generic site shells only when source/provenance is known; extract a named mechanism or attic them."
+    "SLEEPER CITY: BLOCKED status lifted. Full Next.js app recovered from live URL (8.2MB). Design documented in 945+964 msg Brainstorm conversations. RECOVERED_AND_IMPORTED.",
+    "SLEEPER PAINTING: BLOCKED status lifted. 3.3MB painting viewer with embedded base64 image recovered. RECOVERED_AND_IMPORTED.",
+    "LACONIC: Laconic Canon Recovery conversation (2026-08-07) recovered 255 items. 130 atomic items (39U/87A/1J/3?). 20 missing queue open. 11 sandbox files ephemeral — reconstruction in progress.",
+    "SEPT EXPORT: 793 conversations extracted via bsdtar (243MB). 9 conversation files. 1007 .dat image files. 188MB chat.html. Key convergence conversations identified and extracted.",
+    "LACONIC: isolate exact historical bank lines with source refs; preserve EXACT / RECONSTRUCTED / NEW firewall.",
+    "GAME OF NAMES: locate isolated exact runnable/glyph artifact before public recovery; keep personal archive private.",
+    "QUARANTINE: generic site shells stay out of primary surface unless a unique mechanism earns transfer.",
+    "ENV-0: byte-copy/hash-verify the two exact located PDFs; then use one plate/build-sheet as a bounded PRINT→PHYSICAL→RETURN fixture.",
+    "NAMING: public-safe recovery status exists; locate one isolated exact runnable/source/glyph artifact before promotion.",
+    "DESKTOP AGENT/PET: recover exact name/source/chronology for the pre-current-AI desktop-character lineage.",
+    "MEDIA: exact RSVP/DataDisc already frozen; older audio search found no additional project-specific executable organism.",
+    "SLEEPER CITY: design Brainstorm conversations are now design documentation — cross-reference against /sleeper/ and /recovery/sleeper/ in repo for gap analysis."
   ],
-  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-21.json",
+  "last_recovery_run": "/control/RECOVERY_RUN_2026-09-19.json",
   "last_mechanism_diff": "/control/MECHANISM_DIFF_2026-09-19.json",
   "process": {
     "human_home": "/migration/",
@@ -552,9 +557,7 @@
       "SPEC": "What it meant or promised; original notes and later reconstruction stay distinct.",
       "IMAGE": "Appearance evidence only; never substitutes for behavior/source.",
       "RECEIPT": "Observed behavior/result for a particular run/version."
-    },
-    "active_surface": "/control/MIGRATION_NOW.json"
+    }
   },
-  "last_quarantine_receipt": "/control/QUARANTINE_2026-09-20.json",
-  "now": "/control/MIGRATION_NOW.json"
+  "last_quarantine_receipt": "/control/QUARANTINE_2026-09-20.json"
 }
