@@ -33,6 +33,14 @@ IDENTITY + ADDRESS + APERTURE + AUTHORED MARKS/CALIBRATION
 → without becoming a second source of truth
 ```
 
+## Research / transfer references — not active fronts
+
+- **[TRANSFER / RESEARCH ATLAS](./TRANSFER_RESEARCH_ATLAS_2026-09-22.md)** — literature-grounded dual-lane / Addressed Continuity transfers: poems/TTS, songification, Hermes/Nexus data archaeology, comms, state profiles, memories, code/runtime traces; includes evaluation matrix and research gaps.
+- **Hermes research packet:** `/control/HERMES_FOLD_BLOOM_TRANSFER_RESEARCH_2026-09-22.json` — manual activation instructions for bounded research workers. It is **not queued** and explicitly excludes active PR #163.
+- **Hermes current re-entry:** `/control/HERMES_FOLD_BLOOM_HANDOFF_2026-09-22.json` — refreshed v0.2 current-state handoff.
+
+These are reference/donor surfaces. They do not alter the current human gates below.
+
 ## Current progression
 
 ```
