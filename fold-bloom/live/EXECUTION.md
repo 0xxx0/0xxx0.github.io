@@ -26,7 +26,11 @@ Donors remain addressable and independent:
 13. **Operations write the world.** BLOOM/FOLD/SPLIT/RETURN must visibly alter future TRACKFIELD geometry, not merely score/HUD state.
 14. **Source stays source.** Deformation tape never mutates AUDIO MAP evidence; it is a reversible authored layer addressed to track time.
 15. **Verb identity must survive combination.** Charged `FOLD → RETURN` must visibly read as kink/compression followed by convergence, not as one generic flash.
-16. **One musical delta per evaluation.** Tune gesture→consequence before adding modes, organisms or menus.
+16. **Written worlds must become decisions.** A visible SPLIT is incomplete until the player can traverse LEFT/RIGHT or deliberately leave it OPEN.
+17. **One gesture may lawfully act at multiple scales.** During a SPLIT window, the same left/right ring turn may rotate topology and choose a route because both operations share one addressed motion; do not add a second steering widget unless evidence demands it.
+18. **Traversal is non-destructive.** Branch choice is a bounded ride trace/camera projection; it never rewrites AUDIO MAP or deformation provenance.
+19. **Smooth projection, sharp meaning.** Crossfade geometry/camera to remove rendering pops, but preserve the categorical legibility of SPLIT and RETURN.
+20. **One musical delta per evaluation.** Tune gesture→consequence before adding modes, organisms or menus.
 
 ## Iteration loop
 `OBSERVE → NAME FAILURE → CHANGE ONE OPERATOR → STATIC TEST → BROWSER/TOUCH PLAY → A/B DONOR → RECEIPT → KEEP/REVERT`
@@ -40,6 +44,8 @@ A change survives only if it improves at least one without materially harming th
 - frame/audio stability on phone
 - anticipation / spatial legibility of an upcoming surge or section change
 - visible causal difference between BLOOM / FOLD / SPLIT / RETURN on the future road
+- legible LEFT/RIGHT/OPEN traversal when a SPLIT reaches the player
+- stable branch emergence/reconvergence without mesh popping or camera snaps
 
 ## Promotion gate
 Do not call LIVE canonical until direct desktop + touch play establishes all of these:
@@ -50,15 +56,17 @@ Do not call LIVE canonical until direct desktop + touch play establishes all of 
 5. With a same-page MP3, TRACKFIELD makes at least one upcoming energy/section change perceptible before it arrives, without pretending to know verse/chorus semantics.
 6. Beat timing and SECTION ARC remain causally fair; two CALL hits with two distinct verbs can make the late-section RETURN aperture readable without making it compulsory.
 7. After one of each verb, a player can identify from the road alone which operation was written: BLOOM widened/opened; FOLD kinked/compressed; SPLIT forked; RETURN reconverged.
-8. No runaway scheduler catch-up, stuck drone, touch-scroll conflict or material frame drop during a 10-minute run.
+8. During a SPLIT, an ordinary left/right ring turn can choose LEFT/RIGHT; chosen branch becomes visually dominant and camera alignment eases onto it; ignoring the split remains lawful.
+9. RETURN or split completion recenters without deleting the recorded branch trace.
+10. No runaway scheduler catch-up, stuck drone, touch-scroll conflict or material frame drop during a 10-minute run.
 
 ## Next useful transforms — only after play
 - Tune CALL selection, forecast legibility, charge curve and return aperture from observed choices/timing, not taste in isolation.
-- LIVE 0.5 performs the first road/player coupling: authored BLOOM/FOLD/SPLIT/RETURN write bounded future deformation windows. Next question is whether SPLIT needs explicit branch choice/steering or whether topology authorship alone is enough.
+- LIVE 0.6 performs the second road/player coupling: authored SPLIT opens a traversable fork and the existing ring-turn gesture chooses LEFT/RIGHT without a second joystick. Next question is whether branch choice should alter future affordances/replay identity or remain purely traversal.
 - If that coupling survives, export section/beat + authored-operation tape before any deeper rhythm-game bridge.
 - Treat Suno/remote source loading as best-effort convenience only; do not spend gameplay passes bypassing browser/CORS boundaries. Proven fallback: obtain/export MP3 and load locally.
 - If LIVE wins the A/B, transplant the music engine into the full Fold Weave surface while keeping Ecology separate.
 - Add performance capture/replay only if the existing bounded RETURN packet proves insufficient for comparing runs.
 
 ## Stop condition for this pass
-Deformation algebra + TRACKFIELD projection tests + phone smoke pass; exact donors remain untouched. Stop before lane collectibles or provider proliferation. Next authority: with one MP3, do authored road deformations feel causally legible, pleasurable and worth replaying?
+Deformation algebra + TRACKFIELD projection tests + phone smoke pass; exact donors remain untouched. Stop before lane collectibles or provider proliferation. Next authority: with one MP3, does writing SPLIT then choosing a branch feel like a real decision rather than camera theatre; and did crossfading/easing remove the observed visual glitches?

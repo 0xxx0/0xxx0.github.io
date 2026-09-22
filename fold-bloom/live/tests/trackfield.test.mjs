@@ -47,3 +47,13 @@ test('screen projection keeps foreground wide and horizon narrow',()=>{
   assert.ok(p.slices[0].half>p.slices.at(-1).half*5);
   assert.ok(p.slices[0].baseY>p.slices.at(-1).baseY);
 });
+
+
+test('chosen SPLIT branch shifts camera toward the selected traversal',()=>{
+  const w=buildTrackfield(map,0,{horizon:8,count:32});
+  const splitWorld={...w,points:w.points.map((p,i)=>({...p,deformSplit:i<20?.72:0,deformActive:i<20?[{id:'split:test',verb:'SPLIT',strength:.72}]:[]}))};
+  const neutral=projectTrackfield(splitWorld,430,900,{rideLateral:0});
+  const right=projectTrackfield(splitWorld,430,900,{rideLateral:1});
+  assert.ok(right.cameraShift>20);
+  assert.ok(right.slices[4].centerX<neutral.slices[4].centerX);
+});

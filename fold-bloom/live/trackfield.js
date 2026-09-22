@@ -65,7 +65,7 @@ export function buildTrackfield(map,time=0,{horizon=12,count=44}={}){
   };
 }
 
-export function projectTrackfield(world,width,height){
+export function projectTrackfield(world,width,height,{rideLateral=0}={}){
   if(!world?.points?.length)return null;
   const w=Math.max(1,Number(width)||1),h=Math.max(1,Number(height)||1);
   let heading=0,lateral=0,elevation=0;
@@ -82,5 +82,10 @@ export function projectTrackfield(world,width,height){
     const split=clamp(Number(p.deformSplit)||0,0,1),branchGap=half*split*.72,branchHalf=split>.02?half*(.43-.10*split):half;
     slices.push({...p,centerX,baseY,half,split,branchGap,branchHalf});
   }
-  return {width:w,height:h,slices,surge:world.surge,current:world.current,activeVerbs:world.activeVerbs||[],deformationCount:world.deformationCount||0};
+  const splitInfluence=clamp(Math.max(0,...slices.map(p=>(Number(p.split)||0)*Math.pow(1-(Number(p.u)||0),.72))),0,1);
+  const cameraShift=clamp(Number(rideLateral)||0,-1,1)*w*.135*splitInfluence;
+  if(Math.abs(cameraShift)>.001){
+    for(const p of slices)p.centerX-=cameraShift;
+  }
+  return {width:w,height:h,slices,surge:world.surge,current:world.current,activeVerbs:world.activeVerbs||[],deformationCount:world.deformationCount||0,cameraShift,splitInfluence,rideLateral:clamp(Number(rideLateral)||0,-1,1)};
 }
