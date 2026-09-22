@@ -166,7 +166,7 @@ function cycleScene(){const names=audio.sceneNames(),i=names.indexOf(state.scene
 function stopDemo(takeover=false){
   if(!demo.on)return;
   const wasPreview=demo.preview,start=demo.startState,startRide=demo.startRide,startTape=demo.startTape,startArc=demo.startArc;
-  demo.on=false;clearTimeout(demo.timer);demo.timer=0;
+  demo.on=false;clearTimeout(demo.timer);demo.timer=0;document.documentElement.dataset.foldBloomIdle='off';
   if(wasPreview&&start){const restored=restore(start);if(restored)state=restored;if(startRide)ride={...startRide,trace:(startRide.trace||[]).map(x=>({...x}))};if(startTape)deformationTape=startTape.map(x=>({...x}));if(startArc)sectionArc={...startArc,verbs:[...(startArc.verbs||[])]};dragAngle=0;renderer.setDrag(0)}
   demo.preview=false;demo.startState=null;demo.startRide=null;demo.startTape=null;demo.startArc=null;
   update();
@@ -212,6 +212,7 @@ async function startDemo({preview=true,playTrack=false}={}){
   const startState=snapshot(state);
   state=setMode(state,'RATCHET');
   demo={on:true,timer:0,releases:0,preview,startState,startRide:{...ride,trace:(ride.trace||[]).map(x=>({...x}))},startTape:deformationTape.map(x=>({...x})),startArc:{...sectionArc,verbs:[...(sectionArc.verbs||[])]}};
+  document.documentElement.dataset.foldBloomIdle='on';
   if(!$('#intro').classList.contains('on'))toast(liveTrack.active()?'IDLE RIDE · SOURCE CLOCK / NO AUTHORSHIP':'IDLE RIDE · WITNESS ONLY')
   update();demoTick();
 }
@@ -316,6 +317,6 @@ function loop(t){
   renderer.draw(state,t);raf=requestAnimationFrame(loop)
 }raf=requestAnimationFrame(loop);
 update();
-document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomIdle='witness-v0.1';
+document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomIdleLaw='witness-v0.1';document.documentElement.dataset.foldBloomIdle='off';
 window.FoldBloomLive={version:VERSION,state:()=>({...snapshot(state),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld}),release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),practice:()=>practiceTrack.map};
 setTimeout(()=>{if($('#intro').classList.contains('on')&&!demo.on)startDemo({preview:true})},650);
