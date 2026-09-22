@@ -135,7 +135,10 @@
     "horizon_04_merge_sha": "36ca59b4658a95238e0474ae727d301901a991ac",
     "listen_05": "PASS: public-surface-check 35693062152; ID3/USLT parser, Atlas core, stream lens/source adapter, preview render and LISTEN 0.5 browser surface green.",
     "listen_05_pr": 145,
-    "listen_05_merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130"
+    "listen_05_merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130",
+    "source_bundle_pr": 146,
+    "source_bundle_merge_sha": "a9c902839ab6fbd01c23fa739acaffa4279e9d82",
+    "source_bundle_ci": "PASS: public-surface-check 35695947970"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · portable donor=field-addressed-stream/v0.1",
   "updated": "2026-09-22",
