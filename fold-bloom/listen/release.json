@@ -146,7 +146,7 @@
     "source_bundle_pr": 146,
     "source_bundle_merge_sha": "a9c902839ab6fbd01c23fa739acaffa4279e9d82",
     "source_bundle_ci": "PASS: public-surface-check 35695947970",
-    "ride_profile_012": "PENDING shared LIVE/LISTEN CI and direct same-source propagation witness"
+    "ride_profile_012": "PASS REPO: shared profile controls + LIVE 0.12 browser/runtime regression in public-surface-check 35700392105; direct same-source cross-tab/user feel remains human gate"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · portable donor=field-addressed-stream/v0.1",
   "updated": "2026-09-22",
