@@ -1167,27 +1167,26 @@
           "RELEASE"
         ]
       },
-      "role": "Current unequal Fold/Bloom family: LIVE 0.4 rides owned/local audio by projecting AUDIO MAP into future TRACKFIELD terrain; TWO DIAL composes music/form and may borrow clock only; ECOLOGY evolves persistent lineage/game state; LISTEN 0.2.4 is the deeper source/AUDIO MAP laboratory and now exposes explicit RIDE / READ / COMPOSE / MAP workflows. Local MP3 is proven; catalogs/providers remain adapters, not authority."
+      "role": "Unequal Fold/Bloom family: LIVE 0.5 rides and rewrites owned/local-audio terrain; TWO DIAL composes music/form; ECOLOGY evolves persistent lineage and is the next candidate for AUDIO MAP→environment/weather transfer; LISTEN remains the source/AUDIO MAP laboratory."
     },
     {
       "href": "/fold-bloom/live/",
-      "title": "FOLD//BLOOM LIVE 0.4",
+      "title": "FOLD//BLOOM LIVE 0.5",
       "kind": "artifact",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "PLAY",
       "state": "ACTIVE",
-      "version": "0.4",
-      "receipt": "/returns/FOLD_BLOOM_TRACKFIELD_2026-09-22.json",
-      "role": "Performance-ride head: local/owned audio → AUDIO MAP → TRACKFIELD future terrain, while the 12-cell Fold/Bloom ring remains the authored topology instrument. Beats/energy/flux/spectral balance/section-change evidence become visible geometry rather than extra telemetry; section seals stay optional/non-punitive.",
+      "version": "0.5",
+      "receipt": "/returns/FOLD_BLOOM_WORLD_WRITING_2026-09-22.json",
+      "role": "Performance-ride head: local/owned audio → AUDIO MAP → TRACKFIELD, then authored BLOOM/FOLD/SPLIT/RETURN releases write bounded time-addressed deformation windows into that same future road. Source evidence stays immutable; the player writes the projection/world.",
       "transfer": [
         "Fold Weave: 12-cell authored crease topology / cascade / mute-first causal score",
-        "Two Dial: phrase-pulse-form music grammar / release discipline",
-        "LIVE 0.2: consequence forecasts + achievable CALLs + same-page local-song host",
-        "LIVE 0.3: non-punitive SECTION ARC / late RETURN aperture",
-        "LIVE 0.4: AUDIO MAP → TRACKFIELD perspective future / visible surge anticipation",
-        "silent reversible autoplay mechanism preview before entry",
-        "proven source: local MP3; provider catalogs remain optional downstream adapters"
+        "Two Dial: phrase-pulse-form / release discipline",
+        "LIVE 0.4: AUDIO MAP → perspective future terrain / anticipation",
+        "LIVE 0.5: deformation tape → BLOOM opens / FOLD kinks-compresses / SPLIT forks / RETURN reconverges",
+        "silent reversible autoplay preview",
+        "local MP3 proven; provider catalogs remain optional source adapters"
       ],
       "contract": {
         "accepts": {
@@ -1205,7 +1204,7 @@
           ]
         },
         "transforms": {
-          "verb": "project the measured future of an owned/local track as perspective terrain, forecast topology consequence, accumulate bounded tension, and commit authored BLOOM/FOLD/SPLIT/RETURN without letting audio choose topology",
+          "verb": "project measured future audio as terrain, then write bounded authored topology operations into that terrain as reversible track-time deformation",
           "preserves": [
             "donor provenance",
             "topology identity",
@@ -1215,7 +1214,9 @@
             "AUDIO MAP identity",
             "trackfield derivability",
             "external-audio non-authority",
-            "section-boundary non-punitive semantics"
+            "section-boundary non-punitive semantics",
+            "immutable AUDIO MAP source evidence",
+            "time-addressed deformation provenance"
           ],
           "reversibility": "bounded",
           "side_effects": "local browser state / explicit export only"
@@ -1226,19 +1227,20 @@
             "audio response",
             "bounded RETURN packet",
             "FIELD PULSE operation with optional section witness",
-            "AUDIO MAP-derived perspective TRACKFIELD"
+            "AUDIO MAP-derived perspective TRACKFIELD",
+            "deformation tape",
+            "deformed perspective TRACKFIELD"
           ],
           "machine_readable": true,
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/returns/FOLD_BLOOM_TRACKFIELD_2026-09-22.json",
+          "receipt": "/returns/FOLD_BLOOM_WORLD_WRITING_2026-09-22.json",
           "checks": [
-            "LIVE 0.4 engine/track/section-arc/TRACKFIELD tests",
+            "engine/track/section-arc/TRACKFIELD/deformation tests",
             "phone-sized runtime smoke",
-            "user-verified local MP3 path",
-            "user feedback: prior LIVE lacked Audiosurf-level hook/immersion",
-            "direct touch MP3 ride remains promotion gate"
+            "direct user return: LIVE 0.4 pretty damn sick but no road deformation",
+            "direct phone MP3 remains promotion gate"
           ],
           "return_path": "/fold-bloom/"
         },
