@@ -2,7 +2,7 @@
   "schema": "0xxx0/confluence-packet/v0.1",
   "id": "FOLD_BLOOM_WORLD_WRITING_2026-09-22",
   "date": "2026-09-22",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "observed": [
     "LIVE 0.4 was reported as pretty damn sick/cool and materially improved the hook.",
     "Remaining obvious deficit: Fold/Bloom verbs did not yet deform TRACKFIELD itself.",
@@ -96,5 +96,22 @@
     "4. Prototype READPATH separately in READFIELD using text structure, not music.",
     "5. Only then trial Audius/Jamendo source adapters."
   ],
-  "stop": "Do not proliferate providers or copy TRACKFIELD visuals wholesale into Ecology/READFIELD before the projection law is translated to each recipient."
+  "stop": "Do not proliferate providers or copy TRACKFIELD visuals wholesale into Ecology/READFIELD before the projection law is translated to each recipient.",
+  "pr": 139,
+  "merge_sha": "c9bea197a3f9808bc2ad2b1c58c32d5c50ed0a55",
+  "verification": {
+    "ci_run": 35677481804,
+    "result": "PASS",
+    "defect_caught_and_fixed": "Initial deformation cadence test found RETURN could be scheduled before FOLD in charged FOLD→RETURN. Scheduler was corrected so authored multi-verb order is monotonic and regression-locked.",
+    "checks": [
+      "LIVE engine tests",
+      "track transport tests",
+      "section arc tests",
+      "TRACKFIELD projection tests",
+      "deformation algebra tests",
+      "screen-space geometry proof for SPLIT/FOLD",
+      "critical phone-sized browser smoke",
+      "repo-wide static/recovery regressions"
+    ]
+  }
 }
