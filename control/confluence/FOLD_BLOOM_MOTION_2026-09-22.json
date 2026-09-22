@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_MOTION_2026-09-22",
   "date": "2026-09-22",
   "object": "FOLD//BLOOM LIVE 0.7 / motion correction + projection donor",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "observed_exactly_recovered": [
     "User reports current TRACKFIELD does not visibly go up/down enough and speed is unclear.",
     "User reports normal/no-MP3 mode does not show the same effect.",
@@ -66,5 +66,22 @@
     "Do FOLD/SPLIT/RETURN remain categorically legible after smoothing?"
   ],
   "stop": "Do not add time-stretch, provider catalogs, lane collectibles, or READFIELD implementation until motion evidence returns.",
-  "return": "/returns/FOLD_BLOOM_MOTION_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_MOTION_2026-09-22.json",
+  "pr": 141,
+  "merge_sha": "3dc38617be81ac215b95998ba14ff82fb1a5e2d9",
+  "verification": {
+    "ci_run": 35680273840,
+    "result": "PASS",
+    "proved": [
+      "continuous AUDIO MAP interpolation",
+      "pixel-level climb/descent separation",
+      "visual speed/grade/turn variation",
+      "deterministic FIELD COURSE normal mode",
+      "deformation + ride invariants",
+      "cold-start FIELD_PRACTICE runtime evidence",
+      "critical browser smoke",
+      "repo-wide regression"
+    ],
+    "regression_caught": "Initial smoothed SURGE detector lost anticipation because it depended on adjacent-frame spikes; CI failed, detector was rewritten as short-window impact rise, then full suite passed."
+  }
 }
