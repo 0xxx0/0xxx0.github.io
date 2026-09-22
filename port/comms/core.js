@@ -74,7 +74,7 @@ const pats={
     /\b(let me know|tell me|help me|need you to|want you to|remember to)\b/i
   ],
   PROMISE:[
-    /\b(i|we)\s*(?:'ll|will|can)\s+(?:do|make|send|check|fix|build|write|update|return|follow|look|handle|ship|review)\b/i,
+    /\b(i|we)\s*(?:'ll|will|can)\s+(?:do|make|send|check|fix|build|write|update|return|follow|look|handle|ship|review|keep|preserve|implement|add|remove|test|verify|merge)\b/i,
     /\b(i promise|we promise|i'll get|we'll get)\b/i
   ],
   DECISION:[
@@ -96,22 +96,23 @@ export function deriveSignals(doc){
         const score=(pats[kind]||[]).reduce((n,re)=>n+(re.test(clause.text)?1:0),0);
         if(score)hits.push({kind,score});
       }
-      hits.sort((a,b)=>b.score-a.score);
+      hits.sort((a,b)=>b.score-a.score||a.kind.localeCompare(b.kind));
       if(!hits.length)continue;
-      const best=hits[0];
-      out.push({
-        id:'d:'+clause.id+':'+best.kind.toLowerCase(),
-        kind:best.kind,
-        state:'OPEN',
-        origin:'DERIVED',
-        confidence:Math.min(.92,.48+best.score*.16),
-        messageId:message.id,
-        clauseId:clause.id,
-        speaker:message.speaker,
-        start:clause.start,
-        end:clause.end,
-        text:clause.text
-      });
+      for(const hit of hits){
+        out.push({
+          id:'d:'+clause.id+':'+hit.kind.toLowerCase(),
+          kind:hit.kind,
+          state:'OPEN',
+          origin:'DERIVED',
+          confidence:Math.min(.92,.48+hit.score*.16),
+          messageId:message.id,
+          clauseId:clause.id,
+          speaker:message.speaker,
+          start:clause.start,
+          end:clause.end,
+          text:clause.text
+        });
+      }
     }
   }
   return out;
