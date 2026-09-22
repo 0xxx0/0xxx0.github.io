@@ -76,7 +76,7 @@ function render(){
   document.body.classList.toggle('idle',idle.on);renderWall();renderFocus();renderPath();
   $('#message').value=packet.note||'';
   $('#idleBtn').textContent=idle.on?'TAKE OVER':'IDLE';
-  document.documentElement.dataset.glyphAtlas='ready';
+  document.documentElement.dataset.glyphAtlas='ready';if(!document.documentElement.dataset.atlasIdle)document.documentElement.dataset.atlasIdle='off';
   document.documentElement.dataset.atlasSchema=ATLAS_SCHEMA;
 }
 function metaLine(x){
@@ -90,13 +90,13 @@ function togglePath(){
 function clearPath(){stopIdle(false);packet.path=[];persist();render();$('#status').textContent='PATH CLEARED · SOURCES PRESERVED'}
 function startIdle(){
   if(!packet.entries.length)return;if(idle.on){stopIdle(true);return}
-  idle.on=true;idle.i=Math.max(0,packet.entries.findIndex(x=>x.id===focusId));document.body.classList.add('idle');$('#idleBtn').textContent='TAKE OVER';
+  idle.on=true;idle.i=Math.max(0,packet.entries.findIndex(x=>x.id===focusId));document.body.classList.add('idle');document.documentElement.dataset.atlasIdle='on';$('#idleBtn').textContent='TAKE OVER';
   $('#status').textContent='IDLE · WITNESS ONLY · PATH UNCHANGED';
   const tick=()=>{if(!idle.on)return;idle.i=(idle.i+1)%packet.entries.length;focusEntry(packet.entries[idle.i].id,{fromIdle:true});idle.timer=setTimeout(tick,2800)};
   idle.timer=setTimeout(tick,1600);
 }
 function stopIdle(takeover=false){
-  if(!idle.on)return;idle.on=false;clearTimeout(idle.timer);idle.timer=0;document.body.classList.remove('idle');$('#idleBtn').textContent='IDLE';
+  if(!idle.on)return;idle.on=false;clearTimeout(idle.timer);idle.timer=0;document.body.classList.remove('idle');document.documentElement.dataset.atlasIdle='off';$('#idleBtn').textContent='IDLE';
   if(takeover)$('#status').textContent='AWAKE · '+(entryBy(focusId)?.name||'SOURCE')+' · PATH '+packet.path.length;
 }
 function ensureWorker(){
