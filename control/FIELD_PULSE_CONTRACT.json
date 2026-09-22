@@ -92,12 +92,12 @@
     {
       "producer_consumer": "READFIELD / RSVP 0.7",
       "from": "LISTEN transport",
-      "effect": "explicit PULSE OFF/×2/×4/×8 maps BPM to WPM; reader focus publishes compact focus events"
+      "effect": "Explicit PULSE OFF/×2/×4/×8 maps LISTEN BPM to WPM; ?pulse=2|4|8 is a user-authored workflow entry; READFIELD may hydrate pace from the latest same-session LISTEN snapshot and visibly distinguishes LIVE vs LAST; reader focus publishes compact focus events."
     },
     {
       "producer_consumer": "FOLD//BLOOM TWO DIAL 0.10.1",
       "from": "LISTEN transport + local composition commits",
-      "effect": "PULSE LINK defaults OFF; when explicitly enabled and fresh, LISTEN supplies octave-folded metrical tempo plus visible energy/section context. Two Dial retains relation/harmony/motif/form authority and publishes performed commit/compose operations back as bounded FIELD PULSE operations."
+      "effect": "PULSE LINK defaults OFF; explicit LISTEN workflow entry may request ?pulse=1. When enabled and fresh, LISTEN supplies octave-folded metrical tempo plus visible energy/section context. Two Dial retains relation/harmony/motif/form authority and may hydrate from the last same-session transport snapshot."
     }
   ],
   "laws": [
@@ -108,7 +108,8 @@
     "RETURN/export remains the durable evidence boundary",
     "borrowed clock != borrowed authorship; a consumer may follow temporal context without delegating its transformation grammar",
     "timing bonus != topology authority; external song phase may reward a release but cannot choose its Fold/Bloom operation",
-    "section estimate != semantic truth; consumers may use section bounds as optional temporal apertures but must not invalidate local actions"
+    "section estimate != semantic truth; consumers may use section bounds as optional temporal apertures but must not invalidate local actions",
+    "workflow entry is explicit intent, not delegated authority; a link may enable an already-defined optional adapter but cannot change the consumer's transformation grammar"
   ],
   "external_media_boundary": {
     "suno": "Best-effort address adapter only. Real phone use on 2026-09-22 remained browser/CORS-blocked; do not gate gameplay on Suno resolution. Proven fallback: obtain/export MP3 and load locally.",
@@ -122,5 +123,31 @@
     "Audiosurf 2 local-audio + optional FIELD skin/mod donor",
     "Beat Saber draft beatmap/event exporter from AUDIO MAP + authored FIELD operations"
   ],
-  "stop_condition": "Verify LIVE 0.3 SECTION ARC on a real phone/MP3: boundary readability, two-verb readiness, late RETURN seal and desire to continue. Hold deeper coupling/exporters until that RETURN."
+  "stop_condition": "Verify LIVE 0.3 SECTION ARC on a real phone/MP3: boundary readability, two-verb readiness, late RETURN seal and desire to continue. Hold deeper coupling/exporters until that RETURN.",
+  "workflow_entries": [
+    {
+      "from": "FOLD//BLOOM LISTEN 0.2.4",
+      "to": "FOLD//BLOOM LIVE 0.4",
+      "verb": "RIDE",
+      "handoff": "fresh FIELD PULSE transport; LIVE authors topology/release"
+    },
+    {
+      "from": "FOLD//BLOOM LISTEN 0.2.4",
+      "to": "READFIELD / RSVP 0.7.1",
+      "verb": "READ",
+      "handoff": "explicit PULSE ×4 + optional session-local unaligned lyrics; READFIELD authors source focus/scale"
+    },
+    {
+      "from": "FOLD//BLOOM LISTEN 0.2.4",
+      "to": "TWO DIAL 0.10.1",
+      "verb": "COMPOSE",
+      "handoff": "explicit PULSE LINK + fresh/last transport; Two Dial authors music/form"
+    },
+    {
+      "from": "FOLD//BLOOM LISTEN 0.2.4",
+      "to": "AUDIO MAP JSON",
+      "verb": "MAP",
+      "handoff": "durable hashed analysis export"
+    }
+  ]
 }

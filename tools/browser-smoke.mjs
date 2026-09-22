@@ -596,7 +596,13 @@ const CASES=[
   {
     name:'READFIELD',
     route:'/docs/',
-    check:dom=>/READFIELD/i.test(dom)&&dom.includes('id="docAperture"')&&dom.includes('reader')&&dom.includes('RAW SOURCE')
+    check:dom=>/READFIELD/i.test(dom)&&dom.includes('id="docAperture"')&&dom.includes('reader')&&dom.includes('RAW SOURCE')&&dom.includes('id="readerUses"')&&dom.includes('id="pulseState"')
+  },
+  {
+    name:'READFIELD explicit pulse mode',
+    route:'/docs/?pulse=4',
+    options:{width:430,height:900,budget:9000},
+    check:dom=>/^PULSE ×4/.test(textAtId(dom,'pulseSync'))&&/NO LISTEN CLOCK|LISTEN/.test(textAtId(dom,'pulseState'))&&/READ TO MUSIC/.test(dom)
   },
   {
     name:'DOCS ADDRESS',
@@ -709,10 +715,10 @@ const CASES=[
     check:dom=>/HOLD FAST \/ LET FLY/i.test(dom)&&/SCALE OF CONSEQUENCE/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')&&dom.includes('id="pulseLinkBtn"')&&dom.includes('data-fold-bloom-pulse="ready"')
   },
   {
-    name:'FOLD BLOOM LISTEN 0.2.3',
+    name:'FOLD BLOOM LISTEN 0.2.4 workflows',
     route:'/fold-bloom/listen/',
     options:{width:1180,height:900,budget:9000},
-    check:dom=>/LISTEN 0\.2\.3/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="urlInput"')&&dom.includes('id="urlBtn"')
+    check:dom=>/LISTEN 0\.2\.4/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="urlInput"')&&dom.includes('id="urlBtn"')&&dom.includes('id="useBtn"')&&dom.includes('id="useSheet"')&&/USE THIS TRACK WITH/.test(dom)
   },
   {
     name:'FOLD BLOOM LISTEN preview render',

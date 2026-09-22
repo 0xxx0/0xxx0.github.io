@@ -1,0 +1,17 @@
+{
+  "schema": "return/v1",
+  "id": "FIELD_PULSE_WORKFLOW_2026-09-22",
+  "status": "CANDIDATE_PENDING_CI_AND_PHONE",
+  "object": "FIELD PULSE workflow UX + READFIELD 0.7.1 use-case surface",
+  "changed_object": "Existing LISTEN/LIVE/READFIELD/TWO DIAL pulse bindings become discoverable, explicit workflow entries rather than architecture the user must remember.",
+  "evidence": [
+    "/control/confluence/FIELD_PULSE_WORKFLOW_2026-09-22.json",
+    "/control/FIELD_PULSE_CONTRACT.json",
+    "/fold-bloom/listen/release.json"
+  ],
+  "verification": {
+    "repository": "PENDING",
+    "phone": "REQUIRED: LISTEN USE TRACK sheet reachability + READFIELD explicit pulse entry + back/return flow"
+  },
+  "next": "Use one real phone track and try exactly two paths: READ at PULSE ×4 and COMPOSE with PULSE LINK. Record the first friction only; do not expand the workflow dock before that evidence."
+}

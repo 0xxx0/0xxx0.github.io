@@ -1,12 +1,22 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#05070b"><meta name="color-scheme" content="dark">
-<title>FOLD//BLOOM — LISTEN 0.2.3</title><link rel="stylesheet" href="./app.css"></head>
+<title>FOLD//BLOOM — LISTEN 0.2.4</title><link rel="stylesheet" href="./app.css"></head>
 <body>
 <div id="app"><canvas id="field"></canvas><canvas id="overlay"></canvas><audio id="audio" preload="metadata"></audio>
-<header><div><b>FOLD//BLOOM</b><span>LISTEN 0.2.3 · SOURCE → AUDIO → MAP → FIELD</span></div><div class="stats"><span id="bpm">— BPM</span><span id="confidence">— TEMPO CONF</span><span id="beats">— BEATS</span><span id="sections">— SECTIONS</span></div></header>
+<header><div><b>FOLD//BLOOM</b><span>LISTEN 0.2.4 · SOURCE → AUDIO → MAP → FIELD</span></div><div class="stats"><span id="bpm">— BPM</span><span id="confidence">— TEMPO CONF</span><span id="beats">— BEATS</span><span id="sections">— SECTIONS</span></div></header>
 <div class="scopeRail" aria-label="Scale of listening"><div class="railTitle">SCOPE</div><button data-scope>BEAT</button><button data-scope>PHRASE</button><button data-scope>SECTION</button><button data-scope>TRACK</button><div class="railHint">WHEEL / ↑↓</div></div>
 <div class="centerHud"><div id="where">DROP A TRACK</div><div class="features"><span id="energy">E 0</span><span id="flux">Δ 0</span><span id="bright">C 0</span></div></div>
-<div class="transportBar"><div class="trackBlock"><div id="track">NO SOURCE</div><small id="meta">audio stays in this browser</small></div><div class="grow"></div><span id="time">0:00 / 0:00</span><span>SCOPE <b id="scope">PHRASE</b></span><button id="loadBtn">LOAD</button><button id="transport" disabled>PLAY</button><button id="export" disabled>EXPORT MAP</button></div>
+<div class="transportBar"><div class="trackBlock"><div id="track">NO SOURCE</div><small id="meta">audio stays in this browser</small></div><div class="grow"></div><span id="time">0:00 / 0:00</span><span>SCOPE <b id="scope">PHRASE</b></span><button id="loadBtn">LOAD</button><button id="transport" disabled>PLAY</button><button id="useBtn" disabled>USE TRACK</button><button id="export" disabled>EXPORT MAP</button></div>
+<aside id="useSheet" class="useSheet" aria-hidden="true">
+  <div class="useHead"><div><small>WORKFLOWS</small><b>USE THIS TRACK WITH…</b></div><button id="closeUse" type="button" aria-label="Close workflows">×</button></div>
+  <div class="useGrid">
+    <button id="useRide" type="button"><b>RIDE · LIVE</b><span>Track future becomes terrain; you still author BLOOM / FOLD / SPLIT / RETURN.</span></button>
+    <button id="useRead" type="button"><b>READ · RSVP</b><span>Borrow tempo as ×2 / ×4 / ×8 WPM. READFIELD keeps source position, scale and voice authority.</span></button>
+    <button id="useCompose" type="button"><b>COMPOSE · TWO DIAL</b><span>Borrow tempo / energy / section context. MATTER × HARMONY still writes the music.</span></button>
+    <button id="useMap" type="button"><b>MAP · JSON</b><span>Export the hashed AUDIO MAP for later tools, games and beat/event adapters.</span></button>
+  </div>
+  <div class="useLaw" id="useLaw">FIELD PULSE carries clock/features only. Borrowed clock ≠ borrowed authorship. AUDIO MAP + RETURN remain durable evidence.</div>
+</aside>
 <section id="drop" class="drop"><input id="file" class="nativeFile" type="file" accept="audio/*,.mp3,.wav,.ogg,.m4a,.aac,.flac"><div class="ey">AUDIO INTAKE</div><h1>DROP<br>A TRACK.</h1><p>Use a local file, or resolve an address such as a Suno song URL. Audio is decoded in this browser; remote sources are best-effort and always fall back to local file intake.</p><div class="laws"><b>ANGLE = TIME</b><b>RADIUS = INTENSITY</b><b>WHEEL = SCOPE</b></div><div class="intakeActions"><label id="chooseLabel" class="chooseButton" for="file" tabindex="0" role="button">CHOOSE AUDIO</label><div class="sourceSplit">OR SOURCE ADDRESS</div><div class="sourceAddress"><input id="urlInput" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://suno.com/song/…"><button id="urlBtn">RESOLVE</button></div><div class="sourceHint">SUNO SONG / DIRECT AUDIO · REMOTE CORS MAY FAIL → LOAD FILE</div></div><small id="status">READY FOR FILE OR ADDRESS</small></section>
 <div id="toast" class="toast"></div>
 <footer><span>RING DRAG = SCRUB · SPACE = PLAY/PAUSE · ←→ = BEAT STEP</span><span>BEAT → PHRASE → SECTION → TRACK</span></footer>

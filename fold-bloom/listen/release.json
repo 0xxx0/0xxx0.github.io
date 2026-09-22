@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM LISTEN",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "state": "CANDIDATE",
   "operation": "LISTEN",
   "route": "/fold-bloom/listen/",
@@ -40,7 +40,11 @@
     "phone scope controls move to a horizontal thumb-reachable strip above transport",
     "FIELD PULSE v0.1 publishes compact playback/time/BPM/beat/section/energy/flux/brightness context without audio bytes",
     "mobile scoped scrubbing freezes the active BEAT/PHRASE/SECTION/TRACK time window for the lifetime of each pointer gesture, preventing the domain from sliding under the finger",
-    "center witness appends HOLD while a scoped gesture owns the frozen time window; release resumes live scope tracking"
+    "center witness appends HOLD while a scoped gesture owns the frozen time window; release resumes live scope tracking",
+    "USE TRACK workflow dock makes the existing cross-surface affordances explicit: LIVE ride / READFIELD RSVP / TWO DIAL compose / AUDIO MAP export",
+    "READFIELD workflow handoff requests explicit PULSE ×4 and carries discovered source lyrics session-locally when available; lyrics remain unaligned source evidence",
+    "workflow launches publish a fresh FIELD PULSE transport snapshot before opening a sibling surface",
+    "Two Dial honors explicit ?pulse=1 workflow entry and can hydrate from the last same-session LISTEN transport snapshot"
   ],
   "constraints": [
     "no upload/network required for user audio",
@@ -51,7 +55,9 @@
     "Suno clip/CDN endpoint behavior is external and may change; adapter failure must not break LISTEN",
     "plain lyrics discovered in metadata are source evidence only; no synchronization claim until timed alignment exists",
     "FIELD PULSE is ephemeral coordination only; AUDIO MAP + source hash remain the durable evidence objects",
-    "scope semantics must remain useful without another app connected"
+    "scope semantics must remain useful without another app connected",
+    "workflow links coordinate existing instruments; they do not create a new workflow authority or transfer source/audio ownership",
+    "READFIELD tempo handoff may use the latest same-session LISTEN snapshot when live cross-tab pulse is unavailable; UI must distinguish LIVE from LAST"
   ],
   "verification": {
     "module_runtime": "PASS: LISTEN 0.2 surface executed in browser smoke",
@@ -70,7 +76,8 @@
     "field_pulse": "/control/FIELD_PULSE_CONTRACT.json",
     "field_pulse_repo": "PASS REPO: envelope selftest + full browser regression run 35640203852; real cross-tab phone trial required",
     "field_pulse_merge_sha": "70d63be41dfc5d04b04063d2f90524dca0bb6526",
-    "mobile_scope_gesture_lock": "PENDING_CI: pure scrub-window selftest + existing LISTEN browser regression; real-phone touch feel still required"
+    "mobile_scope_gesture_lock": "PENDING_CI: pure scrub-window selftest + existing LISTEN browser regression; real-phone touch feel still required",
+    "workflow_ux": "PENDING_CI: LISTEN 0.2.4 workflow controls + READFIELD explicit pulse browser proof"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · visible on FIELD INDEX · host=/fold-bloom/ · evolution stage=TEST",
   "updated": "2026-09-22"
