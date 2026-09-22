@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
-  "version": "LIVE 0.9",
-  "status": "ACTIVE_CANDIDATE_MERGED",
+  "version": "LIVE 0.10",
+  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
   "date": "2026-09-22",
   "donors": [
     {
@@ -92,7 +92,14 @@
     "first direct controls wake from IDLE instead of inheriting automatic state",
     "exact-source LISTEN pins are recovered by SHA-256 and rendered as approaching road landmarks",
     "near a landmark, its human-authored note appears on the road; analysis never invents landmark meaning",
-    "storage events can refresh same-source landmarks from another LISTEN tab without changing AUDIO MAP evidence"
+    "storage events can refresh same-source landmarks from another LISTEN tab without changing AUDIO MAP evidence",
+    "EMBODIED POV v0.1 adds deterministic peripheral optic flow whose spread/trail responds to measured source velocity",
+    "camera pitch/bank now reads against a minimal lower-frame body/visor witness rather than floating in an abstract canvas",
+    "upcoming SECTION / SURGE / PHRASE evidence may appear as sparse far-field horizon events with hierarchy preserved",
+    "BLOOM/FOLD/SPLIT/RETURN each produce a distinct bounded sky witness: bloom fan / crease / twin fork / convergence ring",
+    "sky events are consequences of source evidence or authored operations, never combo/streak rewards",
+    "prefers-reduced-motion reduces optic-flow population and authored-effect opacity",
+    "CHAIN/STREAK remain available as subdued diagnostics but are no longer visually primary"
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -114,13 +121,17 @@
     "visual velocity currently changes spatial traversal/FOV only; source audio playback stays 1× for phase lock",
     "continuous interpolation/camera smoothing may remove jitter but must not erase categorical FOLD/SPLIT/RETURN geometry",
     "IDLE witness-play cannot publish automatic FIELD operations or persist automatic road writing",
-    "source-addressed landmark meaning is authored PIN evidence; the road projection must not infer or rewrite its text"
+    "source-addressed landmark meaning is authored PIN evidence; the road projection must not infer or rewrite its text",
+    "no strobe or high-frequency flash grammar; sky events stay sparse and bounded",
+    "POV effects may amplify legibility but must not invent source events or semantic section labels",
+    "do not add combo-triggered fireworks, collectible lanes or score multipliers as an embodiment substitute",
+    "movement cues must remain readable muted and without HUD dependence"
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "Direct play: uploaded familiar track in IDLE RIDE → touch takeover at current time; then place LISTEN pins on same source and verify landmarks/note arrival feels intentional rather than HUD clutter.",
+    "required_next": "Direct phone/desktop: compare LIVE 0.9 mental memory vs 0.10 on FIELD COURSE and one familiar song. Can speed/climb/bend be felt without reading VEL/GRADE? Do sparse horizon/verb events increase immersion without becoming distracting game FX?",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
@@ -161,10 +172,12 @@
     "horizon_08_merge_sha": "36ca59b4658a95238e0474ae727d301901a991ac",
     "idle_landmarks": "PASS: public-surface-check 35693062152; prior engine/track/section/TRACKFIELD/deformation/ride tests + LIVE 0.9 browser IDLE/landmark witness green.",
     "idle_landmarks_pr": 145,
-    "idle_landmarks_merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130"
+    "idle_landmarks_merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130",
+    "pov_branch": "fold-bloom-embodied-pov-010",
+    "pov_ci": "PENDING PR CI"
   },
   "execution_contract": "./EXECUTION.md",
-  "return": "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
+  "return": "/returns/FOLD_BLOOM_EMBODIED_POV_2026-09-22.json",
   "updated": "2026-09-22",
   "observed_user_return": {
     "date": "2026-09-22",
