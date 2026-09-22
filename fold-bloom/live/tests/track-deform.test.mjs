@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {appendReleaseDeformations,applyDeformations,deformationAtTime,pruneDeformationTape} from '../track-deform.js';
+import {projectTrackfield} from '../trackfield.js';
 
 const world={schema:'fold-bloom-trackfield/v0.1',time:10,duration:30,points:Array.from({length:17},(_,i)=>({t:10+i*.5,u:i/16,width:1,rise:0,bend:0,impact:.4}))};
 const transport={time:10};
@@ -43,4 +44,19 @@ test('expired deformation entries prune deterministically',()=>{
   const tape=appendReleaseDeformations([],event('BLOOM'),transport);
   assert.equal(pruneDeformationTape(tape,10).length,1);
   assert.equal(pruneDeformationTape(tape,99).length,0);
+});
+
+
+test('projected SPLIT becomes two screen-space branches and FOLD moves the road center',()=>{
+  const splitTape=appendReleaseDeformations([],event('SPLIT',{id:5}),transport);
+  const splitWorld=applyDeformations(world,splitTape);
+  const splitProj=projectTrackfield(splitWorld,430,900);
+  assert.ok(splitProj.slices.some(p=>p.split>.2&&p.branchGap>0&&p.branchHalf<p.half));
+
+  const foldTape=appendReleaseDeformations([],event('FOLD',{id:6}),transport);
+  const plainProj=projectTrackfield(world,430,900);
+  const foldProj=projectTrackfield(applyDeformations(world,foldTape),430,900);
+  const idx=foldProj.slices.findIndex(p=>Math.abs(p.deformLateral||0)>.2);
+  assert.ok(idx>0);
+  assert.ok(Math.abs(foldProj.slices[idx].centerX-plainProj.slices[idx].centerX)>8);
 });
