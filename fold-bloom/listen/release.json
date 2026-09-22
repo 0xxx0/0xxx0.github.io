@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM LISTEN",
-  "version": "0.6",
-  "state": "CANDIDATE_MERGED",
+  "version": "0.7",
+  "state": "CANDIDATE_BRANCH_VERIFY",
   "operation": "LISTEN",
   "route": "/fold-bloom/listen/",
   "date": "2026-09-22",
-  "thesis": "One exact local audio identity may be surrounded by unequal source facets—origin link, display metadata, lyrics/transcript, collection/playlist context and human pins—then inspected as AUDIO MAP, compiled as glyph, traversed or returned without confusing any facet with the source bytes.",
+  "thesis": "LISTEN is the source editor for one exact audio identity: immutable AUDIO MAP evidence remains distinct from human MARKS, text ALIGNMENT, ride SHAPE/profile, source facets and downstream projections. A fading SOURCE SPINE keeps canonical address visible while those layers change.",
   "recovered_transfer": [
     "RC8-era Fold/Bloom behavior: vertical scale traversal + horizontal/topological operation, recovered from collaboration context but exact executable remains unfound",
     "Ecology/Two Dial ring dynamics: cyclic wrap, shortest circular delta, detent/inertia ergonomics",
@@ -77,7 +77,17 @@
     "source-hash RIDE PROFILE editor shares terrain solidity, immersion, drop gain and text-sync calibration with LIVE through localStorage",
     "ride-profile tuning changes downstream projection/timing only and never mutates AUDIO MAP analysis evidence",
     "AUDIO MAP RETURN now carries the current compact rideProfile alongside map/glyph/annotations",
-    "Atlas handoff may carry the compact rideProfile beside source identity/facets without carrying source audio bytes"
+    "Atlas handoff may carry the compact rideProfile beside source identity/facets without carrying source audio bytes",
+    "SOURCE EDITOR reframes the prior USE TRACK workflow launcher as SHAPE / ALIGN / PROJECT around one exact source",
+    "field-text-alignment/v0.1 stores source-hash alignment anchors separately from original timed-text evidence",
+    "one text anchor corrects arbitrary offset; two or more anchors correct offset + drift through bounded piecewise-linear playback→cue mapping",
+    "legacy ±8 second lyric offset is superseded by ±120 second coarse nudge plus precise anchor editing; original cue timestamps remain untouched",
+    "untimed embedded lyrics may receive estimated line positions for navigation but remain explicitly ESTIMATED / UNALIGNED",
+    "field-source-spine/v0.1 adds a fading horizontal continuity instrument carrying source progress, scope, sections, marks and alignment anchors",
+    "SOURCE HORIZON renders low/mid/high/energy traces across the active aperture as ambient orientation from the same map evidence",
+    "READFIELD handoff now carries source duration, current audio address, text timeline, alignment, source hash and marks instead of only a text blob",
+    "AUDIO MAP RETURN and Atlas handoff now carry compact textAlignment projection state beside immutable source evidence",
+    "RIDE PROFILE no longer owns text sync; ride calibration and text alignment are separate authorities"
   ],
   "constraints": [
     "no upload/network required for user audio",
@@ -108,7 +118,12 @@
     "M4A/MP4 decode support is runtime/browser dependent even when metadata can be parsed",
     "RIDE PROFILE is downstream projection calibration, not analysis truth",
     "text sync offset must not modify stored timed-text cue addresses or promote unaligned text to aligned",
-    "ride-profile storage keys must use the same source identity key used by LIVE when an exact hash exists"
+    "ride-profile storage keys must use the same source identity key used by LIVE when an exact hash exists",
+    "LISTEN edits projection state (MARK / ALIGN / SHAPE) but never rewrites AUDIO MAP evidence",
+    "alignment anchors are authored calibration and must remain distinguishable from original text cue evidence",
+    "SOURCE SPINE is a continuity witness, not a new source authority",
+    "horizontal SOURCE HORIZON must derive from current map/scope frames and remain low-clutter ambient feedback",
+    "user-supplied audio may serve as local/private QA material; public repo/default inclusion requires explicit publication permission"
   ],
   "verification": {
     "module_runtime": "PASS: LISTEN 0.2 surface executed in browser smoke",
@@ -146,9 +161,10 @@
     "source_bundle_pr": 146,
     "source_bundle_merge_sha": "a9c902839ab6fbd01c23fa739acaffa4279e9d82",
     "source_bundle_ci": "PASS: public-surface-check 35695947970",
-    "ride_profile_012": "PASS REPO: shared profile controls + LIVE 0.12 browser/runtime regression in public-surface-check 35700392105; direct same-source cross-tab/user feel remains human gate"
+    "ride_profile_012": "PASS REPO: shared profile controls + LIVE 0.12 browser/runtime regression in public-surface-check 35700392105; direct same-source cross-tab/user feel remains human gate",
+    "source_editor_07": "PENDING PR CI + direct lyric alignment / READFIELD follow QA"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · portable donor=field-addressed-stream/v0.1",
   "updated": "2026-09-22",
-  "return": "/returns/FOLD_BLOOM_SOURCE_CELL_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_SOURCE_SPINE_2026-09-22.json"
 }
