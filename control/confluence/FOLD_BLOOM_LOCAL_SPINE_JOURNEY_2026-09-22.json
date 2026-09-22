@@ -13,6 +13,7 @@
     "LISTEN accepts ?source=sha256:... and resolves the local blob without another picker interaction",
     "LISTEN exposes an exact RETURN link to the calling surface",
     "Journey Ride consumes the existing Experience Set plus exact local bindings",
+    "Journey is mounted behind SET at /fold-bloom/set/journey.html rather than becoming another top-level app",
     "Journey derives a continuous address beside immutable source clocks",
     "CUT, CARRY, DISSOLVE and RESET have bounded traversal semantics",
     "Journey RETURN excludes source bytes"
@@ -21,6 +22,7 @@
     "location": "same-origin browser IndexedDB",
     "networkUpload": false,
     "clearingSiteDataDeletesMedia": true,
+    "browserEvictionPossible": true,
     "setContainsBytes": false,
     "returnContainsBytes": false
   },
@@ -28,6 +30,7 @@
     "/fold-bloom/local-media-store.js",
     "/fold-bloom/set/vault-bridge.js",
     "/fold-bloom/listen/vault-handoff.js",
+    "/fold-bloom/set/journey.html",
     "/fold-bloom/journey/",
     "/tools/fold-bloom-spine-smoke.mjs"
   ],
