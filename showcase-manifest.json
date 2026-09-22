@@ -3383,7 +3383,10 @@
             "return address",
             "starting scale",
             "starting char/path position",
-            "WPM"
+            "WPM",
+            "projection view PLAIN / FOCUS / MIN",
+            "LISTEN FIELD PULSE transport witness",
+            "Atlas glyph witness"
           ]
         },
         "transforms": {
@@ -3421,16 +3424,7 @@
             "browser smoke"
           ],
           "return_path": "/docs/"
-        },
-        "optional": [
-          "return address",
-          "starting scale",
-          "starting char/path position",
-          "WPM",
-          "projection view PLAIN / FOCUS / MIN",
-          "LISTEN FIELD PULSE transport witness",
-          "Atlas glyph witness"
-        ]
+        }
       },
       "version": "0.8",
       "tier": "FIELD"
