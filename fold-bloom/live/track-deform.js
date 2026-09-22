@@ -122,7 +122,7 @@ export function applyDeformations(world,tape=[]){
     };
   });
   const activeVerbs=[...new Set(points.flatMap(p=>(p.deformActive||[]).map(x=>x.verb)))];
-  return {...world,schema:'fold-bloom-trackfield/v0.2',deformationSchema:DEFORMATION_SCHEMA,deformationCount:clean.length,activeVerbs,points};
+  return {...world,deformationSchema:DEFORMATION_SCHEMA,deformationCount:clean.length,activeVerbs,points};
 }
 
 export function deformationSummary(tape=[],time=0){
