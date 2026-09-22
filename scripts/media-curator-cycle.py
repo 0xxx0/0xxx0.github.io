@@ -258,7 +258,7 @@ def main() -> None:
     ap.add_argument("--config", type=Path, default=Path("control/MEDIA_REFINERY_PIPELINES.json"))
     ap.add_argument("--profile", default="archive-recovery")
     ap.add_argument("--refinery-script", type=Path, default=Path("scripts/media-refinery-run.py"))
-    ap.add_argument("--model", default="qwen3-vl:8b")
+    ap.add_argument("--model", default="qwen3.5:9b")
     ap.add_argument("--ollama-host", default="http://127.0.0.1:11434")
     ap.add_argument("--ollama-context", type=int, default=65536)
     ap.add_argument("--attempts", type=int, default=2)
