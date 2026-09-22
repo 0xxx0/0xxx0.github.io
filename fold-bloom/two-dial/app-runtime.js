@@ -59,6 +59,11 @@ function restore(x) {
   R = x.R || 0;
   rawL = x.rawL ?? L;
   rawR = x.rawR ?? R;
+  target = Number.isFinite(Number(x.target)) ? Number(x.target) : target;
+  next = Number.isFinite(Number(x.next)) ? Number(x.next) : next;
+  score = Number.isFinite(Number(x.score)) ? Number(x.score) : score;
+  chain = Number.isFinite(Number(x.chain)) ? Number(x.chain) : chain;
+  splitCharge = !!x.splitCharge;
   requestVerb = x.requestVerb || requestVerb;
   nextVerb = x.nextVerb || nextVerb;
   fulfilled = x.fulfilled || 0;
