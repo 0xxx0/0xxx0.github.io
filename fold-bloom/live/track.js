@@ -75,7 +75,7 @@ export class LiveTrack {
     return (this.audio.paused?'READY':'PLAYING')+' · '+stage+(this.map?.bpm?' · '+this.map.bpm.toFixed(1)+' BPM':'');
   }
   active(){return !!(this.audio.src&&this.map)}
-  textWitness(time=this.audio.currentTime){return textWitnessAt(this.textEvidence,Number(time)||0,Number(this.map?.duration)||0)}
+  textWitness(time=this.audio.currentTime,offset=0){return textWitnessAt(this.textEvidence,(Number(time)||0)+(Number(offset)||0),Number(this.map?.duration)||0)}
   metadata(){return this.meta?{...this.meta}:null}
   async loadFiles(files){
     const grouped=groupLocalInputs(files),g=grouped.groups[0];

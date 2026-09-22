@@ -1,0 +1,40 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_VISUAL_WORLD_RETURN_2026-09-22",
+  "date": "2026-09-22",
+  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "object": "FOLD//BLOOM LIVE 0.12 / solid visual worlds",
+  "observed_exact_user_return": [
+    "0.11 showed transparency/artifact/glitch behavior; slopes could appear see-through and the previous version felt better.",
+    "The tunnel/drop experience did not clearly arrive and may have been part of the glitch.",
+    "More visual feedback, stronger immersion, and meaningful scene/style/aesthetic changes are desired.",
+    "WOOD/VOID currently do not feel materially different enough.",
+    "Using GLYPH ATLAS or LISTEN to tweak the map/experience would be useful.",
+    "Text was cool to see but needs a synchronization adjustment path.",
+    "The current experience is already compelling enough to justify a much larger experiential expansion."
+  ],
+  "reconstructed": [
+    "0.11's new macro-event analysis is worth preserving, but its rendering material model regressed because more extreme terrain was drawn with highly translucent overlapping quads.",
+    "A second likely glitch source was macro-event identity derived from a sliding future sample, allowing the same source drop to retrigger camera/sky response.",
+    "The next evolution should increase immersion by making the world more physically coherent and stylistically differentiated, not by layering more transparent FX."
+  ],
+  "implemented": [
+    "Terrain gets a high-opacity scene-specific under-surface before color/effect passes; near geometry now occludes far geometry.",
+    "DEEP/TRANCE/WOOD/VOID become distinct visual worlds with different palette, horizon and pattern grammar while preserving source audio.",
+    "TRACKFIELD v0.6 stabilizes macro-drop IDs; renderer adds source-time refractory behavior and rewind rearm.",
+    "Per-source RIDE PROFILE exposes solidity, immersion, drop gain and text sync in LIVE.",
+    "LISTEN edits the same source-hash RIDE PROFILE; AUDIO MAP evidence remains unchanged.",
+    "Manual text offset changes witness lookup only and preserves timed/untimed provenance.",
+    "Atlas handoff and AUDIO MAP RETURN carry the compact ride profile for future projection continuity."
+  ],
+  "laws": [
+    "GEOMETRY = MATTER; EFFECTS = ATMOSPHERE.",
+    "DEFAULT TERRAIN OCCLUDES ITSELF.",
+    "ONE SOURCE EVENT = ONE BODY EVENT.",
+    "PROFILE MUTATES PROJECTION, NOT AUDIO MAP EVIDENCE.",
+    "STYLE MAY CHANGE WORLD PROJECTION / LOCAL SYNTH; SOURCE AUDIO REMAINS ITSELF.",
+    "TEXT OFFSET IS USER CALIBRATION, NOT A RETROACTIVE TIMING CLAIM."
+  ],
+  "next_truth": "Replay the same familiar source: verify opaque slopes/no bleed-through; one stable macro drop; four worlds visibly distinct; then adjust TEXT SYNC in LISTEN and verify LIVE sees the same source profile.",
+  "return": "/returns/FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json"
+}

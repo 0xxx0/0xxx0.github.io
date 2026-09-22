@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
-  "version": "LIVE 0.11",
-  "status": "ACTIVE_CANDIDATE_MERGED",
+  "version": "LIVE 0.12",
+  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
   "date": "2026-09-22",
   "donors": [
     {
@@ -109,7 +109,16 @@
     "timed text follows actual cue addresses; embedded/untimed text is rendered as explicit FLOAT / UNALIGNED witness rather than false synchronization",
     "IDLE RIDE preserves the player's current FLOW/RATCHET mode instead of secretly forcing RATCHET",
     "FLOW IDLE continuously follows source bend as reversible witness-play while automatic releases/deformations still evaporate on takeover",
-    "DEEP/TRANCE/WOOD/VOID scene meanings are surfaced in settings; scenes color only the local synth and never transform the source audio"
+    "DEEP/TRANCE/WOOD/VOID scene meanings are surfaced in settings; scenes color only the local synth and never transform the source audio",
+    "SOLID WORLD repair: terrain quads now receive an opaque scene-specific under-surface before atmospheric color, so near slopes occlude far slopes instead of visually bleeding through them",
+    "visual-world grammar: DEEP / TRANCE / WOOD / VOID now change background palette, horizon accent, pattern field and road material as well as the local synth",
+    "source-addressed RIDE PROFILE: terrain solidity, immersion, drop gain and text sync are stored per source hash and shared with LISTEN",
+    "RIDE PROFILE mutates projection/timing only; AUDIO MAP frames, source hash and analyzed boundaries remain immutable evidence",
+    "TRACKFIELD v0.6 stabilizes macro-drop source identity by bounded source-time quantization",
+    "renderer adds a source-time refractory window so one musical drop produces one body burst; rewinding rearms the event lawfully",
+    "manual text-sync offset shifts the text witness lookup only; original cue addresses/alignment provenance are unchanged",
+    "LISTEN can edit the same source-hash RIDE PROFILE and carries it into AUDIO MAP returns and Atlas handoff",
+    "scene changes toast WORLD identity and immediately restyle LIVE without altering source audio"
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -140,13 +149,18 @@
     "large visual consequence may amplify a detected event but cannot manufacture a drop absent source evidence",
     "untimed lyrics/text may be projected for reading but must remain visibly UNALIGNED",
     "macro-drop haptic/visual feedback must remain bounded and obey reduced-motion preference",
-    "playlist/source queue remains future control work; do not create a new media manager before the single-source ride is tuned"
+    "playlist/source queue remains future control work; do not create a new media manager before the single-source ride is tuned",
+    "default terrain must occlude itself; transparency is atmosphere, never the primary material model",
+    "one source macro event may produce one bounded body event; sliding analysis windows must not retrigger spectacle",
+    "RIDE PROFILE is a projection/calibration object and must never rewrite AUDIO MAP evidence",
+    "text-sync offset is user calibration of witness timing, not a retroactive claim that untimed text became aligned",
+    "scene/world styling may change visual projection and local synth but may not transform or relabel the source audio"
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "Use one familiar track with a body-known dramatic drop. Judge DROP MISSED/EARLY/LATE/RIGHT; TUNNEL WEAK/RIGHT/TOO MUCH; OPEN SKY WEAK/RIGHT/TOO MUCH; TEXT USEFUL/DISTRACTING. Tune detector thresholds before adding more spectacle.",
+    "required_next": "Direct phone replay of the same song used on 0.11. First judge MATERIAL: slopes opaque / no see-through mesh. Then EVENT: one drop gives one burst without jitter/retrigger. Then WORLDS: DEEP/TRANCE/WOOD/VOID feel materially distinct. Finally tune TEXT SYNC and confirm LISTEN edits propagate to LIVE for the same source hash.",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
@@ -196,10 +210,12 @@
     "macrodrop_ci": "PASS: public-surface-check run 35698711168, including macro-drop/text tests, full LIVE regression stack, LISTEN preview and critical browser smoke",
     "macrodrop_pr": 148,
     "macrodrop_merge_sha": "1d43c3edf1469c85a5fa7e3317460cd6932911b8",
-    "macrodrop_regression": "First CI caught a test selecting the pre-impact frame while asserting post-impact open-sky state; corrected the test boundary without loosening production drop thresholds, then full CI passed."
+    "macrodrop_regression": "First CI caught a test selecting the pre-impact frame while asserting post-impact open-sky state; corrected the test boundary without loosening production drop thresholds, then full CI passed.",
+    "visual_world_branch": "fold-bloom-live-012-visual-worlds",
+    "visual_world_ci": "PENDING PR CI"
   },
   "execution_contract": "./EXECUTION.md",
-  "return": "/returns/FOLD_BLOOM_NERVOUS_SYSTEM_2026-09-22.json",
+  "return": "/returns/FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json",
   "updated": "2026-09-22",
   "observed_user_return": {
     "date": "2026-09-22",

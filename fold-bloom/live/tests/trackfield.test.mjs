@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {buildTrackfield,projectTrackfield,trackfieldPoint,sampleFrameInterpolated,detectMacroDrop} from '../trackfield.js';
+import {buildTrackfield,projectTrackfield,trackfieldPoint,sampleFrameInterpolated,detectMacroDrop,macroDropEventId} from '../trackfield.js';
 
 const frames=[
   {t:0,e:.18,c:.25,f:.04,l:.76,m:.2,h:.04},
@@ -15,7 +15,7 @@ const map={version:'test-map',stage:'DEEP',duration:12,bpm:120,frameRate:.5,fram
 
 test('trackfield is a bounded future projection of the AUDIO MAP',()=>{
   const w=buildTrackfield(map,1,{horizon:9,count:36});
-  assert.equal(w.schema,'fold-bloom-trackfield/v0.5');
+  assert.equal(w.schema,'fold-bloom-trackfield/v0.6');
   assert.equal(w.points.length,36);
   assert.equal(w.time,1);
   assert.ok(w.points[0].ahead===0);
@@ -114,4 +114,11 @@ test('macro drop promotes buildup→impact into a larger-scale event',()=>{
 test('flat material does not invent a macro drop',()=>{
   const pts=Array.from({length:20},(_,i)=>({ahead:i*.4,t:i*.4,energy:.4,impact:.35,flux:.04,sectionEdge:false}));
   assert.equal(detectMacroDrop(pts),null);
+});
+
+
+test('macro drop identity is stable across small sliding-window sample drift',()=>{
+  assert.equal(macroDropEventId(6.12),macroDropEventId(6.20));
+  assert.equal(macroDropEventId(6.24),'drop@6.0');
+  assert.equal(macroDropEventId(6.31),'drop@6.5');
 });

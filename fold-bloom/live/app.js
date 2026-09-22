@@ -8,6 +8,7 @@ import { appendReleaseDeformations, applyDeformations, pruneDeformationTape, def
 import { createRideState, chooseRideBranch, advanceRide, rideView } from './ride.js';
 import { PracticeTrack } from './practice-track.js';
 import { normalizePins } from '../listen/stream-lens.js';
+import {normalizeRideProfile,profileKey} from './visual-worlds.js';
 
 const $=s=>document.querySelector(s), STORE='fb-live-0.1';
 const cv=$('#field'), renderer=new Renderer(cv);
@@ -16,14 +17,14 @@ let dragging=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
 let demo={on:false,timer:0,releases:0,preview:false,startState:null,startRide:null,startTape:null,startArc:null};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
-let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),sourceLandmarks=[],textOn=true,lastTextKey='',lastDropHapticId=null;
+let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),sourceLandmarks=[],textOn=true,lastTextKey='',lastDropHapticId=null,rideProfile=normalizeRideProfile();
 const practiceTrack=new PracticeTrack();
 const liveTrack=new LiveTrack($('#trackAudio'),{
   onState:t=>{trackStatus=t;update()},
-  onMap:m=>{syncSourceLandmarks(m);toast(m?.stage==='DEEP'?'SONG MAP · DEEP':'SONG MAP · PREVIEW')}
+  onMap:m=>{syncSourceLandmarks(m);syncRideProfile(m);toast(m?.stage==='DEEP'?'SONG MAP · DEEP':'SONG MAP · PREVIEW')}
 });
 liveTrack.setVolume(.78);
-audio.hydrate(state);
+audio.hydrate(state);renderer.setScene(state.scene);renderer.setProfile(rideProfile);
 
 function landmarkKey(map=liveTrack.map){const h=map?.source?.hash;return h?`fold-bloom.listen.pins.v01:${h}`:null}
 function syncSourceLandmarks(map=liveTrack.map){
@@ -33,7 +34,29 @@ function syncSourceLandmarks(map=liveTrack.map){
   document.documentElement.dataset.foldBloomLandmarks=String(sourceLandmarks.length);
   return sourceLandmarks;
 }
-addEventListener('storage',e=>{if(e.key&&e.key===landmarkKey())syncSourceLandmarks()});
+addEventListener('storage',e=>{if(e.key&&e.key===landmarkKey())syncSourceLandmarks();if(e.key&&e.key===rideStoreKey())syncRideProfile()});
+
+function rideSourceKey(map=liveTrack.map){return map?.source?.hash||linkedTrack?.sourceHash||(liveTrack.active()?'LOCAL_FILE':'FIELD_PRACTICE')}
+function rideStoreKey(map=liveTrack.map){return profileKey(rideSourceKey(map))}
+function readRideProfile(map=liveTrack.map){try{return normalizeRideProfile(JSON.parse(localStorage.getItem(rideStoreKey(map))||'{}'))}catch(_){return normalizeRideProfile()}}
+function syncRideProfile(map=liveTrack.map){
+  rideProfile=readRideProfile(map);renderer.setProfile(rideProfile);syncRideControls();return rideProfile
+}
+function saveRideProfile(){
+  rideProfile=normalizeRideProfile(rideProfile);renderer.setProfile(rideProfile);
+  try{localStorage.setItem(rideStoreKey(),JSON.stringify(rideProfile))}catch(_){}
+  syncRideControls();
+}
+function syncRideControls(){
+  const set=(id,v)=>{const e=$(id);if(e)e.value=String(v)};
+  set('#solidTune',Math.round(rideProfile.solidity*100));set('#immersionTune',Math.round(rideProfile.immersion*100));set('#dropGainTune',Math.round(rideProfile.dropGain*100));set('#textSyncTune',Math.round(rideProfile.textOffset*100));
+  if($('#solidVal'))$('#solidVal').textContent=Math.round(rideProfile.solidity*100)+'%';
+  if($('#immersionVal'))$('#immersionVal').textContent=rideProfile.immersion.toFixed(2)+'×';
+  if($('#dropGainVal'))$('#dropGainVal').textContent=rideProfile.dropGain.toFixed(2)+'×';
+  if($('#textSyncVal'))$('#textSyncVal').textContent=(rideProfile.textOffset>=0?'+':'')+rideProfile.textOffset.toFixed(2)+'s';
+  document.documentElement.dataset.foldBloomRideProfile=`${rideProfile.solidity.toFixed(2)}:${rideProfile.immersion.toFixed(2)}:${rideProfile.dropGain.toFixed(2)}:${rideProfile.textOffset.toFixed(2)}`;
+}
+
 
 function save(){if(demo.preview)return;try{localStorage.setItem(STORE,JSON.stringify(snapshot(state)))}catch(_){}}
 function load(){try{return restore(JSON.parse(localStorage.getItem(STORE)||'null'))}catch(_){return null}}
@@ -74,7 +97,7 @@ function releaseLabel(){
 
 function updateTextWitness(){
   const box=$('#lyric'),mode=$('#lyricMode'),body=$('#lyricText');
-  const w=textOn&&liveTrack.active()?liveTrack.textWitness():null;
+  const w=textOn&&liveTrack.active()?liveTrack.textWitness(undefined,rideProfile.textOffset):null;
   if(!w?.text){if(!box.hidden)box.hidden=true;lastTextKey='';return null}
   const key=[w.mode,w.alignment,w.start,w.text].join('|');
   if(key!==lastTextKey){
@@ -176,7 +199,7 @@ async function doRelease(){
 }
 
 function toggleMode(){state=setMode(state,state.mode==='RATCHET'?'FLOW':'RATCHET');toast(state.mode);update()}
-function cycleScene(){const names=audio.sceneNames(),i=names.indexOf(state.scene),name=names[(i+1)%names.length];state=setScene(state,name);audio.setScene(name);toast(name);update()}
+function cycleScene(){const names=audio.sceneNames(),i=names.indexOf(state.scene),name=names[(i+1)%names.length];state=setScene(state,name);audio.setScene(name);renderer.setScene(name);toast(`WORLD · ${name}`);update()}
 
 function stopDemo(takeover=false){
   if(!demo.on)return;
@@ -273,12 +296,14 @@ $('#trackLoad').onclick=()=>{stopDemo(true);$('#trackFile').click()};$('#songInt
 $('#trackFile').onchange=e=>loadLocalSong(e.target.files);
 $('#trackToggle').onclick=()=>{stopDemo(true);liveTrack.toggle().then(()=>update()).catch(()=>toast('SONG PLAY BLOCKED'))};
 $('#textBtn').onclick=()=>{textOn=!textOn;lastTextKey='';updateTextWitness();update()};
+const tune=(id,key,scale=100)=>{const el=$(id);if(!el)return;el.oninput=e=>{rideProfile=normalizeRideProfile({...rideProfile,[key]:Number(e.target.value)/scale});saveRideProfile();lastTextKey='';updateTextWitness();update()}};
+tune('#solidTune','solidity');tune('#immersionTune','immersion');tune('#dropGainTune','dropGain');tune('#textSyncTune','textOffset');
 $('#listenBtn').onclick=()=>window.open('../listen/','fold-bloom-listen');
 $('#exportBtn').onclick=()=>{
   const packet={kind:'FOLD_BLOOM_LIVE_RETURN',version:VERSION,created:new Date().toISOString(),source:{foldWeave:'/recovery/fold-bloom/fold-weave-0.1/',twoDial:'/fold-bloom/two-dial/'},state:snapshot(state),performance:{sectionArc,deformationTape,ride:{...ride,trace:(ride.trace||[]).map(x=>({...x}))}}};
   const blob=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`fold-bloom-live-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('RETURN EXPORTED')
 };
-$('#resetBtn').onclick=()=>{const now=Date.now(),b=$('#resetBtn');if(!b.dataset.arm||now>+b.dataset.arm){b.dataset.arm=now+3500;b.textContent='CONFIRM RESET';toast('PRESS AGAIN');return}delete b.dataset.arm;b.textContent='NEW FIELD';state=createState();sectionArc=createSectionArc();deformationTape=[];ride=createRideState();latestWorld=null;practiceTrack.reset();audio.hydrate(state);dragAngle=0;update();toast('NEW FIELD')};
+$('#resetBtn').onclick=()=>{const now=Date.now(),b=$('#resetBtn');if(!b.dataset.arm||now>+b.dataset.arm){b.dataset.arm=now+3500;b.textContent='CONFIRM RESET';toast('PRESS AGAIN');return}delete b.dataset.arm;b.textContent='NEW FIELD';state=createState();sectionArc=createSectionArc();deformationTape=[];ride=createRideState();latestWorld=null;practiceTrack.reset();audio.hydrate(state);renderer.setScene(state.scene);syncRideProfile();dragAngle=0;update();toast('NEW FIELD')};
 $('#playBtn').onclick=async()=>{stopDemo(false);await ensureAudio();$('#intro').classList.remove('on');update()};
 $('#mutePlay').onclick=()=>{stopDemo(false);$('#intro').classList.remove('on');audio.setSound(false);update()};
 $('#demoBtn').onclick=()=>{if(demo.on)stopDemo(true);else startDemo({preview:true,playTrack:true})};$('#demoSettingsBtn')?.addEventListener('click',()=>{if(demo.on)stopDemo(true);else startDemo({preview:true,playTrack:true})});
@@ -346,7 +371,7 @@ function loop(t){
   renderer.setSectionArc(sectionArcView(sectionArc,linkedTrack));
   renderer.draw(state,t);raf=requestAnimationFrame(loop)
 }raf=requestAnimationFrame(loop);
-update();
-document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomPov='embodied-v0.2';document.documentElement.dataset.foldBloomMacroDrop='v0.1';document.documentElement.dataset.foldBloomIdleLaw='witness-v0.1';document.documentElement.dataset.foldBloomIdle='off';document.documentElement.dataset.foldBloomLandmarks='0';
-window.FoldBloomLive={version:VERSION,state:()=>({...snapshot(state),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:liveTrack.textWitness(),sourceMeta:liveTrack.metadata()}),release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),practice:()=>practiceTrack.map};
+syncRideProfile();update();
+document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomPov='embodied-v0.3';document.documentElement.dataset.foldBloomMacroDrop='v0.2';document.documentElement.dataset.foldBloomIdleLaw='witness-v0.1';document.documentElement.dataset.foldBloomIdle='off';document.documentElement.dataset.foldBloomLandmarks='0';
+window.FoldBloomLive={version:VERSION,state:()=>({...snapshot(state),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:liveTrack.metadata(),rideProfile:{...rideProfile}}),release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),practice:()=>practiceTrack.map};
 setTimeout(()=>{if($('#intro').classList.contains('on')&&!demo.on)startDemo({preview:true})},650);
