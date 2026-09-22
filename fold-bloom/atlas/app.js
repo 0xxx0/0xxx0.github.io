@@ -1,6 +1,7 @@
 import {audioGlyphDescriptor,audioGlyphSvg} from '../listen/audio-glyph.js';
 import {buildPreviewMap} from '../listen/preview-map.js';
-import {parseId3,id3DisplayName} from '../listen/id3.js';
+import {parseLocalAudioMeta,localDisplayName} from '../listen/media-meta.js';
+import {groupLocalInputs,parseTextSidecar,parsePlaylistText} from '../listen/sidecar-text.js';
 import {ATLAS_SCHEMA,MAX_ATLAS_ENTRIES,atlasPacket,appendPath,encodeAtlas,decodeAtlas,syntheticAtlas} from './atlas-core.js';
 
 const $=s=>document.querySelector(s),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -53,14 +54,24 @@ function renderWall(){
 }
 function renderFocus(){
   const x=entryBy(focusId),glyph=$('#focusGlyph'),pathBtn=$('#pathBtn');
-  if(!x){glyph.innerHTML='';$('#focusName').textContent='NO SOURCE';$('#focusMeta').textContent='—';$('#focusHash').textContent='—';pathBtn.disabled=true;$('#listenBtn').disabled=true;$('#liveBtn').disabled=true;$('#removeBtn').disabled=true;return}
+  if(!x){glyph.innerHTML='';$('#focusName').textContent='NO SOURCE';$('#focusMeta').textContent='—';$('#focusHash').textContent='—';$('#inside').innerHTML='<div class="insideEmpty">FOCUS A CELL TO SEE INSIDE</div>';pathBtn.disabled=true;$('#listenBtn').disabled=true;$('#liveBtn').disabled=true;$('#originBtn').disabled=true;$('#removeBtn').disabled=true;return}
   glyph.innerHTML=audioGlyphSvg(x.glyph,{size:280,padding:15});
   $('#focusKind').textContent=x.sourceKind==='SYNTHETIC_DEMO'?'SYNTHETIC DEMO':'SOURCE CELL';
   $('#focusName').textContent=x.name;
   $('#focusMeta').textContent=metaLine(x)+(x.artist?' · '+x.artist:'');
   $('#focusHash').textContent=x.sourceHash||'NO SOURCE HASH';
+  const hash=(x.sourceHash||'').slice(0,16),text=x.textWitness,origin=x.origin,collection=x.collection;
+  const means=x.glyph?.means||{},inside=[
+    ['IDENTITY',[x.sourceKind,x.format||null,hash?hash+'…':null].filter(Boolean).join(' · ')||'SYNTHETIC'],
+    ['STRUCTURE',[x.duration?fmtDuration(x.duration):null,x.glyph?.bpm?Math.round(x.glyph.bpm)+' BPM':null,x.glyph?.key||null,(x.glyph?.sectionCount||1)+' SECTIONS'].filter(Boolean).join(' · ')],
+    ['SIGNATURE','E '+Math.round((means.energy||0)*100)+' · Δ '+Math.round((means.flux||0)*100)+' · C '+Math.round((means.brightness||0)*100)],
+    ['TEXT',text?(text.kind+' · '+text.alignment+' · '+text.chars+' CHARS'+(text.cues?' · '+text.cues+' CUES':'')):'NONE'],
+    ['ORIGIN',origin?(origin.kind+' · '+(origin.id||shortAddress(origin.address)||'LINK')):'LOCAL / UNBOUND'],
+    ['COLLECTION',collection?(collection.name+(collection.count!=null?' · '+collection.count+' ITEMS':'')):'NONE']
+  ];
+  $('#inside').innerHTML=inside.map(([k,v])=>'<div class="insideFacet"><b>'+esc(k)+'</b><span>'+esc(v||'—')+'</span></div>').join('');
   const i=packet.path.indexOf(x.id);pathBtn.disabled=false;pathBtn.textContent=i>=0?`REMOVE FROM PATH · ${i+1}`:'ADD TO PATH';
-  $('#listenBtn').disabled=false;$('#liveBtn').disabled=false;$('#removeBtn').disabled=x.sourceKind==='SYNTHETIC_DEMO';
+  $('#listenBtn').disabled=false;$('#liveBtn').disabled=false;$('#originBtn').disabled=!origin?.address;$('#removeBtn').disabled=x.sourceKind==='SYNTHETIC_DEMO';
 }
 function renderPath(){
   $('#pathCount').textContent=`${packet.path.length} CELL${packet.path.length===1?'':'S'}`;
@@ -80,8 +91,10 @@ function render(){
   document.documentElement.dataset.atlasSchema=ATLAS_SCHEMA;
 }
 function metaLine(x){
-  const bits=[];if(x.glyph?.bpm)bits.push(Math.round(x.glyph.bpm)+' BPM');if(x.glyph?.key)bits.push(x.glyph.key);bits.push((x.glyph?.sectionCount||1)+' SECT');return bits.join(' · ');
+  const bits=[];if(x.glyph?.bpm)bits.push(Math.round(x.glyph.bpm)+' BPM');if(x.glyph?.key)bits.push(x.glyph.key);bits.push((x.glyph?.sectionCount||1)+' SECT');if(x.collection?.name)bits.push('↗ '+x.collection.name);return bits.join(' · ');
 }
+function fmtDuration(t){t=Math.max(0,Number(t)||0);const h=Math.floor(t/3600),m=Math.floor((t%3600)/60),sec=Math.floor(t%60);return h?(h+':'+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0')):(m+':'+String(sec).padStart(2,'0'))}
+function shortAddress(v=''){try{const u=new URL(v);return u.hostname+u.pathname.slice(0,28)}catch(_){return String(v).slice(0,42)}}
 function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function togglePath(){
   const x=entryBy(focusId);if(!x)return;
