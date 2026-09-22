@@ -64,9 +64,10 @@ The public witness carries exact identity/duration/role/seam metadata but **no r
 
 Only these currently deserve attention:
 
-1. **Three-track lived/share gate** — open `/fold-bloom/set/journey.html?demo=seed&auto=1` without files; then bind the exact three tracks locally and compare the same journey with real audio.
-2. **Issue #157 · LISTEN phone source-editor continuity** — horizontal ADDRESS + vertical APERTURE gesture and one real-MP3 LISTEN→LIVE proof.
-3. **LIVE 0.13 body QA** — react only to direct material/jitter/drop/world/reachability regressions.
+1. **Three-track lived/share gate** — use the bottom GHOST → FORGE → WILL DEMO as witness; then bind the exact three tracks locally and compare the same journey with real audio. Return KEEP / REVISE / REJECT on one-journey-vs-playlist feel.
+2. **LIVE 0.13 body QA** — react only to direct material/jitter/drop/world/reachability regressions.
+
+**Technical continuity gate closed:** issue #157 / PR #171. Phone touch now distinguishes ADDRESS from vertical APERTURE; a real MP3 regression proves PIN persistence and exact-hash LISTEN → LIVE local-vault continuity through terrain/SPLIT while preserving source evidence.
 
 Everything else is downstream or quarry. SOURCE SHELL is now a likely doorway refinement, not permission to merge engines. Anchor/warp lyric calibration remains named and parked. Provider proliferation, DAW editing, social/feed systems and a standalone SOURCE SPINE app remain parked.
 

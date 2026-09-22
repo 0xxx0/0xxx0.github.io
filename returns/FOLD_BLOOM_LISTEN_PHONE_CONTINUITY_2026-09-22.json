@@ -1,0 +1,23 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FOLD_BLOOM_LISTEN_PHONE_CONTINUITY_2026-09-22",
+  "date": "2026-09-22",
+  "operation": "OPEN PHONE CONTINUITY GATE → IMPLEMENT → REAL-MP3 PROVE → MERGE → CLOSE",
+  "status": "RETURNED",
+  "issue": 157,
+  "pullRequest": 171,
+  "mergeSha": "7734a77b1961335eb59bf142e499573a6a74c2b2",
+  "ci": {
+    "run": 1697,
+    "conclusion": "success"
+  },
+  "evidence": {
+    "realMp3Smoke": "/tools/fold-bloom-listen-phone-smoke.mjs",
+    "listen": "/fold-bloom/listen/app.js",
+    "liveVault": "/fold-bloom/live/vault-handoff.js",
+    "liveIdentityWitness": "/fold-bloom/live/track.js"
+  },
+  "result": "Technical LISTEN phone continuity gate closed. Remaining authority is human-lived evidence; do not infer KEEP/REVISE/REJECT.",
+  "next": "Three-track lived/share gate only; LIVE body QA only on direct observed regression.",
+  "stop": true
+}

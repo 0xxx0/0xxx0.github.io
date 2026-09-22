@@ -77,7 +77,10 @@
     "source-hash RIDE PROFILE editor shares terrain solidity, immersion, drop gain and text-sync calibration with LIVE through localStorage",
     "ride-profile tuning changes downstream projection/timing only and never mutates AUDIO MAP analysis evidence",
     "AUDIO MAP RETURN now carries the current compact rideProfile alongside map/glyph/annotations",
-    "Atlas handoff may carry the compact rideProfile beside source identity/facets without carrying source audio bytes"
+    "Atlas handoff may carry the compact rideProfile beside source identity/facets without carrying source audio bytes",
+    "phone pointer arbitration: dominant vertical touch changes APERTURE while ring/non-vertical movement scrubs ADDRESS without adding a second gesture vocabulary",
+    "LISTEN RIDE carries an exact SHA-256 source address into LIVE when exact local identity exists",
+    "LIVE may resolve that exact source from the same-origin local media vault without another file picker and exposes an exact RETURN link"
   ],
   "constraints": [
     "no upload/network required for user audio",
@@ -108,7 +111,9 @@
     "M4A/MP4 decode support is runtime/browser dependent even when metadata can be parsed",
     "RIDE PROFILE is downstream projection calibration, not analysis truth",
     "text sync offset must not modify stored timed-text cue addresses or promote unaligned text to aligned",
-    "ride-profile storage keys must use the same source identity key used by LIVE when an exact hash exists"
+    "ride-profile storage keys must use the same source identity key used by LIVE when an exact hash exists",
+    "phone ADDRESS/APERTURE arbitration changes projection control only; it must not alter the closed BEAT/PHRASE/SECTION/TRACK aperture vocabulary",
+    "exact-hash LISTEN→LIVE vault handoff is browser-local convenience, not cloud storage or transferred source authority"
   ],
   "verification": {
     "module_runtime": "PASS: LISTEN 0.2 surface executed in browser smoke",
@@ -146,7 +151,8 @@
     "source_bundle_pr": 146,
     "source_bundle_merge_sha": "a9c902839ab6fbd01c23fa739acaffa4279e9d82",
     "source_bundle_ci": "PASS: public-surface-check 35695947970",
-    "ride_profile_012": "PASS REPO: shared profile controls + LIVE 0.12 browser/runtime regression in public-surface-check 35700392105; direct same-source cross-tab/user feel remains human gate"
+    "ride_profile_012": "PASS REPO: shared profile controls + LIVE 0.12 browser/runtime regression in public-surface-check 35700392105; direct same-source cross-tab/user feel remains human gate",
+    "phone_continuity_0157": "PASS: issue #157 closed via PR #171 · merge 7734a77b1961335eb59bf142e499573a6a74c2b2 · public-surface-check run 1697. Real MP3 at 430×900 proves ADDRESS movement, vertical APERTURE, PIN reload, exact-hash LISTEN→LIVE vault handoff, TRACKFIELD variation, SPLIT branch choice and source-evidence stability."
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · portable donor=field-addressed-stream/v0.1",
   "updated": "2026-09-22",

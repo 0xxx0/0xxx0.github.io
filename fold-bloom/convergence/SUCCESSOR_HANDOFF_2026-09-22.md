@@ -7,7 +7,7 @@ This file is for future ChatGPT / Hermes / a human returning cold.
 
 Authoritative current merged family:
 - LIVE 0.13 AUTOPILOT polish — PR #151 · merge ce475fe2f9abca2068032c3dc4bdf236bcf0ee45 · CI 35705196976 PASS
-- LISTEN 0.6 source-bundle + source-hash ride tuning
+- LISTEN 0.6 source-bundle + source-hash ride tuning; phone ADDRESS/APERTURE + exact-source LISTEN→LIVE continuity closed via PR #171 / issue #157
 - GLYPH ATLAS 0.2 inspectable source memory
 - TWO DIAL 0.10.3 composition authority
 - EXPERIENCE SET 0.1 pure higher-order journey object — PR #152 · merged and CI green
@@ -102,7 +102,7 @@ SET and JOURNEY are technically real.
 
 ### Gate 1 — exact three-track journey
 
-Public witness:
+Bottom DEMO witness (not START HERE):
 
 `/fold-bloom/set/journey.html?demo=seed&auto=1`
 
@@ -121,11 +121,19 @@ Ask only:
 
 If KEEP, the next engineering move is **doorway convergence**: RIDE · SEE · SHAPE over existing engines, not another source model.
 
-### Gate 2 — LISTEN phone continuity
+### Technical continuity — CLOSED
 
-Issue #157 remains the bounded repair gate. Do not reopen the superseded #155 branch wholesale.
+Issue #157 is complete via PR #171.
 
-### Gate 3 — LIVE 0.13 body return
+- phone ring/non-vertical touch → ADDRESS;
+- dominant vertical touch → APERTURE;
+- exact source-hash PIN survives LISTEN re-entry;
+- LISTEN RIDE hands the same local source into LIVE without another picker;
+- real-MP3 CI proves terrain variation, SPLIT branch choice and stable source evidence.
+
+Do not reopen superseded PR #155 wholesale. Anchor/warp remains a separate future calibration problem.
+
+### Gate 2 — LIVE 0.13 body return
 
 Only react to lived regressions.
 

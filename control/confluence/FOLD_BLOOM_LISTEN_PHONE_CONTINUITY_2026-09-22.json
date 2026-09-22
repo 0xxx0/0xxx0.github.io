@@ -1,0 +1,43 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_LISTEN_PHONE_CONTINUITY_2026-09-22",
+  "date": "2026-09-22",
+  "object": "LISTEN phone ADDRESS/APERTURE + exact-source LISTEN→LIVE continuity",
+  "status": "MERGED_COMPLETE",
+  "issue": 157,
+  "pullRequest": 171,
+  "mergeSha": "7734a77b1961335eb59bf142e499573a6a74c2b2",
+  "ci": {
+    "workflow": "public-surface-check",
+    "run": 1697,
+    "conclusion": "success"
+  },
+  "observed": [
+    "430×900 real encoded MP3 fixture reaches DEEP LISTEN analysis.",
+    "Touch/ring ADDRESS gesture moves canonical source time.",
+    "Dominant vertical touch swipe changes APERTURE using the existing BEAT / PHRASE / SECTION / TRACK vocabulary.",
+    "Source-hash PIN survives exact-source LISTEN re-entry.",
+    "LISTEN RIDE carries the exact source hash into LIVE; LIVE resolves the same browser-local bytes without another picker.",
+    "LIVE derives varying grade/speed from the same source, can write SPLIT and choose a branch, while source/map identity witnesses remain stable under projection/profile changes."
+  ],
+  "implementation": [
+    "/fold-bloom/listen/app.js",
+    "/fold-bloom/live/vault-handoff.js",
+    "/fold-bloom/live/app.js",
+    "/fold-bloom/live/track.js",
+    "/tools/fold-bloom-listen-phone-smoke.mjs"
+  ],
+  "preserved": [
+    "source bytes remain local",
+    "AUDIO MAP/source evidence is not rewritten",
+    "APERTURE vocabulary is unchanged",
+    "LISTEN and LIVE remain unequal projections",
+    "no anchor/warp editor or SOURCE SPINE app introduced"
+  ],
+  "remainingHumanAuthority": [
+    "three-track GHOST → FORGE → WILL lived/share verdict",
+    "LIVE 0.13 body feel only if direct use exposes a regression"
+  ],
+  "stop": "No further technical Fold/Bloom front is authorized by this closure alone. Await lived evidence before doorway convergence or non-music adapter work.",
+  "return": "/returns/FOLD_BLOOM_LISTEN_PHONE_CONTINUITY_2026-09-22.json"
+}

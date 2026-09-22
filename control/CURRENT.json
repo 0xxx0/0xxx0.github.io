@@ -125,7 +125,7 @@
       "head": "FOLD//BLOOM · EXPERIENCE SET 0.1 / SET 0.1.1 + local vault / JOURNEY RIDE 0.1.2 shareable seed witness / LIVE 0.13 / LISTEN 0.6 / GLYPH ATLAS 0.2 / TWO DIAL 0.10.3 / ECOLOGY 0.2",
       "state": "ACTIVE_CANDIDATE_FAMILY",
       "route": "/fold-bloom/",
-      "retained_function": "One exact source can be selected once, remain byte-identifiable across SET/LISTEN/JOURNEY, and never leak raw media into set/share state. Multiple exact source refs form an Experience Set; JOURNEY derives a continuous journey address beside native source clocks. The recovered three-track GHOST → FORGE → WILL seed now has a metadata-true public witness while real audio remains same-browser/local.",
+      "retained_function": "One exact source can be selected once, remain byte-identifiable across SET/LISTEN/JOURNEY/LIVE, and never leak raw media into set/share state. LISTEN phone gestures now preserve one continuous ADDRESS/APERTURE vocabulary and exact source hash can cross into LIVE through the same-browser vault. Multiple exact refs form an Experience Set; JOURNEY derives a continuous journey address beside native source clocks. The recovered GHOST → FORGE → WILL witness remains a bottom DEMO, not the canonical entry surface.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -199,7 +199,10 @@
         "/control/confluence/FOLD_BLOOM_LOCAL_SPINE_JOURNEY_2026-09-22.json",
         "/returns/FOLD_BLOOM_LOCAL_SPINE_JOURNEY_2026-09-22.json",
         "/control/confluence/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json",
-        "/returns/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json"
+        "/returns/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json",
+        "/control/confluence/FOLD_BLOOM_LISTEN_PHONE_CONTINUITY_2026-09-22.json",
+        "/returns/FOLD_BLOOM_LISTEN_PHONE_CONTINUITY_2026-09-22.json",
+        "/tools/fold-bloom-listen-phone-smoke.mjs"
       ],
       "experimental": [
         {
@@ -230,8 +233,8 @@
           "promotion_gate": "Phone body test: AUTOPILOT reachable; all settings reachable; jitter better/same/worse; response crisp/too smooth; worlds elegant/distinct; no source-time/drop regression."
         }
       ],
-      "merge_sha": "91db332e327a80c8daa8182add8720b48d1e7fea",
-      "latest_return": "/returns/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json",
+      "merge_sha": "7734a77b1961335eb59bf142e499573a6a74c2b2",
+      "latest_return": "/returns/FOLD_BLOOM_LISTEN_PHONE_CONTINUITY_2026-09-22.json",
       "next_executable": {
         "id": "fold-bloom-three-track-lived-gate",
         "state": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
@@ -249,7 +252,7 @@
           "Does the byte-private/public-witness distinction remain obvious?"
         ],
         "after_keep": "SOURCE SHELL / RIDE · SEE · SHAPE should be a doorway refinement, not another engine.",
-        "law": "Do not bundle or publish the private audio merely to improve demo convenience. Metadata witness may travel; exact bytes require explicit local binding.",
+        "law": "Technical continuity is closed. Human use owns the next decision; do not begin doorway convergence or a non-music adapter merely because CI is green.",
         "implementation": {
           "pull_request": 167,
           "merge": "91db332e327a80c8daa8182add8720b48d1e7fea",
@@ -257,6 +260,14 @@
           "ci": "PASS",
           "share_route": "/fold-bloom/set/journey.html?demo=seed&auto=1",
           "receipt": "/returns/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json"
+        },
+        "technical_continuity": {
+          "issue": 157,
+          "state": "CLOSED_COMPLETE",
+          "pull_request": 171,
+          "merge": "7734a77b1961335eb59bf142e499573a6a74c2b2",
+          "ci_run": 1697,
+          "proof": "real MP3 · phone ADDRESS/APERTURE · PIN reload · exact-hash LISTEN→LIVE · terrain variation · SPLIT branch · evidence stability"
         }
       }
     },
