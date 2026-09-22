@@ -28,11 +28,41 @@ function fft(re,im){
 function mean(a,start=0,end=a.length){
   let s=0,n=0;for(let i=start;i<end;i++){s+=a[i];n++}return n?s/n:0;
 }
+const PITCH_NAMES=['C','C♯','D','D♯','E','F','F♯','G','G♯','A','A♯','B'];
+const MAJOR_PROFILE=[6.35,2.23,3.48,2.33,4.38,4.09,2.52,5.19,2.39,3.66,2.29,2.88];
+const MINOR_PROFILE=[6.33,2.68,3.52,5.38,2.60,3.53,2.54,4.75,3.98,2.69,3.34,3.17];
+function cosine(a,b){
+  let dot=0,aa=0,bb=0;
+  for(let i=0;i<a.length;i++){dot+=a[i]*b[i];aa+=a[i]*a[i];bb+=b[i]*b[i]}
+  return aa&&bb?dot/Math.sqrt(aa*bb):0;
+}
+export function estimateKeyFromChroma(input){
+  const chroma=Array.from({length:12},(_,i)=>Math.max(0,Number(input?.[i])||0));
+  const total=chroma.reduce((a,b)=>a+b,0);
+  if(total<=1e-9)return {tonic:null,mode:null,label:'—',confidence:0,chroma:chroma.map(()=>0)};
+  const norm=chroma.map(x=>x/total),candidates=[];
+  for(let tonic=0;tonic<12;tonic++){
+    const rotated=Array.from({length:12},(_,i)=>norm[(tonic+i)%12]);
+    candidates.push({tonic,mode:'major',score:cosine(rotated,MAJOR_PROFILE)});
+    candidates.push({tonic,mode:'minor',score:cosine(rotated,MINOR_PROFILE)});
+  }
+  candidates.sort((a,b)=>b.score-a.score);
+  const best=candidates[0],second=candidates[1]||{score:0},gap=Math.max(0,best.score-second.score);
+  return {
+    tonic:PITCH_NAMES[best.tonic],
+    tonicIndex:best.tonic,
+    mode:best.mode,
+    label:`${PITCH_NAMES[best.tonic]} ${best.mode}`,
+    confidence:+clamp(gap*8,0,1).toFixed(3),
+    score:+best.score.toFixed(4),
+    chroma:norm.map(x=>+x.toFixed(5))
+  };
+}
 export function analyzePCM(pcm,sr,duration=pcm.length/sr,progress=()=>{}){
   const N=1024,H=2048,bins=N>>1,frameCount=Math.max(1,Math.floor((pcm.length-N)/H)+1);
   const re=new Float32Array(N),im=new Float32Array(N),prev=new Float32Array(bins);
   const win=new Float32Array(N);for(let i=0;i<N;i++)win[i]=.5-.5*Math.cos(TAU*i/(N-1));
-  const energy=new Float32Array(frameCount),centroid=new Float32Array(frameCount),flux=new Float32Array(frameCount),low=new Float32Array(frameCount),mid=new Float32Array(frameCount),high=new Float32Array(frameCount);
+  const energy=new Float32Array(frameCount),centroid=new Float32Array(frameCount),flux=new Float32Array(frameCount),low=new Float32Array(frameCount),mid=new Float32Array(frameCount),high=new Float32Array(frameCount),chroma=new Float64Array(12);
   const binHz=sr/N;
   for(let f=0;f<frameCount;f++){
     const off=f*H;let ss=0;
@@ -43,6 +73,11 @@ export function analyzePCM(pcm,sr,duration=pcm.length/sr,progress=()=>{}){
       const m=Math.hypot(re[k],im[k]);sum+=m;weighted+=m*k*binHz;
       const hz=k*binHz,p=m*m;
       if(hz<180)lo+=p;else if(hz<2000)mi+=p;else hi+=p;
+      if(hz>=55&&hz<=5000&&m>1e-9){
+        const midi=69+12*Math.log2(hz/440),base=Math.floor(midi),frac=midi-base,weight=Math.pow(m,1.22)/(1+hz/7000);
+        const pc0=((base%12)+12)%12,pc1=(pc0+1)%12;
+        chroma[pc0]+=weight*(1-frac);chroma[pc1]+=weight*frac;
+      }
       const d=m-prev[k];if(d>0)fl+=d;prev[k]=m;
     }
     energy[f]=Math.sqrt(ss/N);centroid[f]=sum?weighted/sum:0;flux[f]=fl/bins;
@@ -86,6 +121,7 @@ export function analyzePCM(pcm,sr,duration=pcm.length/sr,progress=()=>{}){
     lastVec=v;
   }
   sections.push({t:duration,score:0});
+  const key=estimateKeyFromChroma(chroma);
   progress(1);
-  return {version:'fold-bloom-audio-map/v0.2',stage:'DEEP',preview:false,analysisProfile:'song-fast',duration,sampleRate:sr,hop:H,window:N,bpm:+bpm.toFixed(2),tempoConfidence:+confidence.toFixed(3),frames,beats,sections};
+  return {version:'fold-bloom-audio-map/v0.3',stage:'DEEP',preview:false,analysisProfile:'song-fast+harmonic-id',duration,sampleRate:sr,hop:H,window:N,bpm:+bpm.toFixed(2),tempoConfidence:+confidence.toFixed(3),key,frames,beats,sections};
 }
