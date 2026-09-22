@@ -1,16 +1,17 @@
 import {ListenRenderer} from './render.js';
 import {SCOPES,frameAt,beatIndexAt,phraseIndexAt,sectionIndexAt,scopeWindow,scrubTime} from './audio-map.js';
 import {pointAngle01} from './polar-control.js';
-import {parseSunoId,classifySourceAddress,resolveSourceAddress,fetchRemoteAudio} from './source-adapters.js';
+import {parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,fetchRemoteAudio} from './source-adapters.js';
 import {buildPreviewMap} from './preview-map.js';
 import {createFieldPulse} from '../../lib/field-pulse.js';
 import {STREAM_LENS_SCHEMA,scrubByDelta,stepAddress,makeStreamPin,normalizePins} from './stream-lens.js';
 import {audioGlyphDescriptor,audioGlyphSvg} from './audio-glyph.js';
-import {parseId3,id3DisplayName} from './id3.js';
+import {parseLocalAudioMeta,localDisplayName} from './media-meta.js';
+import {groupLocalInputs,parseTextSidecar,parsePlaylistText} from './sidecar-text.js';
 
 const $=s=>document.querySelector(s);
 const gl=$('#field'),overlay=$('#overlay'),audio=$('#audio'),drop=$('#drop');
-let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null,pins=[],editingPinId=null,glyphDesc=null,idle={on:false,startScope:1,lastBeat:-1,lastPhrase:-1,lastSection:-1};
+let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null,pendingSource=null,pins=[],editingPinId=null,glyphDesc=null,idle={on:false,startScope:1,lastBeat:-1,lastPhrase:-1,lastSection:-1};
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LISTEN');
 
 function toast(t){const e=$('#toast');if(!e)return;e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on')}
