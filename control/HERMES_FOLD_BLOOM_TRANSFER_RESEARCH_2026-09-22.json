@@ -1,0 +1,246 @@
+{
+  "schema": "0xxx0/hermes-research-packet/v0.1",
+  "id": "HERMES-FOLD-BLOOM-TRANSFER-RESEARCH-2026-09-22",
+  "date": "2026-09-22",
+  "status": "MANUAL_ACTIVATION_NOT_QUEUED",
+  "purpose": "Run bounded complementary research/evaluation work around Fold/Bloom / Addressed Continuity without mutating merged SET 0.1.1 local test packs or spawning new architectures.",
+  "baseline": {
+    "master": "fcaa51064ee6081f73d6cb5f6f68b961ccb66e9e",
+    "merged_test_pack": {
+      "version": "SET 0.1.1",
+      "implementation_pr": 163,
+      "implementation_merge": "70d01529a982690891483edbbe09b8600b6e70c4",
+      "seal_pr": 164,
+      "seal_merge": "fcaa51064ee6081f73d6cb5f6f68b961ccb66e9e",
+      "ci_run": 1646,
+      "state": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
+      "ownership": "exact local source recognition + reversible GHOST → FORGE → WILL seed + separate NotebookLM long-form stress source",
+      "do_not_mutate": [
+        "raw/private audio",
+        "test-pack catalog/hash recognition",
+        "seed application logic",
+        "SET 0.1.1 runtime"
+      ]
+    }
+  },
+  "boot": [
+    "/AGENTS.md",
+    "/control/CURRENT.json",
+    "/control/WORKER_BOOT.json",
+    "/control/POLICY_INDEX.json",
+    "/control/SUBMISSION_CONTRACT.json",
+    "/control/PURE_INTENTION.json",
+    "/fold-bloom/convergence/README.md",
+    "/fold-bloom/convergence/THREAD_COLLAPSE_2026-09-22.md",
+    "/fold-bloom/convergence/ADDRESSED_CONTINUITY_2026-09-22.md",
+    "/fold-bloom/convergence/TRANSFER_RESEARCH_ATLAS_2026-09-22.md",
+    "/foundry/axial/release.json",
+    "/foundry/axial/research.json",
+    "/agent-router.json"
+  ],
+  "governing_laws": [
+    "RECOVER BEFORE INVENTING",
+    "SOURCE → ADDRESS → STATE → TRANSFORM → PROVE → RETURN",
+    "ONE BOUNDED MOVE → RETURN → REPLAN",
+    "NO NEW CORE WITHOUT A MISSING FUNCTION",
+    "ZERO HOST → UNRESOLVED, NOT NEW PROJECT",
+    "MACHINE EVIDENCE ≠ HUMAN AUTHORSHIP",
+    "CALIBRATION MAY CHANGE PROJECTION; IT MAY NOT REWRITE SOURCE EVIDENCE",
+    "TRANSFER THE CONTRACT, NOT THE MUSIC SKIN",
+    "NO AGENT-TO-AGENT FREE CHAT; EXCHANGE BOUNDED PACKETS / EVIDENCE / RETURNS"
+  ],
+  "authority": {
+    "inherited_from": "/control/HERMES_QUEUE.json",
+    "allowed": [
+      "READ",
+      "SEARCH",
+      "COMPARE",
+      "ANALYZE",
+      "RECOVER",
+      "CLASSIFY",
+      "DRAFT",
+      "NON_DESTRUCTIVE_CHECKS",
+      "PREPARE_BOUNDED_CHANGES"
+    ],
+    "forbidden_without_separate_grant": [
+      "CANONICAL_WRITE",
+      "MERGE",
+      "PUBLIC_PUBLISH",
+      "EXTERNAL_SEND",
+      "ACCOUNT_CHANGE",
+      "DESTRUCTIVE_DELETE",
+      "LARGE_ARCHITECTURAL_MIGRATION",
+      "RAW_PRIVATE_AUDIO_UPLOAD"
+    ]
+  },
+  "concurrency": {
+    "max_live": 2,
+    "reason": "Match FIELD worker discipline and prevent research swarm from becoming another active surface.",
+    "rule": "Phase B cannot begin until Phase A returns are inspectable."
+  },
+  "phases": [
+    {
+      "id": "PHASE_A",
+      "name": "parallel evidence gathering",
+      "max_workers": 2,
+      "workers": [
+        {
+          "task_id": "FB-R1-LIT-CARTOGRAPHER",
+          "role": "RESEARCH CARTOGRAPHER",
+          "preferred_executor": "Hermes or ChatGPT research worker",
+          "scale": "literature / mechanism",
+          "object": "/fold-bloom/ convergence",
+          "contribution_class": "DONOR",
+          "evidence_class": "SPEC",
+          "source_refs": [
+            "/fold-bloom/convergence/TRANSFER_RESEARCH_ATLAS_2026-09-22.md",
+            "/foundry/axial/research.json"
+          ],
+          "instruction": "Deepen only GAP R1/R2/R3: coordinated heterogeneous views, sonification mapping, and poetry/TTS/prosody. Prefer primary/peer-reviewed sources. For every paper extract: exact claim, population/task, limitation, transferable mechanism, and one thing it does NOT justify. Do not propose runtime code.",
+          "deliverable": "portable markdown or JSON literature matrix with 12–25 high-quality sources; deduplicate references already in the atlas.",
+          "stop": "Stop when each gap has at least 3 independent strong sources plus one identified disagreement/limitation. More bibliography is not progress."
+        },
+        {
+          "task_id": "FB-R5-NEXUS-PROBER",
+          "role": "TRANSFER PROBER",
+          "preferred_executor": "Hermes",
+          "scale": "repo / data archaeology",
+          "object": "/nexus/ + Fold/Bloom DONOR relation",
+          "contribution_class": "DONOR",
+          "evidence_class": "SPEC",
+          "source_refs": [
+            "/nexus/",
+            "/control/CURRENT.json",
+            "/agent-router.json",
+            "/fold-bloom/convergence/ADDRESSED_CONTINUITY_2026-09-22.md"
+          ],
+          "instruction": "Choose exactly one real, already-public repo event stream (commits, returns, queue changes, or another stable corpus). Define canonical address + aperture hierarchy + visual lane + optional sonification lane + human marks + RETURN. Compare against current Nexus/table/timeline control condition. Do not create a new Nexus app and do not infer 'importance' from data.",
+          "deliverable": "one falsifiable transfer spec with source addresses, mapping table, 3-5 candidate sonification channels, failure modes, control condition, and evaluation metrics.",
+          "stop": "Stop before implementation. If no mapping beats the ordinary control conceptually, RETURN REJECT with reasons."
+        }
+      ]
+    },
+    {
+      "id": "PHASE_B",
+      "name": "synthesis / adversarial review",
+      "max_workers": 1,
+      "requires": [
+        "FB-R1-LIT-CARTOGRAPHER",
+        "FB-R5-NEXUS-PROBER"
+      ],
+      "workers": [
+        {
+          "task_id": "FB-RX-AUTHORITY-AUDIT",
+          "role": "SYNTHESIS CRITIC",
+          "preferred_executor": "ChatGPT / Hermes independent worker",
+          "scale": "cross-domain",
+          "object": "/fold-bloom/convergence/TRANSFER_RESEARCH_ATLAS_2026-09-22.md",
+          "contribution_class": "EVIDENCE",
+          "evidence_class": "SPEC",
+          "instruction": "Compare Phase A returns against FIELD/AXIAL/Lens/READFIELD/HUMAN PORT authority boundaries. Identify false equivalences, novelty overclaims, mappings that launder inference into truth, and abstractions that should remain domain-specific. Produce KEEP / REVISE / PARK for each proposed transfer.",
+          "deliverable": "compact audit table plus at most 3 proposed bounded experiments.",
+          "stop": "No code, no new route, no queue expansion."
+        }
+      ]
+    },
+    {
+      "id": "PHASE_C",
+      "name": "implementation only after explicit selection",
+      "max_workers": 1,
+      "requires": [
+        "human selection of one experiment"
+      ],
+      "workers": [
+        {
+          "task_id": "FB-CODEX-ONE-DELTA",
+          "role": "BOUNDED IMPLEMENTER",
+          "preferred_executor": "Codex",
+          "contribution_class": "DELTA",
+          "evidence_class": "RECEIPT",
+          "instruction": "Implement only the selected experiment in its resolved host. Read host release/charter/tests first. Add the smallest possible change, tests, direct control comparison, and RETURN. Do not generalize into a framework.",
+          "stop": "One PR / one host / one claim. RETURN before any second move."
+        }
+      ]
+    }
+  ],
+  "candidate_experiments": [
+    {
+      "id": "POEM-RIDE-01",
+      "host_candidates": [
+        "/poetry/map/",
+        "/docs/",
+        "/fold-bloom/ as DONOR only"
+      ],
+      "question": "Can one poem stay canonically addressed while text, human/TTS performance, prosody visualization and optional ride projection change around it?",
+      "required_control": "ordinary text + audio player",
+      "success": "better orientation/engagement or a clearly useful new reading operation without confusing performance with poem identity",
+      "current_state": "RESEARCH_ONLY"
+    },
+    {
+      "id": "NEXUS-SONIFY-01",
+      "host_candidates": [
+        "/nexus/"
+      ],
+      "question": "Can a peripheral auditory lane expose temporal density/novelty/residue in one repo event stream while visual analysis stays primary?",
+      "required_control": "existing Nexus table/timeline only",
+      "success": "detect/review target patterns with acceptable distraction and exact provenance",
+      "current_state": "RESEARCH_ONLY"
+    },
+    {
+      "id": "COMMS-SPINE-01",
+      "host_candidates": [
+        "/port/",
+        "/agent-router.json"
+      ],
+      "question": "Can exact asks/promises/decisions survive original thread → summary → task → response while one address/provenance spine remains inspectable?",
+      "required_control": "current agent-router normalized envelope + HUMAN PORT",
+      "success": "lower re-entry/obligation-loss without adding another messaging UI",
+      "current_state": "RESEARCH_ONLY"
+    },
+    {
+      "id": "STATE-PROFILE-01",
+      "host_candidates": [
+        "existing host-specific profiles only"
+      ],
+      "question": "Do explicit CALM / FOCUS / INTENSE profiles improve use without silent state inference?",
+      "required_control": "current default profile",
+      "success": "human preference/task benefit with zero authority leakage",
+      "current_state": "RESEARCH_ONLY"
+    }
+  ],
+  "activation_instructions": {
+    "preferred": "Do not edit HERMES_QUEUE yet. Manually activate one Phase A worker by copying its task envelope into the worker context or a dedicated GitHub issue. Activate at most two Phase A workers concurrently.",
+    "if_using_hermes_queue": "Add only the exact task object(s) under /control/HERMES_QUEUE.json tasks after checking CURRENT/QUEUE capacity; preserve authority as READ/RESEARCH/PREPARE_PACKETS and cite this packet.",
+    "if_using_github_issues": "One issue per activated worker. Title with task_id. Body must include submission envelope + stop condition. Close on RETURN; do not turn issue discussion into synchronization chat.",
+    "if_using_codex": "Only Phase C. Give exact host, accepted spec, tests/gate, forbidden scope, and expected RETURN."
+  },
+  "return_contract": {
+    "required": [
+      "task_id",
+      "scale",
+      "object",
+      "sources",
+      "findings",
+      "delta_or_packet",
+      "evidence",
+      "residue",
+      "one_next"
+    ],
+    "extra": [
+      "claim_limits",
+      "authority_boundary_checked",
+      "host_resolution",
+      "control_condition",
+      "stop_condition_met"
+    ]
+  },
+  "do_not_do": [
+    "do not mutate merged SET 0.1.1 test-pack catalog/runtime or raw local media from a research task",
+    "do not commit audio bytes or private local paths",
+    "do not create a SOURCE SPINE app",
+    "do not create a universal sonification framework",
+    "do not treat model emotion labels as source truth",
+    "do not start Journey Ride from a research task",
+    "do not use agent activity itself as evidence of progress"
+  ]
+}
