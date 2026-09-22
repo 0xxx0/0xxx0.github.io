@@ -1,0 +1,80 @@
+{
+  "schema": "0xxx0/claim-correction/v0.1",
+  "id": "FOVEATE-PARK-CORRECTION-2026-09-23",
+  "at": "2026-09-23T06:20:00+08:00",
+  "action": "CORRECT_THE_RECORD_DO_NOT_DELETE",
+  "subject": "The parked status of the FOVEATE lens (field-lens.js FIELD_FOVEATE)",
+
+  "claim_under_review": {
+    "where": "field-lens.js FIELD_FOVEATE.status = 'PARKED_NO_CLEAR_GAIN'",
+    "text": "Initial human PLAIN<->FOVEATED trial produced no notable or self-evident task advantage.",
+    "introduced_by": {
+      "commit": "37ed1cc",
+      "date": "2026-09-21",
+      "author": "0xxx0",
+      "subject": "Park FIELD foveation after no clear human gain"
+    }
+  },
+
+  "source_named": {
+    "receipt": "control/LENS_G1_PROOF_SEAL_2026-09-21.json",
+    "disposition": "G1_MECHANICS_PROVED_FOVEATE_PARKED_STUDIO_USABILITY_ACTUALIZED"
+  },
+
+  "finding": "UNSOURCED_CLAIM_WITH_SELF_DISCLAIMER",
+
+  "evidence_inspected": {
+    "proof_attached": {
+      "kind": "CI_WORKFLOW_NOT_HUMAN_TRIAL",
+      "workflow": "public-surface-check",
+      "run_id": 35594006860,
+      "browser_cases": 24,
+      "conclusion": "success"
+    },
+    "human_comparator": {
+      "stated_result": "No notable or self-evident advantage observed for FOVEATED over PLAIN in direct use.",
+      "protocol": null,
+      "comparison_count": null,
+      "observer": null,
+      "date_performed": null,
+      "artifacts": null
+    },
+    "self_disclaimer": {
+      "field": "does_not_prove",
+      "text": "FOVEATED is faster, clearer or preferable to PLAIN for a human task",
+      "meaning": "The receipt that parked the lens explicitly disclaims proving the very comparison it reports as resolved. The conclusion is not supported by its own attachment."
+    }
+  },
+
+  "contrast_a_properly_run_pass": {
+    "receipt": "control/LENS_REAL_USE_RETURN_2026-09-22.json",
+    "why_it_counts": "names its method (36 browser cases), its workflow run, its observed friction per surface, and classifies each: AUTHORITY_BUG, DEAD_AFFORDANCE, DUPLICATE_SURFACE + LABEL_DRIFT. Observed before and after.",
+    "note": "This is what a real pass looks like in this repo. The foveate park has no equivalent."
+  },
+
+  "ruling": {
+    "by_law": "A NUMBER THAT CANNOT NAME ITS SOURCE FILE IS NOT ALLOWED ON A PAGE (GODSEYE rule, adopted 2026-09-21).",
+    "verdict": "The park stands as a RECORD OF A BELIEF, not as a finding. It may not be cited as evidence that foveation does not work.",
+    "not_asserted": "This correction does NOT claim foveation DOES work. No properly-run trial exists in either direction. The question is OPEN, not settled."
+  },
+
+  "recovered_prior_art": {
+    "receipt": "recovery/focus-interface-sync-20260921/FU_FOVEATE_RECOVERY_2026-09-21.json",
+    "why_it_matters": "The original FU mechanism was foveate -> radial ring as ONE operational chain, recovered from the conversation archive.",
+    "mechanisms": [
+      { "name": "FOVEATE_OPERATOR", "meaning": "Foveation was an executable state change followed by path projection, not merely a visual metaphor." },
+      { "name": "FOCUS_TO_RADIAL_GEOMETRY", "meaning": "The selected fovea path contributed directly to radial geometry." },
+      { "name": "INPUT_TO_FOCUS_TO_RING", "meaning": "Source ingestion, hierarchical focus selection and radial re-projection were one operational chain." }
+    ],
+    "consequence": "The cursor-lens built at fovea-lens.js (2026-09-23) is not a novelty and not the parked band-dimmer. It is the recovered foveate -> ring chain, re-aimed at the pointer."
+  },
+
+  "action_taken": [
+    "field-lens.js FIELD_FOVEATE.note rewritten to record the basis, not the conclusion.",
+    "field-lens.js FIELD_FOVEATE.status left as-is: the parked flag is history and is not rewritten.",
+    "fovea-lens.js header already distinguishes itself from the parked lens.",
+    "This receipt added. No file deleted. No history rewritten."
+  ],
+
+  "next": "If foveation is to be settled, it needs a pass with the shape of LENS_REAL_USE_RETURN_2026-09-22: named method, per-surface observation, before/after. Until then the park is a belief on file."
+}
