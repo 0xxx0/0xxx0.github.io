@@ -35,7 +35,7 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 
 /* LATEST */
 .feedStats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);background:var(--line);gap:1px;margin-bottom:5px}.feedStat{background:#090d0f;padding:5px 7px}.feedStat b{font:800 14px/.9 system-ui,sans-serif}.feedStat span{display:block;color:var(--mut);font-size:6px;margin-top:3px}
-.feedRail{display:flex;flex-wrap:wrap;gap:2px;padding:6px 0;border-top:1px solid var(--line)}.feedChip{width:30px;height:30px;padding:1px;display:grid;place-items:center;border:1px solid #151d22;background:#080c0e;cursor:pointer}.feedChip:hover{border-color:#66757b;background:#11181c}.feedChip.on{border-color:var(--gold);background:#141009}.legend{display:flex;flex-wrap:wrap;gap:10px 16px;padding:8px 10px;border:1px solid var(--line);background:#080b0e;margin-top:5px;align-items:center}.legend .lg{display:flex;align-items:center;gap:5px;font-size:6.5px;color:var(--mut);letter-spacing:.06em}.legend .lg b{color:var(--ink);font-weight:500}.legend .sw{width:9px;height:9px;border:1px solid #2a3439}.legend .hd{font-size:6px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-right:2px}.feedItem{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) 112px 92px 72px;gap:8px;align-items:center;border:0;border-bottom:1px solid #20282c;background:transparent;color:inherit;padding:7px 3px;text-align:left}.feedItem:hover,.feedItem.on{background:#0d1316}.feedMain strong{display:block;font:750 12px/1.1 system-ui,sans-serif}.feedPath{color:var(--cool);font-size:6px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.feedTouch,.feedMode,.feedState{font-size:6.5px;color:var(--mut)}.feedState{color:var(--green)}
+.feedRail{display:flex;flex-wrap:wrap;gap:2px;padding:6px 0;border-top:1px solid var(--line)}.feedChip{width:30px;height:30px;padding:1px;display:grid;place-items:center;border:1px solid #151d22;background:#080c0e;cursor:pointer}.feedChip:hover{border-color:#66757b;background:#11181c}.feedChip.on{border-color:var(--gold);background:#141009}.legend{display:flex;flex-wrap:wrap;gap:10px 16px;padding:8px 10px;border:1px solid var(--line);background:#080b0e;margin-top:5px;align-items:center}.legend .lg{display:flex;align-items:center;gap:5px;font-size:6.5px;color:var(--mut);letter-spacing:.06em}.legend .lg b{color:var(--ink);font-weight:500}.legend .sw{width:9px;height:9px;border:1px solid #2a3439}.legend .hd{font-size:6px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-right:2px}.gits{margin-top:6px;border:1px solid var(--line);background:#080b0e;padding:6px 8px 7px}.gits .gtop{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:5px}.gits .gttl{font-size:7px;letter-spacing:.16em;color:var(--gold)}.gits .gsum{font-size:6.5px;color:var(--mut);letter-spacing:.06em}.grow{display:grid;grid-template-columns:62px 1fr 40px;gap:6px;align-items:center;height:11px}.grow .gd{font-size:6px;color:var(--mut);letter-spacing:.05em;white-space:nowrap}.grow .gt{position:relative;height:9px;background:#0b1114;border-left:1px solid #182025}.grow .gt i{position:absolute;bottom:0;width:2px;background:var(--cool);height:100%}.grow .gt i.h{background:var(--hot)}.grow .gn{font-size:6px;color:var(--mut);text-align:right}.ggap{display:flex;align-items:center;gap:6px;height:13px;color:var(--hot);font-size:6px;letter-spacing:.12em}.ggap:before,.ggap:after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,#5a3a3f,transparent)}.gaxis{display:grid;grid-template-columns:62px 1fr 40px;gap:6px;margin-top:3px}.gaxis span{font-size:5.5px;color:#4c565c;letter-spacing:.08em}.feedItem{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) 112px 92px 72px;gap:8px;align-items:center;border:0;border-bottom:1px solid #20282c;background:transparent;color:inherit;padding:7px 3px;text-align:left}.feedItem:hover,.feedItem.on{background:#0d1316}.feedMain strong{display:block;font:750 12px/1.1 system-ui,sans-serif}.feedPath{color:var(--cool);font-size:6px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.feedTouch,.feedMode,.feedState{font-size:6.5px;color:var(--mut)}.feedState{color:var(--green)}
 .feedMore{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:6px 3px;color:var(--mut);font-size:7px}.feedMore button{padding:5px 7px;font-size:7px}
 
 /* FOLDS */
@@ -212,6 +212,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
     one chip per surface &nbsp;·&nbsp; hover for title, route, date, state &nbsp;·&nbsp;
     click to focus, click again to open &nbsp;·&nbsp; order is newest-first
   </div>
+  <div class="gits" id="gits" aria-label="all repo touches since 2019"></div>
   <div class="feedMore"><span>Chronology remains the plain truth beneath AXIAL.</span><button id="moreLatest">SHOW 40</button></div>
 </section>
 
@@ -370,6 +371,35 @@ function renderFeed(){
  $('feedRail').innerHTML=xs.map(r=>{const d=String(r.index?.updated_at||'').slice(0,10);const lab=[r.title||r.href,r.href,d,r.state||'\u2014',modesOf(r).join('/')].filter(Boolean).join(' \u00b7 ');return '<button class="feedChip '+(focus?.href===r.href?'on':'')+'" data-href="'+esc(r.href)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,20)+'</button>'}).join('');
  $('feedRail').querySelectorAll('.feedChip').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,'LATEST')});
 }
+async function renderGits(){
+ const el=$('gits'); if(!el) return;
+ try{
+  const g=await (await fetch('./control/git-history.json',{cache:'no-store'})).json();
+  const rows=[];
+  let prevY=null;
+  for(const d of g.days){
+   const y=+d.d.slice(0,4);
+   if(prevY!==null && y-prevY>=1){
+    const yrs=y-prevY; rows.push('<div class="ggap">'+prevY+' ◆ '+y+' &nbsp;· '+yrs+' year'+(yrs===1?'':'s')+' with no commits</div>');
+   }
+   prevY=y;
+   // hour span present on this day, so the track shows the working window
+   const hrs=d.c.map(c=>c[1]); const lo=Math.min(...hrs), hi=Math.max(...hrs);
+   const spans=hi-lo||1;
+   rows.push('<div class="grow"><span class="gd">'+d.d.slice(2)+'</span>'+
+     '<span class="gt">'+d.c.map(c=>{
+        const pct=((c[1]+c[2]/60)-lo)/spans*100;
+        return '<i style="left:'+pct.toFixed(2)+'%" title="'+esc(c[0]+' +08 '+String(c[1]).padStart(2,'0')+':'+String(c[2]).padStart(2,'0')+' '+c[3])+'"></i>';
+     }).join('')+'</span>'+
+     '<span class="gn">'+d.n+'</span></div>');
+  }
+  el.innerHTML='<div class="gtop"><span class="gttl">RECORD / ALL TOUCHES SINCE 2019</span>'+
+    '<span class="gsum">'+g.total.toLocaleString()+' commits · '+g.days_active+' active days · '+g.span[0]+' → '+g.span[1]+' · each tick = one commit, placed by its local hour · hover for message</span></div>'+
+    rows.join('')+
+    '<div class="gaxis"><span></span><span>earliest hour → latest hour, per day</span><span>#</span></div>';
+ }catch(e){ el.textContent='git history unavailable: '+e.message; }
+}
+renderGits();
 const WAIT_LOCAL='field.waiting.local.v01';
 function waitingLocal(){try{return JSON.parse(localStorage.getItem(WAIT_LOCAL)||'{}')||{}}catch(_){return{}}}
 function toggleWaitingLocal(id){const m=waitingLocal();if(m[id])delete m[id];else m[id]={done_at:new Date().toISOString()};try{localStorage.setItem(WAIT_LOCAL,JSON.stringify(m))}catch(_){}renderWaiting(waiting)}
