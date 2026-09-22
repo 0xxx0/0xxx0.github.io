@@ -1,5 +1,5 @@
 import {ListenRenderer} from './render.js';
-import {SCOPES,frameAt,beatIndexAt,sectionIndexAt,scopeWindow,scrubTime} from './audio-map.js';
+import {SCOPES,frameAt,beatIndexAt,phraseIndexAt,sectionIndexAt,scopeWindow,scrubTime} from './audio-map.js';
 import {pointAngle01} from './polar-control.js';
 import {parseSunoId,classifySourceAddress,resolveSourceAddress,fetchRemoteAudio} from './source-adapters.js';
 import {buildPreviewMap} from './preview-map.js';
@@ -290,12 +290,15 @@ function transportPayload(){
   const nextBeat=beatIndex>=0?Number(beats[beatIndex+1]??(beatTime+beatPeriod)):(time+beatPeriod);
   const beatSpan=Math.max(.001,nextBeat-beatTime),beatPhase=Math.max(0,Math.min(1,(time-beatTime)/beatSpan));
   const beatDistance=Math.max(0,Math.min(Math.abs(time-beatTime),Math.abs(nextBeat-time)));
+  const phraseIndex=phraseIndexAt(map,time),phrases=map.phrases||[],phraseCount=Math.max(0,phrases.length-1),phraseStart=phraseIndex>=0?Number(phrases[phraseIndex]?.t||0):null;
+  const phraseEnd=phraseIndex>=0?Number(phrases[phraseIndex+1]?.t??map.duration):null;
+  const phraseProgress=phraseStart!==null&&phraseEnd>phraseStart?Math.max(0,Math.min(1,(time-phraseStart)/(phraseEnd-phraseStart))):null;
   const sectionIndex=sectionIndexAt(map,time),sections=map.sections||[],sectionCount=Math.max(1,sections.length-1),sectionStart=sectionIndex>=0?Number(sections[sectionIndex]?.t||0):0;
   const sectionEnd=sectionIndex>=0?Number(sections[sectionIndex+1]?.t??map.duration):map.duration;
   const sectionProgress=sectionEnd>sectionStart?Math.max(0,Math.min(1,(time-sectionStart)/(sectionEnd-sectionStart))):0;
   return {
     playing:!audio.paused,time,duration:map.duration||0,bpm:map.bpm||0,tempoConfidence:map.tempoConfidence||0,
-    beatIndex,beatTime,beatPhase,beatDistance,sectionIndex,sectionCount,sectionStart,sectionEnd,sectionProgress,scope:scope(),scopeStart:range[0],scopeEnd:range[1],
+    beatIndex,beatTime,beatPhase,beatDistance,phraseIndex,phraseCount,phraseStart,phraseEnd,phraseProgress,sectionIndex,sectionCount,sectionStart,sectionEnd,sectionProgress,scope:scope(),scopeStart:range[0],scopeEnd:range[1],
     energy:+(f.e||0).toFixed(4),flux:+(f.f||0).toFixed(4),brightness:+(f.c||0).toFixed(4),
     stage:map.stage||'UNKNOWN',sourceHash:fileMeta?.hash||null,sourceKind:fileMeta?.sourceKind||null,sourceAddress:fileMeta?.sourceAddress||null
   };
