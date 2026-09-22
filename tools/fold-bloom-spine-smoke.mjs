@@ -24,14 +24,18 @@ try{
   await wait(()=>f.contentWindow?.location?.pathname==='/fold-bloom/listen/');
   await wait(()=>f.contentWindow.document.documentElement.dataset.localVaultSource==='ready',24000);
   const state=f.contentWindow.FoldBloomListen?.state?.();rec.listenHash=state?.fileMeta?.hash||null;rec.vault=f.contentWindow.document.documentElement.dataset.localVaultSource;rec.returnLink=!!f.contentWindow.document.getElementById('vaultReturn');
-  const raw=hash.slice(7);done(rec.setReady&&rec.vault==='ready'&&rec.listenHash===raw&&rec.returnLink,rec);
+  const raw=hash.slice(7);rec.listenReady=rec.setReady&&rec.vault==='ready'&&rec.listenHash===raw&&rec.returnLink;
+  f.src='/fold-bloom/journey/?demo=1';
+  await wait(()=>f.contentWindow?.document?.documentElement?.dataset?.foldBloomJourney==='ready');
+  rec.journeyEntries=f.contentWindow.document.documentElement.dataset.journeyEntries;rec.journeyReady=f.contentWindow.document.documentElement.dataset.journeyReady;rec.journeyTitle=f.contentWindow.document.getElementById('journeyTitle')?.textContent||'';rec.journeyOverflow=Math.max(f.contentWindow.document.documentElement.scrollWidth,f.contentWindow.document.body.scrollWidth)-f.contentWindow.document.documentElement.clientWidth;
+  done(rec.listenReady&&rec.journeyEntries==='3'&&rec.journeyReady==='true'&&/GHOST/.test(rec.journeyTitle)&&rec.journeyOverflow<=1,rec);
 }catch(e){done(false,{error:String(e?.stack||e),...rec})}
 <\/script></body></html>`}
 const server=http.createServer((req,res)=>{if(String(req.url).startsWith('/__spine')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const file=fileFor(req.url);if(!file){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':type(file),'cache-control':'no-store'});fs.createReadStream(file).pipe(res)});
 await new Promise(r=>server.listen(PORT,HOST,r));
-const bin=browserBin(),args=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--hide-scrollbars','--window-size=520,940','--virtual-time-budget=26000','--dump-dom',`http://${HOST}:${PORT}/__spine`];
-const result=await new Promise((resolve,reject)=>{const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});let out='',err='';const timer=setTimeout(()=>{p.kill('SIGKILL');reject(Error('timeout'))},36000);p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('close',code=>{clearTimeout(timer);resolve({code,out,err})})});
+const bin=browserBin(),args=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--hide-scrollbars','--window-size=520,940','--virtual-time-budget=30000','--dump-dom',`http://${HOST}:${PORT}/__spine`];
+const result=await new Promise((resolve,reject)=>{const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});let out='',err='';const timer=setTimeout(()=>{p.kill('SIGKILL');reject(Error('timeout'))},40000);p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('close',code=>{clearTimeout(timer);resolve({code,out,err})})});
 server.close();
-const pass=/id="probeResult">PASS /.test(result.out)&&/"vault":"ready"/.test(result.out)&&/"returnLink":true/.test(result.out);
-if(!pass){console.error('FOLD BLOOM SOURCE SPINE SMOKE FAIL');console.error(result.out.slice(-4000));console.error(result.err.slice(-1500));process.exit(1)}
-console.log('FOLD BLOOM SOURCE SPINE SMOKE PASS');
+const pass=/id="probeResult">PASS /.test(result.out)&&/"vault":"ready"/.test(result.out)&&/"returnLink":true/.test(result.out)&&/"journeyEntries":"3"/.test(result.out)&&/"journeyReady":"true"/.test(result.out);
+if(!pass){console.error('FOLD BLOOM SOURCE SPINE SMOKE FAIL');console.error(result.out.slice(-5000));console.error(result.err.slice(-1800));process.exit(1)}
+console.log('FOLD BLOOM SOURCE SPINE + JOURNEY SMOKE PASS');
