@@ -1,10 +1,12 @@
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const fract=x=>x-Math.floor(x);
 
-export const POV_SCHEMA='fold-bloom-pov/v0.1';
+export const POV_SCHEMA='fold-bloom-pov/v0.2';
 
 export function sourceSkyEvent(world){
   if(!world?.points?.length)return null;
+  const drop=world.drop;
+  if(drop&&Number(drop.ahead)>=0&&Number(drop.ahead)<7)return {kind:'DROP',id:drop.id,ahead:Number(drop.ahead)||0,strength:clamp(Number(drop.strength)||0,0,1),side:Math.sign(Number(world.currentBend)||0)};
   const section=world.points.find(p=>p.sectionEdge&&Number(p.ahead)>.15&&Number(p.ahead)<6);
   if(section)return {kind:'SECTION',ahead:Number(section.ahead)||0,strength:clamp(.45+(Number(section.impact)||0)*.45,0,1),side:Math.sign(Number(section.bend)||0)};
   const surge=world.surge;
@@ -35,4 +37,12 @@ export function opticWitness(world,timeMs=0,count=18){
 export function povSummary(world){
   const e=sourceSkyEvent(world);
   return {schema:POV_SCHEMA,speed:Number(world?.currentSpeed)||1,grade:Number(world?.currentGrade)||0,bend:Number(world?.currentBend)||0,event:e};
+}
+
+export function dropBurstDescriptor(drop={}){
+  return {
+    kind:'DROP_BURST',id:String(drop.id||('drop@'+Number(drop.t||0).toFixed(3))),
+    strength:clamp(Number(drop.strength)||0,0,1),t:Number(drop.t)||0,
+    rise:clamp(Number(drop.rise)||0,0,1.5),flux:clamp(Number(drop.flux)||0,0,1.5)
+  };
 }
