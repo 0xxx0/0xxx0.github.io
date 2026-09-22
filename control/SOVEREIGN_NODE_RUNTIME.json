@@ -1,0 +1,104 @@
+{
+  "schema": "0xxx0/sovereign-node-runtime/v0.2",
+  "updated": "2026-09-22",
+  "state": "PARKED_EXECUTABLE_INFRASTRUCTURE",
+  "purpose": "Keep local/cloud intelligence replaceable while canonical state, authority and evidence remain outside provider runtimes.",
+  "attention_rule": "Does not occupy CURRENT unless it unlocks an active conversion or a material security/compatibility event requires action.",
+  "canonical_truth": [
+    "filesystem",
+    "Git",
+    "typed receipts",
+    "explicit RETURN"
+  ],
+  "noncanonical_state": [
+    "provider session memory",
+    "agent chat history",
+    "vendor job state",
+    "model scratch state"
+  ],
+  "contracts": {
+    "decision": "/control/contracts/sovereign-node/decision.ts",
+    "media": "/control/contracts/sovereign-node/media.ts",
+    "agent": "/control/contracts/sovereign-node/agent.ts",
+    "provider": "/control/contracts/sovereign-node/provider.ts",
+    "receipt": "/control/contracts/sovereign-node/receipt.ts"
+  },
+  "provider_roles": {
+    "decision": {
+      "floor": "deterministic rules -> REVIEW/ABSTAIN",
+      "local_candidate": "Ollama local model",
+      "hosted_candidate": "optional decision service",
+      "law": "Model decision never equals execution authority."
+    },
+    "agent": {
+      "openclaw": {
+        "role": "replaceable AgentExecutor candidate",
+        "test_target": "2026.9.5 or later security-equivalent pinned build",
+        "state": "TEST_NOT_CANON"
+      },
+      "hermes": {
+        "role": "bounded supervisor / research / executor adapter",
+        "known_stable_tag": "0.21.3 / v2026.9.14",
+        "state": "READ_ONLY_BY_DEFAULT"
+      },
+      "grok_build": {
+        "role": "optional cloud comparator",
+        "state": "DORMANT_TEST_ROW",
+        "law": "Benchmark model x harness as one executor."
+      },
+      "local_task_runner": {
+        "role": "deterministic degraded floor",
+        "state": "ALWAYS_VALID"
+      }
+    },
+    "media": {
+      "deterministic_refinery": "/scripts/media-refinery-run.py",
+      "bulk_semantic_worker": {
+        "model": "qwen3.5:9b",
+        "endpoint": "Ollama /api/chat",
+        "authority": "semantic overlay only"
+      },
+      "local_adjudicator": {
+        "model": "qwen3.5:27b",
+        "state": "OPTIONAL_MANUAL_PULL",
+        "authority": "held/high-value batch adjudication"
+      },
+      "remote_renderer": {
+        "candidate": "Higgsfield API/MCP",
+        "state": "EXPLICIT_RENDER_AUTHORITY_ONLY",
+        "law": "Remote rendering never becomes source or lineage authority."
+      }
+    }
+  },
+  "fallback_law": {
+    "allowed": [
+      "unavailable",
+      "timeout",
+      "budget",
+      "explicit policy route"
+    ],
+    "stop": [
+      "security",
+      "invalid-request",
+      "authority-denied"
+    ],
+    "require_receipt": true,
+    "no_silent_cloud_fallback": true
+  },
+  "proofs": {
+    "baseline_freeze": "/scripts/sovereign-node-freeze.sh",
+    "bakeoff_fixture": "/scripts/sovereign-node-bakeoff-init.py",
+    "ollama_endurance": "/scripts/sovereign-node-qwen-endurance.py",
+    "executor_prompt": "/control/prompts/SOVEREIGN_NODE_EXECUTOR.md",
+    "scout_prompt": "/control/prompts/SOVEREIGN_NODE_SCOUT.md",
+    "return_prompt": "/control/prompts/SOVEREIGN_NODE_CONFLUENCE_RETURN.md"
+  },
+  "reopen_when": [
+    "A material security/compatibility change affects an installed provider.",
+    "An active conversion needs a decision/media/agent capability.",
+    "Canonical state is becoming trapped inside framework memory.",
+    "A real local-vs-cloud or executor decision needs measured evidence.",
+    "A provider can materially simplify a current head without creating a new control surface."
+  ],
+  "stop_condition": "If no current conversion is unlocked and no material node decision is pending, park this substrate after recording the durable delta."
+}
