@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {transportFromMap} from '../track.js';
 
 const map={
-  duration:8,bpm:120,tempoConfidence:.8,stage:'DEEP',
+  duration:8,bpm:120,tempoConfidence:.8,stage:'DEEP',source:{hash:'abc123'},
   frameRate:2,sampleRate:2,hop:1,
   frames:Array.from({length:16},(_,i)=>({t:i*.5,e:i/16,c:.4,f:.2})),
   beats:[0,0.5,1,1.5,2,2.5,3,3.5,4,4.5,5,5.5,6,6.5,7,7.5],
@@ -21,6 +21,7 @@ test('transport exposes beat phase/distance and section progress',()=>{
   assert.ok(Math.abs(p.beatDistance-.125)<1e-9);
   assert.ok(Math.abs(p.sectionProgress-.28125)<1e-9);
   assert.equal(p.sourceKind,'LOCAL_FILE');
+  assert.equal(p.sourceHash,'abc123');
   assert.equal(p.playing,true);
 });
 
