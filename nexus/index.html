@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07090a">
+<title>NEXUS // convergence</title>
+<style>
+:root{--bg:#07090a;--p:#0b0f11;--p2:#101619;--ink:#edf0ed;--mut:#7d898f;--line:#2a3439;--hot:#ed7447;--cool:#72bce7;--green:#98d49b;--gold:#d5ad68;--bad:#cc8792}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.42 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(10px,env(safe-area-inset-top)) 10px max(24px,env(safe-area-inset-bottom))}
+a{color:var(--cool)}
+main{width:min(900px,100%);margin:auto}
+h1{font:900 clamp(24px,4vw,40px)/.9 system-ui,sans-serif;letter-spacing:-.05em;margin:0}
+h2{font:800 12px/1.2 system-ui,sans-serif;letter-spacing:.05em;margin:0 0 6px;color:var(--mut)}
+.ey{font-size:7px;letter-spacing:.18em;color:var(--hot);text-transform:uppercase;margin-bottom:2px}
+header{border-bottom:1px solid var(--line);padding:14px 0 10px;margin-bottom:16px}
+header span{color:var(--mut);font-size:8px;display:block;margin-top:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:6px;margin-bottom:16px}
+.card{border:1px solid var(--line);background:var(--p);padding:10px;min-height:80px}
+.card .stat{font-size:22px;font-weight:900;font-family:system-ui,sans-serif}
+.card .label{color:var(--mut);font-size:7px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:4px}
+.ok{color:var(--green)}.hot{color:var(--hot)}.cool{color:var(--cool)}.gold{color:var(--gold)}.bad{color:var(--bad)}.mut{color:var(--mut)}
+table{width:100%;border-collapse:collapse;font-size:10px}
+td,th{border:1px solid var(--line);padding:5px 6px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-size:7px;letter-spacing:.1em;text-transform:uppercase;font-weight:400}
+.timeline{position:relative;padding-left:16px;margin-top:8px}
+.timeline::before{content:'';position:absolute;left:4px;top:0;bottom:0;width:1px;background:var(--line)}
+.timeline-item{position:relative;padding:4px 0 4px 12px;font-size:9px;color:var(--mut)}
+.timeline-item::before{content:'';position:absolute;left:-2px;top:8px;width:5px;height:5px;border-radius:50%;background:var(--line)}
+.timeline-item strong{color:var(--ink);font-weight:400}
+.timeline-item .tag{display:inline-block;font-size:7px;padding:1px 4px;margin-right:4px;border:1px solid var(--line);letter-spacing:.05em}
+.tag.hot{border-color:var(--hot);color:var(--hot)}.tag.cool{border-color:var(--cool);color:var(--cool)}.tag.ok{border-color:var(--green);color:var(--green)}
+.status-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:4px;vertical-align:middle}
+@media(max-width:600px){.grid{grid-template-columns:1fr 1fr}table{font-size:8px}td,th{padding:3px 4px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div>
+    <div class="ey">NEXUS // convergence state</div>
+    <h1>CONVERGENCE</h1>
+    <span>Recovery complete · Systems live · Self-verifying · Updated 2026-09-22</span>
+  </div>
+</header>
+
+<div class="grid">
+  <div class="card">
+    <div class="label">Corpus recovered</div>
+    <div class="stat cool">1,439</div>
+    <div style="font-size:8px;color:var(--mut)">conversations (2023→2026)</div>
+  </div>
+  <div class="card">
+    <div class="label">Recovery items</div>
+    <div class="stat gold">255</div>
+    <div style="font-size:8px;color:var(--mut)">Laconic canon (130 atomic)</div>
+  </div>
+  <div class="card">
+    <div class="label">Blockers lifted</div>
+    <div class="stat ok">3</div>
+    <div style="font-size:8px;color:var(--mut)">Sleeper City · Painting · Laconic</div>
+  </div>
+  <div class="card">
+    <div class="label">Still blocked</div>
+    <div class="stat bad">2</div>
+    <div style="font-size:8px;color:var(--mut)">ENV-0 PDFs · Game of Names</div>
+  </div>
+  <div class="card">
+    <div class="label">Active fronts</div>
+    <div class="stat" style="color:var(--gold)">2</div>
+    <div style="font-size:8px;color:var(--mut)">Recovery maintenance · Validation</div>
+  </div>
+  <div class="card">
+    <div class="label">GH Actions</div>
+    <div class="stat ok">2 ✓</div>
+    <div style="font-size:8px;color:var(--mut)">convergence-validate · disk-integrity</div>
+  </div>
+  <div class="card">
+    <div class="label">Cronjobs</div>
+    <div class="stat" style="color:var(--hot)">2</div>
+    <div style="font-size:8px;color:var(--mut)">Scout (daily) · Housekeeper (weekly)</div>
+  </div>
+  <div class="card">
+    <div class="label">Missing queue</div>
+    <div class="stat bad">20</div>
+    <div style="font-size:8px;color:var(--mut)">Laconic items unaccounted</div>
+  </div>
+</div>
+
+<h2>RECOVERY PIPELINE</h2>
+<table>
+<tr><th>Family</th><th>Status</th><th>Items</th><th>Route</th></tr>
+<tr><td>Sleeper City Engine</td><td><span class="status-dot" style="background:var(--green)"></span>RECOVERED</td><td>8.2MB assets</td><td>/recovery/? (external: chatgpt.site)</td></tr>
+<tr><td>Sleeper Painting Path</td><td><span class="status-dot" style="background:var(--green)"></span>RECOVERED</td><td>3.3MB HTML</td><td>/recovery/? (external: chatgpt.site)</td></tr>
+<tr><td>Laconic Script Bank</td><td><span class="status-dot" style="background:var(--gold)"></span>PARTIAL</td><td>255/275 items</td><td>void-anchor/_recovered/laconic-canon/</td></tr>
+<tr><td>Grid Path V4 + family</td><td><span class="status-dot" style="background:var(--green)"></span>FROZEN</td><td>13 families</td><td>/recovery/path-grid/</td></tr>
+<tr><td>Fold Weave 0.1</td><td><span class="status-dot" style="background:var(--green)"></span>FROZEN</td><td>1 donor</td><td>/recovery/fold-bloom/</td></tr>
+<tr><td>RSVP temporal 2018</td><td><span class="status-dot" style="background:var(--green)"></span>FROZEN</td><td>1 fixture</td><td>/recovery/rsvp/</td></tr>
+<tr><td>ENV-0 physical interface</td><td><span class="status-dot" style="background:var(--bad)"></span>BLOCKED</td><td>2 PDFs pending</td><td>/recovery/env0/</td></tr>
+<tr><td>Sleep Workfield v1.2</td><td><span class="status-dot" style="background:var(--green)"></span>FROZEN</td><td>358KB</td><td>/recovery/sleeper/</td></tr>
+<tr><td>Game of Names</td><td><span class="status-dot" style="background:var(--bad)"></span>BLOCKED</td><td>isolated artifact needed</td><td>/recovery/naming/</td></tr>
+</table>
+
+<h2 style="margin-top:16px">24-HOUR CONVERGENCE TIMELINE</h2>
+<div class="timeline">
+  <div class="timeline-item">
+    <span class="tag hot">RECOVER</span>
+    <strong>Sleeper City URL tested</strong> — was marked BLOCKED, returned HTTP 200. Full app live.
+    <br><span>8 pages + assets fetched (8.2MB)</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tag hot">EXTRACT</span>
+    <strong>Sept export extracted via bsdtar</strong> — 793 conversations (243MB), 1007 images
+    <br><span>Previously assumed unreadable; Python zipfile could not open it</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tag cool">MINED</span>
+    <strong>10 key conversations extracted</strong> — Brainstorm (1909msgs), Laconic (214msgs), Convergence Research (32msgs)
+    <br><span>268,772 chars of City Engine design docs now on disk</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tag ok">CORRECTED</span>
+    <strong>MIGRATION.json updated</strong> — 3 stale BLOCKED entries → RECOVERED
+    <br><span>Laonic: RECOVER → LIVE_DONOR_PARTIAL (255 items)</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tag ok">BUILT</span>
+    <strong>GH Actions deployed</strong> — convergence-validate + disk-integrity both passing
+  </div>
+  <div class="timeline-item">
+    <span class="tag ok">SYNCED</span>
+    <strong>Hermes gateway started</strong> — 2 cronjobs live (PID 90854)
+    <br><span>Scout daily 8am · Housekeeper Monday 9am</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tag hot">RECOVER</span>
+    <strong>Laconic canon reconstructed</strong> — 255 items, 130 atomic, 12 sections, 5 Suno songs
+    <br><span>Listen/Cut/Carry/Return excluded from exact ledger (reconstructed)</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tag ok">FOUND</span>
+    <strong>Sleeper origin corrected</strong> — Dec 13 2024 (not Dec 16). Hostage is the seed.
+    <br><span>Two books produced in conversation: May Your Moss Be Soft + The Sleeper Treasury</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tag cool">MAPPED</span>
+    <strong>Disk survey complete</strong> — all 15+ major directories sized and cataloged
+    <br><span>~15GB total across repos, exports, backups, generated content</span>
+  </div>
+  <div class="timeline-item">
+    <span class="tag hot">DOCUMENTED</span>
+    <strong>Sleeper City Nexus written</strong> — live City Engine is current head, repo /sleeper/ is parallel branch
+    <br><span>/control/confluence/SLEEPER_CITY_NEXUS.md</span>
+  </div>
+</div>
+
+<div style="margin-top:20px;padding:10px;border:1px dashed var(--line);font-size:9px;color:var(--mut);text-align:center">
+  <span style="color:var(--hot)">◉</span> Self-verifying convergence state · Updated by GH Actions weekly · Cronjobs monitor daily drift
+  <br>
+  <a href="https://github.com/0xxx0/0xxx0.github.io/actions" target="_blank">[ Actions ]</a>
+  <a href="https://github.com/0xxx0/0xxx0.github.io" target="_blank">[ Repo ]</a>
+  <a href="/control/confluence/CONVERGENCE_STRATEGY.md">[ Strategy ]</a>
+</div>
+</main>
+</body>
+</html>
