@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OPS // multi-agent board</title>
+<style>
+:root{--bg:#07090a;--p:#0b0f11;--p2:#0d1115;--ink:#edf0ed;--mut:#7d898f;--line:#2a3439;--hot:#ed7447;--cool:#72bce7;--green:#98d49b;--gold:#d5ad68}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:10px/1.35 ui-monospace,monospace}
+body{padding:14px 10px 20px;max-width:1200px;margin:auto}
+h1{font:900 22px/1 system-ui,sans-serif;letter-spacing:-.04em;margin:0 0 3px}
+.ey{font-size:7px;letter-spacing:.17em;color:var(--mut);text-transform:uppercase}
+header{margin-bottom:14px;display:flex;justify-content:space-between;gap:12px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:8px}
+header .sub{color:var(--mut);font-size:8px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px}
+.card{border:1px solid var(--line);background:var(--p);padding:8px}
+.card .t{font-size:7px;letter-spacing:.1em;color:var(--mut);text-transform:uppercase;margin-bottom:2px}
+.card .n{font:800 13px/1.2 system-ui,sans-serif}
+.card .d{font-size:8px;color:var(--mut);margin-top:2px}
+.card .tag{display:inline-block;font-size:6px;padding:1px 5px;border:1px solid var(--line);margin:1px;letter-spacing:.03em}
+.hot{color:var(--hot)}.cool{color:var(--cool)}.green{color:var(--green)}.gold{color:var(--gold)}.mut{color:var(--mut)}
+
+table{width:100%;border-collapse:collapse;font-size:8px;margin-top:8px}
+td,th{border:1px solid var(--line);padding:4px 5px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-size:7px;letter-spacing:.1em;font-weight:400;text-transform:uppercase}
+td{font-size:8px}
+.pulse{background:var(--hot);border:0;border-radius:50%;width:6px;height:6px;display:inline-block}
+.pulse.off{background:var(--mut);opacity:.4}
+.branch{margin:2px 0;font-size:7px;color:var(--mut)}
+</style></head>
+<body>
+<header>
+  <div>
+    <div class="ey">OPS // MULTI-AGENT COORDINATION</div>
+    <h1>KINGDOM BOARD</h1>
+  </div>
+  <div class="sub">2026-09-22 · 5+ active surfaces · converging</div>
+</header>
+
+<div class="grid">
+  <div class="card">
+    <div class="t">Field Index (master)</div>
+    <div class="n" style="color:var(--hot)">Public Surface</div>
+    <div class="d">FIELD PULSE · LISTEN 0.3 · READFIELD 0.7 · TWO DIAL</div>
+    <div><span class="tag hot">6 commits today</span><span class="tag cool">hermes + codex + chatgpt</span></div>
+  </div>
+  <div class="card">
+    <div class="t">Recovery Extraction</div>
+    <div class="n">ChatGPT Corpus</div>
+    <div class="d">1,439 conversations · Laconic 255 items · City Engine spec</div>
+    <div><span class="tag hot">done</span><span class="tag">void-anchor/_recovered/</span></div>
+  </div>
+  <div class="card">
+    <div class="t">Codex / ChatGPT</div>
+    <div class="n" style="color:var(--cool)">Media Curator</div>
+    <div class="d">VLM pipeline · Ollama qwen3-vl · 5.2GB target · SKILL.md written</div>
+    <div><span class="tag cool">running dry pass</span><span class="tag">field-hermes-media-curator-v01</span></div>
+  </div>
+  <div class="card">
+    <div class="t">Codex / ChatGPT</div>
+    <div class="n" style="color:var(--gold)">Shopping Field</div>
+    <div class="d">Full procurement FIELD · NEED→ADOPTED state machine · gates · landed cost</div>
+    <div><span class="tag cool">4 branches</span><span class="tag">shopping-field-*</span></div>
+  </div>
+  <div class="card">
+    <div class="t">Codex / ChatGPT</div>
+    <div class="n" style="color:var(--hot)">Fold Bloom LIVE 0.7</div>
+    <div class="d">Motion · Gameplay · Trackfield · Ride Choice · 10K lines cleanup</div>
+    <div><span class="tag">fold-bloom-gameplay-020</span></div>
+  </div>
+  <div class="card">
+    <div class="t">Hermes (this session)</div>
+    <div class="n" style="color:var(--green)">Convergence Infra</div>
+    <div class="d">GH Actions · Cronjobs · Gateway · Nexus dashboard · System map</div>
+    <div><span class="tag green">6 commits to master</span></div>
+  </div>
+</div>
+
+<h2 style="font-size:10px;font-weight:800;margin:0 0 6px">ACTIVE BRANCHES</h2>
+<table>
+<tr><th>Branch</th><th>Responsible</th><th>State</th><th>Latest</th></tr>
+<tr><td>master</td><td>all</td><td><span class="pulse"></span>live</td><td>DESIGN_SPEC + 11 Laconic files + MIGRATION update</td></tr>
+<tr><td>field-hermes-media-curator-v01</td><td>Codex</td><td><span class="pulse"></span>active</td><td>VLM curation pipeline</td></tr>
+<tr><td>shopping-field-core</td><td>Codex</td><td><span class="pulse"></span>active</td><td>Full procurement FIELD app</td></tr>
+<tr><td>shopping-field-integration-v2</td><td>Codex</td><td><span class="pulse"></span>active</td><td>Concurrent master sync</td></tr>
+<tr><td>fold-bloom-gameplay-020</td><td>Codex</td><td><span class="pulse"></span>active</td><td>10K line cleanup + gameplay</td></tr>
+<tr><td>fold-bloom-motion-070</td><td>Codex</td><td><span class="pulse"></span>active</td><td>Motion release</td></tr>
+<tr><td>instrument-contract-back-charters</td><td>Codex</td><td><span class="pulse"></span>active</td><td>Action semantics + IRL recovery</td></tr>
+<tr><td>sleeper/project-one-return-preservation</td><td>Codex</td><td><span class="pulse off"></span>sealing</td><td>ONE RETURN preservation</td></tr>
+<tr><td>verify-pr108-postmerge</td><td>Codex</td><td><span class="pulse off"></span>verified</td><td>Post-merge check</td></tr>
+</table>
+
+<div style="margin-top:14px;padding:8px;border:1px dashed var(--line);font-size:7px;color:var(--mut);text-align:center">
+  <span class="pulse"></span> 5+ active surfaces · converging on master · coordination via git log<br>
+  Next: media curator sample run · shopping field sync · Laconic missing 20
+</div>
+</body>
+</html>
