@@ -1,13 +1,16 @@
 import assert from 'node:assert/strict';
-import {parseSunoId,classifySourceAddress,resolveSourceAddress} from './source-adapters.js';
+import {parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress} from './source-adapters.js';
 const id='11111111-2222-4333-8444-555555555555';
 assert.equal(parseSunoId('https://suno.com/song/'+id),id);
 assert.equal(parseSunoId(id),id);
 assert.equal(parseSunoId('https://example.com/x.mp3'),null);
+assert.equal(parseSunoPlaylistId('https://suno.com/playlist/field-set'),'field-set');
+assert.equal(classifySourceAddress('https://suno.com/playlist/field-set').kind,'SUNO_PLAYLIST');
 assert.equal(classifySourceAddress('https://example.com/x.mp3').kind,'REMOTE_AUDIO');
 const fake=async()=>({ok:true,json:async()=>({title:'TEST',display_name:'ARTIST',audio_url:'https://cdn.example/test.mp3',metadata:{duration:123,tags:'test',prompt:'hello',bpm:124,key:'D minor',time_signature:'4/4'}})});
 const s=await resolveSourceAddress('https://suno.com/song/'+id,fake);
 assert.equal(s.kind,'SUNO');assert.equal(s.title,'TEST');assert.equal(s.lyrics,'hello');assert.equal(s.providerBpm,124);assert.equal(s.providerKey,'D minor');assert.equal(s.providerTimeSignature,'4/4');assert.equal(s.resolution,'PUBLIC_CLIP_METADATA');
+const playlist=await resolveSourceAddress('https://suno.com/playlist/field-set');assert.equal(playlist.audioUrl,null);assert.equal(playlist.resolution,'PLAYLIST_ADDRESS_ONLY');
 const fallback=await resolveSourceAddress(id,async()=>{throw Error('blocked')});
 assert.equal(fallback.audioUrl,'https://cdn1.suno.ai/'+id+'.mp3');assert.equal(fallback.resolution,'UUID_CDN_FALLBACK');
 console.log('LISTEN SOURCE ADAPTER SELFTEST PASS');
