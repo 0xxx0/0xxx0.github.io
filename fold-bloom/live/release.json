@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
   "version": "LIVE 0.13",
-  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
+  "status": "ACTIVE_CANDIDATE_MERGED",
   "date": "2026-09-22",
   "donors": [
     {
@@ -176,7 +176,7 @@
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "Phone QA: can AUTOPILOT be hit immediately; settings scroll/reach all controls; compare 0.12 vs 0.13 for micro-jitter without loss of responsiveness; cycle all four worlds and judge morph elegance; report approximate FPS witness only if visible stutter remains.",
+    "required_next": "Phone QA: AUTOPILOT reachable immediately; all settings reachable/scrollable; JITTER BETTER/SAME/WORSE; RESPONSE CRISP/TOO SMOOTH; worlds elegant/distinct; verify no drop timing/double-fire regression. If pass, stop polishing and resume EXPERIENCE SET v0.1.",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
@@ -232,7 +232,10 @@
     "visual_world_pr": 149,
     "visual_world_merge_sha": "44ebcd809313ac633c13bbadc199c2b2e2e5997c",
     "polish_branch": "fold-bloom-live-013-autopilot-polish",
-    "polish_ci": "PENDING PR CI"
+    "polish_ci": "PASS: public-surface-check run 35705196976; LISTEN regression, full LIVE stack incl. projection smoothing, critical phone browser smoke, recovery and Sleeper/City/Painting tail all green",
+    "polish_pr": 151,
+    "polish_merge_sha": "ce475fe2f9abca2068032c3dc4bdf236bcf0ee45",
+    "polish_regression": "First CI failed an obsolete exact-color parity test after intentional golden-phase section tinting. Updated proof to preserve parity/world identity while permitting bounded section variation; production laws unchanged; rerun fully passed."
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
