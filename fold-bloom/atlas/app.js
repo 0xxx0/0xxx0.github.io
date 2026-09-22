@@ -53,7 +53,7 @@ function renderWall(){
 }
 function renderFocus(){
   const x=entryBy(focusId),glyph=$('#focusGlyph'),pathBtn=$('#pathBtn');
-  if(!x){glyph.innerHTML='';$('#focusName').textContent='NO SOURCE';$('#focusMeta').textContent='—';$('#focusHash').textContent='—';pathBtn.disabled=true;return}
+  if(!x){glyph.innerHTML='';$('#focusName').textContent='NO SOURCE';$('#focusMeta').textContent='—';$('#focusHash').textContent='—';pathBtn.disabled=true;$('#listenBtn').disabled=true;$('#liveBtn').disabled=true;$('#removeBtn').disabled=true;return}
   glyph.innerHTML=audioGlyphSvg(x.glyph,{size:280,padding:15});
   $('#focusKind').textContent=x.sourceKind==='SYNTHETIC_DEMO'?'SYNTHETIC DEMO':'SOURCE CELL';
   $('#focusName').textContent=x.name;
