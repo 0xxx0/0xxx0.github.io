@@ -50,8 +50,10 @@
     "field_pulse_runtime": "PASS: critical browser smoke run 35644367601",
     "field_pulse_real_phone": "REQUIRED_NEXT: same-origin LISTEN↔TWO DIAL cross-tab phone trial with real audio",
     "field_pulse_merge_sha": "71c08a81faa49b815b0048bb69721462edf9db3e",
-    "local_track_runtime": "PENDING_CI",
-    "local_track_phone": "REQUIRED_NEXT: one local MP3, play/pause, verify Two Dial tempo/energy context changes while dial relations still author notes/form."
+    "local_track_runtime": "PASS: public-surface-check run 35690332201; same-page local-track controls/module and existing Two Dial browser runtime green.",
+    "local_track_phone": "REQUIRED_NEXT: one local MP3, play/pause, verify Two Dial tempo/energy context changes while dial relations still author notes/form.",
+    "local_track_merge_sha": "36ca59b4658a95238e0474ae727d301901a991ac",
+    "local_track_pr": 144
   },
   "known_gap": "Instrument-quality judgment still requires direct listening. Local track context is now implemented; do not map song features directly into harmony/verbs until real play identifies a useful missing relation.",
   "confluence": "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
