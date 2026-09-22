@@ -10,10 +10,12 @@ test('scene worlds are materially distinct',()=>{
   assert.equal(new Set(worlds.map(x=>x.roadA)).size,4);
 });
 
-test('section parity swaps scene road emphasis without changing world identity',()=>{
+test('section parity swaps road emphasis while golden-phase tint keeps sections non-identical',()=>{
   const a=visualWorld('WOOD',0),b=visualWorld('WOOD',1);
   assert.equal(a.name,'WOOD');assert.equal(b.name,'WOOD');
-  assert.equal(a.roadA,b.roadB);assert.equal(a.roadB,b.roadA);
+  assert.equal(a.parity,0);assert.equal(b.parity,1);
+  assert.notEqual(a.roadA,a.roadB);assert.notEqual(b.roadA,b.roadB);
+  assert.notEqual(a.roadA,b.roadA);
 });
 
 test('ride profile clamps unsafe transparency and sync extremes',()=>{
