@@ -31,11 +31,14 @@ def main() -> None:
     ap.add_argument("--context", type=int, default=32768)
     ap.add_argument("--turns", type=int, default=100)
     ap.add_argument("--out", type=Path, required=True)
+    ap.add_argument("--append", action="store_true")
     ap.add_argument("--host", default="http://127.0.0.1:11434")
     ap.add_argument("--timeout", type=int, default=600)
     args = ap.parse_args()
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
+    if args.out.exists() and args.out.stat().st_size and not args.append:
+        raise SystemExit(f"refusing to mix evidence into existing file: {args.out}; use --append explicitly")
     messages = [{"role": "system", "content": "Return compact valid JSON only. Never use markdown."}]
 
     for i in range(args.turns):
