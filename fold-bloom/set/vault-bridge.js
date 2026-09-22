@@ -65,10 +65,11 @@ async function refreshButtons(){
 function ensureJourneyAction(){
   if(document.getElementById('journeyBtn'))return;
   const btn=document.createElement('button');btn.id='journeyBtn';btn.type='button';btn.textContent='RIDE SET';
-  btn.onclick=()=>location.assign('../journey/?return='+encodeURIComponent(location.pathname+location.search));
+  btn.onclick=()=>location.assign('./journey.html?return='+encodeURIComponent(location.pathname+location.search));
   document.querySelector('.hero .actions')?.append(btn);
 }
 
+const style=document.createElement('style');style.textContent='.block .mini{flex-wrap:wrap}.block .mini .vaultListen{flex:1 0 100%;color:var(--cool)}';document.head.append(style);
 const observer=new MutationObserver(()=>refreshButtons());
 if(rail)observer.observe(rail,{childList:true,subtree:true});
 ensureWitness();ensureJourneyAction();
