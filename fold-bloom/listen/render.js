@@ -78,7 +78,33 @@ export class ListenRenderer{
   overlayMap(map,time,scope,playing,feature,range){
     const x=this.ctx,w=this.w,h=this.h,cx=w*.5,cy=h*.53,r=Math.min(w,h)*.34;
     const f=feature||{e:.1,c:.4,f:.05,l:.3,m:.4,h:.3},energy=clamp(f.e||0,0,1.25),flux=clamp(f.f||0,0,1.5);
-    x.clearRect(0,0,w,h);x.save();x.translate(cx,cy);
+    x.clearRect(0,0,w,h);
+
+    // SOURCE HORIZON: low-alpha horizontal witnesses of the same scoped frames.
+    // This is orientation/ambience, not a second analysis model.
+    if(map?.frames?.length){
+      const lo=range?.[0]??0,hi=range?.[1]??map.duration,span=Math.max(.001,hi-lo),frames=map.frames,fps=map.frameRate||(map.sampleRate/map.hop)||1;
+      const i0=clamp(Math.floor(lo*fps),0,frames.length-1),i1=clamp(Math.ceil(hi*fps),i0,frames.length-1),step=Math.max(1,Math.ceil((i1-i0+1)/260));
+      const bands=[
+        {key:'l',y:h*.19,amp:h*.024,color:'rgba(255,179,71,.16)'},
+        {key:'m',y:h*.24,amp:h*.021,color:'rgba(109,189,255,.14)'},
+        {key:'h',y:h*.29,amp:h*.018,color:'rgba(210,181,255,.12)'},
+        {key:'e',y:h*.34,amp:h*.015,color:'rgba(255,255,255,.10)'}
+      ];
+      for(const b of bands){
+        x.beginPath();let begun=false;
+        for(let i=i0;i<=i1;i+=step){
+          const q=frames[i],p=clamp(((Number(q.t)||0)-lo)/span,0,1),px=p*w,v=clamp(Number(q[b.key])||0,0,1.3),py=b.y-(v-.35)*b.amp*2.2;
+          if(!begun){x.moveTo(px,py);begun=true}else x.lineTo(px,py)
+        }
+        x.strokeStyle=b.color;x.lineWidth=1;x.stroke();
+      }
+      const tp=clamp((time-lo)/span,0,1);
+      x.strokeStyle='rgba(255,255,255,.13)';x.lineWidth=1;x.beginPath();x.moveTo(tp*w,h*.17);x.lineTo(tp*w,h*.355);x.stroke();
+      x.fillStyle='rgba(255,255,255,.035)';x.fillRect(0,h*.365,w,1);
+    }
+
+    x.save();x.translate(cx,cy);
 
     const liveR=r+energy*16+this.beatPulse*9;
     x.fillStyle='rgba(4,8,14,.18)';x.beginPath();x.arc(0,0,liveR+28,0,TAU);x.fill();
