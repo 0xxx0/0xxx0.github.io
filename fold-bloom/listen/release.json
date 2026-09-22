@@ -73,7 +73,11 @@
     "Suno song metadata/address may survive CORS audio failure as provenance and bind later to exact downloaded MP3/M4A bytes",
     "Suno playlist URLs are preserved as collection provenance without claiming undocumented playlist enumeration",
     "AUDIO MAP RETURN carries compact sourceBundle plus bounded timed-text cues when locally supplied",
-    "Atlas handoff carries compact origin/collection/text witnesses while never carrying source audio bytes"
+    "Atlas handoff carries compact origin/collection/text witnesses while never carrying source audio bytes",
+    "source-hash RIDE PROFILE editor shares terrain solidity, immersion, drop gain and text-sync calibration with LIVE through localStorage",
+    "ride-profile tuning changes downstream projection/timing only and never mutates AUDIO MAP analysis evidence",
+    "AUDIO MAP RETURN now carries the current compact rideProfile alongside map/glyph/annotations",
+    "Atlas handoff may carry the compact rideProfile beside source identity/facets without carrying source audio bytes"
   ],
   "constraints": [
     "no upload/network required for user audio",
@@ -101,7 +105,10 @@
     "SOURCE BUNDLE facets remain unequal: byte hash is identity; origin is provenance; metadata is display evidence; text may be timed or unaligned; playlist is authored/remote collection context",
     "undocumented Suno clip endpoints remain best-effort adapters, never durable contracts",
     "playlist URL recognition does not imply browser-readable membership",
-    "M4A/MP4 decode support is runtime/browser dependent even when metadata can be parsed"
+    "M4A/MP4 decode support is runtime/browser dependent even when metadata can be parsed",
+    "RIDE PROFILE is downstream projection calibration, not analysis truth",
+    "text sync offset must not modify stored timed-text cue addresses or promote unaligned text to aligned",
+    "ride-profile storage keys must use the same source identity key used by LIVE when an exact hash exists"
   ],
   "verification": {
     "module_runtime": "PASS: LISTEN 0.2 surface executed in browser smoke",
@@ -138,7 +145,8 @@
     "listen_05_merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130",
     "source_bundle_pr": 146,
     "source_bundle_merge_sha": "a9c902839ab6fbd01c23fa739acaffa4279e9d82",
-    "source_bundle_ci": "PASS: public-surface-check 35695947970"
+    "source_bundle_ci": "PASS: public-surface-check 35695947970",
+    "ride_profile_012": "PENDING shared LIVE/LISTEN CI and direct same-source propagation witness"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · portable donor=field-addressed-stream/v0.1",
   "updated": "2026-09-22",
