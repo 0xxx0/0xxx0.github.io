@@ -173,8 +173,8 @@
         {
           "id": "fold-bloom-atlas-01",
           "route": "/fold-bloom/atlas/",
-          "state": "CANDIDATE_EXPERIMENT",
-          "branch": "fold-bloom-atlas-idle-090",
+          "state": "MERGED_ACTIVE_CANDIDATE",
+          "branch": "master@cad6f19189285ab421c4c3f6d90ee4804ba40130",
           "version": "0.1",
           "thesis": "Exact source glyph cells can become a recognizable shareable atlas and human-authored path without storing audio or confusing similarity with identity.",
           "promotion_gate": "CI + direct 5–12 familiar-track recognition/relearning + share/path feel."
@@ -182,8 +182,8 @@
         {
           "id": "fold-bloom-listen-05",
           "route": "/fold-bloom/listen/",
-          "state": "CANDIDATE_EXPERIMENT",
-          "branch": "fold-bloom-atlas-idle-090",
+          "state": "MERGED_ACTIVE_CANDIDATE",
+          "branch": "master@cad6f19189285ab421c4c3f6d90ee4804ba40130",
           "version": "0.5",
           "thesis": "An addressed source can carry embedded lyrics and human PIN meaning into unequal reader/ride projections.",
           "promotion_gate": "CI + direct embedded-lyrics handoff + PIN→LIVE landmark use."
@@ -191,14 +191,14 @@
         {
           "id": "fold-bloom-live-09",
           "route": "/fold-bloom/live/",
-          "state": "CANDIDATE_EXPERIMENT",
-          "branch": "fold-bloom-atlas-idle-090",
+          "state": "MERGED_ACTIVE_CANDIDATE",
+          "branch": "master@cad6f19189285ab421c4c3f6d90ee4804ba40130",
           "version": "0.9",
           "thesis": "IDLE can keep the ride alive while never impersonating authorship; same-source human marks can become embodied road landmarks.",
           "promotion_gate": "CI + uploaded-track IDLE takeover + landmark legibility."
         }
       ],
-      "merge_sha": "36ca59b4658a95238e0474ae727d301901a991ac",
+      "merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130",
       "latest_return": "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json"
     },
     {
