@@ -25,7 +25,7 @@ try{
   await wait(()=>f.contentWindow.document.documentElement.dataset.localVaultSource==='ready',24000);
   const state=f.contentWindow.FoldBloomListen?.state?.();rec.listenHash=state?.fileMeta?.hash||null;rec.vault=f.contentWindow.document.documentElement.dataset.localVaultSource;rec.returnLink=!!f.contentWindow.document.getElementById('vaultReturn');
   const raw=hash.slice(7);rec.listenReady=rec.setReady&&rec.vault==='ready'&&rec.listenHash===raw&&rec.returnLink;
-  f.src='/fold-bloom/journey/?demo=1';
+  f.src='/fold-bloom/set/journey.html?demo=1';
   await wait(()=>f.contentWindow?.document?.documentElement?.dataset?.foldBloomJourney==='ready');
   rec.journeyEntries=f.contentWindow.document.documentElement.dataset.journeyEntries;rec.journeyReady=f.contentWindow.document.documentElement.dataset.journeyReady;rec.journeyTitle=f.contentWindow.document.getElementById('journeyTitle')?.textContent||'';rec.journeyOverflow=Math.max(f.contentWindow.document.documentElement.scrollWidth,f.contentWindow.document.body.scrollWidth)-f.contentWindow.document.documentElement.clientWidth;
   done(rec.listenReady&&rec.journeyEntries==='3'&&rec.journeyReady==='true'&&/GHOST/.test(rec.journeyTitle)&&rec.journeyOverflow<=1,rec);
