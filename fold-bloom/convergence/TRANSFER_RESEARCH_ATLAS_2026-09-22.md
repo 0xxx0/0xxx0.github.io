@@ -272,7 +272,7 @@ DOI: 10.1111/cgf.15114
 
 **A Systematic Review of Mapping Strategies for the Sonification of Physical Quantities** (2013).
 
-**Vogt et al. / Organised Sound (2014), Interactive Sonification for Data Exploration.**  
+**Grond & Hermann (2014), Interactive Sonification for Data Exploration.**  
 DOI: 10.1017/S1355771813000393
 
 ### Implication
@@ -866,7 +866,7 @@ Deliver:
 - Witek, M. A. G. et al. — *Syncopation, Body-Movement and Pleasure in Groove Music* (2014). DOI 10.1371/journal.pone.0094446
 - Spence, C. — *Crossmodal correspondences: a tutorial review* (2011). DOI 10.3758/s13414-010-0073-7
 - Enge, K. et al. — *Open Your Ears and Take a Look: Integration of Sonification and Visualization* (2024). DOI 10.1111/cgf.15114
-- Grond / Organised Sound — *Interactive Sonification for Data Exploration* (2014). DOI 10.1017/S1355771813000393
+- Grond, F. & Hermann, T. — *Interactive Sonification for Data Exploration* (2014). DOI 10.1017/S1355771813000393
 - Xu, K. et al. — *Survey on the Analysis of User Interactions and Visualization Provenance* (2020). DOI 10.1111/cgf.14035
 - Xu, K. et al. — *Analytic Provenance for Sensemaking: A Research Agenda* (2015). DOI 10.1109/MCG.2015.50
 - Zentner, M., Grandjean, D., Scherer, K. R. — *Emotions evoked by the sound of music* (2008). DOI 10.1037/1528-3542.8.4.494
