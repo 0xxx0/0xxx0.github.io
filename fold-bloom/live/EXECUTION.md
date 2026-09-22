@@ -3,7 +3,7 @@
 Status: experimental performance head. Do not overwrite frozen donors.
 
 ## Current head
-`/fold-bloom/live/` now tests: **track/course → continuous measured terrain → smooth traversal camera; authored release → deformation tape; terrain × operations → road actually ridden**. LIVE 0.9 retains the hierarchical physical terrain of 0.8 and adds **witness-only IDLE + exact-source authored landmarks**: beats cut road ribs, downbeats strike harder, analyzed phrase changes form mid-scale gates, sections remain macro gates, quiet/falling energy climbs more steeply, rising/energetic passages dive and visually accelerate, and spectral balance turns the route. Local MP3 uses measured AUDIO MAP; normal mode uses a clearly-marked synthetic FIELD COURSE through the same projection/deformation engine.
+`/fold-bloom/live/` now tests: **track/course → continuous measured terrain → smooth traversal camera; authored release → deformation tape; terrain × operations → road actually ridden**. LIVE 0.10 retains the hierarchical physical terrain of 0.8 and adds **witness-only IDLE + exact-source authored landmarks**: beats cut road ribs, downbeats strike harder, analyzed phrase changes form mid-scale gates, sections remain macro gates, quiet/falling energy climbs more steeply, rising/energetic passages dive and visually accelerate, and spectral balance turns the route. Local MP3 uses measured AUDIO MAP; normal mode uses a clearly-marked synthetic FIELD COURSE through the same projection/deformation engine.
 
 Donors remain addressable and independent:
 - Fold Weave 0.1: `/recovery/fold-bloom/fold-weave-0.1/` — exact frozen donor; ring / crease / cascade / mute-first causal score.
