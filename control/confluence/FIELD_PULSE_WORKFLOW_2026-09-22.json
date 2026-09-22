@@ -1,0 +1,86 @@
+{
+  "schema": "confluence-packet/v1",
+  "id": "FIELD_PULSE_WORKFLOW_2026-09-22",
+  "observed": [
+    "LISTEN / READFIELD / TWO DIAL / LIVE already shared FIELD PULSE, but the user-facing experience still required remembering which page consumed which part of the pulse contract.",
+    "READFIELD PULSE mode waited for a fresh BroadcastChannel message and did not use the latest same-session LISTEN transport snapshot on entry.",
+    "READFIELD's real use cases existed in the kernel but were not explained at the point of use."
+  ],
+  "recovered": [
+    {
+      "surface": "FOLD//BLOOM LISTEN 0.2.3",
+      "role": "AUDIO MAP laboratory + FIELD PULSE transport producer"
+    },
+    {
+      "surface": "READFIELD / RSVP 0.7",
+      "role": "one-source temporal focus reader + optional BPM→WPM adapter"
+    },
+    {
+      "surface": "FOLD//BLOOM LIVE 0.4",
+      "role": "TRACKFIELD ride; authored topology/release"
+    },
+    {
+      "surface": "TWO DIAL 0.10.1",
+      "role": "music/form composition; optional PULSE LINK"
+    }
+  ],
+  "implemented": [
+    "LISTEN 0.2.4 adds one compact USE TRACK workflow dock: RIDE / READ / COMPOSE / MAP.",
+    "Workflow copy states which context is borrowed and which instrument keeps authorship.",
+    "READ opens READFIELD with explicit PULSE ×4; discovered source lyrics are handed session-locally when available and remain explicitly unaligned.",
+    "READFIELD 0.7.1 can hydrate BPM/WPM from the latest same-session LISTEN transport snapshot and marks it LIVE or LAST.",
+    "READFIELD exposes FAST READ / READ TO MUSIC / VOICE+EYES / WORK-REPO use cases without changing the APERTURE cursor kernel.",
+    "TWO DIAL honors explicit ?pulse=1 workflow entry and hydrates from the latest same-session LISTEN transport when present.",
+    "FOLD//BLOOM family selector now surfaces LISTEN as the analysis/connection workbench."
+  ],
+  "authority": [
+    "FIELD PULSE remains ephemeral coordination only.",
+    "Borrowed clock != borrowed authorship.",
+    "LISTEN never transfers audio bytes through FIELD PULSE.",
+    "READFIELD owns source/cursor/scale; LIVE owns topology/release; TWO DIAL owns relation/harmony/motif/form.",
+    "AUDIO MAP JSON + RETURN remain durable evidence."
+  ],
+  "use_cases": [
+    {
+      "name": "Read a long repo document to a track pulse",
+      "path": "LISTEN track → USE TRACK → READ → READFIELD PULSE ×4",
+      "value": "external tempo supplies pace while exact source position survives scale/WPM changes"
+    },
+    {
+      "name": "Ride an owned track",
+      "path": "LISTEN or local MP3 → LIVE 0.4",
+      "value": "audio future becomes terrain; player still chooses structural releases"
+    },
+    {
+      "name": "Compose against a track",
+      "path": "LISTEN → USE TRACK → COMPOSE → TWO DIAL PULSE LINK",
+      "value": "tempo/energy/section become context while Two Dial writes the music"
+    },
+    {
+      "name": "Prepare rhythm-game tooling",
+      "path": "LISTEN → MAP",
+      "value": "export hashed AUDIO MAP now; Beat/event tape and game exporters remain later adapters"
+    }
+  ],
+  "files": [
+    "/fold-bloom/listen/index.html",
+    "/fold-bloom/listen/app.js",
+    "/fold-bloom/listen/app.css",
+    "/fold-bloom/listen/release.json",
+    "/fold-bloom/two-dial/pulse-link.js",
+    "/docs/index.html",
+    "/control/FIELD_PULSE_CONTRACT.json",
+    "/showcase-manifest.json",
+    "/control/CURRENT.json"
+  ],
+  "verification": {
+    "status": "PENDING_CI",
+    "gates": [
+      "LISTEN 0.2.4 workflow surface renders with USE TRACK dock",
+      "READFIELD ?pulse=4 renders explicit pulse mode without a live clock",
+      "existing READFIELD focus/performance, LISTEN preview/intake/source, LIVE and TWO DIAL browser cases remain green",
+      "real phone: workflow sheet remains reachable above transport and READFIELD entry feels understandable without prior architecture knowledge"
+    ]
+  },
+  "stop": "Do not add more cross-surface workflow types until one phone pass establishes that RIDE / READ / COMPOSE / MAP is enough and identifies the first real friction."
+}
