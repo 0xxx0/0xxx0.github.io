@@ -72,7 +72,7 @@ Never collapse these stages into one opaque model.
 
 # 2. Small active surface
 
-Only three active fronts until evidence closes one.
+Do **not** treat the following as three simultaneous builds. Current Fold/Bloom implementation work is gated by **Front A human evidence**; Front B and Front C are staged destinations, not active feature fronts.
 
 ## FRONT A — SET HUMAN GATE → JOURNEY
 
@@ -105,7 +105,7 @@ Do not add another set schema, provider catalog, DJ timeline, or journey runtime
 
 ---
 
-## FRONT B — NORMIE-FIRST UNIFIED SURFACE
+## FRONT B — NORMIE-FIRST UNIFIED SURFACE · STAGED
 
 **Goal:** make first contact obvious without flattening the depth.
 
@@ -174,7 +174,7 @@ Give the surface to a new human with no explanation. Pass if they can:
 
 ---
 
-## FRONT C — ONE NON-MUSIC ADAPTER
+## FRONT C — ONE NON-MUSIC ADAPTER · PARKED
 
 **Goal:** prove that FOLD//BLOOM is a source-traversal system, not merely an audio visualizer.
 
@@ -276,9 +276,9 @@ Each should be normalized, inspectable and traceable back to source evidence.
 
 # 4. Execution sequence
 
-## G0 — 0.12 BODY QA
+## G0 — 0.13 BODY QA / INTERRUPT GATE
 
-Before new machinery:
+Do not reopen as a polish loop. Use this only when direct LIVE 0.13 use exposes a regression:
 
 - same known track;
 - opaque slopes?;
