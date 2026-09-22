@@ -14,7 +14,7 @@ const rgba=(hex,a=1)=>{
 export class Renderer {
   constructor(canvas) {
     this.cv=canvas; this.g=canvas.getContext('2d'); this.w=0;this.h=0;this.cx=0;this.cy=0;this.r=0;
-    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.skyPulses=[];this.dropBursts=[];this.lastDropId=null;this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;this.ride=null;this.landmarks=[];this.visualScene='DEEP';this.profile=normalizeRideProfile();this.reducedMotion=!!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;this.motion={t:performance.now(),speed:1,grade:0,bend:0,zoom:1,pitch:0,bank:0};
+    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.skyPulses=[];this.dropBursts=[];this.lastDropId=null;this.lastDropSourceT=null;this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;this.ride=null;this.landmarks=[];this.visualScene='DEEP';this.profile=normalizeRideProfile();this.reducedMotion=!!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;this.motion={t:performance.now(),speed:1,grade:0,bend:0,zoom:1,pitch:0,bank:0};
     this.resize();
     addEventListener('resize',()=>this.resize(),{passive:true});
   }
@@ -24,9 +24,12 @@ export class Renderer {
   setDrag(offset){this.dragOffset=offset}
   setSectionArc(view){this.sectionArc=view||null}
   setTrackfield(world){
-    const d=world?.drop;
-    if(d&&Number(d.ahead)>=0&&Number(d.ahead)<=.46&&d.id!==this.lastDropId){
-      this.lastDropId=d.id;
+    const prevTime=Number(this.trackfield?.time),nextTime=Number(world?.time);
+    if(Number.isFinite(prevTime)&&Number.isFinite(nextTime)&&nextTime<prevTime-.8){this.lastDropId=null;this.lastDropSourceT=null;this.dropBursts=[]}
+    const d=world?.drop,sourceT=Number(d?.t);
+    const sameSourceEvent=Number.isFinite(sourceT)&&Number.isFinite(this.lastDropSourceT)&&Math.abs(sourceT-this.lastDropSourceT)<.85;
+    if(d&&Number(d.ahead)>=0&&Number(d.ahead)<=.46&&d.id!==this.lastDropId&&!sameSourceEvent){
+      this.lastDropId=d.id;this.lastDropSourceT=sourceT;
       this.dropBursts.push({at:performance.now(),...dropBurstDescriptor(d)});
       this.dropBursts=this.dropBursts.slice(-4);
     }
