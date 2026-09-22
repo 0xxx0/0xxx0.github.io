@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
-  "version": "LIVE 0.8",
-  "status": "ACTIVE_CANDIDATE_MERGED",
+  "version": "LIVE 0.9",
+  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
   "date": "2026-09-22",
   "donors": [
     {
@@ -86,7 +86,13 @@
     "beats render as road ribs, downbeats stronger, analyzed phrase changes as mid-scale gates, sections as macro gates/horizon changes",
     "camera pitch/zoom/bank gains increased while retaining low-pass smoothing",
     "AUTO RIDE DEMO now chooses alternating branches when authored SPLIT opportunities approach",
-    "local MP3 analysis now preserves SHA-256 source identity in LIVE AUDIO MAP transport"
+    "local MP3 analysis now preserves SHA-256 source identity in LIVE AUDIO MAP transport",
+    "IDLE RIDE replaces user-facing authoring demo: automatic topology/release/branch gestures are always preview-only and fully restore engine, deformation tape, ride trace and section arc on takeover",
+    "IDLE may start a loaded local track from an explicit user click; source playback time may advance while automatic authored layers evaporate",
+    "first direct controls wake from IDLE instead of inheriting automatic state",
+    "exact-source LISTEN pins are recovered by SHA-256 and rendered as approaching road landmarks",
+    "near a landmark, its human-authored note appears on the road; analysis never invents landmark meaning",
+    "storage events can refresh same-source landmarks from another LISTEN tab without changing AUDIO MAP evidence"
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -106,13 +112,15 @@
     "do not add a second joystick while ordinary topology rotation can carry branch intent clearly",
     "FIELD COURSE must be labeled synthetic/demo and never represented as analyzed source audio",
     "visual velocity currently changes spatial traversal/FOV only; source audio playback stays 1× for phase lock",
-    "continuous interpolation/camera smoothing may remove jitter but must not erase categorical FOLD/SPLIT/RETURN geometry"
+    "continuous interpolation/camera smoothing may remove jitter but must not erase categorical FOLD/SPLIT/RETURN geometry",
+    "IDLE witness-play cannot publish automatic FIELD operations or persist automatic road writing",
+    "source-addressed landmark meaning is authored PIN evidence; the road projection must not infer or rewrite its text"
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "Direct phone/desktop A/B: steeper terrain legibility, phrase gates, auto-ride branch demonstration, and whether motion remains smooth rather than seasick.",
+    "required_next": "Direct play: uploaded familiar track in IDLE RIDE → touch takeover at current time; then place LISTEN pins on same source and verify landmarks/note arrival feels intentional rather than HUD clutter.",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
@@ -150,10 +158,11 @@
     "motion_regression": "CI caught old adjacent-frame SURGE detection becoming invalid after smoothing; replaced with temporal-window impact-rise detection before merge.",
     "horizon_08": "PASS: public-surface-check run 35690332201; steeper TRACKFIELD, phrase hierarchy, source-hash transport, ride/deformation/practice tests and critical browser smoke all green.",
     "horizon_08_pr": 144,
-    "horizon_08_merge_sha": "36ca59b4658a95238e0474ae727d301901a991ac"
+    "horizon_08_merge_sha": "36ca59b4658a95238e0474ae727d301901a991ac",
+    "idle_landmarks": "PENDING_CI"
   },
   "execution_contract": "./EXECUTION.md",
-  "return": "/returns/FOLD_BLOOM_MOTION_2026-09-22.json",
+  "return": "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
   "updated": "2026-09-22",
   "observed_user_return": {
     "date": "2026-09-22",

@@ -6,10 +6,11 @@ import {buildPreviewMap} from './preview-map.js';
 import {createFieldPulse} from '../../lib/field-pulse.js';
 import {STREAM_LENS_SCHEMA,scrubByDelta,stepAddress,makeStreamPin,normalizePins} from './stream-lens.js';
 import {audioGlyphDescriptor,audioGlyphSvg} from './audio-glyph.js';
+import {parseId3,id3DisplayName} from './id3.js';
 
 const $=s=>document.querySelector(s);
 const gl=$('#field'),overlay=$('#overlay'),audio=$('#audio'),drop=$('#drop');
-let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null,pins=[],editingPinId=null,glyphDesc=null;
+let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null,pins=[],editingPinId=null,glyphDesc=null,idle={on:false,startScope:1,lastBeat:-1,lastPhrase:-1,lastSection:-1};
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LISTEN');
 
 function toast(t){const e=$('#toast');if(!e)return;e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on')}
@@ -88,6 +89,29 @@ function commitPin(){
 }
 function deletePin(){
   if(!editingPinId)return;pins=pins.filter(x=>x.id!==editingPinId);editingPinId=null;savePins();toast('PIN REMOVED');closePinSheet();
+}
+function stopIdle(takeover=false){
+  if(!idle.on)return;
+  idle.on=false;document.documentElement.dataset.listenIdle='off';
+  const b=$('#idleBtn');if(b)b.textContent='IDLE';
+  setScope(idle.startScope,false);
+  if(takeover)toast('AWAKE · CURRENT ADDRESS');
+}
+async function startIdle(){
+  if(!map)return;
+  if(idle.on){stopIdle(true);return}
+  const t=audio.currentTime||0;idle={on:true,startScope:scopeIndex,lastBeat:beatIndexAt(map,t),lastPhrase:phraseIndexAt(map,t),lastSection:sectionIndexAt(map,t)};
+  document.documentElement.dataset.listenIdle='on';
+  const b=$('#idleBtn');if(b)b.textContent='TAKE OVER';
+  if(audio.src&&audio.paused)await audio.play().catch(()=>{});
+  toast('IDLE · WITNESS ONLY');
+}
+function idleWitness(){
+  if(!idle.on||!map)return;
+  const t=audio.currentTime||0,bi=beatIndexAt(map,t),pi=phraseIndexAt(map,t),si=sectionIndexAt(map,t);
+  if(si!==idle.lastSection&&si>=0){idle.lastSection=si;idle.lastPhrase=pi;idle.lastBeat=bi;setScope(2,false);return}
+  if(pi!==idle.lastPhrase&&pi>=0){idle.lastPhrase=pi;idle.lastBeat=bi;setScope(1,false);return}
+  if(bi!==idle.lastBeat&&bi>=0){idle.lastBeat=bi;if(bi%8===0)setScope(1,false);else if(bi%4===0)setScope(0,false)}
 }
 function setScope(i,announce=true){
   scopeIndex=(i+SCOPES.length)%SCOPES.length;
@@ -180,7 +204,16 @@ async function analyzeBytes(bytes,playbackBlob,meta){
 }
 async function loadFile(file){
   if(!file)return;
-  try{const bytes=await file.arrayBuffer();await analyzeBytes(bytes,file,{name:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',sourceAddress:null})}
+  stopIdle(false);
+  try{
+    const bytes=await file.arrayBuffer(),id3=parseId3(bytes);
+    await analyzeBytes(bytes,file,{
+      name:id3DisplayName(id3,file.name),sourceFileName:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',sourceAddress:null,
+      title:id3.title||'',artist:id3.artist||'',album:id3.album||'',tags:id3.genre||'',lyrics:id3.lyrics||'',
+      lyricsLanguage:id3.lyricsLanguage||null,lyricsAlignment:id3.lyricsAlignment||null,
+      providerBpm:id3.bpm||null,providerKey:id3.key||null,metadataSource:id3.present?'ID3V2':null
+    })
+  }
   catch(error){console.warn(error);drop.classList.remove('busy');status('DECODE ERROR · CHOOSE ANOTHER FILE');toast('DECODE ERROR')}
 }
 async function loadAddress(input){
@@ -204,6 +237,7 @@ async function loadAddress(input){
 function updateWorkflow(){
   const use=$('#useBtn'),read=$('#useRead'),law=$('#useLaw');
   if(use)use.disabled=!map;
+  const idleBtn=$('#idleBtn');if(idleBtn)idleBtn.disabled=!map;
   if(read){
     const b=read.querySelector('b'),sp=read.querySelector('span'),hasLyrics=!!String(fileMeta?.lyrics||'').trim();
     if(b)b.textContent=hasLyrics?'READ LYRICS · RSVP':'READ · RSVP';
@@ -223,6 +257,23 @@ function openSurface(href){
   publishTransport(true);toggleUse(false);
   const w=window.open(href,'_blank');
   if(!w)location.assign(href);
+}
+function addressedReturn(){
+  const ps=normalizePins(pins,sourcePinKey());
+  return {
+    kind:'FOLD_BLOOM_ADDRESSED_MESSAGE',
+    schema:'fold-bloom-addressed-message/v0.1',
+    source:{key:sourcePinKey(),name:fileMeta?.name||'SOURCE',hash:fileMeta?.hash||null,kind:fileMeta?.sourceKind||null},
+    path:{order:'SOURCE_ADDRESS',humanAuthored:true,cells:ps.map((p,i)=>({n:i+1,id:p.id,address:p.address,scope:p.scope,label:p.label,note:p.note,features:p.features}))},
+    warning:'Path meaning is authored by the human. Source order and analysis features do not infer semantics.'
+  };
+}
+function openAtlas(){
+  if(!map||!glyphDesc)return;
+  toggleUse(false);
+  const entry={id:fileMeta?.hash||glyphDesc.sourceHash,name:fileMeta?.name||'SOURCE',artist:fileMeta?.artist||'',duration:map.duration||0,sourceHash:fileMeta?.hash||glyphDesc.sourceHash,sourceKind:fileMeta?.sourceKind||'AUDIO_MAP',glyph:glyphDesc};
+  try{sessionStorage.setItem('fold-bloom.atlas.handoff.v1',JSON.stringify({entry,from:location.pathname}))}catch(_){}
+  const w=window.open('../atlas/','_blank');if(!w)location.assign('../atlas/');
 }
 function openReadfield(){
   if(!map)return;
@@ -246,15 +297,16 @@ $('#urlInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefau
 drop.addEventListener('drop',e=>{const f=e.dataTransfer.files?.[0];if(f)loadFile(f)});
 $('#loadBtn').onclick=()=>{drop.classList.remove('loaded');$('#urlInput').focus()};
 $('#useBtn').onclick=()=>toggleUse();$('#closeUse').onclick=()=>toggleUse(false);
-$('#pinBtn').onclick=()=>openPinSheet(null,audio.currentTime);$('#pinsBtn').onclick=()=>openPinSheet(pins[0]||null,audio.currentTime);$('#glyphBtn').onclick=downloadGlyph;
+$('#pinBtn').onclick=()=>{stopIdle(true);openPinSheet(null,audio.currentTime)};$('#pinsBtn').onclick=()=>{stopIdle(true);openPinSheet(pins[0]||null,audio.currentTime)};$('#glyphBtn').onclick=downloadGlyph;$('#idleBtn').onclick=()=>startIdle();
 $('#pinSave').onclick=commitPin;$('#pinDelete').onclick=deletePin;$('#pinClose').onclick=closePinSheet;
-$('#useRide').onclick=()=>openSurface('../live/');$('#useRead').onclick=openReadfield;$('#useCompose').onclick=()=>openSurface('../two-dial/?pulse=1');$('#useMap').onclick=()=>{toggleUse(false);$('#export').click()};
-$('#transport').onclick=async()=>{if(!audio.src)return;if(audio.paused)await audio.play();else audio.pause()};
+$('#useRide').onclick=()=>openSurface('../live/');$('#useRead').onclick=openReadfield;$('#useCompose').onclick=()=>openSurface('../two-dial/?pulse=1');$('#useAtlas').onclick=openAtlas;$('#useMap').onclick=()=>{toggleUse(false);$('#export').click()};
+$('#transport').onclick=async()=>{stopIdle(true);if(!audio.src)return;if(audio.paused)await audio.play();else audio.pause()};
 audio.onplay=()=>{$('#transport').textContent='PAUSE';publishTransport(true)};audio.onpause=()=>{$('#transport').textContent='PLAY';publishTransport(true)};audio.ontimeupdate=()=>publishTransport(false);
-$('#export').onclick=()=>{if(!map)return;const packet={kind:'FOLD_BLOOM_AUDIO_MAP',created:new Date().toISOString(),map,glyph:glyphDesc||audioGlyphDescriptor(map,fileMeta||{}),annotations:{schema:STREAM_LENS_SCHEMA,pins:normalizePins(pins,sourcePinKey())}},b=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`fold-bloom-audio-map-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+$('#export').onclick=()=>{if(!map)return;const packet={kind:'FOLD_BLOOM_AUDIO_MAP',created:new Date().toISOString(),map,glyph:glyphDesc||audioGlyphDescriptor(map,fileMeta||{}),annotations:{schema:STREAM_LENS_SCHEMA,pins:normalizePins(pins,sourcePinKey())},addressedMessage:addressedReturn()},b=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`fold-bloom-audio-map-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 document.querySelectorAll('[data-scope]').forEach((b,i)=>b.onclick=()=>setScope(i));
 addEventListener('wheel',e=>{
   if(e.target?.closest?.('#pinSheet,#useSheet,#drop'))return;
+  stopIdle(true);
   const ax=Math.abs(e.deltaX),ay=Math.abs(e.deltaY),horizontal=map&&(ax>Math.max(2,ay*.65)||e.shiftKey);
   if(horizontal){
     e.preventDefault();const d=ax>Math.max(2,ay*.65)?e.deltaX:e.deltaY,range=scopeWindow(map,audio.currentTime,scope());
@@ -263,7 +315,7 @@ addEventListener('wheel',e=>{
   if(ay<2)return;e.preventDefault();setScope(scopeIndex+(e.deltaY>0?1:-1));
 },{passive:false});
 function scrub(e){if(!map)return;const r=overlay.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height*.53,p=pointAngle01(e.clientX,e.clientY,cx,cy),range=dragRange||scopeWindow(map,audio.currentTime,scope());audio.currentTime=scrubTime(range,p);publishTransport(true)}
-overlay.onpointerdown=e=>{if(!map)return;drag=true;dragRange=scopeWindow(map,audio.currentTime,scope());overlay.setPointerCapture?.(e.pointerId);scrub(e)};
+overlay.onpointerdown=e=>{if(!map)return;stopIdle(true);drag=true;dragRange=scopeWindow(map,audio.currentTime,scope());overlay.setPointerCapture?.(e.pointerId);scrub(e)};
 overlay.onpointermove=e=>{if(drag){e.preventDefault();scrub(e)}};
 function endScrub(){if(!drag&&dragRange===null)return;drag=false;dragRange=null;publishTransport(true)}
 overlay.onpointerup=endScrub;overlay.onpointercancel=endScrub;
@@ -271,6 +323,7 @@ addEventListener('keydown',e=>{
   const editing=/^(INPUT|TEXTAREA)$/i.test(e.target?.tagName||'');
   if(e.key==='Escape'){if($('#pinSheet')?.classList.contains('on'))closePinSheet();else toggleUse(false);return}
   if(editing)return;
+  if(idle.on)stopIdle(true);
   if(e.code==='Space'&&audio.src){e.preventDefault();$('#transport').click()}
   else if(e.key==='ArrowUp'){e.preventDefault();setScope(scopeIndex-1)}
   else if(e.key==='ArrowDown'){e.preventDefault();setScope(scopeIndex+1)}
@@ -309,6 +362,7 @@ function publishTransport(force=false){
   fieldPulse.publish('transport',transportPayload());
 }
 function loop(){
+  idleWitness();
   const time=audio.currentTime||0,f=frameAt(map,time)||{e:.18,c:.4,f:.05,l:.3,m:.4,h:.3},bi=beatIndexAt(map,time),si=sectionIndexAt(map,time),r=ensureRenderer(),range=dragRange||scopeWindow(map,time,scope());
   if(map&&bi>=0)r.markBeat(bi);r.setPins?.(pins);r.draw(map,f,time,scopeIndex,!audio.paused,range);if(map){renderedMapFrames++;publishTransport(false)}
   $('#time').textContent=`${fmt(time)} / ${fmt(map?.duration||0)}`;$('#energy').textContent=`E ${Math.round((f.e||0)*100)}`;$('#flux').textContent=`Δ ${Math.round((f.f||0)*100)}`;$('#bright').textContent=`C ${Math.round((f.c||0)*100)}`;
@@ -319,5 +373,5 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnima
 window.addEventListener('error',e=>{console.warn('LISTEN runtime error',e.error||e.message);if(!map)status('APP DEGRADED · FILE PICKER STILL AVAILABLE')});
 setScope(1,false);updateWorkflow();
 document.documentElement.dataset.listenBoot='ready';document.documentElement.dataset.listenLens=STREAM_LENS_SCHEMA;syncPins();
-window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,glyph:glyphDesc,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,pins:normalizePins(pins,sourcePinKey()),sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),parseSunoId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc};
+window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,glyph:glyphDesc,idle:idle.on,addressedMessage:map?addressedReturn():null,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,pins:normalizePins(pins,sourcePinKey()),sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),parseSunoId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc};
 requestAnimationFrame(loop);

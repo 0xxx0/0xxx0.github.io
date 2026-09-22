@@ -1,5 +1,5 @@
 'use strict';
-const APP_VERSION = '0.10.2-local-track',
+const APP_VERSION = '0.10.3-idle-witness',
   SCHEMA = 3,
   STORE = 'fold-bloom-product-v04',
   SAVE_STORE = 'fold-bloom-cassettes-v1';
@@ -150,6 +150,8 @@ let pulseLink = {
   time: 0,
   duration: 0,
   beatIndex: -1,
+  phraseIndex: -1,
+  phraseProgress: null,
   sectionIndex: -1,
   energy: 0,
   flux: 0,
@@ -263,6 +265,8 @@ function updatePulseContext(data = {}, wall = Date.now()) {
     time: Number(data.time) || 0,
     duration: Number(data.duration) || 0,
     beatIndex: Number.isFinite(Number(data.beatIndex)) ? Number(data.beatIndex) : -1,
+    phraseIndex: Number.isFinite(Number(data.phraseIndex)) ? Number(data.phraseIndex) : -1,
+    phraseProgress: Number.isFinite(Number(data.phraseProgress)) ? Number(data.phraseProgress) : null,
     sectionIndex: Number.isFinite(Number(data.sectionIndex)) ? Number(data.sectionIndex) : -1,
     energy: clamp(Number(data.energy) || 0, 0, 1.5),
     flux: clamp(Number(data.flux) || 0, 0, 1.5),

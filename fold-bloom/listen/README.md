@@ -1,4 +1,4 @@
-# FOLD//BLOOM LISTEN 0.4
+# FOLD//BLOOM LISTEN 0.5
 
 Experimental addressed-stream lens, currently hosted on audio.
 
@@ -33,7 +33,7 @@ After decode:
 5. Source SHA-256 remains the durable identity witness.
 6. The AUDIO MAP compiles a deterministic `fold-bloom-audio-glyph/v0.1` SVG from source hash + structural contour + chroma + sections + tempo.
 
-Provider metadata such as title/tags/lyrics and optional BPM/key/time-signature fields may be preserved when present, but LISTEN does not depend on undocumented provider fields. Local analysis remains the portable fallback.
+For local MP3s, LISTEN also reads common ID3v2.3/v2.4 identity fields and **USLT embedded lyrics** when present. These lyrics are preserved as `UNALIGNED_EMBEDDED_ID3`: text evidence only, never claimed karaoke timing. Provider metadata remains optional provenance; local bytes/hash remain the authority path.
 
 ## Interaction
 
@@ -44,18 +44,19 @@ Provider metadata such as title/tags/lyrics and optional BPM/key/time-signature 
 - vertical wheel / ↑ / ↓: aperture change
 - **P** or PIN: mark current address
 - PINS: inspect, seek, edit or remove annotations
+- **IDLE**: let the source play while LISTEN witnesses beat → phrase → section aperture changes; IDLE never scrubs or writes pins and restores your prior aperture on takeover
 
 Each pin records source identity, address, aperture, note/label and a small feature witness. Pins live beside the AUDIO MAP and never rewrite analysis evidence. Export carries:
 
-`AUDIO MAP + source provenance + deterministic glyph + addressed annotations`
+`AUDIO MAP + source provenance + deterministic glyph + addressed annotations + human-authored addressed-message path`
 
 ## FIELD PULSE
 
 LISTEN still publishes the bounded `field-pulse/v0.1` transport: playback time, BPM, beat/optional-phrase/section witnesses, current aperture and compact audio features.
 
-0.4 deliberately does **not** expand FIELD PULSE with harmonic identity. Phrase position is temporal context; Key/mode stays in the durable AUDIO MAP/UI until a real consumer requires it.
+0.5 deliberately does **not** expand FIELD PULSE with harmonic identity. Phrase position is temporal context; Key/mode stays in the durable AUDIO MAP/UI until a real consumer requires it.
 
-Current consumers remain LIVE, READFIELD/RSVP and TWO DIAL. Law: **borrowed clock != borrowed authorship**.
+Current consumers remain LIVE/DRIVE, READFIELD/RSVP and TWO DIAL. GLYPH ATLAS receives a separate session-local glyph/source witness, not the audio bytes. Law: **borrowed clock != borrowed authorship**.
 
 ## Generalization donor
 
@@ -74,13 +75,14 @@ The portable invariants are address, aperture, projection, pin/provenance and RE
 
 ## Evidence gate
 
-Before transferring this into READFIELD or another data host:
+Before expanding the addressed-source cycle:
 
 1. Desktop/phone: verify horizontal scrub feels distinct from vertical aperture change.
 2. Load materially different songs and judge phrase boundaries + key/mode estimates as **approximate evidence**, not ground truth.
 3. Add/edit/seek/export pins and the source glyph; confirm both remain attached to the same source hash/address.
-4. Confirm LIVE/LISTEN/TWO DIAL pulse behavior did not regress.
-5. Only then build a second host adapter.
+4. With the exact same source loaded in LIVE, verify LISTEN pins arrive as authored road landmarks and remain attached to their addresses.
+5. If the MP3 contains embedded USLT lyrics, open READFIELD and verify the text arrives explicitly unaligned.
+6. Confirm LIVE/LISTEN/TWO DIAL pulse behavior did not regress.
 
 Remote Suno resolution remains convenience, not a promotion gate. Local file analysis is the authority path.
 
@@ -88,3 +90,14 @@ Remote Suno resolution remains convenience, not a promotion gate. Local file ana
 ## Glyph horizon
 
 The deterministic glyph is deliberately small and interpretable: the same exact source/map should produce the same mark. A later AUDIO GLYPH ATLAS may use learned music embeddings to arrange *neighborhoods*, but similarity must never rewrite source identity, provenance or lineage.
+
+
+## Address choreography
+
+A PIN is not merely a note in a panel. Several source-scoped PINs form a source-ordered, human-authored path. LISTEN exports that path as `fold-bloom-addressed-message/v0.1`. The machine may preserve address, source hash and measured feature witnesses; it does **not** infer what the path means.
+
+The first embodied consumer is LIVE/DRIVE: when the exact same hashed local file is loaded, those PINs become approaching road landmarks. This is the bounded mechanism behind the “map builder → another person experiences it” horizon.
+
+## IDLE law
+
+LISTEN follows `/control/FOLD_BLOOM_IDLE_CONTRACT.json`: autonomous motion may witness a source but may not impersonate human authorship. First direct input wakes the instrument at the source's current address.

@@ -241,40 +241,38 @@ function demoStep() {
     demo.timer = setTimeout(demoStep, 980);
   });
 }
-async function startDemo(preview = false) {
-  if (demo.on) return stopDemo(false);
-  if (!preview) {
-    let ok = await initSound();
-    if (!ok) return;
-  }
+async function startDemo(preview = true, playTrack = false) {
+  if (demo.on) return stopDemo(true);
+  // IDLE is always reversible witness-play. It may borrow a source clock,
+  // but its relations never become the user's saved composition.
+  preview = true;
+  if (playTrack) { try { await window.FoldBloomTrackLink?.play?.(); } catch (_) {} }
   demo.on = true;
   demo.i = 0;
   demo.prevMode = prefs.mode;
-  demo.preview = !!preview;
-  demo.startState = preview ? minimalSnapshot() : null;
+  demo.preview = true;
+  demo.startState = minimalSnapshot();
   prefs.mode = 'PLAY';
-  if (!preview) $('#demoBtn').textContent = 'STOP DEMO';
+  $('#demoBtn').textContent = 'TAKE OVER';
+  document.documentElement.dataset.foldBloomIdle='on';
   syncUI();
-  if (!preview) {
-    closeDrawer();
-    toast('DEMO · WATCH THE SCORE');
-  }
+  closeDrawer();
+  toast(window.FoldBloomTrackLink?.active?.() ? 'IDLE · SOURCE CLOCK / NO AUTHORSHIP' : 'IDLE · WITNESS ONLY');
   demoStep();
 }
 function stopDemo(takeover = true) {
   if (!demo.on) return;
-  const wasPreview = demo.preview, start = demo.startState;
+  const start = demo.startState;
   demo.on = false;
   clearTimeout(demo.timer);
   cancelAnimationFrame(demo.raf);
   demo.preview = false;
   demo.startState = null;
-  if (wasPreview && start) restore(start);
-  else prefs.mode = demo.prevMode;
+  if (start) restore(start); else prefs.mode = demo.prevMode;
   live.vL = live.vR = 0;
   classifyMotion();
   syncUI();
-  if (wasPreview) saveLocal();
-  $('#demoBtn').textContent = 'START DEMO';
-  if (takeover) toast('YOUR TURN');
+  document.documentElement.dataset.foldBloomIdle='off';
+  $('#demoBtn').textContent = 'IDLE';
+  if (takeover) toast('AWAKE · CURRENT SOURCE TIME');
 }

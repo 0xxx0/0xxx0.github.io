@@ -1,0 +1,27 @@
+{
+  "schema": "fold-bloom-idle/v0.1",
+  "date": "2026-09-22",
+  "status": "CANDIDATE_SHARED_LAW",
+  "purpose": "Let Fold/Bloom surfaces remain alive without impersonating the human author.",
+  "definition": "IDLE is autonomous projection/performance preview over current source evidence. It may move a view, follow a source clock and enact temporary demonstration gestures; it cannot create durable authored state.",
+  "laws": [
+    "IDLE never mutates source bytes, source hash or AUDIO MAP evidence.",
+    "IDLE never persists generated BLOOM/FOLD/SPLIT/RETURN, PIN, PATH, cassette or composition state.",
+    "IDLE never emits an automatic gesture as an authored FIELD operation.",
+    "A loaded source may lend time/features while IDLE is active; source playback position may advance.",
+    "First direct human control exits IDLE and restores pre-idle authored state at the source's current address.",
+    "Audio autoplay remains browser/user-gesture bounded; silence does not disable the visual witness.",
+    "Synthetic demo material must be visibly identified as synthetic evidence."
+  ],
+  "bindings": {
+    "live_09": "Temporary RATCHET/release/branch performance over FIELD COURSE or loaded AUDIO MAP; state/deformation/ride/section arc restore on takeover.",
+    "listen_05": "Changes aperture witness only at beat/phrase/section transitions; never scrubs, pins or edits source; restores prior aperture on takeover.",
+    "two_dial_0103": "Temporary dial relations/composition gestures restore on takeover; local track may keep advancing as source clock.",
+    "glyph_atlas_01": "Cycles focus among glyph cells; never changes authored path or message."
+  },
+  "lineage": [
+    "/law-zoo/palimpsest.html — autonomous representation dynamics",
+    "/recovery/seam-engine/ONE_RETURN_SEAM_ENGINE_v0.2.md — preview ≠ canonical state / stable identity across projection",
+    "/recovery/path-grid/ — source/path/view/return distinctions"
+  ]
+}

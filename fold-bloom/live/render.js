@@ -7,7 +7,7 @@ const COLORS=['#ff9852','#6dbdff','#72e4b6'];
 export class Renderer {
   constructor(canvas) {
     this.cv=canvas; this.g=canvas.getContext('2d'); this.w=0;this.h=0;this.cx=0;this.cy=0;this.r=0;
-    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;this.ride=null;this.motion={t:performance.now(),speed:1,grade:0,bend:0,zoom:1,pitch:0,bank:0};
+    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;this.ride=null;this.landmarks=[];this.motion={t:performance.now(),speed:1,grade:0,bend:0,zoom:1,pitch:0,bank:0};
     this.resize();
     addEventListener('resize',()=>this.resize(),{passive:true});
   }
@@ -18,6 +18,7 @@ export class Renderer {
   setSectionArc(view){this.sectionArc=view||null}
   setTrackfield(world){this.trackfield=world||null}
   setRide(view){this.ride=view||null}
+  setLandmarks(pins){this.landmarks=Array.isArray(pins)?pins.slice(0,64).map(p=>({...p,address:Number(p.address)||0})):[]}
   _updateMotion(now){
     const m=this.motion,dt=clamp((now-m.t)/1000,0,.08);m.t=now;
     const speed=Number(this.trackfield?.currentSpeed)||1,grade=Number(this.trackfield?.currentGrade)||0,bend=Number(this.trackfield?.currentBend)||0;
@@ -150,6 +151,22 @@ export class Renderer {
       if(born.length){
         g.textAlign='center';g.font='800 7px ui-monospace,monospace';g.fillStyle='rgba(255,255,255,.62)';
         g.fillText(born.join('→'),p.centerX,p.baseY-12);
+      }
+    }
+
+    if(this.landmarks?.length){
+      const lo=Number(this.trackfield?.time)||0,hi=lo+(Number(this.trackfield?.horizon)||0);
+      for(const mark of this.landmarks){
+        const at=Number(mark.address)||0;if(at<lo-.25||at>hi+.25)continue;
+        let best=s[0],bd=Infinity;
+        for(const q of s){const d=Math.abs((Number(q.t)||0)-at);if(d<bd){bd=d;best=q}}
+        const ahead=at-lo,near=clamp(1-ahead/Math.max(.001,hi-lo),0,1),stem=Math.max(13,best.half*(.20+.20*near));
+        g.strokeStyle=`rgba(255,205,126,${.24+.58*near})`;g.fillStyle=`rgba(255,205,126,${.55+.40*near})`;g.lineWidth=1.2;
+        g.beginPath();g.moveTo(best.centerX,best.baseY);g.lineTo(best.centerX,best.baseY-stem);g.stroke();
+        g.beginPath();g.moveTo(best.centerX,best.baseY-stem-5);g.lineTo(best.centerX+5,best.baseY-stem);g.lineTo(best.centerX,best.baseY-stem+5);g.lineTo(best.centerX-5,best.baseY-stem);g.closePath();g.stroke();
+        const label=String(mark.label||'PIN').slice(0,42),note=String(mark.note||'').replace(/\s+/g,' ').trim().slice(0,72);
+        g.textAlign='center';g.font='900 7px ui-monospace,monospace';g.fillText(label.toUpperCase(),best.centerX,best.baseY-stem-11);
+        if(ahead<2.2&&note){g.fillStyle='rgba(255,255,255,.72)';g.font='600 7px ui-monospace,monospace';g.fillText(note,best.centerX,best.baseY-stem-21)}
       }
     }
 

@@ -122,10 +122,10 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM instrument family · LIVE 0.8 hierarchical world-writing TRACKFIELD / LISTEN 0.4 addressed-stream + source glyph / TWO DIAL 0.10.2 same-source composition context / ECOLOGY 0.2 lineage-game",
+      "head": "FOLD//BLOOM family · GLYPH ATLAS 0.1 source-cell/path surface / LISTEN 0.5 cartographer+lyrics / LIVE 0.9 IDLE DRIVE + addressed landmarks / TWO DIAL 0.10.3 composition+idle / ECOLOGY 0.2 held lineage-game",
       "state": "ACTIVE_CANDIDATE_FAMILY",
       "route": "/fold-bloom/",
-      "retained_function": "One exact hashed audio source may now enter three unequal projections without identity collapse: LISTEN 0.4 analyzes/navigates/annotates and compiles a deterministic glyph; LIVE 0.8 projects beat/downbeat/analyzed-phrase/section evidence into steeper smoothed terrain while the human authors BLOOM/FOLD/SPLIT/RETURN; TWO DIAL 0.10.2 may host the same local file as tempo/energy/phrase/section context while MATTER × HARMONY still authors composition. ECOLOGY remains untouched until a concrete transfer is earned. Portable law remains SOURCE → ADDRESS → APERTURE/PROJECTION → HUMAN OPERATION → RETURN.",
+      "retained_function": "One exact source may now move through a bounded cycle without identity collapse: ATLAS remembers it as a deterministic glyph CELL and lets a human author a PATH/share RETURN; LISTEN analyzes and addresses it, recovers local ID3/USLT lyrics and places human PIN meaning; LIVE 0.9 rides the same source as terrain, witnesses in reversible IDLE, and encounters same-hash PINs as landmarks; READFIELD may unfold recovered lyrics as text; TWO DIAL 0.10.3 composes with borrowed source context while retaining MATTER × HARMONY authority. Ecology remains held. Governing law: SOURCE → CELL/ADDRESS → unequal VIEW → HUMAN PATH/OPERATION → RETURN.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -163,21 +163,43 @@
         "/returns/FOLD_BLOOM_STREAM_LENS_2026-09-22.json",
         "/control/PURE_INTENTION.json",
         "/control/confluence/FOLD_BLOOM_HORIZON_2026-09-22.json",
-        "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json"
+        "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json",
+        "/fold-bloom/atlas/release.json",
+        "/control/FOLD_BLOOM_IDLE_CONTRACT.json",
+        "/control/confluence/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
+        "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json"
       ],
       "experimental": [
         {
-          "id": "fold-bloom-listen-01",
+          "id": "fold-bloom-atlas-01",
+          "route": "/fold-bloom/atlas/",
+          "state": "CANDIDATE_EXPERIMENT",
+          "branch": "fold-bloom-atlas-idle-090",
+          "version": "0.1",
+          "thesis": "Exact source glyph cells can become a recognizable shareable atlas and human-authored path without storing audio or confusing similarity with identity.",
+          "promotion_gate": "CI + direct 5–12 familiar-track recognition/relearning + share/path feel."
+        },
+        {
+          "id": "fold-bloom-listen-05",
           "route": "/fold-bloom/listen/",
-          "state": "MERGED_ACTIVE_CANDIDATE",
-          "branch": "master@36ca59b4658a95238e0474ae727d301901a991ac",
-          "thesis": "One hashed audio source remains identifiable while becoming analyzed phrase hierarchy, deterministic glyph, addressed ring, terrain and bounded composition context.",
-          "promotion_gate": "CI + direct familiar-track proof: phrase gates plausible, glyph recognizable/stable, steeper LIVE terrain smooth, same source identity visible across LISTEN/LIVE/Two Dial.",
-          "version": "0.4"
+          "state": "CANDIDATE_EXPERIMENT",
+          "branch": "fold-bloom-atlas-idle-090",
+          "version": "0.5",
+          "thesis": "An addressed source can carry embedded lyrics and human PIN meaning into unequal reader/ride projections.",
+          "promotion_gate": "CI + direct embedded-lyrics handoff + PIN→LIVE landmark use."
+        },
+        {
+          "id": "fold-bloom-live-09",
+          "route": "/fold-bloom/live/",
+          "state": "CANDIDATE_EXPERIMENT",
+          "branch": "fold-bloom-atlas-idle-090",
+          "version": "0.9",
+          "thesis": "IDLE can keep the ride alive while never impersonating authorship; same-source human marks can become embodied road landmarks.",
+          "promotion_gate": "CI + uploaded-track IDLE takeover + landmark legibility."
         }
       ],
       "merge_sha": "36ca59b4658a95238e0474ae727d301901a991ac",
-      "latest_return": "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json"
+      "latest_return": "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json"
     },
     {
       "lineage": "axial",

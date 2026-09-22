@@ -38,9 +38,9 @@ async function load(file){
     if(status)status.textContent='LOCAL TRACK ERROR';
   }
 }
-loadBtn?.addEventListener('click',()=>input?.click());
+loadBtn?.addEventListener('click',()=>{api.stopIdle?.(false);input?.click()});
 input?.addEventListener('change',e=>load(e.target.files?.[0]));
-toggleBtn?.addEventListener('click',()=>track.toggle().then(render).catch(()=>{if(status)status.textContent='PLAY BLOCKED'}));
+toggleBtn?.addEventListener('click',()=>{api.stopIdle?.(true);track.toggle().then(render).catch(()=>{if(status)status.textContent='PLAY BLOCKED'})});
 
 function loop(now){
   if(track.active()&&now-lastPush>100){
@@ -55,6 +55,7 @@ requestAnimationFrame(loop);
 window.FoldBloomTrackLink={
   active:()=>track.active(),
   state:()=>({map,transport:track.transport(),playing:track.active()&&!audio.paused}),
+  play:async()=>{if(track.active()&&audio.paused)await audio.play();render();return track.active()&&!audio.paused},
   load
 };
 document.documentElement.dataset.foldBloomLocalTrack='ready';

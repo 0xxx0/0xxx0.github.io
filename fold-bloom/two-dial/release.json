@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "TWO DIAL",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "route": "/fold-bloom/two-dial/",
-  "state": "ACTIVE_CANDIDATE_SHIPPED",
+  "state": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
   "operation": "PLAY",
   "released": "2026-09-22",
-  "thesis": "HOLD FAST / LET FLY: preserve MATTER × HARMONY authorship while allowing the same hashed local AUDIO MAP used by LISTEN/LIVE to lend clock, energy, phrase and section context directly in Two Dial.",
+  "thesis": "HOLD FAST / LET FLY: same-source temporal context may animate the instrument, while IDLE demonstrates its relation algebra only as reversible witness-play and MATTER × HARMONY remains the sole composition authority.",
   "preserved": [
     "six-position two-dial relation algebra",
     "SAME→BLOOM · NEAR→FOLD · FAR→RETURN · OPPOSITE→SPLIT",
@@ -30,7 +30,11 @@
     "local track bytes receive the same SHA-256 source identity seam used by LIVE/LISTEN",
     "same-page local track outranks cross-tab LISTEN pulse while active, avoiding background-tab phone throttling",
     "local song lends tempo/beat/energy/phrase/section context only; MATTER × HARMONY remains composition authority",
-    "cross-tab LISTEN PULSE LINK remains available and optional"
+    "cross-tab LISTEN PULSE LINK remains available and optional",
+    "visible AUTO DEMO becomes IDLE: every automatic relation/commit runs on a snapshot and restores on takeover",
+    "IDLE may explicitly start a loaded local track and follow its source clock while never saving or emitting automatic composition as human-authored",
+    "first dial/world/voice/groove/scope/local-track control wakes from IDLE",
+    "phraseIndex/phraseProgress survive bounded pulse context beside beat and section evidence"
   ],
   "research_transfer": [
     "Euclidean/rotated pulse transformations and polymetric crossing",
@@ -53,10 +57,12 @@
     "local_track_runtime": "PASS: public-surface-check run 35690332201; same-page local-track controls/module and existing Two Dial browser runtime green.",
     "local_track_phone": "REQUIRED_NEXT: one local MP3, play/pause, verify Two Dial tempo/energy context changes while dial relations still author notes/form.",
     "local_track_merge_sha": "36ca59b4658a95238e0474ae727d301901a991ac",
-    "local_track_pr": 144
+    "local_track_pr": 144,
+    "idle_witness": "PENDING_CI",
+    "idle_phone": "REQUIRED_NEXT: load local track → IDLE → touch dial; confirm source clock continues but automatic motif/form changes disappear."
   },
   "known_gap": "Instrument-quality judgment still requires direct listening. Local track context is now implemented; do not map song features directly into harmony/verbs until real play identifies a useful missing relation.",
   "confluence": "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
-  "return": "/returns/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
+  "return": "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
   "updated": "2026-09-22"
 }
