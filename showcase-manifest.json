@@ -1167,26 +1167,26 @@
           "RELEASE"
         ]
       },
-      "role": "Unequal Fold/Bloom family: LIVE 0.6 rides and rewrites owned/local audio worlds, including traversable SPLIT choices; TWO DIAL composes music/form; ECOLOGY evolves persistent lineage; LISTEN remains the AUDIO MAP/source laboratory. Ecology climate and READPATH are preserved as next recipient-specific transfers, not copies of LIVE."
+      "role": "Current unequal Fold/Bloom family. LIVE 0.7 rides measured MP3 or synthetic FIELD COURSE with smooth grade/speed/turn terrain plus authored world-writing; TWO DIAL composes music/form; ECOLOGY evolves persistent lineage/game; LISTEN remains source/AUDIO MAP lab. READFIELD receives only the shared addressed-projection law, not the racer interface."
     },
     {
       "href": "/fold-bloom/live/",
-      "title": "FOLD//BLOOM LIVE 0.6",
+      "title": "FOLD//BLOOM LIVE 0.7",
       "kind": "artifact",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "PLAY",
       "state": "ACTIVE",
-      "version": "0.6",
-      "receipt": "/returns/FOLD_BLOOM_RIDE_CHOICE_2026-09-22.json",
-      "role": "World-writing performance ride: local/owned audio → AUDIO MAP → TRACKFIELD; BLOOM/FOLD/SPLIT/RETURN write bounded future geometry, and the same ring-turn gesture can choose LEFT/RIGHT when SPLIT becomes traversable. Ride trace remains separate from immutable audio evidence and authored deformation provenance.",
+      "version": "0.7",
+      "receipt": "/returns/FOLD_BLOOM_MOTION_2026-09-22.json",
+      "role": "Smooth world-writing performance ride. LOCAL MP3 → interpolated AUDIO MAP → grade/speed/turn TRACKFIELD; normal PLAY FIELD → labeled synthetic FIELD COURSE through the same engine. Quiet/low-flux climbs, intense/flux-heavy terrain descends and visually accelerates, spectral balance turns; audio remains phase-locked at 1×. BLOOM/FOLD/SPLIT/RETURN write reversible future geometry and SPLIT supports LEFT/RIGHT/OPEN traversal.",
       "transfer": [
-        "Fold Weave: authored 12-cell topology / crease / cascade",
-        "LIVE 0.4: AUDIO MAP → perspective TRACKFIELD anticipation",
-        "LIVE 0.5: BLOOM/FOLD/SPLIT/RETURN write future road geometry",
-        "LIVE 0.6: SPLIT becomes a non-punitive traversable LEFT/RIGHT choice using the existing ring-turn gesture",
-        "branch camera easing + central-road→fork crossfade reduce projection glitch",
-        "RETURN recenters; branch trace is bounded/exportable"
+        "Fold Weave: authored 12-cell topology / crease / cascade / mute-first causal score",
+        "LIVE 0.4: AUDIO MAP → future TRACKFIELD",
+        "LIVE 0.5: BLOOM/FOLD/SPLIT/RETURN deformation tape",
+        "LIVE 0.6: traversable LEFT/RIGHT/OPEN SPLIT choice",
+        "LIVE 0.7: interpolated grade/speed/turn + smooth camera + normal FIELD COURSE",
+        "READFIELD donor: address/playhead/projection law only; no racer-skin transfer"
       ],
       "contract": {
         "accepts": {
@@ -1204,7 +1204,7 @@
           ]
         },
         "transforms": {
-          "verb": "project measured future audio as terrain, write that terrain with authored Fold/Bloom operations, and traverse an addressed SPLIT branch without mutating source evidence",
+          "verb": "project measured or clearly synthetic future structure as smooth traversable terrain, then apply bounded authored BLOOM/FOLD/SPLIT/RETURN deformations without mutating source evidence",
           "preserves": [
             "donor provenance",
             "topology identity",
@@ -1218,7 +1218,10 @@
             "immutable AUDIO MAP source evidence",
             "time-addressed deformation provenance",
             "ride/deformation/source separation",
-            "branch-choice non-punitive semantics"
+            "branch-choice non-punitive semantics",
+            "continuous source interpolation",
+            "normal/custom source parity",
+            "audio phase lock at 1×"
           ],
           "reversibility": "bounded",
           "side_effects": "local browser state / explicit export only"
@@ -1238,11 +1241,13 @@
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/returns/FOLD_BLOOM_RIDE_CHOICE_2026-09-22.json",
+          "receipt": "/returns/FOLD_BLOOM_MOTION_2026-09-22.json",
           "checks": [
-            "LIVE 0.6 engine/track/section/TRACKFIELD/deformation/ride tests",
-            "phone-sized runtime smoke",
-            "direct MP3 branch-choice play remains promotion gate"
+            "LIVE 0.7 engine/track/section/TRACKFIELD/deformation/ride/practice-course tests",
+            "pixel-level climb/descent separation",
+            "cold-start FIELD_PRACTICE browser smoke",
+            "phone-sized critical browser smoke",
+            "direct human smoothness/motion feel remains promotion gate"
           ],
           "return_path": "/fold-bloom/"
         },
