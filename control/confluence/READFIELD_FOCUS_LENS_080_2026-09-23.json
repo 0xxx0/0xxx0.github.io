@@ -1,0 +1,40 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "READFIELD_FOCUS_LENS_080_2026-09-23",
+  "date": "2026-09-23",
+  "object": "READFIELD optional focus lens convergence",
+  "status": "BRANCH_CANDIDATE",
+  "sourceAuthority": "READFIELD text/focus cursor",
+  "donors": {
+    "triangle": "/forward-field-proof/triangle/ · center frame only; no selector authority",
+    "axial": "/foundry/axial/ · address/aperture ring grammar only",
+    "listen": "/fold-bloom/listen/ · FIELD PULSE clock/energy witness only",
+    "atlas": "/fold-bloom/atlas/ · existing exact-source glyph witness only"
+  },
+  "implementation": [
+    "/docs/",
+    "/field-aperture.js",
+    "/fold-bloom/atlas/document-source.js",
+    "/tools/browser-smoke.mjs"
+  ],
+  "views": {
+    "PLAIN": "existing geometry-free fast reader; default",
+    "FOCUS": "address + aperture rings, triangle center, optional LISTEN pulse + Atlas glyph witness",
+    "MIN": "ring + ORP/RSVP essentials"
+  },
+  "limitRepair": {
+    "wpm": "60–3000 → 60–6000",
+    "dwell": "20 ms → 10 ms minimum",
+    "structure": "first 40 markers → 72 evenly sampled across source",
+    "sourceLength": "no source-length cap found; highlighted context remains deliberately windowed/throttled"
+  },
+  "laws": [
+    "one source + one canonical position",
+    "projection convergence != authority convergence",
+    "LISTEN pulse never authors text position",
+    "Atlas glyph never substitutes for source bytes/text",
+    "Triangle and AXIAL remain donor geometries",
+    "PLAIN remains the default performance baseline"
+  ],
+  "promotionGate": "Existing READFIELD smoke remains green AND dedicated 430×900 FOCUS lens smoke proves FOCUS/MIN/PLAIN transitions, 6000 WPM, 72-source marker coverage, glyph witness and LISTEN pulse."
+}
