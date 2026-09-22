@@ -46,10 +46,11 @@ jobs:
           const c = require('./control/CURRENT.json');
           const fs = require('fs');
           let issues = [];
-          // Check all documentation paths
+          // Check all documentation paths (strip fragments and query params)
           for (const [k, v] of Object.entries(c.documentation || {})) {
             if (typeof v === 'string' && v.startsWith('/')) {
-              if (!fs.existsSync('.' + v)) {
+              const cleanPath = '.' + v.split('#')[0].split('?')[0];
+              if (!fs.existsSync(cleanPath)) {
                 issues.push('MISSING doc: ' + k + ' at ' + v);
               }
             }
@@ -57,7 +58,7 @@ jobs:
           // Check evidence paths in active_fronts
           for (const f of c.active_fronts || []) {
             for (const ev of f.evidence || []) {
-              if (ev.startsWith('/') && !fs.existsSync('.' + ev)) {
+              if (ev.startsWith('/') && !fs.existsSync('.' + ev.split('#')[0].split('?')[0])) {
                 issues.push('MISSING evidence: ' + f.id + ' -> ' + ev);
               }
             }
