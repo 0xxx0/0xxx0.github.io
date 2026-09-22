@@ -1,0 +1,27 @@
+[
+ [
+  "commits today",
+  "0 (local) vs 995 (Sep-22 +08)",
+  "the same phrase yields different numbers; 'today' must name its window"
+ ],
+ [
+  "conversations",
+  "sum 1539 vs unique 903",
+  "the two exports overlap by 636; a plain sum overcounts by 636"
+ ],
+ [
+  "conversations",
+  "sqlite 906 vs JSON 893",
+  "13 delta = group chats, in a file no extraction read"
+ ],
+ [
+  "branches",
+  "strip None vs disk 179",
+  "the generated strip is stale relative to disk"
+ ],
+ [
+  "commits today",
+  "strip 992 vs disk 0",
+  "the generated strip is stale relative to disk"
+ ]
+]

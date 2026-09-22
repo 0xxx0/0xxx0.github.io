@@ -1,0 +1,128 @@
+[
+ {
+  "v": "2464",
+  "label": "commits on master",
+  "src": "git rev-list --count HEAD",
+  "ok": true
+ },
+ {
+  "v": "179",
+  "label": "remote branches",
+  "src": "git branch -r",
+  "ok": true
+ },
+ {
+  "v": "0",
+  "label": "commits today",
+  "src": "git rev-list --since",
+  "ok": true
+ },
+ {
+  "v": "62M",
+  "label": "repo size (working tree)",
+  "src": "du -sh .",
+  "ok": true
+ },
+ {
+  "v": "914",
+  "label": "tracked files",
+  "src": "git ls-files | wc -l",
+  "ok": true
+ },
+ {
+  "v": "6",
+  "label": "open issues",
+  "src": "gh issue list --state open",
+  "ok": true
+ },
+ {
+  "v": "27.2 KB",
+  "label": "/sky/ page size",
+  "src": "sky/index.html",
+  "ok": true
+ },
+ {
+  "v": "16.7 KB",
+  "label": "/handshake/ page size",
+  "src": "handshake/index.html",
+  "ok": true
+ },
+ {
+  "v": "11.7 KB",
+  "label": "/silences/ page size",
+  "src": "silences/index.html",
+  "ok": true
+ },
+ {
+  "v": "8.7 KB",
+  "label": "/twins/ page size",
+  "src": "twins/index.html",
+  "ok": true
+ },
+ {
+  "v": "10.4 KB",
+  "label": "/lineage/ page size",
+  "src": "lineage/index.html",
+  "ok": true
+ },
+ {
+  "v": "11.8 KB",
+  "label": "/nexus/ page size",
+  "src": "nexus/index.html",
+  "ok": true
+ },
+ {
+  "v": "893",
+  "label": "sept export conversations (JSON)",
+  "src": "_recovered/sept-export/conversations-*.json",
+  "ok": true
+ },
+ {
+  "v": "646",
+  "label": "june backup conversations (JSON)",
+  "src": "ChatGPT-Backup-2026-06-12/conversations-*.json",
+  "ok": true
+ },
+ {
+  "v": "906",
+  "label": "sqlite conversations",
+  "src": "~/Documents/Codex/2026-08-06/i/outputs/ChatGPT-Corpus-2026-09-18/corpus.sqlite3",
+  "ok": true
+ },
+ {
+  "v": "45,346",
+  "label": "sqlite messages",
+  "src": "~/Documents/Codex/2026-08-06/i/outputs/ChatGPT-Corpus-2026-09-18/corpus.sqlite3",
+  "ok": true
+ },
+ {
+  "v": "83,088",
+  "label": "sqlite segments",
+  "src": "~/Documents/Codex/2026-08-06/i/outputs/ChatGPT-Corpus-2026-09-18/corpus.sqlite3",
+  "ok": true
+ },
+ {
+  "v": 13,
+  "label": "group chats extracted (private)",
+  "src": "~/void-anchor/_private-review/group-chats",
+  "ok": true
+ },
+ {
+  "v": 14,
+  "label": "receipts",
+  "src": "~/void-anchor/_recovered/receipts",
+  "ok": true
+ },
+ {
+  "v": 74,
+  "label": "returns in repo",
+  "src": "~/Projects/0xxx0.github.io/returns",
+  "ok": true
+ },
+ {
+  "v": "200",
+  "label": "archive-reader :8777",
+  "src": "curl 127.0.0.1:8777",
+  "ok": true
+ }
+]
