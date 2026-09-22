@@ -39,8 +39,11 @@ jobs:
         run: node tools/validate-public.mjs
       - name: Validate Triangle FORM rewrite core
         run: node tools/triangle-form-selftest.mjs
-      - name: Test LISTEN analysis core
-        run: node fold-bloom/listen/selftest.mjs
+      - name: Test LISTEN analysis + stream lens
+        run: |
+          node fold-bloom/listen/selftest.mjs
+          node fold-bloom/listen/stream-lens.test.mjs
+          node fold-bloom/listen/source-adapters.test.mjs
       - name: Test LISTEN preview render
         env:
           SMOKE_ONLY: FOLD BLOOM LISTEN preview render

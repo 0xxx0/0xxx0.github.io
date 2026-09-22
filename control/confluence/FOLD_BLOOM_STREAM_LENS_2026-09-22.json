@@ -1,0 +1,61 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_STREAM_LENS_2026-09-22",
+  "date": "2026-09-22",
+  "object": "FOLD//BLOOM LISTEN 0.3 / addressed-stream lens",
+  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "observed_exactly_recovered": [
+    "User clarified that the LISTEN prototype ring/waveform—not the LIVE racer skin—was the intended donor for a READFIELD-like lens.",
+    "User wants left/right scrubbing in addition to wheel/vertical scale movement.",
+    "User wants the ability to pin and annotate positions.",
+    "User identifies a broader transfer: map the same interaction to reading and other data streams.",
+    "User notes richer contemporary music-source identification such as key/tempo-related metadata as a useful direction."
+  ],
+  "reconstructed": [
+    "The durable mechanism is one canonical source address viewed through changing apertures/projections.",
+    "Horizontal motion and vertical motion become orthogonal operations: ADDRESS vs APERTURE.",
+    "Annotations should attach to source identity + address as authored evidence, not contaminate derived analysis.",
+    "Host vocabularies stay unequal: audio may use BEAT/PHRASE/SECTION/TRACK; text or sensors must define their own scales."
+  ],
+  "implemented": [
+    "generic field-addressed-stream/v0.1 module with address↔fraction, relative scrub, aperture-relative step and source-addressed pins",
+    "LISTEN horizontal trackpad/shift-wheel address scrub; vertical wheel/up-down aperture traversal",
+    "left/right fine address movement; shift-left/right explicit beat step",
+    "source-hash-scoped local pin create/edit/remove/seek/render/export",
+    "pin exports beside AUDIO MAP under annotations, never mutating map evidence",
+    "provider-independent local chroma key + major/minor estimate with confidence",
+    "best-effort preservation of provider BPM/key/time signature only when fields actually exist",
+    "FIELD PULSE contract deliberately unchanged",
+    "LISTEN UI recast as SOURCE → ADDRESS → APERTURE → FIELD"
+  ],
+  "portable_law": {
+    "schema": "field-addressed-stream/v0.1",
+    "object": "canonical source",
+    "address": "one position/index/time within source",
+    "aperture": "host-defined bounded window/scale around address",
+    "projection": "ring, line, RSVP, path, waveform, plot, etc.; does not own source identity",
+    "annotation": "authored evidence addressed to source+position; separate from machine-derived features",
+    "return": "source identity + address + aperture + annotations remain recoverable"
+  },
+  "host_examples": {
+    "audio": "seconds → BEAT / PHRASE / SECTION / TRACK",
+    "text": "character/token → WORD / SENTENCE / PARAGRAPH / DOCUMENT",
+    "sensors": "timestamp → EVENT / WINDOW / SESSION / RUN",
+    "video": "frame/time → SHOT / SCENE / CLIP"
+  },
+  "constraints": [
+    "Do not describe audio labels as universal stream semantics.",
+    "Do not treat approximate key/mode as ground truth.",
+    "Do not depend on undocumented provider metadata fields.",
+    "Do not build a second host adapter until direct LISTEN 0.3 interaction is proved.",
+    "Do not turn FIELD PULSE into a hub to carry every new identity feature."
+  ],
+  "next_truth": [
+    "Desktop/phone: horizontal address movement must feel clearly different from vertical aperture change.",
+    "Pins must persist by source identity, seek correctly and survive export/reload.",
+    "Key/mode estimates must be judged on several materially different songs as approximate evidence.",
+    "Existing LISTEN→LIVE/READFIELD/TWO DIAL workflows must remain intact."
+  ],
+  "successor_note": "If this survives, READFIELD should adapt the same address/aperture/pin law using text-native scales. It should not copy LISTEN's waveform, beat vocabulary or LIVE's racer HUD.",
+  "return": "/returns/FOLD_BLOOM_STREAM_LENS_2026-09-22.json"
+}
