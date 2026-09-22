@@ -5,6 +5,7 @@ import {parseLocalAudioMeta,localDisplayName} from '../listen/media-meta.js';
 import {groupLocalInputs,parseTextSidecar} from '../listen/sidecar-text.js';
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+export const TRACKFIELD_MODEL_INTERVAL=.028;
 async function hashBuffer(buf){const h=await crypto.subtle.digest('SHA-256',buf);return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 
 function mixdown(buffer,targetRate=12000){
@@ -86,7 +87,7 @@ export class LiveTrack {
   trackfield(horizon=12,count=44){
     if(!this.map)return null;
     const t=Number(this.audio.currentTime)||0;
-    if(this.worldCache&&Math.abs(t-this.worldTime)<.012)return this.worldCache;
+    if(this.worldCache&&Math.abs(t-this.worldTime)<TRACKFIELD_MODEL_INTERVAL)return this.worldCache;
     this.worldTime=t;this.worldCache=buildTrackfield(this.map,t,{horizon,count});
     return this.worldCache;
   }
