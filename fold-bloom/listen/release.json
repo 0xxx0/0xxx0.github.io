@@ -2,7 +2,7 @@
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM LISTEN",
   "version": "0.3",
-  "state": "CANDIDATE_BRANCH_VERIFY",
+  "state": "CANDIDATE_MERGED",
   "operation": "LISTEN",
   "route": "/fold-bloom/listen/",
   "date": "2026-09-22",
@@ -96,8 +96,11 @@
     "workflow_merge_sha": "70444235dc4112ced7e88988bacfca1cbc84f946",
     "workflow_phone": "REQUIRED: real phone USE TRACK reachability + READFIELD entry + return flow",
     "stream_lens_branch": "fold-bloom-listen-stream-lens-030",
-    "stream_lens_ci": "PENDING_PR_CI",
-    "required_next": "CI then direct desktop/phone: horizontal scrub vs vertical aperture, pin create/seek/edit/export, approximate key/mode plausibility on several tracks."
+    "stream_lens_ci": "PASS: public-surface-check run 35685019871; static contracts, analysis+stream-lens tests, preview browser render, LIVE regression, critical browser smoke, recovery and Sleeper tests all passed.",
+    "required_next": "Direct desktop/phone: horizontal scrub vs vertical aperture, create/seek/edit/export pins, key/mode plausibility on several familiar tracks.",
+    "stream_lens_pr": 142,
+    "stream_lens_merge_sha": "683d0067100c8d8b376e2b38a23c07f11b3fed9b",
+    "migration_gate_repair": "PASS: removed two already-recovered Sleeper entries from ingest_queue and aligned migration exact-source authority to /returns/BACKUP_RECOVERY_2026-09-21.json while preserving Sep-22 public runtime recovery separately."
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · portable donor=field-addressed-stream/v0.1",
   "updated": "2026-09-22",
