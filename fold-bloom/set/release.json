@@ -4,7 +4,8 @@
   "title": "FOLD//BLOOM SET 0.1.1",
   "version": "0.1.1",
   "date": "2026-09-22",
-  "state": "BRANCH_CANDIDATE_OVER_MERGED_HUMAN_GATE",
+  "state": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
+  "status": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
   "route": "/fold-bloom/set/",
   "consumes": "fold-bloom-experience-set/v0.1",
   "operation": "SHAPE",
@@ -19,6 +20,14 @@
     "seal": {
       "pullRequest": 159,
       "mergeSha": "f60a9d6d8ba696f9d1223d4814375871a4b2b1b4"
+    }
+  },
+  "testPackMerge": {
+    "pullRequest": 163,
+    "mergeSha": "70d01529a982690891483edbbe09b8600b6e70c4",
+    "ci": {
+      "run": 1646,
+      "status": "PASS"
     }
   },
   "delta": [
@@ -47,5 +56,5 @@
     "genericBrowser": "/fold-bloom/set/?demo=1",
     "seedBrowser": "/fold-bloom/set/?demo=seed"
   },
-  "stop": "Technical promotion for SET 0.1 remains valid. Do not publish raw audio or implement Journey Ride until the three exact local songs pass recognition -> explicit seed apply -> manual mutation -> exact export/import and the existing human gate returns KEEP / REVISE / REJECT."
+  "stop": "Technical promotion is complete. Do not publish raw audio or implement Journey Ride until the three exact local songs pass recognition -> explicit seed apply -> manual mutation -> exact export/import and the human gate returns KEEP / REVISE / REJECT."
 }
