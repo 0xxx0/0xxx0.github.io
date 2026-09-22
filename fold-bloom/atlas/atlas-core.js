@@ -31,6 +31,13 @@ export function normalizeEntry(x={}){
       chars:Math.max(0,Math.trunc(Number(x.textWitness.chars)||0)),
       cues:Math.max(0,Math.trunc(Number(x.textWitness.cues)||0))
     }:null,
+    document:x.document&&typeof x.document==='object'?{
+      schema:'field-document-witness/v0.1',
+      sections:Math.min(100000,Math.max(0,Math.trunc(Number(x.document.sections)||0))),
+      paragraphs:Math.min(1000000,Math.max(0,Math.trunc(Number(x.document.paragraphs)||0))),
+      words:Math.min(10000000,Math.max(0,Math.trunc(Number(x.document.words)||0))),
+      headingDepth:Math.min(6,Math.max(0,Math.trunc(Number(x.document.headingDepth)||0)))
+    }:null,
     glyph:{
       schema:'fold-bloom-audio-glyph/v0.1',
       sourceHash:String(g.sourceHash||x.sourceHash||''),
