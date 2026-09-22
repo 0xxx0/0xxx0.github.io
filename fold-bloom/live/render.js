@@ -1,7 +1,8 @@
 import { N, TYPE_NAMES, gateCellIndex, isAligned, forecastAtSlot, forecastRelease, forecastMatchesCall, callLabel, clamp } from './engine.js';
 import {projectTrackfield} from './trackfield.js';
 import {sourceSkyEvent,releaseSkyDescriptor,opticWitness,dropBurstDescriptor} from './pov-effects.js';
-import {visualWorld,normalizeRideProfile} from './visual-worlds.js';
+import {visualWorld,normalizeRideProfile,mixVisualWorld} from './visual-worlds.js';
+import {stabilizeProjection} from './projection-smoothing.js';
 
 const TAU=Math.PI*2;
 const COLORS=['#ff9852','#6dbdff','#72e4b6'];
@@ -14,7 +15,7 @@ const rgba=(hex,a=1)=>{
 export class Renderer {
   constructor(canvas) {
     this.cv=canvas; this.g=canvas.getContext('2d'); this.w=0;this.h=0;this.cx=0;this.cy=0;this.r=0;
-    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.skyPulses=[];this.dropBursts=[];this.lastDropId=null;this.lastDropSourceT=null;this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;this.ride=null;this.landmarks=[];this.visualScene='DEEP';this.profile=normalizeRideProfile();this.reducedMotion=!!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;this.motion={t:performance.now(),speed:1,grade:0,bend:0,zoom:1,pitch:0,bank:0};
+    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.skyPulses=[];this.dropBursts=[];this.lastDropId=null;this.lastDropSourceT=null;this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;this.projected=null;this.projectedAt=performance.now();this.ride=null;this.landmarks=[];this.visualScene='DEEP';this.previousScene='DEEP';this.sceneAt=performance.now()-1000;this.profile=normalizeRideProfile();this.reducedMotion=!!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;this.motion={t:performance.now(),speed:1,grade:0,bend:0,zoom:1,pitch:0,bank:0};
     this.resize();
     addEventListener('resize',()=>this.resize(),{passive:true});
   }
@@ -25,7 +26,7 @@ export class Renderer {
   setSectionArc(view){this.sectionArc=view||null}
   setTrackfield(world){
     const prevTime=Number(this.trackfield?.time),nextTime=Number(world?.time);
-    if(Number.isFinite(prevTime)&&Number.isFinite(nextTime)&&nextTime<prevTime-.8){this.lastDropId=null;this.lastDropSourceT=null;this.dropBursts=[]}
+    if(Number.isFinite(prevTime)&&Number.isFinite(nextTime)&&nextTime<prevTime-.8){this.lastDropId=null;this.lastDropSourceT=null;this.dropBursts=[];this.projected=null}
     const d=world?.drop,sourceT=Number(d?.t);
     const sameSourceEvent=Number.isFinite(sourceT)&&Number.isFinite(this.lastDropSourceT)&&Math.abs(sourceT-this.lastDropSourceT)<.85;
     if(d&&Number(d.ahead)>=0&&Number(d.ahead)<=.46&&d.id!==this.lastDropId&&!sameSourceEvent){
@@ -36,9 +37,17 @@ export class Renderer {
     this.trackfield=world||null
   }
   setRide(view){this.ride=view||null}
-  setScene(name){this.visualScene=name||'DEEP'}
+  setScene(name){
+    name=name||'DEEP';if(name===this.visualScene)return;
+    this.previousScene=this.visualScene;this.visualScene=name;this.sceneAt=performance.now();
+  }
   setProfile(profile){this.profile=normalizeRideProfile(profile)}
-  _world(){return visualWorld(this.visualScene,this.trackfield?.current?.sectionIndex||0,{energy:this.trackfield?.current?.energy,brightness:this.trackfield?.current?.brightness})}
+  _world(now=performance.now()){
+    const section=this.trackfield?.current?.sectionIndex||0,features={energy:this.trackfield?.current?.energy,brightness:this.trackfield?.current?.brightness};
+    const to=visualWorld(this.visualScene,section,features),from=visualWorld(this.previousScene,section,features);
+    const u=clamp((now-this.sceneAt)/780,0,1),t=u*u*(3-2*u);
+    return mixVisualWorld(from,to,t);
+  }
   setLandmarks(pins){this.landmarks=Array.isArray(pins)?pins.slice(0,64).map(p=>({...p,address:Number(p.address)||0})):[]}
   _dropPulse(now){
     this.dropBursts=this.dropBursts.filter(b=>now-b.at<1900);
@@ -74,7 +83,7 @@ export class Renderer {
     const g=this.g;g.clearRect(0,0,this.w,this.h);this._background(state,now);if(road)this._pov(state,now);if(road)this._trackfield(state,now);this._section(state,now);this._creases(state,now);this._ring(state,now);this._gate(state,now);this._causal(state,now);this._pulses(state,now);this._center(state,now)
   }
   _background(state,t){
-    const g=this.g,w=this.w,h=this.h,world=this._world(),imm=this.profile?.immersion||1;
+    const g=this.g,w=this.w,h=this.h,world=this._world(t),imm=this.profile?.immersion||1;
     const grd=g.createRadialGradient(this.cx,this.cy,5,this.cx,this.cy,Math.max(w,h)*.78);
     grd.addColorStop(0,world.bg0);grd.addColorStop(1,world.bg1);g.fillStyle=grd;g.fillRect(0,0,w,h);
     g.save();g.translate(this.cx,this.cy);
@@ -207,8 +216,10 @@ export class Renderer {
     g.restore();
   }
   _trackfield(state,t){
-    const proj=projectTrackfield(this.trackfield,this.w,this.h,{rideLateral:this.ride?.lateral||0});if(!proj?.slices?.length)return;
-    const g=this.g,s=proj.slices,m=this.motion,worldStyle=this._world(),profile=this.profile||normalizeRideProfile();
+    const raw=projectTrackfield(this.trackfield,this.w,this.h,{rideLateral:this.ride?.lateral||0});if(!raw?.slices?.length)return;
+    const dt=clamp((t-this.projectedAt)/1000,0,.12);this.projectedAt=t;
+    const proj=stabilizeProjection(this.projected,raw,dt,this.reducedMotion?22:15);this.projected=proj;
+    const g=this.g,s=proj.slices,m=this.motion,worldStyle=this._world(t),profile=this.profile||normalizeRideProfile();
     g.save();
     g.translate(m.shakeX||0,m.shakeY||0);
     g.translate(this.w*.5,this.h*.72+m.pitch);
