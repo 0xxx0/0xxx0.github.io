@@ -13,7 +13,7 @@
 </div><div class="useLaw">PULSE is optional and defaults OFF. Borrowed clock ≠ borrowed authorship. RAW source remains available; pasted bytes stay session-local.</div></details>
 <div class="sourcebar"><label for="sourcePath">ADDRESS</label><input id="sourcePath" spellcheck="false" autocomplete="off" placeholder="/control/CURRENT.json"><button id="openPath">OPEN</button></div><details class="pasteFold"><summary>PASTE / LONG TEXT / SERMON</summary><div class="pasteBody"><textarea id="pasteText" placeholder="Paste anything long here. Session-local; not uploaded or written to the repo."></textarea><button id="readPaste">READ</button><div class="pasteNote">Reader state may enter the URL; pasted source bytes do not.</div></div></details>
 <div class="layout"><details class="sourceShelf"><summary>SOURCES / REPOSITORY SHELF</summary><div id="list" class="list"></div></details><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><span><button id="copyView">COPY VIEW</button> <a id="returnLink" class="returnLink" href="#" hidden>↩ RETURN</a> <a id="raw" href="#" hidden>RAW ↗</a></span></div><div class="apStage"><field-aperture id="docAperture" reader></field-aperture></div><div class="focusMeta" id="focusMeta"><b>FOCUS —</b><span>scale —</span><span>position —</span></div><div class="reading" id="reading">Select a document from the left.</div><div class="xrefBar"><b>XREF</b><div id="xrefs" class="xrefs"><span class="hint">source / citations / media near focus</span></div></div><details class="rawFold"><summary>RAW SOURCE</summary><pre id="text">Select a document from the left.</pre></details></section></div></main>
-<script src="../field-aperture.js"></script><script>
+<script src="../lib/document-structure.js"></script><script src="../field-aperture.js"></script><script>
 const docs=[
 ['CURRENT','../control/CURRENT.json','Cold-start heads, fronts, holds and recovery targets'],
 ['FI LAW','../control/FIELD_INDEX_CONTRACT.json','When a thread is allowed to touch FIELD INDEX'],
@@ -110,17 +110,17 @@ function renderXrefs(snap){
    }catch(_){}
  }
 }
-function apertureOptions(label,value){
- const opt={label};if(typeof value==='string')opt.scale='PHRASE';
+function apertureOptions(label,value,format='AUTO'){
+ const opt={label,format};if(typeof value==='string')opt.scale='PHRASE';
  if(firstLoad){for(const [k,v] of Object.entries(initialAperture))if(v!==undefined)opt[k]=v}
  return opt
 }
-function openPaste(text=PT.value,label='PASTE / SESSION'){
+function openPaste(text=PT.value,label='PASTE / SESSION',format='AUTO'){
  const s=String(text||'').trim();if(!s)return;sourceEpoch++;
  activeRaw=s;activeUrl=null;activeLabel=label;H.textContent=label;R.hidden=true;T.textContent=s;P.value='';document.querySelectorAll('.doc').forEach(b=>b.classList.remove('on'));
  try{sessionStorage.setItem('docs.reader.paste.v1',s)}catch(_){}
  const q=new URLSearchParams(location.search);q.delete('src');q.delete('handoff');q.set('paste','1');history.replaceState(null,'','?'+q.toString()+'#paste');
- const opt=apertureOptions(label,s);firstLoad=false;A.load(s,opt)
+ const opt=apertureOptions(label,s,format);firstLoad=false;A.load(s,opt)
 }
 
 docs.forEach(([n,u,d])=>{const b=document.createElement('button');b.className='doc';b.dataset.slug=slug(n);b.innerHTML='<b>'+n+'</b><span>'+d+'</span>';b.onclick=()=>openSource(n,u);L.append(b)});
@@ -130,7 +130,7 @@ async function openSource(n,value){
  try{
    const r=await fetch(u.pathname+u.search,{cache:'no-store'});if(!r.ok)throw new Error('HTTP '+r.status);
    const s=await r.text();if(epoch!==sourceEpoch)return;let value=s,out=s;if(/\.json$/i.test(u.pathname)){try{value=JSON.parse(s);out=JSON.stringify(value,null,2)}catch(_){}}
-   if(epoch!==sourceEpoch)return;activeRaw=out;activeUrl=u;activeLabel=n;T.textContent=out;const opt=apertureOptions(n,value);firstLoad=false;A.load(value,opt);syncAddress(u,n);
+   if(epoch!==sourceEpoch)return;activeRaw=out;activeUrl=u;activeLabel=n;T.textContent=out;const format=/\.(?:md|markdown)$/i.test(u.pathname)?'MD':(/\.txt$/i.test(u.pathname)?'TXT':'AUTO'),opt=apertureOptions(n,value,format);firstLoad=false;A.load(value,opt);syncAddress(u,n);
  }catch(e){if(epoch===sourceEpoch)T.textContent='Unavailable: '+e.message}
 }
 function openTyped(){const u=sourceUrl(P.value);if(!u){T.textContent='Unavailable: use a same-origin text-like path such as /control/CURRENT.json';return}openSource(sourceLabel(u),u.pathname+u.search)}
@@ -140,7 +140,7 @@ C.onclick=async()=>{const old=C.textContent;try{await navigator.clipboard.writeT
 const Q=new URLSearchParams(location.search),ret=returnUrl(Q.get('return'));if(ret){B.hidden=false;B.href=ret}
 let handoff=null;if(Q.has('handoff')){try{handoff=JSON.parse(sessionStorage.getItem('readfield.handoff.v1')||'null');sessionStorage.removeItem('readfield.handoff.v1')}catch(_){}}
 const direct=sourceUrl(Q.get('src')),paste=Q.has('paste')?(()=>{try{return sessionStorage.getItem('docs.reader.paste.v1')||''}catch(_){return''}})():'';
-if(handoff?.source){const hret=returnUrl(handoff.returnAddress);if(hret){B.hidden=false;B.href=hret}PT.value=String(handoff.source);openPaste(handoff.source,handoff.label||'PAGE / SESSION')}
+if(handoff?.source){const hret=returnUrl(handoff.returnAddress);if(hret){B.hidden=false;B.href=hret}PT.value=String(handoff.source);openPaste(handoff.source,handoff.label||'PAGE / SESSION',handoff.sourceIdentity?.format||'AUTO')}
 else if(direct)openSource(sourceLabel(direct),direct.pathname+direct.search);
 else if(paste){PT.value=paste;openPaste(paste)}
 else{const wanted=location.hash.slice(1),entry=docs.find(x=>slug(x[0])===wanted)||docs[0];if(entry)openSource(entry[0],entry[1])}
