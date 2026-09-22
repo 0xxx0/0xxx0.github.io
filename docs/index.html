@@ -116,7 +116,7 @@ function apertureOptions(label,value,format='AUTO'){
  return opt
 }
 function openPaste(text=PT.value,label='PASTE / SESSION',format='AUTO'){
- const s=String(text||'').trim();if(!s)return;sourceEpoch++;
+ const s=String(text??'');if(!s.trim())return;sourceEpoch++;
  activeRaw=s;activeUrl=null;activeLabel=label;H.textContent=label;R.hidden=true;T.textContent=s;P.value='';document.querySelectorAll('.doc').forEach(b=>b.classList.remove('on'));
  try{sessionStorage.setItem('docs.reader.paste.v1',s)}catch(_){}
  const q=new URLSearchParams(location.search);q.delete('src');q.delete('handoff');q.set('paste','1');history.replaceState(null,'','?'+q.toString()+'#paste');
