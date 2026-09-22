@@ -5,8 +5,8 @@ This file is for future ChatGPT / Hermes / a human returning cold.
 
 ## RECOVER FIRST
 
-Authoritative current family before this candidate:
-- LIVE 0.12 solid visual worlds
+Authoritative current merged family:
+- LIVE 0.13 AUTOPILOT polish — PR #151 · merge ce475fe2f9abca2068032c3dc4bdf236bcf0ee45 · CI 35705196976 PASS
 - LISTEN 0.6 source-bundle + source-hash ride tuning
 - GLYPH ATLAS 0.2 inspectable source memory
 - TWO DIAL 0.10.3 composition authority
@@ -50,7 +50,7 @@ SOURCE → MAP → PROFILE → PROJECTION → HUMAN OPERATION → RETURN
 
 The ring is a cyclic control/state projection against a linear source address. It is not the source timeline itself.
 
-## 0.13 CANDIDATE DELTA
+## 0.13 MERGED DELTA
 
 This pass is intentionally polish/performance/succession, not new ontology.
 
@@ -104,7 +104,7 @@ Use:
 - `/fold-bloom/convergence/EXECUTION_ROADMAP_2026-09-22.md`
 - `/fold-bloom/convergence/EXPERIENCE_COMPILER_SPEC_0.1.md`
 
-Do not start that sequence if human QA reports a material/jitter/drop regression in 0.13. Repair lived reality first.
+Do not start that sequence if human QA reports a material/jitter/drop/control-reachability regression in 0.13. Repair lived reality first. If 0.13 passes body QA, the next bounded move is EXPERIENCE SET v0.1 schema + exact round-trip—not another LIVE polish pass.
 
 ## CONNECTIONS WORTH PRESERVING
 
