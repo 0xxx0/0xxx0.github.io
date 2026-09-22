@@ -3,7 +3,7 @@
   "surface": "FOLD//BLOOM GLYPH ATLAS",
   "version": "0.2",
   "route": "/fold-bloom/atlas/",
-  "state": "CANDIDATE_BRANCH_VERIFY",
+  "state": "CANDIDATE_MERGED",
   "operation": "ADDRESS / PATH / RETURN",
   "released": "2026-09-22",
   "thesis": "An exact audio source becomes a deterministic glyph thumbnail that can be opened back into bounded facets of the same object—identity, structure, text witness, origin and collection—before a human authors a path or RETURN. Thumbnail and inside remain one addressed source, not two projects.",
@@ -41,9 +41,9 @@
   ],
   "verification": {
     "branch": "fold-bloom-source-cell-011",
-    "ci": "PENDING PR CI",
+    "ci": "PASS: public-surface-check 35695947970",
     "direct_use": "REQUIRED_NEXT: load 5–12 familiar source bundles, click glyph→inside, confirm recognition and that origin/text/collection facets feel like one object rather than metadata clutter.",
-    "pr": 145,
-    "merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130"
+    "pr": 146,
+    "merge_sha": "a9c902839ab6fbd01c23fa739acaffa4279e9d82"
   }
 }
