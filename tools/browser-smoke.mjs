@@ -318,6 +318,30 @@ function readfieldRouteHandoffProbeHtml(){
   <\/script></body></html>`;
 }
 
+function readfieldSourceSpineProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let doneFlag=false;
+  const done=(ok,data)=>{if(doneFlag)return;doneFlag=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=12000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(80)}throw Error('waitFor timeout: '+label)};
+  (async()=>{
+    const payload={source:'alpha line\\nbeta line\\ngamma line',label:'TEXT · SMOKE TRACK',returnAddress:'/fold-bloom/listen/',sourceKind:'LOCAL_FILE',sourceHash:'smoke-hash',sourceDuration:60,audioTime:20,
+      timeline:[{id:'C1',cueTime:10,text:'alpha line',startChar:0,endChar:10,estimated:false},{id:'C2',cueTime:20,text:'beta line',startChar:11,endChar:20,estimated:false},{id:'C3',cueTime:30,text:'gamma line',startChar:21,endChar:31,estimated:false}],
+      textAlignment:{schema:'field-text-alignment/v0.1',baseOffset:0,anchors:[{id:'A1',playTime:20,cueTime:20,label:'beta line'}]},charIndex:11,pins:[],scope:'PHRASE'};
+    sessionStorage.setItem('readfield.handoff.v1',JSON.stringify(payload));localStorage.removeItem('fold-bloom.listen.pins.v01:smoke-hash');
+    f.src='/docs/?handoff=1&source_spine=1';
+    const W=()=>f.contentWindow,D=()=>W().document;
+    const A=await waitFor(()=>D().getElementById('docAperture'),12000,'aperture');
+    await waitFor(()=>D().documentElement.dataset.readfieldSourceSpine==='v0.1'&&A.snapshot?.().char_index>=11,12000,'source spine ready');
+    rec.start=A.snapshot();rec.follow=D().getElementById('sourceFollow')?.textContent||'';rec.followHidden=D().getElementById('sourceFollow')?.hidden;rec.markHidden=D().getElementById('sourceMark')?.hidden;rec.spine=!!D().getElementById('sourceSpine');
+    A.seekFraction(.98);await waitFor(()=>/OFF/.test(D().getElementById('sourceFollow')?.textContent||''),4000,'follow release');rec.released=D().getElementById('sourceFollow').textContent;
+    D().getElementById('sourceMark').click();await sleep(120);const pins=JSON.parse(W().localStorage.getItem('fold-bloom.listen.pins.v01:smoke-hash')||'[]');rec.pinCount=pins.length;rec.pinAddress=pins[0]?.address;rec.pinLabel=pins[0]?.label;
+    const ok=rec.start.char_index>=11&&/ON/.test(rec.follow)&&rec.followHidden===false&&rec.markHidden===false&&rec.spine&&/OFF/.test(rec.released)&&rec.pinCount===1&&Number.isFinite(Number(rec.pinAddress));
+    done(ok,rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
 function apertureMultilingualProbeHtml(){
   return `<!doctype html><html><body><pre id="probeResult">PENDING</pre><script src="/field-aperture.js"></script><script>
   const result=document.getElementById('probeResult'),rec={};
@@ -488,6 +512,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(readfieldRouteHandoffProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/readfield-source-spine')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(readfieldSourceSpineProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/lens-proof')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(lensProbeHtml());return;
@@ -626,6 +654,12 @@ const CASES=[
     route:'/__smoke/readfield-handoff',
     options:{width:1040,height:820,budget:14000,timeout:20000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"label":"READ"/.test(dom)&&/"reader":true/.test(dom)
+  },
+  {
+    name:'READFIELD source spine follow + mark',
+    route:'/__smoke/readfield-source-spine',
+    options:{width:1040,height:820,budget:14000,timeout:20000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"follow":"FOLLOW AUDIO · ON"/.test(dom)&&/"released":"FOLLOW AUDIO · OFF"/.test(dom)&&/"pinCount":1/.test(dom)&&/"spine":true/.test(dom)
   },
   {
     name:'TRIANGLE unified',
