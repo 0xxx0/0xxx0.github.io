@@ -700,24 +700,30 @@ const CASES=[
   {
     name:'FOLD BLOOM convergence',
     route:'/fold-bloom/',
-    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/EXTRACTED DESCENDANT · SCALE LENS/i.test(dom)&&/TWO DIAL 0\.10/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/GLYPH ATLAS 0\.1/i.test(dom)&&/LISTEN 0\.5/i.test(dom)&&/LIVE 0\.9/i.test(dom)&&/TWO DIAL 0\.10\.3/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)
   },
   {
-    name:'FOLD BLOOM LIVE 0.8 hierarchy',
+    name:'FOLD BLOOM GLYPH ATLAS 0.1',
+    route:'/fold-bloom/atlas/',
+    options:{width:430,height:900,budget:5000},
+    check:dom=>/GLYPH ATLAS/i.test(dom)&&/DEMO CONSTELLATION/i.test(dom)&&/FILE = CELL/i.test(dom)&&/SELECTION = PATH/i.test(dom)&&dom.includes('data-glyph-atlas="ready"')&&dom.includes('data-atlas-idle="on"')&&dom.includes('id="pathRail"')&&dom.includes('id="message"')&&dom.includes('id="shareBtn"')
+  },
+  {
+    name:'FOLD BLOOM LIVE 0.9 idle drive',
     route:'/fold-bloom/live/',
     options:{width:430,height:900,budget:9000},
-    check:dom=>/LIVE 0\.8/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('id="demoBtn"')&&dom.includes('id="demoSettingsBtn"')&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="speed"')&&dom.includes('id="grade"')&&dom.includes('id="trackFile"')&&/BEAT \/ PHRASE \/ SECTION/i.test(dom)&&/AUTO RIDE DEMO/.test(dom)&&/FIELD COURSE/.test(dom)&&/same left\/right turn/i.test(dom)&&dom.includes('data-trackfield-source="FIELD_PRACTICE"')&&/data-trackfield-motion="(?!NONE)[^"]+"/.test(dom)  },
+    check:dom=>/LIVE 0\.9/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-idle-law="witness-v0.1"')&&dom.includes('data-fold-bloom-idle="on"')&&dom.includes('data-fold-bloom-landmarks="0"')&&dom.includes('id="demoBtn"')&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="trackFile"')&&/IDLE RIDE/.test(dom)&&/BEAT \/ PHRASE \/ SECTION/i.test(dom)&&/FIELD COURSE/.test(dom)&&/same left\/right turn/i.test(dom)&&dom.includes('data-trackfield-source="FIELD_PRACTICE"')&&/data-trackfield-motion="(?!NONE)[^"]+"/.test(dom)  },
   {
-    name:'TWO DIAL sound field 0.10.2 local track',
+    name:'TWO DIAL 0.10.3 idle witness',
     route:'/fold-bloom/two-dial/',
     options:{width:1180,height:900,budget:9000},
-    check:dom=>/SOUND FIELD 0\.10\.2/i.test(dom)&&/HOLD FAST \/ LET FLY/i.test(dom)&&/SCALE OF CONSEQUENCE/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')&&dom.includes('id="pulseLinkBtn"')&&dom.includes('id="trackLoadBtn"')&&dom.includes('id="trackToggleBtn"')&&dom.includes('data-fold-bloom-pulse="ready"')&&dom.includes('data-fold-bloom-local-track="ready"')
+    check:dom=>/SOUND FIELD 0\.10\.3/i.test(dom)&&/HOLD FAST \/ LET FLY/i.test(dom)&&/IDLE \/ WITNESS/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')&&dom.includes('id="pulseLinkBtn"')&&dom.includes('id="trackLoadBtn"')&&dom.includes('id="trackToggleBtn"')&&dom.includes('data-fold-bloom-pulse="ready"')&&dom.includes('data-fold-bloom-local-track="ready"')&&dom.includes('data-fold-bloom-idle="on"')
   },
   {
-    name:'FOLD BLOOM LISTEN 0.4 glyph lens',
+    name:'FOLD BLOOM LISTEN 0.5 cartographer',
     route:'/fold-bloom/listen/',
     options:{width:1180,height:900,budget:9000},
-    check:dom=>/LISTEN 0\.4/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/ADDRESS/.test(dom)&&/APERTURE/.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="key"')&&dom.includes('id="phrases"')&&dom.includes('id="glyphBtn"')&&dom.includes('id="pinBtn"')&&dom.includes('id="pinsBtn"')&&dom.includes('id="pinSheet"')&&dom.includes('id="useBtn"')&&dom.includes('id="useSheet"')&&dom.includes('data-listen-lens="field-addressed-stream/v0.1"')&&/USE THIS TRACK WITH/.test(dom)
+    check:dom=>/LISTEN 0\.5/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/ADDRESS/.test(dom)&&/APERTURE/.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="key"')&&dom.includes('id="phrases"')&&dom.includes('id="glyphBtn"')&&dom.includes('id="idleBtn"')&&dom.includes('id="pinBtn"')&&dom.includes('id="pinsBtn"')&&dom.includes('id="useAtlas"')&&dom.includes('id="useSheet"')&&dom.includes('data-listen-lens="field-addressed-stream/v0.1"')&&/RETURN · MESSAGE MAP/.test(dom)
   },
   {
     name:'FOLD BLOOM LISTEN preview render',
