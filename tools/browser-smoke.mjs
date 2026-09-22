@@ -300,6 +300,44 @@ function readerFocusProbeHtml(){
 }
 
 
+function readfieldFocusLensProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/docs/?read_view=focus"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=14000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(70)}throw new Error('waitFor timeout: '+label)};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    const A=await waitFor(()=>{const a=D().getElementById('docAperture');return a?.snapshot?.()&&D().getElementById('focusView')?a:null},14000,'READFIELD ready');
+    await waitFor(()=>D().documentElement.dataset.readfieldView==='focus'&&A.hasAttribute('focusfield'),5000,'FOCUS view');
+    rec.focusDial=W().getComputedStyle(A.shadowRoot.querySelector('.dial')).display;
+    rec.triangle=!!A.shadowRoot.querySelector('.triFrame');rec.pulseRing=!!A.shadowRoot.getElementById('pulseRing');
+    A.setWpm(6000);rec.speed=A.snapshot().wpm;rec.speedMax=A.snapshot().wpm_max;
+
+    const glyph={sourceHash:'probe-glyph',rotation:.23,radial:Array.from({length:24},(_,i)=>.30+(i%6)*.09)};
+    A.setGlyphWitness(glyph);await sleep(80);rec.glyphSpokes=A.shadowRoot.querySelectorAll('#glyphSpokes line').length;
+
+    W().dispatchEvent(new CustomEvent('field-pulse-local',{detail:{schema:'field-pulse/v0.1',source:'FOLD_BLOOM_LISTEN',instance:'probe-remote',kind:'transport',seq:1,wall:Date.now(),at:1,data:{sourceProgress:.42,beatPhase:.5,sectionProgress:.3,energy:.8,bpm:120,playing:true}}}));
+    await waitFor(()=>/120 BPM/.test(D().getElementById('pulseState')?.textContent||''),5000,'LISTEN pulse accepted');
+    rec.pulseOpacity=Number(W().getComputedStyle(A.shadowRoot.getElementById('pulseRing')).opacity)||0;rec.pulseLabel=D().getElementById('pulseState').textContent;
+
+    const pt=D().getElementById('pasteText'),pb=D().getElementById('readPaste');
+    pt.value=Array.from({length:100},(_,i)=>'# H'+i+'\\nParagraph '+i+' carries enough text for a structural marker.').join('\\n\\n');pb.click();
+    await waitFor(()=>A.A?.sections?.length>=100,12000,'100 section source');
+    A.setScale(A.scaleIndex('SECTION'));await sleep(100);
+    const structure=A.snapshot().structure||[];rec.markers=structure.length;rec.firstMarker=structure[0]?.label||'';rec.lastMarker=structure.at(-1)?.label||'';
+
+    const view=D().getElementById('focusView');view.click();await waitFor(()=>D().documentElement.dataset.readfieldView==='min',3000,'MIN view');
+    rec.min=A.hasAttribute('minimal')&&W().getComputedStyle(A.shadowRoot.querySelector('.dial')).display!=='none';
+    view.click();await waitFor(()=>D().documentElement.dataset.readfieldView==='plain',3000,'PLAIN view');
+    rec.plain=!A.hasAttribute('focusfield')&&!A.hasAttribute('minimal')&&W().getComputedStyle(A.shadowRoot.querySelector('.dial')).display==='none';
+
+    const ok=rec.focusDial!=='none'&&rec.triangle&&rec.pulseRing&&rec.speed===6000&&rec.speedMax===6000&&rec.glyphSpokes===24&&rec.pulseOpacity>0&&rec.markers===72&&rec.firstMarker==='H0'&&rec.lastMarker==='H99'&&rec.min&&rec.plain;
+    done(ok,rec);
+  })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
 function readfieldRouteHandoffProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/foundry/"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
@@ -484,6 +522,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(readerFocusProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/readfield-focus-lens')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(readfieldFocusLensProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/readfield-handoff')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(readfieldRouteHandoffProbeHtml());return;
@@ -620,6 +662,12 @@ const CASES=[
     route:'/__smoke/reader-focus',
     options:{width:1040,height:820,budget:16000,timeout:22000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"same":true/.test(dom)&&/"spans":true/.test(dom)&&/"performance":true/.test(dom)&&/"reader":true/.test(dom)&&/"session":true/.test(dom)
+  },
+  {
+    name:'READFIELD FOCUS lens convergence',
+    route:'/__smoke/readfield-focus-lens',
+    options:{width:520,height:940,budget:18000,timeout:24000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"speed":6000/.test(dom)&&/"glyphSpokes":24/.test(dom)&&/"markers":72/.test(dom)&&/"min":true/.test(dom)&&/"plain":true/.test(dom)
   },
   {
     name:'READFIELD route handoff',
