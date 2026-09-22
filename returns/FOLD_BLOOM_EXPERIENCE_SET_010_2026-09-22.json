@@ -3,8 +3,10 @@
   "id": "FOLD_BLOOM_EXPERIENCE_SET_010_2026-09-22",
   "date": "2026-09-22",
   "operation": "SPECIFIED EXPERIENCE SET -> PURE SCHEMA + ROUND TRIP + FIXTURE + TEST",
-  "status": "BRANCH_CANDIDATE",
+  "status": "MERGED_COMPLETE",
   "baseline": "master@fe5aff346592b514a481bc36db84490a8b61ad17",
+  "pullRequest": 152,
+  "mergeSha": "8debd93298b29a19b2c0d7f7672a053f56ccbe98",
   "sourceEvidence": {
     "pullRequest": 150,
     "mergeSha": "c04128f826f556bfe7a45ae3102920a2685844d4",

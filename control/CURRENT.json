@@ -219,10 +219,11 @@
       "latest_return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
       "next_executable": {
         "id": "fold-bloom-experience-set-01",
-        "state": "IMPLEMENTED_BRANCH_CANDIDATE",
-        "objective": "Verify and merge the pure fold-bloom-experience-set/v0.1 schema + encode/decode round-trip before any compositor UI.",
+        "state": "MERGED_COMPLETE",
+        "objective": "Pure fold-bloom-experience-set/v0.1 schema + encode/decode round-trip is merged; stop before any compositor UI.",
         "implementation": {
-          "branch": "fold-bloom/experience-set-010",
+          "branch": "master@8debd93298b29a19b2c0d7f7672a053f56ccbe98",
+          "pull_request": 152,
           "schema": "/fold-bloom/experience-set/experience-set.js",
           "fixture": "/fold-bloom/experience-set/fixtures/two-source-set.json",
           "tests": "/fold-bloom/experience-set/tests/experience-set.test.mjs",
