@@ -41,7 +41,7 @@ export class ListenRenderer{
   constructor(glCanvas,overlay){
     this.canvas=glCanvas;this.overlay=overlay;this.ctx=overlay.getContext('2d');
     const gl=glCanvas.getContext('webgl2',{antialias:false,alpha:false});
-    this.gl=null;this.ok=false;this.beatPulse=0;this.lastBeat=-1;this.mode='2D';
+    this.gl=null;this.ok=false;this.beatPulse=0;this.lastBeat=-1;this.mode='2D';this.pins=[];
     if(gl){
       try{
         const pr=gl.createProgram();gl.attachShader(pr,shader(gl,gl.VERTEX_SHADER,VERT));gl.attachShader(pr,shader(gl,gl.FRAGMENT_SHADER,FRAG));gl.linkProgram(pr);
@@ -63,6 +63,7 @@ export class ListenRenderer{
     this.ctx.setTransform(d,0,0,d,0,0);
   }
   markBeat(i){if(i!==this.lastBeat){this.lastBeat=i;this.beatPulse=1}}
+  setPins(pins){this.pins=Array.isArray(pins)?pins:[]}
   draw(map,feature,time,scope,playing,range=null){
     const lo=range?.[0]??0,hi=range?.[1]??map?.duration??1,span=Math.max(.001,hi-lo),progress=map?.duration?clamp((time-lo)/span,0,1):0,f=feature||{e:.1,c:.4,f:.05,l:.3,m:.4,h:.3};
     this.beatPulse*=.88;
@@ -107,6 +108,12 @@ export class ListenRenderer{
       for(const bt of map.beats||[]){if(bt<lo||bt>hi)continue;const a=angle(bt);x.beginPath();x.moveTo(Math.cos(a)*(r-12),Math.sin(a)*(r-12));x.lineTo(Math.cos(a)*(r+13),Math.sin(a)*(r+13));x.stroke()}
       x.strokeStyle='rgba(110,190,255,.95)';x.lineWidth=2.4;
       for(const sec of map.sections||[]){if(sec.t<=lo||sec.t>=hi)continue;const a=angle(sec.t);x.beginPath();x.moveTo(Math.cos(a)*(r-24),Math.sin(a)*(r-24));x.lineTo(Math.cos(a)*(r+24),Math.sin(a)*(r+24));x.stroke()}
+      for(const pin of this.pins||[]){
+        const pt=Number(pin?.address);if(!Number.isFinite(pt)||pt<lo||pt>hi)continue;
+        const a=angle(pt),inner=r+26,outer=r+39,px=Math.cos(a)*outer,py=Math.sin(a)*outer;
+        x.strokeStyle='rgba(255,179,71,.95)';x.lineWidth=2.1;x.beginPath();x.moveTo(Math.cos(a)*inner,Math.sin(a)*inner);x.lineTo(px,py);x.stroke();
+        x.fillStyle='rgba(255,179,71,.96)';x.beginPath();x.arc(px,py,3.3,0,TAU);x.fill();
+      }
       const a=angle(time);
       x.strokeStyle='white';x.lineWidth=3;x.beginPath();x.moveTo(Math.cos(a)*(r-32),Math.sin(a)*(r-32));x.lineTo(Math.cos(a)*(r+34),Math.sin(a)*(r+34));x.stroke();
       x.fillStyle='white';x.beginPath();x.arc(Math.cos(a)*(r+34),Math.sin(a)*(r+34),3.2,0,TAU);x.fill();
