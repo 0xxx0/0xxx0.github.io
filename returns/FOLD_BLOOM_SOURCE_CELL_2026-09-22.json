@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_SOURCE_CELL_2026-09-22",
   "date": "2026-09-22",
   "operation": "SINGLE AUDIO FILE → SOURCE BUNDLE → GLYPH THUMBNAIL → INSIDE → UNEQUAL PROJECTIONS",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "route": "/fold-bloom/",
   "delta": [
     "Suno link failure preserves origin/meta and can bind later to exact local bytes",
@@ -11,5 +11,11 @@
     "Glyph Atlas focus opens bounded facets of the same cell",
     "podcast/comms paths now have a provider-independent substrate"
   ],
-  "next_truth": "Use one familiar Suno/downloaded track or M4A plus optional lyrics/transcript: can the same source move through LISTEN → GLYPH INSIDE → PATH/READ/RIDE without feeling like separate apps?"
+  "next_truth": "Use one familiar Suno/downloaded track or M4A plus optional lyrics/transcript: can the same source move through LISTEN → GLYPH INSIDE → PATH/READ/RIDE without feeling like separate apps?",
+  "pr": 146,
+  "merge_sha": "a9c902839ab6fbd01c23fa739acaffa4279e9d82",
+  "ci": {
+    "run": 35695947970,
+    "result": "PASS"
+  }
 }
