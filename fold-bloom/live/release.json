@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
   "version": "LIVE 0.8",
-  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
+  "status": "ACTIVE_CANDIDATE_MERGED",
   "date": "2026-09-22",
   "donors": [
     {
@@ -148,7 +148,9 @@
     "motion_merge_sha": "3dc38617be81ac215b95998ba14ff82fb1a5e2d9",
     "motion_ci": "PASS: public-surface-check run 35680273840, including interpolation/grade/speed/practice-course/deformation/ride tests and critical browser smoke",
     "motion_regression": "CI caught old adjacent-frame SURGE detection becoming invalid after smoothing; replaced with temporal-window impact-rise detection before merge.",
-    "horizon_08": "PENDING_CI"
+    "horizon_08": "PASS: public-surface-check run 35690332201; steeper TRACKFIELD, phrase hierarchy, source-hash transport, ride/deformation/practice tests and critical browser smoke all green.",
+    "horizon_08_pr": 144,
+    "horizon_08_merge_sha": "36ca59b4658a95238e0474ae727d301901a991ac"
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_MOTION_2026-09-22.json",
