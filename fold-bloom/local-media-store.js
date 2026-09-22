@@ -100,12 +100,12 @@ export function localMediaFile(record){
 }
 
 export async function requestPersistentLocalStorage(){
-  try{return !!(await navigator?.storage?.persist?.())}catch(_){return false}
+  try{return !!(await globalThis.navigator?.storage?.persist?.())}catch(_){return false}
 }
 
 export async function localStorageEstimate(){
   try{
-    const estimate=await navigator?.storage?.estimate?.();
+    const estimate=await globalThis.navigator?.storage?.estimate?.();
     return {usage:Number(estimate?.usage)||0,quota:Number(estimate?.quota)||0};
   }catch(_){return {usage:0,quota:0}}
 }
