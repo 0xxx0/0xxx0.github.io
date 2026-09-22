@@ -19,7 +19,7 @@ function probe(){return '<!doctype html><html><body><iframe id="f" style="width:
 "const draft=D().getElementById('draft');draft.value='I will handle the addressed request without duplicating the other branch.';draft.dispatchEvent(new Event('input',{bubbles:true}));D().getElementById('coverBtn').click();await sleep(140);"+
 "const st=W().CommsSpine.state(),covered=st.signals.filter(x=>x.kind==='ASK'&&x.state==='COVERED');rec.covered=covered.length;rec.human=st.signals.filter(x=>x.origin==='HUMAN').length;rec.sourceId=st.sourceId;rec.draft=st.draft.length;rec.overflow=Math.max(D().documentElement.scrollWidth,D().body.scrollWidth)-D().documentElement.clientWidth;rec.packet=W().CommsSpine.buildAgentPacket()?.schema;"+
 "done(rec.messages==='4'&&rec.signals0>0&&rec.signals1>rec.signals0&&rec.covered>=1&&rec.human>=1&&/^sha256:/.test(rec.sourceId)&&rec.draft>10&&rec.packet==='comms-spine-agent-packet/v0.1'&&rec.overflow<=1,rec)})().catch(e=>done(false,{error:String(e&&e.stack||e),...rec}));"+
-"<\\/script></body></html>"}
+'</scr'+'ipt></body></html>'}
 const server=http.createServer((req,res)=>{if(String(req.url).startsWith('/__comms')){res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});res.end(probe());return}const file=fileFor(req.url);if(!file){res.writeHead(404);res.end('not found');return}res.writeHead(200,{'content-type':type(file),'cache-control':'no-store'});fs.createReadStream(file).pipe(res)});
 await new Promise(r=>server.listen(PORT,HOST,r));
 const bin=browserBin(),args=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--hide-scrollbars','--window-size=520,940','--virtual-time-budget=24000','--dump-dom','http://'+HOST+':'+PORT+'/__comms'];
