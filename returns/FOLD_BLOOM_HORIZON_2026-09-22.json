@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_HORIZON_2026-09-22",
   "date": "2026-09-22",
   "operation": "DIRECT DELIGHT RETURN → STEEPEN TERRAIN → MAKE TEMPORAL HIERARCHY EXPLICIT → COMPILE SOURCE GLYPH → SAME-SOURCE TWO DIAL CONTEXT → VERIFY",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "routes": [
     "/fold-bloom/live/",
     "/fold-bloom/listen/",
@@ -25,5 +25,11 @@
     "Ecology as unequal lineage/game rather than a copied audio skin"
   ],
   "next_truth": "Use one familiar local track across LISTEN→LIVE→Two Dial. Judge source continuity, glyph recognizability, phrase boundaries, slope physicality and composition feel.",
-  "stop": "No learned-model browser payload, Ecology audio graft, time-stretch or glyph similarity-as-lineage before direct return."
+  "stop": "No learned-model browser payload, Ecology audio graft, time-stretch or glyph similarity-as-lineage before direct return.",
+  "pr": 144,
+  "merge_sha": "36ca59b4658a95238e0474ae727d301901a991ac",
+  "ci": {
+    "run": 35690332201,
+    "result": "PASS"
+  }
 }
