@@ -3339,14 +3339,14 @@
     },
     {
       "href": "/docs/",
-      "title": "READFIELD / RSVP 0.8 · FOCUS LENS",
+      "title": "READFIELD / RSVP 0.8.1 · FOCUS LENS",
       "kind": "utility",
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": true,
-      "role": "Canonical high-performance reader with one exact source position across PLAIN / FOCUS / MIN projections. PLAIN preserves the geometry-free fast reader; FOCUS restores an optional AXIAL/LISTEN ring with Triangle-derived center frame, LISTEN FIELD PULSE witness and optional Atlas source-glyph spokes; MIN retains only ring + ORP/RSVP essentials. Audio/glyph remain witnesses; text/focus authority stays in READFIELD.",
+      "role": "Canonical high-performance reader with one exact source position across FOCUS / MIN / PLAIN projections. FOCUS is now the visible default: AXIAL/LISTEN address+aperture rings, Triangle-derived center frame, optional LISTEN FIELD PULSE witness and Atlas source-glyph spokes surround the same RSVP/ORP cursor. MIN strips this to ring + RSVP essentials; PLAIN remains the explicit lowest-cost geometry-free performance mode.",
       "index": {
-        "updated_at": "2026-09-23T05:17:00+08:00",
+        "updated_at": "2026-09-23T06:18:00+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
@@ -3355,8 +3355,8 @@
       },
       "transfer": [
         "one canonical source cursor across DOCUMENT/SECTION/PARAGRAPH/SENTENCE/PHRASE/WORD/GRAPHEME",
-        "PLAIN reader keeps ring geometry absent for lowest ordinary rendering cost",
-        "FOCUS optionally projects AXIAL address/aperture rings + Triangle center frame over the same cursor",
+        "PLAIN remains an explicit geometry-free performance fallback",
+        "FOCUS is the visible default and projects AXIAL address/aperture rings + Triangle center frame over the same cursor",
         "MIN reduces the focus lens to ring + ORP/RSVP essentials",
         "LISTEN FIELD PULSE supplies clock/energy witness only; borrowed clock != borrowed authorship",
         "Glyph Atlas document handoff may carry the already-derived exact-source glyph witness without changing text identity",
@@ -3426,7 +3426,7 @@
           "return_path": "/docs/"
         }
       },
-      "version": "0.8",
+      "version": "0.8.1",
       "tier": "FIELD"
     },
     {
