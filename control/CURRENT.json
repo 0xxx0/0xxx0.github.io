@@ -175,7 +175,11 @@
         "/control/confluence/FOLD_BLOOM_NERVOUS_SYSTEM_RETURN_2026-09-22.json",
         "/returns/FOLD_BLOOM_NERVOUS_SYSTEM_2026-09-22.json",
         "/control/confluence/FOLD_BLOOM_VISUAL_WORLD_RETURN_2026-09-22.json",
-        "/returns/FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json"
+        "/returns/FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json",
+        "/fold-bloom/convergence/README.md",
+        "/fold-bloom/convergence/EXECUTION_ROADMAP_2026-09-22.md",
+        "/fold-bloom/convergence/DESIGN_DOCTRINE_2026-09-22.md",
+        "/fold-bloom/convergence/EXPERIENCE_COMPILER_SPEC_0.1.md"
       ],
       "experimental": [
         {
@@ -207,7 +211,20 @@
         }
       ],
       "merge_sha": "44ebcd809313ac633c13bbadc199c2b2e2e5997c",
-      "latest_return": "/returns/FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json"
+      "latest_return": "/returns/FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json",
+      "next_executable": {
+        "id": "fold-bloom-experience-set-01",
+        "state": "SPECIFIED_NOT_STARTED",
+        "objective": "Implement fold-bloom-experience-set/v0.1 as a pure, exact, round-trippable higher-order source object before building the compositor UI.",
+        "sequence": [
+          "EXPERIENCE SET v0.1 schema + tests + import/export",
+          "SET COMPOSITOR 0.1 / block-Tetris authoring surface",
+          "JOURNEY RIDE 0.1 / continuous multi-source traversal",
+          "SOURCE SHELL 0.1 / RIDE · SEE · SHAPE",
+          "PODCAST ADAPTER 0.1 / first non-music proof"
+        ],
+        "law": "Complete → RETURN → replan after each bounded move. 0.12 body QA can interrupt this sequence if material/event coherence regresses."
+      }
     },
     {
       "lineage": "axial",
