@@ -24,15 +24,12 @@ export function textWitnessAt(evidence,time=0,duration=0){
   if(!evidence?.text)return null;
   const cues=Array.isArray(evidence.cues)?evidence.cues:[];
   if(cues.length){
-    let hit=null;
-    for(const cue of cues){
-      if(Number(cue.start)<=time&&(cue.end==null||Number(cue.end)>=time))hit=cue;
-      if(Number(cue.start)>time)break;
+    let lo=0,hi=cues.length-1,ix=-1;
+    while(lo<=hi){const mid=(lo+hi)>>1;if((Number(cues[mid]?.start)||0)<=time){ix=mid;lo=mid+1}else hi=mid-1}
+    if(ix>=0){
+      const hit=cues[ix];
+      return {kind:evidence.kind||'TEXT',mode:'TIMED',alignment:evidence.alignment||'TIMED',text:String(hit.text||'').trim(),start:Number(hit.start)||0,end:hit.end==null?null:Number(hit.end),approx:false};
     }
-    if(!hit){
-      for(let i=cues.length-1;i>=0;i--)if(Number(cues[i].start)<=time){hit=cues[i];break}
-    }
-    if(hit)return {kind:evidence.kind||'TEXT',mode:'TIMED',alignment:evidence.alignment||'TIMED',text:String(hit.text||'').trim(),start:Number(hit.start)||0,end:hit.end==null?null:Number(hit.end),approx:false};
   }
   const lines=String(evidence.text||'').split(/\r?\n+/).map(x=>x.trim()).filter(Boolean);
   if(!lines.length)return null;
