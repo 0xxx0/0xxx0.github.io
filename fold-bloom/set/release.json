@@ -4,15 +4,22 @@
   "title": "FOLD//BLOOM SET 0.1.1",
   "version": "0.1.1",
   "date": "2026-09-22",
-  "state": "BRANCH_CANDIDATE",
+  "state": "BRANCH_CANDIDATE_OVER_MERGED_HUMAN_GATE",
   "route": "/fold-bloom/set/",
   "consumes": "fold-bloom-experience-set/v0.1",
   "operation": "SHAPE",
   "baseline": {
+    "state": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
     "pullRequest": 158,
     "mergeSha": "65257b7ed3d8e9afef0324f0775efce90ba8f789",
-    "sealPullRequest": 159,
-    "sealMergeSha": "f60a9d6d8ba696f9d1223d4814375871a4b2b1b4"
+    "ci": {
+      "run": 1635,
+      "status": "PASS"
+    },
+    "seal": {
+      "pullRequest": 159,
+      "mergeSha": "f60a9d6d8ba696f9d1223d4814375871a4b2b1b4"
+    }
   },
   "delta": [
     "recognize four user-supplied local sources by exact SHA-256 without publishing audio bytes",
@@ -28,6 +35,7 @@
     "ORDER IS AUTHORED",
     "SEAMS ARE EXPLICIT",
     "CUT / DISSOLVE / CARRY / RESET INTERIOR; RETURN CLOSES",
+    "REORDER MUST NOT CHANGE CHILD SOURCE IDENTITY",
     "SET AUTHORSHIP DOES NOT ACQUIRE MAP / ANALYZER AUTHORITY"
   ],
   "evidence": {
@@ -36,7 +44,8 @@
     "catalog": "/fold-bloom/test-packs/catalog.json",
     "catalogCore": "/fold-bloom/test-packs/test-pack-core.js",
     "catalogTests": "/fold-bloom/test-packs/tests/test-pack-core.test.mjs",
-    "browser": "/fold-bloom/set/?demo=seed"
+    "genericBrowser": "/fold-bloom/set/?demo=1",
+    "seedBrowser": "/fold-bloom/set/?demo=seed"
   },
-  "stop": "Do not publish raw audio, implement Journey Ride, add provider catalogs, start DJ timeline editing, or expand Experience Set fields in this pass."
+  "stop": "Technical promotion for SET 0.1 remains valid. Do not publish raw audio or implement Journey Ride until the three exact local songs pass recognition -> explicit seed apply -> manual mutation -> exact export/import and the existing human gate returns KEEP / REVISE / REJECT."
 }
