@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_ATLAS_IDLE_2026-09-22",
   "date": "2026-09-22",
   "operation": "RECOVER PATH/PALIMPSEST LINEAGE → MATERIALIZE GLYPH ATLAS → DEMOTE DEMO TO WITNESS IDLE → RECOVER LOCAL LYRICS → TURN PINS INTO ADDRESS PATH/LANDMARKS → VERIFY",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "routes": [
     "/fold-bloom/atlas/",
     "/fold-bloom/listen/",
@@ -25,5 +25,11 @@
     "common IDLE contract and updated pure intention/center mass"
   ],
   "next_truth": "Use one personally familiar track: annotate it in LISTEN, let IDLE run, encounter its marks in LIVE, carry lyrics to READFIELD if embedded, then put it beside several familiar tracks in Atlas.",
-  "stop": "No learned-neighborhood/social/timed-lyrics/Ecology expansion until direct human return."
+  "stop": "No learned-neighborhood/social/timed-lyrics/Ecology expansion until direct human return.",
+  "pr": 145,
+  "merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130",
+  "ci": {
+    "run": 35693062152,
+    "result": "PASS"
+  }
 }
