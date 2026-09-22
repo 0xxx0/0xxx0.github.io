@@ -2,7 +2,7 @@
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM LISTEN",
   "version": "0.5",
-  "state": "CANDIDATE_BRANCH_VERIFY",
+  "state": "CANDIDATE_MERGED",
   "operation": "LISTEN",
   "route": "/fold-bloom/listen/",
   "date": "2026-09-22",
@@ -121,7 +121,9 @@
     "horizon_04": "PASS: public-surface-check run 35690332201; phrase novelty/fallback, deterministic audio glyph, stream lens, source adapter, preview render and full browser regression green.",
     "horizon_04_pr": 144,
     "horizon_04_merge_sha": "36ca59b4658a95238e0474ae727d301901a991ac",
-    "listen_05": "PENDING_CI"
+    "listen_05": "PASS: public-surface-check 35693062152; ID3/USLT parser, Atlas core, stream lens/source adapter, preview render and LISTEN 0.5 browser surface green.",
+    "listen_05_pr": 145,
+    "listen_05_merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · portable donor=field-addressed-stream/v0.1",
   "updated": "2026-09-22",
