@@ -29,13 +29,20 @@ test('three-song seed is recognized regardless of selection order',()=>{
   assert.equal(progress.matched,3);
 });
 
-test('pack plan restores seed order and keeps unrelated sources behind it',()=>{
+test('pack plan restores seed order and reports unrelated sources explicitly',()=>{
   const extra='sha256:'+'f'.repeat(64);
   const plan=buildPackPlan(catalog,'work-trance-seed-2026-09-22',[songIds[2],extra,songIds[0],songIds[1]]);
   assert.equal(plan.complete,true);
+  assert.deepEqual(plan.extras,[extra]);
   assert.deepEqual(plan.orderedSourceIds,[...songIds,extra]);
   assert.deepEqual(plan.entries.map(x=>x.transitionOut),['CARRY','DISSOLVE','RETURN']);
   assert.deepEqual(plan.entries.map(x=>x.weight),[.85,1.2,1]);
+});
+
+test('exact pack plan has an empty extras witness for browser consumers',()=>{
+  const plan=buildPackPlan(catalog,'work-trance-seed-2026-09-22',[songIds[2],songIds[0],songIds[1]]);
+  assert.equal(plan.complete,true);
+  assert.deepEqual(plan.extras,[]);
 });
 
 test('long-form source remains a separate stress pack',()=>{
