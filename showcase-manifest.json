@@ -3339,14 +3339,14 @@
     },
     {
       "href": "/docs/",
-      "title": "READFIELD / RSVP 0.7.1",
+      "title": "READFIELD / RSVP 0.8 · FOCUS LENS",
       "kind": "utility",
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": true,
-      "role": "Canonical reader: one source position survives scale, ORP RSVP, VOICE and context changes. 0.7.1 makes the practical modes explicit and adds a LISTEN workflow entry: ?pulse=2|4|8 may borrow the latest same-session BPM immediately, with LIVE vs LAST witness, while READFIELD retains text/focus authority. Same-origin repo text and session-local page/paste/lyrics handoffs enter directly; RAW and RETURN remain intact.",
+      "role": "Canonical high-performance reader with one exact source position across PLAIN / FOCUS / MIN projections. PLAIN preserves the geometry-free fast reader; FOCUS restores an optional AXIAL/LISTEN ring with Triangle-derived center frame, LISTEN FIELD PULSE witness and optional Atlas source-glyph spokes; MIN retains only ring + ORP/RSVP essentials. Audio/glyph remain witnesses; text/focus authority stays in READFIELD.",
       "index": {
-        "updated_at": "2026-09-22T08:37:00+08:00",
+        "updated_at": "2026-09-23T05:17:00+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
@@ -3355,20 +3355,20 @@
       },
       "transfer": [
         "one canonical source cursor across DOCUMENT/SECTION/PARAGRAPH/SENTENCE/PHRASE/WORD/GRAPHEME",
-        "reader-first ORP + linear source strip; ring geometry optional/internal",
-        "ORP RSVP at 60–3000 WPM with direct speed rail",
+        "PLAIN reader keeps ring geometry absent for lowest ordinary rendering cost",
+        "FOCUS optionally projects AXIAL address/aperture rings + Triangle center frame over the same cursor",
+        "MIN reduces the focus lens to ring + ORP/RSVP essentials",
+        "LISTEN FIELD PULSE supplies clock/energy witness only; borrowed clock != borrowed authorship",
+        "Glyph Atlas document handoff may carry the already-derived exact-source glyph witness without changing text identity",
+        "ORP RSVP at 60–6000 WPM with 10 ms minimum scheduler dwell",
+        "up to 72 evenly sampled structural witnesses across the full source rather than the first 40 only",
         "VOICE boundary charIndex → same source cursor without forcing WORD scale",
         "throttled highlighted context projection during high-speed play",
-        "section / JSON-branch structure markers cached across temporal ticks",
-        "near-focus source/citation/media XREF strip",
-        "same-origin repo text ingress + route-wide READFIELD handoff",
-        "session-local long-text/page paste",
-        "RAW + RETURN preserved",
-        "FIELD PULSE tempo consumer / focus producer",
-        "explicit LISTEN→READFIELD workflow entry + LIVE/LAST tempo witness"
+        "same-origin repo text ingress + session-local long-text/page paste",
+        "RAW + RETURN preserved"
       ],
       "operation": "READ",
-      "receipt": "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
+      "receipt": "/returns/READFIELD_FOCUS_LENS_080_2026-09-23.json",
       "contract": {
         "accepts": {
           "kinds": [
@@ -3387,7 +3387,7 @@
           ]
         },
         "transforms": {
-          "verb": "read one source through scale × position × time while preserving one canonical source position; context and geometry remain projections, not prerequisites",
+          "verb": "read one source through scale × position × time while preserving one canonical source position; optionally project rings, triangle center, LISTEN pulse and source glyph around that position without transferring source authority",
           "preserves": [
             "source bytes/text",
             "canonical source position",
@@ -3409,19 +3409,30 @@
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
+          "receipt": "/returns/READFIELD_FOCUS_LENS_080_2026-09-23.json",
           "checks": [
-            "WORD→SENTENCE→PARAGRAPH→SECTION source-position invariance",
-            "reader mode does not require ring geometry",
-            "high-speed focus events outpace contextual DOM reconstruction",
-            "route-wide READ handoff preserves return address",
-            "section markers + ap_char resume + session-local paste + citation/media XREF",
+            "PLAIN retains hidden dial + throttled high-speed context contract",
+            "FOCUS exposes ring + triangle without moving canonical source cursor",
+            "MIN reduces geometry without creating a second reader state",
+            "6000 WPM is addressable while timing remains bounded by 10 ms dwell floor",
+            "72 structural markers are evenly sampled across long sources",
+            "LISTEN pulse is projection-only; Atlas glyph handoff is witness-only",
+            "route-wide READ handoff preserves RETURN",
             "browser smoke"
           ],
           "return_path": "/docs/"
-        }
+        },
+        "optional": [
+          "return address",
+          "starting scale",
+          "starting char/path position",
+          "WPM",
+          "projection view PLAIN / FOCUS / MIN",
+          "LISTEN FIELD PULSE transport witness",
+          "Atlas glyph witness"
+        ]
       },
-      "version": "0.7.1",
+      "version": "0.8",
       "tier": "FIELD"
     },
     {
