@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22",
   "date": "2026-09-22",
   "object": "SET COMPOSITOR 0.1 / G2",
-  "status": "BRANCH_CANDIDATE",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "baseline": "master@e5ead6c3893581c75dd512db8cc28eb3268b54b6",
   "input": "merged fold-bloom-experience-set/v0.1",
   "implemented": [
@@ -27,5 +27,12 @@
     "human: can a 3–7 source set be authored quickly enough to justify Journey Ride"
   ],
   "stop": "No Journey Ride or source-shell implementation in this pass.",
-  "return": "/returns/FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json",
+  "pullRequest": 158,
+  "mergeSha": "65257b7ed3d8e9afef0324f0775efce90ba8f789",
+  "ci": {
+    "workflow": "public-surface-check",
+    "run": 1635,
+    "conclusion": "success"
+  }
 }

@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_SOURCE_SPINE_CONVERGENCE_2026-09-22",
   "date": "2026-09-22",
   "object": "FOLD//BLOOM post-Experience-Set convergence / recovered source-editor intent",
-  "status": "BRANCH_CANDIDATE",
+  "status": "MERGED_COMPLETE",
   "baseline": "master@30f9e96863fa23e0719fc09f0aed8252c4f179ae",
   "recovered_user_intent": [
     "LISTEN should mature into an editor/calibration/annotation surface rather than remain mainly a workflow launcher.",
@@ -41,5 +41,7 @@
     "No single 430×900 real-MP3 regression currently proves local load → address/aperture gesture → pin persistence → LIVE grade/speed/SPLIT continuity."
   ],
   "stop": "Update authority, intent and successor state only. Do not create a SOURCE SPINE app or start compositor/runtime implementation in this convergence pass.",
-  "return": "/returns/FOLD_BLOOM_SOURCE_SPINE_CONVERGENCE_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_SOURCE_SPINE_CONVERGENCE_2026-09-22.json",
+  "pullRequest": 156,
+  "mergeSha": "e5ead6c3893581c75dd512db8cc28eb3268b54b6"
 }

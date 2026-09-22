@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_SOURCE_SPINE_CONVERGENCE_2026-09-22",
   "date": "2026-09-22",
   "operation": "RECOVER OTHER DESIGN THREAD → COMPARE CURRENT HEAD → COLLAPSE DRIFT → PRESERVE NEXT EXECUTABLE",
-  "status": "BRANCH_CANDIDATE",
+  "status": "MERGED_COMPLETE",
   "baseline": "master@30f9e96863fa23e0719fc09f0aed8252c4f179ae",
   "delta": [
     "Experience Set is treated as completed rather than future work.",
@@ -21,5 +21,7 @@
     "/control/PURE_INTENTION.json",
     "/control/confluence/FOLD_BLOOM_SOURCE_SPINE_CONVERGENCE_2026-09-22.json"
   ],
-  "stop": "No compositor/runtime implementation and no new source-spine app in this pass."
+  "stop": "No compositor/runtime implementation and no new source-spine app in this pass.",
+  "pullRequest": 156,
+  "mergeSha": "e5ead6c3893581c75dd512db8cc28eb3268b54b6"
 }
