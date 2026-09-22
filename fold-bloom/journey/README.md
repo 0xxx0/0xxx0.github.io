@@ -1,8 +1,8 @@
 # FOLD//BLOOM — JOURNEY RIDE 0.1
 
-Route: `/fold-bloom/journey/`
+Route: `/fold-bloom/set/journey.html`
 
-Journey Ride consumes the existing `fold-bloom-experience-set/v0.1` object and exact local media bindings from the same-origin local vault.
+Journey Ride is a traversal mode behind SET, not another top-level Fold/Bloom app. It consumes the existing `fold-bloom-experience-set/v0.1` object and exact local media bindings from the same-origin local vault.
 
 ## One-selection continuity
 
@@ -11,6 +11,8 @@ Journey Ride consumes the existing `fold-bloom-experience-set/v0.1` object and e
 3. SET remains byte-free and stores source references only.
 4. LISTEN may open `?source=sha256:…` and resolve the local blob without another picker interaction.
 5. JOURNEY resolves every set entry from the same vault.
+
+The hash-only seed demo cannot contain the audio itself. After the real files are selected once in the same browser/site origin, SET → LISTEN → JOURNEY can reuse them until site data is cleared or browser storage evicts them.
 
 Nothing is uploaded. Clearing site data removes the local blobs. Browser storage quotas still apply.
 
@@ -39,7 +41,7 @@ Nothing is uploaded. Clearing site data removes the local blobs. Browser storage
 - core tests: `/fold-bloom/journey/tests/journey-core.test.mjs`
 - local vault: `/fold-bloom/local-media-store.js`
 - cross-surface browser proof: `/tools/fold-bloom-spine-smoke.mjs`
-- synthetic route: `/fold-bloom/journey/?demo=1`
+- synthetic route: `/fold-bloom/set/journey.html?demo=1`
 
 ## Stop
 
