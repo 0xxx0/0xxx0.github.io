@@ -34,7 +34,7 @@ test('repeated steering in same direction does not spam branch trace',()=>{
 
 test('ride lateral motion eases toward branch and recenters after split passes',()=>{
   let s=chooseRideBranch(createRideState(),1,world([splitPoint(.2)]),10).state;
-  for(let i=0;i<20;i++)s=advanceRide(s,world([splitPoint(0,'split:1')]),.016,10+i*.016);
+  for(let i=0;i<20;i++)s=advanceRide(s,world([splitPoint(0,.7,'split:1')]),.016,10+i*.016);
   assert.ok(s.lateral>.7);
   for(let i=0;i<30;i++)s=advanceRide(s,world([{t:11,ahead:0,deformSplit:0,deformReturn:0,deformActive:[]}]),.016,11+i*.016);
   assert.equal(s.choice,0);
