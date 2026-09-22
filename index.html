@@ -49,6 +49,12 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 #foveaLens{position:fixed;left:0;top:0;width:120px;height:120px;pointer-events:none;z-index:9998;opacity:0;transition:opacity .18s ease;will-change:transform;mix-blend-mode:screen}
 #foveaLens svg{display:block;overflow:visible}
 #foveaLens[data-band="FOVEA"]{filter:drop-shadow(0 0 6px rgba(114,188,231,.35))}
+#foveaOut{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:5px;max-width:300px;
+ padding:4px 7px;border:1px solid #2a3439;background:#080b0e;color:var(--mut);font-size:7px;line-height:1.35;
+ white-space:nowrap;pointer-events:none;border-radius:2px;box-shadow:0 2px 10px rgba(0,0,0,.5)}
+#foveaOut b{display:block;color:#dfe7ea;font-weight:600;font-size:7.5px}
+#foveaOut i{display:block;font-style:normal;color:var(--gold);font-size:6.5px;letter-spacing:.06em;margin-top:1px}
+#foveaOut:empty{display:none}
 #foveaToggle{display:none}
 #foveaToggle.ready{display:inline-block}
 #foveaToggle.on{color:var(--gold);border-color:var(--gold)}
@@ -263,7 +269,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   </div>
 </details>
 
-<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>same route · chronology / axial / map · focus first · second click opens local route</span><button id="foveaToggle" title="Cursor lens — follows the pointer and reads whatever is beneath it. Toggle with the f key.">◎ FOVEA</button></div>
+<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>same route · chronology / axial / map · focus first · second click opens local route</span><button id="foveaToggle" title="READ WITHOUT CLICKING. Sweep the pointer over any glyph to read its title and state in place — click to select it, shift-click to open it, scroll to step through its peers. Nothing opens unless you mean it. Toggle: f key.">◎ FOVEA</button></div>
 
 <script src="./field-presentation.js"></script>
 <script src="./field-glyph.js"></script>
@@ -508,6 +514,15 @@ function fieldRise(){if(mapRoot==='/')return;mapRoot=routeMap().get(mapRoot)?.pa
 function fieldPeer(delta){if(!focus)return;const parent=focus.parent||'/',xs=(childrenMap().get(parent)||[]);if(!xs.length)return;let i=xs.findIndex(r=>r.href===focus.href);if(i<0)i=0;i=(i+Number(delta||0)+xs.length)%xs.length;focusRoute(xs[i],true,'OTHER')}
 function fieldVisualKids(){return (childrenMap().get(mapRoot)||[]).filter(mapMatches)}
 window.__fieldRouteMap={get:h=>routeMap().get(h),all:()=>routeMap()};
+/* THE ACTING HAND — the fovea lens needs to DO things, not just show.
+   focus = select in place (never navigate) · open = enter · peer = step siblings */
+window.__fieldAct=Object.freeze({
+  focus:href=>{const r=routeMap().get(href);if(!r)return null;focusRoute(r,true,'LENS');return r.href},
+  open:href=>{const r=routeMap().get(href);if(!r)return null;focusOrOpen(r,'LENS');return r.href},
+  peer:d=>fieldPeer(d),rise:()=>fieldRise(),dive:()=>fieldDive(),
+  focusHref:()=>focus?.href||null,
+  siblings:()=>{const p=focus?.parent||'/';return (childrenMap().get(p)||[]).map(r=>r.href)}
+});
 window.FieldLensHost=Object.freeze({focus:()=>focus,uiState:fieldUiState,restore:fieldRestore,project:fieldProject,projection:()=>($('mapFold').open?mapMode:'AXIAL_LATEST'),rise:fieldRise,dive:fieldDive,peer:fieldPeer,visualKids:fieldVisualKids,notify:notifyFieldIndex});
 })();
 </script>

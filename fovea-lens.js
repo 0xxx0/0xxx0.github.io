@@ -139,7 +139,38 @@ function place(){
   const t=probe(x,y);
   const key=(t?.href||'')+'|'+(MAP()?.all?MAP().all().size:0);
   if(key!==(el.dataset.key||'')){el.dataset.key=key;target=t;draw()}
-  if(t&&el.dataset.href!==t.href){el.dataset.href=t.href;el.title=t.title||t.href}
+  if(t&&el.dataset.href!==t.href){el.dataset.href=t.href;el.title=t.title||t.href;readout(t)}
+}
+
+/* ---- THE READOUT: inspect without navigating. This is the utility. ----
+ * The lens is big enough to read. You sweep the field and read each route in
+ * place; you never click into anything you did not mean to open. */
+function readout(t){
+  const o=document.getElementById('foveaOut');
+  if(!o)return;
+  if(!t||!t.href){o.textContent='';o.dataset.kind='';return}
+  const r=MAP()?.get?.(t.href)||{};
+  const acts=(window.__fieldAct&&window.__fieldAct.siblings)?.()?.length||0;
+  const st=String(r.state||'—'), kd=String(r.kind||'—');
+  const meta=(st.toLowerCase()===kd.toLowerCase())?st:(st+' · '+kd);
+  o.innerHTML='<b>'+esc(r.title||t.href)+'</b><i>'+esc(meta)+(acts?' · '+acts+' peers':'')+'</i>';
+  o.dataset.kind=r.state||'';
+}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+
+/* ---- ACT at the point of attention ---- */
+function onClick(e){
+  if(!on)return;
+  const t=target; if(!t||!t.href)return;
+  if(e.shiftKey){window.__fieldAct?.open?.(t.href)}
+  else{window.__fieldAct?.focus?.(t.href)}
+  setTimeout(place,30);
+}
+function onWheel(e){
+  if(!on)return;
+  const d=e.deltaY>0?1:-1;
+  window.__fieldAct?.peer?.(d);
+  setTimeout(place,40);
 }
 function loop(){if(!on)return;place();raf=requestAnimationFrame(loop)}
 
@@ -151,7 +182,8 @@ function ensure(){
   if(el)return el;
   el=document.createElement('div');
   el.id='foveaLens';el.setAttribute('aria-hidden','true');
-  el.innerHTML='<svg viewBox="0 0 120 120" width="120" height="120"><g id="foveaRing"></g></svg>';
+  el.innerHTML='<svg viewBox="0 0 120 120" width="120" height="120"><g id="foveaRing"></g></svg>'
+    +'<div id="foveaOut" aria-live="polite"></div>';
   document.body.appendChild(el);
   ring=el.querySelector('#foveaRing');
   return el;
@@ -177,11 +209,15 @@ function toggle(next){
     window.addEventListener('mousemove',onMove,MOVE);
     window.addEventListener('mouseleave',onLeave);
     window.addEventListener('mouseenter',onEnter);
+    window.addEventListener('click',onClick,true);
+    window.addEventListener('wheel',onWheel,{passive:true});
     loop();
   }else{
     window.removeEventListener('mousemove',onMove,MOVE);
     window.removeEventListener('mouseleave',onLeave);
     window.removeEventListener('mouseenter',onEnter);
+    window.removeEventListener('click',onClick,true);
+    window.removeEventListener('wheel',onWheel);
     cancelAnimationFrame(raf);
     if(el)el.style.opacity='0';
   }
@@ -191,7 +227,7 @@ function toggle(next){
 function boot(){
   const b=document.getElementById('foveaToggle');
   if(b){b.classList.add('ready');b.onclick=()=>toggle();
-    b.title='Cursor lens — reads the route under the pointer and draws the live support set as a radial figure. Toggle with f.';}
+    b.title='READ WITHOUT CLICKING. Sweep the pointer over any glyph to read its title and state in place — click to select it, shift-click to open it, scroll to step through its peers. Nothing opens unless you mean it. Toggle: f key.';}
   window.addEventListener('keydown',onKey);
   window.FoveaLens=Object.freeze({
     toggle,on:()=>on,band:()=>el?.dataset.band||'OFF',
