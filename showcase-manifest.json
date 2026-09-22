@@ -5980,6 +5980,29 @@
       "alias_of": "/sleeper/project/",
       "role": "Compatibility redirect retained so the byte-preserved 0.8 index keeps its original relative navigation.",
       "operation": "REDIRECT"
+    },
+    {
+      "href": "/nexus/",
+      "title": "NEXUS // CONVERGENCE",
+      "kind": "utility",
+      "parent": "/",
+      "operation": "ORIENT",
+      "state": "UTILITY",
+      "showcase_card": false,
+      "role": "Hermes/recovery convergence status snapshot. Useful for observing corpus/recovery/automation state, but it is not execution authority: CURRENT + QUEUE + exact receipts remain canonical for what may act next.",
+      "index": {
+        "updated_at": "2026-09-22T13:20:00+08:00",
+        "work_modes": [
+          "INSPECT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "static public route registered after NEXUS surface appeared on master"
+        ],
+        "return_path": "/"
+      }
     }
   ],
   "release_law": [
