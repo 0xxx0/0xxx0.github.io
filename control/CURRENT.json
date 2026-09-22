@@ -74,10 +74,10 @@
     },
     {
       "lineage": "rsvp-reader",
-      "head": "READFIELD / RSVP 0.7 + APERTURE focus kernel",
+      "head": "READFIELD / RSVP 0.7.1 + APERTURE focus kernel",
       "state": "UTILITY / READER_FIRST / VERIFIED_SHIPPED",
       "route": "/docs/",
-      "retained_function": "Canonical one-source reader. One source position persists while DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE, highlighted context and XREF change around it. Ordinary use is linear/reader-first; ring geometry is optional. Repo pages can hand selection/input/page text directly into READFIELD with exact RETURN. Optional FIELD PULSE tempo adapter maps LISTEN BPM to explicit ×2/×4/×8 WPM and publishes bounded reader focus; OFF remains default.",
+      "retained_function": "Canonical one-source reader. One source position persists while DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE, highlighted context and XREF change around it. Ordinary use is linear/reader-first; ring geometry is optional. 0.7.1 exposes concrete FAST READ / READ TO MUSIC / VOICE+EYES / WORK use cases. Explicit LISTEN→READFIELD workflow entry may request PULSE ×2/×4/×8 and immediately use the latest same-session BPM, visibly marked LIVE or LAST; OFF remains default and READFIELD retains text/focus authority.",
       "evidence": [
         "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
         "/control/READFIELD_CONVERGENCE_2026-09-22.json",
@@ -88,7 +88,9 @@
         "/returns/FIELD_PULSE_2026-09-22.json",
         "https://github.com/0xxx0/0xxx0.github.io/pull/104",
         "https://github.com/0xxx0/0xxx0.github.io/pull/105",
-        "/control/READFIELD_PR_SEAL_2026-09-22.json"
+        "/control/READFIELD_PR_SEAL_2026-09-22.json",
+        "/control/confluence/FIELD_PULSE_WORKFLOW_2026-09-22.json",
+        "/returns/FIELD_PULSE_WORKFLOW_2026-09-22.json"
       ]
     },
     {
@@ -118,10 +120,10 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM instrument family · LIVE 0.4 TRACKFIELD ride / TWO DIAL 0.10.1 composition / ECOLOGY 0.2 lineage-game / LISTEN 0.2.3 AUDIO MAP laboratory",
+      "head": "FOLD//BLOOM instrument family · LIVE 0.4 TRACKFIELD ride / TWO DIAL 0.10.1 composition / ECOLOGY 0.2 lineage-game / LISTEN 0.2.4 AUDIO MAP + workflow workbench",
       "state": "ACTIVE_CANDIDATE_FAMILY",
       "route": "/fold-bloom/",
-      "retained_function": "Unequal heads are explicit. LIVE 0.4 is the owned/local-audio performance ride: proven MP3 → AUDIO MAP → perspective TRACKFIELD, so measured future energy/flux/spectral balance/beats/coarse section changes become approaching terrain while the Fold/Bloom ring remains authored topology. Anticipation replaces telemetry as the design target. TWO DIAL remains the music/form composition authority and may borrow clock only; ECOLOGY remains persistent lineage/game world; LISTEN remains the deeper source/AUDIO MAP laboratory. LIVE and TWO DIAL now demonstrate their real state machines silently/reversibly during onboarding. Provider catalogs remain downstream adapters; Spotify/SoundCloud sync boundaries and blocked Suno do not gate the local loop.",
+      "retained_function": "Unequal heads are explicit. LIVE 0.4 is the owned/local-audio performance ride; TWO DIAL remains music/form composition authority; ECOLOGY remains persistent lineage/game world; LISTEN 0.2.4 remains the deeper source/AUDIO MAP laboratory and now exposes one explicit USE TRACK surface for RIDE / READ / COMPOSE / MAP. FIELD PULSE is the bounded temporal bridge: borrowed clock != borrowed authorship, and the workflow dock does not create a new sovereign app.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -146,7 +148,9 @@
         "/control/confluence/FOLD_BLOOM_SECTION_ARC_2026-09-22.json",
         "/returns/FOLD_BLOOM_SECTION_ARC_2026-09-22.json",
         "/control/confluence/FOLD_BLOOM_TRACKFIELD_MEDIA_2026-09-22.json",
-        "/returns/FOLD_BLOOM_TRACKFIELD_2026-09-22.json"
+        "/returns/FOLD_BLOOM_TRACKFIELD_2026-09-22.json",
+        "/control/confluence/FIELD_PULSE_WORKFLOW_2026-09-22.json",
+        "/returns/FIELD_PULSE_WORKFLOW_2026-09-22.json"
       ],
       "experimental": [
         {
@@ -156,7 +160,7 @@
           "branch": "fold-bloom-listen-01",
           "thesis": "Any bounded audio source can enter one LISTEN field: local file first and proven; Suno/direct address best-effort; decoded audio becomes a hashed AUDIO MAP with polar time and scale traversal.",
           "promotion_gate": "local MP3 + section mapping now have real-use evidence; Suno network resolution is explicitly non-blocking/best-effort; analysis plausibility and section-arc play remain empirical.",
-          "version": "0.2.3"
+          "version": "0.2.4"
         }
       ]
     },
