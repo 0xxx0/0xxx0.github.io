@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FIELD // SYSTEM MAP</title>
+<style>
+:root{--bg:#07090a;--p:#0b0f11;--p2:#101619;--ink:#edf0ed;--mut:#7d898f;--line:#2a3439;--hot:#ed7447;--cool:#72bce7;--green:#98d49b;--gold:#d5ad68}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.42 ui-monospace,monospace}
+body{padding:20px}
+main{width:min(1100px,100%);margin:auto}
+h1{font:900 28px/1 system-ui,sans-serif;letter-spacing:-.04em;margin:0 0 4px}
+h1 span{color:var(--hot)}
+.ey{font-size:7px;letter-spacing:.18em;color:var(--mut);text-transform:uppercase;margin-bottom:2px}
+header{margin-bottom:20px}
+.sub{color:var(--mut);font-size:9px}
+
+.map{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin-bottom:20px}
+.node{background:var(--p);padding:10px;min-height:80px;position:relative}
+.node .label{font-size:7px;letter-spacing:.1em;color:var(--mut);text-transform:uppercase}
+.node .name{font:800 14px/1.1 system-ui,sans-serif;margin:3px 0 2px}
+.node .desc{font-size:8px;color:var(--mut);line-height:1.3}
+
+/* Connection lines as pseudo-elements */
+.node.primary{border-left:2px solid var(--hot)}
+.node.secondary{border-left:2px solid var(--cool)}
+.node.frozen{border-left:2px solid var(--mut);opacity:.6}
+.node.emerge{border-left:2px solid var(--gold)}
+
+.flow{grid-column:1/-1;background:var(--p2);padding:6px 10px;font-size:8px;color:var(--mut);display:flex;gap:12px;align-items:center;border-top:1px solid var(--line)}
+.flow span{color:var(--hot);font-weight:700}
+
+.status{margin-top:20px;display:grid;grid-template-columns:repeat(6,1fr);gap:6px}
+.stat{border:1px solid var(--line);background:var(--p);padding:8px}
+.stat b{display:block;font-size:18px;font-family:system-ui,sans-serif}
+.stat span{font-size:6px;letter-spacing:.1em;color:var(--mut);text-transform:uppercase}
+
+.legend{display:flex;gap:14px;margin:12px 0;font-size:8px}
+.legend span::before{content:'';display:inline-block;width:8px;height:8px;margin-right:4px;vertical-align:middle;border-radius:0}
+
+@media(max-width:700px){.map{grid-template-columns:1fr 1fr}.status{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="ey">0xxx0 // FIELD</div>
+  <h1>SYSTEM <span>MAP</span></h1>
+  <div class="sub">Every active system, its state, and how they converge</div>
+</header>
+
+<div class="legend">
+  <span style="color:var(--hot)">● ACTIVE</span>
+  <span style="color:var(--cool)">● EMERGING</span>
+  <span style="color:var(--gold)">● NEW DOMAIN</span>
+  <span style="color:var(--mut)">● FROZEN</span>
+</div>
+
+<div class="map">
+  <!-- Row 1: Core -->
+  <div class="node primary">
+    <div class="label">ROOT</div>
+    <div class="name">FIELD INDEX</div>
+    <div class="desc">Capability + I/O grammar · Public surface · Route hub</div>
+  </div>
+  <div class="node primary">
+    <div class="label">CONVERGENCE</div>
+    <div class="name">FIELD PULSE</div>
+    <div class="desc">LISTEN · READFIELD · TWO DIAL composing into one active surface</div>
+  </div>
+  <div class="node primary">
+    <div class="label">RECOVERY</div>
+    <div class="name">MIGRATION</div>
+    <div class="desc">13 frozen donor families · 255 Laconic items · 2 blocked</div>
+  </div>
+
+  <!-- Row 2: Active systems -->
+  <div class="node primary">
+    <div class="label">SLEEPER</div>
+    <div class="name">CITY ENGINE</div>
+    <div class="desc">Live at chatgpt.site · 10-field Atlas · Lab · Painting · Interphase</div>
+  </div>
+  <div class="node primary">
+    <div class="label">FOLD//BLOOM</div>
+    <div class="name">LIVE 0.7</div>
+    <div class="desc">Two Dial · Ecology 0.2 · Scale Lens · Motion · Gameplay · Trackfield</div>
+  </div>
+  <div class="node secondary">
+    <div class="label">HUMAN PORT</div>
+    <div class="name">CONTACT</div>
+    <div class="desc">Address → Interpret → Policy → Transform → Return</div>
+  </div>
+
+  <!-- Row 3: Emerging -->
+  <div class="node emerge">
+    <div class="label">NEW</div>
+    <div class="name">SHOPPING FIELD</div>
+    <div class="desc">Physical procurement as FIELD projection · 4 branches</div>
+  </div>
+  <div class="node emerge">
+    <div class="label">NEW</div>
+    <div class="name">MEDIA CURATOR</div>
+    <div class="desc">Local VLM pipeline · Ollama qwen3-vl · 5.2GB image archive</div>
+  </div>
+  <div class="node secondary">
+    <div class="label">HOUSE</div>
+    <div class="name">SPATIAL</div>
+    <div class="desc">Physical home projection · Traces · Receipts</div>
+  </div>
+
+  <!-- Row 4: Frozen / Donor -->
+  <div class="node frozen">
+    <div class="label">FROZEN</div>
+    <div class="name">AXIAL</div>
+    <div class="desc">State aperture · Compositor · Focus stack</div>
+  </div>
+  <div class="node frozen">
+    <div class="label">FROZEN</div>
+    <div class="name">POLY/FURNISHER</div>
+    <div class="desc">2019-2021 core evidence · KRAKEN · Interphase lineage</div>
+  </div>
+  <div class="node frozen">
+    <div class="label">FROZEN</div>
+    <div class="name">PATH GRID V4</div>
+    <div class="desc">Grid compiler · Verse Atlas · Foundry federation</div>
+  </div>
+
+  <!-- Flow -->
+  <div class="flow">
+    <span>→</span> ENTER → ADDRESS → STATE → TRANSFORM → PROJECT → ACT → MEASURE → RETURN
+    <span>→</span>
+    RECOVER → CORRECT → CONVERGE → VALIDATE → SEAL
+  </div>
+</div>
+
+<div class="status">
+  <div class="stat"><b class="hot">18</b><span>Active branches</span></div>
+  <div class="stat"><b class="cool">4</b><span>Emerging domains</span></div>
+  <div class="stat"><b class="green">169</b><span>PRs merged</span></div>
+  <div class="stat"><b class="gold">10</b><span>Remote workers</span></div>
+  <div class="stat"><b>2</b><span>Blocked items</span></div>
+  <div class="stat"><b class="green">3</b><span>Actions passing</span></div>
+</div>
+
+<div style="font-size:7px;color:var(--mut);text-align:center;margin-top:20px">
+  Convergence state · Self-verifying · 2026-09-22 · Systems converge on transaction language, not visual language
+</div>
+</main>
+</body>
+</html>
