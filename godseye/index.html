@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GOD'S EYE VIEW — every number names its source</title>
+<style>
+  :root{--bg:#05070a;--ink:#e8ece9;--mut:#6b7780;--hot:#ed7447;--cool:#72bce7;--gold:#d5ad68;--green:#98d49b;--line:#1d262c}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}
+  .wrap{max-width:1280px;margin:0 auto;padding:30px 20px 90px}
+  header{border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:26px}
+  h1{margin:0 0 8px;font-size:15px;font-weight:500;letter-spacing:.24em;color:var(--gold)}
+  .sub{color:var(--mut);letter-spacing:.05em}.sub b{color:var(--ink);font-weight:500}
+  h2{font-size:9px;letter-spacing:.26em;color:var(--mut);font-weight:500;margin:34px 0 12px;text-transform:uppercase}
+  .rule{border:1px solid var(--gold);background:#0b0e11;padding:18px 20px;margin-bottom:24px}
+  .rule .r{font-size:15px;color:var(--gold);letter-spacing:.03em;line-height:1.5}
+  .rule .w{color:var(--mut);font-size:10px;margin-top:10px;letter-spacing:.05em}
+  table{width:100%;border-collapse:collapse;border:1px solid var(--line);background:#000}
+  th{text-align:left;font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:var(--mut);
+    padding:8px 12px;border-bottom:1px solid var(--line);background:#0a0e11;font-weight:500}
+  td{padding:7px 12px;border-bottom:1px solid #111a1f;vertical-align:top;font-size:11px}
+  tr:last-child td{border-bottom:0}
+  td.v{color:var(--gold);white-space:nowrap;font-size:12px}
+  td.l{color:var(--ink)}
+  td.s{color:var(--mut);font-size:10px;word-break:break-word}
+  tr:hover td{background:#080c0e}
+  .disc td.i{color:var(--hot);font-size:11px}
+  .disc td.l b{color:var(--hot);letter-spacing:.06em;text-transform:uppercase;font-size:10px}
+  .disc td.l .d{color:var(--ink);margin-top:3px;font-size:11px}
+  .disc td.s{color:var(--cool);font-size:10px}
+  .qs{font-size:8px;letter-spacing:.16em;padding:2px 6px;border:1px solid var(--line);color:var(--mut)}
+  .q{margin-bottom:1px;display:flex;gap:0;border:1px solid var(--line);background:#000;align-items:stretch}
+  .q .qh{display:flex;flex-direction:column;gap:5px;padding:12px 14px;min-width:210px;
+    border-right:1px solid var(--line);background:#080b0e}
+  .q .qt{color:var(--ink);font-size:12px;letter-spacing:.05em}
+  .q.ok .qs{color:var(--green);border-color:#315837}
+  .q.mid .qs{color:var(--gold);border-color:#3a2c1e}
+  .q.pin .qs{color:var(--cool);border-color:#1f4a5e}
+  .q .qb{padding:12px 15px;color:var(--mut);font-size:11px;line-height:1.65}
+  .unk{border:1px solid var(--line);background:#000}
+  .unk .u{display:grid;grid-template-columns:250px 1fr;gap:0;border-bottom:1px solid #111a1f}
+  .unk .u:last-child{border-bottom:0}
+  .unk .k{padding:9px 12px;color:var(--hot);border-right:1px solid #111a1f;font-size:11px}
+  .unk .w{padding:9px 12px;color:var(--mut);font-size:10px}
+  footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--mut);font-size:9px;letter-spacing:.08em}
+  footer a{color:var(--cool);text-decoration:none}
+  @media(max-width:820px){td.s{display:none}th:nth-child(3){display:none}
+    .unk .u{grid-template-columns:1fr}.q{flex-direction:column}.q .qh{min-width:0;border-right:0;border-bottom:1px solid var(--line)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <h1>GOD'S EYE VIEW</h1>
+  <div class="sub"><b>21 figures</b> · each one names its source ·
+  <b>5 discrepancies</b> · <b>6 explicit unknowns</b></div>
+</header>
+
+<div class="rule">
+  <div class="r">A number that cannot name its source file is not allowed on a page.</div>
+  <div class="w">This page was built under that rule. Everything below is either traceable to a
+  command or an explicit unknown. 5 places where our own figures disagreed
+  with the files were found <em>while building this</em> — they are published, not corrected away.</div>
+</div>
+
+<h2>The figures</h2>
+<table>
+<thead><tr><th>value</th><th>what</th><th>source</th></tr></thead>
+<tbody>
+<tr>
+  <td class="v">2464</td>
+  <td class="l">commits on master</td>
+  <td class="s">git rev-list --count HEAD</td>
+</tr>
+<tr>
+  <td class="v">179</td>
+  <td class="l">remote branches</td>
+  <td class="s">git branch -r</td>
+</tr>
+<tr>
+  <td class="v">0</td>
+  <td class="l">commits today</td>
+  <td class="s">git rev-list --since</td>
+</tr>
+<tr>
+  <td class="v">62M</td>
+  <td class="l">repo size (working tree)</td>
+  <td class="s">du -sh .</td>
+</tr>
+<tr>
+  <td class="v">914</td>
+  <td class="l">tracked files</td>
+  <td class="s">git ls-files | wc -l</td>
+</tr>
+<tr>
+  <td class="v">6</td>
+  <td class="l">open issues</td>
+  <td class="s">gh issue list --state open</td>
+</tr>
+<tr>
+  <td class="v">27.2 KB</td>
+  <td class="l">/sky/ page size</td>
+  <td class="s">sky/index.html</td>
+</tr>
+<tr>
+  <td class="v">16.7 KB</td>
+  <td class="l">/handshake/ page size</td>
+  <td class="s">handshake/index.html</td>
+</tr>
+<tr>
+  <td class="v">11.7 KB</td>
+  <td class="l">/silences/ page size</td>
+  <td class="s">silences/index.html</td>
+</tr>
+<tr>
+  <td class="v">8.7 KB</td>
+  <td class="l">/twins/ page size</td>
+  <td class="s">twins/index.html</td>
+</tr>
+<tr>
+  <td class="v">10.4 KB</td>
+  <td class="l">/lineage/ page size</td>
+  <td class="s">lineage/index.html</td>
+</tr>
+<tr>
+  <td class="v">11.8 KB</td>
+  <td class="l">/nexus/ page size</td>
+  <td class="s">nexus/index.html</td>
+</tr>
+<tr>
+  <td class="v">893</td>
+  <td class="l">sept export conversations (JSON)</td>
+  <td class="s">_recovered/sept-export/conversations-*.json</td>
+</tr>
+<tr>
+  <td class="v">646</td>
+  <td class="l">june backup conversations (JSON)</td>
+  <td class="s">ChatGPT-Backup-2026-06-12/conversations-*.json</td>
+</tr>
+<tr>
+  <td class="v">906</td>
+  <td class="l">sqlite conversations</td>
+  <td class="s">~/Documents/Codex/2026-08-06/i/outputs/ChatGPT-Corpus-2026-09-18/corpus.sqlite3</td>
+</tr>
+<tr>
+  <td class="v">45,346</td>
+  <td class="l">sqlite messages</td>
+  <td class="s">~/Documents/Codex/2026-08-06/i/outputs/ChatGPT-Corpus-2026-09-18/corpus.sqlite3</td>
+</tr>
+<tr>
+  <td class="v">83,088</td>
+  <td class="l">sqlite segments</td>
+  <td class="s">~/Documents/Codex/2026-08-06/i/outputs/ChatGPT-Corpus-2026-09-18/corpus.sqlite3</td>
+</tr>
+<tr>
+  <td class="v">13</td>
+  <td class="l">group chats extracted (private)</td>
+  <td class="s">~/void-anchor/_private-review/group-chats</td>
+</tr>
+<tr>
+  <td class="v">14</td>
+  <td class="l">receipts</td>
+  <td class="s">~/void-anchor/_recovered/receipts</td>
+</tr>
+<tr>
+  <td class="v">74</td>
+  <td class="l">returns in repo</td>
+  <td class="s">~/Projects/0xxx0.github.io/returns</td>
+</tr>
+<tr>
+  <td class="v">200</td>
+  <td class="l">archive-reader :8777</td>
+  <td class="s">curl 127.0.0.1:8777</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Discrepancies — found by sourcing every number</h2>
+<table class="disc">
+<thead><tr><th>#</th><th>what disagreed</th><th>why it matters</th></tr></thead>
+<tbody>
+<tr>
+  <td class="i">01</td>
+  <td class="l"><b>commits today</b><div class="d">0 (local) vs 995 (Sep-22 +08)</div></td>
+  <td class="s">the same phrase yields different numbers; 'today' must name its window</td>
+</tr>
+<tr>
+  <td class="i">02</td>
+  <td class="l"><b>conversations</b><div class="d">sum 1539 vs unique 903</div></td>
+  <td class="s">the two exports overlap by 636; a plain sum overcounts by 636</td>
+</tr>
+<tr>
+  <td class="i">03</td>
+  <td class="l"><b>conversations</b><div class="d">sqlite 906 vs JSON 893</div></td>
+  <td class="s">13 delta = group chats, in a file no extraction read</td>
+</tr>
+<tr>
+  <td class="i">04</td>
+  <td class="l"><b>branches</b><div class="d">strip None vs disk 179</div></td>
+  <td class="s">the generated strip is stale relative to disk</td>
+</tr>
+<tr>
+  <td class="i">05</td>
+  <td class="l"><b>commits today</b><div class="d">strip 992 vs disk 0</div></td>
+  <td class="s">the generated strip is stale relative to disk</td>
+</tr>
+</tbody>
+</table>
+
+<h2>Threads — raised, and where they stand</h2>
+<article class="q mid">
+  <div class="qh"><span class="qt">patch theory</span><span class="qs">RESEARCHED</span></div>
+  <div class="qb">Darcs/Pijul: mathematically sound patch algebra. Relevant to &quot;git hesitation&quot; — the theory says merges can be lawful, not just hopeful.</div>
+</article>
+<article class="q ok">
+  <div class="qh"><span class="qt">git history repair</span><span class="qs">ANSWERED</span></div>
+  <div class="qb">the real question is not &quot;can I undo&quot; but &quot;what is the smallest lawful move&quot;. Answer: never rewrite shared history; add a correcting commit.</div>
+</article>
+<article class="q pin">
+  <div class="qh"><span class="qt">micro-repo / zero-dep</span><span class="qs">PINNED</span></div>
+  <div class="qb">tiny controllable core, no dependencies. The vulnerability argument is the strong one: a dep you do not have cannot be exploited.</div>
+</article>
+<article class="q pin">
+  <div class="qh"><span class="qt">sandbox / playpen</span><span class="qs">PINNED</span></div>
+  <div class="qb">the house metaphor — outside shoes vs inside shoes. Separation of surfaces by trust level, not by feature.</div>
+</article>
+<article class="q pin">
+  <div class="qh"><span class="qt">OSINT / OPSEC platform</span><span class="qs">PINNED</span></div>
+  <div class="qb">self-hosted recon. SpiderFoot / theHarvester / recon-ng are the 2026 baselines. Note: most leak your targets to third parties.</div>
+</article>
+<article class="q pin">
+  <div class="qh"><span class="qt">VCS for physical things</span><span class="qs">PINNED</span></div>
+  <div class="qb">version control for artwork and rooms — hashes for objects, receipts for moves. The RETURN template is already the seed of this.</div>
+</article>
+<article class="q pin">
+  <div class="qh"><span class="qt">sensor fusion / biofeedback</span><span class="qs">PINNED</span></div>
+  <div class="qb">heartbeat into houselights. Needs a sensor inventory before a plan.</div>
+</article>
+<article class="q pin">
+  <div class="qh"><span class="qt">exercise todo.txt</span><span class="qs">PINNED</span></div>
+  <div class="qb">a plain-text body log. todo.txt format is 2006-era and still correct: no app required.</div>
+</article>
+<article class="q pin">
+  <div class="qh"><span class="qt">the two phones</span><span class="qs">PINNED</span></div>
+  <div class="qb">GrapheneOS load-out. Needs: inventory, then a written install order, then a dry run.</div>
+</article>
+
+<h2>Known unknowns</h2>
+<div class="unk">
+  <div class="u"><div class="k">? total bytes across all corpora</div><div class="w">no single index exists; a du over ~/Documents is TCC-blocked to this shell</div></div>
+  <div class="u"><div class="k">? how many conversations were ever deleted</div><div class="w">an export can show presence, never absence</div></div>
+  <div class="u"><div class="k">? whether the 13 group chats are complete</div><div class="w">group_chats.json may itself be partial — it is one file, not a ledger</div></div>
+  <div class="u"><div class="k">? the physical archive</div><div class="w">boxes, drives, paper — never indexed; needs eyes and hands, not a script</div></div>
+  <div class="u"><div class="k">? the two GrapheneOS Pixel 8 Pro phones</div><div class="w">no device inventory exists yet</div></div>
+  <div class="u"><div class="k">? which artifacts are load-bearing vs decorative</div><div class="w">needs a human judgement pass, not a count</div></div>
+</div>
+
+<footer>
+  GOD'S EYE VIEW · the rule is the artifact ·
+  <a href="../sky/">the sky</a> · <a href="../twins/">the twins</a> · <a href="../lineage/">the lineage</a> ·
+  <a href="../nexus/">field nexus</a> · <a href="../">field index</a>
+</footer>
+</div>
+</body>
+</html>
