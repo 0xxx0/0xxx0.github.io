@@ -315,6 +315,7 @@ function syncUI() {
   hud();
 }
 function setMode(m) {
+  if(demo.on)stopDemo(true);
   prefs.mode = m;
   document.body.classList.toggle('duet',m==='DUET');
   emit('mode', { mode: m });
@@ -322,11 +323,12 @@ function setMode(m) {
   saveLocal();
 }
 function setWorld(w) {
+  if(demo.on)stopDemo(true);
   prefs.world = w; applyWorldAudio(); emit('world', { world: w }); syncUI(); saveLocal(); toast(w);
 }
-function setVoice(v) { prefs.voice=v; applyWorldAudio(); emit('voice',{voice:v}); syncUI(); saveLocal(); toast(v); }
-function setGroove(v) { prefs.groove=v; emit('groove',{groove:v}); syncUI(); saveLocal(); toast(v); }
-function setScope(v) { prefs.scope=v; emit('scope',{scope:v}); syncUI(); saveLocal(); toast(v); }
+function setVoice(v) { if(demo.on)stopDemo(true); prefs.voice=v; applyWorldAudio(); emit('voice',{voice:v}); syncUI(); saveLocal(); toast(v); }
+function setGroove(v) { if(demo.on)stopDemo(true); prefs.groove=v; emit('groove',{groove:v}); syncUI(); saveLocal(); toast(v); }
+function setScope(v) { if(demo.on)stopDemo(true); prefs.scope=v; emit('scope',{scope:v}); syncUI(); saveLocal(); toast(v); }
 function setMenuPane(v){ $('#drawer').dataset.pane=v; $$('#menuTabs [data-pane]').forEach(b=>b.classList.toggle('active',b.dataset.pane===v)); }
 function openDrawer() {
   $('#drawer').classList.add('open');
@@ -370,7 +372,7 @@ $('#soundBtn').onclick = async () => {
     }
   } else toggleSound();
 };
-$('#demoBtn').onclick = () => { if (demo.on) stopDemo(false); startDemo(false); };
+$('#demoBtn').onclick = () => { if (demo.on) stopDemo(true); else startDemo(true,true); };
 $('#shareBtn').onclick = shareNow;
 $('#copyBtn').onclick = copyCode;
 $('#exportBtn').onclick = exportPacket;
@@ -434,7 +436,7 @@ setMenuPane('PLAY');
 syncUI();
 renderSaves();
 hud();
-setTimeout(()=>{if($('#intro')?.style.display!=='none'&&!demo.on)startDemo(true)},700);
+setTimeout(()=>{if($('#intro')?.style.display!=='none'&&!demo.on)startDemo(true,false)},700);
 window.FoldBloom = {
   version: APP_VERSION,
   state: () => minimalSnapshot(),
@@ -446,6 +448,8 @@ window.FoldBloom = {
   setPulseLink,
   updatePulseContext,
   pulseState: () => ({ ...pulseLink, active: pulseIsLive(), tempo: pulseTempo() }),
+  startIdle: () => startDemo(true,true),
+  stopIdle: takeover => stopDemo(takeover!==false),
   subscribeEvents: fn => {
     if (typeof fn !== 'function') return () => {};
     fieldEventListeners.add(fn);
