@@ -13,6 +13,10 @@ export function sectionIndexAt(map,time){
   const s=map?.sections||[];if(!s.length)return -1;
   let i=0;while(i+1<s.length&&s[i+1].t<=time)i++;return Math.min(i,s.length-2);
 }
+export function phraseIndexAt(map,time){
+  const p=map?.phrases||[];if(p.length<2)return -1;
+  let i=0;while(i+1<p.length&&p[i+1].t<=time)i++;return Math.min(i,p.length-2);
+}
 export function scopeWindow(map,time,scope){
   if(!map)return [0,1];
   if(scope==='TRACK')return [0,map.duration];
@@ -22,6 +26,8 @@ export function scopeWindow(map,time,scope){
   }
   const bi=beatIndexAt(map,time),beats=map.beats||[],beatDur=60/(map.bpm||90);
   if(scope==='PHRASE'){
+    const pi=phraseIndexAt(map,time),phrases=map.phrases||[];
+    if(pi>=0)return [phrases[pi].t,phrases[pi+1]?.t??map.duration];
     const start=Math.max(0,(bi<0?time:beats[Math.max(0,Math.floor(bi/8)*8)]||time)-beatDur*.5);
     return [start,Math.min(map.duration,start+beatDur*8)];
   }

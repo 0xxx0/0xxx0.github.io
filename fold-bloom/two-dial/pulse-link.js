@@ -18,7 +18,7 @@ if(pulseRequest){
 }
 
 function render(){
-  const state=api.state?.()||{},linked=!!state.prefs?.pulseLink,p=api.pulseState?.()||{};
+  const state=api.state?.()||{},linked=!!state.prefs?.pulseLink,p=api.pulseState?.()||{},local=!!window.FoldBloomTrackLink?.active?.();
   if(btn){
     btn.textContent=linked?'PULSE LINK ON':'PULSE LINK OFF';
     btn.classList.toggle('active',linked);
@@ -26,7 +26,8 @@ function render(){
   }
   if(status){
     if(!linked) status.textContent='OFF · Two Dial keeps its own clock.';
-    else if(p.active) status.textContent=`LIVE · ${Math.round(p.tempo||p.bpm||0)} BPM · E${Math.round((p.energy||0)*100)} · SECTION ${Math.max(0,p.sectionIndex)+1}`;
+    else if(local&&p.active) status.textContent=`LOCAL TRACK · ${Math.round(p.tempo||p.bpm||0)} BPM · E${Math.round((p.energy||0)*100)} · SECTION ${Math.max(0,p.sectionIndex)+1}`;
+    else if(p.active) status.textContent=`LISTEN · ${Math.round(p.tempo||p.bpm||0)} BPM · E${Math.round((p.energy||0)*100)} · SECTION ${Math.max(0,p.sectionIndex)+1}`;
     else if(p.connected) status.textContent=`WAITING · LISTEN ${p.playing?'clock stale':'paused'} · internal clock retained`;
     else status.textContent='WAITING · open LISTEN in another same-origin tab and play a track';
   }
@@ -40,7 +41,7 @@ btn?.addEventListener('click',()=>{
 openBtn?.addEventListener('click',()=>window.open('../listen/','_blank','noopener'));
 
 pulse.subscribe(msg=>{
-  if(msg.source!=='FOLD_BLOOM_LISTEN'||msg.kind!=='transport')return;
+  if(msg.source!=='FOLD_BLOOM_LISTEN'||msg.kind!=='transport'||window.FoldBloomTrackLink?.active?.())return;
   lastListen=msg;
   api.updatePulseContext?.(msg.data,msg.wall);
   render();

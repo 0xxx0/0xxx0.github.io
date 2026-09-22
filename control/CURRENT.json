@@ -122,10 +122,10 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM instrument family · LIVE 0.7 smooth world-writing TRACKFIELD / LISTEN 0.3 addressed-stream lens / TWO DIAL 0.10.1 composition / ECOLOGY 0.2 lineage-game",
+      "head": "FOLD//BLOOM instrument family · LIVE 0.8 hierarchical world-writing TRACKFIELD / LISTEN 0.4 addressed-stream + source glyph / TWO DIAL 0.10.2 same-source composition context / ECOLOGY 0.2 lineage-game",
       "state": "ACTIVE_CANDIDATE_FAMILY",
       "route": "/fold-bloom/",
-      "retained_function": "LIVE 0.7 remains the performance ride: measured or FIELD COURSE terrain with smooth grade/speed/turn plus reversible BLOOM/FOLD/SPLIT/RETURN world-writing. LISTEN 0.3 is now the source-analysis and addressed-stream lens: one source ADDRESS moves horizontally/ring-wise; APERTURE changes vertically through host-defined scales; PIN adds authored source-provenanced annotations beside immutable analysis. Audio host adds approximate local key/mode identification but provider metadata remains optional. The portable donor is ADDRESS × APERTURE × PROJECTION × PIN, not waveforms/beats/racer UI; READFIELD or other streams may adopt it only with their own host vocabulary. TWO DIAL remains composition authority; ECOLOGY remains persistent lineage/game.",
+      "retained_function": "One exact hashed audio source may now enter three unequal projections without identity collapse: LISTEN 0.4 analyzes/navigates/annotates and compiles a deterministic glyph; LIVE 0.8 projects beat/downbeat/analyzed-phrase/section evidence into steeper smoothed terrain while the human authors BLOOM/FOLD/SPLIT/RETURN; TWO DIAL 0.10.2 may host the same local file as tempo/energy/phrase/section context while MATTER × HARMONY still authors composition. ECOLOGY remains untouched until a concrete transfer is earned. Portable law remains SOURCE → ADDRESS → APERTURE/PROJECTION → HUMAN OPERATION → RETURN.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -160,17 +160,20 @@
         "/control/confluence/FOLD_BLOOM_MOTION_2026-09-22.json",
         "/returns/FOLD_BLOOM_MOTION_2026-09-22.json",
         "/control/confluence/FOLD_BLOOM_STREAM_LENS_2026-09-22.json",
-        "/returns/FOLD_BLOOM_STREAM_LENS_2026-09-22.json"
+        "/returns/FOLD_BLOOM_STREAM_LENS_2026-09-22.json",
+        "/control/PURE_INTENTION.json",
+        "/control/confluence/FOLD_BLOOM_HORIZON_2026-09-22.json",
+        "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json"
       ],
       "experimental": [
         {
           "id": "fold-bloom-listen-01",
           "route": "/fold-bloom/listen/",
           "state": "CANDIDATE_EXPERIMENT",
-          "branch": "fold-bloom-listen-stream-lens-030",
-          "thesis": "One bounded source becomes an addressed stream: horizontal/ring motion changes address, vertical changes aperture, source-scoped pins add authored evidence, and audio is only the first host vocabulary.",
-          "promotion_gate": "CI + direct desktop/phone proof that address/aperture gestures are distinct, pins persist/export by source identity, local key/mode is plausible as approximate evidence, and existing LISTEN workflows do not regress.",
-          "version": "0.3"
+          "branch": "fold-bloom-horizon-080",
+          "thesis": "One hashed audio source remains identifiable while becoming analyzed phrase hierarchy, deterministic glyph, addressed ring, terrain and bounded composition context.",
+          "promotion_gate": "CI + direct familiar-track proof: phrase gates plausible, glyph recognizable/stable, steeper LIVE terrain smooth, same source identity visible across LISTEN/LIVE/Two Dial.",
+          "version": "0.4"
         }
       ]
     },
@@ -698,5 +701,6 @@
     "synthesis": "/control/confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md",
     "sleeper_authority": "Exact v2-era ONE RETURN City Engine source restored as Sleeper authority; ASCII POV 0.8 preserved as superseded derivative."
   },
-  "last_media_curator": "/control/HERMES_MEDIA_CURATOR.json"
+  "last_media_curator": "/control/HERMES_MEDIA_CURATOR.json",
+  "pure_intention": "/control/PURE_INTENTION.json"
 }

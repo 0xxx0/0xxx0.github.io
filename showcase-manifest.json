@@ -1159,7 +1159,7 @@
       "operation": "ORIENT",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-22T11:58:05+08:00",
+        "updated_at": "2026-09-22T13:05:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1167,26 +1167,26 @@
           "RELEASE"
         ]
       },
-      "role": "Current unequal Fold/Bloom family. LIVE 0.7 is the smooth world-writing performance ride; LISTEN 0.3 is the addressed-stream/audio-analysis lens and portable ADDRESS×APERTURE×PIN donor; TWO DIAL composes music/form; ECOLOGY evolves persistent lineage/game. Transfers preserve unequal host semantics."
+      "role": "Current unequal Fold/Bloom family. LIVE 0.8 projects the same hashed AUDIO MAP as steeper beat→phrase→section terrain plus authored world-writing; LISTEN 0.4 is the addressed-stream analysis/glyph/annotation lens; TWO DIAL 0.10.2 may host the same local file as temporal context while retaining composition authority; ECOLOGY remains lineage/game until a concrete transfer is earned."
     },
     {
       "href": "/fold-bloom/live/",
-      "title": "FOLD//BLOOM LIVE 0.7",
+      "title": "FOLD//BLOOM LIVE 0.8",
       "kind": "artifact",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "PLAY",
       "state": "ACTIVE",
-      "version": "0.7",
+      "version": "0.8",
       "receipt": "/returns/FOLD_BLOOM_MOTION_2026-09-22.json",
-      "role": "Smooth world-writing performance ride. LOCAL MP3 → interpolated AUDIO MAP → grade/speed/turn TRACKFIELD; normal PLAY FIELD → labeled synthetic FIELD COURSE through the same engine. Quiet/low-flux climbs, intense/flux-heavy terrain descends and visually accelerates, spectral balance turns; audio remains phase-locked at 1×. BLOOM/FOLD/SPLIT/RETURN write reversible future geometry and SPLIT supports LEFT/RIGHT/OPEN traversal.",
+      "role": "Hierarchical world-writing ride. Same-source local MP3 → AUDIO MAP v0.4 → steeper TRACKFIELD: beat ribs, stronger downbeats, analyzed phrase gates, section macro gates, energy-trend anticipation, and amplified smoothed camera pitch/velocity. BLOOM/FOLD/SPLIT/RETURN remain authored reversible terrain operations; AUTO RIDE DEMO now traverses approaching SPLIT branches.",
       "transfer": [
         "Fold Weave: authored 12-cell topology / crease / cascade / mute-first causal score",
         "LIVE 0.4: AUDIO MAP → future TRACKFIELD",
         "LIVE 0.5: BLOOM/FOLD/SPLIT/RETURN deformation tape",
         "LIVE 0.6: traversable LEFT/RIGHT/OPEN SPLIT choice",
-        "LIVE 0.7: interpolated grade/speed/turn + smooth camera + normal FIELD COURSE",
-        "READFIELD donor: address/playhead/projection law only; no racer-skin transfer"
+        "READFIELD donor: address/playhead/projection law only; no racer-skin transfer",
+        "LIVE 0.8: source hash + beat/downbeat/phrase/section terrain hierarchy + amplified smooth grade/speed + branch-aware AUTO RIDE DEMO"
       ],
       "contract": {
         "accepts": {
@@ -1200,11 +1200,12 @@
           "optional": [
             "audio enabled",
             "local MP3",
-            "LISTEN/FIELD PULSE beat + section context"
+            "LISTEN/FIELD PULSE beat + section context",
+            "analyzed phrase boundaries"
           ]
         },
         "transforms": {
-          "verb": "project measured or clearly synthetic future structure as smooth traversable terrain, then apply bounded authored BLOOM/FOLD/SPLIT/RETURN deformations without mutating source evidence",
+          "verb": "project one hashed AUDIO MAP into hierarchical beat/phrase/section terrain, then apply bounded authored BLOOM/FOLD/SPLIT/RETURN deformations without mutating source evidence",
           "preserves": [
             "donor provenance",
             "topology identity",
@@ -1314,7 +1315,7 @@
         "physical_fit": "Performance/control grammar suitable for later encoder/touch/physical-control adapters; no hardware authority implied."
       },
       "index": {
-        "updated_at": "2026-09-22T11:46:00+08:00",
+        "updated_at": "2026-09-22T13:05:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1324,13 +1325,13 @@
     },
     {
       "href": "/fold-bloom/two-dial/",
-      "title": "TWO DIAL 0.10.1",
+      "title": "TWO DIAL 0.10.2",
       "kind": "artifact",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "PLAY",
       "state": "ACTIVE",
-      "version": "0.10.1",
+      "version": "0.10.2",
       "receipt": "/fold-bloom/two-dial/release.json",
       "transfer": [
         "preserved two-dial relation algebra",
@@ -1338,18 +1339,20 @@
         "SCALE-of-consequence: PULSE / VOICE / MOTIF / FORM",
         "motif/form memory + bounded phrase RETURN",
         "dependency-free WebAudio synthesis and local cassettes",
-        "FIELD PULSE optional external clock + operation return; borrowed timing != borrowed authorship"
+        "same-page hashed local AUDIO MAP or optional LISTEN pulse may lend tempo/beat/energy/phrase/section context; borrowed timing/structure != borrowed composition authorship"
       ],
       "contract": {
         "accepts": {
           "kinds": [
             "bounded parameter state",
-            "cyclic control input"
+            "cyclic control input",
+            "local audio file"
           ],
           "requires": [],
           "optional": [
             "saved motif/form state",
-            "same-origin FIELD PULSE transport context"
+            "same-origin FIELD PULSE transport context",
+            "same-page hashed local AUDIO MAP transport context"
           ]
         },
         "transforms": {
@@ -1381,7 +1384,7 @@
             "relation algebra preserved",
             "direct A/B listening remains instrument-quality gate",
             "pulse-link module browser boot",
-            "real phone LISTEN↔TWO DIAL cross-tab play remains required"
+            "same-page local track module browser boot; direct phone/headphone feel remains required"
           ],
           "return_path": "/fold-bloom/two-dial/"
         }
@@ -1435,7 +1438,7 @@
         "physical_fit": "Control primitive; candidate for tangible dial/encoder interfaces."
       },
       "index": {
-        "updated_at": "2026-09-22T02:58:00+08:00",
+        "updated_at": "2026-09-22T13:05:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -5772,15 +5775,15 @@
     },
     {
       "href": "/fold-bloom/listen/",
-      "title": "FOLD // BLOOM LISTEN 0.3",
+      "title": "FOLD // BLOOM LISTEN 0.4",
       "kind": "experiment",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "LISTEN",
       "state": "CANDIDATE",
-      "role": "Addressed-stream lens hosted on audio. One source address survives changing apertures/projections: ring drag or horizontal motion scrubs ADDRESS; vertical/wheel motion moves BEAT→PHRASE→SECTION→TRACK APERTURE; PIN attaches authored notes to source-hash addresses. Audio DEEP map now includes approximate local key/mode identification while provider metadata remains optional provenance.",
+      "role": "Addressed-stream audio lens. One hashed source survives ADDRESS×APERTURE navigation, analyzed beat/phrase/section hierarchy, optional provider metadata, human PIN annotations, and a deterministic source glyph suitable for file thumbnails. AUDIO MAP/glyph evidence can project into LIVE or Two Dial without transferring authorship.",
       "index": {
-        "updated_at": "2026-09-22T11:58:05+08:00",
+        "updated_at": "2026-09-22T13:05:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -5807,23 +5810,24 @@
         "host": "/fold-bloom/",
         "generation": 1,
         "stage": "TEST",
-        "question": "Does ADDRESS × APERTURE × PIN form a transferable stream lens while remaining musically useful and less UI-fragile than an audio-specific visualizer?",
+        "question": "Can one source identity remain recognizable and useful as glyph, addressed ring, terrain and composition context without collapsing those projections or authorship boundaries?",
         "baseline": "Ordinary audio playback plus existing Fold/Bloom branches without source-audio analysis or time-addressed visual terrain.",
-        "mutation": "LISTEN 0.3 extracts the ring interaction into a generic addressed-stream law: horizontal/ring motion moves source address, vertical motion changes aperture, pins annotate exact source addresses, while audio remains the first host vocabulary. DEEP analysis also adds approximate local harmonic identity.",
-        "evidence_gate": "CI must prove generic stream-lens laws, harmonic analysis, source adapters and deployed 0.3 UI. Direct desktop/phone must distinguish horizontal address from vertical aperture and preserve annotations across source reload/export.",
-        "next_if_pass": "Adapt the same source/address/aperture/pin law to READFIELD or one non-audio stream without importing beat/music semantics.",
-        "next_if_fail": "Keep LISTEN audio-specific; retain source-addressed pins and local harmonic analysis independently."
+        "mutation": "LISTEN 0.4 turns one exact audio source into a reusable addressed object: analyzed phrase evidence replaces fixed PHRASE assumptions when possible; deterministic glyphs make file identity visible; source hash survives projection into sibling instruments.",
+        "evidence_gate": "CI must prove phrase novelty/fallback, deterministic glyph stability, source-hash transport, LIVE 0.8 terrain regression and Two Dial local-track runtime. Direct use must judge phrase/glyph recognizability and cross-surface continuity.",
+        "next_if_pass": "Build an AUDIO GLYPH ATLAS/retrieval view and only then test one unequal second stream host.",
+        "next_if_fail": "Keep the useful parts independently: hashed AUDIO MAP + annotations + glyph identity; park cross-surface projection claims."
       },
-      "version": "0.3",
+      "version": "0.4",
       "contract": "/control/FIELD_PULSE_CONTRACT.json",
-      "receipt": "/returns/FOLD_BLOOM_STREAM_LENS_2026-09-22.json",
+      "receipt": "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json",
       "transfer": [
         "field-addressed-stream/v0.1 generic address/aperture/pin law",
-        "ring absolute scrub + horizontal relative address movement",
-        "vertical aperture traversal",
+        "AUDIO MAP v0.4 beat + beat-synchronous phrase novelty + section evidence",
+        "fold-bloom-audio-glyph/v0.1 deterministic file thumbnail identity",
         "source-provenanced annotations beside immutable analysis",
         "provider-independent approximate key/mode identity",
-        "existing FIELD PULSE transport + LIVE/READFIELD/TWO DIAL workflows"
+        "shared hashed source identity across LISTEN / LIVE / Two Dial",
+        "bounded FIELD PULSE context; borrowed structure != borrowed authorship"
       ]
     },
     {
@@ -5976,6 +5980,29 @@
       "alias_of": "/sleeper/project/",
       "role": "Compatibility redirect retained so the byte-preserved 0.8 index keeps its original relative navigation.",
       "operation": "REDIRECT"
+    },
+    {
+      "href": "/nexus/",
+      "title": "NEXUS // CONVERGENCE",
+      "kind": "utility",
+      "parent": "/",
+      "operation": "ORIENT",
+      "state": "UTILITY",
+      "showcase_card": false,
+      "role": "Hermes/recovery convergence status snapshot. Useful for observing corpus/recovery/automation state, but it is not execution authority: CURRENT + QUEUE + exact receipts remain canonical for what may act next.",
+      "index": {
+        "updated_at": "2026-09-22T13:20:00+08:00",
+        "work_modes": [
+          "INSPECT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "static public route registered after NEXUS surface appeared on master"
+        ],
+        "return_path": "/"
+      }
     }
   ],
   "release_law": [

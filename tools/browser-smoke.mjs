@@ -703,21 +703,21 @@ const CASES=[
     check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/EXTRACTED DESCENDANT · SCALE LENS/i.test(dom)&&/TWO DIAL 0\.10/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)
   },
   {
-    name:'FOLD BLOOM LIVE 0.7 motion',
+    name:'FOLD BLOOM LIVE 0.8 hierarchy',
     route:'/fold-bloom/live/',
     options:{width:430,height:900,budget:9000},
-    check:dom=>/LIVE 0\.7/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('id="demoBtn"')&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="speed"')&&dom.includes('id="grade"')&&dom.includes('id="trackFile"')&&/CLIMB \/ TURN \/ ACCELERATE \/ WRITE/i.test(dom)&&/FIELD COURSE/.test(dom)&&/same left\/right turn/i.test(dom)&&dom.includes('data-trackfield-source="FIELD_PRACTICE"')&&/data-trackfield-motion="(?!NONE)[^"]+"/.test(dom)  },
+    check:dom=>/LIVE 0\.8/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('id="demoBtn"')&&dom.includes('id="demoSettingsBtn"')&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="speed"')&&dom.includes('id="grade"')&&dom.includes('id="trackFile"')&&/BEAT \/ PHRASE \/ SECTION/i.test(dom)&&/AUTO RIDE DEMO/.test(dom)&&/FIELD COURSE/.test(dom)&&/same left\/right turn/i.test(dom)&&dom.includes('data-trackfield-source="FIELD_PRACTICE"')&&/data-trackfield-motion="(?!NONE)[^"]+"/.test(dom)  },
   {
-    name:'TWO DIAL sound field 0.10',
+    name:'TWO DIAL sound field 0.10.2 local track',
     route:'/fold-bloom/two-dial/',
     options:{width:1180,height:900,budget:9000},
-    check:dom=>/HOLD FAST \/ LET FLY/i.test(dom)&&/SCALE OF CONSEQUENCE/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')&&dom.includes('id="pulseLinkBtn"')&&dom.includes('data-fold-bloom-pulse="ready"')
+    check:dom=>/SOUND FIELD 0\.10\.2/i.test(dom)&&/HOLD FAST \/ LET FLY/i.test(dom)&&/SCALE OF CONSEQUENCE/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')&&dom.includes('id="pulseLinkBtn"')&&dom.includes('id="trackLoadBtn"')&&dom.includes('id="trackToggleBtn"')&&dom.includes('data-fold-bloom-pulse="ready"')&&dom.includes('data-fold-bloom-local-track="ready"')
   },
   {
-    name:'FOLD BLOOM LISTEN 0.3 stream lens',
+    name:'FOLD BLOOM LISTEN 0.4 glyph lens',
     route:'/fold-bloom/listen/',
     options:{width:1180,height:900,budget:9000},
-    check:dom=>/LISTEN 0\.3/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/ADDRESS/.test(dom)&&/APERTURE/.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="key"')&&dom.includes('id="pinBtn"')&&dom.includes('id="pinsBtn"')&&dom.includes('id="pinSheet"')&&dom.includes('id="useBtn"')&&dom.includes('id="useSheet"')&&dom.includes('data-listen-lens="field-addressed-stream/v0.1"')&&/USE THIS TRACK WITH/.test(dom)
+    check:dom=>/LISTEN 0\.4/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/ADDRESS/.test(dom)&&/APERTURE/.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="key"')&&dom.includes('id="phrases"')&&dom.includes('id="glyphBtn"')&&dom.includes('id="pinBtn"')&&dom.includes('id="pinsBtn"')&&dom.includes('id="pinSheet"')&&dom.includes('id="useBtn"')&&dom.includes('id="useSheet"')&&dom.includes('data-listen-lens="field-addressed-stream/v0.1"')&&/USE THIS TRACK WITH/.test(dom)
   },
   {
     name:'FOLD BLOOM LISTEN preview render',

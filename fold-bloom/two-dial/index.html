@@ -18,7 +18,7 @@
     <title>FOLD//BLOOM</title>
     <link rel="stylesheet" href="./app.css" />
   </head>
-  <body>
+  <body><audio id="trackAudio" preload="metadata" hidden></audio><input id="trackFile" type="file" accept="audio/*" hidden>
     <canvas id="game" aria-label="FOLD BLOOM two-dial instrument"></canvas>
     <div class="hud">
       <div class="brand"><b>FOLD//BLOOM</b> · FIELD</div>
@@ -54,7 +54,7 @@
     </div>
     <div class="overlay" id="intro">
       <div class="card">
-        <div class="ey">TWO DIAL · HOLD FAST / LET FLY · SOUND FIELD 0.10</div>
+        <div class="ey">TWO DIAL · HOLD FAST / LET FLY · SOUND FIELD 0.10.2</div>
         <div class="title">TOUCH.<br />RELATE.<br />RETURN.</div>
         <div class="copy">
           Two cyclic controls create one consequence. The music is not a
@@ -119,8 +119,13 @@
             <button class="secondary" id="pulseLinkBtn" aria-pressed="false">PULSE LINK OFF</button>
             <button class="secondary" id="pulseListenBtn">OPEN LISTEN</button>
           </div>
+          <div class="row" style="margin-top:6px">
+            <button class="secondary" id="trackLoadBtn">LOAD LOCAL TRACK</button>
+            <button class="secondary" id="trackToggleBtn" disabled>PLAY TRACK</button>
+          </div>
           <div class="tiny" id="pulseLinkStatus" style="margin-top:8px">OFF · Two Dial keeps its own clock.</div>
-          <div class="desc">Optional same-origin link: LISTEN supplies tempo plus a visible energy/section witness. MATTER × HARMONY still authors notes, verbs, motifs and form.</div>
+          <div class="tiny" id="trackLinkStatus" style="margin-top:5px">NO LOCAL TRACK</div>
+          <div class="desc">LISTEN tab or a same-page local track may lend tempo, beat, energy and section context. MATTER × HARMONY still authors notes, verbs, motifs and form; the track never writes the composition.</div>
         </div>
         <div class="section" data-pane-section="PLAY">
           <div class="k">SURFACE</div>
@@ -234,5 +239,6 @@
     <script src="./audio2.js"></script>
     <script src="./app-runtime.js"></script>
     <script type="module" src="./pulse-link.js"></script>
+    <script type="module" src="./track-link.js"></script>
   <script src="/showcase-nav.js" defer></script></body>
 </html>

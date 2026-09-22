@@ -1,8 +1,9 @@
 import {buildPreviewMap} from '../listen/preview-map.js';
-import {frameAt,beatIndexAt,sectionIndexAt} from '../listen/audio-map.js';
+import {frameAt,beatIndexAt,phraseIndexAt,sectionIndexAt} from '../listen/audio-map.js';
 import {buildTrackfield} from './trackfield.js';
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+async function hashBuffer(buf){const h=await crypto.subtle.digest('SHA-256',buf);return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 
 function mixdown(buffer,targetRate=12000){
   const ratio=buffer.sampleRate/Math.min(buffer.sampleRate,targetRate),len=Math.max(1,Math.floor(buffer.length/ratio)),out=new Float32Array(len);
@@ -23,14 +24,17 @@ export function transportFromMap(map,time=0,playing=false){
   const nextBeat=beatIndex>=0?Number(beats[beatIndex+1]??(beatTime+beatPeriod)):(time+beatPeriod);
   const beatSpan=Math.max(.001,nextBeat-beatTime),beatPhase=clamp((time-beatTime)/beatSpan,0,1);
   const beatDistance=Math.max(0,Math.min(Math.abs(time-beatTime),Math.abs(nextBeat-time)));
+  const phraseIndex=phraseIndexAt(map,time),phrases=map.phrases||[],phraseCount=Math.max(0,phrases.length-1),phraseStart=phraseIndex>=0?Number(phrases[phraseIndex]?.t||0):null;
+  const phraseEnd=phraseIndex>=0?Number(phrases[phraseIndex+1]?.t??map.duration):null;
+  const phraseProgress=phraseStart!==null&&phraseEnd>phraseStart?clamp((time-phraseStart)/(phraseEnd-phraseStart),0,1):null;
   const sectionIndex=sectionIndexAt(map,time),sections=map.sections||[],sectionCount=Math.max(1,sections.length-1),sectionStart=sectionIndex>=0?Number(sections[sectionIndex]?.t||0):0;
   const sectionEnd=sectionIndex>=0?Number(sections[sectionIndex+1]?.t??map.duration):map.duration;
   const sectionProgress=sectionEnd>sectionStart?clamp((time-sectionStart)/(sectionEnd-sectionStart),0,1):0;
   return {
     playing:!!playing,time,duration:map.duration||0,bpm:map.bpm||0,tempoConfidence:map.tempoConfidence||0,
-    beatIndex,beatTime,beatPhase,beatDistance,sectionIndex,sectionCount,sectionStart,sectionEnd,sectionProgress,scope:'TRACK',scopeStart:0,scopeEnd:map.duration||0,
+    beatIndex,beatTime,beatPhase,beatDistance,phraseIndex,phraseCount,phraseStart,phraseEnd,phraseProgress,sectionIndex,sectionCount,sectionStart,sectionEnd,sectionProgress,scope:'TRACK',scopeStart:0,scopeEnd:map.duration||0,
     energy:+(f.e||0).toFixed(4),flux:+(f.f||0).toFixed(4),brightness:+(f.c||0).toFixed(4),
-    stage:map.stage||'UNKNOWN',sourceKind:'LOCAL_FILE',sourceAddress:null
+    stage:map.stage||'UNKNOWN',sourceHash:map.source?.hash||null,sourceKind:'LOCAL_FILE',sourceAddress:null
   };
 }
 
@@ -59,19 +63,19 @@ export class LiveTrack {
   async load(file){
     if(!file)return null;
     this.loading=true;this.file=file;this.onState('DECODING');
-    const bytes=await file.arrayBuffer(),AC=globalThis.AudioContext||globalThis.webkitAudioContext;
+    const bytes=await file.arrayBuffer(),hashP=hashBuffer(bytes.slice(0)),AC=globalThis.AudioContext||globalThis.webkitAudioContext;
     if(!AC)throw Error('Web Audio unavailable');
     const ctx=new AC();
     try{
-      const decoded=await ctx.decodeAudioData(bytes.slice(0)),{pcm,sampleRate}=mixdown(decoded);
-      this.map=buildPreviewMap(pcm,sampleRate,decoded.duration);this.map.source={name:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE'};this.worldCache=null;this.worldTime=-1;
+      const decoded=await ctx.decodeAudioData(bytes.slice(0)),hash=await hashP,{pcm,sampleRate}=mixdown(decoded);
+      this.map=buildPreviewMap(pcm,sampleRate,decoded.duration);this.map.source={name:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',hash};this.worldCache=null;this.worldTime=-1;
       if(this.url)URL.revokeObjectURL(this.url);this.url=URL.createObjectURL(file);this.audio.src=this.url;
       this.loading=false;this.onMap(this.map);this.onState(this.stateLabel());
       if(decoded.duration<=1200){
         this.worker?.terminate?.();
         this.worker=new Worker(new URL('../listen/analysis-worker.js',import.meta.url),{type:'module'});
         this.worker.onmessage=e=>{
-          if(e.data?.type==='result'){this.map=e.data.map;this.map.source={name:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE'};this.worldCache=null;this.worldTime=-1;this.onMap(this.map);this.onState(this.stateLabel())}
+          if(e.data?.type==='result'){this.map=e.data.map;this.map.source={name:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',hash};this.worldCache=null;this.worldTime=-1;this.onMap(this.map);this.onState(this.stateLabel())}
           else if(e.data?.type==='error'){this.onState('PREVIEW · ANALYZER ERROR')}
         };
         this.worker.onerror=()=>this.onState('PREVIEW · ANALYZER ERROR');

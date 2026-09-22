@@ -1,5 +1,5 @@
 'use strict';
-const APP_VERSION = '0.10.1-field-pulse',
+const APP_VERSION = '0.10.2-local-track',
   SCHEMA = 3,
   STORE = 'fold-bloom-product-v04',
   SAVE_STORE = 'fold-bloom-cassettes-v1';

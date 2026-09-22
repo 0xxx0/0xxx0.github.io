@@ -23,9 +23,9 @@ export class Renderer {
     const speed=Number(this.trackfield?.currentSpeed)||1,grade=Number(this.trackfield?.currentGrade)||0,bend=Number(this.trackfield?.currentBend)||0;
     const k=1-Math.exp(-dt*5.2);
     m.speed+=(speed-m.speed)*k;m.grade+=(grade-m.grade)*k;m.bend+=(bend-m.bend)*k;
-    m.zoom=clamp(1+(m.speed-1)*.055,.965,1.065);
-    m.pitch=clamp(m.grade*18,-15,15);
-    m.bank=clamp(m.bend*.024,-.022,.022);
+    m.zoom=clamp(1+(m.speed-1)*.078,.94,1.105);
+    m.pitch=clamp(m.grade*27,-25,25);
+    m.bank=clamp(m.bend*.032,-.03,.03);
     return m;
   }
   slotAngle(i,state){return -Math.PI/2 + (i+state.rotation)*TAU/N + this.dragOffset}
@@ -106,8 +106,14 @@ export class Renderer {
       const left=split>.045?p.centerX-p.branchGap-p.branchHalf:p.centerX-p.half;
       const right=split>.045?p.centerX+p.branchGap+p.branchHalf:p.centerX+p.half;
       if(p.beatEdge){
-        g.strokeStyle=`rgba(255,255,255,${.10+.18*clamp(p.impact,0,1)})`;g.lineWidth=1;
+        const down=!!p.downbeatEdge;
+        g.strokeStyle=`rgba(255,255,255,${(down?.18:.08)+(down?.26:.14)*clamp(p.impact,0,1)})`;g.lineWidth=down?1.35:.8;
         g.beginPath();g.moveTo(left,p.baseY);g.lineTo(right,p.baseY);g.stroke();
+      }
+      if(p.phraseEdge){
+        const top=p.baseY-Math.max(9,(right-left)*.10);
+        g.strokeStyle='rgba(255,224,138,.44)';g.lineWidth=1.15;
+        g.beginPath();g.moveTo(left,p.baseY);g.quadraticCurveTo(p.centerX,top,right,p.baseY);g.stroke();
       }
       if(p.sectionEdge){
         const top=p.baseY-Math.max(14,(right-left)*.18);

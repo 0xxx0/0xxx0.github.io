@@ -58,6 +58,48 @@ export function estimateKeyFromChroma(input){
     chroma:norm.map(x=>+x.toFixed(5))
   };
 }
+function featureMean(frames,start,end){
+  if(!frames.length)return [0,0,0,0,0];
+  const lo=Math.max(0,Math.min(frames.length-1,start|0)),hi=Math.max(lo+1,Math.min(frames.length,end|0));
+  const keys=['e','c','f','l','h'],out=[];
+  for(const k of keys){let sum=0;for(let i=lo;i<hi;i++)sum+=Number(frames[i]?.[k])||0;out.push(sum/(hi-lo))}
+  return out;
+}
+function featureDistance(a,b){return Math.sqrt(a.reduce((sum,x,i)=>sum+(x-(b[i]||0))**2,0))}
+export function inferPhraseBoundaries(frames=[],beats=[],duration=0,bpm=0,frameRate=0){
+  const end=Math.max(0,Number(duration)||0),base=[{t:0,score:0,source:'START'}];
+  if(end<=0)return base;
+  const fp=Math.max(.001,Number(frameRate)||((frames.length||1)/end)),period=60/(Number(bpm)||90);
+  if(beats.length<9){
+    for(let t=period*8;t<end-period*2;t+=period*8)base.push({t:+t.toFixed(4),score:0,source:'GRID_FALLBACK'});
+    base.push({t:end,score:0,source:'END'});return base;
+  }
+  const candidates=[];
+  for(let i=4;i<beats.length-4;i++){
+    const t=Number(beats[i]);if(!Number.isFinite(t)||t<=0||t>=end)continue;
+    const a0=Math.floor((Number(beats[i-4])||0)*fp),a1=Math.max(a0+1,Math.floor(t*fp));
+    const b0=a1,b1=Math.max(b0+1,Math.floor((Number(beats[i+4])||Math.min(end,t+period*4))*fp));
+    const score=featureDistance(featureMean(frames,a0,a1),featureMean(frames,b0,b1));
+    const meter=(i%8===0?.055:i%4===0?.018:0);
+    candidates.push({i,t,score:score+meter,raw:score});
+  }
+  const scores=candidates.map(x=>x.score),threshold=Math.max(.16,percentile(scores,.62));
+  const minGap=Math.max(period*4,1.8),picked=[];
+  for(let j=0;j<candidates.length;j++){
+    const x=candidates[j],prev=candidates[j-1]?.score??-Infinity,next=candidates[j+1]?.score??-Infinity;
+    if(x.score<threshold||x.score<prev||x.score<next)continue;
+    const last=picked.at(-1);
+    if(last&&x.t-last.t<minGap){if(x.score>last.score)picked[picked.length-1]=x;continue}
+    picked.push(x);
+  }
+  // Weak/steady material still receives a musically transparent grid fallback.
+  if(!picked.length){
+    for(let i=8;i<beats.length;i+=8){const t=Number(beats[i]);if(t>0&&t<end-period*2)picked.push({i,t,score:0,raw:0,source:'GRID_FALLBACK'})}
+  }
+  for(const x of picked)base.push({t:+x.t.toFixed(4),score:+x.score.toFixed(3),source:x.source||'NOVELTY',beatIndex:x.i});
+  base.push({t:end,score:0,source:'END'});
+  return base;
+}
 export function analyzePCM(pcm,sr,duration=pcm.length/sr,progress=()=>{}){
   const N=1024,H=2048,bins=N>>1,frameCount=Math.max(1,Math.floor((pcm.length-N)/H)+1);
   const re=new Float32Array(N),im=new Float32Array(N),prev=new Float32Array(bins);
@@ -108,6 +150,7 @@ export function analyzePCM(pcm,sr,duration=pcm.length/sr,progress=()=>{}){
     let bi=i,bv=-1;for(let j=Math.max(0,i-2);j<=Math.min(frameCount-1,i+2);j++){if(env[j]>bv){bv=env[j];bi=j}}
     const t=bi*H/sr;if(!beats.length||t-beats[beats.length-1]>.22)beats.push(t);
   }
+  const phrases=inferPhraseBoundaries(frames,beats,duration,bpm,fps);
   const sectionStep=Math.max(4,Math.round((beats.length?beatFrames*8:fps*8)));
   const sections=[{t:0,score:0}];
   let lastVec=null;
@@ -123,5 +166,5 @@ export function analyzePCM(pcm,sr,duration=pcm.length/sr,progress=()=>{}){
   sections.push({t:duration,score:0});
   const key=estimateKeyFromChroma(chroma);
   progress(1);
-  return {version:'fold-bloom-audio-map/v0.3',stage:'DEEP',preview:false,analysisProfile:'song-fast+harmonic-id',duration,sampleRate:sr,hop:H,window:N,bpm:+bpm.toFixed(2),tempoConfidence:+confidence.toFixed(3),key,frames,beats,sections};
+  return {version:'fold-bloom-audio-map/v0.4',stage:'DEEP',preview:false,analysisProfile:'song-fast+harmonic-id+phrase-novelty',duration,sampleRate:sr,hop:H,window:N,bpm:+bpm.toFixed(2),tempoConfidence:+confidence.toFixed(3),key,frames,beats,phrases,sections};
 }

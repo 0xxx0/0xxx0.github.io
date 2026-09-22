@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
-  "version": "LIVE 0.7",
-  "status": "ACTIVE_CANDIDATE_MERGED",
+  "version": "LIVE 0.8",
+  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
   "date": "2026-09-22",
   "donors": [
     {
@@ -80,7 +80,13 @@
     "autoplay preview can write reversible road deformations in FIELD COURSE, then restores state on takeover",
     "VEL and GRADE witnesses make motion mapping inspectable without making HUD authoritative",
     "TRACKFIELD refresh cadence tightened from ~55 ms to display-scale ~12 ms",
-    "deformation layer preserves current TRACKFIELD schema rather than downgrading provenance"
+    "deformation layer preserves current TRACKFIELD schema rather than downgrading provenance",
+    "terrain grade range and altitude integration materially amplified so climbs/descents read in screen space",
+    "future ~phrase-scale energy trend anticipates rises/drops rather than reacting only at the current frame",
+    "beats render as road ribs, downbeats stronger, analyzed phrase changes as mid-scale gates, sections as macro gates/horizon changes",
+    "camera pitch/zoom/bank gains increased while retaining low-pass smoothing",
+    "AUTO RIDE DEMO now chooses alternating branches when authored SPLIT opportunities approach",
+    "local MP3 analysis now preserves SHA-256 source identity in LIVE AUDIO MAP transport"
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -106,7 +112,7 @@
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "Direct desktop/phone A/B: PLAY FIELD first, then the same MP3. Without relying on VEL/GRADE labels, judge whether climb/descent is unmistakable, energetic passages feel faster, turns are smoother, and FOLD/SPLIT/RETURN remain legible.",
+    "required_next": "Direct phone/desktop A/B: steeper terrain legibility, phrase gates, auto-ride branch demonstration, and whether motion remains smooth rather than seasick.",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
@@ -141,7 +147,8 @@
     "motion_pr": 141,
     "motion_merge_sha": "3dc38617be81ac215b95998ba14ff82fb1a5e2d9",
     "motion_ci": "PASS: public-surface-check run 35680273840, including interpolation/grade/speed/practice-course/deformation/ride tests and critical browser smoke",
-    "motion_regression": "CI caught old adjacent-frame SURGE detection becoming invalid after smoothing; replaced with temporal-window impact-rise detection before merge."
+    "motion_regression": "CI caught old adjacent-frame SURGE detection becoming invalid after smoothing; replaced with temporal-window impact-rise detection before merge.",
+    "horizon_08": "PENDING_CI"
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_MOTION_2026-09-22.json",
@@ -198,5 +205,21 @@
       "desktop motion feels glitchy/not smooth"
     ],
     "insight": "Reader transfer should preserve addressed playhead/projection law around a canonical source, closer to AXIAL/Lens, rather than copy music metrics or racer HUD."
+  },
+  "observed_user_return_0_8": {
+    "date": "2026-09-22",
+    "confidence": "DIRECT_USER_REPORT",
+    "success": [
+      "LIVE described as incredible / dope / worth reifying"
+    ],
+    "requests": [
+      "make inclines steeper",
+      "continue building the vision",
+      "differentiate beat / phrase / structural changes",
+      "preserve audio→glyph thumbnail identity idea",
+      "strong demo mode",
+      "direct custom file context in Two Dial",
+      "log pure intention each pass"
+    ]
   }
 }

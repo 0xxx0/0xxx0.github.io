@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM LISTEN",
-  "version": "0.3",
-  "state": "CANDIDATE_MERGED",
+  "version": "0.4",
+  "state": "CANDIDATE_BRANCH_VERIFY",
   "operation": "LISTEN",
   "route": "/fold-bloom/listen/",
   "date": "2026-09-22",
-  "thesis": "One bounded source can be navigated as an addressed stream: horizontal/ring motion changes ADDRESS, vertical motion changes APERTURE, projections remain host-specific, and authored PINs attach evidence without mutating source analysis.",
+  "thesis": "One hashed audio source becomes a reusable addressed object: analyzed beat/phrase/section hierarchy, deterministic source glyph, ADDRESS×APERTURE navigation, authored pins, and unequal projections into LISTEN/LIVE/Two Dial.",
   "recovered_transfer": [
     "RC8-era Fold/Bloom behavior: vertical scale traversal + horizontal/topological operation, recovered from collaboration context but exact executable remains unfound",
     "Ecology/Two Dial ring dynamics: cyclic wrap, shortest circular delta, detent/inertia ergonomics",
@@ -53,7 +53,13 @@
     "best-effort provider BPM/key/time-signature metadata is preserved when actually present but never required",
     "LISTEN UI now names SOURCE → ADDRESS → APERTURE → FIELD and treats audio as the first host of a transferable stream lens",
     "FIELD PULSE contract intentionally remains unchanged; harmonic identity stays durable/local until a consumer proves need",
-    "panel scrolling is isolated from global address/aperture wheel gestures"
+    "panel scrolling is isolated from global address/aperture wheel gestures",
+    "AUDIO MAP v0.4 adds beat-synchronous phrase novelty boundaries with explicit GRID_FALLBACK when evidence is weak",
+    "PHRASE aperture follows analyzed phrase evidence instead of always assuming fixed eight-beat windows",
+    "transport may carry optional phraseIndex/phraseStart/phraseEnd/phraseProgress as bounded temporal context",
+    "deterministic fold-bloom-audio-glyph/v0.1 compiles source hash + frame contour + chroma + sections + tempo into a thumbnail SVG",
+    "glyph remains stable for the same source/map and exports independently as .field-glyph.svg",
+    "AUDIO MAP JSON export carries glyph descriptor beside map and authored annotations"
   ],
   "constraints": [
     "no upload/network required for user audio",
@@ -72,7 +78,9 @@
     "key/mode estimate is approximate MIR evidence, not ground truth and not musical authority",
     "provider metadata fields are opportunistic provenance only; undocumented Suno fields must not become required contracts",
     "horizontal address and vertical aperture must remain perceptually distinct on trackpad/touch/keyboard",
-    "do not implement a second stream host until LISTEN 0.3 interaction survives direct use"
+    "do not implement a second stream host until LISTEN 0.3 interaction survives direct use",
+    "phrase novelty is approximate structural evidence; GRID_FALLBACK is labeled and never semantic truth",
+    "audio glyph is an identity/projection aid, not proof that similar-looking files are related"
   ],
   "verification": {
     "module_runtime": "PASS: LISTEN 0.2 surface executed in browser smoke",
@@ -97,12 +105,13 @@
     "workflow_phone": "REQUIRED: real phone USE TRACK reachability + READFIELD entry + return flow",
     "stream_lens_branch": "fold-bloom-listen-stream-lens-030",
     "stream_lens_ci": "PASS: public-surface-check run 35685019871; static contracts, analysis+stream-lens tests, preview browser render, LIVE regression, critical browser smoke, recovery and Sleeper tests all passed.",
-    "required_next": "Direct desktop/phone: horizontal scrub vs vertical aperture, create/seek/edit/export pins, key/mode plausibility on several familiar tracks.",
+    "required_next": "Direct use: familiar tracks, judge phrase gates/aperture and glyph recognizability; verify same file hash survives LISTEN→LIVE→Two Dial.",
     "stream_lens_pr": 142,
     "stream_lens_merge_sha": "683d0067100c8d8b376e2b38a23c07f11b3fed9b",
-    "migration_gate_repair": "PASS: removed two already-recovered Sleeper entries from ingest_queue and aligned migration exact-source authority to /returns/BACKUP_RECOVERY_2026-09-21.json while preserving Sep-22 public runtime recovery separately."
+    "migration_gate_repair": "PASS: removed two already-recovered Sleeper entries from ingest_queue and aligned migration exact-source authority to /returns/BACKUP_RECOVERY_2026-09-21.json while preserving Sep-22 public runtime recovery separately.",
+    "horizon_04": "PENDING_CI"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · portable donor=field-addressed-stream/v0.1",
   "updated": "2026-09-22",
-  "return": "/returns/FOLD_BLOOM_STREAM_LENS_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json"
 }
