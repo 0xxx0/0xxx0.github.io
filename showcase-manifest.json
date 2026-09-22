@@ -6441,6 +6441,172 @@
         ],
         "return_path": "/"
       }
+    },
+    {
+      "href": "/nexus/board.html",
+      "title": "OPS // MULTI-AGENT BOARD",
+      "kind": "hub",
+      "parent": "/",
+      "operation": "ORIENT",
+      "state": "UTILITY",
+      "family": "NEXUS",
+      "showcase_card": false,
+      "role": "Multi-agent coordination board. Live view of who is working where, so parallel writers do not collide silently. A surface, not an authority.",
+      "index": {
+        "updated_at": "2026-09-23T02:08:03+08:00",
+        "work_modes": [
+          "INSPECT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "registered after an on-disk vs manifest audit found it unlisted"
+        ],
+        "return_path": "/"
+      }
+    },
+    {
+      "href": "/nexus/map.html",
+      "title": "FIELD // SYSTEM MAP",
+      "kind": "hub",
+      "parent": "/",
+      "operation": "ORIENT",
+      "state": "UTILITY",
+      "family": "NEXUS",
+      "showcase_card": false,
+      "role": "System map of the field: how the surfaces relate and which ones are load-bearing. Orientation aid for a cold reader.",
+      "index": {
+        "updated_at": "2026-09-23T02:08:03+08:00",
+        "work_modes": [
+          "INSPECT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "registered after an on-disk vs manifest audit found it unlisted"
+        ],
+        "return_path": "/"
+      }
+    },
+    {
+      "href": "/foundry/axial/lab-0.5.1.html",
+      "title": "AXIAL / STATE APERTURE 0.5.1",
+      "kind": "experiment",
+      "parent": "/",
+      "operation": "OBSERVE",
+      "state": "ACTIVE",
+      "family": "AXIAL",
+      "showcase_card": false,
+      "role": "Frozen AXIAL experiment: state aperture behaviour at 0.5.1. Kept as evidence of a decision, not as a current head.",
+      "index": {
+        "updated_at": "2026-09-23T02:08:03+08:00",
+        "work_modes": [
+          "INSPECT",
+          "EXPERIMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "registered after an on-disk vs manifest audit found it unlisted"
+        ],
+        "return_path": "/"
+      }
+    },
+    {
+      "href": "/foundry/room/html-substrate-0.3.html",
+      "title": "ROOM 0.3 / HTML SUBSTRATE",
+      "kind": "experiment",
+      "parent": "/",
+      "operation": "PROJECT",
+      "state": "ACTIVE",
+      "family": "BODY / FIELD",
+      "showcase_card": false,
+      "role": "Frozen experiment: HTML as room substrate at 0.3. Part of the INTERPHASE room lineage.",
+      "index": {
+        "updated_at": "2026-09-23T02:08:03+08:00",
+        "work_modes": [
+          "INSPECT",
+          "EXPERIMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "registered after an on-disk vs manifest audit found it unlisted"
+        ],
+        "return_path": "/"
+      }
+    },
+    {
+      "href": "/foundry/room/room-0.1.html",
+      "title": "INTERPHASE / ROOM 0.1",
+      "kind": "experiment",
+      "parent": "/",
+      "operation": "PROJECT",
+      "state": "ACTIVE",
+      "family": "BODY / FIELD",
+      "showcase_card": false,
+      "role": "INTERPHASE ROOM 0.1. Early spatial-room projection. Frozen evidence.",
+      "index": {
+        "updated_at": "2026-09-23T02:08:03+08:00",
+        "work_modes": [
+          "INSPECT",
+          "EXPERIMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "registered after an on-disk vs manifest audit found it unlisted"
+        ],
+        "return_path": "/"
+      }
+    },
+    {
+      "href": "/foundry/room/space-scale-0.2.html",
+      "title": "INTERPHASE / SPACE SCALE 0.2",
+      "kind": "experiment",
+      "parent": "/",
+      "operation": "PROJECT",
+      "state": "ACTIVE",
+      "family": "BODY / FIELD",
+      "showcase_card": false,
+      "role": "BLOCK to ROOM space-scale study, 0.2. Frozen evidence in the room lineage.",
+      "index": {
+        "updated_at": "2026-09-23T02:08:03+08:00",
+        "work_modes": [
+          "INSPECT",
+          "EXPERIMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "registered after an on-disk vs manifest audit found it unlisted"
+        ],
+        "return_path": "/"
+      }
+    },
+    {
+      "href": "/sleeper/borrowed-river/shell.html",
+      "title": "BORROWED RIVER / SLEEPER",
+      "kind": "artifact",
+      "parent": "/",
+      "operation": "PLAY",
+      "state": "ACTIVE",
+      "family": "SLEEPER",
+      "showcase_card": false,
+      "role": "Borrowed River shell in the SLEEPER lineage. Playable surface, source evidence preserved.",
+      "index": {
+        "updated_at": "2026-09-23T02:08:03+08:00",
+        "work_modes": [
+          "INSPECT",
+          "OPERATE"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "registered after an on-disk vs manifest audit found it unlisted"
+        ],
+        "return_path": "/"
+      }
     }
   ],
   "release_law": [

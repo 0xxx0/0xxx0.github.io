@@ -1,0 +1,43 @@
+name: Route Registration
+# A page that exists but is not in showcase-manifest.json is INVISIBLE —
+# the FIELD INDEX feed renders the manifest, so an unregistered route never
+# appears in LATEST / REPO TOUCHES no matter how new it is.
+#
+# This is the gate that keeps the index honest. It is the cheapest possible
+# check (no deps, one node script) and it catches exactly the drift class we
+# hit in practice: seven pages built, resolving, and invisible to the index.
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'showcase-manifest.json'
+      - '**/*.html'
+      - 'scripts/check-route-registration.mjs'
+      - '.github/workflows/route-registration.yml'
+  pull_request:
+    paths:
+      - 'showcase-manifest.json'
+      - '**/*.html'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  registration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Check every live surface is registered
+        run: node scripts/check-route-registration.mjs
+
+      - name: Report archive vault (informational, never fails)
+        if: always()
+        run: node scripts/check-route-registration.mjs --all || true
