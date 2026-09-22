@@ -2,7 +2,7 @@
   "schema": "0xxx0/confluence-packet/v0.1",
   "id": "FOLD_BLOOM_RIDE_CHOICE_2026-09-22",
   "date": "2026-09-22",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "object": "FOLD//BLOOM LIVE 0.6 / world-writing becomes traversable",
   "recovered_other_thread": {
     "observed": [
@@ -42,5 +42,21 @@
     "If yes, decide whether branch choice should become replay/ghost identity before starting Ecology climate transfer."
   ],
   "stop": "Do not add lane collectibles, second steering controls, Ecology racer visuals or provider integrations before branch-choice play evidence.",
-  "return": "/returns/FOLD_BLOOM_RIDE_CHOICE_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_RIDE_CHOICE_2026-09-22.json",
+  "pr": 140,
+  "merge_sha": "394ff6639690eecfdb15fed81bc1220d662b8f5c",
+  "verification": {
+    "ci_run": 35678147159,
+    "result": "PASS",
+    "checks": [
+      "LIVE engine tests",
+      "track transport tests",
+      "section arc tests",
+      "TRACKFIELD projection tests",
+      "world-writing deformation tests",
+      "ride / branch-choice tests",
+      "phone-sized critical browser smoke",
+      "repo-wide static/recovery regressions"
+    ]
+  }
 }
