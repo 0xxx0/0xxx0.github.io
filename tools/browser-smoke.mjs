@@ -700,7 +700,7 @@ const CASES=[
   {
     name:'FOLD BLOOM convergence',
     route:'/fold-bloom/',
-    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/START HERE · 3-TRACK WITNESS/i.test(dom)&&/GHOST → FORGE → WILL/.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/GLYPH ATLAS 0\.2/i.test(dom)&&/LISTEN 0\.6/i.test(dom)&&/LIVE 0\.13/i.test(dom)&&/TWO DIAL 0\.10\.3/i.test(dom)&&/SET 0\.1/i.test(dom)&&/href="\.\/set\/"/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/WORKBENCH · CURRENT \+ RETAINED BRANCHES/i.test(dom)&&/LIVE\s+ACTIVE · RIDE/i.test(dom)&&/JOURNEY\s+CANDIDATE · RIDE SET/i.test(dom)&&/DEMO \/ PROOF · BYTE-FREE 3-TRACK WITNESS/i.test(dom)&&/GHOST → FORGE → WILL/.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/GLYPH ATLAS 0\.2/i.test(dom)&&/LISTEN 0\.6/i.test(dom)&&/LIVE 0\.13/i.test(dom)&&/TWO DIAL 0\.10\.3/i.test(dom)&&/SET 0\.1/i.test(dom)&&/href="\.\/set\/"/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)
   },
   {
     name:'FOLD BLOOM SET 0.1 compositor',
