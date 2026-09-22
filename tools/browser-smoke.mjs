@@ -706,7 +706,7 @@ const CASES=[
     name:'FOLD BLOOM LIVE 0.7 motion',
     route:'/fold-bloom/live/',
     options:{width:430,height:900,budget:9000},
-    check:dom=>/LIVE 0\.7/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('id="demoBtn"')&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="speed"')&&dom.includes('id="grade"')&&dom.includes('id="trackFile"')&&/CLIMB \/ TURN \/ ACCELERATE \/ WRITE/i.test(dom)&&/FIELD COURSE/.test(dom)&&/same left\/right turn/i.test(dom)  },
+    check:dom=>/LIVE 0\.7/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('id="demoBtn"')&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="speed"')&&dom.includes('id="grade"')&&dom.includes('id="trackFile"')&&/CLIMB \/ TURN \/ ACCELERATE \/ WRITE/i.test(dom)&&/FIELD COURSE/.test(dom)&&/same left\/right turn/i.test(dom)&&dom.includes('data-trackfield-source="FIELD_PRACTICE"')&&/data-trackfield-motion="(?!NONE)[^"]+"/.test(dom)  },
   {
     name:'TWO DIAL sound field 0.10',
     route:'/fold-bloom/two-dial/',
