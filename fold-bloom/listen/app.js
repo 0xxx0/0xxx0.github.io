@@ -239,6 +239,7 @@ audio.onplay=()=>{$('#transport').textContent='PAUSE';publishTransport(true)};au
 $('#export').onclick=()=>{if(!map)return;const packet={kind:'FOLD_BLOOM_AUDIO_MAP',created:new Date().toISOString(),map,annotations:{schema:STREAM_LENS_SCHEMA,pins:normalizePins(pins,sourcePinKey())}},b=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`fold-bloom-audio-map-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 document.querySelectorAll('[data-scope]').forEach((b,i)=>b.onclick=()=>setScope(i));
 addEventListener('wheel',e=>{
+  if(e.target?.closest?.('#pinSheet,#useSheet,#drop'))return;
   const ax=Math.abs(e.deltaX),ay=Math.abs(e.deltaY),horizontal=map&&(ax>Math.max(2,ay*.65)||e.shiftKey);
   if(horizontal){
     e.preventDefault();const d=ax>Math.max(2,ay*.65)?e.deltaX:e.deltaY,range=scopeWindow(map,audio.currentTime,scope());
@@ -281,7 +282,7 @@ function transportPayload(){
     playing:!audio.paused,time,duration:map.duration||0,bpm:map.bpm||0,tempoConfidence:map.tempoConfidence||0,
     beatIndex,beatTime,beatPhase,beatDistance,sectionIndex,sectionCount,sectionStart,sectionEnd,sectionProgress,scope:scope(),scopeStart:range[0],scopeEnd:range[1],
     energy:+(f.e||0).toFixed(4),flux:+(f.f||0).toFixed(4),brightness:+(f.c||0).toFixed(4),
-    stage:map.stage||'UNKNOWN',key:map.key?.label||fileMeta?.providerKey||null,keyConfidence:map.key?.confidence||null,sourceHash:fileMeta?.hash||null,sourceKind:fileMeta?.sourceKind||null,sourceAddress:fileMeta?.sourceAddress||null
+    stage:map.stage||'UNKNOWN',sourceHash:fileMeta?.hash||null,sourceKind:fileMeta?.sourceKind||null,sourceAddress:fileMeta?.sourceAddress||null
   };
 }
 function publishTransport(force=false){
