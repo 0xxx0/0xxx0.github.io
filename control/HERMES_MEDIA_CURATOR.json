@@ -20,7 +20,7 @@
     },
     "bulk_semantic_worker": {
       "implementation": "/scripts/media-curator-cycle.py",
-      "default_model": "qwen3-vl:8b",
+      "default_model": "qwen3.5:9b",
       "endpoint": "Ollama /api/chat",
       "authority": [
         "semantic_overlay_only"
@@ -34,9 +34,11 @@
       "bootstrap": "/scripts/hermes-media-bootstrap.sh",
       "recommended_provider": "ChatGPT/Codex OAuth or another strong configured Hermes provider",
       "local_only_option": {
-        "model": "field-qwen3-vl:8b-64k",
+        "model": "field-qwen3.5-27b-64k",
+        "base_model": "qwen3.5:27b",
         "base_url": "http://localhost:11434/v1",
-        "context_length": 65536
+        "context_length": 65536,
+        "auto_pull": false
       },
       "authority": [
         "launch bounded cycles",
@@ -49,9 +51,9 @@
   },
   "model_policy": {
     "bulk_visual_semantics": {
-      "model": "qwen3-vl:8b",
-      "reason": "Small enough for continuous local throughput while retaining vision, OCR and spatial semantics.",
-      "note": "Bulk worker talks directly to Ollama and sets num_ctx=65536 per request."
+      "model": "qwen3.5:9b",
+      "reason": "Current Ollama Qwen3.5 9B is multimodal and small enough for bounded local bulk annotation on the Mac mini.",
+      "note": "Bulk worker talks directly to Ollama /api/chat; keep semantic overlays non-canonical until validation."
     },
     "supervisor": {
       "preferred": "strong Hermes tool model via configured provider; ChatGPT/Codex OAuth avoids a separate OpenAI API key when available",
@@ -67,6 +69,12 @@
       "preferred": "DINOv3",
       "status": "PARKED",
       "use": "morphology/structure-sensitive similarity when SigLIP2 + quantitative metrics prove insufficient."
+    },
+    "local_adjudicator": {
+      "model": "qwen3.5:27b",
+      "status": "OPTIONAL_MANUAL_PULL",
+      "use": "Held/high-value batch adjudication or local Hermes supervision when a stronger hosted supervisor is unavailable.",
+      "law": "Do not auto-pull or make it a curation dependency."
     }
   },
   "loop": [
@@ -88,7 +96,9 @@
     "LOW-CONFIDENCE OR INVALID OVERLAYS DO NOT ENTER CANONICAL MEMORY.",
     "HERMES HANDLES EXCEPTIONS; IT DOES NOT DUPLICATE DETERMINISTIC PIPELINE WORK.",
     "NO RENDERING OR TRANSLATE IN THE CURATION LOOP.",
-    "NO CRON UNTIL A SMALL BOUNDED RUN COMPLETES CLEANLY."
+    "NO CRON UNTIL A SMALL BOUNDED RUN COMPLETES CLEANLY.",
+    "MODEL/HARNESS STATE IS NON-CANONICAL; FILES + RECEIPTS + REVIEWED OVERLAYS REMAIN AUTHORITY.",
+    "HEAVY LOCAL SUPERVISOR MODELS ARE OPT-IN; BOOTSTRAP MUST NOT AUTO-PULL THEM."
   ],
   "local_surfaces": {
     "memory": [
@@ -118,4 +128,4 @@
       "recipe queue changes only after accepted overlay evidence"
     ]
   }
-}
+}\n
