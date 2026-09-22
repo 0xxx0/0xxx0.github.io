@@ -1,7 +1,7 @@
 {
   "schema": "sleeper-project-state/v0.2",
-  "updated": "2026-09-22T05:41:00+08:00",
-  "purpose": "Keep the actual ONE RETURN City Engine authority separate from later derivatives, reconstructions and evidence shelves.",
+  "updated": "2026-09-22T13:06:00+08:00",
+  "purpose": "Keep ONE RETURN as the single Sleeper runtime identity while preserving exact recovered source, later derivatives, donors and unresolved historical version distinctions.",
   "now": [
     {
       "id": "one-return-v2",
@@ -9,13 +9,14 @@
       "title": "SLEEPER // ONE RETURN v2 / City Engine v0.2",
       "route": "/sleeper/",
       "source": "/recovery/sleeper/site-source-2026-09-18/",
-      "state": "EXACT_SOURCE_RECOVERED_RUNTIME_REACHABILITY_UNVERIFIED",
+      "state": "CANONICAL_LIVE_RUNTIME_RECOVERED",
       "figures": [
         "urchin",
         "slothcake",
         "kite"
       ],
-      "note": "User re-identification plus exact source discriminators resolve which Sleeper artifact this repo should surface. Historical deployment reachability remains unverified."
+      "note": "The live ONE RETURN host surfaced again on 2026-09-22. /sleeper/ now resolves to that runtime; the recovered source shelf remains durable authority. This does not collapse historical deployment/version distinctions.",
+      "runtime": "https://sleeper-one-return.metaname.chatgpt.site/"
     },
     {
       "id": "ascii-sleeper-08",
@@ -63,7 +64,7 @@
     }
   ],
   "unresolved": [
-    "Verify current reachability of the historical metaname Work route or recover a complete deployable package before claiming the original runtime is live.",
+    "Preserve historical deployment/version distinctions if further evidence appears; current live address does not prove byte identity with every prior Work deployment.",
     "Do not resolve historical three-figure versus remembered four-configuration variants by analogy; preserve version distinction if further evidence appears."
   ],
   "laws": [
@@ -74,7 +75,7 @@
     "PRESERVE SUPERSEDED BYTES BEFORE REPOINTING AUTHORITY."
   ],
   "repair": {
-    "receipt": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
-    "branch": "repair/sleeper-one-return-authority-20260922"
+    "receipt": "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
+    "branch": "sleeper/converge-city-engine-runtime-20260922"
   }
 }
