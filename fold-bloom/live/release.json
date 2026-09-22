@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
   "version": "LIVE 0.11",
-  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
+  "status": "ACTIVE_CANDIDATE_MERGED",
   "date": "2026-09-22",
   "donors": [
     {
@@ -193,7 +193,10 @@
     "pov_pr": 147,
     "pov_merge_sha": "d872d9bbdb303dddbfc28fc09bd1e681e97a27fb",
     "macrodrop_branch": "fold-bloom-live-011-macrodrop",
-    "macrodrop_ci": "PENDING PR CI"
+    "macrodrop_ci": "PASS: public-surface-check run 35698711168, including macro-drop/text tests, full LIVE regression stack, LISTEN preview and critical browser smoke",
+    "macrodrop_pr": 148,
+    "macrodrop_merge_sha": "1d43c3edf1469c85a5fa7e3317460cd6932911b8",
+    "macrodrop_regression": "First CI caught a test selecting the pre-impact frame while asserting post-impact open-sky state; corrected the test boundary without loosening production drop thresholds, then full CI passed."
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_NERVOUS_SYSTEM_2026-09-22.json",
