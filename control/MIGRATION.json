@@ -131,8 +131,10 @@
       "unique": "Phrase + verse cell + figure compile into reproducible ASCII city; eight proofs + ninth RETURN; distinct source-material compiler and figure physics. Full Next.js app with 10-field Field Atlas, Nine Gates, operators, mobile controls.",
       "design_conversation": "Brainstorm ASCII Sleeper City (2026-08-24, 945 msgs) + Branch (2026-09-10, 964 msgs) — both in ChatGPT Sept export conversations-007.json and conversations-008.json",
       "action": "KEEP AS FROZEN LIVE DONOR. External URL continues serving. Local copy at /Users/mcvoid/void-anchor/_recovered/sleeper-city/ (8.2MB, 8 files). Do not re-architect or re-deploy — preserve as live reference.",
-      "retrieval_state": "RECOVERED_EXACT_PUBLIC_SOURCE_2026-09-22",
-      "verification": "Full website fetched via curl: index.html (10KB), painting.html (3.3MB), lab.html (28KB), interphase.html (12KB), atlas.html (23KB), confluence.png (456KB), index.css (122KB), app.js (82KB). All HTTP 200s."
+      "retrieval_state": "EXACT_SOURCE_RECOVERED_2026-09-21",
+      "verification": "Full website fetched via curl: index.html (10KB), painting.html (3.3MB), lab.html (28KB), interphase.html (12KB), atlas.html (23KB), confluence.png (456KB), index.css (122KB), app.js (82KB). All HTTP 200s.",
+      "public_runtime_recovery": "RECOVERED_EXACT_PUBLIC_SOURCE_2026-09-22",
+      "source_authority": "/returns/BACKUP_RECOVERY_2026-09-21.json"
     },
     {
       "id": "sleeper-painting-path",
@@ -144,8 +146,10 @@
       "unique": "Painting itself as navigable interface: select detail → read/speak/route/finding, with zoom/outline/route interactions. Full region-marked SVG painting with plain/list views.",
       "design_conversation": "Brainstorm ASCII Sleeper City conversations (2026-08-24, 2026-09-10) — same design thread as City Engine",
       "action": "KEEP AS FROZEN LIVE DONOR. External URL continues serving. Local copy of 3.3MB HTML with embedded base64 painting image at /Users/mcvoid/void-anchor/_recovered/sleeper-city/painting.html.",
-      "retrieval_state": "RECOVERED_EXACT_PUBLIC_SOURCE_2026-09-22",
-      "verification": "/painting page fetched via curl: 3.3MB HTML containing embedded DEFAULT_IMAGE base64. Full painting viewer + region selection + RSVP reader + route tracing. HTTP 200."
+      "retrieval_state": "EXACT_SOURCE_RECOVERED_2026-09-21",
+      "verification": "/painting page fetched via curl: 3.3MB HTML containing embedded DEFAULT_IMAGE base64. Full painting viewer + region selection + RSVP reader + route tracing. HTTP 200.",
+      "public_runtime_recovery": "RECOVERED_EXACT_PUBLIC_SOURCE_2026-09-22",
+      "source_authority": "/returns/BACKUP_RECOVERY_2026-09-21.json"
     },
     {
       "id": "two-dial-0-9",
@@ -512,8 +516,6 @@
     }
   ],
   "ingest_queue": [
-    "SLEEPER CITY: BLOCKED status lifted. Full Next.js app recovered from live URL (8.2MB). Design documented in 945+964 msg Brainstorm conversations. RECOVERED_AND_IMPORTED.",
-    "SLEEPER PAINTING: BLOCKED status lifted. 3.3MB painting viewer with embedded base64 image recovered. RECOVERED_AND_IMPORTED.",
     "LACONIC: Laconic Canon Recovery conversation (2026-08-07) recovered 255 items. 130 atomic items (39U/87A/1J/3?). 20 missing queue open. 11 sandbox files ephemeral — reconstruction in progress.",
     "SEPT EXPORT: 793 conversations extracted via bsdtar (243MB). 9 conversation files. 1007 .dat image files. 188MB chat.html. Key convergence conversations identified and extracted.",
     "LACONIC: isolate exact historical bank lines with source refs; preserve EXACT / RECONSTRUCTED / NEW firewall.",
