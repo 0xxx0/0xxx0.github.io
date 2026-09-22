@@ -241,13 +241,13 @@ function pointUp(e){
 cv.addEventListener('pointerdown',pointDown);cv.addEventListener('pointermove',pointMove);cv.addEventListener('pointerup',pointUp);cv.addEventListener('pointercancel',pointUp);
 
 $('#releaseBtn').onclick=()=>{stopDemo(true);doRelease()};$('#modeBtn').onclick=()=>{stopDemo(true);toggleMode()};$('#sceneBtn').onclick=()=>{stopDemo(true);cycleScene()};
-$('#soundBtn').onclick=async()=>{if(!audio.ctx)await ensureAudio();else audio.setSound(!audio.soundOn);update()};
-$('#menuBtn').onclick=()=>$('#settings').classList.toggle('on');$('#closeSettings').onclick=()=>$('#settings').classList.remove('on');
+$('#soundBtn').onclick=async()=>{stopDemo(true);if(!audio.ctx)await ensureAudio();else audio.setSound(!audio.soundOn);update()};
+$('#menuBtn').onclick=()=>{stopDemo(true);$('#settings').classList.toggle('on')};$('#closeSettings').onclick=()=>$('#settings').classList.remove('on');
 $('#vol').value=Math.round(audio.volume*100);$('#vol').oninput=e=>audio.setVolume(+e.target.value/100);
 $('#trackVol').value=Math.round($('#trackAudio').volume*100);$('#trackVol').oninput=e=>liveTrack.setVolume(+e.target.value/100);
-$('#trackLoad').onclick=()=>$('#trackFile').click();$('#songIntroBtn').onclick=()=>{stopDemo(false);$('#trackFile').click()};
+$('#trackLoad').onclick=()=>{stopDemo(true);$('#trackFile').click()};$('#songIntroBtn').onclick=()=>{stopDemo(false);$('#trackFile').click()};
 $('#trackFile').onchange=e=>loadLocalSong(e.target.files?.[0]);
-$('#trackToggle').onclick=()=>liveTrack.toggle().then(()=>update()).catch(()=>toast('SONG PLAY BLOCKED'));
+$('#trackToggle').onclick=()=>{stopDemo(true);liveTrack.toggle().then(()=>update()).catch(()=>toast('SONG PLAY BLOCKED'))};
 $('#listenBtn').onclick=()=>window.open('../listen/','fold-bloom-listen');
 $('#exportBtn').onclick=()=>{
   const packet={kind:'FOLD_BLOOM_LIVE_RETURN',version:VERSION,created:new Date().toISOString(),source:{foldWeave:'/recovery/fold-bloom/fold-weave-0.1/',twoDial:'/fold-bloom/two-dial/'},state:snapshot(state),performance:{sectionArc,deformationTape,ride:{...ride,trace:(ride.trace||[]).map(x=>({...x}))}}};
@@ -259,14 +259,15 @@ $('#mutePlay').onclick=()=>{stopDemo(false);$('#intro').classList.remove('on');a
 $('#demoBtn').onclick=()=>{if(demo.on)stopDemo(true);else startDemo({preview:true,playTrack:true})};$('#demoSettingsBtn')?.addEventListener('click',()=>{if(demo.on)stopDemo(true);else startDemo({preview:true,playTrack:true})});
 
 addEventListener('keydown',e=>{
-  if(e.repeat)return;stopDemo(true);
+  if(e.repeat)return;
+  if(e.key.toLowerCase()==='d'){e.preventDefault();if(demo.on)stopDemo(true);else startDemo({preview:true,playTrack:true});return}
+  stopDemo(true);
   if(e.key==='ArrowLeft'){e.preventDefault();step(-1)}
   else if(e.key==='ArrowRight'){e.preventDefault();step(1)}
   else if(e.code==='Space'||e.key==='Enter'){e.preventDefault();doRelease()}
   else if(e.key.toLowerCase()==='r')toggleMode();
   else if(e.key.toLowerCase()==='s')cycleScene();
   else if(e.key.toLowerCase()==='m'){audio.setSound(!audio.soundOn);update()}
-  else if(e.key.toLowerCase()==='d'){e.preventDefault();if(demo.on)stopDemo(true);else startDemo({preview:true,playTrack:true})}
   else if(e.key==='Escape')$('#settings').classList.toggle('on');
 });
 
