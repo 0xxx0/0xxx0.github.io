@@ -105,7 +105,7 @@ function ensureWorker(){
   worker.onmessage=e=>{
     if(e.data?.type==='result'){
       const job=deepQueue.shift(),x=job&&entryBy(job.id);
-      if(x){const map=e.data.map;map.source=job.source;x.glyph=audioGlyphDescriptor(map,job.source);x.duration=map.duration||x.duration;x.deep=true;render()}
+      if(x){const map=e.data.map;map.source=job.source;x.glyph=audioGlyphDescriptor(map,job.source);x.duration=map.duration||x.duration;x.deep=true;persist();render()}
       deepBusy=false;runDeep();
     }else if(e.data?.type==='error'){console.warn('atlas deep',e.data.error);deepQueue.shift();deepBusy=false;runDeep()}
   };
