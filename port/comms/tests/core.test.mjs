@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   parseConversation,deriveSignals,createHumanMark,mergeSignals,setSignalState,
-  sourceSlice,coverageSummary,buildAgentPacket,makeReturn,validateReturn,demoConversation
+  sourceSlice,coverageSummary,buildAgentPacket,makeReturn,validateReturn,stateFromReturn,demoConversation
 } from '../core.js';
 
 test('conversation parser preserves exact source addresses',()=>{
@@ -92,4 +92,26 @@ test('RETURN may omit source bytes/text while retaining addresses',()=>{
   const r=makeReturn({doc,sourceId:'sha256:test',signals:s,includeSource:false});
   assert.equal(r.source.text,null);
   assert.ok(r.signals[0].start>=0);
+});
+
+
+test('source-bearing RETURN resumes human marks, states, draft and coverage',()=>{
+  const doc=parseConversation(demoConversation()),c=doc.messages[0].clauses[0];
+  const h=createHumanMark({kind:'NOTE',messageId:c.messageId,clauseId:c.id,speaker:'USER',start:c.start,end:c.end,text:c.text});
+  const signals=[{...h,state:'COVERED'}];
+  const r=makeReturn({doc,sourceId:'sha256:resume-proof',signals,draft:'I covered this.',coverageLinks:[h.id],title:'Resume proof',includeSource:true});
+  const st=stateFromReturn(r);
+  assert.equal(st.source,doc.source);
+  assert.equal(st.sourceId,'sha256:resume-proof');
+  assert.equal(st.humanMarks.length,1);
+  assert.equal(st.states[h.id],'COVERED');
+  assert.deepEqual(st.coverageLinks,[h.id]);
+  assert.equal(st.draft,'I covered this.');
+  assert.equal(st.doc.messages.length,doc.messages.length);
+});
+
+test('address-only RETURN cannot pretend to be a resumable source',()=>{
+  const doc=parseConversation('User: Can you help?'),s=deriveSignals(doc);
+  const r=makeReturn({doc,sourceId:'sha256:test',signals:s,includeSource:false});
+  assert.throws(()=>stateFromReturn(r),/source-bearing RETURN/);
 });
