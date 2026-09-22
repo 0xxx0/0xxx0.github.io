@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_STREAM_LENS_2026-09-22",
   "date": "2026-09-22",
   "object": "FOLD//BLOOM LISTEN 0.3 / addressed-stream lens",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "observed_exactly_recovered": [
     "User clarified that the LISTEN prototype ring/waveform—not the LIVE racer skin—was the intended donor for a READFIELD-like lens.",
     "User wants left/right scrubbing in addition to wheel/vertical scale movement.",
@@ -57,5 +57,20 @@
     "Existing LISTEN→LIVE/READFIELD/TWO DIAL workflows must remain intact."
   ],
   "successor_note": "If this survives, READFIELD should adapt the same address/aperture/pin law using text-native scales. It should not copy LISTEN's waveform, beat vocabulary or LIVE's racer HUD.",
-  "return": "/returns/FOLD_BLOOM_STREAM_LENS_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_STREAM_LENS_2026-09-22.json",
+  "pr": 142,
+  "merge_sha": "683d0067100c8d8b376e2b38a23c07f11b3fed9b",
+  "verification": {
+    "ci_run": 35685019871,
+    "result": "PASS",
+    "proved": [
+      "generic address/aperture/pin laws",
+      "provider-independent harmonic identity fixture",
+      "optional provider identity preservation",
+      "LISTEN 0.3 deployed shell with ADDRESS/APERTURE/PIN witnesses",
+      "preview renderer and intake/source regressions",
+      "existing LIVE gameplay regression",
+      "repo static/recovery/frozen-Sleeper regression"
+    ]
+  }
 }
