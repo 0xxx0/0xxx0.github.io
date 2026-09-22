@@ -277,6 +277,8 @@ function loop(t){
     deformationTape=pruneDeformationTape(deformationTape,Number(linkedTrack.time)||0);
   }
   latestWorld=baseWorld?applyDeformations(baseWorld,deformationTape):null;
+  document.documentElement.dataset.trackfieldSource=liveTrack.active()?'LOCAL_FILE':externalFresh?'FIELD_PULSE':'FIELD_PRACTICE';
+  document.documentElement.dataset.trackfieldMotion=latestWorld?`${Number(latestWorld.currentSpeed||1).toFixed(2)}:${Number(latestWorld.currentGrade||0).toFixed(2)}:${Number(latestWorld.currentBend||0).toFixed(2)}`:'NONE';
   const dt=Math.max(0,Math.min(.12,(t-lastLoopT)/1000||.016));lastLoopT=t;
   ride=advanceRide(ride,latestWorld,dt,Number(linkedTrack?.time)||0);
   const rv=rideView(ride,latestWorld);
