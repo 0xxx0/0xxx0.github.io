@@ -3,7 +3,7 @@
   "surface": "FOLD//BLOOM GLYPH ATLAS",
   "version": "0.1",
   "route": "/fold-bloom/atlas/",
-  "state": "CANDIDATE_BRANCH_VERIFY",
+  "state": "CANDIDATE_MERGED",
   "operation": "ADDRESS / PATH / RETURN",
   "released": "2026-09-22",
   "thesis": "One exact source identity can become a deterministic glyph CELL; a human may author an ordered PATH through cells; glyph wall, path rail and sibling instruments remain unequal projections; share/export returns the construction without bundling source audio.",
@@ -31,8 +31,10 @@
     "learned embedding neighborhoods remain held until deterministic glyph recognition is tested"
   ],
   "verification": {
-    "branch": "fold-bloom-atlas-idle-090",
-    "ci": "PENDING",
-    "direct_use": "REQUIRED_NEXT: 5–12 familiar files; recognition/relearning + path/share feel"
+    "branch": "master",
+    "ci": "PASS: public-surface-check 35693062152; Atlas core hash/path share tests + mobile browser synthetic/IDLE surface + full repo regression green.",
+    "direct_use": "REQUIRED_NEXT: 5–12 familiar files; recognition/relearning + path/share feel",
+    "pr": 145,
+    "merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130"
   }
 }
