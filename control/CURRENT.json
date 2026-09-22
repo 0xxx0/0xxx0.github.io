@@ -223,31 +223,26 @@
       "merge_sha": "ce475fe2f9abca2068032c3dc4bdf236bcf0ee45",
       "latest_return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
       "next_executable": {
-        "id": "fold-bloom-set-compositor-01",
-        "state": "IMPLEMENTED_BRANCH_CANDIDATE",
-        "objective": "Verify and promote SET COMPOSITOR 0.1: local source refs → hard-edge blocks → authored weight/order → explicit CUT/DISSOLVE/CARRY/RESET seams → exact Experience Set RETURN.",
+        "id": "fold-bloom-set-compositor-human-gate",
+        "state": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
+        "objective": "Use SET 0.1 directly with 3–7 meaningful source refs and decide whether reorder/weight/seam authoring feels like shaping one journey rather than maintaining a playlist.",
         "implementation": {
-          "branch": "fold-bloom/set-compositor-010",
+          "pull_request": 158,
+          "merge": "65257b7ed3d8e9afef0324f0775efce90ba8f789",
           "route": "/fold-bloom/set/",
-          "core": "/fold-bloom/set/set-core.js",
-          "tests": "/fold-bloom/set/tests/set-core.test.mjs",
-          "release": "/fold-bloom/set/release.json",
+          "ci_run": 1635,
+          "ci": "PASS",
           "receipt": "/returns/FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json"
         },
-        "preserves": [
-          "merged fold-bloom-experience-set/v0.1 field closure",
-          "child source identity",
-          "source bytes remain outside set state",
-          "LISTEN source-editor authority",
-          "source-spine continuity without a new hub/app"
+        "human_receipt": [
+          "Can 3–7 source refs be added/reordered without friction?",
+          "Do explicit seams read as authored journey boundaries rather than playlist settings?",
+          "Does long-press drag work acceptably on phone, with ◀/▶ as fallback?",
+          "Does RETURN/import preserve the authored set exactly?"
         ],
-        "promotion_gate": "CI + 430×900 browser smoke; then direct human: author/reorder a 3–7 source set and decide whether it feels like shaping one journey rather than maintaining a playlist.",
-        "after_merge": [
-          "JOURNEY RIDE 0.1 / continuous multi-source traversal",
-          "SOURCE SHELL 0.1 / RIDE · SEE · SHAPE",
-          "PODCAST ADAPTER 0.1 / first non-music proof"
-        ],
-        "law": "No Journey Ride, provider catalog, DJ timeline, or new Experience Set fields until this bounded G2 evidence closes."
+        "next_if_keep": "JOURNEY RIDE 0.1 / continuous multi-source traversal over the same Experience Set",
+        "next_if_revise": "Repair only the failing compositor interaction; do not expand ontology.",
+        "law": "Human use now owns promotion. Do not begin Journey Ride merely because CI is green."
       }
     },
     {
