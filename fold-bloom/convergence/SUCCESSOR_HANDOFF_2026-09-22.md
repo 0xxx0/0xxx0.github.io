@@ -112,13 +112,13 @@ Use:
 
 A later chat branch added useful intent that was not yet durable in this handoff:
 
-- **LISTEN should mature into the source editor**, not another launcher: alignment, pins, calibration, set placement.
-- **READFIELD/RSVP should be a projection over the same canonical address**, not a weak outbound link.
-- The cross-surface continuity mechanism is a **source spine**: exact identity + canonical position + aperture + authored calibration/marks + projection witness.
-- The current global ±8 s text offset is insufficient for drifting lyrics/transcripts. The lawful successor is **anchor-based piecewise calibration** stored beside evidence. Source cue timestamps remain immutable.
-- A persistent low-clutter position/structure rail may fade into the background across LISTEN/RIDE/READ, provided it remains a projection witness rather than a second timeline.
+- **LISTEN 0.7 is now the source editor candidate**: MAP evidence, MARK meaning, ALIGN temporal binding, SHAPE ride/profile.
+- **READFIELD 0.8 now projects the same linked source address** with explicit one-way FOLLOW AUDIO, dual audio/text heads, and shared MARK; manual reader action releases follow.
+- **field-source-spine/v0.1** is the fading continuity witness across LISTEN / LIVE 0.13 / READFIELD; it is not a new app or timeline authority.
+- **field-text-alignment/v0.1** implements anchor-based correction beside immutable cue evidence: one anchor fixes arbitrary offset, two+ fix drift; coarse nudge is secondary.
+- LISTEN’s SOURCE HORIZON adds low-alpha scoped audio-feature traces as ambient orientation from the same map evidence.
 
-Do not create a SOURCE SPINE app. Reify the mechanism inside G2/G4 and existing source-addressed state.
+Do not create a SOURCE SPINE app or merge projection authorities. Direct problem-track QA is the runtime gate; SET COMPOSITOR 0.1 remains the next journey executable.
 
 0.13 body QA may still interrupt this sequence if material/event coherence, reachability or response regresses.
 
