@@ -1,6 +1,8 @@
 import {buildPreviewMap} from '../listen/preview-map.js';
 import {frameAt,beatIndexAt,phraseIndexAt,sectionIndexAt} from '../listen/audio-map.js';
 import {buildTrackfield} from './trackfield.js';
+import {parseLocalAudioMeta,localDisplayName} from '../listen/media-meta.js';
+import {groupLocalInputs,parseTextSidecar} from '../listen/sidecar-text.js';
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 async function hashBuffer(buf){const h=await crypto.subtle.digest('SHA-256',buf);return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('')}
@@ -14,6 +16,27 @@ function mixdown(buffer,targetRate=12000){
     out[i]=v/channels.length;
   }
   return {pcm:out,sampleRate:buffer.sampleRate/ratio};
+}
+
+
+export function textWitnessAt(evidence,time=0,duration=0){
+  if(!evidence?.text)return null;
+  const cues=Array.isArray(evidence.cues)?evidence.cues:[];
+  if(cues.length){
+    let hit=null;
+    for(const cue of cues){
+      if(Number(cue.start)<=time&&(cue.end==null||Number(cue.end)>=time))hit=cue;
+      if(Number(cue.start)>time)break;
+    }
+    if(!hit){
+      for(let i=cues.length-1;i>=0;i--)if(Number(cues[i].start)<=time){hit=cues[i];break}
+    }
+    if(hit)return {kind:evidence.kind||'TEXT',mode:'TIMED',alignment:evidence.alignment||'TIMED',text:String(hit.text||'').trim(),start:Number(hit.start)||0,end:hit.end==null?null:Number(hit.end),approx:false};
+  }
+  const lines=String(evidence.text||'').split(/\r?\n+/).map(x=>x.trim()).filter(Boolean);
+  if(!lines.length)return null;
+  const p=duration>0?clamp((Number(time)||0)/duration,0,1):0,index=Math.min(lines.length-1,Math.floor(p*lines.length));
+  return {kind:evidence.kind||'TEXT',mode:'FLOAT',alignment:evidence.alignment||'UNALIGNED',text:lines[index],start:null,end:null,approx:true,index,count:lines.length};
 }
 
 export function transportFromMap(map,time=0,playing=false){
@@ -40,7 +63,7 @@ export function transportFromMap(map,time=0,playing=false){
 
 export class LiveTrack {
   constructor(audio,{onState=()=>{},onMap=()=>{}}={}){
-    this.audio=audio;this.onState=onState;this.onMap=onMap;this.map=null;this.file=null;this.url=null;this.worker=null;this.loading=false;this.worldCache=null;this.worldTime=-1;
+    this.audio=audio;this.onState=onState;this.onMap=onMap;this.map=null;this.file=null;this.url=null;this.worker=null;this.loading=false;this.worldCache=null;this.worldTime=-1;this.meta=null;this.textEvidence=null;
     audio.addEventListener('play',()=>this.onState(this.stateLabel()));
     audio.addEventListener('pause',()=>this.onState(this.stateLabel()));
     audio.addEventListener('ended',()=>this.onState(this.stateLabel()));
@@ -52,6 +75,13 @@ export class LiveTrack {
     return (this.audio.paused?'READY':'PLAYING')+' · '+stage+(this.map?.bpm?' · '+this.map.bpm.toFixed(1)+' BPM':'');
   }
   active(){return !!(this.audio.src&&this.map)}
+  textWitness(time=this.audio.currentTime){return textWitnessAt(this.textEvidence,Number(time)||0,Number(this.map?.duration)||0)}
+  metadata(){return this.meta?{...this.meta}:null}
+  async loadFiles(files){
+    const grouped=groupLocalInputs(files),g=grouped.groups[0];
+    if(!g?.audio)throw Error('No audio file in source bundle');
+    return this.load(g.audio,{sidecars:g.sidecars});
+  }
   transport(){const p=transportFromMap(this.map,this.audio.currentTime,!this.audio.paused);return p?{...p,_receivedAt:performance.now()}:null}
   trackfield(horizon=12,count=44){
     if(!this.map)return null;
@@ -60,22 +90,26 @@ export class LiveTrack {
     this.worldTime=t;this.worldCache=buildTrackfield(this.map,t,{horizon,count});
     return this.worldCache;
   }
-  async load(file){
+  async load(file,{sidecars=[]}={}){
     if(!file)return null;
     this.loading=true;this.file=file;this.onState('DECODING');
-    const bytes=await file.arrayBuffer(),hashP=hashBuffer(bytes.slice(0)),AC=globalThis.AudioContext||globalThis.webkitAudioContext;
+    const bytes=await file.arrayBuffer(),hashP=hashBuffer(bytes.slice(0)),meta=parseLocalAudioMeta(bytes,file.name),AC=globalThis.AudioContext||globalThis.webkitAudioContext;
+    let textEvidence=null;
+    for(const sf of sidecars){try{const t=parseTextSidecar(await sf.text(),sf.name);if(t?.text){textEvidence=t;break}}catch(_){}}
+    if(!textEvidence&&meta.lyrics)textEvidence={name:file.name,kind:'LYRICS',alignment:meta.lyricsAlignment||'UNALIGNED_EMBEDDED',text:meta.lyrics,cues:[],cueCount:0,chars:String(meta.lyrics).length};
+    this.meta={...meta,name:localDisplayName(meta,file.name),fileName:file.name};this.textEvidence=textEvidence;
     if(!AC)throw Error('Web Audio unavailable');
     const ctx=new AC();
     try{
       const decoded=await ctx.decodeAudioData(bytes.slice(0)),hash=await hashP,{pcm,sampleRate}=mixdown(decoded);
-      this.map=buildPreviewMap(pcm,sampleRate,decoded.duration);this.map.source={name:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',hash};this.worldCache=null;this.worldTime=-1;
+      this.map=buildPreviewMap(pcm,sampleRate,decoded.duration);this.map.source={name:localDisplayName(meta,file.name),fileName:file.name,title:meta.title||'',artist:meta.artist||'',album:meta.album||'',lyricsAlignment:textEvidence?.alignment||meta.lyricsAlignment||null,metadataSource:meta.metadataSource||null,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',hash};this.worldCache=null;this.worldTime=-1;
       if(this.url)URL.revokeObjectURL(this.url);this.url=URL.createObjectURL(file);this.audio.src=this.url;
       this.loading=false;this.onMap(this.map);this.onState(this.stateLabel());
       if(decoded.duration<=1200){
         this.worker?.terminate?.();
         this.worker=new Worker(new URL('../listen/analysis-worker.js',import.meta.url),{type:'module'});
         this.worker.onmessage=e=>{
-          if(e.data?.type==='result'){this.map=e.data.map;this.map.source={name:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',hash};this.worldCache=null;this.worldTime=-1;this.onMap(this.map);this.onState(this.stateLabel())}
+          if(e.data?.type==='result'){this.map=e.data.map;this.map.source={name:localDisplayName(meta,file.name),fileName:file.name,title:meta.title||'',artist:meta.artist||'',album:meta.album||'',lyricsAlignment:textEvidence?.alignment||meta.lyricsAlignment||null,metadataSource:meta.metadataSource||null,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',hash};this.worldCache=null;this.worldTime=-1;this.onMap(this.map);this.onState(this.stateLabel())}
           else if(e.data?.type==='error'){this.onState('PREVIEW · ANALYZER ERROR')}
         };
         this.worker.onerror=()=>this.onState('PREVIEW · ANALYZER ERROR');
