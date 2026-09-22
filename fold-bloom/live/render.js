@@ -1,5 +1,6 @@
 import { N, TYPE_NAMES, gateCellIndex, isAligned, forecastAtSlot, forecastRelease, forecastMatchesCall, callLabel, clamp } from './engine.js';
 import {projectTrackfield} from './trackfield.js';
+import {sourceSkyEvent,releaseSkyDescriptor,opticWitness} from './pov-effects.js';
 
 const TAU=Math.PI*2;
 const COLORS=['#ff9852','#6dbdff','#72e4b6'];
@@ -7,12 +8,12 @@ const COLORS=['#ff9852','#6dbdff','#72e4b6'];
 export class Renderer {
   constructor(canvas) {
     this.cv=canvas; this.g=canvas.getContext('2d'); this.w=0;this.h=0;this.cx=0;this.cy=0;this.r=0;
-    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;this.ride=null;this.landmarks=[];this.motion={t:performance.now(),speed:1,grade:0,bend:0,zoom:1,pitch:0,bank:0};
+    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.skyPulses=[];this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;this.ride=null;this.landmarks=[];this.reducedMotion=!!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;this.motion={t:performance.now(),speed:1,grade:0,bend:0,zoom:1,pitch:0,bank:0};
     this.resize();
     addEventListener('resize',()=>this.resize(),{passive:true});
   }
   resize(){const d=Math.min(2,devicePixelRatio||1),r=this.cv.getBoundingClientRect();this.cv.width=Math.max(1,Math.floor(r.width*d));this.cv.height=Math.max(1,Math.floor(r.height*d));this.g.setTransform(d,0,0,d,0,0);this.w=r.width;this.h=r.height;this.cx=this.w/2;this.cy=this.h*.52;this.r=Math.min(this.w*.34,this.h*.33,280)}
-  pulse(event){this.lastEvent=event;this.pulses.push({t:performance.now(),event});this.pulses=this.pulses.slice(-12)}
+  pulse(event){this.lastEvent=event;const now=performance.now();this.pulses.push({t:now,event});this.pulses=this.pulses.slice(-12);this.skyPulses.push({t:now,...releaseSkyDescriptor(event)});this.skyPulses=this.skyPulses.slice(-8)}
   beatPulse(step,energy=.35){this.beat=step%16;this.beatAt=performance.now();this.beatEnergy=clamp(Number(energy)||0,0,1)}
   setDrag(offset){this.dragOffset=offset}
   setSectionArc(view){this.sectionArc=view||null}
@@ -33,10 +34,69 @@ export class Renderer {
   draw(state,now=performance.now()){
     const road=!!this.trackfield?.points?.length,m=this._updateMotion(now);
     this.cx=this.w/2;this.cy=this.h*(road?.64:.52)+m.pitch*.18;this.r=Math.min(this.w*(road?.27:.34),this.h*(road?.225:.33),road?220:280);
-    const g=this.g;g.clearRect(0,0,this.w,this.h);this._background(state,now);if(road)this._trackfield(state,now);this._section(state,now);this._creases(state,now);this._ring(state,now);this._gate(state,now);this._causal(state,now);this._pulses(state,now);this._center(state,now)
+    const g=this.g;g.clearRect(0,0,this.w,this.h);this._background(state,now);if(road)this._pov(state,now);if(road)this._trackfield(state,now);this._section(state,now);this._creases(state,now);this._ring(state,now);this._gate(state,now);this._causal(state,now);this._pulses(state,now);this._center(state,now)
   }
   _background(state,t){const g=this.g;const grd=g.createRadialGradient(this.cx,this.cy,5,this.cx,this.cy,Math.max(this.w,this.h)*.7);grd.addColorStop(0,'#0b1018');grd.addColorStop(1,'#05070b');g.fillStyle=grd;g.fillRect(0,0,this.w,this.h);g.save();g.translate(this.cx,this.cy);for(let i=0;i<4;i++){g.strokeStyle=`rgba(255,255,255,${.016+i*.006})`;g.lineWidth=.7;g.beginPath();g.arc(0,0,this.r*(.38+i*.18)+Math.sin(t*.0003+i)*2,0,TAU);g.stroke()}
     const beatLife=clamp(1-(t-this.beatAt)/260,0,1);if(beatLife>0){g.strokeStyle=`rgba(255,255,255,${(.12+.35*this.beatEnergy)*beatLife})`;g.lineWidth=1+2*beatLife;g.beginPath();g.arc(0,0,this.r+10+14*(1-beatLife),0,TAU);g.stroke()}g.restore()}
+  _pov(state,t){
+    const g=this.g,w=this.w,h=this.h,m=this.motion,world=this.trackfield,optic=opticWitness(world,t,this.reducedMotion?7:20);
+    const horizonX=w*.5+(m.bend||0)*w*.07,horizonY=h*(.28-.025*Math.tanh(m.grade||0));
+    g.save();
+    // Peripheral optic flow: deterministic source-motion witness, not a score effect.
+    for(const p of optic.stars){
+      const q=p.depth,x=horizonX+p.x*w*.67,y=horizonY+p.y*h*.45;
+      const trail=this.reducedMotion?0:(4+18*q*clamp((optic.speed-.45)/2,0,1));
+      const dx=(x-horizonX),dy=(y-horizonY),len=Math.max(1,Math.hypot(dx,dy)),a=.025+.13*q*clamp(optic.speed/2.2,0,1);
+      g.strokeStyle=`rgba(255,255,255,${a})`;g.lineWidth=.45+q*.85;
+      g.beginPath();g.moveTo(x,y);g.lineTo(x-dx/len*trail,y-dy/len*trail);g.stroke();
+    }
+    // Sparse source event in the far field. Section > surge > phrase.
+    const source=sourceSkyEvent(world);
+    if(source){
+      const near=clamp(1-source.ahead/6,0,1),strength=clamp(source.strength*(.35+.65*near),0,1),sx=horizonX+(source.side||0)*w*.18,sy=horizonY-h*.04;
+      g.save();g.translate(sx,sy);g.globalAlpha=.24+.52*strength;
+      if(source.kind==='SECTION'){
+        g.strokeStyle='rgba(244,247,245,.72)';g.lineWidth=1.2+strength*1.8;
+        for(let i=-3;i<=3;i++){const a=-Math.PI/2+i*.13,r=22+strength*52;g.beginPath();g.moveTo(Math.cos(a)*8,Math.sin(a)*8);g.lineTo(Math.cos(a)*r,Math.sin(a)*r);g.stroke()}
+      }else if(source.kind==='SURGE'){
+        g.strokeStyle='rgba(255,184,112,.72)';g.lineWidth=1+strength*1.5;
+        const r=12+strength*42;g.beginPath();g.arc(0,0,r*.56,0,TAU);g.stroke();
+        for(let i=0;i<8;i++){const a=i*TAU/8+.2,gap=r*(.42+.18*Math.sin(i*2.7));g.beginPath();g.moveTo(Math.cos(a)*r*.45,Math.sin(a)*r*.45);g.lineTo(Math.cos(a)*(r+gap),Math.sin(a)*(r+gap));g.stroke()}
+      }else{
+        g.strokeStyle='rgba(109,189,255,.55)';g.lineWidth=1;
+        g.beginPath();g.arc(0,0,10+strength*24,-Math.PI*.9,-Math.PI*.1);g.stroke();
+      }
+      g.restore();
+    }
+    // Authored verb effects live in the sky/periphery rather than on a score counter.
+    this.skyPulses=this.skyPulses.filter(p=>t-p.t<1150);
+    for(const p of this.skyPulses){
+      const age=clamp((t-p.t)/1150,0,1),life=Math.sin(Math.PI*age),side=clamp(Number(p.side)||0,-1,1);
+      const x=w*.5+side*w*.23,y=h*.23-(Number(p.power)||1)*4,r=18+(Number(p.power)||1)*16+age*46;
+      g.save();g.translate(x,y);g.globalAlpha=(this.reducedMotion?.42:.72)*life;
+      if(p.kind==='BLOOM'){
+        g.strokeStyle='rgba(114,228,182,.9)';g.lineWidth=1.2;
+        for(let i=0;i<6;i++){const a=i*TAU/6+age*.14;g.beginPath();g.moveTo(Math.cos(a)*r*.18,Math.sin(a)*r*.18);g.quadraticCurveTo(Math.cos(a+.22)*r*.66,Math.sin(a+.22)*r*.66,Math.cos(a)*r,Math.sin(a)*r);g.stroke()}
+      }else if(p.kind==='CREASE'){
+        g.strokeStyle='rgba(255,179,109,.9)';g.lineWidth=1.5;
+        g.beginPath();g.moveTo(-r*.9,r*.35);g.lineTo(0,-r*.25);g.lineTo(r*.92,-r*.55);g.stroke();
+      }else if(p.kind==='TWIN'){
+        g.strokeStyle='rgba(200,179,255,.9)';g.lineWidth=1.3;
+        for(const d of [-1,1]){g.beginPath();g.moveTo(0,r*.2);g.quadraticCurveTo(d*r*.34,-r*.24,d*r*.82,-r*.68);g.stroke()}
+      }else{
+        g.strokeStyle='rgba(244,247,245,.92)';g.lineWidth=1.5;
+        g.beginPath();g.arc(0,0,r*(1-age*.35),0,TAU);g.stroke();
+      }
+      g.restore();
+    }
+    // A minimal lower-frame embodiment witness: bank/speed alter the apparent shoulders/visor.
+    const edgeAlpha=.035+.08*clamp((m.speed-.55)/1.7,0,1);
+    g.strokeStyle=`rgba(255,255,255,${edgeAlpha})`;g.lineWidth=1;
+    const bank=(m.bank||0)*w*2.4,base=h*.985,inner=h*.89;
+    g.beginPath();g.moveTo(0,base);g.lineTo(w*.16+bank,inner);g.lineTo(w*.27+bank*.35,h*.94);g.stroke();
+    g.beginPath();g.moveTo(w,base);g.lineTo(w*.84+bank,inner);g.lineTo(w*.73+bank*.35,h*.94);g.stroke();
+    g.restore();
+  }
   _trackfield(state,t){
     const proj=projectTrackfield(this.trackfield,this.w,this.h,{rideLateral:this.ride?.lateral||0});if(!proj?.slices?.length)return;
     const g=this.g,s=proj.slices,m=this.motion;
