@@ -1,10 +1,10 @@
-# FOLD//BLOOM GLYPH ATLAS 0.1
+# FOLD//BLOOM GLYPH ATLAS 0.2
 
 A shareable outer-memory surface for exact audio sources.
 
 ## Recovered grammar
 
-`SOURCE → CELL → PATH → UNEQUAL VIEW → RETURN`
+`SOURCE BUNDLE → CELL → GLYPH THUMBNAIL → INSIDE → PATH → RETURN`
 
 The grammar is deliberately recovered rather than invented:
 
@@ -15,12 +15,13 @@ The grammar is deliberately recovered rather than invented:
 
 ## What Atlas does
 
-- accepts up to 12 local audio files at a time;
-- hashes exact bytes with SHA-256;
+- accepts up to 12 local source cells at a time, including MP3/M4A/etc plus optional text/playlist sidecars;
+- hashes exact audio bytes with SHA-256; origin links, metadata, text and collection membership remain separate facets;
 - creates an immediate PREVIEW AUDIO MAP and deterministic audio glyph;
 - refines each source through the existing DEEP analyzer worker;
 - persists **glyph evidence + display metadata + human path/note only** in local browser storage;
 - never persists or embeds source audio bytes;
+- lets a focused glyph open back into IDENTITY / STRUCTURE / SIGNATURE / TEXT / ORIGIN / COLLECTION facets of the same cell;
 - lets a human author an ordered PATH through source cells;
 - shares a compact URL packet or exports JSON RETURN;
 - opens with an explicitly synthetic constellation so the public link is alive before file permission.
@@ -39,4 +40,4 @@ IDLE moves focus only. It never changes PATH or note. First direct input wakes a
 
 ## Current gate
 
-Use 5–12 familiar tracks. After repeated exposure, test whether glyphs become recognizable/relearnable enough to help file retrieval. Do not add learned neighborhoods until that human evidence exists.
+Use 5–12 familiar source bundles. Test two things separately: whether glyph thumbnails become recognizable/relearnable, and whether opening a glyph feels like entering the same object rather than visiting a metadata page. Do not add learned neighborhoods until that human evidence exists.
