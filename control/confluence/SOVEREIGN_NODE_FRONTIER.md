@@ -136,7 +136,7 @@ Runs configurable native `/api/chat` endurance tests with JSONL timing/process r
 
 - `/control/prompts/SOVEREIGN_NODE_SCOUT.md` — deep material-delta watch/research worker;
 - `/control/prompts/SOVEREIGN_NODE_EXECUTOR.md` — replaceable bounded executor role;
-- `/control/prompts/SOVEREIGN_NODE_CONFLUENCE_RETURN.md` — compress a run into durable transfer + re-entry conditions.
+- `/control/prompts/SOVEREIGN_NODE_CONFLUENCE_RETURN.md` — compress a run into durable transfer + re-entry conditions.\n- `/control/prompts/SOVEREIGN_NODE_REENTRY.md` — cold-start a successor from repo truth without replaying this chat.
 
 These prompts are portable context packets, not personalities.
 
