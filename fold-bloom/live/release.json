@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
   "version": "LIVE 0.10",
-  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
+  "status": "ACTIVE_CANDIDATE_MERGED",
   "date": "2026-09-22",
   "donors": [
     {
@@ -131,7 +131,7 @@
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "Direct phone/desktop: compare LIVE 0.9 mental memory vs 0.10 on FIELD COURSE and one familiar song. Can speed/climb/bend be felt without reading VEL/GRADE? Do sparse horizon/verb events increase immersion without becoming distracting game FX?",
+    "required_next": "Direct phone/desktop on FIELD COURSE and one familiar source: ignore VEL/GRADE and judge whether speed/climb/bend plus section/surge arrival are felt from the field itself; confirm sky/verb witnesses remain sparse and meaningful rather than decorative spectacle.",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
@@ -174,7 +174,9 @@
     "idle_landmarks_pr": 145,
     "idle_landmarks_merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130",
     "pov_branch": "fold-bloom-embodied-pov-010",
-    "pov_ci": "PENDING PR CI"
+    "pov_ci": "PASS: public-surface-check run 35696511392, including POV unit tests, LIVE regression stack and critical browser smoke",
+    "pov_pr": 147,
+    "pov_merge_sha": "d872d9bbdb303dddbfc28fc09bd1e681e97a27fb"
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_EMBODIED_POV_2026-09-22.json",
