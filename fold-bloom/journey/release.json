@@ -1,0 +1,34 @@
+{
+  "schema": "0xxx0/release/v0.1",
+  "id": "FOLD_BLOOM_JOURNEY_RIDE_010",
+  "title": "FOLD//BLOOM JOURNEY RIDE 0.1",
+  "version": "0.1",
+  "date": "2026-09-22",
+  "state": "BRANCH_CANDIDATE",
+  "route": "/fold-bloom/journey/",
+  "consumes": "fold-bloom-experience-set/v0.1",
+  "operation": "RIDE_SET",
+  "laws": [
+    "SOURCE CLOCKS REMAIN NATIVE",
+    "JOURNEY ADDRESS IS DERIVED BESIDE SOURCE ADDRESS",
+    "LOCAL BLOBS ARE RESOLVED BY EXACT SHA-256 FROM SAME-ORIGIN INDEXEDDB",
+    "SET REMAINS BYTE-FREE",
+    "CUT / CARRY / DISSOLVE / RESET CHANGE TRAVERSAL ONLY",
+    "RETURN CONTAINS REFERENCES AND ADDRESSES, NEVER SOURCE BYTES"
+  ],
+  "seams": {
+    "CUT": "immediate next source",
+    "CARRY": "immediate next source plus continuity witness",
+    "DISSOLVE": "bounded 2.4 second overlap",
+    "RESET": "bounded 0.65 second gap",
+    "RETURN": "close journey"
+  },
+  "evidence": {
+    "core": "/fold-bloom/journey/journey-core.js",
+    "tests": "/fold-bloom/journey/tests/journey-core.test.mjs",
+    "browser": "/fold-bloom/journey/?demo=1",
+    "sourceSpineSmoke": "/tools/fold-bloom-spine-smoke.mjs",
+    "localVault": "/fold-bloom/local-media-store.js"
+  },
+  "stop": "No beatmatching, tempo warping, source concatenation, new Experience Set fields, or replacement LIVE renderer in this pass."
+}
