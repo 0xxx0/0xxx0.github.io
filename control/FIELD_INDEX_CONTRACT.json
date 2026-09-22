@@ -95,7 +95,9 @@
     "root_trace_status": "STRUCTURAL/REPLAY/SEALED are evidence levels, not quality scores. Explicitly unsealed trace fails SEALED; unavailable replay/schema evidence returns INDETERMINATE.",
     "root_trace_placement": "TRACE / VERIFY is collapsed by default immediately after AXIAL and before LATEST chronology. It is reachable from top navigation and as TRACE in the focused-object Aperture action dock; both open the same instrument rather than a duplicate route.",
     "root_trace_binding": "A rendered trace is bound to the route focus present when RUN TRACE executes. If shared FIELD focus changes, the trace becomes visibly STALE and COMMIT is disabled until rerun. Old trace export remains possible as historical evidence.",
-    "root_waiting": "/control/WAITING.json is rendered as a compact collapsed WAITING / YOU projection near root re-entry. It carries only public-safe dependency descriptions: one smallest human/world move + the machine move it unlocks. It is not CURRENT, QUEUE, priority, reminder pressure or private state."
+    "root_waiting": "/control/WAITING.json is rendered as a compact collapsed WAITING / YOU projection near root re-entry. It carries only public-safe dependency descriptions: one smallest human/world move + the machine move it unlocks. It is not CURRENT, QUEUE, priority, reminder pressure or private state.",
+    "root_reentry": "NOW / RECOVER / CONVERGE is a collapsed one-line semantic router. NOW opens CURRENT/QUEUE attention; RECOVER opens the generic Recovery vault for exact source + lineage and must not privilege a current project head; CONVERGE opens NEXUS for coordination + RETURN.",
+    "root_convergence": "The generated CONVERGENCE projection is collapsed by default. Its resting line exposes only live-front, head and gap counts plus generation time; expanded detail may show commits, branches, fronts and gaps. Counts are state/evidence, never priority. Agent/Hermes coordination belongs under NEXUS/CONFLUENCE and should return only decision-changing signals to the root."
   },
   "query_semantics": {
     "BOTTLENECK": {
