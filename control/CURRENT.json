@@ -103,20 +103,22 @@
     {
       "lineage": "sleeper-one-return",
       "head": "SLEEPER // ONE RETURN v2 / City Engine v0.2",
-      "state": "CANONICAL_SOURCE_RECOVERED / HISTORICAL_RUNTIME_REACHABILITY_UNVERIFIED",
+      "state": "CANONICAL_LIVE_RUNTIME_RECOVERED",
       "route": "/sleeper/",
-      "retained_function": "Canonical Sleeper authority is the recovered ONE RETURN v2-era City Engine: PHRASE + VERSE CELL + FIGURE → deterministic city → eight enacted Gate proofs → return to origin → Return Artifact v2. Exact source defines URCHIN / SLOTHCAKE / KITE figures and CONCH / KERIS / W8 / SPIRAL operators. The former ASCII Sleeper POV 0.8 top-level build is preserved at /sleeper/ascii-pov-0.8/ as a superseded derivative; /sleeper/one-return/ remains a playable later ASCII reconstruction donor. Historical Work-route identity is recorded but current reachability is not verified.",
+      "retained_function": "Canonical Sleeper resolves directly from /sleeper/ to the recovered live ONE RETURN runtime: PHRASE + VERSE CELL + FIGURE → deterministic city → eight enacted Gate proofs → return to origin → Return Artifact v2. Exact recovered source remains durable authority under /recovery/sleeper/site-source-2026-09-18/. ASCII Sleeper POV 0.8 remains preserved as a superseded derivative; /sleeper/one-return/ remains a playable reconstruction donor. One runtime identity, many preserved lineage objects.",
       "evidence": [
+        "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
         "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
         "/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json",
         "/recovery/sleeper/site-source-2026-09-18/manifest.json",
         "/recovery/sleeper/site-source-2026-09-18/docs/ONE_RETURN_V2.md",
         "/recovery/sleeper/site-source-2026-09-18/app/one-return/world-law.ts",
         "/sleeper/ascii-pov-0.8/release.json",
-        "/sleeper/one-return/release.json"
+        "/sleeper/one-return/release.json",
+        "https://sleeper-one-return.metaname.chatgpt.site/"
       ],
-      "last_return": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
-      "correction": "ASCII Sleeper POV 0.8 was a mistaken repository authority assignment. It is preserved, not deleted; canonical authority now follows the exact recovered v2 City Engine source."
+      "last_return": "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
+      "correction": "ASCII Sleeper POV 0.8 remains a preserved derivative, not current authority. The canonical /sleeper/ entry now resolves to the recovered live ONE RETURN runtime; the exact source shelf remains source authority."
     },
     {
       "lineage": "fold-bloom",

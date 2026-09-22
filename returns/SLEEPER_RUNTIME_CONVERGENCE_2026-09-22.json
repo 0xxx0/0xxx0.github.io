@@ -1,0 +1,45 @@
+{
+  "schema": "confluence-return/v1",
+  "id": "SLEEPER_RUNTIME_CONVERGENCE_2026-09-22",
+  "date": "2026-09-22",
+  "object": "SLEEPER // ONE RETURN",
+  "before": {
+    "route": "/sleeper/",
+    "problem": "Authority metadata named ONE RETURN v2 but the canonical repository route was only a lineage landing page and still marked runtime reachability unverified.",
+    "confusion": [
+      "ASCII Sleeper POV 0.8 had previously occupied top-level Sleeper authority",
+      "ASCII Nine Gate reconstruction remained separately playable",
+      "exact v2-era source was already recovered under /recovery/"
+    ]
+  },
+  "operation": [
+    "Point /sleeper/ at the recovered live ONE RETURN runtime supplied by the user.",
+    "Keep exact recovered v2-era source as durable source authority.",
+    "Keep ASCII Sleeper POV 0.8 byte-preserved as a superseded derivative.",
+    "Keep ASCII ONE RETURN / Nine Gate as a playable donor, not an authority replacement.",
+    "Move explanatory lineage/status responsibility to /sleeper/project/."
+  ],
+  "current": {
+    "repository_entry": "/sleeper/",
+    "live_runtime": "https://sleeper-one-return.metaname.chatgpt.site/",
+    "exact_source": "/recovery/sleeper/site-source-2026-09-18/",
+    "project": "/sleeper/project/",
+    "preserved_derivative": "/sleeper/ascii-pov-0.8/",
+    "playable_donor": "/sleeper/one-return/"
+  },
+  "evidence": [
+    "/recovery/sleeper/site-source-2026-09-18/docs/ONE_RETURN_V2.md",
+    "/recovery/sleeper/site-source-2026-09-18/app/one-return/world-law.ts",
+    "/recovery/sleeper/site-source-2026-09-18/app/one-return/city-layout.ts",
+    "/recovery/sleeper/site-source-2026-09-18/app/one-return/protocol.ts",
+    "/recovery/sleeper/site-source-2026-09-18/app/one-return/one-return-client.tsx"
+  ],
+  "boundary": [
+    "The user's recovered live address is treated as the current runtime address.",
+    "The executor could not independently resolve the metaname host through its web fetch path during this session.",
+    "No claim is made that all historical Work deployments are byte-identical to the recovered source bundle.",
+    "No preserved derivative or donor bytes were deleted or rewritten."
+  ],
+  "result": "ONE_RUNTIME_IDENTITY / MANY_PRESERVED_LINEAGE_OBJECTS",
+  "stop": "Do not reopen Sleeper authority archaeology unless new evidence changes identity, a live route fails, or a current conversion requires a specific donor."
+}
