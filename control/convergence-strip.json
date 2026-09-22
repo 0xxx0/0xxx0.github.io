@@ -1,0 +1,45 @@
+{
+  "schema": "0xxx0/convergence-strip/v0.1",
+  "generated": "2026-09-22T10:14:37.806Z",
+  "generator": "scripts/generate-convergence-strip.mjs",
+  "commits_today": 874,
+  "branch_count": 166,
+  "recent_commits": [
+    "Merge FOLD//BLOOM convergence crystallization",
+    "fold-bloom roadmap: distinguish current human gate from staged fronts",
+    "control: make Fold/Bloom thread collapse and addressed-continuity notes discov"
+  ],
+  "active_fronts": [
+    {
+      "id": "conversion",
+      "state": "ACTIVE_NOW",
+      "center": "existing verified heads → actual use / share / world contact → observed delta → RETURN"
+    },
+    {
+      "id": "recovery-ingest",
+      "state": "ACTIVE_MAINTENANCE",
+      "center": "/recovery/ + exact-source gaps + local-first ingest + MEDIA REFINERY"
+    }
+  ],
+  "live_fronts": "2/2",
+  "current_heads": 11,
+  "open_gaps": [
+    {
+      "id": "env0-pdfs",
+      "status": "BLOCKED_EXTERNAL"
+    },
+    {
+      "id": "game-of-names",
+      "status": "BLOCKED"
+    },
+    {
+      "id": "laconic-missing-24",
+      "status": "OPEN"
+    },
+    {
+      "id": "hermes-md-stale",
+      "status": "FIXED"
+    }
+  ],
+  "current_updated": "2026-09-22"
+}
