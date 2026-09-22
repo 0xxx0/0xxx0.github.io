@@ -7,7 +7,7 @@ const COLORS=['#ff9852','#6dbdff','#72e4b6'];
 export class Renderer {
   constructor(canvas) {
     this.cv=canvas; this.g=canvas.getContext('2d'); this.w=0;this.h=0;this.cx=0;this.cy=0;this.r=0;
-    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;this.ride=null;
+    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;this.ride=null;this.motion={t:performance.now(),speed:1,grade:0,bend:0,zoom:1,pitch:0,bank:0};
     this.resize();
     addEventListener('resize',()=>this.resize(),{passive:true});
   }
@@ -18,18 +18,32 @@ export class Renderer {
   setSectionArc(view){this.sectionArc=view||null}
   setTrackfield(world){this.trackfield=world||null}
   setRide(view){this.ride=view||null}
+  _updateMotion(now){
+    const m=this.motion,dt=clamp((now-m.t)/1000,0,.08);m.t=now;
+    const speed=Number(this.trackfield?.currentSpeed)||1,grade=Number(this.trackfield?.currentGrade)||0,bend=Number(this.trackfield?.currentBend)||0;
+    const k=1-Math.exp(-dt*5.2);
+    m.speed+=(speed-m.speed)*k;m.grade+=(grade-m.grade)*k;m.bend+=(bend-m.bend)*k;
+    m.zoom=clamp(1+(m.speed-1)*.055,.965,1.065);
+    m.pitch=clamp(m.grade*18,-15,15);
+    m.bank=clamp(m.bend*.024,-.022,.022);
+    return m;
+  }
   slotAngle(i,state){return -Math.PI/2 + (i+state.rotation)*TAU/N + this.dragOffset}
   draw(state,now=performance.now()){
-    const road=!!this.trackfield?.points?.length;
-    this.cx=this.w/2;this.cy=this.h*(road?.64:.52);this.r=Math.min(this.w*(road?.27:.34),this.h*(road?.225:.33),road?220:280);
+    const road=!!this.trackfield?.points?.length,m=this._updateMotion(now);
+    this.cx=this.w/2;this.cy=this.h*(road?.64:.52)+m.pitch*.18;this.r=Math.min(this.w*(road?.27:.34),this.h*(road?.225:.33),road?220:280);
     const g=this.g;g.clearRect(0,0,this.w,this.h);this._background(state,now);if(road)this._trackfield(state,now);this._section(state,now);this._creases(state,now);this._ring(state,now);this._gate(state,now);this._causal(state,now);this._pulses(state,now);this._center(state,now)
   }
   _background(state,t){const g=this.g;const grd=g.createRadialGradient(this.cx,this.cy,5,this.cx,this.cy,Math.max(this.w,this.h)*.7);grd.addColorStop(0,'#0b1018');grd.addColorStop(1,'#05070b');g.fillStyle=grd;g.fillRect(0,0,this.w,this.h);g.save();g.translate(this.cx,this.cy);for(let i=0;i<4;i++){g.strokeStyle=`rgba(255,255,255,${.016+i*.006})`;g.lineWidth=.7;g.beginPath();g.arc(0,0,this.r*(.38+i*.18)+Math.sin(t*.0003+i)*2,0,TAU);g.stroke()}
     const beatLife=clamp(1-(t-this.beatAt)/260,0,1);if(beatLife>0){g.strokeStyle=`rgba(255,255,255,${(.12+.35*this.beatEnergy)*beatLife})`;g.lineWidth=1+2*beatLife;g.beginPath();g.arc(0,0,this.r+10+14*(1-beatLife),0,TAU);g.stroke()}g.restore()}
   _trackfield(state,t){
     const proj=projectTrackfield(this.trackfield,this.w,this.h,{rideLateral:this.ride?.lateral||0});if(!proj?.slices?.length)return;
-    const g=this.g,s=proj.slices,shake=clamp((proj.current?.flux||0)-.72,0,.5);
-    g.save();g.translate(Math.sin(t*.028)*shake*3,Math.cos(t*.021)*shake*1.5);
+    const g=this.g,s=proj.slices,m=this.motion;
+    g.save();
+    g.translate(this.w*.5,this.h*.72+m.pitch);
+    g.rotate(-m.bank);
+    g.scale(m.zoom,m.zoom);
+    g.translate(-this.w*.5,-this.h*.72);
     const horizon=s[s.length-1];
     const haze=g.createRadialGradient(horizon.centerX,horizon.baseY,2,horizon.centerX,horizon.baseY,Math.max(this.w,this.h)*.42);
     haze.addColorStop(0,`rgba(109,189,255,${.08+.10*clamp(proj.current?.brightness||0,0,1)})`);
@@ -133,6 +147,18 @@ export class Renderer {
       }
     }
 
+    const speedMix=clamp((m.speed-.72)/1.14,0,1);
+    if(speedMix>.04){
+      const phase=(t*.00022*m.speed)%1;
+      g.strokeStyle=`rgba(255,255,255,${.035+.085*speedMix})`;g.lineWidth=.7+speedMix*.8;
+      for(const side of [-1,1]){
+        for(let k=0;k<5;k++){
+          const q=(phase+k/5)%1,ix=Math.min(s.length-2,Math.max(1,Math.floor(q*(s.length-2)))),p=s[ix],n=s[ix+1];
+          const x1=p.centerX+side*p.half*1.12,y1=p.baseY,x2=n.centerX+side*n.half*1.18,y2=n.baseY;
+          g.beginPath();g.moveTo(x1,y1);g.lineTo(x2,y2);g.stroke();
+        }
+      }
+    }
     if(proj.surge&&proj.surge.ahead<8){
       const ix=Math.min(s.length-1,Math.max(0,proj.surge.index)),p=s[ix];
       g.textAlign='center';g.font='800 7px ui-monospace,monospace';g.fillStyle='rgba(255,255,255,.48)';

@@ -1,0 +1,70 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_MOTION_2026-09-22",
+  "date": "2026-09-22",
+  "object": "FOLD//BLOOM LIVE 0.7 / motion correction + projection donor",
+  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "observed_exactly_recovered": [
+    "User reports current TRACKFIELD does not visibly go up/down enough and speed is unclear.",
+    "User reports normal/no-MP3 mode does not show the same effect.",
+    "User reports desktop rendering feels somewhat glitchy rather than smooth.",
+    "User clarifies the READFIELD idea is more about the ring/waveform/playhead moving through an addressed stream and should stay closer to AXIAL/Lens semantics than to music feature telemetry."
+  ],
+  "diagnosis": [
+    "Previous grade signal affected only a small fraction of screen geometry.",
+    "TRACKFIELD used nearest-frame feature sampling plus ~55 ms cache, creating visible stepping at frame boundaries.",
+    "Renderer intentionally introduced thresholded high-frequency shake during high flux.",
+    "Visual road depth assumed near-uniform traversal; energy/flux did not materially change spatial distance per second.",
+    "No local AUDIO MAP existed in ordinary mode, so no road/deformation world existed."
+  ],
+  "implemented": [
+    "Interpolated AUDIO MAP sampling with local temporal smoothing.",
+    "Explicit grade: quiet/low-flux climbs; energetic/flux-heavy descends.",
+    "Explicit visual speed: energy + flux increases spatial distance/FOV/flow while source playback stays 1×.",
+    "Explicit bend: low↔high spectral balance plus brightness controls curvature.",
+    "Cumulative altitude integrated across the future horizon and projected strongly into screen Y.",
+    "Future distance integrated from local speed so intense passages occupy/advance through more spatial distance.",
+    "Low-pass camera speed/grade/bend replaces thresholded flux shake.",
+    "FIELD COURSE: deterministic synthetic normal-mode map with beats, sections, climbs, turns, breaks and surges.",
+    "Normal mode uses the same deformation tape and ride logic; road writing no longer requires an MP3.",
+    "Silent autoplay preview may write reversible FIELD COURSE deformations and restores clean state.",
+    "VEL/GRADE HUD witnesses make mapping inspectable."
+  ],
+  "simple_mapping": {
+    "grade": "(.50 - energy) × 1.34 - flux × .16; positive = climb, negative = descent",
+    "speed": ".72 + energy × .72 + flux × .36, bounded .62–1.86 visual traversal multiplier",
+    "turn": "(high - low) × .94 + (brightness - .5) × .34",
+    "source_rate": "audio remains 1×; current speed is visual/spatial traversal, not hidden time-stretch"
+  },
+  "readfield_projection_donor": {
+    "state": "DESIGN_NOTE_NOT_IMPLEMENTED_IN_THIS_PASS",
+    "keep": "address/playhead/projection law",
+    "do_not_copy": "music metrics, racer HUD, score grammar",
+    "canonical_object": "text/document remains canonical source",
+    "address": "one cursor/source position",
+    "projections": [
+      "linear/page",
+      "RSVP",
+      "ring/local-window",
+      "waveform/structural-density",
+      "path/track"
+    ],
+    "axial_lens_rule": "AXIAL/Lens changes the projection around the same addressed point; it should not silently create a second reading state.",
+    "interpretation": "The useful donor from LIVE is that the point being consumed visibly moves through a future structure. For reading, structure should come from text features and document topology, not borrowed music semantics."
+  },
+  "successor_laws": [
+    "SMOOTH SIGNAL, SHARP MEANING.",
+    "NORMAL MODE MUST EXERCISE THE SAME CORE MECHANISM AS CUSTOM-MP3 MODE.",
+    "VISUAL SPEED IS NOT AUDIO RATE UNLESS EXPLICITLY DESIGNED.",
+    "READFIELD SHOULD SHARE ADDRESS/PROJECTION, NOT RACER SKIN."
+  ],
+  "next_truth": [
+    "Desktop + phone: can a player see an unmistakable climb and descent without reading GRADE?",
+    "Does an energetic passage visibly feel faster while the audio remains phase-locked?",
+    "Does FIELD COURSE make PLAY FIELD a legitimate mode rather than a blank fallback?",
+    "Is motion materially smoother after interpolation and removal of flux shake?",
+    "Do FOLD/SPLIT/RETURN remain categorically legible after smoothing?"
+  ],
+  "stop": "Do not add time-stretch, provider catalogs, lane collectibles, or READFIELD implementation until motion evidence returns.",
+  "return": "/returns/FOLD_BLOOM_MOTION_2026-09-22.json"
+}

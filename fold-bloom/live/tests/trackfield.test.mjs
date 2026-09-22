@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {buildTrackfield,projectTrackfield,trackfieldPoint} from '../trackfield.js';
+import {buildTrackfield,projectTrackfield,trackfieldPoint,sampleFrameInterpolated} from '../trackfield.js';
 
 const frames=[
   {t:0,e:.18,c:.25,f:.04,l:.76,m:.2,h:.04},
@@ -15,7 +15,7 @@ const map={version:'test-map',stage:'DEEP',duration:12,bpm:120,frameRate:.5,fram
 
 test('trackfield is a bounded future projection of the AUDIO MAP',()=>{
   const w=buildTrackfield(map,1,{horizon:9,count:36});
-  assert.equal(w.schema,'fold-bloom-trackfield/v0.1');
+  assert.equal(w.schema,'fold-bloom-trackfield/v0.3');
   assert.equal(w.points.length,36);
   assert.equal(w.time,1);
   assert.ok(w.points[0].ahead===0);
@@ -38,6 +38,17 @@ test('spectral balance bends the road and quiet/loud changes rise/width',()=>{
   assert.ok(high.bend>0);
   assert.ok(low.rise>high.rise);
   assert.ok(high.width>low.width);
+  assert.ok(low.grade>0);
+  assert.ok(high.grade<0);
+  assert.ok(high.speed>low.speed);
+});
+
+test('frame interpolation removes nearest-frame stepping',()=>{
+  const a=sampleFrameInterpolated(map,1);
+  const b=sampleFrameInterpolated(map,1.1);
+  const c=sampleFrameInterpolated(map,1.2);
+  assert.ok(a.e<b.e&&b.e<c.e);
+  assert.ok(Math.abs((b.e-a.e)-(c.e-b.e))<.02);
 });
 
 test('screen projection keeps foreground wide and horizon narrow',()=>{
@@ -46,6 +57,22 @@ test('screen projection keeps foreground wide and horizon narrow',()=>{
   assert.equal(p.slices.length,32);
   assert.ok(p.slices[0].half>p.slices.at(-1).half*5);
   assert.ok(p.slices[0].baseY>p.slices.at(-1).baseY);
+  assert.ok(Number.isFinite(w.currentSpeed)&&Number.isFinite(w.currentGrade));
+  assert.ok(w.points.some(x=>Math.abs(x.altitude)>.03));
+});
+
+
+test('quiet climb and intense descent separate visibly in screen space',()=>{
+  const mk=(e,f,l,h)=>({
+    version:'grade-test',stage:'DEEP',duration:10,bpm:100,frameRate:2,
+    frames:Array.from({length:21},(_,i)=>({t:i*.5,e,c:.5,f,l,m:.3,h})),
+    beats:[0,1,2,3,4,5,6,7,8,9,10],sections:[{t:0},{t:10}]
+  });
+  const climb=projectTrackfield(buildTrackfield(mk(.16,.03,.78,.06),0,{horizon:9,count:40}),430,900);
+  const descent=projectTrackfield(buildTrackfield(mk(.92,.58,.12,.70),0,{horizon:9,count:40}),430,900);
+  const i=30;
+  assert.ok(climb.slices[i].baseY<descent.slices[i].baseY-35);
+  assert.ok(descent.currentSpeed>climb.currentSpeed+.45);
 });
 
 

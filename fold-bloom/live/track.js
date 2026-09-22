@@ -52,7 +52,7 @@ export class LiveTrack {
   trackfield(horizon=12,count=44){
     if(!this.map)return null;
     const t=Number(this.audio.currentTime)||0;
-    if(this.worldCache&&Math.abs(t-this.worldTime)<.055)return this.worldCache;
+    if(this.worldCache&&Math.abs(t-this.worldTime)<.012)return this.worldCache;
     this.worldTime=t;this.worldCache=buildTrackfield(this.map,t,{horizon,count});
     return this.worldCache;
   }
