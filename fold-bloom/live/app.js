@@ -188,13 +188,17 @@ async function demoTick(){
     step(1);demo.timer=setTimeout(demoTick,demo.preview?210:270);
   }
 }
-async function startDemo({preview=false}={}){
+async function startDemo({preview=true,playTrack=false}={}){
+  // IDLE is a witness projection: always snapshot/restore authored state.
+  preview=true;
+  if(playTrack&&liveTrack.active()&&$('#trackAudio').paused)await liveTrack.toggle().catch(()=>{});
+
   if(demo.on)return;
   if(!preview)await ensureAudio();
   const startState=snapshot(state);
   state=setMode(state,'RATCHET');
   demo={on:true,timer:0,releases:0,preview,startState,startRide:{...ride,trace:(ride.trace||[]).map(x=>({...x}))},startTape:deformationTape.map(x=>({...x})),startArc:{...sectionArc,verbs:[...(sectionArc.verbs||[])]}};
-  if(!preview){$('#intro').classList.remove('on');toast('WATCH · CHARGE → RELEASE')}
+  if(!$('#intro').classList.contains('on'))toast(liveTrack.active()?'IDLE RIDE · SOURCE CLOCK / NO AUTHORSHIP':'IDLE RIDE · WITNESS ONLY')
   update();demoTick();
 }
 
@@ -238,7 +242,7 @@ $('#exportBtn').onclick=()=>{
 $('#resetBtn').onclick=()=>{const now=Date.now(),b=$('#resetBtn');if(!b.dataset.arm||now>+b.dataset.arm){b.dataset.arm=now+3500;b.textContent='CONFIRM RESET';toast('PRESS AGAIN');return}delete b.dataset.arm;b.textContent='NEW FIELD';state=createState();sectionArc=createSectionArc();deformationTape=[];ride=createRideState();latestWorld=null;practiceTrack.reset();audio.hydrate(state);dragAngle=0;update();toast('NEW FIELD')};
 $('#playBtn').onclick=async()=>{stopDemo(false);await ensureAudio();$('#intro').classList.remove('on');update()};
 $('#mutePlay').onclick=()=>{stopDemo(false);$('#intro').classList.remove('on');audio.setSound(false);update()};
-$('#demoBtn').onclick=()=>{if(demo.on)stopDemo(false);startDemo({preview:false})};$('#demoSettingsBtn')?.addEventListener('click',()=>{if(demo.on)stopDemo(false);else startDemo({preview:false})});
+$('#demoBtn').onclick=()=>{if(demo.on)stopDemo(true);else startDemo({preview:true,playTrack:true})};$('#demoSettingsBtn')?.addEventListener('click',()=>{if(demo.on)stopDemo(true);else startDemo({preview:true,playTrack:true})});
 
 addEventListener('keydown',e=>{
   if(e.repeat)return;stopDemo(true);
@@ -248,7 +252,7 @@ addEventListener('keydown',e=>{
   else if(e.key.toLowerCase()==='r')toggleMode();
   else if(e.key.toLowerCase()==='s')cycleScene();
   else if(e.key.toLowerCase()==='m'){audio.setSound(!audio.soundOn);update()}
-  else if(e.key.toLowerCase()==='d'){e.preventDefault();if(demo.on)stopDemo(false);else startDemo({preview:false})}
+  else if(e.key.toLowerCase()==='d'){e.preventDefault();if(demo.on)stopDemo(true);else startDemo({preview:true,playTrack:true})}
   else if(e.key==='Escape')$('#settings').classList.toggle('on');
 });
 
@@ -297,6 +301,6 @@ function loop(t){
   renderer.draw(state,t);raf=requestAnimationFrame(loop)
 }raf=requestAnimationFrame(loop);
 update();
-document.documentElement.dataset.foldBloomLive='ready';
+document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomIdle='witness-v0.1';
 window.FoldBloomLive={version:VERSION,state:()=>({...snapshot(state),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld}),release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),practice:()=>practiceTrack.map};
 setTimeout(()=>{if($('#intro').classList.contains('on')&&!demo.on)startDemo({preview:true})},650);
