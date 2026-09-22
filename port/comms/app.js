@@ -1,6 +1,6 @@
 import {
   parseConversation,deriveSignals,createHumanMark,mergeSignals,
-  coverageSummary,buildAgentPacket,makeReturn,demoConversation,SIGNAL_STATES
+  coverageSummary,buildAgentPacket,makeReturn,stateFromReturn,demoConversation,SIGNAL_STATES
 } from './core.js';
 
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
@@ -184,9 +184,29 @@ function openLoopsText(){
   const ss=signals().filter(x=>x.state==='OPEN');
   return ss.map(s=>'['+s.kind+'] '+s.text+'\\n  ↳ '+s.messageId+' '+fmtAddr(s.start,s.end)+' · '+s.origin).join('\\n\\n')||'NO OPEN SIGNALS';
 }
+function returnObject(){
+  if(!state.doc)return null;
+  return makeReturn({doc:state.doc,sourceId:state.sourceId,signals:signals(),draft:state.draft,coverageLinks:state.coverageLinks,title:state.title,includeSource:true});
+}
+function loadReturn(value){
+  try{
+    const next=stateFromReturn(value);
+    state={...state,...next};
+    persist();hideIntake();render();toast('RETURN RESUMED');
+    return true;
+  }catch(error){
+    toast('RETURN REJECTED · '+String(error?.message||error).slice(0,90));
+    return false;
+  }
+}
+async function importReturnFile(file){
+  if(!file)return false;
+  try{return loadReturn(JSON.parse(await file.text()))}
+  catch(error){toast('RETURN REJECTED · INVALID JSON');return false}
+}
 function exportReturn(){
   if(!state.doc)return;
-  const r=makeReturn({doc:state.doc,sourceId:state.sourceId,signals:signals(),draft:state.draft,coverageLinks:state.coverageLinks,title:state.title,includeSource:true});
+  const r=returnObject();
   const blob=new Blob([JSON.stringify(r,null,2)],{type:'application/json'}),a=document.createElement('a');
   a.href=URL.createObjectURL(blob);a.download='comms-spine-return-'+Date.now()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),800);toast('RETURN EXPORTED');
 }
@@ -214,7 +234,7 @@ $('#clearTargets').onclick=()=>{state.targets=[];persist();renderSignals()};
 $('#coverBtn').onclick=()=>applyTargetState('COVERED');$('#deferBtn').onclick=()=>applyTargetState('DEFERRED');$('#reopenBtn').onclick=()=>applyTargetState('OPEN');
 $('#copyOpenBtn').onclick=()=>copy(openLoopsText(),'OPEN LOOPS COPIED');
 $('#copyPacketBtn').onclick=()=>state.doc&&copy(JSON.stringify(buildAgentPacket({doc:state.doc,signals:signals(),draft:state.draft,title:state.title}),null,2),'AGENT PACKET COPIED');
-$('#exportBtn').onclick=exportReturn;$('#pinBtn').onclick=pinLocal;$('#purgeBtn').onclick=purgeLocal;
+$('#exportBtn').onclick=exportReturn;$('#importReturnBtn').onclick=()=>$('#returnFile').click();$('#returnFile').onchange=async e=>{const file=e.target.files?.[0];if(file)await importReturnFile(file);e.target.value=''};$('#pinBtn').onclick=pinLocal;$('#purgeBtn').onclick=purgeLocal;
 $('#usePinned').onclick=()=>{const raw=localStorage.getItem(PINNED);if(raw&&restore(raw)){persist();render();toast('PINNED SESSION RESTORED')}};
 $('#usePortObject').onclick=()=>{const p=portText();if(p)loadSource(p.text,p.title)};
 $('#portBtn').onclick=()=>{const p=portText();if(p)loadSource(p.text,p.title)};
@@ -234,6 +254,6 @@ if(params.get('demo')==='1'&&!state.doc)loadSource(demoConversation(),'COMMS SPI
 window.CommsSpine={
   version:'0.1',
   state:()=>({sourceId:state.sourceId,title:state.title,doc:state.doc,signals:signals(),draft:state.draft,coverageLinks:[...state.coverageLinks]}),
-  loadSource,
+  loadSource,loadReturn,returnObject,
   buildAgentPacket:()=>buildAgentPacket({doc:state.doc,signals:signals(),draft:state.draft,title:state.title})
 };
