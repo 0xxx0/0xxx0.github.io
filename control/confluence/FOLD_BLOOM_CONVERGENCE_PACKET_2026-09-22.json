@@ -2,7 +2,7 @@
   "schema": "0xxx0/confluence-packet/v0.1",
   "id": "FOLD_BLOOM_CONVERGENCE_PACKET_2026-09-22",
   "date": "2026-09-22",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_PLANNING_AUTHORITY",
   "object": "FOLD//BLOOM 0.12 → Experience Compiler 0.1",
   "observed": [
     "User requested all three convergence outputs: hard execution roadmap, design doctrine/manifesto, and product-spec implementation packet.",
@@ -41,5 +41,18 @@
     "RETURN IS PART OF THE OPERATION"
   ],
   "stop": "Do not start provider proliferation, learned Atlas neighborhoods, combo economy, DAW editing or multiple domain adapters before the bounded Experience Set → compositor → journey sequence earns direct use.",
-  "next_truth": "After 0.12 QA, implement Experience Set v0.1 and prove exact order/transition/profile/identity round-trip before any new large UI."
+  "next_truth": "After 0.12 QA, implement Experience Set v0.1 and prove exact order/transition/profile/identity round-trip before any new large UI.",
+  "pr": 150,
+  "merge_sha": "c04128f826f556bfe7a45ae3102920a2685844d4",
+  "ci": {
+    "run": 35703294051,
+    "result": "PASS",
+    "checks": [
+      "public surface contracts",
+      "LISTEN regression",
+      "LIVE regression",
+      "critical browser smoke",
+      "recovery/media regression"
+    ]
+  }
 }
