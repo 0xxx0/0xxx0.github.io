@@ -1,7 +1,7 @@
 # FOLD//BLOOM — CONVERGENCE PACKET
 
 **Date:** 2026-09-22  
-**Anchor:** LIVE 0.13 / LISTEN 0.6 / GLYPH ATLAS 0.2 / EXPERIENCE SET 0.1 / SET 0.1
+**Anchor:** LIVE 0.13 / LISTEN 0.6 / EXPERIENCE SET 0.1 / SET 0.1.1 / JOURNEY RIDE 0.1.2
 
 This directory is the **small active re-entry surface** for FOLD//BLOOM. Do not reconstruct the project from old chats, screenshots, or attractive abandoned branches.
 
@@ -45,28 +45,30 @@ These are donor/reference surfaces only. They do not alter the current human gat
 
 ```
 EXPERIENCE SET 0.1 ✓
-→ SET 0.1 ✓ MERGED / HUMAN GATE
-→ if KEEP: JOURNEY RIDE 0.1
-→ UNIFIED SOURCE SHELL
+→ SET 0.1.1 + LOCAL VAULT ✓
+→ JOURNEY RIDE 0.1 ✓ MERGED
+→ JOURNEY 0.1.2 SHAREABLE EXACT-SEED WITNESS ◇
+→ if lived KEEP: RIDE · SEE · SHAPE doorway refinement
 → ONE NON-MUSIC ADAPTER
 ```
 
-SET 0.1 is implemented at `/fold-bloom/set/`; the next decision is **human use**, not another compositor implementation.
+The exact recovered default seed is:
+
+`preforme → THROUGH THE FIRE → BY YOUR WILL / 遺志`
+
+with authored `CARRY → DISSOLVE → RETURN`.
+
+The public witness carries exact identity/duration/role/seam metadata but **no raw audio**. Exact local playback still requires explicit same-browser file binding.
 
 ## Small active surface
 
 Only these currently deserve attention:
 
-1. **SET 0.1 human gate** — 3–7 meaningful source refs; does order/weight/seam authoring feel like shaping one journey rather than maintaining a playlist?
-2. **Issue #157 · LISTEN phone source-editor continuity** — horizontal ADDRESS + vertical APERTURE gesture, then one real-MP3 430×900 LISTEN→LIVE continuity proof.
-3. **LIVE 0.13 body QA** — only when direct use exposes material/jitter/drop/world/reachability problems.
+1. **Three-track lived/share gate** — open `/fold-bloom/set/journey.html?demo=seed&auto=1` without files; then bind the exact three tracks locally and compare the same journey with real audio.
+2. **Issue #157 · LISTEN phone source-editor continuity** — horizontal ADDRESS + vertical APERTURE gesture and one real-MP3 LISTEN→LIVE proof.
+3. **LIVE 0.13 body QA** — react only to direct material/jitter/drop/world/reachability regressions.
 
-Everything else is downstream or parked. In particular:
-
-- JOURNEY RIDE waits for SET human evidence.
-- SOURCE SHELL waits for a reason to converge surfaces after journey evidence.
-- anchor/warp lyric calibration is a named future calibration problem; superseded PR #155 is quarry only.
-- provider proliferation, DAW editing, social/feed systems and a standalone SOURCE SPINE app remain parked.
+Everything else is downstream or quarry. SOURCE SHELL is now a likely doorway refinement, not permission to merge engines. Anchor/warp lyric calibration remains named and parked. Provider proliferation, DAW editing, social/feed systems and a standalone SOURCE SPINE app remain parked.
 
 ## Source-editor intent
 
