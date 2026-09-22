@@ -1,0 +1,17 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22",
+  "date": "2026-09-22",
+  "operation": "MERGED EXPERIENCE SET → LOCAL BLOCK COMPOSITOR",
+  "status": "BRANCH_CANDIDATE",
+  "baseline": "master@e5ead6c3893581c75dd512db8cc28eb3268b54b6",
+  "route": "/fold-bloom/set/",
+  "evidence": [
+    "/fold-bloom/set/set-core.js",
+    "/fold-bloom/set/tests/set-core.test.mjs",
+    "/fold-bloom/set/?demo=1",
+    "/fold-bloom/set/release.json"
+  ],
+  "next_truth": "Can the user author/reorder a 3–7 source set fast enough that it feels like shaping one journey rather than maintaining a playlist?",
+  "stop": "Return after G2; do not silently begin Journey Ride."
+}

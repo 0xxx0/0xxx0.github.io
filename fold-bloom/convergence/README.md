@@ -24,7 +24,7 @@ Current progression:
 
 ```
 EXPERIENCE SET v0.1 ✓
-→ SET COMPOSITOR 0.1
+→ SET COMPOSITOR 0.1 ◇ CANDIDATE
 → JOURNEY RIDE 0.1
 → UNIFIED SOURCE SHELL
 → ONE NON-MUSIC ADAPTER
@@ -32,4 +32,4 @@ EXPERIENCE SET v0.1 ✓
 
 Recovered source-editor intent is not a new branch: LISTEN is the cartographer/editor for the same addressed source, while LIVE/READFIELD/ATLAS remain unequal projections. The persistent **source spine** is identity + canonical address + aperture + authored calibration/marks carried between those projections; it must not become a new source of truth.
 
-LIVE 0.13 remains body-gated. A material/jitter/control regression may interrupt the sequence; otherwise the next bounded implementation is SET COMPOSITOR 0.1.
+LIVE 0.13 remains body-gated. A material/jitter/control regression may interrupt the sequence; SET COMPOSITOR 0.1 is now implemented as a bounded candidate at `/fold-bloom/set/`; promote it only after CI + phone-sized smoke + a direct 3–7 source authoring check. JOURNEY RIDE remains downstream.

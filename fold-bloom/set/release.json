@@ -1,0 +1,25 @@
+{
+  "schema": "0xxx0/release/v0.1",
+  "id": "FOLD_BLOOM_SET_COMPOSITOR_010",
+  "title": "FOLD//BLOOM SET 0.1",
+  "version": "0.1",
+  "date": "2026-09-22",
+  "state": "BRANCH_CANDIDATE",
+  "route": "/fold-bloom/set/",
+  "consumes": "fold-bloom-experience-set/v0.1",
+  "operation": "SHAPE",
+  "laws": [
+    "SOURCE REFS, NOT SOURCE BYTES",
+    "ORDER IS AUTHORED",
+    "SEAMS ARE EXPLICIT",
+    "CUT / DISSOLVE / CARRY / RESET INTERIOR; RETURN CLOSES",
+    "REORDER MUST NOT CHANGE CHILD SOURCE IDENTITY",
+    "SET AUTHORSHIP DOES NOT ACQUIRE MAP/ANALYZER AUTHORITY"
+  ],
+  "evidence": {
+    "core": "/fold-bloom/set/set-core.js",
+    "tests": "/fold-bloom/set/tests/set-core.test.mjs",
+    "browser": "/fold-bloom/set/?demo=1"
+  },
+  "stop": "Do not implement Journey Ride, provider catalogs, DJ timeline editing, or new Experience Set fields in this pass."
+}

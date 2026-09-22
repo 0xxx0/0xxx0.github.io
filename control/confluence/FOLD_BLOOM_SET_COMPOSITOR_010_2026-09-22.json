@@ -1,0 +1,31 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22",
+  "date": "2026-09-22",
+  "object": "SET COMPOSITOR 0.1 / G2",
+  "status": "BRANCH_CANDIDATE",
+  "baseline": "master@e5ead6c3893581c75dd512db8cc28eb3268b54b6",
+  "input": "merged fold-bloom-experience-set/v0.1",
+  "implemented": [
+    "local source bytes SHA-256 to exact source refs; bytes are not persisted in the set",
+    "hard-edge source blocks with authored weight",
+    "desktop drag + phone long-press drag + explicit move controls",
+    "explicit seam cycling over CUT/DISSOLVE/CARRY/RESET; final RETURN closure",
+    "exact Experience Set import/export and lightweight local persistence",
+    "deterministic set identity from ordered source identities + transition configuration"
+  ],
+  "preserves": [
+    "child source identity",
+    "Experience Set v0.1 closed fields",
+    "source/map/profile/projection authority separation",
+    "LISTEN remains source editor/cartographer",
+    "source-spine mechanism without a new source-spine app"
+  ],
+  "gate": [
+    "pure set-core tests",
+    "430×900 browser smoke with three-source demo",
+    "human: can a 3–7 source set be authored quickly enough to justify Journey Ride"
+  ],
+  "stop": "No Journey Ride or source-shell implementation in this pass.",
+  "return": "/returns/FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json"
+}

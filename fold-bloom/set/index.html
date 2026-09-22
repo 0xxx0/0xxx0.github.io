@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07090d"><meta name="color-scheme" content="dark">
+<title>FOLD//BLOOM — SET 0.1</title>
+<link rel="stylesheet" href="./app.css">
+</head>
+<body>
+<div id="app">
+<header>
+  <div><b>FOLD//BLOOM</b><span>SET 0.1 · EXPERIENCE COMPOSITOR</span></div>
+  <nav><a href="../">FAMILY</a><a href="../listen/">LISTEN</a><a href="../live/">RIDE</a></nav>
+</header>
+<main>
+  <section class="hero">
+    <div class="ey">SOURCE REFS → ORDER → SEAMS → RETURN</div>
+    <input id="title" class="title" value="UNTITLED SET" maxlength="120" aria-label="Set title">
+    <p>Move exact sources into one authored journey. Blocks remain source references; seams are explicit laws. No audio bytes are stored in the set.</p>
+    <div class="actions">
+      <label class="button primary" for="files">ADD LOCAL SOURCES</label>
+      <input id="files" type="file" accept="audio/*,.mp3,.m4a,.wav,.flac,.ogg,.aac,.webm" multiple hidden>
+      <button id="addRef">ADD REF</button>
+      <button id="importBtn">IMPORT SET</button><input id="importFile" type="file" accept="application/json,.json" hidden>
+      <button id="exportBtn">RETURN / EXPORT</button>
+      <button id="clearBtn">NEW SET</button>
+    </div>
+  </section>
+
+  <section class="drop" id="drop">
+    <div><b>DROP AUDIO HERE</b><span>hash locally → retain reference only</span></div>
+    <div class="stats"><span id="count">0 SOURCES</span><span id="setId">set:empty</span></div>
+  </section>
+
+  <section class="board">
+    <div class="boardHead"><span>JOURNEY</span><span>LONG-PRESS / DRAG · OR USE ◀ ▶</span></div>
+    <div id="rail" class="rail" aria-live="polite"></div>
+    <div id="empty" class="empty">ADD 2–7 SOURCES. EXPERIENCE SET 0.1 IS ALREADY THE AUTHORITY; THIS SURFACE ONLY AUTHORS ORDER / WEIGHT / SEAMS.</div>
+  </section>
+
+  <section class="law">
+    <b>SOURCE SPINE</b>
+    <span>same identity · same address when available · unequal projection</span>
+    <p>LISTEN remains cartographer/editor. RIDE remains embodied projection. SET composes source refs; it does not become an analyzer, source store, or DAW.</p>
+  </section>
+
+  <section class="return">
+    <div><b>SET RETURN</b><span id="status">LOCAL · READY</span></div>
+    <pre id="preview"></pre>
+  </section>
+</main>
+<div id="toast" class="toast"></div>
+</div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
