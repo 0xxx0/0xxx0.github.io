@@ -1,0 +1,39 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FOLD_BLOOM_EXPERIENCE_SET_010_2026-09-22",
+  "date": "2026-09-22",
+  "operation": "SPECIFIED EXPERIENCE SET -> PURE SCHEMA + ROUND TRIP + FIXTURE + TEST",
+  "status": "BRANCH_CANDIDATE",
+  "baseline": "master@fe5aff346592b514a481bc36db84490a8b61ad17",
+  "sourceEvidence": {
+    "pullRequest": 150,
+    "mergeSha": "c04128f826f556bfe7a45ae3102920a2685844d4",
+    "specPath": "/fold-bloom/convergence/EXPERIENCE_COMPILER_SPEC_0.1.md",
+    "specBlob": "c894f611d26893590ca81c5b52c93e763c07ba59"
+  },
+  "chain": "SOURCE -> MAP -> PROFILE -> PROJECTION -> HUMAN OPERATION -> RETURN",
+  "paths": [
+    "/fold-bloom/experience-set/experience-set.js",
+    "/fold-bloom/experience-set/fixtures/two-source-set.json",
+    "/fold-bloom/experience-set/tests/experience-set.test.mjs",
+    "/fold-bloom/experience-set/README.md"
+  ],
+  "preserves": [
+    "ordered child source refs",
+    "child source identity",
+    "authored profile overrides",
+    "landmark refs",
+    "only CUT/DISSOLVE/CARRY/RESET/RETURN transition vocabulary",
+    "no raw source bytes",
+    "no map mutation",
+    "no compositor/runtime authority"
+  ],
+  "evidence": [
+    "decode(encode(fixture)) deep-equals fixture",
+    "ordered source refs survive round trip",
+    "decoded mutations do not mutate authored input",
+    "all and only five specified transition laws pass",
+    "undeclared top-level fields are rejected"
+  ],
+  "stop": "Schema + fixture + round-trip tests + CI hook + receipt only. Do not start compositor, journey runtime, source shell, adapters, or define new ExperienceAct/SetProfile ontology."
+}
