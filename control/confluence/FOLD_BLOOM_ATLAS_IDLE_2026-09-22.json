@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_ATLAS_IDLE_2026-09-22",
   "date": "2026-09-22",
   "object": "FOLD//BLOOM convergence · Glyph Atlas / witness IDLE / addressed message-path",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "pure_intention": "/control/PURE_INTENTION.json",
   "recovered_lineage": [
     {
@@ -88,5 +88,20 @@
     "Ecology audio mapping",
     "time-stretch/lane collectibles"
   ],
-  "return": "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
+  "pr": 145,
+  "merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130",
+  "verification": {
+    "ci_run": 35693062152,
+    "result": "PASS",
+    "proved": [
+      "static/evolution contract for Atlas route",
+      "ID3v2 + USLT parsing",
+      "Atlas exact-hash/path URL round trip",
+      "LISTEN analysis/preview/source-adapter regression",
+      "LIVE engine/track/section/TRACKFIELD/deformation/ride regression",
+      "Atlas/LISTEN/LIVE/Two Dial critical browser surfaces including witness IDLE",
+      "full recovery/Sleeper regression"
+    ]
+  }
 }
