@@ -1,0 +1,214 @@
+{
+  "schema": "0xxx0/worker-boot/v0.1",
+  "generated": "2026-09-22T06:38:29Z",
+  "generated_from": [
+    "control/CURRENT.json",
+    "showcase-manifest.json",
+    "control/QUEUE.json"
+  ],
+  "note": "GENERATED \u2014 do not hand-edit. Regenerate when CURRENT/QUEUE/manifest change.",
+  "primary_law": "RECOVER BEFORE INVENTING",
+  "sequence": [
+    "SOURCE",
+    "ADDRESS",
+    "STATE",
+    "TRANSFORM",
+    "PROVE",
+    "RETURN"
+  ],
+  "boot_order": [
+    "AGENTS.md",
+    "control/CURRENT.json",
+    "control/WORKER_BOOT.json",
+    "showcase-manifest.json (FIELD INDEX)",
+    "control/POLICY_INDEX.json (smallest applicable)",
+    "control/QUEUE.json"
+  ],
+  "current": {
+    "updated": "2026-09-22",
+    "mode": "seal-recover-execute",
+    "laws": [
+      "RECOVER BEFORE INVENTING",
+      "ONE THING, MANY LAWFUL READINGS, FEW LAWFUL TRANSFORMATIONS",
+      "IDENTITY \u2260 LOCATION \u2260 PROJECTION ADDRESS",
+      "SOURCE \u2192 ADDRESS \u2192 STATE \u2192 TRANSFORM \u2192 PROJECTION \u2192 PROVE \u2192 RETURN",
+      "EXECUTE ONE BOUNDED MOVE \u2192 RETURN \u2192 REPLAN; NO SECOND MOVE INHERITS AUTHORITY"
+    ],
+    "active_fronts": [
+      {
+        "id": "conversion",
+        "state": "ACTIVE_NOW",
+        "center": "existing verified heads \u2192 actual use / share / world contact \u2192 observed delta \u2192 RETURN",
+        "objective": "Convert accumulated machinery into consequences outside the control plane. Prefer an existing head and the smallest delt"
+      },
+      {
+        "id": "recovery-ingest",
+        "state": "ACTIVE_MAINTENANCE",
+        "center": "/recovery/ + exact-source gaps + local-first ingest + MEDIA REFINERY",
+        "objective": "Maintain recoverability continuously, but reopen archaeology only when it removes a live blocker, prevents false lineage"
+      }
+    ],
+    "current_heads": [
+      {
+        "lineage": "field-index",
+        "head": "FIELD INDEX 0.7 / FOCUS + READFIELD + TRACE VERIFY",
+        "state": "CORE_ACTIVE",
+        "route": "/"
+      },
+      {
+        "lineage": "scale-lens",
+        "head": "SCALE LENS RC11.2 + LensState 0.2 + G2 real-use-1",
+        "state": "STABLE + REAL_USE_PROVED + G2_HARDENED + FOVEATION_PARKED",
+        "route": "/fold-bloom/lens/"
+      },
+      {
+        "lineage": "rsvp-reader",
+        "head": "READFIELD / RSVP 0.7.1 + APERTURE focus kernel",
+        "state": "UTILITY / READER_FIRST / VERIFIED_SHIPPED",
+        "route": "/docs/"
+      },
+      {
+        "lineage": "path-poetry",
+        "head": "POEM MAP 0.2.1 / VERSE",
+        "state": "ACTIVE_CANDIDATE",
+        "route": "/poetry/map/"
+      },
+      {
+        "lineage": "sleeper-one-return",
+        "head": "SLEEPER // ONE RETURN v2 / City Engine v0.2",
+        "state": "CANONICAL_SOURCE_RECOVERED / HISTORICAL_RUNTIME_REACHABILITY_UNVERIFIED",
+        "route": "/sleeper/"
+      },
+      {
+        "lineage": "fold-bloom",
+        "head": "FOLD//BLOOM instrument family \u00b7 LIVE 0.7 smooth world-writing TRACKFIELD / LISTEN 0.3 addressed-stream lens / TWO DIAL 0.10.1 composition / ECOLOGY 0.2 lineage-game",
+        "state": "ACTIVE_CANDIDATE_FAMILY",
+        "route": "/fold-bloom/"
+      },
+      {
+        "lineage": "axial",
+        "head": "AXIAL / FOCUS STACK 0.7.3",
+        "state": "ACTIVE",
+        "route": "/foundry/axial/"
+      },
+      {
+        "lineage": "comms",
+        "head": "HUMAN PORT 1.5.2 OBJECT APERTURE + FIELD INTAKE 0.5 + CARE 0.5 + BODY / FIT 0.1 data routes + CONTACT/LACONIC/Router",
+        "state": "ACTIVE",
+        "route": "/port/"
+      },
+      {
+        "lineage": "house-spatial",
+        "head": "HOUSE / SPATIAL 0.6 + HOUSE / FIELD 0.5",
+        "state": "ACTIVE",
+        "route": "/house/spatial/"
+      },
+      {
+        "lineage": "shopping-field",
+        "head": "SHOPPING FIELD 0.1 / FI-SHOP-001",
+        "state": "ACTIVE_ADAPTER",
+        "route": "/shopping/"
+      },
+      {
+        "lineage": "triangle",
+        "head": "TRIANGLE 1.0 \u00b7 GLYPH / FORM / POWER / BENCH",
+        "state": "ACTIVE",
+        "route": "/forward-field-proof/triangle/"
+      }
+    ],
+    "next_single_action": {
+      "id": "conversion-first",
+      "instruction": "Do not open another coordination/seal task. Select the highest-leverage machine-executable conversion on an existing head. Prefer: (1) make something usable/shareable by another human, (2) make something meet physical/device reality, (3) recover exact source only when it unlocks 1 or 2. If the next lawful move needs human/world input, put it in WAITING and continue with another executable conversion."
+    }
+  },
+  "execution": {
+    "max_live": 2,
+    "live_count": 2,
+    "live": [
+      {
+        "id": "conversion",
+        "horizon": "ACTIVE_NOW"
+      },
+      {
+        "id": "recovery-ingest",
+        "horizon": "ACTIVE_MAINTENANCE"
+      }
+    ],
+    "held": [
+      {
+        "id": "comms",
+        "reason": "Important, but held while recovery/orientation is being stabilized."
+      },
+      {
+        "id": "axial-expansion",
+        "reason": "Keep current experiment; no new branch until current recovery produces a need."
+      },
+      {
+        "id": "new-site-design",
+        "reason": "No new public shell unless an existing instrument cannot express a required function."
+      },
+      {
+        "id": "new-hardware",
+        "reason": "Existing owned endpoints and physical environment must produce a RETURN first."
+      },
+      {
+        "id": "reality-house",
+        "reason": "CURRENT holds HOUSE/SPATIAL; do not interpret this retained recipe as NEXT NOW."
+      }
+    ]
+  },
+  "field_index": {
+    "model": "/showcase-manifest.json",
+    "query_families": [
+      "PRODUCES",
+      "CONSUMES",
+      "CONNECT",
+      "PATH",
+      "WORLD_IN",
+      "WORLD_OUT",
+      "REIFY",
+      "VERIFY",
+      "SUBSTITUTE",
+      "BOTTLENECK",
+      "SALVAGE",
+      "MOVE",
+      "RETURN"
+    ],
+    "touch_rule": "A tracked public route changes RECENT only when a durable repo mutation updates route.index.updated_at; discussion alone never bumps it. CURRENT, not RECENT, owns attention."
+  },
+  "coordination": {
+    "board": "/nexus/board.html",
+    "dashboard": "/nexus/index.html",
+    "map": "/nexus/map.html",
+    "return_contract": [
+      "STATE",
+      "DELTA",
+      "EVIDENCE",
+      "RESIDUE",
+      "WAITING",
+      "ONE_NEXT"
+    ]
+  },
+  "open_gaps": [
+    {
+      "id": "env0-pdfs",
+      "status": "BLOCKED_EXTERNAL",
+      "note": "ChatGPT Library only"
+    },
+    {
+      "id": "game-of-names",
+      "status": "BLOCKED",
+      "note": "needs public-safe runnable artifact"
+    },
+    {
+      "id": "laconic-missing-24",
+      "status": "OPEN",
+      "note": "2026-04-04 \u2192 07-14 gap + original Script Bank"
+    },
+    {
+      "id": "hermes-md-stale",
+      "status": "FIXED",
+      "note": "CURRENT PRIORITY prose neutralized"
+    }
+  ]
+}

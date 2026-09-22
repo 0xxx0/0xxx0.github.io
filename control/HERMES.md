@@ -183,24 +183,27 @@ Do not let more than three fronts become cognitively live. `/control/QUEUE.json`
 
 ## CURRENT PRIORITY
 
-Current bounded order:
+**This section is superseded by `/control/CURRENT.json` and `/control/WORKER_BOOT.json`.**
 
-1. RECOVER / REPO — exact-source recovery + recent-artifact census; preserve first, classify second, deduplicate third.
-2. INGEST / FILES — prepare read-only inventory/hash/tag/dedup reports; no unreviewed moves/deletes.
-3. REALITY / HOUSE — current head is `/house/spatial/`: recover/verify the actual house instance and coordinate its addressed substrate with Home Assistant/HOUSEBUS. A physical before→change→after RETURN remains valuable, but do not force section/ceiling measurement merely to advance the queue.
+Do not treat the list below as current — it is retained only as historical context. Always read `CURRENT.json` for what matters now.
 
-COMMS and AXIAL expansion are held, not abandoned.
+Historical (2026-09-19, superseded):
 
-The worker may continuously recover or research, but every cycle must close with a receipt or bounded packet before choosing another item.
+1. ~~RECOVER / REPO~~ — recovery is now MAINTENANCE, not a foreground front.
+2. ~~INGEST / FILES~~ — proved substrate; repeats on demand.
+3. ~~REALITY / HOUSE~~ — HOUSE/physical is the active selection; see CURRENT.
+
+The worker may continuously recover or research, but every cycle must close with a receipt or bounded packet before choosing another item. Resolve your object in FIELD INDEX before creating anything new.
 
 ## RETURN
 
 End each work cycle with:
 
 ```
-RECOVERED
-CONTRADICTIONS
-PACKETS_READY
-BLOCKED
+STATE
+DELTA
+EVIDENCE
+RESIDUE
+WAITING
 ONE_NEXT
 ```

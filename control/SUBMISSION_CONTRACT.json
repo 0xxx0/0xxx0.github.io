@@ -1,0 +1,52 @@
+{
+  "schema": "0xxx0/submission-contract/v0.1",
+  "updated": "2026-09-22",
+  "purpose": "One typed envelope for every contributor — human, Hermes, ChatGPT, Codex, or local worker. Making a contribution to FIELD is itself a FIELD operation.",
+  "sequence": "SOURCE → SUBMISSION OBJECT → FIELD/AXIAL HOST RESOLUTION → POLICY → DELTA → PROOF → RETURN",
+  "envelope": {
+    "required": {
+      "source_ref": "Where this came from (conversation id, file, URL, observation)",
+      "intent": "What the contributor is trying to make happen",
+      "object_ref": "Which FIELD object/route/head this touches (or 'UNRESOLVED')",
+      "contribution_class": "DELTA | EVIDENCE | DONOR | RETURN | UNRESOLVED",
+      "evidence_class": "BYTES | SPEC | IMAGE | RECEIPT",
+      "delta_or_question": "The smallest change, or the open question",
+      "proof_available": "What evidence exists that this happened"
+    },
+    "optional": {
+      "host_candidates": "Candidate hosts from FIELD INDEX (if object_ref is UNRESOLVED)",
+      "axial_support": "Support values from AXIAL host resolution",
+      "policy_refs": "Applicable laws from POLICY_INDEX.json",
+      "waiting_on": "Human/world dependency, if any",
+      "residue": "What remains unresolved after this submission"
+    }
+  },
+  "contribution_classes": {
+    "DELTA": "Changes an existing head. Requires a named host.",
+    "EVIDENCE": "Tests or observes an existing claim. Requires the claim it tests.",
+    "DONOR": "Supplies a mechanism to an existing head without replacing it.",
+    "RETURN": "Records observed behavior of a completed run.",
+    "UNRESOLVED": "No host yet. Held for review, not promoted. This is a valid outcome."
+  },
+  "host_resolution": {
+    "rule": "A contribution must resolve to a host in FIELD INDEX before promotion.",
+    "zero_host": "Zero obvious host means UNRESOLVED submission, not automatic new project.",
+    "method": "AXIAL-style exact support against showcase-manifest.json objects — not project-name intuition, not fake scalar scoring."
+  },
+  "authority_gate": {
+    "auto_ok": ["READ", "SEARCH", "COMPARE", "ANALYZE", "RECOVER", "CLASSIFY", "DRAFT", "NON_DESTRUCTIVE_CHECKS", "PREPARE_BOUNDED_CHANGES"],
+    "requires_human": ["EXTERNAL_SEND", "PUBLIC_PUBLISH", "MONEY_MOVEMENT", "ACCOUNT_CHANGE", "DESTRUCTIVE_DELETE", "IRREVERSIBLE_FS", "LARGE_MIGRATION"]
+  },
+  "return_format": ["STATE", "DELTA", "EVIDENCE", "RESIDUE", "WAITING", "ONE_NEXT"],
+  "example": {
+    "source_ref": "conversation:68f711b0 (Iconic laconic responses)",
+    "intent": "Recover the original Laconic Script Bank canon",
+    "object_ref": "/laconic/",
+    "contribution_class": "DONOR",
+    "evidence_class": "BYTES",
+    "delta_or_question": "Import 11 reconstructed canon files (255 items, 130 atomic)",
+    "proof_available": "Conversation text + 11 reconstructed files",
+    "waiting_on": "24 items remain in missing queue",
+    "residue": "2026-04-04 → 07-14 gap unaccounted"
+  }
+}
