@@ -1,0 +1,40 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FOLD_BLOOM_LOCAL_TEST_PACKS_2026-09-22",
+  "date": "2026-09-22",
+  "operation": "UPLOADED AUDIO -> EXACT HASH CENSUS -> LOCAL TEST PACKS -> SET 0.1.1 INTAKE",
+  "status": "BRANCH_CANDIDATE",
+  "baseline": "master@f60a9d6d8ba696f9d1223d4814375871a4b2b1b4",
+  "delta": [
+    "Four uploaded sources have exact SHA-256 identities and bounded acoustic/provenance evidence.",
+    "Three authored tracks become one explicit editable seed proposal rather than hidden defaults.",
+    "The NotebookLM export remains a separate long-form adapter stress source.",
+    "SET recognizes matching local files and can apply titles, roles, weights and seams without storing bytes.",
+    "A hash-only seed demo permits browser verification without distributing the source media."
+  ],
+  "paths": [
+    "/fold-bloom/test-packs/catalog.json",
+    "/fold-bloom/test-packs/test-pack-core.js",
+    "/fold-bloom/test-packs/tests/test-pack-core.test.mjs",
+    "/fold-bloom/test-packs/README.md",
+    "/fold-bloom/set/app.js",
+    "/fold-bloom/set/?demo=seed",
+    "/control/confluence/FOLD_BLOOM_LOCAL_TEST_PACKS_2026-09-22.json"
+  ],
+  "laws": [
+    "raw audio stays local",
+    "recognition is exact-hash evidence, not inference",
+    "pack application is explicit and reversible",
+    "pack metadata does not enter Experience Set fields",
+    "long-form speech does not silently contaminate the default music journey"
+  ],
+  "humanGate": [
+    "select the exact three song files",
+    "confirm 3/3 pack recognition",
+    "apply GHOST -> FORGE -> WILL",
+    "change at least one order, weight or seam",
+    "export and re-import exact set JSON",
+    "decide KEEP / REVISE / REJECT before JOURNEY RIDE"
+  ],
+  "stop": "No raw media publication and no JOURNEY RIDE implementation until technical CI and the direct local-file gate close."
+}
