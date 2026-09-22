@@ -10,6 +10,27 @@ export function normalizeEntry(x={}){
     duration:+(Number(x.duration)||0).toFixed(3),
     sourceHash:String(x.sourceHash||g.sourceHash||''),
     sourceKind:String(x.sourceKind||'GLYPH_PACKET'),
+    format:String(x.format||'').slice(0,64),
+    album:String(x.album||'').slice(0,96),
+    origin:x.origin&&typeof x.origin==='object'?{
+      kind:String(x.origin.kind||'').slice(0,48),
+      address:String(x.origin.address||'').slice(0,512),
+      id:x.origin.id==null?null:String(x.origin.id).slice(0,128),
+      resolution:x.origin.resolution==null?null:String(x.origin.resolution).slice(0,96)
+    }:null,
+    collection:x.collection&&typeof x.collection==='object'?{
+      kind:String(x.collection.kind||'PLAYLIST').slice(0,48),
+      name:String(x.collection.name||'').slice(0,96),
+      address:String(x.collection.address||'').slice(0,512),
+      id:x.collection.id==null?null:String(x.collection.id).slice(0,128),
+      count:Number.isFinite(Number(x.collection.count))?Math.max(0,Math.trunc(Number(x.collection.count))):null
+    }:null,
+    textWitness:x.textWitness&&typeof x.textWitness==='object'?{
+      kind:String(x.textWitness.kind||'TEXT').slice(0,32),
+      alignment:String(x.textWitness.alignment||'UNALIGNED').slice(0,64),
+      chars:Math.max(0,Math.trunc(Number(x.textWitness.chars)||0)),
+      cues:Math.max(0,Math.trunc(Number(x.textWitness.cues)||0))
+    }:null,
     glyph:{
       schema:'fold-bloom-audio-glyph/v0.1',
       sourceHash:String(g.sourceHash||x.sourceHash||''),
