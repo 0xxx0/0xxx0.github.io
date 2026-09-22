@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-09-22T16:30:42.961Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-09-22T17:37:40.961Z by scripts/generate-convergence-strip.mjs_
 
-The field has **995 commits on 2026-09-22** across **179 branches** (2464 on master all-time).
+The field has **997 commits on 2026-09-22** across **179 branches** (2466 on master all-time).
 **2/2** fronts are live, against **11** current heads.
 There are **4** open gaps.
 
@@ -13,9 +13,9 @@ There are **4** open gaps.
 
 ## Last commits
 
+- THE EMPTY SKY IS MY ONLY WITNESS + collapse six witnesses into one wall
+- GOD'S EYE VIEW + fix: a number that cannot name its source is not allowed
 - TWINS + LINEAGE — a recovery finding and a lineage
-- silences: REDACT BY DESIGN — publish durations, never words
-- THE SILENCES + wire all three artifacts into the FIELD INDEX root
 
 ## Open gaps
 
