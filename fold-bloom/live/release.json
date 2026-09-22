@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
-  "version": "LIVE 0.4",
-  "status": "ACTIVE_CANDIDATE_MERGED",
+  "version": "LIVE 0.5",
+  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
   "date": "2026-09-22",
   "donors": [
     {
@@ -54,7 +54,15 @@
     "TRACKFIELD is projection-only: no second hidden world model and no invented verse/chorus semantics",
     "LIVE onboarding now runs a silent reversible real-mechanism demo behind the intro; preview never persists, vibrates or emits FIELD operations",
     "TWO DIAL receives the same reversible silent autoplay onboarding rule while remaining the composition branch",
-    "family roles are explicit: LIVE rides external/owned audio; TWO DIAL composes music/form; ECOLOGY evolves persistent lineage"
+    "family roles are explicit: LIVE rides external/owned audio; TWO DIAL composes music/form; ECOLOGY evolves persistent lineage",
+    "time-addressed deformation tape layered over immutable AUDIO MAP evidence",
+    "BLOOM writes a bounded future widening/opening/lift window into TRACKFIELD",
+    "FOLD writes a bounded directional kink + compression window determined by authored slot/type",
+    "SPLIT writes a bounded two-branch TRACKFIELD fork rather than a score-only state",
+    "RETURN suppresses active divergence/lateral kink and reconverges the road",
+    "charged structural cadences write multiple ordered deformation verbs (e.g. FOLD then RETURN) onto one track timeline",
+    "renderer draws verb-specific world evidence: bloom ribs, fold crease, split fork, return convergence plus road-surface branching",
+    "LIVE RETURN export now preserves deformation tape alongside section-arc performance state"
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -65,13 +73,16 @@
     "section analysis is approximate temporal evidence, not semantic truth and not a source of mandatory moves",
     "TRACKFIELD geometry must remain derivable from AUDIO MAP features and time; do not fork a decorative visualizer state model",
     "provider/catalog integrations remain downstream of a compelling local-MP3 game loop",
-    "silent onboarding preview is non-authoritative and must restore clean state on takeover"
+    "silent onboarding preview is non-authoritative and must restore clean state on takeover",
+    "deformation tape is a reversible projection layer and must never rewrite source AUDIO MAP frames",
+    "road deformation must remain bounded in time/count and prune after traversal",
+    "visual deformation semantics must remain legible muted and without score/HUD interpretation"
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "Direct phone MP3 ride: judge whether upcoming surge/gate geometry creates anticipation and replay desire, whether ring/CALL remains legible over the track, and whether autoplay preview hands control back cleanly.",
+    "required_next": "CI + direct phone MP3: perform each verb and confirm road-only distinction; test charged FOLD→RETURN; judge whether SPLIT wants explicit branch choice in the next pass.",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
@@ -92,10 +103,11 @@
     "trackfield_branch": "fold-bloom-trackfield-040",
     "trackfield_pr": 137,
     "trackfield_merge_sha": "d005ee56b127da6c547fc2b074edaa8688898cc4",
-    "trackfield_ci": "PASS: public-surface-check run 35666317285, including engine/track/section-arc/TRACKFIELD tests and critical browser smoke"
+    "trackfield_ci": "PASS: public-surface-check run 35666317285, including engine/track/section-arc/TRACKFIELD tests and critical browser smoke",
+    "deformation_branch": "fold-bloom-deform-050"
   },
   "execution_contract": "./EXECUTION.md",
-  "return": "/returns/FOLD_BLOOM_TRACKFIELD_2026-09-22.json",
+  "return": "/returns/FOLD_BLOOM_WORLD_WRITING_2026-09-22.json",
   "updated": "2026-09-22",
   "observed_user_return": {
     "date": "2026-09-22",
@@ -118,5 +130,21 @@
       "autoplay demonstrations for onboarding",
       "clarify LIVE vs TWO DIAL vs ECOLOGY"
     ]
+  },
+  "observed_user_return_0_5": {
+    "date": "2026-09-22",
+    "confidence": "DIRECT_USER_REPORT",
+    "live_0_4": "PRETTY_DAMN_SICK / COOL",
+    "success": [
+      "TRACKFIELD hook materially stronger",
+      "autoplay buttons useful",
+      "local MP3 path remains viable"
+    ],
+    "remaining_failure": [
+      "no actual track deformation yet",
+      "some interaction/refinement issues",
+      "desire to transfer projection law into Ecology and a separate reader design"
+    ],
+    "request": "continue with higher ambition while keeping compact succession notes"
   }
 }

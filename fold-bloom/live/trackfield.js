@@ -75,10 +75,12 @@ export function projectTrackfield(world,width,height){
     heading=heading*.92+p.bend*.085;
     lateral+=heading*(.018+.022*u);
     elevation=elevation*.94+p.rise*.025;
-    const centerX=w*.5+lateral*w*(.55+.24*u);
-    const baseY=lerp(h*.88,h*.26,Math.pow(u,.66))+elevation*h*(.18*u);
-    const half=lerp(w*.43,w*.038,Math.pow(u,.78))*p.width;
-    slices.push({...p,centerX,baseY,half});
+    const deformLateral=Number(p.deformLateral)||0,deformRise=Number(p.deformRise)||0,deformWidth=Number(p.deformWidth)||1;
+    const centerX=w*.5+lateral*w*(.55+.24*u)+deformLateral*w*(.10+.15*u);
+    const baseY=lerp(h*.88,h*.26,Math.pow(u,.66))+elevation*h*(.18*u)+deformRise*h*(.05+.10*u);
+    const half=lerp(w*.43,w*.038,Math.pow(u,.78))*p.width*deformWidth;
+    const split=clamp(Number(p.deformSplit)||0,0,1),branchGap=half*split*.72,branchHalf=split>.02?half*(.43-.10*split):half;
+    slices.push({...p,centerX,baseY,half,split,branchGap,branchHalf});
   }
-  return {width:w,height:h,slices,surge:world.surge,current:world.current};
+  return {width:w,height:h,slices,surge:world.surge,current:world.current,activeVerbs:world.activeVerbs||[],deformationCount:world.deformationCount||0};
 }
