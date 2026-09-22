@@ -219,8 +219,16 @@
       "latest_return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
       "next_executable": {
         "id": "fold-bloom-experience-set-01",
-        "state": "SPECIFIED_NOT_STARTED",
-        "objective": "Implement fold-bloom-experience-set/v0.1 as a pure, exact, round-trippable higher-order source object before building the compositor UI.",
+        "state": "IMPLEMENTED_BRANCH_CANDIDATE",
+        "objective": "Verify and merge the pure fold-bloom-experience-set/v0.1 schema + encode/decode round-trip before any compositor UI.",
+        "implementation": {
+          "branch": "fold-bloom/experience-set-010",
+          "schema": "/fold-bloom/experience-set/experience-set.js",
+          "fixture": "/fold-bloom/experience-set/fixtures/two-source-set.json",
+          "tests": "/fold-bloom/experience-set/tests/experience-set.test.mjs",
+          "receipt": "/returns/FOLD_BLOOM_EXPERIENCE_SET_010_2026-09-22.json",
+          "stop": "No compositor, journey runtime, source shell, adapters, or new ExperienceAct/SetProfile ontology in this bounded move."
+        },
         "sequence": [
           "EXPERIENCE SET v0.1 schema + tests + import/export",
           "SET COMPOSITOR 0.1 / block-Tetris authoring surface",
