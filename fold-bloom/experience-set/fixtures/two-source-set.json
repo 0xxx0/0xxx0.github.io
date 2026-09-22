@@ -1,0 +1,26 @@
+{
+  "schema": "fold-bloom-experience-set/v0.1",
+  "id": "set-two-source-proof",
+  "title": "Two Source Proof",
+  "entries": [
+    {
+      "id": "entry-a",
+      "sourceId": "sha256:source-a",
+      "weight": 1,
+      "profileOverride": {"solidity": 0.94, "world": "WOOD"},
+      "transitionOut": "DISSOLVE",
+      "landmarkIds": ["lm-a1"]
+    },
+    {
+      "id": "entry-b",
+      "sourceId": "sha256:source-b",
+      "weight": 0.8,
+      "transitionIn": "DISSOLVE",
+      "transitionOut": "RETURN",
+      "landmarkIds": []
+    }
+  ],
+  "note": "Pure set fixture: ordered source refs plus authored projection state; no source bytes or compositor state.",
+  "createdAt": "2026-09-22T08:40:00Z",
+  "updatedAt": "2026-09-22T08:40:00Z"
+}
