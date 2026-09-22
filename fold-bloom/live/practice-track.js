@@ -1,5 +1,5 @@
 import {buildTrackfield} from './trackfield.js';
-import {transportFromMap} from './track.js';
+import {transportFromMap,TRACKFIELD_MODEL_INTERVAL} from './track.js';
 
 const TAU=Math.PI*2;
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -52,18 +52,20 @@ export class PracticeTrack {
     this.map=createPracticeMap({duration,bpm});
     this.epoch=performance.now();
     this.offset=0;
-    this.paused=false;
+    this.paused=false;this.worldCache=null;this.worldTime=-1;
   }
   time(now=performance.now()){
     const raw=this.paused?this.offset:this.offset+(now-this.epoch)/1000;
     return ((raw%this.map.duration)+this.map.duration)%this.map.duration;
   }
-  reset(now=performance.now()){this.epoch=now;this.offset=0}
+  reset(now=performance.now()){this.epoch=now;this.offset=0;this.worldCache=null;this.worldTime=-1}
   transport(now=performance.now()){
     const p=transportFromMap(this.map,this.time(now),!this.paused);
     return p?{...p,stage:'DEMO',sourceKind:'FIELD_PRACTICE',sourceAddress:null,_receivedAt:now}:null;
   }
   trackfield(horizon=13.5,count=56,now=performance.now()){
-    return buildTrackfield(this.map,this.time(now),{horizon,count});
+    const t=this.time(now);
+    if(this.worldCache&&Math.abs(t-this.worldTime)<TRACKFIELD_MODEL_INTERVAL)return this.worldCache;
+    this.worldTime=t;this.worldCache=buildTrackfield(this.map,t,{horizon,count});return this.worldCache;
   }
 }
