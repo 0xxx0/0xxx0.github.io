@@ -9,7 +9,9 @@ MEDIA_ROOT="${1:-}"
 OUT_DIR="${2:-$HOME/.0xxx0-media/refinery}"
 PROFILE="media-curator"
 LOCAL_MODEL="${MEDIA_BULK_MODEL:-qwen3.5:9b}"
-HERMES_LOCAL_BASE="${HERMES_LOCAL_BASE:-qwen3.5:27b}"\nHERMES_LOCAL_MODEL="${HERMES_LOCAL_MODEL:-field-qwen3.5-27b-64k}"\nCREATE_HERMES_LOCAL="${CREATE_HERMES_LOCAL:-0}"
+HERMES_LOCAL_BASE="${HERMES_LOCAL_BASE:-qwen3.5:27b}"
+HERMES_LOCAL_MODEL="${HERMES_LOCAL_MODEL:-field-qwen3.5-27b-64k}"
+CREATE_HERMES_LOCAL="${CREATE_HERMES_LOCAL:-0}"
 
 if [[ -z "$MEDIA_ROOT" ]]; then
   echo "usage: $0 /absolute/path/to/media [output-dir]" >&2
