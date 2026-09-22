@@ -104,7 +104,7 @@ test('macro drop promotes buildup→impact into a larger-scale event',()=>{
   assert.ok(w.drop.ahead>3&&w.drop.ahead<8);
   assert.ok(w.drop.strength>.25);
   const before=w.points.find(p=>p.ahead>w.drop.ahead-1.1&&p.ahead<w.drop.ahead-.35);
-  const hit=w.points.find(p=>Math.abs(p.ahead-w.drop.ahead)<.35);
+  const hit=w.points.find(p=>p.ahead>=w.drop.ahead&&p.ahead<w.drop.ahead+.35);
   assert.ok(before?.dropTunnel>0);
   assert.ok(hit?.dropOpen>0);
   assert.ok(hit.grade<before.grade);
