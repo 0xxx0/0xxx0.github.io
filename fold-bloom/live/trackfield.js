@@ -1,4 +1,4 @@
-import {beatIndexAt,sectionIndexAt} from '../listen/audio-map.js';
+import {beatIndexAt,phraseIndexAt,sectionIndexAt} from '../listen/audio-map.js';
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const lerp=(a,b,t)=>a+(b-a)*t;
@@ -72,7 +72,7 @@ export function buildTrackfield(map,time=0,{horizon=12,count=44}={}){
       altitude=clamp(altitude,-2.45,2.45);
     }
     const beatIndex=beatIndexAt(map,t),sectionIndex=sectionIndexAt(map,t);
-    const phraseIndex=beatIndex>=0?Math.floor(beatIndex/8):-1;
+    const analyzedPhrase=phraseIndexAt(map,t),phraseIndex=analyzedPhrase>=0?analyzedPhrase:(beatIndex>=0?Math.floor(beatIndex/8):-1);
     const beatEdge=i>0&&beatIndex>=0&&beatIndex!==lastBeat;
     const downbeatEdge=beatEdge&&beatIndex%4===0;
     const phraseEdge=i>0&&phraseIndex>=0&&phraseIndex!==lastPhrase;
