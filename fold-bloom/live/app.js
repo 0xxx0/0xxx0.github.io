@@ -163,6 +163,11 @@ function stopDemo(takeover=false){
 }
 async function demoTick(){
   if(!demo.on)return;
+  const rv=rideView(ride,latestWorld);
+  if(rv.opportunity&&!rv.choice){
+    const dir=demo.releases%2===0?-1:1;
+    steerRide(dir);
+  }
   const forecast=currentForecast();
   if(canRelease(state) && callHit(forecast)){
     if(demo.preview){
@@ -233,7 +238,7 @@ $('#exportBtn').onclick=()=>{
 $('#resetBtn').onclick=()=>{const now=Date.now(),b=$('#resetBtn');if(!b.dataset.arm||now>+b.dataset.arm){b.dataset.arm=now+3500;b.textContent='CONFIRM RESET';toast('PRESS AGAIN');return}delete b.dataset.arm;b.textContent='NEW FIELD';state=createState();sectionArc=createSectionArc();deformationTape=[];ride=createRideState();latestWorld=null;practiceTrack.reset();audio.hydrate(state);dragAngle=0;update();toast('NEW FIELD')};
 $('#playBtn').onclick=async()=>{stopDemo(false);await ensureAudio();$('#intro').classList.remove('on');update()};
 $('#mutePlay').onclick=()=>{stopDemo(false);$('#intro').classList.remove('on');audio.setSound(false);update()};
-$('#demoBtn').onclick=()=>{if(demo.on)stopDemo(false);startDemo({preview:false})};
+$('#demoBtn').onclick=()=>{if(demo.on)stopDemo(false);startDemo({preview:false})};$('#demoSettingsBtn')?.addEventListener('click',()=>{if(demo.on)stopDemo(false);else startDemo({preview:false})});
 
 addEventListener('keydown',e=>{
   if(e.repeat)return;stopDemo(true);
@@ -243,6 +248,7 @@ addEventListener('keydown',e=>{
   else if(e.key.toLowerCase()==='r')toggleMode();
   else if(e.key.toLowerCase()==='s')cycleScene();
   else if(e.key.toLowerCase()==='m'){audio.setSound(!audio.soundOn);update()}
+  else if(e.key.toLowerCase()==='d'){e.preventDefault();if(demo.on)stopDemo(false);else startDemo({preview:false})}
   else if(e.key==='Escape')$('#settings').classList.toggle('on');
 });
 
