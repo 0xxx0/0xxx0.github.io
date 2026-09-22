@@ -2,10 +2,10 @@
   "schema": "release-receipt/v1",
   "artifact": "HUMAN PORT",
   "route": "/port/",
-  "version": "1.5.2-preview",
+  "version": "1.6.0-preview",
   "date": "2026-09-22",
-  "state": "ACTIVE_EXPERIMENT",
-  "decision": "HUMAN PORT becomes an addressed object aperture: text/JSON/image/generic local files share one object envelope; Port handles temporary passage/focus/routing while FIELD INTAKE remains the separate reviewed admission gate.",
+  "state": "ACTIVE_EXPERIMENT_COMMS_SPINE_CANDIDATE",
+  "decision": "HUMAN PORT remains the addressed object/passage layer. COMMS SPINE 0.1 becomes its specialized addressed-conversation instrument: one canonical thread survives signal extraction, human marking, task/response coverage, bot handoff and RETURN without turning derived labels into source truth.",
   "recovered_user_functions": [
     "ADDRESS",
     "INTAKE",
@@ -37,11 +37,18 @@
     "LOCAL STASH != CANONICAL REPOSITORY",
     "ROUTE RECEIPT != WORLD RETURN",
     "PORT EVIDENCE OFFER != CARE ATTACH",
-    "PORT SENSOR OBJECT != BODY OBSERVATION until explicit import"
+    "PORT SENSOR OBJECT != BODY OBSERVATION until explicit import",
+    "SOURCE THREAD != DERIVED SIGNALS != HUMAN MARKS != RESPONSE",
+    "COVERED != DELETED",
+    "DERIVED COMMUNICATION CUES DO NOT AUTHOR HUMAN INTENT",
+    "EVERY PROMOTED COMMS ITEM MUST RETURN TO AN EXACT SOURCE RANGE"
   ],
   "promotion_rule": "Keep /contact/ simple. Promote deeper mechanisms onto /port/ only when they reduce real interaction/re-entry cost.",
   "next_tests": [
-    "ordinary use: route whole vs focused fragments and observe whether focus reduces repasting",
+    "paste one real messy long chat into COMMS SPINE and measure whether turn spine + one-message fovea reduces re-entry cost versus transcript scrolling",
+    "correct at least one wrong DERIVED signal with a HUMAN mark and confirm both provenance classes remain inspectable",
+    "draft one real reply, explicitly COVER / DEFER signals, export RETURN, and verify open residue survives",
+    "copy agent packet into Hermes/Codex and verify exact asks/constraints remain source-addressed rather than summary-only",
     "ordinary use: override LIKELY when cue support is wrong",
     "re-enter Port from a downstream tool and confirm source/focus restoration is useful rather than sticky",
     "observe whether SELECT → OPEN adds useful deliberation or needless friction",
@@ -64,7 +71,16 @@
     "CARE route remains explicit SELECT + OPEN and requires explicit ATTACH inside CARE",
     "add BODY / FIT as a structured text/JSON route for fittings/sensor observation packets",
     "BODY / FIT handoff preserves object identity/provenance metadata and requires explicit import",
-    "keep image/file evidence on CARE rather than broadening BODY / FIT into a generic attachment surface"
+    "keep image/file evidence on CARE rather than broadening BODY / FIT into a generic attachment surface",
+    "add /port/comms/ COMMS SPINE 0.1 specialized instrument",
+    "parse speaker-marked or plain pasted conversation text into exact turn/clause character addresses",
+    "derive weak ASK / PROMISE / DECISION / WAITING / CONSTRAINT suggestions beside, never inside, canonical source",
+    "allow HUMAN marks with exact source ranges and explicit OPEN / COVERED / DEFERRED / DROPPED state",
+    "compress whole thread into a horizontal turn/source spine rather than chapter-style transcript scrolling",
+    "compose response/handoff beside the source and explicitly bind coverage to addressed obligations",
+    "emit comms-spine-agent-packet/v0.1 for bots and comms-spine-return/v0.1 with residue preserved",
+    "default to session-only storage; optional PIN LOCAL is explicit; page performs no network send",
+    "accept current HUMAN PORT text object from sessionStorage without creating a second canonical object"
   ],
   "first_time_test": "Paste one source once and reach the intended tool preloaded within one explicit route choice.",
   "donors": [
@@ -101,7 +117,20 @@
     "drop one authored JSON/text file and prove disk-loaded text routes identically to pasted text",
     "drop one opaque authored file and prove identity/provenance survives despite no semantic viewer"
   ],
-  "next": "Use one real structured sensor packet through Port → BODY / FIT before adding more routes or media.",
+  "next": "Use one real long conversation in /port/comms/: mark what matters, draft/cover a reply, and judge whether exact-address continuity is materially better than chapter-scroll/chat-summary patterns before adding automatic semantic extraction.",
   "care_bridge_return": "/returns/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
-  "care_bridge_confluence": "/control/confluence/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json"
+  "care_bridge_confluence": "/control/confluence/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
+  "specialized_tools": {
+    "comms_spine": {
+      "route": "/port/comms/",
+      "version": "0.1",
+      "role": "addressed communication instrument",
+      "authority": "source-preserving projection + human annotation/coverage only; no send, no admission, no semantic-truth authority",
+      "schemas": [
+        "comms-spine/v0.1",
+        "comms-spine-agent-packet/v0.1",
+        "comms-spine-return/v0.1"
+      ]
+    }
+  }
 }
