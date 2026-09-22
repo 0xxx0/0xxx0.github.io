@@ -1,0 +1,63 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22",
+  "date": "2026-09-22",
+  "status": "BRANCH_CANDIDATE",
+  "baseline": "master@9b870afb6235f6b2b5f92b135acde7c9ebe4ffee",
+  "object": "FOLD//BLOOM Journey Ride 0.1.2 / exact recovered three-track shareable witness",
+  "recovered_seed": {
+    "title": "GHOST → FORGE → WILL",
+    "entries": [
+      {
+        "title": "preforme",
+        "sourceId": "sha256:06ca33eb185845330718d8c9428c29a3a3bcb6d94f64e18270e4adb7400757cc",
+        "durationSeconds": 230.592,
+        "role": "GHOST",
+        "transitionOut": "CARRY"
+      },
+      {
+        "title": "THROUGH THE FIRE",
+        "sourceId": "sha256:ac6c2c5fc654177da675b5d419a16b5430483371a524f5016ca45c7399905f04",
+        "durationSeconds": 424.8,
+        "role": "FORGE",
+        "transitionOut": "DISSOLVE"
+      },
+      {
+        "title": "BY YOUR WILL / 遺志",
+        "sourceId": "sha256:00f41b223138e760e64a08c882606d18f2fcaafcc2e75526396f2c8c4fdfc2bc",
+        "durationSeconds": 364.872,
+        "role": "WILL",
+        "transitionOut": "RETURN"
+      }
+    ]
+  },
+  "delta": [
+    "Journey demo is built from the exact recovered test-pack catalog rather than invented placeholder identities.",
+    "When raw media is absent, a compressed mute witness traverses the exact identities, durations, roles and seam laws.",
+    "When the same exact files have been explicitly bound in the browser-local vault, existing Journey real-audio playback remains authoritative.",
+    "Fold/Bloom family page exposes one context-free START HERE entry into the seed witness.",
+    "Demo link is copyable without publishing media."
+  ],
+  "laws": [
+    "DEMO WITNESS != SOURCE PLAYBACK",
+    "METADATA MAY TRAVEL; PRIVATE AUDIO BYTES DO NOT",
+    "SOURCE HASH / DURATION / SEAM METADATA MUST MATCH RECOVERED CATALOG",
+    "PUBLIC CONVENIENCE DOES NOT OVERRIDE LOCAL-MEDIA AUTHORITY"
+  ],
+  "route": "/fold-bloom/set/journey.html?demo=seed&auto=1",
+  "evidence": [
+    "/fold-bloom/test-packs/catalog.json",
+    "/fold-bloom/journey/demo-seed.js",
+    "/fold-bloom/journey/tests/demo-seed.test.mjs",
+    "/fold-bloom/journey/app.js",
+    "/fold-bloom/journey/release.json"
+  ],
+  "human_gate": [
+    "context-free comprehension within roughly twenty seconds",
+    "arc legibility before audio",
+    "actual local-audio seam feel",
+    "privacy boundary legibility"
+  ],
+  "stop": "Do not publish or bundle the recovered private audio. Do not build another demo app; use Journey as the shareable face.",
+  "return": "/returns/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json"
+}
