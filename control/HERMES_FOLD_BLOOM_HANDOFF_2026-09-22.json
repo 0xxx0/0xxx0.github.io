@@ -5,7 +5,7 @@
   "status": "CURRENT_REENTRY_HANDOFF",
   "purpose": "Give Hermes enough exact current state to assist Fold/Bloom without rediscovery, authority flattening, or collision with the active uploaded-track/test-pack branch.",
   "primary_law": "RECOVER BEFORE INVENTING. One exact source or set survives unequal MAP / MEMORY / RIDE / READ / COMPOSE projections. Preserve source identity, canonical address, evidence vs authorship, and RETURN.",
-  "current_master": "fcaa51064ee6081f73d6cb5f6f68b961ccb66e9e",
+  "current_master": "50bbfcd840dbcfba7c1b244288b44443b19e4728",
   "current_family": {
     "hub": {
       "route": "/fold-bloom/",
@@ -105,7 +105,13 @@
     "preferred_first_pair": [
       "FB-R1-LIT-CARTOGRAPHER",
       "FB-R5-NEXUS-PROBER"
-    ]
+    ],
+    "merge": {
+      "pull_request": 165,
+      "merge_sha": "50bbfcd840dbcfba7c1b244288b44443b19e4728",
+      "ci_run": 35716885054,
+      "ci": "PASS"
+    }
   },
   "authority_boundaries": [
     "SOURCE HASH / exact provenance is identity evidence; glyph/profile/terrain/summary is projection.",
