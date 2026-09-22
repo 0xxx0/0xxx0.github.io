@@ -6122,7 +6122,20 @@
           "OPERATE",
           "SHARE"
         ]
-      }
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can exact deterministic source glyphs become useful human memory/retrieval cells, and can an authored path across them be shareable without storing source audio or confusing visual similarity with identity/lineage?",
+        "baseline": "LISTEN 0.4 produced deterministic per-track glyphs one source at a time, but there was no persistent multi-source view, authored source path, public demo or share/RETURN surface.",
+        "mutation": "Atlas 0.1 places up to twelve exact hashed source cells into one hard-edge constellation, refines their glyphs through the shared AUDIO MAP analyzer, lets the human author a PATH/note, and shares only glyph evidence/path while IDLE witnesses without writing.",
+        "evidence_gate": "CI must prove source-hash/path share round-trip and browser-visible synthetic/IDLE boot. Direct promotion requires 5–12 familiar tracks: recognition/relearning must be measurably better than filenames alone or produce a named failure worth redesigning.",
+        "next_if_pass": "Refine retrieval and path sharing; only then test optional learned embedding neighborhoods as reversible layout evidence.",
+        "next_if_fail": "Keep deterministic glyph export as a per-source identity projection; retire the atlas/path claim without disturbing LISTEN or source hashes."
+      },
+      "evolution_receipt": "/control/confluence/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json"
     }
   ],
   "release_law": [
