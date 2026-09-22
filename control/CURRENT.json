@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-22",
+  "updated": "2026-09-23",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -74,10 +74,10 @@
     },
     {
       "lineage": "rsvp-reader",
-      "head": "READFIELD / RSVP 0.7.1 + APERTURE focus kernel",
-      "state": "UTILITY / READER_FIRST / VERIFIED_SHIPPED",
+      "head": "READFIELD / RSVP 0.8 · FOCUS LENS + APERTURE focus kernel",
+      "state": "UTILITY / READER_FIRST / MERGED_ACTIVE_CANDIDATE",
       "route": "/docs/",
-      "retained_function": "Canonical one-source reader. One source position persists while DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE, highlighted context and XREF change around it. Ordinary use is linear/reader-first; ring geometry is optional. 0.7.1 exposes concrete FAST READ / READ TO MUSIC / VOICE+EYES / WORK use cases. Explicit LISTEN→READFIELD workflow entry may request PULSE ×2/×4/×8 and immediately use the latest same-session BPM, visibly marked LIVE or LAST; OFF remains default and READFIELD retains text/focus authority.",
+      "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. PLAIN remains the default geometry-free performance baseline; FOCUS optionally projects AXIAL/LISTEN address+aperture rings, a Triangle-derived center frame, LISTEN FIELD PULSE and an existing Atlas glyph witness around the same cursor; MIN retains ring + ORP essentials. Instrument range is 60–6000 WPM with a 10 ms dwell floor; long-source structure uses 72 evenly sampled witnesses rather than the first 40 only. No audio/glyph authority moves into READFIELD.",
       "evidence": [
         "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
         "/control/READFIELD_CONVERGENCE_2026-09-22.json",
@@ -90,8 +90,26 @@
         "https://github.com/0xxx0/0xxx0.github.io/pull/105",
         "/control/READFIELD_PR_SEAL_2026-09-22.json",
         "/control/confluence/FIELD_PULSE_WORKFLOW_2026-09-22.json",
-        "/returns/FIELD_PULSE_WORKFLOW_2026-09-22.json"
-      ]
+        "/returns/FIELD_PULSE_WORKFLOW_2026-09-22.json",
+        "/control/confluence/READFIELD_FOCUS_LENS_080_2026-09-23.json",
+        "/returns/READFIELD_FOCUS_LENS_080_2026-09-23.json",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/177"
+      ],
+      "latest_return": "/returns/READFIELD_FOCUS_LENS_080_2026-09-23.json",
+      "merge_sha": "ace1bf8d7e1c114069f7c82651d37d0cd218af6f",
+      "next_executable": {
+        "id": "readfield-focus-lens-lived-gate",
+        "state": "HOLD_FOR_HUMAN_USE",
+        "objective": "Compare PLAIN / FOCUS / MIN on real long reading and optional LISTEN pulse. Promote only what improves orientation/RSVP without degrading reading speed or clarity.",
+        "human_questions": [
+          "PLAIN vs FOCUS: does the ring improve position/scale awareness enough to earn screen area?",
+          "MIN: is ring + ORP sufficient for the compact/fast use case?",
+          "At 3000+ WPM, does FOCUS remain visually calm enough or should PLAIN auto-dominate?",
+          "With LISTEN pulse present, does the outer witness help cadence or become distraction?",
+          "Does Atlas glyph inside FOCUS aid source recognition or merely decorate?"
+        ],
+        "law": "Do not add another reader/music convergence app; this decision belongs to direct use."
+      }
     },
     {
       "lineage": "path-poetry",
