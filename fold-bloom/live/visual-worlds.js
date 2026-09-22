@@ -30,7 +30,7 @@ export function visualWorld(scene='DEEP',sectionIndex=0,features={}){
     roadB:parity?base.roadEven:base.roadOdd,
     horizonGain:clamp(.55+energy*.42+brightness*.18,.45,1.2),
     patternGain:clamp(.45+energy*.42,.35,1.05),
-    solidBase:scene==='VOID'?.90:.94
+    solidBase:scene==='VOID'?.98:1
   };
 }
 
