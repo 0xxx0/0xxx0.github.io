@@ -2,7 +2,7 @@
   "schema": "0xxx0/confluence-packet/v0.1",
   "id": "FOLD_BLOOM_VISUAL_WORLD_RETURN_2026-09-22",
   "date": "2026-09-22",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "object": "FOLD//BLOOM LIVE 0.12 / solid visual worlds",
   "observed_exact_user_return": [
     "0.11 showed transparency/artifact/glitch behavior; slopes could appear see-through and the previous version felt better.",
@@ -36,5 +36,17 @@
     "TEXT OFFSET IS USER CALIBRATION, NOT A RETROACTIVE TIMING CLAIM."
   ],
   "next_truth": "Replay the same familiar source: verify opaque slopes/no bleed-through; one stable macro drop; four worlds visibly distinct; then adjust TEXT SYNC in LISTEN and verify LIVE sees the same source profile.",
-  "return": "/returns/FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json",
+  "pr": 149,
+  "merge_sha": "44ebcd809313ac633c13bbadc199c2b2e2e5997c",
+  "verification": {
+    "ci_run": 35700392105,
+    "result": "PASS",
+    "notes": [
+      "LISTEN analysis/source-bundle regression passed",
+      "LIVE gameplay/track/section/TRACKFIELD/deformation/ride/POV/visual-world tests passed",
+      "critical phone-sized browser smoke passed with LIVE 0.12 and LISTEN ride-profile controls",
+      "full repository recovery/Sleeper regression tail passed"
+    ]
+  }
 }
