@@ -706,7 +706,7 @@ const CASES=[
     name:'FOLD BLOOM GLYPH ATLAS 0.1',
     route:'/fold-bloom/atlas/',
     options:{width:430,height:900,budget:5000},
-    check:dom=>/GLYPH ATLAS/i.test(dom)&&/DEMO CONSTELLATION/i.test(dom)&&/FILE = CELL/i.test(dom)&&/SELECTION = PATH/i.test(dom)&&dom.includes('data-glyph-atlas="ready"')&&dom.includes('data-atlas-idle="on"')&&dom.includes('id="pathRail"')&&dom.includes('id="message"')&&dom.includes('id="shareBtn"')
+    check:dom=>/GLYPH ATLAS/i.test(dom)&&/SYNTHETIC DEMO/i.test(dom)&&/FILE = CELL/i.test(dom)&&/SELECTION = PATH/i.test(dom)&&dom.includes('data-glyph-atlas="ready"')&&dom.includes('data-atlas-idle="on"')&&dom.includes('id="pathRail"')&&dom.includes('id="message"')&&dom.includes('id="shareBtn"')
   },
   {
     name:'FOLD BLOOM LIVE 0.9 idle drive',
