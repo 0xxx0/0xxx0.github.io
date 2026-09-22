@@ -2,7 +2,7 @@
   "schema": "0xxx0/return/v0.1",
   "id": "FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22",
   "date": "2026-09-22",
-  "status": "BRANCH_CANDIDATE",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "operation": "RECOVER EXACT THREE-TRACK SEED → PROJECT BYTE-FREE PUBLIC WITNESS → PRESERVE LOCAL REAL PLAYBACK → RETURN",
   "baseline": "master@9b870afb6235f6b2b5f92b135acde7c9ebe4ffee",
   "shareRoute": "/fold-bloom/set/journey.html?demo=seed&auto=1",
@@ -11,5 +11,12 @@
   "sourceBytesIncluded": false,
   "changedObject": "Journey now has a context-free shareable face over the exact recovered seed without weakening local source sovereignty.",
   "nextTruth": "A human, not CI, decides whether the public witness communicates one journey and whether actual local playback makes the seams feel authored rather than playlist-like.",
-  "stop": "No SOURCE SHELL engine work or audio publication in this pass."
+  "stop": "No SOURCE SHELL engine work or audio publication in this pass.",
+  "pullRequest": 167,
+  "mergeSha": "91db332e327a80c8daa8182add8720b48d1e7fea",
+  "ci": {
+    "workflow": "public-surface-check",
+    "run": 1673,
+    "conclusion": "success"
+  }
 }
