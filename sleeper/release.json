@@ -1,16 +1,16 @@
 {
   "schema": "release-receipt/v1",
   "name": "SLEEPER // ONE RETURN",
-  "version": "v2-era / City Engine v0.2",
-  "state": "CANONICAL_SOURCE_RECOVERED_RUNTIME_REACHABILITY_UNVERIFIED",
+  "version": "v2-era / City Engine v0.2 · canonical live route",
+  "state": "CANONICAL_LIVE_RUNTIME_RECOVERED",
   "amended": "2026-09-22",
   "route": "/sleeper/",
   "authority": {
     "exact_source": "/recovery/sleeper/site-source-2026-09-18/",
     "source_bundle_commit": "50f886c829dcee98b043c55ef9de0c631fd31987",
     "core_history_commit": "a9c00285df143f3c2054b2167e86ee2f6db2ae1f",
-    "historical_route": "https://sleeper-one-return.metaname.chatgpt.site/one-return",
-    "current_reachability": "UNVERIFIED_FROM_THIS_EXECUTOR"
+    "historical_route": "https://sleeper-one-return.metaname.chatgpt.site/",
+    "current_reachability": "USER_RECOVERED_LIVE_2026-09-22"
   },
   "identity": {
     "compiler": "PHRASE + VERSE CELL + FIGURE → deterministic city",
@@ -61,5 +61,12 @@
   },
   "project": "/sleeper/project/",
   "recovery": "/recovery/sleeper/",
-  "receipt": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json"
+  "receipt": "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
+  "runtime": {
+    "canonical_address": "https://sleeper-one-return.metaname.chatgpt.site/",
+    "repository_entry": "/sleeper/",
+    "source_basis": "/recovery/sleeper/site-source-2026-09-18/",
+    "relation": "Repository entry resolves to the recovered live ONE RETURN runtime; recovered source remains the durable source authority.",
+    "boundary": "Live reachability was supplied and directly observed by the user in-session; this executor's web fetch path could not independently resolve the host. No byte-identity claim is made between every historical deployment and the recovered source bundle."
+  }
 }
