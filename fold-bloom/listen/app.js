@@ -411,7 +411,7 @@ function beginPointerGesture(e){
   const mouse=e.pointerType==='mouse';
   pointerGesture={id:e.pointerId,startX:e.clientX,startY:e.clientY,lastX:e.clientX,lastY:e.clientY,mode:mouse?'ADDRESS':null,scopeStart:scopeIndex,scopeStep:0,moved:false};
   drag=mouse;dragRange=scopeWindow(map,audio.currentTime,scope());
-  overlay.setPointerCapture?.(e.pointerId);
+  try{overlay.setPointerCapture?.(e.pointerId)}catch(_){}
   if(mouse){setGestureWitness('ADDRESS');scrub(e)}
 }
 function movePointerGesture(e){
