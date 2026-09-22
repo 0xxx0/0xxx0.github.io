@@ -103,7 +103,7 @@ async function loadLocalSong(file){
 function steerRide(dir){
   const out=chooseRideBranch(ride,dir,latestWorld,Number(linkedTrack?.time)||0);
   ride=out.state;
-  if(out.event){
+  if(out.event&&!demo.preview){
     toast(`ROUTE · ${out.event.label}`);
     haptic(7);
     fieldPulse.publish('operation',{operation:'BRANCH',branch:out.event.label,direction:out.event.direction,splitId:out.event.splitId,trackTime:linkedTrack?.time??null});
@@ -260,7 +260,9 @@ function loop(t){
   latestWorld=baseWorld?applyDeformations(baseWorld,deformationTape):null;
   const dt=Math.max(0,Math.min(.12,(t-lastLoopT)/1000||.016));lastLoopT=t;
   ride=advanceRide(ride,latestWorld,dt,Number(linkedTrack?.time)||0);
-  renderer.setRide(rideView(ride,latestWorld));
+  const rv=rideView(ride,latestWorld);
+  renderer.setRide(rv);
+  $('#route').textContent=rv.label;
   renderer.setTrackfield(latestWorld);
   renderer.setSectionArc(sectionArcView(sectionArc,linkedTrack));
   renderer.draw(state,t);raf=requestAnimationFrame(loop)
