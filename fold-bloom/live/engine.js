@@ -1,4 +1,4 @@
-export const VERSION = 'FOLD_BLOOM_LIVE_0.7';
+export const VERSION = 'FOLD_BLOOM_LIVE_0.8';
 export const N = 12;
 export const TYPE_COUNT = 3;
 export const TYPE_NAMES = ['EMBER', 'WATER', 'MOSS'];
@@ -318,7 +318,7 @@ export function snapshot(s) {
 }
 
 export function restore(x) {
-  if (!x || !['FOLD_BLOOM_LIVE_0.1','FOLD_BLOOM_LIVE_0.2','FOLD_BLOOM_LIVE_0.3','FOLD_BLOOM_LIVE_0.4','FOLD_BLOOM_LIVE_0.5','FOLD_BLOOM_LIVE_0.6',VERSION].includes(x.schema) || !Array.isArray(x.cells) || x.cells.length !== N) return null;
+  if (!x || !['FOLD_BLOOM_LIVE_0.1','FOLD_BLOOM_LIVE_0.2','FOLD_BLOOM_LIVE_0.3','FOLD_BLOOM_LIVE_0.4','FOLD_BLOOM_LIVE_0.5','FOLD_BLOOM_LIVE_0.6','FOLD_BLOOM_LIVE_0.7',VERSION].includes(x.schema) || !Array.isArray(x.cells) || x.cells.length !== N) return null;
   const s = createState(x.seed >>> 0);
   Object.assign(s, x);
   s.schema = VERSION;
