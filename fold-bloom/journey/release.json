@@ -4,7 +4,7 @@
   "title": "FOLD//BLOOM JOURNEY RIDE 0.1.2",
   "version": "0.1.2",
   "date": "2026-09-22",
-  "state": "BRANCH_CANDIDATE",
+  "state": "MERGED_ACTIVE_CANDIDATE",
   "route": "/fold-bloom/set/journey.html",
   "parent": "/fold-bloom/set/",
   "consumes": "fold-bloom-experience-set/v0.1",
@@ -44,5 +44,12 @@
     "merge": "9b870afb6235f6b2b5f92b135acde7c9ebe4ffee",
     "ciRun": 1670,
     "ci": "PASS"
+  },
+  "pullRequest": 167,
+  "mergeSha": "91db332e327a80c8daa8182add8720b48d1e7fea",
+  "ci": {
+    "workflow": "public-surface-check",
+    "run": 1673,
+    "conclusion": "success"
   }
 }
