@@ -42,9 +42,10 @@ try{
   await wait(()=>f.contentWindow.FoldBloomListen.state().pins.length===1);
   rec.pinSaved=true;rec.pinAddress=f.contentWindow.FoldBloomListen.state().pins[0].address;
 
-  f.src='/fold-bloom/listen/?source='+encodeURIComponent(sourceId);
-  await wait(()=>f.contentWindow?.document?.documentElement?.dataset?.localVaultSource==='ready',26000);
-  const reloaded=await wait(()=>{const s=f.contentWindow?.FoldBloomListen?.state?.();return s?.fileMeta?.hash===rec.hash&&s?.pins?.length===1?s:null},16000);
+  f.src='/fold-bloom/listen/';
+  await wait(()=>f.contentWindow?.FoldBloomListen?.boot==='ready');
+  const rd=f.contentWindow.document,rin=rd.getElementById('file'),rdt=new DataTransfer();rdt.items.add(file);rin.files=rdt.files;rin.dispatchEvent(new Event('change',{bubbles:true}));
+  const reloaded=await wait(()=>{const state=f.contentWindow?.FoldBloomListen?.state?.();return state?.fileMeta?.hash===rec.hash&&state?.pins?.length===1?state:null},26000);
   rec.pinPersisted=reloaded.pins.length===1;rec.reloadHash=reloaded.fileMeta.hash;
 
   f.src='/fold-bloom/live/?source='+encodeURIComponent(sourceId)+'&return='+encodeURIComponent('/fold-bloom/listen/');
