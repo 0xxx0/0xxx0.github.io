@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
-  "version": "LIVE 0.6",
-  "status": "ACTIVE_CANDIDATE_MERGED",
+  "version": "LIVE 0.7",
+  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
   "date": "2026-09-22",
   "donors": [
     {
@@ -70,7 +70,17 @@
     "SPLIT road rendering crossfades from center road to two branches instead of threshold-snapping, reducing mesh pop/glitch",
     "chosen branch remains bright while the unchosen branch recedes; OPEN/ignored split remains lawful",
     "ROUTE HUD shows OPEN / CHOOSE / LEFT / RIGHT",
-    "branch choice may publish a bounded FIELD operation outside autoplay preview; preview remains local/non-authoritative"
+    "branch choice may publish a bounded FIELD operation outside autoplay preview; preview remains local/non-authoritative",
+    "continuous AUDIO MAP frame interpolation replaces nearest-frame stepping",
+    "terrain exposes explicit grade, speed and bend axes: quiet/low-flux climbs; energetic/flux-heavy descends and visually accelerates; spectral balance turns",
+    "cumulative altitude now materially affects projected screen geometry",
+    "distance-through-horizon is integrated from local visual velocity rather than assuming uniform spatial speed",
+    "thresholded high-frequency flux shake removed; camera pitch/bank/FOV are low-pass continuous",
+    "LIVE normal mode now runs a deterministic FIELD COURSE through the same TRACKFIELD/deformation/ride machinery",
+    "autoplay preview can write reversible road deformations in FIELD COURSE, then restores state on takeover",
+    "VEL and GRADE witnesses make motion mapping inspectable without making HUD authoritative",
+    "TRACKFIELD refresh cadence tightened from ~55 ms to display-scale ~12 ms",
+    "deformation layer preserves current TRACKFIELD schema rather than downgrading provenance"
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -87,13 +97,16 @@
     "visual deformation semantics must remain legible muted and without score/HUD interpretation",
     "ride trace is traversal evidence only and must never mutate AUDIO MAP or deformation tape provenance",
     "branch choice remains non-punitive; ignoring a SPLIT cannot invalidate the run",
-    "do not add a second joystick while ordinary topology rotation can carry branch intent clearly"
+    "do not add a second joystick while ordinary topology rotation can carry branch intent clearly",
+    "FIELD COURSE must be labeled synthetic/demo and never represented as analyzed source audio",
+    "visual velocity currently changes spatial traversal/FOV only; source audio playback stays 1× for phase lock",
+    "continuous interpolation/camera smoothing may remove jitter but must not erase categorical FOLD/SPLIT/RETURN geometry"
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "Direct phone MP3: author SPLIT, choose LEFT/RIGHT using the ordinary ring-turn gesture, judge whether the chosen branch feels traversed rather than cosmetically panned, confirm RETURN/recentering and whether branch crossfade materially reduces the observed glitch/popping.",
+    "required_next": "CI + desktop/phone: compare FIELD COURSE and same MP3; verify obvious climb/descent, continuous velocity, smoother turns, normal-mode deformation, and no loss of SPLIT branch legibility.",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
@@ -123,10 +136,11 @@
     "ride_branch": "fold-bloom-ride-choice-060",
     "ride_pr": 140,
     "ride_merge_sha": "394ff6639690eecfdb15fed81bc1220d662b8f5c",
-    "ride_ci": "PASS: public-surface-check run 35678147159, including engine/track/section/TRACKFIELD/deformation/ride tests and critical browser smoke"
+    "ride_ci": "PASS: public-surface-check run 35678147159, including engine/track/section/TRACKFIELD/deformation/ride tests and critical browser smoke",
+    "motion_branch": "fold-bloom-motion-070"
   },
   "execution_contract": "./EXECUTION.md",
-  "return": "/returns/FOLD_BLOOM_RIDE_CHOICE_2026-09-22.json",
+  "return": "/returns/FOLD_BLOOM_MOTION_2026-09-22.json",
   "updated": "2026-09-22",
   "observed_user_return": {
     "date": "2026-09-22",
@@ -165,5 +179,20 @@
       "desire to transfer projection law into Ecology and a separate reader design"
     ],
     "request": "continue with higher ambition while keeping compact succession notes"
+  },
+  "observed_user_return_0_7": {
+    "date": "2026-09-22",
+    "confidence": "DIRECT_USER_REPORT",
+    "success": [
+      "LIVE remains beautiful/interesting",
+      "world-writing direction worth continuing"
+    ],
+    "failure": [
+      "up/down motion not perceptible enough",
+      "speed not perceptible/unclear",
+      "normal mode lacks TRACKFIELD behavior",
+      "desktop motion feels glitchy/not smooth"
+    ],
+    "insight": "Reader transfer should preserve addressed playhead/projection law around a canonical source, closer to AXIAL/Lens, rather than copy music metrics or racer HUD."
   }
 }
