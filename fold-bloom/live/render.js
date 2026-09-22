@@ -7,7 +7,7 @@ const COLORS=['#ff9852','#6dbdff','#72e4b6'];
 export class Renderer {
   constructor(canvas) {
     this.cv=canvas; this.g=canvas.getContext('2d'); this.w=0;this.h=0;this.cx=0;this.cy=0;this.r=0;
-    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;
+    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;this.ride=null;
     this.resize();
     addEventListener('resize',()=>this.resize(),{passive:true});
   }
@@ -17,6 +17,7 @@ export class Renderer {
   setDrag(offset){this.dragOffset=offset}
   setSectionArc(view){this.sectionArc=view||null}
   setTrackfield(world){this.trackfield=world||null}
+  setRide(view){this.ride=view||null}
   slotAngle(i,state){return -Math.PI/2 + (i+state.rotation)*TAU/N + this.dragOffset}
   draw(state,now=performance.now()){
     const road=!!this.trackfield?.points?.length;
@@ -26,7 +27,7 @@ export class Renderer {
   _background(state,t){const g=this.g;const grd=g.createRadialGradient(this.cx,this.cy,5,this.cx,this.cy,Math.max(this.w,this.h)*.7);grd.addColorStop(0,'#0b1018');grd.addColorStop(1,'#05070b');g.fillStyle=grd;g.fillRect(0,0,this.w,this.h);g.save();g.translate(this.cx,this.cy);for(let i=0;i<4;i++){g.strokeStyle=`rgba(255,255,255,${.016+i*.006})`;g.lineWidth=.7;g.beginPath();g.arc(0,0,this.r*(.38+i*.18)+Math.sin(t*.0003+i)*2,0,TAU);g.stroke()}
     const beatLife=clamp(1-(t-this.beatAt)/260,0,1);if(beatLife>0){g.strokeStyle=`rgba(255,255,255,${(.12+.35*this.beatEnergy)*beatLife})`;g.lineWidth=1+2*beatLife;g.beginPath();g.arc(0,0,this.r+10+14*(1-beatLife),0,TAU);g.stroke()}g.restore()}
   _trackfield(state,t){
-    const proj=projectTrackfield(this.trackfield,this.w,this.h);if(!proj?.slices?.length)return;
+    const proj=projectTrackfield(this.trackfield,this.w,this.h,{rideLateral:this.ride?.lateral||0});if(!proj?.slices?.length)return;
     const g=this.g,s=proj.slices,shake=clamp((proj.current?.flux||0)-.72,0,.5);
     g.save();g.translate(Math.sin(t*.028)*shake*3,Math.cos(t*.021)*shake*1.5);
     const horizon=s[s.length-1];
@@ -42,20 +43,26 @@ export class Renderer {
       if((p.deformBloom||0)>.25)return '#72e4b6';
       return p.sectionIndex%2===0?'#6dbdff':'#ff9852';
     };
-    const fillQuad=(a,b,sign=0)=>{
+    const fillQuad=(a,b,sign=0,opacity=1)=>{
       const split=Math.max(a.split||0,b.split||0);
       const aCenter=a.centerX+(sign?(sign*a.branchGap):0),bCenter=b.centerX+(sign?(sign*b.branchGap):0);
       const aHalf=sign?a.branchHalf:a.half,bHalf=sign?b.branchHalf:b.half;
       const hot=clamp((a.impact||0)+(a.deformBloom||0)*.16+(a.deformFold||0)*.08,0,1.35),flux=clamp(a.flux||0,0,1.25);
-      const alpha=Math.round(18+hot*28+flux*10+split*14).toString(16).padStart(2,'0');
+      const alphaBase=18+hot*28+flux*10+split*14;
+      const alpha=Math.round(clamp(alphaBase*clamp(opacity,0,1),0,255)).toString(16).padStart(2,'0');
       g.fillStyle=roadColor(a)+alpha;
       g.beginPath();g.moveTo(aCenter-aHalf,a.baseY);g.lineTo(aCenter+aHalf,a.baseY);g.lineTo(bCenter+bHalf,b.baseY);g.lineTo(bCenter-bHalf,b.baseY);g.closePath();g.fill();
     };
 
+    const rideChoice=Math.sign(Number(this.ride?.choice)||0);
     for(let i=s.length-2;i>=0;i--){
-      const a=s[i],b=s[i+1],split=Math.max(a.split||0,b.split||0);
-      if(split>.045){fillQuad(a,b,-1);fillQuad(a,b,1)}
-      else fillQuad(a,b,0);
+      const a=s[i],b=s[i+1],split=Math.max(a.split||0,b.split||0),mix=clamp((split-.008)/.18,0,1);
+      if(mix<.995)fillQuad(a,b,0,1-mix*.94);
+      if(mix>.005){
+        const leftOpacity=mix*(rideChoice===1?.24:1);
+        const rightOpacity=mix*(rideChoice===-1?.24:1);
+        fillQuad(a,b,-1,leftOpacity);fillQuad(a,b,1,rightOpacity);
+      }
     }
 
     const strokePath=(frac,sign=0)=>{
@@ -66,14 +73,18 @@ export class Renderer {
       }
       g.stroke();
     };
+    const splitMax=clamp(Math.max(0,...s.map(p=>Number(p.split)||0)),0,1),splitMix=clamp((splitMax-.008)/.18,0,1);
     g.lineWidth=1;
     for(const frac of [-1,1]){
-      g.strokeStyle='rgba(255,255,255,.36)';strokePath(frac,0);
+      g.strokeStyle=`rgba(255,255,255,${.36*(1-splitMix*.72)})`;strokePath(frac,0);
     }
-    g.strokeStyle='rgba(255,255,255,.15)';strokePath(-1/3,0);strokePath(1/3,0);
-    if(s.some(p=>(p.split||0)>.045)){
-      g.strokeStyle='rgba(215,203,255,.36)';
-      for(const sign of [-1,1]){strokePath(-1,sign);strokePath(1,sign)}
+    g.strokeStyle=`rgba(255,255,255,${.15*(1-splitMix*.72)})`;strokePath(-1/3,0);strokePath(1/3,0);
+    if(splitMix>.005){
+      for(const sign of [-1,1]){
+        const chosen=rideChoice===0||rideChoice===sign,alpha=(chosen?.18+.34*splitMix:.06+.10*splitMix);
+        g.strokeStyle=`rgba(215,203,255,${alpha})`;g.lineWidth=chosen&&rideChoice?1.8:1;
+        strokePath(-1,sign);strokePath(1,sign);
+      }
     }
 
     for(let i=1;i<s.length;i++){
@@ -130,6 +141,11 @@ export class Renderer {
     if(proj.activeVerbs?.length){
       g.textAlign='left';g.font='800 7px ui-monospace,monospace';g.fillStyle='rgba(255,255,255,.42)';
       g.fillText(`ROAD · ${proj.activeVerbs.join(' + ')}`,10,this.h-70);
+    }
+    if(this.ride?.opportunity||rideChoice){
+      const label=rideChoice<0?'← LEFT':rideChoice>0?'RIGHT →':'← TURN TO CHOOSE →';
+      g.textAlign='center';g.font='900 8px ui-monospace,monospace';g.fillStyle=rideChoice?'rgba(255,255,255,.86)':'rgba(215,203,255,.72)';
+      g.fillText(label,this.w*.5,this.h-92);
     }
     g.restore();
   }
