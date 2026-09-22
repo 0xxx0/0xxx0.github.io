@@ -1,8 +1,8 @@
 {
   "schema": "0xxx0/release/v0.1",
   "id": "FOLD_BLOOM_JOURNEY_RIDE_010",
-  "title": "FOLD//BLOOM JOURNEY RIDE 0.1",
-  "version": "0.1",
+  "title": "FOLD//BLOOM JOURNEY RIDE 0.1.2",
+  "version": "0.1.2",
   "date": "2026-09-22",
   "state": "BRANCH_CANDIDATE",
   "route": "/fold-bloom/set/journey.html",
@@ -15,7 +15,9 @@
     "LOCAL BLOBS ARE RESOLVED BY EXACT SHA-256 FROM SAME-ORIGIN INDEXEDDB",
     "SET REMAINS BYTE-FREE",
     "CUT / CARRY / DISSOLVE / RESET CHANGE TRAVERSAL ONLY",
-    "RETURN CONTAINS REFERENCES AND ADDRESSES, NEVER SOURCE BYTES"
+    "RETURN CONTAINS REFERENCES AND ADDRESSES, NEVER SOURCE BYTES",
+    "SHAREABLE DEMO MAY CARRY EXACT IDENTITY / DURATION / SEAM METADATA BUT NEVER PRIVATE AUDIO BYTES",
+    "DEMO WITNESS IS NOT SOURCE PLAYBACK"
   ],
   "seams": {
     "CUT": "immediate next source",
@@ -27,9 +29,20 @@
   "evidence": {
     "core": "/fold-bloom/journey/journey-core.js",
     "tests": "/fold-bloom/journey/tests/journey-core.test.mjs",
-    "browser": "/fold-bloom/set/journey.html?demo=1",
+    "browser": "/fold-bloom/set/journey.html?demo=seed&auto=1",
     "sourceSpineSmoke": "/tools/fold-bloom-spine-smoke.mjs",
-    "localVault": "/fold-bloom/local-media-store.js"
+    "localVault": "/fold-bloom/local-media-store.js",
+    "demoBuilder": "/fold-bloom/journey/demo-seed.js",
+    "demoTests": "/fold-bloom/journey/tests/demo-seed.test.mjs",
+    "seedCatalog": "/fold-bloom/test-packs/catalog.json",
+    "shareReturn": "/returns/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json"
   },
-  "stop": "No beatmatching, tempo warping, source concatenation, new Experience Set fields, or replacement LIVE renderer in this pass."
+  "stop": "Do not bundle/publish private source audio for demo convenience. Keep the public witness metadata-true and byte-free; real playback remains explicit local binding.",
+  "predecessor": {
+    "version": "0.1",
+    "pullRequest": 166,
+    "merge": "9b870afb6235f6b2b5f92b135acde7c9ebe4ffee",
+    "ciRun": 1670,
+    "ci": "PASS"
+  }
 }

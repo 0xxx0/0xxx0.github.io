@@ -1,4 +1,4 @@
-# FOLD//BLOOM — JOURNEY RIDE 0.1
+# FOLD//BLOOM — JOURNEY RIDE 0.1.2
 
 Route: `/fold-bloom/set/journey.html`
 
@@ -41,8 +41,22 @@ Nothing is uploaded. Clearing site data removes the local blobs. Browser storage
 - core tests: `/fold-bloom/journey/tests/journey-core.test.mjs`
 - local vault: `/fold-bloom/local-media-store.js`
 - cross-surface browser proof: `/tools/fold-bloom-spine-smoke.mjs`
-- synthetic route: `/fold-bloom/set/journey.html?demo=1`
+- exact recovered seed witness: `/fold-bloom/set/journey.html?demo=seed&auto=1`
+- pure seed builder: `/fold-bloom/journey/demo-seed.js`
+- seed test: `/fold-bloom/journey/tests/demo-seed.test.mjs`
+
+## Shareable seed witness
+
+The default public demo is the exact recovered three-track proposal:
+
+1. `preforme` — GHOST — 230.592 s — CARRY
+2. `THROUGH THE FIRE` — FORGE — 424.8 s — DISSOLVE
+3. `BY YOUR WILL / 遺志` — WILL — 364.872 s — RETURN
+
+The witness uses the exact SHA-256 identities, durations, roles and authored seam law from `/fold-bloom/test-packs/catalog.json`.
+
+It intentionally contains **no audio bytes**. On a browser where those exact files were explicitly selected once, the same source IDs can resolve from the local vault for real playback. On any other browser, the demo compresses time into a mute visual traversal and labels itself as such.
 
 ## Stop
 
-Promote after core tests, phone-sized route smoke and the SET → local vault → LISTEN no-reupload browser proof pass. Human evaluation then determines whether seam execution feels like one journey or a playlist with transitions.
+0.1 core/local-vault promotion passed via PR #166 and CI run 1670. 0.1.2 adds only the shareable exact-seed witness and first-touch framing. The remaining authority is lived use: does GHOST → FORGE → WILL feel like one authored journey with actual local audio, and can a context-free person understand the byte-private public demo quickly?

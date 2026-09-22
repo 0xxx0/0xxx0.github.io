@@ -1,5 +1,5 @@
 # FOLD//BLOOM — SUCCESSOR HANDOFF
-## LIVE 0.13 + EXPERIENCE SET 0.1 + SET 0.1 / 2026-09-22
+## LIVE 0.13 + SET 0.1.1 + JOURNEY RIDE 0.1.2 / 2026-09-22
 
 This file is for future ChatGPT / Hermes / a human returning cold.
 
@@ -11,7 +11,9 @@ Authoritative current merged family:
 - GLYPH ATLAS 0.2 inspectable source memory
 - TWO DIAL 0.10.3 composition authority
 - EXPERIENCE SET 0.1 pure higher-order journey object — PR #152 · merged and CI green
-- SET 0.1 local-first compositor — PR #158 · merge `65257b7ed3d8e9afef0324f0775efce90ba8f789` · CI run 1635 PASS; PR #159 seals human gate
+- SET 0.1.1 local-first compositor + exact local test-pack recognition — PR #163 · merged; PR #164 sealed
+- JOURNEY RIDE 0.1 + one-selection local source spine — PR #166 · merge `9b870afb6235f6b2b5f92b135acde7c9ebe4ffee` · CI run 1670 PASS
+- JOURNEY RIDE 0.1.2 shareable seed witness — exact GHOST → FORGE → WILL metadata projection; private audio remains local
 - ECOLOGY 0.2 persistent lineage/game
 
 Read in this order:
@@ -94,77 +96,42 @@ This pass is intentionally polish/performance/succession, not new ontology.
 - Do not grow a combo economy unless direct use proves it means something.
 - Do not clone LIVE racer visuals into Ecology or READFIELD.
 
-## CURRENT NEXT ACTION — HUMAN EVIDENCE BEFORE MORE RUNTIME
+## CURRENT NEXT ACTION — LIVED / SHARE EVIDENCE BEFORE MORE ENGINES
 
-EXPERIENCE SET 0.1 and SET 0.1 are both **done technically**.
+SET and JOURNEY are technically real.
 
-Do **not** implement SET again.
+### Gate 1 — exact three-track journey
 
-### Gate 1 — SET 0.1
+Public witness:
 
-Route: `/fold-bloom/set/`
+`/fold-bloom/set/journey.html?demo=seed&auto=1`
 
-Use 3–7 meaningful source refs. Decide:
+Exact seed:
 
-- add/reorder friction;
-- whether explicit seams feel like authored journey boundaries;
-- phone long-press drag acceptability;
-- exact RETURN/import;
-- one journey vs playlist wrapper.
+- `preforme` / GHOST / CARRY
+- `THROUGH THE FIRE` / FORGE / DISSOLVE
+- `BY YOUR WILL / 遺志` / WILL / RETURN
 
-If KEEP → JOURNEY RIDE 0.1 becomes lawful.  
-If REPAIR → one bounded SET interaction repair first.
+The public witness is metadata-true and contains no raw audio. In the owner's browser, explicitly select the exact files once to let SET/LISTEN/JOURNEY resolve the same hashes from the local vault.
+
+Ask only:
+- does a context-free person understand “one journey” quickly?;
+- with actual local audio, do the seams feel authored rather than playlist-like?;
+- does private/local vs shareable/witness remain obvious?
+
+If KEEP, the next engineering move is **doorway convergence**: RIDE · SEE · SHAPE over existing engines, not another source model.
 
 ### Gate 2 — LISTEN phone continuity
 
-Issue #157 remains open:
-
-- phone horizontal/ring ADDRESS;
-- phone vertical APERTURE;
-- one real-MP3 430×900 LISTEN → LIVE continuity proof;
-- pin persistence / source-time evidence preserved.
-
-The lyric anchor/warp problem is real but is **not required** to close Issue #157.
+Issue #157 remains the bounded repair gate. Do not reopen the superseded #155 branch wholesale.
 
 ### Gate 3 — LIVE 0.13 body return
 
-Only react to lived regressions:
+Only react to lived regressions.
 
-- AUTOPILOT / controls reachable;
-- jitter;
-- response crispness;
-- drop event coherence;
-- world distinction.
+### Novel thread worth retaining, not activating yet
 
-Do not turn internal perf witnesses into a substitute for the body report.
-
-### Downstream sequence
-
-1. JOURNEY RIDE 0.1 — only after SET KEEP.
-2. SOURCE SHELL 0.1 / RIDE · SEE · SHAPE — only after journey continuity is earned.
-3. PODCAST ADAPTER 0.1 — first non-music proof.
-
-Use:
-- `/fold-bloom/set/`
-- `/fold-bloom/experience-set/`
-- `/fold-bloom/convergence/EXECUTION_ROADMAP_2026-09-22.md`
-- `/fold-bloom/convergence/EXPERIENCE_COMPILER_SPEC_0.1.md`
-
-### Recovered Design/Fold–Bloom delta
-
-A later chat branch added useful intent that was not yet durable in this handoff:
-
-- **LISTEN should mature into the source editor**, not another launcher: alignment, pins, calibration, set placement.
-- **READFIELD/RSVP should be a projection over the same canonical address**, not a weak outbound link.
-- The cross-surface continuity mechanism is a **source spine**: exact identity + canonical position + aperture + authored calibration/marks + projection witness.
-- The current global ±8 s text offset is insufficient for drifting lyrics/transcripts. The lawful successor is **anchor-based piecewise calibration** stored beside evidence. Source cue timestamps remain immutable.
-- A persistent low-clutter position/structure rail may fade into the background across LISTEN/RIDE/READ, provided it remains a projection witness rather than a second timeline.
-
-Do not create a SOURCE SPINE app. Reify the mechanism inside G2/G4 and existing source-addressed state.
-
-Superseded PR #155 contains a tested-but-conflicting runtime experiment for anchor alignment / fading spine / READFIELD follow+mark / source-horizon feedback. It is **quarry only**. Recover individual mechanisms only after current gates; never merge #155 wholesale.
-
-0.13 body QA may still interrupt this sequence if material/event coherence, reachability or response regresses.
+The durable abstraction now looks less like “music visualization” and more like **addressed experience cassettes**: exact source/set identity + authored route/seams + unequal projections + byte-private/local media + shareable witness/RETURN. This may transfer cleanly to podcast, poem/TTS, dayline, comms, repo/runtime traces and memory rolls. Prove one non-music adapter before naming a universal system.
 
 ## CONNECTIONS WORTH PRESERVING
 

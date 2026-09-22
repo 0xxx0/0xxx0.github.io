@@ -700,13 +700,19 @@ const CASES=[
   {
     name:'FOLD BLOOM convergence',
     route:'/fold-bloom/',
-    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/GLYPH ATLAS 0\.2/i.test(dom)&&/LISTEN 0\.6/i.test(dom)&&/LIVE 0\.13/i.test(dom)&&/TWO DIAL 0\.10\.3/i.test(dom)&&/SET 0\.1/i.test(dom)&&/href="\.\/set\/"/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/START HERE · 3-TRACK WITNESS/i.test(dom)&&/GHOST → FORGE → WILL/.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/GLYPH ATLAS 0\.2/i.test(dom)&&/LISTEN 0\.6/i.test(dom)&&/LIVE 0\.13/i.test(dom)&&/TWO DIAL 0\.10\.3/i.test(dom)&&/SET 0\.1/i.test(dom)&&/href="\.\/set\/"/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)
   },
   {
     name:'FOLD BLOOM SET 0.1 compositor',
     route:'/fold-bloom/set/?demo=1',
     options:{width:430,height:900,budget:9000},
     check:dom=>/SET 0\.1/i.test(dom)&&/EXPERIENCE COMPOSITOR/i.test(dom)&&dom.includes('data-fold-bloom-set="ready"')&&dom.includes('data-set-entries="3"')&&/SOURCE A/.test(dom)&&/SOURCE B/.test(dom)&&/SOURCE C/.test(dom)&&/DISSOLVE/.test(dom)&&/RETURN/.test(dom)
+  },
+  {
+    name:'FOLD BLOOM JOURNEY 0.1.2 exact seed witness',
+    route:'/fold-bloom/set/journey.html?demo=seed&auto=1',
+    options:{width:430,height:900,budget:9000,timeout:16000},
+    check:dom=>/JOURNEY RIDE 0\.1\.2/i.test(dom)&&dom.includes('data-fold-bloom-journey="ready"')&&dom.includes('data-journey-demo="seed"')&&dom.includes('data-journey-demo-audio="private"')&&dom.includes('data-journey-entries="3"')&&/GHOST → FORGE → WILL/.test(dom)&&/preforme/.test(dom)&&/THROUGH THE FIRE/.test(dom)&&/BY YOUR WILL \/ 遺志/.test(dom)&&/CARRY/.test(dom)&&/DISSOLVE/.test(dom)&&/RETURN/.test(dom)&&/DEMO WITNESS/.test(dom)
   },
   {
     name:'FOLD BLOOM GLYPH ATLAS 0.2 INSIDE',
