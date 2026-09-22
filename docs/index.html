@@ -150,7 +150,7 @@ const aperture=document.querySelector('#docAperture'),button=document.querySelec
 const fieldPulse=createFieldPulse('READFIELD'),MAX_RSVP_WPM=6000;
 const multipliers=[0,2,4,8],pulseQuery=new URLSearchParams(location.search),requestedPulse=Number(pulseQuery.get('pulse')),views=['PLAIN','FOCUS','MIN'];
 let mode=multipliers.includes(requestedPulse)?multipliers.indexOf(requestedPulse):0,lastTransport=null,lastTransportWall=0,lastWpm=0,lastFocusAt=0;
-let view=String(pulseQuery.get('read_view')||'').toUpperCase();if(!views.includes(view)){try{view=String(localStorage.getItem('readfield.view.v2')||'FOCUS').toUpperCase()}catch(_){view='PLAIN'}}if(!views.includes(view))view='PLAIN';
+let view=String(pulseQuery.get('read_view')||'').toUpperCase();if(!views.includes(view)){try{view=String(localStorage.getItem('readfield.view.v2')||'FOCUS').toUpperCase()}catch(_){view='FOCUS'}}if(!views.includes(view))view='FOCUS';
 function applyView(){
   aperture.toggleAttribute('focusfield',view==='FOCUS'||view==='MIN');aperture.toggleAttribute('minimal',view==='MIN');
   viewButton.textContent='VIEW · '+view;viewButton.classList.toggle('viewOn',view!=='PLAIN');document.documentElement.dataset.readfieldView=view.toLowerCase();
