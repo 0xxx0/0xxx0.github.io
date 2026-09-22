@@ -100,7 +100,7 @@ function stopIdle(takeover=false){
 async function startIdle(){
   if(!map)return;
   if(idle.on){stopIdle(true);return}
-  idle={on:true,startScope:scopeIndex,lastBeat:-1,lastPhrase:-1,lastSection:-1};
+  const t=audio.currentTime||0;idle={on:true,startScope:scopeIndex,lastBeat:beatIndexAt(map,t),lastPhrase:phraseIndexAt(map,t),lastSection:sectionIndexAt(map,t)};
   document.documentElement.dataset.listenIdle='on';
   const b=$('#idleBtn');if(b)b.textContent='TAKE OVER';
   if(audio.src&&audio.paused)await audio.play().catch(()=>{});
