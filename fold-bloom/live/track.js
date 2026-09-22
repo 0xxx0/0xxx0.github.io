@@ -3,6 +3,7 @@ import {frameAt,beatIndexAt,phraseIndexAt,sectionIndexAt} from '../listen/audio-
 import {buildTrackfield} from './trackfield.js';
 import {parseLocalAudioMeta,localDisplayName} from '../listen/media-meta.js';
 import {groupLocalInputs,parseTextSidecar} from '../listen/sidecar-text.js';
+import {cueTimeAtPlayback,normalizeTextAlignment} from '../../lib/text-alignment.js';
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 export const TRACKFIELD_MODEL_INTERVAL=.028;
@@ -73,7 +74,7 @@ export class LiveTrack {
     return (this.audio.paused?'READY':'PLAYING')+' · '+stage+(this.map?.bpm?' · '+this.map.bpm.toFixed(1)+' BPM':'');
   }
   active(){return !!(this.audio.src&&this.map)}
-  textWitness(time=this.audio.currentTime,offset=0){return textWitnessAt(this.textEvidence,(Number(time)||0)+(Number(offset)||0),Number(this.map?.duration)||0)}
+  textWitness(time=this.audio.currentTime,alignmentOrOffset=0){const t=Number(time)||0,m=alignmentOrOffset&&typeof alignmentOrOffset==='object'?normalizeTextAlignment(alignmentOrOffset):null,at=m?cueTimeAtPlayback(t,m):t+(Number(alignmentOrOffset)||0);return textWitnessAt(this.textEvidence,at,Number(this.map?.duration)||0)}
   metadata(){return this.meta?{...this.meta}:null}
   async loadFiles(files){
     const grouped=groupLocalInputs(files),g=grouped.groups[0];
