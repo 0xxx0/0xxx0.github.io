@@ -1,5 +1,5 @@
 'use strict';
-const APP_VERSION = '0.10.2-local-track',
+const APP_VERSION = '0.10.3-idle-witness',
   SCHEMA = 3,
   STORE = 'fold-bloom-product-v04',
   SAVE_STORE = 'fold-bloom-cassettes-v1';
