@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07090b">
+<meta name="color-scheme" content="dark">
+<meta name="robots" content="noindex,nofollow">
+<title>HUMAN PORT · COMMS SPINE 0.1</title>
+<link rel="stylesheet" href="./app.css">
+</head>
+<body>
+<div class="shell">
+<header>
+  <div>
+    <div class="ey">HUMAN PORT · ADDRESSED COMMUNICATION</div>
+    <h1>COMMS<br>SPINE</h1>
+    <div class="tagline">One thread. Exact addresses. Unequal readings. Open asks, promises, decisions and residue stay tied to the source while you build a response or bot handoff.</div>
+  </div>
+  <div class="topActions">
+    <button id="newBtn">NEW / PASTE</button>
+    <button id="portBtn" hidden>IMPORT PORT</button>
+    <button id="pinBtn">PIN LOCAL</button>
+    <button id="copyPacketBtn">COPY AGENT PACKET</button>
+    <button id="exportBtn" class="primary">RETURN JSON</button>
+    <button id="purgeBtn" class="danger">PURGE LOCAL</button>
+    <a href="../">PORT ↩</a>
+  </div>
+</header>
+
+<section class="spine">
+  <div class="spineHead"><b>SOURCE SPINE</b><span id="spineMeta">NO SOURCE · address survives projection</span></div>
+  <div id="turnRail" class="turnRail" aria-label="Conversation turn spine"></div>
+  <div id="signalRail" class="signalRail" aria-label="Addressed signal witnesses"></div>
+</section>
+
+<section class="workspace">
+  <section class="source">
+    <div class="sourceHead">
+      <div><b>SOURCE FOVEA</b><div id="sourceAddr" class="addr">—</div></div>
+      <div class="nav"><button id="prevMsg">◀</button><button id="nextMsg">▶</button></div>
+    </div>
+    <div class="messageStage">
+      <div class="messageMeta"><span id="speaker" class="speaker">NO SOURCE</span><span id="msgNum" class="num">—</span><span id="msgRange" class="range">—</span></div>
+      <div id="clauses" class="clauses"></div>
+    </div>
+    <div class="markBar">
+      <div id="markHint" class="markHint">SELECT A CLAUSE → AUTHOR A MARK</div>
+      <div class="markKinds">
+        <button data-mark="ASK">ASK</button>
+        <button data-mark="PROMISE">PROMISE</button>
+        <button data-mark="DECISION">DECISION</button>
+        <button data-mark="WAITING">WAITING</button>
+        <button data-mark="CONSTRAINT">CONSTRAINT</button>
+        <button data-mark="NOTE">NOTE</button>
+      </div>
+    </div>
+  </section>
+
+  <aside class="signals">
+    <div class="signalsHead"><b>OBLIGATION LATTICE</b><span id="signalMeta">0 SIGNALS</span></div>
+    <div class="filters">
+      <button class="on" data-filter="ALL">ALL</button>
+      <button data-filter="ASK">ASK</button>
+      <button data-filter="PROMISE">PROMISE</button>
+      <button data-filter="DECISION">DECIDE</button>
+      <button data-filter="WAITING">WAIT</button>
+      <button data-filter="CONSTRAINT">LIMIT</button>
+    </div>
+    <div id="signalList" class="signalList"></div>
+  </aside>
+</section>
+
+<section class="compose">
+  <div class="composeHead"><b>RESPONSE / HANDOFF LANE</b><span>draft is authored · coverage is explicit · open residue survives</span></div>
+  <div class="composeGrid">
+    <div class="replyPane">
+      <textarea id="draft" placeholder="Draft the response / handoff here. Select obligation cards, then COVER or DEFER them explicitly."></textarea>
+      <div class="replyActions">
+        <button id="selectOpen">TARGET OPEN</button>
+        <button id="clearTargets">CLEAR TARGETS</button>
+        <button id="coverBtn" class="primary">COVER TARGETS</button>
+        <button id="deferBtn">DEFER TARGETS</button>
+        <button id="reopenBtn">REOPEN TARGETS</button>
+        <button id="copyOpenBtn">COPY OPEN LOOPS</button>
+      </div>
+    </div>
+    <div class="packetPane">
+      <div id="coverage" class="coverage"></div>
+      <pre id="packetPreview">No source loaded.</pre>
+    </div>
+  </div>
+  <div class="lawline">SOURCE ≠ SUMMARY ≠ TASK ≠ RESPONSE · DERIVED ≠ HUMAN · COVERED ≠ DELETED · RETURN PRESERVES RESIDUE</div>
+</section>
+</div>
+
+<div id="intake" class="intakeOverlay">
+  <section class="intakeCard">
+    <header>
+      <div><div class="ey">LOCAL / PRIVATE / ADDRESS FIRST</div><h2>PASTE THE<br>THREAD.</h2></div>
+    </header>
+    <div class="intakeBody">
+      <div class="paste">
+        <input id="titleInput" maxlength="120" placeholder="optional title / person / thread">
+        <textarea id="sourceInput" maxlength="400000" placeholder="Paste conversation text. Speaker markers like User:, Assistant:, Name: are recognized when present. Plain text still works as one addressed object."></textarea>
+        <div class="intakeActions">
+          <button id="closeIntake">CANCEL</button>
+          <button id="loadDemo">TRY DEMO</button>
+          <button id="loadSource" class="primary">BUILD SPINE</button>
+        </div>
+      </div>
+      <aside class="examples">
+        <b>THIS IS NOT A SUMMARY TOOL</b>
+        <p>It keeps the original source as canonical. Automated labels are weak suggestions. Human marks, coverage, deferment and the final response live beside the source.</p>
+        <button id="usePinned">RESUME PINNED LOCAL</button>
+        <button id="usePortObject">IMPORT CURRENT HUMAN PORT TEXT</button>
+        <p>Nothing is sent anywhere by this page. PIN LOCAL uses this browser's localStorage; otherwise current work is session-only.</p>
+      </aside>
+    </div>
+  </section>
+</div>
+<div id="toast" class="toast"></div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
