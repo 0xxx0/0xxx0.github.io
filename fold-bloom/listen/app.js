@@ -256,18 +256,38 @@ async function loadFile(file,{sidecars=[],collection=null}={}){
 }
 async function loadAddress(input){
   status('RESOLVING');drop.classList.add('busy');lastRemoteFailure=null;
+  let source=null;
   try{
-    const source=await resolveSourceAddress(input);$('#track').textContent=source.title||'REMOTE SOURCE';
-    $('#meta').textContent=source.kind==='SUNO'?`${source.resolution.replaceAll('_',' ')} · FETCHING AUDIO`:'DIRECT ADDRESS · FETCHING AUDIO';
+    source=await resolveSourceAddress(input);pendingSource=source;$('#track').textContent=source.title||'REMOTE SOURCE';
+    if(source.kind==='SUNO_PLAYLIST'){
+      drop.classList.remove('busy');status('SUNO PLAYLIST ADDRESS CAPTURED · LOAD AUDIO TO BIND');
+      $('#meta').textContent='PLAYLIST LINK PRESERVED AS COLLECTION PROVENANCE · BROWSER DOES NOT REQUIRE PLAYLIST SCRAPING';
+      toast('PLAYLIST ADDRESS READY');return;
+    }
+    $('#meta').textContent=source.kind==='SUNO'?(source.resolution.replaceAll('_',' ')+' · FETCHING AUDIO'):'DIRECT ADDRESS · FETCHING AUDIO';
     const remote=await fetchRemoteAudio(source),blob=new Blob([remote.bytes],{type:remote.type||'audio/mpeg'});
-    await analyzeBytes(remote.bytes,blob,{name:source.title||source.audioUrl.split('/').pop()||'REMOTE AUDIO',size:remote.size,type:remote.type,sourceKind:source.kind,sourceAddress:source.address,sourceId:source.sunoId||null,metadataAddress:source.metadataUrl||null,resolution:source.resolution,artist:source.artist||'',tags:source.tags||'',lyrics:source.lyrics||'',providerBpm:source.providerBpm||null,providerKey:source.providerKey||null,providerTimeSignature:source.providerTimeSignature||null,metadataError:source.metadataError||null});
+    await analyzeBytes(remote.bytes,blob,{name:source.title||source.audioUrl.split('/').pop()||'REMOTE AUDIO',size:remote.size,type:remote.type,sourceKind:source.kind,sourceAddress:source.address,sourceId:source.sunoId||null,metadataAddress:source.metadataUrl||null,resolution:source.resolution,artist:source.artist||'',tags:source.tags||'',lyrics:source.lyrics||'',lyricsAlignment:source.lyrics?'UNALIGNED_PROVIDER_META':null,providerBpm:source.providerBpm||null,providerKey:source.providerKey||null,providerTimeSignature:source.providerTimeSignature||null,metadataError:source.metadataError||null,origin:{kind:source.kind,address:source.address,id:source.sunoId||null,resolution:source.resolution||null}});
+    pendingSource=null;
   }catch(error){
-    const kind=parseSunoId(input)?'SUNO':'REMOTE_AUDIO';
+    const kind=parseSunoPlaylistId(input)?'SUNO_PLAYLIST':(parseSunoId(input)?'SUNO':'REMOTE_AUDIO');
     lastRemoteFailure={kind,address:String(input||''),error:String(error?.message||error),at:new Date().toISOString()};
+    if(source)pendingSource=source;
     drop.classList.remove('busy');
-    status(kind==='SUNO'?'SUNO BLOCKED HERE · USE MP3':'REMOTE BLOCKED · LOAD FILE');
-    $('#meta').textContent=kind==='SUNO'?'BROWSER/CORS PATH BLOCKED · PROVEN PATH: EXPORT/DOWNLOAD MP3 → CHOOSE AUDIO':'ADDRESS KEPT · NETWORK/CORS RESOLUTION FAILED · LOCAL FILE STILL WORKS';
-    toast(kind==='SUNO'?'SUNO BLOCKED · USE MP3':'REMOTE BLOCKED · USE LOCAL FILE');console.warn(error)
+    if(kind==='SUNO'){
+      const hasMeta=!!(source&&(source.title||source.artist||source.lyrics||source.tags));
+      status(hasMeta?'SUNO META READY · LOAD MP3/M4A TO BIND':'SUNO LINK READY · LOAD MP3/M4A TO BIND');
+      $('#meta').textContent=hasMeta?'REMOTE AUDIO BLOCKED · TITLE / ARTIST / LYRICS / TAGS KEPT WHEN AVAILABLE · CHOOSE LOCAL AUDIO':'REMOTE AUDIO BLOCKED · SUNO LINK/UUID KEPT AS ORIGIN · CHOOSE LOCAL AUDIO';
+      toast(hasMeta?'SUNO META KEPT · LOAD AUDIO':'SUNO LINK KEPT · LOAD AUDIO');
+    }else if(kind==='SUNO_PLAYLIST'){
+      status('SUNO PLAYLIST ADDRESS KEPT · LOAD LOCAL AUDIO TO BIND');
+      $('#meta').textContent='COLLECTION PROVENANCE KEPT · TRACK ENUMERATION IS NOT REQUIRED';
+      toast('PLAYLIST LINK KEPT');
+    }else{
+      status('REMOTE ADDRESS KEPT · LOAD LOCAL AUDIO TO BIND');
+      $('#meta').textContent='NETWORK/CORS AUDIO FAILED · ADDRESS REMAINS PROVENANCE · LOCAL FILE CAN BIND TO IT';
+      toast('ADDRESS KEPT · LOAD AUDIO');
+    }
+    console.warn(error)
   }
 }
 
