@@ -1,6 +1,6 @@
 import {EXPERIENCE_SET_SCHEMA,TRANSITION_LAWS,assertExperienceSet,cloneExperienceSet} from '../experience-set/experience-set.js';
 
-export const SET_COMPOSITOR_VERSION='0.1';
+export const SET_COMPOSITOR_VERSION='0.1.1';
 export const SEAM_LAWS=Object.freeze(['CUT','DISSOLVE','CARRY','RESET']);
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
