@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {transportFromMap} from '../track.js';
+import {transportFromMap,textWitnessAt} from '../track.js';
 
 const map={
   duration:8,bpm:120,tempoConfidence:.8,stage:'DEEP',source:{hash:'abc123'},
@@ -30,4 +30,12 @@ test('transport remains bounded at track end',()=>{
   assert.equal(p.time,8);
   assert.equal(p.sectionIndex,1);
   assert.equal(p.playing,false);
+});
+
+
+test('timed text follows actual cue addresses while embedded text stays FLOAT',()=>{
+  const timed=textWitnessAt({kind:'LYRICS',alignment:'TIMED_LRC',text:'a\nb',cues:[{start:0,end:1.9,text:'a'},{start:2,end:4,text:'b'}]},2.4,8);
+  assert.equal(timed.mode,'TIMED');assert.equal(timed.text,'b');assert.equal(timed.approx,false);
+  const floated=textWitnessAt({kind:'LYRICS',alignment:'UNALIGNED_EMBEDDED_ID3',text:'one\ntwo\nthree',cues:[]},4,8);
+  assert.equal(floated.mode,'FLOAT');assert.equal(floated.alignment,'UNALIGNED_EMBEDDED_ID3');assert.equal(floated.approx,true);
 });
