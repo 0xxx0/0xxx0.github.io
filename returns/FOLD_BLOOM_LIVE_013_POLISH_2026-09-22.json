@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_LIVE_013_POLISH_2026-09-22",
   "date": "2026-09-22",
   "operation": "QA FRICTION → AUTOPILOT / PHONE REACHABILITY / DISPLAY STABILIZATION / PERCEPTUAL WORLD MORPH / PERF WITNESS",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "route": "/fold-bloom/live/",
   "delta": [
     "AUTOPILOT becomes directly reachable",
@@ -13,5 +13,11 @@
     "scene transitions use perceptual color interpolation and irrational section variation",
     "successor has an exact recovery path and existing next-executable sequence"
   ],
-  "next_truth": "Does 0.13 feel calmer but still alive? If yes, stop polishing and implement Experience Set v0.1. If no, the first failing bodily witness owns the next move."
+  "next_truth": "Does 0.13 feel calmer but still alive? If yes, stop polishing and implement Experience Set v0.1. If no, the first failing bodily witness owns the next move.",
+  "pr": 151,
+  "merge_sha": "ce475fe2f9abca2068032c3dc4bdf236bcf0ee45",
+  "ci": {
+    "run": 35705196976,
+    "result": "PASS"
+  }
 }
