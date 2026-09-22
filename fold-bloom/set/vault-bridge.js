@@ -2,7 +2,7 @@ import {putLocalMedia,hasLocalMedia,requestPersistentLocalStorage,localStorageEs
 
 const input=document.getElementById('files'),drop=document.getElementById('drop'),rail=document.getElementById('rail');
 const syntheticDemo=new URLSearchParams(location.search).has('demo');
-let storing=0,stored=0,failed=0;
+let storing=0,stored=0,failed=0,refreshing=false,refreshQueued=false,observer=null;
 
 async function hashFile(file){
   const buf=await file.arrayBuffer(),hash=await crypto.subtle.digest('SHA-256',buf);
@@ -31,7 +31,7 @@ async function storeFiles(files){
   }
   const estimate=await localStorageEstimate(),mb=Math.round(estimate.usage/1048576);
   ensureWitness().textContent=`VAULT · ${stored} STORED${failed?` · ${failed} FAILED`:''}${mb?` · ${mb} MB`:''}`;
-  refreshButtons();
+  queueRefresh();
 }
 
 input?.addEventListener('change',e=>storeFiles(e.target.files),{capture:true});
@@ -47,20 +47,36 @@ async function decorateBlock(block,index,state){
   let btn=block.querySelector('[data-vault-listen]');
   if(!btn){
     btn=document.createElement('button');btn.type='button';btn.dataset.vaultListen='1';btn.className='vaultListen';
-    const mini=block.querySelector('.mini');mini?.append(btn);
+    block.querySelector('.mini')?.append(btn);
   }
   const available=syntheticDemo?false:await hasLocalMedia(entry.sourceId).catch(()=>false);
-  btn.textContent=available?'LISTEN':'LISTEN · BIND';
-  btn.title=available?'Open this exact local source in LISTEN':syntheticDemo?'Synthetic demo contains hashes only; select the real local file once':'The source hash is known, but this browser does not hold its bytes yet';
+  const label=available?'LISTEN':'LISTEN · BIND';
+  const title=available?'Open this exact local source in LISTEN':syntheticDemo?'Synthetic demo contains hashes only; select the real local file once':'The source hash is known, but this browser does not hold its bytes yet';
+  if(btn.textContent!==label)btn.textContent=label;
+  if(btn.title!==title)btn.title=title;
   btn.onclick=()=>location.assign(sourceHref(entry.sourceId));
-  block.dataset.localMedia=available?'ready':'missing';
+  const mediaState=available?'ready':'missing';
+  if(block.dataset.localMedia!==mediaState)block.dataset.localMedia=mediaState;
 }
 
 async function refreshButtons(){
+  if(refreshing)return;
   const state=window.FoldBloomSet?.state?.();if(!state)return;
-  const blocks=[...document.querySelectorAll('#rail .block')];
-  await Promise.all(blocks.map((block,index)=>decorateBlock(block,index,state)));
-  document.documentElement.dataset.localVault=syntheticDemo?'synthetic':'ready';
+  refreshing=true;observer?.disconnect();
+  try{
+    const blocks=[...document.querySelectorAll('#rail .block')];
+    await Promise.all(blocks.map((block,index)=>decorateBlock(block,index,state)));
+    document.documentElement.dataset.localVault=syntheticDemo?'synthetic':'ready';
+  }finally{
+    refreshing=false;
+    if(rail&&observer)observer.observe(rail,{childList:true,subtree:true});
+  }
+}
+
+function queueRefresh(){
+  if(refreshQueued)return;
+  refreshQueued=true;
+  queueMicrotask(()=>{refreshQueued=false;refreshButtons()});
 }
 
 function ensureJourneyAction(){
@@ -71,10 +87,10 @@ function ensureJourneyAction(){
 }
 
 const style=document.createElement('style');style.textContent='.block .mini{flex-wrap:wrap}.block .mini .vaultListen{flex:1 0 100%;color:var(--cool)}';document.head.append(style);
-const observer=new MutationObserver(()=>refreshButtons());
+observer=new MutationObserver(queueRefresh);
 if(rail)observer.observe(rail,{childList:true,subtree:true});
 ensureWitness();ensureJourneyAction();
-const wait=setInterval(()=>{if(window.FoldBloomSet){clearInterval(wait);refreshButtons()}},60);
+const wait=setInterval(()=>{if(window.FoldBloomSet){clearInterval(wait);queueRefresh()}},60);
 setTimeout(()=>clearInterval(wait),12000);
 
 window.FoldBloomLocalVault={storeFiles,refresh:refreshButtons,sourceHref,syntheticDemo};
