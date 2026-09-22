@@ -173,8 +173,9 @@ function renderCompose(){
   $('#packetPreview').textContent=JSON.stringify(packet,null,2);
 }
 function render(){
-  if(!state.doc){showIntake();renderSpine();renderSource();renderSignals();renderCompose();return}
+  if(!state.doc){document.documentElement.dataset.commsSpine='idle';showIntake();renderSpine();renderSource();renderSignals();renderCompose();return}
   hideIntake();renderSpine();renderSource();renderSignals();renderCompose();
+  const ss=signals();document.documentElement.dataset.commsSpine='ready';document.documentElement.dataset.commsMessages=String(state.doc.messages.length);document.documentElement.dataset.commsSignals=String(ss.length);document.documentElement.dataset.commsOpen=String(ss.filter(x=>x.state==='OPEN').length);
 }
 async function copy(text,label='COPIED'){
   try{await navigator.clipboard.writeText(text);toast(label)}catch(_){toast('COPY BLOCKED')}
