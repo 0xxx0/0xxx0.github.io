@@ -264,7 +264,7 @@ function docsApertureProbeHtml(){
 
 
 function readerFocusProbeHtml(){
-  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/docs/"></iframe><pre id="probeResult">PENDING</pre><script>
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:980px;height:760px;border:0;display:block" src="/docs/?read_view=plain"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
   const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
