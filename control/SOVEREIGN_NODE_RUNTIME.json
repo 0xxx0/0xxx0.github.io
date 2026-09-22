@@ -91,7 +91,8 @@
     "ollama_endurance": "/scripts/sovereign-node-qwen-endurance.py",
     "executor_prompt": "/control/prompts/SOVEREIGN_NODE_EXECUTOR.md",
     "scout_prompt": "/control/prompts/SOVEREIGN_NODE_SCOUT.md",
-    "return_prompt": "/control/prompts/SOVEREIGN_NODE_CONFLUENCE_RETURN.md"
+    "return_prompt": "/control/prompts/SOVEREIGN_NODE_CONFLUENCE_RETURN.md",
+    "reentry_prompt": "/control/prompts/SOVEREIGN_NODE_REENTRY.md"
   },
   "reopen_when": [
     "A material security/compatibility change affects an installed provider.",
@@ -101,4 +102,4 @@
     "A provider can materially simplify a current head without creating a new control surface."
   ],
   "stop_condition": "If no current conversion is unlocked and no material node decision is pending, park this substrate after recording the durable delta."
-}
+}\n
