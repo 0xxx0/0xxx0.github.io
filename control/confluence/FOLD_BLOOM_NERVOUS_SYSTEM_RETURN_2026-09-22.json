@@ -2,7 +2,7 @@
   "schema": "0xxx0/confluence-packet/v0.1",
   "id": "FOLD_BLOOM_NERVOUS_SYSTEM_RETURN_2026-09-22",
   "date": "2026-09-22",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "object": "FOLD//BLOOM LIVE / embodied linear explorer",
   "observed_exact_user_return": [
     "LIVE/RIDE already feels delightful and embodied even at low visual resolution; jitter/motion is felt rather than merely read.",
@@ -49,5 +49,17 @@
     "higher-resolution visual language/pattern grammar after 0.11 embodied evidence"
   ],
   "human_gate": "Use one familiar song with a known dramatic buildup/drop. If the source now produces anticipatory tunnel pressure, a felt plunge, and an open-sky release at roughly the right macro moment, keep/tune. If events are frequent or mislocated, tune detector thresholds before adding more FX.",
-  "return": "/returns/FOLD_BLOOM_NERVOUS_SYSTEM_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_NERVOUS_SYSTEM_2026-09-22.json",
+  "pr": 148,
+  "merge_sha": "1d43c3edf1469c85a5fa7e3317460cd6932911b8",
+  "verification": {
+    "ci_run": 35698711168,
+    "result": "PASS",
+    "notes": [
+      "first CI exposed a pre/post-impact test-selection defect; production detector unchanged",
+      "corrected CI passed LIVE unit/regression stack",
+      "critical phone-sized browser smoke passed",
+      "LISTEN/source-bundle and repo-wide regressions passed"
+    ]
+  }
 }
