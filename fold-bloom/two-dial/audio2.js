@@ -246,7 +246,7 @@ async function startDemo(preview = true, playTrack = false) {
   // IDLE is always reversible witness-play. It may borrow a source clock,
   // but its relations never become the user's saved composition.
   preview = true;
-  if (playTrack) await window.FoldBloomTrackLink?.play?.().catch?.(()=>{});
+  if (playTrack) { try { await window.FoldBloomTrackLink?.play?.(); } catch (_) {} }
   demo.on = true;
   demo.i = 0;
   demo.prevMode = prefs.mode;
