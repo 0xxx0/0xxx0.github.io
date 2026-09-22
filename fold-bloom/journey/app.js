@@ -82,7 +82,7 @@ async function loadSeedDemo(){
 
 function currentEntry(){return plan?.entries?.[index]||null}
 function recordEvent(type,extra={}){
-  const entry=currentEntry(),address=entry?journeyAddress(plan,index,current.currentTime||0):null;
+  const entry=currentEntry(),sourceTime=entry?(demoWitness?(entry.duration||0)*demoClock.progress:(current.currentTime||0)):0,address=entry?journeyAddress(plan,index,sourceTime):null;
   events.push({type,entryIndex:index,sourceId:entry?.sourceId||'',sourceTime:address?.sourceTime||0,journeyTime:address?.journeyTime||0,law:extra.law||entry?.law||null,at:now(),...extra});
 }
 function setAudioSource(player,entry){
