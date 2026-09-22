@@ -1,0 +1,29 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FOLD_BLOOM_LOCAL_SPINE_JOURNEY_2026-09-22",
+  "date": "2026-09-22",
+  "operation": "EXACT LOCAL FILE SELECT ONCE -> HASH-KEYED LOCAL VAULT -> SET/LISTEN/JOURNEY CONTINUITY -> BOUNDED SEAM TRAVERSAL -> RETURN",
+  "status": "BRANCH_CANDIDATE",
+  "baseline": "master@fcaa51064ee6081f73d6cb5f6f68b961ccb66e9e",
+  "delta": [
+    "One browser selection can now supply the same exact local audio to SET, LISTEN and JOURNEY.",
+    "Experience Set remains reference-only; media blobs live separately in same-origin IndexedDB.",
+    "LISTEN can resolve a source query by exact hash and retains a caller RETURN path.",
+    "Journey Ride executes authored set order and bounded seam laws while preserving native source time.",
+    "Journey RETURN records source and journey addresses without source bytes."
+  ],
+  "evidence": [
+    "/fold-bloom/tests/local-media-store.test.mjs",
+    "/fold-bloom/journey/tests/journey-core.test.mjs",
+    "/tools/fold-bloom-spine-smoke.mjs",
+    "/fold-bloom/journey/?demo=1"
+  ],
+  "humanGate": [
+    "select the three real seed tracks once in SET",
+    "open each SET cell in LISTEN without another picker",
+    "open Journey and confirm all three bindings resolve automatically",
+    "ride CARRY then DISSOLVE then RETURN",
+    "decide whether traversal feels like one journey rather than a playlist"
+  ],
+  "stop": "No cloud media layer, beatmatching, source-time mutation or raw-byte RETURN."
+}

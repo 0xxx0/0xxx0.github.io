@@ -1,0 +1,39 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_LOCAL_SPINE_JOURNEY_2026-09-22",
+  "date": "2026-09-22",
+  "object": "One-selection local media continuity plus Journey Ride 0.1",
+  "status": "BRANCH_CANDIDATE",
+  "baseline": "master@fcaa51064ee6081f73d6cb5f6f68b961ccb66e9e",
+  "problem": "SET knew exact source hashes but LISTEN and future JOURNEY still required repeated file-picker binding because source references did not resolve to persistent local browser blobs.",
+  "implemented": [
+    "same-origin IndexedDB local media vault keyed by exact SHA-256 source ID",
+    "SET capture stores selected blobs locally while Experience Set remains byte-free",
+    "SET source cells expose LISTEN / LISTEN-BIND according to vault availability",
+    "LISTEN accepts ?source=sha256:... and resolves the local blob without another picker interaction",
+    "LISTEN exposes an exact RETURN link to the calling surface",
+    "Journey Ride consumes the existing Experience Set plus exact local bindings",
+    "Journey is mounted behind SET at /fold-bloom/set/journey.html rather than becoming another top-level app",
+    "Journey derives a continuous address beside immutable source clocks",
+    "CUT, CARRY, DISSOLVE and RESET have bounded traversal semantics",
+    "Journey RETURN excludes source bytes"
+  ],
+  "privacy": {
+    "location": "same-origin browser IndexedDB",
+    "networkUpload": false,
+    "clearingSiteDataDeletesMedia": true,
+    "browserEvictionPossible": true,
+    "setContainsBytes": false,
+    "returnContainsBytes": false
+  },
+  "paths": [
+    "/fold-bloom/local-media-store.js",
+    "/fold-bloom/set/vault-bridge.js",
+    "/fold-bloom/listen/vault-handoff.js",
+    "/fold-bloom/set/journey.html",
+    "/fold-bloom/journey/",
+    "/tools/fold-bloom-spine-smoke.mjs"
+  ],
+  "stop": "Do not add cloud storage, provider synchronization, beatmatching, tempo warping, concatenated media export or new Experience Set ontology in this pass.",
+  "return": "/returns/FOLD_BLOOM_LOCAL_SPINE_JOURNEY_2026-09-22.json"
+}
