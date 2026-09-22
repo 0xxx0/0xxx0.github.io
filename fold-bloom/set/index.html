@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#07090d"><meta name="color-scheme" content="dark">
-<title>FOLD//BLOOM — SET 0.1</title>
+<title>FOLD//BLOOM — SET 0.1.1</title>
 <link rel="stylesheet" href="./app.css">
 </head>
 <body>
 <div id="app">
 <header>
-  <div><b>FOLD//BLOOM</b><span>SET 0.1 · EXPERIENCE COMPOSITOR</span></div>
+  <div><b>FOLD//BLOOM</b><span>SET 0.1.1 · EXPERIENCE COMPOSITOR</span></div>
   <nav><a href="../">FAMILY</a><a href="../listen/">LISTEN</a><a href="../live/">RIDE</a></nav>
 </header>
 <main>
@@ -32,6 +32,12 @@
     <div class="stats"><span id="count">0 SOURCES</span><span id="setId">set:empty</span></div>
   </section>
 
+  <section class="pack" id="packPanel">
+    <div><b>LOCAL TEST PACK</b><span id="packSummary">MATCHING LOCAL HASHES…</span></div>
+    <p id="packDetail">The catalog contains hashes and suggested test roles only. Raw audio stays local.</p>
+    <button id="applyPackBtn" disabled>NO MATCH</button>
+  </section>
+
   <section class="board">
     <div class="boardHead"><span>JOURNEY</span><span>LONG-PRESS / DRAG · OR USE ◀ ▶</span></div>
     <div id="rail" class="rail" aria-live="polite"></div>
@@ -41,7 +47,7 @@
   <section class="law">
     <b>SOURCE SPINE</b>
     <span>same identity · same address when available · unequal projection</span>
-    <p>LISTEN remains cartographer/editor. RIDE remains embodied projection. SET composes source refs; it does not become an analyzer, source store, or DAW.</p>
+    <p>LISTEN remains cartographer/editor. RIDE remains embodied projection. SET composes source refs; it does not become an analyzer, source store, provider catalog or DAW.</p>
   </section>
 
   <section class="return">
