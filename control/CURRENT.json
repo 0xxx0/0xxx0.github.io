@@ -120,10 +120,10 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM instrument family · LIVE 0.7 smooth motion/world-writing TRACKFIELD / TWO DIAL 0.10.1 composition / ECOLOGY 0.2 lineage-game / LISTEN 0.2.4 AUDIO MAP laboratory",
+      "head": "FOLD//BLOOM instrument family · LIVE 0.7 smooth world-writing TRACKFIELD / LISTEN 0.3 addressed-stream lens / TWO DIAL 0.10.1 composition / ECOLOGY 0.2 lineage-game",
       "state": "ACTIVE_CANDIDATE_FAMILY",
       "route": "/fold-bloom/",
-      "retained_function": "LIVE 0.7 is the current performance ride. Local MP3 uses interpolated AUDIO MAP; ordinary PLAY FIELD uses a clearly synthetic FIELD COURSE through the same TRACKFIELD/deformation/ride engine. Motion is explicit and inspectable: quiet/low-flux climbs, energetic/flux-heavy passages descend and visually accelerate, low↔high spectral balance bends the route; source audio remains 1×. BLOOM/FOLD/SPLIT/RETURN still write a separate reversible deformation tape and SPLIT retains LEFT/RIGHT/OPEN traversal. Nearest-frame stepping and threshold shake are removed in favor of interpolated source features plus low-pass camera motion. TWO DIAL remains composition authority; ECOLOGY remains lineage/game. READFIELD donor is address/playhead/projection only: one canonical text cursor may project as PAGE/RSVP/RING/WAVEFORM/PATH under AXIAL/Lens without importing music metrics or racer HUD.",
+      "retained_function": "LIVE 0.7 remains the performance ride: measured or FIELD COURSE terrain with smooth grade/speed/turn plus reversible BLOOM/FOLD/SPLIT/RETURN world-writing. LISTEN 0.3 is now the source-analysis and addressed-stream lens: one source ADDRESS moves horizontally/ring-wise; APERTURE changes vertically through host-defined scales; PIN adds authored source-provenanced annotations beside immutable analysis. Audio host adds approximate local key/mode identification but provider metadata remains optional. The portable donor is ADDRESS × APERTURE × PROJECTION × PIN, not waveforms/beats/racer UI; READFIELD or other streams may adopt it only with their own host vocabulary. TWO DIAL remains composition authority; ECOLOGY remains persistent lineage/game.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -156,17 +156,19 @@
         "/control/confluence/FOLD_BLOOM_RIDE_CHOICE_2026-09-22.json",
         "/returns/FOLD_BLOOM_RIDE_CHOICE_2026-09-22.json",
         "/control/confluence/FOLD_BLOOM_MOTION_2026-09-22.json",
-        "/returns/FOLD_BLOOM_MOTION_2026-09-22.json"
+        "/returns/FOLD_BLOOM_MOTION_2026-09-22.json",
+        "/control/confluence/FOLD_BLOOM_STREAM_LENS_2026-09-22.json",
+        "/returns/FOLD_BLOOM_STREAM_LENS_2026-09-22.json"
       ],
       "experimental": [
         {
           "id": "fold-bloom-listen-01",
           "route": "/fold-bloom/listen/",
           "state": "CANDIDATE_EXPERIMENT",
-          "branch": "fold-bloom-listen-01",
-          "thesis": "Any bounded audio source can enter one LISTEN field: local file first and proven; Suno/direct address best-effort; decoded audio becomes a hashed AUDIO MAP with polar time and scale traversal.",
-          "promotion_gate": "local MP3 + section mapping now have real-use evidence; Suno network resolution is explicitly non-blocking/best-effort; analysis plausibility and section-arc play remain empirical.",
-          "version": "0.2.4"
+          "branch": "fold-bloom-listen-stream-lens-030",
+          "thesis": "One bounded source becomes an addressed stream: horizontal/ring motion changes address, vertical changes aperture, source-scoped pins add authored evidence, and audio is only the first host vocabulary.",
+          "promotion_gate": "CI + direct desktop/phone proof that address/aperture gestures are distinct, pins persist/export by source identity, local key/mode is plausible as approximate evidence, and existing LISTEN workflows do not regress.",
+          "version": "0.3"
         }
       ]
     },
