@@ -5,6 +5,7 @@ import {parseLocalAudioMeta,localDisplayName} from '../listen/media-meta.js';
 import {groupLocalInputs,parseTextSidecar} from '../listen/sidecar-text.js';
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+export const TRACKFIELD_MODEL_INTERVAL=.028;
 async function hashBuffer(buf){const h=await crypto.subtle.digest('SHA-256',buf);return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 
 function mixdown(buffer,targetRate=12000){
@@ -23,15 +24,12 @@ export function textWitnessAt(evidence,time=0,duration=0){
   if(!evidence?.text)return null;
   const cues=Array.isArray(evidence.cues)?evidence.cues:[];
   if(cues.length){
-    let hit=null;
-    for(const cue of cues){
-      if(Number(cue.start)<=time&&(cue.end==null||Number(cue.end)>=time))hit=cue;
-      if(Number(cue.start)>time)break;
+    let lo=0,hi=cues.length-1,ix=-1;
+    while(lo<=hi){const mid=(lo+hi)>>1;if((Number(cues[mid]?.start)||0)<=time){ix=mid;lo=mid+1}else hi=mid-1}
+    if(ix>=0){
+      const hit=cues[ix];
+      return {kind:evidence.kind||'TEXT',mode:'TIMED',alignment:evidence.alignment||'TIMED',text:String(hit.text||'').trim(),start:Number(hit.start)||0,end:hit.end==null?null:Number(hit.end),approx:false};
     }
-    if(!hit){
-      for(let i=cues.length-1;i>=0;i--)if(Number(cues[i].start)<=time){hit=cues[i];break}
-    }
-    if(hit)return {kind:evidence.kind||'TEXT',mode:'TIMED',alignment:evidence.alignment||'TIMED',text:String(hit.text||'').trim(),start:Number(hit.start)||0,end:hit.end==null?null:Number(hit.end),approx:false};
   }
   const lines=String(evidence.text||'').split(/\r?\n+/).map(x=>x.trim()).filter(Boolean);
   if(!lines.length)return null;
@@ -86,7 +84,7 @@ export class LiveTrack {
   trackfield(horizon=12,count=44){
     if(!this.map)return null;
     const t=Number(this.audio.currentTime)||0;
-    if(this.worldCache&&Math.abs(t-this.worldTime)<.012)return this.worldCache;
+    if(this.worldCache&&Math.abs(t-this.worldTime)<TRACKFIELD_MODEL_INTERVAL)return this.worldCache;
     this.worldTime=t;this.worldCache=buildTrackfield(this.map,t,{horizon,count});
     return this.worldCache;
   }

@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
-  "version": "LIVE 0.12",
-  "status": "ACTIVE_CANDIDATE_MERGED",
+  "version": "LIVE 0.13",
+  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
   "date": "2026-09-22",
   "donors": [
     {
@@ -118,7 +118,18 @@
     "renderer adds a source-time refractory window so one musical drop produces one body burst; rewinding rearms the event lawfully",
     "manual text-sync offset shifts the text witness lookup only; original cue addresses/alignment provenance are unchanged",
     "LISTEN can edit the same source-hash RIDE PROFILE and carries it into AUDIO MAP returns and Atlas handoff",
-    "scene changes toast WORLD identity and immediately restyle LIVE without altering source audio"
+    "scene changes toast WORLD identity and immediately restyle LIVE without altering source audio",
+    "AUTOPILOT replaces IDLE RIDE as the public control name while preserving the same witness-only snapshot/restore law internally",
+    "persistent hard-edge AUTOPILOT / TAKE OVER control is reachable outside the settings drawer and runtime API exposes start/stop/toggle",
+    "phone settings drawer is safe-area bounded, scrollable and touch-pan enabled with >=44px action targets and larger range-control hit areas",
+    "TRACKFIELD model rebuild cadence is bounded to about 36 Hz while the display renderer continues at requestAnimationFrame cadence",
+    "FIELD COURSE now uses the same bounded model cache as local audio instead of rebuilding the full TRACKFIELD every animation frame",
+    "display-only projection stabilizer exponentially damps center/height/width/split geometry while preserving fresh beat/phrase/section/deformation semantics",
+    "DEEP/TRANCE/WOOD/VOID scene changes morph through OKLab perceptual interpolation instead of snapping",
+    "section-index variation uses an irrational golden-ratio phase to produce subtle non-repeating intra-scene palette/pattern shifts",
+    "timed-text lookup now uses binary search, making long transcripts/podcasts scale logarithmically instead of scanning all prior cues every frame",
+    "HUD/data-attribute/perf writes are throttled to 10 Hz while canvas motion remains full-rate",
+    "runtime exposes bounded FPS/model-slice witness for QA and successor agents"
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -154,13 +165,18 @@
     "one source macro event may produce one bounded body event; sliding analysis windows must not retrigger spectacle",
     "RIDE PROFILE is a projection/calibration object and must never rewrite AUDIO MAP evidence",
     "text-sync offset is user calibration of witness timing, not a retroactive claim that untimed text became aligned",
-    "scene/world styling may change visual projection and local synth but may not transform or relabel the source audio"
+    "scene/world styling may change visual projection and local synth but may not transform or relabel the source audio",
+    "projection smoothing is display-only and must never alter source address, AUDIO MAP frames, event identity, landmarks or RETURN evidence",
+    "AUTOPILOT remains reversible witness-play and may not persist authored operations",
+    "model rebuild throttling may reduce CPU load but must not quantize source-time semantics or one-shot macro-event identity",
+    "perceptual scene morphing changes projection only; source audio/map/profile authority remains unchanged",
+    "performance witnesses are diagnostic and must not become score/reward mechanics"
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "Replay the same familiar source on phone. Judge MATERIAL first (opaque slopes/no bleed-through), then EVENT (one drop/one burst), WORLD distinction, IMMERSION/DROP tuning, and TEXT SYNC. Use LISTEN to change the same-source profile and verify LIVE reflects it.",
+    "required_next": "Phone QA: can AUTOPILOT be hit immediately; settings scroll/reach all controls; compare 0.12 vs 0.13 for micro-jitter without loss of responsiveness; cycle all four worlds and judge morph elegance; report approximate FPS witness only if visible stutter remains.",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
@@ -214,10 +230,12 @@
     "visual_world_branch": "fold-bloom-live-012-visual-worlds",
     "visual_world_ci": "PASS: public-surface-check run 35700392105; visual-world/profile tests, full LIVE regression stack, LISTEN preview and critical browser smoke green",
     "visual_world_pr": 149,
-    "visual_world_merge_sha": "44ebcd809313ac633c13bbadc199c2b2e2e5997c"
+    "visual_world_merge_sha": "44ebcd809313ac633c13bbadc199c2b2e2e5997c",
+    "polish_branch": "fold-bloom-live-013-autopilot-polish",
+    "polish_ci": "PENDING PR CI"
   },
   "execution_contract": "./EXECUTION.md",
-  "return": "/returns/FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json",
+  "return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
   "updated": "2026-09-22",
   "observed_user_return": {
     "date": "2026-09-22",

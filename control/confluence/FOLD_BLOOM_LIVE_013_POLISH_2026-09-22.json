@@ -1,0 +1,34 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_LIVE_013_POLISH_2026-09-22",
+  "date": "2026-09-22",
+  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "object": "FOLD//BLOOM LIVE 0.13 / human-contact + display/perf polish",
+  "observed": [
+    "User reports remaining jitter but overall experience is pretty great.",
+    "Menu sizing/reachability is an obvious standard UI issue.",
+    "User could not reliably reach the existing IDLE control and suggested AUTOPILOT as clearer naming.",
+    "User requested more aesthetic sophistication/elegance, mathematical treatment, performance review and stronger connections to the wider system.",
+    "User explicitly requested durable succession/handoff for future self/Hermes/human."
+  ],
+  "delta": [
+    "AUTOPILOT promoted to public first-class witness control with TAKE OVER state; internal snapshot/restore/no-authorship law preserved.",
+    "Mobile settings drawer repaired for safe-area height, scrolling, touch panning, larger action targets and sliders.",
+    "TRACKFIELD model cadence bounded to ~36 Hz for local and practice sources; renderer remains RAF-rate.",
+    "Display-only projected-geometry damping reduces micro-jitter without altering source time or semantic/event witnesses.",
+    "Scene worlds morph through OKLab and use golden-ratio section phase for subtle non-repeating intra-scene variation.",
+    "Timed-text lookup uses binary search, improving long-form/podcast scalability.",
+    "HUD/data/perf writes throttled; runtime exposes FPS/model-slice diagnostic witness.",
+    "Successor handoff points at existing Experience Set/compositor roadmap instead of spawning a duplicate plan."
+  ],
+  "laws": [
+    "SOURCE TIME / MAP EVIDENCE REMAIN EXACT UNDER DISPLAY SMOOTHING.",
+    "AUTOPILOT = REVERSIBLE WITNESS, NEVER AUTHOR.",
+    "MODEL CADENCE MAY CHANGE COST, NOT SEMANTICS.",
+    "PERCEPTUAL MORPH = PROJECTION ONLY.",
+    "POLISH SHOULD REDUCE RE-ENTRY / FRICTION BEFORE NEW SURFACE AREA."
+  ],
+  "next_truth": "Phone QA: AUTOPILOT reachability, menu reachability, jitter vs responsiveness, scene morph elegance. If pass, resume existing EXPERIENCE SET v0.1 sequence; if fail, repair lived surface before set/compositor work.",
+  "handoff": "/fold-bloom/convergence/SUCCESSOR_HANDOFF_2026-09-22.md",
+  "return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json"
+}
