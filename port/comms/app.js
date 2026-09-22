@@ -226,9 +226,10 @@ addEventListener('keydown',e=>{
   else if(e.key.toLowerCase()==='n')showIntake();
 });
 
-const session=sessionStorage.getItem(SESSION),pinned=localStorage.getItem(PINNED);
-if(session)restore(session);else if(new URLSearchParams(location.search).get('resume')==='1'&&pinned)restore(pinned);
-updatePortButtons();render();
+const params=new URLSearchParams(location.search),session=sessionStorage.getItem(SESSION),pinned=localStorage.getItem(PINNED);
+if(session)restore(session);else if(params.get('resume')==='1'&&pinned)restore(pinned);
+updatePortButtons();
+if(params.get('demo')==='1'&&!state.doc)loadSource(demoConversation(),'COMMS SPINE DEMO');else render();
 window.CommsSpine={
   version:'0.1',
   state:()=>({sourceId:state.sourceId,title:state.title,doc:state.doc,signals:signals(),draft:state.draft,coverageLinks:[...state.coverageLinks]}),
