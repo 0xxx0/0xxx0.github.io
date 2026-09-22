@@ -9,10 +9,11 @@ import {audioGlyphDescriptor,audioGlyphSvg} from './audio-glyph.js';
 import {parseLocalAudioMeta,localDisplayName} from './media-meta.js';
 import {groupLocalInputs,parseTextSidecar,parsePlaylistText} from './sidecar-text.js';
 import {sourceBundleFromMeta} from './source-bundle.js';
+import {normalizeRideProfile,profileKey} from '../live/visual-worlds.js';
 
 const $=s=>document.querySelector(s);
 const gl=$('#field'),overlay=$('#overlay'),audio=$('#audio'),drop=$('#drop');
-let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null,pendingSource=null,pins=[],editingPinId=null,glyphDesc=null,idle={on:false,startScope:1,lastBeat:-1,lastPhrase:-1,lastSection:-1};
+let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null,pendingSource=null,pins=[],editingPinId=null,glyphDesc=null,rideProfile=normalizeRideProfile(),idle={on:false,startScope:1,lastBeat:-1,lastPhrase:-1,lastSection:-1};
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LISTEN');
 
 function toast(t){const e=$('#toast');if(!e)return;e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on')}
@@ -37,10 +38,26 @@ function sourcePinKey(){
   return fileMeta?.hash||fileMeta?.sourceId||fileMeta?.sourceAddress||(fileMeta?.name?`${fileMeta.name}:${fileMeta.size||0}`:null);
 }
 function pinStoreKey(){const k=sourcePinKey();return k?`fold-bloom.listen.pins.v01:${k}`:null}
+
+function rideStoreKey(){const k=sourcePinKey();return k?profileKey(k):null}
+function syncRideProfile(){
+  const k=rideStoreKey();rideProfile=normalizeRideProfile();
+  if(k){try{rideProfile=normalizeRideProfile(JSON.parse(localStorage.getItem(k)||'{}'))}catch(_){} }
+  const set=(id,v)=>{const e=$(id);if(e)e.value=String(v)};
+  set('#rideSolid',Math.round(rideProfile.solidity*100));set('#rideImmersion',Math.round(rideProfile.immersion*100));set('#rideDrop',Math.round(rideProfile.dropGain*100));set('#rideText',Math.round(rideProfile.textOffset*100));
+  if($('#rideSolidVal'))$('#rideSolidVal').textContent=Math.round(rideProfile.solidity*100)+'%';
+  if($('#rideImmersionVal'))$('#rideImmersionVal').textContent=rideProfile.immersion.toFixed(2)+'×';
+  if($('#rideDropVal'))$('#rideDropVal').textContent=rideProfile.dropGain.toFixed(2)+'×';
+  if($('#rideTextVal'))$('#rideTextVal').textContent=(rideProfile.textOffset>=0?'+':'')+rideProfile.textOffset.toFixed(2)+'s';
+  document.documentElement.dataset.listenRideProfile=`${rideProfile.solidity.toFixed(2)}:${rideProfile.immersion.toFixed(2)}:${rideProfile.dropGain.toFixed(2)}:${rideProfile.textOffset.toFixed(2)}`;
+  return rideProfile;
+}
+function saveRideProfile(){const k=rideStoreKey();rideProfile=normalizeRideProfile(rideProfile);if(k){try{localStorage.setItem(k,JSON.stringify(rideProfile))}catch(_){}}syncRideProfile();toast('RIDE PROFILE SAVED')}
+
 function loadPins(){
   const k=pinStoreKey();pins=[];
   if(k){try{pins=normalizePins(JSON.parse(localStorage.getItem(k)||'[]'),sourcePinKey())}catch(_){}}
-  syncPins();
+  syncPins();syncRideProfile();
 }
 function savePins(){
   const k=pinStoreKey();if(!k)return;
@@ -297,6 +314,7 @@ async function loadAddress(input){
 
 function updateWorkflow(){
   const use=$('#useBtn'),read=$('#useRead'),law=$('#useLaw');
+  syncRideProfile();
   if(use)use.disabled=!map;
   const idleBtn=$('#idleBtn');if(idleBtn)idleBtn.disabled=!map;
   if(read){
@@ -306,7 +324,7 @@ function updateWorkflow(){
   }
   if(law&&map){
     const bpm=Number(map.bpm)||0;
-    law.textContent=(bpm?Math.round(bpm)+' BPM · ':'')+'FIELD PULSE carries clock/features only. Borrowed clock ≠ borrowed authorship. AUDIO MAP + RETURN remain durable evidence.';
+    law.textContent=(bpm?Math.round(bpm)+' BPM · ':'')+'FIELD PULSE carries clock/features only. Borrowed clock ≠ borrowed authorship. RIDE PROFILE changes projection/timing only; AUDIO MAP + RETURN remain durable evidence.';
   }
 }
 function toggleUse(force){
@@ -360,7 +378,9 @@ $('#loadBtn').onclick=()=>{drop.classList.remove('loaded');$('#urlInput').focus(
 $('#useBtn').onclick=()=>toggleUse();$('#closeUse').onclick=()=>toggleUse(false);
 $('#pinBtn').onclick=()=>{stopIdle(true);openPinSheet(null,audio.currentTime)};$('#pinsBtn').onclick=()=>{stopIdle(true);openPinSheet(pins[0]||null,audio.currentTime)};$('#glyphBtn').onclick=downloadGlyph;$('#idleBtn').onclick=()=>startIdle();
 $('#pinSave').onclick=commitPin;$('#pinDelete').onclick=deletePin;$('#pinClose').onclick=closePinSheet;
-$('#useRide').onclick=()=>openSurface('../live/');$('#useRead').onclick=openReadfield;$('#useCompose').onclick=()=>openSurface('../two-dial/?pulse=1');$('#useAtlas').onclick=openAtlas;$('#useMap').onclick=()=>{toggleUse(false);$('#export').click()};
+$('#useRide').onclick=()=>openSurface('../live/');$('#useRead').onclick=openReadfield;$('#useCompose').onclick=()=>openSurface('../two-dial/?pulse=1');
+const rideTune=(id,key,scale=100)=>{const el=$(id);if(!el)return;el.oninput=e=>{rideProfile=normalizeRideProfile({...rideProfile,[key]:Number(e.target.value)/scale});saveRideProfile()}};
+rideTune('#rideSolid','solidity');rideTune('#rideImmersion','immersion');rideTune('#rideDrop','dropGain');rideTune('#rideText','textOffset');$('#useAtlas').onclick=openAtlas;$('#useMap').onclick=()=>{toggleUse(false);$('#export').click()};
 $('#transport').onclick=async()=>{stopIdle(true);if(!audio.src)return;if(audio.paused)await audio.play();else audio.pause()};
 audio.onplay=()=>{$('#transport').textContent='PAUSE';publishTransport(true)};audio.onpause=()=>{$('#transport').textContent='PLAY';publishTransport(true)};audio.ontimeupdate=()=>publishTransport(false);
 $('#export').onclick=()=>{if(!map)return;const packet={kind:'FOLD_BLOOM_AUDIO_MAP',created:new Date().toISOString(),sourceBundle:fileMeta?.bundle||null,timedText:fileMeta?.timedText||null,map,glyph:glyphDesc||audioGlyphDescriptor(map,fileMeta||{}),annotations:{schema:STREAM_LENS_SCHEMA,pins:normalizePins(pins,sourcePinKey())},addressedMessage:addressedReturn()},b=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`fold-bloom-audio-map-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
@@ -433,6 +453,7 @@ function loop(){
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else{cancelAnimationFrame(raf);loop()}});
 window.addEventListener('error',e=>{console.warn('LISTEN runtime error',e.error||e.message);if(!map)status('APP DEGRADED · FILE PICKER STILL AVAILABLE')});
 setScope(1,false);updateWorkflow();
-document.documentElement.dataset.listenBoot='ready';document.documentElement.dataset.listenLens=STREAM_LENS_SCHEMA;syncPins();
-window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,pendingSource,glyph:glyphDesc,idle:idle.on,addressedMessage:map?addressedReturn():null,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,pins:normalizePins(pins,sourcePinKey()),sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc};
+document.documentElement.dataset.listenBoot='ready';document.documentElement.dataset.listenLens=STREAM_LENS_SCHEMA;syncPins();syncRideProfile();
+addEventListener('storage',e=>{if(e.key&&e.key===rideStoreKey())syncRideProfile()});
+window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,pendingSource,glyph:glyphDesc,idle:idle.on,addressedMessage:map?addressedReturn():null,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,pins:normalizePins(pins,sourcePinKey()),rideProfile:{...rideProfile},sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc};
 requestAnimationFrame(loop);
