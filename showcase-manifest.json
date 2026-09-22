@@ -1159,7 +1159,7 @@
       "operation": "ORIENT",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-22T06:26:00+08:00",
+        "updated_at": "2026-09-22T08:37:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1167,7 +1167,7 @@
           "RELEASE"
         ]
       },
-      "role": "Current unequal Fold/Bloom family: LIVE 0.4 rides owned/local audio by projecting AUDIO MAP into future TRACKFIELD terrain; TWO DIAL composes music/form and may borrow clock only; ECOLOGY evolves persistent lineage/game state; LISTEN is the deeper source/AUDIO MAP laboratory. Local MP3 is proven; catalogs/providers remain adapters, not authority."
+      "role": "Current unequal Fold/Bloom family: LIVE 0.4 rides owned/local audio by projecting AUDIO MAP into future TRACKFIELD terrain; TWO DIAL composes music/form and may borrow clock only; ECOLOGY evolves persistent lineage/game state; LISTEN 0.2.4 is the deeper source/AUDIO MAP laboratory and now exposes explicit RIDE / READ / COMPOSE / MAP workflows. Local MP3 is proven; catalogs/providers remain adapters, not authority."
     },
     {
       "href": "/fold-bloom/live/",
@@ -3144,14 +3144,14 @@
     },
     {
       "href": "/docs/",
-      "title": "READFIELD / RSVP 0.7",
+      "title": "READFIELD / RSVP 0.7.1",
       "kind": "utility",
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": true,
-      "role": "Canonical reader: one source position survives scale, ORP RSVP, VOICE and context changes. READFIELD defaults to focused text plus a linear source strip; ring geometry is optional. Same-origin repo text and session-local page/paste handoffs enter directly; RAW and RETURN remain intact. Optional PULSE ×2/×4/×8 maps LISTEN BPM into reader WPM; OFF is default, and bounded reader focus is published back onto FIELD PULSE.",
+      "role": "Canonical reader: one source position survives scale, ORP RSVP, VOICE and context changes. 0.7.1 makes the practical modes explicit and adds a LISTEN workflow entry: ?pulse=2|4|8 may borrow the latest same-session BPM immediately, with LIVE vs LAST witness, while READFIELD retains text/focus authority. Same-origin repo text and session-local page/paste/lyrics handoffs enter directly; RAW and RETURN remain intact.",
       "index": {
-        "updated_at": "2026-09-22T02:34:00+08:00",
+        "updated_at": "2026-09-22T08:37:00+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
@@ -3169,7 +3169,8 @@
         "same-origin repo text ingress + route-wide READFIELD handoff",
         "session-local long-text/page paste",
         "RAW + RETURN preserved",
-        "FIELD PULSE tempo consumer / focus producer"
+        "FIELD PULSE tempo consumer / focus producer",
+        "explicit LISTEN→READFIELD workflow entry + LIVE/LAST tempo witness"
       ],
       "operation": "READ",
       "receipt": "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
@@ -3225,7 +3226,7 @@
           "return_path": "/docs/"
         }
       },
-      "version": "0.7"
+      "version": "0.7.1"
     },
     {
       "href": "/control/confluence/",
@@ -5762,15 +5763,15 @@
     },
     {
       "href": "/fold-bloom/listen/",
-      "title": "FOLD // BLOOM LISTEN 0.2.3",
+      "title": "FOLD // BLOOM LISTEN 0.2.4",
       "kind": "experiment",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "LISTEN",
       "state": "CANDIDATE",
-      "role": "Progressive source-addressed audio projection candidate. Local/Suno-addressed audio becomes a PREVIEW→DEEP AUDIO MAP; BEAT/PHRASE/SECTION/TRACK changes the actual polar time domain and touch scrub range. 0.2.3 freezes that domain for each pointer gesture so the ring cannot slide under the finger; HOLD visibly witnesses touch ownership. FIELD PULSE publishes compact transport/features without audio bytes.",
+      "role": "Progressive source-addressed audio projection and connection workbench. Local/Suno-addressed audio becomes a PREVIEW→DEEP AUDIO MAP; BEAT/PHRASE/SECTION/TRACK changes the actual polar time domain and touch scrub range. 0.2.4 adds explicit USE TRACK workflows into LIVE, READFIELD, TWO DIAL and durable MAP export, publishing only bounded FIELD PULSE context and preserving each consumer's authorship.",
       "index": {
-        "updated_at": "2026-09-22T05:20:00+08:00",
+        "updated_at": "2026-09-22T08:37:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -5804,13 +5805,14 @@
         "next_if_pass": "Transfer the surviving audio-map, time-ring, and scale-rail mechanisms into the Fold/Bloom family shell and keep LISTEN as a projection rather than a separate roadmap.",
         "next_if_fail": "Park or donate weak analysis/visualization parts; preserve the polar/scale interaction and source-hash audio map if independently useful."
       },
-      "version": "0.2.3",
+      "version": "0.2.4",
       "contract": "/control/FIELD_PULSE_CONTRACT.json",
       "receipt": "/returns/FIELD_PULSE_2026-09-22.json",
       "transfer": [
         "operational scope-window touch semantics",
         "FIELD PULSE transport producer",
-        "gesture-stable scoped scrub window"
+        "gesture-stable scoped scrub window",
+        "workflow dock: analyzed track → LIVE / READFIELD / TWO DIAL / AUDIO MAP without authority collapse"
       ]
     },
     {
