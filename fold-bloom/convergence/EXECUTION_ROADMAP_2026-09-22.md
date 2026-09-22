@@ -164,10 +164,10 @@ The later Design/Fold–Bloom thread clarified a missing continuity mechanism; a
 - READFIELD/RSVP is a reading projection at the same address, not merely a launcher link.
 - ATLAS is memory/inspection of the same source cell.
 - A persistent rail/background position witness may survive projection changes, but it is projection state, not source truth.
-- Nonlinear text correction, when implemented, must be authored **anchor/warp calibration beside immutable cue evidence**; never rewrite source cue times to make the display look aligned.
-- The current global text offset remains a valid one-anchor special case.
+- Nonlinear text correction is now realized as **field-text-alignment/v0.1**: human-authored anchors/warp beside immutable cue evidence; never rewrite source cue times to make the display look aligned.
+- One anchor corrects arbitrary offset; two+ anchors correct drift. Coarse nudge remains a convenience, not evidence.
 
-This is a mechanism refinement of G2/G4, not a new ontology or fourth active front.
+This remains a mechanism refinement of G2/G4, not a new ontology or fourth active front. LISTEN 0.7 / READFIELD 0.8 / LIVE 0.13 now carry the first runtime realization; direct problem-track QA is the gate.
 
 ### Surface convergence
 
