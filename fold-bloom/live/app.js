@@ -7,6 +7,7 @@ import { createSectionArc, syncSectionArc, observeSectionRelease, sectionArcLabe
 import { appendReleaseDeformations, applyDeformations, pruneDeformationTape, deformationSummary } from './track-deform.js';
 import { createRideState, chooseRideBranch, advanceRide, rideView } from './ride.js';
 import { PracticeTrack } from './practice-track.js';
+import { normalizePins } from '../listen/stream-lens.js';
 
 const $=s=>document.querySelector(s), STORE='fb-live-0.1';
 const cv=$('#field'), renderer=new Renderer(cv);
@@ -15,14 +16,24 @@ let dragging=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
 let demo={on:false,timer:0,releases:0,preview:false,startState:null,startRide:null,startTape:null,startArc:null};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
-let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now();
+let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),sourceLandmarks=[];
 const practiceTrack=new PracticeTrack();
 const liveTrack=new LiveTrack($('#trackAudio'),{
   onState:t=>{trackStatus=t;update()},
-  onMap:m=>toast(m?.stage==='DEEP'?'SONG MAP · DEEP':'SONG MAP · PREVIEW')
+  onMap:m=>{syncSourceLandmarks(m);toast(m?.stage==='DEEP'?'SONG MAP · DEEP':'SONG MAP · PREVIEW')}
 });
 liveTrack.setVolume(.78);
 audio.hydrate(state);
+
+function landmarkKey(map=liveTrack.map){const h=map?.source?.hash;return h?`fold-bloom.listen.pins.v01:${h}`:null}
+function syncSourceLandmarks(map=liveTrack.map){
+  const key=landmarkKey(map);sourceLandmarks=[];
+  if(key){try{sourceLandmarks=normalizePins(JSON.parse(localStorage.getItem(key)||'[]'),map?.source?.hash||null)}catch(_){}}
+  renderer.setLandmarks(sourceLandmarks);
+  document.documentElement.dataset.foldBloomLandmarks=String(sourceLandmarks.length);
+  return sourceLandmarks;
+}
+addEventListener('storage',e=>{if(e.key&&e.key===landmarkKey())syncSourceLandmarks()});
 
 function save(){if(demo.preview)return;try{localStorage.setItem(STORE,JSON.stringify(snapshot(state)))}catch(_){}}
 function load(){try{return restore(JSON.parse(localStorage.getItem(STORE)||'null'))}catch(_){return null}}
@@ -76,7 +87,7 @@ function update(){
   $('#route').textContent=rideView(ride,latestWorld).label;
   $('#speed').textContent=latestWorld?`${Number(latestWorld.currentSpeed||1).toFixed(2)}×`:'—';
   const g=Number(latestWorld?.currentGrade)||0;$('#grade').textContent=!latestWorld?'—':Math.abs(g)<.08?'LEVEL':g>0?`UP ${Math.round(g*100)}`:`DOWN ${Math.round(Math.abs(g)*100)}`;
-  $('#trackState').textContent=liveTrack.active()?trackStatus:(externalTrack?'LISTEN PULSE':'FIELD COURSE');
+  $('#trackState').textContent=liveTrack.active()?trackStatus+(sourceLandmarks.length?` · ${sourceLandmarks.length} MARKS`:''):(externalTrack?'LISTEN PULSE':'FIELD COURSE');
   $('#trackToggle').disabled=!liveTrack.active();
   $('#trackToggle').textContent=liveTrack.active()?($('#trackAudio').paused?'PLAY SONG':'PAUSE SONG'):'PLAY / PAUSE';
   $('#mode').textContent=state.mode;
