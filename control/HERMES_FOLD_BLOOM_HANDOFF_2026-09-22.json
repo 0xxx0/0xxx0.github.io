@@ -1,0 +1,116 @@
+{
+  "schema": "0xxx0/hermes-handoff/v0.1",
+  "id": "HERMES-FOLD-BLOOM-2026-09-22",
+  "updated": "2026-09-22T12:00:00+08:00",
+  "purpose": "Give Hermes enough exact current state to continue Fold/Bloom/LISTEN work without rediscovering the collaboration or flattening unequal branches.",
+  "primary_law": "RECOVER BEFORE INVENTING. Use current heads and exact receipts first; mutate only from a named observed failure; preserve source/projection/authorship boundaries.",
+  "current_family": {
+    "hub": "/fold-bloom/",
+    "live": {
+      "route": "/fold-bloom/live/",
+      "version": "0.7",
+      "role": "performance ride / world-writing over measured MP3 or synthetic FIELD COURSE",
+      "current_truths": [
+        "AUDIO MAP source remains immutable",
+        "grade/speed/turn terrain is interpolated and camera-smoothed",
+        "BLOOM/FOLD/SPLIT/RETURN write reversible time-addressed deformation",
+        "SPLIT supports LEFT/RIGHT/OPEN traversal",
+        "source audio stays 1×; speed is currently visual/spatial"
+      ],
+      "receipt": "/returns/FOLD_BLOOM_MOTION_2026-09-22.json"
+    },
+    "listen": {
+      "route": "/fold-bloom/listen/",
+      "version": "0.3",
+      "role": "source analysis + addressed-stream lens",
+      "portable_schema": "field-addressed-stream/v0.1",
+      "laws": [
+        "horizontal/ring motion = ADDRESS",
+        "vertical/wheel/up-down = APERTURE",
+        "projection does not own source identity",
+        "PIN = authored evidence at source+address, separate from machine-derived analysis",
+        "audio host vocabulary BEAT/PHRASE/SECTION/TRACK is not universal semantics"
+      ],
+      "audio_identity": [
+        "local approximate BPM/beats/sections",
+        "local approximate chroma key + major/minor estimate with confidence",
+        "provider title/tags/lyrics/BPM/key/time-signature preserved only when actually available",
+        "local-file path remains authority; remote/Suno is best-effort convenience"
+      ],
+      "receipt": "/returns/FOLD_BLOOM_STREAM_LENS_2026-09-22.json"
+    },
+    "two_dial": {
+      "route": "/fold-bloom/two-dial/",
+      "version": "0.10.1",
+      "role": "composition / harmony / motif / form authority"
+    },
+    "ecology": {
+      "route": "/fold-bloom/ecology/",
+      "version": "0.2",
+      "role": "persistent lineage/game; donor for embodied cyclic interaction, not a LIVE skin"
+    }
+  },
+  "exact_reentry": [
+    "/control/CURRENT.json",
+    "/showcase-manifest.json",
+    "/fold-bloom/live/EXECUTION.md",
+    "/fold-bloom/live/release.json",
+    "/fold-bloom/listen/README.md",
+    "/fold-bloom/listen/release.json",
+    "/fold-bloom/listen/stream-lens.js",
+    "/control/confluence/FOLD_BLOOM_MOTION_2026-09-22.json",
+    "/control/confluence/FOLD_BLOOM_STREAM_LENS_2026-09-22.json",
+    "/control/FIELD_PULSE_CONTRACT.json"
+  ],
+  "user_return_to_preserve": [
+    "LIVE is beautiful/promising but must earn stronger embodied smoothness and hook rather than accumulate panels.",
+    "The transferable reading/data-stream donor is LISTEN's ring/waveform interaction, not LIVE's racer UI.",
+    "Left/right scrubbing + vertical scale/aperture + pin/annotation is the desired interaction direction.",
+    "The same mechanism may later apply to reading and other streams, but each host must keep its own semantics.",
+    "Rich music identification is useful; prefer portable local analysis and treat provider metadata as optional provenance."
+  ],
+  "authority_boundaries": [
+    "LISTEN may lend clock/context but does not author LIVE topology or TWO DIAL composition.",
+    "FIELD PULSE stays bounded/ephemeral; do not turn it into a universal state bus.",
+    "Pins are authored evidence, never analysis truth.",
+    "Approximate key/mode/sections are evidence, not semantic ground truth.",
+    "READFIELD adaptation must preserve one canonical text address and use text-native apertures; do not import beats/racer HUD.",
+    "Do not spend cycles bypassing remote-provider/CORS limits while local MP3 path works."
+  ],
+  "next_execution": [
+    {
+      "id": "FB-PLAY-01",
+      "priority": 1,
+      "instruction": "Directly play current LIVE 0.7 and LISTEN 0.3 on desktop/phone if runtime/browser access exists. Capture only concrete feel failures: jitter, unclear grade/velocity, gesture conflict, pin friction, confusing first action.",
+      "pass": "observed failure or clean use is recorded with exact route/device/input; no speculative feature list"
+    },
+    {
+      "id": "LISTEN-LENS-02",
+      "priority": 2,
+      "instruction": "With one familiar local track, test horizontal address scrub vs vertical aperture, create two pins, seek/edit/export them, reload same source and verify pin identity; compare local key/mode estimate to known track only as approximate evidence.",
+      "pass": "source-addressed annotations and orthogonal gestures survive real use"
+    },
+    {
+      "id": "LIVE-FEEL-03",
+      "priority": 3,
+      "instruction": "If FB-PLAY-01 finds a named LIVE feel failure, change exactly one motion/camera/gesture operator, A/B against current 0.7, and preserve/revert based on observed difference.",
+      "pass": "one perceptible improvement without hiding FOLD/SPLIT/RETURN meaning"
+    }
+  ],
+  "held_until_evidence": [
+    "READFIELD 0.8 stream-lens adaptation",
+    "sensor/video host adapters",
+    "actual audio time-stretch mode",
+    "provider catalog proliferation",
+    "lane collectibles / Audiosurf imitation",
+    "new universal hub or automatic cross-app musical coupling"
+  ],
+  "return_format": {
+    "observed": "exact behavior/device/input",
+    "changed": "files/operators mutated",
+    "verification": "tests + direct-use evidence",
+    "preserved": "authority/provenance boundaries",
+    "next_truth": "one unresolved empirical question"
+  },
+  "note": "This packet is intentionally execution-complete but not exhaustive project biography. For deeper collaboration context, follow CURRENT + confluence receipts rather than synthesizing from names."
+}
