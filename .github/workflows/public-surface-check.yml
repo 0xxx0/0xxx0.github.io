@@ -29,6 +29,10 @@ jobs:
           python3 control/ingest-context-locator-selftest.py
       - name: Validate HUMAN PORT object aperture
         run: node control/human-port-object-selftest.js
+      - name: Test HUMAN PORT COMMS SPINE 0.1
+        run: |
+          node --test port/comms/tests/core.test.mjs
+          node tools/comms-spine-smoke.mjs
       - name: Validate BODY FIT Health Connect transform
         run: node body/fit/health-connect-selftest.cjs
       - name: Validate INTERPHASE ROOM projection core
