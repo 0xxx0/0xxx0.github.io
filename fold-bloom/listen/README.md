@@ -1,4 +1,4 @@
-# FOLD//BLOOM LISTEN 0.3
+# FOLD//BLOOM LISTEN 0.4
 
 Experimental addressed-stream lens, currently hosted on audio.
 
@@ -28,8 +28,10 @@ After decode:
 
 1. PREVIEW appears immediately.
 2. Material under 20 minutes refines in a Worker.
-3. DEEP analysis produces energy, brightness/centroid, spectral flux, low/mid/high balance, approximate BPM/beats, coarse sections, and a provider-independent chroma-based **key + major/minor estimate**.
-4. Source SHA-256 remains the durable identity witness.
+3. DEEP analysis produces energy, brightness/centroid, spectral flux, low/mid/high balance, approximate BPM/beats, beat-synchronous **phrase novelty boundaries**, coarse sections, and a provider-independent chroma-based **key + major/minor estimate**.
+4. PHRASE uses detected novelty peaks when evidence is sufficient; steady/ambiguous material gets an explicitly-labelled 8-beat `GRID_FALLBACK`.
+5. Source SHA-256 remains the durable identity witness.
+6. The AUDIO MAP compiles a deterministic `fold-bloom-audio-glyph/v0.1` SVG from source hash + structural contour + chroma + sections + tempo.
 
 Provider metadata such as title/tags/lyrics and optional BPM/key/time-signature fields may be preserved when present, but LISTEN does not depend on undocumented provider fields. Local analysis remains the portable fallback.
 
@@ -45,13 +47,13 @@ Provider metadata such as title/tags/lyrics and optional BPM/key/time-signature 
 
 Each pin records source identity, address, aperture, note/label and a small feature witness. Pins live beside the AUDIO MAP and never rewrite analysis evidence. Export carries:
 
-`AUDIO MAP + source provenance + addressed annotations`
+`AUDIO MAP + source provenance + deterministic glyph + addressed annotations`
 
 ## FIELD PULSE
 
-LISTEN still publishes the existing bounded `field-pulse/v0.1` transport: playback time, BPM, beat/section witnesses, current aperture and compact audio features.
+LISTEN still publishes the bounded `field-pulse/v0.1` transport: playback time, BPM, beat/optional-phrase/section witnesses, current aperture and compact audio features.
 
-0.3 deliberately does **not** expand FIELD PULSE with harmonic identity. Key/mode stays in the durable AUDIO MAP/UI until a real consumer requires it.
+0.4 deliberately does **not** expand FIELD PULSE with harmonic identity. Phrase position is temporal context; Key/mode stays in the durable AUDIO MAP/UI until a real consumer requires it.
 
 Current consumers remain LIVE, READFIELD/RSVP and TWO DIAL. Law: **borrowed clock != borrowed authorship**.
 
@@ -75,9 +77,14 @@ The portable invariants are address, aperture, projection, pin/provenance and RE
 Before transferring this into READFIELD or another data host:
 
 1. Desktop/phone: verify horizontal scrub feels distinct from vertical aperture change.
-2. Load materially different songs and judge key/mode estimates as **approximate evidence**, not ground truth.
-3. Add/edit/seek/export pins and confirm they remain attached to the same source hash/address.
+2. Load materially different songs and judge phrase boundaries + key/mode estimates as **approximate evidence**, not ground truth.
+3. Add/edit/seek/export pins and the source glyph; confirm both remain attached to the same source hash/address.
 4. Confirm LIVE/LISTEN/TWO DIAL pulse behavior did not regress.
 5. Only then build a second host adapter.
 
 Remote Suno resolution remains convenience, not a promotion gate. Local file analysis is the authority path.
+
+
+## Glyph horizon
+
+The deterministic glyph is deliberately small and interpretable: the same exact source/map should produce the same mark. A later AUDIO GLYPH ATLAS may use learned music embeddings to arrange *neighborhoods*, but similarity must never rewrite source identity, provenance or lineage.
