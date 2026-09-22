@@ -1,76 +1,83 @@
-# FOLD//BLOOM LISTEN 0.2.2
+# FOLD//BLOOM LISTEN 0.3
 
-Experimental audio-ingest / temporal-field branch.
+Experimental addressed-stream lens, currently hosted on audio.
 
-## Core loop
+## Core law
 
-`SOURCE → DECODED AUDIO → AUDIO MAP → POLAR TIME × SCOPE → REACTIVE FIELD → RETURN`
+`SOURCE → ADDRESS → APERTURE → PROJECTION → ANNOTATION → RETURN`
 
-The object is not a waveform ring. A song becomes an addressed temporal field that other instruments may borrow as **clock/context without borrowing authorship**.
+LISTEN's ring is no longer treated as merely an audio visualizer. Audio is the first rich host for a more general interaction primitive:
 
-### Sources
+- **horizontal / ring motion = ADDRESS**
+- **vertical / wheel / ↑↓ = APERTURE**
+- **BEAT → PHRASE → SECTION → TRACK = audio-specific aperture vocabulary**
+- **PIN = authored evidence at an address**
+- **projection may change; source identity and address do not**
 
-- **LOCAL_FILE** — canonical path. Browser-local; bytes do not leave the browser.
-- **SUNO** — URL or UUID best-effort public metadata/audio resolution. Network/CORS dependent; no auth/cookie scraping.
-- **REMOTE_AUDIO** — direct `http(s)` audio address, capped at 96 MB.
-- Failure of a remote source returns cleanly to local file intake.
+The portable donor is `field-addressed-stream/v0.1` in `stream-lens.js`. It contains no audio semantics and may later host text, sensor streams, timelines or video without pretending those streams have beats or musical sections.
 
-## AUDIO MAP
+## Audio host
 
-`decodeAudioData` produces PCM. A Worker analyzes a 12 kHz mixdown using FFT windows and derives:
+Sources remain:
 
-- RMS energy
-- spectral centroid / brightness
-- positive spectral flux
-- low / mid / high spectral balance
-- approximate tempo + beat phase
-- coarse section boundaries
-- source SHA-256 provenance
+- **LOCAL_FILE** — canonical and browser-local.
+- **SUNO** — best-effort public address/metadata/audio resolution; network/CORS dependent.
+- **REMOTE_AUDIO** — direct http(s) audio address, capped at 96 MB.
 
-After decode, a **PREVIEW** map appears immediately; material under 20 minutes then refines to a **DEEP** map. Long-form audio stays interactive in PREVIEW rather than blocking.
+After decode:
 
-## Address / scope grammar
+1. PREVIEW appears immediately.
+2. Material under 20 minutes refines in a Worker.
+3. DEEP analysis produces energy, brightness/centroid, spectral flux, low/mid/high balance, approximate BPM/beats, coarse sections, and a provider-independent chroma-based **key + major/minor estimate**.
+4. Source SHA-256 remains the durable identity witness.
 
-- **ANGLE = TIME**
-- ring drag = scrub
-- **BEAT → PHRASE → SECTION → TRACK** changes the actual addressed time window, not just a label
-- 2D annulus shows beat/section witnesses even without WebGL
-- reactive field uses the same AUDIO MAP features
-- export emits `FOLD_BLOOM_AUDIO_MAP` JSON with source evidence
+Provider metadata such as title/tags/lyrics and optional BPM/key/time-signature fields may be preserved when present, but LISTEN does not depend on undocumented provider fields. Local analysis remains the portable fallback.
+
+## Interaction
+
+- ring drag: absolute polar scrub inside the frozen current aperture
+- horizontal trackpad / shift-wheel: relative address scrub
+- ← / →: fine address movement inside the current aperture
+- shift + ← / →: beat step
+- vertical wheel / ↑ / ↓: aperture change
+- **P** or PIN: mark current address
+- PINS: inspect, seek, edit or remove annotations
+
+Each pin records source identity, address, aperture, note/label and a small feature witness. Pins live beside the AUDIO MAP and never rewrite analysis evidence. Export carries:
+
+`AUDIO MAP + source provenance + addressed annotations`
 
 ## FIELD PULSE
 
-LISTEN publishes an optional ephemeral `field-pulse/v0.1` transport containing playback time, BPM, beat/section index, scope, energy, flux, brightness and source witness.
+LISTEN still publishes the existing bounded `field-pulse/v0.1` transport: playback time, BPM, beat/section witnesses, current aperture and compact audio features.
 
-Current bindings:
+0.3 deliberately does **not** expand FIELD PULSE with harmonic identity. Key/mode stays in the durable AUDIO MAP/UI until a real consumer requires it.
 
-- **LISTEN → LIVE**: beat pulse + compact track witness
-- **LISTEN → READFIELD / RSVP**: explicit PULSE OFF/×2/×4/×8 maps BPM to reading pace
-- **LISTEN → TWO DIAL**: opt-in metrical clock plus energy/section context
-- LIVE / TWO DIAL may publish bounded operations back
+Current consumers remain LIVE, READFIELD/RSVP and TWO DIAL. Law: **borrowed clock != borrowed authorship**.
 
-Law: **borrowed clock != borrowed authorship**. Each instrument keeps its own transformation grammar. FIELD PULSE never becomes canonical state; AUDIO MAP / RETURN remain the durable evidence boundary.
+## Generalization donor
 
-## External-media boundary
+For another stream, replace only the host vocabulary:
 
-- Suno share links are source addresses when public resolution works.
-- YouTube is a candidate playback/link adapter; iframe playback is not treated as raw analyzable audio.
-- Spotify is a listening/publishing target for this path, not a raw-audio synchronization source.
-- Same-origin owned/licensed self-hosted audio is a clean future source seam.
+`audio seconds + BEAT/PHRASE/SECTION/TRACK`
 
-Future, not yet implemented: beat/event tape export, Audiosurf 2 donor integration, Beat Saber draft beatmap/event export from AUDIO MAP + authored FIELD operations.
+could lawfully become:
 
-## Current evidence gate
+- text: character/token address + WORD/SENTENCE/PARAGRAPH/DOCUMENT
+- sensor log: timestamp + EVENT/WINDOW/SESSION/RUN
+- video: timestamp/frame + SHOT/SCENE/CLIP
+- arbitrary series: index/time + host-defined nested windows
 
-The code is not waiting on another visual mode. It is waiting on real-track truth:
+The portable invariants are address, aperture, projection, pin/provenance and RETURN—not the audio labels.
 
-1. Retest a real phone on 0.2.2: visible PREVIEW, then DEEP map.
-2. Try one real Suno/source address and record only: `RESOLVES / CORS_BLOCKED / DECODE_FAIL / MAP_READY`.
-3. Compare heard transients, tempo and sections with AUDIO MAP witnesses.
-4. Verify LISTEN→LIVE, LISTEN→RSVP and LISTEN↔TWO DIAL opt-in pulse behavior with real audio.
+## Evidence gate
 
-Do not add another hub, automatic musical coupling, source-specific hack or decorative visual mode before those returns.
+Before transferring this into READFIELD or another data host:
 
-## Provenance note
+1. Desktop/phone: verify horizontal scrub feels distinct from vertical aperture change.
+2. Load materially different songs and judge key/mode estimates as **approximate evidence**, not ground truth.
+3. Add/edit/seek/export pins and confirm they remain attached to the same source hash/address.
+4. Confirm LIVE/LISTEN/TWO DIAL pulse behavior did not regress.
+5. Only then build a second host adapter.
 
-A Sep-22 coordination packet records that a real Suno address had been supplied, but the current conversation recovery did not recover its exact URL/UUID. Treat that source identity as unresolved until exact evidence is recovered; do not reconstruct it from memory.
+Remote Suno resolution remains convenience, not a promotion gate. Local file analysis is the authority path.
