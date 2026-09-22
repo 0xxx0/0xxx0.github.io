@@ -1,6 +1,7 @@
 import {audioGlyphDescriptor,audioGlyphSvg} from '../listen/audio-glyph.js';
 import {buildPreviewMap} from '../listen/preview-map.js';
-import {parseId3,id3DisplayName} from '../listen/id3.js';
+import {parseLocalAudioMeta,localDisplayName} from '../listen/media-meta.js';
+import {groupLocalInputs,parseTextSidecar,parsePlaylistText} from '../listen/sidecar-text.js';
 import {ATLAS_SCHEMA,MAX_ATLAS_ENTRIES,atlasPacket,appendPath,encodeAtlas,decodeAtlas,syntheticAtlas} from './atlas-core.js';
 
 const $=s=>document.querySelector(s),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
@@ -53,14 +54,24 @@ function renderWall(){
 }
 function renderFocus(){
   const x=entryBy(focusId),glyph=$('#focusGlyph'),pathBtn=$('#pathBtn');
-  if(!x){glyph.innerHTML='';$('#focusName').textContent='NO SOURCE';$('#focusMeta').textContent='—';$('#focusHash').textContent='—';pathBtn.disabled=true;$('#listenBtn').disabled=true;$('#liveBtn').disabled=true;$('#removeBtn').disabled=true;return}
+  if(!x){glyph.innerHTML='';$('#focusName').textContent='NO SOURCE';$('#focusMeta').textContent='—';$('#focusHash').textContent='—';$('#inside').innerHTML='<div class="insideEmpty">FOCUS A CELL TO SEE INSIDE</div>';pathBtn.disabled=true;$('#listenBtn').disabled=true;$('#liveBtn').disabled=true;$('#originBtn').disabled=true;$('#removeBtn').disabled=true;return}
   glyph.innerHTML=audioGlyphSvg(x.glyph,{size:280,padding:15});
   $('#focusKind').textContent=x.sourceKind==='SYNTHETIC_DEMO'?'SYNTHETIC DEMO':'SOURCE CELL';
   $('#focusName').textContent=x.name;
   $('#focusMeta').textContent=metaLine(x)+(x.artist?' · '+x.artist:'');
   $('#focusHash').textContent=x.sourceHash||'NO SOURCE HASH';
+  const hash=(x.sourceHash||'').slice(0,16),text=x.textWitness,origin=x.origin,collection=x.collection;
+  const means=x.glyph?.means||{},inside=[
+    ['IDENTITY',[x.sourceKind,x.format||null,hash?hash+'…':null].filter(Boolean).join(' · ')||'SYNTHETIC'],
+    ['STRUCTURE',[x.duration?fmtDuration(x.duration):null,x.glyph?.bpm?Math.round(x.glyph.bpm)+' BPM':null,x.glyph?.key||null,(x.glyph?.sectionCount||1)+' SECTIONS'].filter(Boolean).join(' · ')],
+    ['SIGNATURE','E '+Math.round((means.energy||0)*100)+' · Δ '+Math.round((means.flux||0)*100)+' · C '+Math.round((means.brightness||0)*100)],
+    ['TEXT',text?(text.kind+' · '+text.alignment+' · '+text.chars+' CHARS'+(text.cues?' · '+text.cues+' CUES':'')):'NONE'],
+    ['ORIGIN',origin?(origin.kind+' · '+(origin.id||shortAddress(origin.address)||'LINK')):'LOCAL / UNBOUND'],
+    ['COLLECTION',collection?(collection.name+(collection.count!=null?' · '+collection.count+' ITEMS':'')):'NONE']
+  ];
+  $('#inside').innerHTML=inside.map(([k,v])=>'<div class="insideFacet"><b>'+esc(k)+'</b><span>'+esc(v||'—')+'</span></div>').join('');
   const i=packet.path.indexOf(x.id);pathBtn.disabled=false;pathBtn.textContent=i>=0?`REMOVE FROM PATH · ${i+1}`:'ADD TO PATH';
-  $('#listenBtn').disabled=false;$('#liveBtn').disabled=false;$('#removeBtn').disabled=x.sourceKind==='SYNTHETIC_DEMO';
+  $('#listenBtn').disabled=false;$('#liveBtn').disabled=false;$('#originBtn').disabled=!origin?.address;$('#removeBtn').disabled=x.sourceKind==='SYNTHETIC_DEMO';
 }
 function renderPath(){
   $('#pathCount').textContent=`${packet.path.length} CELL${packet.path.length===1?'':'S'}`;
@@ -80,8 +91,10 @@ function render(){
   document.documentElement.dataset.atlasSchema=ATLAS_SCHEMA;
 }
 function metaLine(x){
-  const bits=[];if(x.glyph?.bpm)bits.push(Math.round(x.glyph.bpm)+' BPM');if(x.glyph?.key)bits.push(x.glyph.key);bits.push((x.glyph?.sectionCount||1)+' SECT');return bits.join(' · ');
+  const bits=[];if(x.glyph?.bpm)bits.push(Math.round(x.glyph.bpm)+' BPM');if(x.glyph?.key)bits.push(x.glyph.key);bits.push((x.glyph?.sectionCount||1)+' SECT');if(x.collection?.name)bits.push('↗ '+x.collection.name);return bits.join(' · ');
 }
+function fmtDuration(t){t=Math.max(0,Number(t)||0);const h=Math.floor(t/3600),m=Math.floor((t%3600)/60),sec=Math.floor(t%60);return h?(h+':'+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0')):(m+':'+String(sec).padStart(2,'0'))}
+function shortAddress(v=''){try{const u=new URL(v);return u.hostname+u.pathname.slice(0,28)}catch(_){return String(v).slice(0,42)}}
 function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function togglePath(){
   const x=entryBy(focusId);if(!x)return;
@@ -119,34 +132,44 @@ function runDeep(){
   if(deepBusy||!deepQueue.length)return;
   deepBusy=true;const j=deepQueue[0];ensureWorker().postMessage({type:'analyze',pcm:j.pcm,sampleRate:j.sampleRate,duration:j.duration},[j.pcm]);
 }
-async function decodeFile(file){
-  const bytes=await file.arrayBuffer(),hashP=hashBuffer(bytes.slice(0)),id3=parseId3(bytes),AC=globalThis.AudioContext||globalThis.webkitAudioContext;
+async function textEvidence(files=[]){
+  const out=[];
+  for(const f of files){try{out.push(parseTextSidecar(await f.text(),f.name))}catch(error){console.warn('atlas sidecar',f.name,error)}}
+  return out.filter(x=>x.text);
+}
+async function playlistEvidence(files=[]){
+  const out=[];
+  for(const f of files){try{out.push(parsePlaylistText(await f.text(),f.name))}catch(error){console.warn('atlas playlist',f.name,error)}}
+  return out.filter(x=>x.entries?.length);
+}
+async function decodeFile(file,{sidecars=[],collection=null}={}){
+  const bytes=await file.arrayBuffer(),hashP=hashBuffer(bytes.slice(0)),meta=parseLocalAudioMeta(bytes,file.name),texts=await textEvidence(sidecars),AC=globalThis.AudioContext||globalThis.webkitAudioContext;
   if(!AC)throw Error('Web Audio unavailable');
   const ctx=new AC();
   try{
-    const decoded=await ctx.decodeAudioData(bytes.slice(0)),hash=await hashP,{pcm,sampleRate}=mixdown(decoded);
-    const source={hash,name:id3DisplayName(id3,file.name),sourceFileName:file.name,artist:id3.artist||'',title:id3.title||'',album:id3.album||'',lyrics:id3.lyrics||'',sourceKind:'LOCAL_FILE',size:file.size,type:file.type||'audio'};
+    const decoded=await ctx.decodeAudioData(bytes.slice(0)),hash=await hashP,{pcm,sampleRate}=mixdown(decoded),text=texts[0]||null;
+    const source={hash,name:localDisplayName(meta,file.name),sourceFileName:file.name,artist:meta.artist||'',title:meta.title||'',album:meta.album||'',lyrics:text?.text||meta.lyrics||'',lyricsAlignment:text?.alignment||meta.lyricsAlignment||null,sourceKind:'LOCAL_FILE',size:file.size,type:file.type||'audio',metadataSource:[meta.metadataSource,text?'SIDECAR_TEXT':null].filter(Boolean).join('+')||null};
     const map=buildPreviewMap(pcm,sampleRate,decoded.duration);map.source=source;
-    const x={id:hash,name:source.name,artist:source.artist,duration:decoded.duration,sourceHash:hash,sourceKind:'LOCAL_FILE',glyph:audioGlyphDescriptor(map,source),deep:false};
+    const x={id:hash,name:source.name,artist:source.artist,album:source.album,format:file.type||file.name.split('.').pop()?.toUpperCase()||'',duration:decoded.duration,sourceHash:hash,sourceKind:'LOCAL_FILE',collection:collection?{kind:collection.kind||'PLAYLIST',name:collection.name||'PLAYLIST',address:collection.address||null,id:collection.id||null,count:collection.entries?.length||null}:null,textWitness:(text||source.lyrics)?{kind:text?.kind||(source.lyrics?'LYRICS':null),alignment:text?.alignment||source.lyricsAlignment||null,chars:String(source.lyrics||'').length,cues:text?.cueCount||0}:null,glyph:audioGlyphDescriptor(map,source),deep:false};
     queueDeep(hash,pcm,sampleRate,decoded.duration,source);
     return x;
   }finally{await ctx.close().catch(()=>{})}
 }
 async function loadFiles(files){
-  const xs=[...files].slice(0,MAX_ATLAS_ENTRIES);
-  if(!xs.length)return;
+  const grouped=groupLocalInputs(files),playlist=(await playlistEvidence(grouped.playlists))[0]||null,xs=grouped.groups.slice(0,MAX_ATLAS_ENTRIES);
+  if(!xs.length){$('#status').textContent=playlist?'PLAYLIST READ · ADD AUDIO TO MATERIALIZE CELLS':'NO DECODABLE AUDIO CELLS';return}
   stopIdle(false);$('#status').textContent='DECODING · 0/'+xs.length;
-  if(!realMode){packet=atlasPacket({title:'MY GLYPH ATLAS',entries:[],path:[],note:''});realMode=true;focusId=null}
+  if(!realMode){packet=atlasPacket({title:playlist?.name||'MY GLYPH ATLAS',entries:[],path:[],note:''});realMode=true;focusId=null}
   let done=0;
-  for(const file of xs){
+  for(const g of xs){
     if(packet.entries.length>=MAX_ATLAS_ENTRIES)break;
     try{
-      const x=await decodeFile(file);
+      const x=await decodeFile(g.audio,{sidecars:g.sidecars,collection:playlist});
       if(!packet.entries.some(e=>e.sourceHash===x.sourceHash)){packet.entries.push(x);focusId=x.id;persist()}
-    }catch(error){console.warn(file.name,error)}
+    }catch(error){console.warn(g.audio.name,error)}
     done++;$('#status').textContent=`DECODING · ${done}/${xs.length}`;render();
   }
-  $('#status').textContent=`ATLAS READY · ${packet.entries.length} SOURCE CELL${packet.entries.length===1?'':'S'} · DEEP MAPS REFINE IN PLACE`;
+  $('#status').textContent=`ATLAS READY · ${packet.entries.length} SOURCE CELL${packet.entries.length===1?'':'S'} · CLICK A GLYPH TO SEE INSIDE`;
 }
 function currentPacket(){
   return atlasPacket({entries:packet.entries,path:packet.path,title:packet.title,note:$('#message').value.trim()});
@@ -167,14 +190,14 @@ function removeFocus(){
   stopIdle(false);packet.entries=packet.entries.filter(e=>e.id!==x.id);packet.path=packet.path.filter(id=>id!==x.id);focusId=packet.entries[0]?.id||null;persist();render();$('#status').textContent='CELL REMOVED · AUDIO WAS NEVER STORED';
 }
 function openSibling(route){
-  const x=entryBy(focusId);if(x)try{sessionStorage.setItem('fold-bloom.source-witness.v1',JSON.stringify({sourceHash:x.sourceHash,name:x.name,glyph:x.glyph,from:'/fold-bloom/atlas/'}))}catch(_){}
+  const x=entryBy(focusId);if(x)try{sessionStorage.setItem('fold-bloom.source-witness.v1',JSON.stringify({sourceHash:x.sourceHash,name:x.name,glyph:x.glyph,format:x.format,origin:x.origin,collection:x.collection,textWitness:x.textWitness,from:'/fold-bloom/atlas/'}))}catch(_){}
   window.open(route,'_blank');
 }
 
 $('#loadBtn').onclick=()=>$('#files').click();$('#files').onchange=e=>loadFiles(e.target.files);
 $('#pathBtn').onclick=togglePath;$('#clearPath').onclick=clearPath;$('#removeBtn').onclick=removeFocus;$('#idleBtn').onclick=startIdle;$('#shareBtn').onclick=share;$('#exportBtn').onclick=exportReturn;
 $('#message').oninput=()=>{packet.note=$('#message').value;persist()};
-$('#listenBtn').onclick=()=>openSibling('../listen/');$('#liveBtn').onclick=()=>openSibling('../live/');
+$('#listenBtn').onclick=()=>openSibling('../listen/');$('#liveBtn').onclick=()=>openSibling('../live/');$('#originBtn').onclick=()=>{const x=entryBy(focusId);if(x?.origin?.address)window.open(x.origin.address,'_blank','noopener')};
 document.addEventListener('pointerdown',e=>{if(idle.on&&!e.target.closest('#idleBtn'))stopIdle(true)},{capture:true});
 document.addEventListener('keydown',e=>{if(idle.on&&e.key!=='Tab')stopIdle(true)});
 render();

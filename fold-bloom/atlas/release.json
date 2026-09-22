@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM GLYPH ATLAS",
-  "version": "0.1",
+  "version": "0.2",
   "route": "/fold-bloom/atlas/",
-  "state": "CANDIDATE_MERGED",
+  "state": "CANDIDATE_BRANCH_VERIFY",
   "operation": "ADDRESS / PATH / RETURN",
   "released": "2026-09-22",
-  "thesis": "One exact source identity can become a deterministic glyph CELL; a human may author an ordered PATH through cells; glyph wall, path rail and sibling instruments remain unequal projections; share/export returns the construction without bundling source audio.",
+  "thesis": "An exact audio source becomes a deterministic glyph thumbnail that can be opened back into bounded facets of the same object—identity, structure, text witness, origin and collection—before a human authors a path or RETURN. Thumbnail and inside remain one addressed source, not two projects.",
   "lineage": [
     "/recovery/path-grid/ — CELL → EDGE/BY → PATH → ADDRESS → VIEW → RETURN",
     "/recovery/path-grid/anthropy-pathweaver/ — one path, unequal glyph/score projections",
@@ -21,19 +21,28 @@
     "compact URL hash shares glyph descriptors/path/note but never audio bytes",
     "full JSON RETURN preserves exact source hashes and the projection law",
     "synthetic demo constellation makes the public link alive without uploads",
-    "IDLE traverses focus only and never alters path/source"
+    "IDLE traverses focus only and never alters path/source",
+    "focused glyph now opens an INSIDE facet grid: IDENTITY / STRUCTURE / SIGNATURE / TEXT / ORIGIN / COLLECTION",
+    "Atlas share packets preserve bounded format/album/origin/collection/text-witness evidence but never audio bytes",
+    "M4A/MP4 metadata and LRC/VTT/SRT/TXT sidecar evidence may materialize into source cells",
+    "M3U/M3U8/PLS context may label a local source constellation",
+    "origin link is independently openable when present; synthetic/local-only cells do not invent one",
+    "glyph remains the compact thumbnail; focus is a reversible drill into the same source cell"
   ],
   "boundaries": [
     "glyph similarity is not lineage",
     "shared packet contains representation evidence, not licensed/source audio",
     "source identity is exact hash; name/title is display metadata",
     "IDLE is witness-only and cannot author PATH",
-    "learned embedding neighborhoods remain held until deterministic glyph recognition is tested"
+    "learned embedding neighborhoods remain held until deterministic glyph recognition is tested",
+    "inside facets expose recovered/provided evidence only; no inferred album/lyrics/origin/collection",
+    "the glyph is a projection and thumbnail, never a substitute for exact source identity",
+    "shared source facets are bounded metadata/witnesses only and must not smuggle audio or full private transcripts"
   ],
   "verification": {
-    "branch": "master",
-    "ci": "PASS: public-surface-check 35693062152; Atlas core hash/path share tests + mobile browser synthetic/IDLE surface + full repo regression green.",
-    "direct_use": "REQUIRED_NEXT: 5–12 familiar files; recognition/relearning + path/share feel",
+    "branch": "fold-bloom-source-cell-011",
+    "ci": "PENDING PR CI",
+    "direct_use": "REQUIRED_NEXT: load 5–12 familiar source bundles, click glyph→inside, confirm recognition and that origin/text/collection facets feel like one object rather than metadata clutter.",
     "pr": 145,
     "merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130"
   }

@@ -42,7 +42,7 @@ jobs:
       - name: Test LISTEN analysis + stream lens
         run: |
           node fold-bloom/listen/selftest.mjs
-          node --test fold-bloom/listen/audio-glyph.test.mjs fold-bloom/listen/id3.test.mjs fold-bloom/atlas/atlas-core.test.mjs
+          node --test fold-bloom/listen/audio-glyph.test.mjs fold-bloom/listen/id3.test.mjs fold-bloom/listen/tests/source-bundle.test.mjs fold-bloom/listen/tests/source-bundle-contract.test.mjs fold-bloom/atlas/atlas-core.test.mjs
           node fold-bloom/listen/stream-lens.test.mjs
           node fold-bloom/listen/source-adapters.test.mjs
       - name: Test LISTEN preview render

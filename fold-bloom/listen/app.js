@@ -1,16 +1,18 @@
 import {ListenRenderer} from './render.js';
 import {SCOPES,frameAt,beatIndexAt,phraseIndexAt,sectionIndexAt,scopeWindow,scrubTime} from './audio-map.js';
 import {pointAngle01} from './polar-control.js';
-import {parseSunoId,classifySourceAddress,resolveSourceAddress,fetchRemoteAudio} from './source-adapters.js';
+import {parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,fetchRemoteAudio} from './source-adapters.js';
 import {buildPreviewMap} from './preview-map.js';
 import {createFieldPulse} from '../../lib/field-pulse.js';
 import {STREAM_LENS_SCHEMA,scrubByDelta,stepAddress,makeStreamPin,normalizePins} from './stream-lens.js';
 import {audioGlyphDescriptor,audioGlyphSvg} from './audio-glyph.js';
-import {parseId3,id3DisplayName} from './id3.js';
+import {parseLocalAudioMeta,localDisplayName} from './media-meta.js';
+import {groupLocalInputs,parseTextSidecar,parsePlaylistText} from './sidecar-text.js';
+import {sourceBundleFromMeta} from './source-bundle.js';
 
 const $=s=>document.querySelector(s);
 const gl=$('#field'),overlay=$('#overlay'),audio=$('#audio'),drop=$('#drop');
-let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null,pins=[],editingPinId=null,glyphDesc=null,idle={on:false,startScope:1,lastBeat:-1,lastPhrase:-1,lastSection:-1};
+let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null,pendingSource=null,pins=[],editingPinId=null,glyphDesc=null,idle={on:false,startScope:1,lastBeat:-1,lastPhrase:-1,lastSection:-1};
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LISTEN');
 
 function toast(t){const e=$('#toast');if(!e)return;e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on')}
@@ -184,6 +186,7 @@ async function analyzeBytes(bytes,playbackBlob,meta){
     const decoded=await ctx.decodeAudioData(bytes.slice(0)),hash=await hashP,{pcm,sampleRate}=mixdown(decoded);
     if(objectURL)URL.revokeObjectURL(objectURL);objectURL=URL.createObjectURL(playbackBlob);audio.src=objectURL;
     fileMeta={...meta,name:meta.name||'AUDIO SOURCE',size:meta.size??playbackBlob.size,type:meta.type||playbackBlob.type||'audio',hash,duration:decoded.duration,sourceSampleRate:decoded.sampleRate};
+    fileMeta.bundle=sourceBundleFromMeta(fileMeta);
     loadPins();
     $('#track').textContent=fileMeta.name;
     const lyricNote=fileMeta.lyrics?' · LYRICS FOUND / UNALIGNED':'',tagNote=fileMeta.tags?` · ${String(fileMeta.tags).slice(0,42)}`:'';
@@ -202,34 +205,92 @@ async function analyzeBytes(bytes,playbackBlob,meta){
     ensureWorker().postMessage({type:'analyze',pcm:pcm.buffer,sampleRate,duration:decoded.duration},[pcm.buffer]);
   }finally{await ctx.close().catch(()=>{})}
 }
-async function loadFile(file){
+async function readTextEvidence(sidecars=[]){
+  const out=[];
+  for(const f of sidecars){
+    try{out.push(parseTextSidecar(await f.text(),f.name))}catch(error){console.warn('sidecar',f.name,error)}
+  }
+  return out.filter(x=>x.text);
+}
+async function readPlaylistEvidence(files=[]){
+  const out=[];
+  for(const f of files){
+    try{out.push(parsePlaylistText(await f.text(),f.name))}catch(error){console.warn('playlist',f.name,error)}
+  }
+  return out.filter(x=>x.entries?.length);
+}
+async function loadFiles(files){
+  const grouped=groupLocalInputs(files),playlistEvidence=await readPlaylistEvidence(grouped.playlists);
+  if(!grouped.groups.length){
+    if(playlistEvidence.length){
+      pendingSource={kind:'LOCAL_PLAYLIST',title:playlistEvidence[0].name,collection:playlistEvidence[0],resolution:'LOCAL_PLAYLIST_FILE'};
+      drop.classList.remove('busy');status('PLAYLIST CAPTURED · '+playlistEvidence[0].entries.length+' ADDRESSES · LOAD ONE AUDIO TO BIND');
+      $('#meta').textContent='PLAYLIST IS CONTEXT / ORDER · AUDIO BYTES STILL REQUIRED FOR A MAP';toast('PLAYLIST CONTEXT READY');
+    }
+    return;
+  }
+  const g=grouped.groups[0];
+  await loadFile(g.audio,{sidecars:g.sidecars,collection:playlistEvidence[0]||null});
+}
+async function loadFile(file,{sidecars=[],collection=null}={}){
   if(!file)return;
   stopIdle(false);
   try{
-    const bytes=await file.arrayBuffer(),id3=parseId3(bytes);
-    await analyzeBytes(bytes,file,{
-      name:id3DisplayName(id3,file.name),sourceFileName:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',sourceAddress:null,
-      title:id3.title||'',artist:id3.artist||'',album:id3.album||'',tags:id3.genre||'',lyrics:id3.lyrics||'',
-      lyricsLanguage:id3.lyricsLanguage||null,lyricsAlignment:id3.lyricsAlignment||null,
-      providerBpm:id3.bpm||null,providerKey:id3.key||null,metadataSource:id3.present?'ID3V2':null
-    })
+    const bytes=await file.arrayBuffer(),meta=parseLocalAudioMeta(bytes,file.name),textEvidence=await readTextEvidence(sidecars);
+    const text=textEvidence[0]||null,origin=pendingSource&&pendingSource.kind!=='LOCAL_PLAYLIST'&&pendingSource.kind!=='SUNO_PLAYLIST'?pendingSource:null;
+    const collectionEvidence=collection||(pendingSource?.kind==='LOCAL_PLAYLIST'?pendingSource.collection:null)||(pendingSource?.kind==='SUNO_PLAYLIST'?{kind:'SUNO_PLAYLIST',name:pendingSource.title||'SUNO PLAYLIST',address:pendingSource.address,id:pendingSource.playlistId,entries:[]}:null);
+    const title=meta.title||origin?.title||'',artist=meta.artist||origin?.artist||'',album=meta.album||'',lyrics=text?.text||meta.lyrics||origin?.lyrics||'';
+    const sourceMeta={
+      name:title?(artist?artist+' — '+title:title):localDisplayName(meta,file.name),sourceFileName:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',
+      sourceAddress:origin?.address||null,sourceId:origin?.sunoId||null,metadataAddress:origin?.metadataUrl||null,resolution:origin?.resolution||null,
+      title,artist,album,tags:meta.genre||origin?.tags||'',lyrics,
+      lyricsLanguage:meta.lyricsLanguage||null,lyricsAlignment:text?.alignment||meta.lyricsAlignment||(origin?.lyrics?'UNALIGNED_PROVIDER_META':null),
+      providerBpm:meta.bpm||origin?.providerBpm||null,providerKey:meta.key||origin?.providerKey||null,providerTimeSignature:origin?.providerTimeSignature||null,
+      metadataSource:[meta.metadataSource,text?'SIDECAR_TEXT':null,origin?'SOURCE_ADDRESS':null].filter(Boolean).join('+')||null,
+      origin:origin?{kind:origin.kind,address:origin.address,id:origin.sunoId||null,resolution:origin.resolution||null}:null,
+      collection:collectionEvidence?{kind:collectionEvidence.kind||'PLAYLIST',name:collectionEvidence.name||'PLAYLIST',address:collectionEvidence.address||null,id:collectionEvidence.id||null,count:collectionEvidence.entries?.length||null}:null,
+      textEvidence:textEvidence.map(x=>({name:x.name,kind:x.kind,alignment:x.alignment,chars:x.chars,cueCount:x.cueCount})),
+      timedText:text?.cues?.length?{name:text.name,kind:text.kind,alignment:text.alignment,cues:text.cues.slice(0,1200)}:null
+    };
+    await analyzeBytes(bytes,file,sourceMeta);
+    if(origin||collectionEvidence){toast(origin?'SOURCE LINK × LOCAL BYTES BOUND':'PLAYLIST CONTEXT × AUDIO BOUND');pendingSource=null}
   }
   catch(error){console.warn(error);drop.classList.remove('busy');status('DECODE ERROR · CHOOSE ANOTHER FILE');toast('DECODE ERROR')}
 }
 async function loadAddress(input){
   status('RESOLVING');drop.classList.add('busy');lastRemoteFailure=null;
+  let source=null;
   try{
-    const source=await resolveSourceAddress(input);$('#track').textContent=source.title||'REMOTE SOURCE';
-    $('#meta').textContent=source.kind==='SUNO'?`${source.resolution.replaceAll('_',' ')} · FETCHING AUDIO`:'DIRECT ADDRESS · FETCHING AUDIO';
+    source=await resolveSourceAddress(input);pendingSource=source;$('#track').textContent=source.title||'REMOTE SOURCE';
+    if(source.kind==='SUNO_PLAYLIST'){
+      drop.classList.remove('busy');status('SUNO PLAYLIST ADDRESS CAPTURED · LOAD AUDIO TO BIND');
+      $('#meta').textContent='PLAYLIST LINK PRESERVED AS COLLECTION PROVENANCE · BROWSER DOES NOT REQUIRE PLAYLIST SCRAPING';
+      toast('PLAYLIST ADDRESS READY');return;
+    }
+    $('#meta').textContent=source.kind==='SUNO'?(source.resolution.replaceAll('_',' ')+' · FETCHING AUDIO'):'DIRECT ADDRESS · FETCHING AUDIO';
     const remote=await fetchRemoteAudio(source),blob=new Blob([remote.bytes],{type:remote.type||'audio/mpeg'});
-    await analyzeBytes(remote.bytes,blob,{name:source.title||source.audioUrl.split('/').pop()||'REMOTE AUDIO',size:remote.size,type:remote.type,sourceKind:source.kind,sourceAddress:source.address,sourceId:source.sunoId||null,metadataAddress:source.metadataUrl||null,resolution:source.resolution,artist:source.artist||'',tags:source.tags||'',lyrics:source.lyrics||'',providerBpm:source.providerBpm||null,providerKey:source.providerKey||null,providerTimeSignature:source.providerTimeSignature||null,metadataError:source.metadataError||null});
+    await analyzeBytes(remote.bytes,blob,{name:source.title||source.audioUrl.split('/').pop()||'REMOTE AUDIO',size:remote.size,type:remote.type,sourceKind:source.kind,sourceAddress:source.address,sourceId:source.sunoId||null,metadataAddress:source.metadataUrl||null,resolution:source.resolution,artist:source.artist||'',tags:source.tags||'',lyrics:source.lyrics||'',lyricsAlignment:source.lyrics?'UNALIGNED_PROVIDER_META':null,providerBpm:source.providerBpm||null,providerKey:source.providerKey||null,providerTimeSignature:source.providerTimeSignature||null,metadataError:source.metadataError||null,origin:{kind:source.kind,address:source.address,id:source.sunoId||null,resolution:source.resolution||null}});
+    pendingSource=null;
   }catch(error){
-    const kind=parseSunoId(input)?'SUNO':'REMOTE_AUDIO';
+    const kind=parseSunoPlaylistId(input)?'SUNO_PLAYLIST':(parseSunoId(input)?'SUNO':'REMOTE_AUDIO');
     lastRemoteFailure={kind,address:String(input||''),error:String(error?.message||error),at:new Date().toISOString()};
+    if(source)pendingSource=source;
     drop.classList.remove('busy');
-    status(kind==='SUNO'?'SUNO BLOCKED HERE · USE MP3':'REMOTE BLOCKED · LOAD FILE');
-    $('#meta').textContent=kind==='SUNO'?'BROWSER/CORS PATH BLOCKED · PROVEN PATH: EXPORT/DOWNLOAD MP3 → CHOOSE AUDIO':'ADDRESS KEPT · NETWORK/CORS RESOLUTION FAILED · LOCAL FILE STILL WORKS';
-    toast(kind==='SUNO'?'SUNO BLOCKED · USE MP3':'REMOTE BLOCKED · USE LOCAL FILE');console.warn(error)
+    if(kind==='SUNO'){
+      const hasMeta=!!(source&&(source.title||source.artist||source.lyrics||source.tags));
+      status(hasMeta?'SUNO META READY · LOAD MP3/M4A TO BIND':'SUNO LINK READY · LOAD MP3/M4A TO BIND');
+      $('#meta').textContent=hasMeta?'REMOTE AUDIO BLOCKED · TITLE / ARTIST / LYRICS / TAGS KEPT WHEN AVAILABLE · CHOOSE LOCAL AUDIO':'REMOTE AUDIO BLOCKED · SUNO LINK/UUID KEPT AS ORIGIN · CHOOSE LOCAL AUDIO';
+      toast(hasMeta?'SUNO META KEPT · LOAD AUDIO':'SUNO LINK KEPT · LOAD AUDIO');
+    }else if(kind==='SUNO_PLAYLIST'){
+      status('SUNO PLAYLIST ADDRESS KEPT · LOAD LOCAL AUDIO TO BIND');
+      $('#meta').textContent='COLLECTION PROVENANCE KEPT · TRACK ENUMERATION IS NOT REQUIRED';
+      toast('PLAYLIST LINK KEPT');
+    }else{
+      status('REMOTE ADDRESS KEPT · LOAD LOCAL AUDIO TO BIND');
+      $('#meta').textContent='NETWORK/CORS AUDIO FAILED · ADDRESS REMAINS PROVENANCE · LOCAL FILE CAN BIND TO IT';
+      toast('ADDRESS KEPT · LOAD AUDIO');
+    }
+    console.warn(error)
   }
 }
 
@@ -263,7 +324,7 @@ function addressedReturn(){
   return {
     kind:'FOLD_BLOOM_ADDRESSED_MESSAGE',
     schema:'fold-bloom-addressed-message/v0.1',
-    source:{key:sourcePinKey(),name:fileMeta?.name||'SOURCE',hash:fileMeta?.hash||null,kind:fileMeta?.sourceKind||null},
+    source:{key:sourcePinKey(),name:fileMeta?.name||'SOURCE',hash:fileMeta?.hash||null,kind:fileMeta?.sourceKind||null,bundle:fileMeta?.bundle||null,origin:fileMeta?.origin||null,collection:fileMeta?.collection||null,textEvidence:fileMeta?.textEvidence||[]},
     path:{order:'SOURCE_ADDRESS',humanAuthored:true,cells:ps.map((p,i)=>({n:i+1,id:p.id,address:p.address,scope:p.scope,label:p.label,note:p.note,features:p.features}))},
     warning:'Path meaning is authored by the human. Source order and analysis features do not infer semantics.'
   };
@@ -271,7 +332,7 @@ function addressedReturn(){
 function openAtlas(){
   if(!map||!glyphDesc)return;
   toggleUse(false);
-  const entry={id:fileMeta?.hash||glyphDesc.sourceHash,name:fileMeta?.name||'SOURCE',artist:fileMeta?.artist||'',duration:map.duration||0,sourceHash:fileMeta?.hash||glyphDesc.sourceHash,sourceKind:fileMeta?.sourceKind||'AUDIO_MAP',glyph:glyphDesc};
+  const entry={id:fileMeta?.hash||glyphDesc.sourceHash,name:fileMeta?.name||'SOURCE',artist:fileMeta?.artist||'',album:fileMeta?.album||'',format:fileMeta?.type||'',duration:map.duration||0,sourceHash:fileMeta?.hash||glyphDesc.sourceHash,sourceKind:fileMeta?.sourceKind||'AUDIO_MAP',origin:fileMeta?.origin||null,collection:fileMeta?.collection||null,textWitness:(fileMeta?.textEvidence?.[0]||fileMeta?.lyrics)?{kind:fileMeta?.textEvidence?.[0]?.kind||(fileMeta?.lyrics?'LYRICS':null),alignment:fileMeta?.textEvidence?.[0]?.alignment||fileMeta?.lyricsAlignment||null,chars:String(fileMeta?.lyrics||'').length,cues:fileMeta?.textEvidence?.[0]?.cueCount||0}:null,glyph:glyphDesc};
   try{sessionStorage.setItem('fold-bloom.atlas.handoff.v1',JSON.stringify({entry,from:location.pathname}))}catch(_){}
   const w=window.open('../atlas/','_blank');if(!w)location.assign('../atlas/');
 }
@@ -288,13 +349,13 @@ function openReadfield(){
   if(!w)location.assign(href);
 }
 
-$('#file').addEventListener('change',e=>loadFile(e.target.files?.[0]));
+$('#file').addEventListener('change',e=>loadFiles(e.target.files));
 $('#chooseLabel').addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('#file').click()}});
 $('#urlBtn').addEventListener('click',()=>{const v=$('#urlInput').value.trim();if(v)loadAddress(v)});
 $('#urlInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('#urlBtn').click()}});
 ['dragenter','dragover'].forEach(k=>drop.addEventListener(k,e=>{e.preventDefault();drop.classList.add('over')}));
 ['dragleave','drop'].forEach(k=>drop.addEventListener(k,e=>{e.preventDefault();drop.classList.remove('over')}));
-drop.addEventListener('drop',e=>{const f=e.dataTransfer.files?.[0];if(f)loadFile(f)});
+drop.addEventListener('drop',e=>{const fs=e.dataTransfer.files;if(fs?.length)loadFiles(fs)});
 $('#loadBtn').onclick=()=>{drop.classList.remove('loaded');$('#urlInput').focus()};
 $('#useBtn').onclick=()=>toggleUse();$('#closeUse').onclick=()=>toggleUse(false);
 $('#pinBtn').onclick=()=>{stopIdle(true);openPinSheet(null,audio.currentTime)};$('#pinsBtn').onclick=()=>{stopIdle(true);openPinSheet(pins[0]||null,audio.currentTime)};$('#glyphBtn').onclick=downloadGlyph;$('#idleBtn').onclick=()=>startIdle();
@@ -302,7 +363,7 @@ $('#pinSave').onclick=commitPin;$('#pinDelete').onclick=deletePin;$('#pinClose')
 $('#useRide').onclick=()=>openSurface('../live/');$('#useRead').onclick=openReadfield;$('#useCompose').onclick=()=>openSurface('../two-dial/?pulse=1');$('#useAtlas').onclick=openAtlas;$('#useMap').onclick=()=>{toggleUse(false);$('#export').click()};
 $('#transport').onclick=async()=>{stopIdle(true);if(!audio.src)return;if(audio.paused)await audio.play();else audio.pause()};
 audio.onplay=()=>{$('#transport').textContent='PAUSE';publishTransport(true)};audio.onpause=()=>{$('#transport').textContent='PLAY';publishTransport(true)};audio.ontimeupdate=()=>publishTransport(false);
-$('#export').onclick=()=>{if(!map)return;const packet={kind:'FOLD_BLOOM_AUDIO_MAP',created:new Date().toISOString(),map,glyph:glyphDesc||audioGlyphDescriptor(map,fileMeta||{}),annotations:{schema:STREAM_LENS_SCHEMA,pins:normalizePins(pins,sourcePinKey())},addressedMessage:addressedReturn()},b=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`fold-bloom-audio-map-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
+$('#export').onclick=()=>{if(!map)return;const packet={kind:'FOLD_BLOOM_AUDIO_MAP',created:new Date().toISOString(),sourceBundle:fileMeta?.bundle||null,timedText:fileMeta?.timedText||null,map,glyph:glyphDesc||audioGlyphDescriptor(map,fileMeta||{}),annotations:{schema:STREAM_LENS_SCHEMA,pins:normalizePins(pins,sourcePinKey())},addressedMessage:addressedReturn()},b=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`fold-bloom-audio-map-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
 document.querySelectorAll('[data-scope]').forEach((b,i)=>b.onclick=()=>setScope(i));
 addEventListener('wheel',e=>{
   if(e.target?.closest?.('#pinSheet,#useSheet,#drop'))return;
@@ -373,5 +434,5 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnima
 window.addEventListener('error',e=>{console.warn('LISTEN runtime error',e.error||e.message);if(!map)status('APP DEGRADED · FILE PICKER STILL AVAILABLE')});
 setScope(1,false);updateWorkflow();
 document.documentElement.dataset.listenBoot='ready';document.documentElement.dataset.listenLens=STREAM_LENS_SCHEMA;syncPins();
-window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,glyph:glyphDesc,idle:idle.on,addressedMessage:map?addressedReturn():null,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,pins:normalizePins(pins,sourcePinKey()),sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),parseSunoId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc};
+window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,pendingSource,glyph:glyphDesc,idle:idle.on,addressedMessage:map?addressedReturn():null,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,pins:normalizePins(pins,sourcePinKey()),sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc};
 requestAnimationFrame(loop);
