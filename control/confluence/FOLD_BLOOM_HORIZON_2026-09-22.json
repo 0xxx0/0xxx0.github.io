@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_HORIZON_2026-09-22",
   "date": "2026-09-22",
   "object": "FOLD//BLOOM horizon pass · LIVE 0.8 / LISTEN 0.4 / TWO DIAL 0.10.2",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "pure_intention": "/control/PURE_INTENTION.json",
   "observed_exactly_recovered": [
     "User reports the current ride as highly compelling and asks for materially steeper inclines rather than another conceptual reset.",
@@ -71,5 +71,20 @@
     "Does Two Dial with the local source playing feel like composing with/against a track while still feeling authored by the dials?",
     "Does AUTO RIDE make the mechanism obvious without turning the instrument into a screensaver?"
   ],
-  "return": "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json",
+  "pr": 144,
+  "merge_sha": "36ca59b4658a95238e0474ae727d301901a991ac",
+  "verification": {
+    "ci_run": 35690332201,
+    "result": "PASS",
+    "proved": [
+      "AUDIO MAP v0.4 phrase novelty + explicit fallback selftest",
+      "deterministic audio-glyph stability/self-contained SVG",
+      "source-hash transport continuity",
+      "LIVE 0.8 terrain/ride/deformation/practice regression",
+      "Two Dial 0.10.2 local-track module browser boot",
+      "LISTEN 0.4 browser shell/preview/intake regression",
+      "full static/recovery/frozen-Sleeper regression"
+    ]
+  }
 }
