@@ -298,7 +298,71 @@ That is why the fading background rail felt unusually powerful: it is a visible 
 
 ---
 
-## 6. Relation to current CONFLUENCE / FIELD laws
+## 6. Research neighbors — ingredients, not identity
+
+This synthesis has clear precedents. The point is not to claim novelty for each ingredient.
+
+### Focus + context / fisheye views
+
+George Furnas's **Generalized Fisheye Views** formalized the idea that a local neighborhood may be shown in detail while distant landmarks remain visible.
+
+- Furnas, G. W. (1986), *Generalized fisheye views*. CHI '86.
+- DOI: https://doi.org/10.1145/22627.22342
+
+This is close to APERTURE and the desire for a fading contextual rail, but it does not by itself specify canonical cross-projection address, authority boundaries or RETURN.
+
+### Multiscale / zoomable interfaces
+
+Pad++ explored zooming as an alternative interface physics for navigating large information spaces while maintaining an intuitive sense of location and relationships.
+
+- Bederson, B. B. & Hollan, J. D. (1994), *Pad++: a zooming graphical interface for exploring alternate interface physics*. UIST '94.
+- DOI: https://doi.org/10.1145/192426.192435
+
+This strongly neighbors Scale Lens and the persistent-place instinct. ADDRESSED CONTINUITY differs by allowing the projections themselves to be heterogeneous — e.g. waveform → terrain → text reader → trace — as long as a lawful address mapping survives.
+
+### Object constancy through transitions
+
+Heer & Robertson showed that animated transitions between related graphics can improve perception and proposed staged transition design principles.
+
+- Heer, J. & Robertson, G. (2007), *Animated Transitions in Statistical Data Graphics*.
+- DOI: https://doi.org/10.1109/TVCG.2007.70539
+
+This supports the intuition that continuity is not only a database property: the human must be able to perceive that “this is still the same thing.”
+
+### Provenance + annotation
+
+Visualization-provenance research treats exploration history and annotation as durable material that can be recalled/shared, and later work surveys how interaction provenance can be captured and analyzed.
+
+- Groth, D. P. & Streefkerk, K. (2006), *Provenance and annotation for visual exploration systems*.
+- DOI: https://doi.org/10.1109/TVCG.2006.101
+- Xu, K. et al. (2020), *Survey on the Analysis of User Interactions and Visualization Provenance*.
+- DOI: https://doi.org/10.1111/cgf.14035
+
+This neighbors RETURN, marks and receipts. Our project additionally insists that provenance be tied to a canonical addressed object and that machine evidence remain separate from human-authored meaning.
+
+### What appears distinctive here
+
+The components are established; the **composition** is the useful contribution:
+
+```
+exact object identity
++ canonical address
++ multiscale aperture
++ heterogeneous projections
++ explicit evidence / calibration / authorship boundaries
++ low-clutter continuity witness
++ durable RETURN
+```
+
+The strongest research claim we should make today is therefore modest:
+
+> CONFLUENCE / FIELD is exploring a cross-domain composition of known continuity, multiscale and provenance ideas around an unusually strict addressed-object / authority / RETURN contract.
+
+That is enough. No novelty claim is needed to make the mechanism powerful.
+
+---
+
+## 7. Relation to current CONFLUENCE / FIELD laws
 
 This mechanism is already latent in several project operators:
 
@@ -316,7 +380,7 @@ It made the **continuity state** between them unusually visible.
 
 ---
 
-## 7. Research questions worth keeping
+## 8. Research questions worth keeping
 
 These are questions, not active fronts.
 
@@ -331,7 +395,7 @@ These are questions, not active fronts.
 
 ---
 
-## 8. Stop condition
+## 9. Stop condition
 
 Do not build “Addressed Continuity” as a standalone framework because this note exists.
 
