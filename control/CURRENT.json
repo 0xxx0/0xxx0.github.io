@@ -169,13 +169,15 @@
         {
           "id": "fold-bloom-listen-01",
           "route": "/fold-bloom/listen/",
-          "state": "CANDIDATE_EXPERIMENT",
-          "branch": "fold-bloom-horizon-080",
+          "state": "MERGED_ACTIVE_CANDIDATE",
+          "branch": "master@36ca59b4658a95238e0474ae727d301901a991ac",
           "thesis": "One hashed audio source remains identifiable while becoming analyzed phrase hierarchy, deterministic glyph, addressed ring, terrain and bounded composition context.",
           "promotion_gate": "CI + direct familiar-track proof: phrase gates plausible, glyph recognizable/stable, steeper LIVE terrain smooth, same source identity visible across LISTEN/LIVE/Two Dial.",
           "version": "0.4"
         }
-      ]
+      ],
+      "merge_sha": "36ca59b4658a95238e0474ae727d301901a991ac",
+      "latest_return": "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json"
     },
     {
       "lineage": "axial",
