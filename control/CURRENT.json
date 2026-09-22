@@ -230,11 +230,11 @@
           "promotion_gate": "Phone body test: AUTOPILOT reachable; all settings reachable; jitter better/same/worse; response crisp/too smooth; worlds elegant/distinct; no source-time/drop regression."
         }
       ],
-      "merge_sha": "9b870afb6235f6b2b5f92b135acde7c9ebe4ffee",
+      "merge_sha": "91db332e327a80c8daa8182add8720b48d1e7fea",
       "latest_return": "/returns/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json",
       "next_executable": {
         "id": "fold-bloom-three-track-lived-gate",
-        "state": "IMPLEMENTED_BRANCH_CANDIDATE_HUMAN_GATE",
+        "state": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
         "objective": "Open the shareable GHOST → FORGE → WILL witness with no files, then in the owner browser bind the exact recovered three tracks once and compare metadata-only witness vs real local-audio Journey. Decide whether the set reads/feels like one authored journey rather than three tracks plus transitions.",
         "exact_seed": [
           "preforme · sha256:06ca33eb185845330718d8c9428c29a3a3bcb6d94f64e18270e4adb7400757cc",
@@ -249,7 +249,15 @@
           "Does the byte-private/public-witness distinction remain obvious?"
         ],
         "after_keep": "SOURCE SHELL / RIDE · SEE · SHAPE should be a doorway refinement, not another engine.",
-        "law": "Do not bundle or publish the private audio merely to improve demo convenience. Metadata witness may travel; exact bytes require explicit local binding."
+        "law": "Do not bundle or publish the private audio merely to improve demo convenience. Metadata witness may travel; exact bytes require explicit local binding.",
+        "implementation": {
+          "pull_request": 167,
+          "merge": "91db332e327a80c8daa8182add8720b48d1e7fea",
+          "ci_run": 1673,
+          "ci": "PASS",
+          "share_route": "/fold-bloom/set/journey.html?demo=seed&auto=1",
+          "receipt": "/returns/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json"
+        }
       }
     },
     {
