@@ -47,6 +47,8 @@ jobs:
           node fold-bloom/listen/source-adapters.test.mjs
       - name: Test FOLD BLOOM Experience Set v0.1 round trip
         run: node --test fold-bloom/experience-set/tests/experience-set.test.mjs
+      - name: Test FOLD BLOOM Set Compositor 0.1 core
+        run: node --test fold-bloom/set/tests/set-core.test.mjs
       - name: Test LISTEN preview render
         env:
           SMOKE_ONLY: FOLD BLOOM LISTEN preview render
