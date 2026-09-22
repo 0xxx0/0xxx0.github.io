@@ -21,5 +21,8 @@
     "tests": "/fold-bloom/set/tests/set-core.test.mjs",
     "browser": "/fold-bloom/set/?demo=1"
   },
-  "stop": "Do not implement Journey Ride, provider catalogs, DJ timeline editing, or new Experience Set fields in this pass."
+  "stop": "Do not implement Journey Ride, provider catalogs, DJ timeline editing, or new Experience Set fields in this pass.",
+  "status": "MERGED_COMPLETE",
+  "pullRequest": 156,
+  "mergeSha": "e5ead6c3893581c75dd512db8cc28eb3268b54b6"
 }
