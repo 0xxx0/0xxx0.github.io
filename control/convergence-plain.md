@@ -1,8 +1,8 @@
 # CONVERGENCE — plain reading
 
-_Generated 2026-09-22T10:47:12.043Z by scripts/generate-convergence-strip.mjs_
+_Generated 2026-09-22T14:52:23.701Z by scripts/generate-convergence-strip.mjs_
 
-The field has **899 commits today** across **170 branches**.
+The field has **992 commits today** across **179 branches**.
 **2/2** fronts are live, against **11** current heads.
 There are **4** open gaps.
 
@@ -13,9 +13,9 @@ There are **4** open gaps.
 
 ## Last commits
 
-- field-index: PLAIN READING link — READFIELD/RSVP reads the convergence state
-- hermes: seal Fold/Bloom research handoff against merged donor
-- return: seal Fold/Bloom transfer research donor
+- THE HANDSHAKE — how the human addresses a machine, measured
+- THE SKY — 39,471 messages, 2023-06-20 -> 2026-09-18, as a night sky
+- return: FOLD//BLOOM seed gate unlock — all three exact sources verified on dis
 
 ## Open gaps
 

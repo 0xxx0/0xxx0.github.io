@@ -1,6 +1,6 @@
 # THE KINGDOM — READING
 
-_Generated 2026-09-22T10:47:12.131Z · 899 commits today · 170 branches_
+_Generated 2026-09-22T14:52:23.801Z · 992 commits today · 179 branches_
 _Regenerate: node scripts/generate-kingdom-reading.mjs · Read: /docs/?src=/control/KINGDOM_READING.md_
 
 > **RETURN LATENCY** — can a fresh operator recover what is true, uncertain, promised,
@@ -48,7 +48,7 @@ Then: `DISTINGUISH → COORDINATE → ENACT → MEASURE → PRESERVE → RETURN`
 - **READFIELD / RSVP 0.7.1 + APERTURE focus kernel** (rsvp-reader) — *UTILITY / READER_FIRST / VERIFIED_SHIPPED* · `/docs/`
 - **POEM MAP 0.2.1 / VERSE** (path-poetry) — *ACTIVE_CANDIDATE* · `/poetry/map/`
 - **SLEEPER // ONE RETURN v2 / City Engine v0.2** (sleeper-one-return) — *CANONICAL_LIVE_RUNTIME_RECOVERED* · `/sleeper/`
-- **FOLD//BLOOM instrument family · EXPERIENCE SET 0.1 / SET 0.1 candidate / LIVE 0.13 / GLYPH ATLAS 0.2 / LISTEN 0.6 / TWO DIAL 0.10.3 / ECOLOGY 0.2** (fold-bloom) — *ACTIVE_CANDIDATE_FAMILY* · `/fold-bloom/`
+- **FOLD//BLOOM · EXPERIENCE SET 0.1 / SET 0.1.1 + local vault / JOURNEY RIDE 0.1.2 shareable seed witness / LIVE 0.13 / LISTEN 0.6 / GLYPH ATLAS 0.2 / TWO DIAL 0.10.3 / ECOLOGY 0.2** (fold-bloom) — *ACTIVE_CANDIDATE_FAMILY* · `/fold-bloom/`
 - **AXIAL / FOCUS STACK 0.7.3** (axial) — *ACTIVE* · `/foundry/axial/`
 - **HUMAN PORT 1.5.2 OBJECT APERTURE + FIELD INTAKE 0.5 + CARE 0.5 + BODY / FIT 0.1 data routes + CONTACT/LACONIC/Router** (comms) — *ACTIVE* · `/port/`
 - **HOUSE / SPATIAL 0.6 + HOUSE / FIELD 0.5** (house-spatial) — *ACTIVE* · `/house/spatial/`
@@ -84,7 +84,7 @@ Then: `DISTINGUISH → COORDINATE → ENACT → MEASURE → PRESERVE → RETURN`
 
 ## 3. THE DURABLE DOCUMENTS
 
-_35 documents in /control/confluence/ — each one is a live claim._
+_36 documents in /control/confluence/ — each one is a live claim._
 
 - **backup media return 2026-09-21** — `/control/confluence/BACKUP_MEDIA_RETURN_2026-09-21.md`
 - **confluence field conversion report 2026-09-22** — `/control/confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md`
@@ -94,6 +94,7 @@ _35 documents in /control/confluence/ — each one is a live claim._
 - **field evolution** — `/control/confluence/FIELD_EVOLUTION.md`
 - **field play v04** — `/control/confluence/FIELD_PLAY_V04.md`
 - **field reentry 2026-09-21** — `/control/confluence/FIELD_REENTRY_2026-09-21.md`
+- **hermes field surface boundary 2026-09-22** — `/control/confluence/HERMES_FIELD_SURFACE_BOUNDARY_2026-09-22.md`
 - **house frontier** — `/control/confluence/HOUSE_FRONTIER.md`
 - **house marks** — `/control/confluence/HOUSE_MARKS.md`
 - **house poly furnisher sinder donor 2026-09-21** — `/control/confluence/HOUSE_POLY_FURNISHER_SINDER_DONOR_2026-09-21.md`
@@ -221,25 +222,25 @@ _Last 24 receipts in /returns/._
 - `/returns/HARD_ADVANCE_2026-09-22.json`
 - `/returns/FOUNDRY_RUNTIME_REPAIR_2026-09-21.json`
 - `/returns/FOLD_BLOOM_WORLD_WRITING_2026-09-22.json`
+- `/returns/FOLD_BLOOM_WINDDOWN_2026-09-22.json`
 - `/returns/FOLD_BLOOM_VISUAL_WORLD_2026-09-22.json`
-- `/returns/FOLD_BLOOM_TRANSFER_RESEARCH_2026-09-22.json`
 
 ---
 
 ## 6. RECENT COMMITS
 
-- `ec46807 field-index: PLAIN READING link — READFIELD/RSVP reads the convergence state`
-- `fa5d53f hermes: seal Fold/Bloom research handoff against merged donor`
-- `dabc512 return: seal Fold/Bloom transfer research donor`
-- `50bbfcd Merge Fold/Bloom transfer research atlas and Hermes packet`
-- `6962d44 fold-bloom research: correct sonification citation authorship`
-- `ffc0568 return: record Fold/Bloom transfer research and Hermes handoff pass`
-- `5f69737 fold-bloom research: clarify merged test-pack boundary`
-- `4e142cf fold-bloom docs: link transfer atlas and bounded Hermes research packet`
-- `6a9d4bd hermes: refresh Fold/Bloom handoff after merged local test packs`
-- `a70950e hermes: align transfer research packet to merged SET 0.1.1`
-- `45d6abc fold-bloom research: transplant transfer atlas and worker packet onto current test-pack master`
-- `dbf73bf fold-bloom research: transplant transfer atlas and worker packet onto current test-pack master`
+- `f110002 THE HANDSHAKE — how the human addresses a machine, measured`
+- `5277a0a THE SKY — 39,471 messages, 2023-06-20 -> 2026-09-18, as a night sky`
+- `c81c9f2 return: FOLD//BLOOM seed gate unlock — all three exact sources verified on disk`
+- `9846677 FOLD//BLOOM: materialize documents as Atlas cells (#174)`
+- `6a563dc Merge pull request #173 from 0xxx0/fold-bloom/winddown-fixed-point-20260922`
+- `8298584 control: wind Fold Bloom down to lived tuning gate`
+- `f1f970a returns: seal Fold Bloom winddown`
+- `78c9c61 confluence: preserve Fold Bloom winddown fixed point`
+- `8282f47 Merge pull request #172 from 0xxx0/fold-bloom/listen-phone-continuity-seal`
+- `24b38c9 fold-bloom: record LISTEN phone continuity closure`
+- `7adb815 fold-bloom: handoff technical gate closed`
+- `3fa0e16 fold-bloom: retire solved phone continuity gate`
 
 ---
 

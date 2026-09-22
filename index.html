@@ -15,7 +15,7 @@ main{width:min(1240px,100%);margin:auto}
 header{display:flex;align-items:end;justify-content:space-between;gap:16px;padding:10px 0 8px;border-bottom:1px solid var(--line)}
 .ey{font-size:7px;letter-spacing:.18em;color:var(--hot)}h1{margin:2px 0 0;font:900 clamp(30px,5vw,54px)/.9 system-ui,sans-serif;letter-spacing:-.065em}
 nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;border:1px solid var(--line);padding:5px 7px;font-size:7px;letter-spacing:.07em}nav a.play{border-color:var(--hot);color:#ffd0bd}nav a.proof{border-color:var(--green);color:var(--green)}
-.section{margin-top:18px}.sectionHead{display:flex;justify-content:space-between;gap:12px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:5px;margin-bottom:6px}.sectionHead b{font-size:9px;letter-spacing:.14em}.sectionHead span{color:var(--mut);font-size:7px}.reentryFold{margin-top:7px;border:1px solid var(--line);background:#090d0f}.reentryFold>summary{list-style:none;display:grid;grid-template-columns:repeat(3,1fr) 17px;align-items:stretch;min-height:26px;cursor:pointer}.reentryFold>summary::-webkit-details-marker{display:none}.reentrySeg{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:5px 7px;border-right:1px solid var(--line);min-width:0}.reentrySeg span{color:var(--mut);font-size:6px;letter-spacing:.09em}.reentrySeg b{font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.reentrySeg.recover b{color:var(--gold)}.reentrySeg.converge b{color:var(--cool)}.reentryToggle{display:grid;place-items:center;color:var(--mut);font-size:7px}.reentryFold[open] .reentryToggle{transform:rotate(90deg)}.reentryBody{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.reentryBody a{background:#090d0f;padding:6px 8px;min-width:0}.reentryBody a:hover{background:#0d1316}.reentryBody b{display:block;font-size:7px;letter-spacing:.06em}.reentryBody span{display:block;color:var(--mut);font-size:6px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.section{margin-top:18px}.sectionHead{display:flex;justify-content:space-between;gap:12px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:5px;margin-bottom:6px}.sectionHead b{font-size:9px;letter-spacing:.14em}.sectionHead span{color:var(--mut);font-size:7px}.reentryFold{margin-top:7px;border:1px solid var(--line);background:#090d0f}.reentryFold>summary{list-style:none;display:grid;grid-template-columns:repeat(3,1fr) 17px;align-items:stretch;min-height:26px;cursor:pointer}.reentryFold>summary::-webkit-details-marker{display:none}.reentrySeg{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:5px 7px;border-right:1px solid var(--line);min-width:0}.reentrySeg span{color:var(--mut);font-size:6px;letter-spacing:.09em}.reentrySeg b{font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.reentrySeg.recover b{color:var(--gold)}.reentrySeg.converge b{color:var(--cool)}.reentryToggle{display:grid;place-items:center;color:var(--mut);font-size:7px}.reentryFold[open] .reentryToggle{transform:rotate(90deg)}.reentryBody{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.reentryBody a{background:#090d0f;padding:6px 8px;min-width:0}.reentryBody a:hover{background:#0d1316}.reentryBody b{display:block;font-size:7px;letter-spacing:.06em}.reentryBody span{display:block;color:var(--mut);font-size:6px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* AXIAL / LATEST */
 .axial{margin-top:9px;border:1px solid var(--line);background:var(--p)}
@@ -103,21 +103,23 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <body><main>
 <header>
   <div><div class="ey">FI / φ</div><h1>FIELD INDEX</h1></div>
-  <nav><a class="play" href="./field-play.html">PLAY</a><a href="#traceFold" onclick="document.getElementById('traceFold').open=true">TRACE</a><a href="./lens-proof/">COMPARE</a><a href="./control/">CURRENT</a><a class="proof" href="./nexus/">NEXUS</a><a href="./nexus/board.html">BOARD</a><a href="./control/confluence/">CONFLUENCE</a><a href="./foundry/axial/">AXIAL</a><a href="./foundry/">FOUNDRY</a><a href="./migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav>
+  <nav><a class="play" href="./field-play.html">PLAY</a><a href="#traceFold" onclick="document.getElementById('traceFold').open=true">TRACE</a><a href="./lens-proof/">COMPARE</a><a href="./control/">CURRENT</a><a class="proof" href="./nexus/">NEXUS</a><a href="./nexus/board.html">BOARD</a><a href="./sky/">✦ SKY</a><a href="./handshake/">✦ VOICE</a><a href="./silences/">✦ SILENCE</a><a href="./control/confluence/">CONFLUENCE</a><a href="./foundry/axial/">AXIAL</a><a href="./foundry/">FOUNDRY</a><a href="./migration/">MIGRATION</a><a href="./recovery/">RECOVERY</a><a href="./returns/">RETURN</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav>
 </header>
-<details class="reentryFold" aria-label="FIELD re-entry states"><summary><span class="reentrySeg"><span>NOW</span><b>CURRENT</b></span><span class="reentrySeg recover"><span>RECOVER</span><b>VAULT</b></span><span class="reentrySeg converge"><span>CONVERGE</span><b>NEXUS</b></span><span class="reentryToggle">▶</span></summary><div class="reentryBody"><a href="./control/"><b>NOW / CURRENT</b><span>attention + bounded execution</span></a><a href="./recovery/"><b>RECOVER / VAULT</b><span>exact source + lineage</span></a><a href="./nexus/"><b>CONVERGE / NEXUS</b><span>coordination + RETURN</span></a></div></details>
+<details class="reentryFold" aria-label="FIELD re-entry states"><summary><span class="reentrySeg"><span>NOW</span><b>CURRENT</b></span><span class="reentrySeg recover"><span>RECOVER</span><b>VAULT</b></span><span class="reentrySeg converge"><span>CONVERGE</span><b>NEXUS</b></span><span class="reentryToggle">▶</span></summary><div class="reentryBody"><a href="./control/"><b>NOW / CURRENT</b><span>attention + bounded execution</span></a><a href="./recovery/"><b>RECOVER / VAULT</b><span>exact source + lineage</span></a><a href="./nexus/"><b>CONVERGE / NEXUS</b><span>coordination + RETURN</span></a><a href="./sky/"><b>WITNESS / SKY</b><span>the record as a night sky</span></a></div></details>
 <!-- CONVERGENCE-STRIP:START (generated by scripts/generate-convergence-strip.mjs — do not hand-edit) -->
-<details class="cstrip" aria-label="Convergence state"><summary class="csSummary"><span class="csEy">CONVERGENCE</span><span class="csMetric"><b>2/2</b><em>live</em></span><span class="csMetric"><b>11</b><em>heads</em></span><span class="csMetric"><b>4</b><em>gaps</em></span><span class="csStamp">2026-09-22 10:47Z</span><span class="csToggle">▶</span></summary><div class="csExpanded">
+<details class="cstrip" aria-label="Convergence state">
+  <summary class="csSummary"><span class="csEy">CONVERGENCE</span><span class="csMetric"><b>2/2</b><em>live</em></span><span class="csMetric"><b>11</b><em>heads</em></span><span class="csMetric"><b>4</b><em>gaps</em></span><span class="csStamp">2026-09-22 14:52Z</span><span class="csToggle">▶</span></summary>
+  <div class="csExpanded">
   <div class="csHead">
-    <span class="csEy">CONVERGENCE · 2026-09-22 10:47Z</span>
+    <span class="csEy">CONVERGENCE · 2026-09-22 14:52Z</span>
     <span class="csLaw">RECOVER BEFORE INVENTING</span>
   </div>
   <div class="csGrid">
     <a class="csCell" href="./nexus/">
-      <b class="csNum hot">899</b><span>commits today</span>
+      <b class="csNum hot">992</b><span>commits today</span>
     </a>
     <a class="csCell" href="./nexus/board.html">
-      <b class="csNum cool">170</b><span>active branches</span>
+      <b class="csNum cool">179</b><span>active branches</span>
     </a>
     <a class="csCell" href="./control/QUEUE.json">
       <b class="csNum green">2/2</b><span>live fronts</span>
@@ -139,7 +141,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
     </div>
     <div class="csCol">
       <span class="csColEy">LAST COMMITS</span>
-      <ul class="csCommits"><li>field-index: PLAIN READING link — READFIELD/RSVP reads the convergence state</li><li>hermes: seal Fold/Bloom research handoff against merged donor</li><li>return: seal Fold/Bloom transfer research donor</li></ul>
+      <ul class="csCommits"><li>THE HANDSHAKE — how the human addresses a machine, measured</li><li>THE SKY — 39,471 messages, 2023-06-20 -&gt; 2026-09-18, as a night sky</li><li>return: FOLD//BLOOM seed gate unlock — all three exact sources verified on dis</li></ul>
     </div>
     <div class="csCol">
       <span class="csColEy">OPEN GAPS</span>
@@ -151,7 +153,8 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
     <a class="csFoot" href="./docs/?src=/control/convergence-strip.json&return=/">◉ PLAIN — this state in the reader →</a>
     <a class="csFoot" href="./control/confluence/TRANSFER_OF_POWER_2026-09-22.md">◈ TRANSFER OF POWER →</a>
   </div>
-</div></details>
+  </div>
+</details>
 <!-- CONVERGENCE-STRIP:END -->
 
 
