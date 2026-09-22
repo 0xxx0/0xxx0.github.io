@@ -25,13 +25,15 @@ function smoothFrame(map,time){
   return out;
 }
 
-export function trackfieldPoint(frame={},u=0){
+export function trackfieldPoint(frame={},u=0,{energyTrend=0}={}){
   const e=Number(frame.e)||0,c=Number(frame.c)||0,f=Number(frame.f)||0;
   const l=Number.isFinite(Number(frame.l))?Number(frame.l):clamp(1-c*.62,0,1);
   const h=Number.isFinite(Number(frame.h))?Number(frame.h):clamp(c*.7+f*.12,0,1);
-  const spectral=clamp(h-l,-1,1);
-  const grade=clamp((.50-e)*1.34-f*.16,-.92,.92);
-  const speed=clamp(.72+e*.72+f*.36,.62,1.86);
+  const spectral=clamp(h-l,-1,1),trend=clamp(Number(energyTrend)||0,-.75,.75);
+  // Terrain 0.8: instantaneous energy supplies local pitch, while ~phrase-scale
+  // energy trend makes an approaching lift/drop legible before it arrives.
+  const grade=clamp((.52-e)*1.92-f*.24-trend*.78,-1.48,1.48);
+  const speed=clamp(.66+e*.91+f*.48+Math.max(0,trend)*.34,.54,2.28);
   return {
     u,
     energy:clamp(e,0,1.25),
@@ -55,23 +57,28 @@ export function buildTrackfield(map,time=0,{horizon=12,count=44}={}){
   const span=Math.max(.001,Math.min(Math.max(.5,Number(horizon)||12),Math.max(.001,duration-start)));
   const n=Math.max(12,Math.min(96,Math.trunc(Number(count)||44)));
   const points=[];
-  let lastBeat=null,lastSection=null,distance=0,altitude=0,prev=null;
+  let lastBeat=null,lastPhrase=null,lastSection=null,distance=0,altitude=0,prev=null;
   for(let i=0;i<n;i++){
     const u=i/(n-1);
     const ahead=span*Math.pow(u,1.12);
     const t=clamp(start+ahead,0,duration);
-    const base=trackfieldPoint(smoothFrame(map,t),u);
+    const frame=smoothFrame(map,t),past=smoothFrame(map,Math.max(0,t-1.35)),future=smoothFrame(map,Math.min(duration,t+1.35));
+    const energyTrend=(Number(future.e)||0)-(Number(past.e)||0);
+    const base=trackfieldPoint(frame,u,{energyTrend});
     if(prev){
       const dt=Math.max(0,ahead-prev.ahead);
       distance+=((prev.speed+base.speed)*.5)*dt;
-      altitude+=((prev.grade+base.grade)*.5)*dt*.24;
-      altitude=clamp(altitude,-1.45,1.45);
+      altitude+=((prev.grade+base.grade)*.5)*dt*.43;
+      altitude=clamp(altitude,-2.45,2.45);
     }
     const beatIndex=beatIndexAt(map,t),sectionIndex=sectionIndexAt(map,t);
+    const phraseIndex=beatIndex>=0?Math.floor(beatIndex/8):-1;
     const beatEdge=i>0&&beatIndex>=0&&beatIndex!==lastBeat;
+    const downbeatEdge=beatEdge&&beatIndex%4===0;
+    const phraseEdge=i>0&&phraseIndex>=0&&phraseIndex!==lastPhrase;
     const sectionEdge=i>0&&sectionIndex>=0&&sectionIndex!==lastSection;
-    const p={...base,t,ahead,distance,altitude,beatIndex,sectionIndex,beatEdge,sectionEdge};
-    points.push(p);prev=p;lastBeat=beatIndex;lastSection=sectionIndex;
+    const p={...base,t,ahead,distance,altitude,energyTrend,beatIndex,phraseIndex,sectionIndex,beatEdge,downbeatEdge,phraseEdge,sectionEdge};
+    points.push(p);prev=p;lastBeat=beatIndex;lastPhrase=phraseIndex;lastSection=sectionIndex;
   }
   const totalDistance=Math.max(.001,points.at(-1)?.distance||1);
   for(const p of points)p.z=clamp(p.distance/totalDistance,0,1);
@@ -86,7 +93,7 @@ export function buildTrackfield(map,time=0,{horizon=12,count=44}={}){
   }
   const sections=Math.max(1,(map.sections?.length||1)-1);
   return {
-    schema:'fold-bloom-trackfield/v0.3',
+    schema:'fold-bloom-trackfield/v0.4',
     sourceMap:map.version||null,
     stage:map.stage||'UNKNOWN',
     time:start,
@@ -116,7 +123,7 @@ export function projectTrackfield(world,width,height,{rideLateral=0}={}){
     lateral+=heading*(.012+.032*z);
     const deformLateral=Number(p.deformLateral)||0,deformRise=Number(p.deformRise)||0,deformWidth=Number(p.deformWidth)||1;
     const centerX=w*.5+lateral*w*(.52+.28*z)+deformLateral*w*(.12+.17*z);
-    const terrainLift=Math.tanh(Number(p.altitude)||0)*h*(.105+.075*z)+(Number(p.grade)||0)*h*.025*z;
+    const terrainLift=Math.tanh(Number(p.altitude)||0)*h*(.175+.115*z)+(Number(p.grade)||0)*h*.048*z;
     const baseY=lerp(h*.91,h*.22,Math.pow(z,.68))-terrainLift+deformRise*h*(.075+.125*z);
     const half=lerp(w*.445,w*.032,Math.pow(z,.80))*p.width*deformWidth*speedFov;
     const split=clamp(Number(p.deformSplit)||0,0,1),branchGap=half*split*.72,branchHalf=split>.02?half*(.43-.10*split):half;
