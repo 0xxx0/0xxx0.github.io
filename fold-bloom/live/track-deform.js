@@ -24,7 +24,7 @@ function makeDeformation(verb,event,transport,index=0){
   const span=clamp(Number(event?.span)||0,0,6);
   const slot=clamp(Math.trunc(Number(event?.slot)||0),0,11);
   const type=clamp(Math.trunc(Number(event?.type)||0),0,2);
-  const delay=(verb==='RETURN'?.18:.35)+index*.16;
+  const delay=.30+index*.24+(verb==='RETURN'?.04:0);
   const start=at+delay;
   const duration=verbDuration(verb,power,chain,span);
   const direction=((slot+type)%2===0?-1:1);
