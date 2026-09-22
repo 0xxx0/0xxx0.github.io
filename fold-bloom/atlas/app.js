@@ -4,6 +4,7 @@ import {parseId3,id3DisplayName} from '../listen/id3.js';
 import {ATLAS_SCHEMA,MAX_ATLAS_ENTRIES,atlasPacket,appendPath,encodeAtlas,decodeAtlas,syntheticAtlas} from './atlas-core.js';
 
 const $=s=>document.querySelector(s),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const STORE='fold-bloom.glyph-atlas.v01';
 let packet=loadInitial(),focusId=packet.entries[0]?.id||null,realMode=packet.entries.some(x=>x.sourceKind!=='SYNTHETIC_DEMO');
 let idle={on:false,timer:0,i:0},worker=null,deepQueue=[],deepBusy=false;
 
@@ -11,7 +12,19 @@ function loadInitial(){
   if(location.hash.startsWith('#a=')){
     try{return decodeAtlas(location.hash.slice(3))}catch(error){console.warn('atlas hash',error)}
   }
+  try{
+    const h=JSON.parse(sessionStorage.getItem('fold-bloom.atlas.handoff.v1')||'null');
+    if(h?.entry){sessionStorage.removeItem('fold-bloom.atlas.handoff.v1');return atlasPacket({title:'SOURCE HANDOFF',entries:[h.entry],path:[]})}
+  }catch(_){}
+  try{
+    const saved=JSON.parse(localStorage.getItem(STORE)||'null');
+    if(saved?.schema===ATLAS_SCHEMA&&saved.entries?.length)return atlasPacket(saved);
+  }catch(_){}
   return syntheticAtlas();
+}
+function persist(){
+  if(!realMode)return;
+  try{localStorage.setItem(STORE,JSON.stringify(currentPacket()))}catch(_){}
 }
 function hashBuffer(buf){return crypto.subtle.digest('SHA-256',buf).then(h=>[...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join(''))}
 function mixdown(buffer,targetRate=12000){
@@ -47,7 +60,7 @@ function renderFocus(){
   $('#focusMeta').textContent=metaLine(x)+(x.artist?' · '+x.artist:'');
   $('#focusHash').textContent=x.sourceHash||'NO SOURCE HASH';
   const i=packet.path.indexOf(x.id);pathBtn.disabled=false;pathBtn.textContent=i>=0?`REMOVE FROM PATH · ${i+1}`:'ADD TO PATH';
-  $('#listenBtn').disabled=false;$('#liveBtn').disabled=false;
+  $('#listenBtn').disabled=false;$('#liveBtn').disabled=false;$('#removeBtn').disabled=x.sourceKind==='SYNTHETIC_DEMO';
 }
 function renderPath(){
   $('#pathCount').textContent=`${packet.path.length} CELL${packet.path.length===1?'':'S'}`;
@@ -72,9 +85,9 @@ function metaLine(x){
 function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function togglePath(){
   const x=entryBy(focusId);if(!x)return;
-  stopIdle(false);packet.path=appendPath(packet.path,x.id,packet.entries);render();
+  stopIdle(false);packet.path=appendPath(packet.path,x.id,packet.entries);persist();render();
 }
-function clearPath(){stopIdle(false);packet.path=[];render();$('#status').textContent='PATH CLEARED · SOURCES PRESERVED'}
+function clearPath(){stopIdle(false);packet.path=[];persist();render();$('#status').textContent='PATH CLEARED · SOURCES PRESERVED'}
 function startIdle(){
   if(!packet.entries.length)return;if(idle.on){stopIdle(true);return}
   idle.on=true;idle.i=Math.max(0,packet.entries.findIndex(x=>x.id===focusId));document.body.classList.add('idle');$('#idleBtn').textContent='TAKE OVER';
@@ -129,7 +142,7 @@ async function loadFiles(files){
     if(packet.entries.length>=MAX_ATLAS_ENTRIES)break;
     try{
       const x=await decodeFile(file);
-      if(!packet.entries.some(e=>e.sourceHash===x.sourceHash)){packet.entries.push(x);focusId=x.id}
+      if(!packet.entries.some(e=>e.sourceHash===x.sourceHash)){packet.entries.push(x);focusId=x.id;persist()}
     }catch(error){console.warn(file.name,error)}
     done++;$('#status').textContent=`DECODING · ${done}/${xs.length}`;render();
   }
@@ -139,15 +152,19 @@ function currentPacket(){
   return atlasPacket({entries:packet.entries,path:packet.path,title:packet.title,note:$('#message').value.trim()});
 }
 async function share(){
-  packet=currentPacket();const code=encodeAtlas(packet),u=new URL(location.href);u.hash='a='+code;history.replaceState(null,'',u);
+  packet=currentPacket();persist();const code=encodeAtlas(packet),u=new URL(location.href);u.hash='a='+code;history.replaceState(null,'',u);
   try{
     if(navigator.share){await navigator.share({title:'FOLD//BLOOM · GLYPH ATLAS',text:'A source constellation / authored path. Audio bytes are not included.',url:u.toString()});$('#status').textContent='SHARED · GLYPH PACKET ONLY';return}
   }catch(e){if(e.name==='AbortError')return}
   try{await navigator.clipboard.writeText(u.toString());$('#status').textContent='SHARE LINK COPIED · AUDIO NOT INCLUDED'}catch(_){$('#status').textContent='SHARE LINK READY IN ADDRESS BAR'}
 }
 function exportReturn(){
-  packet=currentPacket();const out={kind:'FOLD_BLOOM_GLYPH_ATLAS_RETURN',created:new Date().toISOString(),packet,law:{cell:'exact source hash',path:'human-authored order',view:'deterministic audio glyph',return:'this packet',warning:'similar glyphs do not imply lineage'}};
+  packet=currentPacket();persist();const out={kind:'FOLD_BLOOM_GLYPH_ATLAS_RETURN',created:new Date().toISOString(),packet,law:{cell:'exact source hash',path:'human-authored order',view:'deterministic audio glyph',return:'this packet',warning:'similar glyphs do not imply lineage'}};
   const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='fold-bloom-glyph-atlas-'+Date.now()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);$('#status').textContent='RETURN EXPORTED';
+}
+function removeFocus(){
+  const x=entryBy(focusId);if(!x||x.sourceKind==='SYNTHETIC_DEMO')return;
+  stopIdle(false);packet.entries=packet.entries.filter(e=>e.id!==x.id);packet.path=packet.path.filter(id=>id!==x.id);focusId=packet.entries[0]?.id||null;persist();render();$('#status').textContent='CELL REMOVED · AUDIO WAS NEVER STORED';
 }
 function openSibling(route){
   const x=entryBy(focusId);if(x)try{sessionStorage.setItem('fold-bloom.source-witness.v1',JSON.stringify({sourceHash:x.sourceHash,name:x.name,glyph:x.glyph,from:'/fold-bloom/atlas/'}))}catch(_){}
@@ -155,8 +172,8 @@ function openSibling(route){
 }
 
 $('#loadBtn').onclick=()=>$('#files').click();$('#files').onchange=e=>loadFiles(e.target.files);
-$('#pathBtn').onclick=togglePath;$('#clearPath').onclick=clearPath;$('#idleBtn').onclick=startIdle;$('#shareBtn').onclick=share;$('#exportBtn').onclick=exportReturn;
-$('#message').oninput=()=>{packet.note=$('#message').value};
+$('#pathBtn').onclick=togglePath;$('#clearPath').onclick=clearPath;$('#removeBtn').onclick=removeFocus;$('#idleBtn').onclick=startIdle;$('#shareBtn').onclick=share;$('#exportBtn').onclick=exportReturn;
+$('#message').oninput=()=>{packet.note=$('#message').value;persist()};
 $('#listenBtn').onclick=()=>openSibling('../listen/');$('#liveBtn').onclick=()=>openSibling('../live/');
 document.addEventListener('pointerdown',e=>{if(idle.on&&!e.target.closest('#idleBtn'))stopIdle(true)},{capture:true});
 document.addEventListener('keydown',e=>{if(idle.on&&e.key!=='Tab')stopIdle(true)});
