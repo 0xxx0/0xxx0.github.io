@@ -1,0 +1,17 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "FOLD_BLOOM_LIVE_013_POLISH_2026-09-22",
+  "date": "2026-09-22",
+  "operation": "QA FRICTION → AUTOPILOT / PHONE REACHABILITY / DISPLAY STABILIZATION / PERCEPTUAL WORLD MORPH / PERF WITNESS",
+  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "route": "/fold-bloom/live/",
+  "delta": [
+    "AUTOPILOT becomes directly reachable",
+    "settings become phone-scrollable with proper touch targets",
+    "model work is bounded while display motion stays full-rate",
+    "road geometry is smoothed only at projection level",
+    "scene transitions use perceptual color interpolation and irrational section variation",
+    "successor has an exact recovery path and existing next-executable sequence"
+  ],
+  "next_truth": "Does 0.13 feel calmer but still alive? If yes, stop polishing and implement Experience Set v0.1. If no, the first failing bodily witness owns the next move."
+}
