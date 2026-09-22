@@ -122,10 +122,10 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM instrument family · EXPERIENCE SET 0.1 / SET 0.1 candidate / LIVE 0.13 / GLYPH ATLAS 0.2 / LISTEN 0.6 / TWO DIAL 0.10.3 / ECOLOGY 0.2",
+      "head": "FOLD//BLOOM · EXPERIENCE SET 0.1 / SET 0.1.1 + local vault / JOURNEY RIDE 0.1.2 shareable seed witness / LIVE 0.13 / LISTEN 0.6 / GLYPH ATLAS 0.2 / TWO DIAL 0.10.3 / ECOLOGY 0.2",
       "state": "ACTIVE_CANDIDATE_FAMILY",
       "route": "/fold-bloom/",
-      "retained_function": "One exact source remains itself while moving through unequal projections, and multiple exact source refs may now be authored into one Experience Set. SET 0.1 authors order, weight and explicit transition seams without storing source bytes or acquiring analyzer authority. LISTEN 0.6 remains source editor/cartographer; GLYPH ATLAS 0.2 memory; LIVE 0.13 embodied RIDE; TWO DIAL composition authority; ECOLOGY persistent lineage. Source-spine continuity means identity/address/aperture/authored calibration may travel without becoming a second source of truth.",
+      "retained_function": "One exact source can be selected once, remain byte-identifiable across SET/LISTEN/JOURNEY, and never leak raw media into set/share state. Multiple exact source refs form an Experience Set; JOURNEY derives a continuous journey address beside native source clocks. The recovered three-track GHOST → FORGE → WILL seed now has a metadata-true public witness while real audio remains same-browser/local.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -191,7 +191,15 @@
         "/returns/FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json",
         "/fold-bloom/set/release.json",
         "/fold-bloom/convergence/THREAD_COLLAPSE_2026-09-22.md",
-        "/fold-bloom/convergence/ADDRESSED_CONTINUITY_2026-09-22.md"
+        "/fold-bloom/convergence/ADDRESSED_CONTINUITY_2026-09-22.md",
+        "/fold-bloom/test-packs/catalog.json",
+        "/fold-bloom/journey/README.md",
+        "/fold-bloom/journey/release.json",
+        "/fold-bloom/journey/demo-seed.js",
+        "/control/confluence/FOLD_BLOOM_LOCAL_SPINE_JOURNEY_2026-09-22.json",
+        "/returns/FOLD_BLOOM_LOCAL_SPINE_JOURNEY_2026-09-22.json",
+        "/control/confluence/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json",
+        "/returns/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json"
       ],
       "experimental": [
         {
@@ -222,29 +230,26 @@
           "promotion_gate": "Phone body test: AUTOPILOT reachable; all settings reachable; jitter better/same/worse; response crisp/too smooth; worlds elegant/distinct; no source-time/drop regression."
         }
       ],
-      "merge_sha": "ce475fe2f9abca2068032c3dc4bdf236bcf0ee45",
-      "latest_return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
+      "merge_sha": "9b870afb6235f6b2b5f92b135acde7c9ebe4ffee",
+      "latest_return": "/returns/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json",
       "next_executable": {
-        "id": "fold-bloom-set-compositor-human-gate",
-        "state": "MERGED_ACTIVE_CANDIDATE_HUMAN_GATE",
-        "objective": "Use SET 0.1 directly with 3–7 meaningful source refs and decide whether reorder/weight/seam authoring feels like shaping one journey rather than maintaining a playlist.",
-        "implementation": {
-          "pull_request": 158,
-          "merge": "65257b7ed3d8e9afef0324f0775efce90ba8f789",
-          "route": "/fold-bloom/set/",
-          "ci_run": 1635,
-          "ci": "PASS",
-          "receipt": "/returns/FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json"
-        },
-        "human_receipt": [
-          "Can 3–7 source refs be added/reordered without friction?",
-          "Do explicit seams read as authored journey boundaries rather than playlist settings?",
-          "Does long-press drag work acceptably on phone, with ◀/▶ as fallback?",
-          "Does RETURN/import preserve the authored set exactly?"
+        "id": "fold-bloom-three-track-lived-gate",
+        "state": "IMPLEMENTED_BRANCH_CANDIDATE_HUMAN_GATE",
+        "objective": "Open the shareable GHOST → FORGE → WILL witness with no files, then in the owner browser bind the exact recovered three tracks once and compare metadata-only witness vs real local-audio Journey. Decide whether the set reads/feels like one authored journey rather than three tracks plus transitions.",
+        "exact_seed": [
+          "preforme · sha256:06ca33eb185845330718d8c9428c29a3a3bcb6d94f64e18270e4adb7400757cc",
+          "THROUGH THE FIRE · sha256:ac6c2c5fc654177da675b5d419a16b5430483371a524f5016ca45c7399905f04",
+          "BY YOUR WILL / 遺志 · sha256:00f41b223138e760e64a08c882606d18f2fcaafcc2e75526396f2c8c4fdfc2bc"
         ],
-        "next_if_keep": "JOURNEY RIDE 0.1 / continuous multi-source traversal over the same Experience Set",
-        "next_if_revise": "Repair only the failing compositor interaction; do not expand ontology.",
-        "law": "Human use now owns promotion. Do not begin Journey Ride merely because CI is green."
+        "share_route": "/fold-bloom/set/journey.html?demo=seed&auto=1",
+        "human_receipt": [
+          "Does a context-free person understand that this is one journey within ~20 seconds?",
+          "Does GHOST → FORGE → WILL read as an arc before hearing the audio?",
+          "With real local audio bound, do CARRY → DISSOLVE → RETURN feel meaningfully authored rather than playlist mechanics?",
+          "Does the byte-private/public-witness distinction remain obvious?"
+        ],
+        "after_keep": "SOURCE SHELL / RIDE · SEE · SHAPE should be a doorway refinement, not another engine.",
+        "law": "Do not bundle or publish the private audio merely to improve demo convenience. Metadata witness may travel; exact bytes require explicit local binding."
       }
     },
     {
