@@ -1,6 +1,6 @@
 # FOLD//BLOOM — SET COMPOSITOR 0.1
 
-Status: implementation candidate for G2.
+Status: **MERGED ACTIVE CANDIDATE** via PR #158 · merge `65257b7ed3d8e9afef0324f0775efce90ba8f789` · public-surface-check run 1635 PASS.
 
 Route: `/fold-bloom/set/`
 
@@ -35,4 +35,4 @@ The persistent source-spine law remains: identity/address/aperture/authored cali
 
 ## Stop
 
-Promote only after schema tests + phone-sized browser smoke pass. Then the next bounded question is whether a 3–7 source set can be authored quickly enough to justify JOURNEY RIDE 0.1.
+Technical promotion is complete: schema tests + phone-sized browser smoke pass. The remaining gate is human: author/reorder a 3–7 source set and decide whether it feels like shaping one journey rather than maintaining a playlist. JOURNEY RIDE 0.1 remains blocked until that receipt.
