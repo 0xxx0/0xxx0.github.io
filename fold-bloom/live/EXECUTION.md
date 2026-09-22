@@ -3,7 +3,7 @@
 Status: experimental performance head. Do not overwrite frozen donors.
 
 ## Current head
-`/fold-bloom/live/` now tests: **owned/local track → AUDIO MAP → future terrain; authored release → time-addressed deformation tape; terrain × deformation tape → the road actually ridden**. BLOOM opens, FOLD kinks/compresses, SPLIT forks, RETURN reconverges. Source audio evidence remains immutable; authored operations change the projection/world.
+`/fold-bloom/live/` now tests: **track/course → continuous measured terrain → smooth traversal camera; authored release → deformation tape; terrain × operations → road actually ridden**. LIVE 0.7 makes motion explicit: quiet/low-flux passages climb, energetic/flux-heavy passages descend and visually accelerate, spectral balance turns the route. Local MP3 uses measured AUDIO MAP; normal mode uses a clearly-marked synthetic FIELD COURSE through the same projection/deformation engine.
 
 Donors remain addressable and independent:
 - Fold Weave 0.1: `/recovery/fold-bloom/fold-weave-0.1/` — exact frozen donor; ring / crease / cascade / mute-first causal score.
@@ -30,7 +30,11 @@ Donors remain addressable and independent:
 17. **One gesture may lawfully act at multiple scales.** During a SPLIT window, the same left/right ring turn may rotate topology and choose a route because both operations share one addressed motion; do not add a second steering widget unless evidence demands it.
 18. **Traversal is non-destructive.** Branch choice is a bounded ride trace/camera projection; it never rewrites AUDIO MAP or deformation provenance.
 19. **Smooth projection, sharp meaning.** Crossfade geometry/camera to remove rendering pops, but preserve the categorical legibility of SPLIT and RETURN.
-20. **One musical delta per evaluation.** Tune gesture→consequence before adding modes, organisms or menus.
+20. **Motion axes stay simple and inspectable.** Energy/flux → traversal velocity; quiet↔intense balance → grade; low↔high spectral balance → turn. Prefer legible transforms over opaque learned geometry.
+21. **Visual velocity ≠ hidden playback-rate warp.** Keep the source song at 1× unless an explicit time-stretch mode is designed; speed currently changes spatial distance/FOV/flow, preserving phase lock.
+22. **Normal mode uses the same world-writing engine.** FIELD COURSE is synthetic/demo evidence, never mislabeled as analyzed audio, but BLOOM/FOLD/SPLIT/RETURN must deform it exactly as they deform an MP3 TRACKFIELD.
+23. **Smooth the signal, not the meaning.** Interpolate AUDIO MAP frames and low-pass camera motion; remove threshold shake/pops while keeping grade/turn/split/return categorically readable.
+24. **One musical delta per evaluation.** Tune gesture→consequence before adding modes, organisms or menus.
 
 ## Iteration loop
 `OBSERVE → NAME FAILURE → CHANGE ONE OPERATOR → STATIC TEST → BROWSER/TOUCH PLAY → A/B DONOR → RECEIPT → KEEP/REVERT`
@@ -46,6 +50,7 @@ A change survives only if it improves at least one without materially harming th
 - visible causal difference between BLOOM / FOLD / SPLIT / RETURN on the future road
 - legible LEFT/RIGHT/OPEN traversal when a SPLIT reaches the player
 - stable branch emergence/reconvergence without mesh popping or camera snaps
+- visible climb/descent and continuous velocity change without frame-stepping
 
 ## Promotion gate
 Do not call LIVE canonical until direct desktop + touch play establishes all of these:
@@ -58,7 +63,7 @@ Do not call LIVE canonical until direct desktop + touch play establishes all of 
 7. After one of each verb, a player can identify from the road alone which operation was written: BLOOM widened/opened; FOLD kinked/compressed; SPLIT forked; RETURN reconverged.
 8. During a SPLIT, an ordinary left/right ring turn can choose LEFT/RIGHT; chosen branch becomes visually dominant and camera alignment eases onto it; ignoring the split remains lawful.
 9. RETURN or split completion recenters without deleting the recorded branch trace.
-10. No runaway scheduler catch-up, stuck drone, touch-scroll conflict or material frame drop during a 10-minute run.
+10. Quiet vs intense fixtures produce visibly separated climb/descent geometry and distinct visual velocity.\n11. PLAY FIELD without MP3 still shows moving terrain and accepts the same road-writing operations.\n12. No runaway scheduler catch-up, stuck drone, touch-scroll conflict or material frame drop during a 10-minute run.
 
 ## Next useful transforms — only after play
 - Tune CALL selection, forecast legibility, charge curve and return aperture from observed choices/timing, not taste in isolation.
@@ -69,4 +74,4 @@ Do not call LIVE canonical until direct desktop + touch play establishes all of 
 - Add performance capture/replay only if the existing bounded RETURN packet proves insufficient for comparing runs.
 
 ## Stop condition for this pass
-Deformation algebra + TRACKFIELD projection tests + phone smoke pass; exact donors remain untouched. Stop before lane collectibles or provider proliferation. Next authority: with one MP3, does writing SPLIT then choosing a branch feel like a real decision rather than camera theatre; and did crossfading/easing remove the observed visual glitches?
+Motion/grade/speed interpolation + deformation + normal FIELD COURSE tests and phone smoke must pass; exact donors remain untouched. Stop before time-stretch, lane collectibles or provider proliferation. Next authority: desktop/phone play—are climbs/descents obvious, velocity continuous, and the ride materially smoother?
