@@ -21,7 +21,9 @@ function segmentedUnits(text,locale='en',mode='word'){
  if(mode==='grapheme'){let at=0;for(const ch of Array.from(raw)){const start=at;at+=ch.length;if(ch.trim())out.push({text:ch,start,end:at})}return out}
  for(const m of raw.matchAll(/\S+/g))out.push({text:m[0],start:m.index||0,end:(m.index||0)+m[0].length});return out
 }
-function paragraphUnits(raw){
+function paragraphUnits(raw,format='AUTO'){
+ const parsed=globalThis.FieldDocumentStructure?.parseDocumentStructure?.(raw,{format});
+ if(parsed)return parsed.paragraphs.map(x=>({text:raw.slice(x.start,x.end),start:x.start,end:x.end,address:x.address,section:x.section}));
  const out=[];const re=/\S[\s\S]*?(?=\n[ \t]*\n+|$)/g;let m;
  while((m=re.exec(raw))){const whole=m[0],lead=whole.search(/\S/),text=whole.trimEnd(),start=m.index+Math.max(0,lead);if(text.trim())out.push({text:text.trimStart(),start,end:m.index+text.length})}
  return out
@@ -33,7 +35,9 @@ function phraseUnits(raw,locale='en'){
  }
  return out
 }
-function sectionUnits(raw,paras=[]){
+function sectionUnits(raw,paras=[],format='AUTO'){
+ const parsed=globalThis.FieldDocumentStructure?.parseDocumentStructure?.(raw,{format});
+ if(parsed)return parsed.sections.map(x=>({text:raw.slice(x.start,x.end),start:x.start,end:x.end,key:x.label,depth:x.depth,address:x.address,parent:x.parent,contentStart:x.contentStart}));
  const hs=[];for(const m of raw.matchAll(/^(#{1,6})[ \t]+(.+?)\s*$/gm))hs.push({start:m.index,label:m[2].trim(),depth:m[1].length});
  if(hs.length){
   return hs.map((h,i)=>{const end=hs[i+1]?.start??raw.length,text=raw.slice(h.start,end).trimEnd();return{text,start:h.start,end,key:h.label,depth:h.depth}})
@@ -77,7 +81,7 @@ function jsonNodes(root){
  }
  walk(root);return out;
 }
-function analyze(source,label='Untitled',locale='en'){
+function analyze(source,label='Untitled',locale='en',format='AUTO'){
  let data=source,raw='',kind='TEXT';
  if(typeof source!=='string'){kind='JSON';data=source;raw=JSON.stringify(source,null,2)}
  else{raw=source;try{data=JSON.parse(source);kind='JSON'}catch(_){}}
@@ -89,7 +93,7 @@ function analyze(source,label='Untitled',locale='en'){
    if(leaves.length>1)scales.push({id:'LEAF',label:'LEAVES',units:leaves});
    return{kind,label,raw,data,bytes,chars,nodes,leaves:leaves.length,maxDepth,scales,xrefs:extractXrefs(raw)};
  }
- const words=segmentedUnits(raw,locale,'word'),sentences=segmentedUnits(raw,locale,'sentence'),graphemes=segmentedUnits(raw,locale,'grapheme'),paras=paragraphUnits(raw),phrases=phraseUnits(raw,locale),sections=sectionUnits(raw,paras);
+ const words=segmentedUnits(raw,locale,'word'),sentences=segmentedUnits(raw,locale,'sentence'),graphemes=segmentedUnits(raw,locale,'grapheme'),paras=paragraphUnits(raw,format),phrases=phraseUnits(raw,locale),sections=sectionUnits(raw,paras,format);
  const unit=(x,i,type,key=null)=>({path:type.toLowerCase()+'://'+i,key:key??String(i+1),type,value:x.text??x,text:x.text??x,leaf:true,start:x.start??0,end:x.end??raw.length});
  const scales=[
   {id:'DOC',label:'DOCUMENT',units:[unit({text:raw,start:0,end:raw.length},0,'DOC',label)]},
@@ -116,7 +120,7 @@ class FieldAperture extends HTMLElement{
   for(const si of order){const units=this.A.scales[si]?.units||[],pi=units.findIndex(x=>x.path===address);if(pi>=0)return{scale:si,index:pi}}return null
  }
  load(source,opt={}){
-  this.stop();this.locale=String(opt.locale||this.getAttribute('lang')||document.documentElement.lang||navigator.language||'en');this.A=analyze(source,opt.label||'Untitled',this.locale);this.scale=this.scaleIndex(opt.scale);this.pos=0;this.anchor=0;this.jsonPath=null;this.voiceCursor=null;this.structureDomKey='';
+  this.stop();this.locale=String(opt.locale||this.getAttribute('lang')||document.documentElement.lang||navigator.language||'en');this.A=analyze(source,opt.label||'Untitled',this.locale,opt.format||'AUTO');this.scale=this.scaleIndex(opt.scale);this.pos=0;this.anchor=0;this.jsonPath=null;this.voiceCursor=null;this.structureDomKey='';
   const hit=this.locate(opt.address,this.scale);
   if(hit){this.scale=hit.scale;this.pos=hit.index}
   else if(this.A.kind==='TEXT'&&Number.isFinite(Number(opt.charIndex))){this.anchor=clamp(Math.round(Number(opt.charIndex)),0,Math.max(0,this.A.raw.length-1));this.pos=this.indexForAnchor(this.scale)}

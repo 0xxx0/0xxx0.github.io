@@ -1,5 +1,5 @@
 const AUDIO_EXT=new Set(['mp3','wav','ogg','oga','m4a','aac','flac','webm','mp4']);
-const TEXT_EXT=new Set(['lrc','vtt','srt','txt','md']);
+const TEXT_EXT=new Set(['lrc','vtt','srt','txt','md','markdown']);
 const PLAYLIST_EXT=new Set(['m3u','m3u8','pls']);
 
 export function extOf(name=''){const m=String(name).toLowerCase().match(/\.([a-z0-9]+)$/);return m?m[1]:''}

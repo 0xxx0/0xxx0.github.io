@@ -1,0 +1,39 @@
+{
+  "schema": "0xxx0/return/fold-bloom-document-atlas/v0.1",
+  "date": "2026-09-22",
+  "state": "VERIFIED_CANDIDATE",
+  "pr": 174,
+  "implementation": {
+    "parser": "/lib/document-structure.js",
+    "adapter": "/fold-bloom/atlas/document-source.js",
+    "atlas": "/fold-bloom/atlas/",
+    "reader": "/docs/"
+  },
+  "laws": [
+    "exact bytes -> SHA-256 identity",
+    "raw document text remains session-local and is excluded from Atlas packets",
+    "Atlas section://N addresses and READFIELD section://N addresses share one parser",
+    "session loss preserves cell identity but requires exact-hash REBIND before READ",
+    "same-stem text remains eligible as an audio sidecar",
+    "no new Document Atlas or semantic inference"
+  ],
+  "verification": {
+    "run_id": 35729793662,
+    "conclusion": "success",
+    "covered": [
+      "document adapter unit tests",
+      "LISTEN analysis and stream lens",
+      "SET and JOURNEY",
+      "LIVE gameplay and track suites",
+      "critical browser smoke",
+      "recovered source identities",
+      "Sleeper City/Painting frozen tests"
+    ]
+  },
+  "tomorrow_review": [
+    "Test document glyph distinguishability at real Atlas thumbnail size before enriching glyph channels.",
+    "Observe whether an unmatched .md/.txt selected beside a single audio file should remain the legacy one-audio sidecar fallback or materialize independently.",
+    "If non-audio cells prove useful, consider renaming the generic SVG accessibility/internal label away from audio fingerprint; do not refactor pre-emptively."
+  ],
+  "next_gate": "actual use of at least one standalone local .txt/.md cell through Atlas -> READFIELD -> RETURN"
+}

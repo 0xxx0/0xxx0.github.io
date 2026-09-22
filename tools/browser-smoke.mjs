@@ -718,7 +718,7 @@ const CASES=[
     name:'FOLD BLOOM GLYPH ATLAS 0.2 INSIDE',
     route:'/fold-bloom/atlas/',
     options:{width:430,height:900,budget:5000},
-    check:dom=>/GLYPH ATLAS/i.test(dom)&&/SYNTHETIC DEMO/i.test(dom)&&/SOURCE = CELL/i.test(dom)&&/GLYPH = THUMBNAIL/i.test(dom)&&/FOCUS = INSIDE/i.test(dom)&&dom.includes('data-glyph-atlas="ready"')&&dom.includes('data-atlas-idle="on"')&&dom.includes('id="inside"')&&dom.includes('id="originBtn"')&&dom.includes('id="pathRail"')&&dom.includes('id="message"')&&dom.includes('id="shareBtn"')
+    check:dom=>/GLYPH ATLAS/i.test(dom)&&/SYNTHETIC DEMO/i.test(dom)&&/SOURCE = CELL/i.test(dom)&&/GLYPH = THUMBNAIL/i.test(dom)&&/FOCUS = INSIDE/i.test(dom)&&dom.includes('data-glyph-atlas="ready"')&&dom.includes('data-atlas-idle="on"')&&dom.includes('id="inside"')&&dom.includes('id="originBtn"')&&dom.includes('id="pathRail"')&&dom.includes('id="message"')&&dom.includes('id="shareBtn"')&&dom.includes('id="readBtn"')&&dom.includes('id="rebindBtn"')&&dom.includes('document-structure.js')
   },
   {
     name:'FOLD BLOOM LIVE 0.13 autopilot polish',
