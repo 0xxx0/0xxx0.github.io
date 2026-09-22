@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_NERVOUS_SYSTEM_2026-09-22",
   "date": "2026-09-22",
   "operation": "USER EMBODIED RETURN → MACRO SOURCE EVENT → TUNNEL / PLUNGE / OPEN SKY + SOURCE TEXT + FLOW IDLE",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "route": "/fold-bloom/live/",
   "delta": [
     "macro drops become explicit source events above beat/phrase/section scale",
@@ -11,5 +11,11 @@
     "embedded/timed lyrics can enter LIVE without false synchronization",
     "IDLE can witness FLOW without persisting operations"
   ],
-  "next_truth": "Play a track whose drop you know by body memory. Judge only: DROP MISSED / EARLY / LATE / RIGHT; TUNNEL WEAK / RIGHT / TOO MUCH; OPEN SKY WEAK / RIGHT / TOO MUCH; TEXT USEFUL / DISTRACTING."
+  "next_truth": "Play a track whose drop you know by body memory. Judge only: DROP MISSED / EARLY / LATE / RIGHT; TUNNEL WEAK / RIGHT / TOO MUCH; OPEN SKY WEAK / RIGHT / TOO MUCH; TEXT USEFUL / DISTRACTING.",
+  "pr": 148,
+  "merge_sha": "1d43c3edf1469c85a5fa7e3317460cd6932911b8",
+  "ci": {
+    "run": 35698711168,
+    "result": "PASS"
+  }
 }
