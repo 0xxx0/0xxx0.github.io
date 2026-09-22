@@ -6607,6 +6607,33 @@
         ],
         "return_path": "/"
       }
+    },
+    {
+      "href": "/reader/",
+      "title": "ARCHIVE READER / LOCAL SURFACE",
+      "kind": "system",
+      "parent": "/",
+      "family": "WITNESS",
+      "operation": "OBSERVE",
+      "state": "UTILITY",
+      "version": "1.0",
+      "showcase_card": false,
+      "role": "Public projection of a private, local-only corpus viewer at http://127.0.0.1:8777 (LaunchAgent com.void.archive-reader). It owns no public route and serves no public bytes: it holds no Full Disk Access, and TCC-protected roots are browsed from a snapshot index built outside the service. This entry registers the in-repo projection only — never contents, never device topology. Figure is body-asserted: 9/11 routes pass, and three routes return HTTP 200 WITH AN ERROR BODY, so a status code alone is not a claim.",
+      "evidence": {
+        "checks": [
+          "every figure recomputed from a named command or file; a status code alone is not a claim",
+          "route surface probed with body assertion (title not 404/err, no Errno marker, >500B)",
+          "HTTP 200 with an error body counts as FAILED — /thread?cid=0 and /b/codex both do this"
+        ],
+        "return_path": "/"
+      },
+      "index": {
+        "updated_at": "2026-09-23T02:31:44+08:00",
+        "work_modes": [
+          "VERIFY",
+          "OPERATE"
+        ]
+      }
     }
   ],
   "release_law": [

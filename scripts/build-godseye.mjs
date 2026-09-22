@@ -10,14 +10,17 @@
  * found while building the page are published rather than hidden. Known
  * unknowns are listed explicitly.
  *
- * Input:  /tmp/sky/godseye-facts.json, /tmp/sky/godseye-discrepancies.json
+ * Input:  control/witness/figures.json, control/witness/discrepancies.json
  * Output: godseye/index.html
  */
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
+const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const J = (p, d = []) => (existsSync(p) ? JSON.parse(readFileSync(p, 'utf8')) : d);
-const facts = J('/tmp/sky/godseye-facts.json');
-const discs = J('/tmp/sky/godseye-discrepancies.json');
+const facts = J(join(ROOT, 'control/witness/figures.json'));
+const discs = J(join(ROOT, 'control/witness/discrepancies.json'));
 
 const esc = (s) => String(s).replace(/[<>&"]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', '"': '&quot;' }[c]));
 
