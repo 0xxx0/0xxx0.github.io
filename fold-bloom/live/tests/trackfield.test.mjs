@@ -62,6 +62,20 @@ test('screen projection keeps foreground wide and horizon narrow',()=>{
 });
 
 
+test('quiet climb and intense descent separate visibly in screen space',()=>{
+  const mk=(e,f,l,h)=>({
+    version:'grade-test',stage:'DEEP',duration:10,bpm:100,frameRate:2,
+    frames:Array.from({length:21},(_,i)=>({t:i*.5,e,c:.5,f,l,m:.3,h})),
+    beats:[0,1,2,3,4,5,6,7,8,9,10],sections:[{t:0},{t:10}]
+  });
+  const climb=projectTrackfield(buildTrackfield(mk(.16,.03,.78,.06),0,{horizon:9,count:40}),430,900);
+  const descent=projectTrackfield(buildTrackfield(mk(.92,.58,.12,.70),0,{horizon:9,count:40}),430,900);
+  const i=30;
+  assert.ok(climb.slices[i].baseY<descent.slices[i].baseY-35);
+  assert.ok(descent.currentSpeed>climb.currentSpeed+.45);
+});
+
+
 test('chosen SPLIT branch shifts camera toward the selected traversal',()=>{
   const w=buildTrackfield(map,0,{horizon:8,count:32});
   const splitWorld={...w,points:w.points.map((p,i)=>({...p,deformSplit:i<20?.72:0,deformActive:i<20?[{id:'split:test',verb:'SPLIT',strength:.72}]:[]}))};
