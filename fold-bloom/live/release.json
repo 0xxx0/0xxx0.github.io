@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
-  "version": "LIVE 0.5",
-  "status": "ACTIVE_CANDIDATE_MERGED",
+  "version": "LIVE 0.6",
+  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
   "date": "2026-09-22",
   "donors": [
     {
@@ -62,7 +62,15 @@
     "RETURN suppresses active divergence/lateral kink and reconverges the road",
     "charged structural cadences write multiple ordered deformation verbs (e.g. FOLD then RETURN) onto one track timeline",
     "renderer draws verb-specific world evidence: bloom ribs, fold crease, split fork, return convergence plus road-surface branching",
-    "LIVE RETURN export now preserves deformation tape alongside section-arc performance state"
+    "LIVE RETURN export now preserves deformation tape alongside section-arc performance state",
+    "bounded ride state separates traversal choice from source AUDIO MAP and authored deformation tape",
+    "an approaching/active SPLIT opens a branch-choice window; the existing left/right ring turn selects LEFT/RIGHT without adding another steering control",
+    "chosen branch is recorded in a bounded traversal trace and exposed in RETURN",
+    "TRACKFIELD camera eases toward the selected branch and recenters after RETURN/split completion",
+    "SPLIT road rendering crossfades from center road to two branches instead of threshold-snapping, reducing mesh pop/glitch",
+    "chosen branch remains bright while the unchosen branch recedes; OPEN/ignored split remains lawful",
+    "ROUTE HUD shows OPEN / CHOOSE / LEFT / RIGHT",
+    "branch choice may publish a bounded FIELD operation outside autoplay preview; preview remains local/non-authoritative"
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -76,13 +84,16 @@
     "silent onboarding preview is non-authoritative and must restore clean state on takeover",
     "deformation tape is a reversible projection layer and must never rewrite source AUDIO MAP frames",
     "road deformation must remain bounded in time/count and prune after traversal",
-    "visual deformation semantics must remain legible muted and without score/HUD interpretation"
+    "visual deformation semantics must remain legible muted and without score/HUD interpretation",
+    "ride trace is traversal evidence only and must never mutate AUDIO MAP or deformation tape provenance",
+    "branch choice remains non-punitive; ignoring a SPLIT cannot invalidate the run",
+    "do not add a second joystick while ordinary topology rotation can carry branch intent clearly"
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "Direct phone MP3: perform each verb and identify road-only effect; specifically judge whether SPLIT creates a meaningful branch-choice urge and whether FOLD→RETURN reads as kink/compression followed by convergence.",
+    "required_next": "PR CI + direct phone MP3: write SPLIT, turn left/right during the approaching fork, confirm route/camera follows smoothly, unchosen branch recedes, RETURN recenters, and prior glitch/popping is materially reduced.",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
@@ -108,10 +119,11 @@
     "deformation_pr": 139,
     "deformation_merge_sha": "c9bea197a3f9808bc2ad2b1c58c32d5c50ed0a55",
     "deformation_ci": "PASS: public-surface-check run 35677481804, including engine/track/section-arc/TRACKFIELD/deformation tests and critical browser smoke",
-    "deformation_regression": "Charged FOLD→RETURN ordering defect caught by CI, fixed before merge, and regression-locked."
+    "deformation_regression": "Charged FOLD→RETURN ordering defect caught by CI, fixed before merge, and regression-locked.",
+    "ride_branch": "fold-bloom-ride-choice-060"
   },
   "execution_contract": "./EXECUTION.md",
-  "return": "/returns/FOLD_BLOOM_WORLD_WRITING_2026-09-22.json",
+  "return": "/returns/FOLD_BLOOM_RIDE_CHOICE_2026-09-22.json",
   "updated": "2026-09-22",
   "observed_user_return": {
     "date": "2026-09-22",
