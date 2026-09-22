@@ -24,6 +24,20 @@ test('markdown hierarchy ignores fenced headings and preserves depth parents',()
   assert.equal(s.paragraphs.some(p=>p.start===s.sections[0].start),false);
 });
 
+test('heading syntax, CRLF and closing hashes stay deterministic',()=>{
+  const s=analyzeDocumentText('\uFEFF# Title ###\r\nbody\r\n\r\n#NoSpace\r\ntext\r\n\r\n    ## Indented\r\ncode',{format:'MD'});
+  assert.equal(s.sections.length,1);
+  assert.equal(s.sections[0].label,'Title');
+  assert.equal(s.sections[0].start,0);
+});
+
+test('longer closing fence closes and unterminated fence suppresses headings',()=>{
+  const closed=analyzeDocumentText('## Real\n\n\`\`\`\`js\n# Fake\n\`\`\`\`\`\n\n### After',{format:'MD'});
+  assert.deepEqual(closed.sections.map(x=>x.label),['Real','After']);
+  const open=analyzeDocumentText('# A\n\n~~~txt\n## Fake\nnever closes',{format:'MD'});
+  assert.deepEqual(open.sections.map(x=>x.label),['A']);
+});
+
 test('plain text fallback groups paragraphs four at a time',()=>{
   const s=analyzeDocumentText(Array.from({length:9},(_,i)=>'P'+(i+1)).join('\n\n'),{format:'TXT'});
   assert.deepEqual(s.sections.map(x=>x.label),['§ 1','§ 2','§ 3']);
