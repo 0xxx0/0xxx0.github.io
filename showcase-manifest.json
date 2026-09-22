@@ -1159,7 +1159,7 @@
       "operation": "ORIENT",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-22T13:22:00+08:00",
+        "updated_at": "2026-09-22T14:20:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1167,26 +1167,26 @@
           "RELEASE"
         ]
       },
-      "role": "Current unequal Fold/Bloom family. LIVE 0.8 projects the same hashed AUDIO MAP as steeper beat→phrase→section terrain plus authored world-writing; LISTEN 0.4 is the addressed-stream analysis/glyph/annotation lens; TWO DIAL 0.10.2 may host the same local file as temporal context while retaining composition authority; ECOLOGY remains lineage/game until a concrete transfer is earned."
+      "role": "Unequal Fold/Bloom source cycle: GLYPH ATLAS 0.1 remembers/share-returns exact source cells and human paths; LISTEN 0.5 is cartographer/lyrics/addressed-message builder; LIVE 0.9 is the hierarchical DRIVE/RIDE that can witness in IDLE and encounter same-source human landmarks; TWO DIAL 0.10.3 composes with source context; ECOLOGY stays persistent lineage until song-as-climate is earned."
     },
     {
       "href": "/fold-bloom/live/",
-      "title": "FOLD//BLOOM LIVE 0.8",
+      "title": "FOLD//BLOOM LIVE / DRIVE 0.9",
       "kind": "artifact",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "PLAY",
       "state": "ACTIVE",
-      "version": "0.8",
-      "receipt": "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json",
-      "role": "Hierarchical world-writing ride. Same-source local MP3 → AUDIO MAP v0.4 → steeper TRACKFIELD: beat ribs, stronger downbeats, analyzed phrase gates, section macro gates, energy-trend anticipation, and amplified smoothed camera pitch/velocity. BLOOM/FOLD/SPLIT/RETURN remain authored reversible terrain operations; AUTO RIDE DEMO now traverses approaching SPLIT branches.",
+      "version": "0.9",
+      "receipt": "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
+      "role": "Embodied source reader + authored world-writing ride. Hashed local audio becomes beat→phrase→section terrain; human BLOOM/FOLD/SPLIT/RETURN deforms the road. IDLE is reversible witness-play only. LISTEN PINs with the exact source hash appear as authored landmarks/notes at their addresses.",
       "transfer": [
         "Fold Weave: authored 12-cell topology / crease / cascade / mute-first causal score",
         "LIVE 0.4: AUDIO MAP → future TRACKFIELD",
         "LIVE 0.5: BLOOM/FOLD/SPLIT/RETURN deformation tape",
         "LIVE 0.6: traversable LEFT/RIGHT/OPEN SPLIT choice",
         "READFIELD donor: address/playhead/projection law only; no racer-skin transfer",
-        "LIVE 0.8: source hash + beat/downbeat/phrase/section terrain hierarchy + amplified smooth grade/speed + branch-aware AUTO RIDE DEMO"
+        "LIVE 0.9: common witness-only IDLE + same-source addressed PIN landmarks"
       ],
       "contract": {
         "accepts": {
@@ -1201,11 +1201,13 @@
             "audio enabled",
             "local MP3",
             "LISTEN/FIELD PULSE beat + section context",
-            "analyzed phrase boundaries"
+            "analyzed phrase boundaries",
+            "same-source LISTEN PIN landmarks",
+            "witness-only IDLE"
           ]
         },
         "transforms": {
-          "verb": "project one hashed AUDIO MAP into hierarchical beat/phrase/section terrain, then apply bounded authored BLOOM/FOLD/SPLIT/RETURN deformations without mutating source evidence",
+          "verb": "project one hashed source into hierarchical terrain; optionally witness it in reversible IDLE; render human-authored same-source addresses as landmarks; apply only human-authored BLOOM/FOLD/SPLIT/RETURN as durable road writing",
           "preserves": [
             "donor provenance",
             "topology identity",
@@ -1222,7 +1224,9 @@
             "branch-choice non-punitive semantics",
             "continuous source interpolation",
             "normal/custom source parity",
-            "audio phase lock at 1×"
+            "audio phase lock at 1×",
+            "IDLE non-authority",
+            "authored PIN text/provenance"
           ],
           "reversibility": "bounded",
           "side_effects": "local browser state / explicit export only"
@@ -1242,13 +1246,12 @@
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json",
+          "receipt": "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
           "checks": [
-            "LIVE 0.8 engine/track/phrase/TRACKFIELD/deformation/ride/practice-course tests",
-            "strong pixel-level climb/descent separation + future energy-trend anticipation",
-            "cold-start FIELD_PRACTICE + branch-aware AUTO RIDE browser smoke",
-            "phone-sized critical browser smoke",
-            "direct human slope/phrase/motion feel remains promotion gate"
+            "LIVE 0.9 engine/track/TRACKFIELD/deformation/ride regressions",
+            "IDLE browser witness + first-touch takeover",
+            "same-source pin landmark browser evidence",
+            "direct human IDLE/landmark feel remains promotion gate"
           ],
           "return_path": "/fold-bloom/"
         },
@@ -1315,7 +1318,7 @@
         "physical_fit": "Performance/control grammar suitable for later encoder/touch/physical-control adapters; no hardware authority implied."
       },
       "index": {
-        "updated_at": "2026-09-22T13:22:00+08:00",
+        "updated_at": "2026-09-22T14:20:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1325,13 +1328,13 @@
     },
     {
       "href": "/fold-bloom/two-dial/",
-      "title": "TWO DIAL 0.10.2",
+      "title": "TWO DIAL 0.10.3",
       "kind": "artifact",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "PLAY",
       "state": "ACTIVE",
-      "version": "0.10.2",
+      "version": "0.10.3",
       "receipt": "/fold-bloom/two-dial/release.json",
       "transfer": [
         "preserved two-dial relation algebra",
@@ -1352,7 +1355,8 @@
           "optional": [
             "saved motif/form state",
             "same-origin FIELD PULSE transport context",
-            "same-page hashed local AUDIO MAP transport context"
+            "same-page hashed local AUDIO MAP transport context",
+            "witness-only IDLE"
           ]
         },
         "transforms": {
@@ -1361,7 +1365,9 @@
             "two-dial relation algebra",
             "current control state",
             "motif/form continuity",
-            "cassette/RETURN identity"
+            "cassette/RETURN identity",
+            "IDLE non-authority",
+            "source-clock/composition-authority distinction"
           ],
           "reversibility": "full",
           "side_effects": "local"
@@ -1438,7 +1444,7 @@
         "physical_fit": "Control primitive; candidate for tangible dial/encoder interfaces."
       },
       "index": {
-        "updated_at": "2026-09-22T13:22:00+08:00",
+        "updated_at": "2026-09-22T14:20:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -1446,7 +1452,7 @@
           "RELEASE"
         ]
       },
-      "role": "Composition head. MATTER × HARMONY preserves BLOOM/FOLD/SPLIT/RETURN authorship while WORLD × VOICE × GROOVE × SCALE shapes music. 0.10.2 can load the same hashed local file directly, or borrow LISTEN pulse context; tempo/beat/energy/phrase/section may condition timing/context but never choose notes, verbs, motif or form."
+      "role": "Composition authority. MATTER × HARMONY authors BLOOM/FOLD/SPLIT/RETURN; a local source or LISTEN may lend tempo/energy/phrase/section context. IDLE demonstrates the algebra on a reversible snapshot and can follow the source clock, but its automatic composition evaporates on takeover."
     },
     {
       "href": "/fold-bloom/ecology/",
@@ -5775,15 +5781,15 @@
     },
     {
       "href": "/fold-bloom/listen/",
-      "title": "FOLD // BLOOM LISTEN 0.4",
+      "title": "FOLD // BLOOM LISTEN 0.5",
       "kind": "experiment",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "LISTEN",
       "state": "CANDIDATE",
-      "role": "Addressed-stream audio lens. One hashed source survives ADDRESS×APERTURE navigation, analyzed beat/phrase/section hierarchy, optional provider metadata, human PIN annotations, and a deterministic source glyph suitable for file thumbnails. AUDIO MAP/glyph evidence can project into LIVE or Two Dial without transferring authorship.",
+      "role": "Cartographer for one exact audio source. ADDRESS×APERTURE inspection, beat/phrase/section evidence, deterministic glyph, local ID3/USLT lyrics, human PIN marks and source-ordered addressed-message RETURN. IDLE witnesses scale changes without writing; same-source pins can later be encountered in LIVE.",
       "index": {
-        "updated_at": "2026-09-22T13:22:00+08:00",
+        "updated_at": "2026-09-22T14:20:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -5805,26 +5811,27 @@
       "evolution": {
         "schema": "field-evolution/v0.1",
         "host": "/fold-bloom/",
-        "generation": 1,
+        "generation": 2,
         "stage": "TEST",
-        "question": "Can one source identity remain recognizable and useful as glyph, addressed ring, terrain and composition context without collapsing those projections or authorship boundaries?",
-        "baseline": "Ordinary audio playback plus existing Fold/Bloom branches without source-audio analysis or time-addressed visual terrain.",
-        "mutation": "LISTEN 0.4 turns one exact audio source into a reusable addressed object: analyzed phrase evidence replaces fixed PHRASE assumptions when possible; deterministic glyphs make file identity visible; source hash survives projection into sibling instruments.",
-        "evidence_gate": "CI must prove phrase novelty/fallback, deterministic glyph stability, source-hash transport, LIVE 0.8 terrain regression and Two Dial local-track runtime. Direct use must judge phrase/glyph recognizability and cross-surface continuity.",
-        "next_if_pass": "Build an AUDIO GLYPH ATLAS/retrieval view and only then test one unequal second stream host.",
-        "next_if_fail": "Keep the useful parts independently: hashed AUDIO MAP + annotations + glyph identity; park cross-surface projection claims."
+        "question": "Can a human map meaning into exact source addresses, then encounter/read/share those marks through unequal projections without the machine becoming the author?",
+        "baseline": "LISTEN 0.4 proved deterministic glyph identity, analyzed phrase apertures and source-scoped pins.",
+        "mutation": "0.5 recovers embedded local lyrics, makes IDLE non-authoring, compiles pins into an addressed-message RETURN, hands source glyphs to Atlas and lets exact-source LIVE render pins as landmarks.",
+        "evidence_gate": "CI + local MP3 ID3/USLT fixture + browser surfaces; direct use must judge lyrics handoff, map→ride landmark meaning and witness-only IDLE.",
+        "next_if_pass": "Refine addressed-message sharing/ride presentation; test Glyph Atlas recognition before learned neighborhoods.",
+        "next_if_fail": "Keep local lyrics + pins + glyph independently; remove cross-projection message claims."
       },
-      "version": "0.4",
+      "version": "0.5",
       "contract": "/control/FIELD_PULSE_CONTRACT.json",
-      "receipt": "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json",
+      "receipt": "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
       "transfer": [
         "field-addressed-stream/v0.1 generic address/aperture/pin law",
-        "AUDIO MAP v0.4 beat + beat-synchronous phrase novelty + section evidence",
-        "fold-bloom-audio-glyph/v0.1 deterministic file thumbnail identity",
-        "source-provenanced annotations beside immutable analysis",
-        "provider-independent approximate key/mode identity",
-        "shared hashed source identity across LISTEN / LIVE / Two Dial",
-        "bounded FIELD PULSE context; borrowed structure != borrowed authorship"
+        "local ID3v2 identity + USLT lyrics recovery",
+        "AUDIO MAP v0.4 beat + phrase novelty/fallback + section evidence",
+        "fold-bloom-audio-glyph/v0.1 deterministic source projection",
+        "fold-bloom-addressed-message/v0.1 human PIN path beside immutable source evidence",
+        "GLYPH ATLAS session-local glyph handoff; no audio bytes",
+        "same-source PIN → LIVE landmark seam",
+        "witness-only IDLE; prior human aperture restores on takeover"
       ]
     },
     {
@@ -5999,6 +6006,122 @@
           "static public route registered after NEXUS surface appeared on master"
         ],
         "return_path": "/"
+      }
+    },
+    {
+      "href": "/fold-bloom/atlas/",
+      "title": "FOLD//BLOOM GLYPH ATLAS 0.1",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "REMEMBER / PATH",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "receipt": "/fold-bloom/atlas/release.json",
+      "role": "Shareable outer memory surface. Local audio is hashed into exact source CELLS and deterministic glyph projections; humans author ordered PATHS/notes; URL/JSON RETURN carries glyph evidence but never source audio. Synthetic demo + IDLE make the public surface alive without permissions.",
+      "transfer": [
+        "GRID PATH: CELL → PATH → ADDRESS/VIEW → RETURN",
+        "Pathweaver: one path, unequal glyph/score projections",
+        "Law Zoo PALIMPSEST: representation may become dynamical without becoming canonical truth",
+        "LISTEN audio-glyph/v0.1 + shared preview/deep analysis",
+        "witness-only IDLE"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "local audio files",
+            "shared glyph-atlas packet",
+            "LISTEN glyph handoff"
+          ],
+          "requires": [],
+          "optional": [
+            "ID3 display metadata",
+            "human note"
+          ]
+        },
+        "transforms": {
+          "verb": "preserve exact source identity as deterministic glyph cells, then let the human author an ordered path across unequal source projections",
+          "preserves": [
+            "full source hash",
+            "human path order",
+            "glyph descriptor",
+            "no-audio share boundary",
+            "IDLE non-authority"
+          ],
+          "reversibility": "full",
+          "side_effects": "local glyph packet persistence / explicit share-export only"
+        },
+        "emits": {
+          "kinds": [
+            "glyph wall",
+            "authored source path",
+            "shareable glyph packet",
+            "JSON RETURN"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/fold-bloom/atlas/release.json",
+          "checks": [
+            "atlas-core path/share tests",
+            "browser synthetic constellation/IDLE boot",
+            "local multi-file decode remains direct-use gate"
+          ],
+          "return_path": "/fold-bloom/atlas/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "DONOR"
+        ],
+        "inputs": [
+          {
+            "medium": "SOUND/DATA",
+            "kind": "local audio bytes → hash/AUDIO MAP",
+            "interface": "multi-file picker"
+          },
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "focus/path/note",
+            "interface": "glyph wall + path rail"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "LIGHT",
+            "kind": "deterministic source glyphs",
+            "interface": "SVG/display"
+          },
+          {
+            "medium": "DATA",
+            "kind": "glyph path/share/RETURN",
+            "interface": "URL hash + JSON"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "LISTEN",
+            "status": "AVAILABLE",
+            "via": "source witness / reload exact source"
+          },
+          {
+            "class": "LIVE_DRIVE",
+            "status": "AVAILABLE",
+            "via": "source witness / reload exact source"
+          }
+        ],
+        "physical_fit": "Potential source-label/glyph print/export surface; no physical authority implied."
+      },
+      "index": {
+        "updated_at": "2026-09-22T14:20:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE",
+          "SHARE"
+        ]
       }
     }
   ],
