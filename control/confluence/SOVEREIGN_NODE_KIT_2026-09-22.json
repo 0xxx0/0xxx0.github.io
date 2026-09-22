@@ -1,0 +1,57 @@
+{
+  "schema": "0xxx0/confluence-return/v0.1",
+  "id": "SOVEREIGN-NODE-KIT-2026-09-22",
+  "updated": "2026-09-22",
+  "state": "IMPLEMENTED_VALIDATED_UNMERGED",
+  "from": [
+    "Frontier Stack Watch / sovereign-node thread",
+    "existing provider contracts",
+    "MEDIA REFINERY / Hermes media curator"
+  ],
+  "transfer": [
+    "replaceable DecisionProvider / MediaProvider / AgentExecutor boundary",
+    "external canonical state + typed receipts",
+    "model x harness evaluation law",
+    "security/authority failures stop rather than fallback",
+    "conversion-first re-entry gating"
+  ],
+  "to": [
+    "/control/SOVEREIGN_NODE_RUNTIME.json",
+    "/control/confluence/SOVEREIGN_NODE_FRONTIER.md",
+    "/scripts/sovereign-node-freeze.sh",
+    "/scripts/sovereign-node-bakeoff-init.py",
+    "/scripts/sovereign-node-qwen-endurance.py",
+    "/control/prompts/SOVEREIGN_NODE_SCOUT.md",
+    "/control/prompts/SOVEREIGN_NODE_EXECUTOR.md",
+    "/control/prompts/SOVEREIGN_NODE_CONFLUENCE_RETURN.md",
+    "MEDIA REFINERY / media-curator"
+  ],
+  "preserve": [
+    "CURRENT conversion-first authority",
+    "filesystem/Git/receipts as canonical truth",
+    "source media read-only",
+    "Hermes read-only by default",
+    "no silent cloud fallback",
+    "one bounded move -> RETURN -> replan"
+  ],
+  "change": [
+    "media bulk worker default qwen3-vl:8b -> qwen3.5:9b",
+    "qwen3.5:27b local adjudicator is opt-in and never auto-pulled",
+    "provider frontier gains executable freeze/fixture/endurance scripts and portable meta-prompts"
+  ],
+  "test": [
+    "Run baseline freeze only when a real node decision/re-entry trigger exists.",
+    "Run executor fixture separately per harness/profile/worktree.",
+    "Run Ollama endurance against an explicit installed model tag and new evidence path."
+  ],
+  "return_pending": "Actual Mac mini runtime receipts remain pending until a current conversion or material node decision justifies running the kit.",
+  "stop": "Merge the executable kit; do not activate a new sovereign-node front or run heavyweight model downloads merely to generate receipts.",
+  "validation": [
+    "JSON.parse passes for SOVEREIGN_NODE_RUNTIME.json, HERMES_MEDIA_CURATOR.json and this packet.",
+    "Python py_compile passes for bakeoff-init and qwen-endurance harnesses.",
+    "Bakeoff fixture generated 10 tasks and canonical nonce ORBIT-4721 in a temporary workspace.",
+    "Endurance harness refuses to mix evidence into an existing JSONL file unless --append is explicit.",
+    "bash -n passes for sovereign-node-freeze.sh and the updated Hermes media bootstrap.",
+    "No Mac mini runtime, provider, model download, canonical state or external service was mutated by validation."
+  ]
+}
