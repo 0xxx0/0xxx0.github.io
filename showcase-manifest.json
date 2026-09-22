@@ -72,7 +72,8 @@
       "policy_trace_verification": "/policy-trace-verification.json",
       "axial_support_return": "/returns/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
-      "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json"
+      "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
+      "tier": "FIELD"
     },
     {
       "href": "/contact/",
@@ -125,7 +126,8 @@
           "VERIFY"
         ]
       },
-      "operation": "ADDRESS"
+      "operation": "ADDRESS",
+      "tier": "FIELD"
     },
     {
       "href": "/port/",
@@ -436,7 +438,8 @@
           "receipt": "/port/release.json",
           "provenance": "exact runtime handoff commit"
         }
-      ]
+      ],
+      "tier": "FIELD"
     },
     {
       "href": "/laconic/",
@@ -579,7 +582,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/field-intake/",
@@ -716,7 +720,8 @@
           "OPERATE"
         ]
       },
-      "role": "Reviewed canonical admission membrane: accepts compressed capture, CONTINUITY cases, and HUMAN PORT object-reference candidates; mutation still requires explicit resolution + APPLY and leaves reversible receipts."
+      "role": "Reviewed canonical admission membrane: accepts compressed capture, CONTINUITY cases, and HUMAN PORT object-reference candidates; mutation still requires explicit resolution + APPLY and leaves reversible receipts.",
+      "tier": "FIELD"
     },
     {
       "href": "/continuity/",
@@ -873,7 +878,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/care/",
@@ -1149,7 +1155,8 @@
           "receipt": "/control/CARE_VALIDATION_2026-09-22_V05.json",
           "provenance": "release commit plus later v0.5 source-return hardening"
         }
-      ]
+      ],
+      "tier": "FIELD"
     },
     {
       "href": "/fold-bloom/",
@@ -1168,7 +1175,8 @@
           "RELEASE"
         ]
       },
-      "role": "Fold/Bloom now has a coherent local-first path: exact source identity → SET 0.1.1 authoring → JOURNEY RIDE 0.1.2 traversal, with a shareable metadata-true GHOST → FORGE → WILL witness over the recovered three-track seed. Raw audio remains private/local; LISTEN maps one source, LIVE embodies one source, ATLAS remembers, TWO DIAL composes, ECOLOGY remains lineage."
+      "role": "Fold/Bloom now has a coherent local-first path: exact source identity → SET 0.1.1 authoring → JOURNEY RIDE 0.1.2 traversal, with a shareable metadata-true GHOST → FORGE → WILL witness over the recovered three-track seed. Raw audio remains private/local; LISTEN maps one source, LIVE embodies one source, ATLAS remembers, TWO DIAL composes, ECOLOGY remains lineage.",
+      "tier": "FIELD"
     },
     {
       "href": "/fold-bloom/set/",
@@ -1229,7 +1237,8 @@
           "receipt": "/returns/FOLD_BLOOM_SET_COMPOSITOR_010_2026-09-22.json",
           "return_path": "/fold-bloom/"
         }
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/fold-bloom/set/journey.html",
@@ -1292,7 +1301,8 @@
           "receipt": "/returns/FOLD_BLOOM_SHAREABLE_SEED_DEMO_2026-09-22.json",
           "return_path": "/fold-bloom/"
         }
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/fold-bloom/live/",
@@ -1466,7 +1476,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/fold-bloom/two-dial/",
@@ -1594,7 +1605,8 @@
           "RELEASE"
         ]
       },
-      "role": "Composition authority. MATTER × HARMONY authors BLOOM/FOLD/SPLIT/RETURN; a local source or LISTEN may lend tempo/energy/phrase/section context. IDLE demonstrates the algebra on a reversible snapshot and can follow the source clock, but its automatic composition evaporates on takeover."
+      "role": "Composition authority. MATTER × HARMONY authors BLOOM/FOLD/SPLIT/RETURN; a local source or LISTEN may lend tempo/energy/phrase/section context. IDLE demonstrates the algebra on a reversible snapshot and can follow the source clock, but its automatic composition evaporates on takeover.",
+      "tier": "FIELD"
     },
     {
       "href": "/fold-bloom/ecology/",
@@ -1701,7 +1713,8 @@
           "VERIFY",
           "RELEASE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/sleeper/",
@@ -1816,7 +1829,8 @@
           "PLAY"
         ]
       },
-      "project": "/sleeper/project/"
+      "project": "/sleeper/project/",
+      "tier": "FIELD"
     },
     {
       "href": "/fold-bloom/lens/",
@@ -1948,7 +1962,8 @@
         "next_if_fail": "Repair only the failing Studio usability/runtime seam; preserve proved identity/RETURN architecture and keep FOVEATE parked."
       },
       "evolution_receipt": "/control/LENS_EVOLUTION_G1_2026-09-21.json",
-      "proof_receipt": "/control/LENS_G1_PROOF_SEAL_2026-09-21.json"
+      "proof_receipt": "/control/LENS_G1_PROOF_SEAL_2026-09-21.json",
+      "tier": "FIELD"
     },
     {
       "href": "/foundry/",
@@ -1971,7 +1986,8 @@
           "ORIENT"
         ]
       },
-      "machine_view": "GATEWAY"
+      "machine_view": "GATEWAY",
+      "tier": "FIELD"
     },
     {
       "href": "/foundry/verse-atlas/",
@@ -2082,7 +2098,8 @@
           "VERIFY"
         ]
       },
-      "role": "Sealed Jueju-native specialist: stable 4×7 source identity, study/evidence, path/glyph/RSVP and replayable RETURN. General Verse experiments belong outside this engine."
+      "role": "Sealed Jueju-native specialist: stable 4×7 source identity, study/evidence, path/glyph/RSVP and replayable RETURN. General Verse experiments belong outside this engine.",
+      "tier": "FIELD"
     },
     {
       "href": "/foundry/convergence/",
@@ -2102,7 +2119,8 @@
           "IMPLEMENT",
           "VERIFY"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/foundry/axial/",
@@ -2298,7 +2316,8 @@
         "event_schema": "/foundry/axial/event.schema.json"
       },
       "research": "/foundry/axial/research.json",
-      "shared_core": "/foundry/axial/focus-core.js"
+      "shared_core": "/foundry/axial/focus-core.js",
+      "tier": "FIELD"
     },
     {
       "href": "/foundry/room/",
@@ -2471,7 +2490,8 @@
         "/foundry/room/space-scale-0.2.html",
         "/foundry/room/room-0.1.html"
       ],
-      "recovery_note": "/control/confluence/ROOM_HTML_SUBSTRATE_2026-09-22.md"
+      "recovery_note": "/control/confluence/ROOM_HTML_SUBSTRATE_2026-09-22.md",
+      "tier": "FIELD"
     },
     {
       "href": "/foundry/convergence/identity-lab.html",
@@ -2574,7 +2594,8 @@
           "VERIFY",
           "RELEASE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/atlas-dayline/",
@@ -2682,7 +2703,8 @@
           "VERIFY",
           "RELEASE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/forward-field-proof/",
@@ -2783,7 +2805,8 @@
           "VERIFY",
           "RELEASE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/forward-field-proof/triangle/",
@@ -2866,7 +2889,8 @@
         "shared triangle:// addresses + triangle-return/v1 receipts",
         "old Bench content preserved under /forward-field-proof/triangle/bench/ with one relative Glyph-Lab relocation-link adjustment",
         "CENTER retained separately as donor"
-      ]
+      ],
+      "tier": "FIELD"
     },
     {
       "href": "/router-bench/",
@@ -2917,7 +2941,8 @@
           "VERIFY"
         ]
       },
-      "operation": "ROUTE"
+      "operation": "ROUTE",
+      "tier": "FIELD"
     },
     {
       "href": "/fcm/",
@@ -2969,7 +2994,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/shopping/",
@@ -3113,7 +3139,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/control/",
@@ -3131,7 +3158,8 @@
           "IMPLEMENT"
         ]
       },
-      "operation": "ORIENT"
+      "operation": "ORIENT",
+      "tier": "FIELD"
     },
     {
       "href": "/returns/",
@@ -3149,7 +3177,8 @@
           "IMPLEMENT"
         ]
       },
-      "operation": "RETURN"
+      "operation": "RETURN",
+      "tier": "FIELD"
     },
     {
       "href": "/showcase-selftest/",
@@ -3166,7 +3195,8 @@
           "SPECIFY",
           "VERIFY"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/recovery/",
@@ -3183,7 +3213,8 @@
           "VERIFY"
         ]
       },
-      "operation": "RECOVER"
+      "operation": "RECOVER",
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/path-grid/",
@@ -3201,7 +3232,8 @@
           "SPECIFY",
           "VERIFY"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/fold-bloom/fold-weave-0.1/",
@@ -3219,7 +3251,8 @@
           "SPECIFY",
           "VERIFY"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/house/",
@@ -3250,7 +3283,8 @@
           "OPERATE",
           "VERIFY"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/house/spatial/",
@@ -3300,7 +3334,8 @@
           "SPECIFY"
         ]
       },
-      "family_href": "/house/"
+      "family_href": "/house/",
+      "tier": "FIELD"
     },
     {
       "href": "/docs/",
@@ -3386,7 +3421,8 @@
           "return_path": "/docs/"
         }
       },
-      "version": "0.7.1"
+      "version": "0.7.1",
+      "tier": "FIELD"
     },
     {
       "href": "/control/confluence/",
@@ -3407,7 +3443,8 @@
       "machine_view": "CONFLUENCE",
       "operation": "TRANSFER",
       "recovery_target": "/control/recovery/ONE_RETURN_V2_TARGET_2026-09-21.json",
-      "handoff": "/control/confluence/ONE_RETURN_WORK_HANDOFF.md"
+      "handoff": "/control/confluence/ONE_RETURN_WORK_HANDOFF.md",
+      "tier": "FIELD"
     },
     {
       "href": "/recovery/rsvp/",
@@ -3427,7 +3464,8 @@
           "IMPLEMENT"
         ]
       },
-      "showcase_card": false
+      "showcase_card": false,
+      "tier": "VAULT"
     },
     {
       "href": "/foundry/core/",
@@ -3568,7 +3606,8 @@
         "next_if_pass": "TRANSFER the surviving orientation law into Foundry's stable control grammar.",
         "next_if_fail": "Keep as CANDIDATE or DONOR; do not canonize its convergence names."
       },
-      "machine_view": "CORE"
+      "machine_view": "CORE",
+      "tier": "FIELD"
     },
     {
       "href": "/law-zoo/",
@@ -3587,7 +3626,8 @@
           "VERIFY"
         ]
       },
-      "operation": "ORIENT"
+      "operation": "ORIENT",
+      "tier": "VAULT"
     },
     {
       "href": "/law-zoo/law_zoo_field_guide.html",
@@ -3654,7 +3694,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/law-zoo/palimpsest.html",
@@ -3720,7 +3761,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/law-zoo/law_districts.html",
@@ -3787,7 +3829,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/law-zoo/one_law_two_senses.html",
@@ -3853,7 +3896,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/law-zoo/error_garden.html",
@@ -3919,7 +3963,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/dock/",
@@ -3936,7 +3981,8 @@
           "VERIFY"
         ]
       },
-      "operation": "ORIENT"
+      "operation": "ORIENT",
+      "tier": "FIELD"
     },
     {
       "href": "/control/migration/",
@@ -3953,7 +3999,8 @@
           "VERIFY"
         ]
       },
-      "operation": "RECOVER"
+      "operation": "RECOVER",
+      "tier": "FIELD"
     },
     {
       "href": "/recovery/foundry-cabinet-v4/",
@@ -3972,7 +4019,8 @@
           "VERIFY"
         ]
       },
-      "operation": "RECOVER"
+      "operation": "RECOVER",
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/path-grid/grid-path-compiler-v4/",
@@ -3990,7 +4038,8 @@
           "RECOVER",
           "VERIFY"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/path-grid/anthropy-pathweaver/",
@@ -4008,7 +4057,8 @@
           "RECOVER",
           "VERIFY"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/path-grid/projection-harness/",
@@ -4026,7 +4076,8 @@
           "RECOVER",
           "VERIFY"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/path-grid/foundry-federation/",
@@ -4044,7 +4095,8 @@
           "RECOVER",
           "VERIFY"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/path-grid/market-solver/",
@@ -4062,7 +4114,8 @@
           "RECOVER",
           "VERIFY"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/path-grid/cell-foundry-r2/",
@@ -4080,7 +4133,8 @@
           "RECOVER",
           "VERIFY"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/env0/",
@@ -4100,7 +4154,8 @@
           "VERIFY",
           "SPECIFY"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/sleeper/",
@@ -4119,7 +4174,8 @@
         ]
       },
       "receipt": "/returns/SLEEPER_AUTHORITY_REPAIR_2026-09-22.json",
-      "operation": "RECOVER"
+      "operation": "RECOVER",
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/sleeper/workfield-v1.2/",
@@ -4152,7 +4208,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/axial/",
@@ -4171,7 +4228,8 @@
           "VERIFY"
         ]
       },
-      "operation": "RECOVER"
+      "operation": "RECOVER",
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/axial/state-transform-v0.3/",
@@ -4204,7 +4262,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/axial/compositor-v0.2/print-template.svg",
@@ -4224,7 +4283,8 @@
           "SPECIFY",
           "VERIFY"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/media/",
@@ -4242,7 +4302,8 @@
           "VERIFY"
         ]
       },
-      "operation": "RECOVER"
+      "operation": "RECOVER",
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/media/datadisc/datadisc.html",
@@ -4274,7 +4335,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/naming/",
@@ -4292,7 +4354,8 @@
         "work_modes": [
           "RECOVER"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/env0/ENV0_plate14_A2_v0_1.svg",
@@ -4312,7 +4375,8 @@
           "SPECIFY",
           "VERIFY"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/env0/ENV0_symbols_A2_v0_1.svg",
@@ -4332,7 +4396,8 @@
           "SPECIFY",
           "VERIFY"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/poly-furnisher/",
@@ -4351,7 +4416,8 @@
           "VERIFY"
         ]
       },
-      "operation": "RECOVER"
+      "operation": "RECOVER",
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/poly-furnisher/kraken-2019/",
@@ -4383,7 +4449,8 @@
           "VERIFY",
           "INVESTIGATE"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/poly-furnisher/proto-kernel-2020/",
@@ -4403,7 +4470,8 @@
           "VERIFY",
           "INVESTIGATE"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/migration/",
@@ -4423,7 +4491,8 @@
         ]
       },
       "machine_view": "MIGRATION",
-      "operation": "RECOVER"
+      "operation": "RECOVER",
+      "tier": "FIELD"
     },
     {
       "href": "/recovery/poly-furnisher/room-lineage/",
@@ -4443,7 +4512,8 @@
           "VERIFY",
           "INVESTIGATE"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/poly-furnisher/interphase-lineage/",
@@ -4463,7 +4533,8 @@
           "VERIFY",
           "INVESTIGATE"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/kala/",
@@ -4483,7 +4554,8 @@
           "VERIFY",
           "INVESTIGATE"
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/foundry/methods/",
@@ -4567,7 +4639,8 @@
         "evidence_gate": "Complete one bounded transfer test from methods.json where the external method changes a decision and the changed consequence can be checked.",
         "next_if_pass": "TRANSFER only the proven method/operator into its named recipient with attribution.",
         "next_if_fail": "COMPOST the analogy; retain it as negative knowledge rather than local canon."
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/app-atlas/",
@@ -4599,7 +4672,8 @@
           "IMPLEMENT",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/bodyplans/",
@@ -4620,7 +4694,8 @@
           "IMPLEMENT",
           "VERIFY"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/contact/interpret/",
@@ -4639,7 +4714,8 @@
           "IMPLEMENT",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/contact/residue/",
@@ -4658,7 +4734,8 @@
           "IMPLEMENT",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/contact/backstage/",
@@ -4677,7 +4754,8 @@
           "IMPLEMENT",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/contact/capsule/",
@@ -4696,7 +4774,8 @@
           "IMPLEMENT",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/contact/burst/",
@@ -4715,7 +4794,8 @@
           "VERIFY"
         ]
       },
-      "operation": "ROUTE"
+      "operation": "ROUTE",
+      "tier": "FIELD"
     },
     {
       "href": "/contact/family/",
@@ -4734,7 +4814,8 @@
           "VERIFY"
         ]
       },
-      "operation": "ROUTE"
+      "operation": "ROUTE",
+      "tier": "FIELD"
     },
     {
       "href": "/contact/friend/",
@@ -4753,7 +4834,8 @@
           "VERIFY"
         ]
       },
-      "operation": "ROUTE"
+      "operation": "ROUTE",
+      "tier": "FIELD"
     },
     {
       "href": "/contact/work/",
@@ -4772,7 +4854,8 @@
           "VERIFY"
         ]
       },
-      "operation": "ROUTE"
+      "operation": "ROUTE",
+      "tier": "FIELD"
     },
     {
       "href": "/contact/agent/",
@@ -4791,7 +4874,8 @@
           "VERIFY"
         ]
       },
-      "operation": "ROUTE"
+      "operation": "ROUTE",
+      "tier": "FIELD"
     },
     {
       "href": "/contact/make/",
@@ -4810,7 +4894,8 @@
           "VERIFY"
         ]
       },
-      "operation": "ROUTE"
+      "operation": "ROUTE",
+      "tier": "FIELD"
     },
     {
       "href": "/contact/next/",
@@ -4829,7 +4914,8 @@
           "VERIFY"
         ]
       },
-      "operation": "ROUTE"
+      "operation": "ROUTE",
+      "tier": "FIELD"
     },
     {
       "href": "/field-play.html",
@@ -4892,7 +4978,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/forward-field-proof/triangle/glyph/",
@@ -4924,7 +5011,8 @@
           "VERIFY"
         ]
       },
-      "role": "Original 8-locus Glyph Lab preserved as a donor after its grammar transferred into unified /forward-field-proof/triangle/."
+      "role": "Original 8-locus Glyph Lab preserved as a donor after its grammar transferred into unified /forward-field-proof/triangle/.",
+      "tier": "VAULT"
     },
     {
       "href": "/poetry/",
@@ -4988,7 +5076,8 @@
           "SPECIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/forward-field-proof/triangle/glyph/center/",
@@ -5087,7 +5176,8 @@
           }
         ],
         "physical_fit": "Can select a physical/print next move, but cannot satisfy the physical RETURN itself."
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/poetry/lab/",
@@ -5108,7 +5198,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/poetry/lab/poem-map/",
@@ -5142,7 +5233,8 @@
       "return_export": {
         "kind": "browser-generated",
         "filename": "poem-map-return.json"
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/foundry/aperture/",
@@ -5289,7 +5381,8 @@
         "fallback": "plain compact focus/address controls; utility remains useful without the ring mapping."
       },
       "alias_of": "/docs/",
-      "redirects_to": "/docs/"
+      "redirects_to": "/docs/",
+      "tier": "FIELD"
     },
     {
       "href": "/poetry/map/",
@@ -5324,7 +5417,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/recovery/sleeper/site-source-2026-09-18/",
@@ -5363,7 +5457,8 @@
             "class": "RETURN"
           }
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/sleeper/city-engine-v0.2/",
@@ -5402,7 +5497,8 @@
             "class": "RETURN"
           }
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/sleeper/painting-path/",
@@ -5441,7 +5537,8 @@
             "class": "RETURN"
           }
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/recovery/media/sleeper-atlas/",
@@ -5480,7 +5577,8 @@
             "class": "RETURN"
           }
         ]
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/lens-proof/",
@@ -5546,7 +5644,8 @@
         ]
       },
       "alias_of": "/?lens_proof=1",
-      "showcase_card": false
+      "showcase_card": false,
+      "tier": "FIELD"
     },
     {
       "href": "/sleeper/one-return/",
@@ -5595,7 +5694,8 @@
       },
       "classification": "REBUILT_ASCII_DONOR_NOT_POLISHED_ONE_RETURN_V2",
       "preservation": "/recovery/sleeper/one-return-recon-0.2/PRESERVATION.json",
-      "frozen_copy": "/recovery/sleeper/one-return-recon-0.2/"
+      "frozen_copy": "/recovery/sleeper/one-return-recon-0.2/",
+      "tier": "VAULT"
     },
     {
       "href": "/body/",
@@ -5763,7 +5863,8 @@
           "operation": "ADDRESS",
           "role": "Shared local-first reference body-plan substrate used by BODY and CARE."
         }
-      ]
+      ],
+      "tier": "FIELD"
     },
     {
       "href": "/body/fit/",
@@ -5899,7 +6000,8 @@
           "receipt": "/returns/BODY_FIT_RETURN_PATINA_2026-09-22.json",
           "provenance": "exact implementation + return-patina validation; runtime tab regression hardened in commit 2a470c809a24c5cb80e7707ce9af295007773e69"
         }
-      ]
+      ],
+      "tier": "FIELD"
     },
     {
       "href": "/forward-field-proof/triangle/bench/",
@@ -5919,7 +6021,8 @@
           "REFERENCE",
           "VERIFY"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/fold-bloom/listen/",
@@ -5974,7 +6077,8 @@
         "GLYPH ATLAS session-local glyph handoff; no audio bytes",
         "same-source PIN → LIVE landmark seam",
         "witness-only IDLE; prior human aperture restores on takeover"
-      ]
+      ],
+      "tier": "FIELD"
     },
     {
       "href": "/sleeper/borrowed-river/",
@@ -6031,7 +6135,8 @@
         "evidence_gate": "Mechanical four-branch completion and save/return replay pass. Still require browser touch/audio/render checks, player explanation of ink/stone causality, and voluntary second voyage choosing another branch.",
         "next_if_pass": "Transfer drawn-route plus reversible-return kernel to SLEEPER with the existing provenance contract; keep reading separate.",
         "next_if_fail": "Repair one observed interaction blocker or retain as donor; do not expand the roster or assert museum-level quality."
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/sleeper/project/",
@@ -6057,7 +6162,8 @@
           "VERIFY",
           "PLAY"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/recovery/sleeper/one-return-recon-0.2/",
@@ -6082,7 +6188,8 @@
           "VERIFY"
         ]
       },
-      "classification": "FROZEN_EXACT_DONOR"
+      "classification": "FROZEN_EXACT_DONOR",
+      "tier": "VAULT"
     },
     {
       "href": "/sleeper/ascii-pov-0.8/",
@@ -6103,7 +6210,8 @@
           "PLAY"
         ]
       },
-      "classification": "SUPERSEDED_DERIVATIVE_PRESERVED"
+      "classification": "SUPERSEDED_DERIVATIVE_PRESERVED",
+      "tier": "FIELD"
     },
     {
       "href": "/sleeper/ascii-pov-0.8/one-return/",
@@ -6114,7 +6222,8 @@
       "showcase_card": false,
       "alias_of": "/sleeper/one-return/",
       "role": "Compatibility redirect retained so the byte-preserved 0.8 index keeps its original relative navigation.",
-      "operation": "REDIRECT"
+      "operation": "REDIRECT",
+      "tier": "FIELD"
     },
     {
       "href": "/sleeper/ascii-pov-0.8/project/",
@@ -6125,7 +6234,8 @@
       "showcase_card": false,
       "alias_of": "/sleeper/project/",
       "role": "Compatibility redirect retained so the byte-preserved 0.8 index keeps its original relative navigation.",
-      "operation": "REDIRECT"
+      "operation": "REDIRECT",
+      "tier": "FIELD"
     },
     {
       "href": "/nexus/",
@@ -6148,7 +6258,8 @@
           "static public route registered after NEXUS surface appeared on master"
         ],
         "return_path": "/"
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/fold-bloom/atlas/",
@@ -6277,7 +6388,8 @@
         "next_if_pass": "Refine retrieval and path sharing; only then test optional learned embedding neighborhoods as reversible layout evidence.",
         "next_if_fail": "Keep deterministic glyph export as a per-source identity projection; retire the atlas/path claim without disturbing LISTEN or source hashes."
       },
-      "evolution_receipt": "/control/confluence/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json"
+      "evolution_receipt": "/control/confluence/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
+      "tier": "FIELD"
     },
     {
       "href": "/witness/",
@@ -6285,7 +6397,7 @@
       "kind": "hub",
       "parent": "/",
       "operation": "ORIENT",
-      "state": "ACTIVE",
+      "state": "STABLE",
       "family": "WITNESS",
       "showcase_card": false,
       "role": "The wall. Six views of one record collapsed into one entry: the sky, the handshake, the silences, the twins, the lineage, and the account. Testimony and audit as one gesture — the sky says what happened, the account says what may be claimed.",
@@ -6298,10 +6410,13 @@
       },
       "evidence": {
         "checks": [
-          "registered after the WITNESS family was built on master"
+          "registered after the WITNESS family was built on master",
+          "SEALED 2026-09-23: complete, at rest, not evolving. Reopening requires a named reason."
         ],
         "return_path": "/"
-      }
+      },
+      "tier": "FIELD",
+      "sealed": "2026-09-23"
     },
     {
       "href": "/sky/",
@@ -6309,7 +6424,7 @@
       "kind": "artifact",
       "parent": "/",
       "operation": "REPRESENT",
-      "state": "ACTIVE",
+      "state": "STABLE",
       "family": "WITNESS",
       "showcase_card": false,
       "role": "Every message exchanged with the machine, placed by date and hour of day and drawn as a night sky. Brightness is density. Built from 903 deduplicated conversations across both exports; regenerated by scripts/build-sky.mjs.",
@@ -6321,10 +6436,13 @@
       },
       "evidence": {
         "checks": [
-          "registered after the WITNESS family was built on master"
+          "registered after the WITNESS family was built on master",
+          "SEALED 2026-09-23: complete, at rest, not evolving. Reopening requires a named reason."
         ],
         "return_path": "/"
-      }
+      },
+      "tier": "FIELD",
+      "sealed": "2026-09-23"
     },
     {
       "href": "/handshake/",
@@ -6332,7 +6450,7 @@
       "kind": "artifact",
       "parent": "/",
       "operation": "INTERPRET",
-      "state": "ACTIVE",
+      "state": "STABLE",
       "family": "WITNESS",
       "showcase_card": false,
       "role": "How the human addresses a machine, measured across 11,274 user-authored messages. Openings, closings and idioms counted as written, typos preserved. Opens with \"can you\", closes with \"go free\".",
@@ -6344,10 +6462,13 @@
       },
       "evidence": {
         "checks": [
-          "registered after the WITNESS family was built on master"
+          "registered after the WITNESS family was built on master",
+          "SEALED 2026-09-23: complete, at rest, not evolving. Reopening requires a named reason."
         ],
         "return_path": "/"
-      }
+      },
+      "tier": "FIELD",
+      "sealed": "2026-09-23"
     },
     {
       "href": "/silences/",
@@ -6355,7 +6476,7 @@
       "kind": "artifact",
       "parent": "/",
       "operation": "OBSERVE",
-      "state": "ACTIVE",
+      "state": "STABLE",
       "family": "WITNESS",
       "showcase_card": false,
       "role": "The quiet stretches in the record: 14 gaps of 12 days or more, 584 days in total, longest 325. REDACTED BY DESIGN — durations, dates and hours only. Verbatim text is withheld because it carries personal detail; full text stays local and out of this repository.",
@@ -6368,10 +6489,13 @@
       },
       "evidence": {
         "checks": [
-          "registered after the WITNESS family was built on master"
+          "registered after the WITNESS family was built on master",
+          "SEALED 2026-09-23: complete, at rest, not evolving. Reopening requires a named reason."
         ],
         "return_path": "/"
-      }
+      },
+      "tier": "FIELD",
+      "sealed": "2026-09-23"
     },
     {
       "href": "/twins/",
@@ -6379,7 +6503,7 @@
       "kind": "evidence",
       "parent": "/",
       "operation": "PROVE",
-      "state": "ACTIVE",
+      "state": "STABLE",
       "family": "WITNESS",
       "showcase_card": false,
       "role": "Two independent recoveries of the same export produced the identical 893-conversation set — and shared one blind spot, 13 group chats in a file neither extraction read. Published as evidence that agreement is not completeness.",
@@ -6391,10 +6515,13 @@
       },
       "evidence": {
         "checks": [
-          "registered after the WITNESS family was built on master"
+          "registered after the WITNESS family was built on master",
+          "SEALED 2026-09-23: complete, at rest, not evolving. Reopening requires a named reason."
         ],
         "return_path": "/"
-      }
+      },
+      "tier": "FIELD",
+      "sealed": "2026-09-23"
     },
     {
       "href": "/lineage/",
@@ -6402,7 +6529,7 @@
       "kind": "documentation",
       "parent": "/",
       "operation": "REMEMBER",
-      "state": "ACTIVE",
+      "state": "STABLE",
       "family": "WITNESS",
       "showcase_card": false,
       "role": "Thirteen predecessor generations, 2018 to now: KALA, KRAKEN/POLY, DataDisc, proto-kernel, Grid Path Compiler, Sleeper, Laconic, sovereign node, phantom-grid, Project Federation, training field, fold/bloom, FIELD INDEX. None deleted; every one a donor.",
@@ -6414,10 +6541,13 @@
       },
       "evidence": {
         "checks": [
-          "registered after the WITNESS family was built on master"
+          "registered after the WITNESS family was built on master",
+          "SEALED 2026-09-23: complete, at rest, not evolving. Reopening requires a named reason."
         ],
         "return_path": "/"
-      }
+      },
+      "tier": "FIELD",
+      "sealed": "2026-09-23"
     },
     {
       "href": "/godseye/",
@@ -6425,7 +6555,7 @@
       "kind": "control",
       "parent": "/",
       "operation": "VERIFY",
-      "state": "ACTIVE",
+      "state": "STABLE",
       "family": "WITNESS",
       "showcase_card": false,
       "role": "The account behind the sky: 21 figures, each paired with the command or file it came from, plus the discrepancies and the known unknowns. Rule: a number that cannot name its source file is not allowed on a page.",
@@ -6437,10 +6567,13 @@
       },
       "evidence": {
         "checks": [
-          "registered after the WITNESS family was built on master"
+          "registered after the WITNESS family was built on master",
+          "SEALED 2026-09-23: complete, at rest, not evolving. Reopening requires a named reason."
         ],
         "return_path": "/"
-      }
+      },
+      "tier": "FIELD",
+      "sealed": "2026-09-23"
     },
     {
       "href": "/nexus/board.html",
@@ -6463,7 +6596,8 @@
           "registered after an on-disk vs manifest audit found it unlisted"
         ],
         "return_path": "/"
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/nexus/map.html",
@@ -6486,7 +6620,8 @@
           "registered after an on-disk vs manifest audit found it unlisted"
         ],
         "return_path": "/"
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/foundry/axial/lab-0.5.1.html",
@@ -6510,7 +6645,8 @@
           "registered after an on-disk vs manifest audit found it unlisted"
         ],
         "return_path": "/"
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/foundry/room/html-substrate-0.3.html",
@@ -6534,7 +6670,8 @@
           "registered after an on-disk vs manifest audit found it unlisted"
         ],
         "return_path": "/"
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/foundry/room/room-0.1.html",
@@ -6558,7 +6695,8 @@
           "registered after an on-disk vs manifest audit found it unlisted"
         ],
         "return_path": "/"
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/foundry/room/space-scale-0.2.html",
@@ -6582,7 +6720,8 @@
           "registered after an on-disk vs manifest audit found it unlisted"
         ],
         "return_path": "/"
-      }
+      },
+      "tier": "VAULT"
     },
     {
       "href": "/sleeper/borrowed-river/shell.html",
@@ -6606,7 +6745,8 @@
           "registered after an on-disk vs manifest audit found it unlisted"
         ],
         "return_path": "/"
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/reader/",
@@ -6633,7 +6773,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/inventory/",
@@ -6657,7 +6798,8 @@
         "work_modes": [
           "INSPECT"
         ]
-      }
+      },
+      "tier": "FIELD"
     },
     {
       "href": "/port/comms/",
@@ -6686,7 +6828,8 @@
           "VERIFY",
           "OPERATE"
         ]
-      }
+      },
+      "tier": "FIELD"
     }
   ],
   "release_law": [
@@ -6945,5 +7088,42 @@
   "policy_trace_event_model": "/policy-trace-event-model.json",
   "policy_trace_verification_report_schema": "/policy-trace-verification-report.schema.json",
   "policy_trace_verifier": "/policy-trace-verifier.mjs",
-  "policy_trace_verifier_tests": "/policy-trace-verifier-cases.json"
+  "policy_trace_verifier_tests": "/policy-trace-verifier-cases.json",
+  "tier_contract": {
+    "schema": "field-tier/v0.1",
+    "law": "The repo answers two different questions and must not confuse them. FIELD is what is true now and what may be used — present tense, visited, linked, acted on. VAULT is what happened: exact bytes, frozen donors, hashes, provenance — past tense, retained, never acted on directly. A VAULT route is not dead weight; it is memory. The distinction is DERIVED from kind and state, never hand-maintained, so it cannot drift.",
+    "field": {
+      "meaning": "present tense · what is true · what may be used",
+      "default_visibility": "public"
+    },
+    "vault": {
+      "meaning": "past tense · exact bytes · provenance · never deleted",
+      "default_visibility": "retained"
+    },
+    "derivation": {
+      "vault_if": [
+        "href starts with /recovery/",
+        "state in FROZEN_DONOR | DONOR | RECOVER",
+        "kind in donor | recovery"
+      ],
+      "else": "FIELD"
+    }
+  },
+  "witness_box": {
+    "schema": "witness-box/v0.1",
+    "sealed": "2026-09-23",
+    "contents": [
+      "/witness/",
+      "/sky/",
+      "/handshake/",
+      "/silences/",
+      "/twins/",
+      "/lineage/",
+      "/godseye/",
+      "/reader/",
+      "/inventory/"
+    ],
+    "reason": "Seven views of one record, collapsed to a single nav entry and now complete. Boxing means: treated as a finished artifact, not an active front. It stays reachable and unchanged; it stops consuming attention. Reopening it requires naming what is missing — not just a wish to touch it.",
+    "not_deleted": "Every route remains registered, live and reachable. Boxed is not removed."
+  }
 }
