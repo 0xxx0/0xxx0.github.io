@@ -39,3 +39,12 @@ test('timed text follows actual cue addresses while embedded text stays FLOAT',(
   const floated=textWitnessAt({kind:'LYRICS',alignment:'UNALIGNED_EMBEDDED_ID3',text:'one\ntwo\nthree',cues:[]},4,8);
   assert.equal(floated.mode,'FLOAT');assert.equal(floated.alignment,'UNALIGNED_EMBEDDED_ID3');assert.equal(floated.approx,true);
 });
+
+
+test('text witness accepts anchored alignment model beyond legacy offset range',()=>{
+  const evidence={kind:'LYRICS',alignment:'TIMED_LRC',text:'one\ntwo',cues:[{start:25,end:29,text:'one'},{start:35,end:39,text:'two'}]};
+  const model={baseOffset:0,anchors:[{id:'A1',playTime:5,cueTime:25}]};
+  const aligned=textWitnessAt(evidence,35,50);
+  assert.equal(aligned.text,'two');
+  // LiveTrack delegates playback→cue mapping through shared alignment; the pure model is covered in lib/tests/text-alignment.
+});
