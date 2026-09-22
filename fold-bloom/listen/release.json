@@ -77,7 +77,9 @@
     "field_pulse_repo": "PASS REPO: envelope selftest + full browser regression run 35640203852; real cross-tab phone trial required",
     "field_pulse_merge_sha": "70d63be41dfc5d04b04063d2f90524dca0bb6526",
     "mobile_scope_gesture_lock": "PENDING_CI: pure scrub-window selftest + existing LISTEN browser regression; real-phone touch feel still required",
-    "workflow_ux": "PENDING_CI: LISTEN 0.2.4 workflow controls + READFIELD explicit pulse browser proof"
+    "workflow_ux": "PASS REPO: public-surface-check run 35673287881; LISTEN workflow surface + READFIELD explicit pulse browser case green",
+    "workflow_merge_sha": "70444235dc4112ced7e88988bacfca1cbc84f946",
+    "workflow_phone": "REQUIRED: real phone USE TRACK reachability + READFIELD entry + return flow"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · visible on FIELD INDEX · host=/fold-bloom/ · evolution stage=TEST",
   "updated": "2026-09-22"
