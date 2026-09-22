@@ -9,7 +9,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 6
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -49,10 +49,14 @@ jobs:
         run: node --test fold-bloom/experience-set/tests/experience-set.test.mjs
       - name: Test FOLD BLOOM Set Compositor 0.1.1 + local test packs
         run: node --test fold-bloom/set/tests/set-core.test.mjs fold-bloom/test-packs/tests/test-pack-core.test.mjs
+      - name: Test FOLD BLOOM local source spine + Journey Ride 0.1
+        run: node --test fold-bloom/tests/local-media-store.test.mjs fold-bloom/journey/tests/journey-core.test.mjs
       - name: Test LISTEN preview render
         env:
           SMOKE_ONLY: FOLD BLOOM LISTEN preview render
         run: node tools/browser-smoke.mjs
+      - name: Test FOLD BLOOM local vault cross-surface handoff
+        run: node tools/fold-bloom-spine-smoke.mjs
       - name: Test FOLD BLOOM LIVE gameplay + track + section arcs + TRACKFIELD deformation + ride
         run: node --test fold-bloom/live/tests/engine.test.mjs fold-bloom/live/tests/track.test.mjs fold-bloom/live/tests/section-arc.test.mjs fold-bloom/live/tests/trackfield.test.mjs fold-bloom/live/tests/practice-track.test.mjs fold-bloom/live/tests/track-deform.test.mjs fold-bloom/live/tests/ride.test.mjs fold-bloom/live/tests/pov-effects.test.mjs fold-bloom/live/tests/visual-worlds.test.mjs fold-bloom/live/tests/projection-smoothing.test.mjs
       - name: Run critical browser smoke
