@@ -1,7 +1,7 @@
 # FOLD//BLOOM — CONVERGENCE PACKET
 
 **Date:** 2026-09-22  
-**Anchor:** LIVE 0.12 / LISTEN 0.6 / GLYPH ATLAS 0.2
+**Anchor:** LIVE 0.13 / LISTEN 0.6 / GLYPH ATLAS 0.2 / EXPERIENCE SET 0.1
 
 This packet separates three kinds of authority:
 
@@ -20,14 +20,16 @@ SOURCE
 → RETURN
 ```
 
-Next executable head:
+Current progression:
 
 ```
-EXPERIENCE SET v0.1
-→ SET COMPOSITOR
-→ JOURNEY RIDE
+EXPERIENCE SET v0.1 ✓
+→ SET COMPOSITOR 0.1
+→ JOURNEY RIDE 0.1
 → UNIFIED SOURCE SHELL
 → ONE NON-MUSIC ADAPTER
 ```
 
-The packet is deliberately downstream of the current 0.12 body QA. If 0.12 material/event coherence fails direct use, repair that before expanding the journey system.
+Recovered source-editor intent is not a new branch: LISTEN is the cartographer/editor for the same addressed source, while LIVE/READFIELD/ATLAS remain unequal projections. The persistent **source spine** is identity + canonical address + aperture + authored calibration/marks carried between those projections; it must not become a new source of truth.
+
+LIVE 0.13 remains body-gated. A material/jitter/control regression may interrupt the sequence; otherwise the next bounded implementation is SET COMPOSITOR 0.1.

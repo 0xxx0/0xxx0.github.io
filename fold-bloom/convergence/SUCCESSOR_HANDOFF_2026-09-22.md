@@ -1,5 +1,5 @@
 # FOLD//BLOOM — SUCCESSOR HANDOFF
-## LIVE 0.13 / 2026-09-22
+## LIVE 0.13 + EXPERIENCE SET 0.1 / 2026-09-22
 
 This file is for future ChatGPT / Hermes / a human returning cold.
 
@@ -10,6 +10,7 @@ Authoritative current merged family:
 - LISTEN 0.6 source-bundle + source-hash ride tuning
 - GLYPH ATLAS 0.2 inspectable source memory
 - TWO DIAL 0.10.3 composition authority
+- EXPERIENCE SET 0.1 pure higher-order journey object — PR #152 · merged and CI green
 - ECOLOGY 0.2 persistent lineage/game
 
 Read in this order:
@@ -91,20 +92,35 @@ This pass is intentionally polish/performance/succession, not new ontology.
 - Do not grow a combo economy unless direct use proves it means something.
 - Do not clone LIVE racer visuals into Ecology or READFIELD.
 
-## EXISTING NEXT EXECUTABLE — DO NOT REDESIGN IT
+## CURRENT NEXT EXECUTABLE — DO NOT REDESIGN IT
 
-`/control/CURRENT.json` already specifies:
-1. EXPERIENCE SET v0.1 schema + exact round-trip
-2. SET COMPOSITOR 0.1 / block-Tetris authoring surface
-3. JOURNEY RIDE 0.1 / continuous multi-source traversal
-4. SOURCE SHELL 0.1 / RIDE · SEE · SHAPE
-5. PODCAST ADAPTER 0.1 / first non-music proof
+EXPERIENCE SET v0.1 is **done**. PR #152 merged the pure schema/codec/fixture/tests; PR #154 sealed merge state.
+
+The bounded sequence now resumes at:
+
+1. **SET COMPOSITOR 0.1 / block-Tetris authoring surface**
+2. JOURNEY RIDE 0.1 / continuous multi-source traversal
+3. SOURCE SHELL 0.1 / RIDE · SEE · SHAPE
+4. PODCAST ADAPTER 0.1 / first non-music proof
 
 Use:
+- `/fold-bloom/experience-set/`
 - `/fold-bloom/convergence/EXECUTION_ROADMAP_2026-09-22.md`
 - `/fold-bloom/convergence/EXPERIENCE_COMPILER_SPEC_0.1.md`
 
-Do not start that sequence if human QA reports a material/jitter/drop/control-reachability regression in 0.13. Repair lived reality first. If 0.13 passes body QA, the next bounded move is EXPERIENCE SET v0.1 schema + exact round-trip—not another LIVE polish pass.
+### Recovered Design/Fold–Bloom delta
+
+A later chat branch added useful intent that was not yet durable in this handoff:
+
+- **LISTEN should mature into the source editor**, not another launcher: alignment, pins, calibration, set placement.
+- **READFIELD/RSVP should be a projection over the same canonical address**, not a weak outbound link.
+- The cross-surface continuity mechanism is a **source spine**: exact identity + canonical position + aperture + authored calibration/marks + projection witness.
+- The current global ±8 s text offset is insufficient for drifting lyrics/transcripts. The lawful successor is **anchor-based piecewise calibration** stored beside evidence. Source cue timestamps remain immutable.
+- A persistent low-clutter position/structure rail may fade into the background across LISTEN/RIDE/READ, provided it remains a projection witness rather than a second timeline.
+
+Do not create a SOURCE SPINE app. Reify the mechanism inside G2/G4 and existing source-addressed state.
+
+0.13 body QA may still interrupt this sequence if material/event coherence, reachability or response regresses.
 
 ## CONNECTIONS WORTH PRESERVING
 
