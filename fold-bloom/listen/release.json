@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM LISTEN",
-  "version": "0.5",
+  "version": "0.6",
   "state": "CANDIDATE_MERGED",
   "operation": "LISTEN",
   "route": "/fold-bloom/listen/",
   "date": "2026-09-22",
-  "thesis": "One hashed source becomes an addressed object that can be inspected, marked, read and returned: local metadata/lyrics recovery, beat→phrase→section apertures, deterministic glyph identity, human PIN path, witness-only IDLE, and unequal handoffs to Atlas/Drive/Readfield/Two Dial.",
+  "thesis": "One exact local audio identity may be surrounded by unequal source facets—origin link, display metadata, lyrics/transcript, collection/playlist context and human pins—then inspected as AUDIO MAP, compiled as glyph, traversed or returned without confusing any facet with the source bytes.",
   "recovered_transfer": [
     "RC8-era Fold/Bloom behavior: vertical scale traversal + horizontal/topological operation, recovered from collaboration context but exact executable remains unfound",
     "Ecology/Two Dial ring dynamics: cyclic wrap, shortest circular delta, detent/inertia ergonomics",
@@ -65,7 +65,15 @@
     "IDLE witnesses beat/phrase/section scale changes without scrubbing, pinning or altering source state; prior aperture restores on takeover",
     "AUDIO MAP export now contains fold-bloom-addressed-message/v0.1: exact source witness plus source-ordered human PIN cells",
     "ATLAS workflow carries the deterministic glyph/source witness into Glyph Atlas without carrying audio bytes",
-    "same-source pins are intentionally consumable by LIVE as authored road landmarks"
+    "same-source pins are intentionally consumable by LIVE as authored road landmarks",
+    "fold-bloom-source-bundle/v0.1 explicitly separates exact byte identity from origin, display metadata, text evidence, collection membership and analysis hints",
+    "local M4A/MP4 metadata adapter reads common iTunes ilst title/artist/album/genre/lyrics/BPM/key fields when present",
+    "multi-file intake accepts audio plus matching LRC/VTT/SRT/TXT/MD sidecars and M3U/M3U8/PLS collection files",
+    "LRC/VTT/SRT become timed text evidence; plain text remains explicitly unaligned",
+    "Suno song metadata/address may survive CORS audio failure as provenance and bind later to exact downloaded MP3/M4A bytes",
+    "Suno playlist URLs are preserved as collection provenance without claiming undocumented playlist enumeration",
+    "AUDIO MAP RETURN carries compact sourceBundle plus bounded timed-text cues when locally supplied",
+    "Atlas handoff carries compact origin/collection/text witnesses while never carrying source audio bytes"
   ],
   "constraints": [
     "no upload/network required for user audio",
@@ -89,7 +97,11 @@
     "audio glyph is an identity/projection aid, not proof that similar-looking files are related",
     "embedded lyrics are text evidence only; USLT has no timing/alignment claim",
     "source-ordered pin path is authored meaning at addresses, not an inferred narrative",
-    "IDLE changes only the witness aperture and must restore the prior human view on takeover"
+    "IDLE changes only the witness aperture and must restore the prior human view on takeover",
+    "SOURCE BUNDLE facets remain unequal: byte hash is identity; origin is provenance; metadata is display evidence; text may be timed or unaligned; playlist is authored/remote collection context",
+    "undocumented Suno clip endpoints remain best-effort adapters, never durable contracts",
+    "playlist URL recognition does not imply browser-readable membership",
+    "M4A/MP4 decode support is runtime/browser dependent even when metadata can be parsed"
   ],
   "verification": {
     "module_runtime": "PASS: LISTEN 0.2 surface executed in browser smoke",
@@ -114,7 +126,7 @@
     "workflow_phone": "REQUIRED: real phone USE TRACK reachability + READFIELD entry + return flow",
     "stream_lens_branch": "fold-bloom-listen-stream-lens-030",
     "stream_lens_ci": "PASS: public-surface-check run 35685019871; static contracts, analysis+stream-lens tests, preview browser render, LIVE regression, critical browser smoke, recovery and Sleeper tests all passed.",
-    "required_next": "Use a local MP3 with embedded ID3/USLT if available; verify lyrics→READFIELD, IDLE aperture witness, pin→LIVE landmark and Atlas handoff.",
+    "required_next": "Direct browser: bind a Suno song URL that cannot fetch audio to its downloaded MP3/M4A; load an M4A with metadata; load audio + LRC/VTT sidecar; export AUDIO MAP and hand off to Atlas 0.2.",
     "stream_lens_pr": 142,
     "stream_lens_merge_sha": "683d0067100c8d8b376e2b38a23c07f11b3fed9b",
     "migration_gate_repair": "PASS: removed two already-recovered Sleeper entries from ingest_queue and aligned migration exact-source authority to /returns/BACKUP_RECOVERY_2026-09-21.json while preserving Sep-22 public runtime recovery separately.",
@@ -127,5 +139,5 @@
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · portable donor=field-addressed-stream/v0.1",
   "updated": "2026-09-22",
-  "return": "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_SOURCE_CELL_2026-09-22.json"
 }
