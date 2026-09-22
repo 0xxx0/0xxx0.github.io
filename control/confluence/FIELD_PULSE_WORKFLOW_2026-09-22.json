@@ -74,13 +74,22 @@
     "/control/CURRENT.json"
   ],
   "verification": {
-    "status": "PENDING_CI",
+    "status": "SHIPPED_REPO_PASS",
     "gates": [
       "LISTEN 0.2.4 workflow surface renders with USE TRACK dock",
       "READFIELD ?pulse=4 renders explicit pulse mode without a live clock",
       "existing READFIELD focus/performance, LISTEN preview/intake/source, LIVE and TWO DIAL browser cases remain green",
       "real phone: workflow sheet remains reachable above transport and READFIELD entry feels understandable without prior architecture knowledge"
-    ]
+    ],
+    "ci_run": 35673287881,
+    "repo_result": "PASS: route grammar, static contracts, LISTEN analysis/preview, LIVE TRACKFIELD and full critical browser smoke"
   },
-  "stop": "Do not add more cross-surface workflow types until one phone pass establishes that RIDE / READ / COMPOSE / MAP is enough and identifies the first real friction."
+  "stop": "Do not add more cross-surface workflow types until one phone pass establishes that RIDE / READ / COMPOSE / MAP is enough and identifies the first real friction.",
+  "shipped": {
+    "pull_request": 138,
+    "merge_sha": "70444235dc4112ced7e88988bacfca1cbc84f946",
+    "ci_run": 35673287881,
+    "repository_state": "SHIPPED",
+    "remaining_authority": "REAL_PHONE_WORKFLOW_RETURN"
+  }
 }
