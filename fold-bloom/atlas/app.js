@@ -3,6 +3,7 @@ import {buildPreviewMap} from '../listen/preview-map.js';
 import {parseLocalAudioMeta,localDisplayName} from '../listen/media-meta.js';
 import {groupLocalInputs,parseTextSidecar,parsePlaylistText} from '../listen/sidecar-text.js';
 import {ATLAS_SCHEMA,MAX_ATLAS_ENTRIES,atlasPacket,appendPath,encodeAtlas,decodeAtlas,syntheticAtlas} from './atlas-core.js';
+import {isDocumentFile,adaptDocumentFile,storeDocumentRuntime,loadDocumentRuntime,clearDocumentRuntime,makeReadfieldHandoff} from './document-source.js';
 
 const $=s=>document.querySelector(s),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const STORE='fold-bloom.glyph-atlas.v01';
@@ -53,15 +54,24 @@ function renderWall(){
   wall.querySelectorAll('[data-id]').forEach(b=>b.onclick=()=>focusEntry(b.dataset.id));
 }
 function renderFocus(){
-  const x=entryBy(focusId),glyph=$('#focusGlyph'),pathBtn=$('#pathBtn');
-  if(!x){glyph.innerHTML='';$('#focusName').textContent='NO SOURCE';$('#focusMeta').textContent='—';$('#focusHash').textContent='—';$('#inside').innerHTML='<div class="insideEmpty">FOCUS A CELL TO SEE INSIDE</div>';pathBtn.disabled=true;$('#listenBtn').disabled=true;$('#liveBtn').disabled=true;$('#originBtn').disabled=true;$('#removeBtn').disabled=true;return}
+  const x=entryBy(focusId),glyph=$('#focusGlyph'),pathBtn=$('#pathBtn'),readBtn=$('#readBtn'),rebindBtn=$('#rebindBtn'),listenBtn=$('#listenBtn'),liveBtn=$('#liveBtn');
+  if(!x){
+    glyph.innerHTML='';$('#focusName').textContent='NO SOURCE';$('#focusMeta').textContent='—';$('#focusHash').textContent='—';$('#inside').innerHTML='<div class="insideEmpty">FOCUS A CELL TO SEE INSIDE</div>';
+    pathBtn.disabled=true;readBtn.hidden=true;readBtn.disabled=true;rebindBtn.hidden=true;rebindBtn.disabled=true;listenBtn.hidden=false;liveBtn.hidden=false;listenBtn.disabled=true;liveBtn.disabled=true;$('#originBtn').disabled=true;$('#removeBtn').disabled=true;return
+  }
+  const isDoc=x.sourceKind==='LOCAL_DOCUMENT',runtime=isDoc?loadDocumentRuntime(x.sourceHash):null,doc=x.document||{};
   glyph.innerHTML=audioGlyphSvg(x.glyph,{size:280,padding:15});
-  $('#focusKind').textContent=x.sourceKind==='SYNTHETIC_DEMO'?'SYNTHETIC DEMO':'SOURCE CELL';
+  $('#focusKind').textContent=x.sourceKind==='SYNTHETIC_DEMO'?'SYNTHETIC DEMO':(isDoc?'DOCUMENT CELL':'SOURCE CELL');
   $('#focusName').textContent=x.name;
   $('#focusMeta').textContent=metaLine(x)+(x.artist?' · '+x.artist:'');
   $('#focusHash').textContent=x.sourceHash||'NO SOURCE HASH';
-  const hash=(x.sourceHash||'').slice(0,16),text=x.textWitness,origin=x.origin,collection=x.collection;
-  const means=x.glyph?.means||{},inside=[
+  const hash=(x.sourceHash||'').slice(0,16),text=x.textWitness,origin=x.origin,collection=x.collection,means=x.glyph?.means||{};
+  const inside=isDoc?[
+    ['IDENTITY',[x.sourceKind,x.format||null,hash?hash+'…':null].filter(Boolean).join(' · ')],
+    ['STRUCTURE',[(doc.sections||0)+' SECTIONS',(doc.paragraphs||0)+' PARAGRAPHS',(doc.words||0)+' WORDS',doc.headingDepth?('H'+doc.headingDepth+' MAX'):null].filter(Boolean).join(' · ')],
+    ['TEXT',text?(text.kind+' · '+text.alignment+' · '+text.chars+' CHARS'):'DOCUMENT'],
+    ['SOURCE',runtime!=null?'BOUND THIS SESSION':'REBIND REQUIRED']
+  ]:[
     ['IDENTITY',[x.sourceKind,x.format||null,hash?hash+'…':null].filter(Boolean).join(' · ')||'SYNTHETIC'],
     ['STRUCTURE',[x.duration?fmtDuration(x.duration):null,x.glyph?.bpm?Math.round(x.glyph.bpm)+' BPM':null,x.glyph?.key||null,(x.glyph?.sectionCount||1)+' SECTIONS'].filter(Boolean).join(' · ')],
     ['SIGNATURE','E '+Math.round((means.energy||0)*100)+' · Δ '+Math.round((means.flux||0)*100)+' · C '+Math.round((means.brightness||0)*100)],
@@ -71,7 +81,9 @@ function renderFocus(){
   ];
   $('#inside').innerHTML=inside.map(([k,v])=>'<div class="insideFacet"><b>'+esc(k)+'</b><span>'+esc(v||'—')+'</span></div>').join('');
   const i=packet.path.indexOf(x.id);pathBtn.disabled=false;pathBtn.textContent=i>=0?`REMOVE FROM PATH · ${i+1}`:'ADD TO PATH';
-  $('#listenBtn').disabled=false;$('#liveBtn').disabled=false;$('#originBtn').disabled=!origin?.address;$('#removeBtn').disabled=x.sourceKind==='SYNTHETIC_DEMO';
+  readBtn.hidden=!isDoc;readBtn.disabled=!isDoc||runtime==null;rebindBtn.hidden=!isDoc;rebindBtn.disabled=!isDoc;
+  listenBtn.hidden=isDoc;liveBtn.hidden=isDoc;listenBtn.disabled=isDoc;liveBtn.disabled=isDoc;
+  $('#originBtn').disabled=!origin?.address;$('#removeBtn').disabled=x.sourceKind==='SYNTHETIC_DEMO';
 }
 function renderPath(){
   $('#pathCount').textContent=`${packet.path.length} CELL${packet.path.length===1?'':'S'}`;
@@ -91,6 +103,7 @@ function render(){
   document.documentElement.dataset.atlasSchema=ATLAS_SCHEMA;
 }
 function metaLine(x){
+  if(x?.sourceKind==='LOCAL_DOCUMENT'){const d=x.document||{};return [(d.sections||0)+' SECT',(d.paragraphs||0)+' PARA',(d.words||0)+' WORDS'].join(' · ')}
   const bits=[];if(x.glyph?.bpm)bits.push(Math.round(x.glyph.bpm)+' BPM');if(x.glyph?.key)bits.push(x.glyph.key);bits.push((x.glyph?.sectionCount||1)+' SECT');if(x.collection?.name)bits.push('↗ '+x.collection.name);return bits.join(' · ');
 }
 function fmtDuration(t){t=Math.max(0,Number(t)||0);const h=Math.floor(t/3600),m=Math.floor((t%3600)/60),sec=Math.floor(t%60);return h?(h+':'+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0')):(m+':'+String(sec).padStart(2,'0'))}
@@ -156,18 +169,31 @@ async function decodeFile(file,{sidecars=[],collection=null}={}){
   }finally{await ctx.close().catch(()=>{})}
 }
 async function loadFiles(files){
-  const grouped=groupLocalInputs(files),playlist=(await playlistEvidence(grouped.playlists))[0]||null,xs=grouped.groups.slice(0,MAX_ATLAS_ENTRIES);
-  if(!xs.length){$('#status').textContent=playlist?'PLAYLIST READ · ADD AUDIO TO MATERIALIZE CELLS':'NO DECODABLE AUDIO CELLS';return}
-  stopIdle(false);$('#status').textContent='DECODING · 0/'+xs.length;
+  const all=[...files],grouped=groupLocalInputs(all),playlist=(await playlistEvidence(grouped.playlists))[0]||null,xs=grouped.groups.slice(0,MAX_ATLAS_ENTRIES);
+  const claimed=new Set(grouped.groups.flatMap(g=>g.sidecars||[])),standaloneDocs=all.filter(isDocumentFile).filter(f=>!claimed.has(f));
+  if(!xs.length&&!standaloneDocs.length){$('#status').textContent=playlist?'PLAYLIST READ · ADD AUDIO OR DOCUMENTS TO MATERIALIZE CELLS':'NO DECODABLE SOURCE CELLS';return}
+  stopIdle(false);$('#status').textContent='DECODING SOURCES';
   if(!realMode){packet=atlasPacket({title:playlist?.name||'MY GLYPH ATLAS',entries:[],path:[],note:''});realMode=true;focusId=null}
-  let done=0;
+  let done=0,total=Math.min(xs.length+standaloneDocs.length,MAX_ATLAS_ENTRIES);
   for(const g of xs){
     if(packet.entries.length>=MAX_ATLAS_ENTRIES)break;
     try{
       const x=await decodeFile(g.audio,{sidecars:g.sidecars,collection:playlist});
       if(!packet.entries.some(e=>e.sourceHash===x.sourceHash)){packet.entries.push(x);focusId=x.id;persist()}
     }catch(error){console.warn(g.audio.name,error)}
-    done++;$('#status').textContent=`DECODING · ${done}/${xs.length}`;render();
+    done++;$('#status').textContent=`DECODING · ${done}/${total}`;render();
+  }
+  for(const file of standaloneDocs){
+    if(packet.entries.length>=MAX_ATLAS_ENTRIES)break;
+    try{
+      const adapted=await adaptDocumentFile(file);
+      if(adapted?.materializable&&adapted.entry){
+        storeDocumentRuntime(adapted.entry.sourceHash,adapted.runtime.text);
+        if(!packet.entries.some(e=>e.sourceHash===adapted.entry.sourceHash))packet.entries.push(adapted.entry);
+        focusId=adapted.entry.id;persist();
+      }
+    }catch(error){console.warn(file.name,error)}
+    done++;$('#status').textContent=`DECODING · ${done}/${total}`;render();
   }
   $('#status').textContent=`ATLAS READY · ${packet.entries.length} SOURCE CELL${packet.entries.length===1?'':'S'} · CLICK A GLYPH TO SEE INSIDE`;
 }
@@ -177,29 +203,48 @@ function currentPacket(){
 async function share(){
   packet=currentPacket();persist();const code=encodeAtlas(packet),u=new URL(location.href);u.hash='a='+code;history.replaceState(null,'',u);
   try{
-    if(navigator.share){await navigator.share({title:'FOLD//BLOOM · GLYPH ATLAS',text:'A source constellation / authored path. Audio bytes are not included.',url:u.toString()});$('#status').textContent='SHARED · GLYPH PACKET ONLY';return}
+    if(navigator.share){await navigator.share({title:'FOLD//BLOOM · GLYPH ATLAS',text:'A source constellation / authored path. Source bytes are not included.',url:u.toString()});$('#status').textContent='SHARED · GLYPH PACKET ONLY';return}
   }catch(e){if(e.name==='AbortError')return}
-  try{await navigator.clipboard.writeText(u.toString());$('#status').textContent='SHARE LINK COPIED · AUDIO NOT INCLUDED'}catch(_){$('#status').textContent='SHARE LINK READY IN ADDRESS BAR'}
+  try{await navigator.clipboard.writeText(u.toString());$('#status').textContent='SHARE LINK COPIED · SOURCE BYTES NOT INCLUDED'}catch(_){$('#status').textContent='SHARE LINK READY IN ADDRESS BAR'}
 }
 function exportReturn(){
-  packet=currentPacket();persist();const out={kind:'FOLD_BLOOM_GLYPH_ATLAS_RETURN',created:new Date().toISOString(),packet,law:{cell:'exact source hash',path:'human-authored order',view:'deterministic audio glyph',return:'this packet',warning:'similar glyphs do not imply lineage'}};
+  packet=currentPacket();persist();const out={kind:'FOLD_BLOOM_GLYPH_ATLAS_RETURN',created:new Date().toISOString(),packet,law:{cell:'exact source hash',path:'human-authored order',view:'deterministic source glyph',return:'this packet',warning:'similar glyphs do not imply lineage'}};
   const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='fold-bloom-glyph-atlas-'+Date.now()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);$('#status').textContent='RETURN EXPORTED';
 }
 function removeFocus(){
   const x=entryBy(focusId);if(!x||x.sourceKind==='SYNTHETIC_DEMO')return;
-  stopIdle(false);packet.entries=packet.entries.filter(e=>e.id!==x.id);packet.path=packet.path.filter(id=>id!==x.id);focusId=packet.entries[0]?.id||null;persist();render();$('#status').textContent='CELL REMOVED · AUDIO WAS NEVER STORED';
+  stopIdle(false);if(x.sourceKind==='LOCAL_DOCUMENT')clearDocumentRuntime(x.sourceHash);
+  packet.entries=packet.entries.filter(e=>e.id!==x.id);packet.path=packet.path.filter(id=>id!==x.id);focusId=packet.entries[0]?.id||null;persist();render();$('#status').textContent='CELL REMOVED · SOURCE FILE WAS NEVER STORED';
 }
 function openSibling(route){
-  const x=entryBy(focusId);if(x)try{sessionStorage.setItem('fold-bloom.source-witness.v1',JSON.stringify({sourceHash:x.sourceHash,name:x.name,glyph:x.glyph,format:x.format,origin:x.origin,collection:x.collection,textWitness:x.textWitness,from:'/fold-bloom/atlas/'}))}catch(_){}
+  const x=entryBy(focusId);if(!x||x.sourceKind==='LOCAL_DOCUMENT')return;
+  try{sessionStorage.setItem('fold-bloom.source-witness.v1',JSON.stringify({sourceHash:x.sourceHash,name:x.name,glyph:x.glyph,format:x.format,origin:x.origin,collection:x.collection,textWitness:x.textWitness,from:'/fold-bloom/atlas/'}))}catch(_){}
   window.open(route,'_blank');
 }
-
+function readDocument(){
+  const x=entryBy(focusId);if(!x||x.sourceKind!=='LOCAL_DOCUMENT')return;
+  const text=loadDocumentRuntime(x.sourceHash);if(text==null){$('#status').textContent='SOURCE NOT BOUND · REBIND DOCUMENT';renderFocus();return}
+  const handoff=makeReadfieldHandoff(x,text);
+  try{sessionStorage.setItem('readfield.handoff.v1',JSON.stringify(handoff))}catch(_){$('#status').textContent='READ HANDOFF FAILED · REBIND / RETRY';return}
+  const q=new URLSearchParams({handoff:'1',ap_scale:'SECTION',ap_addr:handoff.address||'section://0',return:'/fold-bloom/atlas/'});
+  window.open('/docs/?'+q.toString(),'_blank');
+}
+async function rebindDocument(file){
+  const x=entryBy(focusId);if(!x||x.sourceKind!=='LOCAL_DOCUMENT'||!file)return;
+  try{
+    const adapted=await adaptDocumentFile(file);
+    if(!adapted?.materializable||!adapted.entry){$('#status').textContent='EMPTY DOCUMENT · SOURCE NOT REBOUND';return}
+    if(adapted.entry.sourceHash!==x.sourceHash){$('#status').textContent='HASH MISMATCH · SOURCE NOT REBOUND';return}
+    storeDocumentRuntime(x.sourceHash,adapted.runtime.text);renderFocus();$('#status').textContent='BOUND · READ AVAILABLE';
+  }catch(error){console.warn('document rebind',error);$('#status').textContent='REBIND FAILED · SOURCE UNCHANGED'}
+}
 $('#loadBtn').onclick=()=>$('#files').click();$('#files').onchange=e=>loadFiles(e.target.files);
 $('#pathBtn').onclick=togglePath;$('#clearPath').onclick=clearPath;$('#removeBtn').onclick=removeFocus;$('#idleBtn').onclick=startIdle;$('#shareBtn').onclick=share;$('#exportBtn').onclick=exportReturn;
 $('#message').oninput=()=>{packet.note=$('#message').value;persist()};
+$('#readBtn').onclick=readDocument;$('#rebindBtn').onclick=()=>$('#rebindFile').click();$('#rebindFile').onchange=async e=>{const f=e.target.files?.[0];e.target.value='';if(f)await rebindDocument(f)};
 $('#listenBtn').onclick=()=>openSibling('../listen/');$('#liveBtn').onclick=()=>openSibling('../live/');$('#originBtn').onclick=()=>{const x=entryBy(focusId);if(x?.origin?.address)window.open(x.origin.address,'_blank','noopener')};
 document.addEventListener('pointerdown',e=>{if(idle.on&&!e.target.closest('#idleBtn'))stopIdle(true)},{capture:true});
 document.addEventListener('keydown',e=>{if(idle.on&&e.key!=='Tab')stopIdle(true)});
 render();
 setTimeout(()=>{if(!realMode&&!idle.on)startIdle()},1100);
-window.FoldBloomAtlas={state:()=>({packet:currentPacket(),focusId,idle:idle.on,deepQueue:deepQueue.length}),loadFiles,startIdle,stopIdle};
+window.FoldBloomAtlas={state:()=>({packet:currentPacket(),focusId,idle:idle.on,deepQueue:deepQueue.length}),loadFiles,readDocument,rebindDocument,startIdle,stopIdle};
