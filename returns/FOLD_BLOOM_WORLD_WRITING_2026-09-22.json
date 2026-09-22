@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_WORLD_WRITING_2026-09-22",
   "date": "2026-09-22",
   "operation": "USER HOOK RETURN → MAKE VERBS WRITE THE WORLD → PRESERVE RECIPIENT-SPECIFIC TRANSFERS",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_ACTIVE_CANDIDATE",
   "route": "/fold-bloom/live/",
   "delta": [
     "BLOOM/FOLD/SPLIT/RETURN now write bounded future road geometry",
@@ -12,5 +12,11 @@
     "READFIELD transfer is future-text READPATH, not music-reactive reading",
     "media provider order is preserved without making it the current bottleneck"
   ],
-  "next_truth": "One MP3, one of each verb: can the road alone tell you what you just authored, and does SPLIT create a meaningful desire to choose a branch?"
+  "next_truth": "Direct phone MP3: perform BLOOM/FOLD/SPLIT/RETURN and judge road-only legibility; then decide whether SPLIT needs actual branch steering/choice.",
+  "pr": 139,
+  "merge_sha": "c9bea197a3f9808bc2ad2b1c58c32d5c50ed0a55",
+  "ci": {
+    "run": 35677481804,
+    "result": "PASS"
+  }
 }
