@@ -2,7 +2,7 @@
 ## Addressed Continuity, dual-lane projections, off-label use and evaluation · 2026-09-22
 
 **Status:** research/specification donor.  
-**Not:** a new runtime front, a new ontology, or authority to mutate the active SET 0.1.1 test-pack branch.
+**Not:** a new runtime front, a new ontology, or authority to mutate merged SET 0.1.1 test-pack runtime/catalog state.
 
 Current runtime authority remains in `CURRENT.json`, the Fold/Bloom convergence packet, and the active human gates.  
 The uploaded-track corpus is now merged as SET 0.1.1 via PR #163 and sealed by PR #164. This note does not mutate its catalog, hashes, seed logic or local-media boundary.
