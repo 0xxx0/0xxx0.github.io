@@ -94,11 +94,10 @@ function syncRideProfile(){
   const k=rideStoreKey();rideProfile=normalizeRideProfile();
   if(k){try{rideProfile=normalizeRideProfile(JSON.parse(localStorage.getItem(k)||'{}'))}catch(_){} }
   const set=(id,v)=>{const e=$(id);if(e)e.value=String(v)};
-  set('#rideSolid',Math.round(rideProfile.solidity*100));set('#rideImmersion',Math.round(rideProfile.immersion*100));set('#rideDrop',Math.round(rideProfile.dropGain*100));set('#rideText',Math.round(rideProfile.textOffset*100));
+  set('#rideSolid',Math.round(rideProfile.solidity*100));set('#rideImmersion',Math.round(rideProfile.immersion*100));set('#rideDrop',Math.round(rideProfile.dropGain*100));
   if($('#rideSolidVal'))$('#rideSolidVal').textContent=Math.round(rideProfile.solidity*100)+'%';
   if($('#rideImmersionVal'))$('#rideImmersionVal').textContent=rideProfile.immersion.toFixed(2)+'×';
   if($('#rideDropVal'))$('#rideDropVal').textContent=rideProfile.dropGain.toFixed(2)+'×';
-  if($('#rideTextVal'))$('#rideTextVal').textContent=(rideProfile.textOffset>=0?'+':'')+rideProfile.textOffset.toFixed(2)+'s';
   document.documentElement.dataset.listenRideProfile=`${rideProfile.solidity.toFixed(2)}:${rideProfile.immersion.toFixed(2)}:${rideProfile.dropGain.toFixed(2)}:${rideProfile.textOffset.toFixed(2)}`;
   return rideProfile;
 }
@@ -435,7 +434,7 @@ $('#pinBtn').onclick=()=>{stopIdle(true);openPinSheet(null,audio.currentTime)};$
 $('#pinSave').onclick=commitPin;$('#pinDelete').onclick=deletePin;$('#pinClose').onclick=closePinSheet;
 $('#useRide').onclick=()=>openSurface('../live/');$('#useRead').onclick=openReadfield;$('#useCompose').onclick=()=>openSurface('../two-dial/?pulse=1');
 const rideTune=(id,key,scale=100)=>{const el=$(id);if(!el)return;el.oninput=e=>{rideProfile=normalizeRideProfile({...rideProfile,[key]:Number(e.target.value)/scale});saveRideProfile(false)};el.onchange=()=>saveRideProfile(true)};
-rideTune('#rideSolid','solidity');rideTune('#rideImmersion','immersion');rideTune('#rideDrop','dropGain');rideTune('#rideText','textOffset');
+rideTune('#rideSolid','solidity');rideTune('#rideImmersion','immersion');rideTune('#rideDrop','dropGain');
 $('#alignPrev').onclick=()=>{if(textTimeline.length){alignTargetIndex=(alignTargetIndex-1+textTimeline.length)%textTimeline.length;renderAlignmentEditor(false)}};
 $('#alignNext').onclick=()=>{if(textTimeline.length){alignTargetIndex=(alignTargetIndex+1)%textTimeline.length;renderAlignmentEditor(false)}};
 $('#alignAnchor').onclick=anchorSelectedText;$('#alignBack').onclick=()=>shiftText(-1);$('#alignForward').onclick=()=>shiftText(1);$('#alignClear').onclick=()=>{textAlignment=normalizeTextAlignment();saveTextAlignment(true);updateSourceSpine(true)};
@@ -530,7 +529,7 @@ function loop(){
 document.addEventListener('visibilitychange',()=>{if(document.hidden)cancelAnimationFrame(raf);else{cancelAnimationFrame(raf);loop()}});
 window.addEventListener('error',e=>{console.warn('LISTEN runtime error',e.error||e.message);if(!map)status('APP DEGRADED · FILE PICKER STILL AVAILABLE')});
 setScope(1,false);updateWorkflow();
-document.documentElement.dataset.listenBoot='ready';document.documentElement.dataset.listenLens=STREAM_LENS_SCHEMA;document.documentElement.dataset.listenEditor='source-editor-v0.1';syncPins();syncRideProfile();syncTextAlignment();
+document.documentElement.dataset.listenBoot='ready';document.documentElement.dataset.listenLens=STREAM_LENS_SCHEMA;document.documentElement.dataset.listenEditor='source-editor-v0.1';document.documentElement.dataset.listenSourceHorizon='v0.1';syncPins();syncRideProfile();syncTextAlignment();
 addEventListener('storage',e=>{if(e.key&&e.key===rideStoreKey())syncRideProfile();if(e.key&&e.key===alignmentStoreKey())syncTextAlignment()});
 window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,pendingSource,glyph:glyphDesc,idle:idle.on,addressedMessage:map?addressedReturn():null,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,pins:normalizePins(pins,sourcePinKey()),rideProfile:{...rideProfile},textAlignment:normalizeTextAlignment(textAlignment),textTimeline:[...textTimeline],sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc};
 requestAnimationFrame(loop);
