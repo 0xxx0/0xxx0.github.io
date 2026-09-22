@@ -126,7 +126,7 @@ function onWorkerMessage(e){
     map=e.data.map;map.source=fileMeta;map.stage='DEEP';deepBuilds++;status('READY · DEEP MAP');drop.classList.remove('busy');drop.classList.add('loaded');
     $('#bpm').textContent=`${map.bpm.toFixed(1)} BPM`;$('#confidence').textContent=`${Math.round(map.tempoConfidence*100)}% TEMPO CONF`;
     $('#key').textContent=map.key?.label&&map.key.label!=='—'?`${map.key.label.toUpperCase()} · ${Math.round((map.key.confidence||0)*100)}%`:(fileMeta?.providerKey?`${fileMeta.providerKey} · PROVIDER`:'— KEY');
-    $('#beats').textContent=`${map.beats.length} BEATS`;$('#sections').textContent=`${Math.max(0,map.sections.length-1)} SECTIONS`;
+    $('#beats').textContent=`${map.beats.length} BEATS`;$('#phrases').textContent=`${Math.max(0,(map.phrases?.length||1)-1)} PHRASES`;$('#sections').textContent=`${Math.max(0,map.sections.length-1)} SECTIONS`;
     refreshGlyph();$('#transport').disabled=false;$('#export').disabled=false;toast('MAP READY');updateWorkflow();publishTransport(true);
   }
 }
@@ -169,7 +169,7 @@ async function analyzeBytes(bytes,playbackBlob,meta){
     drop.classList.remove('busy');drop.classList.add('loaded');
     $('#bpm').textContent=fileMeta.providerBpm?`${Number(fileMeta.providerBpm).toFixed(1)} BPM · PROVIDER`:'… BPM';$('#confidence').textContent='PREVIEW';
     $('#key').textContent=fileMeta.providerKey?`${fileMeta.providerKey} · PROVIDER`:'… KEY';
-    $('#beats').textContent='… BEATS';$('#sections').textContent='1 SPAN';
+    $('#beats').textContent='… BEATS';$('#phrases').textContent='… PHRASES';$('#sections').textContent='1 SPAN';
     refreshGlyph();$('#transport').disabled=false;$('#export').disabled=false;updateWorkflow();
     status(decoded.duration>1200?'LONGFORM PREVIEW · DEEP MAP DEFERRED':'PREVIEW READY · REFINING');
     toast('PREVIEW READY');publishTransport(true);
