@@ -1167,7 +1167,7 @@
           "RELEASE"
         ]
       },
-      "role": "Current unequal Fold/Bloom family. LIVE 0.7 rides measured MP3 or synthetic FIELD COURSE with smooth grade/speed/turn terrain plus authored world-writing; TWO DIAL composes music/form; ECOLOGY evolves persistent lineage/game; LISTEN remains source/AUDIO MAP lab. READFIELD receives only the shared addressed-projection law, not the racer interface."
+      "role": "Current unequal Fold/Bloom family. LIVE 0.7 is the smooth world-writing performance ride; LISTEN 0.3 is the addressed-stream/audio-analysis lens and portable ADDRESS×APERTURE×PIN donor; TWO DIAL composes music/form; ECOLOGY evolves persistent lineage/game. Transfers preserve unequal host semantics."
     },
     {
       "href": "/fold-bloom/live/",
@@ -5772,15 +5772,15 @@
     },
     {
       "href": "/fold-bloom/listen/",
-      "title": "FOLD // BLOOM LISTEN 0.2.4",
+      "title": "FOLD // BLOOM LISTEN 0.3",
       "kind": "experiment",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "LISTEN",
       "state": "CANDIDATE",
-      "role": "Progressive source-addressed audio projection and connection workbench. Local/Suno-addressed audio becomes a PREVIEW→DEEP AUDIO MAP; BEAT/PHRASE/SECTION/TRACK changes the actual polar time domain and touch scrub range. 0.2.4 adds explicit USE TRACK workflows into LIVE, READFIELD, TWO DIAL and durable MAP export, publishing only bounded FIELD PULSE context and preserving each consumer's authorship.",
+      "role": "Addressed-stream lens hosted on audio. One source address survives changing apertures/projections: ring drag or horizontal motion scrubs ADDRESS; vertical/wheel motion moves BEAT→PHRASE→SECTION→TRACK APERTURE; PIN attaches authored notes to source-hash addresses. Audio DEEP map now includes approximate local key/mode identification while provider metadata remains optional provenance.",
       "index": {
-        "updated_at": "2026-09-22T08:37:00+08:00",
+        "updated_at": "2026-09-22T11:46:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -5807,21 +5807,23 @@
         "host": "/fold-bloom/",
         "generation": 1,
         "stage": "TEST",
-        "question": "Does local audio to bounded event map to polar time ring and scale rail produce a musically legible playable field beyond a decorative visualizer?",
+        "question": "Does ADDRESS × APERTURE × PIN form a transferable stream lens while remaining musically useful and less UI-fragile than an audio-specific visualizer?",
         "baseline": "Ordinary audio playback plus existing Fold/Bloom branches without source-audio analysis or time-addressed visual terrain.",
-        "mutation": "LISTEN 0.2.3 keeps the local analysis/annular/fractal field + bounded SOURCE ADDRESS seam and repairs mobile scope agency: pointerdown freezes the current BEAT/PHRASE/SECTION/TRACK window for the entire gesture; angle maps into that fixed window; HOLD witnesses ownership; release resumes live scope tracking.",
-        "evidence_gate": "Browser smoke must prove the source parser and FI route; then use at least three materially different real tracks including the supplied Suno source if remote CORS permits. Require plausible beat stepping, some section boundaries matching heard form changes, responsive ring/scope control, and no regression to local-file authority.",
-        "next_if_pass": "Transfer the surviving audio-map, time-ring, and scale-rail mechanisms into the Fold/Bloom family shell and keep LISTEN as a projection rather than a separate roadmap.",
-        "next_if_fail": "Park or donate weak analysis/visualization parts; preserve the polar/scale interaction and source-hash audio map if independently useful."
+        "mutation": "LISTEN 0.3 extracts the ring interaction into a generic addressed-stream law: horizontal/ring motion moves source address, vertical motion changes aperture, pins annotate exact source addresses, while audio remains the first host vocabulary. DEEP analysis also adds approximate local harmonic identity.",
+        "evidence_gate": "CI must prove generic stream-lens laws, harmonic analysis, source adapters and deployed 0.3 UI. Direct desktop/phone must distinguish horizontal address from vertical aperture and preserve annotations across source reload/export.",
+        "next_if_pass": "Adapt the same source/address/aperture/pin law to READFIELD or one non-audio stream without importing beat/music semantics.",
+        "next_if_fail": "Keep LISTEN audio-specific; retain source-addressed pins and local harmonic analysis independently."
       },
-      "version": "0.2.4",
+      "version": "0.3",
       "contract": "/control/FIELD_PULSE_CONTRACT.json",
-      "receipt": "/returns/FIELD_PULSE_2026-09-22.json",
+      "receipt": "/returns/FOLD_BLOOM_STREAM_LENS_2026-09-22.json",
       "transfer": [
-        "operational scope-window touch semantics",
-        "FIELD PULSE transport producer",
-        "gesture-stable scoped scrub window",
-        "workflow dock: analyzed track → LIVE / READFIELD / TWO DIAL / AUDIO MAP without authority collapse"
+        "field-addressed-stream/v0.1 generic address/aperture/pin law",
+        "ring absolute scrub + horizontal relative address movement",
+        "vertical aperture traversal",
+        "source-provenanced annotations beside immutable analysis",
+        "provider-independent approximate key/mode identity",
+        "existing FIELD PULSE transport + LIVE/READFIELD/TWO DIAL workflows"
       ]
     },
     {
