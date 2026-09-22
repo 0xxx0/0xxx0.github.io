@@ -172,5 +172,56 @@
     "ci_run": 1646,
     "role": "Exact local recognition for preforme / THROUGH THE FIRE / BY YOUR WILL / 遺志 plus separate NotebookLM long-form stress source; seed suggestions are reversible SHAPE state; raw audio remains local.",
     "human_gate": "recognize → apply seed → manually mutate order/weight/seam → exact export/import → KEEP / REVISE / REJECT"
-  }
+  },
+  "repo_state": {
+    "rule": "Fetch live master and open PRs at session start; embedded SHAs are recovery anchors, not current authority.",
+    "last_observed_master_before_this_handoff_write": "ec46807444fcec733d6bf995bfcbb377ab3da52c",
+    "open_fold_bloom_pr": {
+      "pull_request": 166,
+      "title": "FOLD//BLOOM Journey Ride 0.1 + one-selection local source spine",
+      "last_observed_head": "a78c3534546d590d28fbb3b4509ca9d43a7fa84c",
+      "state": "OPEN / ACTIVE OTHER-BRANCH WORK",
+      "ownership": "local IndexedDB source binding + SET→LISTEN continuity + Journey Ride 0.1",
+      "instruction": "Do not fork or independently implement this lane. Inspect current PR state first."
+    }
+  },
+  "now_next_hold": {
+    "NOW": [
+      "Let PR #166 finish its fix/CI cycle; do not duplicate Journey/local-vault work.",
+      "When available, direct-use the real three-track SET/Journey path and return KEEP / REVISE / REJECT plus concrete body/continuity notes.",
+      "Hermes research workers may run only from HERMES_FOLD_BLOOM_TRANSFER_RESEARCH_2026-09-22.json; max two, read/research only, no canonical writes."
+    ],
+    "NEXT_IF_166_MERGES": [
+      "Test one-selection continuity: SET select once → LISTEN same hash without picker → JOURNEY all bindings resolve.",
+      "Ride CARRY → DISSOLVE → RETURN with the real seed and judge one-journey vs playlist-with-transitions.",
+      "Only then decide whether Journey earns deeper LIVE-style embodiment, source-spine visuals, or further seam intelligence.",
+      "Close LISTEN issue #157 separately when touching LISTEN phone ADDRESS/APERTURE; do not conflate it with Journey promotion."
+    ],
+    "HOLD": [
+      "anchor/warp lyric calibration implementation unless direct lyric QA makes it the blocker",
+      "provider catalog / Spotify-style integration",
+      "public social/messaging backend",
+      "full DAW editing / beatmatching / tempo warping",
+      "SOURCE SPINE as standalone app",
+      "Ecology audio graft",
+      "universal sonification framework",
+      "emotion classifier as source truth"
+    ]
+  },
+  "pr166_review": {
+    "review_id": 5276978823,
+    "status": "COMMENTED_READ_ONLY",
+    "must_recheck_before_merge": [
+      "vault bridge MutationObserver must not self-trigger refresh loops",
+      "availability checks should not load whole audio blobs",
+      "avoid duplicate full-file SHA-256 hashing in SET + vault bridge",
+      "pause must freeze/cancel DISSOLVE rather than advancing on wall clock",
+      "RESET/async advance needs re-entrancy guard",
+      "LISTEN return= must be same-origin/relative safe",
+      "privacy wording must state origin-wide IndexedDB and best-effort persistence",
+      "short-clip DISSOLVE overlap should be bounded by actual source durations"
+    ],
+    "law": "These are implementation hazards, not objections to the source-spine/Journey architecture."
+  },
+  "new_session_bootstrap": "You are taking over a live CONFLUENCE/FIELD session around FOLD//BLOOM.\n\nPRIMARY LAW: RECOVER BEFORE INVENTING.\n\nBoot in this order:\n1. Read /AGENTS.md.\n2. Fetch LIVE /control/CURRENT.json and current master/open PRs; do not trust old chat summaries or embedded SHAs as present authority.\n3. Read /control/HERMES_FOLD_BLOOM_HANDOFF_2026-09-22.json.\n4. Read /fold-bloom/convergence/README.md, THREAD_COLLAPSE_2026-09-22.md, ADDRESSED_CONTINUITY_2026-09-22.md, and TRANSFER_RESEARCH_ATLAS_2026-09-22.md only as needed.\n5. Inspect open PR #166 before touching Journey/local-media/source-spine runtime. Another branch owns that lane.\n6. If PR #166 is still open, do not duplicate its implementation. Review/test/help only with concrete non-overlapping evidence.\n7. If PR #166 merged, verify its merge/CI/RETURN and perform the direct human gate before expanding it.\n8. Preserve unequal authority:\n   SOURCE identity/provenance ≠ analysis ≠ calibration ≠ human authorship ≠ projection.\n   LISTEN maps one source; LIVE embodies one source; SET authors order/weight/seams; JOURNEY traverses a set; READFIELD owns text focus; TWO DIAL composes; AXIAL constrains/orients; Lens refracts; HUMAN PORT routes actions.\n9. Keep the active surface small. Research/off-label ideas are DONORS, not automatic projects.\n10. One bounded move → PROVE → RETURN → REPLAN.\n\nCurrent practical priority:\n- do not break/fork #166;\n- resolve any concrete #166 review hazards and CI failures;\n- then test the real three-song one-selection SET→LISTEN→JOURNEY path;\n- report KEEP / REVISE / REJECT and the exact felt/technical failure if any.\n\nDo not:\n- create another hub/source-spine app;\n- add provider/social/DAW systems;\n- infer human meaning from audio features;\n- treat mood models as truth;\n- start a second runtime branch because a research idea is exciting.\n\nIf no live blocker exists, use the bounded research packet rather than inventing work:\n  /control/HERMES_FOLD_BLOOM_TRANSFER_RESEARCH_2026-09-22.json\n\nRETURN format:\nSTATE\nDELTA\nEVIDENCE\nRESIDUE\nWAITING\nONE_NEXT"
 }
