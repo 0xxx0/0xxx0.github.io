@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_TRANSFER_RESEARCH_2026-09-22",
   "date": "2026-09-22",
   "operation": "RECOVER MERGED TEST-PACK STATE → RESEARCH OFF-LABEL TRANSFERS → REFRESH HERMES HANDOFF → PREPARE BOUNDED WORKER PACKET",
-  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "status": "MERGED_RESEARCH_DONOR",
   "baseline": "master@fcaa51064ee6081f73d6cb5f6f68b961ccb66e9e",
   "preserved_test_pack": {
     "version": "SET 0.1.1",
@@ -26,5 +26,21 @@
   ],
   "research_posture": "Ingredients have strong precedent; evaluate novelty in the composition/use: exact addressed objects crossing heterogeneous analytic/embodied/textual/auditory projections while authority classes and RETURN remain explicit.",
   "stop": "No runtime code, no Journey Ride, no SOURCE SPINE app, no emotion-as-truth model, no HERMES_QUEUE activation, no SET 0.1.1 catalog/runtime mutation.",
-  "one_next": "Optionally activate one or two Phase A research workers from the packet; otherwise keep the atlas as donor material until a real host problem calls for one transfer."
+  "one_next": "Optionally activate one or two Phase A research workers from the packet; otherwise keep the atlas as donor material until a real host problem calls for one transfer.",
+  "pull_request": 165,
+  "merge_sha": "50bbfcd840dbcfba7c1b244288b44443b19e4728",
+  "ci": {
+    "run": 35716885054,
+    "number": 1650,
+    "result": "PASS",
+    "coverage": [
+      "LISTEN analysis + preview",
+      "Experience Set 0.1",
+      "SET 0.1.1 + local test packs",
+      "LIVE regression stack",
+      "critical browser smoke",
+      "recovery/media catalogue",
+      "Sleeper/City/Painting regression tail"
+    ]
+  }
 }
