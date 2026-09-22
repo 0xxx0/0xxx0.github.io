@@ -190,6 +190,27 @@ export function makeReturn({doc,sourceId,signals=[],draft='',coverageLinks=[],ti
     ]
   };
 }
+export function stateFromReturn(value){
+  const v=validateReturn(value);
+  if(typeof v.source?.text!=='string'||!v.source.text.length)throw new TypeError('source-bearing RETURN required for resume');
+  const doc=parseConversation(v.source.text);
+  const humanMarks=(v.signals||[]).filter(s=>s.origin==='HUMAN').map(s=>({...s}));
+  const states=Object.fromEntries((v.signals||[]).map(s=>[s.id,s.state||'OPEN']));
+  return {
+    source:v.source.text,
+    sourceId:String(v.source.id||''),
+    title:String(v.source.title||'COMMS SPINE'),
+    doc,
+    humanMarks,
+    states,
+    draft:String(v.response?.text||''),
+    coverageLinks:Array.isArray(v.response?.covers)?[...new Set(v.response.covers.map(String))]:[],
+    targets:[],
+    currentMessage:0,
+    selectedClause:doc.messages[0]?.clauses?.[0]?.id||null,
+    filter:'ALL'
+  };
+}
 export function validateReturn(value){
   if(!value||value.schema!==RETURN_SCHEMA)throw new TypeError('invalid comms spine return');
   if(!value.source||typeof value.source.id!=='string')throw new TypeError('source required');
