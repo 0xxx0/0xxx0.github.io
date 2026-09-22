@@ -59,5 +59,5 @@ export function storeDocumentRuntime(sourceHash,text){try{globalThis.sessionStor
 export function loadDocumentRuntime(sourceHash){try{return globalThis.sessionStorage?.getItem(documentRuntimeKey(sourceHash))??null}catch(_){return null}}
 export function clearDocumentRuntime(sourceHash){try{globalThis.sessionStorage?.removeItem(documentRuntimeKey(sourceHash));return true}catch(_){return false}}
 export function makeReadfieldHandoff(entry,text,{address='section://0',charIndex=null,returnAddress='/fold-bloom/atlas/'}={}){
-  return {schema:'readfield.handoff/v1',source:String(text??''),label:String(entry?.name||'DOCUMENT'),sourceIdentity:{hash:String(entry?.sourceHash||''),kind:String(entry?.sourceKind||'LOCAL_DOCUMENT'),format:String(entry?.format||'TXT')},address:address||null,charIndex:Number.isFinite(Number(charIndex))?Number(charIndex):null,returnAddress:String(returnAddress||'/fold-bloom/atlas/')};
+  return {schema:'readfield.handoff/v1',source:String(text??''),label:String(entry?.name||'DOCUMENT'),sourceIdentity:{hash:String(entry?.sourceHash||''),kind:String(entry?.sourceKind||'LOCAL_DOCUMENT'),format:String(entry?.format||'TXT'),glyph:entry?.glyph?JSON.parse(JSON.stringify(entry.glyph)):null},address:address||null,charIndex:Number.isFinite(Number(charIndex))?Number(charIndex):null,returnAddress:String(returnAddress||'/fold-bloom/atlas/')};
 }
