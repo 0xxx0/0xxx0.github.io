@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {buildTrackfield,projectTrackfield,trackfieldPoint,sampleFrameInterpolated} from '../trackfield.js';
+import {buildTrackfield,projectTrackfield,trackfieldPoint,sampleFrameInterpolated,detectMacroDrop} from '../trackfield.js';
 
 const frames=[
   {t:0,e:.18,c:.25,f:.04,l:.76,m:.2,h:.04},
@@ -15,7 +15,7 @@ const map={version:'test-map',stage:'DEEP',duration:12,bpm:120,frameRate:.5,fram
 
 test('trackfield is a bounded future projection of the AUDIO MAP',()=>{
   const w=buildTrackfield(map,1,{horizon:9,count:36});
-  assert.equal(w.schema,'fold-bloom-trackfield/v0.4');
+  assert.equal(w.schema,'fold-bloom-trackfield/v0.5');
   assert.equal(w.points.length,36);
   assert.equal(w.time,1);
   assert.ok(w.points[0].ahead===0);
@@ -95,4 +95,23 @@ test('future energy trend anticipates a drop with steeper grade before impact',(
   assert.ok(rising.grade<flat.grade-.3);
   assert.ok(falling.grade>flat.grade+.3);
   assert.ok(rising.speed>flat.speed);
+});
+
+
+test('macro drop promotes buildup→impact into a larger-scale event',()=>{
+  const w=buildTrackfield(map,0,{horizon:10,count:64});
+  assert.ok(w.drop,'expected a macro drop in the synthetic buildup');
+  assert.ok(w.drop.ahead>3&&w.drop.ahead<8);
+  assert.ok(w.drop.strength>.25);
+  const before=w.points.find(p=>p.ahead>w.drop.ahead-1.1&&p.ahead<w.drop.ahead-.35);
+  const hit=w.points.find(p=>p.ahead>=w.drop.ahead&&p.ahead<w.drop.ahead+.35);
+  assert.ok(before?.dropTunnel>0);
+  assert.ok(hit?.dropOpen>0);
+  assert.ok(hit.grade<before.grade);
+  assert.ok(hit.speed>before.speed);
+});
+
+test('flat material does not invent a macro drop',()=>{
+  const pts=Array.from({length:20},(_,i)=>({ahead:i*.4,t:i*.4,energy:.4,impact:.35,flux:.04,sectionEdge:false}));
+  assert.equal(detectMacroDrop(pts),null);
 });

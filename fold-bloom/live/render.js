@@ -1,6 +1,6 @@
 import { N, TYPE_NAMES, gateCellIndex, isAligned, forecastAtSlot, forecastRelease, forecastMatchesCall, callLabel, clamp } from './engine.js';
 import {projectTrackfield} from './trackfield.js';
-import {sourceSkyEvent,releaseSkyDescriptor,opticWitness} from './pov-effects.js';
+import {sourceSkyEvent,releaseSkyDescriptor,opticWitness,dropBurstDescriptor} from './pov-effects.js';
 
 const TAU=Math.PI*2;
 const COLORS=['#ff9852','#6dbdff','#72e4b6'];
@@ -8,7 +8,7 @@ const COLORS=['#ff9852','#6dbdff','#72e4b6'];
 export class Renderer {
   constructor(canvas) {
     this.cv=canvas; this.g=canvas.getContext('2d'); this.w=0;this.h=0;this.cx=0;this.cy=0;this.r=0;
-    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.skyPulses=[];this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;this.ride=null;this.landmarks=[];this.reducedMotion=!!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;this.motion={t:performance.now(),speed:1,grade:0,bend:0,zoom:1,pitch:0,bank:0};
+    this.displayRotation=0;this.dragOffset=0;this.pulses=[];this.skyPulses=[];this.dropBursts=[];this.lastDropId=null;this.beat=0;this.beatAt=0;this.beatEnergy=0;this.lastEvent=null;this.sectionArc=null;this.trackfield=null;this.ride=null;this.landmarks=[];this.reducedMotion=!!globalThis.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;this.motion={t:performance.now(),speed:1,grade:0,bend:0,zoom:1,pitch:0,bank:0};
     this.resize();
     addEventListener('resize',()=>this.resize(),{passive:true});
   }
@@ -17,17 +17,41 @@ export class Renderer {
   beatPulse(step,energy=.35){this.beat=step%16;this.beatAt=performance.now();this.beatEnergy=clamp(Number(energy)||0,0,1)}
   setDrag(offset){this.dragOffset=offset}
   setSectionArc(view){this.sectionArc=view||null}
-  setTrackfield(world){this.trackfield=world||null}
+  setTrackfield(world){
+    const d=world?.drop;
+    if(d&&Number(d.ahead)>=0&&Number(d.ahead)<=.46&&d.id!==this.lastDropId){
+      this.lastDropId=d.id;
+      this.dropBursts.push({at:performance.now(),...dropBurstDescriptor(d)});
+      this.dropBursts=this.dropBursts.slice(-4);
+    }
+    this.trackfield=world||null
+  }
   setRide(view){this.ride=view||null}
   setLandmarks(pins){this.landmarks=Array.isArray(pins)?pins.slice(0,64).map(p=>({...p,address:Number(p.address)||0})):[]}
+  _dropPulse(now){
+    this.dropBursts=this.dropBursts.filter(b=>now-b.at<1900);
+    let kick=0,rebound=0;
+    for(const b of this.dropBursts){
+      const q=clamp((now-b.at)/1900,0,1),s=clamp(Number(b.strength)||0,0,1);
+      const plunge=Math.sin(Math.PI*clamp(q/.54,0,1))*s;
+      const returnLift=q>.48?Math.sin(Math.PI*clamp((q-.48)/.52,0,1))*s*.42:0;
+      kick=Math.max(kick,plunge);rebound=Math.max(rebound,returnLift);
+    }
+    return {kick,rebound};
+  }
   _updateMotion(now){
     const m=this.motion,dt=clamp((now-m.t)/1000,0,.08);m.t=now;
     const speed=Number(this.trackfield?.currentSpeed)||1,grade=Number(this.trackfield?.currentGrade)||0,bend=Number(this.trackfield?.currentBend)||0;
     const k=1-Math.exp(-dt*5.2);
     m.speed+=(speed-m.speed)*k;m.grade+=(grade-m.grade)*k;m.bend+=(bend-m.bend)*k;
-    m.zoom=clamp(1+(m.speed-1)*.078,.94,1.105);
-    m.pitch=clamp(m.grade*27,-25,25);
+    const drop=this._dropPulse(now);
+    m.zoom=clamp(1+(m.speed-1)*.078+drop.kick*.15,.92,1.24);
+    m.pitch=clamp(m.grade*27-drop.kick*20+drop.rebound*9,-42,32);
     m.bank=clamp(m.bend*.032,-.03,.03);
+    const shake=this.reducedMotion?0:drop.kick*4.2*(1-drop.rebound*.5);
+    m.shakeX=Math.sin(now*.034)*shake;
+    m.shakeY=Math.cos(now*.029)*shake*.55;
+    m.dropKick=drop.kick;m.dropRebound=drop.rebound;
     return m;
   }
   slotAngle(i,state){return -Math.PI/2 + (i+state.rotation)*TAU/N + this.dragOffset}
@@ -50,12 +74,37 @@ export class Renderer {
       g.strokeStyle=`rgba(255,255,255,${a})`;g.lineWidth=.45+q*.85;
       g.beginPath();g.moveTo(x,y);g.lineTo(x-dx/len*trail,y-dy/len*trail);g.stroke();
     }
-    // Sparse source event in the far field. Section > surge > phrase.
+    // Macro buildup closes the visual aperture before the source opens it.
+    const drop=world?.drop;
+    if(drop&&Number(drop.ahead)>.12&&Number(drop.ahead)<4.8){
+      const near=clamp(1-Number(drop.ahead)/4.8,0,1),pressure=near*clamp(Number(drop.strength)||0,0,1);
+      g.save();g.translate(horizonX,horizonY);
+      for(let i=0;i<5;i++){
+        const q=(i+1)/5,rx=w*(.09+.30*q)*(1-pressure*.24),ry=h*(.045+.15*q)*(1-pressure*.20);
+        g.strokeStyle=`rgba(255,255,255,${.018+.06*pressure*(1-q*.4)})`;g.lineWidth=.7+pressure*.8;
+        g.beginPath();g.ellipse(0,0,rx,ry,0,0,TAU);g.stroke();
+      }
+      const side=clamp(.04+.20*pressure,0,.25);
+      g.fillStyle=`rgba(2,4,7,${side})`;
+      g.fillRect(0-horizonX,0-horizonY,w*.18*pressure,h);
+      g.fillRect(w-horizonX-w*.18*pressure,0-horizonY,w*.18*pressure,h);
+      g.restore();
+    }
+    // Sparse source event in the far field. DROP > section > surge > phrase.
     const source=sourceSkyEvent(world);
     if(source){
       const near=clamp(1-source.ahead/6,0,1),strength=clamp(source.strength*(.35+.65*near),0,1),sx=horizonX+(source.side||0)*w*.18,sy=horizonY-h*.04;
       g.save();g.translate(sx,sy);g.globalAlpha=.24+.52*strength;
-      if(source.kind==='SECTION'){
+      if(source.kind==='DROP'){
+        g.strokeStyle='rgba(255,255,255,.82)';g.lineWidth=1.2+strength*2.1;
+        const r=14+strength*54;
+        for(let i=0;i<6;i++){
+          const a=-Math.PI*.78+i*(Math.PI*.56/5);
+          g.beginPath();g.moveTo(Math.cos(a)*r*.25,Math.sin(a)*r*.25);g.lineTo(Math.cos(a)*r,Math.sin(a)*r);g.stroke();
+        }
+        g.strokeStyle='rgba(109,189,255,.52)';g.lineWidth=1;
+        g.beginPath();g.ellipse(0,0,r*.72,r*.28,0,0,TAU);g.stroke();
+      }else if(source.kind==='SECTION'){
         g.strokeStyle='rgba(244,247,245,.72)';g.lineWidth=1.2+strength*1.8;
         for(let i=-3;i<=3;i++){const a=-Math.PI/2+i*.13,r=22+strength*52;g.beginPath();g.moveTo(Math.cos(a)*8,Math.sin(a)*8);g.lineTo(Math.cos(a)*r,Math.sin(a)*r);g.stroke()}
       }else if(source.kind==='SURGE'){
@@ -68,6 +117,34 @@ export class Renderer {
       }
       g.restore();
     }
+    // Crossing a macro DROP opens the sky as a one-shot source event.
+    for(const b of this.dropBursts){
+      const q=clamp((t-b.at)/1900,0,1),life=Math.sin(Math.PI*q),strength=clamp(Number(b.strength)||0,0,1);
+      if(life<=0)continue;
+      const cx=horizonX,cy=horizonY-h*(.01+.035*q),r=(26+Math.min(w,h)*(.12+.33*q))*strength;
+      g.save();g.globalCompositeOperation='screen';
+      const glow=g.createRadialGradient(cx,cy,0,cx,cy,Math.max(18,r));
+      glow.addColorStop(0,`rgba(255,255,255,${.19*life*strength})`);
+      glow.addColorStop(.24,`rgba(109,189,255,${.16*life*strength})`);
+      glow.addColorStop(1,'rgba(5,7,11,0)');
+      g.fillStyle=glow;g.fillRect(0,0,w,h);
+      g.translate(cx,cy);
+      const beams=this.reducedMotion?8:18;
+      for(let i=0;i<beams;i++){
+        const a=-Math.PI*.96+(i/(beams-1))*Math.PI*.92+(i%2)*.014;
+        const inner=10+r*.10,outer=inner+r*(.68+.34*((i*7)%11)/10);
+        g.strokeStyle=i%3===0?`rgba(255,184,112,${.50*life*strength})`:`rgba(255,255,255,${.31*life*strength})`;
+        g.lineWidth=.7+(i%4===0?1.1:0);
+        g.beginPath();g.moveTo(Math.cos(a)*inner,Math.sin(a)*inner);g.lineTo(Math.cos(a)*outer,Math.sin(a)*outer);g.stroke();
+      }
+      for(let i=0;i<(this.reducedMotion?3:8);i++){
+        const a=-Math.PI*.82+i*.23,q2=((i*37)%11)/10,len=r*(.22+.38*q2),x=Math.cos(a)*r*.42,y=Math.sin(a)*r*.42;
+        g.strokeStyle=`rgba(114,228,182,${.35*life*strength})`;g.lineWidth=1;
+        g.beginPath();g.moveTo(x,y);g.lineTo(x+Math.cos(a)*len,y+Math.sin(a)*len);g.stroke();
+      }
+      g.restore();
+    }
+
     // Authored verb effects live in the sky/periphery rather than on a score counter.
     this.skyPulses=this.skyPulses.filter(p=>t-p.t<1150);
     for(const p of this.skyPulses){
@@ -101,6 +178,7 @@ export class Renderer {
     const proj=projectTrackfield(this.trackfield,this.w,this.h,{rideLateral:this.ride?.lateral||0});if(!proj?.slices?.length)return;
     const g=this.g,s=proj.slices,m=this.motion;
     g.save();
+    g.translate(m.shakeX||0,m.shakeY||0);
     g.translate(this.w*.5,this.h*.72+m.pitch);
     g.rotate(-m.bank);
     g.scale(m.zoom,m.zoom);

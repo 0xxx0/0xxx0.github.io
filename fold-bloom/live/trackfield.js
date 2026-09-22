@@ -2,6 +2,7 @@ import {beatIndexAt,phraseIndexAt,sectionIndexAt} from '../listen/audio-map.js';
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const lerp=(a,b,t)=>a+(b-a)*t;
+const smoothstep=(a,b,x)=>{const q=clamp((x-a)/Math.max(.0001,b-a),0,1);return q*q*(3-2*q)};
 const NUMERIC_KEYS=['e','c','f','l','m','h'];
 
 export function sampleFrameInterpolated(map,time=0){
@@ -50,6 +51,57 @@ export function trackfieldPoint(frame={},u=0,{energyTrend=0}={}){
   };
 }
 
+
+export function detectMacroDrop(points=[]){
+  if(!Array.isArray(points)||points.length<8)return null;
+  let best=null;
+  for(let i=2;i<points.length;i++){
+    const p=points[i],ahead=Number(p.ahead)||0;
+    if(ahead<.55||ahead>10.5)continue;
+    const prior=points.filter(q=>{
+      const d=ahead-(Number(q.ahead)||0);
+      return d>=.45&&d<=3.4;
+    });
+    if(prior.length<3)continue;
+    const mean=(key)=>prior.reduce((a,q)=>a+(Number(q[key])||0),0)/prior.length;
+    const lowE=Math.min(...prior.map(q=>Number(q.energy)||0)),avgE=mean('energy'),avgImpact=mean('impact');
+    const rise=(Number(p.energy)||0)-Math.min(avgE,lowE+.08);
+    const impactRise=(Number(p.impact)||0)-avgImpact;
+    const flux=Number(p.flux)||0;
+    const sectionBoost=p.sectionEdge?.10:0;
+    const raw=rise*.92+impactRise*.56+flux*.24+sectionBoost;
+    const strength=clamp((raw-.28)/.78,0,1);
+    if(strength<.26||rise<.16||(Number(p.energy)||0)<.48)continue;
+    const candidate={
+      id:`drop@${Number(p.t||0).toFixed(3)}`,t:Number(p.t)||0,ahead,index:i,
+      strength:+strength.toFixed(4),rise:+rise.toFixed(4),impactRise:+impactRise.toFixed(4),
+      preEnergy:+avgE.toFixed(4),hitEnergy:+(Number(p.energy)||0).toFixed(4),flux:+flux.toFixed(4)
+    };
+    if(!best||candidate.strength>best.strength+.05||(Math.abs(candidate.strength-best.strength)<=.05&&candidate.ahead<best.ahead))best=candidate;
+  }
+  return best;
+}
+
+function applyMacroDropDrama(points,drop){
+  if(!drop)return points;
+  const strength=clamp(Number(drop.strength)||0,0,1);
+  for(const p of points){
+    const dt=(Number(p.ahead)||0)-drop.ahead;
+    const pre=dt<=0?smoothstep(-3.5,-.18,dt):0;
+    const fall=dt>=-.10&&dt<=2.9?(1-smoothstep(-.10,2.9,dt)):0;
+    const open=dt>=-.02&&dt<=2.1?(1-smoothstep(-.02,2.1,dt)):0;
+    p.dropTunnel=clamp(pre*(1-fall*.58)*strength,0,1);
+    p.dropOpen=clamp(open*strength,0,1);
+    p.dropStrength=strength;
+    p.altitude=clamp((Number(p.altitude)||0)+pre*.98*strength-fall*1.72*strength,-3.6,3.4);
+    p.grade=clamp((Number(p.grade)||0)+pre*.58*strength-fall*1.34*strength,-2.35,2.15);
+    p.speed=clamp((Number(p.speed)||1)+fall*.74*strength,.48,3.05);
+    p.width=clamp((Number(p.width)||1)*(1-pre*.24*strength+open*.30*strength),.52,1.48);
+    p.impact=clamp((Number(p.impact)||0)+open*.18*strength,0,1.55);
+  }
+  return points;
+}
+
 export function buildTrackfield(map,time=0,{horizon=12,count=44}={}){
   if(!map?.frames?.length||!Number.isFinite(Number(map.duration)))return null;
   const duration=Math.max(0,Number(map.duration)||0);
@@ -83,6 +135,9 @@ export function buildTrackfield(map,time=0,{horizon=12,count=44}={}){
   const totalDistance=Math.max(.001,points.at(-1)?.distance||1);
   for(const p of points)p.z=clamp(p.distance/totalDistance,0,1);
 
+  const drop=detectMacroDrop(points);
+  applyMacroDropDrama(points,drop);
+
   let surge=null,maxImpact=0;
   for(let i=1;i<points.length;i++){
     const p=points[i];maxImpact=Math.max(maxImpact,p.impact);
@@ -93,7 +148,7 @@ export function buildTrackfield(map,time=0,{horizon=12,count=44}={}){
   }
   const sections=Math.max(1,(map.sections?.length||1)-1);
   return {
-    schema:'fold-bloom-trackfield/v0.4',
+    schema:'fold-bloom-trackfield/v0.5',
     sourceMap:map.version||null,
     stage:map.stage||'UNKNOWN',
     time:start,
@@ -107,6 +162,7 @@ export function buildTrackfield(map,time=0,{horizon=12,count=44}={}){
     totalDistance:+totalDistance.toFixed(4),
     maxImpact:+maxImpact.toFixed(4),
     surge,
+    drop,
     points
   };
 }
@@ -133,7 +189,7 @@ export function projectTrackfield(world,width,height,{rideLateral=0}={}){
   const cameraShift=clamp(Number(rideLateral)||0,-1,1)*w*.135*splitInfluence;
   if(Math.abs(cameraShift)>.001)for(const p of slices)p.centerX-=cameraShift;
   return {
-    width:w,height:h,slices,surge:world.surge,current:world.current,
+    width:w,height:h,slices,surge:world.surge,drop:world.drop,current:world.current,
     currentSpeed:world.currentSpeed||1,currentGrade:world.currentGrade||0,currentBend:world.currentBend||0,
     activeVerbs:world.activeVerbs||[],deformationCount:world.deformationCount||0,cameraShift,splitInfluence,rideLateral:clamp(Number(rideLateral)||0,-1,1)
   };

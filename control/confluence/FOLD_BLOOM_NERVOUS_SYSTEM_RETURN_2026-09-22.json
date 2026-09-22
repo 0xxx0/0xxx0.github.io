@@ -1,0 +1,53 @@
+{
+  "schema": "0xxx0/confluence-packet/v0.1",
+  "id": "FOLD_BLOOM_NERVOUS_SYSTEM_RETURN_2026-09-22",
+  "date": "2026-09-22",
+  "status": "BRANCH_CANDIDATE_PENDING_CI",
+  "object": "FOLD//BLOOM LIVE / embodied linear explorer",
+  "observed_exact_user_return": [
+    "LIVE/RIDE already feels delightful and embodied even at low visual resolution; jitter/motion is felt rather than merely read.",
+    "The biggest perceptual miss is macro musical consequence: large drops are being missed. Desired feeling is roller-coaster buildup/tunnel → massive plunge → sudden open sky / explosive spatial feedback.",
+    "User wants visual pattern changes to scale with meaningful musical structure, not generic combo fireworks.",
+    "Lyrics/text from song files would be valuable when actually present.",
+    "IDLE operating in FLOW is desirable.",
+    "WOOD/VOID synth scenes are not self-explanatory yet.",
+    "Playlist/tuning-map controls and source management remain valuable future work but are not the current bottleneck.",
+    "The linear explorer abstraction is beginning to make sense as a generic addressed stream: music now, potentially book/text/day/other sequence later.",
+    "LISTEN/radial viewer/annotation should gradually unify around shared microlib/formal mapping rather than become disconnected apps.",
+    "The same addressed annotation + mapping + compact visual language has strong future communications potential; possible outputs could be animated/gif-like text+visual messages or product-demo/Enter-the-Void-like temporal compositions.",
+    "Version coordination drift has been encountered and should be actively reduced."
+  ],
+  "reconstructed_vision": [
+    "LIVE is not a racer skin over audio. It is an embodied projection of a linear addressed source where structure can become terrain and human operations can rewrite traversal.",
+    "The ring is not necessarily the source timeline itself; it is a cyclic control/state projection operating against a linear source address.",
+    "LISTEN is the inspect/annotate/map projection; LIVE is embodiment/traversal; GLYPH ATLAS is source memory/thumbnail; READFIELD can become the textual projection of the same addressed stream.",
+    "Comms should reuse addressed source/time, annotations, visual compression and RETURN rather than importing a score/combo metaphor."
+  ],
+  "implemented_this_pass": [
+    "TRACKFIELD v0.5 introduces explicit MACRO DROP detection as a scale above beat/phrase/section texture.",
+    "Detected buildup→impact events create tunnel pressure, pre-climb, exaggerated plunge, speed kick, width opening and a one-shot open-sky burst.",
+    "Flat material has a negative test to prevent constant fake spectacle.",
+    "LIVE local source intake accepts audio plus optional LRC/VTT/SRT/TXT/MD sidecars.",
+    "Embedded MP3/M4A lyrics metadata is read when present.",
+    "Timed text follows actual cue addresses; unaligned embedded text is exposed as FLOAT / UNALIGNED rather than fake-synchronized.",
+    "IDLE preserves current FLOW/RATCHET mode; FLOW witness-play rotates continuously using source bend while remaining reversible/non-authorial.",
+    "WOOD/VOID/DEEP/TRANCE scene meanings are surfaced in settings."
+  ],
+  "laws": [
+    "MACRO CONSEQUENCE MUST COME FROM MACRO SOURCE EVIDENCE, NOT EFFECT GAIN.",
+    "RARE LARGE EVENTS > CONSTANT SPECTACLE.",
+    "TIMED TEXT MAY CLAIM SOURCE ALIGNMENT; UNTIMED TEXT MUST NOT.",
+    "IDLE MAY BORROW SOURCE MOTION BUT NEVER PERSIST AUTHORSHIP.",
+    "THE LINEAR ADDRESS AND THE CYCLIC CONTROL PROJECTION ARE UNEQUAL.",
+    "COMMS TRANSFER = ADDRESS + ANNOTATION + PROJECTION + RETURN, NOT COMBO SCORE."
+  ],
+  "next_not_now": [
+    "playlist/source queue + lightweight tuning/map management",
+    "LISTEN/LIVE shared annotation surface with fewer projection boundaries",
+    "formal source-stream adapter so text/book/day/conversation can reuse traversal mechanics",
+    "compact animated comms RETURN: text + glyph/path + bounded motion/effects",
+    "higher-resolution visual language/pattern grammar after 0.11 embodied evidence"
+  ],
+  "human_gate": "Use one familiar song with a known dramatic buildup/drop. If the source now produces anticipatory tunnel pressure, a felt plunge, and an open-sky release at roughly the right macro moment, keep/tune. If events are frequent or mislocated, tune detector thresholds before adding more FX.",
+  "return": "/returns/FOLD_BLOOM_NERVOUS_SYSTEM_2026-09-22.json"
+}

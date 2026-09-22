@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
-  "version": "LIVE 0.10",
-  "status": "ACTIVE_CANDIDATE_MERGED",
+  "version": "LIVE 0.11",
+  "status": "ACTIVE_CANDIDATE_BRANCH_VERIFY",
   "date": "2026-09-22",
   "donors": [
     {
@@ -99,7 +99,17 @@
     "BLOOM/FOLD/SPLIT/RETURN each produce a distinct bounded sky witness: bloom fan / crease / twin fork / convergence ring",
     "sky events are consequences of source evidence or authored operations, never combo/streak rewards",
     "prefers-reduced-motion reduces optic-flow population and authored-effect opacity",
-    "CHAIN/STREAK remain available as subdued diagnostics but are no longer visually primary"
+    "CHAIN/STREAK remain available as subdued diagnostics but are no longer visually primary",
+    "TRACKFIELD v0.5 adds explicit MACRO DROP detection above continuous beat/phrase/section terrain using buildup-to-impact evidence rather than renderer gain",
+    "macro drop drama compresses the visual aperture into a tunnel, adds anticipatory climb, then exaggerates plunge geometry, speed, width opening and horizon release",
+    "crossing a macro drop creates a bounded open-sky burst plus low-frequency camera/haptic consequence; reduced-motion mode lowers event density and removes shake",
+    "flat/steady material is regression-tested to avoid inventing macro drops",
+    "LIVE source intake now accepts one audio file plus optional matching LRC/VTT/SRT/TXT/MD sidecars",
+    "embedded MP3/M4A lyrics metadata is recovered when present",
+    "timed text follows actual cue addresses; embedded/untimed text is rendered as explicit FLOAT / UNALIGNED witness rather than false synchronization",
+    "IDLE RIDE preserves the player's current FLOW/RATCHET mode instead of secretly forcing RATCHET",
+    "FLOW IDLE continuously follows source bend as reversible witness-play while automatic releases/deformations still evaporate on takeover",
+    "DEEP/TRANCE/WOOD/VOID scene meanings are surfaced in settings; scenes color only the local synth and never transform the source audio"
   ],
   "constraints": [
     "exact Fold Weave donor remains untouched",
@@ -125,13 +135,18 @@
     "no strobe or high-frequency flash grammar; sky events stay sparse and bounded",
     "POV effects may amplify legibility but must not invent source events or semantic section labels",
     "do not add combo-triggered fireworks, collectible lanes or score multipliers as an embodiment substitute",
-    "movement cues must remain readable muted and without HUD dependence"
+    "movement cues must remain readable muted and without HUD dependence",
+    "macro DROP must be rare relative evidence, not every loud transition or section boundary",
+    "large visual consequence may amplify a detected event but cannot manufacture a drop absent source evidence",
+    "untimed lyrics/text may be projected for reading but must remain visibly UNALIGNED",
+    "macro-drop haptic/visual feedback must remain bounded and obey reduced-motion preference",
+    "playlist/source queue remains future control work; do not create a new media manager before the single-source ride is tuned"
   ],
   "verification": {
     "engine_tests": "PASS: 8 LIVE gameplay engine tests + 2 custom-song transport tests in public-surface-check run 35656338927",
     "module_parse": "engine.js audio.js render.js app.js PASS",
     "browser_smoke": "BLOCKED_IN_CONTAINER: system Chromium did not produce a usable DOM under the sandbox; no browser-pass claim",
-    "required_next": "Direct phone/desktop on FIELD COURSE and one familiar source: ignore VEL/GRADE and judge whether speed/climb/bend plus section/surge arrival are felt from the field itself; confirm sky/verb witnesses remain sparse and meaningful rather than decorative spectacle.",
+    "required_next": "Use one familiar track with a body-known dramatic drop. Judge DROP MISSED/EARLY/LATE/RIGHT; TUNNEL WEAK/RIGHT/TOO MUCH; OPEN SKY WEAK/RIGHT/TOO MUCH; TEXT USEFUL/DISTRACTING. Tune detector thresholds before adding more spectacle.",
     "repo_browser_smoke": "PASS: phone-sized LIVE 0.2 runtime boot + CALL/STREAK/BEAT + same-page song controls in public-surface-check run 35656338927",
     "local_container_browser_smoke": "INCONCLUSIVE: local sandbox Chromium DBus stall; superseded for repo-level browser evidence by CI smoke PASS",
     "merge_sha": "885a897d542f009a35f229cac49f85dfc4527cac",
@@ -176,10 +191,12 @@
     "pov_branch": "fold-bloom-embodied-pov-010",
     "pov_ci": "PASS: public-surface-check run 35696511392, including POV unit tests, LIVE regression stack and critical browser smoke",
     "pov_pr": 147,
-    "pov_merge_sha": "d872d9bbdb303dddbfc28fc09bd1e681e97a27fb"
+    "pov_merge_sha": "d872d9bbdb303dddbfc28fc09bd1e681e97a27fb",
+    "macrodrop_branch": "fold-bloom-live-011-macrodrop",
+    "macrodrop_ci": "PENDING PR CI"
   },
   "execution_contract": "./EXECUTION.md",
-  "return": "/returns/FOLD_BLOOM_EMBODIED_POV_2026-09-22.json",
+  "return": "/returns/FOLD_BLOOM_NERVOUS_SYSTEM_2026-09-22.json",
   "updated": "2026-09-22",
   "observed_user_return": {
     "date": "2026-09-22",
