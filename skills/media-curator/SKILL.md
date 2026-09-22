@@ -21,7 +21,7 @@ metadata:
         default: "archive-recovery"
       - key: semantic_model
         description: "Ollama vision model for bulk semantic annotation."
-        default: "qwen3-vl:8b"
+        default: "qwen3.5:9b"
 ---
 
 # MEDIA CURATOR
@@ -38,7 +38,7 @@ The source tree is evidence, not a workspace. Never reorganize the physical sour
 2. Check the local semantic worker before a long run:
    - `ollama list` includes the configured vision model.
    - `ollama ps` reports sufficient context when the model is loaded.
-   - Default bulk worker is `qwen3-vl:8b`.
+   - Default bulk worker is `qwen3.5:9b`.
 3. Run a dry pass first:
 
        uv run scripts/media-curator-cycle.py "$SOURCE" \
@@ -71,8 +71,8 @@ The source tree is evidence, not a workspace. Never reorganize the physical sour
 
 ## Model Policy
 
-- Bulk visual semantics: local `qwen3-vl:8b` through Ollama.
-- Supervisor/orchestration: Hermes main model. A stronger hosted model is useful for disputed/high-value batches, but is not needed for the bulk pass.
+- Bulk visual semantics: local `qwen3.5:9b` through Ollama.
+- Supervisor/orchestration: Hermes main model. A stronger hosted model is useful for disputed/high-value batches. Optional local adjudication may use `qwen3.5:27b`, but do not auto-pull it during ordinary bootstrap.
 - Similarity/search embeddings are a separate layer. Prefer SigLIP2 when added; do not pretend VLM captions are an embedding index.
 - Do not use the same model output as both composition truth and aesthetic-cluster truth.
 
