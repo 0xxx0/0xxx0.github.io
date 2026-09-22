@@ -3,6 +3,7 @@ import {frameAt,beatIndexAt,sectionIndexAt} from '../listen/audio-map.js';
 import {buildTrackfield} from './trackfield.js';
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+async function hashBuffer(buf){const h=await crypto.subtle.digest('SHA-256',buf);return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 
 function mixdown(buffer,targetRate=12000){
   const ratio=buffer.sampleRate/Math.min(buffer.sampleRate,targetRate),len=Math.max(1,Math.floor(buffer.length/ratio)),out=new Float32Array(len);
@@ -30,7 +31,7 @@ export function transportFromMap(map,time=0,playing=false){
     playing:!!playing,time,duration:map.duration||0,bpm:map.bpm||0,tempoConfidence:map.tempoConfidence||0,
     beatIndex,beatTime,beatPhase,beatDistance,sectionIndex,sectionCount,sectionStart,sectionEnd,sectionProgress,scope:'TRACK',scopeStart:0,scopeEnd:map.duration||0,
     energy:+(f.e||0).toFixed(4),flux:+(f.f||0).toFixed(4),brightness:+(f.c||0).toFixed(4),
-    stage:map.stage||'UNKNOWN',sourceKind:'LOCAL_FILE',sourceAddress:null
+    stage:map.stage||'UNKNOWN',sourceHash:map.source?.hash||null,sourceKind:'LOCAL_FILE',sourceAddress:null
   };
 }
 
@@ -59,19 +60,19 @@ export class LiveTrack {
   async load(file){
     if(!file)return null;
     this.loading=true;this.file=file;this.onState('DECODING');
-    const bytes=await file.arrayBuffer(),AC=globalThis.AudioContext||globalThis.webkitAudioContext;
+    const bytes=await file.arrayBuffer(),hashP=hashBuffer(bytes.slice(0)),AC=globalThis.AudioContext||globalThis.webkitAudioContext;
     if(!AC)throw Error('Web Audio unavailable');
     const ctx=new AC();
     try{
-      const decoded=await ctx.decodeAudioData(bytes.slice(0)),{pcm,sampleRate}=mixdown(decoded);
-      this.map=buildPreviewMap(pcm,sampleRate,decoded.duration);this.map.source={name:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE'};this.worldCache=null;this.worldTime=-1;
+      const decoded=await ctx.decodeAudioData(bytes.slice(0)),hash=await hashP,{pcm,sampleRate}=mixdown(decoded);
+      this.map=buildPreviewMap(pcm,sampleRate,decoded.duration);this.map.source={name:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',hash};this.worldCache=null;this.worldTime=-1;
       if(this.url)URL.revokeObjectURL(this.url);this.url=URL.createObjectURL(file);this.audio.src=this.url;
       this.loading=false;this.onMap(this.map);this.onState(this.stateLabel());
       if(decoded.duration<=1200){
         this.worker?.terminate?.();
         this.worker=new Worker(new URL('../listen/analysis-worker.js',import.meta.url),{type:'module'});
         this.worker.onmessage=e=>{
-          if(e.data?.type==='result'){this.map=e.data.map;this.map.source={name:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE'};this.worldCache=null;this.worldTime=-1;this.onMap(this.map);this.onState(this.stateLabel())}
+          if(e.data?.type==='result'){this.map=e.data.map;this.map.source={name:file.name,size:file.size,type:file.type||'audio',sourceKind:'LOCAL_FILE',hash};this.worldCache=null;this.worldTime=-1;this.onMap(this.map);this.onState(this.stateLabel())}
           else if(e.data?.type==='error'){this.onState('PREVIEW · ANALYZER ERROR')}
         };
         this.worker.onerror=()=>this.onState('PREVIEW · ANALYZER ERROR');
