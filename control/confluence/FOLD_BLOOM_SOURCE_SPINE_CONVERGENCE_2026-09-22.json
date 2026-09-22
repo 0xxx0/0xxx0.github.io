@@ -3,7 +3,7 @@
   "id": "FOLD_BLOOM_SOURCE_SPINE_CONVERGENCE_2026-09-22",
   "date": "2026-09-22",
   "object": "FOLD//BLOOM post-Experience-Set convergence / recovered source-editor intent",
-  "status": "BRANCH_CANDIDATE",
+  "status": "REALIZED_BY_RUNTIME_BRANCH_PENDING_CI",
   "baseline": "master@30f9e96863fa23e0719fc09f0aed8252c4f179ae",
   "recovered_user_intent": [
     "LISTEN should mature into an editor/calibration/annotation surface rather than remain mainly a workflow launcher.",
@@ -13,7 +13,7 @@
   ],
   "convergence": {
     "law": "SOURCE → MAP → PROFILE → PROJECTION → HUMAN OPERATION → RETURN",
-    "source_spine": "exact source/set identity + canonical address + aperture + authored calibration/marks + current projection witness",
+    "source_spine": "field-source-spine/v0.1 · fading continuity witness carrying exact source identity/address context, projection head, sections, marks and alignment anchors across LISTEN/LIVE/READFIELD",
     "not": "a new app, hub, timeline authority, source identity, or analyzer",
     "listen": "source editor/cartographer",
     "ride": "embodied projection over the same addressed source",
@@ -23,9 +23,9 @@
   "text_alignment": {
     "problem": "one global offset cannot correct nonlinear transcript/lyric drift",
     "law": "source cue timestamps remain immutable evidence",
-    "future_calibration": "human-authored piecewise anchor/warp stored beside evidence as SHAPE/PROFILE state",
-    "compatibility": "the current textOffset remains the one-anchor/uniform special case",
-    "state": "NAMED_NOT_IMPLEMENTED"
+    "implementation": "field-text-alignment/v0.1 · one anchor corrects offset; two+ anchors correct drift via bounded piecewise-linear playback→cue mapping; coarse nudge remains available",
+    "compatibility": "legacy global textOffset remains import/migration input only; LISTEN 0.7 owns precise ALIGN editing",
+    "state": "IMPLEMENTED_CANDIDATE"
   },
   "progress": {
     "experience_set": "MERGED_COMPLETE_PR_152",
@@ -34,12 +34,13 @@
       "JOURNEY RIDE 0.1",
       "SOURCE SHELL 0.1",
       "PODCAST ADAPTER 0.1"
-    ]
+    ],
+    "runtime_realization": "LISTEN 0.7 SOURCE EDITOR + READFIELD 0.8 FOLLOW/MARK + LIVE 0.13 shared alignment/spine · runtime candidate"
   },
   "known_concrete_gaps": [
     "LISTEN phone pointer/ring scrubs ADDRESS, but vertical pointer swipe does not currently change APERTURE.",
     "No single 430×900 real-MP3 regression currently proves local load → address/aperture gesture → pin persistence → LIVE grade/speed/SPLIT continuity."
   ],
-  "stop": "Update authority, intent and successor state only. Do not create a SOURCE SPINE app or start compositor/runtime implementation in this convergence pass.",
+  "stop": "Do not create a standalone SOURCE SPINE app or merge projection authorities. SET COMPOSITOR 0.1 remains the next bounded journey executable after direct runtime QA.",
   "return": "/returns/FOLD_BLOOM_SOURCE_SPINE_CONVERGENCE_2026-09-22.json"
 }
