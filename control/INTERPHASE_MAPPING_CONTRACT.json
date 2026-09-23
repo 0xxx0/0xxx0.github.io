@@ -1,0 +1,141 @@
+{
+  "schema": "0xxx0/interphase-mapping-contract/v0.1",
+  "updated": "2026-09-23",
+  "status": "IMPLEMENTABLE",
+  "purpose": "Separate semantic correspondence from geometry so one host object can be lawfully rendered and operated through unequal projections and scales without becoming several objects.",
+  "equation": {
+    "read": "VIEW = PROJECT(CORRESPOND(HOST), projection, scale, aperture)",
+    "operation_commutation": "PROJECT(CANONICAL_OP(HOST)) ~= VIEW_OP(PROJECT(HOST)) for supported operations",
+    "get_put": "PUT(source, GET(source)) = source",
+    "put_get": "GET(PUT(source, edited_view)) = edited_view"
+  },
+  "layers": [
+    {
+      "id": "HOST",
+      "owns": [
+        "canonical data",
+        "domain semantics",
+        "domain authority",
+        "source provenance"
+      ]
+    },
+    {
+      "id": "CORRESPONDENCE",
+      "owns": [
+        "stable semantic facets",
+        "channel declarations",
+        "operation bindings",
+        "residue declarations"
+      ],
+      "forbids": [
+        "screen coordinates",
+        "physical geometry claims"
+      ]
+    },
+    {
+      "id": "PROJECTION",
+      "owns": [
+        "placement",
+        "orientation",
+        "allocation",
+        "level of detail",
+        "visible suppression"
+      ],
+      "forbids": [
+        "new canonical identity",
+        "silent authority escalation"
+      ]
+    },
+    {
+      "id": "OPERATION",
+      "owns": [
+        "typed requested transform",
+        "support test",
+        "preview/commit boundary"
+      ],
+      "forbids": [
+        "hidden effect"
+      ]
+    },
+    {
+      "id": "RETURN",
+      "owns": [
+        "caller context",
+        "attention state",
+        "projection state",
+        "evidence path"
+      ]
+    }
+  ],
+  "laws": [
+    "Identity is not a coordinate.",
+    "Correspondence is defined before projection.",
+    "Projection or scale changes may reallocate space but do not change facet semantics.",
+    "A projection may suppress a channel only by declaring residue.",
+    "Unsupported operation or projection paths return SUPPORT=0 with a reason.",
+    "Editable projections obey GetPut and PutGet for the edited domain.",
+    "A projected operation is lawful only when its canonical counterpart is explicit and the operation square commutes within the declared equivalence.",
+    "Selection and multifocus survive projection and scale changes.",
+    "Authority is host-owned and cannot increase through projection.",
+    "Physical geometry, fit, load and irreversible actuation are canonical only when supplied by a physical host; screen placement is not evidence of physical truth.",
+    "Six offices are one reusable mapping preset, not a required ontology."
+  ],
+  "facet": {
+    "required": [
+      "facet_id",
+      "selector",
+      "channels"
+    ],
+    "optional": [
+      "label",
+      "office",
+      "operations",
+      "authority",
+      "residue",
+      "notes"
+    ],
+    "selector_forms": [
+      "id",
+      "kind",
+      "channel",
+      "capability",
+      "role",
+      "path",
+      "custom host predicate"
+    ]
+  },
+  "placement": {
+    "key": "projection + scale + facet_id",
+    "returns": [
+      "region",
+      "order",
+      "orientation",
+      "lod",
+      "visibility",
+      "interaction_hint"
+    ],
+    "law": "placement contains no canonical payload; it points back to facet/object identity"
+  },
+  "scale_policy": {
+    "compact": "allocate recognition + address; details may become residue/inspector",
+    "working": "allocate primary content + active operation",
+    "expanded": "allocate context/relations/evidence alongside focus",
+    "room": "allocate facets to surfaces/volumes while preserving facet ids",
+    "physical": "bind only through measured physical host addresses"
+  },
+  "presets": {
+    "six_office": [
+      "SOURCE",
+      "FRAME",
+      "FOCUS",
+      "OPERATE",
+      "WITNESS",
+      "RETURN"
+    ]
+  },
+  "evidence": {
+    "proof_donor": "/spikes/003-one-instrument/",
+    "runtime_core": "/lib/interphase-core.js",
+    "merged_pr": 184
+  }
+}
