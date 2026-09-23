@@ -32,7 +32,7 @@ setTimeout(()=>{(async()=>{
   await wait(()=>f.contentWindow?.location?.pathname==='/fold-bloom/live/');rec.livePath=f.contentWindow.location.pathname;
   await wait(()=>['ready','returned','blocked'].includes(f.contentWindow.document.documentElement.dataset.foldBloomSetRide),24000);
   const setRide=f.contentWindow.FoldBloomSetRide?.state?.(),live=f.contentWindow.FoldBloomLive?.state?.();
-  rec.liveSetId=setRide?.plan?.setId||null;rec.liveSource=setRide?.ride?.address?.sourceId||null;rec.liveHash=live?.sourceMeta?.hash||null;rec.liveSetState=f.contentWindow.document.documentElement.dataset.foldBloomSetRide;rec.liveStatus=f.contentWindow.document.getElementById('setRideStatus')?.textContent||null;
+  rec.liveSetId=setRide?.plan?.setId||null;rec.liveSource=setRide?.ride?.address?.sourceId||null;rec.liveHash=live?.sourceMeta?.hash||null;rec.liveSetState=f.contentWindow.document.documentElement.dataset.foldBloomSetRide;rec.liveSetLoad=f.contentWindow.document.documentElement.dataset.foldBloomSetRideLoad||null;rec.liveStatus=f.contentWindow.document.getElementById('setRideStatus')?.textContent||null;
   rec.liveSetReady=rec.liveSetId===rec.setId&&rec.liveSource===hash&&rec.liveHash===raw&&['ready','returned'].includes(rec.liveSetState);
   f.src='/fold-bloom/set/journey.html?demo=1';
   await wait(()=>f.contentWindow?.document?.documentElement?.dataset?.foldBloomJourney==='ready');
