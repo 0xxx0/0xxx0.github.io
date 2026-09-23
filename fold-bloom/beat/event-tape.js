@@ -25,7 +25,7 @@ export function compileEventTape(map,{operations=[],sourceId=null}={}){
   if(!map||!Number.isFinite(Number(map.duration))||Number(map.duration)<=0)throw new Error('VALID_AUDIO_MAP_REQUIRED');
   const beats=(Array.isArray(map.beats)?map.beats:[]).map((t,i)=>{
     const f=nearestFrame(map,n(t));
-    return event(`beat:${i}`,'BEAT',t,{energy:+clamp(n(f?.energy),0,1).toFixed(4),flux:+clamp(n(f?.flux),0,1).toFixed(4)});
+    return event(`beat:${i}`,'BEAT',t,{energy:+clamp(n(f?.energy??f?.e),0,1).toFixed(4),flux:+clamp(n(f?.flux??f?.f),0,1).toFixed(4)});
   });
   const phrases=(Array.isArray(map.phrases)?map.phrases:[]).slice(0,-1).map((x,i)=>event(`phrase:${i}`,'PHRASE',n(x?.t),{confidence:+clamp(n(x?.confidence??x?.score??.5),0,1).toFixed(4)}));
   const sections=(Array.isArray(map.sections)?map.sections:[]).slice(0,-1).map((x,i)=>event(`section:${i}`,'SECTION',n(x?.t),{confidence:+clamp(n(x?.confidence??x?.score??.5),0,1).toFixed(4)}));
