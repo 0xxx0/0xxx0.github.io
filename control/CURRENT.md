@@ -1,4 +1,4 @@
-# CURRENT — 2026-09-22
+# CURRENT — 2026-09-23
 
 **Mode:** CONVERT → CONTACT → RETURN.
 
@@ -54,5 +54,7 @@ Three laws now apply:
 ## SYNTHESIS
 
 Read [CONFLUENCE / FIELD — Conversion Report](./confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md) for the detailed account of what this collaboration has been trying to become, why it drifted into meta-work, and the highest-leverage next options.
+
+For cross-thread continuity, read [CROSS-THREAD CONVERGENCE — 2026-09-23](./confluence/CROSS_THREAD_CONVERGENCE_2026-09-23.md). It maps current INTERPHASE/Fold-Bloom, recovery, HOUSE/BODY, HUMAN PORT/comms, compute/sovereign-node and private long-horizon work to their existing authorities without creating another canonical store. Private personal source and the full private Hermes constitution intentionally stay off-repo.
 
 Machine state: [CURRENT.json](./CURRENT.json) · Queue: [QUEUE.json](./QUEUE.json)
