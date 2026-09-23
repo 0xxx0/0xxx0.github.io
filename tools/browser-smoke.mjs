@@ -743,7 +743,7 @@ const CASES=[
     name:'GENERIC LENS RETURN ≠ BACK',
     route:'/__smoke/generic-lens-return',
     options:{width:430,height:900,budget:9000,timeout:16000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"before":"\\/fold-bloom\\/instrument\\/"/.test(dom)&&/"after":"\\/fold-bloom\\/instrument\\/"/.test(dom)&&/"closed":true/.test(dom)&&/"copy":true/.test(dom)&&/"deadStack":false/.test(dom)&&/"overflow":0/.test(dom)&&/"triggerGlyph":"◎"/.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"before":"\/fold-bloom\/instrument\/"/.test(dom)&&/"after":"\/fold-bloom\/instrument\/"/.test(dom)&&/"closed":true/.test(dom)&&/"copy":true/.test(dom)&&/"deadStack":false/.test(dom)&&/"overflow":0/.test(dom)&&/"triggerGlyph":"◎"/.test(dom)
   },
   {
     name:'FOLD BLOOM public front',
