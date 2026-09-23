@@ -663,7 +663,13 @@
     "interphase_runtime": "/lib/interphase-core.js",
     "interphase_extension": "/manifest.json",
     "interphase_convergence": "/control/confluence/INTERPHASE_EXTENSION_2026-09-23.md",
-    "interphase_proof_donor": "/spikes/003-one-instrument/"
+    "interphase_proof_donor": "/spikes/003-one-instrument/",
+    "interphase_mapping_contract": "/control/INTERPHASE_MAPPING_CONTRACT.json",
+    "interphase_mapping_theory": "/control/confluence/INTERPHASE_MAPPING_THEORY_2026-09-23.md",
+    "interphase_recovery_schema": "/control/schemas/interphase-recovery-packet.schema.json",
+    "interphase_recovery_adapter": "/lib/interphase-recovery.js",
+    "backup_archaeology_worker": "/control/confluence/BACKUP_ARCHAEOLOGY_INTERPHASE_WORKER_2026-09-23.md",
+    "interphase_archaeology_migration": "/control/confluence/INTERPHASE_MIGRATION_BACKUP_ARCHAEOLOGY_2026-09-23.md"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
@@ -824,5 +830,12 @@
     "merge_sha": "b4324536768313f199300f2f59801b2697e31df9",
     "verified_pr_run": 35815194125,
     "rule": "Shared protocol, not a new sovereign head. Hosts retain domain truth and authority."
+  },
+  "last_interphase_mapping": {
+    "version": "0.1",
+    "state": "PR_CANDIDATE",
+    "purpose": "Typed semantic correspondence before projection; backup archaeology is the first recovery migration.",
+    "law": "CORRESPOND != PROJECT != OPERATE",
+    "branch": "confluence/interphase-mapping-recovery-v01"
   }
 }
