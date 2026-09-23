@@ -252,7 +252,7 @@
     }
   ],
   "instrument_cell": {
-    "status": "CONVERGENCE_CANDIDATE",
+    "status": "IMPLEMENTED_EXPERIMENT",
     "purpose": "One self-contained addressed instrument that can be rendered through unequal lawful projections without creating another source of truth.",
     "shape": [
       "source_identity",
@@ -271,7 +271,9 @@
       "Composition is ordered and inspectable; the user must be able to tell which lenses/operators are active.",
       "View composition may fuse away intermediate renderings, but provenance and RETURN remain recoverable.",
       "A physical fold, rotation, detent or gesture changes semantics only when an explicit mapping says what changed.",
-      "Six sectors are a useful carrier, not a universal ontology."
+      "Six sectors are a useful carrier, not a universal ontology.",
+      "A projection may suppress a declared channel; suppression becomes explicit residue and may not erase host truth.",
+      "Single focus and multifocus are shared instrument state; hosts do not need parallel selection stores to participate."
     ],
     "projection_cells": [
       {
@@ -316,7 +318,7 @@
       }
     ],
     "rosette6": {
-      "status": "CANDIDATE_CARRIER_NOT_ONTOLOGY",
+      "status": "IMPLEMENTED_CARRIER_PRESET_NOT_ONTOLOGY",
       "geometry": "center + six sectors/petals; flat polygon/radial view may fold into a 3D carrier",
       "center": "current invariant / intent / exact focus, host-defined",
       "sectors": "six host-defined facets, operators or inputs",
@@ -328,7 +330,52 @@
         "commit remains separately visible when consequence can become durable"
       ],
       "recovered_preset_note": "F.L.O.W.E.R. and FU six-way semantics are donors/presets, not mandatory global labels."
-    }
+    },
+    "implementation": {
+      "version": "interphase/v0.2",
+      "core": "/lib/interphase-core.js",
+      "generic_dom_adapter": "/lib/interphase-dom.js",
+      "adapters": {
+        "field": "/lib/interphase-field.js",
+        "readfield": "/lib/interphase-readfield.js",
+        "scale_lens": "/lib/interphase-lens.js",
+        "listen": "/lib/interphase-listen.js"
+      },
+      "browser_extension": {
+        "manifest": "/manifest.json",
+        "content_script": "/interphase-extension.js",
+        "surface": "generic DOM; host-specific semantics remain adapter-owned"
+      },
+      "recovered_proof_donor": "/spikes/003-one-instrument/",
+      "explicit_residue_primitives": [
+        "CONTENT",
+        "AUTHORITY",
+        "DEPTH",
+        "TIME"
+      ],
+      "six_office_preset": [
+        "SOURCE",
+        "FRAME",
+        "FOCUS",
+        "OPERATE",
+        "WITNESS",
+        "RETURN"
+      ],
+      "merge_pr": "https://github.com/0xxx0/0xxx0.github.io/pull/184",
+      "merge_sha": "b4324536768313f199300f2f59801b2697e31df9",
+      "verified_pr_run": 35815194125
+    },
+    "runtime_projection_subset": [
+      "PAGE",
+      "FOVEA",
+      "LINE",
+      "RING",
+      "FLOWER_KEY",
+      "ROOM",
+      "GLYPH",
+      "RSVP",
+      "TABLE"
+    ]
   },
   "artifact_fold": {
     "goal": "Reduce active sovereign artifacts without deleting evidence. Exact historical artifacts remain addressable; overlapping heads become aliases, host adapters or projection recipes when their unique semantics round-trip through the canonical instrument.",
@@ -390,6 +437,11 @@
       }
     ],
     "demotion_rule": "A folded artifact may leave the active surface/showcase only after a round-trip fixture proves its unique state can be reconstructed from canonical source + instrument state + projection recipe. Demotion is not deletion.",
-    "refusal_rule": "If unique semantics, authority, source bytes, authored marks, physical topology or return evidence cannot round-trip, the artifact is not foldable yet."
+    "refusal_rule": "If unique semantics, authority, source bytes, authored marks, physical topology or return evidence cannot round-trip, the artifact is not foldable yet.",
+    "proof_state": {
+      "model": "SPIKE 003 proves one heterogeneous state survives LINE / FLOWER_KEY / RADIAL / ROOM / GLYPH with explicit residue.",
+      "runtime": "INTERPHASE 0.2 binds FIELD, READFIELD, Scale Lens, LISTEN and generic DOM through one host protocol.",
+      "rule": "Demotion still requires lived use and unique-residue review; implementation proof does not authorize bulk deletion."
+    }
   }
 }
