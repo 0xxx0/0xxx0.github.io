@@ -77,6 +77,10 @@ jobs:
         env:
           SMOKE_ONLY: FOLD BLOOM INTERPHASE host boot
         run: node tools/browser-smoke.mjs
+      - name: Test FOLD BLOOM instrument readiness
+        env:
+          SMOKE_ONLY: FOLD BLOOM instrument ready
+        run: node tools/browser-smoke.mjs
       - name: Test FOLD BLOOM unified root browser
         env:
           SMOKE_ONLY: FOLD BLOOM convergence
