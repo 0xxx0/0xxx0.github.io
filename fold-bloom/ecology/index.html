@@ -148,10 +148,12 @@ button{font:inherit;color:inherit}#app{position:fixed;inset:0;overflow:hidden;ba
 
 <div class="overlay" id="end"><div class="card"><div class="eyebrow">THE RING LEARNED ALL SIX LAWS</div><div class="finalStat" id="finalFlow">0</div><div class="lede" style="margin:auto">This organism has been returned to MEMORY. OPEN BLOOM continues with all six laws; later you can graft traits from archived organisms into the current one without erasing the run.</div><div class="note" id="archiveNote">MEMORY READY</div><div class="endGrid"><div><b id="finalBlooms">0</b><small>BLOOMS</small></div><div><b id="finalGen">0</b><small>GENERATIONS</small></div><div><b id="finalBest">1×</b><small>BEST RESONANCE</small></div></div><div class="row" style="justify-content:center"><button class="cta" id="endless">ENTER OPEN BLOOM →</button><button class="ghost" id="restart">NEW LINEAGE</button></div></div></div>
 </div>
+<script src="/lib/interphase-ring.js"></script>
 <script>
 (()=>{
 "use strict";
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)], TAU=Math.PI*2, clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)], CYCLIC=globalThis.InterphaseRing, TAU=Math.PI*2, clamp=(x,a,b)=>Math.max(a,Math.min(b,x));
+if(!CYCLIC)throw new Error("INTERPHASE_RING_REQUIRED");
 const canvas=$("#c"),ctx=canvas.getContext("2d",{alpha:false});
 let W=0,H=0,D=1,CX=0,CY=0,R=0,last=performance.now(),running=false,paused=false,zen=false,endlessMode=false;
 let dragging=false,lastX=0,lastPointerT=0,rotation=0,rotVel=0,snapTarget=0,snapping=false;
@@ -208,7 +210,8 @@ function setPace(v,announce=false){
 }
 function externalStep(dir=1){
  if(!running||paused)return false;
- const st=TAU/N;snapTarget=Math.round(rotation/st)*st+(dir>=0?1:-1)*st;snapping=true;setGarden(false,false);
+ const st=TAU/N,base=Math.round(rotation/st)*st;
+ snapTarget=CYCLIC.stepRotation(base,dir,N);snapping=true;setGarden(false,false);
  emitSemantic("STEP",{dir:dir>=0?1:-1});return true
 }
 
@@ -470,10 +473,10 @@ function resize(){D=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;c
 addEventListener("resize",resize);resize();
 
 function initBoard(){cells=Array.from({length:N},(_,i)=>({type:i%TYPES,tier:1,age:rnd(8)}));rotation=0;rotVel=0;snapping=false;seed=null;nextSpawn=performance.now()+350;spawnSeed(true)}
-function slotAngle(i){return -Math.PI/2+rotation+i*TAU/N}
+function slotAngle(i){return CYCLIC.slotAngle(i,N,{rotation})}
 function gateSide(){if(!seed)return 1;return seed.side||1}
 function gateAngle(){return gateSide()===1?-Math.PI/2:Math.PI/2}
-function gateIndex(){const ga=gateAngle();let best=0,bd=99;for(let i=0;i<N;i++){const a=slotAngle(i),d=Math.abs(Math.atan2(Math.sin(a-ga),Math.cos(a-ga)));if(d<bd){bd=d;best=i}}return best}
+function gateIndex(){return CYCLIC.gateIndex({count:N,rotation,gateAngle:gateAngle()})}
 function chapterFlags(){return{polarity:chapter>=1,echo:chapter>=2,fold:chapter>=3,cascade:chapter>=4,open:chapter>=5}}
 function chooseSeedType(){if(blooms<3)return cells[Math.floor(rnd(N))].type;if(rnd()<.67){const top=cells[gateIndex()]?.type;if(top!=null&&rnd()<.25)return top;return cells[Math.floor(rnd(N))].type}return Math.floor(rnd(TYPES))}
 function spawnSeed(first=false,forced=null){if(seed||paused||!running&& !first)return;const f=chapterFlags();let type=forced?.type??(first?cells[0].type:chooseSeedType());let side=forced?.side??1;if(f.polarity&&!first)side=(blooms+misses)%2===0?1:-1;if(f.open&&!first&&rnd()<.3)side=rnd()<.5?1:-1;const wild=chapter>=4 && !forced && wildCharge>=5 && rnd()<.18; if(wild) wildCharge=0; seed={type,side,p:0,lock:0,echo:!!forced?.echo,wild};nextSpawn=performance.now()+(zen?5000:3600)/gene.gravity}
@@ -905,10 +908,15 @@ function chainForSlot(start,type){
  if(f.cascade){const q=[...out];while(q.length&&out.length<9){const cur=q.shift();for(const j of neighborSet(cur)){if(seen.has(j))continue;if(cells[j].type===type){seen.add(j);out.push(j);q.push(j)}}}}
  return out
 }
-function nearestEquivalent(target,current){while(target-current>Math.PI)target-=TAU;while(target-current<-Math.PI)target+=TAU;return target}
 function gardenTarget(){
  if(!seed)return null;let best=null;
- for(let i=0;i<N;i++){if(cells[i].type!==seed.type)continue;const chain=chainForSlot(i,seed.type).length,tier=cells[i].tier,raw=gateAngle()+Math.PI/2-i*TAU/N,target=nearestEquivalent(raw,rotation),travel=Math.abs(target-rotation),value=chain*10+tier*1.5-travel;if(!best||value>best.value)best={i,target,value,chain}}
+ for(let i=0;i<N;i++){
+   if(cells[i].type!==seed.type)continue;
+   const chain=chainForSlot(i,seed.type).length,tier=cells[i].tier;
+   const target=CYCLIC.rotationForSlot(i,{count:N,gateAngle:gateAngle(),current:rotation});
+   const travel=Math.abs(target-rotation),value=chain*10+tier*1.5-travel;
+   if(!best||value>best.value)best={i,target,value,chain};
+ }
  return best
 }
 function autoPilot(dt){

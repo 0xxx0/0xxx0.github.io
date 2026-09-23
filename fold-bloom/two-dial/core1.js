@@ -8,6 +8,8 @@ const $ = s => document.querySelector(s),
   cv = $('#game'),
   g = cv.getContext('2d'),
   TAU = Math.PI * 2;
+const CYCLIC = globalThis.InterphaseRing;
+if (!CYCLIC) throw new Error('INTERPHASE_RING_REQUIRED');
 const M = ['○', '≈', '✦', '◇', '∿', '×'],
   HARM = ['Ⅰ', 'Ⅴ', 'Ⅱ', 'Ⅵ', 'Ⅲ', 'Ⅶ'];
 const WORLDS = {
@@ -314,11 +316,7 @@ function centers() {
       ];
 }
 function relationFromPair(l = L, r = R) {
-  let d = wrap(r - l, 6);
-  if (d === 0) return 'BLOOM';
-  if (d === 1 || d === 5) return 'FOLD';
-  if (d === 2 || d === 4) return 'RETURN';
-  return 'SPLIT';
+  return CYCLIC.relationVerb(l, r, 6);
 }
 function rel() {
   return relationFromPair();

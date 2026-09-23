@@ -328,15 +328,8 @@ function frame() {
 }
 requestAnimationFrame(frame);
 function rawFromPoint(side, x, y) {
-  let C = centers()[side],
-    a = Math.atan2(y - C.y, x - C.x) + Math.PI / 2;
-  return wrap((a / TAU) * 6, 6);
-}
-function circularDelta(a, b, n = 6) {
-  let d = (a - b) % n;
-  if (d > n / 2) d -= n;
-  if (d < -n / 2) d += n;
-  return d;
+  const C = centers()[side];
+  return CYCLIC.pointPosition(x, y, C.x, C.y, 6);
 }
 function dialSide(x, y) {
   let C = centers();
@@ -350,12 +343,12 @@ function pointerMove(e) {
   let raw = rawFromPoint(p.side, e.clientX, e.clientY),
     now = performance.now(),
     dt = Math.max(8, now - p.t),
-    dv = (circularDelta(raw, p.raw || raw, 6) / dt) * 120;
+    dv = (CYCLIC.circularDelta(raw, p.raw || raw, 6) / dt) * 120;
   p.raw = raw;
   p.t = now;
   let k = wrap(Math.round(raw), 6),
     old = p.side ? R : L,
-    delta = circularDelta(k, old, 6);
+    delta = CYCLIC.circularDelta(k, old, 6);
   if (p.side === 0) {
     rawL = raw;
     live.vL = clamp(dv, -1, 1);
