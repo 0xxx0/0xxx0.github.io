@@ -746,6 +746,18 @@ const CASES=[
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"before":"\/fold-bloom\/"/.test(dom)&&/"after":"\/fold-bloom\/"/.test(dom)&&/"closed":true/.test(dom)&&/"copy":true/.test(dom)&&/"deadStack":false/.test(dom)&&/"overflow":0/.test(dom)&&/"triggerGlyph":"◎"/.test(dom)
   },
   {
+    name:'FOLD BLOOM module boot',
+    route:'/fold-bloom/',
+    options:{width:430,height:900,budget:9000},
+    check:dom=>dom.includes('data-fb-module="ready"')
+  },
+  {
+    name:'FOLD BLOOM INTERPHASE host boot',
+    route:'/fold-bloom/',
+    options:{width:430,height:900,budget:9000},
+    check:dom=>dom.includes('data-fb-host="ready"')
+  },
+  {
     name:'FOLD BLOOM convergence',
     route:'/fold-bloom/',
     options:{width:430,height:900,budget:9000},
