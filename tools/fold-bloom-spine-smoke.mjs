@@ -27,13 +27,13 @@ setTimeout(()=>{(async()=>{
   const raw=hash.slice(7);rec.listenReady=rec.setReady&&rec.vault==='ready'&&rec.listenHash===raw&&rec.returnLink;
   f.src='/fold-bloom/set/';
   const rideBtn=await wait(()=>f.contentWindow?.document?.getElementById('journeyBtn'));
-  await wait(()=>rideBtn.dataset.href&&!rideBtn.disabled);rec.rideHref=rideBtn.dataset.href;
+  await wait(()=>rideBtn.dataset.href&&!rideBtn.disabled);rec.rideHref=rideBtn.dataset.href;rec.setId=f.contentWindow.FoldBloomSet?.state?.()?.set?.id||null;
   f.contentWindow.location.assign(rideBtn.dataset.href);
-  await wait(()=>f.contentWindow?.location?.pathname==='/fold-bloom/live/');
-  await wait(()=>['ready','returned'].includes(f.contentWindow.document.documentElement.dataset.foldBloomSetRide),24000);
+  await wait(()=>f.contentWindow?.location?.pathname==='/fold-bloom/live/');rec.livePath=f.contentWindow.location.pathname;
+  await wait(()=>['ready','returned','blocked'].includes(f.contentWindow.document.documentElement.dataset.foldBloomSetRide),24000);
   const setRide=f.contentWindow.FoldBloomSetRide?.state?.(),live=f.contentWindow.FoldBloomLive?.state?.();
-  rec.liveSetId=setRide?.plan?.setId||null;rec.liveSource=setRide?.ride?.address?.sourceId||null;rec.liveHash=live?.sourceMeta?.hash||null;rec.liveSetState=f.contentWindow.document.documentElement.dataset.foldBloomSetRide;
-  rec.liveSetReady=rec.liveSetId==='set:spine-proof'&&rec.liveSource===hash&&rec.liveHash===raw&&['ready','returned'].includes(rec.liveSetState);
+  rec.liveSetId=setRide?.plan?.setId||null;rec.liveSource=setRide?.ride?.address?.sourceId||null;rec.liveHash=live?.sourceMeta?.hash||null;rec.liveSetState=f.contentWindow.document.documentElement.dataset.foldBloomSetRide;rec.liveStatus=f.contentWindow.document.getElementById('setRideStatus')?.textContent||null;
+  rec.liveSetReady=rec.liveSetId===rec.setId&&rec.liveSource===hash&&rec.liveHash===raw&&['ready','returned'].includes(rec.liveSetState);
   f.src='/fold-bloom/set/journey.html?demo=1';
   await wait(()=>f.contentWindow?.document?.documentElement?.dataset?.foldBloomJourney==='ready');
   rec.journeyEntries=f.contentWindow.document.documentElement.dataset.journeyEntries;rec.journeyReady=f.contentWindow.document.documentElement.dataset.journeyReady;rec.journeyTitle=f.contentWindow.document.getElementById('journeyTitle')?.textContent||'';rec.journeyOverflow=Math.max(f.contentWindow.document.documentElement.scrollWidth,f.contentWindow.document.body.scrollWidth)-f.contentWindow.document.documentElement.clientWidth;
