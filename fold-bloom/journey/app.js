@@ -205,11 +205,15 @@ $('#returnBtn').onclick=()=>{if(!plan)return;completedAt ||= playing?null:comple
 addEventListener('beforeunload',cleanupUrls);
 
 async function boot(){
-  const params=new URLSearchParams(location.search),mode=params.get('demo');
+  const params=new URLSearchParams(location.search),mode=params.get('demo'),requestedSet=params.get('set');
   if(mode==='seed'||mode==='1'){
     try{await loadSeedDemo();render();setStatus('DEMO WITNESS · EXACT RECOVERED SEED · AUDIO PRIVATE');if(params.get('auto')==='1'){startedAt=now();playing=true;demoClock.started=performance.now()}}catch(error){console.warn(error);setStatus('DEMO SEED UNAVAILABLE');render()}
   }else{
-    try{readSetStorage();await hydrate()}catch(error){setStatus('LOCAL · LOAD OR IMPORT A SET');render()}
+    try{
+      readSetStorage();
+      if(requestedSet&&set?.id!==requestedSet)throw new Error('SET ADDRESS MISMATCH · REQUESTED '+requestedSet+' · CURRENT '+(set?.id||'NONE'));
+      await hydrate();
+    }catch(error){setStatus(error?.message||'LOCAL · LOAD OR IMPORT A SET');render()}
   }
   requestAnimationFrame(tick);
 }

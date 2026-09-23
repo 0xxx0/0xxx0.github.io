@@ -746,9 +746,28 @@ const CASES=[
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"before":"\/fold-bloom\/"/.test(dom)&&/"after":"\/fold-bloom\/"/.test(dom)&&/"closed":true/.test(dom)&&/"copy":true/.test(dom)&&/"deadStack":false/.test(dom)&&/"overflow":0/.test(dom)&&/"triggerGlyph":"◎"/.test(dom)
   },
   {
+    name:'FOLD BLOOM module boot',
+    route:'/fold-bloom/',
+    options:{width:430,height:900,budget:9000},
+    check:dom=>dom.includes('data-fb-module="ready"')
+  },
+  {
+    name:'FOLD BLOOM INTERPHASE host boot',
+    route:'/fold-bloom/',
+    options:{width:430,height:900,budget:9000},
+    check:dom=>dom.includes('data-fb-host="ready"')
+  },
+  {
+    name:'FOLD BLOOM instrument ready',
+    route:'/fold-bloom/',
+    options:{width:430,height:900,budget:9000},
+    check:dom=>dom.includes('data-fb-ready="ready"')&&dom.includes('data-fold-bloom-instrument="ready"')&&dom.includes('data-object-kind="EMPTY"')
+  },
+  {
     name:'FOLD BLOOM convergence',
     route:'/fold-bloom/',
-    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/DEMO · 3-TRACK WITNESS/i.test(dom)&&/GHOST → FORGE → WILL/.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/GLYPH ATLAS 0\.2/i.test(dom)&&/LISTEN 0\.6/i.test(dom)&&/LIVE 0\.13/i.test(dom)&&/TWO DIAL 0\.10\.3/i.test(dom)&&/SET 0\.1/i.test(dom)&&/href="\.\/set\/"/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)
+    options:{width:430,height:900,budget:9000},
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/ONE OBJECT · ONE FOCUS/i.test(dom)&&dom.includes('data-fold-bloom-instrument="ready"')&&dom.includes('data-object-kind="EMPTY"')&&/SOURCE → FOCUS → FOLD \/ BLOOM → PROJECTION → RETURN/.test(dom)&&/LISTEN 0\.6/i.test(dom)&&/LIVE 0\.13/i.test(dom)&&/SET 0\.1\.1/i.test(dom)&&/JOURNEY 0\.1\.2/i.test(dom)&&/ONE-INSTRUMENT PROOF/i.test(dom)&&/INTERPHASE SYNC/i.test(dom)
   },
   {
     name:'FOLD BLOOM SET 0.1 compositor',
