@@ -66,6 +66,11 @@ async function refreshButtons(){
   try{
     const blocks=[...document.querySelectorAll('#rail .block')];
     await Promise.all(blocks.map((block,index)=>decorateBlock(block,index,state)));
+    const ride=document.getElementById('journeyBtn'),entries=state?.set?.entries||[],setId=state?.set?.id;
+    if(ride){
+      if(setId&&entries.length){const q=new URLSearchParams({set:setId,return:location.pathname+location.search});ride.dataset.href='../live/?'+q.toString();ride.disabled=false;ride.title='Ride this exact authored set in LIVE'}
+      else{delete ride.dataset.href;ride.disabled=true;ride.title='Add at least one source first'}
+    }
     document.documentElement.dataset.localVault=syntheticDemo?'synthetic':'ready';
   }finally{
     refreshing=false;
@@ -82,14 +87,8 @@ function queueRefresh(){
 function ensureJourneyAction(){
   if(document.getElementById('journeyBtn'))return;
   const actions=document.querySelector('.hero .actions');if(!actions)return;
-  const btn=document.createElement('button');btn.id='journeyBtn';btn.type='button';btn.textContent='RIDE SET';
-  btn.onclick=async()=>{
-    let state=window.FoldBloomSet?.state?.();
-    for(let i=0;i<40&&!state;i++){await new Promise(r=>setTimeout(r,50));state=window.FoldBloomSet?.state?.()}
-    const setId=state?.set?.id,entries=state?.set?.entries||[];
-    if(!setId||!entries.length){ensureWitness().textContent='VAULT · SET EMPTY';return}
-    const q=new URLSearchParams({set:setId,return:location.pathname+location.search});location.assign('../live/?'+q.toString());
-  };
+  const btn=document.createElement('button');btn.id='journeyBtn';btn.type='button';btn.textContent='RIDE SET';btn.disabled=true;
+  btn.onclick=()=>{const href=btn.dataset.href;if(href)location.assign(href);else ensureWitness().textContent='VAULT · SET NOT READY'};
   const debug=document.createElement('button');debug.id='journeyDebugBtn';debug.type='button';debug.textContent='JOURNEY';debug.title='Traversal/debug witness';
   debug.onclick=()=>location.assign('./journey.html?return='+encodeURIComponent(location.pathname+location.search));
   actions.append(btn,debug);
