@@ -51,8 +51,8 @@ jobs:
           node --test fold-bloom/listen/audio-glyph.test.mjs fold-bloom/listen/id3.test.mjs fold-bloom/listen/tests/source-bundle.test.mjs fold-bloom/listen/tests/source-bundle-contract.test.mjs fold-bloom/atlas/atlas-core.test.mjs fold-bloom/atlas/document-source.test.mjs
           node fold-bloom/listen/stream-lens.test.mjs
           node fold-bloom/listen/source-adapters.test.mjs
-      - name: Test FOLD BLOOM unified instrument state
-        run: node --test fold-bloom/tests/instrument-state.test.mjs
+      - name: Test FOLD BLOOM unified support over INTERPHASE
+        run: node --test fold-bloom/tests/instrument-support.test.mjs
       - name: Test FOLD BLOOM Experience Set v0.1 round trip
         run: node --test fold-bloom/experience-set/tests/experience-set.test.mjs
       - name: Test FOLD BLOOM Set Compositor 0.1.1 + local test packs
