@@ -41,6 +41,8 @@ jobs:
         run: node spikes/003-one-instrument/selftest.mjs
       - name: Validate shared INTERPHASE host laws
         run: node tools/interphase-selftest.cjs
+      - name: Validate shared INTERPHASE glyph laws
+        run: node tools/interphase-glyph-selftest.cjs
       - name: Validate INTERPHASE extension bundle syntax
         run: |
           node --check interphase-extension.js
