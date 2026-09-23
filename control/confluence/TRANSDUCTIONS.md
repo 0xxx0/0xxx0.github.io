@@ -68,6 +68,45 @@ A transduction is recorded as:
 
 Composition never raises the weakest member's authority ceiling.
 
+## Lossless artifact folding
+
+The active surface may shrink without deleting history.
+
+A **lossless fold** means that an old surface can stop being a sovereign head when its useful state can round-trip through:
+
+```
+SOURCE ID
+  → ADDRESS
+  → APERTURE
+  → PROJECTION
+  → OPERATOR + PARAMETERS
+  → AUTHORITY / COMMIT
+  → RETURN
+```
+
+The old file, commit, image, receipt or physical study remains evidence. What disappears is duplicated **operational sovereignty**, not provenance.
+
+The current candidate is one **instrument cell** with unequal projection cells: LINE, RING, SPIRAL, GRID, FOLD, ROOM, RSVP and GLYPH. A host supplies the domain vocabulary; the geometry does not get to invent one.
+
+### Six-sector carrier
+
+A center + six sectors/petals is retained as a useful carrier candidate because the recovered corpus repeatedly used six-way flower/cube/wheel forms and foldable radial material studies. It is deliberately **not** promoted to a six-part ontology.
+
+- center = host-defined invariant / intent / exact focus
+- sectors = six host-defined facets, inputs or operators
+- rotation/radius/fold only acquire meaning through explicit mappings
+- visible operation and commit state must remain legible
+- F.L.O.W.E.R. / FU semantics are presets, not compulsory labels
+- the exact remembered key-shaped six-panel historical artifact is still UNKNOWN until directly recovered
+
+### Current fold map
+
+- APERTURE + AXIAL + Scale Lens + READFIELD FOCUS + LISTEN ADDRESS/APERTURE → one **address/aperture/lens instrument** with unequal hosts.
+- DataDisc/radial + strip + spiral + fan/fold + ROOM + RSVP + glyph → one **projection inventory**.
+- F.L.O.W.E.R. + FU + Universal Interface Wheel + fold-build-transform studies → one **six-sector carrier grammar** plus named semantic presets.
+
+Do not delete or hide a donor until a round-trip fixture proves source identity, address, aperture, parameters, operator ordering, authority and RETURN survive. If a unique behavior cannot be reconstructed, it has not been folded.
+
 ## Active slice: passive refinement
 
 ```
