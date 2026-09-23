@@ -1,7 +1,7 @@
 # RETRIEVAL / CANON
 
 Status: **active cross-thread primitive**
-Updated: **2026-09-20**
+Updated: **2026-09-23**
 
 ## Purpose
 
@@ -124,6 +124,25 @@ A minimal recovered-state packet:
   "return_paths": []
 }
 ```
+
+## Standard archaeology output
+
+For backup / migration / exact-source archaeology, the preferred durable output is now:
+
+```
+0xxx0/interphase-recovery-packet/v0.1
+```
+
+Files:
+
+- schema: `/control/schemas/interphase-recovery-packet.schema.json`
+- read-only adapter: `/lib/interphase-recovery.js`
+- worker instructions: `/control/confluence/BACKUP_ARCHAEOLOGY_INTERPHASE_WORKER_2026-09-23.md`
+- correspondence contract: `/control/INTERPHASE_MAPPING_CONTRACT.json`
+
+The packet does **not** make INTERPHASE the owner of recovered truth. It gives recovered artifacts, claims, conflicts, UNKNOWNs and anti-merge holds stable addresses so later projections and migration decisions do not have to reinterpret free-form prose.
+
+Archaeology may propose semantic correspondence only after source recovery. It must not assign screen/ROOM coordinates or promote an artifact merely because it maps neatly.
 
 ## FIELD INDEX fit
 

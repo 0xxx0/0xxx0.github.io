@@ -41,6 +41,12 @@ jobs:
         run: node spikes/003-one-instrument/selftest.mjs
       - name: Validate shared INTERPHASE host laws
         run: node tools/interphase-selftest.cjs
+      - name: Validate INTERPHASE correspondence + archaeology packet
+        run: |
+          node --check lib/interphase-mapping.js
+          node --check lib/interphase-recovery.js
+          node tools/interphase-mapping-selftest.cjs
+          node -e "JSON.parse(require('fs').readFileSync('control/INTERPHASE_MAPPING_CONTRACT.json','utf8')); JSON.parse(require('fs').readFileSync('control/schemas/interphase-recovery-packet.schema.json','utf8')); console.log('INTERPHASE mapping contracts PASS')"
       - name: Validate INTERPHASE extension bundle syntax
         run: |
           node --check interphase-extension.js

@@ -1,0 +1,123 @@
+{
+  "schema": "0xxx0/interphase-recovery-packet/v0.1",
+  "packet_id": "recovery:example-form-lineage:2026-09-23",
+  "subject": "Example recovered form/interface lineage",
+  "scope": "Example only; demonstrates evidence separation and correspondence candidate.",
+  "as_of": "2026-09-23",
+  "anchors": [
+    "FORM-ALPHA",
+    "form-alpha.html"
+  ],
+  "artifacts": [
+    {
+      "artifact_id": "form-alpha:html",
+      "kind": "html",
+      "names": [
+        "FORM ALPHA",
+        "form-alpha.html"
+      ],
+      "source_refs": [
+        "backup/form-alpha.html"
+      ],
+      "sha256": "sha256:EXAMPLE",
+      "bytes_status": "EXACT",
+      "provenance_class": "SOURCE",
+      "addresses": [
+        {
+          "path": "backup/form-alpha.html"
+        }
+      ],
+      "parent": null,
+      "relations": [],
+      "channels": [
+        "identity",
+        "address",
+        "content",
+        "authority",
+        "evidence"
+      ],
+      "operations": [
+        {
+          "id": "EDIT_INPUT",
+          "authority": "EDIT"
+        },
+        {
+          "id": "SUBMIT",
+          "authority": "EFFECT"
+        }
+      ],
+      "authority": "EFFECT",
+      "observed_projections": [
+        "PAGE"
+      ],
+      "mechanisms": [
+        "label/input/validation/action are distinct semantic roles"
+      ],
+      "unique_residue": [
+        "original DOM ordering"
+      ],
+      "disposition_candidate": "ADAPTER",
+      "mapping_candidate": {
+        "facets": [
+          {
+            "host_ref": "#email",
+            "facet_id": "FOCUS_INPUT"
+          },
+          {
+            "host_ref": "#help",
+            "facet_id": "FRAME_HELP"
+          },
+          {
+            "host_ref": "#validation",
+            "facet_id": "WITNESS_VALIDATION"
+          },
+          {
+            "host_ref": "#submit",
+            "facet_id": "OPERATE_ACTION"
+          }
+        ],
+        "note": "Semantic correspondence only. No ROOM/LINE coordinates are asserted by archaeology."
+      }
+    }
+  ],
+  "claims": [
+    {
+      "claim_id": "claim:form-alpha:1",
+      "subject_ref": "form-alpha:html",
+      "field": "observed_behavior",
+      "value": "Email input is editable; submit is a separate effectful action.",
+      "provenance_class": "SOURCE",
+      "source_ref": "backup/form-alpha.html",
+      "time": null,
+      "confidence": "HIGH",
+      "supersedes": [],
+      "conflicts_with": []
+    }
+  ],
+  "conflicts": [],
+  "superseded": [],
+  "unknowns": [
+    {
+      "field": "runtime submission receipt",
+      "status": "UNKNOWN"
+    }
+  ],
+  "anti_merge_holds": [],
+  "next_information_gain": [
+    {
+      "query": "Recover runtime receipt before asserting server-side behavior."
+    }
+  ],
+  "return_paths": [
+    "backup/form-alpha.html"
+  ],
+  "worker_receipt": {
+    "searched": [
+      "example fixture"
+    ],
+    "not_searched": [],
+    "stop_reason": "example contract satisfied",
+    "exact_bytes_copied": 1,
+    "exact_refs_only": 0
+  }
+}
