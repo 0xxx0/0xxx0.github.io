@@ -1,0 +1,72 @@
+{
+  "schema": "confluence-worker-packet/v0.1",
+  "id": "HERMES_VERSE_PUZZLE_MODEL_2026-09-23",
+  "date": "2026-09-23",
+  "status": "MANUAL_RESEARCH_PACKET",
+  "authority": "READ / RESEARCH / ANALYZE / RETURN ONLY. No canonical writes, queue mutation, corpus bulk download, or autonomous feature implementation.",
+  "object": "VERSE / Poem Map / constraint-puzzle model",
+  "question": "What computational problem are we actually solving when a human authors a poem through locks, candidate domains, form rules, sound/semantic relations, path topology and least-change edits; and can floral-formula / mereological notation compactly describe the composition without laundering interpretation into fact?",
+  "internal_sources": [
+    "/poetry/map/",
+    "/poetry/map/release.json",
+    "/poetry/lineage.json",
+    "/poetry/research/corpus-connectors.json",
+    "/control/confluence/VERSE_COPILOT_RECOVERY.md",
+    "/control/confluence/VERSE_VIS_QUARRY.md",
+    "/recovery/path-grid/anthropy-pathweaver/",
+    "/recovery/path-grid/grid-path-compiler-v4/",
+    "/recovery/path-grid/market-solver/",
+    "/foundry/verse-atlas/",
+    "/foundry/aperture/"
+  ],
+  "recovered_anchor": {
+    "floral_formula": "⊕ ⚥ P3+3 A1+2 G(3)",
+    "historical_direction": "compact serializable part/whole notation; whorls/nesting, fusion/specialization, arrows/cycles/composition; previously tested as a cross-domain notation idea",
+    "boundary": "The poem connection is a current transfer hypothesis, not recovered historical proof."
+  },
+  "tasks": [
+    {
+      "id": "A_FORMALIZE",
+      "instruction": "Define a minimal puzzle instance from current Poem Map state: token/cell variables, candidate domains, immutable locks, typed relations, hard constraints, soft constraints, legal moves, goal predicate, edit cost and human choice. Keep source identity and revision ancestry outside the optimization objective."
+    },
+    {
+      "id": "B_COMPLEXITY",
+      "instruction": "Classify separate subproblems rather than assigning one grand complexity label: verification of a fixed candidate; existence of any satisfying assignment; minimum-edit satisfying assignment; path/topology-constrained assignment; multiobjective ranking with human preference. Map to CSP / weighted CSP / SAT-SMT / graph-path / edit-distance / interactive search only where a precise reduction or standard reference supports it. Never claim NP-hard/complete from analogy."
+    },
+    {
+      "id": "C_TRACTABLE_FRAGMENTS",
+      "instruction": "Identify which existing constraints are cheaply checkable/local and which combinations create combinatorial explosion. Propose bounded algorithms for the actual 3–7-candidate interactive scale before any general solver: filtering, propagation, beam/best-first, dynamic programming where structure permits, and explicit human preference oracle."
+    },
+    {
+      "id": "D_FORMULA",
+      "instruction": "Test a compact self-describing composition formula inspired by floral notation and mereology. It must distinguish PART, ORDER/ADJACENCY, RELATION, CONSTRAINT, PATH, TRANSFORM and RETURN. State exactly where mereology alone fails (order, crossing relations, dynamics, feedback, provenance). Compare formula ↔ radial/flower diagram ↔ node map ↔ page and require round-trip identity."
+    },
+    {
+      "id": "E_FIXTURES",
+      "instruction": "Return three tiny fixtures only: one line-edit constraint puzzle, one 4-line/form puzzle, one path/grid puzzle. For each give state, legal moves, hard/soft constraints, solver family, human decision point and a falsification/stop condition."
+    },
+    {
+      "id": "F_CORPUS",
+      "instruction": "Review the bounded corpus quarry (ctext, Project Madurai, Malay Concordance Project, Wikisource, Perseus). Recommend only the smallest connector contract needed for addressed examples. Do not bulk scrape or create a universal corpus."
+    }
+  ],
+  "expected_return": [
+    "one-page formal model",
+    "problem-class table with confidence and citations",
+    "tractable-vs-hard boundary table",
+    "one candidate floral/mereological formula grammar",
+    "three executable-size puzzle fixtures",
+    "corpus connector recommendation",
+    "contradictions / unknowns",
+    "one next experiment"
+  ],
+  "key_hypothesis": "VERSE is best treated as interactive constrained search over an authored object, not as text generation. The human supplies an irreducible preference/meaning oracle; the machine should expose lawful possibilities, constraint consequences and provenance.",
+  "stop": [
+    "No new app.",
+    "No generic LLM poetry generator.",
+    "No universal complexity-class claim.",
+    "No treating aesthetic quality as a machine-verifiable constraint.",
+    "No conflating Jueju, cell poetry and general verse.",
+    "Stop after one bounded research RETURN."
+  ]
+}

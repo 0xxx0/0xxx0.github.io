@@ -1,0 +1,145 @@
+{
+  "schema": "verse-corpus-connectors/v0.1",
+  "date": "2026-09-23",
+  "purpose": "Small source quarry for language/form adapters. These are corpus/source connectors, not new poetry products. Prefer addressed retrieval or user-supplied local extracts over bulk mirroring.",
+  "current_runtime": {
+    "route": "/poetry/map/",
+    "provider": "LOCAL CORPUS",
+    "accepted": [
+      ".txt",
+      ".md",
+      ".csv",
+      ".json"
+    ],
+    "persistence": "SESSION_ONLY",
+    "upload": "NONE",
+    "note": "The current Poem Map can already use user-supplied corpus files without publishing or persisting corpus bytes."
+  },
+  "normalized_item": {
+    "required": [
+      "corpus_id",
+      "language",
+      "work_id",
+      "segment_id",
+      "text",
+      "source_url",
+      "provenance"
+    ],
+    "optional": [
+      "title",
+      "author",
+      "date",
+      "genre",
+      "form",
+      "line_or_verse",
+      "rhyme",
+      "rights_note",
+      "source_language",
+      "translation_of",
+      "metadata"
+    ],
+    "law": "source text + exact address + provenance survive every projection; corpus neighborhood is evidence/context, not automatic semantic equivalence"
+  },
+  "connectors": [
+    {
+      "id": "ctext",
+      "language": [
+        "zh",
+        "lzh"
+      ],
+      "name": "Chinese Text Project",
+      "url": "https://ctext.org/",
+      "class": "OPEN_ACCESS_DIGITAL_LIBRARY",
+      "observed_2026_09_23": "30,000+ titles and 5B+ characters; premodern Chinese corpus with search and aligned text tools.",
+      "useful_for": [
+        "classical Chinese source retrieval",
+        "phrase/context neighborhoods",
+        "author/work provenance",
+        "Jueju and broader literary quarry"
+      ],
+      "first_mode": "LINK_OR_QUERY",
+      "boundary": "Do not bulk mirror by assumption; use source-addressed retrieval and review site/API terms for automated extraction."
+    },
+    {
+      "id": "project-madurai",
+      "language": [
+        "ta"
+      ],
+      "name": "Project Madurai",
+      "url": "https://www.projectmadurai.org/",
+      "class": "FREE_TAMIL_ETEXT_LIBRARY",
+      "observed_2026_09_23": "Ancient and later Tamil literary works are published as freely readable/downloadable e-texts; Unicode Tamil editions are available, commonly as HTML/PDF.",
+      "useful_for": [
+        "Tamil verse source packs",
+        "form examples",
+        "phrase/context search",
+        "cross-language adapter tests"
+      ],
+      "first_mode": "LINK_OR_USER_EXTRACT",
+      "boundary": "Preserve edition/header provenance and follow the project's stated redistribution conditions; do not silently republish whole works."
+    },
+    {
+      "id": "mcp",
+      "language": [
+        "ms",
+        "zlm"
+      ],
+      "name": "Malay Concordance Project",
+      "url": "https://mcp.anu.edu.au/Q/mcp.html/",
+      "class": "CLASSICAL_MALAY_SEARCH_CORPUS",
+      "observed_2026_09_23": "165 texts, about 5.8M words and 140,000 verses; supports contextual, morphological and rhyme-oriented search.",
+      "useful_for": [
+        "classical Malay verse neighborhoods",
+        "rhyme-word evidence",
+        "morphology/context",
+        "syair/pantun-adjacent source research"
+      ],
+      "first_mode": "QUERY_AND_LINK",
+      "boundary": "Treat as searchable scholarly corpus; do not assume bulk-download or redistribution rights."
+    },
+    {
+      "id": "wikisource",
+      "language": [
+        "multi"
+      ],
+      "name": "Wikisource",
+      "url": "https://wikisource.org/",
+      "class": "MULTILINGUAL_FREE_LIBRARY",
+      "observed_2026_09_23": "Many language-specific projects plus multilingual works; useful as a broad public-domain/free-text bridge when no specialist corpus exists.",
+      "useful_for": [
+        "generic world verse",
+        "translations",
+        "public-domain source packs",
+        "language coverage discovery"
+      ],
+      "first_mode": "LINK_OR_EXPORT",
+      "boundary": "Verify edition and licensing/status per work/project; provenance must name the exact page/edition."
+    },
+    {
+      "id": "perseus",
+      "language": [
+        "grc",
+        "la"
+      ],
+      "name": "Perseus Digital Library / Catalog",
+      "url": "https://www.perseus.tufts.edu/",
+      "class": "CLASSICAL_TEXT_LIBRARY",
+      "observed_2026_09_23": "Large Greek/Latin collections and catalog metadata, including substantial poetry holdings.",
+      "useful_for": [
+        "Greek/Latin verse",
+        "meter/form study",
+        "translation/source comparison"
+      ],
+      "first_mode": "LINK_OR_QUERY",
+      "boundary": "Rights vary by edition/translation; preserve work/edition identity rather than treating the corpus as homogeneous."
+    }
+  ],
+  "priority": [
+    "ctext",
+    "project-madurai",
+    "mcp",
+    "wikisource",
+    "perseus"
+  ],
+  "stop": "Do not add more corpora until one current authoring or analysis task cannot be served by these plus local files."
+}
