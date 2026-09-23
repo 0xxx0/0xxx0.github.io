@@ -83,6 +83,8 @@ jobs:
         run: node --test fold-bloom/set/tests/set-core.test.mjs fold-bloom/test-packs/tests/test-pack-core.test.mjs
       - name: Test FOLD BLOOM local source spine + Journey Ride 0.1.2
         run: node --test fold-bloom/tests/local-media-store.test.mjs fold-bloom/journey/tests/journey-core.test.mjs fold-bloom/journey/tests/demo-seed.test.mjs
+      - name: Test unified FOLD BLOOM RIDE state
+        run: node --test fold-bloom/ride/tests/ride-state.test.mjs
       - name: Test LISTEN preview render
         env:
           SMOKE_ONLY: FOLD BLOOM LISTEN preview render
