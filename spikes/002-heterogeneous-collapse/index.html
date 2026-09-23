@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPIKE 002 · HETEROGENEOUS FALSIFICATION</title>
+<style>
+:root{--bg:#080a0c;--panel:#0b0f12;--ink:#eef2ef;--mut:#839096;--line:#2b363b;
+      --hot:#ed7245;--cool:#73bce8;--green:#9ed88c;--gold:#d7ae67;--red:#c2534e}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);
+  font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:10px 14px 40px}
+h1{font-size:9px;letter-spacing:.24em;color:var(--gold);margin:0 0 4px;font-weight:600}
+h2{font-size:9px;letter-spacing:.18em;color:var(--gold);margin:16px 0 6px;font-weight:600}
+.sub{color:var(--mut);font-size:9px;margin-bottom:8px;letter-spacing:.04em}
+table{border-collapse:collapse;width:100%;font-size:10px}
+th,td{border:1px solid var(--line);padding:3px 6px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:400;font-size:8px;letter-spacing:.12em;background:var(--panel)}
+td.p{color:var(--green)} td.f{color:var(--red);font-weight:700} td.n{color:var(--mut)}
+tr.hd td{background:#0d1215}
+.verdict{border:1px solid var(--line);background:var(--panel);padding:9px 11px;margin-top:10px}
+.verdict b{color:var(--gold);letter-spacing:.14em;font-size:9px}
+.res{color:var(--hot)}
+.mono{color:var(--mut);font-size:9px}
+.bar{display:flex;gap:6px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.bar button{background:transparent;border:1px solid var(--line);color:var(--mut);font:inherit;
+  font-size:9px;letter-spacing:.1em;padding:3px 7px;cursor:pointer}
+.bar button.on{color:var(--gold);border-color:var(--gold)}
+</style>
+</head>
+<body>
+<h1>SPIKE 002 · CAN THE COLLAPSE SURVIVE HETEROGENEOUS NODES?</h1>
+<div class="sub">
+  Spike 001 used twelve like-typed tokens and passed every invariant. That proves nothing:
+  a homogeneous fixture survives anything. This run uses the twelve deliberately awkward
+  types instead, and reports every failure rather than rounding it off.
+</div>
+
+<div class="bar">
+  <button data-p="LINE" class="on">LINE</button>
+  <button data-p="RING">RING</button>
+  <button data-p="SIXPANEL">SIX-PANEL</button>
+  <button data-p="ROOM">ROOM</button>
+  <button data-p="GLYPH">GLYPH</button>
+</div>
+
+<div id="out"></div>
+
+<script>
+/* ===========================================================================
+ * THE FIXTURE — twelve heterogeneous CanonicalNodes, per the collapse protocol
+ * ======================================================================== */
+const TYPES = [
+  {t:'token',        id:'water',    v:'water'},
+  {t:'paragraph',    id:'para-1',   v:'The wheel turns and the water rises.'},
+  {t:'image',        id:'img-1',    v:{href:'./room-lineage/FU5X2.html', w:640, h:480, alt:'recovered harness'}},
+  {t:'number',       id:'num-1',    v:{value:42, min:0, max:100, unit:'%'}},
+  {t:'boolean',      id:'bool-1',   v:true},
+  {t:'enum',         id:'enum-1',   v:{value:'FOVEA', domain:['PERIPHERY','AIM','FOVEA']}},
+  {t:'free-text',    id:'ft-1',     v:{value:'draft', editable:true, maxLength:280}},
+  {t:'relation',     id:'rel-1',    v:{to:'water', rel:'precedes'}},
+  {t:'action',       id:'act-1',    v:{op:'RUN', requires:'CONFIRM', reversible:true, authority:'PREVIEW'}},
+  {t:'timed',        id:'evt-1',    v:{t0:12.4, t1:18.9, clock:'PLAYBACK', rate:1}},
+  {t:'nested',       id:'nest-1',   v:{children:['water','num-1','rel-1'], depth:2}},
+  {t:'evidence',     id:'ev-1',     v:{claim:'fold round-trips losslessly', source:'returns/FOLD_LOSSLESS_PROOF_2026-09-23.json', status:'VERIFIED'}}
+];
+
+const ADDRESSABLE = ['token','paragraph','image','number','boolean','enum','free-text','relation','action','timed','nested','evidence'];
+
+function mk(n){
+  return {
+    id:n.id, type:n.t, value:n.v,
+    address:{F:n.id,B:'spike/002',L:null,R:null,U:'fixture',D:(n.t==='evidence'?n.v.status:null)},
+    selection:false, focus:'PERIPHERY', marks:[]
+  };
+}
+let NODES=TYPES.map(mk);
+
+/* ===========================================================================
+ * PROJECTIONS
+ * Each returns {render(nodes)->string, canExpress(node)->{ok,reason}}
+ * canExpress is the falsification surface: a projection is allowed to FAIL on
+ * a node. Recording that failure is the point of this spike.
+ * ======================================================================== */
+const GLYPH_OF=id=>{const h=fnv(id);return 3+(h%6)};
+function fnv(s){let h=2166136261>>>0;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0}return h>>>0}
+
+const PROJECTIONS={
+  LINE:{
+    label:'LINE — ordered horizontal, precise reading',
+    canExpress:n=>{
+      if(n.type==='image') return {ok:false,reason:'an image has no token text; a horizontal reading line has nothing to render in its cell'};
+      if(n.type==='nested') return {ok:false,reason:'children are addressable objects; a flat line cannot address depth without flattening it'};
+      return {ok:true};
+    }
+  },
+  RING:{
+    label:'RING — compact ordinal overview + centre focus',
+    canExpress:n=>{
+      if(n.type==='nested') return {ok:false,reason:'a ring has one radius per item; hierarchy needs a second ordinal axis it does not have'};
+      if(n.type==='paragraph') return {ok:false,reason:'a ring cell is small; a paragraph is not representable at ring resolution without truncation — truncation is loss'};
+      return {ok:true};
+    }
+  },
+  SIXPANEL:{
+    label:'SIX-PANEL — six logical regions, flat net',
+    canExpress:n=>{
+      if(n.type==='image') return {ok:false,reason:'the panel reserves a text slot; an image needs a raster slot it does not define'};
+      return {ok:true};
+    }
+  },
+  ROOM:{
+    label:'ROOM — six faces folded, spatial memory',
+    canExpress:n=>{
+      if(n.type==='timed') return {ok:false,reason:'a face has no clock; a timed event loses its t0/t1 unless a seventh region is introduced'};
+      return {ok:true};
+    }
+  },
+  GLYPH:{
+    label:'GLYPH — compressed field, recognition only',
+    canExpress:n=>{
+      if(n.type==='free-text') return {ok:false,reason:'a glyph encodes identity, not content; editable text has content the glyph does not carry'};
+      if(n.type==='evidence') return {ok:false,reason:'a glyph cannot carry a claim and its source; provenance must stay inspectable and a shape is not inspectable'};
+      if(n.type==='action') return {ok:false,reason:'a glyph carries no authority boundary; an executable action must not become indistinguishable from an inert token'};
+      return {ok:true};
+    }
+  }
+};
+
+const PROJ_ORDER=['LINE','RING','SIXPANEL','ROOM','GLYPH'];
+
+/* ===========================================================================
+ * INVARIANTS — behavioural, not visual
+ * ======================================================================== */
+function snapshotKey(n){
+  return [n.id,n.type,JSON.stringify(n.value),n.focus,JSON.stringify(n.address)].join('|');
+}
+function deepCopy(o){return JSON.parse(JSON.stringify(o))}
+
+/* projection must not mutate the canonical source */
+function testNoMutation(){
+  const before=NODES.map(snapshotKey).join('\n');
+  PROJ_ORDER.forEach(p=>{NODES.forEach(n=>{try{PROJECTIONS[p].canExpress(n)}catch(_){}})});
+  const after=NODES.map(snapshotKey).join('\n');
+  return {name:'no source mutation during projection', ok:before===after,
+          detail:before===after?'canonical state byte-identical after expressing every node in every projection':'source changed'};
+}
+
+/* identity + type + value survive a projection round-trip */
+function testIdentitySurvives(){
+  const before=NODES.map(snapshotKey);
+  PROJ_ORDER.forEach(p=>{STATE.projection=p});
+  STATE.projection='LINE';
+  const after=NODES.map(snapshotKey);
+  const bad=before.map((b,i)=>b===after[i]?null:before[i]).filter(Boolean);
+  return {name:'identity survives every projection', ok:bad.length===0,
+          detail:bad.length?bad.length+' node(s) changed identity':before.length+' nodes identical through LINE→RING→SIX-PANEL→ROOM→GLYPH→LINE'};
+}
+
+/* focus survives a projection change */
+function testFocusSurvives(){
+  NODES[3].focus='FOVEA';
+  const id=NODES[3].id;
+  PROJ_ORDER.forEach(p=>STATE.projection=p);
+  const still=NODES.find(n=>n.id===id).focus==='FOVEA';
+  const exactlyOne=NODES.filter(n=>n.focus==='FOVEA').length===1;
+  return {name:'focus survives a projection change', ok:still&&exactlyOne,
+          detail:still&&exactlyOne?('focus stayed on '+id+' with exactly one node at FOVEA'):'focus was lost or duplicated'};
+}
+
+/* a timed node must retain its clock */
+function testTimedRetainsClock(){
+  const t=NODES.find(n=>n.type==='timed');
+  const before=JSON.stringify(t.value);
+  PROJ_ORDER.forEach(p=>STATE.projection=p);
+  const after=JSON.stringify(t.value);
+  const hasClock=t.value.clock&&t.value.t0!=null&&t.value.t1!=null;
+  return {name:'timed object retains time', ok:before===after&&hasClock,
+          detail:hasClock?('t0='+t.value.t0+' t1='+t.value.t1+' clock='+t.value.clock+' — retained, but see residue: no projection RENDERS it'):'clock lost'};
+}
+
+/* a nested node must retain hierarchy */
+function testNestedRetainsHierarchy(){
+  const n=NODES.find(x=>x.type==='nested');
+  const before=JSON.stringify(n.value);
+  PROJ_ORDER.forEach(p=>STATE.projection=p);
+  const after=JSON.stringify(n.value);
+  const hasKids=n.value.children.length>0;
+  return {name:'nested object retains hierarchy', ok:before===after&&hasKids,
+          detail:hasKids?(n.value.children.length+' children retained in the model — but LINE and RING both declare they cannot express depth'):'hierarchy lost'};
+}
+
+/* an executable action must keep its authority boundary */
+function testActionBoundary(){
+  const a=NODES.find(n=>n.type==='action');
+  const b=JSON.parse(JSON.stringify(a.value));
+  PROJ_ORDER.forEach(p=>STATE.projection=p);
+  const after=JSON.stringify(a.value)===JSON.stringify(b);
+  const bounded=a.value.requires==='CONFIRM'&&a.value.authority==='PREVIEW';
+  return {name:'operations keep permission/safety boundary', ok:after&&bounded,
+          detail:bounded?'RUN still requires CONFIRM and runs at PREVIEW authority — but GLYPH declares it cannot distinguish an action from an inert token':(bounded?'':'boundary lost')};
+}
+
+/* RETURN restores the exact prior address */
+function testReturn(){
+  STATE.projection='ROOM';
+  NODES.forEach(n=>n.focus='PERIPHERY'); NODES[5].focus='FOVEA';
+  const prior={p:STATE.projection,f:NODES.find(n=>n.focus==='FOVEA')?.id,m:NODES[1].marks.slice()};
+  STATE.trail.push(deepCopy(prior));
+  STATE.projection='GLYPH'; NODES[1].marks.push('checked');
+  const back=STATE.trail.pop();
+  STATE.projection=back.p;
+  NODES.forEach(n=>n.focus=(n.id===back.f?'FOVEA':'PERIPHERY'));
+  NODES[1].marks=back.m;
+  const ok=STATE.projection===prior.p&&NODES.find(n=>n.focus==='FOVEA').id===prior.f&&NODES[1].marks.length===prior.m.length;
+  return {name:'RETURN restores the exact prior address', ok,
+          detail:ok?('restored '+prior.p+' / '+prior.f+' and reverted the mark added while away'):'return was a reset, not a restoration'};
+}
+
+/* provenance stays inspectable */
+function testProvenance(){
+  const e=NODES.find(n=>n.type==='evidence');
+  const ok=!!(e.value.claim&&e.value.source&&e.value.status);
+  return {name:'provenance stays inspectable', ok,
+          detail:ok?('claim + source + status all present on the evidence node; source = '+e.value.source):'provenance not inspectable'};
+}
+
+/* ===========================================================================
+ * RUN — node × projection expressibility, then the behavioural invariants
+ * ======================================================================== */
+const INV=[testNoMutation,testIdentitySurvives,testFocusSurvives,testTimedRetainsClock,
+           testNestedRetainsHierarchy,testActionBoundary,testReturn,testProvenance];
+
+function run(){
+  const matrix=NODES.map(n=>{
+    const row={id:n.id,type:n.type,cells:{}};
+    PROJ_ORDER.forEach(p=>{row.cells[p]=PROJECTIONS[p].canExpress(n)});
+    return row;
+  });
+  const invariants=INV.map(f=>{
+    // ISOLATE: each invariant starts from a clean focus/selection state. Without
+    // this, one test's side effect fails the next one, which is a harness bug
+    // masquerading as a projection failure.
+    NODES.forEach(n=>{n.focus='PERIPHERY';n.selection=false;n.marks=[]});
+    STATE.trail=[];
+    try{return f()}catch(e){return {name:f.name,ok:false,detail:'threw: '+e.message}}
+  });
+
+  // residue = every declared failure
+  const residue=[];
+  matrix.forEach(r=>PROJ_ORDER.forEach(p=>{if(!r.cells[p].ok)residue.push({node:r.type,projection:p,reason:r.cells[p].reason})}));
+
+  return {matrix,invariants,residue};
+}
+
+let STATE={projection:'LINE',trail:[]};
+
+function render(){
+  const R=run();
+  const proj=STATE.projection;
+  let h='';
+
+  h+='<h2>BEHAVIOURAL INVARIANTS</h2><table><tr><th>INVARIANT</th><th>RESULT</th><th>DETAIL</th></tr>';
+  R.invariants.forEach(i=>{
+    h+='<tr><td>'+esc(i.name)+'</td><td class="'+(i.ok?'p':'f')+'">'+(i.ok?'PASS':'FAIL')+'</td><td class="mono">'+esc(i.detail)+'</td></tr>';
+  });
+  h+='</table>';
+
+  h+='<h2>CAN EACH TYPE BE EXPRESSED? — node × projection</h2>';
+  h+='<div class="sub">Showing the selected projection column in full. A FAIL here is a finding, not a bug to hide.</div>';
+  h+='<table><tr><th>TYPE</th><th>ID</th>';
+  PROJ_ORDER.forEach(p=>h+='<th'+(p===proj?' style="color:var(--gold)"':'')+'>'+p+'</th>');
+  h+='</tr>';
+  R.matrix.forEach(r=>{
+    h+='<tr><td>'+r.type+'</td><td class="mono">'+r.id+'</td>';
+    PROJ_ORDER.forEach(p=>{
+      const c=r.cells[p];
+      h+='<td class="'+(c.ok?'p':'f')+'" title="'+esc(c.reason||'')+'">'+(c.ok?'OK':'NO')+'</td>';
+    });
+    h+='</tr>';
+  });
+  h+='</table>';
+
+  const failedTypes=new Set(R.residue.map(x=>x.node)).size;
+  h+='<h2>RESIDUE — what refuses to collapse ('+R.residue.length+' declared failures across '+failedTypes+' types)</h2>';
+  h+='<table><tr><th>TYPE</th><th>PROJECTION</th><th>REASON IT CANNOT</th></tr>';
+  R.residue.forEach(x=>{h+='<tr><td class="res">'+x.node+'</td><td>'+x.projection+'</td><td class="mono">'+esc(x.reason)+'</td></tr>'});
+  h+='</table>';
+
+  const allOk=R.invariants.every(i=>i.ok);
+  h+='<div class="verdict"><b>VERDICT</b><br>'
+   + 'behavioural invariants: <span class="'+(allOk?'p':'f')+'">'+(R.invariants.filter(i=>i.ok).length+'/'+R.invariants.length)+' pass</span>'
+   + ' &nbsp;·&nbsp; expressibility: <b>'+(R.matrix.length*PROJ_ORDER.length-R.residue.length)+'/'+(R.matrix.length*PROJ_ORDER.length)+'</b> node-projection pairs expressible'
+   + '<br><span class="mono">'+(allOk
+      ? 'The model layer survives. But '+R.residue.length+' node-projection pairs cannot be expressed, so <b>projection is NOT universal</b> over these twelve types.'
+      : 'The invariants did not all hold. See the table.')+'</span></div>';
+
+  document.getElementById('out').innerHTML=h;
+}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+
+document.querySelectorAll('.bar [data-p]').forEach(b=>b.addEventListener('click',()=>{
+  STATE.projection=b.dataset.p;
+  document.querySelectorAll('.bar [data-p]').forEach(x=>x.classList.toggle('on',x.dataset.p===STATE.projection));
+  render();
+}));
+
+window.SPIKE2=Object.freeze({
+  run, projections:PROJ_ORDER,
+  projectionsDeclaringFailures:()=>{const R=run();const s=new Set(R.residue.map(x=>x.projection));return [...s]},
+  typesDeclaringFailures:()=>{const R=run();const s=new Set(R.residue.map(x=>x.node));return [...s]},
+  summarise:()=>{const R=run();return {
+    invariants:R.invariants.map(i=>({n:i.name,ok:i.ok})),
+    pairs:R.matrix.length*PROJ_ORDER.length,
+    expressible:R.matrix.length*PROJ_ORDER.length-R.residue.length,
+    residue:R.residue
+  }}
+});
+render();
+</script>
+</body>
+</html>

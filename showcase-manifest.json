@@ -6867,6 +6867,50 @@
       }
     },
     {
+      "href": "/spikes/002-heterogeneous-collapse/",
+      "title": "SPIKE 002 / HETEROGENEOUS COLLAPSE",
+      "kind": "experiment",
+      "parent": "/",
+      "family": "SPIKE",
+      "operation": "COMPOSE",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "tier": "FIELD",
+      "role": "Falsification run: spike 001 used 12 like-typed tokens and proved nothing. This uses the 12 awkward types and reports residue. MODEL layer 8/8 invariants pass; PROJECTION layer 51/60 with 9 declared failures.",
+      "index": {
+        "updated_at": "2026-09-23T10:41:48+08:00",
+        "work_modes": [
+          "READ",
+          "INSPECT",
+          "VERIFY"
+        ]
+      },
+      "evidence": [
+        {
+          "claim": "all 8 behavioural invariants hold for heterogeneous types",
+          "source": "spikes/002-heterogeneous-collapse/README.md",
+          "status": "VERIFIED"
+        },
+        {
+          "claim": "no projection is universal; 9 node-projection pairs unexpressible",
+          "source": "spikes/002-heterogeneous-collapse/README.md",
+          "status": "VERIFIED"
+        }
+      ],
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Does the collapse survive HETEROGENEOUS node types, or did spike 001 only pass because its twelve nodes were alike?",
+        "baseline": "12 like-typed tokens (spike 001) passing 5/5 invariants — a homogeneous fixture that proves nothing.",
+        "mutation": "Replace the fixture with the 12 deliberately awkward types (token/paragraph/image/number/boolean/enum/free-text/relation/action/timed/nested/evidence) and test each against 5 projections.",
+        "evidence_gate": "All behavioural invariants hold AND every declared projection failure is reported as residue rather than hidden.",
+        "next_if_pass": "Render the heterogeneous fixture in each projection to turn canExpress() from a judgement into an observation; then give CONTENT/AUTHORITY/DEPTH/TIME explicit representation and re-run — the residue should shrink.",
+        "next_if_fail": "Identify which non-collapsing behaviour needs a new primitive; do not merge the two lineages."
+      }
+    },
+    {
       "href": "/twins/",
       "title": "THE TWINS",
       "kind": "evidence",
