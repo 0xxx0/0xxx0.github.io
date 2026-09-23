@@ -41,6 +41,10 @@ jobs:
         run: node spikes/003-one-instrument/selftest.mjs
       - name: Validate shared INTERPHASE host laws
         run: node tools/interphase-selftest.cjs
+      - name: Validate shared INTERPHASE glyph laws
+        run: |
+          node tools/interphase-glyph-selftest.cjs
+          node tools/interphase-dom-form-selftest.cjs
       - name: Validate INTERPHASE correspondence + archaeology packet
         run: |
           node --check lib/interphase-mapping.js
@@ -52,6 +56,7 @@ jobs:
           node --check interphase-extension.js
           node --check lib/interphase-core.js
           node --check lib/interphase-dom.js
+          node --check lib/interphase-glyph.js
           node --check lib/interphase-field.js
           node --check lib/interphase-readfield.js
           node --check lib/interphase-lens.js

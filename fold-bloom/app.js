@@ -5,8 +5,9 @@ import {normalizeActive,supportFor,defaultBloomProjection,routeFor,foldRoute,pro
 
 const $=s=>document.querySelector(s);
 document.documentElement.dataset.fbModule='ready';
-const I=globalThis.Interphase;
+const I=globalThis.Interphase,G=globalThis.InterphaseGlyph;
 if(!I)throw new Error('INTERPHASE 0.2 REQUIRED');
+if(!G)throw new Error('INTERPHASE GLYPH REQUIRED');
 
 const SET_STORE='fold-bloom.set-compositor.v01';
 const META_STORE='fold-bloom.set-compositor.meta.v01';
@@ -28,6 +29,7 @@ function persistActive(){try{sessionStorage.setItem(ACTIVE_KEY,JSON.stringify(ac
 function clearActivePointer(){active=normalizeActive();persistActive()}
 function setTextRuntime(id,text){textRuntime=text;try{sessionStorage.setItem(TEXT_PREFIX+id,text)}catch(_){}}
 function getTextRuntime(id){if(textRuntime!=null&&active.id===id)return textRuntime;try{return sessionStorage.getItem(TEXT_PREFIX+id)||''}catch(_){return''}}
+function cachedSourceGlyph(id){try{return JSON.parse(sessionStorage.getItem('fold-bloom.source-glyph.v01:'+id)||'null')?.glyph||null}catch(_){return null}}
 function readSet(){try{const raw=localStorage.getItem(SET_STORE);return raw?decodeExperienceSet(raw):null}catch(_){return null}}
 function readSetMeta(){try{return JSON.parse(localStorage.getItem(META_STORE)||'{}')||{}}catch(_){return{}}}
 
@@ -53,7 +55,7 @@ function describeRef(ref){
   if(cell){const meta=readSetMeta()[id]||{};return{id,kind:'source-cell',label:meta.name||('CELL '+(cell.index+1)),address:{set:active.id,index:cell.index,sourceId:id},channels:['identity','address','content','depth','authority'],capabilities:['read'],operations:[],authority:'VIEW',value:{entry:cell.entry,meta}}}
   if(id!==active.id)throw new Error('FOLD_BLOOM_REF_UNRESOLVED:'+id);
   const base={id:active.id||'fold-bloom:empty',label:active.label,address:{id:active.id},capabilities:['read'],authority:'VIEW'};
-  if(active.kind==='AUDIO')return{...base,kind:'audio-source',channels:['identity','address','content','time','authority','evidence'],operations:[{id:'MAP',authority:'VIEW'},{id:'RIDE',authority:'VIEW'},{id:'FOLD',authority:'EDIT'}],value:{...active.meta}};
+  if(active.kind==='AUDIO')return{...base,kind:'audio-source',channels:['identity','address','content','time','authority','evidence'],operations:[{id:'MAP',authority:'VIEW'},{id:'RIDE',authority:'VIEW'},{id:'FOLD',authority:'EDIT'}],value:{...active.meta,glyph:cachedSourceGlyph(active.id)}};
   if(active.kind==='TEXT')return{...base,kind:'text-source',channels:['identity','address','content','depth','authority'],operations:[{id:'READ',authority:'VIEW'}],value:{chars:active.meta?.chars||getTextRuntime(active.id).length}};
   if(active.kind==='SET')return{...base,kind:'experience-set',channels:['identity','address','content','depth','authority','evidence'],operations:[{id:'FOLD',authority:'EDIT'},{id:'RIDE',authority:'VIEW'}],value:{entries:active.meta?.entries||readSet()?.entries?.length||0}};
   return{...base,kind:'empty',channels:['identity','address'],operations:[],value:null};
@@ -147,23 +149,27 @@ async function refreshVault(){
   box.querySelectorAll('[data-vault]').forEach(b=>b.onclick=()=>{const x=rev[Number(b.dataset.vault)];bindActive({kind:'AUDIO',id:x.sourceId,label:x.name||x.sourceId,meta:{size:x.size||0,type:x.type||''}})});
 }
 
-function polygon(desc,R){
-  const pts=[],cx=200,cy=200,rot=(desc.rotation-90)*Math.PI/180;
-  for(let i=0;i<desc.sides;i++){const a=rot+i*Math.PI*2/desc.sides;pts.push([cx+Math.cos(a)*R,cy+Math.sin(a)*R])}
-  return pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ')+' Z';
+function addressLabel(d,id){
+  if(d?.address?.token!=null)return 'token://'+d.address.token;
+  if(d?.address?.index!=null)return 'set://'+d.address.set+'/'+d.address.index;
+  return id||'—';
 }
-function drawGlyph(id,label,address,{draft=false}={}){
-  const d=identityDescriptor(id||'EMPTY'),g=$('#glyph'),outer=polygon(d,128),inner=polygon(d,128*d.inner);
-  g.innerHTML='<circle cx="200" cy="200" r="150" fill="none" stroke="#202a31"/><path d="'+outer+'" fill="#7bd5ff" fill-opacity="'+(draft?'.025':'.055')+'" stroke="#7bd5ff" stroke-width="2"/><path d="'+inner+'" fill="none" stroke="#ef7849" stroke-width="1.4"/><circle cx="200" cy="200" r="4" fill="#d7b46d"/>';
-  $('#focusLabel').textContent=label||'NO SOURCE';$('#focusAddress').textContent=address||'—';
+function renderDescriptorGlyph(desc,{draft=false}={}){
+  const projection=host.snapshot().state.projection,residue=host.projectionResult(projection)?.residue||[];
+  G.render($('#glyph'),desc,{size:400,projection,residue});
+  $('#focusLabel').textContent=desc?.label||'NO SOURCE';
+  $('#focusAddress').textContent=addressLabel(desc,desc?.id);
+  $('#glyph').dataset.draft=draft?'1':'0';
 }
 function currentFocus(){
   const s=host.snapshot().state,x=s.focus[s.focus.length-1]||null;
   if(!x)return null;const d=focusDescriptor(x.id);return{x,...d};
 }
 function renderGlyph(){
-  const f=currentFocus(),id=f?.id||active.id||'EMPTY';
-  drawGlyph(id,f?.label||active.label,f?.address?.token!=null?('token://'+f.address.token):(f?.address?.index!=null?('set://'+f.address.set+'/'+f.address.index):(active.id||'—')));
+  const f=currentFocus();
+  if(f){renderDescriptorGlyph(f);return}
+  if(active.kind!=='EMPTY'){renderDescriptorGlyph(describeRef(active.id));return}
+  renderDescriptorGlyph({id:'fold-bloom:empty',kind:'empty',label:'NO SOURCE',address:{id:null},channels:['identity','address'],operations:[],authority:'VIEW',value:null});
 }
 function renderFocusCells(){
   const box=$('#focusCells');box.innerHTML='';const f=currentFocus();
@@ -209,7 +215,7 @@ function renderNext(){
   if(kind==='AUDIO')items.push(['MAP · LISTEN','exact source → AUDIO MAP','MAP'],['RIDE · LIVE','same exact source → embodied terrain','RIDE'],['FOLD · SET','source ref → authored set','FOLD']);
   else if(kind==='SET')items.push(['FOLD · SET','edit order / weight / seams','FOLD'],['RIDE · SET','current Journey seam sequencer','RIDE']);
   else if(kind==='TEXT')items.push(['READ · READFIELD','same exact text via session handoff','READ']);
-  else items.push(['BIND ONE OBJECT','audio / text / existing set',null]);
+  else items.push(['BIND ONE OBJECT','audio / text / existing set',null],['MAP · LISTEN','appears when an audio source is bound',null],['RIDE · LIVE','appears when audio or a set is bound',null]);
   box.innerHTML=items.map(x=>'<'+(x[2]?'a href="#" data-next="'+x[2]+'"':'span')+' class="'+(x[2]?'ready':'blocked')+'"><b>'+x[0]+'</b><small>'+x[1]+'</small></'+(x[2]?'a':'span')+'>').join('');
   box.querySelectorAll('[data-next]').forEach(a=>a.onclick=e=>{e.preventDefault();const x=a.dataset.next;if(x==='FOLD')runFold();else launchProjection(x)});
 }
@@ -232,7 +238,7 @@ $('#clearSource').onclick=()=>{clearActivePointer();bindActive(active)};
 $('#textInput').oninput=e=>{
   const text=e.target.value;
   if(!text.trim()||active.kind!=='EMPTY')return renderGlyph();
-  drawGlyph('draft:'+text,'DRAFT INPUT · '+text.length+' CHARS','UNBOUND · projection only',{draft:true});
+  renderDescriptorGlyph({id:'draft:'+text,kind:'draft-text',label:'DRAFT INPUT · '+text.length+' CHARS',address:{state:'UNBOUND'},channels:['identity','address','content'],operations:[],authority:'VIEW',value:{chars:text.length}},{draft:true});
 };
 document.querySelectorAll('[data-op]').forEach(b=>b.onclick=()=>{
   try{

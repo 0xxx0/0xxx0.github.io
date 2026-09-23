@@ -60,7 +60,7 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:12px;color
     <div class="stageTop"><span>OBJECT <b id="objectKind">EMPTY</b></span><span>REV <b id="revision">0</b></span><span>FOCUS <b id="focusState">—</b></span></div>
     <div class="instrument">
       <div class="glyphBox">
-        <svg id="glyph" viewBox="0 0 400 400" aria-label="current object glyph"></svg>
+        <div id="glyph" aria-label="current object glyph"></div>
         <div class="glyphText"><b id="focusLabel">NO SOURCE</b><span id="focusAddress">—</span></div>
       </div>
     </div>
@@ -115,7 +115,8 @@ footer{display:flex;justify-content:space-between;gap:16px;margin-top:12px;color
 </main>
 <div id="toast"></div>
 
-<script src="/lib/interphase-core.js"></script>\n<script type="module" src="./app.js"></script>
+<script src="/lib/interphase-core.js"></script>
+<script src="/lib/interphase-glyph.js"></script>\n<script type="module" src="./app.js"></script>
 <script src="/showcase-nav.js" defer></script>
 </body>
 </html>
