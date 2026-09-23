@@ -1,0 +1,44 @@
+{
+  "schema": "0xxx0/proof-receipt/v0.1",
+  "id": "FOLD-LOSSLESS-PROOF-2026-09-23",
+  "at": "2026-09-23T07:05:00+08:00",
+  "claim_under_test": "Things can be folded and reduced LOSSLESSLY, not merely collapsed visually.",
+  "subject": "fold() / dissolve() in foundry/room/space-core.js",
+  "method": {
+    "runner": "node",
+    "call": "S.fold(model, ids, {id}) then S.dissolve(result.model, id)",
+    "fixture": "S.seedFurnisher() — the module's own seed, not a hand-built model",
+    "compared": "the sorted set of every node id, and every node's parent, before vs after",
+    "not_compared": "x/y/w/h geometry, port arrays, operator payloads (see limitation below)"
+  },
+  "observed": {
+    "before": { "nodes": 7, "ids": ["bound","compile","compiler-room","intent","return","search","verify"] },
+    "fold": {
+      "ok": true,
+      "nodes": 8,
+      "created": { "id": "cassette-1", "kind": "composite", "collapsed": true, "parent": "compiler-room" },
+      "children_kept": 3,
+      "child_ids_survive": true
+    },
+    "dissolve": { "ok": true, "nodes": 7, "ids_identical_to_before": true, "parents_restored": true },
+    "diff": { "missing": [], "added": [] }
+  },
+  "verdict": {
+    "lossless_round_trip": true,
+    "basis": "The id set and the parent of every node are identical before fold and after dissolve. Nothing is copied: fold() re-parents existing nodes (space-core.js:172) and dissolve() re-parents them back and removes only its own cassette (space-core.js:179-180). There is no shadow model to drift from, which is exactly what ROOM release v0.4 law 3 asserts.",
+    "law_confirmed": "FOLD MUTATES STRUCTURE, NOT A SHADOW MODEL — foundry/room/release.json v0.4"
+  },
+  "guard_rails_also_verified": {
+    "fold_one_node": "NEED_TWO_OR_MORE_NODES",
+    "fold_across_parents": "SELECTION_MUST_SHARE_PARENT",
+    "dissolve_a_leaf": "NOT_COMPOSITE"
+  },
+  "limitations": [
+    "Geometry (x/y/w/h) is computed fresh by fold() from the children's bounds; a fold/dissolve round-trip is NOT expected to restore original coordinates, and this test does not claim it does.",
+    "Ports are recomputed by boundaryPorts(); equality after round-trip is not asserted here.",
+    "Only the seed model (7 nodes) was exercised. A larger or cyclic model is untested.",
+    "This proves the STRUCTURE round-trips. It does not prove the six faces are sufficient to generate a surface, which is a separate and unproven claim."
+  ],
+  "reproduction": "node -e \"const S=require('./foundry/room/space-core.js');const m=S.seedFurnisher();const b=m.nodes.map(n=>n.id).sort();const f=S.fold(m,['search','compile','verify'],{id:'c'});const d=S.dissolve(f.model,'c');console.log(JSON.stringify({b,a:d.model.nodes.map(n=>n.id).sort()}))\"",
+  "next": "If the fold is to be the reduction primitive for the whole field, the same test must be run over a subtree of the LIVE manifest, not just the seed."
+}
