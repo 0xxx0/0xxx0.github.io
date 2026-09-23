@@ -54,14 +54,14 @@
       "head": "FIELD INDEX 0.7 / FOCUS + READFIELD + TRACE VERIFY",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one manifest route identity. FIELD focuses routes and exposes OPEN/READ/LENS/TRACE/COMPARE/RETURN; exact constraint filtering remains internal machinery rather than a second public reading product. TRACE / VERIFY stays focus-bound and evidence-only; READ hands selected/page material into canonical READFIELD with exact RETURN."
+      "retained_function": "Fast repo re-entry around one manifest route identity. FIELD focuses routes and exposes OPEN/READ/LENS/TRACE/COMPARE/RETURN; exact constraint filtering remains internal machinery rather than a second public reading product. TRACE / VERIFY stays focus-bound and evidence-only; READ hands selected/page material into canonical READFIELD with exact RETURN. INTERPHASE 0.2 now exposes that same route focus through the shared host protocol; FIELD remains the route/selection authority."
     },
     {
       "lineage": "scale-lens",
       "head": "SCALE LENS RC11.2 + LensState 0.2 + G2 real-use-1",
       "state": "STABLE + REAL_USE_PROVED + G2_HARDENED + FOVEATION_PARKED",
       "route": "/fold-bloom/lens/",
-      "retained_function": "Portable ◎ Lens remains refraction-only over host selection: object → aperture → view/stack → DEEP LAB? → RETURN. Real-use pass 1 closes an authority leak by rebasing RETURN when the host selects a new object, removes unavailable generic transforms, suppresses duplicate Lens controls inside Scale Studio, and unifies direct Studio exit labeling. Identity and exact caller RETURN remain proved; PLAIN remains default and FOVEATE stays parked.",
+      "retained_function": "Portable ◎ Lens remains refraction-only over host selection: object → aperture → view/stack → DEEP LAB? → RETURN. Real-use pass 1 closes an authority leak by rebasing RETURN when the host selects a new object, removes unavailable generic transforms, suppresses duplicate Lens controls inside Scale Studio, and unifies direct Studio exit labeling. Identity and exact caller RETURN remain proved; PLAIN remains default and FOVEATE stays parked. INTERPHASE 0.2 adapts the existing ScaleLensSpatialAPI/LensState snapshot without creating a second Lens state.",
       "evidence": [
         "/control/LENS_G1_PROOF_SEAL_2026-09-21.json",
         "/control/FIELD_ACTIVATION_LAW.json",
@@ -77,7 +77,7 @@
       "head": "READFIELD / RSVP 0.8 · FOCUS LENS + APERTURE focus kernel",
       "state": "UTILITY / READER_FIRST / MERGED_ACTIVE_CANDIDATE",
       "route": "/docs/",
-      "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. PLAIN remains the default geometry-free performance baseline; FOCUS optionally projects AXIAL/LISTEN address+aperture rings, a Triangle-derived center frame, LISTEN FIELD PULSE and an existing Atlas glyph witness around the same cursor; MIN retains ring + ORP essentials. Instrument range is 60–6000 WPM with a 10 ms dwell floor; long-source structure uses 72 evenly sampled witnesses rather than the first 40 only. No audio/glyph authority moves into READFIELD.",
+      "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. PLAIN remains the default geometry-free performance baseline; FOCUS optionally projects AXIAL/LISTEN address+aperture rings, a Triangle-derived center frame, LISTEN FIELD PULSE and an existing Atlas glyph witness around the same cursor; MIN retains ring + ORP essentials. Instrument range is 60–6000 WPM with a 10 ms dwell floor; long-source structure uses 72 evenly sampled witnesses rather than the first 40 only. No audio/glyph authority moves into READFIELD. INTERPHASE 0.2 adapts the existing Aperture cursor as shared address/focus state; READFIELD remains text/source authority.",
       "evidence": [
         "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
         "/control/READFIELD_CONVERGENCE_2026-09-22.json",
@@ -143,7 +143,7 @@
       "head": "FOLD//BLOOM · EXPERIENCE SET 0.1 / SET 0.1.1 + local vault / JOURNEY RIDE 0.1.2 shareable seed witness / LIVE 0.13 / LISTEN 0.6 / GLYPH ATLAS 0.2 / TWO DIAL 0.10.3 / ECOLOGY 0.2",
       "state": "ACTIVE_CANDIDATE_FAMILY",
       "route": "/fold-bloom/",
-      "retained_function": "One exact source can be selected once, remain byte-identifiable across SET/LISTEN/JOURNEY/LIVE, and never leak raw media into set/share state. LISTEN phone gestures now preserve one continuous ADDRESS/APERTURE vocabulary and exact source hash can cross into LIVE through the same-browser vault. Multiple exact refs form an Experience Set; JOURNEY derives a continuous journey address beside native source clocks. The recovered GHOST → FORGE → WILL witness remains a bottom DEMO, not the canonical entry surface.",
+      "retained_function": "One exact source can be selected once, remain byte-identifiable across SET/LISTEN/JOURNEY/LIVE, and never leak raw media into set/share state. LISTEN phone gestures now preserve one continuous ADDRESS/APERTURE vocabulary and exact source hash can cross into LIVE through the same-browser vault. Multiple exact refs form an Experience Set; JOURNEY derives a continuous journey address beside native source clocks. The recovered GHOST → FORGE → WILL witness remains a bottom DEMO, not the canonical entry surface. INTERPHASE 0.2 currently binds LISTEN source identity + ADDRESS/APERTURE to the shared host; broader Fold/Bloom remains three unequal roles: SOURCE/CARTOGRAPH, COMPOSE, RIDE/EMBODY.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -654,7 +654,11 @@
     "body_fit_research": "/control/research/BODY_FIT_SENSOR_FUSION_2026-09-22.md",
     "body_fit_validation": "/control/BODY_FIT_VALIDATION_2026-09-22_V03.json",
     "body_fit_return_patina": "/control/research/BODY_FIT_RETURN_PATINA_2026-09-22.md",
-    "body_fit_return": "/returns/BODY_FIT_RETURN_PATINA_2026-09-22.json"
+    "body_fit_return": "/returns/BODY_FIT_RETURN_PATINA_2026-09-22.json",
+    "interphase_runtime": "/lib/interphase-core.js",
+    "interphase_extension": "/manifest.json",
+    "interphase_convergence": "/control/confluence/INTERPHASE_EXTENSION_2026-09-23.md",
+    "interphase_proof_donor": "/spikes/003-one-instrument/"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
@@ -807,5 +811,13 @@
     "sleeper_authority": "Exact v2-era ONE RETURN City Engine source restored as Sleeper authority; ASCII POV 0.8 preserved as superseded derivative."
   },
   "last_media_curator": "/control/HERMES_MEDIA_CURATOR.json",
-  "pure_intention": "/control/PURE_INTENTION.json"
+  "pure_intention": "/control/PURE_INTENTION.json",
+  "last_interphase_convergence": {
+    "version": "0.2",
+    "state": "MERGED_VERIFIED_EXPERIMENT",
+    "pr": 184,
+    "merge_sha": "b4324536768313f199300f2f59801b2697e31df9",
+    "verified_pr_run": 35815194125,
+    "rule": "Shared protocol, not a new sovereign head. Hosts retain domain truth and authority."
+  }
 }
