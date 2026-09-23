@@ -166,7 +166,7 @@ $('#lociReset').onclick=()=>{loci.hidden=false;loci.step=0;loci.hits=0;syncLoci(
 buildLoci();
 
 /* ---------- INK ---------- */
-const IW=180,IH=120,N=IW*IH;
+const IW=180,IH=120,N=IW*IH,inkCanvas=document.createElement('canvas'),inkCtx=inkCanvas.getContext('2d');inkCanvas.width=IW;inkCanvas.height=IH;
 const ink={p:new Float32Array(N),w:new Float32Array(N),tmpP:new Float32Array(N),tmpW:new Float32Array(N),wet:.62,brush:18,trace:true,lastX:null,lastY:null,down:false,simAt:0};
 $('#wetness').oninput=e=>{ink.wet=+e.target.value/100;$('#wetRead').textContent=e.target.value};
 $('#brush').oninput=e=>{ink.brush=+e.target.value;$('#brushRead').textContent=e.target.value};
@@ -275,9 +275,9 @@ function drawLoci(){
 }
 function drawInk(t){
   if(t-ink.simAt>28){stepInk();ink.simAt=t}
-  const off=document.createElement('canvas');off.width=IW;off.height=IH;const ox=off.getContext('2d'),im=ox.createImageData(IW,IH),d=im.data;
+  const im=inkCtx.createImageData(IW,IH),d=im.data;
   for(let y=0;y<IH;y++)for(let x=0;x<IW;x++){const i=x+y*IW,k=i*4,grain=((x*17+y*31+x*y*3)%19)/19,pg=ink.p[i],water=ink.w[i];const paper=239-grain*10;d[k]=Math.max(10,paper-pg*218-water*7);d[k+1]=Math.max(12,paper-3-pg*214-water*5);d[k+2]=Math.max(16,paper-8-pg*202);d[k+3]=255}
-  ox.putImageData(im,0,0);ctx.clearRect(0,0,W,H);ctx.imageSmoothingEnabled=true;ctx.drawImage(off,0,0,W,H);
+  inkCtx.putImageData(im,0,0);ctx.clearRect(0,0,W,H);ctx.imageSmoothingEnabled=true;ctx.drawImage(inkCanvas,0,0,W,H);
   if(ink.trace){ctx.save();ctx.globalAlpha=.10;ctx.fillStyle='#36505b';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='900 '+Math.min(W,H)*.45+'px "Noto Serif CJK SC","Songti SC",serif';ctx.fillText('永',W/2,H/2);ctx.restore()}
 }
 function dataPositions(){
