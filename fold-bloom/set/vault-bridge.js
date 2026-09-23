@@ -68,7 +68,7 @@ async function refreshButtons(){
     await Promise.all(blocks.map((block,index)=>decorateBlock(block,index,state)));
     const ride=document.getElementById('journeyBtn'),entries=state?.set?.entries||[],setId=state?.set?.id;
     if(ride){
-      if(setId&&entries.length){const q=new URLSearchParams({set:setId,return:location.pathname+location.search});ride.dataset.href='../live/?'+q.toString();ride.disabled=false;ride.title='Ride this exact authored set in LIVE'}
+      if(setId&&entries.length){const q=new URLSearchParams({set:setId,return:location.pathname+location.search}),target=new URL('../live/',location.href);target.search=q.toString();ride.dataset.href=target.href;ride.disabled=false;ride.title='Ride this exact authored set in LIVE'}
       else{delete ride.dataset.href;ride.disabled=true;ride.title='Add at least one source first'}
     }
     document.documentElement.dataset.localVault=syntheticDemo?'synthetic':'ready';
