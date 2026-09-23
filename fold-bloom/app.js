@@ -4,6 +4,7 @@ import {decodeExperienceSet,encodeExperienceSet} from './experience-set/experien
 import {normalizeActive,supportFor,defaultBloomProjection,routeFor,foldRoute,projectionSpec,identityDescriptor} from './instrument-support.js';
 
 const $=s=>document.querySelector(s);
+document.documentElement.dataset.fbModule='ready';
 const I=globalThis.Interphase;
 if(!I)throw new Error('INTERPHASE 0.2 REQUIRED');
 
@@ -68,6 +69,7 @@ const adapter={
   invoke:(_r,op)=>({ok:false,reason:'DOMAIN_OPERATION_OWNED_BY_HOST:'+op})
 };
 const host=I.createHost(adapter,{id:'FOLD_BLOOM',projection:'GLYPH',projections:projectionSpec()});
+document.documentElement.dataset.fbHost='ready';
 
 function returnFrames(){try{const x=JSON.parse(sessionStorage.getItem(RETURN_KEY)||'[]');return Array.isArray(x)?x:[]}catch(_){return[]}}
 function writeReturnFrames(xs){try{sessionStorage.setItem(RETURN_KEY,JSON.stringify(xs.slice(-12)))}catch(_){}}
@@ -243,5 +245,5 @@ document.querySelectorAll('[data-op]').forEach(b=>b.onclick=()=>{
 });
 document.querySelectorAll('[data-proj]').forEach(b=>b.onclick=()=>{try{launchProjection(b.dataset.proj)}catch(err){toast(err.message)}});
 
-syncSetIdentity();syncHost({resetProjection:true});await refreshVault();render();
+syncSetIdentity();syncHost({resetProjection:true});await refreshVault();render();document.documentElement.dataset.fbReady='ready';
 window.FoldBloomInstrument={host,state:()=>({active:clone(active),interphase:host.snapshot(),operation,support:supportFor(active)}),support:()=>supportFor(active),bindLastSet,render};
