@@ -10,6 +10,7 @@ import {parseLocalAudioMeta,localDisplayName} from './media-meta.js';
 import {groupLocalInputs,parseTextSidecar,parsePlaylistText} from './sidecar-text.js';
 import {sourceBundleFromMeta} from './source-bundle.js';
 import {normalizeRideProfile,profileKey} from '../live/visual-worlds.js';
+import {compileEventTape,toBeatSaberV4Draft} from '../beat/event-tape.js';
 
 const $=s=>document.querySelector(s);
 const gl=$('#field'),overlay=$('#overlay'),audio=$('#audio'),drop=$('#drop');
@@ -390,6 +391,7 @@ $('#useRide').onclick=()=>{
 };$('#useRead').onclick=openReadfield;$('#useCompose').onclick=()=>openSurface('../two-dial/?pulse=1');
 const rideTune=(id,key,scale=100)=>{const el=$(id);if(!el)return;el.oninput=e=>{rideProfile=normalizeRideProfile({...rideProfile,[key]:Number(e.target.value)/scale});saveRideProfile(false)};el.onchange=()=>saveRideProfile(true)};
 rideTune('#rideSolid','solidity');rideTune('#rideImmersion','immersion');rideTune('#rideDrop','dropGain');rideTune('#rideText','textOffset');$('#useAtlas').onclick=openAtlas;$('#useMap').onclick=()=>{toggleUse(false);$('#export').click()};
+$('#useBeat').onclick=()=>{if(!map)return;try{const sourceId=fileMeta?.hash?('sha256:'+fileMeta.hash):sourcePinKey();const eventTape=compileEventTape(map,{sourceId});const beatSaberV4Draft=toBeatSaberV4Draft(eventTape);const blob=new Blob([JSON.stringify({eventTape,beatSaberV4Draft},null,2)],{type:'application/json'}),link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download=`fold-bloom-beat-tape-${Date.now()}.json`;link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);toggleUse(false);toast('BEAT TAPE + BEAT SABER V4 DRAFT EXPORTED')}catch(error){toast(error?.message||'BEAT TAPE EXPORT FAILED')}};
 $('#transport').onclick=async()=>{stopIdle(true);if(!audio.src)return;if(audio.paused)await audio.play();else audio.pause()};
 audio.onplay=()=>{$('#transport').textContent='PAUSE';publishTransport(true)};audio.onpause=()=>{$('#transport').textContent='PLAY';publishTransport(true)};audio.ontimeupdate=()=>publishTransport(false);
 $('#export').onclick=()=>{if(!map)return;const packet={kind:'FOLD_BLOOM_AUDIO_MAP',created:new Date().toISOString(),sourceBundle:fileMeta?.bundle||null,timedText:fileMeta?.timedText||null,map,glyph:glyphDesc||audioGlyphDescriptor(map,fileMeta||{}),annotations:{schema:STREAM_LENS_SCHEMA,pins:normalizePins(pins,sourcePinKey())},addressedMessage:addressedReturn(),rideProfile:{...rideProfile}},b=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`fold-bloom-audio-map-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
