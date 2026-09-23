@@ -54,14 +54,14 @@
       "head": "FIELD INDEX 0.7 / FOCUS + READFIELD + TRACE VERIFY",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one manifest route identity. FIELD focuses routes and exposes OPEN/READ/LENS/TRACE/COMPARE/RETURN; exact constraint filtering remains internal machinery rather than a second public reading product. TRACE / VERIFY stays focus-bound and evidence-only; READ hands selected/page material into canonical READFIELD with exact RETURN."
+      "retained_function": "Fast repo re-entry around one manifest route identity. FIELD focuses routes and exposes OPEN/READ/LENS/TRACE/COMPARE/RETURN; exact constraint filtering remains internal machinery rather than a second public reading product. TRACE / VERIFY stays focus-bound and evidence-only; READ hands selected/page material into canonical READFIELD with exact RETURN. INTERPHASE 0.2 now exposes that same route focus through the shared host protocol; FIELD remains the route/selection authority."
     },
     {
       "lineage": "scale-lens",
       "head": "SCALE LENS RC11.2 + LensState 0.2 + G2 real-use-1",
       "state": "STABLE + REAL_USE_PROVED + G2_HARDENED + FOVEATION_PARKED",
       "route": "/fold-bloom/lens/",
-      "retained_function": "Portable ◎ Lens remains refraction-only over host selection: object → aperture → view/stack → DEEP LAB? → RETURN. Real-use pass 1 closes an authority leak by rebasing RETURN when the host selects a new object, removes unavailable generic transforms, suppresses duplicate Lens controls inside Scale Studio, and unifies direct Studio exit labeling. Identity and exact caller RETURN remain proved; PLAIN remains default and FOVEATE stays parked.",
+      "retained_function": "Portable ◎ Lens remains refraction-only over host selection: object → aperture → view/stack → DEEP LAB? → RETURN. Real-use pass 1 closes an authority leak by rebasing RETURN when the host selects a new object, removes unavailable generic transforms, suppresses duplicate Lens controls inside Scale Studio, and unifies direct Studio exit labeling. Identity and exact caller RETURN remain proved; PLAIN remains default and FOVEATE stays parked. INTERPHASE 0.2 adapts the existing ScaleLensSpatialAPI/LensState snapshot without creating a second Lens state.",
       "evidence": [
         "/control/LENS_G1_PROOF_SEAL_2026-09-21.json",
         "/control/FIELD_ACTIVATION_LAW.json",
@@ -77,7 +77,7 @@
       "head": "READFIELD / RSVP 0.8 · FOCUS LENS + APERTURE focus kernel",
       "state": "UTILITY / READER_FIRST / MERGED_ACTIVE_CANDIDATE",
       "route": "/docs/",
-      "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. PLAIN remains the default geometry-free performance baseline; FOCUS optionally projects AXIAL/LISTEN address+aperture rings, a Triangle-derived center frame, LISTEN FIELD PULSE and an existing Atlas glyph witness around the same cursor; MIN retains ring + ORP essentials. Instrument range is 60–6000 WPM with a 10 ms dwell floor; long-source structure uses 72 evenly sampled witnesses rather than the first 40 only. No audio/glyph authority moves into READFIELD.",
+      "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. PLAIN remains the default geometry-free performance baseline; FOCUS optionally projects AXIAL/LISTEN address+aperture rings, a Triangle-derived center frame, LISTEN FIELD PULSE and an existing Atlas glyph witness around the same cursor; MIN retains ring + ORP essentials. Instrument range is 60–6000 WPM with a 10 ms dwell floor; long-source structure uses 72 evenly sampled witnesses rather than the first 40 only. No audio/glyph authority moves into READFIELD. INTERPHASE 0.2 adapts the existing Aperture cursor as shared address/focus state; READFIELD remains text/source authority.",
       "evidence": [
         "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
         "/control/READFIELD_CONVERGENCE_2026-09-22.json",
@@ -140,10 +140,10 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM · EXPERIENCE SET 0.1 / SET 0.1.1 + local vault / JOURNEY RIDE 0.1.2 shareable seed witness / LIVE 0.13 / LISTEN 0.6 / GLYPH ATLAS 0.2 / TWO DIAL 0.10.3 / ECOLOGY 0.2",
-      "state": "ACTIVE_CANDIDATE_FAMILY",
+      "head": "FOLD//BLOOM · ONE INSTRUMENT 0.1 / INTERPHASE 0.2 host · SET 0.1.1 / JOURNEY 0.1.2 / LIVE 0.13 / LISTEN 0.6",
+      "state": "ACTIVE_CANDIDATE_UNIFIED_DOORWAY",
       "route": "/fold-bloom/",
-      "retained_function": "One exact source can be selected once, remain byte-identifiable across SET/LISTEN/JOURNEY/LIVE, and never leak raw media into set/share state. LISTEN phone gestures now preserve one continuous ADDRESS/APERTURE vocabulary and exact source hash can cross into LIVE through the same-browser vault. Multiple exact refs form an Experience Set; JOURNEY derives a continuous journey address beside native source clocks. The recovered GHOST → FORGE → WILL witness remains a bottom DEMO, not the canonical entry surface.",
+      "retained_function": "The canonical /fold-bloom/ entry is now one instrument doorway rather than a catalogue of peer apps. INTERPHASE 0.2 owns focus/projection/RETURN mechanics while domain truth stays where it already lives: exact audio bytes in the local media vault, LISTEN as source cartographer, SET as ordered/seam composition authority, READFIELD as text reader, and LIVE as embodied single-source ride. The shell stores only a session-local active-object pointer/handoff. Typing can produce an immediate unbound deterministic glyph; binding creates an exact text/audio address. FOLD from AUDIO commits an exact source ref into SET and changes the active object to that SET without duplicating bytes. SET RIDE remains the current Journey 0.1.2 seam sequencer and now refuses a mismatched set address. The next real convergence is to consume Journey plan/seam law inside LIVE so RIDE means one operation for either one source or a set.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -222,7 +222,11 @@
         "/returns/FOLD_BLOOM_LISTEN_PHONE_CONTINUITY_2026-09-22.json",
         "/tools/fold-bloom-listen-phone-smoke.mjs",
         "/control/confluence/FOLD_BLOOM_FIXED_POINT_WINDDOWN_2026-09-22.json",
-        "/returns/FOLD_BLOOM_WINDDOWN_2026-09-22.json"
+        "/returns/FOLD_BLOOM_WINDDOWN_2026-09-22.json",
+        "/lib/interphase-core.js",
+        "/fold-bloom/instrument-support.js",
+        "/fold-bloom/tests/instrument-support.test.mjs",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/185"
       ],
       "experimental": [
         {
@@ -256,25 +260,26 @@
       "merge_sha": "7734a77b1961335eb59bf142e499573a6a74c2b2",
       "latest_return": "/returns/FOLD_BLOOM_LISTEN_PHONE_CONTINUITY_2026-09-22.json",
       "next_executable": {
-        "id": "fold-bloom-lived-tuning-gate",
-        "state": "HOLD_FOR_HUMAN_USE",
-        "objective": "Use the exact recovered tracks locally across SET / LISTEN / LIVE / optional Journey and return only lived evidence. No new engine or ontology is authorized by current state.",
-        "human_questions": [
-          "Does SET remain the clearest compositional surface?",
-          "Does Journey earn continued use or remain secondary?",
-          "Are IMMERSION and DROP GAIN perceptually legible at their current defaults/ranges?",
-          "With a loaded track, should synth default active, reduced, muted, or consequence-only?",
-          "Do LIVE terrain/drop/world/branch mechanics feel materially better under real tracks?",
-          "Would one-tap reuse of already-bound exact local tracks inside LISTEN/LIVE save enough friction to justify a small prototype selector?"
-        ],
+        "id": "fold-bloom-live-set-fusion",
+        "state": "READY_AFTER_UNIFIED_DOORWAY",
+        "objective": "Make RIDE over an Experience Set execute the existing Journey plan and seam laws inside LIVE, preserving each child source identity/native clock plus one set-level journey address and RETURN. Demote Journey from destination to traversal library/debug surface once this is proved.",
         "preserve": [
-          "GHOST → FORGE → WILL stays bottom DEMO, never START HERE",
-          "private track bytes remain local unless explicitly authorized for publication",
-          "SET = composition; LISTEN = source editor/cartographer; LIVE = embodied ride; Journey = secondary traversal",
-          "technical continuity issue #157 remains closed"
+          "no second source store or copied raw media",
+          "child source identity and source time remain canonical",
+          "CUT / DISSOLVE / CARRY / RESET / RETURN remain explicit authored seam laws",
+          "LISTEN remains MAP/cartography authority; SET remains composition authority; LIVE remains embodied projection",
+          "GHOST → FORGE → WILL remains a bottom witness/demo, never canonical START HERE",
+          "Journey code is preserved as donor/library until LIVE-set equivalence is verified"
         ],
-        "resume_from": "/control/confluence/FOLD_BLOOM_FIXED_POINT_WINDDOWN_2026-09-22.json",
-        "law": "Do not convert unresolved feel/tuning questions into feature work without direct lived evidence."
+        "acceptance": [
+          "RIDE on AUDIO enters LIVE with the exact source",
+          "RIDE on SET enters the same LIVE experience rather than a separate product identity",
+          "source boundary changes preserve exact child identity and expose sourceTime + journeyTime",
+          "CARRY retains only named projection/profile residue; RESET clears it; CUT is explicit; DISSOLVE is bounded",
+          "one final RETURN identifies the set, ordered child refs, seam choices, path and authored operations",
+          "missing local bytes fail explicitly without replacing source identity"
+        ],
+        "law": "Unify the doorway and operation; do not merge domain truth or rewrite the engines into one blob."
       }
     },
     {
@@ -654,7 +659,11 @@
     "body_fit_research": "/control/research/BODY_FIT_SENSOR_FUSION_2026-09-22.md",
     "body_fit_validation": "/control/BODY_FIT_VALIDATION_2026-09-22_V03.json",
     "body_fit_return_patina": "/control/research/BODY_FIT_RETURN_PATINA_2026-09-22.md",
-    "body_fit_return": "/returns/BODY_FIT_RETURN_PATINA_2026-09-22.json"
+    "body_fit_return": "/returns/BODY_FIT_RETURN_PATINA_2026-09-22.json",
+    "interphase_runtime": "/lib/interphase-core.js",
+    "interphase_extension": "/manifest.json",
+    "interphase_convergence": "/control/confluence/INTERPHASE_EXTENSION_2026-09-23.md",
+    "interphase_proof_donor": "/spikes/003-one-instrument/"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
@@ -807,5 +816,13 @@
     "sleeper_authority": "Exact v2-era ONE RETURN City Engine source restored as Sleeper authority; ASCII POV 0.8 preserved as superseded derivative."
   },
   "last_media_curator": "/control/HERMES_MEDIA_CURATOR.json",
-  "pure_intention": "/control/PURE_INTENTION.json"
+  "pure_intention": "/control/PURE_INTENTION.json",
+  "last_interphase_convergence": {
+    "version": "0.2",
+    "state": "MERGED_VERIFIED_EXPERIMENT",
+    "pr": 184,
+    "merge_sha": "b4324536768313f199300f2f59801b2697e31df9",
+    "verified_pr_run": 35815194125,
+    "rule": "Shared protocol, not a new sovereign head. Hosts retain domain truth and authority."
+  }
 }
