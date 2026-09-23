@@ -5,10 +5,10 @@ const R=require('../lib/interphase-recovery.js');
 const assert=(x,m)=>{if(!x)throw new Error(m)};
 
 const contract=JSON.parse(fs.readFileSync(path.join(__dirname,'../control/INTERPHASE_MAPPING_CONTRACT.json'),'utf8'));
-const schema=JSON.parse(fs.readFileSync(path.join(__dirname,'../control/schemas/interphase-recovery-packet.schema.json'),'utf8'));
+const schema=JSON.parse(fs.readFileSync(path.join(__dirname,'../control/schemas/interphase-recovery-packet.schema.json'),'utf8'));\nconst registry=JSON.parse(fs.readFileSync(path.join(__dirname,'../control/INTERPHASE_CORRESPONDENCE_REGISTRY.json'),'utf8'));
 assert(contract.schema==='0xxx0/interphase-mapping-contract/v0.1','mapping contract schema');
 assert(contract.laws.some(x=>/Identity is not a coordinate/.test(x)),'identity law');
-assert(schema.properties?.artifacts&&schema.properties?.claims,'recovery schema object classes');
+assert(schema.properties?.artifacts&&schema.properties?.claims,'recovery schema object classes');\nassert(registry.schema==='0xxx0/interphase-correspondence-registry/v0.1','correspondence registry schema');\nconst hostIds=registry.mappings.map(x=>x.host_id);assert(new Set(hostIds).size===hostIds.length,'duplicate host mapping');\nassert(hostIds.includes('READFIELD')&&hostIds.includes('ROOM_STRUCTURAL_DOM')&&hostIds.includes('RECOVERY_PACKET')&&hostIds.includes('PHYSICAL_MAKE'),'registry missing key hosts');\nassert(registry.mappings.every(x=>x.canonical_truth&&x.facets?.SOURCE&&x.facets?.FOCUS&&x.facets?.RETURN&&Array.isArray(x.residue)),'registry mapping incomplete');
 
 const formMapping={
   id:'form-correspondence-demo',
@@ -137,5 +137,5 @@ console.log(JSON.stringify({
   input_identity:views.map(x=>({projection:x.placement.region,node:x.node_id,facet:x.facet_id})),
   lens:{get_put:lens.get_put,put_get:lens.put_get},
   operation_commutes:square.pass,
-  recovery_refs:adapter.refs().length
+  recovery_refs:adapter.refs().length,\n  correspondence_hosts:hostIds.length
 },null,2));
