@@ -15,9 +15,36 @@ already exist in this repo.**
 | **2-D, radial** | regular polygon (hexagon) | the recovered radial generator | fossil / partial |
 | **1-D, linear** | the reading line | `recovery/rsvp/` · READFIELD | LIVE 0.8 |
 
-**6 faces at 60° in a plane IS a regular hexagon.** A cube's six face-normals, projected,
-sit at even angular intervals. That is the mechanical reason a cube "generates a regular
-polygon" — not an analogy. The polygon is the cube's 2-D shadow.
+**6 faces at 60° in a plane IS a regular hexagon** — but that is a **chosen chart, not a
+geometric consequence of the cube.**
+
+> ⚠️ **CORRECTION 2026-09-23 (external review, verified).** An earlier version of this document
+> claimed "a cube's six face-normals, projected, sit at even angular intervals. That is the
+> mechanical reason a cube *generates* a regular polygon." **That is false and it has been
+> checked.**
+>
+> A cube has **three opposed pairs along orthogonal axes**. Projected onto any plane the
+> normals collapse to **4 distinct directions at 90°, with 2 collapsing to the origin** —
+> verified on XY, XZ and YZ. A regular hexagon is **6 directions at 60°**. The projection of
+> cube normals is never that.
+>
+> **What is actually true:** a six-facet canon can *carry* several compatible charts —
+>
+> ```
+> SIX-FACET CANON
+>    ├─ radial 6-sector chart   (chosen: 6 at 60°)
+>    ├─ cube / net chart        (chosen: adjacency + hinge + orientation metadata)
+>    └─ linear six-panel chart  (chosen: six named slots in a row)
+> ```
+>
+> The radial chart is a **deliberate arrangement of six identities**, not a shadow of the cube.
+> It is still a valid projection — it is simply not *derived* from the cube, and it needs its
+> own adjacency and orientation metadata rather than inheriting it.
+>
+> **Why this correction matters beyond the arithmetic:** the original claim smuggled a chart in
+> as a law, which would have made the cube look canonical when it is one carrier among several.
+> A number that cannot name its source file is not allowed on a page; the same rule applies to a
+> geometry that cannot name its derivation.
 
 ## THE SIX ARE SEMANTIC, NOT DECORATIVE
 

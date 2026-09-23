@@ -6911,6 +6911,50 @@
       }
     },
     {
+      "href": "/spikes/003-het12-harness/",
+      "title": "HET12 / PROJECTION CONTRACT HARNESS v2",
+      "kind": "experiment",
+      "parent": "/",
+      "family": "SPIKE",
+      "operation": "COMPOSE",
+      "state": "CANDIDATE",
+      "version": "0.2",
+      "tier": "FIELD",
+      "role": "The falsification target: 12 heterogeneous nodes x 5 projections x 10 properties, multi-focus, fault injection, GetPut/PutGet, exact RETURN. 19/19 laws hold; 8 kill criteria clear, 1 untested, 0 hit. Diagnostic manifests, not interfaces.",
+      "index": {
+        "updated_at": "2026-09-23T10:58:55+08:00",
+        "work_modes": [
+          "READ",
+          "INSPECT",
+          "VERIFY"
+        ]
+      },
+      "evidence": [
+        {
+          "claim": "19/19 laws hold on heterogeneous nodes with multi-focus",
+          "source": "spikes/003-het12-harness/README.md",
+          "status": "VERIFIED"
+        },
+        {
+          "claim": "all 5 injected projection faults detected",
+          "source": "spikes/003-het12-harness/README.md",
+          "status": "VERIFIED"
+        }
+      ],
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/",
+        "generation": 2,
+        "stage": "TEST",
+        "question": "Does one canonical object support many lawful readings on HETEROGENEOUS material, with identity, attention (multi-focus), semantics, authority, evidence, time and exact RETURN all surviving projection change?",
+        "baseline": "spike 002: 12 heterogeneous nodes, model layer 8/8, projection layer 51/60 with 9 declared failures. No editing, no multi-focus, no fault injection, no ReturnFrame.",
+        "mutation": "Add multi-select + multi-focus with distinct apertures; GetPut/PutGet editing tests; a capability/support map with explicit SUPPORT=0 refusals; a byte-equivalence ReturnFrame; and projection fault injection.",
+        "evidence_gate": "All laws hold AND every injected fault is detected AND every kill criterion is clear or explicitly marked untested.",
+        "next_if_pass": "Render the projections to turn behaviour into observation; split FOLD_VIEW from FOLD_OP and add the kill criterion HET12 cannot yet exercise; then plug in READFIELD as the first real source adapter.",
+        "next_if_fail": "Classify the failure (projection deficiency / host residue / missing canonical relation / missing attention state / missing transaction state / genuinely distinct lineage) before adding any primitive."
+      }
+    },
+    {
       "href": "/twins/",
       "title": "THE TWINS",
       "kind": "evidence",

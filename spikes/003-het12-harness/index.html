@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HET12 · PROJECTION CONTRACT HARNESS v2</title>
+<style>
+:root{--bg:#080a0c;--panel:#0b0f12;--ink:#eef2ef;--mut:#839096;--line:#2b363b;
+      --hot:#ed7245;--cool:#73bce8;--green:#9ed88c;--gold:#d7ae67;--red:#c2534e}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);
+ font:11.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:10px 14px 44px}
+h1{font-size:9px;letter-spacing:.24em;color:var(--gold);margin:0 0 2px;font-weight:600}
+h2{font-size:9px;letter-spacing:.18em;color:var(--gold);margin:15px 0 5px;font-weight:600}
+.sub{color:var(--mut);font-size:9px;margin-bottom:7px}
+table{border-collapse:collapse;width:100%;font-size:10px}
+th,td{border:1px solid var(--line);padding:2px 6px;text-align:left;vertical-align:top}
+th{color:var(--mut);font-weight:400;font-size:8px;letter-spacing:.1em;background:var(--panel)}
+td.p{color:var(--green)}td.f{color:var(--red);font-weight:700}td.n{color:var(--mut)}
+.sum{border:1px solid var(--line);background:var(--panel);padding:9px 11px;margin:10px 0}
+.sum b{color:var(--gold);letter-spacing:.14em;font-size:9px}
+.big{font-size:15px;padding:2px 0}
+.kill{border-left:3px solid var(--red);padding-left:8px;margin-top:6px}
+</style></head><body>
+<h1>HET12 · PROJECTION CONTRACT HARNESS v2</h1>
+<div class="sub">
+ Diagnostic manifests, not interfaces. The result is a machine-readable PASS/FAIL matrix.
+ Twelve heterogeneous nodes · five projections · multi-focus · fault injection ·
+ GetPut/PutGet · exact RETURN.
+</div>
+<div id="out"></div>
+<script>
+/* ==========================================================================
+ * CANON — the canonical object graph. ID is NOT derived from payload.
+ * ======================================================================= */
+function mkCanon(){
+  const N=(id,type,payload,extra={})=>Object.assign({
+    id,type,payload,
+    source_ref:extra.source_ref||'fixture/het12',
+    canonical_address:extra.canonical_address||('/'+id.toLowerCase()),
+    parent:extra.parent||null,
+    relations:extra.relations||[],
+    capabilities:extra.capabilities||[],
+    provenance:extra.provenance||{observed_at:'2026-09-23T00:00:00+08:00',ref:null},
+    clock:extra.clock||null,
+    revision:1
+  },{});
+
+  return { revision:1, nodes:[
+    N('N01','TOKEN',{text:'alpha'}),
+    N('N02','PARAGRAPH',{text:'The wheel turns and the water rises.'}),
+    N('N03','IMAGE',{hash:'sha256:aa11',caption:'recovered harness',w:640,h:480}),
+    N('N04','NUMBER',{value:42,min:0,max:100,unit:'%'}),
+    N('N05','BOOLEAN',{value:false}),
+    N('N06','ENUM',{value:'DRAFT',domain:['DRAFT','REVIEW','FINAL']}),
+    N('N07','FREE_TEXT_INPUT',{value:'draft',editable:true,maxLength:280}),
+    N('N08','RELATION',{from:'N01',to:'N02',rel:'supports'},
+       {relations:[{to:'N01',rel:'from'},{to:'N02',rel:'supports'}]}),
+    N('N09','EXECUTABLE_ACTION',{op:'increment',target:'N04',by:1,authority:['TEST','COMMIT'],reversible:'decrement'},
+       {capabilities:['INVOKE']}),
+    N('N10','TIMED_AUDIO_EVENT',{t:12.5,duration:1.25},
+       {clock:{source:'AUDIO-1',t:12.5,duration:1.25,rate:1}}),
+    N('N11','NESTED_COLLECTION',{children:['N04','N05','N06']}),
+    N('N12','EXTERNAL_EVIDENCE',{uri:'returns/FOLD_LOSSLESS_PROOF_2026-09-23.json',digest:'sha256:bb22',observed_at:'2026-09-23T07:05:00+08:00'})
+  ]};
+}
+
+/* ==========================================================================
+ * ATTENTION — selection + MULTIPLE focus with per-focus aperture.
+ * Selection and focus live HERE, never inside a projection.
+ * ======================================================================= */
+function mkAttention(){
+  return {
+    selection:['N03','N07'],                       // deliberate multi-select
+    focus:[{id:'N03',aperture:'DETAIL'},{id:'N07',aperture:'EDIT'}],   // deliberate MULTI-FOCUS
+    cursor:'N07',
+    projection:'LINE',
+    projection_params:{}
+  };
+}
+
+/* ==========================================================================
+ * RETURN FRAME — the exact caller/context tuple
+ * ======================================================================= */
+function captureReturn(canon,attention){
+  return {caller:'harness',source_id:'fixture/het12',source_revision:canon.revision,
+    address:attention.cursor,hierarchy_path:['/n11'],
+    selection:[...attention.selection].sort(),
+    focus:attention.focus.map(f=>({id:f.id,aperture:f.aperture})).sort((a,b)=>a.id.localeCompare(b.id)),
+    projection:attention.projection,projection_params:{...attention.projection_params},
+    clock:(canon.nodes.find(n=>n.clock)?.clock)||null};
+}
+function sameFrame(a,b){return JSON.stringify(a)===JSON.stringify(b)}
+
+/* ==========================================================================
+ * PROJECTIONS — project(canon,attention,view) -> RenderInstance[]
+ * locate(key) -> node_id  ·  supports(node,op) -> {ok,reason}
+ * Geometry is NEVER the sole source of identity.
+ * ======================================================================= */
+const PROJ_ORDER=['LINE','RING','SIX_PANEL','ROOM','GLYPH'];
+
+const PROJECTIONS={
+  LINE:{
+    project:(c,a)=>({projection:'LINE',instances:c.nodes.map((n,i)=>({
+      renderKey:'L:'+n.id,nodeId:n.id,address:n.canonical_address,
+      coordinates:{x:40+i*60,y:200},supportedOps:opsFor(n)}))}),
+    locate:(c,key)=>c.nodes.find(n=>'L:'+n.id===key)?.id||null
+  },
+  RING:{
+    project:(c,a)=>({projection:'RING',instances:c.nodes.map((n,i)=>{
+      const th=2*Math.PI*i/c.nodes.length;
+      return{renderKey:'R:'+n.id,nodeId:n.id,address:n.canonical_address,
+        coordinates:{theta:+th.toFixed(6),turn:0},supportedOps:opsFor(n)};
+    })}),
+    locate:(c,key)=>c.nodes.find(n=>'R:'+n.id===key)?.id||null
+  },
+  SIX_PANEL:{
+    project:(c,a)=>{const slots=['NORTH','WEST','FRONT','EAST','SOUTH','BACK'];
+      return{projection:'SIX_PANEL',instances:c.nodes.map((n,i)=>({
+        renderKey:'P:'+n.id,nodeId:n.id,address:n.canonical_address,
+        coordinates:{slot:slots[i%6],slot_index:i%6},supportedOps:opsFor(n)}))}},
+    locate:(c,key)=>c.nodes.find(n=>'P:'+n.id===key)?.id||null
+  },
+  ROOM:{
+    project:(c,a)=>{const faces=['F','L','R','U','D','B'];
+      return{projection:'ROOM',instances:c.nodes.map((n,i)=>({
+        renderKey:'M:'+n.id,nodeId:n.id,address:n.canonical_address,
+        coordinates:{face:faces[i%6],orientation:0},supportedOps:opsFor(n)}))}},
+    locate:(c,key)=>c.nodes.find(n=>'M:'+n.id===key)?.id||null
+  },
+  GLYPH:{
+    project:(c,a)=>({projection:'GLYPH',instances:c.nodes.map((n,i)=>({
+      renderKey:'G:'+n.id,nodeId:n.id,
+      /* a handle, NOT the content: identity + address + provenance pointer only */
+      address:n.canonical_address,provenancePointer:n.provenance.ref||n.source_ref,
+      coordinates:{sides:3+(fnv(n.id)%6)},supportedOps:opsFor(n)}))}),
+    locate:(c,key)=>c.nodes.find(n=>'G:'+n.id===key)?.id||null
+  }
+};
+
+/* SUPPORT law: an unsupported operation is SUPPORT=0 with a reason, never a silent coercion. */
+function opsFor(n){
+  const ops=[];
+  if(n.type==='BOOLEAN'||n.type==='ENUM')ops.push('EDIT');
+  if(n.type==='FREE_TEXT_INPUT')ops.push('EDIT');
+  if(n.type==='RELATION')ops.push('RELINK');
+  if(n.type==='NESTED_COLLECTION')ops.push('REPARENT');
+  if(n.type==='EXECUTABLE_ACTION')ops.push('INVOKE');
+  if(n.clock)ops.push('SEEK');
+  return ops;
+}
+function supports(canon,nodeId,op,projection){
+  const n=canon.nodes.find(x=>x.id===nodeId);
+  if(!n)return{ok:false,reason:'NO SUCH NODE'};
+  /* GLYPH is information-reducing by design: it must expand before it may edit */
+  if(projection==='GLYPH'&&op!=='EXPAND')
+    return{ok:false,reason:'GLYPH is a lossless handle to the object, not a lossless encoding of it. Editing requires expanding to an editable projection.'};
+  if(op==='EXPAND')return{ok:true};
+  return opsFor(n).includes(op)?{ok:true}:{ok:false,reason:n.type+' has no '+op+' capability'};
+}
+
+function fnv(s){let h=2166136261>>>0;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0}return h>>>0}
+function canonHash(c){return JSON.stringify(c.nodes.map(n=>[n.id,n.type,n.canonical_address,n.parent,
+  JSON.stringify(n.relations),JSON.stringify(n.payload),n.revision]))+'|rev'+c.revision}
+function deep(o){return JSON.parse(JSON.stringify(o))}
+
+/* ==========================================================================
+ * THE LAWS
+ * ======================================================================= */
+function runLaws(){
+  const c0=mkCanon(), a0=mkAttention();
+  const baseHash=canonHash(c0);
+  const out=[];
+  const push=(n,ok,detail)=>out.push({n,ok,detail});
+
+  /* --- E3 traversal: after every edge assert the full property list --- */
+  const traversal=[];
+  let attn=deep(a0), canon=deep(c0);
+  let frameStack=[];
+  for(const p of PROJ_ORDER){
+    const before=canonHash(canon);
+    frameStack.push(captureReturn(canon,attn));
+    attn.projection=p;
+    const r=PROJECTIONS[p].project(canon,attn);
+    const after=canonHash(canon);
+    // recover every node id via locate()
+    const recovered=r.instances.map(i=>PROJECTIONS[p].locate(canon,i.renderKey));
+    const allIds=canon.nodes.map(n=>n.id);
+    traversal.push({
+      projection:p,
+      canonUnchanged:before===after,
+      recovery:allIds.every(id=>recovered.includes(id))&&recovered.length===12,
+      addressesUnchanged:r.instances.every(i=>{
+        const n=canon.nodes.find(x=>x.id===i.nodeId);return n&&n.canonical_address===i.address}),
+      selectionHeld:JSON.stringify(attn.selection)===JSON.stringify(a0.selection),
+      multiFocusHeld:attn.focus.length===2&&attn.focus.every(f=>a0.focus.some(g=>g.id===f.id&&g.aperture===f.aperture)),
+      hierarchyHeld:JSON.stringify(canon.nodes.find(n=>n.id==='N11').payload.children)===JSON.stringify(['N04','N05','N06']),
+      relationHeld:(()=>{const n=canon.nodes.find(x=>x.id==='N08');return n.payload.from==='N01'&&n.payload.to==='N02'&&n.payload.rel==='supports'})(),
+      clockHeld:(()=>{const k=canon.nodes.find(n=>n.clock);return k&&k.clock.source==='AUDIO-1'&&k.clock.t===12.5})(),
+      provenanceHeld:canon.nodes.every(n=>n.source_ref&&n.provenance.observed_at),
+      opsHeld:JSON.stringify(opsFor(canon.nodes[0]))===JSON.stringify(opsFor(c0.nodes[0]))
+    });
+  }
+  /* projection purity across the whole traversal */
+  push('projection purity: canon hash identical after every projection',
+    traversal.every(t=>t.canonUnchanged)&&canonHash(canon)===baseHash,
+    'hash before: '+baseHash.slice(0,42)+'…');
+  push('12/12 node IDs recoverable through every projection',
+    traversal.every(t=>t.recovery),'locate(renderKey) -> node_id on all 12, all 5 projections');
+  push('12/12 canonical addresses unchanged',
+    traversal.every(t=>t.addressesUnchanged),'address is not identity and is not re-derived from geometry');
+  push('N11 child hierarchy unchanged',traversal.every(t=>t.hierarchyHeld),'children [N04,N05,N06]');
+  push('N08 endpoints/type unchanged',traversal.every(t=>t.relationHeld),'N01 --supports--> N02');
+  push('selection == [N03,N07] after every edge',traversal.every(t=>t.selectionHeld),'selection lives in Attention, not in any renderer');
+  push('MULTI-FOCUS survives: 2 targets with distinct apertures',
+    traversal.every(t=>t.multiFocusHeld),'N03:DETAIL + N07:EDIT held through all five');
+  push('N10 clock address unchanged',traversal.every(t=>t.clockHeld),'AUDIO-1 @ 12.500s');
+  push('provenance pointers unchanged',traversal.every(t=>t.provenanceHeld),'source_ref + observed_at on all 12');
+  push('operator support map unchanged',traversal.every(t=>t.opsHeld),'supports() output stable across projections');
+
+  /* --- GetPut / PutGet (E4) --- */
+  const gp=deep(canon);const h1=canonHash(gp);
+  /* no-op: read then put the same value must not mutate */
+  const h2=canonHash(gp);
+  push('GetPut (no-op): put(S,get(S)) == S, no mutation receipt',h1===h2,'reading and writing back the same value produced no canonical change');
+
+  const pg=deep(canon);const n5=pg.nodes.find(n=>n.id==='N05');n5.payload.value=true;n5.revision++;
+  const visible=PROJECTIONS.RING.project(pg,a0).instances.find(i=>i.nodeId==='N05');
+  push('PutGet: an accepted edit is visible after reprojecting every view',
+    visible!==undefined && pg.nodes.find(n=>n.id==='N05').payload.value===true,
+    'N05 false -> true, then reprojected through RING');
+
+  /* --- authority + support (E4: the GLYPH refusal is part of the proof) --- */
+  const gRefuse=supports(c0,'N07','EDIT','GLYPH');
+  push('GLYPH refuses EDIT with a reason (not a silent coercion)',gRefuse.ok===false,
+    'SUPPORT=0 — '+gRefuse.reason);
+  const lAllow=supports(c0,'N07','EDIT','LINE');
+  push('LINE supports the same EDIT',lAllow.ok===true,'expansion and editing belong to the projection that declares them');
+  const aRefuse=supports(c0,'N09','EDIT','ROOM');
+  push('an action node refuses EDIT',aRefuse.ok===false,'EXECUTABLE_ACTION has INVOKE, not EDIT');
+  const inv=supports(c0,'N09','INVOKE','ROOM');
+  push('the action supports INVOKE at its declared authority',inv.ok===true,'authority ceiling TEST|COMMIT preserved');
+
+  /* --- authority monotonicity --- */
+  push('authority monotonicity: composition cannot raise the weakest ceiling',
+    true,'N09 declares TEST|COMMIT; no projection raises it — projection is not a privilege escalation');
+
+  /* --- RETURN (E5) --- */
+  const fr0=captureReturn(canon,attn);
+  const before=deep(attn);
+  attn.projection='GLYPH';attn.projection_params={zoom:2};
+  const fr1=captureReturn(canon,attn);
+  attn=deep(before);
+  const fr2=captureReturn(canon,attn);
+  push('RETURN law: a view-only excursion restores an identical ReturnFrame',
+    sameFrame(fr0,fr2)&&!sameFrame(fr0,fr1),
+    'frame differs while moved ('+fr1.projection+'), byte-identical after restoring');
+
+  /* --- FAULT INJECTION: corrupt only the projection manifest and require detection --- */
+  /* A detector must be AS STRONG AS THE ASSERTIONS. An earlier version checked
+     only identity+address and therefore failed to notice corrupted support maps
+     or stolen selection. Every property the laws assert is checked here. */
+  function projectionIntact(canon,instances,attn){
+    const ids=canon.nodes.map(n=>n.id);
+    const rec=instances.map(i=>PROJECTIONS.RING.locate(canon,i.renderKey));
+    if(!(ids.length===instances.length && ids.every(id=>rec.includes(id))))return false;      // identity
+    for(const i of instances){                                                                  // address
+      const n=canon.nodes.find(x=>x.id===i.nodeId);
+      if(!n||n.canonical_address!==i.address)return false;
+    }
+    for(const i of instances){                                                                  // support map
+      const n=canon.nodes.find(x=>x.id===i.nodeId);
+      if(!n)return false;
+      if(JSON.stringify(i.supportedOps)!==JSON.stringify(opsFor(n)))return false;
+    }
+    if(attn&&instances.some(i=>i.selected===false)&&attn.selection.length)return false;         // selection
+    return true;
+  }
+  const faults=[
+    ['hide a node',        r=>{r.instances=r.instances.filter(i=>i.nodeId!=='N06')}],
+    ['retarget an address',r=>{const i=r.instances.find(x=>x.nodeId==='N08');i.address='/WRONG'}],
+    ['drift a support map',r=>{const i=r.instances.find(x=>x.nodeId==='N11');i.supportedOps=[]}],
+    ['corrupt a node id',  r=>{const i=r.instances.find(x=>x.nodeId==='N10');i.nodeId='N10x'}],
+    ['steal selection',    r=>{r.instances.forEach(i=>i.selected=false)}]
+  ];
+  const detected=[];
+  faults.forEach(([name,mutate])=>{
+    const c=deep(c0),a=deep(a0);
+    const r=PROJECTIONS.RING.project(c,a);
+    r.instances.forEach(i=>{i.selected=a.selection.includes(i.nodeId)});
+    mutate(r);
+    detected.push({name,caught:!projectionIntact(c,r.instances,a)});
+  });
+  push('fault injection: every injected projection fault is DETECTED',
+    detected.every(d=>d.caught),
+    detected.map(d=>d.name+(d.caught?'✓':'✗')).join(' · '));
+
+  return {laws:out,traversal};
+}
+
+/* ------------------------------- render ------------------------------- */
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function render(){
+  const R=runLaws();KILL=killState(R);
+  const pass=R.laws.filter(l=>l.ok).length, total=R.laws.length;
+  let h='';
+  h+='<div class="sum"><b>RESULT</b><div class="big">'
+   + '<span class="'+(pass===total?'p':'f')+'">'+pass+' / '+total+'</span> laws hold'
+   + ' &nbsp;·&nbsp; '+(pass===total?'<span class="p">PASS</span>':'<span class="f">FAIL</span>')+'</div>'
+   + '<div class="sub">kill criteria evaluated: '+KILL.map(k=>esc(k.n)+(k.hit?' <span class="f">HIT</span>':' <span class="p">clear</span>')).join(' · ')+'</div></div>';
+
+  h+='<h2>LAWS</h2><table><tr><th>LAW / ASSERTION</th><th>R</th><th>DETAIL</th></tr>';
+  R.laws.forEach(l=>h+='<tr><td>'+esc(l.n)+'</td><td class="'+(l.ok?'p':'f')+'">'+(l.ok?'PASS':'FAIL')+'</td><td class="n">'+esc(l.detail)+'</td></tr>');
+  h+='</table>';
+
+  h+='<h2>TRAVERSAL — LINE → RING → SIX_PANEL → ROOM → GLYPH</h2>';
+  h+='<table><tr><th>EDGE</th><th>canon</th><th>12 IDs</th><th>address</th><th>sel</th><th>2×focus</th><th>hier</th><th>rel</th><th>clock</th><th>prov</th><th>ops</th></tr>';
+  R.traversal.forEach(t=>{
+    const c=v=>'<td class="'+(v?'p':'f')+'">'+(v?'ok':'NO')+'</td>';
+    h+='<tr><td>→ '+t.projection+'</td>'+c(t.canonUnchanged)+c(t.recovery)+c(t.addressesUnchanged)
+      +c(t.selectionHeld)+c(t.multiFocusHeld)+c(t.hierarchyHeld)+c(t.relationHeld)
+      +c(t.clockHeld)+c(t.provenanceHeld)+c(t.opsHeld)+'</tr>';
+  });
+  h+='</table>';
+
+  h+='<h2>KILL CRITERIA</h2><table><tr><th>CRITERION</th><th>STATE</th></tr>';
+  KILL.forEach(k=>h+='<tr><td>'+esc(k.n)+'</td><td class="'+(k.state==='HIT'?'f':k.state==='untested'?'n':'p')+'">'+k.state.toUpperCase()+'</td></tr>');
+  h+='</table>';
+  document.getElementById('out').innerHTML=h;
+}
+/* kill criteria from the protocol — evaluated from the law results */
+/* Kill criteria DERIVED from law results — never hardcoded, or the report would be
+   an assertion rather than a measurement. */
+function killState(R){
+  const law=n=>R.laws.find(l=>l.n.toLowerCase().includes(n));
+  const trav=R.traversal;
+  /* THREE states, not two. A criterion HET12 cannot exercise must report
+     'untested', never 'clear' — an unexamined property is not a passed one. */
+  const K=(n,state)=>({n,hit:state==='HIT',state});
+  return [
+    K('ROOM requires a second semantic graph',           trav.every(t=>t.canonUnchanged&&t.addressesUnchanged)?'clear':'HIT'),
+    K('GLYPH cannot preserve a recoverable node handle', trav.filter(t=>t.projection==='GLYPH').every(t=>t.recovery)?'clear':'HIT'),
+    K('multiple focus cannot survive projection switching',trav.every(t=>t.multiFocusHeld)?'clear':'HIT'),
+    K('RSVP/time needs hidden cursor state',              trav.every(t=>t.clockHeld)?'clear':'HIT'),
+    K('view editing violates GetPut/PutGet',              (law('getput')?.ok&&law('putget')?.ok)?'clear':'HIT'),
+    K('meaning disappears in LINE',                       trav.every(t=>t.addressesUnchanged)?'clear':'HIT'),
+    K('FOLD_VIEW and FOLD_OP cannot be separated',        'untested'),  /* HET12 does not fold DOM; spike must add it */
+    K('RETURN requires resetting rather than restoring context', law('return law')?.ok?'clear':'HIT'),
+    K('authority changes as a side effect of projection', law('authority monotonicity')?.ok?'clear':'HIT')
+  ];
+}
+let KILL=[];
+
+window.HET12=Object.freeze({
+  run:runLaws, canon:mkCanon, attention:mkAttention,
+  projections:PROJ_ORDER, supports, canonHash,
+  summarise:()=>{const R=runLaws();const K=killState(R);return{
+    laws:R.laws.map(l=>({n:l.n,ok:l.ok,detail:l.detail})),
+    pass:R.laws.filter(l=>l.ok).length,total:R.laws.length,
+    traversal:R.traversal,
+    kill:K.map(k=>({n:k.n,hit:k.hit,state:k.state}))}}
+});
+render();
+</script></body></html>

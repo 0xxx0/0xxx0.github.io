@@ -1,0 +1,27 @@
+{
+  "schema": "0xxx0/claim-correction/v0.1",
+  "id": "CUBE-HEXAGON-CORRECTION-2026-09-23",
+  "at": "2026-09-23T10:58:55+08:00",
+  "action": "CORRECT_THE_RECORD_DO_NOT_DELETE",
+  "claim_under_review": {
+    "where": "control/confluence/ONE_PRIMITIVE_SYNTHESIS_2026-09-23.md",
+    "text": "A cube's six face-normals, projected, sit at even angular intervals. That is the mechanical reason a cube generates a regular polygon.",
+    "asserted_by": "this agent (Hermes), 2026-09-23"
+  },
+  "found_by": "external review (ChatGPT collapse session), which flagged it as an overclaim",
+  "verification": {
+    "method": "project the six face normals (±1,0,0),(0,±1,0),(0,0,±1) onto each coordinate plane",
+    "result": "every plane keeps 4 distinct directions at 90 deg and collapses 2 normals to the origin",
+    "regular_hexagon_requires": "6 directions at 60 deg",
+    "verdict": "FALSE — a cube's face normals never project to a regular hexagon"
+  },
+  "ruling": {
+    "text": "The radial 6-sector chart is a CHOSEN arrangement of six identities, not a geometric consequence of the cube.",
+    "consequence": "A six-facet canon can carry several compatible charts (radial / cube-net / six-panel), each needing its own adjacency and orientation metadata. The cube is one carrier among several, not the canonical one.",
+    "why_it_mattered": "The original claim smuggled a chart in as a law, which would have made the cube look canonical by derivation."
+  },
+  "action_taken": [
+    "Synthesis doc amended in place with the correction and the verified arithmetic. No file deleted. No history rewritten."
+  ],
+  "next": "Any other geometry asserted in the synthesis must name its derivation or be withdrawn."
+}
