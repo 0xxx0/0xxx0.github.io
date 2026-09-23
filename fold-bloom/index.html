@@ -84,6 +84,8 @@ h1 .slash{color:var(--hot);font-weight:500}
 .mode p{margin:14px 0 0;color:#88949b;font:11px/1.55 ui-sans-serif,system-ui,sans-serif}
 .mode .go{margin-top:auto;color:var(--cool);font-size:9px;letter-spacing:.1em}
 .mode.primary:before{content:"";position:absolute;left:-1px;top:-1px;bottom:-1px;width:2px;background:var(--hot)}
+.labGate{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;border:1px solid var(--line);background:#080c10;padding:20px 22px;margin-top:1px;text-decoration:none}
+.labGate:hover{border-color:#53616a}.labGate b{font:900 clamp(22px,4vw,42px)/.9 ui-sans-serif,system-ui,sans-serif;letter-spacing:-.05em}.labGate span{display:block;color:#7f8b92;font-size:9px;margin-top:8px;letter-spacing:.08em}.labGate i{font-style:normal;color:var(--cool);font-weight:900;letter-spacing:.1em}
 .about{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
 .about>div{background:var(--panel);padding:32px}
 .about h3{font:900 26px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:-.04em;margin:0 0 14px}
@@ -117,6 +119,7 @@ footer{border-top:1px solid var(--line);padding:18px 0 36px;color:#69767d;font-s
     <a href="./live/">LIVE</a>
     <a href="./listen/">LISTEN</a>
     <a href="./set/">SET</a>
+    <a href="./lab/">FIELD LAB</a>
     <a href="./instrument/">INSTRUMENT ↗</a>
   </nav>
 </header>
@@ -161,6 +164,7 @@ footer{border-top:1px solid var(--line);padding:18px 0 36px;color:#69767d;font-s
     <a class="mode" href="./set/"><span class="tag">FOLD / AUTHOR</span><h3>SET</h3><p>Compose multiple sources into order, weight, and seams without pretending they are one file.</p><span class="go">BUILD SET →</span></a>
     <a class="mode" href="./instrument/"><span class="tag">CORE / ROUTE</span><h3>INSTRUMENT</h3><p>Bind the object, inspect support, choose an operation, project it, and keep return depth explicit.</p><span class="go">OPEN CORE →</span></a>
   </div>
+  <a class="labGate" href="./lab/"><div><b>FIELD LAB · SIX PROJECTIONS</b><span>RIDE · PULSE · READ · LOCI · INK · DATA</span></div><i>ENTER →</i></a>
 </section>
 
 <section class="wrap section" style="padding-top:0">
