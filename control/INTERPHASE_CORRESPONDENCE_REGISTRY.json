@@ -1,0 +1,253 @@
+{
+  "schema": "0xxx0/interphase-correspondence-registry/v0.1",
+  "updated": "2026-09-23",
+  "status": "WORKING_REGISTRY",
+  "law": "Correspondence names semantic facets and host-owned operations; projection names placement. Residue is preserved instead of forcing equivalence.",
+  "mappings": [
+    {
+      "host_id": "FIELD",
+      "status": "IMPLEMENTED_ADAPTER",
+      "evidence": [
+        "/index.html",
+        "/lib/interphase-field.js"
+      ],
+      "canonical_truth": "route manifest + FIELD focus/navigation state",
+      "facets": {
+        "SOURCE": "route manifest / exact route object",
+        "FRAME": "parent/children, axis constraints, support set",
+        "FOCUS": "current route identity",
+        "OPERATE": "focus / open / rise / dive / peer",
+        "WITNESS": "trace / proof / route evidence",
+        "RETURN": "FieldLensHost UI state + caller"
+      },
+      "residue": [
+        "FIELD route semantics and navigation graph remain host-specific"
+      ]
+    },
+    {
+      "host_id": "READFIELD",
+      "status": "IMPLEMENTED_ADAPTER",
+      "evidence": [
+        "/docs/",
+        "/field-aperture.js",
+        "/lib/interphase-readfield.js"
+      ],
+      "canonical_truth": "one source cursor over text/JSON structure",
+      "facets": {
+        "SOURCE": "raw source + source label",
+        "FRAME": "structure / xrefs / scale lattice",
+        "FOCUS": "current addressed unit and char anchor",
+        "OPERATE": "seek / scale / WPM / RSVP / voice",
+        "WITNESS": "focus metadata / structure markers / optional pulse+glyph witnesses",
+        "RETURN": "aperture snapshot + caller address"
+      },
+      "residue": [
+        "segmentation, language, RSVP scheduler and voice remain READFIELD-specific"
+      ]
+    },
+    {
+      "host_id": "SCALE_LENS",
+      "status": "IMPLEMENTED_ADAPTER",
+      "evidence": [
+        "/fold-bloom/lens/",
+        "/lens-state.js",
+        "/lib/interphase-lens.js"
+      ],
+      "canonical_truth": "parsed object graph + LensState",
+      "facets": {
+        "SOURCE": "source graph and provenance",
+        "FRAME": "domain / scope / ordered lens stack",
+        "FOCUS": "selected object identity",
+        "OPERATE": "SELECT / ALIGN / COMPOSE / PROPAGATE; action toolglass only when declared",
+        "WITNESS": "schema / receipts / projection evidence",
+        "RETURN": "LensState returnAddress + snapshot"
+      },
+      "residue": [
+        "domain-specific parser/graph semantics and lens descriptors remain Lens-owned"
+      ]
+    },
+    {
+      "host_id": "FOLD_BLOOM_ROOT",
+      "status": "IMPLEMENTED_UNIFIED_DOORWAY",
+      "evidence": [
+        "/fold-bloom/",
+        "/fold-bloom/instrument-support.js"
+      ],
+      "canonical_truth": "session-local active-object pointer only; domain truth stays in LISTEN/SET/READFIELD/LIVE",
+      "facets": {
+        "SOURCE": "active AUDIO / TEXT / SET reference",
+        "FRAME": "support map + local vault / set context",
+        "FOCUS": "current active object",
+        "OPERATE": "FOCUS / FOLD / BLOOM / RETURN",
+        "WITNESS": "identity glyph / support/readiness state",
+        "RETURN": "INTERPHASE return frame"
+      },
+      "residue": [
+        "does not own raw media, text reader state, set authorship, or LIVE world state"
+      ]
+    },
+    {
+      "host_id": "LISTEN",
+      "status": "IMPLEMENTED_ADAPTER",
+      "evidence": [
+        "/fold-bloom/listen/",
+        "/lib/interphase-listen.js"
+      ],
+      "canonical_truth": "exact audio identity + AUDIO MAP + source-addressed pins",
+      "facets": {
+        "SOURCE": "exact audio bytes/ref + source bundle",
+        "FRAME": "analysis map / scope / phrase-section structure",
+        "FOCUS": "current source-time address",
+        "OPERATE": "seek / aperture / pin / playback",
+        "WITNESS": "AUDIO MAP / glyph / features / pins",
+        "RETURN": "source-addressed bundle and return caller"
+      },
+      "residue": [
+        "audio decode/features/playback clock remain LISTEN-specific"
+      ]
+    },
+    {
+      "host_id": "SET",
+      "status": "CURRENT_DOMAIN_HOST",
+      "evidence": [
+        "/fold-bloom/set/",
+        "/fold-bloom/experience-set/"
+      ],
+      "canonical_truth": "ordered exact source references + weight/seam authorship",
+      "facets": {
+        "SOURCE": "member source refs",
+        "FRAME": "order / weights / seams",
+        "FOCUS": "selected source cell or seam",
+        "OPERATE": "append / reorder / weight / seam authoring",
+        "WITNESS": "encoded set preview / exact member refs",
+        "RETURN": "Experience Set encoding + caller"
+      },
+      "residue": [
+        "composition authority is SET-owned; raw media is not stored in set state"
+      ]
+    },
+    {
+      "host_id": "LIVE",
+      "status": "CURRENT_DOMAIN_HOST",
+      "evidence": [
+        "/fold-bloom/live/"
+      ],
+      "canonical_truth": "embodied ride/world state over exact source timing",
+      "facets": {
+        "SOURCE": "exact current source",
+        "FRAME": "ride profile / world / section / terrain context",
+        "FOCUS": "current source-time / embodied position",
+        "OPERATE": "gameplay consequence operations",
+        "WITNESS": "terrain / branch / consequence / playback evidence",
+        "RETURN": "ride path / authored operation evidence"
+      },
+      "residue": [
+        "current set-wide LIVE fusion remains an open convergence target; world/game mechanics are not generic projections"
+      ]
+    },
+    {
+      "host_id": "ROOM_STRUCTURAL_DOM",
+      "status": "LIVE_DONOR_DOMAIN_HOST",
+      "evidence": [
+        "/foundry/room/",
+        "/foundry/room/release.json"
+      ],
+      "canonical_truth": "visible structural DOM + typed seams/cassette structure",
+      "facets": {
+        "SOURCE": "structural DOM",
+        "FRAME": "hierarchy / typed seams / ports / material bindings",
+        "FOCUS": "current node/cassette",
+        "OPERATE": "MARK / FOLD / ENTER / BACK / DISSOLVE / RUN",
+        "WITNESS": "trace / model-fit / physical-contract evidence",
+        "RETURN": "structural DOM + trace + binding + events"
+      },
+      "residue": [
+        "ROOM FOLD may be a canonical structural operation, not merely a projection; split FOLD_VIEW from FOLD_OP"
+      ]
+    },
+    {
+      "host_id": "AXIAL",
+      "status": "CURRENT_DOMAIN_HOST",
+      "evidence": [
+        "/foundry/axial/"
+      ],
+      "canonical_truth": "typed state aperture + operator/frame transaction state",
+      "facets": {
+        "SOURCE": "addressed host object",
+        "FRAME": "fixed gate / support / frame",
+        "FOCUS": "state aperture / selected tuple",
+        "OPERATE": "axial/twist/rotate/slide + gated transaction",
+        "WITNESS": "detent / provenance / before-after evidence",
+        "RETURN": "transaction receipt / prior aperture"
+      },
+      "residue": [
+        "physical consequence and operator typing remain AXIAL/host-specific"
+      ]
+    },
+    {
+      "host_id": "GENERIC_FORM",
+      "status": "PROOF_FIXTURE",
+      "evidence": [
+        "/tools/interphase-mapping-selftest.cjs"
+      ],
+      "canonical_truth": "native form controls and their host authority",
+      "facets": {
+        "SOURCE": "schema / initial values",
+        "FRAME": "labels / constraints / help",
+        "FOCUS": "active input(s)",
+        "OPERATE": "edit / choose / clear / explicit submit",
+        "WITNESS": "validation / preview",
+        "RETURN": "caller / cancel / history"
+      },
+      "scale_correspondence": {
+        "compact": "inline cell",
+        "working": "table/form value cell",
+        "expanded": "sector/panel",
+        "room": "left wall is one legal placement for FOCUS_INPUT",
+        "physical": "left panel only through measured physical binding"
+      },
+      "residue": [
+        "submit/effects remain host-owned; placement never grants authority"
+      ]
+    },
+    {
+      "host_id": "RECOVERY_PACKET",
+      "status": "MIGRATION_TARGET",
+      "evidence": [
+        "/control/schemas/interphase-recovery-packet.schema.json",
+        "/lib/interphase-recovery.js"
+      ],
+      "canonical_truth": "evidence-grounded artifacts + claims + conflicts + UNKNOWN + anti-merge holds",
+      "facets": {
+        "SOURCE": "exact artifacts / bytes / refs",
+        "FRAME": "hierarchy / relations / constraints / anti-merge",
+        "FOCUS": "selected artifact or claim",
+        "OPERATE": "candidate disposition/comparison only; read-only adapter grants no migration authority",
+        "WITNESS": "hashes / receipts / contradictions / provenance",
+        "RETURN": "source refs / supersession / worker receipt"
+      },
+      "residue": [
+        "promotion, merge and deletion remain MIGRATION/FIELD INTAKE authority"
+      ]
+    },
+    {
+      "host_id": "PHYSICAL_MAKE",
+      "status": "PROPOSED_ADAPTER_BOUNDARY",
+      "evidence": [
+        "/control/INTERPHASE_MAPPING_CONTRACT.json"
+      ],
+      "canonical_truth": "measured physical object/assembly state supplied by a future physical host",
+      "facets": {
+        "SOURCE": "actual part/material/tool/cassette",
+        "FRAME": "dimensions / tolerances / topology / mating / constraints",
+        "FOCUS": "addressed part/feature",
+        "OPERATE": "rotate / slide / clamp / cut / drill / energize only with explicit effect authority",
+        "WITNESS": "sensor / measurement / photo / test",
+        "RETURN": "home/index state + provenance/receipt"
+      },
+      "residue": [
+        "rendered geometry is never physical proof; load/fit/tolerance/safety require measured evidence"
+      ]
+    }
+  ]
+}
