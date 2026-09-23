@@ -1,0 +1,36 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "CONTROL_SURFACE_ARCHIVE_FOLD_2026-09-23",
+  "date": "2026-09-23",
+  "operation": "ARCHIVE-FOLD 11 ZERO-REFERENCE CONTROL STATE FILES BEHIND ONE INDEX (NO DELETES)",
+  "status": "RETURNED_STAGED_ON_BRANCH_NOT_ON_MASTER",
+  "master_baseline": "5b56b78be53704350118477c0c04b250c07b9241",
+  "branch": "control-archive-fold-2026-09-23",
+  "source_evidence": "control/CULLING_AUDIT_2026-09-23.md (candidate C4, recommendation 2: archive + index, no deletes)",
+  "delta": {
+    "moved": "11 files from control/ and control/confluence/ to control/archive-2026-09/ (byte-identical renames; git records them as R)",
+    "added": "control/archive-2026-09/INDEX.json - old->new mapping with sha256, bytes, class and reason per file",
+    "bytes_archived": 34983,
+    "held_back": [
+      "control/CURRENT.md (live external consumer: AXIS control mirror via pull-control.sh)",
+      "control/FIELD_INDEX_AUDIT_2026-09-20.json (deliberately retained as record by inventory/index.html + scripts/build-inventory.mjs)"
+    ]
+  },
+  "verification": {
+    "zero_ref": "full-path AND basename greps on master 5b56b78 and against the concurrently-dirty shared tree; the only remaining mentions of old paths are the culling audit's own analysis and this fold's INDEX.json",
+    "glob_loader_check": "no readdirSync/glob over control/ anywhere (same method as the culling audit)",
+    "json_parse": "all 11 moved files + INDEX parse clean",
+    "hash_cross_check": "INDEX sha256 vs file bytes: 11/11 match (spot-checked INGEST.json, CARE_VALIDATION_2026-09-21.json)",
+    "ci_equivalents": [
+      "scripts/check-route-registration.mjs",
+      "CURRENT.json documentation/evidence path check (convergence-validate.yml step)",
+      "showcase-manifest route check (convergence-validate.yml step)",
+      "MIGRATION.json route check (convergence-validate.yml step)"
+    ]
+  },
+  "pointer_updates": [
+    "AXIS lane: work/fold-bloom/MUSIC-TAKEPOINT-2026-09-23.md cited control/confluence/FOLD_BLOOM_INSTRUMENT_HEAD_2026-09-22.json - a PATH NOTE with the archive address was appended; the read-list itself stays as the contemporaneous record"
+  ],
+  "revert": "git revert <landed sha> restores all 11 paths and removes INDEX.json; no bytes changed, fully reversible",
+  "next": "land after review. Then optional follow-ups: paired inventory update so FIELD_INDEX_AUDIT_2026-09-20.json can fold too; culling-audit recommendation 4 (CI assertion: every control/*.json named by at least one other file)."
+}

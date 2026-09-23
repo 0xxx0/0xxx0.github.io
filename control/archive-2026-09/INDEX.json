@@ -1,0 +1,108 @@
+{
+  "schema": "0xxx0/control-archive/v0.1",
+  "created": "2026-09-23",
+  "scope": "control/archive-2026-09/",
+  "reason": "Keep the live control/ surface readable as live-only: 11 state files with zero in-repo references (verified on master 5b56b78 and against the concurrently-dirty working tree) were moved here from control/ per CULLING_AUDIT_2026-09-23.md recommendation 2. Nothing was deleted; every file keeps its bytes and gains one address here.",
+  "method": "Full-path AND basename greps over the whole tracked tree at 5b56b78; glob-loader check (no readdirSync/glob over control/); JSON parse of every moved file. The only remaining in-repo mention of the old paths is the culling audit's own analysis table.",
+  "recovery": "Old -> new mapping is the items[].path_before / path_after below. To restore one: git mv it back and revert the pointer edits named in returns/CONTROL_SURFACE_ARCHIVE_FOLD_2026-09-23.json.",
+  "held_back": [
+    {
+      "path": "control/CURRENT.md",
+      "reason": "LIVE external consumer: the AXIS control mirror (potential/actual: work/convergence/pull/control, pull-control.sh FILES list) reads CURRENT.md as part of the control surface trio (CURRENT.md/CURRENT.json/HERMES.md). Not an orphan from outside the repo."
+    },
+    {
+      "path": "control/FIELD_INDEX_AUDIT_2026-09-20.json",
+      "reason": "Deliberately retained as a record by the inventory catalog (inventory/index.html:150, scripts/build-inventory.mjs:92: 'The earlier snapshot. Superseded by the 21st, retained as record.'). Moving it requires a paired inventory update - separate bounded delta."
+    }
+  ],
+  "items": [
+    {
+      "path_before": "control/CARE_VALIDATION_2026-09-21.json",
+      "path_after": "control/archive-2026-09/CARE_VALIDATION_2026-09-21.json",
+      "sha256": "ad0df238ee663aaa5c567d9d61a68c5a9586ba65a8f9c7b118544a4a3f61491f",
+      "bytes": 1720,
+      "class": "SUPERSEDED_BASE",
+      "note": "Base copy of a validation family whose live head is control/CARE_VALIDATION_2026-09-22_V05.json (referenced by CURRENT.json documentation.care_validation)."
+    },
+    {
+      "path_before": "control/FOLD_WEAVE_PROMOTION_2026-09-20.json",
+      "path_after": "control/archive-2026-09/FOLD_WEAVE_PROMOTION_2026-09-20.json",
+      "sha256": "5c8d5b298ad1a5ca52598eadef2d0f9a2565cb79519d9b1d924c98e4621ddac3",
+      "bytes": 2212,
+      "class": "ORPHAN_RECEIPT",
+      "note": "Fold Weave promotion decision record; the fold-weave donor was since recovered and frozen (CURRENT donors_and_holds: 'Fold/Bloom Fold Weave 0.1' FROZEN_DONOR). No reader."
+    },
+    {
+      "path_before": "control/FOUNDRY_HOUSEKEEPING_2026-09-21.json",
+      "path_after": "control/archive-2026-09/FOUNDRY_HOUSEKEEPING_2026-09-21.json",
+      "sha256": "94c6f27a2b87c3f76e806c37c2af15988a86dc58268575a9d594e022035b9efe",
+      "bytes": 2676,
+      "class": "ORPHAN_RECEIPT",
+      "note": "Foundry housekeeping pass record; no successor reference."
+    },
+    {
+      "path_before": "control/INGEST.json",
+      "path_after": "control/archive-2026-09/INGEST.json",
+      "sha256": "fb6505809247faba4dab2f57a59c9f02bfb0681279b702f81dc80495d577d785",
+      "bytes": 4271,
+      "class": "SUPERSEDED_CONTRACT",
+      "note": "0xxx0/local-ingest/v0.1 staged pipeline spec (2026-09-20). Its functions were implemented by INGEST_RULES.json + INGEST_RUN_2026-09-2*.json + the MEDIA REFINERY automation (control/MEDIA_REFINERY.json, scripts/media-refinery-run.py) and the HERMES_QUEUE worker packets; the contract was never wired to a reader."
+    },
+    {
+      "path_before": "control/LENS_REIFY_RETURN_2026-09-21.json",
+      "path_after": "control/archive-2026-09/LENS_REIFY_RETURN_2026-09-21.json",
+      "sha256": "60bad5e2544e65655a72be262b6d689316c5328f0ce5f8db514b68dec8085def",
+      "bytes": 2699,
+      "class": "ORPHAN_RECEIPT",
+      "note": "Lens reify pass record; later lens lineage lives in control/LENS_EVOLUTION_G1_2026-09-21.json / LENS_G1_PROOF_SEAL_2026-09-21.json, which CURRENT heads reference."
+    },
+    {
+      "path_before": "control/MIGRATION_PUSH_2026-09-20.json",
+      "path_after": "control/archive-2026-09/MIGRATION_PUSH_2026-09-20.json",
+      "sha256": "cec6a9045d2b6fcb2167a615a6afb4ecbbbcd60d479adec0dfbaffee0b1609c4",
+      "bytes": 3952,
+      "class": "SUPERSEDED_BY_LATER",
+      "note": "Superseded by control/MIGRATION_PASS_2026-09-21.json (CURRENT last_migration_push)."
+    },
+    {
+      "path_before": "control/PHYSICAL_RETURN_AXIAL_2026-09-20.json",
+      "path_after": "control/archive-2026-09/PHYSICAL_RETURN_AXIAL_2026-09-20.json",
+      "sha256": "7ce30040c4e7e517910f0188d359069aa62679469e373e9b9bc25f1d5bad867c",
+      "bytes": 1615,
+      "class": "ORPHAN_RECEIPT",
+      "note": "Physical-return record for the axial print packet; no reader."
+    },
+    {
+      "path_before": "control/PHYSICAL_RETURN_ENV0_2026-09-20.json",
+      "path_after": "control/archive-2026-09/PHYSICAL_RETURN_ENV0_2026-09-20.json",
+      "sha256": "c0595997457e4438c0a2ec73147d5dfb888f0014e51196266d644a3e1d1c6075",
+      "bytes": 2043,
+      "class": "ORPHAN_RECEIPT",
+      "note": "Physical-return record for ENV-0; the ENV-0 donor disposition is now tracked under /recovery/env0/ and CURRENT donors_and_holds."
+    },
+    {
+      "path_before": "control/confluence/CONSTRAINT_SURFACE_2026-09-21.json",
+      "path_after": "control/archive-2026-09/CONSTRAINT_SURFACE_2026-09-21.json",
+      "sha256": "3c12b20dd5889c2201ccd9fae93f983e7cf437230d16af2e2e3f3835e56837d2",
+      "bytes": 2137,
+      "class": "ORPHAN_RECEIPT",
+      "note": "Constraint-surface exploration (confluence); no reader."
+    },
+    {
+      "path_before": "control/confluence/FOLD_BLOOM_INSTRUMENT_HEAD_2026-09-22.json",
+      "path_after": "control/archive-2026-09/FOLD_BLOOM_INSTRUMENT_HEAD_2026-09-22.json",
+      "sha256": "daa902bf115ef481274e559f00daef51ef0e62614af93975d453aca20c904e94",
+      "bytes": 8828,
+      "class": "CONFLUENCE_RECEIPT",
+      "note": "Fold-bloom instrument-head snapshot; cited by AXIS note work/fold-bloom/MUSIC-TAKEPOINT-2026-09-23.md, whose pointer was updated to this archive path. No in-repo reader."
+    },
+    {
+      "path_before": "control/confluence/SOVEREIGN_NODE_KIT_2026-09-22.json",
+      "path_after": "control/archive-2026-09/SOVEREIGN_NODE_KIT_2026-09-22.json",
+      "sha256": "563dbcd1ad8c38a02b847b41469d2ef865c25791cbf6611635a3ea9329f937c2",
+      "bytes": 2830,
+      "class": "ORPHAN_RECEIPT",
+      "note": "Sovereign-node kit exploration (confluence); the sovereign-node references caught by the culling audit are in KINGDOM_READING.md / scripts/build-lineage.mjs and concern the separate sovereign-node/* docs, not this file."
+    }
+  ]
+}
