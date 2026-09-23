@@ -25,10 +25,18 @@ setTimeout(()=>{(async()=>{
   await wait(()=>f.contentWindow.document.documentElement.dataset.localVaultSource==='ready',24000);
   const state=f.contentWindow.FoldBloomListen?.state?.();rec.listenHash=state?.fileMeta?.hash||null;rec.vault=f.contentWindow.document.documentElement.dataset.localVaultSource;rec.returnLink=!!f.contentWindow.document.getElementById('vaultReturn');
   const raw=hash.slice(7);rec.listenReady=rec.setReady&&rec.vault==='ready'&&rec.listenHash===raw&&rec.returnLink;
+  f.src='/fold-bloom/set/';
+  const rideBtn=await wait(()=>f.contentWindow?.document?.getElementById('journeyBtn'));
+  rideBtn.click();
+  await wait(()=>f.contentWindow?.location?.pathname==='/fold-bloom/live/');
+  await wait(()=>['ready','returned'].includes(f.contentWindow.document.documentElement.dataset.foldBloomSetRide),24000);
+  const setRide=f.contentWindow.FoldBloomSetRide?.state?.(),live=f.contentWindow.FoldBloomLive?.state?.();
+  rec.liveSetId=setRide?.plan?.setId||null;rec.liveSource=setRide?.ride?.address?.sourceId||null;rec.liveHash=live?.sourceMeta?.hash||null;rec.liveSetState=f.contentWindow.document.documentElement.dataset.foldBloomSetRide;
+  rec.liveSetReady=rec.liveSetId==='set:spine-proof'&&rec.liveSource===hash&&rec.liveHash===raw&&['ready','returned'].includes(rec.liveSetState);
   f.src='/fold-bloom/set/journey.html?demo=1';
   await wait(()=>f.contentWindow?.document?.documentElement?.dataset?.foldBloomJourney==='ready');
   rec.journeyEntries=f.contentWindow.document.documentElement.dataset.journeyEntries;rec.journeyReady=f.contentWindow.document.documentElement.dataset.journeyReady;rec.journeyTitle=f.contentWindow.document.getElementById('journeyTitle')?.textContent||'';rec.journeyOverflow=Math.max(f.contentWindow.document.documentElement.scrollWidth,f.contentWindow.document.body.scrollWidth)-f.contentWindow.document.documentElement.clientWidth;
-  done(rec.stored&&rec.listenReady&&rec.journeyEntries==='3'&&rec.journeyReady==='true'&&/GHOST/.test(rec.journeyTitle)&&rec.journeyOverflow<=1,rec);
+  done(rec.stored&&rec.listenReady&&rec.liveSetReady&&rec.journeyEntries==='3'&&rec.journeyReady==='true'&&/GHOST/.test(rec.journeyTitle)&&rec.journeyOverflow<=1,rec);
 })().catch(e=>done(false,{error:String(e?.stack||e),...rec}))},80);
 setTimeout(()=>done(false,{error:'probe timeout',...rec}),32000);
 <\/script></body></html>`}
@@ -42,6 +50,6 @@ await new Promise(r=>server.listen(PORT,HOST,r));
 const bin=browserBin(),args=['--headless=new','--disable-gpu','--no-sandbox','--disable-dev-shm-usage','--hide-scrollbars','--window-size=520,940','--dump-dom',`http://${HOST}:${PORT}/__spine`];
 const result=await new Promise((resolve,reject)=>{const p=spawn(bin,args,{stdio:['ignore','pipe','pipe']});let out='',err='';const timer=setTimeout(()=>{p.kill('SIGKILL');reject(Error('timeout'))},42000);p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>err+=d);p.on('close',code=>{clearTimeout(timer);resolve({code,out,err})})});
 for(const res of holds){try{res.destroy()}catch(_){}}server.close();
-const pass=/id="probeResult">PASS /.test(result.out)&&/"stored":true/.test(result.out)&&/"vault":"ready"/.test(result.out)&&/"returnLink":true/.test(result.out)&&/"journeyEntries":"3"/.test(result.out)&&/"journeyReady":"true"/.test(result.out);
+const pass=/id="probeResult">PASS /.test(result.out)&&/"stored":true/.test(result.out)&&/"vault":"ready"/.test(result.out)&&/"returnLink":true/.test(result.out)&&/"liveSetReady":true/.test(result.out)&&/"journeyEntries":"3"/.test(result.out)&&/"journeyReady":"true"/.test(result.out);
 if(!pass){console.error('FOLD BLOOM SOURCE SPINE SMOKE FAIL');console.error(result.out.slice(-6000));console.error(result.err.slice(-1800));process.exit(1)}
 console.log('FOLD BLOOM SOURCE SPINE + JOURNEY SMOKE PASS');
