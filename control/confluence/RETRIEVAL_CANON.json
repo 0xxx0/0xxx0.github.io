@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/retrieval-canon/v0.1",
-  "updated": "2026-09-20",
+  "updated": "2026-09-23",
   "status": "ACTIVE_PRIMITIVE",
   "purpose": "Recover prior reality into current usable state without silent merge, inference promotion, or loss of return path.",
   "law": [
@@ -98,5 +98,13 @@
     "unresolved merges held rather than guessed",
     "adversarial omission pass completed",
     "next bounded action has higher expected value than more retrieval"
-  ]
+  ],
+  "output_contract": {
+    "schema": "0xxx0/interphase-recovery-packet/v0.1",
+    "schema_file": "/control/schemas/interphase-recovery-packet.schema.json",
+    "adapter": "/lib/interphase-recovery.js",
+    "worker_packet": "/control/confluence/BACKUP_ARCHAEOLOGY_INTERPHASE_WORKER_2026-09-23.md",
+    "mapping_contract": "/control/INTERPHASE_MAPPING_CONTRACT.json",
+    "law": "Recovery emits evidence-grounded objects and claims first; semantic correspondence may be proposed after recovery; projection geometry is not part of archaeology."
+  }
 }
