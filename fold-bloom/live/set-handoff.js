@@ -1,4 +1,5 @@
 import {decodeExperienceSet} from '../experience-set/experience-set.js';
+import {prepareSet} from '../set/set-core.js';
 import {getLocalMedia,localMediaFile} from '../local-media-store.js';
 import {
   LIVE_SET_RIDE_VERSION,createLiveSetRide,syncLiveSetRide,setRideSeamAction,
@@ -132,7 +133,7 @@ async function boot(){
   installSurface();
   if(!await waitForLive()){status('LIVE HOST BLOCKED');document.documentElement.dataset.foldBloomSetRide='blocked';return}
   try{
-    const raw=localStorage.getItem(SET_STORE);if(!raw)throw new Error('NO AUTHORED SET IN THIS BROWSER');set=decodeExperienceSet(raw);
+    const raw=localStorage.getItem(SET_STORE);if(!raw)throw new Error('NO AUTHORED SET IN THIS BROWSER');set=prepareSet(decodeExperienceSet(raw));
     if(set.id!==requestedSet)throw new Error(`SET ADDRESS MISMATCH · ${requestedSet} ≠ ${set.id}`);
     try{meta=JSON.parse(localStorage.getItem(META_STORE)||'{}')||{}}catch(_){meta={}}
     const bindings=[];records=new Map();
