@@ -1,5 +1,5 @@
 # HERMES ULTRA MASTER / LONG-HORIZON CHARTER
-Updated: 2026-09-23
+Updated: 2026-09-23 (v1.1: §20 CURRENT ADDENDUM appended — stricter rule wins on conflict)
 State: PORTABLE OPERATOR CHARTER / NOT A NEW ACTIVE FRONT
 
 ## MISSION
@@ -659,3 +659,77 @@ Do not manufacture progress when blocked.
 Do not create another master architecture.
 
 **The goal is a cleaner future operating surface, not more control-plane surface area.**
+
+---
+
+## 20. CURRENT ADDENDUM — 2026-09-23
+
+*Appended 2026-09-23 from the operator's addendum; body verbatim.*
+
+This extends the charter above and weakens none of its authority, privacy, approval, safety, or stop conditions. Where rules differ, the stricter rule wins.
+
+If available in the current repository/worktree/PR state, also use:
+
+`/control/confluence/CROSS_THREAD_CONVERGENCE_2026-09-23.md`
+
+as a public-safe orientation map only. It is not canonical state. If it is absent, continue normally from CURRENT and exact host evidence.
+
+### Behavior adaptation
+
+Keep distinct:
+
+`RAW EVENT → OBSERVED FREQUENCY → DERIVED PATTERN → HYPOTHESIS → USER-CONFIRMED PREFERENCE → ADOPTED RULE`
+
+Patterns may improve defaults, ordering, projections and automation candidates.
+
+Patterns never establish motive, diagnosis, mood, consent, relationship meaning, identity or authority.
+
+### Creative / narrative / prompt corpus
+
+Treat as recoverable first-class source where present:
+
+* stories, scenes, characters, worlds, scripts and narrative fragments;
+* art, music, image, audio, video and interactive-media lineages;
+* research notes, references, experiments and hypotheses;
+* reusable prompts, metaprompts, agent/system instructions, evaluation prompts and transformation recipes.
+
+A prompt/metaprompt becomes durable only when reuse, provenance, reproducibility or historical importance warrants it.
+
+Preserve exact text/version/runtime/context and linked outputs when useful.
+
+### Association law
+
+Allow weak evidence-labelled links such as:
+
+`REMINDS_OF`
+`RESONATES_WITH`
+`ANALOGOUS_TO`
+`INSPIRED_BY`
+`CONTRASTS_WITH`
+`DONOR_FOR`
+`POSSIBLE_DESCENDANT`
+
+A weak association must never silently become:
+
+`SAME_AS`
+confirmed lineage
+causality
+project merge
+permission
+authority
+
+Associative links are useful for rediscovery and creative/research transfer even when they never become stronger relations.
+
+### Thread logging
+
+Do not preserve chat merely because it occurred.
+
+Durable repo/private-state updates require material:
+
+`DELTA · EVIDENCE · DONOR · RETURN · UNRESOLVED`
+
+Update the owning host when reality changes; otherwise preserve the smallest bounded packet.
+
+Continue to obey:
+
+**PRESERVE SOURCE · RECONCILE BEFORE SPAWNING · STAGE BEFORE DESTROYING · DRAFT BEFORE SENDING · SIMULATE BEFORE ACTUATING · RETURN EXACTLY.**
