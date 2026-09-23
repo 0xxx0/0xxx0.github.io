@@ -85,6 +85,8 @@ jobs:
         run: node --test fold-bloom/set/tests/set-core.test.mjs fold-bloom/test-packs/tests/test-pack-core.test.mjs
       - name: Test FOLD BLOOM local source spine + Journey Ride 0.1.2
         run: node --test fold-bloom/tests/local-media-store.test.mjs fold-bloom/journey/tests/journey-core.test.mjs fold-bloom/journey/tests/demo-seed.test.mjs
+      - name: Test FOLD BLOOM event tape + Beat Saber draft adapter
+        run: node --test fold-bloom/beat/tests/event-tape.test.mjs
       - name: Test unified FOLD BLOOM RIDE state
         run: node --test fold-bloom/ride/tests/ride-state.test.mjs
       - name: Test LISTEN preview render
@@ -97,6 +99,10 @@ jobs:
         run: node tools/fold-bloom-listen-phone-smoke.mjs
       - name: Test FOLD BLOOM LIVE gameplay + track + section arcs + TRACKFIELD deformation + ride
         run: node --test fold-bloom/live/tests/engine.test.mjs fold-bloom/live/tests/track.test.mjs fold-bloom/live/tests/section-arc.test.mjs fold-bloom/live/tests/trackfield.test.mjs fold-bloom/live/tests/practice-track.test.mjs fold-bloom/live/tests/track-deform.test.mjs fold-bloom/live/tests/ride.test.mjs fold-bloom/live/tests/pov-effects.test.mjs fold-bloom/live/tests/visual-worlds.test.mjs fold-bloom/live/tests/projection-smoothing.test.mjs
+      - name: Test FOLD BLOOM FIELD LAB browser boot
+        env:
+          SMOKE_ONLY: FOLD BLOOM FIELD LAB
+        run: node tools/browser-smoke.mjs
       - name: Test FOLD BLOOM module browser boot
         env:
           SMOKE_ONLY: FOLD BLOOM module boot

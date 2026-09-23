@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#05070b">
+<meta name="color-scheme" content="dark">
+<title>FOLD//BLOOM — FIELD LAB</title>
+<style>
+:root{--bg:#05070b;--panel:#090d12;--line:#273139;--ink:#f2f3ef;--mut:#78858c;--hot:#ef7849;--cool:#7bd5ff;--gold:#d7b46d;--energy:1}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--ink);font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}
+button,input,textarea,select{font:inherit;border-radius:0;border:1px solid var(--line);background:#080c10;color:var(--ink)}
+button{cursor:pointer}.app{height:100dvh;display:grid;grid-template-rows:auto 1fr auto}
+header{display:flex;align-items:center;gap:10px;padding:max(9px,env(safe-area-inset-top)) 11px 9px;border-bottom:1px solid var(--line);background:#070a0df2;z-index:5}
+.brand{font-weight:950;letter-spacing:-.04em;font-size:15px}.brand i{font-style:normal;color:var(--hot)}.sub{color:var(--mut);font-size:8px;letter-spacing:.13em}.grow{flex:1}
+.profile{display:flex;gap:2px}.profile button{padding:7px 8px;font-size:8px;letter-spacing:.1em}.profile button.on{border-color:var(--gold);color:var(--gold)}
+.stage{position:relative;min-height:0;overflow:hidden}.stage canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.modeRing{position:absolute;left:50%;top:50%;width:min(78vmin,560px);aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:none;z-index:3}
+.modeRing:before,.modeRing:after{content:"";position:absolute;inset:14%;border:1px solid #1e2930;border-radius:50%}.modeRing:after{inset:35%;border-color:#34414a}
+.mode{position:absolute;width:76px;height:40px;margin:-20px -38px;pointer-events:auto;background:#070b0fd9;color:#88949b;font-weight:850;font-size:9px;letter-spacing:.1em}
+.mode.on{border-color:var(--cool);color:var(--cool);background:#071219}.mode[data-mode="INK"].on{border-color:var(--hot);color:#ffb89c}
+.mode[data-mode="RIDE"]{left:50%;top:5%}.mode[data-mode="PULSE"]{left:88%;top:27%}.mode[data-mode="READ"]{left:88%;top:73%}.mode[data-mode="DATA"]{left:50%;top:95%}.mode[data-mode="INK"]{left:12%;top:73%}.mode[data-mode="LOCI"]{left:12%;top:27%}
+.core{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;text-align:center;pointer-events:none;width:min(44vmin,270px)}
+.core .k{font-size:8px;letter-spacing:.17em;color:var(--mut)}.core b{display:block;font:900 clamp(28px,7vmin,58px)/.85 ui-sans-serif,system-ui,sans-serif;letter-spacing:-.065em}.core span{display:block;margin-top:8px;color:#7d8b92;font-size:8px}
+.hud{position:absolute;inset:10px;display:flex;flex-direction:column;justify-content:space-between;pointer-events:none;z-index:2}.hudRow{display:flex;justify-content:space-between;gap:10px;color:#64727a;font-size:8px;letter-spacing:.1em}.hudRow b{color:#c4cdd1}
+.panel{position:absolute;z-index:6;left:max(10px,env(safe-area-inset-left));bottom:10px;width:min(370px,calc(100vw - 20px));border:1px solid var(--line);background:#070b0fee;box-shadow:0 18px 50px #0009;max-height:min(45vh,370px);overflow:auto}
+.panelHead{display:flex;gap:10px;align-items:center;padding:10px;border-bottom:1px solid var(--line)}.panelHead b{font-size:11px}.panelHead span{color:var(--mut);font-size:8px}.panelBody{padding:10px}
+.controls{display:none}.controls.on{display:block}.row{display:flex;gap:5px;align-items:center;flex-wrap:wrap}.row>*{flex:1;min-width:0}
+button,.btn{min-height:34px;padding:7px 9px}.primary{border-color:var(--hot);color:#ffd2c0}.cool{border-color:#3d7187;color:var(--cool)}
+label{display:block;color:#829097;font-size:8px;letter-spacing:.09em;margin:8px 0 4px}input[type=range]{width:100%}textarea{width:100%;min-height:78px;padding:8px;resize:vertical}
+.mini{color:#76838a;font-size:8px;margin-top:7px}.metric{display:inline-block;border:1px solid var(--line);padding:4px 6px;margin:3px 3px 0 0;color:#9aa6ac}.metric b{color:var(--ink)}
+.textRace{display:grid;grid-template-columns:1fr auto;gap:5px}.textRace input{padding:7px;min-width:0}.danger{border-color:#75413c;color:#efa49c}
+#status{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+footer{min-height:29px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:5px 10px calc(5px + env(safe-area-inset-bottom));color:#637078;font-size:8px;letter-spacing:.08em;z-index:5;background:#070a0d}
+footer a{color:#91a0a7;text-decoration:none}footer a:hover{color:#fff}
+@media(max-width:700px){.sub{display:none}.profile button{padding:7px 5px}.modeRing{width:92vmin}.mode{width:64px;margin-left:-32px;font-size:8px}.panel{max-height:39vh}.core{width:42vmin}}
+@media(max-width:440px){header{gap:6px}.brand{font-size:13px}.profile button{font-size:7px}.modeRing{top:43%;width:96vmin}.panel{bottom:6px;max-height:42vh}.hud{inset:7px}.core b{font-size:34px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div><div class="brand">FOLD<i>//</i>BLOOM · FIELD LAB</div><div class="sub">ONE CENTER · SIX UNEQUAL PROJECTIONS · EXPLICIT PROFILE · RETURN</div></div>
+  <div class="grow"></div>
+  <div class="profile" id="profile">
+    <button data-profile="CLEAR" class="on">CLEAR</button><button data-profile="DRIVE">DRIVE</button><button data-profile="TRANCE">TRANCE</button><button data-profile="SOFT">SOFT</button>
+  </div>
+</header>
+
+<main class="stage" id="stage">
+  <canvas id="field"></canvas>
+  <div class="hud">
+    <div class="hudRow"><span>PROFILE <b id="profileRead">CLEAR</b></span><span>SOURCE <b id="sourceRead">LOCAL / SYNTH</b></span></div>
+    <div class="hudRow"><span>ADDRESS <b id="addressRead">field://lab</b></span><span>RETURN <b>AVAILABLE</b></span></div>
+  </div>
+
+  <div class="modeRing" id="modeRing">
+    <button class="mode on" data-mode="RIDE">RIDE</button>
+    <button class="mode" data-mode="PULSE">PULSE</button>
+    <button class="mode" data-mode="READ">READ</button>
+    <button class="mode" data-mode="DATA">DATA</button>
+    <button class="mode" data-mode="INK">INK</button>
+    <button class="mode" data-mode="LOCI">LOCI</button>
+  </div>
+
+  <div class="core"><div class="k" id="modeVerb">EMBODY</div><b id="modeName">RIDE</b><span id="modeLaw">audio → terrain → gesture → consequence</span></div>
+
+  <aside class="panel">
+    <div class="panelHead"><div><b id="panelTitle">RIDE / LIVE</b><span id="panelSub">existing embodied engine</span></div><div class="grow"></div><button id="hidePanel">—</button></div>
+    <div class="panelBody" id="panelBody">
+      <section class="controls on" data-controls="RIDE">
+        <div class="row"><button class="primary" id="enterRide">ENTER LIVE RIDE →</button><button id="enterListen">MAP SOURCE</button></div>
+        <div class="mini">The Lab does not fork LIVE. It routes into the current source-addressed ride and returns here.</div>
+      </section>
+
+      <section class="controls" data-controls="PULSE">
+        <div class="row" id="ratios"><button data-ratio="3:2" class="cool">3:2</button><button data-ratio="4:3">4:3</button><button data-ratio="5:4">5:4</button></div>
+        <label>BPM <b id="bpmRead">96</b></label><input id="bpm" type="range" min="48" max="180" value="96">
+        <div class="row" id="timbres"><button data-timbre="WOOD" class="cool">WOOD</button><button data-timbre="QIN">QIN STUDY</button><button data-timbre="DRONE">DRONE STUDY</button></div>
+        <div class="row" style="margin-top:6px"><button id="pulsePlay" class="primary">START PULSE</button><button id="tap">TAP</button><button id="exportTape">EXPORT TAPE</button></div>
+        <div><span class="metric">SYNC <b id="syncRead">—</b></span><span class="metric">RATIO <b id="ratioRead">3:2</b></span></div>
+        <div class="mini">QIN / DRONE are synthesis studies, not claims of authentic instrument emulation.</div>
+      </section>
+
+      <section class="controls" data-controls="READ">
+        <textarea id="readSource">The field is not a page and not a tunnel. It is one source with enough address to move, regress, race, annotate, and return without losing where the words came from.</textarea>
+        <label>GHOST PACE <b id="wpmRead">300 WPM</b></label><input id="wpm" type="range" min="120" max="720" step="10" value="300">
+        <div class="textRace"><input id="raceInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type the highlighted word"><button id="readStart" class="primary">START</button></div>
+        <div class="row" style="margin-top:5px"><button id="readBack">← REGRESS</button><button id="readPause">PAUSE</button><button id="readReset">RESET</button></div>
+        <div><span class="metric">YOU <b id="youWord">0</b></span><span class="metric">GHOST <b id="ghostWord">0</b></span><span class="metric">Δ <b id="raceDelta">0</b></span></div>
+        <div class="mini">Race is pacing feedback, not a speed-reading claim. Regression stays first-class.</div>
+      </section>
+
+      <section class="controls" data-controls="LOCI">
+        <textarea id="lociSource">SOURCE ADDRESS APERTURE PATH FOLD BLOOM GLYPH WITNESS RETURN MEMORY BODY SOUND SPACE</textarea>
+        <div class="row"><button id="lociBuild" class="primary">BUILD LOCI</button><button id="lociRecall">HIDE / RECALL</button><button id="lociReset">RESET</button></div>
+        <div><span class="metric">STEP <b id="lociStep">0/12</b></span><span class="metric">HITS <b id="lociHits">0</b></span></div>
+        <div class="mini">Recovered Pathweaver law: CELL → PATH → ADDRESS → VIEW → RETURN. Here the path is used as a mnemonic route.</div>
+      </section>
+
+      <section class="controls" data-controls="INK">
+        <div class="row"><button id="inkClear">CLEAR</button><button id="inkTrace" class="cool">TRACE 永</button><button id="inkDry">DRY</button></div>
+        <label>WETNESS <b id="wetRead">62</b></label><input id="wetness" type="range" min="5" max="100" value="62">
+        <label>BRUSH <b id="brushRead">18</b></label><input id="brush" type="range" min="4" max="42" value="18">
+        <div class="mini">Pointer speed modulates deposit: slow = wetter/heavier, fast = drier/thinner. Pigment then diffuses through a coarse paper field and evaporates.</div>
+      </section>
+
+      <section class="controls" data-controls="DATA">
+        <textarea id="dataSource">{"source":"FIELD","modes":["RIDE","PULSE","READ","LOCI","INK","DATA"],"state":{"profile":"CLEAR","return":true},"question":"what changes when one object is re-projected?"}</textarea>
+        <div class="row"><button id="dataLoad" class="primary">LOAD DATA</button><button id="dataLens">OPEN SCALE LENS →</button></div>
+        <div><span class="metric">NODES <b id="dataNodes">0</b></span><span class="metric">DEPTH <b id="dataDepth">0</b></span></div>
+        <div class="mini">JSON becomes addressed nodes; plain text becomes addressed lines. Wheel changes aperture depth. Hover/tap focuses without rewriting source.</div>
+      </section>
+    </div>
+  </aside>
+</main>
+
+<footer><span id="status">RIDE · current LIVE engine</span><span class="grow"></span><a href="../">PUBLIC FRONT</a><a href="../instrument/">INSTRUMENT</a><a href="../listen/">LISTEN</a></footer>
+</div>
+<script type="module" src="./app.js"></script>
+<script src="/showcase-nav.js" defer></script>
+</body>
+</html>
