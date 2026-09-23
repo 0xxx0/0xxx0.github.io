@@ -45,6 +45,7 @@ jobs:
         run: |
           node tools/interphase-glyph-selftest.cjs
           node tools/interphase-dom-form-selftest.cjs
+          node tools/interphase-ring-selftest.cjs
       - name: Validate INTERPHASE correspondence + archaeology packet
         run: |
           node --check lib/interphase-mapping.js
