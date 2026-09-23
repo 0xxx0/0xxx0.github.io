@@ -83,8 +83,10 @@ function ensureJourneyAction(){
   if(document.getElementById('journeyBtn'))return;
   const actions=document.querySelector('.hero .actions');if(!actions)return;
   const btn=document.createElement('button');btn.id='journeyBtn';btn.type='button';btn.textContent='RIDE SET';
-  btn.onclick=()=>{
-    const state=window.FoldBloomSet?.state?.(),setId=state?.set?.id,entries=state?.set?.entries||[];
+  btn.onclick=async()=>{
+    let state=window.FoldBloomSet?.state?.();
+    for(let i=0;i<40&&!state;i++){await new Promise(r=>setTimeout(r,50));state=window.FoldBloomSet?.state?.()}
+    const setId=state?.set?.id,entries=state?.set?.entries||[];
     if(!setId||!entries.length){ensureWitness().textContent='VAULT · SET EMPTY';return}
     const q=new URLSearchParams({set:setId,return:location.pathname+location.search});location.assign('../live/?'+q.toString());
   };
