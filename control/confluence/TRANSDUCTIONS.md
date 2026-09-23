@@ -86,7 +86,7 @@ SOURCE ID
 
 The old file, commit, image, receipt or physical study remains evidence. What disappears is duplicated **operational sovereignty**, not provenance.
 
-The current candidate is one **instrument cell** with unequal projection cells: LINE, RING, SPIRAL, GRID, FOLD, ROOM, RSVP and GLYPH. A host supplies the domain vocabulary; the geometry does not get to invent one.
+`INTERPHASE 0.2` now implements the shared **instrument cell** as a host protocol rather than a new sovereign app. FIELD, READFIELD, Scale Lens, LISTEN and a generic DOM/browser-extension host expose unequal domain truth through the same selection/multifocus/projection/operation/RETURN machinery. The broader projection inventory remains LINE, RING, SPIRAL, GRID, FOLD, ROOM, RSVP and GLYPH; the implemented browser subset additionally exercises PAGE, FOVEA, FLOWER-KEY and TABLE. A host supplies the domain vocabulary; the geometry does not get to invent one.
 
 ### Six-sector carrier
 
@@ -99,13 +99,26 @@ A center + six sectors/petals is retained as a useful carrier candidate because 
 - F.L.O.W.E.R. / FU semantics are presets, not compulsory labels
 - the exact remembered key-shaped six-panel historical artifact is still UNKNOWN until directly recovered
 
+### Current implementation
+
+- core: `/lib/interphase-core.js`
+- generic DOM adapter: `/lib/interphase-dom.js`
+- host adapters: FIELD / READFIELD / Scale Lens / LISTEN
+- load-unpacked browser extension: `/manifest.json` + `/interphase-extension.js`
+- proof donor: `/spikes/003-one-instrument/`
+- recovered explicit residue: **CONTENT / AUTHORITY / DEPTH / TIME**
+- six-office carrier preset: **SOURCE / FRAME / FOCUS / OPERATE / WITNESS / RETURN**
+- PR #184 merged at `b4324536…`; full public-surface-check PR run 35815194125 passed.
+
+The six offices remain a preset, not ontology. FLOWER-KEY and ROOM reuse the same panel identities; changing geometry does not recreate the panels or move host authority.
+
 ### Current fold map
 
 - APERTURE + AXIAL + Scale Lens + READFIELD FOCUS + LISTEN ADDRESS/APERTURE → one **address/aperture/lens instrument** with unequal hosts.
 - DataDisc/radial + strip + spiral + fan/fold + ROOM + RSVP + glyph → one **projection inventory**.
 - F.L.O.W.E.R. + FU + Universal Interface Wheel + fold-build-transform studies → one **six-sector carrier grammar** plus named semantic presets.
 
-Do not delete or hide a donor until a round-trip fixture proves source identity, address, aperture, parameters, operator ordering, authority and RETURN survive. If a unique behavior cannot be reconstructed, it has not been folded.
+Do not delete or hide a donor until a round-trip fixture proves source identity, address, aperture, parameters, operator ordering, authority and RETURN survive. If a unique behavior cannot be reconstructed, it has not been folded. Implementation proof authorizes adapter migration, not bulk deletion; lived-use residue still decides demotion.
 
 ## Active slice: passive refinement
 
