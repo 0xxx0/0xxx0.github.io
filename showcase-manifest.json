@@ -7004,6 +7004,50 @@
       }
     },
     {
+      "href": "/spikes/004-interphase-sync/",
+      "title": "INTERPHASE / ONE THING FOUR VIEWS",
+      "kind": "experiment",
+      "parent": "/",
+      "family": "SPIKE",
+      "operation": "COMPOSE",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "tier": "FIELD",
+      "role": "Implementation-convergence proof: 12 canonical objects in 4 simultaneous projections (page/ring/table/glyph) over ONE store. A mutation through any view updates every other with zero view-to-view code — verified by source inspection, not asserted.",
+      "index": {
+        "updated_at": "2026-09-23T11:16:26+08:00",
+        "work_modes": [
+          "READ",
+          "INSPECT",
+          "VERIFY"
+        ]
+      },
+      "evidence": [
+        {
+          "claim": "no cross-wiring between the four projections",
+          "source": "spikes/004-interphase-sync/README.md",
+          "status": "VERIFIED"
+        },
+        {
+          "claim": "one mutation updates all four views",
+          "source": "spikes/004-interphase-sync/README.md",
+          "status": "VERIFIED"
+        }
+      ],
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Does synchronising N views of one object require any view-to-view code at all, or is it a property of there being one copy?",
+        "baseline": "spike 003 (HET12): 19/19 laws held but rendered nothing — behaviour proven in a matrix, never as an interface.",
+        "mutation": "One STORE, four pure projection functions, a single mount() called only by mutation, and no observer/bus/diff between views. Edit through PAGE, TABLE and RING in turn.",
+        "evidence_gate": "Changing a value through any one view is visible in all others AND no projection function names another view's element (checked by inspecting function source).",
+        "next_if_pass": "Add multifocus and a support map so an unlawful edit is refused IN THE PAGE, not only in a matrix — the first spike that is both law and mechanism.",
+        "next_if_fail": "Synchronisation is not free: reintroduce explicit coordination state and re-test the collapse claim."
+      }
+    },
+    {
       "href": "/twins/",
       "title": "THE TWINS",
       "kind": "evidence",

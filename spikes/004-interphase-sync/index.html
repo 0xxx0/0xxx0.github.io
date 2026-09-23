@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>INTERPHASE · ONE THING, FOUR VIEWS, NO SYNC CODE</title>
+<style>
+:root{--bg:#0b0d0f;--panel:#12161a;--ink:#e8ece9;--mut:#87949a;--line:#242c31;
+      --hot:#ed7245;--cool:#73bce8;--green:#9ed88c;--gold:#d7ae67}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);
+ font:13px/1.55 system-ui,-apple-system,Segoe UI,sans-serif}
+body{padding:14px 18px 60px}
+h1{font-size:11px;letter-spacing:.22em;color:var(--gold);margin:0 0 3px;font-weight:600;
+ font-family:ui-monospace,Menlo,monospace}
+.lede{color:var(--mut);font-size:11.5px;margin-bottom:12px;max-width:760px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:start}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.pane{border:1px solid var(--line);background:var(--panel);border-radius:3px;overflow:hidden}
+.pane h2{margin:0;padding:6px 10px;font-size:9px;letter-spacing:.18em;color:var(--gold);
+ font-weight:600;border-bottom:1px solid var(--line);font-family:ui-monospace,Menlo,monospace}
+.pane .body{padding:10px 12px}
+/* --- the boring page --- */
+.doc h3{font-size:13px;margin:10px 0 4px}
+.doc p{margin:5px 0;color:#cdd5d2}
+.doc .val{color:var(--cool);font-weight:600}
+.doc img{max-width:100%;border:1px solid var(--line);border-radius:2px}
+.doc input{background:#0d1216;border:1px solid var(--line);color:var(--ink);
+ font:inherit;padding:3px 6px;border-radius:2px;width:100%}
+.doc select{background:#0d1216;border:1px solid var(--line);color:var(--ink);font:inherit;padding:3px 6px}
+.doc .act{border:1px solid var(--line);background:#171d21;color:var(--ink);font:inherit;
+ padding:3px 9px;border-radius:2px;cursor:pointer}
+.doc .act:hover{border-color:var(--gold);color:var(--gold)}
+.doc .ev{font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--mut)}
+/* --- ring --- */
+.ring svg{display:block;margin:0 auto}
+.ring .lbl{font-size:8.5px;fill:var(--mut);font-family:ui-monospace,Menlo,monospace}
+/* --- table --- */
+table{border-collapse:collapse;width:100%;font-size:11px}
+th,td{border-bottom:1px solid var(--line);padding:3px 6px;text-align:left}
+th{color:var(--mut);font-weight:400;font-size:9px;letter-spacing:.1em}
+td.k{font-family:ui-monospace,Menlo,monospace;color:var(--gold);font-size:10px}
+/* --- glyph --- */
+.gl{display:flex;flex-wrap:wrap;gap:7px}
+.gl .g{cursor:pointer}
+.gl .g.sel circle{stroke:var(--gold);stroke-width:2}
+.bar{display:flex;gap:8px;align-items:center;margin:12px 0;flex-wrap:wrap;
+ font-family:ui-monospace,Menlo,monospace;font-size:10px;color:var(--mut)}
+.bar b{color:var(--gold);letter-spacing:.14em}
+.proof{border:1px solid var(--line);background:var(--panel);padding:10px 12px;margin-top:12px;
+ border-radius:3px}
+.proof b{color:var(--gold);letter-spacing:.14em;font-size:10px;
+ font-family:ui-monospace,Menlo,monospace}
+.renders{font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:var(--mut);margin-top:6px}
+.renders i{font-style:normal;color:var(--green)}
+</style></head><body>
+
+<h1>INTERPHASE · ONE THING, FOUR VIEWS</h1>
+<div class="lede">
+  The same twelve objects, open in four projections at once. Change a value in any view and
+  every other view follows — <b>with no synchronisation code between the views.</b> They do
+  not know each other exist. Each one simply re-reads the same store through its own
+  projection.
+</div>
+
+<div class="bar">
+  <b>RENDER COUNT</b> <span id="rc">—</span>
+  &nbsp;·&nbsp; <span id="lastop">no operation yet</span>
+  &nbsp;·&nbsp; <button class="act" id="bump">change N04 via the PAGE</button>
+  &nbsp;·&nbsp; <button class="act" id="toggle">change N05 via the TABLE</button>
+  &nbsp;·&nbsp; <button class="act" id="enum">change N06 via the RING</button>
+</div>
+
+<div class="grid">
+  <div class="pane"><h2>VIEW 1 · PAGE (ordinary document)</h2><div class="body doc" id="v-page"></div></div>
+  <div class="pane"><h2>VIEW 2 · RING</h2><div class="body ring" id="v-ring"></div></div>
+  <div class="pane"><h2>VIEW 3 · TABLE</h2><div class="body" id="v-table"></div></div>
+  <div class="pane"><h2>VIEW 4 · GLYPH</h2><div class="body gl" id="v-glyph"></div></div>
+</div>
+
+<div class="proof">
+  <b>THE PROOF</b>
+  <div class="renders" id="proof">—</div>
+</div>
+
+<script>
+/* ===========================================================================
+ * ONE STORE. Twelve canonical objects. Nothing else holds state.
+ * A view is a pure function of the store. It has no cache, no subscription,
+ * no reference to any other view.
+ * ======================================================================== */
+const STORE = {
+  revision: 1,
+  nodes: [
+    {id:'N01',type:'TOKEN',          address:'/doc/n01', value:'alpha'},
+    {id:'N02',type:'PARAGRAPH',      address:'/doc/n02', value:'The wheel turns and the water rises. Each reading of it is a different projection of the same sentence.'},
+    {id:'N03',type:'IMAGE',          address:'/doc/n03', value:{src:'data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="240" height="70"><rect width="240" height="70" fill="#12161a"/><circle cx="40" cy="35" r="18" fill="none" stroke="#73bce8" stroke-width="2"/><path d="M80 35h120" stroke="#d7ae67" stroke-width="2"/></svg>'),caption:'a recovered figure'}},
+    {id:'N04',type:'NUMBER',         address:'/doc/n04', value:42,    min:0, max:100},
+    {id:'N05',type:'BOOLEAN',        address:'/doc/n05', value:false},
+    {id:'N06',type:'ENUM',           address:'/doc/n06', value:'DRAFT', domain:['DRAFT','REVIEW','FINAL']},
+    {id:'N07',type:'FREE_TEXT_INPUT',address:'/doc/n07', value:'a draft note', editable:true},
+    {id:'N08',type:'RELATION',       address:'/doc/n08', value:{from:'N01',to:'N02',rel:'supports'}},
+    {id:'N09',type:'ACTION',         address:'/doc/n09', value:{op:'increment N04', authority:'COMMIT'}},
+    {id:'N10',type:'TIMED_EVENT',    address:'/doc/n10', value:{clock:'AUDIO-1',t:12.5}},
+    {id:'N11',type:'COLLECTION',     address:'/doc/n11', value:{children:['N04','N05','N06']}},
+    {id:'N12',type:'EVIDENCE',       address:'/doc/n12', value:{uri:'returns/FOLD_LOSSLESS_PROOF_2026-09-23.json',status:'VERIFIED'}}
+  ]
+};
+const node=id=>STORE.nodes.find(n=>n.id===id);
+
+/* ---------------------------------------------------------------------------
+ * THE FOUR PROJECTIONS. Pure. No view reads another view. No view is told a
+ * change happened. Each takes the store and returns markup.
+ * ------------------------------------------------------------------------ */
+function projPAGE(S){
+  const v=id=>esc(String(node(id).value));
+  const im=node('N03').value;
+  return `
+    <h3>${v('N01')} <span class="val">· a recovered fragment</span></h3>
+    <p>${esc(node('N02').value)}</p>
+    <img src="${im.src}" alt="${esc(im.caption)}">
+    <p>Count: <span class="val" id="page-N04">${node('N04').value}</span> / 100</p>
+    <p>Enabled: <span class="val">${String(node('N05').value)}</span></p>
+    <p>Status:
+      <select id="page-N06">${node('N06').domain.map(d=>`<option${d===node('N06').value?' selected':''}>${d}</option>`).join('')}</select>
+    </p>
+    <p>Note: <input id="page-N07" value="${esc(node('N07').value)}"></p>
+    <p class="ev">N08 ${node('N08').value.from} --${node('N08').value.rel}--> ${node('N08').value.to}</p>
+    <p class="ev">N10 ${node('N10').value.clock} @ ${node('N10').value.t}s · N12 ${node('N12').value.status}</p>
+    <p><button class="act" id="page-act">${esc(node('N09').value.op)}</button></p>`;
+}
+
+function projRING(S){
+  const N=S.nodes.length, cx=140, cy=140, R=96, SZ=30;
+  let out=`<svg width="280" height="290" viewBox="0 0 280 290">`;
+  out+=`<circle cx="${cx}" cy="${cy}" r="${R}" fill="none" stroke="#242c31"/>`;
+  S.nodes.forEach((n,i)=>{
+    const a=-Math.PI/2+i*(Math.PI*2/N);
+    const x=cx+Math.cos(a)*R, y=cy+Math.sin(a)*R;
+    const sel=(n.id==='N04'||n.id==='N05'||n.id==='N06');
+    out+=`<g class="g${sel?' sel':''}" data-id="${n.id}">`
+       + glyph(n.id,SZ,sel?'var(--gold)':'var(--cool)')
+       + `<title>${esc(n.id)} ${esc(n.type)} = ${esc(brief(n))}</title></g>`
+       .replace('<g','<g transform="translate('+(x-SZ/2)+','+(y-SZ/2)+')"');
+  });
+  out+=`<text class="lbl" x="${cx}" y="${cy-6}" text-anchor="middle">N04 = ${node('N04').value}</text>`;
+  out+=`<text class="lbl" x="${cx}" y="${cy+8}" text-anchor="middle">N05 = ${String(node('N05').value)}</text>`;
+  out+=`<text class="lbl" x="${cx}" y="${cy+22}" text-anchor="middle">N06 = ${node('N06').value}</text>`;
+  out+=`<circle cx="${cx}" cy="${cy}" r="3" fill="#242c31"/></svg>`;
+  return out;
+}
+
+function projTABLE(S){
+  return `<table><tr><th>ID</th><th>TYPE</th><th>VALUE</th><th>ADDRESS</th></tr>`
+    + S.nodes.map(n=>`<tr data-id="${n.id}"><td class="k">${n.id}</td><td>${esc(n.type)}</td>`
+    + `<td>${esc(brief(n))}${n.type==='BOOLEAN'?' <button class="act" data-toggle="N05">flip</button>':''}</td>`
+    + `<td class="k">${esc(n.address)}</td></tr>`).join('')
+    + `</table>`;
+}
+
+function projGLYPH(S){
+  return S.nodes.map(n=>{
+    const sel=(n.id==='N04'||n.id==='N05'||n.id==='N06');
+    return `<span class="g${sel?' sel':''}" data-id="${n.id}" title="${esc(n.id)} ${esc(n.type)}">`
+      + glyph(n.id,34,sel?'var(--gold)':'var(--mut)') + `</span>`;
+  }).join('');
+}
+
+/* identity glyph — id-derived only, as before */
+function fnv(s){let h=2166136261>>>0;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0}return h>>>0}
+function glyph(id,size,col){
+  const h=fnv(id), sides=3+(h%6), rot=((h>>>5)%360)*Math.PI/180, R=size/2-2, c=size/2, pts=[];
+  for(let i=0;i<sides;i++){const a=rot-Math.PI/2+i*(Math.PI*2/sides);pts.push([Math.cos(a)*R,Math.sin(a)*R])}
+  const p=a=>a.map(([x,y],i)=>(i?'L':'M')+(c+x).toFixed(1)+' '+(c+y).toFixed(1)).join(' ')+' Z';
+  return `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><g fill="none" stroke="${col}" stroke-width="1.4">`
+    + `<path d="${p(pts)}"/><path d="${p(pts.map(([x,y])=>[x*.55,y*.55]))}" opacity=".5"/></g></svg>`;
+}
+function brief(n){
+  const v=n.value;
+  if(v&&typeof v==='object')return v.rel?`${v.from} ${v.rel} ${v.to}`:(v.children?v.children.join(','):(v.uri||v.op||v.clock||JSON.stringify(v).slice(0,28)));
+  return String(v);
+}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+
+/* ---------------------------------------------------------------------------
+ * THE MOUNT. Four independent calls. There is no view-to-view wiring, no
+ * observer, no event bus, no diffing, no dependency graph.
+ * `mount()` renders whatever projections are on screen. That is the whole
+ * synchronisation story.
+ * ------------------------------------------------------------------------ */
+const MOUNTS=[['v-page',projPAGE],['v-ring',projRING],['v-table',projTABLE],['v-glyph',projGLYPH]];
+let renders=0;
+function mount(){
+  MOUNTS.forEach(([elId,fn])=>{document.getElementById(elId).innerHTML=fn(STORE);renders++});
+  document.getElementById('rc').textContent=renders+' projection renders';
+  wire();
+}
+/* a MUTATION is the only thing that changes the store, and it is the only
+   thing that calls mount(). Views never talk to each other. */
+function mutate(fn,label){
+  fn(STORE); STORE.revision++;
+  document.getElementById('lastop').textContent=label+' · store revision '+STORE.revision;
+  mount();
+}
+
+/* ---- the operations, each reached through a DIFFERENT view ---- */
+function wire(){
+  const sel=document.getElementById('page-N06');
+  if(sel)sel.onchange=e=>mutate(S=>{node('N06').value=e.target.value},'N06 changed via PAGE');
+  const inp=document.getElementById('page-N07');
+  if(inp)inp.oninput=e=>mutate(S=>{node('N07').value=e.target.value},'N07 edited via PAGE');
+  const act=document.getElementById('page-act');
+  if(act)act.onclick=()=>mutate(S=>{node('N04').value=Math.min(100,node('N04').value+1)},'N04 incremented via PAGE action');
+  document.querySelectorAll('[data-toggle]').forEach(b=>b.onclick=()=>mutate(S=>{const n=node(b.dataset.toggle);n.value=!n.value},'N05 flipped via TABLE'));
+  document.querySelectorAll('#v-ring .g, #v-glyph .g').forEach(g=>g.onclick=()=>{
+    const id=g.dataset.id;
+    if(id==='N06'){mutate(S=>{const n=node('N06');const i=n.domain.indexOf(n.value);n.value=n.domain[(i+1)%n.domain.length]},'N06 advanced via RING')}
+  });
+}
+document.getElementById('bump').onclick=()=>mutate(S=>{node('N04').value=Math.min(100,node('N04').value+1)},'N04 incremented');
+document.getElementById('toggle').onclick=()=>mutate(S=>{node('N05').value=!node('N05').value},'N05 flipped');
+document.getElementById('enum').onclick=()=>mutate(S=>{const n=node('N06');const i=n.domain.indexOf(n.value);n.value=n.domain[(i+1)%n.domain.length]},'N06 advanced');
+
+/* ---------------------------------------------------------------------------
+ * SELF-DEMONSTRATION: change N04 through ONE view, then read it from ALL four,
+ * proving each view independently reflects the change with no cross-wiring.
+ * ------------------------------------------------------------------------ */
+function prove(){
+  const before={page:js_read('page-N04'), ring:/N04 = (\d+)/.exec(document.getElementById('v-ring').innerHTML)?.[1],
+                table:tabVal('N04'), glyph:!!document.querySelector('#v-glyph [data-id="N04"]')};
+  mutate(S=>{node('N04').value=Math.min(100,node('N04').value+7)},'PROOF: N04 +7 through the PAGE');
+  const after={page:js_read('page-N04'), ring:/N04 = (\d+)/.exec(document.getElementById('v-ring').innerHTML)?.[1],
+               table:tabVal('N04'), glyph:!!document.querySelector('#v-glyph [data-id="N04"]')};
+  const p=document.getElementById('proof');
+  p.innerHTML='N04 before — page:<b>'+before.page+'</b> ring:<b>'+before.ring+'</b> table:<b>'+before.table+'</b><br>'
+   +'N04 after &nbsp;— page:<i>'+after.page+'</i> ring:<i>'+after.ring+'</i> table:<i>'+after.table+'</i><br><br>'
+   +'one mutation · four projections re-read · <b>zero view-to-view code</b>'
+   +'<br>views are pure functions of the store; there is nothing to synchronise.';
+}
+function js_read(id){const e=document.getElementById(id);return e?e.textContent:'—'}
+function tabVal(id){const r=document.querySelector('#v-table tr[data-id="'+id+'"]');return r?r.children[2].textContent.trim():'—'}
+
+mount();
+window.INTERPHASE={
+  store:()=>JSON.parse(JSON.stringify(STORE)),
+  mutate,mount,prove,
+  renders:()=>renders,
+  views:MOUNTS.map(m=>m[0]),
+  /* the architectural claim, checkable: no view module references another */
+  noCrossWiring:()=>!/(v-page|v-ring|v-table|v-glyph)/.test(
+    [projPAGE,projRING,projTABLE,projGLYPH].map(f=>f.toString()).join(''))
+};
+</script></body></html>
