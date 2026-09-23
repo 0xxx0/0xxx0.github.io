@@ -156,7 +156,7 @@ async function loadLocalSong(files){
   stopDemo(false);
   try{
     deformationTape=[];sectionArc=createSectionArc();ride=createRideState();latestWorld=null;linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;
-    await ensureAudio();trackStatus='DECODING';update();await liveTrack.loadFiles(files);
+    ensureAudio().catch(()=>false);trackStatus='DECODING';update();await liveTrack.loadFiles(files);
     $('#intro').classList.remove('on');toast('CUSTOM SONG READY');update();
   }catch(error){console.warn(error);trackStatus='SONG ERROR';toast('SONG DECODE ERROR');update()}
 }
