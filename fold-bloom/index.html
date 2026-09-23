@@ -4,120 +4,234 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#05070b">
-<title>FOLD//BLOOM — One Instrument 0.1</title>
+<meta name="color-scheme" content="dark">
+<title>FOLD//BLOOM — Source → Field → Return</title>
+<meta name="description" content="FOLD//BLOOM is one instrument for turning a source into an addressable field: listen, ride, fold, bloom, and return with evidence.">
+<meta property="og:title" content="FOLD//BLOOM">
+<meta property="og:description" content="A source becomes a field. Shape it. Return with evidence.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://0xxx0.github.io/fold-bloom/">
+<meta property="og:image" content="https://0xxx0.github.io/fold-bloom/og.svg">
+<meta name="twitter:card" content="summary_large_image">
 <style>
-:root{--bg:#05070b;--panel:#090d12;--line:#2b343d;--ink:#f1f4f5;--mut:#7f8c96;--hot:#ef7849;--cool:#7bd5ff;--gold:#d7b46d;--green:#a7dc94}
-*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}button,input,textarea{font:inherit}
-button,.button,input,textarea{border:1px solid var(--line);border-radius:0;background:#080c10;color:var(--ink)}
-button,.button{min-height:40px;padding:8px 10px;cursor:pointer;text-decoration:none}button:disabled{opacity:.28;cursor:not-allowed}
-button.on{border-color:var(--hot);color:#ffd2c0;background:#140c09}button.supported:not(.on){border-color:#3b4852}
-body{padding:max(14px,env(safe-area-inset-top)) 14px max(28px,env(safe-area-inset-bottom))}
-main{width:min(1240px,100%);margin:auto}
-header{display:flex;align-items:end;gap:18px;border-bottom:1px solid var(--line);padding:18px 0 14px}.brand{font-size:clamp(31px,6vw,66px);font-weight:900;letter-spacing:-.065em;line-height:.82}.ey{color:var(--hot);font-size:8px;letter-spacing:.18em;margin-bottom:7px}.headlaw{margin-left:auto;max-width:460px;color:#aab4ba;font:11px/1.55 system-ui,sans-serif}
-.shell{display:grid;grid-template-columns:270px minmax(0,1fr) 290px;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:14px}.panel,.stage{background:var(--panel);min-width:0}.panel{padding:14px}.stage{position:relative;min-height:650px;display:flex;flex-direction:column}
-.k{font-size:8px;letter-spacing:.17em;color:var(--mut);margin:0 0 7px}.sourceType{font-size:10px;color:var(--hot);letter-spacing:.12em}.sourceName{font:800 18px/1.08 system-ui,sans-serif;margin:5px 0;word-break:break-word}.sourceId{font-size:8px;color:var(--mut);word-break:break-all}.sourceBtns{display:grid;gap:5px;margin-top:12px}.sourceBtns label{display:grid;place-items:center}.sourceBtns input[type=file]{display:none}
-textarea{width:100%;min-height:100px;padding:8px;resize:vertical;margin-top:6px;color:#d5dcda}.vault{margin-top:14px;border-top:1px solid var(--line);padding-top:12px}.vaultList{display:grid;gap:4px;max-height:220px;overflow:auto}.vaultItem{text-align:left;padding:7px;min-height:auto}.vaultItem b{display:block;font-size:9px}.vaultItem span{display:block;color:var(--mut);font-size:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.stageTop{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:10px;border-bottom:1px solid var(--line);font-size:8px;letter-spacing:.1em;color:var(--mut)}.stageTop b{color:var(--cool)}.stageTop span:last-child{text-align:right}
-.instrument{flex:1;display:grid;place-items:center;position:relative;min-height:400px;overflow:hidden}.instrument:before,.instrument:after{content:"";position:absolute;left:50%;top:50%;background:#192229;pointer-events:none}.instrument:before{width:1px;height:76%;transform:translate(-.5px,-50%)}.instrument:after{height:1px;width:76%;transform:translate(-50%,-.5px)}
-.glyphBox{position:relative;z-index:2;width:min(62vw,430px);aspect-ratio:1;display:grid;place-items:center}.glyphBox svg{width:100%;height:100%;overflow:visible}.glyphText{position:absolute;inset:auto 8% 4%;text-align:center}.glyphText b{display:block;font:900 clamp(18px,3vw,32px)/1 system-ui,sans-serif}.glyphText span{display:block;margin-top:5px;color:var(--mut);font-size:8px;word-break:break-all}
-.focusCells{display:flex;gap:4px;overflow:auto;padding:8px 10px;border-top:1px solid var(--line);min-height:47px}.focusCells button{min-height:30px;padding:5px 7px;white-space:nowrap;font-size:8px}.focusCells button.on{border-color:var(--cool);color:var(--cool)}
-.docks{display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--line)}.dock{padding:10px}.dock:first-child{border-right:1px solid var(--line)}.dockRow{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}.dock button{font-size:9px;letter-spacing:.07em;padding:7px 5px}
-.stateGrid{display:grid;gap:1px;background:var(--line);border:1px solid var(--line)}.stateGrid div{background:#080c10;padding:8px}.stateGrid span{display:block;color:var(--mut);font-size:7px;letter-spacing:.13em}.stateGrid b{display:block;margin-top:3px;font-size:10px;word-break:break-word}
-.next{margin-top:14px}.nextList{display:grid;gap:4px}.nextList a,.nextList span{border:1px solid var(--line);padding:8px;text-decoration:none;color:var(--ink)}.nextList small{display:block;color:var(--mut);margin-top:3px;font:9px/1.4 system-ui,sans-serif}.nextList .ready{border-color:#40515c}.nextList .blocked{opacity:.36}
-.deep{margin-top:12px;border:1px solid var(--line);background:#070a0e}.deep summary{cursor:pointer;padding:10px;color:var(--mut);font-size:9px;letter-spacing:.12em}.deepGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.deepGrid a{background:#080c10;padding:9px;color:var(--ink);text-decoration:none;font-size:9px}.deepGrid a span{display:block;color:var(--mut);font-size:7px;margin-top:3px}
-footer{display:flex;justify-content:space-between;gap:16px;margin-top:12px;color:#64717a;font-size:8px}.warn{color:var(--gold)}
-#toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);border:1px solid var(--line);background:#090d11;padding:8px 11px;opacity:0;pointer-events:none;transition:.12s;z-index:99}#toast.on{opacity:1}
-@media(max-width:900px){.shell{grid-template-columns:1fr}.stage{min-height:590px}.panel.right{order:3}.headlaw{margin:14px 0 0}.deepGrid{grid-template-columns:1fr 1fr}header{display:block}.docks{grid-template-columns:1fr}.dock:first-child{border-right:0;border-bottom:1px solid var(--line)}}
+:root{
+  --bg:#05070b;--ink:#f2f3ef;--mut:#7d8991;--line:#273139;
+  --hot:#ef7849;--cool:#7bd5ff;--gold:#d7b46d;--panel:#090d12
+}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+a{color:inherit}
+button,a{font:inherit}
+.wrap{width:min(1240px,calc(100% - 28px));margin:auto}
+.top{
+  min-height:64px;display:flex;align-items:center;gap:18px;border-bottom:1px solid var(--line)
+}
+.mark{font-weight:900;letter-spacing:-.06em;font-size:20px;text-decoration:none}
+.mark i{font-style:normal;color:var(--hot)}
+.top nav{margin-left:auto;display:flex;align-items:center;gap:4px}
+.top nav a,.smallLink{
+  text-decoration:none;border:1px solid transparent;padding:9px 10px;color:#b9c0c4;
+  font-size:9px;letter-spacing:.08em
+}
+.top nav a:hover,.smallLink:hover{border-color:var(--line);color:#fff}
+.status{font-size:8px;letter-spacing:.14em;color:var(--mut)}
+.hero{
+  min-height:min(760px,calc(100svh - 64px));display:grid;grid-template-columns:minmax(0,1.05fr) minmax(400px,.95fr);
+  border-bottom:1px solid var(--line)
+}
+.copy{display:flex;flex-direction:column;justify-content:center;padding:64px 44px 64px 0;position:relative}
+.ey{font-size:8px;letter-spacing:.2em;color:var(--hot);margin-bottom:18px}
+h1{
+  margin:0;font:900 clamp(68px,10vw,150px)/.74 ui-sans-serif,system-ui,sans-serif;
+  letter-spacing:-.085em;text-transform:uppercase;max-width:760px
+}
+h1 .slash{color:var(--hot);font-weight:500}
+.lede{
+  max-width:650px;margin:34px 0 0;font:500 clamp(15px,1.7vw,21px)/1.38 ui-sans-serif,system-ui,sans-serif;
+  color:#c7ced1;letter-spacing:-.015em
+}
+.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:34px}
+.cta{
+  min-height:48px;display:inline-flex;align-items:center;justify-content:center;padding:0 16px;
+  border:1px solid var(--line);background:#0a0f14;color:var(--ink);text-decoration:none;font-weight:800;font-size:10px;letter-spacing:.08em
+}
+.cta.primary{border-color:var(--hot);background:#160d09;color:#ffd5c5}
+.cta:hover{border-color:#66757f}
+.law{margin-top:22px;color:#707d85;font-size:8px;letter-spacing:.13em}
+.visual{
+  min-height:520px;border-left:1px solid var(--line);position:relative;overflow:hidden;background:#06090d
+}
+#field{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.visualHud{position:absolute;inset:18px;pointer-events:none;display:flex;flex-direction:column;justify-content:space-between}
+.visualTop,.visualBottom{display:flex;justify-content:space-between;gap:12px;color:#69767d;font-size:8px;letter-spacing:.13em}
+.visualBottom b{color:var(--cool)}
+.rule{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.rule>div{min-height:150px;padding:24px 18px;border-right:1px solid var(--line)}
+.rule>div:last-child{border-right:0}
+.n{color:var(--hot);font-weight:800;font-size:9px}
+.rule b{display:block;margin-top:22px;font:800 18px/1 ui-sans-serif,system-ui,sans-serif}
+.rule p{margin:10px 0 0;color:#78858d;font:11px/1.55 ui-sans-serif,system-ui,sans-serif}
+.section{padding:72px 0}
+.sectionHead{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:20px}
+.sectionHead h2{margin:0;font:900 clamp(30px,5vw,58px)/.9 ui-sans-serif,system-ui,sans-serif;letter-spacing:-.055em}
+.sectionHead p{max-width:510px;margin:0;color:#87939a;font:12px/1.6 ui-sans-serif,system-ui,sans-serif}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.mode{min-height:260px;background:var(--panel);padding:22px;display:flex;flex-direction:column;text-decoration:none;position:relative}
+.mode:hover{background:#0d1318}
+.mode .tag{font-size:8px;letter-spacing:.16em;color:var(--mut)}
+.mode h3{margin:16px 0 0;font:900 28px/.92 ui-sans-serif,system-ui,sans-serif;letter-spacing:-.05em}
+.mode p{margin:14px 0 0;color:#88949b;font:11px/1.55 ui-sans-serif,system-ui,sans-serif}
+.mode .go{margin-top:auto;color:var(--cool);font-size:9px;letter-spacing:.1em}
+.mode.primary:before{content:"";position:absolute;left:-1px;top:-1px;bottom:-1px;width:2px;background:var(--hot)}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
+.about>div{background:var(--panel);padding:32px}
+.about h3{font:900 26px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:-.04em;margin:0 0 14px}
+.about p{margin:0;color:#929da3;font:12px/1.7 ui-sans-serif,system-ui,sans-serif}
+.chain{margin-top:24px;border-top:1px solid var(--line);padding-top:18px;display:flex;flex-wrap:wrap;gap:8px;color:#9da7ac;font-size:9px}
+.chain span{border:1px solid var(--line);padding:7px 9px}
+.lineage{padding:28px 0 36px;border-top:1px solid var(--line)}
+.lineageRow{display:flex;flex-wrap:wrap;gap:5px}
+.lineage a{text-decoration:none;border:1px solid var(--line);padding:8px 10px;color:#77848b;font-size:8px;letter-spacing:.1em}
+.lineage a:hover{color:#fff;border-color:#53616a}
+footer{border-top:1px solid var(--line);padding:18px 0 36px;color:#69767d;font-size:8px;letter-spacing:.12em;display:flex;justify-content:space-between;gap:20px}
+@media(max-width:900px){
+  .top .status,.top nav a:nth-child(-n+2){display:none}
+  .hero{grid-template-columns:1fr;min-height:auto}.copy{padding:54px 0 42px}.visual{border-left:0;border-top:1px solid var(--line);min-height:54svh}
+  h1{font-size:clamp(68px,22vw,118px)}.rule{grid-template-columns:1fr 1fr}.rule>div:nth-child(2){border-right:0}.rule>div:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .grid{grid-template-columns:1fr 1fr}.about{grid-template-columns:1fr}.section{padding:48px 0}.sectionHead{display:block}.sectionHead p{margin-top:16px}
+}
+@media(max-width:560px){
+  .grid{grid-template-columns:1fr}.mode{min-height:210px}.visual{min-height:52svh}.rule{grid-template-columns:1fr}.rule>div{border-right:0;border-bottom:1px solid var(--line)!important}
+  .rule>div:last-child{border-bottom:0!important}.top nav a{display:none!important}.top nav a:last-child{display:inline-block!important}
+  footer{display:block}footer span{display:block;margin-top:8px}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<main>
-<header>
-  <div><div class="ey">ONE OBJECT · ONE FOCUS · LAWFUL OPERATIONS · UNEQUAL PROJECTIONS · RETURN</div><div class="brand">FOLD//<br>BLOOM</div></div>
-  <div class="headlaw">The family is now entered as one instrument. Existing engines remain unequal implementations: LISTEN maps an exact audio source; LIVE embodies it; SET folds sources into an authored set; current Journey executes set seams. The shell owns identity and routing only.</div>
+<header class="wrap top">
+  <a class="mark" href="./">FOLD<i>//</i>BLOOM</a>
+  <span class="status">PUBLIC INSTRUMENT · SOURCE → FIELD → RETURN</span>
+  <nav>
+    <a href="./live/">LIVE</a>
+    <a href="./listen/">LISTEN</a>
+    <a href="./set/">SET</a>
+    <a href="./instrument/">INSTRUMENT ↗</a>
+  </nav>
 </header>
 
-<section class="shell">
-  <aside class="panel">
-    <div class="k">SOURCE</div>
-    <div class="sourceType" id="sourceType">EMPTY</div>
-    <div class="sourceName" id="sourceName">NO SOURCE</div>
-    <div class="sourceId" id="sourceId">bind one exact object</div>
-    <div class="sourceBtns">
-      <label class="button" for="audioFile">BIND AUDIO</label><input id="audioFile" type="file" accept="audio/*,.mp3,.m4a,.wav,.flac,.ogg,.aac,.webm">
-      <button id="lastSet">USE LAST SET</button>
-      <textarea id="textInput" placeholder="PASTE / TYPE TEXT · visual identity updates after BIND"></textarea>
-      <button id="bindText">BIND TEXT</button>
-      <button id="clearSource">CLEAR ACTIVE OBJECT</button>
+<main>
+<section class="wrap hero">
+  <div class="copy">
+    <div class="ey">ONE SOURCE · ADDRESSABLE FIELD · LAWFUL TRANSFORM · RETURN</div>
+    <h1>FOLD<span class="slash">//</span><br>BLOOM</h1>
+    <p class="lede">A source becomes a field. Listen to its structure, move through it, change what it can become, then return with a trace of what happened.</p>
+    <div class="actions">
+      <a class="cta primary" href="./live/">ENTER LIVE RIDE →</a>
+      <a class="cta" href="./listen/">MAP A TRACK →</a>
+      <a class="cta" href="./instrument/">OPEN INSTRUMENT →</a>
     </div>
-    <div class="vault">
-      <div class="k">LOCAL VAULT · EXACT AUDIO</div>
-      <div class="vaultList" id="vaultList"><span class="sourceId">scanning…</span></div>
+    <div class="law">LOCAL AUDIO STAYS IN YOUR BROWSER · BORROWED CLOCK ≠ BORROWED AUTHORSHIP</div>
+  </div>
+  <div class="visual">
+    <canvas id="field" aria-label="Interactive Fold Bloom field"></canvas>
+    <div class="visualHud">
+      <div class="visualTop"><span>FIELD / PUBLIC APERTURE</span><span id="phase">BLOOM</span></div>
+      <div class="visualBottom"><span>MOVE POINTER · TAP TO IMPULSE</span><b id="readout">RADIUS 1.00 · FOLD 0.00</b></div>
     </div>
-  </aside>
-
-  <section class="stage" id="stage" data-fold-bloom-instrument="booting">
-    <div class="stageTop"><span>OBJECT <b id="objectKind">EMPTY</b></span><span>REV <b id="revision">0</b></span><span>FOCUS <b id="focusState">—</b></span></div>
-    <div class="instrument">
-      <div class="glyphBox">
-        <div id="glyph" aria-label="current object glyph"></div>
-        <div class="glyphText"><b id="focusLabel">NO SOURCE</b><span id="focusAddress">—</span></div>
-      </div>
-    </div>
-    <div class="focusCells" id="focusCells"></div>
-    <div class="docks">
-      <div class="dock"><div class="k">OPERATE</div><div class="dockRow" id="opDock">
-        <button data-op="FOCUS">FOCUS</button><button data-op="FOLD">FOLD</button><button data-op="BLOOM">BLOOM</button><button data-op="RETURN">RETURN</button>
-      </div></div>
-      <div class="dock"><div class="k">PROJECT</div><div class="dockRow" id="projDock">
-        <button data-proj="GLYPH">GLYPH</button><button data-proj="MAP">MAP</button><button data-proj="RIDE">RIDE</button><button data-proj="READ">READ</button>
-      </div></div>
-    </div>
-  </section>
-
-  <aside class="panel right">
-    <div class="k">INSTRUMENT STATE</div>
-    <div class="stateGrid">
-      <div><span>SOURCE</span><b id="stSource">EMPTY</b></div>
-      <div><span>FOCUS</span><b id="stFocus">—</b></div>
-      <div><span>OPERATION</span><b id="stOp">FOCUS</b></div>
-      <div><span>PROJECTION</span><b id="stProj">GLYPH</b></div>
-      <div><span>RETURN DEPTH</span><b id="stReturn">0</b></div>
-    </div>
-    <div class="next">
-      <div class="k">LAWFUL NEXT</div>
-      <div class="nextList" id="nextList"></div>
-    </div>
-    <div class="next">
-      <div class="k">CURRENT BOUNDARY</div>
-      <div class="sourceId">SET RIDE currently uses Journey 0.1.2: source sequencing + CARRY / DISSOLVE / RESET seams. It is not yet LIVE-across-a-set. That fusion is the next real convergence target, not another Journey product.</div>
-    </div>
-  </aside>
+  </div>
 </section>
 
-<details class="deep">
-  <summary>DEEP ENGINES / DONORS · preserved, not equal entry points</summary>
-  <div class="deepGrid">
-    <a href="./listen/">LISTEN 0.6<span>audio map / source cartography</span></a>
-    <a href="./live/">LIVE 0.13<span>embodied single-source ride</span></a>
-    <a href="./set/">SET 0.1.1<span>fold / order / seam authorship</span></a>
-    <a href="./set/journey.html">JOURNEY 0.1.2<span>current set traversal adapter</span></a>
-    <a href="./atlas/">GLYPH ATLAS 0.2<span>memory / path projection</span></a>
-    <a href="./two-dial/">TWO DIAL 0.10.3<span>deep composition donor</span></a>
-    <a href="./ecology/">ECOLOGY 0.2<span>game / lineage donor</span></a>
-    <a href="../spikes/003-one-instrument/">ONE-INSTRUMENT PROOF<span>law / residue / FLOWER-KEY / ROOM</span></a>
-    <a href="../spikes/004-interphase-sync/">INTERPHASE SYNC<span>one store / pure projections</span></a>
-    <a href="./lens/">SCALE LENS<span>general projection descendant</span></a>
-    <a href="./convergence/README.md">CONVERGENCE PACKET<span>lineage / evidence / prior gates</span></a>
-  </div>
-</details>
-<footer><span>SOURCE → FOCUS → FOLD / BLOOM → PROJECTION → RETURN</span><span class="warn">NO ENGINE MERGE · NO SECOND SOURCE STORE · UNSUPPORTED PATHS STAY CLOSED</span></footer>
-</main>
-<div id="toast"></div>
+<section class="wrap rule">
+  <div><span class="n">01</span><b>SOURCE</b><p>Bind one exact thing: audio, text, or an authored set.</p></div>
+  <div><span class="n">02</span><b>ADDRESS</b><p>Find where you are: beat, phrase, section, token, cell, seam.</p></div>
+  <div><span class="n">03</span><b>FOLD / BLOOM</b><p>Compress possibility or open it. The operation changes the projection, not the source witness.</p></div>
+  <div><span class="n">04</span><b>RETURN</b><p>Come back with state, evidence, and a path that can be replayed or transformed again.</p></div>
+</section>
 
-<script src="/lib/interphase-core.js"></script>
-<script src="/lib/interphase-ring.js"></script>
-<script src="/lib/interphase-glyph.js"></script>\n<script type="module" src="./app.js"></script>
-<script src="/showcase-nav.js" defer></script>
+<section class="wrap section">
+  <div class="sectionHead">
+    <h2>ONE INSTRUMENT.<br>UNEQUAL PROJECTIONS.</h2>
+    <p>The public surface is deliberately small. Each mode keeps its own job while sharing source identity, address, and return.</p>
+  </div>
+  <div class="grid">
+    <a class="mode primary" href="./live/"><span class="tag">RIDE / EMBODY</span><h3>LIVE</h3><p>Turn measured song structure into traversable terrain. Fold, bloom, split, return.</p><span class="go">ENTER RIDE →</span></a>
+    <a class="mode" href="./listen/"><span class="tag">MAP / ATTEND</span><h3>LISTEN</h3><p>Inspect a track as beat, phrase, section, and whole. Pin exact moments and carry the map forward.</p><span class="go">OPEN MAP →</span></a>
+    <a class="mode" href="./set/"><span class="tag">FOLD / AUTHOR</span><h3>SET</h3><p>Compose multiple sources into order, weight, and seams without pretending they are one file.</p><span class="go">BUILD SET →</span></a>
+    <a class="mode" href="./instrument/"><span class="tag">CORE / ROUTE</span><h3>INSTRUMENT</h3><p>Bind the object, inspect support, choose an operation, project it, and keep return depth explicit.</p><span class="go">OPEN CORE →</span></a>
+  </div>
+</section>
+
+<section class="wrap section" style="padding-top:0">
+  <div class="about">
+    <div>
+      <h3>Not a playlist. Not a visualizer.</h3>
+      <p>FOLD//BLOOM treats media as an addressable object. A projection may look like a map, a ride, a glyph, a reading surface, or a composed set, but the source remains identifiable and the transform remains attributable.</p>
+      <div class="chain"><span>SOURCE</span><span>FOCUS</span><span>FOLD</span><span>BLOOM</span><span>PROJECTION</span><span>RETURN</span></div>
+    </div>
+    <div>
+      <h3>Designed to survive its own mutations.</h3>
+      <p>Experimental engines stay available as donors instead of being flattened into one interface. The public doorway stays coherent; deeper mechanisms remain inspectable when you want them.</p>
+      <div class="chain"><span>LISTEN</span><span>LIVE</span><span>SET</span><span>GLYPH</span><span>READ</span><span>LENS</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap lineage">
+  <div class="ey" style="margin-bottom:12px">LINEAGE / DEEP SURFACES</div>
+  <div class="lineageRow">
+    <a href="./two-dial/">TWO DIAL</a><a href="./ecology/">ECOLOGY</a><a href="./lens/">SCALE LENS</a><a href="./atlas/">GLYPH ATLAS</a><a href="./convergence/README.md">CONVERGENCE</a>
+  </div>
+</section>
+</main>
+
+<footer class="wrap">
+  <span>FOLD//BLOOM · SOURCE → ADDRESS → TRANSFORM → RETURN</span>
+  <span>PUBLIC FRONT · 2026-09-23</span>
+</footer>
+
+<script>
+(function(){
+  const c=document.getElementById('field'),x=c.getContext('2d'),phase=document.getElementById('phase'),readout=document.getElementById('readout');
+  let w=0,h=0,dpr=1,mx=.58,my=.42,impulse=0,last=performance.now(),reduced=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function resize(){dpr=Math.min(devicePixelRatio||1,2);w=c.clientWidth;h=c.clientHeight;c.width=w*dpr;c.height=h*dpr;x.setTransform(dpr,0,0,dpr,0,0)}
+  addEventListener('resize',resize,{passive:true});resize();
+  function point(e){const r=c.getBoundingClientRect();mx=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));my=Math.max(0,Math.min(1,(e.clientY-r.top)/r.height))}
+  c.addEventListener('pointermove',point,{passive:true});c.addEventListener('pointerdown',e=>{point(e);impulse=1});
+  function draw(now){
+    const dt=Math.min(.05,(now-last)/1000);last=now;impulse=Math.max(0,impulse-dt*1.45);
+    x.clearRect(0,0,w,h);
+    const cx=w*.5,cy=h*.5,base=Math.min(w,h)*(.25+my*.07),fold=(mx-.5)*1.9,t= reduced?0:now*.00022;
+    x.strokeStyle='#152028';x.lineWidth=1;
+    for(let i=1;i<7;i++){x.beginPath();x.arc(cx,cy,base*(i/5.4),0,Math.PI*2);x.stroke()}
+    x.beginPath();x.moveTo(cx,0);x.lineTo(cx,h);x.moveTo(0,cy);x.lineTo(w,cy);x.stroke();
+    const petals=12;
+    for(let ring=0;ring<3;ring++){
+      x.beginPath();
+      for(let i=0;i<=petals*18;i++){
+        const a=(i/(petals*18))*Math.PI*2;
+        const harmonic=Math.sin(a*petals + t*(ring+1)*3 + fold*2.1);
+        const secondary=Math.sin(a*3-t*2.2)*.16;
+        const pinch=1-fold*.18*Math.cos(a*2);
+        const r=base*(.62+ring*.22)*(1+.13*harmonic+secondary*.18)*pinch + impulse*18*Math.sin(a*6+t*5);
+        const px=cx+Math.cos(a+t*(ring%2?.32:-.23))*r,py=cy+Math.sin(a+t*(ring%2?.32:-.23))*r;
+        if(i===0)x.moveTo(px,py);else x.lineTo(px,py);
+      }
+      x.closePath();x.strokeStyle=ring===1?'rgba(123,213,255,.72)':ring===2?'rgba(239,120,73,.72)':'rgba(242,243,239,.45)';x.lineWidth=ring===1?1.4:1;x.stroke();
+    }
+    for(let i=0;i<petals;i++){
+      const a=(i/petals)*Math.PI*2+t*.25,r1=base*.25,r2=base*(1.04+impulse*.08);
+      x.beginPath();x.moveTo(cx+Math.cos(a)*r1,cy+Math.sin(a)*r1);x.lineTo(cx+Math.cos(a+fold*.09)*r2,cy+Math.sin(a+fold*.09)*r2);
+      x.strokeStyle='rgba(215,180,109,.26)';x.stroke();
+    }
+    x.fillStyle='#05070b';x.beginPath();x.arc(cx,cy,base*.18,0,Math.PI*2);x.fill();x.strokeStyle='#ef7849';x.stroke();
+    phase.textContent=fold<-.12?'FOLD':fold>.12?'BLOOM':'RETURN';
+    readout.textContent='RADIUS '+(0.82+my*.36).toFixed(2)+' · FOLD '+fold.toFixed(2);
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
 </body>
 </html>
