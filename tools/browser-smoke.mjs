@@ -833,6 +833,12 @@ const CASES=[
     }
   },
   {
+    name:'CONFLUENCE ONE INSTRUMENT',
+    route:'/spikes/003-one-instrument/?proof=1',
+    options:{width:1180,height:900,budget:7000,timeout:14000},
+    check:dom=>textAtId(dom,'proofState')==='PASS 12/12'&&dom.includes('data-proof="pass"')&&/CONTENT · AUTHORITY · DEPTH · TIME/.test(dom)
+  },
+  {
     name:'FOUNDRY',
     route:'/foundry/',
     check:dom=>/FOUNDRY/i.test(dom)&&/VERSE|AXIAL/i.test(dom)&&!dom.includes('load failure')

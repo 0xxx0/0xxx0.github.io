@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080a0c">
+<title>CONFLUENCE // ONE INSTRUMENT · SPIKE 003</title>
+<style>
+:root{--bg:#080a0c;--panel:#0d1114;--ink:#e9eeec;--mut:#839096;--line:#2c373d;--hot:#e98748;--cool:#75c3e6;--good:#9bd488;--bad:#e57d74;--gold:#d9b36a}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}button,input,textarea,select{font:inherit;color:inherit;background:#0a0d0f;border:1px solid var(--line);border-radius:0}button{padding:7px 9px;cursor:pointer}button.on{border-color:var(--gold);color:var(--gold)}button:hover{border-color:#55646c}textarea{width:100%;min-height:78px;padding:7px;resize:vertical}.app{min-height:100vh;display:grid;grid-template-rows:auto minmax(0,1fr) auto}.top{display:flex;gap:6px;align-items:center;flex-wrap:wrap;padding:8px 10px;border-bottom:1px solid var(--line);background:#090c0e}.brand{font-weight:800;letter-spacing:.14em}.brand b{color:var(--gold)}.sp{flex:1}.proof{font-size:10px;color:var(--mut);border-left:1px solid var(--line);padding-left:9px}.proof.pass{color:var(--good)}.proof.fail{color:var(--bad)}
+.main{display:grid;grid-template-columns:250px minmax(0,1fr) 320px;min-height:0}.side{padding:10px;overflow:auto;background:var(--panel)}.side.left{border-right:1px solid var(--line)}.side.right{border-left:1px solid var(--line)}.stage{position:relative;min-height:520px;overflow:hidden;background:linear-gradient(180deg,#090c0e,#050607)}.k{margin:10px 0 5px;color:var(--gold);font-size:9px;letter-spacing:.16em}.card{border:1px solid var(--line);padding:8px;margin-bottom:7px;background:#0a0e11}.tiny{font-size:9px;color:var(--mut)}.nodeBtn{display:grid;grid-template-columns:18px 1fr auto;gap:6px;align-items:center;width:100%;text-align:left;margin-bottom:4px}.nodeBtn .sel{color:var(--cool)}.nodeBtn.focused{border-color:var(--cool)}.residue{color:var(--bad)}.good{color:var(--good)}.mut{color:var(--mut)}.mono{white-space:pre-wrap;word-break:break-word}.toolbar{position:absolute;left:8px;right:8px;top:8px;z-index:20;display:flex;gap:4px;flex-wrap:wrap;pointer-events:none}.toolbar>*{pointer-events:auto}.chip{border:1px solid var(--line);background:#080b0de8;padding:4px 6px;font-size:9px;color:var(--mut)}#svgStage{position:absolute;inset:0;width:100%;height:100%}.node{cursor:pointer}.node polygon,.node path,.node circle{fill:none;stroke:var(--mut);stroke-width:1.4}.node text{fill:var(--mut);font-size:9px}.node.focus polygon,.node.focus path,.node.focus circle{stroke:var(--gold);stroke-width:2.4}.node.focus text{fill:var(--ink)}.selected polygon,.selected path,.selected circle{stroke:var(--cool)}
+#sixStage{position:absolute;inset:55px 20px 25px;display:none;perspective:1000px;align-items:center;justify-content:center}.six{position:relative;width:min(620px,86vw);height:min(480px,72vh);transform-style:preserve-3d;transition:transform .45s ease}.face{position:absolute;width:190px;min-height:118px;border:1px solid var(--line);background:#0b1013f2;padding:8px;transform-style:preserve-3d;transition:transform .45s ease,opacity .3s ease,background .3s ease}.face h3{font-size:10px;letter-spacing:.16em;margin:0 0 4px;color:var(--gold)}.face b{font-size:12px}.face .body{margin-top:6px;font-size:10px}.face .office{color:var(--mut);font-size:8px}.face.focusOffice{border-color:var(--gold)}
+.six[data-mode="flower"] .face[data-office="FOCUS"]{left:50%;top:50%;transform:translate(-50%,-50%)}.six[data-mode="flower"] .face[data-office="SOURCE"]{left:50%;top:2%;transform:translateX(-50%) rotate(-3deg)}.six[data-mode="flower"] .face[data-office="FRAME"]{left:1%;top:36%;transform:rotate(-8deg)}.six[data-mode="flower"] .face[data-office="OPERATE"]{right:1%;top:36%;transform:rotate(8deg)}.six[data-mode="flower"] .face[data-office="WITNESS"]{left:13%;bottom:1%;transform:rotate(5deg)}.six[data-mode="flower"] .face[data-office="RETURN"]{right:13%;bottom:1%;transform:rotate(-5deg)}
+.six[data-mode="room"]{width:250px;height:250px;transform:rotateX(-12deg) rotateY(25deg)}.six[data-mode="room"] .face{width:250px;height:250px;min-height:0;overflow:hidden;background:#0b1013dd}.six[data-mode="room"] .face[data-office="FOCUS"]{transform:translateZ(125px)}.six[data-mode="room"] .face[data-office="RETURN"]{transform:rotateY(180deg) translateZ(125px)}.six[data-mode="room"] .face[data-office="FRAME"]{transform:rotateY(-90deg) translateZ(125px)}.six[data-mode="room"] .face[data-office="OPERATE"]{transform:rotateY(90deg) translateZ(125px)}.six[data-mode="room"] .face[data-office="SOURCE"]{transform:rotateX(90deg) translateZ(125px)}.six[data-mode="room"] .face[data-office="WITNESS"]{transform:rotateX(-90deg) translateZ(125px)}
+.tests .row{display:grid;grid-template-columns:28px 1fr;gap:6px;padding:4px 0;border-bottom:1px dotted #233038}.tests .pass{color:var(--good)}.tests .fail{color:var(--bad)}.footer{border-top:1px solid var(--line);padding:5px 9px;color:var(--mut);font-size:9px;display:flex;gap:10px;justify-content:space-between}.authority{display:grid;grid-template-columns:1fr 1fr;gap:5px}.authority select,.authority button{width:100%}
+@media(max-width:980px){.main{display:block}.side.left,.side.right{border:0;border-bottom:1px solid var(--line);max-height:none}.stage{min-height:560px}.left{display:none}.right{padding-bottom:80px}.top .brand{width:100%}.proof{border:0;padding:0}.face{width:145px;min-height:105px}.six{width:100%;height:470px}.six[data-mode="flower"] .face[data-office="FRAME"]{left:0}.six[data-mode="flower"] .face[data-office="OPERATE"]{right:0}.six[data-mode="flower"] .face[data-office="WITNESS"]{left:4%}.six[data-mode="flower"] .face[data-office="RETURN"]{right:4%}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="brand">CONFLUENCE <b>// ONE INSTRUMENT</b> · SPIKE 003</div>
+  <button data-p="LINE" class="on">LINE</button><button data-p="FLOWER_KEY">FLOWER-KEY</button><button data-p="RADIAL">RADIAL</button><button data-p="ROOM">ROOM</button><button data-p="GLYPH">GLYPH</button>
+  <div class="sp"></div><button id="returnBtn">RETURN</button><button id="proofBtn">RUN PROOF</button><span id="proofState" class="proof">UNRUN</span>
+</header>
+<div class="main">
+<aside class="side left">
+  <div class="k">CANONICAL FIXTURE</div><div class="card"><b>heterogeneous-12</b><div class="tiny">CONTENT · AUTHORITY · DEPTH · TIME stay first-class. Projections may suppress; field state must not forget.</div></div>
+  <div id="nodeList"></div>
+  <div class="k">PROJECTION RESIDUE</div><div id="residueBox" class="card tiny"></div>
+</aside>
+<main class="stage" id="stage">
+  <div class="toolbar"><span id="focusChip" class="chip">FOCUS</span><span id="semChip" class="chip">SEM</span><span id="domChip" class="chip">SIX-DOM</span></div>
+  <svg id="svgStage" viewBox="0 0 1000 700" preserveAspectRatio="xMidYMid meet"></svg>
+  <div id="sixStage"><div class="six" id="six" data-mode="flower"></div></div>
+</main>
+<aside class="side right">
+  <div class="k">FOCUS / ADDRESS</div><div id="focusCard" class="card"></div>
+  <div class="k">DRAFT</div><textarea id="draft" placeholder="session draft; survives projection switches"></textarea>
+  <div class="k">APERTURE / AUTHORITY</div><div class="authority"><input id="aperture" type="range" min="0" max="100" value="62"><select id="authority"><option>VIEW</option><option selected>PREVIEW</option><option>COMMIT</option></select><button id="selectBtn">TOGGLE SELECT</button><button id="markBtn">SAFE ANNOTATE</button></div>
+  <div id="timeWrap" style="display:none"><div class="k">CLOCK</div><input id="clock" type="range" min="0" max="120" step=".1" value="12.5" style="width:100%"><div id="clockOut" class="tiny"></div></div>
+  <div class="k">INVARIANT PROOF</div><div id="tests" class="card tests"><div class="tiny">RUN PROOF checks 11 state invariants + same-node FLOWER↔ROOM DOM reuse.</div></div>
+</aside>
+</div>
+<footer class="footer"><span>one canonical field · unequal projections · explicit residue</span><span id="status">LINE</span></footer>
+</div>
+<script type="module" src="./app.mjs"></script>
+</body>
+</html>
