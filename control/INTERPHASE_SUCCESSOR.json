@@ -1,0 +1,212 @@
+{
+  "schema": "0xxx0/interphase-successor/v0.1",
+  "updated": "2026-09-23",
+  "status": "ACTIVE_HANDOFF",
+  "purpose": "Cold-start continuation packet for INTERPHASE / Fold-Bloom / recovery convergence. Prefer exact linked artifacts over this summary when they disagree.",
+  "top_laws": [
+    "RECOVER BEFORE INVENTING",
+    "DATA EXISTS ONCE; HOST OWNS DOMAIN TRUTH",
+    "CORRESPOND != PROJECT != OPERATE",
+    "IDENTITY != COORDINATE",
+    "SELECTION/MULTIFOCUS SURVIVE PROJECTION",
+    "PROJECTION MAY SUPPRESS ONLY AS EXPLICIT RESIDUE",
+    "AUTHORITY CANNOT INCREASE THROUGH A VIEW",
+    "RETURN RESTORES CONTEXT; ROLLBACK IS A SEPARATE OPERATION",
+    "PHYSICAL RENDERING IS NOT PHYSICAL TRUTH",
+    "SIX OFFICES ARE A PRESET, NOT AN ONTOLOGY"
+  ],
+  "current_model": {
+    "plain": "Keep each thing where it really lives. Give it stable addresses and semantic facets. Project those facets into ordinary page/ring/room/glyph/etc at different scales. Let operations change the host only through explicit support/authority. Keep one or many focus pointers and exact RETURN.",
+    "pipeline": [
+      "HOST",
+      "CORRESPONDENCE",
+      "ATTENTION",
+      "PROJECTION@SCALE",
+      "OPERATION",
+      "AUTHORITY/COMMIT",
+      "EVIDENCE",
+      "RETURN"
+    ],
+    "transform_distinctions": {
+      "correspond": "host object -> stable semantic facet/role; identity-preserving",
+      "project": "facet -> visible allocation/geometry/LOD; identity-preserving unless explicit transform",
+      "operate": "canonical state -> changed canonical state; requires support and authority"
+    },
+    "operation_square": "PROJECT(OP(host)) ~= VIEW_OP(PROJECT(host)) for operations claimed equivalent"
+  },
+  "current_implementation": {
+    "interphase_core": "/lib/interphase-core.js",
+    "mapping_helper": "/lib/interphase-mapping.js",
+    "generic_dom": "/lib/interphase-dom.js",
+    "recovery_adapter": "/lib/interphase-recovery.js",
+    "correspondence_registry": "/control/INTERPHASE_CORRESPONDENCE_REGISTRY.json",
+    "mapping_contract": "/control/INTERPHASE_MAPPING_CONTRACT.json",
+    "recovery_schema": "/control/schemas/interphase-recovery-packet.schema.json",
+    "browser_extension": [
+      "/manifest.json",
+      "/interphase-extension.js"
+    ],
+    "host_adapters": {
+      "FIELD": "/lib/interphase-field.js",
+      "READFIELD": "/lib/interphase-readfield.js",
+      "SCALE_LENS": "/lib/interphase-lens.js",
+      "LISTEN": "/lib/interphase-listen.js"
+    },
+    "proof_donors": [
+      "/spikes/003-one-instrument/",
+      "/control/PROJECTION_CONTRACT_SPEC.md"
+    ]
+  },
+  "latest_updates": [
+    {
+      "sha": "8217a3205ba9d57af8225072cad49ae1beed3b0a",
+      "mechanism": "shared glyph/ring grammar",
+      "meaning": "Fold/Bloom, LISTEN and generic DOM glyph projections use one stateless glyph grammar; host identity/effect boundaries remain separate."
+    },
+    {
+      "sha": "30655e7666dcb136d973ecd88df3a8150ff67f72",
+      "mechanism": "shared cyclic ring kernel",
+      "meaning": "INTERPHASE glyph rings, Two Dial relation mechanics and Ecology gate/ratchet geometry share one addressed cyclic carrier rather than three bespoke ring engines."
+    },
+    {
+      "sha": "30705a04643d2ea2aa661ec7bf5c20e903bd9e71",
+      "mechanism": "unified RIDE dual-clock state",
+      "meaning": "Single-source and set rides share one address contract carrying sourceTime + journeyTime; seam laws CUT/DISSOLVE/CARRY/RESET/RETURN remain explicit."
+    }
+  ],
+  "fold_bloom": {
+    "doorway": "/fold-bloom/",
+    "rule": "One INTERPHASE doorway; unequal domain authorities remain unequal.",
+    "roles": {
+      "source_cartograph": [
+        "SET refs",
+        "LISTEN",
+        "Atlas"
+      ],
+      "compose": [
+        "SET seam/weight/order authorship",
+        "Two Dial / operator relations"
+      ],
+      "ride_embody": [
+        "LIVE",
+        "Journey seam/traversal law",
+        "unified RIDE state"
+      ]
+    },
+    "current_open_transform": "Complete SET -> LIVE fusion using unified RIDE state; Journey should become traversal library/debug surface only after behavioral equivalence is proved."
+  },
+  "mapping_example": {
+    "object": "form.email",
+    "facet": "FOCUS_INPUT",
+    "projections": {
+      "LINE.compact": "inline editable cell",
+      "TABLE.working": "EMAIL row value cell",
+      "FLOWER.expanded": "focus sector",
+      "ROOM.room": "left wall",
+      "PHYSICAL.physical": "left panel candidate; requires measured physical binding"
+    },
+    "law": "The placement changes; object id and semantic facet do not."
+  },
+  "recovery": {
+    "method": "/control/confluence/RETRIEVAL_CANON.md",
+    "worker_contract": "/control/confluence/BACKUP_ARCHAEOLOGY_INTERPHASE_WORKER_2026-09-23.md",
+    "migration_spec": "/control/confluence/INTERPHASE_MIGRATION_BACKUP_ARCHAEOLOGY_2026-09-23.md",
+    "output_schema": "0xxx0/interphase-recovery-packet/v0.1",
+    "rule": "Recovery workers return exact evidence + addressed packet, not prose-only synthesis; semantic correspondence comes after recovery; geometry comes later."
+  },
+  "physical_make": {
+    "hypothesis": "Same correspondence/attention/operation protocol can address physical parts, fixtures and controls.",
+    "required_host_truth": [
+      "stable physical identity",
+      "dimensions",
+      "tolerances",
+      "real topology/mating",
+      "measured state",
+      "lawful operations",
+      "effect authority",
+      "evidence"
+    ],
+    "possible_projections_controllers": [
+      "fan",
+      "annulus",
+      "cylinder",
+      "cube/net",
+      "cassette",
+      "rail",
+      "peg frame",
+      "printed glyph",
+      "AXIAL",
+      "Two Dial"
+    ],
+    "refusal": "Screen adjacency/fold/animation never proves fit, load, tolerance, safety or real actuation."
+  },
+  "next_transformations": [
+    {
+      "id": "set-live-fusion",
+      "priority": 1,
+      "delta": "Make SET RIDE enter LIVE using unified RIDE dual-clock state and existing seam laws without a second set/ride truth store.",
+      "preserve": [
+        "child exact source identity",
+        "sourceTime",
+        "journeyTime",
+        "CUT/DISSOLVE/CARRY/RESET/RETURN",
+        "LISTEN cartography authority",
+        "SET composition authority",
+        "LIVE embodied authority"
+      ],
+      "stop": "Do not rewrite LISTEN/SET/Journey/LIVE into one blob."
+    },
+    {
+      "id": "real-form-scale-proof",
+      "priority": 2,
+      "delta": "Use correspondence registry on a real ordinary webpage/form: same focused control should move through page/compact/room allocations with native edit semantics and exact RETURN.",
+      "preserve": [
+        "native host state",
+        "effect boundaries",
+        "multifocus"
+      ],
+      "stop": "No new app shell."
+    },
+    {
+      "id": "recovery-packet-production",
+      "priority": 3,
+      "delta": "Run parallel backup archaeology workers on bounded lineages/batches and emit recovery packets; use stable keys to converge packets.",
+      "preserve": [
+        "raw bytes/refs",
+        "conflicts",
+        "UNKNOWN",
+        "anti-merge",
+        "return paths"
+      ],
+      "stop": "No project promotion during archaeology."
+    },
+    {
+      "id": "physical-host-v0",
+      "priority": 4,
+      "delta": "Choose one real MAKE object and define measured physical-host packet + digital/physical correspondence; no actuation required initially.",
+      "preserve": [
+        "real geometry and measurements as host truth"
+      ],
+      "stop": "No inference from UI geometry."
+    }
+  ],
+  "do_not_do": [
+    "Do not build a new universal dashboard/product.",
+    "Do not create another canonical store for existing host data.",
+    "Do not merge domain semantics merely because projections look similar.",
+    "Do not turn six offices, rings, cubes or triangles into mandatory ontology.",
+    "Do not demote/delete donors until unique residue round-trips and lived use confirms replacement.",
+    "Do not let recovery workers redesign or silently merge artifacts.",
+    "Do not confuse RETURN with undo or rollback.",
+    "Do not let projection grant send/spend/delete/actuate authority."
+  ],
+  "entrypoints": [
+    "/control/CURRENT.json",
+    "/control/INTERPHASE_CORRESPONDENCE_REGISTRY.json",
+    "/control/INTERPHASE_MAPPING_CONTRACT.json",
+    "/control/confluence/INTERPHASE_MAPPING_THEORY_2026-09-23.md",
+    "/control/confluence/INTERPHASE_MIGRATION_BACKUP_ARCHAEOLOGY_2026-09-23.md",
+    "/control/confluence/BACKUP_ARCHAEOLOGY_INTERPHASE_WORKER_2026-09-23.md",
+    "/control/confluence/INTERPHASE_SESSION_STARTERS_2026-09-23.md"
+  ]
+}

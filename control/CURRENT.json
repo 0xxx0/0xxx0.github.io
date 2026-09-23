@@ -670,7 +670,10 @@
     "interphase_recovery_adapter": "/lib/interphase-recovery.js",
     "backup_archaeology_worker": "/control/confluence/BACKUP_ARCHAEOLOGY_INTERPHASE_WORKER_2026-09-23.md",
     "interphase_archaeology_migration": "/control/confluence/INTERPHASE_MIGRATION_BACKUP_ARCHAEOLOGY_2026-09-23.md",
-    "interphase_correspondence_registry": "/control/INTERPHASE_CORRESPONDENCE_REGISTRY.json"
+    "interphase_correspondence_registry": "/control/INTERPHASE_CORRESPONDENCE_REGISTRY.json",
+    "interphase_successor": "/control/INTERPHASE_SUCCESSOR.json",
+    "interphase_successor_handoff": "/control/confluence/INTERPHASE_SUCCESSOR_HANDOFF_2026-09-23.md",
+    "interphase_session_starters": "/control/confluence/INTERPHASE_SESSION_STARTERS_2026-09-23.md"
   },
   "field_index": {
     "model": "/showcase-manifest.json#field_index",
@@ -842,5 +845,15 @@
     "verified_run": 35817549536,
     "registry": "/control/INTERPHASE_CORRESPONDENCE_REGISTRY.json",
     "worker_contract": "/control/confluence/BACKUP_ARCHAEOLOGY_INTERPHASE_WORKER_2026-09-23.md"
+  },
+  "last_interphase_successor": {
+    "state": "HANDOFF_CURRENT",
+    "packet": "/control/INTERPHASE_SUCCESSOR.json",
+    "latest_updates": [
+      "8217a3205ba9d57af8225072cad49ae1beed3b0a",
+      "30655e7666dcb136d973ecd88df3a8150ff67f72",
+      "30705a04643d2ea2aa661ec7bf5c20e903bd9e71"
+    ],
+    "law": "Future agents recover exact current artifacts from the packet; the packet is a pointer/summary, not canonical source."
   }
 }
