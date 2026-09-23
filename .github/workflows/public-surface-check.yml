@@ -37,6 +37,8 @@ jobs:
         run: node body/fit/health-connect-selftest.cjs
       - name: Validate INTERPHASE ROOM projection core
         run: node control/interphase-room-selftest.js
+      - name: Validate CONFLUENCE one-instrument round trip
+        run: node spikes/003-one-instrument/selftest.mjs
       - name: Validate BLOCK ROOM space-scale core
         run: node control/space-scale-selftest.js
       - name: Validate static surface contracts
