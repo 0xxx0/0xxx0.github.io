@@ -41,6 +41,16 @@ jobs:
         run: node spikes/003-one-instrument/selftest.mjs
       - name: Validate shared INTERPHASE host laws
         run: node tools/interphase-selftest.cjs
+      - name: Validate INTERPHASE extension bundle syntax
+        run: |
+          node --check interphase-extension.js
+          node --check lib/interphase-core.js
+          node --check lib/interphase-dom.js
+          node --check lib/interphase-field.js
+          node --check lib/interphase-readfield.js
+          node --check lib/interphase-lens.js
+          node --check lib/interphase-listen.js
+          node -e "JSON.parse(require('fs').readFileSync('manifest.json','utf8')); console.log('INTERPHASE manifest PASS')"
       - name: Validate BLOCK ROOM space-scale core
         run: node control/space-scale-selftest.js
       - name: Validate static surface contracts
