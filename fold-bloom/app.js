@@ -245,5 +245,5 @@ document.querySelectorAll('[data-op]').forEach(b=>b.onclick=()=>{
 });
 document.querySelectorAll('[data-proj]').forEach(b=>b.onclick=()=>{try{launchProjection(b.dataset.proj)}catch(err){toast(err.message)}});
 
-syncSetIdentity();syncHost({resetProjection:true});await refreshVault();render();document.documentElement.dataset.fbReady='ready';
+syncSetIdentity();syncHost({resetProjection:true});render();document.documentElement.dataset.fbReady='ready';refreshVault().catch(()=>{});
 window.FoldBloomInstrument={host,state:()=>({active:clone(active),interphase:host.snapshot(),operation,support:supportFor(active)}),support:()=>supportFor(active),bindLastSet,render};
