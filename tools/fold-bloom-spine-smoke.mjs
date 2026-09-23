@@ -27,7 +27,8 @@ setTimeout(()=>{(async()=>{
   const raw=hash.slice(7);rec.listenReady=rec.setReady&&rec.vault==='ready'&&rec.listenHash===raw&&rec.returnLink;
   f.src='/fold-bloom/set/';
   const rideBtn=await wait(()=>f.contentWindow?.document?.getElementById('journeyBtn'));
-  rideBtn.click();
+  await wait(()=>rideBtn.dataset.href&&!rideBtn.disabled);rec.rideHref=rideBtn.dataset.href;
+  f.contentWindow.location.assign(rideBtn.dataset.href);
   await wait(()=>f.contentWindow?.location?.pathname==='/fold-bloom/live/');
   await wait(()=>['ready','returned'].includes(f.contentWindow.document.documentElement.dataset.foldBloomSetRide),24000);
   const setRide=f.contentWindow.FoldBloomSetRide?.state?.(),live=f.contentWindow.FoldBloomLive?.state?.();
