@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPELL / 信 · anything means something</title>
+<style>
+  :root{--bg:#07090b;--fg:#dfe7ea;--mut:#7d8a91;--line:#1e272c;--gold:#d5ad68;--cool:#72bce7;--hot:#ed7447}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+  header{padding:14px 16px 10px;border-bottom:1px solid var(--line);display:flex;gap:14px;align-items:baseline;flex-wrap:wrap}
+  h1{margin:0;font-size:13px;letter-spacing:.22em;color:var(--gold);font-weight:600}
+  header .sub{font-size:10px;color:var(--mut);letter-spacing:.06em}
+  header nav a{color:var(--mut);text-decoration:none;font-size:10px;letter-spacing:.12em;margin-right:10px}
+  header nav a:hover{color:var(--gold)}
+  main{padding:14px 16px 40px;max-width:1180px}
+  #type{width:100%;background:#0b0f12;border:1px solid var(--line);color:var(--fg);
+        padding:11px 12px;font:13px/1.45 ui-monospace,Menlo,monospace;outline:none;resize:vertical;min-height:52px}
+  #type:focus{border-color:var(--gold)}
+  .bar{display:flex;gap:10px;align-items:center;margin:9px 0 14px;flex-wrap:wrap;font-size:10px;color:var(--mut)}
+  .bar button{background:#0b0f12;border:1px solid var(--line);color:var(--mut);padding:4px 9px;
+              font:10px/1 ui-monospace,Menlo,monospace;letter-spacing:.12em;cursor:pointer}
+  .bar button.on{color:var(--gold);border-color:var(--gold)}
+  .stage{position:relative;border:1px solid var(--line);background:#0a0d10}
+  .stage svg{display:block;width:100%;height:auto}
+  .empty{padding:34px 16px;color:var(--mut);font-size:11px;text-align:center;letter-spacing:.06em}
+  .tok{cursor:pointer}
+  .tok:hover polygon{stroke-width:2.4}
+  #read{padding:9px 10px;border-top:1px solid var(--line);font-size:10px;color:var(--mut);min-height:30px}
+  #read b{color:var(--fg)} #read i{font-style:normal;color:var(--gold)}
+  .law{padding:11px 10px;font-size:10px;color:var(--mut);border-top:1px solid var(--line);line-height:1.7}
+  .law code{color:var(--cool)}
+  .nm{font-size:11px;fill:var(--fg)}
+  .nms{font-size:9px;fill:var(--mut)}
+</style>
+</head>
+<body>
+<header>
+  <h1>SPELL</h1>
+  <span class="sub">anything means something — type, and it takes form</span>
+  <nav><a href="../">FIELD INDEX</a><a href="../reader/">READER</a><a href="../foundry/room/">ROOM</a></nav>
+</header>
+<main>
+  <textarea id="type" spellcheck="false" placeholder="type anything — each token becomes a form">nothing means anything
+why do you do</textarea>
+  <div class="bar">
+    <span>PROJECTION</span>
+    <button id="pRadial" class="on">RADIAL</button>
+    <button id="pLinear">LINEAR</button>
+    <span id="stats"></span>
+  </div>
+  <div class="stage">
+    <svg id="stage" viewBox="0 0 1000 420" aria-label="token forms"></svg>
+    <div id="read">hover or click a form to read its token.</div>
+  </div>
+  <div class="law">
+    <b>THE RULE.</b> A token is not assigned a shape — its shape is <i>derived</i> and therefore re-derivable.
+    Sides come from the token's own letters; size from its length; angle from its first letter.
+    Type the same word twice and you get the same form: <code>fov(k)</code> — a lens reading one key of a structure.
+  </div>
+</main>
+
+<script>
+/* SPELL — input becomes form.
+ * The same token sequence is held once and shown through two projections:
+ * RADIAL (a ring of forms) and LINEAR (a row). Not two datasets — one, re-metricised.
+ * Geometry is DERIVED from the token, never assigned, so it is stable across reloads.
+ */
+const S = v => String(v||'').slice(0,30);   /* timestamps are not shown here */
+const esc = (s) => String(s==null?'':s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))
+const hash = (s) => { let h=2166136261>>>0; for (let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)>>>0} return h>>>0 }
+
+/* DERIVE — the whole point. Nothing is assigned; everything is read off the token. */
+function derive(tok){
+  const t = String(tok||'');
+  const letters = (t.match(/[a-z]/gi)||[]).length;
+  const n = hash(t);
+  const sides = 3 + (hash(t+'|s') % 6);                    // 3..8, stable per token
+  const size  = 11 + Math.min(20, (t.length||1) * 1.7);     // length -> radius
+  const angle = (hash(t+'|a') % 360) * Math.PI/180;         // first-stable rotation
+  const warmth= (hash(t+'|w') % 100) / 100;                 // colour band
+  return { tok:t, sides, size, angle, letters, warmth, h:n };
+}
+
+function tokens(){
+  return ($('type').value.match(/\S+/g) || []).slice(0, 160);
+}
+const $ = (id) => document.getElementById(id);
+const polar = (cx,cy,r,a) => [cx + r*Math.cos(a), cy + r*Math.sin(a)];
+const col = (w) => w < .34 ? '#72bce7' : w < .67 ? '#d5ad68' : '#ed7447';
+
+let MODE = 'RADIAL', SEL = null;
+
+function polyPath(cx,cy,r,n,rot){
+  const pts = [];
+  for (let i=0;i<n;i++){
+    const a = rot - Math.PI/2 + (Math.PI*2*i)/n;
+    const [x,y] = polar(cx,cy,r,a);
+    pts.push(x.toFixed(2)+','+y.toFixed(2));
+  }
+  return pts.join(' ');
+}
+
+function render(){
+  const ts = tokens();
+  const forms = ts.map(derive);
+  const svg = $('stage');
+  $('stats').textContent = forms.length + ' tokens · ' + (MODE==='RADIAL'?'one ring':'one row') + ' · same data, two metrics';
+  if (!forms.length){
+    svg.setAttribute('viewBox','0 0 1000 120');
+    svg.innerHTML = '<text class="nms" x="500" y="62" text-anchor="middle">nothing typed yet — anything means something</text>';
+    $('read').textContent = 'hover or click a form to read its token.'; return;
+  }
+  svg.setAttribute('viewBox','0 0 1000 420');
+  const out = [];
+  const cx = 500, cy = 210;
+
+  if (MODE === 'RADIAL'){
+    // forms sit on a ring; index -> angle. The sequence is the order, cyclically.
+    const R = 118 + Math.min(60, forms.length * 2.2);
+    forms.forEach((f,i)=>{
+      const a = -Math.PI/2 + (Math.PI*2*i)/forms.length;
+      const [x,y] = polar(cx,cy,R,a);
+      const [ix,iy] = polar(cx,cy,34,a);
+      const sc = 1 - Math.min(.42, (x-cx)**2/1e6 + (y-cy)**2/1e6);   // deliberate: 1 - eccentricity
+      out.push('<line x1="'+ix.toFixed(1)+'" y1="'+iy.toFixed(1)+'" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+'" stroke="#1e272c" stroke-width="1"/>');
+      out.push('<polygon class="tok" data-i="'+i+'" points="'+polyPath(x,y,f.size*Math.max(.55,sc),f.sides,f.angle)+
+        '" fill="'+col(f.warmth)+'" fill-opacity="'+(SEL===i?'.34':'.13')+'" stroke="'+col(f.warmth)+'" stroke-width="'+(SEL===i?2.4:1.2)+'"/>');
+    });
+    out.push('<circle cx="'+cx+'" cy="'+cy+'" r="3" fill="#d5ad68" fill-opacity=".9"/>');
+    out.push('<text class="nms" x="'+cx+'" y="'+(cy+5)+'" text-anchor="middle" fill="#d5ad68">'+forms.length+'</text>');
+  } else {
+    // LINEAR — the same forms, unfolded along one axis, shared metrics.
+    const pad = 46, gap = forms.length>1 ? (1000-pad*2)/Math.max(1,forms.length-1) : 0;
+    const y = cy;
+    out.push('<line x1="'+pad+'" y1="'+y+'" x2="'+(1000-pad)+'" y2="'+y+'" stroke="#1e272c" stroke-width="1"/>');
+    forms.forEach((f,i)=>{
+      const x = pad + gap*i;
+      out.push('<polygon class="tok" data-i="'+i+'" points="'+polyPath(x,y,f.size,f.sides,f.angle)+
+        '" fill="'+col(f.warmth)+'" fill-opacity="'+(SEL===i?'.34':'.13')+'" stroke="'+col(f.warmth)+'" stroke-width="'+(SEL===i?2.4:1.2)+'"/>');
+      const [lx,ly] = polar(x,y,f.size+16,0);
+      out.push('<text class="nms" x="'+x.toFixed(1)+'" y="'+(y-f.size-8).toFixed(1)+'" text-anchor="middle">'+esc(f.tok.slice(0,9))+'</text>');
+    });
+  }
+  svg.innerHTML = out.join('');
+  svg.querySelectorAll('.tok').forEach(el=>{
+    const show = () => { const i = +el.dataset.i, f = forms[i];
+      $('read').innerHTML = '<b>'+esc(f.tok)+'</b> · <i>'+f.sides+'-gon</i> · r'+f.size.toFixed(1)+
+        ' · '+f.letters+' letters · '+f.tok.length+' chars · seed '+f.h.toString(16) ; };
+    el.addEventListener('mouseenter', show);
+    el.addEventListener('click', () => { SEL = (+el.dataset.i === SEL ? null : +el.dataset.i); render();
+      if (SEL!=null){ const f = forms[SEL]; $('read').innerHTML = '<b>'+esc(f.tok)+'</b> · <i>'+f.sides+'-gon</i> · r'+f.size.toFixed(1)+' · held'; } });
+  });
+}
+
+$('type').addEventListener('input', render);
+$('pRadial').onclick = () => { MODE='RADIAL'; $('pRadial').classList.add('on'); $('pLinear').classList.remove('on'); render(); };
+$('pLinear').onclick = () => { MODE='LINEAR'; $('pLinear').classList.add('on'); $('pRadial').classList.remove('on'); render(); };
+render();
+</script>
+</body>
+</html>
