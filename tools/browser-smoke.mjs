@@ -748,7 +748,8 @@ const CASES=[
   {
     name:'FOLD BLOOM convergence',
     route:'/fold-bloom/',
-    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/DEMO · 3-TRACK WITNESS/i.test(dom)&&/GHOST → FORGE → WILL/.test(dom)&&/FOLD WEAVE 0\.1/i.test(dom)&&/GLYPH ATLAS 0\.2/i.test(dom)&&/LISTEN 0\.6/i.test(dom)&&/LIVE 0\.13/i.test(dom)&&/TWO DIAL 0\.10\.3/i.test(dom)&&/SET 0\.1/i.test(dom)&&/href="\.\/set\/"/i.test(dom)&&/href="\.\/ecology\/"/i.test(dom)
+    options:{width:430,height:900,budget:9000},
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/ONE OBJECT · ONE FOCUS/i.test(dom)&&dom.includes('data-fold-bloom-instrument="ready"')&&dom.includes('data-object-kind="EMPTY"')&&/SOURCE → FOCUS → FOLD \/ BLOOM → PROJECTION → RETURN/.test(dom)&&/LISTEN 0\.6/i.test(dom)&&/LIVE 0\.13/i.test(dom)&&/SET 0\.1\.1/i.test(dom)&&/JOURNEY 0\.1\.2/i.test(dom)&&/ONE-INSTRUMENT PROOF/i.test(dom)&&/INTERPHASE SYNC/i.test(dom)&&/OLD BRANCH CATALOGUE/i.test(dom)
   },
   {
     name:'FOLD BLOOM SET 0.1 compositor',
