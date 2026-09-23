@@ -405,8 +405,8 @@ function lensRealUseProbeHtml(){
     rec.field.staleOrigin=rec.field.afterReturn!==rec.field.hostSelected;
 
     // Generic route: inspect what is actually actionable, then enter Studio and return.
-    W().location.href='/fold-bloom/';
-    await waitFor(()=>W().location.pathname==='/fold-bloom/'&&D().getElementById('showcase-route-adapter'));
+    W().location.href='/fold-bloom/instrument/';
+    await waitFor(()=>W().location.pathname==='/fold-bloom/instrument/'&&D().getElementById('showcase-route-adapter'));
     let nav=await waitFor(()=>D().getElementById('showcase-route-adapter')?.shadowRoot),lensTab=await waitFor(()=>nav.querySelector('.tab.lens'));
     lensTab.click();await waitFor(()=>nav.querySelector('.panel.on.lens'));
     const transforms=['out','in','projection'].map(k=>nav.querySelector('[data-l="'+k+'"]'));
@@ -430,7 +430,7 @@ function lensRealUseProbeHtml(){
     const studioLensTab=ash?.querySelector('.tab.lens');
     rec.studio.duplicatePortableLens=!!studioLensTab&&!studioLensTab.hidden;
     W().ScaleLensSpatialAPI.return();
-    await waitFor(()=>W().location.pathname==='/fold-bloom/');
+    await waitFor(()=>W().location.pathname==='/fold-bloom/instrument/');
     rec.generic.returnAfter=W().location.pathname;
     rec.generic.returnExact=rec.generic.returnAfter===rec.generic.returnBefore;
 
@@ -450,7 +450,7 @@ function lensRealUseProbeHtml(){
 }
 
 function genericLensReturnProbeHtml(){
-  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:390px;height:844px;border:0;display:block" src="/fold-bloom/"></iframe><pre id="probeResult">PENDING</pre><script>
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:390px;height:844px;border:0;display:block" src="/fold-bloom/instrument/"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};
   const done=(ok,data)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data);
   const sleep=ms=>new Promise(r=>setTimeout(r,ms));
@@ -743,29 +743,35 @@ const CASES=[
     name:'GENERIC LENS RETURN ≠ BACK',
     route:'/__smoke/generic-lens-return',
     options:{width:430,height:900,budget:9000,timeout:16000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"before":"\/fold-bloom\/"/.test(dom)&&/"after":"\/fold-bloom\/"/.test(dom)&&/"closed":true/.test(dom)&&/"copy":true/.test(dom)&&/"deadStack":false/.test(dom)&&/"overflow":0/.test(dom)&&/"triggerGlyph":"◎"/.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"before":"\\/fold-bloom\\/instrument\\/"/.test(dom)&&/"after":"\\/fold-bloom\\/instrument\\/"/.test(dom)&&/"closed":true/.test(dom)&&/"copy":true/.test(dom)&&/"deadStack":false/.test(dom)&&/"overflow":0/.test(dom)&&/"triggerGlyph":"◎"/.test(dom)
+  },
+  {
+    name:'FOLD BLOOM public front',
+    route:'/fold-bloom/',
+    options:{width:430,height:900,budget:5000},
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/A source becomes a field/i.test(dom)&&/ENTER LIVE RIDE/.test(dom)&&/MAP A TRACK/.test(dom)&&/OPEN INSTRUMENT/.test(dom)&&/ONE INSTRUMENT/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
   },
   {
     name:'FOLD BLOOM module boot',
-    route:'/fold-bloom/',
+    route:'/fold-bloom/instrument/',
     options:{width:430,height:900,budget:9000},
     check:dom=>dom.includes('data-fb-module="ready"')
   },
   {
     name:'FOLD BLOOM INTERPHASE host boot',
-    route:'/fold-bloom/',
+    route:'/fold-bloom/instrument/',
     options:{width:430,height:900,budget:9000},
     check:dom=>dom.includes('data-fb-host="ready"')
   },
   {
     name:'FOLD BLOOM instrument ready',
-    route:'/fold-bloom/',
+    route:'/fold-bloom/instrument/',
     options:{width:430,height:900,budget:9000},
     check:dom=>dom.includes('data-fb-ready="ready"')&&dom.includes('data-fold-bloom-instrument="ready"')&&dom.includes('data-object-kind="EMPTY"')
   },
   {
     name:'FOLD BLOOM convergence',
-    route:'/fold-bloom/',
+    route:'/fold-bloom/instrument/',
     options:{width:430,height:900,budget:9000},
     check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/ONE OBJECT · ONE FOCUS/i.test(dom)&&dom.includes('data-fold-bloom-instrument="ready"')&&dom.includes('data-object-kind="EMPTY"')&&/SOURCE → FOCUS → FOLD \/ BLOOM → PROJECTION → RETURN/.test(dom)&&/LISTEN 0\.6/i.test(dom)&&/LIVE 0\.13/i.test(dom)&&/SET 0\.1\.1/i.test(dom)&&/JOURNEY 0\.1\.2/i.test(dom)&&/ONE-INSTRUMENT PROOF/i.test(dom)&&/INTERPHASE SYNC/i.test(dom)
   },
