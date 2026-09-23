@@ -38,7 +38,9 @@ test('text refuses audio projections and routes READ through explicit handoff',(
 test('set folds in SET and rides through current Journey adapter',()=>{
   let s=bindObject(emptyInstrumentState(),{kind:'SET',id:'set:abc123',label:'THREE TRACKS',meta:{entries:3}});
   assert.equal(foldHref(s),'/fold-bloom/set/?return=%2Ffold-bloom%2F');
-  assert.match(projectionHref(s,'RIDE'),/^\/fold-bloom\/set\/journey\.html\?/);
+  const ride=projectionHref(s,'RIDE');
+  assert.match(ride,/^\/fold-bloom\/set\/journey\.html\?/);
+  assert.ok(ride.includes('set=set%3Aabc123'));
   assert.equal(supportFor(s).projections.includes('MAP'),false);
 });
 
