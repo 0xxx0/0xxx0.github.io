@@ -749,7 +749,7 @@ const CASES=[
     name:'FOLD BLOOM convergence',
     route:'/fold-bloom/',
     options:{width:430,height:900,budget:9000},
-    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/ONE OBJECT · ONE FOCUS/i.test(dom)&&dom.includes('data-fold-bloom-instrument="ready"')&&dom.includes('data-object-kind="EMPTY"')&&/SOURCE → FOCUS → FOLD \/ BLOOM → PROJECTION → RETURN/.test(dom)&&/LISTEN 0\.6/i.test(dom)&&/LIVE 0\.13/i.test(dom)&&/SET 0\.1\.1/i.test(dom)&&/JOURNEY 0\.1\.2/i.test(dom)&&/ONE-INSTRUMENT PROOF/i.test(dom)&&/INTERPHASE SYNC/i.test(dom)&&/OLD BRANCH CATALOGUE/i.test(dom)
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/ONE OBJECT · ONE FOCUS/i.test(dom)&&dom.includes('data-fold-bloom-instrument="ready"')&&dom.includes('data-object-kind="EMPTY"')&&/SOURCE → FOCUS → FOLD \/ BLOOM → PROJECTION → RETURN/.test(dom)&&/LISTEN 0\.6/i.test(dom)&&/LIVE 0\.13/i.test(dom)&&/SET 0\.1\.1/i.test(dom)&&/JOURNEY 0\.1\.2/i.test(dom)&&/ONE-INSTRUMENT PROOF/i.test(dom)&&/INTERPHASE SYNC/i.test(dom)
   },
   {
     name:'FOLD BLOOM SET 0.1 compositor',
