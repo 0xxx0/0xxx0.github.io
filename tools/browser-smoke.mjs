@@ -758,6 +758,12 @@ const CASES=[
     check:dom=>dom.includes('data-fb-host="ready"')
   },
   {
+    name:'FOLD BLOOM instrument ready',
+    route:'/fold-bloom/',
+    options:{width:430,height:900,budget:9000},
+    check:dom=>dom.includes('data-fb-ready="ready"')&&dom.includes('data-fold-bloom-instrument="ready"')&&dom.includes('data-object-kind="EMPTY"')
+  },
+  {
     name:'FOLD BLOOM convergence',
     route:'/fold-bloom/',
     options:{width:430,height:900,budget:9000},
