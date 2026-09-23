@@ -1,0 +1,35 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "date": "2026-09-23",
+  "object": "cross-thread collaboration continuity",
+  "status": "PROPOSED_ON_BRANCH",
+  "before": "Relevant conclusions were distributed across CURRENT, INTERPHASE successor/handoffs, Fold/Bloom convergence, HUMAN PORT, HOUSE/BODY, sovereign-node and private long-horizon thread prompts, requiring repeated reconstruction.",
+  "intended_delta": "Add one public-safe cross-thread map that points to existing authorities and defines when thread conclusions deserve durable logging, without copying private source or creating another canonical store.",
+  "actions_taken": [
+    "Created /control/confluence/CROSS_THREAD_CONVERGENCE_2026-09-23.md on a bounded branch.",
+    "Added a human-readable pointer from /control/CURRENT.md.",
+    "Did not copy private personal source or the full private Hermes constitution into the public repository.",
+    "Did not modify current INTERPHASE/GLYPH implementation files."
+  ],
+  "evidence": [
+    "/control/CURRENT.json",
+    "/AGENTS.md",
+    "/control/INTERPHASE_SUCCESSOR.json",
+    "/control/TRANSDUCTIONS.json",
+    "/control/confluence/HUMAN_PORT_CONVERGENCE_2026-09-21.md",
+    "/control/BODY_HOUSE_CONVERGENCE_2026-09-21.json",
+    "/control/confluence/sovereign-node/PORTABLE_AI_SOVEREIGN_NODE_CONVERGENCE_2026-08-26.md"
+  ],
+  "authority_used": "Explicit user request to log/converge cross-thread work in the repository; bounded documentation-only branch.",
+  "reversibility": "Delete/revert the branch or PR; no runtime, route, private data or canonical implementation state changed.",
+  "residue": [
+    "Current Codex GLYPH result is still in flight and must be reconciled after it lands.",
+    "Private Hermes constitution remains off-repo by design.",
+    "Observed Mac mini and private HOUSE runtime state may differ from remembered/thread state."
+  ],
+  "waiting": [
+    "Codex GLYPH conformance result",
+    "future observed private runtime evidence"
+  ],
+  "next_state": "Use the cross-thread handoff as a public-safe orientation map; update owning canonical artifacts for real changes and amend this handoff only when the map materially changes."
+}
