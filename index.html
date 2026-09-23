@@ -284,6 +284,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <script src="./field-glyph.js"></script>
 <script src="./field-aperture.js"></script>
 <script src="./lib/constraint-surface.js"></script>
+<script src="./lib/interphase-core.js"></script>
 <script src="./lens-state.js"></script>
 <script>
 (()=>{'use strict';
@@ -535,6 +536,7 @@ window.__fieldAct=Object.freeze({
 window.FieldLensHost=Object.freeze({focus:()=>focus,uiState:fieldUiState,restore:fieldRestore,project:fieldProject,projection:()=>($('mapFold').open?mapMode:'AXIAL_LATEST'),rise:fieldRise,dive:fieldDive,peer:fieldPeer,visualKids:fieldVisualKids,notify:notifyFieldIndex});
 })();
 </script>
+<script src="./lib/interphase-field.js"></script>
 <script src="./field-lens.js"></script>
 <script src="./lens-focus-ring.js"></script>
 <script src="./lens-proof.js"></script>
