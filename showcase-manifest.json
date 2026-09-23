@@ -1682,22 +1682,21 @@
     },
     {
       "href": "/fold-bloom/",
-      "title": "FOLD // BLOOM · ONE INSTRUMENT 0.1",
+      "title": "FOLD//BLOOM · PUBLIC FRONT",
       "kind": "hub",
       "parent": "/",
       "family": "FOLD // BLOOM",
-      "operation": "OPERATE",
+      "operation": "ENTER / ROUTE",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-23T10:32:00+08:00",
+        "updated_at": "2026-09-23T18:26:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
-          "VERIFY",
           "OPERATE",
+          "SHARE",
           "RELEASE"
         ]
       },
-      "role": "Unified Fold/Bloom instrument doorway over the shared INTERPHASE 0.2 host. One session-local active-object pointer routes existing domain authorities without copying their truth: AUDIO → LISTEN MAP or LIVE RIDE; AUDIO/SET → SET FOLD; SET → current Journey RIDE; TEXT → READFIELD. FOCUS and projection state belong to INTERPHASE; exact media remains in the local vault; SET remains composition authority. Journey is currently the seam-aware set traversal adapter, not the final LIVE-across-a-set experience.",
+      "role": "Public-facing Fold/Bloom doorway. Presents the family as one coherent instrument without flattening its unequal engines: LIVE rides, LISTEN maps, SET authors source sequences, and /instrument/ exposes the explicit active-object / operation / projection / RETURN core. The shared root remains stable for already-shared links while deeper implementation surfaces stay addressable.",
       "tier": "FIELD",
       "version": "0.1"
     },
@@ -2072,6 +2071,25 @@
       "evolution_receipt": "/control/LENS_EVOLUTION_G1_2026-09-21.json",
       "proof_receipt": "/control/LENS_G1_PROOF_SEAL_2026-09-21.json",
       "tier": "FIELD"
+    },
+    {
+      "href": "/fold-bloom/instrument/",
+      "title": "FOLD//BLOOM · CORE INSTRUMENT 0.1",
+      "kind": "artifact",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "OPERATE",
+      "state": "ACTIVE",
+      "version": "0.1",
+      "role": "Preserved explicit one-instrument shell moved from the public family root. Binds one exact AUDIO/TEXT/SET object, owns FOCUS / projection / RETURN routing through INTERPHASE, and delegates domain operations to LISTEN, LIVE, SET/JOURNEY or READFIELD without copying their truth.",
+      "tier": "FIELD",
+      "index": {
+        "updated_at": "2026-09-23T18:26:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "VERIFY"
+        ]
+      }
     },
     {
       "href": "/fold-bloom/listen/",
