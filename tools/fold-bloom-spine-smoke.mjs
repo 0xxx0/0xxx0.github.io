@@ -30,6 +30,7 @@ setTimeout(()=>{(async()=>{
   await wait(()=>rideBtn.dataset.href&&!rideBtn.disabled);rec.rideHref=rideBtn.dataset.href;rec.setId=f.contentWindow.FoldBloomSet?.state?.()?.set?.id||null;
   f.contentWindow.location.assign(rideBtn.dataset.href);
   await wait(()=>f.contentWindow?.location?.pathname==='/fold-bloom/live/');rec.livePath=f.contentWindow.location.pathname;
+  await wait(()=>f.contentWindow.document.readyState==='complete',18000);await sleep(500);rec.liveHost=f.contentWindow.document.documentElement.dataset.foldBloomLive||null;rec.liveSetLoad0=f.contentWindow.document.documentElement.dataset.foldBloomSetRideLoad||null;rec.liveSetApi0=!!f.contentWindow.FoldBloomSetRide;if(!rec.liveSetLoad0)throw Error('SET RIDE MOUNT MARKER MISSING');
   await wait(()=>['ready','returned','blocked'].includes(f.contentWindow.document.documentElement.dataset.foldBloomSetRide),24000);
   const setRide=f.contentWindow.FoldBloomSetRide?.state?.(),live=f.contentWindow.FoldBloomLive?.state?.();
   rec.liveSetId=setRide?.plan?.setId||null;rec.liveSource=setRide?.ride?.address?.sourceId||null;rec.liveHash=live?.sourceMeta?.hash||null;rec.liveSetState=f.contentWindow.document.documentElement.dataset.foldBloomSetRide;rec.liveSetLoad=f.contentWindow.document.documentElement.dataset.foldBloomSetRideLoad||null;rec.liveStatus=f.contentWindow.document.getElementById('setRideStatus')?.textContent||null;
