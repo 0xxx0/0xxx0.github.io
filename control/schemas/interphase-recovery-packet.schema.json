@@ -1,0 +1,281 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "0xxx0/interphase-recovery-packet/v0.1",
+  "title": "INTERPHASE Recovery Packet",
+  "type": "object",
+  "required": [
+    "schema",
+    "packet_id",
+    "subject",
+    "as_of",
+    "artifacts",
+    "claims",
+    "conflicts",
+    "unknowns",
+    "anti_merge_holds",
+    "return_paths"
+  ],
+  "properties": {
+    "schema": {
+      "const": "0xxx0/interphase-recovery-packet/v0.1"
+    },
+    "packet_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subject": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "string"
+    },
+    "as_of": {
+      "type": "string"
+    },
+    "anchors": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "artifact_id",
+          "kind",
+          "names",
+          "source_refs",
+          "provenance_class",
+          "channels",
+          "authority"
+        ],
+        "properties": {
+          "artifact_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "type": "string",
+            "minLength": 1
+          },
+          "names": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "source_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "sha256": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "bytes_status": {
+            "enum": [
+              "EXACT",
+              "LOCATED_NOT_COPIED",
+              "UNAVAILABLE",
+              "NOT_APPLICABLE",
+              "UNKNOWN"
+            ]
+          },
+          "provenance_class": {
+            "enum": [
+              "SOURCE",
+              "REPORTED",
+              "ASSISTANT_SUMMARY",
+              "ASSISTANT_INFERENCE",
+              "CURRENT_INFERENCE",
+              "CONFLICT",
+              "UNKNOWN"
+            ]
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "parent": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "relations": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "channels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "operations": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "authority": {
+            "type": "string"
+          },
+          "observed_projections": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "unique_residue": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "mechanisms": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "disposition_candidate": {
+            "enum": [
+              "KEEP_HOST",
+              "ADAPTER",
+              "PROJECTION",
+              "DONOR",
+              "MERGE_CANDIDATE",
+              "RECOVER",
+              "QUARANTINE",
+              "UNKNOWN"
+            ]
+          },
+          "mapping_candidate": {
+            "type": [
+              "object",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "claim_id",
+          "subject_ref",
+          "field",
+          "value",
+          "provenance_class",
+          "source_ref"
+        ],
+        "properties": {
+          "claim_id": {
+            "type": "string"
+          },
+          "subject_ref": {
+            "type": "string"
+          },
+          "field": {
+            "type": "string"
+          },
+          "value": {},
+          "provenance_class": {
+            "enum": [
+              "SOURCE",
+              "REPORTED",
+              "ASSISTANT_SUMMARY",
+              "ASSISTANT_INFERENCE",
+              "CURRENT_INFERENCE",
+              "CONFLICT",
+              "UNKNOWN"
+            ]
+          },
+          "source_ref": {
+            "type": "string"
+          },
+          "time": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "confidence": {
+            "enum": [
+              "HIGH",
+              "MEDIUM",
+              "LOW",
+              "UNKNOWN"
+            ]
+          },
+          "supersedes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "conflicts_with": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "superseded": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "unknowns": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "anti_merge_holds": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "next_information_gain": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "return_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "worker_receipt": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": true
+}
