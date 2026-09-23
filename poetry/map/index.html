@@ -401,7 +401,19 @@ $('#guideBtn').onclick=()=>$('#guideShade').classList.add('show');
 $('#guideClose').onclick=closeGuide;
 $('#guideShade').onclick=e=>{if(e.target.id==='guideShade')closeGuide()};
 $('#guideField').onclick=async()=>{await loadFieldNow();closeGuide()};$('#guideDemo').onclick=()=>{S.fieldLoaded=false;$('#source').value=DEMO;parse();setMode('PAGE');closeGuide();status('DEMO READY · TAP A WORD → CHOOSE AN INTENT')};
-load();if(S.source){parse();setMode(S.mode||'PAGE')}else{render();setMode('PAGE');loadFieldNow().then(ok=>{if(!ok){$('#source').value=DEMO;parse();status('FIELD UNAVAILABLE · TINY DEMO LOADED')}})}requestAnimationFrame(draw);
+const bootQ=new URLSearchParams(location.search),bootView=(bootQ.get('view')||'').toUpperCase(),bootMode=['PAGE','MAP','SETS'].includes(bootView)?bootView:null,bootDemo=bootQ.get('demo')==='1';
+load();
+if(bootDemo){
+  S.fieldLoaded=false;$('#source').value=DEMO;parse();setMode(bootMode||'MAP');status('DEMO READY · '+(bootMode||'MAP')+' PROJECTION');
+}else if(S.source){
+  parse();setMode(bootMode||S.mode||'PAGE');
+}else{
+  render();setMode(bootMode||'PAGE');loadFieldNow().then(ok=>{
+    if(!ok){$('#source').value=DEMO;parse();status('FIELD UNAVAILABLE · TINY DEMO LOADED')}
+    if(bootMode)setMode(bootMode);
+  });
+}
+requestAnimationFrame(draw);
 window.__POEM_MAP__={S,receipt,applyReceipt,parse,setMode,previewCandidate,adoptCandidate,undoRevision,selftest,loadLocalCorpus,localCorpusCandidates,loadFieldNow,requestIntent,renderFocusWheel};
 })();
 </script></body></html>
