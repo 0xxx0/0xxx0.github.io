@@ -28,7 +28,7 @@ A projection declares which channels it can carry. Anything omitted becomes expl
 - `/lib/interphase-core.js` — dependency-free core, multifocus, projection state, RETURN frames, edit receipts, tiny composable optics.
 - `/lib/interphase-dom.js` — generic browser DOM adapter.
 - `/lib/interphase-field.js` — FIELD route adapter over existing `FieldLensHost`; no second FIELD selection authority.
-- `/lib/interphase-readfield.js` — READFIELD adapter over the existing `field-aperture` cursor; no second text cursor.
+- `/lib/interphase-readfield.js` — READFIELD adapter over the existing `field-aperture` cursor; no second text cursor.\n- `/lib/interphase-lens.js` — Scale Lens adapter over its existing snapshot/focus/aperture/project/RETURN API; LensState remains authority.\n- `/lib/interphase-listen.js` — LISTEN source/address/aperture adapter; LISTEN remains audio cartographer.
 - `/manifest.json` + `/interphase-extension.js` — Manifest V3 load-unpacked browser extension.
 - `/tools/interphase-selftest.cjs` — core law check.
 
@@ -71,7 +71,7 @@ host-specific or generic views
 
 No state is copied into another canonical store.
 
-## What this proves
+## Recovered donor authority\n\n`/spikes/003-one-instrument/` remains the direct proof donor for the six-office carrier and explicit `CONTENT / AUTHORITY / DEPTH / TIME` residue. INTERPHASE 0.2 does not supersede that spike; it extracts the reusable host protocol and carries the same six panel elements across `FLOWER_KEY ↔ ROOM` in the browser extension.\n\nThe six offices `SOURCE / FRAME / FOCUS / OPERATE / WITNESS / RETURN` are a reusable preset, not a universal ontology.\n\n## FOLD//BLOOM reduction\n\nThe current family is treated as three operational roles rather than many state systems:\n\n1. **SOURCE / CARTOGRAPH** — SET + LISTEN + Atlas: exact source refs, maps, paths, memory.\n2. **COMPOSE** — Two Dial / operator algebra: authored transformations and parameter relations.\n3. **RIDE / EMBODY** — Journey + LIVE: traversal/play/embodied projection over source + authored operation state.\n\nLISTEN is the first role bound to INTERPHASE in this cut. No claim is made that the other surfaces are already migrated.\n\n## What this proves
 
 This cut is successful if:
 
