@@ -7,7 +7,7 @@ export const LIVE_SET_RIDE_VERSION='0.1.0';
 export const LIVE_SET_RIDE_SCHEMA='fold-bloom-live-set-ride/v0.1';
 
 const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
-const finite=v=>Number.isFinite(Number(v));
+const finite=v=>v!==null&&v!==undefined&&v!==''&&Number.isFinite(Number(v));
 
 export function createLiveSetRide(set,bindings=[],{live=null,returnFrame=null}={}){
   const plan=buildJourneyPlan(set,bindings),ready=!!plan.ready;
