@@ -147,7 +147,7 @@ export function projectionHref(state,projection,{returnAddress='/fold-bloom/'}={
     return '/docs/?'+q.toString();
   }
   if(s.object.kind==='SET'&&projection==='RIDE'){
-    const q=new URLSearchParams({return:ret});
+    const q=new URLSearchParams({set:id,return:ret});
     return '/fold-bloom/set/journey.html?'+q.toString();
   }
   throw new Error('no route adapter for '+s.object.kind+' → '+projection);
