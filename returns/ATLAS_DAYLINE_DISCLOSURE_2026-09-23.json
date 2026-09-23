@@ -1,0 +1,46 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "ATLAS_DAYLINE_DISCLOSURE_2026-09-23",
+  "date": "2026-09-23",
+  "route": "/atlas-dayline/",
+  "operation": "PROGRESSIVE DISCLOSURE SLICE 1 — LEFT-RAIL CONFIG FOLDS TO WITNESS ROWS (COLLAPSED DEFAULT)",
+  "status": "RETURNED_STAGED_ON_BRANCH_NOT_ON_MASTER",
+  "branch": "dayline-compress-2026-09-23",
+  "commit_note": "second commit on this branch (first = chrome thinning f59c754)",
+  "basis": "work/make-grammar/plans/05-atlas-dayline-ui-brief.md (2026-09-23; triggered by mcvoid's observation; doctrine DESIGN_DOCTRINE LAWS 5/9/10/12)",
+  "delta": [
+    "left rail: the 6 config groups + METHOD become fold rows (▸/▾) with state witnesses; inner rows are rendered only while open; everything below reflows via a y-cursor (no fixed absolute y)",
+    "witnesses are state-true: CONDITIONS ● N active contexts · RANGE 180m/DAY · ORDER FOCUS/TIME/MANUAL · INK CALM/ATLAS/FABRIC · APERTURE ATLAS/FOCUS · SCALE AUTO/DISTRICTS/PARCELS",
+    "folds persist in the EXISTING view-prefs store (VIEW_STORE .folds) — canonical daystate (STORE) untouched",
+    "THIS VIEW HIDES remains always visible (it is the compression witness)"
+  ],
+  "measured": {
+    "method": "python3 http.server on separate origins (8139 before / 8140 after) + agent-browser (CDP), same scripts",
+    "left_rail_extent_sheet_units": "1163 -> 387 collapsed (-776); 1022 fully expanded (still less than the old fixed layout)",
+    "svg_text_nodes": "279 -> 257 collapsed (ink=structure); 267 with ink=full",
+    "svg_text_chars": "4452 -> 4135 collapsed",
+    "clickable_svg_groups": "60 -> 44 collapsed default",
+    "label_witness_clearance": "all 6 witnessed headers clear (33-56 px) in sheet units"
+  },
+  "functional_checks": {
+    "fold_toggle": "open/close works; inner rows and their handlers intact (context toggle tested)",
+    "witness_updates": "toggling HOME changed witness ● 3 -> ● 2",
+    "persistence": "reload restored open folds from VIEW_STORE.folds",
+    "expanded_parity": "all inner rows present when opened; rail bottom 1022 < old 1163",
+    "plain": "9/9 task ids in PLAIN; key G gap-pack works; RETURN emits poly-atlas-return-f; REPLAY works; SELFTEST OK; no page errors"
+  },
+  "preserved": [
+    "canonical daystate model + STORE keys (folds are view-prefs, not day state)",
+    "PLAIN ablation untouched (#plainProjectionBtn / #plainView behaviour unchanged)",
+    "capability retained: every collapsed control is one click away; utility bar and keyboard bindings unchanged",
+    "mobile section viewports unaffected"
+  ],
+  "test_gate": "F3 (make-grammar long goal): run on ONE real planning day vs the prior build; if no reorientation/miss improvement, revert presentation and keep the model",
+  "screenshots": ["before-disclosure.png", "after-disclosure-collapsed.png", "after-disclosure-expanded.png (AXIS work/dayline-compress/)"],
+  "revert": "git revert <landed sha>, or drop this commit; the previous build ignores VIEW_STORE.folds",
+  "residual": [
+    "aesthetic/legibility pass remains a human check (agent vision backend unavailable)",
+    "fusion rule + LATENT class (PROOF/EVENT ledgers, forecast detail) not in this slice",
+    "MAP KEY box unchanged in this slice"
+  ]
+}

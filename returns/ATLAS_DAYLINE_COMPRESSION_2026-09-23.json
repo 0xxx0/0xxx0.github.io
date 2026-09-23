@@ -1,0 +1,56 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "ATLAS_DAYLINE_COMPRESSION_2026-09-23",
+  "date": "2026-09-23",
+  "route": "/atlas-dayline/",
+  "operation": "COMPRESS INTERFACE CHROME -> DEDUPE DUPLICATE CONTROLS -> TRIM EXPLANATION -> VERIFY STATE + PLAIN UNTOUCHED",
+  "status": "RETURNED_STAGED_ON_BRANCH_NOT_ON_MASTER",
+  "master_baseline": "5b56b78be53704350118477c0c04b250c07b9241 (commit parent = origin/master at staging time)",
+  "branch_base": "69d2dbf10176017bb8645eff43944b925352c0c7",
+  "branch": "dayline-compress-2026-09-23",
+  "constraints_honored": {
+    "canonical_state": "UNTOUCHED — state/tasks/anchors/evidence/undo model, localStorage keys, validateState, checkpoint/undo, RETURN receipt and capsule encode/decode unmodified (word-diff verified; each function still defined once, identical)",
+    "plain_ablation": "UNTOUCHED — renderPlain/setProjection unmodified; PLAIN toggle verified live; identical 9 task ids in identical order under both projections",
+    "no_new_mechanism": "removals and dedupe only — no new controls, no new state, no new files added to the app"
+  },
+  "delta": [
+    "MAP KEY / CONTROLS -> MAP KEY / UTILITY: 5 duplicate control rows removed (ATLAS/PLAIN, SCENARIO, NEW TASK, RETURN RECEIPT, REPLAY RETURN — all remain in the sticky utility bar); kept rows: PAUSE / MARK INTERRUPT, UNDO, JSON / EXPORT, PRINT ATLAS; box height 235 -> 198",
+    "METHOD / 法: 8 lines -> 4 (ANGLE/RADIUS survive once in the field caption; BLUE/RED survive once in the map key); THIS VIEW HIDES retained",
+    "OPERATIONS key legend: 17 -> 8 documented bindings (removed bindings stay functional and keep visible affordances)",
+    "PROPOSAL PIPELINE: BUNDLE station removed (it re-used the PREVIEW highlight state); SEE · PREVIEW · ACT · RETURN remain"
+  ],
+  "measured": {
+    "method": "python3 http.server + headless Chromium via agent-browser (CDP), master vs branch in identical fresh sessions",
+    "app_js_bytes": "82591 -> 82045 (-546)",
+    "svg_text_nodes": "288 -> 278 (-10)",
+    "svg_text_chars": "4712 -> 4443 (-269)",
+    "clickable_svg_groups": "65 -> 60 (-5)",
+    "utility_bar_buttons": "7 -> 7 (unchanged)",
+    "spine_rows": "7 -> 7 (unchanged)"
+  },
+  "functional_checks": {
+    "selftest": "SELFTEST OK (validateState clean at load)",
+    "plain": "9/9 ids identical to master: t:backup-verify, t:ipcam, t:bench-reset, t:wall-measure, t:print-test, t:maker-cart, t:litterbox, t:pickup, t:support-call",
+    "gap_pack": "KEY G -> 'Previewed 3 task pack · 60/155m'",
+    "return": "poly-atlas-return-f emitted; checksum 4b4d32d0",
+    "replay": "'Replayed 4b4d32d0'",
+    "page_errors": "none",
+    "geometry": "map-key rows inside box (user-space y 1640-1703.3 within 1515-1713); METHOD block ordered without overlap (1018.7 -> 1146.3)"
+  },
+  "evidence": {
+    "patch": "~/void-anchor/AXIS/work/dayline-compress/dayline-compress.patch",
+    "screenshots_before": "~/void-anchor/AXIS/work/dayline-compress/before-full.png",
+    "screenshots_after": "~/void-anchor/AXIS/work/dayline-compress/after-full.png",
+    "local_gates": [
+      "node --check atlas-dayline/app.js -> OK",
+      "node scripts/check-route-registration.mjs -> OK (135 registered, every live surface registered)"
+    ]
+  },
+  "residual": [
+    "visual eyeball pass on after-full.png remains a human check (agent vision backend unavailable this session)",
+    "left-rail control groups (23 rows across 6 groups) are the next compression candidate; not attempted — it changes interaction shape",
+    "mobile view unchanged (6 section views already provide compression there)"
+  ],
+  "non_claim": "No capability was added or removed in this delta; this is interface chrome compression only. It does not claim the compression improves task outcomes — that would need direct use.",
+  "next": "land on master (fast-forward or PR) after a human look at the after screenshot; manifest index touch is included in the same commit"
+}
