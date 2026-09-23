@@ -24,6 +24,10 @@ function refreshGlyph(){
   const btn=$('#glyphBtn'),mark=$('#glyphMark');
   if(!btn||!mark||!map||!fileMeta){glyphDesc=null;if(btn)btn.disabled=true;return}
   glyphDesc=audioGlyphDescriptor(map,fileMeta);
+  try{
+    const raw=String(glyphDesc?.sourceHash||fileMeta?.hash||'').toLowerCase(),id=/^[0-9a-f]{64}$/.test(raw)?'sha256:'+raw:raw;
+    if(id)sessionStorage.setItem('fold-bloom.source-glyph.v01:'+id,JSON.stringify({schema:'fold-bloom.source-glyph-cache/v0.1',sourceId:id,stage:map?.stage||null,glyph:glyphDesc,at:new Date().toISOString()}));
+  }catch(_){}
   mark.innerHTML=audioGlyphSvg(glyphDesc,{size:48,padding:4});
   btn.disabled=false;btn.title=`SOURCE GLYPH · ${glyphDesc.key||'NO KEY'} · ${glyphDesc.bpm?glyphDesc.bpm+' BPM':'NO BPM'}`;
 }
