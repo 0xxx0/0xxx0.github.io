@@ -8,7 +8,7 @@ export const PROJECTIONS=Object.freeze(['GLYPH','MAP','RIDE','READ']);
 const SUPPORT=Object.freeze({
   EMPTY:{operations:['FOCUS'],projections:['GLYPH']},
   AUDIO:{operations:['FOCUS','FOLD','BLOOM','RETURN'],projections:['GLYPH','MAP','RIDE']},
-  TEXT:{operations:['FOCUS','FOLD','BLOOM','RETURN'],projections:['GLYPH','READ']},
+  TEXT:{operations:['FOCUS','BLOOM','RETURN'],projections:['GLYPH','READ']},
   SET:{operations:['FOCUS','FOLD','BLOOM','RETURN'],projections:['GLYPH','RIDE']}
 });
 
@@ -155,7 +155,7 @@ export function projectionHref(state,projection,{returnAddress='/fold-bloom/'}={
 
 export function foldHref(state,{returnAddress='/fold-bloom/'}={}){
   const s=setOperation(state,'FOLD');
-  if(!['AUDIO','SET','TEXT'].includes(s.object.kind)) throw new Error('FOLD unsupported for '+s.object.kind);
+  if(!['AUDIO','SET'].includes(s.object.kind)) throw new Error('FOLD unsupported for '+s.object.kind);
   const q=new URLSearchParams({return:clean(returnAddress)||'/fold-bloom/'});
   if(s.object.kind==='AUDIO') q.set('source',s.object.id);
   return '/fold-bloom/set/?'+q.toString();
