@@ -4,12 +4,23 @@
   "version": "0.2.0",
   "description": "Address, multifocus and re-project ordinary web pages without creating another source of truth.",
   "permissions": [],
-  "host_permissions": ["<all_urls>"],
+  "host_permissions": [
+    "<all_urls>"
+  ],
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["lib/interphase-core.js", "lib/interphase-dom.js", "interphase-extension.js"],
-      "css": ["interphase-extension.css"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "lib/interphase-core.js",
+        "lib/interphase-dom.js",
+        "lib/interphase-glyph.js",
+        "interphase-extension.js"
+      ],
+      "css": [
+        "interphase-extension.css"
+      ],
       "run_at": "document_idle",
       "all_frames": false
     }
