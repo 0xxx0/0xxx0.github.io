@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/migration-now/v0.1",
-  "updated": "2026-09-21",
+  "updated": "2026-09-23",
   "home": "/migration/",
   "law": "Large archive, small active surface. Broad archaeology stops when it stops producing exact artifacts, duplicate collapse, lineage correction, donor packets, or useful rejection receipts.",
   "now": [
@@ -8,7 +8,7 @@
       "id": "CENSUS-DEDUP",
       "verb": "INGEST",
       "object": "newly surfaced Library / Drive / repo artifacts",
-      "delta": "hash/source-grounded inventory; exact duplicates collapse before semantic branching",
+      "delta": "hash/source-grounded inventory; exact duplicates collapse before semantic branching; substantial worker recovery emits an INTERPHASE recovery packet rather than prose-only inventory",
       "receipt": "CENSUS / recovery packet / duplicate receipt",
       "stop": "No destructive moves; no project creation from filenames."
     },
@@ -23,7 +23,8 @@
         "ENV-0 PDF byte mirror",
         "desktop pets beyond recovered KALA only when a proper-name/source anchor appears"
       ],
-      "stop": "No broad search tourism. If no concrete anchor emerges, stop and return."
+      "stop": "No broad search tourism. If no concrete anchor emerges, stop and return.",
+      "receipt": "undefined / INTERPHASE recovery packet"
     },
     {
       "id": "CONTAIN-PROMOTE",
@@ -109,5 +110,12 @@
     "quarantine": "QUARANTINE"
   },
   "operating_charter": "/migration/OPERATING_CHARTER.md",
-  "full_charter": "/migration/CHARTER.md"
+  "full_charter": "/migration/CHARTER.md",
+  "worker_contract": {
+    "recovery_packet": "/control/schemas/interphase-recovery-packet.schema.json",
+    "instructions": "/control/confluence/BACKUP_ARCHAEOLOGY_INTERPHASE_WORKER_2026-09-23.md",
+    "mapping_contract": "/control/INTERPHASE_MAPPING_CONTRACT.json",
+    "adapter": "/lib/interphase-recovery.js",
+    "law": "Workers return exact evidence + stable addressed packet. They do not redesign or promote during archaeology."
+  }
 }
