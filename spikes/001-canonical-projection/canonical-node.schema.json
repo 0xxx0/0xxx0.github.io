@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "0xxx0/canonical-node/v0.1",
+  "title": "CanonicalNode",
+  "description": "One addressed object that survives every projection without losing identity. FOVEA owns STRUCTURE and PROJECTION; it does not own the source. A CanonicalNode is the only thing projections are allowed to consume.",
+  "type": "object",
+  "required": ["id", "kind", "source"],
+  "additionalProperties": false,
+  "properties": {
+
+    "id": {
+      "type": "string",
+      "description": "Stable identity. THE identity glyph is derived from this and nothing else, so the same id is recognisable in every projection, forever."
+    },
+    "label": {
+      "type": "string",
+      "description": "Human-readable name. Presentation only — may change without affecting identity."
+    },
+    "kind": {
+      "type": "string",
+      "description": "What class of thing this is. Constrained to the six-face vocabulary so a node can be ADDRESSED without inventing field names.",
+      "enum": [
+        "TERM", "PASSAGE", "ROUTE", "THING", "SEGMENT", "TASK", "MEASURE", "RECORD"
+      ]
+    },
+    "source": {
+      "type": "string",
+      "description": "Which adapter produced this node (code / readfield / material / audio ...). FOVEA must not care beyond this field.",
+      "examples": ["code", "readfield", "material", "audio", "git"]
+    },
+
+    "address": {
+      "type": "object",
+      "description": "Where this node sits, expressed in the six faces. PROJECTION reads these; it never invents its own.",
+      "additionalProperties": false,
+      "properties": {
+        "F": { "type": "string", "description": "PRESENT — what is here now" },
+        "B": { "type": "string", "description": "RETURN — provenance, where it came from" },
+        "L": { "type": "string", "description": "INPUT — what enters / constrains / precedes" },
+        "R": { "type": "string", "description": "OUTPUT — what may leave / transform / be reached" },
+        "U": { "type": "string", "description": "INTENTION — what governs it when presentation changes" },
+        "D": { "type": "string", "description": "GROUND — what is actually supported or unresolved" }
+      }
+    },
+
+    "relations": {
+      "type": "array",
+      "description": "Edges to other nodes. Used by FAN and by adjacency in LINE/RING. Never used to alter identity.",
+      "items": {
+        "type": "object",
+        "required": ["to", "rel"],
+        "additionalProperties": false,
+        "properties": {
+          "to": { "type": "string", "description": "another CanonicalNode id" },
+          "rel": {
+            "type": "string",
+            "enum": ["sequence", "branch", "kind-of", "part-of", "cites", "measures", "precedes"]
+          }
+        }
+      }
+    },
+
+    "evidence": {
+      "type": "array",
+      "description": "Face D. Anything claiming ground. A node with an empty evidence list is ALLOWED and must render as unresolved rather than as fact.",
+      "items": {
+        "type": "object",
+        "required": ["claim"],
+        "additionalProperties": false,
+        "properties": {
+          "claim": { "type": "string" },
+          "source": { "type": "string", "description": "where this was checked; absent = unverified" },
+          "status": { "type": "string", "enum": ["VERIFIED", "ASSERTED", "UNRESOLVED"] }
+        }
+      }
+    },
+
+    "overlays": {
+      "type": "object",
+      "description": "LAW: identity determines the base glyph; interpretation modifies it ONLY as an overlay. Nothing in here may change the base shape — overlays may add a mark, an emphasis, an edge, never a different identity.",
+      "additionalProperties": false,
+      "properties": {
+        "selected": { "type": "boolean" },
+        "semantic": { "type": "string", "description": "optional semantic class mark, e.g. noun / verb" },
+        "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+        "age": { "type": "string", "description": "ISO date; presentation may fade accordingly" },
+        "provenanceMark": { "type": "string", "description": "e.g. source #17" }
+      }
+    },
+
+    "focus": {
+      "type": "object",
+      "description": "Face U at the interaction layer: the resolution budget. MOVED by Focus, never stored per-projection, so focus survives a projection switch.",
+      "additionalProperties": false,
+      "properties": {
+        "level": { "type": "string", "enum": ["PERIPHERY", "AIM", "FOVEA"] },
+        "since": { "type": "string" }
+      }
+    }
+  },
+
+  "$comment": [
+    "INVARIANTS that projections must not violate:",
+    "  1. id is immutable and is the sole input to the identity glyph.",
+    "  2. Switching projection MUST NOT change id, address, relations, evidence or focus.",
+    "  3. An overlay may decorate a node but must never change its base shape.",
+    "  4. RETURN must restore the exact prior (projection, focusedId, address) tuple.",
+    "  5. A node with error/absent fields renders as UNRESOLVED, not as a blank or a guess."
+  ]
+}
