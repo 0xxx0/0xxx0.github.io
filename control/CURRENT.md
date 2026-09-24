@@ -55,4 +55,8 @@ Three laws now apply:
 
 Read [CONFLUENCE / FIELD — Conversion Report](./confluence/CONFLUENCE_FIELD_CONVERSION_REPORT_2026-09-22.md) for the detailed account of what this collaboration has been trying to become, why it drifted into meta-work, and the highest-leverage next options.
 
+Cross-repo authority/state: [CROSS-REPO CONVERGENCE — 2026-09-24](./confluence/CROSS_REPO_CONVERGENCE_2026-09-24.md).
+
+Research/lived-value anchor: [EXCITEMENT / CURIOSITY EVENT LAW](./research/EXCITEMENT_EVENT_THEORY_2026-09-24.md).
+
 Machine state: [CURRENT.json](./CURRENT.json) · Queue: [QUEUE.json](./QUEUE.json)
