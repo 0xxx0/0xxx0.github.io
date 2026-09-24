@@ -1,0 +1,53 @@
+{
+  "schema": "return/v1",
+  "id": "FOLD_BLOOM_BEAT_SABER_PACK_2026-09-24",
+  "status": "MERGE_CANDIDATE",
+  "object": "FOLD//BLOOM LISTEN → Beat Saber v4 mapper/test pack",
+  "state": "TRANSFORM_EXPORT_ADVANCED",
+  "source_head": "master@427e58ba6166506c85e56a7bce2c2977f01f47be",
+  "pull_request": 218,
+  "delta": [
+    "Replaces loose ExpertPlusStandard.dat-only export with one ZIP containing v4 Info.dat, AudioData.dat, chart, minimal Lightshow.dat, provenance manifest, README and exact current source bytes.",
+    "Strips FOLD/BLOOM private metadata from the game-facing beatmap and preserves it in FOLD_BLOOM_MANIFEST.json.",
+    "Labels OGG/EGG as AUDIO_READY_FOR_PLAYTEST and all other current source formats as NEEDS_OGG_CONVERSION while retaining original bytes.",
+    "Adds dependency-free deterministic store-ZIP writer and focused tests.",
+    "Keeps Beat Saber as an external transform adapter; no new source store, game runtime or universal export framework."
+  ],
+  "evidence": [
+    "/fold-bloom/beat/beatsaber-pack.js",
+    "/fold-bloom/beat/tests/beatsaber-pack.test.mjs",
+    "/fold-bloom/listen/app.js",
+    "/fold-bloom/listen/index.html",
+    "/fold-bloom/DESIGN.md",
+    "/fold-bloom/listen/release.json",
+    "https://github.com/0xxx0/0xxx0.github.io/pull/218"
+  ],
+  "verification": {
+    "focused_pack_test": "PASS · public-surface-check 35994746536 step 28",
+    "listen_analysis": "PASS · same run",
+    "real_mp3_phone_continuity": "PASS · same run; conversion boundary remains explicit",
+    "field_lab_live_and_browser_boots": "PASS through unified-root browser step 43 on same run",
+    "route_registration": "PASS · run 35994746515",
+    "final_pr_head": "PENDING rerun after this control/RETURN seal"
+  },
+  "external_format_basis": {
+    "observed_2026_09_24": [
+      "Beat Saber v4 Info.dat points to audio, AudioData, beatmap and lightshow files.",
+      "v4 beatmaps separate interactable beatmap data from lightshow data.",
+      "OGG is the recommended custom-level audio path; non-OGG input is not claimed audio-ready; actual editor/VR playtest is not claimed for any generated pack."
+    ],
+    "sources": [
+      "BSMG map-format/info",
+      "BSMG map-format/audio",
+      "BSMG basic-audio"
+    ]
+  },
+  "boundary": "Generated mapper draft. Human review remains required for note flow, parity, safety, difficulty, lighting/presentation and distribution.",
+  "residue": [
+    "No in-browser audio transcoder; MP3/M4A/WAV/etc. needs explicit OGG conversion.",
+    "No cover-art/publishing polish.",
+    "No in-browser saber gameplay.",
+    "Actual VR/editor playtest remains a human/world gate."
+  ],
+  "one_next": "Use LISTEN BEAT SABER PACK on one mapped local source; if OGG/EGG, open the extracted pack in a Beat Saber mapping/playtest workflow; if MP3/M4A/etc., convert SOURCE.* to song.ogg first. Only implementation defects revealed by that use should reopen this lane."
+}

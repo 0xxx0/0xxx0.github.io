@@ -13,7 +13,7 @@ Status vocabulary: **SHIPPED**, **FIXING HERE**, **SUPERSEDED**, **PINNED**, **D
 | SOURCE separated from waveform/effects | **FIXING HERE** | LIVE A/B/C = SOURCE / MAP / IMMERSION. Source-only playback can exist with no map. |
 | MOSS / EMBER / WATER confusion | **SUPERSEDED** | Historical scene vocabulary only. Current scenes DEEP/TRANCE/WOOD/VOID are presentation, never FIELD INDEX or mood truth. |
 | “Is FIELD LAB data FIELD INDEX?” | **RESOLVED** | No. FIELD LAB DATA is local addressed object exploration; FIELD INDEX is repo-wide control projection. |
-| Beat Saber | **FIXING HERE** | Adapter already existed but was buried. Direct visible LISTEN export now produces Beat Saber v4 `ExpertPlusStandard.dat`. Full playable/packaged Beat Saber level remains **PINNED**. |
+| Beat Saber | **SHIPPED PACK / EVOLVING** | LISTEN now exports one Beat Saber v4 mapper/test ZIP: metadata, timing, chart, lightshow, provenance and exact current source bytes. OGG/EGG is explicitly audio-ready for playtest; actual editor/VR playtest remains a human gate; other formats remain source-preserving conversion candidates. Mapper review/publishing polish and in-browser saber gameplay remain **PINNED**. |
 | Audiosurf-like ride | **SHIPPED / EVOLVING** | LIVE TRACKFIELD projects measured audio into future terrain + deformation + branch traversal. Further fun/value is lived-use gated. |
 | SET → LIVE | **SHIPPED** | PR #200 fusion merged; PR #207 retired stale instructions to redo it. |
 | READ / RSVP inside Fold/Bloom | **SHIPPED** | PR #211 reuses canonical READFIELD; no duplicate reader kernel. |

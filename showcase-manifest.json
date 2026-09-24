@@ -2253,9 +2253,9 @@
       "family": "FOLD // BLOOM",
       "operation": "LISTEN",
       "state": "CANDIDATE",
-      "role": "Source-bundle cartographer for one exact audio identity. Local MP3/M4A/etc bytes may be surrounded by origin URL, embedded metadata, timed/untimed lyrics/transcript sidecars, playlist context and human PINs without conflating those facets. ADDRESS×APERTURE inspection, AUDIO MAP, glyph and RETURN stay source-hash anchored.",
+      "role": "Source-bundle cartographer for one exact audio identity. Local audio may be surrounded by origin, metadata, timed/untimed text, collection context and human PINs without conflating those facets. ADDRESS×APERTURE inspection, AUDIO MAP, glyph and RETURN stay source-hash anchored; Beat Saber export is now a bounded v4 mapper/test pack over the same source/map evidence.",
       "index": {
-        "updated_at": "2026-09-22T14:20:00+08:00",
+        "updated_at": "2026-09-24T19:44:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2263,14 +2263,15 @@
         ]
       },
       "evidence": {
-        "receipt": "/returns/FOLD_BLOOM_HORIZON_2026-09-22.json",
+        "receipt": "/returns/FOLD_BLOOM_BEAT_SABER_PACK_2026-09-24.json",
         "checks": [
           "AUDIO MAP v0.4 phrase novelty + GRID_FALLBACK selftest",
           "deterministic audio glyph stability test",
           "source-address/hash + stream-lens tests",
           "real encoded MP3 PREVIEW → DEEP → rendered score browser proof",
           "LISTEN 0.4 glyph/pin/aperture browser surface",
-          "real familiar-track phrase/glyph judgment remains required"
+          "real familiar-track phrase/glyph judgment remains required",
+          "Beat Saber v4 pack builder + deterministic ZIP + OGG readiness/conversion-boundary tests"
         ],
         "return_path": "/fold-bloom/listen/"
       },

@@ -80,9 +80,9 @@ The public GitHub Pages runtime cannot read private ChatGPT Library files direct
 
 ## Beat Saber law
 
-Beat Saber is currently a **draft adapter**, not a finished Beat Saber game.
+Beat Saber is a **bounded transform export**, not a finished Beat Saber game.
 
-LISTEN can compile AUDIO MAP events into a Beat Saber v4 `ExpertPlusStandard.dat` draft. Measured BEAT/PHRASE/SECTION events remain distinct from authored FOLD/BLOOM operations. A full installable level bundle, mapper/editor loop, cover/media packaging and in-browser saber-play mode remain separate future transformations.
+LISTEN compiles AUDIO MAP events into a Beat Saber v4 mapper/test ZIP containing `Info.dat`, `AudioData.dat`, `ExpertPlusStandard.dat`, minimal `Lightshow.dat`, provenance/README and the exact current source bytes. Measured BEAT/PHRASE/SECTION events remain distinct from authored FOLD/BLOOM operations. OGG/EGG input is labeled `AUDIO_READY_FOR_PLAYTEST` (audio compatibility only; editor/VR playtest remains unproved) (audio compatibility only; editor/VR playtest remains unproved); MP3/M4A/WAV/etc. is preserved honestly as `NEEDS_OGG_CONVERSION` and must become `song.ogg` before playtest. Human mapper review, cover/publishing polish and in-browser saber-play mode remain separate future transformations.
 
 ## Project management
 
