@@ -1,0 +1,31 @@
+{
+  "schema": "field-index-sync-return/v0.1",
+  "at": "2026-09-24T20:00:00+08:00",
+  "branch": "field-index-sync-truth-20260924",
+  "host": "/",
+  "contribution": "DELTA",
+  "observed_problem": [
+    "CHANGE / EXACT REPO showed commit subjects but not the files/routes/shared mechanisms actually touched.",
+    "WAITING / YOU read only a Sep-22 snapshot while CURRENT had newer explicit Sep-24 human-use gates.",
+    "STATUS mechanically repeated nested summaries, allowing dated audits to look live."
+  ],
+  "changed": [
+    "Commit rows now lazily resolve exact changed files; newest commit auto-expands. Each file is mapped to the longest matching manifest route or labeled root/shared/control/return.",
+    "WAITING / YOU now merges /control/WAITING.json with explicit CURRENT.current_heads[].next_executable human/world gates, deduped by id and source-labeled.",
+    "HEADS, OPEN PORTS and MAP expose their CURRENT/manifest freshness in-line.",
+    "STATUS now reports only live YOU/ISSUES/HEADS/MAP/PORTS projections; Sep-21 audits are explicitly historical."
+  ],
+  "verification": {
+    "inline_script_parse": "PASS via new Function() before write",
+    "source_index_blob": "0943e21db6901939310f909c42f8bc67c769b99c",
+    "source_contract_blob": "6ffe8bd9da60e008ac40e808298ed50a7920d14a",
+    "index_commit": "d61b5d6b964726db8ce07d22131b724854937964",
+    "contract_commit": "841fa18b474b94cb76e000c3db8a38037b47d1de"
+  },
+  "non_claims": [
+    "Git file touches do not imply priority, semantic ancestry or project importance.",
+    "CURRENT human gates are included only when next_executable.state explicitly declares a human/world dependency; prose is not mined for obligations.",
+    "No master merge performed."
+  ],
+  "stop_condition": "Open branch/PR, verify newest commit file expansion + two CURRENT-derived human gates render on phone, then merge or revise from observed friction."
+}
