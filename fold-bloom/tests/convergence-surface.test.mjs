@@ -14,6 +14,8 @@ test('LIVE exposes source/map/immersion plus remembered-source re-entry',()=>{
   assert.match(html,/data-layer-mode="IMMERSION"/);
   assert.match(app,/CENTER_MASS_SOURCE='[0-9a-f-]{36}'/);
   assert.match(app,/sourceOnly=liveTrack\.sourceActive\(\)&&!liveTrack\.mapped\(\)/);
+  assert.match(app,/TAP FOR SOURCE/);
+  assert.match(app,/dataset\.mode==='SOURCE'/);
   assert.match(app,/putLocalMedia\(/);
   assert.match(app,/listLocalMedia\(/);
 });
