@@ -142,10 +142,10 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM · PUBLIC FRONT / CORE INSTRUMENT 0.1 / FIELD LAB 0.2.1 / INK FIELD 0.2 / SET 0.1.1→LIVE fusion / JOURNEY debug / LIVE 0.13 / LISTEN 0.6",
+      "head": "FOLD//BLOOM · PUBLIC FRONT / CORE INSTRUMENT 0.1 / FIELD LAB 0.2.1 / INK FIELD 0.2 / SET 0.1.1→LIVE fusion / JOURNEY debug / LIVE 0.13 / LISTEN 0.6 / VOICE 0.1 practice",
       "state": "ACTIVE_CANDIDATE_UNIFIED_DOORWAY / SET_LIVE_FUSED",
       "route": "/fold-bloom/",
-      "retained_function": "The canonical /fold-bloom/ entry is now one instrument doorway rather than a catalogue of peer apps. INTERPHASE 0.2 owns focus/projection/RETURN mechanics while domain truth stays where it already lives: exact audio bytes in the local media vault, LISTEN as source cartographer, SET as ordered/seam composition authority, READFIELD as text reader, and LIVE as embodied single-source ride. The shell stores only a session-local active-object pointer/handoff. Typing can produce an immediate unbound deterministic glyph; binding creates an exact text/audio address. FOLD from AUDIO commits an exact source ref into SET and changes the active object to that SET without duplicating bytes. SET RIDE now enters LIVE through the merged PR #200 fusion using the unified dual-clock state while preserving exact child source identity, authored seam laws and SET/LIVE authority boundaries; Journey remains a secondary traversal/debug witness. The next Fold/Bloom gate is lived 2–3-source phone use, not more architecture. Design-engineering donor 2026-09-24 now governs experience work: primitive-first spatial instruments, receding chrome, fewer deeper inputs, explicit profile/evidence separation, and delight with causal addressability; Septabee/Interface Studies/Tangible Media are donors rather than skins. FIELD LAB 0.2 compares six unequal practice projections but now reuses canonical READFIELD/APERTURE instead of a second reader; source intake recedes after binding, phone mode selection is thumb-reachable, PULSE coupling is explicit, and LOCI preserves large text as bounded exact-address spans with RETURN. INK FIELD 0.2 remains the reusable wet-media engine shared by LAB and a dedicated paper surface. LIVE profile schema 0.2 adds explicit anticipation and motion/body axes plus CLEAR/DRIVE/TRANCE/SOFT presets and a zero-file demo URL; these remain encounter preferences, not source truth. FIELD LAB PULSE is now an explicit synthetic tempo/beat/phase/quantum producer that READFIELD, LIVE and Two Dial may consume as timing context without source/authorship transfer.",
+      "retained_function": "The canonical /fold-bloom/ entry is now one instrument doorway rather than a catalogue of peer apps. INTERPHASE 0.2 owns focus/projection/RETURN mechanics while domain truth stays where it already lives: exact audio bytes in the local media vault, LISTEN as source cartographer, SET as ordered/seam composition authority, READFIELD as text reader, and LIVE as embodied single-source ride. The shell stores only a session-local active-object pointer/handoff. Typing can produce an immediate unbound deterministic glyph; binding creates an exact text/audio address. FOLD from AUDIO commits an exact source ref into SET and changes the active object to that SET without duplicating bytes. SET RIDE now enters LIVE through the merged PR #200 fusion using the unified dual-clock state while preserving exact child source identity, authored seam laws and SET/LIVE authority boundaries; Journey remains a secondary traversal/debug witness. The next Fold/Bloom gate is lived 2–3-source phone use, not more architecture. Design-engineering donor 2026-09-24 now governs experience work: primitive-first spatial instruments, receding chrome, fewer deeper inputs, explicit profile/evidence separation, and delight with causal addressability; Septabee/Interface Studies/Tangible Media are donors rather than skins. FIELD LAB 0.2 compares six unequal practice projections but now reuses canonical READFIELD/APERTURE instead of a second reader; source intake recedes after binding, phone mode selection is thumb-reachable, PULSE coupling is explicit, and LOCI preserves large text as bounded exact-address spans with RETURN. INK FIELD 0.2 remains the reusable wet-media engine shared by LAB and a dedicated paper surface. LIVE profile schema 0.2 adds explicit anticipation and motion/body axes plus CLEAR/DRIVE/TRANCE/SOFT presets and a zero-file demo URL; these remain encounter preferences, not source truth. FIELD LAB PULSE is now an explicit synthetic tempo/beat/phase/quantum producer that READFIELD, LIVE and Two Dial may consume as timing context without source/authorship transfer. VOICE 0.1 is a sibling human-practice proof: local mic pitch/stability + optional FIELD PULSE timing, with no recording, source authority or quality scoring.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -232,7 +232,10 @@
         "/control/confluence/DESIGN_ENGINEERING_DONOR_2026-09-24.md",
         "/fold-bloom/lab/release.json",
         "/control/confluence/FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json",
-        "/returns/FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json"
+        "/returns/FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json",
+        "/fold-bloom/voice/release.json",
+        "/control/confluence/FOLD_BLOOM_VOICE_01_2026-09-24.json",
+        "/returns/FOLD_BLOOM_VOICE_01_2026-09-24.json"
       ],
       "experimental": [
         {
@@ -278,6 +281,14 @@
           "version": "0.2",
           "thesis": "A small deterministic wet-media model can make pointer speed/pressure/tilt and paper absorbance materially legible enough for calligraphy/ink training and generative projection.",
           "promotion_gate": "Phone/stylus test must distinguish dry brush, sumi and wash by feel/edge/spread; do not promote automatic calligraphy-quality scoring."
+        },
+        {
+          "id": "fold-bloom-voice-01",
+          "route": "/fold-bloom/voice/",
+          "state": "CANDIDATE",
+          "version": "0.1",
+          "thesis": "Shared timing becomes useful when it supports ordinary human practice: local pitch/stability training may borrow beat timing without moving exercise or voice authority.",
+          "promotion_gate": "Phone proof: non-technical user completes one held-note session and one PULSE-linked 1-3-5-3 pattern without architectural explanation; no raw audio leaves the browser."
         }
       ],
       "merge_sha": "7734a77b1961335eb59bf142e499573a6a74c2b2",
@@ -887,4 +898,4 @@
     "hermes_fold_bloom_replay_lane": "/control/packets/HERMES_FOLD_BLOOM_REPLAY_MESSAGE_LANE_2026-09-24.md",
     "hermes_fold_bloom_visual_lane": "/control/packets/HERMES_FOLD_BLOOM_VISUAL_GRAMMAR_LANE_2026-09-24.md"
   }
-}
+}\n
