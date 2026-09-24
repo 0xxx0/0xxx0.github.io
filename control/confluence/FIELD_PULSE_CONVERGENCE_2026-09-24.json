@@ -42,7 +42,12 @@
     "/control/CURRENT.json"
   ],
   "verification": {
-    "status": "PENDING_PR_CI"
+    "status": "SHIPPED",
+    "pr": 212,
+    "merge_sha": "6ee3b237299db2c72d9602be4a8ec79209300bd3",
+    "route_registration_run": 35965146307,
+    "public_surface_run": 35965146356,
+    "result": "PASS"
   },
-  "stop": "After CI, merge if green. Then use phone evidence to tune only concrete friction; do not widen the protocol until an existing use case cannot be expressed."
+  "stop": "Shipped. Stop protocol/runtime widening; next authority is direct phone use of LAB PULSE→READ and LAB PULSE→RIDE/COMPOSE, then change only observed friction."
 }
