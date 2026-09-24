@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#e9e3d4">
+<title>FOLD//BLOOM — INK FIELD</title>
+<style>
+:root{--paper:#eee8d9;--ink:#12171b;--line:#a9a18f;--hot:#c74b2c;--mut:#736d61}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--paper);color:var(--ink);font:10px/1.35 ui-monospace,SFMono-Regular,Menlo,monospace}
+button,input{font:inherit;border-radius:0}button{border:1px solid var(--line);background:#f3eddf;color:var(--ink);min-height:34px;padding:6px 9px;cursor:pointer}
+button.on{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.app{height:100dvh;display:grid;grid-template-rows:auto 1fr auto}
+header{display:flex;align-items:center;gap:10px;padding:max(8px,env(safe-area-inset-top)) 10px 8px;border-bottom:1px solid var(--line);background:#eee8d9e8;z-index:3}
+.brand{font-weight:950;letter-spacing:-.04em;font-size:15px}.brand i{font-style:normal;color:var(--hot)}.sub{color:var(--mut);font-size:8px;letter-spacing:.12em}.grow{flex:1}
+main{position:relative;min-height:0;overflow:hidden}canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.hud{position:absolute;left:10px;top:10px;z-index:2;pointer-events:none;color:#5c574e;letter-spacing:.1em;font-size:8px}.hud b{color:#171b1f}
+.tools{position:absolute;right:10px;top:10px;z-index:4;width:min(290px,calc(100vw - 20px));border:1px solid var(--line);background:#eee8d9e8;backdrop-filter:blur(8px)}
+.row{display:flex;gap:3px;padding:5px;border-bottom:1px solid var(--line)}.row:last-child{border-bottom:0}.row>*{flex:1;min-width:0}
+.knobs{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:8px}.knobs label{display:block;color:var(--mut);font-size:8px;letter-spacing:.08em}.knobs input{width:100%;accent-color:var(--ink)}
+footer{display:flex;gap:10px;align-items:center;border-top:1px solid var(--line);padding:6px 10px calc(6px + env(safe-area-inset-bottom));color:var(--mut);font-size:8px;letter-spacing:.08em}
+footer a{color:inherit;text-decoration:none}
+@media(max-width:620px){.sub{display:none}.tools{left:8px;right:8px;top:auto;bottom:8px;width:auto}.knobs{grid-template-columns:1fr 1fr}.hud{top:8px}.brand{font-size:13px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div><div class="brand">FOLD<i>//</i>BLOOM · INK FIELD</div><div class="sub">GESTURE → WATER / PIGMENT → PAPER → STAIN → RETURN</div></div><div class="grow"></div><button id="export">EXPORT PNG</button></header>
+<main id="stage">
+  <canvas id="paper"></canvas>
+  <div class="hud">MODE <b id="modeRead">SUMI</b> · GUIDE <b id="guideRead">永</b> · POINTER <b id="pointerRead">MOUSE / TOUCH</b></div>
+  <aside class="tools">
+    <div class="row" id="modes"><button class="on" data-mode="SUMI">SUMI</button><button data-mode="DRY">DRY</button><button data-mode="WASH">WASH</button></div>
+    <div class="row"><button id="guide">GUIDE 永</button><button id="dry">DRY PAPER</button><button id="clear">CLEAR</button></div>
+    <div class="knobs">
+      <label>WATER <b id="waterVal">62</b><input id="water" type="range" min="5" max="100" value="62"></label>
+      <label>INK LOAD <b id="loadVal">76</b><input id="load" type="range" min="5" max="100" value="76"></label>
+      <label>BRUSH <b id="sizeVal">18</b><input id="size" type="range" min="4" max="42" value="18"></label>
+      <label>PAPER <b id="paperVal">58</b><input id="absorb" type="range" min="5" max="100" value="58"></label>
+    </div>
+  </aside>
+</main>
+<footer><span>PRESSURE + TILT USED WHEN THE POINTER PROVIDES THEM · FAST = BROKEN EDGE · SLOW = LOADED STROKE</span><span class="grow"></span><a href="../lab/?mode=INK">LAB</a><a href="../instrument/">INSTRUMENT</a><a href="../">RETURN</a></footer>
+</div>
+<script type="module" src="./app.js"></script>
+<script src="/showcase-nav.js" defer></script>
+</body>
+</html>

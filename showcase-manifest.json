@@ -2104,7 +2104,7 @@
       "tier": "FIELD",
       "role": "Spatial six-projection lab over the Fold/Bloom family: RIDE delegates to LIVE; PULSE trains polyrhythm and exports the shared event tape; READ races a visible ghost pace while preserving regression; LOCI projects source tokens onto a mnemonic path; INK simulates water/pigment diffusion under pointer-speed brush deposit; DATA provides a small addressed aperture explorer. Explicit CLEAR/DRIVE/TRANCE/SOFT profiles affect presentation only, never source truth.",
       "index": {
-        "updated_at": "2026-09-23T18:55:00+08:00",
+        "updated_at": "2026-09-24T09:20:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2127,10 +2127,43 @@
         "stage": "TEST",
         "question": "Can one compact spatial shell make Fold/Bloom useful across embodied ride, rhythm training, temporal reading, mnemonic paths, wet-media gesture and data exploration without flattening their different authorities?",
         "baseline": "The family already had strong separate RIDE/LISTEN/SET/READ/PATH/PAINT donors, but no compact place to compare transferable interaction laws across them.",
-        "mutation": "FIELD LAB exposes six unequal projections around one center, adds explicit presentation profiles, implements PULSE/READ/LOCI/INK/DATA interaction studies, and introduces a shared event tape plus Beat Saber draft adapter downstream of measured audio structure.",
-        "evidence_gate": "Route registration + event-tape unit tests + phone-sized browser boot must pass. Human gate: at least two modes must produce a useful transferable operation or training loop rather than novelty-only interaction; INK and READ must remain usable without explanatory prose.",
+        "mutation": "FIELD LAB exposes six unequal projections around one center. INK now uses the same reusable pressure/tilt/speed wet-media engine as the dedicated INK FIELD; PULSE/READ/LOCI/DATA remain distinct studies; explicit profiles stay presentation-only; shared event tape supports downstream Beat Saber draft export.",
+        "evidence_gate": "Route registration + event-tape/ink-engine unit tests + phone-sized browser boot must pass. Human gate: at least two modes must produce a useful transferable operation or training loop rather than novelty-only interaction; INK and READ must remain usable without explanatory prose.",
         "next_if_pass": "Add cross-mode source continuity and residue: the same addressed source/path/event tape should survive movement between PULSE, READ, LOCI, INK or DATA where the mapping is explicit.",
         "next_if_fail": "Keep event-tape infrastructure and any individually useful modes; demote FIELD LAB shell instead of forcing a universal multimode product."
+      }
+    },
+    {
+      "href": "/fold-bloom/ink/",
+      "title": "FOLD//BLOOM · INK FIELD 0.2",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "DRAW / TRAIN",
+      "state": "CANDIDATE",
+      "version": "0.2",
+      "tier": "FIELD",
+      "role": "Primitive wet-media instrument shared with FIELD LAB. Pointer speed, pressure and stylus tilt modulate brush deposit; water and pigment evolve separately through deterministic paper grain, evaporation and stain. SUMI/DRY/WASH are interaction regimes, not historical calligraphy claims. Exact pixels can export locally; source/gesture semantics remain local.",
+      "index": {
+        "updated_at": "2026-09-24T09:20:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "TRAIN",
+          "VERIFY",
+          "SHARE"
+        ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can a tiny deterministic wet-media model make brush gesture materially legible enough for calligraphy/ink training and generative projection without becoming a decorative paint effect?",
+        "baseline": "FIELD LAB INK v0.1 used a one-off circular pigment/water diffusion effect with speed-sensitive deposit but no pressure, tilt, paper absorbance, dry-brush/wash regimes or reusable engine.",
+        "mutation": "Extract fold-bloom-ink-field/v0.2 as a dependency-free engine shared by LAB and a dedicated paper surface. Add pointer pressure/tilt, separate water/load/size/paper controls, deterministic grain/fiber bias, stain settling, dry brush and wash regimes, tracing guides and PNG export.",
+        "evidence_gate": "Node unit tests must prove deterministic deposit, evaporation/stain, dry-vs-wash water separation and stable RGBA output; browser smoke must boot the dedicated route and LAB INK controls. Human gate is stroke feel on phone/stylus: edge breakup, wet spread and guide tracing must read as materially different.",
+        "next_if_pass": "Add replayable stroke tape and training comparison (guide path vs produced stroke) without pretending to judge calligraphic quality from geometry alone.",
+        "next_if_fail": "Keep the reusable paper renderer if visually useful; remove training claims and reduce to generative wet-media projection."
       }
     },
     {

@@ -66,11 +66,11 @@ export class Renderer {
     const k=1-Math.exp(-dt*5.2);
     m.speed+=(speed-m.speed)*k;m.grade+=(grade-m.grade)*k;m.bend+=(bend-m.bend)*k;
     const drop=this._dropPulse(now);
-    const immersion=this.profile?.immersion||1;
-    m.zoom=clamp(1+(m.speed-1)*.078*immersion+drop.kick*.15*immersion,.90,1.28);
-    m.pitch=clamp(m.grade*27*immersion-drop.kick*20*immersion+drop.rebound*9,-46,36);
-    m.bank=clamp(m.bend*.032*immersion,-.042,.042);
-    const shake=this.reducedMotion?0:drop.kick*3.6*immersion*(1-drop.rebound*.5);
+    const immersion=this.profile?.immersion||1,motionGain=this.profile?.motionGain||1,body=immersion*motionGain;
+    m.zoom=clamp(1+(m.speed-1)*.078*body+drop.kick*.15*body,.90,1.32);
+    m.pitch=clamp(m.grade*27*body-drop.kick*20*body+drop.rebound*9*body,-52,40);
+    m.bank=clamp(m.bend*.032*body,-.052,.052);
+    const shake=this.reducedMotion?0:drop.kick*3.6*body*(1-drop.rebound*.5);
     m.shakeX=Math.sin(now*.034)*shake;
     m.shakeY=Math.cos(now*.029)*shake*.55;
     m.dropKick=drop.kick;m.dropRebound=drop.rebound;
@@ -110,15 +110,15 @@ export class Renderer {
     // Peripheral optic flow: deterministic source-motion witness, not a score effect.
     for(const p of optic.stars){
       const q=p.depth,x=horizonX+p.x*w*.67,y=horizonY+p.y*h*.45;
-      const trail=this.reducedMotion?0:(4+18*q*clamp((optic.speed-.45)/2,0,1))*(this.profile?.immersion||1);
+      const trail=this.reducedMotion?0:(4+18*q*clamp((optic.speed-.45)/2,0,1))*(this.profile?.immersion||1)*(this.profile?.motionGain||1);
       const dx=(x-horizonX),dy=(y-horizonY),len=Math.max(1,Math.hypot(dx,dy)),a=.025+.13*q*clamp(optic.speed/2.2,0,1);
       g.strokeStyle=`rgba(255,255,255,${a})`;g.lineWidth=.45+q*.85;
       g.beginPath();g.moveTo(x,y);g.lineTo(x-dx/len*trail,y-dy/len*trail);g.stroke();
     }
     // Macro buildup closes the visual aperture before the source opens it.
     const drop=world?.drop;
-    if(drop&&Number(drop.ahead)>.12&&Number(drop.ahead)<4.8){
-      const near=clamp(1-Number(drop.ahead)/4.8,0,1),pressure=clamp(near*(Number(drop.strength)||0)*(this.profile?.dropGain||1)*(this.profile?.immersion||1),0,1.25);
+    if(drop&&Number(drop.ahead)>.12&&Number(drop.ahead)<4.8*(this.profile?.anticipation||1)){
+      const window=4.8*(this.profile?.anticipation||1),near=clamp(1-Number(drop.ahead)/window,0,1),pressure=clamp(near*(Number(drop.strength)||0)*(this.profile?.dropGain||1)*(this.profile?.immersion||1),0,1.35);
       g.save();g.translate(horizonX,horizonY);
       for(let i=0;i<5;i++){
         const q=(i+1)/5,rx=w*(.09+.30*q)*(1-pressure*.24),ry=h*(.045+.15*q)*(1-pressure*.20);

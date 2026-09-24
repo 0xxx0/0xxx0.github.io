@@ -50,6 +50,8 @@ When mining prior conversations, user messages deserve special attention because
 
 ## Current confluence packets
 
+- [DESIGN ENGINEERING DONOR — Septabee / Interface Studies / Tangible Media](./DESIGN_ENGINEERING_DONOR_2026-09-24.md) — cross-thread interaction/design donor: substance-generated form, edge operators, spatial memory, receding UI, primitive-first implementation, and an artistic+analytic quality gate; donors are not a mandatory house skin.
+
 - [FOLD//BLOOM LISTEN SOURCE](./FOLD_BLOOM_LISTEN_SOURCE_2026-09-22.json) — visible LISTEN 0.2 candidate: local-first source addressing, bounded Suno/direct adapter, FI focus proof, and real-track evidence gate
 
 - [FOLD//BLOOM SOUND DEPTH](./FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json) — HOLD FAST / LET FLY pass: Two Dial 0.10 sound depth, recovered scale-of-consequence mode, LIVE demo boundary, and Scale Lens extraction from the playable sibling grid
