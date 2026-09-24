@@ -83,7 +83,10 @@
     "LIVE may resolve that exact source from the same-origin local media vault without another file picker and exposes an exact RETURN link",
     "browser-local media vault is now visible in LISTEN intake so remembered sources can be reopened without the normal file picker on the same browser/device.",
     "Beat Saber is a first-class LISTEN action rather than a hidden USE TRACK sub-action.",
-    "the existing event-tape adapter now downloads Beat Saber v4 ExpertPlusStandard.dat directly as a mapper draft."
+    "the existing event-tape adapter now downloads Beat Saber v4 ExpertPlusStandard.dat directly as a mapper draft.",
+    "Beat Saber export is now a one-click v4 mapper/test ZIP containing Info.dat, AudioData.dat, ExpertPlusStandard.dat, minimal Lightshow.dat, FOLD_BLOOM_MANIFEST.json, README.txt and the exact current source bytes.",
+    "game-facing Beat Saber chart output strips private _foldBloom metadata; FOLD/BLOOM provenance and authority move to the sidecar manifest instead of contaminating the v4 beatmap schema.",
+    "OGG/EGG source audio is labeled PLAYTEST_READY; MP3/M4A/WAV/etc. is preserved inside the pack but labeled NEEDS_OGG_CONVERSION rather than falsely claimed playable."
   ],
   "constraints": [
     "no upload/network required for user audio",
@@ -118,7 +121,9 @@
     "phone ADDRESS/APERTURE arbitration changes projection control only; it must not alter the closed BEAT/PHRASE/SECTION/TRACK aperture vocabulary",
     "exact-hash LISTEN→LIVE vault handoff is browser-local convenience, not cloud storage or transferred source authority",
     "remembered local media is browser/device-local convenience, not private cloud sync or a claim that GitHub Pages can read ChatGPT Library bytes",
-    "Beat Saber export is a draft mapping artifact; it does not imply a complete installable Beat Saber level or in-browser Beat Saber runtime"
+    "Beat Saber export is a draft mapping artifact; it does not imply a complete installable Beat Saber level or in-browser Beat Saber runtime",
+    "Beat Saber pack remains a generated mapper starting point: note flow/parity/safety/difficulty require human editor review before distribution.",
+    "No browser audio transcoder is introduced; incompatible audio formats must be explicitly converted to song.ogg outside LISTEN."
   ],
   "verification": {
     "module_runtime": "PASS: LISTEN 0.2 surface executed in browser smoke",
@@ -161,9 +166,11 @@
     "source_continuity_pr": 216,
     "source_continuity_merge_sha": "253b23e1a039527c3fb434d5e58d8ccf0c7c6b07",
     "source_continuity_ci": "PASS · public-surface-check 35992087692 + Route Registration 35992087726",
-    "beat_saber_surface": "PASS · direct Beat Saber control + ExpertPlusStandard.dat convergence-surface proof"
+    "beat_saber_surface": "PASS · direct Beat Saber control + ExpertPlusStandard.dat convergence-surface proof",
+    "beat_saber_pack_pr": 218,
+    "beat_saber_pack_ci": "Focused pack/unit/convergence test PASS in public-surface-check 35994746536; final PR head rerun required after control seal."
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · portable donor=field-addressed-stream/v0.1",
   "updated": "2026-09-24",
-  "return": "/returns/FOLD_BLOOM_SOURCE_CELL_2026-09-22.json"
+  "return": "/returns/FOLD_BLOOM_BEAT_SABER_PACK_2026-09-24.json"
 }
