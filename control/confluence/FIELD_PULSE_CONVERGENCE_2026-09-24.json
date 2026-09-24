@@ -1,0 +1,48 @@
+{
+  "schema": "confluence-packet/v1",
+  "id": "FIELD_PULSE_CONVERGENCE_2026-09-24",
+  "observed": [
+    "User reports FIELD LAB now kinda works on phone but wants stronger work-experience usability, READFIELD/RSVP use cases, rhythm-clock convergence, voice, and cross-app connection.",
+    "FIELD LAB PULSE already emitted FIELD PULSE transport internally, but READFIELD/LIVE/Two Dial only recognized LISTEN as an external transport producer, leaving synthetic rhythm isolated.",
+    "READFIELD described useful modes but the use-case cards were explanatory rather than direct actions."
+  ],
+  "recovered": [
+    "FIELD PULSE v0.1 already carries bounded same-origin transport/focus/operation events with authority NONE.",
+    "READFIELD/APERTURE already owns one exact text cursor across RSVP, scale, regression and SpeechSynthesis voice boundaries.",
+    "LISTEN owns audio/AUDIO MAP authority; LIVE owns embodied topology; Two Dial owns relation/harmony/motif/form; FIELD LAB PULSE is synthetic timing only."
+  ],
+  "external_research": [
+    "Ableton Link's useful donor vocabulary is tempo + beat + phase + shared quantization while participants retain independent start/stop.",
+    "Web Audio currentTime is the precise browser audio timeline and schedule-ahead timing remains appropriate for musical clocks."
+  ],
+  "implemented": [
+    "FIELD PULSE adds explicit lawful clock descriptors for LISTEN/AUDIO and FIELD LAB/SYNTH.",
+    "FIELD LAB PULSE exposes clock/beat/phase, publishes quantum/quantumPhase, and provides explicit READ ×4 / RIDE / COMPOSE handoffs.",
+    "READFIELD 0.8.2 accepts either lawful clock, labels source/clock type, and makes FAST RSVP / PULSE ×4 / VOICE+EYES / CURRENT actions one tap.",
+    "LIVE accepts either lawful external clock as timing witness only; external timing still cannot choose topology.",
+    "Two Dial accepts either lawful external clock while local same-page track remains higher priority."
+  ],
+  "authority": [
+    "No new source store, reader kernel, clock bus, AUDIO MAP authority or universal application.",
+    "Borrowed clock != borrowed authorship.",
+    "Synthetic PULSE != audio source.",
+    "Voice/RSVP continue to share READFIELD's canonical source cursor."
+  ],
+  "files": [
+    "/lib/field-pulse.js",
+    "/fold-bloom/lab/index.html",
+    "/fold-bloom/lab/app.js",
+    "/fold-bloom/lab/tests/pulse-routing.test.mjs",
+    "/docs/index.html",
+    "/fold-bloom/live/app.js",
+    "/fold-bloom/two-dial/pulse-link.js",
+    "/control/FIELD_PULSE_CONTRACT.json",
+    "/fold-bloom/lab/release.json",
+    "/showcase-manifest.json",
+    "/control/CURRENT.json"
+  ],
+  "verification": {
+    "status": "PENDING_PR_CI"
+  },
+  "stop": "After CI, merge if green. Then use phone evidence to tune only concrete friction; do not widen the protocol until an existing use case cannot be expressed."
+}
