@@ -82,6 +82,15 @@ function save(){if(demo.preview)return;try{localStorage.setItem(STORE,JSON.strin
 function load(){try{return restore(JSON.parse(localStorage.getItem(STORE)||'null'))}catch(_){return null}}
 function haptic(ms=5){if(demo.preview)return;try{navigator.vibrate?.(ms)}catch(_){}}
 function toast(text){const el=$('#toast');el.textContent=text;el.classList.remove('on');void el.offsetWidth;el.classList.add('on')}
+function extrapolateSyntheticClock(track,now=performance.now()){
+  if(!track?._pulseSeed||track._pulseClock!=='SYNTH'||!track.playing)return track;
+  const bpm=Number(track.bpm)||0;if(!(bpm>0))return track;
+  const period=60/bpm,dt=Math.max(0,(now-Number(track._receivedAt||now))/1000);
+  const basePhase=Number(track.beatPhase)||0,total=basePhase+dt/period,steps=Math.floor(total);
+  const beatPhase=((total%1)+1)%1,quantum=Math.max(1,Number(track.quantum)||4);
+  const quantumPhase=(((Number(track.quantumPhase)||0)+dt/(period*quantum))%1+1)%1;
+  return {...track,time:(Number(track.time)||0)+dt,beatIndex:(Number(track.beatIndex)||0)+steps,beatPhase,beatDistance:Math.min(beatPhase,1-beatPhase)*period,quantumPhase,sectionProgress:quantumPhase,sourceProgress:quantumPhase};
+}
 function timingNow(){
   if(!linkedTrack?.playing)return {timing:'FREE',timingMultiplier:1,label:'FREE'};
   const bpm=Number(linkedTrack.bpm)||0,period=bpm>0?60/bpm:0;
@@ -363,17 +372,23 @@ fieldPulse.subscribe(msg=>{
   update();
 });
 
+const pulseHandoff=fieldPulse.last(),pulseHandoffClock=transportDescriptor(pulseHandoff);
+if(new URLSearchParams(location.search).get('from')==='field-lab'&&pulseHandoffClock?.source==='FOLD_BLOOM_FIELD_LAB'){
+  externalTrack={...pulseHandoff.data,playing:true,_receivedAt:performance.now(),_pulseLabel:pulseHandoffClock.label,_pulseSource:pulseHandoffClock.source,_pulseClock:pulseHandoffClock.clock,_pulseSeed:true};
+  linkedTrack=externalTrack;
+}
+
 document.addEventListener('visibilitychange',()=>{if(document.hidden){stopDemo(false);audio.stop()}else if(audio.ctx)audio.start()});
 function loop(t){
   const frameMs=Math.max(1,t-lastLoopT);lastLoopT=t;perf.emaMs+=(frameMs-perf.emaMs)*.055;perf.fps=1000/Math.max(1,perf.emaMs);
   const dt=Math.max(0,Math.min(.12,frameMs/1000||.016)),modelSlices=innerWidth<620?46:56;
   const local=liveTrack.transport();
-  const externalFresh=!!(externalTrack&&t-Number(externalTrack._receivedAt||0)<1800);
+  const externalFresh=!!(externalTrack&&(externalTrack._pulseSeed||t-Number(externalTrack._receivedAt||0)<1800));
   let baseWorld=null;
   if(local){
     linkedTrack=local;baseWorld=liveTrack.trackfield(13.5,modelSlices);
   }else if(externalFresh){
-    linkedTrack=externalTrack;
+    linkedTrack=extrapolateSyntheticClock(externalTrack,t);
   }else{
     if(externalTrack&&!externalFresh)externalTrack=null;
     linkedTrack=practiceTrack.transport(t);baseWorld=practiceTrack.trackfield(13.5,modelSlices,t);
