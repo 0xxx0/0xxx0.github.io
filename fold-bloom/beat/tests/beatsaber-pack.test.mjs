@@ -25,7 +25,7 @@ function namesFromStoreZip(bytes){
 }
 
 test('audio classification is explicit about OGG readiness',()=>{
-  assert.equal(classifyBeatSaberAudio({name:'song.ogg'}).status,'PLAYTEST_READY');
+  assert.equal(classifyBeatSaberAudio({name:'song.ogg'}).status,'AUDIO_READY_FOR_PLAYTEST');
   assert.equal(classifyBeatSaberAudio({name:'song.mp3'}).status,'NEEDS_OGG_CONVERSION');
 });
 
@@ -40,7 +40,7 @@ test('game-facing chart drops FOLD BLOOM private metadata',()=>{
 test('OGG source builds a v4 playtest-ready mapper pack',()=>{
   const built=buildBeatSaberFiles({chart,map,fileMeta:{name:'Test.ogg',type:'audio/ogg',artist:'Tester',hash:'abc',sourceSampleRate:48000},sourceBytes:source});
   assert.equal(built.manifest.schema,BEAT_SABER_PACK_SCHEMA);
-  assert.equal(built.manifest.status,'PLAYTEST_READY');
+  assert.equal(built.manifest.status,'AUDIO_READY_FOR_PLAYTEST');
   const byName=Object.fromEntries(built.files.map(x=>[x.name,x.data]));
   const td=new TextDecoder();
   const info=JSON.parse(td.decode(byName['Info.dat']));
