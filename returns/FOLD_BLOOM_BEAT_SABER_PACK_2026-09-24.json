@@ -9,7 +9,7 @@
   "delta": [
     "Replaces loose ExpertPlusStandard.dat-only export with one ZIP containing v4 Info.dat, AudioData.dat, chart, minimal Lightshow.dat, provenance manifest, README and exact current source bytes.",
     "Strips FOLD/BLOOM private metadata from the game-facing beatmap and preserves it in FOLD_BLOOM_MANIFEST.json.",
-    "Labels OGG/EGG as PLAYTEST_READY and all other current source formats as NEEDS_OGG_CONVERSION while retaining original bytes.",
+    "Labels OGG/EGG as AUDIO_READY_FOR_PLAYTEST and all other current source formats as NEEDS_OGG_CONVERSION while retaining original bytes.",
     "Adds dependency-free deterministic store-ZIP writer and focused tests.",
     "Keeps Beat Saber as an external transform adapter; no new source store, game runtime or universal export framework."
   ],
@@ -34,7 +34,7 @@
     "observed_2026_09_24": [
       "Beat Saber v4 Info.dat points to audio, AudioData, beatmap and lightshow files.",
       "v4 beatmaps separate interactable beatmap data from lightshow data.",
-      "OGG is the recommended custom-level audio path; non-OGG input is not claimed playtest-ready."
+      "OGG is the recommended custom-level audio path; non-OGG input is not claimed audio-ready; actual editor/VR playtest is not claimed for any generated pack."
     ],
     "sources": [
       "BSMG map-format/info",
