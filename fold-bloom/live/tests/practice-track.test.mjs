@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {createPracticeMap} from '../practice-track.js';
 import {buildTrackfield} from '../trackfield.js';
 
@@ -23,4 +24,15 @@ test('practice course yields visible climb, descent, turn and velocity variation
   assert.ok(Math.min(...grades)<-.18);
   assert.ok(Math.max(...speeds)-Math.min(...speeds)>.35);
   assert.ok(Math.max(...bends)-Math.min(...bends)>.25);
+});
+
+test('built-in demo exposes a gesture-safe audio path instead of forcing silence',()=>{
+  const app=readFileSync(new URL('../app.js',import.meta.url),'utf8');
+  const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
+  assert.match(html,/id="soundGate"[^>]*>TAP FOR SOUND<\/button>/);
+  assert.match(app,/async function enableFieldAudio\(\)/);
+  assert.match(app,/const toggleAutopilot=async\(\)=>\{[\s\S]*if\(audio\.soundOn\)await ensureAudio\(\)/);
+  assert.match(app,/launchParams\.get\('demo'\)===?'1'[\s\S]*syncSoundGate\(!audio\.ctx\)/);
+  assert.doesNotMatch(app,/launchParams\.get\('demo'\)===?'1'[\s\S]{0,240}audio\.setSound\(false\)/);
+  assert.doesNotMatch(app,/\#soundBtn'\)\.onclick=async\(\)=>\{stopDemo/);
 });
