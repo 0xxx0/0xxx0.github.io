@@ -1,10 +1,15 @@
 import {compileEventTape,toBeatSaberV4Draft} from '../beat/event-tape.js';
 import {InkField} from '../ink/ink-engine.js';
+import {createFieldPulse} from '../../lib/field-pulse.js';
+import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, boundedFocus} from './read-bridge.js';
+import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const canvas=$('#field'),ctx=canvas.getContext('2d');
 const TAU=Math.PI*2;
 let W=1,H=1,DPR=1,mode='RIDE',profile='CLEAR',panelHidden=false,last=performance.now(),mx=.5,my=.5;
+const fieldPulse=createFieldPulse('FOLD_BLOOM_FIELD_LAB');
+let lastTransport=null;
 
 const PROFILES={
   CLEAR:{motion:1,trail:.16,gain:.55,bleed:.7},
@@ -15,7 +20,7 @@ const PROFILES={
 const MODES={
   RIDE:['EMBODY','audio → terrain → gesture → consequence','RIDE / LIVE','existing embodied engine'],
   PULSE:['ENTRAIN','ratio → pulse → tap → event tape','PULSE / POLYRHYTHM','play, tap, export events'],
-  READ:['PACE','text → temporal address → race / regress','READ / RACE','ghost pace versus typed recall'],
+  READ:['PACE','text → address → RSVP / regress / return','READ / READFIELD','canonical APERTURE reader + optional trainer'],
   LOCI:['REMEMBER','cell → path → place → recall','LOCI / PATH','spatial mnemonic route'],
   INK:['DEPOSIT','gesture → water / pigment → diffusion → dry','INK / PAPER','brush and capillary study'],
   DATA:['REFRACT','object → path → aperture → focus','DATA / FIELD','small addressed explorer']
@@ -40,6 +45,7 @@ function selectMode(next){
   $('#panelTitle').textContent=title;$('#panelSub').textContent=sub;
   document.documentElement.dataset.fieldLabMode=mode;
   setStatus(mode+' · '+law);
+  if(mode==='READ')queueMicrotask(()=>ensureReader());
   setAddress('field://lab/'+mode.toLowerCase());
   if(mode==='DATA'&&!data.nodes.length)loadData();
   if(mode==='LOCI'&&!loci.nodes.length)buildLoci();
@@ -58,7 +64,7 @@ $('#enterListen').onclick=()=>location.href='../listen/';
 $('#dataLens').onclick=()=>location.href='../lens/';
 
 /* ---------- PULSE ---------- */
-const pulse={ratio:[3,2],bpm:96,timbre:'WOOD',playing:false,ac:null,timer:null,start:0,nextA:0,nextB:0,lastA:-1,lastB:-1,taps:[],flashA:0,flashB:0};
+const pulse={ratio:[3,2],bpm:96,timbre:'WOOD',playing:false,ac:null,timer:null,start:0,nextA:0,nextB:0,lastA:-1,lastB:-1,taps:[],flashA:0,flashB:0,lastPublish:0};
 function parseRatio(v){return v.split(':').map(Number)}
 $$('[data-ratio]').forEach(b=>b.onclick=()=>{
   pulse.ratio=parseRatio(b.dataset.ratio);$$('[data-ratio]').forEach(x=>x.classList.toggle('cool',x===b));
@@ -118,23 +124,82 @@ $('#exportTape').onclick=()=>{
   setStatus('PULSE · EVENT TAPE + BEAT SABER V4 DRAFT EXPORTED');
 };
 
-/* ---------- READ / RACE ---------- */
-const read={tokens:[],you:0,ghost:0,started:false,paused:false,startAt:0,pauseAt:0,wpm:300};
+/* ---------- READ / READFIELD / RACE ---------- */
+const read={tokens:[],you:0,ghost:0,started:false,paused:false,startAt:0,pauseAt:0,wpm:300,pulseMode:'WITNESS',readerLoaded:false};
+const reader=$('#labReader');
 function tokenize(text){
   try{return [...new Intl.Segmenter(undefined,{granularity:'word'}).segment(text)].filter(x=>x.isWordLike).map(x=>x.segment)}
   catch(_){return text.trim().split(/\s+/).filter(Boolean)}
 }
-function resetRead(){
-  read.tokens=tokenize($('#readSource').value);read.you=0;read.ghost=0;read.started=false;read.paused=false;read.startAt=0;$('#raceInput').value='';syncReadUI()
+function recoverHandoff(){
+  try{
+    const x=JSON.parse(sessionStorage.getItem('field.aperture.handoff.v01')||'null');
+    if(x&&typeof x.source==='string'&&x.source.trim())return x;
+  }catch(_){}
+  return null;
 }
+function readerSource(){return String($('#readSource').value||'').trim()}
+function loadReader({announce=false,preferHandoff=false}={}){
+  if(!reader||typeof reader.load!=='function')return null;
+  const h=preferHandoff?recoverHandoff():null,source=h?.source||readerSource();
+  if(h?.source)$('#readSource').value=h.source;
+  const snap=reader.load(source,{label:h?.label||'FIELD LAB READ',scale:'WORD',wpm:read.wpm});
+  read.readerLoaded=true;
+  document.documentElement.dataset.fieldLabReader=snap?.scale?'ready':'empty';
+  document.documentElement.dataset.fieldLabReaderScale=snap?.scale||'NONE';
+  const sourceAperture=$('#readSourceAperture');if(sourceAperture)sourceAperture.open=false;
+  document.documentElement.dataset.fieldLabReadSource='bound';
+  if(lastTransport&&read.pulseMode!=='OFF')applyTransport(lastTransport);
+  if(announce)setStatus('READ · APERTURE / RSVP LOADED');
+  return snap;
+}
+function ensureReader(){return read.readerLoaded?reader?.snapshot?.():loadReader({preferHandoff:true})}
+function syncPulseButton(){const b=$('#readPulse');if(b)b.textContent=pulseModeLabel(read.pulseMode)}
+function applyTransport(data){
+  const view=transportWitness(data);if(!view)return;
+  lastTransport=data;
+  if(read.pulseMode==='OFF'){reader?.setExternalPulse?.(null);return}
+  reader?.setExternalPulse?.(view);
+  if(read.pulseMode==='PACE4'){
+    const wpm=paceWpmFromTransport(data,4);
+    if(wpm){read.wpm=wpm;reader?.setWpm?.(wpm);$('#wpm').value=String(Math.max(120,Math.min(720,wpm)));$('#wpmRead').textContent=wpm+' WPM'}
+  }
+}
+fieldPulse.subscribe(msg=>{if(msg.kind==='transport'&&msg.data)applyTransport(msg.data)});
+const lastPulse=fieldPulse.last();
+if(lastPulse?.kind==='transport'&&lastPulse.data)lastTransport=lastPulse.data;
+reader?.addEventListener('aperture-focus',e=>{const focus=boundedFocus(e.detail);if(!focus)return;fieldPulse.publish('focus',focus);if(mode==='READ')setAddress(focus.address||('text://'+Math.round(focus.sourceProgress*10000)))});
+$('#readLoad').onclick=()=>loadReader({announce:true});
+$('#readPulse').onclick=()=>{
+  read.pulseMode=nextPulseMode(read.pulseMode);syncPulseButton();
+  document.documentElement.dataset.fieldLabReadPulse=read.pulseMode;
+  if(read.pulseMode==='OFF')reader?.setExternalPulse?.(null);else if(lastTransport)applyTransport(lastTransport);
+  setStatus('READ · '+pulseModeLabel(read.pulseMode));
+};
+$('#readFull').onclick=()=>{
+  const source=readerSource();window.FieldAperture?.handoff?.(source,{label:'FIELD LAB READ',from:location.pathname+location.search});
+  const q=read.pulseMode==='PACE4'?'?pulse=4&from=field-lab':'?from=field-lab';location.href='/docs/'+q;
+};
+$('#readToLoci').onclick=()=>{
+  const snap=reader?.snapshot?.()||ensureReader()||{};
+  $('#lociSource').value=readerSource();buildLoci();
+  const hit=nodeForProgress(loci.course,Number(snap.source_progress)||0);if(hit)loci.step=Math.max(0,loci.nodes.findIndex(n=>n.id===hit.id));
+  syncLoci();selectMode('LOCI');setSource('TEXT / CARRIED FROM READ');setAddress(hit?.address||'field://lab/loci');setStatus('LOCI · SAME TEXT · EXACT ADDRESSED COURSE');
+};
+$('#readToData').onclick=()=>{
+  const snap=reader?.snapshot?.()||ensureReader()||{};
+  $('#dataSource').value=JSON.stringify({source:readerSource(),focus:boundedFocus(snap)},null,2);
+  loadData();selectMode('DATA');setSource('TEXT + FOCUS / CARRIED FROM READ');setStatus('DATA · READ SOURCE + FOCUS WITNESS');
+};
+function resetRead(){read.tokens=tokenize(readerSource());read.you=0;read.ghost=0;read.started=false;read.paused=false;read.startAt=0;$('#raceInput').value='';syncReadUI()}
 function syncReadUI(){
   $('#youWord').textContent=read.you;$('#ghostWord').textContent=read.ghost;$('#raceDelta').textContent=read.you-read.ghost;
   const tok=read.tokens[read.you]||'';$('#raceInput').placeholder=tok?'type: '+tok:'complete';
 }
-$('#wpm').oninput=e=>{read.wpm=+e.target.value;$('#wpmRead').textContent=read.wpm+' WPM'};
+$('#wpm').oninput=e=>{read.wpm=+e.target.value;$('#wpmRead').textContent=read.wpm+' WPM';reader?.setWpm?.(read.wpm)};
 $('#readStart').onclick=()=>{
   if(!read.tokens.length)resetRead();
-  if(!read.started){read.started=true;read.paused=false;read.startAt=performance.now()-read.ghost*(60000/read.wpm);$('#readStart').textContent='RESTART'}
+  if(!read.started){read.started=true;read.paused=false;read.startAt=performance.now()-read.ghost*(60000/read.wpm);$('#readStart').textContent='RESTART RACE'}
   else{read.ghost=0;read.you=0;read.startAt=performance.now();read.paused=false}
   $('#raceInput').focus();syncReadUI();
 };
@@ -152,18 +217,32 @@ $('#raceInput').addEventListener('input',e=>{
   const want=(read.tokens[read.you]||'').replace(/[^\p{L}\p{N}]+/gu,'').toLowerCase(),got=e.target.value.replace(/[^\p{L}\p{N}]+/gu,'').toLowerCase();
   if(want&&got===want){read.you=Math.min(read.tokens.length,read.you+1);e.target.value='';syncReadUI()}
 });
-resetRead();
+syncPulseButton();document.documentElement.dataset.fieldLabReadPulse=read.pulseMode;resetRead();queueMicrotask(()=>ensureReader());
 
 /* ---------- LOCI ---------- */
-const loci={nodes:[],hidden:false,step:0,hits:0};
+const loci={nodes:[],course:null,hidden:false,step:0,hits:0};
 function buildLoci(){
-  const words=tokenize($('#lociSource').value).slice(0,12);loci.nodes=words.map((text,i)=>({text,i}));
+  const raw=String($('#lociSource').value||'');
+  loci.course=buildTextCourse(raw,{maxLoci:16});
+  loci.nodes=loci.course.nodes.map(n=>({...n,text:n.label}));
   loci.hidden=false;loci.step=0;loci.hits=0;syncLoci();
+  $('#lociWords').textContent=loci.course.wordCount;
+  document.documentElement.dataset.fieldLabLociNodes=String(loci.nodes.length);
+  document.documentElement.dataset.fieldLabLociWords=String(loci.course.wordCount);
+  setSource('TEXT COURSE / '+loci.course.strategy);
 }
-function syncLoci(){$('#lociStep').textContent=loci.step+'/'+loci.nodes.length;$('#lociHits').textContent=loci.hits}
+function syncLoci(){
+  $('#lociStep').textContent=Math.min(loci.step,loci.nodes.length)+'/'+loci.nodes.length;$('#lociHits').textContent=loci.hits;
+  const n=loci.nodes[Math.min(loci.step,Math.max(0,loci.nodes.length-1))];if(mode==='LOCI'&&n)setAddress(n.address);
+}
 $('#lociBuild').onclick=buildLoci;
 $('#lociRecall').onclick=()=>{if(!loci.nodes.length)buildLoci();loci.hidden=!loci.hidden;loci.step=0;syncLoci()};
 $('#lociReset').onclick=()=>{loci.hidden=false;loci.step=0;loci.hits=0;syncLoci()};
+$('#lociExport').onclick=()=>{
+  if(!loci.course)buildLoci();
+  downloadJSON('fold-bloom-loci-return.json',courseReturn(loci.course,{step:loci.step,hits:loci.hits,hidden:loci.hidden}));
+  setStatus('LOCI · ADDRESSED COURSE RETURN EXPORTED');
+};
 buildLoci();
 
 /* ---------- INK ---------- */
@@ -214,7 +293,7 @@ canvas.addEventListener('pointerdown',e=>{
   if(mode==='INK'){ink.down=true;ink.lastX=x;ink.lastY=y;inkDeposit(x,y,{speed:0,pressure:e.pressure||.55,tiltX:e.tiltX||0,tiltY:e.tiltY||0});canvas.setPointerCapture?.(e.pointerId)}
   if(mode==='LOCI'){
     const pos=lociPositions(),hit=pos.reduce((best,p,i)=>{const d=Math.hypot(x-p.x,y-p.y);return d<(best?.d??32)?{i,d}:best},null);
-    if(hit&&hit.i===loci.step){loci.step++;loci.hits++;if(loci.step>=loci.nodes.length){loci.hidden=false;setStatus('LOCI · ROUTE RECALLED')}syncLoci()}
+    if(hit&&hit.i===loci.step){const node=loci.nodes[hit.i];loci.step++;loci.hits++;if(node)setAddress(node.address);if(loci.step>=loci.nodes.length){loci.hidden=false;setStatus('LOCI · ROUTE RECALLED · EXACT SOURCE ADDRESSES PRESERVED')}syncLoci()}
   }
 });
 canvas.addEventListener('pointermove',e=>{
@@ -241,7 +320,16 @@ function drawRide(t){
   for(let i=0;i<12;i++){const q=((i/12+phase)%1),y=hz+(H-hz)*q*q,xspan=W*(.04+.52*q*q);ctx.beginPath();ctx.moveTo(cx-xspan,y);ctx.lineTo(cx+xspan,y);ctx.stroke()}
   ctx.strokeStyle='rgba(239,120,73,.55)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx-W*.035,hz);ctx.lineTo(W*.13,H);ctx.moveTo(cx+W*.035,hz);ctx.lineTo(W*.87,H);ctx.stroke();
 }
+function publishPulseTransport(t){
+  if(t-pulse.lastPublish<120)return;
+  pulse.lastPublish=t;
+  const ac=pulse.ac,bar=4*60/pulse.bpm,tt=pulse.playing&&ac?Math.max(0,ac.currentTime-pulse.start):t/1000;
+  const beatDur=60/pulse.bpm,beatPhase=((tt/beatDur)%1+1)%1;
+  const data={playing:pulse.playing,time:tt,duration:bar,bpm:pulse.bpm,tempoConfidence:1,beatIndex:Math.floor(tt/beatDur),sectionIndex:0,scope:'BAR',scopeStart:0,scopeEnd:bar,energy:.45+.18*Math.sin(tt*Math.PI*2/beatDur)**2,flux:.18,brightness:.52,stage:'SYNTH',sourceHash:null,sourceKind:'FIELD_LAB_SYNTH',sourceAddress:'field://lab/pulse',beatTime:Math.floor(tt/beatDur)*beatDur,beatPhase,beatDistance:Math.min(beatPhase,1-beatPhase)*beatDur,sectionProgress:(tt%bar)/bar,sectionCount:1,sectionStart:0,sectionEnd:bar,sourceProgress:(tt%bar)/bar};
+  lastTransport=data;fieldPulse.publish('transport',data);if(read.pulseMode!=='OFF')applyTransport(data);
+}
 function drawPulse(t){
+  publishPulseTransport(t);
   clear(.16);cross();const cx=W/2,cy=H/2,p=PROFILES[profile],ac=pulse.ac,bar=4*60/pulse.bpm;
   const tt=pulse.playing&&ac?Math.max(0,ac.currentTime-pulse.start):t/1000;
   const a=pulse.ratio[0],b=pulse.ratio[1],phA=(tt%(bar/a))/(bar/a),phB=(tt%(bar/b))/(bar/b);
@@ -253,12 +341,19 @@ function drawPulse(t){
   ctx.fillStyle='#d7b46d';ctx.font='700 12px ui-monospace';ctx.textAlign='center';ctx.fillText(a+':'+b,cx,cy+4);
 }
 function drawRead(){
-  clear(.18);cross();const n=Math.max(1,read.tokens.length),cx=W/2,cy=H/2,ghost=read.tokens[read.ghost]||'—',prev=read.tokens[Math.max(0,read.ghost-1)]||'',next=read.tokens[Math.min(n-1,read.ghost+1)]||'';
-  ctx.textAlign='center';ctx.font='900 '+Math.min(54,Math.max(28,W*.06))+'px ui-sans-serif';ctx.fillStyle='#f2f3ef';ctx.fillText(ghost,cx,cy+8);
-  ctx.font='500 14px ui-monospace';ctx.fillStyle='#69767d';ctx.fillText(prev,cx-W*.22,cy);ctx.fillText(next,cx+W*.22,cy);
-  const y1=cy+H*.17,y2=cy+H*.23,x0=W*.16,x1=W*.84;ctx.strokeStyle='#263139';ctx.beginPath();ctx.moveTo(x0,y1);ctx.lineTo(x1,y1);ctx.moveTo(x0,y2);ctx.lineTo(x1,y2);ctx.stroke();
-  const gx=x0+(x1-x0)*(read.ghost/n),yx=x0+(x1-x0)*(read.you/n);ctx.fillStyle='#ef7849';ctx.beginPath();ctx.arc(gx,y1,6,0,TAU);ctx.fill();ctx.fillStyle='#7bd5ff';ctx.beginPath();ctx.arc(yx,y2,6,0,TAU);ctx.fill();
-  ctx.font='8px ui-monospace';ctx.fillStyle='#69767d';ctx.fillText('GHOST',x0-28,y1+3);ctx.fillText('YOU',x0-28,y2+3);
+  clear(.18);cross();
+  const n=Math.max(1,read.tokens.length),cx=W/2,cy=H/2,x0=W*.14,x1=W*.86;
+  const snap=reader?.snapshot?.()||null,p=Math.max(0,Math.min(1,Number(snap?.source_progress)||0));
+  ctx.strokeStyle='#263139';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x0,cy);ctx.lineTo(x1,cy);ctx.stroke();
+  ctx.fillStyle='#f2f3ef';ctx.beginPath();ctx.arc(x0+(x1-x0)*p,cy,4,0,TAU);ctx.fill();
+  if(read.started){
+    const gp=Math.max(0,Math.min(1,read.ghost/n)),yp=Math.max(0,Math.min(1,read.you/n));
+    const gy=cy+H*.10,yy=cy+H*.16;
+    ctx.strokeStyle='#263139';ctx.beginPath();ctx.moveTo(x0,gy);ctx.lineTo(x1,gy);ctx.moveTo(x0,yy);ctx.lineTo(x1,yy);ctx.stroke();
+    ctx.fillStyle='#ef7849';ctx.beginPath();ctx.arc(x0+(x1-x0)*gp,gy,6,0,TAU);ctx.fill();
+    ctx.fillStyle='#7bd5ff';ctx.beginPath();ctx.arc(x0+(x1-x0)*yp,yy,6,0,TAU);ctx.fill();
+    ctx.font='8px ui-monospace';ctx.textAlign='left';ctx.fillStyle='#69767d';ctx.fillText('GHOST',x0,gy-9);ctx.fillText('YOU',x0,yy-9);
+  }
 }
 function lociPositions(){
   const cx=W/2,cy=H/2,r=Math.min(W,H)*.28,n=Math.max(1,loci.nodes.length),out=[];
@@ -267,7 +362,7 @@ function lociPositions(){
 }
 function drawLoci(){
   clear(.2);const pos=lociPositions(),n=loci.nodes.length;ctx.strokeStyle='#2a3840';ctx.lineWidth=1.2;ctx.beginPath();pos.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.stroke();
-  pos.forEach((p,i)=>{const active=i===loci.step,done=i<loci.step;ctx.fillStyle=done?'#7bd5ff':active?'#ef7849':'#0a0f13';ctx.strokeStyle='#52616a';ctx.beginPath();ctx.arc(p.x,p.y,active?12:9,0,TAU);ctx.fill();ctx.stroke();if(!loci.hidden||done){ctx.fillStyle=done?'#9edcf6':'#cdd3d5';ctx.font='9px ui-monospace';ctx.textAlign='center';ctx.fillText(loci.nodes[i]?.text||'',p.x,p.y-15)}ctx.fillStyle='#69767d';ctx.font='7px ui-monospace';ctx.fillText('@'+i,p.x,p.y+22)});
+  pos.forEach((p,i)=>{const active=i===loci.step,done=i<loci.step;ctx.fillStyle=done?'#7bd5ff':active?'#ef7849':'#0a0f13';ctx.strokeStyle='#52616a';ctx.beginPath();ctx.arc(p.x,p.y,active?12:9,0,TAU);ctx.fill();ctx.stroke();if(!loci.hidden||done){ctx.fillStyle=done?'#9edcf6':'#cdd3d5';ctx.font='9px ui-monospace';ctx.textAlign='center';ctx.fillText(String(loci.nodes[i]?.text||'').slice(0,22),p.x,p.y-15)}ctx.fillStyle='#69767d';ctx.font='7px ui-monospace';ctx.fillText('@'+i,p.x,p.y+22)});
 }
 function drawInk(t){
   if(t-ink.simAt>26){stepInk();ink.simAt=t}
@@ -298,4 +393,4 @@ requestAnimationFrame(tick);
 const initialMode=String(new URLSearchParams(location.search).get('mode')||'RIDE').toUpperCase();
 selectMode(MODES[initialMode]?initialMode:'RIDE');
 document.documentElement.dataset.foldBloomFieldLab='ready';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'})};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>lastTransport};

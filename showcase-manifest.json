@@ -1690,16 +1690,17 @@
       "operation": "ENTER / ROUTE",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-23T18:26:00+08:00",
+        "updated_at": "2026-09-24T11:40:00+08:00",
         "work_modes": [
           "OPERATE",
           "SHARE",
           "RELEASE"
         ]
       },
-      "role": "Public-facing Fold/Bloom doorway. Presents the family as one coherent instrument without flattening its unequal engines: LIVE rides, LISTEN maps, SET authors source sequences, and /instrument/ exposes the explicit active-object / operation / projection / RETURN core. The shared root remains stable for already-shared links while deeper implementation surfaces stay addressable.",
+      "role": "Public-facing Fold/Bloom doorway. Presents the family as one coherent instrument without flattening its unequal engines: LIVE rides, LISTEN maps, SET authors source sequences, /instrument/ exposes the active-object/operation/projection/RETURN core, and FIELD LAB 0.2 now reuses canonical READFIELD/APERTURE rather than cloning a reader. The shared root remains stable for already-shared links while deeper implementation surfaces stay addressable.",
       "tier": "FIELD",
-      "version": "0.1"
+      "version": "0.1.1",
+      "receipt": "/returns/FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json"
     },
     {
       "href": "/fold-bloom/atlas/",
@@ -2094,17 +2095,17 @@
     },
     {
       "href": "/fold-bloom/lab/",
-      "title": "FOLD//BLOOM · FIELD LAB 0.1",
+      "title": "FOLD//BLOOM · FIELD LAB 0.2",
       "kind": "experiment",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "TRAIN / EXPLORE",
       "state": "CANDIDATE",
-      "version": "0.1",
+      "version": "0.2",
       "tier": "FIELD",
-      "role": "Spatial six-projection lab over the Fold/Bloom family: RIDE delegates to LIVE; PULSE trains polyrhythm and exports the shared event tape; READ races a visible ghost pace while preserving regression; LOCI projects source tokens onto a mnemonic path; INK simulates water/pigment diffusion under pointer-speed brush deposit; DATA provides a small addressed aperture explorer. Explicit CLEAR/DRIVE/TRANCE/SOFT profiles affect presentation only, never source truth.",
+      "role": "Spatial six-projection lab over the Fold/Bloom family. RIDE delegates to LIVE; PULSE trains polyrhythm and emits bounded FIELD PULSE transport; READ embeds canonical READFIELD/APERTURE and lets source chrome recede after binding; LOCI now preserves large text as a bounded addressed course instead of truncating it; READ may explicitly carry the same source/focus into LOCI or DATA. INK, DATA and LOCI remain unequal studies; profiles are presentation-only.",
       "index": {
-        "updated_at": "2026-09-24T09:20:00+08:00",
+        "updated_at": "2026-09-24T11:40:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2113,25 +2114,27 @@
         ]
       },
       "evidence": {
+        "receipt": "/fold-bloom/lab/release.json",
         "checks": [
-          "browser FIELD LAB boot",
-          "event-tape deterministic tests",
-          "public front route registration"
+          "read-bridge + addressed text-course deterministic Node tests",
+          "phone-sized browser boot proves canonical APERTURE reader at WORD scale, bound/receded source intake and non-truncated LOCI boot",
+          "existing event-tape + ink-engine + critical browser suites remain required"
         ],
         "return_path": "/fold-bloom/"
       },
       "evolution": {
         "schema": "field-evolution/v0.1",
         "host": "/fold-bloom/",
-        "generation": 1,
+        "generation": 2,
         "stage": "TEST",
-        "question": "Can one compact spatial shell make Fold/Bloom useful across embodied ride, rhythm training, temporal reading, mnemonic paths, wet-media gesture and data exploration without flattening their different authorities?",
-        "baseline": "The family already had strong separate RIDE/LISTEN/SET/READ/PATH/PAINT donors, but no compact place to compare transferable interaction laws across them.",
-        "mutation": "FIELD LAB exposes six unequal projections around one center. INK now uses the same reusable pressure/tilt/speed wet-media engine as the dedicated INK FIELD; PULSE/READ/LOCI/DATA remain distinct studies; explicit profiles stay presentation-only; shared event tape supports downstream Beat Saber draft export.",
-        "evidence_gate": "Route registration + event-tape/ink-engine unit tests + phone-sized browser boot must pass. Human gate: at least two modes must produce a useful transferable operation or training loop rather than novelty-only interaction; INK and READ must remain usable without explanatory prose.",
-        "next_if_pass": "Add cross-mode source continuity and residue: the same addressed source/path/event tape should survive movement between PULSE, READ, LOCI, INK or DATA where the mapping is explicit.",
-        "next_if_fail": "Keep event-tape infrastructure and any individually useful modes; demote FIELD LAB shell instead of forcing a universal multimode product."
-      }
+        "question": "Can one compact shell reuse real canonical mechanisms and carry one addressed source between unequal projections, instead of demonstrating six isolated toys?",
+        "baseline": "FIELD LAB 0.1 exposed six modes, but READ was a second ghost-race implementation and phone mode selection preserved radial geometry even when it reduced reachability.",
+        "mutation": "0.2 embeds canonical APERTURE/RSVP, makes PULSE coupling explicit as WITNESS/×4/OFF, publishes bounded reader focus, adds explicit READ→LOCI/DATA carry, makes READ source intake recede after binding, replaces LOCI's 12-token truncation with an addressed large-text course, and replaces the phone radial selector with a 3×2 thumb rail while retaining the desktop ring.",
+        "evidence_gate": "Node READ/course tests + 430×900 browser proof + full public-surface CI. Human gate: on phone, READ must support ordinary RSVP/regress/scale without explanatory prose and one READ→LOCI carry must preserve source position well enough to reduce re-entry or aid recall.",
+        "next_if_pass": "Use one genuinely long familiar source through READ→LOCI: inspect the same exact text, carry focus, recall the course, export RETURN, then judge whether source-position recovery beats a plain chunk list. Only then generalize COURSE or add Pathweaver/event-tape adapters.",
+        "next_if_fail": "Keep canonical READFIELD handoff and individually useful PULSE/event-tape/INK mechanisms; demote the universal FIELD LAB shell instead of cloning more engines."
+      },
+      "receipt": "/fold-bloom/lab/release.json"
     },
     {
       "href": "/fold-bloom/ink/",
