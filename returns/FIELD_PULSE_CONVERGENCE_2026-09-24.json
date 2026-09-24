@@ -1,7 +1,7 @@
 {
   "schema": "return/v1",
   "id": "FIELD_PULSE_CONVERGENCE_2026-09-24",
-  "status": "IMPLEMENTED_CANDIDATE_PENDING_CI",
+  "status": "SHIPPED",
   "object": "FIELD PULSE multi-clock convergence + READFIELD actionable modes",
   "changed_object": "FIELD LAB rhythm can now lawfully coordinate READFIELD, LIVE and Two Dial; READFIELD use cases are direct controls rather than prose-only capability.",
   "evidence": [
@@ -10,9 +10,16 @@
     "/fold-bloom/lab/tests/pulse-routing.test.mjs"
   ],
   "verification": {
-    "ci": "PENDING",
-    "phone": "REQUIRED: one LAB PULSE→READ ×4 and one LAB PULSE→RIDE or COMPOSE pass"
+    "ci": "PASS · public-surface-check run 35965146356",
+    "route_registration": "PASS · run 35965146307",
+    "targeted": "PASS · PULSE routing, Lab READ/LOCI, real-MP3 phone continuity, LIVE gameplay/trackfield, FIELD LAB browser boot, Two Dial/browser suite",
+    "critical_browser_smoke": "PASS",
+    "phone": "WAITING_ON_HUMAN · LAB PULSE→READ ×4 + one PULSE→RIDE/COMPOSE lived pass"
   },
   "next": "On phone: start LAB PULSE, launch READ ×4 and verify pace/source label; then launch RIDE or COMPOSE and verify beat timing without hidden authored changes.",
-  "stop": "No new clock source or workflow mode before this lived pass identifies a missing function."
+  "stop": "No new clock source or workflow mode before this lived pass identifies a missing function.",
+  "merge": {
+    "pr": 212,
+    "sha": "6ee3b237299db2c72d9602be4a8ec79209300bd3"
+  }
 }
