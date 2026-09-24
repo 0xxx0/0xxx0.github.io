@@ -9,7 +9,6 @@ import { createRideState, chooseRideBranch, advanceRide, rideView } from './ride
 import { PracticeTrack } from './practice-track.js';
 import { normalizePins } from '../listen/stream-lens.js';
 import {normalizeRideProfile,profileKey} from './visual-worlds.js';
-import {resolveSourceAddress} from '../listen/source-adapters.js';
 import {putLocalMedia,getLocalMedia,listLocalMedia,localMediaFile,requestPersistentLocalStorage} from '../local-media-store.js';
 
 const $=s=>document.querySelector(s), STORE='fb-live-0.1';
@@ -166,7 +165,7 @@ function updateTextWitness(){
 }
 
 function statusText(){
-  const idx=gateCellIndex(state),c=state.cells[idx],f=currentForecast(),track=linkedTrack?.playing?` · TRACK B${Math.max(0,linkedTrack.beatIndex)+1} ${timingNow().label} · ROAD ${deformationSummary(deformationTape,Number(linkedTrack.time)||0)}`:'';
+  const idx=gateCellIndex(state),c=state.cells[idx],f=currentForecast(),track=layerMode!=='SOURCE'&&linkedTrack?.playing?` · TRACK B${Math.max(0,linkedTrack.beatIndex)+1} ${timingNow().label} · ROAD ${deformationSummary(deformationTape,Number(linkedTrack.time)||0)}`:(liveTrack.sourceActive()?' · SOURCE PLAYBACK':'');
   const forecast=f?` · HERE ${f.verb}${f.chain>1?'×'+f.chain:''}${callHit(f)?' ✓':''}`:'';
   return `GATE ${String(idx).padStart(2,'0')} · ${TYPE_NAMES[c.type]} · CALL ${callLabel(state.call)} · ${state.creases.length} CREASE${state.creases.length===1?'':'S'}${forecast}${track}`;
 }
@@ -183,8 +182,8 @@ function update(){
   $('#target').textContent=TYPE_NAMES[state.targetType];
   $('#call').textContent=callLabel(state.call);
   $('#streak').textContent=state.callStreak>1?state.callStreak+'×':'—';
-  $('#timing').textContent=linkedTrack?.playing?timingNow().label:'—';
-  $('#arc').textContent=sectionArcLabel(sectionArc,linkedTrack);
+  $('#timing').textContent=layerMode!=='SOURCE'&&linkedTrack?.playing?timingNow().label:'—';
+  $('#arc').textContent=layerMode==='SOURCE'?'SOURCE':sectionArcLabel(sectionArc,linkedTrack);
   $('#route').textContent=rideView(ride,latestWorld).label;
   $('#speed').textContent=latestWorld?`${Number(latestWorld.currentSpeed||1).toFixed(2)}×`:'—';
   const g=Number(latestWorld?.currentGrade)||0;$('#grade').textContent=!latestWorld?'—':Math.abs(g)<.08?'LEVEL':g>0?`UP ${Math.round(g*100)}`:`DOWN ${Math.round(Math.abs(g)*100)}`;
@@ -256,9 +255,8 @@ async function loadLocalSong(files,{retain=true,label='CUSTOM SONG READY'}={}){
 async function enterCenterMass(){
   stopDemo(false);
   try{
-    trackStatus='OPENING CENTER MASS · SOURCE';update();
-    const source=await resolveSourceAddress(CENTER_MASS_SOURCE).catch(()=>({audioUrl:CENTER_MASS_URL,address:CENTER_MASS_SOURCE,title:'CENTER MASS (Work-Trance Cut)',artist:'stgoh'}));
-    liveTrack.loadStream({url:source.audioUrl||CENTER_MASS_URL,name:source.title||'CENTER MASS (Work-Trance Cut)',title:source.title||'CENTER MASS (Work-Trance Cut)',artist:source.artist||'stgoh',sourceAddress:source.address||CENTER_MASS_SOURCE,sourceKind:'SUNO',provider:'SUNO'});
+    trackStatus='OPENING CENTER MASS · SOURCE';
+    liveTrack.loadStream({url:CENTER_MASS_URL,name:'CENTER MASS (Work-Trance Cut)',title:'CENTER MASS (Work-Trance Cut)',artist:'stgoh',sourceAddress:CENTER_MASS_SOURCE,sourceKind:'SUNO',provider:'SUNO'});
     layerMode='SOURCE';renderer.setProfile(effectiveRideProfile());audio.setSound(false);syncLayerUI();
     trackStatus='READY · SOURCE · CENTER MASS';$('#intro').classList.remove('on');update();
     await liveTrack.toggle().catch(()=>false);
@@ -302,7 +300,7 @@ async function doRelease(){
     const last=state.history[state.history.length-1];
     if(last)last.sectionArc={sectionIndex:sectionArc.sectionIndex,sealed:true,bonus:arcOut.bonus,hits:sectionArc.hits,verbs:[...sectionArc.verbs]};
   }
-  renderer.setSectionArc(sectionArcView(sectionArc,linkedTrack));
+  renderer.setSectionArc(sectionArcView(sectionArc,layerMode==='SOURCE'?null:linkedTrack));
   audio.release(out.event); renderer.pulse(out.event); haptic(Math.min(34,7+out.event.chain*3+(out.event.callMet?3:0)+(arcOut.bonus?5:0)));
   fieldPulse.publish('operation',{operation:out.event.verb,cadence:out.event.cadence,operations:out.event.operations,slot:out.event.slot,type:out.event.typeName,chain:out.event.chain,charge:out.event.charge,power:out.event.power,scene:out.event.scene,call:out.event.call,callMet:out.event.callMet,timing:out.event.timing,flowGain:out.event.flowGain,sectionIndex:linkedTrack?.sectionIndex??null,sectionProgress:linkedTrack?.sectionProgress??null,sectionSeal:arcOut.event?.kind==='SECTION_SEAL',sectionBonus:arcOut.bonus||0,trackTime:linkedTrack?.time??null,trackBeat:linkedTrack?.beatIndex??null,trackDeformationCount:deformationTape.length});
   const timing=out.event.timing&&out.event.timing!=='FREE'?' · '+out.event.timing:'';
@@ -508,7 +506,7 @@ function loop(t){
   }
   renderer.setTrackfield(latestWorld);
   updateTextWitness();
-  renderer.setSectionArc(sectionArcView(sectionArc,linkedTrack));
+  renderer.setSectionArc(sectionArcView(sectionArc,layerMode==='SOURCE'?null:linkedTrack));
   renderer.draw(state,t);raf=requestAnimationFrame(loop)
 }raf=requestAnimationFrame(loop);
 syncRideProfile();syncLayerUI();refreshVault();update();
