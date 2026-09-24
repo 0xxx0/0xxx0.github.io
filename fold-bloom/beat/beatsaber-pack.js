@@ -99,7 +99,7 @@ export function beatSaberInfo(map={},meta={},audioStatus=classifyBeatSaberAudio(
 
 export function cleanBeatSaberChart(chart){
   if(!chart||!String(chart.version||'').startsWith('4.'))throw new Error('BEAT_SABER_V4_CHART_REQUIRED');
-  const out=structuredClone?structuredClone(chart):JSON.parse(JSON.stringify(chart));
+  const out=typeof structuredClone==='function'?structuredClone(chart):JSON.parse(JSON.stringify(chart));
   delete out._foldBloom;
   if(!Array.isArray(out.colorNotes))out.colorNotes=[];
   if(!Array.isArray(out.bombNotes))out.bombNotes=[];
