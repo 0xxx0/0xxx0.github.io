@@ -10,3 +10,6 @@
 @media(max-width:760px){.pinSheet{left:8px;right:8px;top:70px;width:auto;max-height:calc(100vh - 210px)}.transportBar #pinBtn,.transportBar #pinsBtn{flex:.75}}
 
 .glyphBtn{width:54px;height:54px;flex:0 0 54px!important;padding:2px!important;border:0;border-right:1px solid var(--line)!important;background:#05070b!important}.glyphBtn span,.glyphBtn svg{display:block;width:48px;height:48px}.glyphBtn:not(:disabled){cursor:pointer}.glyphBtn:not(:disabled):hover{outline:1px solid rgba(255,179,71,.5);outline-offset:-1px}@media(max-width:760px){.glyphBtn{width:48px;height:48px;flex:0 0 48px!important}.glyphBtn span,.glyphBtn svg{width:42px;height:42px}.trackBlock{min-width:calc(100% - 51px);flex:1 0 calc(100% - 51px)}}
+
+.savedSource{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:1px;background:var(--line)}.savedSource select{min-width:0;border:0;border-radius:0;background:#071019;color:#dce8ef;padding:12px;font:10px ui-monospace,monospace;outline:none}.savedSource button{background:#101a22;color:#dce8ef}.savedSource button:disabled{opacity:.35}
+@media(max-width:760px){.savedSource{grid-template-columns:1fr}.transportBar #beatSaberBtn{flex:1.05}}
