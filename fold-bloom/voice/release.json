@@ -2,7 +2,7 @@
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM VOICE",
   "version": "0.1",
-  "state": "CANDIDATE",
+  "state": "MERGED_ACTIVE_CANDIDATE",
   "operation": "TRAIN / LISTEN",
   "route": "/fold-bloom/voice/",
   "date": "2026-09-24",
@@ -23,11 +23,15 @@
     "external clock failure never blocks manual practice"
   ],
   "verification": {
-    "pitch_core": "NODE TEST REQUIRED",
-    "browser_boot": "CI STATIC/PUBLIC SURFACE REQUIRED",
-    "human_phone": "REQUIRED: one 60-second note hold + one PULSE-linked 1-3-5-3 pass on phone"
+    "pitch_core": "PASS: public-surface-check run 35988420252; synthetic 110/220/261.626/440/659.255 Hz, silence, patterns and stability",
+    "module_parse": "PASS: pitch.js + app.js node --check in public-surface-check run 35988420252",
+    "browser_boot": "PASS: phone-sized /fold-bloom/voice/ critical browser smoke in public-surface-check run 35988420252; no microphone permission required for boot proof",
+    "route_registration": "PASS: Route Registration run 35988420492",
+    "human_phone": "REQUIRED: one 60-second note hold + one PULSE-linked 1-3-5-3 pass on phone",
+    "merge_sha": "dd1f289af0692e84c62c370e2b525a2069ec7201"
   },
   "promotion_gate": "A non-technical user can start mic, hear a target, understand flat/center/sharp and complete one pattern without architectural explanation; pulse linkage must feel additive rather than required.",
   "return": "/returns/FOLD_BLOOM_VOICE_01_2026-09-24.json",
-  "confluence": "/control/confluence/FOLD_BLOOM_VOICE_01_2026-09-24.json"
+  "confluence": "/control/confluence/FOLD_BLOOM_VOICE_01_2026-09-24.json",
+  "updated": "2026-09-24"
 }
