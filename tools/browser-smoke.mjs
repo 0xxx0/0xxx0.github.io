@@ -749,13 +749,25 @@ const CASES=[
     name:'FOLD BLOOM public front',
     route:'/fold-bloom/',
     options:{width:430,height:900,budget:5000},
-    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/A source becomes a field/i.test(dom)&&/ENTER LIVE RIDE/.test(dom)&&/MAP A TRACK/.test(dom)&&/OPEN INSTRUMENT/.test(dom)&&/ONE INSTRUMENT/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/A source becomes a field/i.test(dom)&&/TRY FIELD DEMO/.test(dom)&&/ENTER LIVE RIDE/.test(dom)&&/MAP A TRACK/.test(dom)&&/DRAW INK/.test(dom)&&/ONE INSTRUMENT/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
   },
   {
     name:'FOLD BLOOM FIELD LAB',
     route:'/fold-bloom/lab/',
     options:{width:430,height:900,budget:7000},
-    check:dom=>/FIELD LAB/i.test(dom)&&dom.includes('data-fold-bloom-field-lab="ready"')&&dom.includes('data-field-lab-mode="RIDE"')&&/RIDE/.test(dom)&&/PULSE/.test(dom)&&/READ/.test(dom)&&/LOCI/.test(dom)&&/INK/.test(dom)&&/DATA/.test(dom)&&dom.includes('id="exportTape"')&&dom.includes('id="raceInput"')&&dom.includes('id="inkTrace"')
+    check:dom=>/FIELD LAB/i.test(dom)&&dom.includes('data-fold-bloom-field-lab="ready"')&&dom.includes('data-field-lab-mode="RIDE"')&&/RIDE/.test(dom)&&/PULSE/.test(dom)&&/READ/.test(dom)&&/LOCI/.test(dom)&&/INK/.test(dom)&&/DATA/.test(dom)&&dom.includes('id="exportTape"')&&dom.includes('id="raceInput"')&&dom.includes('id="inkTrace"')&&dom.includes('id="inkLoad"')&&dom.includes('id="paperAbsorb"')&&/DRY BRUSH/.test(dom)&&/WASH/.test(dom)
+  },
+  {
+    name:'FOLD BLOOM INK FIELD',
+    route:'/fold-bloom/ink/',
+    options:{width:430,height:900,budget:7000},
+    check:dom=>/INK FIELD/i.test(dom)&&dom.includes('data-fold-bloom-ink="ready"')&&dom.includes('id="water"')&&dom.includes('id="load"')&&dom.includes('id="absorb"')&&dom.includes('data-mode="SUMI"')&&dom.includes('data-mode="DRY"')&&dom.includes('data-mode="WASH"')&&/PRESSURE \+ TILT/.test(dom)
+  },
+  {
+    name:'FOLD BLOOM LIVE shareable demo',
+    route:'/fold-bloom/live/?demo=1&profile=DRIVE',
+    options:{width:430,height:900,budget:5000},
+    check:dom=>dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-launch="demo"')&&dom.includes('data-fold-bloom-ride-profile="')&&dom.includes('data-xp-preset="DRIVE"')&&dom.includes('id="anticipationTune"')&&dom.includes('id="motionGainTune"')
   },
   {
     name:'FOLD BLOOM module boot',
@@ -803,7 +815,7 @@ const CASES=[
     name:'FOLD BLOOM LIVE 0.13 autopilot polish',
     route:'/fold-bloom/live/',
     options:{width:430,height:900,budget:9000},
-    check:dom=>/LIVE 0\.13/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-pov="embodied-v0.4"')&&dom.includes('data-fold-bloom-macro-drop="v0.2"')&&dom.includes('data-fold-bloom-idle-law="witness-v0.1"')&&dom.includes('data-fold-bloom-idle="on"')&&dom.includes('data-fold-bloom-autopilot="on"')&&dom.includes('data-fold-bloom-landmarks="0"')&&dom.includes('id="demoBtn"')&&dom.includes('id="autoBtn"')&&/AUTOPILOT/.test(dom)&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="trackFile"')&&dom.includes('id="lyric"')&&dom.includes('id="textBtn"')&&dom.includes('id="solidTune"')&&dom.includes('id="immersionTune"')&&dom.includes('id="dropGainTune"')&&dom.includes('id="textSyncTune"')&&/data-fold-bloom-ride-profile="[^"]+"/.test(dom)&&/AUTOPILOT/.test(dom)&&/BEAT \/ PHRASE \/ SECTION/i.test(dom)&&/FIELD COURSE/.test(dom)&&/same left\/right turn/i.test(dom)&&dom.includes('data-trackfield-source="FIELD_PRACTICE"')&&/data-trackfield-motion="(?!NONE)[^"]+"/.test(dom)&&/data-fold-bloom-perf="[^"]+"/.test(dom)  },
+    check:dom=>/LIVE 0\.13/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-pov="embodied-v0.4"')&&dom.includes('data-fold-bloom-macro-drop="v0.2"')&&dom.includes('data-fold-bloom-idle-law="witness-v0.1"')&&dom.includes('data-fold-bloom-idle="on"')&&dom.includes('data-fold-bloom-autopilot="on"')&&dom.includes('data-fold-bloom-landmarks="0"')&&dom.includes('id="demoBtn"')&&dom.includes('id="autoBtn"')&&/AUTOPILOT/.test(dom)&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="trackFile"')&&dom.includes('id="lyric"')&&dom.includes('id="textBtn"')&&dom.includes('id="solidTune"')&&dom.includes('id="immersionTune"')&&dom.includes('id="anticipationTune"')&&dom.includes('id="motionGainTune"')&&dom.includes('id="dropGainTune"')&&dom.includes('id="textSyncTune"')&&dom.includes('data-xp-preset="DRIVE"')&&/data-fold-bloom-ride-profile="[^"]+"/.test(dom)&&/AUTOPILOT/.test(dom)&&/BEAT \/ PHRASE \/ SECTION/i.test(dom)&&/FIELD COURSE/.test(dom)&&/same left\/right turn/i.test(dom)&&dom.includes('data-trackfield-source="FIELD_PRACTICE"')&&/data-trackfield-motion="(?!NONE)[^"]+"/.test(dom)&&/data-fold-bloom-perf="[^"]+"/.test(dom)  },
   {
     name:'TWO DIAL 0.10.3 idle witness',
     route:'/fold-bloom/two-dial/',
