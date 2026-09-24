@@ -29,5 +29,12 @@
     "Human phone proof: FIELD LAB PULSE -> VOICE 1-3-5-3 session.",
     "If both are legible, consider lyrics/read-aloud shadowing as a READFIELD + VOICE composition; do not add speech scoring first."
   ],
-  "stop": "Do not add cloud voice models, karaoke scoring, lyric alignment or another timing bus before the two direct phone practice proofs."
+  "stop": "Repository implementation is shipped. Stop feature expansion; next authority is direct phone practice evidence. No cloud voice model, karaoke score, lyric alignment or new timing bus before that.",
+  "shipped": {
+    "merged": true,
+    "pr": 214,
+    "merge_sha": "dd1f289af0692e84c62c370e2b525a2069ec7201",
+    "public_surface_check": 35988420252,
+    "route_registration": 35988420492
+  }
 }
