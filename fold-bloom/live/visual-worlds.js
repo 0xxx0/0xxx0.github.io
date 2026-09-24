@@ -81,10 +81,12 @@ export function visualWorld(scene='DEEP',sectionIndex=0,features={}){
 
 export function normalizeRideProfile(x={}){
   return {
-    schema:'fold-bloom-ride-profile/v0.1',
+    schema:'fold-bloom-ride-profile/v0.2',
     solidity:clamp(Number(x.solidity??1),.72,1),
     immersion:clamp(Number(x.immersion??1),.55,1.45),
-    dropGain:clamp(Number(x.dropGain??1),.55,1.65),
+    dropGain:clamp(Number(x.dropGain??1),.55,1.85),
+    anticipation:clamp(Number(x.anticipation??1),.55,1.8),
+    motionGain:clamp(Number(x.motionGain??1),.45,1.65),
     textOffset:clamp(Number(x.textOffset??0),-8,8)
   };
 }
