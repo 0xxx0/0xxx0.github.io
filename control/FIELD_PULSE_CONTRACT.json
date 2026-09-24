@@ -1,7 +1,7 @@
 {
   "schema": "field-pulse/v0.1",
   "status": "CANDIDATE_SHARED_RUNTIME",
-  "date": "2026-09-22",
+  "date": "2026-09-24",
   "purpose": "Carry bounded temporal/performance context between same-origin FIELD instruments without creating a new canonical state authority.",
   "authority": "NONE",
   "transport": {
@@ -108,6 +108,25 @@
       "producer_consumer": "FOLD//BLOOM FIELD LAB 0.2",
       "from": "synthetic PULSE transport or existing same-session FIELD PULSE; canonical READFIELD/APERTURE focus",
       "effect": "PULSE may lend a visible beat witness or explicit ×4 RSVP pace; canonical APERTURE authors source focus/scale and publishes only a bounded focus witness. READ→LOCI/DATA carry is explicit human action and creates no second reader, source store, or authority."
+    },
+    {
+      "producer": "FOLD//BLOOM FIELD LAB 0.2.1 / PULSE",
+      "kind": "transport",
+      "data": [
+        "playing",
+        "time",
+        "bpm",
+        "beatIndex",
+        "beatTime",
+        "beatPhase",
+        "beatDistance",
+        "quantum",
+        "quantumPhase",
+        "energy",
+        "sourceKind",
+        "sourceAddress"
+      ],
+      "effect": "Synthetic rhythm clock for entrainment and explicit READ/RIDE/COMPOSE handoff; no audio/source authority."
     }
   ],
   "laws": [
@@ -121,7 +140,9 @@
     "section estimate != semantic truth; consumers may use section bounds as optional temporal apertures but must not invalidate local actions",
     "workflow entry is explicit intent, not delegated authority; a link may enable an already-defined optional adapter but cannot change the consumer's transformation grammar",
     "phrase estimate != semantic truth; novelty/grid evidence may open a temporal aperture but cannot name musical meaning or author a consumer operation",
-    "IDLE witness events are not authored operations; preview automation must not publish as human FIELD action"
+    "IDLE witness events are not authored operations; preview automation must not publish as human FIELD action",
+    "tempo + beat phase + quantum are coordination context; each consumer retains independent transport and may ignore the clock",
+    "synthetic rhythm clock != audio source; FIELD LAB PULSE may lend timing but cannot claim source bytes, AUDIO MAP evidence or musical semantics"
   ],
   "external_media_boundary": {
     "suno": "Best-effort address adapter only. Real phone use on 2026-09-22 remained browser/CORS-blocked; do not gate gameplay on Suno resolution. Proven fallback: obtain/export MP3 and load locally.",
@@ -135,7 +156,7 @@
     "Audiosurf 2 local-audio + optional FIELD skin/mod donor",
     "Beat Saber draft beatmap/event exporter from AUDIO MAP + authored FIELD operations"
   ],
-  "stop_condition": "Use exact sources through current unequal heads—LISTEN 0.6, LIVE 0.13, TWO DIAL 0.10.3, GLYPH ATLAS 0.2 and FIELD LAB 0.2—and keep only temporal/focus/projection transfers that improve recognition, inhabitation, authorship or re-entry without authority collapse.",
+  "stop_condition": "Use existing heads and clock producers through explicit PULSE links. Next expansion requires lived evidence that a new adapter improves work/play/re-entry; do not add another bus or universal transport authority.",
   "workflow_entries": [
     {
       "from": "FOLD//BLOOM LISTEN 0.5",
@@ -173,5 +194,13 @@
       "verb": "READ / CARRY",
       "handoff": "canonical APERTURE source/focus; optional FIELD PULSE witness or ×4 pace; explicit carry only"
     }
-  ]
+  ],
+  "alignment_model": {
+    "tempo": "beats per minute; may be borrowed",
+    "beat_phase": "0..1 position inside the current beat",
+    "quantum": "shared launch/grouping span in beats; default 4",
+    "quantum_phase": "0..1 position inside the current quantum",
+    "transport": "each instrument keeps independent start/stop unless explicitly linked",
+    "design_note": "Link-like timing vocabulary is a donor model only; FIELD PULSE remains same-origin ephemeral coordination and authority NONE."
+  }
 }
