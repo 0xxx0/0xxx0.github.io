@@ -1,4 +1,5 @@
 import {compileEventTape,toBeatSaberV4Draft} from '../beat/event-tape.js';
+import {InkField} from '../ink/ink-engine.js';
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const canvas=$('#field'),ctx=canvas.getContext('2d');
@@ -166,32 +167,27 @@ $('#lociReset').onclick=()=>{loci.hidden=false;loci.step=0;loci.hits=0;syncLoci(
 buildLoci();
 
 /* ---------- INK ---------- */
-const IW=180,IH=120,N=IW*IH,inkCanvas=document.createElement('canvas'),inkCtx=inkCanvas.getContext('2d');inkCanvas.width=IW;inkCanvas.height=IH;
-const ink={p:new Float32Array(N),w:new Float32Array(N),tmpP:new Float32Array(N),tmpW:new Float32Array(N),wet:.62,brush:18,trace:true,lastX:null,lastY:null,down:false,simAt:0};
+const IW=192,IH=128,inkCanvas=document.createElement('canvas'),inkCtx=inkCanvas.getContext('2d');inkCanvas.width=IW;inkCanvas.height=IH;
+const inkImage=inkCtx.createImageData(IW,IH),inkField=new InkField({width:IW,height:IH,seed:23});
+const ink={field:inkField,wet:.62,load:.76,brush:18,absorb:.58,mode:'SUMI',guide:0,lastX:null,lastY:null,down:false,simAt:0,metricAt:0};
+const INK_GUIDES=['永','一','○',''];
 $('#wetness').oninput=e=>{ink.wet=+e.target.value/100;$('#wetRead').textContent=e.target.value};
+$('#inkLoad').oninput=e=>{ink.load=+e.target.value/100;$('#loadRead').textContent=e.target.value};
 $('#brush').oninput=e=>{ink.brush=+e.target.value;$('#brushRead').textContent=e.target.value};
-$('#inkClear').onclick=()=>{ink.p.fill(0);ink.w.fill(0)};
-$('#inkDry').onclick=()=>{for(let i=0;i<N;i++)ink.w[i]*=.08};
-$('#inkTrace').onclick=()=>{ink.trace=!ink.trace;$('#inkTrace').classList.toggle('cool',ink.trace)};
-function inkDeposit(px,py,speed=0){
-  const gx=px/W*IW,gy=py/H*IH,rad=Math.max(1,ink.brush*(.55+ink.wet*.6)*(1-Math.min(.55,speed*.008))*IW/W);
-  const minX=Math.max(0,Math.floor(gx-rad)),maxX=Math.min(IW-1,Math.ceil(gx+rad)),minY=Math.max(0,Math.floor(gy-rad)),maxY=Math.min(IH-1,Math.ceil(gy+rad));
-  const heavy=.28+.65*(1-Math.min(1,speed*.02)),water=.25+ink.wet*.72;
-  for(let y=minY;y<=maxY;y++)for(let x=minX;x<=maxX;x++){
-    const d=Math.hypot(x-gx,y-gy)/rad;if(d>1)continue;const q=(1-d)*(1-d),i=x+y*IW;
-    ink.p[i]=Math.min(1,ink.p[i]+q*heavy);ink.w[i]=Math.min(1,ink.w[i]+q*water);
-  }
+$('#paperAbsorb').oninput=e=>{ink.absorb=+e.target.value/100;$('#paperRead').textContent=e.target.value};
+$('#inkClear').onclick=()=>{ink.field.clear();syncInkMetrics()};
+$('#inkDry').onclick=()=>{ink.field.dry(.035);setStatus('INK · PAPER DRIED');syncInkMetrics()};
+$('#inkTrace').onclick=()=>{ink.guide=(ink.guide+1)%INK_GUIDES.length;const g=INK_GUIDES[ink.guide];$('#inkTrace').textContent=g?'GUIDE '+g:'GUIDE OFF';$('#inkTrace').classList.toggle('cool',!!g)};
+$$('[data-ink-mode]').forEach(b=>b.onclick=()=>{ink.mode=b.dataset.inkMode;$$('[data-ink-mode]').forEach(x=>x.classList.toggle('cool',x===b));setStatus('INK · '+ink.mode)});
+function syncInkMetrics(){
+  const m=ink.field.metrics();$('#inkMass').textContent=Math.round(m.pigment);$('#waterMass').textContent=Math.round(m.water);
+}
+function inkDeposit(px,py,{speed=0,pressure=.5,tiltX=0,tiltY=0}={}){
+  const size=.018+ink.brush/42*.095;
+  ink.field.deposit(px/Math.max(1,W),py/Math.max(1,H),{speed,pressure:pressure||.5,tiltX,tiltY,size,water:ink.wet,load:ink.load,mode:ink.mode});
 }
 function stepInk(){
-  const p=ink.p,w=ink.w,np=ink.tmpP,nw=ink.tmpW,bleed=PROFILES[profile].bleed;
-  for(let y=0;y<IH;y++)for(let x=0;x<IW;x++){
-    const i=x+y*IW,l=x?i-1:i,r=x<IW-1?i+1:i,u=y?i-IW:i,d=y<IH-1?i+IW:i;
-    const wa=(w[l]+w[r]+w[u]+w[d])*.25,pa=(p[l]+p[r]+p[u]+p[d])*.25;
-    const wet=Math.max(w[i],wa),diff=.035*bleed*wet;
-    nw[i]=Math.max(0,Math.min(1,w[i]+(wa-w[i])*.13*bleed-.0055));
-    np[i]=Math.max(0,Math.min(1,p[i]+(pa-p[i])*diff-.00008*(1-wet)));
-  }
-  ink.p=ink.tmpP;ink.tmpP=p;ink.w=ink.tmpW;ink.tmpW=w;
+  ink.field.step({bleed:PROFILES[profile].bleed,absorb:.25+ink.absorb*1.05,evaporation:.0045+.004*ink.absorb});
 }
 
 /* ---------- DATA ---------- */
@@ -215,7 +211,7 @@ $('#dataLoad').onclick=loadData;loadData();
 canvas.addEventListener('pointerdown',e=>{
   const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;mx=x/W;my=y/H;
   if(mode==='PULSE')tapPulse();
-  if(mode==='INK'){ink.down=true;ink.lastX=x;ink.lastY=y;inkDeposit(x,y,0);canvas.setPointerCapture?.(e.pointerId)}
+  if(mode==='INK'){ink.down=true;ink.lastX=x;ink.lastY=y;inkDeposit(x,y,{speed:0,pressure:e.pressure||.55,tiltX:e.tiltX||0,tiltY:e.tiltY||0});canvas.setPointerCapture?.(e.pointerId)}
   if(mode==='LOCI'){
     const pos=lociPositions(),hit=pos.reduce((best,p,i)=>{const d=Math.hypot(x-p.x,y-p.y);return d<(best?.d??32)?{i,d}:best},null);
     if(hit&&hit.i===loci.step){loci.step++;loci.hits++;if(loci.step>=loci.nodes.length){loci.hidden=false;setStatus('LOCI · ROUTE RECALLED')}syncLoci()}
@@ -223,7 +219,7 @@ canvas.addEventListener('pointerdown',e=>{
 });
 canvas.addEventListener('pointermove',e=>{
   const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;mx=x/W;my=y/H;
-  if(mode==='INK'&&ink.down){const sp=ink.lastX==null?0:Math.hypot(x-ink.lastX,y-ink.lastY);inkDeposit(x,y,sp);ink.lastX=x;ink.lastY=y}
+  if(mode==='INK'&&ink.down){const sp=ink.lastX==null?0:Math.hypot(x-ink.lastX,y-ink.lastY);inkDeposit(x,y,{speed:sp,pressure:e.pressure||.55,tiltX:e.tiltX||0,tiltY:e.tiltY||0});ink.lastX=x;ink.lastY=y}
   if(mode==='DATA'){const pos=dataPositions(),hit=pos.reduce((best,p,i)=>{const d=Math.hypot(x-p.x,y-p.y);return d<(best?.d??24)?{i,d}:best},null);data.focus=hit?.i??-1;if(data.focus>=0)setAddress(data.nodes[data.focus].path)}
 });
 canvas.addEventListener('pointerup',()=>{ink.down=false;ink.lastX=ink.lastY=null});
@@ -274,11 +270,12 @@ function drawLoci(){
   pos.forEach((p,i)=>{const active=i===loci.step,done=i<loci.step;ctx.fillStyle=done?'#7bd5ff':active?'#ef7849':'#0a0f13';ctx.strokeStyle='#52616a';ctx.beginPath();ctx.arc(p.x,p.y,active?12:9,0,TAU);ctx.fill();ctx.stroke();if(!loci.hidden||done){ctx.fillStyle=done?'#9edcf6':'#cdd3d5';ctx.font='9px ui-monospace';ctx.textAlign='center';ctx.fillText(loci.nodes[i]?.text||'',p.x,p.y-15)}ctx.fillStyle='#69767d';ctx.font='7px ui-monospace';ctx.fillText('@'+i,p.x,p.y+22)});
 }
 function drawInk(t){
-  if(t-ink.simAt>28){stepInk();ink.simAt=t}
-  const im=inkCtx.createImageData(IW,IH),d=im.data;
-  for(let y=0;y<IH;y++)for(let x=0;x<IW;x++){const i=x+y*IW,k=i*4,grain=((x*17+y*31+x*y*3)%19)/19,pg=ink.p[i],water=ink.w[i];const paper=239-grain*10;d[k]=Math.max(10,paper-pg*218-water*7);d[k+1]=Math.max(12,paper-3-pg*214-water*5);d[k+2]=Math.max(16,paper-8-pg*202);d[k+3]=255}
-  inkCtx.putImageData(im,0,0);ctx.clearRect(0,0,W,H);ctx.imageSmoothingEnabled=true;ctx.drawImage(inkCanvas,0,0,W,H);
-  if(ink.trace){ctx.save();ctx.globalAlpha=.10;ctx.fillStyle='#36505b';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='900 '+Math.min(W,H)*.45+'px "Noto Serif CJK SC","Songti SC",serif';ctx.fillText('永',W/2,H/2);ctx.restore()}
+  if(t-ink.simAt>26){stepInk();ink.simAt=t}
+  inkImage.data.set(ink.field.rgba({warmth:.10}));inkCtx.putImageData(inkImage,0,0);
+  ctx.clearRect(0,0,W,H);ctx.imageSmoothingEnabled=true;ctx.drawImage(inkCanvas,0,0,W,H);
+  const guide=INK_GUIDES[ink.guide];
+  if(guide){ctx.save();ctx.globalAlpha=.105;ctx.fillStyle='#344952';ctx.textAlign='center';ctx.textBaseline='middle';ctx.font='900 '+Math.min(W,H)*.45+'px "Noto Serif CJK SC","Songti SC",serif';ctx.fillText(guide,W/2,H/2);ctx.restore()}
+  if(t-ink.metricAt>180){ink.metricAt=t;syncInkMetrics()}
 }
 function dataPositions(){
   const visible=data.nodes.filter(n=>n.depth<=data.aperture),byDepth=new Map();visible.forEach((n,i)=>{if(!byDepth.has(n.depth))byDepth.set(n.depth,[]);byDepth.get(n.depth).push({n,index:data.nodes.indexOf(n)})});
@@ -298,6 +295,7 @@ function tick(now){
   requestAnimationFrame(tick);
 }
 requestAnimationFrame(tick);
-selectMode('RIDE');
+const initialMode=String(new URLSearchParams(location.search).get('mode')||'RIDE').toUpperCase();
+selectMode(MODES[initialMode]?initialMode:'RIDE');
 document.documentElement.dataset.foldBloomFieldLab='ready';
 window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'})};
