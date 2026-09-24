@@ -1,11 +1,11 @@
 {
   "schema": "0xxx0/hermes-handoff/v0.2",
   "id": "HERMES-FOLD-BLOOM-2026-09-22",
-  "updated": "2026-09-22T18:19:00+08:00",
-  "status": "CURRENT_REENTRY_HANDOFF",
+  "updated": "2026-09-24T11:02:00+08:00",
+  "status": "CURRENT_REENTRY_HANDOFF_WITH_2026_09_24_PARALLEL_OVERRIDE",
   "purpose": "Give Hermes enough exact current state to assist Fold/Bloom without rediscovery, authority flattening, or collision with the active uploaded-track/test-pack branch.",
   "primary_law": "RECOVER BEFORE INVENTING. One exact source or set survives unequal MAP / MEMORY / RIDE / READ / COMPOSE projections. Preserve source identity, canonical address, evidence vs authorship, and RETURN.",
-  "current_master": "50bbfcd840dbcfba7c1b244288b44443b19e4728",
+  "current_master": "4c43fb9065294a6d8be458990ad35dc27aa08005",
   "current_family": {
     "hub": {
       "route": "/fold-bloom/",
@@ -187,25 +187,23 @@
   },
   "now_next_hold": {
     "NOW": [
-      "Let PR #166 finish its fix/CI cycle; do not duplicate Journey/local-vault work.",
-      "When available, direct-use the real three-track SET/Journey path and return KEEP / REVISE / REJECT plus concrete body/continuity notes.",
-      "Hermes research workers may run only from HERMES_FOLD_BLOOM_TRANSFER_RESEARCH_2026-09-22.json; max two, read/research only, no canonical writes."
+      "PR #207 owns stale INTERPHASE successor-gate cleanup; do not collide with it.",
+      "Run Hermes H-QA-01 + H-RSCH-01 as the first parallel batch.",
+      "Keep Fold/Bloom lived 2–3-source phone SET→LIVE validation in WAITING_ON_HUMAN until direct use occurs."
     ],
-    "NEXT_IF_166_MERGES": [
-      "Test one-selection continuity: SET select once → LISTEN same hash without picker → JOURNEY all bindings resolve.",
-      "Ride CARRY → DISSOLVE → RETURN with the real seed and judge one-journey vs playlist-with-transitions.",
-      "Only then decide whether Journey earns deeper LIVE-style embodiment, source-spine visuals, or further seam intelligence.",
-      "Close LISTEN issue #157 separately when touching LISTEN phone ADDRESS/APERTURE; do not conflate it with Journey promotion."
+    "NEXT": [
+      "Reconcile Hermes QA/research returns against current master and open PRs.",
+      "Implement at most one high-confidence microfix or one experiment instrument delta, then PROVE → RETURN → REPLAN.",
+      "If cross-mode continuity emerges as the strongest missing function, prove it with one exact source across exactly two projections before generalizing."
     ],
     "HOLD": [
-      "anchor/warp lyric calibration implementation unless direct lyric QA makes it the blocker",
-      "provider catalog / Spotify-style integration",
-      "public social/messaging backend",
-      "full DAW editing / beatmatching / tempo warping",
-      "SOURCE SPINE as standalone app",
-      "Ecology audio graft",
-      "universal sonification framework",
-      "emotion classifier as source truth"
+      "another universal shell/dashboard/research app",
+      "duplicate SET/LIVE/Journey implementation",
+      "automatic mood/emotion truth claims",
+      "provider/social/catalog expansion",
+      "full DAW/beatmatching/tempo-warping system",
+      "promotion of P1/P2/P3 hard-evolution spike into shared core without a second real consumer",
+      "large mode proliferation before cross-mode continuity is proved"
     ]
   },
   "pr166_review": {
@@ -223,5 +221,129 @@
     ],
     "law": "These are implementation hazards, not objections to the source-spine/Journey architecture."
   },
-  "new_session_bootstrap": "You are taking over a live CONFLUENCE/FIELD session around FOLD//BLOOM.\n\nPRIMARY LAW: RECOVER BEFORE INVENTING.\n\nBoot in this order:\n1. Read /AGENTS.md.\n2. Fetch LIVE /control/CURRENT.json and current master/open PRs; do not trust old chat summaries or embedded SHAs as present authority.\n3. Read /control/HERMES_FOLD_BLOOM_HANDOFF_2026-09-22.json.\n4. Read /fold-bloom/convergence/README.md, THREAD_COLLAPSE_2026-09-22.md, ADDRESSED_CONTINUITY_2026-09-22.md, and TRANSFER_RESEARCH_ATLAS_2026-09-22.md only as needed.\n5. Inspect open PR #166 before touching Journey/local-media/source-spine runtime. Another branch owns that lane.\n6. If PR #166 is still open, do not duplicate its implementation. Review/test/help only with concrete non-overlapping evidence.\n7. If PR #166 merged, verify its merge/CI/RETURN and perform the direct human gate before expanding it.\n8. Preserve unequal authority:\n   SOURCE identity/provenance ≠ analysis ≠ calibration ≠ human authorship ≠ projection.\n   LISTEN maps one source; LIVE embodies one source; SET authors order/weight/seams; JOURNEY traverses a set; READFIELD owns text focus; TWO DIAL composes; AXIAL constrains/orients; Lens refracts; HUMAN PORT routes actions.\n9. Keep the active surface small. Research/off-label ideas are DONORS, not automatic projects.\n10. One bounded move → PROVE → RETURN → REPLAN.\n\nCurrent practical priority:\n- do not break/fork #166;\n- resolve any concrete #166 review hazards and CI failures;\n- then test the real three-song one-selection SET→LISTEN→JOURNEY path;\n- report KEEP / REVISE / REJECT and the exact felt/technical failure if any.\n\nDo not:\n- create another hub/source-spine app;\n- add provider/social/DAW systems;\n- infer human meaning from audio features;\n- treat mood models as truth;\n- start a second runtime branch because a research idea is exciting.\n\nIf no live blocker exists, use the bounded research packet rather than inventing work:\n  /control/HERMES_FOLD_BLOOM_TRANSFER_RESEARCH_2026-09-22.json\n\nRETURN format:\nSTATE\nDELTA\nEVIDENCE\nRESIDUE\nWAITING\nONE_NEXT"
+  "new_session_bootstrap": "You are Hermes operating as a parallel worker for CONFLUENCE/FIELD with focus on FOLD//BLOOM.\n\nPRIMARY LAW: RECOVER BEFORE INVENTING.\n\nBOOT:\n1. Read /AGENTS.md.\n2. Read LIVE /control/CURRENT.json.\n3. Read /control/HERMES_FOLD_BLOOM_HANDOFF_2026-09-22.json and treat latest_override_2026_09_24 + parallel_collaboration_2026_09_24 as the current override.\n4. Fetch current master SHA and all open PRs. PR/branch state outranks embedded SHAs.\n5. Resolve every contribution against showcase-manifest.json and the smallest applicable policy.\n6. Do not edit or duplicate an active PR lane.\n\nYOUR ROLE:\n- long-horizon recovery, research, QA, adversarial falsification, refinement mining and bounded non-destructive experiment design;\n- not a second sovereign architect;\n- no agent free-chat synchronization;\n- exchange exact packets, source refs, commit SHAs, tests and RETURNs.\n\nFIRST BATCH — RUN AT MOST TWO WORKERS IN PARALLEL:\nA. H-QA-01: adversarial runtime/UX sweep of /fold-bloom/, /fold-bloom/lab/, /fold-bloom/ink/, /fold-bloom/listen/, /fold-bloom/live/ on phone + desktop; exercise real controls; return reproducible failures and max 7 microfix packets.\nB. H-RSCH-01: design the smallest falsifiable FIELD LAB experiment. For each claim use OBJECT → MANIPULATION → CONTROL → OBSERVABLE → FAIL CONDITION → RETURN. Start from PULSE/READ/LOCI/INK/RIDE/CROSS-MODE candidates. Use boring baselines, explicit confounds, and the existing EXCITEMENT event vector only as a provisional multidimensional lens.\n\nDO NOT:\n- create a new hub, source store, dashboard, research platform or ontology;\n- redo merged SET→LIVE work or P1/P2/P3 hard-evolution proofs;\n- infer human meaning/mood from source features;\n- write canonical runtime code unless the returned packet isolates one bounded host-owned delta and no active branch owns it;\n- turn research ideas into backlog.\n\nRETURN ONE STRUCTURED HANDOFF:\nSTATE\nOBSERVED\nHYPOTHESES\nTESTS_RUN\nEVIDENCE\nFAILURES_OR_SURVIVORS\nDELTA_PACKET\nRESIDUE\nCOLLISION_CHECK\nONE_NEXT\n\nSuccess = lower uncertainty/re-entry cost or a proved useful capability; activity itself does not count.",
+  "latest_override_2026_09_24": {
+    "authority": "THIS SECTION OVERRIDES STALE RUNTIME/NEXT-STEP CLAIMS ELSEWHERE IN THIS HANDOFF; exact live repo state still wins",
+    "observed_master": "4c43fb9065294a6d8be458990ad35dc27aa08005",
+    "collision_guard": {
+      "open_pr": 207,
+      "title": "INTERPHASE: retire stale SET→LIVE open gate",
+      "rule": "Do not edit the five PR #207 control/handoff files or independently redo its stale-gate repair. Re-fetch open PRs before every proposed write."
+    },
+    "current_fold_bloom": {
+      "root": "/fold-bloom/ — public front / stable shared doorway",
+      "instrument": "/fold-bloom/instrument/ — explicit core instrument",
+      "lab": "/fold-bloom/lab/ — FIELD LAB 0.1: RIDE / PULSE / READ / LOCI / INK / DATA",
+      "ink": "/fold-bloom/ink/ — reusable INK FIELD 0.2 wet-media engine",
+      "live": "/fold-bloom/live/ — LIVE 0.13 with source-evidence-driven ride + explicit CLEAR/DRIVE/TRANCE/SOFT encounter profiles",
+      "listen": "/fold-bloom/listen/ — LISTEN 0.6 cartography; exports shared event tape + Beat Saber v4 draft",
+      "set_live": "SET→LIVE technical fusion is merged; next gate is lived 2–3-source phone use and is WAITING_ON_HUMAN, not an autonomous implementation target",
+      "event_tape": "fold-bloom-event-tape/v0.1 keeps measured BEAT/PHRASE/SECTION distinct from authored OPERATION"
+    },
+    "recovered_research_state": {
+      "design_law": "/control/confluence/DESIGN_ENGINEERING_DONOR_2026-09-24.md",
+      "lived_value_law": "/control/research/EXCITEMENT_EVENT_THEORY_2026-09-24.md",
+      "hard_evolution": "/control/confluence/HARD_EVOLUTION_MAP_2026-09-24.md",
+      "hard_evolution_proof": "/spikes/007-hard-evolution-proofs/README.md",
+      "note": "P1 focus/context, P2 typed composition/projections and P3 preserved-interface rewrite already pass as non-sovereign spikes. Do not duplicate them."
+    }
+  },
+  "parallel_collaboration_2026_09_24": {
+    "purpose": "Use Hermes to increase verified refinement, falsification, research depth and re-entry quality in parallel without becoming a second sovereign implementation stream.",
+    "division": {
+      "chatgpt_project": "continuity, cross-thread recovery, host resolution, prioritization, reconciliation, final judgment on promotion/merge",
+      "hermes": "long-horizon read/search/compare/research/QA/refinement mining, bounded non-destructive experiments, adversarial falsification, structured handoff",
+      "repo_executor": "one bounded canonical mutation after host/policy/evidence are clear; run tests; produce commit/PR/receipt",
+      "repository": "durable executable/current state",
+      "receipts": "ground truth about what actually happened"
+    },
+    "concurrency": {
+      "max_hermes_workers": 2,
+      "max_research_workers": 2,
+      "canonical_writer_rule": "At most one canonical writer lane at a time. Hermes should default to read-only/packet mode unless the task explicitly grants a bounded write.",
+      "sync_rule": "No agent-to-agent free chat. Join on stable object ids, source refs, commit SHAs, files, tests and RETURN packets."
+    },
+    "lanes": [
+      {
+        "id": "H-QA-01",
+        "class": "EVIDENCE",
+        "host": "/fold-bloom/",
+        "mission": "Run an adversarial usability/runtime sweep across public front, FIELD LAB, INK, LISTEN and LIVE at phone and desktop sizes. Exercise real controls, not screenshot-only checks.",
+        "inspect": [
+          "boot/runtime console errors",
+          "tap targets and accidental overlap",
+          "panel occlusion and spatial legibility",
+          "profile switches and causal visual/audio response",
+          "READ race pause/regress/reset semantics",
+          "LOCI build/hide/recall sequence",
+          "INK pointer deposit, wetness, dry/clear/trace and phone performance",
+          "PULSE start/stop/tap/export and audio-context recovery",
+          "DATA load/focus/aperture behavior",
+          "LISTEN beat-tape export",
+          "RETURN/navigation paths",
+          "reduced-motion/accessibility/keyboard regressions"
+        ],
+        "output": "Failure matrix ordered by reproducibility × user impact, exact reproduction steps, evidence, and at most 7 microfix packets. No architecture proposals.",
+        "stop": "If no reproducible failure or clear refinement survives two viewports, return PASS/NO_DELTA rather than inventing work."
+      },
+      {
+        "id": "H-RSCH-01",
+        "class": "EVIDENCE+DONOR",
+        "host": "/fold-bloom/lab/",
+        "mission": "Build the research method for FIELD LAB itself: derive falsifiable hypotheses, controls, instrumentation and tiny implementation probes for whether cross-mode projections improve agency/comprehension/memory/delight rather than merely novelty.",
+        "required_design": [
+          "For every claim: OBJECT → MANIPULATION → CONTROL → OBSERVABLE → FAIL CONDITION → RETURN.",
+          "Use a boring/minimal baseline against every spectacular treatment.",
+          "Separate source evidence from encounter profile from human interpretation.",
+          "Prefer within-source A/B or counterbalanced trials over anecdotes.",
+          "Record novelty/practice/device-latency/salience confounds.",
+          "Use the existing EXCITEMENT event vector as a provisional lens, never a scalar score."
+        ],
+        "first_experiments": [
+          "PULSE: metronome baseline vs 3:2/4:3/5:4 field; measure tap phase error, retention after short delay, and subjective legibility.",
+          "READ: ordinary paced RSVP/reading baseline vs ghost-race + explicit regression; measure comprehension/recall, regressions, completion time and perceived agency.",
+          "LOCI: linear token list baseline vs addressed path; measure ordered recall and source-position recovery.",
+          "INK: plain line rendering baseline vs wet diffusion + speed-sensitive deposit; measure whether users can intentionally reproduce target stroke qualities, not whether it merely looks beautiful.",
+          "RIDE: constant spectacle baseline vs rare anticipated consequential events; measure which events are noticed, anticipated and remembered and whether users can state the source cause.",
+          "CROSS-MODE: one exact addressed source passes through two projections; verify identity/address survive and test whether the second projection adds retained value."
+        ],
+        "implementation_boundary": "Small local fixtures, deterministic probes and exportable result packets are allowed. No new app, universal research dashboard, scoring ontology or promoted shared core.",
+        "output": "One ranked experiment packet with the smallest runnable study first, instrumentation schema, baseline, pass/fail gates, and any bounded patch proposal."
+      },
+      {
+        "id": "H-REFINE-01",
+        "class": "DELTA-PACKET",
+        "host": "/fold-bloom/",
+        "mission": "Mine trivial-but-compounding refinement: remove explanations where touch can teach; improve spatial hierarchy; make state changes more causal; find dead labels, duplicate controls, broken first-use paths and unearned chrome.",
+        "law": "Prefer deletion, receding UI, stronger direct manipulation and one deeper input over adding settings.",
+        "output": "Maximum 7 independent microdeltas, each reversible and testable. Do not implement them all; return the highest-value one for reconciliation."
+      },
+      {
+        "id": "H-WEIRD-01",
+        "class": "DONOR",
+        "host": "UNRESOLVED until mapped",
+        "mission": "Search for non-obvious mechanisms that could transfer into an existing FIELD/FOLD-BLOOM host: experimental HCI, games, notation, motor learning, sonification, memory, typography, tangible media, musical interaction, scientific visualization, training systems. Recover mechanism, not aesthetic.",
+        "admission_gate": "Every donor must name an existing host, exact missing function, one cheap falsifier and a stop condition. Zero host = UNRESOLVED, not a new project.",
+        "output": "At most 5 donors per pass; at least 2 should be surprising but mechanically specific."
+      }
+    ],
+    "first_parallel_batch": [
+      "Run H-QA-01 and H-RSCH-01 concurrently.",
+      "Do not start H-REFINE-01 until H-QA-01 returns; many refinement ideas should fall out of actual failures.",
+      "Run H-WEIRD-01 only after the first experiment question is named, so research has a selection pressure."
+    ],
+    "promotion_gate": "A Hermes result earns implementation only if it resolves to an existing host, changes a named capability/uncertainty/lived-value gate, has bounded proof, and does not duplicate active PR/branch work.",
+    "return_contract": [
+      "STATE",
+      "OBSERVED",
+      "HYPOTHESES",
+      "TESTS_RUN",
+      "EVIDENCE",
+      "FAILURES_OR_SURVIVORS",
+      "DELTA_PACKET",
+      "RESIDUE",
+      "COLLISION_CHECK",
+      "ONE_NEXT"
+    ]
+  }
 }
