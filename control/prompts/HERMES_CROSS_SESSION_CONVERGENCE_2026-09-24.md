@@ -51,7 +51,9 @@ Read current authority before judging session residue:
 2. public `0xxx0/0xxx0.github.io:control/CURRENT.json`
 3. public `0xxx0/0xxx0.github.io:control/confluence/CROSS_REPO_CONVERGENCE_2026-09-24.md`
 4. `0xxx0/0xxx0.github.io:control/confluence/DESIGN_ENGINEERING_DONOR_2026-09-24.md` when touching UI, interaction, experience, creative tooling or public surfaces
-5. relevant exact owner files only
+5. `0xxx0/0xxx0.github.io:control/prompts/HERMES_VISION_LOOP_2026-09-24.md` when recovered residue suggests a new research/design experiment rather than a direct repair
+6. `0xxx0/0xxx0.github.io:skills/README.md` before claiming a recurring mechanism deserves skill extraction
+7. relevant exact owner files only
 
 ## 5. CONVERGENCE / PROGRESS GATES
 Test: IDENTITY → RETURN → COMMUTATION → SOVEREIGNTY REDUCTION → SURFACE COMPRESSION → RE-ENTRY → CONVERSION → LIVED VALUE.
