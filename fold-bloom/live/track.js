@@ -61,7 +61,7 @@ export function transportFromMap(map,time=0,playing=false){
 
 export class LiveTrack {
   constructor(audio,{onState=()=>{},onMap=()=>{}}={}){
-    this.audio=audio;this.onState=onState;this.onMap=onMap;this.map=null;this.file=null;this.url=null;this.worker=null;this.loading=false;this.worldCache=null;this.worldTime=-1;this.meta=null;this.textEvidence=null;
+    this.audio=audio;this.onState=onState;this.onMap=onMap;this.map=null;this.file=null;this.url=null;this.streamUrl=null;this.worker=null;this.loading=false;this.worldCache=null;this.worldTime=-1;this.meta=null;this.textEvidence=null;
     audio.addEventListener('play',()=>this.onState(this.stateLabel()));
     audio.addEventListener('pause',()=>this.onState(this.stateLabel()));
     audio.addEventListener('ended',()=>this.onState(this.stateLabel()));
@@ -69,16 +69,31 @@ export class LiveTrack {
   stateLabel(){
     if(this.loading)return 'ANALYZING';
     if(!this.audio.src)return 'NONE';
+    if(!this.map)return (this.audio.paused?'READY':'PLAYING')+' · SOURCE';
     const stage=this.map?.stage||'AUDIO';
     return (this.audio.paused?'READY':'PLAYING')+' · '+stage+(this.map?.bpm?' · '+this.map.bpm.toFixed(1)+' BPM':'');
   }
   active(){return !!(this.audio.src&&this.map)}
+  sourceActive(){return !!this.audio.src}
+  mapped(){return !!this.map}
   textWitness(time=this.audio.currentTime,offset=0){return textWitnessAt(this.textEvidence,(Number(time)||0)+(Number(offset)||0),Number(this.map?.duration)||0)}
   metadata(){return this.meta?{...this.meta}:null}
   async loadFiles(files){
     const grouped=groupLocalInputs(files),g=grouped.groups[0];
     if(!g?.audio)throw Error('No audio file in source bundle');
     return this.load(g.audio,{sidecars:g.sidecars});
+  }
+  loadStream({url,name='REMOTE SOURCE',sourceAddress=null,sourceKind='REMOTE_AUDIO',artist='',title='',provider=null}={}){
+    if(!url)throw Error('Remote source URL required');
+    this.worker?.terminate?.();this.worker=null;
+    if(this.url)URL.revokeObjectURL(this.url);
+    this.url=null;this.file=null;this.map=null;this.worldCache=null;this.worldTime=-1;this.textEvidence=null;
+    this.streamUrl=String(url);
+    this.meta={name:String(name||title||'REMOTE SOURCE'),title:String(title||name||''),artist:String(artist||''),sourceAddress:sourceAddress||String(url),sourceKind,provider:provider||null,remote:true};
+    this.audio.src=this.streamUrl;
+    this.audio.load?.();
+    this.onMap(null);this.onState(this.stateLabel());
+    return this.metadata();
   }
   transport(){const p=transportFromMap(this.map,this.audio.currentTime,!this.audio.paused);return p?{...p,_receivedAt:performance.now()}:null}
   trackfield(horizon=12,count=44){
@@ -90,7 +105,7 @@ export class LiveTrack {
   }
   async load(file,{sidecars=[]}={}){
     if(!file)return null;
-    this.loading=true;this.file=file;this.onState('DECODING');
+    this.loading=true;this.file=file;this.streamUrl=null;this.onState('DECODING');
     const bytes=await file.arrayBuffer(),hashP=hashBuffer(bytes.slice(0)),meta=parseLocalAudioMeta(bytes,file.name),AC=globalThis.AudioContext||globalThis.webkitAudioContext;
     let textEvidence=null;
     for(const sf of sidecars){try{const t=parseTextSidecar(await sf.text(),sf.name);if(t?.text){textEvidence=t;break}}catch(_){}}
