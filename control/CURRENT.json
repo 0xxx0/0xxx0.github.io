@@ -141,10 +141,10 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM · ONE INSTRUMENT 0.1 / INTERPHASE 0.2 host · SET 0.1.1 / JOURNEY 0.1.2 / LIVE 0.13 / LISTEN 0.6",
+      "head": "FOLD//BLOOM · PUBLIC FRONT / CORE INSTRUMENT 0.1 / FIELD LAB 0.1 / INK FIELD 0.2 / LIVE 0.13 / LISTEN 0.6 / SET 0.1.1 / JOURNEY 0.1.2",
       "state": "ACTIVE_CANDIDATE_UNIFIED_DOORWAY",
       "route": "/fold-bloom/",
-      "retained_function": "The canonical /fold-bloom/ entry is now one instrument doorway rather than a catalogue of peer apps. INTERPHASE 0.2 owns focus/projection/RETURN mechanics while domain truth stays where it already lives: exact audio bytes in the local media vault, LISTEN as source cartographer, SET as ordered/seam composition authority, READFIELD as text reader, and LIVE as embodied single-source ride. The shell stores only a session-local active-object pointer/handoff. Typing can produce an immediate unbound deterministic glyph; binding creates an exact text/audio address. FOLD from AUDIO commits an exact source ref into SET and changes the active object to that SET without duplicating bytes. SET RIDE remains the current Journey 0.1.2 seam sequencer and now refuses a mismatched set address. The next real convergence is to consume Journey plan/seam law inside LIVE so RIDE means one operation for either one source or a set. Design-engineering donor 2026-09-24 now governs experience work: primitive-first spatial instruments, receding chrome, fewer deeper inputs, explicit profile/evidence separation, and delight with causal addressability; Septabee/Interface Studies/Tangible Media are donors rather than skins.",
+      "retained_function": "The canonical /fold-bloom/ entry is now one instrument doorway rather than a catalogue of peer apps. INTERPHASE 0.2 owns focus/projection/RETURN mechanics while domain truth stays where it already lives: exact audio bytes in the local media vault, LISTEN as source cartographer, SET as ordered/seam composition authority, READFIELD as text reader, and LIVE as embodied single-source ride. The shell stores only a session-local active-object pointer/handoff. Typing can produce an immediate unbound deterministic glyph; binding creates an exact text/audio address. FOLD from AUDIO commits an exact source ref into SET and changes the active object to that SET without duplicating bytes. SET RIDE remains the current Journey 0.1.2 seam sequencer and now refuses a mismatched set address. The next real convergence is to consume Journey plan/seam law inside LIVE so RIDE means one operation for either one source or a set. Design-engineering donor 2026-09-24 now governs experience work: primitive-first spatial instruments, receding chrome, fewer deeper inputs, explicit profile/evidence separation, and delight with causal addressability; Septabee/Interface Studies/Tangible Media are donors rather than skins. FIELD LAB now compares six unequal practice projections; INK FIELD 0.2 is a reusable dependency-free wet-media engine shared by LAB and a dedicated paper surface. LIVE profile schema 0.2 adds explicit anticipation and motion/body axes plus CLEAR/DRIVE/TRANCE/SOFT presets and a zero-file demo URL; these remain encounter preferences, not source truth.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -255,8 +255,24 @@
           "state": "MERGED_ACTIVE_CANDIDATE",
           "branch": "master@ce475fe2f9abca2068032c3dc4bdf236bcf0ee45",
           "version": "0.13",
-          "thesis": "An addressed linear source becomes solid embodied terrain with exact source-time semantics and a smoother human-facing projection: reachable AUTOPILOT, phone-safe controls, bounded model cadence, display-only geometry stabilization and perceptually morphing worlds.",
-          "promotion_gate": "Phone body test: AUTOPILOT reachable; all settings reachable; jitter better/same/worse; response crisp/too smooth; worlds elegant/distinct; no source-time/drop regression."
+          "thesis": "An addressed linear source becomes solid embodied terrain with source-time semantics, sparse macro events and an explicit experience profile. Profile v0.2 exposes anticipation, motion/body and plunge consequence behind four macro presets while keeping AUDIO MAP evidence unchanged.",
+          "promotion_gate": "Phone body test: compare CLEAR/DRIVE/TRANCE/SOFT and advanced anticipation/motion/plunge; zero-file ?demo=1 entry must demonstrate the real FIELD COURSE without hidden authoring."
+        },
+        {
+          "id": "fold-bloom-field-lab-01",
+          "route": "/fold-bloom/lab/",
+          "state": "MERGED_ACTIVE_CANDIDATE",
+          "version": "0.1",
+          "thesis": "One compact spatial shell can compare transferable practice laws across RIDE/PULSE/READ/LOCI/INK/DATA without flattening their authorities.",
+          "promotion_gate": "Direct use: at least two modes must provide a reusable operation/training loop; INK and READ must survive without explanatory prose."
+        },
+        {
+          "id": "fold-bloom-ink-02",
+          "route": "/fold-bloom/ink/",
+          "state": "CANDIDATE",
+          "version": "0.2",
+          "thesis": "A small deterministic wet-media model can make pointer speed/pressure/tilt and paper absorbance materially legible enough for calligraphy/ink training and generative projection.",
+          "promotion_gate": "Phone/stylus test must distinguish dry brush, sumi and wash by feel/edge/spread; do not promote automatic calligraphy-quality scoring."
         }
       ],
       "merge_sha": "7734a77b1961335eb59bf142e499573a6a74c2b2",
