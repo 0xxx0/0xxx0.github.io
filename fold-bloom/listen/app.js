@@ -318,9 +318,9 @@ async function loadAddress(input){
 
 
 function updateWorkflow(){
-  const use=$('#useBtn'),read=$('#useRead'),law=$('#useLaw');
+  const use=$('#useBtn'),read=$('#useRead'),law=$('#useLaw'),beat=$('#beatSaberBtn');
   syncRideProfile();
-  if(use)use.disabled=!map;
+  if(use)use.disabled=!map;if(beat)beat.disabled=!map;
   const idleBtn=$('#idleBtn');if(idleBtn)idleBtn.disabled=!map;
   if(read){
     const b=read.querySelector('b'),sp=read.querySelector('span'),hasLyrics=!!String(fileMeta?.lyrics||'').trim();
@@ -331,6 +331,17 @@ function updateWorkflow(){
     const bpm=Number(map.bpm)||0;
     law.textContent=(bpm?Math.round(bpm)+' BPM · ':'')+'FIELD PULSE carries clock/features only. Borrowed clock ≠ borrowed authorship. RIDE PROFILE changes projection/timing only; AUDIO MAP + RETURN remain durable evidence.';
   }
+}
+function exportBeatSaberDraft(){
+  if(!map)return false;
+  try{
+    const sourceId=fileMeta?.hash?('sha256:'+fileMeta.hash):sourcePinKey();
+    const eventTape=compileEventTape(map,{sourceId}),chart=toBeatSaberV4Draft(eventTape);
+    chart._foldBloom={...(chart._foldBloom||{}),sourceId,eventCount:eventTape.eventCount,sourceName:fileMeta?.name||'SOURCE',generated:new Date().toISOString()};
+    const blob=new Blob([JSON.stringify(chart,null,2)],{type:'application/json'}),link=document.createElement('a');
+    link.href=URL.createObjectURL(blob);link.download='ExpertPlusStandard.dat';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);
+    toast('BEAT SABER · EXPERTPLUSSTANDARD.DAT');return true;
+  }catch(error){toast(error?.message||'BEAT SABER EXPORT FAILED');return false}
 }
 function toggleUse(force){
   const sh=$('#useSheet');if(!sh)return;
@@ -380,7 +391,7 @@ $('#urlInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefau
 ['dragleave','drop'].forEach(k=>drop.addEventListener(k,e=>{e.preventDefault();drop.classList.remove('over')}));
 drop.addEventListener('drop',e=>{const fs=e.dataTransfer.files;if(fs?.length)loadFiles(fs)});
 $('#loadBtn').onclick=()=>{drop.classList.remove('loaded');$('#urlInput').focus()};
-$('#useBtn').onclick=()=>toggleUse();$('#closeUse').onclick=()=>toggleUse(false);
+$('#useBtn').onclick=()=>toggleUse();$('#closeUse').onclick=()=>toggleUse(false);$('#beatSaberBtn').onclick=()=>exportBeatSaberDraft();
 $('#pinBtn').onclick=()=>{stopIdle(true);openPinSheet(null,audio.currentTime)};$('#pinsBtn').onclick=()=>{stopIdle(true);openPinSheet(pins[0]||null,audio.currentTime)};$('#glyphBtn').onclick=downloadGlyph;$('#idleBtn').onclick=()=>startIdle();
 $('#pinSave').onclick=commitPin;$('#pinDelete').onclick=deletePin;$('#pinClose').onclick=closePinSheet;
 $('#useRide').onclick=()=>{
@@ -391,7 +402,7 @@ $('#useRide').onclick=()=>{
 };$('#useRead').onclick=openReadfield;$('#useCompose').onclick=()=>openSurface('../two-dial/?pulse=1');
 const rideTune=(id,key,scale=100)=>{const el=$(id);if(!el)return;el.oninput=e=>{rideProfile=normalizeRideProfile({...rideProfile,[key]:Number(e.target.value)/scale});saveRideProfile(false)};el.onchange=()=>saveRideProfile(true)};
 rideTune('#rideSolid','solidity');rideTune('#rideImmersion','immersion');rideTune('#rideDrop','dropGain');rideTune('#rideText','textOffset');$('#useAtlas').onclick=openAtlas;$('#useMap').onclick=()=>{toggleUse(false);$('#export').click()};
-$('#useBeat').onclick=()=>{if(!map)return;try{const sourceId=fileMeta?.hash?('sha256:'+fileMeta.hash):sourcePinKey();const eventTape=compileEventTape(map,{sourceId});const beatSaberV4Draft=toBeatSaberV4Draft(eventTape);const blob=new Blob([JSON.stringify({eventTape,beatSaberV4Draft},null,2)],{type:'application/json'}),link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download=`fold-bloom-beat-tape-${Date.now()}.json`;link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);toggleUse(false);toast('BEAT TAPE + BEAT SABER V4 DRAFT EXPORTED')}catch(error){toast(error?.message||'BEAT TAPE EXPORT FAILED')}};
+$('#useBeat').onclick=()=>{if(exportBeatSaberDraft())toggleUse(false)};
 $('#transport').onclick=async()=>{stopIdle(true);if(!audio.src)return;if(audio.paused)await audio.play();else audio.pause()};
 audio.onplay=()=>{$('#transport').textContent='PAUSE';publishTransport(true)};audio.onpause=()=>{$('#transport').textContent='PLAY';publishTransport(true)};audio.ontimeupdate=()=>publishTransport(false);
 $('#export').onclick=()=>{if(!map)return;const packet={kind:'FOLD_BLOOM_AUDIO_MAP',created:new Date().toISOString(),sourceBundle:fileMeta?.bundle||null,timedText:fileMeta?.timedText||null,map,glyph:glyphDesc||audioGlyphDescriptor(map,fileMeta||{}),annotations:{schema:STREAM_LENS_SCHEMA,pins:normalizePins(pins,sourcePinKey())},addressedMessage:addressedReturn(),rideProfile:{...rideProfile}},b=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`fold-bloom-audio-map-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
@@ -504,5 +515,5 @@ window.addEventListener('error',e=>{console.warn('LISTEN runtime error',e.error|
 setScope(1,false);updateWorkflow();
 document.documentElement.dataset.listenBoot='ready';document.documentElement.dataset.listenLens=STREAM_LENS_SCHEMA;document.documentElement.dataset.listenGesture='NONE';document.documentElement.dataset.listenApertureGesture=scope();syncPins();syncRideProfile();
 addEventListener('storage',e=>{if(e.key&&e.key===rideStoreKey())syncRideProfile()});
-window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,pendingSource,glyph:glyphDesc,idle:idle.on,addressedMessage:map?addressedReturn():null,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,gesture:lastGesture,pins:normalizePins(pins,sourcePinKey()),rideProfile:{...rideProfile},sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),seek:t=>{if(!map)return null;audio.currentTime=Math.max(0,Math.min(map.duration,Number(t)||0));publishTransport(true);return transportPayload()},aperture:v=>{const i=typeof v==='string'?SCOPES.indexOf(v):Number(v);if(Number.isFinite(i)&&i>=0)setScope(i,false);return transportPayload()},parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc};
+window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,pendingSource,glyph:glyphDesc,idle:idle.on,addressedMessage:map?addressedReturn():null,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,gesture:lastGesture,pins:normalizePins(pins,sourcePinKey()),rideProfile:{...rideProfile},sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),seek:t=>{if(!map)return null;audio.currentTime=Math.max(0,Math.min(map.duration,Number(t)||0));publishTransport(true);return transportPayload()},aperture:v=>{const i=typeof v==='string'?SCOPES.indexOf(v):Number(v);if(Number.isFinite(i)&&i>=0)setScope(i,false);return transportPayload()},exportBeatSaber:exportBeatSaberDraft,parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc};
 requestAnimationFrame(loop);
