@@ -90,7 +90,7 @@ jobs:
       - name: Test FOLD BLOOM event tape + Beat Saber draft adapter
         run: node --test fold-bloom/beat/tests/event-tape.test.mjs
       - name: Test FOLD BLOOM Lab READ + LOCI bridges
-        run: node --test fold-bloom/lab/tests/read-bridge.test.mjs fold-bloom/lab/tests/course.test.mjs
+        run: node --test fold-bloom/lab/tests/read-bridge.test.mjs fold-bloom/lab/tests/course.test.mjs fold-bloom/lab/tests/pulse-routing.test.mjs
       - name: Test FOLD BLOOM wet-media ink engine
         run: node --test fold-bloom/ink/tests/ink-engine.test.mjs
       - name: Test unified FOLD BLOOM RIDE state
