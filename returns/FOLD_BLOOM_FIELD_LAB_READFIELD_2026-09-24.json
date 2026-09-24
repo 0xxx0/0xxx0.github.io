@@ -8,7 +8,7 @@
     "base": "509bcf27b67f33b33ff4a32427df74925dcdd95a",
     "user_observation": "Phone surface now kinda works; requested usability improvements, deeper use cases such as READFIELD/RSVP, parallel-branch catch-up and meaningful autonomous evolution."
   },
-  "state": "FIELD LAB 0.2 candidate: canonical READFIELD projection + explicit temporal composition + first cross-mode source carry.",
+  "state": "FIELD LAB 0.2 candidate: canonical READFIELD projection + explicit temporal composition + first cross-mode source carry + addressed large-text LOCI.",
   "delta": [
     "remove duplicate-reader authority from Lab READ",
     "embed canonical APERTURE/RSVP",
@@ -16,11 +16,16 @@
     "publish bounded focus",
     "add READ→LOCI/DATA carry",
     "repair mobile mode reachability",
-    "surface READFIELD on public Fold/Bloom front"
+    "surface READFIELD on public Fold/Bloom front",
+    "collapse READ source editor after binding and remove duplicate center-word rendering",
+    "replace LOCI 12-token truncation with addressed text-course grouping that preserves every word",
+    "add LOCI RETURN with exact source spans"
   ],
   "evidence": [
     "/fold-bloom/lab/read-bridge.js",
     "/fold-bloom/lab/tests/read-bridge.test.mjs",
+    "/fold-bloom/lab/course.js",
+    "/fold-bloom/lab/tests/course.test.mjs",
     "/tools/browser-smoke.mjs",
     "/control/FIELD_PULSE_CONTRACT.json",
     "/showcase-manifest.json"
@@ -39,8 +44,9 @@
     "one explicit READ→LOCI or READ→DATA carry judgment"
   ],
   "contradictions": [
-    "FIELD LAB 0.1 described READ as a race while canonical READFIELD already existed; 0.2 resolves runtime duplication but retains race only as an optional training projection."
+    "FIELD LAB 0.1 described READ as a race while canonical READFIELD already existed; 0.2 resolves runtime duplication but retains race only as an optional training projection.",
+    "LOCI 0.1 silently limited input to twelve tokens despite Pathweaver lineage requiring CELL→PATH→ADDRESS→VIEW→RETURN; 0.2 groups large text without dropping words and marks layout/grouping as derived."
   ],
-  "next": "If automated proof passes, merge. Then use one real source through READ→LOCI or READ→DATA before widening cross-mode residue.",
+  "next": "If automated proof passes, merge. Then run one genuinely long familiar source through READ→LOCI and judge source-position recovery/recall against a plain chunk baseline before generalizing COURSE.",
   "stop": "Do not add another source store, reader kernel, transport bus, or mode solely to make the Lab feel comprehensive."
 }
