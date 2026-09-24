@@ -22,6 +22,7 @@ try{
   const d=f.contentWindow.document,input=d.getElementById('file'),fixture=await fetch('/fold-bloom/listen/test-fixtures/pulse-120bpm-2s.mp3'),blob=await fixture.blob(),file=new File([blob],'pulse-120bpm-2s.mp3',{type:'audio/mpeg'}),dt=new DataTransfer();dt.items.add(file);input.files=dt.files;input.dispatchEvent(new Event('change',{bubbles:true}));
   const first=await wait(()=>{const s=f.contentWindow.FoldBloomListen?.state?.();return s?.fileMeta?.hash&&s?.map?s:null},26000);
   rec.stage=first.stage;rec.hash=first.fileMeta.hash;rec.sourceTime0=first.time;rec.scope0=first.scope;
+  rec.markButtonsEnabled=!d.getElementById('pinBtn').disabled&&!d.getElementById('pinsBtn').disabled;
   const store=await import('/fold-bloom/local-media-store.js'),sourceId='sha256:'+rec.hash;
   await store.putLocalMedia({sourceId,blob,name:file.name,type:file.type,size:file.size,lastModified:0,meta:{origin:'PHONE_CONTINUITY_SMOKE',durationSeconds:2}});
   await wait(async()=>!!(await store.getLocalMedia(sourceId).catch(()=>null)),5000);
@@ -38,14 +39,15 @@ try{
   const afterAperture=f.contentWindow.FoldBloomListen.state();rec.apertureGesture=afterAperture.gesture;rec.scopeBefore=scopeBefore;rec.scopeAfter=afterAperture.scope;rec.apertureChanged=scopeBefore!==rec.scopeAfter;
 
   f.contentWindow.FoldBloomListen.openPin();await sleep(80);
-  d.getElementById('pinLabel').value='PHONE CONTINUITY';d.getElementById('pinNote').value='real MP3 smoke';d.getElementById('pinSave').click();
+  d.getElementById('pinKind').value='ARC';d.getElementById('pinLabel').value='PHONE CONTINUITY';d.getElementById('pinNote').value='real MP3 smoke';d.getElementById('pinSave').click();
   await wait(()=>f.contentWindow.FoldBloomListen.state().pins.length===1);
-  rec.pinSaved=true;rec.pinAddress=f.contentWindow.FoldBloomListen.state().pins[0].address;
+  const mark=f.contentWindow.FoldBloomListen.state().pins[0];
+  rec.pinSaved=true;rec.pinAddress=mark.address;rec.markKind=mark.kind;rec.markSpan=Number(mark.endAddress)-Number(mark.address);
 
   f.src='/fold-bloom/listen/?source='+encodeURIComponent(sourceId);
   await wait(()=>f.contentWindow?.document?.documentElement?.dataset?.localVaultSource==='ready',26000);
   const reloaded=await wait(()=>{const s=f.contentWindow?.FoldBloomListen?.state?.();return s?.fileMeta?.hash===rec.hash&&s?.pins?.length===1?s:null},16000);
-  rec.pinPersisted=reloaded.pins.length===1;rec.reloadHash=reloaded.fileMeta.hash;
+  rec.pinPersisted=reloaded.pins.length===1&&reloaded.pins[0].kind==='ARC'&&Number(reloaded.pins[0].endAddress)>Number(reloaded.pins[0].address);rec.reloadHash=reloaded.fileMeta.hash;
 
   f.src='/fold-bloom/live/?source='+encodeURIComponent(sourceId)+'&return='+encodeURIComponent('/fold-bloom/listen/');
   await wait(()=>f.contentWindow?.document?.documentElement?.dataset?.localVaultSource==='ready',26000);
@@ -85,7 +87,7 @@ try{
   const evidenceAfter={hash:ls.sourceMeta.hash,sourceHash:ls.linkedTrack?.sourceHash||null,duration:ls.linkedTrack?.duration||null,bpm:ls.linkedTrack?.bpm||null,stage:ls.linkedTrack?.stage||null};
   rec.evidenceStable=JSON.stringify(evidenceBefore)===JSON.stringify(evidenceAfter);
 
-  const ok=['PREVIEW','DEEP'].includes(rec.stage)&&rec.addressGesture==='ADDRESS'&&rec.addressMoved&&rec.apertureGesture==='APERTURE'&&rec.apertureChanged&&rec.pinPersisted&&rec.reloadHash===rec.hash&&rec.liveHash===rec.hash&&rec.liveSource==='LOCAL_FILE'&&rec.returnLink&&rec.terrainVaries&&rec.splitWritten&&rec.branchChosen&&rec.evidenceStable;
+  const ok=['PREVIEW','DEEP'].includes(rec.stage)&&rec.markButtonsEnabled&&rec.addressGesture==='ADDRESS'&&rec.addressMoved&&rec.apertureGesture==='APERTURE'&&rec.apertureChanged&&rec.markKind==='ARC'&&rec.markSpan>0&&rec.pinPersisted&&rec.reloadHash===rec.hash&&rec.liveHash===rec.hash&&rec.liveSource==='LOCAL_FILE'&&rec.returnLink&&rec.terrainVaries&&rec.splitWritten&&rec.branchChosen&&rec.evidenceStable;
   done(ok,rec);
 }catch(error){done(false,{error:String(error?.stack||error),...rec})}
 setTimeout(()=>done(false,{error:'probe timeout',...rec}),52000);
