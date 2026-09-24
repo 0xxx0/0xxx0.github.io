@@ -22,15 +22,25 @@
     "concurrency": {
       "pr_207": "open; coordination-only stale SET→LIVE gate retirement",
       "rule": "Do not mutate CURRENT/stale-gate handoff files in this runtime branch."
+    },
+    "parallel_recovery": {
+      "branch": "fold-bloom-read-loci-notes-2026-09-24",
+      "authority": "research/donor notes only",
+      "recovered_findings": [
+        "READ chrome displaced the reading object; source intake should recede",
+        "LOCI slice(0,12) silently discarded large-source material",
+        "Proof A=READ de-chrome; Proof B=large-text addressed LOCI; do not generalize COURSE yet"
+      ]
     }
   },
   "reconstructed": [
     "The six-projection Lab is useful only when it routes or composes proved mechanisms; a weaker local imitation increases re-entry cost.",
-    "On phone, spatial correspondence is subordinate to reachability: a 3×2 mode rail is a lawful projection of the six-mode topology."
+    "On phone, spatial correspondence is subordinate to reachability: a 3×2 mode rail is a lawful projection of the six-mode topology.",
+    "The parallel READ/LOCI research lane independently converged on a receding-source READ surface and large-source address preservation; those two bounded proofs can be implemented without adopting its later universal COURSE speculation."
   ],
   "implemented": {
     "branch": "fold-bloom-field-lab-readfield-02",
-    "read": "canonical APERTURE/RSVP embedded; trainer demoted",
+    "read": "canonical APERTURE/RSVP embedded; source/edit aperture recedes after binding; trainer demoted; canvas no longer duplicates the active reading word",
     "pulse": "WITNESS / ×4 / OFF + synthetic Lab PULSE transport",
     "carry": [
       "READ→LOCI",
@@ -40,8 +50,10 @@
     "phone": "3×2 thumb mode rail below 700px",
     "proof": [
       "read-bridge Node tests",
-      "430×900 READFIELD boot browser case"
-    ]
+      "course coverage/address Node tests",
+      "430×900 READFIELD boot + source-receded + LOCI boot browser case"
+    ],
+    "loci": "local fold-bloom-lab-course/v0.1 preserves small text directly and groups large text into ≤16 exact text spans without dropping words; explicit RETURN carries source, route and training residue"
   },
   "boundaries": [
     "No new reader kernel.",
@@ -49,16 +61,17 @@
     "No new transport beyond FIELD PULSE.",
     "No source-byte publication.",
     "No automatic semantic alignment between beat and text.",
-    "No CURRENT mutation while PR #207 owns coordination cleanup."
+    "No CURRENT mutation while PR #207 owns coordination cleanup.",
+    "Local COURSE adapter remains a FIELD LAB view object; no shared COURSE core/schema promotion."
   ],
   "use_cases": [
     "music-synced reading: LISTEN/Lab PULSE lends beat witness or explicit BPM×4 pace while READFIELD keeps source cursor authority",
     "study/re-entry: exact reader focus can be carried into DATA as an addressed witness",
-    "memory route: same text can be reprojected into LOCI with approximate source-progress entry",
+    "memory route: the same text can be reprojected into LOCI with exact character-span addresses and a bounded course RETURN; grouping/layout remain derived",
     "accessibility/attention: ordinary RSVP remains useful with pulse completely OFF",
     "performance score: synthetic polyrhythm and text focus can coexist in one browser session without merging authorship",
     "game/tool bridge: existing event tape remains the Beat Saber draft path; Audiosurf remains an external local-audio/mod donor rather than a core dependency"
   ],
-  "next_gate": "Automated CI, then one real-phone source through ordinary READFIELD and one CARRY path. Only promote further cross-mode residue if that reduces re-entry or improves recall.",
+  "next_gate": "Automated CI, then one long familiar phone source through READ→LOCI. Compare re-entry/ordered recall/source-position recovery with a plain chunk list before promoting any shared COURSE mechanism.",
   "return": "/returns/FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json"
 }
