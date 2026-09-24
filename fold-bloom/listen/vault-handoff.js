@@ -1,4 +1,4 @@
-import {getLocalMedia,putLocalMedia,localMediaFile,normalizeLocalMediaId,requestPersistentLocalStorage} from '../local-media-store.js';
+import {getLocalMedia,putLocalMedia,listLocalMedia,localMediaFile,normalizeLocalMediaId,requestPersistentLocalStorage} from '../local-media-store.js';
 
 const $=s=>document.querySelector(s),params=new URLSearchParams(location.search),requested=params.get('source'),returnAddress=params.get('return')||'../set/';
 
@@ -14,6 +14,21 @@ async function hashFile(file){
   return 'sha256:'+Array.from(new Uint8Array(hash),b=>b.toString(16).padStart(2,'0')).join('');
 }
 
+let savedCache=[];
+async function refreshSaved(){
+  const select=$('#savedSource'),open=$('#savedOpen');if(!select)return [];
+  savedCache=(await listLocalMedia().catch(()=>[])).filter(x=>x?.blob).sort((a,b)=>String(b.updatedAt||'').localeCompare(String(a.updatedAt||'')));
+  select.innerHTML=savedCache.length?'<option value="">THIS DEVICE · '+savedCache.length+' TRACKS</option>'+savedCache.map(x=>`<option value="${String(x.sourceId).replaceAll('"','&quot;')}">${String(x.name||x.sourceId).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))}</option>`).join(''):'<option value="">THIS DEVICE · NONE YET</option>';
+  if(open)open.disabled=!savedCache.length;
+  return savedCache;
+}
+async function openSaved(){
+  const id=$('#savedSource')?.value;if(!id)return;
+  const record=await getLocalMedia(id).catch(()=>null);
+  if(!record?.blob){$('#status').textContent='REMEMBERED SOURCE BYTES MISSING';await refreshSaved();return}
+  const ok=dispatchFile(localMediaFile(record));
+  if(!ok)$('#status').textContent='SAVED SOURCE FOUND · BROWSER BLOCKED HANDOFF';
+}
 async function retainFiles(files){
   const xs=[...(files||[])].filter(file=>file.type?.startsWith('audio/')||/\.(mp3|m4a|wav|flac|ogg|aac|webm|mp4)$/i.test(file.name||''));
   if(!xs.length)return;
@@ -24,10 +39,12 @@ async function retainFiles(files){
       await putLocalMedia({sourceId,blob:file,name:file.name,type:file.type,size:file.size,lastModified:file.lastModified||0,meta:{origin:'LISTEN',storedAt:new Date().toISOString()}});
     }catch(error){console.warn('LISTEN local vault store failed',error)}
   }
+  await refreshSaved();
 }
 
 $('#file')?.addEventListener('change',e=>retainFiles(e.target.files),{capture:true});
 $('#drop')?.addEventListener('drop',e=>retainFiles(e.dataTransfer?.files),{capture:true});
+$('#savedOpen')?.addEventListener('click',()=>{void openSaved()});
 
 function dispatchFile(file){
   const input=$('#file');if(!input)return false;
@@ -79,5 +96,5 @@ async function loadRequested(){
   document.documentElement.dataset.localVaultSource='timeout';
 }
 
-loadRequested();
-window.FoldBloomVaultHandoff={requested,returnAddress,loadRequested,retainFiles};
+refreshSaved();loadRequested();
+window.FoldBloomVaultHandoff={requested,returnAddress,loadRequested,retainFiles,refreshSaved,openSaved};
