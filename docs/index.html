@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex,nofollow"><title>READFIELD / RSVP 0.8.1 · Focus Lens</title>
+<meta name="robots" content="noindex,nofollow"><title>READFIELD / RSVP 0.8.2 · Focus Lens</title>
 <style>
 :root{--bg:#090b0c;--ink:#edf0ed;--muted:#88949a;--line:#30383c;--hot:#e87548;--cool:#8dd5ff}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}main{max-width:1100px;margin:auto;padding:16px 14px 60px}header{display:flex;justify-content:space-between;gap:18px;align-items:end;border-bottom:1px solid var(--line);padding:18px 0}h1{margin:0;font-size:clamp(34px,8vw,76px);line-height:.85;letter-spacing:-.06em}.ey{color:var(--hot);font-size:9px;letter-spacing:.16em}nav{display:flex;gap:6px;flex-wrap:wrap}a,button,input{color:var(--ink);background:#0c0f11;border:1px solid var(--line);padding:6px 8px;text-decoration:none;font:10px monospace}button{cursor:pointer}.pulseOn{border-color:var(--cool);color:var(--cool)}.sourcebar{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:5px;align-items:center;margin:10px 0 0}.sourcebar label{font-size:8px;letter-spacing:.12em;color:var(--muted)}.sourcebar input{width:100%;color:var(--cool)}.pasteFold{margin-top:6px;border:1px solid var(--line);background:#080b0d}.pasteFold summary{cursor:pointer;padding:7px 9px;color:var(--muted);font-size:8px;letter-spacing:.12em}.pasteBody{display:grid;grid-template-columns:1fr auto;gap:6px;padding:8px;border-top:1px solid var(--line)}.pasteBody textarea{min-height:92px;resize:vertical;background:#06090a;color:var(--ink);border:1px solid var(--line);padding:8px;font:10px/1.45 ui-monospace,monospace}.pasteNote{grid-column:1/-1;color:var(--muted);font-size:8px}.returnLink{border-color:var(--hot);color:#ffd0bd}.layout{display:block;margin-top:10px}.sourceShelf{border:1px solid var(--line);background:#080b0d;margin-bottom:7px}.sourceShelf summary{cursor:pointer;padding:7px 9px;color:var(--muted);font-size:8px;letter-spacing:.12em}.list{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:4px;padding:6px;border-top:1px solid var(--line)}.doc{width:100%;text-align:left;padding:7px}.doc.on{border-color:var(--cool);background:#10181c}.doc b{display:block}.doc span{color:var(--muted);font-size:8px}.viewer{border:1px solid var(--line);min-height:72vh;overflow:auto;background:#090c0e}.viewerHead{position:sticky;top:0;background:#0c0f11;border-bottom:1px solid var(--line);padding:8px;display:flex;justify-content:space-between;z-index:3}.apStage{padding:9px;border-bottom:1px solid var(--line);background:#080b0dcc}.focusMeta{display:flex;gap:8px;flex-wrap:wrap;padding:7px 10px;border-bottom:1px solid var(--line);color:var(--muted);font-size:8px}.focusMeta b{color:var(--cool)}.reading{padding:16px 18px;white-space:pre-wrap;word-break:break-word;font:clamp(13px,1.7vw,17px)/1.72 ui-monospace,monospace;color:#cdd5d2;min-height:220px;max-height:52vh;overflow:auto;background:#090c0e;scroll-behavior:auto}.reading mark{background:#e87548;color:#090b0c;padding:1px 2px}.reading .edge{color:#5e6b70}.xrefBar{display:grid;grid-template-columns:auto 1fr;gap:8px;align-items:start;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:8px 10px}.xrefBar>b{font-size:7px;letter-spacing:.12em;color:var(--hot);padding-top:5px}.xrefs{display:flex;flex-wrap:wrap;gap:4px}.xrefs a{font-size:8px;padding:4px 6px;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.xrefs a.media{border-color:#9b7bd8;color:#d7c8ff}.xrefs a.source{border-color:var(--cool);color:#cceeff}.rawFold summary{cursor:pointer;padding:8px 10px;color:var(--muted);font-size:9px;letter-spacing:.1em;border-bottom:1px solid var(--line)}.viewer pre{white-space:pre-wrap;word-break:break-word;margin:0;padding:14px;font:11px/1.55 ui-monospace,monospace;color:#cdd5d2}.hint{color:var(--muted);font:12px/1.5 system-ui,sans-serif}.pulseState{align-self:center;color:var(--muted);font-size:8px;letter-spacing:.08em;padding:0 2px}.viewOn{border-color:var(--hot);color:#ffd0bd}.readerUses{margin:8px 0 0;border:1px solid var(--line);background:#080b0d}.readerUses summary{cursor:pointer;padding:7px 9px;color:var(--muted);font-size:8px;letter-spacing:.12em}.useCases{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.useCase{background:#090d0f;padding:9px}.useCase b{display:block;color:var(--ink);font-size:9px;letter-spacing:.08em}.useCase span{display:block;margin-top:5px;color:var(--muted);font:10px/1.45 system-ui,sans-serif}.useLaw{padding:8px 9px;color:#6f7b80;font-size:8px;line-height:1.5;border-top:1px solid var(--line)}@media(max-width:760px){.useCases{grid-template-columns:1fr 1fr}.pulseState{flex:1 0 100%;order:3}.readerUses{margin-top:7px}header{display:block}nav{margin-top:10px}.viewer{min-height:62vh}.reading{max-height:48vh;padding:13px;font-size:14px}.sourcebar{grid-template-columns:1fr auto}.sourcebar label{display:none}}</style>
-</head><body><main><header><div><div class="ey">READFIELD / RSVP 0.8.1 · FOCUS LENS</div><h1>READFIELD.</h1></div><nav><a href="../">FIELD</a><a href="../control/">CURRENT</a><a href="../control/confluence/">CONFLUENCE</a><button id="focusView" type="button">VIEW · PLAIN</button><button id="pulseSync" type="button">PULSE OFF</button><span id="pulseState" class="pulseState">NO LISTEN CLOCK</span></nav></header>
+</head><body><main><header><div><div class="ey">READFIELD / RSVP 0.8.2 · FOCUS LENS</div><h1>READFIELD.</h1></div><nav><a href="../">FIELD</a><a href="../control/">CURRENT</a><a href="../control/confluence/">CONFLUENCE</a><button id="focusView" type="button">VIEW · PLAIN</button><button id="pulseSync" type="button">PULSE OFF</button><span id="pulseState" class="pulseState">NO LISTEN CLOCK</span></nav></header>
 <p class="hint">One source. One position. Change scale, pace, voice or context without losing where you are. PLAIN is the fastest reader; FOCUS restores the AXIAL/LISTEN ring with a Triangle-derived center frame; MIN keeps only the ring + RSVP focus. LISTEN pulse and Atlas glyph remain witnesses, never text authority.</p>
 <details class="readerUses" id="readerUses"><summary>USE CASES / READING MODES</summary><div class="useCases">
-  <div class="useCase"><b>RSVP / FAST READ</b><span>Move WORD ↔ PHRASE ↔ SENTENCE without losing the exact source cursor. WPM changes pace, not identity.</span></div>
-  <div class="useCase"><b>READ TO MUSIC</b><span>From LISTEN, PULSE ×2 / ×4 / ×8 maps track BPM to WPM. The track supplies pace only; READFIELD still owns text and focus.</span></div>
-  <div class="useCase"><b>VOICE + EYES</b><span>VOICE and highlighted context use the same cursor, so you can listen, stop, resume RSVP, or change scale without re-finding your place.</span></div>
-  <div class="useCase"><b>WORK / REPO</b><span>Open CURRENT, code, notes or a page selection. Address + cursor live in the URL; RETURN takes you back to the caller.</span></div>
+  <div class="useCase"><b>RSVP / FAST READ</b><span>Move WORD ↔ PHRASE ↔ SENTENCE without losing the exact source cursor. WPM changes pace, not identity.</span><button data-reader-action="fast">START · 900 WPM</button></div>
+  <div class="useCase"><b>READ TO PULSE</b><span>LISTEN audio or FIELD LAB rhythm can lend tempo. PULSE ×4 maps BPM to WPM; READFIELD still owns text and focus.</span><button data-reader-action="pulse4">USE PULSE ×4</button></div>
+  <div class="useCase"><b>VOICE + EYES</b><span>Speech boundaries and highlighted context use the same cursor, so voice, RSVP and regression do not fork your place.</span><button data-reader-action="voice">START VOICE</button></div>
+  <div class="useCase"><b>WORK / REPO</b><span>Open CURRENT, code, notes or a page selection. Address + cursor live in the URL; RETURN takes you back to the caller.</span><button data-reader-action="current">OPEN CURRENT</button></div>
 </div><div class="useLaw">PULSE is optional and defaults OFF. Borrowed clock ≠ borrowed authorship. RAW source remains available; pasted bytes stay session-local.</div></details>
 <div class="sourcebar"><label for="sourcePath">ADDRESS</label><input id="sourcePath" spellcheck="false" autocomplete="off" placeholder="/control/CURRENT.json"><button id="openPath">OPEN</button></div><details class="pasteFold"><summary>PASTE / LONG TEXT / SERMON</summary><div class="pasteBody"><textarea id="pasteText" placeholder="Paste anything long here. Session-local; not uploaded or written to the repo."></textarea><button id="readPaste">READ</button><div class="pasteNote">Reader state may enter the URL; pasted source bytes do not.</div></div></details>
 <div class="layout"><details class="sourceShelf"><summary>SOURCES / REPOSITORY SHELF</summary><div id="list" class="list"></div></details><section class="viewer"><div class="viewerHead"><b id="title">Choose a document</b><span><button id="copyView">COPY VIEW</button> <a id="returnLink" class="returnLink" href="#" hidden>↩ RETURN</a> <a id="raw" href="#" hidden>RAW ↗</a></span></div><div class="apStage"><field-aperture id="docAperture" reader></field-aperture></div><div class="focusMeta" id="focusMeta"><b>FOCUS —</b><span>scale —</span><span>position —</span></div><div class="reading" id="reading">Select a document from the left.</div><div class="xrefBar"><b>XREF</b><div id="xrefs" class="xrefs"><span class="hint">source / citations / media near focus</span></div></div><details class="rawFold"><summary>RAW SOURCE</summary><pre id="text">Select a document from the left.</pre></details></section></div></main>
@@ -145,11 +145,11 @@ else if(direct)openSource(sourceLabel(direct),direct.pathname+direct.search);
 else if(paste){PT.value=paste;openPaste(paste)}
 else{const wanted=location.hash.slice(1),entry=docs.find(x=>slug(x[0])===wanted)||docs[0];if(entry)openSource(entry[0],entry[1])}
 </script><script type="module">
-import {createFieldPulse} from '../lib/field-pulse.js';
+import {createFieldPulse,transportDescriptor} from '../lib/field-pulse.js';
 const aperture=document.querySelector('#docAperture'),button=document.querySelector('#pulseSync'),pulseState=document.querySelector('#pulseState'),viewButton=document.querySelector('#focusView');
 const fieldPulse=createFieldPulse('READFIELD'),MAX_RSVP_WPM=6000;
 const multipliers=[0,2,4,8],pulseQuery=new URLSearchParams(location.search),requestedPulse=Number(pulseQuery.get('pulse')),views=['PLAIN','FOCUS','MIN'];
-let mode=multipliers.includes(requestedPulse)?multipliers.indexOf(requestedPulse):0,lastTransport=null,lastTransportWall=0,lastWpm=0,lastFocusAt=0;
+let mode=multipliers.includes(requestedPulse)?multipliers.indexOf(requestedPulse):0,lastTransport=null,lastTransportWall=0,lastTransportLabel='NONE',lastTransportClock='NONE',lastWpm=0,lastFocusAt=0;
 let view=String(pulseQuery.get('read_view')||'').toUpperCase();if(!views.includes(view)){try{view=String(localStorage.getItem('readfield.view.v2')||'FOCUS').toUpperCase()}catch(_){view='FOCUS'}}if(!views.includes(view))view='FOCUS';
 function applyView(){
   aperture.toggleAttribute('focusfield',view==='FOCUS'||view==='MIN');aperture.toggleAttribute('minimal',view==='MIN');
@@ -158,8 +158,8 @@ function applyView(){
 }
 viewButton.addEventListener('click',()=>{view=views[(views.indexOf(view)+1)%views.length];try{localStorage.setItem('readfield.view.v2',view)}catch(_){}applyView()});
 function acceptTransport(msg){
-  if(msg?.source!=='FOLD_BLOOM_LISTEN'||msg.kind!=='transport')return false;
-  lastTransport=msg.data||null;lastTransportWall=Number(msg.wall)||Date.now();aperture.setExternalPulse?.(lastTransport);return true;
+  const clock=transportDescriptor(msg);if(!clock)return false;
+  lastTransport=clock.data||null;lastTransportWall=clock.wall||Date.now();lastTransportLabel=clock.label;lastTransportClock=clock.clock;aperture.setExternalPulse?.(lastTransport);return true;
 }
 acceptTransport(fieldPulse.last());
 function paint(){
@@ -167,13 +167,23 @@ function paint(){
   const age=lastTransportWall?Date.now()-lastTransportWall:Infinity,live=!!lastTransport&&age<3000&&!!lastTransport.playing;
   button.classList.toggle('pulseOn',!!mult);
   button.textContent=mult?(wpm?`PULSE ×${mult} · ${wpm}`:`PULSE ×${mult} · WAIT`):'PULSE OFF';
-  if(pulseState)pulseState.textContent=bpm?`${live?'LIVE':'LAST'} LISTEN · ${Math.round(bpm)} BPM`:'NO LISTEN CLOCK';
+  if(pulseState)pulseState.textContent=bpm?`${live?'LIVE':'LAST'} ${lastTransportLabel} · ${Math.round(bpm)} BPM · ${lastTransportClock}`:'NO FIELD PULSE CLOCK';
 }
 function apply(){
   const mult=multipliers[mode],bpm=Number(lastTransport?.bpm)||0;if(!mult||!bpm)return;
   const wpm=Math.max(60,Math.min(MAX_RSVP_WPM,Math.round(bpm*mult)));
   if(wpm!==lastWpm&&typeof aperture.setWpm==='function'){lastWpm=wpm;aperture.setWpm(wpm)}
 }
+document.querySelectorAll('[data-reader-action]').forEach(b=>b.addEventListener('click',()=>{
+  const action=b.dataset.readerAction;
+  if(action==='fast'){
+    view='PLAIN';try{localStorage.setItem('readfield.view.v2',view)}catch(_){}applyView();
+    aperture.setWpm?.(900);if(!aperture.snapshot?.()?.playing)aperture.toggleRSVP?.();return;
+  }
+  if(action==='pulse4'){mode=multipliers.indexOf(4);lastWpm=0;apply();paint();return}
+  if(action==='voice'){aperture.speak?.();return}
+  if(action==='current'){location.href='/docs/?src=%2Fcontrol%2FCURRENT.json'}
+}));
 button.addEventListener('click',()=>{
   mode=(mode+1)%multipliers.length;lastWpm=0;
   try{localStorage.setItem('readfield.pulse.mult.v0',String(multipliers[mode]))}catch(_){}
