@@ -1,0 +1,59 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "HERMES_VISION_LOOP_SKILLS_2026-09-24",
+  "created_at": "2026-09-24T10:34:00+08:00",
+  "state": "CANDIDATE_METHOD_LAYER",
+  "delta": {
+    "charter": "/control/prompts/HERMES_VISION_LOOP_2026-09-24.md",
+    "skills": [
+      "/skills/research-design-loop/SKILL.md",
+      "/skills/design-engineering-review/SKILL.md",
+      "/skills/mechanism-extractor/SKILL.md",
+      "/skills/lived-use-gate/SKILL.md"
+    ],
+    "lanes": [
+      "/control/packets/HERMES_FOLD_BLOOM_REPLAY_MESSAGE_LANE_2026-09-24.md",
+      "/control/packets/HERMES_FOLD_BLOOM_VISUAL_GRAMMAR_LANE_2026-09-24.md"
+    ]
+  },
+  "laws": [
+    "RECOVER BEFORE INVENTING",
+    "QUESTION → HYPOTHESIS → SPECIMEN → ENCOUNTER → EVIDENCE → DISPOSITION → RETURN → LOOP",
+    "SUBSTANCE GENERATES FORM",
+    "A SKILL IS EARNED BY RECURRENCE + DEMONSTRATED TRANSFER, NOT BY SOUNDING GENERAL"
+  ],
+  "authority": {
+    "active_front": false,
+    "canonical_truth": false,
+    "merge_authority": false,
+    "role": "method + isolated research handoff",
+    "current_and_ultra_master_override": true
+  },
+  "evidence": {
+    "cold_start_refs": [
+      "/control/CURRENT.json#references.hermes_vision_loop",
+      "/control/confluence/README.md",
+      "/control/prompts/HERMES_ULTRA_MASTER_2026-09-23.md",
+      "/control/prompts/HERMES_CROSS_SESSION_CONVERGENCE_2026-09-24.md"
+    ],
+    "skill_maturity": "CANDIDATE",
+    "reason": "Procedures are explicit but have not yet each passed a documented second-context application."
+  },
+  "value": [
+    "permits ambitious AFK generative work without automatic architecture promotion",
+    "separates technical proof from lived-use promotion",
+    "creates an explicit compost/transfer path for failed or partial experiments",
+    "allows recurring cross-domain mechanisms to become skills only after evidence",
+    "splits Fold/Bloom replay/message and visual grammar experiments away from canonical LIVE ownership"
+  ],
+  "next": [
+    "run one Hermes replay/message specimen loop",
+    "run one Hermes visual grammar A/B specimen loop",
+    "apply at least one candidate skill in a second context before promoting it to PROVED"
+  ],
+  "stop": [
+    "do not create more skills until recurrence demonstrates a missing method",
+    "do not let isolated specimens edit canonical LIVE",
+    "do not treat CI as lived-value proof"
+  ]
+}
