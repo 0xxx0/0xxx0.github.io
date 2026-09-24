@@ -1,0 +1,25 @@
+{
+  "schema": "return/v1",
+  "id": "FOLD_BLOOM_VOICE_01_2026-09-24",
+  "status": "IMPLEMENTED_CANDIDATE_PENDING_CI",
+  "object": "FOLD//BLOOM VOICE 0.1",
+  "changed_object": "FIELD PULSE now has a concrete human singing-practice consumer: local mic pitch/stability + optional borrowed beat timing.",
+  "evidence": [
+    "/fold-bloom/voice/",
+    "/fold-bloom/voice/release.json",
+    "/fold-bloom/voice/tests/pitch.test.mjs",
+    "/control/confluence/FOLD_BLOOM_VOICE_01_2026-09-24.json"
+  ],
+  "verification": {
+    "pitch_core": "PENDING_CI",
+    "public_surface": "PENDING_CI",
+    "human_phone": "REQUIRED"
+  },
+  "waiting": [
+    "One 60-second held-note phone session.",
+    "One FIELD LAB PULSE-linked 1-3-5-3 phone session."
+  ],
+  "contradictions": [],
+  "next": "Verify CI, then test the two phone practice cases before adding voice features.",
+  "stop": "No speech recognition, lyric scoring, cloud voice model or new clock architecture in this pass."
+}
