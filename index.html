@@ -45,8 +45,9 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 .syncLine>a{color:var(--gold)}.syncLine b{letter-spacing:.12em}.syncLine .syncLocal{min-width:0;color:var(--cool)}.syncLine #syncFocus{display:inline-block;max-width:34ch;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom;white-space:nowrap}.syncLine #syncRepo{margin-left:auto;color:var(--mut)}
 .truthLine{display:flex;align-items:center;gap:5px 13px;flex-wrap:wrap;padding:4px 2px;color:var(--mut);font-size:6px;letter-spacing:.06em}.truthLine b{font-weight:700;color:var(--ink)}.truthLine .host{color:var(--gold)}.truthLine .local{color:var(--cool)}
 .touchList{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#080b0d}
-.touchRow{display:grid;grid-template-columns:58px minmax(0,1fr) 68px;gap:8px;align-items:center;padding:4px 3px;border-bottom:1px solid #1b2429}
-.touchRow:last-child{border-bottom:0}.touchRow:hover{background:#0d1316}.touchRow code{color:var(--gold);font:6.3px ui-monospace,monospace}.touchRow b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:650 7.5px/1.2 system-ui,sans-serif}.touchRow span{text-align:right;color:var(--mut);font-size:5.8px}.touchFail{padding:7px 3px;color:var(--mut);font-size:7px}
+.touchCommit{border-bottom:1px solid #1b2429}.touchCommit:last-child{border-bottom:0}.touchCommit>summary{list-style:none;cursor:pointer}.touchCommit>summary::-webkit-details-marker{display:none}.touchCommit[open]>summary{background:#0d1316}
+.touchRow{display:grid;grid-template-columns:58px minmax(0,1fr) 68px;gap:8px;align-items:center;padding:4px 3px}.touchRow:hover{background:#0d1316}.touchRow code{color:var(--gold);font:6.3px ui-monospace,monospace}.touchRow b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:650 7.5px/1.2 system-ui,sans-serif}.touchRow span{text-align:right;color:var(--mut);font-size:5.8px}
+.touchFiles{padding:4px 3px 5px 69px;border-top:1px solid #121a1e}.touchImpact{color:var(--mut);font-size:6px;margin-bottom:3px}.touchFile{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:2px 0;border-top:1px solid #11191d}.touchFile:first-of-type{border-top:0}.touchFile code{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#95a1a5;font-size:6px}.touchRouteTag{color:var(--cool);font-size:5.8px;white-space:nowrap}.touchRouteTag.shared{color:var(--gold)}.touchCommitLink{display:inline-block;margin-top:4px;color:var(--gold);font-size:6px}.touchFail{padding:7px 3px;color:var(--mut);font-size:7px}
 .routeProjection{margin-top:6px;border-top:1px solid var(--line)}.routeProjection>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:8px;padding:6px 2px;color:var(--mut)}.routeProjection>summary::-webkit-details-marker{display:none}.routeProjection>summary b{font-size:7px;letter-spacing:.11em;color:var(--ink)}.routeProjection>summary span{font-size:6.5px}
 .feedDay{flex:none;align-self:stretch;display:grid;place-items:center;padding:0 3px;border-left:1px solid #20282c;border-right:1px solid #20282c;color:#59666c;font:5.5px/1 ui-monospace,monospace;letter-spacing:.05em;writing-mode:vertical-rl;transform:rotate(180deg)}
 @media(max-width:760px){.syncLine #syncRepo{margin-left:0}.touchRow{grid-template-columns:52px minmax(0,1fr)}.touchRow span{display:none}.truthLine{gap:4px 9px}}
@@ -77,7 +78,7 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 #foveaToggle.on{color:var(--gold);border-color:var(--gold)}
 /* FOLDS */
 .fold{margin-top:12px;border-top:1px solid var(--line)}.fold>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:10px;padding:8px 2px;color:var(--mut)}.fold>summary::-webkit-details-marker{display:none}.fold>summary b{color:var(--ink);font-size:8px;letter-spacing:.12em}.fold>summary span{font-size:7px}.fold[open]>summary{border-bottom:1px solid var(--line)}.foldBody{padding:7px 0}
-.issueRow,.headRow,.portRow{display:grid;grid-template-columns:42px minmax(0,1fr) 112px auto;gap:8px;align-items:center;padding:7px 3px;border-bottom:1px solid #20282c}.issueRow:hover,.headRow:hover,.portRow:hover{background:#0b1012}.issueNo{color:var(--hot);font:800 11px system-ui,sans-serif}.rowTitle{font:750 11px/1.12 system-ui,sans-serif}.rowMeta{color:var(--mut);font-size:6.5px;margin-top:2px}.tiny{font-size:6.5px;color:var(--gold)}.tinyButton{border:1px solid var(--line);padding:5px 6px;font-size:7px}.tinyButton.hot{border-color:var(--hot);color:#ffd0bd}.waitRow{display:grid;grid-template-columns:82px minmax(0,1fr) 120px 56px;gap:8px;align-items:start;padding:7px 3px;border-bottom:1px solid #20282c}.waitRow.done{opacity:.42}.waitRow.done .waitMove{text-decoration:line-through}.waitState{font-size:6.5px;color:var(--gold);letter-spacing:.05em}.waitMove{font:750 10px/1.25 system-ui,sans-serif}.waitWhy{color:var(--mut);font-size:6.5px;margin-top:3px}.waitRoute{font-size:6.5px;color:var(--cool);text-align:right}.waitAck{padding:4px 5px;font-size:6px;min-height:24px}.waitRow.done .waitAck{color:var(--green);border-color:#49684e}
+.issueRow,.headRow,.portRow{display:grid;grid-template-columns:42px minmax(0,1fr) 112px auto;gap:8px;align-items:center;padding:7px 3px;border-bottom:1px solid #20282c}.issueRow:hover,.headRow:hover,.portRow:hover{background:#0b1012}.issueNo{color:var(--hot);font:800 11px system-ui,sans-serif}.rowTitle{font:750 11px/1.12 system-ui,sans-serif}.rowMeta{color:var(--mut);font-size:6.5px;margin-top:2px}.tiny{font-size:6.5px;color:var(--gold)}.tinyButton{border:1px solid var(--line);padding:5px 6px;font-size:7px}.tinyButton.hot{border-color:var(--hot);color:#ffd0bd}.waitRow{display:grid;grid-template-columns:82px minmax(0,1fr) 120px 56px;gap:8px;align-items:start;padding:7px 3px;border-bottom:1px solid #20282c}.waitRow.done{opacity:.42}.waitRow.done .waitMove{text-decoration:line-through}.waitState{font-size:6.5px;color:var(--gold);letter-spacing:.05em}.waitState small{display:block;color:var(--mut);font-size:5.5px;letter-spacing:.04em;margin-top:2px}.waitMove{font:750 10px/1.25 system-ui,sans-serif}.waitWhy{color:var(--mut);font-size:6.5px;margin-top:3px}.waitRoute{font-size:6.5px;color:var(--cool);text-align:right}.waitAck{padding:4px 5px;font-size:6px;min-height:24px}.waitRow.done .waitAck{color:var(--green);border-color:#49684e}
 
 /* MAP */
 .mapTools{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:6px}.mapTools button,.mapTools input{min-height:28px;padding:5px 7px;font-size:7px}.mapTools button.on{border-color:var(--cool);color:var(--cool)}.mapTools input{width:200px}
@@ -206,8 +207,8 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   <div class="foldBody" id="ports"></div>
 </details>
 
-<details class="fold">
-  <summary><b>HEALTH / SUPPORT</b><span>audits · return · selftest</span></summary>
+<details class="fold" data-status-static="1">
+  <summary><b>AUDITS / HISTORICAL</b><span>2026-09-21 snapshots · RETURN + live selftest</span></summary>
   <div class="foldBody health"><a href="./control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json"><b>SITEMAP</b><span>coverage</span></a><a href="./control/FIELD_INDEX_ROUTE_HEALTH_2026-09-21.json"><b>ROUTES</b><span>metadata</span></a><a href="./control/FIELD_INDEX_LINK_AUDIT_2026-09-21.json"><b>LINKS</b><span>integrity</span></a><a href="./returns/"><b>RETURN</b><span>receipts</span></a><a href="./showcase-selftest/"><b>SELFTEST</b><span>validator</span></a></div>
 </details>
   </div>
@@ -224,7 +225,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-let manifest,current,routes=[],latest=[],repoTouches=[],latestLimit=30,focus=null,headSet=new Set,nowSet=new Set,issues=[],waiting=[],mapMode='VISUAL',mapRoot='/',mapSelected='/',mapQuery='',supportTrail=[];
+let manifest,current,routes=[],latest=[],repoTouches=[],repoTouchFiles=new Map,latestLimit=30,focus=null,headSet=new Set,nowSet=new Set,issues=[],waiting=[],waitingSource=[],waitingUpdated='',mapMode='VISUAL',mapRoot='/',mapSelected='/',mapQuery='',supportTrail=[];
 const INIT=new URLSearchParams(location.search),axisState={state:'ANY',operation:'ANY',mode:'ANY'},scrollTimers={};let axisScrollMuteUntil=0;
 const TRIAL_KEY='field.axial.latest.trial.v01';
 let trial={schema:'field-axial-trial/v0.1',axial_focus:0,latest_focus:0,other_focus:0,dead:0,opens:{AXIAL:0,LATEST:0,OTHER:0},open_ms:{AXIAL:0,LATEST:0,OTHER:0},last_source:null,last_at:null};
@@ -336,13 +337,15 @@ function renderAperture(){
  ['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';$('apGlyph').innerHTML=routeGlyph(focus,34);$('apMeta').textContent=[focus.state||'—',opOf(focus),modesOf(focus).join(' · ')].join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(shortTs(focus.index?.updated_at)||'UNTRACKED');$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed repository surface.';$('apOpen').href='.'+(focus.alias_of||focus.href);
 }
 function updateStatusRail(){
-  const w=document.getElementById('statusFold'), el=document.getElementById('sRail');
-  if(!w||!el) return;
-  el.innerHTML=[...w.querySelectorAll('.foldBody > details.fold > summary')].map(sm=>{
-    const b=sm.querySelector('b'), sp=sm.querySelector('span');
-    const t=String(b?b.textContent:'').replace(/\s*\/.*$/,'').trim();
-    return '<i>'+esc(t)+'</i><u>'+esc(sp?sp.textContent:'')+'</u>';
-  }).join('');
+  const el=document.getElementById('sRail');if(!el)return;
+  const rows=[
+    ['YOU',$('waitingMeta')?.textContent],
+    ['ISSUES',$('issueMeta')?.textContent],
+    ['HEADS',$('headMeta')?.textContent],
+    ['MAP',$('mapMeta')?.textContent],
+    ['PORTS',$('portMeta')?.textContent]
+  ].filter(x=>x[1]&&!/^loading/.test(x[1]));
+  el.innerHTML=rows.map(([t,v])=>'<i>'+esc(t)+'</i><u>'+esc(v)+'</u>').join('')||'loading…';
 }
 function renderSyncLine(){
  const cur=$('syncCurrent'),rep=$('syncRepo'),loc=$('syncFocus');if(!cur||!rep||!loc)return;
@@ -351,12 +354,43 @@ function renderSyncLine(){
  loc.textContent=(focus?.href||'/')+(focus?.state?' · '+focus.state:'');
  const c=repoTouches[0];rep.textContent=c?'HEAD '+c.sha.slice(0,8)+' · '+shortTs(c.date):'HEAD —';
 }
+function routeForRepoFile(path){
+ const raw=String(path||'').replace(/^\/+/,''),p='/'+raw;
+ const hits=routes.filter(r=>r.href&&r.href!=='/'&&(p===r.href.replace(/\/$/,'')||p.startsWith(r.href))).sort((a,b)=>b.href.length-a.href.length);
+ if(hits[0])return{label:hits[0].href,href:hits[0].href,shared:false};
+ if(raw==='index.html'||raw==='showcase-manifest.json'||/^field-|^lens-state\.js$|^policy-/.test(raw))return{label:'/',href:'/',shared:false};
+ if(/^control\//.test(raw))return{label:'Φ control',href:'/control/',shared:true};
+ if(/^returns\//.test(raw))return{label:'↩ return',href:'/returns/',shared:true};
+ if(/^(?:lib|scripts|tools|\.github)\//.test(raw))return{label:'shared / repo',href:null,shared:true};
+ return{label:'repo',href:null,shared:true};
+}
+function renderCommitFiles(sha){
+ const box=document.querySelector('[data-touch-files="'+sha+'"]'),c=repoTouchFiles.get(sha);if(!box)return;
+ if(!c){box.innerHTML='<div class="touchFail">loading exact changed paths…</div>';return}
+ if(c.error){box.innerHTML='<div class="touchFail">Exact changed paths unavailable for this commit.</div>';return}
+ const files=c.files||[],targets=files.map(f=>routeForRepoFile(f.filename)),routeCount=new Set(targets.filter(t=>t.href&&t.href!=='/control/'&&t.href!=='/returns/').map(t=>t.href)).size,shared=targets.filter(t=>t.shared).length;
+ box.innerHTML='<div class="touchImpact">'+files.length+' files · '+routeCount+' addressed route'+(routeCount===1?'':'s')+' · '+shared+' shared/control/return touch'+(shared===1?'':'es')+'</div>'+
+ files.map((f,i)=>{const t=targets[i],tag=t.href?'<a class="touchRouteTag '+(t.shared?'shared':'')+'" href="'+esc(t.href)+'">'+esc(t.label)+'</a>':'<span class="touchRouteTag shared">'+esc(t.label)+'</span>';return '<div class="touchFile"><code title="'+esc(f.filename)+'">'+esc(f.filename)+'</code>'+tag+'</div>'}).join('')+
+ '<a class="touchCommitLink" href="'+esc(c.url)+'" target="_blank" rel="noopener">COMMIT ↗</a>';
+}
+async function loadCommitFiles(sha){
+ if(repoTouchFiles.has(sha)){renderCommitFiles(sha);return}
+ renderCommitFiles(sha);
+ const c=repoTouches.find(x=>x.sha===sha),ctrl=new AbortController(),timeout=setTimeout(()=>ctrl.abort(),3200);
+ try{
+  const live=await fetch('https://api.github.com/repos/0xxx0/0xxx0.github.io/commits/'+encodeURIComponent(sha),{headers:{Accept:'application/vnd.github+json'},signal:ctrl.signal}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()});
+  repoTouchFiles.set(sha,{files:Array.isArray(live.files)?live.files:[],url:live.html_url||c?.url||''});
+ }catch(_){repoTouchFiles.set(sha,{error:true,files:[],url:c?.url||''})}finally{clearTimeout(timeout)}
+ renderCommitFiles(sha);
+}
 function renderRepoTouches(){
  const box=$('touchList'),meta=$('touchMeta');if(!box||!meta)return;
  const xs=repoTouches.slice(0,16);
  if(!xs.length){meta.textContent='master · live chronology unavailable';box.innerHTML='<div class="touchFail">Live GitHub chronology unavailable; manifest projection remains below.</div>';renderSyncLine();return}
- meta.textContent=repoTouches.length+' exact commits loaded · newest '+shortTs(xs[0].date);
- box.innerHTML=xs.map(c=>'<a class="touchRow" href="'+esc(c.url)+'" target="_blank" rel="noopener"><code>'+esc(c.sha.slice(0,8))+'</code><b>'+esc(c.subject)+'</b><span>'+esc(shortTs(c.date))+'</span></a>').join('');
+ meta.textContent=repoTouches.length+' exact commits · open row = exact files / route + shared touches · newest '+shortTs(xs[0].date);
+ box.innerHTML=xs.map((c,i)=>'<details class="touchCommit" data-sha="'+esc(c.sha)+'"'+(i===0?' open':'')+'><summary class="touchRow"><code>'+esc(c.sha.slice(0,8))+'</code><b>'+esc(c.subject)+'</b><span>'+esc(shortTs(c.date))+'</span></summary><div class="touchFiles" data-touch-files="'+esc(c.sha)+'"><div class="touchFail">open to resolve exact changed paths…</div></div></details>').join('');
+ box.querySelectorAll('.touchCommit').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)loadCommitFiles(d.dataset.sha)}));
+ const first=box.querySelector('.touchCommit[open]');if(first)loadCommitFiles(first.dataset.sha);
  renderSyncLine();
 }
 async function loadRepoTouches(){
@@ -382,18 +416,31 @@ function renderFeed(){
 }
 const WAIT_LOCAL='field.waiting.local.v01';
 function waitingLocal(){try{return JSON.parse(localStorage.getItem(WAIT_LOCAL)||'{}')||{}}catch(_){return{}}}
-function toggleWaitingLocal(id){const m=waitingLocal();if(m[id])delete m[id];else m[id]={done_at:new Date().toISOString()};try{localStorage.setItem(WAIT_LOCAL,JSON.stringify(m))}catch(_){}renderWaiting(waiting)}
-function renderWaiting(xs){
- waiting=xs||[];const local=waitingLocal(),open=waiting.filter(x=>!local[x.id]).length,done=waiting.length-open;
- $('waitingMeta').textContent=open+' waiting'+(done?' · '+done+' done local':'')+' · not queue';
- const ordered=waiting.slice().sort((a,b)=>(!!local[a.id])- (!!local[b.id]));
- $('waitingList').innerHTML=ordered.map(x=>{const isDone=!!local[x.id];return '<div class="waitRow'+(isDone?' done':'')+'" data-wait="'+esc(x.id||'')+'"><div class="waitState">'+(isDone?'DONE LOCAL':esc(x.state||'WAITING'))+'</div><div><div class="waitMove">'+esc(x.human_move||'')+'</div><div class="waitWhy">'+esc(x.why||'')+(x.unlocks?' · unlocks: '+esc(x.unlocks):'')+'</div><div class="waitRoute">'+esc(x.route||'')+'</div></div><div></div><button class="waitAck" data-wait-ack="'+esc(x.id||'')+'">'+(isDone?'UNDO':'DONE')+'</button></div>'}).join('')||'<div class="waitRow"><div class="waitState">CLEAR</div><div class="waitMove">Nothing currently depends on human/world evidence.</div><div></div></div>';
- $('waitingList').querySelectorAll('[data-wait-ack]').forEach(b=>b.addEventListener('click',()=>toggleWaitingLocal(b.dataset.waitAck)));
+function currentHumanGates(){
+ return (current?.current_heads||[]).flatMap(h=>{
+  const n=h.next_executable,state=String(n?.state||'');
+  if(!n||!/HUMAN|ORDINARY_USE|REAL_DEVICE|PRIVATE|PHYSICAL|WAIT/.test(state))return[];
+  const detail=(n.human_questions||n.acceptance||[]),hint=detail[0]||'Return one observed delta from ordinary use.';
+  return[{id:n.id||('current-human-'+String(h.lineage||h.route).replace(/[^a-z0-9]+/gi,'-').toLowerCase()),route:h.route,state:state||'WAITING_ON_HUMAN',human_move:n.objective||hint,why:'Derived from CURRENT.current_heads[].next_executable; '+hint,unlocks:'A concrete RETURN can change '+(h.head||h.lineage||h.route)+'.',source:'CURRENT'}];
+ });
 }
-async function loadWaiting(){try{const w=await fetch('./control/WAITING.json',{cache:'no-store'}).then(r=>r.json());renderWaiting(w.items||[])}catch(_){renderWaiting([])}}
+function mergeWaiting(xs){
+ const m=new Map((xs||[]).filter(x=>x&&x.id).map(x=>[x.id,{...x,source:'WAITING'}]));
+ for(const x of currentHumanGates()){const old=m.get(x.id);m.set(x.id,old?{...x,...old,source:'WAITING + CURRENT'}:x)}
+ return [...m.values()];
+}
+function toggleWaitingLocal(id){const m=waitingLocal();if(m[id])delete m[id];else m[id]={done_at:new Date().toISOString()};try{localStorage.setItem(WAIT_LOCAL,JSON.stringify(m))}catch(_){}renderWaiting()}
+function renderWaiting(xs){
+ if(Array.isArray(xs))waitingSource=xs;waiting=mergeWaiting(waitingSource);const local=waitingLocal(),open=waiting.filter(x=>!local[x.id]).length,done=waiting.length-open,derived=waiting.filter(x=>String(x.source||'').includes('CURRENT')).length;
+ $('waitingMeta').textContent=open+' human/world gates'+(derived?' · '+derived+' live CURRENT':'')+(done?' · '+done+' done local':'')+' · WAITING '+(shortTs(waitingUpdated)||'—');
+ const ordered=waiting.slice().sort((a,b)=>(!!local[a.id])- (!!local[b.id]));
+ $('waitingList').innerHTML=ordered.map(x=>{const isDone=!!local[x.id];return '<div class="waitRow'+(isDone?' done':'')+'" data-wait="'+esc(x.id||'')+'"><div class="waitState">'+(isDone?'DONE LOCAL':esc(x.state||'WAITING'))+'<small>'+esc(x.source||'WAITING')+'</small></div><div><div class="waitMove">'+esc(x.human_move||'')+'</div><div class="waitWhy">'+esc(x.why||'')+(x.unlocks?' · unlocks: '+esc(x.unlocks):'')+'</div><div class="waitRoute">'+esc(x.route||'')+'</div></div><div></div><button class="waitAck" data-wait-ack="'+esc(x.id||'')+'">'+(isDone?'UNDO':'DONE')+'</button></div>'}).join('')||'<div class="waitRow"><div class="waitState">CLEAR</div><div class="waitMove">Nothing currently depends on human/world evidence.</div><div></div></div>';
+ $('waitingList').querySelectorAll('[data-wait-ack]').forEach(b=>b.addEventListener('click',()=>toggleWaitingLocal(b.dataset.waitAck)));updateStatusRail();
+}
+async function loadWaiting(){try{const w=await fetch('./control/WAITING.json',{cache:'no-store'}).then(r=>r.json());waitingUpdated=w.updated||'';renderWaiting(w.items||[])}catch(_){waitingUpdated='';renderWaiting([])}}
 function renderIssues(xs){
  issues=xs||[];const sorted=issues.slice().sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||'')));$('issueMeta').textContent=sorted.length+' open · '+sorted.filter(x=>x.play_safe).length+' playable';
- $('issueList').innerHTML=sorted.map(x=>'<div class="issueRow"><div class="issueNo">#'+esc(x.number)+'</div><div><a class="rowTitle" href="'+esc(x.html_url)+'" target="_blank" rel="noopener">'+esc(x.title)+'</a><div class="rowMeta">'+esc(shortTs(x.updated_at))+'</div></div><div class="tiny">'+esc(x.disposition||'PUBLIC_REPO')+'</div>'+(x.play_safe?'<a class="tinyButton hot" href="./field-play.html#issue='+x.number+'">PLAY</a>':'<span class="tinyButton">HOLD</span>')+'</div>').join('')||'<div class="issueRow"><div>No open issues.</div></div>';renderFeed();
+ $('issueList').innerHTML=sorted.map(x=>'<div class="issueRow"><div class="issueNo">#'+esc(x.number)+'</div><div><a class="rowTitle" href="'+esc(x.html_url)+'" target="_blank" rel="noopener">'+esc(x.title)+'</a><div class="rowMeta">'+esc(shortTs(x.updated_at))+'</div></div><div class="tiny">'+esc(x.disposition||'PUBLIC_REPO')+'</div>'+(x.play_safe?'<a class="tinyButton hot" href="./field-play.html#issue='+x.number+'">PLAY</a>':'<span class="tinyButton">HOLD</span>')+'</div>').join('')||'<div class="issueRow"><div>No open issues.</div></div>';renderFeed();updateStatusRail();
 }
 async function loadIssues(){
  let snap={issues:[]};try{snap=await fetch('./control/FIELD_ISSUES.json',{cache:'no-store'}).then(r=>r.json());renderIssues(snap.issues||[])}catch(_){}
@@ -402,11 +449,13 @@ async function loadIssues(){
  try{const live=await fetch('https://api.github.com/repos/0xxx0/0xxx0.github.io/issues?state=open&per_page=100',{headers:{Accept:'application/vnd.github+json'},signal:ctrl.signal}).then(r=>{if(!r.ok)throw Error(r.status);return r.json()});const pol=new Map((snap.issues||[]).map(x=>[x.number,x]));renderIssues(live.filter(x=>!x.pull_request).map(x=>{const p=pol.get(x.number)||{};return{number:x.number,title:x.title,updated_at:x.updated_at,html_url:x.html_url,play_safe:!!p.play_safe,disposition:p.disposition||'PUBLIC_REPO'}}))}catch(_){}finally{clearTimeout(timeout)}
 }
 function renderHeads(){
- const hs=current?.current_heads||[];$('headMeta').textContent=hs.length+' retained';$('headList').innerHTML=hs.map(h=>'<button class="headRow" data-href="'+esc(h.route)+'"><div>'+routeGlyph(routeMap().get(h.route)||{href:h.route,state:h.state,kind:'artifact'},23)+'</div><div><div class="rowTitle">'+esc(h.head)+'</div><div class="rowMeta">'+esc(h.retained_function||'')+'</div></div><div class="tiny">'+esc(h.state)+'</div><span>FOCUS / OPEN</span></button>').join('');$('headList').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,'OTHER')});
+ const hs=current?.current_heads||[];$('headMeta').textContent=hs.length+' retained · CURRENT '+(current?.updated||'—');
+ $('headList').innerHTML=hs.map(h=>{const r=routeMap().get(h.route),fresh=shortTs(r?.index?.updated_at)||'unindexed',state=r?.state||'NO MANIFEST ROUTE';return '<button class="headRow" data-href="'+esc(h.route)+'"><div>'+routeGlyph(r||{href:h.route,state:h.state,kind:'artifact'},23)+'</div><div><div class="rowTitle">'+esc(h.head)+'</div><div class="rowMeta">'+esc(h.retained_function||'')+' · manifest '+esc(fresh)+'</div></div><div class="tiny">'+esc(h.state)+' / '+esc(state)+'</div><span>FOCUS / OPEN</span></button>'}).join('');
+ $('headList').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,'OTHER')});updateStatusRail();
 }
 function renderPorts(){
- const xs=routes.flatMap(r=>(r.field?.exit_paths||[]).filter(e=>e.status!=='AVAILABLE').map(e=>({r,e})));$('portMeta').textContent=xs.length+' unresolved';
- $('ports').innerHTML=xs.map(x=>'<button class="portRow" data-href="'+esc(x.r.href)+'"><div>'+routeGlyph(x.r,22)+'</div><div><div class="rowTitle">'+esc(x.r.title)+'</div><div class="rowMeta">'+esc(x.e.via||'unspecified')+'</div></div><div class="tiny">'+esc(x.e.status||'OPEN')+'</div><span>FOCUS / OPEN</span></button>').join('');$('ports').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>focusOrOpen(routeMap().get(b.dataset.href),'OTHER'));
+ const xs=routes.flatMap(r=>(r.field?.exit_paths||[]).filter(e=>e.status!=='AVAILABLE').map(e=>({r,e})));$('portMeta').textContent=xs.length+' unresolved · manifest '+(manifest?.updated||'—');
+ $('ports').innerHTML=xs.map(x=>'<button class="portRow" data-href="'+esc(x.r.href)+'"><div>'+routeGlyph(x.r,22)+'</div><div><div class="rowTitle">'+esc(x.r.title)+'</div><div class="rowMeta">'+esc(x.e.via||'unspecified')+' · '+esc(shortTs(x.r.index?.updated_at)||'unindexed')+'</div></div><div class="tiny">'+esc(x.e.status||'OPEN')+'</div><span>FOCUS / OPEN</span></button>').join('');$('ports').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>focusOrOpen(routeMap().get(b.dataset.href),'OTHER'));updateStatusRail();
 }
 
 /* MAP shares the same focus */
@@ -428,7 +477,7 @@ function renderMap(){
    return '<button class="mapRow" data-href="'+esc(r.href)+'"><div>'+routeGlyph(r,22)+'</div><div><div class="rowTitle">'+esc(r.title||r.href)+'</div><div class="rowMeta">'+esc(meta)+'</div></div><div class="tiny">'+esc(tail)+'</div></button>'
  }).join('');
  list.querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>focusOrOpen(routeMap().get(b.dataset.href),'OTHER'));
- $('mapMeta').textContent=xs.length+' '+mapMode.toLowerCase()+' items';
+ $('mapMeta').textContent=xs.length+' '+mapMode.toLowerCase()+' items · manifest '+(manifest?.updated||'—');updateStatusRail();
 }
 function renderMapSvg(){
  const svg=$('fieldMap');svg.innerHTML='';const NS='http://www.w3.org/2000/svg',el=(n,a={})=>{const e=document.createElementNS(NS,n);for(const[k,v]of Object.entries(a))e.setAttribute(k,v);return e};
@@ -436,12 +485,12 @@ function renderMapSvg(){
    const xs=latest.filter(mapMatches).slice(0,48),cx=500,cy=215,pts=[];xs.forEach((r,i)=>{const a=-1.2+i*.52,rad=25+i*6.2,x=cx+Math.cos(a)*rad*1.2,y=cy+Math.sin(a)*rad*.62;pts.push({r,x,y})});
    if(pts.length)svg.append(el('polyline',{class:'pulsePath',points:pts.map(p=>p.x+','+p.y).join(' ')}));
    pts.forEach(p=>{const c=el('circle',{cx:p.x,cy:p.y,r:focus?.href===p.r.href?7:5,class:'pulseDot '+(focus?.href===p.r.href?'sel':'')});c.style.cursor='pointer';c.onclick=()=>focusOrOpen(p.r,'OTHER');svg.append(c)});
-   $('mapTitle').textContent='PULSE';$('mapPath').textContent='mutation spiral · identity preserved';$('mapMeta').textContent=xs.length+' recent mutations';return;
+   $('mapTitle').textContent='PULSE';$('mapPath').textContent='mutation spiral · identity preserved';$('mapMeta').textContent=xs.length+' recent mutations · manifest '+(manifest?.updated||'—');updateStatusRail();return;
  }
  const cm=childrenMap(),kids=(cm.get(mapRoot)||[]).filter(mapMatches),cx=500,cy=215,rx=360,ry=155;
  const center=routeMap().get(mapRoot)||{title:'FIELD',href:'/'};const ct=el('text',{x:cx,y:cy+4,'text-anchor':'middle'});ct.textContent=center.title||'FIELD';ct.setAttribute('fill','#edf0ed');ct.setAttribute('font-size','12');svg.append(ct);
  kids.forEach((r,i)=>{const a=-Math.PI/2+Math.PI*2*i/Math.max(1,kids.length),x=cx+Math.cos(a)*rx,y=cy+Math.sin(a)*ry;svg.append(el('line',{x1:cx,y1:cy,x2:x,y2:y,class:'mapEdge'}));const g=el('g',{class:'mapNode '+(focus?.href===r.href?'sel':'')});g.style.cursor='pointer';const w=Math.max(84,Math.min(150,42+(r.title||r.href).length*4.7));g.append(el('rect',{x:x-w/2,y:y-17,width:w,height:34}));const t=el('text',{x,y:y+3,'text-anchor':'middle'});t.textContent=(r.title||r.href).slice(0,24);g.append(t);g.onclick=()=>{mapSelected=r.href;focusOrOpen(r,'OTHER');renderMapSelection()};svg.append(g)});
- $('mapTitle').textContent=center.title||'FIELD';$('mapPath').textContent=mapRoot;$('mapMeta').textContent=kids.length+' children · visual root '+mapRoot;
+ $('mapTitle').textContent=center.title||'FIELD';$('mapPath').textContent=mapRoot;$('mapMeta').textContent=kids.length+' children · visual root '+mapRoot+' · manifest '+(manifest?.updated||'—');updateStatusRail();
 }
 function renderMapSelection(){if($('mapFold').open&&(mapMode==='VISUAL'||mapMode==='PULSE'))renderMapSvg()}
 function drillSelected(){const cm=childrenMap(),h=focus?.href||mapSelected;if(h&&(cm.get(h)||[]).length){mapRoot=h;mapSelected=h;renderMap();notifyFieldIndex()}}
