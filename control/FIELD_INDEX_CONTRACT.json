@@ -1,13 +1,13 @@
 {
-  "schema": "field-index-contract/v0.3",
-  "updated": "2026-09-22",
-  "purpose": "Keep FIELD INDEX usable under growth: fast newest-first repo re-entry with one shared focus identity across AXIAL, chronology and map; secondary structure/issues/lineage/proof readings remain available without competing for the first screen.",
+  "schema": "field-index-contract/v0.4",
+  "updated": "2026-09-24",
+  "purpose": "Keep FIELD INDEX usable under growth: exact Git repository chronology for literal change, CURRENT for attention, showcase-manifest for addressed route projection, and one shared focus identity across AXIAL / route projections / map without allowing any projection to impersonate authority.",
   "laws": [
-    "ATTENTION ≠ RECENCY. /control/CURRENT.json owns NOW; route.index.updated_at records mutation evidence only.",
+    "ATTENTION ≠ RECENCY. /control/CURRENT.json owns NOW; Git commits own literal repository mutation chronology; route.index.updated_at is curated route-touch metadata only.",
     "MAP ≠ BACKLOG. A route may exist without being active, owed, important or scheduled.",
     "DONOR ≠ HEAD. Recovered and transfer-capable artifacts remain discoverable without competing for current-head status.",
     "DISCUSSION ≠ INDEX TOUCH. A chat/thread mention does not change FIELD INDEX activity by itself.",
-    "MUTATION → INDEX TOUCH. Any committed change to a tracked public surface updates that route's index.updated_at in the same bounded repo change.",
+    "MUTATION → INDEX TOUCH. A committed change to a tracked public surface updates that route's index.updated_at in the same bounded repo change, but the manifest timestamp is a route projection and never substitutes for the exact Git commit log.",
     "ACTIVITY MODE ≠ OPERATION. Operation names what the artifact does; work_modes name what kind of work produced the current delta.",
     "SPECULATION IS LEGIBLE, NOT PROMOTED. SPECULATE/SPECIFY may be indexed without implying implementation or evidence.",
     "RECEIPT WHEN CLAIM CHANGES. If implementation/test/release status changes, update or create the relevant receipt and RETURN entry.",
@@ -16,7 +16,7 @@
     "RECONSTRUCTION > NARRATION. Promote cross-lineage mechanisms only after a fresh process can reproduce the claimed behavior from durable state or an equivalent bounded test.",
     "EXPERIMENT ≠ STATE. Experimental form is route.kind/operation; lifecycle state must say what can lawfully happen next.",
     "EVOLUTION REQUIRES A HOST. A live experiment exists to change, transfer into, or falsify something outside itself; no ownerless experiment may accumulate roadmap authority.",
-    "CHRONOLOGY MAY REPEAT IDENTITY. LATEST may show a route already present in NOW or HEADS because re-entry from recent mutation is a different task from canonical identity display.",
+    "CHRONOLOGY MAY REPEAT IDENTITY. Exact Git commits may touch the same route repeatedly; the manifest route projection compresses those commits into current addressed surface metadata.",
     "DENSITY IS A PROJECTION. MARK / COMPACT / FULL may change information density but never identity, state, authority, order or target.",
     "PROSE PAYS RENT. Fixed prose may not occupy persistent root space when the same function can survive as a mark with explicit reveal.",
     "SELECTION ≠ NAVIGATION. Selecting a route in AXIAL, LATEST, HEADS, PORTS or MAP changes one local focus object; OPEN is the explicit navigation action.",
@@ -38,7 +38,7 @@
     "recent_key": "route.index.updated_at",
     "recent_tie_break": "manifest order",
     "structure_key": "route.parent + manifest identity",
-    "meaning": "Chronology is the underlying source order. AXIAL adds reversible focus/filter projection without replacing or re-ranking LATEST."
+    "meaning": "Git master commits are the literal mutation chronology. AXIAL + manifest route dates are unequal addressed projections for focus/re-entry; neither may rewrite Git history or CURRENT attention."
   },
   "activity_modes": {
     "RECOVER": "Retrieve exact prior artifacts/lineage before synthesis.",
@@ -69,7 +69,7 @@
     "root_now": "CURRENT.active_fronts are encoded as NOW attention marks on the shared route glyph/focus rather than a persistent dashboard block.",
     "root_heads": "CURRENT.current_heads remains a collapsed lineage reading; selecting a head updates the shared focus and does not navigate until OPEN.",
     "root_map": "MAP is collapsed by default. VISUAL/PULSE/STRUCTURE/EVOLVE/RECENT share the same route focus used by AXIAL/LATEST.",
-    "root_recent": "Expose index.updated_at as a secondary RECENT lens, never the default ordering.",
+    "root_recent": "Expose route.index.updated_at only as a manifest-route RECENT lens. Exact repository history is Git commits; route recency never implies priority.",
     "root_frontier": "Derive OPEN PORTS live from route.field.exit_paths; never maintain a duplicate hand-written backlog of the same exits.",
     "corner_nav": "Shared showcase route adapter remains the canonical BACK/PARENT/SHOWCASE control on tracked non-root routes.",
     "style": "Presentation/theme controls are a separate cross-site concern and must not alter semantic ordering/state.",
@@ -83,10 +83,10 @@
     "root_play": "/field-play.html derives public-safe missions from manifest gaps plus FIELD_ISSUES entries with play_safe=true. Returns remain report-only and require review.",
     "root_evolve": "EVOLVE is a named projection over canonical manifest routes carrying route.evolution. It shows host, generation, stage, mutation and evidence gate; it is not a new backlog or authority source.",
     "root_identity_fold": "SUPERSEDED for LATEST. Identity folding may still be used inside projections where repetition harms legibility, but never to remove recent mutations from the primary re-entry list.",
-    "root_latest": "Plain newest-first LATEST remains immediately beneath AXIAL as the control/source reading; selecting a row updates the same focus identity rather than navigating until OPEN.",
+    "root_latest": "Root CHANGE / EXACT REPO loads recent master commits as the literal chronology. The adjacent ROUTES / PROJECTED TOUCHES glyph rail is sorted by route.index.updated_at and explicitly labeled as manifest metadata.",
     "root_issues": "Render open GitHub issues as a separate newest-activity-first repo-truth list. Live GitHub API may refresh a checked-in /control/FIELD_ISSUES.json fallback. Issue presence is not priority.",
     "root_density": "/field-presentation.js may reduce route tokens toward glyph-only marks at MARK density while preserving route order, axis value and explicit OPEN.",
-    "root_glyph": "/field-glyph.js composes marks from route kind × operation × state × NOW/HEAD/ISSUE attention marks. Every mark must target/reveal the same route identity as its full representation.",
+    "root_glyph": "/field-glyph.js composes route marks from manifest kind × operation × state × NOW/HEAD/ISSUE attention marks. Glyphs are projections over addressed route identity; compact date separators may witness manifest date buckets but must not imply Git commit grouping.",
     "root_axial_latest": "AXIAL / LATEST 0.5 adapts AXIAL 0.7 over ROUTE × STATE × OPERATION × WORK MODE. Every position exposes exact lawful support; support is encoded as count + luminance + compact bar, current matches form a survivor glyph set, and one fixed aperture resolves the selected exact route.",
     "root_axial_survivors": "Render the current exact-match set between the strips and focus aperture. One survivor = LOCK 1; zero = DEAD; many = LIVE n. A short survivor-count trail may expose how the possibility space collapsed during the current interaction.",
     "root_axial_trial": "Store only local browser interaction counts under field-axial-trial/v0.1: AXIAL focus selections, plain LATEST focus selections, dead intersections, OPEN counts and rough focus→OPEN elapsed time. No automatic network transmission and no claim that elapsed time alone proves usability.",
@@ -97,7 +97,8 @@
     "root_trace_binding": "A rendered trace is bound to the route focus present when RUN TRACE executes. If shared FIELD focus changes, the trace becomes visibly STALE and COMMIT is disabled until rerun. Old trace export remains possible as historical evidence.",
     "root_waiting": "/control/WAITING.json is rendered as a compact collapsed WAITING / YOU projection near root re-entry. It carries only public-safe dependency descriptions: one smallest human/world move + the machine move it unlocks. It is not CURRENT, QUEUE, priority, reminder pressure or private state.",
     "root_reentry": "NOW / RECOVER / CONVERGE is a collapsed one-line semantic router. NOW opens CURRENT/QUEUE attention; RECOVER opens the generic Recovery vault for exact source + lineage and must not privilege a current project head; CONVERGE opens NEXUS for coordination + RETURN.",
-    "root_convergence": "The generated CONVERGENCE projection is collapsed by default. Its resting line exposes only live-front, head and gap counts plus generation time; expanded detail may show commits, branches, fronts and gaps. Counts are state/evidence, never priority. Agent/Hermes coordination belongs under NEXUS/CONFLUENCE and should return only decision-changing signals to the root."
+    "root_convergence": "Generated convergence data/plain readings remain available to NEXUS/READFIELD with generation timestamps, but the generated KPI strip is retired from FIELD root. Root live frame derives CURRENT + master HEAD rather than caching a second status dashboard.",
+    "root_truth_grammar": "Use Φ for host/authority frame and φ for the current addressed focus/projection. The distinction is semantic, not ornamental, and must survive compact/mobile rendering."
   },
   "query_semantics": {
     "BOTTLENECK": {
@@ -162,16 +163,16 @@
       "meaning": "Declared interface/proof debt. Open ports are selectors/questions, not an automatic backlog."
     },
     "RECENT": {
-      "source": "route.index.updated_at",
-      "meaning": "Secondary mutation-history reading only. Recent touch never overrides CURRENT attention."
+      "source": "showcase-manifest route.index.updated_at",
+      "meaning": "Secondary addressed-route touch projection. It compresses surface metadata and is not a complete repository changelog."
     },
     "EVOLVE": {
       "source": "showcase-manifest route.evolution",
       "meaning": "Bounded evolutionary work: host → question → one mutation → evidence gate → transfer/park/compost. It is a projection over canonical routes, not a separate queue."
     },
     "LATEST": {
-      "source": "showcase-manifest route.index.updated_at",
-      "meaning": "Primary human re-entry: newest durable route mutations first. Duplication with NOW/HEADS is intentional."
+      "source": "GitHub master commits + showcase-manifest route projection",
+      "meaning": "Two unequal readings: exact commits provide literal repository chronology; manifest glyphs provide current addressed route re-entry. Never collapse one into the other."
     },
     "ISSUES": {
       "source": "GitHub open issues + /control/FIELD_ISSUES.json fallback",
@@ -237,5 +238,13 @@
     "deprecated_stage_aliases": {
       "SEED": "FRAME"
     }
+  },
+  "truth_grammar": {
+    "Φ": "Host / authoritative frame. On FIELD root this points toward CURRENT/domain authority; Φ never means that every visible datum is canonical.",
+    "φ": "Current addressed focus / projection inside a Φ host. φ may move freely without creating identity, priority or mutation authority.",
+    "git": "Exact repository mutation chronology: commit SHA, timestamp, subject and complete history.",
+    "current": "Attention authority: active fronts, retained heads and current execution frame.",
+    "manifest": "Addressed route/state projection. index.updated_at is curated surface-touch metadata, not a complete changelog.",
+    "interphase": "Shared select/focus/project/RETURN mechanics; domain host remains authoritative."
   }
 }
