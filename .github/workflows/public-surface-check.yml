@@ -87,6 +87,8 @@ jobs:
         run: node --test fold-bloom/tests/local-media-store.test.mjs fold-bloom/journey/tests/journey-core.test.mjs fold-bloom/journey/tests/demo-seed.test.mjs
       - name: Test FOLD BLOOM event tape + Beat Saber draft adapter
         run: node --test fold-bloom/beat/tests/event-tape.test.mjs
+      - name: Test FOLD BLOOM wet-media ink engine
+        run: node --test fold-bloom/ink/tests/ink-engine.test.mjs
       - name: Test unified FOLD BLOOM RIDE state
         run: node --test fold-bloom/ride/tests/ride-state.test.mjs
       - name: Test LISTEN preview render
@@ -102,6 +104,14 @@ jobs:
       - name: Test FOLD BLOOM FIELD LAB browser boot
         env:
           SMOKE_ONLY: FOLD BLOOM FIELD LAB
+        run: node tools/browser-smoke.mjs
+      - name: Test FOLD BLOOM INK FIELD browser boot
+        env:
+          SMOKE_ONLY: FOLD BLOOM INK FIELD
+        run: node tools/browser-smoke.mjs
+      - name: Test FOLD BLOOM shareable demo launch
+        env:
+          SMOKE_ONLY: FOLD BLOOM LIVE shareable demo
         run: node tools/browser-smoke.mjs
       - name: Test FOLD BLOOM module browser boot
         env:
