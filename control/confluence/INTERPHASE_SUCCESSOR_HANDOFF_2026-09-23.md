@@ -1,7 +1,7 @@
 # INTERPHASE / CONFLUENCE SUCCESSOR HANDOFF
 
 Status: **ACTIVE HANDOFF**
-Updated: **2026-09-23**
+Updated: **2026-09-24**
 
 This file is a re-entry aid, not canonical truth. If it disagrees with exact code, receipts, CURRENT, or recovered source, recover the exact artifact and preserve the disagreement.
 
@@ -100,7 +100,7 @@ RETURN
 
 CUT / DISSOLVE / CARRY / RESET / RETURN remain explicit seam laws.
 
-This makes the next Fold/Bloom convergence move concrete: SET RIDE should enter the same LIVE experience using this state. Journey becomes a traversal library/debug surface only after equivalence is proved.
+That convergence is now implemented in merged PR #200: SET's primary RIDE action enters LIVE through the unified dual-clock state, exact child source identity is preserved, CUT / CARRY / RESET / DISSOLVE / RETURN are explicit, and Journey remains a secondary traversal/debug witness. The next Fold/Bloom gate is direct 2–3-source phone use, which is WAITING_ON_HUMAN rather than an autonomous implementation target.
 
 ## Fold/Bloom current reading
 
@@ -210,19 +210,19 @@ But real dimensions/tolerances/topology/load/fit/safety remain physical host tru
 
 ## Next transformations
 
-### 1. SET -> LIVE fusion
+### WAITING_ON_HUMAN — Fold/Bloom lived SET -> LIVE gate
 
-Use unified RIDE state. Preserve exact child identities + dual clocks + seam laws. No second source store.
+Technical fusion is complete in PR #200. Validate 2–3 real local sources on phone across CUT / DISSOLVE / CARRY / RESET / RETURN, preserving exact source identity, sourceTime, journeyTime and bounded RETURN evidence. Do not spend autonomous implementation budget on this gate unless use exposes a concrete defect.
 
-### 2. Real-form scale proof
+### 1. Real-form scale proof
 
 Run a real normal webpage/form through page -> compact -> ROOM allocation. Native control remains canonical.
 
-### 3. Produce real archaeology packets
+### 2. Produce real archaeology packets
 
-Parallelize recovery by evidence role, then join only on stable keys.
+Parallelize recovery by evidence role, then join only on stable keys when the packet removes a live blocker or feeds an active conversion.
 
-### 4. Physical host v0
+### 3. Physical host v0
 
 Choose one actual MAKE object and describe measured state + operations + correspondence before any actuation.
 
