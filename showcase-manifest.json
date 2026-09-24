@@ -2195,7 +2195,19 @@
           "return_path": "/fold-bloom/voice/"
         }
       },
-      "receipt": "/fold-bloom/voice/release.json"
+      "receipt": "/fold-bloom/voice/release.json",
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can the existing FIELD PULSE timing substrate support a simple phone singing-practice instrument that is understandable without architectural explanation while keeping microphone evidence local and non-evaluative?",
+        "baseline": "FIELD PULSE already coordinates LISTEN/AUDIO and FIELD LAB/SYNTH timing across READFIELD, LIVE and Two Dial, but there is no ordinary voice-practice consumer; a singer must currently use unrelated tuner/metronome tools.",
+        "mutation": "Add VOICE 0.1 as a sibling projection: local fundamental-pitch/stability estimation, reference tone, four bounded practice patterns and optional borrowed beat timing. Export aggregate practice evidence only; record/upload no microphone audio.",
+        "evidence_gate": "Deterministic pitch-core tests + phone-sized browser boot. Human gate: one 60-second held-note pass and one PULSE-linked 1-3-5-3 pass must be legible to a non-technical user without explaining FIELD PULSE.",
+        "next_if_pass": "Retain VOICE as a small practice projection and test one bounded READFIELD + VOICE shadowing/phrase exercise only if a real use case asks for text plus voice.",
+        "next_if_fail": "Keep the reusable local pitch estimator if useful; remove the VOICE public projection or PULSE link rather than adding scoring, cloud speech models or another timing architecture."
+      }
     },
     {
       "href": "/fold-bloom/ink/",
