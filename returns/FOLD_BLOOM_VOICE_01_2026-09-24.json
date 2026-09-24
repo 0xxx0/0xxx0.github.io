@@ -1,7 +1,7 @@
 {
   "schema": "return/v1",
   "id": "FOLD_BLOOM_VOICE_01_2026-09-24",
-  "status": "IMPLEMENTED_CANDIDATE_PENDING_CI",
+  "status": "SHIPPED_ACTIVE_CANDIDATE",
   "object": "FOLD//BLOOM VOICE 0.1",
   "changed_object": "FIELD PULSE now has a concrete human singing-practice consumer: local mic pitch/stability + optional borrowed beat timing.",
   "evidence": [
@@ -11,15 +11,18 @@
     "/control/confluence/FOLD_BLOOM_VOICE_01_2026-09-24.json"
   ],
   "verification": {
-    "pitch_core": "PENDING_CI",
-    "public_surface": "PENDING_CI",
-    "human_phone": "REQUIRED"
+    "pitch_core": "PASS · public-surface-check 35988420252",
+    "module_parse": "PASS · public-surface-check 35988420252",
+    "browser_phone_boot": "PASS · public-surface-check 35988420252",
+    "route_registration": "PASS · 35988420492",
+    "human_phone": "WAITING_ON_HUMAN"
   },
   "waiting": [
     "One 60-second held-note phone session.",
     "One FIELD LAB PULSE-linked 1-3-5-3 phone session."
   ],
   "contradictions": [],
-  "next": "Verify CI, then test the two phone practice cases before adding voice features.",
-  "stop": "No speech recognition, lyric scoring, cloud voice model or new clock architecture in this pass."
+  "next": "Use /fold-bloom/voice/ on phone: first HUM or ONE NOTE for ~60 seconds; then open FIELD LAB PULSE, return to VOICE with PULSE ON and run 1-3-5-3. Change code only from observed comprehension/timing/mic friction.",
+  "stop": "No speech recognition, lyric scoring, cloud voice model or new clock architecture in this pass.",
+  "merge_sha": "dd1f289af0692e84c62c370e2b525a2069ec7201"
 }
