@@ -1,12 +1,13 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-23",
+  "updated": "2026-09-24",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
     "RECOVER BEFORE INVENTING",
     "ONE THING, MANY LAWFUL READINGS, FEW LAWFUL TRANSFORMATIONS",
     "IDENTITY ≠ LOCATION ≠ PROJECTION ADDRESS",
+    "SUBSTANCE GENERATES FORM: derive interface geometry and controls from OBJECT → ADDRESS → RELATIONS → OPERATORS → CONSEQUENCE → RETURN; typography and chrome remain subordinate on working surfaces.",
     "SOURCE → ADDRESS → STATE → TRANSFORM → PROJECTION → PROVE → RETURN",
     "EXECUTE ONE BOUNDED MOVE → RETURN → REPLAN; NO SECOND MOVE INHERITS AUTHORITY",
     "NO NEW CORE WITHOUT A MISSING FUNCTION",
@@ -143,7 +144,7 @@
       "head": "FOLD//BLOOM · ONE INSTRUMENT 0.1 / INTERPHASE 0.2 host · SET 0.1.1 / JOURNEY 0.1.2 / LIVE 0.13 / LISTEN 0.6",
       "state": "ACTIVE_CANDIDATE_UNIFIED_DOORWAY",
       "route": "/fold-bloom/",
-      "retained_function": "The canonical /fold-bloom/ entry is now one instrument doorway rather than a catalogue of peer apps. INTERPHASE 0.2 owns focus/projection/RETURN mechanics while domain truth stays where it already lives: exact audio bytes in the local media vault, LISTEN as source cartographer, SET as ordered/seam composition authority, READFIELD as text reader, and LIVE as embodied single-source ride. The shell stores only a session-local active-object pointer/handoff. Typing can produce an immediate unbound deterministic glyph; binding creates an exact text/audio address. FOLD from AUDIO commits an exact source ref into SET and changes the active object to that SET without duplicating bytes. SET RIDE remains the current Journey 0.1.2 seam sequencer and now refuses a mismatched set address. The next real convergence is to consume Journey plan/seam law inside LIVE so RIDE means one operation for either one source or a set.",
+      "retained_function": "The canonical /fold-bloom/ entry is now one instrument doorway rather than a catalogue of peer apps. INTERPHASE 0.2 owns focus/projection/RETURN mechanics while domain truth stays where it already lives: exact audio bytes in the local media vault, LISTEN as source cartographer, SET as ordered/seam composition authority, READFIELD as text reader, and LIVE as embodied single-source ride. The shell stores only a session-local active-object pointer/handoff. Typing can produce an immediate unbound deterministic glyph; binding creates an exact text/audio address. FOLD from AUDIO commits an exact source ref into SET and changes the active object to that SET without duplicating bytes. SET RIDE remains the current Journey 0.1.2 seam sequencer and now refuses a mismatched set address. The next real convergence is to consume Journey plan/seam law inside LIVE so RIDE means one operation for either one source or a set. Design-engineering donor 2026-09-24 now governs experience work: primitive-first spatial instruments, receding chrome, fewer deeper inputs, explicit profile/evidence separation, and delight with causal addressability; Septabee/Interface Studies/Tangible Media are donors rather than skins.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -226,7 +227,8 @@
         "/lib/interphase-core.js",
         "/fold-bloom/instrument-support.js",
         "/fold-bloom/tests/instrument-support.test.mjs",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/185"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/185",
+        "/control/confluence/DESIGN_ENGINEERING_DONOR_2026-09-24.md"
       ],
       "experimental": [
         {
