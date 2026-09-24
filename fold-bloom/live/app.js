@@ -18,6 +18,22 @@ let demo={on:false,timer:0,releases:0,preview:false,startState:null,startRide:nu
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
 let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),lastHudAt=0,sourceLandmarks=[],textOn=true,lastTextKey='',lastDropHapticId=null,rideProfile=normalizeRideProfile(),perf={emaMs:16.7,fps:60,modelHz:0};
+const RIDE_PRESETS=Object.freeze({
+  CLEAR:{solidity:1,immersion:.82,dropGain:.82,anticipation:.88,motionGain:.82},
+  DRIVE:{solidity:1,immersion:1.12,dropGain:1.28,anticipation:1.12,motionGain:1.18},
+  TRANCE:{solidity:.94,immersion:1.22,dropGain:1.08,anticipation:1.48,motionGain:.82},
+  SOFT:{solidity:1,immersion:.64,dropGain:.62,anticipation:.72,motionGain:.56}
+});
+function ridePresetName(p=rideProfile){
+  for(const [name,x] of Object.entries(RIDE_PRESETS)){
+    if(['solidity','immersion','dropGain','anticipation','motionGain'].every(k=>Math.abs(Number(p?.[k])-x[k])<.035))return name;
+  }
+  return 'CUSTOM';
+}
+function applyRidePreset(name,announce=true){
+  const x=RIDE_PRESETS[name];if(!x)return;
+  rideProfile=normalizeRideProfile({...rideProfile,...x});saveRideProfile();if(announce)toast('EXPERIENCE · '+name);
+}
 const practiceTrack=new PracticeTrack();
 const liveTrack=new LiveTrack($('#trackAudio'),{
   onState:t=>{trackStatus=t;update()},
@@ -49,12 +65,16 @@ function saveRideProfile(){
 }
 function syncRideControls(){
   const set=(id,v)=>{const e=$(id);if(e)e.value=String(v)};
-  set('#solidTune',Math.round(rideProfile.solidity*100));set('#immersionTune',Math.round(rideProfile.immersion*100));set('#dropGainTune',Math.round(rideProfile.dropGain*100));set('#textSyncTune',Math.round(rideProfile.textOffset*100));
+  set('#solidTune',Math.round(rideProfile.solidity*100));set('#immersionTune',Math.round(rideProfile.immersion*100));set('#dropGainTune',Math.round(rideProfile.dropGain*100));set('#anticipationTune',Math.round(rideProfile.anticipation*100));set('#motionGainTune',Math.round(rideProfile.motionGain*100));set('#textSyncTune',Math.round(rideProfile.textOffset*100));
   if($('#solidVal'))$('#solidVal').textContent=Math.round(rideProfile.solidity*100)+'%';
   if($('#immersionVal'))$('#immersionVal').textContent=rideProfile.immersion.toFixed(2)+'×';
   if($('#dropGainVal'))$('#dropGainVal').textContent=rideProfile.dropGain.toFixed(2)+'×';
+  if($('#anticipationVal'))$('#anticipationVal').textContent=rideProfile.anticipation.toFixed(2)+'×';
+  if($('#motionGainVal'))$('#motionGainVal').textContent=rideProfile.motionGain.toFixed(2)+'×';
   if($('#textSyncVal'))$('#textSyncVal').textContent=(rideProfile.textOffset>=0?'+':'')+rideProfile.textOffset.toFixed(2)+'s';
-  document.documentElement.dataset.foldBloomRideProfile=`${rideProfile.solidity.toFixed(2)}:${rideProfile.immersion.toFixed(2)}:${rideProfile.dropGain.toFixed(2)}:${rideProfile.textOffset.toFixed(2)}`;
+  const preset=ridePresetName();if($('#xpPresetRead'))$('#xpPresetRead').textContent=preset;
+  $('[data-xp-preset]').forEach(b=>b.classList.toggle('on',b.dataset.xpPreset===preset));
+  document.documentElement.dataset.foldBloomRideProfile=[rideProfile.solidity,rideProfile.immersion,rideProfile.dropGain,rideProfile.anticipation,rideProfile.motionGain,rideProfile.textOffset].map(x=>Number(x).toFixed(2)).join(':');
 }
 
 
@@ -305,7 +325,8 @@ $('#trackFile').onchange=e=>loadLocalSong(e.target.files);
 $('#trackToggle').onclick=()=>{stopDemo(true);liveTrack.toggle().then(()=>update()).catch(()=>toast('SONG PLAY BLOCKED'))};
 $('#textBtn').onclick=()=>{textOn=!textOn;lastTextKey='';updateTextWitness();update()};
 const tune=(id,key,scale=100)=>{const el=$(id);if(!el)return;el.oninput=e=>{rideProfile=normalizeRideProfile({...rideProfile,[key]:Number(e.target.value)/scale});saveRideProfile();lastTextKey='';updateTextWitness();update()}};
-tune('#solidTune','solidity');tune('#immersionTune','immersion');tune('#dropGainTune','dropGain');tune('#textSyncTune','textOffset');
+tune('#solidTune','solidity');tune('#immersionTune','immersion');tune('#anticipationTune','anticipation');tune('#motionGainTune','motionGain');tune('#dropGainTune','dropGain');tune('#textSyncTune','textOffset');
+$('[data-xp-preset]').forEach(b=>b.onclick=()=>applyRidePreset(b.dataset.xpPreset));
 $('#listenBtn').onclick=()=>window.open('../listen/','fold-bloom-listen');
 $('#exportBtn').onclick=()=>{
   const packet={kind:'FOLD_BLOOM_LIVE_RETURN',version:VERSION,created:new Date().toISOString(),source:{foldWeave:'/recovery/fold-bloom/fold-weave-0.1/',twoDial:'/fold-bloom/two-dial/'},state:snapshot(state),performance:{sectionArc,deformationTape,ride:{...ride,trace:(ride.trace||[]).map(x=>({...x}))}}};
@@ -390,5 +411,8 @@ function loop(t){
 }raf=requestAnimationFrame(loop);
 syncRideProfile();update();
 document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomPov='embodied-v0.4';document.documentElement.dataset.foldBloomMacroDrop='v0.2';document.documentElement.dataset.foldBloomIdleLaw='witness-v0.1';document.documentElement.dataset.foldBloomIdle='off';document.documentElement.dataset.foldBloomAutopilot='off';document.documentElement.dataset.foldBloomLandmarks='0';
-window.FoldBloomLive={boot:'ready',version:VERSION,state:()=>({...snapshot(state),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:liveTrack.metadata(),rideProfile:{...rideProfile},autopilot:demo.on,perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},reset:resetLiveState,practice:()=>practiceTrack.map};
-setTimeout(()=>{if($('#intro').classList.contains('on')&&!demo.on)startDemo({preview:true})},650);
+window.FoldBloomLive={boot:'ready',version:VERSION,state:()=>({...snapshot(state),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:liveTrack.metadata(),rideProfile:{...rideProfile},autopilot:demo.on,perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},reset:resetLiveState,practice:()=>practiceTrack.map};
+const launchParams=new URLSearchParams(location.search),launchPreset=String(launchParams.get('profile')||'').toUpperCase();
+if(RIDE_PRESETS[launchPreset])applyRidePreset(launchPreset,false);
+if(launchParams.get('demo')==='1'){document.documentElement.dataset.foldBloomLaunch='demo';setTimeout(()=>{$('#intro').classList.remove('on');audio.setSound(false);startDemo({preview:true});toast('FIELD COURSE · AUTOPILOT DEMO')},180)}
+else setTimeout(()=>{if($('#intro').classList.contains('on')&&!demo.on)startDemo({preview:true})},650);
