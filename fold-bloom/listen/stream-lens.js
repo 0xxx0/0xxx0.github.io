@@ -35,7 +35,8 @@ export function makeStreamPin({sourceKey,address,endAddress=null,kind='BOOKMARK'
   const at=Math.max(0,Number(address)||0),key=String(sourceKey||'UNBOUND');
   const created=createdAt||new Date().toISOString();
   const k=['BOOKMARK','FLAG','ARC'].includes(String(kind||'').toUpperCase())?String(kind).toUpperCase():'BOOKMARK';
-  const end=Number.isFinite(Number(endAddress))?Math.max(at,Number(endAddress)):null;
+  const hasEnd=endAddress!==null&&endAddress!==undefined&&endAddress!==''&&Number.isFinite(Number(endAddress));
+  const end=hasEnd?Math.max(at,Number(endAddress)):null;
   return {
     schema:STREAM_LENS_SCHEMA,
     id:id||`${key.slice(0,18)}:${Math.round(at*1000)}:${created}`,
@@ -62,7 +63,8 @@ export function normalizePins(pins=[],sourceKey=null){
 export function pinsInDomain(pins=[],range=[0,1]){
   const [lo,hi]=normalizeDomain(range);
   return normalizePins(pins).filter(p=>{
-    const end=Number.isFinite(Number(p.endAddress))?Number(p.endAddress):Number(p.address);
+    const hasEnd=p.endAddress!==null&&p.endAddress!==undefined&&p.endAddress!==''&&Number.isFinite(Number(p.endAddress));
+    const end=hasEnd?Number(p.endAddress):Number(p.address);
     return Number(p.address)<=hi&&end>=lo;
   });
 }
