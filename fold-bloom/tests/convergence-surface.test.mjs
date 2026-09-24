@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 
-const read=path=>readFileSync(new URL('../../../'+path,import.meta.url),'utf8');
+const read=path=>readFileSync(new URL('../../'+path,import.meta.url),'utf8');
 
 test('LIVE exposes source/map/immersion plus remembered-source re-entry',()=>{
   const html=read('fold-bloom/live/index.html');
