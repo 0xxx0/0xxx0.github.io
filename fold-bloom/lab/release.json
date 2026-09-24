@@ -31,15 +31,19 @@
     "PULSE ×4 changes pace only; it cannot change source focus, segmentation or meaning",
     "LOCI grouping/layout is derived evidence; exact text spans are preserved, but mnemonic meaning remains human/training evidence. The local course adapter is not promoted shared core.",
     "profiles change presentation only",
-    "CURRENT is intentionally not changed in this branch because open PR #207 owns stale SET→LIVE coordination cleanup"
+    "CURRENT was updated only after PR #207 merged, preserving its coordination ownership during implementation."
   ],
   "verification": {
-    "read_bridge_node": "PENDING_PR_CI",
-    "phone_readfield_boot": "PENDING_PR_CI: canonical reader + source intake bound/receded + LOCI boot witnesses",
-    "full_public_surface": "PENDING_PR_CI",
-    "human_phone": "REQUIRED: ordinary RSVP/scale/regress + one CARRY path",
-    "loci_course_node": "PENDING_PR_CI"
+    "read_bridge_node": "PASS · public-surface-check run 35953594950 step 29",
+    "loci_course_node": "PASS · public-surface-check run 35953594950 step 29",
+    "phone_readfield_boot": "PASS · 430×900 FIELD LAB browser proof + critical browser smoke run 35953594950",
+    "route_registration": "PASS · run 35953594942",
+    "full_public_surface": "PASS · public-surface-check run 35953594950",
+    "merge_sha": "f56505f2ebc9d2fdcb17ea03929375ae1b6c8f92",
+    "coordination_cleanup_merge": "55e308432e79a5eaf376bdccf112973db01a36dc",
+    "human_phone": "REQUIRED: ordinary RSVP/scale/regress + one long READ→LOCI carry against plain chunk baseline"
   },
   "return": "/returns/FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json",
-  "confluence": "/control/confluence/FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json"
+  "confluence": "/control/confluence/FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json",
+  "shipped": true
 }
