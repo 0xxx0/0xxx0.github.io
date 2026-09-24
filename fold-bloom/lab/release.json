@@ -17,22 +17,28 @@
     "READ → DATA carries the same source plus bounded focus witness",
     "FULL READFIELD preserves a session-local handoff into /docs/",
     "phone mode selection becomes a 3×2 thumb rail; desktop retains the spatial ring",
-    "ghost pace/typed recall remains available only as an optional trainer"
+    "ghost pace/typed recall remains available only as an optional trainer",
+    "READ source/edit intake collapses after binding so chrome yields to the reading object",
+    "READ background stops duplicating the active word; optional race renders only source/ghost/user trajectories",
+    "LOCI replaces slice(0,12) with fold-bloom-lab-course/v0.1: direct word loci for small sources or deterministic paragraph/sentence/grouped-word spans for large sources",
+    "every LOCI node carries an exact text://start:end address and large-source grouping accounts for every word",
+    "LOCI exports an explicit source + route + training RETURN"
   ],
   "constraints": [
     "READFIELD/APERTURE remains reader authority; FIELD LAB owns no second segmentation/cursor/RSVP truth",
     "FIELD PULSE remains ephemeral coordination with authority NONE",
     "CARRY is explicit human action and never silently mutates another projection",
     "PULSE ×4 changes pace only; it cannot change source focus, segmentation or meaning",
-    "LOCI address transfer is explicitly approximate until a shared source-address mapping proves useful",
+    "LOCI grouping/layout is derived evidence; exact text spans are preserved, but mnemonic meaning remains human/training evidence. The local course adapter is not promoted shared core.",
     "profiles change presentation only",
     "CURRENT is intentionally not changed in this branch because open PR #207 owns stale SET→LIVE coordination cleanup"
   ],
   "verification": {
     "read_bridge_node": "PENDING_PR_CI",
-    "phone_readfield_boot": "PENDING_PR_CI",
+    "phone_readfield_boot": "PENDING_PR_CI: canonical reader + source intake bound/receded + LOCI boot witnesses",
     "full_public_surface": "PENDING_PR_CI",
-    "human_phone": "REQUIRED: ordinary RSVP/scale/regress + one CARRY path"
+    "human_phone": "REQUIRED: ordinary RSVP/scale/regress + one CARRY path",
+    "loci_course_node": "PENDING_PR_CI"
   },
   "return": "/returns/FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json",
   "confluence": "/control/confluence/FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json"
