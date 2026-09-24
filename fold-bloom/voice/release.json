@@ -1,0 +1,33 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "FOLD//BLOOM VOICE",
+  "version": "0.1",
+  "state": "CANDIDATE",
+  "operation": "TRAIN / LISTEN",
+  "route": "/fold-bloom/voice/",
+  "date": "2026-09-24",
+  "thesis": "A useful shared temporal substrate should support ordinary human practice, not only visualizers and games. VOICE tests that claim with local microphone pitch/stability feedback and optional FIELD PULSE timing.",
+  "new": [
+    "local-only microphone pitch estimation over a bounded 70–950 Hz singing range",
+    "single-note, 1-3-5-3, five-note and free-hum practice patterns",
+    "reference tone without recording or uploading microphone audio",
+    "cents relation, clarity and short-window pitch stability witnesses",
+    "optional FIELD PULSE consumption from LISTEN/AUDIO or FIELD LAB/SYNTH clocks",
+    "pattern steps may follow borrowed beat timing while exercise authorship stays local",
+    "bounded practice RETURN exports aggregate evidence only; never raw microphone audio"
+  ],
+  "constraints": [
+    "pitch estimate != singing quality assessment",
+    "VOICE is a consumer of FIELD PULSE timing, never an audio/source authority",
+    "no speech recognition, lyric scoring, cloud inference or microphone recording in 0.1",
+    "external clock failure never blocks manual practice"
+  ],
+  "verification": {
+    "pitch_core": "NODE TEST REQUIRED",
+    "browser_boot": "CI STATIC/PUBLIC SURFACE REQUIRED",
+    "human_phone": "REQUIRED: one 60-second note hold + one PULSE-linked 1-3-5-3 pass on phone"
+  },
+  "promotion_gate": "A non-technical user can start mic, hear a target, understand flat/center/sharp and complete one pattern without architectural explanation; pulse linkage must feel additive rather than required.",
+  "return": "/returns/FOLD_BLOOM_VOICE_01_2026-09-24.json",
+  "confluence": "/control/confluence/FOLD_BLOOM_VOICE_01_2026-09-24.json"
+}
