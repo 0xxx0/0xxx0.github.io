@@ -10,7 +10,7 @@ import { PracticeTrack } from './practice-track.js';
 import { normalizePins } from '../listen/stream-lens.js';
 import {normalizeRideProfile,profileKey} from './visual-worlds.js';
 
-const $=s=>document.querySelector(s), STORE='fb-live-0.1';
+const $=s=>document.querySelector(s), $=s=>[...document.querySelectorAll(s)], STORE='fb-live-0.1';
 const cv=$('#field'), renderer=new Renderer(cv);
 let state=load() || createState();
 let dragging=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
