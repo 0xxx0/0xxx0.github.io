@@ -1,0 +1,125 @@
+# HERMES CROSS-SESSION CONVERGENCE PROMPT — 2026-09-24
+
+Use in a fresh Hermes session. Goal: recover useful residue from prior Hermes sessions without flattening them or stuffing raw history into one prompt.
+
+PRIMARY LAW: RECOVER BEFORE INVENTING.
+
+Then: DISTINGUISH → COORDINATE → ENACT → MEASURE → PRESERVE → RETURN.
+
+Do not start by proposing architecture. First inventory what prior Hermes sessions actually attempted and produced.
+
+## 0. SAFETY / AUTHORITY
+- Do not reveal/copy credentials, tokens or secrets.
+- Prefer `--redact` for session exports.
+- No destructive filesystem/repo changes during this recovery pass.
+- Do not infer that a session's last assistant message became reality.
+- Commits/files/receipts/runtime evidence outrank session claims.
+- Preserve contradictions and UNKNOWN.
+
+## 1. ENUMERATE
+Use Hermes session tools/CLI to enumerate all accessible sessions with title/id, source, workspace and last-active time.
+Create a local redacted export if available:
+`hermes sessions export <safe-local-path>/hermes-sessions-2026-09-24.jsonl --redact`
+Do not paste the whole JSONL into model context. Use it as a local recovery source/index.
+Use `session_search` for actual-message retrieval and scroll within matched sessions when needed.
+If some origins are inaccessible, state that explicitly.
+
+## 2. RECOVER BY ROLE, NOT TOPIC
+For each materially distinct session extract only:
+SESSION_ID / TITLE / WORKSPACE / TIME
+USER_INTENT
+EXACT_ARTIFACTS
+CLAIMED_STATE
+VERIFIED_STATE
+DELTA
+DONORS
+OPEN_LOOP
+CONTRADICTION
+AUTHORITY_OWNER
+RETURN_PATH
+DISPOSITION = LIVE_UNIQUE | MERGED | WAITING | SUPERSEDED | DONOR | DUPLICATE_CANDIDATE | UNKNOWN
+
+Do not summarize ordinary conversation that left no useful residue.
+
+## 3. REQUIRED ANCHOR SWEEP
+Search exact user messages where possible for:
+CONFLUENCE / FIELD; CURRENT / QUEUE / WAITING / RETURN; INTERPHASE; FOLD//BLOOM / LISTEN / SET / LIVE / Journey / Ecology / Two Dial; READFIELD / RSVP / Aperture; AXIAL / Triangle / Lens / glyph / flower / radial / luopan; Poem Map / Verse / Jueju / Pathweaver / MEANTOME; Sleeper / ONE RETURN / Nine Gate / Semantic City / Workfield; HUMAN PORT / CONTACT / COMMS SPINE / agent-router; HOUSE / HOUSEBUS / Home Assistant / BODY / CARE; Sovereign Node / Mac mini / Hermes / OpenClaw; recovery / backup archaeology / MEDIA REFINERY; maker / fan / partition / compression mount / print; excitement / delight / surprise / drops / curiosity / puzzle / constraint; daily generator / tzimtzum / long horizon / housecleaning.
+
+## 4. REPOSITORY ORIENTATION
+Read current authority before judging session residue:
+1. private `0xxx0/0:control/CROSS_REPO_CONVERGENCE_2026-09-24.md`
+2. public `0xxx0/0xxx0.github.io:control/CURRENT.json`
+3. public `0xxx0/0xxx0.github.io:control/confluence/CROSS_REPO_CONVERGENCE_2026-09-24.md`
+4. relevant exact owner files only
+
+## 5. CONVERGENCE / PROGRESS GATES
+Test: IDENTITY → RETURN → COMMUTATION → SOVEREIGNTY REDUCTION → SURFACE COMPRESSION → RE-ENTRY → CONVERSION → LIVED VALUE.
+Track progress as: ΔCAPABILITY / ΔRECOVERABILITY / ΔSURFACE_BURDEN / ΔUNCERTAINTY / ΔEXTERNAL_CONSEQUENCE / ΔLIVED_VALUE.
+Receipts/seals/summaries alone do not count unless they resolve a live ambiguity or unlock capability.
+
+## 6. FIND UNASKED HIGH-LEVERAGE RESIDUE
+Explicitly ask:
+- Which repeated user ask remains unsolved despite many implementations?
+- Which capability already exists but is not surfaced in ordinary use?
+- Which systems duplicate sovereignty and can now be demoted?
+- Which mechanism recurs independently across domains and deserves extraction?
+- Which mechanism was prematurely generalized and should be demoted?
+- Which important artifact has no current head/RETURN address?
+- Which head has no falsifier or lived-use gate?
+- Where does source truth silently diverge from projection/UI state?
+- What requires human/world evidence and should leave the machine queue?
+- What could reduce re-entry time by an order of magnitude?
+- What is technically impressive but produces no external consequence?
+- What is experientially valuable but lacks falsifiable proof?
+- What private/runtime truth is assumed rather than observed?
+
+## 7. OUTPUT — ONE MESSAGE ONLY
+Return exactly:
+
+# HERMES CROSS-SESSION RETURN
+
+COVERAGE
+- session count seen / time span / inaccessible origins / export path if created
+
+NOW
+- <=3 genuinely active fronts
+
+CURRENT HEADS
+- only heads materially clarified by session recovery
+
+SESSION RESIDUE
+- grouped by stable object/host, not by conversation; include session ids/titles
+
+CONTRADICTIONS / DRIFT
+- session vs repo; repo vs runtime; session vs session
+
+RECOVERED MECHANISMS
+- recurring cross-domain mechanisms; strongest donors; current consumers
+
+UNASKED / UNDERUSED LEVERAGE
+- 5–12 high-value findings ranked by expected conversion/re-entry benefit; no generic brainstorming
+
+CONVERGENCE GATES
+- passed / architectural only / needs lived-world evidence
+
+PROGRESS SINCE SEP 21
+- concrete state changes only; classify STRONG / WEAK / NON-PROGRESS
+
+NEXT TRANSFORMATIONS
+- <=3; smallest executable delta; owner; evidence required; stop condition
+
+UNKNOWN
+- material uncertainties only
+
+RETURN
+STATE
+DELTA
+EVIDENCE
+VALUE
+RESIDUE
+WAITING
+CONTRADICTIONS
+NEXT
+STOP
+
+Do not execute the next transformations in this pass. This pass is recovery + judgment + bounded handoff.
