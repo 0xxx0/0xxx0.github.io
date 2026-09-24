@@ -57,6 +57,30 @@ Do not add a second lens layer.
 
 This is enough substrate to test stronger focus/context semantics before importing an optics framework.
 
+### R3B · MAKE GRAMMAR / WRAP PROOF ALREADY SEPARATES TOPOLOGY FROM GEOMETRY
+
+Recovered donor:
+- `/control/confluence/MAKE_GRAMMAR_WRAP_PROOF_2026-09-23.md`
+
+It already proves the crucial distinction:
+
+```
+IDENTIFY != DEFORM
+TOPOLOGY != GEOMETRY != EMBEDDING
+```
+
+The donor's plane -> cylinder -> torus proof separates:
+- topological edge identification;
+- geometric deformation/embedding;
+- measured strain;
+- physical-fit UNKNOWN.
+
+This is a direct internal ancestor/donor for the DPO + mereotopology connection below. Do not overwrite it with imported graph-rewrite terminology.
+
+Related admission law:
+- `/control/research/SHAPE_LAW_ATLAS.md`
+- name the invariant / constraint / objective first; admit a shape only when its formal property implements that thing.
+
 ### R4 · RELATIONS
 
 CAP-IR / INTERPHASE canonical objects already permit `relations[]`.
