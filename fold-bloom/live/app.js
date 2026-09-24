@@ -73,7 +73,7 @@ function syncRideControls(){
   if($('#motionGainVal'))$('#motionGainVal').textContent=rideProfile.motionGain.toFixed(2)+'×';
   if($('#textSyncVal'))$('#textSyncVal').textContent=(rideProfile.textOffset>=0?'+':'')+rideProfile.textOffset.toFixed(2)+'s';
   const preset=ridePresetName();if($('#xpPresetRead'))$('#xpPresetRead').textContent=preset;
-  document.querySelectorAll('[data-xp-preset]').forEach(b=>b.classList.toggle('on',b.dataset.xpPreset===preset));
+  $('[data-xp-preset]').forEach(b=>b.classList.toggle('on',b.dataset.xpPreset===preset));
   document.documentElement.dataset.foldBloomRideProfile=[rideProfile.solidity,rideProfile.immersion,rideProfile.dropGain,rideProfile.anticipation,rideProfile.motionGain,rideProfile.textOffset].map(x=>Number(x).toFixed(2)).join(':');
 }
 
@@ -326,7 +326,7 @@ $('#trackToggle').onclick=()=>{stopDemo(true);liveTrack.toggle().then(()=>update
 $('#textBtn').onclick=()=>{textOn=!textOn;lastTextKey='';updateTextWitness();update()};
 const tune=(id,key,scale=100)=>{const el=$(id);if(!el)return;el.oninput=e=>{rideProfile=normalizeRideProfile({...rideProfile,[key]:Number(e.target.value)/scale});saveRideProfile();lastTextKey='';updateTextWitness();update()}};
 tune('#solidTune','solidity');tune('#immersionTune','immersion');tune('#anticipationTune','anticipation');tune('#motionGainTune','motionGain');tune('#dropGainTune','dropGain');tune('#textSyncTune','textOffset');
-document.querySelectorAll('[data-xp-preset]').forEach(b=>b.onclick=()=>applyRidePreset(b.dataset.xpPreset));
+$('[data-xp-preset]').forEach(b=>b.onclick=()=>applyRidePreset(b.dataset.xpPreset));
 $('#listenBtn').onclick=()=>window.open('../listen/','fold-bloom-listen');
 $('#exportBtn').onclick=()=>{
   const packet={kind:'FOLD_BLOOM_LIVE_RETURN',version:VERSION,created:new Date().toISOString(),source:{foldWeave:'/recovery/fold-bloom/fold-weave-0.1/',twoDial:'/fold-bloom/two-dial/'},state:snapshot(state),performance:{sectionArc,deformationTape,ride:{...ride,trace:(ride.trace||[]).map(x=>({...x}))}}};
