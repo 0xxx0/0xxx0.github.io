@@ -35,7 +35,7 @@ export function classifyBeatSaberAudio(meta={}){
   const ready=sourceExt==='ogg'||sourceExt==='egg';
   return {
     sourceExt,
-    status:ready?'PLAYTEST_READY':'NEEDS_OGG_CONVERSION',
+    status:ready?'AUDIO_READY_FOR_PLAYTEST':'NEEDS_OGG_CONVERSION',
     playtestReady:ready,
     bundledAudioFilename:ready?('song.'+sourceExt):('SOURCE.'+sourceExt),
     requiredAudioFilename:ready?('song.'+sourceExt):'song.ogg',
@@ -107,7 +107,7 @@ export function cleanBeatSaberChart(chart){
   return out;
 }
 
-export function buildBeatSaberFiles({chart,map,fileMeta={},sourceBytes}={}){
+export function buildBeatSaberFiles({chart,map,fileMeta={},sourceBytes,generatedAt=null}={}){
   if(!sourceBytes)throw new Error('SOURCE_AUDIO_BYTES_REQUIRED');
   const audio=classifyBeatSaberAudio(fileMeta),source=u8(sourceBytes);
   if(!source.length)throw new Error('SOURCE_AUDIO_BYTES_REQUIRED');
@@ -116,7 +116,7 @@ export function buildBeatSaberFiles({chart,map,fileMeta={},sourceBytes}={}){
   const manifest={
     schema:BEAT_SABER_PACK_SCHEMA,
     status:audio.status,
-    generated:new Date(0).toISOString(),
+    generated:generatedAt||null,
     source:{
       id:sourceId,
       name:fileMeta.name||null,
