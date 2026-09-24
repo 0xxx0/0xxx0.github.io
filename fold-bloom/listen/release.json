@@ -80,7 +80,10 @@
     "Atlas handoff may carry the compact rideProfile beside source identity/facets without carrying source audio bytes",
     "phone pointer arbitration: dominant vertical touch changes APERTURE while ring/non-vertical movement scrubs ADDRESS without adding a second gesture vocabulary",
     "LISTEN RIDE carries an exact SHA-256 source address into LIVE when exact local identity exists",
-    "LIVE may resolve that exact source from the same-origin local media vault without another file picker and exposes an exact RETURN link"
+    "LIVE may resolve that exact source from the same-origin local media vault without another file picker and exposes an exact RETURN link",
+    "browser-local media vault is now visible in LISTEN intake so remembered sources can be reopened without the normal file picker on the same browser/device.",
+    "Beat Saber is a first-class LISTEN action rather than a hidden USE TRACK sub-action.",
+    "the existing event-tape adapter now downloads Beat Saber v4 ExpertPlusStandard.dat directly as a mapper draft."
   ],
   "constraints": [
     "no upload/network required for user audio",
@@ -113,7 +116,9 @@
     "text sync offset must not modify stored timed-text cue addresses or promote unaligned text to aligned",
     "ride-profile storage keys must use the same source identity key used by LIVE when an exact hash exists",
     "phone ADDRESS/APERTURE arbitration changes projection control only; it must not alter the closed BEAT/PHRASE/SECTION/TRACK aperture vocabulary",
-    "exact-hash LISTEN→LIVE vault handoff is browser-local convenience, not cloud storage or transferred source authority"
+    "exact-hash LISTEN→LIVE vault handoff is browser-local convenience, not cloud storage or transferred source authority",
+    "remembered local media is browser/device-local convenience, not private cloud sync or a claim that GitHub Pages can read ChatGPT Library bytes",
+    "Beat Saber export is a draft mapping artifact; it does not imply a complete installable Beat Saber level or in-browser Beat Saber runtime"
   ],
   "verification": {
     "module_runtime": "PASS: LISTEN 0.2 surface executed in browser smoke",
@@ -152,9 +157,13 @@
     "source_bundle_merge_sha": "a9c902839ab6fbd01c23fa739acaffa4279e9d82",
     "source_bundle_ci": "PASS: public-surface-check 35695947970",
     "ride_profile_012": "PASS REPO: shared profile controls + LIVE 0.12 browser/runtime regression in public-surface-check 35700392105; direct same-source cross-tab/user feel remains human gate",
-    "phone_continuity_0157": "PASS: issue #157 closed via PR #171 · merge 7734a77b1961335eb59bf142e499573a6a74c2b2 · public-surface-check run 1697. Real MP3 at 430×900 proves ADDRESS movement, vertical APERTURE, PIN reload, exact-hash LISTEN→LIVE vault handoff, TRACKFIELD variation, SPLIT branch choice and source-evidence stability."
+    "phone_continuity_0157": "PASS: issue #157 closed via PR #171 · merge 7734a77b1961335eb59bf142e499573a6a74c2b2 · public-surface-check run 1697. Real MP3 at 430×900 proves ADDRESS movement, vertical APERTURE, PIN reload, exact-hash LISTEN→LIVE vault handoff, TRACKFIELD variation, SPLIT branch choice and source-evidence stability.",
+    "source_continuity_pr": 216,
+    "source_continuity_merge_sha": "253b23e1a039527c3fb434d5e58d8ccf0c7c6b07",
+    "source_continuity_ci": "PASS · public-surface-check 35992087692 + Route Registration 35992087726",
+    "beat_saber_surface": "PASS · direct Beat Saber control + ExpertPlusStandard.dat convergence-surface proof"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · portable donor=field-addressed-stream/v0.1",
-  "updated": "2026-09-22",
+  "updated": "2026-09-24",
   "return": "/returns/FOLD_BLOOM_SOURCE_CELL_2026-09-22.json"
 }

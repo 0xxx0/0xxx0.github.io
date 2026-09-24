@@ -1,0 +1,53 @@
+{
+  "schema": "return/v1",
+  "id": "FOLD_BLOOM_SOURCE_CONTINUITY_2026-09-24",
+  "status": "SHIPPED",
+  "object": "FOLD//BLOOM source continuity + remembered media + visible Beat Saber draft",
+  "state": "SOURCE_MAP_IMMERSION_CONVERGED",
+  "delta": [
+    "LIVE now exposes SOURCE / MAP / IMMERSION as explicit unequal readings of one source.",
+    "SOURCE-only remote playback is lawful and never borrows FIELD COURSE terrain as fake source analysis.",
+    "CENTER MASS clean-phone entry uses the original provider identity recovered from the uploaded track metadata without publishing private ChatGPT Library bytes.",
+    "Direct LIVE imports and LISTEN imports use the existing browser-local IndexedDB media vault; remembered sources are visible and reopen without the normal file-picker path on the same browser/device.",
+    "LISTEN exposes Beat Saber directly and exports a v4 ExpertPlusStandard.dat draft from the existing tested event-tape adapter.",
+    "fold-bloom/DESIGN.md and the 2026-09-24 thread-collapse ledger preserve shipped / superseded / pinned / discarded / waiting distinctions across the parallel thread residue."
+  ],
+  "evidence": [
+    "/fold-bloom/DESIGN.md",
+    "/control/confluence/FOLD_BLOOM_THREAD_COLLAPSE_2026-09-24.md",
+    "/fold-bloom/live/",
+    "/fold-bloom/listen/",
+    "/fold-bloom/tests/convergence-surface.test.mjs",
+    "/fold-bloom/live/tests/track.test.mjs",
+    "https://github.com/0xxx0/0xxx0.github.io/pull/216"
+  ],
+  "verification": {
+    "route_registration": "PASS · run 35992087726",
+    "public_surface": "PASS · run 35992087692",
+    "real_mp3_phone_continuity": "PASS · existing 430×900 encoded-MP3 continuity smoke remained green",
+    "live_runtime": "PASS · gameplay / TRACKFIELD / deformation / ride tests",
+    "browser": "PASS · shareable demo, module, INTERPHASE, root and critical browser smoke",
+    "beat_saber": "PASS · event-tape + visible convergence-surface gates",
+    "regressions_caught": [
+      "Preserved existing LOCAL_FILE witness for mapped vault media instead of renaming it.",
+      "Updated the old single sound-gate proof to distinguish SOURCE playback permission from FIELD synth permission.",
+      "Updated global browser smoke to prove the new CENTER MASS / SOURCE-MAP-IMMERSION surface instead of stale demo wording."
+    ]
+  },
+  "privacy_boundary": "Private ChatGPT Library bytes were not committed to the public repository. Provider-backed sources can re-enter by provider identity; private-only cross-device media sync remains unimplemented until an explicitly authorized private store/relay exists.",
+  "beat_saber_boundary": "Current output is a Beat Saber v4 ExpertPlusStandard.dat draft adapter. Full installable level packaging, media/cover bundle, mapper/editor loop and in-browser saber gameplay remain pinned future transformations.",
+  "next": {
+    "state": "HOLD_FOR_HUMAN_USE",
+    "checks": [
+      "On a clean phone open /fold-bloom/ → PLAY CENTER MASS; if browser policy blocks autoplay, TAP FOR SOURCE must start the actual source.",
+      "Import one local song once, reload/re-enter, then reopen it from REMEMBERED THIS DEVICE without using the file picker.",
+      "On a mapped local track compare SOURCE / MAP / IMMERSION; source identity must remain unchanged and each layer must be perceptibly distinct.",
+      "In LISTEN map a track and use BEAT SABER; ExpertPlusStandard.dat should download."
+    ]
+  },
+  "stop": "No new Fold/Bloom architecture or mode proliferation until direct use identifies a specific missing function or a pinned transformation is deliberately promoted.",
+  "merge": {
+    "pr": 216,
+    "sha": "253b23e1a039527c3fb434d5e58d8ccf0c7c6b07"
+  }
+}
