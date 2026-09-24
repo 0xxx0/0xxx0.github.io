@@ -54,6 +54,8 @@ jobs:
           node --check lib/interphase-recovery.js
           node tools/interphase-mapping-selftest.cjs
           node -e "JSON.parse(require('fs').readFileSync('control/INTERPHASE_MAPPING_CONTRACT.json','utf8')); JSON.parse(require('fs').readFileSync('control/schemas/interphase-recovery-packet.schema.json','utf8')); console.log('INTERPHASE mapping contracts PASS')"
+      - name: Validate HARD EVOLUTION P1 P2 P3 proofs
+        run: node spikes/007-hard-evolution-proofs/selftest.mjs
       - name: Validate INTERPHASE extension bundle syntax
         run: |
           node --check interphase-extension.js
