@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/return/v0.1",
   "id": "fold-bloom-field-lab-readfield-2026-09-24",
-  "status": "IMPLEMENTED_CANDIDATE_PENDING_CI",
+  "status": "SHIPPED_ACTIVE_CANDIDATE",
   "date": "2026-09-24",
   "source": {
     "branch": "fold-bloom-field-lab-readfield-02",
@@ -36,10 +36,9 @@
     "FIELD PULSE authority NONE",
     "desktop spatial mode ring",
     "optional Lab pace/recall trainer",
-    "open PR #207 coordination ownership"
+    "PR #207 coordination boundary during implementation; merged separately as 55e3084"
   ],
   "waiting": [
-    "PR CI",
     "direct phone READFIELD use: RSVP / SCALE / REGRESS",
     "one explicit READ→LOCI or READ→DATA carry judgment"
   ],
@@ -47,6 +46,17 @@
     "FIELD LAB 0.1 described READ as a race while canonical READFIELD already existed; 0.2 resolves runtime duplication but retains race only as an optional training projection.",
     "LOCI 0.1 silently limited input to twelve tokens despite Pathweaver lineage requiring CELL→PATH→ADDRESS→VIEW→RETURN; 0.2 groups large text without dropping words and marks layout/grouping as derived."
   ],
-  "next": "If automated proof passes, merge. Then run one genuinely long familiar source through READ→LOCI and judge source-position recovery/recall against a plain chunk baseline before generalizing COURSE.",
-  "stop": "Do not add another source store, reader kernel, transport bus, or mode solely to make the Lab feel comprehensive."
+  "next": "Use one genuinely long familiar source on phone: READFIELD RSVP/SCALE/REGRESS → CARRY LOCI → recall/export. Compare ordered recall and source-position recovery against a plain chunk list; only then generalize COURSE or add Pathweaver/event-tape adapters.",
+  "stop": "Do not add another source store, reader kernel, transport bus, or mode solely to make the Lab feel comprehensive.",
+  "merge_sha": "f56505f2ebc9d2fdcb17ea03929375ae1b6c8f92",
+  "ci": {
+    "route_registration": {
+      "run": 35953594942,
+      "status": "PASS"
+    },
+    "public_surface": {
+      "run": 35953594950,
+      "status": "PASS"
+    }
+  }
 }
