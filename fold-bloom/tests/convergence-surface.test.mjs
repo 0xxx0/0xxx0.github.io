@@ -20,14 +20,14 @@ test('LIVE exposes source/map/immersion plus remembered-source re-entry',()=>{
   assert.match(app,/listLocalMedia\(/);
 });
 
-test('LISTEN makes remembered tracks and Beat Saber draft first-class',()=>{
+test('LISTEN makes remembered tracks and Beat Saber pack first-class',()=>{
   const html=read('fold-bloom/listen/index.html');
   const app=read('fold-bloom/listen/app.js');
   const vault=read('fold-bloom/listen/vault-handoff.js');
   assert.match(html,/id="savedSource"/);
-  assert.match(html,/id="beatSaberBtn"[^>]*>BEAT SABER<\/button>/);
-  assert.match(html,/BEAT SABER · DRAFT/);
+  assert.match(html,/id="beatSaberBtn"[^>]*>BEAT SABER PACK<\/button>/);
+  assert.match(html,/BEAT SABER · PACK/);
   assert.match(vault,/listLocalMedia/);
-  assert.match(app,/ExpertPlusStandard\.dat/);
-  assert.match(app,/exportBeatSaberDraft/);
+  assert.match(app,/buildBeatSaberPack/);
+  assert.match(app,/exportBeatSaberPack/);
 });
