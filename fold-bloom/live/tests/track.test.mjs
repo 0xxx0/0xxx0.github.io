@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {transportFromMap,textWitnessAt} from '../track.js';
+import {LiveTrack,transportFromMap,textWitnessAt} from '../track.js';
 
 const map={
   duration:8,bpm:120,tempoConfidence:.8,stage:'DEEP',source:{hash:'abc123'},
@@ -38,4 +38,19 @@ test('timed text follows actual cue addresses while embedded text stays FLOAT',(
   assert.equal(timed.mode,'TIMED');assert.equal(timed.text,'b');assert.equal(timed.approx,false);
   const floated=textWitnessAt({kind:'LYRICS',alignment:'UNALIGNED_EMBEDDED_ID3',text:'one\ntwo\nthree',cues:[]},4,8);
   assert.equal(floated.mode,'FLOAT');assert.equal(floated.alignment,'UNALIGNED_EMBEDDED_ID3');assert.equal(floated.approx,true);
+});
+
+
+test('source-only stream is explicit and never masquerades as a mapped track',()=>{
+  const audio={src:'',paused:true,loadCalls:0,addEventListener(){},load(){this.loadCalls++}};
+  const track=new LiveTrack(audio);
+  const meta=track.loadStream({url:'https://example.invalid/source.mp3',name:'SOURCE ONLY',sourceAddress:'provider://source',sourceKind:'REMOTE_AUDIO'});
+  assert.equal(track.sourceActive(),true);
+  assert.equal(track.mapped(),false);
+  assert.equal(track.active(),false);
+  assert.equal(track.transport(),null);
+  assert.equal(track.trackfield(),null);
+  assert.equal(meta.sourceAddress,'provider://source');
+  assert.match(track.stateLabel(),/SOURCE$/);
+  assert.equal(audio.loadCalls,1);
 });

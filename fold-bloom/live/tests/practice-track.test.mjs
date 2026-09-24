@@ -32,7 +32,7 @@ test('built-in demo exposes a gesture-safe audio path instead of forcing silence
   assert.match(html,/id="soundGate"[^>]*>TAP FOR SOUND<\/button>/);
   assert.match(app,/async function enableFieldAudio\(\)/);
   assert.match(app,/const toggleAutopilot=async\(\)=>\{[\s\S]*if\(audio\.soundOn\)await ensureAudio\(\)/);
-  assert.match(app,/launchParams\.get\('demo'\)===?'1'[\s\S]*syncSoundGate\(!audio\.ctx\)/);
+  assert.match(app,/launchParams\.get\('demo'\)===?'1'[\s\S]*syncSoundGate\(!audio\.ctx,'FIELD'\)/);
   assert.doesNotMatch(app,/launchParams\.get\('demo'\)===?'1'[\s\S]{0,240}audio\.setSound\(false\)/);
   assert.doesNotMatch(app,/\#soundBtn'\)\.onclick=async\(\)=>\{stopDemo/);
 });
