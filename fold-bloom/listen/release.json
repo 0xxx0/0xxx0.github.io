@@ -86,7 +86,7 @@
     "the existing event-tape adapter now downloads Beat Saber v4 ExpertPlusStandard.dat directly as a mapper draft.",
     "Beat Saber export is now a one-click v4 mapper/test ZIP containing Info.dat, AudioData.dat, ExpertPlusStandard.dat, minimal Lightshow.dat, FOLD_BLOOM_MANIFEST.json, README.txt and the exact current source bytes.",
     "game-facing Beat Saber chart output strips private _foldBloom metadata; FOLD/BLOOM provenance and authority move to the sidecar manifest instead of contaminating the v4 beatmap schema.",
-    "OGG/EGG source audio is labeled PLAYTEST_READY; MP3/M4A/WAV/etc. is preserved inside the pack but labeled NEEDS_OGG_CONVERSION rather than falsely claimed playable."
+    "OGG/EGG source audio is labeled AUDIO_READY_FOR_PLAYTEST; actual editor/VR playtest remains a human gate; MP3/M4A/WAV/etc. is preserved inside the pack but labeled NEEDS_OGG_CONVERSION rather than falsely claimed playable."
   ],
   "constraints": [
     "no upload/network required for user audio",
