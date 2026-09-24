@@ -1,7 +1,7 @@
 import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, forecastRelease, forecastMatchesCall, callLabel, TYPE_NAMES, N } from './engine.js';
 import { FoldBloomAudio } from './audio.js';
 import { Renderer } from './render.js';
-import { createFieldPulse } from '../../lib/field-pulse.js';
+import { createFieldPulse, transportDescriptor } from '../../lib/field-pulse.js';
 import { LiveTrack } from './track.js';
 import { createSectionArc, syncSectionArc, observeSectionRelease, sectionArcLabel, sectionArcView } from './section-arc.js';
 import { appendReleaseDeformations, applyDeformations, pruneDeformationTape, deformationSummary } from './track-deform.js';
@@ -151,7 +151,7 @@ function update(){
   $('#route').textContent=rideView(ride,latestWorld).label;
   $('#speed').textContent=latestWorld?`${Number(latestWorld.currentSpeed||1).toFixed(2)}×`:'—';
   const g=Number(latestWorld?.currentGrade)||0;$('#grade').textContent=!latestWorld?'—':Math.abs(g)<.08?'LEVEL':g>0?`UP ${Math.round(g*100)}`:`DOWN ${Math.round(Math.abs(g)*100)}`;
-  $('#trackState').textContent=liveTrack.active()?trackStatus+(sourceLandmarks.length?` · ${sourceLandmarks.length} MARKS`:''):(externalTrack?'LISTEN PULSE':'FIELD COURSE');
+  $('#trackState').textContent=liveTrack.active()?trackStatus+(sourceLandmarks.length?` · ${sourceLandmarks.length} MARKS`:''):(externalTrack?`${externalTrack._pulseLabel||'FIELD'} PULSE`:'FIELD COURSE');
   $('#textBtn').textContent=textOn?'TEXT AUTO':'TEXT OFF';
   $('#trackToggle').disabled=!liveTrack.active();
   $('#trackToggle').textContent=liveTrack.active()?($('#trackAudio').paused?'PLAY SONG':'PAUSE SONG'):'PLAY / PAUSE';
@@ -353,9 +353,9 @@ addEventListener('keydown',e=>{
 });
 
 fieldPulse.subscribe(msg=>{
-  if(msg.source!=='FOLD_BLOOM_LISTEN'||msg.kind!=='transport'||liveTrack.active())return;
-  externalTrack=msg.data?{...msg.data,_receivedAt:performance.now()}:null;
-  if(liveTrack.active())return;
+  const clock=transportDescriptor(msg);
+  if(!clock||liveTrack.active())return;
+  externalTrack=msg.data?{...msg.data,_receivedAt:performance.now(),_pulseLabel:clock.label,_pulseSource:clock.source,_pulseClock:clock.clock}:null;
   linkedTrack=externalTrack;
   syncArc(linkedTrack,true);
   const beat=Number(linkedTrack?.beatIndex);
