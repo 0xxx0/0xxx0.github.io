@@ -22,7 +22,7 @@ export function centsBetween(hz,targetHz){
   return 1200*Math.log2(hz/targetHz);
 }
 export function patternTarget(baseMidi,pattern='NOTE',step=0){
-  const seq=PATTERNS[pattern]??PATTERNS.NOTE;
+  const seq=Object.hasOwn(PATTERNS,pattern)?PATTERNS[pattern]:PATTERNS.NOTE;
   if(!seq)return null;
   return Number(baseMidi)+seq[((Math.trunc(step)%seq.length)+seq.length)%seq.length];
 }
