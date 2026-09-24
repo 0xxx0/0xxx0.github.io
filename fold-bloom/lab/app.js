@@ -19,7 +19,7 @@ const PROFILES={
 const MODES={
   RIDE:['EMBODY','audio → terrain → gesture → consequence','RIDE / LIVE','existing embodied engine'],
   PULSE:['ENTRAIN','ratio → pulse → tap → event tape','PULSE / POLYRHYTHM','play, tap, export events'],
-  READ:['PACE','text → temporal address → race / regress','READ / RACE','ghost pace versus typed recall'],
+  READ:['PACE','text → address → RSVP / regress / return','READ / READFIELD','canonical APERTURE reader + optional trainer'],
   LOCI:['REMEMBER','cell → path → place → recall','LOCI / PATH','spatial mnemonic route'],
   INK:['DEPOSIT','gesture → water / pigment → diffusion → dry','INK / PAPER','brush and capillary study'],
   DATA:['REFRACT','object → path → aperture → focus','DATA / FIELD','small addressed explorer']
@@ -173,6 +173,17 @@ $('#readPulse').onclick=()=>{
 $('#readFull').onclick=()=>{
   const source=readerSource();window.FieldAperture?.handoff?.(source,{label:'FIELD LAB READ',from:location.pathname+location.search});
   const q=read.pulseMode==='PACE4'?'?pulse=4&from=field-lab':'?from=field-lab';location.href='/docs/'+q;
+};
+$('#readToLoci').onclick=()=>{
+  const snap=reader?.snapshot?.()||ensureReader()||{};
+  $('#lociSource').value=readerSource();buildLoci();
+  if(loci.nodes.length)loci.step=Math.max(0,Math.min(loci.nodes.length-1,Math.round((Number(snap.source_progress)||0)*(loci.nodes.length-1))));
+  syncLoci();selectMode('LOCI');setSource('TEXT / CARRIED FROM READ');setStatus('LOCI · SAME TEXT · ADDRESS APPROXIMATED FROM READ FOCUS');
+};
+$('#readToData').onclick=()=>{
+  const snap=reader?.snapshot?.()||ensureReader()||{};
+  $('#dataSource').value=JSON.stringify({source:readerSource(),focus:boundedFocus(snap)},null,2);
+  loadData();selectMode('DATA');setSource('TEXT + FOCUS / CARRIED FROM READ');setStatus('DATA · READ SOURCE + FOCUS WITNESS');
 };
 function resetRead(){read.tokens=tokenize(readerSource());read.you=0;read.ghost=0;read.started=false;read.paused=false;read.startAt=0;$('#raceInput').value='';syncReadUI()}
 function syncReadUI(){
