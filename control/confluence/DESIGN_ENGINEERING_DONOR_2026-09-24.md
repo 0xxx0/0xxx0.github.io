@@ -244,3 +244,288 @@ A proposed design change should answer all seven:
 7. How does the user RETURN / undo / replay / inspect?
 
 If those are unanswered, styling work is premature.
+
+
+---
+
+# FIELD LAB FOLLOW-UP — READ / LOCI
+Date: 2026-09-24
+Status: ACTIVE FOLLOW-UP NOTES / NO RUNTIME MUTATION YET
+Source: direct user critique after FIELD LAB 0.1 use.
+
+## OBSERVED
+
+### READ
+The current LAB READ projection violates the instrument law in this same document:
+
+- source text lives in a persistent textarea occupying scarce work surface;
+- the central hero-size "READ" label remains in the operative field after mode identity is already known;
+- controls + explanatory text compete with the temporal reading object;
+- the user is asked to look at interface architecture rather than read.
+
+This is not merely aesthetic dislike. It is an operational failure: chrome displaces the object.
+
+### LOCI
+The current LAB LOCI implementation is promising but intentionally toy-sized:
+
+- arbitrary tokenization;
+- hard \`slice(0,12)\`;
+- one generated radial/wobble layout;
+- one fixed sequential hit order;
+- no source hierarchy;
+- no imported path law;
+- no large-source strategy;
+- no course authoring;
+- no durable route/recall receipt.
+
+The recovered Pathweaver / Verse lineage already contains stronger laws:
+\`CELL → PATH → ADDRESS → VIEW → RETURN\`, explicit path programs, ROWS / COLUMNS / BOUSTROPHEDON / CUSTOM traversal, stable cells, captures, typed BY transitions, route glyph projection and reversible source/path state.
+
+Therefore LOCI should consume those mechanisms instead of inventing a second mnemonic path engine.
+
+## READ — NEXT DESIGN
+
+### R1 · SOURCE INTAKE MUST RECEDE
+Treat paste/import as an aperture, not a permanent editor.
+
+Candidate interaction:
+1. empty READ state exposes one small PASTE / DROP / USE CURRENT SOURCE aperture;
+2. after binding, source intake collapses to a thin source rail/witness;
+3. direct reading surface owns the center;
+4. source editor reappears only on explicit SOURCE action.
+
+No hero title remains in the center after the first interaction.
+
+### R2 · CENTER = READING OBJECT
+The center should contain only material that participates in reading:
+- current word / phrase;
+- minimal near context when useful;
+- ORP/fixation witness if enabled;
+- ghost/user trajectory or path residue;
+- source-position witness.
+
+Mode labels move to the perimeter or disappear.
+
+### R3 · CONTROLS RECEDE DURING RUN
+START should transform the surface:
+- controls collapse;
+- pointer/touch/keyboard can reveal a temporary toolglass;
+- progress/ghost remain peripheral;
+- pause/regress should be spatially stable and reachable without opening a settings panel.
+
+### R4 · DO NOT FORK READFIELD
+LAB READ is a training/game projection over canonical text address.
+READFIELD remains the serious reader and source-position authority.
+
+Candidate shared state:
+\`source_id + canonical text address + aperture + pace + optional ghost trajectory\`.
+
+LAB-specific race state remains projection/training evidence, not canonical source truth.
+
+### R5 · RACE SHOULD BECOME TRAJECTORY, NOT SCOREBOARD
+Instead of YOU/GHOST/Δ as dashboard boxes, render two traces through the same addressed source.
+Useful events:
+- catch;
+- fall-behind;
+- deliberate regress;
+- pause;
+- recovery;
+- finish.
+
+This can later join track/course grammar without converting reading into a fake speed score.
+
+## LOCI — NEXT DESIGN
+
+### L1 · REFRAME AS COURSE / PATH PROJECTION
+LOCI is not fundamentally "tokens around a circle."
+
+It is:
+
+\`\`\`
+SOURCE
+→ ADDRESSABLE UNITS
+→ ROUTE / COURSE
+→ LOCUS PROJECTION
+→ TRAVERSE / RECALL
+→ RETURN
+\`\`\`
+
+The same course grammar can support:
+- mnemonic loci;
+- Pathweaver reading paths;
+- track / rhythm course design;
+- READ race trajectories;
+- verse/cell paths;
+- event-tape checkpoints;
+- later spatial/ROOM projection.
+
+Do not claim those projections have equal semantics. They share route/address mechanics.
+
+### L2 · LARGE SOURCE = HIERARCHY, NOT MORE DOTS
+For large pasted text, derive multiple address scales rather than truncating:
+- source;
+- section / paragraph;
+- sentence / phrase;
+- token only when aperture requires it.
+
+A long source should first become a course of meaningful chunks/landmarks. Zoom/aperture can expose finer units locally.
+
+Candidate deterministic policy:
+- <= 16 units: direct loci;
+- larger source: coarse chunk course first;
+- expand one locus into sub-loci on demand;
+- preserve exact source address at every level.
+
+These thresholds are experiment parameters, not canon.
+
+### L3 · ACCEPT A SMALL ADAPTER SET
+Do not invent a universal schema yet. Normalize a few existing input forms into an internal candidate course object.
+
+Initial adapters:
+
+1. **PLAIN TEXT**
+   - preserve exact source string/hash;
+   - derive paragraph/sentence/phrase addresses;
+   - layout/path is derived evidence.
+
+2. **PATHWEAVER CAPTURE / PATH PROGRAM**
+   - consume stable cells, path order, traversal law and custom path where recoverable;
+   - imported authored route remains authored route;
+   - LOCI adds mnemonic projection/training only.
+
+3. **FOLD//BLOOM EVENT TAPE**
+   - BEAT / PHRASE / SECTION / OPERATION events become time-addressed checkpoints;
+   - measured timing remains evidence;
+   - authored OPERATION remains authored;
+   - enables memory/rhythm/course experiments without changing source truth.
+
+Possible later adapter only after need:
+4. **GENERIC ADDRESSED LIST / GRAPH**
+   - explicit \`id + label + source_address\`, optional typed edges.
+   - avoid accepting arbitrary JSON as meaningful structure merely because it parses.
+
+### L4 · INTERNAL COURSE OBJECT — CANDIDATE, NOT NEW CORE
+A local LAB-normalized object may look like:
+
+\`\`\`json
+{
+  "source": {"id":"…","type":"text|path|event-tape"},
+  "nodes":[
+    {"id":"n0","address":"…","label":"…","cue":null}
+  ],
+  "edges":[
+    {"from":"n0","to":"n1","by":"ORDER|GEOMETRY|CHOICE|EVENT"}
+  ],
+  "route":["n0","n1"],
+  "projection":{"layout":"radial|grid|path|track","seed":"…"},
+  "training":{"phase":"study|guided|recall|reverse"}
+}
+\`\`\`
+
+This must stay an adapter/view object until at least two real consumers prove a shared helper removes duplicate machinery.
+
+### L5 · COURSE AUTHORING
+Recovered Pathweaver mechanisms should enter LOCI as optional course-authoring operations:
+- ROWS;
+- COLUMNS;
+- BOUSTROPHEDON;
+- CUSTOM draw/trace;
+- later only if justified: spiral / ring / imported typed path.
+
+For mnemonic use, allow node repositioning or route drawing as human authorship.
+Deterministic auto-layout must be marked DERIVED.
+
+### L6 · TRAINING PHASES
+A better LOCI loop:
+
+1. **STUDY** — labels/cues visible; traverse route.
+2. **GUIDED** — current/next locus visible.
+3. **RECALL** — labels hidden; recover path/content.
+4. **REVERSE** — traverse backward.
+5. **REPAIR** — expose missed locus + neighboring context.
+6. **RETURN** — exact source + route + misses/hints/latencies retained.
+
+Evidence vector rather than one score:
+- order accuracy;
+- source-position recovery;
+- latency;
+- hints;
+- reversals;
+- retained recall after delay.
+
+### L7 · LANDMARK DISTINCTNESS IS A REAL VARIABLE
+Method-of-loci depends on distinct places/cues; generic identical dots are a weak substrate.
+
+Candidate non-AI landmark channels:
+- deterministic source glyph;
+- route geometry;
+- node shape;
+- short text fragment;
+- source-derived audio/event witness;
+- user-authored mark/INK thumbnail.
+
+Test landmark channels against a plain-label baseline before adding generative imagery.
+
+### L8 · TRACK DESIGN CONNECTION
+The high-value convergence is a shared **COURSE** idea, not a shared visual skin.
+
+A course can have:
+- exact addressed checkpoints;
+- typed edges;
+- optional timing;
+- authored branches;
+- difficulty/constraint;
+- sensory witnesses;
+- traversal residue;
+- RETURN.
+
+Then:
+- LOCI projects course as memory space;
+- PULSE projects it as rhythm checkpoints;
+- READ projects it as temporal text trajectory;
+- Pathweaver projects it as cell route;
+- Beat/event tape projects it as timed course;
+- GLYPH compresses the route;
+- future RIDE may embody it.
+
+This is a candidate donor relationship. Do not promote COURSE to core until two existing hosts independently need the same structure.
+
+## FIRST BOUNDED PROOFS
+
+### Proof A — READ de-chrome
+Change no semantics.
+Remove persistent source textarea and central hero word from the active run state; collapse controls after START.
+PASS if reading area materially increases and all source/edit/regress/pause/return operations remain reachable.
+
+### Proof B — LOCI large text
+Use one genuinely long pasted source.
+Normalize paragraph/sentence chunks, create >12 stable addressed loci across a hierarchical course, traverse, hide, recall, RETURN to exact text addresses.
+PASS if no source content is silently discarded and the user can recover source position from a locus.
+
+### Proof C — Pathweaver import
+Import one recovered Pathweaver path/capture.
+Preserve exact cell IDs/order/law.
+Project it as LOCI without claiming mnemonic meaning came from Pathweaver.
+PASS if round-trip returns the same source/path authority.
+
+### Proof D — Event Tape course
+Import one event tape.
+Project SECTION/PHRASE/selected BEAT/OPERATION events as checkpoints.
+PASS if measured vs authored event classes remain distinguishable through export/RETURN.
+
+## HOLD
+
+- AI-generated palace imagery before landmark need is proved;
+- universal course schema;
+- arbitrary graph ontology;
+- one scalar "memory score";
+- full 3D world;
+- automatic semantic chunking presented as truth;
+- more typography/chrome;
+- a separate LOCI app before LAB proves the interaction.
+
+## ONE NEXT
+
+Implement **Proof A + Proof B only** in one bounded branch:
+READ recedes; LOCI stops throwing away large inputs.
+Do not generalize COURSE until those two direct-use deltas are felt and verified.
