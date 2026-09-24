@@ -1690,14 +1690,14 @@
       "operation": "ENTER / ROUTE",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-24T11:40:00+08:00",
+        "updated_at": "2026-09-24T18:18:00+08:00",
         "work_modes": [
           "OPERATE",
           "SHARE",
           "RELEASE"
         ]
       },
-      "role": "Public-facing Fold/Bloom doorway. Presents the family as one coherent instrument without flattening its unequal engines: LIVE rides, LISTEN maps, SET authors source sequences, /instrument/ exposes the active-object/operation/projection/RETURN core, and FIELD LAB 0.2 now reuses canonical READFIELD/APERTURE rather than cloning a reader. The shared root remains stable for already-shared links while deeper implementation surfaces stay addressable.",
+      "role": "Public-facing Fold/Bloom doorway. Presents the family as one coherent instrument without flattening its unequal engines: LIVE rides, LISTEN maps, SET authors source sequences, /instrument/ exposes the active-object/operation/projection/RETURN core, and FIELD LAB 0.2 now reuses canonical READFIELD/APERTURE rather than cloning a reader. The shared root remains stable for already-shared links while deeper implementation surfaces stay addressable. VOICE 0.1 adds a local microphone pitch/stability practice projection that may borrow FIELD PULSE timing without acquiring source or quality-judgment authority.",
       "tier": "FIELD",
       "version": "0.1.1",
       "receipt": "/returns/FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json"
@@ -2135,6 +2135,79 @@
         "next_if_fail": "Keep canonical READFIELD handoff and individually useful PULSE/event-tape/INK mechanisms; demote the universal FIELD LAB shell instead of cloning more engines."
       },
       "receipt": "/fold-bloom/lab/release.json"
+    },
+    {
+      "href": "/fold-bloom/voice/",
+      "title": "FOLD//BLOOM · VOICE 0.1",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "TRAIN / LISTEN",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "tier": "FIELD",
+      "role": "Phone-first local microphone pitch/stability trainer. Single-note, 1-3-5-3, five-note and hum practice may optionally follow LISTEN/AUDIO or FIELD LAB/SYNTH timing through FIELD PULSE; pitch evidence never becomes singing-quality judgment or source authority.",
+      "index": {
+        "updated_at": "2026-09-24T18:18:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "TRAIN",
+          "VERIFY",
+          "SHARE"
+        ]
+      },
+      "evidence": {
+        "receipt": "/fold-bloom/voice/release.json",
+        "checks": [
+          "deterministic pitch/pattern Node tests",
+          "mic permission + phone singing proof remains human"
+        ],
+        "return_path": "/fold-bloom/"
+      },
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "local microphone signal",
+            "manual target/pattern controls",
+            "optional FIELD PULSE transport"
+          ],
+          "requires": [
+            "explicit microphone permission"
+          ],
+          "optional": [
+            "LISTEN/AUDIO clock",
+            "FIELD LAB/SYNTH clock"
+          ]
+        },
+        "transforms": {
+          "verb": "estimate local fundamental pitch/stability; compare to a user-selected target pattern; optionally advance target steps from borrowed beat timing",
+          "preserves": [
+            "manual exercise authorship",
+            "external clock non-authority",
+            "no microphone recording/upload",
+            "manual operation without pulse"
+          ],
+          "reversibility": "full",
+          "side_effects": "local microphone permission + explicit JSON RETURN export only"
+        },
+        "evidence": {
+          "receipt": "/fold-bloom/voice/release.json",
+          "return_path": "/fold-bloom/voice/"
+        }
+      },
+      "receipt": "/fold-bloom/voice/release.json",
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can the existing FIELD PULSE timing substrate support a simple phone singing-practice instrument that is understandable without architectural explanation while keeping microphone evidence local and non-evaluative?",
+        "baseline": "FIELD PULSE already coordinates LISTEN/AUDIO and FIELD LAB/SYNTH timing across READFIELD, LIVE and Two Dial, but there is no ordinary voice-practice consumer; a singer must currently use unrelated tuner/metronome tools.",
+        "mutation": "Add VOICE 0.1 as a sibling projection: local fundamental-pitch/stability estimation, reference tone, four bounded practice patterns and optional borrowed beat timing. Export aggregate practice evidence only; record/upload no microphone audio.",
+        "evidence_gate": "Deterministic pitch-core tests + phone-sized browser boot. Human gate: one 60-second held-note pass and one PULSE-linked 1-3-5-3 pass must be legible to a non-technical user without explaining FIELD PULSE.",
+        "next_if_pass": "Retain VOICE as a small practice projection and test one bounded READFIELD + VOICE shadowing/phrase exercise only if a real use case asks for text plus voice.",
+        "next_if_fail": "Keep the reusable local pitch estimator if useful; remove the VOICE public projection or PULSE link rather than adding scoring, cloud speech models or another timing architecture."
+      }
     },
     {
       "href": "/fold-bloom/ink/",

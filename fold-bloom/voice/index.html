@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#05070b"><meta name="color-scheme" content="dark">
+<title>FOLD//BLOOM — VOICE 0.1</title>
+<style>
+:root{--bg:#05070b;--panel:#080d12;--line:#273139;--ink:#f2f3ef;--mut:#78858c;--hot:#ef7849;--cool:#7bd5ff;--gold:#d7b46d}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;width:100%;min-height:100%;background:var(--bg);color:var(--ink);font-family:ui-monospace,SFMono-Regular,Menlo,monospace}button{font:inherit;border:1px solid var(--line);border-radius:0;background:#080d12;color:var(--ink);min-height:42px;padding:9px 11px}button.on{border-color:var(--cool);color:var(--cool)}button:active{transform:translateY(1px)}
+.app{min-height:100dvh;display:grid;grid-template-rows:auto 1fr auto}.top{display:flex;gap:10px;align-items:center;padding:max(10px,env(safe-area-inset-top)) 12px 10px;border-bottom:1px solid var(--line)}.brand{font-weight:950;letter-spacing:-.04em}.brand i{font-style:normal;color:var(--hot)}.sub{font-size:8px;color:var(--mut);letter-spacing:.12em}.grow{flex:1}.top button{min-height:32px;padding:6px 8px;font-size:8px}
+main{display:grid;grid-template-columns:minmax(0,1fr) minmax(310px,390px);min-height:0}.field{position:relative;display:grid;place-items:center;padding:24px;overflow:hidden}.rings{position:absolute;width:min(72vmin,560px);aspect-ratio:1;border:1px solid #182229;border-radius:50%}.rings:before,.rings:after{content:"";position:absolute;border:1px solid #182229;border-radius:50%;inset:18%}.rings:after{inset:36%}.beat{position:absolute;width:min(58vmin,440px);aspect-ratio:1;border:1px solid transparent;border-radius:50%;pointer-events:none}.beat.hit{animation:beat .34s ease}@keyframes beat{0%{border-color:var(--gold);transform:scale(.96);opacity:1}100%{border-color:transparent;transform:scale(1.04);opacity:0}}
+.center{z-index:2;text-align:center;width:min(82vw,600px)}.label{font-size:8px;letter-spacing:.18em;color:var(--mut)}.target{font:950 clamp(70px,18vw,170px)/.78 ui-sans-serif,system-ui,sans-serif;letter-spacing:-.08em;margin:12px 0 4px}.targetHz{color:var(--gold);font-size:10px}.heard{margin-top:34px;font:900 clamp(30px,8vw,70px)/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:-.05em}.heardHz{font-size:8px;color:var(--mut);margin-top:4px}
+.tune{margin:28px auto 0;max-width:560px}.rail{height:5px;background:#172128;position:relative}.rail:before{content:"";position:absolute;left:50%;top:-6px;width:1px;height:17px;background:#dfe6e9}.needle{position:absolute;left:50%;top:-7px;width:3px;height:19px;background:var(--hot);transform:translateX(-50%);transition:.08s left}.railLabels{display:flex;justify-content:space-between;color:#53616a;font-size:7px;margin-top:5px}.relation{margin-top:10px;font-size:12px;font-weight:900;letter-spacing:.15em}.relation[data-state="on"]{color:var(--cool)}.relation[data-state="near"]{color:var(--gold)}.relation[data-state="off"]{color:var(--hot)}
+.panel{border-left:1px solid var(--line);background:#070b0f;padding:14px;overflow:auto}.panel h2{font-size:10px;letter-spacing:.14em;margin:0 0 10px}.row{display:flex;gap:5px;margin:5px 0}.row>*{flex:1}.patterns{display:grid;grid-template-columns:1fr 1fr;gap:4px}.patterns button{font-size:8px}.metricGrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);margin:12px 0}.metric{background:#080d12;padding:9px;font-size:8px;color:var(--mut)}.metric b{display:block;color:var(--ink);font-size:12px;margin-top:3px}.base{display:grid;grid-template-columns:44px 1fr 44px;gap:4px;align-items:center}.base strong{text-align:center;border:1px solid var(--line);padding:12px}.privacy{border-top:1px solid var(--line);margin-top:14px;padding-top:12px;color:#718087;font:9px/1.55 system-ui,-apple-system,sans-serif}.primary{border-color:var(--hot);color:#ffd0bf}.cool{border-color:#315b6c;color:var(--cool)}
+footer{border-top:1px solid var(--line);padding:7px 10px calc(7px + env(safe-area-inset-bottom));font-size:8px;color:#66747c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:760px){main{grid-template-columns:1fr;grid-template-rows:minmax(46vh,1fr) auto}.field{min-height:46vh;padding:14px}.panel{border-left:0;border-top:1px solid var(--line);max-height:46vh}.target{font-size:clamp(66px,26vw,120px)}.heard{margin-top:20px}.tune{margin-top:18px}.sub{display:none}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div><div class="brand">FOLD<i>//</i>BLOOM · VOICE 0.1</div><div class="sub">PITCH · STABILITY · TARGET · OPTIONAL FIELD PULSE</div></div><div class="grow"></div><button id="backBtn">← RETURN</button></header>
+<main>
+<section class="field">
+  <div class="rings"></div><div class="beat" id="beatFlash"></div>
+  <div class="center">
+    <div class="label">TARGET · <span id="patternRead">NOTE</span></div>
+    <div class="target" id="targetNote">C4</div><div class="targetHz" id="targetHz">261.6 Hz</div>
+    <div class="heard" id="heardNote">—</div><div class="heardHz" id="heardHz">MIC OFF</div>
+    <div class="tune"><div class="rail"><i class="needle" id="needle"></i></div><div class="railLabels"><span>−50¢</span><span id="cents">—</span><span>+50¢</span></div></div>
+    <div class="relation" id="relation" data-state="idle">START MIC</div>
+  </div>
+</section>
+<aside class="panel">
+  <h2>PRACTICE</h2>
+  <div class="row"><button class="primary" id="micBtn">START MIC</button><button id="hearBtn">HEAR TARGET</button><button id="nextBtn">NEXT</button></div>
+  <div class="patterns"><button class="on" data-pattern="NOTE">ONE NOTE</button><button data-pattern="CALL">1 · 3 · 5 · 3</button><button data-pattern="SCALE">FIVE NOTE</button><button data-pattern="HUM">HUM / STEADY</button></div>
+  <h2 style="margin-top:14px">BASE</h2><div class="base"><button id="baseDown">−</button><strong id="baseRead">C4</strong><button id="baseUp">+</button></div>
+  <h2 style="margin-top:14px">CLOCK</h2><div class="row"><button id="pulseBtn">PULSE OFF</button><div style="flex:2;border:1px solid var(--line);padding:12px 9px;font-size:8px;color:var(--mut)" id="pulseRead">FREE</div></div>
+  <div class="metricGrid"><div class="metric">CLARITY<b id="clarity">—</b></div><div class="metric">STABILITY<b id="stability">—</b></div></div>
+  <div class="row"><button class="cool" id="exportBtn">EXPORT RETURN</button><a href="../lab/?mode=PULSE" style="flex:1"><button style="width:100%">OPEN PULSE →</button></a></div>
+  <div class="privacy">Microphone analysis stays in this browser. VOICE does not record or upload audio. Pitch is a measured signal, not a judgment of singing quality. FIELD PULSE may lend tempo/beat only; it cannot author the voice exercise.</div>
+</aside>
+</main>
+<footer id="status">READY · START MIC OR HEAR TARGET</footer>
+</div>
+<script type="module" src="./app.js"></script><script src="/showcase-nav.js" defer></script>
+</body></html>

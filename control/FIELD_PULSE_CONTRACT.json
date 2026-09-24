@@ -127,6 +127,11 @@
         "sourceAddress"
       ],
       "effect": "Synthetic rhythm clock for entrainment and explicit same-tab READ/RIDE/COMPOSE handoff; a consumer may continue seeded tempo/phase locally without gaining audio, source or authorship authority."
+    },
+    {
+      "consumer": "FOLD//BLOOM VOICE 0.1",
+      "from": "LISTEN/AUDIO transport or FIELD LAB/SYNTH clock seed",
+      "effect": "Optional beat timing may advance local pitch-practice patterns; microphone pitch/stability evidence and exercise choice remain local. No raw microphone audio enters FIELD PULSE."
     }
   ],
   "laws": [
@@ -144,7 +149,8 @@
     "tempo + beat phase + quantum are coordination context; each consumer retains independent transport and may ignore the clock",
     "synthetic rhythm clock != audio source; FIELD LAB PULSE may lend timing but cannot claim source bytes, AUDIO MAP evidence or musical semantics",
     "explicit synthetic clock handoff may persist tempo/phase locally after navigation until the consumer disengages or a higher-priority local source takes over; AUDIO transport never receives this stale-clock privilege",
-    "An explicit synthetic FIELD LAB handoff may continue tempo and phase locally after same-tab navigation until the consumer disengages or a local source takes over. LISTEN audio transport remains freshness-bound."
+    "An explicit synthetic FIELD LAB handoff may continue tempo and phase locally after same-tab navigation until the consumer disengages or a local source takes over. LISTEN audio transport remains freshness-bound.",
+    "pitch estimate != singing quality or semantic truth; VOICE may expose cents/clarity/stability as local signal evidence without ranking the singer"
   ],
   "external_media_boundary": {
     "suno": "Best-effort address adapter only. Real phone use on 2026-09-22 remained browser/CORS-blocked; do not gate gameplay on Suno resolution. Proven fallback: obtain/export MP3 and load locally.",
@@ -195,6 +201,12 @@
       "to": "READFIELD / RSVP 0.8.2 + LOCI / DATA studies",
       "verb": "READ / CARRY",
       "handoff": "canonical APERTURE source/focus; explicit synthetic tempo/phase seed may pace READ or route to LIVE/Two Dial; CARRY remains explicit"
+    },
+    {
+      "from": "FOLD//BLOOM FIELD LAB 0.2.1 / LISTEN",
+      "to": "FOLD//BLOOM VOICE 0.1",
+      "verb": "TRAIN",
+      "handoff": "optional tempo/beat context only; VOICE owns target pattern and local microphone evidence; manual practice remains complete without pulse"
     }
   ],
   "alignment_model": {

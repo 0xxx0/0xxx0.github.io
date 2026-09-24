@@ -752,6 +752,12 @@ const CASES=[
     check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/A source becomes a field/i.test(dom)&&/TRY FIELD DEMO/.test(dom)&&/ENTER LIVE RIDE/.test(dom)&&/MAP A TRACK/.test(dom)&&/DRAW INK/.test(dom)&&/ONE INSTRUMENT/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
   },
   {
+    name:'FOLD BLOOM VOICE 0.1',
+    route:'/fold-bloom/voice/',
+    options:{width:430,height:900,budget:8000},
+    check:dom=>/VOICE 0\.1/i.test(dom)&&dom.includes('id="micBtn"')&&dom.includes('id="pulseBtn"')&&dom.includes('data-pattern="CALL"')&&/Microphone analysis stays in this browser/.test(dom)&&/EXPORT RETURN/.test(dom)
+  },
+  {
     name:'FOLD BLOOM FIELD LAB',
     route:'/fold-bloom/lab/',
     options:{width:430,height:900,budget:7000},
