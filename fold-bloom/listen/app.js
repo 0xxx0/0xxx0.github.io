@@ -341,11 +341,11 @@ async function exportBeatSaberPack(){
     const eventTape=compileEventTape(map,{sourceId}),chart=toBeatSaberV4Draft(eventTape);
     chart._foldBloom={...(chart._foldBloom||{}),sourceId,eventCount:eventTape.eventCount,sourceName:fileMeta?.name||'SOURCE'};
     const sourceBytes=await sourceBlob.arrayBuffer();
-    const pack=buildBeatSaberPack({chart,map,fileMeta:{...(fileMeta||{}),sourceId},sourceBytes});
+    const pack=buildBeatSaberPack({chart,map,fileMeta:{...(fileMeta||{}),sourceId},sourceBytes,generatedAt:new Date().toISOString()});
     const blob=new Blob([pack.bytes],{type:'application/zip'}),link=document.createElement('a');
     link.href=URL.createObjectURL(blob);link.download=pack.filename;link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);
     document.documentElement.dataset.listenBeatSaberPack=pack.status;
-    toast(pack.playtestReady?'BEAT SABER PACK · PLAYTEST READY':'BEAT SABER PACK · CONVERT SOURCE TO OGG');
+    toast(pack.playtestReady?'BEAT SABER PACK · AUDIO READY':'BEAT SABER PACK · CONVERT SOURCE TO OGG');
     return true;
   }catch(error){toast(error?.message||'BEAT SABER PACK FAILED');return false}
 }
