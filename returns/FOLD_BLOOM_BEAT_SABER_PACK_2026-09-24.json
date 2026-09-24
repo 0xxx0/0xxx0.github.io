@@ -1,7 +1,7 @@
 {
   "schema": "return/v1",
   "id": "FOLD_BLOOM_BEAT_SABER_PACK_2026-09-24",
-  "status": "MERGE_CANDIDATE",
+  "status": "SHIPPED",
   "object": "FOLD//BLOOM LISTEN → Beat Saber v4 mapper/test pack",
   "state": "TRANSFORM_EXPORT_ADVANCED",
   "source_head": "master@427e58ba6166506c85e56a7bce2c2977f01f47be",
@@ -28,7 +28,7 @@
     "real_mp3_phone_continuity": "PASS · same run; conversion boundary remains explicit",
     "field_lab_live_and_browser_boots": "PASS through unified-root browser step 43 on same run",
     "route_registration": "PASS · run 35994746515",
-    "final_pr_head": "PENDING rerun after this control/RETURN seal"
+    "final_pr_head": "PASS · public-surface-check 35995567067 + Route Registration 35995567200"
   },
   "external_format_basis": {
     "observed_2026_09_24": [
@@ -49,5 +49,10 @@
     "No in-browser saber gameplay.",
     "Actual VR/editor playtest remains a human/world gate."
   ],
-  "one_next": "Use LISTEN BEAT SABER PACK on one mapped local source; if OGG/EGG, open the extracted pack in a Beat Saber mapping/playtest workflow; if MP3/M4A/etc., convert SOURCE.* to song.ogg first. Only implementation defects revealed by that use should reopen this lane."
+  "one_next": "Use LISTEN BEAT SABER PACK on one mapped local source; if OGG/EGG, open the extracted pack in a Beat Saber mapping/playtest workflow; if MP3/M4A/etc., convert SOURCE.* to song.ogg first. Only implementation defects revealed by that use should reopen this lane.",
+  "merge": {
+    "pr": 218,
+    "sha": "f9de196d219e50e0850f564c3645fe582f25e909",
+    "method": "squash"
+  }
 }
