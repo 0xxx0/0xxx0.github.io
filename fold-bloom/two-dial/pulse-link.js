@@ -1,4 +1,4 @@
-import { createFieldPulse } from '../../lib/field-pulse.js';
+import { createFieldPulse, transportDescriptor } from '../../lib/field-pulse.js';
 
 const api=window.FoldBloom;
 const $=s=>document.querySelector(s);
@@ -6,11 +6,11 @@ if(!api) throw new Error('FOLD//BLOOM Two Dial API unavailable');
 
 const pulse=createFieldPulse('FOLD_BLOOM_TWO_DIAL');
 const btn=$('#pulseLinkBtn'),status=$('#pulseLinkStatus'),openBtn=$('#pulseListenBtn');
-let lastListen=null;
+let lastTransport=null,lastClock=null;
 const pulseRequest=new URLSearchParams(location.search).get('pulse')==='1';
-const lastPulse=pulse.last();
-if(lastPulse?.source==='FOLD_BLOOM_LISTEN'&&lastPulse.kind==='transport'){
-  lastListen=lastPulse;api.updatePulseContext?.(lastPulse.data,lastPulse.wall);
+const lastPulse=pulse.last(),lastDesc=transportDescriptor(lastPulse);
+if(lastDesc){
+  lastTransport=lastPulse;lastClock=lastDesc;api.updatePulseContext?.(lastPulse.data,lastPulse.wall);
 }
 if(pulseRequest){
   const state=api.state?.()||{};
@@ -27,9 +27,9 @@ function render(){
   if(status){
     if(!linked) status.textContent='OFF · Two Dial keeps its own clock.';
     else if(local&&p.active) status.textContent=`LOCAL TRACK · ${Math.round(p.tempo||p.bpm||0)} BPM · E${Math.round((p.energy||0)*100)} · SECTION ${Math.max(0,p.sectionIndex)+1}`;
-    else if(p.active) status.textContent=`LISTEN · ${Math.round(p.tempo||p.bpm||0)} BPM · E${Math.round((p.energy||0)*100)} · SECTION ${Math.max(0,p.sectionIndex)+1}`;
-    else if(p.connected) status.textContent=`WAITING · LISTEN ${p.playing?'clock stale':'paused'} · internal clock retained`;
-    else status.textContent='WAITING · open LISTEN in another same-origin tab and play a track';
+    else if(p.active) status.textContent=`${lastClock?.label||'FIELD PULSE'} · ${Math.round(p.tempo||p.bpm||0)} BPM · E${Math.round((p.energy||0)*100)} · SECTION ${Math.max(0,p.sectionIndex)+1}`;
+    else if(p.connected) status.textContent=`WAITING · ${lastClock?.label||'FIELD PULSE'} ${p.playing?'clock stale':'paused'} · internal clock retained`;
+    else status.textContent='WAITING · open LISTEN or FIELD LAB PULSE and start a clock';
   }
 }
 
@@ -41,8 +41,9 @@ btn?.addEventListener('click',()=>{
 openBtn?.addEventListener('click',()=>window.open('../listen/','_blank','noopener'));
 
 pulse.subscribe(msg=>{
-  if(msg.source!=='FOLD_BLOOM_LISTEN'||msg.kind!=='transport'||window.FoldBloomTrackLink?.active?.())return;
-  lastListen=msg;
+  const clock=transportDescriptor(msg);
+  if(!clock||window.FoldBloomTrackLink?.active?.())return;
+  lastTransport=msg;lastClock=clock;
   api.updatePulseContext?.(msg.data,msg.wall);
   render();
 });
@@ -71,4 +72,4 @@ api.subscribeEvents?.(event=>{
 setInterval(render,600);
 render();
 document.documentElement.dataset.foldBloomPulse='ready';
-window.FoldBloomPulseLink={state:()=>({listen:lastListen,local:api.pulseState?.()||{},enabled:!!api.state?.().prefs?.pulseLink})};
+window.FoldBloomPulseLink={state:()=>({listen:lastTransport,transport:lastTransport,clock:lastClock,local:api.pulseState?.()||{},enabled:!!api.state?.().prefs?.pulseLink})};
