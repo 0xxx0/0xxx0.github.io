@@ -75,10 +75,10 @@
     },
     {
       "lineage": "rsvp-reader",
-      "head": "READFIELD / RSVP 0.8 · FOCUS LENS + APERTURE focus kernel",
+      "head": "READFIELD / RSVP 0.8.2 · FOCUS LENS + APERTURE focus kernel",
       "state": "UTILITY / READER_FIRST / MERGED_ACTIVE_CANDIDATE",
       "route": "/docs/",
-      "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. PLAIN remains the default geometry-free performance baseline; FOCUS optionally projects AXIAL/LISTEN address+aperture rings, a Triangle-derived center frame, LISTEN FIELD PULSE and an existing Atlas glyph witness around the same cursor; MIN retains ring + ORP essentials. Instrument range is 60–6000 WPM with a 10 ms dwell floor; long-source structure uses 72 evenly sampled witnesses rather than the first 40 only. No audio/glyph authority moves into READFIELD. INTERPHASE 0.2 adapts the existing Aperture cursor as shared address/focus state; READFIELD remains text/source authority.",
+      "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. PLAIN remains the default geometry-free performance baseline; FOCUS optionally projects AXIAL/LISTEN address+aperture rings, a Triangle-derived center frame, LISTEN FIELD PULSE and an existing Atlas glyph witness around the same cursor; MIN retains ring + ORP essentials. Instrument range is 60–6000 WPM with a 10 ms dwell floor; long-source structure uses 72 evenly sampled witnesses rather than the first 40 only. No audio/glyph authority moves into READFIELD. INTERPHASE 0.2 adapts the existing Aperture cursor as shared address/focus state; READFIELD remains text/source authority. LISTEN/AUDIO or FIELD LAB/SYNTH may lend explicit tempo/phase context through FIELD PULSE; one-tap FAST RSVP, PULSE ×4 and VOICE+EYES expose existing capabilities without changing cursor authority.",
       "evidence": [
         "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
         "/control/READFIELD_CONVERGENCE_2026-09-22.json",
@@ -94,9 +94,10 @@
         "/returns/FIELD_PULSE_WORKFLOW_2026-09-22.json",
         "/control/confluence/READFIELD_FOCUS_LENS_080_2026-09-23.json",
         "/returns/READFIELD_FOCUS_LENS_080_2026-09-23.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/177"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/177",
+        "/returns/FIELD_PULSE_CONVERGENCE_2026-09-24.json"
       ],
-      "latest_return": "/returns/READFIELD_FOCUS_LENS_080_2026-09-23.json",
+      "latest_return": "/returns/FIELD_PULSE_CONVERGENCE_2026-09-24.json",
       "merge_sha": "ace1bf8d7e1c114069f7c82651d37d0cd218af6f",
       "next_executable": {
         "id": "readfield-focus-lens-lived-gate",
@@ -141,10 +142,10 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM · PUBLIC FRONT / CORE INSTRUMENT 0.1 / FIELD LAB 0.2 / INK FIELD 0.2 / SET 0.1.1→LIVE fusion / JOURNEY debug / LIVE 0.13 / LISTEN 0.6",
+      "head": "FOLD//BLOOM · PUBLIC FRONT / CORE INSTRUMENT 0.1 / FIELD LAB 0.2.1 / INK FIELD 0.2 / SET 0.1.1→LIVE fusion / JOURNEY debug / LIVE 0.13 / LISTEN 0.6",
       "state": "ACTIVE_CANDIDATE_UNIFIED_DOORWAY / SET_LIVE_FUSED",
       "route": "/fold-bloom/",
-      "retained_function": "The canonical /fold-bloom/ entry is now one instrument doorway rather than a catalogue of peer apps. INTERPHASE 0.2 owns focus/projection/RETURN mechanics while domain truth stays where it already lives: exact audio bytes in the local media vault, LISTEN as source cartographer, SET as ordered/seam composition authority, READFIELD as text reader, and LIVE as embodied single-source ride. The shell stores only a session-local active-object pointer/handoff. Typing can produce an immediate unbound deterministic glyph; binding creates an exact text/audio address. FOLD from AUDIO commits an exact source ref into SET and changes the active object to that SET without duplicating bytes. SET RIDE now enters LIVE through the merged PR #200 fusion using the unified dual-clock state while preserving exact child source identity, authored seam laws and SET/LIVE authority boundaries; Journey remains a secondary traversal/debug witness. The next Fold/Bloom gate is lived 2–3-source phone use, not more architecture. Design-engineering donor 2026-09-24 now governs experience work: primitive-first spatial instruments, receding chrome, fewer deeper inputs, explicit profile/evidence separation, and delight with causal addressability; Septabee/Interface Studies/Tangible Media are donors rather than skins. FIELD LAB 0.2 compares six unequal practice projections but now reuses canonical READFIELD/APERTURE instead of a second reader; source intake recedes after binding, phone mode selection is thumb-reachable, PULSE coupling is explicit, and LOCI preserves large text as bounded exact-address spans with RETURN. INK FIELD 0.2 remains the reusable wet-media engine shared by LAB and a dedicated paper surface. LIVE profile schema 0.2 adds explicit anticipation and motion/body axes plus CLEAR/DRIVE/TRANCE/SOFT presets and a zero-file demo URL; these remain encounter preferences, not source truth.",
+      "retained_function": "The canonical /fold-bloom/ entry is now one instrument doorway rather than a catalogue of peer apps. INTERPHASE 0.2 owns focus/projection/RETURN mechanics while domain truth stays where it already lives: exact audio bytes in the local media vault, LISTEN as source cartographer, SET as ordered/seam composition authority, READFIELD as text reader, and LIVE as embodied single-source ride. The shell stores only a session-local active-object pointer/handoff. Typing can produce an immediate unbound deterministic glyph; binding creates an exact text/audio address. FOLD from AUDIO commits an exact source ref into SET and changes the active object to that SET without duplicating bytes. SET RIDE now enters LIVE through the merged PR #200 fusion using the unified dual-clock state while preserving exact child source identity, authored seam laws and SET/LIVE authority boundaries; Journey remains a secondary traversal/debug witness. The next Fold/Bloom gate is lived 2–3-source phone use, not more architecture. Design-engineering donor 2026-09-24 now governs experience work: primitive-first spatial instruments, receding chrome, fewer deeper inputs, explicit profile/evidence separation, and delight with causal addressability; Septabee/Interface Studies/Tangible Media are donors rather than skins. FIELD LAB 0.2 compares six unequal practice projections but now reuses canonical READFIELD/APERTURE instead of a second reader; source intake recedes after binding, phone mode selection is thumb-reachable, PULSE coupling is explicit, and LOCI preserves large text as bounded exact-address spans with RETURN. INK FIELD 0.2 remains the reusable wet-media engine shared by LAB and a dedicated paper surface. LIVE profile schema 0.2 adds explicit anticipation and motion/body axes plus CLEAR/DRIVE/TRANCE/SOFT presets and a zero-file demo URL; these remain encounter preferences, not source truth. FIELD LAB PULSE is now an explicit synthetic tempo/beat/phase/quantum producer that READFIELD, LIVE and Two Dial may consume as timing context without source/authorship transfer.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -262,12 +263,12 @@
           "promotion_gate": "Phone body test: compare CLEAR/DRIVE/TRANCE/SOFT and advanced anticipation/motion/plunge; zero-file ?demo=1 entry must demonstrate the real FIELD COURSE without hidden authoring; preserve SET→LIVE seam/source-time coherence."
         },
         {
-          "id": "fold-bloom-field-lab-02",
+          "id": "fold-bloom-field-lab-021",
           "route": "/fold-bloom/lab/",
           "state": "MERGED_ACTIVE_CANDIDATE",
-          "version": "0.2",
-          "thesis": "One compact spatial shell can reuse canonical unequal engines, preserve addressed source continuity across explicit projections, and support direct training without cloning reader/source authority.",
-          "promotion_gate": "Direct phone use: ordinary READFIELD RSVP/regress/scale must work without explanatory chrome; one long familiar READ→LOCI carry must preserve source-position recovery and beat a plain chunk baseline before COURSE generalization.",
+          "version": "0.2.1",
+          "thesis": "One compact spatial shell can reuse canonical unequal engines and preserve addressed source continuity; its synthetic PULSE can now lend explicit tempo/beat/phase/quantum context to READFIELD, LIVE and Two Dial without acquiring source or authorship authority.",
+          "promotion_gate": "Direct phone use: ordinary READFIELD RSVP/regress/scale + LAB PULSE→READ ×4 + one PULSE→RIDE/COMPOSE handoff must feel legible without architectural explanation; long READ→LOCI carry remains a separate lived gate.",
           "branch": "master@f56505f2ebc9d2fdcb17ea03929375ae1b6c8f92"
         },
         {
@@ -280,7 +281,7 @@
         }
       ],
       "merge_sha": "7734a77b1961335eb59bf142e499573a6a74c2b2",
-      "latest_return": "/returns/FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json",
+      "latest_return": "/returns/FIELD_PULSE_CONVERGENCE_2026-09-24.json",
       "next_executable": {
         "id": "fold-bloom-set-live-lived-gate",
         "state": "HOLD_FOR_HUMAN_USE",
