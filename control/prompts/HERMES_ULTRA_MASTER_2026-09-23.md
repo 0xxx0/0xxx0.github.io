@@ -89,6 +89,11 @@ Also inspect:
 - currently running local services relevant to a selected task;
 - installed versions only where a real decision depends on them.
 
+For work whose purpose is research, design-engineering, interaction evolution, creative tooling, or experimental implementation, also read:
+- `/control/prompts/HERMES_VISION_LOOP_2026-09-24.md`
+- `/skills/README.md`
+and invoke only the relevant skill. These are methods, not new authority.
+
 Do not assume a named branch, old chat, board card, or agent session is current authority.
 
 The collaboration may have many historical branches. Preserve provenance; do not revive them merely because they exist.
