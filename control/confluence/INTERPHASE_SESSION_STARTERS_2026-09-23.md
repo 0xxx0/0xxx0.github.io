@@ -1,6 +1,6 @@
 # INTERPHASE SESSION STARTERS
 
-Updated: **2026-09-23**
+Updated: **2026-09-24**
 
 These are bounded new-session prompts. They intentionally overlap little.
 
@@ -32,10 +32,14 @@ Do not create another data store or app shell.
 Task:
 Find the single highest-value existing host migration or duplicated interaction mechanism that can move onto the shared INTERPHASE substrate without losing unique residue.
 
+SET -> LIVE fusion is already merged in PR #200. Do not reimplement it unless CURRENT/code proves a regression.
+
+Fold/Bloom's next gate is direct 2–3-source phone use. Because that requires lived human evidence, treat it as WAITING_ON_HUMAN rather than an autonomous implementation target.
+
 Prefer this current priority:
-1. SET -> LIVE fusion using the unified RIDE dual-clock state.
-2. A real ordinary form/page scale proof (PAGE/compact/ROOM) over native controls.
-3. Removal of proven duplicated shell mechanics in READFIELD/Lens only after round-trip behavior is verified.
+1. A real ordinary form/page scale proof (PAGE/compact/ROOM) over native controls.
+2. Removal of proven duplicated shell mechanics in READFIELD/Lens only after round-trip behavior is verified.
+3. Evidence-backed recovery or physical-host work only when it removes a live blocker or unlocks a current conversion.
 
 For the chosen delta:
 - recover exact current implementation;
