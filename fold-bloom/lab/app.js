@@ -144,6 +144,8 @@ function loadReader({announce=false,preferHandoff=false}={}){
   if(h?.source)$('#readSource').value=h.source;
   const snap=reader.load(source,{label:h?.label||'FIELD LAB READ',scale:'WORD',wpm:read.wpm});
   read.readerLoaded=true;
+  document.documentElement.dataset.fieldLabReader=snap?.scale?'ready':'empty';
+  document.documentElement.dataset.fieldLabReaderScale=snap?.scale||'NONE';
   if(lastTransport&&read.pulseMode!=='OFF')applyTransport(lastTransport);
   if(announce)setStatus('READ · APERTURE / RSVP LOADED');
   return snap;
@@ -167,6 +169,7 @@ reader?.addEventListener('aperture-focus',e=>{const focus=boundedFocus(e.detail)
 $('#readLoad').onclick=()=>loadReader({announce:true});
 $('#readPulse').onclick=()=>{
   read.pulseMode=nextPulseMode(read.pulseMode);syncPulseButton();
+  document.documentElement.dataset.fieldLabReadPulse=read.pulseMode;
   if(read.pulseMode==='OFF')reader?.setExternalPulse?.(null);else if(lastTransport)applyTransport(lastTransport);
   setStatus('READ · '+pulseModeLabel(read.pulseMode));
 };
@@ -211,7 +214,7 @@ $('#raceInput').addEventListener('input',e=>{
   const want=(read.tokens[read.you]||'').replace(/[^\p{L}\p{N}]+/gu,'').toLowerCase(),got=e.target.value.replace(/[^\p{L}\p{N}]+/gu,'').toLowerCase();
   if(want&&got===want){read.you=Math.min(read.tokens.length,read.you+1);e.target.value='';syncReadUI()}
 });
-syncPulseButton();resetRead();queueMicrotask(()=>ensureReader());
+syncPulseButton();document.documentElement.dataset.fieldLabReadPulse=read.pulseMode;resetRead();queueMicrotask(()=>ensureReader());
 
 /* ---------- LOCI ---------- */
 const loci={nodes:[],hidden:false,step:0,hits:0};
