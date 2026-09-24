@@ -20,8 +20,9 @@
       "Hermes Vision Loop + research/design-engineering skills"
     ],
     "concurrency": {
-      "pr_207": "open; coordination-only stale SET→LIVE gate retirement",
-      "rule": "Do not mutate CURRENT/stale-gate handoff files in this runtime branch."
+      "pr_207": "MERGED · 55e308432e79a5eaf376bdccf112973db01a36dc",
+      "pr_211": "MERGED · f56505f2ebc9d2fdcb17ea03929375ae1b6c8f92",
+      "rule": "Runtime and cold-start coordination are converged; remaining gates require lived evidence rather than another architecture pass."
     },
     "parallel_recovery": {
       "branch": "fold-bloom-read-loci-notes-2026-09-24",
@@ -53,7 +54,13 @@
       "course coverage/address Node tests",
       "430×900 READFIELD boot + source-receded + LOCI boot browser case"
     ],
-    "loci": "local fold-bloom-lab-course/v0.1 preserves small text directly and groups large text into ≤16 exact text spans without dropping words; explicit RETURN carries source, route and training residue"
+    "loci": "local fold-bloom-lab-course/v0.1 preserves small text directly and groups large text into ≤16 exact text spans without dropping words; explicit RETURN carries source, route and training residue",
+    "merge": "f56505f2ebc9d2fdcb17ea03929375ae1b6c8f92",
+    "ci": {
+      "route_registration": 35953594942,
+      "public_surface": 35953594950,
+      "status": "PASS"
+    }
   },
   "boundaries": [
     "No new reader kernel.",
@@ -61,8 +68,8 @@
     "No new transport beyond FIELD PULSE.",
     "No source-byte publication.",
     "No automatic semantic alignment between beat and text.",
-    "No CURRENT mutation while PR #207 owns coordination cleanup.",
-    "Local COURSE adapter remains a FIELD LAB view object; no shared COURSE core/schema promotion."
+    "Local COURSE adapter remains a FIELD LAB view object; no shared COURSE core/schema promotion.",
+    "CURRENT changed only after PR #207 merged; no concurrent coordination writer was overwritten."
   ],
   "use_cases": [
     "music-synced reading: LISTEN/Lab PULSE lends beat witness or explicit BPM×4 pace while READFIELD keeps source cursor authority",
@@ -72,6 +79,6 @@
     "performance score: synthetic polyrhythm and text focus can coexist in one browser session without merging authorship",
     "game/tool bridge: existing event tape remains the Beat Saber draft path; Audiosurf remains an external local-audio/mod donor rather than a core dependency"
   ],
-  "next_gate": "Automated CI, then one long familiar phone source through READ→LOCI. Compare re-entry/ordered recall/source-position recovery with a plain chunk list before promoting any shared COURSE mechanism.",
+  "next_gate": "LIVED EVIDENCE: one long familiar phone source through READFIELD→LOCI, plus the already-existing 2–3-source SET→LIVE phone gate. No autonomous architecture expansion until a concrete friction appears.",
   "return": "/returns/FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json"
 }
