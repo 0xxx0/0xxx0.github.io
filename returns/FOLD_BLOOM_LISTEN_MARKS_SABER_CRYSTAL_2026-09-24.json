@@ -1,0 +1,67 @@
+{
+  "schema": "return/v1",
+  "id": "FOLD_BLOOM_LISTEN_MARKS_SABER_CRYSTAL_2026-09-24",
+  "status": "SHIPPED_MARKS / PINNED_SPECIFIC_SABER",
+  "object": "FOLD//BLOOM LISTEN addressed annotations + dual-phone saber crystallization",
+  "observed": {
+    "date": "2026-09-24",
+    "user_feedback": [
+      "LISTEN showed two grey PIN controls despite a loaded/map-ready MP3.",
+      "Annotation should grow toward bookmarks, flags, arcs/spans, tweaking and information sharing.",
+      "Beat Saber pack/export was useful but did not satisfy the intended in-Fold/Bloom playable mode; two phones as sabers is the desired direction.",
+      "Local MP3 loading is acceptable now; future installed/PWA use may improve local playlist intake for other people.",
+      "Voice and other experiment surfaces are useful but have follow-ups; continuity should not drift across parallel threads."
+    ]
+  },
+  "shipped": [
+    "Root-cause fix: LISTEN resynchronizes MARK/MARKS after PREVIEW and DEEP map creation, so controls no longer stay disabled from the pre-map loadPins() state.",
+    "Backward-compatible addressed mark model: BOOKMARK point, FLAG point+intent, ARC current-aperture span.",
+    "Renderer gives FLAG and ARC distinct witnesses while old point pins remain readable.",
+    "Addressed-message RETURN advances to v0.2 with kind and endAddress.",
+    "SHARE MARKS emits fold-bloom-annotations/v0.1 with source identity + authored marks; source bytes are not included.",
+    "Phone continuity smoke now requires enabled mark controls, nonzero ARC span, persistence through reload, and unchanged LISTEN→LIVE exact-source continuity."
+  ],
+  "saber": {
+    "state": "PINNED_SPECIFIC",
+    "contract": "/fold-bloom/saber/README.md",
+    "law": "Beat Saber external pack export != playable FOLD//BLOOM saber runtime.",
+    "target": "Two phones act as LEFT/RIGHT motion controllers against existing source transport + EVENT TAPE; durable output is bounded HIT TRACE, not raw continuous sensor retention.",
+    "not_claimed": [
+      "dual-phone runtime implemented",
+      "motion calibration proven",
+      "pairing/signaling proven",
+      "gameplay quality proven"
+    ]
+  },
+  "pwa_boundary": "A future PWA may improve user-selected local files/playlists, remembered browser-local media and offline shell. It must not claim silent access to a device music library; user-granted source access remains the boundary.",
+  "evidence": [
+    "/fold-bloom/listen/stream-lens.js",
+    "/fold-bloom/listen/app.js",
+    "/fold-bloom/listen/render.js",
+    "/fold-bloom/saber/README.md",
+    "/fold-bloom/DESIGN.md",
+    "/control/confluence/FOLD_BLOOM_THREAD_COLLAPSE_2026-09-24.md",
+    "https://github.com/0xxx0/0xxx0.github.io/pull/220"
+  ],
+  "verification": {
+    "pr": 220,
+    "merge_sha": "a21047612c3e2a900f755da4f24d88859ed97d6a",
+    "route_registration": "PASS · 35997687828",
+    "public_surface": "PASS · 35997687953",
+    "real_mp3_phone_continuity": "PASS · MARK/MARKS enabled; ARC span saved and persisted; LISTEN→LIVE continuity green",
+    "full_regression": "PASS · Beat Saber pack, Voice, INK, LAB, LIVE, unified root and critical browser smoke"
+  },
+  "next": {
+    "id": "fold-bloom-saber-dual-phone-proof",
+    "state": "PINNED_SPECIFIC / NEXT_PLAYABLE_TRANSFORM",
+    "objective": "Implement the smallest real dual-phone LEFT/RIGHT saber proof over existing EVENT TAPE and source transport without adding a second media store or permanent backend.",
+    "acceptance": [
+      "two phones identify LEFT and RIGHT roles",
+      "both motion streams share one bounded session clock",
+      "scheduled note events come from existing EVENT TAPE",
+      "hit/graze/miss witnesses are causally legible and locally haptic/visual",
+      "pause/resume preserves source address",
+      "RETURN stores source/event-tape identity + bounded hit trace, not raw continuous motion"
+    ]
+  }
+}

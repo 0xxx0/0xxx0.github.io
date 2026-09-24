@@ -142,10 +142,10 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM · SOURCE→MAP→IMMERSION / LIVE 0.13 / LISTEN 0.6 / SET 0.1.1→LIVE / FIELD LAB 0.2.1 / INK 0.2 / VOICE 0.1 / BEAT SABER PACK 0.1",
-      "state": "ACTIVE_CANDIDATE_UNIFIED_DOORWAY / SOURCE_CONTINUITY_CONVERGED / SET_LIVE_FUSED",
+      "head": "FOLD//BLOOM · SOURCE→MAP→IMMERSION / LIVE 0.13 / LISTEN 0.6 + MARKS / SET 0.1.1→LIVE / FIELD LAB 0.2.1 / INK 0.2 / VOICE 0.1 / BEAT SABER PACK 0.1 / SABER CRYSTAL",
+      "state": "ACTIVE_CANDIDATE_UNIFIED_DOORWAY / SOURCE_CONTINUITY_CONVERGED / ADDRESSED_MARKS_CONVERGED / SABER_PINNED_SPECIFIC",
       "route": "/fold-bloom/",
-      "retained_function": "The canonical /fold-bloom/ doorway now begins from source continuity rather than a synthetic demo: SOURCE is the exact audio/text/set identity; MAP is measured/derived structure; IMMERSION is an optional experience projection. LIVE can hold real SOURCE-only remote playback without pretending FIELD COURSE terrain belongs to that song, and locally mapped audio retains the existing LOCAL_FILE witness. CENTER MASS has a clean-phone provider-backed source route recovered from uploaded-track metadata without publishing private Library bytes. Direct LIVE/LISTEN imports feed the existing browser-local media vault and are visibly reopenable on the same device without the normal picker path. LISTEN remains source cartographer and now turns its event-tape draft into a one-click Beat Saber v4 mapper/test ZIP with game-facing metadata kept clean, provenance in a sidecar manifest, and exact source bytes included locally; OGG/EGG is labeled audio-ready for playtest while actual editor/VR playtest remains a human gate; other formats require explicit OGG conversion. SET remains ordered/seam authority; READFIELD remains text/RSVP authority; FIELD LAB reuses canonical engines; INK and VOICE remain bounded practice projections. CLEAR/DRIVE/TRANCE/SOFT and scene names are encounter preferences, never source truth. fold-bloom/DESIGN.md is the durable product law; the 2026-09-24 thread-collapse ledger classifies repeated asks as shipped, superseded, pinned, discarded or waiting so old parallel branches do not regain authority. The next gate is lived source/re-entry/layer/export use, not another architecture pass.",
+      "retained_function": "The canonical /fold-bloom/ doorway now begins from source continuity rather than a synthetic demo: SOURCE is the exact audio/text/set identity; MAP is measured/derived structure; IMMERSION is an optional experience projection. LIVE can hold real SOURCE-only remote playback without pretending FIELD COURSE terrain belongs to that song, and locally mapped audio retains the existing LOCAL_FILE witness. CENTER MASS has a clean-phone provider-backed source route recovered from uploaded-track metadata without publishing private Library bytes. Direct LIVE/LISTEN imports feed the existing browser-local media vault and are visibly reopenable on the same device without the normal picker path. LISTEN remains source cartographer and now turns its event-tape draft into a one-click Beat Saber v4 mapper/test ZIP with game-facing metadata kept clean, provenance in a sidecar manifest, and exact source bytes included locally; OGG/EGG is labeled audio-ready for playtest while actual editor/VR playtest remains a human gate; other formats require explicit OGG conversion. SET remains ordered/seam authority; READFIELD remains text/RSVP authority; FIELD LAB reuses canonical engines; INK and VOICE remain bounded practice projections. CLEAR/DRIVE/TRANCE/SOFT and scene names are encounter preferences, never source truth. fold-bloom/DESIGN.md is the durable product law; the 2026-09-24 thread-collapse ledger classifies repeated asks as shipped, superseded, pinned, discarded or waiting so old parallel branches do not regain authority. The next gate is lived source/re-entry/layer/export use, not another architecture pass. PR #220 fixes LISTEN's stale disabled annotation controls after map readiness and evolves source-scoped pins compatibly into BOOKMARK point, FLAG point+intent and ARC aperture span, with direct source-identity-preserving mark sharing. External Beat Saber pack export remains distinct from the newly crystallized in-family FOLD//BLOOM SABER target: two phones as LEFT/RIGHT motion controllers over the existing source transport + EVENT TAPE, producing bounded HIT TRACE without a second source store or raw-motion archive.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -241,7 +241,10 @@
         "/returns/FOLD_BLOOM_SOURCE_CONTINUITY_2026-09-24.json",
         "https://github.com/0xxx0/0xxx0.github.io/pull/216",
         "/returns/FOLD_BLOOM_BEAT_SABER_PACK_2026-09-24.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/218"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/218",
+        "/fold-bloom/saber/README.md",
+        "/returns/FOLD_BLOOM_LISTEN_MARKS_SABER_CRYSTAL_2026-09-24.json",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/220"
       ],
       "experimental": [
         {
@@ -257,10 +260,10 @@
           "id": "fold-bloom-listen-06",
           "route": "/fold-bloom/listen/",
           "state": "MERGED_ACTIVE_CANDIDATE",
-          "branch": "master@253b23e1a039527c3fb434d5e58d8ccf0c7c6b07",
+          "branch": "master@a21047612c3e2a900f755da4f24d88859ed97d6a",
           "version": "0.6",
-          "thesis": "One exact source is cartographed as unequal facets while remembered browser-local media, addressed MAP/pins, downstream ride calibration and direct Beat Saber v4 draft export remain explicit projections rather than source identity.",
-          "promotion_gate": "Direct use: reopen a remembered local source without a picker; export ExpertPlusStandard.dat; verify map/pins/source identity remain intact."
+          "thesis": "One exact source may be cartographed into measured AUDIO MAP evidence plus human-authored BOOKMARK / FLAG / ARC marks and shared addressed-message/annotation packets without conflating any projection with source bytes or machine-inferred meaning.",
+          "promotion_gate": "Direct use: mark controls enable after real MP3 map; BOOKMARK/FLAG/ARC remain understandable on phone; an ARC survives reload; shared marks retain exact source identity; use feedback decides any richer annotation editor."
         },
         {
           "id": "fold-bloom-live-013",
@@ -297,24 +300,34 @@
           "promotion_gate": "Phone proof: non-technical user completes one held-note session and one PULSE-linked 1-3-5-3 pattern without architectural explanation; no raw audio leaves the browser.",
           "branch": "master@dd1f289af0692e84c62c370e2b525a2069ec7201",
           "verification": "CI GREEN: public-surface-check 35988420252 + Route Registration 35988420492; direct phone singing practice remains WAITING_ON_HUMAN."
+        },
+        {
+          "id": "fold-bloom-saber-crystal",
+          "route": null,
+          "state": "PINNED_SPECIFIC",
+          "version": "crystal-0.1",
+          "thesis": "Existing EVENT TAPE and source transport can host a real FOLD//BLOOM saber game if two phones provide bounded LEFT/RIGHT motion witnesses while source and timing authority stay in the existing instrument.",
+          "promotion_gate": "Two real phones join one session clock and produce causally legible hit witnesses against at least 30 EVENT TAPE note events; no new source store, raw sensor archive or permanent backend.",
+          "branch": "master@a21047612c3e2a900f755da4f24d88859ed97d6a",
+          "contract": "/fold-bloom/saber/README.md"
         }
       ],
-      "merge_sha": "253b23e1a039527c3fb434d5e58d8ccf0c7c6b07",
-      "latest_return": "/returns/FOLD_BLOOM_SOURCE_CONTINUITY_2026-09-24.json",
+      "merge_sha": "a21047612c3e2a900f755da4f24d88859ed97d6a",
+      "latest_return": "/returns/FOLD_BLOOM_LISTEN_MARKS_SABER_CRYSTAL_2026-09-24.json",
       "next_executable": {
-        "id": "fold-bloom-source-continuity-lived-gate",
-        "state": "HOLD_FOR_HUMAN_USE",
-        "objective": "Use the merged source-continuity surface on phone: real CENTER MASS source, remembered local re-entry, SOURCE/MAP/IMMERSION comparison and visible Beat Saber export. Change code only from observed friction.",
+        "id": "fold-bloom-saber-dual-phone-proof",
+        "state": "PINNED_SPECIFIC / NEXT_PLAYABLE_TRANSFORM",
+        "objective": "Implement the smallest real dual-phone LEFT/RIGHT saber proof over existing EVENT TAPE and source transport without adding a second media store or permanent backend.",
         "acceptance": [
-          "CENTER MASS produces actual source audio after the explicit source gesture when browser policy requires one",
-          "one locally imported track reopens from REMEMBERED THIS DEVICE without a picker on the same browser/device",
-          "SOURCE / MAP / IMMERSION differ perceptibly without changing exact source identity",
-          "LISTEN Beat Saber downloads ExpertPlusStandard.dat",
-          "feedback is classified as changed / rejected-with-reason / pinned rather than lost across threads"
-        ],
-        "law": "CI proves regression safety, not lived value. No new mode or architecture before this encounter produces a specific missing function."
+          "two phones identify LEFT and RIGHT roles",
+          "both motion streams share one bounded session clock",
+          "scheduled note events come from existing EVENT TAPE",
+          "hit/graze/miss witnesses are causally legible and locally haptic/visual",
+          "pause/resume preserves source address",
+          "RETURN stores source/event-tape identity + bounded hit trace, not raw continuous motion"
+        ]
       },
-      "latest_merge": "253b23e1a039527c3fb434d5e58d8ccf0c7c6b07"
+      "latest_merge": "a21047612c3e2a900f755da4f24d88859ed97d6a"
     },
     {
       "lineage": "axial",

@@ -2253,9 +2253,9 @@
       "family": "FOLD // BLOOM",
       "operation": "LISTEN",
       "state": "CANDIDATE",
-      "role": "Source-bundle cartographer for one exact audio identity. Local audio may be surrounded by origin, metadata, timed/untimed text, collection context and human PINs without conflating those facets. ADDRESS×APERTURE inspection, AUDIO MAP, glyph and RETURN stay source-hash anchored; Beat Saber export is now a bounded v4 mapper/test pack over the same source/map evidence.",
+      "role": "Source-bundle cartographer for one exact audio identity. Local audio may be surrounded by origin, metadata, timed/untimed text, collection context and human BOOKMARK / FLAG / ARC marks without conflating those facets. ADDRESS×APERTURE inspection, AUDIO MAP, glyph, addressed-message v0.2 and mark sharing stay source-hash anchored; Beat Saber export remains a bounded external pack while dual-phone FOLD//BLOOM SABER is explicitly only a pinned playable target.",
       "index": {
-        "updated_at": "2026-09-24T19:44:00+08:00",
+        "updated_at": "2026-09-24T20:15:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2263,7 +2263,7 @@
         ]
       },
       "evidence": {
-        "receipt": "/returns/FOLD_BLOOM_BEAT_SABER_PACK_2026-09-24.json",
+        "receipt": "/returns/FOLD_BLOOM_LISTEN_MARKS_SABER_CRYSTAL_2026-09-24.json",
         "checks": [
           "AUDIO MAP v0.4 phrase novelty + GRID_FALLBACK selftest",
           "deterministic audio glyph stability test",
@@ -2271,7 +2271,10 @@
           "real encoded MP3 PREVIEW → DEEP → rendered score browser proof",
           "LISTEN 0.4 glyph/pin/aperture browser surface",
           "real familiar-track phrase/glyph judgment remains required",
-          "Beat Saber v4 pack builder + deterministic ZIP + OGG readiness/conversion-boundary tests"
+          "Beat Saber v4 pack builder + deterministic ZIP + OGG readiness/conversion-boundary tests",
+          "real MP3 phone: MARK/MARKS enabled after map, ARC span persists through reload",
+          "addressed mark compatibility + overlap tests",
+          "full public-surface and critical browser regression"
         ],
         "return_path": "/fold-bloom/listen/"
       },
@@ -2289,7 +2292,7 @@
       },
       "version": "0.6",
       "contract": "/control/FIELD_PULSE_CONTRACT.json",
-      "receipt": "/returns/FOLD_BLOOM_SOURCE_CELL_2026-09-22.json",
+      "receipt": "/returns/FOLD_BLOOM_LISTEN_MARKS_SABER_CRYSTAL_2026-09-24.json",
       "transfer": [
         "field-addressed-stream/v0.1 generic address/aperture/pin law",
         "INTERPHASE 0.2 adapter: exact LISTEN source identity + ADDRESS/APERTURE exposed through the shared host",
@@ -2299,7 +2302,10 @@
         "fold-bloom-addressed-message/v0.1 human PIN path beside immutable source evidence",
         "GLYPH ATLAS session-local glyph handoff; no audio bytes",
         "same-source PIN → LIVE landmark seam",
-        "witness-only IDLE; prior human aperture restores on takeover"
+        "witness-only IDLE; prior human aperture restores on takeover",
+        "BOOKMARK / FLAG / ARC human annotation grammar",
+        "fold-bloom-addressed-message/v0.2 mark kind + span",
+        "fold-bloom-annotations/v0.1 source-anchored mark share packet"
       ],
       "tier": "FIELD"
     },
