@@ -29,7 +29,7 @@ header{display:flex;align-items:center;gap:10px;padding:max(9px,env(safe-area-in
 button,.btn{min-height:34px;padding:7px 9px}.primary{border-color:var(--hot);color:#ffd2c0}.cool{border-color:#3d7187;color:var(--cool)}
 label{display:block;color:#829097;font-size:8px;letter-spacing:.09em;margin:8px 0 4px}input[type=range]{width:100%}textarea{width:100%;min-height:78px;padding:8px;resize:vertical}
 .mini{color:#76838a;font-size:8px;margin-top:7px}.metric{display:inline-block;border:1px solid var(--line);padding:4px 6px;margin:3px 3px 0 0;color:#9aa6ac}.metric b{color:var(--ink)}
-.textRace{display:grid;grid-template-columns:1fr auto;gap:5px}.textRace input{padding:7px;min-width:0}.readActions{margin-bottom:7px}.readUses{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:7px}.readUses span{background:#070b0f;padding:7px;color:#78858c;font-size:7px;line-height:1.35}.readUses b{display:block;color:#cbd4d8;font-size:8px;margin-bottom:2px}.trainer{border-top:1px solid var(--line);margin-top:8px;padding-top:7px}.trainer summary{cursor:pointer;color:#7f8d94;font-size:8px;letter-spacing:.1em;margin-bottom:7px}field-aperture{display:block;margin-top:7px}.danger{border-color:#75413c;color:#efa49c}
+.textRace{display:grid;grid-template-columns:1fr auto;gap:5px}.textRace input{padding:7px;min-width:0}.readActions{margin:7px 0}.readUses{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:7px}.readUses span{background:#070b0f;padding:7px;color:#78858c;font-size:7px;line-height:1.35}.readUses b{display:block;color:#cbd4d8;font-size:8px;margin-bottom:2px}.sourceAperture,.readGuide,.trainer{border-top:1px solid var(--line);margin-top:7px;padding-top:7px}.sourceAperture{border:1px solid var(--line);padding:7px;margin-top:0}.sourceAperture summary,.readGuide summary,.trainer summary{cursor:pointer;color:#7f8d94;font-size:8px;letter-spacing:.1em;margin-bottom:7px}.sourceAperture:not([open]){padding-bottom:7px}.sourceAperture:not([open]) summary{margin-bottom:0}.readGuide:not([open]) summary{margin-bottom:0}field-aperture{display:block;margin-top:7px}html[data-field-lab-mode="READ"] .core{display:none}.danger{border-color:#75413c;color:#efa49c}
 #status{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 footer{min-height:29px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:5px 10px calc(5px + env(safe-area-inset-bottom));color:#637078;font-size:8px;letter-spacing:.08em;z-index:5;background:#070a0d}
 footer a{color:#91a0a7;text-decoration:none}footer a:hover{color:#fff}
@@ -91,13 +91,16 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover{color:#fff}
       </section>
 
       <section class="controls" data-controls="READ">
-        <textarea id="readSource">The field is not a page and not a tunnel. It is one source with enough address to move, regress, race, annotate, and return without losing where the words came from.</textarea>
-        <div class="row readActions"><button id="readLoad" class="primary">LOAD READER</button><button id="readPulse" class="cool">PULSE · WITNESS</button><button id="readFull">FULL READFIELD →</button></div>
+        <details id="readSourceAperture" class="sourceAperture" open><summary>SOURCE / EDIT</summary>
+          <textarea id="readSource">The field is not a page and not a tunnel. It is one source with enough address to move, regress, race, annotate, and return without losing where the words came from.</textarea>
+          <button id="readLoad" class="primary">BIND SOURCE →</button>
+        </details>
+        <div class="row readActions"><button id="readPulse" class="cool">PULSE · WITNESS</button><button id="readFull">FULL READFIELD →</button></div>
         <field-aperture id="labReader" reader focusfield aria-label="READFIELD RSVP reader"></field-aperture>
-        <div class="readUses">
-          <span><b>RSVP</b> temporal focus</span><span><b>SCALE</b> word → phrase → section</span><span><b>REGRESS</b> exact source position</span><span><b>PULSE</b> optional beat witness / ×4 pace</span><span><b>VOICE</b> same cursor</span><span><b>RETURN</b> full reader handoff</span>
-        </div>
         <div class="row readCarry"><button id="readToLoci">CARRY → LOCI</button><button id="readToData">CARRY → DATA</button></div>
+        <details class="readGuide"><summary>WHAT THIS PROJECTION CAN DO</summary><div class="readUses">
+          <span><b>RSVP</b> temporal focus</span><span><b>SCALE</b> word → phrase → section</span><span><b>REGRESS</b> exact source position</span><span><b>PULSE</b> optional beat witness / ×4 pace</span><span><b>VOICE</b> same cursor</span><span><b>RETURN</b> full reader handoff</span>
+        </div></details>
         <details class="trainer"><summary>PACE / RECALL TRAINER</summary>
           <label>GHOST PACE <b id="wpmRead">300 WPM</b></label><input id="wpm" type="range" min="120" max="720" step="10" value="300">
           <div class="textRace"><input id="raceInput" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="type the highlighted word"><button id="readStart">START RACE</button></div>
@@ -109,9 +112,9 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover{color:#fff}
 
       <section class="controls" data-controls="LOCI">
         <textarea id="lociSource">SOURCE ADDRESS APERTURE PATH FOLD BLOOM GLYPH WITNESS RETURN MEMORY BODY SOUND SPACE</textarea>
-        <div class="row"><button id="lociBuild" class="primary">BUILD LOCI</button><button id="lociRecall">HIDE / RECALL</button><button id="lociReset">RESET</button></div>
-        <div><span class="metric">STEP <b id="lociStep">0/12</b></span><span class="metric">HITS <b id="lociHits">0</b></span></div>
-        <div class="mini">Recovered Pathweaver law: CELL → PATH → ADDRESS → VIEW → RETURN. Here the path is used as a mnemonic route.</div>
+        <div class="row"><button id="lociBuild" class="primary">BUILD COURSE</button><button id="lociRecall">HIDE / RECALL</button><button id="lociReset">RESET</button><button id="lociExport">EXPORT RETURN</button></div>
+        <div><span class="metric">STEP <b id="lociStep">0/0</b></span><span class="metric">HITS <b id="lociHits">0</b></span><span class="metric">WORDS <b id="lociWords">0</b></span></div>
+        <div class="mini">Recovered Pathweaver law: CELL → PATH → ADDRESS → VIEW → RETURN. Large text is grouped into addressed loci instead of being truncated; every course node returns to an exact character span.</div>
       </section>
 
       <section class="controls" data-controls="INK">
