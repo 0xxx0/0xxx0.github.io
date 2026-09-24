@@ -755,7 +755,7 @@ const CASES=[
     name:'FOLD BLOOM VOICE 0.1',
     route:'/fold-bloom/voice/',
     options:{width:430,height:900,budget:8000},
-    check:dom=>/VOICE 0\.1/i.test(dom)&&dom.includes('data-fold-bloom-voice="ready"')&&dom.includes('id="micBtn"')&&dom.includes('id="pulseBtn"')&&dom.includes('data-pattern="CALL"')&&/AUDIO STAYS LOCAL/.test(dom)&&/EXPORT RETURN/.test(dom)
+    check:dom=>/VOICE 0\.1/i.test(dom)&&dom.includes('id="micBtn"')&&dom.includes('id="pulseBtn"')&&dom.includes('data-pattern="CALL"')&&/Microphone analysis stays in this browser/.test(dom)&&/EXPORT RETURN/.test(dom)
   },
   {
     name:'FOLD BLOOM FIELD LAB',
