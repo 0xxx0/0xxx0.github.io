@@ -11,10 +11,11 @@ import {groupLocalInputs,parseTextSidecar,parsePlaylistText} from './sidecar-tex
 import {sourceBundleFromMeta} from './source-bundle.js';
 import {normalizeRideProfile,profileKey} from '../live/visual-worlds.js';
 import {compileEventTape,toBeatSaberV4Draft} from '../beat/event-tape.js';
+import {buildBeatSaberPack} from '../beat/beatsaber-pack.js';
 
 const $=s=>document.querySelector(s);
 const gl=$('#field'),overlay=$('#overlay'),audio=$('#audio'),drop=$('#drop');
-let renderer=null,worker=null,map=null,fileMeta=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,pointerGesture=null,lastGesture='NONE',raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null,pendingSource=null,pins=[],editingPinId=null,glyphDesc=null,rideProfile=normalizeRideProfile(),idle={on:false,startScope:1,lastBeat:-1,lastPhrase:-1,lastSection:-1};
+let renderer=null,worker=null,map=null,fileMeta=null,sourceBlob=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,pointerGesture=null,lastGesture='NONE',raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null,pendingSource=null,pins=[],editingPinId=null,glyphDesc=null,rideProfile=normalizeRideProfile(),idle={on:false,startScope:1,lastBeat:-1,lastPhrase:-1,lastSection:-1};
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LISTEN');
 
 function toast(t){const e=$('#toast');if(!e)return;e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on')}
@@ -206,7 +207,7 @@ async function analyzeBytes(bytes,playbackBlob,meta){
   const hashP=hashBuffer(bytes.slice(0)),ctx=new AC();
   try{
     const decoded=await ctx.decodeAudioData(bytes.slice(0)),hash=await hashP,{pcm,sampleRate}=mixdown(decoded);
-    if(objectURL)URL.revokeObjectURL(objectURL);objectURL=URL.createObjectURL(playbackBlob);audio.src=objectURL;
+    if(objectURL)URL.revokeObjectURL(objectURL);sourceBlob=playbackBlob;objectURL=URL.createObjectURL(playbackBlob);audio.src=objectURL;
     fileMeta={...meta,name:meta.name||'AUDIO SOURCE',size:meta.size??playbackBlob.size,type:meta.type||playbackBlob.type||'audio',hash,duration:decoded.duration,sourceSampleRate:decoded.sampleRate};
     fileMeta.bundle=sourceBundleFromMeta(fileMeta);
     loadPins();
@@ -332,16 +333,21 @@ function updateWorkflow(){
     law.textContent=(bpm?Math.round(bpm)+' BPM · ':'')+'FIELD PULSE carries clock/features only. Borrowed clock ≠ borrowed authorship. RIDE PROFILE changes projection/timing only; AUDIO MAP + RETURN remain durable evidence.';
   }
 }
-function exportBeatSaberDraft(){
+async function exportBeatSaberPack(){
   if(!map)return false;
+  if(!sourceBlob){toast('BEAT SABER PACK · SOURCE BYTES REQUIRED');return false}
   try{
     const sourceId=fileMeta?.hash?('sha256:'+fileMeta.hash):sourcePinKey();
     const eventTape=compileEventTape(map,{sourceId}),chart=toBeatSaberV4Draft(eventTape);
-    chart._foldBloom={...(chart._foldBloom||{}),sourceId,eventCount:eventTape.eventCount,sourceName:fileMeta?.name||'SOURCE',generated:new Date().toISOString()};
-    const blob=new Blob([JSON.stringify(chart,null,2)],{type:'application/json'}),link=document.createElement('a');
-    link.href=URL.createObjectURL(blob);link.download='ExpertPlusStandard.dat';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);
-    toast('BEAT SABER · EXPERTPLUSSTANDARD.DAT');return true;
-  }catch(error){toast(error?.message||'BEAT SABER EXPORT FAILED');return false}
+    chart._foldBloom={...(chart._foldBloom||{}),sourceId,eventCount:eventTape.eventCount,sourceName:fileMeta?.name||'SOURCE'};
+    const sourceBytes=await sourceBlob.arrayBuffer();
+    const pack=buildBeatSaberPack({chart,map,fileMeta:{...(fileMeta||{}),sourceId},sourceBytes});
+    const blob=new Blob([pack.bytes],{type:'application/zip'}),link=document.createElement('a');
+    link.href=URL.createObjectURL(blob);link.download=pack.filename;link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);
+    document.documentElement.dataset.listenBeatSaberPack=pack.status;
+    toast(pack.playtestReady?'BEAT SABER PACK · PLAYTEST READY':'BEAT SABER PACK · CONVERT SOURCE TO OGG');
+    return true;
+  }catch(error){toast(error?.message||'BEAT SABER PACK FAILED');return false}
 }
 function toggleUse(force){
   const sh=$('#useSheet');if(!sh)return;
@@ -391,7 +397,7 @@ $('#urlInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefau
 ['dragleave','drop'].forEach(k=>drop.addEventListener(k,e=>{e.preventDefault();drop.classList.remove('over')}));
 drop.addEventListener('drop',e=>{const fs=e.dataTransfer.files;if(fs?.length)loadFiles(fs)});
 $('#loadBtn').onclick=()=>{drop.classList.remove('loaded');$('#urlInput').focus()};
-$('#useBtn').onclick=()=>toggleUse();$('#closeUse').onclick=()=>toggleUse(false);$('#beatSaberBtn').onclick=()=>exportBeatSaberDraft();
+$('#useBtn').onclick=()=>toggleUse();$('#closeUse').onclick=()=>toggleUse(false);$('#beatSaberBtn').onclick=()=>{void exportBeatSaberPack()};
 $('#pinBtn').onclick=()=>{stopIdle(true);openPinSheet(null,audio.currentTime)};$('#pinsBtn').onclick=()=>{stopIdle(true);openPinSheet(pins[0]||null,audio.currentTime)};$('#glyphBtn').onclick=downloadGlyph;$('#idleBtn').onclick=()=>startIdle();
 $('#pinSave').onclick=commitPin;$('#pinDelete').onclick=deletePin;$('#pinClose').onclick=closePinSheet;
 $('#useRide').onclick=()=>{
@@ -402,7 +408,7 @@ $('#useRide').onclick=()=>{
 };$('#useRead').onclick=openReadfield;$('#useCompose').onclick=()=>openSurface('../two-dial/?pulse=1');
 const rideTune=(id,key,scale=100)=>{const el=$(id);if(!el)return;el.oninput=e=>{rideProfile=normalizeRideProfile({...rideProfile,[key]:Number(e.target.value)/scale});saveRideProfile(false)};el.onchange=()=>saveRideProfile(true)};
 rideTune('#rideSolid','solidity');rideTune('#rideImmersion','immersion');rideTune('#rideDrop','dropGain');rideTune('#rideText','textOffset');$('#useAtlas').onclick=openAtlas;$('#useMap').onclick=()=>{toggleUse(false);$('#export').click()};
-$('#useBeat').onclick=()=>{if(exportBeatSaberDraft())toggleUse(false)};
+$('#useBeat').onclick=()=>{void exportBeatSaberPack().then(ok=>{if(ok)toggleUse(false)})};
 $('#transport').onclick=async()=>{stopIdle(true);if(!audio.src)return;if(audio.paused)await audio.play();else audio.pause()};
 audio.onplay=()=>{$('#transport').textContent='PAUSE';publishTransport(true)};audio.onpause=()=>{$('#transport').textContent='PLAY';publishTransport(true)};audio.ontimeupdate=()=>publishTransport(false);
 $('#export').onclick=()=>{if(!map)return;const packet={kind:'FOLD_BLOOM_AUDIO_MAP',created:new Date().toISOString(),sourceBundle:fileMeta?.bundle||null,timedText:fileMeta?.timedText||null,map,glyph:glyphDesc||audioGlyphDescriptor(map,fileMeta||{}),annotations:{schema:STREAM_LENS_SCHEMA,pins:normalizePins(pins,sourcePinKey())},addressedMessage:addressedReturn(),rideProfile:{...rideProfile}},b=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`fold-bloom-audio-map-${Date.now()}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};
@@ -515,5 +521,5 @@ window.addEventListener('error',e=>{console.warn('LISTEN runtime error',e.error|
 setScope(1,false);updateWorkflow();
 document.documentElement.dataset.listenBoot='ready';document.documentElement.dataset.listenLens=STREAM_LENS_SCHEMA;document.documentElement.dataset.listenGesture='NONE';document.documentElement.dataset.listenApertureGesture=scope();syncPins();syncRideProfile();
 addEventListener('storage',e=>{if(e.key&&e.key===rideStoreKey())syncRideProfile()});
-window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,pendingSource,glyph:glyphDesc,idle:idle.on,addressedMessage:map?addressedReturn():null,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,gesture:lastGesture,pins:normalizePins(pins,sourcePinKey()),rideProfile:{...rideProfile},sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),seek:t=>{if(!map)return null;audio.currentTime=Math.max(0,Math.min(map.duration,Number(t)||0));publishTransport(true);return transportPayload()},aperture:v=>{const i=typeof v==='string'?SCOPES.indexOf(v):Number(v);if(Number.isFinite(i)&&i>=0)setScope(i,false);return transportPayload()},exportBeatSaber:exportBeatSaberDraft,parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc};
+window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,pendingSource,glyph:glyphDesc,idle:idle.on,addressedMessage:map?addressedReturn():null,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,gesture:lastGesture,pins:normalizePins(pins,sourcePinKey()),rideProfile:{...rideProfile},sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),seek:t=>{if(!map)return null;audio.currentTime=Math.max(0,Math.min(map.duration,Number(t)||0));publishTransport(true);return transportPayload()},aperture:v=>{const i=typeof v==='string'?SCOPES.indexOf(v):Number(v);if(Number.isFinite(i)&&i>=0)setScope(i,false);return transportPayload()},exportBeatSaber:exportBeatSaberPack,parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc};
 requestAnimationFrame(loop);
