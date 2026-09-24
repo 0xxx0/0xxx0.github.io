@@ -208,9 +208,9 @@ function update(){
 }
 
 async function ensureAudio(){try{await audio.init();return true}catch(_){return false}}
-function syncSoundGate(show){
+function syncSoundGate(show,mode='FIELD'){
   const gate=$('#soundGate');if(!gate)return;
-  gate.hidden=!show;gate.setAttribute('aria-hidden',show?'false':'true');
+  gate.hidden=!show;gate.dataset.mode=mode;gate.textContent=mode==='SOURCE'?'TAP FOR SOURCE':'TAP FOR FIELD SOUND';gate.setAttribute('aria-hidden',show?'false':'true');
 }
 async function enableFieldAudio(){
   audio.setSound(true);
@@ -259,8 +259,9 @@ async function enterCenterMass(){
     liveTrack.loadStream({url:CENTER_MASS_URL,name:'CENTER MASS (Work-Trance Cut)',title:'CENTER MASS (Work-Trance Cut)',artist:'stgoh',sourceAddress:CENTER_MASS_SOURCE,sourceKind:'SUNO',provider:'SUNO'});
     layerMode='SOURCE';renderer.setProfile(effectiveRideProfile());audio.setSound(false);syncLayerUI();
     trackStatus='READY · SOURCE · CENTER MASS';$('#intro').classList.remove('on');update();
-    await liveTrack.toggle().catch(()=>false);
-    update();toast($('#trackAudio').paused?'CENTER MASS READY · TAP PLAY':'CENTER MASS · SOURCE');
+    const played=await liveTrack.toggle().then(()=>true).catch(()=>false);
+    if(!played||$('#trackAudio').paused)syncSoundGate(true,'SOURCE');else syncSoundGate(false,'SOURCE');
+    update();toast($('#trackAudio').paused?'CENTER MASS READY · TAP FOR SOURCE':'CENTER MASS · SOURCE');
   }catch(error){console.warn(error);trackStatus='SOURCE ERROR';toast('CENTER MASS SOURCE BLOCKED');update()}
 }
 
@@ -422,7 +423,14 @@ function resetLiveState({silent=false}={}){stopDemo(false);state=createState();s
 $('#resetBtn').onclick=()=>{const now=Date.now(),b=$('#resetBtn');if(!b.dataset.arm||now>+b.dataset.arm){b.dataset.arm=now+3500;b.textContent='CONFIRM RESET';toast('PRESS AGAIN');return}delete b.dataset.arm;b.textContent='NEW FIELD';resetLiveState()};
 $('#playBtn').onclick=async()=>{stopDemo(false);await enableFieldAudio();$('#intro').classList.remove('on');update()};
 $('#mutePlay').onclick=()=>{stopDemo(false);$('#intro').classList.remove('on');audio.setSound(false);syncSoundGate(false);update()};
-$('#soundGate')?.addEventListener('click',()=>{void enableFieldAudio()});
+$('#soundGate')?.addEventListener('click',()=>{
+  const gate=$('#soundGate');
+  if(gate?.dataset.mode==='SOURCE'){
+    liveTrack.toggle().then(()=>{syncSoundGate(false,'SOURCE');update();toast('SOURCE · PLAYING')}).catch(()=>toast('SOURCE PLAY BLOCKED'));
+    return;
+  }
+  void enableFieldAudio();
+});
 const toggleAutopilot=async()=>{
   if(demo.on){stopDemo(true);return}
   if(audio.soundOn)await ensureAudio();
@@ -516,5 +524,5 @@ const launchParams=new URLSearchParams(location.search),launchPreset=String(laun
 if(RIDE_PRESETS[launchPreset])applyRidePreset(launchPreset,false);
 if(['SOURCE','MAP','IMMERSION'].includes(launchLayer))applyLayerMode(launchLayer,false);
 if(launchSource==='center-mass'){document.documentElement.dataset.foldBloomLaunch='center-mass';setTimeout(()=>{void enterCenterMass()},80)}
-else if(launchParams.get('demo')==='1'){document.documentElement.dataset.foldBloomLaunch='demo';setTimeout(()=>{$('#intro').classList.remove('on');syncSoundGate(!audio.ctx);startDemo({preview:true});toast('FIELD COURSE · TAP FOR SOUND')},180)}
+else if(launchParams.get('demo')==='1'){document.documentElement.dataset.foldBloomLaunch='demo';setTimeout(()=>{$('#intro').classList.remove('on');syncSoundGate(!audio.ctx,'FIELD');startDemo({preview:true});toast('FIELD COURSE · TAP FOR FIELD SOUND')},180)}
 else setTimeout(()=>{if($('#intro').classList.contains('on')&&!demo.on)startDemo({preview:true})},650);
