@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/interphase-successor/v0.1",
-  "updated": "2026-09-23",
+  "updated": "2026-09-24",
   "status": "ACTIVE_HANDOFF",
   "purpose": "Cold-start continuation packet for INTERPHASE / Fold-Bloom / recovery convergence. Prefer exact linked artifacts over this summary when they disagree.",
   "top_laws": [
@@ -93,7 +93,18 @@
         "unified RIDE state"
       ]
     },
-    "current_open_transform": "Complete SET -> LIVE fusion using unified RIDE state; Journey should become traversal library/debug surface only after behavioral equivalence is proved."
+    "current_open_transform": "Technical SET -> LIVE fusion is complete in PR #200. The next Fold/Bloom gate is direct 2–3-source phone use across exact source identity, sourceTime + journeyTime, CUT / DISSOLVE / CARRY / RESET / RETURN, and bounded RETURN evidence. This is WAITING_ON_HUMAN and must not occupy ACTIVE_NOW.",
+    "set_live_fusion": {
+      "state": "MERGED_COMPLETE",
+      "pull_request": 200,
+      "evidence": [
+        "/fold-bloom/live/set-handoff.js",
+        "/fold-bloom/live/set-ride-core.js",
+        "/fold-bloom/live/tests/set-ride-core.test.mjs",
+        "/tools/fold-bloom-spine-smoke.mjs"
+      ],
+      "law": "SET retains composition/seam authority; LIVE retains embodied/game authority; unified RIDE dual-clock state carries sourceTime + journeyTime; no second source store."
+    }
   },
   "mapping_example": {
     "object": "form.email",
@@ -142,23 +153,8 @@
   },
   "next_transformations": [
     {
-      "id": "set-live-fusion",
-      "priority": 1,
-      "delta": "Make SET RIDE enter LIVE using unified RIDE dual-clock state and existing seam laws without a second set/ride truth store.",
-      "preserve": [
-        "child exact source identity",
-        "sourceTime",
-        "journeyTime",
-        "CUT/DISSOLVE/CARRY/RESET/RETURN",
-        "LISTEN cartography authority",
-        "SET composition authority",
-        "LIVE embodied authority"
-      ],
-      "stop": "Do not rewrite LISTEN/SET/Journey/LIVE into one blob."
-    },
-    {
       "id": "real-form-scale-proof",
-      "priority": 2,
+      "priority": 1,
       "delta": "Use correspondence registry on a real ordinary webpage/form: same focused control should move through page/compact/room allocations with native edit semantics and exact RETURN.",
       "preserve": [
         "native host state",
@@ -169,7 +165,7 @@
     },
     {
       "id": "recovery-packet-production",
-      "priority": 3,
+      "priority": 2,
       "delta": "Run parallel backup archaeology workers on bounded lineages/batches and emit recovery packets; use stable keys to converge packets.",
       "preserve": [
         "raw bytes/refs",
@@ -182,7 +178,7 @@
     },
     {
       "id": "physical-host-v0",
-      "priority": 4,
+      "priority": 3,
       "delta": "Choose one real MAKE object and define measured physical-host packet + digital/physical correspondence; no actuation required initially.",
       "preserve": [
         "real geometry and measurements as host truth"
