@@ -31,14 +31,19 @@ export function stepAddress(range,address,dir,{fraction=1/24}={}){
   return clamp((Number(address)||lo)+d*span*clamp(Number(fraction)||1/24,1/512,1),lo,hi);
 }
 
-export function makeStreamPin({sourceKey,address,unit='s',label='',note='',scope=null,features=null,createdAt=null,id=null}={}){
+export function makeStreamPin({sourceKey,address,endAddress=null,kind='BOOKMARK',unit='s',label='',note='',scope=null,features=null,createdAt=null,id=null}={}){
   const at=Math.max(0,Number(address)||0),key=String(sourceKey||'UNBOUND');
   const created=createdAt||new Date().toISOString();
+  const k=['BOOKMARK','FLAG','ARC'].includes(String(kind||'').toUpperCase())?String(kind).toUpperCase():'BOOKMARK';
+  const hasEnd=endAddress!==null&&endAddress!==undefined&&endAddress!==''&&Number.isFinite(Number(endAddress));
+  const end=hasEnd?Math.max(at,Number(endAddress)):null;
   return {
     schema:STREAM_LENS_SCHEMA,
     id:id||`${key.slice(0,18)}:${Math.round(at*1000)}:${created}`,
     sourceKey:key,
     address:+at.toFixed(4),
+    endAddress:k==='ARC'&&end!==null&&end>at?+end.toFixed(4):null,
+    kind:k,
     unit:String(unit||'s'),
     label:String(label||'').slice(0,96),
     note:String(note||'').slice(0,2000),
@@ -57,5 +62,9 @@ export function normalizePins(pins=[],sourceKey=null){
 
 export function pinsInDomain(pins=[],range=[0,1]){
   const [lo,hi]=normalizeDomain(range);
-  return normalizePins(pins).filter(p=>p.address>=lo&&p.address<=hi);
+  return normalizePins(pins).filter(p=>{
+    const hasEnd=p.endAddress!==null&&p.endAddress!==undefined&&p.endAddress!==''&&Number.isFinite(Number(p.endAddress));
+    const end=hasEnd?Number(p.endAddress):Number(p.address);
+    return Number(p.address)<=hi&&end>=lo;
+  });
 }

@@ -78,11 +78,24 @@ The public GitHub Pages runtime cannot read private ChatGPT Library files direct
 - Private-only cross-device synchronization remains unimplemented until an explicitly authorized private store/relay exists.
 - No receipt may claim cross-device private media sync merely because a source hash is known.
 
+## Annotation law
+
+LISTEN marks are authored evidence beside the AUDIO MAP.
+
+- **BOOKMARK** = one addressed point.
+- **FLAG** = one addressed point carrying explicit human intent/attention.
+- **ARC** = one bounded addressed span, normally the current aperture.
+- Marks may carry notes and local measured features as context.
+- Marks never rewrite source analysis or imply semantics the user did not author.
+- Export/share carries source identity + marks, never source audio bytes unless the user separately exports the audio/map package.
+
 ## Beat Saber law
 
-Beat Saber is a **bounded transform export**, not a finished Beat Saber game.
+Beat Saber export and FOLD//BLOOM saber play are related but distinct transforms.
 
-LISTEN compiles AUDIO MAP events into a Beat Saber v4 mapper/test ZIP containing `Info.dat`, `AudioData.dat`, `ExpertPlusStandard.dat`, minimal `Lightshow.dat`, provenance/README and the exact current source bytes. Measured BEAT/PHRASE/SECTION events remain distinct from authored FOLD/BLOOM operations. OGG/EGG input is labeled `AUDIO_READY_FOR_PLAYTEST` (audio compatibility only; editor/VR playtest remains unproved) (audio compatibility only; editor/VR playtest remains unproved); MP3/M4A/WAV/etc. is preserved honestly as `NEEDS_OGG_CONVERSION` and must become `song.ogg` before playtest. Human mapper review, cover/publishing polish and in-browser saber-play mode remain separate future transformations.
+LISTEN compiles AUDIO MAP events into a Beat Saber v4 mapper/test ZIP containing `Info.dat`, `AudioData.dat`, `ExpertPlusStandard.dat`, minimal `Lightshow.dat`, provenance/README and the exact current source bytes. Measured BEAT/PHRASE/SECTION events remain distinct from authored FOLD/BLOOM operations. OGG/EGG input is labeled `AUDIO_READY_FOR_PLAYTEST` (audio compatibility only; editor/VR playtest remains unproved); MP3/M4A/WAV/etc. is preserved honestly as `NEEDS_OGG_CONVERSION` and must become `song.ogg` before playtest.
+
+The in-family playable target is **FOLD//BLOOM SABER**: two phones may act as LEFT/RIGHT motion controllers against the existing source transport + EVENT TAPE, producing a bounded HIT TRACE without creating another source store. This runtime is not implemented yet; its concrete contract lives in `/fold-bloom/saber/README.md`. Human mapper review, cover/publishing polish and external Beat Saber distribution remain separate from that runtime.
 
 ## Project management
 
@@ -101,8 +114,8 @@ At any time expose at most three real active fronts. Old branches are donors or 
 
 ## Current proof gates
 
-1. **CLEAN PHONE SOURCE** — CENTER MASS opens and audible source playback begins from explicit user action.
-2. **RE-ENTRY** — a locally imported track appears under REMEMBERED THIS DEVICE and reopens without a file picker.
-3. **LAYER LEGIBILITY** — SOURCE / MAP / IMMERSION visibly differ without source identity changing.
-4. **BEAT SABER SURFACE** — LISTEN visibly exports `ExpertPlusStandard.dat`; nobody has to know the hidden event-tape API exists.
-5. **LIVED VALUE** — direct use decides whether the ride is useful/delightful; CI cannot substitute for this.
+1. **MARKS WORK** — after a real map exists, MARK / MARKS are enabled; BOOKMARK / FLAG / ARC save and survive reload.
+2. **MARKS SHARE** — one bounded annotation packet carries source identity + authored marks without audio bytes or analysis mutation.
+3. **SABER RUNTIME** — two real phones become LEFT / RIGHT motion controllers against one shared transport/event tape; do not claim completion before this works.
+4. **LIVED VALUE** — direct use decides whether LISTEN/LIVE/VOICE/INK/SABER follow-ups are useful; CI cannot substitute for this.
+5. **SOURCE CONTINUITY REMAINS LAW** — future PWA/local-playlist work may improve intake, but exact source identity and user-granted file access remain the boundary.

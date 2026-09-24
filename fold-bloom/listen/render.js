@@ -109,10 +109,20 @@ export class ListenRenderer{
       x.strokeStyle='rgba(110,190,255,.95)';x.lineWidth=2.4;
       for(const sec of map.sections||[]){if(sec.t<=lo||sec.t>=hi)continue;const a=angle(sec.t);x.beginPath();x.moveTo(Math.cos(a)*(r-24),Math.sin(a)*(r-24));x.lineTo(Math.cos(a)*(r+24),Math.sin(a)*(r+24));x.stroke()}
       for(const pin of this.pins||[]){
-        const pt=Number(pin?.address);if(!Number.isFinite(pt)||pt<lo||pt>hi)continue;
+        const pt=Number(pin?.address),kind=String(pin?.kind||'BOOKMARK').toUpperCase(),end=Number(pin?.endAddress);
+        if(kind==='ARC'&&Number.isFinite(pt)&&Number.isFinite(end)&&end>pt&&end>=lo&&pt<=hi){
+          const aa=angle(Math.max(lo,pt)),bb=angle(Math.min(hi,end)),rr=r+34;
+          x.strokeStyle='rgba(255,179,71,.88)';x.lineWidth=4.2;x.beginPath();x.arc(0,0,rr,aa,bb,false);x.stroke();
+          const sa=angle(pt),ea=angle(end);x.lineWidth=1.5;
+          for(const q of [sa,ea]){x.beginPath();x.moveTo(Math.cos(q)*(r+24),Math.sin(q)*(r+24));x.lineTo(Math.cos(q)*(r+43),Math.sin(q)*(r+43));x.stroke()}
+          continue;
+        }
+        if(!Number.isFinite(pt)||pt<lo||pt>hi)continue;
         const a=angle(pt),inner=r+26,outer=r+39,px=Math.cos(a)*outer,py=Math.sin(a)*outer;
-        x.strokeStyle='rgba(255,179,71,.95)';x.lineWidth=2.1;x.beginPath();x.moveTo(Math.cos(a)*inner,Math.sin(a)*inner);x.lineTo(px,py);x.stroke();
-        x.fillStyle='rgba(255,179,71,.96)';x.beginPath();x.arc(px,py,3.3,0,TAU);x.fill();
+        x.strokeStyle=kind==='FLAG'?'rgba(109,189,255,.96)':'rgba(255,179,71,.95)';x.lineWidth=2.1;x.beginPath();x.moveTo(Math.cos(a)*inner,Math.sin(a)*inner);x.lineTo(px,py);x.stroke();
+        x.fillStyle=kind==='FLAG'?'rgba(109,189,255,.98)':'rgba(255,179,71,.96)';
+        if(kind==='FLAG'){const tx=-Math.sin(a),ty=Math.cos(a);x.beginPath();x.moveTo(px,py);x.lineTo(px+tx*8+Math.cos(a)*5,py+ty*8+Math.sin(a)*5);x.lineTo(px+Math.cos(a)*9,py+Math.sin(a)*9);x.closePath();x.fill()}
+        else{x.beginPath();x.arc(px,py,3.3,0,TAU);x.fill()}
       }
       const a=angle(time);
       x.strokeStyle='white';x.lineWidth=3;x.beginPath();x.moveTo(Math.cos(a)*(r-32),Math.sin(a)*(r-32));x.lineTo(Math.cos(a)*(r+34),Math.sin(a)*(r+34));x.stroke();

@@ -31,3 +31,21 @@ test('LISTEN makes remembered tracks and Beat Saber pack first-class',()=>{
   assert.match(app,/buildBeatSaberPack/);
   assert.match(app,/exportBeatSaberPack/);
 });
+
+
+test('LISTEN addressed annotations expose bookmark flag arc and sharing without changing source truth',()=>{
+  const html=read('fold-bloom/listen/index.html');
+  const app=read('fold-bloom/listen/app.js');
+  const lens=read('fold-bloom/listen/stream-lens.js');
+  assert.match(html,/id="pinKind"/);
+  assert.match(html,/BOOKMARK · point/);
+  assert.match(html,/FLAG · point \+ intent/);
+  assert.match(html,/ARC · current aperture span/);
+  assert.match(html,/id="pinShare"/);
+  assert.match(app,/syncPins\(\);updateWorkflow\(\)/);
+  assert.match(app,/fold-bloom-annotations\/v0\.1/);
+  assert.match(app,/fold-bloom-addressed-message\/v0\.2/);
+  assert.match(app,/shareAnnotations:sharePins/);
+  assert.match(lens,/endAddress/);
+  assert.match(lens,/kind='BOOKMARK'/);
+});
