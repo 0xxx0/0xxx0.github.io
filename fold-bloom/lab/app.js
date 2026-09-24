@@ -1,10 +1,14 @@
 import {compileEventTape,toBeatSaberV4Draft} from '../beat/event-tape.js';
 import {InkField} from '../ink/ink-engine.js';
+import {createFieldPulse} from '../../lib/field-pulse.js';
+import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, boundedFocus} from './read-bridge.js';
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const canvas=$('#field'),ctx=canvas.getContext('2d');
 const TAU=Math.PI*2;
 let W=1,H=1,DPR=1,mode='RIDE',profile='CLEAR',panelHidden=false,last=performance.now(),mx=.5,my=.5;
+const fieldPulse=createFieldPulse('FOLD_BLOOM_FIELD_LAB');
+let lastTransport=null;
 
 const PROFILES={
   CLEAR:{motion:1,trail:.16,gain:.55,bleed:.7},
@@ -40,6 +44,7 @@ function selectMode(next){
   $('#panelTitle').textContent=title;$('#panelSub').textContent=sub;
   document.documentElement.dataset.fieldLabMode=mode;
   setStatus(mode+' · '+law);
+  if(mode==='READ')queueMicrotask(()=>ensureReader());
   setAddress('field://lab/'+mode.toLowerCase());
   if(mode==='DATA'&&!data.nodes.length)loadData();
   if(mode==='LOCI'&&!loci.nodes.length)buildLoci();
@@ -58,7 +63,7 @@ $('#enterListen').onclick=()=>location.href='../listen/';
 $('#dataLens').onclick=()=>location.href='../lens/';
 
 /* ---------- PULSE ---------- */
-const pulse={ratio:[3,2],bpm:96,timbre:'WOOD',playing:false,ac:null,timer:null,start:0,nextA:0,nextB:0,lastA:-1,lastB:-1,taps:[],flashA:0,flashB:0};
+const pulse={ratio:[3,2],bpm:96,timbre:'WOOD',playing:false,ac:null,timer:null,start:0,nextA:0,nextB:0,lastA:-1,lastB:-1,taps:[],flashA:0,flashB:0,lastPublish:0};
 function parseRatio(v){return v.split(':').map(Number)}
 $$('[data-ratio]').forEach(b=>b.onclick=()=>{
   pulse.ratio=parseRatio(b.dataset.ratio);$$('[data-ratio]').forEach(x=>x.classList.toggle('cool',x===b));
@@ -118,23 +123,66 @@ $('#exportTape').onclick=()=>{
   setStatus('PULSE · EVENT TAPE + BEAT SABER V4 DRAFT EXPORTED');
 };
 
-/* ---------- READ / RACE ---------- */
-const read={tokens:[],you:0,ghost:0,started:false,paused:false,startAt:0,pauseAt:0,wpm:300};
+/* ---------- READ / READFIELD / RACE ---------- */
+const read={tokens:[],you:0,ghost:0,started:false,paused:false,startAt:0,pauseAt:0,wpm:300,pulseMode:'WITNESS',readerLoaded:false};
+const reader=$('#labReader');
 function tokenize(text){
   try{return [...new Intl.Segmenter(undefined,{granularity:'word'}).segment(text)].filter(x=>x.isWordLike).map(x=>x.segment)}
   catch(_){return text.trim().split(/\s+/).filter(Boolean)}
 }
-function resetRead(){
-  read.tokens=tokenize($('#readSource').value);read.you=0;read.ghost=0;read.started=false;read.paused=false;read.startAt=0;$('#raceInput').value='';syncReadUI()
+function recoverHandoff(){
+  try{
+    const x=JSON.parse(sessionStorage.getItem('field.aperture.handoff.v01')||'null');
+    if(x&&typeof x.source==='string'&&x.source.trim())return x;
+  }catch(_){}
+  return null;
 }
+function readerSource(){return String($('#readSource').value||'').trim()}
+function loadReader({announce=false,preferHandoff=false}={}){
+  if(!reader||typeof reader.load!=='function')return null;
+  const h=preferHandoff?recoverHandoff():null,source=h?.source||readerSource();
+  if(h?.source)$('#readSource').value=h.source;
+  const snap=reader.load(source,{label:h?.label||'FIELD LAB READ',scale:'WORD',wpm:read.wpm});
+  read.readerLoaded=true;
+  if(lastTransport&&read.pulseMode!=='OFF')applyTransport(lastTransport);
+  if(announce)setStatus('READ · APERTURE / RSVP LOADED');
+  return snap;
+}
+function ensureReader(){return read.readerLoaded?reader?.snapshot?.():loadReader({preferHandoff:true})}
+function syncPulseButton(){const b=$('#readPulse');if(b)b.textContent=pulseModeLabel(read.pulseMode)}
+function applyTransport(data){
+  const view=transportWitness(data);if(!view)return;
+  lastTransport=data;
+  if(read.pulseMode==='OFF'){reader?.setExternalPulse?.(null);return}
+  reader?.setExternalPulse?.(view);
+  if(read.pulseMode==='PACE4'){
+    const wpm=paceWpmFromTransport(data,4);
+    if(wpm){read.wpm=wpm;reader?.setWpm?.(wpm);$('#wpm').value=String(Math.max(120,Math.min(720,wpm)));$('#wpmRead').textContent=wpm+' WPM'}
+  }
+}
+fieldPulse.subscribe(msg=>{if(msg.kind==='transport'&&msg.data)applyTransport(msg.data)});
+const lastPulse=fieldPulse.last();
+if(lastPulse?.kind==='transport'&&lastPulse.data)lastTransport=lastPulse.data;
+reader?.addEventListener('aperture-focus',e=>{const focus=boundedFocus(e.detail);if(focus)fieldPulse.publish('focus',focus)});
+$('#readLoad').onclick=()=>loadReader({announce:true});
+$('#readPulse').onclick=()=>{
+  read.pulseMode=nextPulseMode(read.pulseMode);syncPulseButton();
+  if(read.pulseMode==='OFF')reader?.setExternalPulse?.(null);else if(lastTransport)applyTransport(lastTransport);
+  setStatus('READ · '+pulseModeLabel(read.pulseMode));
+};
+$('#readFull').onclick=()=>{
+  const source=readerSource();window.FieldAperture?.handoff?.(source,{label:'FIELD LAB READ',from:location.pathname+location.search});
+  const q=read.pulseMode==='PACE4'?'?pulse=4&from=field-lab':'?from=field-lab';location.href='/docs/'+q;
+};
+function resetRead(){read.tokens=tokenize(readerSource());read.you=0;read.ghost=0;read.started=false;read.paused=false;read.startAt=0;$('#raceInput').value='';syncReadUI()}
 function syncReadUI(){
   $('#youWord').textContent=read.you;$('#ghostWord').textContent=read.ghost;$('#raceDelta').textContent=read.you-read.ghost;
   const tok=read.tokens[read.you]||'';$('#raceInput').placeholder=tok?'type: '+tok:'complete';
 }
-$('#wpm').oninput=e=>{read.wpm=+e.target.value;$('#wpmRead').textContent=read.wpm+' WPM'};
+$('#wpm').oninput=e=>{read.wpm=+e.target.value;$('#wpmRead').textContent=read.wpm+' WPM';reader?.setWpm?.(read.wpm)};
 $('#readStart').onclick=()=>{
   if(!read.tokens.length)resetRead();
-  if(!read.started){read.started=true;read.paused=false;read.startAt=performance.now()-read.ghost*(60000/read.wpm);$('#readStart').textContent='RESTART'}
+  if(!read.started){read.started=true;read.paused=false;read.startAt=performance.now()-read.ghost*(60000/read.wpm);$('#readStart').textContent='RESTART RACE'}
   else{read.ghost=0;read.you=0;read.startAt=performance.now();read.paused=false}
   $('#raceInput').focus();syncReadUI();
 };
@@ -152,7 +200,7 @@ $('#raceInput').addEventListener('input',e=>{
   const want=(read.tokens[read.you]||'').replace(/[^\p{L}\p{N}]+/gu,'').toLowerCase(),got=e.target.value.replace(/[^\p{L}\p{N}]+/gu,'').toLowerCase();
   if(want&&got===want){read.you=Math.min(read.tokens.length,read.you+1);e.target.value='';syncReadUI()}
 });
-resetRead();
+syncPulseButton();resetRead();queueMicrotask(()=>ensureReader());
 
 /* ---------- LOCI ---------- */
 const loci={nodes:[],hidden:false,step:0,hits:0};
@@ -241,7 +289,16 @@ function drawRide(t){
   for(let i=0;i<12;i++){const q=((i/12+phase)%1),y=hz+(H-hz)*q*q,xspan=W*(.04+.52*q*q);ctx.beginPath();ctx.moveTo(cx-xspan,y);ctx.lineTo(cx+xspan,y);ctx.stroke()}
   ctx.strokeStyle='rgba(239,120,73,.55)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx-W*.035,hz);ctx.lineTo(W*.13,H);ctx.moveTo(cx+W*.035,hz);ctx.lineTo(W*.87,H);ctx.stroke();
 }
+function publishPulseTransport(t){
+  if(t-pulse.lastPublish<120)return;
+  pulse.lastPublish=t;
+  const ac=pulse.ac,bar=4*60/pulse.bpm,tt=pulse.playing&&ac?Math.max(0,ac.currentTime-pulse.start):t/1000;
+  const beatDur=60/pulse.bpm,beatPhase=((tt/beatDur)%1+1)%1;
+  const data={playing:pulse.playing,time:tt,duration:bar,bpm:pulse.bpm,tempoConfidence:1,beatIndex:Math.floor(tt/beatDur),sectionIndex:0,scope:'BAR',scopeStart:0,scopeEnd:bar,energy:.45+.18*Math.sin(tt*Math.PI*2/beatDur)**2,flux:.18,brightness:.52,stage:'SYNTH',sourceHash:null,sourceKind:'FIELD_LAB_SYNTH',sourceAddress:'field://lab/pulse',beatTime:Math.floor(tt/beatDur)*beatDur,beatPhase,beatDistance:Math.min(beatPhase,1-beatPhase)*beatDur,sectionProgress:(tt%bar)/bar,sectionCount:1,sectionStart:0,sectionEnd:bar,sourceProgress:(tt%bar)/bar};
+  lastTransport=data;fieldPulse.publish('transport',data);if(read.pulseMode!=='OFF')applyTransport(data);
+}
 function drawPulse(t){
+  publishPulseTransport(t);
   clear(.16);cross();const cx=W/2,cy=H/2,p=PROFILES[profile],ac=pulse.ac,bar=4*60/pulse.bpm;
   const tt=pulse.playing&&ac?Math.max(0,ac.currentTime-pulse.start):t/1000;
   const a=pulse.ratio[0],b=pulse.ratio[1],phA=(tt%(bar/a))/(bar/a),phB=(tt%(bar/b))/(bar/b);
@@ -298,4 +355,4 @@ requestAnimationFrame(tick);
 const initialMode=String(new URLSearchParams(location.search).get('mode')||'RIDE').toUpperCase();
 selectMode(MODES[initialMode]?initialMode:'RIDE');
 document.documentElement.dataset.foldBloomFieldLab='ready';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'})};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>lastTransport};
