@@ -120,14 +120,14 @@ function syntheticMap(seconds=16){
 function downloadJSON(name,value){
   const blob=new Blob([JSON.stringify(value,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
-function launchPulseTarget(url,name){
+function launchPulseTarget(url){
+  if(!pulse.playing)startPulse();
   publishPulseTransport(performance.now(),true);
-  const w=window.open(url,name||'_blank');
-  if(!w)location.href=url;
+  location.href=url;
 }
-$('#pulseRead').onclick=()=>launchPulseTarget('/docs/?pulse=4&from=field-lab','field-read');
-$('#pulseRide').onclick=()=>launchPulseTarget('/fold-bloom/live/?from=field-lab','fold-bloom-live');
-$('#pulseCompose').onclick=()=>launchPulseTarget('/fold-bloom/two-dial/?pulse=1&from=field-lab','fold-bloom-compose');
+$('#pulseRead').onclick=()=>launchPulseTarget('/docs/?pulse=4&from=field-lab');
+$('#pulseRide').onclick=()=>launchPulseTarget('/fold-bloom/live/?from=field-lab');
+$('#pulseCompose').onclick=()=>launchPulseTarget('/fold-bloom/two-dial/?pulse=1&from=field-lab');
 $('#exportTape').onclick=()=>{
   const map=syntheticMap(16),ops=pulse.taps.map((x,i)=>({t:x.t,op:i%4===0?'BLOOM':'MARK',strength:x.score/100}));
   const tape=compileEventTape(map,{sourceId:'field://lab/pulse',operations:ops});
