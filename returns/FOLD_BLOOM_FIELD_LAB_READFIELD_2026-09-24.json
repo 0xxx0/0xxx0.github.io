@@ -1,0 +1,46 @@
+{
+  "schema": "0xxx0/return/v0.1",
+  "id": "fold-bloom-field-lab-readfield-2026-09-24",
+  "status": "IMPLEMENTED_CANDIDATE_PENDING_CI",
+  "date": "2026-09-24",
+  "source": {
+    "branch": "fold-bloom-field-lab-readfield-02",
+    "base": "509bcf27b67f33b33ff4a32427df74925dcdd95a",
+    "user_observation": "Phone surface now kinda works; requested usability improvements, deeper use cases such as READFIELD/RSVP, parallel-branch catch-up and meaningful autonomous evolution."
+  },
+  "state": "FIELD LAB 0.2 candidate: canonical READFIELD projection + explicit temporal composition + first cross-mode source carry.",
+  "delta": [
+    "remove duplicate-reader authority from Lab READ",
+    "embed canonical APERTURE/RSVP",
+    "make FIELD PULSE witness/pace coupling explicit",
+    "publish bounded focus",
+    "add READ→LOCI/DATA carry",
+    "repair mobile mode reachability",
+    "surface READFIELD on public Fold/Bloom front"
+  ],
+  "evidence": [
+    "/fold-bloom/lab/read-bridge.js",
+    "/fold-bloom/lab/tests/read-bridge.test.mjs",
+    "/tools/browser-smoke.mjs",
+    "/control/FIELD_PULSE_CONTRACT.json",
+    "/showcase-manifest.json"
+  ],
+  "preserved": [
+    "LIVE/LISTEN/Two Dial/Ecology/Scale Lens unequal authority",
+    "APERTURE exact source cursor/segmentation/RSVP authority",
+    "FIELD PULSE authority NONE",
+    "desktop spatial mode ring",
+    "optional Lab pace/recall trainer",
+    "open PR #207 coordination ownership"
+  ],
+  "waiting": [
+    "PR CI",
+    "direct phone READFIELD use: RSVP / SCALE / REGRESS",
+    "one explicit READ→LOCI or READ→DATA carry judgment"
+  ],
+  "contradictions": [
+    "FIELD LAB 0.1 described READ as a race while canonical READFIELD already existed; 0.2 resolves runtime duplication but retains race only as an optional training projection."
+  ],
+  "next": "If automated proof passes, merge. Then use one real source through READ→LOCI or READ→DATA before widening cross-mode residue.",
+  "stop": "Do not add another source store, reader kernel, transport bus, or mode solely to make the Lab feel comprehensive."
+}
