@@ -199,7 +199,7 @@ function onWorkerMessage(e){
     $('#bpm').textContent=`${map.bpm.toFixed(1)} BPM`;$('#confidence').textContent=`${Math.round(map.tempoConfidence*100)}% TEMPO CONF`;
     $('#key').textContent=map.key?.label&&map.key.label!=='—'?`${map.key.label.toUpperCase()} · ${Math.round((map.key.confidence||0)*100)}%`:(fileMeta?.providerKey?`${fileMeta.providerKey} · PROVIDER`:'— KEY');
     $('#beats').textContent=`${map.beats.length} BEATS`;$('#phrases').textContent=`${Math.max(0,(map.phrases?.length||1)-1)} PHRASES`;$('#sections').textContent=`${Math.max(0,map.sections.length-1)} SECTIONS`;
-    refreshGlyph();$('#transport').disabled=false;$('#export').disabled=false;toast('MAP READY');updateWorkflow();publishTransport(true);
+    refreshGlyph();$('#transport').disabled=false;$('#export').disabled=false;syncPins();toast('MAP READY');updateWorkflow();publishTransport(true);
   }
 }
 function ensureWorker(){
@@ -243,7 +243,7 @@ async function analyzeBytes(bytes,playbackBlob,meta){
     $('#bpm').textContent=fileMeta.providerBpm?`${Number(fileMeta.providerBpm).toFixed(1)} BPM · PROVIDER`:'… BPM';$('#confidence').textContent='PREVIEW';
     $('#key').textContent=fileMeta.providerKey?`${fileMeta.providerKey} · PROVIDER`:'… KEY';
     $('#beats').textContent='… BEATS';$('#phrases').textContent='… PHRASES';$('#sections').textContent='1 SPAN';
-    refreshGlyph();$('#transport').disabled=false;$('#export').disabled=false;updateWorkflow();
+    refreshGlyph();$('#transport').disabled=false;$('#export').disabled=false;syncPins();updateWorkflow();
     status(decoded.duration>1200?'LONGFORM PREVIEW · DEEP MAP DEFERRED':'PREVIEW READY · REFINING');
     toast('PREVIEW READY');publishTransport(true);
 
@@ -386,9 +386,9 @@ function addressedReturn(){
   const ps=normalizePins(pins,sourcePinKey());
   return {
     kind:'FOLD_BLOOM_ADDRESSED_MESSAGE',
-    schema:'fold-bloom-addressed-message/v0.1',
+    schema:'fold-bloom-addressed-message/v0.2',
     source:{key:sourcePinKey(),name:fileMeta?.name||'SOURCE',hash:fileMeta?.hash||null,kind:fileMeta?.sourceKind||null,bundle:fileMeta?.bundle||null,origin:fileMeta?.origin||null,collection:fileMeta?.collection||null,textEvidence:fileMeta?.textEvidence||[]},
-    path:{order:'SOURCE_ADDRESS',humanAuthored:true,cells:ps.map((p,i)=>({n:i+1,id:p.id,address:p.address,scope:p.scope,label:p.label,note:p.note,features:p.features}))},
+    path:{order:'SOURCE_ADDRESS',humanAuthored:true,cells:ps.map((p,i)=>({n:i+1,id:p.id,kind:p.kind||'BOOKMARK',address:p.address,endAddress:p.endAddress??null,scope:p.scope,label:p.label,note:p.note,features:p.features}))},
     warning:'Path meaning is authored by the human. Source order and analysis features do not infer semantics.'
   };
 }
@@ -422,7 +422,7 @@ drop.addEventListener('drop',e=>{const fs=e.dataTransfer.files;if(fs?.length)loa
 $('#loadBtn').onclick=()=>{drop.classList.remove('loaded');$('#urlInput').focus()};
 $('#useBtn').onclick=()=>toggleUse();$('#closeUse').onclick=()=>toggleUse(false);$('#beatSaberBtn').onclick=()=>{void exportBeatSaberPack()};
 $('#pinBtn').onclick=()=>{stopIdle(true);openPinSheet(null,audio.currentTime)};$('#pinsBtn').onclick=()=>{stopIdle(true);openPinSheet(pins[0]||null,audio.currentTime)};$('#glyphBtn').onclick=downloadGlyph;$('#idleBtn').onclick=()=>startIdle();
-$('#pinSave').onclick=commitPin;$('#pinDelete').onclick=deletePin;$('#pinClose').onclick=closePinSheet;
+$('#pinSave').onclick=commitPin;$('#pinShare').onclick=()=>{void sharePins()};$('#pinDelete').onclick=deletePin;$('#pinClose').onclick=closePinSheet;
 $('#useRide').onclick=()=>{
   const raw=String(fileMeta?.hash||'').toLowerCase(),source=/^[0-9a-f]{64}$/.test(raw)?'sha256:'+raw:null;
   if(!source){openSurface('../live/');return}
@@ -544,5 +544,5 @@ window.addEventListener('error',e=>{console.warn('LISTEN runtime error',e.error|
 setScope(1,false);updateWorkflow();
 document.documentElement.dataset.listenBoot='ready';document.documentElement.dataset.listenLens=STREAM_LENS_SCHEMA;document.documentElement.dataset.listenGesture='NONE';document.documentElement.dataset.listenApertureGesture=scope();syncPins();syncRideProfile();
 addEventListener('storage',e=>{if(e.key&&e.key===rideStoreKey())syncRideProfile()});
-window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,pendingSource,glyph:glyphDesc,idle:idle.on,addressedMessage:map?addressedReturn():null,stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,gesture:lastGesture,pins:normalizePins(pins,sourcePinKey()),rideProfile:{...rideProfile},sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),seek:t=>{if(!map)return null;audio.currentTime=Math.max(0,Math.min(map.duration,Number(t)||0));publishTransport(true);return transportPayload()},aperture:v=>{const i=typeof v==='string'?SCOPES.indexOf(v):Number(v);if(Number.isFinite(i)&&i>=0)setScope(i,false);return transportPayload()},exportBeatSaber:exportBeatSaberPack,parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc};
+window.FoldBloomListen={boot:'ready',state:()=>({scope:scope(),time:audio.currentTime,map,fileMeta,pendingSource,glyph:glyphDesc,idle:idle.on,addressedMessage:map?addressedReturn():null,annotations:annotationPacket(),stage:map?.stage||'EMPTY',gestureRange:dragRange?[...dragRange]:null,gesture:lastGesture,pins:normalizePins(pins,sourcePinKey()),rideProfile:{...rideProfile},sourcePinKey:sourcePinKey(),lensSchema:STREAM_LENS_SCHEMA,previewBuilds,deepBuilds,renderedMapFrames,renderer:renderer?.fallback?'fallback':'webgl',lastRemoteFailure}),seek:t=>{if(!map)return null;audio.currentTime=Math.max(0,Math.min(map.duration,Number(t)||0));publishTransport(true);return transportPayload()},aperture:v=>{const i=typeof v==='string'?SCOPES.indexOf(v):Number(v);if(Number.isFinite(i)&&i>=0)setScope(i,false);return transportPayload()},exportBeatSaber:exportBeatSaberPack,shareAnnotations:sharePins,parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,openPin:()=>openPinSheet(null,audio.currentTime),glyph:()=>glyphDesc};
 requestAnimationFrame(loop);
