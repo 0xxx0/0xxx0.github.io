@@ -219,4 +219,4 @@
     "synthetic_handoff": "FIELD_LAB_SYNTH may seed a consumer-local clock after explicit same-tab handoff; the seed carries timing context only.",
     "audio_freshness": "LISTEN/AUDIO remains freshness-bound because pause, seek and source state cannot be inferred after transport messages stop."
   }
-}\n
+}
