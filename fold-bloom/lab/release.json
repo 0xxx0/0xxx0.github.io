@@ -25,7 +25,8 @@
     "LOCI exports an explicit source + route + training RETURN",
     "PULSE exposes live CLOCK / BEAT / PHASE witnesses and explicit READ ×4 / RIDE / COMPOSE routes.",
     "FIELD LAB synthetic rhythm is now a lawful FIELD PULSE transport source consumed by READFIELD, LIVE and Two Dial.",
-    "Phone PULSE handoffs are same-tab: they seed tempo/phase before navigation so READFIELD, LIVE or Two Dial can continue the explicit synthetic clock without requiring a background producer tab."
+    "Phone PULSE handoffs are same-tab: they seed tempo/phase before navigation so READFIELD, LIVE or Two Dial can continue the explicit synthetic clock without requiring a background producer tab.",
+    "Phone PULSE handoffs are same-tab: tempo/phase is seeded before navigation so READFIELD, LIVE or Two Dial can continue the explicit synthetic clock without relying on a background producer tab."
   ],
   "constraints": [
     "READFIELD/APERTURE remains reader authority; FIELD LAB owns no second segmentation/cursor/RSVP truth",
