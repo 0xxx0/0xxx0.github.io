@@ -37,7 +37,7 @@ test('game-facing chart drops FOLD BLOOM private metadata',()=>{
   assert.ok(Array.isArray(out.obstacles));
 });
 
-test('OGG source builds a v4 playtest-ready mapper pack',()=>{
+test('OGG source builds a v4 mapper pack with audio ready for playtest',()=>{
   const built=buildBeatSaberFiles({chart,map,fileMeta:{name:'Test.ogg',type:'audio/ogg',artist:'Tester',hash:'abc',sourceSampleRate:48000},sourceBytes:source});
   assert.equal(built.manifest.schema,BEAT_SABER_PACK_SCHEMA);
   assert.equal(built.manifest.status,'AUDIO_READY_FOR_PLAYTEST');
