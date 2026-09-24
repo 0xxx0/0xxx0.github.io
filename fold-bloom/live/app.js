@@ -506,7 +506,7 @@ function loop(t){
     $('#route').textContent=rv.label;
     $('#speed').textContent=latestWorld?Number(latestWorld.currentSpeed||1).toFixed(2)+'×':'—';
     const grade=Number(latestWorld?.currentGrade)||0;$('#grade').textContent=!latestWorld?'—':Math.abs(grade)<.08?'LEVEL':grade>0?'UP '+Math.round(grade*100):'DOWN '+Math.round(Math.abs(grade)*100);
-    const source=liveTrack.sourceActive()?(liveTrack.mapped()?'MAPPED_AUDIO':'SOURCE_ONLY'):externalFresh?'FIELD_PULSE':'FIELD_PRACTICE';
+    const source=liveTrack.sourceActive()?(liveTrack.mapped()?'LOCAL_FILE':'SOURCE_ONLY'):externalFresh?'FIELD_PULSE':'FIELD_PRACTICE';
     document.documentElement.dataset.trackfieldSource=source;
     document.documentElement.dataset.trackfieldMotion=latestWorld?`${Number(latestWorld.currentSpeed||1).toFixed(2)}:${Number(latestWorld.currentGrade||0).toFixed(2)}:${Number(latestWorld.currentBend||0).toFixed(2)}`:'NONE';
     document.documentElement.dataset.foldBloomPerf=`${perf.fps.toFixed(0)}fps:${modelSlices}slices`;
