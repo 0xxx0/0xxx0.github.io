@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-23",
+  "updated": "2026-09-24",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -140,8 +140,8 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM · ONE INSTRUMENT 0.1 / INTERPHASE 0.2 host · SET 0.1.1 / JOURNEY 0.1.2 / LIVE 0.13 / LISTEN 0.6",
-      "state": "ACTIVE_CANDIDATE_UNIFIED_DOORWAY",
+      "head": "FOLD//BLOOM · ONE INSTRUMENT 0.1 / INTERPHASE 0.2 host · SET 0.1.1→LIVE fusion / JOURNEY debug / LIVE 0.13 / LISTEN 0.6",
+      "state": "ACTIVE_CANDIDATE_UNIFIED_DOORWAY / SET_LIVE_FUSED",
       "route": "/fold-bloom/",
       "retained_function": "The canonical /fold-bloom/ entry is now one instrument doorway rather than a catalogue of peer apps. INTERPHASE 0.2 owns focus/projection/RETURN mechanics while domain truth stays where it already lives: exact audio bytes in the local media vault, LISTEN as source cartographer, SET as ordered/seam composition authority, READFIELD as text reader, and LIVE as embodied single-source ride. The shell stores only a session-local active-object pointer/handoff. Typing can produce an immediate unbound deterministic glyph; binding creates an exact text/audio address. FOLD from AUDIO commits an exact source ref into SET and changes the active object to that SET without duplicating bytes. SET RIDE remains the current Journey 0.1.2 seam sequencer and now refuses a mismatched set address. The next real convergence is to consume Journey plan/seam law inside LIVE so RIDE means one operation for either one source or a set.",
       "evidence": [
@@ -260,27 +260,19 @@
       "merge_sha": "7734a77b1961335eb59bf142e499573a6a74c2b2",
       "latest_return": "/returns/FOLD_BLOOM_LISTEN_PHONE_CONTINUITY_2026-09-22.json",
       "next_executable": {
-        "id": "fold-bloom-live-set-fusion",
-        "state": "READY_AFTER_UNIFIED_DOORWAY",
-        "objective": "Make RIDE over an Experience Set execute the existing Journey plan and seam laws inside LIVE, preserving each child source identity/native clock plus one set-level journey address and RETURN. Demote Journey from destination to traversal library/debug surface once this is proved.",
-        "preserve": [
-          "no second source store or copied raw media",
-          "child source identity and source time remain canonical",
-          "CUT / DISSOLVE / CARRY / RESET / RETURN remain explicit authored seam laws",
-          "LISTEN remains MAP/cartography authority; SET remains composition authority; LIVE remains embodied projection",
-          "GHOST → FORGE → WILL remains a bottom witness/demo, never canonical START HERE",
-          "Journey code is preserved as donor/library until LIVE-set equivalence is verified"
-        ],
+        "id": "fold-bloom-set-live-lived-gate",
+        "state": "HOLD_FOR_HUMAN_USE",
+        "objective": "Ride one real 2–3-source authored SET on phone through at least two distinct seam laws and RETURN; change code only from observed seam/orientation/agency friction.",
         "acceptance": [
-          "RIDE on AUDIO enters LIVE with the exact source",
-          "RIDE on SET enters the same LIVE experience rather than a separate product identity",
-          "source boundary changes preserve exact child identity and expose sourceTime + journeyTime",
-          "CARRY retains only named projection/profile residue; RESET clears it; CUT is explicit; DISSOLVE is bounded",
-          "one final RETURN identifies the set, ordered child refs, seam choices, path and authored operations",
-          "missing local bytes fail explicitly without replacing source identity"
+          "exact child source identity remains legible",
+          "sourceTime + journeyTime remain coherent across boundaries",
+          "CARRY/DISSOLVE/RESET/CUT feel intentionally distinct where authored",
+          "one final RETURN identifies set + path + operations",
+          "ordinary use does not require Journey/debug lore"
         ],
-        "law": "Unify the doorway and operation; do not merge domain truth or rewrite the engines into one blob."
-      }
+        "law": "Technical SET→LIVE fusion is complete in PR #200; the next gate is lived conversion, not more architecture."
+      },
+      "latest_merge": "ea401720dd8abbac7467084513e538f8526011af"
     },
     {
       "lineage": "axial",
@@ -855,5 +847,14 @@
       "30705a04643d2ea2aa661ec7bf5c20e903bd9e71"
     ],
     "law": "Future agents recover exact current artifacts from the packet; the packet is a pointer/summary, not canonical source."
+  },
+  "cross_repo": {
+    "map": "/control/confluence/CROSS_REPO_CONVERGENCE_2026-09-24.md",
+    "rule": "Authority is question-scoped: private source/private evidence -> 0xxx0/0; public executable/current public heads -> this repo; vendor static truth -> donor repo/upstream.",
+    "repos": [
+      "0xxx0/0xxx0.github.io",
+      "0xxx0/0",
+      "0xxx0/gods-eye-view"
+    ]
   }
 }
