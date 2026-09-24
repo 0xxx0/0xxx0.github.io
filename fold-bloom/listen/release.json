@@ -168,7 +168,8 @@
     "source_continuity_ci": "PASS · public-surface-check 35992087692 + Route Registration 35992087726",
     "beat_saber_surface": "PASS · direct Beat Saber control + ExpertPlusStandard.dat convergence-surface proof",
     "beat_saber_pack_pr": 218,
-    "beat_saber_pack_ci": "Focused pack/unit/convergence test PASS in public-surface-check 35994746536; final PR head rerun required after control seal."
+    "beat_saber_pack_ci": "PASS · public-surface-check 35995567067 + Route Registration 35995567200",
+    "beat_saber_pack_merge_sha": "f9de196d219e50e0850f564c3645fe582f25e909"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · portable donor=field-addressed-stream/v0.1",
   "updated": "2026-09-24",
