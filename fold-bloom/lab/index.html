@@ -48,7 +48,7 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover{color:#fff}
 <body>
 <div class="app">
 <header>
-  <div><div class="brand">FOLD<i>//</i>BLOOM · FIELD LAB 0.2</div><div class="sub">ONE CENTER · SIX UNEQUAL PROJECTIONS · EXPLICIT PROFILE · RETURN</div></div>
+  <div><div class="brand">FOLD<i>//</i>BLOOM · FIELD LAB 0.2.1</div><div class="sub">ONE CENTER · SIX UNEQUAL PROJECTIONS · EXPLICIT PROFILE · RETURN</div></div>
   <div class="grow"></div>
   <div class="profile" id="profile">
     <button data-profile="CLEAR" class="on">CLEAR</button><button data-profile="DRIVE">DRIVE</button><button data-profile="TRANCE">TRANCE</button><button data-profile="SOFT">SOFT</button>
@@ -86,8 +86,17 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover{color:#fff}
         <label>BPM <b id="bpmRead">96</b></label><input id="bpm" type="range" min="48" max="180" value="96">
         <div class="row" id="timbres"><button data-timbre="WOOD" class="cool">WOOD</button><button data-timbre="QIN">QIN STUDY</button><button data-timbre="DRONE">DRONE STUDY</button></div>
         <div class="row" style="margin-top:6px"><button id="pulsePlay" class="primary">START PULSE</button><button id="tap">TAP</button><button id="exportTape">EXPORT TAPE</button></div>
-        <div><span class="metric">SYNC <b id="syncRead">—</b></span><span class="metric">RATIO <b id="ratioRead">3:2</b></span></div>
-        <div class="mini">QIN / DRONE are synthesis studies, not claims of authentic instrument emulation.</div>
+        <div><span class="metric">SYNC <b id="syncRead">—</b></span><span class="metric">RATIO <b id="ratioRead">3:2</b></span><span class="metric">CLOCK <b id="pulseClock">IDLE</b></span><span class="metric">BEAT <b id="pulseBeat">—</b></span><span class="metric">PHASE <b id="pulsePhase">—</b></span></div>
+        <div class="row" style="margin-top:6px"><button id="pulseRead" class="cool">READ ×4 →</button><button id="pulseRide">RIDE →</button><button id="pulseCompose">COMPOSE →</button></div>
+        <div class="readUses">
+          <span><b>ENTRAIN</b> tap against 3:2 / 4:3 / 5:4 and keep a bounded timing trace</span>
+          <span><b>READ</b> lend BPM to RSVP pace while READFIELD keeps text authority</span>
+          <span><b>RIDE</b> lend beat / phase to LIVE timing; topology remains player-authored</span>
+          <span><b>COMPOSE</b> lend tempo / energy to Two Dial; harmony and form remain local</span>
+          <span><b>EXPORT</b> turn taps into EVENT TAPE + Beat Saber v4 draft evidence</span>
+          <span><b>CLOCK LAW</b> tempo + beat + phase + quantum coordinate; start/stop stays local</span>
+        </div>
+        <div class="mini">LAB PULSE is a synthetic FIELD PULSE clock, not an audio source. QIN / DRONE are synthesis studies, not claims of authentic instrument emulation.</div>
       </section>
 
       <section class="controls" data-controls="READ">

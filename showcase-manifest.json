@@ -1335,14 +1335,14 @@
     },
     {
       "href": "/docs/",
-      "title": "READFIELD / RSVP 0.8.1 · FOCUS LENS",
+      "title": "READFIELD / RSVP 0.8.2",
       "kind": "utility",
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": true,
-      "role": "Canonical high-performance reader with one exact source position across FOCUS / MIN / PLAIN projections. FOCUS is now the visible default: AXIAL/LISTEN address+aperture rings, Triangle-derived center frame, optional LISTEN FIELD PULSE witness and Atlas source-glyph spokes surround the same RSVP/ORP cursor. MIN strips this to ring + RSVP essentials; PLAIN remains the explicit lowest-cost geometry-free performance mode.",
+      "role": "Canonical high-performance reader with one exact source position across FOCUS / MIN / PLAIN projections. FOCUS is now the visible default: AXIAL/LISTEN address+aperture rings, Triangle-derived center frame, optional LISTEN FIELD PULSE witness and Atlas source-glyph spokes surround the same RSVP/ORP cursor. MIN strips this to ring + RSVP essentials; PLAIN remains the explicit lowest-cost geometry-free performance mode. Explicit LISTEN/AUDIO or FIELD LAB/SYNTH timing may lend tempo to RSVP; use-case controls enact FAST RSVP, PULSE ×4, VOICE+EYES and CURRENT directly.",
       "index": {
-        "updated_at": "2026-09-23T06:18:00+08:00",
+        "updated_at": "2026-09-24T14:13:00+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
@@ -1365,7 +1365,7 @@
         "RAW + RETURN preserved"
       ],
       "operation": "READ",
-      "receipt": "/returns/READFIELD_FOCUS_LENS_080_2026-09-23.json",
+      "receipt": "/returns/FIELD_PULSE_CONVERGENCE_2026-09-24.json",
       "contract": {
         "accepts": {
           "kinds": [
@@ -1423,7 +1423,7 @@
           "return_path": "/docs/"
         }
       },
-      "version": "0.8.1",
+      "version": "0.8.2",
       "tier": "FIELD"
     },
     {
@@ -2095,17 +2095,17 @@
     },
     {
       "href": "/fold-bloom/lab/",
-      "title": "FOLD//BLOOM · FIELD LAB 0.2",
+      "title": "FOLD//BLOOM · FIELD LAB 0.2.1",
       "kind": "experiment",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "TRAIN / EXPLORE",
       "state": "CANDIDATE",
-      "version": "0.2",
+      "version": "0.2.1",
       "tier": "FIELD",
-      "role": "Spatial six-projection lab over the Fold/Bloom family. RIDE delegates to LIVE; PULSE trains polyrhythm and emits bounded FIELD PULSE transport; READ embeds canonical READFIELD/APERTURE and lets source chrome recede after binding; LOCI now preserves large text as a bounded addressed course instead of truncating it; READ may explicitly carry the same source/focus into LOCI or DATA. INK, DATA and LOCI remain unequal studies; profiles are presentation-only.",
+      "role": "Spatial six-projection lab over the Fold/Bloom family. RIDE delegates to LIVE; PULSE trains polyrhythm and emits bounded FIELD PULSE transport; READ embeds canonical READFIELD/APERTURE and lets source chrome recede after binding; LOCI now preserves large text as a bounded addressed course instead of truncating it; READ may explicitly carry the same source/focus into LOCI or DATA. INK, DATA and LOCI remain unequal studies; profiles are presentation-only. PULSE exposes clock/beat/phase and explicit READ/RIDE/COMPOSE routes as a synthetic FIELD PULSE producer.",
       "index": {
-        "updated_at": "2026-09-24T11:40:00+08:00",
+        "updated_at": "2026-09-24T14:13:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2236,7 +2236,7 @@
       "state": "ACTIVE",
       "version": "0.13",
       "receipt": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
-      "role": "Embodied linear-source explorer with exact source timing and a smoother lived projection. AUTOPILOT is a first-class reversible witness control; phone settings are safe-area bounded and scrollable; TRACKFIELD model rebuilds are bounded while the renderer stabilizes projected geometry at display rate; DEEP/TRANCE/WOOD/VOID morph in perceptual color space and gain subtle section-phase variation. AUDIO MAP/source identity remain unchanged.",
+      "role": "Embodied linear-source explorer with exact source timing and a smoother lived projection. AUTOPILOT is a first-class reversible witness control; phone settings are safe-area bounded and scrollable; TRACKFIELD model rebuilds are bounded while the renderer stabilizes projected geometry at display rate; DEEP/TRANCE/WOOD/VOID morph in perceptual color space and gain subtle section-phase variation. AUDIO MAP/source identity remain unchanged. External timing witness may come from LISTEN/AUDIO or FIELD LAB/SYNTH; neither may author topology.",
       "transfer": [
         "Fold Weave: authored 12-cell topology / crease / cascade / mute-first causal score",
         "LIVE 0.4: AUDIO MAP → future TRACKFIELD",
@@ -2392,7 +2392,7 @@
         "physical_fit": "Performance/control grammar suitable for later encoder/touch/physical-control adapters; no hardware authority implied."
       },
       "index": {
-        "updated_at": "2026-09-22T14:20:00+08:00",
+        "updated_at": "2026-09-24T14:13:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2645,7 +2645,7 @@
         "physical_fit": "Control primitive; candidate for tangible dial/encoder interfaces."
       },
       "index": {
-        "updated_at": "2026-09-22T14:20:00+08:00",
+        "updated_at": "2026-09-24T14:13:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2653,7 +2653,7 @@
           "RELEASE"
         ]
       },
-      "role": "Composition authority. MATTER × HARMONY authors BLOOM/FOLD/SPLIT/RETURN; a local source or LISTEN may lend tempo/energy/phrase/section context. IDLE demonstrates the algebra on a reversible snapshot and can follow the source clock, but its automatic composition evaporates on takeover.",
+      "role": "Composition authority. MATTER × HARMONY authors BLOOM/FOLD/SPLIT/RETURN; a local source or LISTEN may lend tempo/energy/phrase/section context. IDLE demonstrates the algebra on a reversible snapshot and can follow the source clock, but its automatic composition evaporates on takeover. PULSE LINK accepts LISTEN/AUDIO or FIELD LAB/SYNTH timing while a local same-page track remains higher priority.",
       "tier": "FIELD"
     },
     {

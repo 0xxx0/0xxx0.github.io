@@ -1,0 +1,18 @@
+{
+  "schema": "return/v1",
+  "id": "FIELD_PULSE_CONVERGENCE_2026-09-24",
+  "status": "IMPLEMENTED_CANDIDATE_PENDING_CI",
+  "object": "FIELD PULSE multi-clock convergence + READFIELD actionable modes",
+  "changed_object": "FIELD LAB rhythm can now lawfully coordinate READFIELD, LIVE and Two Dial; READFIELD use cases are direct controls rather than prose-only capability.",
+  "evidence": [
+    "/control/FIELD_PULSE_CONTRACT.json",
+    "/control/confluence/FIELD_PULSE_CONVERGENCE_2026-09-24.json",
+    "/fold-bloom/lab/tests/pulse-routing.test.mjs"
+  ],
+  "verification": {
+    "ci": "PENDING",
+    "phone": "REQUIRED: one LAB PULSE→READ ×4 and one LAB PULSE→RIDE or COMPOSE pass"
+  },
+  "next": "On phone: start LAB PULSE, launch READ ×4 and verify pace/source label; then launch RIDE or COMPOSE and verify beat timing without hidden authored changes.",
+  "stop": "No new clock source or workflow mode before this lived pass identifies a missing function."
+}

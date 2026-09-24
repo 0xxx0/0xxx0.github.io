@@ -1,7 +1,7 @@
 {
   "schema": "field-pulse/v0.1",
   "status": "CANDIDATE_SHARED_RUNTIME",
-  "date": "2026-09-22",
+  "date": "2026-09-24",
   "purpose": "Carry bounded temporal/performance context between same-origin FIELD instruments without creating a new canonical state authority.",
   "authority": "NONE",
   "transport": {
@@ -66,8 +66,8 @@
     },
     {
       "consumer": "FOLD//BLOOM LIVE 0.13",
-      "from": "LISTEN transport",
-      "effect": "beat/downbeat + analyzed phrase + section witnesses may shape terrain/timing; no automatic authored topology"
+      "from": "LISTEN/AUDIO transport or explicit FIELD LAB/SYNTH clock seed",
+      "effect": "beat/downbeat + analyzed phrase/section witnesses or synthetic beat/phase may shape timing; no external clock may author topology"
     },
     {
       "producer": "FOLD//BLOOM LIVE 0.13",
@@ -95,19 +95,38 @@
       ]
     },
     {
-      "producer_consumer": "READFIELD / RSVP 0.7",
-      "from": "LISTEN transport",
-      "effect": "Explicit PULSE OFF/×2/×4/×8 maps LISTEN BPM to WPM; ?pulse=2|4|8 is a user-authored workflow entry; READFIELD may hydrate pace from the latest same-session LISTEN snapshot and visibly distinguishes LIVE vs LAST; reader focus publishes compact focus events."
+      "producer_consumer": "READFIELD / RSVP 0.8.2",
+      "from": "LISTEN/AUDIO transport or FIELD LAB/SYNTH clock seed",
+      "effect": "Explicit PULSE OFF/×2/×4/×8 maps lawful external BPM to WPM; FAST RSVP and VOICE+EYES reuse the same APERTURE source cursor; reader focus publishes compact focus events."
     },
     {
       "producer_consumer": "FOLD//BLOOM TWO DIAL 0.10.3",
-      "from": "LISTEN transport or same-page hashed local AUDIO MAP + local composition commits",
-      "effect": "PULSE LINK defaults OFF. A same-page local file may supply tempo/beat/energy/phrase/section context and outranks cross-tab LISTEN while active; Two Dial retains relation/harmony/motif/form authority."
+      "from": "LISTEN/AUDIO transport, FIELD LAB/SYNTH clock seed, or same-page hashed local AUDIO MAP + local composition commits",
+      "effect": "PULSE LINK defaults OFF. Local file outranks external clocks; explicit synthetic seeds may persist until disengaged/local takeover; Two Dial retains relation/harmony/motif/form authority."
     },
     {
-      "producer_consumer": "FOLD//BLOOM FIELD LAB 0.2",
-      "from": "synthetic PULSE transport or existing same-session FIELD PULSE; canonical READFIELD/APERTURE focus",
+      "producer_consumer": "FOLD//BLOOM FIELD LAB 0.2.1",
+      "from": "synthetic PULSE transport/seed or existing same-session FIELD PULSE; canonical READFIELD/APERTURE focus",
       "effect": "PULSE may lend a visible beat witness or explicit ×4 RSVP pace; canonical APERTURE authors source focus/scale and publishes only a bounded focus witness. READ→LOCI/DATA carry is explicit human action and creates no second reader, source store, or authority."
+    },
+    {
+      "producer": "FOLD//BLOOM FIELD LAB 0.2.1 / PULSE",
+      "kind": "transport",
+      "data": [
+        "playing",
+        "time",
+        "bpm",
+        "beatIndex",
+        "beatTime",
+        "beatPhase",
+        "beatDistance",
+        "quantum",
+        "quantumPhase",
+        "energy",
+        "sourceKind",
+        "sourceAddress"
+      ],
+      "effect": "Synthetic rhythm clock for entrainment and explicit same-tab READ/RIDE/COMPOSE handoff; a consumer may continue seeded tempo/phase locally without gaining audio, source or authorship authority."
     }
   ],
   "laws": [
@@ -121,7 +140,11 @@
     "section estimate != semantic truth; consumers may use section bounds as optional temporal apertures but must not invalidate local actions",
     "workflow entry is explicit intent, not delegated authority; a link may enable an already-defined optional adapter but cannot change the consumer's transformation grammar",
     "phrase estimate != semantic truth; novelty/grid evidence may open a temporal aperture but cannot name musical meaning or author a consumer operation",
-    "IDLE witness events are not authored operations; preview automation must not publish as human FIELD action"
+    "IDLE witness events are not authored operations; preview automation must not publish as human FIELD action",
+    "tempo + beat phase + quantum are coordination context; each consumer retains independent transport and may ignore the clock",
+    "synthetic rhythm clock != audio source; FIELD LAB PULSE may lend timing but cannot claim source bytes, AUDIO MAP evidence or musical semantics",
+    "explicit synthetic clock handoff may persist tempo/phase locally after navigation until the consumer disengages or a higher-priority local source takes over; AUDIO transport never receives this stale-clock privilege",
+    "An explicit synthetic FIELD LAB handoff may continue tempo and phase locally after same-tab navigation until the consumer disengages or a local source takes over. LISTEN audio transport remains freshness-bound."
   ],
   "external_media_boundary": {
     "suno": "Best-effort address adapter only. Real phone use on 2026-09-22 remained browser/CORS-blocked; do not gate gameplay on Suno resolution. Proven fallback: obtain/export MP3 and load locally.",
@@ -135,7 +158,7 @@
     "Audiosurf 2 local-audio + optional FIELD skin/mod donor",
     "Beat Saber draft beatmap/event exporter from AUDIO MAP + authored FIELD operations"
   ],
-  "stop_condition": "Use exact sources through current unequal heads—LISTEN 0.6, LIVE 0.13, TWO DIAL 0.10.3, GLYPH ATLAS 0.2 and FIELD LAB 0.2—and keep only temporal/focus/projection transfers that improve recognition, inhabitation, authorship or re-entry without authority collapse.",
+  "stop_condition": "Use existing heads and clock producers through explicit PULSE links. Next expansion requires lived evidence that a new adapter improves work/play/re-entry; do not add another bus or universal transport authority.",
   "workflow_entries": [
     {
       "from": "FOLD//BLOOM LISTEN 0.5",
@@ -168,10 +191,20 @@
       "handoff": "session-local deterministic glyph/source witness only; no audio bytes"
     },
     {
-      "from": "FOLD//BLOOM FIELD LAB 0.2",
-      "to": "READFIELD / RSVP 0.7 + LOCI / DATA studies",
+      "from": "FOLD//BLOOM FIELD LAB 0.2.1",
+      "to": "READFIELD / RSVP 0.8.2 + LOCI / DATA studies",
       "verb": "READ / CARRY",
-      "handoff": "canonical APERTURE source/focus; optional FIELD PULSE witness or ×4 pace; explicit carry only"
+      "handoff": "canonical APERTURE source/focus; explicit synthetic tempo/phase seed may pace READ or route to LIVE/Two Dial; CARRY remains explicit"
     }
-  ]
+  ],
+  "alignment_model": {
+    "tempo": "beats per minute; may be borrowed",
+    "beat_phase": "0..1 position inside the current beat",
+    "quantum": "shared launch/grouping span in beats; default 4",
+    "quantum_phase": "0..1 position inside the current quantum",
+    "transport": "each instrument keeps independent start/stop unless explicitly linked",
+    "design_note": "Link-like timing vocabulary is a donor model only; FIELD PULSE remains same-origin ephemeral coordination and authority NONE.",
+    "synthetic_handoff": "FIELD_LAB_SYNTH may seed a consumer-local clock after explicit same-tab handoff; the seed carries timing context only.",
+    "audio_freshness": "LISTEN/AUDIO remains freshness-bound because pause, seek and source state cannot be inferred after transport messages stop."
+  }
 }

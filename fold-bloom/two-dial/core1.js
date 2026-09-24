@@ -247,12 +247,13 @@ function normalizedPulseBpm(raw) {
   return clamp(bpm, 56, 136);
 }
 function pulseIsLive(now = Date.now()) {
+  const syntheticSeed=pulseLink.sourceKind==='FIELD_LAB_SYNTH';
   return !!(
     prefs.pulseLink &&
     pulseLink.connected &&
     pulseLink.playing &&
     normalizedPulseBpm(pulseLink.bpm) &&
-    now - pulseLink.wall < 2800
+    (syntheticSeed || now - pulseLink.wall < 2800)
   );
 }
 function pulseTempo() {

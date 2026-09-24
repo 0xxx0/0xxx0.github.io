@@ -97,7 +97,11 @@ function startPulse(){
   },24);
   $('#pulsePlay').textContent='STOP PULSE';setStatus('PULSE · '+pulse.ratio.join(':')+' · '+pulse.bpm+' BPM');
 }
-function stopPulse(){pulse.playing=false;if(pulse.timer)clearInterval(pulse.timer);pulse.timer=null;$('#pulsePlay').textContent='START PULSE'}
+function stopPulse(){
+  const stoppedAt=pulse.ac?Math.max(0,pulse.ac.currentTime-pulse.start):0;
+  pulse.playing=false;if(pulse.timer)clearInterval(pulse.timer);pulse.timer=null;$('#pulsePlay').textContent='START PULSE';
+  publishPulseTransport(performance.now(),true,stoppedAt);
+}
 $('#pulsePlay').onclick=()=>pulse.playing?stopPulse():startPulse();
 function tapPulse(){
   if(!pulse.playing)startPulse();
@@ -116,6 +120,14 @@ function syntheticMap(seconds=16){
 function downloadJSON(name,value){
   const blob=new Blob([JSON.stringify(value,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
+function launchPulseTarget(url){
+  if(!pulse.playing)startPulse();
+  publishPulseTransport(performance.now(),true);
+  location.href=url;
+}
+$('#pulseRead').onclick=()=>launchPulseTarget('/docs/?pulse=4&from=field-lab');
+$('#pulseRide').onclick=()=>launchPulseTarget('/fold-bloom/live/?from=field-lab');
+$('#pulseCompose').onclick=()=>launchPulseTarget('/fold-bloom/two-dial/?pulse=1&from=field-lab');
 $('#exportTape').onclick=()=>{
   const map=syntheticMap(16),ops=pulse.taps.map((x,i)=>({t:x.t,op:i%4===0?'BLOOM':'MARK',strength:x.score/100}));
   const tape=compileEventTape(map,{sourceId:'field://lab/pulse',operations:ops});
@@ -320,13 +332,18 @@ function drawRide(t){
   for(let i=0;i<12;i++){const q=((i/12+phase)%1),y=hz+(H-hz)*q*q,xspan=W*(.04+.52*q*q);ctx.beginPath();ctx.moveTo(cx-xspan,y);ctx.lineTo(cx+xspan,y);ctx.stroke()}
   ctx.strokeStyle='rgba(239,120,73,.55)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx-W*.035,hz);ctx.lineTo(W*.13,H);ctx.moveTo(cx+W*.035,hz);ctx.lineTo(W*.87,H);ctx.stroke();
 }
-function publishPulseTransport(t){
-  if(t-pulse.lastPublish<120)return;
+function updatePulseReadout(data){
+  if($('#pulseClock'))$('#pulseClock').textContent=data.playing?'OUT':'LAST';
+  if($('#pulseBeat'))$('#pulseBeat').textContent=String(Math.max(0,Number(data.beatIndex)||0)+1);
+  if($('#pulsePhase'))$('#pulsePhase').textContent=Math.round((Number(data.beatPhase)||0)*100)+'%';
+}
+function publishPulseTransport(t,force=false,timeOverride=null){
+  if(!force&&t-pulse.lastPublish<120)return;
   pulse.lastPublish=t;
-  const ac=pulse.ac,bar=4*60/pulse.bpm,tt=pulse.playing&&ac?Math.max(0,ac.currentTime-pulse.start):t/1000;
-  const beatDur=60/pulse.bpm,beatPhase=((tt/beatDur)%1+1)%1;
-  const data={playing:pulse.playing,time:tt,duration:bar,bpm:pulse.bpm,tempoConfidence:1,beatIndex:Math.floor(tt/beatDur),sectionIndex:0,scope:'BAR',scopeStart:0,scopeEnd:bar,energy:.45+.18*Math.sin(tt*Math.PI*2/beatDur)**2,flux:.18,brightness:.52,stage:'SYNTH',sourceHash:null,sourceKind:'FIELD_LAB_SYNTH',sourceAddress:'field://lab/pulse',beatTime:Math.floor(tt/beatDur)*beatDur,beatPhase,beatDistance:Math.min(beatPhase,1-beatPhase)*beatDur,sectionProgress:(tt%bar)/bar,sectionCount:1,sectionStart:0,sectionEnd:bar,sourceProgress:(tt%bar)/bar};
-  lastTransport=data;fieldPulse.publish('transport',data);if(read.pulseMode!=='OFF')applyTransport(data);
+  const ac=pulse.ac,bar=4*60/pulse.bpm,tt=Number.isFinite(Number(timeOverride))?Number(timeOverride):(pulse.playing&&ac?Math.max(0,ac.currentTime-pulse.start):0);
+  const beatDur=60/pulse.bpm,beatPhase=((tt/beatDur)%1+1)%1,quantumPhase=((tt/bar)%1+1)%1;
+  const data={playing:pulse.playing,time:tt,duration:bar,bpm:pulse.bpm,tempoConfidence:1,beatIndex:Math.floor(tt/beatDur),sectionIndex:0,scope:'BAR',scopeStart:0,scopeEnd:bar,energy:.45+.18*Math.sin(tt*Math.PI*2/beatDur)**2,flux:.18,brightness:.52,stage:'SYNTH',sourceHash:null,sourceKind:'FIELD_LAB_SYNTH',sourceAddress:'field://lab/pulse',clockSource:'SYNTH',quantum:4,quantumPhase,beatTime:Math.floor(tt/beatDur)*beatDur,beatPhase,beatDistance:Math.min(beatPhase,1-beatPhase)*beatDur,sectionProgress:quantumPhase,sectionCount:1,sectionStart:0,sectionEnd:bar,sourceProgress:quantumPhase};
+  lastTransport=data;fieldPulse.publish('transport',data);updatePulseReadout(data);if(read.pulseMode!=='OFF')applyTransport(data);
 }
 function drawPulse(t){
   publishPulseTransport(t);
