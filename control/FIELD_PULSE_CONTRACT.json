@@ -126,7 +126,7 @@
         "sourceKind",
         "sourceAddress"
       ],
-      "effect": "Synthetic rhythm clock for entrainment and explicit same-tab READ/RIDE/COMPOSE handoff; a consumer may continue the seeded tempo/phase locally, but gains no audio/source/authorship authority."
+      "effect": "Synthetic rhythm clock for entrainment and explicit same-tab READ/RIDE/COMPOSE handoff; a consumer may continue seeded tempo/phase locally without gaining audio, source or authorship authority."
     }
   ],
   "laws": [
@@ -143,7 +143,8 @@
     "IDLE witness events are not authored operations; preview automation must not publish as human FIELD action",
     "tempo + beat phase + quantum are coordination context; each consumer retains independent transport and may ignore the clock",
     "synthetic rhythm clock != audio source; FIELD LAB PULSE may lend timing but cannot claim source bytes, AUDIO MAP evidence or musical semantics",
-    "explicit synthetic clock handoff may persist tempo/phase locally after navigation until the consumer disengages or a higher-priority local source takes over; AUDIO transport never receives this stale-clock privilege"
+    "explicit synthetic clock handoff may persist tempo/phase locally after navigation until the consumer disengages or a higher-priority local source takes over; AUDIO transport never receives this stale-clock privilege",
+    "An explicit synthetic FIELD LAB handoff may continue tempo and phase locally after same-tab navigation until the consumer disengages or a local source takes over. LISTEN audio transport remains freshness-bound."
   ],
   "external_media_boundary": {
     "suno": "Best-effort address adapter only. Real phone use on 2026-09-22 remained browser/CORS-blocked; do not gate gameplay on Suno resolution. Proven fallback: obtain/export MP3 and load locally.",
@@ -203,7 +204,7 @@
     "quantum_phase": "0..1 position inside the current quantum",
     "transport": "each instrument keeps independent start/stop unless explicitly linked",
     "design_note": "Link-like timing vocabulary is a donor model only; FIELD PULSE remains same-origin ephemeral coordination and authority NONE.",
-    "synthetic_handoff": "FIELD_LAB_SYNTH may seed a consumer-local continuing clock after explicit same-tab handoff; this is coordination continuity, not ongoing producer playback.",
-    "audio_freshness": "LISTEN/AUDIO remains freshness-bound because pause/seek/source state cannot be inferred after transport messages stop."
+    "synthetic_handoff": "FIELD_LAB_SYNTH may seed a consumer-local clock after explicit same-tab handoff; the seed carries timing context only.",
+    "audio_freshness": "LISTEN/AUDIO remains freshness-bound because pause, seek and source state cannot be inferred after transport messages stop."
   }
 }
