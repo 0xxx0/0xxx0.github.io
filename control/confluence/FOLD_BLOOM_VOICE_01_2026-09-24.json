@@ -1,0 +1,33 @@
+{
+  "schema": "confluence-packet/v1",
+  "id": "FOLD_BLOOM_VOICE_01_2026-09-24",
+  "observed": [
+    "User wants FIELD PULSE/rhythm-clock convergence to produce practical human training uses, including a simple singing trainer usable by a family member.",
+    "FIELD PULSE multi-clock convergence is already shipped across READFIELD, LIVE and Two Dial; duplicating clock infrastructure would be regression.",
+    "PR #210 owns bounded READ/LOCI proofs, so this delta must not mutate their runtime files."
+  ],
+  "recovered": [
+    "FIELD PULSE authority is NONE: borrowed clock != borrowed authorship.",
+    "LISTEN/AUDIO and FIELD LAB/SYNTH are the current lawful transport clock producers.",
+    "FOLD/BLOOM public architecture keeps unequal projections with exact source/authority boundaries rather than one universal app."
+  ],
+  "implemented": [
+    "/fold-bloom/voice/ VOICE 0.1 sibling projection",
+    "local-only microphone pitch estimator and deterministic pattern helpers",
+    "single note / 1-3-5-3 / five-note / hum-stability practice",
+    "optional FIELD PULSE timing consumer with AUDIO freshness and SYNTH seed continuity",
+    "bounded aggregate-only practice RETURN; no microphone recording or upload"
+  ],
+  "preserved_boundaries": [
+    "VOICE never becomes audio/source authority.",
+    "Pitch estimate is a signal witness, not a judgment of singing quality.",
+    "External timing is optional; manual practice remains complete without a clock.",
+    "No READ/LOCI runtime files are changed; PR #210 remains non-overlapping."
+  ],
+  "next": [
+    "Human phone proof: 60-second held-note session.",
+    "Human phone proof: FIELD LAB PULSE -> VOICE 1-3-5-3 session.",
+    "If both are legible, consider lyrics/read-aloud shadowing as a READFIELD + VOICE composition; do not add speech scoring first."
+  ],
+  "stop": "Do not add cloud voice models, karaoke scoring, lyric alignment or another timing bus before the two direct phone practice proofs."
+}
