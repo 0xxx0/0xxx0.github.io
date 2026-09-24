@@ -99,10 +99,14 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover{color:#fff}
       </section>
 
       <section class="controls" data-controls="INK">
-        <div class="row"><button id="inkClear">CLEAR</button><button id="inkTrace" class="cool">TRACE 永</button><button id="inkDry">DRY</button></div>
-        <label>WETNESS <b id="wetRead">62</b></label><input id="wetness" type="range" min="5" max="100" value="62">
+        <div class="row"><button id="inkClear">CLEAR</button><button id="inkTrace" class="cool">GUIDE 永</button><button id="inkDry">DRY PAPER</button></div>
+        <div class="row" id="inkModes" style="margin-top:5px"><button data-ink-mode="SUMI" class="cool">SUMI</button><button data-ink-mode="DRY">DRY BRUSH</button><button data-ink-mode="WASH">WASH</button></div>
+        <label>WATER <b id="wetRead">62</b></label><input id="wetness" type="range" min="5" max="100" value="62">
+        <label>INK LOAD <b id="loadRead">76</b></label><input id="inkLoad" type="range" min="5" max="100" value="76">
         <label>BRUSH <b id="brushRead">18</b></label><input id="brush" type="range" min="4" max="42" value="18">
-        <div class="mini">Pointer speed modulates deposit: slow = wetter/heavier, fast = drier/thinner. Pigment then diffuses through a coarse paper field and evaporates.</div>
+        <label>PAPER ABSORB <b id="paperRead">58</b></label><input id="paperAbsorb" type="range" min="5" max="100" value="58">
+        <div><span class="metric">PIGMENT <b id="inkMass">0</b></span><span class="metric">WET <b id="waterMass">0</b></span></div>
+        <div class="mini">Speed, pointer pressure and stylus tilt feed one material law. Slow/pressed = loaded stroke; fast = broken dry edge; water outruns pigment through deterministic paper grain, then settles as stain.</div>
       </section>
 
       <section class="controls" data-controls="DATA">
