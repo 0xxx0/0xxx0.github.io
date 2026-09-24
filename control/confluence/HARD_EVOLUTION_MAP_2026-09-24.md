@@ -200,6 +200,44 @@ Do not turn RCC8 into a universal semantic relation vocabulary.
 
 ---
 
+## D3B · ALLEN INTERVAL ALGEBRA = TEMPORAL TOPOLOGY WITHOUT FALSE PRECISION
+
+Allen's interval algebra distinguishes thirteen qualitative interval relations: before / meets / overlaps / starts / during / finishes, their inverses, and equality.
+
+Sources:
+- Allen interval algebra overview: https://ics.uci.edu/~alspaugh/cls/shr/allen.html
+- Grüninger & Li, TIME 2017: https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.TIME.2017.16
+
+This is the temporal sibling of the RCC/mereotopology insight.
+
+High-value domains:
+
+DAYLINE:
+- task A before task B;
+- appointment meets travel block;
+- project contains action;
+- two commitments overlap;
+- week contains day/range.
+
+FOLD//BLOOM:
+- sections meet / overlap;
+- CARRY crosses an exact boundary;
+- DISSOLVE intentionally overlaps two source intervals;
+- Journey time contains source-time intervals without replacing source clocks.
+
+READFIELD / media:
+- phrase during paragraph;
+- cue overlaps sentence;
+- transcript segment meets another segment.
+
+### Boundary
+
+Use exact timestamps where they are evidence. Use interval relations as derived qualitative structure, not as a replacement for source time.
+
+Do not adopt the whole algebra if a domain only needs BEFORE / MEETS / OVERLAPS / CONTAINS.
+
+---
+
 ## D4 · ALGEBRAIC GRAPH REWRITE = “FEW LAWFUL TRANSFORMATIONS”
 
 Double-pushout style graph rewriting makes a transformation explicit as:
