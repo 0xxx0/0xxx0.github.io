@@ -644,7 +644,7 @@ const CASES=[
     name:'READFIELD explicit pulse mode',
     route:'/docs/?pulse=4',
     options:{width:430,height:900,budget:9000},
-    check:dom=>/^PULSE ×4/.test(textAtId(dom,'pulseSync'))&&/NO LISTEN CLOCK|LISTEN/.test(textAtId(dom,'pulseState'))&&/READ TO MUSIC/.test(dom)
+    check:dom=>/^PULSE ×4/.test(textAtId(dom,'pulseSync'))&&/NO FIELD PULSE CLOCK|LISTEN|LAB PULSE/.test(textAtId(dom,'pulseState'))&&/READ TO PULSE/.test(dom)
   },
   {
     name:'DOCS ADDRESS',
