@@ -17,6 +17,8 @@ jobs:
           node-version: '22'
       - name: Validate CURRENT ↔ manifest head drift
         run: node scripts/check-current-heads.mjs
+      - name: Validate reality-gap proof gates
+        run: node scripts/check-reality-gaps.mjs
       - name: Validate Hermes bootstrap scripts
         run: |
           bash -n scripts/hermes-confluence-bootstrap.sh
