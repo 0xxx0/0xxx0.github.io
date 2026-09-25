@@ -1,8 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  circularDistance,relationVerb,relationName,runOutcome,puzzleStars,puzzleOutcome,
-  duetOutcome,gardenGoalMet,gardenSummary,gardenProgress,gardenOutcome
+  circularDistance,relationVerb,relationName,lineBitForVerb,lineMark,trigramForBits,hexPair,hexOutcome,
+  runOutcome,puzzleStars,puzzleOutcome,duetOutcome,gardenGoalMet,gardenSummary,gardenProgress,gardenOutcome
 } from '../play-core.js';
 
 test('Two Dial relation law is symmetric over six positions',()=>{
@@ -15,6 +15,23 @@ test('Two Dial relation law is symmetric over six positions',()=>{
   assert.equal(relationName(5,0),'NEAR');
   assert.equal(circularDistance(5,1),2);
 });
+test('hex puzzle grammar maps topology into six-line form',()=>{
+  assert.equal(lineBitForVerb('BLOOM'),1);
+  assert.equal(lineBitForVerb('FOLD'),1);
+  assert.equal(lineBitForVerb('SPLIT'),0);
+  assert.equal(lineBitForVerb('RETURN'),0);
+  assert.equal(lineMark(1),'━━━');
+  assert.equal(lineMark(0),'━ ━');
+  assert.deepEqual(trigramForBits([1,1,1]),{key:'QIAN',glyph:'☰',han:'乾',image:'HEAVEN'});
+  assert.deepEqual(trigramForBits([0,1,0]),{key:'KAN',glyph:'☵',han:'坎',image:'WATER'});
+  const pair=hexPair([0,1,0,1,0,0]);
+  assert.equal(pair.complete,true);
+  assert.equal(pair.lower.key,'KAN');
+  assert.equal(pair.upper.key,'ZHEN');
+  assert.deepEqual(hexOutcome([0,1,0,1,0,0],[0,1,0,1,0,0]),{complete:true,clear:true,matches:6,label:'HEXAGRAM LOCKED'});
+  assert.equal(hexOutcome([0,1,0,1,0,0],[0,1,0,1,1,0]).matches,5);
+});
+
 test('RUN clears at six of eight',()=>{
   assert.equal(runOutcome(5,8).clear,false);
   assert.equal(runOutcome(6,8).clear,true);
