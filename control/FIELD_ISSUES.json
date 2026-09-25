@@ -1,27 +1,12 @@
 {
   "schema": "field-repo-issues/v0.1",
-  "generated_at": "2026-09-21T19:53:14+08:00",
+  "generated_at": "2026-09-25T12:58:00+08:00",
   "source": "GitHub open issues for 0xxx0/0xxx0.github.io",
   "dynamic_source": "https://api.github.com/repos/0xxx0/0xxx0.github.io/issues?state=open&per_page=100",
-  "count": 7,
-  "play_safe_count": 3,
-  "law": "FI may show all public repo issues. FIELD PLAY only selects play_safe=true issues; local/private/sensitive holds remain visible as repo truth but are not contributor missions.",
+  "count": 1,
+  "play_safe_count": 1,
+  "law": "FI may show all public repo issues. FIELD PLAY only selects play_safe=true issues; local/private/sensitive holds remain recoverable in closed issue history or WAITING rather than remaining open merely to preserve memory.",
   "issues": [
-    {
-      "number": 35,
-      "title": "HUMAN GATE · Fold Weave MIRROR ↔ CREASE only",
-      "updated_at": "2026-09-21T11:53:14Z",
-      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/35",
-      "labels": [],
-      "body": "Core implementation is complete on master. Do not reopen the Fold/Lens architecture from this issue.\n\nAlready done:\n- Fold Weave 0.1 exact donor is surfaced and preserved.\n- Ecology 0.2 and Two Dial remain distinct reachable branches.\n- Scale Lens RC11.2 remains the deep stable workbench.\n- FIELD → LensState v0.2 composition exists.\n- lawful/dead next-lens support is explicit.\n- Focus Ring / LENS are discoverable from FIELD.\n- mobile RETURN/browser proof is on master.\n- Scale Lens actualize-1 puts OBJECT/APERTURE/VIEW/STACK/RETURN before deep LAB machinery.\n- **Lens task-advantage gate is resolved:** direct PLAIN ↔ FOVEATED use showed no clear/notable gain; PLAIN remains default and FOVEATE is parked.\n\nOnly one human question remains:\n\n### Fold Weave comparative play\n- play MIRROR and CREASE directly;\n- decide only from felt/useful difference whether CREASE deserves a default/promotion;\n- either outcome is valid.\n\nDo not:\n- merge Two Dial into Ecology;\n- rebuild Scale Lens;\n- invent another Focus Ring/Lens state;\n- reopen FOVEATE merely to seek significance;\n- promote CREASE from code elegance alone.\n\nClose after the MIRROR ↔ CREASE human receipt, even if the result is “MIRROR is better / no meaningful difference.”\n\nLens evidence:\n- `/control/LENS_FOVEATE_PROOF_2026-09-21.json`\n- `/control/LENS_G1_PROOF_SEAL_2026-09-21.json`\n- PR #75",
-      "play_safe": true,
-      "disposition": "FOLD_WEAVE_HUMAN_GATE_ONLY_LENS_RESOLVED",
-      "evidence": [
-        "/control/LENS_G1_PROOF_SEAL_2026-09-21.json",
-        "/control/LENS_FOVEATE_PROOF_2026-09-21.json",
-        "PR #75 / Scale Lens actualize-1"
-      ]
-    },
     {
       "number": 11,
       "title": "Print 01 · Digital → stencil/proof → physical → RETURN",
@@ -31,56 +16,6 @@
       "body": "## Goal\nReify the print/proof mechanisms already present in Cassette Atlas / House OS materials.\n\n## Loop\ncanonical object/state\n→ SVG/PDF plate\n→ print/sticker/stencil/template\n→ physical placement/use\n→ photo/measurement/observation\n→ RETURN receipt\n\n## Candidate first fixture\nOne address strip / route tile / tool label / stencil with:\n- stable ID\n- scale\n- registration\n- revision\n- source pointer\n- manual fallback\n\n## Done when\nThe physical artifact can be traced back to exact digital source and the observed physical consequence returns to the ledger.",
       "play_safe": true,
       "disposition": "PUBLIC_REPO"
-    },
-    {
-      "number": 9,
-      "title": "Recovery HOLD · Naming / glyph / Game-of-Names lineage",
-      "updated_at": "2026-09-20T14:05:35Z",
-      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/9",
-      "labels": [],
-      "body": "## State\nHOLD / RECOVER-WHEN-PAYOFF. This is deliberately not a fourth live front.\n\n## Goal\nLocate exact artifacts/notes around naming systems, Game of Names, glyph/seal protocols, semantic identity and related experiments; preserve lineage and identify mechanisms that belong in current language/address tooling.\n\n## Questions\n- Which artifacts are exact runnable/source specimens?\n- Which naming operations preserve referent/identity across transforms?\n- What belongs with Verse/Path, what belongs with seals/glyphs, and what is a separate game/instrument?\n- Which branches are merely aesthetic shells?\n\n## Done when\nA small lineage map and recovery entries exist; no new mega-app is invented.",
-      "play_safe": true,
-      "disposition": "PUBLIC_REPO"
-    },
-    {
-      "number": 6,
-      "title": "Census · Cluster Sep 05–19 Library artifacts",
-      "updated_at": "2026-09-20T10:44:49Z",
-      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/6",
-      "labels": [],
-      "body": "## Goal\nTurn the recent Library/file explosion into a deduplicated recovery census.\n\n## Method\n1. inventory exact files and hashes\n2. group exact duplicates\n3. group near versions by lineage/name/content\n4. classify HEAD / DONOR / RECOVER / QUARANTINE / SUPERSEDED\n5. add only distinctive runnable/source artifacts to the migration ledger\n\n## Priority clusters already visible\n- Fold/Bloom / fold-weave\n- AXIAL / state-transform\n- ENV0 / House OS physical boards\n- generated visual/reference batches\n- Foundry / Grid Path / Verse Atlas\n- Sleeper checkpoints\n\n## Receipt\nA machine-readable census plus counts by class; no source deletion.",
-      "play_safe": false,
-      "disposition": "LOCAL_EVIDENCE_HOLD"
-    },
-    {
-      "number": 14,
-      "title": "Pipeline HOLD · Messaging/account cleanup + autoresponder substrate",
-      "updated_at": "2026-09-19T07:09:33Z",
-      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/14",
-      "labels": [],
-      "body": "## State\nHOLD / research and inventory. Do not send, delete, archive, label or mutate accounts from this task.\n\n## Goal\nMap the eventual communication substrate across email and messengers as one policy-governed intent/event/RETURN system rather than one bot per channel.\n\nRecover/define:\n- account/channel identities\n- person/resource policies\n- read/remember/acknowledge/draft/act/escalate gates\n- thread/message canonical IDs\n- drafts vs sent actions\n- autoresponder templates/decision traces\n- audit/RETURN\n\n## Immediate output\nConnector/tool availability map + read-only inventory plan + one bounded Gmail proof candidate.\n\nNo all-messenger automation until each channel has explicit authority and rollback semantics.",
-      "play_safe": false,
-      "disposition": "PRIVATE_OR_SENSITIVE_HOLD"
-    },
-    {
-      "number": 13,
-      "title": "Adapter HOLD · Body / health / anatomy state projection",
-      "updated_at": "2026-09-19T07:09:30Z",
-      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/13",
-      "labels": [],
-      "body": "## State\nHOLD / adapter research only. Do not make this a live front.\n\n## Goal\nRecover the transferable structure used in health/body/case consolidation without importing private medical content.\n\nCandidate canonical concepts:\n- anatomical address / region\n- observation vs interpretation\n- event / intervention\n- evidence confidence\n- chronology\n- state delta\n- residue / unresolved\n- RETURN\n\n## Safety\nObservation != diagnosis. Confidence/source must remain explicit.\n\n## Done when\nA privacy-safe Domain Pack/schema exists and can project into plain chronology, body map, training view, and printable reference without changing canonical identity.",
-      "play_safe": false,
-      "disposition": "PRIVATE_OR_SENSITIVE_HOLD"
-    },
-    {
-      "number": 8,
-      "title": "Reality 01 · One physical before→change→after RETURN",
-      "updated_at": "2026-09-19T04:00:54Z",
-      "html_url": "https://github.com/0xxx0/0xxx0.github.io/issues/8",
-      "labels": [],
-      "body": "## Goal\nKeep the abstraction stack reality-gated by completing one bounded physical/home transformation.\n\n## Contract\nPick one zone or owned endpoint → record before-state → make one reversible change → record after-state → state what became easier/measurably different.\n\n## Bounds\nNo new hardware purchase required. No expansion into a full House OS architecture.\n\n## Receipt\nBefore/after evidence + one paragraph/JSON record of the state delta.",
-      "play_safe": false,
-      "disposition": "LOCAL_EVIDENCE_HOLD"
     }
   ]
 }
