@@ -1,6 +1,6 @@
 {
   "schema": "human-port-descriptor/v0.1",
-  "version": "1.5-preview",
+  "version": "1.6.0-preview",
   "canonical": "https://0xxx0.github.io/port/",
   "surfaces": {
     "plain": "/contact/",
@@ -16,7 +16,8 @@
     "port": "/port/",
     "contact": "/contact/",
     "idea_atlas": "/app-atlas/",
-    "social_residue": "/contact/residue/"
+    "social_residue": "/contact/residue/",
+    "comms": "/port/comms/"
   },
   "laws": [
     "SOURCE STAYS SOURCE",
@@ -332,5 +333,16 @@
     },
     "admission": "FIELD INTAKE route creates review candidates only; canonical mutation remains behind explicit resolution + APPLY.",
     "retention": "Files are browser-local until explicit PURGE; Port does not upload or move filesystem originals."
+  },
+  "public_contact": {
+    "state": "STABLE",
+    "version": "0.4",
+    "route": "/contact/",
+    "role": "shareable stable human-facing address; local composer + explicit Share/Copy boundary",
+    "network_inbox": false,
+    "share_contact_link": true,
+    "optional_return_via": true,
+    "contextual_capsule": "/contact/make/",
+    "law": "A visible contact address may route a signal; it must not claim receipt or delivery without a bound transport."
   }
 }
