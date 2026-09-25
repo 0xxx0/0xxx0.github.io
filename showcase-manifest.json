@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-25",
+  "updated": "2026-09-26",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -273,9 +273,9 @@
       "family": "ATLAS DAYLINE",
       "operation": "OPERATE",
       "state": "ACTIVE",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "showcase_card": false,
-      "role": "Mobile-first continuous execution projection over the existing Dayline DayState. Holds one source-addressed object/focus, exposes at most three lawful moves, records witness, and for COMMS can RETURN one OFFER_ONLY receipt to the exact native signal; completed held objects remain addressable through RETURN, then Dayline releases focus. Native COMMS retains state authority.",
+      "role": "Mobile-first continuous execution projection over existing DayState. Holds one source-addressed object, exposes ≤3 moves, records witness, and emits source-appropriate OFFER_ONLY returns: COMMS may propose native signal state; Shopping returns evidence-only. Completed focus releases only after the offer is published.",
       "receipt": "/dayline/release.json",
       "transfer": [
         "same poly-atlas-dayline-branch-i-public-v1 DayState; no second planner store",
@@ -288,7 +288,9 @@
         "RUN → WITNESS → COMPLETE → RETURN emits one exact-source OFFER_ONLY receipt",
         "completed source-linked focus remains held through RETURN, then releases",
         "native COMMS explicitly COVER / DEFER / KEEP OPEN / DISMISS after source SHA + signal + message/range revalidation",
-        "stale or concurrently changed source blocks mutation"
+        "stale or concurrently changed source blocks mutation",
+        "source return effect is host-specific rather than generic: COMMS STATE_PROPOSAL · SHOPPING RECEIPT_ONLY · default EVIDENCE_ONLY",
+        "Shopping Dayline completion cannot promote procurement lifecycle"
       ],
       "contract": {
         "accepts": {
@@ -377,7 +379,7 @@
         "physical_fit": "Ordinary mobile execution surface; no scroll lock or spatial viewport required."
       },
       "index": {
-        "updated_at": "2026-09-26T00:55:00+08:00",
+        "updated_at": "2026-09-26T00:52:00+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY"
@@ -6895,7 +6897,7 @@
       "family": "RESOURCE / PROCUREMENT",
       "operation": "ACQUIRE",
       "state": "ACTIVE",
-      "version": "0.3",
+      "version": "0.3.1",
       "showcase_card": false,
       "receipt": "/shopping/release.json",
       "transfer": [
@@ -6909,7 +6911,9 @@
         "ESSENTIAL / CAPABILITY / EXPEDITION intent lanes preserve realistic procurement vs bounded exploratory sourcing",
         "explicit Dayline task handoff currently lands on /dayline/ candidate",
         "candidate BODY/OPERATING envelope + burden",
-        "selected item → session-only canonical HOUSE fit screen → exact item RETURN"
+        "selected item → session-only canonical HOUSE fit screen → exact item RETURN",
+        "exact Shopping item → Dayline task → witnessed completion → OFFER_ONLY RECEIPT_ONLY → exact Shopping item",
+        "accepted Dayline receipt appends evidence only; FOUND/BOUGHT/RECEIVED/TESTED/ADOPTED remain native manual/evidence-backed states"
       ],
       "contract": {
         "accepts": {
@@ -6962,7 +6966,8 @@
             "project/BOM candidate",
             "inventory/capability candidate",
             "explicit non-action",
-            "session-only HOUSE fit packet"
+            "session-only HOUSE fit packet",
+            "shopping-dayline-receipt/v0.1 evidence"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -7034,7 +7039,7 @@
         "physical_fit": "Acquisition adapter for House/maker/cat/robotics capability gaps; no automatic buying."
       },
       "index": {
-        "updated_at": "2026-09-25T21:35:00+08:00",
+        "updated_at": "2026-09-26T00:52:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
@@ -7042,7 +7047,8 @@
           "OPERATE"
         ]
       },
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "role": "Capability-gap procurement adapter with exact lifecycle truth, landed-cost/fit evidence, Dayline next-action handoff, HOUSE fit, and explicit evidence-only Dayline receipt acceptance. A completed Dayline task may become Shopping evidence only after exact item/state revalidation; it never becomes purchase/adoption truth."
     },
     {
       "href": "/showcase-selftest/",

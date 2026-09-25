@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-25T17:00:22.013Z",
+  "updated": "2026-09-26T00:52:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -443,7 +443,7 @@
       "head": "ATLAS DAYLINE Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
       "state": "STABLE + OPT_IN_LIVE_CANDIDATE",
       "route": "/atlas-dayline/",
-      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner, with /dayline/ as the mobile continuous workfield over the same DayState. Reality-first empty/reset, normal mobile reach, explicit NOW ↻, clock-witnessed RETURN, and source-addressed HOUSE/SHOPPING/COMMS handoffs remain. The merged COMMS loop now proves one held source object through RUN → WITNESS → COMPLETE → OFFER_ONLY RETURN → exact native acceptance, then releases completed focus. Machine/browser proof owns functional correctness; real-world completion remains WORLD evidence.",
+      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner, with /dayline/ as the mobile continuous workfield over the same DayState. Reality-first empty/reset, normal mobile reach, explicit NOW ↻, clock-witnessed RETURN, and source-addressed HOUSE/SHOPPING/COMMS handoffs remain. Native RETURN consequence is host-specific: COMMS accepts an exact OFFER_ONLY state proposal after source revalidation; Shopping accepts an exact RECEIPT_ONLY evidence record while its procurement lifecycle remains unchanged. Machine/browser proof owns functional correctness; real-world completion remains WORLD evidence.",
       "evidence": [
         "/atlas-dayline/release.json",
         "/returns/ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
@@ -452,9 +452,11 @@
         "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md",
         "/dayline/release.json",
         "/returns/DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/359"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/359",
+        "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json"
       ],
-      "version": "Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH"
+      "version": "Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
+      "latest_return": "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json"
     },
     {
       "lineage": "house-spatial",
@@ -467,11 +469,15 @@
     },
     {
       "lineage": "shopping-field",
-      "head": "SHOPPING FIELD 0.3 / FI-SHOP-001",
+      "head": "SHOPPING FIELD 0.3.1 / EXACT DAYLINE RECEIPT + HOUSE FIT / FI-SHOP-001",
       "state": "ACTIVE_ADAPTER",
       "route": "/shopping/",
-      "retained_function": "Capability gap/listing/receipt → freshness + landed SGD + explicit purchase gate + lifecycle + optional BODY/OPERATING envelope/burden → bounded research packet / exact Dayline task / session-only HOUSE fit screen. Personal state remains local/private; money and seller contact remain human actions; HOUSE fit is dimensional screen only.",
-      "version": "0.3"
+      "retained_function": "Capability gap/listing/receipt → freshness + landed SGD + explicit purchase gate + lifecycle + optional BODY/OPERATING envelope/burden → bounded research packet / exact Dayline task / session-only HOUSE fit screen. Exact Dayline completion may return as RECEIPT_ONLY evidence after exact item + lifecycle-state revalidation; acceptance appends evidence and never promotes FOUND/BOUGHT/RECEIVED/TESTED/ADOPTED. Personal state remains local/private; money and seller contact remain human actions; HOUSE fit is dimensional screen only.",
+      "version": "0.3.1",
+      "evidence": [
+        "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json"
+      ],
+      "latest_return": "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json"
     },
     {
       "lineage": "triangle",
