@@ -54,7 +54,10 @@
     "/recovery/focus-interface-sync-20260921/FU_FOVEATE_RECOVERY_2026-09-21.json recovers partial exact fovea-path → radial projection evidence",
     "/recovery/focus-interface-sync-20260921/FOCUS_INTERFACE_SYNC_2026-09-21.json preserves AXIAL/READFIELD/Lens role boundaries",
     "/foundry/axial/fan8-print.svg is an A3 100%-scale passive eight-leaf print with exact six-slot relation legend and machine-checkable leaf IDs",
-    "/foundry/axial/FAN8.md binds STACK/FAN/ANNULUS/WRAP physical topology to existing INTERPHASE/AXIAL/PLAY laws without a new state authority"
+    "/foundry/axial/FAN8.md binds STACK/FAN/ANNULUS/WRAP physical topology to existing INTERPHASE/AXIAL/PLAY laws without a new state authority",
+    "/spikes/007-hard-evolution-proofs/ proves IDENTIFY ≠ EMBED and keeps physical fit UNKNOWN",
+    "/fold-bloom/state-language.js + /fold-bloom/live/play-core.js ground FAN/8's six-line HEX and six-position relation readings",
+    "FAN/8 v0.2 visible passive leaf IDs are exact binary 000–111"
   ],
   "promotion_gate": "The AXIAL instrument is ACTIVE for ordinary orientation/re-entry. Its comparative usability and physical-embodiment claims remain unresolved under the existing evolution.evidence_gate; failure of those claims does not invalidate the working orientation utility.",
   "lineage_exact": [
@@ -71,7 +74,7 @@
     "Blade Runner / Memory-Orb visual/mechanical association"
   ],
   "research_question": "Does a persistent navigable overview plus explicit engineering witness reduce orientation loss during deep focus while preserving the directness of the primary ring surface?",
-  "known_gap": "Overview/inspector usefulness remains unmeasured. TRACE handoff is an integration result, not evidence that AXIAL improves policy decisions or that the reference policy equals live private authority. FAN/8 is printable but physically unproved; no sensing/actuation claim.",
+  "known_gap": "FAN/8 v0.2 is printable but physically unproved; geometry and semantic identification remain separate claims and no sensing/actuation is implemented.",
   "current_classification": {
     "reviewed_at": "2026-09-22T00:42:00+08:00",
     "state": "PROOF_REQUIRED",
@@ -84,10 +87,17 @@
   "interface_boundary": "AXIAL owns unequal-dimensional orientation and exact support. READFIELD owns one-source position/scale/time reading. Scale Lens owns deeper typed projection/provenance.",
   "physical_projection_candidate": {
     "id": "FAN8",
+    "version": "0.2",
     "state": "PRINTABLE_CANDIDATE / HUMAN_PROOF_REQUIRED",
     "artifact": "/foundry/axial/fan8-print.svg",
     "spec": "/foundry/axial/FAN8.md",
-    "law": "six cyclic slots reuse current Two Dial relation algebra; HOLD is TEST/ARM; LET FLY is RUN→WITNESS→RETURN",
+    "address": "six stable slots + HOLD FAST + LET FLY",
+    "host_readings": {
+      "two_dial": "slot 0–5; circular distance → SAME/NEAR/FAR/OPPOSITE → BLOOM/FOLD/RETURN/SPLIT",
+      "hex": "slot 0–5 → line 1–6; current PLAY 0.5.3 law writes solid for BLOOM/FOLD and broken for SPLIT/RETURN",
+      "dayline_field": "only one to three temporary local moves visible at once"
+    },
+    "embodiment_law": "IDENTIFY ≠ EMBED ≠ DEFORM; physical shape may project host relation but never create semantic authority",
     "topologies": [
       "STACK",
       "FAN",
@@ -96,6 +106,6 @@
     ],
     "authority": "NONE / projection only",
     "sensing": "NOT_IMPLEMENTED",
-    "human_gate": "one passive specimen + readback/relation/use test before electronics or camera work"
+    "human_gate": "one calibrated passive specimen + readback/relation/HEX-address/use test before electronics or camera work"
   }
 }

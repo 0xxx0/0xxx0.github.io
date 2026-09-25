@@ -1,221 +1,195 @@
 # FAN/8 — FOLDING FAN / GAME / PLAN CONVERGENCE — 2026-09-25
 
-Status: **materialized passive physical projection candidate**.  
+Status: **v0.2 materialized passive physical projection candidate**.  
 Authority: **NONE**. Existing hosts remain canonical.
 
-## Recovered lineage
+## What converged
 
-The folding-fan thread was never merely decorative.
+The folding-fan / annulus / cylinder lineage and the current software have now met at one invariant:
 
-Across the recovered work it repeatedly carried the same functions:
+`HELD OBJECT → STABLE ADDRESS → FEW REACHABLE MOVES → HOLD FAST → LET FLY → WITNESS → RETURN`.
 
-- folding changes adjacency and reachable information;
-- radial opening exposes a bounded neighborhood;
-- annulus/cylinder forms make cyclic relation and phase legible;
-- stacking compresses to one current focus;
-- front/back or open/closed states can separate guidance from witness/history;
-- the physical object should survive transformation without losing identity.
+This does not mean every domain becomes a fan or every fan leaf has a universal meaning.
 
-The current software independently converged on the same law:
+The stronger current reading is:
 
-`HELD OBJECT → FOCUS → 1–3 REACHABLE MOVES → OPERATION → WITNESS → RETURN`.
+**one stable six-slot address can carry unequal host-specific readings, while two extra leaves carry the transaction boundary.**
 
-FOLD//BLOOM PLAY 0.2 now supplies a concrete six-position relation algebra and finite game loop.
-Atlas Dayline supplies bounded RUN≤3 and real-life temporal execution.
-INTERPHASE supplies host-owned identity + projection + residue + RETURN.
-AXIAL supplies cyclic readback + transaction gating + physical-state legibility.
-HOUSE / SHOPPING / COMMS supply reality-bearing native objects without yielding authority.
+`S0 S1 S2 S3 S4 S5 HOLD_FAST LET_FLY`
 
-This makes a passive fan body lawful now in a way it was not when the fan was only a metaphor or speculative interface.
+## Current software donors
 
-## Compression
+### FOLD//BLOOM PLAY 0.5.3
 
-The physical object has eight leaves:
+Current merged game state supplies two exact six-way readings:
 
-`S0 S1 S2 S3 S4 S5 HOLD LET_FLY`
+- **Two Dial** — positions 0–5; circular distance names SAME / NEAR / FAR / OPPOSITE and therefore BLOOM / FOLD / RETURN / SPLIT.
+- **HEX** — six authored lines. Physical S0–S5 map to line 1–6. Current game law writes SOLID for BLOOM/FOLD and BROKEN for SPLIT/RETURN.
 
-The six numbered leaves are not apps. They are reusable slots.
+RUN, PATH, ECOLOGY and ZEN do not receive invented six-way semantics. They may reuse the selector/transaction body only where their current runtime has an addressed position or explicit witness.
 
-### Cyclic reading
+PLAY 0.5.3 has now landed mode-specific central embodiment, while Two Dial 0.10.4 adds WIDE / direct DUET entry; FAN/8 remains a passive projection and does not depend on display chrome.
 
-Shortest circular distance over S0–S5 is the exact current Two Dial / PLAY law:
+### DAYLINE / FIELD
 
-- 0 → SAME → BLOOM
-- 1 → NEAR → FOLD
-- 2 → FAR → RETURN
-- 3 → OPPOSITE → SPLIT
+The same six leaves become writable local slots. Only **1–3 current lawful moves** should be visible at once.
 
-### Transaction reading
+The leaves do not become a task database. The native object/source remains authoritative.
 
-- HOLD = read consequence / TEST / ARM.
-- LET FLY = RUN / release → WITNESS → RETURN.
+### AXIAL / INTERPHASE
 
-This directly connects the old HOLD FAST / LET FLY intuition to the proven AXIAL SAFE/TEST/ARM/RUN distinction without changing either host's authority.
+AXIAL supplies stable indexed readback and HOLD/ARM/RUN transaction separation.
+INTERPHASE supplies host-owned identity, explicit projection, residue and RETURN.
 
-## Topology is projection
+## Critical correction from HARD EVOLUTION
 
-One physical object can lawfully change reading by shape:
+The new executable wrap proof separates:
+
+`IDENTIFY ≠ EMBED ≠ DEFORM`.
+
+That corrects an ambiguity in FAN/8 v0.1.
+
+- **IDENTIFY** — host law declares slot identity / cyclic relation / line address.
+- **EMBED** — stack, fan, annulus or wrap changes physical arrangement and reach.
+- **DEFORM** — bending/folding/twisting changes geometry and may introduce metric distortion.
+
+A circle drawn or formed in paper does not manufacture a cyclic semantic relation.
+A cylinder does not prove physical fit.
+A fold does not create a domain edge.
+
+Physical form may **project** a relation already owned by the host.
+
+## Current physical readings
 
 ### STACK
-Only one leaf/focus is foregrounded.
 
-Use:
-- current object;
-- current commitment;
-- parked/closed state.
+One focus foregrounded; alternatives compressed behind.
 
 ### FAN
-Open only the locally reachable neighborhood.
 
-Use:
-- Dayline / FIELD: normally 1–3 current moves;
-- maker work: inspect / alter / test;
-- COMMS: answer / defer / return;
-- Shopping: verify / acquire / test;
-- Verse: try / adopt / return.
-
-This is the physical version of the current capability-tree rule: do not show the whole graph.
+Open a bounded local neighborhood, normally 1–3 reachable moves.
 
 ### ANNULUS
-Treat the six slots cyclically.
 
-Use:
-- Two Dial relation;
-- FOLD/BLOOM/SPLIT/RETURN;
-- phase / recurrence / relative position.
+Read the already-defined six-slot cyclic relation.
 
 ### WRAP / CYLINDER
-The same slot IDs may wrap around a tube/ring body.
 
-Use:
-- AXIAL phase/twist;
-- repeated sequence/rhythm;
-- future passive sensor/readback experiments.
-
-No topology change itself mutates host state.
+Place the same stable addresses around a body for phase/twist/scan experiments. Geometry remains a separate proof class.
 
 ## Whole game
 
-The current game is already sufficient.
-
 ### RUN
-TURN → READ → MATCH CALL → RELEASE.
-FAN/8 gives TURN and RELEASE a physical transaction.
 
-### PUZZLE
-The same six slot positions make shortest-turn reasoning tangible.
-No new puzzle rules.
+Use six physical slots as ring/address positions.
+HOLD FAST = predict/read consequence.
+LET FLY = release.
+The eight leaves are not eight RUN releases.
 
-### DUET
-Two FAN/8 copies become the two dials.
-The relation between their selected slots is the existing relation algebra.
-The browser still owns CALL, score and win state.
+### HEX
 
-### GARDEN
-The HOLD leaf includes BODY / PATH / VOICE marks.
-After four releases, mark or clip the chosen inherited pressure.
-The browser remains generation/lineage authority.
+S0→L1, S1→L2, S2→L3, S3→L4, S4→L5, S5→L6.
 
-The older FOLD WEAVE persistent authored-crease topology is **not** silently promoted. It remains a donor until comparative play establishes that crease memory improves agency and replay.
+The digital runtime still owns target, authored line state, trigram resolution and outcome.
+
+### TWO DIAL
+
+Use two copies or two six-slot selectors.
+Relative slot position carries the existing relation algebra.
+The digital runtime owns score/CALL/outcome.
+
+### PATH
+
+Use the selector for shortest-turn reasoning; par/stars remain software evidence.
+
+### ECOLOGY
+
+Do not force six ecological meanings.
+BODY / PATH / VOICE remains the current inheritance-pressure vocabulary and may be marked temporarily on HOLD FAST.
 
 ### ZEN
-The fan can simply be manipulated without score.
-No special physical semantics are required.
+
+No extra semantics.
 
 ## Whole plan / real life
 
-The same object can carry a real-world execution slice without becoming a planner database.
+For one actual object:
 
-For one held object:
+1. put its exact name/address on the removable **HELD** hub field;
+2. write the current mode/context;
+3. place only 1–3 lawful local moves on slot leaves;
+4. fold the rest behind;
+5. HOLD FAST one move and check consequence/authority;
+6. LET FLY once;
+7. witness the result;
+8. RETURN to the native owner/source before repopulating.
 
-1. write or attach the exact object/source/address;
-2. write only 1–3 current lawful moves on slot leaves;
-3. fold the other move leaves behind;
-4. HOLD one move while checking consequence/authority;
-5. LET FLY once;
-6. witness what actually changed;
-7. RETURN to the native owner;
-8. repopulate the next local neighborhood.
+That same gesture can lawfully support:
 
-Examples:
+- HOUSE address → one local task;
+- SHOPPING capability gap → one verify/collect/test action;
+- COMMS obligation → one response/follow-up;
+- Dayline task → one bounded ACT;
+- FOLD//BLOOM source → one current operation;
+- Verse focus → one authoring move;
+- maker object → inspect/cut/fit/test.
 
-- HOUSE room/address → lend context → perform one physical task → RETURN to HOUSE.
-- SHOPPING capability gap → verify/source/collect/test → native Shopping owns lifecycle.
-- COMMS addressed obligation → do one response/follow-up action → native COMMS owns coverage.
-- Dayline task → RUN → evidence → source receipt offer later.
-- FOLD//BLOOM source → MAP / MARK / RIDE / REPLAY.
-- maker object → inspect / cut / fit / test.
-
-The fan is therefore neither a to-do list nor a universal controller.
-It is a **small physical aperture around a currently held object**.
-
-## External donors / what we steal
-
-These are inspiration, not provenance.
-
-- **Tangible Bits**: exploit graspable physical skill instead of representing everything as GUI chrome.
-- **Reactable**: make causal relation inspectable through physical arrangement; object identity should remain legible.
-- **Shape-changing interfaces / Radical Atoms**: form can communicate state and affordance, but physical/digital divergence is a primary failure mode.
-- **TRANS-DOCK**: one stable computational substrate can acquire new embodied motions through passive mechanical transducers instead of a new software core.
-
-The important adaptation is ours: the fan's reversible topology switch is itself a projection operator over the same object.
-
-## Internal proof donor
-
-PRINT-01 landed concurrently and supplies the correct physical-proof discipline: calibrated carrier, written dimensions authoritative, one specimen only, photo/ruler RETURN, no fixture family before evidence. FAN/8 reuses that method instead of spawning a second fabrication protocol.
+The fan is an aperture around the held thing, not a universal planner.
 
 ## Materialized artifact
 
-- `/foundry/axial/fan8-print.svg`
-- `/foundry/axial/FAN8.md`
+`/foundry/axial/fan8-print.svg`
 
-The SVG is A3 landscape and contains eight separate tapered brisé-style leaves with:
+v0.2 adds:
 
-- ~186 mm functional length;
-- Ø5 mm pivot clearance;
-- 100 mm calibration line; continue only at 99–101 mm;
-- optional tip-lacing hole;
-- six numbered slots;
-- HOLD / LET FLY;
-- move/write lines;
-- BODY/PATH/VOICE witness marks;
-- passive 3-bit IDs 000–111.
+- exact visible binary IDs **000–111**; v0.1's visible 002–007 labels were incorrect;
+- DIAL 0–5 / HEX L1–L6 labels on the six stable slot leaves;
+- **HOLD FAST** wording restored;
+- removable HELD / MODE / RETURN hub label;
+- explicit `IDENTIFY ≠ EMBED` reminder;
+- exact 100 mm PRINT-01 calibration line.
 
-The print is linked from both AXIAL and FOLD//BLOOM PLAY.
-It is **not** registered as another public app/route.
+## Internal donors
 
-## Sensing position
+- **PRINT-01** — calibrated print, written dimensions authoritative, one specimen, photo/ruler RETURN, no fixture family before evidence.
+- **HARD EVOLUTION WRAP PROOF** — topology/identification distinct from geometry/metric deformation.
+- **STATE × TRANSFORM / AXIAL** — semantic state + embodied transform + TEST/ARM/RUN + receipt.
+- **Two Dial / Ecology / Fold Weave** — current relation algebra, current inheritance pressure, older persistent-crease donor.
 
-Do not add sensing yet.
+## External research donors
 
-The printed 3-bit marks exist only so a later camera or simple sensor can observe the same leaf identities without redesigning the body.
+These are inspiration, not provenance.
 
-If sensing is ever added:
+- Tangible Bits: graspable physical embodiments can couple digital state to ordinary physical skill.
+- reacTable: tangible spatial relations can form a playable musical instrument.
+- shape-changing-interface research: physical form can act as input/output, but usability and mapping require empirical proof.
+- TRANS-DOCK: passive mechanical transducers can alter embodied motion while a stable computational substrate remains underneath.
 
-`physical observation → existing host adapter → existing state/operation → existing RETURN`.
+FAN/8 steals the useful principle but remains passive: one host-owned state, multiple physical projections.
 
-No FAN database, bus or agent.
+## Proof gate
 
-## Physical gate
+Still **PARKED**, because the user is not using/building it yet.
 
-The proof is PARKED because the user is not building/using it now.
+One future specimen only:
 
-One future specimen should answer only:
+- 100 mm calibration must measure 99–101 mm;
+- eight leaf IDs readable screen-off;
+- 12 random Two Dial relation checks;
+- 6 requested HEX-line → physical-slot checks;
+- one HOLD FAST → LET FLY → WITNESS → RETURN cycle;
+- report whether translation effort is lower / same / higher than screen-only use.
 
-- Can slot state be read with the screen off?
-- Can 1–3 reachable moves remain physically legible?
-- Is HOLD distinguishable from LET FLY in ordinary handling?
-- Can two six-slot fans yield the current relation with low error?
-- Does the object reduce translation/re-entry cost rather than add ritual?
+Only a useful passive proof can justify later sensing.
 
-Failure parks the embodiment while preserving the digital/game laws.
+## Stop
 
-## Convergence result
+No FAN app.
+No FAN database.
+No camera pipeline.
+No BLE/electronics.
+No motorization.
+No hidden synchronization.
+No new game semantics.
 
-The fan does not absorb the system by containing all of it.
-
-It absorbs the system by making the **same invariant gesture** available across it:
-
-`HOLD ONE THING → OPEN ONLY WHAT IS REACHABLE → TRANSFORM / RELEASE → SEE WHAT CHANGED → RETURN`.
-
-That is the folding fan, the game, the plan and the current unified-interface pivot in one real mechanical sentence.
+The physical object earns continuation only if ordinary handling reduces translation/re-entry cost.
