@@ -127,10 +127,10 @@
       ],
       "latest_return": "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json",
       "next_executable": {
-        "id": "readfield-085-lived-phone-gate",
-        "state": "SELF_VERIFY_FIRST / HUMAN_EVIDENCE_OPTIONAL",
-        "objective": "Use one real downloaded long text/Markdown/JSON file plus one existing repo/handed-off source on phone. Retain only intake/work-chain affordances that reduce source prep, control hunting, re-entry or reading/recall friction.",
-        "law": "No new reader engine, persistent file store or universal session bus; revise from direct-use friction.",
+        "id": "readfield-085-self-verification",
+        "state": "SELF_VERIFY_NOW",
+        "objective": "Exercise downloaded-file intake, FAST/REVIEW state, COPY FOCUS boundary, sticky phone rail geometry, and READ→LOCI/RETURN preservation with fixtures/browser smoke. Human preference evidence is optional.",
+        "law": "Do not create a new reader engine/store. Prove correctness with source fixtures and browser state first; subjective mode preference never blocks correctness.",
         "optional_human_evidence": [
           "Can you open a downloaded text-like file one-handed and immediately FAST/REVIEW it without paste gymnastics?",
           "Does the sticky work rail remain reachable without stealing too much reading area?",
@@ -396,10 +396,10 @@
       "merge_sha": "9e308cb7f8b6272820c6404ef93726f48e98c996",
       "latest_return": "/returns/FOLD_BLOOM_HEX_TWO_RING_054_2026-09-25.json",
       "next_executable": {
-        "id": "fold-bloom-054-lived-phone-gate",
-        "state": "SELF_VERIFY_FIRST / HUMAN_EVIDENCE_OPTIONAL",
-        "objective": "Use HEX on the real phone: confirm the old triangle/circle/square LIVE glyph ring is absent, the two concentric lower/upper rings read immediately, STILL removes unwanted ride pressure, the settings drawer can always be dismissed, and VIBE produces a useful perceptible active-experience change.",
-        "law": "WAITING_ON_HUMAN != ACTIVE_FRONT. No new mode/state system until lived phone evidence; real-world action remains /dayline/ authority.",
+        "id": "fold-bloom-054-self-verification",
+        "state": "SELF_VERIFY_NOW",
+        "objective": "Automate the exact failure surface: HEX must omit the generic LIVE glyph ring, expose two lower/upper rings, default STILL must suppress ride motion, drawer must close by ×/Escape/backdrop/outside-tap without trapping controls, and VIBE presets must mutate active experience state.",
+        "law": "Browser/state correctness first. Real phone feel, calmness and delight are optional subjective evidence; they do not freeze defect repair or surrounding verification.",
         "optional_human_evidence": [
           "Does HEX now read first as two rings / six lines rather than as the old TRIANGLE/CIRCLE/SQUARE LIVE topology?",
           "Does default STILL make puzzle play calmer without making the source feel dead?",
@@ -453,10 +453,10 @@
         "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md"
       ],
       "next_executable": {
-        "id": "atlas-dayline-reality-ports-lived-proof",
-        "state": "SELF_VERIFY_FIRST / HUMAN_EVIDENCE_OPTIONAL",
-        "objective": "On phone, take one real object through /dayline/ (DAYLINE / CONFLUENCE candidate) → one lawful move → witness → RETURN with less control hunting. The candidate uses the same DayState and source handoff envelope; Atlas remains the deeper radial projection.",
-        "law": "One lived workfield loop first. Promote /dayline/ only if it reduces reconstruction; otherwise discard the visible carrier and retain the underlying DayState/handoffs.",
+        "id": "atlas-dayline-self-verification",
+        "state": "SELF_VERIFY_NOW",
+        "objective": "Verify normal mobile scrolling, one held object, ≤3 lawful moves, source-address handoff preservation, WITNESS/RETURN shape, source-back path, and completion/release semantics using state fixtures and browser smoke.",
+        "law": "Machine/browser proof owns functional correctness. Actual completion of a real-world action is WORLD evidence only and cannot be inferred from Dayline.",
         "optional_human_evidence": [
           "Can the page scroll normally and keep the held object obvious?",
           "Are only the next one to three lawful moves visible without subsystem hunting?",
