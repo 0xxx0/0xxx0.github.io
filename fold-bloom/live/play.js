@@ -98,7 +98,7 @@ function injectEntry(){
   const box = document.createElement('div');
   box.id = 'fbPlayEntry';
   box.className = 'fbPlayEntry';
-  box.innerHTML = '<div class="law"><b>ONE MOVE:</b> TURN → FIND THE SYMBOL → MATCH THE GOAL → RELEASE.<br><b>ONE RUN:</b> eight releases. No lives. No dead moves; misses still change the field.</div><div class="modes"><button data-play-mode="PLAY">PLAY A RUN · 8 MOVES</button><button data-play-mode="PUZZLE">PUZZLE · 5 CALLS</button><button data-play-mode="ZEN">ZEN · FREE RIDE</button></div>';
+  box.innerHTML = '<div class="law"><b>ONE MOVE:</b> TURN → FIND THE SYMBOL → MATCH THE GOAL → RELEASE.<br><b>ONE RUN:</b> eight releases. No lives. No dead moves; misses still change the field.<br><span style="color:rgba(255,255,255,.48)">ROAD: measured BEAT / PHRASE / SECTION terrain.</span></div><div class="modes"><button data-play-mode="PLAY">PLAY A RUN · 8 MOVES</button><button data-play-mode="PUZZLE">PUZZLE · 5 CALLS</button><button data-play-mode="ZEN">ZEN · FREE RIDE</button></div>';
   const startRow = card.querySelector('.startRow');
   card.insertBefore(box, startRow || null);
   box.querySelectorAll('[data-play-mode]').forEach(btn => btn.addEventListener('click', () => enterFromIntro(btn.dataset.playMode)));
