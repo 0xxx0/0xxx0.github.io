@@ -277,6 +277,36 @@ function toggleTextMark(source,mark){
   return saveTextMarks(source,current);
 }
 function currentVerseLine(){return verse.lines[Math.max(0,Math.min(verse.lines.length-1,verse.focus))]||null}
+const verseStepReplay={score:null,packet:null,index:0,steps:24,sample:null,word:null,op:null};
+function resetVerseStepReplay(){
+  verseStepReplay.score=null;verseStepReplay.packet=null;verseStepReplay.index=0;verseStepReplay.sample=null;verseStepReplay.word=null;verseStepReplay.op=null;
+  if($('#verseReplayPos'))$('#verseReplayPos').textContent='—';if($('#verseReplayWord'))$('#verseReplayWord').textContent='—';if($('#verseReplayOp'))$('#verseReplayOp').textContent='—';
+}
+function verseReplayPacket(){
+  const source=String($('#verseSource').value||''),line=ensureVerse();if(!line)return null;
+  return replayHandoff({source,focus:line,marks:verse.marks,returnAddress:'/fold-bloom/lab/?mode=VERSE'});
+}
+function syncVerseStepReplay(){
+  if(!verseStepReplay.score)return null;
+  const dur=clipDurationMs(verseStepReplay.score),p=verseStepReplay.index/Math.max(1,verseStepReplay.steps-1),ms=p*dur,sample=sampleScore(verseStepReplay.score,ms),word=activeWord(verseStepReplay.score,ms);
+  const ranked=Object.entries(sample.weights||{}).sort((a,b)=>b[1]-a[1]),op=ranked[0]&&ranked[0][1]>.04?ranked[0][0]:'—';
+  verseStepReplay.sample=sample;verseStepReplay.word=word;verseStepReplay.op=op;
+  if($('#verseReplayPos'))$('#verseReplayPos').textContent=(verseStepReplay.index+1)+'/'+verseStepReplay.steps;
+  if($('#verseReplayWord'))$('#verseReplayWord').textContent=word?.text||'—';
+  if($('#verseReplayOp'))$('#verseReplayOp').textContent=op;
+  document.documentElement.dataset.fieldLabVerseReplay='step';
+  return {p,ms,sample,word,op};
+}
+function buildVerseStepReplay(){
+  const packet=verseReplayPacket();if(!packet)return null;
+  const score=scoreFromReplayHandoff(packet),dur=Math.max(1,clipDurationMs(score)),p=Math.max(0,Math.min(1,(Number(packet.position_ms)||0)/dur));
+  verseStepReplay.packet=packet;verseStepReplay.score=score;verseStepReplay.index=Math.round(p*(verseStepReplay.steps-1));
+  syncVerseStepReplay();setStatus('VERSE · STEP REPLAY · PRESENTATION ONLY');return score;
+}
+function stepVerseReplay(delta=1){
+  if(!verseStepReplay.score)buildVerseStepReplay();if(!verseStepReplay.score)return;
+  verseStepReplay.index=Math.max(0,Math.min(verseStepReplay.steps-1,verseStepReplay.index+(Number(delta)||0)));syncVerseStepReplay();
+}
 function safeLocalReturn(value=''){
   try{const u=new URL(String(value||''),location.href);return u.origin===location.origin?u.pathname+u.search+u.hash:''}catch(_){return''}
 }
@@ -291,7 +321,7 @@ function recoverVerseInboundHandoff(){
 }
 function bindVerse({focusStart=null,announce=true}={}){
   const source=String($('#verseSource').value||'');
-  verse.sourceKey=textSourceKey(source);verse.lines=lineSpans(source);verse.marks=storedMarks(source);
+  verse.sourceKey=textSourceKey(source);verse.lines=lineSpans(source);verse.marks=storedMarks(source);resetVerseStepReplay();
   if(Number.isFinite(Number(focusStart))){
     const at=Number(focusStart);
     let best=0,d=Infinity;
@@ -311,13 +341,13 @@ function syncVerseUi(){
     const marked=marksForRange(verse.marks,ln.start,ln.end).length>0;
     return `<button class="verseLine ${i===verse.focus?'on':''} ${marked?'marked':''}" data-verse-line="${i}"><b>${String(i+1).padStart(2,'0')}</b><span>${esc(ln.text||'∅')}</span><i>${marked?'MARK':'@'+ln.start}</i></button>`;
   }).join('');
-  $$('#verseLines [data-verse-line]').forEach(b=>b.onclick=()=>{verse.focus=Number(b.dataset.verseLine)||0;syncVerseUi();const x=currentVerseLine();if(x)setAddress(x.address)});
+  $('#verseLines [data-verse-line]').forEach(b=>b.onclick=()=>{verse.focus=Number(b.dataset.verseLine)||0;resetVerseStepReplay();syncVerseUi();const x=currentVerseLine();if(x)setAddress(x.address)});
   if(mode==='VERSE'&&line)setAddress(line.address);
 }
 function markVerse(kind){
   const source=String($('#verseSource').value||''),line=ensureVerse();if(!line)return;
   const mark=makeTextMark({source,start:line.start,end:kind==='ARC'?line.end:line.start,kind,label:String(line.text||'').trim().slice(0,100),projection:'VERSE'});
-  toggleTextMark(source,mark);setStatus('VERSE · '+kind+' · '+line.address);
+  toggleTextMark(source,mark);resetVerseStepReplay();setStatus('VERSE · '+kind+' · '+line.address);
 }
 function loadReadAt(source,start=0,address=null){
   const text=String(source??''),at=Math.max(0,Math.min(text.length,Number(start)||0));
@@ -341,8 +371,7 @@ function openVersePoemMap(){
   location.href='/poetry/map/?handoff=1&from=field-lab';
 }
 function replayVerseMark(){
-  const source=String($('#verseSource').value||''),line=ensureVerse();if(!line)return;
-  const packet=replayHandoff({source,focus:line,marks:verse.marks,returnAddress:'/fold-bloom/lab/?mode=VERSE'});
+  const packet=verseReplayPacket();if(!packet)return;
   try{sessionStorage.setItem('fold-bloom.replay.handoff.v02',JSON.stringify(packet))}catch(_){}
   location.href='/fold-bloom/replay/';
 }
@@ -355,6 +384,8 @@ $('#verseRead').onclick=carryVerseToRead;
 $('#verseLoci').onclick=carryVerseToLoci;
 $('#versePoemMap').onclick=openVersePoemMap;
 $('#verseReplay').onclick=replayVerseMark;
+$('#verseReplayBack').onclick=()=>stepVerseReplay(-1);
+$('#verseReplayStep').onclick=()=>stepVerseReplay(verseStepReplay.score?1:0);
 bindVerse({announce:false});
 
 /* ---------- READ / READFIELD / RACE ---------- */
