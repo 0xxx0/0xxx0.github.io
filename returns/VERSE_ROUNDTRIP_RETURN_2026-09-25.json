@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "VERSE_ROUNDTRIP_RETURN_2026-09-25",
   "date": "2026-09-25",
-  "state": "CANDIDATE_PENDING_CI",
+  "state": "MERGED_CI_GREEN",
   "objective": "Close Poem Map projection loops without moving poem authorship: Poem Map → FIELD LAB VERSE / Verse Atlas → exact Poem Map caller.",
   "object": "Poem Map source + exact focus + caller address",
   "operation": "PROJECT → INSPECT / MARK / STUDY → RETURN",
@@ -25,9 +25,24 @@
     "RETURN is navigation-only; durable truth remains each surface's own RETURN receipt."
   ],
   "proof": {
-    "static_contract": "implemented",
-    "ci": "pending pull request",
-    "lived_phone": "pending one real-browser Poem Map → LAB → return and Poem Map → Verse Atlas → return loop"
+    "static_contract": "PASS",
+    "route_registration": {
+      "run": 36132197664,
+      "conclusion": "success"
+    },
+    "public_surface_check": {
+      "run": 36132197568,
+      "conclusion": "success",
+      "includes": [
+        "static surface contracts",
+        "FOLD BLOOM Lab READ + LOCI + VERSE bridges",
+        "FOLD BLOOM FIELD LAB browser boot",
+        "critical browser smoke"
+      ]
+    },
+    "pull_request": 308,
+    "merge_sha": "f89867788a56fabc668fb66d2a3f504628138a39",
+    "lived_phone": "PENDING: Poem Map → LAB → return and lawful Poem Map → Verse Atlas → return on one real phone/browser"
   },
-  "next": "If CI is green, merge; then sync CURRENT/manifest only if live head metadata has drifted. Human gate is one phone round-trip, not more architecture."
+  "next": "Next code delta may restore exact selected-token focus on full Poem Map reload via an addressed return witness; do not introduce a shared store. Human gate remains one real-phone round trip."
 }
