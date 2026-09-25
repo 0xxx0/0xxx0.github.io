@@ -70,7 +70,7 @@ function movesFor(f){
  if(f.kind==='handoff'){out.push(move(f.handoff.kind==='CONTEXT'?'APPLY CONTEXT':'ADD TO DAY',applyHandoff,'primary'));if(v.route)out.push(hrefMove('OPEN SOURCE ↗',v.route));out.push(move('CLEAR',clearHandoff));return out.slice(0,3)}
  if(f.kind==='task'){const t=f.task;if(t.status==='done')out.push(move('REOPEN',()=>reopenTask(t.id),'primary'));else if(day.state.route.includes(t.id))out.push(move('COMPLETE',()=>completeTask(t.id),'good'));else out.push(move('RUN',()=>runTask(t.id),'primary'));if(v.route)out.push(hrefMove('SOURCE ↗',v.route));out.push(hrefMove('ATLAS ↗','/atlas-dayline/?live=1'));return out.slice(0,3)}
  if(f.kind==='front'||f.kind==='route'){out.push(move('ADOPT TODAY',adoptFrame,'primary'));out.push(hrefMove(f.kind==='route'?'OPEN SOURCE ↗':'FIELD ↗',v.route||'/'));out.push(hrefMove('ATLAS ↗','/atlas-dayline/?live=1'));return out.slice(0,3)}
- out.push(hrefMove('FIELD NOW ↗','/'));out.push(hrefMove('HOUSE ↗','/house/spatial/'));out.push(hrefMove('COMMS ↗','/port/comms/'));return out
+ out.push(hrefMove('FIELD NOW ↗','/'));out.push(hrefMove('HOUSE ↗','/house/'));out.push(hrefMove('COMMS ↗','/port/comms/'));return out
 }
 function renderMoves(xs){const host=$('#moves');host.textContent='';xs.forEach((m,i)=>{if(m.href){const a=document.createElement('a');a.href=m.href;a.className=m.cls||'';a.textContent=String(i+1).padStart(2,'0')+' · '+m.label;host.appendChild(a)}else{const b=document.createElement('button');b.className=m.cls||'';b.textContent=String(i+1).padStart(2,'0')+' · '+m.label;b.onclick=m.action;host.appendChild(b)}});$('#moveCount').textContent=xs.length+'/3'}
 function returnPacket(){

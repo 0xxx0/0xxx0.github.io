@@ -1,0 +1,29 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "DAYLINE_HOUSE_CANONICAL_ENTRY_2026-09-26",
+  "date": "2026-09-26",
+  "state": "MERGED_CANDIDATE",
+  "object": "Dayline → HOUSE navigation under one canonical HOUSE identity",
+  "observed": [
+    "HOUSE 0.7.2 declares /house/ the canonical human entry and /house/spatial/ a compatibility alias",
+    "Dayline 0.2.1 still linked HOUSE depth and its task fallback move to /house/spatial/"
+  ],
+  "delta": [
+    "Dayline DEPTH / HOUSE now targets /house/",
+    "Dayline task fallback HOUSE ↗ now targets /house/",
+    "CI rejects regression back to /house/spatial/",
+    "no handoff schema, DayState, HOUSE authority, or actuation behavior changed"
+  ],
+  "preserves": [
+    "one held object + ≤3 moves + witness + RETURN",
+    "HOUSE native authority",
+    "Atlas Dayline shared DayState",
+    "COMMS exact-source return loop"
+  ],
+  "verification": {
+    "route_registration": "PENDING_CI",
+    "public_surface": "PENDING_CI",
+    "lived_phone": "OPTIONAL / NOT_REQUIRED"
+  },
+  "stop": "No new HOUSE/Dayline bridge. The existing handoff remains sufficient; this change only removes a stale compatibility front door."
+}
