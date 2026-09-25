@@ -102,7 +102,23 @@
     "root_status": "STATUS is secondary and collapsed. Its rail summarizes live ISSUES / HEADS / MAP plus PORTS live-debt classes only (BUILD / PROVE, BOUNDARY, VERIFY, and any UNCLASSIFIED status). WAITING / YOU remains a distinct primary human/world dependency aperture and is not repeated in STATUS. AVAILABLE and PARKED port counts stay in the PORTS fold; dated audits remain historical.",
     "root_tzimtzum": "Primary root hierarchy is deliberately small: CURRENT/φ truth frame → FOCUS → ROUTES / FIELD SURFACE → WAITING / YOU → collapsed STATUS. If a root block duplicates those functions, fold it under its owner or remove it rather than creating another dashboard.",
     "root_ports": "PORTS / EXIT STATE projects manifest field.exit_paths without treating every non-AVAILABLE status as unresolved work. Exact exit statuses remain canonical and are grouped for presentation into AVAILABLE, BUILD / PROVE, HUMAN / EXPORT BOUNDARY, VERIFY and PARKED / OPTIONAL. Candidate, reference, donor and deferred exits are not counted as live debt; unknown statuses render OTHER / UNCLASSIFIED.",
-    "root_route_freshness": "ROUTES may never call itself LIVE unless route-touch timestamps are mechanically synchronized. FIELD root exposes the newest manifest route-index clock against Git HEAD; positive GIT drift means the route projection is behind exact mutation evidence."
+    "root_route_freshness": "ROUTES may never call itself LIVE unless route-touch timestamps are mechanically synchronized. FIELD root exposes the newest manifest route-index clock against Git HEAD; positive GIT drift means the route projection is behind exact mutation evidence.",
+    "glyph_block_rule": {
+      "law": "Compress repeated addressed projections, never semantic content or authority.",
+      "glyph_rails": [
+        "ROUTES",
+        "HEADS",
+        "PORTS"
+      ],
+      "hybrid": [
+        "WAITING: route/state may compress to a glyph, but the human move remains visible text"
+      ],
+      "preserve_text": [
+        "ISSUES until an issue has a lawful addressed route/object mapping"
+      ],
+      "admission": "An entry needs stable address/route identity plus state before glyph-only compression is lawful.",
+      "return": "Activating a glyph must resolve to the same addressed object; the glyph never becomes a second taxonomy or store."
+    }
   },
   "query_semantics": {
     "BOTTLENECK": {
