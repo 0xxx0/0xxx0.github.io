@@ -551,10 +551,13 @@ function dependencyLabel(kind){return String(kind||'HUMAN_ACTION').replaceAll('_
 async function copyRealityTest(x,button){
  if(!x)return;
  const detail=Array.isArray(x.detail)&&x.detail.length?x.detail:(Array.isArray(x.human_questions)?x.human_questions:[]);
+ const route=String(x.route||'/');
+ const openUrl=new URL(route.startsWith('/')?'.'+route:route,location.href).href;
  const lines=[
   'REALITY GAP / '+dependencyLabel(x.dependency_kind||dependencyKind(x.state)),
   'ID: '+(x.id||'—'),
-  'ROUTE: '+(x.route||'/'),
+  'ROUTE: '+route,
+  'OPEN: '+openUrl,
   'DO: '+(x.human_move||'Perform one bounded ordinary-use/world test.'),
   ...(detail.length?['OBSERVE:',...detail.slice(0,6).map(q=>' - '+String(q))]:[]),
   x.proof_state?'REPO STATE: '+x.proof_state:'',
