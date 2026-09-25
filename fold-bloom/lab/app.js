@@ -184,7 +184,7 @@ function syncVerseUi(){
     const marked=marksForRange(verse.marks,ln.start,ln.end).length>0;
     return `<button class="verseLine ${i===verse.focus?'on':''} ${marked?'marked':''}" data-verse-line="${i}"><b>${String(i+1).padStart(2,'0')}</b><span>${esc(ln.text||'∅')}</span><i>${marked?'MARK':'@'+ln.start}</i></button>`;
   }).join('');
-  $('#verseLines [data-verse-line]').forEach(b=>b.onclick=()=>{verse.focus=Number(b.dataset.verseLine)||0;syncVerseUi();const x=currentVerseLine();if(x)setAddress(x.address)});
+  $$('#verseLines [data-verse-line]').forEach(b=>b.onclick=()=>{verse.focus=Number(b.dataset.verseLine)||0;syncVerseUi();const x=currentVerseLine();if(x)setAddress(x.address)});
   if(mode==='VERSE'&&line)setAddress(line.address);
 }
 function markVerse(kind){
