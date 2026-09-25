@@ -785,7 +785,7 @@ const CASES=[
     name:'FOLD BLOOM public front',
     route:'/fold-bloom/',
     options:{width:430,height:900,budget:5000},
-    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/A source becomes a field/i.test(dom)&&/PLAY CENTER MASS/.test(dom)&&/ENTER LIVE RIDE/.test(dom)&&/MAP A TRACK/.test(dom)&&/DRAW INK/.test(dom)&&/USE IT FOR/.test(dom)&&/Read fast without losing your place/.test(dom)&&/SABER \/ TWO PHONES/.test(dom)&&/ONE INSTRUMENT/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/A source becomes a field/i.test(dom)&&/PLAY CENTER MASS/.test(dom)&&/MAP A TRACK/.test(dom)&&/BUILD A SET/.test(dom)&&/WHAT DO YOU/.test(dom)&&/WANT TO DO/.test(dom)&&/Play a track as terrain/.test(dom)&&/Read fast without losing your place/.test(dom)&&/MORE USES · SABER/.test(dom)&&/SABER \/ TWO PHONES/.test(dom)&&/SURFACES \/ LINEAGE \/ WHY IT WORKS/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
   },
   {
     name:'FOLD BLOOM SABER 0.1',
