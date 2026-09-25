@@ -22,6 +22,13 @@ need(atLeast087,'root version predates held-action aperture');
 need(/^\/returns\/FIELD_INDEX_.*2026-09-25\.json$/.test(root?.latest_return||''),'FIELD INDEX RETURN not attached');
 need((root?.transfer||[]).some(x=>/held action aperture/i.test(x)),'held-action transfer evidence missing');
 need(!!contract.ui_contract?.root_action_aperture,'root action aperture contract missing');
+need(/<details class="catchup" id="catchupFold" data-signal="CLEAR">/.test(html),'CATCH + ACT must be folded by default');
+need(html.includes("signal=kinds>1?'MIXED'"),'mixed semantic signal derivation missing');
+need(html.includes('signalInterference'),'moire/interference signal skin missing');
+need(html.includes('prefers-reduced-motion:reduce'),'signal motion lacks reduced-motion fallback');
+need(html.includes('class="fold catchReality" id="waitingFold"'),'REALITY detail not nested under attention strip');
+need(!!contract.ui_contract?.root_attention_signal,'semantic attention-strip contract missing');
+need(/Pattern never changes authority or priority/.test(contract.ui_contract?.root_attention_signal||''),'signal pattern authority boundary missing');
 need((contract.laws||[]).some(x=>/^SIGNALS CONVERGE AT FOCUS/.test(x)),'focus/authority convergence law missing');
 if(fail.length){console.error('FIELD action aperture FAIL · '+fail.join(' · '));process.exit(1)}
 console.log('FIELD action aperture PASS · unequal signals → one held focus → ≤3 lawful root actions');
