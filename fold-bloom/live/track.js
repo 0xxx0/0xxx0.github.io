@@ -139,7 +139,7 @@ export class LiveTrack {
     this.worker?.terminate?.();this.worker=null;
     if(this.url)URL.revokeObjectURL(this.url);
     this.url=null;this.file=null;this.streamUrl=null;this.map=null;this.worldCache=null;this.worldTime=-1;this.meta=null;this.textEvidence=null;this.loading=false;
-    try{this.audio.pause?.();this.audio.removeAttribute?.('src');this.audio.src='';this.audio.load?.()}catch(_){}
+    try{this.audio.pause?.();this.audio.removeAttribute?.('src');this.audio.load?.()}catch(_){}
     this.onMap(null);this.onState('NONE');return true;
   }
   setVolume(v){this.audio.volume=clamp(Number(v)||0,0,1)}
