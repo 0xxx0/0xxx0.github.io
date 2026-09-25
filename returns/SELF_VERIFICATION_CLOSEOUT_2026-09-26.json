@@ -1,0 +1,66 @@
+{
+  "schema": "0xxx0/self-verification-closeout/v0.2",
+  "date": "2026-09-26",
+  "state": "VERIFIED",
+  "source_revision": "c455615e1aefc8d771e720e3e2e03cc3debdf651",
+  "evidence": {
+    "baseline_public_surface_run": {
+      "id": 36163042383,
+      "conclusion": "success",
+      "head_sha": "0b8ef320a652e6bcd44ed2ddfbd50622c7c73c65"
+    },
+    "current_master_note": "Dayline machine/browser closed loop was subsequently sealed by #369 on c455615e1aefc8d771e720e3e2e03cc3debdf651."
+  },
+  "claims": [
+    {
+      "lineage": "rsvp-reader",
+      "route": "/docs/",
+      "disposition": "SELF_VERIFIED_MACHINE",
+      "proved": [
+        "session-local downloaded text-like file intake at phone viewport",
+        "source/session boundary and COPY FOCUS behavior",
+        "FOCUS/MIN/PLAIN projection continuity",
+        "high-speed reader state and structural markers",
+        "READFIELD → LOCI bounded source/focus handoff"
+      ],
+      "evidence_steps": [
+        "Run critical browser smoke",
+        "READFIELD local file phone intake",
+        "READFIELD focus kernel + performance",
+        "READFIELD FOCUS lens convergence",
+        "READFIELD → LOCI focus handoff"
+      ],
+      "residue": [
+        "OPTIONAL / SUBJECTIVE: which work modes earn persistent personal use"
+      ]
+    },
+    {
+      "lineage": "fold-bloom",
+      "route": "/fold-bloom/",
+      "disposition": "PLAY_055_SELF_VERIFIED_MACHINE",
+      "proved": [
+        "PLAY 0.5.5 mobile drawer owns the interaction layer",
+        "Escape, backdrop and × close paths",
+        "HEX two-ring ride projection",
+        "STILL → RIDE transition",
+        "zero horizontal overflow",
+        "current unified root boot and ride core"
+      ],
+      "evidence_steps": [
+        "Test FOLD BLOOM LIVE mobile interaction regression",
+        "Test unified FOLD BLOOM RIDE state",
+        "Test FOLD BLOOM LIVE gameplay + track + section arcs + TRACKFIELD deformation + ride",
+        "Test FOLD BLOOM unified root browser"
+      ],
+      "residue": [
+        "OPTIONAL / SUBJECTIVE: calmness, delight, anxiety and perceived motion quality",
+        "UNKNOWN / DEVICE remains only for explicitly device-bound subheads such as SABER two-phone physics"
+      ]
+    }
+  ],
+  "preserved": {
+    "dayline": "Already machine-sealed by #369; not rewritten here.",
+    "human_role": "Subjective preference may arrive naturally but is not a correctness gate."
+  },
+  "law": "If current machine/browser evidence settles the claim, close the machine gate. Preserve only narrower DEVICE / WORLD / SUBJECTIVE residue; do not delegate already-proved correctness back to the human."
+}
