@@ -3756,6 +3756,49 @@
       "tier": "FIELD"
     },
     {
+      "href": "/field/axial-probe/",
+      "title": "AXIAL / SHADOW PROBE 0.1",
+      "kind": "experiment",
+      "parent": "/foundry/axial/",
+      "family": "AXIAL",
+      "operation": "VERIFY",
+      "state": "PROOF_REQUIRED",
+      "version": "0.1",
+      "showcase_card": false,
+      "role": "Disposable digital falsification surface for the AXIAL physical UI hypothesis. One object maps ring twist, cylinder slide and axis shift to a three-coordinate state while preserving transform order separately. It is nested under AXIAL, owns no canonical state, and must not be treated as a new compositor or physical proof.",
+      "receipt": "/returns/AXIAL_SHADOW_PROBE_2026-09-25.json",
+      "index": {
+        "updated_at": "2026-09-25T19:56:00+08:00",
+        "work_modes": [
+          "VERIFY",
+          "EXPERIMENT",
+          "MAKE"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "reducer closure: R+2 C+1 A-1 R-2 C-1 A+1 -> [0,0,0] and sum delta [0,0,0]",
+          "path equivalence: R+2 C+2 A+1 and A+1 C+2 R+2 -> same [2,2,+1] state with distinct traces",
+          "human gesture legibility remains untested",
+          "physical transfer remains untested"
+        ],
+        "return_path": "/foundry/axial/"
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/foundry/axial/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can twist / slide / shift remain distinguishable enough that one ring-cylinder-axis body carries state plus reversible transform witness without explanatory translation?",
+        "baseline": "AXIAL digital focus stack + recovered printable compositor concepts; no present physical body and no claim that ring/cylinder/axis gestures are self-evident.",
+        "mutation": "Single disposable digital surrogate with three distinct gesture zones, explicit tuple/delta trace, closure test and same-state/different-path test.",
+        "evidence_gate": "Direct touch use must complete the declared sequences without control ambiguity before any physical semantics are promoted.",
+        "next_if_pass": "Reproduce the same three degrees of freedom with cardboard annulus + sleeve + rod and retain before/gesture/after + ambiguity evidence.",
+        "next_if_fail": "Change the gesture/state mapping in the disposable probe; do not fabricate."
+      },
+      "tier": "FIELD"
+    },
+    {
       "href": "/foundry/axial/lab-0.5.1.html",
       "title": "AXIAL / STATE APERTURE 0.5.1",
       "kind": "experiment",
