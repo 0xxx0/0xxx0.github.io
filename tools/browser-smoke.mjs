@@ -519,7 +519,30 @@ function oneReturnGridReceiptProbeHtml(){
   <\/script></body></html>`;
 }
 
+function foldBloomReplayScoreProbeHtml(){
+  return `<!doctype html><html><body><pre id="probeResult">PENDING</pre><script type="module">
+  const out=document.getElementById('probeResult'),done=(ok,data)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data);
+  try{
+    const m=await import('/fold-bloom/replay/score.js'),a=m.defaultScore(),url=await m.shareUrl(a,'http://example.test/fold-bloom/replay/'),token=url.split('#s=')[1],b=await m.decodeShare(token);
+    const changed=m.setWordCue(a,0,{at:.44,emphasis:1.8}),rec={
+      sourceSame:a.source.id===b.source.id,
+      signatureSame:m.visualSignature(a)===m.visualSignature(b),
+      changedSignature:m.visualSignature(changed)!==m.visualSignature(a),
+      linkLength:url.length,
+      compressed:token.startsWith('z.'),
+      words:m.wordsOf(a.message).length,
+      clip:m.clipDurationMs(a)
+    };
+    done(rec.sourceSame&&rec.signatureSame&&rec.changedSignature&&rec.linkLength<1600&&rec.words===5&&rec.clip===12000,rec);
+  }catch(e){done(false,{error:String(e?.stack||e)})}
+  <\/script></body></html>`;
+}
+
 const server=http.createServer((req,res)=>{
+  if(String(req.url||'').startsWith('/__smoke/fold-bloom-replay-score')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(foldBloomReplayScoreProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/lens-real-use')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(lensRealUseProbeHtml());return;
@@ -788,10 +811,22 @@ const CASES=[
     check:dom=>dom.includes('data-fold-bloom-message-replay="ready"')&&/MESSAGE REPLAY 001/.test(dom)&&dom.includes('id="replay"')&&dom.includes('id="mutate"')&&dom.includes('id="copy"')&&/synthetic:field-message:001/.test(dom)&&/fnv1a32-/.test(dom)&&/ARCHITECTURAL EVIDENCE ONLY/.test(dom)
   },
   {
+    name:'FOLD BLOOM REPLAY score core',
+    route:'/__smoke/fold-bloom-replay-score',
+    options:{width:520,height:800,budget:9000,timeout:16000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"sourceSame":true/.test(dom)&&/"signatureSame":true/.test(dom)&&/"changedSignature":true/.test(dom)&&/"linkLength":[0-9]+/.test(dom)
+  },
+  {
+    name:'FOLD BLOOM REPLAY 0.2',
+    route:'/fold-bloom/replay/',
+    options:{width:430,height:900,budget:10000,timeout:18000},
+    check:dom=>/REPLAY 0\.2/i.test(dom)&&dom.includes('data-fold-bloom-replay="ready"')&&dom.includes('data-replay-share-roundtrip="pass"')&&dom.includes('id="syncListen"')&&dom.includes('id="wordAt"')&&dom.includes('id="wordHold"')&&dom.includes('id="wordEmphasis"')&&dom.includes('id="opAt"')&&dom.includes('id="anticipation"')&&dom.includes('id="textOffset"')&&dom.includes('id="clip"')&&/WHAT THIS LINK CONTAINS/.test(dom)
+  },
+  {
     name:'FOLD BLOOM public front',
     route:'/fold-bloom/',
     options:{width:430,height:900,budget:5000},
-    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/A source becomes a field/i.test(dom)&&/ENTER LIVE/.test(dom)&&!/PLAY CENTER MASS/.test(dom)&&/MAP A TRACK/.test(dom)&&/BUILD A SET/.test(dom)&&/WHAT DO YOU/.test(dom)&&/WANT TO DO/.test(dom)&&/Play a track as terrain/.test(dom)&&/Read fast without losing your place/.test(dom)&&/MORE USES · SABER/.test(dom)&&/SABER \/ TWO PHONES/.test(dom)&&/SURFACES \/ LINEAGE \/ WHY IT WORKS/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/A source becomes a field/i.test(dom)&&/ENTER LIVE/.test(dom)&&!/PLAY CENTER MASS/.test(dom)&&/MAP A TRACK/.test(dom)&&/BUILD A SET/.test(dom)&&/WHAT DO YOU/.test(dom)&&/WANT TO DO/.test(dom)&&/Play a track as terrain/.test(dom)&&/Read fast without losing your place/.test(dom)&&/MORE USES · SABER/.test(dom)&&/SABER \/ TWO PHONES/.test(dom)&&/MESSAGE \/ REPLAY/.test(dom)&&/SURFACES \/ LINEAGE \/ WHY IT WORKS/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
   },
   {
     name:'FOLD BLOOM SABER 0.1',
@@ -892,7 +927,7 @@ const CASES=[
     name:'FOLD BLOOM LISTEN 0.6 source bundle',
     route:'/fold-bloom/listen/',
     options:{width:1180,height:900,budget:9000},
-    check:dom=>/LISTEN 0\.6/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/SUNO SONG \/ PLAYLIST \/ DIRECT AUDIO/i.test(dom)&&/ADDRESS/.test(dom)&&/APERTURE/.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="key"')&&dom.includes('id="phrases"')&&dom.includes('id="glyphBtn"')&&dom.includes('id="idleBtn"')&&dom.includes('id="pinBtn"')&&dom.includes('id="pinsBtn"')&&dom.includes('id="pinKind"')&&dom.includes('id="pinShare"')&&/ARC · current aperture span/.test(dom)&&dom.includes('id="savedSource"')&&dom.includes('id="beatSaberBtn"')&&/BEAT SABER/.test(dom)&&dom.includes('id="useAtlas"')&&dom.includes('id="useBeat"')&&dom.includes('id="useSaber"')&&/SABER · TWO PHONES/.test(dom)&&dom.includes('id="useSheet"')&&dom.includes('id="rideTune"')&&dom.includes('id="rideText"')&&dom.includes('data-listen-lens="field-addressed-stream/v0.1"')&&/data-listen-ride-profile="[^"]+"/.test(dom)&&/RETURN · MESSAGE MAP/.test(dom)
+    check:dom=>/LISTEN 0\.6/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/SUNO SONG \/ PLAYLIST \/ DIRECT AUDIO/i.test(dom)&&/ADDRESS/.test(dom)&&/APERTURE/.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="key"')&&dom.includes('id="phrases"')&&dom.includes('id="glyphBtn"')&&dom.includes('id="idleBtn"')&&dom.includes('id="pinBtn"')&&dom.includes('id="pinsBtn"')&&dom.includes('id="pinKind"')&&dom.includes('id="pinShare"')&&/ARC · current aperture span/.test(dom)&&dom.includes('id="savedSource"')&&dom.includes('id="beatSaberBtn"')&&/BEAT SABER/.test(dom)&&dom.includes('id="useReplay"')&&dom.includes('id="useAtlas"')&&dom.includes('id="useBeat"')&&dom.includes('id="useSaber"')&&/SABER · TWO PHONES/.test(dom)&&dom.includes('id="useSheet"')&&dom.includes('id="rideTune"')&&dom.includes('id="rideText"')&&dom.includes('data-listen-lens="field-addressed-stream/v0.1"')&&/data-listen-ride-profile="[^"]+"/.test(dom)&&/RETURN · MESSAGE MAP/.test(dom)
   },
   {
     name:'FOLD BLOOM LISTEN preview render',
