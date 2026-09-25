@@ -92,3 +92,13 @@ AXIS/work/**/quarantine/
 # the staging pen holds a live VM disk and GBs of material — never commit its contents
 delete/crushed-*/
 delete/reclaimed-*/
+
+# --- 2026-09-25: close the _archive/_archives plural gap ---
+# The earlier rule was `*_archives/` (plural). `_archive/` (singular) is a different
+# string and slipped through. Targeted by CONTENT TYPE rather than by directory, so
+# legitimate tracked archives (ops-hub/wiki/_archive and friends) are NOT untracked.
+**/_archive/*.jsonl
+**/_archive/*.seed*
+**/_archives/*.jsonl
+**/_archive/*_user.tsv
+**/_archive/*candidates*
