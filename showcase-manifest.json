@@ -227,15 +227,15 @@
         "physical_fit": "Direct bridge from digital intent to scheduled human physical work."
       },
       "index": {
-        "updated_at": "2026-09-25T15:00:00+08:00",
+        "updated_at": "2026-09-25T15:25:51+08:00",
         "work_modes": [
-          "IMPLEMENT",
+          "OPERATE",
           "VERIFY"
         ]
       },
       "tier": "FIELD",
       "version": "Branch I + FIELD LIVE 0.2 / REALITY PORTS",
-      "role": "Local-first temporal execution instrument with an opt-in read-only FIELD bridge: active fronts may be explicitly promoted into the day; local lived state returns through a bounded feedback packet, never by silently mutating repo authority."
+      "role": "Local-first temporal execution instrument. FIELD LIVE 0.2 adds explicit session-local REALITY PORTS: HOUSE selected address → planning context, SHOPPING selected capability action → task, COMMS one OPEN addressed signal → task. Dayline alone owns temporal execution; source authorities remain separate and BACK is preserved."
     },
     {
       "href": "/body/",
@@ -844,14 +844,14 @@
     },
     {
       "href": "/contact/",
-      "title": "CONTACT 0.3",
+      "title": "CONTACT 0.4",
       "kind": "rendezvous",
       "parent": "/",
       "state": "STABLE",
       "machine_state": "/contact/state.json",
       "showcase_card": false,
-      "role": "Conventional explicit outbound/share boundary of HUMAN PORT. Builds locally, then requires human Share/Copy into a real channel; no inbox/backend.",
-      "version": "0.3",
+      "role": "Stable public HUMAN PORT contact address: share/copy the address itself, compose locally, preserve optional RETURN VIA, then explicitly send through a real channel. No inbox/backend and no delivery claim.",
+      "version": "0.4",
       "receipt": "/contact/release.json",
       "contract": "/contact/contract.json",
       "field": {
@@ -887,9 +887,10 @@
         "physical_fit": "Explicit external-action boundary: manual human share is the safe fallback; disclosed delegated automation may bind behind policy without claiming direct human authorship."
       },
       "index": {
-        "updated_at": "2026-09-21T17:45:00+08:00",
+        "updated_at": "2026-09-25T15:25:51+08:00",
         "work_modes": [
-          "SPECIFY",
+          "OPERATE",
+          "SHARE",
           "VERIFY"
         ]
       },
@@ -5670,15 +5671,15 @@
     },
     {
       "href": "/port/comms/",
-      "title": "HUMAN PORT / COMMS SPINE 0.1",
+      "title": "HUMAN PORT / COMMS SPINE 0.1.1",
       "kind": "workbench",
       "parent": "/port/",
       "family": "HUMAN PORT",
       "operation": "ADDRESS",
       "state": "CANDIDATE",
-      "version": "0.1",
+      "version": "0.1.1",
       "showcase_card": false,
-      "role": "One exact conversation stays canonically addressable while signal extraction, human annotation, obligation state, response coverage, bot handoff and RETURN become unequal projections beside it. Source identity is the SHA-256 of the exact pasted text, computed in-browser; address is message id + clause id + exact character range. SOURCE MUTATION IS FALSE by design. Laws: SOURCE THREAD != DERIVED SIGNALS != HUMAN MARKS != RESPONSE; EVERY PROMOTED COMMS ITEM RETURNS TO AN EXACT SOURCE RANGE; DERIVED != HUMAN AUTHORED; COVERED != DELETED. Privacy: no network send, sessionStorage by default, export is a user-triggered JSON download. Non-goals: no automatic semantic truth claim, no LLM dependency for core usefulness, no message sending, no contact transport.",
+      "role": "Exact conversation remains canonically addressable while DERIVED/HUMAN signals, obligation state, response coverage and one explicit source-addressed Dayline handoff remain unequal projections. No network send authority.",
       "evidence": {
         "checks": [
           "source identity is a SHA-256 of exact pasted text, computed in the browser; source_mutation is false",
@@ -5688,12 +5689,10 @@
         "return_path": "/port/"
       },
       "index": {
-        "updated_at": "2026-09-25T15:00:00+08:00",
+        "updated_at": "2026-09-25T15:25:51+08:00",
         "work_modes": [
-          "SPECIFY",
-          "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "VERIFY"
         ]
       },
       "tier": "FIELD",
