@@ -2,7 +2,7 @@
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM SABER",
   "version": "0.1",
-  "state": "PROOF_REQUIRED",
+  "state": "PROOF_REQUIRED / REPO_VERIFIED / WAITING_REAL_DEVICE",
   "route": "/fold-bloom/saber/",
   "date": "2026-09-25",
   "thesis": "Existing exact source timing + EVENT TAPE can become a causally legible two-phone saber game without a second source store or retained raw motion.",
@@ -26,9 +26,11 @@
     "real two-phone play is required before promotion"
   ],
   "verification": {
-    "pure_core": "PENDING_CI",
-    "browser_boot": "PENDING_CI",
-    "real_device": "WAITING_ON_HUMAN"
+    "pure_core": "PASS · public-surface-check 36081836497 · SABER dual-phone core",
+    "browser_boot": "PASS · public-surface-check 36081836497 · critical browser smoke includes /fold-bloom/saber/",
+    "route_registration": "PASS · 36081836490",
+    "merge": "PR #225 · f03722b2619d42c836d314359893f2f65fabd1f1",
+    "real_device": "WAITING_ON_HUMAN · two real phones"
   },
   "return": "/returns/FOLD_BLOOM_SABER_01_2026-09-25.json"
 }
