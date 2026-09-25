@@ -1,0 +1,23 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "CURRENT_MANIFEST_RATCHET_2026-09-25",
+  "date": "2026-09-25",
+  "object": "CURRENT current_heads ↔ showcase-manifest route identity",
+  "state_before": "CURRENT head descriptions could lag live route versions across concurrent branches without any deterministic failure.",
+  "delta": "Add explicit current_heads[].version and fail CI when a current head route is absent, duplicated, or version-divergent from its manifest route; repair current Poem Map, Shopping, HOUSE parent and Atlas Dayline head labels.",
+  "evidence": {
+    "script": "/scripts/check-current-heads.mjs",
+    "workflow": "/.github/workflows/public-surface-check.yml",
+    "current": "/control/CURRENT.json",
+    "expected_heads": 12
+  },
+  "boundaries": [
+    "No FIELD root UI change.",
+    "No new control vocabulary.",
+    "No donor/archive deletion or compaction.",
+    "No new queue, planner, state store or agent authority.",
+    "Route manifest remains route truth; CURRENT remains attention/head projection."
+  ],
+  "donor_branch": "PR #270 remains PARKED / SPLIT DONOR; only its proven drift ratchet is transplanted.",
+  "return": "/control/CURRENT.json"
+}
