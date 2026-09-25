@@ -1,5 +1,6 @@
 (()=>{'use strict';
 const q=new URLSearchParams(location.search),live=['1','true','field'].includes((q.get('live')||'').toLowerCase()),btn=document.getElementById('liveModeBtn');
+const COMMS_HANDOFF='atlas.dayline.comms.handoff.v01';let importedComms=0;
 if(btn){btn.onclick=()=>{const n=new URLSearchParams(location.search);if(live)n.delete('live');else n.set('live','1');location.search=n.toString()};if(live){btn.classList.add('on');btn.textContent='LIVE · FIELD'}}
 if(!live)return;
 const style=document.createElement('style');style.textContent=`
@@ -14,7 +15,7 @@ const style=document.createElement('style');style.textContent=`
 @media(max-width:760px){#fieldLiveBridge{margin:0 6px 8px}.fl-grid{grid-template-columns:1fr}.fl-col+.fl-col{border-left:0;border-top:1px solid #191915}.fl-head,.fl-foot{align-items:flex-start;flex-direction:column}.fl-capture{grid-template-columns:1fr auto}}
 `;document.head.appendChild(style);
 const panel=document.createElement('section');panel.id='fieldLiveBridge';panel.innerHTML=`
-<div class="fl-head"><div><b>FIELD → DAYLINE / LIVE 0.1</b><div class="fl-meta" id="flMeta">loading live FIELD state…</div></div><div class="fl-actions"><button id="flSync">SYNC</button><button id="flFeedback">COPY FEEDBACK</button><a href="/control/confluence/ATLAS_DAYLINE_LIVE_CONVERGENCE_2026-09-25.md" target="_blank" rel="noopener">PACKET ↗</a></div></div>
+<div class="fl-head"><div><b>FIELD → DAYLINE / LIVE 0.2</b><div class="fl-meta" id="flMeta">loading live FIELD state…</div></div><div class="fl-actions"><a href="/contact/">CONTACT</a><a href="/port/comms/?resume=1">COMMS</a><a href="/fold-bloom/">FOLD//BLOOM</a><button id="flSync">SYNC</button><button id="flHermes">HERMES PACKET</button><button id="flFeedback">COPY FEEDBACK</button><a href="/control/packets/HERMES_REALITY_BRIDGE_2026-09-25.json" target="_blank" rel="noopener">AGENT LAW ↗</a></div></div>
 <form class="fl-capture" id="flCapture"><input id="flCaptureText" autocomplete="off" placeholder="capture one thing without leaving the day…"><button>CAPTURE</button></form>
 <div class="fl-grid"><div class="fl-col"><div class="fl-label">NOW / ACTIVE FRONTS · EXPLICIT ADD</div><div id="flFronts"></div></div><div class="fl-col"><div class="fl-label">HUMAN GATES · VISIBLE, NEVER AUTO-PROMOTED</div><div id="flGates"></div></div></div>
 <div class="fl-foot"><span class="fl-meta">FIELD is read-only here. ADD creates a local IMPORTED task with provenance. RETURN stays local until COPY FEEDBACK.</span><a href="/control/CURRENT.json" target="_blank" rel="noopener">SOURCE ↗</a></div>`;
@@ -22,6 +23,19 @@ document.getElementById('utilityBar').insertAdjacentElement('afterend',panel);
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 let current=null;
 function api(){if(!window.AtlasDayline)throw Error('Dayline bridge API unavailable');return window.AtlasDayline}
+function importCommsHandoff(){
+ try{
+  const raw=sessionStorage.getItem(COMMS_HANDOFF);if(!raw)return 0;
+  const p=JSON.parse(raw);if(p?.schema!=='atlas-dayline-comms-handoff/v0.1'||!Array.isArray(p.tasks))return 0;
+  let n=0;for(const t of p.tasks.slice(0,8)){api().addFieldTask({...t,sourceUpdated:p.created_at});n++}
+  sessionStorage.removeItem(COMMS_HANDOFF);importedComms=n;return n;
+ }catch(_){return 0}
+}
+function hermesPacket(){
+ const f=api().feedback(),focus=(f.focus_tasks||[]).find(t=>t.id===f.daystate?.selected)||(f.focus_tasks||[]).find(t=>(f.daystate?.route||[]).includes(t.id))||(f.focus_tasks||[])[0];
+ if(!focus)throw Error('Select or route one Dayline task first');
+ return{schema:'hermes-dayline-task/v0.1',created_at:new Date().toISOString(),trigger:'explicit human COPY HERMES PACKET from Atlas Dayline',authority:'READ_RESEARCH_PREPARE_PACKET',objective:focus.title,current_host:'/atlas-dayline/',task:focus,day_context:{now:f.daystate?.now||null,contexts:f.daystate?.contexts||[],route:f.daystate?.route||[]},sources:[focus.fieldRef,focus.provenance].filter(Boolean),do_not:['send messages','mutate calendar/accounts','write canonical repository','spend money','create a new architecture'],return_contract:['STATE','DELTA','EVIDENCE','RESIDUE','WAITING','ONE_NEXT'],worker_contract:'/control/packets/HERMES_REALITY_BRIDGE_2026-09-25.json'};
+}
 function addButton(c,label='ADD'){const b=document.createElement('button');b.textContent=label;b.onclick=()=>{api().addFieldTask(c);b.textContent='ADDED';b.disabled=true};return b}
 function row(c,gate=false){const d=document.createElement('div');d.className='fl-row'+(gate?' fl-gate':'');d.innerHTML='<div><strong>'+esc(c.title)+'</strong><p>'+esc(c.body)+'</p><span class="src">'+esc(c.sourceRef)+'</span></div>';const a=document.createElement('div');if(gate&&c.route){const l=document.createElement('a');l.href=c.route;l.textContent='OPEN';a.appendChild(l)}else a.appendChild(addButton(c));d.appendChild(a);return d}
 function render(){
@@ -32,11 +46,13 @@ function render(){
  const gates=(current?.current_heads||[]).filter(h=>h.next_executable).slice(0,8);
  for(const h of gates){const n=h.next_executable||{};g.appendChild(row({title:(h.lineage||'head')+' / '+(n.id||'gate'),body:n.objective||n.state||'',sourceRef:'/control/CURRENT.json#current_heads/'+(h.lineage||''),route:h.route||'/'},true))}
  if(!gates.length)g.innerHTML='<div class="fl-row"><div><strong>NO HUMAN GATE</strong><p>Nothing requires direct lived proof right now.</p></div></div>';
- document.getElementById('flMeta').textContent='CURRENT '+(current?.updated||'—')+' · '+fronts.length+' active front'+(fronts.length===1?'':'s')+' · '+gates.length+' human gate'+(gates.length===1?'':'s');
+ document.getElementById('flMeta').textContent='CURRENT '+(current?.updated||'—')+' · '+fronts.length+' active front'+(fronts.length===1?'':'s')+' · '+gates.length+' human gate'+(gates.length===1?'':'s')+(importedComms?' · '+importedComms+' COMMS target'+(importedComms===1?'':'s')+' imported':'');
 }
 async function sync(){const m=document.getElementById('flMeta');m.textContent='syncing…';try{const r=await fetch('/control/CURRENT.json',{cache:'no-store'});if(!r.ok)throw Error('CURRENT '+r.status);current=await r.json();render()}catch(e){m.textContent='FIELD unavailable';document.getElementById('flFronts').innerHTML='<div class="fl-error">'+esc(e.message)+'</div>'}}
 document.getElementById('flSync').onclick=sync;
 document.getElementById('flCapture').onsubmit=e=>{e.preventDefault();const i=document.getElementById('flCaptureText'),title=i.value.trim();if(!title)return;api().capture({title,contexts:['computer'],duration:25,provenance:'atlas-dayline LIVE quick capture'});i.value=''};
 document.getElementById('flFeedback').onclick=async()=>{const b=document.getElementById('flFeedback'),packet=api().feedback(),txt=JSON.stringify(packet,null,2);try{await navigator.clipboard.writeText(txt);b.textContent='COPIED';setTimeout(()=>b.textContent='COPY FEEDBACK',1200)}catch{const blob=new Blob([txt],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='atlas-dayline-feedback.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}};
+document.getElementById('flHermes').onclick=async()=>{const b=document.getElementById('flHermes');try{const txt=JSON.stringify(hermesPacket(),null,2);await navigator.clipboard.writeText(txt);b.textContent='HERMES COPIED';setTimeout(()=>b.textContent='HERMES PACKET',1300)}catch(e){b.textContent=String(e.message||'NO TASK').slice(0,28);setTimeout(()=>b.textContent='HERMES PACKET',1500)}};
+if(q.get('from')==='comms')importCommsHandoff();
 sync();
 })();
