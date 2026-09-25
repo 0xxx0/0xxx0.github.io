@@ -215,7 +215,7 @@ function daylineHandoff(){
   const open=signals().filter(x=>x.state==='OPEN'),sig=open.find(x=>(state.targets||[]).includes(x.id))||open.find(x=>x.origin==='HUMAN')||open[0];
   if(!sig){toast('NO OPEN SIGNAL');return}
   const packet={schema:'atlas-dayline-handoff/v0.1',id:'comms-'+Date.now(),created_at:new Date().toISOString(),kind:'TASK',source:{route:'/port/comms/',object_id:state.sourceId,address:{message_id:sig.messageId,start:sig.start,end:sig.end},label:state.title,signal_id:sig.id,origin:sig.origin},payload:{task:{title:'COMMS · '+sig.kind+' · '+String(sig.text||'').slice(0,96),contexts:['phone','computer'],duration:15,value:sig.origin==='HUMAN'?5:3,provenance:'COMMS SPINE '+sig.origin+' explicit handoff · '+state.sourceId,sourceRef:'/port/comms/#'+state.sourceId+'|'+sig.messageId+'|'+sig.start+'-'+sig.end,notes:['SIGNAL '+sig.kind,'ORIGIN '+sig.origin,'ADDRESS '+sig.messageId+' '+fmtAddr(sig.start,sig.end),'TEXT '+sig.text,'SOURCE HASH '+state.sourceId].join('\n')}},return_to:'/port/comms/'};
-  sessionStorage.setItem('atlas.dayline.handoff.v01',JSON.stringify(packet));location.assign('/atlas-dayline/?live=1&handoff=comms')
+  sessionStorage.setItem('atlas.dayline.handoff.v01',JSON.stringify(packet));location.assign('/dayline/?handoff=comms')
 }
 function pinLocal(){
   if(!state.doc)return;
