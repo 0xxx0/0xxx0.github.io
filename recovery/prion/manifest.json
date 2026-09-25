@@ -1,8 +1,8 @@
 {
   "schema": "0xxx0/recovery-donor/v0.1",
   "family": "Prion Protocol",
-  "state": "EXACT_LIBRARY_TEXT_MATERIALIZED",
-  "classification": "FROZEN_DONOR_NOT_CURRENT_HEAD",
+  "state": "EXACT_BYTE_VERIFIED_REPO_MIRROR",
+  "classification": "EXACT_FROZEN_DONOR",
   "source": {
     "name": "PRION_FIELD_LAB_v0_1.md",
     "file_id": "file_00000000ce3c820b8587e7d7747d97b7",
@@ -11,5 +11,8 @@
   },
   "repo_path": "/recovery/prion/PRION_FIELD_LAB_v0_1.md",
   "boundary": "Self-directed or explicitly consensual practice only; preserve its audit/refusal/exit requirements. Do not generalize 'infection' into covert persuasion.",
-  "recovered_at": "2026-09-26"
+  "recovered_at": "2026-09-26",
+  "repo_git_blob_sha": "45b03b86d5833ee79272f26fe7fc4e7e38c90a79",
+  "verified_at": "2026-09-26",
+  "verification": "Repo Git blob SHA equals Git blob SHA computed independently from raw materialized Library bytes; repository content is byte-identical to the recovered raw source."
 }
