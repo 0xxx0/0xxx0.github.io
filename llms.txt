@@ -2,6 +2,8 @@
 
 Read `/AGENTS.md` first. It owns repository worker/authority law.
 
+`/control/WORKER_BOOT.json` is superseded compatibility history. Do not use it for NOW, heads, gates or priority.
+
 Current truth remains in:
 - `/control/CURRENT.json` — attention / retained heads / next executable
 - `/showcase-manifest.json` — addressed route/state projection
