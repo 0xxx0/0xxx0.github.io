@@ -495,3 +495,29 @@ SHOPPING resolves capability acquisition.
 VERSE authors addressed text.**
 
 Unified interface means the held object survives the transition and the next lawful verb becomes obvious.
+
+
+## FIELD INDEX OPT-IN APERTURE TRIAL
+
+Implemented as a deliberately weaker proof on the FIELD Index root:
+
+`/?cap=1`
+
+The trial reuses FIELD's existing focused manifest route. It adds a read-only row directly under FIELD / FOCUS:
+
+`HELD / FIELD PROJECTION → NEXT 1–3 → WITNESS → RETURN`
+
+Properties:
+
+- query-gated; normal FIELD Index is unchanged;
+- no new canonical state, local storage, queue or bus;
+- no clickable capability-router buttons;
+- moves are labels derived from six bounded host adapters;
+- witness is existing CURRENT/manifest state only;
+- RETURN points back to the existing FIELD focus;
+- unknown routes receive only generic OPEN / INSPECT, TRACE / COMPARE, RETURN labels;
+- native object identity remains explicitly owned inside the selected host.
+
+This is intentionally **route-level**, not yet true cross-host object continuity. It tests one question only: does seeing lawful next verbs beside the existing FIELD focus reduce route/control hunting enough to justify a deeper object-level carrier?
+
+Promotion requires lived use. Failure should remove the aperture without disturbing the underlying FIELD Index or host integrations.
