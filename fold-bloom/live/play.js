@@ -3,18 +3,21 @@ import {
   RUN_LENGTH,RUN_WIN_HITS,PUZZLE_ROUNDS,PUZZLE_WIN_STARS,DUET_ROUNDS,DUET_WIN_HITS,
   GARDEN_GENERATIONS,GARDEN_MOVES,GARDEN_SURVIVAL_TARGET,GARDEN_TRAITS,
   circularDistance,relationVerb,relationName,runOutcome,puzzleStars,puzzleOutcome,
-  duetOutcome,gardenGoalMet,gardenSummary,gardenOutcome,wrap
+  duetOutcome,gardenGoalMet,gardenSummary,gardenProgress,gardenOutcome,wrap
 } from './play-core.js';
 
-const VERSION='FOLD_BLOOM_PLAY_0.2';
+const VERSION='FOLD_BLOOM_PLAY_0.3';
 const VALID=new Set(['PLAY','PUZZLE','DUET','GARDEN','ZEN']);
+const ALIASES=new Map([['CONCERT','PLAY'],['RUN','PLAY'],['TWO-DIAL','DUET'],['TWO_DIAL','DUET'],['ECOLOGY','GARDEN']]);
 const params=new URLSearchParams(location.search);
-const requested=String(params.get('play')||'').toUpperCase();
+const rawRequested=String(params.get('play')||'').toUpperCase();
+const requested=ALIASES.get(rawRequested)||rawRequested;
 let mode=VALID.has(requested)?requested:'PLAY';
 let active=false,ended=false,releases=0,hits=0,flowGain=0,stars=0,turns=0,par=0;
 let lastRotation=null,lastEventId=null,runtime=null,fieldEnter=null,root=null,result=null;
 let duetPanel=null,duetB=0,duetHits=0;
 let gardenChoice=null,gardenGeneration=1,gardenEvents=[],gardenTrait=null,gardenSurvived=0,gardenLineage=[],gardenLastResult=null;
+let feedbackTimer=null;
 const q=s=>document.querySelector(s);
 const callText=call=>!call?'OPEN':call.verb+(call.chain>1?' ×'+call.chain+'+':'');
 
@@ -38,6 +41,7 @@ function injectStyle(){
   .fbGameMode{display:flex;align-items:center;padding:0 10px;border-right:1px solid rgba(255,255,255,.12);font-size:7px;font-weight:1000;letter-spacing:.13em;color:#fff}
   .fbGameMission{min-width:0;padding:7px 10px}.fbGameMission b{display:block;font-size:10px;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fbGameMission span{display:block;margin-top:3px;font-size:7px;letter-spacing:.08em;color:rgba(255,255,255,.58);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .fbGameProgress{display:flex;align-items:center;gap:4px;padding:5px;border-left:1px solid rgba(255,255,255,.12);overflow-x:auto}.fbGameProgress b{font-size:8px;min-width:60px;text-align:center}.fbGameProgress button{min-width:36px;height:34px;padding:0 5px;font-size:6.5px;font-weight:1000}.fbGameProgress button.on{background:#fff;color:#05070b;border-color:#fff}
+  .fbGameFeedback{margin-top:5px;border:1px solid transparent;background:rgba(5,8,12,.88);font:800 8px/1.35 ui-monospace,monospace;letter-spacing:.08em;text-align:center;padding:0 8px;max-height:0;opacity:0;overflow:hidden;transition:max-height .12s ease,opacity .12s ease,padding .12s ease}.fbGameFeedback.on{max-height:34px;opacity:1;padding:7px 8px;border-color:rgba(255,255,255,.13)}.fbGameFeedback[data-kind="hit"]{background:rgba(255,255,255,.94);color:#05070b}.fbGameFeedback[data-kind="miss"]{color:rgba(255,255,255,.72)}
   .fbDuetPanel{position:absolute;left:50%;bottom:max(10px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:7;width:min(620px,calc(100vw - 20px));border:1px solid rgba(255,255,255,.16);background:rgba(5,8,12,.93);padding:9px;display:none;grid-template-columns:1fr auto 1fr;gap:8px;align-items:center;text-align:center;pointer-events:auto}.fbDuetPanel.on{display:grid}
   .fbDialBox{border:1px solid rgba(255,255,255,.12);padding:7px;font:700 8px/1.3 ui-monospace,monospace;letter-spacing:.08em}.fbDialBox b{display:block;font-size:18px;margin-top:3px}.fbDialCtl{display:flex;gap:4px;justify-content:center;margin-top:5px}.fbDialCtl button{width:44px;height:34px;font-size:16px;font-weight:900}
   .fbRelation{min-width:150px;font:800 8px/1.35 ui-monospace,monospace;letter-spacing:.08em}.fbRelation b{display:block;font-size:14px;margin:3px 0}.fbLegend{grid-column:1/-1;font:7px/1.4 ui-monospace,monospace;letter-spacing:.07em;color:rgba(255,255,255,.5)}
@@ -58,9 +62,9 @@ async function enterFromIntro(nextMode){
 }
 function injectEntry(){
   const card=q('#intro .card');if(!card||q('#fbPlayEntry'))return;
-  const lede=card.querySelector('.lede');if(lede)lede.textContent='Music shapes the road. You decide what gets written into it. Turn, read the consequence, match the CALL, release.';
+  const lede=card.querySelector('.lede');if(lede)lede.textContent='Music shapes the road. You write it. Turn until the center predicts the CALL — BLOOM, FOLD, SPLIT or RETURN — then release.';
   const box=document.createElement('div');box.id='fbPlayEntry';box.className='fbPlayEntry';
-  box.innerHTML='<div class="law"><b>ONE MOVE:</b> TURN → READ CONSEQUENCE → MATCH CALL → RELEASE.<br><b>WIN A RUN:</b> hit 6 of 8 calls. Misses still write the road; there are no lives.<br><span style="color:rgba(255,255,255,.48)">ROAD: measured BEAT / PHRASE / SECTION terrain; your releases deform it.</span></div><div class="modes"><button data-play-mode="PLAY">RUN · HOLD 6 / 8</button><button data-play-mode="PUZZLE">PUZZLE · SOLVE 10★ / 15</button><button data-play-mode="DUET">DUET · SYNC 5 / 6</button><button data-play-mode="GARDEN">GARDEN · KEEP 2 / 2</button><button data-play-mode="ZEN">ZEN · FREE</button></div>';
+  box.innerHTML='<div class="law"><b>ONE MOVE:</b> TURN → PREDICT → MATCH CALL → RELEASE.<br><b>WIN A RUN:</b> hit 6 of 8 calls. Every release changes the road, even a miss.<br><span style="color:rgba(255,255,255,.48)">ROAD: measured BEAT / PHRASE / SECTION terrain; your releases deform it.<br>PUZZLE teaches shortest paths · TWO DIAL teaches relations · ECOLOGY teaches inheritance.</span></div><div class="modes"><button data-play-mode="PLAY">RUN · HIT 6 / 8</button><button data-play-mode="PUZZLE">PUZZLE · SHORTEST PATH</button><button data-play-mode="DUET">TWO DIAL · RELATIONS</button><button data-play-mode="GARDEN">ECOLOGY · INHERIT</button><button data-play-mode="ZEN">ZEN · FREE</button></div>';
   card.insertBefore(box,card.querySelector('.startRow')||null);
   box.querySelectorAll('[data-play-mode]').forEach(btn=>btn.addEventListener('click',()=>enterFromIntro(btn.dataset.playMode)));
   const fieldBtn=q('#playBtn');
@@ -69,7 +73,7 @@ function injectEntry(){
 function injectHud(){
   if(q('#fbGame'))return;
   root=document.createElement('div');root.id='fbGame';root.className='fbGame';
-  root.innerHTML='<div class="fbGameBar"><div class="fbGameMode" id="fbMode">RUN</div><div class="fbGameMission"><b id="fbObjective">GOAL —</b><span id="fbCoach">TURN THE RING</span></div><div class="fbGameProgress"><b id="fbProgress">0 / 8</b><button data-switch="PLAY">RUN</button><button data-switch="PUZZLE">PUZ</button><button data-switch="DUET">2D</button><button data-switch="GARDEN">ECO</button><button data-switch="ZEN">ZEN</button></div></div>';
+  root.innerHTML='<div class="fbGameBar"><div class="fbGameMode" id="fbMode">RUN</div><div class="fbGameMission"><b id="fbObjective">GOAL —</b><span id="fbCoach">TURN THE RING</span></div><div class="fbGameProgress"><b id="fbProgress">0 / 8</b><button data-switch="PLAY">RUN</button><button data-switch="PUZZLE">PUZ</button><button data-switch="DUET">2D</button><button data-switch="GARDEN">ECO</button><button data-switch="ZEN">ZEN</button></div></div><div class="fbGameFeedback" id="fbGameFeedback" aria-live="polite"></div>';
   document.body.appendChild(root);root.querySelectorAll('[data-switch]').forEach(btn=>btn.addEventListener('click',()=>start(btn.dataset.switch)));
   duetPanel=document.createElement('div');duetPanel.id='fbDuetPanel';duetPanel.className='fbDuetPanel';
   duetPanel.innerHTML='<div class="fbDialBox">RING / DIAL A<b id="fbDialA">0</b></div><div class="fbRelation"><span id="fbRelationName">SAME</span><b id="fbRelationVerb">BLOOM</b><span id="fbDuetState">MAKE BOTH AGREE</span></div><div class="fbDialBox">PARTNER / DIAL B<b id="fbDialB">0</b><div class="fbDialCtl"><button id="fbDialMinus" aria-label="Partner dial left">−</button><button id="fbDialPlus" aria-label="Partner dial right">+</button></div></div><div class="fbLegend">SAME → BLOOM · NEAR → FOLD · FAR → RETURN · OPPOSITE → SPLIT</div>';
@@ -80,6 +84,9 @@ function injectHud(){
   result=document.createElement('div');result.id='fbResult';result.className='fbResult';
   result.innerHTML='<div class="fbResultCard"><div class="ey" id="fbResultEy">RUN RETURN</div><h2 id="fbResultBig">ROAD HELD</h2><p id="fbResultBody"></p><div class="row"><button class="primary" data-result="AGAIN">AGAIN</button><button data-result="PLAY">RUN</button><button data-result="PUZZLE">PUZZLE</button><button data-result="DUET">DUET</button><button data-result="GARDEN">GARDEN</button><button data-result="ZEN">ZEN</button><button data-result="DONOR" id="fbDonorBtn" hidden>OPEN DONOR</button><button data-result="EXPORT">EXPORT RUN</button></div></div>';
   document.body.appendChild(result);result.querySelectorAll('[data-result]').forEach(btn=>btn.addEventListener('click',()=>{const action=btn.dataset.result;if(action==='EXPORT'){exportPlayReturn();return;}if(action==='DONOR'){openDonor();return;}start(action==='AGAIN'?mode:action);}));
+}
+function flash(text,kind=''){
+  const el=q('#fbGameFeedback');if(!el)return;clearTimeout(feedbackTimer);el.textContent=text;el.dataset.kind=kind;el.classList.remove('on');void el.offsetWidth;el.classList.add('on');feedbackTimer=setTimeout(()=>el.classList.remove('on'),1050);
 }
 function bumpPartner(delta){duetB=wrap(duetB+delta,6);if(runtime)update(runtime.state());}
 function resetModeState(){
@@ -114,10 +121,20 @@ function finishGardenGeneration(state){
   if(gardenGeneration>=GARDEN_GENERATIONS){finish(state);return;}showGardenChoice();
 }
 function onRelease(event,state){
-  releases+=1;if(event.callMet)hits+=1;flowGain+=Number(event.flowGain)||0;
-  if(mode==='PUZZLE')stars+=puzzleStars(event.callMet,turns,par);
-  if(mode==='DUET'&&event.callMet&&relationVerb(state.rotation,duetB,6)===event.verb)duetHits+=1;
-  if(mode==='GARDEN')gardenEvents.push(event);
+  const usedTurns=turns,targetPar=par,gain=Number(event.flowGain)||0;
+  releases+=1;if(event.callMet)hits+=1;flowGain+=gain;
+  if(mode==='PUZZLE'){
+    const gained=puzzleStars(event.callMet,usedTurns,targetPar);stars+=gained;
+    flash(event.callMet?gained+'★ · '+usedTurns+'T / PAR '+targetPar+' · '+event.verb:'0★ · '+event.verb+' · CALL MISSED',event.callMet?'hit':'miss');
+  }else if(mode==='DUET'){
+    const synced=!!event.callMet&&relationVerb(state.rotation,duetB,6)===event.verb;if(synced)duetHits+=1;
+    flash(synced?'SYNC · '+event.verb+' · '+duetHits+'/'+DUET_WIN_HITS:event.callMet?'CALL HIT · RELATION MISSED':'ROAD '+event.verb+' · CALL MISSED',synced?'hit':'miss');
+  }else if(mode==='GARDEN'){
+    gardenEvents.push(event);const p=gardenProgress(gardenTrait,gardenEvents);
+    flash((gardenTrait?p.label:'PARENT SAMPLE')+' · '+event.verb+' · '+gardenEvents.length+'/'+GARDEN_MOVES,p.complete?'hit':'');
+  }else if(mode==='PLAY'){
+    flash(event.callMet?'CALL HIT · '+event.verb+' · +'+gain+' FLOW':'ROAD CHANGED · '+event.verb+' · CALL MISSED',event.callMet?'hit':'miss');
+  }
   turns=0;par=parFor(state);
   if(mode==='PLAY'&&releases>=RUN_LENGTH)finish(state);else if(mode==='PUZZLE'&&releases>=PUZZLE_ROUNDS)finish(state);else if(mode==='DUET'&&releases>=DUET_ROUNDS)finish(state);else if(mode==='GARDEN'&&gardenEvents.length>=GARDEN_MOVES)finishGardenGeneration(state);
 }
@@ -133,8 +150,8 @@ function updateDuet(state,forecast,hitReady){
   q('#fbProgress').textContent=releases+'/'+DUET_ROUNDS+' · '+duetHits+' SYNC';
 }
 function updateGarden(state,forecast,hitReady){
-  if(gardenTrait){q('#fbObjective').textContent='GEN '+gardenGeneration+' · KEEP '+gardenTrait;q('#fbCoach').textContent=GARDEN_TRAITS[gardenTrait].short.toUpperCase()+' · '+normalCoach(state,forecast,hitReady);}else{q('#fbObjective').textContent='GEN 1 · OBSERVE THE PARENT';q('#fbCoach').textContent=normalCoach(state,forecast,hitReady);}
-  q('#fbProgress').textContent='G'+gardenGeneration+'/3 · '+gardenEvents.length+'/4 · '+gardenSurvived+'/2';
+  if(gardenTrait){const p=gardenProgress(gardenTrait,gardenEvents);q('#fbObjective').textContent='GEN '+gardenGeneration+' · KEEP '+gardenTrait+' · '+p.label;q('#fbCoach').textContent=GARDEN_TRAITS[gardenTrait].short.toUpperCase()+' · '+normalCoach(state,forecast,hitReady);}else{q('#fbObjective').textContent='GEN 1 · OBSERVE THE PARENT';q('#fbCoach').textContent=normalCoach(state,forecast,hitReady);}
+  q('#fbProgress').textContent='G'+gardenGeneration+'/'+GARDEN_GENERATIONS+' · '+gardenEvents.length+'/'+GARDEN_MOVES+' · '+gardenSurvived+'/'+GARDEN_SURVIVAL_TARGET;
 }
 function update(state){
   if(!active||!root)return;const forecast=runtime.forecast?.(),call=state.call,aligned=!!forecast,hitReady=aligned&&forecastMatchesCall(call,forecast);
