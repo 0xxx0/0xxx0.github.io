@@ -48,8 +48,9 @@ The missing capability is lawful I/O.
 
 Recent research is donor evidence, not authority:
 
-- He, Demartini & Gadiraju, CHI 2025, “Plan-Then-Execute”, DOI 10.1145/3706598.3713218 — visible planning/execution structure matters for trust and team performance.
-- Chen et al., CHI 2025, “Need Help? Designing Proactive AI Assistants for Programming”, DOI 10.1145/3706598.3714002 — proactive assistance benefits from a shared workspace and careful timing/design.
+- He, Demartini & Gadiraju, CHI 2025, “Plan-Then-Execute”, DOI 10.1145/3706598.3713218 — in a 248-participant study, LLM daily assistants worked better when plans were high quality and execution retained necessary user involvement; plausible plans could still produce poorly calibrated trust.
+- Chen et al., CHI 2025, “Need Help? Designing Proactive AI Assistants for Programming”, DOI 10.1145/3706598.3714002 — randomized study evidence supports potential value from proactive assistance in a shared task workspace, with important design-dependent effects on productivity and experience.
+- Abbas et al., CHI 2026, “Having Lunch Now”, DOI 10.1145/3772318.3790957 / arXiv:2509.24073 — in a two-week deployment, users adopted, negotiated and corrected proactive planning suggestions; recurring breakdowns included rigidity, premature turn-taking and overpromising.
 - Zheng et al., NATURAL PLAN, arXiv:2406.04520 — realistic calendar/meeting planning remains difficult even with full tool context.
 - Li et al., PEARL / CalConflictBench, arXiv:2601.11957 — long-horizon preference-sensitive calendar conflict resolution remains error-prone; persistent preference memory can help but should not silently decide for the user.
 - Chen et al., Psychiatry Research 2015, DOI 10.1016/j.psychres.2015.01.011 — implementation intentions improve prospective-memory performance; Dayline should bind work to cues/contexts rather than merely store items.
