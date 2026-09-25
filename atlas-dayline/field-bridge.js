@@ -34,7 +34,7 @@ function renderHandoff(){
  const body=kind==='CONTEXT'?'Apply planning context: '+(payload.contexts||[]).join(' · '):(payload.task?.title||'Imported task');
  d.innerHTML='<div><strong>'+esc(kind+' / '+(src.label||src.object_id||src.route||'SOURCE'))+'</strong><p>'+esc(body)+'</p><span class="src">'+esc(src.route||'')+(src.address?' · '+esc(typeof src.address==='string'?src.address:JSON.stringify(src.address)):'')+'</span></div>';
  const a=document.createElement('div');
- const take=document.createElement('button');take.textContent=kind==='CONTEXT'?'APPLY CONTEXT':'ADD TO DAY';take.onclick=()=>{try{if(kind==='CONTEXT')api().applyContexts({contexts:payload.contexts||[],sourceRef:payload.sourceRef||src.route||''});else if(kind==='TASK')api().addFieldTask(payload.task||{});else throw Error('unsupported handoff kind');sessionStorage.removeItem(HANDOFF);renderHandoff();take.textContent='APPLIED'}catch(e){take.textContent='FAILED'}};
+ const take=document.createElement('button');take.textContent=kind==='CONTEXT'?'APPLY CONTEXT':'ADD TO DAY';take.onclick=()=>{try{if(kind==='CONTEXT')api().applyContexts({contexts:payload.contexts||[],sourceRef:payload.sourceRef||src.route||'',replacePrefix:payload.replacePrefix||''});else if(kind==='TASK')api().addFieldTask(payload.task||{});else throw Error('unsupported handoff kind');sessionStorage.removeItem(HANDOFF);renderHandoff();take.textContent='APPLIED'}catch(e){take.textContent='FAILED'}};
  a.appendChild(take);if(h.return_to){const back=document.createElement('a');back.href=h.return_to;back.textContent='BACK';a.appendChild(back)}const drop=document.createElement('button');drop.textContent='CLEAR';drop.onclick=clearHandoff;a.appendChild(drop);d.appendChild(a);host.appendChild(d)
 }
 function render(){
