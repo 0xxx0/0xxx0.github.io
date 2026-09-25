@@ -2,10 +2,13 @@
   "schema": "release-receipt/v1",
   "artifact": "HOUSE / FIELD",
   "route": "/house/",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "released": "2026-09-25",
   "state": "STABLE",
   "changes": [
+    "Made /house/spatial/ the explicit primary human-facing HOUSE entry while preserving /house/ as the expert state/runtime projection.",
+    "Added a prominent ENTER THE HOUSE portal at the top of /house/ so shared root links lead humans toward the spatial model before expert details.",
+    "Added direct HOUSE / SPATIAL navigation from FIELD INDEX and made the HOUSE capability aperture recognize both /house/ and /house/spatial/.",
     "Added BODY↔HOUSE same-origin local context bridge: HOUSE can display the latest browser-local BODY return without committing it.",
     "Added explicit ATTACH HOUSE CONTEXT → BODY action carrying only public projection timestamp/health class plus optional area label.",
     "Preserved authority boundary: Home Assistant / HOUSEBUS owns runtime device truth/actuation; local bridge is context only.",
@@ -29,7 +32,10 @@
     "source_snapshot": "/house/state.json",
     "body_bridge": "localStorage only; no server submission; no personal state committed",
     "body_authority": "context != device truth or actuation",
-    "reality_task_boundary": "private chores/tasks do not become public HOUSE canon"
+    "reality_task_boundary": "private chores/tasks do not become public HOUSE canon",
+    "human_entry": "/house/spatial/",
+    "expert_projection": "/house/",
+    "field_index_direct_link": "/house/spatial/"
   },
   "sources": [
     "/showcase-manifest.json",
