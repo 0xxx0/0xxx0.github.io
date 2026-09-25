@@ -12,7 +12,8 @@
     "surfaced evidence-graded persona/plurality/Council lineage and explicit open seams",
     "added the exact user-authored `the council sends you this invisible recovery hamper...` fragment as a STAR",
     "corrected the persona-to-Council lineage from a single-origin story to multi-donor convergence",
-    "preserved HUMAN PORT as the explicit external share/copy boundary"
+    "preserved HUMAN PORT as the explicit external share/copy boundary",
+    "Recovered the direct 2024-12-29→12-30 source chain from 5–6 requested internal voices to a named five-self set and the first immediate simultaneous inner-dialogue scene; later Council canon remains evidence-distinct."
   ],
   "recovered_evidence": [
     {
@@ -42,23 +43,36 @@
       "source": "conversation archive / 2024-12-13 assistant source / message 6089e0d6-daad-484d-953b-4fbae4741fce",
       "retained": "exact early multi-character Group Dynamics interactions among Sleeper/W8, Conch/Keris and Specter/Sleeper",
       "public_handling": "lineage donor only; not silently recast as internal-persona Council canon"
+    },
+    {
+      "source": "conversation archive / Response Consolidation Strategy / direct graph / 2024-12-29→2024-12-30",
+      "retained": "direct user request for 5–6 voices; direct five-selves request; immediate five-persona output; direct full-inner-dialogue request; immediate simultaneous five-self scene",
+      "source_nodes": [
+        "aaa2bf1d-1bab-42d7-a09c-380eb75572ef",
+        "bbb2129b-162c-48d9-807c-a9f931ccb711",
+        "923a4170-00cf-47e1-9366-cd77a062fc74",
+        "bbb21566-8ef6-46d5-84e7-908a00560dd0",
+        "afe232e3-913c-446b-8415-bbd327be3be3"
+      ],
+      "public_handling": "recovery metadata + persona labels only; do not publish the raw private conversation dump"
     }
   ],
   "checks": [
     "VAULT source remains separate from current LINES",
     "exact historical assistant bank is labeled source donor rather than user-adopted canon",
     "generic `the council` and proper-name `Council of Selves` remain distinct",
-    "5–6 voice outputs and first five-selves chatter remain OPEN rather than reconstructed",
+    "Direct five-selves output + first simultaneous inner-dialogue source chain is RECOVERED; bridge to later Council canon remains OPEN.",
     "EXACT / RECONSTRUCTED / NEW remain visibly distinct",
     "no auto-send or transport credential exists",
     "HUMAN PORT handoff remains human-triggered"
   ],
   "return": "/laconic/",
   "verification": [
-    "shared /showcase-nav.js showcase RETURN adapter present"
+    "shared /showcase-nav.js showcase RETURN adapter present",
+    "/returns/LACONIC_FIVE_SELVES_DIRECT_RECOVERY_2026-09-26.json"
   ],
   "current_classification": {
-    "reviewed_at": "2026-09-21T01:06:00+08:00",
+    "reviewed_at": "2026-09-26T01:09:00+08:00",
     "state": "ACTIVE",
     "basis": "Current communications head now couples a bounded drafting/scene instrument with a provenance-visible exact-source vault.",
     "provenance_note": "Historical abundance is browseable but does not gain adoption/canon status by visibility."
