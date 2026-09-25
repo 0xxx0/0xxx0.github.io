@@ -3,7 +3,7 @@
   "kind": "FOLD_BLOOM_STATE_LANGUAGE_RETURN",
   "version": "0.1",
   "date": "2026-09-25",
-  "status": "CANDIDATE",
+  "status": "SHIPPED",
   "branch": "chatgpt/fold-bloom-state-language-v01-20260925",
   "problem": [
     "User could see the 0.4 commits but not the hexagram UI on the live site.",
@@ -52,10 +52,18 @@
     "LIVE engine remains gameplay authority."
   ],
   "verification": {
-    "state_language_tests": "PENDING_CI",
-    "live_gameplay_suite": "PENDING_CI",
-    "field_lab_browser_boot": "PENDING_CI",
-    "critical_browser_smoke": "PENDING_CI",
+    "state_language_tests": "PASS",
+    "live_gameplay_suite": "PASS",
+    "field_lab_browser_boot": "PASS",
+    "critical_browser_smoke": "PASS",
+    "route_registration": "PASS",
+    "public_surface_check": "PASS",
+    "workflow_run": 36128271563,
+    "route_run": 36128271499,
     "real_phone_visibility": "HUMAN_GATE"
+  },
+  "merge": {
+    "pr": 295,
+    "sha": "8e7db861a6dada691c78a66148c1d294f83fe77f"
   }
 }
