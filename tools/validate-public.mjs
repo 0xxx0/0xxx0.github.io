@@ -219,6 +219,14 @@ check(daylineApp.includes("syncDeviceNow")&&daylineApp.includes("clockWitness")&
 check(daylineSw.includes("atlas-dayline-i-v6"),'Atlas Dayline mobile reach cache version not v6');
 const showcaseNav=read('showcase-nav.js');
 check(/@media\(max-width:820px\)/.test(showcaseNav)&&/\.tab\.nav\{left:auto;right:/.test(showcaseNav),'Shared mobile route adapter returned to bottom-left obstruction');
+const workfieldHtml=read('dayline/index.html');
+const workfieldJs=read('dayline/app.js');
+const workfieldCss=read('dayline/app.css');
+check(/DAYLINE \/\/ CONFLUENCE/.test(workfieldHtml)&&workfieldHtml.includes('id="moves"')&&workfieldHtml.includes('id="witnessInput"'),'Dayline Confluence surface missing object/move/witness frame');
+check(workfieldJs.includes("poly-atlas-dayline-branch-i-public-v1")&&workfieldJs.includes("atlas.dayline.handoff.v01"),'Dayline Confluence diverged from existing DayState/handoff identity');
+check(workfieldJs.includes("slice(0,3)")||workfieldJs.includes("return out.slice(0,3)"),'Dayline Confluence lost <=3 move law');
+check(/body\{overflow-y:auto/.test(workfieldCss),'Dayline Confluence ordinary document scrolling regressed');
+check(workfieldJs.includes("carrier:'dayline-confluence/v0.1'")&&workfieldJs.includes("poly-atlas-return-f"),'Dayline Confluence RETURN carrier missing');
 const home=read('index.html');
 const fi=fiContract;
 check(!!fi,'FIELD INDEX contract missing/unreadable');
