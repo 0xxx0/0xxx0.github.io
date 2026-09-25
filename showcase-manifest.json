@@ -132,7 +132,12 @@
         "read-only CURRENT → explicit local Dayline promotion",
         "one-line local capture without a second queue",
         "bounded COPY FEEDBACK return packet",
-        "default Branch I behavior remains unchanged unless ?live=1"
+        "default Branch I behavior remains unchanged unless ?live=1",
+        "atlas-dayline-handoff/v0.1 explicit session-local source→time envelope",
+        "HOUSE selected address → planning context (not presence)",
+        "SHOPPING selected item → explicit capability action",
+        "COMMS OPEN addressed signal → explicit obligation action",
+        "source BACK path retained; import is never automatic"
       ],
       "contract": {
         "accepts": {
@@ -222,14 +227,14 @@
         "physical_fit": "Direct bridge from digital intent to scheduled human physical work."
       },
       "index": {
-        "updated_at": "2026-09-25T14:24:00+08:00",
+        "updated_at": "2026-09-25T15:00:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
         ]
       },
       "tier": "FIELD",
-      "version": "Branch I + FIELD LIVE 0.1",
+      "version": "Branch I + FIELD LIVE 0.2 / REALITY PORTS",
       "role": "Local-first temporal execution instrument with an opt-in read-only FIELD bridge: active fronts may be explicitly promoted into the day; local lived state returns through a bounded feedback packet, never by silently mutating repo authority."
     },
     {
@@ -4444,7 +4449,8 @@
         "RETURN→REPLAY path round trip",
         "temporal focus over addressed routes",
         "tiny-law path constraints",
-        "local recurrence sediment"
+        "local recurrence sediment",
+        "selected spatial address → explicit Dayline planning-context handoff; selected != physical presence"
       ],
       "contract": {
         "transforms": {
@@ -4465,7 +4471,7 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-21T00:15:00+08:00",
+        "updated_at": "2026-09-25T15:00:00+08:00",
         "work_modes": [
           "RECOVER",
           "SPECIFY"
@@ -5682,7 +5688,7 @@
         "return_path": "/port/"
       },
       "index": {
-        "updated_at": "2026-09-23T02:51:03+08:00",
+        "updated_at": "2026-09-25T15:00:00+08:00",
         "work_modes": [
           "SPECIFY",
           "IMPLEMENT",
@@ -5690,7 +5696,10 @@
           "OPERATE"
         ]
       },
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "transfer": [
+        "one OPEN source-addressed signal → explicit Dayline obligation handoff; HUMAN/DERIVED provenance preserved"
+      ]
     },
     {
       "href": "/reader/",
@@ -6606,7 +6615,8 @@
         "landed-SGD normalization",
         "freshness-aware listing review",
         "purchase/adoption lifecycle",
-        "bounded agent research packet"
+        "bounded agent research packet",
+        "selected capability item → explicit Dayline next-action handoff; purchase lifecycle unchanged"
       ],
       "contract": {
         "accepts": {
@@ -6724,7 +6734,7 @@
         "physical_fit": "Acquisition adapter for House/maker/cat/robotics capability gaps; no automatic buying."
       },
       "index": {
-        "updated_at": "2026-09-21T02:54:00+08:00",
+        "updated_at": "2026-09-25T15:00:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
