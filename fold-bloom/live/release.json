@@ -252,7 +252,7 @@
   },
   "execution_contract": "./EXECUTION.md",
   "return": "/returns/FOLD_BLOOM_LIVE_013_POLISH_2026-09-22.json",
-  "updated": "2026-09-24",
+  "updated": "2026-09-25",
   "observed_user_return": {
     "date": "2026-09-22",
     "confidence": "DIRECT_USER_REPORT",
@@ -327,9 +327,47 @@
     "observation": "The prior zero-file sound fix still failed on one phone; repeated file-picker use for already-uploaded songs was annoying; presets and explanatory/use-case structure were useful.",
     "request": "Treat feedback as product authority, converge parallel Fold/Bloom threads, surface Beat Saber, preserve future-worthy ideas instead of silently dropping them."
   },
-  "capabilities": [],
-  "notes": [
-    "2026-09-25 restore: generic LIVE regained primary entry; legacy ?source=center-mass links no longer auto-launch an unverified provider stream."
+  "capabilities": [
+    "PLAY 0.3 finite game shell over LIVE: RUN / PUZZLE / TWO DIAL / ECOLOGY / ZEN.",
+    "Per-release explanatory feedback and visible Ecology inheritance progress.",
+    "CONCERT quickstart alias opens the finite RUN without creating a separate concert engine."
   ],
-  "restore_return": "/returns/FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json"
+  "notes": [
+    "2026-09-25 restore: generic LIVE regained primary entry; legacy ?source=center-mass links no longer auto-launch an unverified provider stream.",
+    "2026-09-25 PLAY takeover: collapsed stalled game-loop branches into the shipped master lineage; old mode/win branches are donors/superseded, not authorities."
+  ],
+  "restore_return": "/returns/FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json",
+  "play_shell": {
+    "version": "0.3",
+    "state": "ACTIVE_CANDIDATE",
+    "law": "TURN → PREDICT → MATCH CALL → RELEASE → ROAD CHANGES → NEXT CALL",
+    "quickstart_aliases": {
+      "CONCERT": "PLAY",
+      "RUN": "PLAY",
+      "TWO-DIAL": "DUET",
+      "ECOLOGY": "GARDEN"
+    },
+    "modes": {
+      "RUN": "8 releases; clear at 6 CALL hits; misses still write topology.",
+      "PUZZLE": "5 CALLs; shortest-turn par awards 3★, par+1 awards 2★, slower hit awards 1★; clear at 10/15.",
+      "TWO_DIAL": "LIVE ring + partner dial; SAME→BLOOM · NEAR→FOLD · FAR→RETURN · OPPOSITE→SPLIT; clear at 5 synchronized releases of 6.",
+      "ECOLOGY": "3 generations × 4 releases; choose BODY/PATH/VOICE inheritance pressure after generations 1 and 2; clear when both pressures survive.",
+      "ZEN": "Open ride with no finite score loop."
+    },
+    "feedback": "Every release now states what happened and why it counted; Ecology shows live inheritance progress.",
+    "donors": {
+      "two_dial": "/fold-bloom/two-dial/",
+      "ecology": "/fold-bloom/ecology/",
+      "fold_weave": "/recovery/fold-bloom/fold-weave-0.1/"
+    },
+    "authority": "LIVE engine remains authoritative; source context shapes terrain but never auto-authors BLOOM/FOLD/SPLIT/RETURN.",
+    "physical_projection": "/foundry/axial/fan8-print.svg · optional passive controller; browser remains runtime/score authority"
+  },
+  "play_return": "/returns/FOLD_BLOOM_PLAY_03_2026-09-25.json",
+  "physical_projection_candidate": {
+    "id": "FAN8",
+    "state": "PRINTABLE_CANDIDATE / HUMAN_PROOF_REQUIRED",
+    "artifact": "/foundry/axial/fan8-print.svg",
+    "authority": "NONE / projection only"
+  }
 }
