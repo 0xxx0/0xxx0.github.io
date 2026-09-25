@@ -1,0 +1,26 @@
+{
+  "schema": "confluence/readfield-work-modes/v0.1",
+  "date": "2026-09-25",
+  "status": "IMPLEMENTED_CANDIDATE",
+  "object": "READFIELD / RSVP work experience + READ↔LOCI continuity",
+  "observed": [
+    "Phone Fold/Bloom scope now behaves materially better, so the next friction moved from mechanism visibility to practical work use.",
+    "READFIELD already had source/cursor authority and FIELD LAB already had LOCI, but the generic APERTURE handoff stored source text without bounded focus, allowing cross-surface restart.",
+    "Reader use cases existed but were four explanatory options rather than a fuller task surface."
+  ],
+  "delta": [
+    "APERTURE handoff carries bounded focus: scale, index, address, char_index, source_progress and WPM.",
+    "READFIELD restores focus from handoff and exposes FAST / REVIEW / PULSE / VOICE / LOCI / REPO modes.",
+    "READFIELD → LOCI explicitly carries source + focus; FIELD LAB initializes the nearest addressed locus from source progress.",
+    "FIELD LAB → FULL READFIELD also includes focus in the handoff.",
+    "Existing browser handoff proof now crosses into LOCI and requires a focus-restored witness."
+  ],
+  "boundaries": [
+    "No second source/cursor authority.",
+    "LOCI remains a derived addressed course, not canonical text.",
+    "FIELD PULSE remains optional authority NONE.",
+    "No universal session bus or new reader engine."
+  ],
+  "gate": "CI must pass the expanded READFIELD route-handoff browser proof; then lived phone use decides which work modes survive.",
+  "return": "/returns/READFIELD_WORK_MODES_2026-09-25.json"
+}

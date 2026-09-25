@@ -349,6 +349,19 @@ window.FieldAperture={
  inspect(source,opt={}){let el=document.querySelector('field-aperture[data-field-global]');if(!el){el=document.createElement('field-aperture');el.dataset.fieldGlobal='1';document.body.appendChild(el)}if(opt.materialTarget)el.setAttribute('material-target',opt.materialTarget);el.load(source,opt);return el},
  dock(source,opt={}){const wrap=ensureDock(),el=wrap.querySelector('field-aperture');el.hidden=false;wrap.querySelector('[data-collapse]').textContent='−';if(opt.materialTarget)el.setAttribute('material-target',opt.materialTarget);el.load(source,opt);return el},
  closeDock(){document.querySelector('[data-field-aperture-dock]')?.remove()},
- handoff(source,opt={}){try{sessionStorage.setItem('field.aperture.handoff.v01',JSON.stringify({source,label:opt.label||'Handoff',created_at:new Date().toISOString(),from:opt.from||location.pathname}))}catch(_){}}
+ handoff(source,opt={}){
+  try{
+    const raw=opt.focus&&typeof opt.focus==='object'?opt.focus:null;
+    const focus=raw?{
+      scale:raw.scale||null,
+      index:Number.isFinite(Number(raw.index))?Number(raw.index):null,
+      address:raw.address||null,
+      char_index:Number.isFinite(Number(raw.char_index))?Number(raw.char_index):null,
+      source_progress:Number.isFinite(Number(raw.source_progress))?clamp(Number(raw.source_progress),0,1):null,
+      wpm:Number.isFinite(Number(raw.wpm))?clamp(Math.round(Number(raw.wpm)),MIN_WPM,MAX_WPM):null
+    }:null;
+    sessionStorage.setItem('field.aperture.handoff.v01',JSON.stringify({source,label:opt.label||'Handoff',created_at:new Date().toISOString(),from:opt.from||location.pathname,focus}));
+  }catch(_){}
+ }
 };
 })();

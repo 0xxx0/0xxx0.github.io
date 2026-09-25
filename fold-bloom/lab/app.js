@@ -154,9 +154,9 @@ function recoverHandoff(){
 function readerSource(){return String($('#readSource').value||'').trim()}
 function loadReader({announce=false,preferHandoff=false}={}){
   if(!reader||typeof reader.load!=='function')return null;
-  const h=preferHandoff?recoverHandoff():null,source=h?.source||readerSource();
+  const h=preferHandoff?recoverHandoff():null,source=h?.source||readerSource(),hf=h?.focus||null;
   if(h?.source)$('#readSource').value=h.source;
-  const snap=reader.load(source,{label:h?.label||'FIELD LAB READ',scale:'WORD',wpm:read.wpm});
+  const snap=reader.load(source,{label:h?.label||'FIELD LAB READ',scale:hf?.scale||'WORD',wpm:hf?.wpm||read.wpm,address:hf?.address||undefined,charIndex:Number.isFinite(Number(hf?.char_index))?Number(hf.char_index):undefined,index:Number.isFinite(Number(hf?.index))?Number(hf.index):undefined});
   read.readerLoaded=true;
   document.documentElement.dataset.fieldLabReader=snap?.scale?'ready':'empty';
   document.documentElement.dataset.fieldLabReaderScale=snap?.scale||'NONE';
@@ -190,7 +190,7 @@ $('#readPulse').onclick=()=>{
   setStatus('READ · '+pulseModeLabel(read.pulseMode));
 };
 $('#readFull').onclick=()=>{
-  const source=readerSource();window.FieldAperture?.handoff?.(source,{label:'FIELD LAB READ',from:location.pathname+location.search});
+  const source=readerSource(),focus=reader?.snapshot?.()||ensureReader()||null;window.FieldAperture?.handoff?.(source,{label:'FIELD LAB READ',from:location.pathname+location.search,focus});
   const q=read.pulseMode==='PACE4'?'?pulse=4&from=field-lab':'?from=field-lab';location.href='/docs/'+q;
 };
 $('#readToLoci').onclick=()=>{
@@ -409,8 +409,18 @@ function tick(now){
 }
 requestAnimationFrame(tick);
 const initialMode=String(new URLSearchParams(location.search).get('mode')||'RIDE').toUpperCase();
+let lociHandoffRestored=false;
+if(initialMode==='LOCI'&&new URLSearchParams(location.search).has('handoff')){
+  const h=recoverHandoff(),p=Number(h?.focus?.source_progress);
+  if(h?.source){
+    $('#lociSource').value=h.source;buildLoci();
+    if(Number.isFinite(p)){const hit=nodeForProgress(loci.course,p);if(hit)loci.step=Math.max(0,loci.nodes.findIndex(n=>n.id===hit.id))}
+    syncLoci();lociHandoffRestored=true;document.documentElement.dataset.fieldLabLociHandoff='focus-restored';
+  }
+}
 syncPulseButton();
 document.documentElement.dataset.fieldLabReadPulse=read.pulseMode;
 selectMode(MODES[initialMode]?initialMode:'RIDE');
+if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';
 window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>lastTransport};
