@@ -270,7 +270,7 @@ function candidateEdit(source,target,x){
 }
 function candidateSupport(x){
  let target=node(x&&x.for)||node(S.selected);if(!target)return{pass:0,total:0,label:'NO TARGET'};
- let f=FORMS[S.form],edit=candidateEdit(S.source,target,x),lines=edit.next.split('\n'),checks=[];
+ let f=FORMS[S.form],edit=candidateEdit(S.source,target,x),lines=edit.next.split('\n'),nonblank=lines.filter(v=>v.trim()),checks=[];
  if(f.lines!=null)checks.push({name:'line envelope',ok:nonblank.length<=f.lines});
  if(f.chars){let n=Array.from((lines[target.line]||'').replace(/\s/g,'')).length;checks.push({name:'character envelope',ok:n<=f.chars})}
  if(f.syll){let goal=Array.isArray(f.syll)?f.syll[target.line]:f.syll;if(goal!=null)checks.push({name:'syllable envelope',ok:lineSyll(lines[target.line]||'')<=goal})}
