@@ -130,6 +130,35 @@
         "(ancient-kala)-00-test.html"
       ],
       "action": "Exact 2018 + 2020 variants frozen at /recovery/kala/. Treat as interface/character fossil linked to room/Interphase substrate; do not retrofit modern AI-agent capability claims."
+    },
+    {
+      "cluster": "YAW / You're A Wake",
+      "examples": [
+        "YAW_ENGINE_PLAYGROUND_v1.html"
+      ],
+      "action": "Exact runnable HTML recovered byte-for-byte under /recovery/yaw/. Donor only; do not promote to CURRENT unless a current surface needs its waking/state-cycle mechanism."
+    },
+    {
+      "cluster": "Sig Nap Ore",
+      "examples": [
+        "04_SIG_NAP_ORE_FIELD_MANUAL(1).md",
+        "04_Sig_Nap_Ore_Field_Manual.md"
+      ],
+      "action": "Two unequal exact field-manual variants recovered byte-for-byte. Preserve the nap/rest-game domain correction; do not collapse into Sine Ore, glyph/seal, Prison Age or Prion."
+    },
+    {
+      "cluster": "Prion Protocol",
+      "examples": [
+        "PRION_FIELD_LAB_v0_1.md"
+      ],
+      "action": "Exact field-lab donor recovered byte-for-byte. Retain explicit consent/audit/refusal/exit laws; no covert-persuasion or infection-as-virtue interpretation."
+    },
+    {
+      "cluster": "Prison Age",
+      "examples": [
+        "PRISON_AGE_ENGINE_CORE_v1.md"
+      ],
+      "action": "Exact Engine Core v1 recovered byte-for-byte. Keep its V/A/C/R/I/P26/Ø truth distinctions and its explicit separation from Sig Nap Ore, Sleeper and Prion."
     }
   ],
   "next": [
@@ -225,6 +254,30 @@
       "route": "/laconic/",
       "classification": "DIRECT_ARCHIVE_CHAIN_RECOVERED",
       "receipt": "/returns/LACONIC_FIVE_SELVES_DIRECT_RECOVERY_2026-09-26.json"
+    },
+    {
+      "family": "YAW / You're A Wake",
+      "route": "/recovery/yaw/",
+      "classification": "EXACT_FROZEN_RUNNABLE_DONOR",
+      "receipt": "/returns/NEGLECTED_RECOVERY_SWEEP_2026-09-26.json"
+    },
+    {
+      "family": "Sig Nap Ore",
+      "route": "/recovery/sig-nap-ore/",
+      "classification": "EXACT_FROZEN_DONOR_FAMILY",
+      "receipt": "/returns/NEGLECTED_RECOVERY_SWEEP_2026-09-26.json"
+    },
+    {
+      "family": "Prion Protocol",
+      "route": "/recovery/prion/",
+      "classification": "EXACT_FROZEN_DONOR",
+      "receipt": "/returns/NEGLECTED_RECOVERY_SWEEP_2026-09-26.json"
+    },
+    {
+      "family": "Prison Age Engine Core",
+      "route": "/recovery/prison-age/",
+      "classification": "EXACT_FROZEN_ENGINE_CORE_DONOR",
+      "receipt": "/returns/NEGLECTED_RECOVERY_SWEEP_2026-09-26.json"
     }
   ],
   "last_media_refinery": "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json",
