@@ -149,7 +149,9 @@
     "current_manifest_registration": "PASS_PR_304",
     "head_sync_pr": 304,
     "head_sync_commit": "0b2f7e39056872f83c0c89a77fb77c9e376c1fb9",
-    "focus_return_address": "PENDING_PR_CI: view + source fingerprint + L#T# caller witness, fail-closed restore"
+    "focus_return_address": "PASS_PR_311 · source fingerprint + L#T# + view survive deterministic full iframe reload · public-surface-check 36133150894",
+    "focus_return_browser_smoke": "PASS · fixed poem → MAP → L1T2 → caller URL → full reload → same source fingerprint + MAP + L1T2",
+    "focus_return_merge": "52588dbb123edf2b25a8c380a88a8337a9d1a966"
   },
   "updated": "2026-09-25",
   "next_bounded_test": {
