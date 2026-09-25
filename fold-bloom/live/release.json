@@ -338,7 +338,7 @@
   ],
   "restore_return": "/returns/FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json",
   "play_shell": {
-    "version": "0.5.2",
+    "version": "0.5.3",
     "state": "SHIPPED",
     "law": "FORM H[A] → address line with ring → release writes consequence bit → Δ emerges → H[B]",
     "quickstart_aliases": {
@@ -370,9 +370,9 @@
     "merge_sha": "a8454d741ccd58f17e5b491570d61a78f54c4e63",
     "verification": {
       "public_surface_check": "PASS",
-      "workflow_run": 36130184417,
+      "workflow_run": 36140134183,
       "route_registration": "PASS",
-      "route_run": 36130184156,
+      "route_run": 36140134198,
       "gameplay_suite": "PASS",
       "critical_browser_smoke": "PASS",
       "phone_visibility_and_feel": "HUMAN_GATE"
@@ -473,7 +473,31 @@
         "mobile_control_430x900": "PASS",
         "real_phone_post_fix": "HUMAN_GATE"
       }
+    },
+    "mode_embodiment": {
+      "pr": 328,
+      "merge_sha": "41b69f52f75b5424308ba6531af879e017e4cb07",
+      "law": "The same LIVE state may project unequal mode-specific witnesses; projection does not acquire source/game/domain authority.",
+      "delta": [
+        "RUN / HEX / PATH / TWO DIAL / ECOLOGY / ZEN have visibly distinct central-instrument projections.",
+        "HEX reuses the existing state-language trigram glyph mapping for lower/upper structure.",
+        "TWO DIAL renders explicit outer A + inner B rings and exposes LANDSCAPE + FULL TWO DIAL.",
+        "FULL TWO DIAL opens the 0.10.4 donor directly in DUET.",
+        "No new state store or engine."
+      ],
+      "verification": {
+        "route_registration": {
+          "run": 36140134198,
+          "result": "PASS"
+        },
+        "public_surface_check": {
+          "run": 36140134183,
+          "result": "PASS"
+        },
+        "critical_browser_smoke": "PASS",
+        "real_phone": "HUMAN_GATE"
+      }
     }
   },
-  "play_return": "/returns/FOLD_BLOOM_MOBILE_CRAFT_051_2026-09-25.json"
+  "play_return": "/returns/FOLD_BLOOM_MODE_EMBODIMENT_053_2026-09-25.json"
 }
