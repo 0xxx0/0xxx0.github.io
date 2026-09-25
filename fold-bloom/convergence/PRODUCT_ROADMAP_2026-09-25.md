@@ -7,7 +7,7 @@
 
 FOLD//BLOOM is no longer just the ring or the visualizer. The current family already contains:
 
-- **LISTEN 0.6** — local/source-aware audio map, beat/phrase/section/track scope, BOOKMARK / FLAG / ARC marks, source-local memory, Beat Saber v4 mapper-pack export.
+- **LISTEN 0.6** — local/source-aware audio map, beat/phrase/section/track scope, BOOKMARK / FLAG / editable ARC marks, source-local memory, source-safe annotation share/import, Beat Saber v4 mapper-pack export.
 - **LIVE 0.13** — source-aware ride / embodied terrain with authored FOLD / BLOOM / SPLIT / RETURN.
 - **READFIELD / RSVP 0.8.2** — exact source cursor across scale, RSVP, voice, regress, context and RETURN.
 - **FIELD LAB 0.2.1** — RIDE / PULSE / READ / LOCI / INK / DATA with explicit source/focus carry.
@@ -129,15 +129,16 @@ Do **not** merge tool UIs. This strip is a witness/router only.
 
 ### FRONT 3 — DUAL-PHONE SABER PROOF
 
-Current pinned next playable transform:
+Implemented 0.1 runtime; current proof gate:
 
-- phone A = LEFT;
-- phone B = RIGHT;
+- phone A hosts + one local hand;
+- phone B pairs as the opposite hand over direct WebRTC;
 - existing EVENT TAPE supplies scheduled note events;
-- shared bounded session clock;
-- local hit/graze/miss witness + haptic/visual response;
+- bounded ping/pong clock offset estimation aligns controller motion;
+- motion reduces immediately to swing witnesses and local HIT/GRAZE/MISS outcomes;
 - RETURN stores source/event-tape identity + bounded hit trace;
-- no permanent backend and no raw continuous motion archive.
+- no permanent backend and no raw continuous motion archive;
+- repository proof is complete; two-real-phone feel/latency remains the human gate.
 
 Keep this distinct from Beat Saber pack export.
 
@@ -166,3 +167,12 @@ Each pass must improve at least one:
 - **RETURN quality**
 
 If a feature cannot name the job it improves, park it.
+## Recovered follow-ups / do not lose
+
+These are preserved continuations, not active-front inflation.
+
+- **MESSAGE REPLAY** — H1 deterministic compact replay shipped as a spike in PR #230. Later user direction is explicitly pinned: synchronize replay with LISTEN/source timing, expose the existing experience-design controls rather than a parallel styling system, permit word-level shaping while retaining surrounding context, add a short animation/GIF-like export, and keep share links compact while preserving the artifact payload. Promote only by extending the recovered replay object; do not create another replay lineage.
+- **PWA / LOCAL PLAYLIST INTAKE** — desired future convenience layer. The lawful target is installable/offline shell + browser-local vault + user-selected files/folders/playlists. Do not claim arbitrary access to a device music library or replace exact source identity with playlist metadata. Existing M3U/M3U8/PLS intake is donor evidence, not yet a consumer-grade playlist browser.
+- **VOICE FOLLOW-UPS** — VOICE 0.1 is working enough to continue, but keep real singing/practice feedback as the promotion gate. Useful future deltas may improve target/pattern/session feedback; do not drift into opaque quality scoring.
+- **EXPERIMENT SURFACES** — LAB / LOCI / INK / ATLAS / TWO DIAL remain donor-capable and have follow-ups, but a new feature becomes active only when it improves a named job or closes a recovered user friction.
+
