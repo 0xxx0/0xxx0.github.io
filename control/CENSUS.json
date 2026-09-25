@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/library-census-seed/v0.1",
-  "updated": "2026-09-21",
+  "updated": "2026-09-26",
   "scope": "Recent Library artifacts surfaced during recovery; seed only, not a complete inventory.",
   "confirmed_exact_duplicates": [
     {
@@ -37,7 +37,7 @@
         "ENV0_symbols_A2_v0_1.svg",
         "ENV0_P0_BUILD_SHEET_A3.pdf"
       ],
-      "action": "Editable README + two SVG masters frozen exactly at /recovery/env0/; two exact PDFs located in Library pending byte-copy/hash verification. Use as PRINT/Reality donor, not gallery-card proliferation."
+      "action": "Editable masters frozen in repo; both exact Library PDFs now raw-byte/SHA-256 verified. Source recovery closed. Physical geometry/build RETURN remains unexecuted and parked; do not substitute archive work for matter."
     },
     {
       "cluster": "House OS visual boards",
@@ -70,8 +70,9 @@
         "影庫_INDEX_v0.1.md",
         "B260728B / eight image-gen files"
       ],
-      "action": "Coherent visual batch B260728B is exact-index + exact-byte-hash evidenced and has a first MEDIA REFINERY fingerprint/composition pass. Keep batch unified; media bytes remain Library-only; runnable/source/glyph instrument remains open.",
-      "refinery": "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json"
+      "action": "Exact mechanism lineage + visual batch preserved. Bounded artifact-type search found no isolated public-safe runnable/source/glyph engine; stop treating a standalone app as presumed debt. Reopen only from a concrete artifact reference.",
+      "refinery": "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json",
+      "disposition_return": "/returns/GAME_OF_NAMES_ARTIFACT_DISPOSITION_2026-09-26.json"
     },
     {
       "cluster": "LAW ZOO / tiny-law executable material",
@@ -133,8 +134,8 @@
   ],
   "next": [
     "Continue hash/metadata-first census for newly surfaced Library/repo artifacts; collapse exact duplicates before semantic clustering.",
-    "Complete ENV-0 only by byte-copying/hash-verifying the two exact located PDFs; editable masters are already frozen.",
-    "Continue exact-source search only for historical Laconic voice outputs and isolated Game-of-Names artifacts.",
+    "ENV-0 PDF source verification CLOSED; keep the already-specified physical geometry proof parked until real build capacity/use warrants it.",
+    "Laconic direct five-selves/inner-dialogue source chain RECOVERED; continue only the remaining exact Laconic/early-Council gaps. Game-of-Names standalone-artifact search is no longer active debt without a concrete reference.",
     "Keep generated image/physical-source harvest separate from runnable app recovery; attach provenance before promotion."
   ],
   "last_recovery_run": "/control/RECOVERY_RUN_2026-09-21.json",
@@ -212,7 +213,20 @@
       "receipt": "/returns/BACKUP_RECOVERY_2026-09-21.json",
       "files": 40,
       "images": 13
+    },
+    {
+      "family": "Toolbelt / Sleeper operator plate raw source",
+      "route": "/recovery/toolbelt/",
+      "classification": "EXACT_LIBRARY_RAW_BYTE_VERIFIED",
+      "receipt": "/returns/TOOLBELT_SLEEPER_PNG_RAW_RECOVERY_2026-09-26.json"
+    },
+    {
+      "family": "Laconic five-selves direct source chain",
+      "route": "/laconic/",
+      "classification": "DIRECT_ARCHIVE_CHAIN_RECOVERED",
+      "receipt": "/returns/LACONIC_FIVE_SELVES_DIRECT_RECOVERY_2026-09-26.json"
     }
   ],
-  "last_media_refinery": "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json"
+  "last_media_refinery": "/returns/MEDIA_REFINERY_B260728B_2026-09-22.json",
+  "last_neglected_recovery": "/returns/NEGLECTED_RECOVERY_SWEEP_2026-09-26.json"
 }
