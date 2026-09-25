@@ -323,7 +323,8 @@ window.AtlasDayline=Object.freeze({
  capture:input=>bridgeAddTask(typeof input==='string'?{title:input}:input,'USER'),
  applyContexts:input=>{
    const xs=[...new Set((input?.contexts||[]).map(x=>String(x||'').trim()).filter(Boolean))];if(!xs.length)throw Error('contexts required');
-   checkpoint('CONTEXT_HANDOFF');data.state.contexts=[...new Set([...(data.state.contexts||[]),...xs])];
+   const prefix=String(input?.replacePrefix||''),base=(data.state.contexts||[]).filter(x=>!prefix||!String(x).startsWith(prefix));
+   checkpoint('CONTEXT_HANDOFF');data.state.contexts=[...new Set([...base,...xs])];
    event('CONTEXT_HANDOFF',String(input?.sourceRef||''),xs.join(','));save();render();return [...data.state.contexts]
  },
  lastReturn:()=>{try{return JSON.parse(localStorage.getItem(RETURN_STORE)||'null')}catch{return null}},
