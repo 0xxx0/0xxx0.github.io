@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "kind": "FOLD_BLOOM_PLAY_RETURN",
   "date": "2026-09-25",
-  "status": "CANDIDATE",
+  "status": "SHIPPED",
   "branch": "chatgpt/fold-bloom-play-03-final-20260925",
   "base_master_sha": "99911d707462cd716d77f3e7ed1ac33f94f0e110",
   "substantive_head_sha": "f516801e87ba3aacf00b99ed3e64e84a87f6b148",
@@ -57,10 +57,13 @@
     "Mute-readable feedback remains part of the interaction contract."
   ],
   "verification": {
-    "pure_game_law_tests": "PENDING_CI",
-    "public_surface_check": "PENDING_CI",
-    "route_registration": "PENDING_CI",
+    "pure_game_law_tests": "PASS",
+    "public_surface_check": "PASS",
+    "critical_browser_smoke": "PASS",
+    "workflow_run": 36125468095,
     "real_phone_touch_audio": "HUMAN_GATE"
   },
-  "rebase_note": "Final branch cut from current master after FAN/8 landed. PLAY 0.3 preserves the FAN/8 printable-controller link while retaining LIVE, Two Dial and Ecology authority boundaries."
+  "rebase_note": "Final branch cut from current master after FAN/8 landed. PLAY 0.3 preserves the FAN/8 printable-controller link while retaining LIVE, Two Dial and Ecology authority boundaries.",
+  "pr": 291,
+  "merge_sha": "c027f3b8a275d19f237ae4fce2791443fd63bf26"
 }
