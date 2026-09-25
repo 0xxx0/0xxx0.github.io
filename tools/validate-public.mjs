@@ -341,7 +341,7 @@ if(exists('showcase-selftest/index.html')){
 for(const p of ['returns/index.html','foundry/index.html','fcm/index.html','router-bench/index.html'])compileInline(p);
 if(exists('poetry/map/index.html')){
   const p=read('poetry/map/index.html');
-  for(const token of ['POEM MAP 0.2.3','id="fieldNowBtn"','id="focusWheel"','id="pmAperture"','id="guideBtn"','id="importBtn"','id="corpusBtn"','id="formDetails"','id="mapLawDetails"','id="carryRead"','id="carryLab"','id="carryStudy"','readfield.handoff.v1','field.verse.handoff.v01','verse.atlas.handoff.v01','data-mode="PAGE"','data-mode="MAP"','data-mode="SETS"','ORDER','SOUND','REPEAT','AUTHOR','APERTURE','TRY','ADOPT','LOCK'])check(p.includes(token),'Poem Map capability token missing: '+token);
+  for(const token of ['POEM MAP 0.2.4','id="fieldNowBtn"','id="focusWheel"','id="pmAperture"','id="guideBtn"','id="importBtn"','id="corpusBtn"','id="formDetails"','id="mapLawDetails"','id="carryRead"','id="carryLab"','id="carryStudy"','readfield.handoff.v1','field.verse.handoff.v01','verse.atlas.handoff.v01','poemReturnAddress','restoreReturnFocus','bootFocus','data-mode="PAGE"','data-mode="MAP"','data-mode="SETS"','ORDER','SOUND','REPEAT','AUTHOR','APERTURE','TRY','ADOPT','LOCK'])check(p.includes(token),'Poem Map capability token missing: '+token);
   check(!/(?:^|[^$])\$\(\s*['"`][^'"`]+['"`]\s*\)\.forEach\s*\(/m.test(p),'Poem Map must not call forEach on single querySelector result');
   compileInline('poetry/map/index.html');
 }
