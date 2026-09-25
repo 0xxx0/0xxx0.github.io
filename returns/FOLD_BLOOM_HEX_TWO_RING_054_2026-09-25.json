@@ -1,0 +1,39 @@
+{
+  "schema": "field-return/v0.1",
+  "kind": "FOLD_BLOOM_HEX_TWO_RING_054",
+  "created_at": "2026-09-25T13:47:49.425Z",
+  "state": "SHIPPED_REPO_GREEN",
+  "route": "/fold-bloom/live/",
+  "version": "FOLD_BLOOM_PLAY_0.5.4",
+  "master_sha": "9e308cb7f8b6272820c6404ef93726f48e98c996",
+  "proof_pr": 348,
+  "recovered_correction": "HEX no longer overlays trigram semantics on the generic TRIANGLE/CIRCLE/SQUARE LIVE ring. In PUZZLE, the generic ring/gate/causal glyph layer is not rendered; the visible instrument is two concentric lower/upper trigram rings with six addressed lines.",
+  "delta": [
+    "HEX visible contract = two concentric rings + six line addresses + lower/upper trigram state",
+    "HEX defaults to STILL view; source clock and gameplay continue while ride POV/trackfield motion is suppressed",
+    "STILL/RIDE is a reversible view toggle, not a new game mode or source authority",
+    "phone drawer restores touch-action on both html and body, adds outside-tap dismissal and enlarged close target",
+    "active surface adds VIBE cycling over existing CLEAR/DRIVE/TRANCE/SOFT experience presets",
+    "asset cache keys bumped so phone clients receive the repair"
+  ],
+  "authority": {
+    "hex_state": "/fold-bloom/state-language.js",
+    "live_topology_release": "/fold-bloom/live/",
+    "experience_profile": "existing source-addressed RIDE PROFILE",
+    "real_world_execution": "/dayline/ remains separate authority/projection"
+  },
+  "verification": {
+    "route_registration": "PASS · 36142829290",
+    "public_surface_check": "PASS · 36142829186",
+    "live_gameplay_track_ride": "PASS",
+    "critical_browser_smoke": "PASS",
+    "master_readback": "PASS · PLAY 0.5.4 + two-rings + still + menu escape + VIBE",
+    "real_phone_touch": "HUMAN_GATE"
+  },
+  "next": {
+    "state": "HOLD_FOR_HUMAN_USE",
+    "objective": "On phone: open HEX and confirm △/○/□ are absent from the visible HEX instrument; verify two rings are immediately legible, STILL removes ride pressure, drawer can always be dismissed, and VIBE materially changes active experience.",
+    "preserve": "Do not add another mode/state system from this feedback. Revise from lived friction only.",
+    "real_world_seam": "Recover/use /dayline/ OBJECT → FOCUS → 1–3 MOVES → WITNESS → RETURN for overwhelm-to-real-step mapping rather than turning LIVE into a planner."
+  }
+}
