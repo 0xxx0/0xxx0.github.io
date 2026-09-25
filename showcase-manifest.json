@@ -276,7 +276,7 @@
       "state": "ACTIVE",
       "version": "0.2.2",
       "showcase_card": false,
-      "role": "Mobile-first continuous execution projection over existing DayState. Holds one source-addressed object, exposes ≤3 moves, records witness, and emits source-appropriate OFFER_ONLY returns: COMMS may propose native signal state; Shopping returns evidence-only. Completed focus releases only after the offer is published.",
+      "role": "Mobile-first continuous execution projection over existing DayState. Holds one source-addressed object, exposes ≤3 moves, records witness, and emits source-appropriate OFFER_ONLY returns: COMMS may propose native signal state; Shopping returns evidence-only. Completed focus releases only after the offer is published. HOUSE depth/escape goes directly to canonical /house/; /house/spatial/ remains compatibility only.",
       "receipt": "/dayline/release.json",
       "transfer": [
         "same poly-atlas-dayline-branch-i-public-v1 DayState; no second planner store",
@@ -291,7 +291,9 @@
         "native COMMS explicitly COVER / DEFER / KEEP OPEN / DISMISS after source SHA + signal + message/range revalidation",
         "stale or concurrently changed source blocks mutation",
         "source return effect is host-specific rather than generic: COMMS STATE_PROPOSAL · SHOPPING RECEIPT_ONLY · default EVIDENCE_ONLY",
-        "Shopping Dayline completion cannot promote procurement lifecycle"
+        "Shopping Dayline completion cannot promote procurement lifecycle",
+        "HOUSE depth/escape targets canonical /house/ directly; /house/spatial/ is not used as a Dayline front door",
+        "Shopping RETURN is evidence-only: lifecycle remains native and unchanged after receipt acceptance"
       ],
       "contract": {
         "accepts": {
@@ -380,7 +382,7 @@
         "physical_fit": "Ordinary mobile execution surface; no scroll lock or spatial viewport required."
       },
       "index": {
-        "updated_at": "2026-09-26T00:52:00+08:00",
+        "updated_at": "2026-09-26T01:23:26+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY"

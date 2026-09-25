@@ -2,7 +2,7 @@
   "schema": "field-return/v0.1",
   "id": "DAYLINE_HOUSE_CANONICAL_ENTRY_2026-09-26",
   "date": "2026-09-26",
-  "state": "MERGED_CANDIDATE",
+  "state": "MERGED_CI_GREEN",
   "object": "Dayline → HOUSE navigation under one canonical HOUSE identity",
   "observed": [
     "HOUSE 0.7.2 declares /house/ the canonical human entry and /house/spatial/ a compatibility alias",
@@ -21,8 +21,10 @@
     "COMMS exact-source return loop"
   ],
   "verification": {
-    "route_registration": "PENDING_CI",
-    "public_surface": "PENDING_CI",
+    "route_registration": "PASS · 36165776354",
+    "public_surface": "PASS · 36165776361",
+    "pull_request": 383,
+    "merge_sha": "5595e08aa5367ae8a32801b6fec97333b5c5492b",
     "lived_phone": "OPTIONAL / NOT_REQUIRED"
   },
   "stop": "No new HOUSE/Dayline bridge. The existing handoff remains sufficient; this change only removes a stale compatibility front door."
