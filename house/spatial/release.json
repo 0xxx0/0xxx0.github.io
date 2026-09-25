@@ -2,8 +2,8 @@
   "schema": "release-receipt/v1",
   "artifact": "HOUSE / SPATIAL",
   "route": "/house/spatial/",
-  "version": "0.6.1",
-  "released": "2026-09-20",
+  "version": "0.6.2",
+  "released": "2026-09-25",
   "state": "EXPERIMENT",
   "changes": [
     "Restored the actual interface lineage as a runnable projection workbench rather than only an index entry.",
@@ -24,7 +24,12 @@
     "Added ink sediment: room fill density accumulates from local authored visit count while directed segment width still encodes traversal count.",
     "Added explicit DAYLINE CONTEXT handoff for the currently selected spatial address.",
     "The handoff labels the selected room as planning context only; it is not presence evidence and carries current projection/mode provenance.",
-    "Transport is session-local atlas-dayline-handoff/v0.1 and requires explicit APPLY inside Dayline."
+    "Transport is session-local atlas-dayline-handoff/v0.1 and requires explicit APPLY inside Dayline.",
+    "Added session-only SHOPPING FIT PROBE for a selected Shopping Field candidate without importing shopping ownership/state authority.",
+    "FIT PROBE compares candidate OPERATING envelope against user-measured available W/D/H and may test one 90-degree plan rotation.",
+    "The fit screen is explicitly only an envelope screen; it does not prove doorway path, utilities, ventilation, load, cat clearance or installation.",
+    "Candidate fit does not mutate HOUSE model.json, spatial state, calibration, HA/HOUSEBUS state or actuation authority.",
+    "RETURN SHOPPING restores the exact selected Shopping item address."
   ],
   "checks": {
     "no_live_actuation": true,
@@ -36,7 +41,9 @@
     "trace_round_trip": "implemented; manual browser exercise still useful",
     "trace_temporal_replay": true,
     "trace_path_law_cases": "12/12 deterministic cases passed in implementation check",
-    "trace_law_truth_boundary": "game/cognitive projection only; no physical adjacency/occupancy claim"
+    "trace_law_truth_boundary": "game/cognitive projection only; no physical adjacency/occupancy claim",
+    "shopping_fit_probe": "session-only / explicit / no canonical mutation",
+    "shopping_fit_truth_boundary": "PASS/FAIL is dimensional envelope only; all other installability factors remain residue"
   },
   "sources": [
     "/house/spatial/model.json",
