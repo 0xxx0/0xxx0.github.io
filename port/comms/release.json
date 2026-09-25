@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "artifact": "HUMAN PORT / COMMS SPINE",
   "route": "/port/comms/",
-  "version": "0.1.2.1-candidate",
+  "version": "0.1.2.1",
   "date": "2026-09-23",
   "state": "MERGED_ACTIVE_CANDIDATE",
   "thesis": "One exact conversation remains canonically addressable while signal extraction, human annotation, obligation state, response coverage, bot handoff and RETURN become unequal projections beside it.",
@@ -62,7 +62,11 @@
     "/port/comms/?demo=1",
     "PR #176",
     "public-surface-check 35768470121 PASS",
-    "Route Registration 35768470033 PASS"
+    "Route Registration 35768470033 PASS",
+    "/returns/DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
+    "PR #359",
+    "public-surface-check 36148842204 PASS",
+    "Route Registration 36148842258 PASS"
   ],
   "promotion_gate": [
     "core tests preserve exact source slices through parser/signals/RETURN",
@@ -79,7 +83,7 @@
     "no chapter-summary navigation",
     "no replacement of HUMAN PORT, READFIELD, LACONIC, CONTINUITY or agent-router"
   ],
-  "next": "Current proof now requires RUN → WITNESS → COMPLETE in Dayline before exact RETURN TO SOURCE and explicit native COVER. Automated real-source browser proof is necessary but does not replace ordinary phone-use judgment.",
+  "next": "Use the merged COMMS ↔ Dayline return loop normally only when a real source-addressed signal naturally needs time/action. Ordinary phone feel is optional future evidence; revise only from concrete friction.",
   "verification": {
     "pull_request": 176,
     "merge_sha": "73ee33d3f7ac92f84b7f8acc7db2761384f456e7",
@@ -93,7 +97,19 @@
     },
     "comms_core_tests": "12/12 PASS",
     "phone_flow": "430×900 create → HUMAN mark → target ASK → draft → COVER → RETURN → source switch → resume PASS",
-    "dayline_native_return": "CLOSED_LOOP_CANDIDATE · CURRENT_MASTER_CI_PENDING · REAL_PHONE_PENDING"
+    "dayline_native_return": "MERGED_MACHINE_GREEN · RUN → WITNESS → COMPLETE → OFFER_ONLY → exact native accept",
+    "dayline_closed_loop_pr": 359,
+    "dayline_closed_loop_merge": "3ec708367add46f2ea978ebecc4984fa01e142fe",
+    "dayline_closed_loop_public_surface": {
+      "run": 36148842204,
+      "result": "PASS"
+    },
+    "dayline_closed_loop_route_registration": {
+      "run": 36148842258,
+      "result": "PASS"
+    },
+    "real_source_browser": "PASS · exact user instruction · 430×900",
+    "real_phone_ordinary_use": "OPTIONAL_OBSERVATION"
   },
   "released": "2026-09-25",
   "changes": [
