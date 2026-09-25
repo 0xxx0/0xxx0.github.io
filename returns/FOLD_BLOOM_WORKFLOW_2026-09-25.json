@@ -1,0 +1,32 @@
+{
+  "schema": "0xxx0/fold-bloom-workflow-return/v0.1",
+  "date": "2026-09-25",
+  "status": "IMPLEMENTED_CANDIDATE",
+  "purpose": "Turn the Fold/Bloom family from mechanism-first navigation into task-first mobile workflows without adding a new engine.",
+  "observed": {
+    "user_feedback": [
+      "LISTEN now kind of works on phone",
+      "scope/work-experience features still need more legible use cases",
+      "READFIELD/RSVP should be surfaced as a concrete Fold/Bloom use case",
+      "Fold/Bloom threads tend to stall; continuation should ship bounded deltas and preserve a roadmap"
+    ]
+  },
+  "delta": [
+    "/fold-bloom/ adds task-first USE IT FOR cards for READ, pulse-paced READ, LISTEN/MARK, LIVE/RIDE, LOCI and COMPOSE",
+    "/fold-bloom/lab/?mode=READ&pulse=4 now initializes READ in PACE4 mode",
+    "literal public-front \\\\n artifacts removed",
+    "new 2026-09-25 workflow roadmap preserves older roadmap as historical state"
+  ],
+  "boundaries": [
+    "no new engine",
+    "no new shared authority",
+    "FIELD PULSE remains ephemeral authority NONE",
+    "Beat Saber export remains distinct from future dual-phone FOLD//BLOOM SABER runtime"
+  ],
+  "verification": {
+    "static": "pending CI",
+    "browser": "pending CI",
+    "lived_phone": "required next"
+  },
+  "next": "Use the public task cards on phone. Revise from concrete friction; otherwise move to the pinned dual-phone saber proof or shared-session-strip only if re-entry friction is observed."
+}
