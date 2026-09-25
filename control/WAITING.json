@@ -87,6 +87,19 @@
       "removed_at": "2026-09-25",
       "removed_reason": "Natural-use routing is a future trigger, not present work.",
       "preserve_as": "HISTORICAL_DEPENDENCY"
+    },
+    {
+      "id": "fan8-passive-physical-proof",
+      "route": "/foundry/axial/",
+      "human_move": "Only when naturally useful, print /foundry/axial/fan8-print.svg at 100%, assemble one passive eight-leaf fan, and run the bounded readback/relation/use check in FAN8.md.",
+      "why": "Software/game laws are already implemented, but only handling can establish whether stack/fan/annulus topology reduces translation cost or merely makes a decorative object.",
+      "unlocks": "KEEP / REVISE / PARK the FAN/8 physical projection; only a pass may justify later camera/sensing work.",
+      "legacy_state": "WAITING_ON_PHYSICAL_USE",
+      "dependency_kind": "PHYSICAL_BUILD",
+      "surface_state": "PARKED",
+      "parked_at": "2026-09-25",
+      "parked_reason": "User is not using/building it yet; preserve the proof gate without manufacturing a current obligation.",
+      "reactivate_when": "CURRENT.current_heads[].next_executable explicitly selects FAN/8 physical proof."
     }
   ],
   "capture_protocol": {
