@@ -782,7 +782,13 @@
     "lens_support": "LensState v0.2 typed ordered contract support; support=0 stays visible; support ≠ authority. Foveation remains TEST until paired task evidence.",
     "proof_surface": "/lens-proof/ is a discoverable alias into the same FI local Lens proof state; it owns no separate canonical object/runtime.",
     "activation_law": "/control/FIELD_ACTIVATION_LAW.json",
-    "convergence_return": "/returns/FIELD_INDEX_CONVERGENCE_2026-09-21.json"
+    "convergence_return": "/returns/FIELD_INDEX_CONVERGENCE_2026-09-21.json",
+    "phi_runtime_experiment": {
+      "state": "CANDIDATE_SPIKE_ONLY",
+      "route": "/spikes/005-expression-transcript/",
+      "hypothesis": "Make Φ a derived host boundary contract (identity/source/authority/revision/channels) while φ remains the addressed runtime locus. Transcripts are transient selective expressions, never a second canonical store.",
+      "promotion_gate": "Only adopt a primitive into FIELD/INTERPHASE if ordinary use shows it prevents stale projection, authority ambiguity, context over-copying or unsafe rewind."
+    }
   },
   "last_recovery_survey": "/control/RECOVERY_SURVEY_2026-09-20_B.json",
   "last_recovery_population": "/control/RECOVERY_POPULATION_2026-09-20.json",
@@ -920,7 +926,8 @@
     "hermes_vision_loop": "/control/prompts/HERMES_VISION_LOOP_2026-09-24.md",
     "hermes_skills": "/skills/README.md",
     "hermes_fold_bloom_replay_lane": "/control/packets/HERMES_FOLD_BLOOM_REPLAY_MESSAGE_LANE_2026-09-24.md",
-    "hermes_fold_bloom_visual_lane": "/control/packets/HERMES_FOLD_BLOOM_VISUAL_GRAMMAR_LANE_2026-09-24.md"
+    "hermes_fold_bloom_visual_lane": "/control/packets/HERMES_FOLD_BLOOM_VISUAL_GRAMMAR_LANE_2026-09-24.md",
+    "field_expression_transcript": "/spikes/005-expression-transcript/"
   },
   "last_field_index_tzimtzum": "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
 }
