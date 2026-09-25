@@ -4614,11 +4614,12 @@
       "state": "STABLE",
       "machine_state": "/house/state.json",
       "showcase_card": false,
-      "role": "Addressed spatial/state projection coordinated with Home Assistant / HOUSEBUS. Spatial Engine owns address/geometry/evidence; private HA runtime owns device truth/actuation; BODY bridge carries browser-local context only.",
-      "version": "0.5",
+      "role": "Expert HOUSE state/runtime projection with an explicit primary human entry into /house/spatial/. Spatial Engine owns address/geometry/evidence; private HA runtime owns device truth/actuation; BODY bridge carries browser-local context only.",
+      "version": "0.6",
       "receipt": "/house/release.json",
       "contract": "/house/contract.json",
       "transfer": [
+        "human entry → /house/spatial/; expert state/runtime projection retained at /house/",
         "spatial addressing",
         "manual-to-sensor state",
         "HA entity mapping",
@@ -4628,7 +4629,7 @@
       ],
       "family_href": "/house/",
       "index": {
-        "updated_at": "2026-09-25T15:37:00+08:00",
+        "updated_at": "2026-09-25T21:14:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "OPERATE",
@@ -4647,7 +4648,7 @@
       "state": "ACTIVE",
       "version": "0.6",
       "receipt": "/house/spatial/release.json",
-      "role": "Runnable multi-projection spatial workbench: addressed house substrate plus TRACE ink-path, JSON round-trip/replay, temporal focus, live micro-law stacks and local path sediment.",
+      "role": "Primary human-facing HOUSE entry: runnable multi-projection spatial workbench over one addressed house substrate; TRACE/replay and local planning-context handoff remain non-actuating.",
       "transfer": [
         "plan/RCP/section/3D identity",
         "surface addressing",
@@ -4681,7 +4682,7 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-25T17:20:00+08:00",
+        "updated_at": "2026-09-25T21:14:00+08:00",
         "work_modes": [
           "RECOVER",
           "SPECIFY"
