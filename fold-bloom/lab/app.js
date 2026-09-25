@@ -205,7 +205,7 @@ $('#voiceHear')?.addEventListener('click',hearLabVoiceTarget);
 $('#voiceNext')?.addEventListener('click',()=>{voice.manualStep++;syncVoiceTarget()});
 $('#voiceBaseDown')?.addEventListener('click',()=>{voice.baseMidi=Math.max(43,voice.baseMidi-1);syncVoiceTarget()});
 $('#voiceBaseUp')?.addEventListener('click',()=>{voice.baseMidi=Math.min(76,voice.baseMidi+1);syncVoiceTarget()});
-$('[data-voice-pattern]').forEach(b=>b.onclick=()=>{voice.pattern=b.dataset.voicePattern;voice.manualStep=0;$('[data-voice-pattern]').forEach(x=>x.classList.toggle('cool',x===b));syncVoiceTarget();setStatus('VOICE · '+voice.pattern)});
+$$('[data-voice-pattern]').forEach(b=>b.onclick=()=>{voice.pattern=b.dataset.voicePattern;voice.manualStep=0;$$('[data-voice-pattern]').forEach(x=>x.classList.toggle('cool',x===b));syncVoiceTarget();setStatus('VOICE · '+voice.pattern)});
 syncVoiceTarget();document.documentElement.dataset.fieldLabVoice='ready';
 
 /* ---------- VERSE / TEXT MARKS ---------- */
