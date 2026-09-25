@@ -1,6 +1,6 @@
 {
-  "schema": "spatial-state-lineage/v0.4",
-  "updated": "2026-09-21",
+  "schema": "spatial-state-lineage/v0.5",
+  "updated": "2026-09-25",
   "canonical_id": "APP-041",
   "title": "Spatial State Engine / House OS",
   "status": "ACTIVE / COORDINATED",
@@ -56,7 +56,7 @@
     "spatial_engine": "geometry, addresses, surfaces, evidence, uncertainty, spatial state projection",
     "home_assistant_housebus": "device/entity truth, permissions and actuation",
     "mqtt": "optional event transport; never canonical authority",
-    "house_field": "public-safe static projection; never a control endpoint"
+    "house_field": "canonical public spatial/state instrument at /house/; never a control endpoint"
   },
   "bridge_contract": [
     "Stable room / surface / object / transition IDs map to Home Assistant entities through an explicit adapter.",
@@ -102,8 +102,8 @@
     ]
   },
   "operational_head": {
-    "route": "/house/spatial/",
-    "version": "0.4",
+    "route": "/house/",
+    "version": "0.7",
     "status": "RECONSTRUCTED_CURRENT_HEAD",
     "exactness": "Reconstructed from recovered Sep 3 interface/spec evidence plus the exact Sep 9 single-HTML donor; not claimed to be the exact lost Sep 3 file.",
     "machine_model": "/house/spatial/model.json"
@@ -151,7 +151,7 @@
   ],
   "trace_projection": {
     "status": "EXPERIMENT / IMPLEMENTED_V0_1",
-    "route": "/house/spatial/#TRACE",
+    "route": "/house/#TRACE",
     "rules": "/house/spatial/trace-rules.json",
     "record_schema": "house-trace/v0.1",
     "current_source": "MANUAL_LOCAL",
