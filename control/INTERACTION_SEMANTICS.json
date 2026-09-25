@@ -1,8 +1,8 @@
 {
-  "schema": "0xxx0/interaction-semantics/v0.1",
-  "updated": "2026-09-21",
+  "schema": "0xxx0/interaction-semantics/v0.2",
+  "updated": "2026-09-25",
   "purpose": "Keep navigation, reversal, evidence, and re-entry distinct across the showcase so a familiar arrow cannot silently mean several incompatible operations.",
-  "core_law": "BACK ≠ UNDO ≠ RETURN ≠ PARENT ≠ RESET",
+  "core_law": "BACK ≠ UNDO ≠ REWIND ≠ REVERT ≠ RETURN ≠ PARENT ≠ RESET",
   "operations": [
     {
       "id": "BACK",
@@ -32,6 +32,26 @@
       "owner": "artifact",
       "forbidden": "Never implement UNDO as browser BACK or by pretending an irreversible external action never happened.",
       "test": "The inverse is explicit, state-valid, and provenance records both the original operation and reversal."
+    },
+    {
+      "id": "REWIND",
+      "class": "CONTEXT_HISTORY",
+      "meaning": "Move a retained local attention, expression, or working-history pointer to an earlier frame without changing canonical domain state.",
+      "mutates_domain_state": false,
+      "creates_receipt": false,
+      "owner": "view/orientation layer",
+      "forbidden": "Do not present REWIND as if the underlying world, repository, or canonical object was undone.",
+      "test": "Canonical state is unchanged; the prior retained context boundary becomes current and forward/current reality remains recoverable."
+    },
+    {
+      "id": "REVERT",
+      "class": "COMPENSATING_ACTION",
+      "meaning": "Perform a new authorized canonical or world action intended to compensate for or reverse the effect of an earlier consequential action.",
+      "mutates_domain_state": true,
+      "creates_receipt": true,
+      "owner": "artifact/domain authority",
+      "forbidden": "Never erase or rewrite provenance to make the earlier action appear not to have happened.",
+      "test": "The original action remains in history; the compensating action has explicit authority, result, and evidence."
     },
     {
       "id": "RETURN",
@@ -97,7 +117,17 @@
       "behavior": "previous distinct showcase route; parent fallback",
       "rationale": "Keep shared BACK local to the showcase and non-mutating instead of conflating it with artifact undo or arbitrary external browser history."
     },
-    "native_browser_back": "Remains available through the browser/OS and keeps its ordinary browser semantics."
+    "native_browser_back": "Remains available through the browser/OS and keeps its ordinary browser semantics.",
+    "field_catchup_rewind": {
+      "storage": "localStorage",
+      "keys": [
+        "field.catchup.seen.v01",
+        "field.catchup.history.v01"
+      ],
+      "behavior": "MARK CAUGHT UP pushes the previous browser-local orientation boundary; REWIND restores it. Legacy marks with no retained predecessor rewind to the unmarked/all-changes view.",
+      "authority": "NONE / LOCAL CONTEXT ONLY",
+      "rationale": "Catch-up acknowledgement is an orientation pointer, not canonical read state, so accidental acknowledgement must be cheaply rewindable."
+    }
   },
   "research_anchors": [
     {
@@ -124,5 +154,14 @@
   "support_semantics": {
     "contract": "/control/SUPPORT_SEMANTICS.json",
     "law": "EXACT SET SUPPORT != TYPED TRANSITION SUPPORT != HEURISTIC CUE SUPPORT; none implies authority."
+  },
+  "reversibility_default": {
+    "law": "Prefer previewable, branchable, reversible or explicitly compensatable operations when doing so preserves meaning. Cheap local/context mutations must retain a lawful way back. Irreversible world actions require an explicit authority gate and durable evidence rather than cosmetic undo.",
+    "distinctions": [
+      "UNDO applies a meaningful inverse to a prior reversible domain mutation.",
+      "REWIND moves a retained context/history pointer backward without claiming canonical state changed.",
+      "REVERT is a new authorized compensating canonical/world action; history remains append-only.",
+      "RETURN records result/provenance/re-entry and does not itself reverse anything."
+    ]
   }
 }
