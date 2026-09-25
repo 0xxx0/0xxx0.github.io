@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-replay-return/v0.2",
   "date": "2026-09-25",
-  "status": "CANDIDATE_BRANCH__VERIFICATION_PENDING",
+  "status": "SHIPPED_VERIFIED_BRANCH",
   "object": "/fold-bloom/replay/",
   "recovered_signal": "User explicitly liked the H1 replay mechanism and requested materially deeper controls, LISTEN synchronization, word-level shaping, context explanation, visual export, and a compact shareable message-artifact link.",
   "state_before": "MESSAGE REPLAY H1 proved deterministic score-before-video but remained an isolated synthetic spike with one-line message, one retime button and no canonical LISTEN/LIVE seams.",
@@ -26,11 +26,31 @@
     "media_export": "projection only"
   },
   "verification": {
-    "route_registration": "PENDING",
-    "score_roundtrip_probe": "PENDING",
-    "replay_mobile_browser": "PENDING",
-    "listen_integration_browser": "PENDING",
-    "critical_browser_suite": "PENDING"
+    "route_registration": {
+      "run": 36090101250,
+      "status": "PASS"
+    },
+    "score_roundtrip_probe": {
+      "run": 36090101220,
+      "status": "PASS",
+      "claim": "source identity + deterministic signature survive compact share encode/decode; word-level cue mutation changes signature; default self-contained link remains <1600 chars"
+    },
+    "replay_mobile_browser": {
+      "run": 36090101220,
+      "status": "PASS",
+      "route": "/fold-bloom/replay/",
+      "viewport": "430x900"
+    },
+    "listen_integration_browser": {
+      "run": 36090101220,
+      "status": "PASS",
+      "claim": "LISTEN critical browser case includes useReplay workflow entry and all prior LISTEN controls"
+    },
+    "critical_browser_suite": {
+      "run": 36090101220,
+      "status": "PASS",
+      "cases": 63
+    }
   },
   "residue": [
     "No backend URL shortener. The link is compressed/self-contained so it works cross-device without introducing an external service or account dependency.",
@@ -38,5 +58,6 @@
     "Visual WebM currently has no source audio embedded because REPLAY does not own or duplicate LISTEN audio bytes.",
     "Lived recipient comprehension and actual messaging usefulness remain human evidence."
   ],
-  "stop": "If the promoted surface passes machine gates, stop. Next change must come from one real LISTEN-sourced message/replay use or a reproducible defect; do not expand into a general DAW/timeline/social backend."
+  "stop": "If the promoted surface passes machine gates, stop. Next change must come from one real LISTEN-sourced message/replay use or a reproducible defect; do not expand into a general DAW/timeline/social backend.",
+  "pull_request": 236
 }
