@@ -1,0 +1,27 @@
+{
+  "schema": "field-return/v1",
+  "id": "DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26",
+  "date": "2026-09-26",
+  "state": "MERGED_CI_GREEN",
+  "object": "exact Shopping item → Dayline witnessed completion → exact Shopping evidence receipt",
+  "delta": [
+    "Dayline classifies Shopping source returns as RECEIPT_ONLY with proposed_native_state UNCHANGED",
+    "Shopping revalidates route + exact item id/address + original lifecycle state + OFFER_ONLY + completed task",
+    "ACCEPT RECEIPT appends browser-local evidence only; procurement lifecycle remains native and unchanged"
+  ],
+  "invariants": [
+    "Dayline completion is not purchase/adoption truth",
+    "Shopping FOUND/BOUGHT/RECEIVED/TESTED/ADOPTED state is never inferred from Dayline",
+    "COMMS retains distinct STATE_PROPOSAL semantics",
+    "no purchase, seller message, payment, HOUSE mutation, or global bus"
+  ],
+  "proof": {
+    "pull_request": 379,
+    "merge_sha": "72050f5c12f16a4fc04460e0b757eebbf6d1b621",
+    "public_surface_run": 36165271722,
+    "route_registration_run": 36165271718,
+    "result": "PASS",
+    "browser": "430×900 WATCH item → Dayline RUN → WITNESS → COMPLETE → RETURN → ACCEPT RECEIPT → WATCH + 1 receipt"
+  },
+  "next": "No software blocker remains. Reopen only from concrete ordinary-use friction or a named Shopping-native consequence."
+}
