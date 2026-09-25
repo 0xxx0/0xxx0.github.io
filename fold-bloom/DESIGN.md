@@ -85,10 +85,12 @@ LISTEN marks are authored evidence beside the AUDIO MAP.
 
 - **BOOKMARK** = one addressed point.
 - **FLAG** = one addressed point carrying explicit human intent/attention.
-- **ARC** = one bounded addressed span, normally the current aperture.
-- Marks may carry notes and local measured features as context.
+- **ARC** = one bounded addressed span. The current aperture is a useful seed, not a frozen boundary; start/end remain explicitly editable.
+- Marks may carry notes and local measured features as context, including bounded start/end witnesses for ARC.
 - Marks never rewrite source analysis or imply semantics the user did not author.
-- Export/share carries source identity + marks, never source audio bytes unless the user separately exports the audio/map package.
+- Annotation packets are source-scoped and round-trippable: SHARE / EXPORT carries source identity + map witness + marks; IMPORT merges only when source identity matches.
+- AUDIO MAP export embeds the same annotation packet rather than creating a second marks format.
+- Sharing annotations never carries source audio bytes unless the user separately exports an audio/map package.
 
 ## Replay / message law
 
