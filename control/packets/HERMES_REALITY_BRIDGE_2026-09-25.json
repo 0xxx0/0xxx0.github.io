@@ -1,0 +1,48 @@
+{
+  "schema": "0xxx0/hermes-execution-packet/v0.1",
+  "id": "HERMES_REALITY_BRIDGE_2026-09-25",
+  "created_at": "2026-09-25",
+  "objective": "Convert one explicitly selected Dayline task into a bounded research/recovery/implementation packet that helps the human act, without taking over messaging, calendar, money, accounts, or canonical repository authority.",
+  "current_host": "/atlas-dayline/",
+  "upstream": [
+    "/port/comms/",
+    "/contact/",
+    "/fold-bloom/",
+    "/control/CURRENT.json"
+  ],
+  "trigger": {
+    "schema": "hermes-dayline-task/v0.1",
+    "source": "Explicit COPY HERMES PACKET action in Atlas Dayline LIVE 0.2",
+    "authority_creation": false
+  },
+  "authority": "READ / FETCH / RESEARCH / RECOVER / ANALYZE / PREPARE_PACKET only",
+  "do_not_touch": [
+    "Do not send or reply to messages.",
+    "Do not create/update/delete calendar events.",
+    "Do not purchase, spend, or contact sellers.",
+    "Do not write or merge canonical repository state from this packet alone.",
+    "Do not widen one Dayline task into a new framework or backlog.",
+    "Do not infer a commitment from a DERIVED COMMS signal; the upstream explicit TARGET is the promotion event."
+  ],
+  "operation": [
+    "Recover the selected task exactly, including provenance/sourceRef.",
+    "If sourceRef points to COMMS, preserve source id/message/character address and DERIVED/HUMAN origin.",
+    "State the smallest missing fact or action blocking execution.",
+    "Research/recover only what materially reduces that blocker.",
+    "Produce at most one execution packet, draft, checklist, comparison, or exact next-action recommendation.",
+    "Return and stop; do not self-assign a sequel."
+  ],
+  "return_contract": {
+    "required": [
+      "STATE",
+      "DELTA",
+      "EVIDENCE",
+      "RESIDUE",
+      "WAITING",
+      "ONE_NEXT"
+    ],
+    "rule": "ONE_NEXT must be executable and bounded; if it requires human/world authority, name the gate rather than acting through it."
+  },
+  "success": "The human can perform or authorize one clearer real-world action with less re-entry cost; no new coordination surface is created.",
+  "stop": "One bounded packet or explicit BLOCKED/NO_GAIN."
+}
