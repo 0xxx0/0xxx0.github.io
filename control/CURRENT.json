@@ -78,10 +78,10 @@
     },
     {
       "lineage": "rsvp-reader",
-      "head": "READFIELD / RSVP 0.8.2 · FOCUS LENS + APERTURE focus kernel",
+      "head": "READFIELD / RSVP 0.8.3 · TASK MODES + FOCUS-PRESERVING APERTURE",
       "state": "UTILITY / READER_FIRST / MERGED_ACTIVE_CANDIDATE",
       "route": "/docs/",
-      "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. PLAIN remains the default geometry-free performance baseline; FOCUS optionally projects AXIAL/LISTEN address+aperture rings, a Triangle-derived center frame, LISTEN FIELD PULSE and an existing Atlas glyph witness around the same cursor; MIN retains ring + ORP essentials. Instrument range is 60–6000 WPM with a 10 ms dwell floor; long-source structure uses 72 evenly sampled witnesses rather than the first 40 only. No audio/glyph authority moves into READFIELD. INTERPHASE 0.2 adapts the existing Aperture cursor as shared address/focus state; READFIELD remains text/source authority. LISTEN/AUDIO or FIELD LAB/SYNTH may lend explicit tempo/phase context through FIELD PULSE; one-tap FAST RSVP, PULSE ×4 and VOICE+EYES expose existing capabilities without changing cursor authority.",
+      "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. 0.8.3 exposes six concrete work modes—FAST, REVIEW, PULSE, VOICE, LOCI and REPO—and extends the existing APERTURE handoff so explicit reader/LOCI transitions carry bounded focus (scale/index/address/char position/source progress/WPM) instead of source text alone. READFIELD remains source/cursor authority; FIELD LAB LOCI remains a derived addressed course; FIELD PULSE remains optional clock context with authority NONE.",
       "evidence": [
         "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
         "/control/READFIELD_CONVERGENCE_2026-09-22.json",
@@ -98,22 +98,24 @@
         "/control/confluence/READFIELD_FOCUS_LENS_080_2026-09-23.json",
         "/returns/READFIELD_FOCUS_LENS_080_2026-09-23.json",
         "https://github.com/0xxx0/0xxx0.github.io/pull/177",
-        "/returns/FIELD_PULSE_CONVERGENCE_2026-09-24.json"
+        "/returns/FIELD_PULSE_CONVERGENCE_2026-09-24.json",
+        "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
+        "/returns/READFIELD_WORK_MODES_2026-09-25.json"
       ],
-      "latest_return": "/returns/FIELD_PULSE_CONVERGENCE_2026-09-24.json",
+      "latest_return": "/returns/READFIELD_WORK_MODES_2026-09-25.json",
       "merge_sha": "ace1bf8d7e1c114069f7c82651d37d0cd218af6f",
       "next_executable": {
-        "id": "readfield-focus-lens-lived-gate",
+        "id": "readfield-work-modes-lived-gate",
         "state": "HOLD_FOR_HUMAN_USE",
-        "objective": "Compare PLAIN / FOCUS / MIN on real long reading and optional LISTEN pulse. Promote only what improves orientation/RSVP without degrading reading speed or clarity.",
+        "objective": "Use FAST / REVIEW / PULSE / VOICE / LOCI on a real long source; retain only modes that reduce re-entry or improve reading/recall on phone.",
         "human_questions": [
-          "PLAIN vs FOCUS: does the ring improve position/scale awareness enough to earn screen area?",
-          "MIN: is ring + ORP sufficient for the compact/fast use case?",
-          "At 3000+ WPM, does FOCUS remain visually calm enough or should PLAIN auto-dominate?",
-          "With LISTEN pulse present, does the outer witness help cadence or become distraction?",
-          "Does Atlas glyph inside FOCUS aid source recognition or merely decorate?"
+          "Does FAST start with less chrome and preserve the place you expect?",
+          "Does REVIEW make close reading easier than manually changing scale/view?",
+          "Does READFIELD → LOCI land near the current passage rather than feeling like a restart?",
+          "Does PULSE help cadence without making the ring or clock distracting?",
+          "Which modes deserve persistent one-tap placement after repeated use?"
         ],
-        "law": "Do not add another reader/music convergence app; this decision belongs to direct use."
+        "law": "No new reader engine or universal session bus; revise from direct-use friction."
       }
     },
     {
@@ -148,7 +150,7 @@
       "head": "FOLD//BLOOM · SOURCE→MAP→IMMERSION / LIVE 0.13 / LISTEN 0.6 + MARKS / SET→LIVE / LAB / INK / VOICE / BEAT SABER PACK 0.1 / SABER 0.1 DUAL-PHONE PROOF",
       "state": "ACTIVE_CANDIDATE_UNIFIED_DOORWAY / TASK_FIRST_WORKFLOWS_SHIPPED / SABER_01_IMPLEMENTED_WAITING_REAL_DEVICE",
       "route": "/fold-bloom/",
-      "retained_function": "The canonical /fold-bloom/ doorway now begins from source continuity rather than a synthetic demo: SOURCE is the exact audio/text/set identity; MAP is measured/derived structure; IMMERSION is an optional experience projection. LIVE can hold real SOURCE-only remote playback without pretending FIELD COURSE terrain belongs to that song, and locally mapped audio retains the existing LOCAL_FILE witness. CENTER MASS has a clean-phone provider-backed source route recovered from uploaded-track metadata without publishing private Library bytes. Direct LIVE/LISTEN imports feed the existing browser-local media vault and are visibly reopenable on the same device without the normal picker path. LISTEN remains source cartographer and now turns its event-tape draft into a one-click Beat Saber v4 mapper/test ZIP with game-facing metadata kept clean, provenance in a sidecar manifest, and exact source bytes included locally; OGG/EGG is labeled audio-ready for playtest while actual editor/VR playtest remains a human gate; other formats require explicit OGG conversion. SET remains ordered/seam authority; READFIELD remains text/RSVP authority; FIELD LAB reuses canonical engines; INK and VOICE remain bounded practice projections. CLEAR/DRIVE/TRANCE/SOFT and scene names are encounter preferences, never source truth. fold-bloom/DESIGN.md is the durable product law; the 2026-09-24 thread-collapse ledger classifies repeated asks as shipped, superseded, pinned, discarded or waiting so old parallel branches do not regain authority. The next gate is lived source/re-entry/layer/export use, not another architecture pass. PR #220 fixes LISTEN's stale disabled annotation controls after map readiness and evolves source-scoped pins compatibly into BOOKMARK point, FLAG point+intent and ARC aperture span, with direct source-identity-preserving mark sharing. External Beat Saber pack export remains distinct from the newly crystallized in-family FOLD//BLOOM SABER target: two phones as LEFT/RIGHT motion controllers over the existing source transport + EVENT TAPE, producing bounded HIT TRACE without a second source store or raw-motion archive. Sep-25 work-experience pass makes the public doorway task-first (READ, pulse-paced READ, LISTEN/MARK, RIDE, LOCI, COMPOSE) and makes FIELD LAB ?mode=READ&pulse=4 initialize PACE4 honestly. Product continuation is captured in /fold-bloom/convergence/PRODUCT_ROADMAP_2026-09-25.md; no new engine or state authority is introduced. SABER 0.1 now implements the previously pinned in-family proof: LISTEN hands exact source identity + existing EVENT TAPE + addressed marks into /fold-bloom/saber/; one phone may host and act as one hand while a second LEFT/RIGHT phone pairs over direct WebRTC DataChannel with manual signaling. Host/controller monotonic clocks are bounded by ping/pong offset estimation; motion is reduced immediately to swing witnesses and only HIT/GRAZE/MISS trace persists. This is distinct from external Beat Saber pack export and still requires two-real-phone lived proof before gameplay quality claims.",
+      "retained_function": "The canonical /fold-bloom/ doorway now begins from source continuity rather than a synthetic demo: SOURCE is the exact audio/text/set identity; MAP is measured/derived structure; IMMERSION is an optional experience projection. LIVE can hold real SOURCE-only remote playback without pretending FIELD COURSE terrain belongs to that song, and locally mapped audio retains the existing LOCAL_FILE witness. CENTER MASS has a clean-phone provider-backed source route recovered from uploaded-track metadata without publishing private Library bytes. Direct LIVE/LISTEN imports feed the existing browser-local media vault and are visibly reopenable on the same device without the normal picker path. LISTEN remains source cartographer and now turns its event-tape draft into a one-click Beat Saber v4 mapper/test ZIP with game-facing metadata kept clean, provenance in a sidecar manifest, and exact source bytes included locally; OGG/EGG is labeled audio-ready for playtest while actual editor/VR playtest remains a human gate; other formats require explicit OGG conversion. SET remains ordered/seam authority; READFIELD remains text/RSVP authority; FIELD LAB reuses canonical engines; INK and VOICE remain bounded practice projections. CLEAR/DRIVE/TRANCE/SOFT and scene names are encounter preferences, never source truth. fold-bloom/DESIGN.md is the durable product law; the 2026-09-24 thread-collapse ledger classifies repeated asks as shipped, superseded, pinned, discarded or waiting so old parallel branches do not regain authority. The next gate is lived source/re-entry/layer/export use, not another architecture pass. PR #220 fixes LISTEN's stale disabled annotation controls after map readiness and evolves source-scoped pins compatibly into BOOKMARK point, FLAG point+intent and ARC aperture span, with direct source-identity-preserving mark sharing. External Beat Saber pack export remains distinct from the newly crystallized in-family FOLD//BLOOM SABER target: two phones as LEFT/RIGHT motion controllers over the existing source transport + EVENT TAPE, producing bounded HIT TRACE without a second source store or raw-motion archive. Sep-25 work-experience pass makes the public doorway task-first (READ, pulse-paced READ, LISTEN/MARK, RIDE, LOCI, COMPOSE) and makes FIELD LAB ?mode=READ&pulse=4 initialize PACE4 honestly. Product continuation is captured in /fold-bloom/convergence/PRODUCT_ROADMAP_2026-09-25.md; no new engine or state authority is introduced. SABER 0.1 now implements the previously pinned in-family proof: LISTEN hands exact source identity + existing EVENT TAPE + addressed marks into /fold-bloom/saber/; one phone may host and act as one hand while a second LEFT/RIGHT phone pairs over direct WebRTC DataChannel with manual signaling. Host/controller monotonic clocks are bounded by ping/pong offset estimation; motion is reduced immediately to swing witnesses and only HIT/GRAZE/MISS trace persists. This is distinct from external Beat Saber pack export and still requires two-real-phone lived proof before gameplay quality claims. Sep-25 reader-workflow delta preserves bounded READFIELD focus through explicit READ/LOCI handoffs.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -254,7 +256,9 @@
         "/fold-bloom/saber/",
         "/fold-bloom/saber/release.json",
         "/returns/FOLD_BLOOM_SABER_01_2026-09-25.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/225"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/225",
+        "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
+        "/returns/READFIELD_WORK_MODES_2026-09-25.json"
       ],
       "experimental": [
         {
