@@ -727,6 +727,11 @@ function drawVerse(){
     if(marked){ctx.fillStyle='#d7b46d';ctx.beginPath();ctx.arc(W*.12,p.y,active?5:3,0,TAU);ctx.fill()}
     if(active){ctx.strokeStyle='#ef7849';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(W*.18,p.y+14);ctx.lineTo(W*.82,p.y+14);ctx.stroke()}
   });
+  if(verseStepReplay.score&&verseStepReplay.sample){
+    const word=verseStepReplay.word?.text||'—',op=verseStepReplay.op||'—';
+    ctx.fillStyle='#7bd5ff';ctx.font='900 11px ui-monospace';ctx.fillText(word,W*.5,H*.12);
+    ctx.fillStyle='#ef7849';ctx.font='800 8px ui-monospace';ctx.fillText('STEP '+(verseStepReplay.index+1)+'/'+verseStepReplay.steps+' · '+op,W*.5,H*.16);
+  }
   ctx.fillStyle='#5f6d75';ctx.font='8px ui-monospace';ctx.fillText(verse.sourceKey?verse.sourceKey:'TEXT',W*.5,H*.88);
 }
 function drawRead(){
@@ -787,7 +792,7 @@ function currentProjectionEvidence(){
   if(mode==='PULSE')return {kind:'PULSE',bpm:pulse.bpm,ratio:pulse.ratio.join(':'),timbre:pulse.timbre,playing:pulse.playing,taps:pulse.taps.length,lastSync:pulse.taps.at(-1)?.score??null,voice:{pattern:voice.pattern,baseMidi:voice.baseMidi,frames:voice.frames,voiced:voice.voiced,onTargetRatio:voice.voiced?+(voice.onTarget/voice.voiced).toFixed(3):null,meanAbsCents:voice.voiced?+(voice.absCents/voice.voiced).toFixed(2):null,meanCentroidHz:voice.spectralFrames?+(voice.centroidHz/voice.spectralFrames).toFixed(1):null}};
   if(mode==='VERSE'){
     const line=currentVerseLine();
-    return {kind:'VERSE',sourceKey:verse.sourceKey||textSourceKey(String($('#verseSource').value||'')),focus:line?.address||null,line:line?line.line+1:null,marks:verse.marks.length};
+    return {kind:'VERSE',sourceKey:verse.sourceKey||textSourceKey(String($('#verseSource').value||'')),focus:line?.address||null,line:line?line.line+1:null,marks:verse.marks.length,replay:verseStepReplay.score?{step:verseStepReplay.index+1,steps:verseStepReplay.steps,progress:+((verseStepReplay.index)/Math.max(1,verseStepReplay.steps-1)).toFixed(4),word:verseStepReplay.word?.text||null,operation:verseStepReplay.op||null}:null};
   }
   if(mode==='READ'){
     const source=readerSource(),focus=boundedFocus(reader?.snapshot?.()||ensureReader()||{});
@@ -850,5 +855,5 @@ if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP')
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>lastTransport,voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>lastTransport,voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey,replay:verseStepReplay.score?{index:verseStepReplay.index,steps:verseStepReplay.steps,word:verseStepReplay.word?.text||null,operation:verseStepReplay.op||null}:null}),ride:()=>rideView(),state:()=>data.stateChange,trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
 addEventListener('pagehide',()=>{stopLabVoiceMic();try{fieldPulse.close?.()}catch(_){}});
