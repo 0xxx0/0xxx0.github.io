@@ -180,9 +180,12 @@
     "candidate_operation_merge": "5e34273bb46a09398e908d5952743ee877316ce0",
     "next_line_static": "PASS_SOURCE_CONTRACT",
     "next_line_browser": "PASS · sweep PR #370 · public-surface-check 36163811892 · critical browser smoke; canonical Jueju blank L2 START_NEXT_LINE contract",
-    "current_head_route_registration": "PASS · 36163811888",
-    "current_head_reconciliation": "PASS_PR_374 · route registration 36164425613 · public-surface-check 36164425868",
-    "current_head_merge": "d7851a68ce18aed7952aa588b97d79db3e65951f"
+    "current_head_route_registration": "PASS · 36195543629",
+    "current_head_reconciliation": "PASS_CURRENT_MASTER · public-surface-check 36196361625 · convergence-validate 36196361631 · pages 36196360431",
+    "current_head_merge": "d7851a68ce18aed7952aa588b97d79db3e65951f",
+    "recenter_pr": 394,
+    "recenter_merge": "9efa232a47f1d229794f46349d582aa8ee4fe2b4",
+    "verified_master": "4031fd0d5d4267481579db3d3ccea411d5acff11"
   },
   "updated": "2026-09-26",
   "next_bounded_test": {
