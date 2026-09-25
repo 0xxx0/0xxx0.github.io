@@ -1,0 +1,33 @@
+{
+  "schema": "field-return/v1",
+  "id": "VERSE_ROUNDTRIP_RETURN_2026-09-25",
+  "date": "2026-09-25",
+  "state": "CANDIDATE_PENDING_CI",
+  "objective": "Close Poem Map projection loops without moving poem authorship: Poem Map → FIELD LAB VERSE / Verse Atlas → exact Poem Map caller.",
+  "object": "Poem Map source + exact focus + caller address",
+  "operation": "PROJECT → INSPECT / MARK / STUDY → RETURN",
+  "changed": [
+    "/fold-bloom/lab/index.html",
+    "/fold-bloom/lab/app.js",
+    "/fold-bloom/lab/release.json",
+    "/foundry/verse-atlas/index.html",
+    "/foundry/verse-atlas/app.js",
+    "/foundry/verse-atlas/style.css",
+    "/foundry/verse-atlas/release.json",
+    "/tools/validate-public.mjs"
+  ],
+  "invariants": [
+    "Poem Map remains poetry authoring authority.",
+    "FIELD LAB marks remain local source evidence and are not written back on RETURN.",
+    "Verse Atlas accepts only exact four-line × seven-Han source handoffs.",
+    "Inbound focus remains projection-only and creates no path, claim, candidate, lock, or revision.",
+    "Caller addresses are accepted only when same-origin and are reduced to pathname + search + hash.",
+    "RETURN is navigation-only; durable truth remains each surface's own RETURN receipt."
+  ],
+  "proof": {
+    "static_contract": "implemented",
+    "ci": "pending pull request",
+    "lived_phone": "pending one real-browser Poem Map → LAB → return and Poem Map → Verse Atlas → return loop"
+  },
+  "next": "If CI is green, merge; then sync CURRENT/manifest only if live head metadata has drifted. Human gate is one phone round-trip, not more architecture."
+}
