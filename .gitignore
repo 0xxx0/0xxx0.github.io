@@ -1,0 +1,90 @@
+# ⛔ SECRETS — MUST NEVER BE COMMITTED
+#
+# WHY THIS FILE EXISTS, AND WHY IT DID NOT UNTIL NOW
+#   `void-anchor` had NO .gitignore at all, while its git remote is
+#   https://github.com/0xxx0/0xxx0.github.io — a PUBLIC repository.
+#   A non-empty `.env` (160 bytes) sat untracked and unignored, alongside
+#   `scripts/set-hermes-telegram-token.py`. A single `git add -A` from any
+#   session or subagent would have published live credentials to GitHub.
+#
+#   This file is ADDITIVE. It removes nothing and ignores nothing that was
+#   previously tracked. If a path here was already tracked, `git rm --cached`
+#   is a separate, deliberate act — not performed here.
+#
+#   Hermes invariant: secrets in .env, settings in config.yaml.
+
+# --- credentials and env ---
+.env
+.env.*
+!.env.example
+*.env
+*.pem
+*.key
+*.p12
+*.pfx
+*.asc
+credentials*.json
+secrets*.json
+*token*.json
+*secret*
+auth.json
+auth.lock
+
+# --- provider / API keys in any form ---
+*_api_key*
+*apikey*
+*.token
+.openrouter
+anthropic*.txt
+openai*.txt
+
+# --- token-handling scripts (they read secrets; they should not ship) ---
+scripts/set-hermes-telegram-token.py
+scripts/check_or_credits.py
+
+# --- Hermes runtime state (machine-local, not source) ---
+.hermes/
+hermes-workspace/node_modules/
+hermes-workspace/dist/
+__pycache__/
+*.pyc
+.claude/
+session-*.jsonl
+
+# --- macOS and editor noise ---
+.DS_Store
+._*
+.idea/
+.vscode/
+*.swp
+*~
+
+# --- large local material that is not repo content ---
+# (the archive and backups are sources, not site assets — see PUBLISHING_BOUNDARY)
+ChatGPT-Backup-*/
+*.zip
+*.dmg
+*.pkg
+
+# --- the reversible staging area: undecided files, not discards ---
+# QUARANTINE != DELETE. This is 22 GB awaiting a human decision.
+delete/crushed-*/
+reclaimed-*/
+
+# --- ADDED 2026-09-25 by kestrel after finding private data staged for a PUBLIC remote ---
+# The existing rule only covered session-*.jsonl, which missed the files actually at
+# risk. Anything under AXIS/work/**/cache/ is raw conversation text or source bytes.
+# Nothing here was previously tracked-and-then-removed, except where noted below.
+**/msgs.jsonl
+**/cache/
+**/_rescued-*/
+**/*_user.tsv
+**/candidates.tsv
+**/*__raw/
+# the extracted third-party research library: kept on disk, must not be published
+AXIS/library/GLYPH-VIS-READING/*.pdf
+AXIS/library/GLYPH-VIS-READING/*.docx
+AXIS/library/GLYPH-VIS-READING/*.epub
+# other agents' private/experimental trees
+*_archives/
+AXIS/work/**/quarantine/
