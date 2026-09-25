@@ -18,9 +18,10 @@ let dragging=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
 let demo={on:false,timer:0,releases:0,preview:false,startState:null,startRide:null,startTape:null,startArc:null};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
-let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),lastHudAt=0,sourceLandmarks=[],textOn=true,lastTextKey='',lastDropHapticId=null,rideProfile=normalizeRideProfile(),layerMode='IMMERSION',vaultCache=[],perf={emaMs:16.7,fps:60,modelHz:0};
+let linkedTrack=null,externalTrack=null,lastLinkedBeat=-1,trackStatus='FIELD COURSE',sectionArc=createSectionArc(),deformationTape=[],ride=createRideState(),latestWorld=null,lastLoopT=performance.now(),lastHudAt=0,sourceLandmarks=[],textOn=true,lastTextKey='',lastDropHapticId=null,rideProfile=normalizeRideProfile(),layerMode='IMMERSION',vaultCache=[],publicDemoReady=false,publicDemoLoading=null,perf={emaMs:16.7,fps:60,modelHz:0};
 const CENTER_MASS_SOURCE='2b09a703-1881-4471-bf65-cc51c976d32c';
 const CENTER_MASS_URL='https://cdn1.suno.ai/'+CENTER_MASS_SOURCE+'.mp3';
+const PUBLIC_DEMO_URL='./demo/center-mass-demo.mp3';
 const RIDE_PRESETS=Object.freeze({
   CLEAR:{solidity:1,immersion:.82,dropGain:.82,anticipation:.88,motionGain:.82},
   DRIVE:{solidity:1,immersion:1.12,dropGain:1.28,anticipation:1.12,motionGain:1.18},
@@ -281,6 +282,42 @@ async function enterCenterMass(){
   }
 }
 
+
+async function preparePublicDemo(){
+  if(publicDemoReady&&liveTrack.mapped())return true;
+  if(publicDemoLoading)return publicDemoLoading;
+  publicDemoLoading=(async()=>{
+    document.documentElement.dataset.foldBloomDemoSource='loading';
+    trackStatus='LOADING · PUBLIC AUDIO EXAMPLE';update();
+    const response=await fetch(PUBLIC_DEMO_URL,{cache:'force-cache'});
+    if(!response.ok)throw Error('PUBLIC DEMO '+response.status);
+    const blob=await response.blob(),file=new File([blob],'CENTER MASS — public demo excerpt.mp3',{type:blob.type||'audio/mpeg'});
+    stopDemo(false);liveTrack.clearSource();deformationTape=[];sectionArc=createSectionArc();ride=createRideState();latestWorld=null;linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;
+    await liveTrack.loadFiles([file]);
+    $('#trackAudio').pause();$('#trackAudio').loop=true;
+    layerMode='IMMERSION';renderer.setProfile(effectiveRideProfile());syncLayerUI();
+    publicDemoReady=true;trackStatus='READY · PUBLIC DEMO · CENTER MASS';
+    document.documentElement.dataset.foldBloomDemoSource='ready';
+    for(const id of ['#publicDemoBtn','#publicDemoSettingsBtn']){const b=$(id);if(b)b.textContent='PLAY AUDIO EXAMPLE'}
+    update();return true;
+  })().catch(error=>{
+    console.warn(error);publicDemoReady=false;document.documentElement.dataset.foldBloomDemoSource='error';
+    trackStatus='FIELD COURSE · PUBLIC DEMO UNAVAILABLE';update();toast('AUDIO EXAMPLE UNAVAILABLE');return false;
+  }).finally(()=>{publicDemoLoading=null});
+  return publicDemoLoading;
+}
+async function enterPublicDemo(){
+  stopDemo(false);
+  const wasReady=publicDemoReady&&liveTrack.mapped(),ok=wasReady?true:await preparePublicDemo();
+  if(!ok)return false;
+  if(!wasReady){toast('AUDIO EXAMPLE READY · TAP PLAY');return false}
+  $('#intro').classList.remove('on');applyLayerMode('IMMERSION',false);
+  const played=$('#trackAudio').paused?await liveTrack.toggle().then(()=>true).catch(()=>false):true;
+  if(!played||$('#trackAudio').paused){syncSoundGate(true,'SOURCE');toast('AUDIO EXAMPLE READY · TAP FOR SOURCE')}
+  else{syncSoundGate(false,'SOURCE');toast('CENTER MASS EXCERPT · SOURCE + MAP + IMMERSION');if(!demo.on)startDemo({preview:true,playTrack:false})}
+  update();return played;
+}
+
 function steerRide(dir){
   const out=chooseRideBranch(ride,dir,latestWorld,Number(linkedTrack?.time)||0);
   ride=out.state;
@@ -421,6 +458,7 @@ $('#menuBtn').onclick=()=>$('#settings').classList.toggle('on');$('#closeSetting
 $('#vol').value=Math.round(audio.volume*100);$('#vol').oninput=e=>audio.setVolume(+e.target.value/100);
 $('#trackVol').value=Math.round($('#trackAudio').volume*100);$('#trackVol').oninput=e=>liveTrack.setVolume(+e.target.value/100);
 $('#trackLoad').onclick=()=>{stopDemo(true);$('#trackFile').click()};$('#songIntroBtn').onclick=()=>{stopDemo(false);$('#trackFile').click()};
+$('#publicDemoBtn')?.addEventListener('click',()=>{void enterPublicDemo()});$('#publicDemoSettingsBtn')?.addEventListener('click',()=>{void enterPublicDemo()});
 $('#centerMassBtn')?.addEventListener('click',()=>{void enterCenterMass()});$('#centerMassSettingsBtn')?.addEventListener('click',()=>{void enterCenterMass()});
 $('#vaultOpen')?.addEventListener('click',()=>{void openVaultSource()});
 $('#trackFile').onchange=e=>loadLocalSong(e.target.files);
@@ -535,10 +573,11 @@ function loop(t){
 }raf=requestAnimationFrame(loop);
 syncRideProfile();syncLayerUI();refreshVault();update();
 document.documentElement.dataset.foldBloomLive='ready';document.documentElement.dataset.foldBloomPov='embodied-v0.4';document.documentElement.dataset.foldBloomMacroDrop='v0.2';document.documentElement.dataset.foldBloomIdleLaw='witness-v0.1';document.documentElement.dataset.foldBloomIdle='off';document.documentElement.dataset.foldBloomAutopilot='off';document.documentElement.dataset.foldBloomLandmarks='0';
-window.FoldBloomLive={boot:'ready',version:VERSION,state:()=>({...snapshot(state),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:liveTrack.metadata(),rideProfile:{...rideProfile},layerMode,autopilot:demo.on,perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},reset:resetLiveState,practice:()=>practiceTrack.map};
+window.FoldBloomLive={boot:'ready',version:VERSION,state:()=>({...snapshot(state),linkedTrack,sectionArc,deformationTape,ride,trackfield:latestWorld,textWitness:liveTrack.textWitness(undefined,rideProfile.textOffset),sourceMeta:liveTrack.metadata(),rideProfile:{...rideProfile},layerMode,publicDemoReady,autopilot:demo.on,perf:{fps:+perf.fps.toFixed(1),modelSlices:innerWidth<620?46:56}}),loadFiles:loadLocalSong,openExample:enterPublicDemo,prepareExample:preparePublicDemo,openCenterMass:enterCenterMass,refreshVault,release:doRelease,step,forecast:()=>currentForecast(),timing:()=>timingNow(),sectionArc:()=>sectionArcView(sectionArc,linkedTrack),trackfield:()=>latestWorld,deformations:()=>deformationTape.map(x=>({...x})),ride:()=>rideView(ride,latestWorld),layers:{apply:applyLayerMode,current:()=>layerMode},autopilot:{start:()=>startDemo({preview:true,playTrack:true}),stop:()=>stopDemo(true),toggle:toggleAutopilot},profile:{apply:applyRidePreset,current:()=>({...rideProfile}),name:()=>ridePresetName()},reset:resetLiveState,practice:()=>practiceTrack.map};
 const launchParams=new URLSearchParams(location.search),launchPreset=String(launchParams.get('profile')||'').toUpperCase(),launchLayer=String(launchParams.get('layer')||'').toUpperCase(),launchSource=String(launchParams.get('source')||'').toLowerCase();
 if(RIDE_PRESETS[launchPreset])applyRidePreset(launchPreset,false);
 if(['SOURCE','MAP','IMMERSION'].includes(launchLayer))applyLayerMode(launchLayer,false);
-if(launchSource==='center-mass'){document.documentElement.dataset.foldBloomLaunch='legacy-center-mass';setTimeout(()=>{if($('#intro').classList.contains('on')&&!demo.on)startDemo({preview:true});toast('OLD CENTER MASS LINK · LIVE RESTORED · REMOTE IS OPTIONAL')},180)}
+if(launchSource==='example'){document.documentElement.dataset.foldBloomLaunch='public-demo';preparePublicDemo().then(ok=>{if(ok)toast('AUDIO EXAMPLE READY · TAP PLAY')})}
+else if(launchSource==='center-mass'){document.documentElement.dataset.foldBloomLaunch='legacy-center-mass';setTimeout(()=>{if($('#intro').classList.contains('on')&&!demo.on)startDemo({preview:true});toast('OLD CENTER MASS LINK · LIVE RESTORED · REMOTE IS OPTIONAL')},180)}
 else if(launchParams.get('demo')==='1'){document.documentElement.dataset.foldBloomLaunch='demo';setTimeout(()=>{$('#intro').classList.remove('on');syncSoundGate(!audio.ctx,'FIELD');startDemo({preview:true});toast('FIELD COURSE · TAP FOR FIELD SOUND')},180)}
 else setTimeout(()=>{if($('#intro').classList.contains('on')&&!demo.on)startDemo({preview:true})},650);
