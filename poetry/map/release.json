@@ -123,7 +123,7 @@
     "checked_at": "2026-09-21T16:18:00+08:00",
     "transaction_markers": [
       "PREVIEW SOURCE UNCHANGED",
-      "LOCK blocks ADOPT",
+      "LOCK blocks REPLACE adoption; CONTINUE preserves locked token",
       "revision ancestry exported",
       "UNDO ADOPT"
     ],
