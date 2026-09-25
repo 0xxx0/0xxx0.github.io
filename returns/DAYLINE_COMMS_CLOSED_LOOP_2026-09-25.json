@@ -1,0 +1,37 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "DAYLINE_COMMS_CLOSED_LOOP_2026-09-25",
+  "date": "2026-09-25",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "source_instruction": "Run the real COMMS OPEN signal → Dayline → act and witness → RETURN TO SOURCE loop, then report whether PR #296 is ready to merge.",
+  "object": "one exact HUMAN ASK across COMMS → Dayline → completed Dayline task → OFFER_ONLY → exact COMMS native acceptance",
+  "recovered_from": [
+    "PR #296 candidate",
+    "PR #322 parked reality-gap record",
+    "public-surface-check 36132297391 real-source loop PASS"
+  ],
+  "defect_found": "The prior real-source smoke left the Dayline task OPEN. Completing it ejected the selected object before RETURN, so a truly completed task could not emit its source receipt.",
+  "delta": [
+    "completed source-linked task remains selected/held through RETURN",
+    "Dayline RETURN packet carries task status DONE and proposes COVERED without applying it",
+    "source receipt is emitted before Dayline releases completed focus",
+    "post-RETURN focus moves to the next open task or none",
+    "COMMS still requires exact source SHA + signal id + message/range and explicit native acceptance",
+    "real-source smoke now requires RUN → WITNESS → COMPLETE → RETURN → COVERED"
+  ],
+  "boundaries": [
+    "no send",
+    "no automatic COMMS mutation",
+    "no global bus/store",
+    "no HOUSE/SHOPPING generalization",
+    "no claim of real-phone tactile proof"
+  ],
+  "verification": {
+    "prior_real_source_browser": "PASS · run 36132297391 · prior OPEN-task variant",
+    "current_closed_loop_ci": "PENDING",
+    "current_route_registration": "PENDING",
+    "real_phone_ordinary_use": "PENDING_USER"
+  },
+  "merge_readiness_law": "CI can prove the exact-source closed-loop implementation. It cannot by itself prove that the round trip feels like continuity rather than duplicate bookkeeping on the user's actual phone.",
+  "next": "Run current-master CI. If green, classify implementation READY_BY_MACHINE / STILL_REALITY_GATED; do not silently convert that into lived-phone proof."
+}
