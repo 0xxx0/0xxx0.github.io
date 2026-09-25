@@ -648,10 +648,13 @@ function cross(){
   ctx.strokeStyle='#132029';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(W/2,0);ctx.lineTo(W/2,H);ctx.moveTo(0,H/2);ctx.lineTo(W,H/2);ctx.stroke();
 }
 function drawRide(t){
-  clear(PROFILES[profile].trail);cross();const p=PROFILES[profile],cx=W/2,hz=H*.42,phase=(t*.00014*p.motion)%1;
-  ctx.strokeStyle='rgba(123,213,255,.35)';ctx.lineWidth=1;
-  for(let i=0;i<12;i++){const q=((i/12+phase)%1),y=hz+(H-hz)*q*q,xspan=W*(.04+.52*q*q);ctx.beginPath();ctx.moveTo(cx-xspan,y);ctx.lineTo(cx+xspan,y);ctx.stroke()}
-  ctx.strokeStyle='rgba(239,120,73,.55)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx-W*.035,hz);ctx.lineTo(W*.13,H);ctx.moveTo(cx+W*.035,hz);ctx.lineTo(W*.87,H);ctx.stroke();
+  clear(PROFILES[profile].trail);cross();
+  const p=PROFILES[profile],v=rideView(),tr=v.transport||{},cx=W/2,hz=H*.40,phase=(v.progress*3.6)%1,energy=Math.max(.08,Number(tr.energy)||.2),bright=Math.max(.08,Number(tr.brightness)||.4);
+  ctx.strokeStyle='rgba(123,213,255,'+(.18+.28*bright)+')';ctx.lineWidth=1;
+  for(let i=0;i<12;i++){const q=((i/12+phase)%1),y=hz+(H-hz)*q*q,xspan=W*(.035+(.42+.12*energy)*q*q);ctx.beginPath();ctx.moveTo(cx-xspan,y);ctx.lineTo(cx+xspan,y);ctx.stroke()}
+  ctx.strokeStyle='rgba(239,120,73,'+(.34+.38*energy)+')';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx-W*.035,hz);ctx.lineTo(W*.13,H);ctx.moveTo(cx+W*.035,hz);ctx.lineTo(W*.87,H);ctx.stroke();
+  ctx.fillStyle='#d7b46d';ctx.font='800 9px ui-monospace';ctx.textAlign='center';ctx.fillText('TURN '+v.turn+'/'+v.count+' · S'+(Math.max(0,Number(tr.sectionIndex)||0)+1)+' · '+Math.round(v.progress*100)+'%',cx,H*.16);
+  const op=rideState.operations.at(-1);if(op){ctx.fillStyle='#ef7849';ctx.fillText(op.operation+' @ '+op.turn,cx,H*.20)}
 }
 function updatePulseReadout(data){
   if($('#pulseClock'))$('#pulseClock').textContent=data.playing?'OUT':'LAST';
@@ -742,6 +745,7 @@ function drawData(){
 }
 function tick(now){
   const dt=Math.min(.05,(now-last)/1000);last=now;
+  if(rideFlow&&mode==='RIDE'&&now-rideFlowAt>520){rideFlowAt=now;moveRide(1)}
   if(read.started&&!read.paused&&read.tokens.length){const dwell=60000/read.wpm;read.ghost=Math.min(read.tokens.length,Math.floor((now-read.startAt)/dwell));syncReadUI()}
   analyzeLabVoice(now);
   if(mode==='RIDE')drawRide(now);else if(mode==='PULSE')drawPulse(now);else if(mode==='VERSE')drawVerse();else if(mode==='READ')drawRead();else if(mode==='LOCI')drawLoci();else if(mode==='INK')drawInk(now);else if(mode==='DATA')drawData();
@@ -770,7 +774,7 @@ function currentProjectionEvidence(){
     const change=data.stateChange;
     return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits)}:null};
   }
-  return {kind:'RIDE',target:'/fold-bloom/live/'};
+  const rv=rideView(),rt=rv.transport||{};return {kind:'RIDE',projection:'STEP',target:'/fold-bloom/live/',turn:rv.turn,count:rv.count,time:+rv.time.toFixed(3),progress:+rv.progress.toFixed(4),scope:rideState.scope,sectionIndex:Number(rt.sectionIndex)||0,beatIndex:Number(rt.beatIndex)||0,energy:+(Number(rt.energy)||0).toFixed(4),operations:rideState.operations.slice(-16)};
 }
 function labReturnPacket(){
   recordLabTrace('RETURN');
