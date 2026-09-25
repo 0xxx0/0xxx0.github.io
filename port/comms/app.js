@@ -7,6 +7,7 @@ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const SESSION='human.port.comms-spine.session.v01';
 const PINNED='human.port.comms-spine.pinned.v01';
 const PORT_SESSION='human.port.object.session.v01';
+const DAYLINE_RETURN='atlas.dayline.source-return.v01';
 const enc=new TextEncoder();
 
 let state={
@@ -172,9 +173,39 @@ function renderCompose(){
   const packet=buildAgentPacket({doc:state.doc,signals:ss,draft:state.draft,title:state.title});
   $('#packetPreview').textContent=JSON.stringify(packet,null,2);
 }
+function readDaylineReturnOffer(){
+  try{
+    const bundle=JSON.parse(sessionStorage.getItem(DAYLINE_RETURN)||'null');
+    if(!bundle||bundle.schema!=='atlas-dayline-source-return-bundle/v0.1'||!Array.isArray(bundle.offers))return null;
+    const age=Date.now()-Date.parse(bundle.created_at||0);if(!Number.isFinite(age)||age<0||age>43200000){sessionStorage.removeItem(DAYLINE_RETURN);return null}
+    return bundle.offers.find(o=>o?.schema==='atlas-dayline-source-return/v0.1'&&o?.authority==='OFFER_ONLY'&&o?.source?.route==='/port/comms/'&&o.source.object_id===state.sourceId)||null
+  }catch(_){return null}
+}
+function consumeDaylineReturnOffer(id){
+  try{
+    const bundle=JSON.parse(sessionStorage.getItem(DAYLINE_RETURN)||'null');if(!bundle?.offers)return;
+    bundle.offers=bundle.offers.filter(o=>o.id!==id);
+    if(bundle.offers.length)sessionStorage.setItem(DAYLINE_RETURN,JSON.stringify(bundle));else sessionStorage.removeItem(DAYLINE_RETURN)
+  }catch(_){}
+}
+function offerSignal(o){
+  const a=o?.source?.address||{};
+  return signals().find(x=>x.id===o?.source?.signal_id&&x.messageId===a.message_id&&x.start===a.start&&x.end===a.end)||null
+}
+function renderDaylineReturnOffer(){
+  const host=$('#daylineReturnOffer');if(!host)return;const o=state.doc?readDaylineReturnOffer():null;
+  if(!o){host.hidden=true;return}
+  const sig=offerSignal(o),task=o.task||{},w=o.witness||{},fresh=!!sig&&sig.state==='OPEN';
+  host.hidden=false;$('#daylineReturnMeta').textContent=(sig?(sig.kind+' · '+sig.origin+' · '+fmtAddr(sig.start,sig.end)+' · SOURCE '+sig.state):'EXACT SOURCE SIGNAL UNRESOLVED')+' · DAYLINE '+(task.status||'open')+' · '+(w.return_class||'RETURN')+' · '+(w.after_checksum||'no checksum')+(fresh?'':' · OFFER STALE / READ ONLY');
+  const locate=$('#daylineLocate'),cover=$('#daylineCover'),defer=$('#daylineDefer'),keep=$('#daylineKeep'),dismiss=$('#daylineDismiss');
+  locate.disabled=!sig;cover.disabled=!fresh;defer.disabled=!fresh;keep.disabled=!fresh;
+  locate.onclick=()=>sig&&jumpSignal(sig);
+  const accept=next=>{if(!fresh)return;state.states[sig.id]=next;if(next==='COVERED')state.coverageLinks=[...new Set([...state.coverageLinks,sig.id])];if(next==='OPEN')state.coverageLinks=state.coverageLinks.filter(id=>id!==sig.id);persist();consumeDaylineReturnOffer(o.id);render();toast('DAYLINE OFFER → '+next)};
+  cover.onclick=()=>accept('COVERED');defer.onclick=()=>accept('DEFERRED');keep.onclick=()=>accept('OPEN');dismiss.onclick=()=>{consumeDaylineReturnOffer(o.id);renderDaylineReturnOffer();toast('DAYLINE OFFER DISMISSED')}
+}
 function render(){
-  if(!state.doc){document.documentElement.dataset.commsSpine='idle';showIntake();renderSpine();renderSource();renderSignals();renderCompose();return}
-  hideIntake();renderSpine();renderSource();renderSignals();renderCompose();
+  if(!state.doc){document.documentElement.dataset.commsSpine='idle';showIntake();renderSpine();renderSource();renderSignals();renderCompose();renderDaylineReturnOffer();return}
+  hideIntake();renderSpine();renderSource();renderSignals();renderCompose();renderDaylineReturnOffer();
   const ss=signals();document.documentElement.dataset.commsSpine='ready';document.documentElement.dataset.commsMessages=String(state.doc.messages.length);document.documentElement.dataset.commsSignals=String(ss.length);document.documentElement.dataset.commsOpen=String(ss.filter(x=>x.state==='OPEN').length);
 }
 async function copy(text,label='COPIED'){
