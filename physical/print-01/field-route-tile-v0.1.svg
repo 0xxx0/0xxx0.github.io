@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="297mm" height="210mm" viewBox="0 0 297 210">
-  <title>PRINT-01 FIELD ROUTE TILE v0.1</title>
+  <title>PRINT-01 FIELD ROUTE TILE v0.1.1</title>
   <desc>One reversible 120 x 45 mm physical route tile with 100 mm print calibration and explicit source/return identity. Print at 100 percent / Actual Size / no fit-to-page.</desc>
   <style>
     text{font-family:"DejaVu Sans Mono","Courier New",monospace;fill:#000}
@@ -15,7 +15,7 @@
 
   <!-- page / calibration -->
   <rect x=".5" y=".5" width="296" height="209" class="guide"/>
-  <text x="12" y="14" class="h">PRINT-01 / FIELD ROUTE TILE / v0.1</text>
+  <text x="12" y="14" class="h">PRINT-01 / FIELD ROUTE TILE / v0.1.1</text>
   <text x="12" y="20" class="s">PRINT: 100% · ACTUAL SIZE · NO FIT-TO-PAGE. Written dimensions are authoritative.</text>
   <text x="12" y="25" class="s">Before cutting: measure the calibration line below. PASS only if it is 100 mm ± 1 mm.</text>
 
@@ -56,8 +56,8 @@
   <text x="94" y="106" class="s">φ FOCUS  __________________________________</text>
   <text x="94" y="111" class="s">RETURN   /</text>
 
-  <text x="94" y="115" class="xs">REV 0.1 · TILE 120 × 45 mm · SOURCE:</text>
-  <text x="94" y="118.9" class="xs">0xxx0/0xxx0.github.io / physical/print-01/field-route-tile-v0.1.svg</text>
+  <text x="94" y="113.6" class="xs">REV 0.1.1 · TILE 120 × 45 mm · SOURCE:</text>
+  <text x="94" y="116.3" class="xs">0xxx0/0xxx0.github.io / physical/print-01/field-route-tile-v0.1.svg</text>
 
   <!-- witness / fallback strip -->
   <rect x="38" y="143" width="221" height="42" class="guide"/>
