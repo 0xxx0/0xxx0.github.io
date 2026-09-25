@@ -1,0 +1,61 @@
+{
+  "schema": "field-return/v1",
+  "kind": "FOLD_BLOOM_STATE_LANGUAGE_RETURN",
+  "version": "0.1",
+  "date": "2026-09-25",
+  "status": "CANDIDATE",
+  "branch": "chatgpt/fold-bloom-state-language-v01-20260925",
+  "problem": [
+    "User could see the 0.4 commits but not the hexagram UI on the live site.",
+    "The six-line puzzle grammar was useful but trapped inside PLAY instead of being a reusable state-change language."
+  ],
+  "observed": {
+    "live_index": "Loaded ./play.js at a stable URL with no cache token.",
+    "play_dependencies": "PLAY imported engine/play-core at stable URLs.",
+    "risk": "A phone/browser could retain a stale module graph and fail PLAY 0.4 before hex UI injection."
+  },
+  "delta": [
+    "Add explicit module revision boundaries: play.js?v=0.4.1 → play-core.js?v=0.4.1 → state-language.js?v=0.1.",
+    "Extract neutral six-line state grammar to /fold-bloom/state-language.js.",
+    "Define portable notation H[lower|upper] Δ{lines} → H[lower|upper].",
+    "FIELD LAB / DATA now edits and draws before/after six-line states, connects changed lines, and copies the token.",
+    "Tapping an AFTER line in the Lab visual field flips that state bit directly.",
+    "PLAY RETURN now carries stateLanguage target/authored/delta evidence.",
+    "Public Fold//Bloom front now exposes HEX PUZZLE directly."
+  ],
+  "state_language": {
+    "example": "H[010|100] Δ{3,5} → H[011|110]",
+    "ordering": "six bits bottom→top; positions 1–3 lower group, 4–6 upper group",
+    "authority": "bits + delta positions",
+    "optional_lens": "trigram glyph/name",
+    "reversibility": "apply the same Δ positions again to recover the prior binary state"
+  },
+  "enacted_surfaces": {
+    "live": "PUZZLE uses six-line construction and cache-pinned grammar.",
+    "lab": "DATA projects arbitrary before/after state and editable Δ.",
+    "public_front": "Direct HEX PUZZLE entry.",
+    "return": "PLAY export carries shared state language."
+  },
+  "candidates_not_enacted": [
+    "Use state tokens in agent/chat handoffs when there are exactly six explicit binary conditions.",
+    "Verse/Poem Map line-state projection where six addressed conditions genuinely exist.",
+    "FAN/8 physical encoding of state/delta if a real controller use calls for it.",
+    "House/sensing six-condition snapshots only when thresholds are explicit and domain-valid.",
+    "Ecology inheritance genotype-style use where exactly six inherited traits are selected.",
+    "Two Dial as a transition constraint donor without collapsing its relation algebra into state grammar."
+  ],
+  "invariants": [
+    "The six-bit grammar is a lens, not the underlying object.",
+    "Do not force arbitrary objects into six dimensions.",
+    "Yijing supplies formal line/trigram grammar; Fold//Bloom supplies local topology semantics.",
+    "No divination claim.",
+    "LIVE engine remains gameplay authority."
+  ],
+  "verification": {
+    "state_language_tests": "PENDING_CI",
+    "live_gameplay_suite": "PENDING_CI",
+    "field_lab_browser_boot": "PENDING_CI",
+    "critical_browser_smoke": "PENDING_CI",
+    "real_phone_visibility": "HUMAN_GATE"
+  }
+}

@@ -4,6 +4,7 @@ import {createFieldPulse} from '../../lib/field-pulse.js';
 import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, boundedFocus} from './read-bridge.js';
 import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
+import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -406,7 +407,7 @@ function stepInk(){
 }
 
 /* ---------- DATA ---------- */
-const data={nodes:[],maxDepth:0,aperture:8,focus:-1};
+const data={nodes:[],maxDepth:0,aperture:8,focus:-1,stateChange:null};
 function flattenData(value,path='$',depth=0,parent=-1,out=[]){
   if(out.length>=72)return out;const i=out.length,type=Array.isArray(value)?'array':value===null?'null':typeof value;
   out.push({path,value:(value&&typeof value==='object')?type:String(value),depth,parent,type});
@@ -422,10 +423,70 @@ function loadData(){
 }
 $('#dataLoad').onclick=loadData;loadData();
 
+function stateLabel(desc){
+  if(!desc?.valid)return 'INVALID';
+  return (desc.lower?.glyph||'')+' '+(desc.lower?.key||'OPEN')+' / '+(desc.upper?.glyph||'')+' '+(desc.upper?.key||'OPEN');
+}
+function syncStateChange(){
+  const change=stateChange($('#stateFrom')?.value,$('#stateTo')?.value);
+  data.stateChange=change;
+  if($('#stateToken'))$('#stateToken').textContent=change.token;
+  if($('#stateFromName'))$('#stateFromName').textContent=stateLabel(change.from);
+  if($('#stateToName'))$('#stateToName').textContent=stateLabel(change.to);
+  if($('#stateDelta'))$('#stateDelta').textContent=change.moving.length?change.moving.join(','):'∅';
+  if(change.valid){setSource('STATE / LOCAL');setStatus('DATA · '+change.token);setAddress('field://lab/data/state/'+formatState(change.to.bits))}
+  else setStatus('DATA · STATE NEEDS SIX 0/1 BITS');
+  return change;
+}
+function stateLayout(){
+  const gap=Math.max(22,Math.min(38,H*.055)),cy=H*.51,w=Math.max(52,Math.min(92,W*.15));
+  return {leftX:W*.29,rightX:W*.71,cy,gap,w};
+}
+function drawStateLine(x,y,w,bit,changed=false){
+  ctx.save();ctx.lineWidth=changed?3:2;ctx.strokeStyle=changed?'#ef7849':'#d7b46d';ctx.globalAlpha=changed?1:.72;
+  ctx.beginPath();
+  if(Number(bit)===1){ctx.moveTo(x-w/2,y);ctx.lineTo(x+w/2,y)}
+  else{ctx.moveTo(x-w/2,y);ctx.lineTo(x-w*.12,y);ctx.moveTo(x+w*.12,y);ctx.lineTo(x+w/2,y)}
+  ctx.stroke();ctx.restore();
+}
+function drawStateChange(){
+  const change=data.stateChange;if(!change?.valid)return;
+  const {leftX,rightX,cy,gap,w}=stateLayout(),moving=new Set(change.moving);
+  ctx.save();
+  ctx.font='800 8px ui-monospace';ctx.textAlign='center';ctx.fillStyle='#78858c';
+  ctx.fillText('FROM · '+formatState(change.from.bits),leftX,cy-gap*4);
+  ctx.fillText('TO · '+formatState(change.to.bits),rightX,cy-gap*4);
+  for(let i=0;i<6;i++){
+    const y=cy+gap*(2.5-i),changed=moving.has(i+1);
+    drawStateLine(leftX,y,w,change.from.bits[i],changed);
+    drawStateLine(rightX,y,w,change.to.bits[i],changed);
+    if(changed){ctx.strokeStyle='rgba(123,213,255,.34)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(leftX+w*.6,y);ctx.lineTo(rightX-w*.6,y);ctx.stroke();ctx.fillStyle='#7bd5ff';ctx.font='700 7px ui-monospace';ctx.fillText('Δ'+(i+1),(leftX+rightX)/2,y-4)}
+  }
+  ctx.fillStyle='#f2f3ef';ctx.font='900 20px ui-monospace';
+  ctx.fillText(change.from.lower?.glyph||'',leftX-w*.72,cy+gap*2.5);ctx.fillText(change.from.upper?.glyph||'',leftX+w*.72,cy-gap*2.5);
+  ctx.fillText(change.to.lower?.glyph||'',rightX-w*.72,cy+gap*2.5);ctx.fillText(change.to.upper?.glyph||'',rightX+w*.72,cy-gap*2.5);
+  ctx.fillStyle='#d7b46d';ctx.font='800 9px ui-monospace';ctx.fillText(change.mask,W/2,cy-gap*3.2);
+  ctx.restore();
+}
+function stateLineAt(x,y){
+  const change=data.stateChange;if(!change?.valid)return -1;
+  const {rightX,cy,gap,w}=stateLayout();if(Math.abs(x-rightX)>w*.8)return -1;
+  let best=-1,dist=18;for(let i=0;i<6;i++){const yy=cy+gap*(2.5-i),d=Math.abs(y-yy);if(d<dist){best=i;dist=d}}return best;
+}
+function flipStateLine(index){
+  const bits=normalizeStateBits($('#stateTo')?.value);if(!bits||index<0||index>5)return;
+  bits[index]=bits[index]?0:1;$('#stateTo').value=formatState(bits);syncStateChange();
+}
+$('#stateProject').onclick=syncStateChange;
+$('#stateSwap').onclick=()=>{const a=$('#stateFrom').value;$('#stateFrom').value=$('#stateTo').value;$('#stateTo').value=a;syncStateChange()};
+$('#stateCopy').onclick=async()=>{const change=syncStateChange();if(!change.valid)return;try{await navigator.clipboard.writeText(change.token);setStatus('STATE TOKEN COPIED · '+change.mask)}catch(_){setStatus('STATE TOKEN · '+change.token)}};
+$('#stateFrom').onchange=syncStateChange;$('#stateTo').onchange=syncStateChange;syncStateChange();
+
 /* ---------- POINTER / KEY ---------- */
 canvas.addEventListener('pointerdown',e=>{
   const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;mx=x/W;my=y/H;
   if(mode==='PULSE')tapPulse();
+  if(mode==='DATA'){const line=stateLineAt(x,y);if(line>=0){flipStateLine(line);return}}
   if(mode==='VERSE'){
     const hit=versePositions().reduce((best,p)=>{const d=Math.abs(y-p.y);return d<(best?.d??30)?{i:p.i,d}:best},null);
     if(hit){verse.focus=hit.i;syncVerseUi();const line=currentVerseLine();if(line)setAddress(line.address)}
@@ -545,6 +606,7 @@ function drawData(){
   clear(.18);const pos=dataPositions();ctx.lineWidth=1;
   data.nodes.forEach((n,i)=>{if(n.depth>data.aperture||!pos[i])return;if(n.parent>=0&&pos[n.parent]){ctx.strokeStyle='rgba(70,88,99,.45)';ctx.beginPath();ctx.moveTo(pos[n.parent].x,pos[n.parent].y);ctx.lineTo(pos[i].x,pos[i].y);ctx.stroke()}});
   data.nodes.forEach((n,i)=>{if(n.depth>data.aperture||!pos[i])return;const f=i===data.focus;ctx.fillStyle=f?'#ef7849':n.depth===0?'#d7b46d':'#7bd5ff';ctx.globalAlpha=f?1:.65;ctx.beginPath();ctx.arc(pos[i].x,pos[i].y,f?7:3.5,0,TAU);ctx.fill();if(f){ctx.globalAlpha=1;ctx.fillStyle='#f2f3ef';ctx.font='9px ui-monospace';ctx.textAlign='center';ctx.fillText(n.path+' = '+String(n.value).slice(0,44),W/2,H*.14)}});ctx.globalAlpha=1;
+  drawStateChange();
 }
 function tick(now){
   const dt=Math.min(.05,(now-last)/1000);last=now;
@@ -567,6 +629,6 @@ syncPulseButton();
 document.documentElement.dataset.fieldLabReadPulse=read.pulseMode;
 selectMode(MODES[initialMode]?initialMode:'RIDE');
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
-document.documentElement.dataset.foldBloomFieldLab='ready';
+document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>lastTransport,verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey})};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>lastTransport,verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange};

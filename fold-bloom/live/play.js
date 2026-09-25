@@ -1,12 +1,13 @@
-import { availableForecasts, forecastMatchesCall, gateCellIndex, TYPE_NAMES, N, rotateSteps, release as simulateRelease } from './engine.js';
+import { availableForecasts, forecastMatchesCall, gateCellIndex, TYPE_NAMES, N, rotateSteps, release as simulateRelease } from './engine.js?v=0.13';
 import {
   RUN_LENGTH,RUN_WIN_HITS,PUZZLE_ROUNDS,PUZZLE_WIN_STARS,DUET_ROUNDS,DUET_WIN_HITS,
   GARDEN_GENERATIONS,GARDEN_MOVES,GARDEN_SURVIVAL_TARGET,GARDEN_TRAITS,HEX_LINES,
   circularDistance,relationVerb,relationName,lineBitForVerb,lineMark,trigramForBits,hexPair,hexOutcome,
   runOutcome,puzzleStars,puzzleOutcome,duetOutcome,gardenGoalMet,gardenSummary,gardenProgress,gardenOutcome,wrap
-} from './play-core.js';
+} from './play-core.js?v=0.4.1';
+import {stateDescriptor,stateChange,formatState} from '../state-language.js?v=0.1';
 
-const VERSION='FOLD_BLOOM_PLAY_0.4';
+const VERSION='FOLD_BLOOM_PLAY_0.4.1';
 const VALID=new Set(['PLAY','PUZZLE','PATH','DUET','GARDEN','ZEN']);
 const ALIASES=new Map([['CONCERT','PLAY'],['RUN','PLAY'],['HEX','PUZZLE'],['YIJING','PUZZLE'],['ICHING','PUZZLE'],['PAR','PATH'],['TWO-DIAL','DUET'],['TWO_DIAL','DUET'],['ECOLOGY','GARDEN']]);
 const params=new URLSearchParams(location.search);
@@ -211,7 +212,12 @@ function playState(){
   return {version:VERSION,mode,active,ended,releases,hits,flowGain,stars,turns,par,hex:{target:hexPlan?.lines||[],lines:[...hexLines],pair:hexPair(hexLines),outcome:mode==='PUZZLE'?hexOutcome(hexPlan?.lines||[],hexLines):null},duet:{partner:duetB,hits:duetHits},garden:{generation:gardenGeneration,trait:gardenTrait,survived:gardenSurvived,lineage:[...gardenLineage],events:[...gardenEvents]},win:{run:mode==='PLAY'?runOutcome(hits,releases):null,path:mode==='PATH'?puzzleOutcome(stars):null,duet:mode==='DUET'?duetOutcome(duetHits,releases):null,garden:mode==='GARDEN'?gardenOutcome(gardenSurvived):null}};
 }
 function exportPlayReturn(){
-  const packet={kind:'FOLD_BLOOM_PLAY_RETURN',version:VERSION,created:new Date().toISOString(),play:playState(),live:runtime?.state?.()||null,donors:{twoDial:'/fold-bloom/two-dial/',ecology:'/fold-bloom/ecology/',foldWeave:'/recovery/fold-bloom/fold-weave-0.1/'}};
+  const hexLanguage=mode==='PUZZLE'&&hexPlan?.lines?.length===HEX_LINES?{
+    target:stateDescriptor(hexPlan.lines),
+    authored:hexLines.length===HEX_LINES?stateDescriptor(hexLines):{valid:false,bits:[...hexLines],token:'H['+formatState([...hexLines,...Array(Math.max(0,HEX_LINES-hexLines.length)).fill(0)])+']'},
+    delta:hexLines.length===HEX_LINES?stateChange(hexPlan.lines,hexLines):null
+  }:null;
+  const packet={kind:'FOLD_BLOOM_PLAY_RETURN',version:VERSION,created:new Date().toISOString(),play:playState(),stateLanguage:hexLanguage,live:runtime?.state?.()||null,donors:{twoDial:'/fold-bloom/two-dial/',ecology:'/fold-bloom/ecology/',foldWeave:'/recovery/fold-bloom/fold-weave-0.1/',stateLanguage:'/fold-bloom/STATE_CHANGE.md'}};
   const blob=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='fold-bloom-play-'+mode.toLowerCase()+'-'+Date.now()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 }
 function openDonor(){if(mode==='DUET')window.open('../two-dial/','fold-bloom-two-dial');else if(mode==='GARDEN')window.open('../ecology/','fold-bloom-ecology');}
