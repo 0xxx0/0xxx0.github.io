@@ -181,6 +181,8 @@ jobs:
           }
           // Never fail the build on freshness — inform only.
           "
+      - name: Validate FIELD machine transcript
+        run: node tools/build-field-transcript.mjs --check
       - name: Write validation report
         if: always()
         run: |
