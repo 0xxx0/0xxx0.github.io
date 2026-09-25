@@ -339,7 +339,7 @@
   "restore_return": "/returns/FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json",
   "play_shell": {
     "version": "0.4.1",
-    "state": "ACTIVE_CANDIDATE",
+    "state": "SHIPPED",
     "law": "TURN → READ CONSEQUENCE → WRITE LINE → RESOLVE TRIGRAM → COMPLETE SIX-LINE FORM",
     "quickstart_aliases": {
       "CONCERT": "PLAY",
@@ -366,14 +366,17 @@
       "fold_weave": "/recovery/fold-bloom/fold-weave-0.1/"
     },
     "authority": "LIVE engine remains authoritative; source context shapes terrain but never auto-authors BLOOM/FOLD/SPLIT/RETURN.",
-    "pr": 294,
-    "merge_sha": "7801c264b5033530f6402ac1e68eb2eacbc9b642",
+    "pr": 295,
+    "merge_sha": "8e7db861a6dada691c78a66148c1d294f83fe77f",
     "verification": {
       "public_surface_check": "PASS",
-      "workflow_run": 36126764804,
+      "workflow_run": 36128271563,
+      "route_registration": "PASS",
+      "route_run": 36128271499,
       "gameplay_suite": "PASS",
+      "field_lab_state_surface": "PASS",
       "critical_browser_smoke": "PASS",
-      "real_phone_touch_audio": "HUMAN_GATE"
+      "real_phone_visibility": "HUMAN_GATE"
     },
     "puzzle_grammar": {
       "borrowed": "Yijing formal grammar: broken/solid lines, eight three-line trigrams, six-line forms composed as lower + upper trigrams.",
