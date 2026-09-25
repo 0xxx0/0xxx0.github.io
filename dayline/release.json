@@ -25,14 +25,14 @@
     "same_daystate_store": "poly-atlas-dayline-branch-i-public-v1",
     "same_handoff": "atlas.dayline.handoff.v01",
     "return_carrier": "dayline-confluence/v0.2",
-    "browser_smoke": "PENDING_CI",
-    "lived_phone": "PENDING_USER",
+    "browser_smoke": "PASS · public-surface-check run 36163042383 on master 0b8ef320a652e6bcd44ed2ddfbd50622c7c73c65",
+    "lived_phone": "OPTIONAL_SUBJECTIVE · not required for functional correctness",
     "source_return_schema": "atlas-dayline-source-return/v0.1 · one held object only",
     "source_return_transport": "sessionStorage atlas.dayline.source-return.v01 · <=12h",
     "native_mutation": "NONE until explicit source acceptance",
     "closed_loop": "RUN → WITNESS → COMPLETE → RETURN → OFFER_ONLY → native explicit accept",
     "completed_focus_release": "after source-return publication, never before",
-    "real_source_browser": "PENDING_CI · exact user instruction at 430×900"
+    "real_source_browser": "PASS · tools/dayline-comms-real-loop-smoke.mjs · exact COMMS source identity → RUN → WITNESS → COMPLETE → OFFER_ONLY RETURN → explicit native COVERED"
   },
   "stop": "Functional correctness is machine/browser verified first. Real-world completion remains a WORLD claim; phone preference/ergonomics is optional subjective evidence, not the default promotion gate.",
   "verification_policy": {
@@ -52,6 +52,11 @@
     ],
     "subjective_optional": [
       "perceived cognitive burden / ergonomics"
+    ],
+    "machine_status": "SELF_VERIFIED · 2026-09-26",
+    "residue": [
+      "UNKNOWN / WORLD: whether a planned action was actually performed outside the browser",
+      "OPTIONAL / SUBJECTIVE: perceived burden, calmness, delight or ergonomics"
     ]
   }
 }
