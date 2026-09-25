@@ -4647,28 +4647,35 @@
     },
     {
       "href": "/house/expert.html",
-      "title": "HOUSE / EXPERT · State Projection",
-      "kind": "support",
+      "title": "HOUSE / FIELD · EXPERT",
+      "kind": "utility",
       "parent": "/house/",
-      "family": "HOUSE / FIELD",
-      "operation": "REPRESENT",
-      "state": "STABLE",
+      "family": "HOUSE / SPATIAL STATE",
+      "operation": "INSPECT",
+      "state": "UTILITY",
       "version": "0.7.2",
-      "role": "Technical public-safe HOUSE state/runtime projection preserved as depth behind canonical /house/. It may inspect timestamped public state and local context bridges but has no device-truth or actuation authority.",
-      "evidence": [
-        "/house/release.json",
-        "/house/state.json",
-        "/house/contract.json",
-        "/house/confluence.json"
-      ],
+      "showcase_card": false,
+      "role": "Technical timestamped HOUSE state/runtime projection. Canonical human entry remains /house/; Home Assistant / HOUSEBUS retains private device truth and actuation. This page adds inspection depth only.",
       "index": {
-        "updated_at": "2026-09-25T21:35:00+08:00",
+        "updated_at": "2026-09-25T21:38:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
+          "INSPECT",
+          "VERIFY"
         ]
       },
+      "evidence": {
+        "receipt": "/house/release.json",
+        "checks": [
+          "registered as support projection, not a second HOUSE front door",
+          "timestamped public state is not live presence/safety truth",
+          "no public actuation authority"
+        ],
+        "return_path": "/house/"
+      },
+      "transfer": [
+        "canonical /house/ → technical state/runtime inspection → RETURN /house/",
+        "inspection depth only; no spatial or actuation authority transfer"
+      ],
       "tier": "FIELD"
     },
     {
