@@ -40,3 +40,9 @@ Do **not** make a label system, QR infrastructure, inventory ontology, printer a
 
 PASS → decide whether the mechanic deserves one recipient-specific transfer.
 FAIL → correct one defect class only and repeat one specimen.
+
+## Public print launcher
+
+Open `/physical/print-01/print.html` on the public site. It renders this same canonical SVG at A4 landscape size and exposes a print action; it is a support surface, not a separate FIELD route or source of geometry truth.
+
+The calibration bar remains the authority check after printing.
