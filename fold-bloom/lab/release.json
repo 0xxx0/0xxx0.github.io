@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM FIELD LAB",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "state": "SHIPPED",
   "operation": "TRAIN / EXPLORE",
   "route": "/fold-bloom/lab/",
@@ -38,7 +38,8 @@
     "LOCI can mark an addressed locus and jump to the next source-scoped mark while exact course spans remain authoritative.",
     "VERSE → REPLAY compiles a bounded TEXT handoff using the existing replay-score contract; replay timing is explicitly presentation-only.",
     "phone mode controls use a 44px floor while the desktop ring expands from six to seven unequal projections.",
-    "DATA gains a shared six-line STATE / CHANGE projection with editable before/after stacks, exact Δ positions, copyable state tokens, and direct line editing in the visual field."
+    "DATA gains a shared six-line STATE / CHANGE projection with editable before/after stacks, exact Δ positions, copyable state tokens, and direct line editing in the visual field.",
+    "Inbound Poem Map VERSE handoffs expose an exact same-origin ↩ POEM MAP caller return after source/focus restoration; returning is navigation only and does not import LAB marks or projection state into poem authorship."
   ],
   "constraints": [
     "READFIELD/APERTURE remains reader authority; FIELD LAB owns no second segmentation/cursor/RSVP truth",
@@ -53,7 +54,8 @@
     "Text marks are human-authored source evidence. They do not infer meaning, literary quality or canonical relations.",
     "REPLAY of text maps source progress into presentation time only; it must preserve exact text addresses and never claim the poem has native temporal structure.",
     "The local text-mark bridge remains LAB-scoped until ordinary cross-layer use proves a broader shared contract is warranted.",
-    "STATE / CHANGE notation must only be used when six explicit binary conditions are meaningful; do not compress richer objects merely to fit the grammar."
+    "STATE / CHANGE notation must only be used when six explicit binary conditions are meaningful; do not compress richer objects merely to fit the grammar.",
+    "VERSE caller RETURN is navigation-only: FIELD LAB may not write poem text, marks, timing, or inferred claims back into Poem Map on return."
   ],
   "verification": {
     "read_bridge_node": "PASS · public-surface-check run 35953594950 step 29",
@@ -72,7 +74,8 @@
     "verse_cross_layer": "PENDING_HUMAN: VERSE → READ → LOCI → VERSE and VERSE → REPLAY on one real poem",
     "state_language_browser": "PASS · public-surface-check run 36128271563",
     "state_language_merge_sha": "8e7db861a6dada691c78a66148c1d294f83fe77f",
-    "state_language_phone": "HUMAN_GATE"
+    "state_language_phone": "HUMAN_GATE",
+    "verse_caller_return": "PENDING_PR_CI: same-origin caller survives inbound VERSE handoff; invalid/external caller stays hidden"
   },
   "return": "/returns/FOLD_BLOOM_STATE_LANGUAGE_01_2026-09-25.json",
   "confluence": "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",

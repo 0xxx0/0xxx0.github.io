@@ -202,8 +202,11 @@ if(migrationNow){
   for(const id of duplicateValues(nowIds))fail.push('duplicate MIGRATION NOW id '+id);
 }
 const foldLab=read('fold-bloom/lab/index.html');
+const foldLabApp=read('fold-bloom/lab/app.js');
 const foldInk=read('fold-bloom/ink/index.html');
 check(/footer a\{[^}]*min-height:34px/.test(foldLab),'FOLD BLOOM LAB footer navigation lost 34px phone target floor');
+check(foldLab.includes('id="verseReturn"')&&foldLab.includes('app.js?v=0.3.2'),'FOLD BLOOM LAB Verse caller return/cache marker missing');
+for(const token of ['safeLocalReturn','verse.returnAddress','fieldLabVerseHandoff'])check(foldLabApp.includes(token),'FOLD BLOOM LAB Verse round-trip token missing: '+token);
 check(/footer a\{[^}]*min-height:34px/.test(foldInk),'FOLD BLOOM INK footer navigation lost 34px phone target floor');
 const daylineApp=read('atlas-dayline/app.js');
 const daylineCss=read('atlas-dayline/app.css');
@@ -347,9 +350,11 @@ if(exists('poetry/index.html')){
   for(const token of ['WRITE / EXPLORE','FIND WORDS / SOLVE','COMPOSE BY PATH','STUDY JUEJU','PLAY / MULTILINGUAL'])check(p.includes(token),'VERSE re-entry option missing: '+token);
 }
 if(exists('foundry/verse-atlas/app.js')){
-  const v=read('foundry/verse-atlas/app.js');
+  const v=read('foundry/verse-atlas/app.js'),vh=read('foundry/verse-atlas/index.html');
   try{new Function(v)}catch(e){fail.push('JS foundry/verse-atlas/app.js: '+e.message)}
   for(const token of ['stateFromReceipt','applyReceipt','renderStudy','renderParallel','renderGlyph','renderRsvp','exportReceipt'])check(v.includes(token),'Verse Atlas sealed capability missing: '+token);
+  check(vh.includes('id="handoffReturn"'),'Verse Atlas caller return control missing');
+  for(const token of ['safeLocalReturn','handoffFrom','verse.atlas.handoff.v01'])check(v.includes(token),'Verse Atlas round-trip token missing: '+token);
 }
 const currentCoord=parse('control/CURRENT.json'),queueCoord=parse('control/QUEUE.json');
 if(currentCoord&&queueCoord){

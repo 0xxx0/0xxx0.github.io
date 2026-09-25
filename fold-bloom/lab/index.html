@@ -171,14 +171,14 @@ the room keeps the weather</textarea>
   </aside>
 </main>
 
-<footer><span id="status">RIDE · current LIVE engine</span><span class="grow"></span><a href="/poetry/">VERSE</a><a href="../">PUBLIC FRONT</a><a href="../instrument/">INSTRUMENT</a><a href="../listen/">LISTEN</a></footer>
+<footer><span id="status">RIDE · current LIVE engine</span><span class="grow"></span><a id="verseReturn" href="#" hidden>↩ POEM MAP</a><a href="/poetry/">VERSE</a><a href="../">PUBLIC FRONT</a><a href="../instrument/">INSTRUMENT</a><a href="../listen/">LISTEN</a></footer>
 </div>
 <div id="labBootWitness" hidden>LAB_BOOTING</div>
 <script>
 (()=>{const w=document.getElementById('labBootWitness');addEventListener('error',e=>{if(w)w.textContent='LAB_ERROR '+String(e.message||e.error||'unknown').slice(0,180)});addEventListener('unhandledrejection',e=>{if(w)w.textContent='LAB_REJECTION '+String(e.reason?.message||e.reason||'unknown').slice(0,180)})})();
 </script>
 <script src="/field-aperture.js"></script>
-<script type="module" src="./app.js?v=0.3.1"></script>
+<script type="module" src="./app.js?v=0.3.2"></script>
 <script src="/showcase-nav.js" defer></script>
 </body>
 </html>
