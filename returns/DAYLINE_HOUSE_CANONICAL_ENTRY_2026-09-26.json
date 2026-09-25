@@ -1,0 +1,23 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "DAYLINE_HOUSE_CANONICAL_ENTRY_2026-09-26",
+  "date": "2026-09-26",
+  "state": "CANDIDATE",
+  "object": "Dayline HOUSE re-entry after HOUSE 0.7.2 canonical-root convergence",
+  "observed": [
+    "HOUSE canonical human entry is /house/; /house/spatial/ is a compatibility alias",
+    "Dayline still exposed two /house/spatial/ exits after the Shopping exact-item RETURN loop merged"
+  ],
+  "delta": [
+    "Dayline DEPTH HOUSE link now targets /house/",
+    "Dayline task fallback HOUSE ↗ now targets /house/",
+    "CI rejects regression to /house/spatial/ as a Dayline front door",
+    "COMMS STATE_PROPOSAL and Shopping RECEIPT_ONLY return effects are preserved unchanged"
+  ],
+  "authority": "NONE / navigation correction only",
+  "verification": {
+    "route_registration": "PENDING_CI",
+    "public_surface": "PENDING_CI"
+  },
+  "stop": "No new HOUSE↔Dayline bridge. Existing source-owned handoff remains sufficient."
+}
