@@ -16,7 +16,7 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-25T12:31:00+08:00",
+        "updated_at": "2026-09-25T12:46:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -3571,17 +3571,19 @@
       "href": "/foundry/axial/lab-0.5.1.html",
       "title": "AXIAL / STATE APERTURE 0.5.1",
       "kind": "experiment",
-      "parent": "/",
+      "parent": "/foundry/axial/",
       "operation": "OBSERVE",
       "state": "FROZEN_DONOR",
       "family": "AXIAL",
       "showcase_card": false,
       "role": "Frozen AXIAL experiment: state aperture behaviour at 0.5.1. Kept as evidence of a decision, not as a current head.",
       "index": {
-        "updated_at": "2026-09-23T02:08:03+08:00",
+        "updated_at": "2026-09-25T12:46:00+08:00",
         "work_modes": [
           "INSPECT",
-          "EXPERIMENT"
+          "EXPERIMENT",
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": {
@@ -4122,17 +4124,19 @@
       "href": "/foundry/room/html-substrate-0.3.html",
       "title": "ROOM 0.3 / HTML SUBSTRATE",
       "kind": "experiment",
-      "parent": "/",
+      "parent": "/foundry/room/",
       "operation": "PROJECT",
       "state": "FROZEN_DONOR",
       "family": "BODY / FIELD",
       "showcase_card": false,
       "role": "Frozen experiment: HTML as room substrate at 0.3. Part of the INTERPHASE room lineage.",
       "index": {
-        "updated_at": "2026-09-23T02:08:03+08:00",
+        "updated_at": "2026-09-25T12:46:00+08:00",
         "work_modes": [
           "INSPECT",
-          "EXPERIMENT"
+          "EXPERIMENT",
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": {
@@ -4147,17 +4151,19 @@
       "href": "/foundry/room/room-0.1.html",
       "title": "INTERPHASE / ROOM 0.1",
       "kind": "experiment",
-      "parent": "/",
+      "parent": "/foundry/room/",
       "operation": "PROJECT",
       "state": "FROZEN_DONOR",
       "family": "BODY / FIELD",
       "showcase_card": false,
       "role": "INTERPHASE ROOM 0.1. Early spatial-room projection. Frozen evidence.",
       "index": {
-        "updated_at": "2026-09-23T02:08:03+08:00",
+        "updated_at": "2026-09-25T12:46:00+08:00",
         "work_modes": [
           "INSPECT",
-          "EXPERIMENT"
+          "EXPERIMENT",
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": {
@@ -4172,17 +4178,19 @@
       "href": "/foundry/room/space-scale-0.2.html",
       "title": "INTERPHASE / SPACE SCALE 0.2",
       "kind": "experiment",
-      "parent": "/",
+      "parent": "/foundry/room/",
       "operation": "PROJECT",
       "state": "FROZEN_DONOR",
       "family": "BODY / FIELD",
       "showcase_card": false,
       "role": "BLOCK to ROOM space-scale study, 0.2. Frozen evidence in the room lineage.",
       "index": {
-        "updated_at": "2026-09-23T02:08:03+08:00",
+        "updated_at": "2026-09-25T12:46:00+08:00",
         "work_modes": [
           "INSPECT",
-          "EXPERIMENT"
+          "EXPERIMENT",
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": {
@@ -5108,16 +5116,18 @@
       "href": "/nexus/board.html",
       "title": "OPS // MULTI-AGENT BOARD",
       "kind": "hub",
-      "parent": "/",
+      "parent": "/nexus/",
       "operation": "ORIENT",
       "state": "UTILITY",
       "family": "NEXUS",
       "showcase_card": false,
       "role": "Multi-agent coordination board. Live view of who is working where, so parallel writers do not collide silently. A surface, not an authority.",
       "index": {
-        "updated_at": "2026-09-23T02:08:03+08:00",
+        "updated_at": "2026-09-25T12:46:00+08:00",
         "work_modes": [
-          "INSPECT"
+          "INSPECT",
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": {
@@ -5132,16 +5142,18 @@
       "href": "/nexus/map.html",
       "title": "FIELD // SYSTEM MAP",
       "kind": "hub",
-      "parent": "/",
+      "parent": "/nexus/",
       "operation": "ORIENT",
       "state": "UTILITY",
       "family": "NEXUS",
       "showcase_card": false,
       "role": "System map of the field: how the surfaces relate and which ones are load-bearing. Orientation aid for a cold reader.",
       "index": {
-        "updated_at": "2026-09-23T02:08:03+08:00",
+        "updated_at": "2026-09-25T12:46:00+08:00",
         "work_modes": [
-          "INSPECT"
+          "INSPECT",
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": {
@@ -6989,17 +7001,19 @@
       "href": "/sleeper/borrowed-river/shell.html",
       "title": "BORROWED RIVER / SLEEPER",
       "kind": "artifact",
-      "parent": "/",
+      "parent": "/sleeper/borrowed-river/",
       "operation": "PLAY",
       "state": "ACTIVE",
       "family": "SLEEPER",
       "showcase_card": false,
       "role": "Borrowed River shell in the SLEEPER lineage. Playable surface, source evidence preserved.",
       "index": {
-        "updated_at": "2026-09-23T02:08:03+08:00",
+        "updated_at": "2026-09-25T12:46:00+08:00",
         "work_modes": [
           "INSPECT",
-          "OPERATE"
+          "OPERATE",
+          "VERIFY",
+          "IMPLEMENT"
         ]
       },
       "evidence": {
