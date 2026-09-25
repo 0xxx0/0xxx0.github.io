@@ -21,6 +21,21 @@ SOURCE
 
 The implementation may be UI, conversation, an agent run, HAOS event handling, physical actuation, a document transform, or a game mechanic. Carrier is not identity.
 
+## Standing desire — operator-confirmed 2026-09-25
+
+Status: **DIRECTION REMINDER, NOT A LAW.** It adds no authority and overrides no evidence, identity, host, or human gate. It biases defaults for every future thread, worker, host, and pass.
+
+The operator's stated desire: use more of the universal interface; keep absorbing (gameloop / lab / read / listen) into the shared carrier instead of adding surfaces; *"crush down all these surfaces and make dealing with this infinity possible."*
+
+In practice, when proposing work:
+
+1. **FOLD FIRST.** Ask whether the thing can fold losslessly into an existing head (see *Lossless artifact folding* below) rather than become a new sovereign surface. One operational sovereignty, many preserved evidence objects.
+2. **ROUTE THROUGH THE CARRIER.** Where a mechanism migrates, express it as correspondence over the existing carrier grammar — F.L.O.W.E.R. / FU / Universal Interface Wheel → six-sector carrier, INTERPHASE hosts, Instrument Cell, `/control/TRANSDUCTIONS.json` — before inventing a bespoke pipeline. Carrier is not identity; hosts keep domain truth.
+3. **GAMELOOP IS A TRANSDUCTION.** Play/loop mechanics (event tape → operator → consequence → RETURN) and the LAB projections (RIDE / PULSE / READ / LOCI / INK / DATA) belong to one family; absorb new asks there first.
+4. **NO BREAKING CHANGE.** Compose before you create; fold before you fork; reuse before you rebuild.
+
+Origin: operator message 2026-09-25 (via Hermes), landed on `hermes/standing-desire-20260925` from master `6589f6ba`.
+
 ## Exactly recovered donor
 
 The frozen 2020 INTERPHASE prototype at:
