@@ -101,3 +101,5 @@ Reopen a head only if it removes immediate friction, provides a needed tool, cap
 Success is not more architecture, more files, more tasks, more agent activity.
 
 Success is **less friction between something that matters and reality becoming different**.
+
+Standing direction (operator, 2026-09-25 — see `/control/confluence/TRANSDUCTIONS.md` → *Standing desire*): fold surfaces into existing heads, route mechanisms through the shared carrier, compose before you create. A reminder bias, never an override of evidence or authority.
