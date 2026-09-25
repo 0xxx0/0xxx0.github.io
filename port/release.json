@@ -2,8 +2,8 @@
   "schema": "release-receipt/v1",
   "artifact": "HUMAN PORT",
   "route": "/port/",
-  "version": "1.6.0-preview",
-  "date": "2026-09-22",
+  "version": "1.6.1-preview",
+  "date": "2026-09-25",
   "state": "ACTIVE_EXPERIMENT_COMMS_SPINE_CANDIDATE",
   "decision": "HUMAN PORT remains the addressed object/passage layer. COMMS SPINE 0.1 becomes its specialized addressed-conversation instrument: one canonical thread survives signal extraction, human marking, task/response coverage, bot handoff and RETURN without turning derived labels into source truth.",
   "recovered_user_functions": [
@@ -80,7 +80,9 @@
     "compose response/handoff beside the source and explicitly bind coverage to addressed obligations",
     "emit comms-spine-agent-packet/v0.1 for bots and comms-spine-return/v0.1 with residue preserved",
     "default to session-only storage; optional PIN LOCAL is explicit; page performs no network send",
-    "accept current HUMAN PORT text object from sessionStorage without creating a second canonical object"
+    "accept current HUMAN PORT text object from sessionStorage without creating a second canonical object",
+    "COMMS SPINE explicit TARGET selection may hand bounded addressed obligations into local Atlas Dayline without auto-promoting derived signals",
+    "Dayline task notes preserve COMMS source id/message range/origin so task != source and the thread remains returnable"
   ],
   "first_time_test": "Paste one source once and reach the intended tool preloaded within one explicit route choice.",
   "donors": [
@@ -117,14 +119,14 @@
     "drop one authored JSON/text file and prove disk-loaded text routes identically to pasted text",
     "drop one opaque authored file and prove identity/provenance survives despite no semantic viewer"
   ],
-  "next": "Use one real long conversation in /port/comms/: mark what matters, draft/cover a reply, and judge whether exact-address continuity is materially better than chapter-scroll/chat-summary patterns before adding automatic semantic extraction.",
+  "next": "Use one real conversation → explicit target → Dayline RUN≤3 → RETURN → response coverage. Add transport only after this local obligation loop proves useful.",
   "care_bridge_return": "/returns/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
   "care_bridge_confluence": "/control/confluence/CARE_PORT_OBJECT_BRIDGE_2026-09-22.json",
   "specialized_tools": {
     "comms_spine": {
       "route": "/port/comms/",
-      "version": "0.1",
-      "role": "addressed communication instrument",
+      "version": "0.1.1",
+      "role": "addressed communication instrument with explicit target→Dayline promotion",
       "authority": "source-preserving projection + human annotation/coverage only; no send, no admission, no semantic-truth authority",
       "schemas": [
         "comms-spine/v0.1",
