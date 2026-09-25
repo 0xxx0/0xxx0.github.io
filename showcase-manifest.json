@@ -4645,16 +4645,42 @@
       "tier": "FIELD"
     },
     {
+      "href": "/house/expert.html",
+      "title": "HOUSE / EXPERT STATE",
+      "kind": "utility",
+      "parent": "/house/",
+      "family": "HOUSE / SPATIAL STATE",
+      "operation": "INSPECT",
+      "state": "UTILITY",
+      "showcase_card": false,
+      "version": "0.7",
+      "receipt": "/house/release.json",
+      "role": "Technical public HOUSE state/runtime projection retained for expert inspection after /house/ became the canonical human-facing spatial/state instrument. It does not own Home Assistant / HOUSEBUS truth or actuation.",
+      "evidence": {
+        "receipt": "/house/release.json",
+        "return_path": "/house/"
+      },
+      "index": {
+        "updated_at": "2026-09-25T21:14:00+08:00",
+        "work_modes": [
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "family_href": "/house/",
+      "tier": "FIELD"
+    },
+    {
       "href": "/house/spatial/",
       "title": "HOUSE / SPATIAL · COMPAT",
       "kind": "alias",
       "parent": "/house/",
       "family": "HOUSE / SPATIAL STATE",
       "operation": "REDIRECT",
-      "state": "COMPATIBILITY",
+      "state": "UTILITY",
       "version": "0.7",
       "receipt": "/house/release.json",
-      "role": "Compatibility route only. Redirects to canonical /house/ while retaining spatial model, TRACE law and donor assets under /house/spatial/.",
+      "role": "Compatibility alias to canonical /house/. Spatial model, TRACE law and donor assets remain under /house/spatial/ as substrate; the alias creates no second HOUSE authority.",
       "transfer": [
         "plan/RCP/section/3D identity",
         "surface addressing",
@@ -4694,7 +4720,9 @@
         ]
       },
       "family_href": "/house/",
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "alias_of": "/house/",
+      "showcase_card": false
     },
     {
       "href": "/inventory/",
