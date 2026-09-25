@@ -150,13 +150,14 @@ Do not turn this into a fabrication program yet.
 
 One proof only:
 
-1. Print one sheet at 100% / Actual Size.
-2. Cut the eight leaves.
-3. Stack on one pivot.
-4. Verify every leaf ID can be read with the screen off.
-5. Open 1–3 slot leaves, close, reopen, and check ordering is recoverable.
-6. Run 12 random two-slot relation checks; record any BLOOM/FOLD/RETURN/SPLIT misread.
-7. Perform one ordinary **HOLD → LET FLY → WITNESS → RETURN** cycle on a real task or one FOLD//BLOOM release.
+1. Print one sheet at 100% / Actual Size / no fit-to-page.
+2. Measure the printed 100 mm calibration line. Continue only at **99–101 mm**.
+3. Cut the eight leaves.
+4. Stack on one pivot.
+5. Verify every leaf ID can be read with the screen off.
+6. Open 1–3 slot leaves, close, reopen, and check ordering is recoverable.
+7. Run 12 random two-slot relation checks; record any BLOOM/FOLD/RETURN/SPLIT misread.
+8. Perform one ordinary **HOLD → LET FLY → WITNESS → RETURN** cycle on a real task or one FOLD//BLOOM release.
 
 Evidence:
 - one assembled photo;
@@ -179,6 +180,10 @@ Park or redesign if:
 - the physical object becomes another backlog or authority surface.
 
 ## Inspiration, not provenance
+
+Internal proof donor:
+
+- **PRINT-01 / FIELD route tile** — reuse its calibrated-print discipline: 100% / Actual Size / no fit-to-page, 100 mm pre-cut measurement, one specimen, photo/ruler RETURN, and no second fixture before physical evidence.
 
 Useful external donors:
 
