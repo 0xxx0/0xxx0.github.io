@@ -382,6 +382,25 @@ function readfieldLociHandoffProbeHtml(){
 }
 
 
+function readfieldApertureAliasFocusProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=14000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(70)}throw new Error('waitFor timeout: '+label)};
+  (async()=>{
+    const source=Array.from({length:20},(_,i)=>'word'+i).join(' '),charIndex=source.indexOf('word6');
+    sessionStorage.setItem('field.aperture.handoff.v01',JSON.stringify({source,label:'ALIAS FOCUS PROBE',from:'/foundry/?alias=1',focus:{scale:'WORD',index:6,address:'text://'+charIndex+':'+(charIndex+5),char_index:charIndex,source_progress:charIndex/Math.max(1,source.length-1),wpm:777}}));
+    f.src='/foundry/aperture/';
+    const W=()=>f.contentWindow,D=()=>W().document;
+    const A=await waitFor(()=>W().location.pathname==='/docs/'&&D().documentElement.dataset.readfieldHandoff==='focus-restored'&&D().getElementById('docAperture')?.snapshot?.(),14000,'alias focus restored');
+    await sleep(120);
+    const snap=A.snapshot();rec.path=W().location.pathname;rec.restored=D().documentElement.dataset.readfieldHandoff;rec.scale=snap.scale;rec.index=snap.index;rec.wpm=snap.wpm;rec.charIndex=snap.char_index;rec.returnHref=D().getElementById('returnLink')?.getAttribute('href')||'';
+    done(rec.path==='/docs/'&&rec.restored==='focus-restored'&&rec.scale==='WORD'&&rec.index===6&&rec.wpm===777&&rec.charIndex===charIndex&&rec.returnHref.startsWith('/foundry/'),rec);
+  })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
 function apertureMultilingualProbeHtml(){
   return `<!doctype html><html><body><pre id="probeResult">PENDING</pre><script src="/field-aperture.js"></script><script>
   const result=document.getElementById('probeResult'),rec={};
@@ -583,6 +602,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(readfieldLociHandoffProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/readfield-aperture-alias-focus')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(readfieldApertureAliasFocusProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/lens-proof')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(lensProbeHtml());return;
@@ -683,6 +706,12 @@ const CASES=[
     check:dom=>/READFIELD/i.test(dom)&&dom.includes('id="docAperture"')
   },
   {
+    name:'APERTURE alias preserves READFIELD focus',
+    route:'/__smoke/readfield-aperture-alias-focus',
+    options:{width:520,height:940,budget:18000,timeout:24000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"restored":"focus-restored"/.test(dom)&&/"scale":"WORD"/.test(dom)&&/"index":6/.test(dom)&&/"wpm":777/.test(dom)
+  },
+  {
     name:'APERTURE multilingual segmentation',
     route:'/__smoke/aperture-multilingual',
     options:{width:900,height:700,budget:9000},
@@ -691,7 +720,7 @@ const CASES=[
   {
     name:'READFIELD',
     route:'/docs/',
-    check:dom=>/READFIELD/i.test(dom)&&dom.includes('id="docAperture"')&&dom.includes('reader')&&dom.includes('RAW SOURCE')&&dom.includes('id="readerUses"')&&dom.includes('id="pulseState"')
+    check:dom=>/READFIELD/i.test(dom)&&/RSVP 0\.8\.4/.test(dom)&&dom.includes('id="docAperture"')&&dom.includes('reader')&&dom.includes('RAW SOURCE')&&dom.includes('id="readerUses"')&&dom.includes('id="workRail"')&&dom.includes('id="workModeStatus"')&&dom.includes('id="pulseState"')
   },
   {
     name:'READFIELD explicit pulse mode',
