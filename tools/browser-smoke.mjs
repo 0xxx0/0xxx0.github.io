@@ -917,7 +917,7 @@ const CASES=[
     name:'FOLD BLOOM public front',
     route:'/fold-bloom/',
     options:{width:430,height:900,budget:5000},
-    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/A source becomes a field/i.test(dom)&&/ENTER LIVE/.test(dom)&&!/PLAY CENTER MASS/.test(dom)&&/MAP A TRACK/.test(dom)&&/BUILD A SET/.test(dom)&&/WHAT DO YOU/.test(dom)&&/WANT TO DO/.test(dom)&&/Play a track as terrain/.test(dom)&&/Read fast without losing your place/.test(dom)&&/MORE USES · SABER/.test(dom)&&/SABER \/ TWO PHONES/.test(dom)&&/MESSAGE \/ REPLAY/.test(dom)&&/SURFACES \/ LINEAGE \/ WHY IT WORKS/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/Bring a song/i.test(dom)&&/BRING A SONG · LIVE/.test(dom)&&!/PLAY CENTER MASS/.test(dom)&&/SOURCE FILE OR LINK · MAP/.test(dom)&&/BUILD A SET/.test(dom)&&/WHAT DO YOU/.test(dom)&&/WANT TO DO/.test(dom)&&/Play a track as terrain/.test(dom)&&/Read fast without losing your place/.test(dom)&&/MORE USES · SABER/.test(dom)&&/SABER \/ TWO PHONES/.test(dom)&&/MESSAGE \/ REPLAY/.test(dom)&&/SURFACES \/ LINEAGE \/ WHY IT WORKS/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
   },
   {
     name:'FOLD BLOOM SABER 0.1',
@@ -1045,7 +1045,7 @@ const CASES=[
     name:'FOLD BLOOM LIVE mobile controls clear',
     route:'/fold-bloom/live/?play=PUZZLE',
     options:{width:430,height:900,budget:9000},
-    check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.5.3"')&&dom.includes('data-fb-play-mode="PUZZLE"')&&dom.includes('data-fb-surface="active"')&&dom.includes('data-fb-primary-controls="clear"')&&!/id="intro"[^>]*class="panel on"/.test(dom)&&/△ TRIANGLE|○ CIRCLE|□ SQUARE/.test(dom)
+    check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.5.3"')&&dom.includes('data-fb-play-mode="PUZZLE"')&&dom.includes('data-fb-surface="active"')&&dom.includes('data-fb-primary-controls="clear"')&&dom.includes('id="xpQuick"')&&dom.includes('id="closeSettings"')&&!/id="intro"[^>]*class="panel on"/.test(dom)&&/△ TRIANGLE|○ CIRCLE|□ SQUARE/.test(dom)
   },
   {
     name:'FOLD BLOOM LIVE Two Dial embodied mobile',
