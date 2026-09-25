@@ -9,7 +9,8 @@
     "/showcase-manifest.json",
     "/control/CURRENT.json",
     "/control/confluence/READFIELD_PHONE_WORK_085_2026-09-25.json",
-    "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json"
+    "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json",
+    "/control/FIELD_PULSE_CONTRACT.json"
   ],
   "behavior": [
     "FILE opens downloaded text/Markdown/JSON/CSV/log/YAML/source/SVG material session-locally.",
@@ -25,5 +26,6 @@
     "lived_phone": "REQUIRED_NEXT"
   },
   "stop": "After repository proof, stop reader feature growth until direct phone use identifies concrete friction in local-file intake, sticky rail, mode consequences or handoff.",
-  "verified_head": "56bced3f65e9754429da940a1e62ec3ea3e0312c"
+  "verified_head": "56bced3f65e9754429da940a1e62ec3ea3e0312c",
+  "reference_sync": "FIELD PULSE version references only; authority remains NONE and schema stays field-pulse/v0.1."
 }
