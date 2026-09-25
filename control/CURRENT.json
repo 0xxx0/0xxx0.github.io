@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-26T01:23:26+08:00",
+  "updated": "2026-09-26T07:07:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -469,11 +469,11 @@
     },
     {
       "lineage": "house-spatial",
-      "head": "HOUSE / FIELD 0.7.3 · SPATIAL + CARE CURRENT HEAD",
+      "head": "HOUSE / FIELD 0.7.4 · SPATIAL + CARE CURRENT HEAD",
       "state": "ACTIVE",
       "route": "/house/",
-      "retained_function": "Canonical /house/ projects one addressed physical substrate as hash-addressable PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS. HOUSE CARE is browser-local household/environmental continuity (OBSERVED → ACTION/WATCH → RECEIPT → RETURN) with explicit Dayline and minimized HUMAN PORT projections; it is distinct from /care/ longitudinal medical/self-care authority. /house/expert.html retains technical timestamped state depth. HA/HOUSEBUS alone retains device truth and actuation. Machine/browser verification comes first; bounded physical RETURN limits only claims about the physical instance.",
-      "version": "0.7.3",
+      "retained_function": "Canonical /house/ projects one addressed physical substrate as hash-addressable PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS. Selected spatial addresses can be handed explicitly to Dayline or attached as browser-local BODY context; neither implies presence or causation. HOUSE CARE remains browser-local continuity with explicit Dayline/HUMAN PORT projections. /house/expert.html retains timestamped technical depth. HA/HOUSEBUS alone retains device truth and actuation.",
+      "version": "0.7.4",
       "latest_return": "/returns/HOUSE_CARE_RETURN_2026-09-25.json"
     },
     {
