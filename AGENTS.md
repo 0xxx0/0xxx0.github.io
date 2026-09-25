@@ -29,7 +29,8 @@ It is a field of addressed objects, unequal projections, reusable mechanisms, ex
 | `/returns/` | Evidence of what actually happened |
 | `/recovery/` + local archive | Source/donor memory (not current authority) |
 | HUMAN PORT | Ingress/egress boundary |
-| `/llms.txt` + `scripts/emit-agent-transcript.mjs` | Stable machine entrypoint + transient selective handoff; no copied state authority |\n| Hermes/Codex/ChatGPT | Replaceable executors |
+| `/llms.txt` + `scripts/emit-agent-transcript.mjs` | Stable machine entrypoint + transient selective handoff; no copied state authority |
+| Hermes/Codex/ChatGPT | Replaceable executors |
 
 ## PRIMARY LAW
 
@@ -90,7 +91,9 @@ Reopen a head only if it removes immediate friction, provides a needed tool, cap
 - Convergence dashboard: `/nexus/index.html`
 - System map: `/nexus/map.html`
 - **FIELD Index live sync**: `/` (Φ host/current frame + φ local focus; exact master commits are chronology; manifest rail is a route projection)
-- Worker boot capsule: `/control/WORKER_BOOT.json`
+- Machine entrypoint: `/llms.txt`
+- Transient current handoff: `node scripts/emit-agent-transcript.mjs` (or `--json`)
+- `/control/WORKER_BOOT.json` is a superseded compatibility pointer, not live state.
 - Submission contract: `/control/SUBMISSION_CONTRACT.json`
 
 ## SUCCESS
