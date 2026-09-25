@@ -183,7 +183,7 @@ Historical (2026-09-19, superseded):
 2. ~~INGEST / FILES~~ — proved substrate; repeats on demand.
 3. ~~REALITY / HOUSE~~ — HOUSE/physical is the active selection; see CURRENT.
 
-The worker may continuously recover or research, but every cycle must close with a receipt or bounded packet before choosing another item. Resolve your object in FIELD INDEX before creating anything new.
+Recovery/research is trigger-driven, not continuous. Every cycle must close with a receipt, bounded packet, or explicit NO_GAIN/BLOCKED return before any fresh replan. Resolve the object in FIELD INDEX before creating anything new.
 
 ## RETURN
 
