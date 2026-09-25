@@ -414,6 +414,38 @@ function addressedReturn(){
     warning:'Path meaning is authored by the human. Source order and analysis features do not infer semantics.'
   };
 }
+function openReplay(){
+  if(!map||!sourcePinKey())return;
+  publishTransport(true);toggleUse(false);
+  const current=audio.currentTime||0,rawRange=dragRange&&dragRange.length===2?dragRange:scopeWindow(map,current,scope());
+  const lo=Math.max(0,Math.min(map.duration,Number(rawRange?.[0])||0)),hi=Math.max(lo+.5,Math.min(map.duration,Number(rawRange?.[1])||map.duration));
+  const span=Math.max(.5,hi-lo),rel=t=>Math.max(0,Math.min(1,((Number(t)||0)-lo)/span));
+  const within=(xs,max)=>xs.filter(t=>Number(t)>=lo&&Number(t)<=hi).slice(0,max).map(rel);
+  const marks=normalizePins(pins,sourcePinKey()).filter(p=>Number(p.address)<=hi&&Number(p.endAddress??p.address)>=lo).slice(0,12).map(p=>({
+    id:p.id,kind:p.kind,p:rel(p.address),label:p.label,note:p.note,address:String(p.address),endAddress:p.endAddress==null?'':String(p.endAddress)
+  }));
+  const sourceAddress=fileMeta?.sourceAddress||fileMeta?.origin?.address||null;
+  const sourceId=fileMeta?.hash?('sha256:'+fileMeta.hash):(sourceAddress||sourcePinKey());
+  const packet={
+    schema:'fold-bloom-replay-handoff/v0.2',created:new Date().toISOString(),expires:Date.now()+120000,
+    source:{id:sourceId,key:sourcePinKey(),profile_key:sourcePinKey(),name:fileMeta?.name||fileMeta?.title||'SOURCE',kind:fileMeta?.sourceKind||'AUDIO_MAP',duration_ms:Math.round((map.duration||0)*1000),address:sourcePinKey(),public_address:sourceAddress||''},
+    interval_ms:[Math.round(lo*1000),Math.round(hi*1000)],position_ms:Math.round(current*1000),scope:scope(),
+    context:{title:'WHY THIS MOMENT',body:`${scope()} · ${fmt(lo)}–${fmt(hi)} · ${marks.length} authored mark${marks.length===1?'':'s'} from LISTEN`},
+    evidence:{
+      bpm:Number(map.bpm)||null,stage:map.stage||'UNKNOWN',
+      beats:within(Array.isArray(map.beats)?map.beats:[],64),
+      phrases:within((Array.isArray(map.phrases)?map.phrases:[]).map(x=>Number(x?.t??x)),24),
+      sections:within((Array.isArray(map.sections)?map.sections:[]).map(x=>Number(x?.t??x)),16),
+      marks
+    },
+    addressedMessage:addressedReturn(),rideProfile:{...rideProfile},layer:'IMMERSION',scene:'DEEP',
+    returnAddress:location.pathname+location.search
+  };
+  const raw=JSON.stringify(packet);
+  try{sessionStorage.setItem('fold-bloom.replay.handoff.v02',raw)}catch(_){}
+  try{localStorage.setItem('fold-bloom.replay.handoff.v02',raw)}catch(_){}
+  const w=window.open('../replay/?handoff=1','fold-bloom-replay');if(!w)location.assign('../replay/?handoff=1');
+}
 function openAtlas(){
   if(!map||!glyphDesc)return;
   toggleUse(false);
@@ -452,7 +484,7 @@ $('#useRide').onclick=()=>{
   openSurface('../live/?'+q.toString());
 };$('#useRead').onclick=openReadfield;$('#useCompose').onclick=()=>openSurface('../two-dial/?pulse=1');
 const rideTune=(id,key,scale=100)=>{const el=$(id);if(!el)return;el.oninput=e=>{rideProfile=normalizeRideProfile({...rideProfile,[key]:Number(e.target.value)/scale});saveRideProfile(false)};el.onchange=()=>saveRideProfile(true)};
-rideTune('#rideSolid','solidity');rideTune('#rideImmersion','immersion');rideTune('#rideDrop','dropGain');rideTune('#rideText','textOffset');$('#useAtlas').onclick=openAtlas;$('#useMap').onclick=()=>{toggleUse(false);$('#export').click()};
+rideTune('#rideSolid','solidity');rideTune('#rideImmersion','immersion');rideTune('#rideDrop','dropGain');rideTune('#rideText','textOffset');$('#useReplay').onclick=openReplay;$('#useAtlas').onclick=openAtlas;$('#useMap').onclick=()=>{toggleUse(false);$('#export').click()};
 $('#useBeat').onclick=()=>{void exportBeatSaberPack().then(ok=>{if(ok)toggleUse(false)})};$('#useSaber').onclick=()=>{if(openSaber())toggleUse(false)};
 $('#transport').onclick=async()=>{stopIdle(true);if(!audio.src)return;if(audio.paused)await audio.play();else audio.pause()};
 audio.onplay=()=>{$('#transport').textContent='PAUSE';publishTransport(true)};audio.onpause=()=>{$('#transport').textContent='PLAY';publishTransport(true)};audio.ontimeupdate=()=>publishTransport(false);
