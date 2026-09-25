@@ -1,6 +1,6 @@
 import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, forecastRelease, forecastMatchesCall, callLabel, TYPE_NAMES, N } from './engine.js';
 import { FoldBloomAudio } from './audio.js';
-import { Renderer } from './render.js';
+import { Renderer } from './render.js?v=0.13.1';
 import { createFieldPulse, transportDescriptor } from '../../lib/field-pulse.js';
 import { LiveTrack } from './track.js';
 import { createSectionArc, syncSectionArc, observeSectionRelease, sectionArcLabel, sectionArcView } from './section-arc.js';
