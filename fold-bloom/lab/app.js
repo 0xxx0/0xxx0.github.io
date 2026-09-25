@@ -142,14 +142,16 @@ $('#exportTape').onclick=()=>{
 
 /* ---------- VERSE / TEXT MARKS ---------- */
 const verse={lines:[],focus:0,marks:[],sourceKey:''};
-const TEXT_MARK_STORE='fold-bloom.lab.text-marks.v01:';
+const TEXT_MARK_STORE='fold-bloom.lab.text-marks.v01:',textMarkCache=new Map();
 function storedMarks(source){
   const text=String(source??''),key=textSourceKey(text);
-  try{return normalizeTextMarks(JSON.parse(localStorage.getItem(TEXT_MARK_STORE+key)||'[]'),text,key)}
-  catch(_){return []}
+  if(textMarkCache.has(key))return textMarkCache.get(key);
+  try{const marks=normalizeTextMarks(JSON.parse(localStorage.getItem(TEXT_MARK_STORE+key)||'[]'),text,key);textMarkCache.set(key,marks);return marks}
+  catch(_){textMarkCache.set(key,[]);return []}
 }
 function saveTextMarks(source,marks){
   const text=String(source??''),key=textSourceKey(text),clean=normalizeTextMarks(marks,text,key);
+  textMarkCache.set(key,clean);
   try{localStorage.setItem(TEXT_MARK_STORE+key,JSON.stringify(clean))}catch(_){}
   if(verse.sourceKey===key){verse.marks=clean;syncVerseUi()}
   return clean;
