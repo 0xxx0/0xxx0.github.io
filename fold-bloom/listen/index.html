@@ -35,9 +35,14 @@
 </aside>
 <aside id="pinSheet" class="pinSheet" aria-hidden="true">
   <div class="pinHead"><div><small>STREAM ANNOTATION</small><b id="pinAddress">0:00 · PHRASE</b></div><button id="pinClose" type="button" aria-label="Close annotations">×</button></div>
-  <div class="pinEditor"><label>KIND<select id="pinKind"><option value="BOOKMARK">BOOKMARK · point</option><option value="FLAG">FLAG · point + intent</option><option value="ARC">ARC · current aperture span</option></select></label><label>LABEL<input id="pinLabel" maxlength="96" placeholder="drop / lyric / thought / turn"></label><label>NOTE<textarea id="pinNote" maxlength="2000" rows="4" placeholder="What matters at this address?"></textarea></label><div class="pinActions"><button id="pinSave" type="button">SAVE MARK</button><button id="pinShare" type="button">SHARE MARKS</button><button id="pinDelete" type="button" hidden>REMOVE</button></div></div>
+  <div class="pinEditor"><label>KIND<select id="pinKind"><option value="BOOKMARK">BOOKMARK · point</option><option value="FLAG">FLAG · point + intent</option><option value="ARC">ARC · editable span</option></select></label>
+    <div class="arcEdit" id="arcEdit" hidden><div class="arcFields"><label>START<input id="pinStart" inputmode="decimal" placeholder="0:00.0"></label><label>END<input id="pinEnd" inputmode="decimal" placeholder="0:08.0"></label></div><div class="arcActions"><button id="pinStartNow" type="button">NOW → START</button><button id="pinEndNow" type="button">NOW → END</button><button id="pinAperture" type="button">USE APERTURE</button></div></div>
+    <label>LABEL<input id="pinLabel" maxlength="96" placeholder="drop / lyric / thought / turn"></label><label>NOTE<textarea id="pinNote" maxlength="2000" rows="4" placeholder="What matters at this address?"></textarea></label>
+    <div class="pinActions"><button id="pinSave" type="button">SAVE MARK</button><button id="pinShare" type="button">SHARE MARKS</button><button id="pinDelete" type="button" hidden>REMOVE</button></div>
+    <div class="pinNav"><button id="pinPrev" type="button" disabled>← PREV</button><button id="pinNext" type="button" disabled>NEXT →</button><button id="pinImportBtn" type="button">IMPORT MARKS</button><input id="pinImport" class="nativeFile" type="file" accept=".json,application/json"></div>
+  </div>
   <div class="pinList" id="pinList"></div>
-  <div class="pinLaw">BOOKMARK = point. FLAG = point + intent. ARC = the current aperture span. Marks are authored evidence beside the AUDIO MAP; they never alter source analysis. SHARE carries source identity + marks, never audio bytes.</div>
+  <div class="pinLaw">BOOKMARK = point. FLAG = point + intent. ARC = an editable addressed span. SHARE exports source identity + measured map witness + marks; IMPORT merges only when the source identity matches. AUDIO MAP export embeds the same annotation packet. Marks never rewrite source analysis.</div>
 </aside>
 <section id="drop" class="drop"><input id="file" class="nativeFile" type="file" accept="audio/*,.mp3,.wav,.ogg,.m4a,.aac,.flac,.webm,.mp4,.lrc,.vtt,.srt,.txt,.md,.m3u,.m3u8,.pls" multiple>
   <div class="ey">AUDIO INTAKE</div><h1>DROP<br>A TRACK.</h1>
