@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "DAYLINE // CONFLUENCE",
-  "version": "0.2-candidate",
+  "version": "0.2.1-candidate",
   "route": "/dayline/",
   "state": "CANDIDATE",
   "operation": "OPERATE",
   "released": "2026-09-25",
-  "role": "Mobile-first continuous execution projection over the existing Atlas Dayline DayState, live CURRENT and explicit source-owned handoffs. It keeps one held object/focus, exposes at most three lawful moves, records witness, and may emit one OFFER_ONLY return to the exact native source without becoming source authority.",
+  "role": "Mobile-first continuous execution projection over the existing Dayline DayState. One source-linked object may remain held through RUN → WITNESS → COMPLETE → RETURN, then Dayline releases completed focus only after emitting one OFFER_ONLY receipt to the exact native source.",
   "authority": "NONE / projection + explicit local DayState mutation only",
   "preserves": [
     "poly-atlas-dayline-branch-i-public-v1 local DayState identity",
@@ -29,7 +29,10 @@
     "lived_phone": "PENDING_USER",
     "source_return_schema": "atlas-dayline-source-return/v0.1 · one held object only",
     "source_return_transport": "sessionStorage atlas.dayline.source-return.v01 · <=12h",
-    "native_mutation": "NONE until explicit source acceptance"
+    "native_mutation": "NONE until explicit source acceptance",
+    "closed_loop": "RUN → WITNESS → COMPLETE → RETURN → OFFER_ONLY → native explicit accept",
+    "completed_focus_release": "after source-return publication, never before",
+    "real_source_browser": "PENDING_CI · exact user instruction at 430×900"
   },
-  "stop": "Do not promote over /atlas-dayline/ or generalize RETURN offers to HOUSE/SHOPPING until one real COMMS object completes OBJECT → MOVE → WITNESS → RETURN → exact native ACCEPT/REJECT with less reconstruction."
+  "stop": "Functional closed-loop proof may merge only after current-master CI. Promotion beyond candidate still waits on ordinary phone use; do not generalize to HOUSE/SHOPPING."
 }
