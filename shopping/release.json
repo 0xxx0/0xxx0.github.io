@@ -77,5 +77,14 @@
     "session return offer expires/consumes without creating a global bus"
   ],
   "return": "/shopping/",
-  "date": "2026-09-25"
+  "date": "2026-09-25",
+  "verification": {
+    "dayline_closed_loop_pr": 379,
+    "merge_sha": "72050f5c12f16a4fc04460e0b757eebbf6d1b621",
+    "public_surface_run": 36165271722,
+    "route_registration_run": 36165271718,
+    "result": "PASS",
+    "lifecycle_invariance": "WATCH → ACCEPT RECEIPT → WATCH",
+    "native_effect": "RECEIPT_ONLY / EVIDENCE_ONLY"
+  }
 }
