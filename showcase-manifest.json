@@ -132,7 +132,10 @@
         "read-only CURRENT → explicit local Dayline promotion",
         "one-line local capture without a second queue",
         "bounded COPY FEEDBACK return packet",
-        "default Branch I behavior remains unchanged unless ?live=1"
+        "default Branch I behavior remains unchanged unless ?live=1",
+        "first mobile visit → PLAIN action surface; ATLAS remains optional",
+        "one-line reality capture inherits the current Dayline contexts",
+        "authority-NONE COPY HANDOFF packet for replaceable workers"
       ],
       "contract": {
         "accepts": {
@@ -216,21 +219,22 @@
           {
             "class": "AUTOMATION",
             "status": "ADAPTER_REQUIRED",
-            "via": "calendar/task binding"
+            "via": "explicit COPY HANDOFF available; private Hermes/calendar/task binding remains adapter-required"
           }
         ],
         "physical_fit": "Direct bridge from digital intent to scheduled human physical work."
       },
       "index": {
-        "updated_at": "2026-09-25T14:24:00+08:00",
+        "updated_at": "2026-09-25T15:03:00+08:00",
         "work_modes": [
           "IMPLEMENT",
-          "VERIFY"
+          "VERIFY",
+          "OPERATE"
         ]
       },
       "tier": "FIELD",
-      "version": "Branch I + FIELD LIVE 0.1",
-      "role": "Local-first temporal execution instrument with an opt-in read-only FIELD bridge: active fronts may be explicitly promoted into the day; local lived state returns through a bounded feedback packet, never by silently mutating repo authority."
+      "version": "Branch I + FIELD LIVE 0.2",
+      "role": "Local-first temporal execution instrument. First mobile use opens the PLAIN action projection instead of the full atlas; LIVE keeps one-line reality capture visible, contracts FIELD detail, and emits an authority-NONE Hermes/ChatGPT/Codex handoff. CURRENT remains repo authority; ATLAS remains an optional projection."
     },
     {
       "href": "/body/",
