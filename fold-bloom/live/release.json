@@ -339,7 +339,7 @@
   "restore_return": "/returns/FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json",
   "play_shell": {
     "version": "0.5.2",
-    "state": "ACTIVE_CANDIDATE",
+    "state": "ACTIVE_CANDIDATE_MOBILE_CRAFT_MERGED",
     "law": "FORM H[A] → address line with ring → release writes consequence bit → Δ emerges → H[B]",
     "quickstart_aliases": {
       "CONCERT": "PLAY",
@@ -369,13 +369,18 @@
     "pr": 302,
     "merge_sha": "a8454d741ccd58f17e5b491570d61a78f54c4e63",
     "verification": {
-      "public_surface_check": "PASS",
+      "public_surface_check": "PASS · 36135206800",
       "workflow_run": 36130184417,
-      "route_registration": "PASS",
+      "route_registration": "PASS · 36135206830",
       "route_run": 36130184156,
       "gameplay_suite": "PASS",
       "critical_browser_smoke": "PASS",
-      "phone_visibility_and_feel": "HUMAN_GATE"
+      "phone_visibility_and_feel": "HUMAN_GATE",
+      "mobile_craft_pr": 320,
+      "mobile_craft_merge": "c3ea784497065051f19896a0a0f3464250f7fd19",
+      "mobile_control_browser_smoke": "PASS · 430×900 primary controls clear / active play excludes onboarding",
+      "literal_cell_family_tests": "PASS",
+      "real_phone_visibility_and_feel": "HUMAN_GATE"
     },
     "puzzle_grammar": {
       "borrowed": "Yijing formal grammar: broken/solid lines, eight three-line trigrams, six-line forms composed as lower + upper trigrams.",
