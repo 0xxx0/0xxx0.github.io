@@ -1,7 +1,7 @@
 {
   "schema": "field-index-tzimtzum-return/v0.1",
   "date": "2026-09-25",
-  "state": "BOUNDED_IMPLEMENTATION",
+  "state": "VERIFIED_BRANCH",
   "target": "/",
   "recovered_intent": [
     "FIELD INDEX is re-entry, not another dashboard.",
@@ -17,7 +17,8 @@
     "Removed WAITING duplication from STATUS summary.",
     "Removed dated AUDITS / HISTORICAL block from root.",
     "Collapsed glyph legend into a closed KEY aperture.",
-    "Updated CURRENT, manifest root and FIELD INDEX contract to the same hierarchy."
+    "Updated CURRENT, manifest root and FIELD INDEX contract to the same hierarchy.",
+    "Removed stale 'manifest = mutations/LATEST chronology' wording from root UI, CURRENT, contract and manifest transfer notes."
   ],
   "preserved": [
     "Exact Git chronology and changed-file→route mapping.",
@@ -35,7 +36,8 @@
       "showcase-manifest.json",
       "returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
     ],
-    "inline_script_parse": "PASS"
+    "inline_script_parse": "PASS",
+    "semantic_drift_check": "PASS: manifest projection is no longer labeled mutation chronology; CURRENT plain_control and shared_focus aligned; manifest.updated=2026-09-25."
   },
   "stop": "Do not add another root sync/dashboard surface. Next change requires observed ordinary-use friction on the contracted root."
 }
