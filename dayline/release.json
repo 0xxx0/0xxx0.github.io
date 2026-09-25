@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "DAYLINE // CONFLUENCE",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "route": "/dayline/",
   "state": "MERGED_ACTIVE_CANDIDATE",
   "operation": "OPERATE",
-  "released": "2026-09-25",
-  "role": "Mobile-first continuous execution projection over the existing Dayline DayState. One source-linked object may remain held through RUN → WITNESS → COMPLETE → RETURN, then Dayline releases completed focus only after emitting one OFFER_ONLY receipt to the exact native source.",
+  "released": "2026-09-26",
+  "role": "Mobile-first continuous execution projection over the existing Dayline DayState. One source-linked object may remain held through RUN → WITNESS → COMPLETE → RETURN, then Dayline releases completed focus only after emitting one OFFER_ONLY receipt to the exact native source. HOUSE escape/depth now returns directly to canonical /house/ rather than the retired spatial compatibility front door.",
   "authority": "NONE / projection + explicit local DayState mutation only",
   "preserves": [
     "poly-atlas-dayline-branch-i-public-v1 local DayState identity",
@@ -17,7 +17,8 @@
     "manual Dayline time + explicit device clock witness",
     "Atlas as optional deeper projection",
     "source SHA/signal/message/range identity for COMMS return offers",
-    "native source acceptance authority"
+    "native source acceptance authority",
+    "canonical HOUSE human entry /house/"
   ],
   "validation": {
     "ordinary_document_scroll": "BY_SOURCE",
@@ -34,7 +35,9 @@
     "completed_focus_release": "after source-return publication, never before",
     "real_source_browser": "PASS · exact user instruction · 430×900 · public-surface-check 36148842204",
     "route_registration": "PASS · 36148842258",
-    "merge": "PR #359 · 3ec708367add46f2ea978ebecc4984fa01e142fe"
+    "merge": "PR #359 · 3ec708367add46f2ea978ebecc4984fa01e142fe",
+    "canonical_house_entry": "/house/",
+    "house_compat_alias_not_used_by_dayline": true
   },
   "stop": "Functional correctness is machine/browser verified first. Real-world completion remains a WORLD claim; phone preference/ergonomics is optional subjective evidence, not the default promotion gate.",
   "verification_policy": {
