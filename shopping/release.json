@@ -2,8 +2,8 @@
   "schema": "release-receipt/v1",
   "artifact": "SHOPPING FIELD",
   "route": "/shopping/",
-  "version": "0.1.1",
-  "released": "2026-09-21",
+  "version": "0.2",
+  "released": "2026-09-25",
   "state": "ACTIVE_ADAPTER",
   "recovered_from": [
     {
@@ -49,14 +49,17 @@
     "kept personal inventory out of public seed; imported state stays browser-local",
     "Added explicit selected-item → Dayline task handoff using next_action (or a bounded resolve fallback) with item id/state, freshness, gate and adoption evidence.",
     "Research/purchase truth states remain unchanged; no handoff can purchase, message a seller or promote ownership.",
-    "Transport is session-local atlas-dayline-handoff/v0.1 and requires explicit ADD TO DAY."
+    "Transport is session-local atlas-dayline-handoff/v0.1 and requires explicit ADD TO DAY.",
+    "Added explicit ESSENTIAL / CAPABILITY / EXPEDITION lanes so realistic procurement and playful market exploration share one adapter without becoming one backlog.",
+    "Lane is browser-local, filterable, exported, included in research packets and explicit Dayline handoffs; EXPEDITION denotes curiosity/research rather than purchase authority."
   ],
   "checks": [
     "inline JavaScript parses",
     "public seed is synthetic/empty by default",
     "no seller messaging or purchase action",
     "all persistent state is localStorage or explicit JSON export",
-    "Field Index and FCM link updated"
+    "Field Index and FCM link updated",
+    "lane defaults conservatively to CAPABILITY for legacy items"
   ],
   "return": "/shopping/",
   "date": "2026-09-25"
