@@ -103,7 +103,8 @@
         "/returns/READFIELD_WORK_MODES_2026-09-25.json",
         "https://github.com/0xxx0/0xxx0.github.io/pull/226",
         "/control/confluence/READFIELD_WORKFLOW_084_2026-09-25.json",
-        "/returns/READFIELD_WORKFLOW_084_2026-09-25.json"
+        "/returns/READFIELD_WORKFLOW_084_2026-09-25.json",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/242"
       ],
       "latest_return": "/returns/READFIELD_WORKFLOW_084_2026-09-25.json",
       "next_executable": {
@@ -119,10 +120,12 @@
         "law": "No new reader engine or universal session bus; revise from direct-use friction."
       },
       "repo_verification": {
-        "status": "PENDING_BRANCH_CI",
-        "branch": "readfield-workflow-084-20260925"
+        "route_registration_run": 36094706207,
+        "public_surface_run": 36094706624,
+        "status": "PASS",
+        "alias_focus_probe": "PASS · WORD index 6 · 777 WPM · ORP char remained inside addressed word span"
       },
-      "candidate_branch": "readfield-workflow-084-20260925"
+      "merge_sha": "49e1b27f7db26298c6de107fda1fe4f09d31e515"
     },
     {
       "lineage": "path-poetry",
