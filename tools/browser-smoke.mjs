@@ -111,7 +111,6 @@ function poemMapFocusReturnProbeHtml(){
         phase=1;f.src=expected;setTimeout(()=>probe(),250);return;
       }
       const q=new URL(w.location.href).searchParams;
-      const ok=S.source==='alpha beta gamma\\ndelta epsilon zeta'&&S.mode==='MAP'&&S.selected==='L1T2'&&q.get('focus')==='L1T2'&&q.get('source_key')===api.poemReturnAddress(api.poemFocus())&&false;
       const sourceKey=q.get('source_key'),computed=new URL(api.poemReturnAddress(api.poemFocus()),w.location.origin).searchParams.get('source_key');
       const pass=S.source==='alpha beta gamma\\ndelta epsilon zeta'&&S.mode==='MAP'&&S.selected==='L1T2'&&q.get('focus')==='L1T2'&&sourceKey===computed;
       done(pass,{phase,mode:S.mode,selected:S.selected,focus:q.get('focus'),sourceKey,computed,source:S.source});
