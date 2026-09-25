@@ -1,0 +1,72 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "REALITY_COMMS_DAYLINE_BRIDGE_2026-09-25",
+  "date": "2026-09-25",
+  "object": "FIELD reality loop / HUMAN PORT ↔ Atlas Dayline ↔ Hermes",
+  "scale": "SYSTEM → FRONT → ACTION",
+  "before": {
+    "condition": [
+      "CONTACT 0.4 was shareable and COMMS SPINE could preserve addressed obligations, but communication residue had no reversible path into the day's execution surface.",
+      "Atlas Dayline LIVE 0.1 could import FIELD fronts and local capture, but not explicitly selected message obligations.",
+      "Hermes had bounded worker doctrine but no exact user-triggered Dayline task packet.",
+      "FIELD INDEX still advertised CONTACT 0.3 after CONTACT 0.4 had shipped."
+    ]
+  },
+  "private_reality_probe": {
+    "scope": "bounded current-state check; exact private records excluded from this public receipt",
+    "observations": [
+      "No upcoming anchors were present in the connected primary calendar across the next two weeks at probe time.",
+      "Recent bounded mail traffic was dominated by automated account/update traffic; no recent human conversation or sent-mail activity was found in the bounded checks."
+    ],
+    "consequence": "Do not build calendar visualization or inbox triage first. Prioritize ignition: contact → exact conversation → explicit obligation → day execution → response."
+  },
+  "after": {
+    "capabilities": [
+      "COMMS SPINE 0.1.1: explicitly TARGET selected addressed signals, then hand only those targets to Atlas Dayline through same-origin sessionStorage.",
+      "Atlas Dayline FIELD LIVE 0.2: consume the COMMS handoff as reversible local IMPORTED tasks while preserving source id/address/origin in provenance.",
+      "Atlas Dayline LIVE 0.2: copy one selected/routed task as a bounded hermes-dayline-task/v0.1 packet.",
+      "Hermes queue: accept that packet only when explicitly supplied; read/research/recover/analyze/prepare one packet, then RETURN and stop.",
+      "Dayline LIVE exposes direct exits to CONTACT, COMMS and FOLD//BLOOM without creating a new coordination hub.",
+      "FIELD INDEX route metadata is aligned for CONTACT 0.4, COMMS SPINE 0.1.1, HUMAN PORT 1.6.1-preview and Atlas Dayline LIVE 0.2."
+    ],
+    "causal_loop": "conversation → explicit TARGET → Dayline task → RUN≤3 → optional bounded Hermes packet → human/world action → COMMS response coverage / RETURN"
+  },
+  "laws_preserved": [
+    "SOURCE != SIGNAL != TASK != RESPONSE",
+    "DERIVED != HUMAN",
+    "MESSAGE SIGNAL != DAYLINE OBLIGATION UNTIL EXPLICIT TARGET HANDOFF",
+    "DAYLINE TASK != CALENDAR EVENT",
+    "HERMES PACKET != AUTHORITY TO SEND / SCHEDULE / SPEND / WRITE CANON",
+    "PRIVATE REALITY != PUBLIC REPOSITORY STATE",
+    "ONE BOUNDED MOVE → RETURN → REPLAN"
+  ],
+  "changed_paths": [
+    "/port/comms/index.html",
+    "/port/comms/app.js",
+    "/port/comms/release.json",
+    "/port/release.json",
+    "/atlas-dayline/field-bridge.js",
+    "/atlas-dayline/app.js",
+    "/atlas-dayline/sw.js",
+    "/atlas-dayline/release.json",
+    "/control/packets/HERMES_REALITY_BRIDGE_2026-09-25.json",
+    "/control/HERMES_QUEUE.json",
+    "/showcase-manifest.json",
+    "/control/CURRENT.json",
+    "/returns/REALITY_COMMS_DAYLINE_BRIDGE_2026-09-25.json"
+  ],
+  "verification": {
+    "source_static": "PENDING",
+    "route_registration": "PENDING",
+    "public_surface": "PENDING",
+    "convergence_validation": "PENDING",
+    "world_gate": "One real human conversation → TARGET → Dayline → RUN/RETURN remains lived proof."
+  },
+  "residue": [
+    "No receipt-capable inbound transport is bound yet; CONTACT remains a stable share address, not a server inbox.",
+    "Calendar binding remains adapter-required and should be added only when there are real anchors worth synchronizing.",
+    "Fold/Bloom remains an experience/work projection, not a second task authority."
+  ],
+  "one_next": "Use one real conversation or message: preserve it in COMMS, explicitly TARGET one true ask/promise, move it into Dayline, execute or route it, then return to the same source thread for response coverage.",
+  "stop": "Do not add another coordination framework or autoresponder in this cycle."
+}
