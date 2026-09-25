@@ -66,7 +66,7 @@
     "lawful exact 4×7 Han carry → Verse Atlas study; inbound focus is projection-only and creates no path/claim",
     "Verse Atlas fixture-specific regression tests are conditional so lawful imported sources do not inherit fixture-only assertions",
     "outbound projection caller URLs now carry current PAGE/MAP/SETS view + selected token ID as a bounded address witness",
-    "full Poem Map re-entry restores that token focus when the unchanged source still contains the addressed token; invalid/stale focus is ignored"
+    "full Poem Map re-entry restores that token focus only when the source fingerprint also matches the current parsed source; invalid/stale focus or source identity is ignored"
   ],
   "boundaries": [
     "Map is a projection, not the poem.",
@@ -89,7 +89,7 @@
     "Verse Atlas handoff is fail-closed: only exact four-line × seven-Han sources enter the specialist adapter.",
     "Source-spine handoffs are session-local routing state, not durable poem truth; durable authority remains Poem Map RETURN / recipient RETURN.",
     "Return focus is an address witness only; no source bytes, recipient marks, claims or projection state are encoded in the URL.",
-    "Focus restoration is fail-closed against the current parsed source; stale or malformed token IDs do nothing."
+    "Focus restoration is fail-closed against both current source fingerprint and parsed token address; stale/malformed witnesses do nothing."
   ],
   "next_experiments": [
     "extend the existing intent dock only where a named authoring gap appears; COMPRESS/EXPAND/BREAK remain unimplemented rather than implied",
@@ -149,7 +149,7 @@
     "current_manifest_registration": "PASS_PR_304",
     "head_sync_pr": 304,
     "head_sync_commit": "0b2f7e39056872f83c0c89a77fb77c9e376c1fb9",
-    "focus_return_address": "PENDING_PR_CI: view + L#T# caller address, fail-closed restore"
+    "focus_return_address": "PENDING_PR_CI: view + source fingerprint + L#T# caller witness, fail-closed restore"
   },
   "updated": "2026-09-25",
   "next_bounded_test": {
