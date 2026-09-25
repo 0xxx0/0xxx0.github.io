@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-24",
+  "updated": "2026-09-25",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -52,10 +52,13 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8 / LIVE CHANGE + Φ/φ FOCUS + READFIELD + TRACE VERIFY",
+      "head": "FIELD INDEX 0.8.1 / ROUTE PULSE + Φ/φ FOCUS + FOLDED GIT",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one manifest route identity. Git master commits are the exact repository mutation chronology; showcase-manifest index dates are explicitly an unequal route/state projection, grouped compactly by manifest date rather than presented as literal changelog. Φ marks host/authority frame; φ marks the current addressed focus/projection and never upgrades authority. Root convergence KPI duplication is retired; CURRENT remains attention authority and the thin Φ / CURRENT line reports CURRENT state, local φ focus and live master HEAD. INTERPHASE 0.2 exposes that same route focus through the shared host protocol without creating a second FIELD selection authority."
+      "retained_function": "Fast repo re-entry around one manifest route identity. Primary root hierarchy is CURRENT/φ truth → FIELD FOCUS → compact ROUTES / LIVE SURFACE → WAITING / YOU → collapsed STATUS. Git master remains exact mutation chronology but is folded beneath the route surface and resolves file→route evidence only on demand; it no longer competes as a second primary feed. TRACE is preserved as one nested STATUS instrument opened from the existing TRACE doors. Φ marks host/authority; φ marks addressed focus. CURRENT remains attention authority.",
+      "evidence": [
+        "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
+      ]
     },
     {
       "lineage": "scale-lens",
@@ -771,8 +774,8 @@
     "identity_fold": "SUPERSEDED_ON_PRIMARY_REENTRY",
     "issue_snapshot": "/control/FIELD_ISSUES.json",
     "glyph_grammar": "/field-glyph.js",
-    "shared_focus": "AXIAL / LATEST / MAP / HEADS / OPEN PORTS select one manifest route. First activation focuses; activating the already-focused local route opens it. INSPECT reads that route; AXIAL or LENS change the reading; outbound/consequential authority remains explicit.",
-    "plain_control": "LATEST chronological rows remain directly under the compositor.",
+    "shared_focus": "AXIAL / ROUTES / MAP / HEADS / OPEN PORTS select one manifest route. The runtime projection id AXIAL_LATEST remains for compatibility only. First activation focuses; activating the already-focused local route opens it. INSPECT reads that route; AXIAL or LENS change the reading; outbound/consequential authority remains explicit.",
+    "plain_control": "ROUTES / LIVE SURFACE remains directly under the compositor. Exact Git chronology is folded beneath it as on-demand evidence, not a parallel activity feed.",
     "support_field": "AXIAL 0.7 exact support counts + survivor set; support ≠ importance.",
     "passive_trial": "field-axial-trial/v0.1 local-only; ordinary use before interpretation.",
     "ambient_inspector": "◎ resolves selected text → active field value → current route object, then docks /field-aperture.js locally. Utility, not head.",
@@ -918,5 +921,6 @@
     "hermes_skills": "/skills/README.md",
     "hermes_fold_bloom_replay_lane": "/control/packets/HERMES_FOLD_BLOOM_REPLAY_MESSAGE_LANE_2026-09-24.md",
     "hermes_fold_bloom_visual_lane": "/control/packets/HERMES_FOLD_BLOOM_VISUAL_GRAMMAR_LANE_2026-09-24.md"
-  }
+  },
+  "last_field_index_tzimtzum": "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
 }

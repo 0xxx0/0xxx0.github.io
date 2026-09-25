@@ -35,7 +35,7 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 
 /* LATEST */
 .feedRail{display:flex;flex-wrap:wrap;gap:2px;padding:6px 0;border-top:1px solid var(--line)}.feedChip{width:30px;height:34px;padding:1px 1px 0;display:grid;place-items:center;grid-template-rows:20px 10px;border:1px solid #151d22;background:#080c0e;cursor:pointer}.feedChip tt{font:8px/1 ui-monospace,monospace;color:var(--mut);letter-spacing:0;padding-bottom:1px}.feedChip:hover tt{color:var(--gold)}.feedChip:hover{border-color:#66757b;background:#11181c}.feedChip.on{border-color:var(--gold);background:#141009}.legend{display:flex;flex-wrap:wrap;gap:10px 16px;padding:8px 10px;border:1px solid var(--line);background:#080b0e;margin-top:5px;align-items:center}.legend .lg{display:flex;align-items:center;gap:5px;font-size:6.5px;color:var(--mut);letter-spacing:.06em}.legend .lg b{color:var(--ink);font-weight:500}.legend .sw{width:9px;height:9px;border:1px solid #2a3439}.legend .hd{font-size:6px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-right:2px}.feedItem{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) 112px 92px 72px;gap:8px;align-items:center;border:0;border-bottom:1px solid #20282c;background:transparent;color:inherit;padding:7px 3px;text-align:left}.feedItem:hover,.feedItem.on{background:#0d1316}.feedMain strong{display:block;font:750 12px/1.1 system-ui,sans-serif}.feedPath{color:var(--cool);font-size:6px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.feedTouch,.feedMode,.feedState{font-size:6.5px;color:var(--mut)}.feedState{color:var(--green)}
-.feedMore{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:6px 3px;color:var(--mut);font-size:7px}.feedMore button{padding:5px 7px;font-size:7px}
+.feedMore{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:4px 3px;color:var(--mut);font-size:6.5px}.routeSurface{margin-top:10px}.feedMore button{padding:5px 7px;font-size:7px}
 
 /* STATUS RAIL — 5 stacked bars -> 1 inline row (2026-09-23) */
 .sRail{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline;font-size:6.5px;color:var(--mut);letter-spacing:.04em}
@@ -43,14 +43,13 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 .sRail u{text-decoration:none;color:var(--mut);margin-right:8px;white-space:nowrap}
 .syncLine{display:flex;align-items:center;gap:5px 12px;flex-wrap:wrap;margin-top:6px;padding:4px 7px;border:1px solid var(--line);background:#080b0d;color:var(--mut);font-size:6.5px;letter-spacing:.05em}
 .syncLine>a{color:var(--gold)}.syncLine b{letter-spacing:.12em}.syncLine .syncLocal{min-width:0;color:var(--cool)}.syncLine #syncFocus{display:inline-block;max-width:34ch;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom;white-space:nowrap}.syncLine #syncRepo{margin-left:auto;color:var(--mut)}
-.truthLine{display:flex;align-items:center;gap:5px 13px;flex-wrap:wrap;padding:4px 2px;color:var(--mut);font-size:6px;letter-spacing:.06em}.truthLine b{font-weight:700;color:var(--ink)}.truthLine .host{color:var(--gold)}.truthLine .local{color:var(--cool)}
 .touchList{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#080b0d}
 .touchCommit{border-bottom:1px solid #1b2429}.touchCommit:last-child{border-bottom:0}.touchCommit>summary{list-style:none;cursor:pointer}.touchCommit>summary::-webkit-details-marker{display:none}.touchCommit[open]>summary{background:#0d1316}
 .touchRow{display:grid;grid-template-columns:58px minmax(0,1fr) 68px;gap:8px;align-items:center;padding:4px 3px}.touchRow:hover{background:#0d1316}.touchRow code{color:var(--gold);font:6.3px ui-monospace,monospace}.touchRow b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:650 7.5px/1.2 system-ui,sans-serif}.touchRow span{text-align:right;color:var(--mut);font-size:5.8px}
 .touchFiles{padding:4px 3px 5px 69px;border-top:1px solid #121a1e}.touchImpact{color:var(--mut);font-size:6px;margin-bottom:3px}.touchFile{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;padding:2px 0;border-top:1px solid #11191d}.touchFile:first-of-type{border-top:0}.touchFile code{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#95a1a5;font-size:6px}.touchRouteTag{color:var(--cool);font-size:5.8px;white-space:nowrap}.touchRouteTag.shared{color:var(--gold)}.touchCommitLink{display:inline-block;margin-top:4px;color:var(--gold);font-size:6px}.touchFail{padding:7px 3px;color:var(--mut);font-size:7px}
 .routeProjection{margin-top:6px;border-top:1px solid var(--line)}.routeProjection>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:8px;padding:6px 2px;color:var(--mut)}.routeProjection>summary::-webkit-details-marker{display:none}.routeProjection>summary b{font-size:7px;letter-spacing:.11em;color:var(--ink)}.routeProjection>summary span{font-size:6.5px}
 .feedDay{flex:none;align-self:stretch;display:grid;place-items:center;padding:0 3px;border-left:1px solid #20282c;border-right:1px solid #20282c;color:#59666c;font:5.5px/1 ui-monospace,monospace;letter-spacing:.05em;writing-mode:vertical-rl;transform:rotate(180deg)}
-@media(max-width:760px){.syncLine #syncRepo{margin-left:0}.touchRow{grid-template-columns:52px minmax(0,1fr)}.touchRow span{display:none}.truthLine{gap:4px 9px}}
+@media(max-width:760px){.syncLine #syncRepo{margin-left:0}.touchRow{grid-template-columns:52px minmax(0,1fr)}.touchRow span{display:none}}
 .foldBody.nested{padding-left:8px;border-left:1px solid #1b2429}
 .foldBody.nested details.fold{margin-top:6px;border-top:0}
 .foldBody.nested details.fold>summary{padding:4px 0}
@@ -107,7 +106,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
        AXIAL lives inside /foundry/ (linked ./axial/). MIGRATION and RECOVERY already
        cross-link each other, so one door serves both -> RECORD. RETURN stays: /migration/
        does not link to it, so removing the item would have lost the path. -->
-<nav><a class="play" href="./field-play.html">PLAY</a><a href="#traceFold" onclick="document.getElementById('traceFold').open=true">TRACE</a><a href="./lens-proof/">COMPARE</a><a href="./control/">CURRENT</a><a class="proof" href="./nexus/" title="nexus, board, map">NEXUS</a><a class="wit" href="./witness/">✦ WITNESS</a><a href="./control/confluence/">CONFLUENCE</a><a href="./foundry/" title="foundry, axial, instruments">FOUNDRY</a><a href="./migration/" title="migration, recovery vault, salvage">RECORD</a><a href="./returns/">RETURN</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav>
+<nav><a class="play" href="./field-play.html">PLAY</a><a href="#traceFold" onclick="document.getElementById('statusFold').open=true;document.getElementById('traceFold').open=true">TRACE</a><a href="./lens-proof/">COMPARE</a><a href="./control/">CURRENT</a><a class="proof" href="./nexus/" title="nexus, board, map">NEXUS</a><a class="wit" href="./witness/">✦ WITNESS</a><a href="./control/confluence/">CONFLUENCE</a><a href="./foundry/" title="foundry, axial, instruments">FOUNDRY</a><a href="./migration/" title="migration, recovery vault, salvage">RECORD</a><a href="./returns/">RETURN</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav>
 </header>
 <details class="reentryFold" aria-label="FIELD re-entry states"><summary><span class="reentrySeg"><span>NOW</span><b>CURRENT</b></span><span class="reentrySeg recover"><span>RECOVER</span><b>VAULT</b></span><span class="reentrySeg converge"><span>CONVERGE</span><b>NEXUS</b></span><span class="reentryToggle">▶</span></summary><div class="reentryBody"><a href="./control/"><b>NOW / CURRENT</b><span>attention + bounded execution</span></a><a href="./recovery/"><b>RECOVER / VAULT</b><span>exact source + lineage</span></a><a href="./nexus/"><b>CONVERGE / NEXUS</b><span>coordination + RETURN</span></a><a href="./witness/"><b>WITNESS / WALL</b><span>six views of one record</span></a></div></details>
 <div class="syncLine" aria-label="FIELD truth frame">
@@ -119,7 +118,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 
 
 <section class="axial" id="axialLatest">
-  <div class="axialHead"><div><b>FIELD / FOCUS</b> <span id="axialMeta">loading repo mutations…</span></div><div class="axialActions"><span class="trial" id="axTrial" hidden title="Local-only passive comparison. Click to copy receipt.">trial —</span><button id="axReset">RESET / NEWEST</button></div></div>
+  <div class="axialHead"><div><b>FIELD / FOCUS</b> <span id="axialMeta">loading addressed routes…</span></div><div class="axialActions"><span class="trial" id="axTrial" hidden title="Local-only passive comparison. Click to copy receipt.">trial —</span><button id="axReset">RESET / NEWEST</button></div></div>
   <div class="aperture" id="aperture">
     <div class="apGlyph" id="apGlyph"></div>
     <div class="apBody"><div class="apMeta" id="apMeta">OBJECT / FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><div class="apReading" id="apProjection">READING · FIELD / FOCUS</div><p id="apRole">One fixed gate resolves the aligned vocabularies to an exact repository route.</p></div>
@@ -130,59 +129,43 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 
 </section>
 
-<details class="fold" id="traceFold">
-  <summary><b>TRACE / VERIFY</b><span id="traceMeta">local reference policy · focus-bound · raw input not retained</span></summary>
-  <div class="foldBody" id="tracePanel"></div>
-</details>
+<section class="section routeSurface" id="latest">
+  <div class="sectionHead"><div><b>ROUTES / LIVE SURFACE</b><span id="feedMeta">manifest projection · loading…</span></div><span class="tiny">φ focus · second click opens</span></div>
+  <div class="feedRail" id="feedRail"></div>
+  <div class="feedMore"><span>Addressed surfaces first. Exact Git change and glyph grammar stay attached below, closed until needed.</span><button id="moreLatest">SHOW ALL</button></div>
+
+  <details class="routeProjection" id="changeFold">
+    <summary><b>CHANGE / GIT</b><span id="touchMeta">master · loading HEAD…</span></summary>
+    <div class="touchList" id="touchList"><div class="touchFail">loading exact master chronology…</div></div>
+    <div class="feedMore"><span>Exact repository mutation evidence; not priority, navigation, or a second activity feed.</span><a class="tiny" href="https://github.com/0xxx0/0xxx0.github.io/commits/master" target="_blank" rel="noopener">ALL COMMITS ↗</a></div>
+  </details>
+
+  <details class="routeProjection" id="keyFold">
+    <summary><b>KEY</b><span>kind · operation · state · attention</span></summary>
+    <div class="legend" aria-label="glyph legend">
+      <span class="hd">frame</span>
+      <span class="lg">田 <b>root</b></span><span class="lg">中 <b>hub</b></span><span class="lg">工 <b>workbench</b></span><span class="lg">試 <b>experiment</b></span><span class="lg">物 <b>artifact</b></span><span class="lg">器 <b>system</b></span><span class="lg">復 <b>recovery</b></span><span class="lg">門 <b>alias</b></span><span class="lg">文 <b>docs</b></span><span class="lg">令 <b>control</b></span>
+      <span class="hd">mark</span>
+      <span class="lg">驗 <b>verify</b></span><span class="lg">映 <b>represent</b></span><span class="lg">戲 <b>play</b></span><span class="lg">回 <b>return</b></span><span class="lg">行 <b>route</b></span><span class="lg">位 <b>address</b></span><span class="lg">化 <b>transform</b></span><span class="lg">讀 <b>read</b></span>
+      <span class="hd">state</span>
+      <span class="lg"><i class="sw" style="background:#98d49b"></i><b>active/stable</b></span><span class="lg"><i class="sw" style="background:#d5ad68"></i><b>candidate/parked</b></span><span class="lg"><i class="sw" style="background:#72bce7"></i><b>donor/frozen</b></span><span class="lg"><i class="sw" style="background:#ed7447"></i><b>proof/now</b></span>
+    </div>
+  </details>
+</section>
 
 <details class="fold" id="waitingFold">
   <summary><b>WAITING / YOU</b><span id="waitingMeta">human/world dependencies · not queue · not priority</span></summary>
   <div class="foldBody" id="waitingList"></div>
 </details>
 
-<section class="section" id="latest">
-  <div class="sectionHead"><div><b>CHANGE / EXACT REPO</b><span id="touchMeta">master · loading commits…</span></div><a class="tiny" href="https://github.com/0xxx0/0xxx0.github.io/commits/master" target="_blank" rel="noopener">ALL COMMITS ↗</a></div>
-  <div class="touchList" id="touchList"><div class="touchFail">loading exact master chronology…</div></div>
-  <div class="truthLine"><span class="host"><b>Φ</b> host / authority</span><span class="local"><b>φ</b> current focus / projection</span><span><b>GIT</b> exact mutation</span><span><b>MANIFEST</b> addressed route projection</span></div>
-  <details class="routeProjection" open>
-    <summary><b>ROUTES / PROJECTED TOUCHES</b><span id="feedMeta">manifest metadata · not commit chronology</span></summary>
-  <div class="feedRail" id="feedRail"></div>
-  <div class="legend" aria-label="glyph legend">
-    <span class="hd">frame = kind</span>
-    <span class="lg">田 <b>root</b></span><span class="lg">中 <b>hub</b></span>
-    <span class="lg">工 <b>workbench</b></span><span class="lg">試 <b>experiment</b></span>
-    <span class="lg">物 <b>artifact</b></span><span class="lg">器 <b>system</b></span>
-    <span class="lg">復 <b>recovery</b></span><span class="lg">門 <b>alias</b></span>
-    <span class="lg">文 <b>documentation</b></span><span class="lg">令 <b>control</b></span>
-    <span class="lg">證 <b>evidence</b></span><span class="lg">驗 <b>validator</b></span>
-    <span class="lg">合 <b>rendezvous</b></span>
-    <span class="hd" style="margin-left:8px">mark = operation</span>
-    <span class="lg">驗 <b>verify</b></span><span class="lg">映 <b>represent</b></span>
-    <span class="lg">戲 <b>play</b></span><span class="lg">復 <b>recover</b></span>
-    <span class="lg">回 <b>return</b></span><span class="lg">行 <b>route</b></span>
-    <span class="lg">位 <b>address</b></span><span class="lg">收 <b>capture</b></span>
-    <span class="lg">化 <b>transform</b></span><span class="lg">讀 <b>read</b></span>
-    <span class="hd" style="margin-left:8px">colour = state</span>
-    <span class="lg"><i class="sw" style="background:#98d49b"></i><b>active · stable</b></span>
-    <span class="lg"><i class="sw" style="background:#d5ad68"></i><b>candidate · parked</b></span>
-    <span class="lg"><i class="sw" style="background:#72bce7"></i><b>donor · frozen</b></span>
-    <span class="lg"><i class="sw" style="background:#ed7447"></i><b>proof required · now</b></span>
-    <span class="lg"><i class="sw" style="background:#68757b"></i><b>utility</b></span>
-    <span class="hd" style="margin-left:8px">corner = attention</span>
-    <span class="lg"><i class="sw" style="background:#ed7447"></i><b>top-left: NOW</b></span>
-    <span class="lg"><i class="sw" style="background:#d5ad68"></i><b>bottom-right: HEAD</b></span>
-  </div>
-  <div class="legend" style="border:0;background:transparent;padding:4px 2px 0;color:var(--mut);font-size:6.5px;letter-spacing:.06em">
-    one chip per surface &nbsp;·&nbsp; hover for title, route, date, state &nbsp;·&nbsp;
-    click to focus, click again to open &nbsp;·&nbsp; order is newest-first
-  </div>
-  <div class="feedMore"><span>Route dates say when a tracked surface was indexed; Git above remains literal repository history.</span><button id="moreLatest">SHOW ALL</button></div>
-  </details>
-</section>
-
 <details class="fold" id="statusFold">
   <summary><b>STATUS</b><span class="sRail" id="sRail">loading…</span></summary>
   <div class="foldBody nested">
+<details class="fold" id="traceFold">
+  <summary><b>TRACE / VERIFY</b><span id="traceMeta">focus-bound · raw input not retained</span></summary>
+  <div class="foldBody" id="tracePanel"></div>
+</details>
+
 <details class="fold" id="issuesFold">
   <summary><b>ISSUES / REPO OPEN LOOPS</b><span id="issueMeta">loading…</span></summary>
   <div class="foldBody" id="issueList"></div>
@@ -207,14 +190,11 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   <div class="foldBody" id="ports"></div>
 </details>
 
-<details class="fold" data-status-static="1">
-  <summary><b>AUDITS / HISTORICAL</b><span>2026-09-21 snapshots · RETURN + live selftest</span></summary>
-  <div class="foldBody health"><a href="./control/FIELD_INDEX_SITEMAP_AUDIT_2026-09-21.json"><b>SITEMAP</b><span>coverage</span></a><a href="./control/FIELD_INDEX_ROUTE_HEALTH_2026-09-21.json"><b>ROUTES</b><span>metadata</span></a><a href="./control/FIELD_INDEX_LINK_AUDIT_2026-09-21.json"><b>LINKS</b><span>integrity</span></a><a href="./returns/"><b>RETURN</b><span>receipts</span></a><a href="./showcase-selftest/"><b>SELFTEST</b><span>validator</span></a></div>
-</details>
+
   </div>
 </details>
 
-<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>same route · chronology / axial / map · focus first · second click opens local route</span><button id="foveaToggle" title="READ WITHOUT CLICKING. Sweep the pointer over any glyph to read its title and state in place — click to select it, shift-click to open it, scroll to step through its peers. Nothing opens unless you mean it. Toggle: f key.">◎ FOVEA</button></div>
+<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>CURRENT → φ focus → routes · CHANGE / TRACE / STATUS only on demand</span><button id="foveaToggle" title="READ WITHOUT CLICKING. Sweep the pointer over any glyph to read its title and state in place — click to select it, shift-click to open it, scroll to step through its peers. Nothing opens unless you mean it. Toggle: f key.">◎ FOVEA</button></div>
 
 <script src="./field-presentation.js"></script>
 <script src="./field-glyph.js"></script>
@@ -234,7 +214,7 @@ function saveTrial(){try{localStorage.setItem(TRIAL_KEY,JSON.stringify(trial))}c
 function noteFocus(source,ok=true){if(!['AXIAL','LATEST'].includes(source))source='OTHER';trial[source==='AXIAL'?'axial_focus':source==='LATEST'?'latest_focus':'other_focus']++;if(!ok)trial.dead++;trial.last_source=source;trial.last_at=Date.now();saveTrial()}
 function noteOpen(){if(!focus)return;const source=['AXIAL','LATEST'].includes(trial.last_source)?trial.last_source:'OTHER';trial.opens[source]=(trial.opens[source]||0)+1;if(trial.last_at)trial.open_ms[source]=(trial.open_ms[source]||0)+Math.max(0,Date.now()-trial.last_at);saveTrial()}
 function renderTrial(){const a=trial.axial_focus||0,l=trial.latest_focus||0,d=trial.dead||0;$('axTrial').textContent='AX '+a+' · LI '+l+(d?' · Ø'+d:'')}
-function trialReceipt(){return{...trial,exported_at:new Date().toISOString(),note:'LOCAL-ONLY interaction counts; no claim of usability superiority. AX=AXIAL focus selections; LI=plain LATEST row selections; Ø=dead intersections.'}}
+function trialReceipt(){return{...trial,exported_at:new Date().toISOString(),note:'LOCAL-ONLY interaction counts; no claim of usability superiority. AX=AXIAL focus selections; LI=route-pulse focus selections (legacy counter name retained); Ø=dead intersections.'}}
 const routeMap=()=>new Map(routes.map(r=>[r.href,r]));
 const projectionOf=()=>$('mapFold')?.open?mapMode:'AXIAL_LATEST';
 const notifyFieldIndex=()=>{const projection=projectionOf(),w=$('apProjection'),label=projection==='AXIAL_LATEST'?'FIELD / FOCUS':projection.replace('_',' / ');if(w)w.textContent='READING · '+label;window.dispatchEvent(new CustomEvent('field-index:state',{detail:{focus:focus?.href||null,projection,mapRoot,axisState:{...axisState}}}))};
@@ -339,7 +319,6 @@ function renderAperture(){
 function updateStatusRail(){
   const el=document.getElementById('sRail');if(!el)return;
   const rows=[
-    ['YOU',$('waitingMeta')?.textContent],
     ['ISSUES',$('issueMeta')?.textContent],
     ['HEADS',$('headMeta')?.textContent],
     ['MAP',$('mapMeta')?.textContent],
@@ -385,12 +364,11 @@ async function loadCommitFiles(sha){
 }
 function renderRepoTouches(){
  const box=$('touchList'),meta=$('touchMeta');if(!box||!meta)return;
- const xs=repoTouches.slice(0,16);
+ const xs=repoTouches.slice(0,8);
  if(!xs.length){meta.textContent='master · live chronology unavailable';box.innerHTML='<div class="touchFail">Live GitHub chronology unavailable; manifest projection remains below.</div>';renderSyncLine();return}
- meta.textContent=repoTouches.length+' exact commits · open row = exact files / route + shared touches · newest '+shortTs(xs[0].date);
- box.innerHTML=xs.map((c,i)=>'<details class="touchCommit" data-sha="'+esc(c.sha)+'"'+(i===0?' open':'')+'><summary class="touchRow"><code>'+esc(c.sha.slice(0,8))+'</code><b>'+esc(c.subject)+'</b><span>'+esc(shortTs(c.date))+'</span></summary><div class="touchFiles" data-touch-files="'+esc(c.sha)+'"><div class="touchFail">open to resolve exact changed paths…</div></div></details>').join('');
+ meta.textContent='HEAD '+xs[0].sha.slice(0,8)+' · '+shortTs(xs[0].date)+' · '+repoTouches.length+' recent';
+ box.innerHTML=xs.map(c=>'<details class="touchCommit" data-sha="'+esc(c.sha)+'"><summary class="touchRow"><code>'+esc(c.sha.slice(0,8))+'</code><b>'+esc(c.subject)+'</b><span>'+esc(shortTs(c.date))+'</span></summary><div class="touchFiles" data-touch-files="'+esc(c.sha)+'"><div class="touchFail">open to resolve exact changed paths…</div></div></details>').join('');
  box.querySelectorAll('.touchCommit').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)loadCommitFiles(d.dataset.sha)}));
- const first=box.querySelector('.touchCommit[open]');if(first)loadCommitFiles(first.dataset.sha);
  renderSyncLine();
 }
 async function loadRepoTouches(){
@@ -485,7 +463,7 @@ function renderMapSvg(){
    const xs=latest.filter(mapMatches).slice(0,48),cx=500,cy=215,pts=[];xs.forEach((r,i)=>{const a=-1.2+i*.52,rad=25+i*6.2,x=cx+Math.cos(a)*rad*1.2,y=cy+Math.sin(a)*rad*.62;pts.push({r,x,y})});
    if(pts.length)svg.append(el('polyline',{class:'pulsePath',points:pts.map(p=>p.x+','+p.y).join(' ')}));
    pts.forEach(p=>{const c=el('circle',{cx:p.x,cy:p.y,r:focus?.href===p.r.href?7:5,class:'pulseDot '+(focus?.href===p.r.href?'sel':'')});c.style.cursor='pointer';c.onclick=()=>focusOrOpen(p.r,'OTHER');svg.append(c)});
-   $('mapTitle').textContent='PULSE';$('mapPath').textContent='mutation spiral · identity preserved';$('mapMeta').textContent=xs.length+' recent mutations · manifest '+(manifest?.updated||'—');updateStatusRail();return;
+   $('mapTitle').textContent='PULSE';$('mapPath').textContent='route-touch spiral · identity preserved';$('mapMeta').textContent=xs.length+' recent route touches · manifest '+(manifest?.updated||'—');updateStatusRail();return;
  }
  const cm=childrenMap(),kids=(cm.get(mapRoot)||[]).filter(mapMatches),cx=500,cy=215,rx=360,ry=155;
  const center=routeMap().get(mapRoot)||{title:'FIELD',href:'/'};const ct=el('text',{x:cx,y:cy+4,'text-anchor':'middle'});ct.textContent=center.title||'FIELD';ct.setAttribute('fill','#edf0ed');ct.setAttribute('font-size','12');svg.append(ct);
@@ -507,7 +485,7 @@ function inspectFocus(){
  location.assign('./docs/?handoff=1&return='+encodeURIComponent(returnAddress))
 }
 function openTrace(){
- const fold=$('traceFold');if(!fold)return;fold.open=true;fold.scrollIntoView({behavior:'smooth',block:'start'});window.dispatchEvent(new CustomEvent('field-trace:open',{detail:{focus:focus?.href||null}}));
+ const fold=$('traceFold');if(!fold)return;const status=$('statusFold');if(status)status.open=true;fold.open=true;fold.scrollIntoView({behavior:'smooth',block:'start'});window.dispatchEvent(new CustomEvent('field-trace:open',{detail:{focus:focus?.href||null}}));
 }
 function openProof(){if(!focus)return;if(window.LensProof?.open){window.LensProof.open();return}const q=new URLSearchParams({lens_proof:'1',focus:focus.href});location.assign('./?'+q.toString())}
 async function copyTrial(){const data=JSON.stringify(trialReceipt(),null,2);try{await navigator.clipboard.writeText(data);const e=$('axTrial'),old=e.textContent;e.textContent='TRIAL COPIED';setTimeout(()=>renderTrial(),900)}catch(_){prompt('Copy local AXIAL trial:',data)}}
@@ -519,7 +497,7 @@ Promise.all([
 ]).then(([m,c])=>{
  manifest=m;current=c;routes=(m.routes||[]).filter(r=>r.href!=='/');latest=routes.filter(r=>r.index?.updated_at).sort((a,b)=>String(b.index.updated_at).localeCompare(String(a.index.updated_at)));
  headSet=new Set((c.current_heads||[]).map(h=>h.route));nowSet=new Set((c.active_fronts||[]).slice(0,3).map(nowHref));
- $('axialMeta').textContent=latest.length+' mutations · support is exact over current filters';
+ $('axialMeta').textContent=latest.length+' addressed routes · support exact over current filters';
  renderHeads();renderPorts();applyInitialAxial();renderSyncLine();loadRepoTouches();loadWaiting();loadIssues();renderMap();if(INIT.get('trace')==='1')setTimeout(openTrace,0);
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});
 $('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apTrace').onclick=openTrace;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===30?999:30;$('moreLatest').textContent=latestLimit===30?'SHOW ALL':'SHOW FEWER';renderFeed()};

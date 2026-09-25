@@ -1,0 +1,43 @@
+{
+  "schema": "field-index-tzimtzum-return/v0.1",
+  "date": "2026-09-25",
+  "state": "VERIFIED_BRANCH",
+  "target": "/",
+  "recovered_intent": [
+    "FIELD INDEX is re-entry, not another dashboard.",
+    "Repo touches should inform the route surface rather than occupy a parallel primary block.",
+    "Keep the active surface small; fold/remove duplicate status, audit and diagnostic projections.",
+    "CURRENT owns attention; Φ is host authority; φ is local addressed focus."
+  ],
+  "delta": [
+    "Removed CHANGE / EXACT REPO as a top-level primary section.",
+    "Made ROUTES / LIVE SURFACE the always-visible post-focus projection.",
+    "Nested exact Git chronology as collapsed CHANGE / GIT under ROUTES; commit details are lazy and only eight rows are shown.",
+    "Moved TRACE / VERIFY inside collapsed STATUS; existing top-nav and Aperture TRACE still reach the same instrument.",
+    "Removed WAITING duplication from STATUS summary.",
+    "Removed dated AUDITS / HISTORICAL block from root.",
+    "Collapsed glyph legend into a closed KEY aperture.",
+    "Updated CURRENT, manifest root and FIELD INDEX contract to the same hierarchy.",
+    "Removed stale 'manifest = mutations/LATEST chronology' wording from root UI, CURRENT, contract and manifest transfer notes."
+  ],
+  "preserved": [
+    "Exact Git chronology and changed-file→route mapping.",
+    "Manifest route glyph rail and second-click OPEN semantics.",
+    "WAITING / YOU durable + CURRENT-derived human gates.",
+    "Map, issues, heads, ports, trace and self-contained route focus machinery."
+  ],
+  "evidence": {
+    "branch": "field-index-tzimtzum-20260925",
+    "base": "279931fe41541a3ce1757560845bdd6a793ac216",
+    "files": [
+      "index.html",
+      "control/FIELD_INDEX_CONTRACT.json",
+      "control/CURRENT.json",
+      "showcase-manifest.json",
+      "returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
+    ],
+    "inline_script_parse": "PASS",
+    "semantic_drift_check": "PASS: manifest projection is no longer labeled mutation chronology; CURRENT plain_control and shared_focus aligned; manifest.updated=2026-09-25."
+  },
+  "stop": "Do not add another root sync/dashboard surface. Next change requires observed ordinary-use friction on the contracted root."
+}
