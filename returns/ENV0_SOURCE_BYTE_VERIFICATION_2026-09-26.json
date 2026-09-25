@@ -1,0 +1,23 @@
+{
+  "schema": "return-receipt/v1",
+  "id": "ENV0_SOURCE_BYTE_VERIFICATION_2026-09-26",
+  "date": "2026-09-26",
+  "state": "EXACT_LIBRARY_PDFS_RAW_HASH_VERIFIED",
+  "object": "ENV-0 exact PDF source pair",
+  "proof": [
+    {
+      "name": "ENV0_Atlas_v0_1_A2.pdf",
+      "file_id": "file_00000000b3e88208bb741d4a80de7285",
+      "size_bytes": 105169,
+      "sha256": "166412f75c8cf186c6ec69aa8cee2bf30322a17827c5b2b1e873f44b78f08945"
+    },
+    {
+      "name": "ENV0_P0_BUILD_SHEET_A3.pdf",
+      "file_id": "file_0000000096888211b3850bc756151790",
+      "size_bytes": 10195,
+      "sha256": "c7212e805ad0c5e866909bbc1fbae89db246fc2c5ba16592f4688284bed8840e"
+    }
+  ],
+  "consequence": "ENV-0 no longer has a PDF source-identity/hash gap. The next meaningful gate is physical evidence already specified in PHYSICAL_RETURN_ENV0_2026-09-20, not further source reconstruction.",
+  "boundary": "Exact source recovery ≠ physical build completion. No wearable/load/EXP-001 claim is made."
+}
