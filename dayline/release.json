@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "DAYLINE // CONFLUENCE",
-  "version": "0.2.2-candidate",
+  "version": "0.2.2",
   "route": "/dayline/",
-  "state": "CANDIDATE",
+  "state": "MERGED_ACTIVE_CANDIDATE",
   "operation": "OPERATE",
   "released": "2026-09-26",
-  "role": "Mobile-first continuous execution projection over the existing Dayline DayState. One source-linked object may remain held through RUN → WITNESS → COMPLETE → RETURN; Dayline then emits one source-appropriate OFFER_ONLY receipt and releases completed focus. COMMS may receive a native state proposal; Shopping receives evidence-only.",
+  "role": "Mobile-first continuous execution projection over the existing Dayline DayState. One source-linked object may remain held through RUN → WITNESS → COMPLETE → RETURN; Dayline then emits one source-appropriate OFFER_ONLY receipt and releases completed focus. COMMS may receive a native state proposal; Shopping receives evidence-only. HOUSE escape/depth returns directly to canonical /house/ rather than the /house/spatial/ compatibility route.",
   "authority": "NONE / projection + explicit local DayState mutation only",
   "preserves": [
     "poly-atlas-dayline-branch-i-public-v1 local DayState identity",
@@ -19,7 +19,8 @@
     "source SHA/signal/message/range identity for COMMS return offers",
     "native source acceptance authority",
     "source-specific return effect class: COMMS STATE_PROPOSAL vs SHOPPING RECEIPT_ONLY",
-    "Shopping lifecycle truth remains native; Dayline cannot promote FOUND/BOUGHT/RECEIVED/TESTED/ADOPTED"
+    "Shopping lifecycle truth remains native; Dayline cannot promote FOUND/BOUGHT/RECEIVED/TESTED/ADOPTED",
+    "canonical HOUSE human entry /house/"
   ],
   "validation": {
     "ordinary_document_scroll": "BY_SOURCE",
@@ -38,7 +39,11 @@
     "route_registration": "PASS · 36148842258",
     "merge": "PR #359 · 3ec708367add46f2ea978ebecc4984fa01e142fe",
     "source_return_effects": "COMMS → STATE_PROPOSAL; SHOPPING → RECEIPT_ONLY; other hosts → EVIDENCE_ONLY",
-    "shopping_closed_loop": "PENDING_CI · WATCH item → Dayline done+witness → RECEIPT_ONLY → Shopping receipt, lifecycle unchanged"
+    "shopping_closed_loop": "PASS · PR #379 · public-surface-check 36165271722 · Route Registration 36165271718 · WATCH remained WATCH after ACCEPT RECEIPT",
+    "shopping_merge": "PR #379 · 72050f5c12f16a4fc04460e0b757eebbf6d1b621",
+    "canonical_house_entry": "/house/",
+    "house_compat_alias_not_used_by_dayline": true,
+    "house_route_proof": "PASS · PR #383 · public-surface-check 36165776361 · Route Registration 36165776354 · merge 5595e08aa5367ae8a32801b6fec97333b5c5492b"
   },
   "stop": "Functional correctness is machine/browser verified first. Real-world completion remains a WORLD claim; phone preference/ergonomics is optional subjective evidence, not the default promotion gate.",
   "verification_policy": {
