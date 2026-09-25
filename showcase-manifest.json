@@ -142,7 +142,8 @@
         "source BACK path retained; import is never automatic",
         "first mobile visit → PLAIN action projection; ATLAS remains optional",
         "mobile CAPTURE inherits current Dayline contexts",
-        "COPY HANDOFF → atlas-dayline-feedback/v0.2 authority NONE / USER_EXPLICIT_COPY"
+        "COPY HANDOFF → atlas-dayline-feedback/v0.2 authority NONE / USER_EXPLICIT_COPY",
+        "reality-first seed: first-run/reset is empty; no historical sample obligations"
       ],
       "contract": {
         "accepts": {
@@ -232,15 +233,14 @@
         "physical_fit": "Direct bridge from digital intent to scheduled human physical work."
       },
       "index": {
-        "updated_at": "2026-09-25T15:03:00+08:00",
+        "updated_at": "2026-09-25T16:45:00+08:00",
         "work_modes": [
-          "IMPLEMENT",
-          "VERIFY",
-          "OPERATE"
+          "OPERATE",
+          "VERIFY"
         ]
       },
       "tier": "FIELD",
-      "version": "Branch I + FIELD LIVE 0.2.1 / REALITY PORTS / MOBILE ACTION",
+      "version": "Branch I + FIELD LIVE 0.2.2 / REALITY FIRST",
       "role": "Local-first temporal execution instrument with explicit FIELD + HOUSE/SHOPPING/COMMS reality ports. First mobile use opens the PLAIN action projection; CAPTURE and pending REALITY PORT remain visible while verbose FIELD detail contracts. Outbound COPY HANDOFF is authority-NONE worker evidence; CURRENT and native source tools retain authority."
     },
     {

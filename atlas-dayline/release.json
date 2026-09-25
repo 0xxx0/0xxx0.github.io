@@ -1,7 +1,7 @@
 {
   "schema": "showcase-release/v1",
   "surface": "ATLAS DAYLINE",
-  "version": "Branch I + FIELD LIVE 0.2.1 / REALITY PORTS / MOBILE ACTION",
+  "version": "Branch I + FIELD LIVE 0.2.2 / REALITY FIRST",
   "route": "/atlas-dayline/",
   "state": "STABLE + OPT_IN_LIVE_CANDIDATE",
   "operation": "PLAN",
@@ -19,7 +19,7 @@
     "explicit_promotion": "PASS_BY_SOURCE",
     "feedback_no_repo_write": "PASS_BY_SOURCE",
     "service_worker_live_truth_bypass": "PASS_BY_SOURCE",
-    "cache_version_bumped": "atlas-dayline-i-v4",
+    "cache_version_bumped": "atlas-dayline-i-v5",
     "reality_handoff_schema": "atlas-dayline-handoff/v0.1",
     "explicit_source_promotion": "PASS_BY_SOURCE",
     "session_local_transport": "PASS_BY_SOURCE",
@@ -27,9 +27,10 @@
     "mobile_touch_floor": "PASS_BY_SOURCE · utility/plain actions ≥38px; LIVE controls ≥34px",
     "mobile_field_contraction": "PASS_BY_SOURCE · capture + REALITY PORT remain visible; verbose FIELD detail collapses on phone",
     "feedback_worker_boundary": "atlas-dayline-feedback/v0.2 · authority NONE · USER_EXPLICIT_COPY",
-    "reality_capture_context": "PASS_BY_SOURCE · capture inherits active Dayline contexts"
+    "reality_capture_context": "PASS_BY_SOURCE · capture inherits active Dayline contexts",
+    "reality_first_seed": "PASS_BY_SOURCE · new/reset state has zero tasks and zero anchors; existing local state is untouched"
   },
-  "known_gap": "Needs lived phone proof across action-first entry plus HOUSE→context, SHOPPING→task and COMMS→obligation. RETURN→native-source receipt remains next-stage; no private Hermes runtime/calendar binding.",
+  "known_gap": "Existing browser-local state is intentionally not auto-cleared. Use RESET EMPTY only when the human wants to discard that local state. Lived phone proof across REALITY PORTS remains the current gate.",
   "date": "2026-09-25",
   "changes": [
     "added atlas-dayline-handoff/v0.1 as a single explicit session-local envelope; it is transport, not queue/authority",
@@ -41,6 +42,9 @@
     "first mobile visit defaults once to the existing PLAIN action projection; ATLAS stays available with identical task state",
     "mobile LIVE keeps CAPTURE + REALITY PORT visible while contracting verbose FIELD fronts/gates",
     "quick reality capture inherits current Dayline contexts instead of hard-coding computer",
-    "COPY HANDOFF uses atlas-dayline-feedback/v0.2 with authority NONE / USER_EXPLICIT_COPY for replaceable workers"
+    "COPY HANDOFF uses atlas-dayline-feedback/v0.2 with authority NONE / USER_EXPLICIT_COPY for replaceable workers",
+    "new first-run/reset Dayline state is empty instead of carrying old concrete-looking demo errands or support tasks",
+    "existing browser-local Dayline state remains preserved; only first-run/reset seed changes",
+    "RESET SAMPLE is renamed RESET EMPTY to make the authority boundary legible"
   ]
 }

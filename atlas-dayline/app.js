@@ -4,25 +4,12 @@ const NS='http://www.w3.org/2000/svg',TAU=Math.PI*2,$=s=>document.querySelector(
 const C={paper:'#f4efe4',ink:'#191915',graph:'#4b4942',faint:'#aaa499',line:'#cec7ba',red:'#a8422d',red2:'#c56348',blue:'#526c77',ghost:'#817c72'};
 const STORE='poly-atlas-dayline-branch-i-public-v1',RETURN_STORE='poly-atlas-dayline-branch-i-public-last-return',VIEW_STORE='poly-atlas-dayline-branch-i-public-view',RESUME_STORE='poly-atlas-dayline-branch-i-public-resume';
 const sample={
- meta:{title:'ATLAS DAYLINE',subtitle:'A DIFFERENTIAL CENSUS OF THE POSSIBLE DAY',dayStart:'11:00',dayEnd:'23:00'},
- state:{now:null,contexts:['home','computer','phone'],horizon:180,sort:'focus',ink:'structure',lens:'atlas',selected:'t:backup-verify',route:[]},
- anchors:[
-  {id:'a:pickup',start:'15:00',end:'17:00',title:'COLLECTION / ERRAND WINDOW',note:'Protected errand window.'},
-  {id:'a:support',start:'20:30',end:'23:00',title:'SUPPORT / ACCOUNT WINDOW',note:'Support call after 20:30.'}
- ],
- tasks:[
-  {id:'t:backup-verify',title:'Verify backup + note restore path',contexts:['home','computer'],duration:15,value:5,earliest:'11:00',latest:'13:00',setup:1,depends:[],status:'open',sourceClass:'USER',provenance:'direct-day-plan',notes:''},
-  {id:'t:bench-reset',title:'Clear one bounded workspace / bench zone',contexts:['home','bench'],duration:20,value:4,earliest:'11:00',latest:'15:00',setup:1,depends:[],status:'open',sourceClass:'USER',provenance:'direct-day-plan',notes:''},
-  {id:'t:ipcam',title:'Mount one camera + verify field of view',contexts:['home','phone','tools'],duration:25,value:5,earliest:'11:00',latest:'20:00',setup:2,depends:[],status:'open',sourceClass:'USER',provenance:'direct-day-plan',notes:''},
-  {id:'t:print-test',title:'Print one partition / sticker alignment test',contexts:['home','printer','computer'],duration:12,value:4,earliest:'11:30',latest:'19:00',setup:2,depends:[],status:'open',sourceClass:'USER',provenance:'direct-day-plan',notes:''},
-  {id:'t:wall-measure',title:'Measure wall / partition interfaces once',contexts:['home','tools'],duration:10,value:4,earliest:'11:00',latest:'15:00',setup:1,depends:[],status:'open',sourceClass:'USER',provenance:'direct-day-plan',notes:''},
-  {id:'t:maker-cart',title:'One bounded procurement / parts pass',contexts:['computer','phone'],duration:25,value:3,earliest:'12:00',latest:'20:00',setup:1,depends:[],status:'open',sourceClass:'USER',provenance:'direct-day-plan',notes:''},
-  {id:'t:litterbox',title:'Inspect one failed device — record failure mode only',contexts:['home','tools'],duration:15,value:4,earliest:'11:00',latest:'19:00',setup:2,depends:[],status:'open',sourceClass:'USER',provenance:'direct-day-plan',notes:''},
-  {id:'t:pickup',title:'Collect parcel / supplies during errand window',contexts:['errand','phone'],duration:90,value:5,earliest:'15:00',latest:'17:00',setup:2,depends:[],status:'open',sourceClass:'USER',provenance:'direct-day-plan',notes:'Linked to protected 15:00–17:00 errand anchor.'},
-  {id:'t:support-call',title:'Call support to recover account access',contexts:['phone','calls'],duration:20,value:5,earliest:'20:30',latest:'23:00',setup:1,depends:[],status:'open',sourceClass:'USER',provenance:'direct-day-plan',notes:'Do after 20:30.'}
- ],
+ meta:{title:'ATLAS DAYLINE',subtitle:'REALITY FIRST · EMPTY UNTIL CAPTURED',dayStart:'11:00',dayEnd:'23:00'},
+ state:{now:null,contexts:['home','computer','phone'],horizon:180,sort:'focus',ink:'structure',lens:'atlas',selected:null,route:[]},
+ anchors:[],
+ tasks:[],
  events:[], evidence:{orient:[],miss:[],noise:[],friction:[],return:[]}
-};
+}
 let data=load(),editId=null,anchorEditId=null,evidenceKind=null,taskDraft=null,taskIsNew=false,anchorDraft=null,anchorIsNew=false,taskPoints=new Map(),spinePoints=new Map(),contextHubPoints=new Map(),drag={kind:null,id:null,pointer:null,checkpointed:false};
 function loadView(){try{return JSON.parse(localStorage.getItem(VIEW_STORE)||'{}')}catch{return{}}}
 function loadResumeSeed(){try{return JSON.parse(localStorage.getItem(RESUME_STORE)||'null')}catch{return null}}
