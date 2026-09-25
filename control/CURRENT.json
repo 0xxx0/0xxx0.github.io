@@ -100,10 +100,11 @@
         "https://github.com/0xxx0/0xxx0.github.io/pull/177",
         "/returns/FIELD_PULSE_CONVERGENCE_2026-09-24.json",
         "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
-        "/returns/READFIELD_WORK_MODES_2026-09-25.json"
+        "/returns/READFIELD_WORK_MODES_2026-09-25.json",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/226"
       ],
       "latest_return": "/returns/READFIELD_WORK_MODES_2026-09-25.json",
-      "merge_sha": "ace1bf8d7e1c114069f7c82651d37d0cd218af6f",
+      "merge_sha": "fb270b4ef10b185912632014ce2e1db980b026ab",
       "next_executable": {
         "id": "readfield-work-modes-lived-gate",
         "state": "HOLD_FOR_HUMAN_USE",
@@ -116,6 +117,11 @@
           "Which modes deserve persistent one-tap placement after repeated use?"
         ],
         "law": "No new reader engine or universal session bus; revise from direct-use friction."
+      },
+      "repo_verification": {
+        "route_registration_run": 36082758418,
+        "public_surface_run": 36082758427,
+        "status": "PASS"
       }
     },
     {
