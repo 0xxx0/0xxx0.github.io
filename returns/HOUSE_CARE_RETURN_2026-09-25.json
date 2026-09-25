@@ -1,0 +1,33 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "HOUSE_CARE_RETURN_2026-09-25",
+  "date": "2026-09-25",
+  "route": "/house/#CARE",
+  "branch": "care-episode-return-20260925",
+  "state": "CANDIDATE",
+  "objective": "Close the gap between care observation, smallest response, follow-through evidence and return without publishing private reality state.",
+  "recovered_sources": [
+    "Cat Care Operating Protocol / Cat Canon: observation vs interpretation, care continuity and export gap",
+    "HOUSE OS: maintenance/care stay visible; spatial address + return condition",
+    "72-hour stabilization runbook: care before tools; proof beats discussion; preserve UNKNOWN",
+    "Dayline handoff: explicit session-only context/action transport",
+    "Shopping↔HOUSE: measured fit may inform care burden, but does not mutate HOUSE authority"
+  ],
+  "delta": [
+    "CARE added to canonical HOUSE projection set",
+    "browser-local episode schema with address, class, observed, action, return_condition, state and receipt",
+    "OPEN/WATCH/DONE state machine; DONE requires receipt",
+    "explicit one-episode Dayline ACTION handoff",
+    "local JSON export for recoverability"
+  ],
+  "authority": {
+    "physical_truth": "reality/evidence",
+    "spatial_address": "HOUSE Spatial State",
+    "device_truth_and_actuation": "Home Assistant / HOUSEBUS",
+    "care_episode": "browser-local user record",
+    "dayline": "planning recipient only"
+  },
+  "privacy": "No personal care episode or telemetry is committed by this change.",
+  "falsifier": "If ordinary use creates more logging burden than follow-through value, remove CARE as a standing projection and retain only the episode schema/export primitive.",
+  "next_test": "Capture one real non-sensitive household/pet/home care episode on phone, send it to Dayline only if action timing matters, then close it with a receipt. Measure whether re-entry is easier than chat/task-memory alone."
+}
