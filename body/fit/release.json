@@ -50,7 +50,7 @@
   ],
   "open_gaps": [
     "CARE does not yet project explicit performed care actions into the same PATINA grammar; test BODY / FIT semantics before sharing that projection",
-    "ordinary-use proof: run the same saved kit twice and verify first RETURN/NEXT CUT makes second prep materially better",
+    "optional lived-value evidence: repeated saved-kit use may show whether RETURN/NEXT CUT materially improves preparation; this is not a correctness gate",
     "private HOUSEBUS/HA sensor adapter not yet wired",
     "Open Twin high-resolution projection remains a recovered donor cassette, not runtime-linked here",
     "automated transform + Android compile are proved; one real phone permission/read/export/import round trip remains before operational promotion"
@@ -66,6 +66,22 @@
     "state": "PASS",
     "transform_test": "body/fit/health-connect-selftest.cjs",
     "android_ci": ".github/workflows/body-bridge-android.yml",
-    "real_device": "REQUIRED"
+    "real_device": "UNKNOWN_DEVICE_ONLY",
+    "device_claim": "Actual Android permission UI + real Health Connect record read/export/import has not been physically proved; transform/build/provenance claims remain independently proved."
+  },
+  "verification_policy": {
+    "proved_without_human": [
+      "Health Connect fixture transform",
+      "Android compile",
+      "source/provenance retention",
+      "local fitting/loadout/PATINA state semantics"
+    ],
+    "device_only_unknown": [
+      "actual phone permission flow",
+      "vendor Health Connect behavior on physical device"
+    ],
+    "subjective_optional": [
+      "whether repeated loadout use reduces preparation friction"
+    ]
   }
 }
