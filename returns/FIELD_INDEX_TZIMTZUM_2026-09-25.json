@@ -1,7 +1,7 @@
 {
   "schema": "field-index-tzimtzum-return/v0.1",
   "date": "2026-09-25",
-  "state": "VERIFIED_BRANCH",
+  "state": "MERGED_VERIFIED",
   "target": "/",
   "recovered_intent": [
     "FIELD INDEX is re-entry, not another dashboard.",
@@ -39,5 +39,37 @@
     "inline_script_parse": "PASS",
     "semantic_drift_check": "PASS: manifest projection is no longer labeled mutation chronology; CURRENT plain_control and shared_focus aligned; manifest.updated=2026-09-25."
   },
-  "stop": "Do not add another root sync/dashboard surface. Next change requires observed ordinary-use friction on the contracted root."
+  "stop": "Do not add another root sync/dashboard surface. Next change requires observed ordinary-use friction on the contracted root.",
+  "followup_0_8_3": {
+    "state": "MERGED_VERIFIED",
+    "purpose": "Continue contraction without creating a second dashboard or state store.",
+    "delta": [
+      "HEADS / LINEAGES and PORTS / EXIT STATE now use compact addressed glyph rails.",
+      "WAITING / YOU uses a route glyph only as a signal; the human move remains visible text.",
+      "ISSUES stays textual until issue→route/object addressing exists.",
+      "Seven URL-nested routes were folded under their already-existing manifest parents.",
+      "The WITNESS family was folded under the existing /witness/ hub rather than occupying seven additional root children.",
+      "The failed checked-in agent transcript was rejected as a synchronization obligation; a later stable /llms.txt entrypoint emits transient selected-expression packets only on demand."
+    ],
+    "preserved": [
+      "same route identities and URLs",
+      "CURRENT attention authority",
+      "exact Git chronology",
+      "human/world gate text",
+      "RETURN paths"
+    ],
+    "evidence": {
+      "glyph_pr": 243,
+      "glyph_merge": "92f45644692189c1c2598331125357d622b4c6fb",
+      "glyph_public_surface_run": 36095726622,
+      "glyph_route_registration_run": 36095726628,
+      "clean_phone_smoke_fix": "47cd0e090970c37f2665067bd78a4a8b05f92fc4",
+      "hierarchy_commits": [
+        "f6f1062bc3709e146ceb3fa8e9022113cadca03c",
+        "226b008db265ed072ad15b9d5998b480439aca0e"
+      ],
+      "machine_entrypoint_merge": "0370104bd9edaaf4892f1daf3ada25e3b8c43a8a"
+    },
+    "stop": "Further root folding requires an existing host/family/parent relation or observed use friction; do not invent a new taxonomy merely to reduce the count."
+  }
 }
