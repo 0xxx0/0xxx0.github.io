@@ -3,7 +3,7 @@
   "date": "2026-09-21",
   "route": "/poetry/map/",
   "status": "EXPERIMENTAL_LIVE",
-  "thesis": "One stable poem, many linked entrances and reversible authoring moves: PAGE/MAP/SETS expose typed relations; APERTURE controls load; candidates are previewed before explicit adoption; revisions remain attributable and returnable.",
+  "thesis": "One writing instrument first: source → select → ask → compare → choose → optional transform → RETURN. The proved Poem Map engine remains underneath, but MAP/SETS/PATH are optional projections; recovered Market+Solver, Pathweaver, Grid Path and Verse Atlas remain unequal donor/specialist machines rather than product identity.",
   "recovered_donors": [
     {
       "name": "Poemage",
@@ -31,6 +31,12 @@
     }
   ],
   "implemented": [
+    "COPILOT FACE: writing/choice is primary; path/grid/map no longer name the product",
+    "WRITE / RELATE / GROUP labels preserve PAGE / MAP / SETS engine states without equalizing them",
+    "SET SOURCE replaces map-first language at source intake",
+    "LOCK + possibility dock + bank/preview/adopt/revision ancestry remain the primary editing loop",
+    "PLAY / PATH / QUARRY is collapsed optional depth containing author-path controls and recovered machine launchers",
+    "WORD MARKET / PATHWEAVER / GRID PATH / JUEJU STUDY are visible from the workbench without merging their authorities",
     "editable arbitrary poem/fragment source",
     "stable line/token addresses",
     "linked MAP/PAGE/SETS selection",
@@ -78,6 +84,9 @@
     "NEXT LINE revision ancestry records the resulting line address and original anchor token"
   ],
   "boundaries": [
+    "VERSE COPILOT is the product face; Poem Map is retained as engine lineage / relation projection, not sovereign identity.",
+    "Path, grid, glyph, score, relation map and set views are optional transformations of source material, never mandatory composition theory.",
+    "Recovered donor machines remain separate runtimes until a concrete missing function justifies transfer.",
     "Map is a projection, not the poem.",
     "SOUND is approximate Latin-script heuristic in 0.1.",
     "No automatic semantic embedding is claimed.",
@@ -118,8 +127,8 @@
     "state": "CANDIDATE",
     "basis": "Substantial workbench is implemented and usable, but receipt remains explicitly experimental with open language/corpus/game trials; historical status EXPERIMENTAL_LIVE remains above."
   },
-  "version": "0.2.6",
-  "state": "EXPERIMENTAL_LIVE",
+  "version": "0.3.0",
+  "state": "CANDIDATE",
   "lineage": {
     "proof_donor": "/poetry/lab/poem-map/",
     "proof_donor_version": "0.1",
@@ -177,9 +186,9 @@
   },
   "updated": "2026-09-26",
   "next_bounded_test": {
-    "state": "PARKED_UNTIL_CONCRETE_AUTHORING_DEFECT",
-    "instruction": "Use Poem Map normally. Reopen Verse implementation only if ordinary authoring exposes a concrete source/focus/edit-operation defect.",
-    "stop": "Do not expand Verse merely to manufacture usage evidence."
+    "state": "USE_FIRST",
+    "instruction": "Use the Copilot for ordinary writing. Only transfer another donor mechanism when a concrete writing job cannot be done with the current choice loop.",
+    "stop": "Do not rebuild Market+Solver, Pathweaver or Grid Path inside Copilot merely for visual unity."
   },
   "face": "CALM_FIELD_FIRST",
   "interface_contract": {
@@ -255,5 +264,6 @@
       "source": "/foundry/axial/",
       "unit": "fixed focus, unequal vocabularies, contextual next move rather than permanent control wall"
     }
-  ]
+  ],
+  "title": "VERSE COPILOT 0.3 · engine lineage: Poem Map 0.2.6"
 }
