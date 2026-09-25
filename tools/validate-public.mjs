@@ -205,8 +205,8 @@ if(migrationNow){
 const foldLab=read('fold-bloom/lab/index.html');
 const foldLabApp=read('fold-bloom/lab/app.js');
 const foldInk=read('fold-bloom/ink/index.html');
-check(/footer a\{[^}]*min-height:34px/.test(foldLab),'FOLD BLOOM LAB footer navigation lost 34px phone target floor');
-check(foldLab.includes('id="verseReturn"')&&foldLab.includes('app.js?v=0.3.2'),'FOLD BLOOM LAB Verse caller return/cache marker missing');
+check(/footer a,footer button\{[^}]*min-height:34px/.test(foldLab),'FOLD BLOOM LAB footer navigation/RETURN lost 34px phone target floor');
+check(foldLab.includes('id="verseReturn"')&&foldLab.includes('id="exportLabReturn"')&&foldLab.includes('app.js?v=0.3.3'),'FOLD BLOOM LAB Verse caller return/Lab RETURN/cache marker missing');
 for(const token of ['safeLocalReturn','verse.returnAddress','fieldLabVerseHandoff'])check(foldLabApp.includes(token),'FOLD BLOOM LAB Verse round-trip token missing: '+token);
 check(/footer a\{[^}]*min-height:34px/.test(foldInk),'FOLD BLOOM INK footer navigation lost 34px phone target floor');
 const confluenceDaylineHtml=read('dayline/index.html');
