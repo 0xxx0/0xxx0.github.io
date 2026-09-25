@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM FIELD LAB",
-  "version": "0.2.2",
+  "version": "0.3",
   "state": "CANDIDATE",
   "operation": "TRAIN / EXPLORE",
   "route": "/fold-bloom/lab/",
   "date": "2026-09-25",
-  "thesis": "A convergence lab should reuse canonical engines and preserve one addressed source across unequal projections; it should not manufacture weaker copies of READFIELD, LIVE, or other heads merely to fill a mode ring.",
+  "thesis": "A convergence lab should reuse canonical engines and preserve one addressed source across unequal projections. VERSE adds a bounded text/mark bridge without cloning Poem Map, READFIELD, LOCI or REPLAY authority.",
   "new": [
     "READ embeds the shared /field-aperture.js READFIELD/RSVP kernel at WORD scale",
     "RSVP, scale, regression, voice and source address come from the canonical reader rather than a Lab clone",
@@ -29,7 +29,15 @@
     "Phone PULSE handoffs are same-tab: tempo/phase is seeded before navigation so READFIELD, LIVE or Two Dial can continue the explicit synthetic clock without relying on a background producer tab.",
     "APERTURE handoff packets may now carry bounded source focus (scale/index/address/char position/source progress/WPM) instead of source text alone",
     "FULL READFIELD restores that bounded focus rather than silently restarting the source",
-    "READFIELD → LOCI accepts an explicit session handoff and initializes the addressed course at the nearest source-progress locus"
+    "READFIELD → LOCI accepts an explicit session handoff and initializes the addressed course at the nearest source-progress locus",
+    "VERSE is a seventh projection over exact local text: line selection carries text://start:end addresses without becoming a second poetry editor.",
+    "VERSE → POEM MAP passes source + focused line through field-verse-handoff/v0.1; Poem Map remains authoring authority.",
+    "VERSE ↔ READ and VERSE ↔ LOCI preserve source text plus nearest character/locus focus.",
+    "source-scoped BOOKMARK / FLAG / ARC text marks persist locally and remain visible/useful across VERSE, READ and LOCI.",
+    "READ can mark the current canonical reader focus and jump to the next source-scoped text mark.",
+    "LOCI can mark an addressed locus and jump to the next source-scoped mark while exact course spans remain authoritative.",
+    "VERSE → REPLAY compiles a bounded TEXT handoff using the existing replay-score contract; replay timing is explicitly presentation-only.",
+    "phone mode controls use a 44px floor while the desktop ring expands from six to seven unequal projections."
   ],
   "constraints": [
     "READFIELD/APERTURE remains reader authority; FIELD LAB owns no second segmentation/cursor/RSVP truth",
@@ -39,7 +47,11 @@
     "LOCI grouping/layout is derived evidence; exact text spans are preserved, but mnemonic meaning remains human/training evidence. The local course adapter is not promoted shared core.",
     "profiles change presentation only",
     "CURRENT was updated only after PR #207 merged, preserving its coordination ownership during implementation.",
-    "synthetic PULSE timing may coordinate tempo/beat/phase/quantum but never becomes audio/source authority."
+    "synthetic PULSE timing may coordinate tempo/beat/phase/quantum but never becomes audio/source authority.",
+    "Poem Map remains poetry authoring authority; FIELD LAB does not own candidate generation, form scoring, revision ancestry or poem semantics.",
+    "Text marks are human-authored source evidence. They do not infer meaning, literary quality or canonical relations.",
+    "REPLAY of text maps source progress into presentation time only; it must preserve exact text addresses and never claim the poem has native temporal structure.",
+    "The local text-mark bridge remains LAB-scoped until ordinary cross-layer use proves a broader shared contract is warranted."
   ],
   "verification": {
     "read_bridge_node": "PASS · public-surface-check run 35953594950 step 29",
@@ -52,9 +64,12 @@
     "human_phone": "REQUIRED: ordinary RSVP/scale/regress + one long READ→LOCI carry against plain chunk baseline",
     "pulse_routing": "PENDING_PR_CI: deterministic LISTEN + LAB clock allowlist test",
     "focus_handoff_browser": "PASS · run 36082758427: WORD cursor char 392 / progress 0.593939 preserved through APERTURE packet; LOCI text://368:409 contains carried focus",
-    "previous_merge_sha": "f56505f2ebc9d2fdcb17ea03929375ae1b6c8f92"
+    "previous_merge_sha": "f56505f2ebc9d2fdcb17ea03929375ae1b6c8f92",
+    "text_mark_node": "PENDING_CI: deterministic line/address/mark/handoff test",
+    "verse_poem_map_handoff": "PENDING_CI: browser/static handoff contract; phone use remains human evidence",
+    "verse_cross_layer": "PENDING_HUMAN: VERSE → READ → LOCI → VERSE and VERSE → REPLAY on one real poem"
   },
-  "return": "/returns/READFIELD_WORK_MODES_2026-09-25.json",
+  "return": "/returns/FOLD_BLOOM_VERSE_MARKS_CONVERGENCE_2026-09-25.json",
   "confluence": "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
   "shipped": true
 }
