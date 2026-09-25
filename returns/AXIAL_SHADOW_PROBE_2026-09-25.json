@@ -1,0 +1,62 @@
+{
+  "schema": "return/axial-shadow-probe/v0.1",
+  "date": "2026-09-25",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "lineage": "AXIAL / STATE×TRANSFORM / physical UI",
+  "donor": {
+    "route": "/foundry/axial/",
+    "head": "AXIAL / FOCUS STACK 0.7.3"
+  },
+  "specimen": {
+    "route": "/field/axial-probe/",
+    "scope": "disposable digital surrogate",
+    "authority": "NONE",
+    "persistence": "none except user-exported local evidence"
+  },
+  "hypothesis": "A single ring/cylinder/axis object can encode current state while distinct mechanical gestures encode transforms, with reversibility and transform order separately witnessable.",
+  "gesture_map": {
+    "ring": "circumference angular drag → 8 snapped detents (phase 0..7)",
+    "cylinder": "vertical sleeve drag → 5 snapped detents (depth 0..4)",
+    "axis": "horizontal crossbar drag → polarity -1/0/+1"
+  },
+  "validation": {
+    "model_closure": {
+      "sequence": [
+        "R+2",
+        "C+1",
+        "A-1",
+        "R-2",
+        "C-1",
+        "A+1"
+      ],
+      "expected_final": "[0,0,0]",
+      "expected_sum_delta": "[0,0,0]",
+      "result": "PASS_BY_REDUCER_MODEL"
+    },
+    "model_path_equivalence": {
+      "alpha": [
+        "R+2",
+        "C+2",
+        "A+1"
+      ],
+      "beta": [
+        "A+1",
+        "C+2",
+        "R+2"
+      ],
+      "expected_final_both": "[2,2,+1]",
+      "requirement": "same projected geometry/state; distinct transform trace",
+      "result": "PASS_BY_REDUCER_MODEL"
+    },
+    "human_gesture_legibility": "UNTESTED",
+    "physical_transfer": "UNTESTED"
+  },
+  "evidence_to_keep": [
+    "start/final screenshot or 15–30 s recording",
+    "exported state/Δ trace JSON",
+    "one sentence naming any gesture↔state ambiguity"
+  ],
+  "promotion_gate": "Do not promote ring/cylinder/axis semantics or fabricate from MODEL PASS alone. First require direct touch use with no control ambiguity; then reproduce the same three DOFs with cardboard annulus + sleeve + rod.",
+  "field_touch": "Root FIELD / FOCUS links to SHADOW PROBE without registering a new sovereign manifest identity.",
+  "boundary": "This is a falsification surface, not a new compositor, store, framework, or universal UI."
+}
