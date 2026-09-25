@@ -709,7 +709,7 @@ const CASES=[
     name:'READFIELD → LOCI focus handoff',
     route:'/__smoke/readfield-loci-handoff',
     options:{width:520,height:940,budget:18000,timeout:24000},
-    check:dom=>/id="probeResult">PASS /.test(dom)&&/"mode":"LOCI"/.test(dom)&&/"handoff":"focus-restored"/.test(dom)&&/"contains":true/.test(dom)&&/"words":96/.test(dom)
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"packetScale":"WORD"/.test(dom)&&/"sourceSame":true/.test(dom)&&/"contains":true/.test(dom)&&/"words":96/.test(dom)&&/"nodes":16/.test(dom)
   },
   {
     name:'TRIANGLE unified',
