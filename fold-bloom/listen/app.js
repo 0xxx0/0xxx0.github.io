@@ -12,6 +12,7 @@ import {sourceBundleFromMeta} from './source-bundle.js';
 import {normalizeRideProfile,profileKey} from '../live/visual-worlds.js';
 import {compileEventTape,toBeatSaberV4Draft} from '../beat/event-tape.js';
 import {buildBeatSaberPack} from '../beat/beatsaber-pack.js';
+import {annotationPacket as buildAnnotationPacket,sourceKeyFromAnnotationPacket,marksFromAnnotationPacket,mergeAnnotationMarks} from './annotations.js';
 
 const $=s=>document.querySelector(s);
 const gl=$('#field'),overlay=$('#overlay'),audio=$('#audio'),drop=$('#drop');
@@ -21,6 +22,13 @@ const fieldPulse=createFieldPulse('FOLD_BLOOM_LISTEN');
 function toast(t){const e=$('#toast');if(!e)return;e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on')}
 function status(t){const e=$('#status');if(e)e.textContent=t}
 function fmt(t){if(!Number.isFinite(t))return'0:00';const m=Math.floor(t/60),s=Math.floor(t%60);return `${m}:${String(s).padStart(2,'0')}`}
+function fmtMark(t){if(!Number.isFinite(t))return'0:00.0';const m=Math.floor(Math.max(0,t)/60),sec=Math.max(0,t)-m*60;return `${m}:${sec.toFixed(1).padStart(4,'0')}`}
+function parseMarkTime(value,fallback=0){
+  const raw=String(value??'').trim();if(!raw)return Math.max(0,Number(fallback)||0);
+  const parts=raw.split(':').map(Number);if(parts.some(x=>!Number.isFinite(x)))return Math.max(0,Number(fallback)||0);
+  let total=0;for(const p of parts)total=total*60+p;
+  return Math.max(0,Math.min(Number(map?.duration)||Infinity,total));
+}
 function scope(){return SCOPES[scopeIndex]}
 function refreshGlyph(){
   const btn=$('#glyphBtn'),mark=$('#glyphMark');
@@ -70,10 +78,11 @@ function savePins(){
   try{localStorage.setItem(k,JSON.stringify(normalizePins(pins,sourcePinKey())))}catch(_){}
   syncPins();
 }
-function currentFeatures(){
-  const t=audio.currentTime||0,f=frameAt(map,t)||{};
-  return {energy:+(Number(f.e)||0).toFixed(4),flux:+(Number(f.f)||0).toFixed(4),brightness:+(Number(f.c)||0).toFixed(4),beatIndex:beatIndexAt(map,t),sectionIndex:sectionIndexAt(map,t)};
+function featuresAt(t=audio.currentTime||0){
+  const f=frameAt(map,t)||{};
+  return {energy:+(Number(f.e)||0).toFixed(4),flux:+(Number(f.f)||0).toFixed(4),brightness:+(Number(f.c)||0).toFixed(4),beatIndex:beatIndexAt(map,t),phraseIndex:phraseIndexAt(map,t),sectionIndex:sectionIndexAt(map,t)};
 }
+function currentFeatures(){return featuresAt(audio.currentTime||0)}
 function renderPinList(){
   const list=$('#pinList');if(!list)return;
   const xs=normalizePins(pins,sourcePinKey());
@@ -85,10 +94,20 @@ function renderPinList(){
 }
 function syncPins(){
   ensureRenderer().setPins?.(pins);
-  const can=!!map;const pin=$('#pinBtn'),pinsBtn=$('#pinsBtn'),share=$('#pinShare');
-  if(pin)pin.disabled=!can;if(pinsBtn){pinsBtn.disabled=!can;pinsBtn.textContent=pins.length?`MARKS ${pins.length}`:'MARKS'}if(share)share.disabled=!pins.length;
+  const can=!!map;const pin=$('#pinBtn'),pinsBtn=$('#pinsBtn'),share=$('#pinShare'),prev=$('#pinPrev'),next=$('#pinNext'),imp=$('#pinImportBtn');
+  if(pin)pin.disabled=!can;
+  if(pinsBtn){pinsBtn.disabled=!can;pinsBtn.textContent=pins.length?`MARKS ${pins.length}`:'MARKS'}
+  if(share)share.disabled=!pins.length;if(prev)prev.disabled=!pins.length;if(next)next.disabled=!pins.length;if(imp)imp.disabled=!can;
   document.documentElement.dataset.listenPins=String(pins.length);
   renderPinList();
+}
+function setArcFields(lo,hi){
+  const a=Math.max(0,Math.min(Number(map?.duration)||Infinity,Number(lo)||0)),b=Math.max(a,Math.min(Number(map?.duration)||Infinity,Number(hi)||a));
+  if($('#pinStart'))$('#pinStart').value=fmtMark(a);if($('#pinEnd'))$('#pinEnd').value=fmtMark(b);
+}
+function syncPinKindUI(){
+  const kind=$('#pinKind')?.value||'BOOKMARK',arc=$('#arcEdit');if(arc)arc.hidden=kind!=='ARC';
+  const save=$('#pinSave');if(save)save.textContent=kind==='ARC'?'SAVE ARC':kind==='FLAG'?'SAVE FLAG':'SAVE BOOKMARK';
 }
 function openPinSheet(pin=null,address=null){
   if(!map)return;
@@ -100,6 +119,7 @@ function openPinSheet(pin=null,address=null){
   $('#pinLabel').value=pin?.label||'';
   $('#pinNote').value=pin?.note||'';
   $('#pinSave').dataset.address=String(t);$('#pinSave').dataset.scopeStart=String(range[0]);$('#pinSave').dataset.scopeEnd=String(range[1]);
+  setArcFields(range[0],range[1]);syncPinKindUI();
   $('#pinDelete').hidden=!pin;
   const sh=$('#pinSheet');sh.classList.add('on');sh.setAttribute('aria-hidden','false');renderPinList();
   setTimeout(()=>$('#pinLabel')?.focus(),0);
