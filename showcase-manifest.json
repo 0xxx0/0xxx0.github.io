@@ -127,7 +127,11 @@
       "transfer": [
         "schedule projection",
         "queue planning",
-        "export + replay"
+        "export + replay",
+        "read-only CURRENT → explicit local Dayline promotion",
+        "one-line local capture without a second queue",
+        "bounded COPY FEEDBACK return packet",
+        "default Branch I behavior remains unchanged unless ?live=1"
       ],
       "contract": {
         "accepts": {
@@ -217,13 +221,15 @@
         "physical_fit": "Direct bridge from digital intent to scheduled human physical work."
       },
       "index": {
-        "updated_at": "2026-09-23",
+        "updated_at": "2026-09-25T14:24:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY"
         ]
       },
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "version": "Branch I + FIELD LIVE 0.1",
+      "role": "Local-first temporal execution instrument with an opt-in read-only FIELD bridge: active fronts may be explicitly promoted into the day; local lived state returns through a bounded feedback packet, never by silently mutating repo authority."
     },
     {
       "href": "/body/",
