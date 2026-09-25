@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/recovery-donor/v0.1",
   "family": "ONE THING / Work-Trance + multilingual realization reconsolidation",
-  "state": "EXACT_LIBRARY_TEXT_MATERIALIZED_PENDING_BLOB_COMPARE",
+  "state": "EXACT_BYTE_VERIFIED_REPO_MIRROR",
   "classification": "FROZEN_CROSS_DOMAIN_DONOR_NOT_CURRENT_HEAD",
   "source": {
     "name": "ONE_THING_Reconsolidation_v0.1.md",
@@ -18,5 +18,8 @@
     "SOURCE → HUB → GRAPH → BODY → REALIZATION → EVIDENCE"
   ],
   "law": "Donor to Fold//Bloom/music/language/poetry work; do not turn it into another sovereign music or multilingual app.",
-  "recovered_at": "2026-09-26"
+  "recovered_at": "2026-09-26",
+  "repo_git_blob_sha": "0f805b59465e52ebda77606710aa97a382d68ea5",
+  "verification": "Repo Git blob SHA equals the Git blob SHA independently computed from raw materialized Library bytes; byte-identical mirror.",
+  "verified_at": "2026-09-26"
 }
