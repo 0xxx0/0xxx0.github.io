@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="297mm" height="210mm" viewBox="0 0 297 210">
+  <title>PRINT-01 FIELD ROUTE TILE v0.1</title>
+  <desc>One reversible 120 x 45 mm physical route tile with 100 mm print calibration and explicit source/return identity. Print at 100 percent / Actual Size / no fit-to-page.</desc>
+  <style>
+    text{font-family:"DejaVu Sans Mono","Courier New",monospace;fill:#000}
+    .cut{fill:none;stroke:#000;stroke-width:.35}
+    .guide{fill:none;stroke:#777;stroke-width:.2;stroke-dasharray:2,1.5}
+    .hair{stroke:#000;stroke-width:.25}
+    .heavy{stroke:#000;stroke-width:.8}
+    .h{font-size:5.2px;font-weight:700}
+    .m{font-size:3.2px;font-weight:700}
+    .s{font-size:2.45px}
+    .xs{font-size:2.05px}
+  </style>
+
+  <!-- page / calibration -->
+  <rect x=".5" y=".5" width="296" height="209" class="guide"/>
+  <text x="12" y="14" class="h">PRINT-01 / FIELD ROUTE TILE / v0.1</text>
+  <text x="12" y="20" class="s">PRINT: 100% · ACTUAL SIZE · NO FIT-TO-PAGE. Written dimensions are authoritative.</text>
+  <text x="12" y="25" class="s">Before cutting: measure the calibration line below. PASS only if it is 100 mm ± 1 mm.</text>
+
+  <line x1="12" y1="34" x2="112" y2="34" class="heavy"/>
+  <line x1="12" y1="30.5" x2="12" y2="37.5" class="hair"/>
+  <line x1="112" y1="30.5" x2="112" y2="37.5" class="hair"/>
+  <g class="hair">
+    <line x1="22" y1="32" x2="22" y2="36"/>
+    <line x1="32" y1="32" x2="32" y2="36"/>
+    <line x1="42" y1="32" x2="42" y2="36"/>
+    <line x1="52" y1="32" x2="52" y2="36"/>
+    <line x1="62" y1="31.5" x2="62" y2="36.5"/>
+    <line x1="72" y1="32" x2="72" y2="36"/>
+    <line x1="82" y1="32" x2="82" y2="36"/>
+    <line x1="92" y1="32" x2="92" y2="36"/>
+    <line x1="102" y1="32" x2="102" y2="36"/>
+  </g>
+  <text x="12" y="42" class="m">0</text>
+  <text x="108" y="42" class="m">100 mm</text>
+
+  <!-- specimen cut boundary: exactly 120 x 45 mm -->
+  <rect x="88.5" y="72.5" width="120" height="45" class="cut"/>
+
+  <!-- registration crosses outside the cut line -->
+  <g class="hair">
+    <line x1="83.5" y1="72.5" x2="87" y2="72.5"/><line x1="88.5" y1="67.5" x2="88.5" y2="71"/>
+    <line x1="210" y1="72.5" x2="213.5" y2="72.5"/><line x1="208.5" y1="67.5" x2="208.5" y2="71"/>
+    <line x1="83.5" y1="117.5" x2="87" y2="117.5"/><line x1="88.5" y1="119" x2="88.5" y2="122.5"/>
+    <line x1="210" y1="117.5" x2="213.5" y2="117.5"/><line x1="208.5" y1="119" x2="208.5" y2="122.5"/>
+  </g>
+
+  <!-- tile -->
+  <text x="94" y="82" class="xs">PHYSICAL ADDRESS / REVERSIBLE / NON-LOAD-BEARING</text>
+  <text x="94" y="91" class="h">Φ / CURRENT</text>
+  <text x="94" y="97" class="m">ID  P:FIELD.CURRENT.01</text>
+
+  <line x1="94" y1="101" x2="203" y2="101" class="hair"/>
+  <text x="94" y="106" class="s">φ FOCUS  __________________________________</text>
+  <text x="94" y="111" class="s">RETURN   /</text>
+
+  <text x="94" y="115" class="xs">REV 0.1 · TILE 120 × 45 mm · SOURCE:</text>
+  <text x="94" y="118.9" class="xs">0xxx0/0xxx0.github.io / physical/print-01/field-route-tile-v0.1.svg</text>
+
+  <!-- witness / fallback strip -->
+  <rect x="38" y="143" width="221" height="42" class="guide"/>
+  <text x="44" y="151" class="m">RETURN / ONE SPECIMEN ONLY</text>
+  <text x="44" y="157" class="s">1. PRINT → verify 100 mm calibration line.  2. CUT one 120 × 45 mm tile.</text>
+  <text x="44" y="163" class="s">3. PLACE temporarily at one real work surface.  4. WRITE one actual φ focus by hand.</text>
+  <text x="44" y="169" class="s">5. WITNESS: photo with ruler + location/context + legibility note.</text>
+  <text x="44" y="175" class="s">PASS = scale + traceability + ordinary readability. FAIL = correct one defect class only.</text>
+  <text x="44" y="181" class="xs">MANUAL FALLBACK: if repo/source is unavailable, ID + REV + handwritten φ still preserve specimen identity.</text>
+</svg>
