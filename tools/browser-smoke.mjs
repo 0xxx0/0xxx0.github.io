@@ -1011,6 +1011,12 @@ const CASES=[
     check:dom=>/SCALE LENS/i.test(dom)&&!dom.includes('load failure')
   },
   {
+    name:'DAYLINE CONFLUENCE 0.1',
+    route:'/dayline/',
+    options:{width:430,height:900,budget:7000,timeout:14000},
+    check:dom=>/DAYLINE \/\/ CONFLUENCE/i.test(dom)&&dom.includes('data-dayline-workfield="ready"')&&dom.includes('id="moves"')&&dom.includes('id="witnessInput"')&&dom.includes('id="returnBtn"')
+  },
+  {
     name:'HOUSE SPATIAL',
     route:'/house/spatial/',
     check:dom=>/HOUSE/i.test(dom)&&!dom.includes('load failure')

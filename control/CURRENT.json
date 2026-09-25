@@ -412,14 +412,14 @@
       "next_executable": {
         "id": "atlas-dayline-reality-ports-lived-proof",
         "state": "HOLD_FOR_HUMAN_USE",
-        "objective": "On phone, take one real object through source → Dayline → action/mark → COPY HANDOFF / RETURN with less control hunting. Prefer COMMS when there is a real human ask/promise; otherwise use one actual HOUSE or SHOPPING action.",
+        "objective": "On phone, take one real object through /dayline/ (DAYLINE / CONFLUENCE candidate) → one lawful move → witness → RETURN with less control hunting. The candidate uses the same DayState and source handoff envelope; Atlas remains the deeper radial projection.",
         "human_questions": [
-          "Is the current object/focus still obvious after crossing into Dayline?",
-          "Is the next lawful move visible without reconstructing which app owns it?",
-          "Does RUN≤3 reduce action drift rather than become another queue?",
-          "After acting, does RETURN/COPY HANDOFF preserve enough evidence to recover the native source and choose the next move?"
+          "Can the page scroll normally and keep the held object obvious?",
+          "Are only the next one to three lawful moves visible without subsystem hunting?",
+          "Does crossing HOUSE / SHOPPING / COMMS preserve source identity and authority?",
+          "Does WITNESS + RETURN say what changed and where to go back?"
         ],
-        "law": "One lived handoff first. Do not add another adapter, route layer or source mutation until the continuity loop earns use."
+        "law": "One lived workfield loop first. Promote /dayline/ only if it reduces reconstruction; otherwise discard the visible carrier and retain the underlying DayState/handoffs."
       },
       "version": "Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH"
     },
