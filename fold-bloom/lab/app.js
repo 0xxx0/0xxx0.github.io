@@ -8,6 +8,10 @@ import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} fro
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
 import {estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from '../voice/pitch.js';
 import {spectrumFeatures} from '../voice/spectrum.js';
+import {createPracticeMap} from '../live/practice-track.js';
+import {advanceStepRide,createStepRide,setStepRideIndex,setStepRideScope,stepRideMinimap,stepRideView} from '../ride/step-core.js';
+import {scoreFromReplayHandoff} from '../replay/handoff-score.js';
+import {activeWord,clipDurationMs,sampleScore} from '../replay/score.js';
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -18,6 +22,8 @@ const fieldPulse=createFieldPulse('FOLD_BLOOM_FIELD_LAB');
 let lastTransport=null;
 const labStartedAt=Date.now();
 let labTrace=[];
+const rideMapData=createPracticeMap({duration:96,bpm:108});
+let rideState=createStepRide(rideMapData,{steps:49,scope:'TRACK'}),rideFlow=false,rideFlowAt=0;
 function recordLabTrace(kind='STATE'){
   labTrace=appendLabTrace(labTrace,{kind,mode,profile,address:$('#addressRead')?.textContent||'',source:$('#sourceRead')?.textContent||'',atMs:Date.now()-labStartedAt});
   document.documentElement.dataset.fieldLabTrace=String(labTrace.length);
@@ -61,6 +67,7 @@ function selectMode(next){
   setStatus(mode+' · '+law);
   if(mode==='READ')queueMicrotask(()=>ensureReader());
   if(mode==='VERSE')queueMicrotask(()=>ensureVerse());
+  if(mode==='RIDE')queueMicrotask(()=>syncRideUi());
   setAddress('field://lab/'+mode.toLowerCase());
   if(mode==='DATA'&&!data.nodes.length)loadData();
   if(mode==='LOCI'&&!loci.nodes.length)buildLoci();
@@ -75,9 +82,49 @@ $$('[data-profile]').forEach(b=>b.onclick=()=>{
   $('#profileRead').textContent=profile;document.documentElement.dataset.fieldLabProfile=profile;recordLabTrace('PROFILE');
 });
 
+function rideView(){return stepRideView(rideMapData,rideState)}
+function rideAddress(v=rideView()){
+  const s=Math.max(0,Number(v.transport?.sectionIndex)||0)+1;
+  return 'field://lab/ride/turn/'+String(v.turn).padStart(2,'0')+'/section/'+s;
+}
+function drawRideMinimap(){
+  const cv=$('#rideMap');if(!cv)return;const g=cv.getContext('2d'),w=cv.width,h=cv.height,map=stepRideMinimap(rideMapData,rideState,{samples:72}),pts=map.points;
+  g.clearRect(0,0,w,h);g.fillStyle='#05070b';g.fillRect(0,0,w,h);
+  g.strokeStyle='#273139';g.lineWidth=1;g.beginPath();g.moveTo(0,h*.78);g.lineTo(w,h*.78);g.stroke();
+  if(pts.length){
+    g.strokeStyle='#7bd5ff';g.lineWidth=1.5;g.beginPath();
+    pts.forEach((p,i)=>{const x=p.p*w,y=h*.82-Math.max(0,Math.min(1.1,p.energy))*h*.62;i?g.lineTo(x,y):g.moveTo(x,y)});g.stroke();
+    let last=-2;
+    for(const p of pts){if(p.sectionIndex!==last&&last!==-2){const x=p.p*w;g.strokeStyle='rgba(215,180,109,.38)';g.beginPath();g.moveTo(x,5);g.lineTo(x,h-5);g.stroke()}last=p.sectionIndex}
+  }
+  const x=Math.max(0,Math.min(1,map.cursor))*w;g.strokeStyle='#ef7849';g.lineWidth=2;g.beginPath();g.moveTo(x,0);g.lineTo(x,h);g.stroke();
+}
+function syncRideUi(){
+  const v=rideView(),t=v.transport||{};
+  if($('#rideScrub')){$('#rideScrub').max=String(v.count-1);$('#rideScrub').value=String(v.index)}
+  if($('#rideTurn'))$('#rideTurn').textContent=v.turn+'/'+v.count;
+  if($('#rideSection'))$('#rideSection').textContent=String((Number(t.sectionIndex)||0)+1);
+  if($('#rideBeat'))$('#rideBeat').textContent=String(Math.max(0,Number(t.beatIndex)||0)+1);
+  if($('#rideEnergy'))$('#rideEnergy').textContent=Math.round((Number(t.energy)||0)*100);
+  if($('#rideScope'))$('#rideScope').textContent='MAP · '+rideState.scope;
+  if($('#rideFlow')){$('#rideFlow').textContent=rideFlow?'FLOW ON':'FLOW OFF';$('#rideFlow').classList.toggle('cool',rideFlow)}
+  setAddress(rideAddress(v));setSource('FIELD COURSE / STEP MAP');drawRideMinimap();
+}
+function moveRide(delta=1,operation=null){
+  rideState=advanceStepRide(rideMapData,rideState,delta,operation);
+  if(rideState.index>=rideState.count-1&&rideFlow)rideFlow=false;
+  syncRideUi();if(operation)setStatus('RIDE · TURN '+(rideState.index+1)+' · '+operation);
+}
+$('#ridePrev').onclick=()=>moveRide(-1);
+$('#rideNext').onclick=()=>moveRide(1,'PASS');
+$('#rideScrub').oninput=e=>{rideState=setStepRideIndex(rideMapData,rideState,+e.target.value);syncRideUi()};
+$('#rideFlow').onclick=()=>{rideFlow=!rideFlow;rideFlowAt=performance.now();syncRideUi();setStatus('RIDE · '+(rideFlow?'FLOW AUTO-STEPS':'STEP MANUAL'))};
+$('#rideScope').onclick=()=>{rideState=setStepRideScope(rideMapData,rideState,rideState.scope==='TRACK'?'SECTION':'TRACK');syncRideUi()};
+$('[data-ride-op]').forEach(b=>b.onclick=()=>moveRide(1,b.dataset.rideOp));
 $('#enterRide').onclick=()=>location.href='../live/?return='+encodeURIComponent('/fold-bloom/lab/');
 $('#enterListen').onclick=()=>location.href='../listen/';
 $('#dataLens').onclick=()=>location.href='../lens/';
+syncRideUi();
 
 /* ---------- PULSE ---------- */
 const pulse={ratio:[3,2],bpm:96,timbre:'WOOD',playing:false,ac:null,timer:null,start:0,nextA:0,nextB:0,lastA:-1,lastB:-1,taps:[],flashA:0,flashB:0,lastPublish:0};
