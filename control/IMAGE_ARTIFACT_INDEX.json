@@ -1,0 +1,157 @@
+{
+  "schema": "field-image-artifact-index/v0.1",
+  "updated": "2026-09-25",
+  "status": "REPO_VISUAL_BYTES_INDEXED / CHAT_ONLY_HISTORY_OPEN",
+  "scope": "Static repository visual bytes only: PNG/JPG/JPEG/WEBP/GIF/SVG. Runtime canvas/CSS/HTML projections are not counted as image files; conversation-only generated images are not inferred to exist in repo.",
+  "counts": {
+    "static_visual_files": 30,
+    "exact_frozen_sleeper_site_assets": 14,
+    "addressable_body_reference_vectors": 6,
+    "physical_or_print_geometry_assets": 5,
+    "ui_or_support_graphics": 4,
+    "ai_generated_original_play_surface": 1
+  },
+  "collections": [
+    {
+      "id": "sleeper-site-visuals-2026-09-18",
+      "class": "EXACT_RECOVERED_VISUAL_SOURCE",
+      "count": 14,
+      "authority": "FROZEN SOURCE / DONOR",
+      "provenance": {
+        "source": "ChatGPT Sites Git bundle",
+        "export_date": "2026-09-18",
+        "commit": "50f886c829dcee98b043c55ef9de0c631fd31987",
+        "manifest": "/recovery/sleeper/site-source-2026-09-18/manifest.json",
+        "disposition": "EXACT_COPY"
+      },
+      "assets": [
+        "recovery/sleeper/site-source-2026-09-18/experiments/painting/spring-dawn-detail.jpg",
+        "recovery/sleeper/site-source-2026-09-18/public/botanage.png",
+        "recovery/sleeper/site-source-2026-09-18/public/cloudbone.png",
+        "recovery/sleeper/site-source-2026-09-18/public/confluence-engine.png",
+        "recovery/sleeper/site-source-2026-09-18/public/confluence.png",
+        "recovery/sleeper/site-source-2026-09-18/public/cultivators.png",
+        "recovery/sleeper/site-source-2026-09-18/public/keris-cut.png",
+        "recovery/sleeper/site-source-2026-09-18/public/labyrinth.png",
+        "recovery/sleeper/site-source-2026-09-18/public/ministry-ridge.png",
+        "recovery/sleeper/site-source-2026-09-18/public/og-atlas.png",
+        "recovery/sleeper/site-source-2026-09-18/public/og.png",
+        "recovery/sleeper/site-source-2026-09-18/public/prison-atlas.png",
+        "recovery/sleeper/site-source-2026-09-18/public/sleeper-world.png",
+        "recovery/sleeper/site-source-2026-09-18/public/wake-scroll.png"
+      ],
+      "donor_use": "Recover exact historical composition/world/painting evidence. Do not infer current authority, chronology, or painting identity from filenames alone."
+    },
+    {
+      "id": "bodyplans-reference-geometry",
+      "class": "ADDRESSABLE_REFERENCE_GEOMETRY",
+      "count": 6,
+      "authority": "REFERENCE / LOCAL ASSET",
+      "provenance": {
+        "readme": "/bodyplans/README.md",
+        "release": "/bodyplans/release.json",
+        "note": "Human plans preserve pinned upstream MIT geometry; feline plan is original project vector geometry. Reference plans are localization surfaces, not personal anatomy or diagnosis."
+      },
+      "assets": [
+        "bodyplans/human-reference-m-front.svg",
+        "bodyplans/human-reference-m-back.svg",
+        "bodyplans/human-reference-f-front.svg",
+        "bodyplans/human-reference-f-back.svg",
+        "bodyplans/feline-reference-left.svg",
+        "bodyplans/feline-reference-right.svg"
+      ],
+      "donor_use": "Stable addressable region geometry for CARE/BODY projections; identity is plan_id + view + region_id."
+    },
+    {
+      "id": "physical-print-geometry",
+      "class": "PRINTABLE_PHYSICAL_GEOMETRY",
+      "count": 5,
+      "authority": "MIXED CURRENT FIXTURE + RECOVERED DONOR",
+      "assets": [
+        {
+          "path": "foundry/axial/fan8-print.svg",
+          "state": "CURRENT_PRINT_FIXTURE",
+          "gate": "PHYSICAL_USE"
+        },
+        {
+          "path": "physical/print-01/field-route-tile-v0.1.svg",
+          "state": "READY_NOT_PHYSICALLY_EXECUTED",
+          "gate": "PHYSICAL_RETURN"
+        },
+        {
+          "path": "recovery/axial/compositor-v0.2/print-template.svg",
+          "state": "RECOVERED_PHYSICAL_DONOR",
+          "gate": "10_MINUTE_TACTILE_TEST"
+        },
+        {
+          "path": "recovery/env0/ENV0_plate14_A2_v0_1.svg",
+          "state": "EXACT_RECOVERED_EDITABLE_MASTER",
+          "gate": "NONE_FOR_SOURCE_IDENTITY"
+        },
+        {
+          "path": "recovery/env0/ENV0_symbols_A2_v0_1.svg",
+          "state": "EXACT_RECOVERED_EDITABLE_MASTER",
+          "gate": "NONE_FOR_SOURCE_IDENTITY"
+        }
+      ],
+      "provenance": [
+        "/recovery/axial/compositor-v0.2/build-notes.txt",
+        "/recovery/env0/manifest.json",
+        "/physical/print-01/README.md"
+      ],
+      "donor_use": "Geometry/registration/physical-interface donors only; written dimensions and source manifests outrank visual appearance."
+    },
+    {
+      "id": "interface-support-graphics",
+      "class": "UI_SUPPORT_GRAPHIC",
+      "count": 4,
+      "authority": "SUPPORT / NOT SOVEREIGN ARTIFACT",
+      "assets": [
+        "atlas-dayline/icon.svg",
+        "field-intake/icon.svg",
+        "fold-bloom/og.svg",
+        "fold-bloom/two-dial/icon.svg"
+      ],
+      "donor_use": "Identity/share/icon support. Do not promote into a separate visual lineage unless a source history says otherwise."
+    },
+    {
+      "id": "borrowed-river-landscape",
+      "class": "AI_GENERATED_ORIGINAL_PLAY_SURFACE",
+      "count": 1,
+      "authority": "CURRENT CANDIDATE ARTWORK / PLAY SURFACE",
+      "assets": [
+        "sleeper/borrowed-river/landscape.jpg"
+      ],
+      "provenance": {
+        "readme": "/sleeper/borrowed-river/README.md",
+        "release": "/sleeper/borrowed-river/release.json",
+        "statement": "AI-generated original artwork, not a historical painting."
+      },
+      "donor_use": "Authored stroke → navigable space → reversible route → inspectable RETURN. Human replay/enjoyment remains open evidence."
+    }
+  ],
+  "exclusions": [
+    "Runtime canvas/CSS/HTML visual projections are code surfaces, not static image bytes, and are not counted here.",
+    "Conversation screenshots and generated-image attachments are not treated as durable repo artifacts unless their exact bytes are recovered.",
+    "ENV-0 exact Library-only PDFs are known but not counted as repo image files; the ENV-0 manifest explicitly says they are not byte-copied into GitHub."
+  ],
+  "known_gaps": [
+    {
+      "id": "chat-generated-image-history",
+      "state": "OPEN",
+      "need": "Recover exact bytes/provenance for generated images, paintings, interface studies and visual variations that remain only in conversation/file history.",
+      "law": "Do not reconstruct from memory when exact image bytes may still be recoverable."
+    },
+    {
+      "id": "ten-painting-atlas-wake-lineage",
+      "state": "OPEN_IDENTITY_MAPPING",
+      "need": "Map exact recovered visual bytes to the ten-painting Atlas / WAKE Afterfield chronology using source evidence, not filename resemblance."
+    },
+    {
+      "id": "visual-interface-donor-map",
+      "state": "PARTIAL",
+      "need": "Static bytes are indexed. Runtime interface visual donors should be linked only when a named convergence task needs them; do not create a screenshot museum."
+    }
+  ],
+  "next": "Use this index as the repo-side visual census. Next recovery should target exact conversation/library image bytes and provenance for one named missing lineage, then attach them to this index without renaming originals."
+}
