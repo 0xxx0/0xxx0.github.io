@@ -19,6 +19,8 @@ on:
     paths:
       - 'showcase-manifest.json'
       - '**/*.html'
+      - 'scripts/check-route-registration.mjs'
+      - '.github/workflows/route-registration.yml'
   workflow_dispatch:
 
 permissions:
@@ -37,6 +39,9 @@ jobs:
 
       - name: Check every live surface is registered
         run: node scripts/check-route-registration.mjs
+
+      - name: Derive route ontology diagnostic (warnings only)
+        run: node scripts/check-route-registration.mjs --ontology
 
       - name: Report archive vault (informational, never fails)
         if: always()

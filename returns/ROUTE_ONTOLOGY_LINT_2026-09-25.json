@@ -1,0 +1,99 @@
+{
+  "schema": "field-route-ontology-lint-return/v0.1",
+  "date": "2026-09-25",
+  "state": "READY_TO_MERGE_VERIFIED",
+  "task_id": "route-ontology-lint",
+  "trigger": "User selected ontology normalization as a consequential convergence front after worker authority had already been contracted to CURRENT-CONVERSION and ANCHORED-RECOVERY.",
+  "scale": "FIELD route/address projection",
+  "object": "showcase-manifest route topology and vocabulary",
+  "current_host": "scripts/check-route-registration.mjs",
+  "authority": "DIAGNOSTIC_ONLY / NONE",
+  "sources": [
+    "/AGENTS.md",
+    "/llms.txt",
+    "/control/CURRENT.json",
+    "/control/HERMES_QUEUE.json",
+    "/showcase-manifest.json",
+    "/control/confluence/WORKER_AUTHORITY_CONTRACTION_2026-09-25.md",
+    "/control/confluence/HERMES_CROSS_SESSION_RETURN_2026-09-25.md"
+  ],
+  "recovered_constraints": [
+    "CURRENT owns attention; Hermes/Codex/ChatGPT are replaceable executors.",
+    "Do not create another worker state cache, scheduler, ambient archaeology lane, route authority or ontology merely because labels differ.",
+    "Large archive, small active surface; conversion outranks coordination.",
+    "One bounded move → VERIFY → RETURN → REPLAN."
+  ],
+  "delta": [
+    "Extend the existing route-registration checker with an optional --ontology diagnostic instead of creating a new ontology subsystem.",
+    "Derive candidate host, family_id and primary verb_id directly from the current manifest.",
+    "Preserve display family/operation labels verbatim; normalized IDs are projections only.",
+    "Flag familyless routes, root peers, composite operations and missing parents without mutating routes or changing CI failure semantics.",
+    "Expose full derived rows through --json --ontology and optional flagged text rows through --ontology-all.",
+    "Exercise the diagnostic in the existing Route Registration workflow while keeping ontology warnings non-failing."
+  ],
+  "observed_baseline": {
+    "master_base": "b55d131abc59667db86e115db2c18cf23fa59ee4",
+    "routes": 143,
+    "root_peers": 35,
+    "familyless_non_root": 22,
+    "composite_operations": 12,
+    "missing_parents": 0,
+    "family_label_variant_groups": 1,
+    "family_label_variant_example": {
+      "family_id": "fold-bloom",
+      "labels": [
+        "FOLD // BLOOM",
+        "FOLD/BLOOM"
+      ]
+    },
+    "primary_verb_projection_groups": 5,
+    "note": "These are diagnostics, not instructions to merge or move routes."
+  },
+  "hermes_coordination": {
+    "queue_change": "NONE",
+    "new_loop": "NONE",
+    "use": "When CURRENT-CONVERSION or an explicitly anchored convergence task touches route topology, Hermes may run `node scripts/check-route-registration.mjs --json --ontology` and return ambiguity as evidence.",
+    "forbidden": [
+      "No ambient normalization sweep that self-promotes into NOW.",
+      "No automatic route reparenting.",
+      "No automatic family collapse.",
+      "No rewriting expressive display labels.",
+      "No new ontology authority file or scheduler."
+    ]
+  },
+  "residue": [
+    "35 root peers are candidates for review, not presumed defects.",
+    "22 familyless non-root routes need source/host evidence before any family assignment.",
+    "Composite operation labels may be expressive multi-verb surfaces; primary verb projection must not erase secondary verbs.",
+    "Only one family spelling collision is mechanically obvious at baseline."
+  ],
+  "one_next": "Squash-merge PR #256, then stop. Future route/convergence work may consult the diagnostic; it does not create an autonomous normalization program.",
+  "stop": "Do not normalize the manifest in this change. No mass rename, reparent, family assignment, new Hermes task class, dashboard or state store.",
+  "verification": {
+    "pr": 256,
+    "merge_ref_base": "f69e9c3f078f9f2217bd189fb3c4bab3697104f2",
+    "route_registration": {
+      "run_id": 36103774712,
+      "job_id": 107971718060,
+      "conclusion": "success",
+      "live_pages": 152,
+      "registered_routes": 143,
+      "ontology": {
+        "routes": 143,
+        "root_peers": 35,
+        "familyless": 22,
+        "composite_operations": 12,
+        "missing_parents": 0,
+        "family_label_variant_groups": 1,
+        "verb_projection_groups": 5,
+        "family_label_variant": "fold-bloom ← FOLD // BLOOM | FOLD/BLOOM"
+      }
+    },
+    "public_surface_check": {
+      "run_id": 36103774701,
+      "job_id": 107971718054,
+      "conclusion": "success"
+    },
+    "semantics": "Ontology warnings remained informational; ordinary route registration still passed and no route identity was rewritten."
+  }
+}
