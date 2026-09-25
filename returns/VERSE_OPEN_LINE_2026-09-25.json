@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "VERSE_OPEN_LINE_2026-09-25",
   "date": "2026-09-25",
-  "state": "CANDIDATE_PENDING_CI",
+  "state": "SHIPPED_VERIFIED",
   "object": "Poem Map 0.2.6 open line-slot composition",
   "recovered": [
     "Pathweaver's composition donor preserved an opener plus genuinely open later lines rather than a fully prewritten source.",
@@ -40,7 +40,8 @@
       "Han CONTINUE stays compact",
       "NEXT LINE fills canonical blank L2 while preserving remaining blank slots"
     ],
-    "ci": "pending"
+    "ci": "PASS · sweep PR #370 · public-surface-check 36163811892",
+    "route_registration": "PASS · 36163811888"
   },
-  "next": "If CI is green, merge runtime then sync 0.2.6 head metadata. After that stop Verse feature expansion until ordinary authoring exposes a concrete defect."
+  "next": "No implementation blocker remains in the 0.2.6 NEXT LINE operation. Park further Verse expansion until ordinary authoring exposes a concrete defect."
 }
