@@ -24,7 +24,7 @@ FIELD (read-only) → explicit promotion → local Dayline action → lived evid
 
 Opt-in URL: `/atlas-dayline/?live=1`.
 
-LIVE reads `/control/CURRENT.json` with `cache:no-store`. It exposes ACTIVE fronts as candidates, never as automatic tasks. ADD copies one candidate into local DayState as `sourceClass=IMPORTED` with exact source reference, CURRENT date and provenance.
+LIVE reads `/control/CURRENT.json` with `cache:no-store`. Dayline service-worker v2 explicitly bypasses CacheStorage for CURRENT / WAITING / showcase-manifest truth endpoints so LIVE cannot silently degrade into cached control state. It exposes ACTIVE fronts as candidates, never as automatic tasks. ADD copies one candidate into local DayState as `sourceClass=IMPORTED` with exact source reference, CURRENT date and provenance.
 
 Human-use gates remain visible but are never auto-promoted. OPEN reaches the owning route.
 
