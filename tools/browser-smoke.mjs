@@ -1010,7 +1010,7 @@ const CASES=[
     options:{width:430,height:900,budget:7000},
     check:dom=>{
       const parts={
-        version:/FIELD LAB 0\.3(?:\.1)?/i.test(dom),
+        version:/FIELD LAB 0\.3\.3/i.test(dom),
         ready:dom.includes('data-fold-bloom-field-lab="ready"'),
         ride:dom.includes('data-field-lab-mode="RIDE"'),
         verse:/VERSE/.test(dom),
@@ -1024,6 +1024,7 @@ const CASES=[
         stateTo:dom.includes('id="stateTo"'),
         stateToken:dom.includes('id="stateToken"')&&/H\[010\|100\] Δ\{3,5\} → H\[011\|110\]/.test(dom),
         stateReady:dom.includes('data-fold-bloom-state="ready"'),
+        labReturn:dom.includes('data-field-lab-return="ready"')&&dom.includes('data-field-lab-trace="')&&dom.includes('id="exportLabReturn"')&&/EXPORT LAB RETURN/.test(dom),
         dry:/DRY BRUSH/.test(dom),wash:/WASH/.test(dom)
       };
       const pass=Object.values(parts).every(Boolean);
@@ -1035,19 +1036,19 @@ const CASES=[
     name:'FOLD BLOOM FIELD LAB VERSE',
     route:'/fold-bloom/lab/?mode=VERSE',
     options:{width:430,height:900,budget:9000,timeout:16000},
-    check:dom=>/FIELD LAB 0\.3(?:\.1)?/i.test(dom)&&dom.includes('data-fold-bloom-field-lab="ready"')&&dom.includes('data-field-lab-mode="VERSE"')&&dom.includes('id="verseSource"')&&dom.includes('id="versePoemMap"')&&dom.includes('id="verseRead"')&&dom.includes('id="verseLoci"')&&dom.includes('id="verseReplay"')&&/MARKS/.test(dom)
+    check:dom=>/FIELD LAB 0\.3\.3/i.test(dom)&&dom.includes('data-fold-bloom-field-lab="ready"')&&dom.includes('data-field-lab-mode="VERSE"')&&dom.includes('id="verseSource"')&&dom.includes('id="versePoemMap"')&&dom.includes('id="verseRead"')&&dom.includes('id="verseLoci"')&&dom.includes('id="verseReplay"')&&/MARKS/.test(dom)
   },
   {
     name:'FOLD BLOOM FIELD LAB READFIELD',
     route:'/fold-bloom/lab/?mode=READ',
     options:{width:430,height:900,budget:9000,timeout:16000},
-    check:dom=>/FIELD LAB 0\.3(?:\.1)?/i.test(dom)&&dom.includes('data-fold-bloom-field-lab="ready"')&&dom.includes('data-field-lab-mode="READ"')&&dom.includes('data-field-lab-reader="ready"')&&dom.includes('data-field-lab-reader-scale="WORD"')&&dom.includes('data-field-lab-read-pulse="WITNESS"')&&dom.includes('data-field-lab-read-source="bound"')&&dom.includes('data-field-lab-loci-nodes="13"')&&dom.includes('data-field-lab-loci-words="13"')&&dom.includes('id="labReader"')&&/FULL READFIELD/.test(dom)&&/CARRY → LOCI/.test(dom)&&/CARRY → DATA/.test(dom)&&/EXPORT RETURN/.test(dom)
+    check:dom=>/FIELD LAB 0\.3\.3/i.test(dom)&&dom.includes('data-fold-bloom-field-lab="ready"')&&dom.includes('data-field-lab-mode="READ"')&&dom.includes('data-field-lab-reader="ready"')&&dom.includes('data-field-lab-reader-scale="WORD"')&&dom.includes('data-field-lab-read-pulse="WITNESS"')&&dom.includes('data-field-lab-read-source="bound"')&&dom.includes('data-field-lab-loci-nodes="13"')&&dom.includes('data-field-lab-loci-words="13"')&&dom.includes('id="labReader"')&&/FULL READFIELD/.test(dom)&&/CARRY → LOCI/.test(dom)&&/CARRY → DATA/.test(dom)&&/EXPORT RETURN/.test(dom)
   },
   {
     name:'FOLD BLOOM FIELD LAB READFIELD PACE4',
     route:'/fold-bloom/lab/?mode=READ&pulse=4',
     options:{width:430,height:900,budget:9000,timeout:16000},
-    check:dom=>/FIELD LAB 0\.3(?:\.1)?/i.test(dom)&&dom.includes('data-fold-bloom-field-lab="ready"')&&dom.includes('data-field-lab-mode="READ"')&&dom.includes('data-field-lab-reader="ready"')&&dom.includes('data-field-lab-read-pulse="PACE4"')&&dom.includes('data-field-lab-read-source="bound"')&&/PULSE · ×4 PACE/.test(dom)
+    check:dom=>/FIELD LAB 0\.3\.3/i.test(dom)&&dom.includes('data-fold-bloom-field-lab="ready"')&&dom.includes('data-field-lab-mode="READ"')&&dom.includes('data-field-lab-reader="ready"')&&dom.includes('data-field-lab-read-pulse="PACE4"')&&dom.includes('data-field-lab-read-source="bound"')&&/PULSE · ×4 PACE/.test(dom)
   },
   {
     name:'FOLD BLOOM INK FIELD',
