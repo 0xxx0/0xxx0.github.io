@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {visualWorld,normalizeRideProfile,profileKey,mixHexOklab,mixVisualWorld} from '../visual-worlds.js';
+import {visualWorld,normalizeRideProfile,profileKey,mixHexOklab,mixVisualWorld,normalizeVisualScene,scenePresentation} from '../visual-worlds.js';
 
 test('scene worlds are materially distinct',()=>{
   const names=['DEEP','TRANCE','WOOD','VOID'];
@@ -35,4 +35,13 @@ test('perceptual scene morph keeps endpoints exact and middle bounded',()=>{
 test('section phase creates bounded intra-scene variation without changing scene identity',()=>{
   const a=visualWorld('TRANCE',0,{energy:.5,brightness:.5}),b=visualWorld('TRANCE',3,{energy:.5,brightness:.5});
   assert.equal(a.name,'TRANCE');assert.equal(b.name,'TRANCE');assert.notEqual(a.sectionPhase,b.sectionPhase);assert.notEqual(a.bg0,b.bg0);
+});
+
+
+test('scene vocabulary is plain and bounded',()=>{
+  assert.equal(scenePresentation('DEEP').plain,'DEPTH');
+  assert.equal(scenePresentation('TRANCE').plain,'PULSE');
+  assert.equal(scenePresentation('WOOD').plain,'GRAIN');
+  assert.equal(scenePresentation('VOID').plain,'SPARSE');
+  assert.equal(normalizeVisualScene('not-a-scene'),'DEEP');
 });

@@ -1,6 +1,6 @@
-import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, forecastRelease, forecastMatchesCall, callLabel, TYPE_NAMES, N } from './engine.js';
+import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, forecastRelease, forecastMatchesCall, callLabel, typePresentation, N } from './engine.js?v=0.13.1';
 import { FoldBloomAudio } from './audio.js';
-import { Renderer } from './render.js?v=0.13.1';
+import { Renderer } from './render.js?v=0.13.2';
 import { createFieldPulse, transportDescriptor } from '../../lib/field-pulse.js';
 import { LiveTrack } from './track.js';
 import { createSectionArc, syncSectionArc, observeSectionRelease, sectionArcLabel, sectionArcView } from './section-arc.js';
@@ -8,12 +8,17 @@ import { appendReleaseDeformations, applyDeformations, pruneDeformationTape, def
 import { createRideState, chooseRideBranch, advanceRide, rideView } from './ride.js';
 import { PracticeTrack } from './practice-track.js';
 import { normalizePins } from '../listen/stream-lens.js';
-import {normalizeRideProfile,profileKey} from './visual-worlds.js';
+import {normalizeRideProfile,profileKey,normalizeVisualScene,scenePresentation} from './visual-worlds.js?v=0.3';
 import {putLocalMedia,getLocalMedia,listLocalMedia,localMediaFile,requestPersistentLocalStorage} from '../local-media-store.js';
 
 const $=s=>document.querySelector(s), STORE='fb-live-0.1';
 const cv=$('#field'), renderer=new Renderer(cv);
-let state=load() || createState();
+function normalizeLoadedState(s){
+  if(!s)return null;
+  const scene=normalizeVisualScene(s.scene);
+  return scene===s.scene?s:{...s,scene};
+}
+let state=normalizeLoadedState(load()) || createState();
 let dragging=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
 let demo={on:false,timer:0,releases:0,preview:false,startState:null,startRide:null,startTape:null,startArc:null};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
@@ -146,7 +151,7 @@ function currentForecast(){return forecastRelease(state)}
 function callHit(f=currentForecast()){return forecastMatchesCall(state.call,f)}
 function releaseLabel(){
   const f=currentForecast();
-  if(!f)return `SEEK ${TYPE_NAMES[state.targetType]}`;
+  if(!f)return `SEEK ${typePresentation(state.targetType).text}`;
   const op=`${f.verb}${f.chain>1?' ×'+f.chain:''}`;
   return callHit(f)?`${op} · HIT CALL`:`${op} · RELEASE`;
 }
@@ -168,7 +173,7 @@ function updateTextWitness(){
 function statusText(){
   const idx=gateCellIndex(state),c=state.cells[idx],f=currentForecast(),track=layerMode!=='SOURCE'&&linkedTrack?.playing?` · TRACK B${Math.max(0,linkedTrack.beatIndex)+1} ${timingNow().label} · ROAD ${deformationSummary(deformationTape,Number(linkedTrack.time)||0)}`:(liveTrack.sourceActive()?' · SOURCE PLAYBACK':'');
   const forecast=f?` · HERE ${f.verb}${f.chain>1?'×'+f.chain:''}${callHit(f)?' ✓':''}`:'';
-  return `GATE ${String(idx).padStart(2,'0')} · ${TYPE_NAMES[c.type]} · CALL ${callLabel(state.call)} · ${state.creases.length} CREASE${state.creases.length===1?'':'S'}${forecast}${track}`;
+  return `GATE ${String(idx).padStart(2,'0')} · ${typePresentation(c.type).text} · CALL ${callLabel(state.call)} · ${state.creases.length} CREASE${state.creases.length===1?'':'S'}${forecast}${track}`;
 }
 
 function syncAutopilotUI(){
@@ -180,7 +185,7 @@ function syncAutopilotUI(){
 function update(){
   $('#flow').textContent=state.flow.toLocaleString();
   $('#chain').textContent=state.bestChain>1?state.bestChain+'×':'—';
-  $('#target').textContent=TYPE_NAMES[state.targetType];
+  $('#target').textContent=typePresentation(state.targetType).text;
   $('#call').textContent=callLabel(state.call);
   $('#streak').textContent=state.callStreak>1?state.callStreak+'×':'—';
   $('#timing').textContent=layerMode!=='SOURCE'&&linkedTrack?.playing?timingNow().label:'—';
@@ -194,11 +199,14 @@ function update(){
   $('#trackToggle').textContent=liveTrack.sourceActive()?($('#trackAudio').paused?'PLAY SOURCE':'PAUSE SOURCE'):'PLAY / PAUSE';
   syncLayerUI();
   $('#mode').textContent=state.mode;
-  $('#scene').textContent=state.scene;
+  const sceneMeta=scenePresentation(state.scene);
+  $('#scene').textContent=sceneMeta.label;
   $('#modeBtn').textContent=state.mode;
-  $('#sceneBtn').textContent=state.scene;
+  $('#sceneBtn').textContent=sceneMeta.plain;
+  $('#sceneBtn').title=sceneMeta.detail+' · presentation only';
+  $('#sceneBtn').setAttribute('aria-label','World presentation: '+sceneMeta.plain+'. '+sceneMeta.detail);
   $('#releaseBtn').disabled=!canRelease(state);
-  $('#releaseBtn').textContent=canRelease(state)?releaseLabel():`SEEK ${TYPE_NAMES[state.targetType]}`;
+  $('#releaseBtn').textContent=canRelease(state)?releaseLabel():`SEEK ${typePresentation(state.targetType).text}`;
   $('#chargeBar').style.width=`${Math.min(100,state.charge/1.75*100)}%`;
   $('#status').textContent=statusText();
   $('#soundBtn').textContent=audio.soundOn?'♪':'×';
@@ -364,7 +372,7 @@ async function doRelease(){
 }
 
 function toggleMode(){state=setMode(state,state.mode==='RATCHET'?'FLOW':'RATCHET');toast(state.mode);update()}
-function cycleScene(){const names=audio.sceneNames(),i=names.indexOf(state.scene),name=names[(i+1)%names.length];state=setScene(state,name);audio.setScene(name);renderer.setScene(name);toast(`WORLD · ${name}`);update()}
+function cycleScene(){const names=audio.sceneNames(),i=names.indexOf(state.scene),name=names[(i+1)%names.length],meta=scenePresentation(name);state=setScene(state,name);audio.setScene(name);renderer.setScene(name);toast(`WORLD · ${meta.plain} · ${meta.short.toUpperCase()}`);update()}
 
 function stopDemo(takeover=false){
   if(!demo.on)return;

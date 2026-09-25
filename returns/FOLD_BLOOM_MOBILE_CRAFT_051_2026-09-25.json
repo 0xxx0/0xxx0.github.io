@@ -1,0 +1,49 @@
+{
+  "schema": "field-return/v1",
+  "kind": "FOLD_BLOOM_MOBILE_CRAFT_RETURN",
+  "version": "0.5.2",
+  "date": "2026-09-25",
+  "status": "CANDIDATE",
+  "branch": "chatgpt/fold-bloom-mobile-craft-051-20260925",
+  "parent": "FOLD_BLOOM_PLAY_0.5",
+  "user_gate": {
+    "observed": "Phone screenshot showed an active LIVE ring underneath the still-open onboarding slab; the slab consumed the lower viewport and mode controls. The same frame showed TARGET MOSS and GATE EMBER without an intelligible mechanical explanation.",
+    "consequence": "Treat onboarding/occlusion and cell-family semantics as one direct-usability defect before further conceptual expansion."
+  },
+  "recovered": [
+    "Prior Fold//Bloom mobile UX work had already identified oversized overlays occluding controls.",
+    "Screenshot + engine recovery show EMBER/WATER/MOSS are LIVE cell type aliases, not scene/world names.",
+    "Type 0/1/2 render as triangle/circle/square and partition the ring into three anchor/cascade memory families.",
+    "DEEP/TRANCE/WOOD/VOID are the separate presentation-world vocabulary.",
+    "PLAY 0.5 moved mode meaning into the central ring, allowing redundant phone detail panels to recede."
+  ],
+  "delta": [
+    "Raise MODE / RELEASE / WORLD action bar above transient play UI.",
+    "Make non-actionable HUD and overlay regions pointer-transparent.",
+    "Hide redundant HEX detail panel on phone; central ring remains the state witness.",
+    "Move DUET controls above the action bar and capture only the +/- buttons.",
+    "Convert result/Ecology choice overlays on phone to bounded sheets above the action bar.",
+    "Explicit ?play= modes synchronously kill/hide onboarding before active play; no active-ring + onboarding-slab mixed state.",
+    "Add runtime hit-test witness data-fb-primary-controls=clear|occluded and browser-smoke coverage at 430×900.",
+    "Primary WORLD vocabulary is DEPTH / PULSE / GRAIN / SPARSE while retaining internal DEEP/TRANCE/WOOD/VOID provenance.",
+    "Primary cell-family vocabulary is △ TRIANGLE / ○ CIRCLE / □ SQUARE; EMBER/WATER/MOSS remain legacy aliases in old receipts only.",
+    "Cache-bust CSS/JS/module edges so the phone receives the interaction and naming fixes."
+  ],
+  "laws": [
+    "PRIMARY CONTROLS ARE SACRED.",
+    "Active play and onboarding are mutually exclusive surfaces.",
+    "Transient chrome may capture touches only where it has an actionable control.",
+    "Duplicate detail may disappear on phone when the central instrument already carries the state.",
+    "WORLD is presentation only; cell FAMILY is topology identity only.",
+    "Do not invent elemental semantics for EMBER/WATER/MOSS."
+  ],
+  "verification": {
+    "engine_cell_family_test": "PENDING_CI",
+    "visual_world_unit_tests": "PENDING_CI",
+    "mobile_control_browser_smoke": "PENDING_CI",
+    "active_surface_browser_smoke": "PENDING_CI",
+    "public_surface_check": "PENDING_CI",
+    "route_registration": "PENDING_CI",
+    "real_phone_touch_use": "HUMAN_GATE"
+  }
+}
