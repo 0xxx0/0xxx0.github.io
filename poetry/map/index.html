@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#07090a"><meta name="robots" content="noindex,nofollow">
-<title>POEM MAP 0.2.3 · VERSE</title>
+<title>POEM MAP 0.2.4 · VERSE</title>
 <style>
 :root{--bg:#07090a;--panel:#0c1114;--panel2:#10171b;--ink:#edf1ee;--muted:#7f8d94;--line:#29363d;--line2:#40515a;--hot:#f0a15a;--cyan:#72d2e5;--green:#9bd27f;--pink:#ea8ab8;--gold:#d9b56e;--red:#e97870}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--ink);font:12px/1.38 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -65,7 +65,7 @@ details.advanced[open]>summary:after{content:" −"}
 }
 </style></head>
 <body><div class="app">
-<header class="top"><div class="brand">VERSE <em>// POEM MAP 0.2.3</em></div><div class="spacer"></div><button id="fieldNowBtn" class="fieldNow">FIELD NOW</button><button id="leftBtn">SOURCE</button><button id="rightBtn">DETAIL</button><button id="guideBtn">?</button><a class="desktop" href="../">VERSE</a><a class="desktop" href="../../foundry/">FOUNDRY</a></header>
+<header class="top"><div class="brand">VERSE <em>// POEM MAP 0.2.4</em></div><div class="spacer"></div><button id="fieldNowBtn" class="fieldNow">FIELD NOW</button><button id="leftBtn">SOURCE</button><button id="rightBtn">DETAIL</button><button id="guideBtn">?</button><a class="desktop" href="../">VERSE</a><a class="desktop" href="../../foundry/">FOUNDRY</a></header>
 <div class="shell"><div id="shade" class="sheetShade"></div>
 <aside id="left" class="side left">
  <div class="k">Source</div>
@@ -369,7 +369,12 @@ function poemFocus(){
  const n=S.nodes.find(x=>x.id===S.selected)||S.nodes[0]||null,lines=String(S.source||'').split('\n');
  const line=Math.max(0,Math.min(lines.length-1,Number(n?.line)||0));let base=0;for(let i=0;i<line;i++)base+=lines[i].length+1;
  const local=Math.max(0,Number(n?.start)||0),start=Math.min(S.source.length,base+local),end=Math.min(S.source.length,start+String(n?.text||'').length);
- return{line,index:Math.max(0,Number(n?.index)||0),start,end,address:`text://${start}:${end}`,token:String(n?.text||'')}
+ return{id:n?.id||null,line,index:Math.max(0,Number(n?.index)||0),start,end,address:`text://${start}:${end}`,token:String(n?.text||'')}
+}
+function poemReturnAddress(f=poemFocus()){
+ const u=new URL(location.href);u.searchParams.delete('handoff');u.searchParams.delete('from');u.searchParams.delete('demo');u.searchParams.set('view',S.mode);
+ if(f?.id)u.searchParams.set('focus',f.id);else u.searchParams.delete('focus');
+ return u.pathname+u.search+u.hash
 }
 function poemLineFocus(){
  const f=poemFocus(),lines=String(S.source||'').split('\n');let start=0;for(let i=0;i<f.line;i++)start+=lines[i].length+1;
@@ -385,20 +390,20 @@ function verseAtlasLines(){
 }
 function carryRead(){
  if(!S.source.trim())return status('CARRY BLOCKED · BIND A SOURCE FIRST');
- const f=poemFocus(),ret=location.pathname+location.search;
+ const f=poemFocus(),ret=poemReturnAddress(f);
  const packet={schema:'readfield-handoff/v1',created:new Date().toISOString(),source:S.source,label:'VERSE / POEM MAP',from:ret,returnAddress:ret,sourceIdentity:{kind:'TEXT',format:'TXT',authority:'VERSE/POEM-MAP-0.2'},focus:{scale:'WORD',index:f.index,address:f.address,char_index:f.start,source_progress:S.source.length?f.start/S.source.length:0,wpm:300}};
  try{sessionStorage.setItem('readfield.handoff.v1',JSON.stringify(packet))}catch(_){}
  location.href='/docs/?handoff=1&from=verse&return='+encodeURIComponent(ret)
 }
 function carryLab(){
  if(!S.source.trim())return status('CARRY BLOCKED · BIND A SOURCE FIRST');
- const f=poemLineFocus(),ret=location.pathname+location.search,packet={schema:'field-verse-handoff/v0.1',created:new Date().toISOString(),source:S.source,sourceKey:localTextKey(S.source),focus:f,marks:[],from:ret};
+ const token=poemFocus(),f=poemLineFocus(),ret=poemReturnAddress(token),packet={schema:'field-verse-handoff/v0.1',created:new Date().toISOString(),source:S.source,sourceKey:localTextKey(S.source),focus:f,marks:[],from:ret};
  try{sessionStorage.setItem('field.verse.handoff.v01',JSON.stringify(packet))}catch(_){}
  location.href='/fold-bloom/lab/?mode=VERSE&handoff=1&from=poem-map'
 }
 function carryStudy(){
  const lines=verseAtlasLines();if(!lines)return status('STUDY BLOCKED · VERSE ATLAS ACCEPTS EXACT 4 × 7 HAN ONLY');
- const f=poemFocus(),ret=location.pathname+location.search,packet={schema:'verse-atlas-handoff/v0.1',created:new Date().toISOString(),source:S.source,lines,focus:{line:f.line,character:Math.max(0,Math.min(6,f.index)),start:f.start,end:f.end,address:f.address},from:ret};
+ const f=poemFocus(),ret=poemReturnAddress(f),packet={schema:'verse-atlas-handoff/v0.1',created:new Date().toISOString(),source:S.source,lines,focus:{line:f.line,character:Math.max(0,Math.min(6,f.index)),start:f.start,end:f.end,address:f.address},from:ret};
  try{sessionStorage.setItem('verse.atlas.handoff.v01',JSON.stringify(packet))}catch(_){}
  location.href='/foundry/verse-atlas/?handoff=1&view=study&from=poem-map'
 }
@@ -450,7 +455,8 @@ function recoverVerseHandoff(){
     sessionStorage.removeItem('field.verse.handoff.v01');return h;
   }catch(_){return null}
 }
-const bootQ=new URLSearchParams(location.search),bootView=(bootQ.get('view')||'').toUpperCase(),bootMode=['PAGE','MAP','SETS'].includes(bootView)?bootView:null,bootDemo=bootQ.get('demo')==='1',bootVerse=bootQ.get('handoff')==='1'?recoverVerseHandoff():null;
+const bootQ=new URLSearchParams(location.search),bootView=(bootQ.get('view')||'').toUpperCase(),bootMode=['PAGE','MAP','SETS'].includes(bootView)?bootView:null,bootDemo=bootQ.get('demo')==='1',bootVerse=bootQ.get('handoff')==='1'?recoverVerseHandoff():null,bootFocus=/^L\d+T\d+$/.test(bootQ.get('focus')||'')?bootQ.get('focus'):null;
+function restoreReturnFocus(){if(!bootFocus||!S.nodes.some(n=>n.id===bootFocus))return false;S.selected=bootFocus;render();renderFocusWheel();return true}
 load();
 if(bootVerse){
   S.fieldLoaded=false;$('#source').value=bootVerse.source;parse();setMode('PAGE');
@@ -458,16 +464,16 @@ if(bootVerse){
   S.selected=focusNode?.id||null;render();renderFocusWheel();
   status('FIELD LAB VERSE · SOURCE + LINE FOCUS RECEIVED'+(bootVerse.marks?.length?' · '+bootVerse.marks.length+' MARKS REMAIN SOURCE EVIDENCE':''));
 }else if(bootDemo){
-  S.fieldLoaded=false;$('#source').value=DEMO;parse();setMode(bootMode||'MAP');status('DEMO READY · '+(bootMode||'MAP')+' PROJECTION');
+  S.fieldLoaded=false;$('#source').value=DEMO;parse();setMode(bootMode||'MAP');status(restoreReturnFocus()?'RETURN FOCUS RESTORED · '+bootFocus:'DEMO READY · '+(bootMode||'MAP')+' PROJECTION');
 }else if(S.source){
-  parse();setMode(bootMode||S.mode||'PAGE');
+  parse();setMode(bootMode||S.mode||'PAGE');if(restoreReturnFocus())status('RETURN FOCUS RESTORED · '+bootFocus);
 }else{
   render();setMode(bootMode||'PAGE');loadFieldNow().then(ok=>{
     if(!ok){$('#source').value=DEMO;parse();status('FIELD UNAVAILABLE · TINY DEMO LOADED')}
-    if(bootMode)setMode(bootMode);
+    if(bootMode)setMode(bootMode);if(ok&&restoreReturnFocus())status('RETURN FOCUS RESTORED · '+bootFocus);
   });
 }
 requestAnimationFrame(draw);
-window.__POEM_MAP__={S,receipt,applyReceipt,parse,setMode,previewCandidate,adoptCandidate,undoRevision,selftest,loadLocalCorpus,localCorpusCandidates,loadFieldNow,requestIntent,renderFocusWheel,poemFocus,poemLineFocus,verseAtlasLines,carryRead,carryLab,carryStudy};
+window.__POEM_MAP__={S,receipt,applyReceipt,parse,setMode,previewCandidate,adoptCandidate,undoRevision,selftest,loadLocalCorpus,localCorpusCandidates,loadFieldNow,requestIntent,renderFocusWheel,poemFocus,poemLineFocus,poemReturnAddress,restoreReturnFocus,verseAtlasLines,carryRead,carryLab,carryStudy};
 })();
 </script></body></html>
