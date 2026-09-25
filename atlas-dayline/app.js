@@ -317,10 +317,15 @@ function bridgeAddTask(input={},sourceClass='IMPORTED'){
  data.tasks.push(task);data.state.selected=id;ui.previewBundle=[];event(sourceClass==='USER'?'CAPTURE':'FIELD_IMPORT',id,task.fieldRef||task.provenance);save();render();return clone(task)
 }
 window.AtlasDayline=Object.freeze({
- version:'branch-i-field-live-0.1',
+ version:'branch-i-field-live-0.2',
  snapshot:()=>clone(data),
  addFieldTask:input=>bridgeAddTask(input,'IMPORTED'),
  capture:input=>bridgeAddTask(typeof input==='string'?{title:input}:input,'USER'),
+ applyContexts:input=>{
+   const xs=[...new Set((input?.contexts||[]).map(x=>String(x||'').trim()).filter(Boolean))];if(!xs.length)throw Error('contexts required');
+   checkpoint('CONTEXT_HANDOFF');data.state.contexts=[...new Set([...(data.state.contexts||[]),...xs])];
+   event('CONTEXT_HANDOFF',String(input?.sourceRef||''),xs.join(','));save();render();return [...data.state.contexts]
+ },
  lastReturn:()=>{try{return JSON.parse(localStorage.getItem(RETURN_STORE)||'null')}catch{return null}},
  feedback:()=>{
    const ids=new Set([...(data.state.route||[]),data.state.selected].filter(Boolean));
