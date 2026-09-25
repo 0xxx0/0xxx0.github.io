@@ -1,6 +1,6 @@
 {
   "schema": "field-index-contract/v0.4",
-  "updated": "2026-09-24",
+  "updated": "2026-09-25",
   "purpose": "Keep FIELD INDEX usable under growth: exact Git repository chronology for literal change, CURRENT for attention, showcase-manifest for addressed route projection, and one shared focus identity across AXIAL / route projections / map without allowing any projection to impersonate authority.",
   "laws": [
     "ATTENTION ≠ RECENCY. /control/CURRENT.json owns NOW; Git commits own literal repository mutation chronology; route.index.updated_at is curated route-touch metadata only.",
@@ -95,12 +95,13 @@
     "root_trace_status": "STRUCTURAL/REPLAY/SEALED are evidence levels, not quality scores. Explicitly unsealed trace fails SEALED; unavailable replay/schema evidence returns INDETERMINATE.",
     "root_trace_placement": "TRACE / VERIFY is a collapsed secondary instrument inside STATUS. Top navigation and the focused-object TRACE action open that same nested instrument by first opening STATUS; TRACE no longer occupies the primary re-entry stack.",
     "root_trace_binding": "A rendered trace is bound to the route focus present when RUN TRACE executes. If shared FIELD focus changes, the trace becomes visibly STALE and COMMIT is disabled until rerun. Old trace export remains possible as historical evidence.",
-    "root_waiting": "WAITING / YOU is a merged projection: durable public-safe /control/WAITING.json items plus only explicit CURRENT.current_heads[].next_executable gates whose state names HUMAN, ORDINARY_USE, REAL_DEVICE, PRIVATE, PHYSICAL or WAIT. Merge by id and label source. Do not infer user obligations from prose, issues, open ports or promotion language.",
+    "root_waiting": "WAITING / YOU is the current human/world evidence aperture. ACTIVE gates derive only from explicit CURRENT.current_heads[].next_executable human/world states. /control/WAITING.json preserves durable dependency memory as PARKED or REMOVED history and may enrich a matching CURRENT gate by id. Parked, conditional, ambient-use and removed dependencies never become user obligations merely because they exist in the registry. Local acknowledgement does not resolve a CURRENT gate.",
     "root_reentry": "NOW / RECOVER / CONVERGE is a collapsed one-line semantic router. NOW opens CURRENT/QUEUE attention; RECOVER opens the generic Recovery vault for exact source + lineage and must not privilege a current project head; CONVERGE opens NEXUS for coordination + RETURN.",
     "root_convergence": "Generated convergence data/plain readings remain available to NEXUS/READFIELD with generation timestamps, but the generated KPI strip is retired from FIELD root. Root live frame derives CURRENT + master HEAD rather than caching a second status dashboard.",
     "root_truth_grammar": "Use Φ for host/authority frame and φ for the current addressed focus/projection. The root reads CURRENT → φ FOCUS → ROUTES; Git/TRACE/STATUS are subordinate evidence or instruments opened on demand.",
-    "root_status": "STATUS is secondary and collapsed. Its rail summarizes live ISSUES / HEADS / MAP / PORTS only; WAITING / YOU remains a distinct primary human/world dependency aperture and is not repeated in STATUS. Dated audits remain reachable elsewhere but are removed from root to avoid stale support masquerading as current state.",
-    "root_tzimtzum": "Primary root hierarchy is deliberately small: CURRENT/φ truth frame → FOCUS → ROUTES / LIVE SURFACE → WAITING / YOU → collapsed STATUS. If a root block duplicates those functions, fold it under its owner or remove it rather than creating another dashboard."
+    "root_status": "STATUS is secondary and collapsed. Its rail summarizes live ISSUES / HEADS / MAP plus PORTS live-debt classes only (BUILD / PROVE, BOUNDARY, VERIFY, and any UNCLASSIFIED status). WAITING / YOU remains a distinct primary human/world dependency aperture and is not repeated in STATUS. AVAILABLE and PARKED port counts stay in the PORTS fold; dated audits remain historical.",
+    "root_tzimtzum": "Primary root hierarchy is deliberately small: CURRENT/φ truth frame → FOCUS → ROUTES / LIVE SURFACE → WAITING / YOU → collapsed STATUS. If a root block duplicates those functions, fold it under its owner or remove it rather than creating another dashboard.",
+    "root_ports": "PORTS / EXIT STATE projects manifest field.exit_paths without treating every non-AVAILABLE status as unresolved work. Exact exit statuses remain canonical and are grouped for presentation into AVAILABLE, BUILD / PROVE, HUMAN / EXPORT BOUNDARY, VERIFY and PARKED / OPTIONAL. Candidate, reference, donor and deferred exits are not counted as live debt; unknown statuses render OTHER / UNCLASSIFIED."
   },
   "query_semantics": {
     "BOTTLENECK": {
@@ -248,5 +249,56 @@
     "current": "Attention authority: active fronts, retained heads and current execution frame.",
     "manifest": "Addressed route/state projection. index.updated_at is curated surface-touch metadata, not a complete changelog.",
     "interphase": "Shared select/focus/project/RETURN mechanics; domain host remains authoritative."
+  },
+  "exit_status_taxonomy": {
+    "AVAILABLE": {
+      "label": "AVAILABLE",
+      "statuses": [
+        "AVAILABLE"
+      ],
+      "attention": false
+    },
+    "BUILD_PROVE": {
+      "label": "BUILD / PROVE",
+      "statuses": [
+        "ADAPTER_REQUIRED",
+        "SPECIFIED",
+        "PROOF_REQUIRED",
+        "EVIDENCE_REQUIRED",
+        "REQUIRED"
+      ],
+      "attention": true
+    },
+    "BOUNDARY": {
+      "label": "HUMAN / EXPORT BOUNDARY",
+      "statuses": [
+        "EXPLICIT_EXPORT_REQUIRED",
+        "HUMAN_ONLY"
+      ],
+      "attention": false
+    },
+    "VERIFY": {
+      "label": "VERIFY",
+      "statuses": [
+        "UNVERIFIED_REACHABILITY"
+      ],
+      "attention": true
+    },
+    "PARKED": {
+      "label": "PARKED / OPTIONAL",
+      "statuses": [
+        "CANDIDATE",
+        "REFERENCE",
+        "DONOR",
+        "DEFERRED"
+      ],
+      "attention": false
+    },
+    "OTHER": {
+      "label": "OTHER / UNCLASSIFIED",
+      "statuses": [],
+      "attention": true,
+      "law": "Unknown future statuses never silently become BUILD / PROVE."
+    }
   }
 }
