@@ -1,7 +1,7 @@
 {
   "schema": "confluence/readfield-phone-work/v0.1",
   "date": "2026-09-25",
-  "status": "CANDIDATE_BRANCH",
+  "status": "VERIFIED_READY_TO_MERGE",
   "object": "READFIELD / RSVP 0.8.5 phone work experience",
   "recovered_state": [
     "READFIELD 0.8.4 already had a verified phone work rail, exact source/cursor continuity, six task modes and READ↔LOCI bounded focus handoff.",
@@ -23,10 +23,11 @@
     "Local/pasted bytes are session-only and are not represented as durable repository/source URLs."
   ],
   "verification": {
-    "static": "PENDING_CI",
-    "browser": "PENDING_CI",
+    "static": "PASS · Route Registration run 36117775578",
+    "browser": "PASS · public-surface-check run 36117774984; critical browser smoke includes 430×900 READFIELD local-file intake",
     "lived_phone": "REQUIRED_NEXT"
   },
   "branch": "readfield-phone-work-085-20260925",
-  "return": "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json"
+  "return": "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json",
+  "verified_head": "56bced3f65e9754429da940a1e62ec3ea3e0312c"
 }
