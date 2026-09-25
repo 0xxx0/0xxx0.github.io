@@ -1,0 +1,44 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "DAYLINE_CONFLUENCE_WORKFIELD_2026-09-25",
+  "date": "2026-09-25",
+  "object": "Atlas Dayline mobile continuity → same-state Dayline / Confluence candidate",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "focus": "ordinary mobile execution should preserve one addressed object across source → action → witness → RETURN",
+  "before": [
+    "Atlas remained the ordinary container even when its fixed viewport/spatial geometry was unnecessary for execution",
+    "HOUSE / SHOPPING / COMMS handoffs landed in Atlas LIVE",
+    "retired sample DayState could persist in existing browser localStorage",
+    "cross-host continuity was lawful but still felt like route navigation"
+  ],
+  "delta": [
+    "/dayline/ mobile-first ordinary-scroll workfield over the same DayState",
+    "same atlas-dayline-handoff/v0.1 envelope accepted without new adapter schema",
+    "HOUSE / SHOPPING / COMMS handoffs redirected to /dayline/",
+    "live CURRENT frame available when no local object is held",
+    "primary UI fixed to OBJECT / FOCUS / <=3 MOVES / WITNESS / RETURN",
+    "retired nine-item sample detected and offered explicit undoable RESET LEGACY SAMPLE",
+    "Atlas retained as optional radial/scenario depth",
+    "CURRENT lived gate now targets the candidate without promoting it"
+  ],
+  "authority": {
+    "current": "attention authority",
+    "source_domains": "native lifecycle/state authority",
+    "dayline": "time/execution projection only",
+    "candidate": "no new authority; explicit mutations hit existing DayState only"
+  },
+  "evidence": {
+    "source_syntax": "PASS",
+    "validator": "ADDED",
+    "browser_smoke": "ADDED",
+    "ci": "PENDING",
+    "lived_phone": "PENDING_USER"
+  },
+  "residue": [
+    "RETURN→native-source acceptance remains unimplemented",
+    "calendar anchors remain adapter-gated",
+    "candidate promotion depends on lived phone continuity, not CI"
+  ],
+  "one_next": "Open /dayline/ on phone. If legacy sample is detected, explicitly reset it. Take one real HOUSE/SHOPPING/COMMS/direct object through one move, witness and RETURN.",
+  "stop": "No additional adapter or universal-shell work before this lived proof."
+}
