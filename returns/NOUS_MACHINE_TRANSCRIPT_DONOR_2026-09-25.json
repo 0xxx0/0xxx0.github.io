@@ -1,0 +1,17 @@
+{
+  "schema": "field-donor-return/v0.1",
+  "date": "2026-09-25",
+  "donor": "NousResearch / Hermes documentation entrypoint",
+  "observed_donor_mechanism": "Generated machine-readable documentation entrypoints let agents consume a compact projection without making that projection authoritative.",
+  "field_transform": "Generate one compact revision-bound /llms.txt transcript from CURRENT + manifest + WAITING + FIELD INDEX contract; mark it non-canonical and fail CI when it drifts.",
+  "sources": [
+    "/control/CURRENT.json",
+    "/showcase-manifest.json",
+    "/control/WAITING.json",
+    "/control/FIELD_INDEX_CONTRACT.json"
+  ],
+  "artifact": "/llms.txt",
+  "generator": "/tools/build-field-transcript.mjs",
+  "proof": "convergence-validate --check",
+  "stop": "No llms-full dump and no second context database. Expand only if an external agent demonstrably needs a missing channel."
+}
