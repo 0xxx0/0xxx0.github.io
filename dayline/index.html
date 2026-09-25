@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0c0e">
+<title>DAYLINE // CONFLUENCE</title>
+<meta name="description" content="Mobile-first continuous execution projection over Atlas Dayline, FIELD and explicit reality handoffs.">
+<link rel="stylesheet" href="./app.css">
+</head>
+<body data-dayline-workfield="loading">
+<main class="app" id="app">
+  <header class="top">
+    <div>
+      <div class="ey">DAYLINE // CONFLUENCE · WORKFIELD 0.1</div>
+      <div class="law">ONE OBJECT → FOCUS → 1–3 MOVES → WITNESS → RETURN</div>
+    </div>
+    <div class="truth" id="truth">recovering live state…</div>
+  </header>
+
+  <section class="capture">
+    <form id="captureForm">
+      <input id="captureInput" autocomplete="off" placeholder="What just became actionable?">
+      <button type="submit">CAPTURE</button>
+    </form>
+  </section>
+
+  <section class="frame" aria-live="polite">
+    <div class="sectionHead"><span>OBJECT / FOCUS</span><span id="owner">—</span></div>
+    <div class="address" id="address">—</div>
+    <h1 id="focusTitle">Recovering…</h1>
+    <div class="focusMeta" id="focusMeta"></div>
+  </section>
+
+  <section class="next">
+    <div class="sectionHead"><span>NEXT / 1–3</span><span id="moveCount">0</span></div>
+    <div class="moves" id="moves"></div>
+  </section>
+
+  <section class="witness">
+    <div class="sectionHead"><span>WITNESS</span><span id="witnessState">—</span></div>
+    <textarea id="witnessInput" placeholder="Concrete consequence / observation. What changed?"></textarea>
+    <button id="witnessBtn">RECORD WITNESS</button>
+    <div class="lastWitness" id="lastWitness"></div>
+  </section>
+
+  <section class="return">
+    <div class="sectionHead"><span>RETURN</span><span id="returnClass">—</span></div>
+    <button class="returnBtn" id="returnBtn">RETURN / COPY</button>
+    <div class="returnMeta" id="returnMeta">Exact state + evidence; no source authority transfer.</div>
+  </section>
+
+  <details class="depth" id="depth">
+    <summary>DEPTH / PROJECTIONS</summary>
+    <div class="depthGrid">
+      <a href="/atlas-dayline/?live=1">ATLAS / RADIAL</a>
+      <a href="/">FIELD</a>
+      <a href="/house/spatial/">HOUSE / SPACE</a>
+      <a href="/shopping/">SHOPPING</a>
+      <a href="/port/comms/">COMMS</a>
+      <a href="/body/">BODY</a>
+      <a href="/care/">CARE</a>
+      <a href="/contact/">CONTACT</a>
+    </div>
+    <div class="depthState" id="depthState"></div>
+  </details>
+
+  <footer>
+    <span>same DayState · same REALITY PORT envelope · routes are depth</span>
+    <button id="syncNowBtn">NOW ↻</button>
+  </footer>
+</main>
+<div id="toast" role="status"></div>
+<script defer src="./app.js"></script>
+<script defer src="/showcase-nav.js"></script>
+</body>
+</html>
