@@ -48,6 +48,12 @@
       "trigger": "CURRENT, MIGRATION_NOW, or newly supplied evidence names one exact source gap with a concrete anchor and recovering it materially unlocks a current conversion or prevents false lineage.",
       "task": "Search only the bounded source space. Freeze exact source/evidence or sharpen the blocker. One gain or one failed anchor, then stop.",
       "receipt": "one exact source/duplicate/lineage packet or explicit NO_GAIN/BLOCKED return"
+    },
+    {
+      "id": "EXPLICIT-DAYLINE-HANDOFF",
+      "trigger": "The user explicitly supplies a hermes-dayline-task/v0.1 packet emitted by /atlas-dayline/ LIVE 0.2.",
+      "task": "Execute /control/packets/HERMES_REALITY_BRIDGE_2026-09-25.json against exactly that selected task. Prepare one bounded action/research/recovery packet; do not send, schedule, spend, or mutate canonical repo state.",
+      "receipt": "STATE + DELTA + EVIDENCE + RESIDUE + WAITING + ONE_NEXT; one packet or BLOCKED/NO_GAIN, then stop."
     }
   ],
   "worker_roles": {
