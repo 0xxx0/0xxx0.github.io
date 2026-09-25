@@ -462,10 +462,10 @@ cv.addEventListener('pointerdown',pointDown);cv.addEventListener('pointermove',p
 
 $('#releaseBtn').onclick=()=>{stopDemo(true);doRelease()};$('#modeBtn').onclick=()=>{stopDemo(true);toggleMode()};$('#sceneBtn').onclick=()=>{stopDemo(true);cycleScene()};
 $('#soundBtn').onclick=async()=>{if(!audio.ctx){await enableFieldAudio();return}audio.setSound(!audio.soundOn);syncSoundGate(false);update()};
-$('#menuBtn').onclick=()=>$('#settings').classList.toggle('on');$('#closeSettings').onclick=()=>$('#settings').classList.remove('on');
+const setMenuOpen=open=>{const on=!!open;$('#settings').classList.toggle('on',on);document.body.classList.toggle('fbMenuOpen',on);if(on)$('#settings').scrollTop=0};$('#menuBtn').onclick=()=>setMenuOpen(!$('#settings').classList.contains('on'));$('#closeSettings').onclick=()=>setMenuOpen(false);
 $('#vol').value=Math.round(audio.volume*100);$('#vol').oninput=e=>audio.setVolume(+e.target.value/100);
 $('#trackVol').value=Math.round($('#trackAudio').volume*100);$('#trackVol').oninput=e=>liveTrack.setVolume(+e.target.value/100);
-$('#trackLoad').onclick=()=>{stopDemo(true);$('#trackFile').click()};$('#songIntroBtn').onclick=()=>{stopDemo(false);$('#trackFile').click()};
+const chooseSong=()=>{stopDemo(true);setMenuOpen(false);$('#trackFile').click()};$('#trackLoad').onclick=chooseSong;$('#sourceQuick')?.addEventListener('click',chooseSong);$('#songIntroBtn').onclick=()=>{stopDemo(false);setMenuOpen(false);$('#trackFile').click()};
 $('#publicDemoBtn')?.addEventListener('click',()=>{void enterPublicDemo()});$('#publicDemoSettingsBtn')?.addEventListener('click',()=>{void enterPublicDemo()});
 $('#centerMassBtn')?.addEventListener('click',()=>{void enterCenterMass()});$('#centerMassSettingsBtn')?.addEventListener('click',()=>{void enterCenterMass()});
 $('#vaultOpen')?.addEventListener('click',()=>{void openVaultSource()});
