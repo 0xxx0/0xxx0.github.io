@@ -14,8 +14,8 @@ a{color:inherit;text-decoration:none}button,input{font:inherit;color:inherit;bac
 main{width:min(1240px,100%);margin:auto}
 header{display:flex;align-items:end;justify-content:space-between;gap:16px;padding:10px 0 8px;border-bottom:1px solid var(--line)}
 .ey{font-size:7px;letter-spacing:.18em;color:var(--hot)}h1{margin:2px 0 0;font:900 clamp(30px,5vw,54px)/.9 system-ui,sans-serif;letter-spacing:-.065em}
-nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;border:1px solid var(--line);padding:5px 7px;font-size:7px;letter-spacing:.07em}nav a.play{border-color:var(--hot);color:#ffd0bd}nav a.proof{border-color:var(--green);color:var(--green)}nav a.wit{border-color:var(--gold);color:var(--gold)}
-.section{margin-top:18px}.sectionHead{display:flex;justify-content:space-between;gap:12px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:5px;margin-bottom:6px}.sectionHead b{font-size:9px;letter-spacing:.14em}.sectionHead span{color:var(--mut);font-size:7px}.reentryFold{margin-top:7px;border:1px solid var(--line);background:#090d0f}.reentryFold>summary{list-style:none;display:grid;grid-template-columns:repeat(3,1fr) 17px;align-items:stretch;min-height:26px;cursor:pointer}.reentryFold>summary::-webkit-details-marker{display:none}.reentrySeg{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:5px 7px;border-right:1px solid var(--line);min-width:0}.reentrySeg span{color:var(--mut);font-size:6px;letter-spacing:.09em}.reentrySeg b{font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.reentrySeg.recover b{color:var(--gold)}.reentrySeg.converge b{color:var(--cool)}.reentryToggle{display:grid;place-items:center;color:var(--mut);font-size:7px}.reentryFold[open] .reentryToggle{transform:rotate(90deg)}.reentryBody{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);border-top:1px solid var(--line)}.reentryBody a{background:#090d0f;padding:6px 8px;min-width:0}.reentryBody a:hover{background:#0d1316}.reentryBody b{display:block;font-size:7px;letter-spacing:.06em}.reentryBody span{display:block;color:var(--mut);font-size:6px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.headerPlay{flex:none;min-height:42px;display:flex;align-items:center;border:1px solid var(--hot);color:#ffd0bd;padding:8px 11px;font-size:8px;letter-spacing:.09em}
+.section{margin-top:18px}.sectionHead{display:flex;justify-content:space-between;gap:12px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:5px;margin-bottom:6px}.sectionHead b{font-size:9px;letter-spacing:.14em}.sectionHead span{color:var(--mut);font-size:7px}.reentryFold{margin-top:7px;border:1px solid var(--line);background:#090d0f}.reentryFold>summary{list-style:none;display:grid;grid-template-columns:repeat(3,1fr) 17px;align-items:stretch;min-height:26px;cursor:pointer}.reentryFold>summary::-webkit-details-marker{display:none}.reentrySeg{display:flex;align-items:center;justify-content:space-between;gap:6px;padding:5px 7px;border-right:1px solid var(--line);min-width:0}.reentrySeg span{color:var(--mut);font-size:6px;letter-spacing:.09em}.reentrySeg b{font-size:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.reentrySeg.recover b{color:var(--gold)}.reentrySeg.converge b{color:var(--cool)}.reentryToggle{display:grid;place-items:center;color:var(--mut);font-size:7px}.reentryFold[open] .reentryToggle{transform:rotate(90deg)}.reentryBody{display:grid;grid-template-columns:repeat(auto-fit,minmax(132px,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line)}.reentryBody a{background:#090d0f;padding:6px 8px;min-width:0}.reentryBody a:hover{background:#0d1316}.reentryBody a.utility b{color:var(--mut)}.reentryBody a.hot b{color:#ffd0bd}.reentryBody b{display:block;font-size:7px;letter-spacing:.06em}.reentryBody span{display:block;color:var(--mut);font-size:6px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* AXIAL / LATEST */
 .axial{margin-top:9px;border:1px solid var(--line);background:var(--p)}
@@ -130,14 +130,25 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <body><main>
 <header>
   <div><div class="ey">Φ / FIELD / INDEX</div><h1>FIELD INDEX</h1></div>
-  <!-- NAV 14 -> 12 (2026-09-25). Collapsed by reachability, not by taste: every removed
-       item was VERIFIED reachable from the one kept. BOARD lives inside /nexus/ (linked 3x).
-       AXIAL lives inside /foundry/ (linked ./axial/). MIGRATION and RECOVERY already
-       cross-link each other, so one door serves both -> RECORD. RETURN stays: /migration/
-       does not link to it, so removing the item would have lost the path. -->
-<nav><a class="play" href="./field-play.html">PLAY</a><a href="#traceFold" onclick="document.getElementById('statusFold').open=true;document.getElementById('traceFold').open=true">TRACE</a><a href="./lens-proof/">COMPARE</a><a href="./control/">CURRENT</a><a class="proof" href="./nexus/" title="nexus, board, map">NEXUS</a><a href="./house/" title="canonical human-facing house spatial/state instrument">HOUSE</a><a class="wit" href="./witness/" title="empty sky · repo sky · sourced account">✦ WITNESS</a><a href="./control/confluence/">CONFLUENCE</a><a href="./foundry/" title="foundry, axial, instruments">FOUNDRY</a><a href="./migration/" title="migration, recovery vault, salvage">RECORD</a><a href="./returns/">RETURN</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav>
+  <a class="headerPlay" href="./field-play.html">PLAY →</a>
 </header>
-<details class="reentryFold" aria-label="FIELD re-entry states"><summary><span class="reentrySeg"><span>NOW</span><b>CURRENT</b></span><span class="reentrySeg recover"><span>RECOVER</span><b>VAULT</b></span><span class="reentrySeg converge"><span>CONVERGE</span><b>NEXUS</b></span><span class="reentryToggle">▶</span></summary><div class="reentryBody"><a href="./control/"><b>NOW / CURRENT</b><span>attention + bounded execution</span></a><a href="./recovery/"><b>RECOVER / VAULT</b><span>exact source + lineage</span></a><a href="./nexus/"><b>CONVERGE / NEXUS</b><span>coordination + RETURN</span></a><a href="./witness/"><b>WITNESS / WALL</b><span>six views of one record</span></a></div></details>
+<details class="reentryFold" aria-label="FIELD re-entry and depth">
+  <summary><span class="reentrySeg"><span>NOW</span><b>CURRENT</b></span><span class="reentrySeg recover"><span>RECOVER</span><b>VAULT</b></span><span class="reentrySeg converge"><span>CONVERGE</span><b>NEXUS</b></span><span class="reentryToggle">▶</span></summary>
+  <div class="reentryBody">
+    <a href="./control/"><b>NOW / CURRENT</b><span>attention + bounded execution</span></a>
+    <a href="./recovery/"><b>RECOVER / VAULT</b><span>exact source + lineage</span></a>
+    <a href="./nexus/"><b>CONVERGE / NEXUS</b><span>coordination + RETURN</span></a>
+    <a href="./witness/"><b>WITNESS / WALL</b><span>six views of one record</span></a>
+    <a class="utility hot" href="#traceFold" onclick="document.getElementById('statusFold').open=true;document.getElementById('traceFold').open=true"><b>TRACE</b><span>focus-bound evidence</span></a>
+    <a class="utility" href="./lens-proof/"><b>COMPARE</b><span>projection proof</span></a>
+    <a class="utility" href="./house/"><b>HOUSE</b><span>canonical human-facing spatial/state instrument</span></a>
+    <a class="utility" href="./control/confluence/"><b>CONFLUENCE</b><span>continuity + convergence records</span></a>
+    <a class="utility" href="./foundry/"><b>FOUNDRY</b><span>axial + instruments</span></a>
+    <a class="utility" href="./migration/"><b>RECORD</b><span>migration + salvage</span></a>
+    <a class="utility" href="./returns/"><b>RETURN</b><span>receipts + re-entry evidence</span></a>
+    <a class="utility" href="./control/FIELD_INDEX_CONTRACT.json"><b>FI LAW</b><span>root interaction contract</span></a>
+  </div>
+</details>
 <div class="syncLine" aria-label="FIELD truth frame">
   <a href="./control/CURRENT.json"><b>Φ / CURRENT</b></a>
   <span id="syncCurrent">loading current…</span>
