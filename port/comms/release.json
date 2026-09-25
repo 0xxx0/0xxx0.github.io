@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "artifact": "HUMAN PORT / COMMS SPINE",
   "route": "/port/comms/",
-  "version": "0.1",
+  "version": "0.1.1",
   "date": "2026-09-23",
   "state": "MERGED_ACTIVE_CANDIDATE",
   "thesis": "One exact conversation remains canonically addressable while signal extraction, human annotation, obligation state, response coverage, bot handoff and RETURN become unequal projections beside it.",
@@ -93,5 +93,11 @@
     },
     "comms_core_tests": "12/12 PASS",
     "phone_flow": "430×900 create → HUMAN mark → target ASK → draft → COVER → RETURN → source switch → resume PASS"
-  }
+  },
+  "released": "2026-09-25",
+  "changes": [
+    "Added explicit OPEN-signal → Dayline handoff: prefer HUMAN-authored OPEN signal, otherwise preserve DERIVED origin visibly.",
+    "The handoff preserves source SHA, message/range address, signal kind, origin and text without transferring the full conversation.",
+    "Transport is session-local atlas-dayline-handoff/v0.1 and requires explicit ADD TO DAY; send authority remains absent."
+  ]
 }
