@@ -1,0 +1,36 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "UNIFIED_HELD_OBJECT_RETURN_PROOF_2026-09-25",
+  "date": "2026-09-25",
+  "state": "DRAFT_INTEGRATION_PROOF",
+  "object": "UNIFIED INTERFACE / HELD OBJECT RETURN",
+  "trigger": "Interoperability exists, but the human loses continuous object/focus/witness at cross-host seams.",
+  "delta": [
+    "Dayline keeps sourceLink metadata when an explicit TASK handoff is accepted.",
+    "Explicit Dayline RETURN emits atlas-dayline-source-return/v0.1 offers with authority OFFER_ONLY.",
+    "Dayline LIVE exposes RETURN TO SOURCE when such an offer exists.",
+    "COMMS accepts only exact-source-matching offers and requires explicit COVERED / DEFERRED / KEEP OPEN / DISMISS."
+  ],
+  "preserved": [
+    "COMMS source SHA/message/clause authority",
+    "Dayline temporal execution authority",
+    "DRAFT != SEND",
+    "native source mutation remains explicit",
+    "session-local transport only"
+  ],
+  "evidence": {
+    "files": [
+      "/atlas-dayline/app.js",
+      "/atlas-dayline/field-bridge.js",
+      "/port/comms/app.js",
+      "/port/comms/index.html",
+      "/port/comms/app.css",
+      "/tools/validate-public.mjs"
+    ],
+    "static_gate": "validate-public contains source-return seam checks",
+    "lived": "OPEN"
+  },
+  "waiting": "One real COMMS → Dayline → RETURN → COMMS round-trip on phone/browser.",
+  "next": "Use one exact COMMS OPEN signal; accept a Dayline return offer at the original signal; judge whether continuity reduces reconstruction/bookkeeping.",
+  "stop": "Do not generalize to SHOPPING/HOUSE/FIELD or merge automatically until lived proof."
+}
