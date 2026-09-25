@@ -1,0 +1,67 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "FIELD_REALITY_SYNC_2026-09-25",
+  "date": "2026-09-25",
+  "object": "FIELD INDEX ↔ HUMAN PORT / COMMS ↔ Atlas Dayline ↔ Hermes",
+  "recovery": {
+    "observed": "PR #259 merged while a parallel reality bridge was being prepared.",
+    "decision": "Treat #259 as current implementation head; discard the duplicate transport/packet design and retain only missing truth/coordination deltas.",
+    "current_evidence": [
+      "PR #259 / merge 94c99b82b37e8cd69500a52b018598e0f702479e",
+      "/returns/ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
+      "/control/confluence/REALITY_LOOP_HERMES_2026-09-25.md"
+    ]
+  },
+  "private_reality_probe": {
+    "scope": "bounded private check; exact records and identifiers excluded from this public receipt",
+    "observed": [
+      "No upcoming primary-calendar anchors were present in the next two weeks at probe time.",
+      "Bounded recent mail checks found no recent human conversation/sent-mail activity; automated account/update traffic dominated."
+    ],
+    "implication": "The immediate missing function is relationship/message ignition and explicit obligation capture, not calendar visualization or inbox triage."
+  },
+  "delta": [
+    "FIELD INDEX now advertises shipped CONTACT 0.4 instead of stale 0.3.",
+    "FIELD INDEX now advertises COMMS SPINE 0.1.1 and describes its explicit source-addressed Dayline handoff.",
+    "Atlas Dayline REALITY PORTS is registered as a current head without creating a new active front.",
+    "CURRENT exposes one lived handoff gate rather than a broad backlog.",
+    "Hermes gains a dormant trigger to continue the existing REALITY LOOP packet only after CURRENT/user evidence selects it; no ambient assignment."
+  ],
+  "active_surface": {
+    "fronts": [
+      "conversion",
+      "recovery-ingest (maintenance)"
+    ],
+    "lived_gate": "one real source → Dayline handoff → RUN≤3 → observed RETURN",
+    "preferred_source": "COMMS when there is a real human ask/promise; otherwise one actual HOUSE or SHOPPING action"
+  },
+  "laws_preserved": [
+    "RECOVER BEFORE INVENTING",
+    "No duplicate reality transport",
+    "SOURCE != SIGNAL != TASK != RESPONSE",
+    "Dayline owns temporal execution only",
+    "Hermes presence in queue does not create NOW or authority",
+    "Private reality does not become public repository state",
+    "One bounded move → VERIFY → RETURN → REPLAN"
+  ],
+  "changed_paths": [
+    "/showcase-manifest.json",
+    "/control/CURRENT.json",
+    "/control/HERMES_QUEUE.json",
+    "/returns/FIELD_REALITY_SYNC_2026-09-25.json"
+  ],
+  "verification": {
+    "json_parse": "PENDING",
+    "branch_divergence": "PENDING",
+    "route_registration": "PENDING",
+    "public_surface": "PENDING"
+  },
+  "residue": [
+    "CONTACT is still not an inbound server inbox; people return through an existing real channel.",
+    "The connected calendar currently contributes no real anchors.",
+    "Automatic source RETURN mutation remains unimplemented by design; #259 names it as the next hard seam after lived proof.",
+    "FOLD//BLOOM remains a source/work/experience projection and does not become task or message authority."
+  ],
+  "one_next": "Use the already-shipped loop once in reality; only observed friction may select the next implementation delta.",
+  "stop": "No new coordination layer, alternate handoff schema, or competing Hermes packet."
+}
