@@ -407,6 +407,43 @@ async function copyHeldAction(){
  const txt=JSON.stringify(packet,null,2);
  try{await navigator.clipboard.writeText(txt);$('capReturn').textContent='COPIED ACTION · RETURN → '+focus.href}catch(_){prompt('Copy FIELD action packet:',txt)}
 }
+function heldDaylineAllowed(){
+ return !!focus&&focus.href!=='/'&&focus.href!=='/dayline/'&&!focus.href.startsWith('/dayline/');
+}
+function handoffHeldToDayline(){
+ if(!heldDaylineAllowed())return;
+ const h=headForFocus(),c=capabilityForFocus(),route=focus.href,title=focus.title||route;
+ const packet={
+  schema:'atlas-dayline-handoff/v0.1',
+  id:'field-'+Date.now(),
+  created_at:new Date().toISOString(),
+  kind:'TASK',
+  source:{route,object_id:'route:'+route,label:title,owner:c?.owner||h?.lineage||'FIELD ROUTE'},
+  payload:{task:{
+   title:'FIELD · '+title,
+   contexts:['phone','computer'],
+   duration:25,
+   value:4,
+   provenance:'FIELD explicit handoff · '+route,
+   sourceRef:route,
+   notes:[
+    'FIELD HELD ROUTE '+route,
+    'STATE '+(focus.state||'—'),
+    'OWNER '+(c?.owner||h?.lineage||'FIELD ROUTE'),
+    h?.retained_function?('CONTEXT '+String(h.retained_function).replace(/\s+/g,' ').slice(0,360)):'',
+    c?.moves?.length?('NATIVE MOVES '+c.moves.slice(0,3).join(' · ')):'',
+    'RETURN /'
+   ].filter(Boolean).join('\n')
+  }},
+  return_to:'/'
+ };
+ try{
+  sessionStorage.setItem('atlas.dayline.handoff.v01',JSON.stringify(packet));
+  location.assign('/dayline/?handoff=field');
+ }catch(_){
+  $('capReturn').textContent='DAYLINE HANDOFF FAILED · RETURN → '+route;
+ }
+}
 function renderCapabilityTrial(){
  const box=$('capTrial');if(!box)return;
  if(!CAP_TRIAL){box.hidden=true;return}
@@ -415,9 +452,10 @@ function renderCapabilityTrial(){
  const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href);
  $('capHeld').textContent=(c?.owner||h?.lineage||'FIELD ROUTE')+' · '+(focus.title||focus.href);
  $('capHeldSub').textContent=focus.href+' · held here; native truth remains with '+(c?.owner||h?.lineage||'host');
- const primary=n?'DO / OPEN':'OPEN';
- $('capMoves').innerHTML='<a class="capMove" href="'+esc(href)+'">'+primary+'</a><button class="capMove" data-cap-copy>COPY ACTION</button><button class="capMove" data-cap-trace>TRACE</button>';
- $('capMoves').querySelector('[data-cap-copy]').onclick=copyHeldAction;
+ const primary=n?'DO / OPEN':'OPEN',canDayline=heldDaylineAllowed();
+ $('capMoves').innerHTML='<a class="capMove" href="'+esc(href)+'">'+primary+'</a>'+(canDayline?'<button class="capMove" data-cap-dayline>DAYLINE →</button>':'<button class="capMove" data-cap-copy>COPY ACTION</button>')+'<button class="capMove" data-cap-trace>TRACE</button>';
+ const copyBtn=$('capMoves').querySelector('[data-cap-copy]');if(copyBtn)copyBtn.onclick=copyHeldAction;
+ const daylineBtn=$('capMoves').querySelector('[data-cap-dayline]');if(daylineBtn)daylineBtn.onclick=handoffHeldToDayline;
  $('capMoves').querySelector('[data-cap-trace]').onclick=openTrace;
  $('capWitness').textContent=n?(dependencyLabel(dependencyKind(n.state))+' · '+String(n.objective||'human/world evidence required').replace(/\s+/g,' ').slice(0,170)):((h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh);
  $('capReturn').textContent=(c?.moves?.length?'NATIVE · '+c.moves.slice(0,3).join(' · ')+' · ':'')+'RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:'');
