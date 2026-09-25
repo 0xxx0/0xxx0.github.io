@@ -1,0 +1,42 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "ATLAS_DAYLINE_MOBILE_REACH_CLOCK_2026-09-25",
+  "date": "2026-09-25",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "current_head": "0.2.3 / REALITY FIRST / MOBILE REACH",
+  "trigger": {
+    "lived": [
+      "phone could not scroll",
+      "bottom-left route arrow obstructed content"
+    ],
+    "packet": [
+      "canonical NOW disagreed with device-local time",
+      "zero-delta RETURN was an orientation snapshot"
+    ]
+  },
+  "preserved": [
+    "PR #269 reality-first empty seed",
+    "REALITY PORTS",
+    "mobile action-first",
+    "manual/counterfactual time",
+    "RUN≤3",
+    "native source authority"
+  ],
+  "delta": [
+    "scrollable mobile PLAIN",
+    "shared mobile nav bottom-right",
+    "NOW ↻",
+    "clockWitness",
+    "returnClass",
+    "local-date worldKey",
+    "PWA v6"
+  ],
+  "verification": {
+    "syntax": "PASS_PREWRITE",
+    "route_registration": "PENDING_CI",
+    "public_surface": "PENDING_CI",
+    "lived_phone": "PENDING_USER"
+  },
+  "next": "Reload once; verify scroll and control clearance; NOW ↻ only when you want wall time; act before RETURN if you want WORLD_DELTA.",
+  "stop": "Do not infer lived usability from CI."
+}
