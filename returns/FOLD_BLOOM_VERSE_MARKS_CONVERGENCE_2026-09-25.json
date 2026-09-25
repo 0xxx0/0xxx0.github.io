@@ -1,0 +1,32 @@
+{
+  "schema": "0xxx0/fold-bloom-verse-marks-convergence/v0.1",
+  "date": "2026-09-25",
+  "status": "CANDIDATE",
+  "object": "One exact text source can enter FIELD LAB VERSE, carry focus and human marks through READ/LOCI, enter Poem Map for authoring, and project one marked moment into REPLAY.",
+  "routes": [
+    "/fold-bloom/lab/",
+    "/poetry/map/",
+    "/fold-bloom/replay/"
+  ],
+  "authority": {
+    "poem_authoring": "/poetry/map/",
+    "reading_cursor": "/docs/ READFIELD via /field-aperture.js",
+    "loci_course": "/fold-bloom/lab/course.js",
+    "replay_score": "/fold-bloom/replay/",
+    "lab_text_marks": "human-authored local source evidence only"
+  },
+  "new": [
+    "VERSE projection in FIELD LAB",
+    "field-verse-handoff/v0.1 to Poem Map",
+    "fold-bloom-text-mark/v0.1 local BOOKMARK/FLAG/ARC marks",
+    "VERSE↔READ↔LOCI focus carry",
+    "VERSE→REPLAY marked-moment handoff",
+    "44px phone mode/Poem Map controls"
+  ],
+  "stop": [
+    "do not clone Poem Map inside FIELD LAB",
+    "do not promote text marks into automatic semantics",
+    "do not generalize the LAB mark schema to all FIELD hosts until direct use proves the need"
+  ],
+  "human_gate": "Use one real poem on phone: mark at least two locations, carry VERSE→READ→LOCI→VERSE, open Poem Map at the focused line, then send one marked moment to REPLAY. Judge re-entry and usefulness, not feature count."
+}
