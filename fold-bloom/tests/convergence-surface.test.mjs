@@ -40,19 +40,25 @@ test('LISTEN makes remembered tracks and Beat Saber pack first-class',()=>{
 });
 
 
-test('LISTEN addressed annotations expose bookmark flag arc and sharing without changing source truth',()=>{
+test('LISTEN addressed annotations expose editable arcs and source-safe round trip',()=>{
   const html=read('fold-bloom/listen/index.html');
   const app=read('fold-bloom/listen/app.js');
   const lens=read('fold-bloom/listen/stream-lens.js');
+  const ann=read('fold-bloom/listen/annotations.js');
   assert.match(html,/id="pinKind"/);
   assert.match(html,/BOOKMARK · point/);
   assert.match(html,/FLAG · point \+ intent/);
-  assert.match(html,/ARC · current aperture span/);
-  assert.match(html,/id="pinShare"/);
-  assert.match(app,/syncPins\(\);updateWorkflow\(\)/);
-  assert.match(app,/fold-bloom-annotations\/v0\.1/);
-  assert.match(app,/fold-bloom-addressed-message\/v0\.2/);
+  assert.match(html,/ARC · editable span/);
+  assert.match(html,/id="pinStart"/);
+  assert.match(html,/id="pinEnd"/);
+  assert.match(html,/id="pinImportBtn"/);
+  assert.match(html,/id="pinPrev"/);
+  assert.match(html,/id="pinNext"/);
+  assert.match(app,/importPinsFile/);
+  assert.match(app,/annotations:annotationPacket\(\)/);
   assert.match(app,/shareAnnotations:sharePins/);
+  assert.match(ann,/fold-bloom-annotations\/v0\.2/);
+  assert.match(ann,/sourceKeyFromAnnotationPacket/);
   assert.match(lens,/endAddress/);
   assert.match(lens,/kind='BOOKMARK'/);
 });
