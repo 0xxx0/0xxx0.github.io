@@ -32,8 +32,8 @@ label{display:block;color:#829097;font-size:8px;letter-spacing:.09em;margin:8px 
 .stateBox{border-top:1px solid var(--line);margin-top:10px;padding-top:9px}.stateBox .pair{display:grid;grid-template-columns:1fr 1fr;gap:5px}.stateBox input{width:100%;padding:8px;text-align:center;letter-spacing:.12em}.stateToken{border:1px solid var(--line);padding:8px;margin-top:6px;overflow:auto;white-space:nowrap;color:#d7b46d;font-size:8px}.stateHint{color:#66747b;font-size:7px;margin-top:5px}
 .textRace{display:grid;grid-template-columns:1fr auto;gap:5px}.textRace input{padding:7px;min-width:0}.readActions{margin:7px 0}.readUses{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:7px}.readUses span{background:#070b0f;padding:7px;color:#78858c;font-size:7px;line-height:1.35}.readUses b{display:block;color:#cbd4d8;font-size:8px;margin-bottom:2px}.sourceAperture,.readGuide,.trainer{border-top:1px solid var(--line);margin-top:7px;padding-top:7px}.sourceAperture{border:1px solid var(--line);padding:7px;margin-top:0}.sourceAperture summary,.readGuide summary,.trainer summary{cursor:pointer;color:#7f8d94;font-size:8px;letter-spacing:.1em;margin-bottom:7px}.sourceAperture:not([open]){padding-bottom:7px}.sourceAperture:not([open]) summary{margin-bottom:0}.readGuide:not([open]) summary{margin-bottom:0}field-aperture{display:block;margin-top:7px}html[data-field-lab-mode="READ"] .core{display:none}.danger{border-color:#75413c;color:#efa49c}
 #status{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-footer{min-height:29px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:5px 10px calc(5px + env(safe-area-inset-bottom));color:#637078;font-size:8px;letter-spacing:.08em;z-index:5;background:#070a0d}footer a{display:inline-flex;align-items:center;min-height:34px;padding:0 4px;color:inherit;text-decoration:none;touch-action:manipulation}
-footer a{color:#91a0a7;text-decoration:none}footer a:hover{color:#fff}
+footer{min-height:29px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:5px 10px calc(5px + env(safe-area-inset-bottom));color:#637078;font-size:8px;letter-spacing:.08em;z-index:5;background:#070a0d}footer a,footer button{display:inline-flex;align-items:center;min-height:34px;padding:0 4px;color:inherit;text-decoration:none;touch-action:manipulation}footer button{border:0;background:transparent;color:var(--gold);letter-spacing:.08em}
+footer a{color:#91a0a7;text-decoration:none}footer a:hover,footer button:hover{color:#fff}
 @media(max-width:700px){
   .sub{display:none}.profile{overflow-x:auto;max-width:56vw}.profile button{padding:7px 6px;flex:0 0 auto}
   .modeRing{left:8px;right:8px;top:8px;width:auto;height:auto;aspect-ratio:auto;transform:none;display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
@@ -49,7 +49,7 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover{color:#fff}
 <body>
 <div class="app">
 <header>
-  <div><div class="brand">FOLD<i>//</i>BLOOM · FIELD LAB 0.3.1</div><div class="sub">ONE CENTER · SEVEN UNEQUAL PROJECTIONS · EXPLICIT PROFILE · RETURN</div></div>
+  <div><div class="brand">FOLD<i>//</i>BLOOM · FIELD LAB 0.3.3</div><div class="sub">ONE CENTER · SEVEN UNEQUAL PROJECTIONS · EXPLICIT PROFILE · RETURN</div></div>
   <div class="grow"></div>
   <div class="profile" id="profile">
     <button data-profile="CLEAR" class="on">CLEAR</button><button data-profile="DRIVE">DRIVE</button><button data-profile="TRANCE">TRANCE</button><button data-profile="SOFT">SOFT</button>
@@ -171,14 +171,14 @@ the room keeps the weather</textarea>
   </aside>
 </main>
 
-<footer><span id="status">RIDE · current LIVE engine</span><span class="grow"></span><a id="verseReturn" href="#" hidden>↩ POEM MAP</a><a href="/poetry/">VERSE</a><a href="../">PUBLIC FRONT</a><a href="../instrument/">INSTRUMENT</a><a href="../listen/">LISTEN</a></footer>
+<footer><span id="status">RIDE · current LIVE engine</span><span class="grow"></span><button id="exportLabReturn">EXPORT LAB RETURN</button><a id="verseReturn" href="#" hidden>↩ POEM MAP</a><a href="/poetry/">VERSE</a><a href="../">PUBLIC FRONT</a><a href="../instrument/">INSTRUMENT</a><a href="../listen/">LISTEN</a></footer>
 </div>
 <div id="labBootWitness" hidden>LAB_BOOTING</div>
 <script>
 (()=>{const w=document.getElementById('labBootWitness');addEventListener('error',e=>{if(w)w.textContent='LAB_ERROR '+String(e.message||e.error||'unknown').slice(0,180)});addEventListener('unhandledrejection',e=>{if(w)w.textContent='LAB_REJECTION '+String(e.reason?.message||e.reason||'unknown').slice(0,180)})})();
 </script>
 <script src="/field-aperture.js"></script>
-<script type="module" src="./app.js?v=0.3.2"></script>
+<script type="module" src="./app.js?v=0.3.3"></script>
 <script src="/showcase-nav.js" defer></script>
 </body>
 </html>
