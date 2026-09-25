@@ -244,7 +244,7 @@ for(const bits of ['000','001','010','011','100','101','110','111'])check(fan8Sv
 for(let i=0;i<6;i++)check(fan8Svg.includes(`DIAL ${i} · HEX L${i+1} · MOVE`),`FAN/8 current DIAL/HEX leaf mapping missing at slot ${i}`);
 check(fan8Svg.includes('HOLD FAST')&&fan8Svg.includes('HELD / MODE / RETURN'),'FAN/8 lost transaction/hub physical fields');
 check(fan8StateLanguage.includes("export const HEX_LINES=6")&&fan8PlayCore.includes("if(v==='BLOOM'||v==='FOLD')return 1")&&fan8PlayCore.includes("if(v==='SPLIT'||v==='RETURN')return 0"),'FAN/8 HEX reading drifted from current PLAY law');
-check(fan8Spec.includes('Physical form may **project** a relation already owned by the host'),'FAN/8 lost IDENTIFY/EMBED authority boundary');
+check(fan8Spec.includes('## Hard distinction: IDENTIFY ≠ EMBED ≠ DEFORM')&&fan8Spec.includes('Logical identity / adjacency belongs to the host law.')&&fan8Spec.includes('physical form may project an existing relation; it does not invent one.'),'FAN/8 lost IDENTIFY/EMBED/DEFORM authority boundary');
 check(fan8Svg.includes('Δ0 SAME→BLOOM')&&fan8Svg.includes('Δ1 NEAR→FOLD')&&fan8Svg.includes('Δ2 FAR→RETURN')&&fan8Svg.includes('Δ3 OPPOSITE→SPLIT'),'FAN/8 printable relation legend drifted from PLAY law');
 check(fan8Spec.includes('S0 S1 S2 S3 S4 S5 HOLD_FAST LET_FLY')&&fan8Spec.includes('IDENTIFY ≠ EMBED ≠ DEFORM'),'FAN/8 spec lost stable-slot / transaction / wrap distinction');
 check(axialHtml.includes('./fan8-print.svg')&&fbPlay.includes('../../foundry/axial/fan8-print.svg'),'FAN/8 printable lost owning-host links');
