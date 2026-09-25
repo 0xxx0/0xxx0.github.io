@@ -1,0 +1,30 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "DAYLINE // CONFLUENCE",
+  "version": "0.1-candidate",
+  "route": "/dayline/",
+  "state": "CANDIDATE",
+  "operation": "OPERATE",
+  "released": "2026-09-25",
+  "role": "Mobile-first continuous execution projection over the existing Atlas Dayline DayState, live CURRENT and explicit atlas-dayline-handoff/v0.1 source envelopes. It keeps one object/focus, exposes at most three lawful moves, records witness, and returns exact evidence without becoming a new authority or store.",
+  "authority": "NONE / projection + explicit local DayState mutation only",
+  "preserves": [
+    "poly-atlas-dayline-branch-i-public-v1 local DayState identity",
+    "atlas-dayline-handoff/v0.1 source envelope",
+    "native HOUSE / SHOPPING / COMMS authority",
+    "CURRENT attention authority",
+    "RUN <= 3",
+    "manual Dayline time + explicit device clock witness",
+    "Atlas as optional deeper projection"
+  ],
+  "validation": {
+    "ordinary_document_scroll": "BY_SOURCE",
+    "max_visible_moves": 3,
+    "same_daystate_store": "poly-atlas-dayline-branch-i-public-v1",
+    "same_handoff": "atlas.dayline.handoff.v01",
+    "return_carrier": "dayline-confluence/v0.1",
+    "browser_smoke": "PENDING_CI",
+    "lived_phone": "PENDING_USER"
+  },
+  "stop": "Do not promote over /atlas-dayline/ until one real phone object completes OBJECT → FOCUS → MOVE → WITNESS → RETURN with less control hunting."
+}
