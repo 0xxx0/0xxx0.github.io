@@ -2,10 +2,17 @@
   "schema": "release-receipt/v1",
   "artifact": "HOUSE / FIELD",
   "route": "/house/",
-  "version": "0.7.2",
+  "version": "0.7.3",
   "released": "2026-09-25",
   "state": "ACTIVE",
   "changes": [
+    "CARE can selectively project one episode into the existing HUMAN PORT composer as a local draft; the user still edits/chooses Share or Copy and selects the transport.",
+    "The HUMAN PORT projection omits HOUSE spatial address, episode id, timestamp and all other local episodes by default.",
+    "User-reported external sharing is treated only as evidence that human-world consequence exists; exact private message contents and recipient interpretation remain unrecovered.",
+    "Added CARE as a canonical HOUSE projection for browser-local continuity: OBSERVED → ACTION → RECEIPT → RETURN.",
+    "CARE episodes are localStorage-only, exportable as local JSON, and never committed to repository state or sent to Home Assistant/HOUSEBUS.",
+    "CARE can hand one explicit ACTION packet to Dayline using the existing sessionStorage handoff; recipient navigation does not create HOUSE or device truth.",
+    "Closing a CARE episode requires an entered receipt/outcome; OPEN and WATCH remain distinct states.",
     "Projection hashes are now addressable at the canonical root (`/house/#PLAN`, `#TRACE`, etc.); changing views updates the hash without navigation.",
     "Dayline DEPTH / PROJECTIONS now links HOUSE directly to `/house/` instead of the compatibility alias.",
     "HOUSE confluence v0.2 now encodes the one-canonical-human-entry law and gates further expansion on ordinary use plus a bounded physical RETURN.",
@@ -52,10 +59,14 @@
     "compatibility_alias": "/house/spatial/ -> /house/",
     "model_substrate": "/house/spatial/model.json",
     "authority": "HA/HOUSEBUS private actuation unchanged",
-    "projection_hashes": "PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS",
+    "projection_hashes": "PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS",
     "dayline_depth": "/house/",
     "shopping_fit_bridge": "session-only house-shopping-fit/v0.1 at canonical /house/",
-    "shopping_fit_truth_boundary": "dimensional envelope only; missing dimensions => MEASURE/UNKNOWN"
+    "shopping_fit_truth_boundary": "dimensional envelope only; missing dimensions => MEASURE/UNKNOWN",
+    "care_bridge": "browser-local house-care-episode/v0.1; explicit session-only Dayline ACTION handoff",
+    "care_privacy": "no personal care episodes committed; no HA/HOUSEBUS actuation",
+    "care_human_port": "sessionStorage human.port.handoff.v01 → /contact/?mode=PING; draft only, no send authority",
+    "care_share_minimization": "omits spatial address, local episode id, timestamp and sibling episodes"
   },
   "sources": [
     "/showcase-manifest.json",
@@ -70,7 +81,9 @@
     "/body/contract.json",
     "/body/release.json",
     "/shopping/release.json",
-    "/returns/SHOPPING_HOUSE_FIT_BRIDGE_2026-09-25.json"
+    "/returns/SHOPPING_HOUSE_FIT_BRIDGE_2026-09-25.json",
+    "/returns/HOUSE_CARE_RETURN_2026-09-25.json",
+    "/contact/release.json"
   ],
   "honesty": "The device snapshot is timestamped source material from the HOUSE branch; this Sep 20 convergence pass did not claim to refresh live Home Assistant state.",
   "validation": "/control/BODY_HOUSE_CONVERGENCE_2026-09-21.json"
