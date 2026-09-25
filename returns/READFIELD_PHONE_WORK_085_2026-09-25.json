@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/readfield-phone-work-return/v0.1",
   "date": "2026-09-25",
-  "status": "CANDIDATE_BRANCH",
+  "status": "VERIFIED_READY_TO_MERGE",
   "purpose": "Reduce phone source-preparation and control-hunting friction by letting ordinary downloaded text-like files use the existing READFIELD work kernel, while clarifying cross-mode compositions.",
   "changed": [
     "/docs/index.html",
@@ -20,9 +20,10 @@
   ],
   "verification": {
     "browser_fixture": "Synthetic field-note.md → WORD index 4 → 900 WPM → session-local source → COPY FOCUS",
-    "static": "PENDING_CI",
-    "browser": "PENDING_CI",
+    "static": "PASS · Route Registration run 36117775578",
+    "browser": "PASS · public-surface-check run 36117774984; critical browser smoke includes 430×900 READFIELD local-file intake",
     "lived_phone": "REQUIRED_NEXT"
   },
-  "stop": "After repository proof, stop reader feature growth until direct phone use identifies concrete friction in local-file intake, sticky rail, mode consequences or handoff."
+  "stop": "After repository proof, stop reader feature growth until direct phone use identifies concrete friction in local-file intake, sticky rail, mode consequences or handoff.",
+  "verified_head": "56bced3f65e9754429da940a1e62ec3ea3e0312c"
 }
