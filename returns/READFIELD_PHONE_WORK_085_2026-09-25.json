@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/readfield-phone-work-return/v0.1",
   "date": "2026-09-25",
-  "status": "R2_CANDIDATE_REBUILT_ON_CURRENT_MASTER",
+  "status": "SHIPPED_VERIFIED",
   "reconstruction_base": "6aac48267868393063a05f115aa3b44097446419",
   "purpose": "Reduce phone source-preparation and control-hunting friction by letting ordinary downloaded text-like files use the existing READFIELD work kernel, while clarifying cross-mode compositions.",
   "changed": [
@@ -23,9 +23,12 @@
   "reference_sync": "FIELD PULSE names READFIELD 0.8.5; authority remains NONE.",
   "verification": {
     "browser_fixture": "Synthetic field-note.md → WORD index 4 → 900 WPM → session-local source → COPY FOCUS",
-    "static": "PENDING_R2_CI",
-    "browser": "PENDING_R2_CI",
-    "lived_phone": "REQUIRED_NEXT"
+    "static": "PASS · Route Registration run 36118631949",
+    "browser": "PASS · public-surface-check run 36118631880; includes 430×900 READFIELD local-file intake probe",
+    "lived_phone": "REQUIRED_NEXT",
+    "post_merge": "PASS · Dayline candidate, LIVE game shell and READFIELD 0.8.5 coexist on master"
   },
-  "stop": "After repository proof, stop reader feature growth until direct phone use identifies concrete friction in local-file intake, sticky rail, mode consequences or handoff."
+  "stop": "After repository proof, stop reader feature growth until direct phone use identifies concrete friction in local-file intake, sticky rail, mode consequences or handoff.",
+  "pr": 283,
+  "merge_sha": "ecb1f3a4d400d0c58aef1e65418567d4b4949606"
 }
