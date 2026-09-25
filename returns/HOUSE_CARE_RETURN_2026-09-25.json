@@ -1,0 +1,45 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "HOUSE_CARE_RETURN_2026-09-25",
+  "date": "2026-09-25",
+  "route": "/house/#CARE",
+  "branch": "care-port-convergence-20260925",
+  "state": "CANDIDATE / EXTERNAL_HUMAN_CONSEQUENCE_OBSERVED",
+  "objective": "Close the gap between care observation, smallest response, follow-through evidence and return without publishing private reality state.",
+  "recovered_sources": [
+    "Cat Care Operating Protocol / Cat Canon: observation vs interpretation, care continuity and export gap",
+    "HOUSE OS: maintenance/care stay visible; spatial address + return condition",
+    "72-hour stabilization runbook: care before tools; proof beats discussion; preserve UNKNOWN",
+    "Dayline handoff: explicit session-only context/action transport",
+    "Shopping↔HOUSE: measured fit may inform care burden, but does not mutate HOUSE authority",
+    "HUMAN PORT / CONTACT: local editable envelope → explicit native Share/Copy → external channel; no false send claim"
+  ],
+  "delta": [
+    "CARE added to canonical HOUSE projection set",
+    "browser-local episode schema with address, class, observed, action, return_condition, state and receipt",
+    "OPEN/WATCH/DONE state machine; DONE requires receipt",
+    "explicit one-episode Dayline ACTION handoff",
+    "local JSON export for recoverability",
+    "one selected CARE episode can project into HUMAN PORT as a minimized editable PING draft"
+  ],
+  "authority": {
+    "physical_truth": "reality/evidence",
+    "spatial_address": "HOUSE Spatial State",
+    "device_truth_and_actuation": "Home Assistant / HOUSEBUS",
+    "care_episode": "browser-local user record",
+    "dayline": "planning recipient only",
+    "human_port": "explicit outbound share/copy boundary only"
+  },
+  "privacy": "No personal care episode, recipient identity, message contents or telemetry are committed by this change.",
+  "falsifier": "If ordinary use creates more logging burden than follow-through value, remove CARE as a standing projection and retain only the episode schema/export primitive.",
+  "next_test": "Use one ordinary local CARE episode. If useful to another person, PORT it, edit/select what to disclose, share through the existing channel, then record only a real returned outcome/receipt in CARE.",
+  "external_world_evidence": {
+    "observed": "User reports sharing the care material with a family member through WhatsApp.",
+    "unknown": [
+      "exact message bytes/content",
+      "recipient interpretation",
+      "whether any downstream action occurred"
+    ],
+    "rule": "Treat sharing as consequence evidence, not as proof of understanding or care outcome."
+  }
+}
