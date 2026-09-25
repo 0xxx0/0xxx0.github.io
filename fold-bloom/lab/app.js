@@ -137,7 +137,8 @@ $('#exportTape').onclick=()=>{
 };
 
 /* ---------- READ / READFIELD / RACE ---------- */
-const read={tokens:[],you:0,ghost:0,started:false,paused:false,startAt:0,pauseAt:0,wpm:300,pulseMode:'WITNESS',readerLoaded:false};
+const readQuery=new URLSearchParams(location.search),requestedReadPulse=Number(readQuery.get('pulse'));
+const read={tokens:[],you:0,ghost:0,started:false,paused:false,startAt:0,pauseAt:0,wpm:300,pulseMode:requestedReadPulse===4?'PACE4':'WITNESS',readerLoaded:false};
 const reader=$('#labReader');
 function tokenize(text){
   try{return [...new Intl.Segmenter(undefined,{granularity:'word'}).segment(text)].filter(x=>x.isWordLike).map(x=>x.segment)}
@@ -408,6 +409,8 @@ function tick(now){
 }
 requestAnimationFrame(tick);
 const initialMode=String(new URLSearchParams(location.search).get('mode')||'RIDE').toUpperCase();
+syncPulseButton();
+document.documentElement.dataset.fieldLabReadPulse=read.pulseMode;
 selectMode(MODES[initialMode]?initialMode:'RIDE');
 document.documentElement.dataset.foldBloomFieldLab='ready';
 window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>lastTransport};
