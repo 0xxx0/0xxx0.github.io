@@ -3,7 +3,7 @@
   "id": "ATLAS_DAYLINE_MOBILE_REALITY_2026-09-25",
   "date": "2026-09-25",
   "route": "/atlas-dayline/?live=1",
-  "state": "IMPLEMENTED_CANDIDATE",
+  "state": "MERGE_READY_CANDIDATE",
   "trigger": {
     "class": "LIVED_USER_REPORT",
     "observation": "Dayline is not functionally viewable/useful on mobile.",
@@ -32,9 +32,10 @@
     "/control/confluence/ATLAS_DAYLINE_MOBILE_REALITY_2026-09-25.md"
   ],
   "verification": {
-    "static_guard": "PENDING_CI",
-    "route_registration": "PENDING_CI",
-    "public_surface": "PENDING_CI",
+    "static_guard": "PASS",
+    "javascript_syntax": "PASS · app.js / field-bridge.js / sw.js",
+    "route_registration": "PASS · workflow 36106449688",
+    "public_surface": "PASS · workflow 36106449577 · includes critical browser smoke",
     "lived_phone": "WAITING_USER_USE"
   },
   "residue": [
