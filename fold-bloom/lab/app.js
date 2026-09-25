@@ -5,6 +5,7 @@ import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, b
 import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
 import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} from '../state-language.js?v=0.1';
+import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -13,6 +14,13 @@ const TAU=Math.PI*2;
 let W=1,H=1,DPR=1,mode='RIDE',profile='CLEAR',panelHidden=false,last=performance.now(),mx=.5,my=.5;
 const fieldPulse=createFieldPulse('FOLD_BLOOM_FIELD_LAB');
 let lastTransport=null;
+const labStartedAt=Date.now();
+let labTrace=[];
+function recordLabTrace(kind='STATE'){
+  labTrace=appendLabTrace(labTrace,{kind,mode,profile,address:$('#addressRead')?.textContent||'',source:$('#sourceRead')?.textContent||'',atMs:Date.now()-labStartedAt});
+  document.documentElement.dataset.fieldLabTrace=String(labTrace.length);
+  return labTrace;
+}
 
 const PROFILES={
   CLEAR:{motion:1,trail:.16,gain:.55,bleed:.7},
@@ -54,6 +62,7 @@ function selectMode(next){
   setAddress('field://lab/'+mode.toLowerCase());
   if(mode==='DATA'&&!data.nodes.length)loadData();
   if(mode==='LOCI'&&!loci.nodes.length)buildLoci();
+  queueMicrotask(()=>recordLabTrace('MODE'));
 }
 $$('.mode').forEach(b=>b.onclick=()=>selectMode(b.dataset.mode));
 $('#hidePanel').onclick=()=>{
@@ -61,7 +70,7 @@ $('#hidePanel').onclick=()=>{
 };
 $$('[data-profile]').forEach(b=>b.onclick=()=>{
   profile=b.dataset.profile;$$('[data-profile]').forEach(x=>x.classList.toggle('on',x.dataset.profile===profile));
-  $('#profileRead').textContent=profile;document.documentElement.dataset.fieldLabProfile=profile;
+  $('#profileRead').textContent=profile;document.documentElement.dataset.fieldLabProfile=profile;recordLabTrace('PROFILE');
 });
 
 $('#enterRide').onclick=()=>location.href='../live/?return='+encodeURIComponent('/fold-bloom/lab/');
@@ -627,6 +636,45 @@ function tick(now){
   requestAnimationFrame(tick);
 }
 requestAnimationFrame(tick);
+function currentProjectionEvidence(){
+  if(mode==='PULSE')return {kind:'PULSE',bpm:pulse.bpm,ratio:pulse.ratio.join(':'),timbre:pulse.timbre,playing:pulse.playing,taps:pulse.taps.length,lastSync:pulse.taps.at(-1)?.score??null};
+  if(mode==='VERSE'){
+    const line=currentVerseLine();
+    return {kind:'VERSE',sourceKey:verse.sourceKey||textSourceKey(String($('#verseSource').value||'')),focus:line?.address||null,line:line?line.line+1:null,marks:verse.marks.length};
+  }
+  if(mode==='READ'){
+    const source=readerSource(),focus=boundedFocus(reader?.snapshot?.()||ensureReader()||{});
+    return {kind:'READ',sourceKey:textSourceKey(source),focus,pulseMode:read.pulseMode};
+  }
+  if(mode==='LOCI'){
+    const source=String($('#lociSource').value||''),node=loci.nodes[Math.min(loci.step,Math.max(0,loci.nodes.length-1))];
+    return {kind:'LOCI',sourceKey:textSourceKey(source),strategy:loci.course?.strategy||null,nodes:loci.nodes.length,step:loci.step,hits:loci.hits,focus:node?.address||null};
+  }
+  if(mode==='INK'){
+    const metrics=ink.field.metrics();
+    return {kind:'INK',mode:ink.mode,wet:+ink.wet.toFixed(3),load:+ink.load.toFixed(3),brush:ink.brush,absorb:+ink.absorb.toFixed(3),pigment:Math.round(metrics.pigment),water:Math.round(metrics.water)};
+  }
+  if(mode==='DATA'){
+    const change=data.stateChange;
+    return {kind:'DATA',nodes:data.nodes.length,maxDepth:data.maxDepth,aperture:data.aperture,focus:data.focus,stateChange:change?.valid?{token:change.token,moving:[...change.moving],from:formatState(change.from.bits),to:formatState(change.to.bits)}:null};
+  }
+  return {kind:'RIDE',target:'/fold-bloom/live/'};
+}
+function labReturnPacket(){
+  recordLabTrace('RETURN');
+  return compileLabReturn({
+    startedAt:labStartedAt,endedAt:Date.now(),mode,profile,
+    address:$('#addressRead')?.textContent||'',source:$('#sourceRead')?.textContent||'',
+    trace:labTrace,projection:currentProjectionEvidence()
+  });
+}
+$('#exportLabReturn')?.addEventListener('click',()=>{
+  const packet=labReturnPacket();
+  downloadJSON('fold-bloom-field-lab-return.json',packet);
+  setStatus('FIELD LAB · SESSION RETURN EXPORTED · '+packet.evidence.modesVisited+' MODES');
+});
+document.documentElement.dataset.fieldLabReturn='ready';
+
 const bootQuery=new URLSearchParams(location.search),initialMode=String(bootQuery.get('mode')||'RIDE').toUpperCase();
 let verseHandoffRestored=false,lociHandoffRestored=false;
 if(initialMode==='VERSE'&&bootQuery.has('handoff')){
@@ -655,4 +703,4 @@ if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP')
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>lastTransport,verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>lastTransport,verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};

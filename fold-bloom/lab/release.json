@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM FIELD LAB",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "state": "SHIPPED",
   "operation": "TRAIN / EXPLORE",
   "route": "/fold-bloom/lab/",
   "date": "2026-09-25",
-  "thesis": "A convergence lab should reuse canonical engines and preserve one addressed source across unequal projections. VERSE adds a bounded text/mark bridge without cloning Poem Map, READFIELD, LOCI or REPLAY authority.",
+  "thesis": "A convergence lab should reuse canonical engines, preserve one addressed source across unequal projections, and RETURN bounded evidence of the traversal without claiming donor authority.",
   "new": [
     "READ embeds the shared /field-aperture.js READFIELD/RSVP kernel at WORD scale",
     "RSVP, scale, regression, voice and source address come from the canonical reader rather than a Lab clone",
@@ -39,7 +39,8 @@
     "VERSE → REPLAY compiles a bounded TEXT handoff using the existing replay-score contract; replay timing is explicitly presentation-only.",
     "phone mode controls use a 44px floor while the desktop ring expands from six to seven unequal projections.",
     "DATA gains a shared six-line STATE / CHANGE projection with editable before/after stacks, exact Δ positions, copyable state tokens, and direct line editing in the visual field.",
-    "Inbound Poem Map VERSE handoffs expose an exact same-origin ↩ POEM MAP caller return after source/focus restoration; returning is navigation only and does not import LAB marks or projection state into poem authorship."
+    "Inbound Poem Map VERSE handoffs expose an exact same-origin ↩ POEM MAP caller return after source/focus restoration; returning is navigation only and does not import LAB marks or projection state into poem authorship.",
+    "FIELD LAB 0.3.3 adds one bounded session RETURN: traversed modes, profile/address/source witnesses, and current-projection evidence without copying raw source bytes into a new store."
   ],
   "constraints": [
     "READFIELD/APERTURE remains reader authority; FIELD LAB owns no second segmentation/cursor/RSVP truth",
@@ -55,14 +56,15 @@
     "REPLAY of text maps source progress into presentation time only; it must preserve exact text addresses and never claim the poem has native temporal structure.",
     "The local text-mark bridge remains LAB-scoped until ordinary cross-layer use proves a broader shared contract is warranted.",
     "STATE / CHANGE notation must only be used when six explicit binary conditions are meaningful; do not compress richer objects merely to fit the grammar.",
-    "VERSE caller RETURN is navigation-only: FIELD LAB may not write poem text, marks, timing, or inferred claims back into Poem Map on return."
+    "VERSE caller RETURN is navigation-only: FIELD LAB may not write poem text, marks, timing, or inferred claims back into Poem Map on return.",
+    "LAB session RETURN is EVIDENCE_ONLY: it may describe traversal and current projection state, but cannot mutate or supersede LIVE, READFIELD, Poem Map, FIELD PULSE, LOCI course, INK, or domain-state authority."
   ],
   "verification": {
     "read_bridge_node": "PASS · public-surface-check run 35953594950 step 29",
     "loci_course_node": "PASS · public-surface-check run 35953594950 step 29",
     "phone_readfield_boot": "PASS · 430×900 FIELD LAB browser proof + critical browser smoke run 35953594950",
-    "route_registration": "PASS · run 36082758418",
-    "full_public_surface": "PASS · public-surface-check run 36082758427",
+    "route_registration": "PASS · run 36166811306",
+    "full_public_surface": "PASS · public-surface-check run 36166811291",
     "merge_sha": "fb270b4ef10b185912632014ce2e1db980b026ab",
     "coordination_cleanup_merge": "55e308432e79a5eaf376bdccf112973db01a36dc",
     "human_phone": "REQUIRED: ordinary RSVP/scale/regress + one long READ→LOCI carry against plain chunk baseline",
@@ -75,9 +77,11 @@
     "state_language_browser": "PASS · public-surface-check run 36128271563",
     "state_language_merge_sha": "8e7db861a6dada691c78a66148c1d294f83fe77f",
     "state_language_phone": "HUMAN_GATE",
-    "verse_caller_return": "PENDING_PR_CI: same-origin caller survives inbound VERSE handoff; invalid/external caller stays hidden"
+    "verse_caller_return": "PENDING_PR_CI: same-origin caller survives inbound VERSE handoff; invalid/external caller stays hidden",
+    "lab_return_node": "PASS · public-surface-check run 36166811291 step 41",
+    "lab_return_browser": "PASS · 430×900 FIELD LAB browser proof run 36166811291 step 49"
   },
-  "return": "/returns/FOLD_BLOOM_STATE_LANGUAGE_01_2026-09-25.json",
+  "return": "/returns/FOLD_BLOOM_FIELD_LAB_RETURN_033_2026-09-26.json",
   "confluence": "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
   "shipped": true,
   "state_language": {
