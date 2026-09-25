@@ -373,7 +373,7 @@ function poemFocus(){
 }
 function poemReturnAddress(f=poemFocus()){
  const u=new URL(location.href);u.searchParams.delete('handoff');u.searchParams.delete('from');u.searchParams.delete('demo');u.searchParams.set('view',S.mode);
- if(f?.id)u.searchParams.set('focus',f.id);else u.searchParams.delete('focus');
+ if(f?.id){u.searchParams.set('focus',f.id);u.searchParams.set('source_key',localTextKey(S.source))}else{u.searchParams.delete('focus');u.searchParams.delete('source_key')}
  return u.pathname+u.search+u.hash
 }
 function poemLineFocus(){
@@ -455,8 +455,8 @@ function recoverVerseHandoff(){
     sessionStorage.removeItem('field.verse.handoff.v01');return h;
   }catch(_){return null}
 }
-const bootQ=new URLSearchParams(location.search),bootView=(bootQ.get('view')||'').toUpperCase(),bootMode=['PAGE','MAP','SETS'].includes(bootView)?bootView:null,bootDemo=bootQ.get('demo')==='1',bootVerse=bootQ.get('handoff')==='1'?recoverVerseHandoff():null,bootFocus=/^L\d+T\d+$/.test(bootQ.get('focus')||'')?bootQ.get('focus'):null;
-function restoreReturnFocus(){if(!bootFocus||!S.nodes.some(n=>n.id===bootFocus))return false;S.selected=bootFocus;render();renderFocusWheel();return true}
+const bootQ=new URLSearchParams(location.search),bootView=(bootQ.get('view')||'').toUpperCase(),bootMode=['PAGE','MAP','SETS'].includes(bootView)?bootView:null,bootDemo=bootQ.get('demo')==='1',bootVerse=bootQ.get('handoff')==='1'?recoverVerseHandoff():null,bootFocus=/^L\d+T\d+$/.test(bootQ.get('focus')||'')?bootQ.get('focus'):null,bootSourceKey=/^text-local:\d+:[0-9a-f]{8}$/.test(bootQ.get('source_key')||'')?bootQ.get('source_key'):null;
+function restoreReturnFocus(){if(!bootFocus||!bootSourceKey||bootSourceKey!==localTextKey(S.source)||!S.nodes.some(n=>n.id===bootFocus))return false;S.selected=bootFocus;render();renderFocusWheel();return true}
 load();
 if(bootVerse){
   S.fieldLoaded=false;$('#source').value=bootVerse.source;parse();setMode('PAGE');
