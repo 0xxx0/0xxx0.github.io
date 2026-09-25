@@ -1,7 +1,7 @@
 {
   "schema": "confluence/readfield-workflow/v0.1",
   "date": "2026-09-25",
-  "status": "IMPLEMENTED_CANDIDATE",
+  "status": "SHIPPED_VERIFIED",
   "object": "READFIELD / RSVP 0.8.4 phone work experience + compatibility focus continuity",
   "recovered_state": [
     "READFIELD 0.8.3 already shipped six task modes and direct READ↔LOCI bounded focus handoff.",
@@ -27,6 +27,13 @@
     "New phone-sized alias proof seeds WORD/index/WPM focus through /foundry/aperture/ and requires exact restoration in /docs/.",
     "Static READFIELD smoke now requires 0.8.4 + workRail + workModeStatus."
   ],
-  "gate": "Repository CI must pass; then ordinary phone use decides which jobs deserve persistent prominence.",
-  "return": "/returns/READFIELD_WORKFLOW_084_2026-09-25.json"
+  "gate": "Repository proof passed: Route Registration 36094706207 + public-surface-check 36094706624. Remaining authority is ordinary phone use: retain only jobs that reduce control hunting, re-entry cost or reading/recall friction.",
+  "return": "/returns/READFIELD_WORKFLOW_084_2026-09-25.json",
+  "pr": 242,
+  "merge_sha": "49e1b27f7db26298c6de107fda1fe4f09d31e515",
+  "verification": {
+    "alias_focus": "PASS · WORD index 6 / 777 WPM / exact caller RETURN; ORP remained within addressed word span",
+    "existing_readfield_loci": "PASS",
+    "fold_bloom_regression": "PASS"
+  }
 }
