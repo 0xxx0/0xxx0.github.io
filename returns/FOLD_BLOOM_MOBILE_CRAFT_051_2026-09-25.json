@@ -3,7 +3,7 @@
   "kind": "FOLD_BLOOM_MOBILE_CRAFT_RETURN",
   "version": "0.5.2",
   "date": "2026-09-25",
-  "status": "CANDIDATE",
+  "status": "SHIPPED",
   "branch": "chatgpt/fold-bloom-mobile-craft-051-20260925",
   "parent": "FOLD_BLOOM_PLAY_0.5",
   "user_gate": {
@@ -38,12 +38,17 @@
     "Do not invent elemental semantics for EMBER/WATER/MOSS."
   ],
   "verification": {
-    "engine_cell_family_test": "PENDING_CI",
-    "visual_world_unit_tests": "PENDING_CI",
-    "mobile_control_browser_smoke": "PENDING_CI",
-    "active_surface_browser_smoke": "PENDING_CI",
-    "public_surface_check": "PENDING_CI",
-    "route_registration": "PENDING_CI",
+    "engine_cell_family_test": "PASS",
+    "visual_world_unit_tests": "PASS",
+    "mobile_control_browser_smoke": "PASS · 430×900 elementFromPoint",
+    "active_surface_browser_smoke": "PASS",
+    "public_surface_check": "PASS",
+    "route_registration": "PASS",
     "real_phone_touch_use": "HUMAN_GATE"
-  }
+  },
+  "merge": {
+    "pr": 320,
+    "sha": "c3ea784497065051f19896a0a0f3464250f7fd19"
+  },
+  "current_truth": "EMBER / WATER / MOSS are legacy aliases only. Primary LIVE UI is △ TRIANGLE / ○ CIRCLE / □ SQUARE; WORLD is DEPTH / PULSE / GRAIN / SPARSE presentation only."
 }
