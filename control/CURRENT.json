@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-25T17:00:22.013Z",
+  "updated": "2026-09-26T00:52:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -97,7 +97,7 @@
       "head": "READFIELD / RSVP 0.8.5 · PHONE WORK RAIL + LOCAL FILE INTAKE + WORK CHAINS",
       "state": "UTILITY / READER_FIRST / MERGED_ACTIVE_CANDIDATE",
       "route": "/docs/",
-      "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. 0.8.5 keeps FAST / REVIEW / PULSE / VOICE / LOCI / REPO on the hard-edge phone rail, adds direct session-local downloaded text-like file intake through the same reader kernel, and names the useful compositions instead of multiplying modes: SKIM→REVIEW, LISTEN→PULSE→VOICE, READ→LOCI→RETURN. Local/pasted bytes remain ephemeral and COPY FOCUS replaces a false durable VIEW link. READFIELD remains source/cursor authority; LOCI remains derived; FIELD PULSE remains optional authority NONE.",
+      "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. 0.8.5 keeps FAST / REVIEW / PULSE / VOICE / LOCI / REPO on the hard-edge phone rail, adds direct session-local downloaded text-like file intake through the same reader kernel, and names the useful compositions instead of multiplying modes: SKIM→REVIEW, LISTEN→PULSE→VOICE, READ→LOCI→RETURN. Local/pasted bytes remain ephemeral and COPY FOCUS replaces a false durable VIEW link. READFIELD remains source/cursor authority; LOCI remains derived; FIELD PULSE remains optional authority NONE. PR #347 fixes the explicit local-file source race: choosing a local file claims the source epoch synchronously, so a stale repository load cannot discard the newer human selection.",
       "evidence": [
         "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
         "/control/READFIELD_CONVERGENCE_2026-09-22.json",
@@ -123,15 +123,20 @@
         "https://github.com/0xxx0/0xxx0.github.io/pull/242",
         "/control/confluence/READFIELD_PHONE_WORK_085_2026-09-25.json",
         "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/283"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/283",
+        "/returns/READFIELD_LOCAL_FILE_RACE_2026-09-25.json",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/347"
       ],
-      "latest_return": "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json",
+      "latest_return": "/returns/READFIELD_LOCAL_FILE_RACE_2026-09-25.json",
       "repo_verification": {
-        "route_registration_run": 36118631949,
-        "public_surface_run": 36118631880,
+        "route_registration_run": 36142450848,
+        "public_surface_run": 36142450809,
         "status": "PASS",
         "local_file_probe": "PASS · 430×900 synthetic field-note.md → WORD index 4 → 900 WPM → session-local source → COPY FOCUS",
-        "coexistence": "POST-MERGE READBACK PASS · /dayline/ candidate + FOLD//BLOOM LIVE play.js + READFIELD 0.8.5 all present on master"
+        "coexistence": "POST-MERGE READBACK PASS · /dayline/ candidate + FOLD//BLOOM LIVE play.js + READFIELD 0.8.5 all present on master",
+        "local_file_race": "PASS · explicit local selection preempts stale repository load",
+        "local_file_merge": "10f7c937e6f3ad6a00dfc6163c80cdc81dbc9c94",
+        "subjective_phone_preference": "OPTIONAL_OBSERVATION_NOT_GATE"
       },
       "merge_sha": "ecb1f3a4d400d0c58aef1e65418567d4b4949606",
       "version": "0.8.5"
@@ -320,7 +325,8 @@
         "/returns/FOLD_BLOOM_HEX_TWO_RING_054_2026-09-25.json",
         "https://github.com/0xxx0/0xxx0.github.io/pull/348",
         "/returns/FOLD_BLOOM_STABILIZE_055_2026-09-25.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/361"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/361",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/367"
       ],
       "experimental": [
         {
@@ -392,7 +398,15 @@
       "merge_sha": "9e308cb7f8b6272820c6404ef93726f48e98c996",
       "latest_return": "/returns/FOLD_BLOOM_STABILIZE_055_2026-09-25.json",
       "latest_merge": "95e48bec5e181624dc520135ba2d35ba0d8d109b",
-      "version": "0.1.5 + PLAY 0.5.5"
+      "version": "0.1.5 + PLAY 0.5.5",
+      "repo_verification": {
+        "route_registration_run": 36162997518,
+        "public_surface_run": 36162997236,
+        "master_self_verification_run": 36163042383,
+        "status": "PASS",
+        "mobile_interaction_regression": "PASS",
+        "lived_feel": "OPTIONAL_OBSERVATION_NOT_GATE"
+      }
     },
     {
       "lineage": "axial",
@@ -429,7 +443,7 @@
       "head": "ATLAS DAYLINE Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
       "state": "STABLE + OPT_IN_LIVE_CANDIDATE",
       "route": "/atlas-dayline/",
-      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner, with /dayline/ as the mobile continuous workfield over the same DayState. Reality-first empty/reset, normal mobile reach, explicit NOW ↻, clock-witnessed RETURN, and source-addressed HOUSE/SHOPPING/COMMS handoffs remain. The merged COMMS loop now proves one held source object through RUN → WITNESS → COMPLETE → OFFER_ONLY RETURN → exact native acceptance, then releases completed focus. Machine/browser proof owns functional correctness; real-world completion remains WORLD evidence.",
+      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner, with /dayline/ as the mobile continuous workfield over the same DayState. Reality-first empty/reset, normal mobile reach, explicit NOW ↻, clock-witnessed RETURN, and source-addressed HOUSE/SHOPPING/COMMS handoffs remain. Native RETURN consequence is host-specific: COMMS accepts an exact OFFER_ONLY state proposal after source revalidation; Shopping accepts an exact RECEIPT_ONLY evidence record while its procurement lifecycle remains unchanged. Machine/browser proof owns functional correctness; real-world completion remains WORLD evidence.",
       "evidence": [
         "/atlas-dayline/release.json",
         "/returns/ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
@@ -438,9 +452,11 @@
         "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md",
         "/dayline/release.json",
         "/returns/DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/359"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/359",
+        "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json"
       ],
-      "version": "Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH"
+      "version": "Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
+      "latest_return": "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json"
     },
     {
       "lineage": "house-spatial",
@@ -453,11 +469,15 @@
     },
     {
       "lineage": "shopping-field",
-      "head": "SHOPPING FIELD 0.3 / FI-SHOP-001",
+      "head": "SHOPPING FIELD 0.3.1 / EXACT DAYLINE RECEIPT + HOUSE FIT / FI-SHOP-001",
       "state": "ACTIVE_ADAPTER",
       "route": "/shopping/",
-      "retained_function": "Capability gap/listing/receipt → freshness + landed SGD + explicit purchase gate + lifecycle + optional BODY/OPERATING envelope/burden → bounded research packet / exact Dayline task / session-only HOUSE fit screen. Personal state remains local/private; money and seller contact remain human actions; HOUSE fit is dimensional screen only.",
-      "version": "0.3"
+      "retained_function": "Capability gap/listing/receipt → freshness + landed SGD + explicit purchase gate + lifecycle + optional BODY/OPERATING envelope/burden → bounded research packet / exact Dayline task / session-only HOUSE fit screen. Exact Dayline completion may return as RECEIPT_ONLY evidence after exact item + lifecycle-state revalidation; acceptance appends evidence and never promotes FOUND/BOUGHT/RECEIVED/TESTED/ADOPTED. Personal state remains local/private; money and seller contact remain human actions; HOUSE fit is dimensional screen only.",
+      "version": "0.3.1",
+      "evidence": [
+        "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json"
+      ],
+      "latest_return": "/returns/DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26.json"
     },
     {
       "lineage": "triangle",
