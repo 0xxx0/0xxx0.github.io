@@ -25,7 +25,7 @@ need((contract.laws||[]).some(x=>/^LOCAL ACKNOWLEDGEMENT IS REWINDABLE/.test(x))
 
 const root=(manifest.routes||[]).find(r=>r.href==='/');
 need(Number(String(root?.version||'0').split('.').slice(0,2).join('.'))>=0.8,'FIELD root version missing');
-need(/^\/returns\/FIELD_INDEX_.*2026-09-25\.json$/.test(root?.latest_return||''),'FIELD root RETURN not attached');
+need(/^\/returns\/FIELD_INDEX_.*\d{4}-\d{2}-\d{2}\.json$/.test(root?.latest_return||''),'FIELD root dated RETURN not attached');
 
 if(fail.length){
   console.error('FIELD reversibility FAIL · '+fail.join(' · '));
