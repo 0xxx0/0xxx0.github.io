@@ -1,217 +1,132 @@
 {
-  "schema": "0xxx0/hermes-queue/v0.1",
-  "updated": "2026-09-21",
-  "authority": "READ / RESEARCH / RECOVER / ANALYZE / PREPARE_PACKETS. No canonical writes unless separately granted.",
+  "schema": "0xxx0/hermes-queue/v0.2",
+  "updated": "2026-09-25",
+  "authority": "READ / RESEARCH / RECOVER / ANALYZE / PREPARE_PACKETS by default. Canonical writes require separate explicit bounded authority.",
+  "purpose": "Trigger-driven worker selection over live FIELD authority. Presence in this file never creates NOW, priority or permission.",
+  "laws": [
+    "CURRENT owns attention; QUEUE owns bounded execution capacity.",
+    "LLMS + transient transcript replace copied worker-state mirrors.",
+    "NO AMBIENT BACKLOG: an old packet cannot self-promote merely because it remains recorded.",
+    "CONVERSION OUTRANKS COORDINATION.",
+    "RECOVERY REQUIRES A CONCRETE ANCHOR OR CURRENT BLOCKER.",
+    "ONE BOUNDED MOVE → VERIFY → RETURN → REPLAN."
+  ],
   "poll_order": [
     "AGENTS.md",
+    "/llms.txt",
     "/control/CURRENT.json",
-    "/control/WORKER_BOOT.json",
+    "/control/QUEUE.json",
     "/showcase-manifest.json",
     "/control/POLICY_INDEX.json",
-    "/control/SUBMISSION_CONTRACT.json",
-    "/control/QUEUE.json",
     "/control/WAITING.json",
-    "/dock/",
-    "/control/ORIENTATION.json",
-    "/migration/",
     "/control/MIGRATION_NOW.json",
-    "/control/MIGRATION.json",
-    "/control/QUARANTINE_2026-09-20.json",
-    "/control/CENSUS.json",
     "/control/HERMES_LONG_GOALS.json",
-    "/control/HERMES_QUEUE.json",
-    "/control/REPRESENTATION.json"
+    "/control/HERMES_QUEUE.json"
   ],
+  "transient_handoff": {
+    "command": "node scripts/emit-agent-transcript.mjs --json",
+    "authority": "NONE",
+    "law": "Compile after recovering the current checkout. Never commit the generated transcript as a second state store."
+  },
   "global_cycle": [
-    "REORIENT: state SCALE / OBJECT / STATE / DELTA / RECEIPT.",
-    "Select one task only.",
+    "REORIENT: SCALE / OBJECT / STATE / DELTA / RECEIPT.",
+    "Recover live authority, not a cached worker snapshot.",
+    "Select exactly one triggered task.",
     "Recover/source before synthesizing.",
-    "Produce one bounded packet or receipt.",
-    "Return to DOCK before selecting another task."
-  ],
-  "workers": [
-    {
-      "id": "ARCHAEOLOGIST",
-      "cadence": "one bounded cycle only when MIGRATION_NOW, a concrete source anchor, or a scheduled census window supplies a target",
-      "mission": "Reduce apparent project count and recover exact lineage without turning idle time into endless archaeology.",
-      "loop": [
-        "locate exact artifact",
-        "record source/date/hash if possible",
-        "collapse exact duplicates",
-        "cluster versions",
-        "identify current head/donor/ancestor",
-        "state unique mechanism",
-        "prepare repo-copy packet",
-        "emit residue"
-      ],
-      "stop": "Do not redesign during ingest. Do not open a new architecture. Stop after one concrete gain/rejection receipt or when the anchor fails."
-    },
-    {
-      "id": "TRANSLATOR",
-      "cadence": "after an object is recovered or a front has a concrete representation problem",
-      "mission": "Test whether another projection materially improves action/recovery/comprehension.",
-      "inputs": [
-        "canonical object/state",
-        "current projection",
-        "candidate projection from REPRESENTATION.json"
-      ],
-      "output": [
-        "PRESERVES",
-        "HIDES",
-        "PERMITS",
-        "ROUND_TRIP",
-        "PLAIN_BASELINE",
-        "TEST",
-        "RETURN"
-      ],
-      "stop": "If candidate adds ornament but no improved task, keep it donor/experiment."
-    },
-    {
-      "id": "QA_RENAMER",
-      "cadence": "after recovery, before public promotion",
-      "mission": "Remove appslop/dashboard-porn patterns and make names/verbs intuitive without erasing lineage.",
-      "output": [
-        "CURRENT_NAME",
-        "ACTUAL_VERB",
-        "CONFUSION",
-        "DELETE_OR_RENAME",
-        "UNIQUE_MECHANISM",
-        "PUBLIC_SURFACE_DECISION"
-      ],
-      "stop": "Do not rename canonical IDs or rewrite history; aliases/public labels may change."
-    },
-    {
-      "id": "PIPELINE_SCOUT",
-      "cadence": "low priority / research only",
-      "mission": "Find an existing maintained tool only when a named current bottleneck is not already covered by the solved-problem raid. Prefer benchmark/extract over platform migration.",
-      "output": [
-        "TOOL",
-        "WHAT_FUNCTION_IT_REPLACES",
-        "LOCAL/REMOTE",
-        "DATA_BOUNDARY",
-        "REVERSIBILITY",
-        "INTEGRATION_COST",
-        "TEST_WITH_OWNED_DATA",
-        "REJECT_IF"
-      ],
-      "stop": "Read the solved-problem raid first. If it already covers the function, do not re-research it. No tool scouting without an observed bottleneck that could alter a current build/adoption decision.",
-      "inputs": [
-        "/control/research/INGEST_SOLVED_PROBLEM_RAID_2026-09-21.md",
-        "/control/research/OPEN_INSTRUMENT_QUARRY_2026-09-21.md",
-        "one named current bottleneck only"
-      ]
-    },
-    {
-      "id": "MIGRATION_WARDEN",
-      "cadence": "after repo/recovery mutations or before a migration archaeology cycle",
-      "mission": "Keep Migration small, non-repetitive and addressable.",
-      "inputs": [
-        "/control/MIGRATION_NOW.json",
-        "/control/MIGRATION.json",
-        "/control/CENSUS.json",
-        "/control/QUARANTINE_2026-09-20.json",
-        "/showcase-manifest.json"
-      ],
-      "loop": [
-        "verify MIGRATION NOW has at most three items",
-        "collapse duplicate or completed queue instructions",
-        "group exact donors by canonical family without renaming canonical IDs",
-        "check open gaps have a concrete next trigger",
-        "run/inspect public-surface validation",
-        "emit one cleanup receipt only if state changed"
-      ],
-      "output": [
-        "QUEUE_DELTA",
-        "OPEN_GAP_DELTA",
-        "FAMILY_SHELF_DELTA",
-        "VALIDATION",
-        "ONE_NEXT"
-      ],
-      "stop": "No archaeology unless a concrete anchor is present. No public promotion from organization alone."
-    }
+    "Produce one bounded delta/packet or explicit NO_GAIN/BLOCKED return.",
+    "VERIFY → RETURN → REPLAN. No automatic sequel."
   ],
   "ready_tasks": [
     {
+      "id": "CURRENT-CONVERSION",
+      "trigger": "CURRENT.next_single_action or CURRENT.active_fronts exposes a machine-executable conversion on an existing head.",
+      "task": "Choose exactly one existing head. Make or prepare the smallest reversible change that improves context-free use, share/export, re-entry, or an already-owned world/device bridge. Do not invent a coordinating layer.",
+      "receipt": "observable capability/usability delta + exact changed paths + verification + residue + stop condition"
+    },
+    {
+      "id": "ANCHORED-RECOVERY",
+      "trigger": "CURRENT, MIGRATION_NOW, or newly supplied evidence names one exact source gap with a concrete anchor and recovering it materially unlocks a current conversion or prevents false lineage.",
+      "task": "Search only the bounded source space. Freeze exact source/evidence or sharpen the blocker. One gain or one failed anchor, then stop.",
+      "receipt": "one exact source/duplicate/lineage packet or explicit NO_GAIN/BLOCKED return"
+    }
+  ],
+  "worker_roles": {
+    "archaeologist": "May service ANCHORED-RECOVERY only; no ambient census.",
+    "translator": "May compare/project only when a current host has a named representation problem.",
+    "qa_renamer": "May run only before an actual public promotion or when current use exposes naming/surface confusion.",
+    "pipeline_scout": "May research only a named current bottleneck not already covered by existing solved-problem evidence.",
+    "migration_warden": "May contain/reconcile migration after actual recovery mutations or when MIGRATION_NOW exceeds its small-surface contract."
+  },
+  "historical_ready_tasks": [
+    {
       "id": "INGEST-01",
       "worker": "ARCHAEOLOGIST",
-      "task": "Local-only successor to the verified Sep-21 Documents ingest. Execute /control/packets/INGEST_ONE_FAMILY_2026-09-21.json against the private hashed reports; review exactly one app + authored design/spec family; no source moves, no public payload, no automatic route promotion.",
-      "receipt": "one private/local semantic family packet with exact hashes + provenance + relation class, or BLOCKED/NO_GAIN"
+      "disposition": "HISTORICAL_PACKET_NOT_RUNNABLE_BY_PRESENCE",
+      "reason": "Retained from the Sep-21 worker queue. It may be reused only if CURRENT or an exact new anchor selects the same missing function.",
+      "former_task": "Local-only successor to the verified Sep-21 Documents ingest. Execute /control/packets/INGEST_ONE_FAMILY_2026-09-21.json against the private hashed reports; review exactly one app + authored design/spec family; no source moves, no public payload, no automatic route promotion.",
+      "former_receipt": "one private/local semantic family packet with exact hashes + provenance + relation class, or BLOCKED/NO_GAIN"
     },
     {
       "id": "REP-01",
       "worker": "TRANSLATOR",
-      "task": "Representation instrumentation is already shipped. Use exact recovered Painting fixture /control/REPRESENTATION_PAINTING_2026-09-21.json plus existing FI PLAIN/FOVEATED proof bench to prepare one source-grounded comparison packet. Do not build another projection surface. Mark Dayline/Fold-Bloom NOT_USEFUL when their required temporal/cyclic state is absent.",
-      "receipt": "adapter/disposition table + one paired human-task protocol; no task-advantage claim without human receipt"
+      "disposition": "HISTORICAL_PACKET_NOT_RUNNABLE_BY_PRESENCE",
+      "reason": "Retained from the Sep-21 worker queue. It may be reused only if CURRENT or an exact new anchor selects the same missing function.",
+      "former_task": "Representation instrumentation is already shipped. Use exact recovered Painting fixture /control/REPRESENTATION_PAINTING_2026-09-21.json plus existing FI PLAIN/FOVEATED proof bench to prepare one source-grounded comparison packet. Do not build another projection surface. Mark Dayline/Fold-Bloom NOT_USEFUL when their required temporal/cyclic state is absent.",
+      "former_receipt": "adapter/disposition table + one paired human-task protocol; no task-advantage claim without human receipt"
     },
     {
       "id": "REC-01",
       "worker": "ARCHAEOLOGIST",
-      "task": "ANCHOR-ONLY recovery. Do not run as ambient census. Continue Sep 05–19 Library/source recovery only when MIGRATION_NOW or a concrete new source anchor names one target; one gain or one failed anchor then stop.",
-      "receipt": "one exact source/duplicate/lineage packet or explicit no-gain blocker; no broad sweep"
+      "disposition": "HISTORICAL_PACKET_NOT_RUNNABLE_BY_PRESENCE",
+      "reason": "Retained from the Sep-21 worker queue. It may be reused only if CURRENT or an exact new anchor selects the same missing function.",
+      "former_task": "ANCHOR-ONLY recovery. Do not run as ambient census. Continue Sep 05–19 Library/source recovery only when MIGRATION_NOW or a concrete new source anchor names one target; one gain or one failed anchor then stop.",
+      "former_receipt": "one exact source/duplicate/lineage packet or explicit no-gain blocker; no broad sweep"
     },
     {
       "id": "PRINT-01",
       "worker": "TRANSLATOR",
-      "task": "Recover Print/Proof + Pattern/Stencil mechanisms from Cassette Atlas / House OS materials and specify one digital→SVG/PDF→print→physical mark→photo/evidence→RETURN loop.",
-      "receipt": "one end-to-end print fixture spec"
+      "disposition": "HISTORICAL_PACKET_NOT_RUNNABLE_BY_PRESENCE",
+      "reason": "Retained from the Sep-21 worker queue. It may be reused only if CURRENT or an exact new anchor selects the same missing function.",
+      "former_task": "Recover Print/Proof + Pattern/Stencil mechanisms from Cassette Atlas / House OS materials and specify one digital→SVG/PDF→print→physical mark→photo/evidence→RETURN loop.",
+      "former_receipt": "one end-to-end print fixture spec"
     },
     {
       "id": "BODY-01",
       "worker": "TRANSLATOR",
-      "task": "Recover the transferable structure of the health/body/case template without importing private medical content. Define observations, anatomical addresses, events, evidence confidence, interventions and return receipts as a Domain Pack candidate.",
-      "receipt": "privacy-safe body/health adapter schema"
+      "disposition": "HISTORICAL_PACKET_NOT_RUNNABLE_BY_PRESENCE",
+      "reason": "Retained from the Sep-21 worker queue. It may be reused only if CURRENT or an exact new anchor selects the same missing function.",
+      "former_task": "Recover the transferable structure of the health/body/case template without importing private medical content. Define observations, anatomical addresses, events, evidence confidence, interventions and return receipts as a Domain Pack candidate.",
+      "former_receipt": "privacy-safe body/health adapter schema"
     },
     {
       "id": "QA-01",
       "worker": "QA_RENAMER",
-      "task": "Review public routes for noun-heavy generic dashboard/site patterns. For each, name the one verb it enables, or demote it from public surface.",
-      "receipt": "route audit with KEEP / RENAME / MERGE / DONOR / HIDE"
+      "disposition": "HISTORICAL_PACKET_NOT_RUNNABLE_BY_PRESENCE",
+      "reason": "Retained from the Sep-21 worker queue. It may be reused only if CURRENT or an exact new anchor selects the same missing function.",
+      "former_task": "Review public routes for noun-heavy generic dashboard/site patterns. For each, name the one verb it enables, or demote it from public surface.",
+      "former_receipt": "route audit with KEEP / RENAME / MERGE / DONOR / HIDE"
     }
   ],
   "return_contract": {
     "required": [
       "task_id",
+      "trigger",
       "scale",
       "object",
+      "current_host",
       "sources",
-      "findings",
       "delta_or_packet",
       "evidence",
       "residue",
-      "one_next"
+      "one_next",
+      "stop"
     ],
-    "preferred_channel": "If Hermes has GitHub write access, open/update the matching issue or PR. Otherwise emit a portable markdown/JSON packet for manual ingest.",
-    "forbidden": "Do not silently mutate canonical repo state, email/social accounts, calendars, files, or physical devices.",
-    "migration_extra": [
-      "anchor_or_trigger",
-      "promotion_gate_result",
-      "quarantine_or_family_disposition"
-    ]
+    "preferred_channel": "If explicitly authorized to write, use one clean bounded branch/PR. Otherwise emit a portable packet.",
+    "forbidden": "Do not silently mutate canonical repo state, email/social accounts, calendars, files, physical devices, security settings or money."
   },
-  "migration_tasks": [
-    {
-      "id": "MIG-CENSUS",
-      "worker": "ARCHAEOLOGIST",
-      "task": "Run one hash/source-grounded census slice on newly surfaced artifacts; collapse exact duplicates before semantic grouping.",
-      "receipt": "one exact artifact/duplicate/lineage packet or explicit no-gain stop"
-    },
-    {
-      "id": "MIG-GAPS",
-      "worker": "ARCHAEOLOGIST",
-      "task": "Choose exactly one open gap from MIGRATION_NOW that has acquired a concrete source anchor. Recover bytes/spec/evidence or sharpen the blocker; do not broad-search all gaps.",
-      "receipt": "one frozen source packet or blocker delta"
-    },
-    {
-      "id": "MIG-CONTAIN",
-      "worker": "MIGRATION_WARDEN",
-      "task": "Keep the human Migration surface at ≤3 NOW items, family-shelved donors, one open-gap list and explicit quarantine/attic dispositions.",
-      "receipt": "small-surface + validation receipt"
-    }
-  ],
   "policy_resolution": {
     "index": "/control/POLICY_INDEX.json",
     "rule": "Resolve the smallest applicable canonical policy set before persistent/automated action. Cite policy paths in RETURN; do not copy policy prose into local task doctrine.",
     "on_conflict": "Stop consequential action, report exact conflicting paths/scopes, and return for coordination. Do not silently choose."
-  },
-  "long_goals": "/control/HERMES_LONG_GOALS.json"
+  }
 }
