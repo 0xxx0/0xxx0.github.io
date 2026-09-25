@@ -1,7 +1,7 @@
 import {getLocalMedia} from '../local-media-store.js';
 import {courseFromEventTape,classifySwing,collectMisses,updateClockEstimate,trackTimeForHostPerf,boundedHitTrace,buildReturn} from './saber-core.js';
 
-const $=s=>document.querySelector(s), HANDOFF='fold-bloom.saber.handoff.v01';
+const $=s=>document.querySelector(s), HANDOFF='fold-bloom.saber.handoff.v01',clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const params=new URLSearchParams(location.search),controllerRole=String(params.get('controller')||'').toUpperCase();
 const controllerMode=controllerRole==='LEFT'||controllerRole==='RIGHT';
 const audio=$('#audio'),canvas=$('#course'),ctx=canvas?.getContext?.('2d');
