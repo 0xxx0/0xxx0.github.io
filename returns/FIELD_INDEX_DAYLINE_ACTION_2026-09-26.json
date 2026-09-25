@@ -1,0 +1,34 @@
+{
+  "schema": "0xxx0/field-index-dayline-action/v0.1",
+  "date": "2026-09-26",
+  "state": "CANDIDATE",
+  "route": "/",
+  "version": "0.8.13",
+  "trigger": "Convert the FIELD landing page from OPEN/COPY/TRACE-only handling into one genuine lawful cross-surface action without granting FIELD new domain authority.",
+  "object_flow": "FIELD held manifest route → transient atlas-dayline-handoff/v0.1 TASK envelope → Dayline explicit ADD TO DAY → Dayline local mutation/undo → witness → RETURN",
+  "delta": [
+    "A held non-root, non-Dayline route exposes DAYLINE → inside the existing ≤3-move action aperture.",
+    "FIELD serializes route identity, title, state, owner/context and sourceRef into the already-proved session-local Dayline carrier.",
+    "FIELD performs no DayState mutation.",
+    "Dayline retains the explicit ADD TO DAY acceptance boundary and consumes the transient envelope only after acceptance.",
+    "Source route, stable route object id and exact FIELD focus return address survive the handoff."
+  ],
+  "authority": {
+    "field": "address + transient handoff creation + navigation only",
+    "dayline": "accept/reject handoff; task mutation; undo; RUN; witness; EVIDENCE_ONLY / UNCHANGED source offer for generic FIELD routes; RETURN",
+    "source": "unchanged by handoff"
+  },
+  "verification": {
+    "static": "tools/field-action-aperture-selftest.mjs",
+    "browser": "tools/browser-smoke.mjs · FIELD held route → Dayline action",
+    "specimen": "/docs/ held at FIELD root → DAYLINE → → ADD TO DAY; before task count 0, after 1; sourceLink.route /docs/; source object route:/docs/; return_to /?focus=%2Fdocs%2F; transient handoff cleared after acceptance"
+  },
+  "reversibility": "Before ADD TO DAY, clearing/leaving the handoff changes no DayState. After acceptance, Dayline checkpoint/undo law owns reversal.",
+  "non_claims": [
+    "FIELD does not execute the source route's native domain operation.",
+    "Creating the handoff does not prove a real-world action occurred.",
+    "DAYLINE → is not a queue or automatic priority assignment."
+  ],
+  "stop": "Do not add more root actions merely because adapters exist. Admit another executable move only when an existing host already owns the mutation/reversal/RETURN boundary and a bounded browser proof demonstrates the whole handoff.",
+  "source_revision": "72050f5c12f16a4fc04460e0b757eebbf6d1b621"
+}
