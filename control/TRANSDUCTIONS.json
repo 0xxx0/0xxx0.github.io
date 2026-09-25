@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/transductions/v0.1",
-  "updated": "2026-09-23",
+  "updated": "2026-09-25",
   "status": "EXPERIMENTAL_BRANCH",
   "purpose": "One registry for composable bounded transformations across UI, agents, HOUSE/HAOS and physical return. Preserve mechanisms; do not create parallel pipelines.",
   "lineage": {
@@ -443,5 +443,17 @@
       "runtime": "INTERPHASE 0.2 binds FIELD, READFIELD, Scale Lens, LISTEN and generic DOM through one host protocol.",
       "rule": "Demotion still requires lived use and unique-residue review; implementation proof does not authorize bulk deletion."
     }
+  },
+  "standing_desire": {
+    "status": "DIRECTION_REMINDER_NOT_AUTHORITY",
+    "confirmed": "2026-09-25",
+    "source_pr": 285,
+    "text": "Use more of the universal interface: fold surfaces into existing heads through the shared carrier (six-sector / INTERPHASE instrument cell / transductions) instead of spawning parallel ones; treat gameloop and lab projections as one transduction family; crush surfaces without breaking identity, authority, evidence or human gates.",
+    "rules": [
+      "FOLD before fork; prefer lossless fold into an existing head",
+      "route migrating mechanisms through the existing carrier grammar before inventing a pipeline",
+      "absorb gameloop/lab-shaped asks into the existing transduction family first",
+      "never override source identity, host authority, evidence classes or human gates"
+    ]
   }
 }
