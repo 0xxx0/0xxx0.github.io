@@ -1,6 +1,7 @@
 # BACK / UNDO / RETURN / HISTORY — research donors
 
-Status: design evidence for `/control/INTERACTION_SEMANTICS.json`, not a UI style guide.
+Status: design evidence for `/control/INTERACTION_SEMANTICS.json`, not a UI style guide.  
+Updated: 2026-09-25
 
 ## 1. Selective undo is semantic, not merely chronological
 
@@ -49,6 +50,32 @@ Value Sensitive Design is relevant to the proposed instrument charter because it
 
 Design consequence here:
 the charter's **PASSION** may state why something matters, but **PURPOSE / POWER / PROOF / PROMISE / PRICE / RETURN** force the value claim back into mechanism and evidence.
+
+## 6. Local falsification: expression rewind is not rollback
+
+SPIKE 005 / EXPRESSION TRANSCRIPT adds a concrete local test for a distinction that the literature alone does not settle for FIELD.
+
+Observed machine result:
+
+- Φ is a derived host boundary (identity/source/authority/revision), not a copy of host data;
+- φ is an addressed locus inside that host;
+- a transient transcript may be checkpointed and rewound;
+- **REWIND restores an earlier expression/focus context while canonical host revision/value remain current**;
+- stale transcript commits and unsupported operations are refused;
+- a counterfactual branch may fork an earlier expression without rewriting host history.
+
+Design consequence here:
+
+`REWIND ≠ ROLLBACK ≠ UNDO`.
+
+REWIND is navigation through expression/provenance state. ROLLBACK is a consequential operation on canonical state. UNDO is an artifact-owned semantic inverse. RETURN records what happened and how to re-enter.
+
+Evidence:
+- `/spikes/005-expression-transcript/`
+- PR #224
+- `/spikes/005-expression-transcript/selftest.mjs`
+
+Promotion remains conditional: the transcript grammar should enter shared FIELD machinery only if it prevents a concrete stale-projection, authority, over-copying or unsafe-replay failure.
 
 ## Local synthesis
 

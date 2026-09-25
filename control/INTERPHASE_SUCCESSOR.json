@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/interphase-successor/v0.1",
-  "updated": "2026-09-24",
+  "updated": "2026-09-25",
   "status": "ACTIVE_HANDOFF",
   "purpose": "Cold-start continuation packet for INTERPHASE / Fold-Bloom / recovery convergence. Prefer exact linked artifacts over this summary when they disagree.",
   "top_laws": [
@@ -93,7 +93,7 @@
         "unified RIDE state"
       ]
     },
-    "current_open_transform": "Technical SET -> LIVE fusion is complete in PR #200. The next Fold/Bloom gate is direct 2–3-source phone use across exact source identity, sourceTime + journeyTime, CUT / DISSOLVE / CARRY / RESET / RETURN, and bounded RETURN evidence. This is WAITING_ON_HUMAN and must not occupy ACTIVE_NOW.",
+    "current_open_transform": "SET → LIVE fusion is complete (PR #200). The current gate is lived 2–3-source phone use through distinct seam laws and exact RETURN; architecture should reopen only from observed friction.",
     "set_live_fusion": {
       "state": "MERGED_COMPLETE",
       "pull_request": 200,
@@ -104,6 +104,12 @@
         "/tools/fold-bloom-spine-smoke.mjs"
       ],
       "law": "SET retains composition/seam authority; LIVE retains embodied/game authority; unified RIDE dual-clock state carries sourceTime + journeyTime; no second source store."
+    },
+    "current_gate": {
+      "state": "WAITING_ON_LIVED_USE",
+      "evidence": "PR #200 / merge ea401720dd8abbac7467084513e538f8526011af",
+      "test": "Ride one real 2–3-source authored SET on phone through at least two distinct seam laws and RETURN.",
+      "stop": "Do not add another shared ride/source/session architecture before direct-use evidence."
     }
   },
   "mapping_example": {
@@ -204,5 +210,29 @@
     "/control/confluence/INTERPHASE_MIGRATION_BACKUP_ARCHAEOLOGY_2026-09-23.md",
     "/control/confluence/BACKUP_ARCHAEOLOGY_INTERPHASE_WORKER_2026-09-23.md",
     "/control/confluence/INTERPHASE_SESSION_STARTERS_2026-09-23.md"
-  ]
+  ],
+  "research_alignment": {
+    "status": "COORDINATION_POINTERS_ONLY",
+    "multiscale_address_field": {
+      "status": "PROVISIONAL",
+      "source": "/control/research/SHAPE_LAW_ATLAS.md",
+      "claim": "Whole/source persists while aperture foregrounds scale/part; ring/luopan is a co-registered carrier only when its bands/marks encode named scale, extent, event, authority or residue semantics.",
+      "boundary": "Do not promote radial geometry into ontology; cross-relations may exceed a part-whole tree."
+    },
+    "expression_history": {
+      "status": "CANDIDATE_SPIKE",
+      "source": "/spikes/005-expression-transcript/",
+      "claim": "REWIND can restore expression/focus context while canonical host state remains current.",
+      "boundary": "REWIND != ROLLBACK != UNDO."
+    },
+    "glyph_conformance": {
+      "status": "ARCHITECTURE_NOT_BLOCKED / DEDICATED_CODEX_RECEIPT_NOT_FOUND",
+      "evidence": [
+        "PR #188 / shared INTERPHASE glyph grammar",
+        "PR #200 / SET seam + dual-clock semantics"
+      ],
+      "remaining_if_pursued": "One bounded fixture showing equal member/source glyph identity does not collapse unequal SET seam/operator state; expose difference or explicit residue without moving authority into GLYPH.",
+      "stop": "Do not reopen a glyph framework or coordination architecture solely to manufacture the missing receipt."
+    }
+  }
 }
