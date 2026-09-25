@@ -226,7 +226,11 @@ check(/DAYLINE \/\/ CONFLUENCE/.test(workfieldHtml)&&workfieldHtml.includes('id=
 check(workfieldJs.includes("poly-atlas-dayline-branch-i-public-v1")&&workfieldJs.includes("atlas.dayline.handoff.v01"),'Dayline Confluence diverged from existing DayState/handoff identity');
 check(workfieldJs.includes("slice(0,3)")||workfieldJs.includes("return out.slice(0,3)"),'Dayline Confluence lost <=3 move law');
 check(/body\{overflow-y:auto/.test(workfieldCss),'Dayline Confluence ordinary document scrolling regressed');
-check(workfieldJs.includes("carrier:'dayline-confluence/v0.1'")&&workfieldJs.includes("poly-atlas-return-f"),'Dayline Confluence RETURN carrier missing');
+check(workfieldJs.includes("carrier:'dayline-confluence/v0.2'")&&workfieldJs.includes("poly-atlas-return-f"),'Dayline Confluence RETURN carrier missing');
+check(workfieldHtml.includes('id="returnSourceBtn"')&&workfieldJs.includes("atlas.dayline.source-return.v01")&&workfieldJs.includes("authority:'OFFER_ONLY'")&&workfieldJs.includes("sourceLink:{handoff_id:h.id"),'Dayline Confluence held-object source RETURN offer regressed');
+const commsHtml=read('port/comms/index.html'),commsApp=read('port/comms/app.js');
+check(commsHtml.includes('id="daylineReturnOffer"')&&commsApp.includes("atlas.dayline.source-return.v01"),'COMMS Dayline return offer surface missing');
+check(commsApp.includes("x.messageId===a.message_id&&x.start===a.start&&x.end===a.end")&&commsApp.includes("OFFER STALE / READ ONLY"),'COMMS exact-address/stale-return guard regressed');
 check(workfieldJs.includes("LEGACY_IDS")&&workfieldJs.includes("RESET LEGACY SAMPLE"),'Dayline Confluence legacy sample migration missing');
 const fan8Svg=read('foundry/axial/fan8-print.svg');
 const fan8Spec=read('foundry/axial/FAN8.md');
