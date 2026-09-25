@@ -1,0 +1,21 @@
+{
+  "schema": "field-return/v1",
+  "id": "PROOF_UNBLOCK_READFIELD_2026-09-25",
+  "date": "2026-09-25",
+  "state": "CANDIDATE_PENDING_CI",
+  "objective": "Restore the two proof invariants that concurrent convergence exposed: every active real-world gate must name observable acceptance, and an explicit local READFIELD file must preempt older asynchronous source loads.",
+  "changes": [
+    "control/CURRENT.json: restore observable 0.5.3 phone questions to the existing Fold//Bloom gate",
+    "docs/index.html: claim sourceEpoch before awaiting local file bytes"
+  ],
+  "boundaries": [
+    "No new active front, queue, store, route or ontology.",
+    "No source bytes leave the READFIELD tab/session.",
+    "Fold//Bloom runtime behavior is unchanged; only its already-existing lived gate regains measurable questions."
+  ],
+  "proof": {
+    "reality_gap_check": "scripts/check-reality-gaps.mjs",
+    "readfield_regression": "critical browser smoke → READFIELD local file phone intake",
+    "ci": "pending"
+  }
+}
