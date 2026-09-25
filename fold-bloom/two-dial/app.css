@@ -431,3 +431,15 @@ input[type='range'] {
 }
 
 @media(max-width:520px){.segment.worlds,.segment.voices,.segment.grooves{grid-template-columns:repeat(2,1fr)}.segment.modes,.segment.scopes{grid-template-columns:repeat(2,1fr)}.sheet{width:100vw}}
+
+/* 0.10.4 — make the two-body geometry discoverable on phone */
+.widebtn{border-color:rgba(123,213,255,.44);color:#d6efff}
+@media(max-width:620px){
+  .actions{right:8px;gap:4px}
+  .iconbtn{padding:7px 7px;font-size:8px}
+  .widebtn{display:inline-flex;align-items:center;justify-content:center}
+  body.duet .lawstrip{border-color:rgba(123,213,255,.38);color:#a9dcf5}
+}
+@media(orientation:portrait) and (max-width:620px){
+  body.duet .foot:after{content:' · ↔ WIDE RECOMMENDED';color:#b8d8e8}
+}
