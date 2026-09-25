@@ -3,7 +3,7 @@
   "date": "2026-09-22",
   "object": "App Atlas / App Foundry / Sleeper operator visual",
   "law": "RECOVER BEFORE INVENTING. Do not substitute a regenerated image or cleaned-up source for unavailable original bytes.",
-  "result": "PARTIAL_MATERIALIZATION",
+  "result": "SOURCE_RECOVERY_COMPLETE / REPO_BINARY_MIRROR_DEFERRED",
   "sources": [
     {
       "role": "APP_ATLAS_CANONICAL_DATA",
@@ -48,10 +48,10 @@
       "file_library_id": "file_000000006c8c71faa92311288535624e",
       "file_library_created_at": "2026-07-15T11:32:19Z",
       "repo_path": null,
-      "materialization": "RAW_BINARY_BLOCKED",
-      "source_raw_sha256": null,
-      "byte_identity": "NOT_MATERIALIZED",
-      "reason": "File Library search/inspection exposes identity and visual content but no raw binary/file URI to the active runtime or GitHub writer. Connected Drive and Gmail searches found no exact byte-addressable copy.",
+      "materialization": "RAW_SOURCE_BYTES_MATERIALIZED_FROM_LIBRARY",
+      "source_raw_sha256": "f659631664aa9e6a23a20c65a202a7689c0c5546ec748c957ddeb607d7b08999",
+      "byte_identity": "VERIFIED",
+      "reason": "Exact original Library bytes materialized without re-encoding on 2026-09-26; raw hash, size and dimensions verified. Current GitHub file writer is UTF-8-text-only, so repo binary mirroring is deferred.",
       "no_surrogate_rule": "Do not redraw, screenshot, re-encode, or use the sibling variant as if it were the original.",
       "observed_core": [
         "KERIS",
@@ -62,7 +62,13 @@
         "FLOATING",
         "KITE",
         "SPIRAL ARC"
-      ]
+      ],
+      "raw_size_bytes": 2577720,
+      "dimensions": {
+        "width": 1536,
+        "height": 1024
+      },
+      "mime_type": "image/png"
     }
   ],
   "related_variant": {
@@ -76,12 +82,16 @@
     "Repo JSON parses and contains 45 idea records.",
     "Repo HTML embedded DATA parses and is semantically identical to repo JSON.",
     "APP-003 through APP-007 invariants match the recovered File Library source content.",
-    "No binary surrogate was admitted for the Sleeper PNG."
+    "No binary surrogate was admitted for the Sleeper PNG.",
+    "Exact Sleeper PNG raw bytes verified: 2577720 B · 1536×1024 · SHA-256 f659631664aa9e6a23a20c65a202a7689c0c5546ec748c957ddeb607d7b08999.",
+    "No surrogate/redraw/re-encoding was used."
   ],
   "remaining_gate": {
-    "id": "toolbelt-sleeper-png-byte-handoff",
-    "exact_need": "A byte-capable reference/file URI for file_000000006c8c71faa92311288535624e or another independently verified exact copy.",
-    "pass": "Copy original PNG bytes into /recovery/toolbelt/, compute SHA-256, record dimensions/size, and verify visual/source identity without re-encoding.",
-    "stop": "Do not call the Toolbelt raw-byte recovery complete until that pass succeeds."
-  }
+    "id": "toolbelt-sleeper-png-repo-mirror",
+    "state": "OPTIONAL_TRANSPORT_LIMIT / NOT_SOURCE_RECOVERY_DEBT",
+    "exact_need": "A byte-capable GitHub/repository writer if durable repo mirroring of the already-verified PNG is desired.",
+    "source_authority": "Library file_000000006c8c71faa92311288535624e · SHA-256 f659631664aa9e6a23a20c65a202a7689c0c5546ec748c957ddeb607d7b08999",
+    "stop": "Do not regenerate or re-encode the source merely to satisfy repository mirroring."
+  },
+  "latest_return": "/returns/TOOLBELT_SLEEPER_PNG_RAW_RECOVERY_2026-09-26.json"
 }
