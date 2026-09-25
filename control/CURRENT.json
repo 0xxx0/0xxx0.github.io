@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-25T16:53:29.816Z",
+  "updated": "2026-09-25T17:00:22.013Z",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -126,19 +126,6 @@
         "https://github.com/0xxx0/0xxx0.github.io/pull/283"
       ],
       "latest_return": "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json",
-      "next_executable": {
-        "id": "readfield-085-self-verification",
-        "state": "SELF_VERIFY_NOW",
-        "objective": "Exercise downloaded-file intake, FAST/REVIEW state, COPY FOCUS boundary, sticky phone rail geometry, and READ→LOCI/RETURN preservation with fixtures/browser smoke. Human preference evidence is optional.",
-        "law": "Do not create a new reader engine/store. Prove correctness with source fixtures and browser state first; subjective mode preference never blocks correctness.",
-        "optional_human_evidence": [
-          "Can you open a downloaded text-like file one-handed and immediately FAST/REVIEW it without paste gymnastics?",
-          "Does the sticky work rail remain reachable without stealing too much reading area?",
-          "Does COPY FOCUS make the session-only boundary clear enough for local/pasted bytes?",
-          "Do SKIM→REVIEW, LISTEN→PULSE→VOICE and READ→LOCI→RETURN feel like obvious continuations rather than separate apps?",
-          "Which of FAST / REVIEW / PULSE / VOICE / LOCI / REPO earns persistent use after repeated reading?"
-        ]
-      },
       "repo_verification": {
         "route_registration_run": 36118631949,
         "public_surface_run": 36118631880,
@@ -151,12 +138,12 @@
     },
     {
       "lineage": "path-poetry",
-      "head": "POEM MAP 0.2.5 / VERSE",
+      "head": "POEM MAP 0.2.6 / VERSE",
       "state": "ACTIVE_CANDIDATE",
       "route": "/poetry/map/",
-      "retained_function": "Current language/verse authoring experiment: FIELD NOW or user source → readable PAGE → selected-token golden-angle focus wheel → small contextual possibility set → TRY→ADOPT/LOCK with revision ancestry → optional MAP/SETS/path/form/Aperture depth → replayable RETURN. 0.2.5 retains bounded exact-source/focus carry into canonical READFIELD, FOLD//BLOOM FIELD LAB VERSE, and fail-closed exact 4×7 Han Verse Atlas study without moving poem authorship. General work language remains valid source material; Jueju remains a specialist adapter in sealed Verse Atlas. PR #308 closes the recipient-side loop: FIELD LAB VERSE and lawful Verse Atlas study handoffs expose a same-origin navigation-only return to the exact Poem Map caller without writing recipient state back into poem authorship. 0.2.4 closes deterministic re-entry: outbound projections carry only view + token address + local source fingerprint; Poem Map restores focus after full reload only when source fingerprint and token address still match. 0.2.5 restores an open-composition distinction recovered from Poetry Copilot/Pathweaver: CONTINUE inserts after the selected token while REPLACE swaps it; TRY/form-support/ADOPT share one explicit operation and revision ancestry records the choice.",
-      "version": "0.2.5",
-      "latest_return": "/returns/VERSE_CONTINUE_INSERT_2026-09-25.json",
+      "retained_function": "Current language/verse authoring experiment: FIELD NOW or user source → readable PAGE → selected-token golden-angle focus wheel → small contextual possibility set → TRY→ADOPT/LOCK with revision ancestry → optional MAP/SETS/path/form/Aperture depth → replayable RETURN. 0.2.6 retains bounded exact-source/focus carry into canonical READFIELD, FOLD//BLOOM FIELD LAB VERSE, and fail-closed exact 4×7 Han Verse Atlas study without moving poem authorship. General work language remains valid source material; Jueju remains a specialist adapter in sealed Verse Atlas. PR #308 closes the recipient-side loop: FIELD LAB VERSE and lawful Verse Atlas study handoffs expose a same-origin navigation-only return to the exact Poem Map caller without writing recipient state back into poem authorship. 0.2.4 closes deterministic re-entry: outbound projections carry only view + token address + local source fingerprint; Poem Map restores focus after full reload only when source fingerprint and token address still match. 0.2.5 restores an open-composition distinction recovered from Poetry Copilot/Pathweaver: CONTINUE inserts after the selected token while REPLACE swaps it; TRY/form-support/ADOPT share one explicit operation and revision ancestry records the choice. 0.2.6 makes blank next-line slots explicitly authorable through START_NEXT_LINE: fill the immediate blank slot when present or insert one line after the selected line; TRY remains non-mutating, additive preview preserves the anchor, and ADOPT records revision ancestry.",
+      "version": "0.2.6",
+      "latest_return": "/returns/VERSE_OPEN_LINE_2026-09-25.json",
       "evidence": [
         "/poetry/map/release.json",
         "/returns/VERSE_SOURCE_SPINE_2026-09-25.md",
@@ -166,8 +153,15 @@
         "/returns/VERSE_FOCUS_RETURN_2026-09-25.json",
         "https://github.com/0xxx0/0xxx0.github.io/pull/311",
         "/returns/VERSE_CONTINUE_INSERT_2026-09-25.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/351"
-      ]
+        "https://github.com/0xxx0/0xxx0.github.io/pull/351",
+        "/returns/VERSE_OPEN_LINE_2026-09-25.json"
+      ],
+      "repo_verification": {
+        "route_registration_run": 36163811888,
+        "public_surface_run": 36163811892,
+        "status": "PASS",
+        "browser": "critical browser smoke PASS · includes current Poem Map 0.2.6 NEXT LINE contract"
+      }
     },
     {
       "lineage": "sleeper-one-return",
@@ -397,19 +391,6 @@
       ],
       "merge_sha": "9e308cb7f8b6272820c6404ef93726f48e98c996",
       "latest_return": "/returns/FOLD_BLOOM_STABILIZE_055_2026-09-25.json",
-      "next_executable": {
-        "id": "fold-bloom-play-055-lived-feel",
-        "state": "SELF_VERIFY_NOW",
-        "objective": "Use ordinary LIVE RIDE with one real song. If it feels calm and direct again, enter HEX and confirm it remains the same moving ride with an optional six-line projection; screenshot or one short sentence is sufficient evidence.",
-        "law": "Browser/state correctness first. Real phone feel, calmness and delight are optional subjective evidence; they do not freeze defect repair or surrounding verification.",
-        "optional_human_evidence": [
-          "Does HEX now read first as two rings / six lines rather than as the old TRIANGLE/CIRCLE/SQUARE LIVE topology?",
-          "Does default STILL make puzzle play calmer without making the source feel dead?",
-          "Can you always close the phone drawer by × or tapping outside, and still manipulate its controls?",
-          "Do CLEAR / DRIVE / TRANCE / SOFT feel meaningfully different enough to keep VIBE on the active surface?",
-          "Does the next real-world-overwhelm continuation belong through Dayline rather than inside LIVE?"
-        ]
-      },
       "latest_merge": "95e48bec5e181624dc520135ba2d35ba0d8d109b",
       "version": "0.1.5 + PLAY 0.5.5"
     },
