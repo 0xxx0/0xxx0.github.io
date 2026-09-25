@@ -219,3 +219,26 @@ It absorbs the system by making the **same invariant gesture** available across 
 `HOLD ONE THING → OPEN ONLY WHAT IS REACHABLE → TRANSFORM / RELEASE → SEE WHAT CHANGED → RETURN`.
 
 That is the folding fan, the game, the plan and the current unified-interface pivot in one real mechanical sentence.
+
+
+## Later convergence / fold into TRANSDUCTIONS
+
+The first materialization was intentionally re-read after current master advanced.
+
+New evidence matters:
+
+- `control/TRANSDUCTIONS.json` now explicitly says **FOLD before fork** and already classifies fan/folding-panel as a projection recipe inside the shared instrument cell.
+- the WRAP proof separates **IDENTIFY ≠ DEFORM / EMBED**, so software semantics must not silently own physical millimetres/geometry;
+- FOLD//BLOOM has continued to evolve while preserving the same relation kernel.
+
+Therefore FAN/8 does **not** gain another generator, route, state file or product head.
+
+Its machine-readable mapping is folded into:
+
+`TRANSDUCTIONS → instrument_cell → physical_recipes → FAN8`
+
+The existing SVG remains the physical geometry artifact under AXIAL. CI derives the expected relation legend from the live PLAY `RELATION_LEGEND`, so semantic drift is caught without software automatically redesigning the physical body.
+
+One historical correction is now explicit: **six cyclic slots + HOLD + LET FLY is a current convergence synthesis**. It is not evidence that the remembered historical fan/key/six-panel artifact had those exact eight semantics. That older object remains a recovery anchor.
+
+This is the desired contraction: the fan survives materially while disappearing as a competing system.
