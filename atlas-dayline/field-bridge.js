@@ -17,13 +17,14 @@ const panel=document.createElement('section');panel.id='fieldLiveBridge';panel.i
 <div class="fl-head"><div><b>FIELD → DAYLINE / LIVE 0.2.1</b><div class="fl-meta" id="flMeta">loading live FIELD state…</div></div><div class="fl-actions"><button id="flSync">SYNC</button><button id="flFeedback">COPY HANDOFF</button><button id="flToggle">FIELD</button><a href="/control/confluence/ATLAS_DAYLINE_LIVE_CONVERGENCE_2026-09-25.md" target="_blank" rel="noopener">PACKET ↗</a></div></div>
 <form class="fl-capture" id="flCapture"><input id="flCaptureText" autocomplete="off" placeholder="what just became true / what needs doing…"><button>CAPTURE</button></form>
 <div class="fl-label">REALITY PORT / EXPLICIT EPHEMERAL HANDOFF</div><div id="flHandoff" class="fl-handoff"></div>
+<div class="fl-label">SOURCE RETURN / NATIVE ACCEPTANCE</div><div id="flSourceReturn" class="fl-handoff"></div>
 <div class="fl-detail"><div class="fl-grid"><div class="fl-col"><div class="fl-label">NOW / ACTIVE FRONTS · EXPLICIT ADD</div><div id="flFronts"></div></div><div class="fl-col"><div class="fl-label">HUMAN GATES · VISIBLE, NEVER AUTO-PROMOTED</div><div id="flGates"></div></div></div>
 <div class="fl-foot"><span class="fl-meta">FIELD is read-only here. Source handoffs remain explicit. COPY HANDOFF emits authority-NONE Dayline evidence for a worker.</span><a href="/control/CURRENT.json" target="_blank" rel="noopener">SOURCE ↗</a></div></div>`;
 document.getElementById('utilityBar').insertAdjacentElement('afterend',panel);
 const phone=window.matchMedia('(max-width:760px)').matches;if(phone)panel.classList.add('fl-compact');
 const toggle=document.getElementById('flToggle');const syncToggle=()=>{if(toggle)toggle.textContent=panel.classList.contains('fl-compact')?'FIELD':'HIDE'};syncToggle();if(toggle)toggle.onclick=()=>{panel.classList.toggle('fl-compact');syncToggle()};
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-let current=null;const HANDOFF='atlas.dayline.handoff.v01';
+let current=null;const HANDOFF='atlas.dayline.handoff.v01',SOURCE_RETURN='atlas.dayline.source-return.v01';
 function api(){if(!window.AtlasDayline)throw Error('Dayline bridge API unavailable');return window.AtlasDayline}
 function addButton(c,label='ADD'){const b=document.createElement('button');b.textContent=label;b.onclick=()=>{api().addFieldTask(c);b.textContent='ADDED';b.disabled=true};return b}
 function row(c,gate=false){const d=document.createElement('div');d.className='fl-row'+(gate?' fl-gate':'');d.innerHTML='<div><strong>'+esc(c.title)+'</strong><p>'+esc(c.body)+'</p><span class="src">'+esc(c.sourceRef)+'</span></div>';const a=document.createElement('div');if(gate&&c.route){const l=document.createElement('a');l.href=c.route;l.textContent='OPEN';a.appendChild(l)}else a.appendChild(addButton(c));d.appendChild(a);return d}
@@ -36,8 +37,16 @@ function renderHandoff(){
  const body=kind==='CONTEXT'?'Apply planning context: '+(payload.contexts||[]).join(' · '):(payload.task?.title||'Imported task');
  d.innerHTML='<div><strong>'+esc(kind+' / '+(src.label||src.object_id||src.route||'SOURCE'))+'</strong><p>'+esc(body)+'</p><span class="src">'+esc(src.route||'')+(src.address?' · '+esc(typeof src.address==='string'?src.address:JSON.stringify(src.address)):'')+'</span></div>';
  const a=document.createElement('div');
- const take=document.createElement('button');take.textContent=kind==='CONTEXT'?'APPLY CONTEXT':'ADD TO DAY';take.onclick=()=>{try{if(kind==='CONTEXT')api().applyContexts({contexts:payload.contexts||[],sourceRef:payload.sourceRef||src.route||'',replacePrefix:payload.replacePrefix||''});else if(kind==='TASK')api().addFieldTask(payload.task||{});else throw Error('unsupported handoff kind');sessionStorage.removeItem(HANDOFF);renderHandoff();take.textContent='APPLIED'}catch(e){take.textContent='FAILED'}};
+ const take=document.createElement('button');take.textContent=kind==='CONTEXT'?'APPLY CONTEXT':'ADD TO DAY';take.onclick=()=>{try{if(kind==='CONTEXT')api().applyContexts({contexts:payload.contexts||[],sourceRef:payload.sourceRef||src.route||'',replacePrefix:payload.replacePrefix||''});else if(kind==='TASK')api().addFieldTask({...payload.task,sourceLink:{handoff_id:h.id||null,return_to:h.return_to||'',source:src,kind:h.kind||'TASK'}});else throw Error('unsupported handoff kind');sessionStorage.removeItem(HANDOFF);renderHandoff();renderSourceReturn();take.textContent='APPLIED'}catch(e){take.textContent='FAILED'}};
  a.appendChild(take);if(h.return_to){const back=document.createElement('a');back.href=h.return_to;back.textContent='BACK';a.appendChild(back)}const drop=document.createElement('button');drop.textContent='CLEAR';drop.onclick=clearHandoff;a.appendChild(drop);d.appendChild(a);host.appendChild(d)
+}
+function readSourceReturn(){try{const x=JSON.parse(sessionStorage.getItem(SOURCE_RETURN)||'null');if(!x||x.schema!=='atlas-dayline-source-return-bundle/v0.1'||!Array.isArray(x.offers))return null;const age=Date.now()-Date.parse(x.created_at||0);if(!Number.isFinite(age)||age<0||age>43200000){sessionStorage.removeItem(SOURCE_RETURN);return null}return x}catch(_){return null}}
+function renderSourceReturn(){
+ const host=document.getElementById('flSourceReturn'),bundle=readSourceReturn();if(!host)return;host.textContent='';const offers=bundle?.offers||[];
+ if(!offers.length){host.innerHTML='<div class="fl-portbar"><span class="fl-meta">No native-source return offer yet. Act, then RETURN.</span></div>';return}
+ const o=offers[0],src=o.source||{},task=o.task||{},w=o.witness||{},d=document.createElement('div');d.className='fl-row';
+ d.innerHTML='<div><strong>OFFER / '+esc(src.label||src.route||'SOURCE')+'</strong><p>'+esc((task.title||task.id||'Dayline task')+' · '+(task.status||'open')+' · '+(w.return_class||'RETURN'))+'</p><span class="src">'+esc(src.route||'')+' · '+esc(w.after_checksum||'no checksum')+' · native source decides state</span></div>';
+ const a=document.createElement('div');if(o.return_to){const back=document.createElement('a');back.href=o.return_to;back.textContent='RETURN TO SOURCE';a.appendChild(back)}d.appendChild(a);host.appendChild(d)
 }
 function render(){
  const f=document.getElementById('flFronts'),g=document.getElementById('flGates');f.textContent='';g.textContent='';
@@ -53,5 +62,5 @@ async function sync(){const m=document.getElementById('flMeta');m.textContent='s
 document.getElementById('flSync').onclick=sync;
 document.getElementById('flCapture').onsubmit=e=>{e.preventDefault();const i=document.getElementById('flCaptureText'),title=i.value.trim();if(!title)return;const snap=api().snapshot(),contexts=Array.isArray(snap?.state?.contexts)?snap.state.contexts.filter(Boolean).slice(0,4):[];api().capture({title,contexts:contexts.length?contexts:(phone?['phone']:['computer']),duration:25,provenance:'atlas-dayline LIVE reality capture'});i.value=''};
 document.getElementById('flFeedback').onclick=async()=>{const b=document.getElementById('flFeedback'),packet=api().feedback(),txt=JSON.stringify(packet,null,2);try{await navigator.clipboard.writeText(txt);b.textContent='COPIED';setTimeout(()=>b.textContent='COPY HANDOFF',1200)}catch{const blob=new Blob([txt],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='atlas-dayline-feedback.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}};
-renderHandoff();sync();
+window.addEventListener('atlas-dayline:return',()=>renderSourceReturn());renderHandoff();renderSourceReturn();sync();
 })();
