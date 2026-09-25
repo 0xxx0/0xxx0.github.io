@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080a0c">
+<title>AXIAL / SHADOW PROBE 0.1</title>
+<style>
+:root{--bg:#080a0c;--p:#0c1013;--p2:#090c0e;--ink:#eef1ed;--mut:#7c888d;--line:#2a3438;--hot:#ef7043;--cool:#69b7e6;--gold:#d9b36c;--green:#98d49b;--bad:#e26b6b}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(12px,env(safe-area-inset-top)) 12px max(28px,env(safe-area-inset-bottom))}
+a{color:var(--cool)}button,input,textarea{font:inherit;border-radius:0;color:inherit;background:var(--p2);border:1px solid var(--line)}
+button{min-height:34px;padding:7px 10px;cursor:pointer}button:hover{border-color:#5b686d}button.hot{border-color:var(--hot);color:#ffc1aa}button.good{border-color:var(--green);color:var(--green)}
+main{width:min(1160px,100%);margin:auto}header{display:flex;justify-content:space-between;gap:20px;align-items:end;border-bottom:1px solid var(--line);padding:7px 0 10px}
+.ey{font-size:8px;letter-spacing:.18em;color:var(--hot)}h1{font:900 clamp(30px,5vw,58px)/.84 system-ui,sans-serif;letter-spacing:-.065em;margin:5px 0 0}.intro{max-width:540px;color:#8c989d;font:10px/1.5 system-ui,sans-serif}.intro b{color:var(--ink)}
+.law{margin:9px 0 0;padding:7px 9px;border-left:2px solid var(--gold);background:#111319;color:#a59b86;font-size:8px}
+.grid{display:grid;grid-template-columns:minmax(390px,1.08fr) minmax(330px,.92fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:12px}.pane{background:var(--p);padding:10px;min-width:0}
+.label{font-size:7px;letter-spacing:.14em;color:var(--mut);margin-bottom:6px}.stage{position:relative;min-height:590px;border:1px solid var(--line);background:radial-gradient(circle,#0d1316 0,#080b0d 55%,#050708 100%);display:grid;place-items:center;overflow:hidden}
+svg{width:min(100%,600px);height:auto;touch-action:none;user-select:none}.ringBase{fill:none;stroke:#344148;stroke-width:42}.ringArc{fill:none;stroke:var(--cool);stroke-width:10;stroke-linecap:butt}.tick{stroke:#59666b;stroke-width:2}.tick.hot{stroke:var(--hot);stroke-width:5}.cylBody{fill:#11181c;stroke:#617178;stroke-width:2}.cylBand{fill:#0b1013;stroke:#354147}.cylTop{fill:#10171a;stroke:#617178;stroke-width:2}.axisLine{stroke:#d1d8d9;stroke-width:5}.axisHot{stroke:var(--hot);stroke-width:3}.axisKnob{fill:#101417;stroke:var(--hot);stroke-width:3}.hit{fill:none;stroke:transparent}.dragHint{fill:#6f7b80;font-size:8px;letter-spacing:.08em}.tinySvg{fill:#9aa5a8;font-size:8px}.valueSvg{fill:#fff;font-weight:800;font-size:18px}
+.readout{position:absolute;left:8px;top:8px;border:1px solid var(--line);background:#070a0ddd;padding:7px 9px;min-width:165px}.tuple{font:900 17px/1.1 system-ui,sans-serif;letter-spacing:-.03em}.delta{margin-top:4px;color:var(--cool);font-size:7px}.modelBadge{position:absolute;right:8px;top:8px;border:1px solid var(--green);color:var(--green);padding:5px 7px;background:#070a0ddd;font-size:7px}
+.map{display:grid;grid-template-columns:1fr;gap:1px;border:1px solid var(--line);background:var(--line);margin-bottom:8px}.mapRow{background:#090d0f;padding:8px;display:grid;grid-template-columns:82px 1fr auto;gap:8px;align-items:center}.mapRow b{font-size:8px;color:var(--hot)}.mapRow span{font:9px/1.4 system-ui,sans-serif;color:#a3adb0}.mapRow code{font-size:7px;color:var(--cool)}
+.stateBox{border:1px solid var(--line);padding:9px;background:#080b0d;margin-bottom:8px}.stateBox strong{font:900 30px/.9 system-ui,sans-serif;letter-spacing:-.05em}.stateBox p{margin:5px 0 0;color:var(--mut);font-size:8px}
+.tests{display:grid;gap:8px}.test{border:1px solid var(--line);padding:9px;background:#090d0f}.testHead{display:flex;justify-content:space-between;gap:8px;align-items:center}.testHead b{font-size:8px;letter-spacing:.1em}.testStatus{font-size:7px;color:var(--gold)}.testStatus.pass{color:var(--green)}.testStatus.fail{color:var(--bad)}
+.seq{display:flex;gap:3px;flex-wrap:wrap;margin:7px 0}.step{border:1px solid #354146;padding:3px 5px;font-size:7px;color:#9ba7aa}.step.done{border-color:var(--green);color:var(--green)}.step.next{border-color:var(--hot);color:#ffc1aa}.step.bad{border-color:var(--bad);color:var(--bad)}
+.actions{display:flex;gap:5px;flex-wrap:wrap}.actions button{font-size:7px;min-height:30px;padding:5px 7px}
+.log{border:1px solid var(--line);margin-top:8px;max-height:150px;overflow:auto}.evt{display:grid;grid-template-columns:18px 68px 1fr;gap:5px;padding:5px 7px;border-bottom:1px solid #20282b;font-size:7px;color:#7c898e}.evt:last-child{border-bottom:0}.evt b{color:#cdd4d6}.evt code{color:var(--cool)}
+.evidence{margin-top:8px;border:1px solid var(--line);padding:9px}.evidence textarea{width:100%;min-height:64px;padding:7px;resize:vertical}.keep{margin-top:6px;color:#879398;font-size:7px}.foot{display:flex;justify-content:space-between;gap:12px;margin-top:10px;border-top:1px solid var(--line);padding-top:8px;color:#68757a;font-size:8px}
+@media(max-width:820px){header{display:block}.intro{margin-top:10px;max-width:none}.grid{grid-template-columns:1fr}.stage{min-height:500px}.mapRow{grid-template-columns:70px 1fr}.mapRow code{grid-column:2}}
+@media(max-width:500px){body{padding-left:8px;padding-right:8px}.stage{min-height:430px}h1{font-size:35px}.readout{min-width:140px}.tuple{font-size:14px}}
+</style>
+</head>
+<body><main>
+<header>
+<div><div class="ey">AXIAL · DISPOSABLE DIGITAL SURROGATE</div><h1>SHADOW<br>PROBE 0.1</h1></div>
+<div class="intro"><b>One object. Three mechanical verbs. No final semantics.</b><br>
+This probe asks whether twist / slide / shift can carry state and transformation clearly enough to justify a cardboard annulus + sleeve + rod build. It is not another compositor and stores nothing remotely.
+<div class="law">BOUNDARY · RING=phase, CYLINDER=depth, AXIS=polarity are provisional test labels. MODEL PASS proves only reducer algebra. Human gesture legibility remains unproved until touched.</div></div>
+</header>
+
+<div class="grid">
+<section class="pane">
+<div class="label">GESTURE OBJECT · TOUCH / POINTER</div>
+<div class="stage">
+<div class="readout"><div class="tuple" id="tuple">A=[0,0,0]</div><div class="delta" id="delta">ΔA=[0,0,0]</div></div>
+<div class="modelBadge" id="modelBadge">MODEL TESTS…</div>
+<svg id="assembly" viewBox="0 0 500 500" role="img" aria-label="AXIAL shadow specimen">
+  <g id="ticks"></g>
+  <circle class="ringBase" cx="250" cy="250" r="180"/>
+  <path id="ringArc" class="ringArc" d="M250 70 A180 180 0 0 1 377.28 122.72"/>
+  <line id="ringPointer" class="tick hot" x1="250" y1="63" x2="250" y2="98"/>
+  <g id="cylinder">
+    <ellipse id="cylTop" class="cylTop" cx="250" cy="174" rx="61" ry="17"/>
+    <rect class="cylBody" x="189" y="174" width="122" height="152"/>
+    <ellipse class="cylTop" cx="250" cy="326" rx="61" ry="17"/>
+    <rect class="cylBand" x="189" y="236" width="122" height="28"/>
+    <text class="tinySvg" x="250" y="253" text-anchor="middle">CYLINDER / SLIDE ↑↓</text>
+  </g>
+  <g id="axis">
+    <line id="axisLine" class="axisLine" x1="125" y1="250" x2="375" y2="250"/>
+    <line class="axisHot" x1="250" y1="225" x2="250" y2="275"/>
+    <circle id="axisKnob" class="axisKnob" cx="250" cy="250" r="15"/>
+    <text id="axisValue" class="valueSvg" x="250" y="256" text-anchor="middle">0</text>
+  </g>
+  <text class="dragHint" x="250" y="31" text-anchor="middle">RING / TWIST ↻ · 8 DETENTS</text>
+  <text class="dragHint" x="250" y="472" text-anchor="middle">AXIS / SHIFT ←→ · −1 / 0 / +1</text>
+  <circle id="ringHit" class="hit" cx="250" cy="250" r="180" stroke-width="72"/>
+  <rect id="cylHit" x="184" y="150" width="132" height="200" fill="transparent"/>
+  <rect id="axisHit" x="112" y="222" width="276" height="56" fill="transparent"/>
+</svg>
+</div>
+</section>
+
+<section class="pane">
+<div class="label">EXACT GESTURE MAP</div>
+<div class="map">
+ <div class="mapRow"><b>RING</b><span>Drag the circumference around the centre. Release commits one snapped transform.</span><code>0…7 · 45°</code></div>
+ <div class="mapRow"><b>CYLINDER</b><span>Drag the sleeve vertically. Up increases depth; down decreases it.</span><code>0…4 · 28 px</code></div>
+ <div class="mapRow"><b>AXIS</b><span>Drag the crossbar horizontally. Left / centre / right encode polarity.</span><code>−1 / 0 / +1</code></div>
+</div>
+
+<div class="stateBox"><div class="label">STATE ≠ TRANSFORM TRACE</div><strong id="stateLarge">[0,0,0]</strong><p>Geometry is a projection of current state only. The log beneath preserves transform order separately.</p></div>
+
+<div class="tests">
+ <div class="test" id="testA">
+  <div class="testHead"><b>A · RETURN / REVERSIBILITY</b><span class="testStatus" id="aStatus">UNRUN</span></div>
+  <div class="seq" id="aSeq"></div>
+  <div class="actions"><button class="hot" id="armA">ARM A</button><button id="checkA">CHECK A</button></div>
+ </div>
+
+ <div class="test" id="testB">
+  <div class="testHead"><b>B · SAME STATE / DIFFERENT PATH</b><span class="testStatus" id="bStatus">UNRUN</span></div>
+  <div class="seq"><span class="step">α R+2</span><span class="step">α C+2</span><span class="step">α A+1</span><span class="step">→ [2,2,+1]</span></div>
+  <div class="seq"><span class="step">β A+1</span><span class="step">β C+2</span><span class="step">β R+2</span><span class="step">→ [2,2,+1]</span></div>
+  <div class="actions"><button class="hot" id="armAlpha">ARM α</button><button id="captureAlpha">CAPTURE α</button><button class="hot" id="armBeta">ARM β</button><button id="captureBeta">CAPTURE β</button><button id="checkB">CHECK B</button></div>
+ </div>
+</div>
+
+<div class="label" style="margin-top:9px">TRANSFORM TRACE</div>
+<div class="log" id="log"><div class="evt"><span>—</span><b>EMPTY</b><code>touch one control</code></div></div>
+
+<div class="evidence">
+ <div class="label">KEEP / EVIDENCE</div>
+ <textarea id="note" placeholder="One sentence only: where did gesture ↔ state become ambiguous?"></textarea>
+ <div class="actions" style="margin-top:6px"><button class="good" id="copyEvidence">COPY EVIDENCE</button><button id="saveEvidence">SAVE JSON</button><button id="reset">RESET</button></div>
+ <div class="keep">Keep: start/final screenshot or 15–30 s recording + exported state/Δ log + this ambiguity sentence. Do not promote physical semantics from MODEL PASS alone.</div>
+</div>
+</section>
+</div>
+
+<div class="foot"><span><a href="../../">← FIELD INDEX</a> · <a href="../../foundry/axial/">AXIAL 0.7.3</a></span><span>TWIST → SLIDE → SHIFT → WITNESS → RETURN</span></div>
+</main>
+
+<script>
+(function(){
+'use strict';
+var $=function(id){return document.getElementById(id)};
+var state={ring:0,cylinder:0,axis:0}, live=Object.assign({},state), events=[], drag=null;
+var manual={mode:null,expected:[],failed:false,alpha:null,beta:null,resultA:null,resultB:null};
+var ASEQ=[['ring',2],['cylinder',1],['axis',-1],['ring',-2],['cylinder',-1],['axis',1]];
+var ALPHA=[['ring',2],['cylinder',2],['axis',1]];
+var BETA=[['axis',1],['cylinder',2],['ring',2]];
+function clamp(v,a,b){return Math.max(a,Math.min(b,v))}
+function mod(v,n){return ((v%n)+n)%n}
+function same(a,b){return a.ring===b.ring&&a.cylinder===b.cylinder&&a.axis===b.axis}
+function tuple(s){return '['+s.ring+','+s.cylinder+','+(s.axis>0?'+':'')+s.axis+']'}
+function delta(a,b){return [mod(b.ring-a.ring+4,8)-4,b.cylinder-a.cylinder,b.axis-a.axis]}
+function sig(control,d){var i=control==='ring'?0:control==='cylinder'?1:2;return [control,d[i]]}
+function apply(s,op){var n=Object.assign({},s),k=op[0],v=op[1];if(k==='ring')n.ring=mod(n.ring+v,8);if(k==='cylinder')n.cylinder=clamp(n.cylinder+v,0,4);if(k==='axis')n.axis=clamp(n.axis+v,-1,1);return n}
+function run(seq){var s={ring:0,cylinder:0,axis:0},trace=[];seq.forEach(function(op){var prev=s;s=apply(s,op);trace.push({control:op[0],delta:delta(prev,s)})});return {state:s,trace:trace}}
+function visualSignature(s){return 'R'+s.ring+'|C'+s.cylinder+'|A'+s.axis}
+function modelTests(){
+ var c=run(ASEQ),a=run(ALPHA),b=run(BETA);
+ var sum=c.trace.reduce(function(z,e){return z.map(function(v,i){return v+e.delta[i]})},[0,0,0]);
+ var t1=same(c.state,{ring:0,cylinder:0,axis:0})&&sum.every(function(v){return v===0});
+ var t2=same(a.state,b.state)&&visualSignature(a.state)===visualSignature(b.state)&&JSON.stringify(a.trace)!==JSON.stringify(b.trace);
+ return {closure:t1,path_equivalence:t2,closure_final:c.state,closure_sum:sum,alpha_final:a.state,beta_final:b.state}
+}
+var model=modelTests();
+$('modelBadge').textContent=model.closure&&model.path_equivalence?'MODEL 2/2 PASS':'MODEL FAIL';
+$('modelBadge').style.borderColor=model.closure&&model.path_equivalence?'var(--green)':'var(--bad)';
+$('modelBadge').style.color=model.closure&&model.path_equivalence?'var(--green)':'var(--bad)';
+function buildTicks(){
+ var g=$('ticks'),s='';
+ for(var i=0;i<8;i++){var a=(i*45-90)*Math.PI/180,x1=250+161*Math.cos(a),y1=250+161*Math.sin(a),x2=250+199*Math.cos(a),y2=250+199*Math.sin(a);s+='<line class="tick" x1="'+x1+'" y1="'+y1+'" x2="'+x2+'" y2="'+y2+'"/><text class="tinySvg" x="'+(250+216*Math.cos(a))+'" y="'+(253+216*Math.sin(a))+'" text-anchor="middle">'+i+'</text>'}g.innerHTML=s
+}
+function render(){
+ var s=live,ang=s.ring*45;
+ $('ringPointer').setAttribute('transform','rotate('+ang+' 250 250)');
+ $('cylinder').setAttribute('transform','translate(0,'+(-s.cylinder*16)+')');
+ var ax=s.axis*34;$('axisLine').setAttribute('transform','translate('+ax+' 0)');$('axisKnob').setAttribute('cx',250+ax);$('axisValue').setAttribute('x',250+ax);$('axisValue').textContent=s.axis>0?'+1':String(s.axis);
+ $('tuple').textContent='A='+tuple(s);$('stateLarge').textContent=tuple(s);
+ var d=events.length?events[events.length-1].delta:[0,0,0];$('delta').textContent='ΔA=['+d.join(',')+']';
+ renderLog();renderASeq()
+}
+function renderLog(){
+ if(!events.length){$('log').innerHTML='<div class="evt"><span>—</span><b>EMPTY</b><code>touch one control</code></div>';return}
+ $('log').innerHTML=events.map(function(e,i){return '<div class="evt"><span>'+(i+1)+'</span><b>'+e.control.toUpperCase()+'</b><code>'+tuple(e.from)+' → '+tuple(e.to)+' · Δ['+e.delta.join(',')+']</code></div>'}).join('')
+}
+function renderASeq(){
+ $('aSeq').innerHTML=ASEQ.map(function(op,i){var cls='step';if(manual.mode==='A'){if(i<events.length)cls+=' '+(eventMatches(events[i],op)?'done':'bad');else if(i===events.length)cls+=' next'}return '<span class="'+cls+'">'+op[0].charAt(0).toUpperCase()+(op[1]>0?'+':'')+op[1]+'</span>'}).join('')
+}
+function eventMatches(e,op){var s=sig(e.control,e.delta);return s[0]===op[0]&&s[1]===op[1]}
+function clearRun(){state={ring:0,cylinder:0,axis:0};live=Object.assign({},state);events=[];manual.failed=false;render()}
+function arm(mode,expected){clearRun();manual.mode=mode;manual.expected=expected.slice();if(mode==='A')setStatus('aStatus','ARMED','');if(mode==='ALPHA'||mode==='BETA')setStatus('bStatus','ARMED '+mode,'')}
+function setStatus(id,text,cls){var e=$(id);e.textContent=text;e.className='testStatus'+(cls?' '+cls:'')}
+function commit(control,next){
+ var from=Object.assign({},state),to=Object.assign({},next);state=to;live=Object.assign({},to);var d=delta(from,to);
+ if(d[0]===0&&d[1]===0&&d[2]===0){render();return}
+ var e={at:new Date().toISOString(),control:control,from:from,to:to,delta:d};events.push(e);
+ if(manual.mode&&manual.expected.length){var ix=events.length-1;if(!manual.expected[ix]||!eventMatches(e,manual.expected[ix]))manual.failed=true}
+ render()
+}
+function pt(ev){var r=$('assembly').getBoundingClientRect();return {x:(ev.clientX-r.left)*500/r.width,y:(ev.clientY-r.top)*500/r.height}}
+function angle(p){return Math.atan2(p.y-250,p.x-250)}
+function normAngle(a){while(a>Math.PI)a-=Math.PI*2;while(a<-Math.PI)a+=Math.PI*2;return a}
+function startDrag(ev,control){ev.preventDefault();var p=pt(ev);drag={control:control,id:ev.pointerId,start:p,startAngle:angle(p),base:Object.assign({},state)};ev.currentTarget.setPointerCapture(ev.pointerId)}
+function moveDrag(ev){
+ if(!drag||ev.pointerId!==drag.id)return;var p=pt(ev),n=Object.assign({},drag.base);
+ if(drag.control==='ring'){var steps=Math.round(normAngle(angle(p)-drag.startAngle)/(Math.PI/4));n.ring=mod(drag.base.ring+steps,8)}
+ if(drag.control==='cylinder'){var stepsC=Math.round((drag.start.y-p.y)/28);n.cylinder=clamp(drag.base.cylinder+stepsC,0,4)}
+ if(drag.control==='axis'){var stepsA=Math.round((p.x-drag.start.x)/58);n.axis=clamp(drag.base.axis+stepsA,-1,1)}
+ live=n;render()
+}
+function endDrag(ev){if(!drag||ev.pointerId!==drag.id)return;var c=drag.control,n=Object.assign({},live);drag=null;commit(c,n)}
+['ring','cyl','axis'].forEach(function(n){
+ var id=n==='ring'?'ringHit':n==='cyl'?'cylHit':'axisHit',control=n==='cyl'?'cylinder':n;
+ $(id).addEventListener('pointerdown',function(e){startDrag(e,control)});$(id).addEventListener('pointermove',moveDrag);$(id).addEventListener('pointerup',endDrag);$(id).addEventListener('pointercancel',endDrag)
+});
+$('armA').onclick=function(){arm('A',ASEQ)};
+$('checkA').onclick=function(){
+ var exact=events.length===ASEQ.length&&!manual.failed&&events.every(function(e,i){return eventMatches(e,ASEQ[i])});
+ var sum=events.reduce(function(z,e){return z.map(function(v,i){return v+e.delta[i]})},[0,0,0]);
+ var ok=exact&&same(state,{ring:0,cylinder:0,axis:0})&&sum.every(function(v){return v===0});
+ manual.resultA={pass:ok,exact_sequence:exact,final:Object.assign({},state),sum_delta:sum,trace:events.slice()};
+ setStatus('aStatus',ok?'PASS':'FAIL',ok?'pass':'fail')
+};
+function capture(which,expected){
+ var exact=events.length===expected.length&&!manual.failed&&events.every(function(e,i){return eventMatches(e,expected[i])});
+ manual[which]={valid:exact,state:Object.assign({},state),signature:visualSignature(state),trace:events.slice()};
+ setStatus('bStatus',(exact?'CAPTURED ':'BAD ')+which.toUpperCase(),exact?'pass':'fail')
+}
+$('armAlpha').onclick=function(){arm('ALPHA',ALPHA)};$('captureAlpha').onclick=function(){capture('alpha',ALPHA)};
+$('armBeta').onclick=function(){arm('BETA',BETA)};$('captureBeta').onclick=function(){capture('beta',BETA)};
+$('checkB').onclick=function(){
+ var a=manual.alpha,b=manual.beta,ok=!!(a&&b&&a.valid&&b.valid&&same(a.state,b.state)&&a.signature===b.signature&&JSON.stringify(a.trace.map(function(e){return e.control}))!==JSON.stringify(b.trace.map(function(e){return e.control})));
+ manual.resultB={pass:ok,alpha:a,beta:b};setStatus('bStatus',ok?'PASS':'FAIL',ok?'pass':'fail')
+};
+function evidence(){
+ return {schema:'axial-shadow-probe-evidence/v0.1',created_at:new Date().toISOString(),source:'/field/axial-probe/',donor:'/foundry/axial/ 0.7.3',boundary:'Digital surrogate only. MODEL PASS is algebraic; human gesture legibility and physical transfer remain unproved.',gesture_map:{ring:'circumference angular drag → 8 detents',cylinder:'vertical sleeve drag → 5 detents',axis:'horizontal crossbar drag → -1/0/+1'},model_tests:model,manual_return_test:manual.resultA,manual_path_test:manual.resultB,current_state:Object.assign({},state),current_trace:events.slice(),ambiguity_note:$('note').value.trim()||null}
+}
+$('copyEvidence').onclick=async function(){var t=JSON.stringify(evidence(),null,2);try{await navigator.clipboard.writeText(t);this.textContent='COPIED'}catch(_){this.textContent='COPY FAILED'}};
+$('saveEvidence').onclick=function(){var blob=new Blob([JSON.stringify(evidence(),null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='AXIAL_SHADOW_PROBE_'+new Date().toISOString().replace(/[:.]/g,'-')+'.json';a.click();setTimeout(function(){URL.revokeObjectURL(a.href)},500)};
+$('reset').onclick=function(){manual={mode:null,expected:[],failed:false,alpha:null,beta:null,resultA:null,resultB:null};clearRun();setStatus('aStatus','UNRUN','');setStatus('bStatus','UNRUN','')};
+buildTicks();render()
+})();
+</script>
+</body></html>
