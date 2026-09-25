@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "VERSE_FOCUS_RETURN_2026-09-25",
   "date": "2026-09-25",
-  "state": "CANDIDATE_PENDING_CI",
+  "state": "MERGED_CI_GREEN_BROWSER_PROVED",
   "objective": "Make Poem Map projection returns deterministic across full reload without introducing a shared session store.",
   "object": "Poem Map source identity + view + selected token address",
   "operation": "AUTHOR → PROJECT → RETURN → RESTORE FOCUS",
@@ -28,9 +28,23 @@
     "No new global/session store is introduced."
   ],
   "proof": {
-    "static_contract": "implemented",
-    "ci": "pending pull request",
-    "lived_phone": "pending one complete recipient round trip with full Poem Map reload"
+    "static_contract": "PASS",
+    "route_registration": {
+      "run": 36133151074,
+      "conclusion": "success"
+    },
+    "public_surface_check": {
+      "run": 36133150894,
+      "conclusion": "success"
+    },
+    "browser_focus_return": {
+      "conclusion": "PASS",
+      "mechanism": "deterministic headless browser full iframe reload: fixed poem → MAP → L1T2 → caller URL → reload → same source fingerprint + MAP + L1T2",
+      "suite_step": "Run critical browser smoke"
+    },
+    "pull_request": 311,
+    "merge_sha": "52588dbb123edf2b25a8c380a88a8337a9d1a966",
+    "lived_phone": "PENDING: one real-phone recipient round trip to judge reachability/feel, not correctness of the source-bound restore law"
   },
-  "next": "If CI is green, merge and sync CURRENT/manifest. Then stop code work until one lived phone round-trip reports actual friction."
+  "next": "STOP CODE EXPANSION. Use one real phone: Poem Map → READ/LAB and lawful 4×7 Han STUDY → recipient RETURN. Record only lived friction; do not add another poetry engine/store/framework before that evidence."
 }
