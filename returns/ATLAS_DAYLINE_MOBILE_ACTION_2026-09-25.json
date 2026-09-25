@@ -3,7 +3,7 @@
   "id": "ATLAS_DAYLINE_MOBILE_ACTION_2026-09-25",
   "date": "2026-09-25",
   "route": "/atlas-dayline/?live=1",
-  "state": "IMPLEMENTED_CANDIDATE",
+  "state": "MERGE_READY_CANDIDATE",
   "trigger": {
     "class": "LIVED_USER_REPORT",
     "observation": "Dayline not functionally usable/viewable on mobile",
@@ -30,9 +30,10 @@
   ],
   "automation_boundary": "No direct private Hermes, Calendar, GitHub, comms, purchase or device binding. Automation remains adapter/policy-gated.",
   "verification": {
-    "static_source": "PASS_PRE_PR",
-    "route_registration": "PENDING_CI",
-    "public_surface": "PENDING_CI",
+    "static_source": "PASS",
+    "javascript_syntax": "PASS · app.js / field-bridge.js / sw.js",
+    "route_registration": "PASS · workflow 36107393564",
+    "public_surface": "PASS · workflow 36107393528 · includes critical browser smoke",
     "lived_phone": "WAITING_USER_USE"
   },
   "residue": [
