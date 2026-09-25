@@ -58,7 +58,9 @@
     "RETURN JSON import/replay restores source, form, relation weights, aperture, locks, author path/edges, bank, revisions and captures",
     "internal selftest surface exposed as window.__POEM_MAP__.selftest()",
     "session-only local corpus file provider; corpus bytes are not uploaded, persisted or exported",
-    "local corpus intent options: observed followers/context and approximate Latin-script sound echoes with explicit LOCAL CORPUS provenance"
+    "local corpus intent options: observed followers/context and approximate Latin-script sound echoes with explicit LOCAL CORPUS provenance",
+    "bounded FIELD LAB VERSE handoff accepts exact source + focused line without importing LAB marks as poem semantics",
+    "phone controls use a 44px floor for the main authoring surface"
   ],
   "boundaries": [
     "Map is a projection, not the poem.",
@@ -75,7 +77,8 @@
     "First-use orientation changes disclosure/order only; the 0.2 authoring feature set remains available.",
     "Rendered-browser smoke of the post-rebase orientation/replay changes remains pending; static JS/DOM integrity is verified.",
     "Local corpus contents remain session-only; RETURN records only loaded/token-count metadata and adopted/banked candidate provenance.",
-    "Local corpus context is observed co-occurrence, not automatic semantic equivalence."
+    "Local corpus context is observed co-occurrence, not automatic semantic equivalence.",
+    "FIELD LAB marks remain source evidence on handoff; Poem Map does not silently promote them into AUTHOR edges, locks, candidates or revisions."
   ],
   "next_experiments": [
     "extend the existing intent dock only where a named authoring gap appears; COMPRESS/EXPAND/BREAK remain unimplemented rather than implied",
@@ -90,7 +93,7 @@
     "state": "CANDIDATE",
     "basis": "Substantial workbench is implemented and usable, but receipt remains explicitly experimental with open language/corpus/game trials; historical status EXPERIMENTAL_LIVE remains above."
   },
-  "version": "0.2.1",
+  "version": "0.2.2",
   "state": "EXPERIMENTAL_LIVE",
   "lineage": {
     "proof_donor": "/poetry/lab/poem-map/",
@@ -119,9 +122,11 @@
     "local_corpus_static_contract": "PASS",
     "return_replay_clears_session_corpus": "PASS_STATIC",
     "calm_face_static_contract": "PASS",
-    "inline_javascript_parse": "PASS"
+    "inline_javascript_parse": "PASS",
+    "field_lab_verse_handoff": "PENDING_CI: source + line focus boot contract",
+    "phone_touch_floor": "PENDING_CI: mobile CSS contract"
   },
-  "updated": "2026-09-21",
+  "updated": "2026-09-25",
   "next_bounded_test": {
     "instruction": "Open fresh Poem Map. FIELD NOW should populate without opening drawers. Select one term in PAGE, use one wheel action, inspect bank/TRY→ADOPT only if useful, optionally open MAP, then EXPORT→IMPORT.",
     "compare": "Poem Map 0.1 for approachability; 0.2.1 must preserve 0.2 capability without making first contact heavier than 0.1.",

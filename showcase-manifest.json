@@ -2245,17 +2245,17 @@
     },
     {
       "href": "/fold-bloom/lab/",
-      "title": "FOLD//BLOOM · FIELD LAB 0.2.2",
+      "title": "FOLD//BLOOM · FIELD LAB 0.3",
       "kind": "experiment",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "TRAIN / EXPLORE",
       "state": "CANDIDATE",
-      "version": "0.2.2",
+      "version": "0.3",
       "tier": "FIELD",
-      "role": "Spatial six-projection lab over the Fold/Bloom family. RIDE delegates to LIVE; PULSE trains polyrhythm and emits bounded FIELD PULSE transport; READ embeds canonical READFIELD/APERTURE; LOCI preserves large text as a bounded addressed course. Explicit READ↔READFIELD handoffs now preserve bounded cursor/focus, and READFIELD→LOCI can enter the nearest addressed locus instead of restarting the source. INK, DATA and LOCI remain unequal studies; profiles are presentation-only.",
+      "role": "Spatial seven-projection convergence lab. VERSE carries exact text/focus/human marks while delegating poem authoring to Poem Map; READ embeds canonical READFIELD/APERTURE; LOCI preserves addressed courses; PULSE coordinates timing; RIDE delegates to LIVE; INK and DATA remain unequal studies. VERSE/READ/LOCI marks are local source evidence, not inferred semantics.",
       "index": {
-        "updated_at": "2026-09-25T13:55:00+08:00",
+        "updated_at": "2026-09-25T15:20:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2267,7 +2267,8 @@
         "checks": [
           "read-bridge + addressed text-course deterministic Node tests",
           "phone-sized browser boot proves canonical APERTURE reader at WORD scale, bound/receded source intake and non-truncated LOCI boot",
-          "existing event-tape + ink-engine + critical browser suites remain required"
+          "existing event-tape + ink-engine + critical browser suites remain required",
+          "text-mark deterministic test + Verse→Poem Map bounded handoff"
         ],
         "return_path": "/fold-bloom/"
       },
@@ -2276,16 +2277,19 @@
         "host": "/fold-bloom/",
         "generation": 2,
         "stage": "TEST",
-        "question": "Can one compact shell reuse real canonical mechanisms and carry one addressed source between unequal projections, instead of demonstrating six isolated toys?",
+        "question": "Can one compact shell carry one exact source plus human evidence across seven unequal projections without cloning the host engines?",
         "baseline": "FIELD LAB 0.1 exposed six modes, but READ was a second ghost-race implementation and phone mode selection preserved radial geometry even when it reduced reachability.",
-        "mutation": "0.2.2 keeps the canonical APERTURE/RSVP reader and addressed large-text LOCI course, then closes the observed re-entry gap: explicit READ/FULL READFIELD/LOCI handoffs preserve bounded source focus and READFIELD exposes concrete work-mode presets without creating a second cursor or course authority.",
-        "evidence_gate": "Node READ/course tests + 430×900 browser proof + full public-surface CI. Human gate: on phone, READ must support ordinary RSVP/regress/scale without explanatory prose and one READ→LOCI carry must preserve source position well enough to reduce re-entry or aid recall.",
-        "next_if_pass": "Use one genuinely long familiar source through READ→LOCI: inspect the same exact text, carry focus, recall the course, export RETURN, then judge whether source-position recovery beats a plain chunk list. Only then generalize COURSE or add Pathweaver/event-tape adapters.",
-        "next_if_fail": "Keep canonical READFIELD handoff and individually useful PULSE/event-tape/INK mechanisms; demote the universal FIELD LAB shell instead of cloning more engines."
+        "mutation": "0.3 adds VERSE as a bounded text adapter: exact line addresses and source-scoped BOOKMARK/FLAG/ARC marks carry through READ/LOCI, Poem Map receives source+focus for authoring, and REPLAY receives a marked-moment presentation handoff.",
+        "evidence_gate": "CI + phone use on one real poem: mark two locations, VERSE→READ→LOCI→VERSE, open Poem Map at the focused line, then REPLAY one marked moment. Pass only if re-entry becomes easier without semantic/authority drift.",
+        "next_if_pass": "Keep the bridge and refine ergonomics; only then consider promoting a generic addressed-mark contract beyond LAB.",
+        "next_if_fail": "Retain useful source/focus handoffs but remove the extra VERSE shell or local mark layer rather than creating another poetry engine."
       },
       "receipt": "/fold-bloom/lab/release.json",
       "transfer": [
-        "phone footer navigation targets share the existing 34px compact control floor; no new navigation layer"
+        "phone footer navigation targets share the existing 34px compact control floor; no new navigation layer",
+        "VERSE / READ / LOCI exact-text focus carry",
+        "source-scoped human text marks",
+        "VERSE → Poem Map / REPLAY bounded handoffs"
       ]
     },
     {
@@ -5333,7 +5337,7 @@
       "family": "PATH / POETRY",
       "operation": "PROJECT",
       "state": "CANDIDATE",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "receipt": "/poetry/map/release.json",
       "showcase_card": false,
       "role": "Current Verse/FIELD-text authoring candidate: readable PAGE first; selected-token golden-angle focus wheel; FIELD NOW preload from live collaboration state; manual/local/opt-in English option sources; MAP/SETS/path/form/aperture depth only on demand; replayable RETURN.",
@@ -5347,10 +5351,11 @@
         "Poem Map 0.1 one-question legibility",
         "DataDisc radial focus without identity loss",
         "Aperture scale/focus/time utility",
-        "Dayline plain-first / radial-optional disclosure"
+        "Dayline plain-first / radial-optional disclosure",
+        "FIELD LAB VERSE source+line-focus handoff without mark-to-semantics promotion"
       ],
       "index": {
-        "updated_at": "2026-09-21T19:12:00+08:00",
+        "updated_at": "2026-09-25T15:20:00+08:00",
         "work_modes": [
           "RECOVER",
           "RESEARCH",
