@@ -30,5 +30,13 @@ need(html.includes('class="fold catchReality" id="waitingFold"'),'REALITY detail
 need(!!contract.ui_contract?.root_attention_signal,'semantic attention-strip contract missing');
 need(/Pattern never changes authority or priority/.test(contract.ui_contract?.root_attention_signal||''),'signal pattern authority boundary missing');
 need((contract.laws||[]).some(x=>/^SIGNALS CONVERGE AT FOCUS/.test(x)),'focus/authority convergence law missing');
+need(html.includes('class="headerPlay" href="./field-play.html"'),'single immediate PLAY action missing');
+need(!html.includes('<nav>'),'duplicate top-level navigation rail survived');
+const depthStart=html.indexOf('<div class="reentryBody">'),depthEnd=html.indexOf('</details>',depthStart),depth=depthStart>=0&&depthEnd>depthStart?html.slice(depthStart,depthEnd):'';
+for(const href of ['./control/','./recovery/','./nexus/','./witness/','#traceFold','./lens-proof/','./house/spatial/','./control/confluence/','./foundry/','./migration/','./returns/','./control/FIELD_INDEX_CONTRACT.json']){
+ need(depth.includes('href="'+href+'"'),'folded depth lost '+href);
+}
+need(!!contract.ui_contract?.root_depth_contraction,'root depth contraction contract missing');
+need((contract.laws||[]).some(x=>/^DEPTH FOLDS; ACTION STAYS SURFACED/.test(x)),'lossless depth-fold law missing');
 if(fail.length){console.error('FIELD action aperture FAIL · '+fail.join(' · '));process.exit(1)}
 console.log('FIELD action aperture PASS · unequal signals → one held focus → ≤3 lawful root actions');
