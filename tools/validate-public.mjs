@@ -365,6 +365,10 @@ if(exists('showcase-selftest/index.html')){
 }
 
 for(const p of ['returns/index.html','foundry/index.html','fcm/index.html','router-bench/index.html'])compileInline(p);
+if(exists('foundry/index.html')){
+  const p=read('foundry/index.html');
+  for(const token of ['VERSE COPILOT','03 / WORD MACHINES','WORD MARKET','PATHWEAVER','GRID PATH V4','CELL FOUNDRY R2','FEDERATION','CABINET V4','geometry, authorship, semantics and study remain unequal'])check(p.includes(token),'FOUNDRY word-machine family missing: '+token);
+}
 if(exists('poetry/map/index.html')){
   const p=read('poetry/map/index.html');
   for(const token of ['VERSE <em>// COPILOT</em>','id="fieldNowBtn"','id="focusWheel"','id="pmAperture"','id="guideBtn"','id="importBtn"','id="corpusBtn"','id="formDetails"','id="mapLawDetails"','id="carryRead"','id="carryLab"','id="carryStudy"','readfield.handoff.v1','field.verse.handoff.v01','verse.atlas.handoff.v01','poemReturnAddress','restoreReturnFocus','bootFocus','bootSourceKey','source_key','candidateOperation','candidateEdit','INSERT_AFTER','START_NEXT_LINE','data-intent="nextline"','data-mode="PAGE"','data-mode="MAP"','data-mode="SETS"','ORDER','SOUND','REPEAT','AUTHOR','APERTURE','TRY','ADOPT','LOCK'])check(p.includes(token),'Poem Map capability token missing: '+token);
