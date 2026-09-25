@@ -4616,8 +4616,8 @@
       "state": "ACTIVE",
       "machine_state": "/house/state.json",
       "showcase_card": false,
-      "role": "Canonical human-facing HOUSE instrument: one addressed spatial/state substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS, with compact timestamped public state witness. Home Assistant / HOUSEBUS retains private device truth and actuation; technical state projection is /house/expert.html.",
-      "version": "0.7.1",
+      "role": "Canonical human-facing HOUSE instrument: one addressed spatial/state substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS, with compact timestamped public state witness. Home Assistant / HOUSEBUS retains private device truth and actuation; technical state projection is /house/expert.html. Selected Shopping candidates may be screened against explicitly measured available W/D/H at the selected HOUSE address; this is envelope fit only and never actuation/installability proof.",
+      "version": "0.7.2",
       "receipt": "/house/release.json",
       "contract": "/house/contract.json",
       "transfer": [
@@ -4630,11 +4630,12 @@
         "HA entity mapping",
         "evidence return",
         "BODY↔HOUSE local context envelope",
-        "ordinary chores remain private task/time execution; only durable physical/resource/state evidence returns to HOUSE"
+        "ordinary chores remain private task/time execution; only durable physical/resource/state evidence returns to HOUSE",
+        "session-only Shopping candidate envelope → selected HOUSE address fit screen; exact Shopping RETURN"
       ],
       "family_href": "/house/",
       "index": {
-        "updated_at": "2026-09-25T21:14:00+08:00",
+        "updated_at": "2026-09-25T21:35:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "OPERATE",
@@ -6821,13 +6822,13 @@
     },
     {
       "href": "/shopping/",
-      "title": "SHOPPING FIELD 0.2",
+      "title": "SHOPPING FIELD 0.3",
       "kind": "adapter",
       "parent": "/fcm/",
       "family": "RESOURCE / PROCUREMENT",
       "operation": "ACQUIRE",
       "state": "ACTIVE",
-      "version": "0.2",
+      "version": "0.3",
       "showcase_card": false,
       "receipt": "/shopping/release.json",
       "transfer": [
@@ -6839,7 +6840,9 @@
         "bounded agent research packet",
         "selected capability item → explicit Dayline next-action handoff; purchase lifecycle unchanged",
         "ESSENTIAL / CAPABILITY / EXPEDITION intent lanes preserve realistic procurement vs bounded exploratory sourcing",
-        "explicit Dayline task handoff currently lands on /dayline/ candidate"
+        "explicit Dayline task handoff currently lands on /dayline/ candidate",
+        "candidate BODY/OPERATING envelope + burden",
+        "selected item → session-only canonical HOUSE fit screen → exact item RETURN"
       ],
       "contract": {
         "accepts": {
@@ -6863,7 +6866,11 @@
             "project refs",
             "storage home",
             "adoption criterion",
-            "cost components"
+            "cost components",
+            "BODY/OPERATING W/D/H",
+            "mass",
+            "maintenance burden",
+            "dependencies/consumables"
           ]
         },
         "transforms": {
@@ -6887,7 +6894,8 @@
             "purchase-gate state",
             "project/BOM candidate",
             "inventory/capability candidate",
-            "explicit non-action"
+            "explicit non-action",
+            "session-only HOUSE fit packet"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -6959,7 +6967,7 @@
         "physical_fit": "Acquisition adapter for House/maker/cat/robotics capability gaps; no automatic buying."
       },
       "index": {
-        "updated_at": "2026-09-25T17:20:00+08:00",
+        "updated_at": "2026-09-25T21:35:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
