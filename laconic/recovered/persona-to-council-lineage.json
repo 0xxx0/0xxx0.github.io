@@ -80,25 +80,46 @@
     {
       "stage": 7,
       "label": "MULTI_VOICE_INTERNAL_SELVES_REQUEST",
-      "date": "later in Response Consolidation Strategy; exact turn date still open",
-      "evidence_class": "RECOVERED_EXACT_PROMPT_SNIPPET_SECONDARY_SOURCE_REVERIFIED",
+      "date": "2024-12-29",
+      "evidence_class": "DIRECT_ARCHIVE_USER_SOURCE",
       "user_exact": "Summarise all the laconic iconic scripted responses categorise organise them. Maybe start by indexing all of the stuff generatednfirst ... rheres a wuitr a bit of overlap. I wanna consolidate the list filter out the low quality ones. maybe try to generate 5 or.6.distinct styles and voices for rrsspective personas internal selves. but consolidate the bangers and highest quality highest frequency come backs and or phrases to practice.",
       "mechanism_change": "persona modes become a deliberately plural set of internal voices",
-      "open": "Direct original message node/date and exact generated 5–6 voice outputs remain unrecovered after 2026-09-22 exact File Library pass."
+      "open": "The first response is a six-style framework, not proof that its generic style labels are the later Council cast.",
+      "user_message_id": "aaa2bf1d-1bab-42d7-a09c-380eb75572ef",
+      "direct_source": {
+        "conversation_id": "677192e6-5a70-8006-a15b-85c6786d8712",
+        "title": "Response Consolidation Strategy",
+        "created_at": "2024-12-29T18:20:23.520648Z",
+        "immediate_framework_response_id": "dc8e20a2-6b2b-47c1-9d49-89af0fdb31f0"
+      }
     },
     {
       "stage": 8,
       "label": "MULTI_SELF_DIALOGUE",
-      "date": "later Response Consolidation Strategy; exact initiating turns partly open",
-      "evidence_class": "THREAD_REPORT_SECONDARY_EVIDENCE",
-      "recovered_report_claims": [
-        "user asks for `5 selves chatter – realistic personas`",
-        "user asks for `Dynamics interactions ya full inner dialogue`",
-        "experiments include inner group-chat and ritual/council forms",
-        "work expands from simple one-liners into multi-self chatter and inner dialogues"
-      ],
-      "mechanism_change": "voices stop being mutually exclusive style presets and begin interacting with one another",
-      "open": "Direct initiating user turns and first assistant multi-self scene remain unrecovered after 2026-09-22 exact File Library pass."
+      "date": "2024-12-30",
+      "evidence_class": "DIRECT_PARENT_CHILD_ARCHIVE_CHAIN",
+      "mechanism_change": "Five named selves are explicitly instantiated, then immediately requested as a simultaneous full inner dialogue with stronger agency/novelty/uplift.",
+      "open": "Direct source is recovered. The exact bridge from these five early selves to later canonical Council membership/episodes remains separate and unproven.",
+      "direct_recovery": {
+        "five_selves_request": {
+          "user_message_id": "bbb2129b-162c-48d9-807c-a9f931ccb711",
+          "created_at": "2024-12-30T06:48:57.512530Z",
+          "assistant_output_id": "923a4170-00cf-47e1-9366-cd77a062fc74",
+          "recovered_personas": [
+            "The Overthinking Strategist",
+            "The Chaotic Wildcard",
+            "The Dramatic Overachiever",
+            "The Overly Honest Realist",
+            "The Self-Aware Clown"
+          ]
+        },
+        "full_inner_dialogue_request": {
+          "user_message_id": "bbb21566-8ef6-46d5-84e7-908a00560dd0",
+          "created_at": "2024-12-30T06:50:39.466451Z",
+          "assistant_scene_id": "afe232e3-913c-446b-8415-bbd327be3be3",
+          "created_at_response": "2024-12-30T06:51:20.772187Z"
+        }
+      }
     },
     {
       "stage": 9,
@@ -131,11 +152,9 @@
   },
   "compressed_lineage": "parallel donors [interacting symbolic figures | comic council image | user-adopted persona switching] → explicit request for 5–6 internal voices → interacting selves → Council of Selves canon",
   "next_recovery_targets": [
-    "direct generated 5–6 internal-voice output set",
-    "exact direct user turn for `5 selves chatter – realistic personas`",
-    "exact direct user turn for `Dynamics interactions ya full inner dialogue`",
-    "first assistant scene where the requested internal selves interact simultaneously",
-    "earliest direct occurrence of the exact proper name `Council of Selves`"
+    "earliest direct occurrence / user adoption of the exact proper name `Council of Selves`",
+    "direct bridge, if any, between the recovered Dec-2024 five-self cast and later canonical Council casts/episodes",
+    "original historical Laconic Script Bank exact artifact/source boundary"
   ],
   "parallel_antecedents": [
     {
@@ -164,20 +183,23 @@
     }
   ],
   "latest_exact_source_pass": {
-    "at": "2026-09-22",
-    "operation": "Exact-only File Library archaeology for the missing 5–6 internal-voice consolidation and first multi-self chatter.",
+    "at": "2026-09-26",
+    "operation": "Direct raw conversation-archive graph recovery from conversations-001.json; message parent/child links inspected rather than relying on search snippets.",
     "observed": [
-      "The historical user request for `5 or 6 distinct styles and voices for respective personas/internal selves` is independently reverified in the current conversation export/search corpus.",
-      "The recovered representation still resolves to a past-chat/search snippet for Response Consolidation Strategy rather than the direct original message node with message id/date.",
-      "Later direct multi-persona and Council material exists, but no recovered source establishes that those later casts are the missing 5–6 voice output set."
+      "Direct 2024-12-29 user node for the 5–6 distinct voices request recovered.",
+      "Direct 2024-12-30 `5 selves chatter` user node and its immediate five-persona assistant output recovered.",
+      "Direct 2024-12-30 request for full inner-dialogue dynamics and its immediate simultaneous five-self scene recovered.",
+      "The five recovered labels are Strategist, Wildcard, Overachiever, Realist and Clown variants."
     ],
-    "not_recovered": [
-      "direct original message node/date for the 5–6 internal-voice request",
-      "direct generated 5–6 voice output set",
-      "direct `5 selves chatter – realistic personas` initiating turn",
-      "first assistant multi-self scene produced from that turn"
+    "direct_nodes": [
+      "aaa2bf1d-1bab-42d7-a09c-380eb75572ef",
+      "bbb2129b-162c-48d9-807c-a9f931ccb711",
+      "923a4170-00cf-47e1-9366-cd77a062fc74",
+      "bbb21566-8ef6-46d5-84e7-908a00560dd0",
+      "afe232e3-913c-446b-8415-bbd327be3be3"
     ],
-    "disposition": "OPEN_SOURCE_GAP_REVERIFIED",
-    "rule": "Do not substitute later Council casts, later six-persona summaries, or unrelated multi-persona scenes for the missing direct output. Reopen only on a direct message node/source output/adoption record."
-  }
+    "disposition": "FOUR_PREVIOUSLY_OPEN_DIRECT_SOURCE_TARGETS_CLOSED",
+    "boundary": "Do not silently identify the recovered Dec-2024 five-self cast with later Council canon. A later cast, episode summary or retrospective synthesis is not the missing direct bridge."
+  },
+  "latest_return": "/returns/LACONIC_FIVE_SELVES_DIRECT_RECOVERY_2026-09-26.json"
 }
