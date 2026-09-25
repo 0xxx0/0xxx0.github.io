@@ -7,6 +7,12 @@ Planning consumer: current **Atlas Dayline / FIELD unified-human-frame**.
 
 This is **not** a new app, state store, game engine, queue, ontology or canonical object.
 
+## Recovery boundary
+
+The **current eight-leaf mapping** `S0 S1 S2 S3 S4 S5 HOLD_FAST LET_FLY` is a **2026-09-25 convergence synthesis** over current PLAY / AXIAL / TRANSDUCTIONS laws. It is not evidence that the remembered historical key-shaped / six-panel / folding-fan artifact had these exact eight semantics. That older object remains a recovery anchor until exact source material verifies it.
+
+Machine-readable ownership lives at `control/TRANSDUCTIONS.json → instrument_cell.physical_recipes.FAN8`; this document and print are projections/evidence, not another authority.
+
 ## Compression
 
 The object is deliberately small:

@@ -3600,7 +3600,10 @@
         "shape topology STACK / FAN / ANNULUS / WRAP changes projection without changing host authority",
         "FAN/8 v0.2: six stable slots carry unequal host readings; DIAL 0–5 and HEX L1–L6 are current concrete consumers",
         "HARD EVOLUTION correction: IDENTIFY ≠ EMBED ≠ DEFORM; physical fan/annulus/wrap geometry never creates semantic relation",
-        "FAN/8 visible passive IDs corrected to exact binary 000–111 + HELD/MODE/RETURN hub"
+        "FAN/8 visible passive IDs corrected to exact binary 000–111 + HELD/MODE/RETURN hub",
+        "FAN/8 v0.2 machine semantics are folded into TRANSDUCTIONS instrument_cell.physical_recipes; AXIAL hosts the printable physical projection",
+        "FAN/8 Two Dial legend is CI-bound to the current PLAY RELATION_LEGEND while physical geometry remains independently measured",
+        "current eight-leaf semantics are marked as a 2026-09-25 synthesis, not recovered historical fact"
       ],
       "contract": {
         "accepts": {
@@ -3737,12 +3740,11 @@
         "physical_fit": "FAN/8 v0.2 is a calibrated passive body candidate: six stable slots + HOLD FAST + LET FLY may project current Two Dial 0.10.4, HEX/PLAY 0.5.3 and ≤3 local-move readings. IDENTIFY/EMBED/DEFORM remain separate; physical value is unproved."
       },
       "index": {
-        "updated_at": "2026-09-25T21:18:00+08:00",
+        "updated_at": "2026-09-25T21:41:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
           "ORIENT",
-          "OPERATE",
           "MAKE"
         ]
       },

@@ -2,6 +2,7 @@
 'use strict';
 import fs from 'node:fs';
 import path from 'node:path';
+import { RELATION_LEGEND as FAN8_RELATION_LEGEND } from '../fold-bloom/live/play-core.js';
 const root=process.cwd(),fail=[];
 const read=p=>fs.readFileSync(path.join(root,p),'utf8');
 const exists=p=>fs.existsSync(path.join(root,p));
@@ -245,7 +246,11 @@ for(let i=0;i<6;i++)check(fan8Svg.includes(`DIAL ${i} · HEX L${i+1} · MOVE`),`
 check(fan8Svg.includes('HOLD FAST')&&fan8Svg.includes('HELD / MODE / RETURN'),'FAN/8 lost transaction/hub physical fields');
 check(fan8StateLanguage.includes("export const HEX_LINES=6")&&fan8PlayCore.includes("if(v==='BLOOM'||v==='FOLD')return 1")&&fan8PlayCore.includes("if(v==='SPLIT'||v==='RETURN')return 0"),'FAN/8 HEX reading drifted from current PLAY law');
 check(fan8Spec.includes('## Hard distinction: IDENTIFY ≠ EMBED ≠ DEFORM')&&fan8Spec.includes('Logical identity / adjacency belongs to the host law.')&&fan8Spec.includes('physical form may project an existing relation; it does not invent one.'),'FAN/8 lost IDENTIFY/EMBED/DEFORM authority boundary');
-check(fan8Svg.includes('Δ0 SAME→BLOOM')&&fan8Svg.includes('Δ1 NEAR→FOLD')&&fan8Svg.includes('Δ2 FAR→RETURN')&&fan8Svg.includes('Δ3 OPPOSITE→SPLIT'),'FAN/8 printable relation legend drifted from PLAY law');
+const fan8Legend=FAN8_RELATION_LEGEND.map(([relation,verb],distance)=>`Δ${distance} ${relation}→${verb}`).join(' · ');
+check(fan8Svg.includes(fan8Legend),'FAN/8 printable relation legend drifted from current PLAY RELATION_LEGEND');
+const fan8Carrier=parse('control/TRANSDUCTIONS.json')?.instrument_cell?.physical_recipes?.FAN8;
+check(fan8Carrier?.version==='0.2'&&fan8Carrier?.artifact==='/foundry/axial/fan8-print.svg'&&fan8Carrier?.projection_cell==='FOLD'&&fan8Carrier?.authority==='NONE','FAN/8 lost TRANSDUCTIONS physical-recipe ownership');
+check(String(fan8Carrier?.reconstruction_boundary||'').includes('convergence synthesis'),'FAN/8 must preserve historical/current reconstruction boundary');
 check(fan8Spec.includes('S0 S1 S2 S3 S4 S5 HOLD_FAST LET_FLY')&&fan8Spec.includes('IDENTIFY ≠ EMBED ≠ DEFORM'),'FAN/8 spec lost stable-slot / transaction / wrap distinction');
 check(axialHtml.includes('./fan8-print.svg')&&fbPlay.includes('../../foundry/axial/fan8-print.svg'),'FAN/8 printable lost owning-host links');
 check(!fan8Spec.includes('camera vision is implemented'),'FAN/8 must not claim sensing implementation');
