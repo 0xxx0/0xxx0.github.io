@@ -406,7 +406,7 @@ buildLoci();
 /* ---------- INK ---------- */
 const IW=192,IH=128,inkCanvas=document.createElement('canvas'),inkCtx=inkCanvas.getContext('2d');inkCanvas.width=IW;inkCanvas.height=IH;
 const inkImage=inkCtx.createImageData(IW,IH),inkField=new InkField({width:IW,height:IH,seed:23});
-const ink={field:inkField,wet:.62,load:.76,brush:18,absorb:.58,mode:'SUMI',guide:0,lastX:null,lastY:null,down:false,simAt:0,metricAt:0};
+const ink={field:inkField,wet:.62,load:.76,brush:18,absorb:.58,mode:'SUMI',guide:0,lastX:null,lastY:null,lastT:0,strokeSeed:0,down:false,simAt:0,metricAt:0};
 const INK_GUIDES=['永','一','○',''];
 $('#wetness').oninput=e=>{ink.wet=+e.target.value/100;$('#wetRead').textContent=e.target.value};
 $('#inkLoad').oninput=e=>{ink.load=+e.target.value/100;$('#loadRead').textContent=e.target.value};
@@ -419,9 +419,15 @@ $$('[data-ink-mode]').forEach(b=>b.onclick=()=>{ink.mode=b.dataset.inkMode;$$('[
 function syncInkMetrics(){
   const m=ink.field.metrics();$('#inkMass').textContent=Math.round(m.pigment);$('#waterMass').textContent=Math.round(m.water);
 }
-function inkDeposit(px,py,{speed=0,pressure=.5,tiltX=0,tiltY=0}={}){
+function inkBrushOpts({speed=0,pressure=.5,tiltX=0,tiltY=0,flow=null}={}){
   const size=.018+ink.brush/42*.095;
-  ink.field.deposit(px/Math.max(1,W),py/Math.max(1,H),{speed,pressure:pressure||.5,tiltX,tiltY,size,water:ink.wet,load:ink.load,mode:ink.mode});
+  return {speed,pressure:pressure||.5,tiltX,tiltY,size,water:ink.wet,load:ink.load,mode:ink.mode,strokeSeed:ink.strokeSeed,...(flow==null?{}:{flow})};
+}
+function inkDeposit(px,py,opt={}){
+  ink.field.deposit(px/Math.max(1,W),py/Math.max(1,H),inkBrushOpts(opt));
+}
+function inkStroke(x0,y0,x1,y1,opt={}){
+  ink.field.strokeSegment(x0/Math.max(1,W),y0/Math.max(1,H),x1/Math.max(1,W),y1/Math.max(1,H),inkBrushOpts(opt));
 }
 function stepInk(){
   ink.field.step({bleed:PROFILES[profile].bleed,absorb:.25+ink.absorb*1.05,evaporation:.0045+.004*ink.absorb});
@@ -512,7 +518,7 @@ canvas.addEventListener('pointerdown',e=>{
     const hit=versePositions().reduce((best,p)=>{const d=Math.abs(y-p.y);return d<(best?.d??30)?{i:p.i,d}:best},null);
     if(hit){verse.focus=hit.i;syncVerseUi();const line=currentVerseLine();if(line)setAddress(line.address)}
   }
-  if(mode==='INK'){ink.down=true;ink.lastX=x;ink.lastY=y;inkDeposit(x,y,{speed:0,pressure:e.pressure||.55,tiltX:e.tiltX||0,tiltY:e.tiltY||0});canvas.setPointerCapture?.(e.pointerId)}
+  if(mode==='INK'){ink.down=true;ink.lastX=x;ink.lastY=y;ink.lastT=performance.now();ink.strokeSeed=(ink.strokeSeed+1)>>>0;inkDeposit(x,y,{speed:0,pressure:e.pressure||.55,tiltX:e.tiltX||0,tiltY:e.tiltY||0,flow:.5});canvas.setPointerCapture?.(e.pointerId)}
   if(mode==='LOCI'){
     const pos=lociPositions(),hit=pos.reduce((best,p,i)=>{const d=Math.hypot(x-p.x,y-p.y);return d<(best?.d??32)?{i,d}:best},null);
     if(hit&&hit.i===loci.step){const node=loci.nodes[hit.i];loci.step++;loci.hits++;if(node)setAddress(node.address);if(loci.step>=loci.nodes.length){loci.hidden=false;setStatus('LOCI · ROUTE RECALLED · EXACT SOURCE ADDRESSES PRESERVED')}syncLoci()}
@@ -520,7 +526,7 @@ canvas.addEventListener('pointerdown',e=>{
 });
 canvas.addEventListener('pointermove',e=>{
   const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;mx=x/W;my=y/H;
-  if(mode==='INK'&&ink.down){const sp=ink.lastX==null?0:Math.hypot(x-ink.lastX,y-ink.lastY);inkDeposit(x,y,{speed:sp,pressure:e.pressure||.55,tiltX:e.tiltX||0,tiltY:e.tiltY||0});ink.lastX=x;ink.lastY=y}
+  if(mode==='INK'&&ink.down){const now=performance.now(),dt=Math.max(4,now-ink.lastT),sp=ink.lastX==null?0:Math.hypot(x-ink.lastX,y-ink.lastY)/(dt/16.7);inkStroke(ink.lastX??x,ink.lastY??y,x,y,{speed:sp,pressure:e.pressure||.55,tiltX:e.tiltX||0,tiltY:e.tiltY||0});ink.lastX=x;ink.lastY=y;ink.lastT=now}
   if(mode==='DATA'){const pos=dataPositions(),hit=pos.reduce((best,p,i)=>{const d=Math.hypot(x-p.x,y-p.y);return d<(best?.d??24)?{i,d}:best},null);data.focus=hit?.i??-1;if(data.focus>=0)setAddress(data.nodes[data.focus].path)}
 });
 canvas.addEventListener('pointerup',()=>{ink.down=false;ink.lastX=ink.lastY=null});
