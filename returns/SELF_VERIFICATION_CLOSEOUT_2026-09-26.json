@@ -1,0 +1,94 @@
+{
+  "schema": "0xxx0/self-verification-closeout/v0.1",
+  "date": "2026-09-26",
+  "state": "VERIFIED",
+  "source_revision": "0b8ef320a652e6bcd44ed2ddfbd50622c7c73c65",
+  "evidence": {
+    "public_surface_run": {
+      "id": 36163042383,
+      "conclusion": "success",
+      "head_sha": "0b8ef320a652e6bcd44ed2ddfbd50622c7c73c65"
+    },
+    "convergence_validate": "success",
+    "route_registration": "success",
+    "pages_deployment": "success"
+  },
+  "claims": [
+    {
+      "lineage": "rsvp-reader",
+      "route": "/docs/",
+      "disposition": "SELF_VERIFIED_MACHINE",
+      "proved": [
+        "session-local downloaded text-like file intake at phone viewport",
+        "source/session boundary and COPY FOCUS behavior",
+        "FOCUS/MIN/PLAIN projection continuity",
+        "high-speed reader state and structural markers",
+        "READFIELD → LOCI bounded focus/source handoff"
+      ],
+      "evidence_steps": [
+        "Run critical browser smoke",
+        "READFIELD local file phone intake",
+        "READFIELD focus kernel + performance",
+        "READFIELD FOCUS lens convergence",
+        "READFIELD → LOCI focus handoff"
+      ],
+      "residue": [
+        "OPTIONAL / SUBJECTIVE: which work modes earn persistent personal use"
+      ]
+    },
+    {
+      "lineage": "fold-bloom",
+      "route": "/fold-bloom/",
+      "disposition": "SELF_VERIFIED_MACHINE",
+      "proved": [
+        "PLAY 0.5.5 mobile drawer owns interaction layer",
+        "Escape, backdrop and × close paths",
+        "HEX two-ring ride projection",
+        "STILL → RIDE transition",
+        "zero horizontal overflow",
+        "source/ride core and current unified root boot"
+      ],
+      "evidence_steps": [
+        "Test FOLD BLOOM LIVE mobile interaction regression",
+        "Test unified FOLD BLOOM RIDE state",
+        "Test FOLD BLOOM LIVE gameplay + track + section arcs + TRACKFIELD deformation + ride",
+        "Test FOLD BLOOM unified root browser"
+      ],
+      "residue": [
+        "OPTIONAL / SUBJECTIVE: calmness, delight, anxiety and perceived motion quality"
+      ]
+    },
+    {
+      "lineage": "atlas-dayline",
+      "route": "/atlas-dayline/",
+      "implementation_route": "/dayline/",
+      "disposition": "SELF_VERIFIED_MACHINE",
+      "proved": [
+        "phone-viewport exact-source COMMS handoff",
+        "one held source-linked object",
+        "RUN mutation",
+        "WITNESS recording",
+        "COMPLETE",
+        "OFFER_ONLY RETURN",
+        "exact source identity preservation",
+        "explicit native source acceptance to COVERED",
+        "completed focus release",
+        "zero horizontal overflow"
+      ],
+      "evidence_steps": [
+        "Test Dayline COMMS real-source RETURN loop",
+        "Run critical browser smoke"
+      ],
+      "residue": [
+        "UNKNOWN / WORLD: whether a planned action was actually performed outside the browser",
+        "OPTIONAL / SUBJECTIVE: perceived burden and ergonomics"
+      ]
+    }
+  ],
+  "law": "If machine/browser evidence settles the claim, close the machine gate. Preserve only the narrower DEVICE / WORLD / SUBJECTIVE residue; do not delegate already-proved correctness back to the human.",
+  "non_claims": [
+    "No claim that subjective preference was measured.",
+    "No claim that Dayline caused or observed a real-world action outside the browser.",
+    "No claim that generic device physics are simulated by browser smoke."
+  ]
+}
