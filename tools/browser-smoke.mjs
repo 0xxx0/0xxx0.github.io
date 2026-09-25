@@ -356,6 +356,32 @@ function readfieldRouteHandoffProbeHtml(){
   <\/script></body></html>`;
 }
 
+function readfieldLociHandoffProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/docs/?read_view=plain"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=12000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(70)}throw new Error('waitFor timeout: '+label)};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    const A=await waitFor(()=>{const a=D().getElementById('docAperture');return a?.snapshot?.()&&D().querySelector('[data-reader-action="loci"]')?a:null},12000,'READFIELD ready');
+    const source=Array.from({length:96},(_,i)=>'word'+i).join(' ');
+    D().getElementById('pasteText').value=source;D().getElementById('readPaste').click();
+    await waitFor(()=>A.A?.label?.startsWith('PASTE')&&(A.A?.scales?.find(x=>x.id==='WORD')?.units?.length||0)>=90,12000,'paste loaded');
+    A.setScale(A.scaleIndex('WORD'));A.setPos(57);await sleep(80);
+    const before=A.snapshot();rec.beforeProgress=before.source_progress;rec.beforeChar=before.char_index;rec.beforeScale=before.scale;
+    D().querySelector('[data-reader-action="loci"]').click();
+    await waitFor(()=>W().location.pathname==='/fold-bloom/lab/'&&D().documentElement.dataset.fieldLabLociHandoff==='focus-restored',14000,'LOCI restored');
+    rec.mode=D().documentElement.dataset.fieldLabMode||'';rec.handoff=D().documentElement.dataset.fieldLabLociHandoff||'';rec.address=D().getElementById('addressRead')?.textContent||'';
+    const m=rec.address.match(/^text:\/\/(\d+):(\d+)$/),at=rec.beforeProgress*Math.max(0,source.length-1);
+    rec.contains=!!m&&at>=Number(m[1])-1&&at<=Number(m[2])+1;
+    rec.words=Number(D().getElementById('lociWords')?.textContent||0);
+    done(rec.beforeProgress>.4&&rec.beforeProgress<.8&&rec.mode==='LOCI'&&rec.handoff==='focus-restored'&&rec.contains&&rec.words===96,rec);
+  })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
+
 function apertureMultilingualProbeHtml(){
   return `<!doctype html><html><body><pre id="probeResult">PENDING</pre><script src="/field-aperture.js"></script><script>
   const result=document.getElementById('probeResult'),rec={};
@@ -530,6 +556,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(readfieldRouteHandoffProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/readfield-loci-handoff')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(readfieldLociHandoffProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/lens-proof')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(lensProbeHtml());return;
@@ -674,6 +704,12 @@ const CASES=[
     route:'/__smoke/readfield-handoff',
     options:{width:1040,height:820,budget:14000,timeout:20000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"label":"READ"/.test(dom)&&/"reader":true/.test(dom)
+  },
+  {
+    name:'READFIELD → LOCI focus handoff',
+    route:'/__smoke/readfield-loci-handoff',
+    options:{width:520,height:940,budget:18000,timeout:24000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"mode":"LOCI"/.test(dom)&&/"handoff":"focus-restored"/.test(dom)&&/"contains":true/.test(dom)&&/"words":96/.test(dom)
   },
   {
     name:'TRIANGLE unified',
