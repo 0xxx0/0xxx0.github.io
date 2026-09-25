@@ -7,6 +7,7 @@ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const SESSION='human.port.comms-spine.session.v01';
 const PINNED='human.port.comms-spine.pinned.v01';
 const PORT_SESSION='human.port.object.session.v01';
+const DAYLINE_HANDOFF='atlas.dayline.comms.handoff.v01';
 const enc=new TextEncoder();
 
 let state={
@@ -184,6 +185,31 @@ function openLoopsText(){
   const ss=signals().filter(x=>x.state==='OPEN');
   return ss.map(s=>'['+s.kind+'] '+s.text+'\\n  ↳ '+s.messageId+' '+fmtAddr(s.start,s.end)+' · '+s.origin).join('\\n\\n')||'NO OPEN SIGNALS';
 }
+function handoffTargetsToDayline(){
+  if(!state.doc||!state.targets.length){toast('TARGET SIGNALS FIRST');return}
+  const chosen=signals().filter(s=>state.targets.includes(s.id)&&s.state!=='DROPPED');
+  if(!chosen.length){toast('NO TARGETS ELIGIBLE');return}
+  const packet={
+    schema:'atlas-dayline-comms-handoff/v0.1',
+    created_at:new Date().toISOString(),
+    source:{route:'/port/comms/',title:state.title,source_id:state.sourceId},
+    promotion:'EXPLICIT_TARGET_SELECTION',
+    tasks:chosen.slice(0,8).map(s=>({
+      title:'MSG / '+s.kind+' · '+String(s.text||'').slice(0,120),
+      contexts:['phone','computer'],
+      duration:s.kind==='WAITING'?10:20,
+      value:(s.kind==='ASK'||s.kind==='PROMISE')?5:(s.kind==='DECISION'?4:3),
+      setup:1,
+      provenance:'COMMS SPINE explicit target · '+s.origin,
+      sourceRef:'/port/comms/?resume=1 · '+state.sourceId+' · '+s.messageId+' '+fmtAddr(s.start,s.end)+' · '+s.id,
+      notes:'Source title: '+state.title+'\nKind: '+s.kind+'\nOrigin: '+s.origin+'\nState at handoff: '+s.state+'\nExact address: '+s.messageId+' '+fmtAddr(s.start,s.end)+'\nExplicit TARGET selection is the promotion event; source text remains canonical in COMMS SPINE.'
+    }))
+  };
+  try{
+    sessionStorage.setItem(DAYLINE_HANDOFF,JSON.stringify(packet));
+    location.assign('/atlas-dayline/?live=1&from=comms');
+  }catch(_){toast('DAYLINE HANDOFF FAILED')}
+}
 function returnObject(){
   if(!state.doc)return null;
   return makeReturn({doc:state.doc,sourceId:state.sourceId,signals:signals(),draft:state.draft,coverageLinks:state.coverageLinks,title:state.title,includeSource:true});
@@ -233,6 +259,7 @@ $('#selectOpen').onclick=()=>{state.targets=signals().filter(x=>x.state==='OPEN'
 $('#clearTargets').onclick=()=>{state.targets=[];persist();renderSignals()};
 $('#coverBtn').onclick=()=>applyTargetState('COVERED');$('#deferBtn').onclick=()=>applyTargetState('DEFERRED');$('#reopenBtn').onclick=()=>applyTargetState('OPEN');
 $('#copyOpenBtn').onclick=()=>copy(openLoopsText(),'OPEN LOOPS COPIED');
+$('#daylineBtn').onclick=handoffTargetsToDayline;
 $('#copyPacketBtn').onclick=()=>state.doc&&copy(JSON.stringify(buildAgentPacket({doc:state.doc,signals:signals(),draft:state.draft,title:state.title}),null,2),'AGENT PACKET COPIED');
 $('#exportBtn').onclick=exportReturn;$('#importReturnBtn').onclick=()=>$('#returnFile').click();$('#returnFile').onchange=async e=>{const file=e.target.files?.[0];if(file)await importReturnFile(file);e.target.value=''};$('#pinBtn').onclick=pinLocal;$('#purgeBtn').onclick=purgeLocal;
 $('#usePinned').onclick=()=>{const raw=localStorage.getItem(PINNED);if(raw&&restore(raw)){persist();render();toast('PINNED SESSION RESTORED')}};
@@ -252,7 +279,7 @@ if(session)restore(session);else if(params.get('resume')==='1'&&pinned)restore(p
 updatePortButtons();
 if(params.get('demo')==='1'&&!state.doc)loadSource(demoConversation(),'COMMS SPINE DEMO');else render();
 window.CommsSpine={
-  version:'0.1',
+  version:'0.1.1',
   state:()=>({sourceId:state.sourceId,title:state.title,doc:state.doc,signals:signals(),draft:state.draft,coverageLinks:[...state.coverageLinks]}),
   loadSource,loadReturn,returnObject,
   buildAgentPacket:()=>buildAgentPacket({doc:state.doc,signals:signals(),draft:state.draft,title:state.title})
