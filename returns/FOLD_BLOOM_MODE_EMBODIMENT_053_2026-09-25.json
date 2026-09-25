@@ -1,0 +1,23 @@
+{
+  "schema": "field-return/v1",
+  "kind": "FOLD_BLOOM_MODE_EMBODIMENT_RETURN",
+  "version": "0.5.3",
+  "date": "2026-09-25",
+  "status": "MERGED_REPO_GREEN",
+  "merge_pr": 328,
+  "merge_sha": "41b69f52f75b5424308ba6531af879e017e4cb07",
+  "delta": [
+    "LIVE modes now visibly alter the central instrument.",
+    "HEX renders trigram Unicode derived from the existing six-line state.",
+    "TWO DIAL renders distinct outer A and inner B rings.",
+    "PATH, ECOLOGY and ZEN have distinct center identities.",
+    "LIVE DUET exposes landscape and full Two Dial actions.",
+    "Two Dial 0.10.4 exposes WIDE, supports mode=DUET deep links and enlarges portrait dials."
+  ],
+  "proof": {
+    "route_registration": "PASS 36140134198",
+    "public_surface_check": "PASS 36140134183",
+    "master_readback": "PASS"
+  },
+  "next": "Real-phone use with a real song remains the next proof."
+}
