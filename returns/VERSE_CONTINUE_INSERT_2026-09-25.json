@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "VERSE_CONTINUE_INSERT_2026-09-25",
   "date": "2026-09-25",
-  "state": "CANDIDATE_PENDING_CI",
+  "state": "MERGED_CI_GREEN_BROWSER_PROVED",
   "object": "Poem Map 0.2.5 co-creative candidate operation",
   "recovered": [
     "VERSE_COPILOT_RECOVERY says START/SELECT/INTENT should widen possibilities without silently writing the poem.",
@@ -35,13 +35,25 @@
     "Historical Jueju prosody/rime claims remain OPEN."
   ],
   "proof": {
-    "static_contract": "implemented",
-    "browser_selftest": [
-      "CONTINUE inserts after selected Latin token",
-      "REPLACE still replaces selected token",
-      "Han CONTINUE remains compact"
-    ],
-    "ci": "pending"
+    "static_contract": "PASS",
+    "route_registration": {
+      "run": 36143041339,
+      "conclusion": "success"
+    },
+    "public_surface_check": {
+      "run": 36143041343,
+      "conclusion": "success"
+    },
+    "browser_selftest": {
+      "conclusion": "PASS",
+      "cases": [
+        "CONTINUE inserts after selected Latin token",
+        "REPLACE still replaces selected token",
+        "Han CONTINUE remains compact"
+      ]
+    },
+    "pull_request": 351,
+    "merge_sha": "5e34273bb46a09398e908d5952743ee877316ce0"
   },
-  "next": "If CI is green, merge runtime first. Then sync CURRENT/manifest only if version metadata has not already moved. Human use should judge whether CONTINUE now feels like open composition rather than another synonym for REPLACE."
+  "next": "Use one real fragment: compare CONTINUE and REPLACE through TRY → ADOPT → UNDO. Revise only from authoring friction; do not add another poetry host/provider/store."
 }
