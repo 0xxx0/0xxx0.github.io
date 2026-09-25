@@ -45,13 +45,14 @@
     "read_bridge_node": "PASS · public-surface-check run 35953594950 step 29",
     "loci_course_node": "PASS · public-surface-check run 35953594950 step 29",
     "phone_readfield_boot": "PASS · 430×900 FIELD LAB browser proof + critical browser smoke run 35953594950",
-    "route_registration": "PASS · run 35953594942",
-    "full_public_surface": "PASS · public-surface-check run 35953594950",
-    "merge_sha": "f56505f2ebc9d2fdcb17ea03929375ae1b6c8f92",
+    "route_registration": "PASS · run 36082758418",
+    "full_public_surface": "PASS · public-surface-check run 36082758427",
+    "merge_sha": "fb270b4ef10b185912632014ce2e1db980b026ab",
     "coordination_cleanup_merge": "55e308432e79a5eaf376bdccf112973db01a36dc",
     "human_phone": "REQUIRED: ordinary RSVP/scale/regress + one long READ→LOCI carry against plain chunk baseline",
     "pulse_routing": "PENDING_PR_CI: deterministic LISTEN + LAB clock allowlist test",
-    "focus_handoff_browser": "PENDING_CI: READFIELD route handoff → move cursor → CARRY LOCI → exact focus-restored witness"
+    "focus_handoff_browser": "PASS · run 36082758427: WORD cursor char 392 / progress 0.593939 preserved through APERTURE packet; LOCI text://368:409 contains carried focus",
+    "previous_merge_sha": "f56505f2ebc9d2fdcb17ea03929375ae1b6c8f92"
   },
   "return": "/returns/READFIELD_WORK_MODES_2026-09-25.json",
   "confluence": "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
