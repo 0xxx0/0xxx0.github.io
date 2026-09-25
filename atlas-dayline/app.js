@@ -317,7 +317,7 @@ function bridgeAddTask(input={},sourceClass='IMPORTED'){
  data.tasks.push(task);data.state.selected=id;ui.previewBundle=[];event(sourceClass==='USER'?'CAPTURE':'FIELD_IMPORT',id,task.fieldRef||task.provenance);save();render();return clone(task)
 }
 window.AtlasDayline=Object.freeze({
- version:'branch-i-field-live-0.1',
+ version:'branch-i-field-live-0.2',
  snapshot:()=>clone(data),
  addFieldTask:input=>bridgeAddTask(input,'IMPORTED'),
  capture:input=>bridgeAddTask(typeof input==='string'?{title:input}:input,'USER'),
