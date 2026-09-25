@@ -2,10 +2,13 @@
   "schema": "release-receipt/v1",
   "artifact": "HOUSE / FIELD",
   "route": "/house/",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "released": "2026-09-26",
   "state": "ACTIVE",
   "changes": [
+    "Hardened the current public HOUSE surface: generalized legacy donor/current-instance labels that unnecessarily exposed unit/neighborhood clues while preserving the unresolved donor-vs-current-instance contradiction.",
+    "Added noindex,nofollow to /house/, /house/expert.html and /house/spatial/ compatibility HTML. This reduces search indexing but is not access control.",
+    "Privacy boundary: current working-tree labels are sanitized; prior public Git history may still contain earlier labels and was not rewritten automatically.",
     "Restored HOUSE→BODY context attachment directly on canonical /house/: the selected spatial address plus timestamped public projection metadata is written only to the existing browser-local ENV-0 envelope.",
     "BODY CONTEXT explicitly remains context-only: selected address != presence and correlation != causation; no BODY observation enters house/state.json and no HA/HOUSEBUS authority changes.",
     "Corrected stale release checks left by the transitional portal pass: human entry and FIELD direct link are /house/; /house/spatial/ is compatibility/substrate only.",
@@ -32,7 +35,7 @@
     "Preserved authority boundary: Home Assistant / HOUSEBUS owns runtime device truth/actuation; local bridge is context only.",
     "No personal BODY state is written to house/state.json or the repository.",
     "Transplanted the bounded HOUSE / FIELD public projection from house-field-v01 onto current master without merging the stale branch wholesale.",
-    "Added APP-041 Spatial State Engine lineage: Bendemeer Spatial Ledger v0.1 -> Spatial Engine v0.3, with the Sep 9 single-file app retained as an operational donor.",
+    "Added APP-041 Spatial State Engine lineage: Spatial Ledger v0.1 -> Spatial Engine v0.3, with the Sep 9 single-file app retained as an operational donor.",
     "Made the authority split explicit: Spatial State owns address/geometry/evidence; Home Assistant / HOUSEBUS owns device truth and actuation; MQTT is transport only.",
     "Kept the public page projection-only and timestamped; no public control endpoint was introduced.",
     "Registered HOUSE / FIELD in FIELD INDEX, federation atlas and RETURN ledger.",
@@ -72,7 +75,9 @@
     "care_share_minimization": "omits spatial address, local episode id, timestamp and sibling episodes",
     "self_verification": "machine/browser/state verification first; physical RETURN limits only physical-world claims",
     "body_bridge_root": "/house/ selected address → localStorage 0xxx0.house.body.context.v01 → /body/",
-    "body_bridge_truth_boundary": "selected address != presence; context != causation; no public write or actuation"
+    "body_bridge_truth_boundary": "selected address != presence; context != causation; no public write or actuation",
+    "current_surface_privacy": "current HOUSE working tree contains generalized instance labels; noindex/nofollow on HOUSE HTML surfaces",
+    "git_history_boundary": "historical commits are not rewritten by this pass"
   },
   "sources": [
     "/showcase-manifest.json",

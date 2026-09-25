@@ -8,7 +8,7 @@
   "preferred_lineage": [
     {
       "date": "2026-09-03",
-      "name": "BLIGHT / HOUSE — Bendemeer Spatial Ledger v0.1",
+      "name": "BLIGHT / HOUSE — Spatial Ledger v0.1",
       "role": "evidence + surface ledger",
       "preserves": [
         "room graph",
@@ -110,8 +110,8 @@
   },
   "open_identity_conflict": {
     "status": "UNRESOLVED",
-    "earlier_donor": "93 m² / #17-103 / 4-room brochure-topology branch",
-    "later_current_house_record": "current 10A corner unit has also been recorded as 3-room",
+    "earlier_donor": "earlier larger 4-room brochure-topology branch",
+    "later_current_house_record": "later current-house record has been described as 3-room",
     "rule": "Preserve both records; verify physical instance and plan orientation before metric calibration."
   },
   "confluence_model": "/house/confluence.json",

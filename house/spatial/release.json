@@ -10,7 +10,7 @@
     "Recovered the Sep 9 exact donor topology, openings/structure cues and HA anchor mappings into a separate machine-readable model.",
     "Restored the Sep 3 projection family: PLAN / SURFACE / SECTION / FIELD / ATLAS, and added RCP + 3D as projections of the same IDs.",
     "Made floor, ceiling and wall surfaces first-class; vertical geometry remains explicitly unmeasured until calibrated.",
-    "Preserved the 93 m² / #17-103 donor versus later current-house 3-room record as an unresolved physical-instance conflict.",
+    "Preserved the larger-unit / earlier donor unit donor versus later current-house 3-room record as an unresolved physical-instance conflict.",
     "Pinned POLY/FURNISHER, SEAM ENGINE, SINDER/Furnisher, mandala/lens and Semantic Painting as unequal donors through the HOUSE Confluence model.",
     "Restored the shared bottom-left route adapter and FI/Confluence re-entry paths.",
     "Implemented TRACE / INK PATH as a reversible manual-local projection: room clicks append stable addresses, repeated segments thicken by traversal count, and JSON RETURN exports house-trace/v0.1.",
@@ -55,7 +55,8 @@
     "receipt": "/control/EXPERIMENT_WRANGLE_2026-09-20.json",
     "provenance_note": "Original 0.6.1 release state is retained as historical provenance; this classification records the later route convergence.",
     "current_route": "/house/",
-    "compatibility_route": "/house/spatial/"
+    "compatibility_route": "/house/spatial/",
+    "public_surface_note": "Current HOUSE working tree uses generalized donor/current-instance labels; historical Git commits may retain earlier exact labels."
   },
   "date": "2026-09-25"
 }

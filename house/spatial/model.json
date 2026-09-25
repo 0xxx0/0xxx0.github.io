@@ -2,7 +2,7 @@
   "schema": "house-spatial-substrate/v0.2",
   "updated": "2026-09-20",
   "instance_status": "RECONSTRUCTED_FROM_RECOVERED_DONOR",
-  "identity_note": "Recovered Sep 9 brochure-topology donor associated with the earlier 93 m² / #17-103 research branch. Do not assert it is the currently occupied unit until unit/orientation is re-verified.",
+  "identity_note": "Recovered Sep 9 brochure-topology donor associated with an earlier larger-unit research branch. Do not assert it is the currently occupied unit until unit/orientation is re-verified.",
   "canonical_law": "One addressed physical substrate; many projections. No projection may imply certainty absent from evidence.",
   "coordinate_space": {
     "kind": "DONOR_PLAN_PIXELS",
@@ -752,8 +752,8 @@
   },
   "open_identity_conflict": {
     "status": "UNRESOLVED",
-    "earlier_branch": "#17-103 / approx 93 m² / 4-room donor",
-    "current_house_record": "current-house lineage has also been described elsewhere as a 3-room 10A corner unit",
+    "earlier_branch": "earlier larger 4-room brochure donor",
+    "current_house_record": "later current-house lineage has been described as a 3-room record",
     "rule": "Do not silently merge these physical instances. Re-verify unit/plan orientation before metric calibration."
   }
 }
