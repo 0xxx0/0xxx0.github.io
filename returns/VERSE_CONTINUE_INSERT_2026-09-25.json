@@ -1,0 +1,47 @@
+{
+  "schema": "field-return/v1",
+  "id": "VERSE_CONTINUE_INSERT_2026-09-25",
+  "date": "2026-09-25",
+  "state": "CANDIDATE_PENDING_CI",
+  "object": "Poem Map 0.2.5 co-creative candidate operation",
+  "recovered": [
+    "VERSE_COPILOT_RECOVERY says START/SELECT/INTENT should widen possibilities without silently writing the poem.",
+    "Pathweaver preserved genuinely open composition rather than forcing every move through replacement.",
+    "Current Poem Map already had selection, intent, provenance, bank, locks, form support, preview, adoption and ancestry.",
+    "Recovered mismatch: CONTINUE candidates were generated as likely followers but adoption replaced the selected token."
+  ],
+  "operation": {
+    "continue": "INSERT_AFTER",
+    "replace_and_existing_unspecified": "REPLACE",
+    "preview": "non-mutating and operation-aware",
+    "support": "form-envelope simulation uses the same edit operation as commit",
+    "lock": "REPLACE cannot mutate a locked token; CONTINUE may insert beside it while preserving the token"
+  },
+  "changed": [
+    "/poetry/map/index.html",
+    "/poetry/map/release.json",
+    "/poetry/index.html",
+    "/foundry/index.html",
+    "/tools/validate-public.mjs",
+    "/tools/browser-smoke.mjs"
+  ],
+  "invariants": [
+    "Poem Map remains authoring authority.",
+    "Candidate providers only populate BANK; they never edit source.",
+    "TRY never mutates source.",
+    "ADOPT is the only commit edge.",
+    "Old bank entries remain valid: intent=continue derives INSERT_AFTER; everything else defaults safely to REPLACE.",
+    "No new app, store, model provider or universal poetry layer is introduced.",
+    "Historical Jueju prosody/rime claims remain OPEN."
+  ],
+  "proof": {
+    "static_contract": "implemented",
+    "browser_selftest": [
+      "CONTINUE inserts after selected Latin token",
+      "REPLACE still replaces selected token",
+      "Han CONTINUE remains compact"
+    ],
+    "ci": "pending"
+  },
+  "next": "If CI is green, merge runtime first. Then sync CURRENT/manifest only if version metadata has not already moved. Human use should judge whether CONTINUE now feels like open composition rather than another synonym for REPLACE."
+}
