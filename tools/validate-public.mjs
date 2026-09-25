@@ -196,7 +196,9 @@ check(home.includes('FIELD / FOCUS'),'root missing FIELD / FOCUS compositor');
 check(home.includes('data-mode="VISUAL"')&&home.includes('data-mode="PULSE"'),'root missing visual/pulse map projections');
 check(home.includes('>HEADS / LINEAGES<'),'root missing collapsed HEADS lineage reading');
 check(home.includes('MAP / PROJECTIONS'),'root missing MAP reading');
-check(home.includes('>OPEN PORTS<'),'root missing OPEN PORTS reading');
+check(home.includes('>PORTS / EXIT STATE<'),'root missing PORTS / EXIT STATE reading');
+check(home.includes('ACTIVE / NEEDS YOUR EVIDENCE')&&home.includes('PARKED / NOT NEEDED NOW')&&home.includes('HISTORY / REMOVED'),'root missing WAITING lifecycle split');
+if(fi){check(fi.exit_status_taxonomy?.BUILD_PROVE&&fi.exit_status_taxonomy?.PARKED&&fi.ui_contract?.root_ports,'FIELD INDEX port taxonomy contract missing');}
 check(home.includes('ROUTES / LIVE SURFACE')&&home.includes('CHANGE / GIT'),'root missing route-first surface + collapsed exact-change aperture');
 check(home.includes('Φ / CURRENT')&&home.includes('id="syncFocus"'),'root missing Φ host / φ focus truth frame');
 check(home.includes('ISSUES / REPO OPEN LOOPS'),'root missing ISSUES reading');

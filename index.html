@@ -78,6 +78,8 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 /* FOLDS */
 .fold{margin-top:12px;border-top:1px solid var(--line)}.fold>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:10px;padding:8px 2px;color:var(--mut)}.fold>summary::-webkit-details-marker{display:none}.fold>summary b{color:var(--ink);font-size:8px;letter-spacing:.12em}.fold>summary span{font-size:7px}.fold[open]>summary{border-bottom:1px solid var(--line)}.foldBody{padding:7px 0}
 .issueRow,.headRow,.portRow{display:grid;grid-template-columns:42px minmax(0,1fr) 112px auto;gap:8px;align-items:center;padding:7px 3px;border-bottom:1px solid #20282c}.issueRow:hover,.headRow:hover,.portRow:hover{background:#0b1012}.issueNo{color:var(--hot);font:800 11px system-ui,sans-serif}.rowTitle{font:750 11px/1.12 system-ui,sans-serif}.rowMeta{color:var(--mut);font-size:6.5px;margin-top:2px}.tiny{font-size:6.5px;color:var(--gold)}.tinyButton{border:1px solid var(--line);padding:5px 6px;font-size:7px}.tinyButton.hot{border-color:var(--hot);color:#ffd0bd}.waitRow{display:grid;grid-template-columns:82px minmax(0,1fr) 120px 56px;gap:8px;align-items:start;padding:7px 3px;border-bottom:1px solid #20282c}.waitRow.done{opacity:.42}.waitRow.done .waitMove{text-decoration:line-through}.waitState{font-size:6.5px;color:var(--gold);letter-spacing:.05em}.waitState small{display:block;color:var(--mut);font-size:5.5px;letter-spacing:.04em;margin-top:2px}.waitMove{font:750 10px/1.25 system-ui,sans-serif}.waitWhy{color:var(--mut);font-size:6.5px;margin-top:3px}.waitRoute{font-size:6.5px;color:var(--cool);text-align:right}.waitAck{padding:4px 5px;font-size:6px;min-height:24px}.waitRow.done .waitAck{color:var(--green);border-color:#49684e}
+.waitGroup{margin-top:7px;border-top:1px solid #20282c}.waitGroup:first-child{margin-top:0}.waitGroup>summary,.waitGroupHead{list-style:none;display:flex;justify-content:space-between;gap:10px;padding:6px 3px;color:var(--mut);font-size:6.5px;letter-spacing:.07em;cursor:pointer}.waitGroup>summary::-webkit-details-marker{display:none}.waitGroupHead b,.waitGroup>summary b{color:var(--ink);font-size:7px;letter-spacing:.1em}.waitGroup.active{border-top-color:var(--hot)}.waitGroup.active .waitGroupHead b{color:#ffd0bd}.waitRow.parked{opacity:.72}.waitRow.removed{opacity:.48}.waitRow.removed .waitMove{font-weight:600}.waitAck.waitNone{border:0;color:var(--mut);text-align:center}
+.portGroup{border-top:1px solid #20282c}.portGroup:first-child{border-top:0}.portGroup>summary{list-style:none;display:flex;justify-content:space-between;gap:10px;padding:6px 3px;color:var(--mut);font-size:6.5px;letter-spacing:.07em;cursor:pointer}.portGroup>summary::-webkit-details-marker{display:none}.portGroup>summary b{color:var(--ink);font-size:7px;letter-spacing:.1em}.portGroup.build>summary b{color:#ffd0bd}.portGroup.parked{opacity:.72}
 
 /* MAP */
 .mapTools{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:6px}.mapTools button,.mapTools input{min-height:28px;padding:5px 7px;font-size:7px}.mapTools button.on{border-color:var(--cool);color:var(--cool)}.mapTools input{width:200px}
@@ -186,7 +188,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 </details>
 
 <details class="fold" id="portsFold">
-  <summary><b>OPEN PORTS</b><span id="portMeta">loading…</span></summary>
+  <summary><b>PORTS / EXIT STATE</b><span id="portMeta">loading…</span></summary>
   <div class="foldBody" id="ports"></div>
 </details>
 
@@ -322,7 +324,7 @@ function updateStatusRail(){
     ['ISSUES',$('issueMeta')?.textContent],
     ['HEADS',$('headMeta')?.textContent],
     ['MAP',$('mapMeta')?.textContent],
-    ['PORTS',$('portMeta')?.textContent]
+    ['PORTS',$('portMeta')?.dataset.live||$('portMeta')?.textContent]
   ].filter(x=>x[1]&&!/^loading/.test(x[1]));
   el.innerHTML=rows.map(([t,v])=>'<i>'+esc(t)+'</i><u>'+esc(v)+'</u>').join('')||'loading…';
 }
@@ -392,28 +394,54 @@ function renderFeed(){
  $('feedRail').querySelectorAll('.feedChip').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,'LATEST')});
  renderSyncLine();try{updateStatusRail()}catch(_){}
 }
-const WAIT_LOCAL='field.waiting.local.v01';
+const WAIT_LOCAL='field.waiting.local.v02';
 function waitingLocal(){try{return JSON.parse(localStorage.getItem(WAIT_LOCAL)||'{}')||{}}catch(_){return{}}}
+function dependencyKind(state){
+ const s=String(state||'').toUpperCase();
+ if(s.includes('REAL_DEVICE'))return'REAL_DEVICE';
+ if(s.includes('PRIVATE'))return'PRIVATE_INPUT';
+ if(s.includes('ORDINARY_USE'))return'ORDINARY_USE';
+ if(s.includes('PHYSICAL'))return'PHYSICAL';
+ if(s.includes('WORLD'))return'WORLD_EVENT';
+ return'HUMAN_ACTION';
+}
+function dependencyLabel(kind){return String(kind||'HUMAN_ACTION').replaceAll('_',' ')}
 function currentHumanGates(){
  return (current?.current_heads||[]).flatMap(h=>{
   const n=h.next_executable,state=String(n?.state||'');
   if(!n||!/HUMAN|ORDINARY_USE|REAL_DEVICE|PRIVATE|PHYSICAL|WAIT/.test(state))return[];
-  const detail=(n.human_questions||n.acceptance||[]),hint=detail[0]||'Return one observed delta from ordinary use.';
-  return[{id:n.id||('current-human-'+String(h.lineage||h.route).replace(/[^a-z0-9]+/gi,'-').toLowerCase()),route:h.route,state:state||'WAITING_ON_HUMAN',human_move:n.objective||hint,why:'Derived from CURRENT.current_heads[].next_executable; '+hint,unlocks:'A concrete RETURN can change '+(h.head||h.lineage||h.route)+'.',source:'CURRENT'}];
+  const detail=n.human_questions||n.acceptance||[],hint=detail[0]||'Return one observed delta from ordinary use.';
+  return[{id:n.id||('current-human-'+String(h.lineage||h.route).replace(/[^a-z0-9]+/gi,'-').toLowerCase()),route:h.route,state,dependency_kind:dependencyKind(state),surface_state:'ACTIVE',human_move:n.objective||hint,why:hint,unlocks:'A concrete RETURN can change '+(h.head||h.lineage||h.route)+'.',detail,source:'CURRENT'}];
  });
 }
 function mergeWaiting(xs){
- const m=new Map((xs||[]).filter(x=>x&&x.id).map(x=>[x.id,{...x,source:'WAITING'}]));
- for(const x of currentHumanGates()){const old=m.get(x.id);m.set(x.id,old?{...x,...old,source:'WAITING + CURRENT'}:x)}
- return [...m.values()];
+ const registry=new Map((xs||[]).filter(x=>x&&x.id).map(x=>[x.id,{...x,surface_state:String(x.surface_state||'PARKED').toUpperCase(),source:'WAITING'}]));
+ const active=currentHumanGates().map(g=>{const old=registry.get(g.id);if(old)registry.delete(g.id);return old?{...old,...g,source:'CURRENT + REGISTRY',registry_state:old.surface_state,drift:old.surface_state==='REMOVED'}:g});
+ const rest=[...registry.values()];
+ return{active,parked:rest.filter(x=>x.surface_state==='PARKED'),removed:rest.filter(x=>x.surface_state==='REMOVED'),other:rest.filter(x=>!['PARKED','REMOVED'].includes(x.surface_state))};
 }
-function toggleWaitingLocal(id){const m=waitingLocal();if(m[id])delete m[id];else m[id]={done_at:new Date().toISOString()};try{localStorage.setItem(WAIT_LOCAL,JSON.stringify(m))}catch(_){}renderWaiting()}
+function toggleWaitingLocal(id){const m=waitingLocal();if(m[id])delete m[id];else m[id]={acknowledged_at:new Date().toISOString()};try{localStorage.setItem(WAIT_LOCAL,JSON.stringify(m))}catch(_){}renderWaiting()}
+function waitRouteHref(route){return route&&String(route).startsWith('/')?'.'+route:(route||'#')}
+function waitRow(x,mode,local){
+ const ack=mode==='ACTIVE'&&!!local[x.id],kind=dependencyLabel(x.dependency_kind||dependencyKind(x.state)),route=esc(x.route||''),href=esc(waitRouteHref(x.route));
+ const source=mode==='ACTIVE'?'CURRENT'+(x.drift?' · REGISTRY DRIFT':'')+(ack?' · ACK LOCAL · CURRENT OPEN':''):mode==='PARKED'?'WAITING REGISTRY':'HISTORY';
+ const move=mode==='REMOVED'?(x.removed_reason||'Removed from actionable WAITING.'):x.human_move||'';
+ const why=mode==='REMOVED'?('Former dependency: '+(x.human_move||'')+(x.preserve_as?' · '+x.preserve_as:'')):(x.why||'')+(x.unlocks?' · unlocks: '+x.unlocks:'');
+ const action=mode==='ACTIVE'?'<button class="waitAck" data-wait-ack="'+esc(x.id||'')+'">'+(ack?'UNACK':'ACK LOCAL')+'</button>':mode==='PARKED'?'<a class="waitAck" href="'+href+'">OPEN</a>':'<span class="waitAck waitNone">—</span>';
+ return '<div class="waitRow '+mode.toLowerCase()+'" data-wait="'+esc(x.id||'')+'"><div class="waitState">'+esc(kind)+'<small>'+esc(source)+'</small></div><div><div class="waitMove">'+esc(move)+'</div><div class="waitWhy">'+esc(why)+'</div><a class="waitRoute" href="'+href+'">'+route+'</a></div><div></div>'+action+'</div>';
+}
 function renderWaiting(xs){
- if(Array.isArray(xs))waitingSource=xs;waiting=mergeWaiting(waitingSource);const local=waitingLocal(),open=waiting.filter(x=>!local[x.id]).length,done=waiting.length-open,derived=waiting.filter(x=>String(x.source||'').includes('CURRENT')).length;
- $('waitingMeta').textContent=open+' human/world gates'+(derived?' · '+derived+' live CURRENT':'')+(done?' · '+done+' done local':'')+' · WAITING '+(shortTs(waitingUpdated)||'—');
- const ordered=waiting.slice().sort((a,b)=>(!!local[a.id])- (!!local[b.id]));
- $('waitingList').innerHTML=ordered.map(x=>{const isDone=!!local[x.id];return '<div class="waitRow'+(isDone?' done':'')+'" data-wait="'+esc(x.id||'')+'"><div class="waitState">'+(isDone?'DONE LOCAL':esc(x.state||'WAITING'))+'<small>'+esc(x.source||'WAITING')+'</small></div><div><div class="waitMove">'+esc(x.human_move||'')+'</div><div class="waitWhy">'+esc(x.why||'')+(x.unlocks?' · unlocks: '+esc(x.unlocks):'')+'</div><div class="waitRoute">'+esc(x.route||'')+'</div></div><div></div><button class="waitAck" data-wait-ack="'+esc(x.id||'')+'">'+(isDone?'UNDO':'DONE')+'</button></div>'}).join('')||'<div class="waitRow"><div class="waitState">CLEAR</div><div class="waitMove">Nothing currently depends on human/world evidence.</div><div></div></div>';
- $('waitingList').querySelectorAll('[data-wait-ack]').forEach(b=>b.addEventListener('click',()=>toggleWaitingLocal(b.dataset.waitAck)));updateStatusRail();
+ if(Array.isArray(xs))waitingSource=xs;
+ const groups=mergeWaiting(waitingSource),local=waitingLocal(),a=groups.active.length,p=groups.parked.length,h=groups.removed.length;
+ waiting=[...groups.active,...groups.parked,...groups.removed,...groups.other];
+ $('waitingMeta').textContent=(a?a+' ACTIVE':'CLEAR')+' · '+p+' PARKED · '+h+' HISTORY';
+ const active='<section class="waitGroup active"><div class="waitGroupHead"><b>ACTIVE / NEEDS YOUR EVIDENCE</b><span>'+a+'</span></div>'+(a?groups.active.map(x=>waitRow(x,'ACTIVE',local)).join(''):'<div class="waitRow"><div class="waitState">CLEAR<small>CURRENT</small></div><div><div class="waitMove">Nothing currently requires human/world evidence.</div></div><div></div><span class="waitAck waitNone">—</span></div>')+'</section>';
+ const parked='<details class="waitGroup"><summary><b>PARKED / NOT NEEDED NOW</b><span>'+p+'</span></summary>'+(p?groups.parked.map(x=>waitRow(x,'PARKED',local)).join(''):'<div class="touchFail">No parked dependencies.</div>')+'</details>';
+ const removed='<details class="waitGroup"><summary><b>HISTORY / REMOVED</b><span>'+h+'</span></summary>'+(h?groups.removed.map(x=>waitRow(x,'REMOVED',local)).join(''):'<div class="touchFail">No removed dependencies.</div>')+'</details>';
+ const other=groups.other.length?'<details class="waitGroup"><summary><b>REGISTRY / UNCLASSIFIED</b><span>'+groups.other.length+'</span></summary>'+groups.other.map(x=>waitRow({...x,removed_reason:'Unknown WAITING lifecycle state: '+x.surface_state},'REMOVED',local)).join('')+'</details>':'';
+ $('waitingList').innerHTML=active+parked+removed+other;
+ $('waitingList').querySelectorAll('[data-wait-ack]').forEach(b=>b.addEventListener('click',()=>toggleWaitingLocal(b.dataset.waitAck)));
+ updateStatusRail();
 }
 async function loadWaiting(){try{const w=await fetch('./control/WAITING.json',{cache:'no-store'}).then(r=>r.json());waitingUpdated=w.updated||'';renderWaiting(w.items||[])}catch(_){waitingUpdated='';renderWaiting([])}}
 function renderIssues(xs){
@@ -431,10 +459,33 @@ function renderHeads(){
  $('headList').innerHTML=hs.map(h=>{const r=routeMap().get(h.route),fresh=shortTs(r?.index?.updated_at)||'unindexed',state=r?.state||'NO MANIFEST ROUTE';return '<button class="headRow" data-href="'+esc(h.route)+'"><div>'+routeGlyph(r||{href:h.route,state:h.state,kind:'artifact'},23)+'</div><div><div class="rowTitle">'+esc(h.head)+'</div><div class="rowMeta">'+esc(h.retained_function||'')+' · manifest '+esc(fresh)+'</div></div><div class="tiny">'+esc(h.state)+' / '+esc(state)+'</div><span>FOCUS / OPEN</span></button>'}).join('');
  $('headList').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,'OTHER')});updateStatusRail();
 }
-function renderPorts(){
- const xs=routes.flatMap(r=>(r.field?.exit_paths||[]).filter(e=>e.status!=='AVAILABLE').map(e=>({r,e})));$('portMeta').textContent=xs.length+' unresolved · manifest '+(manifest?.updated||'—');
- $('ports').innerHTML=xs.map(x=>'<button class="portRow" data-href="'+esc(x.r.href)+'"><div>'+routeGlyph(x.r,22)+'</div><div><div class="rowTitle">'+esc(x.r.title)+'</div><div class="rowMeta">'+esc(x.e.via||'unspecified')+' · '+esc(shortTs(x.r.index?.updated_at)||'unindexed')+'</div></div><div class="tiny">'+esc(x.e.status||'OPEN')+'</div><span>FOCUS / OPEN</span></button>').join('');$('ports').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>focusOrOpen(routeMap().get(b.dataset.href),'OTHER'));updateStatusRail();
+const PORT_BUCKETS={
+ BUILD_PROVE:{label:'BUILD / PROVE',statuses:new Set(['ADAPTER_REQUIRED','SPECIFIED','PROOF_REQUIRED','EVIDENCE_REQUIRED','REQUIRED'])},
+ BOUNDARY:{label:'HUMAN / EXPORT BOUNDARY',statuses:new Set(['EXPLICIT_EXPORT_REQUIRED','HUMAN_ONLY'])},
+ VERIFY:{label:'VERIFY',statuses:new Set(['UNVERIFIED_REACHABILITY'])},
+ PARKED:{label:'PARKED / OPTIONAL',statuses:new Set(['CANDIDATE','REFERENCE','DONOR','DEFERRED'])}
+};
+function portBucket(status){
+ const s=String(status||'OPEN');if(s==='AVAILABLE')return'AVAILABLE';
+ for(const[k,v]of Object.entries(PORT_BUCKETS))if(v.statuses.has(s))return k;
+ return'OTHER';
 }
+function portRows(xs){return xs.map(x=>'<button class="portRow" data-href="'+esc(x.r.href)+'"><div>'+routeGlyph(x.r,22)+'</div><div><div class="rowTitle">'+esc(x.r.title)+'</div><div class="rowMeta">'+esc(x.e.class||'EXIT')+' · '+esc(x.e.via||'unspecified')+' · '+esc(shortTs(x.r.index?.updated_at)||'unindexed')+'</div></div><div class="tiny">'+esc(x.e.status||'OPEN')+'</div><span>FOCUS / OPEN</span></button>').join('')}
+function portGroup(key,xs,open=false){
+ if(!xs.length)return'';
+ const meta=PORT_BUCKETS[key]||{label:'OTHER / UNCLASSIFIED'};
+ return '<details class="portGroup '+(key==='BUILD_PROVE'?'build ':key==='PARKED'?'parked ':'')+'"'+(open?' open':'')+'><summary><b>'+esc(meta.label)+'</b><span>'+xs.length+'</span></summary>'+portRows(xs)+'</details>';
+}
+function renderPorts(){
+ const all=routes.flatMap(r=>(r.field?.exit_paths||[]).map(e=>({r,e,bucket:portBucket(e.status)}))),available=all.filter(x=>x.bucket==='AVAILABLE').length;
+ const by={BUILD_PROVE:[],BOUNDARY:[],VERIFY:[],PARKED:[],OTHER:[]};for(const x of all)if(by[x.bucket])by[x.bucket].push(x);
+ const summary=available+' AVAILABLE · '+by.BUILD_PROVE.length+' BUILD/PROVE · '+by.BOUNDARY.length+' BOUNDARY · '+by.VERIFY.length+' VERIFY · '+by.PARKED.length+' PARKED'+(by.OTHER.length?' · '+by.OTHER.length+' OTHER':'');
+ const live=by.BUILD_PROVE.length+' build/prove · '+by.BOUNDARY.length+' boundary · '+by.VERIFY.length+' verify'+(by.OTHER.length?' · '+by.OTHER.length+' unclassified':'');
+ $('portMeta').textContent=summary+' · manifest '+(manifest?.updated||'—');$('portMeta').dataset.live=live;
+ $('ports').innerHTML=portGroup('BUILD_PROVE',by.BUILD_PROVE,true)+portGroup('BOUNDARY',by.BOUNDARY,true)+portGroup('VERIFY',by.VERIFY,true)+portGroup('PARKED',by.PARKED,false)+portGroup('OTHER',by.OTHER,false);
+ $('ports').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>focusOrOpen(routeMap().get(b.dataset.href),'OTHER'));updateStatusRail();
+}
+
 
 /* MAP shares the same focus */
 const childrenMap=()=>{const m=new Map;for(const r of routes){const p=r.parent||'/';if(!m.has(p))m.set(p,[]);m.get(p).push(r)}return m};
