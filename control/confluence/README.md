@@ -50,6 +50,8 @@ When mining prior conversations, user messages deserve special attention because
 
 ## Current confluence packets
 
+- [FIELD INDEX — executor perspective](./FIELD_INDEX_EXECUTOR_PERSPECTIVE_2026-09-25.md) — my working aspiration, explicitly separate from user-authored intent and canon; attached to the mobile readability pass.
+
 - [HERMES VISION LOOP](../prompts/HERMES_VISION_LOOP_2026-09-24.md) — bounded long-horizon research/design-engineering loop: question → falsifiable hypothesis → specimen → lived/machine evidence → promote/transfer/park/compost → RETURN.
 - [HERMES SKILLS](../../skills/README.md) — executable method shelf; skills are admitted by demonstrated recurrence + transfer, not by sounding general.
 - [FOLD//BLOOM replay/message Hermes lane](../packets/HERMES_FOLD_BLOOM_REPLAY_MESSAGE_LANE_2026-09-24.md) — isolated expressive replay/message research; does not edit canonical LIVE.
