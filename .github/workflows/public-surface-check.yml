@@ -47,6 +47,8 @@ jobs:
         run: |
           node --test port/comms/tests/core.test.mjs
           node tools/comms-spine-smoke.mjs
+      - name: Test Dayline COMMS real-source RETURN loop
+        run: node tools/dayline-comms-real-loop-smoke.mjs
       - name: Validate BODY FIT Health Connect transform
         run: node body/fit/health-connect-selftest.cjs
       - name: Validate INTERPHASE ROOM projection core
