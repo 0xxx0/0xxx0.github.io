@@ -5,7 +5,7 @@
   "status": "SHIPPED",
   "branch": "chatgpt/fold-bloom-play-03-final-20260925",
   "base_master_sha": "99911d707462cd716d77f3e7ed1ac33f94f0e110",
-  "substantive_head_sha": "f516801e87ba3aacf00b99ed3e64e84a87f6b148",
+  "substantive_head_sha": "c027f3b8a275d19f237ae4fce2791443fd63bf26",
   "recovered": {
     "shipped_master": "PLAY 0.2 already contained RUN, PUZZLE, TWO DIAL/DUET, ECOLOGY/GARDEN and ZEN.",
     "absorbed_branch": "fold-bloom-play-modes-v02-20260925 is fully behind master with no unique delta.",
@@ -59,11 +59,16 @@
   "verification": {
     "pure_game_law_tests": "PASS",
     "public_surface_check": "PASS",
-    "critical_browser_smoke": "PASS",
+    "route_registration": "PASS",
     "workflow_run": 36125468095,
+    "critical_browser_smoke": "PASS",
     "real_phone_touch_audio": "HUMAN_GATE"
   },
-  "rebase_note": "Final branch cut from current master after FAN/8 landed. PLAY 0.3 preserves the FAN/8 printable-controller link while retaining LIVE, Two Dial and Ecology authority boundaries.",
+  "rebase_note": "Shipped on current master after FAN/8; the printable controller link is preserved. Later duplicate takeover PRs are superseded provenance only.",
   "pr": 291,
-  "merge_sha": "c027f3b8a275d19f237ae4fce2791443fd63bf26"
+  "merge_sha": "c027f3b8a275d19f237ae4fce2791443fd63bf26",
+  "merge": {
+    "pr": 291,
+    "sha": "c027f3b8a275d19f237ae4fce2791443fd63bf26"
+  }
 }
