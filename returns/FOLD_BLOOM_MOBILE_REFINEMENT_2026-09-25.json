@@ -1,0 +1,22 @@
+{
+  "schema": "0xxx0/fold-bloom-mobile-refinement/v0.1",
+  "date": "2026-09-25",
+  "status": "CANDIDATE",
+  "scope": [
+    "/fold-bloom/set/",
+    "/fold-bloom/replay/"
+  ],
+  "delta": [
+    "SET phone controls, mini reorder/remove controls, seam controls, disclosure summaries and nav links use >=44px touch height",
+    "REPLAY phone controls, word/operation/mark controls and disclosure summaries use >=44px touch height",
+    "REPLAY phone shell adds safe-area-aware horizontal/footer padding and a larger scrub hit area"
+  ],
+  "preserves": [
+    "source identity",
+    "SET seam/order authorship",
+    "REPLAY score semantics",
+    "RETURN behavior",
+    "no new state or architecture"
+  ],
+  "verification": "Repository/CI plus real phone feel remains the final ergonomic witness."
+}
