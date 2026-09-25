@@ -1,4 +1,5 @@
 import { availableForecasts, forecastMatchesCall, gateCellIndex, TYPE_NAMES, N } from './engine.js';
+import { RUN_LENGTH, RUN_WIN_HITS, PUZZLE_ROUNDS, PUZZLE_WIN_STARS, puzzleStars as scorePuzzle, runOutcome, puzzleOutcome } from './play-core.js';
 
 const VERSION = 'FOLD_BLOOM_PLAY_0.1';
 const VALID = new Set(['PLAY','PUZZLE','ZEN']);
@@ -98,7 +99,7 @@ function injectEntry(){
   const box = document.createElement('div');
   box.id = 'fbPlayEntry';
   box.className = 'fbPlayEntry';
-  box.innerHTML = '<div class="law"><b>ONE MOVE:</b> TURN → FIND THE SYMBOL → MATCH THE GOAL → RELEASE.<br><b>ONE RUN:</b> eight releases. No lives. No dead moves; misses still change the field.<br><span style="color:rgba(255,255,255,.48)">ROAD: measured BEAT / PHRASE / SECTION terrain.</span></div><div class="modes"><button data-play-mode="PLAY">PLAY A RUN · 8 MOVES</button><button data-play-mode="PUZZLE">PUZZLE · 5 CALLS</button><button data-play-mode="ZEN">ZEN · FREE RIDE</button></div>';
+  box.innerHTML = '<div class="law"><b>ONE MOVE:</b> TURN → FIND THE SYMBOL → MATCH THE GOAL → RELEASE.<br><b>ONE RUN:</b> eight releases. Hit 6 goals to HOLD THE ROAD. Misses still change the field.<br><span style="color:rgba(255,255,255,.48)">ROAD: measured BEAT / PHRASE / SECTION terrain.</span></div><div class="modes"><button data-play-mode="PLAY">RUN · HOLD 6 / 8</button><button data-play-mode="PUZZLE">PUZZLE · SOLVE 10★ / 15</button><button data-play-mode="ZEN">ZEN · FREE RIDE</button></div>';
   const startRow = card.querySelector('.startRow');
   card.insertBefore(box, startRow || null);
   box.querySelectorAll('[data-play-mode]').forEach(btn => btn.addEventListener('click', () => enterFromIntro(btn.dataset.playMode)));
@@ -158,29 +159,23 @@ function finish(state){
   ended = true;
   root.classList.remove('on');
   const best = Math.max(1, Number(state.bestChain) || 1);
-  q('#fbResultEy').textContent = mode === 'PUZZLE' ? 'PUZZLE RETURN' : 'RUN RETURN';
-  q('#fbResultBig').textContent = mode === 'PUZZLE' ? stars + ' / 15' : hits + ' / 8';
+  const outcome = mode === 'PUZZLE' ? puzzleOutcome(stars) : runOutcome(hits,releases);
+  q('#fbResultEy').textContent = outcome.clear ? (mode === 'PUZZLE' ? 'PUZZLE CLEAR' : 'RUN CLEAR') : (mode === 'PUZZLE' ? 'PUZZLE RETURN' : 'RUN RETURN');
+  q('#fbResultBig').textContent = outcome.label;
   q('#fbResultBody').textContent = mode === 'PUZZLE'
-    ? 'Five calls resolved · ' + hits + ' hits · FLOW +' + flowGain + ' · best chain ' + best + '×. The road you wrote remains live.'
-    : 'Eight releases · ' + hits + ' calls hit · FLOW +' + flowGain + ' · best chain ' + best + '×. Misses still wrote topology; nothing was discarded.';
+    ? stars + ' / 15 stars · clear at ' + PUZZLE_WIN_STARS + ' · ' + hits + ' goals hit · FLOW +' + flowGain + ' · best chain ' + best + '×. The road remains live.'
+    : hits + ' / ' + RUN_LENGTH + ' goals hit · clear at ' + RUN_WIN_HITS + ' · FLOW +' + flowGain + ' · best chain ' + best + '×. Misses still wrote topology; nothing was discarded.';
   result.classList.add('on');
-}
-
-function puzzleStars(event, used, targetPar){
-  if(!event?.callMet) return 0;
-  if(used <= targetPar) return 3;
-  if(used <= targetPar + 1) return 2;
-  return 1;
 }
 
 function onRelease(event, state){
   releases += 1;
   if(event.callMet) hits += 1;
   flowGain += Number(event.flowGain) || 0;
-  if(mode === 'PUZZLE') stars += puzzleStars(event, turns, par);
+  if(mode === 'PUZZLE') stars += scorePuzzle(!!event.callMet, turns, par);
   turns = 0;
   par = parFor(state);
-  if((mode === 'PLAY' && releases >= 8) || (mode === 'PUZZLE' && releases >= 5)) finish(state);
+  if((mode === 'PLAY' && releases >= RUN_LENGTH) || (mode === 'PUZZLE' && releases >= PUZZLE_ROUNDS)) finish(state);
 }
 
 function update(state){
@@ -210,9 +205,9 @@ function update(state){
   }
 
   if(mode === 'PUZZLE'){
-    q('#fbProgress').textContent = (releases + 1) + '/5 · PAR ' + par + ' · ' + turns + 'T';
+    q('#fbProgress').textContent = (releases + 1) + '/' + PUZZLE_ROUNDS + ' · ' + stars + '★/' + PUZZLE_WIN_STARS + ' · PAR ' + par + ' · ' + turns + 'T';
   }else{
-    q('#fbProgress').textContent = releases + '/8 · ' + hits + ' HIT';
+    q('#fbProgress').textContent = releases + '/' + RUN_LENGTH + ' · ' + hits + '/' + RUN_WIN_HITS + ' HIT';
   }
 }
 
