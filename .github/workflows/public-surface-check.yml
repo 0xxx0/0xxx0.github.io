@@ -17,6 +17,10 @@ jobs:
           node-version: '22'
       - name: Validate CURRENT ↔ manifest head drift
         run: node scripts/check-current-heads.mjs
+      - name: Validate Hermes bootstrap scripts
+        run: |
+          bash -n scripts/hermes-confluence-bootstrap.sh
+          python3 -m py_compile scripts/hermes-daily-prompt.py
       - name: Validate JIT FIELD handoff compiler
         run: node scripts/emit-agent-transcript.mjs --selftest
       - name: Validate LensState laws and round trip

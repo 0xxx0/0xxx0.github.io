@@ -178,11 +178,14 @@ Historical master prompts are donor/reference material only; this generated snap
 ## HARD LAWS
 
 - RECOVER BEFORE INVENTING.
-- CURRENT owns attention.
+- CURRENT owns attention and is the sole authored NEXT authority.
+- QUEUE is compatibility/projection only; it does not independently authorize work.
 - Large archive / small active surface.
 - Max live execution fronts = {live_max}.
 - Conversion outranks coordination.
 - WAITING_ON_HUMAN is not an active front.
+- TELEMETRY != MATERIAL MUTATION: generated NEXUS board-refresh heartbeats do not create work.
+- AUTONOMY != BUSYNESS: if the highest-value frontier is human/world-gated, allow at most one directly-related reversible fallback, then STOP rather than forage unrelated archive work.
 - One bounded material move → VERIFY → RETURN → REPLAN.
 - No second move inherits authority.
 - No new core/dashboard/ontology without a missing function.
@@ -237,7 +240,7 @@ Prefer PARK / LINK / COMPRESS / RECONCILE over DELETE.
 
 ## EXECUTION
 
-1. Re-read /llms.txt → CURRENT / QUEUE / WAITING and inspect live Hermes/NEXUS/branch/worktree state.
+1. Read /llms.txt, then re-read CURRENT + WAITING; consult QUEUE only as compatibility/history. Inspect live Hermes/NEXUS/branch/worktree state.
 2. Compare that live state with this generated snapshot. Mark drift explicitly.
 3. Reconcile existing workers before spawning another.
 4. Derive:
@@ -261,17 +264,19 @@ If no material move survives the filter, perform no mutation.
 STATE:
 DELTA:
 EVIDENCE:
-KEEP LIVE:
-CONTRACTED / PARKED:
+VALUE:
+RESIDUE:
 WAITING:
 CONTRADICTIONS:
-VALUE:
-NEXT CANDIDATE:
+NEXT:
 STOP:
+
+NEXT is a candidate, never inherited authority.
+If DELTA has no corresponding EVIDENCE or VALUE, do not count the cycle as progress.
 
 A valid outcome is:
 
-NO LAWFUL MACHINE MOVE — <exact missing dependency>.
+NO_LAWFUL_HIGH_VALUE_MOVE — <exact human/world/private dependency>.
 """
 
 
