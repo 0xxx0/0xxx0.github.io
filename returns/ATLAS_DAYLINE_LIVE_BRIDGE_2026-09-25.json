@@ -19,6 +19,7 @@
     "/atlas-dayline/index.html",
     "/atlas-dayline/app.js",
     "/atlas-dayline/field-bridge.js",
+    "/atlas-dayline/sw.js",
     "/atlas-dayline/release.json",
     "/showcase-manifest.json",
     "/control/confluence/ATLAS_DAYLINE_LIVE_CONVERGENCE_2026-09-25.md"
@@ -28,7 +29,8 @@
     "default_mode": "bridge exits unless ?live=1",
     "field_write_path": "NONE",
     "promotion_boundary": "explicit ADD",
-    "feedback_write_path": "clipboard/download only"
+    "feedback_write_path": "clipboard/download only",
+    "service_worker_truth_bypass": "CURRENT/WAITING/manifest bypass CacheStorage; cache bumped to v2"
   },
   "residue": [
     "browser-lived proof",
