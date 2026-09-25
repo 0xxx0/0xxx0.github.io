@@ -29,7 +29,7 @@ It is a field of addressed objects, unequal projections, reusable mechanisms, ex
 | `/returns/` | Evidence of what actually happened |
 | `/recovery/` + local archive | Source/donor memory (not current authority) |
 | HUMAN PORT | Ingress/egress boundary |
-| Hermes/Codex/ChatGPT | Replaceable executors |
+| `/llms.txt` + `scripts/emit-agent-transcript.mjs` | Stable machine entrypoint + transient selective handoff; no copied state authority |\n| Hermes/Codex/ChatGPT | Replaceable executors |
 
 ## PRIMARY LAW
 
