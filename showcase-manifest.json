@@ -1325,14 +1325,14 @@
     },
     {
       "href": "/docs/",
-      "title": "READFIELD / RSVP 0.8.2",
+      "title": "READFIELD / RSVP 0.8.3",
       "kind": "utility",
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": true,
-      "role": "Canonical high-performance reader with one exact source position across FOCUS / MIN / PLAIN projections. FOCUS is now the visible default: AXIAL/LISTEN address+aperture rings, Triangle-derived center frame, optional LISTEN FIELD PULSE witness and Atlas source-glyph spokes surround the same RSVP/ORP cursor. MIN strips this to ring + RSVP essentials; PLAIN remains the explicit lowest-cost geometry-free performance mode. Explicit LISTEN/AUDIO or FIELD LAB/SYNTH timing may lend tempo to RSVP; use-case controls enact FAST RSVP, PULSE ×4, VOICE+EYES and CURRENT directly.",
+      "role": "Canonical high-performance reader with one exact source position across FOCUS / MIN / PLAIN projections and six task-first work modes: FAST RSVP, REVIEW/FOCUS, PULSE ×4, VOICE+EYES, REMEMBER/LOCI and WORK/REPO. Bounded APERTURE handoff now carries source + exact focus so FULL READFIELD and READFIELD→LOCI do not silently restart the object. LISTEN/AUDIO or FIELD LAB/SYNTH may lend tempo only; text/cursor authority remains READFIELD.",
       "index": {
-        "updated_at": "2026-09-24T14:13:00+08:00",
+        "updated_at": "2026-09-25T09:14:00+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
@@ -1352,10 +1352,11 @@
         "VOICE boundary charIndex → same source cursor without forcing WORD scale",
         "throttled highlighted context projection during high-speed play",
         "same-origin repo text ingress + session-local long-text/page paste",
-        "RAW + RETURN preserved"
+        "RAW + RETURN preserved",
+        "bounded APERTURE handoff preserves source + scale/index/address/char position/source progress/WPM across explicit reader/LOCI transitions"
       ],
       "operation": "READ",
-      "receipt": "/returns/FIELD_PULSE_CONVERGENCE_2026-09-24.json",
+      "receipt": "/returns/READFIELD_WORK_MODES_2026-09-25.json",
       "contract": {
         "accepts": {
           "kinds": [
@@ -1377,7 +1378,7 @@
           ]
         },
         "transforms": {
-          "verb": "read one source through scale × position × time while preserving one canonical source position; optionally project rings, triangle center, LISTEN pulse and source glyph around that position without transferring source authority",
+          "verb": "read one source through scale × position × time while preserving one canonical source position; choose task-first work modes; explicitly hand source + bounded focus into LOCI/reader transitions; optionally project rings, triangle center, LISTEN pulse and source glyph without transferring source authority",
           "preserves": [
             "source bytes/text",
             "canonical source position",
@@ -1413,7 +1414,7 @@
           "return_path": "/docs/"
         }
       },
-      "version": "0.8.2",
+      "version": "0.8.3",
       "tier": "FIELD"
     },
     {
@@ -2207,17 +2208,17 @@
     },
     {
       "href": "/fold-bloom/lab/",
-      "title": "FOLD//BLOOM · FIELD LAB 0.2.1",
+      "title": "FOLD//BLOOM · FIELD LAB 0.2.2",
       "kind": "experiment",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "TRAIN / EXPLORE",
       "state": "CANDIDATE",
-      "version": "0.2.1",
+      "version": "0.2.2",
       "tier": "FIELD",
-      "role": "Spatial six-projection lab over the Fold/Bloom family. RIDE delegates to LIVE; PULSE trains polyrhythm and emits bounded FIELD PULSE transport; READ embeds canonical READFIELD/APERTURE and lets source chrome recede after binding; LOCI now preserves large text as a bounded addressed course instead of truncating it; READ may explicitly carry the same source/focus into LOCI or DATA. INK, DATA and LOCI remain unequal studies; profiles are presentation-only. PULSE exposes clock/beat/phase and explicit READ/RIDE/COMPOSE routes as a synthetic FIELD PULSE producer.",
+      "role": "Spatial six-projection lab over the Fold/Bloom family. RIDE delegates to LIVE; PULSE trains polyrhythm and emits bounded FIELD PULSE transport; READ embeds canonical READFIELD/APERTURE; LOCI preserves large text as a bounded addressed course. Explicit READ↔READFIELD handoffs now preserve bounded cursor/focus, and READFIELD→LOCI can enter the nearest addressed locus instead of restarting the source. INK, DATA and LOCI remain unequal studies; profiles are presentation-only.",
       "index": {
-        "updated_at": "2026-09-24T14:13:00+08:00",
+        "updated_at": "2026-09-25T09:14:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2241,7 +2242,7 @@
         "stage": "TEST",
         "question": "Can one compact shell reuse real canonical mechanisms and carry one addressed source between unequal projections, instead of demonstrating six isolated toys?",
         "baseline": "FIELD LAB 0.1 exposed six modes, but READ was a second ghost-race implementation and phone mode selection preserved radial geometry even when it reduced reachability.",
-        "mutation": "0.2 embeds canonical APERTURE/RSVP, makes PULSE coupling explicit as WITNESS/×4/OFF, publishes bounded reader focus, adds explicit READ→LOCI/DATA carry, makes READ source intake recede after binding, replaces LOCI's 12-token truncation with an addressed large-text course, and replaces the phone radial selector with a 3×2 thumb rail while retaining the desktop ring.",
+        "mutation": "0.2.2 keeps the canonical APERTURE/RSVP reader and addressed large-text LOCI course, then closes the observed re-entry gap: explicit READ/FULL READFIELD/LOCI handoffs preserve bounded source focus and READFIELD exposes concrete work-mode presets without creating a second cursor or course authority.",
         "evidence_gate": "Node READ/course tests + 430×900 browser proof + full public-surface CI. Human gate: on phone, READ must support ordinary RSVP/regress/scale without explanatory prose and one READ→LOCI carry must preserve source position well enough to reduce re-entry or aid recall.",
         "next_if_pass": "Use one genuinely long familiar source through READ→LOCI: inspect the same exact text, carry focus, recall the course, export RETURN, then judge whether source-position recovery beats a plain chunk list. Only then generalize COURSE or add Pathweaver/event-tape adapters.",
         "next_if_fail": "Keep canonical READFIELD handoff and individually useful PULSE/event-tape/INK mechanisms; demote the universal FIELD LAB shell instead of cloning more engines."
