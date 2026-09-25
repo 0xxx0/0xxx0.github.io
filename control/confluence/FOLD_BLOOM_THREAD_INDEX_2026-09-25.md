@@ -103,6 +103,21 @@ Landed:
 
 Disposition: MERGED. “Build a new universal kernel/dashboard” is explicitly rejected.
 
+### 2026-09-24 — FIELD LAB READ / LOCI / PULSE convergence
+
+User ask recovered from the implementation/verification thread:
+- READ should recede during active use while source/edit/regress/pause/return remain reachable;
+- LOCI must stop truncating long sources;
+- prove one genuinely long source through hierarchical addressed chunks;
+- preserve exact source identity; do not create a universal COURSE core.
+
+Lineage:
+- PR #210 captured the broader design/research direction but closed unmerged.
+- PR #211 `f56505f2ebc9d2fdcb17ea03929375ae1b6c8f92` absorbed only the two proven defects: READ chrome displacement and LOCI `slice(0,12)` truncation. Canonical READFIELD replaced duplicate READ; long text becomes deterministic addressed spans with bounded RETURN.
+- PR #212 `6ee3b237299db2c72d9602be4a8ec79209300bd3` connected FIELD PULSE to READFIELD, LIVE and Two Dial while preserving borrowed-clock ≠ borrowed-authorship.
+
+Disposition: PR #210 = CLOSED UNMERGED DONOR; #211/#212 = MERGED CURRENT BEHAVIOR. Do not resurrect the broader COURSE proposal unless ordinary long-source use establishes a missing capability.
+
 ### 2026-09-24 — SET→LIVE fusion + replay / visual research lanes
 
 Canonical merge:
