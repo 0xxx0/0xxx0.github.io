@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#07090a"><meta name="robots" content="noindex,nofollow">
-<title>POEM MAP 0.2.1 · VERSE</title>
+<title>POEM MAP 0.2.3 · VERSE</title>
 <style>
 :root{--bg:#07090a;--panel:#0c1114;--panel2:#10171b;--ink:#edf1ee;--muted:#7f8d94;--line:#29363d;--line2:#40515a;--hot:#f0a15a;--cyan:#72d2e5;--green:#9bd27f;--pink:#ea8ab8;--gold:#d9b56e;--red:#e97870}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--ink);font:12px/1.38 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
@@ -65,7 +65,7 @@ details.advanced[open]>summary:after{content:" −"}
 }
 </style></head>
 <body><div class="app">
-<header class="top"><div class="brand">VERSE <em>// POEM MAP 0.2.1</em></div><div class="spacer"></div><button id="fieldNowBtn" class="fieldNow">FIELD NOW</button><button id="leftBtn">SOURCE</button><button id="rightBtn">DETAIL</button><button id="guideBtn">?</button><a class="desktop" href="../">VERSE</a><a class="desktop" href="../../foundry/">FOUNDRY</a></header>
+<header class="top"><div class="brand">VERSE <em>// POEM MAP 0.2.3</em></div><div class="spacer"></div><button id="fieldNowBtn" class="fieldNow">FIELD NOW</button><button id="leftBtn">SOURCE</button><button id="rightBtn">DETAIL</button><button id="guideBtn">?</button><a class="desktop" href="../">VERSE</a><a class="desktop" href="../../foundry/">FOUNDRY</a></header>
 <div class="shell"><div id="shade" class="sheetShade"></div>
 <aside id="left" class="side left">
  <div class="k">Source</div>
@@ -105,6 +105,9 @@ details.advanced[open]>summary:after{content:" −"}
 
 <aside id="right" class="side right">
  <div class="k">Selection</div><div id="selection" class="card"><span class="sub">Select a word or character in MAP/PAGE.</span></div>
+ <div class="k">Carry source / focus</div>
+ <div class="row"><button id="carryRead">READ</button><button id="carryLab">LAB</button><button id="carryStudy">STUDY 4×7</button></div>
+ <div class="tiny" id="carryLaw" style="margin:4px 0 8px">Same text + exact focus; each target keeps its own authority. STUDY opens only for an exact four-line × seven-Han source.</div>
  <div id="actions" class="hidden">
   <div class="row"><button id="lockBtn">LOCK</button><button id="pathBtn">+ PATH</button><button id="linkBtn">LINK NEXT</button></div>
   <div class="k">Possibility dock</div>
@@ -362,6 +365,44 @@ $('#form').onchange=e=>{S.form=e.target.value;save();renderConstraints()};for(le
 $('#aperture').oninput=e=>{S.aperture=+e.target.value;$('#wap').textContent=S.aperture.toFixed(2);save()};
 $('#mapIt').onclick=()=>{S.fieldLoaded=false;parse()};$('#clear').onclick=()=>{$('#source').value='';Object.assign(S,{source:'',fieldLoaded:false,nodes:[],edges:[],selected:null,authorPath:[],authorEdges:[],bank:[],preview:null,revisions:[],captures:[],locks:new Set()});render();save()};$('#loadDemo').onclick=()=>{S.fieldLoaded=false;$('#source').value=DEMO;parse()};$('#loadField').onclick=loadFieldNow;$('#fieldNowBtn').onclick=loadFieldNow;$('#loadJueju').onclick=()=>{S.fieldLoaded=false;$('#source').value=JUEJU;S.form='jueju7';$('#form').value=S.form;parse()};
 $('#resetLayout').onclick=()=>{S.layoutSeed++;initPositions();save()};$('#exportBtn').onclick=()=>{let r=receipt(),a=document.createElement('a');a.download='poem-map-return.json';a.href=URL.createObjectURL(new Blob([JSON.stringify(r,null,2)],{type:'application/json'}));a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);status('RETURN EXPORTED')};$('#importBtn').onclick=()=>$('#importFile').click();$('#importFile').onchange=async e=>{let file=e.target.files?.[0];e.target.value='';if(!file)return;try{applyReceipt(JSON.parse(await file.text()));status('RETURN REPLAYED')}catch(err){status('IMPORT FAILED · INVALID POEM MAP RETURN')}};
+function poemFocus(){
+ const n=S.nodes.find(x=>x.id===S.selected)||S.nodes[0]||null,lines=String(S.source||'').split('\n');
+ const line=Math.max(0,Math.min(lines.length-1,Number(n?.line)||0));let base=0;for(let i=0;i<line;i++)base+=lines[i].length+1;
+ const local=Math.max(0,Number(n?.start)||0),start=Math.min(S.source.length,base+local),end=Math.min(S.source.length,start+String(n?.text||'').length);
+ return{line,index:Math.max(0,Number(n?.index)||0),start,end,address:`text://${start}:${end}`,token:String(n?.text||'')}
+}
+function poemLineFocus(){
+ const f=poemFocus(),lines=String(S.source||'').split('\n');let start=0;for(let i=0;i<f.line;i++)start+=lines[i].length+1;
+ const end=start+(lines[f.line]||'').length;return{line:f.line,start,end,address:`text://${start}:${end}`}
+}
+function localTextKey(text=''){
+ let h=0x811c9dc5,s=String(text??'');for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,0x01000193)}
+ return `text-local:${s.length}:${(h>>>0).toString(16).padStart(8,'0')}`
+}
+function verseAtlasLines(){
+ const lines=String(S.source||'').split('\n'),han=/^[\u3400-\u9fff\uf900-\ufaff]{7}$/u;
+ return lines.length===4&&lines.every(x=>han.test(x))?lines:null
+}
+function carryRead(){
+ if(!S.source.trim())return status('CARRY BLOCKED · BIND A SOURCE FIRST');
+ const f=poemFocus(),ret=location.pathname+location.search;
+ const packet={schema:'readfield-handoff/v1',created:new Date().toISOString(),source:S.source,label:'VERSE / POEM MAP',from:ret,returnAddress:ret,sourceIdentity:{kind:'TEXT',format:'TXT',authority:'VERSE/POEM-MAP-0.2'},focus:{scale:'WORD',index:f.index,address:f.address,char_index:f.start,source_progress:S.source.length?f.start/S.source.length:0,wpm:300}};
+ try{sessionStorage.setItem('readfield.handoff.v1',JSON.stringify(packet))}catch(_){}
+ location.href='/docs/?handoff=1&from=verse&return='+encodeURIComponent(ret)
+}
+function carryLab(){
+ if(!S.source.trim())return status('CARRY BLOCKED · BIND A SOURCE FIRST');
+ const f=poemLineFocus(),ret=location.pathname+location.search,packet={schema:'field-verse-handoff/v0.1',created:new Date().toISOString(),source:S.source,sourceKey:localTextKey(S.source),focus:f,marks:[],from:ret};
+ try{sessionStorage.setItem('field.verse.handoff.v01',JSON.stringify(packet))}catch(_){}
+ location.href='/fold-bloom/lab/?mode=VERSE&handoff=1&from=poem-map'
+}
+function carryStudy(){
+ const lines=verseAtlasLines();if(!lines)return status('STUDY BLOCKED · VERSE ATLAS ACCEPTS EXACT 4 × 7 HAN ONLY');
+ const f=poemFocus(),ret=location.pathname+location.search,packet={schema:'verse-atlas-handoff/v0.1',created:new Date().toISOString(),source:S.source,lines,focus:{line:f.line,character:Math.max(0,Math.min(6,f.index)),start:f.start,end:f.end,address:f.address},from:ret};
+ try{sessionStorage.setItem('verse.atlas.handoff.v01',JSON.stringify(packet))}catch(_){}
+ location.href='/foundry/verse-atlas/?handoff=1&view=study&from=poem-map'
+}
+$('#carryRead').onclick=carryRead;$('#carryLab').onclick=carryLab;$('#carryStudy').onclick=carryStudy;
 function receipt(){return{format:'VERSE/POEM-MAP-0.2',source:S.source,mode:S.mode,nodes:S.nodes.map(({id,line,index,text,norm})=>({id,line,index,text,norm})),form:S.form,weights:S.weights,aperture:S.aperture,locks:[...S.locks],author_path:S.authorPath,author_edges:S.authorEdges,bank:S.bank,preview:S.preview,revisions:S.revisions,captures:S.captures,local_corpus:{loaded:S.corpus.length>0,token_count:S.corpus.length,persistence:'SESSION_ONLY_NOT_EXPORTED'},claims:{sound:'APPROX_LATIN_HEURISTIC',semantic:'NO_AUTOMATIC_SEMANTIC_EMBEDDING',jueju_historical_prosody:'OPEN'},created:new Date().toISOString()}}function applyReceipt(r){
  if(!r||r.format!=='VERSE/POEM-MAP-0.2'||typeof r.source!=='string')throw new Error('RETURN FORMAT');
  S.source=r.source;S.fieldLoaded=false;S.form=FORMS[r.form]?r.form:'free';S.mode=['PAGE','MAP','SETS'].includes(r.mode)?r.mode:'PAGE';
@@ -427,6 +468,6 @@ if(bootVerse){
   });
 }
 requestAnimationFrame(draw);
-window.__POEM_MAP__={S,receipt,applyReceipt,parse,setMode,previewCandidate,adoptCandidate,undoRevision,selftest,loadLocalCorpus,localCorpusCandidates,loadFieldNow,requestIntent,renderFocusWheel};
+window.__POEM_MAP__={S,receipt,applyReceipt,parse,setMode,previewCandidate,adoptCandidate,undoRevision,selftest,loadLocalCorpus,localCorpusCandidates,loadFieldNow,requestIntent,renderFocusWheel,poemFocus,poemLineFocus,verseAtlasLines,carryRead,carryLab,carryStudy};
 })();
 </script></body></html>
