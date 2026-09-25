@@ -2,10 +2,13 @@
   "schema": "release-receipt/v1",
   "artifact": "HOUSE / FIELD",
   "route": "/house/",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "released": "2026-09-25",
   "state": "ACTIVE",
   "changes": [
+    "Projection hashes are now addressable at the canonical root (`/house/#PLAN`, `#TRACE`, etc.); changing views updates the hash without navigation.",
+    "Dayline DEPTH / PROJECTIONS now links HOUSE directly to `/house/` instead of the compatibility alias.",
+    "HOUSE confluence v0.2 now encodes the one-canonical-human-entry law and gates further expansion on ordinary use plus a bounded physical RETURN.",
     "Converged HOUSE onto one canonical human-facing root: /house/ now directly hosts the spatial/state instrument rather than a dashboard that links onward.",
     "Preserved the former generated HOUSE dashboard as /house/expert.html for technical state/runtime inspection and BODY↔HOUSE local context depth.",
     "Collapsed /house/spatial/ into a compatibility redirect to /house/; spatial model and TRACE law assets remain under /house/spatial/ as substrate rather than a second UI authority.",
@@ -44,7 +47,9 @@
     "canonical_human_entry": "/house/",
     "compatibility_alias": "/house/spatial/ -> /house/",
     "model_substrate": "/house/spatial/model.json",
-    "authority": "HA/HOUSEBUS private actuation unchanged"
+    "authority": "HA/HOUSEBUS private actuation unchanged",
+    "projection_hashes": "PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS",
+    "dayline_depth": "/house/"
   },
   "sources": [
     "/showcase-manifest.json",
