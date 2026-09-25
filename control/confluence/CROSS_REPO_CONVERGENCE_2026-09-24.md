@@ -142,6 +142,39 @@ new coordination object, branch, score, summary, seal or architecture with no ch
 3. This is not evidence that the private repo ceased to matter; it means “one global CURRENT” was the wrong abstraction.
 4. Private CURRENT should point to this cross-repo map and public CURRENT for public-runtime questions while retaining private-only authority locally.
 
+## 2026-09-25 coordination sync
+
+This section updates the map only. It does not create a new implementation surface.
+
+### Public current-head deltas
+
+- **FIELD INDEX 0.8.2** now explicitly separates manifest route-index time from exact Git chronology and exposes INDEX↔GIT drift; Φ remains host/authority and φ remains local addressed focus.
+- **READFIELD 0.8.3** now exposes concrete FAST / REVIEW / PULSE / VOICE / LOCI / REPO work modes and carries bounded focus through READFIELD ↔ LOCI rather than handing off source text alone.
+- **FOLD//BLOOM** has moved further toward task-first use: generic LIVE is again the primary runtime entry, unreliable CENTER MASS remote playback is optional, a bounded same-origin 12s example now exists for clean-phone SOURCE / MAP / IMMERSION testing without becoming source authority, LISTEN marks/export remain source-addressed, **REPLAY 0.2** is now a source-linked expressive score surface with machine-verified share/roundtrip evidence but lived recipient value still open, and SABER 0.1 is implemented but still requires real two-phone proof.
+- **SPIKE 005 / EXPRESSION TRANSCRIPT** tests Φ as a no-copy host boundary and φ as addressed locus; expression REWIND restores context without rolling canonical state backward.
+
+### Sep-23 handoff / GLYPH residue
+
+PR #192 remains a **superseded donor snapshot**. Do not revive or merge it.
+
+The named “Codex GLYPH conformance result” still has no dedicated receipt that can be identified as such, but it is **not an architectural blocker**:
+
+- PR #188 already supplies the shared stateless GLYPH/ring grammar and effect-boundary tests;
+- PR #200 supplies the SET identity / seam / dual-clock semantics that GLYPH must not collapse;
+- current TRANSDUCTIONS law already says GLYPH is representation-only and may expose unsupported semantics as residue.
+
+If the old Codex thread is resumed, its only useful closure is one bounded falsifier: two states with equal member/source glyph identity but unequal SET seam/operator state must remain distinguishable in canonical state, with the difference either represented or declared as projection residue. No new glyph framework or handoff layer is warranted.
+
+### Research alignment
+
+The current cross-domain hypothesis is now recorded in `/control/research/SHAPE_LAW_ATLAS.md`: **one source/whole may carry co-present scales and parts while a movable aperture foregrounds one resolution**. Rings, luopan-like bands, glyphs, lines and rooms remain unequal projections; similar geometry never transfers domain authority.
+
+The lived-value hypothesis remains in `/control/research/EXCITEMENT_EVENT_THEORY_2026-09-24.md`. Machine replay/timing proofs make later human tests interpretable; they do not establish delight, comprehension or memorability.
+
+### Machine transcript candidate
+
+Open PR #233 remains a **non-canonical revision-bound transcript candidate**. Its own contract requires regeneration when canonical inputs move. Treat `CURRENT`, manifest, WAITING and exact owner artifacts as authority until that candidate is current against master and merged.
+
 ## Stop conditions
 
 Stop converging when:
