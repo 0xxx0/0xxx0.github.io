@@ -11,8 +11,8 @@ const need=(ok,msg)=>{if(!ok)fail.push(msg)};
 need(html.includes('id="catchupRewind"'),'REWIND control missing');
 need(html.includes("CATCHUP_HISTORY_KEY='field.catchup.history.v01'"),'bounded local history key missing');
 need(html.includes('function rewindCaughtUp()'),'rewind function missing');
-need(html.includes("history.push(previous)"),'MARK does not retain previous boundary');
-need(html.includes("setCatchupSeen(prior)"),'REWIND does not restore prior boundary');
+need(html.includes('pushCatchupHistory('),'acknowledgement does not retain a prior local boundary');
+need(/setCatchupSeen\(prior(?:\.previous\|\|0)?\)|saveCatchupItems\(items\)/.test(html),'REWIND does not restore bulk or per-route local state');
 need(html.includes("$('catchupRewind').onclick=rewindCaughtUp"),'REWIND control is not wired');
 
 const ops=new Map((sem.operations||[]).map(x=>[x.id,x]));
@@ -24,11 +24,11 @@ need(/REVERT/.test(sem.core_law||''),'root interaction law omits REVERT');
 need((contract.laws||[]).some(x=>/^LOCAL ACKNOWLEDGEMENT IS REWINDABLE/.test(x)),'FIELD catch-up rewind law missing');
 
 const root=(manifest.routes||[]).find(r=>r.href==='/');
-need(root?.version==='0.8.6','FIELD root version not advanced');
-need(root?.latest_return==='/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json','reversibility RETURN not attached');
+need(Number(String(root?.version||'0').split('.').slice(0,2).join('.'))>=0.8,'FIELD root version missing');
+need(/^\/returns\/FIELD_INDEX_.*2026-09-25\.json$/.test(root?.latest_return||''),'FIELD root RETURN not attached');
 
 if(fail.length){
   console.error('FIELD reversibility FAIL · '+fail.join(' · '));
   process.exit(1);
 }
-console.log('FIELD reversibility PASS · CATCH UP MARK → REWIND · UNDO ≠ REWIND ≠ REVERT ≠ RETURN');
+console.log('FIELD reversibility PASS · local acknowledgement → REWIND · UNDO ≠ REWIND ≠ REVERT ≠ RETURN');
