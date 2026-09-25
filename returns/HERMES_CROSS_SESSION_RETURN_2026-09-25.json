@@ -1,0 +1,91 @@
+{
+  "schema": "0xxx0/hermes-cross-session-return/v0.2",
+  "date": "2026-09-25",
+  "evidence_class": "REPORTED_LOCAL_HERMES_CENSUS",
+  "authority": "NONE",
+  "source": {
+    "branch": "hermes/cross-session-convergence-20260925",
+    "pr": 249,
+    "last_verified_master": "012775db",
+    "local_pass_timestamp": "2026-09-25T14:05+08:00",
+    "note": "Local Hermes/session/runtime observations were produced by another worker pass and are retained as dated evidence, not current repository truth."
+  },
+  "reported_coverage": {
+    "profiles_enumerated": 9,
+    "sessions_since_20260918": 374,
+    "sessions_live_3day_window_approx": 130,
+    "sessions_read_in_depth_min": 15,
+    "remote_branches_triaged": 256,
+    "branches_not_in_master_at_pass": 57,
+    "enabled_crons_reported_total": 56
+  },
+  "absorbed_elsewhere": [
+    {
+      "claim": "worker boot/state drift",
+      "resolution": "PR #246"
+    },
+    {
+      "claim": "daily prompt boot drift + WAITING state drift",
+      "resolution": "PR #247"
+    },
+    {
+      "claim": "App Atlas projection drift",
+      "resolution": "PR #248"
+    }
+  ],
+  "verification_triggers": [
+    {
+      "id": "fold-bloom-phone-nav-targets",
+      "class": "MACHINE_CHECKABLE",
+      "reported": "Some Fold/Bloom lab/ink navigation targets measured roughly 11–23px tall on a 390px phone viewport.",
+      "next": "Inspect current head and current CSS/runtime before changing anything."
+    },
+    {
+      "id": "arxiv-alignment-feed-406",
+      "class": "LOCAL_RUNTIME_REPORTED",
+      "reported": "arxiv-alignment-feed reportedly fails daily with HTTP 406.",
+      "next": "Re-observe local runtime before repair or pause."
+    },
+    {
+      "id": "operator-cron-duplicates",
+      "class": "LOCAL_RUNTIME_REPORTED",
+      "reported": "Crew Pulse Check and kobo-daily-publish reportedly duplicated; Crew Pulse also reported a connection error.",
+      "next": "Re-census actual scheduler state before mutation."
+    },
+    {
+      "id": "remote-branch-prune-candidates",
+      "class": "REPO_REPORTED",
+      "reported": "57 remote branches were not in master at the time of the pass.",
+      "next": "Prepare a non-destructive prune candidate list only if branch hygiene becomes selected work."
+    },
+    {
+      "id": "kestrel-fold-bloom-residue",
+      "class": "DONOR_REPORTED",
+      "reported": "Operator-registry/COMPRESS, causal-witness scoring and a Suno correction were reported as unapplied.",
+      "next": "Require exact source/current-host comparison before any transplant."
+    },
+    {
+      "id": "interphase-kernel-held",
+      "class": "ANTI_MERGE_HOLD",
+      "reported": "A second-clone INTERPHASE kernel extraction exists locally and was deliberately held.",
+      "next": "Do not merge by resemblance; reopen only from a named missing function."
+    }
+  ],
+  "mechanism_extractor": {
+    "instances": [
+      "PR #246 worker-authority contraction",
+      "PR #247 daily live-authority generator",
+      "2026-09-25 cross-session census/reconciliation"
+    ],
+    "invariant": "LIVE AUTHORITY → bounded selection → exact evidence → one reversible move → VERIFY → RETURN → REPLAN",
+    "non_example": "Install a dated multi-hundred-line master prompt as a new cold-start authority.",
+    "failure_mode": "Context expansion and duplicate sovereignty from copied doctrine.",
+    "second_context_test": "The same invariant worked for repository worker boot and disposable daily context without a new state store.",
+    "skill_disposition": "PARKED_NO_NEW_SKILL",
+    "reason": "AGENTS, /llms.txt, HERMES_QUEUE, the JIT transcript and existing method skills already encode the useful invariant more compactly."
+  },
+  "pr250_disposition": "DONOR_SUPERSEDED_CLOSED",
+  "current_host_law": "/llms.txt → AGENTS.md → CURRENT / QUEUE / manifest / WAITING",
+  "one_next": "Verify one current product-facing residue; Fold/Bloom phone navigation is the strongest repo-checkable candidate.",
+  "stop": "No standing rendezvous, successor master charter, scheduler or ambient archaeology created from this return."
+}
