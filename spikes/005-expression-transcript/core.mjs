@@ -8,7 +8,7 @@ const hash=s=>{let h=2166136261;for(const c of String(s)){h^=c.charCodeAt(0);h=M
 
 export function createHost({id='HOST',authority='VIEW',source=null,nodes=[],revision=0,operations={}}={}){
   const byId=new Map(nodes.map(n=>[String(n.id),clone(n)]));
-  return {
+  const host={
     id,authority,source,revision:Number(revision)||0,
     ids:()=>[...byId.keys()],
     read:id=>clone(byId.get(String(id))||null),
@@ -21,11 +21,12 @@ export function createHost({id='HOST',authority='VIEW',source=null,nodes=[],revi
         authority:n.authority||authority
       };
     },
-    snapshot:()=>({id,authority,source,revision:Number(this?.revision)||0}),
+    snapshot:()=>({id:host.id,authority:host.authority,source:clone(host.source),revision:host.revision}),
     _get:id=>byId.get(String(id)),
     _set:(id,node)=>byId.set(String(id),clone(node)),
     _operations:operations
   };
+  return host;
 }
 
 export function makePhi(host,meta={}){
