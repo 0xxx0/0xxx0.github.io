@@ -25,6 +25,8 @@ jobs:
         run: node scripts/emit-agent-transcript.mjs --selftest
       - name: Validate FIELD reversibility semantics
         run: node tools/field-reversibility-selftest.mjs
+      - name: Validate FIELD held action aperture
+        run: node tools/field-action-aperture-selftest.mjs
       - name: Validate LensState laws and round trip
         run: node control/lens-state-selftest.js
       - name: Validate Lens proof bench syntax
