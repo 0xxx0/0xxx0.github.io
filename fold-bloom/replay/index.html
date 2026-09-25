@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" data-fold-bloom-replay="booting" data-replay-listen-sync="off">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#05070b"><meta name="color-scheme" content="dark">
+<title>FOLD//BLOOM · REPLAY 0.2</title>
+<style>
+:root{--bg:#05070b;--ink:#f2f3ef;--mut:#75828a;--line:#273139;--panel:#080c10;--hot:#ef7849;--cool:#7bd5ff;--gold:#d7b46d}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}button,input,textarea,select{font:inherit}button,a{color:inherit}
+.app{min-height:100svh;display:grid;grid-template-rows:52px minmax(0,1fr) 42px}.top,.foot{display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:1px solid var(--line)}.top b{font:900 17px/1 system-ui,sans-serif;letter-spacing:-.045em}.top span,.foot{color:var(--mut);font-size:8px;letter-spacing:.1em}.top nav{margin-left:auto;display:flex;gap:4px}.top a{padding:7px 8px;text-decoration:none;border:1px solid transparent}.top a:hover{border-color:var(--line);color:#fff}.foot{border-top:1px solid var(--line);border-bottom:0;justify-content:space-between}
+.main{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 370px}.stage{min-height:620px;position:relative;border-right:1px solid var(--line);overflow:hidden}.stage canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}.hud{position:absolute;inset:12px;display:flex;justify-content:space-between;pointer-events:none;font-size:8px;letter-spacing:.12em;color:var(--mut)}.hud b{color:var(--cool)}
+.timeline{position:absolute;left:12px;right:12px;bottom:12px;padding:10px;background:rgba(5,7,11,.82);border:1px solid var(--line);backdrop-filter:blur(4px)}.timelineHead{display:flex;justify-content:space-between;gap:8px;font-size:8px;color:var(--mut);margin-bottom:6px}.timeline input{width:100%;accent-color:var(--hot)}
+.panel{min-height:0;overflow:auto;background:var(--panel);padding:14px;display:flex;flex-direction:column;gap:10px}.block{border-top:1px solid var(--line);padding-top:10px}.block:first-child{border-top:0}.ey{color:var(--hot);font-size:8px;letter-spacing:.13em}.block h1{margin:6px 0 7px;font:900 28px/.95 system-ui,sans-serif;letter-spacing:-.05em}.block p{margin:0;color:#89959b}.row{display:flex;gap:5px;flex-wrap:wrap}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+button,.btn{min-height:36px;padding:0 10px;background:#0a1015;border:1px solid var(--line);color:#cbd2d5;font-weight:800;font-size:8px;letter-spacing:.07em;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.primary{border-color:var(--hot);color:#ffd3c2}.on{border-color:var(--cool)!important;color:#dff5ff!important}
+label{display:grid;gap:5px;color:var(--mut);font-size:8px;letter-spacing:.08em}input[type=text],textarea,select{width:100%;background:#05070b;border:1px solid var(--line);color:var(--ink);padding:9px;resize:vertical}input[type=range]{width:100%;accent-color:var(--hot)}
+.control{display:grid;grid-template-columns:92px 1fr 46px;gap:7px;align-items:center}.control span:first-child{font-size:8px;color:var(--mut)}.control b{font-size:8px;color:#c4cdd2;text-align:right}
+.words,.ops,.marks{display:flex;gap:4px;overflow:auto;padding-bottom:3px}.words button,.ops button{min-width:max-content;display:grid;height:auto;min-height:40px;padding:6px 8px;text-align:left}.words button b,.ops button b{font-size:9px}.words button span,.ops button span{font-size:7px;color:var(--mut)}.marks button{min-width:130px;display:grid;text-align:left;height:auto;padding:7px}.marks button b{font-size:7px;color:var(--gold)}.marks button span{font-size:8px;white-space:normal}.marks>span{color:var(--mut);font-size:8px}
+.mini{font-size:8px;color:var(--mut)}.meta{display:grid;gap:5px}.meta div{display:grid;grid-template-columns:70px 1fr;gap:6px}.meta span{color:var(--mut);font-size:8px}.meta code{overflow-wrap:anywhere;color:#b9c5ca;font-size:8px}.toolrow{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}.toolrow a{font-size:7px;padding:0 5px}
+details>summary{cursor:pointer;color:#9aa5ab;font-size:8px;letter-spacing:.1em;padding:6px 0;list-style:none}details>summary::-webkit-details-marker{display:none}.inner{display:grid;gap:8px;padding-top:6px}
+.explain{border:1px solid var(--line);padding:9px;color:#8d999f;font-size:8px}.explain b{color:var(--ink)}
+@media(max-width:840px){.main{grid-template-columns:1fr;grid-template-rows:56svh auto}.stage{min-height:0;border-right:0;border-bottom:1px solid var(--line)}.panel{overflow:visible}.top span{display:none}.top nav a:nth-child(-n+2){display:none}}
+@media(max-width:480px){.app{grid-template-rows:48px auto auto}.top{padding:0 10px}.top nav a{display:none}.top nav a:last-child{display:inline-flex}.main{grid-template-rows:54svh auto}.panel{padding:10px}.block h1{font-size:24px}.control{grid-template-columns:76px 1fr 42px}.toolrow{grid-template-columns:1fr 1fr}.foot{display:block;padding:10px 12px}.foot span{display:block;margin-top:3px}}
+</style>
+</head>
+<body><div class="app">
+<header class="top"><b>FOLD//BLOOM · REPLAY 0.2</b><span>LISTEN-LINKED EXPRESSIVE SCORE</span><nav><a href="../listen/" data-tool="LISTEN">LISTEN</a><a href="../live/" data-tool="LIVE">LIVE</a><a href="../lab/" data-tool="LAB">LAB</a><a href="../">F/B ↗</a></nav></header>
+<main class="main">
+<section class="stage">
+  <canvas id="stage" aria-label="Replay score performance"></canvas>
+  <div class="hud"><span id="phase">FIELD</span><b id="clock">0:00.00</b></div>
+  <div class="timeline"><div class="timelineHead"><span>ADDRESSED INTERVAL</span><b id="position">0%</b></div><input id="scrub" type="range" min="0" max="1000" value="0"></div>
+</section>
+<aside class="panel">
+  <section class="block"><div class="ey">MESSAGE ARTIFACT · SCORE, NOT VIDEO</div><h1>Shape the moment.</h1><p>LISTEN supplies source time, measured structure and marks. You author the message, word timing and experience.</p>
+    <div class="row" style="margin-top:9px"><button id="replay" class="primary">REPLAY</button><button id="pause">PAUSE</button><button id="syncListen">SYNC LISTEN</button><button id="reset">RESET</button></div>
+  </section>
+
+  <section class="block"><div class="ey">MESSAGE / CONTEXT</div>
+    <label>MESSAGE<input id="message" type="text" maxlength="180"></label>
+    <label>CONTEXT TITLE<input id="contextTitle" type="text" maxlength="120"></label>
+    <label>WHAT SHOULD THE RECIPIENT KNOW?<textarea id="contextBody" maxlength="360" rows="3"></textarea></label>
+  </section>
+
+  <section class="block"><div class="ey">WORD SHAPING · AUTHORED</div><div class="words" id="words"></div>
+    <div class="mini">SELECTED · <b id="wordName">—</b></div>
+    <div class="control"><span>CUE</span><input id="wordAt" type="range" min="0" max="1000"><b id="wordAtVal">—</b></div>
+    <div class="control"><span>HOLD</span><input id="wordHold" type="range" min="25" max="280"><b id="wordHoldVal">—</b></div>
+    <div class="control"><span>EMPHASIS</span><input id="wordEmphasis" type="range" min="50" max="240"><b id="wordEmphasisVal">—</b></div>
+    <button id="wordSnap">SNAP WORD TO PLAYHEAD</button>
+  </section>
+
+  <section class="block"><div class="ey">OPERATIONS · AUTHORED</div><div class="ops" id="ops"></div>
+    <div class="grid2"><label>TYPE<select id="opType"><option>COMPRESS</option><option>DROP</option><option>BLOOM</option><option>FOLD</option><option>SPLIT</option><option>MESSAGE</option><option>RETURN</option></select></label><label>ADD<select id="newOpType"><option>MESSAGE</option><option>COMPRESS</option><option>DROP</option><option>BLOOM</option><option>FOLD</option><option>SPLIT</option><option>RETURN</option></select></label></div>
+    <div class="control"><span>CUE</span><input id="opAt" type="range" min="0" max="1000"><b id="opAtVal">—</b></div>
+    <div class="control"><span>SPAN</span><input id="opSpan" type="range" min="20" max="350"><b id="opSpanVal">—</b></div>
+    <div class="control"><span>INTENSITY</span><input id="opIntensity" type="range" min="0" max="100"><b id="opIntensityVal">—</b></div>
+    <div class="row"><button id="opSnap">SNAP OP TO PLAYHEAD</button><button id="opAdd">ADD AT PLAYHEAD</button><button id="opDelete">REMOVE OP</button></div>
+  </section>
+
+  <section class="block"><div class="ey">LISTEN EVIDENCE · NOT AUTHORED MEANING</div><div class="mini" id="evidenceRead">NO MAP EVIDENCE</div><div class="marks" id="marks"></div><button id="addMarkOp">ADD MESSAGE AT FIRST MARK</button></section>
+
+  <section class="block"><div class="ey">EXPERIENCE · SHARED WITH LIVE/LISTEN</div>
+    <div class="row"><button data-preset="CLEAR">CLEAR</button><button data-preset="DRIVE">DRIVE</button><button data-preset="TRANCE">TRANCE</button><button data-preset="SOFT">SOFT</button></div>
+    <div class="row"><button data-layer="SOURCE">SOURCE</button><button data-layer="MAP">MAP</button><button data-layer="IMMERSION">IMMERSION</button></div>
+    <div class="row"><button data-scene="DEEP">DEEP</button><button data-scene="TRANCE">TRANCE</button><button data-scene="WOOD">WOOD</button><button data-scene="VOID">VOID</button></div>
+    <details><summary>CALIBRATE · SAME PROFILE FAMILY AS LIVE</summary><div class="inner">
+      <div class="control"><span>SOLIDITY</span><input id="solid" type="range" min="72" max="100"><b id="solidVal">—</b></div>
+      <div class="control"><span>IMMERSION</span><input id="immersion" type="range" min="55" max="145"><b id="immersionVal">—</b></div>
+      <div class="control"><span>ANTICIPATION</span><input id="anticipation" type="range" min="55" max="180"><b id="anticipationVal">—</b></div>
+      <div class="control"><span>MOTION / BODY</span><input id="motion" type="range" min="45" max="165"><b id="motionVal">—</b></div>
+      <div class="control"><span>DROP / PLUNGE</span><input id="drop" type="range" min="55" max="185"><b id="dropVal">—</b></div>
+      <div class="control"><span>TEXT SYNC</span><input id="textOffset" type="range" min="-800" max="800" step="5"><b id="textOffsetVal">—</b></div>
+    </div></details>
+  </section>
+
+  <section class="block"><div class="ey">ARTIFACT / SHARE</div>
+    <div class="grid2"><button id="share" class="primary">SHARE / COPY COMPACT LINK</button><button id="clip">EXPORT VISUAL · WEBM</button><button id="json">EXPORT FULL SCORE JSON</button><a class="btn" id="return" href="../">RETURN</a></div>
+    <div class="mini">LINK <b id="shareLen">not built yet</b> · private/local audio bytes are never embedded. A public source address may travel as a reference.</div>
+    <div class="toolrow" style="margin-top:7px"><a class="btn" href="../listen/" data-tool="LISTEN">LISTEN</a><a class="btn" href="../live/" data-tool="LIVE">LIVE</a><a class="btn" href="../lab/" data-tool="LAB">FIELD LAB</a><a class="btn" href="../ink/" data-tool="INK">INK</a></div>
+  </section>
+
+  <section class="block"><div class="ey">ARTIFACT CONTEXT</div><div class="meta"><div><span>SOURCE</span><code id="source"></code></div><div><span>INTERVAL</span><code id="interval"></code></div><div><span>PACKET</span><code id="bytes"></code></div><div><span>SIGNATURE</span><code id="signature"></code></div></div><a id="publicSource" class="btn" target="_blank" rel="noopener" hidden>OPEN PUBLIC SOURCE ↗</a>
+    <div class="explain"><b>WHAT THIS LINK CONTAINS</b><br>message + context + word cues + authored operations + experience profile + compact measured evidence + source identity/reference. It does not contain local audio bytes.</div>
+  </section>
+</aside>
+</main>
+<footer class="foot"><span>SOURCE / LISTEN EVIDENCE ≠ MESSAGE AUTHORSHIP ≠ EXPERIENCE PREFERENCE</span><span>REPLAY 0.2 · SCORE → CLIP / LINK / RETURN</span></footer>
+</div><script type="module" src="./app.js"></script></body></html>

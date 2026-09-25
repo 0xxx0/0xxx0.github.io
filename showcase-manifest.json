@@ -1683,14 +1683,14 @@
       "operation": "ENTER / ROUTE",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-25T10:12:41+08:00",
+        "updated_at": "2026-09-25T11:10:00+08:00",
         "work_modes": [
           "OPERATE",
           "SHARE",
           "RELEASE"
         ]
       },
-      "role": "Public-facing Fold/Bloom doorway around one source-continuity law, now task-first on phone: READ/RSVP work, pulse-paced reading, LISTEN + addressed marks, LIVE ride, LOCI memory and pulse-linked composition are one-tap jobs before deeper lineage. SOURCE preserves exact identity/playback, MAP exposes measured/derived structure, IMMERSION adds experience projection. SET authors source sequences/seams; FIELD LAB compares canonical projections; INK and VOICE remain bounded practice surfaces. LIVE itself is the primary ride entry; CENTER MASS is retained only as an optional remote-provider probe and is not a promotion gate; Beat Saber mapper-pack export remains distinct from the pinned dual-phone FOLD//BLOOM SABER proof. SABER 0.1 is now a visible in-family two-phone proof distinct from Beat Saber pack export.",
+      "role": "Public-facing Fold/Bloom doorway around one source-continuity law, now task-first on phone: READ/RSVP work, pulse-paced reading, LISTEN + addressed marks, LIVE ride, LOCI memory and pulse-linked composition are one-tap jobs before deeper lineage. SOURCE preserves exact identity/playback, MAP exposes measured/derived structure, IMMERSION adds experience projection. SET authors source sequences/seams; FIELD LAB compares canonical projections; INK and VOICE remain bounded practice surfaces. LIVE itself is the primary ride entry; CENTER MASS is retained only as an optional remote-provider probe and is not a promotion gate; Beat Saber mapper-pack export remains distinct from the pinned dual-phone FOLD//BLOOM SABER proof. SABER 0.1 is now a visible in-family two-phone proof distinct from Beat Saber pack export. REPLAY 0.2 adds an addressed expressive-message route over LISTEN evidence + source-keyed experience preferences, with word cues, compact share links and projection-only clip export.",
       "tier": "FIELD",
       "version": "0.1.2",
       "receipt": "/returns/FOLD_BLOOM_SABER_01_2026-09-25.json"
@@ -7453,12 +7453,12 @@
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "REPLAY / SHARE",
-      "state": "CANDIDATE",
+      "state": "DONOR",
       "version": "0.1",
       "tier": "FIELD",
-      "role": "Isolated falsification specimen for Hermes replay/message H1: one tiny source-addressed message/operation score replays deterministically, survives a bounded timing edit, and shares by URL without recording frames or creating a second source/LIVE store. Architectural evidence only; social/lived value remains open.",
+      "role": "Historical H1 donor: proved operation-score-before-video. Current continuation is /fold-bloom/replay/; do not evolve the spike as a competing product surface.",
       "index": {
-        "updated_at": "2026-09-25T09:44:00+08:00",
+        "updated_at": "2026-09-25T11:10:00+08:00",
         "work_modes": [
           "PLAY",
           "INSPECT",
@@ -7493,6 +7493,61 @@
         "evidence_gate": "Exact encode/decode round trip AND same-packet replay signature equality AND bounded edit changes signature without changing source id AND packet <1600 bytes AND browser specimen boots.",
         "next_if_pass": "TRANSFER only: keep compact score as a candidate expressive artifact contract; seek ordinary share/replay use before any LIVE integration or media capture work.",
         "next_if_fail": "COMPOST the score-first claim; do not build a replay backend or video export layer to rescue it."
+      }
+    },
+    {
+      "href": "/fold-bloom/replay/",
+      "title": "FOLD//BLOOM · REPLAY 0.2",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "REPLAY / MESSAGE / SHARE",
+      "state": "CANDIDATE",
+      "version": "0.2",
+      "tier": "FIELD",
+      "role": "Expressive replay surface: LISTEN may lend exact source identity, addressed interval, measured beat/phrase/section evidence and marks; REPLAY owns authored message/context, word cues and FOLD/BLOOM operation score; LIVE ride-profile preferences remain shared by source key. Compact share links contain the authored artifact + bounded source evidence/reference but never local/private audio bytes. Visual WebM is an output projection, not canonical state.",
+      "index": {
+        "updated_at": "2026-09-25T11:10:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "AUTHOR",
+          "VERIFY",
+          "SHARE"
+        ]
+      },
+      "evidence": [
+        {
+          "claim": "LISTEN opens REPLAY with source/interval/map/marks/profile handoff",
+          "source": "fold-bloom/listen/app.js",
+          "status": "IMPLEMENTED"
+        },
+        {
+          "claim": "word cues + authored operations + experience profile remain distinct from LISTEN evidence",
+          "source": "fold-bloom/replay/score.js",
+          "status": "IMPLEMENTED"
+        },
+        {
+          "claim": "compact share token round-trips exact normalized artifact without source-byte embedding",
+          "source": "fold-bloom/replay/app.js",
+          "status": "BROWSER_PROOF_REQUIRED"
+        },
+        {
+          "claim": "visual WebM export is projection-only and contains no implicit source audio",
+          "source": "fold-bloom/replay/app.js",
+          "status": "IMPLEMENTED"
+        }
+      ],
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 2,
+        "stage": "TEST",
+        "question": "Can the compact replay score become a useful addressed message instrument by borrowing LISTEN source time/evidence and LIVE experience preference without becoming a second timeline or source store?",
+        "baseline": "MESSAGE REPLAY H1 proved a tiny deterministic score before video, but lacked source-clock sync, word-level authorship, existing experience controls and practical artifact export.",
+        "mutation": "Promote the mechanism to /fold-bloom/replay/: LISTEN handoff + live playhead sync; word cue timing/hold/emphasis; authored operation editing; source-keyed experience profile controls; compressed self-contained share link; JSON + visual WebM outputs.",
+        "evidence_gate": "Route/browser smoke passes AND share encode/decode preserves source id + deterministic signature AND LISTEN exposes REPLAY workflow AND shared link stays bounded for default artifact; lived communicative value remains human evidence.",
+        "next_if_pass": "Use/share one real LISTEN-sourced message artifact. Only direct-use friction may justify deeper timeline/media export work.",
+        "next_if_fail": "Keep the H1 score core as donor; remove the promoted surface rather than building a general editor to rescue it."
       }
     }
   ],
