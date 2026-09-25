@@ -86,12 +86,13 @@ function queueRefresh(){
 
 function ensureJourneyAction(){
   if(document.getElementById('journeyBtn'))return;
-  const actions=document.querySelector('.hero .actions');if(!actions)return;
-  const btn=document.createElement('button');btn.id='journeyBtn';btn.type='button';btn.textContent='RIDE SET';btn.disabled=true;
+  const actions=document.querySelector('.hero .primaryActions,.hero .actions');if(!actions)return;
+  const btn=document.createElement('button');btn.id='journeyBtn';btn.type='button';btn.className='primary rideAction';btn.textContent='RIDE SET';btn.disabled=true;
   btn.onclick=()=>{const href=btn.dataset.href;if(href)location.assign(href);else ensureWitness().textContent='VAULT · SET NOT READY'};
-  const debug=document.createElement('button');debug.id='journeyDebugBtn';debug.type='button';debug.textContent='JOURNEY';debug.title='Traversal/debug witness';
+  actions.append(btn);
+  const debug=document.createElement('button');debug.id='journeyDebugBtn';debug.type='button';debug.className='debugAction';debug.textContent='JOURNEY DEBUG';debug.title='Traversal/debug witness';
   debug.onclick=()=>location.assign('./journey.html?return='+encodeURIComponent(location.pathname+location.search));
-  actions.append(btn,debug);
+  (document.querySelector('#setTools .toolActions')||actions).append(debug);
 }
 
 const style=document.createElement('style');style.textContent='.block .mini{flex-wrap:wrap}.block .mini .vaultListen{flex:1 0 100%;color:var(--cool)}';document.head.append(style);

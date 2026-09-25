@@ -14,17 +14,19 @@
 </header>
 <main>
   <section class="hero">
-    <div class="ey">SOURCE REFS → ORDER → SEAMS → RETURN</div>
+    <div class="ey">ADD → ORDER → SEAM → RIDE → RETURN</div>
     <input id="title" class="title" value="UNTITLED SET" maxlength="120" aria-label="Set title">
-    <p>Move exact sources into one authored journey. Blocks remain source references; seams are explicit laws. No audio bytes are stored in the set.</p>
-    <div class="actions">
-      <label class="button primary" for="files">ADD LOCAL SOURCES</label>
+    <p>Add 2–7 tracks, put them in order, then tap the connectors to choose how each boundary behaves. RIDE SET carries the authored journey into LIVE without merging the tracks into one file.</p>
+    <div class="actions primaryActions">
+      <label class="button primary" for="files">ADD SOURCES</label>
       <input id="files" type="file" accept="audio/*,.mp3,.m4a,.wav,.flac,.ogg,.aac,.webm" multiple hidden>
-      <button id="addRef">ADD REF</button>
-      <button id="importBtn">IMPORT SET</button><input id="importFile" type="file" accept="application/json,.json" hidden>
-      <button id="exportBtn">RETURN / EXPORT</button>
-      <button id="clearBtn">NEW SET</button>
     </div>
+    <details class="setTools" id="setTools"><summary>MORE / IMPORT / EXPORT</summary><div class="toolActions">
+      <button id="addRef">ADD SOURCE REF</button>
+      <button id="importBtn">IMPORT SET</button><input id="importFile" type="file" accept="application/json,.json" hidden>
+      <button id="exportBtn">EXPORT SET</button>
+      <button id="clearBtn">NEW SET</button>
+    </div></details>
   </section>
 
   <section class="drop" id="drop">
@@ -32,28 +34,26 @@
     <div class="stats"><span id="count">0 SOURCES</span><span id="setId">set:empty</span></div>
   </section>
 
-  <section class="pack" id="packPanel">
-    <div><b>LOCAL TEST PACK</b><span id="packSummary">MATCHING LOCAL HASHES…</span></div>
-    <p id="packDetail">The catalog contains hashes and suggested test roles only. Raw audio stays local.</p>
-    <button id="applyPackBtn" disabled>NO MATCH</button>
-  </section>
+  <details class="pack" id="packPanel">
+    <summary><b>KNOWN LOCAL PACK</b><span id="packSummary">MATCHING LOCAL HASHES…</span></summary>
+    <div class="packBody"><p id="packDetail">Known source hashes can offer an optional suggested order/role profile. Raw audio stays local.</p><button id="applyPackBtn" disabled>NO MATCH</button></div>
+  </details>
 
   <section class="board">
     <div class="boardHead"><span>JOURNEY</span><span>LONG-PRESS / DRAG · OR USE ◀ ▶</span></div>
     <div id="rail" class="rail" aria-live="polite"></div>
-    <div id="empty" class="empty">ADD 2–7 SOURCES. EXPERIENCE SET 0.1 IS ALREADY THE AUTHORITY; THIS SURFACE ONLY AUTHORS ORDER / WEIGHT / SEAMS.</div>
+    <div id="empty" class="empty">ADD 2–7 TRACKS. EACH CARD STAYS THE SAME SOURCE. TAP A CONNECTOR BETWEEN CARDS TO CHANGE THE TRANSITION.</div>
   </section>
 
-  <section class="law">
-    <b>SOURCE SPINE</b>
-    <span>same identity · same address when available · unequal projection</span>
-    <p>LISTEN remains cartographer/editor. RIDE remains embodied projection. SET composes source refs; it does not become an analyzer, source store, provider catalog or DAW.</p>
-  </section>
+  <details class="law">
+    <summary>HOW SET WORKS</summary>
+    <p>Tracks keep their exact source identity. SET owns order, weight and seam choices; LISTEN keeps map/edit authority and LIVE owns the embodied ride.</p>
+  </details>
 
-  <section class="return">
-    <div><b>SET RETURN</b><span id="status">LOCAL · READY</span></div>
+  <details class="return">
+    <summary><b>RETURN / EXACT SET</b><span id="status">LOCAL · READY</span></summary>
     <pre id="preview"></pre>
-  </section>
+  </details>
 </main>
 <div id="toast" class="toast"></div>
 </div>
