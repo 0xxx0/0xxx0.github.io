@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/readfield-workflow-return/v0.1",
   "date": "2026-09-25",
-  "status": "IMPLEMENTED_CANDIDATE",
+  "status": "SHIPPED_VERIFIED",
   "purpose": "Reduce phone control hunting and close the remaining APERTURE compatibility re-entry gap without adding reader architecture.",
   "changed": [
     "/docs/index.html",
@@ -21,10 +21,13 @@
     "No mode may silently gain source, authorship or canonical-session authority."
   ],
   "verification": {
-    "static": "PENDING",
-    "browser": "PENDING",
-    "new_probe": "APERTURE alias → READFIELD exact WORD/index/WPM focus restore",
+    "static": "PASS · Route Registration 36094706207",
+    "browser": "PASS · public-surface-check 36094706624",
+    "new_probe": "PASS · /foundry/aperture/ → /docs/ restored WORD index 6, 777 WPM, exact caller RETURN; READFIELD ORP char remained inside addressed word6 span",
+    "regression": "PASS · existing READFIELD route/focus/LOCI stack and FOLD//BLOOM clean-phone example passed on final branch run",
     "lived_phone": "REQUIRED_NEXT"
   },
-  "stop": "After CI, stop feature growth until direct phone use identifies concrete friction in the rail, mode consequences or handoff."
+  "stop": "After CI, stop feature growth until direct phone use identifies concrete friction in the rail, mode consequences or handoff.",
+  "pr": 242,
+  "merge_sha": "49e1b27f7db26298c6de107fda1fe4f09d31e515"
 }
