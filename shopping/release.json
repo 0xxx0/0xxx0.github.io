@@ -2,8 +2,8 @@
   "schema": "release-receipt/v1",
   "artifact": "SHOPPING FIELD",
   "route": "/shopping/",
-  "version": "0.3",
-  "released": "2026-09-25",
+  "version": "0.3.1",
+  "released": "2026-09-26",
   "state": "ACTIVE_ADAPTER",
   "recovered_from": [
     {
@@ -56,7 +56,11 @@
     "Added SERVICE / MAINTENANCE and DEPENDENCIES / CONSUMABLES / LOCK-IN burden fields without creating a second item store.",
     "Added explicit selected-item → canonical HOUSE FIT handoff using session-only house-shopping-fit/v0.1; Shopping retains candidate/ownership authority.",
     "DAYLINE and HOUSE returns preserve the exact selected Shopping item through its hash address.",
-    "Agent research packets include fit, burden and placement-home evidence."
+    "Agent research packets include fit, burden and placement-home evidence.",
+    "Consumes exact Shopping-addressed atlas-dayline-source-return/v0.1 offers after Dayline RUN → WITNESS → COMPLETE → RETURN.",
+    "Shopping revalidates source route + exact item id/address + original lifecycle state before enabling receipt acceptance.",
+    "Accepted Dayline result is stored as browser-local shopping-dayline-receipt/v0.1 evidence only; purchase/adoption lifecycle and next_action remain unchanged.",
+    "Stale, wrong-item, incomplete-task or non-RECEIPT_ONLY offers are read-only/dismissible."
   ],
   "checks": [
     "inline JavaScript parses",
@@ -67,7 +71,10 @@
     "lane defaults conservatively to CAPABILITY for legacy items",
     "fit/burden fields are optional and backward-compatible with existing local v0.1 ledgers",
     "HOUSE FIT cannot purchase, promote ownership or mutate HOUSE canonical geometry",
-    "exact selected-item re-entry survives SHOPPING → external host → SHOPPING return"
+    "exact selected-item re-entry survives SHOPPING → external host → SHOPPING return",
+    "Dayline receipt acceptance cannot mutate Shopping lifecycle state",
+    "stale lifecycle source blocks Dayline receipt acceptance",
+    "session return offer expires/consumes without creating a global bus"
   ],
   "return": "/shopping/",
   "date": "2026-09-25"
