@@ -240,6 +240,9 @@ check(workfieldJs.includes("LEGACY_IDS")&&workfieldJs.includes("RESET LEGACY SAM
 const shoppingHtml=read('shopping/index.html');
 check(shoppingHtml.includes("SOURCE_RETURN='atlas.dayline.source-return.v01'")&&shoppingHtml.includes("shopping-dayline-receipt/v0.1"),'Shopping Dayline receipt transport missing');
 check(shoppingHtml.includes("o.native_effect!=='RECEIPT_ONLY'")&&shoppingHtml.includes("String(s.state||'')!==String(it.state||'')"),'Shopping Dayline stale/effect guard regressed');
+const confluenceDaylineHtml=read('dayline/index.html');
+check(confluenceDaylineHtml.includes('href="/house/"')&&!confluenceDaylineHtml.includes('href="/house/spatial/"'),'Dayline depth must target canonical HOUSE /house/');
+check(workfieldJs.includes("hrefMove('HOUSE ↗','/house/')")&&!workfieldJs.includes("hrefMove('HOUSE ↗','/house/spatial/')"),'Dayline move rail must target canonical HOUSE /house/');
 check(shoppingHtml.includes("shopping_state:it.state,effect:'EVIDENCE_ONLY'"),'Shopping Dayline receipt must remain evidence-only');
 
 const fan8Svg=read('foundry/axial/fan8-print.svg');
