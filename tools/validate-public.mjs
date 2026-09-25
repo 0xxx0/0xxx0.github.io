@@ -397,6 +397,13 @@ if(currentCoord&&queueCoord){
   check(queued.every(id=>!held.has(id)),'QUEUE schedules a CURRENT-held front');
   const axialHead=currentCoord.current_heads?.find(x=>x.lineage==='axial'),axialHold=currentCoord.held_fronts?.find(x=>x.id==='machine-representation');
   if(axialRelease?.version){check(axialHead?.head?.includes(axialRelease.version),'CURRENT axial head/version drift');check(axialHold?.center?.includes(axialRelease.version),'CURRENT axial hold/version drift');}
+  for(const head of currentCoord.current_heads||[]){
+    if(head?.repo_verification?.status!=='PASS'||!head.latest_return)continue;
+    const latest=parse(String(head.latest_return).replace(/^\\//,''));
+    if(!latest)continue;
+    check(!/PENDING(?:_|\\s|-)*(?:PR(?:_|\\s|-)*)?CI/i.test(String(latest.state||'')),'CURRENT PASS head retains pending latest_return state: '+head.lineage);
+    check(!/pending\\s+(?:PR\\s+)?CI/i.test(JSON.stringify(latest.proof||{})),'CURRENT PASS head retains pending latest_return proof: '+head.lineage);
+  }
   const city=currentCoord.recovery_targets?.find(x=>x.id==='sleeper-deep-lineage');
   if(city?.status==='EXACT_CITY_SOURCE_AND_PAINTING_RUNTIME_RECOVERED'){
     check(!migrationNow?.open_gaps?.some(x=>x.id==='painting-city'),'resolved City/Painting source gap reopened in MIGRATION_NOW');
