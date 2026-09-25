@@ -58,6 +58,11 @@ jobs:
           node -e "JSON.parse(require('fs').readFileSync('control/INTERPHASE_MAPPING_CONTRACT.json','utf8')); JSON.parse(require('fs').readFileSync('control/schemas/interphase-recovery-packet.schema.json','utf8')); console.log('INTERPHASE mapping contracts PASS')"
       - name: Validate HARD EVOLUTION P1 P2 P3 proofs
         run: node spikes/007-hard-evolution-proofs/selftest.mjs
+      - name: Validate FOLD BLOOM message replay H1 specimen
+        run: |
+          node --check spikes/fold-bloom-message-replay-001/score.js
+          node --check spikes/fold-bloom-message-replay-001/app.js
+          node spikes/fold-bloom-message-replay-001/selftest.mjs
       - name: Validate INTERPHASE extension bundle syntax
         run: |
           node --check interphase-extension.js
