@@ -3,8 +3,10 @@ import {InkField} from '../ink/ink-engine.js';
 import {createFieldPulse} from '../../lib/field-pulse.js';
 import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, boundedFocus} from './read-bridge.js';
 import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
+import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
 
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const $=s=>document.querySelector(s), $=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const canvas=$('#field'),ctx=canvas.getContext('2d');
 const TAU=Math.PI*2;
 let W=1,H=1,DPR=1,mode='RIDE',profile='CLEAR',panelHidden=false,last=performance.now(),mx=.5,my=.5;
@@ -20,6 +22,7 @@ const PROFILES={
 const MODES={
   RIDE:['EMBODY','audio → terrain → gesture → consequence','RIDE / LIVE','existing embodied engine'],
   PULSE:['ENTRAIN','ratio → pulse → tap → event tape','PULSE / POLYRHYTHM','play, tap, export events'],
+  VERSE:['COMPOSE','text → line → mark → carry / replay','VERSE / POEM','Poem Map authority + cross-layer marks'],
   READ:['PACE','text → address → RSVP / regress / return','READ / READFIELD','canonical APERTURE reader + optional trainer'],
   LOCI:['REMEMBER','cell → path → place → recall','LOCI / PATH','spatial mnemonic route'],
   INK:['DEPOSIT','gesture → water / pigment → diffusion → dry','INK / PAPER','brush and capillary study'],
@@ -46,6 +49,7 @@ function selectMode(next){
   document.documentElement.dataset.fieldLabMode=mode;
   setStatus(mode+' · '+law);
   if(mode==='READ')queueMicrotask(()=>ensureReader());
+  if(mode==='VERSE')queueMicrotask(()=>ensureVerse());
   setAddress('field://lab/'+mode.toLowerCase());
   if(mode==='DATA'&&!data.nodes.length)loadData();
   if(mode==='LOCI'&&!loci.nodes.length)buildLoci();
@@ -136,6 +140,94 @@ $('#exportTape').onclick=()=>{
   setStatus('PULSE · EVENT TAPE + BEAT SABER V4 DRAFT EXPORTED');
 };
 
+/* ---------- VERSE / TEXT MARKS ---------- */
+const verse={lines:[],focus:0,marks:[],sourceKey:''};
+const TEXT_MARK_STORE='fold-bloom.lab.text-marks.v01:';
+function storedMarks(source){
+  const text=String(source??''),key=textSourceKey(text);
+  try{return normalizeTextMarks(JSON.parse(localStorage.getItem(TEXT_MARK_STORE+key)||'[]'),text,key)}
+  catch(_){return []}
+}
+function saveTextMarks(source,marks){
+  const text=String(source??''),key=textSourceKey(text),clean=normalizeTextMarks(marks,text,key);
+  try{localStorage.setItem(TEXT_MARK_STORE+key,JSON.stringify(clean))}catch(_){}
+  if(verse.sourceKey===key){verse.marks=clean;syncVerseUi()}
+  return clean;
+}
+function toggleTextMark(source,mark){
+  const current=storedMarks(source),i=current.findIndex(m=>m.kind===mark.kind&&m.start===mark.start&&m.end===mark.end);
+  if(i>=0)current.splice(i,1);else current.push(mark);
+  return saveTextMarks(source,current);
+}
+function currentVerseLine(){return verse.lines[Math.max(0,Math.min(verse.lines.length-1,verse.focus))]||null}
+function bindVerse({focusStart=null,announce=true}={}){
+  const source=String($('#verseSource').value||'');
+  verse.sourceKey=textSourceKey(source);verse.lines=lineSpans(source);verse.marks=storedMarks(source);
+  if(Number.isFinite(Number(focusStart))){
+    const at=Number(focusStart);
+    let best=0,d=Infinity;
+    verse.lines.forEach((ln,i)=>{const q=at<ln.start?ln.start-at:at>ln.end?at-ln.end:0;if(q<d){d=q;best=i}});
+    verse.focus=best;
+  }else verse.focus=Math.max(0,Math.min(verse.focus,verse.lines.length-1));
+  syncVerseUi();setSource('TEXT / VERSE');const line=currentVerseLine();if(line)setAddress(line.address);
+  if(announce)setStatus('VERSE · EXACT TEXT + HUMAN MARKS BOUND');
+}
+function ensureVerse(){if(!verse.lines.length)bindVerse({announce:false});return currentVerseLine()}
+function syncVerseUi(){
+  const source=String($('#verseSource').value||''),line=currentVerseLine();
+  $('#verseLineRead').textContent=(line?line.line+1:0)+'/'+Math.max(1,verse.lines.length);
+  $('#verseMarksRead').textContent=String(verse.marks.length);
+  $('#verseKeyRead').textContent=verse.sourceKey?verse.sourceKey.split(':').at(-1).toUpperCase():'LOCAL';
+  $('#verseLines').innerHTML=verse.lines.map((ln,i)=>{
+    const marked=marksForRange(verse.marks,ln.start,ln.end).length>0;
+    return `<button class="verseLine ${i===verse.focus?'on':''} ${marked?'marked':''}" data-verse-line="${i}"><b>${String(i+1).padStart(2,'0')}</b><span>${esc(ln.text||'∅')}</span><i>${marked?'MARK':'@'+ln.start}</i></button>`;
+  }).join('');
+  $('#verseLines [data-verse-line]').forEach(b=>b.onclick=()=>{verse.focus=Number(b.dataset.verseLine)||0;syncVerseUi();const x=currentVerseLine();if(x)setAddress(x.address)});
+  if(mode==='VERSE'&&line)setAddress(line.address);
+}
+function markVerse(kind){
+  const source=String($('#verseSource').value||''),line=ensureVerse();if(!line)return;
+  const mark=makeTextMark({source,start:line.start,end:kind==='ARC'?line.end:line.start,kind,label:String(line.text||'').trim().slice(0,100),projection:'VERSE'});
+  toggleTextMark(source,mark);setStatus('VERSE · '+kind+' · '+line.address);
+}
+function loadReadAt(source,start=0,address=null){
+  const text=String(source??''),at=Math.max(0,Math.min(text.length,Number(start)||0));
+  $('#readSource').value=text;
+  window.FieldAperture?.handoff?.(text,{label:'FIELD LAB TEXT',from:location.pathname+location.search,focus:{scale:'WORD',char_index:at,source_progress:text.length?at/text.length:0,address:address||`text://${at}:${at}`,wpm:read.wpm}});
+  read.readerLoaded=false;return loadReader({preferHandoff:true});
+}
+function carryVerseToRead(){
+  const source=String($('#verseSource').value||''),line=ensureVerse();if(!line)return;
+  loadReadAt(source,line.start,line.address);selectMode('READ');setSource('TEXT / CARRIED FROM VERSE');setStatus('READ · VERSE SOURCE + FOCUS PRESERVED');
+}
+function carryVerseToLoci(){
+  const source=String($('#verseSource').value||''),line=ensureVerse();if(!line)return;
+  $('#lociSource').value=source;buildLoci();
+  const hit=nodeForProgress(loci.course,source.length?line.start/source.length:0);if(hit)loci.step=Math.max(0,loci.nodes.findIndex(n=>n.id===hit.id));
+  syncLoci();selectMode('LOCI');setSource('TEXT / CARRIED FROM VERSE');setAddress(hit?.address||line.address);setStatus('LOCI · VERSE SOURCE + FOCUS PRESERVED');
+}
+function openVersePoemMap(){
+  const source=String($('#verseSource').value||''),line=ensureVerse();if(!line)return;
+  try{sessionStorage.setItem('field.verse.handoff.v01',JSON.stringify(verseHandoff({source,focus:line,marks:verse.marks,from:location.pathname+location.search})))}catch(_){}
+  location.href='/poetry/map/?handoff=1&from=field-lab';
+}
+function replayVerseMark(){
+  const source=String($('#verseSource').value||''),line=ensureVerse();if(!line)return;
+  const packet=replayHandoff({source,focus:line,marks:verse.marks,returnAddress:'/fold-bloom/lab/?mode=VERSE'});
+  try{sessionStorage.setItem('fold-bloom.replay.handoff.v02',JSON.stringify(packet))}catch(_){}
+  location.href='/fold-bloom/replay/';
+}
+$('#verseBind').onclick=()=>bindVerse();
+$('#verseBookmark').onclick=()=>markVerse('BOOKMARK');
+$('#verseFlag').onclick=()=>markVerse('FLAG');
+$('#verseArc').onclick=()=>markVerse('ARC');
+$('#verseClearMarks').onclick=()=>saveTextMarks(String($('#verseSource').value||''),[]);
+$('#verseRead').onclick=carryVerseToRead;
+$('#verseLoci').onclick=carryVerseToLoci;
+$('#versePoemMap').onclick=openVersePoemMap;
+$('#verseReplay').onclick=replayVerseMark;
+bindVerse({announce:false});
+
 /* ---------- READ / READFIELD / RACE ---------- */
 const readQuery=new URLSearchParams(location.search),requestedReadPulse=Number(readQuery.get('pulse'));
 const read={tokens:[],you:0,ghost:0,started:false,paused:false,startAt:0,pauseAt:0,wpm:300,pulseMode:requestedReadPulse===4?'PACE4':'WITNESS',readerLoaded:false};
@@ -204,6 +296,21 @@ $('#readToData').onclick=()=>{
   $('#dataSource').value=JSON.stringify({source:readerSource(),focus:boundedFocus(snap)},null,2);
   loadData();selectMode('DATA');setSource('TEXT + FOCUS / CARRIED FROM READ');setStatus('DATA · READ SOURCE + FOCUS WITNESS');
 };
+$('#readMark').onclick=()=>{
+  const source=readerSource(),snap=reader?.snapshot?.()||ensureReader()||{},at=Number(snap.char_index);
+  const start=Number.isFinite(at)?at:Math.round((Number(snap.source_progress)||0)*source.length);
+  toggleTextMark(source,makeTextMark({source,start,kind:'BOOKMARK',label:snap.address||'READ MARK',projection:'READ'}));
+  setStatus('READ · MARKED · '+(snap.address||`text://${start}:${start}`));
+};
+$('#readNextMark').onclick=()=>{
+  const source=readerSource(),marks=storedMarks(source);if(!marks.length){setStatus('READ · NO MARKS FOR THIS SOURCE');return}
+  const snap=reader?.snapshot?.()||ensureReader()||{},at=Number.isFinite(Number(snap.char_index))?Number(snap.char_index):Math.round((Number(snap.source_progress)||0)*source.length);
+  const next=marks.find(m=>m.start>at)||marks[0];loadReadAt(source,next.start,next.address);setStatus('READ · NEXT MARK · '+next.kind);
+};
+$('#readToVerse').onclick=()=>{
+  const source=readerSource(),snap=reader?.snapshot?.()||ensureReader()||{},at=Number.isFinite(Number(snap.char_index))?Number(snap.char_index):Math.round((Number(snap.source_progress)||0)*source.length);
+  $('#verseSource').value=source;bindVerse({focusStart:at,announce:false});selectMode('VERSE');setSource('TEXT / CARRIED FROM READ');setStatus('VERSE · READ FOCUS PRESERVED');
+};
 function resetRead(){read.tokens=tokenize(readerSource());read.you=0;read.ghost=0;read.started=false;read.paused=false;read.startAt=0;$('#raceInput').value='';syncReadUI()}
 function syncReadUI(){
   $('#youWord').textContent=read.you;$('#ghostWord').textContent=read.ghost;$('#raceDelta').textContent=read.you-read.ghost;
@@ -256,6 +363,20 @@ $('#lociExport').onclick=()=>{
   downloadJSON('fold-bloom-loci-return.json',courseReturn(loci.course,{step:loci.step,hits:loci.hits,hidden:loci.hidden}));
   setStatus('LOCI · ADDRESSED COURSE RETURN EXPORTED');
 };
+$('#lociMark').onclick=()=>{
+  if(!loci.course)buildLoci();const source=String($('#lociSource').value||''),node=loci.nodes[Math.min(loci.step,Math.max(0,loci.nodes.length-1))];if(!node)return;
+  toggleTextMark(source,makeTextMark({source,start:node.start,end:node.end,kind:'ARC',label:node.label,projection:'LOCI'}));
+  setStatus('LOCI · LOCUS MARKED · '+node.address);
+};
+$('#lociNextMark').onclick=()=>{
+  if(!loci.course)buildLoci();const source=String($('#lociSource').value||''),marks=storedMarks(source);if(!marks.length){setStatus('LOCI · NO MARKS FOR THIS SOURCE');return}
+  const node=loci.nodes[Math.min(loci.step,Math.max(0,loci.nodes.length-1))],at=node?.start||0,next=marks.find(m=>m.start>at)||marks[0],hit=nodeForProgress(loci.course,source.length?next.start/source.length:0);
+  if(hit)loci.step=Math.max(0,loci.nodes.findIndex(n=>n.id===hit.id));syncLoci();setAddress(hit?.address||next.address);setStatus('LOCI · NEXT MARK · '+next.kind);
+};
+$('#lociToVerse').onclick=()=>{
+  const source=String($('#lociSource').value||''),node=loci.nodes[Math.min(loci.step,Math.max(0,loci.nodes.length-1))];
+  $('#verseSource').value=source;bindVerse({focusStart:node?.start||0,announce:false});selectMode('VERSE');setSource('TEXT / CARRIED FROM LOCI');setStatus('VERSE · LOCUS FOCUS PRESERVED');
+};
 buildLoci();
 
 /* ---------- INK ---------- */
@@ -303,6 +424,10 @@ $('#dataLoad').onclick=loadData;loadData();
 canvas.addEventListener('pointerdown',e=>{
   const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;mx=x/W;my=y/H;
   if(mode==='PULSE')tapPulse();
+  if(mode==='VERSE'){
+    const hit=versePositions().reduce((best,p)=>{const d=Math.abs(y-p.y);return d<(best?.d??30)?{i:p.i,d}:best},null);
+    if(hit){verse.focus=hit.i;syncVerseUi();const line=currentVerseLine();if(line)setAddress(line.address)}
+  }
   if(mode==='INK'){ink.down=true;ink.lastX=x;ink.lastY=y;inkDeposit(x,y,{speed:0,pressure:e.pressure||.55,tiltX:e.tiltX||0,tiltY:e.tiltY||0});canvas.setPointerCapture?.(e.pointerId)}
   if(mode==='LOCI'){
     const pos=lociPositions(),hit=pos.reduce((best,p,i)=>{const d=Math.hypot(x-p.x,y-p.y);return d<(best?.d??32)?{i,d}:best},null);
@@ -319,7 +444,7 @@ canvas.addEventListener('pointercancel',()=>{ink.down=false;ink.lastX=ink.lastY=
 canvas.addEventListener('wheel',e=>{if(mode!=='DATA')return;e.preventDefault();data.aperture=Math.max(0,Math.min(data.maxDepth,data.aperture+(e.deltaY>0?-1:1)));$('#dataDepth').textContent=data.aperture},{passive:false});
 addEventListener('keydown',e=>{
   if((e.code==='Space'||e.key===' ')&&document.activeElement?.tagName!=='TEXTAREA'&&document.activeElement?.tagName!=='INPUT'){e.preventDefault();if(mode==='PULSE')tapPulse()}
-  const map={1:'RIDE',2:'PULSE',3:'READ',4:'LOCI',5:'INK',6:'DATA'};if(map[e.key])selectMode(map[e.key]);
+  const map={1:'RIDE',2:'PULSE',3:'READ',4:'LOCI',5:'INK',6:'DATA',7:'VERSE'};if(map[e.key])selectMode(map[e.key]);
 });
 
 /* ---------- DRAW ---------- */
@@ -358,6 +483,23 @@ function drawPulse(t){
   }
   ctx.fillStyle='#d7b46d';ctx.font='700 12px ui-monospace';ctx.textAlign='center';ctx.fillText(a+':'+b,cx,cy+4);
 }
+function versePositions(){
+  ensureVerse();const max=11,n=verse.lines.length,start=Math.max(0,Math.min(Math.max(0,n-max),verse.focus-Math.floor(max/2))),end=Math.min(n,start+max),rows=Math.max(1,end-start);
+  const top=H*.22,bottom=H*.78,step=rows>1?(bottom-top)/(rows-1):0;
+  return verse.lines.slice(start,end).map((ln,j)=>({i:start+j,line:ln,y:rows===1?H*.5:top+j*step}));
+}
+function drawVerse(){
+  clear(.2);cross();ensureVerse();const source=String($('#verseSource').value||''),marks=storedMarks(source),positions=versePositions();
+  ctx.textAlign='center';ctx.textBaseline='middle';
+  positions.forEach(p=>{
+    const active=p.i===verse.focus,marked=marksForRange(marks,p.line.start,p.line.end).length>0;
+    ctx.fillStyle=active?'#f2f3ef':'#7f8d94';ctx.font=(active?'700 ':'500 ')+(active?'16':'12')+'px ui-serif,Georgia,serif';
+    ctx.fillText(String(p.line.text||'∅').slice(0,Math.max(12,Math.floor(W/11))),W*.5,p.y);
+    if(marked){ctx.fillStyle='#d7b46d';ctx.beginPath();ctx.arc(W*.12,p.y,active?5:3,0,TAU);ctx.fill()}
+    if(active){ctx.strokeStyle='#ef7849';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(W*.18,p.y+14);ctx.lineTo(W*.82,p.y+14);ctx.stroke()}
+  });
+  ctx.fillStyle='#5f6d75';ctx.font='8px ui-monospace';ctx.fillText(verse.sourceKey?verse.sourceKey:'TEXT',W*.5,H*.88);
+}
 function drawRead(){
   clear(.18);cross();
   const n=Math.max(1,read.tokens.length),cx=W/2,cy=H/2,x0=W*.14,x1=W*.86;
@@ -380,7 +522,8 @@ function lociPositions(){
 }
 function drawLoci(){
   clear(.2);const pos=lociPositions(),n=loci.nodes.length;ctx.strokeStyle='#2a3840';ctx.lineWidth=1.2;ctx.beginPath();pos.forEach((p,i)=>i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));ctx.stroke();
-  pos.forEach((p,i)=>{const active=i===loci.step,done=i<loci.step;ctx.fillStyle=done?'#7bd5ff':active?'#ef7849':'#0a0f13';ctx.strokeStyle='#52616a';ctx.beginPath();ctx.arc(p.x,p.y,active?12:9,0,TAU);ctx.fill();ctx.stroke();if(!loci.hidden||done){ctx.fillStyle=done?'#9edcf6':'#cdd3d5';ctx.font='9px ui-monospace';ctx.textAlign='center';ctx.fillText(String(loci.nodes[i]?.text||'').slice(0,22),p.x,p.y-15)}ctx.fillStyle='#69767d';ctx.font='7px ui-monospace';ctx.fillText('@'+i,p.x,p.y+22)});
+  const source=String($('#lociSource').value||''),marks=storedMarks(source);
+  pos.forEach((p,i)=>{const node=loci.nodes[i],active=i===loci.step,done=i<loci.step,marked=!!node&&marksForRange(marks,node.start,node.end).length>0;ctx.fillStyle=done?'#7bd5ff':active?'#ef7849':'#0a0f13';ctx.strokeStyle=marked?'#d7b46d':'#52616a';ctx.lineWidth=marked?2:1;ctx.beginPath();ctx.arc(p.x,p.y,active?12:9,0,TAU);ctx.fill();ctx.stroke();if(!loci.hidden||done){ctx.fillStyle=done?'#9edcf6':'#cdd3d5';ctx.font='9px ui-monospace';ctx.textAlign='center';ctx.fillText(String(loci.nodes[i]?.text||'').slice(0,22),p.x,p.y-15)}ctx.fillStyle='#69767d';ctx.font='7px ui-monospace';ctx.fillText('@'+i,p.x,p.y+22)});
 }
 function drawInk(t){
   if(t-ink.simAt>26){stepInk();ink.simAt=t}
@@ -404,7 +547,7 @@ function drawData(){
 function tick(now){
   const dt=Math.min(.05,(now-last)/1000);last=now;
   if(read.started&&!read.paused&&read.tokens.length){const dwell=60000/read.wpm;read.ghost=Math.min(read.tokens.length,Math.floor((now-read.startAt)/dwell));syncReadUI()}
-  if(mode==='RIDE')drawRide(now);else if(mode==='PULSE')drawPulse(now);else if(mode==='READ')drawRead();else if(mode==='LOCI')drawLoci();else if(mode==='INK')drawInk(now);else if(mode==='DATA')drawData();
+  if(mode==='RIDE')drawRide(now);else if(mode==='PULSE')drawPulse(now);else if(mode==='VERSE')drawVerse();else if(mode==='READ')drawRead();else if(mode==='LOCI')drawLoci();else if(mode==='INK')drawInk(now);else if(mode==='DATA')drawData();
   requestAnimationFrame(tick);
 }
 requestAnimationFrame(tick);
@@ -423,4 +566,4 @@ document.documentElement.dataset.fieldLabReadPulse=read.pulseMode;
 selectMode(MODES[initialMode]?initialMode:'RIDE');
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>lastTransport};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>lastTransport,verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey})};
