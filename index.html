@@ -32,6 +32,9 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 .aperture{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:9px;align-items:center;border-bottom:1px solid var(--line);padding:8px;background:#080b0d}
 .apGlyph{display:grid;place-items:center}.apMeta{color:var(--hot);font-size:6.5px;letter-spacing:.09em}.apBody strong{display:block;font:800 16px/1.05 system-ui,sans-serif;letter-spacing:-.03em}.apBody p{margin:4px 0 0;color:#95a1a5;font:8px/1.4 system-ui,sans-serif;max-width:86ch}.apPath{color:var(--cool);font-size:6.5px;margin-top:3px}.apReading{color:var(--gold);font-size:6px;letter-spacing:.08em;margin-top:3px}
 .apActions{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.apActions a,.apActions button{padding:6px 8px;font-size:7px;white-space:nowrap}.apActions .open{border-color:var(--cool);color:var(--cool)}.apActions .proof{border-color:var(--green);color:var(--green)}.noMatch{color:var(--bad)!important}
+.capTrial{display:grid;grid-template-columns:minmax(150px,.8fr) minmax(220px,1.25fr) minmax(170px,1fr);gap:1px;border-bottom:1px solid var(--line);background:var(--line)}
+.capCell{background:#080b0d;padding:7px 8px;min-width:0}.capK{display:block;color:var(--mut);font-size:6px;letter-spacing:.13em;margin-bottom:4px}.capV{font:750 10px/1.2 system-ui,sans-serif}.capSub{display:block;color:var(--mut);font-size:6.3px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.capMoves{display:flex;gap:4px;flex-wrap:wrap}.capMove{border:1px solid #354249;padding:4px 6px;color:#c9d2d5;font-size:6.5px;letter-spacing:.04em}.capMove:first-child{border-color:var(--hot);color:#ffd0bd}.capWitness{color:var(--gold);font-size:7px}.capReturn{color:var(--cool);font-size:7px}
+@media(max-width:760px){.capTrial{grid-template-columns:1fr}.capCell{padding:7px}.capSub{white-space:normal}.capMove{min-height:28px;display:flex;align-items:center}}
 
 /* LATEST */
 .feedRail{display:flex;flex-wrap:wrap;gap:2px;padding:6px 0;border-top:1px solid var(--line)}.feedChip{width:30px;height:34px;padding:1px 1px 0;display:grid;place-items:center;grid-template-rows:20px 10px;border:1px solid #151d22;background:#080c0e;cursor:pointer}.feedChip tt{font:8px/1 ui-monospace,monospace;color:var(--mut);letter-spacing:0;padding-bottom:1px}.feedChip:hover tt{color:var(--gold)}.feedChip:hover{border-color:#66757b;background:#11181c}.feedChip.on{border-color:var(--gold);background:#141009}.legend{display:flex;flex-wrap:wrap;gap:10px 16px;padding:8px 10px;border:1px solid var(--line);background:#080b0e;margin-top:5px;align-items:center}.legend .lg{display:flex;align-items:center;gap:5px;font-size:6.5px;color:var(--mut);letter-spacing:.06em}.legend .lg b{color:var(--ink);font-weight:500}.legend .sw{width:9px;height:9px;border:1px solid #2a3439}.legend .hd{font-size:6px;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-right:2px}.feedItem{width:100%;display:grid;grid-template-columns:30px minmax(0,1fr) 112px 92px 72px;gap:8px;align-items:center;border:0;border-bottom:1px solid #20282c;background:transparent;color:inherit;padding:7px 3px;text-align:left}.feedItem:hover,.feedItem.on{background:#0d1316}.feedMain strong{display:block;font:750 12px/1.1 system-ui,sans-serif}.feedPath{color:var(--cool);font-size:6px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.feedTouch,.feedMode,.feedState{font-size:6.5px;color:var(--mut)}.feedState{color:var(--green)}
@@ -130,6 +133,11 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
     <div class="apBody"><div class="apMeta" id="apMeta">OBJECT / FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><div class="apReading" id="apProjection">READING · FIELD / FOCUS</div><p id="apRole">One fixed gate resolves the aligned vocabularies to an exact repository route.</p></div>
     <div class="apActions"><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apInspect">READ</button><button class="secondary" id="apLens" title="Refract the selected object without changing FIELD selection">◎ LENS</button><button class="secondary" id="apTrace">TRACE</button><button class="secondary" id="apProof">COMPARE</button><button class="secondary" id="apCopy">COPY</button></div>
   </div>
+  <div class="capTrial" id="capTrial" hidden aria-label="Unified interface capability aperture">
+    <div class="capCell"><span class="capK">HELD / FIELD PROJECTION</span><div class="capV" id="capHeld">—</div><span class="capSub" id="capHeldSub">route focus only · native object remains with owner</span></div>
+    <div class="capCell"><span class="capK">NEXT / 1–3 LAWFUL MOVES</span><div class="capMoves" id="capMoves"></div></div>
+    <div class="capCell"><span class="capK">WITNESS → RETURN</span><div class="capWitness" id="capWitness">—</div><div class="capReturn" id="capReturn">—</div><span class="capSub">projection only · authority NONE · no writes</span></div>
+  </div>
   <div class="axialRows" id="axialRows"></div>
   <div class="survivors" id="survivors"><div class="survLabel">LIVE SET</div><div class="survMarks" id="survMarks"></div><div class="survState" id="survState">—</div></div>
 
@@ -200,7 +208,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   </div>
 </details>
 
-<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>CURRENT → φ focus → routes · CHANGE / TRACE / STATUS only on demand</span><button id="foveaToggle" title="READ WITHOUT CLICKING. Sweep the pointer over any glyph to read its title and state in place — click to select it, shift-click to open it, scroll to step through its peers. Nothing opens unless you mean it. Toggle: f key.">◎ FOVEA</button></div>
+<div class="foot"><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a><span>CURRENT → φ focus → routes · CHANGE / TRACE / STATUS only on demand · capability aperture: ?cap=1</span><button id="foveaToggle" title="READ WITHOUT CLICKING. Sweep the pointer over any glyph to read its title and state in place — click to select it, shift-click to open it, scroll to step through its peers. Nothing opens unless you mean it. Toggle: f key.">◎ FOVEA</button></div>
 
 <script src="./field-presentation.js"></script>
 <script src="./field-glyph.js"></script>
@@ -213,6 +221,15 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 let manifest,current,routes=[],latest=[],repoTouches=[],repoTouchFiles=new Map,latestLimit=30,focus=null,headSet=new Set,nowSet=new Set,issues=[],waiting=[],waitingSource=[],waitingUpdated='',mapMode='VISUAL',mapRoot='/',mapSelected='/',mapQuery='',supportTrail=[];
 const INIT=new URLSearchParams(location.search),axisState={state:'ANY',operation:'ANY',mode:'ANY'},scrollTimers={};let axisScrollMuteUntil=0;
+const CAP_TRIAL=INIT.get('cap')==='1';
+const CAPABILITY_PROJECTION=Object.freeze([
+ {id:'dayline',match:h=>h==='/atlas-dayline/'||h.startsWith('/atlas-dayline/'),owner:'DAYLINE',moves:['FOCUS / ADD','RUN ≤ 3','RETURN'],boundary:'time/execution only'},
+ {id:'fold-bloom',match:h=>h==='/fold-bloom/'||h.startsWith('/fold-bloom/')||h==='/docs/',owner:'FOLD//BLOOM',moves:['MAP / MARK','READ / LOCI','RIDE / REPLAY'],boundary:'source identity remains native'},
+ {id:'comms',match:h=>h==='/port/comms/'||h.startsWith('/port/comms/'),owner:'COMMS',moves:['LOCATE / MARK','DRAFT / COVER','HANDOFF → DAYLINE'],boundary:'no send authority'},
+ {id:'house',match:h=>h==='/house/spatial/'||h.startsWith('/house/spatial/'),owner:'HOUSE',moves:['PROJECT','TRACE / REPLAY','CONTEXT → DAYLINE'],boundary:'selection ≠ presence / no actuation'},
+ {id:'shopping',match:h=>h==='/shopping/'||h.startsWith('/shopping/'),owner:'SHOPPING',moves:['RESEARCH / COMPARE','GATE / NEXT ACTION','HANDOFF → DAYLINE'],boundary:'no purchase or lifecycle promotion'},
+ {id:'verse',match:h=>h==='/poetry/map/'||h.startsWith('/poetry/map/'),owner:'VERSE',moves:['FOCUS / INTENT','TRY / PREVIEW','ADOPT / RETURN'],boundary:'preview never mutates source'}
+]);
 const TRIAL_KEY='field.axial.latest.trial.v01';
 let trial={schema:'field-axial-trial/v0.1',axial_focus:0,latest_focus:0,other_focus:0,dead:0,opens:{AXIAL:0,LATEST:0,OTHER:0},open_ms:{AXIAL:0,LATEST:0,OTHER:0},last_source:null,last_at:null};
 try{trial={...trial,...JSON.parse(localStorage.getItem(TRIAL_KEY)||'{}')}}catch(_){}
@@ -328,9 +345,30 @@ function focusOrOpen(r,source='OTHER'){
  focusRoute(r,true,source)
 }
 function resetAxial(){axisState.state='ANY';axisState.operation='ANY';axisState.mode='ANY';focus=latest[0]||null;supportTrail=[latest.length];renderAxes();renderSurvivors();renderAperture();renderFeed();renderMapSelection();renderTrial();syncAxialURL();notifyFieldIndex()}
+function capabilityForFocus(){
+ if(!focus)return null;
+ return CAPABILITY_PROJECTION.find(x=>x.match(focus.href||''))||null;
+}
+function headForFocus(){
+ if(!focus||!current?.current_heads)return null;
+ return current.current_heads.find(h=>h.route===focus.href)||current.current_heads.find(h=>focus.href&&h.route&&h.route!=='/'&&focus.href.startsWith(h.route))||null;
+}
+function renderCapabilityTrial(){
+ const box=$('capTrial');if(!box)return;
+ if(!CAP_TRIAL){box.hidden=true;return}
+ box.hidden=false;
+ if(!focus){$('capHeld').textContent='NO FOCUS';$('capHeldSub').textContent='choose one addressed route';$('capMoves').innerHTML='<span class="capMove">RESET / CHOOSE</span>';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
+ const c=capabilityForFocus(),h=headForFocus(),fresh=shortTs(focus.index?.updated_at)||'untracked';
+ $('capHeld').textContent=(c?.owner||'FIELD ROUTE')+' · '+(focus.title||focus.href);
+ $('capHeldSub').textContent=focus.href+' · route focus only; native object remains with '+(c?.owner||'host');
+ const moves=c?.moves||['OPEN / INSPECT','TRACE / COMPARE','RETURN'];
+ $('capMoves').innerHTML=moves.slice(0,3).map(x=>'<span class="capMove">'+esc(x)+'</span>').join('');
+ $('capWitness').textContent=(h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh;
+ $('capReturn').textContent='RETURN · FIELD φ '+focus.href+(c?' · '+c.boundary:'');
+}
 function renderAperture(){
- if(!focus){$('apGlyph').innerHTML='';['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');return}
- ['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';$('apGlyph').innerHTML=routeGlyph(focus,34);$('apMeta').textContent=[focus.state||'—',opOf(focus),modesOf(focus).join(' · ')].join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(shortTs(focus.index?.updated_at)||'UNTRACKED');$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed repository surface.';$('apOpen').href='.'+(focus.alias_of||focus.href);
+ if(!focus){$('apGlyph').innerHTML='';['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');renderCapabilityTrial();return}
+ ['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=false);$('apMeta').className='apMeta';$('apGlyph').innerHTML=routeGlyph(focus,34);$('apMeta').textContent=[focus.state||'—',opOf(focus),modesOf(focus).join(' · ')].join(' / ');$('apTitle').textContent=focus.title||focus.href;$('apPath').textContent=focus.href+' · '+(shortTs(focus.index?.updated_at)||'UNTRACKED');$('apRole').textContent=focus.role||focus.contract?.transforms?.verb||(focus.transfer||[]).slice(0,2).join(' · ')||'Addressed repository surface.';$('apOpen').href='.'+(focus.alias_of||focus.href);renderCapabilityTrial();
 }
 function updateStatusRail(){
   const el=document.getElementById('sRail');if(!el)return;
