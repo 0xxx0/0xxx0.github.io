@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "FOUNDRY_WORD_MACHINES_REENTRY_2026-09-26",
   "date": "2026-09-26",
-  "state": "CANDIDATE_PENDING_CI",
+  "state": "MERGED_CI_GREEN",
   "objective": "Make the recovered word/game/path lineage legible and runnable again without merging unequal engines or making path/grid the poetry product.",
   "observed": [
     "VERSE COPILOT is now writing-first over the Poem Map 0.2.6 engine.",
@@ -19,8 +19,18 @@
     "Verse Atlas remains sealed Jueju specialist"
   ],
   "proof": {
-    "validator": "pending",
-    "public_surface": "pending"
+    "validator": "PASS",
+    "route_registration": {
+      "run": 36195218108,
+      "conclusion": "success"
+    },
+    "public_surface_check": {
+      "run": 36195218071,
+      "conclusion": "success",
+      "critical_browser_smoke": "PASS"
+    },
+    "pull_request": 396,
+    "merge_sha": "9ec385f9f74abfe69d3f548ecff5e88373b85805"
   },
-  "next": "After CI, use the family rather than add a new universal word engine. Any transfer must answer a concrete missing function in Copilot or another current head."
+  "next": "Use the family. Reopen implementation only for a concrete missing function exposed by actual writing/play; do not create a universal word engine or make path/grid mandatory."
 }
