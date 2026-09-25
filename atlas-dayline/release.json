@@ -33,9 +33,11 @@
     "mobile_route_adapter_clearance": "PASS_BY_SOURCE",
     "explicit_clock_sync": "PASS_BY_SOURCE",
     "return_clock_witness": "PASS_BY_SOURCE",
-    "return_classification": "ORIENTATION_SNAPSHOT | WORLD_DELTA"
+    "return_classification": "ORIENTATION_SNAPSHOT | WORLD_DELTA",
+    "dayline_comms_closed_loop": "PASS · PR #359 · public-surface-check 36148842204",
+    "dayline_comms_route_registration": "PASS · 36148842258"
   },
-  "known_gap": "Needs lived phone confirmation after reach fix and one actual source→Dayline action. RETURN→native-source receipt remains unimplemented.",
+  "known_gap": "Exact COMMS RETURN→native-source continuity is implemented and machine-proved through /dayline/. Remaining claims are bounded: actual real-world action completion is WORLD evidence; subjective phone ergonomics are optional; HOUSE/SHOPPING native-return generalization is not implied.",
   "date": "2026-09-25",
   "changes": [
     "added atlas-dayline-handoff/v0.1 as a single explicit session-local envelope; it is transport, not queue/authority",
