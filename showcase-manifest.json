@@ -143,7 +143,12 @@
         "first mobile visit → PLAIN action projection; ATLAS remains optional",
         "mobile CAPTURE inherits current Dayline contexts",
         "COPY HANDOFF → atlas-dayline-feedback/v0.2 authority NONE / USER_EXPLICIT_COPY",
-        "reality-first seed: first-run/reset is empty; no historical sample obligations"
+        "reality-first seed: first-run/reset is empty; no historical sample obligations",
+        "reality-first empty seed preserved",
+        "mobile PLAIN vertical scroll",
+        "mobile route controls moved off bottom-left",
+        "explicit device-clock NOW ↻ sync",
+        "RETURN clock witness + ORIENTATION_SNAPSHOT/WORLD_DELTA"
       ],
       "contract": {
         "accepts": {
@@ -233,15 +238,15 @@
         "physical_fit": "Direct bridge from digital intent to scheduled human physical work."
       },
       "index": {
-        "updated_at": "2026-09-25T16:45:00+08:00",
+        "updated_at": "2026-09-25T17:00:00+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY"
         ]
       },
       "tier": "FIELD",
-      "version": "Branch I + FIELD LIVE 0.2.2 / REALITY FIRST",
-      "role": "Local-first temporal execution instrument with explicit FIELD + HOUSE/SHOPPING/COMMS reality ports. First mobile use opens the PLAIN action projection; CAPTURE and pending REALITY PORT remain visible while verbose FIELD detail contracts. Outbound COPY HANDOFF is authority-NONE worker evidence; CURRENT and native source tools retain authority."
+      "version": "Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
+      "role": "Reality-first local temporal execution instrument. First-run/reset is empty; HOUSE/SHOPPING/COMMS lend explicit source-owned handoffs. Mobile PLAIN is a scrollable action document, shared route controls avoid the bottom-left working edge, NOW ↻ explicitly synchronizes canonical time when desired, and RETURN distinguishes orientation snapshots from world deltas."
     },
     {
       "href": "/body/",
