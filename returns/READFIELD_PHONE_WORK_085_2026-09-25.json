@@ -1,0 +1,28 @@
+{
+  "schema": "0xxx0/readfield-phone-work-return/v0.1",
+  "date": "2026-09-25",
+  "status": "CANDIDATE_BRANCH",
+  "purpose": "Reduce phone source-preparation and control-hunting friction by letting ordinary downloaded text-like files use the existing READFIELD work kernel, while clarifying cross-mode compositions.",
+  "changed": [
+    "/docs/index.html",
+    "/tools/browser-smoke.mjs",
+    "/showcase-manifest.json",
+    "/control/CURRENT.json",
+    "/control/confluence/READFIELD_PHONE_WORK_085_2026-09-25.json",
+    "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json"
+  ],
+  "behavior": [
+    "FILE opens downloaded text/Markdown/JSON/CSV/log/YAML/source/SVG material session-locally.",
+    "The same FAST / REVIEW / PULSE / VOICE / LOCI / REPO controls operate on the local source.",
+    "The phone work rail stays sticky.",
+    "SKIM→REVIEW, LISTEN→PULSE→VOICE and READ→LOCI→RETURN are named as same-cursor work chains.",
+    "Ephemeral sources expose COPY FOCUS rather than a misleading durable addressed-view copy."
+  ],
+  "verification": {
+    "browser_fixture": "Synthetic field-note.md → WORD index 4 → 900 WPM → session-local source → COPY FOCUS",
+    "static": "PENDING_CI",
+    "browser": "PENDING_CI",
+    "lived_phone": "REQUIRED_NEXT"
+  },
+  "stop": "After repository proof, stop reader feature growth until direct phone use identifies concrete friction in local-file intake, sticky rail, mode consequences or handoff."
+}
