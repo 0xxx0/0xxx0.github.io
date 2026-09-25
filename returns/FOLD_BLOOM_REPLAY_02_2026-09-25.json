@@ -1,0 +1,42 @@
+{
+  "schema": "0xxx0/fold-bloom-replay-return/v0.2",
+  "date": "2026-09-25",
+  "status": "CANDIDATE_BRANCH__VERIFICATION_PENDING",
+  "object": "/fold-bloom/replay/",
+  "recovered_signal": "User explicitly liked the H1 replay mechanism and requested materially deeper controls, LISTEN synchronization, word-level shaping, context explanation, visual export, and a compact shareable message-artifact link.",
+  "state_before": "MESSAGE REPLAY H1 proved deterministic score-before-video but remained an isolated synthetic spike with one-line message, one retime button and no canonical LISTEN/LIVE seams.",
+  "delta": [
+    "Promoted the mechanism to /fold-bloom/replay/ while demoting the old spike to DONOR.",
+    "LISTEN now opens REPLAY with exact source identity/profile key, current addressed interval, current position, BPM/phrase/section evidence, authored marks, addressed-message packet and shared ride profile.",
+    "When opened from LISTEN, REPLAY can follow and seek the live LISTEN playhead through the existing same-origin opener API; no universal session bus was added.",
+    "REPLAY writes the existing source-keyed LIVE/LISTEN ride-profile localStorage contract, so profile calibration remains one preference family across surfaces.",
+    "Added word-level cue / hold / emphasis shaping and snap-to-playhead.",
+    "Added editable authored operation type / cue / span / intensity plus add/remove/snap.",
+    "Added SOURCE/MAP/IMMERSION layers, DEEP/TRANCE/WOOD/VOID scenes, CLEAR/DRIVE/TRANCE/SOFT presets and all six current ride-profile axes.",
+    "Added explicit message context title/body so a recipient can understand why the addressed source moment matters.",
+    "Added compact self-contained compressed share link containing message/context/word cues/operations/experience/bounded source evidence/reference; local/private audio bytes are excluded.",
+    "Added full JSON export and visual-only WebM export; WebM is explicitly a projection of the score, not canonical state.",
+    "Added public root + LISTEN workflow entry and route/browser proof coverage."
+  ],
+  "authority": {
+    "source_and_map": "LISTEN",
+    "authored_message_score": "REPLAY",
+    "experience_preferences": "source-keyed LIVE/LISTEN/REPLAY profile",
+    "local_audio_bytes": "remain browser-local; never embedded in replay share link",
+    "media_export": "projection only"
+  },
+  "verification": {
+    "route_registration": "PENDING",
+    "score_roundtrip_probe": "PENDING",
+    "replay_mobile_browser": "PENDING",
+    "listen_integration_browser": "PENDING",
+    "critical_browser_suite": "PENDING"
+  },
+  "residue": [
+    "No backend URL shortener. The link is compressed/self-contained so it works cross-device without introducing an external service or account dependency.",
+    "Shared links carry public source address only as a reference when one exists; recipient playback is not guaranteed.",
+    "Visual WebM currently has no source audio embedded because REPLAY does not own or duplicate LISTEN audio bytes.",
+    "Lived recipient comprehension and actual messaging usefulness remain human evidence."
+  ],
+  "stop": "If the promoted surface passes machine gates, stop. Next change must come from one real LISTEN-sourced message/replay use or a reproducible defect; do not expand into a general DAW/timeline/social backend."
+}
