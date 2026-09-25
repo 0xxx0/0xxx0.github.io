@@ -17,7 +17,9 @@
     "field_live_opt_in": "PASS_BY_SOURCE",
     "current_read_only": "PASS_BY_SOURCE",
     "explicit_promotion": "PASS_BY_SOURCE",
-    "feedback_no_repo_write": "PASS_BY_SOURCE"
+    "feedback_no_repo_write": "PASS_BY_SOURCE",
+    "service_worker_live_truth_bypass": "PASS_BY_SOURCE",
+    "cache_version_bumped": "atlas-dayline-i-v2"
   },
   "known_gap": "LIVE still requires lived browser/device proof; calendar binding remains adapter-required; nexus branch telemetry has unrelated ambiguous-ref failures."
 }
