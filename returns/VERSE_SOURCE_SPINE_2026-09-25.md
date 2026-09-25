@@ -1,8 +1,8 @@
 # VERSE SOURCE SPINE — RETURN
 
 Date: 2026-09-25
-Branch: `confluence/verse-source-spine-20260925`
-State: CANDIDATE / PR-GATED
+Merged via: PR #301 · `481d4af102fae4ceee09fbfcec9a999a9e5ae926`
+State: MERGED / CI GREEN
 
 ## Object
 
@@ -53,7 +53,7 @@ Both are intentionally left to PR #299, which currently edits those shared contr
 
 ## Verification gate
 
-Static contract is implemented. PR CI / browser smoke must confirm:
+Verified on PR #301: Route Registration PASS; public-surface-check PASS; critical browser smoke PASS. The following contract is now sealed:
 - no missing DOM IDs / JS parse regressions,
 - Poem Map boot and authoring selftest remain healthy,
 - READ exact-focus handoff,
@@ -64,3 +64,12 @@ Static contract is implemented. PR CI / browser smoke must confirm:
 ## Next smallest delta after lived proof
 
 Do **not** add another umbrella. If the three carries work in actual use, the next likely convergence is one shared **candidate-provider adapter boundary** (local corpus / sourced dictionary / model) behind Poem Map's existing POSSIBILITY dock, with provenance and explicit ADOPT. If lived use instead shows the host is still too heavy, reduce disclosure before adding capability.
+
+## Merge receipt
+
+- PR: #301
+- Squash: `481d4af102fae4ceee09fbfcec9a999a9e5ae926`
+- Route Registration: PASS
+- public-surface-check: PASS
+- critical browser smoke: PASS
+- Control registration residue: `CURRENT` + `showcase-manifest` still advertise 0.2.2 and are deliberately delegated to PR #299's shared-control lane; coordination comment posted there.
