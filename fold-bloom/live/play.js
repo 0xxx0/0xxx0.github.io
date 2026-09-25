@@ -55,7 +55,7 @@ function injectStyle(){
   .fbGameMission span{display:block;margin-top:3px;font-size:7px;letter-spacing:.08em;color:rgba(255,255,255,.54);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .fbGameProgress{display:flex;align-items:center;gap:5px;padding:5px;border-left:1px solid rgba(255,255,255,.12)}
   .fbGameProgress b{font-size:8px;min-width:48px;text-align:center}
-  .fbGameProgress button{width:34px;min-width:34px;height:34px;padding:0;font-size:8px;font-weight:1000}
+  .fbGameProgress button{min-width:40px;height:34px;padding:0 6px;font-size:7px;font-weight:1000}
   .fbGameProgress button.on{background:#fff;color:#05070b;border-color:#fff}
   .fbResult{position:absolute;inset:0;z-index:12;background:rgba(3,5,8,.90);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:18px;pointer-events:auto}
   .fbResult.on{display:flex}
@@ -78,7 +78,7 @@ function injectStyle(){
     .fbGameMission span{font-size:6.5px}
     .fbGameProgress{gap:3px;padding:4px}
     .fbGameProgress b{display:none}
-    .fbGameProgress button{width:30px;min-width:30px;height:34px;font-size:7px}
+    .fbGameProgress button{min-width:36px;height:34px;padding:0 4px;font-size:6.5px}
   }`;
   document.head.appendChild(style);
 }
@@ -87,11 +87,11 @@ function injectEntry(){
   const card = q('#intro .card');
   if(!card || q('#fbPlayEntry')) return;
   const lede = card.querySelector('.lede');
-  if(lede) lede.textContent = 'Turn the ring. Match TARGET. Make the release button say the CALL. Release. Every move writes the road.';
+  if(lede) lede.textContent = 'Turn the ring. Find the named symbol. Keep turning until the center button says the GOAL. Release. Every move writes the road.';
   const box = document.createElement('div');
   box.id = 'fbPlayEntry';
   box.className = 'fbPlayEntry';
-  box.innerHTML = '<div class="law"><b>ONE MOVE:</b> TURN → MATCH TARGET → FIND THE CALLED VERB → RELEASE.<br><b>ONE RUN:</b> eight releases. No lives. No dead moves; misses still change the field.</div><div class="modes"><button data-play-mode="PLAY">PLAY A RUN · 8 MOVES</button><button data-play-mode="PUZZLE">PUZZLE · 5 CALLS</button><button data-play-mode="ZEN">ZEN · FREE RIDE</button></div>';
+  box.innerHTML = '<div class="law"><b>ONE MOVE:</b> TURN → FIND THE SYMBOL → MATCH THE GOAL → RELEASE.<br><b>ONE RUN:</b> eight releases. No lives. No dead moves; misses still change the field.</div><div class="modes"><button data-play-mode="PLAY">PLAY A RUN · 8 MOVES</button><button data-play-mode="PUZZLE">PUZZLE · 5 CALLS</button><button data-play-mode="ZEN">ZEN · FREE RIDE</button></div>';
   const more = card.querySelector('.introMore');
   card.insertBefore(box, more || null);
   box.querySelectorAll('[data-play-mode]').forEach(btn => btn.addEventListener('click', () => start(btn.dataset.playMode)));
@@ -102,7 +102,7 @@ function injectHud(){
   root = document.createElement('div');
   root.id = 'fbGame';
   root.className = 'fbGame';
-  root.innerHTML = '<div class="fbGameBar"><div class="fbGameMode" id="fbMode">PLAY</div><div class="fbGameMission"><b id="fbObjective">CALL —</b><span id="fbCoach">TURN THE RING</span></div><div class="fbGameProgress"><b id="fbProgress">0 / 8</b><button data-switch="PLAY">P</button><button data-switch="PUZZLE">?</button><button data-switch="ZEN">Z</button></div></div>';
+  root.innerHTML = '<div class="fbGameBar"><div class="fbGameMode" id="fbMode">PLAY</div><div class="fbGameMission"><b id="fbObjective">GOAL —</b><span id="fbCoach">TURN THE RING</span></div><div class="fbGameProgress"><b id="fbProgress">0 / 8</b><button data-switch="PLAY">RUN</button><button data-switch="PUZZLE">PUZ</button><button data-switch="ZEN">ZEN</button></div></div>';
   document.body.appendChild(root);
   root.querySelectorAll('[data-switch]').forEach(btn => btn.addEventListener('click', () => start(btn.dataset.switch)));
 
@@ -176,7 +176,7 @@ function update(state){
   const aligned = !!forecast;
   const hitReady = aligned && forecastMatchesCall(call, forecast);
 
-  q('#fbMode').textContent = mode;
+  q('#fbMode').textContent = mode === 'PLAY' ? 'RUN' : mode;
   root.querySelectorAll('[data-switch]').forEach(btn => btn.classList.toggle('on', btn.dataset.switch === mode));
 
   if(mode === 'ZEN'){
@@ -186,13 +186,13 @@ function update(state){
     return;
   }
 
-  q('#fbObjective').textContent = 'CALL ' + callText(call);
+  q('#fbObjective').textContent = 'GOAL ' + callText(call);
   if(hitReady){
     q('#fbCoach').textContent = 'HIT READY · RELEASE ' + forecast.verb;
   }else if(aligned){
-    q('#fbCoach').textContent = 'HERE ' + forecast.verb + (forecast.chain > 1 ? ' ×' + forecast.chain : '') + ' · KEEP TURNING FOR ' + callText(call);
+    q('#fbCoach').textContent = 'HERE ' + forecast.verb + (forecast.chain > 1 ? ' ×' + forecast.chain : '') + ' · KEEP TURNING FOR GOAL ' + callText(call);
   }else{
-    q('#fbCoach').textContent = 'TURN · MATCH TARGET ' + (TYPE_NAMES[state.targetType] || '');
+    q('#fbCoach').textContent = 'TURN · FIND ' + (TYPE_NAMES[state.targetType] || '') + ' · CENTER BUTTON WAKES ON A MATCH';
   }
 
   if(mode === 'PUZZLE'){
