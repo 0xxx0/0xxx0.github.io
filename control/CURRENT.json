@@ -390,7 +390,14 @@
         "id": "fold-bloom-play-053-phone-retest",
         "state": "HOLD_FOR_HUMAN_USE",
         "objective": "One real-phone pass only: verify modes are visually distinct in the central instrument, HEX trigram/state reading is legible, TWO DIAL A/B + WIDE/full donor work, and MODE / RELEASE / WORLD remain touch-clear.",
-        "law": "Revise from lived friction only; do not add another mode or ontology before this gate."
+        "law": "Revise from lived friction only; do not add another mode or ontology before this gate.",
+        "human_questions": [
+          "On a real phone, can you distinguish RUN / HEX / PATH / TWO DIAL / ECOLOGY / ZEN from the central instrument before reading the mode label?",
+          "In HEX, do the lower/upper trigram/state cues help you understand FORM → CHANGE rather than look like decorative glyphs?",
+          "In TWO DIAL, are both A/B dial positions visible at once and does WIDE or FULL TWO DIAL remain reachable without covering MODE / RELEASE / WORLD?",
+          "Do MODE / RELEASE / WORLD remain tappable through every active mode and transition after the latest cache refresh?",
+          "After thirty seconds of use, can you state what TRIANGLE / CIRCLE / SQUARE and BLOOM / FOLD / SPLIT / RETURN do without relying on EMBER / WATER / MOSS lore?"
+        ]
       },
       "latest_merge": "41b69f52f75b5424308ba6531af879e017e4cb07",
       "version": "0.1.4 + PLAY 0.5.3"
