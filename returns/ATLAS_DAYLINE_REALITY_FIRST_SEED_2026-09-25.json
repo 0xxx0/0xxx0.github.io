@@ -1,0 +1,26 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "ATLAS_DAYLINE_REALITY_FIRST_SEED_2026-09-25",
+  "date": "2026-09-25",
+  "object": "ATLAS DAYLINE / FIRST-RUN STATE",
+  "scale": "ARTIFACT",
+  "state_before": "First-run/reset seed contained old concrete-looking tasks and anchors that could be mistaken for current obligations.",
+  "delta": "Replace only first-run/reset seed with empty tasks/anchors and selected=null; rename reset control to RESET EMPTY; preserve existing localStorage state.",
+  "evidence": {
+    "route": "/atlas-dayline/",
+    "app": "/atlas-dayline/app.js",
+    "release": "/atlas-dayline/release.json",
+    "cache": "atlas-dayline-i-v5",
+    "checks": [
+      "legacy task strings absent from new seed",
+      "tasks=[]",
+      "anchors=[]",
+      "selected=null",
+      "existing STORE key unchanged"
+    ]
+  },
+  "residue": "Previously saved browser-local state remains by design and is not remotely cleared.",
+  "waiting": "Lived phone use of one real COMMS/HOUSE/SHOPPING handoff.",
+  "one_next": "Use a real object through REALITY PORT → ADD/APPLY → RUN≤3 → COPY HANDOFF/RETURN.",
+  "stop": "Do not add another planner or backlog."
+}
