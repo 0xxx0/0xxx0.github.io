@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "DAYLINE // CONFLUENCE",
-  "version": "0.2.1-candidate",
+  "version": "0.2.2-candidate",
   "route": "/dayline/",
   "state": "CANDIDATE",
   "operation": "OPERATE",
-  "released": "2026-09-25",
-  "role": "Mobile-first continuous execution projection over the existing Dayline DayState. One source-linked object may remain held through RUN → WITNESS → COMPLETE → RETURN, then Dayline releases completed focus only after emitting one OFFER_ONLY receipt to the exact native source.",
+  "released": "2026-09-26",
+  "role": "Mobile-first continuous execution projection over the existing Dayline DayState. One source-linked object may remain held through RUN → WITNESS → COMPLETE → RETURN, then Dayline emits one source-appropriate OFFER_ONLY receipt and releases completed focus. COMMS may receive a native-state proposal; Shopping receives evidence-only.",
   "authority": "NONE / projection + explicit local DayState mutation only",
   "preserves": [
     "poly-atlas-dayline-branch-i-public-v1 local DayState identity",
@@ -17,7 +17,9 @@
     "manual Dayline time + explicit device clock witness",
     "Atlas as optional deeper projection",
     "source SHA/signal/message/range identity for COMMS return offers",
-    "native source acceptance authority"
+    "native source acceptance authority",
+    "source-specific return effect class: COMMS STATE_PROPOSAL vs SHOPPING RECEIPT_ONLY",
+    "Shopping lifecycle truth remains native; Dayline cannot promote FOUND/BOUGHT/RECEIVED/TESTED/ADOPTED"
   ],
   "validation": {
     "ordinary_document_scroll": "BY_SOURCE",
@@ -32,7 +34,9 @@
     "native_mutation": "NONE until explicit source acceptance",
     "closed_loop": "RUN → WITNESS → COMPLETE → RETURN → OFFER_ONLY → native explicit accept",
     "completed_focus_release": "after source-return publication, never before",
-    "real_source_browser": "PENDING_CI · exact user instruction at 430×900"
+    "real_source_browser": "PENDING_CI · exact user instruction at 430×900",
+    "source_return_effects": "COMMS → STATE_PROPOSAL; SHOPPING → RECEIPT_ONLY; other hosts → EVIDENCE_ONLY",
+    "shopping_closed_loop": "PENDING_CI · WATCH item → Dayline done+witness → RECEIPT_ONLY → Shopping receipt, lifecycle unchanged"
   },
   "stop": "Functional correctness is machine/browser verified first. Real-world completion remains a WORLD claim; phone preference/ergonomics is optional subjective evidence, not the default promotion gate.",
   "verification_policy": {
@@ -45,7 +49,8 @@
       "RUN mutation boundary",
       "witness/RETURN shape",
       "source back path",
-      "COMMS return-offer/source revalidation"
+      "COMMS return-offer/source revalidation",
+      "Shopping exact-item evidence-only return acceptance with lifecycle invariance"
     ],
     "world_only": [
       "whether an intended real-world action was actually performed"
