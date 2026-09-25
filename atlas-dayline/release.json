@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "ATLAS DAYLINE",
-  "version": "Branch I + FIELD LIVE 0.1",
+  "version": "Branch I + FIELD LIVE 0.2 / COMMS HANDOFF",
   "route": "/atlas-dayline/",
   "state": "STABLE + OPT_IN_LIVE_CANDIDATE",
   "operation": "PLAN",
   "released": "2026-09-25",
-  "representative_interaction": "default Branch I unchanged; ?live=1 → SYNC FIELD → explicit ADD/CAPTURE → RUN≤3 → RETURN → COPY FEEDBACK",
+  "representative_interaction": "default Branch I unchanged; ?live=1 → FIELD sync / local capture / explicit COMMS TARGET import → RUN≤3 → optional HERMES PACKET → RETURN",
   "validation": {
     "viewport_meta": "PASS",
     "responsive_source": "PASS",
@@ -19,7 +19,10 @@
     "explicit_promotion": "PASS_BY_SOURCE",
     "feedback_no_repo_write": "PASS_BY_SOURCE",
     "service_worker_live_truth_bypass": "PASS_BY_SOURCE",
-    "cache_version_bumped": "atlas-dayline-i-v2"
+    "cache_version_bumped": "atlas-dayline-i-v3",
+    "comms_target_handoff": "PASS_BY_SOURCE",
+    "hermes_packet": "PASS_BY_SOURCE",
+    "private_reality_boundary": "PASS_BY_SOURCE"
   },
-  "known_gap": "LIVE still requires lived browser/device proof; calendar binding remains adapter-required; nexus branch telemetry has unrelated ambiguous-ref failures."
+  "known_gap": "Calendar has no browser binding; private calendar/message state must enter through explicit adapters or human capture. HERMES packet remains read/research/prepare-only. Lived phone proof remains required."
 }
