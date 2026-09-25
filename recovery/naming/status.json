@@ -1,9 +1,9 @@
 {
   "schema": "0xxx0/recovery/naming/v0.1",
-  "status": "VISUAL_BATCH_FOUND_RUNNABLE_SOURCE_OPEN",
-  "updated": "2026-09-21",
+  "status": "MECHANISM_LINEAGE_RECOVERED / ISOLATED_ARTIFACT_NOT_FOUND / NOT_ACTIVE_DEBT",
+  "updated": "2026-09-26",
   "branch": "Naming / Game-of-Names / identity-glyph lineage",
-  "evidence": "Exact archive lineage exists, including the 3×3 hacker-name/game branch and later identity/naming abstractions, but no isolated public-safe runnable/source artifact has been located.",
+  "evidence": "Direct archive evidence establishes the 3×3 / Unix-style hacker-name game mechanism and later naming-as-architecture recurrence. Exact Library search across HTML/SVG/ZIP/JSON/PDF found no isolated public-safe Game-of-Names runnable/source/glyph artifact. The only runnable HTML hit is a later larger deployment document containing a naming-as-architecture section, not a standalone Game-of-Names engine.",
   "privacy_boundary": "Raw conversation exports and personal naming context are not published to the public repository.",
   "current_transferable_mechanisms": [
     "stable semantic identity distinct from label/alias",
@@ -11,11 +11,19 @@
     "constraint-based generative naming",
     "symmetry/palindrome/grid traversal as operations"
   ],
-  "next_exact_recovery": "Runnable/source/glyph artifact remains open. Do not treat the visual batch as a working Game-of-Names engine.",
+  "next_exact_recovery": "STOP by default. Reopen isolated-artifact archaeology only when a concrete filename, route, screenshot, package, glyph sheet or other direct artifact reference appears.",
   "visual_evidence": {
     "batch": "B260728B",
     "receipt": "/recovery/naming/visual-batch-B260728B.json",
     "source_index": "影庫_INDEX_v0.1.md / file_00000000b59c8211bba8b734cfa0ccc6",
     "state": "coherent eight-image Library batch indexed exactly; image bytes not yet mirrored to repo"
-  }
+  },
+  "artifact_disposition": {
+    "mechanism": "RECOVERED_EXACT_ARCHIVE_LINEAGE",
+    "visual_batch": "RECOVERED_LIBRARY_INDEXED",
+    "standalone_runnable": "NOT_EVIDENCED",
+    "larger_embedded_donor": "phantom-grid-v24 HTML contains a later `THE GAME OF NAMES — NAMING IS ARCHITECTURE` section; do not relabel the full deployment guide as the missing game.",
+    "debt_state": "NOT_ACTIVE"
+  },
+  "latest_return": "/returns/GAME_OF_NAMES_ARTIFACT_DISPOSITION_2026-09-26.json"
 }
