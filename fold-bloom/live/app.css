@@ -53,3 +53,15 @@ html.fbMenuOpen .drawer{display:block;z-index:120}
 .leftQuick .sourceQuick{border-color:rgba(255,255,255,.55)}
 .leftQuick .vibeQuick{border-color:rgba(109,189,255,.42);color:#d8edff}
 @media(max-width:620px){.leftQuick{left:8px;bottom:calc(max(8px,env(safe-area-inset-bottom)) + 66px);gap:4px}.leftQuick .sourceQuick,.leftQuick .vibeQuick{height:42px;min-width:120px}.drawerHead #closeSettings{min-width:50px;min-height:50px}}
+
+
+/* 0.13.9 menu interaction ownership: an open drawer is the sole pointer-active control layer. */
+.menuDismiss{z-index:999}
+html.fbMenuOpen .menuDismiss{display:block;pointer-events:auto}
+html.fbMenuOpen .drawer{display:block;z-index:1000;pointer-events:auto}
+html.fbMenuOpen .fbGame,
+html.fbMenuOpen .fbGame *,
+html.fbMenuOpen .bottom,
+html.fbMenuOpen .leftQuick,
+html.fbMenuOpen .autoQuick,
+html.fbMenuOpen .soundGate{pointer-events:none!important}
