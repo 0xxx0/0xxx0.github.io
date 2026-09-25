@@ -118,7 +118,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 
 
 <section class="axial" id="axialLatest">
-  <div class="axialHead"><div><b>FIELD / FOCUS</b> <span id="axialMeta">loading repo mutations…</span></div><div class="axialActions"><span class="trial" id="axTrial" hidden title="Local-only passive comparison. Click to copy receipt.">trial —</span><button id="axReset">RESET / NEWEST</button></div></div>
+  <div class="axialHead"><div><b>FIELD / FOCUS</b> <span id="axialMeta">loading addressed routes…</span></div><div class="axialActions"><span class="trial" id="axTrial" hidden title="Local-only passive comparison. Click to copy receipt.">trial —</span><button id="axReset">RESET / NEWEST</button></div></div>
   <div class="aperture" id="aperture">
     <div class="apGlyph" id="apGlyph"></div>
     <div class="apBody"><div class="apMeta" id="apMeta">OBJECT / FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><div class="apReading" id="apProjection">READING · FIELD / FOCUS</div><p id="apRole">One fixed gate resolves the aligned vocabularies to an exact repository route.</p></div>
@@ -214,7 +214,7 @@ function saveTrial(){try{localStorage.setItem(TRIAL_KEY,JSON.stringify(trial))}c
 function noteFocus(source,ok=true){if(!['AXIAL','LATEST'].includes(source))source='OTHER';trial[source==='AXIAL'?'axial_focus':source==='LATEST'?'latest_focus':'other_focus']++;if(!ok)trial.dead++;trial.last_source=source;trial.last_at=Date.now();saveTrial()}
 function noteOpen(){if(!focus)return;const source=['AXIAL','LATEST'].includes(trial.last_source)?trial.last_source:'OTHER';trial.opens[source]=(trial.opens[source]||0)+1;if(trial.last_at)trial.open_ms[source]=(trial.open_ms[source]||0)+Math.max(0,Date.now()-trial.last_at);saveTrial()}
 function renderTrial(){const a=trial.axial_focus||0,l=trial.latest_focus||0,d=trial.dead||0;$('axTrial').textContent='AX '+a+' · LI '+l+(d?' · Ø'+d:'')}
-function trialReceipt(){return{...trial,exported_at:new Date().toISOString(),note:'LOCAL-ONLY interaction counts; no claim of usability superiority. AX=AXIAL focus selections; LI=plain LATEST row selections; Ø=dead intersections.'}}
+function trialReceipt(){return{...trial,exported_at:new Date().toISOString(),note:'LOCAL-ONLY interaction counts; no claim of usability superiority. AX=AXIAL focus selections; LI=route-pulse focus selections (legacy counter name retained); Ø=dead intersections.'}}
 const routeMap=()=>new Map(routes.map(r=>[r.href,r]));
 const projectionOf=()=>$('mapFold')?.open?mapMode:'AXIAL_LATEST';
 const notifyFieldIndex=()=>{const projection=projectionOf(),w=$('apProjection'),label=projection==='AXIAL_LATEST'?'FIELD / FOCUS':projection.replace('_',' / ');if(w)w.textContent='READING · '+label;window.dispatchEvent(new CustomEvent('field-index:state',{detail:{focus:focus?.href||null,projection,mapRoot,axisState:{...axisState}}}))};
@@ -463,7 +463,7 @@ function renderMapSvg(){
    const xs=latest.filter(mapMatches).slice(0,48),cx=500,cy=215,pts=[];xs.forEach((r,i)=>{const a=-1.2+i*.52,rad=25+i*6.2,x=cx+Math.cos(a)*rad*1.2,y=cy+Math.sin(a)*rad*.62;pts.push({r,x,y})});
    if(pts.length)svg.append(el('polyline',{class:'pulsePath',points:pts.map(p=>p.x+','+p.y).join(' ')}));
    pts.forEach(p=>{const c=el('circle',{cx:p.x,cy:p.y,r:focus?.href===p.r.href?7:5,class:'pulseDot '+(focus?.href===p.r.href?'sel':'')});c.style.cursor='pointer';c.onclick=()=>focusOrOpen(p.r,'OTHER');svg.append(c)});
-   $('mapTitle').textContent='PULSE';$('mapPath').textContent='mutation spiral · identity preserved';$('mapMeta').textContent=xs.length+' recent mutations · manifest '+(manifest?.updated||'—');updateStatusRail();return;
+   $('mapTitle').textContent='PULSE';$('mapPath').textContent='route-touch spiral · identity preserved';$('mapMeta').textContent=xs.length+' recent route touches · manifest '+(manifest?.updated||'—');updateStatusRail();return;
  }
  const cm=childrenMap(),kids=(cm.get(mapRoot)||[]).filter(mapMatches),cx=500,cy=215,rx=360,ry=155;
  const center=routeMap().get(mapRoot)||{title:'FIELD',href:'/'};const ct=el('text',{x:cx,y:cy+4,'text-anchor':'middle'});ct.textContent=center.title||'FIELD';ct.setAttribute('fill','#edf0ed');ct.setAttribute('font-size','12');svg.append(ct);
@@ -497,7 +497,7 @@ Promise.all([
 ]).then(([m,c])=>{
  manifest=m;current=c;routes=(m.routes||[]).filter(r=>r.href!=='/');latest=routes.filter(r=>r.index?.updated_at).sort((a,b)=>String(b.index.updated_at).localeCompare(String(a.index.updated_at)));
  headSet=new Set((c.current_heads||[]).map(h=>h.route));nowSet=new Set((c.active_fronts||[]).slice(0,3).map(nowHref));
- $('axialMeta').textContent=latest.length+' mutations · support is exact over current filters';
+ $('axialMeta').textContent=latest.length+' addressed routes · support exact over current filters';
  renderHeads();renderPorts();applyInitialAxial();renderSyncLine();loadRepoTouches();loadWaiting();loadIssues();renderMap();if(INIT.get('trace')==='1')setTimeout(openTrace,0);
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});
 $('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apTrace').onclick=openTrace;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===30?999:30;$('moreLatest').textContent=latestLimit===30?'SHOW ALL':'SHOW FEWER';renderFeed()};
