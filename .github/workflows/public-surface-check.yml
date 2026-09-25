@@ -15,6 +15,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Test Dayline COMMS real-source RETURN loop
+        run: node tools/dayline-comms-real-loop-smoke.mjs
       - name: Validate CURRENT ↔ manifest head drift
         run: node scripts/check-current-heads.mjs
       - name: Validate reality-gap proof gates
