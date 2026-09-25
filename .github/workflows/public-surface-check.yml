@@ -155,6 +155,8 @@ jobs:
         env:
           SMOKE_ONLY: FOLD BLOOM FIELD LAB
         run: node tools/browser-smoke.mjs
+      - name: Test FOLD BLOOM FIELD LAB turn-RIDE + inline replay browser loop
+        run: node tools/fold-bloom-lab-time-smoke.mjs
       - name: Test FOLD BLOOM FIELD LAB cross-projection continuity
         run: node tools/fold-bloom-lab-cross-projection-smoke.mjs
       - name: Test FOLD BLOOM INK FIELD browser boot
