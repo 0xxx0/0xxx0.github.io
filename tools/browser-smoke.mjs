@@ -93,6 +93,34 @@ function poemMapProbeHtml(){
   <\/script></body></html>`;
 }
 
+function poemMapFocusReturnProbeHtml(){
+  return `<!doctype html><html><body><iframe id="f" style="width:900px;height:700px;border:0" src="/poetry/map/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),out=document.getElementById('probeResult');let phase=0,expected='';
+  const done=(ok,data)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data);
+  const probe=(tries=0)=>{
+    try{
+      const w=f.contentWindow,api=w?.__POEM_MAP__,S=api?.S,d=w?.document;
+      if(!api||!S||!d){if(tries<70){setTimeout(()=>probe(tries+1),100);return}done(false,{phase,stage:'boot'});return}
+      if(phase===0){
+        const src='alpha beta gamma\\ndelta epsilon zeta';
+        d.getElementById('source').value=src;api.parse();api.setMode('MAP');S.selected='L1T2';api.renderFocusWheel();
+        expected=api.poemReturnAddress(api.poemFocus());
+        const u=new URL(expected,w.location.origin);
+        const key=u.searchParams.get('source_key'),focus=u.searchParams.get('focus'),view=u.searchParams.get('view');
+        if(focus!=='L1T2'||view!=='MAP'||!/^text-local:\\d+:[0-9a-f]{8}$/.test(key||'')){done(false,{phase,expected,key,focus,view});return}
+        phase=1;f.src=expected;setTimeout(()=>probe(),250);return;
+      }
+      const q=new URL(w.location.href).searchParams;
+      const ok=S.source==='alpha beta gamma\\ndelta epsilon zeta'&&S.mode==='MAP'&&S.selected==='L1T2'&&q.get('focus')==='L1T2'&&q.get('source_key')===api.poemReturnAddress(api.poemFocus())&&false;
+      const sourceKey=q.get('source_key'),computed=new URL(api.poemReturnAddress(api.poemFocus()),w.location.origin).searchParams.get('source_key');
+      const pass=S.source==='alpha beta gamma\\ndelta epsilon zeta'&&S.mode==='MAP'&&S.selected==='L1T2'&&q.get('focus')==='L1T2'&&sourceKey===computed;
+      done(pass,{phase,mode:S.mode,selected:S.selected,focus:q.get('focus'),sourceKey,computed,source:S.source});
+    }catch(e){if(tries<70){setTimeout(()=>probe(tries+1),100);return}done(false,{phase,error:String(e?.stack||e)})}
+  };
+  setTimeout(()=>probe(),180);
+  <\/script></body></html>`;
+}
+
 function listenSourceProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><pre id="probeResult">PENDING</pre><script type="module">
   const out=document.getElementById('probeResult'),rec={};
@@ -659,6 +687,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(studioProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/poem-map-focus-return')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(poemMapFocusReturnProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/poem-map')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(poemMapProbeHtml());return;
@@ -1066,6 +1098,12 @@ const CASES=[
     route:'/__smoke/poem-map',
     options:{width:980,height:760,budget:9000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"fieldLoaded":true/.test(dom)&&/"mode":"PAGE"/.test(dom)&&/"controls":true/.test(dom)
+  },
+  {
+    name:'POEM MAP focus return',
+    route:'/__smoke/poem-map-focus-return',
+    options:{width:980,height:760,budget:12000,timeout:18000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"mode":"MAP"/.test(dom)&&/"selected":"L1T2"/.test(dom)&&/"focus":"L1T2"/.test(dom)&&/"sourceKey":"text-local:/.test(dom)
   },
   {
     name:'VERSE ATLAS',
