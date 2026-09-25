@@ -1,22 +1,25 @@
 {
-  "schema": "0xxx0/waiting/v0.1",
-  "updated": "2026-09-22T05:31:00+08:00",
-  "purpose": "Compact public-safe projection of work whose next lawful move depends on human observation, choice, permission, private input, or physical action. This is not the machine execution queue.",
+  "schema": "field-waiting/v0.2",
+  "updated": "2026-09-25",
+  "purpose": "Durable public-safe dependency registry. ACTIVE human/world gates are owned only by CURRENT.current_heads[].next_executable; this file preserves PARKED dependencies and REMOVED history without manufacturing user obligations.",
+  "authority": {
+    "active": "control/CURRENT.json current_heads[].next_executable",
+    "parked_and_removed": "control/WAITING.json"
+  },
   "laws": [
     "WAITING != QUEUE.",
     "WAITING != PRIORITY.",
-    "An item belongs here only when the next meaningful move cannot be lawfully completed from current machine/public evidence alone.",
-    "Each item names one smallest human move and the machine move it unlocks.",
-    "Sensitive/private content is never stored here; keep only a public-safe dependency description.",
-    "Ordinary use may satisfy a waiting item; no dedicated QA ritual is required unless the evidence gate specifically needs one.",
-    "When evidence arrives, close or transform the item rather than letting it become permanent backlog.",
-    "DONE LOCAL != SOURCE CLOSED; browser-local acknowledgement suppresses visual friction but does not manufacture evidence or mutate the repository item."
+    "ACTIVE is derived only from an explicit CURRENT next_executable human/world gate.",
+    "A registry item that is not referenced by CURRENT cannot become ACTIVE merely because it exists here.",
+    "PARKED preserves a legitimate dependency that is not needed now.",
+    "REMOVED preserves provenance for something that no longer qualifies as an actionable waiting gate.",
+    "Local acknowledgement does not resolve or close a CURRENT gate.",
+    "Sensitive/private content is never stored here; keep only a public-safe dependency description."
   ],
   "items": [
     {
       "id": "body-health-connect-permission",
       "route": "/body/fit/",
-      "state": "WAITING_ON_HUMAN",
       "human_move": "Install the CI-built BODY BRIDGE debug APK, grant only Sleep + Heart Rate read access, run the bounded 48h proof, export one local JSON packet, then import it into BODY / FIT.",
       "why": "Transform, browser integration and Android compilation are proved. Only the phone can prove Health Connect permission, Samsung/source population and a real source→export→import round trip.",
       "unlocks": "Promote the Health Connect adapter from compiled candidate to operational proof, or return the exact failure without broadening sensor permissions.",
@@ -25,65 +28,95 @@
       "native_source": "/android/body-bridge/",
       "transform": "/body/fit/health-connect-transform.js",
       "proof_state": "AUTOMATED_GREEN / REAL_DEVICE_REQUIRED",
-      "apk": "GitHub Actions artifact: body-bridge-debug (7-day retention; no APK committed to repo)"
-    },
-    {
-      "id": "body-calibration-first-campaign",
-      "route": "/body/",
-      "state": "WAITING_ON_ORDINARY_USE",
-      "human_move": "Use BODY NOW/RETURN naturally while a bounded sleep/training question accumulates enough real observations.",
-      "why": "Calibration and intervention effects require actual within-person returns; synthetic data would only test plumbing.",
-      "unlocks": "Run one bounded comparison, decide KEEP / DROP / UNKNOWN, then FADE monitoring when additional observation has low value."
+      "apk": "GitHub Actions artifact: body-bridge-debug (7-day retention; no APK committed to repo)",
+      "legacy_state": "WAITING_ON_HUMAN",
+      "dependency_kind": "REAL_DEVICE",
+      "surface_state": "PARKED",
+      "parked_at": "2026-09-25",
+      "parked_reason": "Valid real-device Health Connect proof remains, but BODY / FIT is not selected by CURRENT.",
+      "reactivate_when": "CURRENT.current_heads[].next_executable references this id."
     },
     {
       "id": "body-fit-return-proof",
       "route": "/body/fit/",
-      "state": "WAITING_ON_ORDINARY_USE",
       "human_move": "Run the same saved BODY / FIT kit twice and leave RETURN + NEXT CUT after each run.",
       "why": "BODY / FIT 0.3 already names this as its ordinary-use proof gate.",
-      "unlocks": "Judge whether PATINA / NEXT CUT materially improves the second preparation; transfer, revise, or remove accordingly."
+      "unlocks": "Judge whether PATINA / NEXT CUT materially improves the second preparation; transfer, revise, or remove accordingly.",
+      "legacy_state": "WAITING_ON_ORDINARY_USE",
+      "dependency_kind": "ORDINARY_USE",
+      "surface_state": "PARKED",
+      "parked_at": "2026-09-25",
+      "parked_reason": "Valid BODY / FIT ordinary-use promotion proof remains, but it is not selected by CURRENT.",
+      "reactivate_when": "CURRENT.current_heads[].next_executable references this id."
+    },
+    {
+      "id": "body-calibration-first-campaign",
+      "route": "/body/",
+      "human_move": "Use BODY NOW/RETURN naturally while a bounded sleep/training question accumulates enough real observations.",
+      "why": "Calibration and intervention effects require actual within-person returns; synthetic data would only test plumbing.",
+      "unlocks": "Run one bounded comparison, decide KEEP / DROP / UNKNOWN, then FADE monitoring when additional observation has low value.",
+      "legacy_state": "WAITING_ON_ORDINARY_USE",
+      "dependency_kind": "ORDINARY_USE",
+      "surface_state": "REMOVED",
+      "removed_at": "2026-09-25",
+      "removed_reason": "Ambient natural-use observation is not a blocking user action.",
+      "preserve_as": "HISTORICAL_DEPENDENCY"
     },
     {
       "id": "exposure-private-list",
       "route": "/care/",
-      "state": "WAITING_ON_PRIVATE_INPUT",
       "human_move": "Only when useful, provide the actual medication / supplement / caffeine list inside a private session.",
       "why": "A personalized interaction/timing review cannot be safely reconstructed from guesses, and the public repo should not contain the list.",
-      "unlocks": "Normalize identities and run source-backed interaction / duplicate-ingredient / timing review while preserving prescription authority outside the inference engine."
+      "unlocks": "Normalize identities and run source-backed interaction / duplicate-ingredient / timing review while preserving prescription authority outside the inference engine.",
+      "legacy_state": "WAITING_ON_PRIVATE_INPUT",
+      "dependency_kind": "PRIVATE_INPUT",
+      "surface_state": "REMOVED",
+      "removed_at": "2026-09-25",
+      "removed_reason": "Private input is explicitly conditional ('only when useful'), not presently required.",
+      "preserve_as": "HISTORICAL_DEPENDENCY"
     },
     {
       "id": "human-port-ordinary-use",
       "route": "/port/",
-      "state": "WAITING_ON_ORDINARY_USE",
       "human_move": "When a real image, authored text/JSON, or opaque file naturally needs routing, use HUMAN PORT normally; do not create a specimen just to test it.",
       "why": "Further PORT refinement requires actual use friction/override/RETURN, not another synthetic harness.",
-      "unlocks": "Revise HUMAN PORT only if ordinary use reveals a concrete transport, focus, provenance, or RETURN failure."
+      "unlocks": "Revise HUMAN PORT only if ordinary use reveals a concrete transport, focus, provenance, or RETURN failure.",
+      "legacy_state": "WAITING_ON_ORDINARY_USE",
+      "dependency_kind": "ORDINARY_USE",
+      "surface_state": "REMOVED",
+      "removed_at": "2026-09-25",
+      "removed_reason": "Natural-use routing is a future trigger, not present work.",
+      "preserve_as": "HISTORICAL_DEPENDENCY"
     }
   ],
   "capture_protocol": {
-    "law": "MENTION != OBLIGATION; EXPLICIT UNRESOLVED ASK != DISPOSABLE RESIDUE.",
+    "law": "MENTION != OBLIGATION; EXPLICIT CURRENT HUMAN GATE == ACTIVE.",
     "routes": [
       {
-        "condition": "The next bounded move is executable now with current authority/evidence.",
-        "destination": "EXECUTE -> RETURN; use CURRENT/QUEUE only when it is actually selected live work."
+        "condition": "CURRENT explicitly selects a next_executable requiring human observation, choice, permission, private input, physical action, ordinary use, or real-device evidence.",
+        "destination": "ACTIVE at runtime; CURRENT remains authority."
       },
       {
-        "condition": "The next meaningful move requires human observation, choice, permission, private input, physical action, or ordinary-use evidence.",
-        "destination": "WAITING"
+        "condition": "A legitimate dependency may matter again but is not selected by CURRENT.",
+        "destination": "PARKED registry state."
+      },
+      {
+        "condition": "A former dependency is conditional, ambient, superseded, or no longer qualifies as present work.",
+        "destination": "REMOVED history; preserve provenance, do not surface as YOU."
+      },
+      {
+        "condition": "The next bounded move is executable now with current authority/evidence.",
+        "destination": "EXECUTE -> RETURN; use CURRENT/QUEUE only when selected live work."
       },
       {
         "condition": "The material is a possibility, curiosity, donor, or speculative branch with no present commitment.",
         "destination": "IDEA ATLAS / SOCIAL RESIDUE / HOLD; not WAITING."
       },
       {
-        "condition": "The material is evidence or a claim that may enter durable state.",
-        "destination": "FIELD INTAKE / CONTINUITY review gate before canon."
-      },
-      {
         "condition": "The material contains sensitive/private state.",
-        "destination": "Keep private/local; if a public dependency pointer is useful, store only the minimum public-safe description."
+        "destination": "Keep private/local; store only the minimum public-safe dependency pointer if needed."
       }
     ],
-    "closure": "A WAITING item must close, transform, or explicitly remain blocked when its named dependency changes; repeated mention alone does not duplicate it."
+    "closure": "When CURRENT no longer references an ACTIVE gate, it disappears from ACTIVE automatically. Persist it as PARKED only if the dependency remains legitimately reusable; otherwise preserve it as REMOVED history."
   }
 }
