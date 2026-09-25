@@ -170,13 +170,14 @@
     "continue_insert_browser": "PASS_PR_351 · public-surface-check 36143041343 · CONTINUE inserts / REPLACE replaces / Han continuation compact",
     "candidate_operation_merge": "5e34273bb46a09398e908d5952743ee877316ce0",
     "next_line_static": "PASS_SOURCE_CONTRACT",
-    "next_line_browser": "PENDING_PR_CI · canonical Jueju blank L2 filled through START_NEXT_LINE"
+    "next_line_browser": "PASS · sweep PR #370 · public-surface-check 36163811892 · critical browser smoke; canonical Jueju blank L2 START_NEXT_LINE contract",
+    "current_head_route_registration": "PASS · 36163811888"
   },
   "updated": "2026-09-25",
   "next_bounded_test": {
-    "instruction": "Load JUEJU DONOR. Select a token in L1, request NEXT LINE, bank or choose one candidate, TRY, ADOPT, then UNDO. L2 must become authorable without turning L1 into an 8-character line or losing the remaining blank slots.",
-    "compare": "Does explicit NEXT LINE make the recovered opener + empty L2–L4 feel like one open composition surface rather than a sealed sample plus disconnected editor?",
-    "stop": "If NEXT LINE overwrites an existing nonblank line without explicit insertion, hides the operation, mutates the anchor during TRY, or breaks exact four-line Jueju source shape when filling a blank slot, revert."
+    "state": "PARKED_UNTIL_CONCRETE_AUTHORING_DEFECT",
+    "instruction": "Use Poem Map normally. Reopen Verse implementation only if ordinary authoring exposes a concrete source/focus/edit-operation defect.",
+    "stop": "Do not expand Verse merely to manufacture usage evidence."
   },
   "face": "CALM_FIELD_FIRST",
   "interface_contract": {
