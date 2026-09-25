@@ -18,6 +18,8 @@ function checkpoint(label='CHANGE'){day.undo=Array.isArray(day.undo)?day.undo:[]
 function hash(x){let h=2166136261,s=JSON.stringify({tasks:x.tasks,anchors:x.anchors,state:x.state,evidence:x.evidence});for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return(h>>>0).toString(16).padStart(8,'0')}
 function taskById(id){return day.tasks.find(t=>t.id===id)}
 function openTasks(){return day.tasks.filter(t=>t.status!=='done')}
+const LEGACY_IDS=new Set(['t:backup-verify','t:bench-reset','t:ipcam','t:print-test','t:wall-measure','t:maker-cart','t:litterbox','t:pickup','t:support-call']);
+function isLegacySeed(){return day.tasks.length===9&&day.tasks.every(t=>LEGACY_IDS.has(t.id)&&t.provenance==='direct-day-plan')}
 function sourceRoute(raw){const s=String(raw||'');const m=s.match(/(\/[^#|\s]+)/);return m?m[1]:''}
 function ownerFor(route,provenance=''){const s=(route+' '+provenance).toLowerCase();if(s.includes('/house'))return'HOUSE';if(s.includes('/shopping'))return'SHOPPING';if(s.includes('/port/comms')||s.includes('/contact'))return'COMMS';if(s.includes('/body'))return'BODY';if(s.includes('/care'))return'CARE';if(s.includes('/atlas-dayline')||s.includes('/dayline'))return'DAYLINE';return'FIELD'}
 function safeHandoff(){try{const h=JSON.parse(sessionStorage.getItem(HANDOFF)||'null');if(!h||h.schema!=='atlas-dayline-handoff/v0.1')return null;const age=Date.now()-Date.parse(h.created_at||0);if(!Number.isFinite(age)||age<0||age>43200000){sessionStorage.removeItem(HANDOFF);return null}return h}catch(_){return null}}
@@ -27,6 +29,7 @@ function explicitFocus(){const p=new URLSearchParams(location.search),tid=p.get(
 function chooseFrame(){
  if(handoff)return{kind:'handoff',handoff};
  const ex=explicitFocus();if(ex)return ex;
+ if(isLegacySeed())return{kind:'legacy'};
  const selected=taskById(day.state.selected);if(selected&&selected.status!=='done')return{kind:'task',task:selected};
  const routed=(day.state.route||[]).map(taskById).find(t=>t&&t.status!=='done');if(routed)return{kind:'task',task:routed};
  const first=openTasks()[0];if(first)return{kind:'task',task:first};
@@ -34,6 +37,7 @@ function chooseFrame(){
  return{kind:'empty'};
 }
 function frameView(f){
+ if(f.kind==='legacy')return{title:'Legacy sample state is still stored on this phone',owner:'DAYLINE / LOCAL MIGRATION',address:'poly-atlas-dayline-branch-i-public-v1 · old demo fixture',meta:'These nine backup / bench / camera / print / pickup / support records match the retired first-run sample. They are not treated as current obligations here. Reset is explicit and undoable.',route:'',task:null}
  if(f.kind==='handoff'){const h=f.handoff,src=h.source||{},p=h.payload||{},title=h.kind==='CONTEXT'?'Context · '+(src.label||src.object_id||'HOUSE'):(p.task?.title||src.label||'Incoming object');return{title,owner:ownerFor(src.route||'',p.task?.provenance||''),address:src.route||src.object_id||'session handoff',meta:(h.kind||'').toUpperCase()+' · explicit source-owned handoff\n'+(p.task?.notes||''),route:src.route||'',task:null}}
  if(f.kind==='task'){const t=f.task,route=sourceRoute(t.fieldRef||t.sourceRef||t.provenance);return{title:t.title,owner:ownerFor(route,t.provenance),address:(route||'DAYLINE local')+' · '+t.id,meta:(day.state.route.includes(t.id)?'RUN':'OPEN')+' · '+(t.earliest||day.meta.dayStart)+'–'+(t.latest||day.meta.dayEnd)+' · '+(t.duration||15)+'m\n'+(t.notes||''),route,task:t}}
  if(f.kind==='route'){const r=f.route,h=headForRoute(r.href);return{title:r.title||r.href,owner:'FIELD / '+String(r.operation||r.kind||'ROUTE'),address:r.href,meta:(h?.state||r.state||'')+'\n'+(h?.retained_function||r.role||''),route:r.href,task:null}}
@@ -52,6 +56,7 @@ function clearHandoff(){sessionStorage.removeItem(HANDOFF);handoff=null;render()
 function runTask(id){if(day.state.route.includes(id))return;if(day.state.route.length>=3){toast('RUN is full · 3/3');return}checkpoint('ACT');day.state.route.push(id);day.state.selected=id;event('ACT',id,'dayline-confluence');saveDay();render()}
 function completeTask(id){const t=taskById(id);if(!t)return;checkpoint('DONE');t.status='done';day.state.route=day.state.route.filter(x=>x!==id);event('DONE',id);saveDay();render();toast('Marked done')}
 function reopenTask(id){const t=taskById(id);if(!t)return;checkpoint('REOPEN');t.status='open';day.state.selected=id;event('REOPEN',id);saveDay();render()}
+function resetLegacy(){if(!isLegacySeed())return;const old=core();day=normalize(null);day.undo=[{at:new Date().toISOString(),label:'LEGACY_SAMPLE_RESET',core:old}];event('RESET_LEGACY_SAMPLE','','retired direct-day-plan fixture');saveDay();sessionStart=core();sessionEventStart=day.events.length;render();toast('Legacy sample cleared · undo preserved')}
 function adoptFrame(){if(frame.kind==='front'){const x=frame.front;addTask({title:x.objective||x.center||x.id,contexts:[...day.state.contexts],value:5,duration:25,sourceClass:'IMPORTED',provenance:'FIELD CURRENT '+(current?.updated||'')+' · '+x.id,fieldRef:'/control/CURRENT.json#active_fronts/'+x.id});render();toast('Adopted into today');return}
  if(frame.kind==='route'){const r=frame.route,h=headForRoute(r.href),nx=h?.next_executable?.objective;addTask({title:nx||('Advance '+(r.title||r.href)),contexts:[...day.state.contexts],value:4,duration:25,sourceClass:'IMPORTED',provenance:'FIELD route explicit adoption · '+r.href,fieldRef:r.href,notes:h?.next_executable?.law||r.role||''});render();toast('Adopted into today')}}
 function syncNow(){const prev=day.state.now,next=mh(deviceMinute(day));if(prev===next){toast('NOW already '+next);return}checkpoint('SYNC_NOW');day.state.now=next;event('TIME_SYNC','',prev+' → '+next);saveDay();render();toast('NOW '+next)}
@@ -61,6 +66,7 @@ function move(label,action,cls=''){return{label,action,cls}}
 function hrefMove(label,href,cls='secondary'){return{label,href,cls}}
 function movesFor(f){
  const v=frameView(f),out=[];
+ if(f.kind==='legacy'){out.push(move('RESET LEGACY SAMPLE',resetLegacy,'primary'));out.push(hrefMove('FIELD NOW ↗','/'));out.push(hrefMove('KEEP / ATLAS ↗','/atlas-dayline/?live=1'));return out}
  if(f.kind==='handoff'){out.push(move(f.handoff.kind==='CONTEXT'?'APPLY CONTEXT':'ADD TO DAY',applyHandoff,'primary'));if(v.route)out.push(hrefMove('OPEN SOURCE ↗',v.route));out.push(move('CLEAR',clearHandoff));return out.slice(0,3)}
  if(f.kind==='task'){const t=f.task;if(t.status==='done')out.push(move('REOPEN',()=>reopenTask(t.id),'primary'));else if(day.state.route.includes(t.id))out.push(move('COMPLETE',()=>completeTask(t.id),'good'));else out.push(move('RUN',()=>runTask(t.id),'primary'));if(v.route)out.push(hrefMove('SOURCE ↗',v.route));out.push(hrefMove('ATLAS ↗','/atlas-dayline/?live=1'));return out.slice(0,3)}
  if(f.kind==='front'||f.kind==='route'){out.push(move('ADOPT TODAY',adoptFrame,'primary'));out.push(hrefMove(f.kind==='route'?'OPEN SOURCE ↗':'FIELD ↗',v.route||'/'));out.push(hrefMove('ATLAS ↗','/atlas-dayline/?live=1'));return out.slice(0,3)}
