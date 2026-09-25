@@ -2382,15 +2382,15 @@
     },
     {
       "href": "/fold-bloom/lab/",
-      "title": "FOLD//BLOOM · FIELD LAB 0.3",
+      "title": "FOLD//BLOOM · FIELD LAB 0.3.2",
       "kind": "experiment",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "TRAIN / EXPLORE",
       "state": "CANDIDATE",
-      "version": "0.3",
+      "version": "0.3.2",
       "tier": "FIELD",
-      "role": "Spatial seven-projection convergence lab. VERSE carries exact text/focus/human marks while delegating poem authoring to Poem Map; READ embeds canonical READFIELD/APERTURE; LOCI preserves addressed courses; PULSE coordinates timing; RIDE delegates to LIVE; INK and DATA remain unequal studies. VERSE/READ/LOCI marks are local source evidence, not inferred semantics.",
+      "role": "Spatial seven-projection convergence lab. VERSE carries exact text/focus/human marks while delegating poem authoring to Poem Map; READ embeds canonical READFIELD/APERTURE; LOCI preserves addressed courses; PULSE coordinates timing; RIDE delegates to LIVE; INK and DATA remain unequal studies. VERSE/READ/LOCI marks are local source evidence, not inferred semantics. 0.3.2 restores the exact same-origin Poem Map caller after inbound VERSE projection; RETURN is navigation-only.",
       "index": {
         "updated_at": "2026-09-25T15:20:00+08:00",
         "work_modes": [
@@ -2405,7 +2405,8 @@
           "read-bridge + addressed text-course deterministic Node tests",
           "phone-sized browser boot proves canonical APERTURE reader at WORD scale, bound/receded source intake and non-truncated LOCI boot",
           "existing event-tape + ink-engine + critical browser suites remain required",
-          "text-mark deterministic test + Verse→Poem Map bounded handoff"
+          "text-mark deterministic test + Verse→Poem Map bounded handoff",
+          "Poem Map caller return is same-origin, navigation-only, and protected by public-surface CI"
         ],
         "return_path": "/fold-bloom/"
       },
@@ -2426,8 +2427,10 @@
         "phone footer navigation targets share the existing 34px compact control floor; no new navigation layer",
         "VERSE / READ / LOCI exact-text focus carry",
         "source-scoped human text marks",
-        "VERSE → Poem Map / REPLAY bounded handoffs"
-      ]
+        "VERSE → Poem Map / REPLAY bounded handoffs",
+        "VERSE recipient → exact Poem Map caller return without back-propagating marks or projection state"
+      ],
+      "latest_return": "/returns/VERSE_ROUNDTRIP_RETURN_2026-09-25.json"
     },
     {
       "href": "/fold-bloom/voice/",
@@ -5490,7 +5493,7 @@
       "version": "0.2.3",
       "receipt": "/poetry/map/release.json",
       "showcase_card": false,
-      "role": "Current Verse/FIELD-text authoring candidate: readable PAGE first; selected-token golden-angle focus wheel; FIELD NOW preload from live collaboration state; manual/local/opt-in English option sources; MAP/SETS/path/form/aperture depth only on demand; replayable RETURN. Exact source/focus can carry into READFIELD, FOLD//BLOOM FIELD LAB VERSE, or fail-closed exact 4×7 Han Verse Atlas study without transferring authoring authority.",
+      "role": "Current Verse/FIELD-text authoring candidate: readable PAGE first; selected-token golden-angle focus wheel; FIELD NOW preload from live collaboration state; manual/local/opt-in English option sources; MAP/SETS/path/form/aperture depth only on demand; replayable RETURN. Exact source/focus can carry into READFIELD, FOLD//BLOOM FIELD LAB VERSE, or fail-closed exact 4×7 Han Verse Atlas study without transferring authoring authority. FIELD LAB and Verse Atlas now expose the exact same-origin caller for navigation-only re-entry.",
       "transfer": [
         "Poemage linked poem/set/path entrances",
         "Foundry typed path laws",
@@ -5505,7 +5508,8 @@
         "FIELD LAB VERSE source+line-focus handoff without mark-to-semantics promotion",
         "READFIELD exact-source/focus handoff",
         "FOLD//BLOOM FIELD LAB VERSE round-trip",
-        "Verse Atlas exact 4×7 Han study handoff; focus is projection-only"
+        "Verse Atlas exact 4×7 Han study handoff; focus is projection-only",
+        "recipient-side exact caller RETURN from FIELD LAB VERSE and Verse Atlas study"
       ],
       "index": {
         "updated_at": "2026-09-25T15:20:00+08:00",
@@ -5518,7 +5522,7 @@
         ]
       },
       "tier": "FIELD",
-      "latest_return": "/returns/VERSE_SOURCE_SPINE_2026-09-25.md"
+      "latest_return": "/returns/VERSE_ROUNDTRIP_RETURN_2026-09-25.json"
     },
     {
       "href": "/port/",
