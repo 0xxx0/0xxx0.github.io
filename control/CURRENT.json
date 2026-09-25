@@ -110,7 +110,8 @@
         "/returns/READFIELD_WORKFLOW_084_2026-09-25.json",
         "https://github.com/0xxx0/0xxx0.github.io/pull/242",
         "/control/confluence/READFIELD_PHONE_WORK_085_2026-09-25.json",
-        "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json"
+        "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/283"
       ],
       "latest_return": "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json",
       "next_executable": {
@@ -127,12 +128,13 @@
         "law": "No new reader engine, persistent file store or universal session bus; revise from direct-use friction."
       },
       "repo_verification": {
-        "route_registration_run": 36094706207,
-        "public_surface_run": 36094706624,
+        "route_registration_run": 36118631949,
+        "public_surface_run": 36118631880,
         "status": "PASS",
-        "alias_focus_probe": "PASS · WORD index 6 · 777 WPM · ORP char remained inside addressed word span"
+        "local_file_probe": "PASS · 430×900 synthetic field-note.md → WORD index 4 → 900 WPM → session-local source → COPY FOCUS",
+        "coexistence": "POST-MERGE READBACK PASS · /dayline/ candidate + FOLD//BLOOM LIVE play.js + READFIELD 0.8.5 all present on master"
       },
-      "merge_sha": "49e1b27f7db26298c6de107fda1fe4f09d31e515",
+      "merge_sha": "ecb1f3a4d400d0c58aef1e65418567d4b4949606",
       "version": "0.8.5"
     },
     {
