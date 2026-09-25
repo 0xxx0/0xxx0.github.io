@@ -51,5 +51,21 @@
     "query": "Laconic Canon Recovery conversation (2026-08-07, 214 msgs in Sept export) recovered 255 items: 195 master-ledger + 60 multilingual treasury. 130 atomic items (39U/87A/1J/3?). 11 sandbox files produced but ephemeral.",
     "payoff": "The Laconic Script Bank has been recovered to 255 items (130 atomic). The missing queue of 20 items remains OPEN. 5 Suno organisms were composed but not rendered (browser signed out). Cross-reference /laconic/ in repo against this recovery for reconstruction gaps.",
     "receipt": "/Users/mcvoid/void-anchor/_recovered/laconic-canon/LACONIC_CANON_RECONSTRUCTED.md"
+  },
+  "follow_up_2026_09_26": {
+    "state": "DIRECT_SOURCE_TARGETS_PARTIALLY_CLOSED",
+    "recovered": [
+      "direct 5–6 internal-voice request node/date",
+      "direct `5 selves chatter` request",
+      "direct generated five-persona output set",
+      "direct `full inner dialogue` request + first immediate simultaneous five-self scene"
+    ],
+    "count_rule": "Do not mechanically decrement the historical `24 explicit targets` ledger until its Ø rows are reconciled one by one; this follow-up closes named source subtargets, not necessarily four independent ledger rows.",
+    "still_open": [
+      "Ø001 original historical Laconic Script Bank exact artifact/source boundary",
+      "earliest proper-name Council of Selves adoption / bridge to later canon",
+      "other explicit MISSING_LEDGER rows not touched by this pass"
+    ],
+    "receipt": "/returns/LACONIC_FIVE_SELVES_DIRECT_RECOVERY_2026-09-26.json"
   }
 }
