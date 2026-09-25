@@ -214,7 +214,7 @@ check(daylineApp.includes("atlas-dayline-feedback/v0.2")&&daylineApp.includes("a
 check(daylineBridge.includes("atlas-dayline-handoff/v0.1")&&daylineBridge.includes('REALITY PORT / EXPLICIT EPHEMERAL HANDOFF'),'Atlas Dayline lost current REALITY PORT handoff');
 check(daylineBridge.includes('COPY HANDOFF')&&daylineBridge.includes('fl-compact')&&daylineBridge.includes("api().snapshot()"),'Atlas Dayline mobile LIVE contraction/context capture regressed');
 check(/#utilityBar button\{min-height:38px/.test(daylineCss)&&/\.plain-actions button\{min-height:38px/.test(daylineCss),'Atlas Dayline mobile primary target floor regressed');
-check(daylineSw.includes("atlas-dayline-i-v4"),'Atlas Dayline mobile action cache version not v4');
+check(daylineSw.includes("atlas-dayline-i-v5"),'Atlas Dayline reality-first cache version not v5');
 const home=read('index.html');
 const fi=fiContract;
 check(!!fi,'FIELD INDEX contract missing/unreadable');
