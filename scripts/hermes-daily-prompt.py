@@ -115,7 +115,7 @@ def active_fronts(current: dict[str, Any], queue: dict[str, Any]) -> list[str]:
 
 def waiting_items(waiting: dict[str, Any]) -> list[str]:
     return [
-        f"{x.get('id','?')} [{x.get('state','?')}] — {one_line(x.get('human_move'))}"
+        f"{x.get('id','?')} [{x.get('surface_state', x.get('state','?'))}] — {one_line(x.get('human_move'))}"
         for x in waiting.get("items", [])[:8]
     ]
 
@@ -172,8 +172,8 @@ Projection only: live repo state overrides this prompt.
 {spec['objective']}
 
 This is today's working contraction/setup prompt, not a new canonical plan.
-Read /control/prompts/HERMES_ULTRA_MASTER_2026-09-23.md first.
-Then recover live state again before acting; this generated snapshot may already be stale.
+Read /llms.txt first, then AGENTS.md and the live authority sources it names.
+Historical master prompts are donor/reference material only; this generated snapshot may already be stale.
 
 ## HARD LAWS
 
@@ -237,7 +237,7 @@ Prefer PARK / LINK / COMPRESS / RECONCILE over DELETE.
 
 ## EXECUTION
 
-1. Re-read CURRENT / QUEUE / WAITING and inspect live Hermes/NEXUS/branch/worktree state.
+1. Re-read /llms.txt → CURRENT / QUEUE / WAITING and inspect live Hermes/NEXUS/branch/worktree state.
 2. Compare that live state with this generated snapshot. Mark drift explicitly.
 3. Reconcile existing workers before spawning another.
 4. Derive:
