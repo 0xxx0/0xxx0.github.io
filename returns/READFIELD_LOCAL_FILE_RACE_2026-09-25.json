@@ -1,0 +1,21 @@
+{
+  "schema": "field-return/v1",
+  "id": "READFIELD_LOCAL_FILE_RACE_2026-09-25",
+  "date": "2026-09-25",
+  "state": "CANDIDATE_PENDING_CI",
+  "object": "READFIELD phone/local-file source intake",
+  "observed": "Critical browser smoke intermittently timed out after dispatching a chosen local file while the initial repository source was still resolving.",
+  "cause": "openLocalFile reserved sourceEpoch+1 without incrementing sourceEpoch before awaiting file.text(); a concurrent source load could reach that epoch and make the local file self-cancel.",
+  "delta": "Increment sourceEpoch synchronously when local file intake begins; abort older source work by epoch mismatch; after file.text(), proceed only if the local-file epoch is still current.",
+  "invariants": [
+    "Local bytes remain session-only.",
+    "No upload or repository write is introduced.",
+    "Newest explicit source action wins.",
+    "Existing READFIELD address/focus semantics remain unchanged."
+  ],
+  "proof": {
+    "existing_browser_smoke": "READFIELD local file phone intake",
+    "ci": "pending"
+  },
+  "next": "Merge only if the existing local-file browser smoke and full public-surface suite pass."
+}
