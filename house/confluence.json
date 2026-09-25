@@ -62,6 +62,7 @@
         "3D",
         "FIELD",
         "ATLAS",
+        "CARE",
         "TRACE",
         "HA_STATE"
       ],
@@ -273,5 +274,30 @@
     "compatibility_alias": "/house/spatial/ -> /house/",
     "substrate_assets": "/house/spatial/",
     "law": "One HOUSE object may have unequal projections, but only one canonical human entry. Projection routes do not become rival authorities."
+  },
+  "care_projection": {
+    "id": "CARE",
+    "status": "ACTIVE_CANDIDATE / LOCAL_ONLY",
+    "source": "/house/#CARE",
+    "reads_from": [
+      "HOUSE_1 stable spatial addresses",
+      "user-entered HOUSE_2 observations"
+    ],
+    "operation": "OBSERVED → ACTION → RECEIPT → RETURN",
+    "state": [
+      "OPEN",
+      "WATCH",
+      "DONE"
+    ],
+    "persistence": "browser localStorage + explicit local JSON export only",
+    "dayline_port": "explicit sessionStorage ACTION handoff; no automatic scheduling or actuation",
+    "invariants": [
+      "observation is not device truth",
+      "care continuity is not public canon",
+      "DONE requires a receipt/outcome",
+      "HA/HOUSEBUS remains sole runtime-control authority",
+      "private care episodes are never committed to repository state"
+    ],
+    "promotion_gate": "ordinary use must reduce re-entry loss or missed follow-through without increasing tracking burden"
   }
 }
