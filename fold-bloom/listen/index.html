@@ -48,13 +48,14 @@
   <div class="ey">AUDIO INTAKE</div><h1>DROP<br>A TRACK.</h1>
   <p>Choose local audio or reopen a track already remembered on this device. Exact audio bytes stay local.</p>
   <div class="intakeActions">
-    <label id="chooseLabel" class="chooseButton" for="file" tabindex="0" role="button">CHOOSE AUDIO</label>
-    <div class="sourceSplit">OR REMEMBERED SOURCE</div>
-    <div class="savedSource"><select id="savedSource"><option value="">THIS DEVICE · NONE YET</option></select><button id="savedOpen" disabled>OPEN SAVED</button></div>
-    <details class="addressMore"><summary>SOURCE ADDRESS / FORMATS</summary>
-      <div class="sourceAddress"><input id="urlInput" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="https://suno.com/song/…"><button id="urlBtn">RESOLVE</button></div>
+    <label id="chooseLabel" class="chooseButton" for="file" tabindex="0" role="button">CHOOSE SONG / AUDIO FILE</label>
+    <div class="sourceSplit">OR USE A SONG / AUDIO LINK</div>
+    <details class="addressMore" open><summary>PASTE SOURCE ADDRESS / FORMATS</summary>
+      <div class="sourceAddress"><input id="urlInput" type="url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="paste supported song or direct-audio link…"><button id="urlBtn">RESOLVE LINK</button></div>
       <div class="sourceHint">SUNO SONG / PLAYLIST / DIRECT AUDIO · MP3 / M4A / WAV / FLAC / OGG + LRC / VTT / SRT / TXT · REMOTE FAIL → LINK/META STAYS, LOCAL BYTES BIND</div>
     </details>
+    <div class="sourceSplit">OR REOPEN A REMEMBERED SOURCE</div>
+    <div class="savedSource"><select id="savedSource"><option value="">THIS DEVICE · NONE YET</option></select><button id="savedOpen" disabled>OPEN SAVED</button></div>
     <details class="intakeHelp"><summary>GESTURES AFTER LOAD</summary><div class="laws"><b>ANGLE = ADDRESS</b><b>HORIZONTAL = SCRUB</b><b>VERTICAL = APERTURE</b><b>RADIUS = INTENSITY</b></div></details>
   </div>
   <small id="status">READY FOR FILE OR ADDRESS</small>
