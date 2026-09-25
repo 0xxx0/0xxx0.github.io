@@ -17,6 +17,7 @@ let par = 0;
 let lastRotation = null;
 let lastEventId = null;
 let runtime = null;
+let fieldEnter = null;
 let root = null;
 let result = null;
 
@@ -83,6 +84,12 @@ function injectStyle(){
   document.head.appendChild(style);
 }
 
+async function enterFromIntro(nextMode){
+  const fieldBtn = q('#playBtn');
+  if(fieldEnter && fieldBtn){ await fieldEnter.call(fieldBtn); start(nextMode); return; }
+  start(nextMode);
+}
+
 function injectEntry(){
   const card = q('#intro .card');
   if(!card || q('#fbPlayEntry')) return;
@@ -94,13 +101,13 @@ function injectEntry(){
   box.innerHTML = '<div class="law"><b>ONE MOVE:</b> TURN → FIND THE SYMBOL → MATCH THE GOAL → RELEASE.<br><b>ONE RUN:</b> eight releases. No lives. No dead moves; misses still change the field.</div><div class="modes"><button data-play-mode="PLAY">PLAY A RUN · 8 MOVES</button><button data-play-mode="PUZZLE">PUZZLE · 5 CALLS</button><button data-play-mode="ZEN">ZEN · FREE RIDE</button></div>';
   const startRow = card.querySelector('.startRow');
   card.insertBefore(box, startRow || null);
-  box.querySelectorAll('[data-play-mode]').forEach(btn => btn.addEventListener('click', () => start(btn.dataset.playMode)));
+  box.querySelectorAll('[data-play-mode]').forEach(btn => btn.addEventListener('click', () => enterFromIntro(btn.dataset.playMode)));
   const fieldBtn = q('#playBtn');
   if(fieldBtn && !fieldBtn.dataset.fbPlayWrapped){
-    const original = fieldBtn.onclick;
+    fieldEnter = fieldBtn.onclick;
     fieldBtn.dataset.fbPlayWrapped = '1';
     fieldBtn.textContent = 'PLAY FIELD COURSE · RUN →';
-    fieldBtn.onclick = async event => { if(original) await original.call(fieldBtn,event); start('PLAY'); };
+    fieldBtn.onclick = async event => { if(fieldEnter) await fieldEnter.call(fieldBtn,event); start('PLAY'); };
   }
 }
 
