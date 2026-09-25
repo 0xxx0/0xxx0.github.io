@@ -1,0 +1,45 @@
+{
+  "schema": "field-index-status-semantics-return/v0.1",
+  "date": "2026-09-25",
+  "branch": "field-index-waiting-ports-truth-20260925",
+  "contribution": "DELTA",
+  "changed": [
+    "WAITING / YOU ACTIVE rows now derive only from CURRENT next_executable human/world gates.",
+    "WAITING registry migrated to 2 PARKED and 3 REMOVED historical dependencies; neither class manufactures a user obligation.",
+    "DONE semantics replaced by local ACK; acknowledgement never closes CURRENT.",
+    "OPEN PORTS renamed PORTS / EXIT STATE and exact statuses grouped into AVAILABLE, BUILD / PROVE, HUMAN / EXPORT BOUNDARY, VERIFY, PARKED / OPTIONAL, with unknowns kept OTHER / UNCLASSIFIED.",
+    "STATUS rail receives only PORTS build/prove, boundary, verify and unclassified counts; parked and available remain inside the PORTS fold."
+  ],
+  "observed_counts": {
+    "waiting": {
+      "active_current": 2,
+      "parked_registry": 2,
+      "removed_history": 3,
+      "active_ids": [
+        "readfield-work-modes-lived-gate",
+        "fold-bloom-saber-two-phone-lived-proof"
+      ]
+    },
+    "ports": {
+      "AVAILABLE": 64,
+      "BUILD_PROVE": 13,
+      "BOUNDARY": 2,
+      "VERIFY": 1,
+      "PARKED": 18,
+      "OTHER": 0
+    }
+  },
+  "verification": {
+    "inline_script_parse": "PASS via new Function() before write",
+    "waiting_active_authority": "CURRENT.current_heads[].next_executable only",
+    "port_total": 98,
+    "manifest_updated": "2026-09-25",
+    "current_updated": "2026-09-25"
+  },
+  "non_claims": [
+    "PARKED dependencies are not deleted.",
+    "REMOVED means removed from actionable WAITING, not erased from repository history.",
+    "Port presentation buckets do not replace canonical route-level exit statuses."
+  ],
+  "stop_condition": "Review branch diff for scope and counts; merge only if WAITING renders 2 ACTIVE / 2 PARKED / 3 HISTORY and PORTS renders 64 AVAILABLE / 13 BUILD-PROVE / 2 BOUNDARY / 1 VERIFY / 18 PARKED with no OTHER."
+}
