@@ -74,7 +74,7 @@
     "Blade Runner / Memory-Orb visual/mechanical association"
   ],
   "research_question": "Does a persistent navigable overview plus explicit engineering witness reduce orientation loss during deep focus while preserving the directness of the primary ring surface?",
-  "known_gap": "FAN/8 v0.2 is printable but physically unproved; geometry and semantic identification remain separate claims and no sensing/actuation is implemented.",
+  "known_gap": "FAN/8 v0.2 is machine-owned as a TRANSDUCTIONS FOLD recipe and statically tied to current PLAY relation/HEX laws, but passive handling value remains unproved; no sensing/actuation claim.",
   "current_classification": {
     "reviewed_at": "2026-09-22T00:42:00+08:00",
     "state": "PROOF_REQUIRED",
@@ -106,6 +106,9 @@
     ],
     "authority": "NONE / projection only",
     "sensing": "NOT_IMPLEMENTED",
-    "human_gate": "one calibrated passive specimen + readback/relation/HEX-address/use test before electronics or camera work"
+    "human_gate": "one calibrated passive specimen + readback/relation/HEX-address/use test before electronics or camera work",
+    "machine_home": "/control/TRANSDUCTIONS.json#instrument_cell.physical_recipes.FAN8",
+    "reconstruction_boundary": "Current S0–S5 + HOLD_FAST + LET_FLY is a 2026-09-25 synthesis, not verified historical fan semantics.",
+    "law_source": "/fold-bloom/live/play-core.js#RELATION_LEGEND"
   }
 }
