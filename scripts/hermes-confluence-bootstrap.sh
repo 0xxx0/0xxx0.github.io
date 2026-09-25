@@ -145,6 +145,28 @@ No free-chat agent synchronization: exchange task bodies, files, patches, receip
 
 If orchestrator Kanban tools are unavailable, do not fake fan-out. Continue as one bootstrap goal and RETURN the exact missing capability.
 
+## SMALL MENTAL MAP
+
+- FIELD = door / re-entry / address.
+- CURRENT = attention / what may be worked now.
+- DAYLINE = today / actual temporal action.
+- PORT / COMMS = incoming human reality, asks, promises and routing.
+- Native instruments (FOLD//BLOOM, READFIELD, VERSE, etc.) = where making/reading/playing happens.
+- HOUSE / SHOPPING = physical-world and resource adapters.
+- VAULT / RECOVERY = exact memory on demand, not ambient work.
+- NEXUS = worker/coordination telemetry, never attention authority.
+
+## CONVERSATION / HISTORY RECOVERY
+
+Do not dump years of chat into the active context.
+If local ChatGPT/other conversation exports or old reports are actually accessible, treat them as read-only source corpus:
+- hash/index before reorganizing;
+- recover exact user asks, corrections, dislikes, constraints, unfinished transformations and named anchors relevant to CURRENT;
+- keep source addresses/provenance and mark EXACT / RECONSTRUCTED / INFERRED / UNKNOWN;
+- transfer only what changes a current decision or restores a missing lineage;
+- do not create a parallel sovereign memory database;
+- if the raw corpus is unavailable, record the exact missing source and continue without inventing it.
+
 ## CURRENT BEHAVIORAL CUT
 
 - FIELD is a door/re-entry surface, not where all work lives.
