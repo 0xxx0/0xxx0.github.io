@@ -1,7 +1,17 @@
 export const VERSION = 'FOLD_BLOOM_LIVE_0.13';
 export const N = 12;
 export const TYPE_COUNT = 3;
+// Stable internal aliases retained for old receipts/history. They never carried elemental semantics.
 export const TYPE_NAMES = ['EMBER', 'WATER', 'MOSS'];
+export const TYPE_PRESENTATION = Object.freeze([
+  Object.freeze({id:0,label:'TRIANGLE',glyph:'△',legacy:'EMBER',mechanic:'same-shape memory / anchor family'}),
+  Object.freeze({id:1,label:'CIRCLE',glyph:'○',legacy:'WATER',mechanic:'same-shape memory / anchor family'}),
+  Object.freeze({id:2,label:'SQUARE',glyph:'□',legacy:'MOSS',mechanic:'same-shape memory / anchor family'})
+]);
+export function typePresentation(type){
+  const i=clamp(Math.trunc(Number(type)||0),0,TYPE_COUNT-1),m=TYPE_PRESENTATION[i];
+  return {...m,text:m.glyph+' '+m.label};
+}
 export const VERBS = ['BLOOM','FOLD','SPLIT','RETURN'];
 
 export const DEFAULT_TYPES = Object.freeze([0,1,0,2,1,0,1,2,0,2,1,2]);
