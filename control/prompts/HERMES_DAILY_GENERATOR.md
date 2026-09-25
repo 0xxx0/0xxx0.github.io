@@ -43,3 +43,26 @@ Daily generated files are projections, not canonical state. Preserve only verifi
 ## Tzimtzum law
 
 Contraction may park, link, compress, reconcile or demote. It must not destroy unique source, contradictions, provenance or the ability to reconstruct/RETURN.
+
+
+## One-command local bootstrap
+
+From the repository root:
+
+```bash
+scripts/hermes-confluence-bootstrap.sh --prepare
+```
+
+For an interactive Hermes bootstrap:
+
+```bash
+scripts/hermes-confluence-bootstrap.sh --chat
+```
+
+For autonomous Kanban bootstrap **only when the selected Hermes gateway is already running**:
+
+```bash
+scripts/hermes-confluence-bootstrap.sh --kanban
+```
+
+The bootstrap script fast-forwards a clean local master only, verifies CURRENT↔manifest head coherence, snapshots local Hermes profiles/sessions/Kanban state, emits the revision-bound FIELD agent transcript plus today's disposable charter, and creates no new canonical state. It never auto-starts a gateway because configured messaging transports may have external effects.
