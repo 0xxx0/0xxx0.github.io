@@ -1,3 +1,5 @@
+> **2026-09-25 DISPOSITION — PARKED DONOR / NOT A CURRENT BLOCKER.** The proposed standalone visual specimen route is not present, while current LIVE already carries causal DROP/BLOOM/FOLD/SPLIT/RETURN witnesses, anticipation, sparse event consequence, and reduced-motion constraints. Do not build this spike merely because the packet exists. Reopen only from lived evidence that operators are not legible, anticipatable, or memorable. See `/control/confluence/FOLD_BLOOM_THREAD_INDEX_2026-09-25.md`.
+
 # HERMES LANE — FOLD//BLOOM VISUAL GRAMMAR / EVENT CHOREOGRAPHY
 
 Date: 2026-09-24
