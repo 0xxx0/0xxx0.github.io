@@ -15,7 +15,7 @@
 
 <nav id="utilityBar" aria-label="Atlas projection controls">
  <span class="mark">POLY // ATLAS DAYLINE I · <b>LOCAL-ONLY</b></span>
- <button id="atlasProjectionBtn" class="on">ATLAS</button><button id="plainProjectionBtn">PLAIN</button><button id="scenarioBtn">SCENARIO</button><span id="scenarioBadge">NO COUNTERFACTUAL</span><button id="quickNewBtn">＋ TASK</button><button id="quickReturnBtn">RETURN</button><button id="quickReplayBtn">REPLAY</button><button id="shareCapsuleBtn">CAPSULE ↗</button>
+ <button id="atlasProjectionBtn" class="on">ATLAS</button><button id="plainProjectionBtn">PLAIN</button><button id="scenarioBtn">SCENARIO</button><span id="scenarioBadge">NO COUNTERFACTUAL</span><button id="liveModeBtn" title="Read live FIELD state without changing repository authority">LIVE</button><button id="quickNewBtn">＋ TASK</button><button id="quickReturnBtn">RETURN</button><button id="quickReplayBtn">REPLAY</button><button id="shareCapsuleBtn">CAPSULE ↗</button>
 </nav>
 <section id="plainView" aria-label="Plain list ablation"><div class="plain-head"><div><h1>DAYLINE / PLAIN ABLATION</h1><div class="plain-sub">SAME TASK IDS · SAME RANKING · SAME RUN · NO SPATIAL CLAIM</div></div><div id="plainState" class="plain-state"></div></div><div id="plainAnchors"></div><div id="plainList" class="plain-list"></div><div id="plainFoot" class="plain-foot"></div></section>
 
@@ -57,5 +57,6 @@
 <div id="toast"></div>
 
 <script defer src="./app.js"></script>
+<script defer src="./field-bridge.js"></script>
 <script src="/showcase-nav.js" defer></script></body>
 </html>

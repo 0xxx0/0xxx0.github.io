@@ -303,6 +303,33 @@ function setTimePoint(p){const a=Math.atan2(p.y-500,p.x-600),m=angleMinute(a);da
 function setWindowPoint(id,kind,p){const t=taskById(id);if(!t)return;const a=Math.atan2(p.y-500,p.x-600),m=angleMinute(a),start=hm(t.earliest),end=hm(t.latest);if(kind==='start')t.earliest=mh(clamp(m,dayStart(),end-5));else t.latest=mh(clamp(m,start+5,dayEnd()))}
 function bindDrag(){const svg=$('#atlas');[...svg.querySelectorAll('[data-dragkind]')].forEach(h=>h.onpointerdown=e=>{e.stopPropagation();checkpoint(h.dataset.dragkind==='now'?'TIME':'WINDOW');drag={kind:h.dataset.dragkind,id:h.dataset.id||null,pointer:e.pointerId,checkpointed:true};svg.setPointerCapture?.(e.pointerId)});svg.onpointermove=e=>{if(!drag.kind)return;const p=svgLocal(e);if(drag.kind==='now')setTimePoint(p);else setWindowPoint(drag.id,drag.kind,p);render()};svg.onpointerup=e=>{if(!drag.kind)return;event(drag.kind==='now'?'TIME':'WINDOW',drag.id||'',drag.kind);drag={kind:null,id:null,pointer:null,checkpointed:false};svg.releasePointerCapture?.(e.pointerId);render()}}
 
+
+/* FIELD LIVE bridge API.
+   Repo/CURRENT remains read-only authority. Promotion into Dayline is explicit and browser-local. */
+function bridgeAddTask(input={},sourceClass='IMPORTED'){
+ const title=String(input.title||'').trim();if(!title)throw Error('title required');
+ const now=hm(data.state.now),hi=dayEnd(),lo=dayStart();
+ const stem=title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,34)||'item';
+ const prefix=sourceClass==='USER'?'capture':'field';let id='t:'+prefix+'-'+stem,n=2;while(taskById(id))id='t:'+prefix+'-'+stem+'-'+(n++);
+ const earliestM=clamp(input.earliest?hm(input.earliest):now,lo,Math.max(lo,hi-5)),latestM=clamp(input.latest?hm(input.latest):hi,earliestM+5,hi),earliest=mh(earliestM),latest=mh(latestM),duration=clamp(Number(input.duration)||25,5,Math.max(5,latestM-earliestM));
+ checkpoint(sourceClass==='USER'?'QUICK_CAPTURE':'FIELD_IMPORT');
+ const task={id,title,contexts:Array.isArray(input.contexts)&&input.contexts.length?input.contexts:['computer'],duration,value:clamp(Number(input.value)||4,1,5),earliest,latest,setup:clamp(Number(input.setup)||1,0,5),depends:Array.isArray(input.depends)?input.depends:[],status:'open',sourceClass,provenance:String(input.provenance|| (sourceClass==='USER'?'atlas-live-capture':'FIELD /control/CURRENT.json')),notes:String(input.notes||''),fieldRef:input.sourceRef||null,fieldUpdated:input.sourceUpdated||null};
+ data.tasks.push(task);data.state.selected=id;ui.previewBundle=[];event(sourceClass==='USER'?'CAPTURE':'FIELD_IMPORT',id,task.fieldRef||task.provenance);save();render();return clone(task)
+}
+window.AtlasDayline=Object.freeze({
+ version:'branch-i-field-live-0.1',
+ snapshot:()=>clone(data),
+ addFieldTask:input=>bridgeAddTask(input,'IMPORTED'),
+ capture:input=>bridgeAddTask(typeof input==='string'?{title:input}:input,'USER'),
+ lastReturn:()=>{try{return JSON.parse(localStorage.getItem(RETURN_STORE)||'null')}catch{return null}},
+ feedback:()=>{
+   const ids=new Set([...(data.state.route||[]),data.state.selected].filter(Boolean));
+   const tasks=(data.tasks||[]).filter(t=>ids.has(t.id)).map(t=>({id:t.id,title:t.title,status:t.status,contexts:t.contexts,duration:t.duration,earliest:t.earliest,latest:t.latest,sourceClass:t.sourceClass,provenance:t.provenance,fieldRef:t.fieldRef||null}));
+   return{schema:'atlas-dayline-feedback/v0.1',generated_at:new Date().toISOString(),daystate:{now:data.state.now,contexts:[...(data.state.contexts||[])],route:[...(data.state.route||[])],selected:data.state.selected||null},projection:{view:ui.mobileView,lens:data.state.lens,projection:ui.projection},focus_tasks:tasks,last_return:window.AtlasDayline?.lastReturn?.()||null,evidence:Object.fromEntries(Object.entries(data.evidence||{}).map(([k,v])=>[k,(v||[]).slice(-5)])),recent_events:(data.events||[]).slice(-30)}
+ }
+});
+window.dispatchEvent(new CustomEvent('atlas-dayline:ready',{detail:{version:window.AtlasDayline.version}}));
+
 [...document.querySelectorAll('[data-close]')].forEach(b=>b.onclick=()=>$('#'+b.dataset.close).close());$('#saveTask').onclick=saveTask;$('#deleteTask').onclick=deleteTask;$('#duplicateTask').onclick=duplicateTask;$('#saveAnchor').onclick=saveAnchor;$('#deleteAnchor').onclick=deleteAnchor;$('#saveEvidence').onclick=saveEvidence;$('#saveTime').onclick=()=>{if($('#timeInput').value){checkpoint('TIME');data.state.now=$('#timeInput').value;event('TIME','',data.state.now)}$('#timeDialog').close();render()};
 $('#formatJson').onclick=()=>{try{$('#jsonText').value=JSON.stringify(JSON.parse($('#jsonText').value),null,2)}catch(e){toast(e.message)}};$('#applyJson').onclick=()=>{try{const x=JSON.parse($('#jsonText').value);if(!x.tasks||!x.state||!x.anchors)throw Error('Expected tasks/state/anchors');normalize(x);const issues=validateState(x);if(issues.length)throw Error(issues[0]);checkpoint('JSON_APPLY');data=x;event('JSON_APPLY');$('#jsonDialog').close();render()}catch(e){toast(e.message)}};$('#exportJson').onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='poly-atlas-daystate-branch-i-public.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)};$('#printAtlas').onclick=()=>window.print();$('#resetData').onclick=()=>{checkpoint('RESET');const undoKeep=data.undo;data=clone(sample);normalize(data);data.undo=undoKeep;event('RESET');$('#jsonDialog').close();render();toast('Sample restored')};
 $('#shareCapsuleBtn').onclick=copyCapsule;$('#shareCapsuleJson').onclick=copyCapsule;$('#atlasProjectionBtn').onclick=()=>setProjection('atlas');$('#plainProjectionBtn').onclick=()=>setProjection('plain');$('#scenarioBtn').onclick=openScenario;$('#quickNewBtn').onclick=newTask;$('#quickReturnBtn').onclick=returnReceipt;$('#quickReplayBtn').onclick=replayLastReturn;$('#previewScenario').onclick=previewScenario;$('#applyScenario').onclick=applyScenario;$('#clearScenario').onclick=clearScenario;

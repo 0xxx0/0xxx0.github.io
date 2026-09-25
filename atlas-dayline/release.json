@@ -1,19 +1,25 @@
 {
   "schema": "showcase-release/v1",
   "surface": "ATLAS DAYLINE",
-  "version": "Branch I",
+  "version": "Branch I + FIELD LIVE 0.1",
   "route": "/atlas-dayline/",
-  "state": "STABLE",
+  "state": "STABLE + OPT_IN_LIVE_CANDIDATE",
   "operation": "PLAN",
-  "released": "2026-09-18",
-  "representative_interaction": "switch ATLAS↔PLAIN → create/select task → RETURN / REPLAY → export/share capsule",
+  "released": "2026-09-25",
+  "representative_interaction": "default Branch I unchanged; ?live=1 → SYNC FIELD → explicit ADD/CAPTURE → RUN≤3 → RETURN → COPY FEEDBACK",
   "validation": {
     "viewport_meta": "PASS",
     "responsive_source": "PASS",
     "javascript_syntax": "PASS",
     "required_controls": "mobileNav/plainProjectionBtn/quickNewBtn/quickReturnBtn/shareCapsuleBtn present",
     "showcase_return_adapter": "PASS",
-    "source_route": "PASS"
+    "source_route": "PASS",
+    "field_live_opt_in": "PASS_BY_SOURCE",
+    "current_read_only": "PASS_BY_SOURCE",
+    "explicit_promotion": "PASS_BY_SOURCE",
+    "feedback_no_repo_write": "PASS_BY_SOURCE",
+    "service_worker_live_truth_bypass": "PASS_BY_SOURCE",
+    "cache_version_bumped": "atlas-dayline-i-v2"
   },
-  "known_gap": "Live rendered mobile/desktop representative interaction remains externally unverified from this execution environment."
+  "known_gap": "LIVE still requires lived browser/device proof; calendar binding remains adapter-required; nexus branch telemetry has unrelated ambiguous-ref failures."
 }
