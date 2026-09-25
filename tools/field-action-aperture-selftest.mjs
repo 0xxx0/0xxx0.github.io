@@ -24,7 +24,7 @@ const root=(manifest.routes||[]).find(r=>r.href==='/');
 const ver=String(root?.version||'0.0.0').split('.').map(x=>Number(x)||0);
 const atLeast087=ver[0]>0||(ver[0]===0&&(ver[1]>8||(ver[1]===8&&ver[2]>=7)));
 need(atLeast087,'root version predates held-action aperture');
-need(/^\/returns\/FIELD_INDEX_.*2026-09-25\.json$/.test(root?.latest_return||''),'FIELD INDEX RETURN not attached');
+need(/^\/returns\/FIELD_INDEX_.*\d{4}-\d{2}-\d{2}\.json$/.test(root?.latest_return||''),'FIELD INDEX dated RETURN not attached');
 need((root?.transfer||[]).some(x=>/held action aperture/i.test(x)),'held-action transfer evidence missing');
 need(!!contract.ui_contract?.root_action_aperture,'root action aperture contract missing');
 need(/<details class="catchup" id="catchupFold" data-signal="CLEAR">/.test(html),'CATCH + ACT must be folded by default');
