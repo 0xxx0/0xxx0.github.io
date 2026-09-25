@@ -37,6 +37,7 @@ A remote source with no locally available map must remain SOURCE-only. LIVE must
 - **SET** = ordered multi-source / seam authority.
 - **LIVE** = embodied single-source ride + authored deformation trace.
 - **FIELD LAB** = comparison / transduction laboratory; not a source database.
+- **REPLAY** = addressed expressive score over borrowed LISTEN timing/evidence: message context + word cues + authored operations + output projection. It never owns audio/source truth.
 - **READFIELD** = canonical text / RSVP authority.
 - **LOCI** = spatial mnemonic projection over exact text spans.
 - **INK FIELD** = wet-media / gesture projection.
@@ -88,6 +89,19 @@ LISTEN marks are authored evidence beside the AUDIO MAP.
 - Marks may carry notes and local measured features as context.
 - Marks never rewrite source analysis or imply semantics the user did not author.
 - Export/share carries source identity + marks, never source audio bytes unless the user separately exports the audio/map package.
+
+## Replay / message law
+
+REPLAY is a **score before media**.
+
+- LISTEN may lend exact source identity, current addressed interval, BPM/phrase/section evidence and authored marks.
+- REPLAY authors message/context, word-level cue timing/hold/emphasis, and FOLD/BLOOM operation timing.
+- LIVE/LISTEN source-keyed experience profile values may be reused as preference; they never become source metadata.
+- A share link carries a compact self-contained replay artifact: authored message/context/score + bounded measured evidence + source identity/reference.
+- Local/private audio bytes are never embedded in that link.
+- If a public source address exists it may travel as a reference; it is not proof the recipient can play it.
+- JSON is the full inspectable artifact. WebM/GIF-like exports are projections of the score, not canonical state.
+- LISTEN↔REPLAY live-tab synchronization is an ephemeral convenience: borrowed clock ≠ borrowed authorship and no universal session bus is introduced.
 
 ## Beat Saber law
 
