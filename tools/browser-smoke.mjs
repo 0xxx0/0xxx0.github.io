@@ -1194,7 +1194,7 @@ const CASES=[
   {
     name:'POETRY',
     route:'/poetry/',
-    check:dom=>/POETRY|VERSE/i.test(dom)&&dom.includes('WRITE / EXPLORE')&&!dom.includes('load failure')
+    check:dom=>/VERSE|COPILOT/i.test(dom)&&dom.includes('WORD MARKET')&&dom.includes('PATHWEAVER')&&dom.includes('GRID PATH')&&!dom.includes('load failure')
   },
   {
     name:'POEM MAP',
