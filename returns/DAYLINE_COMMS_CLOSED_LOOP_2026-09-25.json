@@ -2,7 +2,7 @@
   "schema": "field-return/v0.1",
   "id": "DAYLINE_COMMS_CLOSED_LOOP_2026-09-25",
   "date": "2026-09-25",
-  "state": "IMPLEMENTED_CANDIDATE",
+  "state": "MERGED_MACHINE_GREEN",
   "source_instruction": "Run the real COMMS OPEN signal → Dayline → act and witness → RETURN TO SOURCE loop, then report whether PR #296 is ready to merge.",
   "object": "one exact HUMAN ASK across COMMS → Dayline → completed Dayline task → OFFER_ONLY → exact COMMS native acceptance",
   "recovered_from": [
@@ -28,10 +28,11 @@
   ],
   "verification": {
     "prior_real_source_browser": "PASS · run 36132297391 · prior OPEN-task variant",
-    "current_closed_loop_ci": "PENDING",
-    "current_route_registration": "PENDING",
-    "real_phone_ordinary_use": "PENDING_USER"
+    "current_closed_loop_ci": "PASS · public-surface-check 36148842204",
+    "current_route_registration": "PASS · 36148842258",
+    "real_phone_ordinary_use": "OPTIONAL_OBSERVATION_NOT_GATE",
+    "merge_sha": "3ec708367add46f2ea978ebecc4984fa01e142fe"
   },
   "merge_readiness_law": "CI can prove the exact-source closed-loop implementation. It cannot by itself prove that the round trip feels like continuity rather than duplicate bookkeeping on the user's actual phone.",
-  "next": "Run current-master CI. If green, classify implementation READY_BY_MACHINE / STILL_REALITY_GATED; do not silently convert that into lived-phone proof."
+  "next": "No implementation proof is pending. Keep ordinary-use feedback observational; reopen only for concrete source-loss, duplicate-bookkeeping, or return-friction evidence."
 }
