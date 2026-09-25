@@ -88,3 +88,7 @@ AXIS/library/GLYPH-VIS-READING/*.epub
 # other agents' private/experimental trees
 *_archives/
 AXIS/work/**/quarantine/
+
+# the staging pen holds a live VM disk and GBs of material — never commit its contents
+delete/crushed-*/
+delete/reclaimed-*/
