@@ -149,6 +149,8 @@ jobs:
         env:
           SMOKE_ONLY: FOLD BLOOM FIELD LAB
         run: node tools/browser-smoke.mjs
+      - name: Test FOLD BLOOM FIELD LAB cross-projection continuity
+        run: node tools/fold-bloom-lab-cross-projection-smoke.mjs
       - name: Test FOLD BLOOM INK FIELD browser boot
         env:
           SMOKE_ONLY: FOLD BLOOM INK FIELD
