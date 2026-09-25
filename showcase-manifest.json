@@ -1508,7 +1508,7 @@
       "showcase_card": true,
       "role": "Canonical phone-first high-performance reader with one exact source position across FOCUS / MIN / PLAIN projections and six one-tap jobs: FAST, REVIEW, PULSE, VOICE, LOCI and REPO. 0.8.5 keeps the compact always-visible phone work rail, adds direct session-local downloaded-file intake for text/Markdown/JSON/CSV/log/YAML/source/SVG material, and makes practical chains explicit: SKIM → REVIEW, LISTEN → PULSE → VOICE, READ → LOCI → RETURN. Ephemeral local/pasted bytes never pretend to have a durable addressed URL; COPY FOCUS replaces COPY VIEW for those sources. FIELD PULSE remains optional tempo context only; source/cursor authority remains READFIELD.",
       "index": {
-        "updated_at": "2026-09-25T17:09:00+08:00",
+        "updated_at": "2026-09-26T00:53:00+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
@@ -1516,6 +1516,7 @@
         ]
       },
       "transfer": [
+        "0.8.5 machine self-verification closed on current master: local-file phone intake, session/COPY FOCUS boundary, focus/performance projections and READ→LOCI handoff pass current browser smoke; persistent mode preference remains optional subjective evidence",
         "one canonical source cursor across DOCUMENT/SECTION/PARAGRAPH/SENTENCE/PHRASE/WORD/GRAPHEME",
         "INTERPHASE 0.2 adapter: the existing Aperture cursor is exposed as shared address/focus state; no second text cursor",
         "PLAIN remains an explicit geometry-free performance fallback",
@@ -1866,18 +1867,22 @@
       "operation": "ENTER / ROUTE",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-25T23:05:00+08:00",
+        "updated_at": "2026-09-26T00:53:00+08:00",
         "work_modes": [
           "OPERATE",
           "SHARE",
           "RELEASE",
-          "PLAY"
+          "PLAY",
+          "VERIFY"
         ]
       },
       "role": "Public Fold/Bloom doorway around one source-continuity law. LIVE 0.13 + PLAY 0.5.5 restores plain RIDE as the primary encounter: SOURCE is original media, MAP measured terrain, IMMERSION experience projection. RUN / HEX / PATH / TWO DIAL / ECOLOGY / ZEN are optional projections over the same ride rather than the default dashboard. HEX keeps the canonical six-line/trigram lens but rides by default; STILL is explicit only. NORMAL is the neutral 1× experience profile, with DRIVE / TRANCE / SOFT as deliberate presentation changes. Phone settings own the pointer layer while open, preserving a reliable escape without changing source/game authority. LAB 0.3.2 and VOICE 0.1 remain separate bounded practice surfaces.",
       "tier": "FIELD",
       "version": "0.1.5 + PLAY 0.5.5",
-      "receipt": "/returns/FOLD_BLOOM_STABILIZE_055_2026-09-25.json"
+      "receipt": "/returns/FOLD_BLOOM_STABILIZE_055_2026-09-25.json",
+      "transfer": [
+        "PLAY 0.5.5 machine self-verification closed on current master: mobile drawer interaction, Escape/backdrop/× close paths, HEX two-ring ride state, STILL↔RIDE and zero-overflow regression pass; calmness/delight remain optional subjective evidence"
+      ]
     },
     {
       "href": "/fold-bloom/saber/",
