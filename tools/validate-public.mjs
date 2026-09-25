@@ -165,10 +165,23 @@ if(ingest21&&ingest21.files_indexed===559){
   check(String(backupGoal?.mode||'').includes('PROVED'),'verified Sep-21 ingest worker state regressed to unproved/dormant');
   check(backupGoal?.current_successor==='/control/packets/INGEST_ONE_FAMILY_2026-09-21.json','verified Sep-21 ingest missing worker successor');
   check(exists('control/packets/INGEST_ONE_FAMILY_2026-09-21.json'),'one-family execution packet missing');
-  const ingestTask=hermesQueue?.ready_tasks?.find(x=>x.id==='INGEST-01');
-  check(!!ingestTask,'Hermes queue missing INGEST-01 successor task');
-  const broad=hermesQueue?.ready_tasks?.find(x=>x.id==='REC-01');
-  check(!broad||/ANCHOR-ONLY/i.test(broad.task||''),'REC-01 regressed to ambient broad census');
+  if(hermesQueue?.schema==='0xxx0/hermes-queue/v0.2'){
+    const historical=hermesQueue?.historical_ready_tasks||[];
+    const ingestTask=historical.find(x=>x.id==='INGEST-01');
+    check(!!ingestTask,'Hermes v0.2 lost historical INGEST-01 successor lineage');
+    check(/HISTORICAL/i.test(ingestTask?.disposition||''),'Hermes v0.2 INGEST-01 may self-promote from history');
+    const readyIds=(hermesQueue?.ready_tasks||[]).map(x=>x.id);
+    check(!readyIds.includes('INGEST-01'),'Hermes v0.2 exposes INGEST-01 as ambient runnable work');
+    check(!readyIds.includes('REC-01'),'Hermes v0.2 exposes REC-01 as ambient runnable work');
+    const anchored=hermesQueue?.ready_tasks?.find(x=>x.id==='ANCHORED-RECOVERY');
+    check(!!anchored,'Hermes v0.2 missing ANCHORED-RECOVERY trigger lane');
+    check(/trigger|anchor|CURRENT|MIGRATION_NOW/i.test((anchored?.trigger||'')+' '+(anchored?.task||'')),'Hermes v0.2 recovery lane is not concretely trigger-gated');
+  }else{
+    const ingestTask=hermesQueue?.ready_tasks?.find(x=>x.id==='INGEST-01');
+    check(!!ingestTask,'Hermes queue missing INGEST-01 successor task');
+    const broad=hermesQueue?.ready_tasks?.find(x=>x.id==='REC-01');
+    check(!broad||/ANCHOR-ONLY/i.test(broad.task||''),'REC-01 regressed to ambient broad census');
+  }
 }
 const migration=parse('control/MIGRATION.json');
 if(migration){
