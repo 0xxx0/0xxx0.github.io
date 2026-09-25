@@ -1,0 +1,35 @@
+{
+  "schema": "field-return/v1",
+  "id": "IMAGE_ARTIFACT_HARVEST_2026-09-25",
+  "date": "2026-09-25",
+  "state": "CANDIDATE_PENDING_CI",
+  "object": "repository static visual artifact bytes",
+  "operation": "TREE CENSUS → PROVENANCE CLASSIFY → DISTINGUISH DONOR/AUTHORITY → PRESERVE GAPS",
+  "result": {
+    "static_visual_files": 30,
+    "exact_frozen_sleeper_site_assets": 14,
+    "ai_generated_original_play_surface": 1,
+    "addressable_body_reference_vectors": 6,
+    "physical_or_print_geometry_assets": 5,
+    "ui_or_support_graphics": 4
+  },
+  "evidence": [
+    "/control/IMAGE_ARTIFACT_INDEX.json",
+    "/recovery/sleeper/site-source-2026-09-18/manifest.json",
+    "/bodyplans/README.md",
+    "/bodyplans/release.json",
+    "/recovery/env0/manifest.json",
+    "/recovery/axial/compositor-v0.2/build-notes.txt",
+    "/physical/print-01/README.md",
+    "/sleeper/borrowed-river/README.md",
+    "/sleeper/borrowed-river/release.json"
+  ],
+  "boundaries": [
+    "Repo census is not a claim that all historical generated images have been recovered.",
+    "Filename resemblance does not establish lineage identity.",
+    "Runtime interfaces are not converted into screenshots merely to inflate the archive.",
+    "Exact source bytes outrank later summaries or reconstructed visual descriptions."
+  ],
+  "residue": "Conversation/library-only image bytes remain an explicit recovery gap; ten-painting Atlas / WAKE identity mapping remains open.",
+  "next": "Recover one named missing visual lineage from exact bytes when source access permits."
+}
