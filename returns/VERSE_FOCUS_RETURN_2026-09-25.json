@@ -1,0 +1,36 @@
+{
+  "schema": "field-return/v1",
+  "id": "VERSE_FOCUS_RETURN_2026-09-25",
+  "date": "2026-09-25",
+  "state": "CANDIDATE_PENDING_CI",
+  "objective": "Make Poem Map projection returns deterministic across full reload without introducing a shared session store.",
+  "object": "Poem Map source identity + view + selected token address",
+  "operation": "AUTHOR → PROJECT → RETURN → RESTORE FOCUS",
+  "version": "POEM MAP 0.2.4",
+  "changed": [
+    "/poetry/map/index.html",
+    "/poetry/map/release.json",
+    "/poetry/index.html",
+    "/foundry/index.html",
+    "/tools/validate-public.mjs"
+  ],
+  "mechanism": {
+    "caller_url": "view=<PAGE|MAP|SETS>&focus=L#T#",
+    "source_bytes_in_url": false,
+    "recipient_state_in_url": false,
+    "restore": "On Poem Map boot, accept only /^L\\d+T\\d+$/ and only if that token exists in the current parsed source."
+  },
+  "invariants": [
+    "The poem source remains local Poem Map authority.",
+    "Recipient marks, claims, timing and projections never enter the return witness.",
+    "Malformed or stale token addresses fail closed.",
+    "Existing durable Poem Map RETURN JSON remains unchanged.",
+    "No new global/session store is introduced."
+  ],
+  "proof": {
+    "static_contract": "implemented",
+    "ci": "pending pull request",
+    "lived_phone": "pending one complete recipient round trip with full Poem Map reload"
+  },
+  "next": "If CI is green, merge and sync CURRENT/manifest. Then stop code work until one lived phone round-trip reports actual friction."
+}
