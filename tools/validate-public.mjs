@@ -205,8 +205,8 @@ if(migrationNow){
 const foldLab=read('fold-bloom/lab/index.html');
 const foldLabApp=read('fold-bloom/lab/app.js');
 const foldInk=read('fold-bloom/ink/index.html');
-check(/footer a,footer button\{[^}]*min-height:34px/.test(foldLab),'FOLD BLOOM LAB footer navigation/RETURN lost 34px phone target floor');
-check(foldLab.includes('id="verseReturn"')&&foldLab.includes('id="exportLabReturn"')&&foldLab.includes('app.js?v=0.3.3'),'FOLD BLOOM LAB Verse caller return/Lab RETURN/cache marker missing');
+check(/footer a\{[^}]*min-height:34px/.test(foldLab),'FOLD BLOOM LAB footer navigation lost 34px phone target floor');
+check(foldLab.includes('id="verseReturn"')&&foldLab.includes('app.js?v=0.3.2'),'FOLD BLOOM LAB Verse caller return/cache marker missing');
 for(const token of ['safeLocalReturn','verse.returnAddress','fieldLabVerseHandoff'])check(foldLabApp.includes(token),'FOLD BLOOM LAB Verse round-trip token missing: '+token);
 check(/footer a\{[^}]*min-height:34px/.test(foldInk),'FOLD BLOOM INK footer navigation lost 34px phone target floor');
 const confluenceDaylineHtml=read('dayline/index.html');
@@ -367,13 +367,13 @@ if(exists('showcase-selftest/index.html')){
 for(const p of ['returns/index.html','foundry/index.html','fcm/index.html','router-bench/index.html'])compileInline(p);
 if(exists('poetry/map/index.html')){
   const p=read('poetry/map/index.html');
-  for(const token of ['POEM MAP 0.2.6','id="fieldNowBtn"','id="focusWheel"','id="pmAperture"','id="guideBtn"','id="importBtn"','id="corpusBtn"','id="formDetails"','id="mapLawDetails"','id="carryRead"','id="carryLab"','id="carryStudy"','readfield.handoff.v1','field.verse.handoff.v01','verse.atlas.handoff.v01','poemReturnAddress','restoreReturnFocus','bootFocus','bootSourceKey','source_key','candidateOperation','candidateEdit','INSERT_AFTER','START_NEXT_LINE','data-intent="nextline"','data-mode="PAGE"','data-mode="MAP"','data-mode="SETS"','ORDER','SOUND','REPEAT','AUTHOR','APERTURE','TRY','ADOPT','LOCK'])check(p.includes(token),'Poem Map capability token missing: '+token);
+  for(const token of ['VERSE <em>// COPILOT</em>','id="fieldNowBtn"','id="focusWheel"','id="pmAperture"','id="guideBtn"','id="importBtn"','id="corpusBtn"','id="formDetails"','id="mapLawDetails"','id="carryRead"','id="carryLab"','id="carryStudy"','readfield.handoff.v1','field.verse.handoff.v01','verse.atlas.handoff.v01','poemReturnAddress','restoreReturnFocus','bootFocus','bootSourceKey','source_key','candidateOperation','candidateEdit','INSERT_AFTER','START_NEXT_LINE','data-intent="nextline"','data-mode="PAGE"','data-mode="MAP"','data-mode="SETS"','ORDER','SOUND','REPEAT','AUTHOR','APERTURE','TRY','ADOPT','LOCK'])check(p.includes(token),'Poem Map capability token missing: '+token);
   check(!/(?:^|[^$])\$\(\s*['"`][^'"`]+['"`]\s*\)\.forEach\s*\(/m.test(p),'Poem Map must not call forEach on single querySelector result');
   compileInline('poetry/map/index.html');
 }
 if(exists('poetry/index.html')){
   const p=read('poetry/index.html');
-  for(const token of ['WRITE / EXPLORE','FIND WORDS / SOLVE','COMPOSE BY PATH','STUDY JUEJU','PLAY / MULTILINGUAL'])check(p.includes(token),'VERSE re-entry option missing: '+token);
+  for(const token of ['VERSE COPILOT','WORD MARKET','PATHWEAVER','GRID PATH','VERSE ATLAS','CELL FOUNDRY','Path, grid and game are tools'])check(p.includes(token),'VERSE re-entry option missing: '+token);
 }
 if(exists('foundry/verse-atlas/app.js')){
   const v=read('foundry/verse-atlas/app.js'),vh=read('foundry/verse-atlas/index.html');
