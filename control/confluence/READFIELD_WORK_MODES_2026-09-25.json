@@ -1,7 +1,7 @@
 {
   "schema": "confluence/readfield-work-modes/v0.1",
   "date": "2026-09-25",
-  "status": "IMPLEMENTED_CANDIDATE",
+  "status": "SHIPPED_VERIFIED",
   "object": "READFIELD / RSVP work experience + READ↔LOCI continuity",
   "observed": [
     "Phone Fold/Bloom scope now behaves materially better, so the next friction moved from mechanism visibility to practical work use.",
@@ -13,7 +13,7 @@
     "READFIELD restores focus from handoff and exposes FAST / REVIEW / PULSE / VOICE / LOCI / REPO modes.",
     "READFIELD → LOCI explicitly carries source + focus; FIELD LAB initializes the nearest addressed locus from source progress.",
     "FIELD LAB → FULL READFIELD also includes focus in the handoff.",
-    "Existing browser handoff proof now crosses into LOCI and requires a focus-restored witness."
+    "Browser proof exercises a real READFIELD cursor, serializes the bounded APERTURE handoff packet, builds the real LOCI course, and proves the selected addressed span contains that carried focus."
   ],
   "boundaries": [
     "No second source/cursor authority.",
@@ -21,6 +21,8 @@
     "FIELD PULSE remains optional authority NONE.",
     "No universal session bus or new reader engine."
   ],
-  "gate": "CI must pass the expanded READFIELD route-handoff browser proof; then lived phone use decides which work modes survive.",
-  "return": "/returns/READFIELD_WORK_MODES_2026-09-25.json"
+  "gate": "Repository gate passed: Route Registration 36082758418 + public-surface-check 36082758427. Remaining authority is lived phone use: keep only work modes that measurably reduce re-entry or improve reading/recall.",
+  "return": "/returns/READFIELD_WORK_MODES_2026-09-25.json",
+  "pr": 226,
+  "merge_sha": "fb270b4ef10b185912632014ce2e1db980b026ab"
 }
