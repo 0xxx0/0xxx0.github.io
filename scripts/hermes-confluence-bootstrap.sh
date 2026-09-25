@@ -95,7 +95,7 @@ fi
 
 cat >"$OUT/bootstrap-goal.md" <<EOF
 # CONFLUENCE / FIELD — HERMES LOCAL BOOTSTRAP
-generated: $(date -Iseconds)
+generated: $(date '+%Y-%m-%dT%H:%M:%S%z')
 repo: $ROOT
 profile: $PROFILE
 mode: $MODE
