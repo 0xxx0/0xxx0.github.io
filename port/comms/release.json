@@ -62,7 +62,11 @@
     "/port/comms/?demo=1",
     "PR #176",
     "public-surface-check 35768470121 PASS",
-    "Route Registration 35768470033 PASS"
+    "Route Registration 35768470033 PASS",
+    "/returns/DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
+    "PR #359",
+    "public-surface-check 36148842204 PASS",
+    "Route Registration 36148842258 PASS"
   ],
   "promotion_gate": [
     "core tests preserve exact source slices through parser/signals/RETURN",
@@ -79,7 +83,7 @@
     "no chapter-summary navigation",
     "no replacement of HUMAN PORT, READFIELD, LACONIC, CONTINUITY or agent-router"
   ],
-  "next": "Current proof now requires RUN → WITNESS → COMPLETE in Dayline before exact RETURN TO SOURCE and explicit native COVER. Automated real-source browser proof is necessary but does not replace ordinary phone-use judgment.",
+  "next": "No software blocker remains in the exact COMMS ↔ Dayline closed loop. Park ordinary-use ergonomics until a real signal naturally traverses it; revise only from concrete friction. Send authority remains absent.",
   "verification": {
     "pull_request": 176,
     "merge_sha": "73ee33d3f7ac92f84b7f8acc7db2761384f456e7",
@@ -93,7 +97,7 @@
     },
     "comms_core_tests": "12/12 PASS",
     "phone_flow": "430×900 create → HUMAN mark → target ASK → draft → COVER → RETURN → source switch → resume PASS",
-    "dayline_native_return": "CLOSED_LOOP_CANDIDATE · CURRENT_MASTER_CI_PENDING · REAL_PHONE_PENDING"
+    "dayline_native_return": "PASS_BY_MACHINE · PR #359 · public-surface-check 36148842204 · Route Registration 36148842258 · ordinary phone feel unclaimed"
   },
   "released": "2026-09-25",
   "changes": [
