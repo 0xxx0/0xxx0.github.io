@@ -1,5 +1,5 @@
-import {HEX_LINES,TRIGRAMS,lineMark,trigramForBits,hexPair,hexOutcome} from '../state-language.js?v=0.1';
-export {HEX_LINES,TRIGRAMS,lineMark,trigramForBits,hexPair,hexOutcome};
+import {HEX_LINES,TRIGRAMS,lineMark,trigramForBits,hexPair,hexOutcome,movingLines} from '../state-language.js?v=0.1';
+export {HEX_LINES,TRIGRAMS,lineMark,trigramForBits,hexPair,hexOutcome,movingLines};
 
 export const PLAY_CORE_VERSION = 'FOLD_BLOOM_PLAY_CORE_0.2';
 export const RUN_LENGTH = 8;
@@ -11,6 +11,8 @@ export const DUET_WIN_HITS = 5;
 export const GARDEN_GENERATIONS = 3;
 export const GARDEN_MOVES = 4;
 export const GARDEN_SURVIVAL_TARGET = 2;
+export const HEX_CHANGE_TARGET = 2;
+export const HEX_CHANGE_LIMIT = 4;
 export const RELATION_LEGEND = Object.freeze([
   ['SAME','BLOOM'],
   ['NEAR','FOLD'],
@@ -51,6 +53,13 @@ export function lineBitForVerb(verb){
   if(v==='BLOOM'||v==='FOLD')return 1;
   if(v==='SPLIT'||v==='RETURN')return 0;
   return null;
+}
+
+export function hexChangeOutcome(from,to,moves=0,target=HEX_CHANGE_TARGET,limit=HEX_CHANGE_LIMIT){
+  const changed=movingLines(from,to);
+  const clear=changed.length>=Number(target);
+  const complete=clear||Number(moves)>=Number(limit);
+  return {complete,clear,changed,label:clear?'STATE CHANGED':complete?'CHANGE OPEN':'CHANGE LIVE'};
 }
 
 export function runOutcome(hits,releases=RUN_LENGTH){

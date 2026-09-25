@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {normalizeStateBits,formatState,stateDescriptor,movingLines,stateChange,applyMovingLines} from '../../state-language.js';
 import {
-  circularDistance,relationVerb,relationName,lineBitForVerb,lineMark,trigramForBits,hexPair,hexOutcome,
+  circularDistance,relationVerb,relationName,lineBitForVerb,lineMark,trigramForBits,hexPair,hexOutcome,hexChangeOutcome,
   runOutcome,puzzleStars,puzzleOutcome,duetOutcome,gardenGoalMet,gardenSummary,gardenProgress,gardenOutcome
 } from '../play-core.js';
 
@@ -42,6 +42,14 @@ test('hex puzzle grammar maps topology into six-line form',()=>{
   assert.equal(pair.upper.key,'ZHEN');
   assert.deepEqual(hexOutcome([0,1,0,1,0,0],[0,1,0,1,0,0]),{complete:true,clear:true,matches:6,label:'HEXAGRAM LOCKED'});
   assert.equal(hexOutcome([0,1,0,1,0,0],[0,1,0,1,1,0]).matches,5);
+});
+
+test('HEX change phase clears on two final changed lines and can revert',()=>{
+  const a=[0,1,0,1,0,0];
+  assert.deepEqual(hexChangeOutcome(a,[0,1,1,1,1,0],2),{complete:true,clear:true,changed:[3,5],label:'STATE CHANGED'});
+  assert.equal(hexChangeOutcome(a,[0,1,1,1,0,0],3).clear,false);
+  assert.equal(hexChangeOutcome(a,a,4).complete,true);
+  assert.deepEqual(hexChangeOutcome(a,a,4).changed,[]);
 });
 
 test('RUN clears at six of eight',()=>{
