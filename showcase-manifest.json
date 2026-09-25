@@ -4647,6 +4647,38 @@
       "tier": "FIELD"
     },
     {
+      "href": "/house/expert.html",
+      "title": "HOUSE / EXPERT · STATE PROJECTION",
+      "kind": "projection",
+      "parent": "/house/",
+      "family": "HOUSE / SPATIAL STATE",
+      "operation": "INSPECT",
+      "state": "ACTIVE_SUPPORTING_PROJECTION",
+      "version": "0.7.2",
+      "receipt": "/house/release.json",
+      "showcase_card": false,
+      "role": "Technical public-safe HOUSE state/runtime projection retained behind canonical /house/. It exposes timestamped/public runtime evidence and local bridge depth only; Home Assistant / HOUSEBUS retains private device truth and actuation authority.",
+      "transfer": [
+        "former generated HOUSE dashboard preserved as technical depth rather than a second human front door",
+        "canonical human HOUSE identity remains /house/",
+        "public runtime/state witness does not imply presence, safety, device truth or actuation authority"
+      ],
+      "family_href": "/house/",
+      "index": {
+        "updated_at": "2026-09-25T21:35:00+08:00",
+        "work_modes": [
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "evidence": [
+        "/house/release.json",
+        "/house/state.json",
+        "/house/contract.json"
+      ],
+      "tier": "FIELD"
+    },
+    {
       "href": "/house/spatial/",
       "title": "HOUSE / SPATIAL · COMPAT",
       "kind": "alias",
