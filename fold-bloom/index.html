@@ -86,6 +86,10 @@ h1 .slash{color:var(--hot);font-weight:500}
 .mode.primary:before{content:"";position:absolute;left:-1px;top:-1px;bottom:-1px;width:2px;background:var(--hot)}
 .labGate{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;border:1px solid var(--line);background:#080c10;padding:20px 22px;margin-top:1px;text-decoration:none}
 .labGate:hover{border-color:#53616a}.labGate b{font:900 clamp(22px,4vw,42px)/.9 ui-sans-serif,system-ui,sans-serif;letter-spacing:-.05em}.labGate span{display:block;color:#7f8b92;font-size:9px;margin-top:8px;letter-spacing:.08em}.labGate i{font-style:normal;color:var(--cool);font-weight:900;letter-spacing:.1em}
+.useGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+.useCard{min-height:164px;background:var(--panel);padding:18px;display:flex;flex-direction:column;text-decoration:none}
+.useCard:hover{background:#0d1318}.useCard .verb{font-size:8px;letter-spacing:.16em;color:var(--hot)}.useCard b{margin-top:12px;font:900 21px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:-.035em}.useCard p{margin:10px 0 0;color:#89959b;font:11px/1.5 ui-sans-serif,system-ui,sans-serif}.useCard .go{margin-top:auto;padding-top:14px;color:var(--cool);font-size:8px;letter-spacing:.1em}
+.useLaw{margin-top:10px;color:#69767d;font-size:8px;letter-spacing:.09em}
 .about{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)}
 .about>div{background:var(--panel);padding:32px}
 .about h3{font:900 26px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:-.04em;margin:0 0 14px}
@@ -101,10 +105,10 @@ footer{border-top:1px solid var(--line);padding:18px 0 36px;color:#69767d;font-s
   .top .status,.top nav a:nth-child(-n+2){display:none}
   .hero{grid-template-columns:1fr;min-height:auto}.copy{padding:54px 0 42px}.visual{border-left:0;border-top:1px solid var(--line);min-height:54svh}
   h1{font-size:clamp(68px,22vw,118px)}.rule{grid-template-columns:1fr 1fr}.rule>div:nth-child(2){border-right:0}.rule>div:nth-child(-n+2){border-bottom:1px solid var(--line)}
-  .grid{grid-template-columns:1fr 1fr}.about{grid-template-columns:1fr}.section{padding:48px 0}.sectionHead{display:block}.sectionHead p{margin-top:16px}
+  .grid{grid-template-columns:1fr 1fr}.useGrid{grid-template-columns:1fr 1fr}.about{grid-template-columns:1fr}.section{padding:48px 0}.sectionHead{display:block}.sectionHead p{margin-top:16px}
 }
 @media(max-width:560px){
-  .grid{grid-template-columns:1fr}.mode{min-height:210px}.visual{min-height:52svh}.rule{grid-template-columns:1fr}.rule>div{border-right:0;border-bottom:1px solid var(--line)!important}
+  .grid{grid-template-columns:1fr}.useGrid{grid-template-columns:1fr 1fr}.useCard{min-height:150px;padding:14px}.useCard b{font-size:18px}.mode{min-height:210px}.visual{min-height:52svh}.rule{grid-template-columns:1fr}.rule>div{border-right:0;border-bottom:1px solid var(--line)!important}
   .rule>div:last-child{border-bottom:0!important}.top nav a{display:none!important}.top nav a:last-child{display:inline-block!important}
   footer{display:block}footer span{display:block;margin-top:8px}
 }
@@ -134,7 +138,8 @@ footer{border-top:1px solid var(--line);padding:18px 0 36px;color:#69767d;font-s
       <a class="cta primary" href="./live/?source=center-mass">PLAY CENTER MASS →</a>
       <a class="cta" href="./live/">ENTER LIVE RIDE →</a>
       <a class="cta" href="./listen/">MAP A TRACK →</a>
-      <a class="cta" href="./lab/?mode=INK">DRAW INK →</a>\n      <a class="cta" href="./voice/">TRAIN VOICE →</a>
+      <a class="cta" href="./lab/?mode=INK">DRAW INK →</a>
+      <a class="cta" href="./voice/">TRAIN VOICE →</a>
     </div>
     <div class="law">LOCAL AUDIO STAYS IN YOUR BROWSER · BORROWED CLOCK ≠ BORROWED AUTHORSHIP</div>
   </div>
@@ -152,6 +157,22 @@ footer{border-top:1px solid var(--line);padding:18px 0 36px;color:#69767d;font-s
   <div><span class="n">02</span><b>ADDRESS</b><p>Find where you are: beat, phrase, section, token, cell, seam.</p></div>
   <div><span class="n">03</span><b>FOLD / BLOOM</b><p>Compress possibility or open it. The operation changes the projection, not the source witness.</p></div>
   <div><span class="n">04</span><b>RETURN</b><p>Come back with state, evidence, and a path that can be replayed or transformed again.</p></div>
+</section>
+
+<section class="wrap section" id="use-cases">
+  <div class="sectionHead">
+    <h2>USE IT FOR<br>AN ACTUAL JOB.</h2>
+    <p>Start from the thing you are trying to do. The deeper Fold/Bloom vocabulary stays available, but it should not be required to get useful work done on a phone.</p>
+  </div>
+  <div class="useGrid">
+    <a class="useCard" href="/docs/"><span class="verb">READ / WORK</span><b>Read fast without losing your place.</b><p>READFIELD / RSVP keeps one exact cursor across word, phrase, sentence, voice, regression and source context.</p><span class="go">OPEN READFIELD →</span></a>
+    <a class="useCard" href="./lab/?mode=READ&amp;pulse=4"><span class="verb">READ × RHYTHM</span><b>Pace RSVP from a shared beat.</b><p>Borrow tempo as a clock, not authorship. Text position remains READFIELD truth; pulse only lends pace.</p><span class="go">OPEN PULSE-PACED READ →</span></a>
+    <a class="useCard" href="./listen/"><span class="verb">LISTEN / MARK</span><b>Map a track and mark exact moments.</b><p>Inspect beat/phrase/section/track, then BOOKMARK, FLAG or ARC a source address and share the marks without sharing source bytes.</p><span class="go">MAP + MARK →</span></a>
+    <a class="useCard" href="./live/"><span class="verb">RIDE / PLAY</span><b>Turn the same source into a traversable field.</b><p>Terrain and events may follow measured structure; FOLD/BLOOM/SPLIT/RETURN remain player-authored operations.</p><span class="go">ENTER LIVE →</span></a>
+    <a class="useCard" href="./lab/?mode=LOCI"><span class="verb">REMEMBER / LOCI</span><b>Turn long text into an addressed memory course.</b><p>READ can carry the same source position into LOCI; large sources become bounded addressed chunks rather than a truncated list.</p><span class="go">BUILD A COURSE →</span></a>
+    <a class="useCard" href="./two-dial/?pulse=1"><span class="verb">COMPOSE / PULSE</span><b>Compose against shared timing without merging engines.</b><p>Two Dial may borrow tempo/phase while retaining its own harmony, relation, motif and form authority.</p><span class="go">OPEN TWO DIAL →</span></a>
+  </div>
+  <div class="useLaw">ONE SOURCE CAN HAVE MANY DOORS · SOURCE IDENTITY / ADDRESS / AUTHORSHIP STAY EXPLICIT · RETURN REMAINS THE DURABLE BOUNDARY</div>
 </section>
 
 <section class="wrap section">
@@ -193,7 +214,7 @@ footer{border-top:1px solid var(--line);padding:18px 0 36px;color:#69767d;font-s
 
 <footer class="wrap">
   <span>FOLD//BLOOM · SOURCE → ADDRESS → TRANSFORM → RETURN</span>
-  <span>PUBLIC FRONT · 2026-09-24</span>
+  <span>PUBLIC FRONT · 2026-09-25</span>
 </footer>
 
 <script>
