@@ -149,7 +149,8 @@
         "mobile PLAIN vertical scroll",
         "mobile route controls moved off bottom-left",
         "explicit device-clock NOW ↻ sync",
-        "RETURN clock witness + ORIENTATION_SNAPSHOT/WORLD_DELTA"
+        "RETURN clock witness + ORIENTATION_SNAPSHOT/WORLD_DELTA",
+        "successor candidate /dayline/ tests one-object continuous mobile execution while Atlas remains deep projection"
       ],
       "contract": {
         "accepts": {
@@ -248,6 +249,119 @@
       "tier": "FIELD",
       "version": "Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
       "role": "Reality-first local temporal execution instrument. First-run/reset is empty; HOUSE/SHOPPING/COMMS lend explicit source-owned handoffs. Mobile PLAIN is a scrollable action document, shared route controls avoid the bottom-left working edge, NOW ↻ explicitly synchronizes canonical time when desired, and RETURN distinguishes orientation snapshots from world deltas."
+    },
+    {
+      "href": "/dayline/",
+      "title": "DAYLINE / CONFLUENCE 0.1",
+      "kind": "workbench",
+      "parent": "/atlas-dayline/",
+      "family": "ATLAS DAYLINE",
+      "operation": "OPERATE",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "showcase_card": false,
+      "role": "Mobile-first continuous execution projection over the existing Atlas Dayline DayState, live CURRENT and explicit reality handoffs. Holds one object/focus, exposes at most three lawful moves, records witness and emits exact RETURN; Atlas remains a deeper spatial projection.",
+      "receipt": "/dayline/release.json",
+      "transfer": [
+        "same poly-atlas-dayline-branch-i-public-v1 DayState; no second planner store",
+        "same atlas-dayline-handoff/v0.1 session envelope from HOUSE / SHOPPING / COMMS",
+        "live CURRENT read-only frame when no local object is held",
+        "one object + 1–3 moves + witness + RETURN",
+        "ordinary document scrolling on phone; no fixed instrument viewport",
+        "Atlas Dayline remains optional radial/scenario projection"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "atlas-dayline-handoff/v0.1",
+            "existing Dayline task",
+            "FIELD route/front",
+            "direct capture"
+          ],
+          "requires": [],
+          "optional": [
+            "source route",
+            "time/context",
+            "provenance"
+          ]
+        },
+        "transforms": {
+          "verb": "hold one addressed object, expose only its local lawful action neighborhood, mutate the existing DayState only on explicit action, then RETURN evidence",
+          "preserves": [
+            "source address",
+            "native source authority",
+            "Dayline task identity",
+            "RUN cap",
+            "witness provenance"
+          ],
+          "reversibility": "local DayState operations remain explicit/replayable",
+          "side_effects": "browser-local DayState only"
+        },
+        "emits": {
+          "kinds": [
+            "bounded move set",
+            "witness",
+            "poly-atlas-return-f v3"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "WORLD_OUT"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "source-addressed handoff / DayState",
+            "interface": "sessionStorage + localStorage"
+          },
+          {
+            "medium": "DATA",
+            "kind": "CURRENT frame",
+            "interface": "read-only fetch"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "1–3 lawful moves",
+            "interface": "touch UI"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "RETURN",
+            "interface": "clipboard + local return store"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "ATLAS_PROJECTION",
+            "status": "AVAILABLE",
+            "via": "/atlas-dayline/?live=1"
+          },
+          {
+            "class": "NATIVE_SOURCE",
+            "status": "AVAILABLE",
+            "via": "preserved source route"
+          },
+          {
+            "class": "HERMES",
+            "status": "BOUNDARY",
+            "via": "explicit copied RETURN only"
+          }
+        ],
+        "physical_fit": "Ordinary mobile execution surface; no scroll lock or spatial viewport required."
+      },
+      "index": {
+        "updated_at": "2026-09-25T17:20:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "VERIFY"
+        ]
+      }
     },
     {
       "href": "/body/",
@@ -4468,7 +4582,8 @@
         "temporal focus over addressed routes",
         "tiny-law path constraints",
         "local recurrence sediment",
-        "selected spatial address → explicit Dayline planning-context handoff; selected != physical presence"
+        "selected spatial address → explicit Dayline planning-context handoff; selected != physical presence",
+        "explicit Dayline context handoff currently lands on /dayline/ candidate"
       ],
       "contract": {
         "transforms": {
@@ -4489,7 +4604,7 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-25T15:00:00+08:00",
+        "updated_at": "2026-09-25T17:20:00+08:00",
         "work_modes": [
           "RECOVER",
           "SPECIFY"
@@ -5707,7 +5822,7 @@
         "return_path": "/port/"
       },
       "index": {
-        "updated_at": "2026-09-25T15:29:10+08:00",
+        "updated_at": "2026-09-25T17:20:00+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY"
@@ -5715,7 +5830,8 @@
       },
       "tier": "FIELD",
       "transfer": [
-        "one OPEN source-addressed signal → explicit Dayline obligation handoff; HUMAN/DERIVED provenance preserved"
+        "one OPEN source-addressed signal → explicit Dayline obligation handoff; HUMAN/DERIVED provenance preserved",
+        "explicit Dayline obligation handoff currently lands on /dayline/ candidate"
       ]
     },
     {
@@ -6634,7 +6750,8 @@
         "purchase/adoption lifecycle",
         "bounded agent research packet",
         "selected capability item → explicit Dayline next-action handoff; purchase lifecycle unchanged",
-        "ESSENTIAL / CAPABILITY / EXPEDITION intent lanes preserve realistic procurement vs bounded exploratory sourcing"
+        "ESSENTIAL / CAPABILITY / EXPEDITION intent lanes preserve realistic procurement vs bounded exploratory sourcing",
+        "explicit Dayline task handoff currently lands on /dayline/ candidate"
       ],
       "contract": {
         "accepts": {
@@ -6754,7 +6871,7 @@
         "physical_fit": "Acquisition adapter for House/maker/cat/robotics capability gaps; no automatic buying."
       },
       "index": {
-        "updated_at": "2026-09-25T15:37:00+08:00",
+        "updated_at": "2026-09-25T17:20:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",
