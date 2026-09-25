@@ -296,7 +296,8 @@
       "care continuity is not public canon",
       "DONE requires a receipt/outcome",
       "HA/HOUSEBUS remains sole runtime-control authority",
-      "private care episodes are never committed to repository state"
+      "private care episodes are never committed to repository state",
+      "HOUSE CARE != CARE / FIELD; household/environmental continuity does not supersede longitudinal health/care authority"
     ],
     "promotion_gate": "ordinary use must reduce re-entry loss or missed follow-through without increasing tracking burden",
     "human_port": {
@@ -310,6 +311,12 @@
         "other care episodes"
       ],
       "authority": "HUMAN PORT owns explicit Share/Copy boundary; HOUSE never claims delivery"
+    },
+    "scope": "HOUSEHOLD / ENVIRONMENTAL CONTINUITY",
+    "canonical_care_relation": {
+      "route": "/care/",
+      "relation": "distinct specialized longitudinal health/care projection",
+      "law": "HOUSE #CARE must not absorb medical/self-care cases merely because both use the word CARE"
     }
   }
 }
