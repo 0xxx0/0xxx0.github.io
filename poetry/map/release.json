@@ -142,7 +142,9 @@
     "route_registration": "PASS",
     "public_surface_check": "PASS",
     "critical_browser_smoke": "PASS",
-    "current_manifest_registration": "PENDING_HEAD_SYNC_PR"
+    "current_manifest_registration": "PASS_PR_304",
+    "head_sync_pr": 304,
+    "head_sync_commit": "0b2f7e39056872f83c0c89a77fb77c9e376c1fb9"
   },
   "updated": "2026-09-25",
   "next_bounded_test": {
