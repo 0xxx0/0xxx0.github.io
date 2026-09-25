@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "artifact": "SHOPPING FIELD",
   "route": "/shopping/",
-  "version": "0.2",
+  "version": "0.3",
   "released": "2026-09-25",
   "state": "ACTIVE_ADAPTER",
   "recovered_from": [
@@ -51,7 +51,12 @@
     "Research/purchase truth states remain unchanged; no handoff can purchase, message a seller or promote ownership.",
     "Transport is session-local atlas-dayline-handoff/v0.1 and requires explicit ADD TO DAY.",
     "Added explicit ESSENTIAL / CAPABILITY / EXPEDITION lanes so realistic procurement and playful market exploration share one adapter without becoming one backlog.",
-    "Lane is browser-local, filterable, exported, included in research packets and explicit Dayline handoffs; EXPEDITION denotes curiosity/research rather than purchase authority."
+    "Lane is browser-local, filterable, exported, included in research packets and explicit Dayline handoffs; EXPEDITION denotes curiosity/research rather than purchase authority.",
+    "Added optional BODY W/D/H, OPERATING W/D/H and mass fields so physical envelope is first-class alongside landed cost.",
+    "Added SERVICE / MAINTENANCE and DEPENDENCIES / CONSUMABLES / LOCK-IN burden fields without creating a second item store.",
+    "Added explicit selected-item → HOUSE / SPATIAL FIT handoff using session-only house-shopping-fit/v0.1; Shopping retains candidate/ownership authority.",
+    "DAYLINE and HOUSE returns now preserve the exact selected Shopping item through its hash address.",
+    "Agent research packets now include fit, burden and placement-home evidence."
   ],
   "checks": [
     "inline JavaScript parses",
@@ -59,7 +64,10 @@
     "no seller messaging or purchase action",
     "all persistent state is localStorage or explicit JSON export",
     "Field Index and FCM link updated",
-    "lane defaults conservatively to CAPABILITY for legacy items"
+    "lane defaults conservatively to CAPABILITY for legacy items",
+    "fit/burden fields are optional and backward-compatible with existing local v0.1 ledgers",
+    "HOUSE FIT cannot purchase, promote ownership or mutate HOUSE canonical geometry",
+    "exact selected-item re-entry survives SHOPPING → external host → SHOPPING return"
   ],
   "return": "/shopping/",
   "date": "2026-09-25"
