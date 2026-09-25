@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "ATLAS DAYLINE",
-  "version": "Branch I + FIELD LIVE 0.2 / REALITY PORTS",
+  "version": "Branch I + FIELD LIVE 0.2",
   "route": "/atlas-dayline/",
   "state": "STABLE + OPT_IN_LIVE_CANDIDATE",
   "operation": "PLAN",
   "released": "2026-09-25",
-  "representative_interaction": "default Branch I unchanged; ?live=1 → SYNC FIELD → explicit ADD/CAPTURE → RUN≤3 → RETURN → COPY FEEDBACK",
+  "representative_interaction": "mobile first use → PLAIN action surface; ?live=1 → CAPTURE/explicit ADD → RUN≤3 → RETURN → COPY HANDOFF (authority NONE); ATLAS remains optional",
   "validation": {
     "viewport_meta": "PASS",
     "responsive_source": "PASS",
@@ -20,18 +20,11 @@
     "feedback_no_repo_write": "PASS_BY_SOURCE",
     "service_worker_live_truth_bypass": "PASS_BY_SOURCE",
     "cache_version_bumped": "atlas-dayline-i-v3",
-    "reality_handoff_schema": "atlas-dayline-handoff/v0.1",
-    "explicit_source_promotion": "PASS_BY_SOURCE",
-    "session_local_transport": "PASS_BY_SOURCE"
+    "mobile_action_first": "PASS_BY_SOURCE · first mobile visit defaults to PLAIN once, then respects saved projection",
+    "mobile_touch_floor": "PASS_BY_SOURCE · primary utility/plain actions ≥38px; LIVE controls ≥34px",
+    "live_bridge_mobile_contraction": "PASS_BY_SOURCE · capture remains visible while FIELD detail collapses on phone",
+    "hermes_handoff": "PASS_BY_SOURCE · atlas-dayline-hermes-handoff/v0.1 · authority NONE · USER_EXPLICIT_COPY",
+    "reality_capture_context": "PASS_BY_SOURCE · capture inherits current Dayline contexts; phone/computer only as fallback"
   },
-  "known_gap": "Needs lived phone proof across HOUSE→context, SHOPPING→task and COMMS→obligation; return-to-source receipts remain next-stage, not implemented.",
-  "date": "2026-09-25",
-  "changes": [
-    "added atlas-dayline-handoff/v0.1 as a single explicit session-local envelope; it is transport, not queue/authority",
-    "HOUSE / SPATIAL selected address can be applied as Dayline planning context without claiming presence",
-    "SHOPPING FIELD selected item can lend one next capability action while purchase authority remains human",
-    "COMMS SPINE can lend one OPEN source-addressed signal with HUMAN/DERIVED provenance intact",
-    "handoffs require explicit APPLY CONTEXT / ADD TO DAY inside Dayline and retain BACK to source",
-    "PWA cache bumped to atlas-dayline-i-v3 so existing installs receive REALITY PORTS"
-  ]
+  "known_gap": "Post-patch lived phone proof still required. The public browser has no direct private Hermes runtime binding; COPY HANDOFF is explicit. Calendar/task-provider binding remains adapter-required."
 }
