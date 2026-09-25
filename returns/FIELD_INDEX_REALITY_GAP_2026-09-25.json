@@ -42,13 +42,14 @@
     }
   ],
   "concurrent_reconciliation": {
-    "observed": "Newest master promoted FOLD//BLOOM PLAY 0.5 in the head label and accidentally wrote '0.1.3 + PLAY 0.5' into CURRENT.current_heads[].version while /fold-bloom/ manifest route version is 0.1.3.",
-    "resolution": "Keep PLAY 0.5 in the descriptive head/capability state; restore structured CURRENT route version to exact manifest identity 0.1.3.",
+    "observed": "FOLD//BLOOM PLAY 0.5 landed concurrently while REALITY GAP was reconciling. Initial master briefly had CURRENT composite version versus manifest 0.1.3; a subsequent owner-side master mutation promoted the manifest route to the same composite version before this branch merged.",
+    "resolution": "Yield to latest owner/master authority: CURRENT and manifest both use structured route version `0.1.3 + PLAY 0.5`; descriptive head remains unchanged.",
     "evidence": [
-      "CURRENT head promotion commit 10f20047",
-      "FIELD manifest sync commit 2ebc0c1e",
+      "CURRENT head promotion 10f20047",
+      "initial manifest sync 2ebc0c1e",
+      "latest master owner reconciliation",
       "/returns/FOLD_BLOOM_PLAY_05_RING_CHANGE_2026-09-25.json"
     ],
-    "law": "component capability version ≠ addressed route version"
+    "law": "When concurrent owner state resolves an ambiguity before merge, converge to the newest exact owner evidence rather than preserving an intermediate repair."
   }
 }
