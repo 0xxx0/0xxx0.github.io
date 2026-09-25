@@ -620,9 +620,10 @@
     },
     {
       "id": "image-artifact-harvest",
-      "status": "OPEN",
-      "query": "generated images/paintings/interfaces → reusable UI/physical donors → GitHub artifact or source pack",
-      "payoff": "Stop visual work from disappearing in chat-only history."
+      "status": "REPO_VISUAL_BYTES_INDEXED_CHAT_GAP_OPEN",
+      "query": "repo static visual bytes + exact recovered Sleeper/Painting artwork + physical/vector donors → durable visual census; conversation/library-only generated-image bytes remain open",
+      "payoff": "Repository census now distinguishes 30 static visual files: 14 exact frozen Sleeper-site assets, 1 explicitly AI-generated Borrowed River landscape, 6 addressable body-reference vectors, 5 physical/print geometry assets and 4 UI/support graphics. Exact chat-only image history and ten-painting Atlas/WAKE identity mapping remain unresolved rather than reconstructed.",
+      "receipt": "/returns/IMAGE_ARTIFACT_HARVEST_2026-09-25.json"
     },
     {
       "id": "irl-run-json",
