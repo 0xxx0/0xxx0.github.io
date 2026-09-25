@@ -80,30 +80,41 @@
       "family": "HUMAN PORT / IDEAS",
       "operation": "CAPTURE",
       "state": "ACTIVE",
-      "version": "0.1",
+      "version": "0.2",
       "showcase_card": false,
-      "role": "Recovered App Atlas core seed plus local-first idea capture: preserve ancestry, distinguish capture from commitment, and hand reviewed idea residue forward without auto-building.",
+      "role": "Recovered App Atlas v1 plus local-first idea capture and a derived OLD→CURRENT wrangler. Preserve ancestry, distinguish capture from commitment, expose surviving mechanisms, and route to current authority without creating a second control plane.",
       "contract": {
         "transforms": {
-          "verb": "capture an idea once, preserve invariant/lineage, then hold/build/merge/kill explicitly",
+          "verb": "capture an idea once or inspect historical lineage, preserve invariant/source class, then orient to the current host without auto-promoting it",
           "preserves": [
             "idea ancestry",
+            "historical source semantics",
             "source/invariant distinction",
-            "local-first non-commitment"
+            "local-first non-commitment",
+            "CURRENT / manifest authority boundary",
+            "unresolved correspondence as unresolved"
           ],
-          "reversibility": "full local",
-          "side_effects": "browser localStorage only"
+          "reversibility": "full local/read-only",
+          "side_effects": "browser localStorage for explicit captures; wrangler reads same-origin control data only"
         }
       },
       "index": {
-        "updated_at": "2026-09-21T02:36:00+08:00",
+        "updated_at": "2026-09-25T13:30:00+08:00",
         "work_modes": [
           "RECOVER",
-          "IMPLEMENT",
-          "OPERATE"
+          "OPERATE",
+          "VERIFY"
         ]
       },
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "receipt": "/app-atlas/release.json",
+      "transfer": [
+        "full 2026-08-09 App Atlas registry preserved as historical source",
+        "OLD→CURRENT crosswalk with unresolved records left unresolved",
+        "surviving mechanism vectors point to current hosts rather than reviving old product names",
+        "Atlas Dayline retained as a separate stable temporal donor",
+        "local-first idea capture remains non-commitment until explicit review"
+      ]
     },
     {
       "href": "/atlas-dayline/",
