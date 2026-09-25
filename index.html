@@ -120,9 +120,9 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <nav><a class="play" href="./field-play.html">PLAY</a><a href="#traceFold" onclick="document.getElementById('statusFold').open=true;document.getElementById('traceFold').open=true">TRACE</a><a href="./lens-proof/">COMPARE</a><a href="./control/">CURRENT</a><a class="proof" href="./nexus/" title="nexus, board, map">NEXUS</a><a class="wit" href="./witness/" title="empty sky · repo sky · sourced account">✦ WITNESS</a><a href="./control/confluence/">CONFLUENCE</a><a href="./foundry/" title="foundry, axial, instruments">FOUNDRY</a><a href="./migration/" title="migration, recovery vault, salvage">RECORD</a><a href="./returns/">RETURN</a><a href="./control/FIELD_INDEX_CONTRACT.json">FI LAW</a></nav>
 </header>
 <details class="reentryFold" aria-label="FIELD re-entry states"><summary><span class="reentrySeg"><span>NOW</span><b>CURRENT</b></span><span class="reentrySeg recover"><span>RECOVER</span><b>VAULT</b></span><span class="reentrySeg converge"><span>CONVERGE</span><b>NEXUS</b></span><span class="reentryToggle">▶</span></summary><div class="reentryBody"><a href="./control/"><b>NOW / CURRENT</b><span>attention + bounded execution</span></a><a href="./recovery/"><b>RECOVER / VAULT</b><span>exact source + lineage</span></a><a href="./nexus/"><b>CONVERGE / NEXUS</b><span>coordination + RETURN</span></a><a href="./witness/"><b>WITNESS / WALL</b><span>six views of one record</span></a></div></details>
-<div class="syncLine" aria-label="FIELD truth frame">
-  <a href="./control/CURRENT.json"><b>Φ / CURRENT</b></a>
-  <span id="syncCurrent">loading current…</span>
+<div class="syncLine" aria-label="FIELD belay anchor">
+  <a href="./control/ORIENTATION.json" title="durable collaboration anchor"><b>⚑ BELAY</b></a>
+  <span id="syncCurrent">loading anchor…</span>
   <span class="syncLocal"><b>φ</b> <span id="syncFocus">/</span></span>
   <span id="syncRepo">HEAD —</span>
 </div>
@@ -228,7 +228,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 <script>
 (()=>{'use strict';
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-let manifest,current,routes=[],latest=[],repoTouches=[],repoTouchFiles=new Map,latestLimit=30,focus=null,headSet=new Set,nowSet=new Set,issues=[],waiting=[],waitingSource=[],waitingUpdated='',mapMode='VISUAL',mapRoot='/',mapSelected='/',mapQuery='',supportTrail=[];
+let manifest,current,orientation,routes=[],latest=[],repoTouches=[],repoTouchFiles=new Map,latestLimit=30,focus=null,headSet=new Set,nowSet=new Set,issues=[],waiting=[],waitingSource=[],waitingUpdated='',mapMode='VISUAL',mapRoot='/',mapSelected='/',mapQuery='',supportTrail=[];
 const INIT=new URLSearchParams(location.search),axisState={state:'ANY',operation:'ANY',mode:'ANY'},scrollTimers={};let axisScrollMuteUntil=0;
 const CAP_TRIAL=INIT.get('cap')==='1';
 const CAPABILITY_PROJECTION=Object.freeze([
@@ -421,8 +421,10 @@ function markCaughtUp(){
 }
 function renderSyncLine(){
  const cur=$('syncCurrent'),rep=$('syncRepo'),loc=$('syncFocus');if(!cur||!rep||!loc)return;
- const fronts=(current?.active_fronts||[]).length,heads=(current?.current_heads||[]).length;
- cur.textContent=(current?.updated||'—')+' · '+fronts+' fronts · '+heads+' heads';
+ const fronts=current?.active_fronts||[],front=fronts[0]||{},heads=(current?.current_heads||[]).length;
+ const anchor=String(orientation?.anchor?.one_line||'Hold one object; make one bounded move; witness it; RETURN.').replace(/\s+/g,' ').trim();
+ cur.textContent=(front.id?String(front.id).replaceAll('-',' ').toUpperCase()+' · ':'')+anchor;
+ cur.title='CURRENT '+(current?.updated||'—')+' · '+fronts.length+' fronts · '+heads+' heads · '+String(current?.field_belay?.law||'');
  loc.textContent=(focus?.href||'/')+(focus?.state?' · '+focus.state:'');
  const c=repoTouches[0];rep.textContent=c?'HEAD '+c.sha.slice(0,8)+' · '+shortTs(c.date):'HEAD —';
 }
@@ -640,9 +642,10 @@ async function copyAddress(){if(!focus)return;syncAxialURL();const txt=focus.hre
 
 Promise.all([
  fetch('./showcase-manifest.json',{cache:'no-store'}).then(r=>r.json()),
- fetch('./control/CURRENT.json',{cache:'no-store'}).then(r=>r.json())
-]).then(([m,c])=>{
- manifest=m;current=c;routes=(m.routes||[]).filter(r=>r.href!=='/');latest=routes.filter(r=>r.index?.updated_at).sort((a,b)=>String(b.index.updated_at).localeCompare(String(a.index.updated_at)));
+ fetch('./control/CURRENT.json',{cache:'no-store'}).then(r=>r.json()),
+ fetch('./control/ORIENTATION.json',{cache:'no-store'}).then(r=>r.json())
+]).then(([m,c,o])=>{
+ manifest=m;current=c;orientation=o;routes=(m.routes||[]).filter(r=>r.href!=='/');latest=routes.filter(r=>r.index?.updated_at).sort((a,b)=>String(b.index.updated_at).localeCompare(String(a.index.updated_at)));
  headSet=new Set((c.current_heads||[]).map(h=>h.route));nowSet=new Set((c.active_fronts||[]).slice(0,3).map(nowHref));
  $('axialMeta').textContent=latest.length+' addressed routes · support exact over current filters';
  renderHeads();renderPorts();applyInitialAxial();renderSyncLine();renderCatchup();loadRepoTouches();loadWaiting();loadIssues();renderMap();if(INIT.get('trace')==='1')setTimeout(openTrace,0);
