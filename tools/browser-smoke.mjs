@@ -310,7 +310,7 @@ function readfieldLocalFileProbeHtml(){
     const W=()=>f.contentWindow,D=()=>W().document;
     const A=await waitFor(()=>{const a=D().getElementById('docAperture');return a?.snapshot?.()&&D().getElementById('localFile')?a:null},14000,'READFIELD local file ready');
     const input=D().getElementById('localFile'),text='# FIELD NOTE\\n\\nalpha beta gamma delta epsilon zeta eta theta\\n\\n## NEXT\\nreview this exact place.';
-    const file=new W().File([text],'field-note.md',{type:'text/markdown'}),dt=new W().DataTransfer();dt.items.add(file);input.files=dt.files;input.dispatchEvent(new W().Event('change',{bubbles:true}));
+    const file=new (W().File)([text],'field-note.md',{type:'text/markdown'}),dt=new (W().DataTransfer)();dt.items.add(file);input.files=dt.files;input.dispatchEvent(new (W().Event)('change',{bubbles:true}));
     await waitFor(()=>A.A?.label==='field-note.md'&&/field-note\.md · LOCAL/.test(D().getElementById('title')?.textContent||''),12000,'local file loaded');
     A.restore({scale:'WORD',index:4,wpm:900});await sleep(120);
     const snap=A.snapshot(),stored=JSON.parse(W().sessionStorage.getItem('docs.reader.local.v1')||'null');
