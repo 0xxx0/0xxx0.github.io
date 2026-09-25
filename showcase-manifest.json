@@ -16,17 +16,21 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-25T15:45:00+08:00",
+        "updated_at": "2026-09-25T16:44:00+08:00",
         "work_modes": [
-          "OPERATE",
-          "VERIFY"
+          "RECOVER",
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: compact re-entry and addressed operation surface. CURRENT owns attention. CATCH UP / LOCAL derives a browser-local 'since last caught up' projection from CURRENT + manifest timestamps, prioritizing active/current heads without creating backlog or authority. ROUTES remains the manifest projection; CHANGE / GIT remains literal repository chronology; WAITING preserves human/world gates. Φ denotes host/authority; φ denotes current addressed focus.",
-      "receipt": "/returns/FIELD_INDEX_CATCHUP_2026-09-25.json",
+      "role": "FIELD INDEX root: compact re-entry and addressed operation surface. ⚑ BELAY derives one shared re-entry anchor from ORIENTATION + CURRENT + exact Git HEAD; it creates no new state. CURRENT owns attention. CATCH UP / LOCAL remains browser-local; ROUTES remains the manifest projection; CHANGE / GIT remains literal repository chronology; WAITING preserves human/world gates. Φ denotes host/authority; φ denotes current addressed focus.",
+      "receipt": "/returns/FIELD_BELAY_2026-09-25.json",
       "machine_view": "FIELD",
-      "version": "0.8.4",
+      "version": "0.8.5",
       "transfer": [
+        "⚑ BELAY reuses ORIENTATION.anchor + CURRENT active front + exact Git HEAD as one human/agent re-entry flag; no new authority/store",
+        "current-head route/version drift is now deterministically checked in CI",
         "local-only catch-up projection: NOW + changed addressed heads since explicit local caught-up mark; derived from CURRENT + manifest, no new authority",
         "catch-up ranking prefers active/current heads but never creates priority, queue or read-state in canonical files",
         "route ontology diagnostic derives non-authoritative host / family_id / verb_id candidates from the manifest; it flags ambiguity without rewriting display language, creating priority, or failing CI",
@@ -4448,7 +4452,7 @@
       "family": "HOUSE / SPATIAL STATE",
       "operation": "REPRESENT",
       "state": "ACTIVE",
-      "version": "0.6",
+      "version": "0.6.1",
       "receipt": "/house/spatial/release.json",
       "role": "Runnable multi-projection spatial workbench: addressed house substrate plus TRACE ink-path, JSON round-trip/replay, temporal focus, live micro-law stacks and local path sediment.",
       "transfer": [
@@ -4483,10 +4487,10 @@
         }
       },
       "index": {
-        "updated_at": "2026-09-25T15:00:00+08:00",
+        "updated_at": "2026-09-25T16:44:00+08:00",
         "work_modes": [
           "RECOVER",
-          "SPECIFY"
+          "VERIFY"
         ]
       },
       "family_href": "/house/",
@@ -5334,7 +5338,7 @@
     },
     {
       "href": "/poetry/map/",
-      "title": "POEM MAP 0.2.1",
+      "title": "POEM MAP 0.2.2",
       "kind": "workbench",
       "parent": "/poetry/",
       "family": "PATH / POETRY",
