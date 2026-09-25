@@ -34,7 +34,8 @@
     "STALE TRACE ≠ CURRENT PROOF. Changing FIELD focus invalidates the current trace binding until the trace is rerun against the new addressed resource.",
     "WAITING != QUEUE. Human/world dependencies are visible without acquiring machine execution priority or authority.",
     "TELEMETRY ≠ MATERIAL MUTATION. Generated heartbeat/status refresh commits may remain in exact Git chronology but must not drive material freshness, catch-up, priority or work selection.",
-    "AUTONOMY ≠ BUSYNESS. When the highest-value frontier is human/world-gated, one bounded directly-related fallback may prepare it; then STOP rather than forage unrelated archive work."
+    "AUTONOMY ≠ BUSYNESS. When the highest-value frontier is human/world-gated, one bounded directly-related fallback may prepare it; then STOP rather than forage unrelated archive work.",
+    "SIGNALS CONVERGE AT FOCUS, NOT AUTHORITY. Changed-route witnesses, CURRENT human/world gates and GitHub issues may feed one held-object action aperture, but each source retains its own lifecycle and mutation authority."
   ],
   "root_order": {
     "default": "AXIAL_LATEST",
@@ -122,7 +123,8 @@
       "admission": "An entry needs stable address/route identity plus state before glyph-only compression is lawful.",
       "return": "Activating a glyph must resolve to the same addressed object; the glyph never becomes a second taxonomy or store."
     },
-    "root_catchup": "CATCH UP / LOCAL is a derived orientation projection over CURRENT + manifest route timestamps. MARK CAUGHT UP writes only browser-local context; REWIND restores the prior local boundary from a bounded history stack, or clears a legacy mark when no predecessor was retained. Neither operation mutates canonical FIELD state or claims the user read/understood anything."
+    "root_catchup": "FIELD / CATCH + ACT is a derived local signal projection, not a queue. It combines unresolved changed-route witnesses, explicit CURRENT human/world gates, and public GitHub issues while preserving source class. Changed routes use per-route browser-local SEEN state; REWIND undoes the most recent SEEN or MARK ALL acknowledgement. Canonical CURRENT, manifest, GitHub and WAITING state are never resolved by local acknowledgement.",
+    "root_action_aperture": "The existing capability aperture is visible by default. One held manifest route remains the object; at most three root-level operations are exposed: native OPEN/DO, COPY ACTION as an authority-NONE handoff packet, and TRACE. Domain-specific move names remain hints owned by native hosts; FIELD must not pretend to execute unsupported native effects."
   },
   "query_semantics": {
     "BOTTLENECK": {
