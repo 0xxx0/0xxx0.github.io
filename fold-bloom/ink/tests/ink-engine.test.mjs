@@ -35,3 +35,29 @@ test('rgba is stable sized opaque output',()=>{
   const rgba=f.rgba();assert.equal(rgba.length,32*24*4);
   for(let i=3;i<rgba.length;i+=4)assert.equal(rgba[i],255);
 });
+
+
+test('strokeSegment interpolates a continuous directional brush path',()=>{
+  const f=new InkField({width:96,height:64,seed:14});
+  f.strokeSegment(.18,.5,.82,.5,{mode:'SUMI',water:.6,load:.75,size:.075,pressure:.7,speed:5,strokeSeed:3});
+  const y=Math.floor(f.height*.5),x0=Math.floor(f.width*.22),x1=Math.floor(f.width*.78);
+  let run=0,maxGap=0,center=0,off=0;
+  for(let x=x0;x<=x1;x++){
+    const p=f.pigment[x+y*f.width];center+=p;
+    if(p<.02){run++;maxGap=Math.max(maxGap,run)}else run=0;
+    off+=f.pigment[x+Math.max(0,y-14)*f.width];
+  }
+  assert.ok(center>2);
+  assert.ok(maxGap<=2,'centerline gap '+maxGap);
+  assert.ok(center>off*2.2);
+});
+
+test('dry stroke keeps coherent bristle gaps without becoming sparse spray',()=>{
+  const f=new InkField({width:96,height:64,seed:4});
+  f.strokeSegment(.2,.35,.8,.68,{mode:'DRY',water:.7,load:.85,size:.085,pressure:.55,speed:8,strokeSeed:11});
+  let active=0;
+  for(const p of f.pigment)if(p>.025)active++;
+  assert.ok(active>90);
+  assert.ok(active<1600);
+  assert.ok(f.metrics().water>0);
+});
