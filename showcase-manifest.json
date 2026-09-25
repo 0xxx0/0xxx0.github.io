@@ -7442,6 +7442,55 @@
         "next_if_pass": "Use the contract only where it removes a concrete stale-projection/authority/context-copy problem; do not promote biological vocabulary or add a new root dashboard.",
         "next_if_fail": "Keep Φ/φ as notation and identify the exact missing host-boundary primitive instead of expanding the metaphor."
       }
+    },
+    {
+      "href": "/spikes/fold-bloom-message-replay-001/",
+      "title": "FOLD//BLOOM · MESSAGE REPLAY H1",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "REPLAY / SHARE",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "tier": "FIELD",
+      "role": "Isolated falsification specimen for Hermes replay/message H1: one tiny source-addressed message/operation score replays deterministically, survives a bounded timing edit, and shares by URL without recording frames or creating a second source/LIVE store. Architectural evidence only; social/lived value remains open.",
+      "index": {
+        "updated_at": "2026-09-25T09:44:00+08:00",
+        "work_modes": [
+          "PLAY",
+          "INSPECT",
+          "VERIFY"
+        ]
+      },
+      "evidence": [
+        {
+          "claim": "same normalized score produces the same deterministic replay signature",
+          "source": "spikes/fold-bloom-message-replay-001/selftest.mjs",
+          "status": "TESTED"
+        },
+        {
+          "claim": "share-link encode/decode preserves normalized packet and exact source identity",
+          "source": "spikes/fold-bloom-message-replay-001/selftest.mjs",
+          "status": "TESTED"
+        },
+        {
+          "claim": "social/lived communicative value is not established by machine checks",
+          "source": "returns/FOLD_BLOOM_MESSAGE_REPLAY_H1_2026-09-25.json",
+          "status": "OPEN_HUMAN_GATE"
+        }
+      ],
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can a short source-addressed performance be represented canonically as a compact deterministic message/operation score before committing to video/GIF capture?",
+        "baseline": "Sharing an experiential run as rendered video would preserve appearance but lose editable operation structure, while recording every frame would inflate state and blur source/projection authority.",
+        "mutation": "Represent one synthetic addressed source interval as a small message + operation tape; deterministically render it, retime one BLOOM event, and encode the score into a share URL.",
+        "evidence_gate": "Exact encode/decode round trip AND same-packet replay signature equality AND bounded edit changes signature without changing source id AND packet <1600 bytes AND browser specimen boots.",
+        "next_if_pass": "TRANSFER only: keep compact score as a candidate expressive artifact contract; seek ordinary share/replay use before any LIVE integration or media capture work.",
+        "next_if_fail": "COMPOST the score-first claim; do not build a replay backend or video export layer to rescue it."
+      }
     }
   ],
   "release_law": [
