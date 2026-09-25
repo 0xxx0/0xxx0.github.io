@@ -8,6 +8,18 @@ export const DUET_WIN_HITS = 5;
 export const GARDEN_GENERATIONS = 3;
 export const GARDEN_MOVES = 4;
 export const GARDEN_SURVIVAL_TARGET = 2;
+export const HEX_LINES = 6;
+
+export const TRIGRAMS = Object.freeze({
+  '111':Object.freeze({key:'QIAN',glyph:'☰',han:'乾',image:'HEAVEN'}),
+  '110':Object.freeze({key:'DUI',glyph:'☱',han:'兌',image:'LAKE'}),
+  '101':Object.freeze({key:'LI',glyph:'☲',han:'離',image:'FIRE'}),
+  '100':Object.freeze({key:'ZHEN',glyph:'☳',han:'震',image:'THUNDER'}),
+  '011':Object.freeze({key:'XUN',glyph:'☴',han:'巽',image:'WIND'}),
+  '010':Object.freeze({key:'KAN',glyph:'☵',han:'坎',image:'WATER'}),
+  '001':Object.freeze({key:'GEN',glyph:'☶',han:'艮',image:'MOUNTAIN'}),
+  '000':Object.freeze({key:'KUN',glyph:'☷',han:'坤',image:'EARTH'}),
+});
 
 export const RELATION_LEGEND = Object.freeze([
   ['SAME','BLOOM'],
@@ -44,6 +56,30 @@ export function relationName(a,b,n=6){
   if(d===2)return 'FAR';
   return 'OPPOSITE';
 }
+export function lineBitForVerb(verb){
+  const v=String(verb||'').toUpperCase();
+  if(v==='BLOOM'||v==='FOLD')return 1;
+  if(v==='SPLIT'||v==='RETURN')return 0;
+  return null;
+}
+export function lineMark(bit){return Number(bit)===1?'━━━':'━ ━'}
+export function trigramForBits(bits=[]){
+  if(!Array.isArray(bits)||bits.length<3)return null;
+  const key=bits.slice(0,3).map(x=>Number(x)===1?'1':'0').join('');
+  return TRIGRAMS[key]||null;
+}
+export function hexPair(lines=[]){
+  const xs=Array.isArray(lines)?lines.slice(0,HEX_LINES):[];
+  return {complete:xs.length===HEX_LINES,lines:xs,lower:trigramForBits(xs.slice(0,3)),upper:trigramForBits(xs.slice(3,6))};
+}
+export function hexOutcome(target=[],actual=[]){
+  const t=Array.isArray(target)?target.slice(0,HEX_LINES):[],a=Array.isArray(actual)?actual.slice(0,HEX_LINES):[];
+  const complete=a.length===HEX_LINES&&t.length===HEX_LINES;
+  const matches=a.reduce((n,x,i)=>n+(i<t.length&&Number(x)===Number(t[i])?1:0),0);
+  const clear=complete&&matches===HEX_LINES;
+  return {complete,clear,matches,label:clear?'HEXAGRAM LOCKED':matches+' / '+HEX_LINES+' LINES'};
+}
+
 export function runOutcome(hits,releases=RUN_LENGTH){
   const complete=Number(releases)>=RUN_LENGTH;
   const clear=complete&&Number(hits)>=RUN_WIN_HITS;
