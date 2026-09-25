@@ -7,7 +7,7 @@ import {
 } from './play-core.js?v=0.5';
 import {stateDescriptor,stateChange,formatState,movingLines} from '../state-language.js?v=0.1';
 
-const VERSION='FOLD_BLOOM_PLAY_0.5.2';
+const VERSION='FOLD_BLOOM_PLAY_0.5.3';
 const VALID=new Set(['PLAY','PUZZLE','PATH','DUET','GARDEN','ZEN']);
 const ALIASES=new Map([['CONCERT','PLAY'],['RUN','PLAY'],['HEX','PUZZLE'],['YIJING','PUZZLE'],['ICHING','PUZZLE'],['PAR','PATH'],['TWO-DIAL','DUET'],['TWO_DIAL','DUET'],['ECOLOGY','GARDEN']]);
 const params=new URLSearchParams(location.search);
@@ -55,9 +55,16 @@ function injectStyle(){
   .fbGameMission{min-width:0;padding:7px 10px}.fbGameMission b{display:block;font-size:10px;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fbGameMission span{display:block;margin-top:3px;font-size:7px;letter-spacing:.08em;color:rgba(255,255,255,.58);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .fbGameProgress{display:flex;align-items:center;gap:4px;padding:5px;border-left:1px solid rgba(255,255,255,.12);overflow-x:auto}.fbGameProgress b{font-size:8px;min-width:60px;text-align:center}.fbGameProgress button{min-width:36px;height:34px;padding:0 5px;font-size:6.5px;font-weight:1000;pointer-events:auto}.fbGameProgress button.on{background:#fff;color:#05070b;border-color:#fff}
   .fbGameFeedback{margin-top:5px;border:1px solid transparent;background:rgba(5,8,12,.88);font:800 8px/1.35 ui-monospace,monospace;letter-spacing:.08em;text-align:center;padding:0 8px;max-height:0;opacity:0;overflow:hidden;transition:max-height .12s ease,opacity .12s ease,padding .12s ease}.fbGameFeedback.on{max-height:34px;opacity:1;padding:7px 8px;border-color:rgba(255,255,255,.13)}.fbGameFeedback[data-kind="hit"]{background:rgba(255,255,255,.94);color:#05070b}.fbGameFeedback[data-kind="miss"]{color:rgba(255,255,255,.72)}
+  html[data-fb-play-mode="PLAY"] .fbGameBar{border-color:rgba(114,228,182,.34)}
+  html[data-fb-play-mode="PUZZLE"] .fbGameBar{border-color:rgba(255,215,109,.62);box-shadow:inset 3px 0 0 rgba(255,215,109,.82)}
+  html[data-fb-play-mode="PATH"] .fbGameBar{border-color:rgba(215,180,109,.46);box-shadow:inset 3px 0 0 rgba(215,180,109,.68)}
+  html[data-fb-play-mode="DUET"] .fbGameBar{border-color:rgba(123,213,255,.60);box-shadow:inset 3px 0 0 rgba(123,213,255,.85)}
+  html[data-fb-play-mode="GARDEN"] .fbGameBar{border-color:rgba(114,228,182,.58);box-shadow:inset 3px 0 0 rgba(114,228,182,.78)}
+  html[data-fb-play-mode="ZEN"] .fbGameBar{border-color:rgba(255,255,255,.08);background:rgba(5,8,12,.60)}
+
   .fbDuetPanel,.fbHexPanel{position:absolute;left:50%;bottom:calc(max(10px,env(safe-area-inset-bottom)) + 72px);transform:translateX(-50%);z-index:7;width:min(620px,calc(100vw - 20px));border:1px solid rgba(255,255,255,.16);background:rgba(5,8,12,.93);padding:9px;display:none;gap:8px;align-items:center;text-align:center;pointer-events:none}.fbDuetPanel{grid-template-columns:1fr auto 1fr}.fbDuetPanel.on{display:grid}.fbHexPanel.on{display:block}
   .fbHexTitle{font:800 8px/1.4 ui-monospace,monospace;letter-spacing:.09em}.fbHexTitle b{font-size:12px}.fbHexLines{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:8px 0}.fbHexLine{border:1px solid rgba(255,255,255,.11);padding:6px 2px;font:900 11px/1 ui-monospace,monospace}.fbHexLine small{display:block;margin-top:4px;font-size:6px;color:rgba(255,255,255,.45)}.fbHexNow .fbHexLine.hit{background:#fff;color:#05070b}.fbHexLegend{font:7px/1.45 ui-monospace,monospace;letter-spacing:.06em;color:rgba(255,255,255,.48)}
-  .fbDialBox{border:1px solid rgba(255,255,255,.12);padding:7px;font:700 8px/1.3 ui-monospace,monospace;letter-spacing:.08em}.fbDialBox b{display:block;font-size:18px;margin-top:3px}.fbDialCtl{display:flex;gap:4px;justify-content:center;margin-top:5px}.fbDialCtl button{width:44px;height:34px;font-size:16px;font-weight:900;pointer-events:auto}
+  .fbDialBox{border:1px solid rgba(255,255,255,.22);padding:8px;font:800 8px/1.3 ui-monospace,monospace;letter-spacing:.09em}.fbDialBox:first-child{border-color:rgba(123,213,255,.55)}.fbDialBox:nth-child(3){border-color:rgba(239,120,73,.55)}.fbDialBox b{display:block;font-size:22px;margin-top:3px}.fbDialCtl{display:flex;gap:4px;justify-content:center;margin-top:5px}.fbDialCtl button{width:44px;height:34px;font-size:16px;font-weight:900;pointer-events:auto}.fbDuetActions{grid-column:1/-1;display:flex;gap:5px;justify-content:center}.fbDuetActions button{pointer-events:auto;min-height:34px;padding:6px 9px;font:900 7px ui-monospace,monospace;letter-spacing:.08em}
   .fbRelation{min-width:150px;font:800 8px/1.35 ui-monospace,monospace;letter-spacing:.08em}.fbRelation b{display:block;font-size:14px;margin:3px 0}.fbLegend{grid-column:1/-1;font:7px/1.4 ui-monospace,monospace;letter-spacing:.07em;color:rgba(255,255,255,.5)}
   .fbResult,.fbGardenChoice{position:absolute;inset:0;z-index:12;background:rgba(3,5,8,.76);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:18px;pointer-events:none}.fbResult.on,.fbGardenChoice.on{display:flex}
   .fbResultCard,.fbGardenCard{width:min(560px,100%);border:1px solid rgba(255,255,255,.18);background:#080c12;padding:18px;pointer-events:auto}.fbResultCard .ey,.fbGardenCard .ey{font-size:8px;color:#74808d;letter-spacing:.16em}.fbResultCard h2,.fbGardenCard h2{font-size:clamp(34px,10vw,68px);line-height:.9;letter-spacing:-.055em;margin:8px 0 12px}.fbResultCard p,.fbGardenCard p{font:10px/1.55 system-ui,-apple-system,sans-serif;color:#aab5c1;margin:0 0 14px}
@@ -97,7 +104,7 @@ function injectEntry(){
   const card=q('#intro .card');if(!card||q('#fbPlayEntry'))return;
   const lede=card.querySelector('.lede');if(lede)lede.textContent='Music shapes the road. You write it. Turn until the center predicts the CALL — BLOOM, FOLD, SPLIT or RETURN — then release.';
   const box=document.createElement('div');box.id='fbPlayEntry';box.className='fbPlayEntry';
-  box.innerHTML='<div class="modes"><button data-play-mode="PLAY">RUN · HIT 6 / 8</button><button data-play-mode="PUZZLE">HEX · FORM → CHANGE</button><button data-play-mode="PATH">PATH · SHORTEST TURNS</button><button data-play-mode="DUET">TWO DIAL · RELATIONS</button><button data-play-mode="GARDEN">ECOLOGY · INHERIT</button><button data-play-mode="ZEN">ZEN · FREE</button></div><div class="law"><b>TURN → MATCH SHAPE → RELEASE.</b> △ TRIANGLE / ○ CIRCLE / □ SQUARE each remember their own last anchor. Same-shape links and cascades make BLOOM / FOLD / SPLIT / RETURN. <a class="fbFanLink" href="../../foundry/axial/fan8-print.svg" target="_blank" rel="noopener" style="color:#dce3ea;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28)">FAN/8 PRINT ↗</a></div>';
+  box.innerHTML='<div class="modes"><button data-play-mode="PLAY">RUN · HIT 6 / 8</button><button data-play-mode="PUZZLE">HEX · ☰☷ · FORM → CHANGE</button><button data-play-mode="PATH">PATH · ★ · SHORTEST TURNS</button><button data-play-mode="DUET">TWO DIAL · ◎ × ◎</button><button data-play-mode="GARDEN">ECOLOGY · ◎◎◎ · INHERIT</button><button data-play-mode="ZEN">ZEN · ○ · FREE</button></div><div class="law"><b>TURN → MATCH SHAPE → RELEASE.</b> △ TRIANGLE / ○ CIRCLE / □ SQUARE each remember their own last anchor. Same-shape links and cascades make BLOOM / FOLD / SPLIT / RETURN. <a class="fbFanLink" href="../../foundry/axial/fan8-print.svg" target="_blank" rel="noopener" style="color:#dce3ea;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28)">FAN/8 PRINT ↗</a></div>';
   card.insertBefore(box,card.querySelector('.startRow')||null);
   box.querySelectorAll('[data-play-mode]').forEach(btn=>btn.addEventListener('click',()=>enterFromIntro(btn.dataset.playMode)));
   const fieldBtn=q('#playBtn');
@@ -109,8 +116,8 @@ function injectHud(){
   root.innerHTML='<div class="fbGameBar"><div class="fbGameMode" id="fbMode">RUN</div><div class="fbGameMission"><b id="fbObjective">GOAL —</b><span id="fbCoach">TURN THE RING</span></div><div class="fbGameProgress"><b id="fbProgress">0 / 8</b><button data-switch="PLAY">RUN</button><button data-switch="PUZZLE">HEX</button><button data-switch="PATH">PAR</button><button data-switch="DUET">2D</button><button data-switch="GARDEN">ECO</button><button data-switch="ZEN">ZEN</button></div></div><div class="fbGameFeedback" id="fbGameFeedback" aria-live="polite"></div>';
   document.body.appendChild(root);root.querySelectorAll('[data-switch]').forEach(btn=>btn.addEventListener('click',()=>start(btn.dataset.switch)));
   duetPanel=document.createElement('div');duetPanel.id='fbDuetPanel';duetPanel.className='fbDuetPanel';
-  duetPanel.innerHTML='<div class="fbDialBox">RING / DIAL A<b id="fbDialA">0</b></div><div class="fbRelation"><span id="fbRelationName">SAME</span><b id="fbRelationVerb">BLOOM</b><span id="fbDuetState">MAKE BOTH AGREE</span></div><div class="fbDialBox">PARTNER / DIAL B<b id="fbDialB">0</b><div class="fbDialCtl"><button id="fbDialMinus" aria-label="Partner dial left">−</button><button id="fbDialPlus" aria-label="Partner dial right">+</button></div></div><div class="fbLegend">SAME → BLOOM · NEAR → FOLD · FAR → RETURN · OPPOSITE → SPLIT</div>';
-  document.body.appendChild(duetPanel);q('#fbDialMinus').onclick=()=>bumpPartner(-1);q('#fbDialPlus').onclick=()=>bumpPartner(1);
+  duetPanel.innerHTML='<div class="fbDialBox">OUTER / DIAL A · ROAD<b id="fbDialA">0</b></div><div class="fbRelation"><span id="fbRelationName">SAME</span><b id="fbRelationVerb">BLOOM</b><span id="fbDuetState">MAKE BOTH AGREE</span></div><div class="fbDialBox">INNER / DIAL B · RELATION<b id="fbDialB">0</b><div class="fbDialCtl"><button id="fbDialMinus" aria-label="Partner dial left">−</button><button id="fbDialPlus" aria-label="Partner dial right">+</button></div></div><div class="fbDuetActions"><button id="fbLandscape">LANDSCAPE ↔</button><button id="fbFullTwoDial">FULL TWO DIAL ↗</button></div><div class="fbLegend">OUTER A = LIVE ROAD · INNER B = SECOND DIAL · SAME → BLOOM · NEAR → FOLD · FAR → RETURN · OPPOSITE → SPLIT</div>';
+  document.body.appendChild(duetPanel);q('#fbDialMinus').onclick=()=>bumpPartner(-1);q('#fbDialPlus').onclick=()=>bumpPartner(1);q('#fbLandscape').onclick=()=>requestLandscape();q('#fbFullTwoDial').onclick=()=>window.open('../two-dial/?mode=DUET','fold-bloom-two-dial');
   hexPanel=document.createElement('div');hexPanel.id='fbHexPanel';hexPanel.className='fbHexPanel';
   hexPanel.innerHTML='<div class="fbHexTitle">TARGET <b id="fbHexTargetName">—</b></div><div class="fbHexLines fbHexTarget" id="fbHexTarget"></div><div class="fbHexTitle">YOU <b id="fbHexNowName">—</b></div><div class="fbHexLines fbHexNow" id="fbHexNow"></div><div class="fbHexLegend">FORM: BUILD 6 LINES BOTTOM → TOP · CHANGE: RING POSITION ADDRESSES LINE 1–6; RELEASE WRITES SOLID/BROKEN · SOLID = BLOOM/FOLD · BROKEN = SPLIT/RETURN</div>';
   document.body.appendChild(hexPanel);
@@ -123,6 +130,18 @@ function injectHud(){
 }
 function flash(text,kind=''){
   const el=q('#fbGameFeedback');if(!el)return;clearTimeout(feedbackTimer);el.textContent=text;el.dataset.kind=kind;el.classList.remove('on');void el.offsetWidth;el.classList.add('on');feedbackTimer=setTimeout(()=>el.classList.remove('on'),1050);
+}
+async function requestLandscape(){
+  if(innerWidth>innerHeight){flash('LANDSCAPE · BOTH DIALS VISIBLE','hit');return true;}
+  let entered=false;
+  try{
+    if(screen.orientation?.lock){
+      if(!document.fullscreenElement&&document.documentElement.requestFullscreen){await document.documentElement.requestFullscreen({navigationUI:'hide'});entered=true;}
+      await screen.orientation.lock('landscape');flash('LANDSCAPE LOCKED · TWO DIAL','hit');return true;
+    }
+  }catch(_){if(entered&&document.fullscreenElement)try{await document.exitFullscreen()}catch(_){}}
+  flash('ROTATE PHONE ↔ · TWO DIAL WANTS WIDTH','');
+  return false;
 }
 function bumpPartner(delta){duetB=wrap(duetB+delta,6);if(runtime)update(runtime.state());}
 function signedRotationToSlot(state,slot){
@@ -155,7 +174,7 @@ function resetModeState(){
   gardenGeneration=1;gardenEvents=[];gardenTrait=null;gardenSurvived=0;gardenLineage=[];gardenLastResult=null;gardenChoice?.classList.remove('on');
 }
 function start(nextMode='PLAY'){
-  mode=VALID.has(nextMode)?nextMode:'PLAY';runtime?.autopilot?.stop?.();const intro=q('#intro');if(intro){intro.classList.remove('on');intro.hidden=true;}result?.classList.remove('on');document.documentElement.dataset.fbPlayMode=mode;document.documentElement.dataset.fbSurface='active';resetModeState();
+  mode=VALID.has(nextMode)?nextMode:'PLAY';runtime?.autopilot?.stop?.();const intro=q('#intro');if(intro){intro.classList.remove('on');intro.hidden=true;}result?.classList.remove('on');document.documentElement.dataset.fbPlayMode=mode;document.documentElement.dataset.fbSurface='active';document.documentElement.dataset.fbInstrument=mode==='PUZZLE'?'HEX':mode==='DUET'?'TWO_DIAL':mode==='GARDEN'?'ECOLOGY':mode==='PATH'?'PATH':mode==='ZEN'?'ZEN':'RUN';resetModeState();
   const state=runtime.state();lastRotation=state.rotation;lastEventId=state.history?.at(-1)?.id??null;par=parFor(state);if(mode==='PUZZLE')hexPlan=makeHexPlan(state);root.classList.add('on');duetPanel.classList.toggle('on',mode==='DUET');hexPanel.classList.toggle('on',mode==='PUZZLE');renderHexPanel();update(state);
 }
 function finish(state){
@@ -258,7 +277,7 @@ function updateGarden(state,forecast,hitReady){
 function projectionView(state,forecast){
   const rel=relationVerb(wrap(state.rotation,6),duetB,6),relName=relationName(wrap(state.rotation,6),duetB,6);
   return {mode,active,releases,hits,stars,turns,par,forecast:forecast?{verb:forecast.verb,chain:forecast.chain}:null,
-    hex:{phase:hexPhase,target:hexPlan?.lines||[],from:hexFrom||[],lines:[...hexLines],changed:hexFrom?movingLines(hexFrom,hexLines):[],moves:hexChangeMoves,targetChanges:HEX_CHANGE_TARGET,moveLimit:HEX_CHANGE_LIMIT},
+    hex:{phase:hexPhase,target:hexPlan?.lines||[],from:hexFrom||[],lines:[...hexLines],targetPair:hexPair(hexPhase==='CHANGE'?(hexFrom||hexPlan?.lines||[]):(hexPlan?.lines||[])),currentPair:hexPair(hexLines),changed:hexFrom?movingLines(hexFrom,hexLines):[],moves:hexChangeMoves,targetChanges:HEX_CHANGE_TARGET,moveLimit:HEX_CHANGE_LIMIT},
     duet:{a:wrap(state.rotation,6),b:duetB,relation:relName,verb:rel,hits:duetHits},
     garden:{generation:gardenGeneration,trait:gardenTrait,survived:gardenSurvived,events:gardenEvents.length},
     path:{round:releases+1,stars,par,turns}};

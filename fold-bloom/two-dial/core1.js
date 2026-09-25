@@ -1,5 +1,5 @@
 'use strict';
-const APP_VERSION = '0.10.3-idle-witness',
+const APP_VERSION = '0.10.4-mode-embodiment',
   SCHEMA = 3,
   STORE = 'fold-bloom-product-v04',
   SAVE_STORE = 'fold-bloom-cassettes-v1';
@@ -312,8 +312,8 @@ function centers() {
         { x: W * 0.76, y: H * 0.56, r },
       ]
     : [
-        { x: W * 0.28, y: H * 0.55, r },
-        { x: W * 0.72, y: H * 0.55, r },
+        { x: W * 0.27, y: H * 0.55, r: Math.min(W * 0.22, H * 0.25) },
+        { x: W * 0.73, y: H * 0.55, r: Math.min(W * 0.22, H * 0.25) },
       ];
 }
 function relationFromPair(l = L, r = R) {

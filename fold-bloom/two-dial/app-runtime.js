@@ -335,6 +335,18 @@ function setVoice(v) { if(demo.on)stopDemo(true); prefs.voice=v; applyWorldAudio
 function setGroove(v) { if(demo.on)stopDemo(true); prefs.groove=v; emit('groove',{groove:v}); syncUI(); saveLocal(); toast(v); }
 function setScope(v) { if(demo.on)stopDemo(true); prefs.scope=v; emit('scope',{scope:v}); syncUI(); saveLocal(); toast(v); }
 function setMenuPane(v){ $('#drawer').dataset.pane=v; $$('#menuTabs [data-pane]').forEach(b=>b.classList.toggle('active',b.dataset.pane===v)); }
+async function requestWide(){
+  if(innerWidth>innerHeight){toast('WIDE · BOTH DIALS');return true;}
+  let entered=false;
+  try{
+    if(screen.orientation?.lock){
+      if(!document.fullscreenElement&&document.documentElement.requestFullscreen){await document.documentElement.requestFullscreen({navigationUI:'hide'});entered=true;}
+      await screen.orientation.lock('landscape');toast('LANDSCAPE · MATTER × HARMONY');return true;
+    }
+  }catch(_){if(entered&&document.fullscreenElement)try{await document.exitFullscreen()}catch(_){}}
+  toast('ROTATE PHONE ↔ · MATTER × HARMONY');
+  return false;
+}
 function openDrawer() {
   $('#drawer').classList.add('open');
   renderSaves();
@@ -361,6 +373,7 @@ $$('.choice[data-surface]').forEach(
       toast(b.dataset.surface);
     })
 );
+$('#wideBtn').onclick = () => { void requestWide(); };
 $('#menuBtn').onclick = openDrawer;
 $('#closeMenu').onclick = closeDrawer;
 $('#drawer').onclick = e => {
@@ -436,6 +449,8 @@ if (location.hash.startsWith('#s=')) {
   } catch (e) {}
 }
 if (!fromHash) loadLocal();
+const launchMode=String(new URLSearchParams(location.search).get('mode')||'').toUpperCase();
+if(['PLAY','OPEN','SCALE','DUET'].includes(launchMode))prefs.mode=launchMode;
 if (!phrasePlan?.length) beginPhrase(['BLOOM', 'FOLD', 'SPLIT', 'RETURN']);
 setMenuPane('PLAY');
 syncUI();
