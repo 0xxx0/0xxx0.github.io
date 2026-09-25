@@ -133,7 +133,7 @@
     "page_default_and_persisted": "PASS_STATIC",
     "guide_markers": "PASS_STATIC",
     "return_import_replay_contract": "PASS_STATIC",
-    "selftest_exposed": "YES_RUNTIME_EXECUTION_PENDING",
+    "selftest_exposed": "PASS_BROWSER_PR_351",
     "rendered_browser_smoke": "CI_REQUIRED",
     "checked_on": "2026-09-21",
     "local_corpus_static_contract": "PASS",
@@ -159,7 +159,8 @@
     "focus_return_browser_smoke": "PASS · fixed poem → MAP → L1T2 → caller URL → full reload → same source fingerprint + MAP + L1T2",
     "focus_return_merge": "52588dbb123edf2b25a8c380a88a8337a9d1a966",
     "candidate_operation_static": "PASS_SOURCE_CONTRACT",
-    "continue_insert_browser": "PENDING_PR_CI · selftest: CONTINUE inserts / REPLACE replaces / Han continuation compact"
+    "continue_insert_browser": "PASS_PR_351 · public-surface-check 36143041343 · CONTINUE inserts / REPLACE replaces / Han continuation compact",
+    "candidate_operation_merge": "5e34273bb46a09398e908d5952743ee877316ce0"
   },
   "updated": "2026-09-25",
   "next_bounded_test": {
