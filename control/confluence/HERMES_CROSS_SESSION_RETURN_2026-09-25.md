@@ -1,7 +1,7 @@
 # CHATGPT / HUMAN HANDOFF
 
 BRANCH: hermes/cross-session-convergence-20260925
-PR: #— (draft, created with this branch — number recorded in a follow-up commit)
+PR: #249 (draft)
 LAST VERIFIED MASTER: 012775db (2026-09-25 ~14:05 +08; master advances continuously — nexus board-refresh cron)
 LAST UPDATE: 2026-09-25 ~14:05 +08
 
