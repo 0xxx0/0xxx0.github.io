@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/return-index/v0.1",
-  "generated": "2026-09-22",
+  "generated": "2026-09-25",
   "source": "/showcase-manifest.json",
   "count": 50,
   "receipts_ok": 50,
@@ -63,14 +63,14 @@
     },
     {
       "href": "/",
-      "title": "FIELD INDEX / TRACE VERIFY",
+      "title": "FIELD INDEX / MOBILE CLARITY + REALITY GAP",
       "state": "ACTIVE",
-      "version": "0.6.2",
-      "operation": "ORIENT / TRACE / VERIFY",
-      "receipt": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
+      "version": "0.8.9",
+      "operation": "ORIENT / ACT / RETURN",
+      "receipt": "/returns/FIELD_INDEX_MOBILE_CLARITY_2026-09-25.json",
       "receipt_ok": true,
-      "receipt_schema": "return-receipt/v0.1",
-      "release_updated": "2026-09-22"
+      "receipt_schema": "confluence-return/v0.1",
+      "release_updated": "2026-09-25"
     },
     {
       "href": "/contact/",
