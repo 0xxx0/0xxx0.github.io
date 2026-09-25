@@ -2,7 +2,7 @@
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM FIELD LAB",
   "version": "0.3.1",
-  "state": "CANDIDATE",
+  "state": "SHIPPED",
   "operation": "TRAIN / EXPLORE",
   "route": "/fold-bloom/lab/",
   "date": "2026-09-25",
@@ -69,7 +69,10 @@
     "previous_merge_sha": "f56505f2ebc9d2fdcb17ea03929375ae1b6c8f92",
     "text_mark_node": "PENDING_CI: deterministic line/address/mark/handoff test",
     "verse_poem_map_handoff": "PENDING_CI: browser/static handoff contract; phone use remains human evidence",
-    "verse_cross_layer": "PENDING_HUMAN: VERSE → READ → LOCI → VERSE and VERSE → REPLAY on one real poem"
+    "verse_cross_layer": "PENDING_HUMAN: VERSE → READ → LOCI → VERSE and VERSE → REPLAY on one real poem",
+    "state_language_browser": "PASS · public-surface-check run 36128271563",
+    "state_language_merge_sha": "8e7db861a6dada691c78a66148c1d294f83fe77f",
+    "state_language_phone": "HUMAN_GATE"
   },
   "return": "/returns/FOLD_BLOOM_STATE_LANGUAGE_01_2026-09-25.json",
   "confluence": "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
