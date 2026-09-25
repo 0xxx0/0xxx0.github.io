@@ -1,11 +1,11 @@
 {
   "schema": "human-return/v0.2",
-  "updated": "2026-09-19",
+  "updated": "2026-09-25",
   "mode": "NORMAL",
   "live_status": false,
   "status_semantics": "Manual public state only. Staleness or silence is not evidence of danger.",
-  "message": "This is my stable public contact/continuity address. Keep the URL; channels behind it may change.",
-  "contact": "Use the signal composer, then send the resulting envelope through any direct channel we already share.",
+  "message": "This is my stable public contact address. Save or share it; channels behind it may change.",
+  "contact": "If this link reached you through a direct channel we already share, return the composed signal there. Otherwise use a direct line carried by a contextual capsule or another channel you already know belongs to me.",
   "if_unreachable": [
     "Try the normal direct channel again.",
     "Try one other channel you already know belongs to me.",
