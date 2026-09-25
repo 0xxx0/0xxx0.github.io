@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/recovery/env0/v0.1",
-  "status": "PARTIAL_EXACT_SOURCE_FROZEN",
+  "status": "EXACT_SOURCE_FAMILY_VERIFIED / REPO_EDITABLE_MASTERS_FROZEN / LIBRARY_PDFS_RAW_HASH_VERIFIED",
   "family": "ENV-0 / body-house interface",
   "recovered_at": "2026-09-20",
   "exact_repo_sources": [
@@ -25,17 +25,23 @@
       "name": "ENV0_Atlas_v0_1_A2.pdf",
       "sha256": "166412f75c8cf186c6ec69aa8cee2bf30322a17827c5b2b1e873f44b78f08945",
       "size_bytes": 105169,
-      "reason": "binary exact source located; not byte-copied into GitHub in this pass"
+      "reason": "Exact Library raw bytes materialized and SHA-256 verified; repo binary mirroring is optional/transport-limited.",
+      "file_library_id": "file_00000000b3e88208bb741d4a80de7285",
+      "byte_identity": "SOURCE_RAW_BYTES_VERIFIED",
+      "verified_at": "2026-09-26"
     },
     {
       "name": "ENV0_P0_BUILD_SHEET_A3.pdf",
       "sha256": "c7212e805ad0c5e866909bbc1fbae89db246fc2c5ba16592f4688284bed8840e",
       "size_bytes": 10195,
-      "reason": "binary exact source located; not byte-copied into GitHub in this pass"
+      "reason": "Exact Library raw bytes materialized and SHA-256 verified; repo binary mirroring is optional/transport-limited.",
+      "file_library_id": "file_0000000096888211b3850bc756151790",
+      "byte_identity": "SOURCE_RAW_BYTES_VERIFIED",
+      "verified_at": "2026-09-26"
     }
   ],
   "unique": "BODY → GARMENT → HARNESS → SUIT → FURNITURE → ROOM → HOUSE grammar with typed ports, reversible operations, print plates and a bounded physical build/test return.",
-  "rule": "Editable masters are frozen exactly. Do not claim the pack fully mirrored until the two PDFs are byte-copied and hash-verified.",
+  "rule": "Editable masters are frozen exactly. Both PDF source identities are now raw-byte/hash verified in Library. Do not confuse source verification with physical execution: the geometry-gauge/build RETURN remains unrun.",
   "verification_notes": [
     {
       "at": "2026-09-21",
@@ -44,6 +50,17 @@
       "sha256": "d9c0debfb664e91f6327273457ba106a0236b0aae6b5f78aab09a0ae64d47ccf",
       "size_bytes": 611,
       "provenance": "Hermes local verification independently surfaced the mismatch; canonical GitHub content was rechecked before correction."
+    },
+    {
+      "at": "2026-09-26",
+      "object": "ENV0_Atlas_v0_1_A2.pdf + ENV0_P0_BUILD_SHEET_A3.pdf",
+      "correction": "The earlier `pending byte-copy/hash verification` source gap is closed at Library raw-byte level.",
+      "proof": [
+        "ENV0_Atlas_v0_1_A2.pdf · 105169 B · SHA-256 166412f75c8cf186c6ec69aa8cee2bf30322a17827c5b2b1e873f44b78f08945",
+        "ENV0_P0_BUILD_SHEET_A3.pdf · 10195 B · SHA-256 c7212e805ad0c5e866909bbc1fbae89db246fc2c5ba16592f4688284bed8840e"
+      ],
+      "boundary": "No physical gauge/plate/test is claimed by this source verification."
     }
-  ]
+  ],
+  "latest_return": "/returns/ENV0_SOURCE_BYTE_VERIFICATION_2026-09-26.json"
 }
