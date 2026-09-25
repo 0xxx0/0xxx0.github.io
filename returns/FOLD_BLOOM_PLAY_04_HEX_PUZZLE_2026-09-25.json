@@ -1,0 +1,60 @@
+{
+  "schema": "field-return/v1",
+  "kind": "FOLD_BLOOM_PLAY_RETURN",
+  "version": "0.4",
+  "date": "2026-09-25",
+  "status": "CANDIDATE",
+  "branch": "chatgpt/fold-bloom-hex-puzzle-20260925",
+  "parent": "FOLD_BLOOM_PLAY_0.3",
+  "problem": "PLAY 0.3 PUZZLE was an efficiency/par challenge, not a compositional puzzle.",
+  "recovered": {
+    "formal_donor": {
+      "name": "Yijing / I Ching formal line grammar",
+      "facts": [
+        "two line states combine into eight three-line trigrams",
+        "six-line forms can be read as lower trigram lines 1–3 plus upper trigram lines 4–6",
+        "lines are conventionally read bottom to top"
+      ],
+      "source": "Stanford Encyclopedia of Philosophy — Chinese Philosophy of Change (Yijing)"
+    },
+    "project_donors": [
+      "LIVE topology consequences BLOOM / FOLD / SPLIT / RETURN",
+      "PLAY 0.3 per-release explanation",
+      "Two Dial relation algebra",
+      "Ecology inheritance pressure",
+      "FAN/8 physical controller projection"
+    ]
+  },
+  "delta": [
+    "PUZZLE now asks the player to construct an exact six-line target over six real LIVE releases.",
+    "Every three authored lines resolve to a named trigram; six lines expose lower + upper trigrams.",
+    "A deterministic simulation of the current LIVE state creates a reachable target, preserving a real solution path.",
+    "PATH preserves the prior shortest-turn star challenge rather than deleting it.",
+    "Forecast coaching tells the player whether the current LIVE consequence would write the required solid or broken line."
+  ],
+  "adapter": {
+    "solid": [
+      "BLOOM",
+      "FOLD"
+    ],
+    "broken": [
+      "SPLIT",
+      "RETURN"
+    ],
+    "boundary": "This is a Fold//Bloom topology adapter. It is not presented as traditional Yijing semantic correspondence or divination."
+  },
+  "invariant": [
+    "The puzzle writes the same LIVE road; it does not fork the engine.",
+    "Music/source context remains borrowed terrain, never borrowed authorship.",
+    "Target generation guarantees one valid start-state solution but alternative choices can change later reachability; consequence remains part of the puzzle.",
+    "Yijing grammar is provenance-bearing donor structure, not decorative theme."
+  ],
+  "verification": {
+    "play_core_tests": "PASS",
+    "public_surface_check": "PASS",
+    "critical_browser_smoke": "PASS",
+    "workflow_run": 36126538785,
+    "real_phone_touch_audio": "HUMAN_GATE"
+  },
+  "pr": 294
+}
