@@ -267,9 +267,9 @@
       "family": "ATLAS DAYLINE",
       "operation": "OPERATE",
       "state": "CANDIDATE",
-      "version": "0.1",
+      "version": "0.2",
       "showcase_card": false,
-      "role": "Mobile-first continuous execution projection over the existing Atlas Dayline DayState, live CURRENT and explicit reality handoffs. Holds one object/focus, exposes at most three lawful moves, records witness and emits exact RETURN; Atlas remains a deeper spatial projection.",
+      "role": "Mobile-first continuous execution projection over the existing Dayline DayState. Holds one object/focus, exposes at most three lawful moves, records witness, and for a source-linked COMMS task can return one OFFER_ONLY receipt to the exact native signal; native COMMS retains all state authority.",
       "receipt": "/dayline/release.json",
       "transfer": [
         "same poly-atlas-dayline-branch-i-public-v1 DayState; no second planner store",
@@ -277,7 +277,10 @@
         "live CURRENT read-only frame when no local object is held",
         "one object + 1–3 moves + witness + RETURN",
         "ordinary document scrolling on phone; no fixed instrument viewport",
-        "Atlas Dayline remains optional radial/scenario projection"
+        "Atlas Dayline remains optional radial/scenario projection",
+        "held COMMS source link survives into DayState without becoming canonical source",
+        "RETURN emits at most one source-addressed OFFER_ONLY packet for the held object",
+        "native source may explicitly accept/reject/defer; stale source state blocks mutation"
       ],
       "contract": {
         "accepts": {
@@ -310,7 +313,8 @@
           "kinds": [
             "bounded move set",
             "witness",
-            "poly-atlas-return-f v3"
+            "poly-atlas-return-f v3",
+            "atlas-dayline-source-return/v0.1 OFFER_ONLY"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -353,8 +357,8 @@
           },
           {
             "class": "NATIVE_SOURCE",
-            "status": "AVAILABLE",
-            "via": "preserved source route"
+            "status": "CANDIDATE",
+            "via": "session-local exact-source OFFER_ONLY → explicit native acceptance"
           },
           {
             "class": "HERMES",
@@ -365,7 +369,7 @@
         "physical_fit": "Ordinary mobile execution surface; no scroll lock or spatial viewport required."
       },
       "index": {
-        "updated_at": "2026-09-25T17:20:00+08:00",
+        "updated_at": "2026-09-25T19:45:00+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY"
@@ -5840,9 +5844,9 @@
       "family": "HUMAN PORT",
       "operation": "ADDRESS",
       "state": "CANDIDATE",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "showcase_card": false,
-      "role": "Exact conversation remains canonically addressable while DERIVED/HUMAN signals, obligation state, response coverage and one explicit source-addressed Dayline handoff remain unequal projections. No network send authority.",
+      "role": "Exact conversation remains canonical while DERIVED/HUMAN signals, obligation state, response coverage and explicit Dayline handoff/return remain unequal projections. COMMS may accept a matching OFFER_ONLY receipt only after exact source SHA + signal + message/range revalidation; no network send authority.",
       "evidence": {
         "checks": [
           "source identity is a SHA-256 of exact pasted text, computed in the browser; source_mutation is false",
@@ -5852,7 +5856,7 @@
         "return_path": "/port/"
       },
       "index": {
-        "updated_at": "2026-09-25T17:20:00+08:00",
+        "updated_at": "2026-09-25T19:45:00+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY"
@@ -5861,7 +5865,9 @@
       "tier": "FIELD",
       "transfer": [
         "one OPEN source-addressed signal → explicit Dayline obligation handoff; HUMAN/DERIVED provenance preserved",
-        "explicit Dayline obligation handoff currently lands on /dayline/ candidate"
+        "explicit Dayline obligation handoff currently lands on /dayline/ candidate",
+        "exact Dayline RETURN offer → native COMMS explicit COVER / DEFER / KEEP OPEN / DISMISS",
+        "concurrent/stale source change blocks Dayline offer mutation"
       ]
     },
     {
