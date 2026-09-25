@@ -216,6 +216,11 @@ check(daylineBridge.includes('COPY HANDOFF')&&daylineBridge.includes('fl-compact
 check(/#utilityBar button\{min-height:38px/.test(daylineCss)&&/\.plain-actions button\{min-height:38px/.test(daylineCss),'Atlas Dayline mobile primary target floor regressed');
 check(/body\[data-projection="plain"\]\{overflow-y:auto/.test(daylineCss),'Atlas Dayline mobile PLAIN scroll lock regressed');
 check(daylineApp.includes("syncDeviceNow")&&daylineApp.includes("clockWitness")&&daylineApp.includes("ORIENTATION_SNAPSHOT"),'Atlas Dayline clock/return witness regressed');
+check(daylineApp.includes("atlas-dayline-source-return/v0.1")&&daylineApp.includes("authority:'OFFER_ONLY'")&&daylineApp.includes("sourceLink"),'Atlas Dayline native-source return offer seam regressed');
+check(daylineBridge.includes("SOURCE RETURN / NATIVE ACCEPTANCE")&&daylineBridge.includes("return_to:h.return_to"),'Atlas Dayline source-link/return presentation regressed');
+const commsApp=read('port/comms/app.js'),commsHtml=read('port/comms/index.html');
+check(commsApp.includes("atlas.dayline.source-return.v01")&&commsApp.includes("DAYLINE OFFER →")&&commsApp.includes("state.sourceId"),'COMMS lost explicit Dayline source-return acceptance');
+check(commsHtml.includes("DAYLINE RETURN OFFER")&&commsHtml.includes("ACCEPT → COVERED")&&commsHtml.includes("KEEP OPEN"),'COMMS native return decision surface regressed');
 check(daylineSw.includes("atlas-dayline-i-v6"),'Atlas Dayline mobile reach cache version not v6');
 const showcaseNav=read('showcase-nav.js');
 check(/@media\(max-width:820px\)/.test(showcaseNav)&&/\.tab\.nav\{left:auto;right:/.test(showcaseNav),'Shared mobile route adapter returned to bottom-left obstruction');
