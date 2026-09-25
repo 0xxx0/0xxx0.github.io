@@ -170,6 +170,10 @@ jobs:
         env:
           SMOKE_ONLY: FOLD BLOOM convergence
         run: node tools/browser-smoke.mjs
+      - name: Test FOLD BLOOM LIVE mobile interaction regression
+        env:
+          SMOKE_ONLY: FOLD BLOOM LIVE mobile interaction regression
+        run: node tools/browser-smoke.mjs
       - name: Run critical browser smoke
         run: node tools/browser-smoke.mjs
       - name: Validate recovered source identities and media catalogue
