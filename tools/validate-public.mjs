@@ -244,7 +244,7 @@ check(fan8Svg.includes(fan8Legend),'FAN/8 printable relation legend drifted from
 const fan8Carrier=parse('control/TRANSDUCTIONS.json')?.instrument_cell?.physical_recipes?.FAN8;
 check(fan8Carrier?.artifact==='/foundry/axial/fan8-print.svg'&&fan8Carrier?.projection_cell==='FOLD'&&fan8Carrier?.authority==='NONE','FAN/8 lost TRANSDUCTIONS physical-recipe ownership');
 check(String(fan8Carrier?.reconstruction_boundary||'').includes('convergence synthesis'),'FAN/8 must preserve reconstruction boundary');
-check(fan8Spec.includes('Six leaves are **cyclic slots 0–5**')&&fan8Spec.includes('HOLD')&&fan8Spec.includes('LET FLY'),'FAN/8 spec lost six-slot + transaction mapping');
+check(fan8Spec.includes('S0 S1 S2 S3 S4 S5')&&fan8Spec.includes('HOLD')&&fan8Spec.includes('LET FLY'),'FAN/8 spec lost six-slot + transaction mapping');
 check(axialHtml.includes('./fan8-print.svg')&&fbPlay.includes('../../foundry/axial/fan8-print.svg'),'FAN/8 printable lost owning-host links');
 check(!fan8Spec.includes('camera vision is implemented'),'FAN/8 must not claim sensing implementation');
 const home=read('index.html');
