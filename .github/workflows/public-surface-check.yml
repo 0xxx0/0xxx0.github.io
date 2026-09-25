@@ -136,6 +136,11 @@ jobs:
         run: node --test fold-bloom/ink/tests/ink-engine.test.mjs
       - name: Test unified FOLD BLOOM RIDE state
         run: node --test fold-bloom/ride/tests/ride-state.test.mjs
+      - name: Test FOLD BLOOM Lab turn-RIDE + replay convergence
+        run: |
+          node --check fold-bloom/ride/step-core.js
+          node --check fold-bloom/replay/handoff-score.js
+          node --test fold-bloom/ride/tests/step-core.test.mjs fold-bloom/replay/tests/handoff-score.test.mjs
       - name: Test LISTEN preview render
         env:
           SMOKE_ONLY: FOLD BLOOM LISTEN preview render
