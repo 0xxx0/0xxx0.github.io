@@ -46,3 +46,6 @@
   .useSheet{bottom:max(132px,calc(env(safe-area-inset-bottom) + 122px))}
   .drop{max-height:calc(100dvh - 24px);overflow:auto;touch-action:pan-y}
 }
+
+.arcEdit{display:grid;gap:7px;border:1px solid rgba(255,255,255,.11);padding:8px;background:#050b10}.arcEdit[hidden]{display:none}.arcFields{display:grid;grid-template-columns:1fr 1fr;gap:6px}.arcActions,.pinNav{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.arcActions button,.pinNav button{border:1px solid var(--line);border-radius:0;background:#091019;color:#aab7c1;padding:8px 6px;font:800 7px ui-monospace;letter-spacing:.06em}.arcActions button:hover,.pinNav button:hover{color:var(--ink);border-color:#53616a}.pinNav button:disabled{opacity:.34}.pinNav #pinImportBtn{color:var(--blue);border-color:rgba(109,189,255,.34)}
+@media(max-width:760px){.arcFields{grid-template-columns:1fr 1fr}.arcActions,.pinNav{grid-template-columns:1fr 1fr}.arcActions #pinAperture,.pinNav #pinImportBtn{grid-column:1 / -1}}

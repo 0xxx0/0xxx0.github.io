@@ -7,7 +7,7 @@
 
 FOLD//BLOOM is no longer just the ring or the visualizer. The current family already contains:
 
-- **LISTEN 0.6** — local/source-aware audio map, beat/phrase/section/track scope, BOOKMARK / FLAG / ARC marks, source-local memory, Beat Saber v4 mapper-pack export.
+- **LISTEN 0.6** — local/source-aware audio map, beat/phrase/section/track scope, BOOKMARK / FLAG / editable ARC marks, source-local memory, source-safe annotation share/import, Beat Saber v4 mapper-pack export.
 - **LIVE 0.13** — source-aware ride / embodied terrain with authored FOLD / BLOOM / SPLIT / RETURN.
 - **READFIELD / RSVP 0.8.2** — exact source cursor across scale, RSVP, voice, regress, context and RETURN.
 - **FIELD LAB 0.2.1** — RIDE / PULSE / READ / LOCI / INK / DATA with explicit source/focus carry.
@@ -15,7 +15,8 @@ FOLD//BLOOM is no longer just the ring or the visualizer. The current family alr
 - **TWO DIAL 0.10.3** — composition engine that may borrow timing while keeping harmony/form authorship.
 - **SET 0.1.1** — ordered source/seam authorship.
 - **VOICE 0.1** and **INK 0.2** — bounded practice projections.
-- **Beat Saber export** — generated mapper/test pack, distinct from the pinned future **FOLD//BLOOM SABER** dual-phone game proof.
+- **Beat Saber export** — generated mapper/test pack, distinct from **FOLD//BLOOM SABER 0.1**, whose dual-phone runtime is implemented and waiting on two-real-phone evidence.
+- **REPLAY 0.2** — LISTEN-linked expressive message score with exact addressed interval, word-level cue/hold/emphasis shaping, existing experience controls, compact self-contained share links, JSON authority and visual WebM export.
 
 The limiting factor is now **experience coherence and lived reuse**, not missing architecture.
 
@@ -129,15 +130,16 @@ Do **not** merge tool UIs. This strip is a witness/router only.
 
 ### FRONT 3 — DUAL-PHONE SABER PROOF
 
-Current pinned next playable transform:
+Implemented 0.1 runtime; current proof gate:
 
-- phone A = LEFT;
-- phone B = RIGHT;
+- phone A hosts + one local hand;
+- phone B pairs as the opposite hand over direct WebRTC;
 - existing EVENT TAPE supplies scheduled note events;
-- shared bounded session clock;
-- local hit/graze/miss witness + haptic/visual response;
+- bounded ping/pong clock offset estimation aligns controller motion;
+- motion reduces immediately to swing witnesses and local HIT/GRAZE/MISS outcomes;
 - RETURN stores source/event-tape identity + bounded hit trace;
-- no permanent backend and no raw continuous motion archive.
+- no permanent backend and no raw continuous motion archive;
+- repository proof is complete; two-real-phone feel/latency remains the human gate.
 
 Keep this distinct from Beat Saber pack export.
 
@@ -166,3 +168,13 @@ Each pass must improve at least one:
 - **RETURN quality**
 
 If a feature cannot name the job it improves, park it.
+
+## Recovered follow-ups / do not lose
+
+These are preserved continuations, not active-front inflation.
+
+- **PWA / LOCAL PLAYLIST INTAKE** — desired future convenience layer. Target: installable/offline shell + browser-local vault + user-selected files/folders/playlists. Do not claim arbitrary access to a device music library or replace exact source identity with playlist metadata. Existing M3U/M3U8/PLS intake is donor evidence, not yet a consumer-grade playlist browser.
+- **VOICE FOLLOW-UPS** — VOICE 0.1 is working enough to continue, but real singing/practice feedback remains the promotion gate. Improve target/pattern/session feedback only from observed use; do not drift into opaque quality scoring.
+- **REPLAY 0.2** — the previously requested LISTEN sync, word-level shaping with context, experience controls, compact payload-bearing share link and animation-like export are now shipped. Future replay work must extend this canonical surface, not revive the H1 spike as a competing lineage.
+- **EXPERIMENT SURFACES** — LAB / LOCI / INK / ATLAS / TWO DIAL remain donor-capable and have follow-ups, but a new feature becomes active only when it improves a named job or closes a recovered user friction.
+
