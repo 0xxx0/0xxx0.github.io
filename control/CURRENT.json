@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-25T17:00:22.013Z",
+  "updated": "2026-09-26T01:03:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -58,10 +58,10 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.12 / LOSSLESS DEPTH + FOLDED SIGNAL + MOBILE CLARITY + REALITY GAP + HELD ACTION + Φ/φ",
+      "head": "FIELD INDEX 0.8.13 / HELD→DAYLINE ACTION + LOSSLESS DEPTH + FOLDED SIGNAL + Φ/φ",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention; manifest owns route projection; exact Git remains CHANGE / GIT. One immediate PLAY action stays surfaced while recoverable navigation/instrument depth is folded under the existing NOW / RECOVER / CONVERGE router. CATCH + ACT remains folded, reversible and semantic; held actions preserve native authority.",
+      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention; manifest owns route projection; Git owns exact mutation chronology. Held non-root routes now expose an explicit DAYLINE → action using the already-proved atlas-dayline-handoff/v0.1 carrier. FIELD only serializes route identity/context and navigates; Dayline owns acceptance via ADD TO DAY, local mutation/undo, witness and RETURN. Existing folded signal, mobile clarity and lossless depth remain.",
       "evidence": [
         "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
         "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json",
@@ -70,10 +70,11 @@
         "/returns/FIELD_INDEX_REALITY_GAP_WORLD_LINK_2026-09-25.json",
         "/returns/FIELD_INDEX_MOBILE_CLARITY_2026-09-25.json",
         "/returns/FIELD_INDEX_SEMANTIC_SIGNAL_STRIP_2026-09-25.json",
-        "/returns/FIELD_INDEX_DEPTH_CONTRACTION_2026-09-25.json"
+        "/returns/FIELD_INDEX_DEPTH_CONTRACTION_2026-09-25.json",
+        "/returns/FIELD_INDEX_DAYLINE_ACTION_2026-09-26.json"
       ],
-      "version": "0.8.12",
-      "latest_return": "/returns/FIELD_INDEX_DEPTH_CONTRACTION_2026-09-25.json"
+      "version": "0.8.13",
+      "latest_return": "/returns/FIELD_INDEX_DAYLINE_ACTION_2026-09-26.json"
     },
     {
       "lineage": "scale-lens",
