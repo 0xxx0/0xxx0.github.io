@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-24",
+  "updated": "2026-09-25",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -52,10 +52,13 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8 / LIVE CHANGE + Φ/φ FOCUS + READFIELD + TRACE VERIFY",
+      "head": "FIELD INDEX 0.8.1 / ROUTE PULSE + Φ/φ FOCUS + FOLDED GIT",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one manifest route identity. Git master commits are the exact repository mutation chronology; showcase-manifest index dates are explicitly an unequal route/state projection, grouped compactly by manifest date rather than presented as literal changelog. Φ marks host/authority frame; φ marks the current addressed focus/projection and never upgrades authority. Root convergence KPI duplication is retired; CURRENT remains attention authority and the thin Φ / CURRENT line reports CURRENT state, local φ focus and live master HEAD. INTERPHASE 0.2 exposes that same route focus through the shared host protocol without creating a second FIELD selection authority."
+      "retained_function": "Fast repo re-entry around one manifest route identity. Primary root hierarchy is CURRENT/φ truth → FIELD FOCUS → compact ROUTES / LIVE SURFACE → WAITING / YOU → collapsed STATUS. Git master remains exact mutation chronology but is folded beneath the route surface and resolves file→route evidence only on demand; it no longer competes as a second primary feed. TRACE is preserved as one nested STATUS instrument opened from the existing TRACE doors. Φ marks host/authority; φ marks addressed focus. CURRENT remains attention authority.",
+      "evidence": [
+        "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
+      ]
     },
     {
       "lineage": "scale-lens",
@@ -918,5 +921,6 @@
     "hermes_skills": "/skills/README.md",
     "hermes_fold_bloom_replay_lane": "/control/packets/HERMES_FOLD_BLOOM_REPLAY_MESSAGE_LANE_2026-09-24.md",
     "hermes_fold_bloom_visual_lane": "/control/packets/HERMES_FOLD_BLOOM_VISUAL_GRAMMAR_LANE_2026-09-24.md"
-  }
+  },
+  "last_field_index_tzimtzum": "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
 }
