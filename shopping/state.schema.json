@@ -183,6 +183,13 @@
                 "minimum": 0
               }
             }
+          },
+          "lane": {
+            "enum": [
+              "ESSENTIAL",
+              "CAPABILITY",
+              "EXPEDITION"
+            ]
           }
         }
       }
