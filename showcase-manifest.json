@@ -1,6 +1,6 @@
 {
   "schema": "showcase-manifest/v1",
-  "updated": "2026-09-25",
+  "updated": "2026-09-26",
   "root": "/",
   "kernel": [
     "OBJECT",
@@ -5591,16 +5591,16 @@
     },
     {
       "href": "/poetry/map/",
-      "title": "POEM MAP 0.2.5",
+      "title": "POEM MAP 0.2.6",
       "kind": "workbench",
       "parent": "/poetry/",
       "family": "PATH / POETRY",
       "operation": "PROJECT",
       "state": "CANDIDATE",
-      "version": "0.2.5",
+      "version": "0.2.6",
       "receipt": "/poetry/map/release.json",
       "showcase_card": false,
-      "role": "Current Verse/FIELD-text authoring candidate 0.2.5: readable PAGE first; selected-token golden-angle focus wheel; FIELD NOW preload from live collaboration state; manual/local/opt-in English option sources; MAP/SETS/path/form/aperture depth only on demand; replayable RETURN. Exact source/focus can carry into READFIELD, FOLD//BLOOM FIELD LAB VERSE, or fail-closed exact 4×7 Han Verse Atlas study without transferring authoring authority. FIELD LAB and Verse Atlas now expose the exact same-origin caller for navigation-only re-entry. Projection returns now preserve view + selected token through a source-bound address witness that survives full reload without a shared store. CONTINUE inserts after the selected token; REPLACE swaps it. Both remain preview-first explicit author operations rather than provider authority.",
+      "role": "Current Verse/FIELD-text authoring candidate 0.2.6: readable PAGE first; selected-token golden-angle focus wheel; FIELD NOW preload from live collaboration state; manual/local/opt-in English option sources; MAP/SETS/path/form/aperture depth only on demand; replayable RETURN. Exact source/focus can carry into READFIELD, FOLD//BLOOM FIELD LAB VERSE, or fail-closed exact 4×7 Han Verse Atlas study without transferring authoring authority. FIELD LAB and Verse Atlas now expose the exact same-origin caller for navigation-only re-entry. Projection returns now preserve view + selected token through a source-bound address witness that survives full reload without a shared store. CONTINUE inserts after the selected token; REPLACE swaps it. Both remain preview-first explicit author operations rather than provider authority. NEXT LINE is now an explicit START_NEXT_LINE authoring move: blank next-line slots can be filled without mutating the anchor during TRY; occupied next lines are inserted rather than overwritten.",
       "transfer": [
         "Poemage linked poem/set/path entrances",
         "Foundry typed path laws",
@@ -5621,7 +5621,7 @@
         "Poetry Copilot / Pathweaver open-composition transfer: CONTINUE → INSERT_AFTER; REPLACE remains replacement"
       ],
       "index": {
-        "updated_at": "2026-09-25T21:50:00+08:00",
+        "updated_at": "2026-09-26T00:58:00+08:00",
         "work_modes": [
           "RECOVER",
           "RESEARCH",
@@ -5631,7 +5631,7 @@
         ]
       },
       "tier": "FIELD",
-      "latest_return": "/returns/VERSE_CONTINUE_INSERT_2026-09-25.json"
+      "latest_return": "/returns/VERSE_OPEN_LINE_2026-09-25.json"
     },
     {
       "href": "/port/",
