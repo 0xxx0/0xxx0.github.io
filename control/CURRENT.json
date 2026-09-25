@@ -155,7 +155,13 @@
         "/returns/VERSE_CONTINUE_INSERT_2026-09-25.json",
         "https://github.com/0xxx0/0xxx0.github.io/pull/351",
         "/returns/VERSE_OPEN_LINE_2026-09-25.json"
-      ]
+      ],
+      "repo_verification": {
+        "route_registration_run": 36163811888,
+        "public_surface_run": 36163811892,
+        "status": "PASS",
+        "browser": "critical browser smoke PASS · includes current Poem Map 0.2.6 NEXT LINE contract"
+      }
     },
     {
       "lineage": "sleeper-one-return",
