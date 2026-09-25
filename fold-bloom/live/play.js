@@ -1,12 +1,12 @@
-import { availableForecasts, forecastMatchesCall, gateCellIndex, TYPE_NAMES, N, rotateSteps, release as simulateRelease } from './engine.js';
+import { availableForecasts, forecastMatchesCall, gateCellIndex, TYPE_NAMES, N, rotateSteps, release as simulateRelease } from './engine.js?v=0.13';
 import {
   RUN_LENGTH,RUN_WIN_HITS,PUZZLE_ROUNDS,PUZZLE_WIN_STARS,DUET_ROUNDS,DUET_WIN_HITS,
   GARDEN_GENERATIONS,GARDEN_MOVES,GARDEN_SURVIVAL_TARGET,GARDEN_TRAITS,HEX_LINES,
   circularDistance,relationVerb,relationName,lineBitForVerb,lineMark,trigramForBits,hexPair,hexOutcome,
   runOutcome,puzzleStars,puzzleOutcome,duetOutcome,gardenGoalMet,gardenSummary,gardenProgress,gardenOutcome,wrap
-} from './play-core.js';
+} from './play-core.js?v=0.4.1';
 
-const VERSION='FOLD_BLOOM_PLAY_0.4';
+const VERSION='FOLD_BLOOM_PLAY_0.4.1';
 const VALID=new Set(['PLAY','PUZZLE','PATH','DUET','GARDEN','ZEN']);
 const ALIASES=new Map([['CONCERT','PLAY'],['RUN','PLAY'],['HEX','PUZZLE'],['YIJING','PUZZLE'],['ICHING','PUZZLE'],['PAR','PATH'],['TWO-DIAL','DUET'],['TWO_DIAL','DUET'],['ECOLOGY','GARDEN']]);
 const params=new URLSearchParams(location.search);
