@@ -8,7 +8,8 @@
     "WAITING registry migrated to 2 PARKED and 3 REMOVED historical dependencies; neither class manufactures a user obligation.",
     "DONE semantics replaced by local ACK; acknowledgement never closes CURRENT.",
     "OPEN PORTS renamed PORTS / EXIT STATE and exact statuses grouped into AVAILABLE, BUILD / PROVE, HUMAN / EXPORT BOUNDARY, VERIFY, PARKED / OPTIONAL, with unknowns kept OTHER / UNCLASSIFIED.",
-    "STATUS rail receives only PORTS build/prove, boundary, verify and unclassified counts; parked and available remain inside the PORTS fold."
+    "STATUS rail receives only PORTS build/prove, boundary, verify and unclassified counts; parked and available remain inside the PORTS fold.",
+    "Public-surface validation now asserts PORTS / EXIT STATE plus ACTIVE/PARKED/HISTORY WAITING lifecycle instead of pinning the retired OPEN PORTS label."
   ],
   "observed_counts": {
     "waiting": {
@@ -34,7 +35,8 @@
     "waiting_active_authority": "CURRENT.current_heads[].next_executable only",
     "port_total": 98,
     "manifest_updated": "2026-09-25",
-    "current_updated": "2026-09-25"
+    "current_updated": "2026-09-25",
+    "public_surface_contract": "UPDATED_TO_NEW_SEMANTICS"
   },
   "non_claims": [
     "PARKED dependencies are not deleted.",
