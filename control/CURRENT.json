@@ -368,18 +368,33 @@
       "retained_function": "Unequal cyclic vocabularies × fixed gate + moving position witness + lawful support + persistent overview → oriented source aperture. A selected FIELD route or HOUSE anchor can now cross a session-local TRACE handoff into FIELD without conflating address/focus with authority."
     },
     {
+      "lineage": "atlas-dayline",
+      "head": "ATLAS DAYLINE Branch I + FIELD LIVE 0.2 / COMMS HANDOFF",
+      "state": "STABLE + OPT_IN_LIVE_CANDIDATE",
+      "route": "/atlas-dayline/",
+      "retained_function": "Local-first SEE→SIMULATE→COMPARE→ACT→RUN≤3→RETURN planner. LIVE reads FIELD without repository mutation, accepts explicit COMMS TARGET handoffs as reversible local tasks, and emits one bounded Hermes task packet when the human explicitly requests it. Calendar/task binding remains adapter-required; private reality never becomes public repo state by implication.",
+      "evidence": [
+        "/atlas-dayline/release.json",
+        "/control/packets/HERMES_REALITY_BRIDGE_2026-09-25.json",
+        "/returns/REALITY_COMMS_DAYLINE_BRIDGE_2026-09-25.json"
+      ]
+    },
+    {
       "lineage": "comms",
-      "head": "HUMAN PORT 1.6.0-preview + CONTACT FRONT 0.4 + COMMS SPINE 0.1 / OBJECT APERTURE + ADDRESSED THREAD / FIELD INTAKE + CARE + BODY/FIT + CONTACT/LACONIC/Router",
+      "head": "HUMAN PORT 1.6.1-preview + CONTACT FRONT 0.4 + COMMS SPINE 0.1.1 + DAYLINE HANDOFF / OBJECT APERTURE + ADDRESSED THREAD / FIELD INTAKE + CARE + BODY/FIT + CONTACT/LACONIC/Router",
       "state": "ACTIVE + COMMS_SPINE_ACTIVE_CANDIDATE",
       "route": "/port/",
-      "retained_function": "One addressed object may enter as text/JSON/image/file and retain byte/provenance identity across lawful projections. CONTACT FRONT 0.4 is now a stable shareable human-facing address: the URL itself can be shared/copied, an optional RETURN VIA path stays sender-authored inside the envelope, and contextual capsules can carry bespoke direct lines without committing private contact data. It still has no server inbox and claims no delivery. COMMS SPINE 0.1 remains the specialized local communication projection: an exact thread is SHA-256 identified and turn/clause addressed; DERIVED ASK/PROMISE/DECISION/WAITING/CONSTRAINT cues remain advisory beside HUMAN marks; OPEN/COVERED/DEFERRED/DROPPED obligation state and response coverage remain source-addressed; bot packets and resumable RETURN preserve residue without chapter-scroll-first navigation or send authority. FIELD INTAKE remains reviewed durable admission.",
+      "retained_function": "One addressed object may enter as text/JSON/image/file and retain byte/provenance identity across lawful projections. CONTACT FRONT 0.4 remains the stable public human-facing address with no server inbox or false delivery claim. COMMS SPINE 0.1.1 preserves exact thread addresses and unequal DERIVED/HUMAN signals; only explicit TARGET selection may promote chosen signals into local Atlas Dayline tasks, preserving source id/message range/origin so TASK != SOURCE. Atlas Dayline LIVE 0.2 may copy one selected task as a bounded Hermes read/research/prepare packet; that packet creates no send, calendar, spending, account or canonical-repo authority. FIELD INTAKE remains reviewed durable admission.",
       "evidence": [
         "/port/comms/release.json",
         "/returns/HUMAN_PORT_COMMS_SPINE_2026-09-23.json",
         "/port/comms/",
         "/contact/release.json",
         "/returns/HUMAN_PORT_CONTACT_FRONT_2026-09-25.json",
-        "/contact/"
+        "/contact/",
+        "/atlas-dayline/release.json",
+        "/control/packets/HERMES_REALITY_BRIDGE_2026-09-25.json",
+        "/returns/REALITY_COMMS_DAYLINE_BRIDGE_2026-09-25.json"
       ]
     },
     {
