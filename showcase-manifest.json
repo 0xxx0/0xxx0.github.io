@@ -16,18 +16,21 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-25T18:22:00+08:00",
+        "updated_at": "2026-09-25T19:34:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: compact held-object/action and re-entry surface. CURRENT owns attention. FIELD / CATCH + ACT derives changed addressed routes, active CURRENT human/world gates and public GitHub issues without creating a backlog or authority. Changed routes resolve locally one by one with reversible SEEN; HOLD binds the same FIELD focus; OPEN/DO enters the native owner; the always-visible held-object aperture exposes at most three executable root moves plus native-operation hints. ROUTES remains the manifest projection; CHANGE / GIT remains literal repository chronology.",
+      "role": "FIELD INDEX root: compact held-object/action and re-entry surface. CURRENT owns attention. FIELD / CATCH + ACT derives changed addressed routes, active CURRENT reality gaps and public GitHub issues without creating a backlog or authority. REALITY GAP / YOU makes the repo→world proof boundary explicit: CURRENT supplies active gates, WAITING preserves dependency memory, COPY TEST emits only a local bounded test packet, and observed RETURN is required to change the claim. ROUTES remains the manifest projection; CHANGE / GIT remains literal repository chronology.",
       "receipt": "/returns/FIELD_INDEX_CATCHUP_2026-09-25.json",
       "machine_view": "FIELD",
-      "version": "0.8.7",
+      "version": "0.8.8",
       "transfer": [
+        "REALITY GAP / YOU derives active world-proof gates from CURRENT; CI/repo/synthetic proof never silently counts as real-device, physical or lived-use proof",
+        "COPY TEST emits a bounded local world-test packet from the existing gate; no new registry, queue or resolution authority",
+        "PRINT-01 public launcher is registered as a utility proof surface; canonical SVG remains geometry authority",
         "held action aperture promoted from ?cap=1 trial to default root behavior; OPEN/DO is native navigation, COPY ACTION emits authority-NONE handoff, TRACE remains evidence",
         "WAITING active gates no longer expose pseudo-action ACK LOCAL; HOLD selects the addressed object and DO opens the native owner",
         "one-by-one local catch-up: each changed route may be SEEN independently; REWIND reverses the most recent local acknowledgement; MARK ALL remains reversible convenience only",
@@ -80,7 +83,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_HELD_ACTION_APERTURE_2026-09-25.json"
+      "latest_return": "/returns/FIELD_INDEX_REALITY_GAP_2026-09-25.json"
     },
     {
       "href": "/app-atlas/",
@@ -7774,6 +7777,39 @@
         "next_if_pass": "Use/share one real LISTEN-sourced message artifact. Only direct-use friction may justify deeper timeline/media export work.",
         "next_if_fail": "Keep the H1 score core as donor; remove the promoted surface rather than building a general editor to rescue it."
       }
+    },
+    {
+      "href": "/physical/print-01/print.html",
+      "title": "PRINT-01 / FIELD ROUTE TILE",
+      "kind": "utility",
+      "parent": "/",
+      "family": "FIELD / PHYSICAL RETURN",
+      "operation": "PROVE",
+      "state": "UTILITY",
+      "version": "0.1.1",
+      "showcase_card": false,
+      "role": "Public print launcher for the canonical PRINT-01 SVG. It exists only to move one addressed proof fixture from repository bytes to paper without relying on ephemeral chat/library attachments. The SVG remains geometry authority; the launcher cannot promote physical proof.",
+      "index": {
+        "updated_at": "2026-09-25T19:34:00+08:00",
+        "work_modes": [
+          "OPERATE",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "receipt": "/returns/PRINT_01_DIGITAL_FIXTURE_2026-09-25.json",
+        "checks": [
+          "launcher references canonical /physical/print-01/field-route-tile-v0.1.svg",
+          "A4 landscape print law is explicit",
+          "100 mm ± 1 mm calibration remains the physical scale gate"
+        ],
+        "return_path": "/"
+      },
+      "transfer": [
+        "stable public access → canonical SVG → one print → measurement/photo RETURN",
+        "support surface only; no geometry or FIELD state authority"
+      ],
+      "tier": "FIELD"
     }
   ],
   "release_law": [
