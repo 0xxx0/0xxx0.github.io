@@ -100,8 +100,11 @@ jobs:
         run: node --test fold-bloom/beat/tests/event-tape.test.mjs fold-bloom/beat/tests/beatsaber-pack.test.mjs fold-bloom/tests/convergence-surface.test.mjs
       - name: Test FOLD BLOOM SABER dual-phone core
         run: node --test fold-bloom/saber/tests/saber-core.test.mjs
-      - name: Test FOLD BLOOM Lab READ + LOCI bridges
-        run: node --test fold-bloom/lab/tests/read-bridge.test.mjs fold-bloom/lab/tests/course.test.mjs fold-bloom/lab/tests/pulse-routing.test.mjs fold-bloom/lab/text-marks.test.mjs
+      - name: Test FOLD BLOOM Lab READ + LOCI + VERSE bridges
+        run: |
+          node --check fold-bloom/lab/app.js
+          node --check fold-bloom/lab/text-marks.js
+          node --test fold-bloom/lab/tests/read-bridge.test.mjs fold-bloom/lab/tests/course.test.mjs fold-bloom/lab/tests/pulse-routing.test.mjs fold-bloom/lab/text-marks.test.mjs
       - name: Test FOLD BLOOM VOICE pitch core
         run: |
           node --check fold-bloom/voice/pitch.js
