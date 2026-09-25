@@ -1,0 +1,41 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "DAYLINE_SHOPPING_CLOSED_LOOP_2026-09-26",
+  "date": "2026-09-26",
+  "state": "MERGED_MACHINE_VERIFIED",
+  "object": "exact Shopping item → Dayline execution → evidence-only native Shopping receipt",
+  "merged": {
+    "pr": 379,
+    "sha": "72050f5c12f16a4fc04460e0b757eebbf6d1b621"
+  },
+  "defect_found": "The first generic Dayline source-return carrier used COMMS-specific COVERED/OPEN semantics for every source-linked task; Shopping requires evidence-only return.",
+  "delta": [
+    "Dayline source-return effect is host-specific: COMMS STATE_PROPOSAL, Shopping RECEIPT_ONLY, default EVIDENCE_ONLY.",
+    "Shopping revalidates exact item id/address and original lifecycle state before enabling acceptance.",
+    "Shopping acceptance appends shopping-dayline-receipt/v0.1 evidence only.",
+    "Shopping lifecycle, next_action, purchase gate and money/seller authority remain unchanged.",
+    "Dedicated 430×900 browser smoke proves the complete round trip."
+  ],
+  "preserves": [
+    "atlas-dayline-handoff/v0.1",
+    "atlas-dayline-source-return/v0.1 OFFER_ONLY",
+    "Shopping FOUND != BOUGHT != RECEIVED != TESTED != ADOPTED",
+    "native Shopping lifecycle authority",
+    "existing COMMS exact-source state-proposal loop",
+    "Dayline RUN <= 3 / witness / completed-focus release",
+    "no global bus or second planner/store"
+  ],
+  "verification": {
+    "route_registration": "PASS · 36165271718",
+    "public_surface": "PASS · 36165271722",
+    "dayline_comms_regression": "PASS · 36165271722",
+    "dayline_shopping_real_loop": "PASS · 36165271722 · WATCH → RUN/WITNESS/COMPLETE/RETURN → ACCEPT RECEIPT → WATCH + one evidence receipt",
+    "critical_browser_tail": "PASS · 36165271722"
+  },
+  "residue": [
+    "real-world completion remains world evidence, not inferred from the browser proof",
+    "HOUSE source-return semantics remain unimplemented until a concrete native consequence is named"
+  ],
+  "one_next": "No symmetric HOUSE receipt work by default. Select any next source loop only from a concrete missing native consequence.",
+  "stop": "No automatic Shopping lifecycle transition, purchase, seller contact, universal receipt-state ontology, or FAN/8 sequel."
+}
