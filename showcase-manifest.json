@@ -16,17 +16,19 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-25T14:18:00+08:00",
+        "updated_at": "2026-09-25T15:45:00+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY"
         ]
       },
-      "role": "FIELD INDEX root: compact re-entry and addressed operation surface. CURRENT owns active human/world gates. ROUTES / FIELD SURFACE is a manifest projection with visible INDEX↔GIT drift; HEADS and PORTS reuse the same glyph grammar for compact pattern seeing, while WAITING preserves human-action text. CHANGE / GIT remains literal repository chronology. Φ denotes host/authority; φ denotes current addressed focus.",
-      "receipt": "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
+      "role": "FIELD INDEX root: compact re-entry and addressed operation surface. CURRENT owns attention. CATCH UP / LOCAL derives a browser-local 'since last caught up' projection from CURRENT + manifest timestamps, prioritizing active/current heads without creating backlog or authority. ROUTES remains the manifest projection; CHANGE / GIT remains literal repository chronology; WAITING preserves human/world gates. Φ denotes host/authority; φ denotes current addressed focus.",
+      "receipt": "/returns/FIELD_INDEX_CATCHUP_2026-09-25.json",
       "machine_view": "FIELD",
-      "version": "0.8.3",
+      "version": "0.8.4",
       "transfer": [
+        "local-only catch-up projection: NOW + changed addressed heads since explicit local caught-up mark; derived from CURRENT + manifest, no new authority",
+        "catch-up ranking prefers active/current heads but never creates priority, queue or read-state in canonical files",
         "route ontology diagnostic derives non-authoritative host / family_id / verb_id candidates from the manifest; it flags ambiguity without rewriting display language, creating priority, or failing CI",
         "Hermes daily generator now boots from /llms.txt live authority and reads WAITING v0.2 surface_state; dated ultra-master prompt remains history/donor only",
         "machine-worker authority contracted: /llms.txt + transient agent transcript replace stale copied WORKER_BOOT state; historical worker packets cannot self-promote into NOW",
