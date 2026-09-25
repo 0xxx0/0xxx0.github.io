@@ -199,7 +199,8 @@ check(home.includes('MAP / PROJECTIONS'),'root missing MAP reading');
 check(home.includes('>PORTS / EXIT STATE<'),'root missing PORTS / EXIT STATE reading');
 check(home.includes('ACTIVE / NEEDS YOUR EVIDENCE')&&home.includes('PARKED / NOT NEEDED NOW')&&home.includes('HISTORY / REMOVED'),'root missing WAITING lifecycle split');
 if(fi){check(fi.exit_status_taxonomy?.BUILD_PROVE&&fi.exit_status_taxonomy?.PARKED&&fi.ui_contract?.root_ports,'FIELD INDEX port taxonomy contract missing');}
-check(home.includes('ROUTES / LIVE SURFACE')&&home.includes('CHANGE / GIT'),'root missing route-first surface + collapsed exact-change aperture');
+check(home.includes('ROUTES / FIELD SURFACE')&&home.includes('CHANGE / GIT'),'root missing route-first field surface + collapsed exact-change aperture');
+check(home.includes('routeGitDrift()')&&home.includes('function tsMs('),'root missing offset-aware INDEX↔GIT drift witness');
 check(home.includes('Φ / CURRENT')&&home.includes('id="syncFocus"'),'root missing Φ host / φ focus truth frame');
 check(home.includes('ISSUES / REPO OPEN LOOPS'),'root missing ISSUES reading');
 check(home.includes('field-glyph.js'),'root missing shared FIELD glyph grammar');

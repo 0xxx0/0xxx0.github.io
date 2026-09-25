@@ -83,10 +83,10 @@
     "root_play": "/field-play.html derives public-safe missions from manifest gaps plus FIELD_ISSUES entries with play_safe=true. Returns remain report-only and require review.",
     "root_evolve": "EVOLVE is a named projection over canonical manifest routes carrying route.evolution. It shows host, generation, stage, mutation and evidence gate; it is not a new backlog or authority source.",
     "root_identity_fold": "Identity folding is permitted only inside secondary projections where repetition harms legibility. ROUTES / LIVE SURFACE keeps one visible chip per addressed surface; exact Git mutations remain separately recoverable under collapsed CHANGE / GIT.",
-    "root_latest": "Root ROUTES / LIVE SURFACE is the primary change-reading surface: manifest-addressed route glyphs stay directly visible. Exact Git chronology is a collapsed CHANGE / GIT aperture attached beneath that route surface; commit rows and changed-file→route projection resolve only when opened. Git remains literal mutation evidence, never a second activity feed, priority list, or competing navigation surface.",
+    "root_latest": "Root ROUTES / FIELD SURFACE is the primary addressed-route projection. It is ordered by offset-normalized route.index.updated_at and explicitly exposes INDEX↔GIT drift using the already-fetched master HEAD timestamp. Exact Git chronology remains a collapsed CHANGE / GIT aperture; commit rows lazily resolve exact changed paths. Manifest time is curated projection, never literal chronology.",
     "root_issues": "Render open GitHub issues as a separate newest-activity-first repo-truth list. Live GitHub API may refresh a checked-in /control/FIELD_ISSUES.json fallback. Issue presence is not priority.",
     "root_density": "/field-presentation.js may reduce route tokens toward glyph-only marks at MARK density while preserving route order, axis value and explicit OPEN.",
-    "root_glyph": "/field-glyph.js composes route marks from manifest kind × operation × state × NOW/HEAD/ISSUE attention marks. Glyphs are projections over addressed route identity; compact date separators may witness manifest date buckets but must not imply Git commit grouping.",
+    "root_glyph": "/field-glyph.js composes route marks from manifest kind × operation × state × NOW/HEAD/ISSUE attention marks. Glyphs are projections over addressed route identity; compact date separators use browser-local normalized time and must not imply Git commit grouping.",
     "root_axial_latest": "AXIAL / LATEST 0.5 adapts AXIAL 0.7 over ROUTE × STATE × OPERATION × WORK MODE. Every position exposes exact lawful support; support is encoded as count + luminance + compact bar, current matches form a survivor glyph set, and one fixed aperture resolves the selected exact route.",
     "root_axial_survivors": "Render the current exact-match set between the strips and focus aperture. One survivor = LOCK 1; zero = DEAD; many = LIVE n. A short survivor-count trail may expose how the possibility space collapsed during the current interaction.",
     "root_axial_trial": "Store only local browser interaction counts under field-axial-trial/v0.1: AXIAL focus selections, route-pulse focus selections (legacy field name latest_focus retained for compatibility), dead intersections, OPEN counts and rough focus→OPEN elapsed time. No automatic network transmission and no claim that elapsed time alone proves usability.",
@@ -100,8 +100,9 @@
     "root_convergence": "Generated convergence data/plain readings remain available to NEXUS/READFIELD with generation timestamps, but the generated KPI strip is retired from FIELD root. Root live frame derives CURRENT + master HEAD rather than caching a second status dashboard.",
     "root_truth_grammar": "Use Φ for host/authority frame and φ for the current addressed focus/projection. The root reads CURRENT → φ FOCUS → ROUTES; Git/TRACE/STATUS are subordinate evidence or instruments opened on demand.",
     "root_status": "STATUS is secondary and collapsed. Its rail summarizes live ISSUES / HEADS / MAP plus PORTS live-debt classes only (BUILD / PROVE, BOUNDARY, VERIFY, and any UNCLASSIFIED status). WAITING / YOU remains a distinct primary human/world dependency aperture and is not repeated in STATUS. AVAILABLE and PARKED port counts stay in the PORTS fold; dated audits remain historical.",
-    "root_tzimtzum": "Primary root hierarchy is deliberately small: CURRENT/φ truth frame → FOCUS → ROUTES / LIVE SURFACE → WAITING / YOU → collapsed STATUS. If a root block duplicates those functions, fold it under its owner or remove it rather than creating another dashboard.",
-    "root_ports": "PORTS / EXIT STATE projects manifest field.exit_paths without treating every non-AVAILABLE status as unresolved work. Exact exit statuses remain canonical and are grouped for presentation into AVAILABLE, BUILD / PROVE, HUMAN / EXPORT BOUNDARY, VERIFY and PARKED / OPTIONAL. Candidate, reference, donor and deferred exits are not counted as live debt; unknown statuses render OTHER / UNCLASSIFIED."
+    "root_tzimtzum": "Primary root hierarchy is deliberately small: CURRENT/φ truth frame → FOCUS → ROUTES / FIELD SURFACE → WAITING / YOU → collapsed STATUS. If a root block duplicates those functions, fold it under its owner or remove it rather than creating another dashboard.",
+    "root_ports": "PORTS / EXIT STATE projects manifest field.exit_paths without treating every non-AVAILABLE status as unresolved work. Exact exit statuses remain canonical and are grouped for presentation into AVAILABLE, BUILD / PROVE, HUMAN / EXPORT BOUNDARY, VERIFY and PARKED / OPTIONAL. Candidate, reference, donor and deferred exits are not counted as live debt; unknown statuses render OTHER / UNCLASSIFIED.",
+    "root_route_freshness": "ROUTES may never call itself LIVE unless route-touch timestamps are mechanically synchronized. FIELD root exposes the newest manifest route-index clock against Git HEAD; positive GIT drift means the route projection is behind exact mutation evidence."
   },
   "query_semantics": {
     "BOTTLENECK": {
@@ -245,9 +246,9 @@
   "truth_grammar": {
     "Φ": "Host / authoritative frame. On FIELD root this points toward CURRENT/domain authority; Φ never means that every visible datum is canonical.",
     "φ": "Current addressed focus / projection inside a Φ host. φ may move freely without creating identity, priority or mutation authority.",
-    "git": "Exact repository mutation chronology: commit SHA, timestamp, subject and complete history.",
+    "git": "Exact repository mutation chronology: commit SHA, offset-aware timestamp, subject and complete history.",
     "current": "Attention authority: active fronts, retained heads and current execution frame.",
-    "manifest": "Addressed route/state projection. index.updated_at is curated surface-touch metadata, not a complete changelog.",
+    "manifest": "Addressed route/state projection. index.updated_at is curated surface-touch metadata, offset-normalized for display; INDEX↔GIT drift remains visible when exact Git HEAD is newer.",
     "interphase": "Shared select/focus/project/RETURN mechanics; domain host remains authoritative."
   },
   "exit_status_taxonomy": {
