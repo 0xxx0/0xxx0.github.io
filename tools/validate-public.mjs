@@ -209,6 +209,10 @@ check(/footer a\{[^}]*min-height:34px/.test(foldLab),'FOLD BLOOM LAB footer navi
 check(foldLab.includes('id="verseReturn"')&&foldLab.includes('app.js?v=0.3.2'),'FOLD BLOOM LAB Verse caller return/cache marker missing');
 for(const token of ['safeLocalReturn','verse.returnAddress','fieldLabVerseHandoff'])check(foldLabApp.includes(token),'FOLD BLOOM LAB Verse round-trip token missing: '+token);
 check(/footer a\{[^}]*min-height:34px/.test(foldInk),'FOLD BLOOM INK footer navigation lost 34px phone target floor');
+const confluenceDaylineHtml=read('dayline/index.html');
+const confluenceDaylineApp=read('dayline/app.js');
+check(confluenceDaylineHtml.includes('href="/house/"')&&!confluenceDaylineHtml.includes('href="/house/spatial/"'),'Dayline depth must target canonical HOUSE /house/');
+check(confluenceDaylineApp.includes("hrefMove('HOUSE ↗','/house/')")&&!confluenceDaylineApp.includes("hrefMove('HOUSE ↗','/house/spatial/')"),'Dayline move rail must target canonical HOUSE /house/');
 const daylineApp=read('atlas-dayline/app.js');
 const daylineCss=read('atlas-dayline/app.css');
 const daylineBridge=read('atlas-dayline/field-bridge.js');
