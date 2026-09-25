@@ -5,7 +5,8 @@ const INPUTS={
   current:'control/CURRENT.json',
   manifest:'showcase-manifest.json',
   waiting:'control/WAITING.json',
-  contract:'control/FIELD_INDEX_CONTRACT.json'
+  contract:'control/FIELD_INDEX_CONTRACT.json',
+  orientation:'control/ORIENTATION.json'
 };
 const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
 const clone=v=>JSON.parse(JSON.stringify(v));
@@ -17,10 +18,10 @@ const clip=(s,n=220)=>{s=one(s);return s.length>n?s.slice(0,n-1)+'…':s};
 const depKind=state=>{const s=String(state||'').toUpperCase();if(s.includes('REAL_DEVICE'))return'REAL_DEVICE';if(s.includes('PRIVATE'))return'PRIVATE_INPUT';if(s.includes('ORDINARY_USE')||s.includes('HUMAN_USE'))return'ORDINARY_USE';if(s.includes('PHYSICAL'))return'PHYSICAL';if(s.includes('WORLD'))return'WORLD_EVENT';return'HUMAN_ACTION'};
 
 function load(){
-  return {C:read(INPUTS.current),M:read(INPUTS.manifest),W:read(INPUTS.waiting),K:read(INPUTS.contract)};
+  return {C:read(INPUTS.current),M:read(INPUTS.manifest),W:read(INPUTS.waiting),K:read(INPUTS.contract),O:read(INPUTS.orientation)};
 }
 
-function compile({C,M,W,K}){
+function compile({C,M,W,K,O}){
   const routes=M.routes||M.entries||[];
   const heads=(C.current_heads||[]).map(h=>({
     lineage:h.lineage||null,route:h.route||null,head:h.head||null,state:h.state||null,
@@ -35,13 +36,15 @@ function compile({C,M,W,K}){
     current:{updated:C.updated||null,active_fronts:C.active_fronts||[],next_single_action:C.next_single_action||null,current_heads:heads},
     manifest:{route_addresses:routes.map(r=>r.href).filter(Boolean).sort()},
     waiting:{surface_state_counts:waitCounts},
-    contract:{truth_grammar:K.truth_grammar||{}}
+    contract:{truth_grammar:K.truth_grammar||{}},
+    orientation:{anchor:O.anchor||null,invariant_loop:O.invariant_loop||[]}
   };
   const selected=[
     {source:'/'+INPUTS.current,selector:'#updated+active_fronts+next_single_action+current_heads',fingerprint:fp(expressions.current)},
     {source:'/'+INPUTS.manifest,selector:'#route-address-set',fingerprint:fp(expressions.manifest)},
     {source:'/'+INPUTS.waiting,selector:'#surface-state-counts',fingerprint:fp(expressions.waiting)},
-    {source:'/'+INPUTS.contract,selector:'#truth_grammar',fingerprint:fp(expressions.contract)}
+    {source:'/'+INPUTS.contract,selector:'#truth_grammar',fingerprint:fp(expressions.contract)},
+    {source:'/'+INPUTS.orientation,selector:'#anchor+invariant_loop',fingerprint:fp(expressions.orientation)}
   ];
   const revision='FIELD@'+selected.map(x=>x.fingerprint.slice(0,12)).join('.');
   const gates=(C.current_heads||[]).flatMap(h=>{
@@ -54,8 +57,9 @@ function compile({C,M,W,K}){
     }];
   });
   return {
-    schema:'field-agent-transcript/v0.2-jit',
+    schema:'field-agent-transcript/v0.3-jit',
     packet_authority:'NONE',
+    belay:{anchor:O.anchor||null,return:'/',law:'Hold one addressed object; one bounded move; witness; RETURN.'},
     phi:{host:'0xxx0/0xxx0.github.io',authority_sources:Object.values(INPUTS).map(x=>'/'+x),expression_revision:revision,selected_expressions:selected},
     phi_focus:null,
     now:{updated:C.updated||null,active_fronts:C.active_fronts||[],next_single_action:C.next_single_action||null},
@@ -75,7 +79,7 @@ function compile({C,M,W,K}){
 }
 
 function markdown(p){
-  const out=['# FIELD AGENT TRANSCRIPT','revision: '+p.phi.expression_revision,'packet_authority: NONE','φ_focus: NOT_SERIALIZED',''];
+  const out=['# FIELD AGENT TRANSCRIPT','revision: '+p.phi.expression_revision,'packet_authority: NONE','φ_focus: NOT_SERIALIZED','⚑ BELAY: '+clip(p.belay?.anchor?.one_line||p.belay?.law||'',260),''];
   out.push('## SOURCE EXPRESSIONS');
   for(const x of p.phi.selected_expressions)out.push('- '+x.source+x.selector+' · expr-fnv64 '+x.fingerprint);
   out.push('','## NOW');
@@ -98,7 +102,8 @@ if(process.argv.includes('--selftest')){
   if(packet.packet_authority!=='NONE')fail.push('packet acquired authority');
   if(packet.phi_focus!==null)fail.push('live φ focus serialized');
   if(packet.phi.expression_revision!==again.phi.expression_revision)fail.push('same selected expressions are nondeterministic');
-  if(packet.phi.selected_expressions.length!==4)fail.push('selected expression count != 4');
+  if(packet.phi.selected_expressions.length!==5)fail.push('selected expression count != 5');
+  if(!packet.belay?.anchor?.one_line)fail.push('belay anchor missing');
   if((packet.now.active_fronts||[]).length>3)fail.push('CURRENT active-front law > 3');
   if(!packet.return?.target)fail.push('RETURN target missing');
 
