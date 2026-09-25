@@ -124,3 +124,7 @@ h1{margin:4px 0 0;font:900 clamp(30px,6vw,62px)/.82 system-ui,sans-serif;letter-
   .intakeBody{grid-template-columns:1fr}.examples{display:none}
   .turnCell span{display:none}
 }
+
+.returnOffer{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--line);background:#0d1518}
+.returnOffer[hidden]{display:none}.returnOffer b{font-size:8px;letter-spacing:.1em;color:var(--cool)}.returnOffer span{display:block;margin-top:3px;color:var(--mut);font-size:7px}.returnOfferActions{display:flex;gap:1px;flex-wrap:wrap;background:var(--line)}.returnOfferActions button{border:0;background:#11181c;padding:7px 8px;font-size:7px}.returnOfferActions .primary{background:#e8efec;color:#07100d;font-weight:900}
+@media(max-width:820px){.returnOffer{align-items:flex-start;flex-direction:column}.returnOfferActions{width:100%}.returnOfferActions button{flex:1 1 120px}}
