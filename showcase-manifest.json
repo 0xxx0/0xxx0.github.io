@@ -5527,16 +5527,16 @@
     },
     {
       "href": "/poetry/map/",
-      "title": "POEM MAP 0.2.3",
+      "title": "POEM MAP 0.2.4",
       "kind": "workbench",
       "parent": "/poetry/",
       "family": "PATH / POETRY",
       "operation": "PROJECT",
       "state": "CANDIDATE",
-      "version": "0.2.3",
+      "version": "0.2.4",
       "receipt": "/poetry/map/release.json",
       "showcase_card": false,
-      "role": "Current Verse/FIELD-text authoring candidate: readable PAGE first; selected-token golden-angle focus wheel; FIELD NOW preload from live collaboration state; manual/local/opt-in English option sources; MAP/SETS/path/form/aperture depth only on demand; replayable RETURN. Exact source/focus can carry into READFIELD, FOLD//BLOOM FIELD LAB VERSE, or fail-closed exact 4×7 Han Verse Atlas study without transferring authoring authority. FIELD LAB and Verse Atlas now expose the exact same-origin caller for navigation-only re-entry.",
+      "role": "Current Verse/FIELD-text authoring candidate 0.2.4: readable PAGE first; selected-token golden-angle focus wheel; FIELD NOW preload from live collaboration state; manual/local/opt-in English option sources; MAP/SETS/path/form/aperture depth only on demand; replayable RETURN. Exact source/focus can carry into READFIELD, FOLD//BLOOM FIELD LAB VERSE, or fail-closed exact 4×7 Han Verse Atlas study without transferring authoring authority. FIELD LAB and Verse Atlas now expose the exact same-origin caller for navigation-only re-entry. Projection returns now preserve view + selected token through a source-bound address witness that survives full reload without a shared store.",
       "transfer": [
         "Poemage linked poem/set/path entrances",
         "Foundry typed path laws",
@@ -5552,10 +5552,11 @@
         "READFIELD exact-source/focus handoff",
         "FOLD//BLOOM FIELD LAB VERSE round-trip",
         "Verse Atlas exact 4×7 Han study handoff; focus is projection-only",
-        "recipient-side exact caller RETURN from FIELD LAB VERSE and Verse Atlas study"
+        "recipient-side exact caller RETURN from FIELD LAB VERSE and Verse Atlas study",
+        "source-bound caller witness: view + token address + local source fingerprint → deterministic focus restore"
       ],
       "index": {
-        "updated_at": "2026-09-25T15:20:00+08:00",
+        "updated_at": "2026-09-25T20:15:00+08:00",
         "work_modes": [
           "RECOVER",
           "RESEARCH",
@@ -5565,7 +5566,7 @@
         ]
       },
       "tier": "FIELD",
-      "latest_return": "/returns/VERSE_ROUNDTRIP_RETURN_2026-09-25.json"
+      "latest_return": "/returns/VERSE_FOCUS_RETURN_2026-09-25.json"
     },
     {
       "href": "/port/",
