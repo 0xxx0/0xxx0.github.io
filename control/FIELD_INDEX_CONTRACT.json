@@ -162,8 +162,8 @@
       "meaning": "Durable public address graph using parent relations and lifecycle state. Existence is not priority."
     },
     "OPEN_PORTS": {
-      "source": "route.field.exit_paths where status != AVAILABLE",
-      "meaning": "Declared interface/proof debt. Open ports are selectors/questions, not an automatic backlog."
+      "source": "showcase-manifest route.field.exit_paths grouped by exit_status_taxonomy",
+      "meaning": "Compatibility reading for PORTS / EXIT STATE. Exact exit statuses remain canonical; AVAILABLE and PARKED/OPTIONAL are not live debt. BUILD / PROVE, HUMAN / EXPORT BOUNDARY, VERIFY and OTHER / UNCLASSIFIED remain separately visible."
     },
     "RECENT": {
       "source": "showcase-manifest route.index.updated_at",
@@ -194,8 +194,8 @@
       "meaning": "Release lineage reading: shipped semantic versions with exact commit/receipt provenance. Distinct from RECENT mutation chronology and EVOLVE bounded experiments."
     },
     "WAITING": {
-      "source": "/control/WAITING.json",
-      "meaning": "Small public-safe set of dependencies whose next lawful move requires human observation, choice, permission, private input or physical action. Visibility does not imply priority; resolved items close or transform rather than accumulating as backlog."
+      "source": "/control/CURRENT.json#current_heads[].next_executable + /control/WAITING.json registry",
+      "meaning": "ACTIVE human/world gates come only from CURRENT. WAITING.json preserves PARKED dependencies and REMOVED history; neither class implies present user obligation."
     }
   },
   "evolution_contract": {
