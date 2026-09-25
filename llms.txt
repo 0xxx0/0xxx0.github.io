@@ -1,0 +1,19 @@
+# FIELD / MACHINE ENTRYPOINT
+
+Read `/AGENTS.md` first. It owns repository worker/authority law.
+
+Current truth remains in:
+- `/control/CURRENT.json` — attention / retained heads / next executable
+- `/showcase-manifest.json` — addressed route/state projection
+- `/control/WAITING.json` — human/world dependency residue
+- `/control/FIELD_INDEX_CONTRACT.json` — FIELD root + Φ/φ semantics
+
+For a bounded current handoff, emit a transient packet from a current checkout:
+
+`node scripts/emit-agent-transcript.mjs`
+
+Structured form:
+
+`node scripts/emit-agent-transcript.mjs --json`
+
+The packet has authority `NONE`, omits live φ focus, binds its revision only to the selected expressions it carries, and must not be committed as a second state store.

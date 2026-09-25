@@ -15,6 +15,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Validate JIT FIELD handoff compiler
+        run: node scripts/emit-agent-transcript.mjs --selftest
       - name: Validate LensState laws and round trip
         run: node control/lens-state-selftest.js
       - name: Validate Lens proof bench syntax
