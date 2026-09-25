@@ -1,0 +1,27 @@
+{
+  "schema": "return/v0.1",
+  "id": "WORKER_AUTHORITY_CONTRACTION_2026-09-25",
+  "state": "CANDIDATE",
+  "object": "worker boot + Hermes runnable task selection",
+  "delta": "Retire stale copied worker state; bind machine re-entry to live authority and trigger-driven execution.",
+  "evidence": [
+    "/llms.txt",
+    "/control/WORKER_BOOT.json",
+    "/control/HERMES_QUEUE.json",
+    "/control/HERMES.md",
+    "/AGENTS.md",
+    "/scripts/emit-agent-transcript.mjs",
+    "/showcase-manifest.json"
+  ],
+  "value": [
+    "A worker can no longer mistake Sep-22 copied heads for current state.",
+    "Sep-21 BODY/PRINT/representation/QA packets cannot self-promote into active work.",
+    "Autonomous effort converges on CURRENT conversion or one anchored recovery target."
+  ],
+  "residue": [
+    "External Hermes/session behavior is not observed by this repo-only pass.",
+    "Historical prompts may still contain old wording; they are source artifacts, not boot authority."
+  ],
+  "waiting": [],
+  "stop": "No new worker-state cache. Reopen only on a demonstrated consumer failure from the live-pointer/JIT model."
+}
