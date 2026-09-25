@@ -39,7 +39,22 @@ export function mixVisualWorld(a,b,t=.5){
   out.pattern=t<.5?(a?.pattern||b.pattern):b.pattern;out.mix=t;return out;
 }
 
-export const VISUAL_WORLD_SCHEMA='fold-bloom-visual-world/v0.2';
+export const VISUAL_WORLD_SCHEMA='fold-bloom-visual-world/v0.3';
+
+export const SCENE_PRESENTATION=Object.freeze({
+  DEEP:Object.freeze({plain:'DEPTH',short:'balanced depth',detail:'balanced depth / blue-orange / grounded pulse'}),
+  TRANCE:Object.freeze({plain:'PULSE',short:'bright pulse',detail:'brighter faster pulse / laser geometry'}),
+  WOOD:Object.freeze({plain:'GRAIN',short:'warm grain',detail:'warmer slower grain / more swing'}),
+  VOID:Object.freeze({plain:'SPARSE',short:'sparse drift',detail:'slow sparse field / stronger drone'})
+});
+export function normalizeVisualScene(name){
+  const key=String(name||'').toUpperCase();
+  return Object.hasOwn(SCENE_PRESENTATION,key)?key:'DEEP';
+}
+export function scenePresentation(name){
+  const key=normalizeVisualScene(name),meta=SCENE_PRESENTATION[key];
+  return {key,...meta,label:meta.plain+' · '+key};
+}
 
 export const VISUAL_WORLDS=Object.freeze({
   DEEP:Object.freeze({
@@ -57,6 +72,7 @@ export const VISUAL_WORLDS=Object.freeze({
 });
 
 export function visualWorld(scene='DEEP',sectionIndex=0,features={}){
+  scene=normalizeVisualScene(scene);
   const base=VISUAL_WORLDS[scene]||VISUAL_WORLDS.DEEP;
   const energy=clamp(Number(features.energy)||0,0,1.2),brightness=clamp(Number(features.brightness)||0,0,1);
   const idx=Number(sectionIndex)||0,parity=((idx)%2+2)%2,sectionPhase=fract(idx*PHI),sectionPulse=.5+.5*Math.cos(TAU*sectionPhase);
