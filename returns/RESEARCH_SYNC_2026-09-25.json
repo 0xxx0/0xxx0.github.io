@@ -64,5 +64,10 @@
     "If GLYPH conformance is resumed, run only the equal-member-glyph / unequal-SET-seam falsifier.",
     "If multiscale rings become clutter rather than orientation, demote them to optional projection rather than defending the theory."
   ],
-  "stop": "No new research dashboard, ontology, shared session bus, glyph framework or universal radial UI from this sync."
+  "stop": "No new research dashboard, ontology, shared session bus, glyph framework or universal radial UI from this sync.",
+  "sync_cutoff": {
+    "master": "13049fbecc75ce623ea65ac6ab37e4c0acc7c5f7",
+    "through_pr": 238,
+    "note": "Later independent commits are future evolution, not part of this bounded research sync."
+  }
 }
