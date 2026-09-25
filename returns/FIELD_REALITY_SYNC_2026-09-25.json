@@ -1,0 +1,74 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "FIELD_REALITY_SYNC_2026-09-25",
+  "date": "2026-09-25",
+  "object": "FIELD INDEX ↔ HUMAN PORT / COMMS ↔ Atlas Dayline ↔ Hermes",
+  "recovery": {
+    "observed": [
+      "PR #259 merged the canonical REALITY PORTS implementation while a parallel bridge was being prepared.",
+      "PR #261 then hardened the same head for mobile action-first use and authority-NONE COPY HANDOFF.",
+      "The parallel transport/worker packet was discarded rather than merged."
+    ],
+    "current_head": [
+      "PR #259 / merge 94c99b82b37e8cd69500a52b018598e0f702479e",
+      "PR #261 / merge 96aa18aa36b28bb243d2c4dc323583ec767408c6",
+      "/returns/ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
+      "/returns/ATLAS_DAYLINE_MOBILE_ACTION_2026-09-25.json",
+      "/control/confluence/REALITY_LOOP_HERMES_2026-09-25.md",
+      "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md"
+    ]
+  },
+  "private_reality_probe": {
+    "scope": "bounded private check; exact records and identifiers excluded",
+    "observed": [
+      "No upcoming primary-calendar anchors were present across the next two weeks at probe time.",
+      "Bounded recent mail checks found no recent human conversation/sent-mail activity; automated account/update traffic dominated."
+    ],
+    "implication": "Immediate leverage is contact/message ignition plus explicit obligation capture, not calendar visualization or inbox triage."
+  },
+  "delta": [
+    "FIELD INDEX now advertises shipped CONTACT 0.4 instead of stale CONTACT 0.3.",
+    "FIELD INDEX now advertises COMMS SPINE 0.1.1 instead of stale 0.1.",
+    "CURRENT registers Atlas Dayline LIVE 0.2.1 / REALITY PORTS / MOBILE ACTION as a current head without creating a new active front.",
+    "CURRENT exposes one lived continuity gate: one real source → Dayline → action/mark → RETURN/COPY HANDOFF.",
+    "Hermes receives a dormant explicit trigger for atlas-dayline-feedback/v0.2 / Dayline RETURN; queue presence creates no NOW or authority."
+  ],
+  "active_surface": {
+    "active_fronts": [
+      "conversion",
+      "recovery-ingest / maintenance"
+    ],
+    "interface_law": "one held object + visible focus + 1–3 reachable moves + witness + exact RETURN",
+    "lived_gate": "one real source → Dayline → RUN≤3/action → RETURN/COPY HANDOFF",
+    "preferred_source": "COMMS for a real human ask/promise; otherwise one actual HOUSE or SHOPPING action"
+  },
+  "laws_preserved": [
+    "RECOVER BEFORE INVENTING",
+    "UNIFIED INTERFACE = continuity, not a new shell",
+    "SOURCE != SIGNAL != TASK != RESPONSE",
+    "Dayline owns temporal execution only",
+    "Hermes is a replaceable bounded worker, not scheduler/memory/authority",
+    "Private reality does not become public repository state",
+    "One bounded move → VERIFY → RETURN → REPLAN"
+  ],
+  "changed_paths": [
+    "/showcase-manifest.json",
+    "/control/CURRENT.json",
+    "/control/HERMES_QUEUE.json",
+    "/returns/FIELD_REALITY_SYNC_2026-09-25.json"
+  ],
+  "verification": {
+    "json_parse": "PENDING",
+    "branch_divergence": "PENDING",
+    "route_registration": "PENDING",
+    "public_surface": "PENDING"
+  },
+  "residue": [
+    "CONTACT is a stable shareable address, not an inbound server inbox.",
+    "The connected calendar currently contributes no real anchors.",
+    "RETURN→native-source state mutation remains deliberately unimplemented until lived proof.",
+    "FOLD//BLOOM remains a source/work/experience projection, not task or message authority."
+  ],
+  "one_next": "Use Dayline 0.2.1 once on phone with one real object. Observed friction, not architecture appetite, selects the next delta.",
+  "stop": "No new handoff schema, coordination layer, alternate Hermes doctrine, or automatic calendar/message mutation."
+}
