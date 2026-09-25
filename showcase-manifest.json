@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 77773)
-Total output lines: 8165
-
 {
   "schema": "showcase-manifest/v1",
   "updated": "2026-09-25",
@@ -19,19 +16,21 @@ Total output lines: 8165
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-25T20:05:00+08:00",
+        "updated_at": "2026-09-25T20:24:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: compact held-object/action and re-entry surface. CURRENT owns attention. FIELD / CATCH + ACT derives changed addressed routes, active CURRENT reality gaps and public GitHub issues without creating a backlog or authority. REALITY GAP / YOU makes the repo→world proof boundary explicit: CURRENT supplies active gates, WAITING preserves dependency memory, COPY TEST emits only a local bounded test packet, and observed RETURN is required to change the claim. ROUTES remains the manifest projection; CHANGE / GIT remains literal repository chronology. The 0.8.9 phone pass enlarges the held object, next action, witness and return text/targets while leaving compact glyph rails as optional projections.",
+      "role": "FIELD INDEX root: compact held-object/action and re-entry surface. CURRENT owns attention. REALITY GAP / YOU makes repo→world proof explicit without a new backlog: active gates derive from CURRENT, WAITING preserves dependency memory, COPY TEST carries exact route + stable same-site OPEN address + bounded observation/RETURN, and parked physical tests remain recoverable without becoming NOW. The 0.8.10 phone pass enlarges the held object, next action, witness and return text/targets while leaving compact glyph rails as optional projections.",
       "receipt": "/returns/FIELD_INDEX_MOBILE_CLARITY_2026-09-25.json",
       "machine_view": "FIELD",
-      "version": "0.8.9",
+      "version": "0.8.10",
       "transfer": [
-        "0.8.9 mobile clarity: readable current object, next lawful move, witness and return; dense glyph projections remain compact; lived phone check remains open",
+        "0.8.10 mobile clarity: readable current object, next lawful move, witness and return; dense glyph projections remain compact; lived phone check remains open",
+        "COPY TEST now includes a stable same-site OPEN URL so phone/world testing does not depend on chat attachment lifetime or route reconstruction",
+        "PRINT-01 is retained in WAITING as PARKED physical-proof memory; recoverable ≠ current obligation",
         "REALITY GAP / YOU derives active world-proof gates from CURRENT; CI/repo/synthetic proof never silently counts as real-device, physical or lived-use proof",
         "COPY TEST emits a bounded local world-test packet from the existing gate; no new registry, queue or resolution authority",
         "PRINT-01 public launcher is registered as a utility proof surface; canonical SVG remains geometry authority",
@@ -1442,7 +1441,7 @@ Total output lines: 8165
       "showcase_card": false,
       "role": "Cross-lineage coordination surface distinguishing authority, donors and transfers. ONE RETURN v2 exact recovered source is canonical Sleeper authority; ASCII POV 0.8 and ASCII/Grid Path neighbors remain unequal derivative/donors. Includes a separately attributed current-executor perspective; it is not user-authored intent or canon.",
       "index": {
-        "updated_at": "2026-09-25T20:05:00+08:00",
+        "updated_at": "2026-09-25T20:24:00+08:00",
         "work_modes": [
           "RESEARCH",
           "SPECIFY",
@@ -3084,7 +3083,2079 @@ Total output lines: 8165
         },
         "emits": {
           "kinds": [
- …17773 tokens truncated…t of the dynamics.",
+            "comparison result",
+            "keep/demote decision",
+            "proof receipt"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/forward-field-proof/release.json",
+          "checks": [
+            "same facts",
+            "plain control",
+            "measured recovery/constraint/action"
+          ],
+          "return_path": "/forward-field-proof/"
+        }
+      },
+      "field": {
+        "roles": [
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "candidate interface/transform",
+            "interface": "test fixture"
+          },
+          {
+            "medium": "DATA",
+            "kind": "plain control",
+            "interface": "baseline"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "keep/demote decision",
+            "interface": "control plane"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "proof receipt",
+            "interface": "RETURN"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "VERIFY",
+            "status": "AVAILABLE",
+            "via": "comparison receipt"
+          }
+        ],
+        "physical_fit": "Use to kill clever physical interfaces that do not outperform plain control."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "RELEASE"
+        ]
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/forward-field-proof/triangle/",
+      "title": "TRIANGLE 1.0 · GLYPH / FORM / POWER / BENCH",
+      "kind": "workbench",
+      "parent": "/forward-field-proof/",
+      "operation": "OPERATE",
+      "state": "ACTIVE",
+      "version": "1.0",
+      "receipt": "/forward-field-proof/triangle/release.json",
+      "showcase_card": false,
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "relational terms / payloads / numeric ternary relation",
+            "interface": "GLYPH / POWER"
+          },
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "mark construction / geometric manipulation",
+            "interface": "FORM / BENCH"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "compact addressed glyph",
+            "interface": "COPY / COPY LINK / EXPORT"
+          },
+          {
+            "medium": "DATA",
+            "kind": "normalized FORM state + rewrite trace",
+            "interface": "triangle-return/v1"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "explicit RETURN receipt",
+            "interface": "local history / JSON export"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "RETURN",
+            "status": "AVAILABLE",
+            "via": "RETURN / EXPORT"
+          },
+          {
+            "class": "DONOR_BENCH",
+            "status": "AVAILABLE",
+            "via": "/forward-field-proof/triangle/bench/"
+          },
+          {
+            "class": "DONOR_CENTER",
+            "status": "AVAILABLE",
+            "via": "/forward-field-proof/triangle/glyph/center/"
+          }
+        ],
+        "physical_fit": "Representation/reasoning instrument only; no external actuation or authority."
+      },
+      "index": {
+        "updated_at": "2026-09-22T00:04:00+08:00",
+        "work_modes": [
+          "SPECIFY",
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "role": "Unified geometric instrument: eight-locus relational glyphs, one-mark executable FORM calculus, queryable power-triangle relation, and preserved simplex bench. Shared address/state/RETURN; semantics remain distinct.",
+      "transfer": [
+        "Triangle Glyph Lab 8-locus addressing grammar",
+        "Spencer-Brown-inspired FORM boundary discipline with executable CALL/CROSS core",
+        "Power Triangle missing-corner inverse-query notation",
+        "Triangle Bench direct simplex manipulation",
+        "shared triangle:// addresses + triangle-return/v1 receipts",
+        "old Bench content preserved under /forward-field-proof/triangle/bench/ with one relative Glyph-Lab relocation-link adjustment",
+        "CENTER retained separately as donor"
+      ],
+      "tier": "FIELD"
+    },
+    {
+      "href": "/forward-field-proof/triangle/bench/",
+      "title": "TRIANGLE BENCH 0.1 · FROZEN",
+      "kind": "artifact",
+      "parent": "/forward-field-proof/triangle/",
+      "family": "FIELD / PROOF",
+      "operation": "PROVE",
+      "state": "PARKED",
+      "version": "0.1",
+      "receipt": "/forward-field-proof/triangle/bench/release.json",
+      "showcase_card": false,
+      "role": "Pre-unification Triangle Bench preserved for calibration/proof comparison, with one relative Glyph-Lab link adjusted for its new location. No active execution obligation.",
+      "index": {
+        "updated_at": "2026-09-22T00:04:00+08:00",
+        "work_modes": [
+          "REFERENCE",
+          "VERIFY"
+        ]
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/forward-field-proof/triangle/glyph/",
+      "title": "TRIANGLE GLYPH LAB 0.1",
+      "kind": "experiment",
+      "parent": "/forward-field-proof/triangle/",
+      "family": "FIELD / PROOF",
+      "operation": "REPRESENT",
+      "state": "DONOR",
+      "version": "0.1",
+      "receipt": "/forward-field-proof/triangle/glyph/release.json",
+      "showcase_card": false,
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/foundry/axial/",
+        "generation": 1,
+        "stage": "TRANSFER",
+        "question": "Can the eight-locus triangle encode entity/relation/context state compactly while remaining reconstructable without explanatory prose?",
+        "baseline": "Plain labeled state packet / text representation.",
+        "mutation": "Historical 8-locus glyph experiment retained; its surviving grammar is transferred into unified Triangle 1.0.",
+        "evidence_gate": "Transfer complete. Reopen the standalone Glyph Lab only for regression comparison or a named missing function.",
+        "next_if_pass": "DONE: unified Triangle is the active recipient.",
+        "next_if_fail": "Preserve standalone lab as donor; do not create a second active glyph surface."
+      },
+      "index": {
+        "updated_at": "2026-09-22T00:04:00+08:00",
+        "work_modes": [
+          "REFERENCE",
+          "VERIFY"
+        ]
+      },
+      "role": "Original 8-locus Glyph Lab preserved as a donor after its grammar transferred into unified /forward-field-proof/triangle/.",
+      "tier": "VAULT"
+    },
+    {
+      "href": "/forward-field-proof/triangle/glyph/center/",
+      "title": "TRIANGLE CENTER / FOCUS FIELD 0.3",
+      "kind": "experiment",
+      "parent": "/forward-field-proof/triangle/glyph/",
+      "family": "FIELD / PROOF",
+      "operation": "ROUTE",
+      "state": "DONOR",
+      "version": "0.3",
+      "receipt": "/forward-field-proof/triangle/glyph/center/release.json",
+      "showcase_card": false,
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/control/",
+        "generation": 1,
+        "stage": "TRANSFER",
+        "question": "Does continuous intent + discrete CURRENT constraints change or clarify one real next-move choice compared with reading CURRENT/QUEUE plainly?",
+        "baseline": "Plain /control/CURRENT.json + /control/QUEUE.json reading and existing FIELD/AXIAL re-entry.",
+        "mutation": "Historical test retained: exact CURRENT/QUEUE actions were projected through CENTER vs PLAIN while keeping constraints/focus/actions comparable.",
+        "evidence_gate": "Disposition already selected by CURRENT authority: retain CENTER as donor only. Reopen only if a named missing selection function cannot be expressed by current FIELD/PLAIN/FCM surfaces.",
+        "next_if_pass": "DONE: transfer only surviving mechanics; do not promote CENTER itself.",
+        "next_if_fail": "Keep donor/negative evidence; no beautification or active-front debt."
+      },
+      "index": {
+        "updated_at": "2026-09-21T18:51:00+08:00",
+        "work_modes": [
+          "REFERENCE",
+          "VERIFY"
+        ]
+      },
+      "role": "Preserved donor/comparison surface. Its useful control direction (plain reading + bounded FCM/selection mechanics) has been absorbed elsewhere; CENTER no longer carries an execution obligation.",
+      "transfer": [
+        "AXIAL unequal support strips + no-fake-focus law",
+        "Triangle continuous three-axis preference",
+        "CURRENT/QUEUE exact next-action projection",
+        "FieldSignals passive candidate/override evidence",
+        "HUMAN PORT bounded local preload",
+        "same-instrument CENTER↔PLAIN passive comparator",
+        "runtime browser smoke as system-wide validation donor"
+      ],
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "CURRENT + QUEUE next-action state",
+            "interface": "/control/CURRENT.json + /control/QUEUE.json"
+          },
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "intent gesture + discrete constraint selection",
+            "interface": "triangle + strips"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "ranked/focused bounded next moves",
+            "interface": "focus aperture"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "candidate / accepted / overridden signal",
+            "interface": "FieldSignals local history"
+          },
+          {
+            "medium": "DATA",
+            "kind": "bounded HUMAN PORT preload",
+            "interface": "same-origin sessionStorage"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "local focus RETURN",
+            "interface": "browser state"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "OPEN_ROUTE",
+            "status": "AVAILABLE",
+            "via": "focused bounded route"
+          },
+          {
+            "class": "HUMAN_PORT",
+            "status": "AVAILABLE",
+            "via": "/port/ preload"
+          },
+          {
+            "class": "ROOT_FIELD_TRANSFER",
+            "status": "EVIDENCE_REQUIRED",
+            "via": "only after evolution gate"
+          }
+        ],
+        "physical_fit": "Can select a physical/print next move, but cannot satisfy the physical RETURN itself."
+      },
+      "tier": "VAULT"
+    },
+    {
+      "href": "/foundry/",
+      "title": "FOUNDRY",
+      "kind": "hub",
+      "parent": "/",
+      "family": "FOUNDRY",
+      "state": "ACTIVE",
+      "operation": "ORIENT",
+      "receipt": "/foundry/release.json",
+      "role": "Public instrument gateway separating ORIENT / OPERATE / PROVE / RECOVER while live priority remains in control/CURRENT.json.",
+      "showcase_card": false,
+      "index": {
+        "updated_at": "2026-09-22T06:08:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "RESEARCH",
+          "IMPLEMENT",
+          "VERIFY",
+          "ORIENT"
+        ]
+      },
+      "machine_view": "GATEWAY",
+      "tier": "FIELD"
+    },
+    {
+      "href": "/foundry/aperture/",
+      "title": "APERTURE → READFIELD",
+      "kind": "alias",
+      "parent": "/foundry/",
+      "family": "FOUNDRY",
+      "operation": "READ",
+      "state": "UTILITY",
+      "version": "0.7 alias",
+      "receipt": "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
+      "role": "Compatibility address only. The public reading surface converged into /docs/ READFIELD; /field-aperture.js remains the reusable focus kernel.",
+      "transfer": [
+        "Two Dial: two cyclic controls → one consequence",
+        "AXIAL: fixed focus + unequal cyclic vocabularies",
+        "Scale Lens: stable address across zoom",
+        "RSVP 2018: speech boundary charIndex → temporal word focus",
+        "portable dock(source,opt) host API",
+        "session handoff / same inspector / different host",
+        "ambient selection-aware summon via /showcase-nav.js",
+        "material host projection: position/scale/magnitude → CSS variables",
+        "high-speed RSVP control 60–3000 WPM",
+        "DOCS automatic aperture reuse",
+        "single-source inspection across scale/position/time/voice; host owns durable RETURN"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "text",
+            "JSON/object",
+            "local file",
+            "session handoff",
+            "host-selected route metadata"
+          ],
+          "requires": [
+            "one source object or string"
+          ],
+          "optional": [
+            "label",
+            "starting scale"
+          ]
+        },
+        "transforms": {
+          "verb": "compatibility redirect into canonical READFIELD; reusable APERTURE kernel remains host-owned",
+          "preserves": [
+            "source content",
+            "focus address",
+            "scale identity",
+            "local-only authority",
+            "host material state remains presentation-only"
+          ],
+          "reversibility": "full navigation",
+          "side_effects": "browser-local speech synthesis / timer only",
+          "charter": "/control/INSTRUMENT_CHARTERS.json#field-aperture"
+        },
+        "emits": {
+          "kinds": [
+            "redirect to /docs/",
+            "preserved session handoff"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
+          "checks": [
+            "text scale ladder",
+            "JSON depth ladder",
+            "logarithmic magnitude gap",
+            "RSVP stepping",
+            "SpeechSynthesis word-boundary sync",
+            "dock reuse in FIELD/HUMAN PORT",
+            "60–3000 WPM experimental speed control",
+            "material-target host projection",
+            "DOCS JSON/text reuse"
+          ],
+          "return_path": "/docs/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "REPRESENT",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "text / JSON / addressed route metadata",
+            "interface": "field-aperture.js load/dock/handoff"
+          },
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "scale / position / time traversal",
+            "interface": "two rings + compact controls"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "foveated focus",
+            "interface": "center aperture"
+          },
+          {
+            "medium": "DATA",
+            "kind": "stable local address + scale + index",
+            "interface": "field-aperture-focus/v0.2"
+          },
+          {
+            "medium": "REPRESENTATION",
+            "kind": "material position/scale/magnitude witness",
+            "interface": "CSS vars + aperture-material event"
+          },
+          {
+            "medium": "AUDIO",
+            "kind": "speech / temporal focus",
+            "interface": "Web Speech synthesis"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "SCALE_LENS",
+            "status": "AVAILABLE",
+            "via": "same source / separate projection"
+          },
+          {
+            "class": "TWO_DIAL",
+            "status": "REFERENCE",
+            "via": "donor interaction lineage"
+          },
+          {
+            "class": "RSVP",
+            "status": "AVAILABLE",
+            "via": "time-driven position / speech-boundary sync"
+          }
+        ],
+        "physical_fit": "Potential compact ring/annulus control grammar; no physical embodiment claim in 0.1."
+      },
+      "showcase_card": false,
+      "projection_experiment": {
+        "status": "CANDIDATE_MAPPING",
+        "question": "Do scale×position rings plus logarithmic source-size gap improve orientation enough to survive as the default compact projection?",
+        "variable": "presentation only",
+        "fallback": "plain compact focus/address controls; utility remains useful without the ring mapping."
+      },
+      "alias_of": "/docs/",
+      "redirects_to": "/docs/",
+      "tier": "FIELD"
+    },
+    {
+      "href": "/foundry/axial/",
+      "title": "AXIAL / FOCUS STACK 0.7.3",
+      "kind": "experiment",
+      "parent": "/foundry/",
+      "family": "FOUNDRY",
+      "operation": "ORIENT",
+      "state": "ACTIVE",
+      "version": "0.7.3",
+      "receipt": "/foundry/axial/release.json",
+      "showcase_card": false,
+      "transfer": [
+        "unequal cyclic indices / luopan-cryptex correspondence",
+        "focus-ring drag + release-to-snap",
+        "Scale Lens identity-through-projection",
+        "manifest-backed FIELD addressing",
+        "HOUSE spatial address projection",
+        "BACK ≠ RETURN",
+        "Fold//Bloom bright-gate + drag/release-snap interaction",
+        "Scale Lens stable identity across unequal projections",
+        "foveated focus: one selected reading, surrounding context retained",
+        "lawful-neighborhood / per-position support",
+        "deep focus URL / reloadable address",
+        "POLY cyclic correspondence: one aligned reading across independent wheels",
+        "human-factors position indication / 12-o'clock check reading",
+        "shared focus-core law across FIELD + full AXIAL",
+        "Painting / Path overview→local orientation",
+        "ONE RETURN ghostTrail / witness residue",
+        "explicit transfer-study loop: donor→friction→evidence→use→verdict",
+        "shared Constraint Surface kernel: source-neutral survivor/support law",
+        "focused address → FIELD policy trace handoff without granting authority",
+        "FAN/8: passive eight-leaf physical projection over the existing focus/transaction grammar",
+        "six cyclic slots reuse the current Two Dial relation algebra; HOLD / LET FLY reuse TEST/ARM → RUN/RETURN",
+        "shape topology STACK / FAN / ANNULUS / WRAP changes projection without changing host authority"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "showcase manifest",
+            "house spatial model",
+            "human ring/focus gesture"
+          ],
+          "requires": [],
+          "optional": [
+            "search text",
+            "focus preset"
+          ]
+        },
+        "transforms": {
+          "verb": "align unequal cyclic vocabularies into a bounded source query, expose the lawful neighborhood around that alignment, and preserve exact source identity across projection and reload",
+          "preserves": [
+            "source identity",
+            "selected ring indices",
+            "focus address",
+            "return path",
+            "candidate support relation",
+            "shareable focus address"
+          ],
+          "reversibility": "full for navigation",
+          "side_effects": "local/browser navigation only",
+          "shared_kernel": "/lib/constraint-surface.js"
+        },
+        "emits": {
+          "kinds": [
+            "focused source identity",
+            "AXIAL focus address",
+            "local RETURN receipt",
+            "per-position support counts",
+            "reloadable AXIAL focus URL",
+            "local engineering witness",
+            "interaction ghost trail",
+            "focus-preserving policy trace handoff packet"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/foundry/axial/release.json",
+          "checks": [
+            "variable cardinality",
+            "real source adapters",
+            "ring/strip state equivalence",
+            "focus-to-source round trip",
+            "BACK distinct from RETURN",
+            "comparative proof still required",
+            "dead positions are derived from exact source support, not heuristic dimming",
+            "deep focus reload reconstructs the addressed identity",
+            "overview selection round-trips into canonical ring state",
+            "witness export includes state + residue + local study counts",
+            "no silent adaptive remapping",
+            "TRACE handoff preserves selected FIELD route or HOUSE anchor identity while leaving authority resolution to FIELD policy trace"
+          ],
+          "return_path": "/foundry/axial/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_IN",
+          "WORLD_THROUGH",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "FIELD manifest / HOUSE public model",
+            "interface": "source adapter"
+          },
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "cyclic focus selection",
+            "interface": "drag/snap annulus or strip token"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "bounded matching identities",
+            "interface": "focus aperture"
+          },
+          {
+            "medium": "DATA",
+            "kind": "stable focus address",
+            "interface": "copy/open"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "focus RETURN receipt",
+            "interface": "local JSON state"
+          },
+          {
+            "medium": "DATA",
+            "kind": "lawful move support",
+            "interface": "per-ring candidate counts"
+          },
+          {
+            "medium": "DATA",
+            "kind": "reloadable focus address",
+            "interface": "URL"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "policy trace handoff",
+            "interface": "session-local AXIAL → FIELD TRACE"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "OPEN_ROUTE",
+            "status": "AVAILABLE",
+            "via": "focused FIELD route"
+          },
+          {
+            "class": "HOUSE_RUNTIME",
+            "status": "ADAPTER_REQUIRED",
+            "via": "private Home Assistant / HOUSEBUS"
+          },
+          {
+            "class": "PHYSICAL_BODY",
+            "status": "PRINTABLE_CANDIDATE / HUMAN_PROOF_REQUIRED",
+            "via": "/foundry/axial/fan8-print.svg · passive readback first; no sensing/actuation authority"
+          },
+          {
+            "class": "POLICY_TRACE",
+            "status": "AVAILABLE",
+            "via": "FIELD INDEX TRACE / VERIFY reference instrument"
+          }
+        ],
+        "physical_fit": "FAN/8 is the first printable passive body candidate: six cyclic slots + HOLD + LET FLY can project the same focus/transaction law into stack/fan/annulus/wrap topologies. Physical value remains unproved."
+      },
+      "index": {
+        "updated_at": "2026-09-25T18:24:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "ORIENT",
+          "OPERATE",
+          "MAKE"
+        ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/foundry/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can semantic address × theta/z motion × bounded aperture × explicit transaction gating reconstruct consequential change with less translation overhead than plain controls?",
+        "baseline": "Plain digital controls + narrative interpretation; no physical correspondence claim.",
+        "mutation": "STATE APERTURE 0.5.1 transaction/gesture model over the existing AXIAL lineage.",
+        "evidence_gate": "Interpret the declared 10-trial digital harness, then complete one physical nested-tube comparison with before/gesture/after + error/residue receipts.",
+        "next_if_pass": "TRANSFER the surviving transaction/aperture mechanism into the Foundry physical-control substrate; retain AXIAL as evidence fixture rather than spawning a new core.",
+        "next_if_fail": "PARK the physical-control claim; preserve packet/ledger mechanisms as DONOR evidence."
+      },
+      "role": "Variable-cardinality focus surface over real FIELD/HOUSE sources: fixed gate + moving dial witness + lawful support + persistent whole-stack overview let local focus remain oriented; an opt-in local engineering witness preserves interaction residue without silently adapting the interface. It remains an orientation/TRACE experiment, not the canonical reading surface.",
+      "legacy_lab": {
+        "href": "/foundry/axial/lab-0.5.1.html",
+        "role": "Preserved STATE APERTURE transaction/projection lab with AXIAL_PACKET, event trace and ARM/RUN semantics.",
+        "event_schema": "/foundry/axial/event.schema.json"
+      },
+      "research": "/foundry/axial/research.json",
+      "shared_core": "/foundry/axial/focus-core.js",
+      "tier": "FIELD"
+    },
+    {
+      "href": "/field/axial-probe/",
+      "title": "AXIAL / SHADOW PROBE 0.1",
+      "kind": "experiment",
+      "parent": "/foundry/axial/",
+      "family": "AXIAL",
+      "operation": "VERIFY",
+      "state": "PROOF_REQUIRED",
+      "version": "0.1",
+      "showcase_card": false,
+      "role": "Disposable digital falsification surface for the AXIAL physical UI hypothesis. One object maps ring twist, cylinder slide and axis shift to a three-coordinate state while preserving transform order separately. It is nested under AXIAL, owns no canonical state, and must not be treated as a new compositor or physical proof.",
+      "receipt": "/returns/AXIAL_SHADOW_PROBE_2026-09-25.json",
+      "index": {
+        "updated_at": "2026-09-25T19:56:00+08:00",
+        "work_modes": [
+          "VERIFY",
+          "EXPERIMENT",
+          "MAKE"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "reducer closure: R+2 C+1 A-1 R-2 C-1 A+1 -> [0,0,0] and sum delta [0,0,0]",
+          "path equivalence: R+2 C+2 A+1 and A+1 C+2 R+2 -> same [2,2,+1] state with distinct traces",
+          "human gesture legibility remains untested",
+          "physical transfer remains untested"
+        ],
+        "return_path": "/foundry/axial/"
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/foundry/axial/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can twist / slide / shift remain distinguishable enough that one ring-cylinder-axis body carries state plus reversible transform witness without explanatory translation?",
+        "baseline": "AXIAL digital focus stack + recovered printable compositor concepts; no present physical body and no claim that ring/cylinder/axis gestures are self-evident.",
+        "mutation": "Single disposable digital surrogate with three distinct gesture zones, explicit tuple/delta trace, closure test and same-state/different-path test.",
+        "evidence_gate": "Direct touch use must complete the declared sequences without control ambiguity before any physical semantics are promoted.",
+        "next_if_pass": "Reproduce the same three degrees of freedom with cardboard annulus + sleeve + rod and retain before/gesture/after + ambiguity evidence.",
+        "next_if_fail": "Change the gesture/state mapping in the disposable probe; do not fabricate."
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/foundry/axial/lab-0.5.1.html",
+      "title": "AXIAL / STATE APERTURE 0.5.1",
+      "kind": "experiment",
+      "parent": "/foundry/axial/",
+      "operation": "OBSERVE",
+      "state": "FROZEN_DONOR",
+      "family": "AXIAL",
+      "showcase_card": false,
+      "role": "Frozen AXIAL experiment: state aperture behaviour at 0.5.1. Kept as evidence of a decision, not as a current head.",
+      "index": {
+        "updated_at": "2026-09-25T12:46:00+08:00",
+        "work_modes": [
+          "INSPECT",
+          "EXPERIMENT",
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "registered after an on-disk vs manifest audit found it unlisted"
+        ],
+        "return_path": "/"
+      },
+      "tier": "VAULT"
+    },
+    {
+      "href": "/foundry/convergence/",
+      "title": "CONVERGENCE FIELD",
+      "kind": "workbench",
+      "parent": "/foundry/",
+      "family": "FOUNDRY",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "operation": "PROJECT",
+      "receipt": "/foundry/convergence/release.json",
+      "role": "Local-first candidate workbench for testing unequal NOW/LENS/RUN/PROOF/ATLAS projections over one captured object with explicit RETURN; fresh bootstrap data is DEMO, not user evidence.",
+      "showcase_card": false,
+      "index": {
+        "updated_at": "2026-09-21T16:31:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/foundry/convergence/identity-lab.html",
+      "title": "IDENTITY LAB",
+      "kind": "artifact",
+      "parent": "/foundry/convergence/",
+      "family": "FOUNDRY",
+      "operation": "PROVE",
+      "state": "STABLE",
+      "receipt": "/foundry/convergence/identity-lab.release.json",
+      "transfer": [
+        "transformation contracts",
+        "stable object identity",
+        "reversible pipelines"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "identified object",
+            "proposed transform"
+          ],
+          "requires": [
+            "object id"
+          ],
+          "optional": [
+            "provenance",
+            "expected invariants"
+          ]
+        },
+        "transforms": {
+          "verb": "apply and inspect reversible representation transform",
+          "preserves": [
+            "object id",
+            "declared invariants",
+            "provenance"
+          ],
+          "reversibility": "full",
+          "side_effects": "none"
+        },
+        "emits": {
+          "kinds": [
+            "transformed representation",
+            "identity/provenance trace",
+            "return result"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/foundry/convergence/identity-lab.release.json",
+          "checks": [
+            "identity invariant",
+            "provenance invariant",
+            "RETURN invariant"
+          ],
+          "return_path": "/foundry/convergence/identity-lab.html"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "identified object",
+            "interface": "object id"
+          },
+          {
+            "medium": "DATA",
+            "kind": "proposed transform",
+            "interface": "transform contract"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "transformed representation",
+            "interface": "state"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "identity/provenance trace",
+            "interface": "RETURN"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "VERIFY",
+            "status": "AVAILABLE",
+            "via": "transform contract"
+          }
+        ],
+        "physical_fit": "Prove digital↔physical mapping invariants before trusting an adapter."
+      },
+      "index": {
+        "updated_at": "2026-09-20",
+        "work_modes": [
+          "VERIFY",
+          "RELEASE"
+        ]
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/foundry/core/",
+      "title": "FOUNDRY / REAL CENTER 0.1",
+      "kind": "workbench",
+      "parent": "/foundry/",
+      "family": "FOUNDRY",
+      "operation": "ORIENT",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "receipt": "/foundry/core/release.json",
+      "showcase_card": false,
+      "role": "Slow constitutional model + live control projection + criterion-aware Center Lab; not scheduler/runtime/corpus authority.",
+      "transfer": [
+        "cross-media convergence",
+        "signature-law orientation",
+        "slow-model/live-control separation",
+        "corpus demotion",
+        "future-controllability admission gate"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "cross-lineage mechanism",
+            "current control state",
+            "recovered donor",
+            "physical/digital consequence"
+          ],
+          "requires": [],
+          "optional": [
+            "current head",
+            "front",
+            "corpus item"
+          ]
+        },
+        "transforms": {
+          "verb": "project recurrent cross-media mechanisms into a slow center/laws/convergence model while keeping live heads/fronts separate",
+          "preserves": [
+            "identity/provenance boundary",
+            "current ≠ constitution",
+            "CORPUS ≠ CANON",
+            "RETURN path"
+          ],
+          "reversibility": "full",
+          "side_effects": "none"
+        },
+        "emits": {
+          "kinds": [
+            "orientation model",
+            "convergence aperture",
+            "signature-law view",
+            "live current-head projection",
+            "canonical one-page draft"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/foundry/core/release.json",
+          "checks": [
+            "model.json is source for slow layer",
+            "CURRENT.json supplies live layer",
+            "recovered corpus explicitly non-canonical; hard counts require census evidence",
+            "no runtime authority"
+          ],
+          "return_path": "/foundry/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "cross-lineage mechanism",
+            "interface": "model.json"
+          },
+          {
+            "medium": "DATA",
+            "kind": "live control state",
+            "interface": "/control/CURRENT.json"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "convergence model",
+            "interface": "HTML/SVG"
+          },
+          {
+            "medium": "DATA",
+            "kind": "canonical candidate",
+            "interface": "model.json / CANON.md"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "orientation receipt",
+            "interface": "release.json"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "IMPLEMENTATION",
+            "status": "AVAILABLE",
+            "via": "current head / Field Index"
+          },
+          {
+            "class": "REALITY",
+            "status": "AVAILABLE",
+            "via": "HOUSE / SPATIAL"
+          },
+          {
+            "class": "DONOR",
+            "status": "AVAILABLE",
+            "via": "recovery vault / migration ledger"
+          }
+        ],
+        "physical_fit": "Orientation layer only; physical truth remains reality-gated through House/workshop evidence and RETURN."
+      },
+      "index": {
+        "updated_at": "2026-09-21T18:02:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/foundry/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Does the slow center/laws/convergences layer improve cross-lineage reconstruction and orientation without erasing unequal mechanisms?",
+        "baseline": "Live heads/fronts + donor corpus without a slow canonical projection.",
+        "mutation": "Criterion-aware REAL CENTER / canonical-candidate projection over durable lineage evidence.",
+        "evidence_gate": "Use it on one cross-lineage reconstruction/transfer decision; require a fresh process to reproduce the selected mechanism and preserve contradictions/provenance.",
+        "next_if_pass": "TRANSFER the surviving orientation law into Foundry's stable control grammar.",
+        "next_if_fail": "Keep as CANDIDATE or DONOR; do not canonize its convergence names."
+      },
+      "machine_view": "CORE",
+      "tier": "FIELD"
+    },
+    {
+      "href": "/foundry/methods/",
+      "title": "SHAPE / LAW ATLAS 0.1",
+      "kind": "workbench",
+      "parent": "/foundry/",
+      "family": "FOUNDRY / METHODS",
+      "operation": "INVESTIGATE",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "receipt": "/foundry/methods/release.json",
+      "showcase_card": false,
+      "role": "Invariant-first research surface for testing mathematical, design-process, security and privacy methods before transfer into current heads.",
+      "transfer": [
+        "simplex vs independent objectives",
+        "criterion-defined centers",
+        "planarity/coloring",
+        "spatial duality",
+        "Pareto pruning",
+        "diverge/converge process",
+        "security/privacy threat/risk methods"
+      ],
+      "field": {
+        "roles": [
+          "WORLD_IN",
+          "VERIFY"
+        ],
+        "inputs": [
+          {
+            "medium": "KNOWLEDGE",
+            "kind": "external method/framework",
+            "interface": "attributed source"
+          },
+          {
+            "medium": "DATA",
+            "kind": "current head capability gap",
+            "interface": "bounded test"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "transfer hypothesis",
+            "interface": "methods.json"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "bounded-test result",
+            "interface": "RETURN / issue #7"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "DONOR",
+            "status": "AVAILABLE",
+            "via": "working doc"
+          },
+          {
+            "class": "VERIFY",
+            "status": "REQUIRED",
+            "via": "bounded transfer test"
+          }
+        ],
+        "physical_fit": "May inform House routing/spatial/procurement tests; no method receives authority without a real RETURN."
+      },
+      "index": {
+        "updated_at": "2026-09-21T16:31:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/foundry/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can external mathematical/design/security methods change a real local decision when admitted by invariant matching rather than visual analogy?",
+        "baseline": "Local mechanism reasoning without the external method.",
+        "mutation": "Invariant → attributed method → bounded consequence test → RETURN.",
+        "evidence_gate": "Complete one bounded transfer test from methods.json where the external method changes a decision and the changed consequence can be checked.",
+        "next_if_pass": "TRANSFER only the proven method/operator into its named recipient with attribution.",
+        "next_if_fail": "COMPOST the analogy; retain it as negative knowledge rather than local canon."
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/foundry/room/",
+      "title": "ROOM / MATERIAL DOM 0.4",
+      "kind": "experiment",
+      "parent": "/foundry/",
+      "family": "FOUNDRY",
+      "operation": "COMPOSE",
+      "state": "CANDIDATE",
+      "version": "0.4",
+      "receipt": "/returns/ROOM_MATERIAL_DOM_2026-09-22.json",
+      "showcase_card": false,
+      "role": "Structurally reflexive material/cassette interface: the visible nested DOM is the program the runtime interprets; rel=next links are typed seams; FOLD literally wraps sibling DOM into a cassette; ENTER reveals derivation; model-fit remains independent from physical contract-fit.",
+      "transfer": [
+        "FURNISHER/SINDER connection-pattern-as-interface, joint-pattern compiler and multidimensional-breadboard intent",
+        "INTERPHASE source → reduce → focus → fold → act lineage",
+        "HTML SUBSTRATE 0.3 DOM-as-program correction without its conventional-document projection",
+        "SPACE SCALE 0.2 typed fold/dock/run semantics retained as donor, not current UI authority",
+        "product-video SAVE → LOAD → SIMULATION GAP boundary: MODEL FIT != PHYSICAL CONTRACT FIT",
+        "physical rail/cassette/partition lineage as future measured witness only"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "structural HTML composition",
+            "typed blocks / cassettes"
+          ],
+          "requires": [
+            "stable element ids",
+            "visible rel=next seams",
+            "declared data-type boundaries"
+          ],
+          "optional": [
+            "nested cassette details",
+            "predicted/measured observable + tolerance",
+            "independent physical contract result"
+          ]
+        },
+        "transforms": {
+          "verb": "interpret the visible DOM as a composition program, fold contiguous siblings into a real DOM cassette, traverse/re-enter that derivation, execute visible seams, and RETURN the same structural source plus trace/binding",
+          "preserves": [
+            "DOM element identity",
+            "child identity",
+            "nesting",
+            "typed seams",
+            "source markup",
+            "RETURN"
+          ],
+          "reversibility": "generated cassette folds can be dissolved; SOURCE can be edited/reapplied; fold visibility is non-destructive",
+          "side_effects": "browser-local structural mutation / trace / RETURN only"
+        },
+        "emits": {
+          "kinds": [
+            "material DOM composition",
+            "execution trace",
+            "model-binding result",
+            "structural DOM + trace RETURN"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/returns/ROOM_MATERIAL_DOM_2026-09-22.json",
+          "checks": [
+            "built-in ?selftest=1 proves initial run + internal GROUP trace",
+            "MARK → FOLD mutates the actual #program DOM and preserves child ids",
+            "folded cassette remains executable from visible rel=next seams",
+            "SOURCE preserves generated cassette structure",
+            "MODEL FIT and physical CONTRACT FIT remain independent",
+            "0.3 HTML / 0.2 canvas / 0.1 cube remain preserved"
+          ],
+          "return_path": "/foundry/room/"
+        }
+      },
+      "field": {
+        "roles": [
+          "TRANSFORM",
+          "VERIFY",
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "DOCUMENT",
+            "kind": "nested HTML program",
+            "interface": "#program DOM"
+          },
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "focus / mark / fold / dissolve / enter / back / run / source edit",
+            "interface": "MATERIAL DOM"
+          },
+          {
+            "medium": "OBSERVATION",
+            "kind": "predicted / measured / tolerance + independent contract result",
+            "interface": "MODEL BINDING"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DOCUMENT",
+            "kind": "same structural DOM program",
+            "interface": "SOURCE"
+          },
+          {
+            "medium": "DATA",
+            "kind": "execution + nested GROUP trace",
+            "interface": "RUN"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "model-fit vs contract-fit result",
+            "interface": "VERIFY"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "structural DOM + trace + binding + events",
+            "interface": "RETURN"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "PHYSICAL_WITNESS",
+            "status": "PROOF_REQUIRED",
+            "via": "typed seam/cassette → independent dimensional/load/safety evidence"
+          },
+          {
+            "class": "HTML_SUBSTRATE_0_3",
+            "status": "REFERENCE",
+            "via": "/foundry/room/html-substrate-0.3.html"
+          },
+          {
+            "class": "SPACE_SCALE_0_2",
+            "status": "REFERENCE",
+            "via": "/foundry/room/space-scale-0.2.html"
+          },
+          {
+            "class": "ROOM_0_1",
+            "status": "REFERENCE",
+            "via": "/foundry/room/room-0.1.html"
+          }
+        ],
+        "physical_fit": "None inferred. A model may fit measurements while the physical result fails its independent contract, or vice versa."
+      },
+      "index": {
+        "updated_at": "2026-09-22T06:42:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "SIMPLIFY",
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/foundry/",
+        "generation": 4,
+        "stage": "TEST",
+        "question": "Can a material/cassette projection over the same executable DOM make composition and re-entry materially clearer than both a plain document and SPACE SCALE 0.2's node canvas?",
+        "baseline": "0.2 hid composition behind a separate graph/canvas; 0.3 exposed the DOM but reduced the interaction to a conventional document.",
+        "mutation": "Use the DOM itself as program structure while projecting sibling blocks on a hard-edged material rail; visible typed seams execute, FOLD wraps the actual DOM into a cassette, ENTER reveals children, SOURCE/RETURN preserve that same structure.",
+        "evidence_gate": "Use one real configuration sequence. Require lower translation/re-entry cost than both a plain ordered list and the 0.2 canvas; otherwise demote the rail and retain only the structural-DOM law.",
+        "next_if_pass": "Physicalize one harmless seam/cassette witness and record model-fit and physical contract-fit independently.",
+        "next_if_fail": "Reduce to structural HTML + links and keep richer projection mechanics only where they pay rent."
+      },
+      "kernel": "inline structural DOM interpreter",
+      "current_projection": "material rail / cassette",
+      "previous_heads": [
+        "/foundry/room/html-substrate-0.3.html",
+        "/foundry/room/space-scale-0.2.html",
+        "/foundry/room/room-0.1.html"
+      ],
+      "recovery_note": "/control/confluence/ROOM_HTML_SUBSTRATE_2026-09-22.md",
+      "tier": "FIELD"
+    },
+    {
+      "href": "/foundry/room/html-substrate-0.3.html",
+      "title": "ROOM 0.3 / HTML SUBSTRATE",
+      "kind": "experiment",
+      "parent": "/foundry/room/",
+      "operation": "PROJECT",
+      "state": "FROZEN_DONOR",
+      "family": "BODY / FIELD",
+      "showcase_card": false,
+      "role": "Frozen experiment: HTML as room substrate at 0.3. Part of the INTERPHASE room lineage.",
+      "index": {
+        "updated_at": "2026-09-25T12:46:00+08:00",
+        "work_modes": [
+          "INSPECT",
+          "EXPERIMENT",
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "registered after an on-disk vs manifest audit found it unlisted"
+        ],
+        "return_path": "/"
+      },
+      "tier": "VAULT"
+    },
+    {
+      "href": "/foundry/room/room-0.1.html",
+      "title": "INTERPHASE / ROOM 0.1",
+      "kind": "experiment",
+      "parent": "/foundry/room/",
+      "operation": "PROJECT",
+      "state": "FROZEN_DONOR",
+      "family": "BODY / FIELD",
+      "showcase_card": false,
+      "role": "INTERPHASE ROOM 0.1. Early spatial-room projection. Frozen evidence.",
+      "index": {
+        "updated_at": "2026-09-25T12:46:00+08:00",
+        "work_modes": [
+          "INSPECT",
+          "EXPERIMENT",
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "registered after an on-disk vs manifest audit found it unlisted"
+        ],
+        "return_path": "/"
+      },
+      "tier": "VAULT"
+    },
+    {
+      "href": "/foundry/room/space-scale-0.2.html",
+      "title": "INTERPHASE / SPACE SCALE 0.2",
+      "kind": "experiment",
+      "parent": "/foundry/room/",
+      "operation": "PROJECT",
+      "state": "FROZEN_DONOR",
+      "family": "BODY / FIELD",
+      "showcase_card": false,
+      "role": "BLOCK to ROOM space-scale study, 0.2. Frozen evidence in the room lineage.",
+      "index": {
+        "updated_at": "2026-09-25T12:46:00+08:00",
+        "work_modes": [
+          "INSPECT",
+          "EXPERIMENT",
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "registered after an on-disk vs manifest audit found it unlisted"
+        ],
+        "return_path": "/"
+      },
+      "tier": "VAULT"
+    },
+    {
+      "href": "/foundry/verse-atlas/",
+      "title": "VERSE ATLAS",
+      "kind": "artifact",
+      "parent": "/foundry/",
+      "family": "FOUNDRY",
+      "operation": "REPRESENT",
+      "state": "STABLE",
+      "receipt": "/control/VERSE_ATLAS_ROUNDTRIP_2026-09-20.json",
+      "transfer": [
+        "stable annotation",
+        "language/study interfaces",
+        "spatial + temporal reading"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "addressed text",
+            "annotation",
+            "path/traversal request"
+          ],
+          "requires": [
+            "stable source text"
+          ],
+          "optional": [
+            "study mode",
+            "temporal reading mode"
+          ]
+        },
+        "transforms": {
+          "verb": "address + annotate + traverse + compress",
+          "preserves": [
+            "source text",
+            "position",
+            "evidence class"
+          ],
+          "reversibility": "full",
+          "side_effects": "local"
+        },
+        "emits": {
+          "kinds": [
+            "grid view",
+            "typed path",
+            "study view",
+            "comparison view",
+            "glyph compression",
+            "temporal reading"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/foundry/verse-atlas/release.json",
+          "checks": [
+            "source survives projections",
+            "geometry not promoted into meaning"
+          ],
+          "return_path": "/foundry/verse-atlas/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "addressed text",
+            "interface": "stable source"
+          },
+          {
+            "medium": "DATA",
+            "kind": "path/traversal request",
+            "interface": "path grammar"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "typed path",
+            "interface": "export/replay"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "replayable return",
+            "interface": "JSON"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "WORK_INSTRUCTION",
+            "status": "CANDIDATE",
+            "via": "procedure/path adapter"
+          },
+          {
+            "class": "DONOR",
+            "status": "AVAILABLE",
+            "via": "stable traversal grammar"
+          }
+        ],
+        "physical_fit": "Promising for assembly/procedure routes once addresses point to real objects/steps."
+      },
+      "index": {
+        "updated_at": "2026-09-21T15:50:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "VERIFY"
+        ]
+      },
+      "role": "Sealed Jueju-native specialist: stable 4×7 source identity, study/evidence, path/glyph/RSVP and replayable RETURN. General Verse experiments belong outside this engine.",
+      "tier": "FIELD"
+    },
+    {
+      "href": "/godseye/",
+      "title": "GOD'S EYE VIEW (ACCOUNT)",
+      "kind": "control",
+      "parent": "/witness/",
+      "operation": "VERIFY",
+      "state": "STABLE",
+      "family": "WITNESS",
+      "showcase_card": false,
+      "role": "The account behind the sky: 21 figures, each paired with the command or file it came from, plus the discrepancies and the known unknowns. Rule: a number that cannot name its source file is not allowed on a page.",
+      "index": {
+        "updated_at": "2026-09-25T12:48:00+08:00",
+        "work_modes": [
+          "VERIFY",
+          "IMPLEMENT"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "registered after the WITNESS family was built on master",
+          "SEALED 2026-09-23: complete, at rest, not evolving. Reopening requires a named reason."
+        ],
+        "return_path": "/"
+      },
+      "tier": "FIELD",
+      "sealed": "2026-09-23"
+    },
+    {
+      "href": "/handshake/",
+      "title": "THE HANDSHAKE",
+      "kind": "artifact",
+      "parent": "/witness/",
+      "operation": "INTERPRET",
+      "state": "STABLE",
+      "family": "WITNESS",
+      "showcase_card": false,
+      "role": "How the human addresses a machine, measured across 11,274 user-authored messages. Openings, closings and idioms counted as written, typos preserved. Opens with \"can you\", closes with \"go free\".",
+      "index": {
+        "updated_at": "2026-09-25T12:48:00+08:00",
+        "work_modes": [
+          "INSPECT",
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": {
+        "checks": [
+          "registered after the WITNESS family was built on master",
+          "SEALED 2026-09-23: complete, at rest, not evolving. Reopening requires a named reason."
+        ],
+        "return_path": "/"
+      },
+      "tier": "FIELD",
+      "sealed": "2026-09-23"
+    },
+    {
+      "href": "/house/",
+      "title": "HOUSE / FIELD",
+      "kind": "system",
+      "parent": "/",
+      "family": "HOUSE / SPATIAL STATE",
+      "operation": "PROJECT",
+      "state": "STABLE",
+      "machine_state": "/house/state.json",
+      "showcase_card": false,
+      "role": "Addressed spatial/state projection coordinated with Home Assistant / HOUSEBUS. Spatial Engine owns address/geometry/evidence; private HA runtime owns device truth/actuation; BODY bridge carries browser-local context only.",
+      "version": "0.5",
+      "receipt": "/house/release.json",
+      "contract": "/house/contract.json",
+      "transfer": [
+        "spatial addressing",
+        "manual-to-sensor state",
+        "HA entity mapping",
+        "evidence return",
+        "BODY↔HOUSE local context envelope",
+        "ordinary chores remain private task/time execution; only durable physical/resource/state evidence returns to HOUSE"
+      ],
+      "family_href": "/house/",
+      "index": {
+        "updated_at": "2026-09-25T15:37:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "OPERATE",
+          "VERIFY"
+        ]
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/house/spatial/",
+      "title": "HOUSE / SPATIAL",
+      "kind": "workbench",
+      "parent": "/house/",
+      "family": "HOUSE / SPATIAL STATE",
+      "operation": "REPRESENT",
+      "state": "ACTIVE",
+      "version": "0.6",
+      "receipt": "/house/spatial/release.json",
+      "role": "Runnable multi-projection spatial workbench: addressed house substrate plus TRACE ink-path, JSON round-trip/replay, temporal focus, live micro-law stacks and local path sediment.",
+      "transfer": [
+        "plan/RCP/section/3D identity",
+        "surface addressing",
+        "local calibration",
+        "HA entity mapping",
+        "uncertainty-preserving projection",
+        "addressed/replayable traversal trace",
+        "RETURN→REPLAY path round trip",
+        "temporal focus over addressed routes",
+        "tiny-law path constraints",
+        "local recurrence sediment",
+        "selected spatial address → explicit Dayline planning-context handoff; selected != physical presence",
+        "explicit Dayline context handoff currently lands on /dayline/ candidate"
+      ],
+      "contract": {
+        "transforms": {
+          "verb": "project one addressed house substrate across spatial/state views",
+          "preserves": [
+            "stable IDs",
+            "evidence class",
+            "uncertainty",
+            "manual fallback",
+            "HA authority boundary"
+          ],
+          "reversibility": "full",
+          "side_effects": "local browser state only"
+        },
+        "evidence": {
+          "receipt": "/house/spatial/release.json",
+          "return_path": "/house/spatial/"
+        }
+      },
+      "index": {
+        "updated_at": "2026-09-25T17:20:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "SPECIFY"
+        ]
+      },
+      "family_href": "/house/",
+      "tier": "FIELD"
+    },
+    {
+      "href": "/inventory/",
+      "title": "THE INVENTORY",
+      "kind": "hub",
+      "parent": "/",
+      "family": "INVENTORY",
+      "operation": "ORIENT",
+      "state": "UTILITY",
+      "showcase_card": false,
+      "role": "Names the seven systems hiding behind seven recurring filenames — lens, trace, map, glyph, aperture, audit, health — and says for each whether it is load-bearing, mixed, or a candidate. Every description is quoted from that surface's own registered entry, not invented. Exists because 47 scattered files were indistinguishable from clutter without it.",
+      "evidence": {
+        "checks": [
+          "every row grounded in showcase-manifest.json, the registry, not guessed",
+          "generated by scripts/build-inventory.mjs from live registry data"
+        ],
+        "return_path": "/"
+      },
+      "index": {
+        "updated_at": "2026-09-23T02:45:59+08:00",
+        "work_modes": [
+          "INSPECT"
+        ]
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/laconic/",
+      "title": "LACONIC / ICONIC 0.3",
+      "kind": "artifact",
+      "parent": "/",
+      "family": "COMMS",
+      "operation": "DRAFT",
+      "state": "ACTIVE",
+      "version": "0.3",
+      "receipt": "/laconic/release.json",
+      "transfer": [
+        "response drafting",
+        "multi-turn conversation trajectories",
+        "care-mode selection",
+        "conversation recovery",
+        "provenance-aware curation",
+        "exact fragment/operator recovery",
+        "exact-source vault browsing",
+        "persona/plurality/Council lineage recovery"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "communication situation",
+            "recovered response source",
+            "drafting constraint",
+            "multi-turn exchange",
+            "observed interaction note",
+            "historical source query"
+          ],
+          "requires": [],
+          "optional": [
+            "move",
+            "register",
+            "scene lane",
+            "source provenance",
+            "source ref",
+            "tentative support mode"
+          ]
+        },
+        "transforms": {
+          "verb": "preserve what was observed, choose a bounded response move, use LINE/SCENE for current drafting, and use VAULT for exact historical source/lineage without silently promoting it",
+          "preserves": [
+            "source provenance",
+            "observed/possible distinction",
+            "line/scene distinction",
+            "human review boundary",
+            "no-send default",
+            "trajectory/return path",
+            "historical source/adoption distinction",
+            "multi-donor lineage uncertainty"
+          ],
+          "reversibility": "full",
+          "side_effects": "local"
+        },
+        "emits": {
+          "kinds": [
+            "draft candidate",
+            "multi-turn scene state",
+            "KEEP/DROP curation state",
+            "recovery source pack",
+            "HUMAN PORT handoff",
+            "recovered exact fragment",
+            "browseable exact-source vault",
+            "lineage/open-gap projection"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/laconic/release.json",
+          "checks": [
+            "EXACT/RECONSTRUCTED/NEW separation",
+            "scene branch integrity",
+            "private-source abstraction",
+            "local-only observed scratch",
+            "no transport credentials",
+            "human-triggered handoff",
+            "VAULT/current-layer separation",
+            "generic council/proper-name distinction"
+          ],
+          "return_path": "/laconic/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "WORLD_OUT"
+        ],
+        "inputs": [
+          {
+            "medium": "DATA",
+            "kind": "communication situation",
+            "interface": "text"
+          },
+          {
+            "medium": "DATA",
+            "kind": "observed interaction note",
+            "interface": "text"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "DATA",
+            "kind": "draft candidate",
+            "interface": "HUMAN PORT"
+          },
+          {
+            "medium": "DATA",
+            "kind": "scene state",
+            "interface": "HUMAN PORT"
+          },
+          {
+            "medium": "EVIDENCE",
+            "kind": "curation state",
+            "interface": "local"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "COMMUNICATION",
+            "status": "AVAILABLE",
+            "via": "HUMAN PORT"
+          },
+          {
+            "class": "DONOR",
+            "status": "AVAILABLE",
+            "via": "response-move grammar"
+          }
+        ],
+        "physical_fit": "Coordination/handoff for physical work; not a manipulation tool."
+      },
+      "index": {
+        "updated_at": "2026-09-21T01:06:00+08:00",
+        "work_modes": [
+          "RECOVER",
+          "INVESTIGATE",
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "tier": "FIELD"
+    },
+    {
+      "href": "/law-zoo/",
+      "title": "LAW ZOO / FIVE MACHINES",
+      "kind": "hub",
+      "parent": "/",
+      "family": "LAW ZOO",
+      "state": "FROZEN_DONOR",
+      "showcase_card": false,
+      "role": "Exact recovered family launcher for five intentionally unequal tiny-law machines; shared principle, no forced shared runtime.",
+      "receipt": "/law-zoo/artifact_manifest.json",
+      "index": {
+        "updated_at": "2026-09-21T17:45:00+08:00",
+        "work_modes": [
+          "SPECIFY",
+          "VERIFY"
+        ]
+      },
+      "operation": "ORIENT",
+      "tier": "VAULT"
+    },
+    {
+      "href": "/law-zoo/error_garden.html",
+      "title": "ERROR GARDEN",
+      "kind": "experiment",
+      "parent": "/law-zoo/",
+      "family": "LAW ZOO",
+      "operation": "BREED",
+      "state": "FROZEN_DONOR",
+      "role": "Restricted numeric machine where precision loss, wrap, aliasing and unstable recurrence are inherited as phenotype.",
+      "transfer": [
+        "error-as-material",
+        "fault genome",
+        "selection/breeding"
+      ],
+      "contract": {
+        "transforms": {
+          "verb": "breed numerical faults instead of correcting them",
+          "preserves": [
+            "genome",
+            "parentage",
+            "phenotype state"
+          ],
+          "reversibility": "full within local population",
+          "side_effects": "local browser state / optional genome export"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "selection/mutation",
+            "interface": "controls"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "fault phenotype",
+            "interface": "canvas"
+          },
+          {
+            "medium": "DATA",
+            "kind": "genome/lineage",
+            "interface": "export"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "SALVAGE",
+            "status": "AVAILABLE",
+            "via": "productive failure/operator extraction"
+          }
+        ],
+        "physical_fit": "Conceptual donor for tolerance/error exploration; never substitutes for safety or structural verification."
+      },
+      "index": {
+        "updated_at": "2026-09-20T23:58:00+08:00",
+        "work_modes": [
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "tier": "VAULT"
+    },
+    {
+      "href": "/law-zoo/law_districts.html",
+      "title": "LAW DISTRICTS",
+      "kind": "experiment",
+      "parent": "/law-zoo/",
+      "family": "LAW ZOO",
+      "operation": "TRAVERSE",
+      "state": "FROZEN_DONOR",
+      "role": "Traversable ASCII world where crossing a district boundary changes the local update and movement law.",
+      "transfer": [
+        "local law fields",
+        "traversal",
+        "history-sensitive world rules"
+      ],
+      "contract": {
+        "transforms": {
+          "verb": "traverse a world whose local physics changes by addressed district",
+          "preserves": [
+            "position",
+            "heading",
+            "district identity",
+            "local law"
+          ],
+          "reversibility": "resettable",
+          "side_effects": "local browser state"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "movement",
+            "interface": "keyboard/touch"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "ASCII spatial field",
+            "interface": "canvas"
+          },
+          {
+            "medium": "DATA",
+            "kind": "local law state",
+            "interface": "HUD"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "SPACE",
+            "status": "AVAILABLE",
+            "via": "local-law/path transplant"
+          }
+        ],
+        "physical_fit": "Mechanism donor for addressed spatial/TRACE rules; not room geometry evidence."
+      },
+      "index": {
+        "updated_at": "2026-09-20T23:58:00+08:00",
+        "work_modes": [
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "tier": "VAULT"
+    },
+    {
+      "href": "/law-zoo/law_zoo_field_guide.html",
+      "title": "LAW ZOO / FIELD GUIDE",
+      "kind": "experiment",
+      "parent": "/law-zoo/",
+      "family": "LAW ZOO",
+      "operation": "MUTATE",
+      "state": "FROZEN_DONOR",
+      "role": "Live specimen catalog: inspect tiny laws, mutate operators, compare lineages and breed selected specimens.",
+      "transfer": [
+        "tiny-law specimen library",
+        "mutation",
+        "lineage",
+        "breeding"
+      ],
+      "contract": {
+        "transforms": {
+          "verb": "mutate a compact computational law and inspect the disproportionate phenotype",
+          "preserves": [
+            "specimen identity",
+            "law text",
+            "mutation lineage"
+          ],
+          "reversibility": "full",
+          "side_effects": "local browser state"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH"
+        ],
+        "inputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "law mutation",
+            "interface": "controls"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "REPRESENTATION",
+            "kind": "phenotype",
+            "interface": "canvas"
+          },
+          {
+            "medium": "DATA",
+            "kind": "lineage",
+            "interface": "local state"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "TRANSFER",
+            "status": "AVAILABLE",
+            "via": "operator/law extraction"
+          }
+        ],
+        "physical_fit": "Method donor for stencils, path laws and spatial rules; not physical proof."
+      },
+      "index": {
+        "updated_at": "2026-09-20T23:58:00+08:00",
+        "work_modes": [
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "tier": "VAULT"
+    },
+    {
+      "href": "/law-zoo/one_law_two_senses.html",
+      "title": "ONE LAW / TWO SENSES",
+      "kind": "experiment",
+      "parent": "/law-zoo/",
+      "family": "LAW ZOO",
+      "operation": "MODULATE",
+      "state": "FROZEN_DONOR",
+      "role": "One recurrence state drives visual and audio output simultaneously; neither modality is merely an illustration of the other.",
+      "transfer": [
+        "shared recurrence",
+        "cross-modal control",
+        "audiovisual instrument"
+      ],
+      "contract": {
+        "transforms": {
+          "verb": "modulate one recurrence and hear/see two unequal projections of the same state",
+          "preserves": [
+            "recurrence state",
+            "coefficients",
+            "phase"
+          ],
+          "reversibility": "resettable",
+          "side_effects": "local audio/visual output"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_OUT"
+        ],
+        "inputs": [
+          {
+            "medium": "HUMAN_ACTION",
+            "kind": "coefficient control",
+            "interface": "sliders/pointer"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "LIGHT",
+            "kind": "visual recurrence",
+            "interface": "canvas"
+          },
+          {
+            "medium": "SOUND",
+            "kind": "audio recurrence",
+            "interface": "WebAudio"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "INSTRUMENT",
+            "status": "AVAILABLE",
+            "via": "shared-state control law"
+          }
+        ],
+        "physical_fit": "Potential control-source donor for light/sound instruments; no hardware authority."
+      },
+      "index": {
+        "updated_at": "2026-09-20T23:58:00+08:00",
+        "work_modes": [
+          "VERIFY",
+          "OPERATE"
+        ]
+      },
+      "tier": "VAULT"
+    },
+    {
+      "href": "/law-zoo/palimpsest.html",
+      "title": "PALIMPSEST",
+      "kind": "experiment",
+      "parent": "/law-zoo/",
+      "family": "LAW ZOO",
+      "operation": "RERENDER",
+      "state": "FROZEN_DONOR",
+      "role": "Self-reading typography loop: render → sample → alphabet → rerender; representation becomes part of the dynamics.",
       "transfer": [
         "self-sampling type",
         "iterated representation",
