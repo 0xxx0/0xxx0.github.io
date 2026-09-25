@@ -1,0 +1,29 @@
+{
+  "schema": "field-return/v1",
+  "id": "DAYLINE_HOUSE_CANONICAL_ENTRY_2026-09-26",
+  "date": "2026-09-26",
+  "state": "READY_BY_MACHINE",
+  "object": "Dayline → HOUSE navigation under one canonical HOUSE identity",
+  "observed": [
+    "HOUSE declares /house/ the canonical human entry",
+    "Dayline still exposed /house/spatial/ as depth/fallback navigation"
+  ],
+  "delta": [
+    "Dayline DEPTH / HOUSE targets /house/",
+    "Dayline fallback HOUSE ↗ targets /house/",
+    "validator rejects reintroduction of /house/spatial/ as Dayline front door"
+  ],
+  "preserves": [
+    "existing HOUSE → Dayline handoff",
+    "HOUSE native authority",
+    "DayState and source-specific RETURN behavior",
+    "/house/spatial/ compatibility/substrate reachability outside Dayline"
+  ],
+  "proof": {
+    "source_pull_request": 380,
+    "public_surface_run": 36165468058,
+    "route_registration_run": 36165467897,
+    "result": "PASS"
+  },
+  "next": "No new HOUSE/Dayline bridge. Keep one canonical human HOUSE entry and preserve spatial as compatibility/substrate."
+}
