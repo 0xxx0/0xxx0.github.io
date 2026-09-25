@@ -35,5 +35,18 @@
     "unknown": "Whether the repo UTF-8 text bytes are byte-for-byte identical to original File Library storage bytes; raw original hashes are unavailable.",
     "blocked": "Original target PNG byte stream."
   },
-  "return": "Toolbelt recovery is now a one-file binary handoff problem, not a three-file identity/content archaeology problem."
+  "return": "Toolbelt recovery is now a one-file binary handoff problem, not a three-file identity/content archaeology problem.",
+  "follow_up_2026_09_26": {
+    "state": "RAW_BINARY_SOURCE_RECOVERED",
+    "file_library_id": "file_000000006c8c71faa92311288535624e",
+    "size_bytes": 2577720,
+    "dimensions": [
+      1536,
+      1024
+    ],
+    "mime_type": "image/png",
+    "sha256": "f659631664aa9e6a23a20c65a202a7689c0c5546ec748c957ddeb607d7b08999",
+    "distinction": "This closes the 2026-09-22 RAW_BINARY_BLOCKED source gap. The verified original remains Library-backed; repo binary copy is deferred only because the active GitHub writer accepts text content.",
+    "receipt": "/returns/TOOLBELT_SLEEPER_PNG_RAW_RECOVERY_2026-09-26.json"
+  }
 }
