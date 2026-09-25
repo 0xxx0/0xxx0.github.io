@@ -5476,14 +5476,14 @@
     },
     {
       "href": "/poetry/",
-      "title": "VERSE",
+      "title": "VERSE / COPILOT",
       "kind": "hub",
       "parent": "/",
       "family": "PATH / POETRY",
       "operation": "ORIENT",
       "state": "ACTIVE",
       "showcase_card": true,
-      "role": "Small Verse re-entry surface. Choose the authoring job first, then enter Poem Map, Pathweaver, Market+Solver, Verse Atlas, Grid Path, or the bounded lab. Navigation itself does not rewrite poem state.",
+      "role": "Writing-first Verse re-entry. Primary job is ordinary co-creative writing/choice; Word Market, Pathweaver, Grid Path, Cell Foundry and Verse Atlas are unequal optional machines for vocabulary, traversal, grid play, transformation and Jueju-native study. Navigation does not merge their authorities.",
       "contract": {
         "accepts": {
           "kinds": [
@@ -5525,13 +5525,14 @@
         }
       },
       "transfer": [
-        "action-first re-entry",
-        "unequal instrument routing",
-        "source sovereignty",
-        "plain return path"
+        "writing-first orientation",
+        "selection → possibility → compare → explicit choose",
+        "optional transform rather than path-first workflow",
+        "visible recovered Verse/Foundry quarry",
+        "source sovereignty + plain RETURN"
       ],
       "index": {
-        "updated_at": "2026-09-21T17:41:00+08:00",
+        "updated_at": "2026-09-26T01:20:00+08:00",
         "work_modes": [
           "SPECIFY",
           "OPERATE"
@@ -5598,37 +5599,28 @@
     },
     {
       "href": "/poetry/map/",
-      "title": "POEM MAP 0.2.6",
+      "title": "VERSE COPILOT 0.3",
       "kind": "workbench",
       "parent": "/poetry/",
       "family": "PATH / POETRY",
       "operation": "PROJECT",
       "state": "CANDIDATE",
-      "version": "0.2.6",
+      "version": "0.3.0",
       "receipt": "/poetry/map/release.json",
       "showcase_card": false,
-      "role": "Current Verse/FIELD-text authoring candidate 0.2.6: readable PAGE first; selected-token golden-angle focus wheel; FIELD NOW preload from live collaboration state; manual/local/opt-in English option sources; MAP/SETS/path/form/aperture depth only on demand; replayable RETURN. Exact source/focus can carry into READFIELD, FOLD//BLOOM FIELD LAB VERSE, or fail-closed exact 4×7 Han Verse Atlas study without transferring authoring authority. FIELD LAB and Verse Atlas now expose the exact same-origin caller for navigation-only re-entry. Projection returns now preserve view + selected token through a source-bound address witness that survives full reload without a shared store. CONTINUE inserts after the selected token; REPLACE swaps it. Both remain preview-first explicit author operations rather than provider authority. NEXT LINE is now an explicit START_NEXT_LINE authoring move: blank next-line slots can be filled without mutating the anchor during TRY; occupied next lines are inserted around rather than overwritten.",
+      "role": "Current Verse authoring candidate: readable writing first; selected-token/blank-line focus → explicit intent → possibilities → BANK / TRY / ADOPT / LOCK / UNDO. The Poem Map 0.2.6 engine supplies stable token/source identity and optional RELATE/GROUP/path projections, but map/grid/path are no longer the product identity or mandatory workflow. Recovered Word Market, Pathweaver and Grid Path remain visible unequal machines; Verse Atlas remains specialist Jueju study.",
       "transfer": [
-        "Poemage linked poem/set/path entrances",
-        "Foundry typed path laws",
-        "Market+Solver bag/constraint behavior",
-        "Pathweaver author path/capture",
-        "COPE/Co-PoeTryMe constrained option generation",
-        "Axial state×transform×aperture discipline",
-        "Poem Map 0.1 one-question legibility",
-        "DataDisc radial focus without identity loss",
-        "Aperture scale/focus/time utility",
-        "Dayline plain-first / radial-optional disclosure",
-        "FIELD LAB VERSE source+line-focus handoff without mark-to-semantics promotion",
-        "READFIELD exact-source/focus handoff",
-        "FOLD//BLOOM FIELD LAB VERSE round-trip",
-        "Verse Atlas exact 4×7 Han study handoff; focus is projection-only",
-        "recipient-side exact caller RETURN from FIELD LAB VERSE and Verse Atlas study",
-        "source-bound caller witness: view + token address + local source fingerprint → deterministic focus restore",
-        "Poetry Copilot / Pathweaver open-composition transfer: CONTINUE → INSERT_AFTER; REPLACE remains replacement"
+        "Poem Map 0.2.6 stable source/token/candidate/revision engine retained under Copilot face",
+        "writing-first WRITE projection; RELATE/GROUP optional",
+        "Market+Solver optionality: searchable terms, BAG, WHY NOT, explicit constraints, least-change construction",
+        "Pathweaver play/composition/forge donor remains separate",
+        "Grid Path V4 typed BY / route / multilingual projection donor remains separate",
+        "Cell Foundry route-game/transformation donor remains separate",
+        "Verse Atlas sealed Jueju-native study/evidence specialist",
+        "source-bound exact focus return and recipient handoffs retained"
       ],
       "index": {
-        "updated_at": "2026-09-26T00:44:00+08:00",
+        "updated_at": "2026-09-26T01:20:00+08:00",
         "work_modes": [
           "RECOVER",
           "RESEARCH",
@@ -5638,7 +5630,7 @@
         ]
       },
       "tier": "FIELD",
-      "latest_return": "/returns/VERSE_OPEN_LINE_2026-09-25.json"
+      "latest_return": "/returns/VERSE_COPILOT_RECENTER_2026-09-26.json"
     },
     {
       "href": "/port/",
