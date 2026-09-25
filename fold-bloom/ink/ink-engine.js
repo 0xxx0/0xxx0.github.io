@@ -1,7 +1,7 @@
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,Number(v)||0));
 const hash=(x,y,s=0)=>{let n=(x*374761393+y*668265263+s*69069)>>>0;n=(n^(n>>13))*1274126177>>>0;return ((n^(n>>16))>>>0)/4294967295};
 
-export const INK_SCHEMA='fold-bloom-ink-field/v0.2';
+export const INK_SCHEMA='fold-bloom-ink-field/v0.3';
 
 export class InkField{
   constructor({width=192,height=128,seed=17}={}){
@@ -23,27 +23,52 @@ export class InkField{
   }
   clear(){this.pigment.fill(0);this.water.fill(0);this.stain.fill(0);return this}
   dry(factor=.08){const f=clamp(factor,0,1);for(let i=0;i<this.length;i++)this.water[i]*=f;return this}
-  deposit(nx,ny,{speed=0,pressure=.5,tiltX=0,tiltY=0,size=.09,water=.62,load=.72,mode='SUMI'}={}){
+
+  deposit(nx,ny,{speed=0,pressure=.5,tiltX=0,tiltY=0,angle=null,size=.09,water=.62,load=.72,mode='SUMI',flow=1,strokeSeed=0}={}){
     const gx=clamp(nx)*this.width,gy=clamp(ny)*this.height,p=clamp(pressure,.05,1),spd=clamp(speed/42,0,1);
     const base=Math.max(1,Math.min(this.width,this.height)*clamp(size,.012,.22));
-    const tilt=Math.hypot(Number(tiltX)||0,Number(tiltY)||0),angle=Math.atan2(Number(tiltY)||0,Number(tiltX)||1);
-    const eccentric=1+clamp(tilt/70,0,.85)*1.7;
-    const rx=base*(.58+p*.62)*(1-spd*.38)*eccentric,ry=base*(.52+p*.55)*(1-spd*.48)/Math.sqrt(eccentric);
-    const c=Math.cos(angle),s=Math.sin(angle),x0=Math.max(0,Math.floor(gx-rx-2)),x1=Math.min(this.width-1,Math.ceil(gx+rx+2)),y0=Math.max(0,Math.floor(gy-rx-2)),y1=Math.min(this.height-1,Math.ceil(gy+rx+2));
-    const dry=String(mode).toUpperCase()==='DRY',wash=String(mode).toUpperCase()==='WASH';
-    const pigmentLoad=clamp(load)*(dry?1.15:wash?.28:1)*(0.42+p*.78)*(1-spd*.34);
-    const waterLoad=clamp(water)*(dry?.18:wash?1.25:1)*(0.52+p*.55)*(1-spd*.16);
+    const tilt=Math.hypot(Number(tiltX)||0,Number(tiltY)||0);
+    const dir=Number.isFinite(Number(angle))?Number(angle):(tilt>1?Math.atan2(Number(tiltY)||0,Number(tiltX)||1):0);
+    const tiltStretch=1+clamp(tilt/70,0,.85)*1.25;
+    const motionStretch=1+spd*.32;
+    const rx=base*(.62+p*.56)*(1-spd*.20)*tiltStretch*motionStretch;
+    const ry=base*(.54+p*.48)*(1-spd*.28)/Math.sqrt(tiltStretch);
+    const c=Math.cos(dir),s=Math.sin(dir),reach=Math.max(rx,ry);
+    const x0=Math.max(0,Math.floor(gx-reach-2)),x1=Math.min(this.width-1,Math.ceil(gx+reach+2)),y0=Math.max(0,Math.floor(gy-reach-2)),y1=Math.min(this.height-1,Math.ceil(gy+reach+2));
+    const dry=String(mode).toUpperCase()==='DRY',wash=String(mode).toUpperCase()==='WASH',f=clamp(flow,.04,1);
+    const pigmentLoad=clamp(load)*(dry?1.12:wash?.27:1)*(0.42+p*.78)*(1-spd*.25)*f;
+    const waterLoad=clamp(water)*(dry?.16:wash?1.22:1)*(0.50+p*.52)*(1-spd*.12)*f;
+    const phase=(hash((strokeSeed|0)&1023,(strokeSeed|0)>>10,this.seed^0x6d2b79)-.5)*2.4;
     for(let y=y0;y<=y1;y++)for(let x=x0;x<=x1;x++){
       const dx=x+.5-gx,dy=y+.5-gy,u=(dx*c+dy*s)/Math.max(.001,rx),v=(-dx*s+dy*c)/Math.max(.001,ry),d=Math.hypot(u,v);if(d>1)continue;
-      const i=x+y*this.width,edge=Math.pow(1-d,1.55),fiber=this.paper[i],bristle=hash(x,y,this.seed^0xabc123);
-      const broken=dry?clamp((bristle-.28)*1.55):1;
-      const q=edge*broken*(.88+.18*(fiber-.9));
+      const i=x+y*this.width,paper=this.paper[i],grain=hash(x,y,this.seed^0xabc123);
+      const rim=clamp((1-d)/.24,0,1);
+      const bristle=.74+.26*Math.cos((v*8.5+phase)*Math.PI);
+      const tooth=.82+.22*(paper-.78)/.42;
+      const contact=dry?clamp((bristle-.48)*2.15,0,1)*clamp((grain-.16)*1.28,0,1):(.91+.09*bristle);
+      const core=(.82+.18*rim),q=core*contact*tooth;
       this.pigment[i]=clamp(this.pigment[i]+q*pigmentLoad);
-      this.water[i]=clamp(this.water[i]+edge*waterLoad);
-      if(dry&&bristle<.38)this.water[i]*=.7;
+      this.water[i]=clamp(this.water[i]+(.72+.28*rim)*waterLoad*(dry?(.72+.28*contact):1));
+      if(dry&&grain<.30)this.water[i]*=.72;
     }
     return this;
   }
+
+  strokeSegment(x0,y0,x1,y1,opts={}){
+    const ax=clamp(x0),ay=clamp(y0),bx=clamp(x1),by=clamp(y1);
+    const dx=(bx-ax)*this.width,dy=(by-ay)*this.height,dist=Math.hypot(dx,dy);
+    if(dist<.001){this.deposit(bx,by,opts);return this}
+    const base=Math.max(1,Math.min(this.width,this.height)*clamp(opts.size??.09,.012,.22));
+    const targetSpacing=Math.max(.55,base*.20),steps=Math.max(1,Math.ceil(dist/targetSpacing)),actual=dist/steps;
+    const flow=clamp(actual/Math.max(1,base*.72),.14,.58),angle=Math.atan2(dy,dx);
+    const seed=Number.isFinite(Number(opts.strokeSeed))?Number(opts.strokeSeed):0;
+    for(let i=1;i<=steps;i++){
+      const t=i/steps;
+      this.deposit(ax+(bx-ax)*t,ay+(by-ay)*t,{...opts,angle,flow:(opts.flow==null?flow:Number(opts.flow)*flow),strokeSeed:seed});
+    }
+    return this;
+  }
+
   step({bleed=1,absorb=.5,evaporation=.006,dt=1}={}){
     const W=this.width,H=this.height,p=this.pigment,w=this.water,np=this.nextPigment,nw=this.nextWater;
     const b=clamp(bleed,0,2),a=clamp(absorb,0,1.5),ev=Math.max(0,Number(evaporation)||0)*Math.max(.15,Number(dt)||1);
