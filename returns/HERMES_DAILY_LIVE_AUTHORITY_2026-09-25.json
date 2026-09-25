@@ -1,0 +1,24 @@
+{
+  "schema": "return/v0.1",
+  "id": "HERMES_DAILY_LIVE_AUTHORITY_2026-09-25",
+  "state": "CANDIDATE",
+  "object": "Hermes disposable daily prompt generator",
+  "delta": "Start from /llms.txt live authority and correctly render WAITING v0.2 lifecycle state.",
+  "evidence": [
+    "/scripts/hermes-daily-prompt.py",
+    "/tools/validate-public.mjs",
+    "/showcase-manifest.json",
+    "/control/confluence/HERMES_DAILY_LIVE_AUTHORITY_2026-09-25.md"
+  ],
+  "value": [
+    "Fresh daily sessions no longer bootstrap through a dated master prompt.",
+    "PARKED / REMOVED dependency state survives correctly into generated working context.",
+    "CI now rejects regressions back to either stale behavior."
+  ],
+  "residue": [
+    "The historical Sep-23 ultra-master prompt remains present by design as donor/reference material.",
+    "Actual local Hermes generation/execution remains outside repo-only observation."
+  ],
+  "waiting": [],
+  "stop": "No second daily state store; live sources remain authority."
+}
