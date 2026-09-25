@@ -537,8 +537,6 @@ function renderFeed(){
  $('feedRail').querySelectorAll('.feedChip').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,'LATEST')});
  renderSyncLine();try{updateStatusRail()}catch(_){}
 }
-const WAIT_LOCAL='field.waiting.local.v02';
-function waitingLocal(){try{return JSON.parse(localStorage.getItem(WAIT_LOCAL)||'{}')||{}}catch(_){return{}}}
 function dependencyKind(state){
  const s=String(state||'').toUpperCase();
  if(s.includes('REAL_DEVICE'))return'REAL_DEVICE';
@@ -563,34 +561,33 @@ function mergeWaiting(xs){
  const rest=[...registry.values()];
  return{active,parked:rest.filter(x=>x.surface_state==='PARKED'),removed:rest.filter(x=>x.surface_state==='REMOVED'),other:rest.filter(x=>!['PARKED','REMOVED'].includes(x.surface_state))};
 }
-function toggleWaitingLocal(id){const m=waitingLocal();if(m[id])delete m[id];else m[id]={acknowledged_at:new Date().toISOString()};try{localStorage.setItem(WAIT_LOCAL,JSON.stringify(m))}catch(_){}renderWaiting()}
 function waitRouteHref(route){return route&&String(route).startsWith('/')?'.'+route:(route||'#')}
-function waitRow(x,mode,local){
- const ack=mode==='ACTIVE'&&!!local[x.id],kind=dependencyLabel(x.dependency_kind||dependencyKind(x.state)),route=esc(x.route||''),href=esc(waitRouteHref(x.route));
- const source=mode==='ACTIVE'?'CURRENT'+(x.drift?' · REGISTRY DRIFT':'')+(ack?' · ACK LOCAL · CURRENT OPEN':''):mode==='PARKED'?'WAITING REGISTRY':'HISTORY';
+function waitRow(x,mode){
+ const kind=dependencyLabel(x.dependency_kind||dependencyKind(x.state)),route=esc(x.route||''),href=esc(waitRouteHref(x.route));
+ const source=mode==='ACTIVE'?'CURRENT'+(x.drift?' · REGISTRY DRIFT':''):mode==='PARKED'?'WAITING REGISTRY':'HISTORY';
  const move=mode==='REMOVED'?(x.removed_reason||'Removed from actionable WAITING.'):x.human_move||'';
  const why=mode==='REMOVED'?('Former dependency: '+(x.human_move||'')+(x.preserve_as?' · '+x.preserve_as:'')):(x.why||'')+(x.unlocks?' · unlocks: '+x.unlocks:'');
- const action=mode==='ACTIVE'?'<button class="waitAck" data-wait-ack="'+esc(x.id||'')+'">'+(ack?'UNACK':'ACK LOCAL')+'</button>':mode==='PARKED'?'<a class="waitAck" href="'+href+'">OPEN</a>':'<span class="waitAck waitNone">—</span>';
+ const action=mode==='ACTIVE'?'<div class="waitActs"><button class="waitAck" data-wait-hold="'+esc(x.route||'/')+'">HOLD</button><a class="waitAck" href="'+href+'">DO →</a></div>':mode==='PARKED'?'<a class="waitAck" href="'+href+'">OPEN</a>':'<span class="waitAck waitNone">—</span>';
  const r=routeMap().get(x.route)||{href:x.route||'/',title:x.route||kind,kind:'artifact',operation:'RETURN',state:mode==='ACTIVE'?'ACTIVE_NOW':(x.surface_state||'PARKED')};
  return '<div class="waitRow '+mode.toLowerCase()+'" data-wait="'+esc(x.id||'')+'"><div class="waitSignal">'+routeGlyph(r,24)+'<div><b>'+esc(kind)+'</b><small>'+esc(source)+'</small></div></div><div><div class="waitMove">'+esc(move)+'</div><div class="waitWhy">'+esc(why)+'</div><a class="waitRoute" href="'+href+'">'+route+'</a></div><div></div>'+action+'</div>';
 }
 function renderWaiting(xs){
  if(Array.isArray(xs))waitingSource=xs;
- const groups=mergeWaiting(waitingSource),local=waitingLocal(),a=groups.active.length,p=groups.parked.length,h=groups.removed.length;
+ const groups=mergeWaiting(waitingSource),a=groups.active.length,p=groups.parked.length,h=groups.removed.length;
  waiting=[...groups.active,...groups.parked,...groups.removed,...groups.other];
  $('waitingMeta').textContent=(a?a+' ACTIVE':'CLEAR')+' · '+p+' PARKED · '+h+' HISTORY';
- const active='<section class="waitGroup active"><div class="waitGroupHead"><b>ACTIVE / NEEDS YOUR EVIDENCE</b><span>'+a+'</span></div>'+(a?groups.active.map(x=>waitRow(x,'ACTIVE',local)).join(''):'<div class="waitRow"><div class="waitState">CLEAR<small>CURRENT</small></div><div><div class="waitMove">Nothing currently requires human/world evidence.</div></div><div></div><span class="waitAck waitNone">—</span></div>')+'</section>';
- const parked='<details class="waitGroup"><summary><b>PARKED / NOT NEEDED NOW</b><span>'+p+'</span></summary>'+(p?groups.parked.map(x=>waitRow(x,'PARKED',local)).join(''):'<div class="touchFail">No parked dependencies.</div>')+'</details>';
- const removed='<details class="waitGroup"><summary><b>HISTORY / REMOVED</b><span>'+h+'</span></summary>'+(h?groups.removed.map(x=>waitRow(x,'REMOVED',local)).join(''):'<div class="touchFail">No removed dependencies.</div>')+'</details>';
- const other=groups.other.length?'<details class="waitGroup"><summary><b>REGISTRY / UNCLASSIFIED</b><span>'+groups.other.length+'</span></summary>'+groups.other.map(x=>waitRow({...x,removed_reason:'Unknown WAITING lifecycle state: '+x.surface_state},'REMOVED',local)).join('')+'</details>':'';
+ const active='<section class="waitGroup active"><div class="waitGroupHead"><b>ACTIVE / NEEDS YOUR EVIDENCE</b><span>'+a+'</span></div>'+(a?groups.active.map(x=>waitRow(x,'ACTIVE')).join(''):'<div class="waitRow"><div class="waitState">CLEAR<small>CURRENT</small></div><div><div class="waitMove">Nothing currently requires human/world evidence.</div></div><div></div><span class="waitAck waitNone">—</span></div>')+'</section>';
+ const parked='<details class="waitGroup"><summary><b>PARKED / NOT NEEDED NOW</b><span>'+p+'</span></summary>'+(p?groups.parked.map(x=>waitRow(x,'PARKED')).join(''):'<div class="touchFail">No parked dependencies.</div>')+'</details>';
+ const removed='<details class="waitGroup"><summary><b>HISTORY / REMOVED</b><span>'+h+'</span></summary>'+(h?groups.removed.map(x=>waitRow(x,'REMOVED')).join(''):'<div class="touchFail">No removed dependencies.</div>')+'</details>';
+ const other=groups.other.length?'<details class="waitGroup"><summary><b>REGISTRY / UNCLASSIFIED</b><span>'+groups.other.length+'</span></summary>'+groups.other.map(x=>waitRow({...x,removed_reason:'Unknown WAITING lifecycle state: '+x.surface_state},'REMOVED')).join('')+'</details>':'';
  $('waitingList').innerHTML=active+parked+removed+other;
- $('waitingList').querySelectorAll('[data-wait-ack]').forEach(b=>b.addEventListener('click',()=>toggleWaitingLocal(b.dataset.waitAck)));
- updateStatusRail();
+ $('waitingList').querySelectorAll('[data-wait-hold]').forEach(b=>b.addEventListener('click',()=>{const r=routeMap().get(b.dataset.waitHold);if(!r)return;focusRoute(r,true,'OTHER');$('capTrial')?.scrollIntoView({behavior:'smooth',block:'center'})}));
+ updateStatusRail();renderCatchup();
 }
 async function loadWaiting(){try{const w=await fetch('./control/WAITING.json',{cache:'no-store'}).then(r=>r.json());waitingUpdated=w.updated||'';renderWaiting(w.items||[])}catch(_){waitingUpdated='';renderWaiting([])}}
 function renderIssues(xs){
  issues=xs||[];const sorted=issues.slice().sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||'')));$('issueMeta').textContent=sorted.length+' open · '+sorted.filter(x=>x.play_safe).length+' playable';
- $('issueList').innerHTML=sorted.map(x=>'<div class="issueRow"><div class="issueNo">#'+esc(x.number)+'</div><div><a class="rowTitle" href="'+esc(x.html_url)+'" target="_blank" rel="noopener">'+esc(x.title)+'</a><div class="rowMeta">'+esc(shortTs(x.updated_at))+'</div></div><div class="tiny">'+esc(x.disposition||'PUBLIC_REPO')+'</div>'+(x.play_safe?'<a class="tinyButton hot" href="./field-play.html#issue='+x.number+'">PLAY</a>':'<span class="tinyButton">HOLD</span>')+'</div>').join('')||'<div class="issueRow"><div>No open issues.</div></div>';renderFeed();updateStatusRail();
+ $('issueList').innerHTML=sorted.map(x=>'<div class="issueRow"><div class="issueNo">#'+esc(x.number)+'</div><div><a class="rowTitle" href="'+esc(x.html_url)+'" target="_blank" rel="noopener">'+esc(x.title)+'</a><div class="rowMeta">'+esc(shortTs(x.updated_at))+'</div></div><div class="tiny">'+esc(x.disposition||'PUBLIC_REPO')+'</div>'+(x.play_safe?'<a class="tinyButton hot" href="./field-play.html#issue='+x.number+'">PLAY</a>':'<span class="tinyButton">HOLD</span>')+'</div>').join('')||'<div class="issueRow"><div>No open issues.</div></div>';renderFeed();updateStatusRail();renderCatchup();
 }
 async function loadIssues(){
  let snap={issues:[]};try{snap=await fetch('./control/FIELD_ISSUES.json',{cache:'no-store'}).then(r=>r.json());renderIssues(snap.issues||[])}catch(_){}
