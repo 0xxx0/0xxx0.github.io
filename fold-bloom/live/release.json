@@ -338,9 +338,9 @@
   ],
   "restore_return": "/returns/FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json",
   "play_shell": {
-    "version": "0.4.1",
-    "state": "SHIPPED",
-    "law": "TURN → READ CONSEQUENCE → WRITE LINE → RESOLVE TRIGRAM → COMPLETE SIX-LINE FORM",
+    "version": "0.5",
+    "state": "ACTIVE_CANDIDATE",
+    "law": "FORM H[A] → address line with ring → release writes consequence bit → Δ emerges → H[B]",
     "quickstart_aliases": {
       "CONCERT": "PLAY",
       "RUN": "PLAY",
@@ -353,10 +353,10 @@
     },
     "modes": {
       "RUN": "8 releases; clear at 6 CALL hits; misses still write topology.",
-      "PUZZLE": "6 releases construct an exact six-line target. BLOOM/FOLD write solid; SPLIT/RETURN write broken. Lines 1–3 resolve a lower trigram; 4–6 an upper trigram.",
+      "PUZZLE": "FORM: construct exact six-line target from six LIVE releases. CHANGE: ring rotation mod 6 addresses a line; release overwrites it solid/broken; clear when two final lines differ within four change releases.",
       "PATH": "Legacy 5-CALL shortest-turn challenge: 3★ at par, 2★ at par+1, 1★ for a slower hit; clear at 10/15.",
-      "TWO_DIAL": "LIVE ring + partner dial; SAME→BLOOM · NEAR→FOLD · FAR→RETURN · OPPOSITE→SPLIT; clear at 5 synchronized releases of 6.",
-      "ECOLOGY": "3 generations × 4 releases; choose BODY/PATH/VOICE inheritance pressure after generations 1 and 2; clear when both pressures survive.",
+      "TWO_DIAL": "LIVE outer relation + partner inner six-position dial are now projected into the central ring while preserving the existing relation algebra.",
+      "ECOLOGY": "Generation/inheritance state is now projected as concentric growth rings over LIVE while Ecology remains the domain donor.",
       "ZEN": "Open ride with no finite score loop."
     },
     "feedback": "PUZZLE forecasts the needed solid/broken line; the six-line panel shows target vs authored lines and resolves lower/upper trigrams as they complete.",
@@ -385,15 +385,28 @@
       "source": "Stanford Encyclopedia of Philosophy, Chinese Philosophy of Change (Yijing), trigrams/hexagrams discussion and appendix."
     },
     "cache_boundary": {
-      "reason": "0.4 changed PLAY and its grammar dependency at stable URLs; phone/browser module caches could retain an old dependency and prevent the hex UI from booting.",
-      "fix": "index loads play.js?v=0.4.1; PLAY pins engine.js?v=0.13 and play-core.js?v=0.4.1; play-core pins shared state-language.js?v=0.1."
+      "reason": "Mode-aware rendering now spans index → app → render and PLAY → play-core → state-language; each changed module edge is revision-pinned.",
+      "fix": "app.js?v=0.13.1 → render.js?v=0.13.1; play.js?v=0.5 → play-core.js?v=0.5 → state-language.js?v=0.1."
     },
     "state_language": {
       "shared_module": "/fold-bloom/state-language.js",
       "reference": "/fold-bloom/STATE_CHANGE.md",
       "return_payload": "PUZZLE exports carry target/authored state and exact delta.",
       "syntax": "H[lower|upper] Δ{changed lines} → H[lower|upper]"
+    },
+    "central_ring": {
+      "state": "ENACTED_CANDIDATE",
+      "law": "Game modes change the visible central instrument, not only labels or detached panels.",
+      "projections": {
+        "RUN": "8-release progress witness",
+        "HEX": "inner lower trigram / outer upper trigram + FORM/CHANGE state",
+        "PATH": "par / turns / stars",
+        "TWO_DIAL": "two six-position relation dials",
+        "ECOLOGY": "three generation rings + current pressure",
+        "ZEN": "no added game overlay"
+      },
+      "authority": "renderer projection only; LIVE engine remains gameplay/source-state authority"
     }
   },
-  "play_return": "/returns/FOLD_BLOOM_STATE_LANGUAGE_01_2026-09-25.json"
+  "play_return": "/returns/FOLD_BLOOM_PLAY_05_RING_CHANGE_2026-09-25.json"
 }
