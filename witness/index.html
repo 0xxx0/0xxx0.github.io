@@ -316,7 +316,41 @@ window.addEventListener('resize',layout); layout();
       fetch('../control/CURRENT.json',{cache:'no-store'})
     ]);
     const [h,m,c]=await Promise.all([hr.json(),mr.json(),cr.json()]);
-    const days=Array.isArray(h.days)?h.days:[], routes=Array.isArray(m.routes)?m.routes:[];
+    const staticDays=Array.isArray(h.days)?h.days:[];
+    const days=staticDays.map(d=>({...d,c:[...(d.c||[])]}));
+    const routes=Array.isArray(m.routes)?m.routes:[];
+    let liveTail=[], tailStatus='not requested';
+    if(h.cutoff_timestamp){
+      try{
+        const seen=new Set(), since=encodeURIComponent(h.cutoff_timestamp);
+        for(let page=1;page<=5;page++){
+          const rr=await fetch('https://api.github.com/repos/0xxx0/0xxx0.github.io/commits?sha=master&since='+since+'&per_page=100&page='+page,{headers:{Accept:'application/vnd.github+json'}});
+          if(!rr.ok) throw new Error('HTTP '+rr.status);
+          const a=await rr.json();
+          for(const x of a){
+            if(!x?.sha || x.sha===h.cutoff_sha || seen.has(x.sha)) continue;
+            seen.add(x.sha);
+            const raw=x.commit?.author?.date||x.commit?.committer?.date;
+            if(!raw || new Date(raw)<=new Date(h.cutoff_timestamp)) continue;
+            const dt=new Date(new Date(raw).getTime()+8*3600*1000);
+            liveTail.push({
+              sha:x.sha.slice(0,7), day:dt.toISOString().slice(0,10),
+              hr:dt.getUTCHours(), mi:dt.getUTCMinutes(),
+              subject:(x.commit?.message||'').split('\\n')[0].slice(0,92)
+            });
+          }
+          if(a.length<100) break;
+        }
+        liveTail.sort((a,b)=>a.day.localeCompare(b.day)||(a.hr*60+a.mi)-(b.hr*60+b.mi));
+        for(const x of liveTail){
+          let d=days.find(v=>v.d===x.day);
+          if(!d){d={d:x.day,n:0,au:[],c:[]};days.push(d);}
+          d.c.push([x.sha,x.hr,x.mi,x.subject]); d.n=(d.n||0)+1;
+        }
+        days.sort((a,b)=>a.d.localeCompare(b.d));
+        tailStatus='live tail '+liveTail.length;
+      }catch(e){tailStatus='live tail unavailable';}
+    }
     const roots=routes.filter(r=>(r.parent||'/')==='/').length;
     const noFamily=routes.filter(r=>!r.family).length;
     const families=new Set(routes.map(r=>r.family).filter(Boolean)).size;
@@ -328,12 +362,14 @@ window.addEventListener('resize',layout); layout();
     const recentBoard=recentRows.filter(x=>/^nexus: board refresh/i.test(x.subject)).length;
     const activeFronts=Array.isArray(c.active_fronts)?c.active_fronts.length:0;
     const heads=Array.isArray(c.current_heads)?c.current_heads.length:0;
-    const archived=h.total||days.reduce((n,d)=>n+(d.n||0),0);
-    const first=Array.isArray(h.span)?h.span[0]:(days[0]?.d||'?');
-    const snap=Array.isArray(h.span)?h.span[1]:(days[days.length-1]?.d||'?');
+    const archived=h.total||staticDays.reduce((n,d)=>n+(d.n||0),0);
+    const first=Array.isArray(h.span)?h.span[0]:(staticDays[0]?.d||'?');
+    const snap=Array.isArray(h.span)?h.span[1]:(staticDays[staticDays.length-1]?.d||'?');
+    const nowSpan=days.length?(first+' → '+days[days.length-1].d):(first+' → '+snap);
     stats.innerHTML=[
-      [archived.toLocaleString(),'commits in exact static history'],
-      [first+' → '+snap,'history snapshot span'],
+      [archived.toLocaleString(),'commits in checked-in exact history'],
+      [liveTail.length.toLocaleString(),'live-tail commits after cutoff'],
+      [nowSpan,'repo-sky span when live tail resolves'],
       [routes.length,'addressed routes now'],
       [activeFronts,'active fronts now'],
       [heads,'retained current heads']
@@ -352,7 +388,7 @@ window.addEventListener('resize',layout); layout();
       ['LIFECYCLE MASS',(states.ACTIVE||0)+' ACTIVE · '+(states.CANDIDATE||0)+' CANDIDATE · '+(states.FROZEN_DONOR||0)+' FROZEN_DONOR','The repo is already a memory machine. Promotion should become harder than preservation; donor status is success, not failure.'],
       ['INVARIANT','ADDRESS → PROJECT → ACT → WITNESS → RETURN','KRAKEN/POLY, DataDisc, Grid Path, Sleeper, Fold/Bloom and FIELD INDEX differ in medium; this loop keeps surviving. Build around it rather than around project names.']
     ].map(x=>'<div class="shape"><div class="k">'+esc(x[0])+'</div><div class="v">'+esc(x[1])+'</div><div class="w">'+esc(x[2])+'</div></div>').join('');
-    head.innerHTML='<b>STATIC HISTORY SEALED '+esc(h.generated||snap)+'</b><span>·</span><span>live control '+esc(c.updated_at||c.updated||'?')+'</span>';
+    head.innerHTML='<b>STATIC HISTORY CUTOFF '+esc((h.cutoff_sha||'').slice(0,8)||snap)+'</b><span>·</span><span>'+esc(tailStatus)+'</span><span>·</span><span>live control '+esc(c.updated_at||c.updated||'?')+'</span>';
   }catch(e){
     stats.innerHTML='<div class="repoStat"><b>projection unavailable</b><span>static witness remains intact</span></div>';
     timeline.innerHTML='';
