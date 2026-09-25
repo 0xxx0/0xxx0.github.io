@@ -4678,10 +4678,10 @@
       "parent": "/house/",
       "family": "HOUSE / SPATIAL STATE",
       "operation": "REDIRECT",
-      "state": "COMPATIBILITY",
+      "state": "UTILITY",
       "version": "0.7",
       "receipt": "/house/release.json",
-      "role": "Compatibility route only. Redirects to canonical /house/ while retaining spatial model, TRACE law and donor assets under /house/spatial/.",
+      "role": "Compatibility alias only. Redirects to canonical /house/; spatial model, TRACE laws and donor assets remain under /house/spatial/ as substrate, not a second human-facing authority.",
       "transfer": [
         "plan/RCP/section/3D identity",
         "surface addressing",
@@ -4711,7 +4711,7 @@
         },
         "evidence": {
           "receipt": "/house/spatial/release.json",
-          "return_path": "/house/spatial/"
+          "return_path": "/house/"
         }
       },
       "index": {
@@ -4721,7 +4721,9 @@
         ]
       },
       "family_href": "/house/",
-      "tier": "FIELD"
+      "tier": "UTILITY",
+      "alias_of": "/house/",
+      "showcase_card": false
     },
     {
       "href": "/inventory/",
