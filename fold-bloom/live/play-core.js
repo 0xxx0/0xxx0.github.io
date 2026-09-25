@@ -82,6 +82,13 @@ export function gardenSummary(events=[]){
     verbs:xs.map(e=>String(e?.verb||'')).filter(Boolean),
   };
 }
+export function gardenProgress(trait,events=[]){
+  const s=gardenSummary(events);
+  if(trait==='BODY')return {value:Math.min(s.best,2),target:2,label:'CHAIN '+s.best+'× / 2×',complete:s.best>=2};
+  if(trait==='PATH')return {value:Math.min(s.structural,2),target:2,label:'STRUCTURE '+s.structural+' / 2',complete:s.structural>=2};
+  if(trait==='VOICE')return {value:Math.min(s.hits,3),target:3,label:'CALLS '+s.hits+' / 3',complete:s.hits>=3};
+  return {value:0,target:0,label:'OBSERVE',complete:false};
+}
 export function gardenOutcome(survived,target=GARDEN_SURVIVAL_TARGET){
   const clear=Number(survived)>=Number(target);
   return {clear,label:clear?'LINEAGE STABLE':'LINEAGE OPEN'};
