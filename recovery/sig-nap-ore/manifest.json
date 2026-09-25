@@ -1,0 +1,26 @@
+{
+  "schema": "0xxx0/recovery-donor/v0.1",
+  "family": "Sig Nap Ore",
+  "state": "TWO_EXACT_LIBRARY_TEXT_VARIANTS_MATERIALIZED",
+  "classification": "FROZEN_DONOR_FAMILY",
+  "sources": [
+    {
+      "name": "04_SIG_NAP_ORE_FIELD_MANUAL(1).md",
+      "file_id": "file_00000000c2fc71f8ab1616d167ac496e",
+      "size_bytes": 1143,
+      "sha256": "a64634257099d7e731a607485ea022f8c217e547d433c096a71a2d0678db4509"
+    },
+    {
+      "name": "04_Sig_Nap_Ore_Field_Manual.md",
+      "file_id": "file_000000001fe87207873ef2f75a311b37",
+      "size_bytes": 2515,
+      "sha256": "539dc39c701572eb112c15afa10639c7e5a1dfb9baf442ae0d70d7c0cd4bf8a6"
+    }
+  ],
+  "repo_paths": [
+    "/recovery/sig-nap-ore/04_SIG_NAP_ORE_FIELD_MANUAL(1).md",
+    "/recovery/sig-nap-ore/04_Sig_Nap_Ore_Field_Manual.md"
+  ],
+  "boundary": "Preserve both variants. Sig Nap Ore is the nap/rest-game constellation; do not collapse it into Sine Ore, sigil/glyph systems, Prison Age, or Prion.",
+  "recovered_at": "2026-09-26"
+}
