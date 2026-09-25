@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   circularDistance,relationVerb,relationName,runOutcome,puzzleStars,puzzleOutcome,
-  duetOutcome,gardenGoalMet,gardenSummary,gardenOutcome
+  duetOutcome,gardenGoalMet,gardenSummary,gardenProgress,gardenOutcome
 } from '../play-core.js';
 
 test('Two Dial relation law is symmetric over six positions',()=>{
@@ -42,5 +42,8 @@ test('GARDEN pressures are legible and bounded',()=>{
   assert.equal(gardenGoalMet('PATH',events),true);
   assert.equal(gardenGoalMet('VOICE',events),true);
   assert.deepEqual(gardenSummary(events),{hits:3,best:2,structural:2,verbs:['BLOOM','FOLD','RETURN','BLOOM']});
+  assert.deepEqual(gardenProgress('BODY',events),{value:2,target:2,label:'CHAIN 2× / 2×',complete:true});
+  assert.deepEqual(gardenProgress('PATH',events),{value:2,target:2,label:'STRUCTURE 2 / 2',complete:true});
+  assert.deepEqual(gardenProgress('VOICE',events),{value:3,target:3,label:'CALLS 3 / 3',complete:true});
   assert.equal(gardenOutcome(2).clear,true);
 });
