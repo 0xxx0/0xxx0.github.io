@@ -1,0 +1,40 @@
+{
+  "schema": "0xxx0/vision-loop-return/v0.1",
+  "date": "2026-09-25",
+  "object": "/spikes/fold-bloom-message-replay-001/",
+  "state": "ARCHITECTURAL_EVIDENCE_ONLY__SOCIAL_LIVED_GATE_OPEN",
+  "question": "Can a short source-addressed performance be represented canonically as a tiny deterministic operation/message packet, with a share URL as transport, before committing to video/GIF capture?",
+  "hypothesis": "A compact score packet can replay deterministically, survive one intentional edit, and preserve exact source identity without recording frames or creating a second LIVE/source store.",
+  "delta": [
+    "Added isolated MESSAGE REPLAY 001 specimen with synthetic exact source identity.",
+    "Added normalized fold-bloom-message-score/v0.1 packet, deterministic frame sampler and share-link encoding.",
+    "Added one bounded edit: retime BLOOM while source identity remains unchanged.",
+    "Added phone-friendly replay/share UI; no canonical LIVE runtime files changed."
+  ],
+  "evidence": {
+    "machine": [
+      "same normalized packet -> same 48-sample visual signature",
+      "share encoding -> exact normalized round trip",
+      "intentional BLOOM retime -> different signature while source id remains identical",
+      "default packet < 1600 bytes",
+      "DROP and RETURN are individually addressable in the deterministic sampler"
+    ],
+    "lived": "OPEN — another human has not yet judged whether the score reads as a communicative object."
+  },
+  "disposition": "TRANSFER",
+  "transfer_candidate": "Treat compact operation/message score as a candidate expressive artifact contract. Do not promote into LIVE until a social/lived use proves replay/edit/share value.",
+  "falsifier_status": {
+    "h1": "SURVIVES MACHINE FALSIFIER",
+    "h2_message_mode": "NOT TESTED",
+    "h3_replayability": "NOT TESTED",
+    "h4_return_orientation": "NOT TESTED"
+  },
+  "authority": "SPECIMEN ONLY; no source, LISTEN, SET, LIVE or FIELD INDEX authority.",
+  "collision_check": "No open PR existed at branch start. Canonical LIVE files are untouched.",
+  "residue": [
+    "No video/WebM export was added because H1 tests state-before-video first.",
+    "No social backend/account system.",
+    "No claim that another person understands or values the artifact."
+  ],
+  "one_next": "Only after ordinary sharing/use: decide PROMOTE, REVISE or COMPOST for the compact score contract. Do not build H2/H3/H4 automatically."
+}

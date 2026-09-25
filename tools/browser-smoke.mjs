@@ -782,6 +782,12 @@ const CASES=[
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"before":"\/fold-bloom\/instrument\/"/.test(dom)&&/"after":"\/fold-bloom\/instrument\/"/.test(dom)&&/"closed":true/.test(dom)&&/"copy":true/.test(dom)&&/"deadStack":false/.test(dom)&&/"overflow":0/.test(dom)&&/"triggerGlyph":"◎"/.test(dom)
   },
   {
+    name:'FOLD BLOOM MESSAGE REPLAY H1',
+    route:'/spikes/fold-bloom-message-replay-001/',
+    options:{width:430,height:900,budget:7000,timeout:16000},
+    check:dom=>dom.includes('data-fold-bloom-message-replay="ready"')&&/MESSAGE REPLAY 001/.test(dom)&&dom.includes('id="replay"')&&dom.includes('id="mutate"')&&dom.includes('id="copy"')&&/synthetic:field-message:001/.test(dom)&&/fnv1a32-/.test(dom)&&/ARCHITECTURAL EVIDENCE ONLY/.test(dom)
+  },
+  {
     name:'FOLD BLOOM public front',
     route:'/fold-bloom/',
     options:{width:430,height:900,budget:5000},

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" data-fold-bloom-message-replay="booting">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>FOLD//BLOOM · MESSAGE REPLAY 001</title>
+<style>
+:root{--bg:#05070b;--ink:#f2f3ef;--mut:#7d8991;--line:#273139;--hot:#ef7849;--cool:#7bd5ff}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+.wrap{min-height:100svh;display:grid;grid-template-rows:auto 1fr auto}.top,.foot{min-height:54px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:14px;padding:0 16px}.foot{border-top:1px solid var(--line);border-bottom:0;color:var(--mut);font-size:8px;letter-spacing:.09em;justify-content:space-between}
+.top b{font:900 17px/1 system-ui,sans-serif;letter-spacing:-.04em}.top span{color:var(--mut);font-size:8px;letter-spacing:.12em}.main{display:grid;grid-template-columns:minmax(0,1fr) 320px;min-height:0}
+.stage{position:relative;min-height:520px;border-right:1px solid var(--line);overflow:hidden}.stage canvas{position:absolute;inset:0;width:100%;height:100%}
+.hud{position:absolute;inset:14px;pointer-events:none;display:flex;justify-content:space-between;color:var(--mut);font-size:8px;letter-spacing:.1em}.hud b{color:var(--cool)}
+.panel{padding:18px;display:flex;flex-direction:column;gap:14px;background:#080c10}.k{font-size:8px;letter-spacing:.13em;color:var(--hot)}h1{margin:0;font:900 30px/.95 system-ui,sans-serif;letter-spacing:-.05em}
+p{margin:0;color:#8b969d}.meta{display:grid;gap:6px;border-top:1px solid var(--line);padding-top:12px}.meta div{display:grid;grid-template-columns:74px 1fr;gap:8px}.meta span:first-child{color:var(--mut)}.meta code{overflow-wrap:anywhere;color:#bcc8cf}
+input{width:100%;background:#05070b;border:1px solid var(--line);color:var(--ink);padding:11px;font:inherit}
+.buttons{display:grid;grid-template-columns:1fr 1fr;gap:6px}.buttons button{min-height:42px;background:#0b1116;border:1px solid var(--line);color:var(--ink);font:800 9px/1 ui-monospace,monospace;letter-spacing:.08em}.buttons button:first-child{border-color:var(--hot);color:#ffd4c3}
+.ops{display:flex;flex-wrap:wrap;gap:5px}.ops span{border:1px solid var(--line);padding:5px 6px;color:#9aa7ae;font-size:8px}
+.note{margin-top:auto;border-top:1px solid var(--line);padding-top:12px;color:#69767d;font-size:8px}
+@media(max-width:760px){.main{grid-template-columns:1fr;grid-template-rows:58svh auto}.stage{min-height:0;border-right:0;border-bottom:1px solid var(--line)}.panel{padding:14px}.top span{display:none}.foot{display:block;padding:12px 14px}.foot span{display:block;margin-top:4px}}
+@media(prefers-reduced-motion:reduce){.hud{letter-spacing:.06em}}
+</style>
+</head>
+<body><div class="wrap">
+<header class="top"><b>FOLD//BLOOM · MESSAGE REPLAY 001</b><span>ISOLATED SPECIMEN · OPERATION TAPE BEFORE VIDEO</span></header>
+<main class="main">
+<section class="stage"><canvas id="stage" aria-label="Deterministic replay field"></canvas><div class="hud"><span id="phase">FIELD</span><b id="time">0.00s</b></div></section>
+<aside class="panel">
+<div class="k">H1 · REPLAYABLE SCORE</div><h1>One tiny packet.<br>Same performance.</h1>
+<p>Edit one line, nudge one event, or copy the score link. The source identity remains unchanged.</p>
+<label><span class="k">MESSAGE</span><input id="message" maxlength="120" value="MEET ME AT THE DROP"></label>
+<div class="buttons"><button id="replay">REPLAY</button><button id="pause">PAUSE</button><button id="mutate">NUDGE BLOOM +4.5%</button><button id="copy">COPY SCORE LINK</button><button id="reset">RESET</button></div>
+<div class="ops" id="ops"></div>
+<div class="meta"><div><span>SOURCE</span><code id="source"></code></div><div><span>PACKET</span><code id="bytes"></code></div><div><span>SIGNATURE</span><code id="signature"></code></div></div>
+<div class="note">ARCHITECTURAL EVIDENCE ONLY · social/lived gate remains open · no LIVE runtime state or source bytes are stored here.</div>
+</aside></main>
+<footer class="foot"><span>SOURCE → ADDRESSED INTERVAL → OPERATION SCORE → REPLAY → SHARE LINK → RETURN</span><span>SPECIMEN / DELETEABLE / NO CANONICAL AUTHORITY</span></footer>
+</div><script type="module" src="./app.js"></script></body></html>
