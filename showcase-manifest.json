@@ -4431,6 +4431,7 @@
       "index": {
         "updated_at": "2026-09-25T15:37:00+08:00",
         "work_modes": [
+          "IMPLEMENT",
           "OPERATE",
           "VERIFY"
         ]
@@ -6747,8 +6748,10 @@
       "index": {
         "updated_at": "2026-09-25T15:37:00+08:00",
         "work_modes": [
-          "OPERATE",
-          "VERIFY"
+          "RECOVER",
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
         ]
       },
       "tier": "FIELD"
