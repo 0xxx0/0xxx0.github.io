@@ -33,7 +33,7 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 .apGlyph{display:grid;place-items:center}.apMeta{color:var(--hot);font-size:6.5px;letter-spacing:.09em}.apBody strong{display:block;font:800 16px/1.05 system-ui,sans-serif;letter-spacing:-.03em}.apBody p{margin:4px 0 0;color:#95a1a5;font:8px/1.4 system-ui,sans-serif;max-width:86ch}.apPath{color:var(--cool);font-size:6.5px;margin-top:3px}.apReading{color:var(--gold);font-size:6px;letter-spacing:.08em;margin-top:3px}
 .apActions{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}.apActions a,.apActions button{padding:6px 8px;font-size:7px;white-space:nowrap}.apActions .open{border-color:var(--cool);color:var(--cool)}.apActions .proof{border-color:var(--green);color:var(--green)}.noMatch{color:var(--bad)!important}
 .capTrial{display:grid;grid-template-columns:minmax(150px,.8fr) minmax(220px,1.25fr) minmax(170px,1fr);gap:1px;border-bottom:1px solid var(--line);background:var(--line)}
-.capCell{background:#080b0d;padding:7px 8px;min-width:0}.capK{display:block;color:var(--mut);font-size:6px;letter-spacing:.13em;margin-bottom:4px}.capV{font:750 10px/1.2 system-ui,sans-serif}.capSub{display:block;color:var(--mut);font-size:6.3px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.capMoves{display:flex;gap:4px;flex-wrap:wrap}.capMove{border:1px solid #354249;padding:4px 6px;color:#c9d2d5;font-size:6.5px;letter-spacing:.04em}.capMove:first-child{border-color:var(--hot);color:#ffd0bd}.capWitness{color:var(--gold);font-size:7px}.capReturn{color:var(--cool);font-size:7px}
+.capCell{background:#080b0d;padding:7px 8px;min-width:0}.capK{display:block;color:var(--mut);font-size:6px;letter-spacing:.13em;margin-bottom:4px}.capV{font:750 10px/1.2 system-ui,sans-serif}.capSub{display:block;color:var(--mut);font-size:6.3px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.capMoves{display:flex;gap:4px;flex-wrap:wrap}.capMove{border:1px solid #354249;padding:4px 6px;color:#c9d2d5;font-size:6.5px;letter-spacing:.04em;background:#090d0f;text-decoration:none;cursor:pointer}.capMove:first-child{border-color:var(--hot);color:#ffd0bd}.capMove:disabled{opacity:.35;cursor:default}.capWitness{color:var(--gold);font-size:7px}.capReturn{color:var(--cool);font-size:7px}
 @media(max-width:760px){.capTrial{grid-template-columns:1fr}.capCell{padding:7px}.capSub{white-space:normal}.capMove{min-height:28px;display:flex;align-items:center}}
 
 /* LATEST */
@@ -46,8 +46,8 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 .sRail u{text-decoration:none;color:var(--mut);margin-right:8px;white-space:nowrap}
 .syncLine{display:flex;align-items:center;gap:5px 12px;flex-wrap:wrap;margin-top:6px;padding:4px 7px;border:1px solid var(--line);background:#080b0d;color:var(--mut);font-size:6.5px;letter-spacing:.05em}
 .syncLine>a{color:var(--gold)}.syncLine b{letter-spacing:.12em}.syncLine .syncLocal{min-width:0;color:var(--cool)}.syncLine #syncFocus{display:inline-block;max-width:34ch;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom;white-space:nowrap}.syncLine #syncRepo{margin-left:auto;color:var(--mut)}
-.catchup{margin-top:6px;border:1px solid var(--line);background:#080b0d}.catchup>summary{list-style:none;display:flex;justify-content:space-between;gap:10px;align-items:center;padding:6px 7px;cursor:pointer}.catchup>summary::-webkit-details-marker{display:none}.catchup>summary b{font-size:7px;letter-spacing:.14em;color:var(--gold)}.catchup>summary span{font-size:6.5px;color:var(--mut)}.catchNow{padding:7px 8px;border-top:1px solid var(--line);border-bottom:1px solid #1b2429}.catchNow b{display:block;font-size:7px;letter-spacing:.1em;color:var(--hot)}.catchNow span{display:block;margin-top:3px;color:#aab4b8;font:8px/1.4 system-ui,sans-serif}.catchGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line)}.catchCard{min-width:0;background:#090d0f;padding:7px;display:grid;grid-template-columns:29px minmax(0,1fr);gap:7px;align-items:start}.catchCard.head{box-shadow:inset 0 -1px var(--cool)}.catchCard strong{display:block;font:750 10px/1.1 system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.catchCard small{display:block;color:var(--mut);font-size:5.8px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.catchCard p{margin:4px 0 0;color:#9aa6aa;font:7px/1.38 system-ui,sans-serif;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.catchActions{grid-column:2;display:flex;gap:4px;margin-top:2px}.catchActions button,.catchActions a{min-height:29px;padding:4px 6px;font-size:6.5px}.catchActions a{display:grid;place-items:center;border:1px solid var(--cool);color:var(--cool)}.catchFoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:5px 7px;border-top:1px solid var(--line);color:var(--mut);font-size:6px}.catchFootActions{display:flex;gap:4px;align-items:center}.catchFoot button{padding:5px 7px;font-size:6.5px}.catchFoot button:disabled{opacity:.34;cursor:default}.catchEmpty{grid-column:1/-1;padding:9px;color:var(--mut);font-size:7px;background:#090d0f}
-@media(max-width:760px){.catchGrid{grid-template-columns:1fr}.catchup>summary{min-height:40px}.catchActions button,.catchActions a{min-height:40px}}
+.catchup{margin-top:6px;border:1px solid var(--line);background:#080b0d}.catchup>summary{list-style:none;display:flex;justify-content:space-between;gap:10px;align-items:center;padding:6px 7px;cursor:pointer}.catchup>summary::-webkit-details-marker{display:none}.catchup>summary b{font-size:7px;letter-spacing:.14em;color:var(--gold)}.catchup>summary span{font-size:6.5px;color:var(--mut)}.catchNow{padding:7px 8px;border-top:1px solid var(--line);border-bottom:1px solid #1b2429}.catchNow b{display:block;font-size:7px;letter-spacing:.1em;color:var(--hot)}.catchNow span{display:block;margin-top:3px;color:#aab4b8;font:8px/1.4 system-ui,sans-serif}.catchGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line)}.catchCard{min-width:0;background:#090d0f;padding:7px;display:grid;grid-template-columns:29px minmax(0,1fr);gap:7px;align-items:start}.catchCard.head{box-shadow:inset 0 -1px var(--cool)}.catchCard strong{display:block;font:750 10px/1.1 system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.catchCard small{display:block;color:var(--mut);font-size:5.8px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.catchCard p{margin:4px 0 0;color:#9aa6aa;font:7px/1.38 system-ui,sans-serif;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.catchActions{grid-column:2;display:flex;gap:4px;margin-top:2px}.catchActions button,.catchActions a{min-height:29px;padding:4px 6px;font-size:6.5px}.catchActions a{display:grid;place-items:center;border:1px solid var(--cool);color:var(--cool)}.catchSignals{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border-bottom:1px solid var(--line)}.catchSignal{background:#080b0d;padding:6px 7px;min-width:0}.catchSignalHead{display:flex;justify-content:space-between;gap:8px;color:var(--mut);font-size:6px;letter-spacing:.1em}.catchSignalBody{display:flex;gap:4px;flex-wrap:wrap;margin-top:4px}.catchSignalBody button,.catchSignalBody a{padding:5px 6px;border:1px solid #354249;background:#090d0f;color:#c9d2d5;font-size:6.5px;text-decoration:none}.catchSignalBody a.hot{border-color:var(--hot);color:#ffd0bd}.catchFoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:5px 7px;border-top:1px solid var(--line);color:var(--mut);font-size:6px}.catchFootActions{display:flex;gap:4px;align-items:center}.catchFoot button{padding:5px 7px;font-size:6.5px}.catchFoot button:disabled{opacity:.34;cursor:default}.catchEmpty{grid-column:1/-1;padding:9px;color:var(--mut);font-size:7px;background:#090d0f}
+@media(max-width:760px){.catchGrid,.catchSignals{grid-template-columns:1fr}.catchup>summary{min-height:40px}.catchActions button,.catchActions a,.catchSignalBody button,.catchSignalBody a{min-height:40px}}
 .touchList{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#080b0d}
 .touchCommit{border-bottom:1px solid #1b2429}.touchCommit:last-child{border-bottom:0}.touchCommit>summary{list-style:none;cursor:pointer}.touchCommit>summary::-webkit-details-marker{display:none}.touchCommit[open]>summary{background:#0d1316}
 .touchRow{display:grid;grid-template-columns:58px minmax(0,1fr) 68px;gap:8px;align-items:center;padding:4px 3px}.touchRow:hover{background:#0d1316}.touchRow code{color:var(--gold);font:6.3px ui-monospace,monospace}.touchRow b{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:650 7.5px/1.2 system-ui,sans-serif}.touchRow span{text-align:right;color:var(--mut);font-size:5.8px}
@@ -127,11 +127,12 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   <span id="syncRepo">HEAD —</span>
 </div>
 
-<details class="catchup" id="catchupFold">
-  <summary><b>CATCH UP / LOCAL</b><span id="catchupMeta">derive from CURRENT + manifest · no new authority</span></summary>
+<details class="catchup" id="catchupFold" open>
+  <summary><b>FIELD / CATCH + ACT</b><span id="catchupMeta">changed + YOU + GitHub · local projection · no new authority</span></summary>
   <div class="catchNow" id="catchupNow"><b>NOW</b><span>loading current conversion…</span></div>
+  <div class="catchSignals" id="catchupSignals"><div class="catchSignal"><div class="catchSignalHead"><b>YOU</b><span>loading…</span></div></div><div class="catchSignal"><div class="catchSignalHead"><b>GITHUB</b><span>loading…</span></div></div></div>
   <div class="catchGrid" id="catchupList"><div class="catchEmpty">loading changed addressed heads…</div></div>
-  <div class="catchFoot"><span id="catchupSeen">Last caught up: never on this browser.</span><div class="catchFootActions"><button id="catchupRewind" title="Restore the previous local catch-up boundary. If no predecessor was retained, reopen all indexed changes.">REWIND</button><button id="catchupMark">MARK CAUGHT UP</button></div></div>
+  <div class="catchFoot"><span id="catchupSeen">Local change boundary: loading…</span><div class="catchFootActions"><button id="catchupRewind" title="Undo the most recent local SEEN / MARK ALL acknowledgement without changing FIELD truth.">REWIND</button><button id="catchupMark" title="Local convenience only. Individual SEEN is preferred.">MARK ALL</button></div></div>
 </details>
 
 
@@ -142,7 +143,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
     <div class="apBody"><div class="apMeta" id="apMeta">OBJECT / FOCUS</div><strong id="apTitle">loading…</strong><div class="apPath" id="apPath">/</div><div class="apReading" id="apProjection">READING · FIELD / FOCUS</div><p id="apRole">One fixed gate resolves the aligned vocabularies to an exact repository route.</p></div>
     <div class="apActions"><a class="open" id="apOpen" href="./">OPEN →</a><button class="secondary" id="apInspect">READ</button><button class="secondary" id="apLens" title="Refract the selected object without changing FIELD selection">◎ LENS</button><button class="secondary" id="apTrace">TRACE</button><button class="secondary" id="apProof">COMPARE</button><button class="secondary" id="apCopy">COPY</button></div>
   </div>
-  <div class="capTrial" id="capTrial" hidden aria-label="Unified interface capability aperture">
+  <div class="capTrial" id="capTrial" aria-label="Held object action aperture">
     <div class="capCell"><span class="capK">HELD / FIELD PROJECTION</span><div class="capV" id="capHeld">—</div><span class="capSub" id="capHeldSub">route focus only · native object remains with owner</span></div>
     <div class="capCell"><span class="capK">NEXT / 1–3 LAWFUL MOVES</span><div class="capMoves" id="capMoves"></div></div>
     <div class="capCell"><span class="capK">WITNESS → RETURN</span><div class="capWitness" id="capWitness">—</div><div class="capReturn" id="capReturn">—</div><span class="capSub">projection only · authority NONE · no writes</span></div>
@@ -230,7 +231,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 let manifest,current,routes=[],latest=[],repoTouches=[],repoTouchFiles=new Map,latestLimit=30,focus=null,headSet=new Set,nowSet=new Set,issues=[],waiting=[],waitingSource=[],waitingUpdated='',mapMode='VISUAL',mapRoot='/',mapSelected='/',mapQuery='',supportTrail=[];
 const INIT=new URLSearchParams(location.search),axisState={state:'ANY',operation:'ANY',mode:'ANY'},scrollTimers={};let axisScrollMuteUntil=0;
-const CAP_TRIAL=INIT.get('cap')==='1';
+const CAP_TRIAL=INIT.get('cap')!=='0';
 const CAPABILITY_PROJECTION=Object.freeze([
  {id:'dayline',match:h=>h==='/atlas-dayline/'||h.startsWith('/atlas-dayline/'),owner:'DAYLINE',moves:['FOCUS / ADD','RUN ≤ 3','RETURN'],boundary:'time/execution only'},
  {id:'fold-bloom',match:h=>h==='/fold-bloom/'||h.startsWith('/fold-bloom/')||h==='/docs/',owner:'FOLD//BLOOM',moves:['MAP / MARK','READ / LOCI','RIDE / REPLAY'],boundary:'source identity remains native'},
@@ -239,7 +240,7 @@ const CAPABILITY_PROJECTION=Object.freeze([
  {id:'shopping',match:h=>h==='/shopping/'||h.startsWith('/shopping/'),owner:'SHOPPING',moves:['RESEARCH / COMPARE','GATE / NEXT ACTION','HANDOFF → DAYLINE'],boundary:'no purchase or lifecycle promotion'},
  {id:'verse',match:h=>h==='/poetry/map/'||h.startsWith('/poetry/map/'),owner:'VERSE',moves:['FOCUS / INTENT','TRY / PREVIEW','ADOPT / RETURN'],boundary:'preview never mutates source'}
 ]);
-const TRIAL_KEY='field.axial.latest.trial.v01',CATCHUP_KEY='field.catchup.seen.v01',CATCHUP_HISTORY_KEY='field.catchup.history.v01';
+const TRIAL_KEY='field.axial.latest.trial.v01',CATCHUP_KEY='field.catchup.seen.v01',CATCHUP_HISTORY_KEY='field.catchup.history.v01',CATCHUP_ITEM_KEY='field.catchup.items.v02';
 let trial={schema:'field-axial-trial/v0.1',axial_focus:0,latest_focus:0,other_focus:0,dead:0,opens:{AXIAL:0,LATEST:0,OTHER:0},open_ms:{AXIAL:0,LATEST:0,OTHER:0},last_source:null,last_at:null};
 try{trial={...trial,...JSON.parse(localStorage.getItem(TRIAL_KEY)||'{}')}}catch(_){}
 function saveTrial(){try{localStorage.setItem(TRIAL_KEY,JSON.stringify(trial))}catch(_){}renderTrial()}
@@ -364,18 +365,34 @@ function headForFocus(){
  if(!focus||!current?.current_heads)return null;
  return current.current_heads.find(h=>h.route===focus.href)||current.current_heads.find(h=>focus.href&&h.route&&h.route!=='/'&&focus.href.startsWith(h.route))||null;
 }
+async function copyHeldAction(){
+ if(!focus)return;
+ const h=headForFocus(),n=h?.next_executable||null,c=capabilityForFocus();
+ const packet={
+  schema:'field-action-handoff/v0.1',
+  object:{route:focus.href,title:focus.title||focus.href,state:focus.state||null,owner:c?.owner||h?.lineage||'FIELD ROUTE'},
+  gate:n?{id:n.id||null,state:n.state||null,objective:n.objective||null,human_questions:n.human_questions||n.acceptance||[]}:null,
+  native_moves:c?.moves||[],
+  authority:'NONE / HANDOFF ONLY',
+  instruction:'Hold this exact addressed object. Perform at most one lawful bounded move in the native owner, preserve authority, witness the consequence, then RETURN to '+focus.href+'.'
+ };
+ const txt=JSON.stringify(packet,null,2);
+ try{await navigator.clipboard.writeText(txt);$('capReturn').textContent='COPIED ACTION · RETURN → '+focus.href}catch(_){prompt('Copy FIELD action packet:',txt)}
+}
 function renderCapabilityTrial(){
  const box=$('capTrial');if(!box)return;
  if(!CAP_TRIAL){box.hidden=true;return}
  box.hidden=false;
- if(!focus){$('capHeld').textContent='NO FOCUS';$('capHeldSub').textContent='choose one addressed route';$('capMoves').innerHTML='<span class="capMove">RESET / CHOOSE</span>';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
- const c=capabilityForFocus(),h=headForFocus(),fresh=shortTs(focus.index?.updated_at)||'untracked';
- $('capHeld').textContent=(c?.owner||'FIELD ROUTE')+' · '+(focus.title||focus.href);
- $('capHeldSub').textContent=focus.href+' · route focus only; native object remains with '+(c?.owner||'host');
- const moves=c?.moves||['OPEN / INSPECT','TRACE / COMPARE','RETURN'];
- $('capMoves').innerHTML=moves.slice(0,3).map(x=>'<span class="capMove">'+esc(x)+'</span>').join('');
- $('capWitness').textContent=(h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh;
- $('capReturn').textContent='RETURN · FIELD φ '+focus.href+(c?' · '+c.boundary:'');
+ if(!focus){$('capHeld').textContent='NO FOCUS';$('capHeldSub').textContent='choose one addressed route';$('capMoves').innerHTML='<button class="capMove" disabled>NO LAWFUL MOVE</button>';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
+ const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href);
+ $('capHeld').textContent=(c?.owner||h?.lineage||'FIELD ROUTE')+' · '+(focus.title||focus.href);
+ $('capHeldSub').textContent=focus.href+' · held here; native truth remains with '+(c?.owner||h?.lineage||'host');
+ const primary=n?'DO / OPEN':'OPEN';
+ $('capMoves').innerHTML='<a class="capMove" href="'+esc(href)+'">'+primary+'</a><button class="capMove" data-cap-copy>COPY ACTION</button><button class="capMove" data-cap-trace>TRACE</button>';
+ $('capMoves').querySelector('[data-cap-copy]').onclick=copyHeldAction;
+ $('capMoves').querySelector('[data-cap-trace]').onclick=openTrace;
+ $('capWitness').textContent=n?(dependencyLabel(n.state)+' · '+String(n.objective||'human/world evidence required').replace(/\s+/g,' ').slice(0,170)):((h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh);
+ $('capReturn').textContent=(c?.moves?.length?'NATIVE · '+c.moves.slice(0,3).join(' · ')+' · ':'')+'RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:'');
 }
 function renderAperture(){
  if(!focus){$('apGlyph').innerHTML='';['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');renderCapabilityTrial();return}
@@ -393,14 +410,18 @@ function updateStatusRail(){
 }
 function catchupSeen(){try{return Math.max(0,Number(localStorage.getItem(CATCHUP_KEY))||0)}catch(_){return 0}}
 function catchupHistory(){
- try{
-  const xs=JSON.parse(localStorage.getItem(CATCHUP_HISTORY_KEY)||'[]');
-  return Array.isArray(xs)?xs.map(Number).filter(x=>Number.isFinite(x)&&x>=0).slice(-20):[];
- }catch(_){return[]}
+ try{const xs=JSON.parse(localStorage.getItem(CATCHUP_HISTORY_KEY)||'[]');return Array.isArray(xs)?xs.slice(-40):[]}catch(_){return[]}
 }
-function saveCatchupHistory(xs){try{localStorage.setItem(CATCHUP_HISTORY_KEY,JSON.stringify((xs||[]).slice(-20)))}catch(_){}}
-function setCatchupSeen(stamp){
- try{if(Number(stamp)>0)localStorage.setItem(CATCHUP_KEY,String(Number(stamp)));else localStorage.removeItem(CATCHUP_KEY)}catch(_){}
+function saveCatchupHistory(xs){try{localStorage.setItem(CATCHUP_HISTORY_KEY,JSON.stringify((xs||[]).slice(-40)))}catch(_){}}
+function pushCatchupHistory(entry){const xs=catchupHistory();xs.push(entry);saveCatchupHistory(xs)}
+function catchupItems(){try{const x=JSON.parse(localStorage.getItem(CATCHUP_ITEM_KEY)||'{}');return x&&typeof x==='object'&&!Array.isArray(x)?x:{}}catch(_){return{}}}
+function saveCatchupItems(x){try{localStorage.setItem(CATCHUP_ITEM_KEY,JSON.stringify(x||{}))}catch(_){}}
+function setCatchupSeen(stamp){try{if(Number(stamp)>0)localStorage.setItem(CATCHUP_KEY,String(Number(stamp)));else localStorage.removeItem(CATCHUP_KEY)}catch(_){}}
+function routeCaughtUpAt(href){const items=catchupItems();return Math.max(catchupSeen(),Math.max(0,Number(items[href])||0))}
+function markRouteCaughtUp(href){
+ const r=routeMap().get(href);if(!r)return;
+ const items=catchupItems(),previous=Math.max(0,Number(items[href])||0),stamp=tsMs(r.index?.updated_at)||Date.now();
+ pushCatchupHistory({kind:'route',href,previous});items[href]=stamp;saveCatchupItems(items);renderCatchup();
 }
 function catchText(r){
  const s=r?.evolution?.mutation||r?.evolution?.question||r?.role||(Array.isArray(r?.transfer)?r.transfer[0]:'')||'Addressed head changed.';
@@ -408,32 +429,47 @@ function catchText(r){
 }
 function renderCatchup(){
  const box=$('catchupList'),meta=$('catchupMeta'),now=$('catchupNow'),seenLabel=$('catchupSeen'),rewind=$('catchupRewind');if(!box||!meta||!now||!seenLabel)return;
- const seen=catchupSeen(),changed=latest.filter(r=>tsMs(r.index?.updated_at)>seen),pool=(seen?changed:latest).slice();
+ const seen=catchupSeen(),changed=latest.filter(r=>tsMs(r.index?.updated_at)>routeCaughtUpAt(r.href)),pool=changed.slice();
  pool.sort((a,b)=>{
    const sa=(nowSet.has(a.href)?4:0)+(headSet.has(a.href)?2:0),sb=(nowSet.has(b.href)?4:0)+(headSet.has(b.href)?2:0);
    return sb-sa||tsMs(b.index?.updated_at)-tsMs(a.index?.updated_at)
  });
  const xs=pool.slice(0,6),front=current?.active_fronts?.[0],objective=String(front?.objective||front?.center||'Use an existing head; make one consequence; RETURN.').replace(/\s+/g,' ').trim();
  now.innerHTML='<b>NOW · '+esc(String(front?.id||'conversion').replaceAll('-',' ').toUpperCase())+'</b><span>'+esc(objective.slice(0,340))+'</span>';
- const changedCount=changed.length;
- meta.textContent=seen?(changedCount?changedCount+' changed since your last local mark':'no indexed changes since your last local mark'):('first local catch-up · '+latest.length+' indexed routes');
- const history=catchupHistory();seenLabel.textContent=seen?'Last caught up: '+shortTs(new Date(seen).toISOString())+' · REWIND '+(history.length?history.length+' retained':'to all'):'Last caught up: never on this browser.';if(rewind)rewind.disabled=!seen&&!history.length;
+ const changedCount=changed.length,history=catchupHistory(),gates=currentHumanGates(),playIssues=(issues||[]).filter(x=>x.play_safe);
+ meta.textContent=changedCount+' changed · '+gates.length+' YOU · '+(issues||[]).length+' GitHub';
+ seenLabel.textContent=changedCount+' unresolved local change'+(changedCount===1?'':'s')+' · REWIND '+(history.length?history.length+' retained':'ready');
+ if(rewind)rewind.disabled=!seen&&!history.length&&!Object.keys(catchupItems()).length;
+ const signals=$('catchupSignals');
+ if(signals)signals.innerHTML=
+  '<div class="catchSignal"><div class="catchSignalHead"><b>YOU / CURRENT</b><span>'+gates.length+'</span></div><div class="catchSignalBody">'+
+  (gates.length?gates.map(g=>'<button data-catch-gate="'+esc(g.route||'/')+'" title="'+esc(g.human_move||'')+'">'+esc(dependencyLabel(g.dependency_kind))+' · '+esc((routeMap().get(g.route)?.title||g.route||g.id).slice(0,28))+'</button>').join(''):'<span class="tiny">CLEAR</span>')+
+  '</div></div><div class="catchSignal"><div class="catchSignalHead"><b>GITHUB / OPEN</b><span>'+(issues||[]).length+'</span></div><div class="catchSignalBody">'+
+  ((issues||[]).length?(issues||[]).map(x=>(x.play_safe?'<a class="hot" href="./field-play.html#issue='+x.number+'">#'+x.number+' PLAY</a>':'')+'<a href="'+esc(x.html_url)+'" target="_blank" rel="noopener">#'+x.number+' GH ↗</a>').join(''):'<span class="tiny">CLEAR</span>')+
+  '</div></div>';
  box.innerHTML=xs.length?xs.map(r=>{
    const head=headSet.has(r.href),stamp=shortTs(r.index?.updated_at)||'untracked',ver=r.version?'v'+r.version:'',sub=[stamp,ver,r.state||'',opOf(r)].filter(Boolean).join(' · ');
-   return '<article class="catchCard '+(head?'head':'')+'">'+routeGlyph(r,27)+'<div><strong>'+esc(r.title||r.href)+'</strong><small>'+esc(sub)+'</small><p>'+esc(catchText(r))+'</p></div><div class="catchActions"><button data-catch-focus="'+esc(r.href)+'">FOCUS</button><a href=".'+esc(r.alias_of||r.href)+'">OPEN →</a></div></article>'
- }).join(''):'<div class="catchEmpty">No addressed changes since the last local catch-up mark. CURRENT and exact Git chronology remain available above/below.</div>';
- box.querySelectorAll('[data-catch-focus]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.catchFocus);if(!r)return;focusRoute(r,true,'OTHER');$('axialLatest')?.scrollIntoView({behavior:'smooth',block:'start'})});
- $('catchupMark').disabled=!latest.length;
+   return '<article class="catchCard '+(head?'head':'')+'">'+routeGlyph(r,27)+'<div><strong>'+esc(r.title||r.href)+'</strong><small>'+esc(sub)+'</small><p>'+esc(catchText(r))+'</p></div><div class="catchActions"><button data-catch-focus="'+esc(r.href)+'">HOLD</button><a href=".'+esc(r.alias_of||r.href)+'">OPEN →</a><button class="seen" data-catch-seen="'+esc(r.href)+'">SEEN</button></div></article>'
+ }).join(''):'<div class="catchEmpty">No unresolved addressed changes. YOU / GitHub signals remain above; exact Git chronology remains below.</div>';
+ box.querySelectorAll('[data-catch-focus],[data-catch-gate]').forEach(b=>b.onclick=()=>{const href=b.dataset.catchFocus||b.dataset.catchGate,r=routeMap().get(href);if(!r)return;focusRoute(r,true,'OTHER');$('capTrial')?.scrollIntoView({behavior:'smooth',block:'center'})});
+ box.querySelectorAll('[data-catch-seen]').forEach(b=>b.onclick=()=>markRouteCaughtUp(b.dataset.catchSeen));
+ $('catchupMark').disabled=!changed.length;
 }
 function markCaughtUp(){
- if(!latest.length)return;
- const previous=catchupSeen(),stamp=Math.max(...latest.map(r=>tsMs(r.index?.updated_at)).filter(Boolean),Date.now());
- if(stamp===previous)return;
- const history=catchupHistory();history.push(previous);saveCatchupHistory(history);setCatchupSeen(stamp);renderCatchup();
+ const changed=latest.filter(r=>tsMs(r.index?.updated_at)>routeCaughtUpAt(r.href));if(!changed.length)return;
+ const previous=catchupSeen(),stamp=Math.max(...changed.map(r=>tsMs(r.index?.updated_at)).filter(Boolean),Date.now());
+ pushCatchupHistory({kind:'bulk',previous});setCatchupSeen(stamp);renderCatchup();
 }
 function rewindCaughtUp(){
- const history=catchupHistory(),prior=history.length?history.pop():0;
- saveCatchupHistory(history);setCatchupSeen(prior);renderCatchup();
+ const history=catchupHistory();
+ if(history.length){
+  const prior=history.pop();saveCatchupHistory(history);
+  if(typeof prior==='number'){setCatchupSeen(prior)}
+  else if(prior?.kind==='bulk'){setCatchupSeen(prior.previous||0)}
+  else if(prior?.kind==='route'&&prior.href){const items=catchupItems();if(prior.previous>0)items[prior.href]=prior.previous;else delete items[prior.href];saveCatchupItems(items)}
+ }else if(catchupSeen())setCatchupSeen(0);
+ else{const items=catchupItems(),keys=Object.keys(items);if(keys.length){delete items[keys[keys.length-1]];saveCatchupItems(items)}}
+ renderCatchup();
 }
 function renderSyncLine(){
  const cur=$('syncCurrent'),rep=$('syncRepo'),loc=$('syncFocus');if(!cur||!rep||!loc)return;
@@ -501,8 +537,6 @@ function renderFeed(){
  $('feedRail').querySelectorAll('.feedChip').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.href);if(r)focusOrOpen(r,'LATEST')});
  renderSyncLine();try{updateStatusRail()}catch(_){}
 }
-const WAIT_LOCAL='field.waiting.local.v02';
-function waitingLocal(){try{return JSON.parse(localStorage.getItem(WAIT_LOCAL)||'{}')||{}}catch(_){return{}}}
 function dependencyKind(state){
  const s=String(state||'').toUpperCase();
  if(s.includes('REAL_DEVICE'))return'REAL_DEVICE';
@@ -527,34 +561,33 @@ function mergeWaiting(xs){
  const rest=[...registry.values()];
  return{active,parked:rest.filter(x=>x.surface_state==='PARKED'),removed:rest.filter(x=>x.surface_state==='REMOVED'),other:rest.filter(x=>!['PARKED','REMOVED'].includes(x.surface_state))};
 }
-function toggleWaitingLocal(id){const m=waitingLocal();if(m[id])delete m[id];else m[id]={acknowledged_at:new Date().toISOString()};try{localStorage.setItem(WAIT_LOCAL,JSON.stringify(m))}catch(_){}renderWaiting()}
 function waitRouteHref(route){return route&&String(route).startsWith('/')?'.'+route:(route||'#')}
-function waitRow(x,mode,local){
- const ack=mode==='ACTIVE'&&!!local[x.id],kind=dependencyLabel(x.dependency_kind||dependencyKind(x.state)),route=esc(x.route||''),href=esc(waitRouteHref(x.route));
- const source=mode==='ACTIVE'?'CURRENT'+(x.drift?' · REGISTRY DRIFT':'')+(ack?' · ACK LOCAL · CURRENT OPEN':''):mode==='PARKED'?'WAITING REGISTRY':'HISTORY';
+function waitRow(x,mode){
+ const kind=dependencyLabel(x.dependency_kind||dependencyKind(x.state)),route=esc(x.route||''),href=esc(waitRouteHref(x.route));
+ const source=mode==='ACTIVE'?'CURRENT'+(x.drift?' · REGISTRY DRIFT':''):mode==='PARKED'?'WAITING REGISTRY':'HISTORY';
  const move=mode==='REMOVED'?(x.removed_reason||'Removed from actionable WAITING.'):x.human_move||'';
  const why=mode==='REMOVED'?('Former dependency: '+(x.human_move||'')+(x.preserve_as?' · '+x.preserve_as:'')):(x.why||'')+(x.unlocks?' · unlocks: '+x.unlocks:'');
- const action=mode==='ACTIVE'?'<button class="waitAck" data-wait-ack="'+esc(x.id||'')+'">'+(ack?'UNACK':'ACK LOCAL')+'</button>':mode==='PARKED'?'<a class="waitAck" href="'+href+'">OPEN</a>':'<span class="waitAck waitNone">—</span>';
+ const action=mode==='ACTIVE'?'<div class="waitActs"><button class="waitAck" data-wait-hold="'+esc(x.route||'/')+'">HOLD</button><a class="waitAck" href="'+href+'">DO →</a></div>':mode==='PARKED'?'<a class="waitAck" href="'+href+'">OPEN</a>':'<span class="waitAck waitNone">—</span>';
  const r=routeMap().get(x.route)||{href:x.route||'/',title:x.route||kind,kind:'artifact',operation:'RETURN',state:mode==='ACTIVE'?'ACTIVE_NOW':(x.surface_state||'PARKED')};
  return '<div class="waitRow '+mode.toLowerCase()+'" data-wait="'+esc(x.id||'')+'"><div class="waitSignal">'+routeGlyph(r,24)+'<div><b>'+esc(kind)+'</b><small>'+esc(source)+'</small></div></div><div><div class="waitMove">'+esc(move)+'</div><div class="waitWhy">'+esc(why)+'</div><a class="waitRoute" href="'+href+'">'+route+'</a></div><div></div>'+action+'</div>';
 }
 function renderWaiting(xs){
  if(Array.isArray(xs))waitingSource=xs;
- const groups=mergeWaiting(waitingSource),local=waitingLocal(),a=groups.active.length,p=groups.parked.length,h=groups.removed.length;
+ const groups=mergeWaiting(waitingSource),a=groups.active.length,p=groups.parked.length,h=groups.removed.length;
  waiting=[...groups.active,...groups.parked,...groups.removed,...groups.other];
  $('waitingMeta').textContent=(a?a+' ACTIVE':'CLEAR')+' · '+p+' PARKED · '+h+' HISTORY';
- const active='<section class="waitGroup active"><div class="waitGroupHead"><b>ACTIVE / NEEDS YOUR EVIDENCE</b><span>'+a+'</span></div>'+(a?groups.active.map(x=>waitRow(x,'ACTIVE',local)).join(''):'<div class="waitRow"><div class="waitState">CLEAR<small>CURRENT</small></div><div><div class="waitMove">Nothing currently requires human/world evidence.</div></div><div></div><span class="waitAck waitNone">—</span></div>')+'</section>';
- const parked='<details class="waitGroup"><summary><b>PARKED / NOT NEEDED NOW</b><span>'+p+'</span></summary>'+(p?groups.parked.map(x=>waitRow(x,'PARKED',local)).join(''):'<div class="touchFail">No parked dependencies.</div>')+'</details>';
- const removed='<details class="waitGroup"><summary><b>HISTORY / REMOVED</b><span>'+h+'</span></summary>'+(h?groups.removed.map(x=>waitRow(x,'REMOVED',local)).join(''):'<div class="touchFail">No removed dependencies.</div>')+'</details>';
- const other=groups.other.length?'<details class="waitGroup"><summary><b>REGISTRY / UNCLASSIFIED</b><span>'+groups.other.length+'</span></summary>'+groups.other.map(x=>waitRow({...x,removed_reason:'Unknown WAITING lifecycle state: '+x.surface_state},'REMOVED',local)).join('')+'</details>':'';
+ const active='<section class="waitGroup active"><div class="waitGroupHead"><b>ACTIVE / NEEDS YOUR EVIDENCE</b><span>'+a+'</span></div>'+(a?groups.active.map(x=>waitRow(x,'ACTIVE')).join(''):'<div class="waitRow"><div class="waitState">CLEAR<small>CURRENT</small></div><div><div class="waitMove">Nothing currently requires human/world evidence.</div></div><div></div><span class="waitAck waitNone">—</span></div>')+'</section>';
+ const parked='<details class="waitGroup"><summary><b>PARKED / NOT NEEDED NOW</b><span>'+p+'</span></summary>'+(p?groups.parked.map(x=>waitRow(x,'PARKED')).join(''):'<div class="touchFail">No parked dependencies.</div>')+'</details>';
+ const removed='<details class="waitGroup"><summary><b>HISTORY / REMOVED</b><span>'+h+'</span></summary>'+(h?groups.removed.map(x=>waitRow(x,'REMOVED')).join(''):'<div class="touchFail">No removed dependencies.</div>')+'</details>';
+ const other=groups.other.length?'<details class="waitGroup"><summary><b>REGISTRY / UNCLASSIFIED</b><span>'+groups.other.length+'</span></summary>'+groups.other.map(x=>waitRow({...x,removed_reason:'Unknown WAITING lifecycle state: '+x.surface_state},'REMOVED')).join('')+'</details>':'';
  $('waitingList').innerHTML=active+parked+removed+other;
- $('waitingList').querySelectorAll('[data-wait-ack]').forEach(b=>b.addEventListener('click',()=>toggleWaitingLocal(b.dataset.waitAck)));
- updateStatusRail();
+ $('waitingList').querySelectorAll('[data-wait-hold]').forEach(b=>b.addEventListener('click',()=>{const r=routeMap().get(b.dataset.waitHold);if(!r)return;focusRoute(r,true,'OTHER');$('capTrial')?.scrollIntoView({behavior:'smooth',block:'center'})}));
+ updateStatusRail();renderCatchup();
 }
 async function loadWaiting(){try{const w=await fetch('./control/WAITING.json',{cache:'no-store'}).then(r=>r.json());waitingUpdated=w.updated||'';renderWaiting(w.items||[])}catch(_){waitingUpdated='';renderWaiting([])}}
 function renderIssues(xs){
  issues=xs||[];const sorted=issues.slice().sort((a,b)=>String(b.updated_at||'').localeCompare(String(a.updated_at||'')));$('issueMeta').textContent=sorted.length+' open · '+sorted.filter(x=>x.play_safe).length+' playable';
- $('issueList').innerHTML=sorted.map(x=>'<div class="issueRow"><div class="issueNo">#'+esc(x.number)+'</div><div><a class="rowTitle" href="'+esc(x.html_url)+'" target="_blank" rel="noopener">'+esc(x.title)+'</a><div class="rowMeta">'+esc(shortTs(x.updated_at))+'</div></div><div class="tiny">'+esc(x.disposition||'PUBLIC_REPO')+'</div>'+(x.play_safe?'<a class="tinyButton hot" href="./field-play.html#issue='+x.number+'">PLAY</a>':'<span class="tinyButton">HOLD</span>')+'</div>').join('')||'<div class="issueRow"><div>No open issues.</div></div>';renderFeed();updateStatusRail();
+ $('issueList').innerHTML=sorted.map(x=>'<div class="issueRow"><div class="issueNo">#'+esc(x.number)+'</div><div><a class="rowTitle" href="'+esc(x.html_url)+'" target="_blank" rel="noopener">'+esc(x.title)+'</a><div class="rowMeta">'+esc(shortTs(x.updated_at))+'</div></div><div class="tiny">'+esc(x.disposition||'PUBLIC_REPO')+'</div>'+(x.play_safe?'<a class="tinyButton hot" href="./field-play.html#issue='+x.number+'">PLAY</a>':'<span class="tinyButton">HOLD</span>')+'</div>').join('')||'<div class="issueRow"><div>No open issues.</div></div>';renderFeed();updateStatusRail();renderCatchup();
 }
 async function loadIssues(){
  let snap={issues:[]};try{snap=await fetch('./control/FIELD_ISSUES.json',{cache:'no-store'}).then(r=>r.json());renderIssues(snap.issues||[])}catch(_){}
