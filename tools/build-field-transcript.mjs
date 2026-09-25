@@ -26,9 +26,9 @@ const lines=[];
 lines.push('# CONFLUENCE / FIELD','',
 '> GENERATED MACHINE TRANSCRIPT · NON-CANONICAL · REGENERATE, DO NOT HAND-EDIT',
 '> Purpose: compact re-entry packet for agents/tools. Canonical truth remains in the source files below.',
-\`> CURRENT.updated: \${CURRENT.updated||'—'} · manifest.updated: \${MANIFEST.updated||'—'} · routes: \${(MANIFEST.routes||[]).length}\`,'',
+`> CURRENT.updated: ${CURRENT.updated||'—'} · manifest.updated: ${MANIFEST.updated||'—'} · routes: ${(MANIFEST.routes||[]).length}`,'',
 '## Φ / SOURCE BOUNDARY');
-for(const name of sources)lines.push(\`- /\${name} · digest:\${digest(raw[name])}\`);
+for(const name of sources)lines.push(`- /${name} · digest:${digest(raw[name])}`);
 lines.push('- /spikes/005-expression-transcript/ · donor proof for Φ boundary / φ locus / revision-bound transcript semantics','',
 'If any source digest differs from this transcript, treat this file as stale and read/regenerate from source.','',
 '## OPERATING LAW',
@@ -40,17 +40,17 @@ lines.push('- /spikes/005-expression-transcript/ · donor proof for Φ boundary 
 '- ONE BOUNDED MOVE → EVIDENCE → RETURN → REPLAN.',
 '- RETURN restores context; REWIND revisits expression/history; REVERT requires a new authorized canonical operation.','',
 '## NOW');
-for(const f of CURRENT.active_fronts||[]){lines.push(\`- [\${one(f.state)}] \${one(f.id)} — \${one(f.center)}\`);if(f.objective)lines.push(\`  objective: \${one(f.objective)}\`)}
+for(const f of CURRENT.active_fronts||[]){lines.push(`- [${one(f.state)}] ${one(f.id)} — ${one(f.center)}`);if(f.objective)lines.push(`  objective: ${one(f.objective)}`)}
 lines.push('','## NEXT');
-if(CURRENT.next_single_action)lines.push(\`- \${one(CURRENT.next_single_action.id)} — \${one(CURRENT.next_single_action.instruction)}\`);else lines.push('- —');
+if(CURRENT.next_single_action)lines.push(`- ${one(CURRENT.next_single_action.id)} — ${one(CURRENT.next_single_action.instruction)}`);else lines.push('- —');
 lines.push('','## CURRENT HEADS');
-for(const h of CURRENT.current_heads||[]){const r=routeMap.get(h.route)||{};lines.push(\`- \${one(h.lineage)} · [\${one(h.state)}] · \${one(h.route)} · \${one(h.head)}\`);if(r.version)lines.push(\`  route_version: \${one(r.version)}\`);if(h.next_executable)lines.push(\`  gate: [\${one(h.next_executable.state)}] \${one(h.next_executable.objective)}\`)}
+for(const h of CURRENT.current_heads||[]){const r=routeMap.get(h.route)||{};lines.push(`- ${one(h.lineage)} · [${one(h.state)}] · ${one(h.route)} · ${one(h.head)}`);if(r.version)lines.push(`  route_version: ${one(r.version)}`);if(h.next_executable)lines.push(`  gate: [${one(h.next_executable.state)}] ${one(h.next_executable.objective)}`)}
 lines.push('','## WAITING / HUMAN-WORLD GATES');
 if(!gates.length)lines.push('- none');
-for(const g of gates){lines.push(\`- \${one(g.id)} · [\${one(g.state)}] · \${one(g.route)} · source:\${one(g.source)}\`);lines.push(\`  move: \${one(g.human_move)}\`)}
+for(const g of gates){lines.push(`- ${one(g.id)} · [${one(g.state)}] · ${one(g.route)} · source:${one(g.source)}`);lines.push(`  move: ${one(g.human_move)}`)}
 lines.push('','## MACHINE ENTRYPOINTS');
 const seen=new Set();
-for(const h of CURRENT.current_heads||[]){if(!h.route||seen.has(h.route))continue;seen.add(h.route);const r=routeMap.get(h.route);lines.push(\`- \${h.route} · \${one(r?.title||h.lineage)} · \${one(r?.kind||'route')} · \${one(r?.state||h.state||'—')}\`)}
+for(const h of CURRENT.current_heads||[]){if(!h.route||seen.has(h.route))continue;seen.add(h.route);const r=routeMap.get(h.route);lines.push(`- ${h.route} · ${one(r?.title||h.lineage)} · ${one(r?.kind||'route')} · ${one(r?.state||h.state||'—')}`)}
 lines.push('','## READ BEFORE MUTATION',
 '- Follow exact evidence/source pointers from CURRENT or the addressed route before changing anything.',
 '- Do not infer user obligation from issues, prose, open ports, or promotion language.',
@@ -68,5 +68,5 @@ if(process.argv.includes('--check')){
   console.log('FIELD MACHINE TRANSCRIPT PASS');
 }else{
   fs.writeFileSync(target,out);
-  console.log(\`wrote llms.txt (\${out.length} bytes)\`);
+  console.log(`wrote llms.txt (${out.length} bytes)`);
 }
