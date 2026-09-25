@@ -1,0 +1,41 @@
+{
+  "schema": "field-return/v1",
+  "id": "FOLD_BLOOM_MODE_EMBODIMENT_053_2026-09-25",
+  "date": "2026-09-25",
+  "state": "MERGED_CI_GREEN",
+  "object": "FOLD//BLOOM LIVE central instrument + Two Dial donor",
+  "operation": "MODE LABELS / DETACHED PANELS → MODE-SPECIFIC CENTRAL WITNESS + DIRECT DONOR ESCAPE",
+  "versions": {
+    "play": "0.5.3",
+    "live": "0.13",
+    "two_dial": "0.10.4"
+  },
+  "observed_need": [
+    "Different PLAY modes needed obvious human-visible differences, not mostly labels.",
+    "HEX could reuse the existing trigram glyph grammar already present in the state language.",
+    "TWO DIAL needed both dials simultaneously visible and a landscape/WIDE escape on phone."
+  ],
+  "delta": [
+    "RUN / HEX / PATH / TWO DIAL / ECOLOGY / ZEN now produce unequal central-ring projections.",
+    "HEX shows lower/upper trigram glyph state while preserving the existing local gameplay mapping.",
+    "TWO DIAL shows explicit outer A / inner B rings.",
+    "LIVE exposes LANDSCAPE and FULL TWO DIAL; donor opens with mode=DUET.",
+    "Two Dial 0.10.4 adds WIDE/fullscreen request with rotate fallback and larger portrait dials.",
+    "No new state authority, store, engine, or universal ontology."
+  ],
+  "proof": {
+    "pull_request": 328,
+    "merge_sha": "41b69f52f75b5424308ba6531af879e017e4cb07",
+    "route_registration": {
+      "run": 36140134198,
+      "result": "PASS"
+    },
+    "public_surface_check": {
+      "run": 36140134183,
+      "result": "PASS"
+    },
+    "critical_browser_smoke": "PASS",
+    "real_phone": "PENDING_LIVED_USE"
+  },
+  "next": "One real-phone pass only: distinguish modes from the instrument, inspect HEX trigram legibility, verify A/B + WIDE/full donor, confirm primary controls remain clear. Revise from observed friction only."
+}
