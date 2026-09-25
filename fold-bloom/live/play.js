@@ -99,7 +99,7 @@ function injectEntry(){
   if(fieldBtn && !fieldBtn.dataset.fbPlayWrapped){
     const original = fieldBtn.onclick;
     fieldBtn.dataset.fbPlayWrapped = '1';
-    fieldBtn.textContent = 'PLAY A RUN · FIELD COURSE →';
+    fieldBtn.textContent = 'PLAY FIELD COURSE · RUN →';
     fieldBtn.onclick = async event => { if(original) await original.call(fieldBtn,event); start('PLAY'); };
   }
 }
