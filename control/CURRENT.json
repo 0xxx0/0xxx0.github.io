@@ -54,14 +54,16 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.5 / MATERIAL HEAD + LOCAL CATCH-UP + ADDRESSED FOCUS + Φ/φ",
+      "head": "FIELD INDEX 0.8.6 / MATERIAL HEAD + REWINDABLE LOCAL CATCH-UP + ADDRESSED FOCUS + Φ/φ",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention; manifest owns addressed route projection; exact Git remains available under CHANGE / GIT, while pure NEXUS board-refresh commits are treated as telemetry and excluded from the material HEAD/freshness witness so observability cannot manufacture its own drift. CATCH UP stays browser-local. φ remains local focus; provider/coordination state never becomes route authority.",
+      "retained_function": "Fast repo re-entry around one addressed object. CURRENT owns attention; manifest owns addressed route projection; exact Git remains available under CHANGE / GIT, while pure NEXUS board-refresh commits are telemetry and excluded from material freshness. CATCH UP remains browser-local but its acknowledgement boundary is now rewindable: MARK preserves the prior local boundary and REWIND restores it without mutating canonical state. φ remains local focus; provider/coordination state never becomes route authority.",
       "evidence": [
-        "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
+        "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
+        "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json"
       ],
-      "version": "0.8.5"
+      "version": "0.8.6",
+      "latest_return": "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json"
     },
     {
       "lineage": "scale-lens",

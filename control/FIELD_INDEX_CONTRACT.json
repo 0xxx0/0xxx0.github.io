@@ -25,6 +25,7 @@
     "SUPPORT ≠ IMPORTANCE. AXIAL support counts are exact compatibility counts under the currently aligned dimensions, not priority, probability or recommendation.",
     "VISIBLE POSSIBILITY SET. When constraints change, the surviving exact route identities should remain perceptible before navigation; one survivor may read LOCK, zero reads DEAD.",
     "EVIDENCE MAY ACCUMULATE PASSIVELY / LOCALLY. Comparative interface evidence may be recorded in browser-local receipts without network telemetry or dedicated QA ritual.",
+    "LOCAL ACKNOWLEDGEMENT IS REWINDABLE. Browser-local orientation marks such as CATCH UP must retain enough local history to restore the prior boundary when available; a legacy mark with no retained predecessor may reopen the unmarked/all-changes view. This never creates canonical read state.",
     "TRACE ≠ AUTHORITY. A policy trace records selector/policy/operation evidence; it never creates permission, identity, priority or next-move authority.",
     "VERIFY STATES ARE THREE-VALUED. FAIL proves violation; INDETERMINATE means required evidence/capability is unavailable; PASS requires every check for the requested profile to execute and pass.",
     "FOCUS MAY BECOME RESOURCE ADDRESS. TRACE / VERIFY may bind the current FIELD focus as an opaque resource reference, but focus itself grants no READ/REMEMBER/ANSWER/DRAFT/ACT/ESCALATE permission.",
@@ -120,7 +121,8 @@
       ],
       "admission": "An entry needs stable address/route identity plus state before glyph-only compression is lawful.",
       "return": "Activating a glyph must resolve to the same addressed object; the glyph never becomes a second taxonomy or store."
-    }
+    },
+    "root_catchup": "CATCH UP / LOCAL is a derived orientation projection over CURRENT + manifest route timestamps. MARK CAUGHT UP writes only browser-local context; REWIND restores the prior local boundary from a bounded history stack, or clears a legacy mark when no predecessor was retained. Neither operation mutates canonical FIELD state or claims the user read/understood anything."
   },
   "query_semantics": {
     "BOTTLENECK": {

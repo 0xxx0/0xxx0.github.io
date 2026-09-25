@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/policy-index/v0.1",
-  "updated": "2026-09-21",
+  "updated": "2026-09-25",
   "purpose": "Index governing rules without duplicating them; make scope, authority, precedence, conflicts and update paths explicit.",
   "meta_policy": {
     "laws": [
@@ -174,7 +174,7 @@
     {
       "id": "interaction-semantics",
       "path": "/control/INTERACTION_SEMANTICS.json",
-      "scope": "shared meanings of BACK / PARENT / UNDO / RETURN / REPLAY / RESTORE / RESET / RE_ENTER / ESC",
+      "scope": "shared meanings of BACK / PARENT / UNDO / REWIND / REVERT / RETURN / REPLAY / RESTORE / RESET / RE_ENTER / ESC, including reversibility defaults",
       "authority": "INTERACTION_CONTRACT",
       "status": "ACTIVE",
       "depends_on": [
@@ -184,7 +184,9 @@
         "FIELD",
         "AXIAL",
         "HUMAN PORT",
-        "artifact route adapters"
+        "artifact route adapters",
+        "CATCH UP / LOCAL",
+        "agent/runtime interaction design"
       ]
     },
     {

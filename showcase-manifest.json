@@ -16,18 +16,19 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-25T16:55:00+08:00",
+        "updated_at": "2026-09-25T18:22:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: compact re-entry and addressed operation surface. CURRENT owns attention. CATCH UP / LOCAL derives a browser-local 'since last caught up' projection from CURRENT + manifest timestamps, prioritizing active/current heads without creating backlog or authority. ROUTES remains the manifest projection; CHANGE / GIT remains literal repository chronology; WAITING preserves human/world gates. Φ denotes host/authority; φ denotes current addressed focus.",
+      "role": "FIELD INDEX root: compact re-entry and addressed operation surface. CURRENT owns attention. CATCH UP / LOCAL derives a browser-local 'since last caught up' projection from CURRENT + manifest timestamps and now retains a bounded local boundary history so accidental acknowledgement can REWIND without altering canonical state. ROUTES remains the manifest projection; CHANGE / GIT remains literal repository chronology; WAITING preserves human/world gates. Φ denotes host/authority; φ denotes current addressed focus.",
       "receipt": "/returns/FIELD_INDEX_CATCHUP_2026-09-25.json",
       "machine_view": "FIELD",
-      "version": "0.8.5",
+      "version": "0.8.6",
       "transfer": [
+        "reversibility repair: CATCH UP / LOCAL MARK pushes the previous browser-local boundary; REWIND restores it, while legacy marks with no predecessor reopen the unmarked/all-changes view",
         "local-only catch-up projection: NOW + changed addressed heads since explicit local caught-up mark; derived from CURRENT + manifest, no new authority",
         "catch-up ranking prefers active/current heads but never creates priority, queue or read-state in canonical files",
         "route ontology diagnostic derives non-authoritative host / family_id / verb_id candidates from the manifest; it flags ambiguity without rewriting display language, creating priority, or failing CI",
@@ -74,7 +75,8 @@
       "axial_support_return": "/returns/FIELD_INDEX_AXIAL_SUPPORT_2026-09-21.json",
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "latest_return": "/returns/FIELD_INDEX_CATCHUP_REVERSIBILITY_2026-09-25.json"
     },
     {
       "href": "/app-atlas/",

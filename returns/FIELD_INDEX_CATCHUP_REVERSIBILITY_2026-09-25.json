@@ -1,0 +1,48 @@
+{
+  "schema": "0xxx0/field-index-catchup-reversibility/v0.1",
+  "date": "2026-09-25",
+  "state": "CANDIDATE",
+  "route": "/",
+  "object": "FIELD INDEX / CATCH UP / LOCAL",
+  "trigger": "User accidentally activated MARK CAUGHT UP before reading the catch-up projection and explicitly asked for undo/reversibility.",
+  "observed": {
+    "before": "MARK CAUGHT UP overwrote field.catchup.seen.v01 with one browser-local timestamp and retained no predecessor.",
+    "authority": "NONE / LOCAL ONLY",
+    "failure": "The action did not mutate repository/canonical state, but it irreversibly discarded the browser's prior orientation boundary."
+  },
+  "delta": {
+    "version": "0.8.6",
+    "operation": "REWIND",
+    "storage": [
+      "field.catchup.seen.v01",
+      "field.catchup.history.v01"
+    ],
+    "behavior": [
+      "MARK CAUGHT UP pushes the previous local boundary before advancing it.",
+      "REWIND restores the preceding retained boundary.",
+      "If a mark predates history support and no predecessor exists, REWIND clears the mark and reopens the all-indexed-changes view.",
+      "History is bounded to 20 local boundaries.",
+      "No canonical FIELD state, Git history, manifest truth, CURRENT attention, or server-side read state is mutated by using the control."
+    ]
+  },
+  "semantic_promotion": {
+    "authority": "/control/INTERACTION_SEMANTICS.json",
+    "distinctions": [
+      "UNDO = inverse of a prior reversible domain mutation.",
+      "REWIND = move a retained context/history pointer without claiming canonical state changed.",
+      "REVERT = a new authorized compensating canonical/world action; provenance remains append-only.",
+      "RETURN = evidence/re-entry, not reversal."
+    ],
+    "root_default": "Prefer previewable, branchable, reversible or explicitly compensatable operations when meaning permits; cheap local/context mutations must retain a lawful way back."
+  },
+  "verification": {
+    "source_selftest": "tools/field-reversibility-selftest.mjs",
+    "public_surface": "public-surface-check runs the reversibility selftest and existing FIELD browser smoke.",
+    "human": "On the same browser that has the accidental legacy mark, press REWIND once. Expected: the local caught-up mark clears and the catch-up projection becomes visible again; future marks retain exact previous local boundaries."
+  },
+  "residue": [
+    "A predecessor overwritten before this feature shipped cannot be reconstructed exactly; the only honest fallback is the unmarked/all-changes view.",
+    "REWIND is local orientation only. It does not rewind repository or world state."
+  ],
+  "stop": "Do not turn this into global event sourcing or another history database. Promote reversible mechanics only where an actual interaction can lose meaningful local/domain state."
+}

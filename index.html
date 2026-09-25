@@ -46,7 +46,7 @@ nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}nav a{flex:none;bo
 .sRail u{text-decoration:none;color:var(--mut);margin-right:8px;white-space:nowrap}
 .syncLine{display:flex;align-items:center;gap:5px 12px;flex-wrap:wrap;margin-top:6px;padding:4px 7px;border:1px solid var(--line);background:#080b0d;color:var(--mut);font-size:6.5px;letter-spacing:.05em}
 .syncLine>a{color:var(--gold)}.syncLine b{letter-spacing:.12em}.syncLine .syncLocal{min-width:0;color:var(--cool)}.syncLine #syncFocus{display:inline-block;max-width:34ch;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom;white-space:nowrap}.syncLine #syncRepo{margin-left:auto;color:var(--mut)}
-.catchup{margin-top:6px;border:1px solid var(--line);background:#080b0d}.catchup>summary{list-style:none;display:flex;justify-content:space-between;gap:10px;align-items:center;padding:6px 7px;cursor:pointer}.catchup>summary::-webkit-details-marker{display:none}.catchup>summary b{font-size:7px;letter-spacing:.14em;color:var(--gold)}.catchup>summary span{font-size:6.5px;color:var(--mut)}.catchNow{padding:7px 8px;border-top:1px solid var(--line);border-bottom:1px solid #1b2429}.catchNow b{display:block;font-size:7px;letter-spacing:.1em;color:var(--hot)}.catchNow span{display:block;margin-top:3px;color:#aab4b8;font:8px/1.4 system-ui,sans-serif}.catchGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line)}.catchCard{min-width:0;background:#090d0f;padding:7px;display:grid;grid-template-columns:29px minmax(0,1fr);gap:7px;align-items:start}.catchCard.head{box-shadow:inset 0 -1px var(--cool)}.catchCard strong{display:block;font:750 10px/1.1 system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.catchCard small{display:block;color:var(--mut);font-size:5.8px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.catchCard p{margin:4px 0 0;color:#9aa6aa;font:7px/1.38 system-ui,sans-serif;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.catchActions{grid-column:2;display:flex;gap:4px;margin-top:2px}.catchActions button,.catchActions a{min-height:29px;padding:4px 6px;font-size:6.5px}.catchActions a{display:grid;place-items:center;border:1px solid var(--cool);color:var(--cool)}.catchFoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:5px 7px;border-top:1px solid var(--line);color:var(--mut);font-size:6px}.catchFoot button{padding:5px 7px;font-size:6.5px}.catchEmpty{grid-column:1/-1;padding:9px;color:var(--mut);font-size:7px;background:#090d0f}
+.catchup{margin-top:6px;border:1px solid var(--line);background:#080b0d}.catchup>summary{list-style:none;display:flex;justify-content:space-between;gap:10px;align-items:center;padding:6px 7px;cursor:pointer}.catchup>summary::-webkit-details-marker{display:none}.catchup>summary b{font-size:7px;letter-spacing:.14em;color:var(--gold)}.catchup>summary span{font-size:6.5px;color:var(--mut)}.catchNow{padding:7px 8px;border-top:1px solid var(--line);border-bottom:1px solid #1b2429}.catchNow b{display:block;font-size:7px;letter-spacing:.1em;color:var(--hot)}.catchNow span{display:block;margin-top:3px;color:#aab4b8;font:8px/1.4 system-ui,sans-serif}.catchGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line)}.catchCard{min-width:0;background:#090d0f;padding:7px;display:grid;grid-template-columns:29px minmax(0,1fr);gap:7px;align-items:start}.catchCard.head{box-shadow:inset 0 -1px var(--cool)}.catchCard strong{display:block;font:750 10px/1.1 system-ui,sans-serif;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.catchCard small{display:block;color:var(--mut);font-size:5.8px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.catchCard p{margin:4px 0 0;color:#9aa6aa;font:7px/1.38 system-ui,sans-serif;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}.catchActions{grid-column:2;display:flex;gap:4px;margin-top:2px}.catchActions button,.catchActions a{min-height:29px;padding:4px 6px;font-size:6.5px}.catchActions a{display:grid;place-items:center;border:1px solid var(--cool);color:var(--cool)}.catchFoot{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:5px 7px;border-top:1px solid var(--line);color:var(--mut);font-size:6px}.catchFootActions{display:flex;gap:4px;align-items:center}.catchFoot button{padding:5px 7px;font-size:6.5px}.catchFoot button:disabled{opacity:.34;cursor:default}.catchEmpty{grid-column:1/-1;padding:9px;color:var(--mut);font-size:7px;background:#090d0f}
 @media(max-width:760px){.catchGrid{grid-template-columns:1fr}.catchup>summary{min-height:40px}.catchActions button,.catchActions a{min-height:40px}}
 .touchList{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:#080b0d}
 .touchCommit{border-bottom:1px solid #1b2429}.touchCommit:last-child{border-bottom:0}.touchCommit>summary{list-style:none;cursor:pointer}.touchCommit>summary::-webkit-details-marker{display:none}.touchCommit[open]>summary{background:#0d1316}
@@ -131,7 +131,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
   <summary><b>CATCH UP / LOCAL</b><span id="catchupMeta">derive from CURRENT + manifest · no new authority</span></summary>
   <div class="catchNow" id="catchupNow"><b>NOW</b><span>loading current conversion…</span></div>
   <div class="catchGrid" id="catchupList"><div class="catchEmpty">loading changed addressed heads…</div></div>
-  <div class="catchFoot"><span id="catchupSeen">Last caught up: never on this browser.</span><button id="catchupMark">MARK CAUGHT UP</button></div>
+  <div class="catchFoot"><span id="catchupSeen">Last caught up: never on this browser.</span><div class="catchFootActions"><button id="catchupRewind" title="Restore the previous local catch-up boundary. If no predecessor was retained, reopen all indexed changes.">REWIND</button><button id="catchupMark">MARK CAUGHT UP</button></div></div>
 </details>
 
 
@@ -239,7 +239,7 @@ const CAPABILITY_PROJECTION=Object.freeze([
  {id:'shopping',match:h=>h==='/shopping/'||h.startsWith('/shopping/'),owner:'SHOPPING',moves:['RESEARCH / COMPARE','GATE / NEXT ACTION','HANDOFF → DAYLINE'],boundary:'no purchase or lifecycle promotion'},
  {id:'verse',match:h=>h==='/poetry/map/'||h.startsWith('/poetry/map/'),owner:'VERSE',moves:['FOCUS / INTENT','TRY / PREVIEW','ADOPT / RETURN'],boundary:'preview never mutates source'}
 ]);
-const TRIAL_KEY='field.axial.latest.trial.v01',CATCHUP_KEY='field.catchup.seen.v01';
+const TRIAL_KEY='field.axial.latest.trial.v01',CATCHUP_KEY='field.catchup.seen.v01',CATCHUP_HISTORY_KEY='field.catchup.history.v01';
 let trial={schema:'field-axial-trial/v0.1',axial_focus:0,latest_focus:0,other_focus:0,dead:0,opens:{AXIAL:0,LATEST:0,OTHER:0},open_ms:{AXIAL:0,LATEST:0,OTHER:0},last_source:null,last_at:null};
 try{trial={...trial,...JSON.parse(localStorage.getItem(TRIAL_KEY)||'{}')}}catch(_){}
 function saveTrial(){try{localStorage.setItem(TRIAL_KEY,JSON.stringify(trial))}catch(_){}renderTrial()}
@@ -392,12 +392,22 @@ function updateStatusRail(){
   el.innerHTML=rows.map(([t,v])=>'<i>'+esc(t)+'</i><u>'+esc(v)+'</u>').join('')||'loading…';
 }
 function catchupSeen(){try{return Math.max(0,Number(localStorage.getItem(CATCHUP_KEY))||0)}catch(_){return 0}}
+function catchupHistory(){
+ try{
+  const xs=JSON.parse(localStorage.getItem(CATCHUP_HISTORY_KEY)||'[]');
+  return Array.isArray(xs)?xs.map(Number).filter(x=>Number.isFinite(x)&&x>=0).slice(-20):[];
+ }catch(_){return[]}
+}
+function saveCatchupHistory(xs){try{localStorage.setItem(CATCHUP_HISTORY_KEY,JSON.stringify((xs||[]).slice(-20)))}catch(_){}}
+function setCatchupSeen(stamp){
+ try{if(Number(stamp)>0)localStorage.setItem(CATCHUP_KEY,String(Number(stamp)));else localStorage.removeItem(CATCHUP_KEY)}catch(_){}
+}
 function catchText(r){
  const s=r?.evolution?.mutation||r?.evolution?.question||r?.role||(Array.isArray(r?.transfer)?r.transfer[0]:'')||'Addressed head changed.';
  return String(s).replace(/\s+/g,' ').trim().slice(0,240)
 }
 function renderCatchup(){
- const box=$('catchupList'),meta=$('catchupMeta'),now=$('catchupNow'),seenLabel=$('catchupSeen');if(!box||!meta||!now||!seenLabel)return;
+ const box=$('catchupList'),meta=$('catchupMeta'),now=$('catchupNow'),seenLabel=$('catchupSeen'),rewind=$('catchupRewind');if(!box||!meta||!now||!seenLabel)return;
  const seen=catchupSeen(),changed=latest.filter(r=>tsMs(r.index?.updated_at)>seen),pool=(seen?changed:latest).slice();
  pool.sort((a,b)=>{
    const sa=(nowSet.has(a.href)?4:0)+(headSet.has(a.href)?2:0),sb=(nowSet.has(b.href)?4:0)+(headSet.has(b.href)?2:0);
@@ -407,7 +417,7 @@ function renderCatchup(){
  now.innerHTML='<b>NOW · '+esc(String(front?.id||'conversion').replaceAll('-',' ').toUpperCase())+'</b><span>'+esc(objective.slice(0,340))+'</span>';
  const changedCount=changed.length;
  meta.textContent=seen?(changedCount?changedCount+' changed since your last local mark':'no indexed changes since your last local mark'):('first local catch-up · '+latest.length+' indexed routes');
- seenLabel.textContent=seen?'Last caught up: '+shortTs(new Date(seen).toISOString()):'Last caught up: never on this browser.';
+ const history=catchupHistory();seenLabel.textContent=seen?'Last caught up: '+shortTs(new Date(seen).toISOString())+' · REWIND '+(history.length?history.length+' retained':'to all'):'Last caught up: never on this browser.';if(rewind)rewind.disabled=!seen&&!history.length;
  box.innerHTML=xs.length?xs.map(r=>{
    const head=headSet.has(r.href),stamp=shortTs(r.index?.updated_at)||'untracked',ver=r.version?'v'+r.version:'',sub=[stamp,ver,r.state||'',opOf(r)].filter(Boolean).join(' · ');
    return '<article class="catchCard '+(head?'head':'')+'">'+routeGlyph(r,27)+'<div><strong>'+esc(r.title||r.href)+'</strong><small>'+esc(sub)+'</small><p>'+esc(catchText(r))+'</p></div><div class="catchActions"><button data-catch-focus="'+esc(r.href)+'">FOCUS</button><a href=".'+esc(r.alias_of||r.href)+'">OPEN →</a></div></article>'
@@ -417,9 +427,13 @@ function renderCatchup(){
 }
 function markCaughtUp(){
  if(!latest.length)return;
- const stamp=Math.max(...latest.map(r=>tsMs(r.index?.updated_at)).filter(Boolean),Date.now());
- try{localStorage.setItem(CATCHUP_KEY,String(stamp))}catch(_){}
- renderCatchup();
+ const previous=catchupSeen(),stamp=Math.max(...latest.map(r=>tsMs(r.index?.updated_at)).filter(Boolean),Date.now());
+ if(stamp===previous)return;
+ const history=catchupHistory();history.push(previous);saveCatchupHistory(history);setCatchupSeen(stamp);renderCatchup();
+}
+function rewindCaughtUp(){
+ const history=catchupHistory(),prior=history.length?history.pop():0;
+ saveCatchupHistory(history);setCatchupSeen(prior);renderCatchup();
 }
 function renderSyncLine(){
  const cur=$('syncCurrent'),rep=$('syncRepo'),loc=$('syncFocus');if(!cur||!rep||!loc)return;
@@ -649,7 +663,7 @@ Promise.all([
  $('axialMeta').textContent=latest.length+' addressed routes · support exact over current filters';
  renderHeads();renderPorts();applyInitialAxial();renderSyncLine();renderCatchup();loadRepoTouches();loadWaiting();loadIssues();renderMap();if(INIT.get('trace')==='1')setTimeout(openTrace,0);
 }).catch(e=>{$('axialMeta').textContent='LOAD FAILURE '+e.message;$('apTitle').textContent='FIELD unavailable'});
-$('catchupMark').onclick=markCaughtUp;$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apTrace').onclick=openTrace;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===30?999:30;$('moreLatest').textContent=latestLimit===30?'SHOW ALL':'SHOW FEWER';renderFeed()};
+$('catchupMark').onclick=markCaughtUp;$('catchupRewind').onclick=rewindCaughtUp;$('axReset').onclick=resetAxial;$('axTrial').onclick=copyTrial;$('apOpen').addEventListener('click',noteOpen);$('apInspect').onclick=inspectFocus;$('apLens').onclick=openLens;$('apTrace').onclick=openTrace;$('apProof').onclick=openProof;$('apCopy').onclick=copyAddress;$('moreLatest').onclick=()=>{latestLimit=latestLimit===30?999:30;$('moreLatest').textContent=latestLimit===30?'SHOW ALL':'SHOW FEWER';renderFeed()};
 $('mapTools').onclick=e=>{if(e.target.dataset.mode){mapMode=e.target.dataset.mode;renderMap();notifyFieldIndex()}};$('mapSearch').oninput=e=>{mapQuery=e.target.value.trim().toLowerCase();renderMap()};
 $('mapUp').onclick=mapUp;$('mapRootBtn').onclick=()=>{mapRoot='/';renderMap();notifyFieldIndex()};$('mapDrill').onclick=drillSelected;
 $('mapFold').addEventListener('toggle',()=>{if($('mapFold').open)renderMap();notifyFieldIndex()});
