@@ -150,9 +150,9 @@ function openLocalText(raw,name='LOCAL FILE',type='',format=localFormat(name),re
  const opt=apertureOptions(name,value,format);firstLoad=false;A.setGlyphWitness?.(null);A.load(value,opt);syncCopyMode()
 }
 async function openLocalFile(file){
- if(!file)return;const epoch=sourceEpoch+1;
- try{const raw=await file.text();if(sourceEpoch>=epoch)return;openLocalText(raw,file.name||'LOCAL FILE',file.type||'',localFormat(file.name||''),true)}
- catch(e){T.textContent='Unavailable local file: '+e.message}
+ if(!file)return;const epoch=++sourceEpoch;
+ try{const raw=await file.text();if(sourceEpoch!==epoch)return;openLocalText(raw,file.name||'LOCAL FILE',file.type||'',localFormat(file.name||''),true)}
+ catch(e){if(sourceEpoch===epoch)T.textContent='Unavailable local file: '+e.message}
 }
 
 docs.forEach(([n,u,d])=>{const b=document.createElement('button');b.className='doc';b.dataset.slug=slug(n);b.innerHTML='<b>'+n+'</b><span>'+d+'</span>';b.onclick=()=>openSource(n,u);L.append(b)});
