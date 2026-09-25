@@ -701,7 +701,7 @@ const CASES=[
     name:'FIELD',
     route:'/',
     options:{width:1040,height:820,budget:1800,timeout:18000},
-    check:dom=>dom.includes('id="axialLatest"')&&dom.includes('FIELD / FOCUS')&&dom.includes('class="reentryFold"')&&/NOW \/ CURRENT/.test(dom)&&/RECOVER \/ VAULT/.test(dom)&&/CONVERGE \/ NEXUS/.test(dom)&&dom.includes('href="./recovery/"')&&dom.includes('class="syncLine"')&&dom.includes('id="syncCurrent"')&&dom.includes('id="syncFocus"')&&dom.includes('id="catchupFold"')&&dom.includes('id="catchupList"')&&dom.includes('id="catchupRewind"')&&dom.includes('id="catchupMark"')&&/CATCH UP \/ LOCAL/.test(dom)&&/REWIND/.test(dom)&&dom.includes('id="touchList"')&&dom.includes('class="routeProjection"')&&/Φ \/ CURRENT/.test(dom)&&/CONFLUENCE/.test(dom)
+    check:dom=>dom.includes('id="axialLatest"')&&dom.includes('FIELD / FOCUS')&&dom.includes('class="reentryFold"')&&/NOW \/ CURRENT/.test(dom)&&/RECOVER \/ VAULT/.test(dom)&&/CONVERGE \/ NEXUS/.test(dom)&&dom.includes('href="./recovery/"')&&dom.includes('class="syncLine"')&&dom.includes('id="syncCurrent"')&&dom.includes('id="syncFocus"')&&dom.includes('id="catchupFold"')&&dom.includes('id="catchupSignals"')&&dom.includes('id="catchupList"')&&dom.includes('id="catchupRewind"')&&dom.includes('id="catchupMark"')&&/FIELD \/ CATCH \+ ACT/.test(dom)&&dom.includes('id="capTrial"')&&/REWIND/.test(dom)&&/MARK ALL/.test(dom)&&dom.includes('id="touchList"')&&dom.includes('class="routeProjection"')&&/Φ \/ CURRENT/.test(dom)&&/CONFLUENCE/.test(dom)
   },
   {
     name:'HUMAN PORT',
