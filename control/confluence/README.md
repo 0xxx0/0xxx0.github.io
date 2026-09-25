@@ -51,6 +51,7 @@ When mining prior conversations, user messages deserve special attention because
 ## Current confluence packets
 
 - [HERMES VISION LOOP](../prompts/HERMES_VISION_LOOP_2026-09-24.md) — bounded long-horizon research/design-engineering loop: question → falsifiable hypothesis → specimen → lived/machine evidence → promote/transfer/park/compost → RETURN.
+- [HERMES LONG-HORIZON WORKER](../prompts/HERMES_LONG_HORIZON_WORKER_2026-09-24.md) — master prompt for a persistent long-horizon Hermes worker: recover before inventing; distinguish → coordinate → enact → measure → preserve → return durable state.
 - [HERMES SKILLS](../../skills/README.md) — executable method shelf; skills are admitted by demonstrated recurrence + transfer, not by sounding general.
 - [FOLD//BLOOM replay/message Hermes lane](../packets/HERMES_FOLD_BLOOM_REPLAY_MESSAGE_LANE_2026-09-24.md) — isolated expressive replay/message research; does not edit canonical LIVE.
 - [FOLD//BLOOM visual grammar Hermes lane](../packets/HERMES_FOLD_BLOOM_VISUAL_GRAMMAR_LANE_2026-09-24.md) — isolated event-choreography A/B specimen lane; returns operator laws rather than merging effects directly.
