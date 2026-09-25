@@ -2,8 +2,8 @@
   "schema": "release-receipt/v1",
   "artifact": "HUMAN PORT / COMMS SPINE",
   "route": "/port/comms/",
-  "version": "0.1",
-  "date": "2026-09-23",
+  "version": "0.1.1",
+  "date": "2026-09-25",
   "state": "MERGED_ACTIVE_CANDIDATE",
   "thesis": "One exact conversation remains canonically addressable while signal extraction, human annotation, obligation state, response coverage, bot handoff and RETURN become unequal projections beside it.",
   "source_model": {
@@ -19,7 +19,8 @@
     "response/handoff lane with explicit coverage state",
     "comms-spine-agent-packet/v0.1",
     "comms-spine-return/v0.1",
-    "source-bearing RETURN import/resume restores exact thread, human marks, states, response and coverage"
+    "source-bearing RETURN import/resume restores exact thread, human marks, states, response and coverage",
+    "explicit TARGET selection → local Atlas Dayline task handoff with exact COMMS source address/provenance"
   ],
   "provenance_classes": {
     "DERIVED": "weak deterministic heuristic suggestion; confidence < 1; never human intent truth",
@@ -39,7 +40,8 @@
     "SUMMARY/TASK/RESPONSE != SOURCE",
     "OPEN RESIDUE SURVIVES RETURN",
     "NO NETWORK SEND AUTHORITY",
-    "SESSION-ONLY BY DEFAULT; LOCAL PIN IS EXPLICIT"
+    "SESSION-ONLY BY DEFAULT; LOCAL PIN IS EXPLICIT",
+    "MESSAGE SIGNAL != DAYLINE OBLIGATION UNTIL EXPLICIT TARGET HANDOFF"
   ],
   "interaction": {
     "non_scroll_primary": "whole thread is compressed into a horizontal spine; primary reading surface holds one addressed turn at a time",
@@ -47,14 +49,16 @@
     "human_marking": "select exact clause then ASK/PROMISE/DECISION/WAITING/CONSTRAINT/NOTE",
     "response_coverage": "target signals then COVER / DEFER / REOPEN explicitly",
     "bot_handoff": "copy source-addressed agent packet; no summary-only handoff",
-    "return_resume": "IMPORT RETURN restores a source-bearing comms-spine-return/v0.1 after a source/session switch; address-only receipts are deliberately not resumable"
+    "return_resume": "IMPORT RETURN restores a source-bearing comms-spine-return/v0.1 after a source/session switch; address-only receipts are deliberately not resumable",
+    "dayline_handoff": "Select exact signal cards as TARGETS, then TARGETS → DAYLINE. The explicit target action is the promotion boundary; source text and DERIVED/HUMAN provenance survive in task notes/sourceRef."
   },
   "privacy": {
     "network_send": false,
     "default_storage": "sessionStorage",
     "optional_storage": "explicit PIN LOCAL → localStorage",
     "export": "user-triggered JSON download",
-    "human_port_import": "current HUMAN PORT text/JSON session object only"
+    "human_port_import": "current HUMAN PORT text/JSON session object only",
+    "dayline_handoff": "same-origin sessionStorage only; consumed on Atlas Dayline import; no network submission"
   },
   "evidence": [
     "/port/comms/tests/core.test.mjs",
@@ -79,7 +83,7 @@
     "no chapter-summary navigation",
     "no replacement of HUMAN PORT, READFIELD, LACONIC, CONTINUITY or agent-router"
   ],
-  "next": "Use one real long conversation, author/correct marks, draft a real response, cover/defer obligations, then decide whether COMMS SPINE materially reduces re-entry/obligation loss.",
+  "next": "Use one real conversation: mark/target one actual ask or promise, hand it to Dayline, run/return it, then come back to the source thread for response coverage.",
   "verification": {
     "pull_request": 176,
     "merge_sha": "73ee33d3f7ac92f84b7f8acc7db2761384f456e7",
