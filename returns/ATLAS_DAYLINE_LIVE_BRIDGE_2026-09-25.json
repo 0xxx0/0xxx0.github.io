@@ -1,0 +1,40 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "ATLAS_DAYLINE_LIVE_BRIDGE_2026-09-25",
+  "date": "2026-09-25",
+  "route": "/atlas-dayline/?live=1",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "before": "Atlas Dayline Branch I was a capable local-first day engine with no live FIELD input and no compact outward feedback seam.",
+  "after": "Opt-in LIVE reads CURRENT read-only, exposes active fronts, requires explicit local promotion, adds one-line capture, and emits a bounded atlas-dayline-feedback/v0.1 packet.",
+  "preserves": [
+    "default /atlas-dayline/ behavior",
+    "CURRENT as repo authority",
+    "local-first DayState",
+    "preview != canonical",
+    "RUN <= 3",
+    "RETURN/replay",
+    "human gates are not auto-promoted"
+  ],
+  "files": [
+    "/atlas-dayline/index.html",
+    "/atlas-dayline/app.js",
+    "/atlas-dayline/field-bridge.js",
+    "/atlas-dayline/release.json",
+    "/showcase-manifest.json",
+    "/control/confluence/ATLAS_DAYLINE_LIVE_CONVERGENCE_2026-09-25.md"
+  ],
+  "verification": {
+    "javascript_syntax": "PREPARED / connector-side parse check",
+    "default_mode": "bridge exits unless ?live=1",
+    "field_write_path": "NONE",
+    "promotion_boundary": "explicit ADD",
+    "feedback_write_path": "clipboard/download only"
+  },
+  "residue": [
+    "browser-lived proof",
+    "Pages/route CI",
+    "calendar adapter remains unimplemented",
+    "nexus board branch telemetry shows ambiguous-ref failures"
+  ],
+  "stop": "No further architecture pass before lived LIVE use, a bounded calendar-anchor adapter, or a concrete identity/RETURN failure."
+}
