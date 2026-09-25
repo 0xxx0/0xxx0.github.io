@@ -1,0 +1,40 @@
+{
+  "schema": "return-receipt/v1",
+  "artifact": "SHOPPING ↔ HOUSE FIT BRIDGE",
+  "date": "2026-09-25",
+  "state": "CANDIDATE",
+  "objective": "Turn a shopping candidate's material envelope and ownership burden into an explicit physical-fit question at a HOUSE address without creating a new store, planner or authority.",
+  "source_heads": {
+    "shopping": "SHOPPING FIELD 0.2 / FI-SHOP-001",
+    "house": "HOUSE / SPATIAL 0.6.1",
+    "pivot": "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md"
+  },
+  "delta": [
+    "SHOPPING candidate records may carry BODY W/D/H, OPERATING W/D/H, mass, maintenance and dependency burden.",
+    "SHOPPING → HOUSE transports only a session-local house-shopping-fit/v0.1 projection.",
+    "HOUSE asks for real available W/D/H at the currently selected spatial address and screens the operating envelope, including optional 90-degree rotation.",
+    "RETURN lands on the exact Shopping item through /shopping/#<item-id>.",
+    "DAYLINE Shopping handoffs now use the same exact item return address."
+  ],
+  "authority": {
+    "shopping": "candidate identity, purchase lifecycle, cost, burden and adoption evidence",
+    "house": "spatial address and local fit measurement context",
+    "retained_boundary": "No handoff purchases, promotes ownership, mutates canonical HOUSE geometry or actuates HA/HOUSEBUS."
+  },
+  "proof": [
+    "shopping inline JavaScript parse PASS",
+    "house/spatial inline JavaScript parse PASS",
+    "handoff schema present on both producer and consumer",
+    "missing dimensions produce UNKNOWN/MEASURE rather than inferred fit"
+  ],
+  "residue": [
+    "Real phone/browser exercise still required.",
+    "Doorway/path, service hookups, ventilation, load, cat clearance and installation constraints remain outside the envelope screen.",
+    "HOUSE recovered-donor/current-instance geometry conflict remains unchanged; fit probe therefore uses explicit user-measured zone W/D/H rather than deriving fit from donor plan geometry."
+  ],
+  "return_paths": [
+    "/shopping/",
+    "/house/spatial/"
+  ],
+  "next_gate": "Use one real candidate such as an appliance, litter system or storage object: enter BODY/OPERATING envelope → HOUSE FIT → measure one intended zone → RETURN to the exact Shopping item. Keep only if this reduces fit mistakes or measurement reconstruction."
+}
