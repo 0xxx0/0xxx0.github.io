@@ -34,5 +34,24 @@
     "completed_focus_release": "after source-return publication, never before",
     "real_source_browser": "PENDING_CI · exact user instruction at 430×900"
   },
-  "stop": "Functional closed-loop proof may merge only after current-master CI. Promotion beyond candidate still waits on ordinary phone use; do not generalize to HOUSE/SHOPPING."
+  "stop": "Functional correctness is machine/browser verified first. Real-world completion remains a WORLD claim; phone preference/ergonomics is optional subjective evidence, not the default promotion gate.",
+  "verification_policy": {
+    "machine_first": [
+      "empty/reset state",
+      "mobile vertical scroll/reachability",
+      "handoff import",
+      "one held object",
+      "≤3 moves",
+      "RUN mutation boundary",
+      "witness/RETURN shape",
+      "source back path",
+      "COMMS return-offer/source revalidation"
+    ],
+    "world_only": [
+      "whether an intended real-world action was actually performed"
+    ],
+    "subjective_optional": [
+      "perceived cognitive burden / ergonomics"
+    ]
+  }
 }
