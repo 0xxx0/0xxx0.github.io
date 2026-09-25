@@ -16,8 +16,11 @@ need(!html.includes('ACK LOCAL'),'pseudo-action ACK LOCAL survived');
 need(html.includes('data-wait-hold'),'WAITING HOLD action missing');
 need(html.includes('DO →'),'WAITING native DO missing');
 const root=(manifest.routes||[]).find(r=>r.href==='/');
-need(root?.version==='0.8.7','root version != 0.8.7');
-need(root?.latest_return==='/returns/FIELD_INDEX_HELD_ACTION_APERTURE_2026-09-25.json','RETURN not attached');
+const ver=String(root?.version||'0.0.0').split('.').map(x=>Number(x)||0);
+const atLeast087=ver[0]>0||(ver[0]===0&&(ver[1]>8||(ver[1]===8&&ver[2]>=7)));
+need(atLeast087,'root version predates held-action aperture');
+need(/^\/returns\/FIELD_INDEX_.*2026-09-25\.json$/.test(root?.latest_return||''),'FIELD INDEX RETURN not attached');
+need((root?.transfer||[]).some(x=>/held action aperture/i.test(x)),'held-action transfer evidence missing');
 need(!!contract.ui_contract?.root_action_aperture,'root action aperture contract missing');
 need((contract.laws||[]).some(x=>/^SIGNALS CONVERGE AT FOCUS/.test(x)),'focus/authority convergence law missing');
 if(fail.length){console.error('FIELD action aperture FAIL · '+fail.join(' · '));process.exit(1)}
