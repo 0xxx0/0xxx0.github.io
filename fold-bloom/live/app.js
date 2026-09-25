@@ -252,17 +252,33 @@ async function loadLocalSong(files,{retain=true,label='CUSTOM SONG READY'}={}){
     $('#intro').classList.remove('on');toast(label);update();
   }catch(error){console.warn(error);trackStatus='SONG ERROR';toast('SONG DECODE ERROR');update()}
 }
+function waitForRemoteReady(timeout=5000){
+  const el=$('#trackAudio');if(!el)return Promise.reject(Error('NO AUDIO ELEMENT'));
+  if(el.readyState>=1)return Promise.resolve(true);
+  return new Promise((resolve,reject)=>{
+    let settled=false;
+    const clear=()=>{clearTimeout(timer);el.removeEventListener('loadedmetadata',ok);el.removeEventListener('canplay',ok);el.removeEventListener('error',fail)};
+    const finish=(good,error)=>{if(settled)return;settled=true;clear();good?resolve(true):reject(error||Error('REMOTE SOURCE ERROR'))};
+    const ok=()=>finish(true),fail=()=>finish(false,Error('REMOTE SOURCE ERROR')),timer=setTimeout(()=>finish(false,Error('REMOTE SOURCE TIMEOUT')),timeout);
+    el.addEventListener('loadedmetadata',ok,{once:true});el.addEventListener('canplay',ok,{once:true});el.addEventListener('error',fail,{once:true});
+  });
+}
 async function enterCenterMass(){
   stopDemo(false);
   try{
-    trackStatus='OPENING CENTER MASS · SOURCE';
+    trackStatus='PROBING OPTIONAL REMOTE SOURCE';update();
     liveTrack.loadStream({url:CENTER_MASS_URL,name:'CENTER MASS (Work-Trance Cut)',title:'CENTER MASS (Work-Trance Cut)',artist:'stgoh',sourceAddress:CENTER_MASS_SOURCE,sourceKind:'SUNO',provider:'SUNO'});
+    await waitForRemoteReady();
     layerMode='SOURCE';renderer.setProfile(effectiveRideProfile());audio.setSound(false);syncLayerUI();
-    trackStatus='READY · SOURCE · CENTER MASS';$('#intro').classList.remove('on');update();
+    trackStatus='READY · OPTIONAL REMOTE · CENTER MASS';$('#intro').classList.remove('on');update();
     const played=await liveTrack.toggle().then(()=>true).catch(()=>false);
-    if(!played||$('#trackAudio').paused)syncSoundGate(true,'SOURCE');else syncSoundGate(false,'SOURCE');
-    update();toast($('#trackAudio').paused?'CENTER MASS READY · TAP FOR SOURCE':'CENTER MASS · SOURCE');
-  }catch(error){console.warn(error);trackStatus='SOURCE ERROR';toast('CENTER MASS SOURCE BLOCKED');update()}
+    if(!played||$('#trackAudio').paused){syncSoundGate(true,'SOURCE');toast('REMOTE SOURCE READY · TAP FOR SOURCE')}
+    else{syncSoundGate(false,'SOURCE');toast('CENTER MASS · OPTIONAL REMOTE SOURCE')}
+    update();
+  }catch(error){
+    console.warn(error);liveTrack.clearSource();linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;layerMode='IMMERSION';renderer.setProfile(effectiveRideProfile());syncLayerUI();syncSoundGate(false);
+    trackStatus='FIELD COURSE · REMOTE SOURCE UNAVAILABLE';$('#intro').classList.add('on');update();toast('REMOTE SOURCE UNAVAILABLE · LIVE READY');
+  }
 }
 
 function steerRide(dir){
@@ -523,6 +539,6 @@ window.FoldBloomLive={boot:'ready',version:VERSION,state:()=>({...snapshot(state
 const launchParams=new URLSearchParams(location.search),launchPreset=String(launchParams.get('profile')||'').toUpperCase(),launchLayer=String(launchParams.get('layer')||'').toUpperCase(),launchSource=String(launchParams.get('source')||'').toLowerCase();
 if(RIDE_PRESETS[launchPreset])applyRidePreset(launchPreset,false);
 if(['SOURCE','MAP','IMMERSION'].includes(launchLayer))applyLayerMode(launchLayer,false);
-if(launchSource==='center-mass'){document.documentElement.dataset.foldBloomLaunch='center-mass';setTimeout(()=>{void enterCenterMass()},80)}
+if(launchSource==='center-mass'){document.documentElement.dataset.foldBloomLaunch='legacy-center-mass';setTimeout(()=>{if($('#intro').classList.contains('on')&&!demo.on)startDemo({preview:true});toast('OLD CENTER MASS LINK · LIVE RESTORED · REMOTE IS OPTIONAL')},180)}
 else if(launchParams.get('demo')==='1'){document.documentElement.dataset.foldBloomLaunch='demo';setTimeout(()=>{$('#intro').classList.remove('on');syncSoundGate(!audio.ctx,'FIELD');startDemo({preview:true});toast('FIELD COURSE · TAP FOR FIELD SOUND')},180)}
 else setTimeout(()=>{if($('#intro').classList.contains('on')&&!demo.on)startDemo({preview:true})},650);

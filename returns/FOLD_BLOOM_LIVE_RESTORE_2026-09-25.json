@@ -1,0 +1,37 @@
+{
+  "schema": "fold-bloom-live-restore-return/v0.1",
+  "at": "2026-09-25T10:12:41+08:00",
+  "branch": "fold-bloom-live-restore-20260925",
+  "contribution": "DELTA",
+  "observed": {
+    "symptom": "FOLD//BLOOM repeatedly promoted CENTER MASS and LIVE could land in a silent source-only session.",
+    "cause": [
+      "/fold-bloom/ primary CTA hard-coded /fold-bloom/live/?source=center-mass.",
+      "LIVE primary start button also privileged CENTER MASS over FIELD COURSE/local audio.",
+      "enterCenterMass hid the intro before provider playback was proved.",
+      "CURRENT and LIVE release metadata still named clean-phone CENTER MASS playback as a promotion gate."
+    ],
+    "provider_state": "UNVERIFIED_REMOTE / USER_REPORTED_BROKEN",
+    "historical_origin": "PR #216 attempted clean-phone source continuity by recovering a Suno provider identity without publishing private Library bytes."
+  },
+  "changed": [
+    "/fold-bloom/ primary CTA now enters generic /fold-bloom/live/.",
+    "LIVE primary action is PLAY FIELD COURSE; OPEN LOCAL TRACK is adjacent.",
+    "CENTER MASS is retained only under OTHER STARTS / SOURCE TOOLS as TRY CENTER MASS REMOTE.",
+    "Optional remote playback waits for media readiness and on error/timeout clears the source and restores ordinary LIVE entry.",
+    "Legacy ?source=center-mass URLs no longer auto-launch the provider stream.",
+    "LiveTrack gained clearSource() so failed remote state cannot remain falsely active.",
+    "CURRENT, manifest, design law, release metadata and smoke/convergence tests now encode the same hierarchy."
+  ],
+  "verification_targets": {
+    "root": "ENTER LIVE appears; no source=center-mass or PLAY CENTER MASS primary CTA.",
+    "live": "PLAY FIELD COURSE primary; optional TRY CENTER MASS REMOTE; remote failure returns intro.",
+    "tests": "track clearSource regression + convergence hierarchy + browser smoke."
+  },
+  "non_claims": [
+    "The Suno provider object is not declared deleted; its current public playback availability is unverified.",
+    "No private audio bytes were copied into the public repository.",
+    "CENTER MASS as a separate historical/creative name elsewhere in the repository is not removed."
+  ],
+  "stop_condition": "Merge after CI proves generic LIVE boot, field course/local-source paths, source reset regression and browser smoke. Provider playback itself remains optional."
+}

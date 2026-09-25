@@ -326,5 +326,10 @@
     "confidence": "DIRECT_USER_REPORT",
     "observation": "The prior zero-file sound fix still failed on one phone; repeated file-picker use for already-uploaded songs was annoying; presets and explanatory/use-case structure were useful.",
     "request": "Treat feedback as product authority, converge parallel Fold/Bloom threads, surface Beat Saber, preserve future-worthy ideas instead of silently dropping them."
-  }
+  },
+  "capabilities": [],
+  "notes": [
+    "2026-09-25 restore: generic LIVE regained primary entry; legacy ?source=center-mass links no longer auto-launch an unverified provider stream."
+  ],
+  "restore_return": "/returns/FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json"
 }

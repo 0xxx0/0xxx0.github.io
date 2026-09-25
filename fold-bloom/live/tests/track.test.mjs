@@ -54,3 +54,19 @@ test('source-only stream is explicit and never masquerades as a mapped track',()
   assert.match(track.stateLabel(),/SOURCE$/);
   assert.equal(audio.loadCalls,1);
 });
+
+
+test('remote source can be cleared without leaving a false active source',()=>{
+  const listeners={};
+  const audio={src:'',paused:true,loadCalls:0,pauseCalls:0,addEventListener(type,fn){listeners[type]=fn},load(){this.loadCalls++},pause(){this.paused=true;this.pauseCalls++},removeAttribute(name){if(name==='src')this.src=''}};
+  const states=[],maps=[],t=new LiveTrack(audio,{onState:x=>states.push(x),onMap:x=>maps.push(x)});
+  t.loadStream({url:'https://example.invalid/source.mp3',sourceAddress:'provider://optional'});
+  assert.equal(t.sourceActive(),true);
+  assert.equal(t.clearSource(),true);
+  assert.equal(t.sourceActive(),false);
+  assert.equal(t.mapped(),false);
+  assert.equal(t.metadata(),null);
+  assert.equal(t.stateLabel(),'NONE');
+  assert.equal(states.at(-1),'NONE');
+  assert.equal(maps.at(-1),null);
+});
