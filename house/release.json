@@ -2,10 +2,13 @@
   "schema": "release-receipt/v1",
   "artifact": "HOUSE / FIELD",
   "route": "/house/",
-  "version": "0.7.3",
-  "released": "2026-09-25",
+  "version": "0.7.4",
+  "released": "2026-09-26",
   "state": "ACTIVE",
   "changes": [
+    "Restored HOUSE→BODY context attachment directly on canonical /house/: the selected spatial address plus timestamped public projection metadata is written only to the existing browser-local ENV-0 envelope.",
+    "BODY CONTEXT explicitly remains context-only: selected address != presence and correlation != causation; no BODY observation enters house/state.json and no HA/HOUSEBUS authority changes.",
+    "Corrected stale release checks left by the transitional portal pass: human entry and FIELD direct link are /house/; /house/spatial/ is compatibility/substrate only.",
     "CARE can selectively project one episode into the existing HUMAN PORT composer as a local draft; the user still edits/chooses Share or Copy and selects the transport.",
     "The HUMAN PORT projection omits HOUSE spatial address, episode id, timestamp and all other local episodes by default.",
     "User-reported external sharing is treated only as evidence that human-world consequence exists; exact private message contents and recipient interpretation remain unrecovered.",
@@ -52,9 +55,9 @@
     "body_bridge": "localStorage only; no server submission; no personal state committed",
     "body_authority": "context != device truth or actuation",
     "reality_task_boundary": "private chores/tasks do not become public HOUSE canon",
-    "human_entry": "/house/spatial/",
+    "human_entry": "/house/",
     "expert_projection": "/house/expert.html",
-    "field_index_direct_link": "/house/spatial/",
+    "field_index_direct_link": "/house/",
     "canonical_human_entry": "/house/",
     "compatibility_alias": "/house/spatial/ -> /house/",
     "model_substrate": "/house/spatial/model.json",
@@ -67,7 +70,9 @@
     "care_privacy": "no personal care episodes committed; no HA/HOUSEBUS actuation",
     "care_human_port": "sessionStorage human.port.handoff.v01 → /contact/?mode=PING; draft only, no send authority",
     "care_share_minimization": "omits spatial address, local episode id, timestamp and sibling episodes",
-    "self_verification": "machine/browser/state verification first; physical RETURN limits only physical-world claims"
+    "self_verification": "machine/browser/state verification first; physical RETURN limits only physical-world claims",
+    "body_bridge_root": "/house/ selected address → localStorage 0xxx0.house.body.context.v01 → /body/",
+    "body_bridge_truth_boundary": "selected address != presence; context != causation; no public write or actuation"
   },
   "sources": [
     "/showcase-manifest.json",

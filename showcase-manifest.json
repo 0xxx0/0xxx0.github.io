@@ -4639,8 +4639,8 @@
       "state": "ACTIVE",
       "machine_state": "/house/state.json",
       "showcase_card": false,
-      "role": "Canonical human-facing HOUSE instrument: one addressed spatial/state substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS. CARE is browser-local household/environmental continuity only; /care/ remains the distinct longitudinal medical/self-care lineage. Home Assistant / HOUSEBUS retains private device truth and actuation.",
-      "version": "0.7.3",
+      "role": "Canonical human-facing HOUSE instrument: one addressed spatial/state substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS, with explicit selected-address handoffs to Dayline and browser-local BODY context. CARE is browser-local household/environmental continuity only; /care/ remains distinct. Home Assistant / HOUSEBUS retains private device truth and actuation.",
+      "version": "0.7.4",
       "receipt": "/house/release.json",
       "contract": "/house/contract.json",
       "transfer": [
@@ -4658,11 +4658,12 @@
         "browser-local HOUSE CARE: OBSERVED → ACTION/WATCH → RECEIPT → RETURN",
         "explicit CARE → Dayline action handoff",
         "selective CARE → HUMAN PORT draft with address/id/time/sibling episodes omitted",
-        "HOUSE CARE != CARE / FIELD medical/self-care authority"
+        "HOUSE CARE != CARE / FIELD medical/self-care authority",
+        "selected HOUSE address → browser-local BODY context; address != presence / context != causation"
       ],
       "family_href": "/house/",
       "index": {
-        "updated_at": "2026-09-25T22:47:00+08:00",
+        "updated_at": "2026-09-26T07:07:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "OPERATE",

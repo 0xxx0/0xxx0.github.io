@@ -1,6 +1,6 @@
 {
   "schema": "house-field-contract/v0.3",
-  "updated": "2026-09-25",
+  "updated": "2026-09-26",
   "title": "HOUSE / FIELD",
   "purpose": "Canonical public-safe HOUSE instrument: spatial addressing and projection at /house/, timestamped technical state depth at /house/expert.html, and private actuation authority in Home Assistant / HOUSEBUS.",
   "current_surface": {
@@ -48,9 +48,10 @@
     "schema": "0xxx0/house-body-context/v0.1",
     "transport": "same-origin browser localStorage only",
     "receives": "0xxx0.body.field.latest.v01 (latest local BODY return for local display only)",
-    "emits": "0xxx0.house.body.context.v01 (public HOUSE projection metadata + optional user-selected area label)",
-    "authority": "context only; does not write BODY observations into house/state.json and does not grant BODY actuation authority",
-    "privacy": "personal BODY state remains browser-local; no public projection includes it"
+    "emits": "0xxx0.house.body.context.v0.1 from canonical /house/: selected spatial address + timestamped public HOUSE projection metadata, browser-local only",
+    "authority": "context only; selected HOUSE address is not presence or causation, does not write BODY observations into house/state.json, and grants no actuation authority",
+    "privacy": "personal BODY state remains browser-local; no public projection includes it",
+    "entry": "/house/ SELECTED ADDRESS → BODY CONTEXT"
   },
   "validation": "/control/BODY_HOUSE_CONVERGENCE_2026-09-21.json",
   "reality_task_boundary": {
