@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "READFIELD_LOCAL_FILE_RACE_2026-09-25",
   "date": "2026-09-25",
-  "state": "CANDIDATE_PENDING_CI",
+  "state": "MERGED_CI_GREEN",
   "observed": "READFIELD local-file browser smoke timed out because a chosen local file could lose a sourceEpoch race to the initial repository load.",
   "cause": "openLocalFile reserved sourceEpoch+1 without incrementing it before awaiting file.text().",
   "delta": "Claim sourceEpoch synchronously at local-file selection; after file.text(), continue only if that epoch is still current.",
@@ -12,7 +12,11 @@
     "Existing focus/address/RETURN semantics are unchanged."
   ],
   "proof": {
-    "browser_smoke": "READFIELD local file phone intake",
-    "public_surface": "pending"
-  }
+    "browser_smoke": "PASS · READFIELD local file phone intake",
+    "public_surface_run": 36142450809,
+    "route_registration_run": 36142450848,
+    "pull_request": 347,
+    "merge_sha": "10f7c937e6f3ad6a00dfc6163c80cdc81dbc9c94"
+  },
+  "next": "No correctness gate remains. Ordinary phone use may report ergonomics/preference friction; do not create another reader engine/store."
 }
