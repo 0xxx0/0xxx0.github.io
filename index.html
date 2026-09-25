@@ -303,7 +303,7 @@ function tsMs(t){const n=Date.parse(t);return Number.isFinite(n)?n:0}
 function shortTs(t){if(!t)return'';const raw=String(t);if(/^\d{4}-\d{2}-\d{2}$/.test(raw))return raw.slice(5);const d=new Date(raw);if(!Number.isFinite(d.getTime()))return raw.slice(0,16);const p=n=>String(n).padStart(2,'0');return p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())}
 function shortDay(t){if(!t)return'';const raw=String(t);if(/^\d{4}-\d{2}-\d{2}$/.test(raw))return raw.slice(5).replace('-','·');const d=new Date(raw);if(!Number.isFinite(d.getTime()))return raw.slice(0,10);const p=n=>String(n).padStart(2,'0');return p(d.getMonth()+1)+'·'+p(d.getDate())}
 function routeIndexClock(){return latest[0]?.index?.updated_at||''}
-function isTelemetryCommit(c){return /^nexus:\\s*board refresh\\b/i.test(String(c?.subject||''))}
+function isTelemetryCommit(c){return /^nexus:\s*board refresh\b/i.test(String(c?.subject||''))}
 function materialRepoTouches(){return repoTouches.filter(c=>!isTelemetryCommit(c))}
 function routeGitDrift(){
  const it=routeIndexClock(),gt=materialRepoTouches()[0]?.date;if(!it)return'INDEX —';if(!gt)return'INDEX '+shortTs(it)+' · GIT ?';
