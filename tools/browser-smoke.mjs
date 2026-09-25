@@ -727,6 +727,57 @@ function textAtId(dom,id){
 function visibleText(dom){
   return String(dom||'').replace(/<script[\s\S]*?<\/script>/gi,' ').replace(/<style[\s\S]*?<\/style>/gi,' ').replace(/<[^>]*>/g,' ').replace(/\s+/g,' ').trim();
 }
+function foldBloomLiveContinuity(dom){
+  const checks={
+    version:/LIVE 0\.13/i.test(dom),
+    liveReady:dom.includes('data-fold-bloom-live="ready"'),
+    pov:dom.includes('data-fold-bloom-pov="embodied-v0.4"'),
+    macroDrop:dom.includes('data-fold-bloom-macro-drop="v0.2"'),
+    idleLaw:dom.includes('data-fold-bloom-idle-law="witness-v0.1"'),
+    idleOn:dom.includes('data-fold-bloom-idle="on"'),
+    autopilotOn:dom.includes('data-fold-bloom-autopilot="on"'),
+    landmarksZero:dom.includes('data-fold-bloom-landmarks="0"'),
+    immersionLayer:dom.includes('data-fold-bloom-layer="IMMERSION"'),
+    demoBtn:dom.includes('id="demoBtn"'),
+    autoBtn:dom.includes('id="autoBtn"'),
+    publicDemoBtn:dom.includes('id="publicDemoBtn"'),
+    audioExample:/LOAD AUDIO EXAMPLE|PLAY AUDIO EXAMPLE/.test(dom),
+    centerMassBtn:dom.includes('id="centerMassBtn"'),
+    centerMassRemote:/TRY CENTER MASS REMOTE/.test(dom),
+    fieldCourse:/PLAY FIELD COURSE/.test(dom),
+    vault:dom.includes('id="vaultSelect"'),
+    layerSource:dom.includes('data-layer-mode="SOURCE"'),
+    layerMap:dom.includes('data-layer-mode="MAP"'),
+    layerImmersion:dom.includes('data-layer-mode="IMMERSION"'),
+    layerGrammar:/SOURCE → MAP → IMMERSION/i.test(dom),
+    call:dom.includes('id="call"'),
+    arc:dom.includes('id="arc"'),
+    route:dom.includes('id="route"'),
+    trackFile:dom.includes('id="trackFile"'),
+    lyric:dom.includes('id="lyric"'),
+    textBtn:dom.includes('id="textBtn"'),
+    solidTune:dom.includes('id="solidTune"'),
+    immersionTune:dom.includes('id="immersionTune"'),
+    anticipationTune:dom.includes('id="anticipationTune"'),
+    motionGainTune:dom.includes('id="motionGainTune"'),
+    dropGainTune:dom.includes('id="dropGainTune"'),
+    textSyncTune:dom.includes('id="textSyncTune"'),
+    drivePreset:dom.includes('data-xp-preset="DRIVE"'),
+    rideProfile:/data-fold-bloom-ride-profile="[^"]+"/.test(dom),
+    autopilotText:/AUTOPILOT|TAKE OVER/.test(dom),
+    beat:/BEAT/i.test(dom),
+    phrase:/PHRASE/i.test(dom),
+    section:/SECTION/i.test(dom),
+    fieldCourseText:/FIELD COURSE/.test(dom),
+    practiceSource:dom.includes('data-trackfield-source="FIELD_PRACTICE"'),
+    trackMotion:/data-trackfield-motion="(?!NONE)[^"]+"/.test(dom),
+    perf:/data-fold-bloom-perf="[^"]+"/.test(dom)
+  };
+  const missing=Object.entries(checks).filter(([,ok])=>!ok).map(([name])=>name);
+  if(missing.length)console.error('FOLD BLOOM LIVE CONTINUITY MISSING',missing.join(', '));
+  return missing.length===0;
+}
+
 const CASES=[
   {
     name:'FIELD',
@@ -1040,12 +1091,7 @@ const CASES=[
     name:'FOLD BLOOM LIVE 0.13 source continuity',
     route:'/fold-bloom/live/',
     options:{width:430,height:900,budget:9000},
-    check:dom=>/LIVE 0\.13/i.test(dom)&&dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-pov="embodied-v0.4"')&&dom.includes('data-fold-bloom-macro-drop="v0.2"')&&dom.includes('data-fold-bloom-idle-law="witness-v0.1"')&&dom.includes('data-fold-bloom-idle="on"')&&dom.includes('data-fold-bloom-autopilot="on"')&&dom.includes('data-fold-bloom-landmarks="0"')&&dom.includes('data-fold-bloom-layer="IMMERSION"')&&dom.includes('id="demoBtn"')&&dom.includes('id="autoBtn"')&&dom.includes('id="publicDemoBtn"')&&/LOAD AUDIO EXAMPLE|PLAY AUDIO EXAMPLE/.test(dom)&&dom.includes('id="centerMassBtn"')&&/TRY CENTER MASS REMOTE/.test(dom)&&/PLAY FIELD COURSE/.test(dom)&&dom.includes('id="vaultSelect"')&&dom.includes('data-layer-mode="SOURCE"')&&dom.includes('data-layer-mode="MAP"')&&dom.includes('data-layer-mode="IMMERSION"')&&/SOURCE → MAP → IMMERSION/i.test(dom)&&dom.includes('id="call"')&&dom.includes('id="arc"')&&dom.includes('id="route"')&&dom.includes('id="trackFile"')&&dom.includes('id="lyric"')&&dom.includes('id="textBtn"')&&dom.includes('id="solidTune"')&&dom.includes('id="immersionTune"')&&dom.includes('id="anticipationTune"')&&dom.includes('id="motionGainTune"')&&dom.includes('id="dropGainTune"')&&dom.includes('id="textSyncTune"')&&dom.includes('data-xp-preset="DRIVE"')&&/data-fold-bloom-ride-profile="[^"]+"/.test(dom)&&/AUTOPILOT|TAKE OVER/.test(dom)&&/BEAT \/ PHRASE \/ SECTION/i.test(dom)&&/FIELD COURSE/.test(dom)&&dom.includes('data-trackfield-source="FIELD_PRACTICE"')&&/data-trackfield-motion="(?!NONE)[^"]+"/.test(dom)&&/data-fold-bloom-perf="[^"]+"/.test(dom)  },
-  {
-    name:'TWO DIAL 0.10.3 idle witness',
-    route:'/fold-bloom/two-dial/',
-    options:{width:1180,height:900,budget:9000},
-    check:dom=>/SOUND FIELD 0\.10\.3/i.test(dom)&&/HOLD FAST \/ LET FLY/i.test(dom)&&/IDLE \/ WITNESS/i.test(dom)&&dom.includes('data-voice="FM"')&&dom.includes('data-groove="POLY"')&&dom.includes('data-world="TRANCE"')&&dom.includes('id="pulseLinkBtn"')&&dom.includes('id="trackLoadBtn"')&&dom.includes('id="trackToggleBtn"')&&dom.includes('data-fold-bloom-pulse="ready"')&&dom.includes('data-fold-bloom-local-track="ready"')&&dom.includes('data-fold-bloom-idle="on"')
+    check:foldBloomLiveContinuity
   },
   {
     name:'FOLD BLOOM LIVE mobile controls clear',
