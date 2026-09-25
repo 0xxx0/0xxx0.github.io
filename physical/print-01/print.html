@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PRINT-01 / FIELD ROUTE TILE</title>
+<style>
+@page{size:A4 landscape;margin:0}
+*{box-sizing:border-box}
+html,body{margin:0;background:#e9e7e1;color:#111;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.screen{max-width:900px;margin:18px auto;padding:14px;border:1px solid #111;background:#fff}
+.screen b{font-size:14px}.screen p{font-size:12px;line-height:1.45;margin:8px 0}
+.actions{display:flex;gap:8px;flex-wrap:wrap}
+button,a{font:inherit;font-size:12px;border:1px solid #111;background:#fff;color:#111;padding:9px 12px;text-decoration:none;border-radius:0;cursor:pointer}
+.sheet{width:297mm;height:210mm;margin:12px auto;background:#fff}
+.sheet img{display:block;width:297mm;height:210mm}
+@media print{
+ body{background:#fff}
+ .screen{display:none}
+ .sheet{margin:0;width:297mm;height:210mm}
+}
+</style>
+</head>
+<body>
+<div class="screen">
+ <b>PRINT-01 / FIELD ROUTE TILE / REV 0.1.1</b>
+ <p>Canonical source is the SVG below. Print A4 landscape at <b>100% / Actual Size / no Fit-to-page</b>. Before cutting, the calibration bar must measure <b>100 mm ± 1 mm</b>.</p>
+ <div class="actions">
+  <button onclick="window.print()">PRINT THIS PAGE</button>
+  <a href="./field-route-tile-v0.1.svg">OPEN CANONICAL SVG</a>
+ </div>
+ <p>After printing: measure → cut one tile → place temporarily → write one real φ FOCUS → photograph with ruler → RETURN. No second fixture before evidence.</p>
+</div>
+<div class="sheet"><img src="./field-route-tile-v0.1.svg" alt="PRINT-01 FIELD route tile A4 sheet"></div>
+</body>
+</html>
