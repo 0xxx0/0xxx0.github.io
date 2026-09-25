@@ -1,3 +1,5 @@
+> **2026-09-25 DISPOSITION — DONOR / SUPERSEDED AS RUNNABLE WORK.** The isolated specimen exists at `/spikes/fold-bloom-message-replay-001/`, and the canonical family now exposes `/fold-bloom/replay/` with later REPLAY 0.2 work. Do not execute this packet as an unfinished implementation brief. Preserve it as design provenance; the remaining gate is lived communicative/replay value. See `/control/confluence/FOLD_BLOOM_THREAD_INDEX_2026-09-25.md`.
+
 # HERMES LANE — FOLD//BLOOM REPLAY / MESSAGE / EXPRESSIVE USE
 
 Date: 2026-09-24

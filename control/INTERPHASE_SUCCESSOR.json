@@ -110,6 +110,31 @@
       "evidence": "PR #200 / merge ea401720dd8abbac7467084513e538f8526011af",
       "test": "Ride one real 2–3-source authored SET on phone through at least two distinct seam laws and RETURN.",
       "stop": "Do not add another shared ride/source/session architecture before direct-use evidence."
+    },
+    "thread_index": "/control/confluence/FOLD_BLOOM_THREAD_INDEX_2026-09-25.md",
+    "thread_convergence_return": "/returns/FOLD_BLOOM_THREAD_CONVERGENCE_2026-09-25.json",
+    "evidence_gates": {
+      "set_live": {
+        "state": "WAITING_ON_LIVED_USE",
+        "test": "One real 2–3-source authored SET on phone through at least two distinct seam laws and exact RETURN.",
+        "architecture_rule": "Do not reopen shared ride/source/session architecture before observed friction."
+      },
+      "saber": {
+        "state": "WAITING_ON_TWO_REAL_PHONES",
+        "route": "/fold-bloom/saber/",
+        "evidence": "PR #225 / merge f03722b2619d42c836d314359893f2f65fabd1f1",
+        "test": "Pair two real phones as LEFT/RIGHT, run one mapped source, verify clock/motion/hit trace/rejoin/RETURN."
+      },
+      "replay": {
+        "state": "ARCHITECTURE_SHIPPED_LIVED_VALUE_OPEN",
+        "route": "/fold-bloom/replay/",
+        "donor": "/spikes/fold-bloom-message-replay-001/",
+        "test": "Create one 8–20s addressed replay/message and verify one intentional edit produces a perceptible expressive delta."
+      }
+    },
+    "stale_lane_disposition": {
+      "replay_message_packet": "DONOR_SUPERSEDED_AS_RUNNABLE_WORK",
+      "visual_grammar_packet": "PARKED_DONOR_REOPEN_ONLY_FROM_LIVED_OPERATOR_LEGIBILITY_FAILURE"
     }
   },
   "mapping_example": {
