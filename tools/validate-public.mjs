@@ -197,7 +197,7 @@ check(home.includes('data-mode="VISUAL"')&&home.includes('data-mode="PULSE"'),'r
 check(home.includes('>HEADS / LINEAGES<'),'root missing collapsed HEADS lineage reading');
 check(home.includes('MAP / PROJECTIONS'),'root missing MAP reading');
 check(home.includes('>OPEN PORTS<'),'root missing OPEN PORTS reading');
-check(home.includes('CHANGE / EXACT REPO')&&home.includes('ROUTES / PROJECTED TOUCHES'),'root missing exact-change + route-projection readings');
+check(home.includes('ROUTES / LIVE SURFACE')&&home.includes('id="changeFold"')&&home.includes('CHANGE / GIT'),'root missing route-first surface + collapsed exact Git chronology');
 check(home.includes('Φ / CURRENT')&&home.includes('id="syncFocus"'),'root missing Φ host / φ focus truth frame');
 check(home.includes('ISSUES / REPO OPEN LOOPS'),'root missing ISSUES reading');
 check(home.includes('field-glyph.js'),'root missing shared FIELD glyph grammar');
