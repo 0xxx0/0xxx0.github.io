@@ -235,8 +235,13 @@ check(workfieldHtml.includes('id="returnSourceBtn"')&&workfieldJs.includes("atla
 const commsHtml=read('port/comms/index.html'),commsApp=read('port/comms/app.js');
 check(commsHtml.includes('id="daylineReturnOffer"')&&commsApp.includes("atlas.dayline.source-return.v01"),'COMMS Dayline return offer surface missing');
 check(commsApp.includes("x.messageId===a.message_id&&x.start===a.start&&x.end===a.end")&&commsApp.includes("OFFER STALE / READ ONLY"),'COMMS exact-address/stale-return guard regressed');
-check(workfieldJs.includes("RETURN_RELEASE")&&workfieldJs.includes("task.status==='done'?'COVERED':'OPEN'"),'Dayline completed-source return/release law regressed');
+check(workfieldJs.includes("RETURN_RELEASE")&&workfieldJs.includes("nativeEffect=sourceRoute==='/port/comms/'?'STATE_PROPOSAL':sourceRoute==='/shopping/'?'RECEIPT_ONLY':'EVIDENCE_ONLY'"),'Dayline source-specific return/release law regressed');
 check(workfieldJs.includes("LEGACY_IDS")&&workfieldJs.includes("RESET LEGACY SAMPLE"),'Dayline Confluence legacy sample migration missing');
+const shoppingHtml=read('shopping/index.html');
+check(shoppingHtml.includes("SOURCE_RETURN='atlas.dayline.source-return.v01'")&&shoppingHtml.includes("shopping-dayline-receipt/v0.1"),'Shopping Dayline receipt transport missing');
+check(shoppingHtml.includes("o.native_effect!=='RECEIPT_ONLY'")&&shoppingHtml.includes("String(s.state||'')!==String(it.state||'')"),'Shopping Dayline stale/effect guard regressed');
+check(shoppingHtml.includes("shopping_state:it.state,effect:'EVIDENCE_ONLY'"),'Shopping Dayline receipt must remain evidence-only');
+
 const fan8Svg=read('foundry/axial/fan8-print.svg');
 const fan8StateLanguage=read('fold-bloom/state-language.js');
 const fan8PlayCore=read('fold-bloom/live/play-core.js');
