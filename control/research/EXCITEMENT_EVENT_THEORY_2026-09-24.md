@@ -122,6 +122,49 @@ SOURCE
 
 This connects FOLD//BLOOM, puzzle/poetry, reading, games and physical instruments without claiming their semantics are identical.
 
+## 2026-09-25 applied evidence update
+
+Recent repository work sharpens the distinction between **machine-valid event structure** and **lived value**.
+
+### Evidence that strengthens the model
+
+- **Task-first Fold/Bloom doorway:** moving the first choice from project ontology toward concrete jobs improves the RELEVANCE / COPE side of the vector. This is not evidence of delight by itself; it reduces the cost of reaching a meaningful event.
+- **Generic LIVE restoration:** demoting unreliable CENTER MASS remote playback from the primary path is consistent with the law that anticipation must terminate in a legible consequence. A dramatic promise whose source never becomes ready is not an “event”; it is broken causality.
+- **Bounded clean-phone example:** PR #238 adds one explicitly bounded same-origin 12s source example for SOURCE / MAP / IMMERSION testing. This reduces access friction and makes later comparisons easier to run; it is a fixture, not evidence that the experience is interesting or worth repeating.
+- **REPLAY 0.2:** the H1 score-before-video mechanism has now been promoted into a source-linked expressive surface. LISTEN lends exact source identity, addressed interval, BPM/phrase/section evidence and marks; REPLAY owns message context, word-level cue/hold/emphasis and authored operation timing. Compact share encode/decode and deterministic score signatures pass machine tests. This still does **not** prove a recipient understands, values or remembers the artifact.
+- **READFIELD 0.8.3:** focus-preserving FAST / REVIEW / PULSE / VOICE / LOCI modes make orientation and re-entry measurable lived-value candidates. A “rare orientation event” is useful only if it helps the reader resume or understand, not merely because it looks distinctive.
+- **SABER 0.1:** the event-tape → two-hand hit/graze/miss loop is repo-verified but still lacks the real two-phone physical proof. The theory must therefore keep bodily consequence as an open gate rather than promoting simulated timing evidence to lived value.
+
+### Current evidence ladder
+
+| Layer | What is currently supportable |
+|---|---|
+| SOURCE CAUSALITY | strong machine evidence in LISTEN/LIVE/SET paths |
+| ADDRESS / RETURN | strong machine evidence across current instruments |
+| EVENT REPLAYABILITY | REPLAY 0.2 is source-linked and machine-verified; recipient value remains open |
+| AGENCY / DISTINCT CONSEQUENCE | implemented in several bounded forms; direct-use quality varies |
+| PHYSICAL CONSEQUENCE | SABER remains WAITING on two real phones |
+| DELIGHT / MEMORABILITY | still a human/lived-use claim; not established by CI |
+
+### Refined law
+
+A high-value event is not merely a large contrast. It should preserve this chain:
+
+```
+SOURCE CAUSE
+→ LEGIBLE APPROACH
+→ TRACTABLE CHOICE / EXPECTATION
+→ DISTINCT CONSEQUENCE
+→ RECOVERY / AFTERMATH
+→ RETURN
+```
+
+The **aftermath** matters: if the surface immediately returns to an undifferentiated baseline, the event may be noticeable but leave no usable state change or memory landmark.
+
+### Stop condition
+
+Do not add more spectacle machinery to validate this theory. The next useful evidence comes from ordinary source use, one real LISTEN-sourced REPLAY message and recipient comprehension, real two-phone SABER contact, or reading/LOCI re-entry. Machine proofs should only ensure those lived tests are causally interpretable.
+
 ## Falsifier
 
 Demote this model if boring baselines repeatedly produce equal or better agency/comprehension/delight, or if its variables cannot discriminate memorable useful events from decorative novelty.
