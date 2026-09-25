@@ -2,10 +2,15 @@
   "schema": "release-receipt/v1",
   "artifact": "HOUSE / FIELD",
   "route": "/house/",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "released": "2026-09-25",
-  "state": "STABLE",
+  "state": "ACTIVE",
   "changes": [
+    "Converged HOUSE onto one canonical human-facing root: /house/ now directly hosts the spatial/state instrument rather than a dashboard that links onward.",
+    "Preserved the former generated HOUSE dashboard as /house/expert.html for technical state/runtime inspection and BODY↔HOUSE local context depth.",
+    "Collapsed /house/spatial/ into a compatibility redirect to /house/; spatial model and TRACE law assets remain under /house/spatial/ as substrate rather than a second UI authority.",
+    "FIELD INDEX and CURRENT now point HOUSE to /house/; the obsolete user-directed HOUSE hold was removed because HOUSE was explicitly reselected.",
+    "Added a compact timestamped public HOUSE state witness inside the root without claiming live presence, live safety or actuation authority.",
     "Made /house/spatial/ the explicit primary human-facing HOUSE entry while preserving /house/ as the expert state/runtime projection.",
     "Added a prominent ENTER THE HOUSE portal at the top of /house/ so shared root links lead humans toward the spatial model before expert details.",
     "Added direct HOUSE / SPATIAL navigation from FIELD INDEX and made the HOUSE capability aperture recognize both /house/ and /house/spatial/.",
@@ -34,8 +39,12 @@
     "body_authority": "context != device truth or actuation",
     "reality_task_boundary": "private chores/tasks do not become public HOUSE canon",
     "human_entry": "/house/spatial/",
-    "expert_projection": "/house/",
-    "field_index_direct_link": "/house/spatial/"
+    "expert_projection": "/house/expert.html",
+    "field_index_direct_link": "/house/spatial/",
+    "canonical_human_entry": "/house/",
+    "compatibility_alias": "/house/spatial/ -> /house/",
+    "model_substrate": "/house/spatial/model.json",
+    "authority": "HA/HOUSEBUS private actuation unchanged"
   },
   "sources": [
     "/showcase-manifest.json",
