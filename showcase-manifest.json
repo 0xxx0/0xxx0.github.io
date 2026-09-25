@@ -272,10 +272,10 @@
       "parent": "/atlas-dayline/",
       "family": "ATLAS DAYLINE",
       "operation": "OPERATE",
-      "state": "CANDIDATE",
-      "version": "0.2",
+      "state": "MERGED_MACHINE_GREEN",
+      "version": "0.2.1",
       "showcase_card": false,
-      "role": "Mobile-first continuous execution projection over the existing Dayline DayState. Holds one source-addressed object/focus, exposes at most three lawful moves, records witness, and for COMMS can RETURN one OFFER_ONLY receipt to the exact native signal; completed held objects remain addressable through RETURN, then Dayline releases focus. Native COMMS retains state authority.",
+      "role": "Mobile-first continuous execution projection over the existing Dayline DayState. Holds one source-addressed object/focus, exposes at most three lawful moves, records witness, and for COMMS can RETURN one OFFER_ONLY receipt to the exact native signal; completed held objects remain addressable through RETURN, then Dayline releases focus. Native COMMS retains state authority. Machine/browser proof is green for the exact COMMS source-return loop; ordinary phone ergonomics is optional evidence rather than a correctness gate.",
       "receipt": "/dayline/release.json",
       "transfer": [
         "same poly-atlas-dayline-branch-i-public-v1 DayState; no second planner store",
@@ -377,12 +377,13 @@
         "physical_fit": "Ordinary mobile execution surface; no scroll lock or spatial viewport required."
       },
       "index": {
-        "updated_at": "2026-09-25T22:40:00+08:00",
+        "updated_at": "2026-09-26T00:55:00+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY"
         ]
-      }
+      },
+      "latest_return": "/returns/DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json"
     },
     {
       "href": "/body/",
@@ -1508,7 +1509,7 @@
       "showcase_card": true,
       "role": "Canonical phone-first high-performance reader with one exact source position across FOCUS / MIN / PLAIN projections and six one-tap jobs: FAST, REVIEW, PULSE, VOICE, LOCI and REPO. 0.8.5 keeps the compact always-visible phone work rail, adds direct session-local downloaded-file intake for text/Markdown/JSON/CSV/log/YAML/source/SVG material, and makes practical chains explicit: SKIM → REVIEW, LISTEN → PULSE → VOICE, READ → LOCI → RETURN. Ephemeral local/pasted bytes never pretend to have a durable addressed URL; COPY FOCUS replaces COPY VIEW for those sources. FIELD PULSE remains optional tempo context only; source/cursor authority remains READFIELD.",
       "index": {
-        "updated_at": "2026-09-25T17:09:00+08:00",
+        "updated_at": "2026-09-26T00:55:00+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
@@ -1533,7 +1534,8 @@
         "compact phone work rail + live mode/focus witness without reloading the source",
         "APERTURE compatibility alias preserves bounded focus into READFIELD",
         "session-local downloaded text/Markdown/JSON/CSV/log/YAML/source/SVG intake through the same RSVP/focus/voice/LOCI kernel",
-        "task chains preserve the same cursor across SKIM→REVIEW, LISTEN→PULSE→VOICE and READ→LOCI→RETURN"
+        "task chains preserve the same cursor across SKIM→REVIEW, LISTEN→PULSE→VOICE and READ→LOCI→RETURN",
+        "local-file epoch repair: explicit phone/file selection preempts stale repository source completion"
       ],
       "operation": "READ",
       "receipt": "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json",
@@ -1600,7 +1602,8 @@
         }
       },
       "version": "0.8.5",
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "latest_return": "/returns/READFIELD_LOCAL_FILE_RACE_2026-09-25.json"
     },
     {
       "href": "/fcm/",
@@ -2625,8 +2628,8 @@
       "operation": "PLAY",
       "state": "ACTIVE",
       "version": "0.13",
-      "receipt": "/returns/FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json",
-      "role": "Embodied linear-source explorer with exact source timing and a smoother lived projection. LIVE enters through FIELD COURSE or an explicit local source; optional remote-provider sources cannot become sovereign defaults and fail back to the ordinary LIVE entry. AUTOPILOT remains a reversible witness control; SOURCE / MAP / IMMERSION preserve unequal authority; locally mapped audio keeps exact source identity while FIELD COURSE remains the built-in playable fallback. PLAY 0.5.3 is the shipped finite self-teaching shell over the same LIVE engine; RUN/PUZZLE/TWO DIAL/ECOLOGY/ZEN expose causal feedback while FAN/8 remains an optional passive controller projection.",
+      "receipt": "/returns/FOLD_BLOOM_STABILIZE_055_2026-09-25.json",
+      "role": "Embodied linear-source explorer with exact source timing and a smoother lived projection. LIVE enters through FIELD COURSE or an explicit local source; optional remote-provider sources cannot become sovereign defaults and fail back to the ordinary LIVE entry. AUTOPILOT remains a reversible witness control; SOURCE / MAP / IMMERSION preserve unequal authority; locally mapped audio keeps exact source identity while FIELD COURSE remains the built-in playable fallback. PLAY 0.5.5 is the current calm-RIDE shell over the same LIVE engine; RUN/PUZZLE/TWO DIAL/ECOLOGY/ZEN expose causal feedback while FAN/8 remains an optional passive controller projection.",
       "transfer": [
         "Fold Weave: authored 12-cell topology / crease / cascade / mute-first causal score",
         "LIVE 0.4: AUDIO MAP → future TRACKFIELD",
@@ -2646,7 +2649,8 @@
         "PLAY 0.5.3 central instrument embodiment: RUN / HEX / PATH / TWO DIAL / ECOLOGY / ZEN are visually distinct without moving authority out of LIVE",
         "HEX reuses existing trigram glyph mapping; TWO DIAL exposes outer A / inner B and direct WIDE/full donor affordances",
         "FAN/8 v0.2 physical projection: DIAL slot 0–5 and HEX line 1–6 share stable physical addresses without sharing semantic authority",
-        "physical embedding never changes PLAY source/game truth; HOLD FAST / LET FLY only projects predict/test → release/witness"
+        "physical embedding never changes PLAY source/game truth; HOLD FAST / LET FLY only projects predict/test → release/witness",
+        "PLAY 0.5.5 calm-RIDE recovery: RIDE is default; HEX/STILL and other modes are optional projections; NORMAL is neutral 1×"
       ],
       "contract": {
         "accepts": {
@@ -2789,10 +2793,10 @@
             "via": "/recovery/fold-bloom/fold-weave-0.1/ + /fold-bloom/two-dial/"
           }
         ],
-        "physical_fit": "PLAY 0.5.3 / Two Dial 0.10.4 have a calibrated passive FAN/8 v0.2 projection for current six-slot DIAL/HEX address + HOLD FAST/LET FLY transaction. Browser remains runtime authority; physical identification and geometry are separate claims."
+        "physical_fit": "PLAY 0.5.5 / Two Dial 0.10.4 have a calibrated passive FAN/8 v0.2 projection for current six-slot DIAL/HEX address + HOLD FAST/LET FLY transaction. Browser remains runtime authority; physical identification and geometry are separate claims."
       },
       "index": {
-        "updated_at": "2026-09-25T21:18:00+08:00",
+        "updated_at": "2026-09-26T00:55:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2801,7 +2805,8 @@
           "MAKE"
         ]
       },
-      "tier": "FIELD"
+      "tier": "FIELD",
+      "latest_return": "/returns/FOLD_BLOOM_STABILIZE_055_2026-09-25.json"
     },
     {
       "href": "/fold-bloom/set/",
