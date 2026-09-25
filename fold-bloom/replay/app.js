@@ -247,14 +247,23 @@ for(const [id,key,scale] of [['solid','solidity',100],['immersion','immersion',1
 $('share').onclick=()=>{void share()};$('json').onclick=downloadJson;$('clip').onclick=()=>{void exportWebm()};
 $('reset').onclick=()=>{score=defaultScore();syncListen=false;selectedWord=selectedOp=0;history.replaceState(null,'',location.pathname);setPlayhead(0,{seekListen:false});updateUi()};
 $('addMarkOp').onclick=()=>{const m=score.evidence.marks[0];if(!m)return;score=addOperation(score,'MESSAGE',m.p);selectedOp=score.operations.length-1;updateOps();updateMeta()};
-document.querySelectorAll('[data-tool]').forEach(a=>a.addEventListener('click',()=>{if(a.dataset.tool==='LISTEN'&&window.opener&&!window.opener.closed){try{window.opener.focus();a.preventDefault?.()}catch(_){}}}));
+document.querySelectorAll('[data-tool]').forEach(a=>a.addEventListener('click',e=>{if(a.dataset.tool==='LISTEN'&&window.opener&&!window.opener.closed){try{e.preventDefault();window.opener.focus()}catch(_){}}}));
 
 (async function init(){
   const shared=await fromHash(),handoff=!shared?readHandoff():null;
   if(handoff)score=scoreFromHandoff(handoff);
   readProfileStore();
   const api=listenApi();if(api&&handoff){syncListen=true;listenOk=true}
-  setPlayhead(0,{seekListen:false});updateUi();requestAnimationFrame(draw);
+  setPlayhead(0,{seekListen:false});updateUi();
+  try{
+    const probe=await shareUrl(score,location.origin+location.pathname),token=(probe.split('#s=')[1]||''),round=await decodeShare(token);
+    const pass=round.source.id===score.source.id&&visualSignature(round)===visualSignature(score);
+    document.documentElement.dataset.replayShareRoundtrip=pass?'pass':'fail';
+    document.documentElement.dataset.replayShareEncoding=token.startsWith('z.')?'gzip':'raw';
+    document.documentElement.dataset.replayShareLength=String(probe.length);
+    $('shareLen').textContent=probe.length+' chars · '+(token.startsWith('z.')?'compressed':'compact');
+  }catch(e){document.documentElement.dataset.replayShareRoundtrip='fail';console.warn('REPLAY share selftest failed',e)}
+  requestAnimationFrame(draw);
   window.FoldBloomReplay={
     boot:'ready',state:()=>normalizeScore(score),share:()=>shareUrl(score,location.origin+location.pathname),
     setPlayhead:p=>setPlayhead(p),syncListen:()=>{syncListen=!!listenApi();updateSyncButton();return syncListen}
