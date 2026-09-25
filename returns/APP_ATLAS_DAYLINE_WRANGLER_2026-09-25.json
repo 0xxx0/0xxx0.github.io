@@ -1,7 +1,7 @@
 {
   "schema": "return/v0.1",
   "id": "APP_ATLAS_DAYLINE_WRANGLER_2026-09-25",
-  "state": "IMPLEMENTED_BRANCH",
+  "state": "MERGED_ACTIVE_PROJECTION",
   "object": "App Atlas / Atlas Dayline historical lineage",
   "delta": "Existing IDEA ATLAS gains a live OLD→CURRENT convergence survey while preserving current authority and Atlas Dayline separateness.",
   "evidence": [
@@ -10,19 +10,22 @@
     "/app-atlas/convergence.json",
     "/app-atlas/wrangler.js",
     "/app-atlas/release.json",
-    "/control/confluence/APP_ATLAS_DAYLINE_WRANGLER_2026-09-25.md"
+    "/control/confluence/APP_ATLAS_DAYLINE_WRANGLER_2026-09-25.md",
+    "/showcase-manifest.json",
+    "https://github.com/0xxx0/0xxx0.github.io/pull/244"
   ],
   "value": [
     "45 historical App Atlas records become directly surveyable beside current CONFLUENCE state.",
     "Surviving mechanisms are visible without reviving dead product names.",
     "Atlas Dayline's useful temporal mechanisms are retained without making it a second control plane.",
-    "Current truth is loaded from current control files instead of copied into the historical registry."
+    "Current truth is loaded from current control files instead of copied into the historical registry.",
+    "FIELD INDEX route projection now advertises IDEA ATLAS 0.2 and points to the 0.2 release receipt instead of the stale Sep-21 0.1 description."
   ],
   "residue": [
     "Live phone/desktop use after Pages merge.",
     "Some historical records intentionally remain ARCHIVE_UNRESOLVED.",
-    "No byte-equality claim for Library text recovery."
+    "Library recovery remains semantic text recovery; byte-for-byte identity with the original Library object is not asserted."
   ],
   "waiting": [],
-  "stop": "Do not expand the crosswalk into a new ontology or alter root/control-plane state unless direct use exposes a missing function."
+  "stop": "Route projection is synchronized. Do not reopen App Atlas unless ordinary use exposes a missing function or a specific unresolved historical record becomes conversion-relevant."
 }
