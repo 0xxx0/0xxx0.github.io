@@ -270,10 +270,10 @@ async function enterCenterMass(){
     liveTrack.loadStream({url:CENTER_MASS_URL,name:'CENTER MASS (Work-Trance Cut)',title:'CENTER MASS (Work-Trance Cut)',artist:'stgoh',sourceAddress:CENTER_MASS_SOURCE,sourceKind:'SUNO',provider:'SUNO'});
     await waitForRemoteReady();
     layerMode='SOURCE';renderer.setProfile(effectiveRideProfile());audio.setSound(false);syncLayerUI();
-    trackStatus='READY · OPTIONAL REMOTE · CENTER MASS';update();
+    trackStatus='READY · OPTIONAL REMOTE · CENTER MASS';$('#intro').classList.remove('on');update();
     const played=await liveTrack.toggle().then(()=>true).catch(()=>false);
     if(!played||$('#trackAudio').paused){syncSoundGate(true,'SOURCE');toast('REMOTE SOURCE READY · TAP FOR SOURCE')}
-    else{$('#intro').classList.remove('on');syncSoundGate(false,'SOURCE');toast('CENTER MASS · OPTIONAL REMOTE SOURCE')}
+    else{syncSoundGate(false,'SOURCE');toast('CENTER MASS · OPTIONAL REMOTE SOURCE')}
     update();
   }catch(error){
     console.warn(error);liveTrack.clearSource();linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;layerMode='IMMERSION';renderer.setProfile(effectiveRideProfile());syncLayerUI();syncSoundGate(false);
