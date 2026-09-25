@@ -183,6 +183,10 @@ if(ingest21&&ingest21.files_indexed===559){
     check(!broad||/ANCHOR-ONLY/i.test(broad.task||''),'REC-01 regressed to ambient broad census');
   }
 }
+const hermesDaily=fs.readFileSync('scripts/hermes-daily-prompt.py','utf8');
+check(hermesDaily.includes('Read /llms.txt first'),'Hermes daily generator does not start from live machine entrypoint');
+check(!hermesDaily.includes('Read /control/prompts/HERMES_ULTRA_MASTER_2026-09-23.md first'),'Hermes daily generator regressed to dated master-prompt bootstrap');
+check(hermesDaily.includes("x.get('surface_state', x.get('state','?'))"),'Hermes daily generator does not understand WAITING v0.2 surface_state');
 const migration=parse('control/MIGRATION.json');
 if(migration){
   const ids=(migration.artifacts||[]).map(x=>x.id);
