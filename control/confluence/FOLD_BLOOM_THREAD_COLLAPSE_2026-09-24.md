@@ -13,9 +13,9 @@ Status vocabulary: **SHIPPED**, **FIXING HERE**, **SUPERSEDED**, **PINNED**, **D
 | SOURCE separated from waveform/effects | **FIXING HERE** | LIVE A/B/C = SOURCE / MAP / IMMERSION. Source-only playback can exist with no map. |
 | MOSS / EMBER / WATER confusion | **SUPERSEDED** | Historical scene vocabulary only. Current scenes DEEP/TRANCE/WOOD/VOID are presentation, never FIELD INDEX or mood truth. |
 | “Is FIELD LAB data FIELD INDEX?” | **RESOLVED** | No. FIELD LAB DATA is local addressed object exploration; FIELD INDEX is repo-wide control projection. |
-| Beat Saber | **SHIPPED PACK / PLAYABLE RUNTIME PINNED-SPECIFIC** | LISTEN exports the external mapper/test pack. User correction 2026-09-24: export is not the same as playable saber mode inside FOLD//BLOOM. The concrete next target is the dual-phone controller runtime specified in `/fold-bloom/saber/README.md`. |
+| Beat Saber | **SHIPPED PACK + SABER 0.1 / WAITING REAL DEVICE** | LISTEN exports the external mapper/test pack. Separately, PR #225 implemented the in-family two-phone SABER proof over EVENT TAPE + WebRTC. Repository proof is complete; actual two-phone motion/latency/play feel remains the human gate. |
 | LISTEN marks stay disabled after map | **FIXED HERE** | `loadPins()` synced disabled state before preview map existed; preview/deep readiness did not resync. MARK/MARKS now resync after map creation and phone smoke proves enabled state. |
-| LISTEN annotation vocabulary / spans / sharing | **FIXING HERE** | Existing addressed pins evolve compatibly into BOOKMARK point, FLAG point+intent and ARC aperture span. Direct annotation sharing carries source identity + authored marks, not audio bytes or inferred semantics. |
+| LISTEN annotation vocabulary / spans / sharing | **SHIPPED → EVOLVING** | BOOKMARK point, FLAG point+intent and ARC spans are live. Current pass makes ARC bounds explicitly editable and annotation packets source-safe round-trip objects: share/export + import/merge + previous/next mark navigation. |
 | Audiosurf-like ride | **SHIPPED / EVOLVING** | LIVE TRACKFIELD projects measured audio into future terrain + deformation + branch traversal. Further fun/value is lived-use gated. |
 | SET → LIVE | **SHIPPED** | PR #200 fusion merged; PR #207 retired stale instructions to redo it. |
 | READ / RSVP inside Fold/Bloom | **SHIPPED** | PR #211 reuses canonical READFIELD; no duplicate reader kernel. |
@@ -37,13 +37,15 @@ Status vocabulary: **SHIPPED**, **FIXING HERE**, **SUPERSEDED**, **PINNED**, **D
 | Numerous parallel Hermes branches | **SUPERSEDED AS AUTHORITY** | #209 coordination exists; branches with 0 commits ahead are fossils. Diverged donors are mined selectively, never wholesale merged. |
 | `fold-bloom-demo-source-architecture-2026-09-24` | **DONOR → ABSORBING HERE** | Strong SOURCE/MAP/IMMERSION + DESIGN law recovered; missing demo file made branch incomplete. Current branch reconstructs the useful mechanism on master. |
 | `fold-bloom-listen-editor-spine-070` | **DONOR / PINNED** | Stale by hundreds of commits; text-alignment/editor ideas remain quarry only. No wholesale merge. |
+| Message replay follow-up | **PINNED / EXACT DONOR EXISTS** | PR #230 shipped deterministic H1 replay. Later asks—LISTEN sync, existing experience controls, word-level shaping with context, GIF-like export, compact payload-bearing share links—must extend that object rather than fork it. |
+| PWA / local playlist convenience | **PINNED** | Future installable/offline shell may reuse the local vault and user-selected playlist/folder intake. Do not claim ambient access to private device libraries or create another source store. |
 | More modes because possible | **DISCARDED DEFAULT** | No mode proliferation without a missing function or lived evidence. |
 | “Tell me to test things, then ignore the feedback” | **PROCESS FIX** | User feedback overrides stale receipts. A CI PASS proves regression safety, not lived value. Each human observation must be classified and either changed, rejected with reason, or pinned explicitly. |
 
 ## Active surface after this collapse
 
-1. **SOURCE CONTINUITY** — real source, clean-phone access, remembered local re-entry, honest source-only state.
-2. **LIVE VALUE** — SOURCE/MAP/IMMERSION comparison; use feedback to change ride, not add architecture.
-3. **TRANSFORM EXPORTS** — Beat Saber visible now; next adapters only when they produce a usable external artifact.
+1. **LISTEN / MARK WORK** — source-safe marks, editable spans, share/import, and downstream handoff without analysis mutation.
+2. **SABER LIVED PROOF** — two real phones; repository implementation is already present, so change gameplay only from observed pairing/latency/motion friction.
+3. **WORKFLOW COHERENCE** — preserve task-first root, replay/read/listen/live continuity, and keep parked follow-ups recoverable without spawning new authority.
 
 Everything else is archive/donor/pinned until one of these fronts pulls it forward.
