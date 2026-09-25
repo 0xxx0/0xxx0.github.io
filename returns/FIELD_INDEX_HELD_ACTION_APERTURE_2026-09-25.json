@@ -1,0 +1,41 @@
+{
+  "schema": "0xxx0/field-index-held-action-aperture/v0.1",
+  "date": "2026-09-25",
+  "state": "CANDIDATE",
+  "route": "/",
+  "version": "0.8.7",
+  "trigger": "Direct user friction: landing-page catch-up felt todo-like; accidental bulk caught-up action needed undo; user wanted to resolve items one-by-one and act from the landing page, including explicit human/GitHub blockers.",
+  "recovered_donors": [
+    "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md",
+    "/lib/interphase-core.js",
+    "/foundry/axial/FAN8.md",
+    "/control/INTERACTION_SEMANTICS.json"
+  ],
+  "invariant": "ONE HELD OBJECT → 1–3 LAWFUL MOVES → WITNESS → RETURN",
+  "delta": [
+    "Promote the existing held capability aperture from opt-in ?cap=1 to default root behavior.",
+    "FIELD / CATCH + ACT shows three unequal signal classes together: changed addressed routes, explicit CURRENT human/world gates, and public GitHub issues.",
+    "Changed routes resolve locally one-by-one with SEEN; the most recent local acknowledgement is REWINDable. MARK ALL remains a reversible convenience.",
+    "WAITING active gates replace ACK LOCAL pseudo-work with HOLD + DO →; HOLD binds the same FIELD focus and DO opens the native route.",
+    "Held-object root actions are executable and honest: OPEN/DO enters the native owner, COPY ACTION emits an authority-NONE handoff packet, TRACE opens evidence. Domain-specific move labels remain hints, not fake root execution."
+  ],
+  "authority": {
+    "changed_routes": "browser-local orientation only",
+    "human_world_gates": "/control/CURRENT.json current_heads[].next_executable",
+    "github_issues": "GitHub issue state",
+    "route_identity": "/showcase-manifest.json",
+    "root_actions": "FIELD view may navigate/copy/trace; native effects remain host-owned"
+  },
+  "reversibility": {
+    "local_seen": "per-route browser-local timestamps",
+    "rewind": "last local route/bulk acknowledgement",
+    "irreversible_world_effects": "not simulated; require native authority and evidence"
+  },
+  "stop": [
+    "No universal todo database.",
+    "No server-side read state.",
+    "No root-owned domain mutations.",
+    "No new universal shell or event bus.",
+    "Do not add more action verbs until a native host can lawfully expose them."
+  ]
+}
