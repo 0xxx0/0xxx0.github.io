@@ -142,7 +142,7 @@ $('#exportTape').onclick=()=>{
 };
 
 /* ---------- VERSE / TEXT MARKS ---------- */
-const verse={lines:[],focus:0,marks:[],sourceKey:''};
+const verse={lines:[],focus:0,marks:[],sourceKey:'',returnAddress:''};
 const TEXT_MARK_STORE='fold-bloom.lab.text-marks.v01:',textMarkCache=new Map();
 function storedMarks(source){
   const text=String(source??''),key=textSourceKey(text);
@@ -163,13 +163,16 @@ function toggleTextMark(source,mark){
   return saveTextMarks(source,current);
 }
 function currentVerseLine(){return verse.lines[Math.max(0,Math.min(verse.lines.length-1,verse.focus))]||null}
+function safeLocalReturn(value=''){
+  try{const u=new URL(String(value||''),location.href);return u.origin===location.origin?u.pathname+u.search+u.hash:''}catch(_){return''}
+}
 function recoverVerseInboundHandoff(){
   try{
     const q=new URLSearchParams(location.search);if(!q.has('handoff'))return null;
     const h=JSON.parse(sessionStorage.getItem('field.verse.handoff.v01')||'null');
     sessionStorage.removeItem('field.verse.handoff.v01');
     if(h?.schema!=='field-verse-handoff/v0.1'||typeof h.source!=='string'||!h.source.trim())return null;
-    return h;
+    h.from=safeLocalReturn(h.from);return h;
   }catch(_){return null}
 }
 function bindVerse({focusStart=null,announce=true}={}){
@@ -632,6 +635,8 @@ if(initialMode==='VERSE'&&bootQuery.has('handoff')){
     $('#verseSource').value=h.source;
     if(Array.isArray(h.marks)&&h.marks.length)saveTextMarks(h.source,h.marks);
     bindVerse({focusStart:Number(h.focus?.start),announce:false});
+    verse.returnAddress=h.from||'';
+    const rb=$('#verseReturn');if(rb&&verse.returnAddress){rb.href=verse.returnAddress;rb.hidden=false}
     verseHandoffRestored=true;document.documentElement.dataset.fieldLabVerseHandoff='focus-restored';
   }
 }
