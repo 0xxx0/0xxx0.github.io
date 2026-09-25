@@ -339,7 +339,7 @@
   "restore_return": "/returns/FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json",
   "play_shell": {
     "version": "0.3",
-    "state": "ACTIVE_CANDIDATE",
+    "state": "SHIPPED",
     "law": "TURN → PREDICT → MATCH CALL → RELEASE → ROAD CHANGES → NEXT CALL",
     "quickstart_aliases": {
       "CONCERT": "PLAY",
@@ -360,7 +360,16 @@
       "ecology": "/fold-bloom/ecology/",
       "fold_weave": "/recovery/fold-bloom/fold-weave-0.1/"
     },
-    "authority": "LIVE engine remains authoritative; source context shapes terrain but never auto-authors BLOOM/FOLD/SPLIT/RETURN."
+    "authority": "LIVE engine remains authoritative; source context shapes terrain but never auto-authors BLOOM/FOLD/SPLIT/RETURN.",
+    "pr": 291,
+    "merge_sha": "c027f3b8a275d19f237ae4fce2791443fd63bf26",
+    "verification": {
+      "public_surface_check": "PASS",
+      "workflow_run": 36125468095,
+      "gameplay_suite": "PASS",
+      "critical_browser_smoke": "PASS",
+      "real_phone_touch_audio": "HUMAN_GATE"
+    }
   },
   "play_return": "/returns/FOLD_BLOOM_PLAY_03_2026-09-25.json"
 }
