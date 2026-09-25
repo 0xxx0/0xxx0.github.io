@@ -1,13 +1,13 @@
 import { availableForecasts, forecastMatchesCall, gateCellIndex, TYPE_NAMES, N, rotateSteps, release as simulateRelease } from './engine.js?v=0.13';
 import {
   RUN_LENGTH,RUN_WIN_HITS,PUZZLE_ROUNDS,PUZZLE_WIN_STARS,DUET_ROUNDS,DUET_WIN_HITS,
-  GARDEN_GENERATIONS,GARDEN_MOVES,GARDEN_SURVIVAL_TARGET,GARDEN_TRAITS,HEX_LINES,
-  circularDistance,relationVerb,relationName,lineBitForVerb,lineMark,trigramForBits,hexPair,hexOutcome,
+  GARDEN_GENERATIONS,GARDEN_MOVES,GARDEN_SURVIVAL_TARGET,GARDEN_TRAITS,HEX_LINES,HEX_CHANGE_TARGET,HEX_CHANGE_LIMIT,
+  circularDistance,relationVerb,relationName,lineBitForVerb,lineMark,trigramForBits,hexPair,hexOutcome,hexChangeOutcome,
   runOutcome,puzzleStars,puzzleOutcome,duetOutcome,gardenGoalMet,gardenSummary,gardenProgress,gardenOutcome,wrap
-} from './play-core.js?v=0.4.1';
-import {stateDescriptor,stateChange,formatState} from '../state-language.js?v=0.1';
+} from './play-core.js?v=0.5';
+import {stateDescriptor,stateChange,formatState,movingLines} from '../state-language.js?v=0.1';
 
-const VERSION='FOLD_BLOOM_PLAY_0.4.1';
+const VERSION='FOLD_BLOOM_PLAY_0.5';
 const VALID=new Set(['PLAY','PUZZLE','PATH','DUET','GARDEN','ZEN']);
 const ALIASES=new Map([['CONCERT','PLAY'],['RUN','PLAY'],['HEX','PUZZLE'],['YIJING','PUZZLE'],['ICHING','PUZZLE'],['PAR','PATH'],['TWO-DIAL','DUET'],['TWO_DIAL','DUET'],['ECOLOGY','GARDEN']]);
 const params=new URLSearchParams(location.search);
@@ -17,7 +17,7 @@ let mode=VALID.has(requested)?requested:'PLAY';
 let active=false,ended=false,releases=0,hits=0,flowGain=0,stars=0,turns=0,par=0;
 let lastRotation=null,lastEventId=null,runtime=null,fieldEnter=null,root=null,result=null;
 let duetPanel=null,duetB=0,duetHits=0;
-let hexPanel=null,hexPlan=null,hexLines=[];
+let hexPanel=null,hexPlan=null,hexLines=[],hexPhase='FORM',hexFrom=null,hexChangeMoves=0;
 let gardenChoice=null,gardenGeneration=1,gardenEvents=[],gardenTrait=null,gardenSurvived=0,gardenLineage=[],gardenLastResult=null;
 let feedbackTimer=null;
 const q=s=>document.querySelector(s);
@@ -114,14 +114,14 @@ function makeHexPlan(state){
 }
 function renderHexPanel(){
   if(!hexPanel||!hexPlan)return;
-  const targetPair=hexPair(hexPlan.lines),nowPair=hexPair(hexLines),target=q('#fbHexTarget'),now=q('#fbHexNow');
-  q('#fbHexTargetName').textContent=(targetPair.lower?.glyph||'')+' '+(targetPair.lower?.key||'—')+' / '+(targetPair.upper?.glyph||'')+' '+(targetPair.upper?.key||'—');
-  q('#fbHexNowName').textContent=(nowPair.lower?.glyph||'')+' '+(nowPair.lower?.key||'…')+(hexLines.length>=6?' / '+(nowPair.upper?.glyph||'')+' '+(nowPair.upper?.key||'…'):'');
-  target.innerHTML=hexPlan.lines.map((bit,i)=>'<div class="fbHexLine">'+lineMark(bit)+'<small>'+(i+1)+'</small></div>').join('');
-  now.innerHTML=Array.from({length:HEX_LINES},(_,i)=>{const has=i<hexLines.length,bit=has?hexLines[i]:null,hit=has&&Number(bit)===Number(hexPlan.lines[i]);return '<div class="fbHexLine '+(hit?'hit':'')+'">'+(has?lineMark(bit):'···')+'<small>'+(i+1)+'</small></div>'}).join('');
+  const targetBits=hexPhase==='FORM'?hexPlan.lines:(hexFrom||hexPlan.lines),targetPair=hexPair(targetBits),nowPair=hexPair(hexLines),target=q('#fbHexTarget'),now=q('#fbHexNow'),delta=hexPhase==='CHANGE'?new Set(movingLines(hexFrom||[],hexLines)) : new Set();
+  q('#fbHexTargetName').textContent=(hexPhase==='FORM'?'TARGET ':'FROM ')+(targetPair.lower?.glyph||'')+' '+(targetPair.lower?.key||'—')+' / '+(targetPair.upper?.glyph||'')+' '+(targetPair.upper?.key||'—');
+  q('#fbHexNowName').textContent=(hexPhase==='CHANGE'?'NOW ':'YOU ')+(nowPair.lower?.glyph||'')+' '+(nowPair.lower?.key||'…')+(hexLines.length>=6?' / '+(nowPair.upper?.glyph||'')+' '+(nowPair.upper?.key||'…'):'');
+  target.innerHTML=targetBits.map((bit,i)=>'<div class="fbHexLine">'+lineMark(bit)+'<small>'+(i+1)+'</small></div>').join('');
+  now.innerHTML=Array.from({length:HEX_LINES},(_,i)=>{const has=i<hexLines.length,bit=has?hexLines[i]:null,hit=hexPhase==='FORM'?has&&Number(bit)===Number(hexPlan.lines[i]):delta.has(i+1);return '<div class="fbHexLine '+(hit?'hit':'')+'">'+(has?lineMark(bit):'···')+'<small>'+(delta.has(i+1)?'Δ':'')+(i+1)+'</small></div>'}).join('');
 }
 function resetModeState(){
-  active=true;ended=false;releases=0;hits=0;flowGain=0;stars=0;turns=0;duetB=0;duetHits=0;hexPlan=null;hexLines=[];
+  active=true;ended=false;releases=0;hits=0;flowGain=0;stars=0;turns=0;duetB=0;duetHits=0;hexPlan=null;hexLines=[];hexPhase='FORM';hexFrom=null;hexChangeMoves=0;
   gardenGeneration=1;gardenEvents=[];gardenTrait=null;gardenSurvived=0;gardenLineage=[];gardenLastResult=null;gardenChoice?.classList.remove('on');
 }
 function start(nextMode='PLAY'){
@@ -129,10 +129,15 @@ function start(nextMode='PLAY'){
   const state=runtime.state();lastRotation=state.rotation;lastEventId=state.history?.at(-1)?.id??null;par=parFor(state);if(mode==='PUZZLE')hexPlan=makeHexPlan(state);root.classList.add('on');duetPanel.classList.toggle('on',mode==='DUET');hexPanel.classList.toggle('on',mode==='PUZZLE');renderHexPanel();update(state);
 }
 function finish(state){
-  active=false;ended=true;root.classList.remove('on');duetPanel.classList.remove('on');hexPanel.classList.remove('on');gardenChoice.classList.remove('on');
+  active=false;ended=true;root.classList.remove('on');duetPanel.classList.remove('on');hexPanel.classList.remove('on');gardenChoice.classList.remove('on');runtime?.gameProjection?.set?.(null);
   const best=Math.max(1,Number(state.bestChain)||1),donor=q('#fbDonorBtn');donor.hidden=!['DUET','GARDEN'].includes(mode);donor.textContent=mode==='DUET'?'FULL TWO DIAL':'FULL ECOLOGY';
   if(mode==='PLAY'){const out=runOutcome(hits,releases);q('#fbResultEy').textContent=(out.clear?'RUN CLEAR':'RUN RETURN')+' · WIN '+RUN_WIN_HITS+'/'+RUN_LENGTH;q('#fbResultBig').textContent=out.label;q('#fbResultBody').textContent=hits+' / '+RUN_LENGTH+' CALLs hit · FLOW +'+flowGain+' · best chain '+best+'×. Every miss still changed topology; the road is the receipt.';}
-  else if(mode==='PUZZLE'){const out=hexOutcome(hexPlan?.lines||[],hexLines),pair=hexPair(hexLines);q('#fbResultEy').textContent=out.clear?'HEXAGRAM CLEAR':'HEXAGRAM RETURN';q('#fbResultBig').textContent=out.label;q('#fbResultBody').textContent=out.matches+' / '+HEX_LINES+' lines · lower '+(pair.lower?.glyph||'—')+' '+(pair.lower?.key||'OPEN')+' '+(pair.lower?.image||'')+' · upper '+(pair.upper?.glyph||'—')+' '+(pair.upper?.key||'OPEN')+' '+(pair.upper?.image||'')+'. Solid/broken here encode LIVE topology continuity; the Yijing supplies the six-line grammar, not the gameplay meanings.';}
+  else if(mode==='PUZZLE'){
+    const form=hexOutcome(hexPlan?.lines||[],hexPhase==='FORM'?hexLines:(hexFrom||[])),change=hexPhase==='CHANGE'?hexChangeOutcome(hexFrom||[],hexLines,hexChangeMoves):null,pair=hexPair(hexLines),delta=hexFrom?stateChange(hexFrom,hexLines):null,clear=hexPhase==='CHANGE'&&change?.clear;
+    q('#fbResultEy').textContent=clear?'STATE CHANGE CLEAR':form.clear?'FORM HELD · CHANGE OPEN':'HEXAGRAM RETURN';
+    q('#fbResultBig').textContent=clear?'STATE CHANGED':form.clear?'CHANGE OPEN':form.label;
+    q('#fbResultBody').textContent=clear?(delta.token+' · '+hexChangeMoves+' change releases. The same releases changed the LIVE road; Δ names only the six-line projection.'):(form.clear?'Built '+stateDescriptor(hexFrom||hexLines).token+', but fewer than '+HEX_CHANGE_TARGET+' final lines changed before the '+HEX_CHANGE_LIMIT+'-release limit.':'Form '+form.matches+' / '+HEX_LINES+' lines matched. Solid/broken encodes LIVE topology continuity; the Yijing supplies the six-line grammar, not the gameplay meanings.');
+  }
   else if(mode==='PATH'){const out=puzzleOutcome(stars);q('#fbResultEy').textContent=(out.clear?'PATH CLEAR':'PATH RETURN')+' · CLEAR '+PUZZLE_WIN_STARS+'/15';q('#fbResultBig').textContent=out.label;q('#fbResultBody').textContent=stars+' / 15 stars · '+hits+' / '+PUZZLE_ROUNDS+' CALLs hit · FLOW +'+flowGain+'. Three stars means the shortest known turn path.';}
   else if(mode==='DUET'){const out=duetOutcome(duetHits,releases);q('#fbResultEy').textContent=(out.clear?'DUET CLEAR':'DUET RETURN')+' · WIN '+DUET_WIN_HITS+'/'+DUET_ROUNDS;q('#fbResultBig').textContent=out.label;q('#fbResultBody').textContent=duetHits+' / '+DUET_ROUNDS+' synchronized CALLs. The road chose a consequence; the second dial had to name the same relation before release.';}
   else if(mode==='GARDEN'){const out=gardenOutcome(gardenSurvived,GARDEN_SURVIVAL_TARGET);q('#fbResultEy').textContent=(out.clear?'GARDEN CLEAR':'GARDEN RETURN')+' · WIN '+GARDEN_SURVIVAL_TARGET+'/'+GARDEN_SURVIVAL_TARGET+' TRAITS';q('#fbResultBig').textContent=out.label;q('#fbResultBody').textContent=gardenSurvived+' / '+GARDEN_SURVIVAL_TARGET+' inherited pressures survived · lineage '+(gardenLineage.join(' → ')||'ROOT')+'. Each four-move generation changed what the next one had to preserve.';}
@@ -156,8 +161,22 @@ function onRelease(event,state){
   const usedTurns=turns,targetPar=par,gain=Number(event.flowGain)||0;
   releases+=1;if(event.callMet)hits+=1;flowGain+=gain;
   if(mode==='PUZZLE'){
-    const bit=lineBitForVerb(event.verb),index=hexLines.length,expected=hexPlan?.lines?.[index];hexLines.push(bit);const locked=Number(bit)===Number(expected);
-    flash((locked?'LINE LOCK · ':'LINE DRIFT · ')+(bit===1?'SOLID':'BROKEN')+' · '+event.verb,locked?'hit':'miss');renderHexPanel();
+    const bit=lineBitForVerb(event.verb);
+    if(hexPhase==='FORM'){
+      const index=hexLines.length,expected=hexPlan?.lines?.[index];hexLines.push(bit);const locked=Number(bit)===Number(expected);
+      flash((locked?'LINE LOCK · ':'LINE DRIFT · ')+(bit===1?'SOLID':'BROKEN')+' · '+event.verb,locked?'hit':'miss');
+      if(hexLines.length>=HEX_LINES){
+        const form=hexOutcome(hexPlan?.lines||[],hexLines);
+        if(form.clear){hexFrom=[...hexLines];hexPhase='CHANGE';hexChangeMoves=0;flash('FORM LOCKED · NOW CHANGE '+HEX_CHANGE_TARGET+' LINES','hit');}
+        else {renderHexPanel();turns=0;par=parFor(state);finish(state);return;}
+      }
+    }else{
+      hexChangeMoves+=1;
+      const line=wrap(state.rotation,6),before=hexLines[line];hexLines[line]=bit;const changed=Number(before)!==Number(bit),delta=movingLines(hexFrom||[],hexLines),out=hexChangeOutcome(hexFrom||[],hexLines,hexChangeMoves);
+      flash('LINE '+(line+1)+' · '+(changed?'CHANGED':'HELD')+' · '+(bit===1?'SOLID':'BROKEN')+' · Δ{'+delta.join(',')+'}',changed?'hit':'miss');
+      if(out.complete){renderHexPanel();turns=0;par=parFor(state);finish(state);return;}
+    }
+    renderHexPanel();
   }else if(mode==='PATH'){
     const gained=puzzleStars(event.callMet,usedTurns,targetPar);stars+=gained;
     flash(event.callMet?gained+'★ · '+usedTurns+'T / PAR '+targetPar+' · '+event.verb:'0★ · '+event.verb+' · CALL MISSED',event.callMet?'hit':'miss');
@@ -171,7 +190,7 @@ function onRelease(event,state){
     flash(event.callMet?'CALL HIT · '+event.verb+' · +'+gain+' FLOW':'ROAD CHANGED · '+event.verb+' · CALL MISSED',event.callMet?'hit':'miss');
   }
   turns=0;par=parFor(state);
-  if(mode==='PLAY'&&releases>=RUN_LENGTH)finish(state);else if(mode==='PUZZLE'&&hexLines.length>=HEX_LINES)finish(state);else if(mode==='PATH'&&releases>=PUZZLE_ROUNDS)finish(state);else if(mode==='DUET'&&releases>=DUET_ROUNDS)finish(state);else if(mode==='GARDEN'&&gardenEvents.length>=GARDEN_MOVES)finishGardenGeneration(state);
+  if(mode==='PLAY'&&releases>=RUN_LENGTH)finish(state);else if(mode==='PATH'&&releases>=PUZZLE_ROUNDS)finish(state);else if(mode==='DUET'&&releases>=DUET_ROUNDS)finish(state);else if(mode==='GARDEN'&&gardenEvents.length>=GARDEN_MOVES)finishGardenGeneration(state);
 }
 function normalCoach(state,forecast,hitReady){
   if(hitReady)return 'HIT READY · RELEASE '+forecast.verb;
@@ -185,20 +204,37 @@ function updateDuet(state,forecast,hitReady){
   q('#fbProgress').textContent=releases+'/'+DUET_ROUNDS+' · '+duetHits+' SYNC';
 }
 function updateHex(state,forecast){
-  renderHexPanel();const index=hexLines.length,desired=hexPlan?.lines?.[index],current=forecast?lineBitForVerb(forecast.verb):null,want=desired===1?'SOLID':'BROKEN';
-  const targetPair=hexPair(hexPlan?.lines||[]);
-  q('#fbObjective').textContent='LINE '+Math.min(index+1,HEX_LINES)+' / '+HEX_LINES+' · WANT '+want;
-  if(!forecast)q('#fbCoach').textContent='TURN · FIND A '+want+' CONSEQUENCE';
-  else if(current===desired)q('#fbCoach').textContent=want+' READY · '+forecast.verb+' · RELEASE';
-  else q('#fbCoach').textContent=(current===1?'SOLID':'BROKEN')+' HERE · '+forecast.verb+' · KEEP TURNING FOR '+want;
-  q('#fbProgress').textContent=index+'/'+HEX_LINES+' · '+(targetPair.lower?.glyph||'')+(targetPair.upper?.glyph||'');
+  renderHexPanel();
+  if(hexPhase==='FORM'){
+    const index=hexLines.length,desired=hexPlan?.lines?.[index],current=forecast?lineBitForVerb(forecast.verb):null,want=desired===1?'SOLID':'BROKEN',targetPair=hexPair(hexPlan?.lines||[]);
+    q('#fbObjective').textContent='FORM · LINE '+Math.min(index+1,HEX_LINES)+' / '+HEX_LINES+' · WANT '+want;
+    if(!forecast)q('#fbCoach').textContent='TURN · FIND A '+want+' CONSEQUENCE';
+    else if(current===desired)q('#fbCoach').textContent=want+' READY · '+forecast.verb+' · RELEASE';
+    else q('#fbCoach').textContent=(current===1?'SOLID':'BROKEN')+' HERE · '+forecast.verb+' · KEEP TURNING FOR '+want;
+    q('#fbProgress').textContent=index+'/'+HEX_LINES+' · '+(targetPair.lower?.glyph||'')+(targetPair.upper?.glyph||'');
+  }else{
+    const line=wrap(state.rotation,6),before=hexLines[line],current=forecast?lineBitForVerb(forecast.verb):null,delta=movingLines(hexFrom||[],hexLines),willChange=forecast&&Number(current)!==Number(before);
+    q('#fbObjective').textContent='CHANGE · LINE '+(line+1)+' · '+(before===1?'SOLID':'BROKEN')+' → '+(before===1?'BROKEN':'SOLID');
+    if(!forecast)q('#fbCoach').textContent='TURN · ADDRESS A LINE + FIND ITS OPPOSITE CONSEQUENCE';
+    else if(willChange)q('#fbCoach').textContent='CHANGE READY · '+forecast.verb+' WRITES '+(current===1?'SOLID':'BROKEN')+' · RELEASE';
+    else q('#fbCoach').textContent='LINE '+(line+1)+' WOULD HOLD '+(before===1?'SOLID':'BROKEN')+' · KEEP TURNING';
+    q('#fbProgress').textContent='Δ '+delta.length+'/'+HEX_CHANGE_TARGET+' · MOVE '+hexChangeMoves+'/'+HEX_CHANGE_LIMIT;
+  }
 }
 function updateGarden(state,forecast,hitReady){
   if(gardenTrait){const p=gardenProgress(gardenTrait,gardenEvents);q('#fbObjective').textContent='GEN '+gardenGeneration+' · KEEP '+gardenTrait+' · '+p.label;q('#fbCoach').textContent=GARDEN_TRAITS[gardenTrait].short.toUpperCase()+' · '+normalCoach(state,forecast,hitReady);}else{q('#fbObjective').textContent='GEN 1 · OBSERVE THE PARENT';q('#fbCoach').textContent=normalCoach(state,forecast,hitReady);}
   q('#fbProgress').textContent='G'+gardenGeneration+'/'+GARDEN_GENERATIONS+' · '+gardenEvents.length+'/'+GARDEN_MOVES+' · '+gardenSurvived+'/'+GARDEN_SURVIVAL_TARGET;
 }
+function projectionView(state,forecast){
+  const rel=relationVerb(wrap(state.rotation,6),duetB,6),relName=relationName(wrap(state.rotation,6),duetB,6);
+  return {mode,active,releases,hits,stars,turns,par,forecast:forecast?{verb:forecast.verb,chain:forecast.chain}:null,
+    hex:{phase:hexPhase,target:hexPlan?.lines||[],from:hexFrom||[],lines:[...hexLines],changed:hexFrom?movingLines(hexFrom,hexLines):[],moves:hexChangeMoves,targetChanges:HEX_CHANGE_TARGET,moveLimit:HEX_CHANGE_LIMIT},
+    duet:{a:wrap(state.rotation,6),b:duetB,relation:relName,verb:rel,hits:duetHits},
+    garden:{generation:gardenGeneration,trait:gardenTrait,survived:gardenSurvived,events:gardenEvents.length},
+    path:{round:releases+1,stars,par,turns}};
+}
 function update(state){
-  if(!active||!root)return;const forecast=runtime.forecast?.(),call=state.call,aligned=!!forecast,hitReady=aligned&&forecastMatchesCall(call,forecast);
+  if(!active||!root)return;const forecast=runtime.forecast?.(),call=state.call,aligned=!!forecast,hitReady=aligned&&forecastMatchesCall(call,forecast);runtime?.gameProjection?.set?.(projectionView(state,forecast));
   q('#fbMode').textContent=mode==='PLAY'?'RUN':mode==='PUZZLE'?'HEX':mode==='PATH'?'PAR':mode;root.querySelectorAll('[data-switch]').forEach(btn=>btn.classList.toggle('on',btn.dataset.switch===mode));duetPanel.classList.toggle('on',mode==='DUET');hexPanel.classList.toggle('on',mode==='PUZZLE');
   if(mode==='ZEN'){q('#fbObjective').textContent='FREE RIDE';q('#fbCoach').textContent=aligned?'RELEASE '+forecast.verb+' · OR KEEP TURNING':'TURN · FEEL THE FIELD · RELEASE WHEN IT WAKES';q('#fbProgress').textContent='OPEN';return;}
   if(mode==='PUZZLE'){updateHex(state,forecast);return;}if(mode==='DUET'){updateDuet(state,forecast,hitReady);return;}if(mode==='GARDEN'){updateGarden(state,forecast,hitReady);return;}
@@ -209,13 +245,16 @@ function poll(){
   const event=state.history?.at(-1);if(active&&event&&event.id!==lastEventId){lastEventId=event.id;onRelease(event,state);}else if(event)lastEventId=event.id;if(active)update(state);
 }
 function playState(){
-  return {version:VERSION,mode,active,ended,releases,hits,flowGain,stars,turns,par,hex:{target:hexPlan?.lines||[],lines:[...hexLines],pair:hexPair(hexLines),outcome:mode==='PUZZLE'?hexOutcome(hexPlan?.lines||[],hexLines):null},duet:{partner:duetB,hits:duetHits},garden:{generation:gardenGeneration,trait:gardenTrait,survived:gardenSurvived,lineage:[...gardenLineage],events:[...gardenEvents]},win:{run:mode==='PLAY'?runOutcome(hits,releases):null,path:mode==='PATH'?puzzleOutcome(stars):null,duet:mode==='DUET'?duetOutcome(duetHits,releases):null,garden:mode==='GARDEN'?gardenOutcome(gardenSurvived):null}};
+  return {version:VERSION,mode,active,ended,releases,hits,flowGain,stars,turns,par,hex:{phase:hexPhase,target:hexPlan?.lines||[],from:hexFrom||[],lines:[...hexLines],pair:hexPair(hexLines),form:mode==='PUZZLE'?hexOutcome(hexPlan?.lines||[],hexPhase==='FORM'?hexLines:(hexFrom||[])):null,change:mode==='PUZZLE'&&hexPhase==='CHANGE'?hexChangeOutcome(hexFrom||[],hexLines,hexChangeMoves):null,delta:hexFrom?stateChange(hexFrom,hexLines):null,moves:hexChangeMoves},duet:{partner:duetB,hits:duetHits},garden:{generation:gardenGeneration,trait:gardenTrait,survived:gardenSurvived,lineage:[...gardenLineage],events:[...gardenEvents]},win:{run:mode==='PLAY'?runOutcome(hits,releases):null,path:mode==='PATH'?puzzleOutcome(stars):null,duet:mode==='DUET'?duetOutcome(duetHits,releases):null,garden:mode==='GARDEN'?gardenOutcome(gardenSurvived):null}};
 }
 function exportPlayReturn(){
   const hexLanguage=mode==='PUZZLE'&&hexPlan?.lines?.length===HEX_LINES?{
     target:stateDescriptor(hexPlan.lines),
+    formed:hexFrom?stateDescriptor(hexFrom):null,
     authored:hexLines.length===HEX_LINES?stateDescriptor(hexLines):{valid:false,bits:[...hexLines],token:'H['+formatState([...hexLines,...Array(Math.max(0,HEX_LINES-hexLines.length)).fill(0)])+']'},
-    delta:hexLines.length===HEX_LINES?stateChange(hexPlan.lines,hexLines):null
+    delta:hexFrom&&hexLines.length===HEX_LINES?stateChange(hexFrom,hexLines):null,
+    phase:hexPhase,
+    changeMoves:hexChangeMoves
   }:null;
   const packet={kind:'FOLD_BLOOM_PLAY_RETURN',version:VERSION,created:new Date().toISOString(),play:playState(),stateLanguage:hexLanguage,live:runtime?.state?.()||null,donors:{twoDial:'/fold-bloom/two-dial/',ecology:'/fold-bloom/ecology/',foldWeave:'/recovery/fold-bloom/fold-weave-0.1/',stateLanguage:'/fold-bloom/STATE_CHANGE.md'}};
   const blob=new Blob([JSON.stringify(packet,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='fold-bloom-play-'+mode.toLowerCase()+'-'+Date.now()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
