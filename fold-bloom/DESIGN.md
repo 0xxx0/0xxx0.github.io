@@ -76,6 +76,7 @@ The public GitHub Pages runtime cannot read private ChatGPT Library files direct
 - Local imports are hashed and retained in the browser-local IndexedDB vault for later picker-free re-entry on that device/browser.
 - Cross-device access may use a recoverable provider address when the source already has one.
 - Remote provider sources are optional probes, never the default LIVE path or a promotion gate. CENTER MASS retains its recovered provider identity for explicit retry, but provider playback is treated as revocable/unverified; failure must restore FIELD COURSE/local-source entry without trapping the session. Private Library bytes are not copied into this public repository.
+- An explicitly user-authorized, bounded public demo excerpt may be committed under `/fold-bloom/live/demo/` for clean-phone demonstration. It is a demo asset only: never canonical source sync, never a substitute for the user's private library, and never a reason to promote one track as LIVE's identity.
 - Private-only cross-device synchronization remains unimplemented until an explicitly authorized private store/relay exists.
 - No receipt may claim cross-device private media sync merely because a source hash is known.
 
