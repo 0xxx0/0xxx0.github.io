@@ -1,7 +1,7 @@
 {
   "schema": "0xxx0/fold-bloom-workflow-return/v0.1",
   "date": "2026-09-25",
-  "status": "IMPLEMENTED_CANDIDATE",
+  "status": "SHIPPED_ACTIVE_CANDIDATE",
   "purpose": "Turn the Fold/Bloom family from mechanism-first navigation into task-first mobile workflows without adding a new engine.",
   "observed": {
     "user_feedback": [
@@ -24,9 +24,11 @@
     "Beat Saber export remains distinct from future dual-phone FOLD//BLOOM SABER runtime"
   ],
   "verification": {
-    "static": "pending CI",
-    "browser": "pending CI",
-    "lived_phone": "required next"
+    "static": "PASS · public-surface-check run 36080779968",
+    "route_registration": "PASS · run 36080780063",
+    "browser": "PASS · critical browser smoke in run 36080779968, including public task-first front and FIELD LAB READ PACE4 phone case",
+    "merge_sha": "3c5cb2e174174ee0393ed30997c2ecf8bd24a0a4",
+    "lived_phone": "REQUIRED NEXT"
   },
-  "next": "Use the public task cards on phone. Revise from concrete friction; otherwise move to the pinned dual-phone saber proof or shared-session-strip only if re-entry friction is observed."
+  "next": "Use the task-first doorway and pulse-paced READ on a real phone. Revise from concrete friction; otherwise the next executable Fold/Bloom transform remains the pinned dual-phone saber proof. Add a shared session strip only if switching/re-entry friction is actually observed."
 }
