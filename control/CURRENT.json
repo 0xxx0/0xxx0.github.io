@@ -253,7 +253,8 @@
         "/returns/FOLD_BLOOM_WORKFLOW_2026-09-25.json",
         "/fold-bloom/saber/",
         "/fold-bloom/saber/release.json",
-        "/returns/FOLD_BLOOM_SABER_01_2026-09-25.json"
+        "/returns/FOLD_BLOOM_SABER_01_2026-09-25.json",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/225"
       ],
       "experimental": [
         {
@@ -317,11 +318,12 @@
           "version": "0.1",
           "thesis": "Existing EVENT TAPE and exact source transport now host a bounded two-phone saber proof: host phone may be one hand, a second phone is the opposite hand over direct WebRTC, monotonic clocks are estimated, and only bounded HIT/GRAZE/MISS evidence survives.",
           "promotion_gate": "Two real phones: at least 30 EVENT TAPE notes, both LEFT/RIGHT motion streams causally legible, tolerable latency, pause/resume source address stable, one-phone disconnect degrades cleanly, RETURN contains no raw continuous motion.",
-          "branch": "fold-bloom-saber-proof-20260925",
-          "contract": "/fold-bloom/saber/README.md"
+          "branch": "master@f03722b2619d42c836d314359893f2f65fabd1f1",
+          "contract": "/fold-bloom/saber/README.md",
+          "verification": "REPO PASS · public-surface-check 36081836497 + Route Registration 36081836490 · physical two-phone proof WAITING_ON_HUMAN"
         }
       ],
-      "merge_sha": "3c5cb2e174174ee0393ed30997c2ecf8bd24a0a4",
+      "merge_sha": "f03722b2619d42c836d314359893f2f65fabd1f1",
       "latest_return": "/returns/FOLD_BLOOM_SABER_01_2026-09-25.json",
       "next_executable": {
         "id": "fold-bloom-saber-two-phone-lived-proof",
@@ -337,7 +339,7 @@
         ],
         "law": "Do not add multiplayer backend, elaborate scoring, calibration suites or new media storage before this two-phone encounter."
       },
-      "latest_merge": "3c5cb2e174174ee0393ed30997c2ecf8bd24a0a4"
+      "latest_merge": "f03722b2619d42c836d314359893f2f65fabd1f1"
     },
     {
       "lineage": "axial",
