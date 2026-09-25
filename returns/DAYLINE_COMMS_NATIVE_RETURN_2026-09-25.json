@@ -1,0 +1,42 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "DAYLINE_COMMS_NATIVE_RETURN_2026-09-25",
+  "date": "2026-09-25",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "object": "one held COMMS signal across native → Dayline → native RETURN",
+  "source": [
+    "/dayline/",
+    "/port/comms/",
+    "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md",
+    "PR #277 donor"
+  ],
+  "delta": [
+    "accepted TASK handoff retains sourceLink with exact source object/address/signal metadata",
+    "Dayline v0.2 RETURN emits at most one atlas-dayline-source-return/v0.1 OFFER_ONLY for the held task",
+    "RETURN TO SOURCE is visible only when an offer exists",
+    "COMMS revalidates source SHA + signal id + message/range before native acceptance",
+    "non-OPEN or unresolved source makes the offer stale/read-only",
+    "COVERED / DEFERRED / KEEP OPEN / DISMISS remain explicit COMMS-owned actions"
+  ],
+  "discarded": [
+    "PR #277 behavior that emitted offers for every source-linked Dayline task",
+    "Atlas-only return surface as the primary proof path"
+  ],
+  "boundaries": [
+    "no send",
+    "no automatic COMMS mutation",
+    "no global bus/store",
+    "no HOUSE/SHOPPING generalization",
+    "no fabricated lived proof"
+  ],
+  "verification": {
+    "javascript_syntax": "PASS_PREWRITE",
+    "static_contract": "ADDED",
+    "route_registration": "PENDING_CI",
+    "public_surface": "PENDING_CI",
+    "lived_phone": "PENDING_USER"
+  },
+  "residue": "One real COMMS signal must traverse the loop before merge/promotion.",
+  "one_next": "Use one real OPEN COMMS signal on phone; act or witness in /dayline/; RETURN TO SOURCE; explicitly decide native state.",
+  "stop": "If the return step feels like duplicate bookkeeping or loses source identity, narrow/remove it rather than adding another coordination layer."
+}
