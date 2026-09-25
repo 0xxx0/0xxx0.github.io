@@ -207,6 +207,33 @@ function fieldActivationProbeHtml(){
   })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
   <\/script></body></html>`;
 }
+function fieldDaylineHandoffProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/?focus=%2Fdocs%2F"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const wait=async(fn,limit=16000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(70)}throw Error('wait '+label)};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    await wait(()=>W().FieldLensHost?.focus?.()?.href==='/docs/'&&D().querySelector('[data-cap-dayline]'),14000,'FIELD held docs');
+    rec.fieldFocus=W().FieldLensHost.focus().href;
+    D().querySelector('[data-cap-dayline]').click();
+    await wait(()=>W().location.pathname==='/dayline/'&&W().DaylineConfluence?.snapshot?.(),16000,'Dayline handoff');
+    rec.path=W().location.pathname;
+    const packet=JSON.parse(W().sessionStorage.getItem('atlas.dayline.handoff.v01')||'null');
+    rec.packet={schema:packet?.schema,kind:packet?.kind,route:packet?.source?.route,object:packet?.source?.object_id,return_to:packet?.return_to};
+    const before=W().DaylineConfluence.snapshot().tasks.length;
+    const add=await wait(()=>[...D().querySelectorAll('#moves button')].find(b=>/ADD TO DAY/.test(b.textContent)),5000,'ADD TO DAY');
+    rec.before=before;rec.add=add.textContent;add.click();
+    const task=await wait(()=>W().DaylineConfluence.snapshot().tasks.find(x=>x.sourceLink?.source?.route==='/docs/'),5000,'accepted route task');
+    rec.after=W().DaylineConfluence.snapshot().tasks.length;
+    rec.task={fieldRef:task.fieldRef,route:task.sourceLink?.source?.route,object:task.sourceLink?.source?.object_id,return_to:task.sourceLink?.return_to,status:task.status};
+    rec.cleared=!W().sessionStorage.getItem('atlas.dayline.handoff.v01');
+    const ok=rec.fieldFocus==='/docs/'&&rec.path==='/dayline/'&&rec.packet.schema==='atlas-dayline-handoff/v0.1'&&rec.packet.kind==='TASK'&&rec.packet.route==='/docs/'&&rec.packet.object==='route:/docs/'&&rec.packet.return_to==='/?focus=%2Fdocs%2F'&&rec.before===0&&rec.after===1&&rec.task.fieldRef==='/docs/'&&rec.task.route==='/docs/'&&rec.task.object==='route:/docs/'&&rec.task.return_to==='/?focus=%2Fdocs%2F'&&rec.task.status==='open'&&rec.cleared;
+    done(ok,rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),href:f.contentWindow?.location?.href||null,...rec}));
+  <\/script></body></html>`;
+}
 function studioProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:1180px;height:820px;border:0;display:block" src="/?focus=%2Ffold-bloom%2Flens%2F"></iframe><pre id="probeResult">PENDING</pre><script>
   const result=document.getElementById('probeResult'),f=document.getElementById('f'),rec={};let finished=false;
@@ -718,6 +745,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(fieldActivationProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/field-dayline-handoff')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(fieldDaylineHandoffProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/lens-studio')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(studioProbeHtml());return;
@@ -906,6 +937,12 @@ const CASES=[
     route:'/__smoke/field-activation',
     options:{width:1040,height:820,budget:18000,timeout:24000},
     check:dom=>/id="probeResult">PASS /.test(dom)&&/"focused":"\//.test(dom)&&/"openHref":"\.\/fold-bloom\/"/.test(dom)&&/"returned":"\//.test(dom)
+  },
+  {
+    name:'FIELD held route → Dayline action',
+    route:'/__smoke/field-dayline-handoff',
+    options:{width:520,height:940,budget:22000,timeout:30000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"fieldFocus":"\/docs\/"/.test(dom)&&/"schema":"atlas-dayline-handoff\/v0\.1"/.test(dom)&&/"before":0/.test(dom)&&/"after":1/.test(dom)&&/"return_to":"\/\?focus=%2Fdocs%2F"/.test(dom)&&/"cleared":true/.test(dom)
   },
   {
     name:'FIELD LISTEN candidate focus',
