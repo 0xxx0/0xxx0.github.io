@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "DAYLINE // CONFLUENCE",
-  "version": "0.1-candidate",
+  "version": "0.2-candidate",
   "route": "/dayline/",
   "state": "CANDIDATE",
   "operation": "OPERATE",
   "released": "2026-09-25",
-  "role": "Mobile-first continuous execution projection over the existing Atlas Dayline DayState, live CURRENT and explicit atlas-dayline-handoff/v0.1 source envelopes. It keeps one object/focus, exposes at most three lawful moves, records witness, and returns exact evidence without becoming a new authority or store.",
+  "role": "Mobile-first continuous execution projection over the existing Atlas Dayline DayState, live CURRENT and explicit source-owned handoffs. It keeps one held object/focus, exposes at most three lawful moves, records witness, and may emit one OFFER_ONLY return to the exact native source without becoming source authority.",
   "authority": "NONE / projection + explicit local DayState mutation only",
   "preserves": [
     "poly-atlas-dayline-branch-i-public-v1 local DayState identity",
@@ -15,16 +15,21 @@
     "CURRENT attention authority",
     "RUN <= 3",
     "manual Dayline time + explicit device clock witness",
-    "Atlas as optional deeper projection"
+    "Atlas as optional deeper projection",
+    "source SHA/signal/message/range identity for COMMS return offers",
+    "native source acceptance authority"
   ],
   "validation": {
     "ordinary_document_scroll": "BY_SOURCE",
     "max_visible_moves": 3,
     "same_daystate_store": "poly-atlas-dayline-branch-i-public-v1",
     "same_handoff": "atlas.dayline.handoff.v01",
-    "return_carrier": "dayline-confluence/v0.1",
+    "return_carrier": "dayline-confluence/v0.2",
     "browser_smoke": "PENDING_CI",
-    "lived_phone": "PENDING_USER"
+    "lived_phone": "PENDING_USER",
+    "source_return_schema": "atlas-dayline-source-return/v0.1 · one held object only",
+    "source_return_transport": "sessionStorage atlas.dayline.source-return.v01 · <=12h",
+    "native_mutation": "NONE until explicit source acceptance"
   },
-  "stop": "Do not promote over /atlas-dayline/ until one real phone object completes OBJECT → FOCUS → MOVE → WITNESS → RETURN with less control hunting."
+  "stop": "Do not promote over /atlas-dayline/ or generalize RETURN offers to HOUSE/SHOPPING until one real COMMS object completes OBJECT → MOVE → WITNESS → RETURN → exact native ACCEPT/REJECT with less reconstruction."
 }
