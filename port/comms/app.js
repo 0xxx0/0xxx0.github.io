@@ -7,6 +7,7 @@ const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const SESSION='human.port.comms-spine.session.v01';
 const PINNED='human.port.comms-spine.pinned.v01';
 const PORT_SESSION='human.port.object.session.v01';
+const DAYLINE_RETURN='atlas.dayline.source-return.v01';
 const enc=new TextEncoder();
 
 let state={
@@ -172,9 +173,34 @@ function renderCompose(){
   const packet=buildAgentPacket({doc:state.doc,signals:ss,draft:state.draft,title:state.title});
   $('#packetPreview').textContent=JSON.stringify(packet,null,2);
 }
+function readDaylineReturnOffer(){
+  try{
+    const bundle=JSON.parse(sessionStorage.getItem(DAYLINE_RETURN)||'null');
+    if(!bundle||bundle.schema!=='atlas-dayline-source-return-bundle/v0.1'||!Array.isArray(bundle.offers))return null;
+    return bundle.offers.find(o=>o?.schema==='atlas-dayline-source-return/v0.1'&&o?.source?.route==='/port/comms/'&&o.source.object_id===state.sourceId)||null
+  }catch(_){return null}
+}
+function consumeDaylineReturnOffer(id){
+  try{
+    const bundle=JSON.parse(sessionStorage.getItem(DAYLINE_RETURN)||'null');if(!bundle?.offers)return;
+    bundle.offers=bundle.offers.filter(o=>o.id!==id);
+    if(bundle.offers.length)sessionStorage.setItem(DAYLINE_RETURN,JSON.stringify(bundle));else sessionStorage.removeItem(DAYLINE_RETURN)
+  }catch(_){}
+}
+function renderDaylineReturnOffer(){
+  const host=$('#daylineReturnOffer');if(!host)return;const o=state.doc?readDaylineReturnOffer():null;
+  if(!o){host.hidden=true;return}
+  const sig=signals().find(x=>x.id===o.source?.signal_id),task=o.task||{},w=o.witness||{};
+  host.hidden=false;$('#daylineReturnMeta').textContent=(sig?(sig.kind+' · '+sig.origin+' · '+fmtAddr(sig.start,sig.end)):'SOURCE SIGNAL UNRESOLVED')+' · DAYLINE '+(task.status||'open')+' · '+(w.return_class||'RETURN')+' · '+(w.after_checksum||'no checksum');
+  const locate=$('#daylineLocate'),cover=$('#daylineCover'),defer=$('#daylineDefer'),keep=$('#daylineKeep'),dismiss=$('#daylineDismiss');
+  locate.disabled=!sig;cover.disabled=!sig;defer.disabled=!sig;keep.disabled=!sig;
+  locate.onclick=()=>sig&&jumpSignal(sig);
+  const accept=next=>{if(!sig)return;state.states[sig.id]=next;if(next==='COVERED')state.coverageLinks=[...new Set([...state.coverageLinks,sig.id])];if(next==='OPEN')state.coverageLinks=state.coverageLinks.filter(id=>id!==sig.id);persist();consumeDaylineReturnOffer(o.id);render();toast('DAYLINE OFFER → '+next)};
+  cover.onclick=()=>accept('COVERED');defer.onclick=()=>accept('DEFERRED');keep.onclick=()=>accept('OPEN');dismiss.onclick=()=>{consumeDaylineReturnOffer(o.id);renderDaylineReturnOffer();toast('DAYLINE OFFER DISMISSED')}
+}
 function render(){
-  if(!state.doc){document.documentElement.dataset.commsSpine='idle';showIntake();renderSpine();renderSource();renderSignals();renderCompose();return}
-  hideIntake();renderSpine();renderSource();renderSignals();renderCompose();
+  if(!state.doc){document.documentElement.dataset.commsSpine='idle';showIntake();renderSpine();renderSource();renderSignals();renderCompose();renderDaylineReturnOffer();return}
+  hideIntake();renderSpine();renderSource();renderSignals();renderCompose();renderDaylineReturnOffer();
   const ss=signals();document.documentElement.dataset.commsSpine='ready';document.documentElement.dataset.commsMessages=String(state.doc.messages.length);document.documentElement.dataset.commsSignals=String(ss.length);document.documentElement.dataset.commsOpen=String(ss.filter(x=>x.state==='OPEN').length);
 }
 async function copy(text,label='COPIED'){
@@ -259,7 +285,7 @@ if(session)restore(session);else if(params.get('resume')==='1'&&pinned)restore(p
 updatePortButtons();
 if(params.get('demo')==='1'&&!state.doc)loadSource(demoConversation(),'COMMS SPINE DEMO');else render();
 window.CommsSpine={
-  version:'0.1',
+  version:'0.1-return-offer-candidate',
   state:()=>({sourceId:state.sourceId,title:state.title,doc:state.doc,signals:signals(),draft:state.draft,coverageLinks:[...state.coverageLinks]}),
   loadSource,loadReturn,returnObject,
   buildAgentPacket:()=>buildAgentPacket({doc:state.doc,signals:signals(),draft:state.draft,title:state.title})
