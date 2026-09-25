@@ -2,7 +2,7 @@
   "schema": "0xxx0/source-locator/v0.1",
   "id": "TOOLBELT-SOURCE-LOCATOR-2026-09-21",
   "at": "2026-09-21",
-  "status": "TEXT_SOURCES_MATERIALIZED_REPO_HASHED / ORIGINAL_BYTE_IDENTITY_UNPROVEN / SLEEPER_PNG_RAW_BINARY_BLOCKED",
+  "status": "TEXT_SOURCES_MATERIALIZED_REPO_HASHED / SLEEPER_PNG_RAW_SOURCE_BYTE_VERIFIED_LIBRARY / REPO_BINARY_COPY_DEFERRED",
   "purpose": "Replace reconstructed/search-level uncertainty around the App Atlas tool set and Sleeper operator quartet with exact File Library source identities, while preserving the distinction between located source and byte-recovered repo artifact.",
   "sources": [
     {
@@ -111,28 +111,38 @@
         ],
         "transformation_grammar": "Keris → Conch → W8 → Spiral; Distinguish → Resonate → Stabilize → Integrate"
       },
-      "recovery_state": "LOCATED_RAW_BINARY_BLOCKED",
-      "sha256": null,
+      "recovery_state": "RAW_SOURCE_BYTES_MATERIALIZED_AND_HASH_VERIFIED",
+      "sha256": "f659631664aa9e6a23a20c65a202a7689c0c5546ec748c957ddeb607d7b08999",
       "repo_path": null,
-      "blocker": "No raw File Library file URI/byte stream is exposed to this executor; exact-title Drive/Gmail searches found no byte-addressable duplicate."
+      "file_library_id": "file_000000006c8c71faa92311288535624e",
+      "source_raw_sha256": "f659631664aa9e6a23a20c65a202a7689c0c5546ec748c957ddeb607d7b08999",
+      "raw_size_bytes": 2577720,
+      "dimensions": {
+        "width": 1536,
+        "height": 1024
+      },
+      "mime_type": "image/png",
+      "byte_identity": "SOURCE_RAW_BYTES_VERIFIED",
+      "repo_copy_state": "DEFERRED_CURRENT_GITHUB_WRITER_ACCEPTS_UTF8_TEXT_ONLY"
     }
   ],
   "boundary": {
     "located": "Exact File Library identities and inspected source content are known for all three targets.",
-    "materialized": "The two text artifacts now exist in /recovery/toolbelt/ as repo bytes with repo SHA-256 hashes and semantic cross-checks.",
-    "not_proven": "Those repo hashes do not prove byte equality to the original File Library text files because original raw hashes are unavailable.",
-    "blocked": "The target Sleeper PNG remains binary-only in File Library and has not been copied or re-encoded.",
+    "materialized": "The two text artifacts exist as repo UTF-8 materializations; the exact original Sleeper PNG raw bytes were materialized from Library and SHA-256 verified on 2026-09-26.",
+    "not_proven": "The two repo text hashes still do not prove byte equality to original File Library text storage because their original raw hashes remain unavailable.",
+    "blocked": "No source-identity blocker remains for the Sleeper PNG. Only optional repo binary mirroring is deferred because the current GitHub contents writer is text-only.",
     "rule": "Never upgrade CONTENT_MATERIALIZED to SOURCE_BYTE_VERIFIED without an independent original byte stream/hash."
   },
   "current_correspondence": "/control/confluence/TOOL_KERNEL_2026-09-21.md",
-  "next": "Acquire a byte-capable reference for the exact transformative-journey PNG; copy without re-encoding, SHA-256 it, then close Toolbelt raw-byte recovery. Text source rediscovery is no longer the bottleneck.",
-  "reverified_at": "2026-09-22",
+  "next": "Source recovery is closed for the Sleeper operator visual. Preserve the Library file id + SHA-256 as authority; mirror the binary to repo only when a byte-capable writer is available, without re-encoding.",
+  "reverified_at": "2026-09-26",
   "reverification": {
     "app_atlas_json": "Exact File Library file present; schema_version 1.0 and App Atlas records inspected.",
     "app_foundry_html": "Exact File Library runnable projection present; read-only-except-export projection embeds App Atlas data.",
-    "sleeper_operator_visual": "Exact File Library image present; KERIS/CONCH/W8/SPIRAL source wording inspected.",
-    "byte_boundary": "Current tools still do not provide a raw File Library byte→GitHub handoff, so SHA-256 remains intentionally null."
+    "sleeper_operator_visual": "SOURCE RAW BYTES VERIFIED · 2577720 B · 1536×1024 PNG · SHA-256 f659631664aa9e6a23a20c65a202a7689c0c5546ec748c957ddeb607d7b08999",
+    "byte_boundary": "Raw Library bytes are now available and hash-verified. GitHub binary mirroring remains a transport limitation, not a source-recovery gap."
   },
   "read_only_lineage_projection": "/control/confluence/TOOL_LINEAGE_READING_2026-09-22.json",
-  "materialization_receipt": "/recovery/toolbelt/RECOVERY.json"
+  "materialization_receipt": "/recovery/toolbelt/RECOVERY.json",
+  "raw_binary_followup": "/returns/TOOLBELT_SLEEPER_PNG_RAW_RECOVERY_2026-09-26.json"
 }
