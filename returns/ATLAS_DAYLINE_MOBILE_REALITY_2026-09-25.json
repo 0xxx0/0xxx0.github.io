@@ -1,0 +1,47 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "ATLAS_DAYLINE_MOBILE_REALITY_2026-09-25",
+  "date": "2026-09-25",
+  "route": "/atlas-dayline/?live=1",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "trigger": {
+    "class": "LIVED_USER_REPORT",
+    "observation": "Dayline is not functionally viewable/useful on mobile.",
+    "prior_claim_revised": "responsive source != functional mobile use"
+  },
+  "before": "Mobile boot retained the full ATLAS projection, two navigation rails and an expanded FIELD LIVE panel; quick reality capture also hard-coded computer context. Feedback was generic rather than worker-handoff shaped.",
+  "after": "First mobile visit opens PLAIN once, LIVE detail contracts while capture remains visible, touch floors increase, capture inherits current Dayline contexts, and explicit COPY HANDOFF emits an authority-NONE worker packet.",
+  "preserves": [
+    "task identity across ATLAS/PLAIN",
+    "local-first DayState",
+    "CURRENT as repo authority",
+    "RUN <= 3",
+    "preview != canonical",
+    "RETURN/replay",
+    "explicit human promotion"
+  ],
+  "automation_boundary": "No direct Hermes/calendar/repo/comms/device action. Packet trigger is USER_EXPLICIT_COPY and authority is NONE.",
+  "files": [
+    "/atlas-dayline/app.js",
+    "/atlas-dayline/app.css",
+    "/atlas-dayline/field-bridge.js",
+    "/atlas-dayline/sw.js",
+    "/atlas-dayline/release.json",
+    "/showcase-manifest.json",
+    "/tools/validate-public.mjs",
+    "/control/confluence/ATLAS_DAYLINE_MOBILE_REALITY_2026-09-25.md"
+  ],
+  "verification": {
+    "static_guard": "PENDING_CI",
+    "route_registration": "PENDING_CI",
+    "public_surface": "PENDING_CI",
+    "lived_phone": "WAITING_USER_USE"
+  },
+  "residue": [
+    "actual one-handed phone use",
+    "private Hermes ingestion adapter if later selected",
+    "calendar/provider adapter remains unimplemented"
+  ],
+  "one_next": "Open /atlas-dayline/?live=1 on the phone after deploy; use the PLAIN action surface, capture one real thing, then COPY HANDOFF. Feed only observed friction back.",
+  "stop": "No further Dayline architecture until phone use or a concrete private-adapter need produces evidence."
+}
