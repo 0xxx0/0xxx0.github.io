@@ -1,0 +1,30 @@
+{
+  "schema": "0xxx0/readfield-workflow-return/v0.1",
+  "date": "2026-09-25",
+  "status": "IMPLEMENTED_CANDIDATE",
+  "purpose": "Reduce phone control hunting and close the remaining APERTURE compatibility re-entry gap without adding reader architecture.",
+  "changed": [
+    "/docs/index.html",
+    "/foundry/aperture/index.html",
+    "/control/FIELD_PULSE_CONTRACT.json",
+    "/tools/browser-smoke.mjs",
+    "/showcase-manifest.json",
+    "/control/CURRENT.json",
+    "/control/confluence/READFIELD_WORKFLOW_084_2026-09-25.json",
+    "/returns/READFIELD_WORKFLOW_084_2026-09-25.json"
+  ],
+  "behavior": [
+    "Six existing reader jobs are one tap from the main phone surface.",
+    "Detailed use cases are secondary instead of permanently consuming reading area.",
+    "Mode selection keeps the same source/cursor and exposes scale/progress/WPM as a compact witness.",
+    "Compatibility APERTURE entry preserves focus packet into READFIELD.",
+    "No mode may silently gain source, authorship or canonical-session authority."
+  ],
+  "verification": {
+    "static": "PENDING",
+    "browser": "PENDING",
+    "new_probe": "APERTURE alias → READFIELD exact WORD/index/WPM focus restore",
+    "lived_phone": "REQUIRED_NEXT"
+  },
+  "stop": "After CI, stop feature growth until direct phone use identifies concrete friction in the rail, mode consequences or handoff."
+}

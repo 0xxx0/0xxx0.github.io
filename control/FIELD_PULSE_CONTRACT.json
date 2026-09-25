@@ -95,7 +95,7 @@
       ]
     },
     {
-      "producer_consumer": "READFIELD / RSVP 0.8.2",
+      "producer_consumer": "READFIELD / RSVP 0.8.4",
       "from": "LISTEN/AUDIO transport or FIELD LAB/SYNTH clock seed",
       "effect": "Explicit PULSE OFF/×2/×4/×8 maps lawful external BPM to WPM; FAST RSVP and VOICE+EYES reuse the same APERTURE source cursor; reader focus publishes compact focus events."
     },
@@ -198,7 +198,7 @@
     },
     {
       "from": "FOLD//BLOOM FIELD LAB 0.2.1",
-      "to": "READFIELD / RSVP 0.8.2 + LOCI / DATA studies",
+      "to": "READFIELD / RSVP 0.8.4 + LOCI / DATA studies",
       "verb": "READ / CARRY",
       "handoff": "canonical APERTURE source/focus; explicit synthetic tempo/phase seed may pace READ or route to LIVE/Two Dial; CARRY remains explicit"
     },

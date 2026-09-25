@@ -78,10 +78,10 @@
     },
     {
       "lineage": "rsvp-reader",
-      "head": "READFIELD / RSVP 0.8.3 · TASK MODES + FOCUS-PRESERVING APERTURE",
+      "head": "READFIELD / RSVP 0.8.4 · PHONE WORK RAIL + ALIAS FOCUS CONTINUITY",
       "state": "UTILITY / READER_FIRST / MERGED_ACTIVE_CANDIDATE",
       "route": "/docs/",
-      "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. 0.8.3 exposes six concrete work modes—FAST, REVIEW, PULSE, VOICE, LOCI and REPO—and extends the existing APERTURE handoff so explicit reader/LOCI transitions carry bounded focus (scale/index/address/char position/source progress/WPM) instead of source text alone. READFIELD remains source/cursor authority; FIELD LAB LOCI remains a derived addressed course; FIELD PULSE remains optional clock context with authority NONE.",
+      "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. 0.8.4 keeps the six existing jobs—FAST, REVIEW, PULSE, VOICE, LOCI and REPO—but moves them into an always-visible hard-edge phone rail with a live mode/focus witness; longer explanations recede behind a secondary use-case fold. The /foundry/aperture/ compatibility doorway now forwards the same bounded focus packet as direct handoff, closing a remaining restart path. READFIELD remains source/cursor authority; LOCI remains derived; FIELD PULSE remains optional authority NONE.",
       "evidence": [
         "/returns/READFIELD_CONVERGENCE_2026-09-22.json",
         "/control/READFIELD_CONVERGENCE_2026-09-22.json",
@@ -101,28 +101,28 @@
         "/returns/FIELD_PULSE_CONVERGENCE_2026-09-24.json",
         "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
         "/returns/READFIELD_WORK_MODES_2026-09-25.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/226"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/226",
+        "/control/confluence/READFIELD_WORKFLOW_084_2026-09-25.json",
+        "/returns/READFIELD_WORKFLOW_084_2026-09-25.json"
       ],
-      "latest_return": "/returns/READFIELD_WORK_MODES_2026-09-25.json",
-      "merge_sha": "fb270b4ef10b185912632014ce2e1db980b026ab",
+      "latest_return": "/returns/READFIELD_WORKFLOW_084_2026-09-25.json",
       "next_executable": {
-        "id": "readfield-work-modes-lived-gate",
+        "id": "readfield-084-lived-phone-gate",
         "state": "HOLD_FOR_HUMAN_USE",
-        "objective": "Use FAST / REVIEW / PULSE / VOICE / LOCI on a real long source; retain only modes that reduce re-entry or improve reading/recall on phone.",
+        "objective": "Use the compact FAST / REVIEW / PULSE / VOICE / LOCI / REPO rail on a real long phone source. Retain only jobs that reduce control hunting, re-entry cost or reading/recall friction.",
         "human_questions": [
-          "Does FAST start with less chrome and preserve the place you expect?",
-          "Does REVIEW make close reading easier than manually changing scale/view?",
-          "Does READFIELD → LOCI land near the current passage rather than feeling like a restart?",
-          "Does PULSE help cadence without making the ring or clock distracting?",
-          "Which modes deserve persistent one-tap placement after repeated use?"
+          "Can you switch jobs one-handed without opening the explanation fold?",
+          "Does the live mode/focus line tell you enough without becoming HUD noise?",
+          "Does APERTURE compatibility re-entry now land at the exact expected place?",
+          "Which of FAST / REVIEW / PULSE / VOICE / LOCI / REPO earns persistent use after repeated reading?"
         ],
         "law": "No new reader engine or universal session bus; revise from direct-use friction."
       },
       "repo_verification": {
-        "route_registration_run": 36082758418,
-        "public_surface_run": 36082758427,
-        "status": "PASS"
-      }
+        "status": "PENDING_BRANCH_CI",
+        "branch": "readfield-workflow-084-20260925"
+      },
+      "candidate_branch": "readfield-workflow-084-20260925"
     },
     {
       "lineage": "path-poetry",
