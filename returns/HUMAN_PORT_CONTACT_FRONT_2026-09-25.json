@@ -1,0 +1,48 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "HUMAN_PORT_CONTACT_FRONT_2026-09-25",
+  "date": "2026-09-25",
+  "object": "HUMAN PORT / CONTACT",
+  "route": "/contact/",
+  "before": {
+    "contact_version": "0.3",
+    "condition": "usable local signal composer, but stable contact URL itself was not a first-class share/copy action and reply route was not represented in the envelope",
+    "transport": "native share / clipboard only; no server inbox"
+  },
+  "after": {
+    "contact_version": "0.4",
+    "capability": [
+      "share or copy the stable /contact/ address without composing a signal",
+      "preserve an optional RETURN VIA route inside the sender-authored envelope",
+      "jump to the existing contextual capsule builder for bearer-visible direct lines without committing private identifiers",
+      "machine descriptor exposes CONTACT 0.4 and the already-existing COMMS SPINE route"
+    ],
+    "transport": "unchanged: explicit native share / clipboard; no server inbox"
+  },
+  "laws_preserved": [
+    "SOURCE STAYS SOURCE",
+    "DRAFT != SEND",
+    "SELECT/COMPOSE != EXTERNAL SEND",
+    "NO HIDDEN INBOX",
+    "PRIVATE CONTACT DATA DOES NOT ENTER THE PUBLIC REPOSITORY",
+    "CONTACT remains outbound; COMMS SPINE remains addressed local communication workbench"
+  ],
+  "verification": {
+    "branch": "contact-front-20260925-1425",
+    "script_parse": "PASS",
+    "unique_controls": {
+      "shareContact": 1,
+      "copyContact": 1,
+      "returnvia": 1
+    },
+    "form_submit": false,
+    "network_fetches": [
+      "/contact/state.json only"
+    ],
+    "state_updated": "2026-09-25",
+    "release_version": "0.4",
+    "world_gate": "GitHub Pages post-merge fetch + user real share remains required"
+  },
+  "delta_class": "CONVERSION / SHAREABILITY",
+  "next": "Merge after repository checks, then verify https://0xxx0.github.io/contact/ resolves with the stable-address controls. Do not add a transport/autoresponder until a private adapter is explicitly bound and proves receipt semantics."
+}
