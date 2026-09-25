@@ -2,7 +2,7 @@
 
 Date: 2026-09-25
 Merged via: PR #301 · `481d4af102fae4ceee09fbfcec9a999a9e5ae926`
-State: MERGED / CI GREEN · CONTROL REGISTRATION SYNCING
+State: MERGED / CI GREEN · CONTROL REGISTERED
 
 ## Object
 
@@ -72,4 +72,4 @@ Do **not** add another umbrella. If the three carries work in actual use, the ne
 - Route Registration: PASS
 - public-surface-check: PASS
 - critical browser smoke: PASS
-- Control registration: this sync branch updates CURRENT + showcase-manifest to Verse 0.2.3 and repairs the concurrent FOLD//BLOOM PLAY 0.5 version drift.
+- Control registration: PASS via PR #304 / `0b2f7e39056872f83c0c89a77fb77c9e376c1fb9`; CURRENT + showcase-manifest register Verse 0.2.3 and FOLD//BLOOM `0.1.3 + PLAY 0.5` with zero head drift.
