@@ -1,0 +1,69 @@
+{
+  "schema": "0xxx0/hermes-pass-return/v0.1",
+  "date": "2026-09-25",
+  "evidence_class": "REPORTED_HERMES_PASS",
+  "authority": "NONE",
+  "source": {
+    "pass": "standing-desire sync + propagation",
+    "branch": "hermes/standing-desire-pointer-20260925",
+    "master_at_pass": "c11bab23",
+    "pass_timestamp": "2026-09-25T20:30+08:00",
+    "note": "Bounded Hermes pass. Observations are dated evidence, not repository authority. The registry block for the same desire is owned by PR #318 (recovery of the stale draft #285); this PR adds only the house-rules pointer and this return."
+  },
+  "landed": [
+    {
+      "artifact": "AGENTS.md",
+      "delta": "one-line standing-direction pointer in SUCCESS (operator-approved 2026-09-25)"
+    },
+    {
+      "artifact": "returns/HERMES_STANDING_DESIRE_RETURN_2026-09-25.json",
+      "delta": "this return"
+    }
+  ],
+  "superseded": [
+    {
+      "item": "PR #285 hermes/standing-desire-20260925",
+      "by": "PR #318",
+      "why": "same intent recovered on current master; provenance kept as standing_desire.source_pr = 285",
+      "action": "closed as stale-base"
+    }
+  ],
+  "observations": [
+    {
+      "id": "standing-desire",
+      "observation": "Operator desire (fold-first / use more of the universal interface / gameloop-absorb) lands via #318 (registry block) plus this PR (front-door pointer).",
+      "pointer": "control/confluence/TRANSDUCTIONS.md -> Standing desire"
+    },
+    {
+      "id": "lane-replay",
+      "observation": "REPLAY/MESSAGE lane: shipped surface plus human lived gate; no machine work pending.",
+      "pointer": "fold-bloom/replay + CURRENT next_executable"
+    },
+    {
+      "id": "lane-visual",
+      "observation": "VISUAL GRAMMAR lane: never started; parked donor per thread index; not reopened by this pass.",
+      "pointer": "control/confluence/FOLD_BLOOM_THREAD_INDEX_2026-09-25.md"
+    },
+    {
+      "id": "ecosystem-velocity",
+      "observation": "Master advanced 6589f6ba -> dfcdde91 -> c11bab23 within one evening (FIELD 0.8.8-0.8.9, VERSE 0.2.4 round-trips, AXIAL shadow probe #310, mobile re-entry #317, unified-interface Dayline loop #296). Branch bases age within hours; recover intent on the current head instead of merging stale branches.",
+      "pointer": "open PRs #296/#317/#318/#319 at pass time"
+    },
+    {
+      "id": "operator-wip",
+      "observation": "Operator local clone holds uncommitted INTERPHASE kernel extraction + GLYPH conformance pass (13 files). User-protected; untouched.",
+      "pointer": "~/Projects/0xxx0.github.io (local only)"
+    }
+  ],
+  "waiting": [
+    {
+      "on": "operator",
+      "what": "merge of #318 (registry) and this PR (pointer + return)"
+    },
+    {
+      "on": "operator",
+      "what": "commit/keep decision for the local INTERPHASE kernel + GLYPH conformance WIP"
+    }
+  ],
+  "residue": "Visual lane stays parked; fold-bloom lived gates unchanged; propagation beyond these surfaces remains with future threads."
+}
