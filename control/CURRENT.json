@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-25T22:58:00+08:00",
+  "updated": "2026-09-25T16:53:29.816Z",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -423,10 +423,10 @@
     },
     {
       "lineage": "comms",
-      "head": "HUMAN PORT 1.6.0-preview + CONTACT FRONT 0.4 + COMMS SPINE 0.1.1 + DAYLINE REALITY PORT / OBJECT APERTURE + ADDRESSED THREAD / FIELD INTAKE + CARE + BODY/FIT + CONTACT/LACONIC/Router",
+      "head": "HUMAN PORT 1.6.0-preview + CONTACT FRONT 0.4 + COMMS SPINE 0.1.2.1 + DAYLINE CLOSED RETURN / OBJECT APERTURE + ADDRESSED THREAD / FIELD INTAKE + CARE + BODY/FIT + CONTACT/LACONIC/Router",
       "state": "ACTIVE + COMMS_SPINE_ACTIVE_CANDIDATE",
       "route": "/port/",
-      "retained_function": "CONTACT FRONT 0.4 is the stable shareable human-facing address with no server inbox or false delivery claim. COMMS SPINE 0.1.1 preserves exact source thread addresses and unequal DERIVED/HUMAN signals; its explicit Dayline handoff lends one OPEN source-addressed signal while retaining source SHA/range/kind/origin/text. Dayline must explicitly ADD TO DAY; COMMS keeps communication-state authority and still cannot send. Under the unified-instrument pivot, route/page chrome should recede behind continuous OBJECT + FOCUS + NEXT + WITNESS + RETURN.",
+      "retained_function": "CONTACT FRONT 0.4 is the stable shareable human-facing address with no server inbox or false delivery claim. COMMS SPINE 0.1.2.1 preserves exact source thread addresses and unequal DERIVED/HUMAN signals; one OPEN source-addressed signal can enter Dayline, remain exact through RUN → WITNESS → COMPLETE, and return as one OFFER_ONLY receipt. COMMS alone explicitly COVER / DEFER / KEEP OPEN / DISMISS after source SHA + signal id + message/range revalidation; stale source blocks mutation; no send authority.",
       "evidence": [
         "/port/comms/release.json",
         "/returns/HUMAN_PORT_COMMS_SPINE_2026-09-23.json",
@@ -437,7 +437,9 @@
         "/returns/ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
         "/returns/ATLAS_DAYLINE_MOBILE_ACTION_2026-09-25.json",
         "/control/confluence/REALITY_LOOP_HERMES_2026-09-25.md",
-        "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md"
+        "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md",
+        "/returns/DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/359"
       ],
       "version": "1.6.0-preview"
     },
@@ -446,26 +448,17 @@
       "head": "ATLAS DAYLINE Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
       "state": "STABLE + OPT_IN_LIVE_CANDIDATE",
       "route": "/atlas-dayline/",
-      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner. First-run/reset state is reality-first and empty; mobile PLAIN is vertically reachable; explicit NOW ↻ may sync canonical Dayline time from device clock; RETURN distinguishes ORIENTATION_SNAPSHOT from WORLD_DELTA and records a clock witness. REALITY PORTS accepts one explicit session-local envelope at a time from HOUSE, SHOPPING or COMMS while native source authority remains outside Dayline. COPY HANDOFF stays authority NONE / USER_EXPLICIT_COPY. Machine/browser verification owns correctness; lived phone use is optional preference/ergonomics evidence.",
+      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner, with /dayline/ as the mobile continuous workfield over the same DayState. Reality-first empty/reset, normal mobile reach, explicit NOW ↻, clock-witnessed RETURN, and source-addressed HOUSE/SHOPPING/COMMS handoffs remain. The merged COMMS loop now proves one held source object through RUN → WITNESS → COMPLETE → OFFER_ONLY RETURN → exact native acceptance, then releases completed focus. Machine/browser proof owns functional correctness; real-world completion remains WORLD evidence.",
       "evidence": [
         "/atlas-dayline/release.json",
         "/returns/ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
         "/returns/ATLAS_DAYLINE_MOBILE_ACTION_2026-09-25.json",
         "/control/confluence/REALITY_LOOP_HERMES_2026-09-25.md",
-        "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md"
+        "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md",
+        "/dayline/release.json",
+        "/returns/DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
+        "https://github.com/0xxx0/0xxx0.github.io/pull/359"
       ],
-      "next_executable": {
-        "id": "atlas-dayline-self-verification",
-        "state": "SELF_VERIFY_NOW",
-        "objective": "Verify normal mobile scrolling, one held object, ≤3 lawful moves, source-address handoff preservation, WITNESS/RETURN shape, source-back path, and completion/release semantics using state fixtures and browser smoke.",
-        "law": "Machine/browser proof owns functional correctness. Actual completion of a real-world action is WORLD evidence only and cannot be inferred from Dayline.",
-        "optional_human_evidence": [
-          "Can the page scroll normally and keep the held object obvious?",
-          "Are only the next one to three lawful moves visible without subsystem hunting?",
-          "Does crossing HOUSE / SHOPPING / COMMS preserve source identity and authority?",
-          "Does WITNESS + RETURN say what changed and where to go back?"
-        ]
-      },
       "version": "Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH"
     },
     {
