@@ -1,0 +1,32 @@
+{
+  "schema": "confluence/readfield-workflow/v0.1",
+  "date": "2026-09-25",
+  "status": "IMPLEMENTED_CANDIDATE",
+  "object": "READFIELD / RSVP 0.8.4 phone work experience + compatibility focus continuity",
+  "recovered_state": [
+    "READFIELD 0.8.3 already shipped six task modes and direct READ↔LOCI bounded focus handoff.",
+    "Current Fold/Bloom work had already moved to task-first mobile workflows; repeated user feedback now targets discoverability, practical use and re-entry rather than missing mechanism.",
+    "The /foundry/aperture/ compatibility redirect still translated an old APERTURE handoff without copying its focus packet, leaving one lawful restart path."
+  ],
+  "delta": [
+    "Expose FAST / REVIEW / PULSE / VOICE / LOCI / REPO as a compact always-visible hard-edge phone rail.",
+    "Show one live mode/focus line: selected job + current scale + source progress + WPM.",
+    "Move detailed explanations behind a secondary WHY / USE CASES fold and expand them around real jobs: reports/transcripts, code/contracts, cadence, proofreading/language, study memory, repo operations.",
+    "Persist selected work-mode intent in URL/local storage without auto-running speech/navigation or creating new state authority.",
+    "Preserve bounded focus through /foundry/aperture/ compatibility translation into readfield.handoff/v1.",
+    "Synchronize FIELD PULSE contract references to READFIELD 0.8.4."
+  ],
+  "boundaries": [
+    "No new reader engine, source store, session bus or dashboard.",
+    "Work mode is projection/pace/handoff intent only; source + cursor remain canonical in READFIELD.",
+    "PULSE remains optional timing context with authority NONE.",
+    "LOCI remains a derived addressed course; REPO remains ordinary addressed source reading."
+  ],
+  "proof": [
+    "Existing READFIELD route/focus/LOCI browser proofs remain required.",
+    "New phone-sized alias proof seeds WORD/index/WPM focus through /foundry/aperture/ and requires exact restoration in /docs/.",
+    "Static READFIELD smoke now requires 0.8.4 + workRail + workModeStatus."
+  ],
+  "gate": "Repository CI must pass; then ordinary phone use decides which jobs deserve persistent prominence.",
+  "return": "/returns/READFIELD_WORKFLOW_084_2026-09-25.json"
+}
