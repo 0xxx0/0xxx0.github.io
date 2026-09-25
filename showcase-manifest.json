@@ -1327,14 +1327,14 @@
     },
     {
       "href": "/docs/",
-      "title": "READFIELD / RSVP 0.8.3",
+      "title": "READFIELD / RSVP 0.8.4",
       "kind": "utility",
       "parent": "/",
       "state": "UTILITY",
       "showcase_card": true,
-      "role": "Canonical high-performance reader with one exact source position across FOCUS / MIN / PLAIN projections and six task-first work modes: FAST RSVP, REVIEW/FOCUS, PULSE ×4, VOICE+EYES, REMEMBER/LOCI and WORK/REPO. Bounded APERTURE handoff now carries source + exact focus so FULL READFIELD and READFIELD→LOCI do not silently restart the object. LISTEN/AUDIO or FIELD LAB/SYNTH may lend tempo only; text/cursor authority remains READFIELD.",
+      "role": "Canonical phone-first high-performance reader with one exact source position across FOCUS / MIN / PLAIN projections and six one-tap jobs: FAST, REVIEW, PULSE, VOICE, LOCI and REPO. 0.8.4 makes those jobs a compact always-visible work rail with live mode/focus status while moving longer explanations behind a secondary use-case fold. The /foundry/aperture/ compatibility doorway now preserves the same bounded focus packet instead of dropping it. FIELD PULSE remains optional tempo context only; source/cursor authority remains READFIELD.",
       "index": {
-        "updated_at": "2026-09-25T09:14:00+08:00",
+        "updated_at": "2026-09-25T12:13:00+08:00",
         "work_modes": [
           "READ",
           "INSPECT",
@@ -1355,10 +1355,12 @@
         "throttled highlighted context projection during high-speed play",
         "same-origin repo text ingress + session-local long-text/page paste",
         "RAW + RETURN preserved",
-        "bounded APERTURE handoff preserves source + scale/index/address/char position/source progress/WPM across explicit reader/LOCI transitions"
+        "bounded APERTURE handoff preserves source + scale/index/address/char position/source progress/WPM across explicit reader/LOCI transitions",
+        "compact phone work rail + live mode/focus witness without reloading the source",
+        "APERTURE compatibility alias preserves bounded focus into READFIELD"
       ],
       "operation": "READ",
-      "receipt": "/returns/READFIELD_WORK_MODES_2026-09-25.json",
+      "receipt": "/returns/READFIELD_WORKFLOW_084_2026-09-25.json",
       "contract": {
         "accepts": {
           "kinds": [
@@ -1380,7 +1382,7 @@
           ]
         },
         "transforms": {
-          "verb": "read one source through scale × position × time while preserving one canonical source position; choose task-first work modes; explicitly hand source + bounded focus into LOCI/reader transitions; optionally project rings, triangle center, LISTEN pulse and source glyph without transferring source authority",
+          "verb": "read one source through scale × position × time while preserving one canonical source position; choose task-first work modes from a compact phone rail; explicitly hand source + bounded focus through direct and compatibility reader/LOCI transitions; optionally project rings, triangle center, LISTEN pulse and source glyph without transferring source authority",
           "preserves": [
             "source bytes/text",
             "canonical source position",
@@ -1402,7 +1404,7 @@
           "human_readable": true
         },
         "evidence": {
-          "receipt": "/returns/READFIELD_FOCUS_LENS_080_2026-09-23.json",
+          "receipt": "/returns/READFIELD_WORKFLOW_084_2026-09-25.json",
           "checks": [
             "PLAIN retains hidden dial + throttled high-speed context contract",
             "FOCUS exposes ring + triangle without moving canonical source cursor",
@@ -1411,12 +1413,14 @@
             "72 structural markers are evenly sampled across long sources",
             "LISTEN pulse is projection-only; Atlas glyph handoff is witness-only",
             "route-wide READ handoff preserves RETURN",
-            "browser smoke"
+            "browser smoke",
+            "compact work rail remains visible on phone while longer use-case explanation can recede",
+            "/foundry/aperture/ compatibility handoff preserves WORD/index/WPM focus into READFIELD"
           ],
           "return_path": "/docs/"
         }
       },
-      "version": "0.8.3",
+      "version": "0.8.4",
       "tier": "FIELD"
     },
     {
