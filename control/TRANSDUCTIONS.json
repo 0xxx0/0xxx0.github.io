@@ -299,7 +299,9 @@
       {
         "id": "FOLD",
         "candidate_reading": "stateful adjacency exposed by physical or simulated folding",
-        "changes": "projection; topology only when explicitly declared"
+        "changes": "projection; topology only when explicitly declared",
+        "materialized_recipe": "/foundry/axial/fan8-print.svg",
+        "recipe_status": "PRINTABLE_CANDIDATE_PHYSICAL_VALUE_UNPROVED"
       },
       {
         "id": "ROOM",
@@ -375,7 +377,62 @@
       "GLYPH",
       "RSVP",
       "TABLE"
-    ]
+    ],
+    "physical_recipes": {
+      "FAN8": {
+        "state": "PRINTABLE_CANDIDATE_PHYSICAL_VALUE_UNPROVED",
+        "authority": "NONE",
+        "host": "/foundry/axial/",
+        "projection_cell": "FOLD",
+        "artifact": "/foundry/axial/fan8-print.svg",
+        "spec": "/foundry/axial/FAN8.md",
+        "sources": [
+          "/fold-bloom/live/play-core.js#RELATION_LEGEND",
+          "/foundry/axial/aperture.contract.json",
+          "/physical/print-01/field-route-tile-v0.1.svg"
+        ],
+        "reconstruction_boundary": "Six cyclic slots + HOLD + LET FLY is a 2026-09-25 convergence synthesis. Do not claim the remembered historical six-panel/key-shaped fan had these exact semantics until directly recovered.",
+        "leaves": [
+          "S0",
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5",
+          "HOLD",
+          "LET_FLY"
+        ],
+        "topologies": {
+          "STACK": "one held focus; alternatives compressed",
+          "FAN": "open only the locally reachable neighborhood; normally 1–3 moves for work",
+          "ANNULUS": "six-slot cyclic relation / Two Dial",
+          "WRAP": "phase/repetition/cylinder projection; IDENTIFY remains distinct from DEFORM/EMBED"
+        },
+        "mapping": {
+          "game": "current PLAY relation kernel owns SAME/NEAR/FAR/OPPOSITE → BLOOM/FOLD/RETURN/SPLIT; FAN8 only projects it physically",
+          "work": "held object → expose 1–3 lawful moves → HOLD → LET FLY once → WITNESS → RETURN",
+          "transaction": "HOLD corresponds to read/test/arm; LET_FLY corresponds to run/release followed by witness/RETURN"
+        },
+        "preservation": [
+          "native host retains object/state authority",
+          "fold/projection state alone grants no authority",
+          "physical and digital state may diverge until an explicit adapter exists; divergence must remain visible",
+          "RETURN records consequence/re-entry and is not UNDO"
+        ],
+        "physical_gate": {
+          "state": "NOT_ACTIVE",
+          "reason": "user is not building/using the specimen yet",
+          "proof": "one calibrated passive specimen + 12 two-slot relation reads + one ordinary HOLD→LET_FLY→WITNESS→RETURN cycle",
+          "forbid_before_pass": [
+            "camera pipeline",
+            "BLE",
+            "motors",
+            "actuation",
+            "FAN-specific app/store/bus"
+          ]
+        }
+      }
+    }
   },
   "artifact_fold": {
     "goal": "Reduce active sovereign artifacts without deleting evidence. Exact historical artifacts remain addressable; overlapping heads become aliases, host adapters or projection recipes when their unique semantics round-trip through the canonical instrument.",
@@ -420,7 +477,10 @@
           "RSVP temporal view",
           "Glyph Atlas/source glyph view"
         ],
-        "result": "Projection recipes are inventory cells, not sovereign applications."
+        "result": "Projection recipes are inventory cells, not sovereign applications. FAN/8 is the current passive FOLD materialization; physical value remains unproved.",
+        "materialized_recipes": [
+          "/foundry/axial/fan8-print.svg"
+        ]
       },
       {
         "family": "six-way radial/fold carrier",
