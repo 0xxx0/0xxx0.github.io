@@ -1,11 +1,11 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM FIELD LAB",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "state": "CANDIDATE",
   "operation": "TRAIN / EXPLORE",
   "route": "/fold-bloom/lab/",
-  "date": "2026-09-24",
+  "date": "2026-09-25",
   "thesis": "A convergence lab should reuse canonical engines and preserve one addressed source across unequal projections; it should not manufacture weaker copies of READFIELD, LIVE, or other heads merely to fill a mode ring.",
   "new": [
     "READ embeds the shared /field-aperture.js READFIELD/RSVP kernel at WORD scale",
@@ -26,7 +26,10 @@
     "PULSE exposes live CLOCK / BEAT / PHASE witnesses and explicit READ ×4 / RIDE / COMPOSE routes.",
     "FIELD LAB synthetic rhythm is now a lawful FIELD PULSE transport source consumed by READFIELD, LIVE and Two Dial.",
     "Phone PULSE handoffs are same-tab: they seed tempo/phase before navigation so READFIELD, LIVE or Two Dial can continue the explicit synthetic clock without requiring a background producer tab.",
-    "Phone PULSE handoffs are same-tab: tempo/phase is seeded before navigation so READFIELD, LIVE or Two Dial can continue the explicit synthetic clock without relying on a background producer tab."
+    "Phone PULSE handoffs are same-tab: tempo/phase is seeded before navigation so READFIELD, LIVE or Two Dial can continue the explicit synthetic clock without relying on a background producer tab.",
+    "APERTURE handoff packets may now carry bounded source focus (scale/index/address/char position/source progress/WPM) instead of source text alone",
+    "FULL READFIELD restores that bounded focus rather than silently restarting the source",
+    "READFIELD → LOCI accepts an explicit session handoff and initializes the addressed course at the nearest source-progress locus"
   ],
   "constraints": [
     "READFIELD/APERTURE remains reader authority; FIELD LAB owns no second segmentation/cursor/RSVP truth",
@@ -47,9 +50,10 @@
     "merge_sha": "f56505f2ebc9d2fdcb17ea03929375ae1b6c8f92",
     "coordination_cleanup_merge": "55e308432e79a5eaf376bdccf112973db01a36dc",
     "human_phone": "REQUIRED: ordinary RSVP/scale/regress + one long READ→LOCI carry against plain chunk baseline",
-    "pulse_routing": "PENDING_PR_CI: deterministic LISTEN + LAB clock allowlist test"
+    "pulse_routing": "PENDING_PR_CI: deterministic LISTEN + LAB clock allowlist test",
+    "focus_handoff_browser": "PENDING_CI: READFIELD route handoff → move cursor → CARRY LOCI → exact focus-restored witness"
   },
-  "return": "/returns/FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json",
-  "confluence": "/control/confluence/FOLD_BLOOM_FIELD_LAB_READFIELD_2026-09-24.json",
+  "return": "/returns/READFIELD_WORK_MODES_2026-09-25.json",
+  "confluence": "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
   "shipped": true
 }
