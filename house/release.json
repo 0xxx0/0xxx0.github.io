@@ -2,8 +2,8 @@
   "schema": "release-receipt/v1",
   "artifact": "HOUSE / FIELD",
   "route": "/house/",
-  "version": "0.5",
-  "released": "2026-09-21",
+  "version": "0.5.1",
+  "released": "2026-09-25",
   "state": "STABLE",
   "changes": [
     "Added BODY↔HOUSE same-origin local context bridge: HOUSE can display the latest browser-local BODY return without committing it.",
@@ -19,7 +19,8 @@
     "Corrected the earlier overly restrictive 2D-first wording: 3D is allowed whenever it preserves identity, provenance and uncertainty; unmeasured Z remains explicitly unknown.",
     "Drafted /house/confluence.json to coordinate HOUSE instance/substrate/state/runtime/projection layers without vocabulary collapse.",
     "Restored the shared bottom-left showcase route adapter to HOUSE and linked the Spatial State current head.",
-    "State refreshed from the live control plane; runtime table gained a verified backup row (HA backup manager, baseline present)."
+    "State refreshed from the live control plane; runtime table gained a verified backup row (HA backup manager, baseline present).",
+    "Clarified reality-task boundary: ordinary chores remain private Dayline/runtime tasks; HOUSE receives only durable physical/resource/state evidence, never personal chore lists or urgency."
   ],
   "checks": {
     "boundary": "public projection remains non-authoritative and non-actuating",
@@ -27,7 +28,8 @@
     "lineage": "/house/spatial-state.json",
     "source_snapshot": "/house/state.json",
     "body_bridge": "localStorage only; no server submission; no personal state committed",
-    "body_authority": "context != device truth or actuation"
+    "body_authority": "context != device truth or actuation",
+    "reality_task_boundary": "private chores/tasks do not become public HOUSE canon"
   },
   "sources": [
     "/showcase-manifest.json",
