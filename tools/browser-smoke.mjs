@@ -606,7 +606,40 @@ function foldBloomReplayScoreProbeHtml(){
   <\/script></body></html>`;
 }
 
+function foldBloomLiveMobileBehaviorProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/fold-bloom/live/?play=PUZZLE"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),out=document.getElementById('probeResult'),rec={};
+  const done=(ok,data)=>out.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data);
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=80)=>{for(let i=0;i<limit;i++){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('wait timeout')};
+  (async()=>{
+    try{
+      const w=f.contentWindow,d=()=>w.document;
+      await waitFor(()=>w.FoldBloomLive?.boot==='ready'&&w.FoldBloomPlay?.state?.()?.mode==='PUZZLE'&&d().documentElement.dataset.fbSurface==='active');
+      const doc=d(),html=doc.documentElement,body=doc.body,settings=doc.getElementById('settings'),menu=doc.getElementById('menuBtn'),dismiss=doc.getElementById('menuDismiss'),close=doc.getElementById('closeSettings'),still=doc.getElementById('fbStillView'),hex=doc.getElementById('fbHexPanel'),intro=doc.getElementById('intro'),vibe=doc.getElementById('vibeQuick');
+      rec.initial={mode:w.FoldBloomPlay.state().mode,instrument:html.dataset.fbInstrument,hexVisual:html.dataset.fbHexVisual,view:html.dataset.fbView,hexOn:hex?.classList.contains('on')||false,introOn:intro?.classList.contains('on')||false,introHidden:!!intro?.hidden};
+      menu.click();await waitFor(()=>settings.classList.contains('on')&&html.classList.contains('fbMenuOpen'));
+      const trance=doc.querySelector('[data-xp-preset="TRANCE"]'),cr=close.getBoundingClientRect(),top=doc.elementFromPoint(cr.left+cr.width/2,cr.top+cr.height/2);
+      rec.open={drawer:settings.classList.contains('on'),html:html.classList.contains('fbMenuOpen'),body:body.classList.contains('fbMenuOpen'),dismiss:getComputedStyle(dismiss).display,htmlTouch:getComputedStyle(html).touchAction,bodyTouch:getComputedStyle(body).touchAction,topId:top?.id||top?.closest?.('button')?.id||null,closeRect:[Math.round(cr.left),Math.round(cr.top),Math.round(cr.width),Math.round(cr.height)]};
+      trance.click();await waitFor(()=>w.FoldBloomLive.profile.name()==='TRANCE');rec.drawerControl=w.FoldBloomLive.profile.name();
+      dismiss.dispatchEvent(new w.PointerEvent('pointerdown',{bubbles:true,cancelable:true}));await waitFor(()=>!settings.classList.contains('on'));rec.backdropClosed=!html.classList.contains('fbMenuOpen')&&!body.classList.contains('fbMenuOpen');
+      menu.click();await waitFor(()=>settings.classList.contains('on'));w.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true,cancelable:true}));await waitFor(()=>!settings.classList.contains('on'));rec.escapeClosed=!html.classList.contains('fbMenuOpen');
+      menu.click();await waitFor(()=>settings.classList.contains('on'));close.click();await waitFor(()=>!settings.classList.contains('on'));rec.xClosed=!html.classList.contains('fbMenuOpen');
+      const vibeBefore=w.FoldBloomLive.profile.name();vibe.click();await waitFor(()=>w.FoldBloomLive.profile.name()!==vibeBefore);rec.vibe={before:vibeBefore,after:w.FoldBloomLive.profile.name(),label:vibe.textContent};
+      const viewBefore=html.dataset.fbView;still.click();await waitFor(()=>html.dataset.fbView!==viewBefore);const viewMid=html.dataset.fbView;still.click();await waitFor(()=>html.dataset.fbView===viewBefore);rec.still={before:viewBefore,mid:viewMid,after:html.dataset.fbView};
+      rec.overflow=Math.max(doc.documentElement.scrollWidth,doc.body?.scrollWidth||0)-doc.documentElement.clientWidth;
+      const pass=rec.initial.mode==='PUZZLE'&&rec.initial.instrument==='HEX'&&rec.initial.hexVisual==='two-rings'&&rec.initial.view==='ride'&&!rec.initial.introOn&&rec.initial.introHidden&&rec.open.drawer&&rec.open.html&&rec.open.body&&rec.open.dismiss!=='none'&&/pan-y/.test(rec.open.htmlTouch)&&/pan-y/.test(rec.open.bodyTouch)&&rec.open.topId==='closeSettings'&&rec.drawerControl==='TRANCE'&&rec.backdropClosed&&rec.escapeClosed&&rec.xClosed&&rec.vibe.before!==rec.vibe.after&&rec.still.before==='ride'&&rec.still.mid==='still'&&rec.still.after==='ride'&&rec.overflow<=1;
+      done(pass,rec);
+    }catch(e){done(false,{...rec,error:String(e?.stack||e)})}
+  })();
+  <\/script></body></html>`;
+}
+
 const server=http.createServer((req,res)=>{
+  if(String(req.url||'').startsWith('/__smoke/fold-bloom-live-mobile-behavior')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(foldBloomLiveMobileBehaviorProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/fold-bloom-replay-score')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(foldBloomReplayScoreProbeHtml());return;
@@ -1053,6 +1086,12 @@ const CASES=[
     route:'/fold-bloom/live/?play=PUZZLE',
     options:{width:430,height:900,budget:9000},
     check:dom=>dom.includes('data-fold-bloom-play="FOLD_BLOOM_PLAY_0.5.5"')&&dom.includes('data-fb-play-mode="PUZZLE"')&&dom.includes('data-fb-surface="active"')&&dom.includes('data-fb-hex-visual="two-rings"')&&dom.includes('data-fb-view="ride"')&&dom.includes('data-fb-primary-controls="clear"')&&!/id="intro"[^>]*class="panel on"/.test(dom)&&/△ TRIANGLE|○ CIRCLE|□ SQUARE/.test(dom)
+  },
+  {
+    name:'FOLD BLOOM LIVE mobile interaction regression',
+    route:'/__smoke/fold-bloom-live-mobile-behavior',
+    options:{width:460,height:980,budget:12000,timeout:18000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"instrument":"HEX"/.test(dom)&&/"hexVisual":"two-rings"/.test(dom)&&/"view":"ride"/.test(dom)&&/"drawerControl":"TRANCE"/.test(dom)&&/"topId":"closeSettings"/.test(dom)&&/"backdropClosed":true/.test(dom)&&/"escapeClosed":true/.test(dom)&&/"xClosed":true/.test(dom)&&/"mid":"still"/.test(dom)&&/"after":"ride"/.test(dom)&&/"overflow":0/.test(dom)
   },
   {
     name:'FOLD BLOOM LIVE Two Dial embodied mobile',
