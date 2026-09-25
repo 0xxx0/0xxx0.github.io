@@ -7,7 +7,7 @@ import {
 } from './play-core.js?v=0.5';
 import {stateDescriptor,stateChange,formatState,movingLines} from '../state-language.js?v=0.1';
 
-const VERSION='FOLD_BLOOM_PLAY_0.5.5';
+const VERSION='FOLD_BLOOM_PLAY_0.5.6';
 const VALID=new Set(['PLAY','PUZZLE','PATH','DUET','GARDEN','ZEN']);
 const ALIASES=new Map([['CONCERT','PLAY'],['RUN','PLAY'],['HEX','PUZZLE'],['YIJING','PUZZLE'],['ICHING','PUZZLE'],['PAR','PATH'],['TWO-DIAL','DUET'],['TWO_DIAL','DUET'],['ECOLOGY','GARDEN']]);
 const params=new URLSearchParams(location.search);
@@ -80,7 +80,10 @@ function injectStyle(){
     .fbGameBar{grid-template-columns:54px 1fr auto;min-height:50px}
     .fbGameMode{padding:0 6px;font-size:6px}.fbGameMission{padding:7px}.fbGameMission b{font-size:8px}.fbGameMission span{font-size:6px}
     .fbGameProgress{gap:2px;padding:3px}.fbGameProgress b{display:none}.fbGameProgress button{min-width:32px;height:32px;padding:0 3px;font-size:6px}
-    .fbHexPanel.on{display:none}
+    .fbHexPanel{top:max(112px,calc(env(safe-area-inset-top) + 108px));bottom:auto;width:calc(100vw - 16px);padding:6px;background:rgba(5,8,12,.78);backdrop-filter:blur(6px)}
+    .fbHexPanel.on{display:block}
+    .fbHexTitle{display:flex;justify-content:space-between;align-items:center;font-size:6px;line-height:1.2}.fbHexTitle b{font-size:8px}
+    .fbHexLines{gap:2px;margin:3px 0}.fbHexLine{padding:3px 1px;font-size:8px}.fbHexLine small{margin-top:2px;font-size:5px}.fbHexLegend{display:none}
     .fbDuetPanel{top:max(112px,calc(env(safe-area-inset-top) + 108px));bottom:auto;width:calc(100vw - 16px);grid-template-columns:1fr 1fr;padding:6px;background:rgba(5,8,12,.78);backdrop-filter:blur(6px)}
     .fbRelation{grid-column:1/-1;grid-row:1}.fbLegend{display:none}
     .fbKids{grid-template-columns:1fr}
