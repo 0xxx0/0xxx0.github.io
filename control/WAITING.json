@@ -118,6 +118,31 @@
         "/physical/print-01/field-route-tile-v0.1.svg",
         "/returns/PRINT_01_DIGITAL_FIXTURE_2026-09-25.json"
       ]
+    },
+    {
+      "id": "dayline-comms-native-return-phone-proof",
+      "route": "/port/comms/",
+      "human_move": "When a real source-addressed OPEN COMMS signal naturally matters on phone, carry it into Dayline, RUN / WITNESS / COMPLETE, RETURN TO SOURCE, then explicitly COVER / DEFER / KEEP OPEN / DISMISS in COMMS.",
+      "why": "PR #296 mechanically proves exact source SHA + signal id + message/range revalidation and OFFER_ONLY return plumbing. Only lived phone use can establish whether the round trip feels like continuity rather than duplicate bookkeeping.",
+      "unlocks": "KEEP / REVISE / DROP the native Dayline→COMMS source-return seam. A failure should narrow or remove the seam, not create another coordination layer.",
+      "dependency_kind": "ORDINARY_USE",
+      "proof_state": "AUTOMATED_GREEN / REAL_PHONE_ORDINARY_USE_REQUIRED",
+      "surface_state": "PARKED",
+      "parked_at": "2026-09-25",
+      "parked_reason": "Valid source-return candidate is not selected by CURRENT; COMMS transport/autoresponder expansion remains held.",
+      "reactivate_when": "CURRENT explicitly selects this proof or a real OPEN COMMS signal naturally needs Dayline execution.",
+      "evidence": [
+        "https://github.com/0xxx0/0xxx0.github.io/pull/296",
+        "head 4afaee96acd3a6e0260233da17906d7172a7846f",
+        "Route Registration 36132297349 PASS",
+        "public-surface-check 36132297391 PASS"
+      ],
+      "boundaries": [
+        "no send",
+        "no automatic COMMS mutation",
+        "no global bus/store",
+        "no fabricated lived proof"
+      ]
     }
   ],
   "capture_protocol": {
