@@ -1,0 +1,33 @@
+{
+  "schema": "return-receipt/v1",
+  "artifact": "SHOPPING ↔ HOUSE FIT BRIDGE",
+  "date": "2026-09-25",
+  "state": "SHIPPED_CANONICAL_ROOT",
+  "objective": "Turn a shopping candidate's physical envelope and ownership burden into an explicit measured-fit question at a HOUSE address without creating a new store, planner or authority.",
+  "source_heads": {
+    "shopping": "SHOPPING FIELD 0.3 / FI-SHOP-001",
+    "house": "HOUSE / FIELD 0.7.2",
+    "former_pr": 332
+  },
+  "delta": [
+    "Shopping candidate records may carry BODY/OPERATING W/D/H, mass, maintenance and dependency burden.",
+    "Shopping → HOUSE transports only a session-local house-shopping-fit/v0.1 projection.",
+    "Canonical /house/ asks for real available W/D/H at the currently selected address and screens the operating envelope, including optional 90-degree rotation.",
+    "RETURN lands on the exact Shopping item through /shopping/#<item-id>.",
+    "/house/spatial/ remains a compatibility redirect and is not revived."
+  ],
+  "authority": {
+    "shopping": "candidate identity, purchase lifecycle, cost, burden and adoption evidence",
+    "house": "spatial address and local fit measurement context",
+    "retained_boundary": "No handoff purchases, promotes ownership, mutates canonical HOUSE geometry or actuates HA/HOUSEBUS."
+  },
+  "residue": [
+    "Real phone/browser exercise remains useful.",
+    "Doorway/path, service hookups, ventilation, load, cat clearance and installation constraints remain outside the envelope screen.",
+    "Recovered-donor/current-instance geometry uncertainty remains unchanged; fit uses explicit user-measured zone W/D/H rather than deriving dimensions from donor geometry."
+  ],
+  "return_paths": [
+    "/shopping/",
+    "/house/"
+  ]
+}
