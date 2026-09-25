@@ -60,7 +60,11 @@
     "session-only local corpus file provider; corpus bytes are not uploaded, persisted or exported",
     "local corpus intent options: observed followers/context and approximate Latin-script sound echoes with explicit LOCAL CORPUS provenance",
     "bounded FIELD LAB VERSE handoff accepts exact source + focused line without importing LAB marks as poem semantics",
-    "phone controls use a 44px floor for the main authoring surface"
+    "phone controls use a 44px floor for the main authoring surface",
+    "source/focus carry → READFIELD through bounded session-local handoff; Poem Map remains text-authority",
+    "source/line-focus carry → FOLD//BLOOM FIELD LAB VERSE; LAB projection/marks remain unequal to poem authorship",
+    "lawful exact 4×7 Han carry → Verse Atlas study; inbound focus is projection-only and creates no path/claim",
+    "Verse Atlas fixture-specific regression tests are conditional so lawful imported sources do not inherit fixture-only assertions"
   ],
   "boundaries": [
     "Map is a projection, not the poem.",
@@ -78,7 +82,10 @@
     "Rendered-browser smoke of the post-rebase orientation/replay changes remains pending; static JS/DOM integrity is verified.",
     "Local corpus contents remain session-only; RETURN records only loaded/token-count metadata and adopted/banked candidate provenance.",
     "Local corpus context is observed co-occurrence, not automatic semantic equivalence.",
-    "FIELD LAB marks remain source evidence on handoff; Poem Map does not silently promote them into AUTHOR edges, locks, candidates or revisions."
+    "FIELD LAB marks remain source evidence on handoff; Poem Map does not silently promote them into AUTHOR edges, locks, candidates or revisions.",
+    "Cross-surface carry moves exact source/focus only; it does not copy recipient engines, inferred semantics, prosodic claims or authored paths.",
+    "Verse Atlas handoff is fail-closed: only exact four-line × seven-Han sources enter the specialist adapter.",
+    "Source-spine handoffs are session-local routing state, not durable poem truth; durable authority remains Poem Map RETURN / recipient RETURN."
   ],
   "next_experiments": [
     "extend the existing intent dock only where a named authoring gap appears; COMPRESS/EXPAND/BREAK remain unimplemented rather than implied",
@@ -93,7 +100,7 @@
     "state": "CANDIDATE",
     "basis": "Substantial workbench is implemented and usable, but receipt remains explicitly experimental with open language/corpus/game trials; historical status EXPERIMENTAL_LIVE remains above."
   },
-  "version": "0.2.2",
+  "version": "0.2.3",
   "state": "EXPERIMENTAL_LIVE",
   "lineage": {
     "proof_donor": "/poetry/lab/poem-map/",
@@ -124,13 +131,18 @@
     "calm_face_static_contract": "PASS",
     "inline_javascript_parse": "PASS",
     "field_lab_verse_handoff": "PENDING_CI: source + line focus boot contract",
-    "phone_touch_floor": "PENDING_CI: mobile CSS contract"
+    "phone_touch_floor": "PENDING_CI: mobile CSS contract",
+    "source_spine_static_contract": "PASS_PENDING_PR_CI",
+    "readfield_handoff_key": "readfield.handoff.v1",
+    "field_lab_verse_roundtrip": "PASS_STATIC_SOURCE_AND_LINE_FOCUS",
+    "verse_atlas_fail_closed_4x7_han": "PASS_STATIC",
+    "verse_atlas_inbound_focus_projection_only": "PASS_STATIC"
   },
   "updated": "2026-09-25",
   "next_bounded_test": {
-    "instruction": "Open fresh Poem Map. FIELD NOW should populate without opening drawers. Select one term in PAGE, use one wheel action, inspect bank/TRY→ADOPT only if useful, optionally open MAP, then EXPORT→IMPORT.",
-    "compare": "Poem Map 0.1 for approachability; 0.2.1 must preserve 0.2 capability without making first contact heavier than 0.1.",
-    "stop": "If first-use still requires understanding forms, relation weights or provider internals, treat that as failure and reduce disclosure—not capability."
+    "instruction": "Bind a real poem/fragment in Poem Map. Select one token. CARRY READ must reopen the exact text near that token; CARRY LAB must reopen VERSE at the containing line; STUDY 4×7 must block non-4×7-Han text and, for lawful 4×7 Han, open Verse Atlas STUDY with the selected cell outlined. Return to Poem Map and EXPORT→IMPORT.",
+    "compare": "The three carry operations must reduce re-entry cost without adding a new shared store, universal shell, semantic authority, or permanent control layer.",
+    "stop": "If any recipient mutates poem authorship, creates a path/claim from handoff focus, loses source identity, or requires understanding internal routing to use, stop and revert that seam."
   },
   "face": "CALM_FIELD_FIRST",
   "interface_contract": {
