@@ -233,6 +233,7 @@ const fan8Spec=read('foundry/axial/FAN8.md');
 const axialHtml=read('foundry/axial/index.html');
 const fbPlay=read('fold-bloom/live/play.js');
 check((fan8Svg.match(/data-fan8-leaf=/g)||[]).length===8,'FAN/8 printable must contain exactly eight leaves');
+check(fan8Svg.includes('CALIBRATION 100 mm')&&fan8Svg.includes('x1="310" y1="33" x2="410" y2="33"'),'FAN/8 lost exact 100 mm pre-cut calibration line');
 for(let i=0;i<8;i++)check(fan8Svg.includes(`data-code="${i}"`),`FAN/8 printable missing passive code ${i}`);
 check(fan8Svg.includes('Δ0 SAME→BLOOM')&&fan8Svg.includes('Δ1 NEAR→FOLD')&&fan8Svg.includes('Δ2 FAR→RETURN')&&fan8Svg.includes('Δ3 OPPOSITE→SPLIT'),'FAN/8 printable relation legend drifted from PLAY law');
 check(fan8Spec.includes('Six leaves are **cyclic slots 0–5**')&&fan8Spec.includes('HOLD')&&fan8Spec.includes('LET FLY'),'FAN/8 spec lost six-slot + transaction mapping');
