@@ -1,4 +1,4 @@
-const CACHE='fb-two-dial-v010';
+const CACHE='fb-two-dial-v0104';
 const CORE=['./','./index.html','./app.css','./core1.js','./core2.js','./audio1.js','./audio2.js','./app-runtime.js','./music-data.js','./manifest.webmanifest','./icon.svg'];
 self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(xs=>Promise.all(xs.filter(x=>x.startsWith('fb-two-dial-')&&x!==CACHE).map(x=>caches.delete(x)))).then(()=>self.clients.claim())));
