@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {
   createState, rotateSteps, release, canRelease, gateCellIndex, restore, snapshot,
   setMode, forecastAtSlot, forecastRelease, availableForecasts, selectCall,
-  forecastMatchesCall
+  forecastMatchesCall, typePresentation
 } from '../engine.js';
 
 function align(s){for(let i=0;i<12&&!canRelease(s);i++)s=rotateSteps(s,1);return s}
@@ -70,4 +70,16 @@ test('song timing grades score without changing topology',()=>{
  assert.equal(free.event.verb,perfect.event.verb);
  assert.deepEqual(free.event.path,perfect.event.path);
  assert.ok(perfect.event.flowGain>free.event.flowGain);
+});
+
+
+test('cell families expose mechanical labels while preserving legacy aliases',()=>{
+  assert.deepEqual(
+    [0,1,2].map(i=>typePresentation(i)),
+    [
+      {id:0,label:'TRIANGLE',glyph:'△',legacy:'EMBER',mechanic:'same-shape memory / anchor family',text:'△ TRIANGLE'},
+      {id:1,label:'CIRCLE',glyph:'○',legacy:'WATER',mechanic:'same-shape memory / anchor family',text:'○ CIRCLE'},
+      {id:2,label:'SQUARE',glyph:'□',legacy:'MOSS',mechanic:'same-shape memory / anchor family',text:'□ SQUARE'}
+    ]
+  );
 });

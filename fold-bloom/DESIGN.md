@@ -45,9 +45,11 @@ A remote source with no locally available map must remain SOURCE-only. LIVE must
 - **GLYPH / LENS / DATA** = projections/refractions, not identity.
 - **FIELD INDEX** = repository-wide control projection. FIELD LAB DATA is not FIELD INDEX.
 
-## Scene vocabulary
+## Scene + cell vocabulary
 
-DEEP / TRANCE / WOOD / VOID, and historical MOSS / EMBER / WATER, are presentation vocabulary only. They must not become source metadata, inferred mood truth, or FIELD INDEX categories.
+DEEP / TRANCE / WOOD / VOID are presentation-scene internals only. Primary UI may render them as DEPTH / PULSE / GRAIN / SPARSE. They must not become source metadata, inferred mood truth, or FIELD INDEX categories.
+
+EMBER / WATER / MOSS are **not scenes**. They are historical aliases for LIVE's three typed ring-cell memory families: type 0 = △ TRIANGLE, type 1 = ○ CIRCLE, type 2 = □ SQUARE. The type partitions cells and owns one anchor per family; same-family adjacency/creases determine cascade topology. The historical words carry no additional elemental, emotional or metaphysical semantics.
 
 ## Continuity compiler
 
@@ -62,6 +64,41 @@ SUBSTANCE GENERATES FORM.
 For each visible control: what object is manipulated, what stable address remains, what relation becomes visible, what operation occurs, what sensory witness proves consequence, what is evidence versus preference, and how does the user RETURN?
 
 Prefer contextual controls, direct manipulation, stable spatial memory, receding chrome and consequence-driven delight.
+
+### Mobile control law
+
+PRIMARY CONTROLS ARE SACRED.
+
+- The bottom MODE / RELEASE / WORLD controls must remain visible and hit-testable whenever LIVE is operable.
+- Transient feedback, coaching, result surfaces and projection chrome may not intercept pointer events outside their actual actionable controls.
+- A detailed projection may disappear on phone when the central instrument already carries the same state. Duplicate explanation is lower priority than touch access.
+- Result/choice states should become bounded sheets or cards rather than full-screen click shields unless the underlying action is genuinely unsafe to continue.
+- Shipping CSS/JS changes requires an explicit cache boundary when stale assets could preserve an occlusion bug.
+
+### Scene vocabulary law
+
+WORLD names are **presentation presets only**, never source identity, inferred mood, semantic state or game authority.
+
+Primary UI vocabulary is intentionally plain:
+
+- **DEPTH** = internal DEEP preset: balanced depth / blue-orange / grounded pulse.
+- **PULSE** = internal TRANCE preset: brighter faster pulse / laser geometry.
+- **GRAIN** = internal WOOD preset: warmer slower grain / more swing.
+- **SPARSE** = internal VOID preset: slow sparse field / stronger drone.
+
+This scene vocabulary is separate from LIVE cell-family identity.
+
+### Cell-family vocabulary law
+
+Primary UI names the three LIVE topology families by what the user can actually see: **△ TRIANGLE / ○ CIRCLE / □ SQUARE**. Old receipts may retain **EMBER / WATER / MOSS** as stable historical aliases for types 0/1/2.
+
+A cell-family name means only:
+- which ring cells count as the same type,
+- which previous anchor belongs to that type,
+- which same-type path can cascade through adjacency and creases,
+- and therefore which BLOOM / FOLD / SPLIT / RETURN consequence is forecast.
+
+Do not invent elemental semantics for the historical aliases.
 
 ## Delight law
 

@@ -1,4 +1,4 @@
-import { availableForecasts, forecastMatchesCall, gateCellIndex, TYPE_NAMES, N, rotateSteps, release as simulateRelease } from './engine.js?v=0.13';
+import { availableForecasts, forecastMatchesCall, gateCellIndex, typePresentation, N, rotateSteps, release as simulateRelease } from './engine.js?v=0.13.1';
 import {
   RUN_LENGTH,RUN_WIN_HITS,PUZZLE_ROUNDS,PUZZLE_WIN_STARS,DUET_ROUNDS,DUET_WIN_HITS,
   GARDEN_GENERATIONS,GARDEN_MOVES,GARDEN_SURVIVAL_TARGET,GARDEN_TRAITS,HEX_LINES,HEX_CHANGE_TARGET,HEX_CHANGE_LIMIT,
@@ -7,7 +7,7 @@ import {
 } from './play-core.js?v=0.5';
 import {stateDescriptor,stateChange,formatState,movingLines} from '../state-language.js?v=0.1';
 
-const VERSION='FOLD_BLOOM_PLAY_0.5';
+const VERSION='FOLD_BLOOM_PLAY_0.5.2';
 const VALID=new Set(['PLAY','PUZZLE','PATH','DUET','GARDEN','ZEN']);
 const ALIASES=new Map([['CONCERT','PLAY'],['RUN','PLAY'],['HEX','PUZZLE'],['YIJING','PUZZLE'],['ICHING','PUZZLE'],['PAR','PATH'],['TWO-DIAL','DUET'],['TWO_DIAL','DUET'],['ECOLOGY','GARDEN']]);
 const params=new URLSearchParams(location.search);
@@ -22,6 +22,17 @@ let gardenChoice=null,gardenGeneration=1,gardenEvents=[],gardenTrait=null,garden
 let feedbackTimer=null;
 const q=s=>document.querySelector(s);
 const callText=call=>!call?'OPEN':call.verb+(call.chain>1?' ×'+call.chain+'+':'');
+function markPrimaryControls(){
+  const ids=['modeBtn','releaseBtn','sceneBtn'];
+  const clear=ids.every(id=>{
+    const el=document.getElementById(id);if(!el)return false;
+    const r=el.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,top=document.elementFromPoint(x,y);
+    return top===el||el.contains(top);
+  });
+  document.documentElement.dataset.fbPrimaryControls=clear?'clear':'occluded';
+  return clear;
+}
+function schedulePrimaryControlCheck(){requestAnimationFrame(()=>requestAnimationFrame(markPrimaryControls))}
 
 function parFor(state){
   if(!state?.call)return 0;
@@ -38,23 +49,42 @@ function injectStyle(){
   .fbPlayEntry .law{font-size:9px;line-height:1.55;letter-spacing:.07em;color:#dce3ea;margin-bottom:10px}.fbPlayEntry .law b{color:#fff}
   .fbPlayEntry .modes{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.fbPlayEntry button{min-height:48px;padding:9px 10px;font-size:8px;font-weight:1000;letter-spacing:.08em}
   .fbPlayEntry button[data-play-mode="PLAY"]{background:#fff;color:#05070b;border-color:#fff}
-  .fbGame{position:absolute;left:50%;top:max(58px,calc(env(safe-area-inset-top) + 54px));transform:translateX(-50%);z-index:6;width:min(680px,calc(100vw - 20px));pointer-events:auto;display:none}.fbGame.on{display:block}
+  .fbGame{position:absolute;left:50%;top:max(58px,calc(env(safe-area-inset-top) + 54px));transform:translateX(-50%);z-index:6;width:min(680px,calc(100vw - 20px));pointer-events:none;display:none}.fbGame.on{display:block}
   .fbGameBar{border:1px solid rgba(255,255,255,.16);background:rgba(5,8,12,.9);backdrop-filter:blur(10px);display:grid;grid-template-columns:auto 1fr auto;align-items:stretch;min-height:50px}
   .fbGameMode{display:flex;align-items:center;padding:0 10px;border-right:1px solid rgba(255,255,255,.12);font-size:7px;font-weight:1000;letter-spacing:.13em;color:#fff}
   .fbGameMission{min-width:0;padding:7px 10px}.fbGameMission b{display:block;font-size:10px;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.fbGameMission span{display:block;margin-top:3px;font-size:7px;letter-spacing:.08em;color:rgba(255,255,255,.58);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .fbGameProgress{display:flex;align-items:center;gap:4px;padding:5px;border-left:1px solid rgba(255,255,255,.12);overflow-x:auto}.fbGameProgress b{font-size:8px;min-width:60px;text-align:center}.fbGameProgress button{min-width:36px;height:34px;padding:0 5px;font-size:6.5px;font-weight:1000}.fbGameProgress button.on{background:#fff;color:#05070b;border-color:#fff}
+  .fbGameProgress{display:flex;align-items:center;gap:4px;padding:5px;border-left:1px solid rgba(255,255,255,.12);overflow-x:auto}.fbGameProgress b{font-size:8px;min-width:60px;text-align:center}.fbGameProgress button{min-width:36px;height:34px;padding:0 5px;font-size:6.5px;font-weight:1000;pointer-events:auto}.fbGameProgress button.on{background:#fff;color:#05070b;border-color:#fff}
   .fbGameFeedback{margin-top:5px;border:1px solid transparent;background:rgba(5,8,12,.88);font:800 8px/1.35 ui-monospace,monospace;letter-spacing:.08em;text-align:center;padding:0 8px;max-height:0;opacity:0;overflow:hidden;transition:max-height .12s ease,opacity .12s ease,padding .12s ease}.fbGameFeedback.on{max-height:34px;opacity:1;padding:7px 8px;border-color:rgba(255,255,255,.13)}.fbGameFeedback[data-kind="hit"]{background:rgba(255,255,255,.94);color:#05070b}.fbGameFeedback[data-kind="miss"]{color:rgba(255,255,255,.72)}
-  .fbDuetPanel,.fbHexPanel{position:absolute;left:50%;bottom:max(10px,env(safe-area-inset-bottom));transform:translateX(-50%);z-index:7;width:min(620px,calc(100vw - 20px));border:1px solid rgba(255,255,255,.16);background:rgba(5,8,12,.93);padding:9px;display:none;gap:8px;align-items:center;text-align:center;pointer-events:auto}.fbDuetPanel{grid-template-columns:1fr auto 1fr}.fbDuetPanel.on{display:grid}.fbHexPanel.on{display:block}
+  .fbDuetPanel,.fbHexPanel{position:absolute;left:50%;bottom:calc(max(10px,env(safe-area-inset-bottom)) + 72px);transform:translateX(-50%);z-index:7;width:min(620px,calc(100vw - 20px));border:1px solid rgba(255,255,255,.16);background:rgba(5,8,12,.93);padding:9px;display:none;gap:8px;align-items:center;text-align:center;pointer-events:none}.fbDuetPanel{grid-template-columns:1fr auto 1fr}.fbDuetPanel.on{display:grid}.fbHexPanel.on{display:block}
   .fbHexTitle{font:800 8px/1.4 ui-monospace,monospace;letter-spacing:.09em}.fbHexTitle b{font-size:12px}.fbHexLines{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin:8px 0}.fbHexLine{border:1px solid rgba(255,255,255,.11);padding:6px 2px;font:900 11px/1 ui-monospace,monospace}.fbHexLine small{display:block;margin-top:4px;font-size:6px;color:rgba(255,255,255,.45)}.fbHexNow .fbHexLine.hit{background:#fff;color:#05070b}.fbHexLegend{font:7px/1.45 ui-monospace,monospace;letter-spacing:.06em;color:rgba(255,255,255,.48)}
-  .fbDialBox{border:1px solid rgba(255,255,255,.12);padding:7px;font:700 8px/1.3 ui-monospace,monospace;letter-spacing:.08em}.fbDialBox b{display:block;font-size:18px;margin-top:3px}.fbDialCtl{display:flex;gap:4px;justify-content:center;margin-top:5px}.fbDialCtl button{width:44px;height:34px;font-size:16px;font-weight:900}
+  .fbDialBox{border:1px solid rgba(255,255,255,.12);padding:7px;font:700 8px/1.3 ui-monospace,monospace;letter-spacing:.08em}.fbDialBox b{display:block;font-size:18px;margin-top:3px}.fbDialCtl{display:flex;gap:4px;justify-content:center;margin-top:5px}.fbDialCtl button{width:44px;height:34px;font-size:16px;font-weight:900;pointer-events:auto}
   .fbRelation{min-width:150px;font:800 8px/1.35 ui-monospace,monospace;letter-spacing:.08em}.fbRelation b{display:block;font-size:14px;margin:3px 0}.fbLegend{grid-column:1/-1;font:7px/1.4 ui-monospace,monospace;letter-spacing:.07em;color:rgba(255,255,255,.5)}
-  .fbResult,.fbGardenChoice{position:absolute;inset:0;z-index:12;background:rgba(3,5,8,.91);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:18px;pointer-events:auto}.fbResult.on,.fbGardenChoice.on{display:flex}
-  .fbResultCard,.fbGardenCard{width:min(560px,100%);border:1px solid rgba(255,255,255,.18);background:#080c12;padding:18px}.fbResultCard .ey,.fbGardenCard .ey{font-size:8px;color:#74808d;letter-spacing:.16em}.fbResultCard h2,.fbGardenCard h2{font-size:clamp(34px,10vw,68px);line-height:.9;letter-spacing:-.055em;margin:8px 0 12px}.fbResultCard p,.fbGardenCard p{font:10px/1.55 system-ui,-apple-system,sans-serif;color:#aab5c1;margin:0 0 14px}
+  .fbResult,.fbGardenChoice{position:absolute;inset:0;z-index:12;background:rgba(3,5,8,.76);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:18px;pointer-events:none}.fbResult.on,.fbGardenChoice.on{display:flex}
+  .fbResultCard,.fbGardenCard{width:min(560px,100%);border:1px solid rgba(255,255,255,.18);background:#080c12;padding:18px;pointer-events:auto}.fbResultCard .ey,.fbGardenCard .ey{font-size:8px;color:#74808d;letter-spacing:.16em}.fbResultCard h2,.fbGardenCard h2{font-size:clamp(34px,10vw,68px);line-height:.9;letter-spacing:-.055em;margin:8px 0 12px}.fbResultCard p,.fbGardenCard p{font:10px/1.55 system-ui,-apple-system,sans-serif;color:#aab5c1;margin:0 0 14px}
   .fbResultCard .row{display:flex;gap:6px;flex-wrap:wrap}.fbResultCard button,.fbGardenCard button{min-height:46px;font-size:8px;font-weight:1000;letter-spacing:.08em}.fbResultCard button.primary{background:#fff;color:#05070b;border-color:#fff}
   .fbKids{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.fbKids button{padding:10px 8px;text-align:left}.fbKids button b{display:block;font-size:10px;margin-bottom:5px}.fbKids button span{display:block;font:7px/1.45 system-ui,sans-serif;color:rgba(255,255,255,.58)}
   html[data-fb-play-mode="ZEN"] .callpill,html[data-fb-play-mode="ZEN"] .diag{display:none!important}
   @media(max-width:720px){.fbPlayEntry .modes{grid-template-columns:1fr 1fr}.fbPlayEntry button[data-play-mode="PLAY"]{grid-column:1/-1}}
-  @media(max-width:620px){.fbGame{top:max(54px,calc(env(safe-area-inset-top) + 50px));width:calc(100vw - 16px)}.fbGameBar{grid-template-columns:54px 1fr auto;min-height:50px}.fbGameMode{padding:0 6px;font-size:6px}.fbGameMission{padding:7px}.fbGameMission b{font-size:8px}.fbGameMission span{font-size:6px}.fbGameProgress{gap:2px;padding:3px}.fbGameProgress b{display:none}.fbGameProgress button{min-width:32px;height:32px;padding:0 3px;font-size:6px}.fbDuetPanel,.fbHexPanel{width:calc(100vw - 16px)}.fbDuetPanel{grid-template-columns:1fr 1fr}.fbRelation{grid-column:1/-1;grid-row:1}.fbLegend{font-size:6px}.fbKids{grid-template-columns:1fr}.fbResultCard,.fbGardenCard{max-height:calc(100vh - 28px);overflow:auto}}
+  @media(max-width:620px){
+    .fbGame{top:max(54px,calc(env(safe-area-inset-top) + 50px));width:calc(100vw - 16px)}
+    .fbGameBar{grid-template-columns:54px 1fr auto;min-height:50px}
+    .fbGameMode{padding:0 6px;font-size:6px}.fbGameMission{padding:7px}.fbGameMission b{font-size:8px}.fbGameMission span{font-size:6px}
+    .fbGameProgress{gap:2px;padding:3px}.fbGameProgress b{display:none}.fbGameProgress button{min-width:32px;height:32px;padding:0 3px;font-size:6px}
+    .fbHexPanel.on{display:none}
+    .fbDuetPanel{top:max(112px,calc(env(safe-area-inset-top) + 108px));bottom:auto;width:calc(100vw - 16px);grid-template-columns:1fr 1fr;padding:6px;background:rgba(5,8,12,.78);backdrop-filter:blur(6px)}
+    .fbRelation{grid-column:1/-1;grid-row:1}.fbLegend{display:none}
+    .fbKids{grid-template-columns:1fr}
+    .fbResult,.fbGardenChoice{inset:auto 8px calc(max(8px,env(safe-area-inset-bottom)) + 64px) 8px;background:transparent;backdrop-filter:none;padding:0;align-items:flex-end}
+    .fbResultCard,.fbGardenCard{max-height:min(46dvh,390px);overflow:auto;padding:12px;background:rgba(8,12,18,.96)}
+    .fbResultCard h2,.fbGardenCard h2{font-size:clamp(28px,9vw,46px)}
+    #intro .ey,#intro h1,#intro .lede,#intro .keys,#intro .startRow,#intro .introMore{display:none}
+    #intro .card{width:calc(100vw - 16px);max-height:none;overflow:visible;padding:8px;background:rgba(8,12,18,.94)}
+    .fbPlayEntry{margin:0;padding:8px}
+    .fbPlayEntry .modes{grid-template-columns:1fr 1fr;gap:5px}
+    .fbPlayEntry .modes button{min-height:52px}
+    .fbPlayEntry .law{margin:8px 2px 0;font-size:8px;line-height:1.45}
+    .fbFanLink{display:none}
+  }
   `;document.head.appendChild(style);
 }
 
@@ -67,7 +97,7 @@ function injectEntry(){
   const card=q('#intro .card');if(!card||q('#fbPlayEntry'))return;
   const lede=card.querySelector('.lede');if(lede)lede.textContent='Music shapes the road. You write it. Turn until the center predicts the CALL — BLOOM, FOLD, SPLIT or RETURN — then release.';
   const box=document.createElement('div');box.id='fbPlayEntry';box.className='fbPlayEntry';
-  box.innerHTML='<div class="law"><b>ONE MOVE:</b> TURN → PREDICT → MATCH CALL → RELEASE.<br><b>WIN A RUN:</b> hit 6 of 8 calls. Every release changes the road, even a miss.<br><span style="color:rgba(255,255,255,.48)">ROAD: measured BEAT / PHRASE / SECTION terrain; your releases deform it.<br>PUZZLE = FORM → CHANGE: build six lines, then alter the state · PATH = shortest turns · TWO DIAL = relations · ECOLOGY = inheritance.</span><br><a href="../../foundry/axial/fan8-print.svg" target="_blank" rel="noopener" style="display:inline-block;margin-top:7px;color:#dce3ea;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28)">FAN/8 · PRINT PHYSICAL CONTROLLER ↗</a></div><div class="modes"><button data-play-mode="PLAY">RUN · HIT 6 / 8</button><button data-play-mode="PUZZLE">HEX · FORM → CHANGE</button><button data-play-mode="PATH">PATH · SHORTEST TURNS</button><button data-play-mode="DUET">TWO DIAL · RELATIONS</button><button data-play-mode="GARDEN">ECOLOGY · INHERIT</button><button data-play-mode="ZEN">ZEN · FREE</button></div>';
+  box.innerHTML='<div class="modes"><button data-play-mode="PLAY">RUN · HIT 6 / 8</button><button data-play-mode="PUZZLE">HEX · FORM → CHANGE</button><button data-play-mode="PATH">PATH · SHORTEST TURNS</button><button data-play-mode="DUET">TWO DIAL · RELATIONS</button><button data-play-mode="GARDEN">ECOLOGY · INHERIT</button><button data-play-mode="ZEN">ZEN · FREE</button></div><div class="law"><b>TURN → MATCH SHAPE → RELEASE.</b> △ TRIANGLE / ○ CIRCLE / □ SQUARE each remember their own last anchor. Same-shape links and cascades make BLOOM / FOLD / SPLIT / RETURN. <a class="fbFanLink" href="../../foundry/axial/fan8-print.svg" target="_blank" rel="noopener" style="color:#dce3ea;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28)">FAN/8 PRINT ↗</a></div>';
   card.insertBefore(box,card.querySelector('.startRow')||null);
   box.querySelectorAll('[data-play-mode]').forEach(btn=>btn.addEventListener('click',()=>enterFromIntro(btn.dataset.playMode)));
   const fieldBtn=q('#playBtn');
@@ -125,7 +155,7 @@ function resetModeState(){
   gardenGeneration=1;gardenEvents=[];gardenTrait=null;gardenSurvived=0;gardenLineage=[];gardenLastResult=null;gardenChoice?.classList.remove('on');
 }
 function start(nextMode='PLAY'){
-  mode=VALID.has(nextMode)?nextMode:'PLAY';runtime?.autopilot?.stop?.();q('#intro')?.classList.remove('on');result?.classList.remove('on');document.documentElement.dataset.fbPlayMode=mode;resetModeState();
+  mode=VALID.has(nextMode)?nextMode:'PLAY';runtime?.autopilot?.stop?.();const intro=q('#intro');if(intro){intro.classList.remove('on');intro.hidden=true;}result?.classList.remove('on');document.documentElement.dataset.fbPlayMode=mode;document.documentElement.dataset.fbSurface='active';resetModeState();
   const state=runtime.state();lastRotation=state.rotation;lastEventId=state.history?.at(-1)?.id??null;par=parFor(state);if(mode==='PUZZLE')hexPlan=makeHexPlan(state);root.classList.add('on');duetPanel.classList.toggle('on',mode==='DUET');hexPanel.classList.toggle('on',mode==='PUZZLE');renderHexPanel();update(state);
 }
 function finish(state){
@@ -142,13 +172,13 @@ function finish(state){
   else if(mode==='DUET'){const out=duetOutcome(duetHits,releases);q('#fbResultEy').textContent=(out.clear?'DUET CLEAR':'DUET RETURN')+' · WIN '+DUET_WIN_HITS+'/'+DUET_ROUNDS;q('#fbResultBig').textContent=out.label;q('#fbResultBody').textContent=duetHits+' / '+DUET_ROUNDS+' synchronized CALLs. The road chose a consequence; the second dial had to name the same relation before release.';}
   else if(mode==='GARDEN'){const out=gardenOutcome(gardenSurvived,GARDEN_SURVIVAL_TARGET);q('#fbResultEy').textContent=(out.clear?'GARDEN CLEAR':'GARDEN RETURN')+' · WIN '+GARDEN_SURVIVAL_TARGET+'/'+GARDEN_SURVIVAL_TARGET+' TRAITS';q('#fbResultBig').textContent=out.label;q('#fbResultBody').textContent=gardenSurvived+' / '+GARDEN_SURVIVAL_TARGET+' inherited pressures survived · lineage '+(gardenLineage.join(' → ')||'ROOT')+'. Each four-move generation changed what the next one had to preserve.';}
   else{q('#fbResultEy').textContent='RETURN';q('#fbResultBig').textContent='OPEN';q('#fbResultBody').textContent='The field remains live.';}
-  result.classList.add('on');
+  result.classList.add('on');schedulePrimaryControlCheck();
 }
 function showGardenChoice(){
   const s=gardenSummary(gardenEvents),inherited=gardenTrait?(gardenLastResult?'SURVIVED':'DID NOT SURVIVE'):'ROOT OBSERVED';
   q('#fbGardenEy').textContent='GEN '+gardenGeneration+' RETURN · '+inherited;
   q('#fbGardenBody').textContent='Parent: '+s.hits+'/4 CALLs · best chain '+s.best+'× · '+s.structural+' structural ops. Choose one trait-family to become the next generation’s pressure. This is Ecology: selection changes what must persist.';
-  active=false;gardenChoice.classList.add('on');
+  active=false;gardenChoice.classList.add('on');schedulePrimaryControlCheck();
 }
 function chooseGardenTrait(trait){
   if(!GARDEN_TRAITS[trait])return;gardenLineage.push(trait);gardenTrait=trait;gardenGeneration+=1;gardenEvents=[];gardenLastResult=null;gardenChoice.classList.remove('on');active=true;update(runtime.state());
@@ -195,7 +225,7 @@ function onRelease(event,state){
 function normalCoach(state,forecast,hitReady){
   if(hitReady)return 'HIT READY · RELEASE '+forecast.verb;
   if(forecast)return 'HERE '+forecast.verb+(forecast.chain>1?' ×'+forecast.chain:'')+' · KEEP TURNING FOR GOAL '+callText(state.call);
-  return 'TURN · FIND '+(TYPE_NAMES[state.targetType]||'')+' · CENTER BUTTON WAKES ON A MATCH';
+  return 'TURN · FIND '+typePresentation(state.targetType).text+' · SAME SHAPE FAMILY WAKES THE CENTER';
 }
 function updateDuet(state,forecast,hitReady){
   const a=wrap(state.rotation,6),rel=relationVerb(a,duetB,6),name=relationName(a,duetB,6),agrees=!!forecast&&rel===forecast.verb;
@@ -236,6 +266,7 @@ function projectionView(state,forecast){
 function update(state){
   if(!active||!root)return;const forecast=runtime.forecast?.(),call=state.call,aligned=!!forecast,hitReady=aligned&&forecastMatchesCall(call,forecast);runtime?.gameProjection?.set?.(projectionView(state,forecast));
   q('#fbMode').textContent=mode==='PLAY'?'RUN':mode==='PUZZLE'?'HEX':mode==='PATH'?'PAR':mode;root.querySelectorAll('[data-switch]').forEach(btn=>btn.classList.toggle('on',btn.dataset.switch===mode));duetPanel.classList.toggle('on',mode==='DUET');hexPanel.classList.toggle('on',mode==='PUZZLE');
+  schedulePrimaryControlCheck();
   if(mode==='ZEN'){q('#fbObjective').textContent='FREE RIDE';q('#fbCoach').textContent=aligned?'RELEASE '+forecast.verb+' · OR KEEP TURNING':'TURN · FEEL THE FIELD · RELEASE WHEN IT WAKES';q('#fbProgress').textContent='OPEN';return;}
   if(mode==='PUZZLE'){updateHex(state,forecast);return;}if(mode==='DUET'){updateDuet(state,forecast,hitReady);return;}if(mode==='GARDEN'){updateGarden(state,forecast,hitReady);return;}
   q('#fbObjective').textContent='GOAL '+callText(call);q('#fbCoach').textContent=normalCoach(state,forecast,hitReady);q('#fbProgress').textContent=mode==='PATH'?(releases+1)+'/'+PUZZLE_ROUNDS+' · '+stars+'★/'+PUZZLE_WIN_STARS+' · PAR '+par+' · '+turns+'T':releases+'/'+RUN_LENGTH+' · '+hits+'/'+RUN_WIN_HITS+' HIT';
@@ -261,6 +292,6 @@ function exportPlayReturn(){
 }
 function openDonor(){if(mode==='DUET')window.open('../two-dial/','fold-bloom-two-dial');else if(mode==='GARDEN')window.open('../ecology/','fold-bloom-ecology');}
 function boot(){
-  runtime=window.FoldBloomLive;if(!runtime){setTimeout(boot,80);return;}injectStyle();injectEntry();injectHud();document.documentElement.dataset.foldBloomPlay=VERSION;if(VALID.has(requested))setTimeout(()=>start(requested),120);setInterval(poll,120);window.FoldBloomPlay={version:VERSION,start,state:playState,relation:(a,b)=>({name:relationName(a,b,6),verb:relationVerb(a,b,6)})};
+  runtime=window.FoldBloomLive;if(!runtime){setTimeout(boot,80);return;}injectStyle();injectEntry();injectHud();document.documentElement.dataset.foldBloomPlay=VERSION;if(VALID.has(requested))start(requested);else schedulePrimaryControlCheck();setInterval(poll,120);window.FoldBloomPlay={version:VERSION,start,state:playState,relation:(a,b)=>({name:relationName(a,b,6),verb:relationVerb(a,b,6)})};
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();

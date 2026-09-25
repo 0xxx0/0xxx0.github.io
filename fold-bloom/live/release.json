@@ -338,8 +338,8 @@
   ],
   "restore_return": "/returns/FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json",
   "play_shell": {
-    "version": "0.5",
-    "state": "SHIPPED",
+    "version": "0.5.2",
+    "state": "ACTIVE_CANDIDATE",
     "law": "FORM H[A] → address line with ring → release writes consequence bit → Δ emerges → H[B]",
     "quickstart_aliases": {
       "CONCERT": "PLAY",
@@ -405,7 +405,43 @@
         "ZEN": "no added game overlay"
       },
       "authority": "renderer projection only; LIVE engine remains gameplay/source-state authority"
+    },
+    "mobile_interaction": {
+      "law": "PRIMARY CONTROLS ARE SACRED",
+      "fixes": [
+        "MODE / RELEASE / WORLD bottom bar is z-indexed above transient play projections.",
+        "Game HUD shell is pointer-transparent except actual mode buttons.",
+        "HEX detail panel is hidden on phone because the central ring already carries HEX state.",
+        "DUET detail panel moves above the action bar; only its +/- controls capture touches.",
+        "RESULT and ECOLOGY choice backdrops are pointer-transparent; actionable cards alone capture touches.",
+        "On phone, result/choice cards are bounded sheets above the bottom action bar.",
+        "Any explicit ?play= mode synchronously removes and hides the onboarding panel before active play.",
+        "Runtime publishes data-fb-primary-controls=clear|occluded using elementFromPoint over MODE/RELEASE/WORLD."
+      ],
+      "cache_boundary": "index pins app.css?v=0.13.2, app.js?v=0.13.3 and play.js?v=0.5.2; app pins render.js?v=0.13.2; app/render/play pin engine.js?v=0.13.1; renderer pins visual-worlds.js?v=0.3."
+    },
+    "scene_vocabulary": {
+      "authority": "presentation only",
+      "primary": {
+        "DEPTH": "internal DEEP · balanced depth / blue-orange / grounded pulse",
+        "PULSE": "internal TRANCE · brighter faster pulse / laser geometry",
+        "GRAIN": "internal WOOD · warmer slower grain / more swing",
+        "SPARSE": "internal VOID · slow sparse field / stronger drone"
+      }
+    },
+    "cell_families": {
+      "authority": "LIVE topology partition only",
+      "primary": {
+        "TRIANGLE": "type 0 · △ · old receipts: EMBER",
+        "CIRCLE": "type 1 · ○ · old receipts: WATER",
+        "SQUARE": "type 2 · □ · old receipts: MOSS"
+      },
+      "law": "The family determines which cells share an anchor and same-type cascade path. BLOOM/FOLD/SPLIT/RETURN follows resulting topology; the historical aliases carry no extra elemental meaning."
+    },
+    "screenshot_gate": {
+      "observed": "Phone screenshot showed active ring underneath the still-open onboarding slab, plus TARGET MOSS / GATE EMBER with no explanation.",
+      "correction": "Active play now hides onboarding synchronously; primary target/gate copy uses △ TRIANGLE / ○ CIRCLE / □ SQUARE."
     }
   },
-  "play_return": "/returns/FOLD_BLOOM_PLAY_05_RING_CHANGE_2026-09-25.json"
+  "play_return": "/returns/FOLD_BLOOM_MOBILE_CRAFT_051_2026-09-25.json"
 }
