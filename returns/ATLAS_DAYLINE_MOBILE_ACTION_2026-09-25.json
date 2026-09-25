@@ -1,0 +1,45 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "ATLAS_DAYLINE_MOBILE_ACTION_2026-09-25",
+  "date": "2026-09-25",
+  "route": "/atlas-dayline/?live=1",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "trigger": {
+    "class": "LIVED_USER_REPORT",
+    "observation": "Dayline not functionally usable/viewable on mobile",
+    "correction": "responsive source did not prove mobile usability"
+  },
+  "current_head": "Atlas Dayline LIVE 0.2.1 / REALITY PORTS / MOBILE ACTION",
+  "preserves": [
+    "PR #259 HOUSE / SHOPPING / COMMS explicit REALITY PORTS",
+    "atlas-dayline-handoff/v0.1 inbound source envelope",
+    "native source authority",
+    "CURRENT authority",
+    "local-first DayState",
+    "ATLAS ↔ PLAIN identity invariance",
+    "RUN <= 3",
+    "RETURN/replay"
+  ],
+  "delta": [
+    "one-time mobile PLAIN/action default",
+    "larger mobile action targets",
+    "CAPTURE + REALITY PORT visible while FIELD details collapse",
+    "capture inherits current Dayline contexts",
+    "atlas-dayline-feedback/v0.2 carries authority NONE + USER_EXPLICIT_COPY for worker handoff",
+    "PWA cache v4"
+  ],
+  "automation_boundary": "No direct private Hermes, Calendar, GitHub, comms, purchase or device binding. Automation remains adapter/policy-gated.",
+  "verification": {
+    "static_source": "PASS_PRE_PR",
+    "route_registration": "PENDING_CI",
+    "public_surface": "PENDING_CI",
+    "lived_phone": "WAITING_USER_USE"
+  },
+  "residue": [
+    "actual phone use",
+    "one explicit RETURN→native-source receipt proof after inbound handoffs are lived-proved",
+    "private Hermes/calendar adapter only if later selected"
+  ],
+  "one_next": "On phone, open LIVE Dayline, accept/capture one real item, act/mark it, then COPY HANDOFF. Feed observed friction back; do not infer success from CI.",
+  "stop": "No further Dayline architecture until lived phone evidence or a named adapter requirement."
+}
