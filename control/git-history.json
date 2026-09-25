@@ -1,6 +1,6 @@
 {
   "schema": "field-git-history/v0.1",
-  "generated": "2026-09-25T04:26:24.485Z",
+  "generated": "2026-09-25T04:28:57.266Z",
   "generator": "scripts/build-git-history.mjs",
   "total": 2896,
   "days_active": 13,
@@ -14969,25 +14969,7 @@
           "reader: project the local archive service + fix a lie on my own page"
         ],
         [
-          "2a562c0",
-          2,
-          33,
-          "human-port: transplant COMMS SPINE 0.1 onto current master"
-        ],
-        [
-          "ea40623",
-          2,
-          33,
-          "human-port: transplant COMMS SPINE 0.1 onto current master"
-        ],
-        [
-          "c0c7eaf",
-          2,
-          33,
-          "human-port: transplant COMMS SPINE 0.1 onto current master"
-        ],
-        [
-          "49e88d4",
+          "470ec63",
           2,
           33,
           "human-port: transplant COMMS SPINE 0.1 onto current master"
@@ -14999,9 +14981,57 @@
           "human-port: transplant COMMS SPINE 0.1 onto current master"
         ],
         [
-          "470ec63",
+          "49e88d4",
           2,
           33,
+          "human-port: transplant COMMS SPINE 0.1 onto current master"
+        ],
+        [
+          "c0c7eaf",
+          2,
+          33,
+          "human-port: transplant COMMS SPINE 0.1 onto current master"
+        ],
+        [
+          "ea40623",
+          2,
+          33,
+          "human-port: transplant COMMS SPINE 0.1 onto current master"
+        ],
+        [
+          "2a562c0",
+          2,
+          33,
+          "human-port: transplant COMMS SPINE 0.1 onto current master"
+        ],
+        [
+          "c052332",
+          2,
+          34,
+          "field-index: register HUMAN PORT COMMS SPINE 0.1 on current manifest"
+        ],
+        [
+          "4245fc7",
+          2,
+          34,
+          "human-port: advance release to COMMS SPINE 0.1 candidate"
+        ],
+        [
+          "7522065",
+          2,
+          34,
+          "human-port: surface COMMS SPINE as specialized instrument"
+        ],
+        [
+          "3c74042",
+          2,
+          34,
+          "ci: prove HUMAN PORT COMMS SPINE core and phone flow"
+        ],
+        [
+          "a794df4",
+          2,
+          34,
           "human-port: transplant COMMS SPINE 0.1 onto current master"
         ],
         [
@@ -15011,46 +15041,16 @@
           "human-port: transplant COMMS SPINE 0.1 onto current master"
         ],
         [
-          "a794df4",
-          2,
-          34,
-          "human-port: transplant COMMS SPINE 0.1 onto current master"
-        ],
-        [
-          "3c74042",
-          2,
-          34,
-          "ci: prove HUMAN PORT COMMS SPINE core and phone flow"
-        ],
-        [
-          "7522065",
-          2,
-          34,
-          "human-port: surface COMMS SPINE as specialized instrument"
-        ],
-        [
-          "4245fc7",
-          2,
-          34,
-          "human-port: advance release to COMMS SPINE 0.1 candidate"
-        ],
-        [
-          "c052332",
-          2,
-          34,
-          "field-index: register HUMAN PORT COMMS SPINE 0.1 on current manifest"
-        ],
-        [
           "fced1ea",
           2,
           36,
           "comms-spine: add source-bearing RETURN resume state"
         ],
         [
-          "129a506",
+          "da428c7",
           2,
           37,
-          "comms-spine: test RETURN resume and source-bearing boundary"
+          "comms-spine: resume source-bearing RETURN as ongoing ledger"
         ],
         [
           "e47ef12",
@@ -15059,10 +15059,10 @@
           "comms-spine: add RETURN import control"
         ],
         [
-          "da428c7",
+          "129a506",
           2,
           37,
-          "comms-spine: resume source-bearing RETURN as ongoing ledger"
+          "comms-spine: test RETURN resume and source-bearing boundary"
         ],
         [
           "2306707",
@@ -15085,7 +15085,7 @@
         [
           "ade83f8",
           2,
-          48,
+          47,
           "inventory: name the seven systems hiding behind seven filenames"
         ],
         [
@@ -15143,10 +15143,10 @@
           "nexus: board refresh (2026-09-22T20:51Z)"
         ],
         [
-          "821dd21",
+          "83304f8",
           5,
           22,
-          "readfield: add optional focus lens ring, pulse, glyph and 6000 WPM ceiling"
+          "readfield: wire focus lens triangle, pulse ring and glyph spokes"
         ],
         [
           "0dfbccd",
@@ -15155,16 +15155,10 @@
           "nexus: board refresh (2026-09-22T21:22Z)"
         ],
         [
-          "83304f8",
+          "821dd21",
           5,
           22,
-          "readfield: wire focus lens triangle, pulse ring and glyph spokes"
-        ],
-        [
-          "aebefc6",
-          5,
-          23,
-          "readfield: add PLAIN / FOCUS / MIN convergence views and LISTEN pulse lens"
+          "readfield: add optional focus lens ring, pulse, glyph and 6000 WPM ceiling"
         ],
         [
           "ef0fd9a",
@@ -15173,28 +15167,22 @@
           "atlas: carry existing source glyph into READFIELD focus lens handoff"
         ],
         [
+          "aebefc6",
+          5,
+          23,
+          "readfield: add PLAIN / FOCUS / MIN convergence views and LISTEN pulse lens"
+        ],
+        [
           "58dfafd",
           5,
           25,
           "smoke: prove READFIELD focus lens convergence and lifted projection limits"
         ],
         [
-          "3d0c9e0",
+          "f95ff1a",
           5,
           26,
-          "record ring: history as a radial waveform, and the glyph chars now actually draw"
-        ],
-        [
-          "16a931b",
-          5,
-          26,
-          "manifest: register READFIELD 0.8 focus lens convergence"
-        ],
-        [
-          "b260234",
-          5,
-          26,
-          "confluence: define READFIELD 0.8 focus lens candidate"
+          "manifest: keep READFIELD focus inputs inside accepts contract"
         ],
         [
           "c97a17d",
@@ -15203,10 +15191,22 @@
           "returns: record READFIELD focus lens candidate"
         ],
         [
-          "f95ff1a",
+          "b260234",
           5,
           26,
-          "manifest: keep READFIELD focus inputs inside accepts contract"
+          "confluence: define READFIELD 0.8 focus lens candidate"
+        ],
+        [
+          "16a931b",
+          5,
+          26,
+          "manifest: register READFIELD 0.8 focus lens convergence"
+        ],
+        [
+          "3d0c9e0",
+          5,
+          26,
+          "record ring: history as a radial waveform, and the glyph chars now actually draw"
         ],
         [
           "f9a7ec5",
@@ -15221,16 +15221,10 @@
           "Merge pull request #177 from 0xxx0/readfield/focus-lens-convergence-080"
         ],
         [
-          "797b00d",
+          "004bfc5",
           5,
           31,
-          "readfield: seal merged Focus Lens 0.8 confluence packet"
-        ],
-        [
-          "7679f31",
-          5,
-          31,
-          "returns: seal READFIELD Focus Lens 0.8"
+          "wind back the ring chart; feed shows all 125 by default"
         ],
         [
           "3ada74c",
@@ -15239,10 +15233,16 @@
           "control: advance READFIELD to Focus Lens 0.8 lived gate"
         ],
         [
-          "004bfc5",
+          "7679f31",
           5,
           31,
-          "wind back the ring chart; feed shows all 125 by default"
+          "returns: seal READFIELD Focus Lens 0.8"
+        ],
+        [
+          "797b00d",
+          5,
+          31,
+          "readfield: seal merged Focus Lens 0.8 confluence packet"
         ],
         [
           "6f1a0ef",
@@ -15275,13 +15275,7 @@
           "fovea: measured signal instead of seeded noise, and correct the foveate park"
         ],
         [
-          "71261a0",
-          6,
-          20,
-          "readfield: rebase visible Focus Lens 0.8.1 on current master"
-        ],
-        [
-          "d25aaa0",
+          "051bffc",
           6,
           20,
           "readfield: rebase visible Focus Lens 0.8.1 on current master"
@@ -15293,7 +15287,13 @@
           "readfield: rebase visible Focus Lens 0.8.1 on current master"
         ],
         [
-          "051bffc",
+          "d25aaa0",
+          6,
+          20,
+          "readfield: rebase visible Focus Lens 0.8.1 on current master"
+        ],
+        [
+          "71261a0",
           6,
           20,
           "readfield: rebase visible Focus Lens 0.8.1 on current master"
@@ -15347,16 +15347,16 @@
           "Merge pull request #181 from 0xxx0/confluence/lens-compositor-recovery-20260923"
         ],
         [
-          "b4a6c72",
-          8,
-          52,
-          "nexus: board refresh (2026-09-23T00:28Z)"
+          "4c8df9b",
+          7,
+          57,
+          "nexus: board refresh (2026-09-22T23:57Z)"
         ],
         [
-          "4c8df9b",
+          "b4a6c72",
           8,
-          52,
-          "nexus: board refresh (2026-09-22T23:57Z)"
+          28,
+          "nexus: board refresh (2026-09-23T00:28Z)"
         ],
         [
           "6fe34f2",
@@ -15383,10 +15383,10 @@
           "nexus: board refresh (2026-09-23T02:01Z)"
         ],
         [
-          "6b77e9f",
+          "5a9fa9d",
           10,
           22,
-          "confluence: define lossless instrument-cell artifact fold"
+          "Merge pull request #182 from 0xxx0/confluence/lens-instrument-fold"
         ],
         [
           "062ca62",
@@ -15395,10 +15395,10 @@
           "confluence: document lossless fold and six-sector carrier"
         ],
         [
-          "5a9fa9d",
+          "6b77e9f",
           10,
           22,
-          "Merge pull request #182 from 0xxx0/confluence/lens-instrument-fold"
+          "confluence: define lossless instrument-cell artifact fold"
         ],
         [
           "9b10a99",
@@ -15449,16 +15449,16 @@
           "nexus: board refresh (2026-09-23T03:03Z)"
         ],
         [
-          "cfaf2b5",
-          11,
-          9,
-          "confluence: transplant one-instrument spike onto current master"
-        ],
-        [
           "219be15",
           11,
           9,
           "ci: enforce one-instrument round-trip invariants"
+        ],
+        [
+          "cfaf2b5",
+          11,
+          9,
+          "confluence: transplant one-instrument spike onto current master"
         ],
         [
           "40fe22d",
@@ -15467,10 +15467,10 @@
           "ci: browser-prove shared FLOWER ROOM panel identity"
         ],
         [
-          "1881e74",
+          "3b663bf",
           11,
           11,
-          "confluence: externalize one-instrument module"
+          "confluence: point DOM proof evidence at module source"
         ],
         [
           "50c7878",
@@ -15479,10 +15479,10 @@
           "confluence: load one-instrument module externally"
         ],
         [
-          "3b663bf",
+          "1881e74",
           11,
           11,
-          "confluence: point DOM proof evidence at module source"
+          "confluence: externalize one-instrument module"
         ],
         [
           "ba3bb1a",
@@ -15497,19 +15497,7 @@
           "interphase: one thing, four views, zero sync code — the implementation convergence"
         ],
         [
-          "f9c19f1",
-          11,
-          23,
-          "interphase: add shared core and host adapters"
-        ],
-        [
-          "94fc6a1",
-          11,
-          23,
-          "interphase: add shared core and host adapters"
-        ],
-        [
-          "4e4b4cf",
+          "fec1759",
           11,
           23,
           "interphase: add shared core and host adapters"
@@ -15521,15 +15509,21 @@
           "interphase: add shared core and host adapters"
         ],
         [
-          "fec1759",
+          "4e4b4cf",
           11,
           23,
           "interphase: add shared core and host adapters"
         ],
         [
-          "1bc6abe",
+          "94fc6a1",
           11,
-          24,
+          23,
+          "interphase: add shared core and host adapters"
+        ],
+        [
+          "f9c19f1",
+          11,
+          23,
           "interphase: add shared core and host adapters"
         ],
         [
@@ -15539,16 +15533,10 @@
           "interphase: add generic DOM extension instrument"
         ],
         [
-          "4089297",
+          "1bc6abe",
           11,
-          25,
-          "interphase: bind FIELD and READFIELD to shared host"
-        ],
-        [
-          "7b1ba27",
-          11,
-          25,
-          "interphase: bind FIELD and READFIELD to shared host"
+          24,
+          "interphase: add shared core and host adapters"
         ],
         [
           "a7051b6",
@@ -15557,13 +15545,25 @@
           "interphase: expose shared FIELD host"
         ],
         [
-          "0d9def7",
+          "7b1ba27",
+          11,
+          25,
+          "interphase: bind FIELD and READFIELD to shared host"
+        ],
+        [
+          "4089297",
+          11,
+          25,
+          "interphase: bind FIELD and READFIELD to shared host"
+        ],
+        [
+          "ecf296f",
           11,
           26,
           "interphase: add law test and convergence receipt"
         ],
         [
-          "ecf296f",
+          "0d9def7",
           11,
           26,
           "interphase: add law test and convergence receipt"
@@ -15575,16 +15575,10 @@
           "interphase: isolate extension controls from page targeting"
         ],
         [
-          "107100e",
+          "f0f98b7",
           11,
           28,
-          "interphase: keep view operations outside canonical revision"
-        ],
-        [
-          "e38a238",
-          11,
-          28,
-          "interphase: classify READFIELD seek and scale as view state"
+          "interphase: bind Scale Lens without duplicating LensState"
         ],
         [
           "66d4e1c",
@@ -15593,22 +15587,16 @@
           "interphase: adapt Scale Lens to shared host"
         ],
         [
-          "f0f98b7",
+          "e38a238",
           11,
           28,
-          "interphase: bind Scale Lens without duplicating LensState"
+          "interphase: classify READFIELD seek and scale as view state"
         ],
         [
-          "001986d",
+          "107100e",
           11,
-          29,
-          "interphase: expose LISTEN address and aperture host API"
-        ],
-        [
-          "9fb5d7d",
-          11,
-          29,
-          "interphase: adapt LISTEN to shared host"
+          28,
+          "interphase: keep view operations outside canonical revision"
         ],
         [
           "6468275",
@@ -15617,22 +15605,22 @@
           "interphase: bind LISTEN source cartographer"
         ],
         [
+          "9fb5d7d",
+          11,
+          29,
+          "interphase: adapt LISTEN to shared host"
+        ],
+        [
+          "001986d",
+          11,
+          29,
+          "interphase: expose LISTEN address and aperture host API"
+        ],
+        [
           "a7a98d7",
           11,
           30,
           "interphase: normalize LISTEN script loading"
-        ],
-        [
-          "bb75a54",
-          11,
-          31,
-          "interphase: absorb proven one-instrument six-office donor"
-        ],
-        [
-          "77943a2",
-          11,
-          31,
-          "ci: guard shared INTERPHASE host laws"
         ],
         [
           "593274e",
@@ -15641,16 +15629,28 @@
           "interphase: reuse one six-panel DOM across flower and room"
         ],
         [
-          "d3256aa",
+          "77943a2",
           11,
-          32,
-          "manifest: record shared INTERPHASE adapters"
+          31,
+          "ci: guard shared INTERPHASE host laws"
+        ],
+        [
+          "bb75a54",
+          11,
+          31,
+          "interphase: absorb proven one-instrument six-office donor"
         ],
         [
           "ad3a5d3",
           11,
           32,
           "interphase: reconcile extension with spike 003 and Fold/Bloom roles"
+        ],
+        [
+          "d3256aa",
+          11,
+          32,
+          "manifest: record shared INTERPHASE adapters"
         ],
         [
           "d5ebe52",
@@ -15671,16 +15671,16 @@
           "sync: absorb current master board refresh"
         ],
         [
-          "ab458bb",
-          11,
-          36,
-          "test: fix INTERPHASE selftest line serialization"
-        ],
-        [
           "0cc778e",
           11,
           36,
           "test: materialize INTERPHASE selftest newlines"
+        ],
+        [
+          "ab458bb",
+          11,
+          36,
+          "test: fix INTERPHASE selftest line serialization"
         ],
         [
           "8bc3b43",
@@ -15707,10 +15707,10 @@
           "Merge INTERPHASE 0.2 shared host convergence"
         ],
         [
-          "15fc573",
+          "671426d",
           11,
           42,
-          "confluence: promote implemented INTERPHASE host truth"
+          "docs: align transduction registry with INTERPHASE 0.2"
         ],
         [
           "bf2c84e",
@@ -15719,10 +15719,10 @@
           "current: record merged INTERPHASE convergence seam"
         ],
         [
-          "671426d",
+          "15fc573",
           11,
           42,
-          "docs: align transduction registry with INTERPHASE 0.2"
+          "confluence: promote implemented INTERPHASE host truth"
         ],
         [
           "38442b2",
@@ -15743,13 +15743,7 @@
           "nexus: board refresh (2026-09-23T04:05Z)"
         ],
         [
-          "670f50b",
-          12,
-          7,
-          "interphase: add correspondence contract and recovery adapter"
-        ],
-        [
-          "e358c51",
+          "ac8dff1",
           12,
           7,
           "interphase: add correspondence contract and recovery adapter"
@@ -15761,13 +15755,19 @@
           "interphase: add correspondence contract and recovery adapter"
         ],
         [
-          "ac8dff1",
+          "e358c51",
           12,
           7,
           "interphase: add correspondence contract and recovery adapter"
         ],
         [
-          "542a696",
+          "670f50b",
+          12,
+          7,
+          "interphase: add correspondence contract and recovery adapter"
+        ],
+        [
+          "3cf2ca8",
           12,
           9,
           "confluence: specify mapping theory and archaeology migration"
@@ -15779,46 +15779,10 @@
           "confluence: specify mapping theory and archaeology migration"
         ],
         [
-          "3cf2ca8",
+          "542a696",
           12,
           9,
           "confluence: specify mapping theory and archaeology migration"
-        ],
-        [
-          "9f95f5a",
-          12,
-          10,
-          "test: prove scale mapping and archaeology adapter"
-        ],
-        [
-          "bf84b89",
-          12,
-          10,
-          "test: prove scale mapping and archaeology adapter"
-        ],
-        [
-          "41e7888",
-          12,
-          10,
-          "retrieval: standardize archaeology output packet"
-        ],
-        [
-          "8f51606",
-          12,
-          10,
-          "retrieval: point archaeology at INTERPHASE packet"
-        ],
-        [
-          "1ed4016",
-          12,
-          10,
-          "migration: bind archaeology workers to recovery contract"
-        ],
-        [
-          "33ae3ac",
-          12,
-          10,
-          "ci: validate mapping and archaeology convergence"
         ],
         [
           "397cacf",
@@ -15827,16 +15791,40 @@
           "current: expose mapping and archaeology contracts"
         ],
         [
-          "6783045",
+          "33ae3ac",
           12,
-          13,
-          "confluence: map current hosts into shared correspondence registry"
+          10,
+          "ci: validate mapping and archaeology convergence"
         ],
         [
-          "ede234e",
+          "1ed4016",
           12,
-          13,
-          "test: validate current-host correspondence registry"
+          10,
+          "migration: bind archaeology workers to recovery contract"
+        ],
+        [
+          "8f51606",
+          12,
+          10,
+          "retrieval: point archaeology at INTERPHASE packet"
+        ],
+        [
+          "41e7888",
+          12,
+          10,
+          "retrieval: standardize archaeology output packet"
+        ],
+        [
+          "bf84b89",
+          12,
+          10,
+          "test: prove scale mapping and archaeology adapter"
+        ],
+        [
+          "9f95f5a",
+          12,
+          10,
+          "test: prove scale mapping and archaeology adapter"
         ],
         [
           "1a6556e",
@@ -15845,16 +15833,22 @@
           "current: expose correspondence registry"
         ],
         [
+          "ede234e",
+          12,
+          13,
+          "test: validate current-host correspondence registry"
+        ],
+        [
+          "6783045",
+          12,
+          13,
+          "confluence: map current hosts into shared correspondence registry"
+        ],
+        [
           "607ca73",
           12,
           14,
           "test: materialize correspondence registry assertions"
-        ],
-        [
-          "349ea71",
-          12,
-          16,
-          "Merge INTERPHASE mapping 0.1 and archaeology migration"
         ],
         [
           "add6c96",
@@ -15863,10 +15857,22 @@
           "current: seal merged INTERPHASE mapping 0.1"
         ],
         [
+          "349ea71",
+          12,
+          16,
+          "Merge INTERPHASE mapping 0.1 and archaeology migration"
+        ],
+        [
           "8217a32",
           12,
           27,
           "INTERPHASE: shared glyph/ring grammar"
+        ],
+        [
+          "1fbf532",
+          12,
+          36,
+          "nexus: board refresh (2026-09-23T04:36Z)"
         ],
         [
           "5b56b78",
@@ -15875,10 +15881,10 @@
           "nexus: board refresh (2026-09-23T04:37Z)"
         ],
         [
-          "1fbf532",
+          "f59c754",
           12,
-          37,
-          "nexus: board refresh (2026-09-23T04:36Z)"
+          39,
+          "dayline: compress interface chrome — dedupe bar-duplicate controls, trim METHOD/KEYS prose, "
         ],
         [
           "30655e7",
@@ -15887,19 +15893,19 @@
           "INTERPHASE: shared cyclic ring kernel"
         ],
         [
-          "f59c754",
-          12,
-          45,
-          "dayline: compress interface chrome — dedupe bar-duplicate controls, trim METHOD/KEYS prose, drop BUNDLE station (canonical state + PLAIN untouched)"
-        ],
-        [
           "30705a0",
           12,
           47,
           "FOLD//BLOOM: unified RIDE dual-clock state"
         ],
         [
-          "bac599a",
+          "2fb19f4",
+          12,
+          55,
+          "test: guard INTERPHASE successor handoff references"
+        ],
+        [
+          "42348ec",
           12,
           55,
           "confluence: add INTERPHASE successor handoff and session starters"
@@ -15911,16 +15917,10 @@
           "confluence: add INTERPHASE successor handoff and session starters"
         ],
         [
-          "42348ec",
+          "bac599a",
           12,
           55,
           "confluence: add INTERPHASE successor handoff and session starters"
-        ],
-        [
-          "2fb19f4",
-          12,
-          55,
-          "test: guard INTERPHASE successor handoff references"
         ],
         [
           "0d37b53",
@@ -15949,8 +15949,8 @@
         [
           "4c654d5",
           13,
-          27,
-          "control: archive-fold 11 zero-reference state files behind one INDEX (no deletes; CURRENT.md + FIELD_INDEX_AUDIT_20 retained - live consumers)"
+          26,
+          "control: archive-fold 11 zero-reference state files behind one INDEX (no deletes; CURRENT.md"
         ],
         [
           "73a61ac",
@@ -15962,7 +15962,7 @@
           "1196f37",
           13,
           48,
-          "dayline: progressive disclosure slice — left rail folds to witness rows (collapsed default, state-aware, persisted in view prefs; canonical daystate + PLAIN untouched)"
+          "dayline: progressive disclosure slice — left rail folds to witness rows (collapsed default, "
         ],
         [
           "55b52aa",
@@ -15980,7 +15980,7 @@
           "c5270ac",
           14,
           20,
-          "charter: append CURRENT ADDENDUM 2026-09-23 — v1.1 (verbatim; stricter rule wins where they differ)"
+          "charter: append CURRENT ADDENDUM 2026-09-23 — v1.1 (verbatim; stricter rule wins where they "
         ],
         [
           "77ddfb4",
@@ -16316,22 +16316,22 @@
           "PROOFS: execute hard-evolution P1 / P2 / P3"
         ],
         [
-          "9b529df",
-          10,
-          39,
-          "INTERPHASE: align CURRENT with merged SET→LIVE fusion"
-        ],
-        [
           "c369d46",
           10,
           39,
           "INTERPHASE: retire completed SET→LIVE successor target"
         ],
         [
-          "ac11749",
+          "9b529df",
+          10,
+          39,
+          "INTERPHASE: align CURRENT with merged SET→LIVE fusion"
+        ],
+        [
+          "8c0d76b",
           10,
           40,
-          "INTERPHASE: align LIVE registry with fused SET traversal"
+          "INTERPHASE: sync handoff to completed SET→LIVE fusion"
         ],
         [
           "d525892",
@@ -16340,10 +16340,10 @@
           "INTERPHASE: stop session starters from redoing SET→LIVE"
         ],
         [
-          "8c0d76b",
+          "ac11749",
           10,
           40,
-          "INTERPHASE: sync handoff to completed SET→LIVE fusion"
+          "INTERPHASE: align LIVE registry with fused SET traversal"
         ],
         [
           "4c43fb9",
@@ -16370,16 +16370,10 @@
           "nexus: board refresh (2026-09-24T03:19Z)"
         ],
         [
-          "d6cb17e",
+          "478f633",
           11,
           46,
-          "FIELD LAB: converge READ onto canonical APERTURE/RSVP"
-        ],
-        [
-          "347c3c3",
-          11,
-          46,
-          "FIELD LAB: wire READFIELD focus and FIELD PULSE"
+          "FIELD LAB: test READ pulse bridge"
         ],
         [
           "9c9d435",
@@ -16388,10 +16382,16 @@
           "FIELD LAB: add bounded READ pulse bridge"
         ],
         [
-          "478f633",
+          "347c3c3",
           11,
           46,
-          "FIELD LAB: test READ pulse bridge"
+          "FIELD LAB: wire READFIELD focus and FIELD PULSE"
+        ],
+        [
+          "d6cb17e",
+          11,
+          46,
+          "FIELD LAB: converge READ onto canonical APERTURE/RSVP"
         ],
         [
           "f31cd7e",
@@ -16400,10 +16400,10 @@
           "CI: cover FIELD LAB READ bridge"
         ],
         [
-          "2ada27a",
+          "d2a0391",
           11,
           48,
-          "FIELD LAB: add explicit READ carry paths"
+          "FOLD BLOOM: surface READFIELD in Field Lab"
         ],
         [
           "cdb8994",
@@ -16412,22 +16412,10 @@
           "FIELD LAB: carry READ source into LOCI and DATA"
         ],
         [
-          "d2a0391",
+          "2ada27a",
           11,
           48,
-          "FOLD BLOOM: surface READFIELD in Field Lab"
-        ],
-        [
-          "cf134d7",
-          11,
-          50,
-          "nexus: board refresh (2026-09-24T03:50Z)"
-        ],
-        [
-          "faa274f",
-          11,
-          50,
-          "FIELD LAB: expose READFIELD browser witnesses"
+          "FIELD LAB: add explicit READ carry paths"
         ],
         [
           "e44799f",
@@ -16436,28 +16424,16 @@
           "QA: prove FIELD LAB boots canonical READFIELD on phone"
         ],
         [
-          "f9e4b59",
+          "faa274f",
           11,
-          52,
-          "FIELD INDEX: register FIELD LAB 0.2 READFIELD convergence"
+          50,
+          "FIELD LAB: expose READFIELD browser witnesses"
         ],
         [
-          "ff2b313",
+          "cf134d7",
           11,
-          52,
-          "FIELD PULSE: bind FIELD LAB READ without new authority"
-        ],
-        [
-          "a012f42",
-          11,
-          52,
-          "FIELD LAB: add 0.2 release contract"
-        ],
-        [
-          "cb58b2b",
-          11,
-          52,
-          "RETURN: seal FIELD LAB READFIELD candidate"
+          50,
+          "nexus: board refresh (2026-09-24T03:50Z)"
         ],
         [
           "29665be",
@@ -16466,34 +16442,34 @@
           "CONFLUENCE: capture FIELD LAB READFIELD convergence"
         ],
         [
+          "cb58b2b",
+          11,
+          52,
+          "RETURN: seal FIELD LAB READFIELD candidate"
+        ],
+        [
+          "a012f42",
+          11,
+          52,
+          "FIELD LAB: add 0.2 release contract"
+        ],
+        [
+          "ff2b313",
+          11,
+          52,
+          "FIELD PULSE: bind FIELD LAB READ without new authority"
+        ],
+        [
+          "f9e4b59",
+          11,
+          52,
+          "FIELD INDEX: register FIELD LAB 0.2 READFIELD convergence"
+        ],
+        [
           "9e9a35e",
           11,
           55,
           "FIELD LAB: let READ chrome recede and expose LOCI return"
-        ],
-        [
-          "526dbf9",
-          11,
-          56,
-          "FIELD LAB: preserve large text as addressed LOCI course"
-        ],
-        [
-          "9c7b0f7",
-          11,
-          56,
-          "FIELD LAB: add local addressed text course adapter"
-        ],
-        [
-          "a746ac1",
-          11,
-          56,
-          "FIELD LAB: prove LOCI large-text coverage"
-        ],
-        [
-          "c066122",
-          11,
-          56,
-          "CI: prove FIELD LAB READ and LOCI bridges"
         ],
         [
           "f56e80d",
@@ -16502,16 +16478,34 @@
           "QA: prove READ de-chrome and LOCI course boot"
         ],
         [
-          "992046f",
+          "c066122",
           11,
-          57,
-          "FIELD INDEX: record READ de-chrome and addressed LOCI course"
+          56,
+          "CI: prove FIELD LAB READ and LOCI bridges"
         ],
         [
-          "6af4f09",
+          "a746ac1",
+          11,
+          56,
+          "FIELD LAB: prove LOCI large-text coverage"
+        ],
+        [
+          "9c7b0f7",
+          11,
+          56,
+          "FIELD LAB: add local addressed text course adapter"
+        ],
+        [
+          "526dbf9",
+          11,
+          56,
+          "FIELD LAB: preserve large text as addressed LOCI course"
+        ],
+        [
+          "ee915b7",
           11,
           57,
-          "FIELD LAB: extend 0.2 release with READ/LOCI proofs"
+          "CONFLUENCE: reconcile parallel READ/LOCI research into candidate"
         ],
         [
           "864d0fd",
@@ -16520,10 +16514,16 @@
           "RETURN: capture READ de-chrome and LOCI preservation"
         ],
         [
-          "ee915b7",
+          "6af4f09",
           11,
           57,
-          "CONFLUENCE: reconcile parallel READ/LOCI research into candidate"
+          "FIELD LAB: extend 0.2 release with READ/LOCI proofs"
+        ],
+        [
+          "992046f",
+          11,
+          57,
+          "FIELD INDEX: record READ de-chrome and addressed LOCI course"
         ],
         [
           "55e3084",
@@ -16538,22 +16538,10 @@
           "Ship FOLD//BLOOM FIELD LAB 0.2"
         ],
         [
-          "27ab38f",
+          "ceba277",
           12,
           0,
-          "CURRENT: advance Fold Bloom Field Lab to 0.2"
-        ],
-        [
-          "8ca958f",
-          12,
-          0,
-          "FIELD LAB: seal 0.2 merge and CI evidence"
-        ],
-        [
-          "c57be79",
-          12,
-          0,
-          "RETURN: seal shipped FIELD LAB 0.2"
+          "FIELD INDEX: seal 2026-09-24 Fold Bloom mutation"
         ],
         [
           "87ebf9a",
@@ -16562,10 +16550,22 @@
           "CONFLUENCE: seal FIELD LAB 0.2 and coordination cleanup"
         ],
         [
-          "ceba277",
+          "c57be79",
           12,
           0,
-          "FIELD INDEX: seal 2026-09-24 Fold Bloom mutation"
+          "RETURN: seal shipped FIELD LAB 0.2"
+        ],
+        [
+          "8ca958f",
+          12,
+          0,
+          "FIELD LAB: seal 0.2 merge and CI evidence"
+        ],
+        [
+          "27ab38f",
+          12,
+          0,
+          "CURRENT: advance Fold Bloom Field Lab to 0.2"
         ],
         [
           "4aafe97",
@@ -16592,10 +16592,10 @@
           "nexus: board refresh (2026-09-24T05:54Z)"
         ],
         [
-          "abdc801",
+          "84d058e",
           14,
           20,
-          "FIELD PULSE: normalize clock-source routing"
+          "FIELD LAB: make synthetic rhythm clock interoperable"
         ],
         [
           "330bcd9",
@@ -16604,16 +16604,10 @@
           "FIELD LAB: expose PULSE clock-out and use paths"
         ],
         [
-          "84d058e",
+          "abdc801",
           14,
           20,
-          "FIELD LAB: make synthetic rhythm clock interoperable"
-        ],
-        [
-          "749a6c5",
-          14,
-          22,
-          "READFIELD 0.8.2: actionable modes and multi-clock PULSE"
+          "FIELD PULSE: normalize clock-source routing"
         ],
         [
           "d0f2522",
@@ -16622,28 +16616,10 @@
           "Two Dial: accept LISTEN or LAB PULSE clocks"
         ],
         [
-          "189a3c5",
+          "749a6c5",
           14,
-          23,
-          "LIVE: accept audio or synthetic FIELD clocks"
-        ],
-        [
-          "2b35374",
-          14,
-          23,
-          "Test FIELD PULSE clock-source routing"
-        ],
-        [
-          "18f54f4",
-          14,
-          23,
-          "CI: cover FIELD PULSE clock routing"
-        ],
-        [
-          "b632490",
-          14,
-          23,
-          "FIELD PULSE: formalize phase quantum and synthetic clock"
+          22,
+          "READFIELD 0.8.2: actionable modes and multi-clock PULSE"
         ],
         [
           "720f646",
@@ -16652,22 +16628,28 @@
           "FIELD LAB 0.2.1: record clock interoperability"
         ],
         [
-          "b8e0586",
+          "b632490",
           14,
-          24,
-          "CONFLUENCE: capture FIELD PULSE convergence"
+          23,
+          "FIELD PULSE: formalize phase quantum and synthetic clock"
         ],
         [
-          "7f6408f",
+          "18f54f4",
           14,
-          24,
-          "RETURN: FIELD PULSE convergence candidate"
+          23,
+          "CI: cover FIELD PULSE clock routing"
         ],
         [
-          "8db13df",
+          "2b35374",
           14,
-          24,
-          "CURRENT: advance READFIELD PULSE convergence"
+          23,
+          "Test FIELD PULSE clock-source routing"
+        ],
+        [
+          "189a3c5",
+          14,
+          23,
+          "LIVE: accept audio or synthetic FIELD clocks"
         ],
         [
           "6bb320f",
@@ -16676,28 +16658,28 @@
           "FIELD INDEX: register PULSE multi-clock convergence"
         ],
         [
+          "8db13df",
+          14,
+          24,
+          "CURRENT: advance READFIELD PULSE convergence"
+        ],
+        [
+          "7f6408f",
+          14,
+          24,
+          "RETURN: FIELD PULSE convergence candidate"
+        ],
+        [
+          "b8e0586",
+          14,
+          24,
+          "CONFLUENCE: capture FIELD PULSE convergence"
+        ],
+        [
           "57a0dfa",
           14,
           25,
           "nexus: board refresh (2026-09-24T06:25Z)"
-        ],
-        [
-          "2fd0bdf",
-          14,
-          28,
-          "FIELD LAB: preserve PULSE seed across phone handoff"
-        ],
-        [
-          "f5ff44c",
-          14,
-          28,
-          "READFIELD: tighten mobile PULSE affordance copy"
-        ],
-        [
-          "209ea5b",
-          14,
-          28,
-          "LIVE: continue explicit synthetic PULSE seed locally"
         ],
         [
           "4ae7746",
@@ -16706,10 +16688,28 @@
           "Two Dial: retain explicit synthetic clock seed"
         ],
         [
-          "d7761e5",
+          "209ea5b",
+          14,
+          28,
+          "LIVE: continue explicit synthetic PULSE seed locally"
+        ],
+        [
+          "f5ff44c",
+          14,
+          28,
+          "READFIELD: tighten mobile PULSE affordance copy"
+        ],
+        [
+          "2fd0bdf",
+          14,
+          28,
+          "FIELD LAB: preserve PULSE seed across phone handoff"
+        ],
+        [
+          "2c7ce2b",
           14,
           29,
-          "FIELD PULSE: specify synthetic clock-seed continuity"
+          "FIELD PULSE: specify synthetic handoff continuity"
         ],
         [
           "d032cd0",
@@ -16718,10 +16718,10 @@
           "FIELD LAB: record same-tab clock-seed continuity"
         ],
         [
-          "2c7ce2b",
+          "d7761e5",
           14,
           29,
-          "FIELD PULSE: specify synthetic handoff continuity"
+          "FIELD PULSE: specify synthetic clock-seed continuity"
         ],
         [
           "b4c6a3d",
@@ -16736,22 +16736,22 @@
           "FIELD PULSE: reconcile current consumer bindings"
         ],
         [
-          "99cb1b5",
-          14,
-          34,
-          "Tests: align READFIELD pulse smoke with multi-clock UI"
-        ],
-        [
           "e286215",
           14,
           34,
           "READFIELD: make phone use-case actions full-width"
         ],
         [
-          "6ee3b23",
+          "99cb1b5",
+          14,
+          34,
+          "Tests: align READFIELD pulse smoke with multi-clock UI"
+        ],
+        [
+          "34d7d17",
           14,
           36,
-          "Ship FIELD PULSE multi-clock convergence"
+          "CONFLUENCE: seal shipped FIELD PULSE convergence"
         ],
         [
           "49aa0e4",
@@ -16760,10 +16760,10 @@
           "RETURN: seal shipped FIELD PULSE convergence"
         ],
         [
-          "34d7d17",
+          "6ee3b23",
           14,
           36,
-          "CONFLUENCE: seal shipped FIELD PULSE convergence"
+          "Ship FIELD PULSE multi-clock convergence"
         ],
         [
           "d1fc263",
@@ -16820,22 +16820,10 @@
           "VOICE: test pitch and pattern helpers"
         ],
         [
-          "f0a67bc",
+          "f689fef",
           18,
           27,
-          "VOICE: build local mic + FIELD PULSE trainer"
-        ],
-        [
-          "7177ace",
-          18,
-          27,
-          "VOICE: add phone-first practice surface"
-        ],
-        [
-          "a3e164e",
-          18,
-          27,
-          "VOICE: define 0.1 candidate release"
+          "RETURN: capture VOICE 0.1 candidate"
         ],
         [
           "836a934",
@@ -16844,16 +16832,22 @@
           "CONFLUENCE: capture VOICE practice convergence"
         ],
         [
-          "f689fef",
+          "a3e164e",
           18,
           27,
-          "RETURN: capture VOICE 0.1 candidate"
+          "VOICE: define 0.1 candidate release"
         ],
         [
-          "f704304",
+          "7177ace",
           18,
-          28,
-          "FOLD BLOOM: surface VOICE trainer"
+          27,
+          "VOICE: add phone-first practice surface"
+        ],
+        [
+          "f0a67bc",
+          18,
+          27,
+          "VOICE: build local mic + FIELD PULSE trainer"
         ],
         [
           "1faf58f",
@@ -16862,16 +16856,10 @@
           "FIELD PULSE: register VOICE timing consumer"
         ],
         [
-          "9734f7b",
+          "f704304",
           18,
-          29,
-          "FIELD INDEX: register FOLD BLOOM VOICE 0.1"
-        ],
-        [
-          "0e3fb44",
-          18,
-          29,
-          "CURRENT: add VOICE human-practice proof"
+          28,
+          "FOLD BLOOM: surface VOICE trainer"
         ],
         [
           "d2daa96",
@@ -16880,10 +16868,16 @@
           "CI: test FOLD BLOOM VOICE pitch core"
         ],
         [
-          "2eea2bf",
+          "0e3fb44",
           18,
-          30,
-          "SMOKE: prove VOICE surface boots without mic permission"
+          29,
+          "CURRENT: add VOICE human-practice proof"
+        ],
+        [
+          "9734f7b",
+          18,
+          29,
+          "FIELD INDEX: register FOLD BLOOM VOICE 0.1"
         ],
         [
           "5819aa9",
@@ -16892,7 +16886,13 @@
           "LIVE: make zero-file FIELD COURSE demo audible on phone (#213)"
         ],
         [
-          "9b892be",
+          "2eea2bf",
+          18,
+          30,
+          "SMOKE: prove VOICE surface boots without mic permission"
+        ],
+        [
+          "6fec361",
           18,
           33,
           "Fix JSON newline serialization"
@@ -16904,16 +16904,10 @@
           "Fix JSON newline serialization"
         ],
         [
-          "6fec361",
+          "9b892be",
           18,
           33,
           "Fix JSON newline serialization"
-        ],
-        [
-          "5791ff0",
-          18,
-          34,
-          "nexus: board refresh (2026-09-24T10:34Z)"
         ],
         [
           "53f03fd",
@@ -16922,16 +16916,16 @@
           "FIELD INDEX: add VOICE evolution contract"
         ],
         [
+          "5791ff0",
+          18,
+          34,
+          "nexus: board refresh (2026-09-24T10:34Z)"
+        ],
+        [
           "ad644a7",
           18,
           35,
           "VOICE: preserve HUM as targetless stability mode"
-        ],
-        [
-          "5e45544",
-          18,
-          38,
-          "SMOKE: assert rendered VOICE surface, not dump-dom dataset"
         ],
         [
           "2a64407",
@@ -16940,16 +16934,10 @@
           "CI: parse VOICE runtime before pitch tests"
         ],
         [
-          "dd1f289",
+          "5e45544",
           18,
-          40,
-          "Ship FOLD//BLOOM VOICE 0.1 pitch × PULSE practice"
-        ],
-        [
-          "6772bac",
-          18,
-          40,
-          "VOICE: seal 0.1 merge and CI evidence"
+          38,
+          "SMOKE: assert rendered VOICE surface, not dump-dom dataset"
         ],
         [
           "128291d",
@@ -16958,16 +16946,28 @@
           "RETURN: seal shipped VOICE 0.1 evidence"
         ],
         [
-          "ed2cbd9",
+          "6772bac",
           18,
-          41,
-          "CONFLUENCE: seal shipped VOICE practice proof"
+          40,
+          "VOICE: seal 0.1 merge and CI evidence"
+        ],
+        [
+          "dd1f289",
+          18,
+          40,
+          "Ship FOLD//BLOOM VOICE 0.1 pitch × PULSE practice"
         ],
         [
           "6587b9f",
           18,
           41,
           "CURRENT: mark VOICE 0.1 merged and human-gated"
+        ],
+        [
+          "ed2cbd9",
+          18,
+          41,
+          "CONFLUENCE: seal shipped VOICE practice proof"
         ],
         [
           "c0aed57",
@@ -17006,10 +17006,10 @@
           "nexus: board refresh (2026-09-24T11:36Z)"
         ],
         [
-          "f9de196",
+          "cc30bd7",
           19,
           54,
-          "FOLD//BLOOM: export Beat Saber v4 mapper pack"
+          "LISTEN: seal Beat Saber pack evidence"
         ],
         [
           "8fe91af",
@@ -17018,16 +17018,16 @@
           "RETURN: seal shipped Beat Saber pack"
         ],
         [
-          "cc30bd7",
+          "f9de196",
           19,
           54,
-          "LISTEN: seal Beat Saber pack evidence"
+          "FOLD//BLOOM: export Beat Saber v4 mapper pack"
         ],
         [
-          "d61b5d6",
+          "18ae923",
           20,
           1,
-          "FIELD INDEX: sync repo touches and live human gates"
+          "RETURN: FIELD INDEX sync truth delta"
         ],
         [
           "841fa18",
@@ -17036,10 +17036,10 @@
           "FIELD INDEX: define file-touch and live status sync law"
         ],
         [
-          "18ae923",
+          "d61b5d6",
           20,
           1,
-          "RETURN: FIELD INDEX sync truth delta"
+          "FIELD INDEX: sync repo touches and live human gates"
         ],
         [
           "3e0117f",
@@ -17249,10 +17249,10 @@
           "FOLD//BLOOM: task-first workflows + pulse-paced READ (#222)"
         ],
         [
-          "22cfe9e",
+          "4023eab",
           9,
           12,
-          "Seal FOLD//BLOOM workflow RETURN after green CI"
+          "CURRENT: seal shipped Fold/Bloom workflow head"
         ],
         [
           "68c9aac",
@@ -17261,10 +17261,10 @@
           "Confluence: seal shipped Fold/Bloom workflow pass"
         ],
         [
-          "4023eab",
+          "22cfe9e",
           9,
           12,
-          "CURRENT: seal shipped Fold/Bloom workflow head"
+          "Seal FOLD//BLOOM workflow RETURN after green CI"
         ],
         [
           "cb99929",
@@ -17273,22 +17273,16 @@
           "SPIKE 005: Φ/φ expression transcript + rewind proof"
         ],
         [
-          "f03722b",
-          9,
-          25,
-          "FOLD//BLOOM SABER 0.1 — dual-phone motion proof (#225)"
-        ],
-        [
           "ecfc6ca",
           9,
           25,
           "SABER: seal repository verification"
         ],
         [
-          "ac004e7",
+          "f03722b",
           9,
-          26,
-          "RETURN: seal SABER 0.1 repository proof"
+          25,
+          "FOLD//BLOOM SABER 0.1 — dual-phone motion proof (#225)"
         ],
         [
           "695ee5e",
@@ -17297,34 +17291,10 @@
           "CURRENT: seal SABER 0.1 as repo-verified human gate"
         ],
         [
-          "7f55f06",
+          "ac004e7",
           9,
-          29,
-          "READFIELD 0.8.3: apply field-aperture.js over SABER head"
-        ],
-        [
-          "928d102",
-          9,
-          29,
-          "READFIELD 0.8.3: apply docs/index.html over SABER head"
-        ],
-        [
-          "5a768b7",
-          9,
-          29,
-          "READFIELD 0.8.3: apply fold-bloom/lab/app.js over SABER head"
-        ],
-        [
-          "4c9f383",
-          9,
-          29,
-          "FIELD LAB 0.2.2: focus-preserving reader handoff"
-        ],
-        [
-          "f0d3394",
-          9,
-          29,
-          "READFIELD 0.8.3: add control/confluence/READFIELD_WORK_MODES_2026-09-25.json"
+          26,
+          "RETURN: seal SABER 0.1 repository proof"
         ],
         [
           "e2212e9",
@@ -17333,10 +17303,40 @@
           "READFIELD 0.8.3: add returns/READFIELD_WORK_MODES_2026-09-25.json"
         ],
         [
-          "99ba8f1",
+          "f0d3394",
+          9,
+          29,
+          "READFIELD 0.8.3: add control/confluence/READFIELD_WORK_MODES_2026-09-25.json"
+        ],
+        [
+          "4c9f383",
+          9,
+          29,
+          "FIELD LAB 0.2.2: focus-preserving reader handoff"
+        ],
+        [
+          "5a768b7",
+          9,
+          29,
+          "READFIELD 0.8.3: apply fold-bloom/lab/app.js over SABER head"
+        ],
+        [
+          "928d102",
+          9,
+          29,
+          "READFIELD 0.8.3: apply docs/index.html over SABER head"
+        ],
+        [
+          "7f55f06",
+          9,
+          29,
+          "READFIELD 0.8.3: apply field-aperture.js over SABER head"
+        ],
+        [
+          "644f817",
           9,
           30,
-          "FIELD INDEX: converge READFIELD 0.8.3 over SABER head"
+          "CI: add isolated READFIELD→LOCI focus continuity proof"
         ],
         [
           "e460805",
@@ -17345,10 +17345,10 @@
           "CURRENT: converge READFIELD 0.8.3 over SABER head"
         ],
         [
-          "644f817",
+          "99ba8f1",
           9,
           30,
-          "CI: add isolated READFIELD→LOCI focus continuity proof"
+          "FIELD INDEX: converge READFIELD 0.8.3 over SABER head"
         ],
         [
           "020ebf5",
@@ -17381,16 +17381,10 @@
           "READFIELD 0.8.3 — work modes + focus-preserving LOCI handoff"
         ],
         [
-          "28ac803",
+          "cb60ef1",
           9,
           39,
-          "RETURN: seal READFIELD 0.8.3 repository proof"
-        ],
-        [
-          "1941971",
-          9,
-          39,
-          "Confluence: seal READFIELD 0.8.3 verified state"
+          "CURRENT: seal READFIELD 0.8.3 verified merge"
         ],
         [
           "64d2889",
@@ -17399,10 +17393,16 @@
           "FIELD LAB 0.2.2: seal READFIELD focus handoff proof"
         ],
         [
-          "cb60ef1",
+          "1941971",
           9,
           39,
-          "CURRENT: seal READFIELD 0.8.3 verified merge"
+          "Confluence: seal READFIELD 0.8.3 verified state"
+        ],
+        [
+          "28ac803",
+          9,
+          39,
+          "RETURN: seal READFIELD 0.8.3 repository proof"
         ],
         [
           "8d7f0a2",
@@ -17471,16 +17471,16 @@
           "FOLD//BLOOM: add bounded clean-phone audio example (#238)"
         ],
         [
-          "92a6a72",
-          11,
-          31,
-          "research: sync multiscale field law and Sep-25 evidence"
-        ],
-        [
           "d62431d",
           11,
           31,
           "return: bound research sync cutoff at PR 238"
+        ],
+        [
+          "92a6a72",
+          11,
+          31,
+          "research: sync multiscale field law and Sep-25 evidence"
         ],
         [
           "ce409f8",
@@ -17518,5 +17518,5 @@
   "source_ref": "master",
   "cutoff_sha": "3d0f8b50eba8f9603dc3f58ff5399f5815f7a0ca",
   "cutoff_timestamp": "2026-09-25T04:07:17Z",
-  "note": "Exact checked-in history through cutoff_sha; later repository mutation is intentionally read from live Git HEAD rather than pretending this file is self-updating."
+  "note": "Exact checked-in history through cutoff_sha using build-git-history.mjs semantics (author time, +08); later mutation is read from live Git HEAD."
 }
