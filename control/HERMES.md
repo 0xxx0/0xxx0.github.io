@@ -197,3 +197,11 @@ RESIDUE
 WAITING
 ONE_NEXT
 ```
+
+## COORDINATION COMPRESSION — 2026-09-25
+
+Canonical protocol: [HERMES COORDINATION / DETERMINISTIC-FIRST](./confluence/HERMES_COORDINATION_2026-09-25.md).
+
+The key correction is **agent reasoning is the exception layer, not the transport layer**. Repeated stable transforms should become scripts, validators or schemas; Hermes should spend model effort on ambiguity, source recovery, comparison, judgment and bounded exceptions.
+
+Private reality tasks must not be promoted into public repo canon merely because Hermes can see or discuss them. SHOPPING, HOUSE, COMMS and Dayline remain domain/source owners; Hermes coordinates one explicit packet at a time and returns evidence to the owner.

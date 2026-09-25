@@ -1,6 +1,6 @@
 {
   "schema": "house-field-contract/v0.2",
-  "updated": "2026-09-21",
+  "updated": "2026-09-25",
   "title": "HOUSE / FIELD",
   "purpose": "Public-safe projection of addressed physical resources, capabilities, integration health and evidence for one household control plane. Private runtime authority remains Home Assistant / HOUSEBUS.",
   "current_surface": {
@@ -50,5 +50,11 @@
     "authority": "context only; does not write BODY observations into house/state.json and does not grant BODY actuation authority",
     "privacy": "personal BODY state remains browser-local; no public projection includes it"
   },
-  "validation": "/control/BODY_HOUSE_CONVERGENCE_2026-09-21.json"
+  "validation": "/control/BODY_HOUSE_CONVERGENCE_2026-09-21.json",
+  "reality_task_boundary": {
+    "rule": "Ordinary chores and personal task state are not canonical HOUSE state.",
+    "private_execution": "Route chores/maintenance obligations into browser-local Dayline or another private runtime surface.",
+    "returns_to_house": "Only durable physical/resource/state evidence returns to HOUSE (for example an adopted item, changed spatial address, verified device mapping, or completed maintenance that materially changes represented state).",
+    "public_repo": "Do not commit private chore lists, presence, schedules, or personal urgency to the public HOUSE projection."
+  }
 }

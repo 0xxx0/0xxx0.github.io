@@ -4424,11 +4424,12 @@
         "manual-to-sensor state",
         "HA entity mapping",
         "evidence return",
-        "BODY↔HOUSE local context envelope"
+        "BODY↔HOUSE local context envelope",
+        "ordinary chores remain private task/time execution; only durable physical/resource/state evidence returns to HOUSE"
       ],
       "family_href": "/house/",
       "index": {
-        "updated_at": "2026-09-21T21:18:00+08:00",
+        "updated_at": "2026-09-25T15:37:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "OPERATE",
@@ -6608,13 +6609,13 @@
     },
     {
       "href": "/shopping/",
-      "title": "SHOPPING FIELD 0.1",
+      "title": "SHOPPING FIELD 0.2",
       "kind": "adapter",
       "parent": "/fcm/",
       "family": "RESOURCE / PROCUREMENT",
       "operation": "ACQUIRE",
       "state": "ACTIVE",
-      "version": "0.1",
+      "version": "0.2",
       "showcase_card": false,
       "receipt": "/shopping/release.json",
       "transfer": [
@@ -6624,7 +6625,8 @@
         "freshness-aware listing review",
         "purchase/adoption lifecycle",
         "bounded agent research packet",
-        "selected capability item → explicit Dayline next-action handoff; purchase lifecycle unchanged"
+        "selected capability item → explicit Dayline next-action handoff; purchase lifecycle unchanged",
+        "ESSENTIAL / CAPABILITY / EXPEDITION intent lanes preserve realistic procurement vs bounded exploratory sourcing"
       ],
       "contract": {
         "accepts": {
@@ -6639,6 +6641,7 @@
           ],
           "requires": [],
           "optional": [
+            "intent lane: ESSENTIAL | CAPABILITY | EXPEDITION",
             "source URL",
             "observed_at",
             "exact SKU",
@@ -6651,13 +6654,14 @@
           ]
         },
         "transforms": {
-          "verb": "normalize provenance, freshness, landed SGD, purchase gates and lifecycle state without status laundering",
+          "verb": "normalize intent lane, provenance, freshness, landed SGD, purchase gates and lifecycle state without status laundering",
           "preserves": [
             "source/legacy state",
             "human money/action authority",
             "FOUND/BOUGHT/RECEIVED/TESTED/ADOPTED distinction",
             "unknowns",
-            "private inventory boundary"
+            "private inventory boundary",
+            "curiosity/research intent distinct from purchase intent"
           ],
           "reversibility": "full",
           "side_effects": "browser-local only"
@@ -6742,7 +6746,7 @@
         "physical_fit": "Acquisition adapter for House/maker/cat/robotics capability gaps; no automatic buying."
       },
       "index": {
-        "updated_at": "2026-09-25T15:00:00+08:00",
+        "updated_at": "2026-09-25T15:37:00+08:00",
         "work_modes": [
           "RECOVER",
           "IMPLEMENT",

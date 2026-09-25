@@ -2,7 +2,7 @@
 
 ## STATUS
 
-Current public head: `/shopping/` v0.1.
+Current public head: `/shopping/` v0.2.
 
 This is **not a shopping project or wishlist**. It is the procurement/resource-acquisition adapter between a capability gap and a verified adopted capability.
 
@@ -75,3 +75,15 @@ The next meaningful increments are:
 2. quantity frontier projection for 1/2/5/10/20/50;
 3. optional private owned-inventory adapter;
 4. project-gap → procurement packet bridge from active FIELD objects.
+
+## THREE LANES — 2026-09-25
+
+One procurement lifecycle now carries three explicit intents without creating three systems:
+
+- **ESSENTIAL** — realistic maintenance, replacement, restock, safety/welfare, or ordinary household need.
+- **CAPABILITY** — closes a named build/project capability gap.
+- **EXPEDITION** — bounded curiosity, comparative market exploration, or strange/fun sourcing. It is research intent, not purchase intent.
+
+The lane survives local export, research packets and explicit Dayline handoff. It does **not** change the truth lifecycle: FOUND still does not imply BOUGHT, and BOUGHT still does not imply ADOPTED.
+
+Ordinary chores are not Shopping Field objects unless they expose a genuine procurement/resource gap. Laundry and garbage belong to private task/time execution; a missing detergent/bag/container may enter Shopping Field as ESSENTIAL.
