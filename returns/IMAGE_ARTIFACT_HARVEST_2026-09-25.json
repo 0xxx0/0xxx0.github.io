@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "IMAGE_ARTIFACT_HARVEST_2026-09-25",
   "date": "2026-09-25",
-  "state": "CANDIDATE_PENDING_CI",
+  "state": "MERGED_CI_GREEN",
   "object": "repository static visual artifact bytes",
   "operation": "TREE CENSUS → PROVENANCE CLASSIFY → DISTINGUISH DONOR/AUTHORITY → PRESERVE GAPS",
   "result": {
@@ -31,5 +31,19 @@
     "Exact source bytes outrank later summaries or reconstructed visual descriptions."
   ],
   "residue": "Conversation/library-only image bytes remain an explicit recovery gap; ten-painting Atlas / WAKE identity mapping remains open.",
-  "next": "Recover one named missing visual lineage from exact bytes when source access permits."
+  "next": "Repo visual census is sealed. Next image recovery requires exact conversation/library bytes for one named missing visual lineage; do not reconstruct images from summaries.",
+  "proof": {
+    "route_registration": {
+      "run": 36136335036,
+      "result": "PASS"
+    },
+    "public_surface_check": {
+      "run": 36136335074,
+      "result": "PASS"
+    },
+    "current_manifest_drift_check": "PASS after aligning FOLD//BLOOM 0.1.4 + PLAY 0.5.2",
+    "critical_browser_smoke": "PASS",
+    "pull_request": 324,
+    "merge_sha": "077713d5b6e01a1327689402e8e1db84377d41d3"
+  }
 }

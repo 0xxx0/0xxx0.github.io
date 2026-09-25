@@ -599,10 +599,10 @@
   "recovery_targets": [
     {
       "id": "laconic-iconic-exact",
-      "status": "CANON_RECOVERED_MISSING_QUEUE_OPEN",
-      "query": "Laconic Canon Recovery conversation (2026-08-07, 214 msgs in Sept export) recovered 255 items: 195 master-ledger + 60 multilingual treasury. 130 atomic items (39U/87A/1J/3?). 11 sandbox files produced but ephemeral.",
-      "payoff": "The Laconic Script Bank has been recovered to 255 items (130 atomic). The missing queue of 20 items remains OPEN. 5 Suno organisms were composed but not rendered (browser signed out). Cross-reference /laconic/ in repo against this recovery for reconstruction gaps.",
-      "receipt": "/Users/mcvoid/void-anchor/_recovered/laconic-canon/LACONIC_CANON_RECONSTRUCTED.md"
+      "status": "CANON_RECOVERED_MISSING_QUEUE_OPEN_24_TARGET_LEDGER",
+      "query": "Laconic Canon Recovery: 195 master + 60 multilingual treasury = 255 recovered; recovered MISSING_LEDGER/ARTIFACT_QUEUE reports 24 explicit targets. Original Script Bank and other exact-source gaps remain open.",
+      "payoff": "Current repo preserves the 255-item recovered census and a 24-target missingness ledger. The earlier 20-item summary is retained as an earlier recovery-stage count, not treated as current authority. Exact source ≠ user-adopted ≠ current canon; /laconic/ remains a bounded active instrument over a larger provenance-visible vault.",
+      "receipt": "/returns/LACONIC_MISSINGNESS_RECONCILIATION_2026-09-25.json"
     },
     {
       "id": "sleeper-deep-lineage",

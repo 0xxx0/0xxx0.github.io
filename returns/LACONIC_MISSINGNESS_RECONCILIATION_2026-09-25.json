@@ -1,0 +1,55 @@
+{
+  "schema": "field-return/v1",
+  "id": "LACONIC_MISSINGNESS_RECONCILIATION_2026-09-25",
+  "date": "2026-09-25",
+  "state": "RECOVERY_COUNT_RECONCILED",
+  "object": "Laconic / Iconic recovery missingness count",
+  "observed": [
+    {
+      "source": "control/CURRENT.json before this reconciliation",
+      "claim": "missing queue of 20 items remains OPEN",
+      "class": "EARLIER_SUMMARY"
+    },
+    {
+      "source": "/laconic/recovered/laconic-recovery-2026-08-08/MISSING_LEDGER.md",
+      "claim": "TOTAL RECOVERED = 195 master + 60 multilingual treasury-only = 255; MISSING = 24 explicit targets",
+      "class": "RECOVERED_LATER_LEDGER"
+    },
+    {
+      "source": "/laconic/recovered/laconic-recovery-2026-08-08/ARTIFACT_QUEUE.md",
+      "claim": "same 255 recovered / 24 explicit targets census; Ø001 remains original Laconic Script Bank",
+      "class": "RECOVERED_LATER_LEDGER"
+    },
+    {
+      "source": "/laconic/recovered/laconic-recovery-2026-08-08/LACONIC_MASTER_LEDGER.md",
+      "claim": "partial reconstruction from 2026-08-07 conversation; full original was in ChatGPT sandbox",
+      "class": "RECOVERY_BOUNDARY"
+    }
+  ],
+  "decision": {
+    "current_missing_count": 24,
+    "prior_20_count": "PRESERVED_AS_EARLIER_STAGE_SUMMARY",
+    "rationale": "The recovered later ledger and artifact queue agree on 24 explicit targets. No repo evidence shows a later exact reconciliation reducing 24 back to 20."
+  },
+  "boundaries": [
+    "24 is the current recovered missingness-ledger count, not proof that the full original sandbox artifact was byte-recovered.",
+    "255 recovered items do not automatically become current canon.",
+    "Exact source, origin, adoption and current canon remain separate.",
+    "Do not reconstruct the original Laconic Script Bank from adjacent banks when exact source recovery remains possible."
+  ],
+  "next": [
+    "Ø001: original Laconic Script Bank exact source",
+    "2026-04-04 → 2026-07-14 gap",
+    "visual inscriptions",
+    "Floating / Kite / Hostage sequences",
+    "older Eeper / Aker / MOSS",
+    "multilingual adoption evidence",
+    "philological adjudication"
+  ],
+  "previous_current_snapshot": {
+    "status": "CANON_RECOVERED_MISSING_QUEUE_OPEN",
+    "query": "Laconic Canon Recovery conversation (2026-08-07, 214 msgs in Sept export) recovered 255 items: 195 master-ledger + 60 multilingual treasury. 130 atomic items (39U/87A/1J/3?). 11 sandbox files produced but ephemeral.",
+    "payoff": "The Laconic Script Bank has been recovered to 255 items (130 atomic). The missing queue of 20 items remains OPEN. 5 Suno organisms were composed but not rendered (browser signed out). Cross-reference /laconic/ in repo against this recovery for reconstruction gaps.",
+    "receipt": "/Users/mcvoid/void-anchor/_recovered/laconic-canon/LACONIC_CANON_RECONSTRUCTED.md"
+  }
+}
