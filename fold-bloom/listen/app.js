@@ -128,9 +128,15 @@ function closePinSheet(){const sh=$('#pinSheet');if(sh){sh.classList.remove('on'
 function commitPin(){
   if(!map||!sourcePinKey())return;
   const old=pins.find(x=>x.id===editingPinId),point=Number($('#pinSave').dataset.address)||audio.currentTime||0,kind=$('#pinKind').value||'BOOKMARK';
-  const lo=Number($('#pinSave').dataset.scopeStart),hi=Number($('#pinSave').dataset.scopeEnd),address=kind==='ARC'&&Number.isFinite(lo)?lo:point,endAddress=kind==='ARC'&&Number.isFinite(hi)?hi:null;
+  let address=point,endAddress=null,features=currentFeatures();
+  if(kind==='ARC'){
+    const lo=parseMarkTime($('#pinStart')?.value,$('#pinSave').dataset.scopeStart),hi=parseMarkTime($('#pinEnd')?.value,$('#pinSave').dataset.scopeEnd);
+    address=Math.min(lo,hi);endAddress=Math.max(lo,hi);
+    if(endAddress-address<.01){toast('ARC NEEDS A SPAN');return}
+    features={...features,start:featuresAt(address),end:featuresAt(endAddress)};
+  }
   const p=makeStreamPin({
-    sourceKey:sourcePinKey(),address,endAddress,kind,label:$('#pinLabel').value.trim(),note:$('#pinNote').value.trim(),scope:scope(),features:currentFeatures(),
+    sourceKey:sourcePinKey(),address,endAddress,kind,label:$('#pinLabel').value.trim(),note:$('#pinNote').value.trim(),scope:scope(),features,
     id:old?.id||null,createdAt:old?.createdAt||null
   });
   pins=normalizePins([...pins.filter(x=>x.id!==old?.id),p],sourcePinKey());editingPinId=p.id;savePins();toast(kind+' SAVED');openPinSheet(p);
@@ -139,24 +145,45 @@ function deletePin(){
   if(!editingPinId)return;pins=pins.filter(x=>x.id!==editingPinId);editingPinId=null;savePins();toast('MARK REMOVED');closePinSheet();
 }
 function annotationPacket(){
-  return {
-    kind:'FOLD_BLOOM_ANNOTATIONS',
-    schema:'fold-bloom-annotations/v0.1',
-    created:new Date().toISOString(),
+  const range=map?scopeWindow(map,audio.currentTime||0,scope()):[0,0];
+  return buildAnnotationPacket({
     source:{key:sourcePinKey(),name:fileMeta?.name||'SOURCE',hash:fileMeta?.hash||null,kind:fileMeta?.sourceKind||null,origin:fileMeta?.origin||null,collection:fileMeta?.collection||null},
-    marks:normalizePins(pins,sourcePinKey()),
-    warning:'Marks are human-authored address evidence beside the AUDIO MAP; they do not alter source analysis.'
-  };
+    marks:normalizePins(pins,sourcePinKey()),map,
+    view:{time:audio.currentTime||0,scope:scope(),start:range[0],end:range[1]}
+  });
 }
 async function sharePins(){
   if(!pins.length)return;
   const packet=annotationPacket(),json=JSON.stringify(packet,null,2),base=String(fileMeta?.name||'source').replace(/\.[^.]+$/,'').replace(/[^a-z0-9_-]+/gi,'-').replace(/^-+|-+$/g,'').slice(0,48)||'source';
   try{
     const file=new File([json],`${base}.field-marks.json`,{type:'application/json'});
-    if(navigator.canShare?.({files:[file]})){await navigator.share({title:'FOLD//BLOOM marks',files:[file]});toast('MARKS SHARED');return}
+    if(navigator.canShare?.({files:[file]})){await navigator.share({title:'FOLD//BLOOM marks',text:`${pins.length} addressed marks · ${fileMeta?.name||'source'}`,files:[file]});toast('MARKS SHARED');return}
   }catch(error){if(error?.name==='AbortError')return}
   try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(json);toast('MARKS COPIED');return}}catch(_){}
   const blob=new Blob([json],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`${base}.field-marks.json`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast('MARKS EXPORTED');
+}
+async function importPinsFile(file){
+  if(!map||!file)return false;
+  try{
+    const packet=JSON.parse(await file.text()),expected=sourcePinKey(),packetKey=sourceKeyFromAnnotationPacket(packet);
+    if(!packetKey){toast('MARK FILE · SOURCE ID MISSING');return false}
+    if(String(packetKey)!==String(expected)){toast('MARK FILE · SOURCE MISMATCH');return false}
+    const incoming=marksFromAnnotationPacket(packet,expected);
+    if(!incoming.length){toast('MARK FILE · NO MARKS');return false}
+    const before=pins.length;pins=mergeAnnotationMarks(pins,incoming,expected);savePins();toast(`MARKS IMPORTED · +${Math.max(0,pins.length-before)} / ${pins.length}`);return true;
+  }catch(error){console.warn(error);toast('MARK IMPORT FAILED');return false}
+}
+function navigatePin(dir){
+  const xs=normalizePins(pins,sourcePinKey());if(!xs.length)return false;
+  let i=editingPinId?xs.findIndex(p=>p.id===editingPinId):-1;
+  if(i<0){
+    const t=audio.currentTime||0,first=xs.findIndex(p=>p.address>=t);
+    i=dir<0?(first<=0?xs.length-1:first-1):(first<0?0:first);
+  }else i=(i+(dir<0?-1:1)+xs.length)%xs.length;
+  const p=xs[i];audio.currentTime=Math.max(0,Math.min(map?.duration||p.address,p.address));publishTransport(true);openPinSheet(p);toast(`${p.kind} · ${fmt(p.address)}`);return true;
+}
+function useCurrentApertureForArc(){
+  if(!map)return;const range=scopeWindow(map,audio.currentTime||0,scope());setArcFields(range[0],range[1]);$('#pinSave').dataset.scopeStart=String(range[0]);$('#pinSave').dataset.scopeEnd=String(range[1]);toast('ARC · CURRENT APERTURE');
 }
 function stopIdle(takeover=false){
   if(!idle.on)return;
