@@ -300,6 +300,27 @@ function readerFocusProbeHtml(){
 }
 
 
+function readfieldLocalFileProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/docs/?read_view=plain"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=14000,label='condition')=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(70)}throw new Error('waitFor timeout: '+label)};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    const A=await waitFor(()=>{const a=D().getElementById('docAperture');return a?.snapshot?.()&&D().getElementById('localFile')?a:null},14000,'READFIELD local file ready');
+    const input=D().getElementById('localFile'),text='# FIELD NOTE\\n\\nalpha beta gamma delta epsilon zeta eta theta\\n\\n## NEXT\\nreview this exact place.';
+    const file=new (W().File)([text],'field-note.md',{type:'text/markdown'}),dt=new (W().DataTransfer)();dt.items.add(file);input.files=dt.files;input.dispatchEvent(new (W().Event)('change',{bubbles:true}));
+    await waitFor(()=>A.A?.label==='field-note.md'&&/field-note\.md · LOCAL/.test(D().getElementById('title')?.textContent||''),12000,'local file loaded');
+    A.restore({scale:'WORD',index:4,wpm:900});await sleep(120);
+    const snap=A.snapshot(),stored=JSON.parse(W().sessionStorage.getItem('docs.reader.local.v1')||'null');
+    rec.label=A.A?.label;rec.scale=snap.scale;rec.wpm=snap.wpm;rec.local=W().location.search.includes('local=1');rec.session=stored?.name||'';rec.copy=D().getElementById('copyView')?.textContent||'';
+    rec.mark=D().getElementById('reading')?.querySelector('mark')?.textContent||'';
+    done(rec.label==='field-note.md'&&rec.scale==='WORD'&&rec.wpm===900&&rec.local&&rec.session==='field-note.md'&&rec.copy==='COPY FOCUS'&&!!rec.mark,rec);
+  })().catch(e=>done(false,{stage:'exception',error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
 function readfieldFocusLensProbeHtml(){
   return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/docs/?read_view=focus"></iframe><pre id="probeResult">PENDING</pre><script>
   const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
@@ -590,6 +611,10 @@ const server=http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(readerFocusProbeHtml());return;
   }
+  if(String(req.url||'').startsWith('/__smoke/readfield-local-file')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(readfieldLocalFileProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/readfield-focus-lens')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(readfieldFocusLensProbeHtml());return;
@@ -720,7 +745,13 @@ const CASES=[
   {
     name:'READFIELD',
     route:'/docs/',
-    check:dom=>/READFIELD/i.test(dom)&&/RSVP 0\.8\.4/.test(dom)&&dom.includes('id="docAperture"')&&dom.includes('reader')&&dom.includes('RAW SOURCE')&&dom.includes('id="readerUses"')&&dom.includes('id="workRail"')&&dom.includes('id="workModeStatus"')&&dom.includes('id="pulseState"')
+    check:dom=>/READFIELD/i.test(dom)&&/RSVP 0\.8\.5/.test(dom)&&dom.includes('id="docAperture"')&&dom.includes('reader')&&dom.includes('RAW SOURCE')&&dom.includes('id="readerUses"')&&dom.includes('id="workRail"')&&dom.includes('id="workModeStatus"')&&dom.includes('id="pulseState"')&&dom.includes('id="localFile"')&&/SKIM → REVIEW/.test(dom)
+  },
+  {
+    name:'READFIELD local file phone intake',
+    route:'/__smoke/readfield-local-file',
+    options:{width:430,height:900,budget:18000,timeout:24000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"label":"field-note.md"/.test(dom)&&/"scale":"WORD"/.test(dom)&&/"wpm":900/.test(dom)&&/"local":true/.test(dom)&&/"copy":"COPY FOCUS"/.test(dom)
   },
   {
     name:'READFIELD explicit pulse mode',
