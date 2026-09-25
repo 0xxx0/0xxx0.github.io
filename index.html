@@ -365,18 +365,34 @@ function headForFocus(){
  if(!focus||!current?.current_heads)return null;
  return current.current_heads.find(h=>h.route===focus.href)||current.current_heads.find(h=>focus.href&&h.route&&h.route!=='/'&&focus.href.startsWith(h.route))||null;
 }
+async function copyHeldAction(){
+ if(!focus)return;
+ const h=headForFocus(),n=h?.next_executable||null,c=capabilityForFocus();
+ const packet={
+  schema:'field-action-handoff/v0.1',
+  object:{route:focus.href,title:focus.title||focus.href,state:focus.state||null,owner:c?.owner||h?.lineage||'FIELD ROUTE'},
+  gate:n?{id:n.id||null,state:n.state||null,objective:n.objective||null,human_questions:n.human_questions||n.acceptance||[]}:null,
+  native_moves:c?.moves||[],
+  authority:'NONE / HANDOFF ONLY',
+  instruction:'Hold this exact addressed object. Perform at most one lawful bounded move in the native owner, preserve authority, witness the consequence, then RETURN to '+focus.href+'.'
+ };
+ const txt=JSON.stringify(packet,null,2);
+ try{await navigator.clipboard.writeText(txt);$('capReturn').textContent='COPIED ACTION · RETURN → '+focus.href}catch(_){prompt('Copy FIELD action packet:',txt)}
+}
 function renderCapabilityTrial(){
  const box=$('capTrial');if(!box)return;
  if(!CAP_TRIAL){box.hidden=true;return}
  box.hidden=false;
- if(!focus){$('capHeld').textContent='NO FOCUS';$('capHeldSub').textContent='choose one addressed route';$('capMoves').innerHTML='<span class="capMove">RESET / CHOOSE</span>';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
- const c=capabilityForFocus(),h=headForFocus(),fresh=shortTs(focus.index?.updated_at)||'untracked';
- $('capHeld').textContent=(c?.owner||'FIELD ROUTE')+' · '+(focus.title||focus.href);
- $('capHeldSub').textContent=focus.href+' · route focus only; native object remains with '+(c?.owner||'host');
- const moves=c?.moves||['OPEN / INSPECT','TRACE / COMPARE','RETURN'];
- $('capMoves').innerHTML=moves.slice(0,3).map(x=>'<span class="capMove">'+esc(x)+'</span>').join('');
- $('capWitness').textContent=(h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh;
- $('capReturn').textContent='RETURN · FIELD φ '+focus.href+(c?' · '+c.boundary:'');
+ if(!focus){$('capHeld').textContent='NO FOCUS';$('capHeldSub').textContent='choose one addressed route';$('capMoves').innerHTML='<button class="capMove" disabled>NO LAWFUL MOVE</button>';$('capWitness').textContent='no addressed object';$('capReturn').textContent='RETURN · FIELD /';return}
+ const c=capabilityForFocus(),h=headForFocus(),n=h?.next_executable||null,fresh=shortTs(focus.index?.updated_at)||'untracked',href='.'+(focus.alias_of||focus.href);
+ $('capHeld').textContent=(c?.owner||h?.lineage||'FIELD ROUTE')+' · '+(focus.title||focus.href);
+ $('capHeldSub').textContent=focus.href+' · held here; native truth remains with '+(c?.owner||h?.lineage||'host');
+ const primary=n?'DO / OPEN':'OPEN';
+ $('capMoves').innerHTML='<a class="capMove" href="'+esc(href)+'">'+primary+'</a><button class="capMove" data-cap-copy>COPY ACTION</button><button class="capMove" data-cap-trace>TRACE</button>';
+ $('capMoves').querySelector('[data-cap-copy]').onclick=copyHeldAction;
+ $('capMoves').querySelector('[data-cap-trace]').onclick=openTrace;
+ $('capWitness').textContent=n?(dependencyLabel(n.state)+' · '+String(n.objective||'human/world evidence required').replace(/\s+/g,' ').slice(0,170)):((h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh);
+ $('capReturn').textContent=(c?.moves?.length?'NATIVE · '+c.moves.slice(0,3).join(' · ')+' · ':'')+'RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:'');
 }
 function renderAperture(){
  if(!focus){$('apGlyph').innerHTML='';['apInspect','apLens','apTrace','apProof','apCopy'].forEach(id=>$(id).disabled=true);$('apMeta').textContent='NO EXACT INTERSECTION';$('apMeta').className='apMeta noMatch';$('apTitle').textContent='No route matches this tuple';$('apPath').textContent=[axisState.state,axisState.operation,axisState.mode].join(' × ');$('apRole').textContent='Dim positions are impossible under the other strips. Turn one strip toward a bright position or RESET; AXIAL does not invent a nearest route.';$('apOpen').removeAttribute('href');renderCapabilityTrial();return}
@@ -394,14 +410,18 @@ function updateStatusRail(){
 }
 function catchupSeen(){try{return Math.max(0,Number(localStorage.getItem(CATCHUP_KEY))||0)}catch(_){return 0}}
 function catchupHistory(){
- try{
-  const xs=JSON.parse(localStorage.getItem(CATCHUP_HISTORY_KEY)||'[]');
-  return Array.isArray(xs)?xs.map(Number).filter(x=>Number.isFinite(x)&&x>=0).slice(-20):[];
- }catch(_){return[]}
+ try{const xs=JSON.parse(localStorage.getItem(CATCHUP_HISTORY_KEY)||'[]');return Array.isArray(xs)?xs.slice(-40):[]}catch(_){return[]}
 }
-function saveCatchupHistory(xs){try{localStorage.setItem(CATCHUP_HISTORY_KEY,JSON.stringify((xs||[]).slice(-20)))}catch(_){}}
-function setCatchupSeen(stamp){
- try{if(Number(stamp)>0)localStorage.setItem(CATCHUP_KEY,String(Number(stamp)));else localStorage.removeItem(CATCHUP_KEY)}catch(_){}
+function saveCatchupHistory(xs){try{localStorage.setItem(CATCHUP_HISTORY_KEY,JSON.stringify((xs||[]).slice(-40)))}catch(_){}}
+function pushCatchupHistory(entry){const xs=catchupHistory();xs.push(entry);saveCatchupHistory(xs)}
+function catchupItems(){try{const x=JSON.parse(localStorage.getItem(CATCHUP_ITEM_KEY)||'{}');return x&&typeof x==='object'&&!Array.isArray(x)?x:{}}catch(_){return{}}}
+function saveCatchupItems(x){try{localStorage.setItem(CATCHUP_ITEM_KEY,JSON.stringify(x||{}))}catch(_){}}
+function setCatchupSeen(stamp){try{if(Number(stamp)>0)localStorage.setItem(CATCHUP_KEY,String(Number(stamp)));else localStorage.removeItem(CATCHUP_KEY)}catch(_){}}
+function routeCaughtUpAt(href){const items=catchupItems();return Math.max(catchupSeen(),Math.max(0,Number(items[href])||0))}
+function markRouteCaughtUp(href){
+ const r=routeMap().get(href);if(!r)return;
+ const items=catchupItems(),previous=Math.max(0,Number(items[href])||0),stamp=tsMs(r.index?.updated_at)||Date.now();
+ pushCatchupHistory({kind:'route',href,previous});items[href]=stamp;saveCatchupItems(items);renderCatchup();
 }
 function catchText(r){
  const s=r?.evolution?.mutation||r?.evolution?.question||r?.role||(Array.isArray(r?.transfer)?r.transfer[0]:'')||'Addressed head changed.';
@@ -409,32 +429,47 @@ function catchText(r){
 }
 function renderCatchup(){
  const box=$('catchupList'),meta=$('catchupMeta'),now=$('catchupNow'),seenLabel=$('catchupSeen'),rewind=$('catchupRewind');if(!box||!meta||!now||!seenLabel)return;
- const seen=catchupSeen(),changed=latest.filter(r=>tsMs(r.index?.updated_at)>seen),pool=(seen?changed:latest).slice();
+ const seen=catchupSeen(),changed=latest.filter(r=>tsMs(r.index?.updated_at)>routeCaughtUpAt(r.href)),pool=changed.slice();
  pool.sort((a,b)=>{
    const sa=(nowSet.has(a.href)?4:0)+(headSet.has(a.href)?2:0),sb=(nowSet.has(b.href)?4:0)+(headSet.has(b.href)?2:0);
    return sb-sa||tsMs(b.index?.updated_at)-tsMs(a.index?.updated_at)
  });
  const xs=pool.slice(0,6),front=current?.active_fronts?.[0],objective=String(front?.objective||front?.center||'Use an existing head; make one consequence; RETURN.').replace(/\s+/g,' ').trim();
  now.innerHTML='<b>NOW · '+esc(String(front?.id||'conversion').replaceAll('-',' ').toUpperCase())+'</b><span>'+esc(objective.slice(0,340))+'</span>';
- const changedCount=changed.length;
- meta.textContent=seen?(changedCount?changedCount+' changed since your last local mark':'no indexed changes since your last local mark'):('first local catch-up · '+latest.length+' indexed routes');
- const history=catchupHistory();seenLabel.textContent=seen?'Last caught up: '+shortTs(new Date(seen).toISOString())+' · REWIND '+(history.length?history.length+' retained':'to all'):'Last caught up: never on this browser.';if(rewind)rewind.disabled=!seen&&!history.length;
+ const changedCount=changed.length,history=catchupHistory(),gates=currentHumanGates(),playIssues=(issues||[]).filter(x=>x.play_safe);
+ meta.textContent=changedCount+' changed · '+gates.length+' YOU · '+(issues||[]).length+' GitHub';
+ seenLabel.textContent=changedCount+' unresolved local change'+(changedCount===1?'':'s')+' · REWIND '+(history.length?history.length+' retained':'ready');
+ if(rewind)rewind.disabled=!seen&&!history.length&&!Object.keys(catchupItems()).length;
+ const signals=$('catchupSignals');
+ if(signals)signals.innerHTML=
+  '<div class="catchSignal"><div class="catchSignalHead"><b>YOU / CURRENT</b><span>'+gates.length+'</span></div><div class="catchSignalBody">'+
+  (gates.length?gates.map(g=>'<button data-catch-gate="'+esc(g.route||'/')+'" title="'+esc(g.human_move||'')+'">'+esc(dependencyLabel(g.dependency_kind))+' · '+esc((routeMap().get(g.route)?.title||g.route||g.id).slice(0,28))+'</button>').join(''):'<span class="tiny">CLEAR</span>')+
+  '</div></div><div class="catchSignal"><div class="catchSignalHead"><b>GITHUB / OPEN</b><span>'+(issues||[]).length+'</span></div><div class="catchSignalBody">'+
+  ((issues||[]).length?(issues||[]).map(x=>(x.play_safe?'<a class="hot" href="./field-play.html#issue='+x.number+'">#'+x.number+' PLAY</a>':'')+'<a href="'+esc(x.html_url)+'" target="_blank" rel="noopener">#'+x.number+' GH ↗</a>').join(''):'<span class="tiny">CLEAR</span>')+
+  '</div></div>';
  box.innerHTML=xs.length?xs.map(r=>{
    const head=headSet.has(r.href),stamp=shortTs(r.index?.updated_at)||'untracked',ver=r.version?'v'+r.version:'',sub=[stamp,ver,r.state||'',opOf(r)].filter(Boolean).join(' · ');
-   return '<article class="catchCard '+(head?'head':'')+'">'+routeGlyph(r,27)+'<div><strong>'+esc(r.title||r.href)+'</strong><small>'+esc(sub)+'</small><p>'+esc(catchText(r))+'</p></div><div class="catchActions"><button data-catch-focus="'+esc(r.href)+'">FOCUS</button><a href=".'+esc(r.alias_of||r.href)+'">OPEN →</a></div></article>'
- }).join(''):'<div class="catchEmpty">No addressed changes since the last local catch-up mark. CURRENT and exact Git chronology remain available above/below.</div>';
- box.querySelectorAll('[data-catch-focus]').forEach(b=>b.onclick=()=>{const r=routeMap().get(b.dataset.catchFocus);if(!r)return;focusRoute(r,true,'OTHER');$('axialLatest')?.scrollIntoView({behavior:'smooth',block:'start'})});
- $('catchupMark').disabled=!latest.length;
+   return '<article class="catchCard '+(head?'head':'')+'">'+routeGlyph(r,27)+'<div><strong>'+esc(r.title||r.href)+'</strong><small>'+esc(sub)+'</small><p>'+esc(catchText(r))+'</p></div><div class="catchActions"><button data-catch-focus="'+esc(r.href)+'">HOLD</button><a href=".'+esc(r.alias_of||r.href)+'">OPEN →</a><button class="seen" data-catch-seen="'+esc(r.href)+'">SEEN</button></div></article>'
+ }).join(''):'<div class="catchEmpty">No unresolved addressed changes. YOU / GitHub signals remain above; exact Git chronology remains below.</div>';
+ box.querySelectorAll('[data-catch-focus],[data-catch-gate]').forEach(b=>b.onclick=()=>{const href=b.dataset.catchFocus||b.dataset.catchGate,r=routeMap().get(href);if(!r)return;focusRoute(r,true,'OTHER');$('capTrial')?.scrollIntoView({behavior:'smooth',block:'center'})});
+ box.querySelectorAll('[data-catch-seen]').forEach(b=>b.onclick=()=>markRouteCaughtUp(b.dataset.catchSeen));
+ $('catchupMark').disabled=!changed.length;
 }
 function markCaughtUp(){
- if(!latest.length)return;
- const previous=catchupSeen(),stamp=Math.max(...latest.map(r=>tsMs(r.index?.updated_at)).filter(Boolean),Date.now());
- if(stamp===previous)return;
- const history=catchupHistory();history.push(previous);saveCatchupHistory(history);setCatchupSeen(stamp);renderCatchup();
+ const changed=latest.filter(r=>tsMs(r.index?.updated_at)>routeCaughtUpAt(r.href));if(!changed.length)return;
+ const previous=catchupSeen(),stamp=Math.max(...changed.map(r=>tsMs(r.index?.updated_at)).filter(Boolean),Date.now());
+ pushCatchupHistory({kind:'bulk',previous});setCatchupSeen(stamp);renderCatchup();
 }
 function rewindCaughtUp(){
- const history=catchupHistory(),prior=history.length?history.pop():0;
- saveCatchupHistory(history);setCatchupSeen(prior);renderCatchup();
+ const history=catchupHistory();
+ if(history.length){
+  const prior=history.pop();saveCatchupHistory(history);
+  if(typeof prior==='number'){setCatchupSeen(prior)}
+  else if(prior?.kind==='bulk'){setCatchupSeen(prior.previous||0)}
+  else if(prior?.kind==='route'&&prior.href){const items=catchupItems();if(prior.previous>0)items[prior.href]=prior.previous;else delete items[prior.href];saveCatchupItems(items)}
+ }else if(catchupSeen())setCatchupSeen(0);
+ else{const items=catchupItems(),keys=Object.keys(items);if(keys.length){delete items[keys[keys.length-1]];saveCatchupItems(items)}}
+ renderCatchup();
 }
 function renderSyncLine(){
  const cur=$('syncCurrent'),rep=$('syncRepo'),loc=$('syncFocus');if(!cur||!rep||!loc)return;
