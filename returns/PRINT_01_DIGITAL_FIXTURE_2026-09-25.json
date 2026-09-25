@@ -28,9 +28,15 @@
     "address": "Φ / CURRENT",
     "local_focus": "φ FOCUS / handwritten",
     "return": "/",
-    "revision": "0.1"
+    "revision": "0.1.1"
   },
   "next_human_move": "Print once at 100% / Actual Size, verify 100 mm ± 1 mm, cut one tile, place temporarily, write one real φ focus, photograph with ruler, and return measured/legibility evidence.",
   "stop": "No second fixture or label system before physical evidence.",
-  "authority": "NONE; physical paper is a traceable projection, not FIELD state authority."
+  "authority": "NONE; physical paper is a traceable projection, not FIELD state authority.",
+  "preflight": {
+    "state": "PASS_AFTER_FIX",
+    "defect": "Rendered preflight showed the source-pointer baseline below the 120 × 45 mm cut boundary.",
+    "correction": "Moved REV/source metadata upward inside the specimen without changing specimen dimensions, calibration geometry, address or proof law.",
+    "path_stability": "Canonical artifact path retained; internal revision advanced to 0.1.1 before physical execution."
+  }
 }
