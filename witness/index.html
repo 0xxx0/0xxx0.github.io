@@ -192,6 +192,7 @@ Orange: the human outwrote the machine that hour. Blue: the machine outwrote the
   <div class="law"><b>02 · ROOT ≠ INVENTORY</b><p>Root is an attention aperture. CURRENT may name ≤3 active fronts; the manifest preserves everything else. Reachability is not a claim on attention.</p></div>
   <div class="law"><b>03 · VOCABULARY IS SCHEMA</b><p>Keep expressive labels, but give families and operations machine-stable IDs. Near-synonyms should project from one base verb instead of becoming new ontology.</p></div>
   <div class="law"><b>04 · PROOF CANNOT PROMOTE VALUE</b><p>Tests prove mechanics. Receipts prove provenance. Only use in the world can promote usefulness. A passing CI run must never become a surrogate for lived consequence.</p></div>
+  <div class="law"><b>05 · HEARTBEAT ≠ CHANGE</b><p>Scheduled refreshes prove liveness, not novelty. Do not infer progress from commit density; use Git for chronology and RETURN for semantic closure.</p></div>
 </div>
 
 <h2><span class="n2">IV</span> The account — what can be proved</h2>
@@ -321,6 +322,10 @@ window.addEventListener('resize',layout); layout();
     const families=new Set(routes.map(r=>r.family).filter(Boolean)).size;
     const ops=new Set(routes.map(r=>r.operation).filter(Boolean)).size;
     const states=count(routes,r=>r.state||'∅');
+    const commitRows=(h.days||[]).flatMap(d=>(d.c||[]).map(c=>({day:d.d,subject:c[3]||''})));
+    const boardRefresh=commitRows.filter(x=>/^nexus: board refresh/i.test(x.subject)).length;
+    const recentRows=commitRows.filter(x=>x.day>='2026-09-23');
+    const recentBoard=recentRows.filter(x=>/^nexus: board refresh/i.test(x.subject)).length;
     const activeFronts=Array.isArray(c.active_fronts)?c.active_fronts.length:0;
     const heads=Array.isArray(c.current_heads)?c.current_heads.length:0;
     const archived=h.total||days.reduce((n,d)=>n+(d.n||0),0);
@@ -343,6 +348,7 @@ window.addEventListener('resize',layout); layout();
       ['ROOT PRESSURE',roots+' direct-root routes','A third of the graph still presents as near-root sovereignty. Prefer containment under durable hosts over adding more peer destinations.'],
       ['FAMILY DRIFT',families+' named families · '+noFamily+' untyped','Family labels are serving prose and schema at once. Split stable family_id from display label before adding more taxonomy.'],
       ['OPERATION DRIFT',ops+' distinct operation labels','The field keeps rediscovering verbs with modifiers. Canonicalize a small base-verb set; keep nuance as projection metadata.'],
+      ['AUTOMATION SHADOW',boardRefresh+' board refreshes · '+recentBoard+'/'+recentRows.length+' commits since Sep 23','Recurring board refresh is liveness evidence, not semantic progress. Git remains exact chronology; RETURN/receipts carry meaning.'],
       ['LIFECYCLE MASS',(states.ACTIVE||0)+' ACTIVE · '+(states.CANDIDATE||0)+' CANDIDATE · '+(states.FROZEN_DONOR||0)+' FROZEN_DONOR','The repo is already a memory machine. Promotion should become harder than preservation; donor status is success, not failure.'],
       ['INVARIANT','ADDRESS → PROJECT → ACT → WITNESS → RETURN','KRAKEN/POLY, DataDisc, Grid Path, Sleeper, Fold/Bloom and FIELD INDEX differ in medium; this loop keeps surviving. Build around it rather than around project names.']
     ].map(x=>'<div class="shape"><div class="k">'+esc(x[0])+'</div><div class="v">'+esc(x[1])+'</div><div class="w">'+esc(x[2])+'</div></div>').join('');
