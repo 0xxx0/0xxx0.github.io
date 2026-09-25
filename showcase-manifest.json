@@ -2238,12 +2238,11 @@
       "tier": "FIELD",
       "role": "Spatial six-projection lab over the Fold/Bloom family. RIDE delegates to LIVE; PULSE trains polyrhythm and emits bounded FIELD PULSE transport; READ embeds canonical READFIELD/APERTURE; LOCI preserves large text as a bounded addressed course. Explicit READ↔READFIELD handoffs now preserve bounded cursor/focus, and READFIELD→LOCI can enter the nearest addressed locus instead of restarting the source. INK, DATA and LOCI remain unequal studies; profiles are presentation-only.",
       "index": {
-        "updated_at": "2026-09-25T09:14:00+08:00",
+        "updated_at": "2026-09-25T13:55:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
-          "OPERATE",
-          "SHARE"
+          "OPERATE"
         ]
       },
       "evidence": {
@@ -2267,7 +2266,10 @@
         "next_if_pass": "Use one genuinely long familiar source through READ→LOCI: inspect the same exact text, carry focus, recall the course, export RETURN, then judge whether source-position recovery beats a plain chunk list. Only then generalize COURSE or add Pathweaver/event-tape adapters.",
         "next_if_fail": "Keep canonical READFIELD handoff and individually useful PULSE/event-tape/INK mechanisms; demote the universal FIELD LAB shell instead of cloning more engines."
       },
-      "receipt": "/fold-bloom/lab/release.json"
+      "receipt": "/fold-bloom/lab/release.json",
+      "transfer": [
+        "phone footer navigation targets share the existing 34px compact control floor; no new navigation layer"
+      ]
     },
     {
       "href": "/fold-bloom/voice/",
@@ -2354,12 +2356,11 @@
       "tier": "FIELD",
       "role": "Primitive wet-media instrument shared with FIELD LAB. Pointer speed, pressure and stylus tilt modulate brush deposit; water and pigment evolve separately through deterministic paper grain, evaporation and stain. SUMI/DRY/WASH are interaction regimes, not historical calligraphy claims. Exact pixels can export locally; source/gesture semantics remain local.",
       "index": {
-        "updated_at": "2026-09-24T09:20:00+08:00",
+        "updated_at": "2026-09-25T13:55:00+08:00",
         "work_modes": [
-          "OPERATE",
-          "TRAIN",
+          "IMPLEMENT",
           "VERIFY",
-          "SHARE"
+          "OPERATE"
         ]
       },
       "evolution": {
@@ -2373,7 +2374,10 @@
         "evidence_gate": "Node unit tests must prove deterministic deposit, evaporation/stain, dry-vs-wash water separation and stable RGBA output; browser smoke must boot the dedicated route and LAB INK controls. Human gate is stroke feel on phone/stylus: edge breakup, wet spread and guide tracing must read as materially different.",
         "next_if_pass": "Add replayable stroke tape and training comparison (guide path vs produced stroke) without pretending to judge calligraphic quality from geometry alone.",
         "next_if_fail": "Keep the reusable paper renderer if visually useful; remove training claims and reduce to generative wet-media projection."
-      }
+      },
+      "transfer": [
+        "phone footer navigation targets share the existing 34px compact control floor; no new navigation layer"
+      ]
     },
     {
       "href": "/fold-bloom/listen/",

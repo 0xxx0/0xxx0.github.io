@@ -1,0 +1,32 @@
+{
+  "schema": "return/v0.1",
+  "id": "FOLD_BLOOM_PHONE_NAV_TARGETS_2026-09-25",
+  "state": "CANDIDATE",
+  "object": "FOLD//BLOOM FIELD LAB + INK FIELD phone footer navigation",
+  "trigger": {
+    "source": "/returns/HERMES_CROSS_SESSION_RETURN_2026-09-25.json#verification_triggers/fold-bloom-phone-nav-targets",
+    "evidence_class": "REPORTED_LOCAL_HERMES_CENSUS",
+    "reverified_in_repo": true,
+    "finding": "Current LAB and INK footer anchors had no minimum target height while their surrounding controls already use a 34px floor."
+  },
+  "delta": [
+    "LAB footer anchors now use inline-flex with min-height 34px.",
+    "INK footer anchors now use inline-flex with min-height 34px.",
+    "No new navigation layer, route identity or state authority.",
+    "Static public validation now rejects loss of the 34px footer target floor."
+  ],
+  "preserves": [
+    "existing footer labels and destinations",
+    "shared showcase-nav route adapter",
+    "FIELD LAB / INK runtime state and authority",
+    "compact phone geometry"
+  ],
+  "evidence": [
+    "/fold-bloom/lab/index.html",
+    "/fold-bloom/ink/index.html",
+    "/tools/validate-public.mjs",
+    "/showcase-manifest.json"
+  ],
+  "human_gate": "Whether 34px is sufficient in ordinary one-handed use remains a lived-use question; this patch only removes the verified smaller-than-controls discrepancy.",
+  "stop": "Do not enlarge or redesign the rest of Fold/Bloom navigation without observed phone friction."
+}
