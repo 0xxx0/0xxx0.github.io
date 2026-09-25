@@ -1,0 +1,15 @@
+{
+  "schema": "0xxx0/recovery-donor/v0.1",
+  "family": "YAW / You're A Wake",
+  "state": "EXACT_LIBRARY_TEXT_MATERIALIZED",
+  "classification": "FROZEN_DONOR_NOT_CURRENT_HEAD",
+  "source": {
+    "name": "YAW_ENGINE_PLAYGROUND_v1.html",
+    "file_id": "file_000000007120820ba69e2ee08849e2fa",
+    "size_bytes": 6731,
+    "sha256": "58f547fa6819e031ddbeb926d65fc086538c1230ced890612ca1c9f14c3dd0c6"
+  },
+  "repo_path": "/recovery/yaw/YAW_ENGINE_PLAYGROUND_v1.html",
+  "law": "Recover exact runnable donor; do not promote YAW into a current head merely because the source is now durable.",
+  "recovered_at": "2026-09-26"
+}
