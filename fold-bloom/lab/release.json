@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM FIELD LAB",
-  "version": "0.3.3",
-  "state": "SHIPPED",
+  "version": "0.4",
+  "state": "CANDIDATE",
   "operation": "TRAIN / EXPLORE",
   "route": "/fold-bloom/lab/",
-  "date": "2026-09-25",
-  "thesis": "A convergence lab should reuse canonical engines, preserve one addressed source across unequal projections, and RETURN bounded evidence of the traversal without claiming donor authority.",
+  "date": "2026-09-26",
+  "thesis": "Keep the same seven unequal projections while collapsing repeated needs into shared engines: continuous wet-media strokes, voice spectrum training inside PULSE, deterministic turn-addressed RIDE with one minimap, and inline VERSE replay over the same score used by full REPLAY.",
   "new": [
     "READ embeds the shared /field-aperture.js READFIELD/RSVP kernel at WORD scale",
     "RSVP, scale, regression, voice and source address come from the canonical reader rather than a Lab clone",
@@ -40,7 +40,13 @@
     "phone mode controls use a 44px floor while the desktop ring expands from six to seven unequal projections.",
     "DATA gains a shared six-line STATE / CHANGE projection with editable before/after stacks, exact Δ positions, copyable state tokens, and direct line editing in the visual field.",
     "Inbound Poem Map VERSE handoffs expose an exact same-origin ↩ POEM MAP caller return after source/focus restoration; returning is navigation only and does not import LAB marks or projection state into poem authorship.",
-    "FIELD LAB 0.3.3 adds one bounded session RETURN: traversed modes, profile/address/source witnesses, and current-projection evidence without copying raw source bytes into a new store."
+    "FIELD LAB 0.3.3 adds one bounded session RETURN: traversed modes, profile/address/source witnesses, and current-projection evidence without copying raw source bytes into a new store.",
+    "INK 0.3 replaces isolated spray-like pointer deposits with a shared interpolated directional brush stroke: pressure, speed, tilt, paper tooth and coherent bristle channels feed the same wet-media field in INK FIELD and LAB.",
+    "PULSE now contains VOICE training as a nested instrument rather than an eighth top-level mode; the existing time-domain pitch detector is paired with a bounded FFT spectrogram/centroid witness and microphone audio is never recorded.",
+    "RIDE now has a deterministic 49-turn STEP projection over the existing FIELD PRACTICE map and transport grammar; FOLD / BLOOM / SPLIT / RETURN each author one operation and advance one addressed turn.",
+    "RIDE TRACK / SECTION minimap is one derived view over the same transport state, with direct scrub control; FLOW merely auto-steps the same turn state and does not create a second real-time engine.",
+    "REPLAY handoff→score conversion is shared between the full REPLAY surface and LAB instead of duplicated.",
+    "VERSE can preview its current addressed line as inline STEP REPLAY and regress/advance without leaving LAB; OPEN REPLAY remains the deeper editor."
   ],
   "constraints": [
     "READFIELD/APERTURE remains reader authority; FIELD LAB owns no second segmentation/cursor/RSVP truth",
@@ -57,7 +63,11 @@
     "The local text-mark bridge remains LAB-scoped until ordinary cross-layer use proves a broader shared contract is warranted.",
     "STATE / CHANGE notation must only be used when six explicit binary conditions are meaningful; do not compress richer objects merely to fit the grammar.",
     "VERSE caller RETURN is navigation-only: FIELD LAB may not write poem text, marks, timing, or inferred claims back into Poem Map on return.",
-    "LAB session RETURN is EVIDENCE_ONLY: it may describe traversal and current projection state, but cannot mutate or supersede LIVE, READFIELD, Poem Map, FIELD PULSE, LOCI course, INK, or domain-state authority."
+    "LAB session RETURN is EVIDENCE_ONLY: it may describe traversal and current projection state, but cannot mutate or supersede LIVE, READFIELD, Poem Map, FIELD PULSE, LOCI course, INK, or domain-state authority.",
+    "VOICE spectrum is training evidence only: it does not record raw microphone audio, infer singing quality, or become source authority.",
+    "LAB RIDE STEP / FLOW is a training projection over the deterministic practice map. LIVE remains real-time ride/audio authority.",
+    "The RIDE minimap is a derived TRACK / SECTION lens over one transport address, not another track model.",
+    "Inline VERSE replay is presentation-only and uses the same shared handoff→score adapter as full REPLAY; Poem Map remains poetry authority."
   ],
   "verification": {
     "read_bridge_node": "PASS · public-surface-check run 35953594950 step 29",
@@ -80,11 +90,14 @@
     "verse_caller_return": "PENDING_PR_CI: same-origin caller survives inbound VERSE handoff; invalid/external caller stays hidden",
     "lab_return_node": "PASS · public-surface-check run 36166811291 step 41",
     "lab_return_browser": "PASS · 430×900 FIELD LAB browser proof run 36166811291 step 49",
-    "cross_projection_browser": "PASS · 430×900 dedicated smoke run 36195036465 step 50"
+    "cross_projection_browser": "PASS · 430×900 dedicated smoke run 36195036465 step 50",
+    "ink_brush": "PASS · public-surface-check run 36197792319: wet-media engine + FIELD LAB + INK FIELD browser gates",
+    "voice_spectrum": "PENDING_PR_CI: VOICE 0.2 spectrum core + Lab PULSE fold",
+    "turn_ride_replay": "PENDING_PR_CI: deterministic step-core + replay adapter + 430×900 browser loop"
   },
   "return": "/returns/FOLD_BLOOM_FIELD_LAB_RETURN_033_2026-09-26.json",
   "confluence": "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
-  "shipped": true,
+  "shipped": false,
   "state_language": {
     "version": "0.1",
     "shared_module": "/fold-bloom/state-language.js",
