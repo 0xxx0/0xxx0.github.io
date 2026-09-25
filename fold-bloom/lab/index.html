@@ -29,6 +29,7 @@ header{display:flex;align-items:center;gap:10px;padding:max(9px,env(safe-area-in
 button,.btn{min-height:34px;padding:7px 9px}.primary{border-color:var(--hot);color:#ffd2c0}.cool{border-color:#3d7187;color:var(--cool)}
 label{display:block;color:#829097;font-size:8px;letter-spacing:.09em;margin:8px 0 4px}input[type=range]{width:100%}textarea{width:100%;min-height:78px;padding:8px;resize:vertical}
 .mini{color:#76838a;font-size:8px;margin-top:7px}.verseLines{display:grid;gap:3px;max-height:150px;overflow:auto;margin-top:7px}.verseLine{display:grid;grid-template-columns:34px 1fr auto;gap:7px;align-items:center;text-align:left;min-height:38px}.verseLine b{color:var(--gold);font-size:8px}.verseLine span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.verseLine i{font-style:normal;color:var(--mut);font-size:7px}.verseLine.on{border-color:var(--hot);color:#fff}.verseLine.marked i{color:var(--gold)}.metric{display:inline-block;border:1px solid var(--line);padding:4px 6px;margin:3px 3px 0 0;color:#9aa6ac}.metric b{color:var(--ink)}
+.stateBox{border-top:1px solid var(--line);margin-top:10px;padding-top:9px}.stateBox .pair{display:grid;grid-template-columns:1fr 1fr;gap:5px}.stateBox input{width:100%;padding:8px;text-align:center;letter-spacing:.12em}.stateToken{border:1px solid var(--line);padding:8px;margin-top:6px;overflow:auto;white-space:nowrap;color:#d7b46d;font-size:8px}.stateHint{color:#66747b;font-size:7px;margin-top:5px}
 .textRace{display:grid;grid-template-columns:1fr auto;gap:5px}.textRace input{padding:7px;min-width:0}.readActions{margin:7px 0}.readUses{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin-top:7px}.readUses span{background:#070b0f;padding:7px;color:#78858c;font-size:7px;line-height:1.35}.readUses b{display:block;color:#cbd4d8;font-size:8px;margin-bottom:2px}.sourceAperture,.readGuide,.trainer{border-top:1px solid var(--line);margin-top:7px;padding-top:7px}.sourceAperture{border:1px solid var(--line);padding:7px;margin-top:0}.sourceAperture summary,.readGuide summary,.trainer summary{cursor:pointer;color:#7f8d94;font-size:8px;letter-spacing:.1em;margin-bottom:7px}.sourceAperture:not([open]){padding-bottom:7px}.sourceAperture:not([open]) summary{margin-bottom:0}.readGuide:not([open]) summary{margin-bottom:0}field-aperture{display:block;margin-top:7px}html[data-field-lab-mode="READ"] .core{display:none}.danger{border-color:#75413c;color:#efa49c}
 #status{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 footer{min-height:29px;border-top:1px solid var(--line);display:flex;align-items:center;gap:10px;padding:5px 10px calc(5px + env(safe-area-inset-bottom));color:#637078;font-size:8px;letter-spacing:.08em;z-index:5;background:#070a0d}footer a{display:inline-flex;align-items:center;min-height:34px;padding:0 4px;color:inherit;text-decoration:none;touch-action:manipulation}
@@ -157,6 +158,14 @@ the room keeps the weather</textarea>
         <div class="row"><button id="dataLoad" class="primary">LOAD DATA</button><button id="dataLens">OPEN SCALE LENS →</button></div>
         <div><span class="metric">NODES <b id="dataNodes">0</b></span><span class="metric">DEPTH <b id="dataDepth">0</b></span></div>
         <div class="mini">JSON becomes addressed nodes; plain text becomes addressed lines. Wheel changes aperture depth. Hover/tap focuses without rewriting source.</div>
+        <div class="stateBox">
+          <label>STATE / CHANGE LANGUAGE · BOTTOM → TOP</label>
+          <div class="pair"><input id="stateFrom" value="010|100" aria-label="State before, six bits bottom to top"><input id="stateTo" value="011|110" aria-label="State after, six bits bottom to top"></div>
+          <div class="row" style="margin-top:5px"><button id="stateProject" class="primary">PROJECT Δ</button><button id="stateSwap">SWAP</button><button id="stateCopy">COPY TOKEN</button></div>
+          <div class="stateToken" id="stateToken">H[010|100] Δ{3,5} → H[011|110]</div>
+          <div><span class="metric">FROM <b id="stateFromName">☵ KAN / ☳ ZHEN</b></span><span class="metric">TO <b id="stateToName">☴ XUN / ☱ DUI</b></span><span class="metric">Δ <b id="stateDelta">3,5</b></span></div>
+          <div class="stateHint">Tap a line in the right-hand visual field to flip it. This is a neutral six-bit state grammar; trigram names are a readable projection, not a requirement.</div>
+        </div>
       </section>
     </div>
   </aside>
@@ -169,7 +178,7 @@ the room keeps the weather</textarea>
 (()=>{const w=document.getElementById('labBootWitness');addEventListener('error',e=>{if(w)w.textContent='LAB_ERROR '+String(e.message||e.error||'unknown').slice(0,180)});addEventListener('unhandledrejection',e=>{if(w)w.textContent='LAB_REJECTION '+String(e.reason?.message||e.reason||'unknown').slice(0,180)})})();
 </script>
 <script src="/field-aperture.js"></script>
-<script type="module" src="./app.js"></script>
+<script type="module" src="./app.js?v=0.3.1"></script>
 <script src="/showcase-nav.js" defer></script>
 </body>
 </html>
