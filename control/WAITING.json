@@ -100,6 +100,24 @@
       "parked_at": "2026-09-25",
       "parked_reason": "User is not using/building it yet; preserve the proof gate without manufacturing a current obligation.",
       "reactivate_when": "CURRENT.current_heads[].next_executable explicitly selects FAN/8 physical proof."
+    },
+    {
+      "id": "print-01-field-route-tile",
+      "route": "/physical/print-01/print.html",
+      "human_move": "When you actually want a paper↔FIELD proof, open the public PRINT-01 launcher, print one A4 landscape sheet at 100% / Actual Size / no Fit-to-page, verify the 100 mm bar is 99–101 mm, cut one 120 × 45 mm tile, place it temporarily beside one real object/work surface, write one actual φ FOCUS, and return one photo with ruler plus a legibility/traceability note.",
+      "why": "Repository rendering and CI can verify SVG structure and launcher behavior, but only paper, printer scaling, handling and ordinary viewing can establish physical scale, legibility and whether the address→focus→RETURN mechanic survives contact with matter.",
+      "unlocks": "KEEP / REVISE / DROP the physical route-tile mechanic. A pass may justify exactly one recipient-specific transfer; a fail should correct one defect class only.",
+      "dependency_kind": "PHYSICAL_BUILD",
+      "proof_state": "REPO_GREEN / PHYSICAL_RETURN_REQUIRED",
+      "surface_state": "PARKED",
+      "parked_at": "2026-09-25",
+      "parked_reason": "Ready world-test fixture, but not a current obligation. It becomes active only when the user chooses to print/test it or CURRENT explicitly selects Issue #11.",
+      "reactivate_when": "User explicitly chooses PRINT-01 physical test or CURRENT.current_heads[].next_executable references this id.",
+      "evidence": [
+        "/physical/print-01/print.html",
+        "/physical/print-01/field-route-tile-v0.1.svg",
+        "/returns/PRINT_01_DIGITAL_FIXTURE_2026-09-25.json"
+      ]
     }
   ],
   "capture_protocol": {
