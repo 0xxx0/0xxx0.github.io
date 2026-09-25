@@ -1,16 +1,18 @@
 {
-  "schema": "house-field-contract/v0.2",
+  "schema": "house-field-contract/v0.3",
   "updated": "2026-09-25",
   "title": "HOUSE / FIELD",
-  "purpose": "Public-safe projection of addressed physical resources, capabilities, integration health and evidence for one household control plane. Private runtime authority remains Home Assistant / HOUSEBUS.",
+  "purpose": "Canonical public-safe HOUSE instrument: spatial addressing and projection at /house/, timestamped technical state depth at /house/expert.html, and private actuation authority in Home Assistant / HOUSEBUS.",
   "current_surface": {
-    "kind": "generated static projection",
+    "kind": "interactive spatial/state workbench",
+    "route": "/house/",
     "queries_runtime": false,
     "control_endpoint": false,
     "automatic_sync": false,
-    "generator": "private normalizer in the HOUSEBUS repository (scripts/project-public.py)",
-    "refresh": "manual: run the generator, then commit the regenerated state.json",
-    "semantics": "A projection with a timestamp, not a live feed. Staleness or silence is not evidence of danger."
+    "substrate": "/house/spatial/model.json",
+    "local_state": "browser localStorage only",
+    "public_state_witness": "/house/state.json (timestamped snapshot; not live)",
+    "semantics": "One addressed object, many projections. Selection and local authored state do not imply presence or actuation."
   },
   "epistemic_classes": [
     "OBSERVED",
@@ -33,7 +35,7 @@
     "operational security details"
   ],
   "enforcement": "The generator builds the public document by whitelist and then scans the serialized JSON for forbidden patterns; it refuses to write on any match. The committed state.json carries its own sanitization result.",
-  "kernel_role": "OBJECT -> ADDRESS -> PROJECT (public HOUSE page). OPERATE remains private Home Assistant / HOUSEBUS. BODY↔HOUSE uses a local ENV-0 context envelope. RETURN is /returns/ plus the receipt ledger.",
+  "kernel_role": "OBJECT -> ADDRESS -> PROJECT at canonical /house/. OPERATE remains private Home Assistant / HOUSEBUS. BODY↔HOUSE uses a local ENV-0 context envelope. RETURN is /returns/ plus receipt evidence.",
   "return_path": "/returns/",
   "machine_state": "/house/state.json",
   "spatial_state": {
@@ -56,5 +58,12 @@
     "private_execution": "Route chores/maintenance obligations into browser-local Dayline or another private runtime surface.",
     "returns_to_house": "Only durable physical/resource/state evidence returns to HOUSE (for example an adopted item, changed spatial address, verified device mapping, or completed maintenance that materially changes represented state).",
     "public_repo": "Do not commit private chore lists, presence, schedules, or personal urgency to the public HOUSE projection."
+  },
+  "expert_projection": {
+    "route": "/house/expert.html",
+    "kind": "generated public-safe state/runtime snapshot",
+    "generator": "private normalizer in the HOUSEBUS repository (scripts/project-public.py)",
+    "refresh": "manual: run the generator, then commit regenerated state.json",
+    "authority": "read-only projection; never a control endpoint"
   }
 }

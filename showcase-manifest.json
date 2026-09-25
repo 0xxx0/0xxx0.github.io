@@ -4609,19 +4609,21 @@
     {
       "href": "/house/",
       "title": "HOUSE / FIELD",
-      "kind": "system",
+      "kind": "workbench",
       "parent": "/",
       "family": "HOUSE / SPATIAL STATE",
       "operation": "PROJECT",
-      "state": "STABLE",
+      "state": "ACTIVE",
       "machine_state": "/house/state.json",
       "showcase_card": false,
-      "role": "Expert HOUSE state/runtime projection with an explicit primary human entry into /house/spatial/. Spatial Engine owns address/geometry/evidence; private HA runtime owns device truth/actuation; BODY bridge carries browser-local context only.",
-      "version": "0.6",
+      "role": "Canonical human-facing HOUSE instrument: one addressed spatial/state substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS, with compact timestamped public state witness. Home Assistant / HOUSEBUS retains private device truth and actuation; technical state projection is /house/expert.html.",
+      "version": "0.7",
       "receipt": "/house/release.json",
       "contract": "/house/contract.json",
       "transfer": [
-        "human entry → /house/spatial/; expert state/runtime projection retained at /house/",
+        "canonical human entry = /house/; no second sovereign HOUSE UI",
+        "spatial model/assets remain under /house/spatial/ as substrate, not a competing front door",
+        "technical public state/runtime projection retained at /house/expert.html",
         "spatial addressing",
         "manual-to-sensor state",
         "HA entity mapping",
@@ -4642,15 +4644,15 @@
     },
     {
       "href": "/house/spatial/",
-      "title": "HOUSE / SPATIAL",
-      "kind": "workbench",
+      "title": "HOUSE / SPATIAL · COMPAT",
+      "kind": "alias",
       "parent": "/house/",
       "family": "HOUSE / SPATIAL STATE",
-      "operation": "REPRESENT",
-      "state": "ACTIVE",
-      "version": "0.6",
-      "receipt": "/house/spatial/release.json",
-      "role": "Primary human-facing HOUSE entry: runnable multi-projection spatial workbench over one addressed house substrate; TRACE/replay and local planning-context handoff remain non-actuating.",
+      "operation": "REDIRECT",
+      "state": "COMPATIBILITY",
+      "version": "0.7",
+      "receipt": "/house/release.json",
+      "role": "Compatibility route only. Redirects to canonical /house/ while retaining spatial model, TRACE law and donor assets under /house/spatial/.",
       "transfer": [
         "plan/RCP/section/3D identity",
         "surface addressing",
@@ -4686,8 +4688,7 @@
       "index": {
         "updated_at": "2026-09-25T21:14:00+08:00",
         "work_modes": [
-          "RECOVER",
-          "SPECIFY"
+          "NAVIGATE"
         ]
       },
       "family_href": "/house/",
