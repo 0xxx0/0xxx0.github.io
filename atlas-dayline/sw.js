@@ -1,4 +1,4 @@
-const CACHE='atlas-dayline-i-v5';
+const CACHE='atlas-dayline-i-v6';
 const ASSETS=['./','./index.html','./app.css','./app.js','./field-bridge.js','./manifest.webmanifest','./icon.svg'];
 const LIVE_TRUTH=new Set(['/control/CURRENT.json','/control/WAITING.json','/showcase-manifest.json']);
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting())));
