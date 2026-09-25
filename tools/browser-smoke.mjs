@@ -749,7 +749,7 @@ const CASES=[
     name:'FOLD BLOOM public front',
     route:'/fold-bloom/',
     options:{width:430,height:900,budget:5000},
-    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/A source becomes a field/i.test(dom)&&/PLAY CENTER MASS/.test(dom)&&/ENTER LIVE RIDE/.test(dom)&&/MAP A TRACK/.test(dom)&&/DRAW INK/.test(dom)&&/ONE INSTRUMENT/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/A source becomes a field/i.test(dom)&&/PLAY CENTER MASS/.test(dom)&&/ENTER LIVE RIDE/.test(dom)&&/MAP A TRACK/.test(dom)&&/DRAW INK/.test(dom)&&/USE IT FOR/.test(dom)&&/Read fast without losing your place/.test(dom)&&/ONE INSTRUMENT/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
   },
   {
     name:'FOLD BLOOM VOICE 0.1',
@@ -768,6 +768,12 @@ const CASES=[
     route:'/fold-bloom/lab/?mode=READ',
     options:{width:430,height:900,budget:9000,timeout:16000},
     check:dom=>/FIELD LAB 0\.2/i.test(dom)&&dom.includes('data-fold-bloom-field-lab="ready"')&&dom.includes('data-field-lab-mode="READ"')&&dom.includes('data-field-lab-reader="ready"')&&dom.includes('data-field-lab-reader-scale="WORD"')&&dom.includes('data-field-lab-read-pulse="WITNESS"')&&dom.includes('data-field-lab-read-source="bound"')&&dom.includes('data-field-lab-loci-nodes="13"')&&dom.includes('data-field-lab-loci-words="13"')&&dom.includes('id="labReader"')&&/FULL READFIELD/.test(dom)&&/CARRY → LOCI/.test(dom)&&/CARRY → DATA/.test(dom)&&/EXPORT RETURN/.test(dom)
+  },
+  {
+    name:'FOLD BLOOM FIELD LAB READFIELD PACE4',
+    route:'/fold-bloom/lab/?mode=READ&pulse=4',
+    options:{width:430,height:900,budget:9000,timeout:16000},
+    check:dom=>/FIELD LAB 0\.2/i.test(dom)&&dom.includes('data-fold-bloom-field-lab="ready"')&&dom.includes('data-field-lab-mode="READ"')&&dom.includes('data-field-lab-reader="ready"')&&dom.includes('data-field-lab-read-pulse="PACE4"')&&dom.includes('data-field-lab-read-source="bound"')&&/PULSE · ×4 PACE/.test(dom)
   },
   {
     name:'FOLD BLOOM INK FIELD',
