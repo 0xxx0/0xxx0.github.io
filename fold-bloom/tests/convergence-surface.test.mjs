@@ -59,7 +59,7 @@ test('LISTEN addressed annotations expose editable arcs and source-safe round tr
   assert.match(app,/annotations:annotationPacket\(\)/);
   assert.match(app,/shareAnnotations:sharePins/);
   assert.match(ann,/fold-bloom-annotations\/v0\.2/);
-  assert.match(ann,/SOURCE ID/);
+  assert.match(ann,/sourceKeyFromAnnotationPacket/);
   assert.match(lens,/endAddress/);
   assert.match(lens,/kind='BOOKMARK'/);
 });
