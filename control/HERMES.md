@@ -95,54 +95,44 @@ SOURCE ASK
 
 Treat threads as context-local workers. A useful chat result becomes durable only when it lands as a source-backed control entry, artifact, execution packet or RETURN.
 
-## CONTINUOUS TASK
+## TRIGGERED TASKS — NO AMBIENT BACKLOG
 
-While idle, work through these queues in order:
+Idle time does **not** authorize broad archaeology, representation experiments, route audits or domain-pack invention.
 
-### A. LOST / HALF-STUCK HARVEST
+Before every task:
 
-Recover exact evidence for:
-- Sleeper / ONE RETURN / Workfield / WAKE / minigame cascade
-- grid/path → Jueju → MEANTOME → Foundry → Verse Atlas
-- generated image/interface studies that contain reusable interaction or physical mechanisms
-- high-value unfinished user asks embedded in old conversations
+1. read `/llms.txt`;
+2. read `/control/CURRENT.json` and `/control/QUEUE.json`;
+3. optionally compile the transient handoff with `node scripts/emit-agent-transcript.mjs --json`;
+4. select **one** task only if a current machine-executable delta or a concrete recovery anchor exists.
 
-For each recovered object emit:
+### A. CURRENT CONVERSION
 
-```
-ID
-SOURCE / DATE
-CURRENT HEAD
-DONOR / PARENT
-WHAT SURVIVED
-WHAT FAILED / WAS REJECTED
-UNEXECUTED ASK
-PAYOFF IF RECOVERED NOW
-EXACT NEXT DELTA
-EVIDENCE
-```
+If CURRENT exposes a machine-executable conversion, prepare or execute the smallest reversible delta on an existing head.
 
-Do not create a generic summary.
+Prefer:
+- context-free first use by another human;
+- removal of verified re-entry friction;
+- repair of a broken edge that blocks ordinary use;
+- a bounded share/export/physical/device bridge already owned by the head.
 
-### B. RESEARCH-TO-ACTION
+Do not reopen a head merely because a historical task mentioned it.
 
-For current fronts, research only questions that alter a build decision.
+### B. ANCHORED RECOVERY
 
-Return exactly:
+Recovery runs only when `MIGRATION_NOW`, CURRENT, or a newly supplied exact source anchor names the target.
 
-```
-FACT
-IMPLICATION
-ACTION
-TEST
-```
+One exact gain, one sharpened blocker, or one rejection receipt → RETURN → stop.
+
+No ambient census. No “while idle” source tourism.
 
 ### C. EXECUTION PACKETS
 
-When a clear delta exists, prepare a packet for Codex containing:
+When a lawful delta survives the gate, prepare:
 
 ```
 OBJECTIVE
+CURRENT HOST
 EXISTING PATHS
 DO NOT TOUCH
 DELTA
@@ -183,7 +173,7 @@ Do not let more than three fronts become cognitively live. `/control/QUEUE.json`
 
 ## CURRENT PRIORITY
 
-**This section is superseded by `/control/CURRENT.json` and `/control/WORKER_BOOT.json`.**
+**This section is superseded by `/control/CURRENT.json`. `/llms.txt` is the stable machine entrypoint; `WORKER_BOOT.json` is compatibility history only.**
 
 Do not treat the list below as current — it is retained only as historical context. Always read `CURRENT.json` for what matters now.
 
