@@ -73,13 +73,14 @@
     "previous_merge_sha": "f56505f2ebc9d2fdcb17ea03929375ae1b6c8f92",
     "text_mark_node": "PASS · public-surface-check run 36166811291 step 41",
     "verse_poem_map_handoff": "PENDING_CI: browser/static handoff contract; phone use remains human evidence",
-    "verse_cross_layer": "PENDING_PR_CI: dedicated 430×900 VERSE → READ → LOCI → VERSE exact-source/focus + LAB RETURN proof",
+    "verse_cross_layer": "PASS · public-surface-check run 36195036465 step 50: exact source + focused line survived VERSE → READ → LOCI → VERSE; LAB RETURN stayed EVIDENCE_ONLY and excluded raw source bytes",
     "state_language_browser": "PASS · public-surface-check run 36128271563",
     "state_language_merge_sha": "8e7db861a6dada691c78a66148c1d294f83fe77f",
     "state_language_phone": "HUMAN_GATE",
     "verse_caller_return": "PENDING_PR_CI: same-origin caller survives inbound VERSE handoff; invalid/external caller stays hidden",
     "lab_return_node": "PASS · public-surface-check run 36166811291 step 41",
-    "lab_return_browser": "PASS · 430×900 FIELD LAB browser proof run 36166811291 step 49"
+    "lab_return_browser": "PASS · 430×900 FIELD LAB browser proof run 36166811291 step 49",
+    "cross_projection_browser": "PASS · 430×900 dedicated smoke run 36195036465 step 50"
   },
   "return": "/returns/FOLD_BLOOM_FIELD_LAB_RETURN_033_2026-09-26.json",
   "confluence": "/control/confluence/READFIELD_WORK_MODES_2026-09-25.json",
