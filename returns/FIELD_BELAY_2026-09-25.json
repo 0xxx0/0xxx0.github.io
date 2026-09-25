@@ -9,7 +9,8 @@
     "The same ORIENTATION anchor now enters the transient FIELD agent transcript, aligning human and worker re-entry.",
     "CURRENT current-head route versions are structured and CI-checked against showcase-manifest.",
     "Repaired stale CURRENT head labels for Poem Map, HOUSE/SPATIAL/HOUSE FIELD and Shopping Field; repaired HOUSE/SPATIAL and Poem Map manifest display version drift.",
-    "Compacted 20 donor/hold rows into five named quarry families while preserving every donor name/state/route as members."
+    "Compacted 20 donor/hold rows into five named quarry families while preserving every donor name/state/route as members.",
+    "Reconciled concurrent Atlas Dayline 0.2.2 / REALITY FIRST into CURRENT + manifest before merge; the new drift guard caught the cross-thread race rather than shipping a stale head."
   ],
   "donors_reused": [
     "/control/ORIENTATION.json#anchor",
@@ -21,7 +22,8 @@
     "root inline JavaScript parses before commit",
     "CURRENT and manifest JSON parse",
     "new check-current-heads.mjs is wired into public-surface-check",
-    "emit-agent-transcript selftest now requires ORIENTATION belay expression"
+    "emit-agent-transcript selftest now requires ORIENTATION belay expression",
+    "concurrent Dayline 0.2.2 manifest/current version reconciled before final CI"
   ],
   "return": "/"
 }
