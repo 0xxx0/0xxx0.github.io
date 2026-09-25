@@ -76,6 +76,8 @@ jobs:
           node -e "JSON.parse(require('fs').readFileSync('manifest.json','utf8')); console.log('INTERPHASE manifest PASS')"
       - name: Validate BLOCK ROOM space-scale core
         run: node control/space-scale-selftest.js
+      - name: Validate FIELD machine transcript
+        run: node tools/build-field-transcript.mjs --check
       - name: Validate static surface contracts
         run: node tools/validate-public.mjs
       - name: Validate Triangle FORM rewrite core
