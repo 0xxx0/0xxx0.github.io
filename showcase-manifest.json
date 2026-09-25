@@ -272,8 +272,8 @@
       "parent": "/atlas-dayline/",
       "family": "ATLAS DAYLINE",
       "operation": "OPERATE",
-      "state": "CANDIDATE",
-      "version": "0.2",
+      "state": "ACTIVE",
+      "version": "0.2.1",
       "showcase_card": false,
       "role": "Mobile-first continuous execution projection over the existing Dayline DayState. Holds one source-addressed object/focus, exposes at most three lawful moves, records witness, and for COMMS can RETURN one OFFER_ONLY receipt to the exact native signal; completed held objects remain addressable through RETURN, then Dayline releases focus. Native COMMS retains state authority.",
       "receipt": "/dayline/release.json",
@@ -365,7 +365,7 @@
           },
           {
             "class": "NATIVE_SOURCE",
-            "status": "CANDIDATE",
+            "status": "AVAILABLE",
             "via": "session-local exact-source OFFER_ONLY → explicit native acceptance"
           },
           {
@@ -377,7 +377,7 @@
         "physical_fit": "Ordinary mobile execution surface; no scroll lock or spatial viewport required."
       },
       "index": {
-        "updated_at": "2026-09-25T22:40:00+08:00",
+        "updated_at": "2026-09-26T00:55:00+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY"
@@ -5947,13 +5947,13 @@
     },
     {
       "href": "/port/comms/",
-      "title": "HUMAN PORT / COMMS SPINE 0.1.1",
+      "title": "HUMAN PORT / COMMS SPINE 0.1.2.1",
       "kind": "workbench",
       "parent": "/port/",
       "family": "HUMAN PORT",
       "operation": "ADDRESS",
-      "state": "CANDIDATE",
-      "version": "0.1.2",
+      "state": "ACTIVE",
+      "version": "0.1.2.1",
       "showcase_card": false,
       "role": "Exact conversation remains canonical while DERIVED/HUMAN signals, obligation state, response coverage and Dayline handoff/return remain unequal projections. A Dayline OFFER_ONLY receipt can change COMMS state only after exact source SHA + signal id + message/range revalidation and an explicit native action; no network send authority.",
       "evidence": {
@@ -5962,10 +5962,16 @@
           "every promoted item must return to an exact character range in the source thread",
           "runs with no network send and no LLM dependency for its core usefulness"
         ],
-        "return_path": "/port/"
+        "return_path": "/port/",
+        "closed_loop": [
+          "/returns/DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
+          "PR #359",
+          "public-surface-check 36148842204 PASS",
+          "Route Registration 36148842258 PASS"
+        ]
       },
       "index": {
-        "updated_at": "2026-09-25T22:40:00+08:00",
+        "updated_at": "2026-09-26T00:55:00+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY"
