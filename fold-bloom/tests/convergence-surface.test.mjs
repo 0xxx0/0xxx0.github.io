@@ -4,10 +4,14 @@ import {readFileSync} from 'node:fs';
 
 const read=path=>readFileSync(new URL('../../'+path,import.meta.url),'utf8');
 
-test('LIVE exposes source/map/immersion plus remembered-source re-entry',()=>{
+test('LIVE exposes source/map/immersion plus remembered-source re-entry without making one remote track sovereign',()=>{
+  const root=read('fold-bloom/index.html');
   const html=read('fold-bloom/live/index.html');
   const app=read('fold-bloom/live/app.js');
-  assert.match(html,/id="centerMassBtn"/);
+  assert.match(root,/href="\.\/live\/">ENTER LIVE →<\/a>/);
+  assert.doesNotMatch(root,/source=center-mass|PLAY CENTER MASS/);
+  assert.match(html,/id="playBtn">PLAY FIELD COURSE →<\/button>/);
+  assert.match(html,/id="centerMassBtn">TRY CENTER MASS REMOTE<\/button>/);
   assert.match(html,/id="vaultSelect"/);
   assert.match(html,/data-layer-mode="SOURCE"/);
   assert.match(html,/data-layer-mode="MAP"/);
@@ -15,6 +19,9 @@ test('LIVE exposes source/map/immersion plus remembered-source re-entry',()=>{
   assert.match(app,/CENTER_MASS_SOURCE='[0-9a-f-]{36}'/);
   assert.match(app,/sourceOnly=liveTrack\.sourceActive\(\)&&!liveTrack\.mapped\(\)/);
   assert.match(app,/TAP FOR SOURCE/);
+  assert.match(app,/REMOTE SOURCE UNAVAILABLE · LIVE READY/);
+  assert.match(app,/legacy-center-mass/);
+  assert.match(app,/clearSource\(\)/);
   assert.match(app,/dataset\.mode==='SOURCE'/);
   assert.match(app,/putLocalMedia\(/);
   assert.match(app,/listLocalMedia\(/);
