@@ -1,0 +1,695 @@
+{
+  "schema": "app-atlas-convergence/v0.2",
+  "generated": "2026-09-25",
+  "purpose": "Derived OLD→CURRENT survey for App Atlas / Atlas Dayline lineage. It helps recover bearings; it does not become project authority.",
+  "authority": {
+    "current": [
+      "/control/CURRENT.json",
+      "/showcase-manifest.json",
+      "/control/MIGRATION.json",
+      "/control/CENSUS.json"
+    ],
+    "historical": [
+      "/recovery/app-atlas/app_atlas_v1.json"
+    ],
+    "derived": "/app-atlas/convergence.json"
+  },
+  "laws": [
+    "OLD APP != CURRENT HEAD",
+    "MECHANISM MAY SURVIVE AFTER PRODUCT NAME DIES",
+    "CURRENT CONTROL FILES OWN CURRENT STATE; THIS FILE IS A DERIVED CROSSWALK",
+    "ATLAS DAYLINE REMAINS A STABLE TEMPORAL DONOR, NOT A SECOND CONTROL PLANE",
+    "PROJECTION MUST RETAIN SOURCE / IDENTITY / RETURN",
+    "UNRESOLVED MEANS NO CLAIM, NOT ABSENCE"
+  ],
+  "atlas_dayline": {
+    "state": "STABLE_DONOR",
+    "route": "/atlas-dayline/",
+    "keep": [
+      "stable task identity across ATLAS ↔ PLAIN projections",
+      "anchors + time windows + temporal opportunity field",
+      "PREVIEW ≠ canonical state",
+      "bounded RUN with evidence-bearing RETURN / REPLAY",
+      "local-first export + capsule / re-entry",
+      "plain-list ablation as a check against spatial ornament"
+    ],
+    "do_not_promote": [
+      "NOW/FIELD/RUN/RETURN/ATLAS labels as universal ontology",
+      "Atlas Dayline as repository truth authority",
+      "radial geometry when a plain projection is clearer"
+    ]
+  },
+  "vectors": [
+    {
+      "id": "V-IDENTITY-PROJECTION",
+      "label": "IDENTITY → UNEQUAL PROJECTIONS",
+      "from": [
+        "DataDisc / Context Graph",
+        "Atlas Dayline ATLAS↔PLAIN"
+      ],
+      "to": [
+        "Scale Lens",
+        "FIELD addressed focus"
+      ],
+      "route": "/fold-bloom/lens/",
+      "retained": "Keep object identity fixed while views, scale and reach change."
+    },
+    {
+      "id": "V-CAPTURE-CANON",
+      "label": "CAPTURE → CANON → RE-ENTRY",
+      "from": [
+        "App Foundry",
+        "Living Atlas",
+        "Canon Console"
+      ],
+      "to": [
+        "IDEA ATLAS",
+        "FIELD INDEX",
+        "CURRENT / MIGRATION / CENSUS"
+      ],
+      "route": "/app-atlas/",
+      "retained": "Capture once; separate proposal from committed truth; preserve ancestry and source class."
+    },
+    {
+      "id": "V-LINEAGE-DELTA",
+      "label": "LINEAGE → DELTA",
+      "from": [
+        "Semantic Thread Tracer",
+        "The Delta / Decision Ledger"
+      ],
+      "to": [
+        "Git mutation evidence",
+        "RETURN receipts",
+        "route/history projections"
+      ],
+      "route": "/",
+      "retained": "Show meaningful state change without creating a second journal."
+    },
+    {
+      "id": "V-EVIDENCE-FIREWALL",
+      "label": "EVIDENCE FIREWALL",
+      "from": [
+        "Seeper",
+        "Canon protocol"
+      ],
+      "to": [
+        "Recovery / migration provenance law"
+      ],
+      "route": "/migration/",
+      "retained": "EXACT ≠ RECONSTRUCTED ≠ NEW; projection ≠ authority."
+    },
+    {
+      "id": "V-TRANSFER",
+      "label": "MECHANISM TRANSFER",
+      "from": [
+        "Transfer Bench",
+        "Lawful Remix"
+      ],
+      "to": [
+        "TRANSDUCTIONS",
+        "bounded donor transfer"
+      ],
+      "route": "/foundry/",
+      "retained": "Move a mechanism only after naming invariant, destination translation and falsifiable test."
+    },
+    {
+      "id": "V-TEMPORAL",
+      "label": "TIME AS PROJECTION",
+      "from": [
+        "Slothcake Scheduler",
+        "Folding Fan / Radial Interface",
+        "Atlas Dayline Branch I"
+      ],
+      "to": [
+        "Atlas Dayline stable donor"
+      ],
+      "route": "/atlas-dayline/",
+      "retained": "Anchors constrain; opportunities flex; time changes reach, not identity."
+    },
+    {
+      "id": "V-RETURN",
+      "label": "RETURN AS GLOBAL INVARIANT",
+      "from": [
+        "Return Engine",
+        "Atlas Dayline RETURN / REPLAY"
+      ],
+      "to": [
+        "FIELD / CONFLUENCE laws and receipts"
+      ],
+      "route": "/",
+      "retained": "Compression and execution must preserve a source/evidence/re-entry path."
+    },
+    {
+      "id": "V-GLYPH",
+      "label": "GLYPH AS COMPRESSED PROJECTION",
+      "from": [
+        "Glyph Grammar / Seal Composer",
+        "fan/radial addressing"
+      ],
+      "to": [
+        "FIELD glyph rails",
+        "addressed compressed cells"
+      ],
+      "route": "/",
+      "retained": "Glyph carries selected identity/state; richer source semantics remain host-side residue."
+    },
+    {
+      "id": "V-COMMS",
+      "label": "SOCIAL RESIDUE WITHOUT AUTO-COMMIT",
+      "from": [
+        "Kagemusha / Promise Keeper",
+        "Council lineage"
+      ],
+      "to": [
+        "HUMAN PORT",
+        "SOCIAL RESIDUE",
+        "LACONIC"
+      ],
+      "route": "/port/",
+      "retained": "Remember, draft and hand off; do not silently turn communication into obligations or sends."
+    },
+    {
+      "id": "V-CONTINUITY",
+      "label": "RAW SOURCE → REVIEWED CASE",
+      "from": [
+        "timeline / canon patterns"
+      ],
+      "to": [
+        "CONTINUITY / CASE"
+      ],
+      "route": "/continuity/",
+      "retained": "Preserve raw source, conflicts and unknowns; canonicalize only after review."
+    },
+    {
+      "id": "V-WORLD",
+      "label": "WORLD AS EVIDENCE GATE",
+      "from": [
+        "Spatial State Engine / House OS",
+        "Workbench Router"
+      ],
+      "to": [
+        "HOUSE field",
+        "real-world conversion front"
+      ],
+      "route": "/house/",
+      "retained": "Abstraction pays rent through observable world state and changed consequences."
+    }
+  ],
+  "crosswalk": [
+    {
+      "app_id": "APP-000",
+      "name": "App Foundry",
+      "old_decision": "BUILD",
+      "old_priority": 4,
+      "old_provenance": "U",
+      "disposition": "FOLDED_CURRENT",
+      "vector": "V-CAPTURE-CANON",
+      "now": "IDEA ATLAS remains the bounded capture surface; repository control files now carry cross-project authority.",
+      "route": "/app-atlas/"
+    },
+    {
+      "app_id": "APP-001",
+      "name": "DataDisc / Context Graph",
+      "old_decision": "BUILD",
+      "old_priority": 4,
+      "old_provenance": "U+D",
+      "disposition": "SURVIVES_AS_MECHANISM",
+      "vector": "V-IDENTITY-PROJECTION",
+      "now": "DataDisc's stable-object / alternate-view logic survives in Scale Lens and the addressed FIELD model.",
+      "route": "/fold-bloom/lens/"
+    },
+    {
+      "app_id": "APP-002",
+      "name": "Living Atlas",
+      "old_decision": "BUILD",
+      "old_priority": 4,
+      "old_provenance": "U+A+D",
+      "disposition": "FOLDED_CURRENT",
+      "vector": "V-CAPTURE-CANON",
+      "now": "Living Atlas' one-command-surface function is now split: FIELD INDEX for re-entry; CURRENT/MIGRATION/CENSUS for authority and recovery.",
+      "route": "/"
+    },
+    {
+      "app_id": "APP-003",
+      "name": "Canon Console",
+      "old_decision": "BUILD",
+      "old_priority": 4,
+      "old_provenance": "D",
+      "disposition": "FOLDED_CURRENT",
+      "vector": "V-CAPTURE-CANON",
+      "now": "Canon Console's source/status/branch/function discipline survives in CURRENT, MIGRATION, CENSUS and recovery receipts.",
+      "route": "/"
+    },
+    {
+      "app_id": "APP-004",
+      "name": "Transfer Bench",
+      "old_decision": "BUILD",
+      "old_priority": 4,
+      "old_provenance": "D",
+      "disposition": "SURVIVES_AS_MECHANISM",
+      "vector": "V-TRANSFER",
+      "now": "Transfer Bench survives as the explicit mechanism-transfer / transduction discipline; copy operations, not surface vocabulary.",
+      "route": "/foundry/"
+    },
+    {
+      "app_id": "APP-005",
+      "name": "Semantic Thread Tracer",
+      "old_decision": "MERGE",
+      "old_priority": 2,
+      "old_provenance": "A+D",
+      "disposition": "SURVIVES_AS_MECHANISM",
+      "vector": "V-LINEAGE-DELTA",
+      "now": "Thread tracing survives as lineage, git-history, receipts and focused route/context projections rather than a standalone product.",
+      "route": "/"
+    },
+    {
+      "app_id": "APP-006",
+      "name": "The Delta / Decision Ledger",
+      "old_decision": "MERGE",
+      "old_priority": 2,
+      "old_provenance": "H+I",
+      "disposition": "FOLDED_CURRENT",
+      "vector": "V-LINEAGE-DELTA",
+      "now": "Delta/decision-ledger behavior survives in Git mutation evidence, RETURN receipts and supersession-aware control state.",
+      "route": "/"
+    },
+    {
+      "app_id": "APP-007",
+      "name": "Seeper",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "D",
+      "disposition": "SURVIVES_AS_LAW",
+      "vector": "V-EVIDENCE-FIREWALL",
+      "now": "Evidence/desire/reconstruction separation survives as the provenance firewall: EXACT ≠ RECONSTRUCTED ≠ NEW and source authority ≠ projection.",
+      "route": "/migration/"
+    },
+    {
+      "app_id": "APP-010",
+      "name": "PSS Runtime",
+      "old_decision": "BUILD",
+      "old_priority": 4,
+      "old_provenance": "U+D",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-011",
+      "name": "Meta-Prompt Compiler",
+      "old_decision": "MERGE",
+      "old_priority": 2,
+      "old_provenance": "A",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-012",
+      "name": "Un-Ask",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "H",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-013",
+      "name": "Constraint / Borrowed Audience / Last Draft",
+      "old_decision": "MERGE",
+      "old_priority": 2,
+      "old_provenance": "H+I",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-014",
+      "name": "30-Second Expert",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "H",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-020",
+      "name": "Council Runtime / Council of Selves",
+      "old_decision": "BUILD",
+      "old_priority": 4,
+      "old_provenance": "U+D",
+      "disposition": "DONOR_LINEAGE",
+      "vector": "V-COMMS",
+      "now": "Plurality/Council material is preserved inside the LACONIC source/lineage vault; it is not a new authority surface.",
+      "route": "/laconic/"
+    },
+    {
+      "app_id": "APP-021",
+      "name": "CAOS",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "U+D",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-022",
+      "name": "Kagemusha / Promise Keeper",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "U+I",
+      "disposition": "SURVIVES_AS_MECHANISM",
+      "vector": "V-COMMS",
+      "now": "Promise/communication residue survives in HUMAN PORT and SOCIAL RESIDUE: remember/draft/hand off without auto-commit or auto-send.",
+      "route": "/port/"
+    },
+    {
+      "app_id": "APP-023",
+      "name": "Slothcake Scheduler",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "A",
+      "disposition": "SURVIVES_AS_MECHANISM",
+      "vector": "V-TEMPORAL",
+      "now": "Slothcake's elastic/nonlinear planning vector was absorbed into Atlas Dayline's temporal projection; Atlas Dayline remains a stable donor rather than the global control plane.",
+      "route": "/atlas-dayline/"
+    },
+    {
+      "app_id": "APP-030",
+      "name": "Pattern Laboratory",
+      "old_decision": "BUILD",
+      "old_priority": 4,
+      "old_provenance": "U+D",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-031",
+      "name": "Glyph Grammar / Seal Composer",
+      "old_decision": "BUILD",
+      "old_priority": 4,
+      "old_provenance": "U+I+D",
+      "disposition": "SURVIVES_AS_MECHANISM",
+      "vector": "V-GLYPH",
+      "now": "Glyph identity/compression survives in FIELD glyph rails and addressed projections; glyphs never replace source authority.",
+      "route": "/"
+    },
+    {
+      "app_id": "APP-032",
+      "name": "Folding Fan / Radial Interface",
+      "old_decision": "BUILD",
+      "old_priority": 4,
+      "old_provenance": "U+D",
+      "disposition": "SURVIVES_AS_MECHANISM",
+      "vector": "V-TEMPORAL",
+      "now": "Radial/fan address mechanics survive most clearly in Atlas Dayline and related unequal projections; physical fan remains a separate lineage.",
+      "route": "/atlas-dayline/"
+    },
+    {
+      "app_id": "APP-033",
+      "name": "Monscopia Explorer",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "U+D",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-034",
+      "name": "SonoAerius",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "A",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-040",
+      "name": "Layer It",
+      "old_decision": "BUILD",
+      "old_priority": 4,
+      "old_provenance": "U",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-041",
+      "name": "Spatial State Engine / House OS",
+      "old_decision": "BUILD",
+      "old_priority": 4,
+      "old_provenance": "U+D",
+      "disposition": "LIVE_ADJACENT",
+      "vector": "V-WORLD",
+      "now": "Spatial State / House OS survives as the reality-facing HOUSE field: actual devices/resources/world state remain the evidence gate.",
+      "route": "/house/"
+    },
+    {
+      "app_id": "APP-042",
+      "name": "Expedition OS",
+      "old_decision": "MERGE",
+      "old_priority": 2,
+      "old_provenance": "I+D",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-043",
+      "name": "Renovation App",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "D",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-044",
+      "name": "Acoustic Twin",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "H",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-045",
+      "name": "Workbench Router",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "I",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-046",
+      "name": "Device Teardown Helper",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "A",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-050",
+      "name": "Cat Canon",
+      "old_decision": "BUILD",
+      "old_priority": 4,
+      "old_provenance": "U+D",
+      "disposition": "PARKED_DOMAIN",
+      "vector": "V-WORLD",
+      "now": "The general observation→timeline→handoff pattern survives, but no standalone Cat Canon product is promoted here.",
+      "route": "/continuity/"
+    },
+    {
+      "app_id": "APP-051",
+      "name": "Wellness Bingo",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "U+D",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-052",
+      "name": "Body Timeline",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "H",
+      "disposition": "SURVIVES_AS_MECHANISM",
+      "vector": "V-CONTINUITY",
+      "now": "Neutral chronology / reviewed handoff mechanics survive in CONTINUITY / CASE; domain-specific authority remains outside the projection.",
+      "route": "/continuity/"
+    },
+    {
+      "app_id": "APP-060",
+      "name": "Chain × Layer It",
+      "old_decision": "BUILD",
+      "old_priority": 4,
+      "old_provenance": "H+U+I",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-061",
+      "name": "Pattern Bloom",
+      "old_decision": "BUILD",
+      "old_priority": 4,
+      "old_provenance": "U+I",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-062",
+      "name": "Seal to World",
+      "old_decision": "BUILD",
+      "old_priority": 4,
+      "old_provenance": "U+I",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-063",
+      "name": "Return Engine",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "U+D+I",
+      "disposition": "SURVIVES_AS_CORE_LAW",
+      "vector": "V-RETURN",
+      "now": "RETURN became a repository-wide invariant: every compression/transform must preserve a path back to source, evidence and larger context.",
+      "route": "/"
+    },
+    {
+      "app_id": "APP-064",
+      "name": "Fanfold",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "U+I",
+      "disposition": "DONOR_LINEAGE",
+      "vector": "V-GLYPH",
+      "now": "Fold-state composition survives as donor material; it is not equated with the current Fold/Bloom runtime merely by name.",
+      "route": "/fold-bloom/"
+    },
+    {
+      "app_id": "APP-065",
+      "name": "Lawful Remix",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "U+I",
+      "disposition": "SURVIVES_AS_MECHANISM",
+      "vector": "V-TRANSFER",
+      "now": "Declared-rule transformation survives in bounded transductions and preview→accept / transform→prove→return patterns.",
+      "route": "/foundry/"
+    },
+    {
+      "app_id": "APP-066",
+      "name": "Schematic Labyrinth",
+      "old_decision": "INCUBATE",
+      "old_priority": 3,
+      "old_provenance": "D+I",
+      "disposition": "ARCHIVE_UNRESOLVED",
+      "vector": null,
+      "now": "Historical App Atlas record retained. No current canonical correspondence is asserted by this pass.",
+      "route": null
+    },
+    {
+      "app_id": "APP-067",
+      "name": "Casting Call / Storybook",
+      "old_decision": "KILL",
+      "old_priority": 1,
+      "old_provenance": "H",
+      "disposition": "RETIRED",
+      "vector": null,
+      "now": "Historical imported proposal; retain only generic consistency mechanics where already useful.",
+      "route": null
+    },
+    {
+      "app_id": "APP-068",
+      "name": "Morph / Dream Machine",
+      "old_decision": "KILL",
+      "old_priority": 1,
+      "old_provenance": "H",
+      "disposition": "RETIRED",
+      "vector": null,
+      "now": "Historical imported proposal; transformation presets may survive as donors, not as a standalone product.",
+      "route": null
+    },
+    {
+      "app_id": "APP-069",
+      "name": "Prompt Tennis",
+      "old_decision": "KILL",
+      "old_priority": 1,
+      "old_provenance": "H",
+      "disposition": "RETIRED",
+      "vector": null,
+      "now": "Historical imported proposal; no current standalone surface.",
+      "route": null
+    },
+    {
+      "app_id": "APP-070",
+      "name": "Tab Hospice",
+      "old_decision": "KILL",
+      "old_priority": 1,
+      "old_provenance": "H",
+      "disposition": "RETIRED",
+      "vector": null,
+      "now": "Historical imported proposal; no current native leverage.",
+      "route": null
+    },
+    {
+      "app_id": "APP-071",
+      "name": "Price of Silence",
+      "old_decision": "KILL",
+      "old_priority": 1,
+      "old_provenance": "H",
+      "disposition": "RETIRED",
+      "vector": null,
+      "now": "Historical lens; not a current build.",
+      "route": null
+    },
+    {
+      "app_id": "APP-072",
+      "name": "Bill Whisperer",
+      "old_decision": "KILL",
+      "old_priority": 1,
+      "old_provenance": "H",
+      "disposition": "RETIRED",
+      "vector": null,
+      "now": "Historical generic utility; not a current build.",
+      "route": null
+    }
+  ]
+}

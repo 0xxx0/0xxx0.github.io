@@ -1,0 +1,26 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "IDEA ATLAS / WRANGLER",
+  "version": "0.2",
+  "route": "/app-atlas/",
+  "state": "CANDIDATE",
+  "operation": "RECOVER + ORIENT",
+  "released": "2026-09-25",
+  "representative_interaction": "open OLD→CURRENT SURVEY → inspect survival vectors → filter full App Atlas v1 lineage → jump to current authoritative route",
+  "preserves": [
+    "existing local-first capture behavior",
+    "historical App Atlas source semantics",
+    "Atlas Dayline as separate stable temporal donor",
+    "CURRENT / manifest authority boundary",
+    "unresolved correspondence as unresolved"
+  ],
+  "validation": {
+    "historical_registry_records": 45,
+    "current_state_source": "/control/CURRENT.json",
+    "route_contract_source": "/showcase-manifest.json",
+    "derived_crosswalk": "app-atlas/convergence.json",
+    "no_new_state_authority": true,
+    "root_or_control_plane_files_modified": false
+  },
+  "known_gap": "Live GitHub Pages phone/desktop interaction remains to be observed after merge. Library recovery is semantic text recovery; byte-for-byte identity with the original Library object is not asserted."
+}
