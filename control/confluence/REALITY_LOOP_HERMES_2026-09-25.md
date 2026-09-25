@@ -126,3 +126,45 @@ Create no successor task automatically. RETURN to CURRENT/confluence for replann
 ## STOP CONDITION
 
 We have won this phase when a real-world obligation from HOUSE, SHOPPING or COMMS can enter today's Dayline with source identity intact, be acted on, and return evidence to its native owner without any shared authority or hidden synchronization layer.
+
+
+## CONTINUATION — DAYLINE / CONFLUENCE WORKFIELD
+
+A new bounded candidate exists at `/dayline/`.
+
+It is not a new planner. It operates on:
+- the existing Atlas Dayline localStorage DayState;
+- the existing `atlas-dayline-handoff/v0.1` session envelope;
+- read-only CURRENT + manifest;
+- `poly-atlas-return-f v3` with carrier `dayline-confluence/v0.1`.
+
+Existing HOUSE / SHOPPING / COMMS handoffs now target this candidate for the lived proof. Atlas remains optional depth.
+
+### Hermes priority
+
+Do not improve the candidate speculatively.
+
+If the user supplies a `dayline-confluence/v0.1` RETURN or explicit lived friction:
+
+1. recover current master + `/control/confluence/DAYLINE_CONFLUENCE_WORKFIELD_2026-09-25.md`;
+2. identify exactly one failed continuity invariant;
+3. make at most one bounded correction;
+4. verify;
+5. RETURN and stop.
+
+Valid failed invariants include:
+- page cannot scroll/reach actions on the actual phone;
+- source identity is lost;
+- more than three primary moves become necessary;
+- witness cannot attach to the held Dayline object;
+- RETURN cannot recover the native source;
+- a source authority is silently mutated.
+
+Do not respond to the new candidate by:
+- creating another shell;
+- adding more source tabs;
+- embedding native apps;
+- inventing another handoff schema;
+- making Hermes the scheduler.
+
+Promotion remains a human-use judgment.
