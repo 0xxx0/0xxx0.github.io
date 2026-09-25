@@ -19,6 +19,8 @@ jobs:
         run: node scripts/check-current-heads.mjs
       - name: Validate reality-gap proof gates
         run: node scripts/check-reality-gaps.mjs
+      - name: Enforce self-verification before human gates
+        run: node scripts/check-human-gate-discipline.mjs
       - name: Validate Hermes bootstrap scripts
         run: |
           bash -n scripts/hermes-confluence-bootstrap.sh
