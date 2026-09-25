@@ -1,6 +1,6 @@
 # FOLD//BLOOM STATE / CHANGE LANGUAGE 0.1
 
-Status: **ACTIVE CANDIDATE**
+Status: **ACTIVE / PLAYABLE CANDIDATE**
 
 This is a compact notation for six binary state dimensions and exact change between them. It borrows the Yijing's formal six-line / trigram grammar as a readable projection, but it is usable without traditional interpretation or divination.
 
@@ -50,13 +50,31 @@ This is **not** asserted as traditional Yijing meaning. It is the bridge from LI
 ## Current enacted surfaces
 
 ### LIVE / PUZZLE
-A six-release puzzle constructs a reachable target state. Each release writes one line.
+The puzzle now has two phases over the same LIVE engine.
+
+**FORM** — six releases construct a reachable target state. Each release writes one line.
+
+**CHANGE** — once the form is exact, the rotating ring addresses line 1–6 by `rotation mod 6`. A release overwrites that addressed line with the consequence bit. The state clears when two final line positions differ from the formed state; the result is emitted as an exact `H[A] Δ{…} → H[B]` token. The same release still changes the underlying LIVE road.
+
+This is a Fold//Bloom gameplay interpretation of state change, not a claim that traditional Yijing practice uses this control rule.
 
 ### FIELD LAB / DATA
 Two arbitrary six-line states can be entered as BEFORE / AFTER. The visual field renders both, connects changed lines, and lets the user tap a line in the AFTER state to flip it. The exact state-change token can be copied.
 
+### CENTRAL RING PROJECTION
+The same LIVE ring now changes its visible reading by game mode instead of leaving mode semantics in detached chrome:
+
+- RUN — 8-release progress around the road ring
+- HEX — inner three sectors = lower trigram; outer three sectors = upper trigram; FORM/CHANGE state is visible in-ring
+- TWO DIAL — the LIVE ring and a second six-position dial show relation geometry
+- ECOLOGY — concentric generation/growth rings show inherited pressure
+- PATH — par/turn witness
+- ZEN — no added game projection
+
+These are unequal projections of the same LIVE state; they do not become new source authorities.
+
 ### RETURN
-PLAY exports may carry `stateLanguage` with target, authored state and exact delta.
+PLAY exports may carry `stateLanguage` with target, formed state, authored state and exact delta.
 
 ## Candidate projections — not yet claims
 
