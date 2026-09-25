@@ -170,13 +170,14 @@
     "continue_insert_browser": "PASS_PR_351 · public-surface-check 36143041343 · CONTINUE inserts / REPLACE replaces / Han continuation compact",
     "candidate_operation_merge": "5e34273bb46a09398e908d5952743ee877316ce0",
     "next_line_static": "PASS_SOURCE_CONTRACT",
-    "next_line_browser": "VERIFY_IN_SWEEP_PR · canonical Jueju blank L2 START_NEXT_LINE browser smoke"
+    "next_line_browser": "PASS · sweep PR #370 · public-surface-check 36163811892 · critical browser smoke; canonical Jueju blank L2 START_NEXT_LINE contract",
+    "current_head_route_registration": "PASS · 36163811888"
   },
   "updated": "2026-09-25",
   "next_bounded_test": {
-    "state": "VERIFY_CURRENT_HEAD_THEN_PARK",
-    "instruction": "Run the existing browser smoke for START_NEXT_LINE against the current 0.2.6 head. If green, stop Verse feature expansion until ordinary authoring exposes a concrete defect.",
-    "stop": "No new Verse feature branch merely to manufacture usage evidence."
+    "state": "PARKED_UNTIL_CONCRETE_AUTHORING_DEFECT",
+    "instruction": "Use Poem Map normally. Reopen Verse implementation only if ordinary authoring exposes a concrete source/focus/edit-operation defect.",
+    "stop": "Do not expand Verse merely to manufacture usage evidence."
   },
   "face": "CALM_FIELD_FIRST",
   "interface_contract": {
