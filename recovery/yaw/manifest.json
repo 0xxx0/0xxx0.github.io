@@ -1,8 +1,8 @@
 {
   "schema": "0xxx0/recovery-donor/v0.1",
   "family": "YAW / You're A Wake",
-  "state": "EXACT_LIBRARY_TEXT_MATERIALIZED",
-  "classification": "FROZEN_DONOR_NOT_CURRENT_HEAD",
+  "state": "EXACT_BYTE_VERIFIED_REPO_MIRROR",
+  "classification": "EXACT_FROZEN_RUNNABLE_DONOR",
   "source": {
     "name": "YAW_ENGINE_PLAYGROUND_v1.html",
     "file_id": "file_000000007120820ba69e2ee08849e2fa",
@@ -11,5 +11,8 @@
   },
   "repo_path": "/recovery/yaw/YAW_ENGINE_PLAYGROUND_v1.html",
   "law": "Recover exact runnable donor; do not promote YAW into a current head merely because the source is now durable.",
-  "recovered_at": "2026-09-26"
+  "recovered_at": "2026-09-26",
+  "repo_git_blob_sha": "fb34d5e4198f439c39361fa9e1cfb52af4a8a3f2",
+  "verified_at": "2026-09-26",
+  "verification": "Repo Git blob SHA equals Git blob SHA computed independently from raw materialized Library bytes; repository content is byte-identical to the recovered raw source."
 }
