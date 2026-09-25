@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {normalizeStateBits,formatState,stateDescriptor,movingLines,stateChange,applyMovingLines} from '../../state-language.js';
 import {
   circularDistance,relationVerb,relationName,lineBitForVerb,lineMark,trigramForBits,hexPair,hexOutcome,
   runOutcome,puzzleStars,puzzleOutcome,duetOutcome,gardenGoalMet,gardenSummary,gardenProgress,gardenOutcome
@@ -15,6 +16,17 @@ test('Two Dial relation law is symmetric over six positions',()=>{
   assert.equal(relationName(5,0),'NEAR');
   assert.equal(circularDistance(5,1),2);
 });
+test('shared state language round-trips six-line change tokens',()=>{
+  assert.deepEqual(normalizeStateBits('010|100'),[0,1,0,1,0,0]);
+  assert.equal(formatState([0,1,0,1,0,0]),'010|100');
+  const before=stateDescriptor('010|100'),after=stateDescriptor('011|110');
+  assert.equal(before.lower.key,'KAN');assert.equal(before.upper.key,'ZHEN');
+  assert.equal(after.lower.key,'XUN');assert.equal(after.upper.key,'DUI');
+  assert.deepEqual(movingLines(before.bits,after.bits),[3,5]);
+  assert.equal(stateChange(before.bits,after.bits).token,'H[010|100] Δ{3,5} → H[011|110]');
+  assert.deepEqual(applyMovingLines(before.bits,[3,5]),after.bits);
+});
+
 test('hex puzzle grammar maps topology into six-line form',()=>{
   assert.equal(lineBitForVerb('BLOOM'),1);
   assert.equal(lineBitForVerb('FOLD'),1);
