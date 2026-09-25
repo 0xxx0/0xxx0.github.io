@@ -145,10 +145,10 @@
     },
     {
       "lineage": "fold-bloom",
-      "head": "FOLD//BLOOM · SOURCE→MAP→IMMERSION / LIVE 0.13 / LISTEN 0.6 + MARKS / SET 0.1.1→LIVE / FIELD LAB 0.2.1 / INK 0.2 / VOICE 0.1 / BEAT SABER PACK 0.1 / SABER CRYSTAL",
-      "state": "ACTIVE_CANDIDATE_UNIFIED_DOORWAY / SOURCE_CONTINUITY_CONVERGED / ADDRESSED_MARKS_CONVERGED / TASK_FIRST_WORKFLOWS_SHIPPED / SABER_PINNED_SPECIFIC",
+      "head": "FOLD//BLOOM · SOURCE→MAP→IMMERSION / LIVE 0.13 / LISTEN 0.6 + MARKS / SET→LIVE / LAB / INK / VOICE / BEAT SABER PACK 0.1 / SABER 0.1 DUAL-PHONE PROOF",
+      "state": "ACTIVE_CANDIDATE_UNIFIED_DOORWAY / TASK_FIRST_WORKFLOWS_SHIPPED / SABER_01_IMPLEMENTED_WAITING_REAL_DEVICE",
       "route": "/fold-bloom/",
-      "retained_function": "The canonical /fold-bloom/ doorway now begins from source continuity rather than a synthetic demo: SOURCE is the exact audio/text/set identity; MAP is measured/derived structure; IMMERSION is an optional experience projection. LIVE can hold real SOURCE-only remote playback without pretending FIELD COURSE terrain belongs to that song, and locally mapped audio retains the existing LOCAL_FILE witness. CENTER MASS has a clean-phone provider-backed source route recovered from uploaded-track metadata without publishing private Library bytes. Direct LIVE/LISTEN imports feed the existing browser-local media vault and are visibly reopenable on the same device without the normal picker path. LISTEN remains source cartographer and now turns its event-tape draft into a one-click Beat Saber v4 mapper/test ZIP with game-facing metadata kept clean, provenance in a sidecar manifest, and exact source bytes included locally; OGG/EGG is labeled audio-ready for playtest while actual editor/VR playtest remains a human gate; other formats require explicit OGG conversion. SET remains ordered/seam authority; READFIELD remains text/RSVP authority; FIELD LAB reuses canonical engines; INK and VOICE remain bounded practice projections. CLEAR/DRIVE/TRANCE/SOFT and scene names are encounter preferences, never source truth. fold-bloom/DESIGN.md is the durable product law; the 2026-09-24 thread-collapse ledger classifies repeated asks as shipped, superseded, pinned, discarded or waiting so old parallel branches do not regain authority. The next gate is lived source/re-entry/layer/export use, not another architecture pass. PR #220 fixes LISTEN's stale disabled annotation controls after map readiness and evolves source-scoped pins compatibly into BOOKMARK point, FLAG point+intent and ARC aperture span, with direct source-identity-preserving mark sharing. External Beat Saber pack export remains distinct from the newly crystallized in-family FOLD//BLOOM SABER target: two phones as LEFT/RIGHT motion controllers over the existing source transport + EVENT TAPE, producing bounded HIT TRACE without a second source store or raw-motion archive. Sep-25 work-experience pass makes the public doorway task-first (READ, pulse-paced READ, LISTEN/MARK, RIDE, LOCI, COMPOSE) and makes FIELD LAB ?mode=READ&pulse=4 initialize PACE4 honestly. Product continuation is captured in /fold-bloom/convergence/PRODUCT_ROADMAP_2026-09-25.md; no new engine or state authority is introduced.",
+      "retained_function": "The canonical /fold-bloom/ doorway now begins from source continuity rather than a synthetic demo: SOURCE is the exact audio/text/set identity; MAP is measured/derived structure; IMMERSION is an optional experience projection. LIVE can hold real SOURCE-only remote playback without pretending FIELD COURSE terrain belongs to that song, and locally mapped audio retains the existing LOCAL_FILE witness. CENTER MASS has a clean-phone provider-backed source route recovered from uploaded-track metadata without publishing private Library bytes. Direct LIVE/LISTEN imports feed the existing browser-local media vault and are visibly reopenable on the same device without the normal picker path. LISTEN remains source cartographer and now turns its event-tape draft into a one-click Beat Saber v4 mapper/test ZIP with game-facing metadata kept clean, provenance in a sidecar manifest, and exact source bytes included locally; OGG/EGG is labeled audio-ready for playtest while actual editor/VR playtest remains a human gate; other formats require explicit OGG conversion. SET remains ordered/seam authority; READFIELD remains text/RSVP authority; FIELD LAB reuses canonical engines; INK and VOICE remain bounded practice projections. CLEAR/DRIVE/TRANCE/SOFT and scene names are encounter preferences, never source truth. fold-bloom/DESIGN.md is the durable product law; the 2026-09-24 thread-collapse ledger classifies repeated asks as shipped, superseded, pinned, discarded or waiting so old parallel branches do not regain authority. The next gate is lived source/re-entry/layer/export use, not another architecture pass. PR #220 fixes LISTEN's stale disabled annotation controls after map readiness and evolves source-scoped pins compatibly into BOOKMARK point, FLAG point+intent and ARC aperture span, with direct source-identity-preserving mark sharing. External Beat Saber pack export remains distinct from the newly crystallized in-family FOLD//BLOOM SABER target: two phones as LEFT/RIGHT motion controllers over the existing source transport + EVENT TAPE, producing bounded HIT TRACE without a second source store or raw-motion archive. Sep-25 work-experience pass makes the public doorway task-first (READ, pulse-paced READ, LISTEN/MARK, RIDE, LOCI, COMPOSE) and makes FIELD LAB ?mode=READ&pulse=4 initialize PACE4 honestly. Product continuation is captured in /fold-bloom/convergence/PRODUCT_ROADMAP_2026-09-25.md; no new engine or state authority is introduced. SABER 0.1 now implements the previously pinned in-family proof: LISTEN hands exact source identity + existing EVENT TAPE + addressed marks into /fold-bloom/saber/; one phone may host and act as one hand while a second LEFT/RIGHT phone pairs over direct WebRTC DataChannel with manual signaling. Host/controller monotonic clocks are bounded by ping/pong offset estimation; motion is reduced immediately to swing witnesses and only HIT/GRAZE/MISS trace persists. This is distinct from external Beat Saber pack export and still requires two-real-phone lived proof before gameplay quality claims.",
       "evidence": [
         "/fold-bloom/",
         "/fold-bloom/live/release.json",
@@ -250,7 +250,10 @@
         "https://github.com/0xxx0/0xxx0.github.io/pull/220",
         "/fold-bloom/convergence/PRODUCT_ROADMAP_2026-09-25.md",
         "/control/confluence/FOLD_BLOOM_WORKFLOW_2026-09-25.json",
-        "/returns/FOLD_BLOOM_WORKFLOW_2026-09-25.json"
+        "/returns/FOLD_BLOOM_WORKFLOW_2026-09-25.json",
+        "/fold-bloom/saber/",
+        "/fold-bloom/saber/release.json",
+        "/returns/FOLD_BLOOM_SABER_01_2026-09-25.json"
       ],
       "experimental": [
         {
@@ -309,29 +312,30 @@
         },
         {
           "id": "fold-bloom-saber-crystal",
-          "route": null,
-          "state": "PINNED_SPECIFIC",
-          "version": "crystal-0.1",
-          "thesis": "Existing EVENT TAPE and source transport can host a real FOLD//BLOOM saber game if two phones provide bounded LEFT/RIGHT motion witnesses while source and timing authority stay in the existing instrument.",
-          "promotion_gate": "Two real phones join one session clock and produce causally legible hit witnesses against at least 30 EVENT TAPE note events; no new source store, raw sensor archive or permanent backend.",
-          "branch": "master@a21047612c3e2a900f755da4f24d88859ed97d6a",
+          "route": "/fold-bloom/saber/",
+          "state": "ACTIVE_CANDIDATE / WAITING_ON_REAL_DEVICE",
+          "version": "0.1",
+          "thesis": "Existing EVENT TAPE and exact source transport now host a bounded two-phone saber proof: host phone may be one hand, a second phone is the opposite hand over direct WebRTC, monotonic clocks are estimated, and only bounded HIT/GRAZE/MISS evidence survives.",
+          "promotion_gate": "Two real phones: at least 30 EVENT TAPE notes, both LEFT/RIGHT motion streams causally legible, tolerable latency, pause/resume source address stable, one-phone disconnect degrades cleanly, RETURN contains no raw continuous motion.",
+          "branch": "fold-bloom-saber-proof-20260925",
           "contract": "/fold-bloom/saber/README.md"
         }
       ],
       "merge_sha": "3c5cb2e174174ee0393ed30997c2ecf8bd24a0a4",
-      "latest_return": "/returns/FOLD_BLOOM_WORKFLOW_2026-09-25.json",
+      "latest_return": "/returns/FOLD_BLOOM_SABER_01_2026-09-25.json",
       "next_executable": {
-        "id": "fold-bloom-saber-dual-phone-proof",
-        "state": "PINNED_SPECIFIC / NEXT_PLAYABLE_TRANSFORM",
-        "objective": "Implement the smallest real dual-phone LEFT/RIGHT saber proof over existing EVENT TAPE and source transport without adding a second media store or permanent backend.",
+        "id": "fold-bloom-saber-two-phone-lived-proof",
+        "state": "WAITING_ON_HUMAN / REAL_DEVICE",
+        "objective": "Run SABER 0.1 with two real phones on one mapped local track and return only observed pairing, latency, motion-direction and hit-window friction.",
         "acceptance": [
-          "two phones identify LEFT and RIGHT roles",
-          "both motion streams share one bounded session clock",
-          "scheduled note events come from existing EVENT TAPE",
-          "hit/graze/miss witnesses are causally legible and locally haptic/visual",
-          "pause/resume preserves source address",
-          "RETURN stores source/event-tape identity + bounded hit trace, not raw continuous motion"
-        ]
+          "Phone A hosts + one local hand; Phone B pairs as the opposite hand",
+          "at least 30 existing EVENT TAPE notes render",
+          "both hands produce causally legible HIT/GRAZE/MISS witnesses",
+          "pause/resume preserves source-time address",
+          "disconnecting Phone B leaves Phone A playable without source corruption",
+          "exported RETURN contains bounded hit trace and no raw continuous motion"
+        ],
+        "law": "Do not add multiplayer backend, elaborate scoring, calibration suites or new media storage before this two-phone encounter."
       },
       "latest_merge": "3c5cb2e174174ee0393ed30997c2ecf8bd24a0a4"
     },

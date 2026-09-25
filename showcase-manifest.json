@@ -1680,17 +1680,127 @@
       "operation": "ENTER / ROUTE",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-25T09:00:00+08:00",
+        "updated_at": "2026-09-25T09:20:00+08:00",
         "work_modes": [
           "OPERATE",
           "SHARE",
           "RELEASE"
         ]
       },
-      "role": "Public-facing Fold/Bloom doorway around one source-continuity law, now task-first on phone: READ/RSVP work, pulse-paced reading, LISTEN + addressed marks, LIVE ride, LOCI memory and pulse-linked composition are one-tap jobs before deeper lineage. SOURCE preserves exact identity/playback, MAP exposes measured/derived structure, IMMERSION adds experience projection. SET authors source sequences/seams; FIELD LAB compares canonical projections; INK and VOICE remain bounded practice surfaces. CENTER MASS remains a clean-phone provider-backed source entry; Beat Saber mapper-pack export remains distinct from the pinned dual-phone FOLD//BLOOM SABER proof.",
+      "role": "Public-facing Fold/Bloom doorway around one source-continuity law, now task-first on phone: READ/RSVP work, pulse-paced reading, LISTEN + addressed marks, LIVE ride, LOCI memory and pulse-linked composition are one-tap jobs before deeper lineage. SOURCE preserves exact identity/playback, MAP exposes measured/derived structure, IMMERSION adds experience projection. SET authors source sequences/seams; FIELD LAB compares canonical projections; INK and VOICE remain bounded practice surfaces. CENTER MASS remains a clean-phone provider-backed source entry; Beat Saber mapper-pack export remains distinct from the pinned dual-phone FOLD//BLOOM SABER proof. SABER 0.1 is now a visible in-family two-phone proof distinct from Beat Saber pack export.",
       "tier": "FIELD",
       "version": "0.1.2",
-      "receipt": "/returns/FOLD_BLOOM_WORKFLOW_2026-09-25.json"
+      "receipt": "/returns/FOLD_BLOOM_SABER_01_2026-09-25.json"
+    },
+    {
+      "href": "/fold-bloom/saber/",
+      "title": "FOLD//BLOOM SABER 0.1",
+      "kind": "experiment",
+      "parent": "/fold-bloom/",
+      "family": "FOLD // BLOOM",
+      "operation": "PLAY / MOTION",
+      "state": "PROOF_REQUIRED",
+      "version": "0.1",
+      "receipt": "/returns/FOLD_BLOOM_SABER_01_2026-09-25.json",
+      "role": "In-family two-phone saber proof over exact FOLD//BLOOM source identity and existing EVENT TAPE. One host phone may also act as LEFT or RIGHT; a second phone pairs directly over WebRTC as the opposite hand. Motion is ephemeral and reduced to bounded swing witnesses; durable output is HIT/GRAZE/MISS trace only.",
+      "transfer": [
+        "LISTEN exact source + EVENT TAPE",
+        "browser-local media vault",
+        "WebRTC DataChannel manual signaling",
+        "bounded monotonic clock offset",
+        "HIT TRACE RETURN"
+      ],
+      "contract": {
+        "accepts": {
+          "kinds": [
+            "fold-bloom-event-tape/v0.1",
+            "exact local source identity",
+            "LEFT/RIGHT phone motion"
+          ],
+          "requires": [
+            "EVENT TAPE"
+          ],
+          "optional": [
+            "browser-local source bytes",
+            "LISTEN addressed marks"
+          ]
+        },
+        "transforms": {
+          "verb": "project existing addressed note events into a two-phone motion course and reduce ephemeral swings to bounded performance witnesses",
+          "preserves": [
+            "source identity",
+            "source/event time",
+            "hand role",
+            "no raw motion retention"
+          ],
+          "reversibility": "full",
+          "side_effects": "local playback + ephemeral peer session + explicit RETURN export only"
+        },
+        "emits": {
+          "kinds": [
+            "SABER COURSE",
+            "HIT/GRAZE/MISS witness",
+            "fold-bloom-saber-return/v0.1"
+          ],
+          "machine_readable": true,
+          "human_readable": true
+        },
+        "evidence": {
+          "receipt": "/fold-bloom/saber/release.json",
+          "checks": [
+            "pure course/clock/hit tests",
+            "browser boot",
+            "two-real-phone proof remains required"
+          ],
+          "return_path": "/fold-bloom/saber/"
+        }
+      },
+      "field": {
+        "roles": [
+          "WORLD_THROUGH",
+          "EXPERIMENT"
+        ],
+        "inputs": [
+          {
+            "medium": "SOUND/DATA",
+            "kind": "existing source + EVENT TAPE",
+            "interface": "LISTEN handoff / local vault"
+          },
+          {
+            "medium": "MOTION",
+            "kind": "LEFT/RIGHT bounded IMU witness",
+            "interface": "DeviceMotion + direct WebRTC"
+          }
+        ],
+        "outputs": [
+          {
+            "medium": "LIGHT/HAPTIC",
+            "kind": "note/hit consequence",
+            "interface": "display + vibration"
+          },
+          {
+            "medium": "DATA",
+            "kind": "bounded HIT TRACE RETURN",
+            "interface": "JSON"
+          }
+        ],
+        "exit_paths": [
+          {
+            "class": "REAL_DEVICE_PROOF",
+            "status": "PROOF_REQUIRED",
+            "via": "two phones + one mapped local track"
+          }
+        ],
+        "physical_fit": "Phones are handheld sabers; no claim of absolute 3-D tracking."
+      },
+      "index": {
+        "updated_at": "2026-09-25T09:20:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
+        ]
+      }
     },
     {
       "href": "/fold-bloom/atlas/",

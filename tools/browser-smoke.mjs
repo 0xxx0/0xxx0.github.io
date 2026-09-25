@@ -749,7 +749,13 @@ const CASES=[
     name:'FOLD BLOOM public front',
     route:'/fold-bloom/',
     options:{width:430,height:900,budget:5000},
-    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/A source becomes a field/i.test(dom)&&/PLAY CENTER MASS/.test(dom)&&/ENTER LIVE RIDE/.test(dom)&&/MAP A TRACK/.test(dom)&&/DRAW INK/.test(dom)&&/USE IT FOR/.test(dom)&&/Read fast without losing your place/.test(dom)&&/ONE INSTRUMENT/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/A source becomes a field/i.test(dom)&&/PLAY CENTER MASS/.test(dom)&&/ENTER LIVE RIDE/.test(dom)&&/MAP A TRACK/.test(dom)&&/DRAW INK/.test(dom)&&/USE IT FOR/.test(dom)&&/Read fast without losing your place/.test(dom)&&/SABER \/ TWO PHONES/.test(dom)&&/ONE INSTRUMENT/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
+  },
+  {
+    name:'FOLD BLOOM SABER 0.1',
+    route:'/fold-bloom/saber/',
+    options:{width:430,height:900,budget:7000},
+    check:dom=>/SABER 0\.1/i.test(dom)&&dom.includes('data-fold-bloom-saber="ready"')&&dom.includes('data-saber-role="HOST"')&&dom.includes('id="offer"')&&dom.includes('id="motion"')&&dom.includes('id="returnBtn"')&&/SOURCE → EVENT TAPE → MOTION WITNESS → HIT TRACE → RETURN/.test(dom)
   },
   {
     name:'FOLD BLOOM VOICE 0.1',
@@ -844,7 +850,7 @@ const CASES=[
     name:'FOLD BLOOM LISTEN 0.6 source bundle',
     route:'/fold-bloom/listen/',
     options:{width:1180,height:900,budget:9000},
-    check:dom=>/LISTEN 0\.6/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/SUNO SONG \/ PLAYLIST \/ DIRECT AUDIO/i.test(dom)&&/ADDRESS/.test(dom)&&/APERTURE/.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="key"')&&dom.includes('id="phrases"')&&dom.includes('id="glyphBtn"')&&dom.includes('id="idleBtn"')&&dom.includes('id="pinBtn"')&&dom.includes('id="pinsBtn"')&&dom.includes('id="pinKind"')&&dom.includes('id="pinShare"')&&/ARC · current aperture span/.test(dom)&&dom.includes('id="savedSource"')&&dom.includes('id="beatSaberBtn"')&&/BEAT SABER/.test(dom)&&dom.includes('id="useAtlas"')&&dom.includes('id="useBeat"')&&dom.includes('id="useSheet"')&&dom.includes('id="rideTune"')&&dom.includes('id="rideText"')&&dom.includes('data-listen-lens="field-addressed-stream/v0.1"')&&/data-listen-ride-profile="[^"]+"/.test(dom)&&/RETURN · MESSAGE MAP/.test(dom)
+    check:dom=>/LISTEN 0\.6/i.test(dom)&&/DROP A TRACK/i.test(dom)&&/SUNO SONG \/ PLAYLIST \/ DIRECT AUDIO/i.test(dom)&&/ADDRESS/.test(dom)&&/APERTURE/.test(dom)&&/BEAT/.test(dom)&&/PHRASE/.test(dom)&&/SECTION/.test(dom)&&/TRACK/.test(dom)&&dom.includes('id="file"')&&dom.includes('id="field"')&&dom.includes('id="key"')&&dom.includes('id="phrases"')&&dom.includes('id="glyphBtn"')&&dom.includes('id="idleBtn"')&&dom.includes('id="pinBtn"')&&dom.includes('id="pinsBtn"')&&dom.includes('id="pinKind"')&&dom.includes('id="pinShare"')&&/ARC · current aperture span/.test(dom)&&dom.includes('id="savedSource"')&&dom.includes('id="beatSaberBtn"')&&/BEAT SABER/.test(dom)&&dom.includes('id="useAtlas"')&&dom.includes('id="useBeat"')&&dom.includes('id="useSaber"')&&/SABER · TWO PHONES/.test(dom)&&dom.includes('id="useSheet"')&&dom.includes('id="rideTune"')&&dom.includes('id="rideText"')&&dom.includes('data-listen-lens="field-addressed-stream/v0.1"')&&/data-listen-ride-profile="[^"]+"/.test(dom)&&/RETURN · MESSAGE MAP/.test(dom)
   },
   {
     name:'FOLD BLOOM LISTEN preview render',

@@ -91,7 +91,9 @@
     "source-scoped pins remain backward compatible while gaining BOOKMARK, FLAG and ARC kinds; ARC stores a bounded endAddress span",
     "renderer distinguishes point bookmark, intent flag and aperture arc witnesses",
     "fold-bloom-addressed-message/v0.2 carries mark kind + optional endAddress beside source identity",
-    "SHARE MARKS emits a bounded fold-bloom-annotations/v0.1 packet and prefers native file share, then clipboard, then download fallback"
+    "SHARE MARKS emits a bounded fold-bloom-annotations/v0.1 packet and prefers native file share, then clipboard, then download fallback",
+    "USE TRACK now exposes SABER · TWO PHONES as an in-family runtime distinct from external Beat Saber pack export.",
+    "SABER handoff carries exact source identity + existing EVENT TAPE + addressed marks session-locally; source bytes remain in the existing local-media vault."
   ],
   "constraints": [
     "no upload/network required for user audio",
@@ -131,7 +133,9 @@
     "No browser audio transcoder is introduced; incompatible audio formats must be explicitly converted to song.ogg outside LISTEN.",
     "BOOKMARK / FLAG / ARC are human-authored evidence; mark kinds and notes must never mutate AUDIO MAP analysis or become inferred source semantics",
     "annotation sharing carries source identity and marks only; source audio bytes remain a separate explicit export/intake decision",
-    "Beat Saber pack export does not imply the dual-phone FOLD//BLOOM SABER runtime is implemented"
+    "Beat Saber pack export does not imply the dual-phone FOLD//BLOOM SABER runtime is implemented",
+    "SABER runtime must not become a second media/source store; LISTEN/source vault remain authoritative.",
+    "Beat Saber pack export and FOLD//BLOOM SABER are separate transforms: external mapper package versus internal two-phone motion course."
   ],
   "verification": {
     "module_runtime": "PASS: LISTEN 0.2 surface executed in browser smoke",
@@ -182,9 +186,11 @@
     "addressed_marks_merge_sha": "a21047612c3e2a900f755da4f24d88859ed97d6a",
     "addressed_marks_ci": "PASS · public-surface-check 35997687953 + Route Registration 35997687828",
     "addressed_marks_phone": "PASS · real encoded MP3 proof enables MARK/MARKS, saves nonzero ARC, reloads ARC, preserves exact LISTEN→LIVE source continuity",
-    "saber_runtime": "PINNED_SPECIFIC · /fold-bloom/saber/README.md · no implementation claim"
+    "saber_runtime": "PINNED_SPECIFIC · /fold-bloom/saber/README.md · no implementation claim",
+    "saber_01_branch": "fold-bloom-saber-proof-20260925",
+    "saber_01_gate": "PURE TEST + BROWSER BOOT REQUIRED; TWO REAL PHONES REMAIN WAITING_ON_HUMAN"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · portable donor=field-addressed-stream/v0.1",
-  "updated": "2026-09-24",
+  "updated": "2026-09-25",
   "return": "/returns/FOLD_BLOOM_BEAT_SABER_PACK_2026-09-24.json"
 }

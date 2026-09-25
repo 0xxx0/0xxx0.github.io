@@ -1,0 +1,28 @@
+{
+  "schema": "return/v1",
+  "id": "FOLD_BLOOM_SABER_01_2026-09-25",
+  "status": "IMPLEMENTED_AWAITING_PHYSICAL_PROOF",
+  "object": "FOLD//BLOOM SABER 0.1 dual-phone proof",
+  "state": "CODE_COMPLETE_FOR_FIRST_PROOF",
+  "delta": [
+    "Converted SABER CRYSTAL from pinned specification into an executable route.",
+    "Reused existing LISTEN source identity, EVENT TAPE and local-media vault instead of creating a new media authority.",
+    "Implemented one-host-phone + opposite-hand remote phone pairing over direct WebRTC with manual signaling.",
+    "Reduced DeviceMotion input immediately into bounded swing witnesses; durable state stores only HIT/GRAZE/MISS trace.",
+    "Kept external Beat Saber mapper pack export separate."
+  ],
+  "evidence": [
+    "/fold-bloom/saber/",
+    "/fold-bloom/saber/saber-core.js",
+    "/fold-bloom/saber/tests/saber-core.test.mjs",
+    "/fold-bloom/saber/README.md",
+    "/fold-bloom/listen/"
+  ],
+  "verification": {
+    "pure_core": "PENDING_CI",
+    "browser_boot": "PENDING_CI",
+    "two_phone": "WAITING_ON_HUMAN"
+  },
+  "next": "Map one local song in LISTEN → USE TRACK → SABER · TWO PHONES. Phone A enable local hand, create/share offer; Phone B opens controller role, returns answer, enables motion. Play at least 30 notes and export RETURN.",
+  "stop": "No multiplayer backend, elaborate score model, calibration suite or alternate source store until two-phone physical use produces evidence."
+}

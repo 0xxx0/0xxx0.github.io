@@ -1,0 +1,34 @@
+{
+  "schema": "showcase-release/v1",
+  "surface": "FOLD//BLOOM SABER",
+  "version": "0.1",
+  "state": "PROOF_REQUIRED",
+  "route": "/fold-bloom/saber/",
+  "date": "2026-09-25",
+  "thesis": "Existing exact source timing + EVENT TAPE can become a causally legible two-phone saber game without a second source store or retained raw motion.",
+  "implemented": [
+    "LISTEN source/event-tape/marks handoff",
+    "existing local-media vault source reopening",
+    "host phone doubles as one saber",
+    "opposite-hand WebRTC DataChannel controller with manual signaling",
+    "bounded Ping/Pong monotonic clock offset estimate",
+    "DeviceMotion swing witness reduction",
+    "HIT/GRAZE/MISS addressed outcome trace",
+    "pause/resume uses source audio currentTime",
+    "bounded JSON RETURN with rawMotionRetained=false"
+  ],
+  "constraints": [
+    "no absolute 3-D position claim",
+    "no new media store",
+    "no permanent multiplayer backend",
+    "no global skill score",
+    "manual WebRTC signaling is acceptable for first proof",
+    "real two-phone play is required before promotion"
+  ],
+  "verification": {
+    "pure_core": "PENDING_CI",
+    "browser_boot": "PENDING_CI",
+    "real_device": "WAITING_ON_HUMAN"
+  },
+  "return": "/returns/FOLD_BLOOM_SABER_01_2026-09-25.json"
+}

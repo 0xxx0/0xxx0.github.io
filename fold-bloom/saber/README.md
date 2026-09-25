@@ -1,8 +1,8 @@
 # FOLD//BLOOM SABER — CRYSTAL / 2026-09-24
 
-Status: **PINNED → SPECIFIC PLAYABLE NEXT**
+Status: **0.1 IMPLEMENTED · WAITING ON TWO REAL PHONES**
 Authority: FOLD//BLOOM AUDIO MAP + EVENT TAPE + exact source identity
-Not implemented yet: dual-phone motion runtime
+Implemented in 0.1: LISTEN handoff → SABER course → host+local hand → direct WebRTC opposite-hand controller → bounded HIT TRACE. Real-device play quality remains unproven.
 
 ## Correction preserved
 
@@ -105,3 +105,17 @@ It must not claim silent access to a person's device music library. User permiss
 ## Stop condition
 
 Do not build a multiplayer backend, new media catalogue, or elaborate scoring system before the two-phone motion + shared-clock proof works.
+
+
+## 0.1 implementation receipt
+
+- Route: `/fold-bloom/saber/`
+- LISTEN `USE TRACK → SABER · TWO PHONES` carries exact source identity, existing EVENT TAPE and addressed marks in a session-local handoff.
+- Host reopens exact local source bytes only through the existing `fold-bloom-local-media-v1` vault.
+- Phone A may be HOST+LEFT or HOST+RIGHT.
+- Phone B joins as the opposite hand using direct WebRTC DataChannel with explicit manual offer/answer exchange. Public STUN may assist peer discovery; no permanent application relay is introduced.
+- Ping/Pong estimates controller→host monotonic clock offset/RTT.
+- DeviceMotion samples are never appended to durable state. The runtime derives bounded swing witness → HIT/GRAZE/MISS and discards the raw sample.
+- JSON RETURN records source/event-tape/course identity, roles, counts and bounded hit trace only.
+
+The next gate is physical, not architectural.
