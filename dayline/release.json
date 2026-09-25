@@ -3,7 +3,7 @@
   "surface": "DAYLINE // CONFLUENCE",
   "version": "0.2.2-candidate",
   "route": "/dayline/",
-  "state": "CANDIDATE",
+  "state": "MERGE_READY_CANDIDATE",
   "operation": "OPERATE",
   "released": "2026-09-26",
   "role": "Mobile-first continuous execution projection over the existing Dayline DayState. One source-linked object may remain held through RUN → WITNESS → COMPLETE → RETURN; Dayline then emits one source-appropriate OFFER_ONLY receipt and releases completed focus. COMMS may receive a native state proposal; Shopping receives evidence-only.",
@@ -27,7 +27,7 @@
     "same_daystate_store": "poly-atlas-dayline-branch-i-public-v1",
     "same_handoff": "atlas.dayline.handoff.v01",
     "return_carrier": "dayline-confluence/v0.2",
-    "browser_smoke": "PASS · public-surface-check 36148842204",
+    "browser_smoke": "PASS · public-surface-check 36165271722",
     "lived_phone": "OPTIONAL_OBSERVATION / NOT_MERGE_GATE",
     "source_return_schema": "atlas-dayline-source-return/v0.1 · one held object only",
     "source_return_transport": "sessionStorage atlas.dayline.source-return.v01 · <=12h",
@@ -35,10 +35,11 @@
     "closed_loop": "RUN → WITNESS → COMPLETE → RETURN → OFFER_ONLY → native explicit accept",
     "completed_focus_release": "after source-return publication, never before",
     "real_source_browser": "PASS · exact user instruction · 430×900 · public-surface-check 36148842204",
-    "route_registration": "PASS · 36148842258",
+    "route_registration": "PASS · 36165271718",
     "merge": "PR #359 · 3ec708367add46f2ea978ebecc4984fa01e142fe",
     "source_return_effects": "COMMS → STATE_PROPOSAL; SHOPPING → RECEIPT_ONLY; other hosts → EVIDENCE_ONLY",
-    "shopping_closed_loop": "PENDING_CI · WATCH item → Dayline done+witness → RECEIPT_ONLY → Shopping receipt, lifecycle unchanged"
+    "shopping_closed_loop": "PASS · public-surface-check 36165271722 · WATCH item remained WATCH after exact receipt acceptance",
+    "comms_regression_after_source_effect_split": "PASS · public-surface-check 36165271722"
   },
   "stop": "Functional correctness is machine/browser verified first. Real-world completion remains a WORLD claim; phone preference/ergonomics is optional subjective evidence, not the default promotion gate.",
   "verification_policy": {
