@@ -1859,7 +1859,7 @@
       "operation": "ENTER / ROUTE",
       "state": "ACTIVE",
       "index": {
-        "updated_at": "2026-09-25T20:35:00+08:00",
+        "updated_at": "2026-09-25T21:25:00+08:00",
         "work_modes": [
           "OPERATE",
           "SHARE",
@@ -1867,10 +1867,10 @@
           "PLAY"
         ]
       },
-      "role": "Public Fold/Bloom doorway around one source-continuity law. LIVE 0.13 + PLAY 0.5.2 keeps MODE / RELEASE / WORLD touch-clear on phone, projects RUN / HEX FORM→CHANGE / PATH / TWO DIAL / ECOLOGY / ZEN through the central instrument, uses literal ring-cell families △ TRIANGLE / ○ CIRCLE / □ SQUARE (legacy aliases EMBER / WATER / MOSS only in provenance), and keeps WORLD as presentation only: DEPTH / PULSE / GRAIN / SPARSE. SOURCE remains original media, MAP is measured BEAT / PHRASE / SECTION terrain, IMMERSION is experience projection.",
+      "role": "Public Fold/Bloom doorway around one source-continuity law. LIVE 0.13 + PLAY 0.5.3 keeps MODE / RELEASE / WORLD touch-clear on phone, projects RUN / HEX FORM→CHANGE / PATH / TWO DIAL / ECOLOGY / ZEN through the central instrument, uses literal ring-cell families △ TRIANGLE / ○ CIRCLE / □ SQUARE (legacy aliases EMBER / WATER / MOSS only in provenance), and keeps WORLD as presentation only: DEPTH / PULSE / GRAIN / SPARSE. SOURCE remains original media, MAP is measured BEAT / PHRASE / SECTION terrain, IMMERSION is experience projection. Mode embodiment makes RUN / HEX / PATH / TWO DIAL / ECOLOGY visibly unequal on the central instrument; HEX uses existing trigram glyph semantics and TWO DIAL shows explicit A/B rings with WIDE/full-donor escape.",
       "tier": "FIELD",
-      "version": "0.1.4 + PLAY 0.5.2",
-      "receipt": "/returns/FOLD_BLOOM_MOBILE_CRAFT_051_2026-09-25.json"
+      "version": "0.1.4 + PLAY 0.5.3",
+      "receipt": "/returns/FOLD_BLOOM_MODE_EMBODIMENT_053_2026-09-25.json"
     },
     {
       "href": "/fold-bloom/saber/",
@@ -2619,7 +2619,7 @@
       "state": "ACTIVE",
       "version": "0.13",
       "receipt": "/returns/FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json",
-      "role": "Embodied linear-source explorer with exact source timing and a smoother lived projection. LIVE enters through FIELD COURSE or an explicit local source; optional remote-provider sources cannot become sovereign defaults and fail back to the ordinary LIVE entry. AUTOPILOT remains a reversible witness control; SOURCE / MAP / IMMERSION preserve unequal authority; locally mapped audio keeps exact source identity while FIELD COURSE remains the built-in playable fallback. PLAY 0.3 is the shipped finite self-teaching shell over the same LIVE engine; RUN/PUZZLE/TWO DIAL/ECOLOGY/ZEN expose causal feedback while FAN/8 remains an optional passive controller projection.",
+      "role": "Embodied linear-source explorer with exact source timing and a smoother lived projection. LIVE enters through FIELD COURSE or an explicit local source; optional remote-provider sources cannot become sovereign defaults and fail back to the ordinary LIVE entry. AUTOPILOT remains a reversible witness control; SOURCE / MAP / IMMERSION preserve unequal authority; locally mapped audio keeps exact source identity while FIELD COURSE remains the built-in playable fallback. PLAY 0.5.3 is the current finite self-teaching / mode-embodiment shell over the same LIVE engine; RUN/PUZZLE/TWO DIAL/ECOLOGY/ZEN expose causal feedback while FAN/8 remains an optional passive controller projection.",
       "transfer": [
         "Fold Weave: authored 12-cell topology / crease / cascade / mute-first causal score",
         "LIVE 0.4: AUDIO MAP → future TRACKFIELD",
@@ -2635,7 +2635,9 @@
         "two passive FAN/8 copies can embody DUET relation; GARDEN BODY/PATH/VOICE remains current software trait authority",
         "PLAY 0.3 shipped self-teaching loop: TURN → PREDICT → MATCH CALL → RELEASE → ROAD CHANGES → NEXT CALL",
         "per-release RUN/PUZZLE/TWO DIAL/ECOLOGY feedback; Ecology inheritance pressure stays visible",
-        "CONCERT / RUN / TWO-DIAL / ECOLOGY are quickstart aliases into existing PLAY modes, not new engines"
+        "CONCERT / RUN / TWO-DIAL / ECOLOGY are quickstart aliases into existing PLAY modes, not new engines",
+        "PLAY 0.5.3 central instrument embodiment: RUN / HEX / PATH / TWO DIAL / ECOLOGY / ZEN are visually distinct without moving authority out of LIVE",
+        "HEX reuses existing trigram glyph mapping; TWO DIAL exposes outer A / inner B and direct WIDE/full donor affordances"
       ],
       "contract": {
         "accepts": {
@@ -2781,7 +2783,7 @@
         "physical_fit": "Existing turn/read/release game grammar now has a printable passive FAN/8 projection. Browser remains runtime/score authority; physical sensing is unimplemented."
       },
       "index": {
-        "updated_at": "2026-09-25T18:24:00+08:00",
+        "updated_at": "2026-09-25T21:25:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2920,13 +2922,13 @@
     },
     {
       "href": "/fold-bloom/two-dial/",
-      "title": "TWO DIAL 0.10.3",
+      "title": "TWO DIAL 0.10.4",
       "kind": "artifact",
       "parent": "/fold-bloom/",
       "family": "FOLD // BLOOM",
       "operation": "PLAY",
       "state": "ACTIVE",
-      "version": "0.10.3",
+      "version": "0.10.4",
       "receipt": "/fold-bloom/two-dial/release.json",
       "transfer": [
         "preserved two-dial relation algebra",
@@ -2934,7 +2936,10 @@
         "SCALE-of-consequence: PULSE / VOICE / MOTIF / FORM",
         "motif/form memory + bounded phrase RETURN",
         "dependency-free WebAudio synthesis and local cassettes",
-        "same-page hashed local AUDIO MAP or optional LISTEN pulse may lend tempo/beat/energy/phrase/section context; borrowed timing/structure != borrowed composition authorship"
+        "same-page hashed local AUDIO MAP or optional LISTEN pulse may lend tempo/beat/energy/phrase/section context; borrowed timing/structure != borrowed composition authorship",
+        "phone WIDE / landscape affordance with rotate fallback",
+        "mode=DUET deep link from LIVE TWO DIAL",
+        "larger portrait MATTER/HARMONY dials without changing relation algebra"
       ],
       "contract": {
         "accepts": {
@@ -3036,7 +3041,7 @@
         "physical_fit": "Control primitive; candidate for tangible dial/encoder interfaces."
       },
       "index": {
-        "updated_at": "2026-09-24T14:13:00+08:00",
+        "updated_at": "2026-09-25T21:25:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -3044,7 +3049,7 @@
           "RELEASE"
         ]
       },
-      "role": "Composition authority. MATTER × HARMONY authors BLOOM/FOLD/SPLIT/RETURN; a local source or LISTEN may lend tempo/energy/phrase/section context. IDLE demonstrates the algebra on a reversible snapshot and can follow the source clock, but its automatic composition evaporates on takeover. PULSE LINK accepts LISTEN/AUDIO or FIELD LAB/SYNTH timing while a local same-page track remains higher priority.",
+      "role": "Composition authority. MATTER × HARMONY authors BLOOM/FOLD/SPLIT/RETURN; a local source or LISTEN may lend tempo/energy/phrase/section context. IDLE demonstrates the algebra on a reversible snapshot and can follow the source clock, but its automatic composition evaporates on takeover. PULSE LINK accepts LISTEN/AUDIO or FIELD LAB/SYNTH timing while a local same-page track remains higher priority. 0.10.4 makes MATTER/HARMONY visibly distinct on phone, adds WIDE/landscape/fullscreen affordance, and accepts mode=DUET for direct donor entry.",
       "tier": "FIELD"
     },
     {
