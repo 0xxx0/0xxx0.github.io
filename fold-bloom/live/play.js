@@ -92,9 +92,16 @@ function injectEntry(){
   box.id = 'fbPlayEntry';
   box.className = 'fbPlayEntry';
   box.innerHTML = '<div class="law"><b>ONE MOVE:</b> TURN → FIND THE SYMBOL → MATCH THE GOAL → RELEASE.<br><b>ONE RUN:</b> eight releases. No lives. No dead moves; misses still change the field.</div><div class="modes"><button data-play-mode="PLAY">PLAY A RUN · 8 MOVES</button><button data-play-mode="PUZZLE">PUZZLE · 5 CALLS</button><button data-play-mode="ZEN">ZEN · FREE RIDE</button></div>';
-  const more = card.querySelector('.introMore');
-  card.insertBefore(box, more || null);
+  const startRow = card.querySelector('.startRow');
+  card.insertBefore(box, startRow || null);
   box.querySelectorAll('[data-play-mode]').forEach(btn => btn.addEventListener('click', () => start(btn.dataset.playMode)));
+  const fieldBtn = q('#playBtn');
+  if(fieldBtn && !fieldBtn.dataset.fbPlayWrapped){
+    const original = fieldBtn.onclick;
+    fieldBtn.dataset.fbPlayWrapped = '1';
+    fieldBtn.textContent = 'PLAY A RUN · FIELD COURSE →';
+    fieldBtn.onclick = async event => { if(original) await original.call(fieldBtn,event); start('PLAY'); };
+  }
 }
 
 function injectHud(){
