@@ -77,5 +77,11 @@
     "session return offer expires/consumes without creating a global bus"
   ],
   "return": "/shopping/",
-  "date": "2026-09-25"
+  "date": "2026-09-25",
+  "validation": {
+    "dayline_exact_item_loop": "PASS · public-surface-check 36165271722",
+    "lifecycle_invariance": "PASS · synthetic WATCH item remained WATCH after accepted Dayline receipt",
+    "stale_effect_guards": "PASS_BY_SOURCE_AND_BROWSER",
+    "route_registration": "PASS · 36165271718"
+  }
 }
