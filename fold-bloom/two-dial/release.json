@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "TWO DIAL",
-  "version": "0.10.3",
+  "version": "0.10.4",
   "route": "/fold-bloom/two-dial/",
   "state": "ACTIVE_CANDIDATE_SHIPPED",
   "operation": "PLAY",
   "released": "2026-09-22",
-  "thesis": "HOLD FAST / LET FLY: same-source temporal context may animate the instrument, while IDLE demonstrates its relation algebra only as reversible witness-play and MATTER × HARMONY remains the sole composition authority.",
+  "thesis": "HOLD FAST / LET FLY: the two control bodies must remain visibly distinct on phone as MATTER × HARMONY; landscape is an explicit affordance, while same-source temporal context may animate the instrument and relation algebra remains sole composition authority.",
   "preserved": [
     "six-position two-dial relation algebra",
     "SAME→BLOOM · NEAR→FOLD · FAR→RETURN · OPPOSITE→SPLIT",
@@ -34,7 +34,11 @@
     "visible AUTO DEMO becomes IDLE: every automatic relation/commit runs on a snapshot and restores on takeover",
     "IDLE may explicitly start a loaded local track and follow its source clock while never saving or emitting automatic composition as human-authored",
     "first dial/world/voice/groove/scope/local-track control wakes from IDLE",
-    "phraseIndex/phraseProgress survive bounded pulse context beside beat and section evidence"
+    "phraseIndex/phraseProgress survive bounded pulse context beside beat and section evidence",
+    "phone WIDE control requests landscape/fullscreen when supported and otherwise gives an explicit rotate-phone instruction",
+    "mode=DUET query opens the donor directly in DUET instead of relying on remembered local preference",
+    "portrait MATTER/HARMONY dials are enlarged while preserving the same six-position relation algebra",
+    "service-worker cache bumps so phone clients do not retain the older donor geometry"
   ],
   "research_transfer": [
     "Euclidean/rotated pulse transformations and polymetric crossing",
@@ -61,10 +65,12 @@
     "idle_witness": "PASS: public-surface-check 35693062152; Two Dial 0.10.3 local-track + reversible IDLE browser surface green.",
     "idle_phone": "REQUIRED_NEXT: load local track → IDLE → touch dial; confirm source clock continues but automatic motif/form changes disappear.",
     "idle_witness_pr": 145,
-    "idle_witness_merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130"
+    "idle_witness_merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130",
+    "mode_embodiment": "PENDING_CI",
+    "wide_phone": "HUMAN_GATE"
   },
   "known_gap": "Instrument-quality judgment still requires direct listening. Local track context is now implemented; do not map song features directly into harmony/verbs until real play identifies a useful missing relation.",
   "confluence": "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
   "return": "/returns/FOLD_BLOOM_ATLAS_IDLE_2026-09-22.json",
-  "updated": "2026-09-22"
+  "updated": "2026-09-25"
 }
