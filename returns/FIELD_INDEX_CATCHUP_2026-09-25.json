@@ -1,0 +1,37 @@
+{
+  "schema": "0xxx0/field-index-catchup/v0.1",
+  "date": "2026-09-25",
+  "state": "CANDIDATE",
+  "route": "/",
+  "object": "FIELD INDEX re-entry",
+  "problem": "A user returning after several exchanges still had to interpret route rails, CURRENT and Git chronology manually to learn what changed and what matters.",
+  "delta": {
+    "version": "0.8.4",
+    "projection": "CATCH UP / LOCAL",
+    "authority": "NONE / DERIVED",
+    "source": [
+      "/control/CURRENT.json",
+      "/showcase-manifest.json"
+    ],
+    "behavior": [
+      "shows the current conversion objective",
+      "shows up to six addressed changes since the browser's explicit local caught-up mark",
+      "prefers active/current heads without creating canonical priority",
+      "FOCUS reuses FIELD selection; OPEN enters the existing route",
+      "MARK CAUGHT UP writes only one local timestamp in this browser"
+    ]
+  },
+  "laws": [
+    "No backlog, queue, cloud read state or second activity feed.",
+    "No canonical file is mutated by using CATCH UP.",
+    "Route timestamps are manifest evidence, not proof that a user has read or understood a change.",
+    "Exact Git chronology remains CHANGE / GIT; CATCH UP is an orientation projection."
+  ],
+  "verification": {
+    "static": "PENDING_CI",
+    "browser": "PENDING_CI",
+    "human": "Use after being away; pass if NOW + 1-6 changed heads restores orientation faster than manually opening CURRENT/ROUTES/CHANGE."
+  },
+  "residue": "Catch-up currently explains a route from evolution.mutation when available, otherwise role/transfer. It does not synthesize cross-route narrative or conversation history.",
+  "stop": "Do not add notifications, server-side read tracking, another dashboard or autonomous prioritizer from this feature."
+}
