@@ -15,15 +15,15 @@
     "/tools/validate-public.mjs"
   ],
   "mechanism": {
-    "caller_url": "view=<PAGE|MAP|SETS>&focus=L#T#",
+    "caller_url": "view=<PAGE|MAP|SETS>&focus=L#T#&source_key=text-local:<length>:<fnv32>",
     "source_bytes_in_url": false,
     "recipient_state_in_url": false,
-    "restore": "On Poem Map boot, accept only /^L\\d+T\\d+$/ and only if that token exists in the current parsed source."
+    "restore": "On Poem Map boot, accept focus only when source_key exactly matches the current localTextKey(source), the token ID matches /^L\\d+T\\d+$/, and that token exists in the parsed source."
   },
   "invariants": [
     "The poem source remains local Poem Map authority.",
     "Recipient marks, claims, timing and projections never enter the return witness.",
-    "Malformed or stale token addresses fail closed.",
+    "Malformed/stale token addresses or mismatched source fingerprints fail closed.",
     "Existing durable Poem Map RETURN JSON remains unchanged.",
     "No new global/session store is introduced."
   ],
