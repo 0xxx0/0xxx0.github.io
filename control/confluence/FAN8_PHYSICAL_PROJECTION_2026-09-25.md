@@ -160,6 +160,10 @@ These are inspiration, not provenance.
 
 The important adaptation is ours: the fan's reversible topology switch is itself a projection operator over the same object.
 
+## Internal proof donor
+
+PRINT-01 landed concurrently and supplies the correct physical-proof discipline: calibrated carrier, written dimensions authoritative, one specimen only, photo/ruler RETURN, no fixture family before evidence. FAN/8 reuses that method instead of spawning a second fabrication protocol.
+
 ## Materialized artifact
 
 - `/foundry/axial/fan8-print.svg`
@@ -169,6 +173,7 @@ The SVG is A3 landscape and contains eight separate tapered brisé-style leaves 
 
 - ~186 mm functional length;
 - Ø5 mm pivot clearance;
+- 100 mm calibration line; continue only at 99–101 mm;
 - optional tip-lacing hole;
 - six numbered slots;
 - HOLD / LET FLY;
