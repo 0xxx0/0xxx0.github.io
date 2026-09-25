@@ -65,6 +65,19 @@ Expected top-level result:
 
 The full JSON report includes the two P1 focus frames, nine P2 projection checks, three P3 rewrite receipts, exact preserved IDs, source-identity proof and the physical-fit boundary.
 
+## Interactive annex — WRAP PROOF (IDENTIFY ≠ DEFORM)
+
+`index.html` is the human-facing witness annex: a runnable plane → cylinder → torus sheet that separates the two operations explicitly.
+
+- `IDENTIFY X / Y` — topology only: declares a boundary pair one edge; adjacency wraps; metric untouched (strain before = after = 0).
+- `EMBED FLAT / TUBE / DONUT` — geometry only: TUBE is developable (max |strain| ≈ 0); DONUT k=3 measures max |strain| ≈ R/B = 0.3333 (first-order edge metric, central difference h=1e-4); closure gap ≈ 1e-15.
+
+Run: open `index.html` (append `?selftest=1` for the seven in-page checks).
+
+Donor provenance: AXIS `work/make-grammar/spike-001-wrap` (node 16/16 + browser 7/7, 2026-09-23); registered as the interactive witness under `HARD_EVOLUTION_MAP_2026-09-24.md` §R3B.
+
+Boundary: the display morph is not a rigid motion; strain is a first-order edge metric, not a continuum-embedding proof; physical fit remains UNKNOWN. The annex adds no authority to this spike.
+
 ## Stop
 
 A passing spike does **not** authorize shared-core promotion.

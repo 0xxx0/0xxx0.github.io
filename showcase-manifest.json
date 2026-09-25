@@ -7781,6 +7781,54 @@
       }
     },
     {
+      "href": "/spikes/007-hard-evolution-proofs/",
+      "title": "SPIKE 007 / HARD EVOLUTION PROOFS",
+      "kind": "experiment",
+      "parent": "/",
+      "family": "SPIKE",
+      "operation": "PROVE",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "tier": "FIELD",
+      "role": "Executable multi-domain proofs P1/P2/P3 from HARD_EVOLUTION_MAP: one location-with-context descriptor across unequal domains; typed composition (parts / ports / relations / constraints / operators) projected as FORMULA / HYPERGRAPH / FLOWER with declared residue; preserved-interface rewrites with commit + evidence + RETURN. Interactive annex demonstrates IDENTIFY ≠ DEFORM (plane → cylinder → torus). No shared-core promotion.",
+      "index": {
+        "updated_at": "2026-09-25T20:45:00+08:00",
+        "work_modes": [
+          "IMPLEMENT",
+          "VERIFY"
+        ]
+      },
+      "evidence": [
+        {
+          "claim": "P1+P2+P3 deterministic selftest passes",
+          "source": "spikes/007-hard-evolution-proofs/selftest.mjs",
+          "status": "TESTED"
+        },
+        {
+          "claim": "IDENTIFY leaves metric untouched; TUBE developable (max |strain| ≈ 0); DONUT max |strain| = R/B (k=3)",
+          "source": "spikes/007-hard-evolution-proofs/index.html?selftest=1",
+          "status": "TESTED"
+        },
+        {
+          "claim": "physical fit stays UNKNOWN; display morph is not a rigid motion",
+          "source": "spikes/007-hard-evolution-proofs/README.md",
+          "status": "OPEN_BY_DESIGN"
+        }
+      ],
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/",
+        "generation": 7,
+        "stage": "TEST",
+        "question": "Can one already-addressed object expose typed part/whole structure, ports/relations, lawful interface-preserving rewrites and exact provenance — then project as formula / hypergraph / flower without changing identity?",
+        "baseline": "CAP-IR / INTERPHASE preserve identity, source, relations, events and RETURN; the MAKE wrap donor separates topology from geometry; projection laws (GetPut / PutGet, operation commutation) already exist.",
+        "mutation": "Add a zipper-like focus+context descriptor (P1), typed composition across three unequal fixtures with residue-declared projections (P2), preserved-interface rewrites with explicit commit and evidence refs (P3); publish the interactive IDENTIFY ≠ DEFORM witness as the spike's annex.",
+        "evidence_gate": "P1+P2+P3 pass; every projection declares residue; no projection becomes canonical authority; physical-fit boundary stays UNKNOWN.",
+        "next_if_pass": "Promotion only after a real second consumer demonstrates a shared helper removes duplicate state/code or unlocks a previously impossible lawful operation; next material evidence = a real object / assembly use.",
+        "next_if_fail": "Keep fixtures as donor proof material; do not import graph-rewrite terminology or widen the operator set."
+      }
+    },
+    {
       "href": "/fold-bloom/replay/",
       "title": "FOLD//BLOOM · REPLAY 0.2",
       "kind": "experiment",

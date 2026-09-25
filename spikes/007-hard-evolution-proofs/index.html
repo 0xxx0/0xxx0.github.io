@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPIKE 007 · WRAP PROOF — IDENTIFY ≠ DEFORM</title>
+<style>
+:root{--bg:#07090b;--p:#0c1013;--ink:#edf0eb;--muted:#879296;--line:#283239;--hot:#ef6c3b;--cool:#68acd8;--gold:#d9ad62;--green:#9ed88c}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:11px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+main{width:min(1180px,100%);margin:auto;padding:18px 12px 40px}
+h1{font:850 clamp(22px,4vw,40px)/1 system-ui,-apple-system,sans-serif;letter-spacing:-.05em;margin:8px 0 4px}
+.ey{font-size:8px;letter-spacing:.18em;color:var(--hot)}
+.law{color:var(--green);font-size:9px;word-spacing:3px;margin:6px 0 14px}
+.grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(260px,1fr);gap:14px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+.pane{background:var(--p);border:1px solid var(--line);padding:12px}
+canvas{width:100%;height:auto;display:block;background:#05070a;border:1px solid var(--line)}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+button{background:#11181c;color:var(--ink);border:1px solid var(--line);padding:7px 10px;font:inherit;cursor:pointer}
+button:hover{border-color:var(--cool)}
+select,input[type=range]{background:#11181c;color:var(--ink);border:1px solid var(--line);padding:3px;font:inherit}
+label{color:var(--muted);font-size:9px;display:flex;gap:6px;align-items:center}
+.k{color:var(--muted);font-size:8px;letter-spacing:.12em;margin:10px 0 4px}
+#nb,#st{white-space:pre-wrap;font-size:10px}
+#nb b{color:var(--hot)}#st b{color:var(--gold)}
+pre{white-space:pre-wrap;word-break:break-word;background:#05070a;border:1px solid var(--line);padding:8px;font-size:9px;max-height:320px;overflow:auto;margin:6px 0 0}
+#selftest{white-space:pre-wrap;font-size:10px;color:var(--green)}
+.note{color:var(--muted);font-size:9px;margin-top:8px}
+a{color:var(--cool)}
+</style>
+</head>
+<body><main>
+<div class="ey">SPIKE 007 · INTERACTIVE ANNEX · NOT CANON · NO PROMOTION · README HAS LAWS</div>
+<h1>WRAP PROOF 0.1</h1>
+<div class="law">IDENTIFY ≠ DEFORM · TOPOLOGY ≠ GEOMETRY ≠ EMBEDDING · PROJECT ≠ MUTATE · RETURN REQUIRED</div>
+
+<div class="controls">
+  <button id="bx">IDENTIFY X (wrap columns)</button>
+  <button id="by">IDENTIFY Y (wrap rows)</button>
+  <label>EMBED <select id="bemb">
+    <option value="FLAT">FLAT sheet</option>
+    <option value="TUBE">TUBE (x-wrap)</option>
+    <option value="DONUT">DONUT (x+y-wrap)</option>
+  </select></label>
+  <label>k = B/R <input id="bk" type="range" min="1.5" max="12" step="0.25" value="3"></label>
+  <label>display morph t <input id="bt" type="range" min="0" max="1" step="0.01" value="1"></label>
+  <label>view rot° <input id="brot" type="range" min="0" max="360" step="1" value="40"></label>
+  <button id="bret">RETURN</button>
+  <button id="breset">RESET</button>
+</div>
+
+<div class="grid">
+  <div class="pane">
+    <canvas id="cv" width="880" height="560"></canvas>
+    <div class="note">Display morph t is a visual blend — not a rigid motion. The metric witness is computed on the destination embedding via first-order strain (central difference, h=1e-4). k=3 with ny=36 closes the ring. Node chords sample the arc short (curvature, not error): the unit witness is the first-order metric.<br>Interactive annex of <b>spikes/007-hard-evolution-proofs</b> (see README; HARD_EVOLUTION_MAP §R3B). Donor: AXIS <code>work/make-grammar/spike-001-wrap</code> — receipts node 16/16 + in-page 7/7 (2026-09-23). Physical fit remains UNKNOWN.</div>
+  </div>
+  <div class="pane">
+    <div class="k">TOPOLOGY (adjacency of cell 0,0) — changed only by IDENTIFY</div>
+    <div id="nb"></div>
+    <div class="k">METRIC (max |strain|, sampled at grid nodes)</div>
+    <div id="st"></div>
+    <div class="k">RETURN RECEIPT</div>
+    <pre id="receipt">press RETURN</pre>
+    <div class="k">IN-PAGE SELFTEST</div>
+    <div id="selftest">append ?selftest=1 to the URL</div>
+  </div>
+</div>
+
+<script src="./wrap-core.js"></script>
+<script>
+(function(){
+'use strict';
+var W=window.WrapProof;
+var obj=W.sheet(12,36,{id:'WELT-01'});
+var rotDeg=40;
+function $(s){return document.querySelector(s);}
+var cv=$('#cv'),ctx=cv.getContext('2d');
+
+function project(p){
+  var ry=rotDeg*Math.PI/180, rx=-0.42;
+  var x1=p.x*Math.cos(ry)-p.z*Math.sin(ry);
+  var z1=p.x*Math.sin(ry)+p.z*Math.cos(ry);
+  var y2=p.y*Math.cos(rx)-z1*Math.sin(rx);
+  return {x:x1,y:y2};
+}
+function mode(){return {embed:obj.embed,ringFactor:obj.ringFactor,t:+$('#bt').value};}
+
+function draw(){
+  var m=mode(),cw=cv.width,ch=cv.height;
+  ctx.clearRect(0,0,cw,ch);
+  var pts=[];
+  for(var u=0;u<=obj.nx;u+=0.5)for(var v=0;v<=obj.ny;v+=0.5)pts.push(project(W.point(obj,u,v,m)));
+  var minx=1e9,maxx=-1e9,miny=1e9,maxy=-1e9;
+  for(var i=0;i<pts.length;i++){var p0=pts[i];if(p0.x<minx)minx=p0.x;if(p0.x>maxx)maxx=p0.x;if(p0.y<miny)miny=p0.y;if(p0.y>maxy)maxy=p0.y;}
+  var s=0.82*Math.min(cw/((maxx-minx)||1),ch/((maxy-miny)||1));
+  var ox=cw/2-s*(maxx+minx)/2, oy=ch/2+s*(miny+maxy)/2;
+  function P(u,v){var q=project(W.point(obj,u,v,m));return {x:ox+s*q.x,y:oy-s*q.y};}
+  function poly(qs,color,w){ctx.strokeStyle=color;ctx.lineWidth=w||1;ctx.beginPath();qs.forEach(function(q,i){i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y);});ctx.stroke();}
+
+  // integer grid lines: constant u
+  for(var ui=0;ui<=obj.nx;ui++){
+    var qs=[];for(var v2=0;v2<=obj.ny;v2+=0.5)qs.push(P(ui,v2));
+    var seam=(obj.identX&&(ui===0||ui===obj.nx));
+    poly(qs,seam?'#ef6c3b':'#3d4a52',seam?2:1);
+  }
+  // constant v
+  for(var vi=0;vi<=obj.ny;vi++){
+    var qs2=[];for(var u2=0;u2<=obj.nx;u2+=0.5)qs2.push(P(u2,vi));
+    var seam2=(obj.identY&&(vi===0||vi===obj.ny));
+    poly(qs2,seam2?'#d9ad62':'#3d4a52',seam2?2:1);
+  }
+
+  // neighborhood of cell (0,0): link to right/left/up/down neighbors under CURRENT topology
+  var nb=W.neighbors(obj,0,0);
+  var center=P(0.5,0.5);
+  var targets=[];
+  if(nb.right!==null)targets.push([nb.right,0]);
+  if(nb.left!==null)targets.push([nb.left,0]);
+  if(nb.up!==null)targets.push([0,nb.up]);
+  if(nb.down!==null)targets.push([0,nb.down]);
+  targets.forEach(function(t){
+    var q=P(t[0]+0.5,t[1]+0.5);
+    poly([center,q],'rgba(104,172,216,.75)',1.5);
+    ctx.fillStyle='#68acd8';ctx.beginPath();ctx.arc(q.x,q.y,3.5,0,7);ctx.fill();
+  });
+  ctx.fillStyle='#ef6c3b';ctx.beginPath();ctx.arc(center.x,center.y,5,0,7);ctx.fill();
+  // mark wrapped partner of (0,0).left when identified (the seam mate)
+  if(obj.identX){
+    var qs3=P(obj.nx-0.5,0.5);
+    ctx.strokeStyle='#9ed88c';ctx.lineWidth=1;ctx.beginPath();ctx.arc(qs3.x,qs3.y,6,0,7);ctx.stroke();
+  }
+  if(obj.identY){
+    var qs4=P(0.5,obj.ny-0.5);
+    ctx.strokeStyle='#9ed88c';ctx.lineWidth=1;ctx.beginPath();ctx.arc(qs4.x,qs4.y,6,0,7);ctx.stroke();
+  }
+}
+
+function fmt(v){return v===null?'OPEN':String(v);}
+function update(){
+  var nb=W.neighbors(obj,0,0), nbL=W.neighbors(obj,obj.nx-1,0), nbD=W.neighbors(obj,0,obj.ny-1);
+  $('#nb').innerHTML=
+    '<b>cell(0,0)</b>      right='+fmt(nb.right)+'  left='+fmt(nb.left)+'  up='+fmt(nb.up)+'  down='+fmt(nb.down)+'\n'+
+    'cell(nx-1,0)   right='+fmt(nbL.right)+'  left='+fmt(nbL.left)+'\n'+
+    'cell(0,ny-1)   up='+fmt(nbD.up)+'  down='+fmt(nbD.down)+'\n'+
+    'identX='+obj.identX+'  identY='+obj.identY;
+
+  var list=[['FLAT','FLAT'],['TUBE','TUBE'],['DONUT','DONUT']];
+  var html='';
+  list.forEach(function(pair){
+    var st=W.metricStats(obj,{embed:pair[0],ringFactor:pair[0]==='DONUT'?obj.ringFactor:undefined});
+    var an=(pair[0]==='DONUT')?('  analytic R/B='+(1/obj.ringFactor).toFixed(6)):'';
+    html+='<b>'+pair[1]+'</b>  max|strain|='+st.maxAbs.toFixed(6)+an+'\n'+
+          '        range ['+st.min.toFixed(6)+', '+st.max.toFixed(6)+']\n';
+  });
+  html+='k='+obj.ringFactor+' · closure gap (u): '+(W.closureDistance(obj)==null?'— (FLAT open)':W.closureDistance(obj).toExponential(2));
+  $('#st').innerHTML=html;
+  draw();
+}
+
+$('#bx').onclick=function(){var r=W.identify(obj,'X');if(r.ok){obj=r.obj;update();}};
+$('#by').onclick=function(){var r=W.identify(obj,'Y');if(r.ok){obj=r.obj;update();}};
+$('#bemb').onchange=function(e){var r=W.setEmbed(obj,e.target.value,obj.ringFactor);if(r.ok){obj=r.obj;update();}};
+$('#bk').oninput=function(e){obj.ringFactor=+e.target.value;update();};
+$('#bt').oninput=update;
+$('#brot').oninput=function(e){rotDeg=+e.target.value;update();};
+$('#bret').onclick=function(){window.RECEIPT=W.receipt(obj);$('#receipt').textContent=JSON.stringify(window.RECEIPT,null,2);};
+$('#breset').onclick=function(){obj=W.sheet(12,36,{id:'WELT-01'});$('#bemb').value='FLAT';$('#bk').value='3';$('#bt').value='1';$('#receipt').textContent='press RETURN';update();};
+
+function runSelftest(){
+  var L=[];function ok(n,c){L.push((c?'PASS ':'FAIL ')+n);}
+  var o=W.sheet(12,36,{id:'T'});
+  ok('flat has open east boundary',W.neighbors(o,o.nx-1,0).right===null);
+  var r=W.identify(o,'X');o=r.obj;
+  ok('identify X wraps adjacency',W.neighbors(o,0,0).left===11&&W.neighbors(o,11,0).right===0);
+  var mBefore=W.metricStats(o,{embed:'FLAT'}).maxAbs;
+  var p=W.sheet(12,36);
+  ok('identify leaves metric untouched',mBefore===W.metricStats(p,{embed:'FLAT'}).maxAbs);
+  ok('tube developable max|strain|<1e-9',W.metricStats(p,{embed:'TUBE'}).maxAbs<1e-9);
+  var md=W.metricStats(p,{embed:'DONUT',ringFactor:3});
+  ok('donut max|strain|=R/B (tol 1e-6)',Math.abs(md.maxAbs-1/3)<1e-6);
+  var d=W.setEmbed(p,'DONUT',3).obj;
+  ok('embed leaves adjacency unchanged',JSON.stringify(W.neighbors(d,0,0))===JSON.stringify(W.neighbors(p,0,0)));
+  var rc=W.receipt(W.setEmbed(W.identify(p,'X').obj,'DONUT',3).obj);
+  ok('receipt residue + evidence present',rc.residue.length>=4&&!!rc.evidence.DONUT&&!!rc.evidence.TUBE);
+  var total=L.length,pass=L.filter(function(x){return x.indexOf('PASS')===0;}).length;
+  $('#selftest').textContent=L.join('\n')+'\n\n'+(pass===total?'SELFTEST PASS':'SELFTEST FAIL')+' '+pass+'/'+total;
+  window.SELFTEST={pass:pass===total,passed:pass,total:total,lines:L};
+}
+
+if(location.search.indexOf('selftest')>=0)runSelftest();
+update();
+})();
+</script>
+</body></html>
