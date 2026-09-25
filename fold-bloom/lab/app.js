@@ -5,7 +5,7 @@ import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, b
 import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
 
-const $=s=>document.querySelector(s), $=s=>[...document.querySelectorAll(s)];
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const canvas=$('#field'),ctx=canvas.getContext('2d');
 const TAU=Math.PI*2;
