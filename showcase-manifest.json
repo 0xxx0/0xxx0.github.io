@@ -16,18 +16,20 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-25T19:34:00+08:00",
+        "updated_at": "2026-09-25T19:46:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: compact held-object/action and re-entry surface. CURRENT owns attention. FIELD / CATCH + ACT derives changed addressed routes, active CURRENT reality gaps and public GitHub issues without creating a backlog or authority. REALITY GAP / YOU makes the repo→world proof boundary explicit: CURRENT supplies active gates, WAITING preserves dependency memory, COPY TEST emits only a local bounded test packet, and observed RETURN is required to change the claim. ROUTES remains the manifest projection; CHANGE / GIT remains literal repository chronology.",
+      "role": "FIELD INDEX root: compact held-object/action and re-entry surface. CURRENT owns attention. REALITY GAP / YOU makes repo→world proof explicit without a new backlog: active gates derive from CURRENT, WAITING preserves dependency memory, COPY TEST carries exact route + stable same-site OPEN address + bounded observation/RETURN, and parked physical tests remain recoverable without becoming NOW.",
       "receipt": "/returns/FIELD_INDEX_CATCHUP_2026-09-25.json",
       "machine_view": "FIELD",
-      "version": "0.8.8",
+      "version": "0.8.9",
       "transfer": [
+        "COPY TEST now includes a stable same-site OPEN URL so phone/world testing does not depend on chat attachment lifetime or route reconstruction",
+        "PRINT-01 is retained in WAITING as PARKED physical-proof memory; recoverable ≠ current obligation",
         "REALITY GAP / YOU derives active world-proof gates from CURRENT; CI/repo/synthetic proof never silently counts as real-device, physical or lived-use proof",
         "COPY TEST emits a bounded local world-test packet from the existing gate; no new registry, queue or resolution authority",
         "PRINT-01 public launcher is registered as a utility proof surface; canonical SVG remains geometry authority",
@@ -83,7 +85,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_REALITY_GAP_2026-09-25.json"
+      "latest_return": "/returns/FIELD_INDEX_REALITY_GAP_WORLD_LINK_2026-09-25.json"
     },
     {
       "href": "/app-atlas/",
@@ -3753,49 +3755,6 @@
       },
       "research": "/foundry/axial/research.json",
       "shared_core": "/foundry/axial/focus-core.js",
-      "tier": "FIELD"
-    },
-    {
-      "href": "/field/axial-probe/",
-      "title": "AXIAL / SHADOW PROBE 0.1",
-      "kind": "experiment",
-      "parent": "/foundry/axial/",
-      "family": "AXIAL",
-      "operation": "VERIFY",
-      "state": "PROOF_REQUIRED",
-      "version": "0.1",
-      "showcase_card": false,
-      "role": "Disposable digital falsification surface for the AXIAL physical UI hypothesis. One object maps ring twist, cylinder slide and axis shift to a three-coordinate state while preserving transform order separately. It is nested under AXIAL, owns no canonical state, and must not be treated as a new compositor or physical proof.",
-      "receipt": "/returns/AXIAL_SHADOW_PROBE_2026-09-25.json",
-      "index": {
-        "updated_at": "2026-09-25T19:56:00+08:00",
-        "work_modes": [
-          "VERIFY",
-          "EXPERIMENT",
-          "MAKE"
-        ]
-      },
-      "evidence": {
-        "checks": [
-          "reducer closure: R+2 C+1 A-1 R-2 C-1 A+1 -> [0,0,0] and sum delta [0,0,0]",
-          "path equivalence: R+2 C+2 A+1 and A+1 C+2 R+2 -> same [2,2,+1] state with distinct traces",
-          "human gesture legibility remains untested",
-          "physical transfer remains untested"
-        ],
-        "return_path": "/foundry/axial/"
-      },
-      "evolution": {
-        "schema": "field-evolution/v0.1",
-        "host": "/foundry/axial/",
-        "generation": 1,
-        "stage": "TEST",
-        "question": "Can twist / slide / shift remain distinguishable enough that one ring-cylinder-axis body carries state plus reversible transform witness without explanatory translation?",
-        "baseline": "AXIAL digital focus stack + recovered printable compositor concepts; no present physical body and no claim that ring/cylinder/axis gestures are self-evident.",
-        "mutation": "Single disposable digital surrogate with three distinct gesture zones, explicit tuple/delta trace, closure test and same-state/different-path test.",
-        "evidence_gate": "Direct touch use must complete the declared sequences without control ambiguity before any physical semantics are promoted.",
-        "next_if_pass": "Reproduce the same three degrees of freedom with cardboard annulus + sleeve + rod and retain before/gesture/after + ambiguity evidence.",
-        "next_if_fail": "Change the gesture/state mapping in the disposable probe; do not fabricate."
-      },
       "tier": "FIELD"
     },
     {
