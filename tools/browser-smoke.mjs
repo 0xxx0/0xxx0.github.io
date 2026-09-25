@@ -393,7 +393,7 @@ function readfieldApertureAliasFocusProbeHtml(){
     sessionStorage.setItem('field.aperture.handoff.v01',JSON.stringify({source,label:'ALIAS FOCUS PROBE',from:'/foundry/?alias=1',focus:{scale:'WORD',index:6,address:'text://'+charIndex+':'+(charIndex+5),char_index:charIndex,source_progress:charIndex/Math.max(1,source.length-1),wpm:777}}));
     f.src='/foundry/aperture/';
     const W=()=>f.contentWindow,D=()=>W().document;
-    const A=await waitFor(()=>W().location.pathname==='/docs/'&&D().documentElement.dataset.readfieldHandoff==='focus-restored'&&D().getElementById('docAperture')?.snapshot?.(),14000,'alias focus restored');
+    const A=await waitFor(()=>{const a=D().getElementById('docAperture');return W().location.pathname==='/docs/'&&D().documentElement.dataset.readfieldHandoff==='focus-restored'&&a?.snapshot?.()?a:null},14000,'alias focus restored');
     await sleep(120);
     const snap=A.snapshot();rec.path=W().location.pathname;rec.restored=D().documentElement.dataset.readfieldHandoff;rec.scale=snap.scale;rec.index=snap.index;rec.wpm=snap.wpm;rec.charIndex=snap.char_index;rec.returnHref=D().getElementById('returnLink')?.getAttribute('href')||'';
     done(rec.path==='/docs/'&&rec.restored==='focus-restored'&&rec.scale==='WORD'&&rec.index===6&&rec.wpm===777&&rec.charIndex===charIndex&&rec.returnHref.startsWith('/foundry/'),rec);
