@@ -132,11 +132,16 @@
     "inline_javascript_parse": "PASS",
     "field_lab_verse_handoff": "PENDING_CI: source + line focus boot contract",
     "phone_touch_floor": "PENDING_CI: mobile CSS contract",
-    "source_spine_static_contract": "PASS_PENDING_PR_CI",
+    "source_spine_static_contract": "PASS_V8_PARSE_DOM_AND_PR_CI",
     "readfield_handoff_key": "readfield.handoff.v1",
     "field_lab_verse_roundtrip": "PASS_STATIC_SOURCE_AND_LINE_FOCUS",
     "verse_atlas_fail_closed_4x7_han": "PASS_STATIC",
-    "verse_atlas_inbound_focus_projection_only": "PASS_STATIC"
+    "verse_atlas_inbound_focus_projection_only": "PASS_STATIC",
+    "pr": 301,
+    "merge_commit": "481d4af102fae4ceee09fbfcec9a999a9e5ae926",
+    "route_registration": "PASS",
+    "public_surface_check": "PASS",
+    "critical_browser_smoke": "PASS"
   },
   "updated": "2026-09-25",
   "next_bounded_test": {
