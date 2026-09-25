@@ -137,7 +137,10 @@
         "HOUSE selected address → planning context (not presence)",
         "SHOPPING selected item → explicit capability action",
         "COMMS OPEN addressed signal → explicit obligation action",
-        "source BACK path retained; import is never automatic"
+        "source BACK path retained; import is never automatic",
+        "first mobile visit → PLAIN action projection; ATLAS remains optional",
+        "mobile CAPTURE inherits current Dayline contexts",
+        "COPY HANDOFF → atlas-dayline-feedback/v0.2 authority NONE / USER_EXPLICIT_COPY"
       ],
       "contract": {
         "accepts": {
@@ -221,21 +224,22 @@
           {
             "class": "AUTOMATION",
             "status": "ADAPTER_REQUIRED",
-            "via": "calendar/task binding"
+            "via": "explicit Dayline feedback handoff available; private Hermes/calendar/task binding remains adapter-required"
           }
         ],
         "physical_fit": "Direct bridge from digital intent to scheduled human physical work."
       },
       "index": {
-        "updated_at": "2026-09-25T15:00:00+08:00",
+        "updated_at": "2026-09-25T15:03:00+08:00",
         "work_modes": [
           "IMPLEMENT",
-          "VERIFY"
+          "VERIFY",
+          "OPERATE"
         ]
       },
       "tier": "FIELD",
-      "version": "Branch I + FIELD LIVE 0.2 / REALITY PORTS",
-      "role": "Local-first temporal execution instrument with an opt-in read-only FIELD bridge: active fronts may be explicitly promoted into the day; local lived state returns through a bounded feedback packet, never by silently mutating repo authority."
+      "version": "Branch I + FIELD LIVE 0.2.1 / REALITY PORTS / MOBILE ACTION",
+      "role": "Local-first temporal execution instrument with explicit FIELD + HOUSE/SHOPPING/COMMS reality ports. First mobile use opens the PLAIN action projection; CAPTURE and pending REALITY PORT remain visible while verbose FIELD detail contracts. Outbound COPY HANDOFF is authority-NONE worker evidence; CURRENT and native source tools retain authority."
     },
     {
       "href": "/body/",

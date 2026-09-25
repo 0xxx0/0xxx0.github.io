@@ -26,8 +26,9 @@ const sample={
 let data=load(),editId=null,anchorEditId=null,evidenceKind=null,taskDraft=null,taskIsNew=false,anchorDraft=null,anchorIsNew=false,taskPoints=new Map(),spinePoints=new Map(),contextHubPoints=new Map(),drag={kind:null,id:null,pointer:null,checkpointed:false};
 function loadView(){try{return JSON.parse(localStorage.getItem(VIEW_STORE)||'{}')}catch{return{}}}
 function loadResumeSeed(){try{return JSON.parse(localStorage.getItem(RESUME_STORE)||'null')}catch{return null}}
-const savedView=loadView();
-let ui={previewBundle:[],mobileView:savedView.mobileView||'now',semanticScale:savedView.semanticScale||'auto',district:savedView.district||null,folds:savedView.folds||{},projection:savedView.projection||'atlas',projectionStarted:Date.now(),projectionMs:{atlas:0,plain:0},projectionActs:{atlas:0,plain:0},scenario:null,sessionStarted:Date.now(),firstActAt:null,focusChanges:0,contextChanges:0,acts:0,resumeSeed:null,resumeStartedAt:null,lastReorientMs:null};
+const savedView=loadView(),MOBILE_ACTION_KEY='poly-atlas-dayline-mobile-action-default-v1',bootMobile=window.matchMedia('(max-width:820px)').matches,firstMobileAction=bootMobile&&!localStorage.getItem(MOBILE_ACTION_KEY);
+let ui={previewBundle:[],mobileView:savedView.mobileView||'now',semanticScale:savedView.semanticScale||'auto',district:savedView.district||null,folds:savedView.folds||{},projection:firstMobileAction?'plain':(savedView.projection||'atlas'),projectionStarted:Date.now(),projectionMs:{atlas:0,plain:0},projectionActs:{atlas:0,plain:0},scenario:null,sessionStarted:Date.now(),firstActAt:null,focusChanges:0,contextChanges:0,acts:0,resumeSeed:null,resumeStartedAt:null,lastReorientMs:null};
+if(firstMobileAction)localStorage.setItem(MOBILE_ACTION_KEY,'1');
 let sessionStart=null,sessionEventStart=0;
 function clone(x){return JSON.parse(JSON.stringify(x))}
 function load(){try{const x=JSON.parse(localStorage.getItem(STORE));if(x&&x.tasks&&x.state){normalize(x);return x}}catch{}const x=clone(sample);normalize(x);return x}
@@ -317,7 +318,7 @@ function bridgeAddTask(input={},sourceClass='IMPORTED'){
  data.tasks.push(task);data.state.selected=id;ui.previewBundle=[];event(sourceClass==='USER'?'CAPTURE':'FIELD_IMPORT',id,task.fieldRef||task.provenance);save();render();return clone(task)
 }
 window.AtlasDayline=Object.freeze({
- version:'branch-i-field-live-0.2',
+ version:'branch-i-field-live-0.2.1',
  snapshot:()=>clone(data),
  addFieldTask:input=>bridgeAddTask(input,'IMPORTED'),
  capture:input=>bridgeAddTask(typeof input==='string'?{title:input}:input,'USER'),
@@ -331,7 +332,7 @@ window.AtlasDayline=Object.freeze({
  feedback:()=>{
    const ids=new Set([...(data.state.route||[]),data.state.selected].filter(Boolean));
    const tasks=(data.tasks||[]).filter(t=>ids.has(t.id)).map(t=>({id:t.id,title:t.title,status:t.status,contexts:t.contexts,duration:t.duration,earliest:t.earliest,latest:t.latest,sourceClass:t.sourceClass,provenance:t.provenance,fieldRef:t.fieldRef||null}));
-   return{schema:'atlas-dayline-feedback/v0.1',generated_at:new Date().toISOString(),daystate:{now:data.state.now,contexts:[...(data.state.contexts||[])],route:[...(data.state.route||[])],selected:data.state.selected||null},projection:{view:ui.mobileView,lens:data.state.lens,projection:ui.projection},focus_tasks:tasks,last_return:window.AtlasDayline?.lastReturn?.()||null,evidence:Object.fromEntries(Object.entries(data.evidence||{}).map(([k,v])=>[k,(v||[]).slice(-5)])),recent_events:(data.events||[]).slice(-30)}
+   return{schema:'atlas-dayline-feedback/v0.2',generated_at:new Date().toISOString(),authority:'NONE',trigger:'USER_EXPLICIT_COPY',current_host:'/atlas-dayline/?live=1',sources:['/llms.txt','/control/CURRENT.json','browser-local Atlas Dayline DayState'],daystate:{now:data.state.now,contexts:[...(data.state.contexts||[])],route:[...(data.state.route||[])],selected:data.state.selected||null},projection:{view:ui.mobileView,lens:data.state.lens,projection:ui.projection},focus_tasks:tasks,last_return:window.AtlasDayline?.lastReturn?.()||null,evidence:Object.fromEntries(Object.entries(data.evidence||{}).map(([k,v])=>[k,(v||[]).slice(-5)])),recent_events:(data.events||[]).slice(-30),worker_boundary:'Evidence only. Recover live FIELD authority before acting; this packet does not authorize repo/calendar/comms/device/account mutation.'}
  }
 });
 window.dispatchEvent(new CustomEvent('atlas-dayline:ready',{detail:{version:window.AtlasDayline.version}}));
