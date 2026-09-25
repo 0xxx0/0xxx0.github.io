@@ -9,7 +9,7 @@
  try{
    const old=JSON.parse(sessionStorage.getItem('field.aperture.handoff.v01')||'null');
    if(old&&old.source!=null){
-     sessionStorage.setItem('readfield.handoff.v1',JSON.stringify({schema:'readfield.handoff/v1',source:typeof old.source==='string'?old.source:JSON.stringify(old.source,null,2),label:old.label||'APERTURE HANDOFF',returnAddress:old.from||'/foundry/',created_at:new Date().toISOString()}));
+     sessionStorage.setItem('readfield.handoff.v1',JSON.stringify({schema:'readfield.handoff/v1',source:typeof old.source==='string'?old.source:JSON.stringify(old.source,null,2),label:old.label||'APERTURE HANDOFF',returnAddress:old.from||'/foundry/',created_at:new Date().toISOString(),focus:old.focus&&typeof old.focus==='object'?old.focus:null}));
      sessionStorage.removeItem('field.aperture.handoff.v01');handoff=true;
    }
  }catch(_){}
