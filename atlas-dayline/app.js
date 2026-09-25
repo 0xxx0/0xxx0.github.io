@@ -308,10 +308,10 @@ function bindDrag(){const svg=$('#atlas');[...svg.querySelectorAll('[data-dragki
    Repo/CURRENT remains read-only authority. Promotion into Dayline is explicit and browser-local. */
 function bridgeAddTask(input={},sourceClass='IMPORTED'){
  const title=String(input.title||'').trim();if(!title)throw Error('title required');
- const now=hm(data.state.now),hi=dayEnd(),duration=clamp(Number(input.duration)||25,5,Math.max(5,hi-now));
+ const now=hm(data.state.now),hi=dayEnd(),lo=dayStart();
  const stem=title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,34)||'item';
  const prefix=sourceClass==='USER'?'capture':'field';let id='t:'+prefix+'-'+stem,n=2;while(taskById(id))id='t:'+prefix+'-'+stem+'-'+(n++);
- const earliest=input.earliest||data.state.now,latest=input.latest||mh(Math.max(now+5,hi));
+ const earliestM=clamp(input.earliest?hm(input.earliest):now,lo,Math.max(lo,hi-5)),latestM=clamp(input.latest?hm(input.latest):hi,earliestM+5,hi),earliest=mh(earliestM),latest=mh(latestM),duration=clamp(Number(input.duration)||25,5,Math.max(5,latestM-earliestM));
  checkpoint(sourceClass==='USER'?'QUICK_CAPTURE':'FIELD_IMPORT');
  const task={id,title,contexts:Array.isArray(input.contexts)&&input.contexts.length?input.contexts:['computer'],duration,value:clamp(Number(input.value)||4,1,5),earliest,latest,setup:clamp(Number(input.setup)||1,0,5),depends:Array.isArray(input.depends)?input.depends:[],status:'open',sourceClass,provenance:String(input.provenance|| (sourceClass==='USER'?'atlas-live-capture':'FIELD /control/CURRENT.json')),notes:String(input.notes||''),fieldRef:input.sourceRef||null,fieldUpdated:input.sourceUpdated||null};
  data.tasks.push(task);data.state.selected=id;ui.previewBundle=[];event(sourceClass==='USER'?'CAPTURE':'FIELD_IMPORT',id,task.fieldRef||task.provenance);save();render();return clone(task)
