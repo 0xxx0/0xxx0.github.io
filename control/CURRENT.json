@@ -77,7 +77,8 @@
         "/control/LENS_FI_TOOLGLASS_G2_2026-09-21.json",
         "/control/LENS_G2_HARDENING_RETURN_2026-09-21.json",
         "/control/LENS_REAL_USE_RETURN_2026-09-22.json"
-      ]
+      ],
+      "version": "RC11.2 + actualize-1"
     },
     {
       "lineage": "rsvp-reader",
@@ -128,14 +129,16 @@
         "status": "PASS",
         "alias_focus_probe": "PASS · WORD index 6 · 777 WPM · ORP char remained inside addressed word span"
       },
-      "merge_sha": "49e1b27f7db26298c6de107fda1fe4f09d31e515"
+      "merge_sha": "49e1b27f7db26298c6de107fda1fe4f09d31e515",
+      "version": "0.8.4"
     },
     {
       "lineage": "path-poetry",
-      "head": "POEM MAP 0.2.1 / VERSE",
+      "head": "POEM MAP 0.2.2 / VERSE",
       "state": "ACTIVE_CANDIDATE",
       "route": "/poetry/map/",
-      "retained_function": "Current language/verse authoring experiment: FIELD NOW or user source → readable PAGE → selected-token golden-angle focus wheel → small contextual possibility set → TRY→ADOPT/LOCK with revision ancestry → optional MAP/SETS/path/form/Aperture depth → replayable RETURN. General work language is a valid source; Jueju remains a specialist adapter in sealed Verse Atlas."
+      "retained_function": "Current language/verse authoring experiment: FIELD NOW or user source → readable PAGE → selected-token golden-angle focus wheel → small contextual possibility set → TRY→ADOPT/LOCK with revision ancestry → optional MAP/SETS/path/form/Aperture depth → replayable RETURN. General work language is a valid source; Jueju remains a specialist adapter in sealed Verse Atlas.",
+      "version": "0.2.2"
     },
     {
       "lineage": "sleeper-one-return",
@@ -155,7 +158,8 @@
         "https://sleeper-one-return.metaname.chatgpt.site/"
       ],
       "last_return": "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
-      "correction": "ASCII Sleeper POV 0.8 remains a preserved derivative, not current authority. The canonical /sleeper/ entry now resolves to the recovered live ONE RETURN runtime; the exact source shelf remains source authority."
+      "correction": "ASCII Sleeper POV 0.8 remains a preserved derivative, not current authority. The canonical /sleeper/ entry now resolves to the recovered live ONE RETURN runtime; the exact source shelf remains source authority.",
+      "version": "v2-era / City Engine v0.2"
     },
     {
       "lineage": "fold-bloom",
@@ -361,14 +365,16 @@
         ],
         "law": "Do not expand into a DAW, backend shortener, social platform or universal session bus without direct-use evidence."
       },
-      "latest_merge": "8a79e3824fb8fffb014c36118e41171ccd8e28f1"
+      "latest_merge": "8a79e3824fb8fffb014c36118e41171ccd8e28f1",
+      "version": "0.1.2"
     },
     {
       "lineage": "axial",
       "head": "AXIAL / FOCUS STACK 0.7.3",
       "state": "ACTIVE",
       "route": "/foundry/axial/",
-      "retained_function": "Unequal cyclic vocabularies × fixed gate + moving position witness + lawful support + persistent overview → oriented source aperture. A selected FIELD route or HOUSE anchor can now cross a session-local TRACE handoff into FIELD without conflating address/focus with authority."
+      "retained_function": "Unequal cyclic vocabularies × fixed gate + moving position witness + lawful support + persistent overview → oriented source aperture. A selected FIELD route or HOUSE anchor can now cross a session-local TRACE handoff into FIELD without conflating address/focus with authority.",
+      "version": "0.7.3"
     },
     {
       "lineage": "comms",
@@ -387,14 +393,15 @@
         "/returns/ATLAS_DAYLINE_MOBILE_ACTION_2026-09-25.json",
         "/control/confluence/REALITY_LOOP_HERMES_2026-09-25.md",
         "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md"
-      ]
+      ],
+      "version": "1.6.0-preview"
     },
     {
       "lineage": "atlas-dayline",
-      "head": "ATLAS DAYLINE Branch I + FIELD LIVE 0.2.1 / REALITY PORTS / MOBILE ACTION",
+      "head": "ATLAS DAYLINE Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
       "state": "STABLE + OPT_IN_LIVE_CANDIDATE",
       "route": "/atlas-dayline/",
-      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner. REALITY PORTS accepts one explicit session-local envelope at a time: HOUSE lends planning context, SHOPPING lends one capability action, COMMS lends one source-addressed OPEN signal. Mobile first use now opens the PLAIN action projection while CAPTURE and pending REALITY PORT remain reachable. COPY HANDOFF emits atlas-dayline-feedback/v0.2 with authority NONE / USER_EXPLICIT_COPY. Dayline owns temporal execution only.",
+      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner. First-run/reset state is reality-first and empty; mobile PLAIN is vertically reachable; explicit NOW ↻ may sync canonical Dayline time from device clock; RETURN distinguishes ORIENTATION_SNAPSHOT from WORLD_DELTA and records a clock witness. REALITY PORTS accepts one explicit session-local envelope at a time from HOUSE, SHOPPING or COMMS while native source authority remains outside Dayline. COPY HANDOFF stays authority NONE / USER_EXPLICIT_COPY. Lived phone use remains the promotion gate.",
       "evidence": [
         "/atlas-dayline/release.json",
         "/returns/ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
@@ -413,28 +420,32 @@
           "After acting, does RETURN/COPY HANDOFF preserve enough evidence to recover the native source and choose the next move?"
         ],
         "law": "One lived handoff first. Do not add another adapter, route layer or source mutation until the continuity loop earns use."
-      }
+      },
+      "version": "Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH"
     },
     {
       "lineage": "house-spatial",
       "head": "HOUSE / SPATIAL 0.6 + HOUSE / FIELD 0.5",
       "state": "ACTIVE",
       "route": "/house/spatial/",
-      "retained_function": "One addressed physical substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS. HA/HOUSEBUS retains device truth and actuation. BODY/FIELD may attach context; BODY / FIT 0.3 projects fitted modules, structured sensor data, purpose loadouts and non-punitive RETURN/PATINA without importing HOUSE authority."
+      "retained_function": "One addressed physical substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS. HA/HOUSEBUS retains device truth and actuation. BODY/FIELD may attach context; BODY / FIT 0.3 projects fitted modules, structured sensor data, purpose loadouts and non-punitive RETURN/PATINA without importing HOUSE authority.",
+      "version": "0.6"
     },
     {
       "lineage": "shopping-field",
-      "head": "SHOPPING FIELD 0.1 / FI-SHOP-001",
+      "head": "SHOPPING FIELD 0.2 / FI-SHOP-001",
       "state": "ACTIVE_ADAPTER",
       "route": "/shopping/",
-      "retained_function": "Capability gap/listing/receipt → freshness + landed SGD + explicit purchase gate + lifecycle → bounded research packet / BOM / inventory candidate / explicit non-action. Personal state remains local/private; money and seller contact remain human actions."
+      "retained_function": "Capability gap/listing/receipt → freshness + landed SGD + explicit purchase gate + lifecycle → bounded research packet / BOM / inventory candidate / explicit non-action. Personal state remains local/private; money and seller contact remain human actions.",
+      "version": "0.2"
     },
     {
       "lineage": "triangle",
       "head": "TRIANGLE 1.0 · GLYPH / FORM / POWER / BENCH",
       "state": "ACTIVE",
       "route": "/forward-field-proof/triangle/",
-      "retained_function": "One small geometry with distinct lawful projections: eight-locus relational compression, executable one-mark CALL/CROSS FORM rewriting, missing-corner power/log/root notation, and direct simplex manipulation; all share address/state/RETURN without claiming formal equivalence."
+      "retained_function": "One small geometry with distinct lawful projections: eight-locus relational compression, executable one-mark CALL/CROSS FORM rewriting, missing-corner power/log/root notation, and direct simplex manipulation; all share address/state/RETURN without claiming formal equivalence.",
+      "version": "1.0"
     }
   ],
   "donors_and_holds": [
