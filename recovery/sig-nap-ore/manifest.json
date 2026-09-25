@@ -1,8 +1,8 @@
 {
   "schema": "0xxx0/recovery-donor/v0.1",
   "family": "Sig Nap Ore",
-  "state": "TWO_EXACT_LIBRARY_TEXT_VARIANTS_MATERIALIZED",
-  "classification": "FROZEN_DONOR_FAMILY",
+  "state": "TWO_EXACT_BYTE_VERIFIED_REPO_VARIANTS",
+  "classification": "EXACT_FROZEN_DONOR_FAMILY",
   "sources": [
     {
       "name": "04_SIG_NAP_ORE_FIELD_MANUAL(1).md",
@@ -22,5 +22,11 @@
     "/recovery/sig-nap-ore/04_Sig_Nap_Ore_Field_Manual.md"
   ],
   "boundary": "Preserve both variants. Sig Nap Ore is the nap/rest-game constellation; do not collapse it into Sine Ore, sigil/glyph systems, Prison Age, or Prion.",
-  "recovered_at": "2026-09-26"
+  "recovered_at": "2026-09-26",
+  "repo_git_blob_shas": {
+    "04_SIG_NAP_ORE_FIELD_MANUAL(1).md": "5dfdcb3d9dcb921625a7614bb9d3493732e07595",
+    "04_Sig_Nap_Ore_Field_Manual.md": "ec8ac463ad2e0f020766137e2f7b546625dcc4a1"
+  },
+  "verified_at": "2026-09-26",
+  "verification": "Repo Git blob SHA equals Git blob SHA computed independently from raw materialized Library bytes; repository content is byte-identical to the recovered raw source."
 }
