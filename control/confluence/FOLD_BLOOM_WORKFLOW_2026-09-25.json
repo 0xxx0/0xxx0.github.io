@@ -1,7 +1,7 @@
 {
   "schema": "confluence/fold-bloom-workflow/v0.1",
   "date": "2026-09-25",
-  "status": "IMPLEMENTED_CANDIDATE",
+  "status": "SHIPPED_ACTIVE_CANDIDATE",
   "object": "FOLD//BLOOM product/work experience",
   "recovered": [
     "FIELD PULSE shared runtime already exists and binds LISTEN/LIVE/READFIELD/TWO DIAL/FIELD LAB/VOICE",
@@ -15,10 +15,17 @@
     "preserve an updated bounded roadmap rather than reopening parallel threads"
   ],
   "current_fronts": [
-    "task-first doorway + phone workflow proof",
+    "lived task-first phone workflow proof",
     "lived source/re-entry evidence",
     "dual-phone saber proof (pinned specific)"
   ],
   "authority": "Existing domain heads keep authority. This packet coordinates use/re-entry only.",
-  "return": "/returns/FOLD_BLOOM_WORKFLOW_2026-09-25.json"
+  "return": "/returns/FOLD_BLOOM_WORKFLOW_2026-09-25.json",
+  "shipped": {
+    "pr": 222,
+    "merge_sha": "3c5cb2e174174ee0393ed30997c2ecf8bd24a0a4",
+    "public_surface_check": "PASS · 36080779968",
+    "route_registration": "PASS · 36080780063"
+  },
+  "stop": "Repository workflow/UI pass is shipped. Do not add another Fold/Bloom engine or navigation layer from theory alone; next changes require phone-use friction or the already-pinned saber proof."
 }
