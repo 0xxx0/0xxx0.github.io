@@ -1,7 +1,7 @@
 {
   "schema": "confluence/readfield-phone-work/v0.1",
   "date": "2026-09-25",
-  "status": "R2_CANDIDATE_REBUILT_ON_CURRENT_MASTER",
+  "status": "SHIPPED_VERIFIED",
   "object": "READFIELD / RSVP 0.8.5 phone work experience",
   "reconstruction_base": "6aac48267868393063a05f115aa3b44097446419",
   "recovered_state": [
@@ -26,11 +26,14 @@
     "Local/pasted bytes are session-only and are not represented as durable repository/source URLs."
   ],
   "verification": {
-    "static": "PENDING_R2_CI",
-    "browser": "PENDING_R2_CI",
-    "lived_phone": "REQUIRED_NEXT"
+    "static": "PASS · Route Registration run 36118631949",
+    "browser": "PASS · public-surface-check run 36118631880; includes 430×900 READFIELD local-file intake probe",
+    "lived_phone": "REQUIRED_NEXT",
+    "post_merge": "PASS · Dayline candidate, LIVE game shell and READFIELD 0.8.5 coexist on master"
   },
   "branch": "readfield-phone-work-085-r2-20260925",
   "reference_sync": "FIELD PULSE version references only; authority remains NONE and schema stays field-pulse/v0.1.",
-  "return": "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json"
+  "return": "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json",
+  "pr": 283,
+  "merge_sha": "ecb1f3a4d400d0c58aef1e65418567d4b4949606"
 }
