@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#05070b">
+<title>FOLD//BLOOM — SABER 0.1</title>
+<style>
+:root{--bg:#05070b;--ink:#f2f3ef;--mut:#7e8b94;--line:#28323a;--left:#7bd5ff;--right:#ef7849;--gold:#d7b46d}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace;min-height:100%}button,input,textarea,select,a{font:inherit}button,a{border-radius:0}.wrap{width:min(1100px,calc(100% - 24px));margin:auto}.top{min-height:58px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}.top b{font-size:18px}.top span{color:var(--mut)}.top a{margin-left:auto;color:var(--ink);text-decoration:none;border:1px solid var(--line);padding:8px 10px}.grid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);min-height:calc(100svh - 58px)}.stage{position:relative;border-right:1px solid var(--line);min-height:620px;overflow:hidden}canvas{width:100%;height:100%;position:absolute;inset:0}.hud{position:absolute;inset:14px;pointer-events:none;display:flex;justify-content:space-between;align-items:flex-start}.hud .right{text-align:right}.big{font:900 clamp(28px,6vw,64px)/.9 system-ui,sans-serif;letter-spacing:-.06em}.mut{color:var(--mut)}.panel{padding:18px;display:flex;flex-direction:column;gap:12px;background:#080c10}.box{border:1px solid var(--line);padding:12px;background:#070a0e}.box h2{font:900 18px/1 system-ui,sans-serif;margin:0 0 10px}.row{display:flex;gap:6px;flex-wrap:wrap}.row>*{flex:1;min-width:110px}.btn,button{background:#0b1218;border:1px solid var(--line);color:var(--ink);padding:10px;cursor:pointer}.primary{border-color:var(--gold);color:#ffe8b7}.left{border-color:var(--left)}.rightBtn{border-color:var(--right)}button:disabled{opacity:.35;cursor:default}textarea{width:100%;min-height:74px;background:#030507;color:#dce7ed;border:1px solid var(--line);padding:8px;resize:vertical}.stat{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}.stat div{background:#060a0e;padding:10px}.stat b{display:block;font-size:18px}.status{font-size:9px;letter-spacing:.08em;color:var(--mut)}.controller{display:none}.controller.on{display:block}.host.off{display:none}.handMark{font:900 min(25vw,130px)/1 system-ui,sans-serif;letter-spacing:-.08em;text-align:center;margin:18px 0}.handMark.LEFT{color:var(--left)}.handMark.RIGHT{color:var(--right)}.flash{position:fixed;inset:0;pointer-events:none;opacity:0;background:#fff;transition:opacity .12s}.flash.on{opacity:.12}.small{font-size:9px;color:var(--mut)}.signal{display:grid;gap:6px}.link{color:#b9c7cf;word-break:break-all}.badge{border:1px solid var(--line);padding:4px 7px}.danger{color:#ffb79b}@media(max-width:760px){.grid{grid-template-columns:1fr}.stage{min-height:58svh;border-right:0;border-bottom:1px solid var(--line)}.panel{padding-bottom:max(18px,env(safe-area-inset-bottom))}.top span{display:none}}
+</style>
+</head>
+<body>
+<header class="wrap top"><b>FOLD//BLOOM · SABER 0.1</b><span>SOURCE → EVENT TAPE → MOTION WITNESS → HIT TRACE → RETURN</span><a href="../">FOLD//BLOOM ↗</a></header>
+<main class="wrap grid">
+<section class="stage host" id="stage"><canvas id="course"></canvas><div class="hud"><div><div class="status" id="source">NO HANDOFF</div><div class="big" id="call">OPEN LISTEN</div><div class="mut" id="now">0:00</div></div><div class="right"><div id="pairState">REMOTE OFFLINE</div><div id="clockState" class="mut">CLOCK —</div></div></div></section>
+<aside class="panel host" id="hostPanel">
+<div class="box"><h2>COURSE</h2><div class="row"><button id="play" class="primary" disabled>PLAY</button><button id="reset">RESET</button><button id="returnBtn" disabled>EXPORT RETURN</button></div><div class="small" id="courseMeta">Map a local track in LISTEN, then choose SABER · TWO PHONES.</div></div>
+<div class="stat"><div>HIT<b id="hit">0</b></div><div>GRAZE<b id="graze">0</b></div><div>MISS<b id="miss">0</b></div><div>NOTES<b id="notes">0</b></div></div>
+<div class="box"><h2>PHONE A · HOST + LOCAL SABER</h2><div class="row"><button id="leftLocal" class="left">LOCAL = LEFT</button><button id="rightLocal" class="rightBtn">LOCAL = RIGHT</button></div><div class="row"><button id="motion">ENABLE MOTION</button><span class="badge" id="motionState">MOTION OFF</span></div><div class="small">This phone may be one saber and the host. Motion is reduced immediately to bounded swing witnesses; raw samples are not retained.</div></div>
+<div class="box"><h2>PHONE B · REMOTE SABER</h2><div class="signal"><div class="row"><button id="offer">CREATE PAIR OFFER</button><button id="shareOffer">SHARE OFFER</button></div><textarea id="offerCode" readonly placeholder="offer code"></textarea><div class="small">Open <span class="link" id="remoteLink"></span> on the other phone, paste the offer, then return its answer here.</div><textarea id="answerCode" placeholder="paste answer from Phone B"></textarea><button id="applyAnswer">APPLY ANSWER</button></div></div>
+<div class="box"><h2>LAW</h2><div class="small">Existing source timing and EVENT TAPE own note addresses. Phone motion is ephemeral input. HIT / GRAZE / MISS is a local performance witness, not a global skill score. Pairing is direct WebRTC with manual signaling; no permanent relay or second source store.</div></div>
+</aside>
+<section class="controller" id="controller">
+<div class="panel">
+<div class="box"><div class="status">REMOTE CONTROLLER</div><div class="handMark" id="handMark">RIGHT</div><div id="controllerState" class="status">PASTE HOST OFFER</div></div>
+<div class="box signal"><textarea id="remoteOffer" placeholder="paste host offer"></textarea><button id="acceptOffer" class="primary">ACCEPT OFFER</button><textarea id="remoteAnswer" readonly placeholder="answer code"></textarea><button id="shareAnswer">SHARE ANSWER</button></div>
+<div class="box"><button id="remoteMotion" disabled>ENABLE SABER MOTION</button><div id="remoteMotionState" class="status">PAIR FIRST</div></div>
+<div class="small">Keep this page awake and hold the phone like a saber. No absolute 3-D position is inferred.</div>
+</div>
+</section>
+</main>
+<audio id="audio" preload="auto"></audio><div class="flash" id="flash"></div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
