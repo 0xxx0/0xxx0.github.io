@@ -1,0 +1,39 @@
+{
+  "schema": "0xxx0/readfield-work-modes-return/v0.1",
+  "date": "2026-09-25",
+  "status": "SHIPPED_VERIFIED",
+  "purpose": "Make READFIELD useful as a phone work surface and preserve exact re-entry when moving into LOCI.",
+  "changed": [
+    "/field-aperture.js",
+    "/docs/index.html",
+    "/fold-bloom/lab/app.js",
+    "/fold-bloom/lab/release.json",
+    "/tools/browser-smoke.mjs",
+    "/showcase-manifest.json",
+    "/control/CURRENT.json"
+  ],
+  "behavior": [
+    "FAST: PLAIN + 900 WPM RSVP",
+    "REVIEW: FOCUS + SENTENCE + 300 WPM / stopped",
+    "PULSE: ×4 borrowed clock",
+    "VOICE: speech + same cursor",
+    "LOCI: explicit source + bounded focus carry",
+    "REPO: direct CURRENT entry"
+  ],
+  "continuity": "APERTURE handoff now preserves bounded focus; READFIELD and FIELD LAB restore it without transferring text authority.",
+  "verification": {
+    "static": "PASS · Route Registration run 36082758418",
+    "browser": "PASS · public-surface-check run 36082758427; READFIELD focus packet preserved WORD char/progress and real LOCI course selected an addressed span containing that carried focus",
+    "browser_fixture": {
+      "char_index": 392,
+      "source_progress": 0.593939393939394,
+      "locus": "text://368:409",
+      "words": 96,
+      "loci": 16
+    },
+    "lived_phone": "REQUIRED_NEXT"
+  },
+  "stop": "Do not add another reader/music/session architecture. Next changes require CI failure or concrete phone-use friction.",
+  "pr": 226,
+  "merge_sha": "fb270b4ef10b185912632014ce2e1db980b026ab"
+}
