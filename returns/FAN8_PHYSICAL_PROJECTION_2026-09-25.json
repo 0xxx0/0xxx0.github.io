@@ -12,6 +12,7 @@
   ],
   "delta": [
     "materialized A3 eight-leaf printable fan",
+    "reused PRINT-01 calibrated-print / one-specimen / photo+ruler proof mechanics instead of inventing a second fabrication protocol",
     "six slot leaves reuse SAME/NEAR/FAR/OPPOSITE → BLOOM/FOLD/RETURN/SPLIT",
     "HOLD maps TEST/ARM; LET FLY maps RUN→WITNESS→RETURN",
     "STACK/FAN/ANNULUS/WRAP are explicit unequal physical projections",
@@ -27,7 +28,9 @@
     "/showcase-manifest.json",
     "/control/WAITING.json",
     "/tools/validate-public.mjs",
-    "/control/confluence/FAN8_PHYSICAL_PROJECTION_2026-09-25.md"
+    "/control/confluence/FAN8_PHYSICAL_PROJECTION_2026-09-25.md",
+    "/physical/print-01/PRINT-01.md",
+    "/physical/print-01/field-route-tile-v0.1.svg"
   ],
   "authority": {
     "physical_body": "projection only",
@@ -47,7 +50,8 @@
     "svg_leaf_count": "PENDING_CI",
     "relation_legend": "PENDING_CI",
     "owning_host_links": "PENDING_CI",
-    "physical_build": "PARKED / HUMAN_WORLD_REQUIRED"
+    "physical_build": "PARKED / HUMAN_WORLD_REQUIRED",
+    "print_calibration": "100 mm line embedded; physical measurement PARKED"
   },
   "residue": [
     "passive physical readback/handling",
@@ -56,5 +60,6 @@
     "older authored-crease topology remains donor, not default"
   ],
   "one_next": "No machine sequel. Physical proof only when naturally useful; otherwise continue current conversion work elsewhere.",
-  "stop": "No FAN app, state store, camera pipeline, BLE/electronics, actuation or new gameplay rule from this candidate."
+  "stop": "No FAN app, state store, camera pipeline, BLE/electronics, actuation or new gameplay rule from this candidate.",
+  "internal_donor": "PRINT-01 / FIELD route tile v0.1"
 }
