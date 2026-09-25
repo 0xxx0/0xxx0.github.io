@@ -178,7 +178,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 </section>
 
 <details class="fold" id="waitingFold">
-  <summary><b>WAITING / YOU</b><span id="waitingMeta">human/world dependencies · not queue · not priority</span></summary>
+  <summary><b>REALITY GAP / YOU</b><span id="waitingMeta">repo/CI proof ≠ world proof · derived from CURRENT · WAITING preserves memory</span></summary>
   <div class="foldBody" id="waitingList"></div>
 </details>
 
@@ -391,7 +391,7 @@ function renderCapabilityTrial(){
  $('capMoves').innerHTML='<a class="capMove" href="'+esc(href)+'">'+primary+'</a><button class="capMove" data-cap-copy>COPY ACTION</button><button class="capMove" data-cap-trace>TRACE</button>';
  $('capMoves').querySelector('[data-cap-copy]').onclick=copyHeldAction;
  $('capMoves').querySelector('[data-cap-trace]').onclick=openTrace;
- $('capWitness').textContent=n?(dependencyLabel(n.state)+' · '+String(n.objective||'human/world evidence required').replace(/\s+/g,' ').slice(0,170)):((h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh);
+ $('capWitness').textContent=n?(dependencyLabel(dependencyKind(n.state))+' · '+String(n.objective||'human/world evidence required').replace(/\s+/g,' ').slice(0,170)):((h?'CURRENT · '+h.state:'MANIFEST · '+(focus.state||'—'))+' · index '+fresh);
  $('capReturn').textContent=(c?.moves?.length?'NATIVE · '+c.moves.slice(0,3).join(' · ')+' · ':'')+'RETURN → FIELD φ '+focus.href+(c?' · '+c.boundary:'');
 }
 function renderAperture(){
@@ -437,12 +437,12 @@ function renderCatchup(){
  const xs=pool.slice(0,6),front=current?.active_fronts?.[0],objective=String(front?.objective||front?.center||'Use an existing head; make one consequence; RETURN.').replace(/\s+/g,' ').trim();
  now.innerHTML='<b>NOW · '+esc(String(front?.id||'conversion').replaceAll('-',' ').toUpperCase())+'</b><span>'+esc(objective.slice(0,340))+'</span>';
  const changedCount=changed.length,history=catchupHistory(),gates=currentHumanGates(),playIssues=(issues||[]).filter(x=>x.play_safe);
- meta.textContent=changedCount+' changed · '+gates.length+' YOU · '+(issues||[]).length+' GitHub';
+ meta.textContent=changedCount+' changed · '+gates.length+' REALITY · '+(issues||[]).length+' GitHub';
  seenLabel.textContent=changedCount+' unresolved local change'+(changedCount===1?'':'s')+' · REWIND '+(history.length?history.length+' retained':'ready');
  if(rewind)rewind.disabled=!seen&&!history.length&&!Object.keys(catchupItems()).length;
  const signals=$('catchupSignals');
  if(signals)signals.innerHTML=
-  '<div class="catchSignal"><div class="catchSignalHead"><b>YOU / CURRENT</b><span>'+gates.length+'</span></div><div class="catchSignalBody">'+
+  '<div class="catchSignal"><div class="catchSignalHead"><b>REALITY GAP / CURRENT</b><span>'+gates.length+'</span></div><div class="catchSignalBody">'+
   (gates.length?gates.map(g=>'<button data-catch-gate="'+esc(g.route||'/')+'" title="'+esc(g.human_move||'')+'">'+esc(dependencyLabel(g.dependency_kind))+' · '+esc((routeMap().get(g.route)?.title||g.route||g.id).slice(0,28))+'</button>').join(''):'<span class="tiny">CLEAR</span>')+
   '</div></div><div class="catchSignal"><div class="catchSignalHead"><b>GITHUB / OPEN</b><span>'+(issues||[]).length+'</span></div><div class="catchSignalBody">'+
   ((issues||[]).length?(issues||[]).map(x=>(x.play_safe?'<a class="hot" href="./field-play.html#issue='+x.number+'">#'+x.number+' PLAY</a>':'')+'<a href="'+esc(x.html_url)+'" target="_blank" rel="noopener">#'+x.number+' GH ↗</a>').join(''):'<span class="tiny">CLEAR</span>')+
@@ -542,11 +542,28 @@ function dependencyKind(state){
  if(s.includes('REAL_DEVICE'))return'REAL_DEVICE';
  if(s.includes('PRIVATE'))return'PRIVATE_INPUT';
  if(s.includes('ORDINARY_USE'))return'ORDINARY_USE';
+ if(s.includes('HUMAN_USE')||s.includes('LIVED'))return'LIVED_USE';
  if(s.includes('PHYSICAL'))return'PHYSICAL';
  if(s.includes('WORLD'))return'WORLD_EVENT';
  return'HUMAN_ACTION';
 }
 function dependencyLabel(kind){return String(kind||'HUMAN_ACTION').replaceAll('_',' ')}
+async function copyRealityTest(x,button){
+ if(!x)return;
+ const detail=Array.isArray(x.detail)&&x.detail.length?x.detail:(Array.isArray(x.human_questions)?x.human_questions:[]);
+ const lines=[
+  'REALITY GAP / '+dependencyLabel(x.dependency_kind||dependencyKind(x.state)),
+  'ID: '+(x.id||'—'),
+  'ROUTE: '+(x.route||'/'),
+  'DO: '+(x.human_move||'Perform one bounded ordinary-use/world test.'),
+  ...(detail.length?['OBSERVE:',...detail.slice(0,6).map(q=>' - '+String(q))]:[]),
+  x.proof_state?'REPO STATE: '+x.proof_state:'',
+  'RETURN: one observed delta + the smallest useful evidence (photo / measurement / result / friction note).',
+  'LAW: repo/CI proof ≠ world proof. Do not broaden the test merely to stay busy.'
+ ].filter(Boolean);
+ const txt=lines.join('\n');
+ try{await navigator.clipboard.writeText(txt);if(button){const old=button.textContent;button.textContent='COPIED';setTimeout(()=>button.textContent=old,1200)}}catch(_){prompt('Copy reality test:',txt)}
+}
 function currentHumanGates(){
  return (current?.current_heads||[]).flatMap(h=>{
   const n=h.next_executable,state=String(n?.state||'');
@@ -567,21 +584,24 @@ function waitRow(x,mode){
  const source=mode==='ACTIVE'?'CURRENT'+(x.drift?' · REGISTRY DRIFT':''):mode==='PARKED'?'WAITING REGISTRY':'HISTORY';
  const move=mode==='REMOVED'?(x.removed_reason||'Removed from actionable WAITING.'):x.human_move||'';
  const why=mode==='REMOVED'?('Former dependency: '+(x.human_move||'')+(x.preserve_as?' · '+x.preserve_as:'')):(x.why||'')+(x.unlocks?' · unlocks: '+x.unlocks:'');
- const action=mode==='ACTIVE'?'<div class="waitActs"><button class="waitAck" data-wait-hold="'+esc(x.route||'/')+'">HOLD</button><a class="waitAck" href="'+href+'">DO →</a></div>':mode==='PARKED'?'<a class="waitAck" href="'+href+'">OPEN</a>':'<span class="waitAck waitNone">—</span>';
+ const action=mode==='ACTIVE'?'<div class="waitActs"><button class="waitAck" data-wait-hold="'+esc(x.route||'/')+'">HOLD</button><a class="waitAck" href="'+href+'">DO →</a><button class="waitAck" data-wait-copy="'+esc(x.id||'')+'">COPY TEST</button></div>':mode==='PARKED'?'<a class="waitAck" href="'+href+'">OPEN</a>':'<span class="waitAck waitNone">—</span>';
  const r=routeMap().get(x.route)||{href:x.route||'/',title:x.route||kind,kind:'artifact',operation:'RETURN',state:mode==='ACTIVE'?'ACTIVE_NOW':(x.surface_state||'PARKED')};
- return '<div class="waitRow '+mode.toLowerCase()+'" data-wait="'+esc(x.id||'')+'"><div class="waitSignal">'+routeGlyph(r,24)+'<div><b>'+esc(kind)+'</b><small>'+esc(source)+'</small></div></div><div><div class="waitMove">'+esc(move)+'</div><div class="waitWhy">'+esc(why)+'</div><a class="waitRoute" href="'+href+'">'+route+'</a></div><div></div>'+action+'</div>';
+ const proof=mode==='ACTIVE'?'REPO/CI ≠ WORLD PROOF':source;
+ return '<div class="waitRow '+mode.toLowerCase()+'" data-wait="'+esc(x.id||'')+'"><div class="waitSignal">'+routeGlyph(r,24)+'<div><b>'+esc(mode==='ACTIVE'?'REALITY · '+kind:kind)+'</b><small>'+esc(proof+(x.proof_state?' · '+x.proof_state:''))+'</small></div></div><div><div class="waitMove">'+esc(move)+'</div><div class="waitWhy">'+esc(why)+'</div><a class="waitRoute" href="'+href+'">'+route+'</a></div><div></div>'+action+'</div>';
 }
 function renderWaiting(xs){
  if(Array.isArray(xs))waitingSource=xs;
  const groups=mergeWaiting(waitingSource),a=groups.active.length,p=groups.parked.length,h=groups.removed.length;
  waiting=[...groups.active,...groups.parked,...groups.removed,...groups.other];
- $('waitingMeta').textContent=(a?a+' ACTIVE':'CLEAR')+' · '+p+' PARKED · '+h+' HISTORY';
- const active='<section class="waitGroup active"><div class="waitGroupHead"><b>ACTIVE / NEEDS YOUR EVIDENCE</b><span>'+a+'</span></div>'+(a?groups.active.map(x=>waitRow(x,'ACTIVE')).join(''):'<div class="waitRow"><div class="waitState">CLEAR<small>CURRENT</small></div><div><div class="waitMove">Nothing currently requires human/world evidence.</div></div><div></div><span class="waitAck waitNone">—</span></div>')+'</section>';
+ $('waitingMeta').textContent=(a?a+' REALITY':'CLEAR')+' · '+p+' PARKED · '+h+' HISTORY';
+ const active='<section class="waitGroup active"><div class="waitGroupHead"><b>ACTIVE / WORLD EVIDENCE REQUIRED</b><span>'+a+'</span></div>'+(a?groups.active.map(x=>waitRow(x,'ACTIVE')).join(''):'<div class="waitRow"><div class="waitState">CLEAR<small>CURRENT</small></div><div><div class="waitMove">No current head is blocked on real-device, physical, lived-use, human, private-input or world evidence.</div></div><div></div><span class="waitAck waitNone">—</span></div>')+'</section>';
  const parked='<details class="waitGroup"><summary><b>PARKED / NOT NEEDED NOW</b><span>'+p+'</span></summary>'+(p?groups.parked.map(x=>waitRow(x,'PARKED')).join(''):'<div class="touchFail">No parked dependencies.</div>')+'</details>';
  const removed='<details class="waitGroup"><summary><b>HISTORY / REMOVED</b><span>'+h+'</span></summary>'+(h?groups.removed.map(x=>waitRow(x,'REMOVED')).join(''):'<div class="touchFail">No removed dependencies.</div>')+'</details>';
  const other=groups.other.length?'<details class="waitGroup"><summary><b>REGISTRY / UNCLASSIFIED</b><span>'+groups.other.length+'</span></summary>'+groups.other.map(x=>waitRow({...x,removed_reason:'Unknown WAITING lifecycle state: '+x.surface_state},'REMOVED')).join('')+'</details>':'';
  $('waitingList').innerHTML=active+parked+removed+other;
  $('waitingList').querySelectorAll('[data-wait-hold]').forEach(b=>b.addEventListener('click',()=>{const r=routeMap().get(b.dataset.waitHold);if(!r)return;focusRoute(r,true,'OTHER');$('capTrial')?.scrollIntoView({behavior:'smooth',block:'center'})}));
+ const activeById=new Map(groups.active.map(x=>[x.id,x]));
+ $('waitingList').querySelectorAll('[data-wait-copy]').forEach(b=>b.addEventListener('click',()=>copyRealityTest(activeById.get(b.dataset.waitCopy),b)));
  updateStatusRail();renderCatchup();
 }
 async function loadWaiting(){try{const w=await fetch('./control/WAITING.json',{cache:'no-store'}).then(r=>r.json());waitingUpdated=w.updated||'';renderWaiting(w.items||[])}catch(_){waitingUpdated='';renderWaiting([])}}
