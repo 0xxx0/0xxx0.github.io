@@ -4640,7 +4640,7 @@
       "machine_state": "/house/state.json",
       "showcase_card": false,
       "role": "Canonical human-facing HOUSE instrument: one addressed spatial/state substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS, with explicit selected-address handoffs to Dayline and browser-local BODY context. CARE is browser-local household/environmental continuity only; /care/ remains distinct. Home Assistant / HOUSEBUS retains private device truth and actuation.",
-      "version": "0.7.4",
+      "version": "0.7.5",
       "receipt": "/house/release.json",
       "contract": "/house/contract.json",
       "transfer": [
@@ -4659,7 +4659,8 @@
         "explicit CARE → Dayline action handoff",
         "selective CARE → HUMAN PORT draft with address/id/time/sibling episodes omitted",
         "HOUSE CARE != CARE / FIELD medical/self-care authority",
-        "selected HOUSE address → browser-local BODY context; address != presence / context != causation"
+        "selected HOUSE address → browser-local BODY context; address != presence / context != causation",
+        "public-surface privacy: generalized instance labels + noindex HTML; Git history unchanged"
       ],
       "family_href": "/house/",
       "index": {
