@@ -66,8 +66,9 @@
     "idle_phone": "REQUIRED_NEXT: load local track → IDLE → touch dial; confirm source clock continues but automatic motif/form changes disappear.",
     "idle_witness_pr": 145,
     "idle_witness_merge_sha": "cad6f19189285ab421c4c3f6d90ee4804ba40130",
-    "mode_embodiment": "PENDING_CI",
-    "wide_phone": "HUMAN_GATE"
+    "mode_embodiment": "PASS · PR 328 · public-surface-check 36140134183",
+    "wide_phone": "HUMAN_GATE",
+    "mode_embodiment_merge_sha": "41b69f52f75b5424308ba6531af879e017e4cb07"
   },
   "known_gap": "Instrument-quality judgment still requires direct listening. Local track context is now implemented; do not map song features directly into harmony/verbs until real play identifies a useful missing relation.",
   "confluence": "/control/confluence/FOLD_BLOOM_SOUND_DEPTH_2026-09-21.json",
