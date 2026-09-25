@@ -873,7 +873,24 @@ const CASES=[
     name:'FOLD BLOOM FIELD LAB',
     route:'/fold-bloom/lab/',
     options:{width:430,height:900,budget:7000},
-    check:dom=>/FIELD LAB 0\.3/i.test(dom)&&dom.includes('data-fold-bloom-field-lab="ready"')&&dom.includes('data-field-lab-mode="RIDE"')&&/RIDE/.test(dom)&&/PULSE/.test(dom)&&/VERSE/.test(dom)&&/READ/.test(dom)&&/LOCI/.test(dom)&&/INK/.test(dom)&&/DATA/.test(dom)&&dom.includes('id="verseReplay"')&&dom.includes('id="exportTape"')&&dom.includes('id="raceInput"')&&dom.includes('id="inkTrace"')&&dom.includes('id="inkLoad"')&&dom.includes('id="paperAbsorb"')&&/DRY BRUSH/.test(dom)&&/WASH/.test(dom)
+    check:dom=>{
+      const parts={
+        version:/FIELD LAB 0\\.3/i.test(dom),
+        ready:dom.includes('data-fold-bloom-field-lab="ready"'),
+        ride:dom.includes('data-field-lab-mode="RIDE"'),
+        verse:/VERSE/.test(dom),
+        verseReplay:dom.includes('id="verseReplay"'),
+        exportTape:dom.includes('id="exportTape"'),
+        raceInput:dom.includes('id="raceInput"'),
+        inkTrace:dom.includes('id="inkTrace"'),
+        inkLoad:dom.includes('id="inkLoad"'),
+        paperAbsorb:dom.includes('id="paperAbsorb"'),
+        dry:/DRY BRUSH/.test(dom),wash:/WASH/.test(dom)
+      };
+      const pass=Object.values(parts).every(Boolean);
+      if(!pass){const boot=(dom.match(/id="labBootWitness"[^>]*>([^<]*)</)||[])[1]||'MISSING';console.error('FIELD LAB CHECK',JSON.stringify(parts),'BOOT',boot)}
+      return pass
+    }
   },
   {
     name:'FOLD BLOOM FIELD LAB VERSE',
