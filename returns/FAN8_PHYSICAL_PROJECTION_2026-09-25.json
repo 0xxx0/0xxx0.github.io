@@ -2,7 +2,7 @@
   "schema": "field-return/v0.1",
   "id": "FAN8_PHYSICAL_PROJECTION_2026-09-25",
   "date": "2026-09-25",
-  "state": "PRINTABLE_CANDIDATE_V02 / PHYSICAL_USE_PARKED",
+  "state": "PRINTABLE_CANDIDATE_V02 / FOLDED_INTO_TRANSDUCTIONS / PHYSICAL_USE_PARKED",
   "object": "FAN/8 v0.2 passive folding-fan projection over current INTERPHASE / AXIAL / FOLD//BLOOM PLAY 0.5.3 / Two Dial 0.10.4 / Dayline laws",
   "observed": [
     "current merged FOLD//BLOOM PLAY 0.5.3 contains two exact six-way readings: Two Dial positions 0–5 and HEX lines 1–6",
@@ -18,7 +18,10 @@
     "add removable HELD / MODE / RETURN hub label for real-life use",
     "adopt IDENTIFY ≠ EMBED ≠ DEFORM from the current wrap proof",
     "retain PRINT-01 calibrated one-specimen proof method",
-    "leave physical proof PARKED; no sensing sequel"
+    "leave physical proof PARKED; no sensing sequel",
+    "fold FAN/8 machine semantics into TRANSDUCTIONS instrument_cell.physical_recipes instead of a parallel recipe authority",
+    "bind printed Two Dial relation legend to live PLAY RELATION_LEGEND in CI",
+    "make the 2026-09-25 eight-leaf synthesis boundary explicit; historical fan semantics remain unresolved"
   ],
   "files": [
     "/foundry/axial/fan8-print.svg",
@@ -40,7 +43,8 @@
     "planning_time": "Atlas Dayline",
     "object_identity": "native host / INTERPHASE contract",
     "physical_geometry": "measured embodiment only; no semantic authority",
-    "sensing": "NOT_IMPLEMENTED"
+    "sensing": "NOT_IMPLEMENTED",
+    "machine_home": "/control/TRANSDUCTIONS.json#instrument_cell.physical_recipes.FAN8"
   },
   "external_donors": [
     "Tangible Bits — graspable digital embodiment",
@@ -63,10 +67,11 @@
     "passive physical readback/handling",
     "comparative value versus screen-only interaction",
     "camera/simple sensing only after passive proof",
-    "older authored-crease topology remains donor, not default"
+    "older authored-crease topology remains donor, not default",
+    "remembered historical key-shaped/six-panel fan exact semantics remain unresolved"
   ],
   "one_next": "No machine sequel after merge. Physical proof only when naturally useful; otherwise continue current conversion work elsewhere.",
-  "stop": "No FAN app, state store, camera pipeline, BLE/electronics, actuation or extra gameplay semantics from v0.2.",
+  "stop": "FAN/8 v0.2 is a materialized FOLD projection inside the existing instrument, not a new project. No FAN app/store, camera pipeline, BLE/electronics, actuation or extra gameplay semantics.",
   "internal_donor": "PRINT-01 / FIELD route tile v0.1",
   "internal_donors": [
     "PRINT-01 / calibrated one-specimen proof",
