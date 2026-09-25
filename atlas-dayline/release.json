@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "ATLAS DAYLINE",
-  "version": "Branch I + FIELD LIVE 0.2.2 / REALITY FIRST",
+  "version": "Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
   "route": "/atlas-dayline/",
   "state": "STABLE + OPT_IN_LIVE_CANDIDATE",
   "operation": "PLAN",
   "released": "2026-09-25",
-  "representative_interaction": "mobile first use → PLAIN action list; source REALITY PORT stays explicit → CAPTURE/APPLY/ADD → RUN≤3 → RETURN → COPY HANDOFF; ATLAS remains optional",
+  "representative_interaction": "empty/reality-first first run → explicit capture/handoff → scrollable mobile PLAIN action surface → optional NOW ↻ sync → RUN≤3 → RETURN/COPY HANDOFF",
   "validation": {
     "viewport_meta": "PASS",
     "responsive_source": "PASS",
@@ -19,7 +19,7 @@
     "explicit_promotion": "PASS_BY_SOURCE",
     "feedback_no_repo_write": "PASS_BY_SOURCE",
     "service_worker_live_truth_bypass": "PASS_BY_SOURCE",
-    "cache_version_bumped": "atlas-dayline-i-v5",
+    "cache_version_bumped": "atlas-dayline-i-v6",
     "reality_handoff_schema": "atlas-dayline-handoff/v0.1",
     "explicit_source_promotion": "PASS_BY_SOURCE",
     "session_local_transport": "PASS_BY_SOURCE",
@@ -28,9 +28,14 @@
     "mobile_field_contraction": "PASS_BY_SOURCE · capture + REALITY PORT remain visible; verbose FIELD detail collapses on phone",
     "feedback_worker_boundary": "atlas-dayline-feedback/v0.2 · authority NONE · USER_EXPLICIT_COPY",
     "reality_capture_context": "PASS_BY_SOURCE · capture inherits active Dayline contexts",
-    "reality_first_seed": "PASS_BY_SOURCE · new/reset state has zero tasks and zero anchors; existing local state is untouched"
+    "reality_first_seed": "PASS_BY_SOURCE · new/reset state has zero tasks and zero anchors; existing local state is untouched",
+    "mobile_plain_scroll": "PASS_BY_SOURCE",
+    "mobile_route_adapter_clearance": "PASS_BY_SOURCE",
+    "explicit_clock_sync": "PASS_BY_SOURCE",
+    "return_clock_witness": "PASS_BY_SOURCE",
+    "return_classification": "ORIENTATION_SNAPSHOT | WORLD_DELTA"
   },
-  "known_gap": "Existing browser-local state is intentionally not auto-cleared. Use RESET EMPTY only when the human wants to discard that local state. Lived phone proof across REALITY PORTS remains the current gate.",
+  "known_gap": "Needs lived phone confirmation after reach fix and one actual source→Dayline action. RETURN→native-source receipt remains unimplemented.",
   "date": "2026-09-25",
   "changes": [
     "added atlas-dayline-handoff/v0.1 as a single explicit session-local envelope; it is transport, not queue/authority",
@@ -45,6 +50,11 @@
     "COPY HANDOFF uses atlas-dayline-feedback/v0.2 with authority NONE / USER_EXPLICIT_COPY for replaceable workers",
     "new first-run/reset Dayline state is empty instead of carrying old concrete-looking demo errands or support tasks",
     "existing browser-local Dayline state remains preserved; only first-run/reset seed changes",
-    "RESET SAMPLE is renamed RESET EMPTY to make the authority boundary legible"
+    "RESET SAMPLE is renamed RESET EMPTY to make the authority boundary legible",
+    "fixed mobile PLAIN/action scroll regression caused by inherited Atlas viewport lock",
+    "shared showcase route controls relocate from bottom-left to bottom-right on phones with bounded panel scroll",
+    "added explicit NOW ↻ device-clock synchronization without destroying manual/counterfactual time",
+    "RETURN now distinguishes ORIENTATION_SNAPSHOT from WORLD_DELTA and records canonical vs device-local clock",
+    "worldKey now uses local calendar date"
   ]
 }
