@@ -1,0 +1,27 @@
+{
+  "schema": "field-return/v0.1",
+  "date": "2026-09-25",
+  "id": "FIELD-BELAY-2026-09-25",
+  "object": "FIELD INDEX re-entry + CURRENT donor projection",
+  "state": "MERGED_CANDIDATE",
+  "delta": [
+    "Reused existing ORIENTATION.anchor as ⚑ BELAY on the existing root truth rail; no new panel/store.",
+    "The same ORIENTATION anchor now enters the transient FIELD agent transcript, aligning human and worker re-entry.",
+    "CURRENT current-head route versions are structured and CI-checked against showcase-manifest.",
+    "Repaired stale CURRENT head labels for Poem Map, HOUSE/SPATIAL/HOUSE FIELD and Shopping Field; repaired HOUSE/SPATIAL and Poem Map manifest display version drift.",
+    "Compacted 20 donor/hold rows into five named quarry families while preserving every donor name/state/route as members."
+  ],
+  "donors_reused": [
+    "/control/ORIENTATION.json#anchor",
+    "/control/CULLING_AUDIT_2026-09-23.md",
+    "/control/CURRENT.json#donors_and_holds"
+  ],
+  "authority": "NONE beyond committed repo projection; CURRENT remains attention authority",
+  "checks": [
+    "root inline JavaScript parses before commit",
+    "CURRENT and manifest JSON parse",
+    "new check-current-heads.mjs is wired into public-surface-check",
+    "emit-agent-transcript selftest now requires ORIENTATION belay expression"
+  ],
+  "return": "/"
+}
