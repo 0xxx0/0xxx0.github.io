@@ -1,0 +1,66 @@
+{
+  "schema": "field-return/v1",
+  "kind": "FOLD_BLOOM_PLAY_RETURN",
+  "date": "2026-09-25",
+  "status": "CANDIDATE",
+  "branch": "chatgpt/fold-bloom-play-03-final-20260925",
+  "base_master_sha": "99911d707462cd716d77f3e7ed1ac33f94f0e110",
+  "substantive_head_sha": "f516801e87ba3aacf00b99ed3e64e84a87f6b148",
+  "recovered": {
+    "shipped_master": "PLAY 0.2 already contained RUN, PUZZLE, TWO DIAL/DUET, ECOLOGY/GARDEN and ZEN.",
+    "absorbed_branch": "fold-bloom-play-modes-v02-20260925 is fully behind master with no unique delta.",
+    "superseded_branches": [
+      "fold-bloom-play-loop-v01-20260925",
+      "fold-bloom-win-conditions-v01-20260925"
+    ],
+    "donor_laws": {
+      "two_dial": "SAME→BLOOM · NEAR→FOLD · FAR→RETURN · OPPOSITE→SPLIT",
+      "ecology": "selection pressure changes what the next generation must preserve"
+    }
+  },
+  "delta": [
+    "Promote PLAY shell to 0.3 without forking LIVE engine.",
+    "Make intro explain one physical move and what each teaching mode demonstrates.",
+    "Add per-release feedback: CALL hit/miss, puzzle stars vs par, Two Dial sync, Ecology generation progress.",
+    "Expose Ecology trait progress numerically while playing.",
+    "Add ?play=CONCERT alias to direct finite RUN entry.",
+    "Record the game contract in fold-bloom/live/release.json."
+  ],
+  "modes": {
+    "RUN": {
+      "moves": 8,
+      "clear": "6/8 CALL hits"
+    },
+    "PUZZLE": {
+      "rounds": 5,
+      "clear": "10/15 stars",
+      "scoring": "3★ at shortest-turn par; 2★ at par+1; 1★ slower hit"
+    },
+    "TWO_DIAL": {
+      "rounds": 6,
+      "clear": "5/6 synchronized releases"
+    },
+    "ECOLOGY": {
+      "generations": 3,
+      "moves_per_generation": 4,
+      "clear": "both selected inherited pressures survive"
+    },
+    "ZEN": {
+      "clear": null
+    }
+  },
+  "invariants": [
+    "LIVE engine remains authoritative.",
+    "Music/source shapes terrain and clock context; player authors every release.",
+    "Misses are not dead moves: they still change topology.",
+    "Two Dial and Ecology remain distinct donor artifacts reachable from results.",
+    "Mute-readable feedback remains part of the interaction contract."
+  ],
+  "verification": {
+    "pure_game_law_tests": "PENDING_CI",
+    "public_surface_check": "PENDING_CI",
+    "route_registration": "PENDING_CI",
+    "real_phone_touch_audio": "HUMAN_GATE"
+  },
+  "rebase_note": "Final branch cut from current master after FAN/8 landed. PLAY 0.3 preserves the FAN/8 printable-controller link while retaining LIVE, Two Dial and Ecology authority boundaries."
+}
