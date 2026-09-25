@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-25T17:00:22.013Z",
+  "updated": "2026-09-26",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -443,7 +443,7 @@
       "head": "ATLAS DAYLINE Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH",
       "state": "STABLE + OPT_IN_LIVE_CANDIDATE",
       "route": "/atlas-dayline/",
-      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner, with /dayline/ as the mobile continuous workfield over the same DayState. Reality-first empty/reset, normal mobile reach, explicit NOW ↻, clock-witnessed RETURN, and source-addressed HOUSE/SHOPPING/COMMS handoffs remain. The merged COMMS loop now proves one held source object through RUN → WITNESS → COMPLETE → OFFER_ONLY RETURN → exact native acceptance, then releases completed focus. Machine/browser proof owns functional correctness; real-world completion remains WORLD evidence.",
+      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner, with /dayline/ as the mobile continuous workfield over the same DayState. Reality-first empty/reset, normal mobile reach, explicit NOW ↻, clock-witnessed RETURN, and source-addressed HOUSE/SHOPPING/COMMS handoffs remain. Dayline now returns directly to canonical HOUSE /house/ rather than the /house/spatial/ compatibility alias. The merged COMMS loop proves one held source object through RUN → WITNESS → COMPLETE → OFFER_ONLY RETURN → exact native acceptance, then releases completed focus. Machine/browser proof owns functional correctness; real-world completion remains WORLD evidence.",
       "evidence": [
         "/atlas-dayline/release.json",
         "/returns/ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
@@ -452,7 +452,8 @@
         "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md",
         "/dayline/release.json",
         "/returns/DAYLINE_COMMS_CLOSED_LOOP_2026-09-25.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/359"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/359",
+        "/returns/DAYLINE_HOUSE_CANONICAL_ENTRY_2026-09-26.json"
       ],
       "version": "Branch I + FIELD LIVE 0.2.3 / REALITY FIRST / MOBILE REACH"
     },
