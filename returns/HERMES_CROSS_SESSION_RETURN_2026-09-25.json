@@ -1,299 +1,91 @@
 {
-  "schema": "0xxx0/hermes-cross-session-return/v0.1",
+  "schema": "0xxx0/hermes-cross-session-return/v0.2",
   "date": "2026-09-25",
-  "state": "CROSS_SESSION_CONVERGENCE_COMPLETE_MATERIAL_FIELD",
-  "rendezvous": {
+  "evidence_class": "REPORTED_LOCAL_HERMES_CENSUS",
+  "authority": "NONE",
+  "source": {
     "branch": "hermes/cross-session-convergence-20260925",
     "pr": 249,
     "last_verified_master": "012775db",
-    "last_update": "2026-09-25T14:05+08:00",
-    "packet": "/control/confluence/HERMES_CROSS_SESSION_RETURN_2026-09-25.md",
-    "successor_charter": "/control/prompts/HERMES_CROSS_SESSION_CONVERGENCE_2026-09-25.md",
-    "charter_body_sha256": "a8ca5e431ab59aa1d2027789ac8e85bed6fa77cd4b6dff51973776b20276c4b8"
+    "local_pass_timestamp": "2026-09-25T14:05+08:00",
+    "note": "Local Hermes/session/runtime observations were produced by another worker pass and are retained as dated evidence, not current repository truth."
   },
-  "coverage": {
+  "reported_coverage": {
     "profiles_enumerated": 9,
     "sessions_since_20260918": 374,
-    "sessions_live_3day_window": 130,
-    "sessions_read_in_depth": 15,
+    "sessions_live_3day_window_approx": 130,
+    "sessions_read_in_depth_min": 15,
     "remote_branches_triaged": 256,
-    "branches_in_master": 101,
-    "branches_pr_merged": 96,
-    "branches_not_in_master": 57,
-    "prs_lifetime": 234,
-    "prs_merged": 192,
-    "prs_closed": 42,
-    "crons_enabled_by_profile": {
-      "default": 1,
-      "kestrel": 14,
-      "operator": 22,
-      "archive": 4,
-      "mahshroom": 5,
-      "lam4000": 8,
-      "kage": 1,
-      "thisjustthing": 1
-    },
-    "local_exports": [
-      "~/.hermes/session-exports/hermes-sessions-2026-09-24.jsonl",
-      "~/.hermes/state/cross-session-convergence-20260925/"
-    ],
-    "inaccessible": "none material; kestrel fan-out sessions active and deliberately untouched"
+    "branches_not_in_master_at_pass": 57,
+    "enabled_crons_reported_total": 56
   },
-  "delta_since_2026_09_24": [
-    "250+ commits; PRs #208-#247 merged in 48h",
-    "worked around: #246 worker-authority contraction and #247 daily-generator live authority landed mid-pass",
-    "landed by this pass: cross-session convergence return + successor charter",
-    "landing alongside: staged HERMES_LONG_HORIZON_WORKER prompt + cold-start pointers (separate bounded PR)",
-    "CLOSED finding: WORKER_BOOT staleness (superseded by #246)",
-    "software reality: 11 CURRENT heads unchanged; two live fronts (conversion, recovery-ingest)"
-  ],
-  "needs_review": [
-    "nexus board-refresh churn: ~30-min auto-commits into master; keep board, decide commit cadence",
-    "arxiv-alignment-feed failing daily (HTTP 406); triage runs on stale feed",
-    "operator cron duplication (Crew Pulse Check x2, kobo-daily-publish x2) + Crew Pulse Check RuntimeError",
-    "~57 not-in-master branches: prepare prune list; no deletion without approval",
-    "kestrel residue unverified-applied: no operator registry/COMPRESS in fold-bloom/live; causal-witness scoring unserved; Suno line unapplied"
-  ],
-  "active_integrations": [
+  "absorbed_elsewhere": [
     {
-      "id": "convergence-landing",
-      "branch": "hermes/cross-session-convergence-20260925",
-      "purpose": "land unlanded 2026-09-24 convergence judgment; establish rendezvous"
+      "claim": "worker boot/state drift",
+      "resolution": "PR #246"
     },
     {
-      "id": "lh-worker-prompt-landing",
-      "branch": "control/long-horizon-worker-20260924",
-      "purpose": "land staged long-horizon worker master prompt + cold-start pointers"
+      "claim": "daily prompt boot drift + WAITING state drift",
+      "resolution": "PR #247"
+    },
+    {
+      "claim": "App Atlas projection drift",
+      "resolution": "PR #248"
     }
   ],
-  "waiting": [
-    "Fold/Bloom lived gates: one real LISTEN->REPLAY message to a human; two phones for SABER; sing once into VOICE; judge FEW vs MANY",
-    "READFIELD 0.8.4 lived phone gate",
-    "SET->LIVE phone ride",
-    "local: backup soft-spot close-out; hermes-runtime 1.4GB archive; gemma4:e4b pull; node0 plist repair-or-retire; swap/qwen3.8 hygiene",
-    "PRIVATE_DEPENDENCY: local machine baseline items tracked locally",
-    "PRIVATE_RETURN_AVAILABLE: true"
-  ],
-  "session_dispositions": [
+  "verification_triggers": [
     {
-      "item": "field-index 0.8.1-0.8.3",
-      "kind": "repo",
-      "disposition": "C_ALREADY_INTEGRATED"
+      "id": "fold-bloom-phone-nav-targets",
+      "class": "MACHINE_CHECKABLE",
+      "reported": "Some Fold/Bloom lab/ink navigation targets measured roughly 11–23px tall on a 390px phone viewport.",
+      "next": "Inspect current head and current CSS/runtime before changing anything."
     },
     {
-      "item": "readfield 0.8.3/0.8.4 + r2/r3; leftover readfield-workflow-083 (receipts only)",
-      "kind": "repo",
-      "disposition": "C; leftover E_SUPERSEDED"
+      "id": "arxiv-alignment-feed-406",
+      "class": "LOCAL_RUNTIME_REPORTED",
+      "reported": "arxiv-alignment-feed reportedly fails daily with HTTP 406.",
+      "next": "Re-observe local runtime before repair or pause."
     },
     {
-      "item": "fold-bloom family merges #200-#240",
-      "kind": "repo",
-      "disposition": "C; lived gates D_WAITING"
+      "id": "operator-cron-duplicates",
+      "class": "LOCAL_RUNTIME_REPORTED",
+      "reported": "Crew Pulse Check and kobo-daily-publish reportedly duplicated; Crew Pulse also reported a connection error.",
+      "next": "Re-census actual scheduler state before mutation."
     },
     {
-      "item": "app-atlas #244; witness #241; research sync #237; machine entrypoint #245",
-      "kind": "repo",
-      "disposition": "C"
+      "id": "remote-branch-prune-candidates",
+      "class": "REPO_REPORTED",
+      "reported": "57 remote branches were not in master at the time of the pass.",
+      "next": "Prepare a non-destructive prune candidate list only if branch hygiene becomes selected work."
     },
     {
-      "item": "#246 worker-authority contraction; #247 daily generator",
-      "kind": "repo",
-      "disposition": "C"
+      "id": "kestrel-fold-bloom-residue",
+      "class": "DONOR_REPORTED",
+      "reported": "Operator-registry/COMPRESS, causal-witness scoring and a Suno correction were reported as unapplied.",
+      "next": "Require exact source/current-host comparison before any transplant."
     },
     {
-      "item": "57 not-in-master branches (Sep 19-25)",
-      "kind": "repo",
-      "disposition": "E_SUPERSEDED (prune-list candidate)"
-    },
-    {
-      "item": "42 closed PRs",
-      "kind": "repo",
-      "disposition": "E_SUPERSEDED"
-    },
-    {
-      "item": "codex worktree @8ca9b214 (June-era snapshot)",
-      "kind": "local",
-      "disposition": "E_RETAINED_EVIDENCE"
-    },
-    {
-      "item": "second clone ~/Projects/0xxx0.github.io + kernel/interphase-kernel.js",
-      "kind": "local",
-      "disposition": "B_HELD (INTERPHASE user-protected)"
-    },
-    {
-      "item": "@session:default/20260924_113522 convergence pass",
-      "kind": "session",
-      "disposition": "A_ABSORBED_BY_THIS_PASS"
-    },
-    {
-      "item": "@session:default/20260924_110743 staged LH prompt",
-      "kind": "session",
-      "disposition": "A_ABSORBED (delta 2)"
-    },
-    {
-      "item": "@session:default/20260924_120421 H-QA-01 slice",
-      "kind": "session",
-      "disposition": "B_DONOR (nav microfix candidate)"
-    },
-    {
-      "item": "@session:default/20260924_115453 wrangler",
-      "kind": "session",
-      "disposition": "LIVE_UNIQUE_TOOLING"
-    },
-    {
-      "item": "@session:kestrel/20260923_034953 bootstrap",
-      "kind": "session",
-      "disposition": "LIVE_UNIQUE_CONTINUE"
-    },
-    {
-      "item": "@session:kestrel/20260923_105229 collapse/interphase/BRIEF",
-      "kind": "session",
-      "disposition": "B_PARTIAL (residue named)"
-    },
-    {
-      "item": "@session:kestrel/20260925_124434 comms ANA",
-      "kind": "session",
-      "disposition": "LIVE_UNIQUE_LOCAL_DELIVERABLE"
-    },
-    {
-      "item": "kestrel fan-out (cron audit/backup compare/lineage locate)",
-      "kind": "session",
-      "disposition": "LIVE_LEAVE_ALONE"
-    },
-    {
-      "item": "@session:archive/20260921_234252 repo survey",
-      "kind": "session",
-      "disposition": "C + B_PARKED"
-    },
-    {
-      "item": "@session:archive/20260921_233636; @session:archive/20260920_173052",
-      "kind": "session",
-      "disposition": "E_DONOR"
-    },
-    {
-      "item": "operator/kage/lam4000/mahshroom/thisjustthing fleet",
-      "kind": "fleet",
-      "disposition": "CONTINUE; operator dupe-cron finding"
-    },
-    {
-      "item": "meanname profile",
-      "kind": "fleet",
-      "disposition": "EMPTY_UNUSED"
-    },
-    {
-      "item": "kanban t_2f37896f + ops-hub 3 blocked",
-      "kind": "board",
-      "disposition": "D_BLOCKED"
+      "id": "interphase-kernel-held",
+      "class": "ANTI_MERGE_HOLD",
+      "reported": "A second-clone INTERPHASE kernel extraction exists locally and was deliberately held.",
+      "next": "Do not merge by resemblance; reopen only from a named missing function."
     }
   ],
-  "unintegrated_unique_residue": [
-    "kestrel visual-grammar residue: operator registry/COMPRESS absent; causal-witness scoring unserved; Suno correction line unapplied",
-    "H-QA-01 nav tap-target findings F1/F2 + local RETURN (fold-bloom-reentry)",
-    "archive kernel extraction (held, INTERPHASE protected)",
-    "codex June snapshot (evidence only)",
-    "Sep-24 host-hygiene trio remainder: arxiv feed fix, gemma4:e4b pull, hermes-runtime archive"
-  ],
-  "contradictions_drift": [
-    "CURRENT.downstream 'hermes read-only' vs continuous merged bounded PRs (#208-#246) and explicit pass authority",
-    "kestrel NEXT.md 'Hermes read-only; Codex writes' \u2014 same drift",
-    "bootstrap surfaces stale (5 crons vs 1; boards vs tasks location)",
-    "wrangler 94-vs-142 count bug (fixed at source)",
-    "~/void-anchor local master 187 behind (deliberate read-only checkout)"
-  ],
-  "mechanisms": [
-    "@session:<profile>/<id> handle + session-wrangler.py / integrity-audit.py",
-    "fb_reentry.py deterministic re-entry packets (exit 0/10/2)",
-    "stage-then-land pattern (byte-exact stage + RESUME + PR body; land on consent)",
-    "worker-authority contraction law (#246): /llms.txt + transient JIT handoff; historical packets non-runnable",
-    "evidence classes + RETURN contract (ultra master \u00a718; long-horizon-worker skill)",
-    "INTERPHASE host protocol (lib/interphase-core.js + hosts) \u2014 absorbed donor"
-  ],
-  "negative_lessons": [
-    "git add -A with concurrent writers sweeps foreign WIP -> targeted paths",
-    "silent exception swallowing in census tooling fabricates counts -> warn on stderr",
-    "receipt-only churn is real (board refresh) -> keep surface, cull cadence",
-    "parallel enumerations duplicate each other -> one rendezvous + one wrangler",
-    "approval timeouts while AFK are normal -> stage exact artifacts; land on next consent"
-  ],
-  "underused_capability": [
-    "session-wrangler.py / integrity-audit.py",
-    "fb drift sentinel (change-gated, silent by design)",
-    "AXIS/library operator docs (CHEATSHEET/COLLAB-LOOPS/LOOPS/WORKFLOW/SYNC)",
-    "/llms.txt machine entrypoint",
-    "nexus board/map auto-refresh"
-  ],
-  "integration_candidates_post_pass": [
-    "fold-bloom nav tap-target microfix (lab/ink nav 11-23px at 390px; test: undersized->0; collision-check first)",
-    "Suno correction one-liner in control/confluence/FIELD_PULSE_2026-09-22.json (pending exact replacement text)"
-  ],
-  "restart": {
-    "orchestrator": "default-profile desktop session (this pass)",
-    "orchestrator_owns": [
-      "recovery",
-      "worker census",
-      "deduplication",
-      "integration routing",
-      "re-entry",
-      "bounded delegation",
-      "RETURN reconciliation"
+  "mechanism_extractor": {
+    "instances": [
+      "PR #246 worker-authority contraction",
+      "PR #247 daily live-authority generator",
+      "2026-09-25 cross-session census/reconciliation"
     ],
-    "orchestrator_does_not_own": [
-      "domain state",
-      "implementation",
-      "human authority",
-      "private truth",
-      "master"
-    ],
-    "workers": [
-      {
-        "id": "kestrel-repo-lanes",
-        "state": "LIVE",
-        "action": "CONTINUE (no replacement)"
-      },
-      {
-        "id": "local-machine-maintenance",
-        "state": "ON_DEMAND",
-        "action": "machine-executable items in needs_review"
-      }
-    ],
-    "new_workers_spawned": 0,
-    "live_fronts": [
-      "conversion",
-      "recovery-ingest"
-    ]
+    "invariant": "LIVE AUTHORITY → bounded selection → exact evidence → one reversible move → VERIFY → RETURN → REPLAN",
+    "non_example": "Install a dated multi-hundred-line master prompt as a new cold-start authority.",
+    "failure_mode": "Context expansion and duplicate sovereignty from copied doctrine.",
+    "second_context_test": "The same invariant worked for repository worker boot and disposable daily context without a new state store.",
+    "skill_disposition": "PARKED_NO_NEW_SKILL",
+    "reason": "AGENTS, /llms.txt, HERMES_QUEUE, the JIT transcript and existing method skills already encode the useful invariant more compactly."
   },
-  "final_return": {
-    "absorbed": [
-      "Sep-24 convergence RETURN",
-      "staged LH worker prompt",
-      "wrangler tooling in use"
-    ],
-    "integrated": [
-      "field-index",
-      "readfield",
-      "fold-bloom family",
-      "app-atlas/witness/research-sync/entrypoint",
-      "#246",
-      "#247"
-    ],
-    "superseded_parked": [
-      "57 not-in-master branches (prune-list candidate)",
-      "42 closed PRs",
-      "codex June worktree",
-      "kernel residue held"
-    ],
-    "donors": [
-      "H-QA-01 findings",
-      "kestrel visual-grammar residue",
-      "archive corpus products"
-    ],
-    "next": "run ONE lived gate, or approve ONE local hygiene fix",
-    "stop": [
-      "do not merge the rendezvous PR autonomously",
-      "no new architecture",
-      "no re-archaeology",
-      "do not touch live lanes or other open PRs",
-      "no duplicate PRs"
-    ]
-  }
+  "pr250_disposition": "DONOR_SUPERSEDED_CLOSED",
+  "current_host_law": "/llms.txt → AGENTS.md → CURRENT / QUEUE / manifest / WAITING",
+  "one_next": "Verify one current product-facing residue; Fold/Bloom phone navigation is the strongest repo-checkable candidate.",
+  "stop": "No standing rendezvous, successor master charter, scheduler or ambient archaeology created from this return."
 }
