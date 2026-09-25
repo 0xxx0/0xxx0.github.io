@@ -154,3 +154,58 @@ Next evidence must come from either:
 - a concrete counterexample that breaks identity / explicit promotion / RETURN.
 
 Anything else returns to HOLD.
+
+
+## REALITY PORTS 0.1 — HOUSE / SHOPPING / COMMS → TIME
+
+The first post-LIVE convergence is intentionally not a shared database.
+
+`atlas-dayline-handoff/v0.1` is a single explicit, session-local envelope carried in the same browser tab. It is deleted after APPLY/ADD or CLEAR. It is neither queue nor authority.
+
+### HOUSE / SPATIAL → CONTEXT
+
+The selected spatial address may lend `home + house:<room-id>` as Dayline planning context.
+
+Selection is not presence. No sensor claim is made. Dayline uses the context only to orient/rank work.
+
+### SHOPPING FIELD → TASK
+
+A selected Shopping Field item may lend exactly one capability action into Dayline:
+
+- `next_action` when present;
+- otherwise a bounded `Resolve <item>` fallback.
+
+Item id, lifecycle state, freshness, gate count, need and adoption criterion survive as provenance. Buying/seller contact remain human-only.
+
+### COMMS SPINE → TASK
+
+COMMS may lend exactly one OPEN signal:
+
+1. HUMAN-authored OPEN signal first when available;
+2. otherwise one DERIVED OPEN signal with DERIVED provenance retained.
+
+The handoff preserves source SHA + message/range address + signal kind/origin/text, not the full source thread. Dayline cannot send the response or mark communication state COVERED.
+
+### COMPOSITION LAW
+
+`HOUSE knows ADDRESS/physical substrate → SHOPPING knows capability acquisition → COMMS knows source-addressed human obligation → DAYLINE knows temporal execution → RETURN knows observed outcome.`
+
+Do not collapse those authorities merely because they now interoperate.
+
+### NEXT HARD SEAM
+
+The next integration target is not another inbound adapter. It is **explicit return-to-source**:
+
+`Dayline task/RETURN → source-addressed receipt offer → source tool explicitly accepts/rejects → native lifecycle/state changes only there.`
+
+No source state is auto-mutated from Dayline.
+
+### LIVED TEST
+
+On phone, perform one of each:
+
+1. HOUSE selected room → DAYLINE CONTEXT → verify context applies and BACK restores HOUSE.
+2. SHOPPING selected item → DAYLINE → verify exact item provenance survives and no lifecycle state changes.
+3. COMMS OPEN signal → DAYLINE → verify SHA/range/origin survive without full-thread copying.
+
+Then produce one Dayline RETURN and COPY FEEDBACK. That is the evidence gate for any bidirectional work.

@@ -210,6 +210,13 @@ function exportReturn(){
   const blob=new Blob([JSON.stringify(r,null,2)],{type:'application/json'}),a=document.createElement('a');
   a.href=URL.createObjectURL(blob);a.download='comms-spine-return-'+Date.now()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),800);toast('RETURN EXPORTED');
 }
+function daylineHandoff(){
+  if(!state.doc){toast('NO SOURCE');return}
+  const open=signals().filter(x=>x.state==='OPEN'),sig=open.find(x=>(state.targets||[]).includes(x.id))||open.find(x=>x.origin==='HUMAN')||open[0];
+  if(!sig){toast('NO OPEN SIGNAL');return}
+  const packet={schema:'atlas-dayline-handoff/v0.1',id:'comms-'+Date.now(),created_at:new Date().toISOString(),kind:'TASK',source:{route:'/port/comms/',object_id:state.sourceId,address:{message_id:sig.messageId,start:sig.start,end:sig.end},label:state.title,signal_id:sig.id,origin:sig.origin},payload:{task:{title:'COMMS · '+sig.kind+' · '+String(sig.text||'').slice(0,96),contexts:['phone','computer'],duration:15,value:sig.origin==='HUMAN'?5:3,provenance:'COMMS SPINE '+sig.origin+' explicit handoff · '+state.sourceId,sourceRef:'/port/comms/#'+state.sourceId+'|'+sig.messageId+'|'+sig.start+'-'+sig.end,notes:['SIGNAL '+sig.kind,'ORIGIN '+sig.origin,'ADDRESS '+sig.messageId+' '+fmtAddr(sig.start,sig.end),'TEXT '+sig.text,'SOURCE HASH '+state.sourceId].join('\n')}},return_to:'/port/comms/'};
+  sessionStorage.setItem('atlas.dayline.handoff.v01',JSON.stringify(packet));location.assign('/atlas-dayline/?live=1&handoff=comms')
+}
 function pinLocal(){
   if(!state.doc)return;
   const snap={source:state.source,sourceId:state.sourceId,title:state.title,humanMarks:state.humanMarks,states:state.states,draft:state.draft,coverageLinks:state.coverageLinks,targets:state.targets,currentMessage:state.currentMessage,selectedClause:state.selectedClause,filter:state.filter};
@@ -222,7 +229,7 @@ function purgeLocal(){
   updatePortButtons();render();toast('LOCAL COMMS STATE PURGED');
 }
 
-$('#newBtn').onclick=showIntake;$('#closeIntake').onclick=hideIntake;
+$('#daylineBtn').onclick=daylineHandoff;$('#newBtn').onclick=showIntake;$('#closeIntake').onclick=hideIntake;
 $('#loadSource').onclick=()=>loadSource($('#sourceInput').value,$('#titleInput').value);
 $('#loadDemo').onclick=()=>{$('#sourceInput').value=demoConversation();$('#titleInput').value='COMMS SPINE DEMO'};
 $('#prevMsg').onclick=()=>jumpMessage(state.currentMessage-1);$('#nextMsg').onclick=()=>jumpMessage(state.currentMessage+1);

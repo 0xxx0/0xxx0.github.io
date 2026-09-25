@@ -1,0 +1,66 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "ATLAS_DAYLINE_REALITY_PORTS_2026-09-25",
+  "date": "2026-09-25",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "object": "HOUSE / SHOPPING / COMMS explicit projections into Atlas Dayline temporal execution",
+  "transport": {
+    "schema": "atlas-dayline-handoff/v0.1",
+    "storage": "sessionStorage: atlas.dayline.handoff.v01",
+    "authority": "NONE",
+    "durability": "ephemeral / one envelope",
+    "promotion": "explicit in Dayline"
+  },
+  "proofs": [
+    {
+      "source": "/house/spatial/",
+      "kind": "CONTEXT",
+      "preserves": [
+        "room id",
+        "projection",
+        "room mode",
+        "not-presence truth"
+      ],
+      "target": "Dayline active contexts"
+    },
+    {
+      "source": "/shopping/",
+      "kind": "TASK",
+      "preserves": [
+        "item id",
+        "lifecycle state",
+        "freshness",
+        "gate/adoption evidence"
+      ],
+      "target": "Dayline local imported task"
+    },
+    {
+      "source": "/port/comms/",
+      "kind": "TASK",
+      "preserves": [
+        "source SHA",
+        "message/range",
+        "kind",
+        "HUMAN/DERIVED origin",
+        "signal text"
+      ],
+      "target": "Dayline local imported task"
+    }
+  ],
+  "laws": [
+    "source authority remains native",
+    "explicit handoff != auto-sync",
+    "selected spatial address != presence",
+    "Shopping state does not change on handoff",
+    "COMMS send/coverage state does not change on handoff",
+    "Dayline owns time only"
+  ],
+  "verification": {
+    "source_syntax": "PASS_PREWRITE",
+    "route_registration": "PENDING_CI",
+    "public_surface": "PENDING_CI",
+    "lived_phone": "PENDING_HUMAN"
+  },
+  "next": "Prove all three same-tab handoffs on phone, then implement at most one explicit Dayline RETURN→source receipt offer.",
+  "stop": "No shared database/bus, no automatic source mutation, no fourth inbound adapter before lived proof."
+}

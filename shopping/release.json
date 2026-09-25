@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "artifact": "SHOPPING FIELD",
   "route": "/shopping/",
-  "version": "0.1",
+  "version": "0.1.1",
   "released": "2026-09-21",
   "state": "ACTIVE_ADAPTER",
   "recovered_from": [
@@ -46,7 +46,10 @@
     "added listing freshness and explicit source class",
     "added landed-SGD component calculator and quantity-normalized unit cost",
     "preserved six-part purchase gate and bounded research-agent packet",
-    "kept personal inventory out of public seed; imported state stays browser-local"
+    "kept personal inventory out of public seed; imported state stays browser-local",
+    "Added explicit selected-item → Dayline task handoff using next_action (or a bounded resolve fallback) with item id/state, freshness, gate and adoption evidence.",
+    "Research/purchase truth states remain unchanged; no handoff can purchase, message a seller or promote ownership.",
+    "Transport is session-local atlas-dayline-handoff/v0.1 and requires explicit ADD TO DAY."
   ],
   "checks": [
     "inline JavaScript parses",
@@ -55,5 +58,6 @@
     "all persistent state is localStorage or explicit JSON export",
     "Field Index and FCM link updated"
   ],
-  "return": "/shopping/"
+  "return": "/shopping/",
+  "date": "2026-09-25"
 }

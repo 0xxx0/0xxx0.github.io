@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "artifact": "HOUSE / SPATIAL",
   "route": "/house/spatial/",
-  "version": "0.6",
+  "version": "0.6.1",
   "released": "2026-09-20",
   "state": "EXPERIMENT",
   "changes": [
@@ -21,7 +21,10 @@
     "Added /house/spatial/trace-transplants.json to record both donor transfers and their recipient-side tests.",
     "Grafted LAW ZOO's tiny-law mechanism into TRACE as a live AND-stack of five path-law specimens: NO ECHO, ONE STROKE, PILGRIM, HOME and FIVE GATES.",
     "Added live PASS/FAIL/PENDING law evaluation and preserved the active law program inside exported house-trace/v0.1 receipts; imports restore supported law selections.",
-    "Added ink sediment: room fill density accumulates from local authored visit count while directed segment width still encodes traversal count."
+    "Added ink sediment: room fill density accumulates from local authored visit count while directed segment width still encodes traversal count.",
+    "Added explicit DAYLINE CONTEXT handoff for the currently selected spatial address.",
+    "The handoff labels the selected room as planning context only; it is not presence evidence and carries current projection/mode provenance.",
+    "Transport is session-local atlas-dayline-handoff/v0.1 and requires explicit APPLY inside Dayline."
   ],
   "checks": {
     "no_live_actuation": true,
@@ -51,5 +54,6 @@
     "basis": "Current HOUSE/SPATIAL head and active reality-house surface; local-only/no-actuation boundary remains explicit.",
     "receipt": "/control/EXPERIMENT_WRANGLE_2026-09-20.json",
     "provenance_note": "Original release state remains contemporaneous provenance; this field records the later lifecycle classification."
-  }
+  },
+  "date": "2026-09-25"
 }
