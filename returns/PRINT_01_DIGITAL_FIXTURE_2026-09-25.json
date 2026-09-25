@@ -1,0 +1,36 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "PRINT_01_DIGITAL_FIXTURE_2026-09-25",
+  "date": "2026-09-25",
+  "object": "Issue #11 first digital→physical proof fixture",
+  "state": "READY_NOT_PHYSICALLY_EXECUTED",
+  "source_issue": 11,
+  "artifact": "/physical/print-01/field-route-tile-v0.1.svg",
+  "retained_donors": [
+    {
+      "source": "/recovery/axial/compositor-v0.2/print-template.svg",
+      "mechanism": "100% / Actual Size / no fit-to-page; measure before cutting; one diagnostic specimen"
+    },
+    {
+      "source": "/control/archive-2026-09/PHYSICAL_RETURN_ENV0_2026-09-20.json",
+      "mechanism": "written dimensions authoritative; reversible non-load-bearing gauge; photo + ruler RETURN"
+    }
+  ],
+  "fixture": {
+    "id": "P:FIELD.CURRENT.01",
+    "carrier": "A4 landscape SVG",
+    "specimen_mm": [
+      120,
+      45
+    ],
+    "calibration_mm": 100,
+    "calibration_tolerance_mm": 1,
+    "address": "Φ / CURRENT",
+    "local_focus": "φ FOCUS / handwritten",
+    "return": "/",
+    "revision": "0.1"
+  },
+  "next_human_move": "Print once at 100% / Actual Size, verify 100 mm ± 1 mm, cut one tile, place temporarily, write one real φ focus, photograph with ruler, and return measured/legibility evidence.",
+  "stop": "No second fixture or label system before physical evidence.",
+  "authority": "NONE; physical paper is a traceable projection, not FIELD state authority."
+}
