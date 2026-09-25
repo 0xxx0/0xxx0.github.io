@@ -93,7 +93,11 @@
     "fold-bloom-addressed-message/v0.2 carries mark kind + optional endAddress beside source identity",
     "SHARE MARKS emits a bounded fold-bloom-annotations/v0.1 packet and prefers native file share, then clipboard, then download fallback",
     "USE TRACK now exposes SABER · TWO PHONES as an in-family runtime distinct from external Beat Saber pack export.",
-    "SABER handoff carries exact source identity + existing EVENT TAPE + addressed marks session-locally; source bytes remain in the existing local-media vault."
+    "SABER handoff carries exact source identity + existing EVENT TAPE + addressed marks session-locally; source bytes remain in the existing local-media vault.",
+    "ARC annotation boundaries are explicitly editable after aperture seeding, with NOW→START / NOW→END / USE APERTURE helpers rather than a full timeline.",
+    "MARKS opens the collection and supports source-ordered previous/next traversal instead of silently selecting the first mark.",
+    "fold-bloom-annotations/v0.2 unifies direct mark sharing and AUDIO MAP embedded annotations around exact source identity plus bounded map/view witness.",
+    "IMPORT MARKS round-trips direct annotation packets, AUDIO MAP wrappers and addressed-message paths; mismatched source identity is refused and same-source marks merge by stable id."
   ],
   "constraints": [
     "no upload/network required for user audio",
@@ -135,7 +139,9 @@
     "annotation sharing carries source identity and marks only; source audio bytes remain a separate explicit export/intake decision",
     "Beat Saber pack export does not imply the dual-phone FOLD//BLOOM SABER runtime is implemented",
     "SABER runtime must not become a second media/source store; LISTEN/source vault remain authoritative.",
-    "Beat Saber pack export and FOLD//BLOOM SABER are separate transforms: external mapper package versus internal two-phone motion course."
+    "Beat Saber pack export and FOLD//BLOOM SABER are separate transforms: external mapper package versus internal two-phone motion course.",
+    "annotation import must require exact current source identity and must not mutate AUDIO MAP evidence",
+    "editable ARC bounds are authored address evidence, not inferred musical semantics"
   ],
   "verification": {
     "module_runtime": "PASS: LISTEN 0.2 surface executed in browser smoke",
@@ -186,11 +192,15 @@
     "addressed_marks_merge_sha": "a21047612c3e2a900f755da4f24d88859ed97d6a",
     "addressed_marks_ci": "PASS · public-surface-check 35997687953 + Route Registration 35997687828",
     "addressed_marks_phone": "PASS · real encoded MP3 proof enables MARK/MARKS, saves nonzero ARC, reloads ARC, preserves exact LISTEN→LIVE source continuity",
-    "saber_runtime": "PINNED_SPECIFIC · /fold-bloom/saber/README.md · no implementation claim",
+    "saber_runtime": "SHIPPED_0.1 / WAITING_ON_REAL_DEVICE · /fold-bloom/saber/ · PR #225",
     "saber_01_branch": "fold-bloom-saber-proof-20260925",
-    "saber_01_gate": "PURE TEST + BROWSER BOOT REQUIRED; TWO REAL PHONES REMAIN WAITING_ON_HUMAN"
+    "saber_01_gate": "PASS REPO CORE + BROWSER; TWO REAL PHONES REMAIN WAITING_ON_HUMAN",
+    "marks_roundtrip_pr": 240,
+    "marks_roundtrip_merge_sha": "8a79e3824fb8fffb014c36118e41171ccd8e28f1",
+    "marks_roundtrip_ci": "PASS · public-surface-check 36091138715 + Route Registration 36091138806",
+    "marks_roundtrip_scope": "editable ARC + previous/next + source-safe share/import + unified AUDIO MAP annotation packet"
   },
   "current_classification": "kind=experiment · lifecycle=CANDIDATE · host=/fold-bloom/ · portable donor=field-addressed-stream/v0.1",
   "updated": "2026-09-25",
-  "return": "/returns/FOLD_BLOOM_BEAT_SABER_PACK_2026-09-24.json"
+  "return": "/returns/FOLD_BLOOM_LISTEN_MARKS_ROUNDTRIP_2026-09-25.json"
 }

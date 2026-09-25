@@ -2365,9 +2365,9 @@
       "family": "FOLD // BLOOM",
       "operation": "LISTEN",
       "state": "CANDIDATE",
-      "role": "Source-bundle cartographer for one exact audio identity. Local audio may be surrounded by origin, metadata, timed/untimed text, collection context and human BOOKMARK / FLAG / ARC marks without conflating those facets. ADDRESS×APERTURE inspection, AUDIO MAP, glyph, addressed-message v0.2 and mark sharing stay source-hash anchored; Beat Saber export remains a bounded external pack while dual-phone FOLD//BLOOM SABER is explicitly only a pinned playable target.",
+      "role": "Source-bundle cartographer for one exact audio identity. Local audio may be surrounded by origin, metadata, timed/untimed text, collection context and human BOOKMARK / FLAG / editable ARC marks without conflating those facets. fold-bloom-annotations/v0.2 now round-trips source-safe authored marks through SHARE/IMPORT and AUDIO MAP while preserving analysis authority. Beat Saber export remains a bounded external pack; FOLD//BLOOM SABER 0.1 is implemented as a distinct dual-phone WebRTC motion proof and remains gated on two-real-phone lived evidence.",
       "index": {
-        "updated_at": "2026-09-24T20:15:00+08:00",
+        "updated_at": "2026-09-25T11:39:46+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
@@ -2404,7 +2404,7 @@
       },
       "version": "0.6",
       "contract": "/control/FIELD_PULSE_CONTRACT.json",
-      "receipt": "/returns/FOLD_BLOOM_LISTEN_MARKS_SABER_CRYSTAL_2026-09-24.json",
+      "receipt": "/returns/FOLD_BLOOM_LISTEN_MARKS_ROUNDTRIP_2026-09-25.json",
       "transfer": [
         "field-addressed-stream/v0.1 generic address/aperture/pin law",
         "INTERPHASE 0.2 adapter: exact LISTEN source identity + ADDRESS/APERTURE exposed through the shared host",

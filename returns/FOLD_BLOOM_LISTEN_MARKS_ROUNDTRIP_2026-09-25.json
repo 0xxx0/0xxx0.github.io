@@ -1,0 +1,54 @@
+{
+  "schema": "return/v1",
+  "id": "FOLD_BLOOM_LISTEN_MARKS_ROUNDTRIP_2026-09-25",
+  "status": "SHIPPED",
+  "object": "FOLD//BLOOM LISTEN addressed annotation round-trip",
+  "state": "MARKS_V02_MERGED",
+  "delta": [
+    "ARC remains seeded by the current aperture but start/end are explicitly editable; NOW→START, NOW→END and USE APERTURE provide bounded adjustment without a new timeline.",
+    "MARKS opens the annotation collection instead of silently selecting the first mark; previous/next navigation traverses source-ordered marks.",
+    "fold-bloom-annotations/v0.2 carries exact source identity, bounded map/view witness and human-authored BOOKMARK/FLAG/ARC marks.",
+    "IMPORT MARKS accepts annotation packets, AUDIO MAP wrappers and addressed-message paths, requires exact source identity match, and merges by stable mark id.",
+    "AUDIO MAP export embeds the same annotation packet instead of a competing marks wrapper.",
+    "Share/import never carries source audio bytes and never mutates AUDIO MAP analysis.",
+    "REPLAY 0.2, SABER 0.1 and the bounded clean-phone audio example were preserved while the branch was reconciled against concurrent master changes.",
+    "Continuity docs now record REPLAY 0.2 as shipped, SABER 0.1 as implemented/waiting on real-device proof, and PWA/local-playlist plus VOICE follow-ups as parked recoverable continuations."
+  ],
+  "evidence": [
+    "/fold-bloom/listen/annotations.js",
+    "/fold-bloom/listen/tests/annotations.test.mjs",
+    "/fold-bloom/listen/",
+    "/fold-bloom/DESIGN.md",
+    "/fold-bloom/convergence/PRODUCT_ROADMAP_2026-09-25.md",
+    "/control/confluence/FOLD_BLOOM_THREAD_COLLAPSE_2026-09-24.md",
+    "https://github.com/0xxx0/0xxx0.github.io/pull/240"
+  ],
+  "verification": {
+    "public_surface_check": "PASS · run 36091138715",
+    "route_registration": "PASS · run 36091138806",
+    "listen_analysis_stream_lens": "PASS including annotations.test.mjs",
+    "real_mp3_phone_continuity": "PASS",
+    "replay_h1_and_replay_02_seam": "PASS",
+    "beat_saber_pack": "PASS",
+    "saber_dual_phone_core": "PASS",
+    "live_lab_ink_voice": "PASS",
+    "critical_browser_smoke": "PASS after updating the stale ARC-label expectation to the new editable-span contract"
+  },
+  "boundaries": [
+    "No semantic auto-labeling or embedding/vector database was introduced.",
+    "No new source store, session bus, backend or roadmap authority was introduced.",
+    "SABER gameplay remains unchanged until two-real-phone lived evidence exists.",
+    "PWA/local-playlist work remains future convenience over explicit user-selected files/folders/playlists and the existing local vault; it is not ambient access to private device libraries."
+  ],
+  "waiting": [
+    "REPLAY 0.2 lived message/share gate remains the current top Fold/Bloom next executable.",
+    "SABER 0.1 still needs two real phones for pairing/latency/motion feel.",
+    "VOICE 0.1 still needs direct singing/practice feedback before richer scoring or coaching.",
+    "PWA/local-playlist convenience remains pinned until re-entry/offline friction justifies implementation."
+  ],
+  "merge": {
+    "pr": 240,
+    "sha": "8a79e3824fb8fffb014c36118e41171ccd8e28f1"
+  },
+  "stop": "Do not add another annotation mode or SABER architecture layer. Use the shipped surfaces; change code from observed expression, re-entry, pairing or comprehension friction."
+}
