@@ -26,5 +26,10 @@
     "/physical/print-01/field-route-tile-v0.1.svg"
   ],
   "next": "Use one active REALITY GAP naturally. COPY TEST on phone if useful; perform one bounded world action; RETURN the smallest observed evidence. Revise only from actual friction.",
-  "stop": "Do not create a simulation-gap dashboard, duplicate queue, telemetry service or generalized test-management system."
+  "stop": "Do not create a simulation-gap dashboard, duplicate queue, telemetry service or generalized test-management system.",
+  "validation_repair": {
+    "issue": "Existing held-action selftest pinned FIELD root exactly to 0.8.7 and a single historical latest_return, preventing any later lawful root evolution.",
+    "correction": "Require root >=0.8.7, preserved held-action transfer evidence, and a dated FIELD_INDEX RETURN instead of one immutable version/receipt.",
+    "boundary": "Capability invariant preserved; test loosened only from historical identity to monotonic capability evidence."
+  }
 }
