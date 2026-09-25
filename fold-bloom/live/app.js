@@ -1,6 +1,6 @@
 import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, forecastRelease, forecastMatchesCall, callLabel, typePresentation, N } from './engine.js?v=0.13.1';
 import { FoldBloomAudio } from './audio.js';
-import { Renderer } from './render.js?v=0.13.3';
+import { Renderer } from './render.js?v=0.13.4';
 import { createFieldPulse, transportDescriptor } from '../../lib/field-pulse.js';
 import { LiveTrack } from './track.js';
 import { createSectionArc, syncSectionArc, observeSectionRelease, sectionArcLabel, sectionArcView } from './section-arc.js';
@@ -67,6 +67,17 @@ function applyRidePreset(name,announce=true){
   const x=RIDE_PRESETS[name];if(!x)return;
   rideProfile=normalizeRideProfile({...rideProfile,...x});saveRideProfile();if(announce)toast('EXPERIENCE · '+name);
 }
+const VIBE_ORDER=['CLEAR','DRIVE','TRANCE','SOFT'];
+function syncVibeQuick(){
+  const b=$('#vibeQuick');if(!b)return;
+  const p=ridePresetName();b.textContent='VIBE · '+(p==='CUSTOM'?'CUSTOM':p);
+  b.dataset.vibe=p;
+}
+function cycleVibe(){
+  stopDemo(true);
+  const current=ridePresetName(),i=VIBE_ORDER.indexOf(current),next=VIBE_ORDER[(i<0?0:i+1)%VIBE_ORDER.length];
+  applyRidePreset(next,true);renderer.setProfile(effectiveRideProfile());syncVibeQuick();update();
+}
 const practiceTrack=new PracticeTrack();
 const liveTrack=new LiveTrack($('#trackAudio'),{
   onState:t=>{trackStatus=t;update()},
@@ -107,6 +118,7 @@ function syncRideControls(){
   if($('#textSyncVal'))$('#textSyncVal').textContent=(rideProfile.textOffset>=0?'+':'')+rideProfile.textOffset.toFixed(2)+'s';
   const preset=ridePresetName();if($('#xpPresetRead'))$('#xpPresetRead').textContent=preset;
   document.querySelectorAll('[data-xp-preset]').forEach(b=>b.classList.toggle('on',b.dataset.xpPreset===preset));
+  syncVibeQuick();
   document.documentElement.dataset.foldBloomRideProfile=[rideProfile.solidity,rideProfile.immersion,rideProfile.dropGain,rideProfile.anticipation,rideProfile.motionGain,rideProfile.textOffset].map(x=>Number(x).toFixed(2)).join(':');
 }
 
@@ -462,10 +474,23 @@ cv.addEventListener('pointerdown',pointDown);cv.addEventListener('pointermove',p
 
 $('#releaseBtn').onclick=()=>{stopDemo(true);doRelease()};$('#modeBtn').onclick=()=>{stopDemo(true);toggleMode()};$('#sceneBtn').onclick=()=>{stopDemo(true);cycleScene()};
 $('#soundBtn').onclick=async()=>{if(!audio.ctx){await enableFieldAudio();return}audio.setSound(!audio.soundOn);syncSoundGate(false);update()};
-const setMenuOpen=open=>{const on=!!open;$('#settings').classList.toggle('on',on);document.body.classList.toggle('fbMenuOpen',on);if(on)$('#settings').scrollTop=0};$('#menuBtn').onclick=()=>setMenuOpen(!$('#settings').classList.contains('on'));$('#closeSettings').onclick=()=>setMenuOpen(false);
+const setMenuOpen=open=>{
+  const on=!!open,drawer=$('#settings');
+  drawer.classList.toggle('on',on);
+  document.documentElement.classList.toggle('fbMenuOpen',on);
+  document.body.classList.toggle('fbMenuOpen',on);
+  drawer.setAttribute('aria-hidden',on?'false':'true');
+  if(on)drawer.scrollTop=0;
+};
+$('#menuBtn').onclick=()=>setMenuOpen(!$('#settings').classList.contains('on'));
+const closeMenuEvent=e=>{e?.preventDefault?.();e?.stopPropagation?.();setMenuOpen(false)};
+$('#closeSettings').addEventListener('pointerdown',closeMenuEvent);
+$('#closeSettings').onclick=closeMenuEvent;
+$('#menuDismiss').addEventListener('pointerdown',closeMenuEvent);
+addEventListener('keydown',e=>{if(e.key==='Escape')setMenuOpen(false)});
 $('#vol').value=Math.round(audio.volume*100);$('#vol').oninput=e=>audio.setVolume(+e.target.value/100);
 $('#trackVol').value=Math.round($('#trackAudio').volume*100);$('#trackVol').oninput=e=>liveTrack.setVolume(+e.target.value/100);
-const chooseSong=()=>{stopDemo(true);setMenuOpen(false);$('#trackFile').click()};$('#trackLoad').onclick=chooseSong;$('#sourceQuick')?.addEventListener('click',chooseSong);$('#songIntroBtn').onclick=()=>{stopDemo(false);setMenuOpen(false);$('#trackFile').click()};
+const chooseSong=()=>{stopDemo(true);setMenuOpen(false);$('#trackFile').click()};$('#trackLoad').onclick=chooseSong;$('#sourceQuick')?.addEventListener('click',chooseSong);$('#vibeQuick')?.addEventListener('click',cycleVibe);$('#songIntroBtn').onclick=()=>{stopDemo(false);setMenuOpen(false);$('#trackFile').click()};
 $('#publicDemoBtn')?.addEventListener('click',()=>{void enterPublicDemo()});$('#publicDemoSettingsBtn')?.addEventListener('click',()=>{void enterPublicDemo()});
 $('#centerMassBtn')?.addEventListener('click',()=>{void enterCenterMass()});$('#centerMassSettingsBtn')?.addEventListener('click',()=>{void enterCenterMass()});
 $('#vaultOpen')?.addEventListener('click',()=>{void openVaultSource()});

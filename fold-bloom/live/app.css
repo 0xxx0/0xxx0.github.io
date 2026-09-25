@@ -38,6 +38,18 @@ button,input{font:inherit;color:inherit}button{border:1px solid var(--line);back
 
 /* 0.5.3 source intake / mobile drawer repair */
 .sourceQuick{position:absolute;left:12px;bottom:calc(max(12px,env(safe-area-inset-bottom)) + 72px);z-index:32;min-width:112px;height:42px;padding:0 11px;font-size:8px;font-weight:1000;letter-spacing:.08em;background:rgba(6,9,14,.94);border-color:rgba(255,255,255,.55);backdrop-filter:blur(8px);pointer-events:auto}
-body.fbMenuOpen{touch-action:pan-y}
+html.fbMenuOpen,body.fbMenuOpen{touch-action:pan-y}
 .drawer{-webkit-overflow-scrolling:touch}
 @media(max-width:620px){.sourceQuick{left:8px;bottom:calc(max(8px,env(safe-area-inset-bottom)) + 66px);height:44px;min-width:118px}.drawer{z-index:120;overflow-y:scroll;overflow-x:hidden;overscroll-behavior-y:contain;touch-action:pan-y;-webkit-overflow-scrolling:touch}.drawer .drawerHead{position:sticky;top:-12px;z-index:3;background:rgba(6,9,14,.99);padding:12px 0 8px;border-bottom:1px solid var(--line)}.drawer .control:first-of-type{margin-top:8px}}
+
+/* phone menu escape + active-experience quick controls */
+.menuDismiss{position:absolute;inset:0;z-index:119;display:none;border:0;background:rgba(0,0,0,.18);padding:0}
+html.fbMenuOpen .menuDismiss{display:block}
+html.fbMenuOpen .drawer{display:block}
+.drawerHead #closeSettings{min-width:52px;min-height:44px;font-size:0;border-color:rgba(255,255,255,.52);background:rgba(5,8,12,.98);pointer-events:auto}
+.drawerHead #closeSettings:after{content:'×';font-size:24px;line-height:1}
+.leftQuick{position:absolute;left:12px;bottom:calc(max(12px,env(safe-area-inset-bottom)) + 72px);z-index:32;display:flex;flex-direction:column;gap:5px;pointer-events:auto}
+.leftQuick .sourceQuick,.leftQuick .vibeQuick{position:static;min-width:118px;height:40px;padding:0 10px;font-size:7.5px;font-weight:1000;letter-spacing:.08em;background:rgba(6,9,14,.94);backdrop-filter:blur(8px)}
+.leftQuick .sourceQuick{border-color:rgba(255,255,255,.55)}
+.leftQuick .vibeQuick{border-color:rgba(109,189,255,.42);color:#d8edff}
+@media(max-width:620px){.leftQuick{left:8px;bottom:calc(max(8px,env(safe-area-inset-bottom)) + 66px);gap:4px}.leftQuick .sourceQuick,.leftQuick .vibeQuick{height:42px;min-width:120px}.drawerHead #closeSettings{min-width:50px;min-height:50px}}
