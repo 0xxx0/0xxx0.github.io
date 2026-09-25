@@ -214,7 +214,11 @@ check(daylineApp.includes("atlas-dayline-feedback/v0.2")&&daylineApp.includes("a
 check(daylineBridge.includes("atlas-dayline-handoff/v0.1")&&daylineBridge.includes('REALITY PORT / EXPLICIT EPHEMERAL HANDOFF'),'Atlas Dayline lost current REALITY PORT handoff');
 check(daylineBridge.includes('COPY HANDOFF')&&daylineBridge.includes('fl-compact')&&daylineBridge.includes("api().snapshot()"),'Atlas Dayline mobile LIVE contraction/context capture regressed');
 check(/#utilityBar button\{min-height:38px/.test(daylineCss)&&/\.plain-actions button\{min-height:38px/.test(daylineCss),'Atlas Dayline mobile primary target floor regressed');
-check(daylineSw.includes("atlas-dayline-i-v4"),'Atlas Dayline mobile action cache version not v4');
+check(/body\[data-projection="plain"\]\{overflow-y:auto/.test(daylineCss),'Atlas Dayline mobile PLAIN scroll lock regressed');
+check(daylineApp.includes("syncDeviceNow")&&daylineApp.includes("clockWitness")&&daylineApp.includes("ORIENTATION_SNAPSHOT"),'Atlas Dayline clock/return truth witness regressed');
+check(daylineSw.includes("atlas-dayline-i-v5"),'Atlas Dayline mobile reach cache version not v5');
+const showcaseNav=read('showcase-nav.js');
+check(/@media\(max-width:820px\)/.test(showcaseNav)&&/\.tab\.nav\{left:auto;right:/.test(showcaseNav),'Shared mobile route adapter returned to bottom-left obstruction');
 const home=read('index.html');
 const fi=fiContract;
 check(!!fi,'FIELD INDEX contract missing/unreadable');
