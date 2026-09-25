@@ -41,6 +41,8 @@ jobs:
         run: node spikes/003-one-instrument/selftest.mjs
       - name: Validate shared INTERPHASE host laws
         run: node tools/interphase-selftest.cjs
+      - name: Validate SPIKE 005 / expression transcript
+        run: node spikes/005-expression-transcript/selftest.mjs
       - name: Validate INTERPHASE successor handoff
         run: node tools/interphase-successor-selftest.cjs
       - name: Validate shared INTERPHASE glyph laws
