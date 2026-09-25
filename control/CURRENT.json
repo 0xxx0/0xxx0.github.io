@@ -54,13 +54,15 @@
   "current_heads": [
     {
       "lineage": "field-index",
-      "head": "FIELD INDEX 0.8.4 / LOCAL CATCH-UP + COMPACT ADDRESSED GLYPH RAILS + INDEX↔GIT DRIFT + Φ/φ",
+      "head": "FIELD INDEX 0.8.5 / ⚑ BELAY + LOCAL CATCH-UP + ADDRESSED FOCUS + INDEX↔GIT DRIFT",
       "state": "CORE_ACTIVE",
       "route": "/",
-      "retained_function": "Fast repo re-entry around one manifest route identity. CURRENT solely owns active human/world gates; WAITING preserves parked/removed dependency memory. ROUTES / FIELD SURFACE remains the addressed manifest projection; HEADS and PORTS now compress repeated addressed entries into the same glyph grammar while WAITING keeps the irreducible human move visible and ISSUES remain textual. Nested routes return through existing manifest hosts rather than leaking every donor/tool onto root. Timestamps expose INDEX↔GIT drift against exact HEAD; CHANGE / GIT remains literal mutation evidence. Φ marks host/authority; φ marks addressed focus.",
+      "retained_function": "Fast repo re-entry around one addressed object. ⚑ BELAY reuses ORIENTATION.anchor + CURRENT.active_fronts + exact Git HEAD as the single re-entry hold; it creates no second state store. CURRENT solely owns attention/human-world gates; manifest owns addressed route projection; Git owns literal mutation chronology; φ remains the local addressed focus. CATCH UP stays browser-local. Routes/chrome remain secondary to object → lawful operation → witness → RETURN.",
       "evidence": [
-        "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
-      ]
+        "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
+        "/returns/FIELD_BELAY_2026-09-25.json"
+      ],
+      "version": "0.8.5"
     },
     {
       "lineage": "scale-lens",
@@ -76,7 +78,8 @@
         "/control/LENS_FI_TOOLGLASS_G2_2026-09-21.json",
         "/control/LENS_G2_HARDENING_RETURN_2026-09-21.json",
         "/control/LENS_REAL_USE_RETURN_2026-09-22.json"
-      ]
+      ],
+      "version": "RC11.2 + actualize-1"
     },
     {
       "lineage": "rsvp-reader",
@@ -127,14 +130,16 @@
         "status": "PASS",
         "alias_focus_probe": "PASS · WORD index 6 · 777 WPM · ORP char remained inside addressed word span"
       },
-      "merge_sha": "49e1b27f7db26298c6de107fda1fe4f09d31e515"
+      "merge_sha": "49e1b27f7db26298c6de107fda1fe4f09d31e515",
+      "version": "0.8.4"
     },
     {
       "lineage": "path-poetry",
-      "head": "POEM MAP 0.2.1 / VERSE",
+      "head": "POEM MAP 0.2.2 / VERSE",
       "state": "ACTIVE_CANDIDATE",
       "route": "/poetry/map/",
-      "retained_function": "Current language/verse authoring experiment: FIELD NOW or user source → readable PAGE → selected-token golden-angle focus wheel → small contextual possibility set → TRY→ADOPT/LOCK with revision ancestry → optional MAP/SETS/path/form/Aperture depth → replayable RETURN. General work language is a valid source; Jueju remains a specialist adapter in sealed Verse Atlas."
+      "retained_function": "Current language/verse authoring experiment: FIELD NOW or user source → readable PAGE → selected-token golden-angle focus wheel → small contextual possibility set → TRY→ADOPT/LOCK with revision ancestry → optional MAP/SETS/path/form/Aperture depth → replayable RETURN. General work language is a valid source; Jueju remains a specialist adapter in sealed Verse Atlas.",
+      "version": "0.2.2"
     },
     {
       "lineage": "sleeper-one-return",
@@ -154,7 +159,8 @@
         "https://sleeper-one-return.metaname.chatgpt.site/"
       ],
       "last_return": "/returns/SLEEPER_RUNTIME_CONVERGENCE_2026-09-22.json",
-      "correction": "ASCII Sleeper POV 0.8 remains a preserved derivative, not current authority. The canonical /sleeper/ entry now resolves to the recovered live ONE RETURN runtime; the exact source shelf remains source authority."
+      "correction": "ASCII Sleeper POV 0.8 remains a preserved derivative, not current authority. The canonical /sleeper/ entry now resolves to the recovered live ONE RETURN runtime; the exact source shelf remains source authority.",
+      "version": "v2-era / City Engine v0.2"
     },
     {
       "lineage": "fold-bloom",
@@ -360,14 +366,16 @@
         ],
         "law": "Do not expand into a DAW, backend shortener, social platform or universal session bus without direct-use evidence."
       },
-      "latest_merge": "8a79e3824fb8fffb014c36118e41171ccd8e28f1"
+      "latest_merge": "8a79e3824fb8fffb014c36118e41171ccd8e28f1",
+      "version": "0.1.2"
     },
     {
       "lineage": "axial",
       "head": "AXIAL / FOCUS STACK 0.7.3",
       "state": "ACTIVE",
       "route": "/foundry/axial/",
-      "retained_function": "Unequal cyclic vocabularies × fixed gate + moving position witness + lawful support + persistent overview → oriented source aperture. A selected FIELD route or HOUSE anchor can now cross a session-local TRACE handoff into FIELD without conflating address/focus with authority."
+      "retained_function": "Unequal cyclic vocabularies × fixed gate + moving position witness + lawful support + persistent overview → oriented source aperture. A selected FIELD route or HOUSE anchor can now cross a session-local TRACE handoff into FIELD without conflating address/focus with authority.",
+      "version": "0.7.3"
     },
     {
       "lineage": "comms",
@@ -386,7 +394,8 @@
         "/returns/ATLAS_DAYLINE_MOBILE_ACTION_2026-09-25.json",
         "/control/confluence/REALITY_LOOP_HERMES_2026-09-25.md",
         "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md"
-      ]
+      ],
+      "version": "1.6.0-preview"
     },
     {
       "lineage": "atlas-dayline",
@@ -412,145 +421,169 @@
           "After acting, does RETURN/COPY HANDOFF preserve enough evidence to recover the native source and choose the next move?"
         ],
         "law": "One lived handoff first. Do not add another adapter, route layer or source mutation until the continuity loop earns use."
-      }
+      },
+      "version": "Branch I + FIELD LIVE 0.2.1 / REALITY PORTS / MOBILE ACTION"
     },
     {
       "lineage": "house-spatial",
-      "head": "HOUSE / SPATIAL 0.6 + HOUSE / FIELD 0.5",
+      "head": "HOUSE / SPATIAL 0.6.1 + HOUSE / FIELD 0.5.1",
       "state": "ACTIVE",
       "route": "/house/spatial/",
-      "retained_function": "One addressed physical substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS. HA/HOUSEBUS retains device truth and actuation. BODY/FIELD may attach context; BODY / FIT 0.3 projects fitted modules, structured sensor data, purpose loadouts and non-punitive RETURN/PATINA without importing HOUSE authority."
+      "retained_function": "One addressed physical substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS. HA/HOUSEBUS retains device truth and actuation. BODY/FIELD may attach context; BODY / FIT 0.3 projects fitted modules, structured sensor data, purpose loadouts and non-punitive RETURN/PATINA without importing HOUSE authority.",
+      "version": "0.6.1"
     },
     {
       "lineage": "shopping-field",
-      "head": "SHOPPING FIELD 0.1 / FI-SHOP-001",
+      "head": "SHOPPING FIELD 0.2 / FI-SHOP-001",
       "state": "ACTIVE_ADAPTER",
       "route": "/shopping/",
-      "retained_function": "Capability gap/listing/receipt → freshness + landed SGD + explicit purchase gate + lifecycle → bounded research packet / BOM / inventory candidate / explicit non-action. Personal state remains local/private; money and seller contact remain human actions."
+      "retained_function": "Procurement/resource adapter: capability gap or market curiosity → evidence → decision → receipt → test → adoption. ESSENTIAL / CAPABILITY / EXPEDITION preserve realistic need, named build gap and bounded exploratory sourcing without conflating curiosity with purchase intent. Selected next action may hand explicitly to Dayline; money movement, seller contact and ownership promotion remain human-authorized.",
+      "version": "0.2"
     },
     {
       "lineage": "triangle",
       "head": "TRIANGLE 1.0 · GLYPH / FORM / POWER / BENCH",
       "state": "ACTIVE",
       "route": "/forward-field-proof/triangle/",
-      "retained_function": "One small geometry with distinct lawful projections: eight-locus relational compression, executable one-mark CALL/CROSS FORM rewriting, missing-corner power/log/root notation, and direct simplex manipulation; all share address/state/RETURN without claiming formal equivalence."
+      "retained_function": "One small geometry with distinct lawful projections: eight-locus relational compression, executable one-mark CALL/CROSS FORM rewriting, missing-corner power/log/root notation, and direct simplex manipulation; all share address/state/RETURN without claiming formal equivalence.",
+      "version": "1.0"
     }
   ],
   "donors_and_holds": [
     {
-      "name": "Living Field / CYCLIC-3/10",
-      "state": "QUARRY",
-      "rule": "mine mechanisms; do not promote as current head"
+      "name": "PATH / VERSE / CITY QUARRY",
+      "state": "GROUPED_DONOR",
+      "members": [
+        {
+          "name": "Foundry Cabinet V4 / exact path-grid family",
+          "state": "FROZEN_DONOR_FAMILY",
+          "route": "/recovery/path-grid/"
+        },
+        {
+          "name": "Fold/Bloom Fold Weave 0.1",
+          "state": "FROZEN_DONOR",
+          "route": "/recovery/fold-bloom/fold-weave-0.1/"
+        },
+        {
+          "name": "SLEEPER WORKFIELD v1.2",
+          "state": "FROZEN_EXACT_DONOR",
+          "route": "/recovery/sleeper/workfield-v1.2/"
+        }
+      ],
+      "rule": "Mine path/topology/compile/return mechanics only for a named gap in Verse, Sleeper, Foundry or another current head; never revive the donor as a competing project."
     },
     {
-      "name": "Fold/Bloom RC11.3 and Forward Field variants",
-      "state": "HOLD/DONOR",
-      "rule": "recover exact mechanisms only when a current head needs them"
+      "name": "PROJECTION / INTERFACE QUARRY",
+      "state": "GROUPED_DONOR",
+      "members": [
+        {
+          "name": "LAW ZOO / FIVE MACHINES",
+          "state": "FROZEN_EXECUTABLE_DONOR_FAMILY",
+          "route": "/law-zoo/"
+        },
+        {
+          "name": "AXIAL v0.3 + Compositor v0.2",
+          "state": "FROZEN_EXACT_DONOR_FAMILY",
+          "route": "/recovery/axial/"
+        },
+        {
+          "name": "DataDisc 2019",
+          "state": "FROZEN_EXACT_HISTORICAL_DONOR",
+          "route": "/recovery/media/datadisc/datadisc.html"
+        },
+        {
+          "name": "POLY / FURNISHER 2019–2021",
+          "state": "FROZEN_EXACT_CORE_EVIDENCE_FAMILY",
+          "route": "/recovery/poly-furnisher/"
+        },
+        {
+          "name": "FU ROOM / INTERPHASE ROOM LINEAGE",
+          "state": "FROZEN_EXACT_DONOR_FAMILY",
+          "route": "/recovery/poly-furnisher/room-lineage/"
+        },
+        {
+          "name": "INTERPHASE / CYLINDER 2019–2020",
+          "state": "FROZEN_EXACT_VARIANT_FAMILY",
+          "route": "/recovery/poly-furnisher/interphase-lineage/"
+        },
+        {
+          "name": "KALA / DESKTOP CHARACTER 2018–2020",
+          "state": "FROZEN_EXACT_AGENT_INTERFACE_FAMILY",
+          "route": "/recovery/kala/"
+        }
+      ],
+      "rule": "Mine tiny laws, projection, spatial host, agent-interface and physical-control mechanics. Recipient owns truth; donor never self-promotes."
     },
     {
-      "name": "Center Mass 0.3",
-      "state": "DONOR",
-      "rule": "Useful control direction already absorbed elsewhere; retained under Triangle lineage as a donor, not a competing active selector."
+      "name": "HOUSE / PHYSICAL QUARRY",
+      "state": "GROUPED_DONOR",
+      "members": [
+        {
+          "name": "HOUSE / FIELD (house-field-v01 @ 89ac69c)",
+          "state": "SUPERSEDED_DONOR_ABSORBED",
+          "route": "branch: house-field-v01"
+        },
+        {
+          "name": "ENV-0 / BODY ↔ HOUSE",
+          "state": "PARTIAL_EXACT_DONOR",
+          "route": "/recovery/env0/"
+        },
+        {
+          "name": "HOUSE FRONTIER / Open Hardware + Robotics + XR + Motion-Tool",
+          "state": "PARKED_REOPENABLE_DONOR",
+          "route": "/control/confluence/HOUSE_FRONTIER.md"
+        },
+        {
+          "name": "HOUSE OS FIELD SYSTEM v1.1 / MARKS",
+          "state": "CONFLUENCE_DONOR / PROOF_REQUIRED",
+          "route": "/control/confluence/HOUSE_MARKS.md"
+        }
+      ],
+      "rule": "Reopen only from a named HOUSE/AXIAL physical capability gap. Prefer print/mark/sensing/geometry transfer and bounded physical RETURN; no parallel registry/runtime."
     },
     {
-      "name": "Surface Bank",
-      "state": "RETIRED/DONOR",
-      "rule": "do not revive as a competing surface"
+      "name": "CONTROL / PROOF QUARRY",
+      "state": "GROUPED_DONOR",
+      "members": [
+        {
+          "name": "Center Mass 0.3",
+          "state": "DONOR",
+          "route": null
+        },
+        {
+          "name": "Surface Bank",
+          "state": "RETIRED/DONOR",
+          "route": null
+        },
+        {
+          "name": "Singapore Law Game R0",
+          "state": "DONOR",
+          "route": null
+        },
+        {
+          "name": "Triangle Bench 0.1",
+          "state": "PARKED_EXACT_DONOR",
+          "route": "/forward-field-proof/triangle/bench/"
+        }
+      ],
+      "rule": "Mine selection, CASE/evidence, calibration and control mechanics only when an active host lacks them; otherwise keep parked."
     },
     {
-      "name": "Singapore Law Game R0",
-      "state": "DONOR",
-      "rule": "CASE/evidence mechanics may transfer; not an active front"
-    },
-    {
-      "name": "Triangle Bench 0.1",
-      "state": "PARKED_EXACT_DONOR",
-      "rule": "Exact pre-unification calibration fixture preserved; resume only for a named comparison/proof need.",
-      "route": "/forward-field-proof/triangle/bench/"
-    },
-    {
-      "name": "Foundry Cabinet V4 / exact path-grid family",
-      "state": "FROZEN_DONOR_FAMILY",
-      "route": "/recovery/path-grid/",
-      "rule": "compare mechanisms against Verse Atlas/Foundry; transfer only missing capability"
-    },
-    {
-      "name": "Fold/Bloom Fold Weave 0.1",
-      "state": "FROZEN_DONOR",
-      "route": "/recovery/fold-bloom/fold-weave-0.1/",
-      "rule": "one canonical exact copy; duplicate collapsed; mechanism diff only"
-    },
-    {
-      "name": "HOUSE / FIELD (house-field-v01 @ 89ac69c)",
-      "state": "SUPERSEDED_DONOR_ABSORBED",
-      "route": "branch: house-field-v01",
-      "rule": "Preserve branch as provenance donor. Its whitelist/sanitization/runtime-snapshot mechanisms are absorbed into current /house/ 0.4; do not merge the stale branch wholesale. Current HOUSE/SPATIAL head is /house/spatial/."
-    },
-    {
-      "name": "LAW ZOO / FIVE MACHINES",
-      "state": "FROZEN_EXECUTABLE_DONOR_FAMILY",
-      "route": "/law-zoo/",
-      "rule": "Exact five-machine suite imported. Keep children unequal; transplant specific tiny-law mechanisms only when a current head has a named missing function. Confluence context remains /control/confluence/LAW_ZOO.md."
-    },
-    {
-      "name": "ENV-0 / BODY ↔ HOUSE",
-      "state": "PARTIAL_EXACT_DONOR",
-      "route": "/recovery/env0/",
-      "rule": "Editable SVG masters + README frozen exactly; PDF atlas/build sheet exact bytes located but repo byte-copy pending. Use as print/physical RETURN donor, not as a new app."
-    },
-    {
-      "name": "SLEEPER WORKFIELD v1.2",
-      "state": "FROZEN_EXACT_DONOR",
-      "route": "/recovery/sleeper/workfield-v1.2/",
-      "rule": "Sibling donor only; current /sleeper/ stays head. City and later Painting source are separately recovered in the 2026-09-21 receipt; Workfield is not their identity basis."
-    },
-    {
-      "name": "AXIAL v0.3 + Compositor v0.2",
-      "state": "FROZEN_EXACT_DONOR_FAMILY",
-      "route": "/recovery/axial/",
-      "rule": "Keep harness/print packet version-distinct; transfer only named missing capability or use as physical-return fixture."
-    },
-    {
-      "name": "DataDisc 2019",
-      "state": "FROZEN_EXACT_HISTORICAL_DONOR",
-      "route": "/recovery/media/datadisc/datadisc.html",
-      "rule": "Golden radial/multichannel projection fixture; compare mechanisms, do not modernize by default."
-    },
-    {
-      "name": "POLY / FURNISHER 2019–2021",
-      "state": "FROZEN_EXACT_CORE_EVIDENCE_FAMILY",
-      "route": "/recovery/poly-furnisher/",
-      "rule": "KRAKEN/proto-kernel/source notes are exact fossils; later survey is interpretive evidence. New work may mine mechanisms but must not overwrite the originals."
-    },
-    {
-      "name": "FU ROOM / INTERPHASE ROOM LINEAGE",
-      "state": "FROZEN_EXACT_DONOR_FAMILY",
-      "route": "/recovery/poly-furnisher/room-lineage/",
-      "rule": "Three exact fossils; room is projection/testbed, not kernel. Duplicate families collapsed before promotion."
-    },
-    {
-      "name": "HOUSE FRONTIER / Open Hardware + Robotics + XR + Motion-Tool",
-      "state": "PARKED_REOPENABLE_DONOR",
-      "route": "/control/confluence/HOUSE_FRONTIER.md",
-      "rule": "Reopen only from a named HOUSE/AXIAL capability gap or bounded physical proof need. Import mechanisms, not a new project or shopping queue."
-    },
-    {
-      "name": "INTERPHASE / CYLINDER 2019–2020",
-      "state": "FROZEN_EXACT_VARIANT_FAMILY",
-      "route": "/recovery/poly-furnisher/interphase-lineage/",
-      "rule": "Three exact representatives; duplicate backups collapsed. Later Interphase descendants remain separate. Do not treat this as Painting/City recovery."
-    },
-    {
-      "name": "KALA / DESKTOP CHARACTER 2018–2020",
-      "state": "FROZEN_EXACT_AGENT_INTERFACE_FAMILY",
-      "route": "/recovery/kala/",
-      "rule": "Preserve exact browser-character/room variants. Interface evidence only; wider desktop-pet lineage remains open."
-    },
-    {
-      "name": "HOUSE OS FIELD SYSTEM v1.1 / MARKS",
-      "state": "CONFLUENCE_DONOR / PROOF_REQUIRED",
-      "route": "/control/confluence/HOUSE_MARKS.md",
-      "rule": "Physical glyph/type/color/position/fold/light + Interface Tile test harness may graft into HOUSE/SPATIAL. Reuse canonical FIELD/HOUSE identity; no parallel registry or runtime authority. Promote MARK only after a bounded physical RETURN beats PLAIN/control."
+      "name": "DEEP HISTORICAL QUARRY",
+      "state": "GROUPED_DONOR",
+      "members": [
+        {
+          "name": "Living Field / CYCLIC-3/10",
+          "state": "QUARRY",
+          "route": null
+        },
+        {
+          "name": "Fold/Bloom RC11.3 and Forward Field variants",
+          "state": "HOLD/DONOR",
+          "route": null
+        }
+      ],
+      "rule": "Deep fossil source. Recover exact mechanisms on demand; never create ambient archaeology or a new front."
     }
   ],
   "recovery_targets": [
@@ -997,5 +1030,16 @@
     "unified_instrument_pivot": "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md",
     "unified_interface_capability_tree": "/control/confluence/UNIFIED_INTERFACE_CAPABILITY_TREE_2026-09-25.md"
   },
-  "last_field_index_tzimtzum": "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json"
+  "last_field_index_tzimtzum": "/returns/FIELD_INDEX_TZIMTZUM_2026-09-25.json",
+  "field_belay": {
+    "schema": "field-belay/v0.1",
+    "source_anchor": "/control/ORIENTATION.json#anchor",
+    "attention": "/control/CURRENT.json#active_fronts",
+    "mutation_truth": "exact Git HEAD",
+    "local_focus": "φ / manifest route identity",
+    "return": "/",
+    "law": "WHEN LOST: return to / → read ⚑ BELAY → hold one object → execute one bounded move → witness consequence → RETURN.",
+    "authority": "DERIVED / NONE"
+  },
+  "last_field_belay": "/returns/FIELD_BELAY_2026-09-25.json"
 }
