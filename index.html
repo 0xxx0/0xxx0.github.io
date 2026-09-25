@@ -132,7 +132,7 @@ html[data-density="COMPACT"] .axisToken.route{width:112px}html[data-density="COM
 </section>
 
 <section class="section routeSurface" id="latest">
-  <div class="sectionHead"><div><b>ROUTES / LIVE SURFACE</b><span id="feedMeta">manifest projection · loading…</span></div><span class="tiny">φ focus · second click opens</span></div>
+  <div class="sectionHead"><div><b>ROUTES / FIELD SURFACE</b><span id="feedMeta">manifest projection · loading…</span></div><span class="tiny">φ focus · second click opens</span></div>
   <div class="feedRail" id="feedRail"></div>
   <div class="feedMore"><span>Addressed surfaces first. Exact Git change and glyph grammar stay attached below, closed until needed.</span><button id="moreLatest">SHOW ALL</button></div>
 
@@ -269,7 +269,17 @@ function supportFor(a,v){
  )
 }
 function axisPosition(values,index){const n=Math.max(0,(values||[]).length),i=n?((Number(index)%n+n)%n):0;return{index:i,label:n?String(i+1).padStart(String(n).length,'0')+'/'+n:'0/0'}}
-function shortTs(t){ if(!t) return ''; const m=String(t).match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/); return m? (m[2]+'-'+m[3]+' '+m[4]+':'+m[5]) : String(t).slice(0,16); }
+function tsMs(t){const n=Date.parse(t);return Number.isFinite(n)?n:0}
+function shortTs(t){if(!t)return'';const raw=String(t);if(/^\d{4}-\d{2}-\d{2}$/.test(raw))return raw.slice(5);const d=new Date(raw);if(!Number.isFinite(d.getTime()))return raw.slice(0,16);const p=n=>String(n).padStart(2,'0');return p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())}
+function shortDay(t){if(!t)return'';const raw=String(t);if(/^\d{4}-\d{2}-\d{2}$/.test(raw))return raw.slice(5).replace('-','·');const d=new Date(raw);if(!Number.isFinite(d.getTime()))return raw.slice(0,10);const p=n=>String(n).padStart(2,'0');return p(d.getMonth()+1)+'·'+p(d.getDate())}
+function routeIndexClock(){return latest[0]?.index?.updated_at||''}
+function routeGitDrift(){
+ const it=routeIndexClock(),gt=repoTouches[0]?.date;if(!it)return'INDEX —';if(!gt)return'INDEX '+shortTs(it)+' · GIT ?';
+ const dm=tsMs(gt)-tsMs(it),mins=Math.round(Math.abs(dm)/60000);
+ if(Math.abs(dm)<60000)return'INDEX '+shortTs(it)+' · GIT ≈';
+ const span=mins<60?mins+'m':mins<1440?Math.round(mins/60)+'h':Math.round(mins/1440)+'d';
+ return'INDEX '+shortTs(it)+' · '+(dm>0?'GIT +'+span:'INDEX +'+span);
+}
 function tokenHTML(a,v,maxSup){
  const on=selectedValue(a)===v,sup=supportFor(a,v),cl=(on?'on ':'')+(sup?'live':'dead'),pct=maxSup?Math.round(sup/maxSup*100):0,bar='<i class="supportBar" style="width:'+pct+'%"></i>';
  if(a.key==='route'){const r=routeMap().get(v);return'<button class="axisToken route '+cl+'" data-axis="route" data-value="'+esc(v)+'">'+routeGlyph(r,25)+'<span class="tokTxt">'+esc(r?.title||v)+'<span class="sub">'+esc(shortTs(r?.index?.updated_at))+(sup?'':' · dead')+'</span></span>'+bar+'</button>'}
@@ -337,19 +347,19 @@ function renderSyncLine(){
 }
 function routeForRepoFile(path){
  const raw=String(path||'').replace(/^\/+/,''),p='/'+raw;
- const hits=routes.filter(r=>r.href&&r.href!=='/'&&(p===r.href.replace(/\/$/,'')||p.startsWith(r.href))).sort((a,b)=>b.href.length-a.href.length);
- if(hits[0])return{label:hits[0].href,href:hits[0].href,shared:false};
+ const hits=routes.filter(r=>r.href&&r.href!=='/'&&(p===r.href.replace(/\/$/,'')||p.startsWith(r.href))).sort((a,b)=>b.href.length-a.href.length),hit=hits[0]||null;
  if(raw==='index.html'||raw==='showcase-manifest.json'||/^field-|^lens-state\.js$|^policy-/.test(raw))return{label:'/',href:'/',shared:false};
- if(/^control\//.test(raw))return{label:'Φ control',href:'/control/',shared:true};
- if(/^returns\//.test(raw))return{label:'↩ return',href:'/returns/',shared:true};
+ if(/^control\//.test(raw))return{label:'Φ '+(hit?.href||'control'),href:hit?.href||'/control/',shared:true};
+ if(/^returns\//.test(raw))return{label:'↩ '+(hit?.href||'return'),href:hit?.href||'/returns/',shared:true};
  if(/^(?:lib|scripts|tools|\.github)\//.test(raw))return{label:'shared / repo',href:null,shared:true};
+ if(hit)return{label:hit.href,href:hit.href,shared:false};
  return{label:'repo',href:null,shared:true};
 }
 function renderCommitFiles(sha){
  const box=document.querySelector('[data-touch-files="'+sha+'"]'),c=repoTouchFiles.get(sha);if(!box)return;
  if(!c){box.innerHTML='<div class="touchFail">loading exact changed paths…</div>';return}
  if(c.error){box.innerHTML='<div class="touchFail">Exact changed paths unavailable for this commit.</div>';return}
- const files=c.files||[],targets=files.map(f=>routeForRepoFile(f.filename)),routeCount=new Set(targets.filter(t=>t.href&&t.href!=='/control/'&&t.href!=='/returns/').map(t=>t.href)).size,shared=targets.filter(t=>t.shared).length;
+ const files=c.files||[],targets=files.map(f=>routeForRepoFile(f.filename)),routeCount=new Set(targets.filter(t=>t.href&&!t.shared).map(t=>t.href)).size,shared=targets.filter(t=>t.shared).length;
  box.innerHTML='<div class="touchImpact">'+files.length+' files · '+routeCount+' addressed route'+(routeCount===1?'':'s')+' · '+shared+' shared/control/return touch'+(shared===1?'':'es')+'</div>'+
  files.map((f,i)=>{const t=targets[i],tag=t.href?'<a class="touchRouteTag '+(t.shared?'shared':'')+'" href="'+esc(t.href)+'">'+esc(t.label)+'</a>':'<span class="touchRouteTag shared">'+esc(t.label)+'</span>';return '<div class="touchFile"><code title="'+esc(f.filename)+'">'+esc(f.filename)+'</code>'+tag+'</div>'}).join('')+
  '<a class="touchCommitLink" href="'+esc(c.url)+'" target="_blank" rel="noopener">COMMIT ↗</a>';
@@ -383,10 +393,10 @@ async function loadRepoTouches(){
 }
 function renderFeed(){
  const xs=latest.slice(0,latestLimit),parts=[];let lastDay='';
- $('feedMeta').textContent=xs.length+' shown · '+routes.length+' addressed · manifest '+(manifest?.updated||'—')+' · newest '+(shortTs(xs[0]?.index?.updated_at)||'—');
+ $('feedMeta').textContent=xs.length+' shown · '+routes.length+' addressed · '+routeGitDrift();
  for(const r of xs){
-   const d=String(r.index?.updated_at||'').slice(0,10);
-   if(d&&d!==lastDay){parts.push('<span class="feedDay" title="manifest date '+esc(d)+'">'+esc(d.slice(5).replace('-','·'))+'</span>');lastDay=d}
+   const d=shortDay(r.index?.updated_at||'');
+   if(d&&d!==lastDay){parts.push('<span class="feedDay" title="manifest index day '+esc(d)+'">'+esc(d)+'</span>');lastDay=d}
    const lab=[r.title||r.href,r.href,d,r.state||'—',modesOf(r).join('/')].filter(Boolean).join(' · ');
    parts.push('<button class="feedChip '+(focus?.href===r.href?'on':'')+'" data-href="'+esc(r.href)+'" title="'+esc(lab)+'" aria-label="'+esc(lab)+'">'+routeGlyph(r,20)+'<tt>'+esc(window.FieldGlyph?FieldGlyph.mnemonic(r):'')+'</tt></button>');
  }
