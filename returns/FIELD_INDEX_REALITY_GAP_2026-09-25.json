@@ -33,5 +33,12 @@
     "issue": "Existing held-action selftest pinned FIELD root exactly to 0.8.7 and a single historical latest_return, preventing any later lawful root evolution.",
     "correction": "Require root >=0.8.7, preserved held-action transfer evidence, and a dated FIELD_INDEX RETURN instead of one immutable version/receipt.",
     "boundary": "Capability invariant preserved; test loosened only from historical identity to monotonic capability evidence."
-  }
+  },
+  "validation_repairs": [
+    {
+      "issue": "Static public validator pinned the old ACTIVE / NEEDS YOUR EVIDENCE wording even though ACTIVE/PARKED/HISTORY lifecycle semantics were preserved.",
+      "correction": "Require REALITY GAP / YOU plus the active world-evidence state and the existing PARKED / HISTORY split; accept the old active label only for backward compatibility.",
+      "boundary": "Lifecycle structure remains mandatory; only presentation wording evolves."
+    }
+  ]
 }
