@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "VERSE_COPILOT_RECENTER_2026-09-26",
   "date": "2026-09-26",
-  "state": "CANDIDATE_PENDING_CI",
+  "state": "MERGED_CI_GREEN",
   "object": "Verse / Poetry Copilot product identity + recovered word/path/game quarry",
   "observed": [
     "Poem Map accumulated the strongest current candidate/revision/source-return engine but its relation-map lineage became the visible product identity.",
@@ -35,7 +35,10 @@
   ],
   "proof": {
     "static": "implemented",
-    "browser": "pending PR CI",
+    "browser": "PASS · PR #394 public-surface-check 36168074339 · critical browser smoke",
+    "route_registration": "PASS · PR #394 run 36168074433",
+    "pull_request": 394,
+    "merge_sha": "9efa232a47f1d229794f46349d582aa8ee4fe2b4",
     "lived_use": "future ordinary writing, not merge gate"
   },
   "next": "Use the Copilot as writing first. Transfer only a concrete missing donor mechanism; do not visually merge all recovered machines into one mega-editor."
