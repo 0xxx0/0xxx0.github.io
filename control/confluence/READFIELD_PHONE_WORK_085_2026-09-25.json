@@ -13,7 +13,8 @@
     "Reuse the exact existing source/cursor/RSVP/VOICE/LOCI kernel; no new source authority or file store.",
     "For ephemeral local/pasted sources, COPY FOCUS replaces COPY VIEW so the UI does not imply a durable URL can reconstruct missing bytes.",
     "Keep the six-mode rail sticky on phone and make compositions explicit: SKIM→REVIEW, LISTEN→PULSE→VOICE, READ→LOCI→RETURN.",
-    "Add browser proof that a synthetic local Markdown File enters READFIELD, restores WORD/900 WPM focus, writes only sessionStorage metadata+bytes, and exposes COPY FOCUS."
+    "Add browser proof that a synthetic local Markdown File enters READFIELD, restores WORD/900 WPM focus, writes only sessionStorage metadata+bytes, and exposes COPY FOCUS.",
+    "Synchronize FIELD PULSE consumer/workflow references from READFIELD 0.8.4 to 0.8.5 without changing pulse authority or schema."
   ],
   "boundaries": [
     "No persistent local media/file vault is added to READFIELD.",
@@ -29,5 +30,6 @@
   },
   "branch": "readfield-phone-work-085-20260925",
   "return": "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json",
-  "verified_head": "56bced3f65e9754429da940a1e62ec3ea3e0312c"
+  "verified_head": "56bced3f65e9754429da940a1e62ec3ea3e0312c",
+  "reference_sync": "FIELD PULSE version references only; authority remains NONE and schema stays field-pulse/v0.1."
 }
