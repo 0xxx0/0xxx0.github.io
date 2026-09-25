@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/control-current/v0.1",
-  "updated": "2026-09-25T16:53:29.816Z",
+  "updated": "2026-09-26T00:53:00+08:00",
   "mode": "seal-recover-execute",
   "purpose": "Cold-start recovery surface for the collaboration: large archive, small active surface.",
   "laws": [
@@ -95,7 +95,7 @@
     {
       "lineage": "rsvp-reader",
       "head": "READFIELD / RSVP 0.8.5 · PHONE WORK RAIL + LOCAL FILE INTAKE + WORK CHAINS",
-      "state": "UTILITY / READER_FIRST / MERGED_ACTIVE_CANDIDATE",
+      "state": "UTILITY / READER_FIRST / SELF_VERIFIED_MACHINE / MERGED_ACTIVE_CANDIDATE",
       "route": "/docs/",
       "retained_function": "Canonical one-source reader. One source position persists across DOCUMENT→SECTION→PARAGRAPH→SENTENCE→PHRASE→WORD→GRAPHEME, ORP RSVP, VOICE and context. 0.8.5 keeps FAST / REVIEW / PULSE / VOICE / LOCI / REPO on the hard-edge phone rail, adds direct session-local downloaded text-like file intake through the same reader kernel, and names the useful compositions instead of multiplying modes: SKIM→REVIEW, LISTEN→PULSE→VOICE, READ→LOCI→RETURN. Local/pasted bytes remain ephemeral and COPY FOCUS replaces a false durable VIEW link. READFIELD remains source/cursor authority; LOCI remains derived; FIELD PULSE remains optional authority NONE.",
       "evidence": [
@@ -123,22 +123,10 @@
         "https://github.com/0xxx0/0xxx0.github.io/pull/242",
         "/control/confluence/READFIELD_PHONE_WORK_085_2026-09-25.json",
         "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/283"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/283",
+        "/returns/SELF_VERIFICATION_CLOSEOUT_2026-09-26.json"
       ],
       "latest_return": "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json",
-      "next_executable": {
-        "id": "readfield-085-self-verification",
-        "state": "SELF_VERIFY_NOW",
-        "objective": "Exercise downloaded-file intake, FAST/REVIEW state, COPY FOCUS boundary, sticky phone rail geometry, and READ→LOCI/RETURN preservation with fixtures/browser smoke. Human preference evidence is optional.",
-        "law": "Do not create a new reader engine/store. Prove correctness with source fixtures and browser state first; subjective mode preference never blocks correctness.",
-        "optional_human_evidence": [
-          "Can you open a downloaded text-like file one-handed and immediately FAST/REVIEW it without paste gymnastics?",
-          "Does the sticky work rail remain reachable without stealing too much reading area?",
-          "Does COPY FOCUS make the session-only boundary clear enough for local/pasted bytes?",
-          "Do SKIM→REVIEW, LISTEN→PULSE→VOICE and READ→LOCI→RETURN feel like obvious continuations rather than separate apps?",
-          "Which of FAST / REVIEW / PULSE / VOICE / LOCI / REPO earns persistent use after repeated reading?"
-        ]
-      },
       "repo_verification": {
         "route_registration_run": 36118631949,
         "public_surface_run": 36118631880,
@@ -193,7 +181,7 @@
     {
       "lineage": "fold-bloom",
       "head": "FOLD//BLOOM · SOURCE→MAP→IMMERSION / LIVE 0.13 + PLAY 0.5.5 CALM RIDE RECOVERY / LISTEN 0.6 MARKS v0.2 / REPLAY 0.2 / SET→LIVE / LAB 0.3.2 / INK / VOICE / SABER 0.1",
-      "state": "ACTIVE_CANDIDATE_UNIFIED_DOORWAY / PLAY_055_CALM_RIDE_RECOVERED / PLAY_054_HEX_TWO_RING_SUPERSEDED_AS_DEFAULT / PLAY_053_MODE_EMBODIMENT_SHIPPED / PLAY_052_MOBILE_CRAFT_SHIPPED / PLAY_05_RING_CHANGE_SHIPPED / STATE_LANGUAGE_ACTIVE / TASK_FIRST_WORKFLOWS_SHIPPED / LISTEN_MARK_ROUNDTRIP_02_SHIPPED / SABER_01_IMPLEMENTED_WAITING_REAL_DEVICE / REPLAY_02_CANDIDATE",
+      "state": "ACTIVE_CANDIDATE_UNIFIED_DOORWAY / PLAY_055_SELF_VERIFIED_MACHINE / PLAY_055_CALM_RIDE_RECOVERED / PLAY_054_HEX_TWO_RING_SUPERSEDED_AS_DEFAULT / PLAY_053_MODE_EMBODIMENT_SHIPPED / PLAY_052_MOBILE_CRAFT_SHIPPED / PLAY_05_RING_CHANGE_SHIPPED / STATE_LANGUAGE_ACTIVE / TASK_FIRST_WORKFLOWS_SHIPPED / LISTEN_MARK_ROUNDTRIP_02_SHIPPED / SABER_01_IMPLEMENTED_WAITING_REAL_DEVICE / REPLAY_02_CANDIDATE",
       "route": "/fold-bloom/",
       "retained_function": "The canonical /fold-bloom/ doorway now begins from source continuity rather than a synthetic demo: SOURCE is the exact audio/text/set identity; MAP is measured/derived structure; IMMERSION is an optional experience projection. LIVE can hold real SOURCE-only remote playback without pretending FIELD COURSE terrain belongs to that song, and locally mapped audio retains the existing LOCAL_FILE witness. LIVE now defaults to FIELD COURSE or an explicit local source. CENTER MASS remains only an optional recovered provider-address probe: clean-phone playback was not reliable enough to retain as a default or promotion gate, and provider failure returns to ordinary LIVE without trapping the session. Direct LIVE/LISTEN imports feed the existing browser-local media vault and are visibly reopenable on the same device without the normal picker path. LISTEN remains source cartographer and now turns its event-tape draft into a one-click Beat Saber v4 mapper/test ZIP with game-facing metadata kept clean, provenance in a sidecar manifest, and exact source bytes included locally; OGG/EGG is labeled audio-ready for playtest while actual editor/VR playtest remains a human gate; other formats require explicit OGG conversion. SET remains ordered/seam authority; READFIELD remains text/RSVP authority; FIELD LAB reuses canonical engines; INK and VOICE remain bounded practice projections. CLEAR/DRIVE/TRANCE/SOFT and scene names are encounter preferences, never source truth. fold-bloom/DESIGN.md is the durable product law; the 2026-09-24 thread-collapse ledger classifies repeated asks as shipped, superseded, pinned, discarded or waiting so old parallel branches do not regain authority. Next proof is self-verification of source/re-entry/layer/export invariants; lived use may refine ergonomics but is not the default test harness. PR #220 fixes LISTEN's stale disabled annotation controls after map readiness and evolves source-scoped pins compatibly into BOOKMARK point, FLAG point+intent and ARC aperture span, with direct source-identity-preserving mark sharing. External Beat Saber pack export remains distinct from the newly crystallized in-family FOLD//BLOOM SABER target: two phones as LEFT/RIGHT motion controllers over the existing source transport + EVENT TAPE, producing bounded HIT TRACE without a second source store or raw-motion archive. Sep-25 work-experience pass makes the public doorway task-first (READ, pulse-paced READ, LISTEN/MARK, RIDE, LOCI, COMPOSE) and makes FIELD LAB ?mode=READ&pulse=4 initialize PACE4 honestly. Product continuation is captured in /fold-bloom/convergence/PRODUCT_ROADMAP_2026-09-25.md; no new engine or state authority is introduced. SABER 0.1 now implements the previously pinned in-family proof: LISTEN hands exact source identity + existing EVENT TAPE + addressed marks into /fold-bloom/saber/; one phone may host and act as one hand while a second LEFT/RIGHT phone pairs over direct WebRTC DataChannel with manual signaling. Host/controller monotonic clocks are bounded by ping/pong offset estimation; motion is reduced immediately to swing witnesses and only HIT/GRAZE/MISS trace persists. This is distinct from external Beat Saber pack export and still requires two-real-phone lived proof before gameplay quality claims. Sep-25 reader-workflow delta preserves bounded READFIELD focus through explicit READ/LOCI handoffs. Sep-25 REPLAY 0.2 promotes the earlier message-score proof into a source-linked expressive surface: LISTEN lends exact source identity, addressed interval, BPM/phrase/section evidence and marks; REPLAY owns message context, word-level cue timing/hold/emphasis and authored FOLD/BLOOM operation timing; source-keyed LIVE/LISTEN experience profile values remain preference only. Open LISTEN and REPLAY tabs can share the current playhead ephemerally without a new session bus. Share links contain a compressed self-contained authored score + bounded source evidence/reference but never local/private audio bytes; JSON is inspectable authority and visual WebM is only an output projection. PR #240 closes the next LISTEN annotation seam without creating a second annotation authority: BOOKMARK/FLAG remain point evidence, ARC start/end are explicitly editable, MARKS gains source-ordered previous/next traversal, shared mark packets can be re-imported only against the same exact source identity, and AUDIO MAP export embeds the same fold-bloom-annotations/v0.2 packet. REPLAY 0.2 remains the canonical expressive message score, SABER 0.1 remains implemented but two-real-phone-gated, and PWA/local-playlist plus VOICE continuations are preserved as parked evidence-backed follow-ups in the product roadmap. Sep-25 PLAY 0.5 makes the existing LIVE ring itself carry game semantics instead of leaving them in detached chrome: RUN shows bounded release progress; HEX performs FORM→CHANGE over six addressed lines and returns H[A] Δ{…} → H[B]; Two Dial projects its six-position relation geometry into the same ring; Ecology projects generation/inheritance bands; PATH shows par/turn witness; ZEN adds no game overlay. The shared state grammar remains a projection only: six sectors are not a universal ontology, and source/game/domain authority does not move into the renderer. FIELD LAB 0.3.2 adds a same-origin navigation-only caller return for Poem Map VERSE handoffs; exact source/focus may be projected and returned without moving poetry authority. PR #328 advances PLAY to 0.5.3 without a new engine: RUN/HEX/PATH/TWO DIAL/ECOLOGY/ZEN now produce visibly distinct central-instrument states; HEX reuses the existing trigram state-language lens; TWO DIAL shows explicit outer A / inner B rings and exposes WIDE/full-donor escape while LIVE and donor authorities remain separate. Sep-25 PLAY 0.5.4 corrects the remaining HEX embodiment mismatch: PUZZLE no longer renders the generic △ TRIANGLE / ○ CIRCLE / □ SQUARE LIVE ring or target gate beneath the trigram lens. Its visible instrument is two concentric LOWER/UPPER rings with six addressed lines and canonical trigram readback. HEX defaults to a reversible STILL view that suppresses ride POV/trackfield motion while source clock/game state continue. Phone settings now restore touch-action on both html/body with outside-tap and enlarged-close escape; VIBE exposes the existing CLEAR/DRIVE/TRANCE/SOFT experience presets on the active surface. /dayline/ remains the separate real-world OBJECT→FOCUS→1–3 MOVES→WITNESS→RETURN execution projection; do not turn LIVE into a second planner. PR #348 carried the green proof before the exact tested blobs were fast-forwarded onto moving master as 9e308cb. Sep-25 PLAY 0.5.5 stabilization supersedes 0.5.4 as the current interaction law: plain LIVE is RIDE first; RUN/HEX/PATH/TWO DIAL/ECOLOGY/ZEN are optional projections; HEX no longer defaults to STILL and recovers the 0.5.3 ride geometry beneath its six-line projection; NORMAL is the named neutral 1× experience profile. The 0.5.4 true-two-ring/STILL experiment remains preserved as lineage evidence rather than current default. Follow-up 95e48bec makes the open phone settings drawer the sole pointer-active layer without changing the recovered RIDE law.",
       "evidence": [
@@ -326,7 +314,8 @@
         "/returns/FOLD_BLOOM_HEX_TWO_RING_054_2026-09-25.json",
         "https://github.com/0xxx0/0xxx0.github.io/pull/348",
         "/returns/FOLD_BLOOM_STABILIZE_055_2026-09-25.json",
-        "https://github.com/0xxx0/0xxx0.github.io/pull/361"
+        "https://github.com/0xxx0/0xxx0.github.io/pull/361",
+        "/returns/SELF_VERIFICATION_CLOSEOUT_2026-09-26.json"
       ],
       "experimental": [
         {
@@ -397,19 +386,6 @@
       ],
       "merge_sha": "9e308cb7f8b6272820c6404ef93726f48e98c996",
       "latest_return": "/returns/FOLD_BLOOM_STABILIZE_055_2026-09-25.json",
-      "next_executable": {
-        "id": "fold-bloom-play-055-lived-feel",
-        "state": "SELF_VERIFY_NOW",
-        "objective": "Use ordinary LIVE RIDE with one real song. If it feels calm and direct again, enter HEX and confirm it remains the same moving ride with an optional six-line projection; screenshot or one short sentence is sufficient evidence.",
-        "law": "Browser/state correctness first. Real phone feel, calmness and delight are optional subjective evidence; they do not freeze defect repair or surrounding verification.",
-        "optional_human_evidence": [
-          "Does HEX now read first as two rings / six lines rather than as the old TRIANGLE/CIRCLE/SQUARE LIVE topology?",
-          "Does default STILL make puzzle play calmer without making the source feel dead?",
-          "Can you always close the phone drawer by × or tapping outside, and still manipulate its controls?",
-          "Do CLEAR / DRIVE / TRANCE / SOFT feel meaningfully different enough to keep VIBE on the active surface?",
-          "Does the next real-world-overwhelm continuation belong through Dayline rather than inside LIVE?"
-        ]
-      },
       "latest_merge": "95e48bec5e181624dc520135ba2d35ba0d8d109b",
       "version": "0.1.5 + PLAY 0.5.5"
     },
