@@ -3,7 +3,7 @@
   "kind": "FOLD_BLOOM_PLAY_RETURN",
   "version": "0.4",
   "date": "2026-09-25",
-  "status": "CANDIDATE",
+  "status": "SHIPPED",
   "branch": "chatgpt/fold-bloom-hex-puzzle-20260925",
   "parent": "FOLD_BLOOM_PLAY_0.3",
   "problem": "PLAY 0.3 PUZZLE was an efficiency/par challenge, not a compositional puzzle.",
@@ -53,8 +53,12 @@
     "play_core_tests": "PASS",
     "public_surface_check": "PASS",
     "critical_browser_smoke": "PASS",
-    "workflow_run": 36126538785,
+    "workflow_run": 36126764804,
     "real_phone_touch_audio": "HUMAN_GATE"
   },
-  "pr": 294
+  "pr": 294,
+  "merge": {
+    "pr": 294,
+    "sha": "7801c264b5033530f6402ac1e68eb2eacbc9b642"
+  }
 }
