@@ -836,7 +836,7 @@
     "backup_ingest": "VERIFIED_BOUNDED_2026-09-21",
     "current_local_followup": "INGEST-01 / BLOCKED IN CURRENT EXECUTOR — private local report/provenance access required",
     "codex_handoff": "private issue #8",
-    "note": "Do not synthesize a family from File Library titles. Run the existing local locator + one-family packet where the verified private reports are accessible. CURRENT.next_single_action remains ordinary HUMAN PORT use.",
+    "note": "Do not synthesize a family from File Library titles. Run the existing local locator + one-family packet only where the verified private reports are accessible. Private ingest is parked; CURRENT.next_single_action is conversion-first.",
     "last_ingest_return": "/control/INGEST_FAMILY_REVIEW_2026-09-22.json"
   },
   "perimeter_state": {
@@ -864,6 +864,9 @@
       "rule": "closed branches retain provenance; master remains authority"
     },
     "last_live_census": {
+      "state": "HISTORICAL_SNAPSHOT_NOT_LIVE",
+      "captured_at": "2026-09-22",
+      "note": "Frozen perimeter evidence only. Do not infer current branch/PR counts from this object; query GitHub when current perimeter state matters.",
       "branches": 115,
       "open_prs": 0,
       "merged_pr_lineage": 77,
