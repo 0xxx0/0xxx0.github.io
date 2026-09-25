@@ -1,0 +1,15 @@
+{
+  "schema": "0xxx0/recovery-donor/v0.1",
+  "family": "Prison Age",
+  "state": "EXACT_LIBRARY_TEXT_MATERIALIZED",
+  "classification": "FROZEN_ENGINE_CORE_DONOR",
+  "source": {
+    "name": "PRISON_AGE_ENGINE_CORE_v1.md",
+    "file_id": "file_0000000052ac822f81493e37c2062b06",
+    "size_bytes": 31685,
+    "sha256": "2128345edcd5b070bafd764f8288e2e5e56bd40f953f82ee73c65c77509367de"
+  },
+  "repo_path": "/recovery/prison-age/PRISON_AGE_ENGINE_CORE_v1.md",
+  "boundary": "Engine Core itself distinguishes exact/attested/canon/reconstruction/extracted/proposed/unknown. Do not silently merge Sig Nap Ore, Sleeper, or Prion material.",
+  "recovered_at": "2026-09-26"
+}
