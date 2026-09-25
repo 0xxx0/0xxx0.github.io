@@ -66,7 +66,7 @@ Several current mechanisms are therefore recoveries/convergences of earlier tool
 
 ### Sleeper tool quartet
 
-An exact recovered Sleeper visual in File Library (not yet byte-recovered into this repo) assigns:
+An exact recovered Sleeper visual in File Library assigns (original raw bytes SHA-256 verified on 2026-09-26; repository binary mirroring remains transport-deferred):
 - **KERIS** — distinguish / redefine / sever confusion or illusion;
 - **CONCH** — resonate / communicate / synchronize / surface what is otherwise unsaid;
 - **W8** — stabilize / hold weight / create gravity;
@@ -153,8 +153,8 @@ Different heads answer different parts:
 
 ## GAPS NOW VISIBLE
 
-### G1 — exact tool sources are still split
-The App Atlas and Sleeper tool-sheet are retrievable in File Library but not yet durable repo artifacts. Before inventing replacements, recover them exactly or preserve a hash-addressed source packet.
+### G1 — exact tool sources were split; source identity is now mostly closed
+App Atlas/App Foundry decoded text is materialized and repo-hashed, though original Library text-storage byte equality remains unproven. The Sleeper tool-sheet original PNG raw bytes are now independently materialized and SHA-256 verified (`f659631664aa9e6a23a20c65a202a7689c0c5546ec748c957ddeb607d7b08999`, 2,577,720 B, 1536×1024). Optional GitHub binary mirroring is a transport limitation, not a source-recovery gap.
 
 ### G2 — FIELD exposes projects better than transformations
 Current FIELD can find routes and projections well. It does not yet give a first-class reading of:
@@ -178,10 +178,10 @@ These are aliases for operations, not commands granting authority.
 
 ## UPDATED NEXT THREE TRANSFORMATIONS
 
-### 1. RECOVER THE TOOLBELT
-Exact-recover App Atlas / Canon Console / Transfer Bench / Semantic Thread Tracer / Delta Ledger / Seeper and the Sleeper tool quartet into durable repo provenance. Do **not** modernize them during recovery.
+### 1. PRESERVE THE RECOVERED TOOLBELT
+App Atlas / Canon Console / Transfer Bench / Semantic Thread Tracer / Delta Ledger / Seeper are materialized as source-faithful text with repo hashes. The Sleeper tool quartet / Four Arcs plate now has exact original raw-byte proof in Library. Do **not** modernize source artifacts during preservation.
 
-Pass: exact source bytes or a verifiable source packet + provenance entry + no invented missing content.
+Pass: preserve source identity + provenance + no invented missing content. Binary repo mirroring is optional and must never trigger re-encoding.
 
 ### 2. DERIVE ONE LINEAGE / TOOL READING
 From existing FIELD/CONFLUENCE records, derive a read-only projection:
@@ -204,3 +204,10 @@ The next implementation is whichever repeated friction survives this process—n
 - no mythic term becomes mandatory UI vocabulary;
 - no old artifact is “cleaned up” before exact recovery;
 - no second action inherits authority merely because the first action worked.
+
+
+## 2026-09-26 source recovery correction
+
+The exact original `The sleeper engine: a transformative journey.png` is no longer a blocked binary source. Raw Library bytes were materialized without re-encoding and verified as 2,577,720 bytes, 1536×1024 PNG, SHA-256 `f659631664aa9e6a23a20c65a202a7689c0c5546ec748c957ddeb607d7b08999`. The source plate directly co-locates the Four Arcs, Universal Operators, Seven Instruments, Proof Matrix, Council governance panel and Field Manual of Returning. Treat that as recovered provenance / a lineage junction, not as evidence that all later systems descended from one architecture.
+
+Receipt: `/returns/TOOLBELT_SLEEPER_PNG_RAW_RECOVERY_2026-09-26.json`.
