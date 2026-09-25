@@ -18,6 +18,10 @@
   <text x="319" y="10" class="sub">PRINT 100% / ACTUAL SIZE</text>
   <text x="319" y="16" class="sub">LEAF ≈ 186 mm · PIVOT Ø5 mm</text>
   <text x="319" y="22" class="sub">M4 / PAPER FASTENER · TIP LACE OPTIONAL</text>
+  <line x1="310" y1="33" x2="410" y2="33" stroke="#111" stroke-width=".8"/>
+  <line x1="310" y1="30" x2="310" y2="36" stroke="#111" stroke-width=".35"/>
+  <line x1="410" y1="30" x2="410" y2="36" stroke="#111" stroke-width=".35"/>
+  <text x="310" y="29" class="bitLabel">CALIBRATION 100 mm · PASS 99–101 mm BEFORE CUTTING</text>
   <g id="leaf-slot-0" data-fan8-leaf="0" data-code="0">
     <path d="M 19 57 L 195 43 L 205 44 L 205 86 L 195 87 L 19 73 Z"
       fill="#fffdf7" stroke="#111" stroke-width=".7"/>
