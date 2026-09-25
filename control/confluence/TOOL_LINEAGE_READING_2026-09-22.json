@@ -5,7 +5,7 @@
   "purpose": "Answer cross-time mechanism questions without reviving old projects or asserting ancestry where only recurrence/equivalence is supported.",
   "source_grounding": {
     "exact_source_locator": "/control/recovery/TOOLBELT_SOURCE_LOCATOR_2026-09-21.json",
-    "source_state": "Exact File Library identities + inspected content reverified; raw-byte repo materialization and SHA-256 remain open.",
+    "source_state": "Exact File Library identities/content retained; Sleeper operator visual original raw bytes are now SHA-256 verified. App Atlas/App Foundry original text-storage byte equality remains unproven.",
     "historical_sources": [
       "app_atlas_v1.json",
       "app_foundry_atlas_v1.html",
@@ -17,7 +17,8 @@
       "/recovery/toolbelt/app_atlas_v1.json",
       "/recovery/toolbelt/app_foundry_atlas_v1.html"
     ],
-    "byte_status": "Text repo bytes hashed; original text byte equality unproven. Sleeper PNG original bytes still unavailable."
+    "byte_status": "Sleeper PNG SOURCE_RAW_BYTES_VERIFIED · 2577720 B · 1536×1024 · f659631664aa9e6a23a20c65a202a7689c0c5546ec748c957ddeb607d7b08999; repo binary mirror deferred. Text repo bytes hashed; original Library text-byte equality unproven.",
+    "raw_binary_receipt": "/returns/TOOLBELT_SLEEPER_PNG_RAW_RECOVERY_2026-09-26.json"
   },
   "operators": [
     {
@@ -98,7 +99,7 @@
         }
       ],
       "surviving_invariant": "Anchor identity/provenance strongly enough that later transformation remains reversible.",
-      "gap": "Toolbelt source bytes themselves are not yet hashed/materialized into repo."
+      "gap": "No Sleeper-image source-identity gap remains. Optional binary repo mirroring is transport-only; ordinary labels remain primary."
     },
     {
       "operator": "SPIRAL",
