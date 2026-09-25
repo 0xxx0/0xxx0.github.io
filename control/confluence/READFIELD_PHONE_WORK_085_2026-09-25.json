@@ -1,0 +1,36 @@
+{
+  "schema": "confluence/readfield-phone-work/v0.1",
+  "date": "2026-09-25",
+  "status": "R2_CANDIDATE_REBUILT_ON_CURRENT_MASTER",
+  "object": "READFIELD / RSVP 0.8.5 phone work experience",
+  "reconstruction_base": "6aac48267868393063a05f115aa3b44097446419",
+  "recovered_state": [
+    "READFIELD 0.8.4 already had a verified phone work rail, exact source/cursor continuity, six task modes and READ↔LOCI bounded focus handoff.",
+    "Direct user feedback continued to target practical phone usability and what the surfaces are actually for, not a missing reader engine.",
+    "A concrete work gap remained: downloaded text-like artifacts still required paste/repo routing even though the reader kernel could already operate on them.",
+    "The first 0.8.5 branch passed repository proof but became non-mergeable after concurrent Dayline/LIVE control-file mutations; this R2 rebuild applies the bounded delta onto current master rather than forcing a stale shared-file merge."
+  ],
+  "delta": [
+    "Add direct FILE intake for downloaded text, Markdown, JSON, CSV, logs, YAML, source files and SVG; bytes remain session-local and are never uploaded by READFIELD.",
+    "Reuse the exact existing source/cursor/RSVP/VOICE/LOCI kernel; no new source authority or file store.",
+    "For ephemeral local/pasted sources, COPY FOCUS replaces COPY VIEW so the UI does not imply a durable URL can reconstruct missing bytes.",
+    "Keep the six-mode rail sticky on phone and make compositions explicit: SKIM→REVIEW, LISTEN→PULSE→VOICE, READ→LOCI→RETURN.",
+    "Synchronize FIELD PULSE consumer/workflow references from READFIELD 0.8.4 to 0.8.5 without changing pulse authority or schema.",
+    "Add browser proof that a synthetic local Markdown File enters READFIELD, restores WORD/900 WPM focus, writes only sessionStorage source state, and exposes COPY FOCUS."
+  ],
+  "boundaries": [
+    "No persistent local media/file vault is added to READFIELD.",
+    "No universal workflow/session bus.",
+    "FIELD PULSE remains optional authority NONE.",
+    "LOCI remains a derived addressed course.",
+    "Local/pasted bytes are session-only and are not represented as durable repository/source URLs."
+  ],
+  "verification": {
+    "static": "PENDING_R2_CI",
+    "browser": "PENDING_R2_CI",
+    "lived_phone": "REQUIRED_NEXT"
+  },
+  "branch": "readfield-phone-work-085-r2-20260925",
+  "reference_sync": "FIELD PULSE version references only; authority remains NONE and schema stays field-pulse/v0.1.",
+  "return": "/returns/READFIELD_PHONE_WORK_085_2026-09-25.json"
+}
