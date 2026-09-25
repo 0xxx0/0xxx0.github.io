@@ -1800,6 +1800,18 @@
           "VERIFY",
           "OPERATE"
         ]
+      },
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/fold-bloom/",
+        "generation": 1,
+        "stage": "TEST",
+        "question": "Can existing exact source timing + EVENT TAPE become a causally legible two-phone saber game without a second media store, retained raw motion, or a permanent multiplayer backend?",
+        "baseline": "Before SABER 0.1, FOLD//BLOOM could export a Beat Saber mapper pack and had a pinned dual-phone contract, but no in-family phone-motion runtime existed.",
+        "mutation": "Add exactly one playable transport projection: Phone A hosts + acts as one hand, Phone B is the opposite hand over direct WebRTC, motion collapses to bounded swing witnesses, and HIT/GRAZE/MISS remains source-time addressed.",
+        "evidence_gate": "Repository tests must prove deterministic course/clock/hit/RETURN laws and browser boot. Promotion additionally requires two real phones playing at least 30 existing EVENT TAPE notes with tolerable causal feel, stable pause/resume address, clean one-phone degradation, and no raw-motion retention.",
+        "next_if_pass": "Refine only observed physical friction: calibration, latency compensation, haptic grammar or richer EVENT TAPE note forms one mutation at a time.",
+        "next_if_fail": "Keep Beat Saber pack export and EVENT TAPE; park/compost the dual-phone runtime while retaining its clock/motion findings as donor evidence."
       }
     },
     {
