@@ -1,0 +1,30 @@
+{
+  "schema": "0xxx0/fold-bloom-field-lab-return-release/v0.1",
+  "date": "2026-09-26",
+  "state": "SHIPPED",
+  "surface": "FOLD//BLOOM FIELD LAB",
+  "version": "0.3.3",
+  "route": "/fold-bloom/lab/",
+  "thesis": "One center may be traversed through unequal projections and RETURN bounded evidence of that traversal without creating a new authority or copying raw source bytes.",
+  "delta": [
+    "Adds fold-bloom-field-lab-return/v0.1 as a bounded EVIDENCE_ONLY session receipt.",
+    "Records mode/profile/address/source witnesses as the user traverses the Lab.",
+    "Attaches current-projection evidence for RIDE, PULSE, VERSE, READ, LOCI, INK or DATA without cloning donor authority.",
+    "Exposes EXPORT LAB RETURN and window.FoldBloomFieldLab.returnPacket().",
+    "Adds pure contract tests and 430×900 browser-smoke requirements."
+  ],
+  "authority": {
+    "lab_return": "EVIDENCE_ONLY",
+    "source": "UNCHANGED",
+    "donors": "LIVE / READFIELD / Poem Map / FIELD PULSE / LOCI / INK / domain state remain authoritative"
+  },
+  "verification": {
+    "route_registration": "PASS · run 36166811306",
+    "public_surface": "PASS · run 36166811291",
+    "return_contract": "PASS · public-surface-check run 36166811291 step 41",
+    "phone_browser_boot": "PASS · 430×900 FIELD LAB browser proof run 36166811291 step 49",
+    "critical_browser_smoke": "PASS · run 36166811291 step 57"
+  },
+  "source_revision": "08bfcfc1afc00f523b44a712323ad8d316b91232",
+  "remaining_gate": "Ordinary human phone use of EXPORT LAB RETURN across several projections remains lived-use evidence, not a code blocker."
+}
