@@ -456,11 +456,11 @@
     },
     {
       "lineage": "house-spatial",
-      "head": "HOUSE / SPATIAL 0.6 + HOUSE / FIELD 0.5",
+      "head": "HOUSE / FIELD 0.7 · SPATIAL CURRENT HEAD",
       "state": "ACTIVE",
-      "route": "/house/spatial/",
-      "retained_function": "One addressed physical substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS. HA/HOUSEBUS retains device truth and actuation. BODY/FIELD may attach context; BODY / FIT 0.3 projects fitted modules, structured sensor data, purpose loadouts and non-punitive RETURN/PATINA without importing HOUSE authority.",
-      "version": "0.6"
+      "route": "/house/",
+      "retained_function": "Canonical HOUSE root projects one addressed physical substrate as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS. Public state is a compact timestamped witness; /house/expert.html retains technical snapshot depth. HA/HOUSEBUS alone retains device truth and actuation. BODY and Dayline receive explicit context only.",
+      "version": "0.7"
     },
     {
       "lineage": "shopping-field",
@@ -663,12 +663,6 @@
       "state": "HOLD_CURRENT_HEAD",
       "center": "AXIAL / FOCUS STACK 0.7.3",
       "reason": "Overview/minimap and engineering witness are now implemented from recovered donors. Hold feature expansion; ordinary use and exported witnesses should determine RETAIN/REVISE/REVERT under the mechanism-transfer loop."
-    },
-    {
-      "id": "reality-house",
-      "state": "HOLD_USER_DIRECTED",
-      "center": "/house/spatial/ + Home Assistant/HOUSEBUS + one bounded physical/home RETURN",
-      "reason": "User explicitly directed this pass to leave HOUSE/SPATIAL and walk the wider field. Preserve HOUSE/SPATIAL 0.6 as current head; do not reopen measurements/geometry/TRACE until deliberately selected again."
     }
   ],
   "orientation": "/control/ORIENTATION.json",
