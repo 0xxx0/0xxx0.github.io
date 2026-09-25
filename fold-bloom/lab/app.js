@@ -163,6 +163,15 @@ function toggleTextMark(source,mark){
   return saveTextMarks(source,current);
 }
 function currentVerseLine(){return verse.lines[Math.max(0,Math.min(verse.lines.length-1,verse.focus))]||null}
+function recoverVerseInboundHandoff(){
+  try{
+    const q=new URLSearchParams(location.search);if(!q.has('handoff'))return null;
+    const h=JSON.parse(sessionStorage.getItem('field.verse.handoff.v01')||'null');
+    sessionStorage.removeItem('field.verse.handoff.v01');
+    if(h?.schema!=='field-verse-handoff/v0.1'||typeof h.source!=='string'||!h.source.trim())return null;
+    return h;
+  }catch(_){return null}
+}
 function bindVerse({focusStart=null,announce=true}={}){
   const source=String($('#verseSource').value||'');
   verse.sourceKey=textSourceKey(source);verse.lines=lineSpans(source);verse.marks=storedMarks(source);
@@ -615,9 +624,18 @@ function tick(now){
   requestAnimationFrame(tick);
 }
 requestAnimationFrame(tick);
-const initialMode=String(new URLSearchParams(location.search).get('mode')||'RIDE').toUpperCase();
-let lociHandoffRestored=false;
-if(initialMode==='LOCI'&&new URLSearchParams(location.search).has('handoff')){
+const bootQuery=new URLSearchParams(location.search),initialMode=String(bootQuery.get('mode')||'RIDE').toUpperCase();
+let verseHandoffRestored=false,lociHandoffRestored=false;
+if(initialMode==='VERSE'&&bootQuery.has('handoff')){
+  const h=recoverVerseInboundHandoff();
+  if(h?.source){
+    $('#verseSource').value=h.source;
+    if(Array.isArray(h.marks)&&h.marks.length)saveTextMarks(h.source,h.marks);
+    bindVerse({focusStart:Number(h.focus?.start),announce:false});
+    verseHandoffRestored=true;document.documentElement.dataset.fieldLabVerseHandoff='focus-restored';
+  }
+}
+if(initialMode==='LOCI'&&bootQuery.has('handoff')){
   const h=recoverHandoff(),p=Number(h?.focus?.source_progress);
   if(h?.source){
     $('#lociSource').value=h.source;buildLoci();
@@ -628,6 +646,7 @@ if(initialMode==='LOCI'&&new URLSearchParams(location.search).has('handoff')){
 syncPulseButton();
 document.documentElement.dataset.fieldLabReadPulse=read.pulseMode;
 selectMode(MODES[initialMode]?initialMode:'RIDE');
+if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP');setStatus('VERSE · SOURCE + LINE FOCUS RESTORED')}
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
