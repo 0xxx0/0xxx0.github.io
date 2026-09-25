@@ -1,6 +1,6 @@
 # DAYLINE ↔ SHOPPING CLOSED LOOP — 2026-09-26
 
-Status: **implemented candidate / machine verification pending**.
+Status: **merged / machine verified**.
 
 ## Object
 
@@ -81,6 +81,15 @@ That is closer to the folding-fan/FAN8 principle: the carrier and gesture stay s
 11. assert item remains WATCH;
 12. assert one evidence receipt exists;
 13. assert the session offer is consumed.
+
+## Verification seal
+
+- PR #379 merged as `72050f5c12f16a4fc04460e0b757eebbf6d1b621`.
+- public-surface-check `36165271722`: PASS.
+- Route Registration `36165271718`: PASS.
+- Existing Dayline ↔ COMMS exact-source proof remained green in the same suite.
+- 430×900 proof preserved WATCH while appending one evidence receipt.
+- Real-world completion remains WORLD evidence; this closes software/provenance truth only.
 
 ## Stop
 
