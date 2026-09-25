@@ -244,7 +244,7 @@ C.addEventListener('pointerdown',e=>{let id=hit(e);if(!id)return;if(S.mode==='MA
 C.addEventListener('pointermove',e=>{if(!S.drag||S.mode!=='MAP')return;let r=C.getBoundingClientRect(),n=node(S.drag.id);if(n){n.x=e.clientX-r.left;n.y=e.clientY-r.top;n.vx=n.vy=0}});
 C.addEventListener('pointerup',()=>S.drag=null);C.addEventListener('pointercancel',()=>S.drag=null);
 function node(id){return S.nodes.find(n=>n.id===id)}
-function displayText(n){return S.preview&&S.preview.target===n.id?S.preview.word:n.text}
+function displayText(n){return S.preview&&S.preview.target===n.id&&S.preview.operation==='REPLACE'?S.preview.word:n.text}
 function select(id){S.selected=id;setBankOperation('REPLACE');if(S.linkPending&&S.linkPending!==id){if(!S.authorEdges.some(e=>(e.a===S.linkPending&&e.b===id)||(e.a===id&&e.b===S.linkPending)))S.authorEdges.push({a:S.linkPending,b:id,type:'AUTHOR',why:'author link'});S.linkPending=null;parse();return}renderPanels();save()}
 function setMode(m){S.mode=m;document.querySelector('.app')?.classList.toggle('mode-page',m==='PAGE');save();$$('[data-mode]').forEach(b=>b.classList.toggle('on',b.dataset.mode===m));$('#note').textContent=m==='MAP'?'Words move under explicit ORDER / SOUND / REPEAT / AUTHOR laws. Dragging changes only this projection.':m==='PAGE'?'The source remains readable and selectable. Locks and authored paths are overlays, not edits.':'Relationship sets are another entrance into the same stable token identities.';renderPanels();renderFocusWheel()}
 $$('[data-mode]').forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
