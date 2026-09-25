@@ -487,7 +487,6 @@ const closeMenuEvent=e=>{e?.preventDefault?.();e?.stopPropagation?.();setMenuOpe
 $('#closeSettings').addEventListener('pointerdown',closeMenuEvent);
 $('#closeSettings').onclick=closeMenuEvent;
 $('#menuDismiss').addEventListener('pointerdown',closeMenuEvent);
-addEventListener('keydown',e=>{if(e.key==='Escape')setMenuOpen(false)});
 $('#vol').value=Math.round(audio.volume*100);$('#vol').oninput=e=>audio.setVolume(+e.target.value/100);
 $('#trackVol').value=Math.round($('#trackAudio').volume*100);$('#trackVol').oninput=e=>liveTrack.setVolume(+e.target.value/100);
 const chooseSong=()=>{stopDemo(true);setMenuOpen(false);$('#trackFile').click()};$('#trackLoad').onclick=chooseSong;$('#sourceQuick')?.addEventListener('click',chooseSong);$('#vibeQuick')?.addEventListener('click',cycleVibe);$('#songIntroBtn').onclick=()=>{stopDemo(false);setMenuOpen(false);$('#trackFile').click()};
@@ -528,6 +527,7 @@ $('#demoBtn').onclick=toggleAutopilot;$('#demoSettingsBtn')?.addEventListener('c
 
 addEventListener('keydown',e=>{
   if(e.repeat)return;
+  if(e.key==='Escape'){e.preventDefault();setMenuOpen(false);return}
   if(e.key.toLowerCase()==='d'){e.preventDefault();if(demo.on)stopDemo(true);else startDemo({preview:true,playTrack:true});return}
   stopDemo(true);
   if(e.key==='ArrowLeft'){e.preventDefault();step(-1)}
@@ -536,7 +536,6 @@ addEventListener('keydown',e=>{
   else if(e.key.toLowerCase()==='r')toggleMode();
   else if(e.key.toLowerCase()==='s')cycleScene();
   else if(e.key.toLowerCase()==='m'){audio.setSound(!audio.soundOn);update()}
-  else if(e.key==='Escape')$('#settings').classList.toggle('on');
 });
 
 fieldPulse.subscribe(msg=>{
