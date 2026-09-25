@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080a0b">
+<title>SPIKE 005 / EXPRESSION TRANSCRIPT</title>
+<style>
+:root{--bg:#080a0b;--p:#0d1113;--ink:#edf0ed;--mut:#7f8a8f;--line:#293238;--hot:#ed7447;--cool:#72bce7;--gold:#d5ad68;--ok:#98d49b}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:11px/1.42 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+body{padding:max(10px,env(safe-area-inset-top)) 10px max(24px,env(safe-area-inset-bottom))}button,input{font:inherit;color:inherit;background:#090d0f;border:1px solid var(--line);border-radius:0}
+button{cursor:pointer}.wrap{width:min(1120px,100%);margin:auto}.top{display:flex;justify-content:space-between;gap:12px;align-items:end;border-bottom:1px solid var(--line);padding:8px 0}.ey{font-size:7px;letter-spacing:.18em;color:var(--hot)}h1{font:900 clamp(25px,5vw,46px)/.95 system-ui,sans-serif;letter-spacing:-.055em;margin:2px 0 0}.top a{color:var(--gold);text-decoration:none;font-size:7px}
+.law{margin-top:8px;border-left:2px solid var(--hot);padding:7px 9px;background:#0a0e10;color:#a5b0b5}.law b{color:var(--ink)}.grid{display:grid;grid-template-columns:260px minmax(0,1fr);gap:8px;margin-top:8px}.box{border:1px solid var(--line);background:var(--p);min-width:0}.hd{display:flex;justify-content:space-between;gap:8px;padding:6px 7px;border-bottom:1px solid var(--line);font-size:7px;letter-spacing:.1em}.hd b{color:var(--gold)}.hd span{color:var(--mut)}.body{padding:7px}.routeTools{display:flex;gap:4px;margin-bottom:6px}.routeTools input{width:100%;padding:6px}.routes{max-height:54vh;overflow:auto}.route{display:block;width:100%;border:0;border-bottom:1px solid #1d2529;padding:6px;text-align:left}.route.on{box-shadow:inset 2px 0 var(--hot);background:#12191d}.route strong{display:block;font:700 10px/1.15 system-ui,sans-serif}.route small{display:block;color:var(--mut);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.frame{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1px;background:var(--line)}.cell{background:#090d0f;padding:7px}.cell i{display:block;font-style:normal;color:var(--mut);font-size:6px;letter-spacing:.12em}.cell b{display:block;margin-top:2px;font-size:8px;overflow-wrap:anywhere}.phi{color:var(--gold)}.locus{color:var(--cool)}
+.channels,.proj,.tape{display:flex;gap:3px;flex-wrap:wrap;margin-top:7px}.channels button,.proj button,.tape button{padding:5px 7px;font-size:7px}.channels button.on,.proj button.on{border-color:var(--cool);color:var(--cool)}.tape button{border-color:#4a555a}.strip{margin-top:7px;padding:5px 7px;border-top:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap;color:var(--mut);font-size:6.5px}.strip b{color:var(--ink)}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}.panel{border:1px solid var(--line);background:#090d0f;min-width:0}.panel h2{font-size:7px;letter-spacing:.13em;margin:0;padding:5px 7px;border-bottom:1px solid var(--line)}pre{margin:0;padding:7px;max-height:42vh;overflow:auto;color:#aab5ba;font:6.5px/1.45 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere}.residue{color:var(--hot)}.foot{display:flex;justify-content:space-between;gap:10px;margin-top:8px;padding-top:6px;border-top:1px solid var(--line);color:var(--mut);font-size:6.5px}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.routes{max-height:31vh}.cols{grid-template-columns:1fr}pre{max-height:30vh}.frame{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body><main class="wrap">
+<header class="top"><div><div class="ey">SPIKE 005 / FIELD EXPRESSION</div><h1>EXPRESSION TRANSCRIPT</h1></div><a href="../../">RETURN / FIELD</a></header>
+<div class="law"><b>HOST EXISTS ONCE.</b> Φ describes its boundary. φ addresses a locus. A transcript expresses only selected channels. Translation cannot increase authority. Rewind changes expression context, not canonical history.</div>
+<div class="grid">
+  <section class="box">
+    <div class="hd"><b>φ / LOCUS</b><span id="routeMeta">loading manifest…</span></div>
+    <div class="body">
+      <div class="routeTools"><input id="q" type="search" placeholder="find addressed route"></div>
+      <div class="routes" id="routes"></div>
+    </div>
+  </section>
+  <section class="box">
+    <div class="hd"><b>Φ / HOST FRAME</b><span>derived · no node copies</span></div>
+    <div class="body">
+      <div class="frame">
+        <div class="cell"><i>HOST</i><b class="phi" id="hostId">—</b></div>
+        <div class="cell"><i>REVISION</i><b id="hostRev">—</b></div>
+        <div class="cell"><i>AUTHORITY</i><b id="hostAuth">—</b></div>
+        <div class="cell"><i>φ FOCUS</i><b class="locus" id="focusPath">—</b></div>
+      </div>
+      <div class="channels" id="channels"></div>
+      <div class="proj" id="projections"></div>
+      <div class="tape"><button id="checkpoint">CHECKPOINT</button><button id="rewind">REWIND</button><button id="forward">FORWARD</button><button id="branch">COUNTERFACTUAL</button></div>
+      <div class="strip"><span><b id="txId">no transcript</b></span><span id="txMeta">—</span><span id="tapeMeta">tape 0</span></div>
+      <div class="cols">
+        <div class="panel"><h2>TRANSCRIPT / EXPRESSED</h2><pre id="transcript">select a route</pre></div>
+        <div class="panel"><h2>TRANSLATION / RESIDUE</h2><pre id="translation">select a projection</pre></div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="foot"><span>Biology is donor mechanism, not ontology.</span><span>stale transcript → refuse write · rewind → context only</span></div>
+<script type="module">
+import {createHost,makePhi,transcribe,splice,translate,ExpressionTape} from './core.mjs';
+
+const CHANNELS=['identity','address','content','depth','authority','evidence','time'];
+const PROJECTIONS={
+  PAGE:['identity','address','content','depth','authority','evidence','time'],
+  LINE:['identity','address','content','time','authority'],
+  RING:['identity','address','time','authority'],
+  GLYPH:['identity','address'],
+  TABLE:['identity','address','content','authority','evidence']
+};
+const $=id=>document.getElementById(id),esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+let manifest,current,host,phi,tx,view,focus='/',channelSet=new Set(['identity','address','content','authority','evidence']),projection='PAGE',tape=new ExpressionTape(),branchPacket=null;
+
+function nodeFromRoute(r){
+  return {
+    id:r.href,
+    address:{href:r.href,parent:r.parent??null},
+    channels:['identity','address','content','depth','authority','evidence','time'],
+    content:{title:r.title,kind:r.kind,state:r.state,operation:r.operation,role:r.role,version:r.version},
+    depth:r.parent??null,
+    authority:'VIEW',
+    evidence:r.receipt||r.evidence||null,
+    time:r.index?.updated_at||null,
+    operations:[]
+  };
+}
+function rebuildHost(){
+  const rev=Number(String(manifest.updated||'').replace(/\D/g,'').slice(-9))||1;
+  host=createHost({id:'FIELD',authority:'VIEW',source:{manifest:'/showcase-manifest.json',current:'/control/CURRENT.json'},revision:rev,nodes:(manifest.routes||[]).map(nodeFromRoute)});
+  phi=makePhi(host);
+}
+function matching(){
+  const q=$('q').value.trim().toLowerCase();
+  return (manifest.routes||[]).filter(r=>!q||[r.title,r.href,r.kind,r.state,r.operation].join(' ').toLowerCase().includes(q)).slice(0,70);
+}
+function renderRoutes(){
+  const xs=matching();$('routeMeta').textContent=xs.length+' shown · '+(manifest.routes||[]).length+' addressed';
+  $('routes').innerHTML=xs.map(r=>'<button class="route '+(r.href===focus?'on':'')+'" data-href="'+esc(r.href)+'"><strong>'+esc(r.title||r.href)+'</strong><small>'+esc(r.href)+' · '+esc(r.state||r.kind||'—')+'</small></button>').join('');
+  $('routes').querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>{focus=b.dataset.href;express();renderRoutes()});
+}
+function renderControls(){
+  $('channels').innerHTML=CHANNELS.map(ch=>'<button data-ch="'+ch+'" class="'+(channelSet.has(ch)?'on':'')+'">'+ch.toUpperCase()+'</button>').join('');
+  $('channels').querySelectorAll('[data-ch]').forEach(b=>b.onclick=()=>{const ch=b.dataset.ch;if(channelSet.has(ch))channelSet.delete(ch);else channelSet.add(ch);express();renderControls()});
+  $('projections').innerHTML=Object.keys(PROJECTIONS).map(p=>'<button data-p="'+p+'" class="'+(p===projection?'on':'')+'">'+p+'</button>').join('');
+  $('projections').querySelectorAll('[data-p]').forEach(b=>b.onclick=()=>{projection=b.dataset.p;express();renderControls()});
+}
+function express(){
+  if(!host?.read(focus))focus='/';
+  tx=transcribe(host,phi,{focus,channels:[...channelSet],context:{projection}});
+  view=translate(tx,{name:projection,channels:PROJECTIONS[projection]});
+  $('hostId').textContent=phi.host;$('hostRev').textContent=phi.revision;$('hostAuth').textContent=phi.authority;$('focusPath').textContent=focus;
+  $('txId').textContent=tx.id;$('txMeta').textContent=tx.records.length+' record · '+tx.residue.length+' transcript residue · '+view.residue.length+' translated residue';
+  $('transcript').textContent=JSON.stringify(tx,null,2);
+  $('translation').textContent=JSON.stringify(view,null,2);
+  $('tapeMeta').textContent='tape '+tape.frames.length+' · cursor '+tape.cursor+(branchPacket?' · branch '+branchPacket.label:'');
+}
+$('checkpoint').onclick=()=>{tape.checkpoint(tx,focus);branchPacket=null;express()};
+$('rewind').onclick=()=>{const f=tape.rewind();if(f?.transcript){tx=f.transcript;focus=tx.locus?.focus||focus;projection=tx.context?.projection||projection;view=translate(tx,{name:projection,channels:PROJECTIONS[projection]||[]});$('transcript').textContent=JSON.stringify(tx,null,2);$('translation').textContent=JSON.stringify(view,null,2);$('focusPath').textContent=focus;$('txId').textContent=tx.id;$('txMeta').textContent='REWOUND EXPRESSION · host revision '+host.revision+' unchanged';renderRoutes();renderControls();$('tapeMeta').textContent='tape '+tape.frames.length+' · cursor '+tape.cursor}};
+$('forward').onclick=()=>{const f=tape.forward();if(f?.transcript){tx=f.transcript;focus=tx.locus?.focus||focus;projection=tx.context?.projection||projection;view=translate(tx,{name:projection,channels:PROJECTIONS[projection]||[]});$('transcript').textContent=JSON.stringify(tx,null,2);$('translation').textContent=JSON.stringify(view,null,2);renderRoutes();renderControls();$('tapeMeta').textContent='tape '+tape.frames.length+' · cursor '+tape.cursor}};
+$('branch').onclick=()=>{branchPacket=tape.branch('WHAT-IF');$('tapeMeta').textContent=branchPacket?'counterfactual from '+branchPacket.transcript.id:'checkpoint first'};
+$('q').oninput=renderRoutes;
+
+Promise.all([
+  fetch('../../showcase-manifest.json',{cache:'no-store'}).then(r=>r.json()),
+  fetch('../../control/CURRENT.json',{cache:'no-store'}).then(r=>r.json())
+]).then(([m,c])=>{manifest=m;current=c;rebuildHost();focus=(m.routes||[]).find(r=>r.href==='/')?.href||m.routes?.[0]?.href||'/';renderRoutes();renderControls();express()}).catch(e=>{$('routes').textContent='LOAD FAILURE '+e.message});
+</script>
+</main></body></html>
