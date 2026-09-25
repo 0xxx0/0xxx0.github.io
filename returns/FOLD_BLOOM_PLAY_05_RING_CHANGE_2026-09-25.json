@@ -3,7 +3,7 @@
   "kind": "FOLD_BLOOM_PLAY_RETURN",
   "version": "0.5",
   "date": "2026-09-25",
-  "status": "CANDIDATE",
+  "status": "SHIPPED",
   "branch": "chatgpt/fold-bloom-ring-change-05-20260925",
   "parent": "FOLD_BLOOM_PLAY_0.4.1",
   "recovered_alignment": [
@@ -37,10 +37,17 @@
     "No claim that Fold/Bloom solid/broken mapping is traditional Yijing semantics."
   ],
   "verification": {
-    "play_core_tests": "PENDING_CI",
-    "live_gameplay_suite": "PENDING_CI",
-    "public_surface_check": "PENDING_CI",
-    "critical_browser_smoke": "PENDING_CI",
+    "play_core_tests": "PASS",
+    "live_gameplay_suite": "PASS",
+    "public_surface_check": "PASS",
+    "critical_browser_smoke": "PASS",
+    "route_registration": "PASS",
+    "workflow_run": 36130184417,
+    "route_run": 36130184156,
     "phone_visibility_and_feel": "HUMAN_GATE"
+  },
+  "merge": {
+    "pr": 302,
+    "sha": "a8454d741ccd58f17e5b491570d61a78f54c4e63"
   }
 }
