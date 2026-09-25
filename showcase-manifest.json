@@ -7380,6 +7380,55 @@
       },
       "tier": "FIELD",
       "sealed": "2026-09-23"
+    },
+    {
+      "href": "/spikes/005-expression-transcript/",
+      "title": "SPIKE 005 / EXPRESSION TRANSCRIPT",
+      "kind": "experiment",
+      "parent": "/",
+      "family": "SPIKE",
+      "operation": "COMPOSE",
+      "state": "CANDIDATE",
+      "version": "0.1",
+      "tier": "FIELD",
+      "role": "Falsification probe for an executable Φ/φ distinction: Φ is a derived host boundary, φ is an addressed locus, transcripts selectively express channels/support, translations expose residue, stale commits fail, and rewind restores expression context without rolling canonical history backward.",
+      "index": {
+        "updated_at": "2026-09-25T09:10:00+08:00",
+        "work_modes": [
+          "PLAY",
+          "INSPECT",
+          "VERIFY"
+        ]
+      },
+      "evidence": [
+        {
+          "claim": "Φ frame contains no canonical node copies",
+          "source": "spikes/005-expression-transcript/selftest.mjs",
+          "status": "TESTED"
+        },
+        {
+          "claim": "stale transcript commits and unsupported operations are refused",
+          "source": "spikes/005-expression-transcript/selftest.mjs",
+          "status": "TESTED"
+        },
+        {
+          "claim": "rewind restores transcript context without reverting current host state",
+          "source": "spikes/005-expression-transcript/selftest.mjs",
+          "status": "TESTED"
+        }
+      ],
+      "evolution": {
+        "schema": "field-evolution/v0.1",
+        "host": "/",
+        "generation": 5,
+        "stage": "TEST",
+        "question": "Can a derived Φ host frame plus transient φ-addressed transcripts make selective expression, residue, authority and rewind explicit without creating a second canonical store?",
+        "baseline": "FIELD 0.8.1 has a real φ focus/projection runtime, but Φ is mostly semantic notation distributed across CURRENT, manifest and host adapters.",
+        "mutation": "Introduce a no-copy Φ boundary frame, selective transcript/splice/translation operations, stale-write refusal and an expression tape whose rewind never rolls canonical host state backward.",
+        "evidence_gate": "Ten kernel laws pass AND the real-manifest probe can switch routes/channels/projections/checkpoints without mutating manifest/CURRENT state.",
+        "next_if_pass": "Use the contract only where it removes a concrete stale-projection/authority/context-copy problem; do not promote biological vocabulary or add a new root dashboard.",
+        "next_if_fail": "Keep Φ/φ as notation and identify the exact missing host-boundary primitive instead of expanding the metaphor."
+      }
     }
   ],
   "release_law": [
