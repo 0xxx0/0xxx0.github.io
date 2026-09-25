@@ -21,6 +21,20 @@ SOURCE
 
 The implementation may be UI, conversation, an agent run, HAOS event handling, physical actuation, a document transform, or a game mechanic. Carrier is not identity.
 
+## Standing desire — operator-confirmed 2026-09-25
+
+Status: **DIRECTION REMINDER, NOT A LAW.** It adds no authority and overrides no evidence, identity, host, or human gate.
+
+When work could create another surface:
+
+1. **FOLD FIRST.** Prefer a lossless fold into an existing head over a new sovereign surface.
+2. **ROUTE THROUGH THE CARRIER.** Express migrating mechanisms through the existing carrier grammar before inventing a bespoke pipeline; carrier is not identity and hosts keep domain truth.
+3. **GAMELOOP IS A TRANSDUCTION.** Play/loop mechanics and LAB projections belong to one family; absorb new asks there first where lawful.
+4. **NO BREAKING CHANGE.** Compose before creating; fold before forking; reuse before rebuilding.
+
+Source provenance: recovered from PR #285; transplanted onto current master rather than merging the stale branch.
+
+
 ## Exactly recovered donor
 
 The frozen 2020 INTERPHASE prototype at:
