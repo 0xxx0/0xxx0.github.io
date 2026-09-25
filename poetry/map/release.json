@@ -66,7 +66,11 @@
     "lawful exact 4×7 Han carry → Verse Atlas study; inbound focus is projection-only and creates no path/claim",
     "Verse Atlas fixture-specific regression tests are conditional so lawful imported sources do not inherit fixture-only assertions",
     "outbound projection caller URLs now carry current PAGE/MAP/SETS view + selected token ID as a bounded address witness",
-    "full Poem Map re-entry restores that token focus only when the source fingerprint also matches the current parsed source; invalid/stale focus or source identity is ignored"
+    "full Poem Map re-entry restores that token focus only when the source fingerprint also matches the current parsed source; invalid/stale focus or source identity is ignored",
+    "candidate edit operation is explicit and backward-compatible: CONTINUE → INSERT_AFTER; unspecified and other current intents → REPLACE",
+    "candidate preview, form-support simulation, adoption and revision ancestry all use the same edit operation",
+    "locked tokens block REPLACE but may remain unchanged while CONTINUE inserts beside them",
+    "Latin-script continuation preserves readable spacing while Han→Han continuation remains compact"
   ],
   "boundaries": [
     "Map is a projection, not the poem.",
@@ -76,7 +80,7 @@
     "Candidate lookup never auto-inserts text.",
     "Forms constrain; they do not score literary value.",
     "Preview never mutates source.",
-    "ADOPT is explicit and recorded; LOCK blocks adoption.",
+    "ADOPT is explicit and recorded; LOCK blocks replacement of the locked token, while adjacent CONTINUE may preserve it unchanged.",
     "0.1 selective-visualization proof remains preserved at /poetry/lab/poem-map/.",
     "Candidate support reports explicit form-envelope compatibility only; it is not a recommendation, ranking or poetry score.",
     "PAGE is the legibility/control entrance; MAP and SETS must earn attention rather than replace reading.",
@@ -89,7 +93,9 @@
     "Verse Atlas handoff is fail-closed: only exact four-line × seven-Han sources enter the specialist adapter.",
     "Source-spine handoffs are session-local routing state, not durable poem truth; durable authority remains Poem Map RETURN / recipient RETURN.",
     "Return focus is an address witness only; no source bytes, recipient marks, claims or projection state are encoded in the URL.",
-    "Focus restoration is fail-closed against both current source fingerprint and parsed token address; stale/malformed witnesses do nothing."
+    "Focus restoration is fail-closed against both current source fingerprint and parsed token address; stale/malformed witnesses do nothing.",
+    "CONTINUE is not a synonym for REPLACE: its candidate operation is INSERT_AFTER.",
+    "Candidate operation changes only the explicitly previewed/adopted edit; providers still cannot write source text directly."
   ],
   "next_experiments": [
     "extend the existing intent dock only where a named authoring gap appears; COMPRESS/EXPAND/BREAK remain unimplemented rather than implied",
@@ -104,7 +110,7 @@
     "state": "CANDIDATE",
     "basis": "Substantial workbench is implemented and usable, but receipt remains explicitly experimental with open language/corpus/game trials; historical status EXPERIMENTAL_LIVE remains above."
   },
-  "version": "0.2.4",
+  "version": "0.2.5",
   "state": "EXPERIMENTAL_LIVE",
   "lineage": {
     "proof_donor": "/poetry/lab/poem-map/",
@@ -151,13 +157,15 @@
     "head_sync_commit": "0b2f7e39056872f83c0c89a77fb77c9e376c1fb9",
     "focus_return_address": "PASS_PR_311 · source fingerprint + L#T# + view survive deterministic full iframe reload · public-surface-check 36133150894",
     "focus_return_browser_smoke": "PASS · fixed poem → MAP → L1T2 → caller URL → full reload → same source fingerprint + MAP + L1T2",
-    "focus_return_merge": "52588dbb123edf2b25a8c380a88a8337a9d1a966"
+    "focus_return_merge": "52588dbb123edf2b25a8c380a88a8337a9d1a966",
+    "candidate_operation_static": "PASS_SOURCE_CONTRACT",
+    "continue_insert_browser": "PENDING_PR_CI · selftest: CONTINUE inserts / REPLACE replaces / Han continuation compact"
   },
   "updated": "2026-09-25",
   "next_bounded_test": {
-    "instruction": "Bind a real poem/fragment in Poem Map. Select one token in PAGE or MAP. CARRY READ/LAB/STUDY, use the recipient return, and verify the same Poem Map view + token reappear after a full reload; then EXPORT→IMPORT.",
-    "compare": "The three carry operations must reduce re-entry cost without adding a new shared store, universal shell, semantic authority, or permanent control layer.",
-    "stop": "If any recipient mutates poem authorship, creates a path/claim from handoff focus, loses source identity, or requires understanding internal routing to use, stop and revert that seam."
+    "instruction": "Use one real fragment. Select a word, request CONTINUE and REPLACE, TRY both, then ADOPT one. CONTINUE must visibly add after the selected token; REPLACE must swap it. Undo must restore the exact prior source.",
+    "compare": "Does the operation distinction make open composition more legible without adding a second editor, provider authority or hidden generation step?",
+    "stop": "If CONTINUE still reads as replacement, mutates locked source tokens, produces opaque spacing, or form-support preview disagrees with the committed edit, revert the operation seam."
   },
   "face": "CALM_FIELD_FIRST",
   "interface_contract": {
