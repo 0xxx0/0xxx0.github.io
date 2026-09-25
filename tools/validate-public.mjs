@@ -201,6 +201,10 @@ if(migrationNow){
   const nowIds=(migrationNow.now||[]).map(x=>x.id);
   for(const id of duplicateValues(nowIds))fail.push('duplicate MIGRATION NOW id '+id);
 }
+const foldLab=read('fold-bloom/lab/index.html');
+const foldInk=read('fold-bloom/ink/index.html');
+check(/footer a\{[^}]*min-height:34px/.test(foldLab),'FOLD BLOOM LAB footer navigation lost 34px phone target floor');
+check(/footer a\{[^}]*min-height:34px/.test(foldInk),'FOLD BLOOM INK footer navigation lost 34px phone target floor');
 const home=read('index.html');
 const fi=fiContract;
 check(!!fi,'FIELD INDEX contract missing/unreadable');
