@@ -1,0 +1,37 @@
+{
+  "schema": "0xxx0/fold-bloom-field-lab-cross-projection-proof/v0.1",
+  "date": "2026-09-26",
+  "state": "VERIFIED",
+  "surface": "FOLD//BLOOM FIELD LAB",
+  "version": "0.3.3",
+  "route": "/fold-bloom/lab/",
+  "proof": "One exact local text source traverses VERSE → READ → LOCI → VERSE in a real 430×900 browser while preserving the focused line and producing an EVIDENCE_ONLY LAB RETURN that omits raw source bytes.",
+  "sequence": [
+    "VERSE",
+    "READ",
+    "LOCI",
+    "VERSE",
+    "RETURN"
+  ],
+  "invariants": [
+    "Source text is identical across VERSE, READ and LOCI.",
+    "The focused VERSE line returns to the same exact text:// span after the round trip.",
+    "LAB RETURN records VERSE / READ / LOCI traversal.",
+    "LAB RETURN authority remains EVIDENCE_ONLY.",
+    "LAB RETURN does not copy raw source bytes."
+  ],
+  "verification": {
+    "public_surface_check": "PASS · run 36195036465",
+    "cross_projection_step": "PASS · step 50",
+    "critical_browser_smoke": "PASS · step 58",
+    "full_job": "PASS"
+  },
+  "authority": {
+    "lab_return": "EVIDENCE_ONLY",
+    "text_authority": "UNCHANGED",
+    "read_authority": "READFIELD / APERTURE",
+    "poem_authority": "Poem Map",
+    "loci_authority": "FIELD LAB addressed course only"
+  },
+  "remaining_gate": "Ordinary human phone use and the unequal VERSE → REPLAY branch remain lived-use evidence; they are not blockers for the proven VERSE → READ → LOCI → VERSE loop."
+}
