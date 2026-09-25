@@ -1,0 +1,46 @@
+{
+  "schema": "field-return/v0.1",
+  "id": "ATLAS_DAYLINE_MOBILE_REACH_CLOCK_2026-09-25",
+  "date": "2026-09-25",
+  "state": "IMPLEMENTED_CANDIDATE",
+  "trigger": {
+    "lived": [
+      "User could not scroll down on phone",
+      "shared bottom-left arrow/navigation obstructed the working surface"
+    ],
+    "packet": [
+      "RETURN generated with canonical now 18:35 while device-local generation time implied ~16:47",
+      "before == after; delta/evidence empty"
+    ]
+  },
+  "diagnosis": [
+    "mobile PLAIN view was taller than viewport while body remained overflow:hidden from fixed Atlas viewport law",
+    "showcase route adapter used fixed bottom-left controls on mobile regardless of host surface",
+    "canonical Dayline NOW is intentionally mutable/simulatable but RETURN did not expose device-clock disagreement",
+    "zero-delta RETURN was structurally valid but semantically an orientation snapshot, not a world change"
+  ],
+  "delta": [
+    "unlock vertical document scroll only for body[data-projection=plain] on mobile",
+    "move shared mobile showcase navigation controls to bottom-right and bound panel height/scroll",
+    "add explicit NOW ↻ device-clock sync",
+    "add RETURN returnClass and clockWitness",
+    "use local date for Dayline worldKey",
+    "bump PWA cache to v5"
+  ],
+  "preserves": [
+    "ATLAS fixed interactive viewport",
+    "PLAIN/ATLAS same DayState",
+    "manual/counterfactual time remains possible",
+    "REALITY PORTS",
+    "RUN≤3",
+    "native source authority"
+  ],
+  "verification": {
+    "javascript_syntax": "PASS_PREWRITE",
+    "route_registration": "PENDING_CI",
+    "public_surface": "PENDING_CI",
+    "lived_phone": "PENDING_USER"
+  },
+  "next": "Reload Dayline on phone; confirm PLAIN scroll + relocated route controls, press NOW ↻ if using wall time, then perform one real action before RETURN.",
+  "stop": "Do not infer mobile usability or world completion from CI alone."
+}
