@@ -70,7 +70,12 @@
     "candidate edit operation is explicit and backward-compatible: CONTINUE → INSERT_AFTER; unspecified and other current intents → REPLACE",
     "candidate preview, form-support simulation, adoption and revision ancestry all use the same edit operation",
     "locked tokens block REPLACE but may remain unchanged while CONTINUE inserts beside them",
-    "Latin-script continuation preserves readable spacing while Han→Han continuation remains compact"
+    "Latin-script continuation preserves readable spacing while Han→Han continuation remains compact",
+    "NEXT LINE is an explicit START_NEXT_LINE candidate operation recovered from Pathweaver-style open composition",
+    "START_NEXT_LINE fills the immediate blank line slot when present; otherwise it inserts one new line directly after the selected line",
+    "manual BANK inherits the last explicitly requested edit operation and labels it visibly as REPLACE / ADD AFTER / NEXT LINE",
+    "additive previews preserve the anchor token in PAGE/MAP; only REPLACE substitutes display text",
+    "NEXT LINE revision ancestry records the resulting line address and original anchor token"
   ],
   "boundaries": [
     "Map is a projection, not the poem.",
@@ -95,7 +100,10 @@
     "Return focus is an address witness only; no source bytes, recipient marks, claims or projection state are encoded in the URL.",
     "Focus restoration is fail-closed against both current source fingerprint and parsed token address; stale/malformed witnesses do nothing.",
     "CONTINUE is not a synonym for REPLACE: its candidate operation is INSERT_AFTER.",
-    "Candidate operation changes only the explicitly previewed/adopted edit; providers still cannot write source text directly."
+    "Candidate operation changes only the explicitly previewed/adopted edit; providers still cannot write source text directly.",
+    "Blank lines are authorable slots, not silently discarded absence.",
+    "NEXT LINE is explicit: it may fill the immediate blank slot or insert one line after the anchor, but never auto-generates text.",
+    "Additive TRY previews may project the candidate beside/below the anchor, but cannot visually impersonate replacement of the anchor token."
   ],
   "next_experiments": [
     "extend the existing intent dock only where a named authoring gap appears; COMPRESS/EXPAND/BREAK remain unimplemented rather than implied",
@@ -110,7 +118,7 @@
     "state": "CANDIDATE",
     "basis": "Substantial workbench is implemented and usable, but receipt remains explicitly experimental with open language/corpus/game trials; historical status EXPERIMENTAL_LIVE remains above."
   },
-  "version": "0.2.5",
+  "version": "0.2.6",
   "state": "EXPERIMENTAL_LIVE",
   "lineage": {
     "proof_donor": "/poetry/lab/poem-map/",
@@ -160,13 +168,15 @@
     "focus_return_merge": "52588dbb123edf2b25a8c380a88a8337a9d1a966",
     "candidate_operation_static": "PASS_SOURCE_CONTRACT",
     "continue_insert_browser": "PASS_PR_351 · public-surface-check 36143041343 · CONTINUE inserts / REPLACE replaces / Han continuation compact",
-    "candidate_operation_merge": "5e34273bb46a09398e908d5952743ee877316ce0"
+    "candidate_operation_merge": "5e34273bb46a09398e908d5952743ee877316ce0",
+    "next_line_static": "PASS_SOURCE_CONTRACT",
+    "next_line_browser": "PENDING_PR_CI · canonical Jueju blank L2 filled through START_NEXT_LINE"
   },
   "updated": "2026-09-25",
   "next_bounded_test": {
-    "instruction": "Use one real fragment. Select a word, request CONTINUE and REPLACE, TRY both, then ADOPT one. CONTINUE must visibly add after the selected token; REPLACE must swap it. Undo must restore the exact prior source.",
-    "compare": "Does the operation distinction make open composition more legible without adding a second editor, provider authority or hidden generation step?",
-    "stop": "If CONTINUE still reads as replacement, mutates locked source tokens, produces opaque spacing, or form-support preview disagrees with the committed edit, revert the operation seam."
+    "instruction": "Load JUEJU DONOR. Select a token in L1, request NEXT LINE, bank or choose one candidate, TRY, ADOPT, then UNDO. L2 must become authorable without turning L1 into an 8-character line or losing the remaining blank slots.",
+    "compare": "Does explicit NEXT LINE make the recovered opener + empty L2–L4 feel like one open composition surface rather than a sealed sample plus disconnected editor?",
+    "stop": "If NEXT LINE overwrites an existing nonblank line without explicit insertion, hides the operation, mutates the anchor during TRY, or breaks exact four-line Jueju source shape when filling a blank slot, revert."
   },
   "face": "CALM_FIELD_FIRST",
   "interface_contract": {

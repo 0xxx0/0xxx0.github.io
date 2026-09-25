@@ -1,0 +1,46 @@
+{
+  "schema": "field-return/v1",
+  "id": "VERSE_OPEN_LINE_2026-09-25",
+  "date": "2026-09-25",
+  "state": "CANDIDATE_PENDING_CI",
+  "object": "Poem Map 0.2.6 open line-slot composition",
+  "recovered": [
+    "Pathweaver's composition donor preserved an opener plus genuinely open later lines rather than a fully prewritten source.",
+    "The canonical JUEJU donor in Poem Map already preserved L1 plus blank L2–L4.",
+    "Before 0.2.6 those blank lines were source-correct but operationally unreachable because Poem Map selection addressed tokens only."
+  ],
+  "operation": {
+    "next_line": "START_NEXT_LINE",
+    "blank_slot": "fill the immediate blank line after the selected line without changing total source line count",
+    "occupied_next_line": "insert one new line immediately after the selected line rather than overwrite existing text",
+    "manual_authorship": "the manual BANK button inherits the last explicitly requested operation and displays it",
+    "preview": "TRY remains source-nonmutating; additive operations preserve the selected anchor visually"
+  },
+  "changed": [
+    "/poetry/map/index.html",
+    "/poetry/map/release.json",
+    "/poetry/index.html",
+    "/foundry/index.html",
+    "/tools/validate-public.mjs",
+    "/tools/browser-smoke.mjs"
+  ],
+  "invariants": [
+    "Poem Map remains source and authoring authority.",
+    "NEXT LINE never generates text by itself; candidate provider/manual BANK only populates a proposal.",
+    "ADOPT remains the sole commit edge and revision ancestry records resulting line address plus anchor.",
+    "REPLACE and CONTINUE semantics from 0.2.5 remain intact.",
+    "Canonical Jueju historical tone/rime remains OPEN and Verse Atlas remains the specialist evidence adapter.",
+    "No new poetry host, provider, store or shared semantic authority is introduced."
+  ],
+  "proof": {
+    "static_contract": "implemented",
+    "browser_selftest": [
+      "CONTINUE inserts after token",
+      "REPLACE replaces token",
+      "Han CONTINUE stays compact",
+      "NEXT LINE fills canonical blank L2 while preserving remaining blank slots"
+    ],
+    "ci": "pending"
+  },
+  "next": "If CI is green, merge runtime then sync 0.2.6 head metadata. After that stop Verse feature expansion until ordinary authoring exposes a concrete defect."
+}
