@@ -31,7 +31,9 @@
     "RAW INPUT DOES NOT ENTER THE TRACE BY DEFAULT. Local reference tracing may derive an event digest/ref from typed text, but committed/exported traces remain content-free unless a future private policy explicitly governs retention.",
     "TRACE IS AN OPERATION, NOT ANOTHER SOVEREIGN ROUTE. Root TRACE, Aperture TRACE and the TRACE / VERIFY fold are entrances to one focus-bound instrument.",
     "STALE TRACE ≠ CURRENT PROOF. Changing FIELD focus invalidates the current trace binding until the trace is rerun against the new addressed resource.",
-    "WAITING != QUEUE. Human/world dependencies are visible without acquiring machine execution priority or authority."
+    "WAITING != QUEUE. Human/world dependencies are visible without acquiring machine execution priority or authority.",
+    "TELEMETRY ≠ MATERIAL MUTATION. Generated heartbeat/status refresh commits may remain in exact Git chronology but must not drive material freshness, catch-up, priority or work selection.",
+    "AUTONOMY ≠ BUSYNESS. When the highest-value frontier is human/world-gated, one bounded directly-related fallback may prepare it; then STOP rather than forage unrelated archive work."
   ],
   "root_order": {
     "default": "AXIAL_LATEST",
@@ -83,7 +85,7 @@
     "root_play": "/field-play.html derives public-safe missions from manifest gaps plus FIELD_ISSUES entries with play_safe=true. Returns remain report-only and require review.",
     "root_evolve": "EVOLVE is a named projection over canonical manifest routes carrying route.evolution. It shows host, generation, stage, mutation and evidence gate; it is not a new backlog or authority source.",
     "root_identity_fold": "Identity folding is permitted only inside secondary projections where repetition harms legibility. ROUTES / LIVE SURFACE keeps one visible chip per addressed surface; exact Git mutations remain separately recoverable under collapsed CHANGE / GIT.",
-    "root_latest": "Root ROUTES / FIELD SURFACE is the primary addressed-route projection. It is ordered by offset-normalized route.index.updated_at and explicitly exposes INDEX↔GIT drift using the already-fetched master HEAD timestamp. Exact Git chronology remains a collapsed CHANGE / GIT aperture; commit rows lazily resolve exact changed paths. Manifest time is curated projection, never literal chronology.",
+    "root_latest": "Root ROUTES / FIELD SURFACE is the primary addressed-route projection. It is ordered by offset-normalized route.index.updated_at. Exact Git chronology remains available under collapsed CHANGE / GIT, including telemetry; the root truth rail and INDEX↔GIT freshness witness use the newest material commit, excluding pure generated NEXUS board-refresh heartbeats. Manifest time is curated projection, never literal chronology.",
     "root_issues": "Render open GitHub issues as a separate newest-activity-first repo-truth list. Live GitHub API may refresh a checked-in /control/FIELD_ISSUES.json fallback. Issue presence is not priority.",
     "root_density": "/field-presentation.js may reduce route tokens toward glyph-only marks at MARK density while preserving route order, axis value and explicit OPEN.",
     "root_glyph": "/field-glyph.js composes route marks from manifest kind × operation × state × NOW/HEAD/ISSUE attention marks. Glyphs are projections over addressed route identity; compact date separators use browser-local normalized time and must not imply Git commit grouping.",
@@ -102,7 +104,7 @@
     "root_status": "STATUS is secondary and collapsed. Its rail summarizes live ISSUES / HEADS / MAP plus PORTS live-debt classes only (BUILD / PROVE, BOUNDARY, VERIFY, and any UNCLASSIFIED status). WAITING / YOU remains a distinct primary human/world dependency aperture and is not repeated in STATUS. AVAILABLE and PARKED port counts stay in the PORTS fold; dated audits remain historical.",
     "root_tzimtzum": "Primary root hierarchy is deliberately small: CURRENT/φ truth frame → FOCUS → ROUTES / FIELD SURFACE → WAITING / YOU → collapsed STATUS. If a root block duplicates those functions, fold it under its owner or remove it rather than creating another dashboard.",
     "root_ports": "PORTS / EXIT STATE projects manifest field.exit_paths without treating every non-AVAILABLE status as unresolved work. Exact exit statuses remain canonical and are grouped for presentation into AVAILABLE, BUILD / PROVE, HUMAN / EXPORT BOUNDARY, VERIFY and PARKED / OPTIONAL. Candidate, reference, donor and deferred exits are not counted as live debt; unknown statuses render OTHER / UNCLASSIFIED.",
-    "root_route_freshness": "ROUTES may never call itself LIVE unless route-touch timestamps are mechanically synchronized. FIELD root exposes the newest manifest route-index clock against Git HEAD; positive GIT drift means the route projection is behind exact mutation evidence.",
+    "root_route_freshness": "FIELD exposes the newest manifest route-index clock against MATERIAL Git HEAD. Pure generated NEXUS board-refresh heartbeat commits remain exact Git history but do not manufacture route freshness debt.",
     "glyph_block_rule": {
       "law": "Compress repeated addressed projections, never semantic content or authority.",
       "glyph_rails": [

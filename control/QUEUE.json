@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/execution-queue/v0.1",
-  "updated": "2026-09-22",
+  "updated": "2026-09-25",
   "max_live": 2,
   "live": [
     {
@@ -93,5 +93,8 @@
       "pass": "Exact source/bytes or explicit blocked boundary; recovered material must either unlock a current head or remain parked.",
       "status": "BOUNDED_MAINTENANCE"
     }
-  ]
+  ],
+  "authority": "COMPATIBILITY_PROJECTION_ONLY",
+  "source_of_attention": "/control/CURRENT.json",
+  "law": "QUEUE may preserve execution recipes/history, but it does not independently authorize NOW or NEXT. CURRENT owns attention; WAITING owns explicit human/world dependencies."
 }

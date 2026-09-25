@@ -303,8 +303,10 @@ function tsMs(t){const n=Date.parse(t);return Number.isFinite(n)?n:0}
 function shortTs(t){if(!t)return'';const raw=String(t);if(/^\d{4}-\d{2}-\d{2}$/.test(raw))return raw.slice(5);const d=new Date(raw);if(!Number.isFinite(d.getTime()))return raw.slice(0,16);const p=n=>String(n).padStart(2,'0');return p(d.getMonth()+1)+'-'+p(d.getDate())+' '+p(d.getHours())+':'+p(d.getMinutes())}
 function shortDay(t){if(!t)return'';const raw=String(t);if(/^\d{4}-\d{2}-\d{2}$/.test(raw))return raw.slice(5).replace('-','·');const d=new Date(raw);if(!Number.isFinite(d.getTime()))return raw.slice(0,10);const p=n=>String(n).padStart(2,'0');return p(d.getMonth()+1)+'·'+p(d.getDate())}
 function routeIndexClock(){return latest[0]?.index?.updated_at||''}
+function isTelemetryCommit(c){return /^nexus:\s*board refresh\b/i.test(String(c?.subject||''))}
+function materialRepoTouches(){return repoTouches.filter(c=>!isTelemetryCommit(c))}
 function routeGitDrift(){
- const it=routeIndexClock(),gt=repoTouches[0]?.date;if(!it)return'INDEX —';if(!gt)return'INDEX '+shortTs(it)+' · GIT ?';
+ const it=routeIndexClock(),gt=materialRepoTouches()[0]?.date;if(!it)return'INDEX —';if(!gt)return'INDEX '+shortTs(it)+' · GIT ?';
  const dm=tsMs(gt)-tsMs(it),mins=Math.round(Math.abs(dm)/60000);
  if(Math.abs(dm)<60000)return'INDEX '+shortTs(it)+' · GIT ≈';
  const span=mins<60?mins+'m':mins<1440?Math.round(mins/60)+'h':Math.round(mins/1440)+'d';
@@ -424,7 +426,7 @@ function renderSyncLine(){
  const fronts=(current?.active_fronts||[]).length,heads=(current?.current_heads||[]).length;
  cur.textContent=(current?.updated||'—')+' · '+fronts+' fronts · '+heads+' heads';
  loc.textContent=(focus?.href||'/')+(focus?.state?' · '+focus.state:'');
- const c=repoTouches[0];rep.textContent=c?'HEAD '+c.sha.slice(0,8)+' · '+shortTs(c.date):'HEAD —';
+ const c=materialRepoTouches()[0];rep.textContent=c?'MHEAD '+c.sha.slice(0,8)+' · '+shortTs(c.date):'MHEAD —';
 }
 function routeForRepoFile(path){
  const raw=String(path||'').replace(/^\/+/,''),p='/'+raw;
@@ -459,7 +461,7 @@ function renderRepoTouches(){
  const box=$('touchList'),meta=$('touchMeta');if(!box||!meta)return;
  const xs=repoTouches.slice(0,8);
  if(!xs.length){meta.textContent='master · live chronology unavailable';box.innerHTML='<div class="touchFail">Live GitHub chronology unavailable; manifest projection remains below.</div>';renderSyncLine();return}
- meta.textContent='HEAD '+xs[0].sha.slice(0,8)+' · '+shortTs(xs[0].date)+' · '+repoTouches.length+' recent';
+ meta.textContent='HEAD '+xs[0].sha.slice(0,8)+' · '+shortTs(xs[0].date)+' · '+repoTouches.length+' exact commits · telemetry included';
  box.innerHTML=xs.map(c=>'<details class="touchCommit" data-sha="'+esc(c.sha)+'"><summary class="touchRow"><code>'+esc(c.sha.slice(0,8))+'</code><b>'+esc(c.subject)+'</b><span>'+esc(shortTs(c.date))+'</span></summary><div class="touchFiles" data-touch-files="'+esc(c.sha)+'"><div class="touchFail">open to resolve exact changed paths…</div></div></details>').join('');
  box.querySelectorAll('.touchCommit').forEach(d=>d.addEventListener('toggle',()=>{if(d.open)loadCommitFiles(d.dataset.sha)}));
  renderSyncLine();

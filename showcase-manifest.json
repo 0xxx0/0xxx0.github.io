@@ -16,16 +16,17 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-25T15:45:00+08:00",
+        "updated_at": "2026-09-25T16:55:00+08:00",
         "work_modes": [
-          "OPERATE",
-          "VERIFY"
+          "IMPLEMENT",
+          "VERIFY",
+          "OPERATE"
         ]
       },
       "role": "FIELD INDEX root: compact re-entry and addressed operation surface. CURRENT owns attention. CATCH UP / LOCAL derives a browser-local 'since last caught up' projection from CURRENT + manifest timestamps, prioritizing active/current heads without creating backlog or authority. ROUTES remains the manifest projection; CHANGE / GIT remains literal repository chronology; WAITING preserves human/world gates. Φ denotes host/authority; φ denotes current addressed focus.",
       "receipt": "/returns/FIELD_INDEX_CATCHUP_2026-09-25.json",
       "machine_view": "FIELD",
-      "version": "0.8.4",
+      "version": "0.8.5",
       "transfer": [
         "local-only catch-up projection: NOW + changed addressed heads since explicit local caught-up mark; derived from CURRENT + manifest, no new authority",
         "catch-up ranking prefers active/current heads but never creates priority, queue or read-state in canonical files",
@@ -7885,7 +7886,8 @@
       ],
       "passive_trial": "field-axial-trial/v0.1 in localStorage only; no network write; compare ordinary AXIAL-vs-LATEST focus/open behavior",
       "control": "plain LATEST list remains immediately beneath compositor"
-    }
+    },
+    "material_head_rule": "Exact Git keeps every commit, but FIELD freshness/re-entry ignores pure generated NEXUS board-refresh heartbeat commits. Telemetry never creates work."
   },
   "policy_trace_verification": "/policy-trace-verification.json",
   "policy_trace_event_model": "/policy-trace-event-model.json",
