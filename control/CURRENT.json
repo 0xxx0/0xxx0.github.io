@@ -399,16 +399,17 @@
     },
     {
       "lineage": "atlas-dayline",
-      "head": "ATLAS DAYLINE Branch I + FIELD LIVE 0.2.1 / REALITY PORTS / MOBILE ACTION",
+      "head": "ATLAS DAYLINE Branch I + FIELD LIVE 0.2.2 / REALITY FIRST",
       "state": "STABLE + OPT_IN_LIVE_CANDIDATE",
       "route": "/atlas-dayline/",
-      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner. REALITY PORTS accepts one explicit session-local envelope at a time: HOUSE lends planning context, SHOPPING lends one capability action, COMMS lends one source-addressed OPEN signal. Mobile first use now opens the PLAIN action projection while CAPTURE and pending REALITY PORT remain reachable. COPY HANDOFF emits atlas-dayline-feedback/v0.2 with authority NONE / USER_EXPLICIT_COPY. Dayline owns temporal execution only.",
+      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner. First-run/reset is now reality-first and empty rather than seeded with historical-looking obligations; existing browser-local state remains untouched. REALITY PORTS accepts one explicit session-local envelope at a time: HOUSE lends planning context, SHOPPING lends one capability action, COMMS lends one source-addressed OPEN signal. Mobile first use opens PLAIN while CAPTURE and pending REALITY PORT remain reachable. COPY HANDOFF remains authority NONE. Dayline owns temporal execution only.",
       "evidence": [
         "/atlas-dayline/release.json",
         "/returns/ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
         "/returns/ATLAS_DAYLINE_MOBILE_ACTION_2026-09-25.json",
         "/control/confluence/REALITY_LOOP_HERMES_2026-09-25.md",
-        "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md"
+        "/control/confluence/UNIFIED_INSTRUMENT_PIVOT_2026-09-25.md",
+        "/returns/ATLAS_DAYLINE_REALITY_FIRST_SEED_2026-09-25.json"
       ],
       "next_executable": {
         "id": "atlas-dayline-reality-ports-lived-proof",
@@ -422,7 +423,7 @@
         ],
         "law": "One lived handoff first. Do not add another adapter, route layer or source mutation until the continuity loop earns use."
       },
-      "version": "Branch I + FIELD LIVE 0.2.1 / REALITY PORTS / MOBILE ACTION"
+      "version": "Branch I + FIELD LIVE 0.2.2 / REALITY FIRST"
     },
     {
       "lineage": "house-spatial",
