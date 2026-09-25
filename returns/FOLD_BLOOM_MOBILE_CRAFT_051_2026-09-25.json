@@ -3,8 +3,8 @@
   "kind": "FOLD_BLOOM_MOBILE_CRAFT_RETURN",
   "version": "0.5.2",
   "date": "2026-09-25",
-  "status": "CANDIDATE",
-  "branch": "chatgpt/fold-bloom-mobile-craft-051-20260925",
+  "status": "MERGED_CI_GREEN",
+  "branch": "confluence/fold-bloom-mobile-craft-052-reland-20260925",
   "parent": "FOLD_BLOOM_PLAY_0.5",
   "user_gate": {
     "observed": "Phone screenshot showed an active LIVE ring underneath the still-open onboarding slab; the slab consumed the lower viewport and mode controls. The same frame showed TARGET MOSS and GATE EMBER without an intelligible mechanical explanation.",
@@ -38,12 +38,25 @@
     "Do not invent elemental semantics for EMBER/WATER/MOSS."
   ],
   "verification": {
-    "engine_cell_family_test": "PENDING_CI",
-    "visual_world_unit_tests": "PENDING_CI",
-    "mobile_control_browser_smoke": "PENDING_CI",
-    "active_surface_browser_smoke": "PENDING_CI",
-    "public_surface_check": "PENDING_CI",
-    "route_registration": "PENDING_CI",
+    "engine_cell_family_test": "PASS",
+    "visual_world_unit_tests": "PASS",
+    "mobile_control_browser_smoke": "PASS · 430×900 explicit PUZZLE → active surface + data-fb-primary-controls=clear + onboarding absent",
+    "active_surface_browser_smoke": "PASS",
+    "public_surface_check": {
+      "run": 36135206800,
+      "result": "PASS"
+    },
+    "route_registration": {
+      "run": 36135206830,
+      "result": "PASS"
+    },
+    "pull_request": 320,
+    "merge_sha": "c3ea784497065051f19896a0a0f3464250f7fd19",
     "real_phone_touch_use": "HUMAN_GATE"
-  }
+  },
+  "recovery": {
+    "supersedes_pr": 307,
+    "method": "Recovered the intact Fold//Bloom-only delta onto fresh current master; stale branch preserved as provenance and closed."
+  },
+  "next": "STOP UI EXPANSION. One real phone cold-open must decide whether 0.5.2 actually removes touch obstruction and semantic confusion."
 }
