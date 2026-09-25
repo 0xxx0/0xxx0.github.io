@@ -7,7 +7,7 @@ import {
 } from './play-core.js?v=0.5';
 import {stateDescriptor,stateChange,formatState,movingLines} from '../state-language.js?v=0.1';
 
-const VERSION='FOLD_BLOOM_PLAY_0.5.4';
+const VERSION='FOLD_BLOOM_PLAY_0.5.5';
 const VALID=new Set(['PLAY','PUZZLE','PATH','DUET','GARDEN','ZEN']);
 const ALIASES=new Map([['CONCERT','PLAY'],['RUN','PLAY'],['HEX','PUZZLE'],['YIJING','PUZZLE'],['ICHING','PUZZLE'],['PAR','PATH'],['TWO-DIAL','DUET'],['TWO_DIAL','DUET'],['ECOLOGY','GARDEN']]);
 const params=new URLSearchParams(location.search);
@@ -15,7 +15,7 @@ const rawRequested=String(params.get('play')||'').toUpperCase();
 const requested=ALIASES.get(rawRequested)||rawRequested;
 let mode=VALID.has(requested)?requested:'PLAY';
 let viewTouched=params.has('view')||params.has('still');
-let stillView=params.get('view')==='still'||params.get('still')==='1'||(!viewTouched&&mode==='PUZZLE');
+let stillView=params.get('view')==='still'||params.get('still')==='1';
 let active=false,ended=false,releases=0,hits=0,flowGain=0,stars=0,turns=0,par=0;
 let lastRotation=null,lastEventId=null,runtime=null,fieldEnter=null,root=null,result=null;
 let duetPanel=null,duetB=0,duetHits=0;
@@ -47,10 +47,11 @@ function injectStyle(){
   if(q('#fbPlayStyle'))return;
   const style=document.createElement('style');style.id='fbPlayStyle';
   style.textContent=`
-  .fbPlayEntry{margin:16px 0 2px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.025);padding:12px}
-  .fbPlayEntry .law{font-size:9px;line-height:1.55;letter-spacing:.07em;color:#dce3ea;margin-bottom:10px}.fbPlayEntry .law b{color:#fff}
-  .fbPlayEntry .modes{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.fbPlayEntry button{min-height:48px;padding:9px 10px;font-size:8px;font-weight:1000;letter-spacing:.08em}
-  .fbPlayEntry button[data-play-mode="PLAY"]{background:#fff;color:#05070b;border-color:#fff}
+  .fbPlayEntry{margin:10px 0 0;border-top:1px solid rgba(255,255,255,.10);padding-top:8px}
+  .fbModeMore summary{cursor:pointer;list-style:none;font-size:8px;letter-spacing:.12em;color:rgba(255,255,255,.52);padding:8px 0}.fbModeMore summary::-webkit-details-marker{display:none}.fbModeMore[open] summary{color:#fff}
+  .fbPlayEntry .law{font-size:8px;line-height:1.45;letter-spacing:.05em;color:rgba(255,255,255,.48);margin-top:8px}
+  .fbPlayEntry .modes{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.fbPlayEntry button{min-height:44px;padding:8px 9px;font-size:7.5px;font-weight:900;letter-spacing:.06em}
+  .fbPlayEntry button[data-play-mode="PLAY"]{background:rgba(255,255,255,.92);color:#05070b;border-color:#fff}
   .fbGame{position:absolute;left:50%;top:max(58px,calc(env(safe-area-inset-top) + 54px));transform:translateX(-50%);z-index:6;width:min(680px,calc(100vw - 20px));pointer-events:none;display:none}.fbGame.on{display:block}
   .fbGameBar{border:1px solid rgba(255,255,255,.16);background:rgba(5,8,12,.9);backdrop-filter:blur(10px);display:grid;grid-template-columns:auto 1fr auto;align-items:stretch;min-height:50px}
   .fbGameMode{display:flex;align-items:center;padding:0 10px;border-right:1px solid rgba(255,255,255,.12);font-size:7px;font-weight:1000;letter-spacing:.13em;color:#fff}
@@ -86,12 +87,17 @@ function injectStyle(){
     .fbResult,.fbGardenChoice{inset:auto 8px calc(max(8px,env(safe-area-inset-bottom)) + 64px) 8px;background:transparent;backdrop-filter:none;padding:0;align-items:flex-end}
     .fbResultCard,.fbGardenCard{max-height:min(46dvh,390px);overflow:auto;padding:12px;background:rgba(8,12,18,.96)}
     .fbResultCard h2,.fbGardenCard h2{font-size:clamp(28px,9vw,46px)}
-    #intro .ey,#intro h1,#intro .lede,#intro .keys,#intro .startRow,#intro .introMore{display:none}
-    #intro .card{width:calc(100vw - 16px);max-height:none;overflow:visible;padding:8px;background:rgba(8,12,18,.94)}
-    .fbPlayEntry{margin:0;padding:8px}
+    #intro .keys{display:none}
+    #intro .introMore{margin-top:4px}
+    #intro .card{width:calc(100vw - 16px);max-height:calc(100dvh - 24px);overflow:auto;padding:14px;background:rgba(8,12,18,.92)}
+    #intro h1{font-size:clamp(44px,15vw,68px);margin:6px 0 10px}
+    #intro .lede{font-size:10px;line-height:1.5}
+    #intro .startRow{display:grid;grid-template-columns:1fr;gap:6px;margin-top:12px}
+    #intro .startRow button{min-height:50px}
+    .fbPlayEntry{margin-top:8px;padding-top:6px}
     .fbPlayEntry .modes{grid-template-columns:1fr 1fr;gap:5px}
-    .fbPlayEntry .modes button{min-height:52px}
-    .fbPlayEntry .law{margin:8px 2px 0;font-size:8px;line-height:1.45}
+    .fbPlayEntry .modes button{min-height:46px}
+    .fbPlayEntry .law{margin:7px 1px 0;font-size:7px;line-height:1.4}
     .fbFanLink{display:none}
   }
   `;document.head.appendChild(style);
@@ -102,15 +108,20 @@ async function enterFromIntro(nextMode){
   if(fieldEnter&&fieldBtn){await fieldEnter.call(fieldBtn);start(nextMode);return;}
   start(nextMode);
 }
+function enterRide(){
+  active=false;ended=false;root?.classList.remove('on');duetPanel?.classList.remove('on');hexPanel?.classList.remove('on');gardenChoice?.classList.remove('on');result?.classList.remove('on');
+  runtime?.gameProjection?.set?.(null);
+  delete document.documentElement.dataset.fbPlayMode;delete document.documentElement.dataset.fbInstrument;document.documentElement.dataset.fbSurface='ride';
+  schedulePrimaryControlCheck();
+}
 function injectEntry(){
   const card=q('#intro .card');if(!card||q('#fbPlayEntry'))return;
-  const lede=card.querySelector('.lede');if(lede)lede.textContent='Music shapes the road. You write it. Turn until the center predicts the CALL — BLOOM, FOLD, SPLIT or RETURN — then release.';
   const box=document.createElement('div');box.id='fbPlayEntry';box.className='fbPlayEntry';
-  box.innerHTML='<div class="modes"><button data-play-mode="PLAY">RUN · HIT 6 / 8</button><button data-play-mode="PUZZLE">HEX · ☰☷ · FORM → CHANGE</button><button data-play-mode="PATH">PATH · ★ · SHORTEST TURNS</button><button data-play-mode="DUET">TWO DIAL · ◎ × ◎</button><button data-play-mode="GARDEN">ECOLOGY · ◎◎◎ · INHERIT</button><button data-play-mode="ZEN">ZEN · ○ · FREE</button></div><div class="law"><b>TURN → MATCH SHAPE → RELEASE.</b> △ TRIANGLE / ○ CIRCLE / □ SQUARE each remember their own last anchor. Same-shape links and cascades make BLOOM / FOLD / SPLIT / RETURN. <a class="fbFanLink" href="../../foundry/axial/fan8-print.svg" target="_blank" rel="noopener" style="color:#dce3ea;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28)">FAN/8 PRINT ↗</a></div>';
-  card.insertBefore(box,card.querySelector('.startRow')||null);
+  box.innerHTML='<details class="fbModeMore"><summary>PLAY MODES · OPTIONAL</summary><div class="modes"><button data-play-mode="PLAY">RUN · HIT 6 / 8</button><button data-play-mode="PUZZLE">HEX · ☰☷ · FORM → CHANGE</button><button data-play-mode="PATH">PATH · ★ · SHORTEST TURNS</button><button data-play-mode="DUET">TWO DIAL · ◎ × ◎</button><button data-play-mode="GARDEN">ECOLOGY · ◎◎◎ · INHERIT</button><button data-play-mode="ZEN">ZEN · ○ · FREE</button></div><div class="law">Modes are optional projections over the same ride. RIDE stays the default. <a class="fbFanLink" href="../../foundry/axial/fan8-print.svg" target="_blank" rel="noopener" style="color:#dce3ea;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28)">FAN/8 ↗</a></div></details>';
+  const startRow=card.querySelector('.startRow');if(startRow)startRow.insertAdjacentElement('afterend',box);else card.appendChild(box);
   box.querySelectorAll('[data-play-mode]').forEach(btn=>btn.addEventListener('click',()=>enterFromIntro(btn.dataset.playMode)));
   const fieldBtn=q('#playBtn');
-  if(fieldBtn&&!fieldBtn.dataset.fbPlayWrapped){fieldEnter=fieldBtn.onclick;fieldBtn.dataset.fbPlayWrapped='1';fieldBtn.textContent='PLAY FIELD COURSE · RUN →';fieldBtn.onclick=async event=>{if(fieldEnter)await fieldEnter.call(fieldBtn,event);start('PLAY');};}
+  if(fieldBtn&&!fieldBtn.dataset.fbPlayWrapped){fieldEnter=fieldBtn.onclick;fieldBtn.dataset.fbPlayWrapped='1';fieldBtn.textContent='RIDE FIELD COURSE →';fieldBtn.onclick=async event=>{if(fieldEnter)await fieldEnter.call(fieldBtn,event);enterRide();};}
 }
 function injectHud(){
   if(q('#fbGame'))return;
@@ -185,7 +196,7 @@ function resetModeState(){
   gardenGeneration=1;gardenEvents=[];gardenTrait=null;gardenSurvived=0;gardenLineage=[];gardenLastResult=null;gardenChoice?.classList.remove('on');
 }
 function start(nextMode='PLAY'){
-  mode=VALID.has(nextMode)?nextMode:'PLAY';if(!viewTouched)stillView=mode==='PUZZLE';runtime?.autopilot?.stop?.();const intro=q('#intro');if(intro){intro.classList.remove('on');intro.hidden=true;}result?.classList.remove('on');document.documentElement.dataset.fbPlayMode=mode;document.documentElement.dataset.fbSurface='active';document.documentElement.dataset.fbInstrument=mode==='PUZZLE'?'HEX':mode==='DUET'?'TWO_DIAL':mode==='GARDEN'?'ECOLOGY':mode==='PATH'?'PATH':mode==='ZEN'?'ZEN':'RUN';document.documentElement.dataset.fbHexVisual=mode==='PUZZLE'?'two-rings':'off';updateStillControl();resetModeState();
+  mode=VALID.has(nextMode)?nextMode:'PLAY';runtime?.autopilot?.stop?.();const intro=q('#intro');if(intro){intro.classList.remove('on');intro.hidden=true;}result?.classList.remove('on');document.documentElement.dataset.fbPlayMode=mode;document.documentElement.dataset.fbSurface='active';document.documentElement.dataset.fbInstrument=mode==='PUZZLE'?'HEX':mode==='DUET'?'TWO_DIAL':mode==='GARDEN'?'ECOLOGY':mode==='PATH'?'PATH':mode==='ZEN'?'ZEN':'RUN';document.documentElement.dataset.fbHexVisual=mode==='PUZZLE'?'two-rings':'off';updateStillControl();resetModeState();
   const state=runtime.state();lastRotation=state.rotation;lastEventId=state.history?.at(-1)?.id??null;par=parFor(state);if(mode==='PUZZLE')hexPlan=makeHexPlan(state);root.classList.add('on');duetPanel.classList.toggle('on',mode==='DUET');hexPanel.classList.toggle('on',mode==='PUZZLE');renderHexPanel();update(state);
 }
 function finish(state){

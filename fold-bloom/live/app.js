@@ -1,6 +1,6 @@
 import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, forecastRelease, forecastMatchesCall, callLabel, typePresentation, N } from './engine.js?v=0.13.1';
 import { FoldBloomAudio } from './audio.js';
-import { Renderer } from './render.js?v=0.13.4';
+import { Renderer } from './render.js?v=0.13.5';
 import { createFieldPulse, transportDescriptor } from '../../lib/field-pulse.js';
 import { LiveTrack } from './track.js';
 import { createSectionArc, syncSectionArc, observeSectionRelease, sectionArcLabel, sectionArcView } from './section-arc.js';
@@ -28,7 +28,7 @@ const CENTER_MASS_SOURCE='2b09a703-1881-4471-bf65-cc51c976d32c';
 const CENTER_MASS_URL='https://cdn1.suno.ai/'+CENTER_MASS_SOURCE+'.mp3';
 const PUBLIC_DEMO_URL='./demo/center-mass-demo.mp3';
 const RIDE_PRESETS=Object.freeze({
-  CLEAR:{solidity:1,immersion:.82,dropGain:.82,anticipation:.88,motionGain:.82},
+  NORMAL:{solidity:1,immersion:1,dropGain:1,anticipation:1,motionGain:1},
   DRIVE:{solidity:1,immersion:1.12,dropGain:1.28,anticipation:1.12,motionGain:1.18},
   TRANCE:{solidity:.94,immersion:1.22,dropGain:1.08,anticipation:1.48,motionGain:.82},
   SOFT:{solidity:1,immersion:.64,dropGain:.62,anticipation:.72,motionGain:.56}
@@ -67,7 +67,7 @@ function applyRidePreset(name,announce=true){
   const x=RIDE_PRESETS[name];if(!x)return;
   rideProfile=normalizeRideProfile({...rideProfile,...x});saveRideProfile();if(announce)toast('EXPERIENCE · '+name);
 }
-const VIBE_ORDER=['CLEAR','DRIVE','TRANCE','SOFT'];
+const VIBE_ORDER=['NORMAL','DRIVE','TRANCE','SOFT'];
 function syncVibeQuick(){
   const b=$('#vibeQuick');if(!b)return;
   const p=ridePresetName();b.textContent='VIBE · '+(p==='CUSTOM'?'CUSTOM':p);

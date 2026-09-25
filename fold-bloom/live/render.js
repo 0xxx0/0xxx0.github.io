@@ -79,16 +79,9 @@ export class Renderer {
   }
   slotAngle(i,state){return -Math.PI/2 + (i+state.rotation)*TAU/N + this.dragOffset}
   draw(state,now=performance.now()){
-    const gp=this.gameProjection,hex=!!(gp?.active&&gp.mode==='PUZZLE'),still=!!(gp?.active&&gp.view?.still);
-    const road=!!this.trackfield?.points?.length,m=still?{pitch:0}:this._updateMotion(now),rideRoad=road&&!still;
-    this.cx=this.w/2;this.cy=this.h*(rideRoad?.64:.52)+(m.pitch||0)*.18;this.r=Math.min(this.w*(rideRoad?.27:.34),this.h*(rideRoad?.225:.33),rideRoad?220:280);
-    const g=this.g;g.clearRect(0,0,this.w,this.h);this._background(state,now);
-    if(rideRoad)this._pov(state,now);if(rideRoad)this._trackfield(state,now);
-    this._section(state,now);this._creases(state,now);
-    if(!hex)this._ring(state,now);
-    this._gameProjection(state,now);
-    if(!hex){this._gate(state,now);this._causal(state,now);}
-    this._pulses(state,now);this._center(state,now)
+    const road=!!this.trackfield?.points?.length,m=this._updateMotion(now);
+    this.cx=this.w/2;this.cy=this.h*(road?.64:.52)+m.pitch*.18;this.r=Math.min(this.w*(road?.27:.34),this.h*(road?.225:.33),road?220:280);
+    const g=this.g;g.clearRect(0,0,this.w,this.h);this._background(state,now);if(road)this._pov(state,now);if(road)this._trackfield(state,now);this._section(state,now);this._creases(state,now);this._ring(state,now);this._gameProjection(state,now);this._gate(state,now);this._causal(state,now);this._pulses(state,now);this._center(state,now)
   }
   _background(state,t){
     const g=this.g,w=this.w,h=this.h,world=this._world(t),imm=this.profile?.immersion||1;
@@ -426,30 +419,26 @@ export class Renderer {
       for(let i=0;i<n;i++){const a=-Math.PI/2+i*TAU/n;g.fillStyle=i<round?'rgba(215,180,109,.82)':'rgba(255,255,255,.12)';g.beginPath();g.arc(Math.cos(a)*rr,Math.sin(a)*rr,3.2,0,TAU);g.fill()}
       g.fillStyle='rgba(215,180,109,.72)';g.font='800 8px ui-monospace,monospace';g.textAlign='center';g.fillText('PAR '+(v.path?.par??0)+' · '+(v.path?.turns??0)+'T · '+(v.path?.stars??0)+'★',0,r*.43);
     }else if(mode==='PUZZLE'){
-      const h=v.hex||{},phase=h.phase||'FORM',base=(phase==='CHANGE'&&h.from?.length===6)?h.from:h.target,current=h.lines||[],changed=new Set(h.changed||[]),address=Math.max(0,Math.min(5,Number(h.address)||0)),writeIndex=Math.max(0,Math.min(5,Number(h.writeIndex)||0));
-      g.fillStyle='rgba(215,180,109,.028)';g.beginPath();g.arc(0,0,r*.90,0,TAU);g.fill();
+      const h=v.hex||{},phase=h.phase||'FORM',base=(phase==='CHANGE'&&h.from?.length===6)?h.from:h.target,current=h.lines||[],changed=new Set(h.changed||[]);
+      g.fillStyle='rgba(215,180,109,.035)';g.beginPath();g.arc(0,0,r*.86,0,TAU);g.fill();
       for(let group=0;group<2;group++){
-        const rr=r*(group===0?.54:.82),label=group===0?'LOWER':'UPPER';
-        g.strokeStyle=group===0?'rgba(215,180,109,.42)':'rgba(230,236,245,.30)';g.lineWidth=2;g.beginPath();g.arc(0,0,rr,0,TAU);g.stroke();
+        const rr=r*(group===0?.55:.80);
+        g.strokeStyle=group===0?'rgba(215,180,109,.20)':'rgba(255,255,255,.12)';g.lineWidth=1;g.beginPath();g.arc(0,0,rr,0,TAU);g.stroke();
         for(let i=0;i<3;i++){
-          const line=group*3+i,a0=-Math.PI/2+i*TAU/3+.14,a1=-Math.PI/2+(i+1)*TAU/3-.14,target=base?.[line],has=line<current.length,bit=current[line],active=line===(phase==='FORM'?writeIndex:address);
-          if(active){g.strokeStyle='rgba(255,255,255,.72)';g.lineWidth=1.5;g.beginPath();g.arc(0,0,rr+10,a0,a1);g.stroke()}
-          if(target===0||target===1){g.strokeStyle=active?'rgba(255,255,255,.32)':'rgba(255,255,255,.13)';g.lineWidth=7;this._bitArc(g,rr,a0,a1,target)}
+          const line=group*3+i,a0=-Math.PI/2+i*TAU/3+.13,a1=-Math.PI/2+(i+1)*TAU/3-.13,target=base?.[line],has=line<current.length,bit=current[line];
+          if(target===0||target===1){g.strokeStyle='rgba(255,255,255,.15)';g.lineWidth=6;this._bitArc(g,rr,a0,a1,target)}
           if(has){
             const match=Number(bit)===Number(target),isChanged=changed.has(line+1);
-            g.strokeStyle=phase==='CHANGE'?(isChanged?'rgba(239,120,73,.98)':'rgba(114,228,182,.84)'):(match?'rgba(255,255,255,.98)':'rgba(239,120,73,.92)');
-            g.lineWidth=3.2;this._bitArc(g,rr,a0,a1,bit);
+            g.strokeStyle=phase==='CHANGE'?(isChanged?'rgba(239,120,73,.98)':'rgba(114,228,182,.82)'):(match?'rgba(255,255,255,.98)':'rgba(239,120,73,.92)');
+            g.lineWidth=3;this._bitArc(g,rr,a0,a1,bit);
           }
-          const am=(a0+a1)/2;
-          g.fillStyle=active?'rgba(255,255,255,.92)':'rgba(255,255,255,.34)';g.font='800 7px ui-monospace,monospace';g.textAlign='center';g.fillText(String(line+1),Math.cos(am)*(rr+18),Math.sin(am)*(rr+18));
         }
-        g.fillStyle=group===0?'rgba(215,180,109,.70)':'rgba(230,236,245,.55)';g.font='800 7px ui-monospace,monospace';g.textAlign='center';g.fillText(label,0,group===0?r*.60:-r*.92);
       }
       const tp=h.targetPair||{},cp=h.currentPair||{},tl=tp.lower?.glyph||'·',tu=tp.upper?.glyph||'·',cl=cp.lower?.glyph||'·',cu=cp.upper?.glyph||'·';
-      g.textAlign='center';g.fillStyle='rgba(215,180,109,.92)';g.font='900 21px "Segoe UI Symbol","Noto Sans Symbols 2",sans-serif';g.fillText(tl+' '+tu,0,-r*.24);
+      g.textAlign='center';g.fillStyle='rgba(215,180,109,.92)';g.font='900 20px "Segoe UI Symbol","Noto Sans Symbols 2",sans-serif';g.fillText(tl+' '+tu,0,-r*.27);
       g.fillStyle='rgba(255,255,255,.68)';g.font='900 8px ui-monospace,monospace';
-      if(phase==='CHANGE')g.fillText('CHANGE · '+cl+' '+cu+' · LINE '+(address+1)+' · Δ'+(h.changed?.length||0)+'/'+(h.targetChanges||2),0,r*.27);
-      else g.fillText('FORM · LINE '+(writeIndex+1)+' / 6 · '+current.length+' WRITTEN',0,r*.27);
+      if(phase==='CHANGE')g.fillText('CHANGE · '+cl+' '+cu+' · Δ'+(h.changed?.length||0)+'/'+(h.targetChanges||2),0,r*.30);
+      else g.fillText('FORM · '+current.length+'/6 · LOWER ☰ / UPPER ☷',0,r*.30);
     }else if(mode==='DUET'){
       const a=Number(v.duet?.a)||0,b=Number(v.duet?.b)||0,ro=r*.92,ri=r*.57;
       g.fillStyle='rgba(123,213,255,.025)';g.beginPath();g.arc(0,0,ro+8,0,TAU);g.fill();
