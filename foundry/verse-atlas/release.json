@@ -13,16 +13,21 @@
     "required_controls": "tabs/matrix/RSVP play/RETURN freeze/download/replay present",
     "showcase_return_adapter": "PASS",
     "source_route": "PASS",
-    "return_round_trip_selftest": "PASS_BY_SOURCE_TEST"
+    "return_round_trip_selftest": "PASS_BY_SOURCE_TEST",
+    "poem_map_handoff": "PASS_STATIC_FAIL_CLOSED_4x7_HAN",
+    "handoff_focus": "PASS_STATIC_PROJECTION_ONLY",
+    "caller_return": "PENDING_PR_CI_SAME_ORIGIN_NAVIGATION_ONLY"
   },
   "epistemic_boundary": "Geometry remains a projection; it is not silently promoted to prosody or meaning.",
-  "known_gap": "Live rendered mobile/desktop representative interaction remains externally unverified from this execution environment.",
+  "known_gap": "Rendered phone/browser round-trip remains a lived gate: Poem Map → Verse Atlas → exact Poem Map caller.",
   "recovery_transfer": {
     "donor": "/recovery/path-grid/grid-path-compiler-v4/",
     "transferred": "RETURN receipt replay/import only",
-    "excluded": "general corpus presets, route search/review, multilingual lenses and motif promotion remain frozen donor capabilities pending separate missing-function tests"
+    "excluded": "general corpus presets, route search/review, multilingual lenses and motif promotion remain frozen donor capabilities pending separate missing-function tests",
+    "source_spine": "Poem Map may lend an exact lawful 4×7 Han source + focus cell for study; Verse Atlas does not inherit Poem Map candidates, locks, revisions, semantic claims or paths.",
+    "return_spine": "A valid same-origin caller address may be shown as ↩ POEM MAP; navigation does not mutate either RETURN authority."
   },
-  "updated": "2026-09-20",
+  "updated": "2026-09-25",
   "round_trip": {
     "freeze_export": "COPY/DOWNLOAD now serialize lastReceipt after FREEZE; live receipt is used only when no frozen receipt exists.",
     "validation": "Core source/path/caesura/parallel replay contract passes; frozen-export regression fixed 2026-09-20."
