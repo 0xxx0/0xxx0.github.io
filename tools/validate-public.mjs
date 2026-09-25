@@ -228,6 +228,16 @@ check(workfieldJs.includes("slice(0,3)")||workfieldJs.includes("return out.slice
 check(/body\{overflow-y:auto/.test(workfieldCss),'Dayline Confluence ordinary document scrolling regressed');
 check(workfieldJs.includes("carrier:'dayline-confluence/v0.1'")&&workfieldJs.includes("poly-atlas-return-f"),'Dayline Confluence RETURN carrier missing');
 check(workfieldJs.includes("LEGACY_IDS")&&workfieldJs.includes("RESET LEGACY SAMPLE"),'Dayline Confluence legacy sample migration missing');
+const fan8Svg=read('foundry/axial/fan8-print.svg');
+const fan8Spec=read('foundry/axial/FAN8.md');
+const axialHtml=read('foundry/axial/index.html');
+const fbPlay=read('fold-bloom/live/play.js');
+check((fan8Svg.match(/data-fan8-leaf=/g)||[]).length===8,'FAN/8 printable must contain exactly eight leaves');
+for(let i=0;i<8;i++)check(fan8Svg.includes(`data-code="${i}"`),`FAN/8 printable missing passive code ${i}`);
+check(fan8Svg.includes('Δ0 SAME→BLOOM')&&fan8Svg.includes('Δ1 NEAR→FOLD')&&fan8Svg.includes('Δ2 FAR→RETURN')&&fan8Svg.includes('Δ3 OPPOSITE→SPLIT'),'FAN/8 printable relation legend drifted from PLAY law');
+check(fan8Spec.includes('Six leaves are **cyclic slots 0–5**')&&fan8Spec.includes('HOLD')&&fan8Spec.includes('LET FLY'),'FAN/8 spec lost six-slot + transaction mapping');
+check(axialHtml.includes('./fan8-print.svg')&&fbPlay.includes('../../foundry/axial/fan8-print.svg'),'FAN/8 printable lost owning-host links');
+check(!fan8Spec.includes('camera vision is implemented'),'FAN/8 must not claim sensing implementation');
 const home=read('index.html');
 const fi=fiContract;
 check(!!fi,'FIELD INDEX contract missing/unreadable');
