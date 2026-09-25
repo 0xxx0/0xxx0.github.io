@@ -8,7 +8,7 @@ import {profileKey} from '../live/visual-worlds.js';
 const $=id=>document.getElementById(id);
 const cv=$('stage'),ctx=cv.getContext('2d');
 let score=defaultScore(),started=performance.now(),playing=true,scrubP=0,syncListen=false,selectedWord=0,selectedOp=0,recording=false;
-let dpr=1,w=0,h=0,lastListenPoll=0,listenOk=false;
+let dpr=1,w=0,h=0,lastListenPoll=0,listenOk=false,lastProfileSig='';
 
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,Number(v)||0));
 const fmtMs=ms=>{const s=Math.max(0,Number(ms)||0)/1000,m=Math.floor(s/60),r=(s-m*60).toFixed(2).padStart(5,'0');return m+':'+r};
@@ -35,8 +35,11 @@ function readHandoff(){
 }
 function scoreFromHandoff(p){
   const src=p.source||{},interval=Array.isArray(p.interval_ms)?p.interval_ms:[0,Math.min(Number(src.duration_ms)||12000,12000)];
-  const cells=p.addressedMessage?.path?.cells||[],nearest=cells.slice().sort((a,b)=>Math.abs((a.p??0)-.5)-Math.abs((b.p??0)-.5))[0];
-  const message=(nearest?.label||nearest?.note||p.suggestedMessage||'MEET ME HERE').slice(0,180);
+  const rel=clamp(((Number(p.position_ms)||interval[0])-interval[0])/Math.max(1,interval[1]-interval[0]));
+  const marks=Array.isArray(p.evidence?.marks)?p.evidence.marks:[],nearest=marks.slice().sort((a,b)=>Math.abs((a.p??0)-rel)-Math.abs((b.p??0)-rel))[0];
+  const cells=p.addressedMessage?.path?.cells||[];
+  const fallback=cells.find(x=>x.label||x.note);
+  const message=(nearest?.label||nearest?.note||fallback?.label||fallback?.note||p.suggestedMessage||'MEET ME HERE').slice(0,180);
   return normalizeScore({
     source:{
       id:src.id||src.key||'listen:source',profile_key:src.profile_key||src.key||src.id,name:src.name||'LISTEN SOURCE',kind:src.kind||'AUDIO_MAP',
@@ -98,7 +101,10 @@ function syncListenState(now){
     const st=api.state(),key=String(st?.sourcePinKey||''),ours=String(score.source.profile_key||score.source.id||'');
     if(key&&ours&&key!==ours&&!ours.includes(key)&&!key.includes(ours))return;
     const abs=(Number(st.time)||0)*1000;setPlayhead(relativeP(score,abs),{seekListen:false});
-    if(st.rideProfile)score=setExperience(score,{profile:st.rideProfile});
+    if(st.rideProfile){
+      const sig=JSON.stringify(st.rideProfile);
+      if(sig!==lastProfileSig){lastProfileSig=sig;score=setExperience(score,{profile:st.rideProfile});syncExperience()}
+    }
   }catch(_){}
 }
 function updateSyncButton(){
@@ -152,7 +158,7 @@ function updateEvidence(){
 function updateMeta(){
   $('source').textContent=score.source.name+' · '+score.source.id;$('interval').textContent=fmtMs(score.source.interval_ms[0])+' → '+fmtMs(score.source.interval_ms[1]);
   $('bytes').textContent=packetBytes(score)+' B';$('signature').textContent=visualSignature(score);
-  $('publicSource').hidden=!score.source.public_address;$('publicSource').href=score.source.public_address||'#';
+  const safePublic=/^https?:\/\//i.test(score.source.public_address||'');$('publicSource').hidden=!safePublic;$('publicSource').href=safePublic?score.source.public_address:'#';
   $('return').href=score.returnAddress||'/fold-bloom/';
 }
 function updateUi(){
