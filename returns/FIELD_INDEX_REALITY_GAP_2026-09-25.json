@@ -40,5 +40,15 @@
       "correction": "Require REALITY GAP / YOU plus the active world-evidence state and the existing PARKED / HISTORY split; accept the old active label only for backward compatibility.",
       "boundary": "Lifecycle structure remains mandatory; only presentation wording evolves."
     }
-  ]
+  ],
+  "concurrent_reconciliation": {
+    "observed": "Newest master promoted FOLD//BLOOM PLAY 0.5 in the head label and accidentally wrote '0.1.3 + PLAY 0.5' into CURRENT.current_heads[].version while /fold-bloom/ manifest route version is 0.1.3.",
+    "resolution": "Keep PLAY 0.5 in the descriptive head/capability state; restore structured CURRENT route version to exact manifest identity 0.1.3.",
+    "evidence": [
+      "CURRENT head promotion commit 10f20047",
+      "FIELD manifest sync commit 2ebc0c1e",
+      "/returns/FOLD_BLOOM_PLAY_05_RING_CHANGE_2026-09-25.json"
+    ],
+    "law": "component capability version ≠ addressed route version"
+  }
 }
