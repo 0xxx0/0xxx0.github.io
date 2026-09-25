@@ -4617,10 +4617,11 @@
       "machine_state": "/house/state.json",
       "showcase_card": false,
       "role": "Canonical human-facing HOUSE instrument: one addressed spatial/state substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/ATLAS, with compact timestamped public state witness. Home Assistant / HOUSEBUS retains private device truth and actuation; technical state projection is /house/expert.html.",
-      "version": "0.7",
+      "version": "0.7.1",
       "receipt": "/house/release.json",
       "contract": "/house/contract.json",
       "transfer": [
+        "hash-addressable projections at canonical root",
         "canonical human entry = /house/; no second sovereign HOUSE UI",
         "spatial model/assets remain under /house/spatial/ as substrate, not a competing front door",
         "technical public state/runtime projection retained at /house/expert.html",
