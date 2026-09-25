@@ -369,18 +369,44 @@
     },
     {
       "lineage": "comms",
-      "head": "HUMAN PORT 1.6.0-preview + CONTACT FRONT 0.4 + COMMS SPINE 0.1 / OBJECT APERTURE + ADDRESSED THREAD / FIELD INTAKE + CARE + BODY/FIT + CONTACT/LACONIC/Router",
+      "head": "HUMAN PORT 1.6.0-preview + CONTACT FRONT 0.4 + COMMS SPINE 0.1.1 + DAYLINE REALITY PORT / OBJECT APERTURE + ADDRESSED THREAD / FIELD INTAKE + CARE + BODY/FIT + CONTACT/LACONIC/Router",
       "state": "ACTIVE + COMMS_SPINE_ACTIVE_CANDIDATE",
       "route": "/port/",
-      "retained_function": "One addressed object may enter as text/JSON/image/file and retain byte/provenance identity across lawful projections. CONTACT FRONT 0.4 is now a stable shareable human-facing address: the URL itself can be shared/copied, an optional RETURN VIA path stays sender-authored inside the envelope, and contextual capsules can carry bespoke direct lines without committing private contact data. It still has no server inbox and claims no delivery. COMMS SPINE 0.1 remains the specialized local communication projection: an exact thread is SHA-256 identified and turn/clause addressed; DERIVED ASK/PROMISE/DECISION/WAITING/CONSTRAINT cues remain advisory beside HUMAN marks; OPEN/COVERED/DEFERRED/DROPPED obligation state and response coverage remain source-addressed; bot packets and resumable RETURN preserve residue without chapter-scroll-first navigation or send authority. FIELD INTAKE remains reviewed durable admission.",
+      "retained_function": "CONTACT FRONT 0.4 is the stable shareable human-facing address with no server inbox or false delivery claim. COMMS SPINE 0.1.1 preserves exact source thread addresses and unequal DERIVED/HUMAN signals; its explicit Dayline handoff lends one OPEN source-addressed signal while retaining source SHA/range/kind/origin/text. Dayline must explicitly ADD TO DAY; COMMS keeps communication-state authority and still cannot send. HUMAN PORT remains the object/passage layer; FIELD INTAKE remains reviewed durable admission.",
       "evidence": [
         "/port/comms/release.json",
         "/returns/HUMAN_PORT_COMMS_SPINE_2026-09-23.json",
         "/port/comms/",
         "/contact/release.json",
         "/returns/HUMAN_PORT_CONTACT_FRONT_2026-09-25.json",
-        "/contact/"
+        "/contact/",
+        "/returns/ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
+        "/control/confluence/REALITY_LOOP_HERMES_2026-09-25.md"
       ]
+    },
+    {
+      "lineage": "atlas-dayline",
+      "head": "ATLAS DAYLINE Branch I + FIELD LIVE 0.2 / REALITY PORTS",
+      "state": "STABLE + OPT_IN_LIVE_CANDIDATE",
+      "route": "/atlas-dayline/",
+      "retained_function": "Local-first SEE → SIMULATE → COMPARE → ACT → RUN≤3 → RETURN planner. REALITY PORTS accepts one explicit session-local envelope at a time: HOUSE lends planning context, SHOPPING lends one capability action, COMMS lends one source-addressed OPEN signal. Dayline never inherits physical, purchase, send or source-state authority.",
+      "evidence": [
+        "/atlas-dayline/release.json",
+        "/returns/ATLAS_DAYLINE_REALITY_PORTS_2026-09-25.json",
+        "/control/confluence/REALITY_LOOP_HERMES_2026-09-25.md"
+      ],
+      "next_executable": {
+        "id": "atlas-dayline-reality-ports-lived-proof",
+        "state": "HOLD_FOR_HUMAN_USE",
+        "objective": "On the phone, perform one real source → Dayline handoff and complete or explicitly return the resulting task. Prefer COMMS first when there is a real human ask/promise; otherwise use one actual HOUSE or SHOPPING action.",
+        "human_questions": [
+          "Does the pending envelope make the exact source and proposed task obvious before ADD/APPLY?",
+          "After ADD/APPLY, is provenance sufficient to return to the source without re-reading context?",
+          "Does RUN≤3 reduce action drift rather than become another queue?",
+          "After acting, what exact evidence should return to the native source?"
+        ],
+        "law": "One lived handoff first. Do not add more inbound adapters or bidirectional mutation until this loop earns use."
+      }
     },
     {
       "lineage": "house-spatial",
