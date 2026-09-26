@@ -3,7 +3,7 @@
   "surface": "AWAKE / INTERPHASE VISOR",
   "version": "0.1-candidate",
   "route": "/awake/",
-  "state": "IMPLEMENTED_CANDIDATE",
+  "state": "CI_GREEN_READY",
   "operation": "OPERATE",
   "released": "2026-09-26",
   "role": "Thin same-origin onboarding/continuity visor over existing FIELD hosts. It owns no domain truth and no second object store. One native route remains visible while INTERPHASE addresses source/frame/focus/operation/witness/return and the recovered YOU'RE A WAKE cadence supplies the attentional grammar.",
@@ -39,11 +39,19 @@
     "exact FIELD return address"
   ],
   "validation": {
-    "same_origin_host": "PENDING_CI",
-    "mobile_430x900": "PENDING_CI",
-    "field_focus_handoff": "PENDING_CI",
-    "dayline_packet": "PENDING_CI",
-    "no_new_store": true
+    "same_origin_host": "PASS · FIELD /docs/ → AWAKE → real READFIELD DOM focus",
+    "mobile_430x900": "PASS · no horizontal overflow",
+    "field_focus_handoff": "PASS · exact /docs/ focus preserved in/out",
+    "dayline_packet": "PASS · atlas-dayline-handoff/v0.1 + interphase/v0.2/handoff",
+    "no_new_store": true,
+    "route_registration": "PASS · run 36209952635",
+    "public_surface": "PASS · run 36209952708",
+    "critical_browser": "PASS · FIELD held route → AWAKE visor"
   },
-  "stop": "Do not turn AWAKE into a universal database, planner, route replacement or domain owner. Add host-specific behavior only when a real native host exposes a missing continuity function."
+  "stop": "Do not turn AWAKE into a universal database, planner, route replacement or domain owner. Add host-specific behavior only when a real native host exposes a missing continuity function.",
+  "proof": {
+    "pull_request": 414,
+    "head": "cf1f09af41667cde10f0c8365fbff4293383b8dc",
+    "prior_proved_donor_pr": 412
+  }
 }
