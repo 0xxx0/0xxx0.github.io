@@ -1,6 +1,6 @@
 {
   "schema": "0xxx0/fold-bloom-live-release/v0.1",
-  "version": "LIVE 0.13 + PLAY 0.6.0",
+  "version": "LIVE 0.13 + PLAY 0.6.1",
   "status": "ACTIVE_CANDIDATE_MERGED",
   "date": "2026-09-26",
   "donors": [
@@ -337,13 +337,14 @@
     "2026-09-25 PLAY takeover: collapsed stalled game-loop branches into the shipped master lineage; old mode/win branches are donors/superseded, not authorities.",
     "2026-09-25 PLAY 0.5.5 is current: calm RIDE default restored; machine/browser verification green; lived feel is optional evidence only.",
     "2026-09-26 PLAY 0.5.7: derived reusable loop contract + lifecycle subscriptions over existing mode state; PATH turn partition fixes sampled multi-step turn accounting.",
-    "2026-09-26 PLAY 0.6.0: FORM → MORPH preserves exact LIVE verbs and supersedes the public binary HEX gameplay adapter."
+    "2026-09-26 PLAY 0.6.0: FORM → MORPH preserves exact LIVE verbs and supersedes the public binary HEX gameplay adapter.",
+    "2026-09-26 PLAY 0.6.1: restore HEXAGRAM / CHANGE as the visible cultural puzzle projection while retaining FORM/MORPH as the exact BLOOM/FOLD/SPLIT/RETURN substrate and RETURN provenance."
   ],
   "restore_return": "/returns/FOLD_BLOOM_LIVE_RESTORE_2026-09-25.json",
   "play_shell": {
-    "version": "0.6.0",
-    "state": "ACTIVE_CANDIDATE / FORM_MORPH_CORRECTION",
-    "law": "FORM writes six exact LIVE verbs → ring addresses one of six leaves → MORPH release overwrites that leaf with its exact consequence → persistent Δ emerges",
+    "version": "0.6.1",
+    "state": "ACTIVE_CANDIDATE / HEX_CULTURAL_PROJECTION_RESTORED / EXACT_VERB_SUBSTRATE",
+    "law": "Six exact LIVE verbs remain authoritative as the lossless substrate; each verb also projects through the existing relation-distance quotient into one YANG/solid or YIN/broken line; six lines expose lower/upper trigrams and changing-line positions; RETURN carries both layers.",
     "quickstart_aliases": {
       "CONCERT": "PLAY",
       "RUN": "PLAY",
@@ -358,13 +359,13 @@
     },
     "modes": {
       "RUN": "8 releases; clear at 6 CALL hits; misses still write topology.",
-      "PUZZLE": "FORM: six releases write exact BLOOM/FOLD/SPLIT/RETURN verbs into six leaves. MORPH: ring rotation mod 6 addresses a leaf and release overwrites it with the exact verb; clear when two persistent leaves differ within four MORPH releases.",
+      "PUZZLE": "HEX / CHANGE: six releases preserve exact verbs and cast six derived lines. SAME/NEAR relations project solid; FAR/OPPOSITE project broken. Ring rotation addresses a line; clear when two projected lines move within four CHANGE releases. Exact same-polarity verb changes remain visible even when the hexagram line holds.",
       "PATH": "Legacy 5-CALL shortest-turn challenge: 3★ at par, 2★ at par+1, 1★ for a slower hit; clear at 10/15.",
       "TWO_DIAL": "LIVE outer relation + partner inner six-position dial are now projected into the central ring while preserving the existing relation algebra.",
       "ECOLOGY": "Generation/inheritance state is now projected as concentric growth rings over LIVE while Ecology remains the domain donor.",
       "ZEN": "Open ride with no finite score loop."
     },
-    "feedback": "FORM shows FROM / NOW concentric verb rings; the current leaf address and actual forecast verb remain visible. No binary solid/broken translation is required.",
+    "feedback": "HEX is the visible six-line/trigram instrument; each line still shows its exact LIVE verb underneath. Moving lines report the coarse cultural projection while FORM/MORPH receipts retain exact provenance.",
     "donors": {
       "two_dial": "/fold-bloom/two-dial/",
       "ecology": "/fold-bloom/ecology/",
@@ -386,14 +387,17 @@
       "route_registration_run": 36208469519,
       "public_surface_run": 36208469513,
       "form_morph_core": "PASS · PR #416 + merged master public-surface-check 36211704995",
-      "form_morph_mobile": "PASS · merged master mobile interaction regression within public-surface-check 36211704995"
+      "form_morph_mobile": "PASS · merged master mobile interaction regression within public-surface-check 36211704995",
+      "hex_projection_core": "CANDIDATE_TEST_ADDED",
+      "hex_projection_mobile": "CANDIDATE_BROWSER_SMOKE_ADDED"
     },
     "puzzle_grammar": {
-      "status": "SUPERSEDED_AS_GAMEPLAY_BY_FORM_MORPH_0.6.0",
+      "status": "CURRENT / HEXAGRAM_CHANGE_OVER_EXACT_VERB_SUBSTRATE",
       "preserved_donor": "/fold-bloom/state-language.js + /fold-bloom/STATE_CHANGE.md",
-      "former_adapter": "SOLID := BLOOM/FOLD; BROKEN := SPLIT/RETURN",
-      "reason": "The four LIVE verbs are not intrinsically binary. Six-line notation remains lawful only for genuinely binary six-condition objects.",
-      "route_compatibility": "Legacy HEX / YIJING / ICHING aliases still enter PUZZLE, now FORM → MORPH."
+      "projection": "SOLID / YANG := SAME or NEAR relation (BLOOM/FOLD); BROKEN / YIN := FAR or OPPOSITE relation (RETURN/SPLIT)",
+      "math": "4^6 = 4096 exact six-verb forms; 2^6 = 64 six-line states; therefore 64 exact forms project to each hexagram.",
+      "boundary": "The proximity/farness → yin/yang assignment is a FOLD//BLOOM game quotient over its relation algebra, not a claim that these are canonical Yijing meanings.",
+      "route_compatibility": "HEX / YIJING / ICHING / FORM / MORPH aliases still enter PUZZLE; the visible instrument is HEXAGRAM / CHANGE and the exact verb form remains inspectable."
     },
     "cache_boundary": {
       "reason": "Mode-aware rendering now spans index → app → render and PLAY → play-core → state-language; each changed module edge is revision-pinned.",
@@ -402,9 +406,9 @@
     "state_language": {
       "shared_module": "/fold-bloom/state-language.js",
       "reference": "/fold-bloom/STATE_CHANGE.md",
-      "return_payload": "Not used by FORM gameplay in PLAY 0.6.0; retained as separate FIELD LAB DATA donor.",
+      "return_payload": "Current PUZZLE projection in PLAY 0.6.1. Export carries derived six-line/trigram/change witness alongside the exact formLanguage payload.",
       "syntax": "H[lower|upper] Δ{changed lines} → H[lower|upper]",
-      "status": "DONOR / NOT_CURRENT_PUZZLE_ENCODING"
+      "status": "CURRENT_PUZZLE_PROJECTION / DERIVED_ONLY"
     },
     "central_ring": {
       "state": "ENACTED_CANDIDATE",
@@ -415,7 +419,7 @@
         "TWO_DIAL": "two six-position relation dials",
         "ECOLOGY": "three generation rings + current pressure",
         "ZEN": "no added game overlay",
-        "FORM": "outer FROM / inner NOW six-leaf exact-verb form + MORPH address"
+        "HEX": "six YIN/YANG lines + lower/upper trigram witness + exact verb underlay + changing-line address"
       },
       "authority": "renderer projection only; LIVE engine remains gameplay/source-state authority"
     },
@@ -424,7 +428,7 @@
       "fixes": [
         "MODE / RELEASE / WORLD bottom bar is z-indexed above transient play projections.",
         "Game HUD shell is pointer-transparent except actual mode buttons.",
-        "FORM detail panel remains compact above primary controls while the central ring carries FROM / NOW verb state.",
+        "HEX detail panel remains compact above primary controls while the central ring carries six-line / trigram state with exact verb underlay.",
         "DUET detail panel moves above the action bar; only its +/- controls capture touches.",
         "RESULT and ECOLOGY choice backdrops are pointer-transparent; actionable cards alone capture touches.",
         "On phone, result/choice cards are bounded sheets above the bottom action bar.",
@@ -546,7 +550,7 @@
         "RETURN",
         "EXIT"
       ],
-      "boundary": "LIVE remains source/operation authority; loop witness normalizes lifecycle/progress for reuse only. PUZZLE now exposes direct FORM/MORPH state rather than binary hex state."
+      "boundary": "LIVE remains source/operation authority; loop witness normalizes lifecycle/progress for reuse only. PUZZLE exposes HEXAGRAM / CHANGE as a derived cultural projection while retaining FORM_CHANGE as the abstract loop archetype and exact verb substrate."
     },
     "form_morph": {
       "module": "/fold-bloom/live/form-puzzle.js",
@@ -581,8 +585,20 @@
         "mobile_interaction_regression": "PASS",
         "critical_browser_smoke": "PASS"
       }
-    }
+    },
+    "hex_projection": {
+      "version": "FOLD_BLOOM_HEX_PROJECTION_0.1",
+      "module": "/fold-bloom/live/hex-projection.js",
+      "exact_state_count": 4096,
+      "projected_hexagram_count": 64,
+      "exact_forms_per_hexagram": 64,
+      "lower_upper_trigrams": true,
+      "moving_lines": true,
+      "exact_verbs_retained": true,
+      "cultural_boundary": "Traditional trigram glyph/name/image labels are retained; FOLD//BLOOM's SAME/NEAR vs FAR/OPPOSITE polarity mapping is explicitly game-specific."
+    },
+    "cache_boundary_current": "index → play.js?v=0.6.1 → play-core.js?v=0.5 + form-puzzle.js?v=0.1 + hex-projection.js?v=0.1; exact-form and HEX projection modules remain distinct."
   },
-  "play_return": "/returns/FOLD_BLOOM_FORM_MORPH_2026-09-26.json",
+  "play_return": "/returns/FOLD_BLOOM_HEX_RESTORED_2026-09-26.json",
   "latest_merge": "da7dfe9efa534d07f3bbe357cf23463c66616d89"
 }
