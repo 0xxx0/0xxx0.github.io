@@ -383,7 +383,7 @@ async function preparePublicDemo(){
     trackStatus='GENERATING · FIELD AUDIO DEMO';update();
     const file=generateFieldDemoFile();
     stopDemo(false);liveTrack.clearSource();deformationTape=[];sectionArc=createSectionArc();ride=createRideState();latestWorld=null;linkedTrack=null;externalTrack=null;lastLinkedBeat=-1;
-    await liveTrack.loadFiles([file]);
+    await liveTrack.load(file,{autoplay:false});
     const duration=Number(liveTrack.map?.duration)||0;
     if(duration<FIELD_DEMO_DURATION-.2)throw Error('FIELD DEMO DECODE TRUNCATED '+duration.toFixed(2)+'s');
     $('#trackAudio').pause();$('#trackAudio').loop=true;
