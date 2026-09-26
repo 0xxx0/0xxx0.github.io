@@ -8,7 +8,7 @@ test('generated FIELD audio demo is real bounded PCM, not a tiny placeholder',()
   assert.equal(d.duration,FIELD_DEMO_DURATION);
   assert.equal(d.sampleRate,FIELD_DEMO_SAMPLE_RATE);
   assert.equal(d.pcm.length,FIELD_DEMO_DURATION*FIELD_DEMO_SAMPLE_RATE);
-  assert.ok(d.bytes.length>600000,'wav bytes '+d.bytes.length);
+  assert.ok(d.bytes.length>FIELD_DEMO_DURATION*FIELD_DEMO_SAMPLE_RATE*1.9,'wav bytes '+d.bytes.length);
   assert.equal(String.fromCharCode(...d.bytes.slice(0,4)),'RIFF');
   assert.equal(String.fromCharCode(...d.bytes.slice(8,12)),'WAVE');
 });
