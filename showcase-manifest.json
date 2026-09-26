@@ -16,17 +16,17 @@
       "kind": "root",
       "parent": null,
       "index": {
-        "updated_at": "2026-09-26T01:03:00+08:00",
+        "updated_at": "2026-09-26T08:25:00+08:00",
         "work_modes": [
           "IMPLEMENT",
           "VERIFY",
           "OPERATE"
         ]
       },
-      "role": "FIELD INDEX root: compact held-object/action and re-entry surface. CURRENT owns attention. One addressed route can now cross the control-plane boundary through an explicit source-preserving DAYLINE → handoff: FIELD writes only the transient handoff envelope, Dayline owns ADD TO DAY, mutation, undo, witness and RETURN. Generic FIELD routes return EVIDENCE_ONLY / UNCHANGED to their exact FIELD focus. CATCH + ACT remains folded and semantic; navigation/instrument depth remains losslessly recoverable.",
+      "role": "FIELD INDEX root: compact held-object/action and re-entry surface. CURRENT owns attention. One addressed route may cross into Dayline through the existing FIELD INTERPHASE host: FIELD preserves identity/address/focus/projection/residue inside the explicit Dayline handoff; Dayline becomes a second INTERPHASE host over the same object while native authority remains unequal. No second store or universal shell.",
       "receipt": "/returns/FIELD_INDEX_MOBILE_CLARITY_2026-09-25.json",
       "machine_view": "FIELD",
-      "version": "0.8.13",
+      "version": "0.8.14",
       "transfer": [
         "0.8.13 executable held action: non-root route → explicit atlas-dayline-handoff/v0.1 TASK envelope → Dayline ADD TO DAY; FIELD never mutates DayState; generic return is EVIDENCE_ONLY / UNCHANGED and restores exact FIELD focus",
         "lossless root contraction: 12-link header rail removed; PLAY remains immediate while CURRENT/RECOVER/NEXUS/WITNESS/TRACE/COMPARE/HOUSE/CONFLUENCE/FOUNDRY/RECORD/RETURN/FI LAW remain exactly reachable inside the existing re-entry depth",
@@ -78,7 +78,9 @@
         "LensState v0.2 typed composition over the same AXIAL/ROUTES focus",
         "visible lawful/dead next-lens support",
         "NAV / INSPECT / LENS remain distinct operations",
-        "safe local focus→second-click OPEN friction cut"
+        "safe local focus→second-click OPEN friction cut",
+        "0.8.14 INTERPHASE propagation: FIELD held route → FieldInterphase projection witness → existing atlas-dayline-handoff/v0.1 → DaylineInterphase FOVEA/LINE/RING → native Dayline moves/WITNESS/RETURN",
+        "INTERPHASE projection never gains Dayline effect authority; FIELD/native owners retain domain truth"
       ],
       "activation_law": "/control/FIELD_ACTIVATION_LAW.json",
       "convergence_return": "/returns/FIELD_INDEX_CONVERGENCE_2026-09-21.json",
@@ -90,7 +92,7 @@
       "policy_trace_return": "/returns/FIELD_INDEX_POLICY_TRACE_2026-09-22.json",
       "confluence_packet": "/control/confluence/FIELD_POLICY_TRACE_2026-09-22.json",
       "tier": "FIELD",
-      "latest_return": "/returns/FIELD_INDEX_DAYLINE_ACTION_2026-09-26.json"
+      "latest_return": "/returns/DAYLINE_INTERPHASE_FIELD_PROPAGATION_2026-09-26.json"
     },
     {
       "href": "/app-atlas/",
@@ -273,10 +275,10 @@
       "parent": "/atlas-dayline/",
       "family": "ATLAS DAYLINE",
       "operation": "OPERATE",
-      "state": "ACTIVE",
-      "version": "0.2.2",
+      "state": "IMPLEMENTED_CANDIDATE",
+      "version": "0.3.0",
       "showcase_card": false,
-      "role": "Mobile-first continuous execution projection over existing DayState. Holds one source-addressed object, exposes ≤3 moves, records witness, and emits source-appropriate OFFER_ONLY returns: COMMS may propose native signal state; Shopping returns evidence-only. Completed focus releases only after the offer is published. HOUSE depth/escape goes directly to canonical /house/; /house/spatial/ remains compatibility only.",
+      "role": "Mobile-first continuous execution projection over existing DayState and first-class INTERPHASE host. FIELD can lend the exact held route plus its INTERPHASE projection/focus/residue witness; Dayline reprojects that same object as FOVEA / LINE / RING while keeping native Dayline moves as the only effect path. RETURN carries the INTERPHASE projection witness.",
       "receipt": "/dayline/release.json",
       "transfer": [
         "same poly-atlas-dayline-branch-i-public-v1 DayState; no second planner store",
@@ -293,7 +295,10 @@
         "source return effect is host-specific rather than generic: COMMS STATE_PROPOSAL · SHOPPING RECEIPT_ONLY · default EVIDENCE_ONLY",
         "Shopping Dayline completion cannot promote procurement lifecycle",
         "HOUSE depth/escape targets canonical /house/ directly; /house/spatial/ is not used as a Dayline front door",
-        "Shopping RETURN is evidence-only: lifecycle remains native and unchanged after receipt acceptance"
+        "Shopping RETURN is evidence-only: lifecycle remains native and unchanged after receipt acceptance",
+        "FIELD FieldInterphase → existing handoff envelope → DaylineInterphase over same addressed object",
+        "FOVEA / LINE / RING are projection-only; suppressed channels remain explicit residue",
+        "RETURN carries current INTERPHASE selection/focus/projection/residue without authority increase"
       ],
       "contract": {
         "accepts": {
@@ -301,7 +306,8 @@
             "atlas-dayline-handoff/v0.1",
             "existing Dayline task",
             "FIELD route/front",
-            "direct capture"
+            "direct capture",
+            "interphase/v0.2/handoff within existing Dayline envelope"
           ],
           "requires": [],
           "optional": [
@@ -327,7 +333,8 @@
             "bounded move set",
             "witness",
             "poly-atlas-return-f v3",
-            "atlas-dayline-source-return/v0.1 OFFER_ONLY"
+            "atlas-dayline-source-return/v0.1 OFFER_ONLY",
+            "interphase/v0.2 projection witness in RETURN"
           ],
           "machine_readable": true,
           "human_readable": true
@@ -382,7 +389,7 @@
         "physical_fit": "Ordinary mobile execution surface; no scroll lock or spatial viewport required."
       },
       "index": {
-        "updated_at": "2026-09-26T01:23:26+08:00",
+        "updated_at": "2026-09-26T08:25:00+08:00",
         "work_modes": [
           "OPERATE",
           "VERIFY"
