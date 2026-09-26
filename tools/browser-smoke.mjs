@@ -1060,6 +1060,12 @@ const CASES=[
     check:dom=>/INK FIELD/i.test(dom)&&dom.includes('data-fold-bloom-ink="ready"')&&dom.includes('id="water"')&&dom.includes('id="load"')&&dom.includes('id="absorb"')&&dom.includes('data-mode="SUMI"')&&dom.includes('data-mode="DRY"')&&dom.includes('data-mode="WASH"')&&/PRESSURE \+ TILT/.test(dom)
   },
   {
+    name:'FOLD BLOOM LIVE public audio example',
+    route:'/fold-bloom/live/?source=example&profile=DRIVE',
+    options:{width:430,height:900,budget:12000,timeout:18000},
+    check:dom=>dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-launch="public-demo"')&&dom.includes('data-fold-bloom-demo-source="ready"')&&dom.includes('id="publicDemoBtn"')&&/PLAY AUDIO EXAMPLE/.test(dom)&&dom.includes('data-fold-bloom-layer="IMMERSION"')
+  },
+  {
     name:'FOLD BLOOM LIVE shareable demo',
     route:'/fold-bloom/live/?demo=1&profile=DRIVE',
     options:{width:430,height:900,budget:5000},
