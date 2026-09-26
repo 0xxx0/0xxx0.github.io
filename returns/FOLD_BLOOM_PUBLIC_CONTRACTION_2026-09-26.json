@@ -1,0 +1,50 @@
+{
+  "schema": "0xxx0/fold-bloom-public-contraction/v0.1",
+  "date": "2026-09-26",
+  "state": "CANDIDATE",
+  "object": "/fold-bloom/ public doorway",
+  "before": {
+    "primary_exposure": "6 hero actions + 6 primary job cards + 7 secondary cards + duplicate stale LAB/VOICE deep gates",
+    "mismatch": [
+      "FIELD LAB 0.2 / six projections",
+      "VOICE 0.1 separate Lab gate"
+    ]
+  },
+  "delta": {
+    "version": "0.1.6",
+    "primary": [
+      "RIDE",
+      "FORM→MORPH",
+      "MAP/MARK",
+      "REPLAY"
+    ],
+    "lab": "FIELD LAB 0.3.4 · RIDE / PULSE+VOICE / VERSE / READ / LOCI / INK / DATA",
+    "folded_secondary": [
+      "SET",
+      "SABER",
+      "READ",
+      "LOCI",
+      "PULSE+VOICE",
+      "COMPOSE",
+      "INK",
+      "DAYLINE"
+    ],
+    "removed_from_top": [
+      "INSTRUMENT direct nav",
+      "BUILD SET hero action",
+      "DAYLINE hero action",
+      "standalone stale VOICE deep gate"
+    ]
+  },
+  "preserves": [
+    "all existing routes",
+    "source identity",
+    "LISTEN evidence",
+    "SET seam authority",
+    "REPLAY score authority",
+    "LAB projection boundaries",
+    "deep INSTRUMENT reachability"
+  ],
+  "authority": "No engine or state-law change; public navigation/projection only.",
+  "stop": "Do not re-expand the public doorway merely because a deeper route exists. Promote a secondary route only from repeated direct-use demand."
+}
