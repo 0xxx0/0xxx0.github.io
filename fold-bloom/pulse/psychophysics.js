@@ -1,4 +1,4 @@
-export const PULSE_PSYCHOPHYSICS_VERSION='FOLD_BLOOM_PULSE_PSYCHOPHYSICS_0.1';
+export const PULSE_PSYCHOPHYSICS_VERSION='FOLD_BLOOM_PULSE_PSYCHOPHYSICS_0.2';
 
 export const TRAIN_PHASES=Object.freeze({
   LOCK:Object.freeze({label:'LOCK',taps:4,law:'stabilize the quarter-note meter before adding competing periodicities'}),
@@ -34,6 +34,19 @@ export function trainerTarget(state={}){
   const phase=TRAIN_PHASES[state.phase]?state.phase:'LOCK',i=Math.max(0,Math.trunc(finite(state.phaseTap)));
   if(phase==='LOCK'||phase==='RETURN')return 'M';
   return i%2===0?'A':'B';
+}
+
+export function pulseLanes(rings=3){
+  const n=clamp(Math.trunc(finite(rings)||3),1,3);
+  return n===1?['M']:n===2?['M','A']:['M','A','B'];
+}
+
+export function resolvePulseTarget(state={}, {rings=3,focus='AUTO'}={}){
+  const lanes=pulseLanes(rings),requested=String(focus||'AUTO').toUpperCase();
+  if(requested!=='AUTO'&&lanes.includes(requested))return requested;
+  const auto=trainerTarget(state);
+  if(lanes.includes(auto))return auto;
+  return lanes.at(-1)||'M';
 }
 
 export function trainerProgress(state={}){
