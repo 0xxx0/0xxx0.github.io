@@ -991,7 +991,7 @@ const CASES=[
     name:'FOLD BLOOM public front',
     route:'/fold-bloom/',
     options:{width:430,height:900,budget:5000},
-    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/A source becomes a field/i.test(dom)&&/ENTER LIVE/.test(dom)&&!/PLAY CENTER MASS/.test(dom)&&/MAP \/ MARK/.test(dom)&&/FIELD LAB 0\.3\.4 · SEVEN PROJECTIONS/.test(dom)&&/PULSE \+ VOICE/.test(dom)&&!/FIELD LAB 0\.2 · SIX PROJECTIONS/.test(dom)&&!/VOICE 0\.1 · PITCH × PULSE/.test(dom)&&/BUILD A SET/.test(dom)&&/WHAT DO YOU/.test(dom)&&/WANT TO DO/.test(dom)&&/Play a track as terrain/.test(dom)&&/Read fast without losing your place/.test(dom)&&/MORE USES · SABER/.test(dom)&&/SABER \/ TWO PHONES/.test(dom)&&/MESSAGE \/ REPLAY/.test(dom)&&/SURFACES \/ LINEAGE \/ WHY IT WORKS/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
+    check:dom=>/FOLD ?\/\/ ?BLOOM/i.test(dom)&&/A source becomes a field/i.test(dom)&&/ENTER LIVE/.test(dom)&&/TRY AUDIO EXAMPLE/.test(dom)&&!/PLAY CENTER MASS/.test(dom)&&/MAP \/ MARK/.test(dom)&&/FIELD LAB 0\.3\.4 · SEVEN PROJECTIONS/.test(dom)&&/PULSE \+ VOICE/.test(dom)&&!/FIELD LAB 0\.2 · SIX PROJECTIONS/.test(dom)&&!/VOICE 0\.1 · PITCH × PULSE/.test(dom)&&/BUILD A SET/.test(dom)&&/WHAT DO YOU/.test(dom)&&/WANT TO DO/.test(dom)&&/Play a track as terrain/.test(dom)&&/Read fast without losing your place/.test(dom)&&/MORE USES · SABER/.test(dom)&&/SABER \/ TWO PHONES/.test(dom)&&/MESSAGE \/ REPLAY/.test(dom)&&/SURFACES \/ LINEAGE \/ WHY IT WORKS/.test(dom)&&/SOURCE → ADDRESS → TRANSFORM → RETURN/.test(dom)
   },
   {
     name:'FOLD BLOOM SABER 0.1',
@@ -1058,6 +1058,12 @@ const CASES=[
     route:'/fold-bloom/ink/',
     options:{width:430,height:900,budget:7000},
     check:dom=>/INK FIELD/i.test(dom)&&dom.includes('data-fold-bloom-ink="ready"')&&dom.includes('id="water"')&&dom.includes('id="load"')&&dom.includes('id="absorb"')&&dom.includes('data-mode="SUMI"')&&dom.includes('data-mode="DRY"')&&dom.includes('data-mode="WASH"')&&/PRESSURE \+ TILT/.test(dom)
+  },
+  {
+    name:'FOLD BLOOM LIVE public audio example',
+    route:'/fold-bloom/live/?source=example&profile=DRIVE',
+    options:{width:430,height:900,budget:12000,timeout:18000},
+    check:dom=>dom.includes('data-fold-bloom-live="ready"')&&dom.includes('data-fold-bloom-launch="public-demo"')&&dom.includes('data-fold-bloom-demo-source="ready"')&&dom.includes('id="publicDemoBtn"')&&/PLAY AUDIO EXAMPLE/.test(dom)&&dom.includes('data-fold-bloom-layer="IMMERSION"')
   },
   {
     name:'FOLD BLOOM LIVE shareable demo',
