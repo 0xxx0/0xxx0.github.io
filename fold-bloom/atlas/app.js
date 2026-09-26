@@ -4,6 +4,7 @@ import {parseLocalAudioMeta,localDisplayName} from '../listen/media-meta.js';
 import {groupLocalInputs,parseTextSidecar,parsePlaylistText} from '../listen/sidecar-text.js';
 import {ATLAS_SCHEMA,MAX_ATLAS_ENTRIES,atlasPacket,appendPath,encodeAtlas,decodeAtlas,syntheticAtlas} from './atlas-core.js';
 import {isDocumentFile,adaptDocumentFile,storeDocumentRuntime,loadDocumentRuntime,clearDocumentRuntime,makeReadfieldHandoff} from './document-source.js';
+import {hashHex} from '../../lib/id.js';
 
 const $=s=>document.querySelector(s),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const STORE='fold-bloom.glyph-atlas.v01';
@@ -28,7 +29,7 @@ function persist(){
   if(!realMode)return;
   try{localStorage.setItem(STORE,JSON.stringify(currentPacket()))}catch(_){}
 }
-function hashBuffer(buf){return crypto.subtle.digest('SHA-256',buf).then(h=>[...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join(''))}
+function hashBuffer(buf){return hashHex(buf)}
 function mixdown(buffer,targetRate=12000){
   const ratio=buffer.sampleRate/Math.min(buffer.sampleRate,targetRate),len=Math.max(1,Math.floor(buffer.length/ratio)),out=new Float32Array(len);
   const channels=Array.from({length:buffer.numberOfChannels},(_,i)=>buffer.getChannelData(i));
