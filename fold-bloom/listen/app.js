@@ -9,6 +9,7 @@ import {audioGlyphDescriptor,audioGlyphSvg} from './audio-glyph.js';
 import {parseLocalAudioMeta,localDisplayName} from './media-meta.js';
 import {groupLocalInputs,parseTextSidecar,parsePlaylistText} from './sidecar-text.js';
 import {sourceBundleFromMeta} from './source-bundle.js';
+import {hashHex} from '../../lib/id.js';
 import {normalizeRideProfile,profileKey} from '../live/visual-worlds.js';
 import {compileEventTape,toBeatSaberV4Draft} from '../beat/event-tape.js';
 import {buildBeatSaberPack} from '../beat/beatsaber-pack.js';
@@ -260,7 +261,6 @@ function ensureWorker(){
     console.warn('LISTEN worker boot failed',error);status('ANALYZER UNAVAILABLE · FILE PICKER STILL WORKS');drop.classList.remove('busy');throw error;
   }
 }
-async function hashBuffer(buf){const h=await crypto.subtle.digest('SHA-256',buf);return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('')}
 function mixdown(buffer,targetRate=12000){
   const ratio=buffer.sampleRate/Math.min(buffer.sampleRate,targetRate),len=Math.max(1,Math.floor(buffer.length/ratio)),out=new Float32Array(len);
   const channels=Array.from({length:buffer.numberOfChannels},(_,i)=>buffer.getChannelData(i));
@@ -274,7 +274,7 @@ function sourceLabel(meta){
 async function analyzeBytes(bytes,playbackBlob,meta){
   status('DECODING');drop.classList.add('busy');
   const AC=window.AudioContext||window.webkitAudioContext;if(!AC)throw Error('Web Audio unavailable');
-  const hashP=hashBuffer(bytes.slice(0)),ctx=new AC();
+  const hashP=hashHex(bytes.slice(0)),ctx=new AC();
   try{
     const decoded=await ctx.decodeAudioData(bytes.slice(0)),hash=await hashP,{pcm,sampleRate}=mixdown(decoded);
     if(objectURL)URL.revokeObjectURL(objectURL);sourceBlob=playbackBlob;objectURL=URL.createObjectURL(playbackBlob);audio.src=objectURL;
