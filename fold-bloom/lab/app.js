@@ -8,6 +8,10 @@ import {normalizeStateBits,stateChange,stateDescriptor,lineMark,formatState} fro
 import {appendLabTrace,compileLabReturn} from './lab-return.js?v=0.3.3';
 import {estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from '../voice/pitch.js';
 import {spectrumFeatures} from '../voice/spectrum.js';
+import {
+  PULSE_PSYCHOPHYSICS_VERSION,pulseIntervals,phaseAt,makeTrainerState,trainerTarget,trainerProgress,
+  advanceTrainer,evaluateTap,summarizeTapTrace,returnDelta
+} from '../pulse/psychophysics.js?v=0.1';
 
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -80,7 +84,7 @@ $('#enterListen').onclick=()=>location.href='../listen/';
 $('#dataLens').onclick=()=>location.href='../lens/';
 
 /* ---------- PULSE ---------- */
-const pulse={ratio:[3,2],bpm:96,timbre:'WOOD',playing:false,ac:null,timer:null,start:0,nextA:0,nextB:0,lastA:-1,lastB:-1,taps:[],flashA:0,flashB:0,lastPublish:0};
+const pulse={ratio:[3,2],bpm:96,timbre:'WOOD',playing:false,ac:null,timer:null,start:0,nextM:0,nextA:0,nextB:0,lastA:-1,lastB:-1,taps:[],flashA:0,flashB:0,lastPublish:0,trainer:makeTrainerState(),lastTap:null,metrics:null,lastReturn:null};
 const voice={pattern:'NOTE',baseMidi:60,manualStep:0,stream:null,source:null,analyser:null,samples:null,freqBins:null,mic:false,lastAnalysis:0,history:[],lastSpectrum:null,frames:0,voiced:0,onTarget:0,absCents:0,centroidHz:0,spectralFrames:0};
 function voiceStep(){return pulse.playing&&lastTransport?Math.max(0,Number(lastTransport.beatIndex)||0):voice.manualStep}
 function voiceTarget(){
@@ -130,33 +134,57 @@ function analyzeLabVoice(t){
   const cents=centsBetween(pitch.hz,target.hz),abs=Math.abs(cents);voice.absCents+=abs;if(abs<=35)voice.onTarget++;$('#voiceCents').textContent=(cents>0?'+':'')+Math.round(cents)+'¢';
 }
 
+function pulseTrainView(){
+  const p=trainerProgress(pulse.trainer),summary=summarizeTapTrace(pulse.taps);
+  pulse.metrics=summary;
+  return {progress:p,summary,target:trainerTarget(pulse.trainer),returnDelta:returnDelta(pulse.taps)};
+}
+function syncPulseTrainingUI(){
+  const v=pulseTrainView(),sample=pulse.lastTap,p=v.progress;
+  if($('#syncRead'))$('#syncRead').textContent=v.summary.lock==null?'—':v.summary.lock+'%';
+  if($('#pulseTarget'))$('#pulseTarget').textContent=p.phase+' · '+p.target+' · '+(Math.min(p.value+1,p.targetTaps))+'/'+p.targetTaps;
+  if($('#pulseError'))$('#pulseError').textContent=!sample?'—':(sample.errorMs>0?'+':'')+Math.round(sample.errorMs)+'ms';
+  if($('#pulseBias'))$('#pulseBias').textContent=v.summary.biasMs==null?'—':(v.summary.biasMs>0?'+':'')+Math.round(v.summary.biasMs)+'ms';
+  if($('#pulseJitter'))$('#pulseJitter').textContent=v.summary.jitterMs==null?'—':Math.round(v.summary.jitterMs)+'ms';
+  if($('#pulseCorr'))$('#pulseCorr').textContent=v.summary.phaseCorrection==null?'—':v.summary.phaseCorrection.toFixed(2);
+  document.documentElement.dataset.fieldLabPulseTrain=p.phase;
+  document.documentElement.dataset.fieldLabPulseTarget=p.target;
+  document.documentElement.dataset.fieldLabPulsePsychophysics=PULSE_PSYCHOPHYSICS_VERSION;
+}
+function resetPulseTraining(announce=false){
+  pulse.trainer=makeTrainerState();pulse.taps=[];pulse.lastTap=null;pulse.metrics=null;pulse.lastReturn=null;syncPulseTrainingUI();
+  if(announce)setStatus('PULSE · TRAIN RESET · LOCK METER');
+}
 function parseRatio(v){return v.split(':').map(Number)}
 $$('[data-ratio]').forEach(b=>b.onclick=()=>{
-  pulse.ratio=parseRatio(b.dataset.ratio);$$('[data-ratio]').forEach(x=>x.classList.toggle('cool',x===b));
-  $('#ratioRead').textContent=b.dataset.ratio;if(pulse.playing)restartPulse();
+  pulse.ratio=parseRatio(b.dataset.ratio);$('[data-ratio]').forEach(x=>x.classList.toggle('cool',x===b));
+  $('#ratioRead').textContent=b.dataset.ratio;resetPulseTraining();if(pulse.playing)restartPulse();
 });
 $$('[data-timbre]').forEach(b=>b.onclick=()=>{
   pulse.timbre=b.dataset.timbre;$$('[data-timbre]').forEach(x=>x.classList.toggle('cool',x===b));
 });
-$('#bpm').oninput=e=>{pulse.bpm=+e.target.value;$('#bpmRead').textContent=pulse.bpm;if(pulse.playing)restartPulse()};
+$('#bpm').oninput=e=>{pulse.bpm=+e.target.value;$('#bpmRead').textContent=pulse.bpm;resetPulseTraining();if(pulse.playing)restartPulse()};
 function ensureAudio(){if(!pulse.ac)pulse.ac=new (window.AudioContext||window.webkitAudioContext)();return pulse.ac}
 function pluck(at,voice){
   const ac=ensureAudio(),p=PROFILES[profile],g=ac.createGain(),f=ac.createBiquadFilter(),o=ac.createOscillator();
-  const base=voice==='A'?196:294;
-  let freq=base,type='triangle',decay=.085;
-  if(pulse.timbre==='QIN'){freq=voice==='A'?196:247;type='sine';decay=.32;f.frequency.value=1500;f.Q.value=1.4}
-  else if(pulse.timbre==='DRONE'){freq=voice==='A'?110:165;type='sine';decay=.48;f.frequency.value=900;f.Q.value=.7}
+  const meter=voice==='M',tap=voice==='T';
+  let freq=voice==='A'?196:294,type='triangle',decay=.085,amp=voice==='A'?.14:.10;
+  if(meter){freq=164;type='sine';decay=.055;amp=.052;f.frequency.value=850;f.Q.value=.6}
+  else if(tap){freq=980;type='triangle';decay=.035;amp=.045;f.frequency.value=2400;f.Q.value=1.2}
+  else if(pulse.timbre==='QIN'){freq=voice==='A'?196:247;type='sine';decay=.32;amp=voice==='A'?.13:.095;f.frequency.value=1500;f.Q.value=1.4}
+  else if(pulse.timbre==='DRONE'){freq=voice==='A'?110:165;type='sine';decay=.48;amp=voice==='A'?.11:.085;f.frequency.value=900;f.Q.value=.7}
   else {freq=voice==='A'?520:760;type='triangle';decay=.07;f.frequency.value=1900;f.Q.value=2}
   o.type=type;o.frequency.setValueAtTime(freq,at);f.type='lowpass';
-  g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime((voice==='A'?.14:.10)*p.gain,at+.006);g.gain.exponentialRampToValueAtTime(.0001,at+decay);
+  g.gain.setValueAtTime(.0001,at);g.gain.exponentialRampToValueAtTime(amp*p.gain,at+.006);g.gain.exponentialRampToValueAtTime(.0001,at+decay);
   o.connect(f).connect(g).connect(ac.destination);o.start(at);o.stop(at+decay+.03);
 }
 function restartPulse(){stopPulse();startPulse()}
 function startPulse(){
   const ac=ensureAudio();ac.resume();
-  pulse.playing=true;const bar=4*60/pulse.bpm;pulse.start=ac.currentTime+.06;pulse.nextA=pulse.start;pulse.nextB=pulse.start;
+  pulse.playing=true;const bar=4*60/pulse.bpm;pulse.start=ac.currentTime+.06;pulse.nextM=pulse.start;pulse.nextA=pulse.start;pulse.nextB=pulse.start;
   pulse.timer=setInterval(()=>{
-    if(!pulse.playing)return;const now=ac.currentTime,horizon=now+.12,bar=4*60/pulse.bpm,ia=bar/pulse.ratio[0],ib=bar/pulse.ratio[1];
+    if(!pulse.playing)return;const now=ac.currentTime,horizon=now+.12,iv=pulseIntervals({bpm:pulse.bpm,ratio:pulse.ratio}),ia=iv.a,ib=iv.b;
+    while(pulse.nextM<horizon){pluck(pulse.nextM,'M');pulse.nextM+=iv.beat}
     while(pulse.nextA<horizon){pluck(pulse.nextA,'A');pulse.nextA+=ia}
     while(pulse.nextB<horizon){pluck(pulse.nextB,'B');pulse.nextB+=ib}
   },24);
@@ -170,13 +198,20 @@ function stopPulse(){
 $('#pulsePlay').onclick=()=>pulse.playing?stopPulse():startPulse();
 function tapPulse(){
   if(!pulse.playing)startPulse();
-  const ac=ensureAudio(),t=ac.currentTime,bar=4*60/pulse.bpm,intervals=[bar/pulse.ratio[0],bar/pulse.ratio[1]];
-  const errs=intervals.map(iv=>{const k=Math.round((t-pulse.start)/iv);return Math.abs(t-(pulse.start+k*iv))});
-  const err=Math.min(...errs),score=Math.max(0,Math.round(100-err*500));
-  pulse.taps.push({t:t-pulse.start,score});pulse.taps=pulse.taps.slice(-32);$('#syncRead').textContent=score+'%';
-  pluck(t,'B');
+  const ac=ensureAudio(),t=ac.currentTime,progress=trainerProgress(pulse.trainer),phase=pulse.trainer.phase,lane=progress.target;
+  const sample=evaluateTap({time:t,start:pulse.start,bpm:pulse.bpm,ratio:pulse.ratio,lane});
+  const tap={...sample,t:t-pulse.start,score:sample.lock,trainPhase:phase,trainCycle:pulse.trainer.cycle,trainTap:pulse.trainer.phaseTap+1};
+  pulse.taps.push(tap);pulse.taps=pulse.taps.slice(-32);pulse.lastTap=tap;
+  const advanced=advanceTrainer(pulse.trainer);pulse.trainer=advanced.state;
+  if(advanced.cycleComplete)pulse.lastReturn=returnDelta(pulse.taps);
+  syncPulseTrainingUI();pluck(t,'T');
+  if(advanced.transition){
+    const v=trainerProgress(pulse.trainer),returnNote=advanced.cycleComplete&&pulse.lastReturn?.available?' · RETURN Δ '+(pulse.lastReturn.deltaMs>0?'+':'')+pulse.lastReturn.deltaMs+'ms':'';
+    setStatus('PULSE · '+advanced.transition+' · NEXT '+v.phase+' / '+v.target+returnNote);
+  }
 }
 $('#tap').onclick=tapPulse;
+$('#pulseTrainReset')?.addEventListener('click',()=>resetPulseTraining(true));
 function syntheticMap(seconds=16){
   const beat=60/pulse.bpm,beats=[];for(let t=0;t<=seconds+1e-6;t+=beat)beats.push(+t.toFixed(6));
   const frames=Array.from({length:Math.ceil(seconds*20)},(_,i)=>({energy:.3+.3*Math.sin(i*.27)**2,flux:.2+.6*(i%10===0)}));
@@ -419,7 +454,7 @@ $('#raceInput').addEventListener('input',e=>{
   const want=(read.tokens[read.you]||'').replace(/[^\p{L}\p{N}]+/gu,'').toLowerCase(),got=e.target.value.replace(/[^\p{L}\p{N}]+/gu,'').toLowerCase();
   if(want&&got===want){read.you=Math.min(read.tokens.length,read.you+1);e.target.value='';syncReadUI()}
 });
-syncPulseButton();document.documentElement.dataset.fieldLabReadPulse=read.pulseMode;resetRead();queueMicrotask(()=>ensureReader());
+syncPulseButton();document.documentElement.dataset.fieldLabReadPulse=read.pulseMode;resetPulseTraining();resetRead();queueMicrotask(()=>ensureReader());
 
 /* ---------- LOCI ---------- */
 const loci={nodes:[],course:null,hidden:false,step:0,hits:0};
@@ -619,17 +654,28 @@ function publishPulseTransport(t,force=false,timeOverride=null){
   const data={playing:pulse.playing,time:tt,duration:bar,bpm:pulse.bpm,tempoConfidence:1,beatIndex:Math.floor(tt/beatDur),sectionIndex:0,scope:'BAR',scopeStart:0,scopeEnd:bar,energy:.45+.18*Math.sin(tt*Math.PI*2/beatDur)**2,flux:.18,brightness:.52,stage:'SYNTH',sourceHash:null,sourceKind:'FIELD_LAB_SYNTH',sourceAddress:'field://lab/pulse',clockSource:'SYNTH',quantum:4,quantumPhase,beatTime:Math.floor(tt/beatDur)*beatDur,beatPhase,beatDistance:Math.min(beatPhase,1-beatPhase)*beatDur,sectionProgress:quantumPhase,sectionCount:1,sectionStart:0,sectionEnd:bar,sourceProgress:quantumPhase};
   lastTransport=data;fieldPulse.publish('transport',data);updatePulseReadout(data);if(read.pulseMode!=='OFF')applyTransport(data);
 }
+function drawPulseRing(cx,cy,rad,phase,count,col,label,target=false){
+  ctx.strokeStyle='rgba('+col+','+(target?'.92':'.32')+')';ctx.lineWidth=target?3:1.25;ctx.beginPath();ctx.arc(cx,cy,rad,0,TAU);ctx.stroke();
+  const ticks=Math.max(1,Math.trunc(count)||1);
+  for(let i=0;i<ticks;i++){const an=-Math.PI/2+i*TAU/ticks,inner=rad-(target?8:5);ctx.strokeStyle='rgba('+col+','+(target?'.74':'.30')+')';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx+Math.cos(an)*inner,cy+Math.sin(an)*inner);ctx.lineTo(cx+Math.cos(an)*rad,cy+Math.sin(an)*rad);ctx.stroke()}
+  const an=-Math.PI/2+phase*TAU;ctx.fillStyle='rgb('+col+')';ctx.beginPath();ctx.arc(cx+Math.cos(an)*rad,cy+Math.sin(an)*rad,target?6:4,0,TAU);ctx.fill();
+  ctx.fillStyle='rgba('+col+','+(target?'.95':'.55')+')';ctx.font='700 8px ui-monospace';ctx.textAlign='left';ctx.fillText(label,cx+rad+7,cy+3);
+}
 function drawPulse(t){
   publishPulseTransport(t);
-  clear(.16);cross();const cx=W/2,cy=H/2,p=PROFILES[profile],ac=pulse.ac,bar=4*60/pulse.bpm;
-  const tt=pulse.playing&&ac?Math.max(0,ac.currentTime-pulse.start):t/1000;
-  const a=pulse.ratio[0],b=pulse.ratio[1],phA=(tt%(bar/a))/(bar/a),phB=(tt%(bar/b))/(bar/b);
-  const rr=Math.min(W,H)*.23;
-  for(const [ph,col,rad] of [[phA,'123,213,255',rr],[phB,'239,120,73',rr*.72]]){
-    ctx.strokeStyle='rgba('+col+',.55)';ctx.lineWidth=2;ctx.beginPath();ctx.arc(cx,cy,rad,0,TAU);ctx.stroke();
-    const an=-Math.PI/2+ph*TAU;ctx.fillStyle='rgb('+col+')';ctx.beginPath();ctx.arc(cx+Math.cos(an)*rad,cy+Math.sin(an)*rad,5+4*p.motion,0,TAU);ctx.fill();
+  clear(.16);cross();const cx=W/2,cy=H/2,p=PROFILES[profile],ac=pulse.ac,iv=pulseIntervals({bpm:pulse.bpm,ratio:pulse.ratio});
+  const tt=pulse.playing&&ac?Math.max(0,ac.currentTime-pulse.start):t/1000,train=trainerProgress(pulse.trainer),target=train.target;
+  const phM=phaseAt(tt,0,iv.beat),phA=phaseAt(tt,0,iv.a),phB=phaseAt(tt,0,iv.b),rr=Math.min(W,H)*.245;
+  drawPulseRing(cx,cy,rr,phM,4,'215,180,109','M · BEAT',target==='M');
+  drawPulseRing(cx,cy,rr*.78,phA,iv.ratio[0],'123,213,255','A · '+iv.ratio[0],target==='A');
+  drawPulseRing(cx,cy,rr*.56,phB,iv.ratio[1],'239,120,73','B · '+iv.ratio[1],target==='B');
+  if(pulse.lastTap){
+    const rad=target==='M'?rr:target==='A'?rr*.78:rr*.56,e=Math.max(-.22,Math.min(.22,Number(pulse.lastTap.phaseError)||0)),an=-Math.PI/2+e*TAU;
+    ctx.strokeStyle='rgba(242,243,239,.75)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(cx+Math.cos(an)*(rad-10),cy+Math.sin(an)*(rad-10));ctx.lineTo(cx+Math.cos(an)*(rad+7),cy+Math.sin(an)*(rad+7));ctx.stroke();
   }
-  ctx.fillStyle='#d7b46d';ctx.font='700 12px ui-monospace';ctx.textAlign='center';ctx.fillText(a+':'+b,cx,cy+4);
+  const summary=summarizeTapTrace(pulse.taps);
+  ctx.textAlign='center';ctx.fillStyle='#f2f3ef';ctx.font='900 14px ui-monospace';ctx.fillText(train.phase+' · '+target,cx,cy-3);
+  ctx.fillStyle='#7f8d94';ctx.font='700 8px ui-monospace';ctx.fillText((train.value+1)+' / '+train.targetTaps+' · '+iv.ratio.join(':')+' · LOCK '+(summary.lock??'—'),cx,cy+15);
 }
 function versePositions(){
   ensureVerse();const max=11,n=verse.lines.length,start=Math.max(0,Math.min(Math.max(0,n-max),verse.focus-Math.floor(max/2))),end=Math.min(n,start+max),rows=Math.max(1,end-start);
@@ -702,7 +748,7 @@ function tick(now){
 }
 requestAnimationFrame(tick);
 function currentProjectionEvidence(){
-  if(mode==='PULSE')return {kind:'PULSE',bpm:pulse.bpm,ratio:pulse.ratio.join(':'),timbre:pulse.timbre,playing:pulse.playing,taps:pulse.taps.length,lastSync:pulse.taps.at(-1)?.score??null,voice:{pattern:voice.pattern,baseMidi:voice.baseMidi,frames:voice.frames,voiced:voice.voiced,onTargetRatio:voice.voiced?+(voice.onTarget/voice.voiced).toFixed(3):null,meanAbsCents:voice.voiced?+(voice.absCents/voice.voiced).toFixed(2):null,meanCentroidHz:voice.spectralFrames?+(voice.centroidHz/voice.spectralFrames).toFixed(1):null}};
+  if(mode==='PULSE'){const train=pulseTrainView();return {kind:'PULSE',psychophysics:PULSE_PSYCHOPHYSICS_VERSION,bpm:pulse.bpm,ratio:pulse.ratio.join(':'),timbre:pulse.timbre,playing:pulse.playing,taps:pulse.taps.length,lastSync:pulse.taps.at(-1)?.score??null,train:{...train.progress,summary:train.summary,returnDelta:train.returnDelta},voice:{pattern:voice.pattern,baseMidi:voice.baseMidi,frames:voice.frames,voiced:voice.voiced,onTargetRatio:voice.voiced?+(voice.onTarget/voice.voiced).toFixed(3):null,meanAbsCents:voice.voiced?+(voice.absCents/voice.voiced).toFixed(2):null,meanCentroidHz:voice.spectralFrames?+(voice.centroidHz/voice.spectralFrames).toFixed(1):null}};}
   if(mode==='VERSE'){
     const line=currentVerseLine();
     return {kind:'VERSE',sourceKey:verse.sourceKey||textSourceKey(String($('#verseSource').value||'')),focus:line?.address||null,line:line?line.line+1:null,marks:verse.marks.length};
@@ -768,5 +814,5 @@ if(verseHandoffRestored){syncVerseUi();setSource('TEXT / CARRIED FROM POEM MAP')
 if(lociHandoffRestored){syncLoci();setSource('TEXT / CARRIED FROM READFIELD');setStatus('LOCI · SOURCE + FOCUS RESTORED')}
 document.documentElement.dataset.foldBloomFieldLab='ready';document.documentElement.dataset.foldBloomState=data.stateChange?.valid?'ready':'invalid';
 const labBootWitness=$('#labBootWitness');if(labBootWitness)labBootWitness.textContent='LAB_READY';
-window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>lastTransport,voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
+window.FoldBloomFieldLab={mode:()=>mode,profile:()=>profile,eventTape:()=>compileEventTape(syntheticMap(16),{sourceId:'field://lab/pulse'}),reader:()=>reader?.snapshot?.()||null,pulse:()=>({...lastTransport,training:pulseTrainView()}),voice:()=>({pattern:voice.pattern,baseMidi:voice.baseMidi,mic:voice.mic,frames:voice.frames,voiced:voice.voiced,spectrum:voice.lastSpectrum?{centroidHz:voice.lastSpectrum.centroidHz,peakHz:voice.lastSpectrum.peakHz,brightness:voice.lastSpectrum.brightness}:null}),verse:()=>({source:String($('#verseSource').value||''),focus:currentVerseLine(),marks:[...verse.marks],sourceKey:verse.sourceKey}),state:()=>data.stateChange,trace:()=>labTrace.map(x=>({...x})),returnPacket:labReturnPacket};
 addEventListener('pagehide',()=>{stopLabVoiceMic();try{fieldPulse.close?.()}catch(_){}});
