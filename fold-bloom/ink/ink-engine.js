@@ -1,7 +1,7 @@
 const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,Number(v)||0));
 const hash=(x,y,s=0)=>{let n=(x*374761393+y*668265263+s*69069)>>>0;n=(n^(n>>13))*1274126177>>>0;return ((n^(n>>16))>>>0)/4294967295};
 
-export const INK_SCHEMA='fold-bloom-ink-field/v0.3';
+export const INK_SCHEMA='fold-bloom-ink-field/v0.4';
 
 export class InkField{
   constructor({width=192,height=128,seed=17}={}){
@@ -55,16 +55,45 @@ export class InkField{
   }
 
   strokeSegment(x0,y0,x1,y1,opts={}){
-    const ax=clamp(x0),ay=clamp(y0),bx=clamp(x1),by=clamp(y1);
-    const dx=(bx-ax)*this.width,dy=(by-ay)*this.height,dist=Math.hypot(dx,dy);
-    if(dist<.001){this.deposit(bx,by,opts);return this}
+    const ax=clamp(x0)*this.width,ay=clamp(y0)*this.height,bx=clamp(x1)*this.width,by=clamp(y1)*this.height;
+    const dx=bx-ax,dy=by-ay,dist=Math.hypot(dx,dy);
+    if(dist<.001){this.deposit(bx/this.width,by/this.height,opts);return this}
+
+    // Dragging is a swept brush contact, not a cloud of independent dabs.
+    // Rasterize only the newly swept strip (open at its start), so pointer
+    // event density does not materially change ink mass or create spray dots.
+    const tx=dx/dist,ty=dy/dist,nx=-ty,ny=tx;
+    const p=clamp(opts.pressure??.5,.05,1),spd=clamp((Number(opts.speed)||0)/42,0,1);
     const base=Math.max(1,Math.min(this.width,this.height)*clamp(opts.size??.09,.012,.22));
-    const targetSpacing=Math.max(.55,base*.20),steps=Math.max(1,Math.ceil(dist/targetSpacing)),actual=dist/steps;
-    const flow=clamp(actual/Math.max(1,base*.72),.14,.58),angle=Math.atan2(dy,dx);
+    const tiltX=Number(opts.tiltX)||0,tiltY=Number(opts.tiltY)||0,tilt=Math.hypot(tiltX,tiltY);
+    const crossTilt=tilt>0?Math.abs((tiltX*nx+tiltY*ny)/70):0;
+    const halfWidth=base*(.54+p*.50)*(1-spd*.25)*(1+clamp(crossTilt,0,.8)*.62);
+    const reach=halfWidth+1.5;
+    const xMin=Math.max(0,Math.floor(Math.min(ax,bx)-reach)),xMax=Math.min(this.width-1,Math.ceil(Math.max(ax,bx)+reach));
+    const yMin=Math.max(0,Math.floor(Math.min(ay,by)-reach)),yMax=Math.min(this.height-1,Math.ceil(Math.max(ay,by)+reach));
+    const dry=String(opts.mode||'SUMI').toUpperCase()==='DRY',wash=String(opts.mode||'SUMI').toUpperCase()==='WASH';
+    const flow=clamp(opts.flow??1,.04,1),load=clamp(opts.load??.72),water=clamp(opts.water??.62);
+    const pigmentLoad=load*(dry?1.10:wash?.28:1)*(0.43+p*.76)*(1-spd*.22)*flow;
+    const waterLoad=water*(dry?.15:wash?1.20:1)*(0.52+p*.48)*(1-spd*.10)*flow;
     const seed=Number.isFinite(Number(opts.strokeSeed))?Number(opts.strokeSeed):0;
-    for(let i=1;i<=steps;i++){
-      const t=i/steps;
-      this.deposit(ax+(bx-ax)*t,ay+(by-ay)*t,{...opts,angle,flow:(opts.flow==null?flow:Number(opts.flow)*flow),strokeSeed:seed});
+    const phase=(hash(seed&1023,seed>>10,this.seed^0x6d2b79)-.5)*Math.PI*1.8;
+
+    for(let y=yMin;y<=yMax;y++)for(let x=xMin;x<=xMax;x++){
+      const rx=x+.5-ax,ry=y+.5-ay,along=rx*tx+ry*ty;
+      if(along<=0||along>dist)continue;
+      const cross=rx*nx+ry*ny,u=Math.abs(cross)/Math.max(.001,halfWidth);
+      if(u>=1)continue;
+      const i=x+y*this.width,paper=this.paper[i],grain=hash(x,y,this.seed^0xabc123);
+      // Soft compressed brush footprint; coherent bristle lanes run along the
+      // stroke instead of re-randomizing at every pointer sample.
+      const body=Math.pow(Math.max(0,1-u*u),.42);
+      const lane=.78+.22*Math.cos((cross/Math.max(1,halfWidth)*7.5)*Math.PI+phase+along/Math.max(1,base)*.08);
+      const tooth=.80+.24*(paper-.78)/.42;
+      const contact=dry?clamp((lane-.46)*2.05,0,1)*clamp((grain-.13)*1.23,0,1):(.92+.08*lane);
+      const q=body*contact*tooth;
+      this.pigment[i]=clamp(this.pigment[i]+q*pigmentLoad);
+      this.water[i]=clamp(this.water[i]+body*waterLoad*(dry?(.68+.32*contact):1));
+      if(dry&&grain<.28)this.water[i]*=.70;
     }
     return this;
   }
