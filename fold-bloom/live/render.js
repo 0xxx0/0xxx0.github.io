@@ -419,26 +419,20 @@ export class Renderer {
       for(let i=0;i<n;i++){const a=-Math.PI/2+i*TAU/n;g.fillStyle=i<round?'rgba(215,180,109,.82)':'rgba(255,255,255,.12)';g.beginPath();g.arc(Math.cos(a)*rr,Math.sin(a)*rr,3.2,0,TAU);g.fill()}
       g.fillStyle='rgba(215,180,109,.72)';g.font='800 8px ui-monospace,monospace';g.textAlign='center';g.fillText('PAR '+(v.path?.par??0)+' · '+(v.path?.turns??0)+'T · '+(v.path?.stars??0)+'★',0,r*.43);
     }else if(mode==='PUZZLE'){
-      const h=v.hex||{},phase=h.phase||'FORM',base=(phase==='CHANGE'&&h.from?.length===6)?h.from:h.target,current=h.lines||[],changed=new Set(h.changed||[]);
-      g.fillStyle='rgba(215,180,109,.035)';g.beginPath();g.arc(0,0,r*.86,0,TAU);g.fill();
-      for(let group=0;group<2;group++){
-        const rr=r*(group===0?.55:.80);
-        g.strokeStyle=group===0?'rgba(215,180,109,.20)':'rgba(255,255,255,.12)';g.lineWidth=1;g.beginPath();g.arc(0,0,rr,0,TAU);g.stroke();
-        for(let i=0;i<3;i++){
-          const line=group*3+i,a0=-Math.PI/2+i*TAU/3+.13,a1=-Math.PI/2+(i+1)*TAU/3-.13,target=base?.[line],has=line<current.length,bit=current[line];
-          if(target===0||target===1){g.strokeStyle='rgba(255,255,255,.15)';g.lineWidth=6;this._bitArc(g,rr,a0,a1,target)}
-          if(has){
-            const match=Number(bit)===Number(target),isChanged=changed.has(line+1);
-            g.strokeStyle=phase==='CHANGE'?(isChanged?'rgba(239,120,73,.98)':'rgba(114,228,182,.82)'):(match?'rgba(255,255,255,.98)':'rgba(239,120,73,.92)');
-            g.lineWidth=3;this._bitArc(g,rr,a0,a1,bit);
-          }
+      const f=v.form||{},phase=f.phase||'FORM',from=f.from||[],current=f.current||[],changed=new Set(f.changed||[]),address=Math.max(0,Math.min(5,Number(f.address)||0));
+      const verbColor=verb=>verb==='BLOOM'?'rgba(114,228,182,.96)':verb==='FOLD'?'rgba(255,179,109,.96)':verb==='SPLIT'?'rgba(200,179,255,.96)':verb==='RETURN'?'rgba(244,247,245,.96)':'rgba(255,255,255,.12)';
+      g.fillStyle='rgba(215,180,109,.035)';g.beginPath();g.arc(0,0,r*.88,0,TAU);g.fill();
+      for(const [rr,form,kind] of [[r*.78,from,'FROM'],[r*.57,current,'NOW']]){
+        g.strokeStyle='rgba(255,255,255,.08)';g.lineWidth=1;g.beginPath();g.arc(0,0,rr,0,TAU);g.stroke();
+        for(let i=0;i<6;i++){
+          const a0=-Math.PI/2+i*TAU/6+.055,a1=-Math.PI/2+(i+1)*TAU/6-.055,verb=form?.[i],isChanged=changed.has(i+1),isAddress=phase==='MORPH'&&kind==='NOW'&&i===address;
+          g.strokeStyle=verbColor(verb);g.globalAlpha=verb?.length?(isChanged?1:.72):.12;g.lineWidth=isAddress?7:isChanged?6:verb?4:2;g.beginPath();g.arc(0,0,rr,a0,a1);g.stroke();g.globalAlpha=1;
+          if(verb){const a=(a0+a1)/2;g.fillStyle=verbColor(verb);g.font='900 7px ui-monospace,monospace';g.textAlign='center';g.fillText(verb[0],Math.cos(a)*(rr-12),Math.sin(a)*(rr-12)+2)}
         }
       }
-      const tp=h.targetPair||{},cp=h.currentPair||{},tl=tp.lower?.glyph||'·',tu=tp.upper?.glyph||'·',cl=cp.lower?.glyph||'·',cu=cp.upper?.glyph||'·';
-      g.textAlign='center';g.fillStyle='rgba(215,180,109,.92)';g.font='900 20px "Segoe UI Symbol","Noto Sans Symbols 2",sans-serif';g.fillText(tl+' '+tu,0,-r*.27);
-      g.fillStyle='rgba(255,255,255,.68)';g.font='900 8px ui-monospace,monospace';
-      if(phase==='CHANGE')g.fillText('CHANGE · '+cl+' '+cu+' · Δ'+(h.changed?.length||0)+'/'+(h.targetChanges||2),0,r*.30);
-      else g.fillText('FORM · '+current.length+'/6 · LOWER ☰ / UPPER ☷',0,r*.30);
+      g.textAlign='center';g.fillStyle='rgba(255,255,255,.72)';g.font='900 8px ui-monospace,monospace';
+      if(phase==='MORPH')g.fillText('MORPH · LEAF '+(address+1)+' · Δ'+(f.changed?.length||0)+'/'+(f.targetChanges||2),0,r*.31);
+      else g.fillText('FORM · '+current.length+'/6 · ACTUAL LIVE VERBS',0,r*.31);
     }else if(mode==='DUET'){
       const a=Number(v.duet?.a)||0,b=Number(v.duet?.b)||0,ro=r*.92,ri=r*.57;
       g.fillStyle='rgba(123,213,255,.025)';g.beginPath();g.arc(0,0,ro+8,0,TAU);g.fill();
@@ -473,10 +467,10 @@ export class Renderer {
     g.strokeStyle=stroke;g.lineWidth=hit?2.6:v?.active&&['PUZZLE','DUET','GARDEN'].includes(v.mode)?2.1:aligned?1.8:1;g.beginPath();g.arc(0,0,32+charge*8,0,TAU);g.stroke();
     g.textAlign='center';
     if(v?.active&&v.mode==='PUZZLE'){
-      const h=v.hex||{},pair=h.currentPair?.complete?h.currentPair:h.targetPair||{},glyph=(pair.lower?.glyph||'·')+(pair.upper?.glyph||'·');
-      g.fillStyle='rgba(255,255,255,.95)';g.font='900 22px "Segoe UI Symbol","Noto Sans Symbols 2",sans-serif';g.fillText(glyph,0,4);
-      g.fillStyle='rgba(215,180,109,.82)';g.font='800 7px ui-monospace,monospace';g.fillText((h.phase||'FORM')+' · LOWER / UPPER',0,20);
-      g.fillStyle='rgba(255,255,255,.34)';g.fillText(h.phase==='CHANGE'?'TURN ADDRESSES LINE 1–6':'RELEASE WRITES NEXT LINE',0,32);
+      const f=v.form||{},current=f.current||[],address=Math.max(0,Math.min(5,Number(f.address)||0)),verb=current[address]||v.forecast?.verb||'·';
+      g.fillStyle='rgba(255,255,255,.95)';g.font='900 18px ui-monospace,monospace';g.fillText(verb==='·'?'·':verb[0],0,4);
+      g.fillStyle='rgba(215,180,109,.82)';g.font='800 7px ui-monospace,monospace';g.fillText((f.phase||'FORM')+' · '+(f.phase==='MORPH'?'LEAF '+(address+1):current.length+'/6'),0,20);
+      g.fillStyle='rgba(255,255,255,.34)';g.fillText(f.phase==='MORPH'?'TURN ADDRESSES LEAF 1–6':'RELEASE WRITES EXACT VERB',0,32);
     }else if(v?.active&&v.mode==='DUET'){
       const a=v.duet?.a??0,b=v.duet?.b??0;g.fillStyle='rgba(255,255,255,.95)';g.font='900 14px ui-monospace,monospace';g.fillText('A'+a+' × B'+b,0,2);
       g.fillStyle='rgba(123,213,255,.90)';g.font='900 8px ui-monospace,monospace';g.fillText((v.duet?.relation||'')+' → '+(v.duet?.verb||''),0,18);
