@@ -66,5 +66,16 @@
     "generator": "private normalizer in the HOUSEBUS repository (scripts/project-public.py)",
     "refresh": "manual: run the generator, then commit regenerated state.json",
     "authority": "read-only projection; never a control endpoint"
+  },
+  "shopping_fit_bridge": {
+    "inbound_schema": "house-shopping-fit/v0.1",
+    "outbound_schema": "house-shopping-fit-return/v0.1",
+    "transport": "same-origin sessionStorage only",
+    "input": "exact Shopping candidate identity/state + BODY/OPERATING envelope + optional source-owned evidence signal/proof boundary",
+    "operation": "compare candidate operating W/D/H against explicit user-entered available W/D/H at selected HOUSE address, with optional 90° plan rotation",
+    "output": "OFFER_ONLY / EVIDENCE_ONLY fit result containing selected HOUSE address, candidate/available dimensions and PASS_ENVELOPE | FAIL_ENVELOPE | MEASURE_REQUIRED | UNKNOWN_CANDIDATE",
+    "authority": "HOUSE owns dimensional screen only; Shopping owns candidate/lifecycle; return cannot purchase, install, promote ownership or adoption, and cannot mutate canonical HOUSE geometry or HA/HOUSEBUS",
+    "semantic_signal": "source-owned Shopping pattern is rendered as projection only; HOUSE does not combine/reclassify it",
+    "return": "exact Shopping item explicitly revalidates and accepts fit receipt; changed item/state becomes stale/read-only"
   }
 }
