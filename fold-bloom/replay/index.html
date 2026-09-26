@@ -9,7 +9,7 @@
 *{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font:11px/1.45 ui-monospace,SFMono-Regular,Menlo,monospace}button,input,textarea,select{font:inherit}button,a{color:inherit}
 .app{min-height:100svh;display:grid;grid-template-rows:52px minmax(0,1fr) 42px}.top,.foot{display:flex;align-items:center;gap:12px;padding:0 14px;border-bottom:1px solid var(--line)}.top b{font:900 17px/1 system-ui,sans-serif;letter-spacing:-.045em}.top span,.foot{color:var(--mut);font-size:8px;letter-spacing:.1em}.top nav{margin-left:auto;display:flex;gap:4px}.top a{padding:7px 8px;text-decoration:none;border:1px solid transparent}.top a:hover{border-color:var(--line);color:#fff}.foot{border-top:1px solid var(--line);border-bottom:0;justify-content:space-between}
 .main{min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 370px}.stage{min-height:620px;position:relative;border-right:1px solid var(--line);overflow:hidden}.stage canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none}.hud{position:absolute;inset:12px;display:flex;justify-content:space-between;pointer-events:none;font-size:8px;letter-spacing:.12em;color:var(--mut)}.hud b{color:var(--cool)}
-.timeline{position:absolute;left:12px;right:12px;bottom:12px;padding:10px;background:rgba(5,7,11,.82);border:1px solid var(--line);backdrop-filter:blur(4px)}.timelineHead{display:flex;justify-content:space-between;gap:8px;font-size:8px;color:var(--mut);margin-bottom:6px}.timeline input{width:100%;accent-color:var(--hot)}
+.timeline{position:absolute;left:12px;right:12px;bottom:12px;padding:10px;background:rgba(5,7,11,.82);border:1px solid var(--line);backdrop-filter:blur(4px)}.timelineHead{display:flex;justify-content:space-between;gap:8px;font-size:8px;color:var(--mut);margin-bottom:6px}.timeline input{width:100%;accent-color:var(--hot)}.stepRail{display:grid;grid-template-columns:44px 1fr 44px;gap:5px;align-items:center}.stepRail button{min-height:32px;padding:0}
 .panel{min-height:0;overflow:auto;background:var(--panel);padding:14px;display:flex;flex-direction:column;gap:10px}.block{border-top:1px solid var(--line);padding-top:10px}.block:first-child{border-top:0}.ey{color:var(--hot);font-size:8px;letter-spacing:.13em}.block h1{margin:6px 0 7px;font:900 28px/.95 system-ui,sans-serif;letter-spacing:-.05em}.block p{margin:0;color:#89959b}.row{display:flex;gap:5px;flex-wrap:wrap}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:5px}
 button,.btn{min-height:36px;padding:0 10px;background:#0a1015;border:1px solid var(--line);color:#cbd2d5;font-weight:800;font-size:8px;letter-spacing:.07em;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}.primary{border-color:var(--hot);color:#ffd3c2}.on{border-color:var(--cool)!important;color:#dff5ff!important}
 label{display:grid;gap:5px;color:var(--mut);font-size:8px;letter-spacing:.08em}input[type=text],textarea,select{width:100%;background:#05070b;border:1px solid var(--line);color:var(--ink);padding:9px;resize:vertical}input[type=range]{width:100%;accent-color:var(--hot)}
@@ -28,7 +28,7 @@ details>summary{cursor:pointer;color:#9aa5ab;font-size:8px;letter-spacing:.1em;p
 <section class="stage">
   <canvas id="stage" aria-label="Replay score performance"></canvas>
   <div class="hud"><span id="phase">FIELD</span><b id="clock">0:00.00</b></div>
-  <div class="timeline"><div class="timelineHead"><span>ADDRESSED INTERVAL</span><b id="position">0%</b></div><input id="scrub" type="range" min="0" max="1000" value="0"></div>
+  <div class="timeline"><div class="timelineHead"><span id="courseAddress">course://replay_score/bound/0@0.0000</span><b id="position">0%</b></div><div class="stepRail"><button id="stepBack" aria-label="Previous addressed cue">←</button><input id="scrub" type="range" min="0" max="1000" value="0"><button id="stepNext" aria-label="Next addressed cue">→</button></div></div>
 </section>
 <aside class="panel">
   <section class="block"><div class="ey">MESSAGE ARTIFACT · SCORE, NOT VIDEO</div><h1>Shape the moment.</h1><p>LISTEN supplies source time, measured structure and marks. You author the message, word timing and experience.</p>
@@ -85,4 +85,4 @@ details>summary{cursor:pointer;color:#9aa5ab;font-size:8px;letter-spacing:.1em;p
 </aside>
 </main>
 <footer class="foot"><span>SOURCE / LISTEN EVIDENCE ≠ MESSAGE AUTHORSHIP ≠ EXPERIENCE PREFERENCE</span><span>REPLAY 0.2 · SCORE → CLIP / LINK / RETURN</span></footer>
-</div><script type="module" src="./app.js"></script></body></html>
+</div><script type="module" src="./app.js?v=0.2-step1"></script></body></html>
