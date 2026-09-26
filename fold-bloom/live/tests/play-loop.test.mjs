@@ -4,7 +4,7 @@ import {loopContract,loopContracts,loopWitness,partitionTurnDelta,PLAY_LOOP_CONT
 
 test('loop contracts expose six distinct reusable loop archetypes',()=>{
   const cs=loopContracts();
-  assert.equal(PLAY_LOOP_CONTRACT_VERSION,'FOLD_BLOOM_PLAY_LOOP_0.1');
+  assert.equal(PLAY_LOOP_CONTRACT_VERSION,'FOLD_BLOOM_PLAY_LOOP_0.2');
   assert.deepEqual(Object.keys(cs),['PLAY','PUZZLE','PATH','DUET','GARDEN','ZEN']);
   assert.equal(loopContract('PLAY').archetype,'REPEAT');
   assert.equal(loopContract('PUZZLE').archetype,'FORM_CHANGE');
@@ -21,10 +21,10 @@ test('generic witness normalizes progress without taking source authority',()=>{
   assert.deepEqual(run.progress,{value:3,target:8});
   assert.deepEqual(run.success,{value:2,target:6});
 
-  const hex=loopWitness('PUZZLE',{active:true,hex:{phase:'CHANGE',moves:2,change:{changed:[2,5],clear:true},delta:{moving:[2,5]}}});
-  assert.equal(hex.phase,'CHANGE');
-  assert.deepEqual(hex.progress,{value:2,target:4});
-  assert.deepEqual(hex.success,{value:2,target:2});
+  const form=loopWitness('PUZZLE',{active:true,form:{phase:'MORPH',current:['BLOOM','FOLD','SPLIT','RETURN','BLOOM','FOLD'],moves:2,change:{changed:[2,5],clear:true},delta:{moving:[2,5]}}});
+  assert.equal(form.phase,'MORPH');
+  assert.deepEqual(form.progress,{value:2,target:4});
+  assert.deepEqual(form.success,{value:2,target:2});
 
   const choice=loopWitness('GARDEN',{active:false,ended:false,garden:{generation:2,trait:'PATH',survived:1,choice:true}});
   assert.equal(choice.phase,'CHOOSE');
