@@ -19,7 +19,10 @@
     "scrolling local spectrogram plus centroid and spectral-peak witnesses",
     "FIELD LAB PULSE embeds the same VOICE trainer as optional detail instead of adding another Lab mode",
     "PULSE beat may advance NOTE/CALL/SCALE/HUM targets while voice authorship remains local",
-    "LAB/VOICE RETURN contains bounded aggregate evidence only; raw microphone audio is never recorded or exported"
+    "LAB/VOICE RETURN contains bounded aggregate evidence only; raw microphone audio is never recorded or exported",
+    "The existing scrolling spectrogram now carries target-pitch and heard-pitch traces on the same log-frequency axis, plus borrowed-beat boundary marks.",
+    "A bounded temporal training trace derives target-relative center-hold and voiced-onset timing witnesses without storing microphone audio.",
+    "VOICE RETURN and FoldBloomVoice state expose aggregate temporal evidence; the trace remains descriptive training evidence, not singing-quality scoring."
   ],
   "constraints": [
     "pitch estimate != singing quality assessment",
@@ -28,7 +31,8 @@
     "pitch/spectrum evidence != singing-quality judgment",
     "VOICE is a consumer of FIELD PULSE timing, never audio/source authority",
     "no speech recognition, lyric scoring, cloud inference or microphone recording in 0.2",
-    "LAB PULSE embedding does not move voice authorship into PULSE or LAB"
+    "LAB PULSE embedding does not move voice authorship into PULSE or LAB",
+    "Target/heard pitch traces, center-hold and onset timing are practice witnesses only; they do not rate voice quality, skill or health."
   ],
   "verification": {
     "pitch_core": "PASS: public-surface-check run 35988420252; synthetic 110/220/261.626/440/659.255 Hz, silence, patterns and stability",
@@ -40,7 +44,9 @@
     "spectrum_core": "PASS · PR #403 deterministic spectrum tests",
     "lab_pulse_embed": "PASS · PR #403 FIELD LAB PULSE browser-smoke coverage",
     "route_registration_run": 36198970713,
-    "public_surface_run": 36198970709
+    "public_surface_run": 36198970709,
+    "temporal_trace_core": "PENDING_PR_CI: log-frequency alignment, signed beat-onset error and bounded trace summary",
+    "temporal_voice_lab": "PENDING_PR_CI: same temporal witness shared by VOICE and FIELD LAB PULSE without a new Lab mode"
   },
   "promotion_gate": "Human feel remains optional evidence: held-note and PULSE-linked patterns should be legible in ordinary phone use. Correctness is machine-verified; no raw audio may leave the browser.",
   "return": "/returns/FOLD_BLOOM_VOICE_01_2026-09-24.json",
