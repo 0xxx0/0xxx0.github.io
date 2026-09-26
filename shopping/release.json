@@ -2,7 +2,7 @@
   "schema": "release-receipt/v1",
   "artifact": "SHOPPING FIELD",
   "route": "/shopping/",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "released": "2026-09-26",
   "state": "ACTIVE_ADAPTER",
   "recovered_from": [
@@ -63,7 +63,9 @@
     "Stale, wrong-item, incomplete-task or non-RECEIPT_ONLY offers are read-only/dismissible.",
     "Added derived per-item evidence signal (CLEAR / CHANGED / REALITY / EXTERNAL / MIXED) using shared FIELD semantic patterns; projection never mutates lifecycle.",
     "Selected item exposes a collapsed evidence/reality bar with proof boundary + smallest next proof; list items carry the same recognition pattern.",
-    "Agent research packets include evidence_signal, proof_boundary and next_proof."
+    "Agent research packets include evidence_signal, proof_boundary and next_proof.",
+    "Shopping → Dayline now carries source-owned evidence_signal + proof_boundary inside the existing exact atlas-dayline-handoff/v0.1 source envelope; Dayline does not infer or own the token.",
+    "When NEXT ACTION is blank, explicit Dayline handoff uses the derived smallest next_proof rather than a generic Resolve placeholder."
   ],
   "checks": [
     "inline JavaScript parses",
@@ -80,7 +82,9 @@
     "session return offer expires/consumes without creating a global bus",
     "semantic pattern is projection-only; no lifecycle or authority mutation",
     "BOUGHT/RECEIVED/REPAIR project REALITY without becoming FIELD WAITING",
-    "stale/unknown external pre-purchase evidence contributes EXTERNAL/MIXED"
+    "stale/unknown external pre-purchase evidence contributes EXTERNAL/MIXED",
+    "source-owned evidence token survives Shopping → Dayline sourceLink → RETURN unchanged",
+    "Dayline may render Shopping token but cannot mutate Shopping lifecycle from it"
   ],
   "return": "/shopping/",
   "date": "2026-09-25",
