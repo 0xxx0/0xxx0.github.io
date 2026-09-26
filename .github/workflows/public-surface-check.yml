@@ -23,6 +23,8 @@ jobs:
         run: node scripts/check-reality-gap-coverage.mjs
       - name: Enforce self-verification before human gates
         run: node scripts/check-human-gate-discipline.mjs
+      - name: Validate video-game donor transfers
+        run: node scripts/check-game-donor-transfer.mjs
       - name: Validate Hermes bootstrap scripts
         run: |
           bash -n scripts/hermes-confluence-bootstrap.sh
