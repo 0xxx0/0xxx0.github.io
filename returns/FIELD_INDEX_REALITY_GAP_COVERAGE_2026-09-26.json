@@ -1,0 +1,22 @@
+{
+  "schema": "confluence-return/v0.1",
+  "id": "FIELD_INDEX_REALITY_GAP_COVERAGE_2026-09-26",
+  "date": "2026-09-26",
+  "object": "Simulation-gap coverage / irreducible world proof",
+  "state": "CANDIDATE",
+  "observed_gap": "CURRENT still explicitly carried SABER_01_IMPLEMENTED_WAITING_REAL_DEVICE, but WAITING had no corresponding SABER proof record; REALITY GAP could therefore lose an irreducible device test while repo state still named it.",
+  "delta": [
+    "Add PARKED REAL_DEVICE record for FOLD//BLOOM SABER 0.1 with exact two-phone proof and boundaries.",
+    "Add deterministic CI coverage check for explicit CURRENT world-gap tokens.",
+    "Coverage check does not infer subjective needs from prose and does not activate PARKED work."
+  ],
+  "law": "SELF-VERIFY FIRST; only explicit irreducible world-gap tokens are mechanically required to retain a recoverable proof record.",
+  "evidence": [
+    "/control/CURRENT.json",
+    "/control/WAITING.json",
+    "/scripts/check-reality-gap-coverage.mjs",
+    "/fold-bloom/saber/release.json"
+  ],
+  "return": "/",
+  "stop": "Do not turn release known_gap prose or optional ordinary-use notes into mandatory user QA."
+}
