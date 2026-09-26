@@ -49,10 +49,17 @@
   ],
   "authority": "No engine or state-law change; public navigation/projection only.",
   "stop": "Do not re-expand the public doorway merely because a deeper route exists. Promote a secondary route only from repeated direct-use demand.",
-  "status": "CANDIDATE_R3",
+  "status": "BRANCH_CI_GREEN",
   "rebased_on": "post-9df63a92 master with INK 0.4 + FIELD reality-gap coverage + whole-receipt CI guard",
   "verification": {
-    "branch": "fold-bloom-public-contraction-016-r3-20260926",
-    "state": "CANDIDATE"
+    "state": "PASS",
+    "route_registration_run": 36212367968,
+    "public_surface_run": 36212367912,
+    "tested_head": "091f9bfc73016f75b6dc6ff61775759576841d98",
+    "unified_root_browser": "PASS",
+    "field_lab_cross_projection": "PASS",
+    "live_mobile_interaction_regression": "PASS",
+    "critical_browser_smoke": "PASS",
+    "note": "Verification records the exact tested pre-seal head. The seal commit mutates metadata only and must pass the same validators before merge."
   }
 }
