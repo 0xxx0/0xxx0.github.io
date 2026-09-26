@@ -415,14 +415,14 @@
         }
       ],
       "merge_sha": "9e308cb7f8b6272820c6404ef93726f48e98c996",
-      "latest_return": "/returns/FOLD_BLOOM_FORM_MORPH_2026-09-26.json",
+      "latest_return": "/returns/FOLD_BLOOM_PUBLIC_CONTRACTION_2026-09-26.json",
       "latest_merge": "95e48bec5e181624dc520135ba2d35ba0d8d109b",
-      "version": "0.1.5 + PLAY 0.6.0 / LAB 0.3.4 / VOICE 0.2",
+      "version": "0.1.6 + PLAY 0.6.0 / LAB 0.3.4 / VOICE 0.2",
       "repo_verification": {
         "route_registration_run": 36162997518,
         "public_surface_run": 36162997236,
         "master_self_verification_run": 36163042383,
-        "status": "PASS",
+        "status": "PENDING_CI_PUBLIC_CONTRACTION",
         "mobile_interaction_regression": "PASS",
         "lived_feel": "OPTIONAL_OBSERVATION_NOT_GATE"
       }
