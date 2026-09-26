@@ -732,13 +732,13 @@
     },
     {
       "href": "/care/",
-      "title": "CARE / FIELD 0.5",
+      "title": "CARE / FIELD 0.6",
       "kind": "workbench",
       "parent": "/continuity/",
       "family": "CONFLUENCE / CONTINUITY",
       "operation": "CAPTURE",
       "state": "ACTIVE",
-      "version": "0.5",
+      "version": "0.6",
       "receipt": "/care/release.json",
       "transfer": [
         "human/animal care observation",
@@ -758,7 +758,10 @@
         "explicit BODY / FIELD local handoff",
         "addressed CARE snapshot → HUMAN PORT object aperture",
         "HUMAN PORT image/file/text/json evidence → explicit CARE reference attach",
-        "CONTACT NEED consult handoff when ASK exists"
+        "CONTACT NEED consult handoff when ASK exists",
+        "diegetic LOCUS / CARE aperture over selected body-plan region",
+        "selected locus → OBSERVE / PRIOR / COURSE using existing CARE operations",
+        "local condition remains distinct from whole-body score / diagnosis / urgency"
       ],
       "contract": {
         "accepts": {
@@ -843,7 +846,10 @@
             "measurement trend has no invented threshold",
             "HUMAN PORT brief text not placed in URL",
             "explicit send boundary",
-            "BODY handoff does not mutate case before explicit import"
+            "BODY handoff does not mutate case before explicit import",
+            "body remains visible behind locus aperture",
+            "locus operations are bounded to three native CARE moves",
+            "PRIOR is derived evidence projection, not event mutation"
           ],
           "return_path": "/care/"
         }
@@ -953,16 +959,15 @@
         "physical_fit": "Observation/course/handoff tool for care episodes involving people or animals; no diagnostic, triage, threshold or treatment authority."
       },
       "index": {
-        "updated_at": "2026-09-22T00:45:21+08:00",
+        "updated_at": "2026-09-26T12:18:00+08:00",
         "work_modes": [
           "RESEARCH",
-          "SPECIFY",
           "IMPLEMENT",
           "VERIFY"
         ]
       },
       "owned_surfaces": [],
-      "role": "Compact care-state projection over CONTINUITY/BODY with explicit Port object passage: observe/follow course/brief, preserve sourced care trajectory and spatial evidence, attach addressed Port evidence refs without duplicating bytes, then route either a brief to CONTACT or an exact case snapshot through HUMAN PORT.",
+      "role": "Compact local-first care-state projection over CONTINUITY/BODY. 0.6 keeps the reference body visible and attaches OBSERVE / PRIOR / COURSE to the selected locus without creating a health score, diagnostic authority or second care store; longitudinal course/brief/HUMAN PORT behavior remains native.",
       "versions": [
         {
           "version": "0.1",
@@ -4708,8 +4713,8 @@
       "state": "ACTIVE",
       "machine_state": "/house/state.json",
       "showcase_card": false,
-      "role": "Canonical human-facing HOUSE instrument: one addressed spatial/state substrate projected as PLAN/RCP/SURFACE/SECTION/3D/FIELD/TRACE/CARE/ATLAS, with explicit selected-address handoffs to Dayline and browser-local BODY context. CARE is browser-local household/environmental continuity only; /care/ remains distinct. Home Assistant / HOUSEBUS retains private device truth and actuation.",
-      "version": "0.7.5",
+      "role": "Canonical human-facing HOUSE instrument. 0.7.6 attaches CARE / BODY / DAYLINE to the selected room as a diegetic locus aperture while keeping PLAN/RCP/TRACE visible. The aperture delegates to existing local/context handoffs only; HA/HOUSEBUS retains private device truth and actuation.",
+      "version": "0.7.6",
       "receipt": "/house/release.json",
       "contract": "/house/contract.json",
       "transfer": [
@@ -4729,15 +4734,19 @@
         "selective CARE → HUMAN PORT draft with address/id/time/sibling episodes omitted",
         "HOUSE CARE != CARE / FIELD medical/self-care authority",
         "selected HOUSE address → browser-local BODY context; address != presence / context != causation",
-        "public-surface privacy: generalized instance labels + noindex HTML; Git history unchanged"
+        "public-surface privacy: generalized instance labels + noindex HTML; Git history unchanged",
+        "diegetic LOCUS / HOUSE aperture over selected room",
+        "selected room → CARE / BODY / DAYLINE using existing host passages",
+        "cross-domain CARE/HOUSE locus invariant without shared state/runtime extraction"
       ],
       "family_href": "/house/",
       "index": {
-        "updated_at": "2026-09-26T07:07:00+08:00",
+        "updated_at": "2026-09-26T12:18:00+08:00",
         "work_modes": [
+          "RESEARCH",
           "IMPLEMENT",
-          "OPERATE",
-          "VERIFY"
+          "VERIFY",
+          "OPERATE"
         ]
       },
       "tier": "FIELD"

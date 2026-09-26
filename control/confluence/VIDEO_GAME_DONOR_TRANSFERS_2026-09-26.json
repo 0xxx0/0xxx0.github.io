@@ -1,6 +1,6 @@
 {
   "schema": "field-game-donor-transfer/v0.1",
-  "updated": "2026-09-26T10:27:00+08:00",
+  "updated": "2026-09-26T12:18:00+08:00",
   "purpose": "Make video-game research pay rent by binding extracted mechanics to current FIELD hosts with explicit non-transfer residue and executable/contractual proof.",
   "selection_gate": [
     "current friction named",
@@ -120,6 +120,35 @@
       "proof_claim": "Execution contract requires temporary support/helper surfaces to name a retirement condition.",
       "new_sovereign_app": false,
       "retirement": "This rule itself may fold into a more general lifecycle contract once enforced elsewhere."
+    },
+    {
+      "id": "diegetic-care-locus",
+      "donors": [
+        "Dead Space",
+        "Spiritfarer",
+        "NieR:Automata",
+        "RimWorld"
+      ],
+      "status": "IMPLEMENTED_CANDIDATE",
+      "recipients": [
+        "/care/",
+        "/house/"
+      ],
+      "invariant": "Keep the represented body/room visible; attach a small locus-specific aperture with at most three existing host-lawful operations; local condition never becomes a global score or new authority.",
+      "non_transfer": [
+        "game visual skin",
+        "horror tension",
+        "affection meters",
+        "health percentages",
+        "medical inference",
+        "new care state store",
+        "automatic urgency"
+      ],
+      "implementation": "CARE body-map locus exposes OBSERVE/PRIOR/COURSE; HOUSE selected-room locus exposes CARE/BODY/DAYLINE. Each delegates to native host operations and disappears outside compatible projections.",
+      "executable_test": "tools/browser-smoke.mjs",
+      "proof_claim": "Phone-sized browser probes click real CARE/HOUSE loci, verify the represented map/room remains visible, aperture stays spatially inside its host surface, and native host actions remain the effect path.",
+      "new_sovereign_app": false,
+      "retirement": "Remove host-local aperture if it obscures the represented substrate, duplicates host navigation without reducing translation, or grows beyond three immediate actions. Shared runtime extraction requires a third unequal consumer or material duplicated logic."
     }
   ]
 }

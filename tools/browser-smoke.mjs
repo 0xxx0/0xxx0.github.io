@@ -665,7 +665,55 @@ function foldBloomLiveMobileBehaviorProbeHtml(){
   <\/script></body></html>`;
 }
 
+
+function careLocusProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/care/"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    const zone=await waitFor(()=>D().querySelector('#map .zone'));
+    zone.dispatchEvent(new W().PointerEvent('pointerdown',{bubbles:true,cancelable:true,pointerId:1,clientX:20,clientY:20}));
+    const ap=await waitFor(()=>{const x=D().getElementById('locusAperture');return x&&!x.hidden&&/LOCUS \/ CARE/.test(x.textContent)?x:null});
+    const map=D().getElementById('map'),wrap=map.parentElement,ar=ap.getBoundingClientRect(),wr=wrap.getBoundingClientRect();
+    rec.aperture=ap.textContent.replace(/\s+/g,' ').trim();rec.mapVisible=W().getComputedStyle(map).display!=='none';rec.within=ar.left>=wr.left-1&&ar.right<=wr.right+1&&ar.top>=wr.top-1&&ar.bottom<=wr.bottom+1;rec.actions=[...ap.querySelectorAll('button')].map(b=>b.textContent.trim());
+    ap.querySelector('[data-locus="observe"]').click();rec.noteFocus=D().activeElement?.id==='note';
+    ap.querySelector('[data-locus="course"]').click();rec.course=!D().getElementById('view-follow').hidden&&D().getElementById('view-observe').hidden;
+    done(rec.mapVisible&&rec.within&&rec.noteFocus&&rec.course&&rec.actions.join('|')==='OBSERVE|PRIOR|COURSE',rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
+function houseLocusProbeHtml(){
+  return `<!doctype html><html><body style="margin:0"><iframe id="f" style="width:430px;height:900px;border:0;display:block" src="/house/#PLAN"></iframe><pre id="probeResult">PENDING</pre><script>
+  const f=document.getElementById('f'),result=document.getElementById('probeResult'),rec={};let finished=false;
+  const done=(ok,data)=>{if(finished)return;finished=true;result.textContent=(ok?'PASS ':'FAIL ')+JSON.stringify(data)};
+  const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+  const waitFor=async(fn,limit=12000)=>{const t=Date.now();while(Date.now()-t<limit){try{const v=fn();if(v)return v}catch(_){}await sleep(100)}throw new Error('waitFor timeout')};
+  (async()=>{
+    const W=()=>f.contentWindow,D=()=>W().document;
+    const ap=await waitFor(()=>{const x=D().getElementById('houseAperture');return x&&!x.hidden&&/LOCUS \/ HOUSE/.test(x.textContent)?x:null});
+    const room=D().querySelector('#canvas .room.sel'),stage=D().querySelector('.stage'),ar=ap.getBoundingClientRect(),sr=stage.getBoundingClientRect();
+    rec.roomVisible=!!room&&W().getComputedStyle(room).display!=='none';rec.within=ar.left>=sr.left-1&&ar.right<=sr.right+1&&ar.top>=sr.top-1&&ar.bottom<=sr.bottom+1;rec.actions=[...ap.querySelectorAll('button')].map(b=>b.textContent.trim());
+    ap.querySelector('[data-house-locus="care"]').click();
+    await waitFor(()=>W().location.hash==='#CARE'&&D().getElementById('viewTitle')?.textContent==='CARE'&&D().querySelector('#canvas .careWrap'));
+    rec.care=true;
+    done(rec.roomVisible&&rec.within&&rec.care&&rec.actions.join('|')==='CARE|BODY|DAYLINE',rec);
+  })().catch(e=>done(false,{error:String(e?.stack||e),...rec}));
+  <\/script></body></html>`;
+}
+
 const server=http.createServer((req,res)=>{
+  if(String(req.url||'').startsWith('/__smoke/care-locus')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(careLocusProbeHtml());return;
+  }
+  if(String(req.url||'').startsWith('/__smoke/house-locus')){
+    res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
+    res.end(houseLocusProbeHtml());return;
+  }
   if(String(req.url||'').startsWith('/__smoke/fold-bloom-live-mobile-behavior')){
     res.writeHead(200,{'content-type':'text/html; charset=utf-8','cache-control':'no-store'});
     res.end(foldBloomLiveMobileBehaviorProbeHtml());return;
@@ -1200,6 +1248,18 @@ const CASES=[
     route:'/dayline/',
     options:{width:430,height:900,budget:7000,timeout:14000},
     check:dom=>/DAYLINE \/\/ CONFLUENCE/i.test(dom)&&dom.includes('data-dayline-workfield="ready"')&&dom.includes('id="moves"')&&dom.includes('id="witnessInput"')&&dom.includes('id="returnBtn"')
+  },
+  {
+    name:'CARE diegetic locus aperture',
+    route:'/__smoke/care-locus',
+    options:{width:460,height:940,budget:12000,timeout:18000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"mapVisible":true/.test(dom)&&/"within":true/.test(dom)&&/"noteFocus":true/.test(dom)&&/"course":true/.test(dom)
+  },
+  {
+    name:'HOUSE diegetic locus aperture',
+    route:'/__smoke/house-locus',
+    options:{width:460,height:940,budget:12000,timeout:18000},
+    check:dom=>/id="probeResult">PASS /.test(dom)&&/"roomVisible":true/.test(dom)&&/"within":true/.test(dom)&&/"care":true/.test(dom)
   },
   {
     name:'HOUSE SPATIAL',

@@ -2,10 +2,15 @@
   "schema": "release-receipt/v1",
   "artifact": "HOUSE / FIELD",
   "route": "/house/",
-  "version": "0.7.5",
+  "version": "0.7.6",
   "released": "2026-09-26",
   "state": "ACTIVE",
   "changes": [
+    "Phone-sized browser probe verifies selected room remains visible, aperture stays within the HOUSE stage, and CARE routing uses the existing projection.",
+    "Cross-domain donor proof now pairs HOUSE room locus with CARE body locus without extracting a premature shared runtime.",
+    "The room aperture owns no device state and gains no HA/HOUSEBUS actuation authority; selected address still does not imply presence.",
+    "LOCUS / HOUSE exposes exactly three existing host passages: CARE opens HOUSE CARE, BODY invokes the existing context-only BODY bridge, DAYLINE invokes the existing planning-context handoff.",
+    "Added a diegetic LOCUS / HOUSE aperture attached to the selected room in PLAN/RCP/TRACE while the spatial substrate remains visible.",
     "Hardened the current public HOUSE surface: generalized legacy donor/current-instance labels that unnecessarily exposed unit/neighborhood clues while preserving the unresolved donor-vs-current-instance contradiction.",
     "Added noindex,nofollow to /house/, /house/expert.html and /house/spatial/ compatibility HTML. This reduces search indexing but is not access control.",
     "Privacy boundary: current working-tree labels are sanitized; prior public Git history may still contain earlier labels and was not rewritten automatically.",
@@ -77,7 +82,10 @@
     "body_bridge_root": "/house/ selected address → localStorage 0xxx0.house.body.context.v01 → /body/",
     "body_bridge_truth_boundary": "selected address != presence; context != causation; no public write or actuation",
     "current_surface_privacy": "current HOUSE working tree contains generalized instance labels; noindex/nofollow on HOUSE HTML surfaces",
-    "git_history_boundary": "historical commits are not rewritten by this pass"
+    "git_history_boundary": "historical commits are not rewritten by this pass",
+    "diegetic_locus": "selected room → CARE / BODY / DAYLINE; derived UI only; no new store or actuation",
+    "diegetic_locus_visibility": "PLAN/RCP/TRACE room remains visible behind bounded locus aperture",
+    "diegetic_locus_authority": "BODY and DAYLINE actions reuse existing context handoffs; HA/HOUSEBUS authority unchanged"
   },
   "sources": [
     "/showcase-manifest.json",
@@ -94,7 +102,9 @@
     "/shopping/release.json",
     "/returns/SHOPPING_HOUSE_FIT_BRIDGE_2026-09-25.json",
     "/returns/HOUSE_CARE_RETURN_2026-09-25.json",
-    "/contact/release.json"
+    "/contact/release.json",
+    "/control/confluence/CARE_DIEGETIC_LOCUS_2026-09-26.md",
+    "/control/confluence/VIDEO_GAME_DONOR_TRANSFERS_2026-09-26.json"
   ],
   "honesty": "The device snapshot is timestamped source material from the HOUSE branch; this Sep 20 convergence pass did not claim to refresh live Home Assistant state.",
   "validation": "/control/BODY_HOUSE_CONVERGENCE_2026-09-21.json"
