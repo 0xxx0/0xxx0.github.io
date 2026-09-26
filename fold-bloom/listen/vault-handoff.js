@@ -1,5 +1,6 @@
 import {getLocalMedia,putLocalMedia,listLocalMedia,localMediaFile,normalizeLocalMediaId,requestPersistentLocalStorage} from '../local-media-store.js';
 import {hashFile} from '../../lib/id.js';
+import {esc} from '../../lib/dom.js';
 
 const $=s=>document.querySelector(s),params=new URLSearchParams(location.search),requested=params.get('source'),returnAddress=params.get('return')||'../set/';
 
@@ -14,7 +15,7 @@ let savedCache=[];
 async function refreshSaved(){
   const select=$('#savedSource'),open=$('#savedOpen');if(!select)return [];
   savedCache=(await listLocalMedia().catch(()=>[])).filter(x=>x?.blob).sort((a,b)=>String(b.updatedAt||'').localeCompare(String(a.updatedAt||'')));
-  select.innerHTML=savedCache.length?'<option value="">THIS DEVICE · '+savedCache.length+' TRACKS</option>'+savedCache.map(x=>`<option value="${String(x.sourceId).replaceAll('"','&quot;')}">${String(x.name||x.sourceId).replace(/[&<>]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[m]))}</option>`).join(''):'<option value="">THIS DEVICE · NONE YET</option>';
+  select.innerHTML=savedCache.length?'<option value="">THIS DEVICE · '+savedCache.length+' TRACKS</option>'+savedCache.map(x=>`<option value="${String(x.sourceId).replaceAll('"','&quot;')}">${esc(String(x.name||x.sourceId))}</option>`).join(''):'<option value="">THIS DEVICE · NONE YET</option>';
   if(open)open.disabled=!savedCache.length;
   return savedCache;
 }
