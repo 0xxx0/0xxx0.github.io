@@ -240,6 +240,12 @@ const commsHtml=read('port/comms/index.html'),commsApp=read('port/comms/app.js')
 check(commsHtml.includes('id="daylineReturnOffer"')&&commsApp.includes("atlas.dayline.source-return.v01"),'COMMS Dayline return offer surface missing');
 check(commsApp.includes("x.messageId===a.message_id&&x.start===a.start&&x.end===a.end")&&commsApp.includes("OFFER STALE / READ ONLY"),'COMMS exact-address/stale-return guard regressed');
 check(workfieldJs.includes("RETURN_RELEASE")&&workfieldJs.includes("nativeEffect=sourceRoute==='/port/comms/'?'STATE_PROPOSAL':sourceRoute==='/shopping/'?'RECEIPT_ONLY':'EVIDENCE_ONLY'"),'Dayline source-specific return/release law regressed');
+const interphaseDayline=read('lib/interphase-dayline.js');
+check(workfieldHtml.includes('/lib/interphase-core.js')&&workfieldHtml.includes('/lib/interphase-dayline.js')&&workfieldHtml.includes('id="interphaseRail"'),'Dayline INTERPHASE host surface missing');
+check(workfieldJs.includes('interphaseObject:()=>clone(interphaseObject())')&&workfieldJs.includes('interphase:h.interphase')&&workfieldJs.includes('globalThis.DaylineInterphase'),'Dayline INTERPHASE continuity/RETURN witness regressed');
+check(interphaseDayline.includes("id:'dayline-workfield'")&&interphaseDayline.includes("id:'DAYLINE'")&&interphaseDayline.includes("DAYLINE_NATIVE_EFFECTS_ONLY"),'Dayline INTERPHASE adapter authority boundary missing');
+const fieldRoot=read('index.html');
+check(fieldRoot.includes("schema:'interphase/v0.2/handoff'")&&fieldRoot.includes('INTERPHASE → DAYLINE')&&fieldRoot.includes("window.FieldInterphase"),'FIELD → Dayline INTERPHASE propagation missing');
 check(workfieldJs.includes("LEGACY_IDS")&&workfieldJs.includes("RESET LEGACY SAMPLE"),'Dayline Confluence legacy sample migration missing');
 const shoppingHtml=read('shopping/index.html');
 check(shoppingHtml.includes("SOURCE_RETURN='atlas.dayline.source-return.v01'")&&shoppingHtml.includes("shopping-dayline-receipt/v0.1"),'Shopping Dayline receipt transport missing');
