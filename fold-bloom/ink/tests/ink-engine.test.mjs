@@ -90,3 +90,26 @@ test('wet swept contact reads as a ribbon rather than isolated spray dabs',()=>{
   assert.ok(maxGap<=3,'maximum center gap '+maxGap);
   assert.ok(gaps<16,'center gaps '+gaps);
 });
+
+
+test('screen metric keeps displayed wet-brush thickness stable across portrait and landscape',()=>{
+  const paint=(metricX,metricY,screenH)=>{
+    const f=new InkField({width:240,height:160,seed:21});
+    f.strokeSegment(.18,.5,.82,.5,{mode:'SUMI',water:.65,load:.8,size:.065,pressure:.64,speed:5,strokeSeed:8,metricX,metricY});
+    const x=Math.floor(f.width*.5);let y0=f.height,y1=-1;
+    for(let y=0;y<f.height;y++)if(f.pigment[x+y*f.width]>.03){y0=Math.min(y0,y);y1=Math.max(y1,y)}
+    return (y1-y0+1)/f.height*screenH;
+  };
+  const portrait=paint(1,.5,780),landscape=paint(.5,1,390),ratio=portrait/landscape;
+  assert.ok(ratio>.84&&ratio<1.16,'display thickness ratio '+ratio);
+});
+
+test('wet SUMI cross-section stays filled instead of periodic bristle zebra bands',()=>{
+  const f=new InkField({width:180,height:120,seed:5});
+  f.strokeSegment(.15,.5,.85,.5,{mode:'SUMI',water:.7,load:.82,size:.075,pressure:.7,speed:4,strokeSeed:3});
+  const x=Math.floor(f.width*.5),vals=[];
+  for(let y=0;y<f.height;y++){const p=f.pigment[x+y*f.width];if(p>.025)vals.push(p)}
+  assert.ok(vals.length>7,'wet brush thickness '+vals.length);
+  const peak=Math.max(...vals),interior=vals.slice(2,-2),floor=Math.min(...interior);
+  assert.ok(floor>peak*.42,'wet transverse floor '+floor+' peak '+peak);
+});
