@@ -2,12 +2,13 @@ import {encodeExperienceSet,decodeExperienceSet} from '../experience-set/experie
 import {SET_COMPOSITOR_VERSION,createExperienceSet,appendSource,removeEntry,reorderEntries,cycleSeamLaw,setSeamLaw,setEntryWeight,renameSet,prepareSet,seamLaws} from './set-core.js';
 import {validateLocalTestPackCatalog,sourceDescriptors,bestPackProgress,buildPackPlan} from '../test-packs/test-pack-core.js';
 import {hashFile} from '../../lib/id.js';
+import {$,toast} from '../../lib/dom.js';
+import {kv} from '../../lib/store.js';
 
-const $=s=>document.querySelector(s),STORE='fold-bloom.set-compositor.v01',META='fold-bloom.set-compositor.meta.v01';
+const STORE='fold-bloom.set-compositor.v01',META='fold-bloom.set-compositor.meta.v01';
 let set=createExperienceSet(),meta={},demo=false,catalog=null;
 let drag={pointerId:null,id:null,armed:false,timer:0,startX:0,startY:0};
 
-function toast(s){const e=$('#toast');e.textContent=s;e.classList.remove('on');void e.offsetWidth;e.classList.add('on')}
 async function loadCatalog(){
   try{
     const response=await fetch('../test-packs/catalog.json',{cache:'no-store'});
@@ -24,11 +25,11 @@ const catalogReady=loadCatalog();
 
 function readStore(){
   try{const raw=localStorage.getItem(STORE);if(raw)set=decodeExperienceSet(raw)}catch(_){}
-  try{meta=JSON.parse(localStorage.getItem(META)||'{}')||{}}catch(_){meta={}}
+  meta=kv(META,{}).get();
 }
 function save(){
   if(demo)return;
-  try{localStorage.setItem(STORE,encodeExperienceSet(prepareSet(set)));localStorage.setItem(META,JSON.stringify(meta))}catch(_){}
+  try{localStorage.setItem(STORE,encodeExperienceSet(prepareSet(set)));kv(META,{}).set(meta)}catch(_){}
 }
 function knownSource(sourceId){return catalog?sourceDescriptors(catalog,sourceId)[0]||null:null}
 function labelFor(e){return meta[e.sourceId]?.name||knownSource(e.sourceId)?.title||e.sourceId.replace(/^sha256:/,'SHA · ').slice(0,34)}

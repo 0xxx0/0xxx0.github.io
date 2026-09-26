@@ -1,6 +1,9 @@
 import {compileEventTape,toBeatSaberV4Draft} from '../beat/event-tape.js';
 import {InkField} from '../ink/ink-engine.js';
 import {createFieldPulse} from '../../lib/field-pulse.js';
+import {$,$$,esc} from '../../lib/dom.js';
+import {TAU} from '../../lib/polar-control.js';
+import {kv,skv} from '../../lib/store.js';
 import {nextPulseMode, pulseModeLabel, paceWpmFromTransport, transportWitness, boundedFocus} from './read-bridge.js';
 import {buildTextCourse,nodeForProgress,courseReturn} from './course.js';
 import {lineSpans,makeTextMark,marksForRange,normalizeTextMarks,replayHandoff,textSourceKey,verseHandoff} from './text-marks.js';
@@ -14,10 +17,7 @@ import {
   advanceTrainer,evaluateTap,summarizeTapTrace,returnDelta
 } from '../pulse/psychophysics.js?v=0.1';
 
-const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
-const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
 const canvas=$('#field'),ctx=canvas.getContext('2d');
-const TAU=Math.PI*2;
 let W=1,H=1,DPR=1,mode='RIDE',profile='CLEAR',panelHidden=false,last=performance.now(),mx=.5,my=.5;
 const fieldPulse=createFieldPulse('FOLD_BLOOM_FIELD_LAB');
 let lastTransport=null;
@@ -258,13 +258,13 @@ const TEXT_MARK_STORE='fold-bloom.lab.text-marks.v01:',textMarkCache=new Map();
 function storedMarks(source){
   const text=String(source??''),key=textSourceKey(text);
   if(textMarkCache.has(key))return textMarkCache.get(key);
-  try{const marks=normalizeTextMarks(JSON.parse(localStorage.getItem(TEXT_MARK_STORE+key)||'[]'),text,key);textMarkCache.set(key,marks);return marks}
+  try{const marks=normalizeTextMarks(kv(TEXT_MARK_STORE+key,[]).get(),text,key);textMarkCache.set(key,marks);return marks}
   catch(_){textMarkCache.set(key,[]);return []}
 }
 function saveTextMarks(source,marks){
   const text=String(source??''),key=textSourceKey(text),clean=normalizeTextMarks(marks,text,key);
   textMarkCache.set(key,clean);
-  try{localStorage.setItem(TEXT_MARK_STORE+key,JSON.stringify(clean))}catch(_){}
+  kv(TEXT_MARK_STORE+key).set(clean);
   if(verse.sourceKey===key){verse.marks=clean;syncVerseUi()}
   return clean;
 }
@@ -280,7 +280,7 @@ function safeLocalReturn(value=''){
 function recoverVerseInboundHandoff(){
   try{
     const q=new URLSearchParams(location.search);if(!q.has('handoff'))return null;
-    const h=JSON.parse(sessionStorage.getItem('field.verse.handoff.v01')||'null');
+    const h=skv('field.verse.handoff.v01',null).get();
     sessionStorage.removeItem('field.verse.handoff.v01');
     if(h?.schema!=='field-verse-handoff/v0.1'||typeof h.source!=='string'||!h.source.trim())return null;
     h.from=safeLocalReturn(h.from);return h;
@@ -334,13 +334,13 @@ function carryVerseToLoci(){
 }
 function openVersePoemMap(){
   const source=String($('#verseSource').value||''),line=ensureVerse();if(!line)return;
-  try{sessionStorage.setItem('field.verse.handoff.v01',JSON.stringify(verseHandoff({source,focus:line,marks:verse.marks,from:location.pathname+location.search})))}catch(_){}
+  skv('field.verse.handoff.v01').set(verseHandoff({source,focus:line,marks:verse.marks,from:location.pathname+location.search}));
   location.href='/poetry/map/?handoff=1&from=field-lab';
 }
 function replayVerseMark(){
   const source=String($('#verseSource').value||''),line=ensureVerse();if(!line)return;
   const packet=replayHandoff({source,focus:line,marks:verse.marks,returnAddress:'/fold-bloom/lab/?mode=VERSE'});
-  try{sessionStorage.setItem('fold-bloom.replay.handoff.v02',JSON.stringify(packet))}catch(_){}
+  skv('fold-bloom.replay.handoff.v02').set(packet);
   location.href='/fold-bloom/replay/';
 }
 $('#verseBind').onclick=()=>bindVerse();
@@ -364,7 +364,7 @@ function tokenize(text){
 }
 function recoverHandoff(){
   try{
-    const x=JSON.parse(sessionStorage.getItem('field.aperture.handoff.v01')||'null');
+    const x=skv('field.aperture.handoff.v01',null).get();
     if(x&&typeof x.source==='string'&&x.source.trim())return x;
   }catch(_){}
   return null;

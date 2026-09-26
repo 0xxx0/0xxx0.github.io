@@ -1,9 +1,10 @@
 import {createFieldPulse,transportDescriptor,pulseAge} from '../../lib/field-pulse.js';
+import {$} from '../../lib/dom.js';
+import {clamp} from '../../lib/polar-control.js';
 import {VOICE_TRAINER_SCHEMA,estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from './pitch.js';
 import {spectrumFeatures} from './spectrum.js';
 import {appendVoiceTrace,logFrequencyY,summarizeVoiceTrace} from './training-trace.js';
 
-const $=s=>document.querySelector(s),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_VOICE');
 const query=new URLSearchParams(location.search);
 let pattern='NOTE',baseMidi=60,manualStep=0,pulseLinked=query.get('pulse')==='1';

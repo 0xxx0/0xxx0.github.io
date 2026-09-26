@@ -1,15 +1,18 @@
+import {clamp} from '../../lib/polar-control.js';
+import {hashHex} from '../../lib/id.js';
+
 const DOCUMENT_ADAPTER_SCHEMA='field-source-adapter/document/v0.1';
 const DOCUMENT_WITNESS_SCHEMA='field-document-witness/v0.1';
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const parser=()=>globalThis.FieldDocumentStructure;
 const extOf=name=>{const m=String(name||'').toLowerCase().match(/\.([a-z0-9]+)$/);return m?m[1]:''};
 const formatOf=name=>['md','markdown'].includes(extOf(name))?'MD':'TXT';
 const countWords=text=>[...String(text||'').matchAll(/[\p{L}\p{N}]+(?:['’\-][\p{L}\p{N}]+)*/gu)].length;
 function hashSeed(input=''){let h=2166136261>>>0;for(const ch of String(input||'')){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)>>>0}return h>>>0}
 async function sha256(buffer){
-  const subtle=globalThis.crypto?.subtle;if(!subtle)throw Error('WebCrypto unavailable');
-  const h=await subtle.digest('SHA-256',buffer);
-  return [...new Uint8Array(h)].map(x=>x.toString(16).padStart(2,'0')).join('');
+  // guard retained verbatim so the documented error contract is unchanged;
+  // the digest + bare-lowercase-hex rendering now comes from lib/id.js hashHex
+  if(!globalThis.crypto?.subtle)throw Error('WebCrypto unavailable');
+  return hashHex(buffer);
 }
 export {DOCUMENT_ADAPTER_SCHEMA,DOCUMENT_WITNESS_SCHEMA};
 export function isDocumentFile(file){return ['txt','md','markdown'].includes(extOf(file?.name))}

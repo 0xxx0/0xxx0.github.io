@@ -1,6 +1,7 @@
+import {clamp} from '../../lib/polar-control.js';
+
 export const ATLAS_SCHEMA='fold-bloom-glyph-atlas/v0.1';
 export const MAX_ATLAS_ENTRIES=12;
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 export function normalizeEntry(x={}){
   const g=x.glyph||{};
   return {

@@ -10,20 +10,18 @@ import {parseLocalAudioMeta,localDisplayName} from './media-meta.js';
 import {groupLocalInputs,parseTextSidecar,parsePlaylistText} from './sidecar-text.js';
 import {sourceBundleFromMeta} from './source-bundle.js';
 import {hashHex} from '../../lib/id.js';
+import {$,fmtClock as fmt,fmtMark} from '../../lib/dom.js';
 import {normalizeRideProfile,profileKey} from '../live/visual-worlds.js';
 import {compileEventTape,toBeatSaberV4Draft} from '../beat/event-tape.js';
 import {buildBeatSaberPack} from '../beat/beatsaber-pack.js';
 import {annotationPacket as buildAnnotationPacket,sourceKeyFromAnnotationPacket,marksFromAnnotationPacket,mergeAnnotationMarks} from './annotations.js';
 
-const $=s=>document.querySelector(s);
 const gl=$('#field'),overlay=$('#overlay'),audio=$('#audio'),drop=$('#drop');
 let renderer=null,worker=null,map=null,fileMeta=null,sourceBlob=null,scopeIndex=1,objectURL=null,drag=false,dragRange=null,pointerGesture=null,lastGesture='NONE',raf=0,previewBuilds=0,deepBuilds=0,renderedMapFrames=0,lastPulseAt=0,lastRemoteFailure=null,pendingSource=null,pins=[],editingPinId=null,glyphDesc=null,rideProfile=normalizeRideProfile(),idle={on:false,startScope:1,lastBeat:-1,lastPhrase:-1,lastSection:-1};
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LISTEN');
 
 function toast(t){const e=$('#toast');if(!e)return;e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on')}
 function status(t){const e=$('#status');if(e)e.textContent=t}
-function fmt(t){if(!Number.isFinite(t))return'0:00';const m=Math.floor(t/60),s=Math.floor(t%60);return `${m}:${String(s).padStart(2,'0')}`}
-function fmtMark(t){if(!Number.isFinite(t))return'0:00.0';const m=Math.floor(Math.max(0,t)/60),sec=Math.max(0,t)-m*60;return `${m}:${sec.toFixed(1).padStart(4,'0')}`}
 function parseMarkTime(value,fallback=0){
   const raw=String(value??'').trim();if(!raw)return Math.max(0,Number(fallback)||0);
   const parts=raw.split(':').map(Number);if(parts.some(x=>!Number.isFinite(x)))return Math.max(0,Number(fallback)||0);

@@ -2,6 +2,7 @@ import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelea
 import { FoldBloomAudio } from './audio.js';
 import { Renderer } from './render.js?v=0.13.6';
 import { createFieldPulse, transportDescriptor } from '../../lib/field-pulse.js';
+import { $ } from '../../lib/dom.js';
 import { LiveTrack } from './track.js';
 import { createSectionArc, syncSectionArc, observeSectionRelease, sectionArcLabel, sectionArcView } from './section-arc.js';
 import { appendReleaseDeformations, applyDeformations, pruneDeformationTape, deformationSummary } from './track-deform.js';
@@ -12,7 +13,7 @@ import {normalizeRideProfile,profileKey,normalizeVisualScene,scenePresentation} 
 import {putLocalMedia,getLocalMedia,listLocalMedia,localMediaFile,requestPersistentLocalStorage} from '../local-media-store.js';
 import {mapCourse,stepCourse,courseStrip,courseAddressAt} from '../course-nav.js';
 
-const $=s=>document.querySelector(s), STORE='fb-live-0.1';
+const STORE='fb-live-0.1';
 const cv=$('#field'), renderer=new Renderer(cv);
 function normalizeLoadedState(s){
   if(!s)return null;

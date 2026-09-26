@@ -4,8 +4,9 @@ import {createExperienceSet,appendSource,prepareSet} from './set/set-core.js';
 import {decodeExperienceSet,encodeExperienceSet} from './experience-set/experience-set.js';
 import {normalizeActive,supportFor,defaultBloomProjection,routeFor,foldRoute,projectionSpec,identityDescriptor} from './instrument-support.js';
 import {hashHex,hashFile,hashText} from '../lib/id.js';
+import {$,toast} from '../lib/dom.js';
+import {skv} from '../lib/store.js';
 
-const $=s=>document.querySelector(s);
 document.documentElement.dataset.fbModule='ready';
 const I=globalThis.Interphase,G=globalThis.InterphaseGlyph;
 if(!I)throw new Error('INTERPHASE 0.2 REQUIRED');
@@ -20,16 +21,15 @@ const TEXT_PREFIX='fold-bloom.instrument.text.v01:';
 let active=loadActive(),operation='FOCUS',textRuntime=null,vault=[];
 
 function clone(x){return JSON.parse(JSON.stringify(x))}
-function toast(t){const e=$('#toast');e.textContent=t;e.classList.remove('on');void e.offsetWidth;e.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove('on'),1400)}
 function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[m]))}
 
 
-function loadActive(){try{return normalizeActive(JSON.parse(sessionStorage.getItem(ACTIVE_KEY)||'null'))}catch(_){return normalizeActive()}}
-function persistActive(){try{sessionStorage.setItem(ACTIVE_KEY,JSON.stringify(active))}catch(_){}return active}
+function loadActive(){return normalizeActive(skv(ACTIVE_KEY,null).get())}
+function persistActive(){skv(ACTIVE_KEY).set(active);return active}
 function clearActivePointer(){active=normalizeActive();persistActive()}
 function setTextRuntime(id,text){textRuntime=text;try{sessionStorage.setItem(TEXT_PREFIX+id,text)}catch(_){}}
 function getTextRuntime(id){if(textRuntime!=null&&active.id===id)return textRuntime;try{return sessionStorage.getItem(TEXT_PREFIX+id)||''}catch(_){return''}}
-function cachedSourceGlyph(id){try{return JSON.parse(sessionStorage.getItem('fold-bloom.source-glyph.v01:'+id)||'null')?.glyph||null}catch(_){return null}}
+function cachedSourceGlyph(id){return skv('fold-bloom.source-glyph.v01:'+id,null).get()?.glyph||null}
 function readSet(){try{const raw=localStorage.getItem(SET_STORE);return raw?decodeExperienceSet(raw):null}catch(_){return null}}
 function readSetMeta(){try{return JSON.parse(localStorage.getItem(META_STORE)||'{}')||{}}catch(_){return{}}}
 
@@ -74,7 +74,7 @@ const adapter={
 const host=I.createHost(adapter,{id:'FOLD_BLOOM',projection:'GLYPH',projections:projectionSpec()});
 document.documentElement.dataset.fbHost='ready';
 
-function returnFrames(){try{const x=JSON.parse(sessionStorage.getItem(RETURN_KEY)||'[]');return Array.isArray(x)?x:[]}catch(_){return[]}}
+function returnFrames(){const x=skv(RETURN_KEY,[]).get();return Array.isArray(x)?x:[]}
 function writeReturnFrames(xs){try{sessionStorage.setItem(RETURN_KEY,JSON.stringify(xs.slice(-12)))}catch(_){}}
 function captureExternalReturn(label){
   const frame=host.captureReturn(label),xs=returnFrames();xs.push(frame);writeReturnFrames(xs);return frame;

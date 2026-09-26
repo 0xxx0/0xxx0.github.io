@@ -5,8 +5,9 @@ import {groupLocalInputs,parseTextSidecar,parsePlaylistText} from '../listen/sid
 import {ATLAS_SCHEMA,MAX_ATLAS_ENTRIES,atlasPacket,appendPath,encodeAtlas,decodeAtlas,syntheticAtlas} from './atlas-core.js';
 import {isDocumentFile,adaptDocumentFile,storeDocumentRuntime,loadDocumentRuntime,clearDocumentRuntime,makeReadfieldHandoff} from './document-source.js';
 import {hashHex} from '../../lib/id.js';
+import {esc,$} from '../../lib/dom.js';
+import {kv,skv} from '../../lib/store.js';
 
-const $=s=>document.querySelector(s),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const STORE='fold-bloom.glyph-atlas.v01';
 let packet=loadInitial(),focusId=packet.entries[0]?.id||null,realMode=packet.entries.some(x=>x.sourceKind!=='SYNTHETIC_DEMO');
 let idle={on:false,timer:0,i:0},worker=null,deepQueue=[],deepBusy=false;
@@ -15,19 +16,15 @@ function loadInitial(){
   if(location.hash.startsWith('#a=')){
     try{return decodeAtlas(location.hash.slice(3))}catch(error){console.warn('atlas hash',error)}
   }
-  try{
-    const h=JSON.parse(sessionStorage.getItem('fold-bloom.atlas.handoff.v1')||'null');
-    if(h?.entry){sessionStorage.removeItem('fold-bloom.atlas.handoff.v1');return atlasPacket({title:'SOURCE HANDOFF',entries:[h.entry],path:[]})}
-  }catch(_){}
-  try{
-    const saved=JSON.parse(localStorage.getItem(STORE)||'null');
-    if(saved?.schema===ATLAS_SCHEMA&&saved.entries?.length)return atlasPacket(saved);
-  }catch(_){}
+  const h=skv('fold-bloom.atlas.handoff.v1',null).get();
+  if(h?.entry){try{sessionStorage.removeItem('fold-bloom.atlas.handoff.v1')}catch(_){}return atlasPacket({title:'SOURCE HANDOFF',entries:[h.entry],path:[]})}
+  const saved=kv(STORE,null).get();
+  if(saved?.schema===ATLAS_SCHEMA&&saved.entries?.length)return atlasPacket(saved);
   return syntheticAtlas();
 }
 function persist(){
   if(!realMode)return;
-  try{localStorage.setItem(STORE,JSON.stringify(currentPacket()))}catch(_){}
+  try{kv(STORE).set(currentPacket())}catch(_){}
 }
 function hashBuffer(buf){return hashHex(buf)}
 function mixdown(buffer,targetRate=12000){
@@ -109,7 +106,6 @@ function metaLine(x){
 }
 function fmtDuration(t){t=Math.max(0,Number(t)||0);const h=Math.floor(t/3600),m=Math.floor((t%3600)/60),sec=Math.floor(t%60);return h?(h+':'+String(m).padStart(2,'0')+':'+String(sec).padStart(2,'0')):(m+':'+String(sec).padStart(2,'0'))}
 function shortAddress(v=''){try{const u=new URL(v);return u.hostname+u.pathname.slice(0,28)}catch(_){return String(v).slice(0,42)}}
-function esc(v){return String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
 function togglePath(){
   const x=entryBy(focusId);if(!x)return;
   stopIdle(false);packet.path=appendPath(packet.path,x.id,packet.entries);persist();render();

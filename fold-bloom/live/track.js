@@ -4,8 +4,8 @@ import {buildTrackfield} from './trackfield.js';
 import {parseLocalAudioMeta,localDisplayName} from '../listen/media-meta.js';
 import {groupLocalInputs,parseTextSidecar} from '../listen/sidecar-text.js';
 import {hashHex} from '../../lib/id.js';
+import {clamp} from '../../lib/polar-control.js';
 
-const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 export const TRACKFIELD_MODEL_INTERVAL=.028;
 
 function mixdown(buffer,targetRate=12000){
