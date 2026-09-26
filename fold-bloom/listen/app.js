@@ -1,6 +1,6 @@
 import {ListenRenderer} from './render.js';
 import {SCOPES,frameAt,beatIndexAt,phraseIndexAt,sectionIndexAt,scopeWindow,scrubTime} from './audio-map.js';
-import {pointAngle01} from './polar-control.js';
+import {pointAngle01} from '../../lib/polar-control.js';
 import {parseSunoId,parseSunoPlaylistId,classifySourceAddress,resolveSourceAddress,fetchRemoteAudio} from './source-adapters.js';
 import {buildPreviewMap} from './preview-map.js';
 import {createFieldPulse} from '../../lib/field-pulse.js';
