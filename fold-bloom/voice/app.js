@@ -1,6 +1,7 @@
 import {createFieldPulse,transportDescriptor,pulseAge} from '../../lib/field-pulse.js';
 import {VOICE_TRAINER_SCHEMA,estimatePitch,hzToMidi,midiToHz,midiToName,centsBetween,patternTarget,stabilityCents} from './pitch.js';
 import {spectrumFeatures} from './spectrum.js';
+import {appendVoiceTrace,logFrequencyY,summarizeVoiceTrace} from './training-trace.js';
 
 const $=s=>document.querySelector(s),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_VOICE');
@@ -8,7 +9,7 @@ const query=new URLSearchParams(location.search);
 let pattern='NOTE',baseMidi=60,manualStep=0,pulseLinked=query.get('pulse')==='1';
 let pulseMessage=null,pulseClock=null,lastBeat=null;
 let ac=null,stream=null,source=null,analyser=null,samples=null,freqBins=null,micOn=false,lastAnalysis=0;
-let heardHistory=[];
+let heardHistory=[],voiceTrace=[],wasVoiced=false,lastTraceBeat=null,traceStartedAt=0;
 const stats={startedAt:null,frames:0,voiced:0,onTarget:0,absCents:0,clarity:0,spectralFrames:0,centroidHz:0,brightness:0,peakHz:0};
 let lastSpectrum=null;
 
@@ -74,7 +75,7 @@ async function startMic(){
     const ctx=await ensureAudio();
     stream=await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:false,noiseSuppression:false,autoGainControl:false},video:false});
     source=ctx.createMediaStreamSource(stream);analyser=ctx.createAnalyser();analyser.fftSize=2048;analyser.smoothingTimeConstant=0;
-    samples=new Float32Array(analyser.fftSize);freqBins=new Float32Array(analyser.frequencyBinCount);source.connect(analyser);micOn=true;heardHistory=[];
+    samples=new Float32Array(analyser.fftSize);freqBins=new Float32Array(analyser.frequencyBinCount);source.connect(analyser);micOn=true;heardHistory=[];voiceTrace=[];wasVoiced=false;lastTraceBeat=null;traceStartedAt=performance.now();
     stats.startedAt=stats.startedAt||new Date().toISOString();
     $('#micBtn').textContent='STOP MIC';$('#micBtn').classList.add('on');status('MIC LIVE · AUDIO STAYS LOCAL');
   }catch(error){status('MIC BLOCKED · '+String(error?.name||'PERMISSION'))}
@@ -116,7 +117,7 @@ function renderPitch(result){
   const state=abs<=15?'CENTER':abs<=35?'NEAR':cents<0?'FLAT':'SHARP';
   $('#relation').textContent=state;$('#relation').dataset.state=abs<=15?'on':abs<=35?'near':'off';
 }
-function renderSpectrum(feature){
+function renderSpectrum(feature,pitch,pulse){
   if(!feature)return;
   lastSpectrum=feature;stats.spectralFrames++;stats.centroidHz+=feature.centroidHz;stats.brightness+=feature.brightness;stats.peakHz+=feature.peakHz;
   $('#centroid').textContent=Math.round(feature.centroidHz)+' Hz';$('#spectralPeak').textContent=Math.round(feature.peakHz)+' Hz';
@@ -124,6 +125,7 @@ function renderSpectrum(feature){
   const g=cv.getContext('2d'),w=cv.width,h=cv.height;
   g.drawImage(cv,-1,0);
   g.fillStyle='#05070b';g.fillRect(w-1,0,1,h);
+  if(pulse&&pulse.beatIndex!==lastTraceBeat){lastTraceBeat=pulse.beatIndex;g.fillStyle='rgba(215,180,109,.50)';g.fillRect(w-1,0,1,h)}
   const bands=feature.bands||[],bh=h/Math.max(1,bands.length);
   for(let i=0;i<bands.length;i++){
     const v=clamp(bands[i],0,1),y=h-(i+1)*bh;
@@ -131,6 +133,9 @@ function renderSpectrum(feature){
     g.fillStyle=v>.72?'rgba(239,120,73,'+(.28+.72*v)+')':'rgba(123,213,255,'+(.18+.72*v)+')';
     g.fillRect(w-1,y,1,Math.max(1,bh+1));
   }
+  const target=noteForStep(currentStep()),targetY=logFrequencyY(target?.hz,{minHz:70,maxHz:6000,height:h}),heardY=logFrequencyY(pitch?.hz,{minHz:70,maxHz:6000,height:h});
+  if(targetY!==null){g.fillStyle='rgba(215,180,109,.95)';g.fillRect(w-4,Math.max(0,targetY-1),4,2)}
+  if(heardY!==null){g.fillStyle='rgba(242,243,239,.98)';g.fillRect(w-3,Math.max(0,heardY-1),3,2)}
 }
 function tick(t){
   const p=livePulse();
@@ -140,8 +145,12 @@ function tick(t){
   }
   if(micOn&&analyser&&t-lastAnalysis>70){
     lastAnalysis=t;analyser.getFloatTimeDomainData(samples);analyser.getFloatFrequencyData(freqBins);
-    renderPitch(estimatePitch(samples,ac.sampleRate,{minHz:70,maxHz:950}));
-    renderSpectrum(spectrumFeatures(freqBins,ac.sampleRate,analyser.fftSize,{bands:64,minHz:70,maxHz:6000}));
+    const pitch=estimatePitch(samples,ac.sampleRate,{minHz:70,maxHz:950}),feature=spectrumFeatures(freqBins,ac.sampleRate,analyser.fftSize,{bands:64,minHz:70,maxHz:6000}),pulse=livePulse(),target=noteForStep(currentStep()),voiced=!!(pitch.hz>0),onset=voiced&&!wasVoiced;
+    wasVoiced=voiced;renderPitch(pitch);renderSpectrum(feature,pitch,pulse);
+    voiceTrace=appendVoiceTrace(voiceTrace,{atMs:t-traceStartedAt,heardHz:pitch.hz,targetHz:target?.hz,clarity:pitch.clarity,centroidHz:feature.centroidHz,beatIndex:pulse?.beatIndex,beatPhase:pulse?.beatPhase,bpm:pulse?.bpm,onset});
+    const summary=summarizeVoiceTrace(voiceTrace);
+    if($('#onsetDelta'))$('#onsetDelta').textContent=summary.meanAbsOnsetMs==null?'—':summary.meanAbsOnsetMs+' ms';
+    if($('#centerHold'))$('#centerHold').textContent=summary.longestCenteredFrames?Math.round(summary.longestCenteredFrames*70/100)/10+' s':'—';
   }
   requestAnimationFrame(tick);
 }
@@ -159,11 +168,11 @@ document.querySelectorAll('[data-pattern]').forEach(b=>b.onclick=()=>{
   renderTarget();status('PATTERN · '+b.textContent);
 });
 $('#exportBtn').onclick=()=>{
-  const p=livePulse(),voiced=Math.max(1,stats.voiced);
+  const p=livePulse(),voiced=Math.max(1,stats.voiced),traceSummary=summarizeVoiceTrace(voiceTrace);
   downloadJSON('fold-bloom-voice-return.json',{
     kind:'FOLD_BLOOM_VOICE_RETURN',schema:VOICE_TRAINER_SCHEMA,created:new Date().toISOString(),
     practice:{pattern,baseMidi,baseNote:midiToName(baseMidi),pulse:p?{label:p.label,clock:p.clock,bpm:p.bpm}:null},
-    evidence:{startedAt:stats.startedAt,frames:stats.frames,voicedFrames:stats.voiced,onTargetFrames:stats.onTarget,onTargetRatio:pattern==='HUM'?null:+(stats.onTarget/voiced).toFixed(3),meanAbsCents:pattern==='HUM'?null:+(stats.absCents/voiced).toFixed(2),meanClarity:+(stats.clarity/voiced).toFixed(3),spectralFrames:stats.spectralFrames,meanCentroidHz:stats.spectralFrames?+(stats.centroidHz/stats.spectralFrames).toFixed(1):null,meanBrightness:stats.spectralFrames?+(stats.brightness/stats.spectralFrames).toFixed(3):null,meanPeakHz:stats.spectralFrames?+(stats.peakHz/stats.spectralFrames).toFixed(1):null},
+    evidence:{startedAt:stats.startedAt,frames:stats.frames,voicedFrames:stats.voiced,onTargetFrames:stats.onTarget,onTargetRatio:pattern==='HUM'?null:+(stats.onTarget/voiced).toFixed(3),meanAbsCents:pattern==='HUM'?null:+(stats.absCents/voiced).toFixed(2),meanClarity:+(stats.clarity/voiced).toFixed(3),spectralFrames:stats.spectralFrames,meanCentroidHz:stats.spectralFrames?+(stats.centroidHz/stats.spectralFrames).toFixed(1):null,meanBrightness:stats.spectralFrames?+(stats.brightness/stats.spectralFrames).toFixed(3):null,meanPeakHz:stats.spectralFrames?+(stats.peakHz/stats.spectralFrames).toFixed(1):null,temporal:traceSummary},
     privacy:{audioRecorded:false,rawMicExported:false}
   });status('RETURN EXPORTED · NO AUDIO');
 };
@@ -172,4 +181,4 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden&&micOn)stop
 addEventListener('pagehide',()=>{stopMic();fieldPulse.close();try{ac?.close()}catch(_){}});
 renderTarget();
 document.documentElement.dataset.foldBloomVoice='ready';
-window.FoldBloomVoice={state:()=>({pattern,baseMidi,pulseLinked,pulse:livePulse(),micOn,stats:{...stats},spectrum:lastSpectrum?{centroidHz:lastSpectrum.centroidHz,peakHz:lastSpectrum.peakHz,brightness:lastSpectrum.brightness}:null})};
+window.FoldBloomVoice={state:()=>({pattern,baseMidi,pulseLinked,pulse:livePulse(),micOn,stats:{...stats},training:summarizeVoiceTrace(voiceTrace),spectrum:lastSpectrum?{centroidHz:lastSpectrum.centroidHz,peakHz:lastSpectrum.peakHz,brightness:lastSpectrum.brightness}:null})};
