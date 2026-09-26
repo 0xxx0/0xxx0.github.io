@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  pulseIntervals,nearestGridEvent,makeTrainerState,trainerTarget,advanceTrainer,evaluateTap,
+  pulseIntervals,nearestGridEvent,makeTrainerState,trainerTarget,pulseLanes,resolvePulseTarget,advanceTrainer,evaluateTap,
   summarizeTapTrace,returnDelta,PULSE_PSYCHOPHYSICS_VERSION
 } from '../psychophysics.js';
 
@@ -33,6 +33,18 @@ test('trainer cycles LOCK to CROSS to RETURN and back',()=>{
   assert.equal(out.cycleComplete,true);assert.equal(s.phase,'LOCK');assert.equal(s.cycle,2);
 });
 
+test('ring count and focus keep visible/audible/training lanes coherent',()=>{
+  const s={phase:'CROSS',phaseTap:1};
+  assert.deepEqual(pulseLanes(1),['M']);
+  assert.deepEqual(pulseLanes(2),['M','A']);
+  assert.deepEqual(pulseLanes(3),['M','A','B']);
+  assert.equal(resolvePulseTarget(s,{rings:3,focus:'AUTO'}),'B');
+  assert.equal(resolvePulseTarget(s,{rings:2,focus:'AUTO'}),'A');
+  assert.equal(resolvePulseTarget(s,{rings:1,focus:'AUTO'}),'M');
+  assert.equal(resolvePulseTarget(s,{rings:3,focus:'A'}),'A');
+  assert.equal(resolvePulseTarget(s,{rings:2,focus:'B'}),'A');
+});
+
 test('tap evaluation is tempo-relative and keeps signed error',()=>{
   const x=evaluateTap({time:.51,start:0,bpm:120,ratio:[3,2],lane:'M'});
   assert.equal(Math.round(x.errorMs),10);
@@ -50,7 +62,7 @@ test('trace summary exposes bias jitter correction proxy and bounded lock',()=>{
   assert.ok(s.lock>=0&&s.lock<=100);
   assert.ok(s.phaseCorrection!==null);
   assert.equal(s.anticipation,'EARLY');
-  assert.equal(PULSE_PSYCHOPHYSICS_VERSION,'FOLD_BLOOM_PULSE_PSYCHOPHYSICS_0.1');
+  assert.equal(PULSE_PSYCHOPHYSICS_VERSION,'FOLD_BLOOM_PULSE_PSYCHOPHYSICS_0.2');
 });
 
 test('return delta compares reacquisition against initial lock',()=>{
