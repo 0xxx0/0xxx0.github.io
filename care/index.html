@@ -25,7 +25,9 @@ button:hover,button:focus{background:#141a1d;outline:none;border-color:#536168}.
 .prompt{font:750 19px/1.12 system-ui,sans-serif;letter-spacing:-.02em}.label{font-size:8px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
 .observeGrid{display:grid;grid-template-columns:minmax(270px,.78fr) minmax(300px,1.22fr);gap:1px;background:var(--line)}
 .mapCard,.compose{background:var(--p2);padding:10px;min-width:0}.maptop{display:flex;gap:5px;align-items:center;margin-bottom:6px}.spacer{flex:1}
-.mapwrap{height:400px;border:1px solid var(--line);background:#0a0d0f;position:relative;overflow:hidden;touch-action:none}.bodymap{width:100%;height:100%;display:block;touch-action:none}
+.mapwrap{height:400px;border:1px solid var(--line);background:#0a0d0f;position:relative;overflow:hidden;touch-action:none}.bodymap{width:100%;height:100%;display:block;touch-action:none}.locusAperture{position:absolute;z-index:8;width:min(190px,calc(100% - 12px));border:1px solid #536269;background:rgba(8,12,14,.94);box-shadow:0 5px 18px rgba(0,0,0,.36);padding:7px;pointer-events:auto;backdrop-filter:blur(3px)}
+.locusAperture[hidden]{display:none}.locusAperture:before{content:"";position:absolute;left:-7px;top:18px;width:7px;border-top:1px solid #536269}.locusAperture .locusK{color:var(--cool);font-size:7px;letter-spacing:.13em}.locusAperture strong{display:block;margin-top:3px;font:750 11px/1.15 system-ui,sans-serif}.locusAperture small{display:block;margin-top:4px;color:var(--muted);font-size:7px;line-height:1.35}.locusActions{display:grid;grid-template-columns:repeat(3,1fr);gap:3px;margin-top:6px}.locusActions button{padding:5px 4px;min-height:29px;font-size:7px}
+@media(max-width:700px){.locusAperture{width:min(176px,calc(100% - 10px))}.locusAperture small{display:none}.locusActions button{min-height:34px}}
 .mapOutline{fill:#11181c;stroke:#66747b;stroke-width:1.15;vector-effect:non-scaling-stroke;pointer-events:none}
 .zone{fill:#1b2429;stroke:#536269;stroke-width:.72;cursor:pointer;vector-effect:non-scaling-stroke;transition:fill .08s,opacity .08s}.zone:hover{fill:#2b3940}.zone.sel{fill:var(--hot);stroke:#ffd0ae}.zone.ghost{fill:var(--cool);stroke:var(--cool);opacity:.28}.zone.sel.ghost{fill:var(--hot);opacity:1}
 .planSelect{width:auto;max-width:132px;min-height:34px;border:1px solid var(--line);background:#0b0f12;padding:6px 7px;font-size:8px;letter-spacing:.04em}.planmeta{margin-top:5px;color:#69777e;font-size:7px;letter-spacing:.05em}
@@ -102,7 +104,7 @@ footer{display:flex;justify-content:space-between;gap:14px;margin-top:15px;paddi
   <div class="panel observeGrid">
     <div class="mapCard">
       <div class="maptop"><span class="label">WHERE · OPTIONAL</span><div class="spacer"></div><select id="bodyPlanSelect" class="planSelect" aria-label="Reference body plan"></select><button id="frontBack">FRONT</button><button id="tapMode" class="primary">TAP</button><button id="traceMode">TRACE</button><button id="clearMap">CLEAR</button></div>
-      <div class="mapwrap"><svg id="map" class="bodymap" viewBox="0 0 420 620" aria-label="body or animal map"></svg></div>
+      <div class="mapwrap"><svg id="map" class="bodymap" viewBox="0 0 420 620" aria-label="body or animal map"></svg><div id="locusAperture" class="locusAperture" hidden aria-live="polite"></div></div>
       <div class="mapcaption">Tap a region or trace the felt/visible extent. Choosing no location is valid for medication, lab, behavior or whole-case changes.</div><div class="planmeta" id="mapPlanMeta">local body-plan registry</div>
     </div>
     <div class="compose">
@@ -270,7 +272,29 @@ function renderMap(){
  $('#frontBack').style.display=views.length>1?'':'none';$('#frontBack').textContent=mapView.toUpperCase()+' ↔ '+next.toUpperCase();
  $('#whereText').textContent=selectedLabels().join(' · ')||(trace.length?'painted trace':'no location selected');
  const pv=p.provenance||{};$('#mapPlanMeta').textContent=p.label+' · '+mapView.toUpperCase()+' · LOCAL · '+(pv.repo?pv.repo+'@'+String(pv.commit||'').slice(0,8):(pv.source||'project vector'));
- renderQualityChips();
+ renderQualityChips();renderLocusAperture();
+}
+function locusPrior(ids){
+ const xs=(C.events||[]).slice().sort((a,b)=>String(b.at||'').localeCompare(String(a.at||'')));
+ return xs.find(e=>eventRegionKeys(e).some(r=>ids.includes(r)))||null
+}
+function renderLocusAperture(){
+ const root=$('#locusAperture'),wrap=root?.parentElement;if(!root||!wrap)return;
+ if(view!=='observe'||!selected.size){root.hidden=true;return}
+ const ids=[...selected],zones=$('#map .zone'),zone=zones.find(z=>z.dataset.region===ids.at(-1))||zones.find(z=>selected.has(z.dataset.region));
+ if(!zone){root.hidden=true;return}
+ const prior=locusPrior(ids),count=(C.events||[]).filter(e=>eventRegionKeys(e).some(r=>ids.includes(r))).length;
+ const labels=selectedLabels(),when=prior?.at?new Date(prior.at).toLocaleDateString([], {month:'short',day:'numeric'}):'';
+ root.hidden=false;
+ root.innerHTML='<div class="locusK">LOCUS / CARE</div><strong>'+esc(labels.join(' · '))+'</strong><small>'+(prior?esc('PRIOR · '+prior.trend+' · '+when+' · '+(prior.raw_note||prior.type||'event')).slice(0,170):'NO PRIOR OBSERVATION AT THIS LOCUS')+' · n='+count+'</small><div class="locusActions"><button data-locus="observe" class="primary">OBSERVE</button><button data-locus="prior" '+(prior?'':'disabled')+'>PRIOR</button><button data-locus="course">COURSE</button></div>';
+ const wr=wrap.getBoundingClientRect(),zr=zone.getBoundingClientRect(),w=root.offsetWidth||180,h=root.offsetHeight||88;
+ let left=zr.right-wr.left+8,top=zr.top-wr.top+(zr.height-h)/2;
+ if(left+w>wr.width-6)left=zr.left-wr.left-w-8;
+ left=Math.max(6,Math.min(left,wr.width-w-6));top=Math.max(6,Math.min(top,wr.height-h-6));
+ root.style.left=left+'px';root.style.top=top+'px';
+ root.querySelector('[data-locus="observe"]').onclick=()=>{$('#note').focus();$('#note').scrollIntoView({behavior:'smooth',block:'center'})};
+ root.querySelector('[data-locus="prior"]').onclick=()=>{if(!prior)return;ghostRegions=new Set(eventRegionKeys(prior));ghostTrace=(prior.trace||[]).map(p=>({...p}));renderMap()};
+ root.querySelector('[data-locus="course"]').onclick=()=>setView('follow');
 }
 function setFromPointer(e){
  const svg=$('#map'),pt=svg.createSVGPoint();pt.x=e.clientX;pt.y=e.clientY;const m=svg.getScreenCTM();if(!m)return null;const q=pt.matrixTransform(m.inverse());return{x:q.x,y:q.y};
