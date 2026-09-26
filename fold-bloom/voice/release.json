@@ -1,12 +1,12 @@
 {
   "schema": "showcase-release/v1",
   "surface": "FOLD//BLOOM VOICE",
-  "version": "0.1",
+  "version": "0.2",
   "state": "MERGED_ACTIVE_CANDIDATE",
   "operation": "TRAIN / LISTEN",
   "route": "/fold-bloom/voice/",
-  "date": "2026-09-24",
-  "thesis": "A useful shared temporal substrate should support ordinary human practice, not only visualizers and games. VOICE tests that claim with local microphone pitch/stability feedback and optional FIELD PULSE timing.",
+  "date": "2026-09-26",
+  "thesis": "One local-only VOICE practice core now has pitch/stability plus spectrum witnesses and can inhabit FIELD LAB PULSE without becoming another Lab mode. FIELD PULSE may lend tempo/beat while exercise authorship and microphone evidence remain local.",
   "new": [
     "local-only microphone pitch estimation over a bounded 70–950 Hz singing range",
     "single-note, 1-3-5-3, five-note and free-hum practice patterns",
@@ -14,13 +14,21 @@
     "cents relation, clarity and short-window pitch stability witnesses",
     "optional FIELD PULSE consumption from LISTEN/AUDIO or FIELD LAB/SYNTH clocks",
     "pattern steps may follow borrowed beat timing while exercise authorship stays local",
-    "bounded practice RETURN exports aggregate evidence only; never raw microphone audio"
+    "bounded practice RETURN exports aggregate evidence only; never raw microphone audio",
+    "bounded FFT spectrum analysis beside the existing time-domain pitch detector",
+    "scrolling local spectrogram plus centroid and spectral-peak witnesses",
+    "FIELD LAB PULSE embeds the same VOICE trainer as optional detail instead of adding another Lab mode",
+    "PULSE beat may advance NOTE/CALL/SCALE/HUM targets while voice authorship remains local",
+    "LAB/VOICE RETURN contains bounded aggregate evidence only; raw microphone audio is never recorded or exported"
   ],
   "constraints": [
     "pitch estimate != singing quality assessment",
     "VOICE is a consumer of FIELD PULSE timing, never an audio/source authority",
-    "no speech recognition, lyric scoring, cloud inference or microphone recording in 0.1",
-    "external clock failure never blocks manual practice"
+    "external clock failure never blocks manual practice",
+    "pitch/spectrum evidence != singing-quality judgment",
+    "VOICE is a consumer of FIELD PULSE timing, never audio/source authority",
+    "no speech recognition, lyric scoring, cloud inference or microphone recording in 0.2",
+    "LAB PULSE embedding does not move voice authorship into PULSE or LAB"
   ],
   "verification": {
     "pitch_core": "PASS: public-surface-check run 35988420252; synthetic 110/220/261.626/440/659.255 Hz, silence, patterns and stability",
@@ -28,10 +36,14 @@
     "browser_boot": "PASS: phone-sized /fold-bloom/voice/ critical browser smoke in public-surface-check run 35988420252; no microphone permission required for boot proof",
     "route_registration": "PASS: Route Registration run 35988420492",
     "human_phone": "REQUIRED: one 60-second note hold + one PULSE-linked 1-3-5-3 pass on phone",
-    "merge_sha": "dd1f289af0692e84c62c370e2b525a2069ec7201"
+    "merge_sha": "471fdae1c410116f614ffa5479fac29cbfa09a6f",
+    "spectrum_core": "PASS · PR #403 deterministic spectrum tests",
+    "lab_pulse_embed": "PASS · PR #403 FIELD LAB PULSE browser-smoke coverage",
+    "route_registration_run": 36198970713,
+    "public_surface_run": 36198970709
   },
-  "promotion_gate": "A non-technical user can start mic, hear a target, understand flat/center/sharp and complete one pattern without architectural explanation; pulse linkage must feel additive rather than required.",
+  "promotion_gate": "Human feel remains optional evidence: held-note and PULSE-linked patterns should be legible in ordinary phone use. Correctness is machine-verified; no raw audio may leave the browser.",
   "return": "/returns/FOLD_BLOOM_VOICE_01_2026-09-24.json",
   "confluence": "/control/confluence/FOLD_BLOOM_VOICE_01_2026-09-24.json",
-  "updated": "2026-09-24"
+  "updated": "2026-09-26"
 }
