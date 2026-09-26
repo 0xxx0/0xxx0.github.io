@@ -16,7 +16,7 @@ const audio={
 };
 const m=G.model(audio,{projection:'RIDE',residue:[{channel:'raster'}]});
 assert.equal(m.schema,'interphase-glyph/v0.1');
-assert.equal(m.domainGlyph.schema,'fold-bloom-audio-glyph/v0.1');
+assert.equal(m.representation,null,'renderer must not infer audio semantics from arbitrary values');
 assert.equal(m.time.current,12);
 assert.equal(m.operations[1].authority,'EDIT');
 assert.equal(m.residue.length,1);

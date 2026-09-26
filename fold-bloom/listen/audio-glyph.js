@@ -54,3 +54,20 @@ export function audioGlyphSvg(input,{size=128,padding=10}={}){
 export function audioGlyphDataUri(desc,opts){
   return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(audioGlyphSvg(desc,opts));
 }
+
+// Byte-free adapter output using the native recipe and renderer, not a second derivation.
+export function audioGlyphRepresentation(input,sourceId=input?.sourceHash){
+  if(!input?.sourceHash||![input.sourceHash,'sha256:'+input.sourceHash].includes(sourceId))return null;
+  if(input?.schema!=='fold-bloom-audio-glyph/v0.1'||!Array.isArray(input.radial)||input.radial.length!==24||!Array.isArray(input.chroma)||input.chroma.length!==12)return null;
+  if(typeof input.sourceHash!=='string'||(input.key!=null&&typeof input.key!=='string'))return null;
+  if(!['seed','rotation','bpm','sectionCount'].every(k=>typeof input[k]==='number'&&Number.isFinite(input[k]))||
+    ![...input.radial,...input.chroma].every(v=>typeof v==='number'&&Number.isFinite(v)))return null;
+  const descriptor={};
+  for(const k of ['schema','sourceHash','seed','rotation','bpm','key','sectionCount'])descriptor[k]=input[k];
+  descriptor.means=Object.fromEntries(['energy','flux','brightness'].map(k=>[k,Number(input.means?.[k])||0]));
+  descriptor.radial=input.radial.map(Number);descriptor.chroma=input.chroma.map(Number);
+  return {recipe:{lensId:'audio-glyph',lensVersion:'0.1',kind:'VIEW_LENS',authority:'PREVIEW',params:{},
+    inputContract:'fold-bloom-audio-glyph/v0.1',outputContract:'projection/glyph',preserves:['identity','address'],
+    hides:['content','depth','time','authority','evidence'],derives:['radial','chroma','tempo','section count']},
+    descriptor,svg:audioGlyphSvg(descriptor)};
+}

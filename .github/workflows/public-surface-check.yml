@@ -76,6 +76,7 @@ jobs:
       - name: Validate shared INTERPHASE glyph laws
         run: |
           node tools/interphase-glyph-selftest.cjs
+          node --test tools/interphase-glyph-conformance.test.mjs
           node tools/interphase-dom-form-selftest.cjs
           node tools/interphase-ring-selftest.cjs
       - name: Validate INTERPHASE correspondence + archaeology packet

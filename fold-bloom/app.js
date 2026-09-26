@@ -1,3 +1,4 @@
+import {audioGlyphRepresentation} from './listen/audio-glyph.js';
 import {listLocalMedia,putLocalMedia} from './local-media-store.js';
 import {createExperienceSet,appendSource,prepareSet} from './set/set-core.js';
 import {decodeExperienceSet,encodeExperienceSet} from './experience-set/experience-set.js';
@@ -65,6 +66,7 @@ const adapter={
   idOf:r=>String(r||active.id||'fold-bloom:empty'),
   resolve:r=>String(r||active.id||'fold-bloom:empty'),
   describe:describeRef,
+  glyph:ref=>{const g=describeRef(ref).value?.glyph;return audioGlyphRepresentation(g,ref)},
   read:ref=>describeRef(ref).value,
   capture:()=>({active:clone(active)}),
   restore:s=>{active=normalizeActive(s?.active);persistActive()},
@@ -156,7 +158,9 @@ function addressLabel(d,id){
 }
 function renderDescriptorGlyph(desc,{draft=false}={}){
   const projection=host.snapshot().state.projection,residue=host.projectionResult(projection)?.residue||[];
-  G.render($('#glyph'),desc,{size:400,projection,residue});
+  let witness=desc;
+  if(!draft&&active.kind!=='EMPTY'){const g=host.glyph(desc.id);witness=projection==='GLYPH'?{id:g.id,address:g.address,kind:desc.kind,channels:['identity','address'],glyph:g.representation}:{...desc,glyph:g.representation}}
+  G.render($('#glyph'),witness,{size:400,projection,residue});
   $('#focusLabel').textContent=desc?.label||'NO SOURCE';
   $('#focusAddress').textContent=addressLabel(desc,desc?.id);
   $('#glyph').dataset.draft=draft?'1':'0';

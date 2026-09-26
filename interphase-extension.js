@@ -51,7 +51,17 @@ function render(){
   if(host.state.projection==='FOVEA')$('stage').innerHTML='<div class="cards">'+nodes.filter(n=>host.state.focus.some(f=>f.id===n.id)).map(card).join('')+'</div>';
   if(host.state.projection==='LINE')$('stage').innerHTML='<div class="cards">'+nodes.map(card).join('')+'</div>';
   if(host.state.projection==='FLOWER_KEY'||host.state.projection==='ROOM')$('stage').appendChild(renderSix(nodes,host.state.projection==='ROOM'?'room':'flower'));
-  if(host.state.projection==='GLYPH')$('stage').innerHTML='<div class="glyphs">'+nodes.map(n=>`<div class="glyph">${G.svg(n,{size:128,projection:'GLYPH',residue:pr.residue.filter(x=>x.id===n.id)})}<span>${esc((n.label||n.kind||'').slice(0,12))}</span></div>`).join('')+'</div>';
+  if(host.state.projection==='GLYPH'){
+    const box=document.createElement('div');box.className='glyphs';$('stage').appendChild(box);
+    for(const n of nodes){
+      const button=document.createElement('button');button.className='glyph';button.type='button';
+      const recipe=n.glyph?.recipe;
+      button.title=n.id+' · '+(recipe?recipe.lensId+' / '+recipe.lensVersion:G.VERSION+' · '+n.glyphSupport?.reason)+' · EXPAND';
+      button.setAttribute('aria-label','Expand '+n.id);
+      button.innerHTML=G.svg(n,{size:128,projection:'GLYPH',residue:pr.residue.filter(x=>x.id===n.id)});
+      button.onclick=()=>{host.describe(n.id);host.focus(n.id);host.project('FOVEA');render()};box.appendChild(button);
+    }
+  }
   if(host.state.projection==='RING'){
     const box=document.createElement('div');box.className='ring';$('stage').appendChild(box);const N=Math.max(1,nodes.length),cx=205,cy=118,R=Math.min(88,52+N*3);
     nodes.forEach((n,i)=>{const a=-Math.PI/2+i*Math.PI*2/N,x=cx+Math.cos(a)*R,y=cy+Math.sin(a)*R,d=document.createElement('div');d.innerHTML=card(n);const c=d.firstElementChild;c.style.left=x+'px';c.style.top=y+'px';box.appendChild(c)});
@@ -59,7 +69,7 @@ function render(){
   $('res').textContent=pr.residue.length?'RESIDUE · '+pr.residue.map(x=>x.id.split('::').at(-1)+' / '+x.channel).join(' · '):'RESIDUE · none declared for this selection/view';
   const f=host.state.focus.at(-1);let desc=null;if(f){try{desc=host.describe(f.id)}catch(_){}}
   $('focus').innerHTML=desc?`<b>${esc(desc.label||desc.kind)}</b><small>${esc(desc.id)}</small><small>${esc(desc.channels.join(' · '))}</small>`:'Focus one or several page objects.';
-  renderEdit(desc);markWitness();
+  renderEdit(host.state.projection==='GLYPH'?null:desc);markWitness();
 }
 function renderEdit(desc){
   const e=$('edit');e.innerHTML='';if(!desc||!(desc.capabilities||[]).includes('edit'))return;
