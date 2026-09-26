@@ -2,7 +2,7 @@
   "schema": "field-return/v1",
   "id": "FIELD_INDEX_AWAKE_VISOR_2026-09-26",
   "date": "2026-09-26",
-  "state": "IMPLEMENTED_CANDIDATE",
+  "state": "CI_GREEN_READY",
   "object": "FIELD INDEX 0.8.15 held-object propagation into AWAKE / INTERPHASE VISOR",
   "operation": "HELD FIELD ROUTE → EXPLICIT AWAKE HANDOFF → NATIVE HOST / INTERPHASE → EXACT FIELD RETURN",
   "source": [
@@ -24,10 +24,14 @@
     "RETURN remains exact and reversible"
   ],
   "verification": {
-    "field_reversibility": "PENDING_CI",
-    "route_registration": "PENDING_CI",
-    "awake_browser": "PENDING_CI",
-    "public_surface": "PENDING_CI"
+    "field_reversibility": "PASS · public-surface-check 36209952708",
+    "route_registration": "PASS · 36209952635",
+    "awake_browser": "PASS · FIELD /docs/ → AWAKE → INTERPHASE → exact FIELD return",
+    "public_surface": "PASS · 36209952708"
   },
-  "next": "Run the existing FIELD reversibility + AWAKE browser proof; merge only if both pass."
+  "next": "Run the existing FIELD reversibility + AWAKE browser proof; merge only if both pass.",
+  "proof": {
+    "pr": 414,
+    "head": "cf1f09af41667cde10f0c8365fbff4293383b8dc"
+  }
 }
