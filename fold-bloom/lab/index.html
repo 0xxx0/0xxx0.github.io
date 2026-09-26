@@ -85,6 +85,8 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover,footer button:hover{c
 
       <section class="controls" data-controls="PULSE">
         <div class="row" id="ratios"><button data-ratio="3:2" class="cool">3:2</button><button data-ratio="4:3">4:3</button><button data-ratio="5:4">5:4</button></div>
+        <div class="row pulseConfig" id="pulseRings" style="margin-top:5px"><button data-pulse-rings="1">1 · M</button><button data-pulse-rings="2">2 · M+A</button><button data-pulse-rings="3" class="cool">3 · M+A+B</button></div>
+        <div class="row pulseConfig" id="pulseFocus" style="margin-top:5px"><button data-pulse-focus="AUTO" class="cool">FOCUS AUTO</button><button data-pulse-focus="M">M</button><button data-pulse-focus="A">A</button><button data-pulse-focus="B">B</button></div>
         <label>BPM <b id="bpmRead">96</b></label><input id="bpm" type="range" min="48" max="180" value="96">
         <div class="row" id="timbres"><button data-timbre="WOOD" class="cool">WOOD</button><button data-timbre="QIN">QIN STUDY</button><button data-timbre="DRONE">DRONE STUDY</button></div>
         <div class="row" style="margin-top:6px"><button id="pulsePlay" class="primary">START PULSE</button><button id="tap">TAP</button><button id="pulseTrainReset">RESET TRAIN</button><button id="exportTape">EXPORT TAPE</button></div>
@@ -92,13 +94,13 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover,footer button:hover{c
         <div><span class="metric">RATIO <b id="ratioRead">3:2</b></span><span class="metric">CLOCK <b id="pulseClock">IDLE</b></span><span class="metric">BEAT <b id="pulseBeat">—</b></span><span class="metric">PHASE <b id="pulsePhase">—</b></span></div>
         <div class="row" style="margin-top:6px"><button id="pulseRead" class="cool">READ ×4 →</button><button id="pulseRide">RIDE →</button><button id="pulseCompose">COMPOSE →</button></div>
         <details class="voiceTrain" id="voiceTrain">
-          <summary>VOICE / SPECTRUM TRAINER · SAME PULSE</summary>
-          <div class="row"><button id="voiceMic" class="primary">START MIC</button><button id="voiceHear">HEAR TARGET</button><button id="voiceNext">NEXT</button></div>
+          <summary>VOICE WITNESS · OPTIONAL PULSE HANDOFF</summary>
+          <div class="row"><button id="voiceFull">OPEN FULL VOICE →</button><button id="voiceMic" class="primary">START MIC</button><button id="voiceHear">HEAR TARGET</button><button id="voiceNext">NEXT</button></div>
           <div class="patterns"><button class="cool" data-voice-pattern="NOTE">NOTE</button><button data-voice-pattern="CALL">1·3·5·3</button><button data-voice-pattern="SCALE">SCALE</button><button data-voice-pattern="HUM">HUM</button></div>
           <div class="row"><button id="voiceBaseDown">−</button><span class="metric">TARGET <b id="voiceTarget">C4</b></span><button id="voiceBaseUp">+</button></div>
           <canvas id="voiceSpectrum" class="voiceSpec" width="320" height="86" aria-label="Voice spectrum with target and heard-pitch history"></canvas>
           <div><span class="metric">HEARD <b id="voiceHeard">—</b></span><span class="metric">Δ <b id="voiceCents">—</b></span><span class="metric">STABLE <b id="voiceStable">—</b></span><span class="metric">CENTROID <b id="voiceCentroid">—</b></span><span class="metric">ONSET Δ <b id="voiceOnset">—</b></span><span class="metric">CENTER HOLD <b id="voiceHold">—</b></span></div>
-          <div class="mini">Pitch uses the shared VOICE detector; the same scrolling spectrum now carries target/heard pitch traces and beat boundaries. Audio stays local and is never recorded. When PULSE runs, its beat advances the exercise; it does not author the voice.</div>
+          <div class="mini">VOICE remains a separate practice surface. This inline witness reuses its detector; PULSE may lend beat timing through FIELD PULSE, but never owns pitch targets or voice evidence. OPEN FULL VOICE makes that boundary explicit.</div>
         </details>
         <div class="readUses">
           <span><b>ENTRAIN</b> LOCK meter → CROSS alternating polyrhythm rings → RETURN to meter; keep signed timing evidence</span>
@@ -108,7 +110,7 @@ footer a{color:#91a0a7;text-decoration:none}footer a:hover,footer button:hover{c
           <span><b>EXPORT</b> turn taps into EVENT TAPE + Beat Saber v4 draft evidence</span>
           <span><b>CLOCK LAW</b> tempo + beat + phase + quantum coordinate; start/stop stays local</span>
         </div>
-        <div class="mini">LAB PULSE is a synthetic FIELD PULSE clock, not an audio source. Three concentric rings expose meter + both ratio streams. ERROR preserves early/late sign; BIAS/JITTER/CORR are training witnesses, not neurological diagnoses. QIN / DRONE are synthesis studies, not claims of authentic instrument emulation.</div>
+        <div class="mini">LAB PULSE is a synthetic FIELD PULSE clock, not an audio source. RINGS chooses which lanes are both visible and audible: M, M+A, or M+A+B. FOCUS AUTO runs LOCK→CROSS→RETURN; fixed M/A/B lets you study one available lane without advancing that trainer. ERROR preserves early/late sign; BIAS/JITTER/CORR remain descriptive training witnesses.</div>
       </section>
 
       <section class="controls" data-controls="VERSE">
