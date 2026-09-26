@@ -1,6 +1,6 @@
 import { VERSION, createState, restore, snapshot, rotateSteps, release, canRelease, setMode, setScene, gateCellIndex, isAligned, forecastRelease, forecastMatchesCall, callLabel, typePresentation, N } from './engine.js?v=0.13.1';
 import { FoldBloomAudio } from './audio.js';
-import { Renderer } from './render.js?v=0.13.6';
+import { Renderer } from './render.js?v=0.13.7';
 import { createFieldPulse, transportDescriptor } from '../../lib/field-pulse.js';
 import { LiveTrack } from './track.js';
 import { createSectionArc, syncSectionArc, observeSectionRelease, sectionArcLabel, sectionArcView } from './section-arc.js';
@@ -20,7 +20,7 @@ function normalizeLoadedState(s){
   return scene===s.scene?s:{...s,scene};
 }
 let state=normalizeLoadedState(load()) || createState();
-let dragging=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
+let dragging=false,sourceScrubbing=false,startX=0,lastX=0,stepAccum=0,lastT=0,dragAngle=0,raf=0;
 let demo={on:false,timer:0,releases:0,preview:false,startState:null,startRide:null,startTape:null,startArc:null};
 const audio=new FoldBloomAudio(step=>renderer.beatPulse(step));
 const fieldPulse=createFieldPulse('FOLD_BLOOM_LIVE');
@@ -510,11 +510,23 @@ async function startDemo({preview=true,playTrack=false}={}){
   update();demoTick();
 }
 
+function sourceProgressFromPointer(e){
+  if(!liveTrack.mapped())return null;
+  const r=cv.getBoundingClientRect(),x=e.clientX-r.left-renderer.cx,y=e.clientY-r.top-renderer.cy,d=Math.hypot(x,y),inner=renderer.r+38,outer=renderer.r+68;
+  if(d<inner||d>outer)return null;
+  const a=Math.atan2(y,x),p=((a+Math.PI/2)%(Math.PI*2)+(Math.PI*2))%(Math.PI*2)/(Math.PI*2);
+  return p;
+}
 function pointDown(e){
   if($('#intro').classList.contains('on')||$('#settings').classList.contains('on'))return;
+  const sourceP=sourceProgressFromPointer(e);
+  if(sourceP!==null){
+    stopDemo(true);sourceScrubbing=true;dragging=false;setCourseMode('STEP',false);seekCourseProgress(sourceP);document.documentElement.dataset.foldBloomRingScrub='on';cv.setPointerCapture?.(e.pointerId);toast('SOURCE ADDRESS · STEP · '+courseGrain);return;
+  }
   stopDemo(true);dragging=true;startX=lastX=e.clientX;stepAccum=0;lastT=performance.now();cv.setPointerCapture?.(e.pointerId);ensureAudio();
 }
 function pointMove(e){
+  if(sourceScrubbing){e.preventDefault();const p=sourceProgressFromPointer(e);if(p!==null)seekCourseProgress(p);return}
   if(!dragging)return;e.preventDefault();const now=performance.now(),dx=e.clientX-lastX,total=e.clientX-startX,threshold=Math.max(20,innerWidth*.045),dir=Math.sign(dx)||1;
   if(state.mode==='RATCHET'){
     stepAccum+=dx;
@@ -527,6 +539,7 @@ function pointMove(e){
   lastX=e.clientX;lastT=now;renderer.setDrag(dragAngle)
 }
 function pointUp(e){
+  if(sourceScrubbing){sourceScrubbing=false;document.documentElement.dataset.foldBloomRingScrub='off';cv.releasePointerCapture?.(e.pointerId);drawCourseMap(true);return}
   if(!dragging)return;dragging=false;
   if(state.mode==='FLOW'){
     const stepAngle=Math.PI*2/N,delta=Math.round(dragAngle/stepAngle);if(delta){steerRide(Math.sign(delta));state=rotateSteps(state,delta)}dragAngle=0;audio.setMotion(state.rotation,0);update();if(canRelease(state))doRelease();
@@ -645,6 +658,9 @@ function loop(t){
     if(Number.isFinite(beat)&&beat>=0&&beat!==lastLinkedBeat){lastLinkedBeat=beat;renderer.beatPulse(beat,Number(linkedTrack.energy)||0)}
     deformationTape=pruneDeformationTape(deformationTape,Number(linkedTrack.time)||0);
   }
+  const sourceEl=$('#trackAudio'),rawSource=liveTrack.sourceActive()?{time:Number(sourceEl?.currentTime)||0,duration:Number(sourceEl?.duration)||Number(liveTrack.map?.duration)||0,playing:!!sourceEl&&!sourceEl.paused,mapped:liveTrack.mapped(),courseMode,courseGrain,sectionIndex:local?.sectionIndex??null,sectionCount:local?.sectionCount??null}:null;
+  renderer.setSourceAddress(rawSource);
+  document.documentElement.dataset.foldBloomSourceAddress=rawSource?.duration>0?'on':'off';
   latestWorld=layerMode==='SOURCE'?null:(baseWorld?applyDeformations(baseWorld,deformationTape):null);
   const drop=latestWorld?.drop;
   if(drop&&Number(drop.ahead)>=0&&Number(drop.ahead)<=.28&&drop.id!==lastDropHapticId){
