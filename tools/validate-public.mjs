@@ -249,7 +249,7 @@ check(fieldRoot.includes("schema:'interphase/v0.2/handoff'")&&fieldRoot.includes
 const awakeHtml=read('awake/index.html'),awakeApp=read('awake/app.js'),awakeCss=read('awake/app.css'),awakeRelease=parse('awake/release.json');
 check(fieldRoot.includes('id="headerAwake"')&&fieldRoot.includes("field.awake.handoff.v01")&&fieldRoot.includes("schema:'field-awake-handoff/v0.1'"),'FIELD → AWAKE held-route propagation missing');
 check(/AWAKE \/ INTERPHASE 0\.1/.test(awakeHtml)&&awakeHtml.includes('/lib/interphase-core.js')&&awakeHtml.includes('/lib/interphase-dom.js'),'AWAKE visor shell lost INTERPHASE runtime');
-check(awakeApp.includes("InterphaseDOM.create")&&awakeApp.includes("Interphase.createHost")&&awakeApp.includes("id:'AWAKE:'")===false,'AWAKE visor must bind real INTERPHASE host without invented static host token');
+check(awakeApp.includes("InterphaseDOM.create")&&awakeApp.includes("Interphase.createHost")&&awakeApp.includes("id:'AWAKE:'+route"),'AWAKE visor must bind a route-addressed real INTERPHASE host');
 check(awakeApp.includes("schema:'interphase/v0.2/handoff'")&&awakeApp.includes("schema:'atlas-dayline-handoff/v0.1'")&&awakeApp.includes("field.awake.handoff.v01"),'AWAKE visor continuity packets missing');
 for(const pair of ["WAKE',office:'SOURCE","CUT',office:'FRAME","HOLD',office:'FOCUS","TURN',office:'OPERATE","TRACE',office:'WITNESS","AGAIN',office:'RETURN"])check(awakeApp.includes(pair),'AWAKE↔INTERPHASE cadence missing: '+pair);
 check(/@media\(max-width:720px\)/.test(awakeCss)&&/grid-template-columns:repeat\(3,1fr\)/.test(awakeCss),'AWAKE mobile three-move rail regressed');
