@@ -8108,13 +8108,13 @@
       "kind": "artifact",
       "parent": "/",
       "operation": "PLAY",
-      "state": "LIVE",
+      "state": "ACTIVE",
       "family": "ICHING",
       "version": "0.1",
       "tier": "FIELD",
       "role": "The Book of Changes as a working instrument: cast six lines (three-coin) and read the primary hexagram (judgment 卦辭, image 大象, line texts 爻辭); changing lines open a transformed hexagram 之卦; the nuclear 互卦 is computed from lines 2–5. All 64 hexagrams: Chinese (周易, zh.wikisource, public domain) + English (Legge, SBE16 1882, public-domain OCR restoration; 20 passages flagged approximate), verified binaries (bottom-to-top; 兌上缺, 巽下斷), King Wen id, unicode symbol, trigrams, nuclear id, per-line flip targets. Hash-addressable casts (#c=987678). Static page + JSON, no build step, no tracking.",
       "index": {
-        "updated_at": "2026-09-26T22:40:00+08:00",
+        "updated_at": "2026-09-26T22:49:00+08:00",
         "work_modes": [
           "PLAY",
           "READ",
